@@ -1,6 +1,7 @@
 {
   "category": "세계 명작",
-  "promptLine": "Draw a HIDDEN OBJECT PICTURE for a 4-to-7-year-old, from the story \"{{book}}\".\n\nThe FIRST attached image is a page from this book — copy its art style exactly.\nThe remaining attached images are the objects to hide — copy each one's shape and colour.\n\n- ONE single wide scene from this story, 3:2 landscape, drawn in EXACTLY the art style, palette and character design of the attached page illustration.\n- Hide every object in the list below inside the scene. ALL of them must be present — a missing one makes that word unplayable.\n- Each listed object appears EXACTLY ONCE. Never draw two of the same object anywhere in the picture, not even in the background.\n- Each listed object is drawn WHOLE and fully inside the frame — never cropped by the edge, never more than lightly overlapped by something in front.\n- Each listed object is big enough for a small child to tap: at least 1/12 of the picture width. No tiny background specks.\n- Match the attached object cards: the crown, the carriage, the pond and so on must look like the same object as its card — same shape, same colour, same material.\n- Hide them by PLACEMENT, not by shrinking or fading: tuck them among furniture, foliage, rooftops, crowds, shelves; rotate them; let them sit where they plausibly belong. A child should need a few seconds each, not a magnifying glass.\n- Fill the scene with enough ordinary surroundings that the objects do not sit alone on empty ground — but keep the background calm enough that it does not read as visual noise.\n- No text, no letters, no numbers, no speech bubbles, no arrows, no circles marking anything, no border frame, no watermark.\n- Do not draw a puzzle sheet or a checklist strip. This is a picture, not a worksheet.\n\nObjects to hide ({{n}}):\n{{objects}}",
+  "promptLine": "Draw a HIDDEN OBJECT PICTURE for a 4-to-7-year-old, from the story \"{{book}}\".\n\nThe FIRST attached image is a page from this book — copy its art style exactly.\nThe other attached images show the objects — copy their shape, colour and material.\n\n- FIRST choose a single moment in this story where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.\n- ONE single wide scene, 3:2 landscape, in EXACTLY the art style, palette and character design of the attached page illustration.\n- Every object in the list must be somewhere in the picture. A missing one makes that word unplayable.\n- Each object appears EXACTLY ONCE. Never draw two of the same object anywhere in the picture.\n- Every object must TOUCH the world: resting on a surface, leaning against something, hanging from a hook, held by someone, half inside a basket. Nothing floats in mid-air, and nothing sits on a spot where it could not physically stay.\n- Every object casts the same kind of shadow and catches the same light as the things around it. It must look like it was built with the scene, not pasted on top of it.\n- Objects may be partly covered by what is in front of them — up to about a quarter of the object. This is wanted: a thing peeking out from behind a chair reads as part of the room. Never cover more than a quarter, and never let an object run off the edge of the picture.\n- Turn objects to whatever angle the place would put them. Do not lay them out flat and face-on like a catalogue.\n- Each object is big enough for a small child to tap: at least 1/12 of the picture width.\n- Match the attached object cards for shape, colour and material — but not for pose. The card shows what the thing is, not how it must sit.\n- Fill the scene with ordinary surroundings so the objects are not alone on empty ground, but keep it calm enough not to read as noise.\n- No text, no letters, no numbers, no speech bubbles, no arrows, no circles marking anything, no border frame, no watermark.\n- Do not draw a puzzle sheet or a checklist strip. This is a picture, not a worksheet.\n\nOBJECTS TO HIDE ({{n}}) — put each one in the scene, findable but belonging there:\n{{objects}}\n{{sceneryBlock}}",
+  "sceneryBlock": "\nPART OF THE SETTING ({{sn}}) — these are NOT objects to hide, and must not be drawn as\nseparate props. Build the scene so each is plainly there and takes up its own area of the\npicture, the way a garden or a forest does:\n{{scenery}}",
   "sections": [
     {
       "label": "개구리 왕자",
@@ -29,11 +30,6 @@
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-Crown-1779842946888-w800.webp"
             },
             {
-              "ko": "연못",
-              "en": "pond",
-              "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-연못-1779842944082-w800.webp"
-            },
-            {
               "ko": "공",
               "en": "ball",
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-공-1779843711271-w800.webp"
@@ -42,6 +38,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-마차-1779842896045-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "연못",
+              "en": "pond"
             }
           ],
           "key": "ho-0001"
@@ -70,11 +72,6 @@
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-Crown-1779842614533-w800.webp"
             },
             {
-              "ko": "연못",
-              "en": "pond",
-              "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-연못-1779842616723-w800.webp"
-            },
-            {
               "ko": "공",
               "en": "ball",
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-공-1779842104097-w800.webp"
@@ -83,6 +80,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-마차-1779842773817-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "연못",
+              "en": "pond"
             }
           ],
           "key": "ho-0002"
@@ -111,11 +114,6 @@
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-Crown-1779842084803-w800.webp"
             },
             {
-              "ko": "연못",
-              "en": "pond",
-              "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-연못-1779842086944-w800.webp"
-            },
-            {
               "ko": "공",
               "en": "ball",
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-공-1779842089633-w800.webp"
@@ -124,6 +122,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1772009873865-개구리왕자-keyobj-마차-1779842091233-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "연못",
+              "en": "pond"
             }
           ],
           "key": "ho-0003"
@@ -152,21 +156,12 @@
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Corn-1779766312288-w800.webp"
             },
             {
-              "ko": "수프",
-              "en": "soup",
-              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Soup-1779766315577-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-tree-1779766317033-w800.webp"
-            },
-            {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-wind-1779766319647-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0004"
         },
         {
@@ -188,21 +183,12 @@
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Corn-1779766455774-w800.webp"
             },
             {
-              "ko": "수프",
-              "en": "soup",
-              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Soup-1779766457500-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-tree-1779766458909-w800.webp"
-            },
-            {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-wind-1779766462559-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0005"
         },
         {
@@ -224,21 +210,12 @@
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Corn-1779776355110-w800.webp"
             },
             {
-              "ko": "수프",
-              "en": "soup",
-              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Soup-1779766607174-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-tree-1779776240293-w800.webp"
-            },
-            {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-wind-1779776243144-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0006"
         }
       ]
@@ -255,11 +232,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772084667220-거인의정원-illustration-page8-1779854099636.webp",
           "words": [
             {
-              "ko": "담장",
-              "en": "Wall",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Wall-1779863063569-w800.webp"
-            },
-            {
               "ko": "표지판",
               "en": "sign",
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Sign-1779863060696-w800.webp"
@@ -275,19 +247,23 @@
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Axe-1779863058247-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-window-1779863056895-w800.webp"
-            },
-            {
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-bed-1779863053280-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "담장",
+              "en": "Wall"
+            },
+            {
+              "ko": "창문",
+              "en": "window"
             },
             {
               "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-정원-1783469468413-w800.webp"
+              "en": "garden"
             }
           ],
           "key": "ho-0007"
@@ -300,11 +276,6 @@
           "styleId": "style-1778405374347",
           "pageImage": "https://assets.tangobook.co.kr/1772084667220-거인의정원-illustration-page8-1779433056968.webp",
           "words": [
-            {
-              "ko": "담장",
-              "en": "Wall",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Wall-1779863202697-w800.webp"
-            },
             {
               "ko": "표지판",
               "en": "sign",
@@ -321,19 +292,23 @@
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Axe-1779863196901-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-window-1779863210338-w800.webp"
-            },
-            {
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-bed-1779863211859-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "담장",
+              "en": "Wall"
+            },
+            {
+              "ko": "창문",
+              "en": "window"
             },
             {
               "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-정원-1782795688847-w800.webp"
+              "en": "garden"
             }
           ],
           "key": "ho-0008"
@@ -346,11 +321,6 @@
           "styleId": "style-1778824179240",
           "pageImage": "https://assets.tangobook.co.kr/1772084667220-거인의정원-illustration-page8-1779590069968.webp",
           "words": [
-            {
-              "ko": "담장",
-              "en": "Wall",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Wall-1779867775591-w800.webp"
-            },
             {
               "ko": "표지판",
               "en": "sign",
@@ -367,19 +337,23 @@
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Axe-1779867781540-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-window-1779867887151-w800.webp"
-            },
-            {
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-bed-1779867786066-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "담장",
+              "en": "Wall"
+            },
+            {
+              "ko": "창문",
+              "en": "window"
             },
             {
               "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-정원-1783469743732-w800.webp"
+              "en": "garden"
             }
           ],
           "key": "ho-0009"
@@ -413,6 +387,7 @@
               "card": "https://assets.tangobook.co.kr/1772085655331-걸리버여행기-keyobj-tree-1779766551460-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0010"
         },
         {
@@ -439,6 +414,7 @@
               "card": "https://assets.tangobook.co.kr/1772085655331-걸리버여행기-keyobj-tree-1779776564569-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0011"
         },
         {
@@ -465,6 +441,7 @@
               "card": "https://assets.tangobook.co.kr/1772085655331-걸리버여행기-keyobj-tree-1779776657237-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0012"
         }
       ]
@@ -481,11 +458,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-illustration-page8-1781257150111.webp",
           "words": [
             {
-              "ko": "가죽",
-              "en": "Leather",
-              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Leather-1783558911072-w800.webp"
-            },
-            {
               "ko": "구두",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1783558912921-w800.webp"
@@ -494,11 +466,6 @@
               "ko": "장화",
               "en": "boots",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Boots-1783558925997-w800.webp"
-            },
-            {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-마을-1783558931776-w800.webp"
             },
             {
               "ko": "셔츠",
@@ -521,6 +488,12 @@
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1783558912921-w800.webp"
             }
           ],
+          "scenery": [
+            {
+              "ko": "마을",
+              "en": "village"
+            }
+          ],
           "key": "ho-0013"
         },
         {
@@ -532,11 +505,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-illustration-page8-1779444633780.webp",
           "words": [
             {
-              "ko": "가죽",
-              "en": "Leather",
-              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Leather-1779779659356-w800.webp"
-            },
-            {
               "ko": "구두",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1779779662221-w800.webp"
@@ -545,11 +513,6 @@
               "ko": "장화",
               "en": "boots",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Boots-1779779668900-w800.webp"
-            },
-            {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-마을-1779779670621-w800.webp"
             },
             {
               "ko": "셔츠",
@@ -572,6 +535,12 @@
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1779779662221-w800.webp"
             }
           ],
+          "scenery": [
+            {
+              "ko": "마을",
+              "en": "village"
+            }
+          ],
           "key": "ho-0014"
         },
         {
@@ -583,11 +552,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-illustration-page8-1779584733786.webp",
           "words": [
             {
-              "ko": "가죽",
-              "en": "Leather",
-              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Leather-1779780225958-w800.webp"
-            },
-            {
               "ko": "구두",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1779780451308-w800.webp"
@@ -596,11 +560,6 @@
               "ko": "장화",
               "en": "boots",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Boots-1779780431288-w800.webp"
-            },
-            {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-마을-1779780453066-w800.webp"
             },
             {
               "ko": "셔츠",
@@ -621,6 +580,12 @@
               "ko": "신발",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1779780451308-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0015"
@@ -657,11 +622,12 @@
               "ko": "식탁",
               "en": "table",
               "card": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-keyobj-table-1779862351377-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-keyobj-집-1779862354250-w800.webp"
+              "en": "house"
             }
           ],
           "key": "ho-0016"
@@ -693,11 +659,12 @@
               "ko": "식탁",
               "en": "table",
               "card": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-keyobj-table-1779862602099-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-keyobj-집-1779862600185-w800.webp"
+              "en": "house"
             }
           ],
           "key": "ho-0017"
@@ -729,11 +696,12 @@
               "ko": "식탁",
               "en": "table",
               "card": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-keyobj-table-1779862713709-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-keyobj-집-1779862720108-w800.webp"
+              "en": "house"
             }
           ],
           "key": "ho-0018"
@@ -765,13 +733,9 @@
               "ko": "까마귀",
               "en": "crow",
               "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-까마귀-1783560600464-w800.webp"
-            },
-            {
-              "ko": "얼음",
-              "en": "ice",
-              "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-얼음-1783560839307-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0019"
         },
         {
@@ -796,13 +760,9 @@
               "ko": "까마귀",
               "en": "crow",
               "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-까마귀-1779787019021-w800.webp"
-            },
-            {
-              "ko": "얼음",
-              "en": "ice",
-              "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-얼음-1779787021598-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0020"
         },
         {
@@ -827,13 +787,9 @@
               "ko": "까마귀",
               "en": "crow",
               "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-까마귀-1779786788083-w800.webp"
-            },
-            {
-              "ko": "얼음",
-              "en": "ice",
-              "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-얼음-1779786791280-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0021"
         }
       ]
@@ -855,19 +811,15 @@
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-바구니-1779847743853-w800.webp"
             },
             {
-              "ko": "밀가루",
-              "en": "flour",
-              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-밀가루-1779847799305-w800.webp"
-            },
-            {
-              "ko": "우물",
-              "en": "well",
-              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-우물-1779847742335-w800.webp"
-            },
-            {
               "ko": "가위",
               "en": "scissors",
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-가위-1779847735738-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "우물",
+              "en": "well"
             }
           ],
           "key": "ho-0022"
@@ -886,19 +838,15 @@
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-바구니-1779789560091-w800.webp"
             },
             {
-              "ko": "밀가루",
-              "en": "flour",
-              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-밀가루-1779789637357-w800.webp"
-            },
-            {
-              "ko": "우물",
-              "en": "well",
-              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-우물-1779789439290-w800.webp"
-            },
-            {
               "ko": "가위",
               "en": "scissors",
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-가위-1779847899316-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "우물",
+              "en": "well"
             }
           ],
           "key": "ho-0023"
@@ -917,19 +865,15 @@
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-바구니-1779789916508-w800.webp"
             },
             {
-              "ko": "밀가루",
-              "en": "flour",
-              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-밀가루-1779789838902-w800.webp"
-            },
-            {
-              "ko": "우물",
-              "en": "well",
-              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-우물-1779789837675-w800.webp"
-            },
-            {
               "ko": "가위",
               "en": "scissors",
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-가위-1779850055449-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "우물",
+              "en": "well"
             }
           ],
           "key": "ho-0024"
@@ -958,24 +902,23 @@
               "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-머리카락-1783411816466-w800.webp"
             },
             {
-              "ko": "탑",
-              "en": "tower",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-tower-1783411834756-w800.webp"
-            },
-            {
               "ko": "말",
               "en": "horse",
               "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-horse-1783411820890-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "탑",
+              "en": "tower"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-castle-1783412089772-w800.webp"
+              "en": "castle"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-forest-1783411839086-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0025"
@@ -999,24 +942,23 @@
               "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-머리카락-1779170557557-w800.webp"
             },
             {
-              "ko": "탑",
-              "en": "tower",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-tower-1782784914733-w800.webp"
-            },
-            {
               "ko": "말",
               "en": "horse",
               "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-horse-1782784916083-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "탑",
+              "en": "tower"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-castle-1782784919078-w800.webp"
+              "en": "castle"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-forest-1782784920396-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0026"
@@ -1040,24 +982,23 @@
               "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-머리카락-1779173306562-w800.webp"
             },
             {
-              "ko": "탑",
-              "en": "tower",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-tower-1783410920924-w800.webp"
-            },
-            {
               "ko": "말",
               "en": "horse",
               "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-horse-1783410922848-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "탑",
+              "en": "tower"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-castle-1783410925410-w800.webp"
+              "en": "castle"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1777272102062-라푼젤-keyobj-forest-1783410932760-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0027"
@@ -1076,11 +1017,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-illustration-page8-1772251382026.webp",
           "words": [
             {
-              "ko": "호수",
-              "en": "lake",
-              "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-Lake-1783560622781-w800.webp"
-            },
-            {
               "ko": "암탉",
               "en": "hen",
               "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-암탉-1783560625284-w800.webp"
@@ -1096,6 +1032,12 @@
               "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-고양이-1783560629655-w800.webp"
             }
           ],
+          "scenery": [
+            {
+              "ko": "호수",
+              "en": "lake"
+            }
+          ],
           "key": "ho-0028"
         },
         {
@@ -1106,11 +1048,6 @@
           "styleId": "style-1778405374347",
           "pageImage": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-illustration-page8-1779614341463.webp",
           "words": [
-            {
-              "ko": "호수",
-              "en": "lake",
-              "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-Lake-1779780177751-w800.webp"
-            },
             {
               "ko": "암탉",
               "en": "hen",
@@ -1127,6 +1064,12 @@
               "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-고양이-1779780182274-w800.webp"
             }
           ],
+          "scenery": [
+            {
+              "ko": "호수",
+              "en": "lake"
+            }
+          ],
           "key": "ho-0029"
         },
         {
@@ -1137,11 +1080,6 @@
           "styleId": "style-1778824179240",
           "pageImage": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-illustration-page8-1779617523067.webp",
           "words": [
-            {
-              "ko": "호수",
-              "en": "lake",
-              "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-Lake-1779780004418-w800.webp"
-            },
             {
               "ko": "암탉",
               "en": "hen",
@@ -1156,6 +1094,12 @@
               "ko": "고양이",
               "en": "cat",
               "card": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-keyobj-고양이-1779779797075-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "호수",
+              "en": "lake"
             }
           ],
           "key": "ho-0030"
@@ -1187,21 +1131,20 @@
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-bed-1783402868200-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-house-1783402874779-w800.webp"
+              "en": "house"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-castle-1783402659720-w800.webp"
+              "en": "castle"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-forest-1783403933490-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0031"
@@ -1228,21 +1171,20 @@
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-bed-1779170328349-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-house-1779779295548-w800.webp"
+              "en": "house"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-castle-1779779449842-w800.webp"
+              "en": "castle"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-forest-1779779448192-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0032"
@@ -1269,21 +1211,20 @@
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-bed-1779172377806-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-house-1779778775089-w800.webp"
+              "en": "house"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-castle-1779778904921-w800.webp"
+              "en": "castle"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1778555233699-백설공주-keyobj-forest-1779778903440-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0033"
@@ -1305,21 +1246,20 @@
               "ko": "백조",
               "en": "Swan",
               "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-Swan-1783468960056-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "호수",
-              "en": "lake",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-호수-1783468957964-w800.webp"
+              "en": "lake"
             },
             {
               "ko": "감옥",
-              "en": "prison",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-감옥-1783468955079-w800.webp"
+              "en": "prison"
             },
             {
               "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-sky-1783468964151-w800.webp"
+              "en": "sky"
             }
           ],
           "key": "ho-0034"
@@ -1336,21 +1276,20 @@
               "ko": "백조",
               "en": "Swan",
               "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-Swan-1783469253827-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "호수",
-              "en": "lake",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-호수-1783469256092-w800.webp"
+              "en": "lake"
             },
             {
               "ko": "감옥",
-              "en": "prison",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-감옥-1783469257928-w800.webp"
+              "en": "prison"
             },
             {
               "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-sky-1783469260168-w800.webp"
+              "en": "sky"
             }
           ],
           "key": "ho-0035"
@@ -1367,21 +1306,20 @@
               "ko": "백조",
               "en": "Swan",
               "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-Swan-1782785068996-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "호수",
-              "en": "lake",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-호수-1782785075528-w800.webp"
+              "en": "lake"
             },
             {
               "ko": "감옥",
-              "en": "prison",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-감옥-1782785076994-w800.webp"
+              "en": "prison"
             },
             {
               "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772094228783-백조왕자-keyobj-sky-1782785080009-w800.webp"
+              "en": "sky"
             }
           ],
           "key": "ho-0036"
@@ -1400,11 +1338,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772094591661-백조의호수-illustration-page8-1779874824276.webp",
           "words": [
             {
-              "ko": "호수",
-              "en": "Lake",
-              "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Lake-1779929269645-w800.webp"
-            },
-            {
               "ko": "백조",
               "en": "Swan",
               "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Swan-1779875467028-w800.webp"
@@ -1413,11 +1346,16 @@
               "ko": "드레스",
               "en": "dress",
               "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Dress-1779875470096-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "호수",
+              "en": "Lake"
             },
             {
               "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-파도-1779875471296-w800.webp"
+              "en": "wave"
             }
           ],
           "key": "ho-0037"
@@ -1431,11 +1369,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772094591661-백조의호수-illustration-page8-1779925838548.webp",
           "words": [
             {
-              "ko": "호수",
-              "en": "Lake",
-              "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Lake-1779928811029-w800.webp"
-            },
-            {
               "ko": "백조",
               "en": "Swan",
               "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Swan-1779875589502-w800.webp"
@@ -1444,11 +1377,16 @@
               "ko": "드레스",
               "en": "dress",
               "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Dress-1779875591768-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "호수",
+              "en": "Lake"
             },
             {
               "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-파도-1779875593920-w800.webp"
+              "en": "wave"
             }
           ],
           "key": "ho-0038"
@@ -1462,11 +1400,6 @@
           "pageImage": "https://assets.tangobook.co.kr/1772094591661-백조의호수-illustration-page8-1779676940157.webp",
           "words": [
             {
-              "ko": "호수",
-              "en": "Lake",
-              "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Lake-1779929418839-w800.webp"
-            },
-            {
               "ko": "백조",
               "en": "Swan",
               "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Swan-1779875750781-w800.webp"
@@ -1475,11 +1408,16 @@
               "ko": "드레스",
               "en": "dress",
               "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-Dress-1779875752673-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "호수",
+              "en": "Lake"
             },
             {
               "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1772094591661-백조의호수-keyobj-파도-1779875755045-w800.webp"
+              "en": "wave"
             }
           ],
           "key": "ho-0039"
@@ -1498,19 +1436,9 @@
           "pageImage": "https://assets.tangobook.co.kr/1777284655559-보물섬-illustration-page8-1779844303460.webp",
           "words": [
             {
-              "ko": "동굴",
-              "en": "cave",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-동굴-1779847969692-w800.webp"
-            },
-            {
               "ko": "상자",
               "en": "box",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-상자-1779847973392-w800.webp"
-            },
-            {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-바다-1779849970555-w800.webp"
             },
             {
               "ko": "갈매기",
@@ -1518,24 +1446,27 @@
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-갈매기-1779849888494-w800.webp"
             },
             {
-              "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-파도-1779849895404-w800.webp"
-            },
-            {
-              "ko": "보물",
-              "en": "treasure",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-보물-1779849909170-w800.webp"
-            },
-            {
-              "ko": "바위",
-              "en": "rock",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-바위-1779849899799-w800.webp"
-            },
-            {
               "ko": "앵무새",
               "en": "parrot",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-앵무새-1779849901367-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "동굴",
+              "en": "cave"
+            },
+            {
+              "ko": "바다",
+              "en": "sea"
+            },
+            {
+              "ko": "파도",
+              "en": "wave"
+            },
+            {
+              "ko": "바위",
+              "en": "rock"
             }
           ],
           "key": "ho-0040"
@@ -1549,19 +1480,9 @@
           "pageImage": "https://assets.tangobook.co.kr/1777284655559-보물섬-illustration-page8-1781833401738.webp",
           "words": [
             {
-              "ko": "동굴",
-              "en": "cave",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-동굴-1779847709826-w800.webp"
-            },
-            {
               "ko": "상자",
               "en": "box",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-상자-1779847834353-w800.webp"
-            },
-            {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-바다-1779847678149-w800.webp"
             },
             {
               "ko": "갈매기",
@@ -1569,24 +1490,27 @@
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-갈매기-1779847680259-w800.webp"
             },
             {
-              "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-파도-1779847689577-w800.webp"
-            },
-            {
-              "ko": "보물",
-              "en": "treasure",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-보물-1779847673332-w800.webp"
-            },
-            {
-              "ko": "바위",
-              "en": "rock",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-바위-1779847685284-w800.webp"
-            },
-            {
               "ko": "앵무새",
               "en": "parrot",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-앵무새-1779847686860-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "동굴",
+              "en": "cave"
+            },
+            {
+              "ko": "바다",
+              "en": "sea"
+            },
+            {
+              "ko": "파도",
+              "en": "wave"
+            },
+            {
+              "ko": "바위",
+              "en": "rock"
             }
           ],
           "key": "ho-0041"
@@ -1600,19 +1524,9 @@
           "pageImage": "https://assets.tangobook.co.kr/1777284655559-보물섬-illustration-page8-1779684451172.webp",
           "words": [
             {
-              "ko": "동굴",
-              "en": "cave",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-동굴-1779847274168-w800.webp"
-            },
-            {
               "ko": "상자",
               "en": "box",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-상자-1779847633953-w800.webp"
-            },
-            {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-바다-1779847285175-w800.webp"
             },
             {
               "ko": "갈매기",
@@ -1620,24 +1534,27 @@
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-갈매기-1779847289364-w800.webp"
             },
             {
-              "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-파도-1779847301252-w800.webp"
-            },
-            {
-              "ko": "보물",
-              "en": "treasure",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-보물-1779847461372-w800.webp"
-            },
-            {
-              "ko": "바위",
-              "en": "rock",
-              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-바위-1779847293972-w800.webp"
-            },
-            {
               "ko": "앵무새",
               "en": "parrot",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-앵무새-1779847291863-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "동굴",
+              "en": "cave"
+            },
+            {
+              "ko": "바다",
+              "en": "sea"
+            },
+            {
+              "ko": "파도",
+              "en": "wave"
+            },
+            {
+              "ko": "바위",
+              "en": "rock"
             }
           ],
           "key": "ho-0042"
@@ -1664,13 +1581,9 @@
               "ko": "나뭇잎",
               "en": "leaf",
               "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-나뭇잎-1779876043362-w800.webp"
-            },
-            {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-wind-1779876075225-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0043"
         },
         {
@@ -1690,13 +1603,9 @@
               "ko": "나뭇잎",
               "en": "leaf",
               "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-나뭇잎-1779877118598-w800.webp"
-            },
-            {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-wind-1779877120184-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0044"
         },
         {
@@ -1716,13 +1625,9 @@
               "ko": "나뭇잎",
               "en": "leaf",
               "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-나뭇잎-1779876328471-w800.webp"
-            },
-            {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-wind-1779876329793-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0045"
         }
       ]
@@ -1744,19 +1649,15 @@
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Guitar-1779934142891-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Window-1779934296090-w800.webp"
-            },
-            {
-              "ko": "음식",
-              "en": "food",
-              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-음식-1779934294864-w800.webp"
-            },
-            {
               "ko": "숟가락",
               "en": "spoon",
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-숟가락-1779934399891-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
             }
           ],
           "key": "ho-0046"
@@ -1775,19 +1676,15 @@
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Guitar-1779934350933-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Window-1779934611661-w800.webp"
-            },
-            {
-              "ko": "음식",
-              "en": "food",
-              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-음식-1779934358452-w800.webp"
-            },
-            {
               "ko": "숟가락",
               "en": "spoon",
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-숟가락-1779934360239-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
             }
           ],
           "key": "ho-0047"
@@ -1806,19 +1703,15 @@
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Guitar-1779934413261-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Window-1779934605428-w800.webp"
-            },
-            {
-              "ko": "음식",
-              "en": "food",
-              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-음식-1779934414844-w800.webp"
-            },
-            {
               "ko": "숟가락",
               "en": "spoon",
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-숟가락-1779934411834-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
             }
           ],
           "key": "ho-0048"
@@ -1847,19 +1740,19 @@
               "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-Staff-1783468995895-w800.webp"
             },
             {
-              "ko": "덤불",
-              "en": "bush",
-              "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-Bush-1783469420139-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-tree-1783468999612-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "덤불",
+              "en": "bush"
             },
             {
               "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-village-1783469002331-w800.webp"
+              "en": "village"
             }
           ],
           "key": "ho-0049"
@@ -1883,19 +1776,19 @@
               "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-Staff-1783469577178-w800.webp"
             },
             {
-              "ko": "덤불",
-              "en": "bush",
-              "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-Bush-1783469579041-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-tree-1783469580367-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "덤불",
+              "en": "bush"
             },
             {
               "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-village-1783469729184-w800.webp"
+              "en": "village"
             }
           ],
           "key": "ho-0050"
@@ -1919,19 +1812,19 @@
               "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-Staff-1782785340851-w800.webp"
             },
             {
-              "ko": "덤불",
-              "en": "bush",
-              "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-Bush-1782785349388-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-tree-1782785345517-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "덤불",
+              "en": "bush"
             },
             {
               "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772098071249-빨간구두-keyobj-village-1782785350840-w800.webp"
+              "en": "village"
             }
           ],
           "key": "ho-0051"
@@ -1958,16 +1851,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-마차-1783561403438-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "지붕",
-              "en": "roof",
-              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-roof-1783561575744-w800.webp"
-            },
-            {
-              "ko": "눈물",
-              "en": "tears",
-              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-tears-1783409500855-w800.webp"
+              "en": "roof"
             }
           ],
           "key": "ho-0052"
@@ -1989,16 +1878,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-마차-1782785550294-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "지붕",
-              "en": "roof",
-              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-roof-1782785552085-w800.webp"
-            },
-            {
-              "ko": "눈물",
-              "en": "tears",
-              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-tears-1782786174355-w800.webp"
+              "en": "roof"
             }
           ],
           "key": "ho-0053"
@@ -2020,16 +1905,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-마차-1783409545900-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "지붕",
-              "en": "roof",
-              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-roof-1783409547417-w800.webp"
-            },
-            {
-              "ko": "눈물",
-              "en": "tears",
-              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-tears-1783409847506-w800.webp"
+              "en": "roof"
             }
           ],
           "key": "ho-0054"
@@ -2058,11 +1939,6 @@
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-fruit-1783402925430-w800.webp"
             },
             {
-              "ko": "오두막",
-              "en": "cottage",
-              "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-cottage-1783402927971-w800.webp"
-            },
-            {
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-bed-1783402932804-w800.webp"
@@ -2081,6 +1957,12 @@
               "ko": "몽둥이",
               "en": "club",
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-club-1783402936400-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "오두막",
+              "en": "cottage"
             }
           ],
           "key": "ho-0055"
@@ -2104,11 +1986,6 @@
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-fruit-1779169759855-w800.webp"
             },
             {
-              "ko": "오두막",
-              "en": "cottage",
-              "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-cottage-1779169767891-w800.webp"
-            },
-            {
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-bed-1779169769796-w800.webp"
@@ -2127,6 +2004,12 @@
               "ko": "몽둥이",
               "en": "club",
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-club-1779169778631-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "오두막",
+              "en": "cottage"
             }
           ],
           "key": "ho-0056"
@@ -2150,11 +2033,6 @@
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-fruit-1779169759855-w800.webp"
             },
             {
-              "ko": "오두막",
-              "en": "cottage",
-              "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-cottage-1779169767891-w800.webp"
-            },
-            {
               "ko": "침대",
               "en": "bed",
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-bed-1779169769796-w800.webp"
@@ -2175,6 +2053,12 @@
               "card": "https://assets.tangobook.co.kr/1778476961082-빨간모자-keyobj-club-1779169778631-w800.webp"
             }
           ],
+          "scenery": [
+            {
+              "ko": "오두막",
+              "en": "cottage"
+            }
+          ],
           "key": "ho-0057"
         }
       ]
@@ -2190,11 +2074,6 @@
           "styleId": "paper-craft",
           "pageImage": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-illustration-page8-1780298906216.webp",
           "words": [
-            {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-Window-1783468710013-w800.webp"
-            },
             {
               "ko": "꼬리",
               "en": "tail",
@@ -2216,14 +2095,19 @@
               "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-나무-1783468718848-w800.webp"
             },
             {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-village-1783469764994-w800.webp"
-            },
-            {
               "ko": "코",
               "en": "nose",
               "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-코-1783469596756-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
+            },
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0058"
@@ -2236,11 +2120,6 @@
           "styleId": "style-1778405374347",
           "pageImage": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-illustration-page8-1780282587832.webp",
           "words": [
-            {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-Window-1782786443031-w800.webp"
-            },
             {
               "ko": "꼬리",
               "en": "tail",
@@ -2262,14 +2141,19 @@
               "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-나무-1782786206132-w800.webp"
             },
             {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-village-1782786215051-w800.webp"
-            },
-            {
               "ko": "코",
               "en": "nose",
               "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-코-1782786461821-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
+            },
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0059"
@@ -2282,11 +2166,6 @@
           "styleId": "style-1778824179240",
           "pageImage": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-illustration-page8-1780278675869.webp",
           "words": [
-            {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-Window-1783468454087-w800.webp"
-            },
             {
               "ko": "꼬리",
               "en": "tail",
@@ -2308,14 +2187,19 @@
               "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-나무-1783467826877-w800.webp"
             },
             {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-village-1783468092589-w800.webp"
-            },
-            {
               "ko": "코",
               "en": "nose",
               "card": "https://assets.tangobook.co.kr/1772106564046-생강빵아이-keyobj-코-1783467858409-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
+            },
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0060"
@@ -2339,11 +2223,6 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-성냥갑-1783410472023-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-창문-1783410475158-w800.webp"
-            },
-            {
               "ko": "물고기",
               "en": "fish",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-물고기-1783410476766-w800.webp"
@@ -2359,19 +2238,19 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-병정-1783410485595-w800.webp"
             },
             {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-wind-1783410493875-w800.webp"
-            },
-            {
-              "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-sky-1783410496282-w800.webp"
-            },
-            {
               "ko": "다리",
               "en": "leg",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-leg-1783410499294-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
+            },
+            {
+              "ko": "하늘",
+              "en": "sky"
             }
           ],
           "key": "ho-0061"
@@ -2390,11 +2269,6 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-성냥갑-1782786602540-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-창문-1782786606070-w800.webp"
-            },
-            {
               "ko": "물고기",
               "en": "fish",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-물고기-1782786609533-w800.webp"
@@ -2410,19 +2284,19 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-병정-1782786615981-w800.webp"
             },
             {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-wind-1782786626564-w800.webp"
-            },
-            {
-              "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-sky-1782786519224-w800.webp"
-            },
-            {
               "ko": "다리",
               "en": "leg",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-leg-1782786621704-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
+            },
+            {
+              "ko": "하늘",
+              "en": "sky"
             }
           ],
           "key": "ho-0062"
@@ -2441,11 +2315,6 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-성냥갑-1783410743188-w800.webp"
             },
             {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-창문-1783410746120-w800.webp"
-            },
-            {
               "ko": "물고기",
               "en": "fish",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-물고기-1783410748310-w800.webp"
@@ -2461,19 +2330,19 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-병정-1783410756545-w800.webp"
             },
             {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-wind-1783410763756-w800.webp"
-            },
-            {
-              "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-sky-1783410765367-w800.webp"
-            },
-            {
               "ko": "다리",
               "en": "leg",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-leg-1783410767429-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "창문",
+              "en": "window"
+            },
+            {
+              "ko": "하늘",
+              "en": "sky"
             }
           ],
           "key": "ho-0063"
@@ -2527,6 +2396,7 @@
               "card": "https://assets.tangobook.co.kr/1772106779761-성냥팔이소녀-keyobj-candle-1783425015634-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0064"
         },
         {
@@ -2573,6 +2443,7 @@
               "card": "https://assets.tangobook.co.kr/1772106779761-성냥팔이소녀-keyobj-candle-1783468106821-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0065"
         },
         {
@@ -2619,6 +2490,7 @@
               "card": "https://assets.tangobook.co.kr/1772106779761-성냥팔이소녀-keyobj-candle-1783467389479-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0066"
         }
       ]
@@ -2645,24 +2517,9 @@
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-빗자루-1783410245291-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-학교-1783409302901-w800.webp"
-            },
-            {
-              "ko": "다락방",
-              "en": "attic",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-다락방-1783410247059-w800.webp"
-            },
-            {
               "ko": "원숭이",
               "en": "monkey",
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-원숭이-1783410249319-w800.webp"
-            },
-            {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-창문-1783410252641-w800.webp"
             },
             {
               "ko": "이불",
@@ -2673,6 +2530,20 @@
               "ko": "선물",
               "en": "gift",
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-gift-1783410261795-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
+            },
+            {
+              "ko": "다락방",
+              "en": "attic"
+            },
+            {
+              "ko": "창문",
+              "en": "window"
             }
           ],
           "key": "ho-0067"
@@ -2696,24 +2567,9 @@
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-빗자루-1783409260058-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-학교-1783409261633-w800.webp"
-            },
-            {
-              "ko": "다락방",
-              "en": "attic",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-다락방-1783409262968-w800.webp"
-            },
-            {
               "ko": "원숭이",
               "en": "monkey",
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-원숭이-1783409265692-w800.webp"
-            },
-            {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-창문-1783409267212-w800.webp"
             },
             {
               "ko": "이불",
@@ -2724,6 +2580,20 @@
               "ko": "선물",
               "en": "gift",
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-gift-1783409270236-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
+            },
+            {
+              "ko": "다락방",
+              "en": "attic"
+            },
+            {
+              "ko": "창문",
+              "en": "window"
             }
           ],
           "key": "ho-0068"
@@ -2747,24 +2617,9 @@
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-빗자루-1783409225191-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-학교-1783410052783-w800.webp"
-            },
-            {
-              "ko": "다락방",
-              "en": "attic",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-다락방-1783404676808-w800.webp"
-            },
-            {
               "ko": "원숭이",
               "en": "monkey",
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-원숭이-1783404690257-w800.webp"
-            },
-            {
-              "ko": "창문",
-              "en": "window",
-              "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-창문-1783404693210-w800.webp"
             },
             {
               "ko": "이불",
@@ -2775,6 +2630,20 @@
               "ko": "선물",
               "en": "gift",
               "card": "https://assets.tangobook.co.kr/1777277635476-소공녀-keyobj-gift-1783404695764-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
+            },
+            {
+              "ko": "다락방",
+              "en": "attic"
+            },
+            {
+              "ko": "창문",
+              "en": "window"
             }
           ],
           "key": "ho-0069"
@@ -2816,16 +2685,16 @@
               "ko": "시계",
               "en": "clock",
               "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-Clock-1783468613980-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "계단",
-              "en": "stairs",
-              "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-stairs-1783468612128-w800.webp"
+              "en": "stairs"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-castle-1783468610381-w800.webp"
+              "en": "castle"
             }
           ],
           "key": "ho-0070"
@@ -2862,16 +2731,16 @@
               "ko": "시계",
               "en": "clock",
               "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-Clock-1779170241486-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "계단",
-              "en": "stairs",
-              "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-stairs-1779170242929-w800.webp"
+              "en": "stairs"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-castle-1782787010769-w800.webp"
+              "en": "castle"
             }
           ],
           "key": "ho-0071"
@@ -2908,16 +2777,16 @@
               "ko": "시계",
               "en": "clock",
               "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-Clock-1779172814161-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "계단",
-              "en": "stairs",
-              "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-stairs-1779172575890-w800.webp"
+              "en": "stairs"
             },
             {
               "ko": "성",
-              "en": "castle",
-              "card": "https://assets.tangobook.co.kr/1772107608499-신데렐라-keyobj-castle-1783468396005-w800.webp"
+              "en": "castle"
             }
           ],
           "key": "ho-0072"
@@ -2951,24 +2820,23 @@
               "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-고래-1783559807159-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-바다-1783559810651-w800.webp"
-            },
-            {
               "ko": "갈매기",
               "en": "seagull",
               "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-갈매기-1783559813651-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "sea"
             },
             {
               "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-파도-1783559815484-w800.webp"
+              "en": "wave"
             },
             {
               "ko": "계곡",
-              "en": "valley",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-계곡-1783559817252-w800.webp"
+              "en": "valley"
             }
           ],
           "key": "ho-0073"
@@ -2997,24 +2865,23 @@
               "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-고래-1782787357276-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-바다-1782787358543-w800.webp"
-            },
-            {
               "ko": "갈매기",
               "en": "seagull",
               "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-갈매기-1782787669142-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "sea"
             },
             {
               "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-파도-1782787055637-w800.webp"
+              "en": "wave"
             },
             {
               "ko": "계곡",
-              "en": "valley",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-계곡-1782787674395-w800.webp"
+              "en": "valley"
             }
           ],
           "key": "ho-0074"
@@ -3043,24 +2910,23 @@
               "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-고래-1783409618149-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-바다-1783409619601-w800.webp"
-            },
-            {
               "ko": "갈매기",
               "en": "seagull",
               "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-갈매기-1783409968798-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "sea"
             },
             {
               "ko": "파도",
-              "en": "wave",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-파도-1783409624731-w800.webp"
+              "en": "wave"
             },
             {
               "ko": "계곡",
-              "en": "valley",
-              "card": "https://assets.tangobook.co.kr/1777284662626-신밧드의모험-keyobj-계곡-1783409626791-w800.webp"
+              "en": "valley"
             }
           ],
           "key": "ho-0075"
@@ -3097,16 +2963,12 @@
               "ko": "난로",
               "en": "fireplace",
               "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fireplace-1783553434435-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-house-1783553436398-w800.webp"
-            },
-            {
-              "ko": "불",
-              "en": "fire",
-              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fire-1783553438658-w800.webp"
+              "en": "house"
             }
           ],
           "key": "ho-0076"
@@ -3138,16 +3000,12 @@
               "ko": "난로",
               "en": "fireplace",
               "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fireplace-1779169914319-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-house-1779777006275-w800.webp"
-            },
-            {
-              "ko": "불",
-              "en": "fire",
-              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fire-1779777008255-w800.webp"
+              "en": "house"
             }
           ],
           "key": "ho-0077"
@@ -3179,16 +3037,12 @@
               "ko": "난로",
               "en": "fireplace",
               "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fireplace-1783553434435-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "집",
-              "en": "house",
-              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-house-1783553436398-w800.webp"
-            },
-            {
-              "ko": "불",
-              "en": "fire",
-              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fire-1783553438658-w800.webp"
+              "en": "house"
             }
           ],
           "key": "ho-0078"
@@ -3222,19 +3076,19 @@
               "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-Elephant-1783424561810-w800.webp"
             },
             {
-              "ko": "동굴",
-              "en": "Cave",
-              "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-Cave-1783424962289-w800.webp"
-            },
-            {
-              "ko": "사막",
-              "en": "desert",
-              "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-사막-1783424573372-w800.webp"
-            },
-            {
               "ko": "보석",
               "en": "jewel",
               "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-jewel-1783424575641-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "동굴",
+              "en": "Cave"
+            },
+            {
+              "ko": "사막",
+              "en": "desert"
             }
           ],
           "key": "ho-0079"
@@ -3263,19 +3117,19 @@
               "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-Elephant-1783424239727-w800.webp"
             },
             {
-              "ko": "동굴",
-              "en": "Cave",
-              "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-Cave-1783424240869-w800.webp"
-            },
-            {
-              "ko": "사막",
-              "en": "desert",
-              "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-사막-1783424243520-w800.webp"
-            },
-            {
               "ko": "보석",
               "en": "jewel",
               "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-jewel-1783424244884-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "동굴",
+              "en": "Cave"
+            },
+            {
+              "ko": "사막",
+              "en": "desert"
             }
           ],
           "key": "ho-0080"
@@ -3304,19 +3158,19 @@
               "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-Elephant-1783467324083-w800.webp"
             },
             {
-              "ko": "동굴",
-              "en": "Cave",
-              "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-Cave-1783467327088-w800.webp"
-            },
-            {
-              "ko": "사막",
-              "en": "desert",
-              "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-사막-1783467527176-w800.webp"
-            },
-            {
               "ko": "보석",
               "en": "jewel",
               "card": "https://assets.tangobook.co.kr/1772108468177-알라딘과요술램프-keyobj-jewel-1783467345301-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "동굴",
+              "en": "Cave"
+            },
+            {
+              "ko": "사막",
+              "en": "desert"
             }
           ],
           "key": "ho-0081"
@@ -3345,16 +3199,6 @@
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-장미-1783410869172-w800.webp"
             },
             {
-              "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-정원-1783411004783-w800.webp"
-            },
-            {
-              "ko": "지구",
-              "en": "Earth",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-지구-1783410653559-w800.webp"
-            },
-            {
               "ko": "여우",
               "en": "Fox",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-여우-1783410656160-w800.webp"
@@ -3363,11 +3207,12 @@
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-꼬리-1783410865510-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-wind-1783410665068-w800.webp"
+              "ko": "정원",
+              "en": "garden"
             }
           ],
           "key": "ho-0082"
@@ -3391,16 +3236,6 @@
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-장미-1782788195278-w800.webp"
             },
             {
-              "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-정원-1782788332141-w800.webp"
-            },
-            {
-              "ko": "지구",
-              "en": "Earth",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-지구-1782788200996-w800.webp"
-            },
-            {
               "ko": "여우",
               "en": "Fox",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-여우-1782788224559-w800.webp"
@@ -3409,11 +3244,12 @@
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-꼬리-1782788225830-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-wind-1782788205139-w800.webp"
+              "ko": "정원",
+              "en": "garden"
             }
           ],
           "key": "ho-0083"
@@ -3437,16 +3273,6 @@
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-장미-1783410202907-w800.webp"
             },
             {
-              "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-정원-1783410547501-w800.webp"
-            },
-            {
-              "ko": "지구",
-              "en": "Earth",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-지구-1783410212610-w800.webp"
-            },
-            {
               "ko": "여우",
               "en": "Fox",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-여우-1783410216639-w800.webp"
@@ -3455,11 +3281,12 @@
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-꼬리-1783410383733-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
-              "ko": "바람",
-              "en": "wind",
-              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-wind-1783410222722-w800.webp"
+              "ko": "정원",
+              "en": "garden"
             }
           ],
           "key": "ho-0084"
@@ -3518,6 +3345,7 @@
               "card": "https://assets.tangobook.co.kr/1772108847406-엄지아가씨-keyobj-두더지-1783424858761-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0085"
         },
         {
@@ -3569,6 +3397,7 @@
               "card": "https://assets.tangobook.co.kr/1772108847406-엄지아가씨-keyobj-두더지-1783424099373-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0086"
         },
         {
@@ -3620,6 +3449,7 @@
               "card": "https://assets.tangobook.co.kr/1772108847406-엄지아가씨-keyobj-두더지-1783467305122-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0087"
         }
       ]
@@ -3644,16 +3474,16 @@
               "ko": "사자",
               "en": "lion",
               "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-사자-1783423847834-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-village-1783423968611-w800.webp"
+              "en": "village"
             },
             {
               "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-sky-1783424128570-w800.webp"
+              "en": "sky"
             }
           ],
           "key": "ho-0088"
@@ -3675,16 +3505,16 @@
               "ko": "사자",
               "en": "lion",
               "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-사자-1783423833227-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-village-1783423834603-w800.webp"
+              "en": "village"
             },
             {
               "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-sky-1783423835888-w800.webp"
+              "en": "sky"
             }
           ],
           "key": "ho-0089"
@@ -3706,16 +3536,16 @@
               "ko": "사자",
               "en": "lion",
               "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-사자-1783424624373-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-village-1783424461475-w800.webp"
+              "en": "village"
             },
             {
               "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-keyobj-sky-1783424627316-w800.webp"
+              "en": "sky"
             }
           ],
           "key": "ho-0090"
@@ -3739,19 +3569,19 @@
               "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-Bridge-1783423536293-w800.webp"
             },
             {
-              "ko": "언덕",
-              "en": "hill",
-              "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-Hill-1783423538117-w800.webp"
-            },
-            {
-              "ko": "풀",
-              "en": "grass",
-              "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-풀-1783423539834-w800.webp"
-            },
-            {
               "ko": "뿔",
               "en": "horn",
               "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-뿔-1783423759491-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "언덕",
+              "en": "hill"
+            },
+            {
+              "ko": "풀",
+              "en": "grass"
             }
           ],
           "key": "ho-0091"
@@ -3770,19 +3600,19 @@
               "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-Bridge-1783423447774-w800.webp"
             },
             {
-              "ko": "언덕",
-              "en": "hill",
-              "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-Hill-1783423449044-w800.webp"
-            },
-            {
-              "ko": "풀",
-              "en": "grass",
-              "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-풀-1783423450475-w800.webp"
-            },
-            {
               "ko": "뿔",
               "en": "horn",
               "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-뿔-1783423451681-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "언덕",
+              "en": "hill"
+            },
+            {
+              "ko": "풀",
+              "en": "grass"
             }
           ],
           "key": "ho-0092"
@@ -3801,19 +3631,19 @@
               "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-Bridge-1783423941260-w800.webp"
             },
             {
-              "ko": "언덕",
-              "en": "hill",
-              "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-Hill-1783423938950-w800.webp"
-            },
-            {
-              "ko": "풀",
-              "en": "grass",
-              "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-풀-1783423923305-w800.webp"
-            },
-            {
               "ko": "뿔",
               "en": "horn",
               "card": "https://assets.tangobook.co.kr/1772181211472-우당탕탕염소삼형제-keyobj-뿔-1783424204040-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "언덕",
+              "en": "hill"
+            },
+            {
+              "ko": "풀",
+              "en": "grass"
             }
           ],
           "key": "ho-0093"
@@ -3852,11 +3682,6 @@
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-Queen-1783423503391-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-바다-1783423506829-w800.webp"
-            },
-            {
               "ko": "고양이",
               "en": "cat",
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-고양이-1783424758419-w800.webp"
@@ -3870,6 +3695,12 @@
               "ko": "장미",
               "en": "rose",
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-장미-1783423527264-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "sea"
             }
           ],
           "key": "ho-0094"
@@ -3903,11 +3734,6 @@
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-Queen-1783423391874-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-바다-1783423394880-w800.webp"
-            },
-            {
               "ko": "고양이",
               "en": "cat",
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-고양이-1783423396075-w800.webp"
@@ -3921,6 +3747,12 @@
               "ko": "장미",
               "en": "rose",
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-장미-1783423398684-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "sea"
             }
           ],
           "key": "ho-0095"
@@ -3954,11 +3786,6 @@
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-Queen-1783469528106-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-바다-1783468194817-w800.webp"
-            },
-            {
               "ko": "고양이",
               "en": "cat",
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-고양이-1783469530874-w800.webp"
@@ -3972,6 +3799,12 @@
               "ko": "장미",
               "en": "rose",
               "card": "https://assets.tangobook.co.kr/1772182206245-이상한나라의앨리스-keyobj-장미-1783467433540-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "sea"
             }
           ],
           "key": "ho-0096"
@@ -3995,29 +3828,28 @@
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Coral-1782788938527-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "Sea",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Sea-1782789185540-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-꼬리-1782789002496-w800.webp"
             },
             {
-              "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-sky-1782788996734-w800.webp"
-            },
-            {
               "ko": "조개",
               "en": "seashell",
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-seashell-1782789008833-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "Sea"
+            },
+            {
+              "ko": "하늘",
+              "en": "sky"
             },
             {
               "ko": "별",
-              "en": "star",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-star-1782789007427-w800.webp"
+              "en": "star"
             }
           ],
           "key": "ho-0097"
@@ -4036,29 +3868,28 @@
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Coral-1779170661281-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "Sea",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Sea-1779170665676-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-꼬리-1779170667397-w800.webp"
             },
             {
-              "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-sky-1779261671637-w800.webp"
-            },
-            {
               "ko": "조개",
               "en": "seashell",
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-seashell-1783561190890-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "Sea"
+            },
+            {
+              "ko": "하늘",
+              "en": "sky"
             },
             {
               "ko": "별",
-              "en": "star",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-star-1783561192525-w800.webp"
+              "en": "star"
             }
           ],
           "key": "ho-0098"
@@ -4077,29 +3908,28 @@
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Coral-1779173688411-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "Sea",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Sea-1779173964575-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-꼬리-1779173689683-w800.webp"
             },
             {
-              "ko": "하늘",
-              "en": "sky",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-sky-1779173816246-w800.webp"
-            },
-            {
               "ko": "조개",
               "en": "seashell",
               "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-seashell-1783561475531-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "바다",
+              "en": "Sea"
+            },
+            {
+              "ko": "하늘",
+              "en": "sky"
             },
             {
               "ko": "별",
-              "en": "star",
-              "card": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-star-1783561477370-w800.webp"
+              "en": "star"
             }
           ],
           "key": "ho-0099"
@@ -4128,19 +3958,19 @@
               "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Spindle-1783413868341-w800.webp"
             },
             {
-              "ko": "덩굴",
-              "en": "vine",
-              "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Thorns-1783413870380-w800.webp"
-            },
-            {
               "ko": "장미",
               "en": "Rose",
               "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Rose-1783423271305-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "덩굴",
+              "en": "vine"
             },
             {
               "ko": "계단",
-              "en": "stairs",
-              "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-계단-1783423275938-w800.webp"
+              "en": "stairs"
             }
           ],
           "key": "ho-0100"
@@ -4164,19 +3994,19 @@
               "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Spindle-1779170381467-w800.webp"
             },
             {
-              "ko": "덩굴",
-              "en": "vine",
-              "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Thorns-1779260961571-w800.webp"
-            },
-            {
               "ko": "장미",
               "en": "Rose",
               "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Rose-1779170385768-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "덩굴",
+              "en": "vine"
             },
             {
               "ko": "계단",
-              "en": "stairs",
-              "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-계단-1779170387873-w800.webp"
+              "en": "stairs"
             }
           ],
           "key": "ho-0101"
@@ -4200,19 +4030,19 @@
               "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Spindle-1779172924006-w800.webp"
             },
             {
-              "ko": "덩굴",
-              "en": "vine",
-              "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Thorns-1779261218146-w800.webp"
-            },
-            {
               "ko": "장미",
               "en": "Rose",
               "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-Rose-1779172926849-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "덩굴",
+              "en": "vine"
             },
             {
               "ko": "계단",
-              "en": "stairs",
-              "card": "https://assets.tangobook.co.kr/1772194909157-잠자는숲속의공주-keyobj-계단-1779173007813-w800.webp"
+              "en": "stairs"
             }
           ],
           "key": "ho-0102"
@@ -4246,11 +4076,6 @@
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-Axe-1783553584563-w800.webp"
             },
             {
-              "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-구름-1783553592724-w800.webp"
-            },
-            {
               "ko": "오븐",
               "en": "oven",
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-오븐-1783553601324-w800.webp"
@@ -4264,6 +4089,12 @@
               "ko": "콩",
               "en": "bean",
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-bean-1783553606109-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "구름",
+              "en": "cloud"
             }
           ],
           "key": "ho-0103"
@@ -4292,11 +4123,6 @@
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-Axe-1779170034905-w800.webp"
             },
             {
-              "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-구름-1779170036127-w800.webp"
-            },
-            {
               "ko": "오븐",
               "en": "oven",
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-오븐-1779169729371-w800.webp"
@@ -4310,6 +4136,12 @@
               "ko": "콩",
               "en": "bean",
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-bean-1779777811767-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "구름",
+              "en": "cloud"
             }
           ],
           "key": "ho-0104"
@@ -4338,11 +4170,6 @@
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-Axe-1783553584563-w800.webp"
             },
             {
-              "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-구름-1783553592724-w800.webp"
-            },
-            {
               "ko": "오븐",
               "en": "oven",
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-오븐-1783553601324-w800.webp"
@@ -4356,6 +4183,12 @@
               "ko": "콩",
               "en": "bean",
               "card": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-keyobj-bean-1783553606109-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "구름",
+              "en": "cloud"
             }
           ],
           "key": "ho-0105"
@@ -4402,13 +4235,9 @@
               "ko": "호랑이",
               "en": "tiger",
               "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-호랑이-1782794622793-w800.webp"
-            },
-            {
-              "ko": "불",
-              "en": "fire",
-              "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-불-1782794726632-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0106"
         },
         {
@@ -4448,13 +4277,9 @@
               "ko": "호랑이",
               "en": "tiger",
               "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-호랑이-1783413447952-w800.webp"
-            },
-            {
-              "ko": "불",
-              "en": "fire",
-              "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-불-1783413449599-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0107"
         },
         {
@@ -4494,13 +4319,9 @@
               "ko": "호랑이",
               "en": "tiger",
               "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-호랑이-1783413840621-w800.webp"
-            },
-            {
-              "ko": "불",
-              "en": "fire",
-              "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-불-1783413842189-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0108"
         }
       ]
@@ -4532,11 +4353,6 @@
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-Pot-1783413757726-w800.webp"
             },
             {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-마을-1783423564305-w800.webp"
-            },
-            {
               "ko": "강아지",
               "en": "puppy",
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-강아지-1783413803453-w800.webp"
@@ -4550,6 +4366,12 @@
               "ko": "생쥐",
               "en": "mouse",
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-생쥐-1783413807591-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0109"
@@ -4578,11 +4400,6 @@
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-Pot-1783412917942-w800.webp"
             },
             {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-마을-1783412919291-w800.webp"
-            },
-            {
               "ko": "강아지",
               "en": "puppy",
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-강아지-1783412921713-w800.webp"
@@ -4596,6 +4413,12 @@
               "ko": "생쥐",
               "en": "mouse",
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-생쥐-1783412924409-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0110"
@@ -4624,11 +4447,6 @@
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-Pot-1783413194734-w800.webp"
             },
             {
-              "ko": "마을",
-              "en": "village",
-              "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-마을-1783413622551-w800.webp"
-            },
-            {
               "ko": "강아지",
               "en": "puppy",
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-강아지-1783413239068-w800.webp"
@@ -4642,6 +4460,12 @@
               "ko": "생쥐",
               "en": "mouse",
               "card": "https://assets.tangobook.co.kr/1772197611601-커다란순무-keyobj-생쥐-1783413240927-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "마을",
+              "en": "village"
             }
           ],
           "key": "ho-0111"
@@ -4675,14 +4499,15 @@
               "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-편지-1783559897332-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-학교-1783559892317-w800.webp"
-            },
-            {
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-그림-1783559894131-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
             }
           ],
           "key": "ho-0112"
@@ -4711,14 +4536,15 @@
               "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-편지-1782794862529-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-학교-1782794868563-w800.webp"
-            },
-            {
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-그림-1782794870966-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
             }
           ],
           "key": "ho-0113"
@@ -4747,14 +4573,15 @@
               "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-편지-1783404340292-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-학교-1783404348132-w800.webp"
-            },
-            {
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-keyobj-그림-1783404366827-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
             }
           ],
           "key": "ho-0114"
@@ -4776,11 +4603,12 @@
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1777276044172-토끼와거북이-keyobj-나무-1783560464899-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1777276044172-토끼와거북이-keyobj-forest-1783560462969-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0115"
@@ -4797,11 +4625,12 @@
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1777276044172-토끼와거북이-keyobj-나무-1779170464473-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1777276044172-토끼와거북이-keyobj-forest-1779779432005-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0116"
@@ -4818,11 +4647,12 @@
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1777276044172-토끼와거북이-keyobj-나무-1779173110473-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://assets.tangobook.co.kr/1777276044172-토끼와거북이-keyobj-forest-1779779261404-w800.webp"
+              "en": "forest"
             }
           ],
           "key": "ho-0117"
@@ -4886,6 +4716,7 @@
               "card": "https://assets.tangobook.co.kr/1777284718837-파랑새-keyobj-새-1783403882483-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0118"
         },
         {
@@ -4942,6 +4773,7 @@
               "card": "https://assets.tangobook.co.kr/1777284718837-파랑새-keyobj-새-1782798142852-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0119"
         },
         {
@@ -4998,6 +4830,7 @@
               "card": "https://assets.tangobook.co.kr/1777284718837-파랑새-keyobj-새-1783404490234-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0120"
         }
       ]
@@ -5019,34 +4852,28 @@
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-수레-1783410421815-w800.webp"
             },
             {
-              "ko": "풍차",
-              "en": "windmill",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-풍차-1783410425184-w800.webp"
-            },
-            {
-              "ko": "성당",
-              "en": "cathedral",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-성당-1783410427604-w800.webp"
-            },
-            {
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-그림-1783410428804-w800.webp"
             },
             {
-              "ko": "우유",
-              "en": "milk",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-우유-1783410432426-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-꼬리-1783410435108-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "풍차",
+              "en": "windmill"
+            },
+            {
+              "ko": "성당",
+              "en": "cathedral"
             },
             {
               "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-구름-1783410438796-w800.webp"
+              "en": "cloud"
             }
           ],
           "key": "ho-0121"
@@ -5065,34 +4892,28 @@
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-수레-1782795087750-w800.webp"
             },
             {
-              "ko": "풍차",
-              "en": "windmill",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-풍차-1782795089277-w800.webp"
-            },
-            {
-              "ko": "성당",
-              "en": "cathedral",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-성당-1782795091387-w800.webp"
-            },
-            {
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-그림-1782794843280-w800.webp"
             },
             {
-              "ko": "우유",
-              "en": "milk",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-우유-1782795094317-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-꼬리-1782795096701-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "풍차",
+              "en": "windmill"
+            },
+            {
+              "ko": "성당",
+              "en": "cathedral"
             },
             {
               "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-구름-1782795104012-w800.webp"
+              "en": "cloud"
             }
           ],
           "key": "ho-0122"
@@ -5111,34 +4932,28 @@
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-수레-1783410894787-w800.webp"
             },
             {
-              "ko": "풍차",
-              "en": "windmill",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-풍차-1783410710763-w800.webp"
-            },
-            {
-              "ko": "성당",
-              "en": "cathedral",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-성당-1783410714072-w800.webp"
-            },
-            {
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-그림-1783410723979-w800.webp"
             },
             {
-              "ko": "우유",
-              "en": "milk",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-우유-1783410729846-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-꼬리-1783411931449-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "풍차",
+              "en": "windmill"
+            },
+            {
+              "ko": "성당",
+              "en": "cathedral"
             },
             {
               "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-구름-1783410909995-w800.webp"
+              "en": "cloud"
             }
           ],
           "key": "ho-0123"
@@ -5167,24 +4982,24 @@
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-요정-1783411880923-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-학교-1783412024039-w800.webp"
-            },
-            {
               "ko": "여우",
               "en": "fox",
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-여우-1783411903790-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-바다-1783411908081-w800.webp"
-            },
-            {
               "ko": "고래",
               "en": "whale",
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-고래-1783411909642-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
+            },
+            {
+              "ko": "바다",
+              "en": "sea"
             }
           ],
           "key": "ho-0124"
@@ -5208,24 +5023,24 @@
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-요정-1782795335161-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-학교-1782795056093-w800.webp"
-            },
-            {
               "ko": "여우",
               "en": "fox",
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-여우-1782795015458-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-바다-1782795746328-w800.webp"
-            },
-            {
               "ko": "고래",
               "en": "whale",
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-고래-1782795835912-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
+            },
+            {
+              "ko": "바다",
+              "en": "sea"
             }
           ],
           "key": "ho-0125"
@@ -5249,24 +5064,24 @@
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-요정-1783412161101-w800.webp"
             },
             {
-              "ko": "학교",
-              "en": "school",
-              "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-학교-1783412163497-w800.webp"
-            },
-            {
               "ko": "여우",
               "en": "fox",
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-여우-1783412165139-w800.webp"
             },
             {
-              "ko": "바다",
-              "en": "sea",
-              "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-바다-1783412169535-w800.webp"
-            },
-            {
               "ko": "고래",
               "en": "whale",
               "card": "https://assets.tangobook.co.kr/1777266835789-피노키오-keyobj-고래-1783412170998-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "학교",
+              "en": "school"
+            },
+            {
+              "ko": "바다",
+              "en": "sea"
             }
           ],
           "key": "ho-0126"
@@ -5290,24 +5105,23 @@
               "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Flute-1783413376189-w800.webp"
             },
             {
-              "ko": "무지개",
-              "en": "rainbow",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Rainbow-1783413380843-w800.webp"
-            },
-            {
-              "ko": "마을",
-              "en": "Village",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Village-1783413383383-w800.webp"
-            },
-            {
               "ko": "신발",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-신발-1783413385536-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "무지개",
+              "en": "rainbow"
+            },
+            {
+              "ko": "마을",
+              "en": "Village"
             },
             {
               "ko": "바위",
-              "en": "rock",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-바위-1783413389502-w800.webp"
+              "en": "rock"
             }
           ],
           "key": "ho-0127"
@@ -5326,24 +5140,23 @@
               "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Flute-1783412959313-w800.webp"
             },
             {
-              "ko": "무지개",
-              "en": "rainbow",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Rainbow-1783412960718-w800.webp"
-            },
-            {
-              "ko": "마을",
-              "en": "Village",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Village-1783412962358-w800.webp"
-            },
-            {
               "ko": "신발",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-신발-1783412963325-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "무지개",
+              "en": "rainbow"
+            },
+            {
+              "ko": "마을",
+              "en": "Village"
             },
             {
               "ko": "바위",
-              "en": "rock",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-바위-1783412965962-w800.webp"
+              "en": "rock"
             }
           ],
           "key": "ho-0128"
@@ -5362,24 +5175,23 @@
               "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Flute-1783413134304-w800.webp"
             },
             {
-              "ko": "무지개",
-              "en": "rainbow",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Rainbow-1783413135916-w800.webp"
-            },
-            {
-              "ko": "마을",
-              "en": "Village",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-Village-1783413145411-w800.webp"
-            },
-            {
               "ko": "신발",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-신발-1783413139045-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "무지개",
+              "en": "rainbow"
+            },
+            {
+              "ko": "마을",
+              "en": "Village"
             },
             {
               "ko": "바위",
-              "en": "rock",
-              "card": "https://assets.tangobook.co.kr/1772198278145-피리부는사나이-keyobj-바위-1783413142101-w800.webp"
+              "en": "rock"
             }
           ],
           "key": "ho-0129"
@@ -5403,11 +5215,6 @@
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Rope-1783413662500-w800.webp"
             },
             {
-              "ko": "연못",
-              "en": "pond",
-              "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Pond-1783413515209-w800.webp"
-            },
-            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Tree-1783413516567-w800.webp"
@@ -5428,14 +5235,19 @@
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Cat-1783413522410-w800.webp"
             },
             {
-              "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-정원-1783413526815-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-꼬리-1783413528279-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "연못",
+              "en": "pond"
+            },
+            {
+              "ko": "정원",
+              "en": "garden"
             }
           ],
           "key": "ho-0130"
@@ -5452,11 +5264,6 @@
               "ko": "밧줄",
               "en": "Rope",
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Rope-1783413016546-w800.webp"
-            },
-            {
-              "ko": "연못",
-              "en": "pond",
-              "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Pond-1783413017935-w800.webp"
             },
             {
               "ko": "나무",
@@ -5479,14 +5286,19 @@
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Cat-1783413024679-w800.webp"
             },
             {
-              "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-정원-1783413026097-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-꼬리-1783413027835-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "연못",
+              "en": "pond"
+            },
+            {
+              "ko": "정원",
+              "en": "garden"
             }
           ],
           "key": "ho-0131"
@@ -5503,11 +5315,6 @@
               "ko": "밧줄",
               "en": "Rope",
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Rope-1783413310285-w800.webp"
-            },
-            {
-              "ko": "연못",
-              "en": "pond",
-              "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Pond-1783413313939-w800.webp"
             },
             {
               "ko": "나무",
@@ -5530,14 +5337,19 @@
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-Cat-1783413331747-w800.webp"
             },
             {
-              "ko": "정원",
-              "en": "garden",
-              "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-정원-1783413340216-w800.webp"
-            },
-            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1772198919301-피터와늑대-keyobj-꼬리-1783413341557-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "연못",
+              "en": "pond"
+            },
+            {
+              "ko": "정원",
+              "en": "garden"
             }
           ],
           "key": "ho-0132"
@@ -5561,24 +5373,15 @@
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-침대-1783402779399-w800.webp"
             },
             {
-              "ko": "우유",
-              "en": "milk",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-우유-1783402796716-w800.webp"
-            },
-            {
-              "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-구름-1783402798599-w800.webp"
-            },
-            {
               "ko": "휠체어",
               "en": "wheelchair",
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-휠체어-1783402800688-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
-              "ko": "눈물",
-              "en": "tears",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-눈물-1783403175167-w800.webp"
+              "ko": "구름",
+              "en": "cloud"
             }
           ],
           "key": "ho-0133"
@@ -5597,24 +5400,15 @@
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-침대-1782799633705-w800.webp"
             },
             {
-              "ko": "우유",
-              "en": "milk",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-우유-1782799645345-w800.webp"
-            },
-            {
-              "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-구름-1782795722985-w800.webp"
-            },
-            {
               "ko": "휠체어",
               "en": "wheelchair",
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-휠체어-1782800453181-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
-              "ko": "눈물",
-              "en": "tears",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-눈물-1782800411480-w800.webp"
+              "ko": "구름",
+              "en": "cloud"
             }
           ],
           "key": "ho-0134"
@@ -5633,24 +5427,15 @@
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-침대-1783402587590-w800.webp"
             },
             {
-              "ko": "우유",
-              "en": "milk",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-우유-1783402446109-w800.webp"
-            },
-            {
-              "ko": "구름",
-              "en": "cloud",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-구름-1783402447518-w800.webp"
-            },
-            {
               "ko": "휠체어",
               "en": "wheelchair",
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-휠체어-1783402444772-w800.webp"
-            },
+            }
+          ],
+          "scenery": [
             {
-              "ko": "눈물",
-              "en": "tears",
-              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-눈물-1783572171223.webp"
+              "ko": "구름",
+              "en": "cloud"
             }
           ],
           "key": "ho-0135"
@@ -5694,6 +5479,7 @@
               "card": "https://assets.tangobook.co.kr/1772199288387-행복한왕자-keyobj-천사-1783412465822-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0136"
         },
         {
@@ -5730,6 +5516,7 @@
               "card": "https://assets.tangobook.co.kr/1772199288387-행복한왕자-keyobj-천사-1782796096629-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0137"
         },
         {
@@ -5766,6 +5553,7 @@
               "card": "https://assets.tangobook.co.kr/1772199288387-행복한왕자-keyobj-천사-1783412811980-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0138"
         }
       ]
@@ -5782,11 +5570,6 @@
           "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-illustration-page8-1781663406917.webp",
           "words": [
             {
-              "ko": "집",
-              "en": "house",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-house-1783558635909-w800.webp"
-            },
-            {
               "ko": "쿠키",
               "en": "cookie",
               "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-cookie-1783558638451-w800.webp"
@@ -5800,16 +5583,20 @@
               "ko": "나무",
               "en": "tree",
               "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-tree-1783558659179-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "집",
+              "en": "house"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-forest-1783558662258-w800.webp"
+              "en": "forest"
             },
             {
               "ko": "돌",
-              "en": "stone",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-stone-1783558663844-w800.webp"
+              "en": "stone"
             }
           ],
           "key": "ho-0139"
@@ -5822,11 +5609,6 @@
           "styleId": "style-1778405374347",
           "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-illustration-page8-1781819833068.webp",
           "words": [
-            {
-              "ko": "집",
-              "en": "house",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-house-1782797599887-w800.webp"
-            },
             {
               "ko": "쿠키",
               "en": "cookie",
@@ -5841,16 +5623,20 @@
               "ko": "나무",
               "en": "tree",
               "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-tree-1782797479609-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "집",
+              "en": "house"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-forest-1782797614438-w800.webp"
+              "en": "forest"
             },
             {
               "ko": "돌",
-              "en": "stone",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-stone-1782797616293-w800.webp"
+              "en": "stone"
             }
           ],
           "key": "ho-0140"
@@ -5863,11 +5649,6 @@
           "styleId": "style-1778824179240",
           "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-illustration-page8-1781859797830.webp",
           "words": [
-            {
-              "ko": "집",
-              "en": "house",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-house-1783559002186-w800.webp"
-            },
             {
               "ko": "쿠키",
               "en": "cookie",
@@ -5882,16 +5663,20 @@
               "ko": "나무",
               "en": "tree",
               "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-tree-1783559012812-w800.webp"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "집",
+              "en": "house"
             },
             {
               "ko": "숲",
-              "en": "forest",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-forest-1783559017314-w800.webp"
+              "en": "forest"
             },
             {
               "ko": "돌",
-              "en": "stone",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-stone-1783559019231-w800.webp"
+              "en": "stone"
             }
           ],
           "key": "ho-0141"
@@ -5945,6 +5730,7 @@
               "card": "https://assets.tangobook.co.kr/1772201758726-호두까기인형-keyobj-드레스-1783412749100-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0142"
         },
         {
@@ -5991,6 +5777,7 @@
               "card": "https://assets.tangobook.co.kr/1772201758726-호두까기인형-keyobj-드레스-1783560999513-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0143"
         },
         {
@@ -6037,6 +5824,7 @@
               "card": "https://assets.tangobook.co.kr/1772201758726-호두까기인형-keyobj-드레스-1783412279525-w800.webp"
             }
           ],
+          "scenery": [],
           "key": "ho-0144"
         }
       ]

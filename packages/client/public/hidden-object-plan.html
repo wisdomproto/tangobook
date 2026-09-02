@@ -406,7 +406,24 @@
         }
 
         // 프롬프트는 데이터에 한 벌만 실려 온다 — 책 이름과 낱말만 끼워 넣는다.
+        // 🔴 목록이 **둘**이다: 숨길 사물, 그리고 배경으로 그릴 것. 배경 낱말(정원·담장·숲)을
+        //    사물 목록에 섞으면 모델이 그것도 프롭으로 하나 더 그린다 — 첫 판이 그래서
+        //    「정원 안에 침대가 놓인」 그림이 됐다. 배경이 없는 책이면 그 문단째로 지운다.
         function promptFor(it) {
+          var scenery = it.scenery || [];
+          var block = scenery.length
+            ? data.sceneryBlock
+                .split('{{sn}}')
+                .join(String(scenery.length))
+                .split('{{scenery}}')
+                .join(
+                  scenery
+                    .map(function (w) {
+                      return '- ' + w.en + ' (' + w.ko + ')';
+                    })
+                    .join('\n')
+                )
+            : '';
           return data.promptLine
             .split('{{book}}')
             .join(it.bookTitle)
@@ -419,7 +436,9 @@
                   return i + 1 + '. ' + w.en + '  (' + w.ko + ')';
                 })
                 .join('\n')
-            );
+            )
+            .split('{{sceneryBlock}}')
+            .join(block);
         }
 
         var toastT;
@@ -650,7 +669,11 @@
           refs.appendChild(pg);
           var lab2 = document.createElement('div');
           lab2.className = 'reflab';
-          lab2.textContent = '② 숨길 사물 ' + it.words.length + '개 — 이걸 씬 안에 넣는다';
+          lab2.textContent =
+            '② 숨길 사물 ' +
+            it.words.length +
+            '개 — 이걸 씬 안에 넣는다' +
+            ((it.scenery || []).length ? ' (배경 ' + it.scenery.length + '개는 참조 안 붙임)' : '');
           refs.appendChild(lab2);
           var cards = document.createElement('div');
           cards.className = 'cards';
