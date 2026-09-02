@@ -84,16 +84,26 @@ BODY_D    = CAM_GAP + _MIR_HALF_Y + WALL + 0.6
 #    파내서** 광선이 지나는 데만 비운다. 남는 살은 광선 밖이라 안전하다.
 LIP       = 2.2
 BODY_H    = CAM_DROP + (MIR_H / 2) * math.cos(math.radians(90 - MU)) + LIP
-ROOF      = 3.0
 EDGE_R    = 1.5
 
 # ── 파생 (거울 자세에서 나온다)
 MIR_BOT   = -(CAM_DROP + (MIR_H / 2) * math.cos(math.radians(90 - MU)))
+MIR_TOP   = -(CAM_DROP - (MIR_H / 2) * math.cos(math.radians(90 - MU)))
+
+# ── 혀 자리 — 🔴 **거울 위에서만** 잡는다 (오스모 실물 구조)
+# 🔴 예전엔 혀가 거울 옆까지 내려왔다(z −0.9 ~ −11.0). 오스모는 그러지 않는다 —
+#    거울 앞과 옆은 통째로 비워 두고 **거울 위 구간에서만** 기기를 문다.
+#    그래서 위쪽이 길어야 한다. 지붕 높이를 손으로 적지 않고 **혀 길이에서 파생**시킨다.
+# 🔴 그리고 혀는 **아래쪽 끝**으로 문다(배가 아니라). 실물 혀는 위에서 아래로
+#    비스듬히 기울어 내려오고, 제일 안쪽으로 나온 데가 **끝**이다. 배로 물면
+#    닿는 자리가 폰 두께에 따라 위아래로 미끄러진다.
+TONGUE_GAP = 1.0                     # 거울 꼭대기에서 이만큼 띄운다
+TONGUE_BOT = MIR_TOP + TONGUE_GAP    # 혀 끝 = 무는 자리
+TONGUE_C   = 14.0                    # 혀 현 길이 (전부 거울 위)
+TONGUE_TOP = TONGUE_BOT + TONGUE_C   # 축
+TONGUE_Z   = (TONGUE_TOP + TONGUE_BOT) / 2
 # 🔴 축을 지붕 높이에 놓으면 **핀 반지름만큼 지붕을 뚫고 나온다**(실측 1.5mm).
-#    현의 위끝을 핀 반지름 + 살두께만큼 내려 잡는다.
-TONGUE_TOP = ROOF - PIN_D / 2 - WALL
-TONGUE_C  = TONGUE_TOP - MIR_BOT     # 축 ~ 거울 밑면
-TONGUE_Z  = (TONGUE_TOP + MIR_BOT) / 2
+ROOF      = TONGUE_TOP + PIN_D / 2 + WALL
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 
@@ -165,9 +175,12 @@ def body():
              .translate((0, -BODY_D, -BODY_H))
              .edges("|X").fillet(EDGE_R * 2))
 
-    # 폰이 들어오는 채널 — 아래로 열린다
+    # 폰이 들어오는 채널 — 아래로 열린다.
+    # 🔴 **지붕 밑까지 뚫는다.** 혀가 폰 윗변보다 위(z 0~TONGUE_TOP)에 몸을 두고
+    #    끝만 내려와 무는 구조라, 예전처럼 z −1 에서 끊으면 혀가 살 속에 갇힌다.
+    ch_top = ROOF - WALL
     outer = outer.cut(cq.Workplane("XY")
-                      .box(BODY_W + 2, CHANNEL, BODY_H, centered=(True, False, False))
+                      .box(BODY_W + 2, CHANNEL, ch_top + BODY_H + 1, centered=(True, False, False))
                       .translate((0, 0, -BODY_H - 1)))
 
     # 🔴 앞은 **막는다** — 밖(아이 쪽)에서 거울이 보이면 안 된다. 오스모도 매끈한
@@ -204,14 +217,17 @@ def body():
 def tongue():
     """활. 🔴 **폭을 세워서 뽑는다**(plate.py 가 서포트를 재서 정한 것 — 눕히면 523mm²,
     세우면 33mm²). 층 하나하나가 활 그 자체가 되어 굽힘이 층 안에서 걸린다."""
-    z_top = TONGUE_Z + TONGUE_C / 2
-    z_bot = TONGUE_Z - TONGUE_C / 2
+    z_top = TONGUE_TOP
+    z_bot = TONGUE_BOT
     y_chord = CHANNEL - 1.0
     sag = y_chord - GRIP_FREE
 
+    # 🔴 사분원이다(반원이 아니다). 예전엔 sin(π·t) 라 **한가운데가 제일 튀어나오고
+    #    양 끝이 벽에 붙었다** — 배로 무는 모양이다. 오스모 혀는 축에서 아래로
+    #    기울어 내려와 **끝이 제일 안쪽**이고, 거기 하나로만 닿는다.
     N = 20
     def curve(off):
-        return [(y_chord - sag * math.sin(math.pi * (i / N)) + off,
+        return [(y_chord - sag * math.sin(math.pi / 2 * (i / N)) + off,
                  z_top + (z_bot - z_top) * (i / N)) for i in range(N + 1)]
 
     leaf = (cq.Workplane("YZ").workplane(offset=-TONGUE_W / 2)
@@ -279,12 +295,14 @@ STEPS = [
 
 
 def bow_strain():
-    """활의 변형률 — eps = t/2·|1/R1 − 1/R2|. 외팔보 식이 아니다."""
-    c = TONGUE_C
-    h1 = (CHANNEL - 1.0) - GRIP_FREE
-    h2 = (CHANNEL - 1.0) - GRIP_MAX
-    R = lambda h: (c * c) / (8 * max(h, 0.3)) + h / 2
-    return TONGUE_T / 2 * abs(1 / R(h1) - 1 / R(h2)) * 100
+    """활의 변형률 — eps = t/2·|κ1 − κ2|. 외팔보 식이 아니다.
+
+    🔴 사분원으로 바꾸면서 식도 바꿔야 했다. 옛 식은 **현과 배부름**으로 반원의
+       반지름을 냈는데, 지금 모양은 배가 아니라 **끝**이 제일 휘어 있다.
+       y(z) = y0 − s·sin(k(z_top−z)),  k = π/(2C)  →  최대 곡률 = s·k² (끝에서).
+       두 상태의 차이는 s 의 차이뿐이므로 |κ1−κ2| = (GRIP_MAX−GRIP_FREE)·k²."""
+    k = math.pi / (2 * TONGUE_C)
+    return TONGUE_T / 2 * (GRIP_MAX - GRIP_FREE) * k * k * 100
 
 
 def main():
