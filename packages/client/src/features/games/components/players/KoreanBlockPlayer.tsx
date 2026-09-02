@@ -1,14 +1,4 @@
-import {
-  useState,
-  useCallback,
-  useMemo,
-  useRef,
-  useEffect,
-  type DragEvent as ReactDragEvent,
-  type TouchEvent as ReactTouchEvent,
-  type ReactNode,
-} from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback, useMemo, useRef, useEffect, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
@@ -18,35 +8,22 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
 import { gameSafeAreaStyle } from '../../lib/game-safe-area';
-import {
-  TutorialProvider,
-  useTutorialHighlight,
-  useTutorialIsPlaying,
-  useTutorialExpected,
-  useTutorialNotify,
-} from './KoreanBlockTutorial/KoreanBlockTutorial.context';
+import { TutorialProvider } from './KoreanBlockTutorial/KoreanBlockTutorial.context';
 import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
-import { planTutorialLayout } from './KoreanBlockTutorial/KoreanBlockTutorial.layout';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
-import { useBlockDrag } from '../../hooks/useBlockDrag';
+import { TangoBoard, toItems, canPlace, type PlacedBlock } from './TangoBoard';
+import { parseBoard } from '../../lib/tango-board/compose';
+import { nextRot } from '../../lib/tango-board/blocks';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { cn } from '@/lib/cn';
 import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
-
-type JamoType = 'cho' | 'jung' | 'jong';
-
-interface JamoBlock {
-  id: string;
-  char: string;
-  jamoType: JamoType;
-}
 
 const JUNGSUNG_SET = new Set<string>(JUNGSUNG);
 function isVowel(char: string) {
@@ -57,61 +34,7 @@ function isVowel(char: string) {
 //  - 자음: 기본 14개 (ㄱ~ㅎ) → 쌍자음 5개 (ㄲ ㄸ ㅃ ㅆ ㅉ)
 //  - 모음: 기본 10개 (ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ) → 어려운 11개 (ㅐ ㅒ ㅔ ㅖ ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ)
 // CHOSUNG/JUNGSUNG (표준 순서) 은 hangul-utils 합성/분해에 그대로 사용. 여기 reorder 는 패널 노출만.
-const CONSONANT_ORDER = [
-  'ㄱ',
-  'ㄴ',
-  'ㄷ',
-  'ㄹ',
-  'ㅁ',
-  'ㅂ',
-  'ㅅ',
-  'ㅇ',
-  'ㅈ',
-  'ㅊ',
-  'ㅋ',
-  'ㅌ',
-  'ㅍ',
-  'ㅎ',
-  'ㄲ',
-  'ㄸ',
-  'ㅃ',
-  'ㅆ',
-  'ㅉ',
-] as const;
-const VOWEL_ORDER = [
-  'ㅏ',
-  'ㅑ',
-  'ㅓ',
-  'ㅕ',
-  'ㅗ',
-  'ㅛ',
-  'ㅜ',
-  'ㅠ',
-  'ㅡ',
-  'ㅣ',
-  'ㅐ',
-  'ㅒ',
-  'ㅔ',
-  'ㅖ',
-  'ㅘ',
-  'ㅙ',
-  'ㅚ',
-  'ㅝ',
-  'ㅞ',
-  'ㅟ',
-  'ㅢ',
-] as const;
 
-const ALL_CONSONANTS: JamoBlock[] = CONSONANT_ORDER.map((ch, i) => ({
-  id: `cho-${i}`,
-  char: ch,
-  jamoType: 'cho' as JamoType,
-}));
-const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
-  id: `jung-${i}`,
-  char: ch,
-  jamoType: 'jung' as JamoType,
-}));
 // 쉬움 (easy) 는 strip UI (`EasyOrderStrip`) 로 전환 — ALL_CONSONANTS/ALL_VOWELS 패널 사용 X.
 // 보통/어려움 만 BlockPanel 사용. (이전 EASY_CONSONANTS/EASY_VOWELS slice 는 strip 도입으로 삭제)
 
@@ -197,27 +120,14 @@ export function parseSpatialKorean(grid: (string | null)[][]): string[] {
 }
 
 // 3행 × 6열 고정 그리드 — 각 행이 1음절. 단어 음절 수 ≤ 3 가정.
-const ROWS = 3;
-const COLS = 6;
 
 // 배경 일러스트 — public/images/games/korean-block-bg.png (없으면 gradient fallback).
 const BG_IMAGE_URL = '/images/games/korean-block-bg.webp';
 
-function createKoreanGhost(char: string): HTMLDivElement {
-  const ghost = document.createElement('div');
-  ghost.textContent = char;
-  const bg = isVowel(char) ? '#FF5E3A' : '#FF9A5A';
-  ghost.setAttribute(
-    'style',
-    `width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:${bg};color:white;font-size:22px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.3)`
-  );
-  return ghost;
-}
-
 function KoreanBlockPlayerInner({
   storybookId,
   gameData,
-  difficulty,
+  difficulty: _difficulty,
   onComplete: _onComplete,
   onBack,
 }: GamePlayerProps) {
@@ -242,10 +152,6 @@ function KoreanBlockPlayerInner({
   const [isWrong, setIsWrong] = useState(false);
   const [typedChars, setTypedChars] = useState(0);
   const [hintActive, setHintActive] = useState(false);
-  const isPlaying = useTutorialIsPlaying();
-  const { glowCell } = useTutorialHighlight();
-  const expected = useTutorialExpected();
-  const notifyPlacement = useTutorialNotify();
   // handleHintStart 는 쉬움 모드 strip 도입 (2026-05-20) 으로 도와줘 버튼 제거되며 사용처 없음 — setter 만 사용.
   const handleHintEnd = useCallback(() => {
     setHintActive(false);
@@ -253,13 +159,18 @@ function KoreanBlockPlayerInner({
 
   const currentItem = items[currentIndex];
 
-  const initGrid = useCallback(
-    () =>
-      Array.from({ length: ROWS }, () => Array.from({ length: COLS }, () => null as string | null)),
-    []
-  );
-
-  const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid());
+  /**
+   * 🔴 판이 실물 보드가 됐다(2026-09-02) — 글자마다 타일이 하나씩 있던 격자를 버리고,
+   *    조각 16개를 **돌리고 붙여서** 글자를 만든다(ㄱ↻ㄴ, ㄱㄱ=ㄲ, ㅏㅣ=ㅐ).
+   *    아래 로직은 전부 `composedSyllables` 만 보므로 여기 위쪽만 바뀌었다.
+   */
+  const [placed, setPlaced] = useState<PlacedBlock[]>([]);
+  const [picked, setPicked] = useState<{ id: number; rotDeg: number } | null>(null);
+  const uidRef = useRef(0);
+  const clearBoard = useCallback(() => {
+    setPlaced([]);
+    setPicked(null);
+  }, []);
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 한 번(사용자: 화면마다 멘트 통일).
@@ -274,38 +185,11 @@ function KoreanBlockPlayerInner({
   ]);
   // 게임 시작 게이트 = phonics 맵(음절→URL JSON) 로드만. 맵은 localStorage 캐시라 재진입 즉시.
   const audioReady = !phonicsLoading;
-  const drag = useBlockDrag<JamoBlock>({
-    createGhost: createKoreanGhost,
-    ghostOffset: [24, 24],
-  });
+  // 놓인 자리로 음절 인식 — 자음 오른쪽 세로모음 = 가로 조합, 아래 가로모음 = 세로 조합, 그 아래 = 받침.
+  const composedSyllables = useMemo(() => parseBoard(toItems(placed)), [placed]);
 
-  // 그리드의 공간 위치(cho 왼쪽 / jung 오른쪽 / jong 아래)로 음절 인식 — 입력 순서 무관.
-  const composedSyllables = useMemo(() => parseSpatialKorean(grid), [grid]);
-
-  // ── 쉬움 모드: 드래그 X, 순서대로 누르기 ──
-  // 4-5세 한글 학습 입문자용. cho/jung 짝씩 평탄화해서 strip 으로 노출.
-  // 다음 누를 jamo 만 활성, 클릭 → 자동 배치 + 진행. 받침은 쉬움 단어 풀에 없음 (CV only).
-  const isEasyMode = difficulty === 'easy';
-  const easyPlan = useMemo(
-    () => (isEasyMode ? planTutorialLayout(currentItem.word) : []),
-    [isEasyMode, currentItem.word]
-  );
-  const easySteps = useMemo(
-    () =>
-      easyPlan.flatMap((syl, i) => [
-        { stepIdx: i * 2, jamo: syl.cho, cell: syl.choCell, syllableIdx: i },
-        { stepIdx: i * 2 + 1, jamo: syl.jung, cell: syl.jungCell, syllableIdx: i },
-      ]),
-    [easyPlan]
-  );
-  // 현재 grid 기준 다음 step (아직 셀이 비어있는 첫 step).
-  const easyNextStepIdx = useMemo(() => {
-    if (!isEasyMode) return -1;
-    for (const s of easySteps) {
-      if (grid[s.cell[0]][s.cell[1]] === null) return s.stepIdx;
-    }
-    return -1; // 다 채워짐
-  }, [isEasyMode, easySteps, grid]);
+  // 🔴 쉬움 모드(순서 strip)는 격자 칸에 자동 배치하는 방식이라 판과 맞지 않아 뺐다.
+  //    판은 난이도가 하나다 — 조각을 고르고, 돌리고, 놓는다.
 
   // 새로 추가된 음절만 TTS 재생.
   // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)·다음절은 라이브러리 miss.
@@ -396,71 +280,54 @@ function KoreanBlockPlayerInner({
     }
   }, []);
 
-  const placeBlock = useCallback(
-    (row: number, col: number, block: JamoBlock) => {
-      if (grid[row][col] !== null) return;
-      // 튜토리얼 wait 상태에서는 expected 와 일치하는 placement 만 허용 — 잘못된 placement 는 silently ignore
-      if (expected !== null) {
-        const matchesExpected =
-          expected.jamo === block.char && expected.cell[0] === row && expected.cell[1] === col;
-        if (!matchesExpected) return;
-      }
-      setGrid((prev) => {
-        const next = prev.map((r) => [...r]);
-        next[row][col] = block.char;
-        return next;
-      });
+  const handlePlace = useCallback(
+    (x: number, y: number) => {
+      if (roundCorrect || !picked) return;
+      if (!canPlace(placed, picked.id, picked.rotDeg, x, y)) return;
+      setPlaced((prev) => [...prev, { uid: ++uidRef.current, ...picked, x, y }]);
       setIsWrong(false);
       playPlacementTick();
-      // 튜토리얼 진행 중이면 notifyPlacement — 일치 시 onCorrect callback 으로 advance
-      notifyPlacement(block.char, [row, col]);
     },
-    [grid, expected, notifyPlacement, playPlacementTick]
+    [roundCorrect, picked, placed, playPlacementTick]
   );
 
-  const onPlace = useCallback(
-    (key: string, block: JamoBlock) => {
-      const [r, c] = key.split('-');
-      placeBlock(parseInt(r), parseInt(c), block);
+  /** 판 위 조각 탭 = 돌리기. 마지막 방향에서 한 번 더 돌면 제자리로 온다. */
+  const handleRotatePlaced = useCallback(
+    (uid: number) => {
+      if (roundCorrect) return;
+      setPlaced((prev) =>
+        prev.map((b) => {
+          if (b.uid !== uid) return b;
+          const rot = nextRot(b.id, b.rotDeg);
+          // 돌린 모양이 판 밖으로 나가거나 다른 조각과 겹치면 그대로 둔다.
+          return canPlace(
+            prev.filter((o) => o.uid !== uid),
+            b.id,
+            rot,
+            b.x,
+            b.y
+          )
+            ? { ...b, rotDeg: rot }
+            : b;
+        })
+      );
+      setIsWrong(false);
     },
-    [placeBlock]
+    [roundCorrect]
   );
 
-  // 쉬움 strip 클릭 — 해당 step 의 cell 에 자동 배치
-  const handleEasyStepTap = useCallback(
-    (stepIdx: number) => {
-      if (stepIdx !== easyNextStepIdx) return; // 순서 강제
-      const step = easySteps.find((s) => s.stepIdx === stepIdx);
-      if (!step) return;
-      const block: JamoBlock = {
-        id: `easy-${stepIdx}`,
-        char: step.jamo,
-        jamoType: step.stepIdx % 2 === 0 ? 'cho' : 'jung',
-      };
-      placeBlock(step.cell[0], step.cell[1], block);
-    },
-    [easyNextStepIdx, easySteps, placeBlock]
-  );
+  /** 되돌리기 — 마지막에 놓은 조각을 집어 든다. 아이가 잘못 놓았을 때 쓰는 유일한 길. */
+  const handleUndo = useCallback(() => {
+    if (roundCorrect) return;
+    setPlaced((prev) => prev.slice(0, -1));
+    setIsWrong(false);
+  }, [roundCorrect]);
 
   const handleResetGrid = useCallback(() => {
     if (roundCorrect) return;
-    setGrid(initGrid());
+    clearBoard();
     setIsWrong(false);
-  }, [initGrid, roundCorrect]);
-
-  const handleCellClick = useCallback(
-    (row: number, col: number) => {
-      if (roundCorrect) return;
-      if (!grid[row][col]) return;
-      setGrid((prev) => {
-        const next = prev.map((r) => [...r]);
-        next[row][col] = null;
-        return next;
-      });
-      setIsWrong(false);
-    },
-    [grid, roundCorrect]
-  );
+  }, [clearBoard, roundCorrect]);
 
   // 정답 자동 체크 — 사용자가 블록 배치 완성 시 "확인" 버튼 없이 정답 처리.
   // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong 표시).
@@ -478,7 +345,7 @@ function KoreanBlockPlayerInner({
       setScene(null);
       if (fromIndex + 1 < items.length) {
         setCurrentIndex(fromIndex + 1);
-        setGrid(initGrid());
+        clearBoard();
         setHasTriedThisRound(false);
         setRoundCorrect(false);
         setIsWrong(false);
@@ -487,7 +354,7 @@ function KoreanBlockPlayerInner({
         setFinished(true);
       }
     },
-    [items.length, initGrid]
+    [items.length, clearBoard]
   );
 
   const handleCheck = useCallback(() => {
@@ -573,7 +440,6 @@ function KoreanBlockPlayerInner({
     currentItem.word,
     currentIndex,
     items,
-    initGrid,
     playAudio,
     playCorrectSequence,
     playFeedbackSound,
@@ -614,9 +480,9 @@ function KoreanBlockPlayerInner({
     setHasTriedThisRound(false);
     setRoundCorrect(false);
     setIsWrong(false);
-    setGrid(initGrid());
+    clearBoard();
     setHintActive(false);
-  }, [initGrid]);
+  }, [clearBoard]);
 
   if (finished) {
     return (
@@ -714,164 +580,49 @@ function KoreanBlockPlayerInner({
                 'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
             )}
           >
-            <div className="grid grid-rows-3 gap-[clamp(0.25rem,0.875vh,0.75rem)]">
-              {Array.from({ length: ROWS }, (_, row) => (
-                <div
-                  key={row}
-                  className="grid grid-cols-6 gap-[clamp(0.25rem,0.875vh,0.5rem)] p-0.5"
-                >
-                  {Array.from({ length: COLS }, (_, col) => {
-                    const cellKey = `${row}-${col}`;
-                    const char = grid[row][col];
-                    const correct = roundCorrect && !!char;
-                    const inner = char ? (
-                      <span
-                        className={cn(
-                          'text-[clamp(1.5rem,5vh,3rem)] font-black',
-                          isWrong
-                            ? 'text-danger'
-                            : correct
-                              ? 'text-success'
-                              : isVowel(char)
-                                ? 'text-coral-500'
-                                : 'text-peach-500'
-                        )}
-                      >
-                        {char}
-                      </span>
-                    ) : null;
-                    const isGlowing =
-                      glowCell !== null && glowCell[0] === row && glowCell[1] === col;
-                    // wait phase: expected != null. 예상 셀만 drop 허용, 나머지는 dim.
-                    const isExpectedCell =
-                      expected !== null && expected.cell[0] === row && expected.cell[1] === col;
-                    const cellDimmed = expected !== null && !isExpectedCell;
-                    const cellInteractable = !isPlaying && !cellDimmed;
-                    return (
-                      <div
-                        key={cellKey}
-                        data-grid-cell={cellKey}
-                        ref={drag.cellRef(cellKey)}
-                        onDragOver={cellInteractable ? drag.handleDragOver : undefined}
-                        onDrop={
-                          cellInteractable ? (e) => drag.handleDrop(cellKey, e, onPlace) : undefined
-                        }
-                        onClick={() => cellInteractable && handleCellClick(row, col)}
-                        className={cn(
-                          'w-[clamp(2.5rem,8vh,5.5rem)] h-[clamp(2.5rem,8vh,5.5rem)]',
-                          'rounded-2xl flex items-center justify-center select-none transition-all',
-                          !cellInteractable
-                            ? 'cursor-not-allowed'
-                            : char
-                              ? 'cursor-pointer'
-                              : 'cursor-default',
-                          char
-                            ? 'bg-white shadow-soft border-2 border-cream-50'
-                            : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200',
-                          cellInteractable &&
-                            !char &&
-                            'hover:border-coral-400 hover:bg-peach-100/80',
-                          isGlowing && 'ring-4 ring-coral-400 scale-110 bg-coral-50/80',
-                          cellDimmed && !isGlowing && 'opacity-40'
-                        )}
-                      >
-                        {correct ? (
-                          <motion.div
-                            key={`c-${char}-${cellKey}`}
-                            initial={{ scale: 1 }}
-                            animate={{ scale: [1, 1.15, 1] }}
-                            transition={{ duration: 0.4 }}
-                            className="w-full h-full flex items-center justify-center"
-                          >
-                            {inner}
-                          </motion.div>
-                        ) : (
-                          inner
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
+            {/* 🔴 지금 만들어진 글자 — 없으면 아이가 블록을 놓아도 단어를 다 맞출 때까지
+                아무 반응이 없다. 실물 프로토타입도 판 아래 이 줄을 두고 있다. */}
+            <div className="shrink-0 mb-2 flex items-center justify-center gap-2 min-h-[2.5rem]">
+              {composedSyllables.length > 0 ? (
+                <span className="text-3xl sm:text-4xl font-black font-display text-ink-900 tracking-[0.15em]">
+                  {composedSyllables.join('')}
+                </span>
+              ) : (
+                <span className="text-sm font-bold text-ink-600">블록을 올려보세요</span>
+              )}
             </div>
-            {/* 좌측 드래그 안내 — 보통/어려움 모드 전용 (드래그 인터랙션). 쉬움은 strip 헤더가 가이드. 정답 시 hide. */}
-            {!isEasyMode && !roundCorrect && (
-              <div className="absolute left-[clamp(1rem,3vw,2.5rem)] top-1/2 -translate-y-1/2 flex flex-row items-center gap-[clamp(0.375rem,1vw,0.75rem)] shrink-0 pointer-events-none select-none">
-                <div className="px-[clamp(0.875rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vh,1rem)] rounded-3xl bg-gradient-to-br from-peach-100 to-peach-200 border-[3px] border-white shadow-pop">
-                  <p className="text-[clamp(0.875rem,2vh,1.375rem)] font-black text-ink-900 font-display whitespace-pre-line text-center leading-tight">
-                    {t('blockGame.dragHint')}
-                  </p>
-                </div>
-                <motion.div
-                  className="text-[clamp(2rem,5vh,4rem)] leading-none"
-                  aria-hidden
-                  animate={{ x: [0, 8, 0] }}
-                  transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  👉
-                </motion.div>
-              </div>
-            )}
+            <TangoBoard
+              placed={placed}
+              picked={picked}
+              onPick={setPicked}
+              onPlace={handlePlace}
+              onRotatePlaced={handleRotatePlaced}
+              disabled={roundCorrect}
+            />
+          </section>
 
-            {/* 확인 (큰) + 초기화 (작은) — 그리드는 화면 가운데, 버튼은 absolute 로 우측 띄움. */}
-            <div className="absolute right-[clamp(1rem,3vw,2.5rem)] top-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0">
+          {/* 섹션 3 — 조작 안내 + 되돌리기/지우기. 판이 곧 트레이를 품고 있어 별도 패널이 없다. */}
+          <div className="shrink-0 flex items-center justify-between gap-2 flex-wrap px-1">
+            <span className="text-xs sm:text-sm font-bold text-ink-700 break-keep">
+              {picked ? '판을 눌러 놓아요 · 한 번 더 누르면 돌아가요' : '조각을 골라요'}
+            </span>
+            <div className="flex gap-2">
               <button
-                onClick={handleCheck}
-                disabled={roundCorrect || isPlaying}
-                className={cn(
-                  'px-[clamp(2rem,5vw,4rem)] py-[clamp(0.75rem,2.25vh,1.5rem)] rounded-3xl text-[clamp(1.25rem,3.5vh,2.25rem)] font-black transition-all',
-                  roundCorrect || isPlaying
-                    ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
-                    : 'bg-gradient-to-b from-coral-400 to-coral-600 text-white shadow-pop hover:scale-105 active:scale-95'
-                )}
+                onClick={handleUndo}
+                disabled={roundCorrect || placed.length === 0}
+                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
               >
-                {t('blockGame.check')}
+                ↩ 되돌리기
               </button>
               <button
                 onClick={handleResetGrid}
-                disabled={roundCorrect || isPlaying}
-                title={t('blockGame.resetTitle')}
-                className={cn(
-                  'px-[clamp(0.875rem,2.25vw,1.5rem)] py-[clamp(0.25rem,1vh,0.625rem)] rounded-2xl text-[clamp(0.875rem,2vh,1.125rem)] font-bold transition-all flex items-center justify-center gap-1.5',
-                  roundCorrect || isPlaying
-                    ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
-                    : 'bg-white/95 text-ink-700 shadow-soft hover:bg-white hover:scale-105 active:scale-95'
-                )}
+                disabled={roundCorrect || placed.length === 0}
+                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
               >
-                <span aria-hidden>↺</span>
-                <span>{t('blockGame.reset')}</span>
+                ↺ {t('blockGame.reset')}
               </button>
             </div>
-          </section>
-
-          {/* 섹션 3 — 쉬움: 순서 strip (클릭하면 자동 배치). 보통/어려움: 자음·모음 패널 (드래그, 동일 폭). */}
-          {isEasyMode ? (
-            <EasyOrderStrip
-              steps={easySteps}
-              grid={grid}
-              nextStepIdx={easyNextStepIdx}
-              onTap={handleEasyStepTap}
-              disabled={roundCorrect}
-            />
-          ) : (
-            // 자음/모음 패널 — 가로 풀폭 50/50, 세로 비중 3 (짧은 화면에서 2줄 타일 확보).
-            <div className="flex-[3] min-h-0 flex flex-row gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
-              <div className="flex-1 flex">
-                <BlockPanel title={t('blockGame.consonants')} tone="consonant">
-                  {ALL_CONSONANTS.map((b) => (
-                    <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-                  ))}
-                </BlockPanel>
-              </div>
-              <div className="flex-1 flex">
-                <BlockPanel title={t('blockGame.vowels')} tone="vowel">
-                  {ALL_VOWELS.map((b) => (
-                    <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-                  ))}
-                </BlockPanel>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
       <KoreanBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
@@ -904,167 +655,3 @@ export function KoreanBlockPlayer(props: GamePlayerProps) {
 // ────────────────────────────────────────────────────────────────────────────
 // 쉬움 모드 — 순서 strip (드래그 X, 클릭으로 자동 배치)
 // ────────────────────────────────────────────────────────────────────────────
-
-interface EasyStep {
-  stepIdx: number;
-  jamo: string;
-  cell: [number, number];
-  syllableIdx: number;
-}
-
-function EasyOrderStrip({
-  steps,
-  grid,
-  nextStepIdx,
-  onTap,
-  disabled,
-}: {
-  steps: EasyStep[];
-  grid: (string | null)[][];
-  nextStepIdx: number;
-  onTap: (stepIdx: number) => void;
-  disabled: boolean;
-}) {
-  const { t } = useTranslation('games');
-  return (
-    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.75rem,1.5vw,1rem)] pt-[clamp(2rem,6vh,4rem)] pb-[clamp(0.5rem,1.5vh,1.25rem)] border-2 border-dashed border-cream-50 shrink-0">
-      <div className="absolute -top-[clamp(1.25rem,3vh,2rem)] left-1/2 -translate-x-1/2">
-        <span className="px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.375rem,1.25vh,0.875rem)] rounded-full text-white text-[clamp(0.875rem,2.25vh,1.5rem)] font-black font-display shadow-pop border-[3px] border-white flex items-center gap-2 whitespace-nowrap bg-gradient-to-b from-coral-400 to-coral-600">
-          <span className="text-[clamp(1rem,2.5vh,1.625rem)]">⭐</span>
-          <span>{t('blockGame.orderPrompt')}</span>
-          <span className="text-[clamp(1rem,2.5vh,1.625rem)]">⭐</span>
-        </span>
-      </div>
-      <div className="flex flex-row gap-[clamp(0.25rem,1vh,0.75rem)] justify-center items-center flex-wrap">
-        {steps.map((s) => {
-          const placed = grid[s.cell[0]][s.cell[1]] !== null;
-          const isNext = s.stepIdx === nextStepIdx;
-          const vowel = isVowel(s.jamo);
-          const interactable = isNext && !disabled;
-          return (
-            <motion.button
-              key={s.stepIdx}
-              // 🔴 위임 탭음을 끈다 — 배치음(`playPlacementTick`)을 플레이어가 따로 내므로
-              //    `GlobalUiSound` 의 자동 tap 과 겹쳐 소리가 두 번 났다.
-              data-sound="none"
-              onClick={() => interactable && onTap(s.stepIdx)}
-              disabled={!interactable}
-              animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-              transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
-              className={cn(
-                'w-[clamp(2.5rem,7vh,4.5rem)] h-[clamp(2.5rem,7vh,4.5rem)] rounded-2xl flex items-center justify-center font-black text-[clamp(1.25rem,4vh,2.5rem)] select-none shadow-md transition-all',
-                placed
-                  ? 'bg-success/15 text-success-700 border-[3px] border-success/40 cursor-not-allowed'
-                  : isNext
-                    ? cn(
-                        'cursor-pointer ring-4 ring-coral-300 shadow-pop',
-                        vowel
-                          ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
-                          : 'bg-gradient-to-b from-warn to-peach-500 text-white'
-                      )
-                    : cn(
-                        'opacity-40 cursor-not-allowed',
-                        vowel
-                          ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
-                          : 'bg-gradient-to-b from-warn to-peach-500 text-white'
-                      )
-              )}
-              style={{ textShadow: '0 2px 0 rgba(0,0,0,0.12)' }}
-              aria-label={s.jamo}
-            >
-              {placed ? '✓' : s.jamo}
-            </motion.button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function BlockPanel({
-  title,
-  tone,
-  children,
-}: {
-  title: string;
-  tone: 'consonant' | 'vowel';
-  children: ReactNode;
-}) {
-  return (
-    <div className="relative w-full rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50">
-      {/* 헤더 칩 */}
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-        <span
-          className={cn(
-            'px-4 py-1 rounded-full text-white text-xs sm:text-sm font-black shadow-md flex items-center gap-1 whitespace-nowrap',
-            tone === 'consonant'
-              ? 'bg-gradient-to-b from-warn to-peach-500'
-              : 'bg-gradient-to-b from-coral-400 to-coral-600'
-          )}
-        >
-          ⭐ {title} ⭐
-        </span>
-      </div>
-      <div className="grid grid-cols-11 gap-[clamp(0.25rem,0.75vh,0.5rem)]">{children}</div>
-    </div>
-  );
-}
-
-function BlockTile({
-  block,
-  drag,
-  onPlace,
-}: {
-  block: JamoBlock;
-  drag: ReturnType<typeof useBlockDrag<JamoBlock>>;
-  onPlace: (key: string, block: JamoBlock) => void;
-}) {
-  const vowel = isVowel(block.char);
-  const { popJamo } = useTutorialHighlight();
-  const isPlaying = useTutorialIsPlaying();
-  const expected = useTutorialExpected();
-  const popping = popJamo === block.char;
-  // wait phase: expected != null. 예상 자모만 활성, 나머지는 dim + 드래그 X.
-  const dimmed = expected !== null && expected.jamo !== block.char;
-  const interactable = !isPlaying && !dimmed;
-  return (
-    <motion.div
-      data-jamo-tile={block.char}
-      draggable={interactable}
-      // framer-motion 의 onDrag* 시그니처는 PanInfo 기반 → HTML5 DragEvent 와 충돌.
-      // 런타임은 정상 DragEvent 발생. 타입만 cast.
-      onDragStart={((e: ReactDragEvent) => interactable && drag.handleDragStart(block, e)) as never}
-      onTouchStart={
-        ((e: ReactTouchEvent) => interactable && drag.handleTouchStart(block, e)) as never
-      }
-      onTouchMove={drag.handleTouchMove as never}
-      onTouchEnd={
-        ((e: ReactTouchEvent) => interactable && drag.handleTouchEnd(e, onPlace)) as never
-      }
-      animate={
-        popping
-          ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
-          : { scale: 1, rotate: 0 }
-      }
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={cn(
-        // 🔴 그리드 열 너비에 맞춰 축소(고정폭이면 grid-cols-11 에서 좁은 폭 시 타일끼리 겹침).
-        // 정사각 유지 + 큰 화면은 3rem 캡(기존 룩), 좁은 폰트는 min(2.5vh,열폭)로 자연 축소.
-        'w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,3vh,1.4rem)] leading-none select-none',
-        interactable ? 'cursor-grab' : 'cursor-not-allowed',
-        interactable && 'hover:scale-110 active:scale-95 active:cursor-grabbing',
-        'shadow-md transition-all',
-        popping && 'ring-4 ring-coral-300 shadow-pop',
-        dimmed && 'opacity-30',
-        vowel
-          ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
-          : 'bg-gradient-to-b from-warn to-peach-500 text-white'
-      )}
-      style={{
-        textShadow: '0 2px 0 rgba(0,0,0,0.12)',
-      }}
-    >
-      {block.char}
-    </motion.div>
-  );
-}
