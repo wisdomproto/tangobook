@@ -291,6 +291,26 @@ export const SERIES = {
   /** 🔴 17 — 앙상블형(호리·대발이 결). 손님 등록부가 없다: 고정 캐스트 다섯이 돌고 **한 편에 최대 셋**이다.
    *  캐스트가 여럿이고 권마다 일부만 나오므로, 그 권에 처음 나오는 인물은 **등장 쪽에서 한 조각으로** 밝힌다
    *  (아이가 어느 권을 첫 권으로 집을지 모른다 → docs/changjak-books/CLAUDE.md §처음 나오는 인물). */
+  bami: {
+    no: '18',
+    title: '밤이네 작은 역',
+    icon: '🦉',
+    awardRef: 'boyd-flashlight',
+    sub: '올빼미 아이 밤이와 역장 아빠 · 산골 간이역 사계절 · <b>호리형</b>(주인공 하나, 결점은 권마다 · 손님은 기차로) · 그림체 = 과슈, 어두운 종이 위에 등불만 칠한다',
+    form: 'debari',
+    pen: { author: '오하람', illustrator: '유하람' },
+    // 🔴 이 시리즈만 ink1/ink2 가 밝은 칠 둘이고 overlap 이 어둠이다(종이가 어둠) — 키 이름만 읽으면 문제없다
+    palette: { paper: '#75695F', ink1: '#F4DFA4', ink2: '#D6DEE2', overlap: '#27221E', accent: '#1F9E92' },
+    accentWhere: '밤이의 뜬 목도리 하나 (목=추움 / 배에 묶음=더움 / 난로 옆 못=잠). 25권 통틀어 청록은 그것뿐 — 신호등·깃발·우편함에도 안 쓴다',
+    cast: [
+      { key: 'bami',   name: '밤이', face: '🦉', aliases: ['밤이', 'Bami owl', 'Bami'] },
+      { key: 'father', name: '아빠', face: '🦉', aliases: ['아빠', '역장 아빠', 'Father owl', 'Stationmaster'] },
+      { key: 'mother', name: '엄마', face: '🦉', aliases: ['엄마', '매점 엄마', 'Mother owl'] },
+      { key: 'nabi',   name: '나비', face: '🐱', aliases: ['나비', 'Nabi cat', 'Nabi'] },
+      { key: 'pipi',   name: '삐삐', face: '🐦', aliases: ['삐삐', 'Pipi sparrow', 'Pipi'] },
+    ],
+    guests: BAMI_GUESTS,
+  },
   moya: {
     no: '17',
     title: '모야네 물웅덩이',
