@@ -113,7 +113,7 @@ def _tilt(shape):
 
 
 def light_cone(length=70.0):
-    """빛이 지나는 길. 어떤 살도 여기 있으면 카메라가 못 본다."""
+    """거울에서 **나가는** 길만. 들어오는 길은 `light_in()` 이다 — `light_path()` 를 써라."""
     mu = math.radians(MU)
     dy, dz = -math.cos(2 * mu), -math.sin(2 * mu)
     h, v = fov()
@@ -127,6 +127,29 @@ def light_cone(length=70.0):
             .rect(w0, h0).workplane(offset=length - start).rect(w1, h1).loft()
             .rotate((0, 0, 0), (1, 0, 0), phi)
             .translate((0, -CAM_GAP, -CAM_DROP)))
+
+
+def light_in():
+    """🔴 **카메라에서 거울까지**. 여기를 안 파서 모델이 통째로 안 되는 상태였다 —
+    채널 앞벽(두께 WALL)이 카메라 정면을 막고 있었고, 잘린 단면(4.17×2.57)이 그
+    자리의 광추와 정확히 같았다. 즉 일부가 아니라 **전부** 막혀 있었다.
+
+    🔴 여태 못 잡은 이유: `light_cone()` 은 거울에서 **나가는 쪽만** 판다(y −65~−5.5).
+       그런데 검사는 `몸체 ∩ light_cone` 을 봤고, body() 가 그 통로를 잘라내므로
+       **무슨 짓을 해도 0 이 나온다**. 검사가 아니라 항등식이었다.
+    🔴 원뿔이 아니라 **각기둥**으로 판다 — 카메라 자리가 폰마다 몇 mm 씩 다르고,
+       딱 맞는 원뿔로 파면 그 어긋남이 곧 비네팅이 된다. 창 크기로 곧게 뚫는다.
+    ⚠ `Workplane("XZ").extrude()` 로 만들지 말 것 — 부호를 어느 쪽으로 줘도
+       **채널 안쪽으로** 뻗어서(실측 폰과 952mm³ 겹침) 정작 벽은 안 판다.
+       y 범위를 손으로 정할 수 있는 box 로 만든다."""
+    return (cq.Workplane("XY")
+            .box(APER_W, CAM_GAP + 0.5, APER_H, centered=(True, False, True))
+            .translate((0, -CAM_GAP, -CAM_DROP)))
+
+
+def light_path(length=70.0):
+    """빛이 지나는 길 전부 — 들어오는 길 + 나가는 길. 어떤 살도 여기 있으면 못 본다."""
+    return light_in().union(light_cone(length))
 
 
 # ─────────────────────────────────────────── 부품 1. 몸체 (한 덩어리)
@@ -173,7 +196,7 @@ def body():
              .box(BODY_W, MIR_T + 2 * CLR, MIR_H + 2 * CLR, centered=(False, True, True)))
     outer = outer.cut(_tilt(slot)).cut(_tilt(entry))
 
-    return outer.cut(light_cone())
+    return outer.cut(light_path())
 
 
 # ─────────────────────────────────────────── 부품 2. 혀 (활 스프링)
@@ -298,18 +321,37 @@ def main():
     print(f"   {'전부 안에 있다' if allok else '⚠ 고칠 것'}")
     print()
 
-    cone = light_cone()
+    # 🔴 빛 통로 검사 — **들어오는 길과 나가는 길을 따로** 잰다.
+    #    예전엔 나가는 길만 재고, 게다가 그걸 `몸체 ∩ light_cone` 으로 봤다.
+    #    body() 가 그 통로를 잘라내므로 **항상 0** 이다 — 검사가 아니라 항등식이었다.
+    #    그 사이 채널 앞벽(두께 WALL)이 카메라 정면을 통째로 막고 있었고 아무도 몰랐다.
+    #    이제 **폰까지 포함해** 두 구간을 다 잰다. 폰은 잘라낼 수 없으니 진짜 검사다.
+    def _vol(s):
+        try:
+            return sum(so.Volume() for so in s.val().Solids())
+        except Exception:
+            return 0.0
+
+    inb, outb = light_in(), light_cone()
+    print("  빛이 지나는 길을 막는 게 있나 (mm³ · 0 이어야 한다)")
+    ok_light = True
+    for nm, sh in (("몸체", body()), ("혀", tongue()), ("폰", phone())):
+        # 폰은 채널 쪽 0.5mm 를 일부러 물고 있다(벽을 뚫으려면 통로가 폰에 닿아야 한다)
+        allow = APER_W * APER_H * 0.5 + 1.0 if nm == "폰" else 0.5
+        a, b2 = _vol(inb.intersect(sh)), _vol(outb.intersect(sh))
+        bad = (a > allow) or (b2 > 0.5)
+        ok_light = ok_light and not bad
+        print(f"   {nm:3s}  들어오는 길 {a:7.1f}   나가는 길 {b2:7.1f}"
+              + ("   OK" if not bad else "   ★ 막는다"))
+    print(f"   {'통로 깨끗하다' if ok_light else '⚠ 고칠 것'}")
+    print()
+
     for n, f in PARTS.items():
         s = f()
         cq.exporters.export(s, os.path.join(OUT, n + ".stl"))
         cq.exporters.export(s, os.path.join(OUT, n + ".step"))
         b = s.val().BoundingBox()
-        try:
-            blocked = s.intersect(cone).val().Volume() / 1000.0
-        except Exception:
-            blocked = 0.0
-        mark = "" if (blocked < 0.02 or n == "print_mirror") else "  ← 빛을 막는다"
-        print(f"  {n:14s} {b.xlen:5.1f} × {b.ylen:5.1f} × {b.zlen:5.1f} mm{mark}")
+        print(f"  {n:14s} {b.xlen:5.1f} × {b.ylen:5.1f} × {b.zlen:5.1f} mm")
 
 
 if __name__ == "__main__":
