@@ -219,7 +219,13 @@ export function TangoBoard({
       {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
           (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
       <div className="shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200 p-1.5 sm:p-2">
-        <div className="flex flex-wrap gap-1 sm:gap-1.5 justify-center items-center">
+        {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
+            라이브러리 표지 줄과 같은 규칙(스크롤바만 숨기고 네이티브 스크롤 유지). */}
+        <div
+          className="flex flex-nowrap gap-1 sm:gap-1.5 items-center justify-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="group"
+          aria-label="블록 고르기"
+        >
           {TRAY_CHO.map((e) => (
             <TrayPiece key={e.id} entry={e} picked={picked} onPick={onPick} />
           ))}
