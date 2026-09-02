@@ -540,11 +540,13 @@ function KoreanBlockPlayerInner({
         )}
 
         {/* 메인 — 3 섹션 세로 stack. 세로 비율 1.5:1.5:1 (flex-[3]:[3]:[2]). 가로 풀폭. */}
-        <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] min-h-0">
+        <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] short:gap-1 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] short:py-0.5 min-h-0">
           {/* 섹션 1 — 타겟 단어 + 그림 hero. 세로 비중 2 (짧은 가로화면에서 자모 키보드에 공간 양보). */}
-          <section className="flex-[1] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
+          {/* 🔴 짧은 화면에서는 이 줄이 판을 굶긴다 — 375px 높이에서 목표 단어·조합 표시·버튼이
+              158px 을 먹고 판에 29px 만 남았다. `short:` 로 눌러 판에 넘긴다. */}
+          <section className="flex-[1] min-h-0 shrink-0 short:flex-none rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
             {currentItem.imageUrl && (
-              <div className="relative shrink-0">
+              <div className="relative shrink-0 short:hidden">
                 <img
                   src={currentItem.imageUrl}
                   alt={currentItem.word}
@@ -553,10 +555,12 @@ function KoreanBlockPlayerInner({
                 <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
               </div>
             )}
+            {/* 🔴 짧은 화면(폰 가로)에서는 20vh 가 75px 이라 이 한 줄이 판을 굶긴다.
+                `min()` 에 세로 상한을 하나 더 끼워 짧을 때만 작아지게 한다. */}
             <h1
               className="font-display font-black leading-none whitespace-nowrap"
               style={{
-                fontSize: 'clamp(2.5rem, min(12vw, 20vh), 12rem)',
+                fontSize: 'clamp(1.75rem, min(12vw, 20vh, 9vh + 1rem), 12rem)',
                 color: '#FF7A3C',
                 WebkitTextStroke: 'clamp(3px, 0.6vh, 6px) white',
                 paintOrder: 'stroke fill',
@@ -582,9 +586,9 @@ function KoreanBlockPlayerInner({
           >
             {/* 🔴 지금 만들어진 글자 — 없으면 아이가 블록을 놓아도 단어를 다 맞출 때까지
                 아무 반응이 없다. 실물 프로토타입도 판 아래 이 줄을 두고 있다. */}
-            <div className="shrink-0 mb-2 flex items-center justify-center gap-2 min-h-[2.5rem]">
+            <div className="shrink-0 mb-2 short:mb-0.5 flex items-center justify-center gap-2 min-h-[2.5rem] short:min-h-0">
               {composedSyllables.length > 0 ? (
-                <span className="text-3xl sm:text-4xl font-black font-display text-ink-900 tracking-[0.15em]">
+                <span className="text-3xl sm:text-4xl short:text-xl font-black font-display text-ink-900 tracking-[0.15em]">
                   {composedSyllables.join('')}
                 </span>
               ) : (

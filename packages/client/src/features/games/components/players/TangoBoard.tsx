@@ -10,9 +10,14 @@ import {
 import type { PlacedItem } from '../../lib/tango-board/compose';
 import { cn } from '@/lib/cn';
 
-/** 판 칸 수 — 실물 프로토타입(`public/tango-board.html`)과 같다. */
+/**
+ * 판 칸 수. 폭은 실물 인식판과 같은 24칸.
+ * 🔴 **높이는 8칸이다**(인식판은 10칸). 한 음절이 쓰는 세로는 받침까지 넣어도 8칸이 최대라
+ *    (자음 3 + 가로모음 2 + 받침 3 = 8 · 세로모음 5 + 받침 3 = 8) 나머지 두 줄은 늘 비어 있고,
+ *    그 두 줄이 칸 크기를 20% 깎는다. 좁은 화면에서 그 차이가 놀 수 있냐 없냐를 가른다.
+ */
 export const COLS = 24;
-export const ROWS = 10;
+export const ROWS = 8;
 
 export interface PlacedBlock {
   uid: number;
@@ -170,7 +175,7 @@ export function TangoBoard({
   }, []);
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3">
+    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1">
       {/* 🔴 판이 남는 높이를 **먹고** 트레이는 제 높이를 지킨다. 예전엔 판이 폭 기준(24:10)이라
           납작한 화면(태블릿 가로 768 · 폰 가로 375)에서 트레이를 화면 밖으로 11~80px 밀어냈다. */}
       <div className="flex-1 min-h-0 flex justify-center">
@@ -218,7 +223,7 @@ export function TangoBoard({
 
       {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
           (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
-      <div className="shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200 p-1.5 sm:p-2">
+      <div className="shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200 p-1.5 sm:p-2 short:p-0.5 short:border">
         {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
             라이브러리 표지 줄과 같은 규칙(스크롤바만 숨기고 네이티브 스크롤 유지). */}
         <div
