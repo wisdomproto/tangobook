@@ -241,6 +241,71 @@ export const BAMI_GUESTS = {
   }
 };
 
+
+// 시리즈 19 「달이네 등대」 손님 등록부 — 손님은 배로 온다. 신호 = 끼룩이 「배다!」
+export const DARI_GUESTS = {
+  "Guest pelican": {
+    "key": "pelican",
+    "name": "우체선 아저씨",
+    "aliases": [
+      "Guest pelican",
+      "우체선 아저씨",
+      "펠리컨"
+    ],
+    "desc": "큰 부리 펠리컨. 어깨에 우편 자루. 배에서 내릴 때 부리에 편지 하나를 물고 있다."
+  },
+  "Guest otter": {
+    "key": "otter",
+    "name": "낚시꾼 아저씨",
+    "aliases": [
+      "Guest otter",
+      "낚시꾼 아저씨",
+      "수달"
+    ],
+    "desc": "수달. 낚싯대와 양동이. 모자에 낚싯바늘이 하나 꽂혀 있다."
+  },
+  "Guest turtle": {
+    "key": "turtle",
+    "name": "의사 선생님",
+    "aliases": [
+      "Guest turtle",
+      "의사 선생님",
+      "바다거북"
+    ],
+    "desc": "바다거북. 왕진 가방을 등딱지 옆에 멘다. 아주 천천히 걷는다."
+  },
+  "Guest cormorant": {
+    "key": "cormorant",
+    "name": "등대 검사 아주머니",
+    "aliases": [
+      "Guest cormorant",
+      "등대 검사 아주머니",
+      "가마우지"
+    ],
+    "desc": "가마우지. 공책과 구명조끼 한 벌. 목이 길고 검다."
+  },
+  "Guest granny": {
+    "key": "granny",
+    "name": "할머니",
+    "aliases": [
+      "Guest granny",
+      "할머니",
+      "뭍 할머니"
+    ],
+    "desc": "뭍에서 배 타고 온 물범 할머니. 보자기 꾸러미 하나. 수염이 희다."
+  },
+  "Guest market": {
+    "key": "market",
+    "name": "장터 사람들",
+    "aliases": [
+      "Guest market",
+      "장터 사람들",
+      "장터"
+    ],
+    "desc": "항구 장터의 여러 종(게·갈매기·수달). 좌판 뒤에 서 있다. 얼굴은 안 그린다(배경)."
+  }
+};
+
 export const SERIES = {
   pongi: {
     no: '01', title: '퐁이네 운하 마을', icon: '🦦',
