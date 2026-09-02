@@ -67,7 +67,9 @@ PIN_D     = 3.0                      # 프린팅이라 굵게
 #    처음엔 채널을 통째로 메우는 22×10×17 덩어리로 뒀는데, 그건 판보다 크고
 #    조립품에서 훤히 보인다. 축 가까이 두면 **지렛대가 짧아 눌리는 양도 작다** —
 #    끝이 4mm 움직여도 축에서 5mm 자리는 5/21 배인 1mm 만 눌린다. 그래서 작아도 된다.
-FOAM_ARM  = 8.0                      # 축에서 이만큼 아래를 민다
+# 🔴 폼 자리도 **혀 길이에 비례**로 잡는다 — 8mm 로 박아 두면 혀가 짧아졌을 때
+#    끝 쪽으로 밀려난다(11mm 혀에 8mm 면 거의 끝이다).
+FOAM_ARM_R = 0.40                    # 축에서 혀 길이의 이 비율만큼 아래
 FOAM_W    = 12.0
 FOAM_H    = 6.0
 CHANNEL   = GRIP_MAX + PLATE_T + 1.0        # 제일 두꺼운 폰 + 판 + 여유
@@ -112,15 +114,19 @@ MIR_TOP   = -(CAM_DROP - (MIR_H / 2) * math.cos(math.radians(90 - MU)))
 #    그건 무는 게 아니라 윗변에 얹힌 것이다.
 #    🔴 「거울 앞을 비워라」는 **앞쪽(y<0)** 이야기다. 혀는 채널 뒤(y 6~13)에 있어서
 #       애초에 거울을 가릴 수 없다 — 높이로 피할 일이 아니었다.
+# 🔴 **거울 위 높이**가 이 부품의 키를 정한다. 20mm 로 뒀더니 몸체가 28.7mm 로
+#    오스모(32)에 가깝게 커졌는데, 우리는 거울을 폰에 9mm 까지 붙여 얇은 게 이점이다.
+#    절반으로 줄인다 — 혀 길이도 여기서 따라 줄어든다(손으로 안 적는다).
+ABOVE_MIR  = 10.0                    # 거울 꼭대기 위로 올라가는 높이
 PHONE_TOP  = -1.0                    # 폰 윗변이 닿는 자리 (지붕 밑 여유 1mm)
 GRIP_DEEP  = 8.5                     # 폰 윗변에서 이만큼 내려간 데를 문다
 #    ⚠ 10.0 이면 말린 끝(반지름 2.1)이 몸체 밑면 밖으로 0.1mm 만 남기고 나온다.
 TONGUE_BOT = PHONE_TOP - GRIP_DEEP   # 혀 끝 = 무는 자리
-TONGUE_TOP = 11.5                    # 축 — 위를 길게 (오스모처럼)
-TONGUE_C   = TONGUE_TOP - TONGUE_BOT # 혀 현 길이
-TONGUE_Z   = (TONGUE_TOP + TONGUE_BOT) / 2
 # 🔴 축을 지붕 높이에 놓으면 **핀 반지름만큼 지붕을 뚫고 나온다**(실측 1.5mm).
-ROOF      = TONGUE_TOP + PIN_D / 2 + WALL
+ROOF       = MIR_TOP + ABOVE_MIR
+TONGUE_TOP = ROOF - PIN_D / 2 - WALL   # 축
+TONGUE_C   = TONGUE_TOP - TONGUE_BOT   # 혀 현 길이
+TONGUE_Z   = (TONGUE_TOP + TONGUE_BOT) / 2
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 
@@ -284,7 +290,7 @@ def foam():
     t = foam_gap()
     return (cq.Workplane("XY")
             .box(FOAM_W, t, FOAM_H, centered=(True, False, True))
-            .translate((0, CHANNEL - t, TONGUE_TOP - FOAM_ARM)))
+            .translate((0, CHANNEL - t, TONGUE_TOP - FOAM_ARM_R * (TONGUE_TOP - TONGUE_BOT))))
 
 
 PARTS = {"print_body": body, "print_tongue": tongue, "print_mirror": mirror}
@@ -359,7 +365,7 @@ def foam_gap():
     폼 두께가 서로 안 맞물린다(그렇게 적어 놨다가 40% 눌린 채로 「쉬는」 상태가 됐다)."""
     L = TONGUE_TOP - TONGUE_BOT
     sag = PIVOT_Y - GRIP_FREE
-    y_face = PIVOT_Y - sag * math.sin(math.pi / 2 * FOAM_ARM / L)
+    y_face = PIVOT_Y - sag * math.sin(math.pi / 2 * FOAM_ARM_R)
     return CHANNEL - (y_face + PLATE_T)
 
 
@@ -369,7 +375,7 @@ def foam_squeeze():
     폴리우레탄 폼은 70% 까지는 눌러도 되살아나고, 그 위로는 바닥을 친다.
 
     🔴 축에서의 거리로 **줄여서** 잰다 — 끝이 움직인 만큼 폼이 눌리는 게 아니다."""
-    lever = FOAM_ARM / (TONGUE_TOP - TONGUE_BOT)
+    lever = FOAM_ARM_R
     t = foam_gap()
     lo = (GRIP_MIN - GRIP_FREE) * lever / t * 100
     hi = (GRIP_MAX - GRIP_FREE) * lever / t * 100
@@ -386,7 +392,7 @@ def main():
     print(f"  거울각 {MU:.0f}° → 하향 {PAD_TILT + 2*MU - 90:.0f}°   화각 {h:.0f}° × {v:.0f}°")
     print(f"  무는 두께 {GRIP_MIN:.0f}~{GRIP_MAX:.0f}mm · 쉴 때 틈 {GRIP_FREE:.0f}mm")
     lo, hi = foam_squeeze()
-    print(f"  폼 압축 {lo:.0f}~{hi:.0f}%  ({FOAM_W:.0f}×{FOAM_H:.0f}×{foam_gap():.1f}mm · 축에서 {FOAM_ARM:.0f}mm)"
+    print(f"  폼 압축 {lo:.0f}~{hi:.0f}%  ({FOAM_W:.0f}×{FOAM_H:.0f}×{foam_gap():.1f}mm · 축에서 {FOAM_ARM_R*(TONGUE_TOP-TONGUE_BOT):.1f}mm)"
           f"  {'OK' if hi <= 72 and lo >= 5 else '⚠ 폼 두께를 다시'}")
     g = grip_span()
     print(f"  혀가 무는 길이 {g:.1f}mm  (혀 끝 z {TONGUE_BOT:.1f} · 폰 윗변 z {PHONE_TOP:.1f})"
