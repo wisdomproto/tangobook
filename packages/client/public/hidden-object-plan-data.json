@@ -1,6 +1,6 @@
 {
   "category": "세계 명작",
-  "promptLine": "Draw a HIDDEN OBJECT PICTURE for a 4-to-7-year-old, from the story \"{{book}}\".\n\nThe FIRST attached image is a page from this book — copy its art style exactly.\nThe other attached images show the objects — copy their shape, colour and material.\n\n- FIRST choose a single moment in this story where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.\n- ONE single wide scene, 3:2 landscape, in EXACTLY the art style, palette and character design of the attached page illustration.\n- Every object in the list must be somewhere in the picture. A missing one makes that word unplayable.\n- Each object appears EXACTLY ONCE. Never draw two of the same object anywhere in the picture.\n- Every object must TOUCH the world: resting on a surface, leaning against something, hanging from a hook, held by someone, half inside a basket. Nothing floats in mid-air, and nothing sits on a spot where it could not physically stay.\n- Every object casts the same kind of shadow and catches the same light as the things around it. It must look like it was built with the scene, not pasted on top of it.\n- Objects may be partly covered by what is in front of them — up to about a quarter of the object. This is wanted: a thing peeking out from behind a chair reads as part of the room. Never cover more than a quarter, and never let an object run off the edge of the picture.\n- Turn objects to whatever angle the place would put them. Do not lay them out flat and face-on like a catalogue.\n- Each object is big enough for a small child to tap: at least 1/12 of the picture width.\n- Match the attached object cards for shape, colour and material — but not for pose. The card shows what the thing is, not how it must sit.\n- Fill the scene with ordinary surroundings so the objects are not alone on empty ground, but keep it calm enough not to read as noise.\n- No text, no letters, no numbers, no speech bubbles, no arrows, no circles marking anything, no border frame, no watermark.\n- Do not draw a puzzle sheet or a checklist strip. This is a picture, not a worksheet.\n\nOBJECTS TO HIDE ({{n}}) — put each one in the scene, findable but belonging there:\n{{objects}}\n{{sceneryBlock}}",
+  "promptLine": "Draw one busy storybook scene for a 4-to-7-year-old, from the story \"{{book}}\".\n\nThe FIRST attached image is a page from this book — copy its art style exactly.\nThe other attached images show the objects — copy their shape, colour and material.\n\n- FIRST choose a single moment in this story where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.\n- ONE single wide scene, 3:2 landscape, in EXACTLY the art style, palette and character design of the attached page illustration.\n- Every object in the list must be somewhere in the picture. A missing one makes that word unplayable.\n- Each object appears EXACTLY ONCE in the whole picture. If a character is holding one, that held one is the only one — do not also stand another nearby. Check the finished picture for accidental second copies in the background.\n- Every object must TOUCH the world: resting on a surface, leaning against something, hanging from a hook, held by someone, half inside a basket. Nothing floats in mid-air, and nothing sits on a spot where it could not physically stay.\n- Every object casts the same kind of shadow and catches the same light as the things around it. It must look like it was built with the scene, not pasted on top of it.\n- Objects may be partly covered by what is in front of them — up to about a quarter of the object. This is wanted: a thing peeking out from behind a chair reads as part of the room. Never cover more than a quarter, and never let an object run off the edge of the picture.\n- Turn objects to whatever angle the place would put them. Do not lay them out flat and face-on like a catalogue.\n- Each object is big enough for a small child to tap: at least 1/12 of the picture width.\n- Match the attached object cards for shape, colour and material — but not for pose. The card shows what the thing is, not how it must sit.\n- Fill the scene with ordinary surroundings so the objects are not alone on empty ground, but keep it calm enough not to read as noise.\n- Never put a number, a letter, a badge, a circle, a ring or any other marker on or beside an object. No numbered tags, no legend, no key, no inset strip of things to find, no caption bar.\n- No text of any kind anywhere: no letters, no numbers, no speech bubbles, no arrows, no border frame, no watermark, no signature.\n- This is simply an illustration from the book. It is not a puzzle sheet, not a worksheet, not an activity page.\n\nOBJECTS TO HIDE ({{n}}) — put each one in the scene, findable but belonging there:\n{{objects}}\n{{sceneryBlock}}",
   "sceneryBlock": "\nPART OF THE SETTING ({{sn}}) — these are NOT objects to hide, and must not be drawn as\nseparate props. Build the scene so each is plainly there and takes up its own area of the\npicture, the way a garden or a forest does:\n{{scenery}}",
   "sections": [
     {
@@ -156,9 +156,21 @@
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Corn-1779766312288-w800.webp"
             },
             {
+              "ko": "수프",
+              "en": "soup",
+              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Soup-1779766315577-w800.webp",
+              "draw": "soup — draw it as a filled bowl of soup standing on a table or held by someone"
+            },
+            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-tree-1779766317033-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-wind-1779766319647-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [],
@@ -183,9 +195,21 @@
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Corn-1779766455774-w800.webp"
             },
             {
+              "ko": "수프",
+              "en": "soup",
+              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Soup-1779766457500-w800.webp",
+              "draw": "soup — draw it as a filled bowl of soup standing on a table or held by someone"
+            },
+            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-tree-1779766458909-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-wind-1779766462559-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [],
@@ -210,9 +234,21 @@
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Corn-1779776355110-w800.webp"
             },
             {
+              "ko": "수프",
+              "en": "soup",
+              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-Soup-1779766607174-w800.webp",
+              "draw": "soup — draw it as a filled bowl of soup standing on a table or held by someone"
+            },
+            {
               "ko": "나무",
               "en": "tree",
               "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-tree-1779776240293-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1772082243436-개미와베짱이-keyobj-wind-1779776243144-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [],
@@ -458,6 +494,12 @@
           "pageImage": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-illustration-page8-1781257150111.webp",
           "words": [
             {
+              "ko": "가죽",
+              "en": "Leather",
+              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Leather-1783558911072-w800.webp",
+              "draw": "leather — draw it as one piece of hide lying on a workbench"
+            },
+            {
               "ko": "구두",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1783558912921-w800.webp"
@@ -505,6 +547,12 @@
           "pageImage": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-illustration-page8-1779444633780.webp",
           "words": [
             {
+              "ko": "가죽",
+              "en": "Leather",
+              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Leather-1779779659356-w800.webp",
+              "draw": "leather — draw it as one piece of hide lying on a workbench"
+            },
+            {
               "ko": "구두",
               "en": "shoes",
               "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Shoes-1779779662221-w800.webp"
@@ -551,6 +599,12 @@
           "styleId": "style-1778824179240",
           "pageImage": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-illustration-page8-1779584733786.webp",
           "words": [
+            {
+              "ko": "가죽",
+              "en": "Leather",
+              "card": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-Leather-1779780225958-w800.webp",
+              "draw": "leather — draw it as one piece of hide lying on a workbench"
+            },
             {
               "ko": "구두",
               "en": "shoes",
@@ -733,6 +787,12 @@
               "ko": "까마귀",
               "en": "crow",
               "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-까마귀-1783560600464-w800.webp"
+            },
+            {
+              "ko": "얼음",
+              "en": "ice",
+              "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-얼음-1783560839307-w800.webp",
+              "draw": "ice — draw it as one solid block of ice, or a cluster of icicles hanging from an edge"
             }
           ],
           "scenery": [],
@@ -760,6 +820,12 @@
               "ko": "까마귀",
               "en": "crow",
               "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-까마귀-1779787019021-w800.webp"
+            },
+            {
+              "ko": "얼음",
+              "en": "ice",
+              "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-얼음-1779787021598-w800.webp",
+              "draw": "ice — draw it as one solid block of ice, or a cluster of icicles hanging from an edge"
             }
           ],
           "scenery": [],
@@ -787,6 +853,12 @@
               "ko": "까마귀",
               "en": "crow",
               "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-까마귀-1779786788083-w800.webp"
+            },
+            {
+              "ko": "얼음",
+              "en": "ice",
+              "card": "https://assets.tangobook.co.kr/1777276113613-눈의여왕-keyobj-얼음-1779786791280-w800.webp",
+              "draw": "ice — draw it as one solid block of ice, or a cluster of icicles hanging from an edge"
             }
           ],
           "scenery": [],
@@ -809,6 +881,12 @@
               "ko": "바구니",
               "en": "basket",
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-바구니-1779847743853-w800.webp"
+            },
+            {
+              "ko": "밀가루",
+              "en": "flour",
+              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-밀가루-1779847799305-w800.webp",
+              "draw": "flour — draw it as an open sack or a jar of flour"
             },
             {
               "ko": "가위",
@@ -838,6 +916,12 @@
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-바구니-1779789560091-w800.webp"
             },
             {
+              "ko": "밀가루",
+              "en": "flour",
+              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-밀가루-1779789637357-w800.webp",
+              "draw": "flour — draw it as an open sack or a jar of flour"
+            },
+            {
               "ko": "가위",
               "en": "scissors",
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-가위-1779847899316-w800.webp"
@@ -863,6 +947,12 @@
               "ko": "바구니",
               "en": "basket",
               "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-바구니-1779789916508-w800.webp"
+            },
+            {
+              "ko": "밀가루",
+              "en": "flour",
+              "card": "https://assets.tangobook.co.kr/1777276046428-늑대와일곱마리아기염소-keyobj-밀가루-1779789838902-w800.webp",
+              "draw": "flour — draw it as an open sack or a jar of flour"
             },
             {
               "ko": "가위",
@@ -1446,6 +1536,12 @@
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-갈매기-1779849888494-w800.webp"
             },
             {
+              "ko": "보물",
+              "en": "treasure",
+              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-보물-1779849909170-w800.webp",
+              "draw": "treasure — draw it as one open treasure chest with coins inside"
+            },
+            {
               "ko": "앵무새",
               "en": "parrot",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-앵무새-1779849901367-w800.webp"
@@ -1490,6 +1586,12 @@
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-갈매기-1779847680259-w800.webp"
             },
             {
+              "ko": "보물",
+              "en": "treasure",
+              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-보물-1779847673332-w800.webp",
+              "draw": "treasure — draw it as one open treasure chest with coins inside"
+            },
+            {
               "ko": "앵무새",
               "en": "parrot",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-앵무새-1779847686860-w800.webp"
@@ -1532,6 +1634,12 @@
               "ko": "갈매기",
               "en": "seagull",
               "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-갈매기-1779847289364-w800.webp"
+            },
+            {
+              "ko": "보물",
+              "en": "treasure",
+              "card": "https://assets.tangobook.co.kr/1777284655559-보물섬-keyobj-보물-1779847461372-w800.webp",
+              "draw": "treasure — draw it as one open treasure chest with coins inside"
             },
             {
               "ko": "앵무새",
@@ -1581,6 +1689,12 @@
               "ko": "나뭇잎",
               "en": "leaf",
               "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-나뭇잎-1779876043362-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-wind-1779876075225-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [],
@@ -1603,6 +1717,12 @@
               "ko": "나뭇잎",
               "en": "leaf",
               "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-나뭇잎-1779877118598-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-wind-1779877120184-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [],
@@ -1625,6 +1745,12 @@
               "ko": "나뭇잎",
               "en": "leaf",
               "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-나뭇잎-1779876328471-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777274748674-북풍과태양-keyobj-wind-1779876329793-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [],
@@ -1647,6 +1773,12 @@
               "ko": "기타",
               "en": "guitar",
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Guitar-1779934142891-w800.webp"
+            },
+            {
+              "ko": "음식",
+              "en": "food",
+              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-음식-1779934294864-w800.webp",
+              "draw": "food — draw it as one plate or platter of food on a table"
             },
             {
               "ko": "숟가락",
@@ -1676,6 +1808,12 @@
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Guitar-1779934350933-w800.webp"
             },
             {
+              "ko": "음식",
+              "en": "food",
+              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-음식-1779934358452-w800.webp",
+              "draw": "food — draw it as one plate or platter of food on a table"
+            },
+            {
               "ko": "숟가락",
               "en": "spoon",
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-숟가락-1779934360239-w800.webp"
@@ -1701,6 +1839,12 @@
               "ko": "기타",
               "en": "guitar",
               "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-Guitar-1779934413261-w800.webp"
+            },
+            {
+              "ko": "음식",
+              "en": "food",
+              "card": "https://assets.tangobook.co.kr/1772097729467-브레멘음악대-keyobj-음식-1779934414844-w800.webp",
+              "draw": "food — draw it as one plate or platter of food on a table"
             },
             {
               "ko": "숟가락",
@@ -1851,6 +1995,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-마차-1783561403438-w800.webp"
+            },
+            {
+              "ko": "눈물",
+              "en": "tears",
+              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-tears-1783409500855-w800.webp",
+              "draw": "tears — draw one or two large teardrops on the cheek of a character, big enough to tap"
             }
           ],
           "scenery": [
@@ -1878,6 +2028,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-마차-1782785550294-w800.webp"
+            },
+            {
+              "ko": "눈물",
+              "en": "tears",
+              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-tears-1782786174355-w800.webp",
+              "draw": "tears — draw one or two large teardrops on the cheek of a character, big enough to tap"
             }
           ],
           "scenery": [
@@ -1905,6 +2061,12 @@
               "ko": "마차",
               "en": "carriage",
               "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-마차-1783409545900-w800.webp"
+            },
+            {
+              "ko": "눈물",
+              "en": "tears",
+              "card": "https://assets.tangobook.co.kr/1777277632597-빨간머리앤-keyobj-tears-1783409847506-w800.webp",
+              "draw": "tears — draw one or two large teardrops on the cheek of a character, big enough to tap"
             }
           ],
           "scenery": [
@@ -2238,6 +2400,12 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-병정-1783410485595-w800.webp"
             },
             {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-wind-1783410493875-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
+            },
+            {
               "ko": "다리",
               "en": "leg",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-leg-1783410499294-w800.webp"
@@ -2284,6 +2452,12 @@
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-병정-1782786615981-w800.webp"
             },
             {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-wind-1782786626564-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
+            },
+            {
               "ko": "다리",
               "en": "leg",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-leg-1782786621704-w800.webp"
@@ -2328,6 +2502,12 @@
               "ko": "병정",
               "en": "soldier",
               "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-병정-1783410756545-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777274769616-성냥갑병정-keyobj-wind-1783410763756-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             },
             {
               "ko": "다리",
@@ -2963,6 +3143,12 @@
               "ko": "난로",
               "en": "fireplace",
               "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fireplace-1783553434435-w800.webp"
+            },
+            {
+              "ko": "불",
+              "en": "fire",
+              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fire-1783553438658-w800.webp",
+              "draw": "fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames"
             }
           ],
           "scenery": [
@@ -3000,6 +3186,12 @@
               "ko": "난로",
               "en": "fireplace",
               "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fireplace-1779169914319-w800.webp"
+            },
+            {
+              "ko": "불",
+              "en": "fire",
+              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fire-1779777008255-w800.webp",
+              "draw": "fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames"
             }
           ],
           "scenery": [
@@ -3037,6 +3229,12 @@
               "ko": "난로",
               "en": "fireplace",
               "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fireplace-1783553434435-w800.webp"
+            },
+            {
+              "ko": "불",
+              "en": "fire",
+              "card": "https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-fire-1783553438658-w800.webp",
+              "draw": "fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames"
             }
           ],
           "scenery": [
@@ -3199,6 +3397,12 @@
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-장미-1783410869172-w800.webp"
             },
             {
+              "ko": "지구",
+              "en": "Earth",
+              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-지구-1783410653559-w800.webp",
+              "draw": "Earth — draw it as one globe on a stand"
+            },
+            {
               "ko": "여우",
               "en": "Fox",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-여우-1783410656160-w800.webp"
@@ -3207,6 +3411,12 @@
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-꼬리-1783410865510-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-wind-1783410665068-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [
@@ -3236,6 +3446,12 @@
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-장미-1782788195278-w800.webp"
             },
             {
+              "ko": "지구",
+              "en": "Earth",
+              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-지구-1782788200996-w800.webp",
+              "draw": "Earth — draw it as one globe on a stand"
+            },
+            {
               "ko": "여우",
               "en": "Fox",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-여우-1782788224559-w800.webp"
@@ -3244,6 +3460,12 @@
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-꼬리-1782788225830-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-wind-1782788205139-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [
@@ -3273,6 +3495,12 @@
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-장미-1783410202907-w800.webp"
             },
             {
+              "ko": "지구",
+              "en": "Earth",
+              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-지구-1783410212610-w800.webp",
+              "draw": "Earth — draw it as one globe on a stand"
+            },
+            {
               "ko": "여우",
               "en": "Fox",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-여우-1783410216639-w800.webp"
@@ -3281,6 +3509,12 @@
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-꼬리-1783410383733-w800.webp"
+            },
+            {
+              "ko": "바람",
+              "en": "wind",
+              "card": "https://assets.tangobook.co.kr/1777277215628-어린왕자-keyobj-wind-1783410222722-w800.webp",
+              "draw": "wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap"
             }
           ],
           "scenery": [
@@ -4235,6 +4469,12 @@
               "ko": "호랑이",
               "en": "tiger",
               "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-호랑이-1782794622793-w800.webp"
+            },
+            {
+              "ko": "불",
+              "en": "fire",
+              "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-불-1782794726632-w800.webp",
+              "draw": "fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames"
             }
           ],
           "scenery": [],
@@ -4277,6 +4517,12 @@
               "ko": "호랑이",
               "en": "tiger",
               "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-호랑이-1783413447952-w800.webp"
+            },
+            {
+              "ko": "불",
+              "en": "fire",
+              "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-불-1783413449599-w800.webp",
+              "draw": "fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames"
             }
           ],
           "scenery": [],
@@ -4319,6 +4565,12 @@
               "ko": "호랑이",
               "en": "tiger",
               "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-호랑이-1783413840621-w800.webp"
+            },
+            {
+              "ko": "불",
+              "en": "fire",
+              "card": "https://assets.tangobook.co.kr/1772197180029-정글북-keyobj-불-1783413842189-w800.webp",
+              "draw": "fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames"
             }
           ],
           "scenery": [],
@@ -4857,6 +5109,12 @@
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-그림-1783410428804-w800.webp"
             },
             {
+              "ko": "우유",
+              "en": "milk",
+              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-우유-1783410432426-w800.webp",
+              "draw": "milk — draw it as a jug or a glass of milk standing on a surface"
+            },
+            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-꼬리-1783410435108-w800.webp"
@@ -4897,6 +5155,12 @@
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-그림-1782794843280-w800.webp"
             },
             {
+              "ko": "우유",
+              "en": "milk",
+              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-우유-1782795094317-w800.webp",
+              "draw": "milk — draw it as a jug or a glass of milk standing on a surface"
+            },
+            {
               "ko": "꼬리",
               "en": "tail",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-꼬리-1782795096701-w800.webp"
@@ -4935,6 +5199,12 @@
               "ko": "그림",
               "en": "picture",
               "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-그림-1783410723979-w800.webp"
+            },
+            {
+              "ko": "우유",
+              "en": "milk",
+              "card": "https://assets.tangobook.co.kr/1777277618365-플란다스의개-keyobj-우유-1783410729846-w800.webp",
+              "draw": "milk — draw it as a jug or a glass of milk standing on a surface"
             },
             {
               "ko": "꼬리",
@@ -5373,9 +5643,21 @@
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-침대-1783402779399-w800.webp"
             },
             {
+              "ko": "우유",
+              "en": "milk",
+              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-우유-1783402796716-w800.webp",
+              "draw": "milk — draw it as a jug or a glass of milk standing on a surface"
+            },
+            {
               "ko": "휠체어",
               "en": "wheelchair",
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-휠체어-1783402800688-w800.webp"
+            },
+            {
+              "ko": "눈물",
+              "en": "tears",
+              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-눈물-1783403175167-w800.webp",
+              "draw": "tears — draw one or two large teardrops on the cheek of a character, big enough to tap"
             }
           ],
           "scenery": [
@@ -5400,9 +5682,21 @@
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-침대-1782799633705-w800.webp"
             },
             {
+              "ko": "우유",
+              "en": "milk",
+              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-우유-1782799645345-w800.webp",
+              "draw": "milk — draw it as a jug or a glass of milk standing on a surface"
+            },
+            {
               "ko": "휠체어",
               "en": "wheelchair",
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-휠체어-1782800453181-w800.webp"
+            },
+            {
+              "ko": "눈물",
+              "en": "tears",
+              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-눈물-1782800411480-w800.webp",
+              "draw": "tears — draw one or two large teardrops on the cheek of a character, big enough to tap"
             }
           ],
           "scenery": [
@@ -5427,9 +5721,21 @@
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-침대-1783402587590-w800.webp"
             },
             {
+              "ko": "우유",
+              "en": "milk",
+              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-우유-1783402446109-w800.webp",
+              "draw": "milk — draw it as a jug or a glass of milk standing on a surface"
+            },
+            {
               "ko": "휠체어",
               "en": "wheelchair",
               "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-휠체어-1783402444772-w800.webp"
+            },
+            {
+              "ko": "눈물",
+              "en": "tears",
+              "card": "https://assets.tangobook.co.kr/1777284736052-하이디-keyobj-눈물-1783572171223.webp",
+              "draw": "tears — draw one or two large teardrops on the cheek of a character, big enough to tap"
             }
           ],
           "scenery": [

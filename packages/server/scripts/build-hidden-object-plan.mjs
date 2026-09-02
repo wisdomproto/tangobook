@@ -52,7 +52,7 @@ const GENRE_ORDER = ['paper3d', 'watercolor', 'collage'];
  * 그래서 낱말을 갈라 **역할을 다르게** 준다:
  *   - `SCENERY` — 배경으로 **그려 넣는다**(숨기지 않는다). 박스는 그 영역에 치면 되므로
  *     게임은 성립한다. 「숲을 숨겨라」가 아니라 「숲이 있는 장면을 그려라」.
- *   - `UNDRAWABLE` — 뺀다. 바람·눈물처럼 **한 덩어리로 그릴 수 없는 것**은 박스도 못 친다.
+ *   - `DRAW_AS` — 덩어리가 없어 보이는 낱말(바람·수프·불…)에 **그릴 형태**를 준다. 빼지 않는다.
  *   - 나머지 = 사물. 이것만 숨긴다.
  *
  * ⚠️ 목록은 명작 48권의 낱말 167개를 눈으로 훑어 만들었다. 다른 라인(`--category=`)을 돌리면
@@ -95,20 +95,34 @@ const SCENERY = new Set([
   '별',
   '파도',
 ]);
-const UNDRAWABLE = new Set([
-  // 한 덩어리로 그릴 수 없어 박스를 칠 수 없는 것 — 뺀다
-  '바람',
-  '불',
-  '얼음',
-  '눈물',
-  '음식',
-  '보물',
-  '우유',
-  '밀가루',
-  '수프',
-  '지구',
-  '가죽',
-]);
+/**
+ * 🔴 **덩어리가 없어 보이는 낱말에는 「그릴 형태」를 준다 — 빼지 않는다.**
+ *
+ * 처음엔 바람·수프·불·눈물·음식 등 11개를 **뺐다**. 두 번의 지적으로 그 전제가 통째로 틀렸다는
+ * 게 드러났다:
+ *   ① "바람은 하늘 위에 있는 건 안 어색해 보이는데?" — 종이공예 소용돌이로 그린 바람은
+ *      **하나의 덩어리**다. 그림책이 원래 그렇게 그리고, 박스도 쳐진다.
+ *   ② "어차피 게임할 때는 아래쪽에 맞춰야 할 그림이 보일 거니까" — 실제로 `HiddenObjectPlayer`
+ *      가 화면 아래에 **낱말 카드 그림 + 낱말**을 함께 띄운다(`thumbnailUrl` + `label`).
+ *      그러니 **낱말이 모호한지는 문제가 아니다** — 아이는 카드를 보고 찾는다.
+ *
+ * 남는 기준은 하나뿐이다: **한 덩어리로 박스를 칠 수 있는가.** 그 기준으로는 11개가 다 된다.
+ * 지붕 위에 떠 있던 수프는 *못 그릴 낱말*이라서가 아니라 *놓을 자리를 안 정해 줘서* 그랬고,
+ * 그건 「세상에 닿아라」 규칙과 아래 형태 지정이 함께 고친다.
+ */
+const DRAW_AS = {
+  바람: 'wind — draw it as ONE stylised swirl of curling lines in the sky, the way a picture book shows wind, big enough to tap',
+  불: 'fire — draw it as a fire burning in a hearth, stove or campfire, not as loose flames',
+  수프: 'soup — draw it as a filled bowl of soup standing on a table or held by someone',
+  우유: 'milk — draw it as a jug or a glass of milk standing on a surface',
+  밀가루: 'flour — draw it as an open sack or a jar of flour',
+  얼음: 'ice — draw it as one solid block of ice, or a cluster of icicles hanging from an edge',
+  보물: 'treasure — draw it as one open treasure chest with coins inside',
+  음식: 'food — draw it as one plate or platter of food on a table',
+  눈물: 'tears — draw one or two large teardrops on the cheek of a character, big enough to tap',
+  가죽: 'leather — draw it as one piece of hide lying on a workbench',
+  지구: 'Earth — draw it as one globe on a stand',
+};
 
 /**
  * 씬 규칙.
@@ -128,7 +142,9 @@ const SCENE_RULES = [
   `- FIRST choose a single moment in this story where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.`,
   `- ONE single wide scene, 3:2 landscape, in EXACTLY the art style, palette and character design of the attached page illustration.`,
   `- Every object in the list must be somewhere in the picture. A missing one makes that word unplayable.`,
-  `- Each object appears EXACTLY ONCE. Never draw two of the same object anywhere in the picture.`,
+  // 🔴 첫 판에서 **기타가 둘**이었다(베짱이가 든 것 + 나무에 기댄 것). 그러면 어느 쪽에
+  //    박스를 쳐야 할지 정할 수 없어 그 낱말이 통째로 못 쓰게 된다.
+  `- Each object appears EXACTLY ONCE in the whole picture. If a character is holding one, that held one is the only one — do not also stand another nearby. Check the finished picture for accidental second copies in the background.`,
   // 🔴 「얹힘」을 고치는 줄들 — 접촉·그림자·가림·기울기
   `- Every object must TOUCH the world: resting on a surface, leaning against something, hanging from a hook, held by someone, half inside a basket. Nothing floats in mid-air, and nothing sits on a spot where it could not physically stay.`,
   `- Every object casts the same kind of shadow and catches the same light as the things around it. It must look like it was built with the scene, not pasted on top of it.`,
@@ -137,8 +153,12 @@ const SCENE_RULES = [
   `- Each object is big enough for a small child to tap: at least 1/12 of the picture width.`,
   `- Match the attached object cards for shape, colour and material — but not for pose. The card shows what the thing is, not how it must sit.`,
   `- Fill the scene with ordinary surroundings so the objects are not alone on empty ground, but keep it calm enough not to read as noise.`,
-  `- No text, no letters, no numbers, no speech bubbles, no arrows, no circles marking anything, no border frame, no watermark.`,
-  `- Do not draw a puzzle sheet or a checklist strip. This is a picture, not a worksheet.`,
+  // 🔴 **실제로 나온 것을 이름으로 집어 금지한다**(2026-08-21). 「no numbers」 만으로는
+  //    ①②③④ 배지가 그대로 나왔다 — 모델은 그걸 「그림 속 글자」가 아니라 「찾기 놀이의 표시」로
+  //    본 듯하다. 그래서 배지·범례·번호를 따로 이름 붙여 막는다.
+  `- Never put a number, a letter, a badge, a circle, a ring or any other marker on or beside an object. No numbered tags, no legend, no key, no inset strip of things to find, no caption bar.`,
+  `- No text of any kind anywhere: no letters, no numbers, no speech bubbles, no arrows, no border frame, no watermark, no signature.`,
+  `- This is simply an illustration from the book. It is not a puzzle sheet, not a worksheet, not an activity page.`,
 ];
 
 /**
@@ -147,7 +167,11 @@ const SCENE_RULES = [
  */
 function promptLine() {
   return [
-    `Draw a HIDDEN OBJECT PICTURE for a 4-to-7-year-old, from the story "{{book}}".`,
+    // 🔴 **「HIDDEN OBJECT」라는 장르 이름을 쓰지 않는다**(2026-08-21 실측). 그 말을 쓰면
+    //    모델이 시중 찾기 문제집 포맷을 불러와 **사물마다 ①②③④ 번호 배지**를 붙였다 —
+    //    프롬프트 아래쪽에 `no numbers` 를 적어 뒀는데도 장르 관성이 그걸 이겼다.
+    //    금지어를 늘리는 대신 **부르는 이름을 바꾼다**: 그냥 이야기의 한 장면이다.
+    `Draw one busy storybook scene for a 4-to-7-year-old, from the story "{{book}}".`,
     ``,
     `The FIRST attached image is a page from this book — copy its art style exactly.`,
     `The other attached images show the objects — copy their shape, colour and material.`,
@@ -207,7 +231,6 @@ if (!Object.keys(genreOf).length) {
 
 const entries = [];
 const skipped = [];
-const undrawable = [];
 
 for (const k of await listStorybookKeys()) {
   const sb = await getJsonByKey(k).catch(() => null);
@@ -221,11 +244,6 @@ for (const k of await listStorybookKeys()) {
       en: (o.nameEn || o.name || '').trim(),
     }))
     .filter((w) => w.ko && w.en && !/[가-힣]/.test(w.en));
-  // 🔴 한 덩어리로 못 그리는 낱말은 **여기서 뺀다** — 넣어 두면 모델이 장식 무늬(바람)나
-  //    허공에 뜬 그릇(수프)을 그리고, 그건 박스를 칠 수 없어 게임에서 못 쓴다.
-  const dropped = words.filter((w) => UNDRAWABLE.has(w.ko));
-  for (const w of dropped) undrawable.push(`${sb.title}: ${w.ko}`);
-  words = words.filter((w) => !UNDRAWABLE.has(w.ko));
   if (!words.length) {
     skipped.push(`${sb.title}: 쓸 낱말 0개`);
     continue;
@@ -258,7 +276,8 @@ for (const k of await listStorybookKeys()) {
       // 🔴 사물과 배경을 갈라 담는다 — 프롬프트가 둘에 다른 지시를 준다.
       words: words
         .filter((w) => !SCENERY.has(w.ko))
-        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w) })),
+        // `draw` 가 있으면 화면이 목록에 **영어 낱말 대신 그 문장**을 싣는다.
+        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w), draw: DRAW_AS[w.ko] })),
       scenery: words.filter((w) => SCENERY.has(w.ko)).map((w) => ({ ko: w.ko, en: w.en })),
     });
   }
@@ -298,10 +317,8 @@ console.log(
   `  숨길 사물 합계 ${wordCount}개 (칸당 평균 ${(wordCount / entries.length).toFixed(1)})`
 );
 const sceneryCount = entries.reduce((n, e) => n + e.scenery.length, 0);
-console.log(`  배경으로 돌린 낱말 ${sceneryCount}개 · 못 그려서 뺀 낱말 ${undrawable.length}개`);
-if (undrawable.length) {
-  console.log(`    뺀 것: ${[...new Set(undrawable.map((s) => s.split(': ')[1]))].join(' · ')}`);
-}
+const shaped = entries.reduce((n, e) => n + e.words.filter((w) => w.draw).length, 0);
+console.log(`  배경으로 돌린 낱말 ${sceneryCount}개 · 그릴 형태를 지정한 낱말 ${shaped}개`);
 if (skipped.length) {
   console.log(`  건너뜀 ${skipped.length}건:`);
   for (const s of skipped.slice(0, 10)) console.log(`    - ${s}`);
