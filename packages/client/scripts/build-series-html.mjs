@@ -27,11 +27,13 @@ const inline = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.
 /** 🔴 25권 표는 **자리가 아니라 행 수**로 찾는다 — `_design.md` 마다 앞에 놓인 표 개수가 다르다
  *  (퐁이는 설계 표가 넷 먼저 온다). 25권 시리즈에 데이터 25행짜리 표는 하나뿐이라 모호하지 않다. */
 function mdTable25(md) {
-  for (let n = 0; n < 12; n += 1) {
+  // 🔴 호리편(26~50)이 붙은 시리즈는 25행 표가 **둘**이다 — 전부 이어 붙인다.
+  const out = [];
+  for (let n = 0; n < 16; n += 1) {
     const t = mdTable(md, n);
-    if (t && (t.match(/<tr>/g) || []).length === 26) return t; // 머리 1 + 데이터 25
+    if (t && (t.match(/<tr>/g) || []).length === 26) out.push(t); // 머리 1 + 데이터 25
   }
-  return '';
+  return out.join('\n');
 }
 
 /** n번째 마크다운 표를 HTML 로. */
@@ -257,7 +259,7 @@ ${guestTag}<script src="/${key}-core.js"></script>
     : `<span class="sw">${label} ${esc(v)}</span>`;
   const plan = `${HEAD(cfg.title, css, `${cfg.title} — 기획서`)}
 <header class="hero">
-  <div class="kicker">창작동화 시리즈 ${cfg.no} · 25권 250쪽</div>
+  <div class="kicker">창작동화 시리즈 ${cfg.no} · ${books.size}권 ${books.size * 10}쪽</div>
   <h1>${cfg.title}</h1>
   <div class="sub">${cfg.sub}</div>
   <div class="by">${byline}</div>
@@ -280,7 +282,7 @@ ${cfg.cast.map((c) => `  <div class="cast-card">
   </div>`).join('\n')}
 </div>
 
-<h2 class="sec">3. 25권</h2>
+<h2 class="sec">3. ${books.size}권${books.size > 25 ? ' — 앞 25 = 원래 축 · 뒤 25 = 호리편(은행 주제)' : ''}</h2>
 <p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
 ${mdTable25(DESIGN) || mdTable(DESIGN, 2) || mdTable(DESIGN, 1)}
 

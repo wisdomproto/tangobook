@@ -41,7 +41,7 @@ function checkSeries(key) {
   const scenes = loadScenes(path.join(DOCS, key));
   const fail = [], warn = [];
 
-  if (books.size !== 25) fail.push(`권수 ${books.size} (25 여야 한다)`);
+  if (books.size % 25 !== 0) fail.push(`권수 ${books.size} (25 의 배수여야 한다 — 호리편이 붙으면 50)`);
 
   let talkTotal = 0, charTotal = 0, pageTotal = 0;
   for (const [id, bk] of [...books].sort((a, b) => a[0].localeCompare(b[0]))) {

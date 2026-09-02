@@ -10,7 +10,8 @@ import path from 'node:path';
  */
 export function parseBooks(srcDir) {
   const books = new Map();
-  for (const f of ['01-03.md', '04-14.md', '15-25.md']) {
+  // 🔴 26-50.md = 호리편(2026-09-02, 1~15 시리즈에 은행 주제 25권을 더 얹었다). 없으면 그냥 25권.
+  for (const f of ['01-03.md', '04-14.md', '15-25.md', '26-50.md']) {
     const p = path.join(srcDir, f);
     if (!fs.existsSync(p)) continue;
     const s = fs.readFileSync(p, 'utf8');
@@ -18,7 +19,7 @@ export function parseBooks(srcDir) {
       const start = m.index;
       const nx = s.indexOf('\n## ', start + 1);
       const body = s.slice(start, nx < 0 ? s.length : nx);
-      const meta = (body.match(/^\*\*(?:원함|주인공)\*\*.*$/m) || [''])[0];
+      const meta = (body.match(/^\*\*(?:원함|주인공|문제)\*\*.*$/m) || [''])[0];
       const pages = [...body.matchAll(/\*\*p(\d+)\*\*\n([\s\S]*?)(?=\n\*\*p\d+\*\*|\n---|$)/g)].map((pm) => ({
         n: +pm[1],
         ko: pm[2].trim().split('\n').map((l) => l.trim()).filter(Boolean).join(' '),
