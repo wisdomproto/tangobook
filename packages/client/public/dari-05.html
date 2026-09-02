@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>달이네 등대 — 깜깜해도 옆에 있어!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#EE6B8D; --slope:#24486E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">달이네 등대 · 05</div>
+  <h1>깜깜해도 옆에 있어!</h1>
+  <div class="sub"></div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>유하람</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 등불 끄지 마!" 등대지기 아빠가 침실 작은 등불을 후— 끄려는 참이에요. 달이가 이불을 코까지 끌어올려요. "깜깜하면 무섭단 말이야. 켜 놓고 잘래!" 옆 요람에선 아기 동생 콩알이 벌써 새근새근 자요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"콩알이 자야 하니까 불은 끄자. 아빠는 바로 위 꼭대기 방에 있을게." 아빠가 등불을 후— 껐어요. 방이 온통 깜깜! 달이 가슴이 콩닥콩닥.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둥근 창으로 꼭대기 방 등대 불빛이 빙— 지나가요. 그때 벽에 크고 뾰족한 그림자가 스윽! "으으… 저게 뭐지?" 달이는 눈을 질끈 감고 오들오들 떨어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"흑흑…" 작은 울음소리에 아빠가 계단을 내려왔어요. "달이야, 무서웠구나. 괜찮아, 깜깜해도 아빠가 옆에 있어." 아빠가 작은 등불을 다시 켜고 달이 옆에 앉아 앞발을 꼭 잡아 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 다정하게 물었어요. "무엇이 무서웠어?" 달이가 벽을 가리켰어요. "저기… 뾰족한 괴물이요." 아빠가 고개를 끄덕여요. "그럴 수 있어. 우리 하나씩 살펴볼까?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 등불을 벽 쪽으로 들어 올렸어요. 파앗— "봐, 이건 아빠 비옷이랑 모자였네!" 뾰족했던 괴물은 벽에 걸린 비옷이었어요. 달이 눈이 동그래졌어요. "우와… 괴물이 아니었네?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 달이가 등불을 들었어요. 구석의 둥근 그림자를 파앗— "이건 조개 바구니다!" 흔들흔들 그림자도 파앗— "이건 콩알 요람이야!" 하나씩 비추니 무서운 게 하나도 없어요. 달이가 아빠 곁에 바짝 붙어 속삭여요. "깜깜해도 옆에 있어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">달이는 이제 하나도 안 무서워요. "깜깜한 건 그냥 등불이 꺼진 것뿐이구나!" 달이가 이불 속에서 꼬리지느러미를 탁! 쳐요. 요람의 콩알이 꿈결에 방긋 웃어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 알려 줬어요. 무서울 땐 이렇게 해요. "하나, '무서워' 하고 말하기! 둘, 등불로 하나씩 살펴보기! 셋, 옆 사람 앞발 꼭 잡기!" 달이는 아빠 앞발을 꼭 잡고 고개를 끄덕끄덕해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 달이를 폭 안아 주고, 작은 등불을 아주 작게 켜 놓았어요. "무서운 마음이 들어도 괜찮아. 아빠가 옆에 있으니까." 깜깜해도 옆에 있어! 달이는 콩알 요람 옆에서 스르르 잠들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+</div>
+<script src="/dari-core.js"></script>
+</body>
+</html>

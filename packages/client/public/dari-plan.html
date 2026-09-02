@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>달이네 등대 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#EE6B8D; --slope:#24486E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">창작동화 시리즈 19 · 25권 250쪽</div>
+  <h1>달이네 등대</h1>
+  <div class="sub">물범 아이 달이와 등대지기 가족 · 섬 끝 등대의 사계절 · <b>호리형</b>(주제 25개 = 호리 45편 은행에서, 권마다 그 편을 표본으로) · 그림체 = 흰 왁스 크레용 먼저, 파란 워시 한 번 나중</div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>유하람</b></div>
+</header>
+
+<div class="note">🔴 <b>이 기획서가 SSOT 가 아닙니다.</b> 본문은 <code>docs/changjak-books/dari/*.md</code>, 앵커는 <code>docs/art-direction/dari-anchor.md</code> 가 원본이고 이 페이지는 거기서 생성됩니다(<code>build-series-html.mjs</code>). 회차는 왼쪽 <b>☰ 회차</b>에서.</div>
+
+<h2 class="sec">1. 축</h2>
+<table><thead><tr><th>방</th><th>거기 있는 것</th><th>거기서 나는 일</th></tr></thead><tbody><tr><td><b>부엌</b></td><td>식탁 · 난로 · 미역 · 생선 · 조개 · 국그릇</td><td>밥 · 편식 · 꼭꼭 씹기 · 나눔</td></tr><tr><td><b>욕실</b></td><td>나무 통 욕조 · 비누 · 칫솔 · 수건</td><td>목욕 · 양치 · 씻기</td></tr><tr><td><b>침실</b></td><td>둥근 창 · 이불 · 콩알 요람 · 작은 등불</td><td>잠 · 아침 · 어둠 · 동생</td></tr><tr><td><b>나선 계단</b></td><td>한 칸 한 칸 · 난간 · 계단참</td><td>정리(장난감이 계단에) · 뛰지 않기</td></tr><tr><td><b>등실(꼭대기)</b></td><td>큰 램프 · 사방 유리창 · 놋쇠 손잡이</td><td>불 켜기 = 잘 시간 · 폭풍 · 멀리 보기</td></tr><tr><td><b>선착장</b></td><td>배 · 구명조끼 · 밧줄 · 우편 상자</td><td>손님 · 뭍 가는 날 · 구명조끼</td></tr><tr><td><b>갯바위·모래톱</b></td><td>미끄러운 바위 · 조개 · 갯벌 · 파도</td><td>물 무서움 · 손 씻기 · 미끄럼</td></tr><tr><td><b>채소밭</b></td><td>미역 말리는 줄 · 감자</td><td>편식 · 준비</td></tr></tbody></table>
+<details><summary>설계 전문 (_design.md)</summary><pre class="block"># 시리즈 19 「달이네 등대」 — 설계
+
+&gt; 🔴 **주제는 호리 45편 은행에서 25개** (`docs/changjak-books/_TOPICS.md`). 이 시리즈가 그 정책의 첫 시리즈다.
+&gt; 🔴 **권마다 같은 번호의 호리 편을 옆에 놓고 흉내 낸다** (`_hori/NN.md`). 바뀌는 건 무대·캐릭터·물건·후렴 문구뿐.
+&gt; 규칙은 호리의 일곱 · 판단은 하나 — **소리 내어 읽는 엄마가 한 번도 멈추지 않는가** · **한 장면이 안 떠오르거나, 몇 장면이 떠오르거나, 고민해야 하면 문제.**
+&gt; 그림체 = `docs/art-direction/dari-anchor.md`.
+
+## §1. 무대 — 섬 끝 등대와 그 아래 집 (방과 물건)
+
+등대는 **세로 집**이다. 호리의 집처럼 방이 곧 사건이다.
+
+| 방 | 거기 있는 것 | 거기서 나는 일 |
+|---|---|---|
+| **부엌** | 식탁 · 난로 · 미역 · 생선 · 조개 · 국그릇 | 밥 · 편식 · 꼭꼭 씹기 · 나눔 |
+| **욕실** | 나무 통 욕조 · 비누 · 칫솔 · 수건 | 목욕 · 양치 · 씻기 |
+| **침실** | 둥근 창 · 이불 · 콩알 요람 · 작은 등불 | 잠 · 아침 · 어둠 · 동생 |
+| **나선 계단** | 한 칸 한 칸 · 난간 · 계단참 | 정리(장난감이 계단에) · 뛰지 않기 |
+| **등실(꼭대기)** | 큰 램프 · 사방 유리창 · 놋쇠 손잡이 | 불 켜기 = 잘 시간 · 폭풍 · 멀리 보기 |
+| **선착장** | 배 · 구명조끼 · 밧줄 · 우편 상자 | 손님 · 뭍 가는 날 · 구명조끼 |
+| **갯바위·모래톱** | 미끄러운 바위 · 조개 · 갯벌 · 파도 | 물 무서움 · 손 씻기 · 미끄럼 |
+| **채소밭** | 미역 말리는 줄 · 감자 | 편식 · 준비 |
+
+**물건 목록** — 램프 · 칫솔 · 욕조 · 이불 · 구명조끼 · 밧줄 · 비옷 · 국그릇 · 조개 · 미역 · 손수건 · 등불 · 우편 상자 · 가방 · 요람.
+**시계** — 이 집엔 벽시계가 없다. **등대 불이 켜지면 저녁, 꺼지면 아침.** (01·02권이 이걸 세운다.)
+**계절·날씨** — 봄 7 · 여름 7 · 가을 6 · 겨울 5. 안개·비바람·폭풍·눈이 날씨로 들어온다(앵커).
+
+## §2. 캐스트 — 호리형 (주인공 하나 + 동생)
+
+| | 종 | 자리 | 하는 일 |
+|---|---|---|---|
+| **달이** | 물범 아이 (주인공) | 등대의 아이 | 호리 자리. 결점은 권마다 |
+| **아빠** | 등대지기 물범 | 등실 | 불을 켜고 끄는 사람. 조력자 |
+| **엄마** | 물범 | 부엌 | 조력자 둘째 |
+| **콩알** | 아기 물범 동생 | 요람 | 호야 자리 — 24권(질투)·09권(나눔) |
+| **끼룩** | 갈매기 | 등대 지붕 | 수다. 남의 말을 **그대로 따라 한다**(13권 고운 말의 장치) |
+
+🔴 **한 편에 최대 셋**(손님 포함) · 처음 나오는 인물은 **수식어 한 조각** · 시그니처 = 앵커가 정한 달이의 몸짓 하나.
+🔴 **물범의 몸**은 앵커가 정한다(지느러미발로 무엇을 어떻게 쥐는가). 본문은 「손」을 쓰지 않는다.
+
+## §3. 손님 등록부 (`_series-config.mjs` `DARI_GUESTS` 와 한 벌)
+
+손님은 **배로** 온다. 배가 온다는 신호 = 끼룩이 지붕에서 「배다!」. 🔴 이 한마디는 **밤이의 종소리와 같은 신호**라 화면 인물로 안 센다(지붕 위 소리, 그리지 않는다) — 「한 편 최대 셋」은 그려지는 인물 수다.
+
+| 토큰 | 이름 | 무엇을 들고 오나 | 나오는 권 |
+|---|---|---|---|
+| `Guest pelican` | 우체선 아저씨 (펠리컨) | 우편 자루 | 11 · 22 |
+| `Guest otter` | 낚시꾼 아저씨 (수달) | 낚싯대, 양동이 | 10 |
+| `Guest turtle` | 섬 진료소 의사 선생님 (바다거북) | 왕진 가방 | 20 |
+| `Guest cormorant` | 등대 검사 아주머니 (가마우지) | 공책, 구명조끼 | 18 |
+| `Guest granny` | 할머니 (뭍에서 온 물범) | 보자기 꾸러미 | 25 |
+| `Guest market` | 장터 사람들 (여러 종) | 좌판 | 12 |
+
+🔴 손님 규칙 하나는 앵커가 정한다(밤이 = 짐으로 안다).
+
+## §4. 25권 — 호리 번호 · 등대 버전
+
+각 권 = 제목(=후렴, **무대에 맞는 새 문장**) · **호리 번호**(표본) · 달이가 · 나오는 인물 · **그림 하나**(무대가 주는 물건으로) · 계절.
+
+| # | 제목(=후렴) | 호리 | 달이가 | 나오는 인물 | 그림 하나 | 계절 |
+|---|---|---|---|---|---|---|
+| 01 | 불 켜지면, 코~ | 08 일찍 자기 | 등대 불이 켜졌는데 안 자려 한다 | 달이·아빠·엄마 | 등실 램프가 켜지면 온 섬이 잘 시간 | 봄 |
+| 02 | 불 꺼지면, 쭉쭉! | 09 아침 일어나기 | 아침에 못 일어난다 | 달이·아빠·끼룩 | 램프가 꺼지고 창이 밝아진다 | 봄 |
+| 03 | 초록도 냠냠! | 01 편식 | 미역·초록 것을 밀어낸다 | 달이·엄마·콩알 | 국그릇의 색 — 초록이 빠지면 힘이 빠진다 | 봄 |
+| 04 | 거품 바다, 첨벙! | 07 목욕 | 목욕을 싫어한다 | 달이·아빠·끼룩 | 나무 통 욕조의 거품 | 봄 |
+| 05 | 깜깜해도 옆에 있어! | 24 어둠 | 침실 작은 등불을 끈 밤이 무섭다 (등대 불은 밤새 켜져 있다 — 그 불빛이 둥근 창으로 빙 지날 때 벽에 그림자가 생긴다) | 달이·아빠·콩알 | 작은 등불 하나 | 봄(밤) |
+| 06 | 힘 빼면, 둥실! | 29 물 무서움 | 물범인데 물이 무섭다 | 달이·아빠·끼룩 | 힘을 빼면 몸이 뜬다 | 여름 |
+| 07 | 갯바위는 살금살금! | 21 킥보드 | 미끄러운 바위를 뛰어다닌다 | 달이·엄마·끼룩 | 젖은 바위의 미끄러운 자리 | 여름 |
+| 08 | 뽀득뽀득 씻고! | 03 손 씻기 | 갯벌 흙 묻은 채 먹으려 한다 | 달이·엄마·콩알 | 씻은 지느러미와 안 씻은 지느러미 | 여름 |
+| 09 | 반씩 나눠! | 33 나눔 | 조개를 혼자 먹으려 한다 | 달이·콩알·엄마 | 조개 두 짝 | 여름 |
+| 10 | 지느러미 흔들고, 안녕하세요! | 36 인사 | 낚시꾼 손님에게 인사를 못 한다 | 달이·아빠·낚시꾼 아저씨 | 배에서 내리는 손님 | 여름 |
+| 11 | 가방에 쏙, 준비 끝! | 12 스스로 준비 | 뭍에 가는 날 가방을 안 싼다 | 달이·아빠·우체선 아저씨 | 선착장의 가방 | 여름 |
+| 12 | 엄마 곁에, 꼭! | 18 미아 | 항구 장터에서 엄마를 놓친다 | 달이·엄마·장터 사람들 | 엄마 꼬리 잡기 | 여름 |
+| 13 | 고운 말 하면, 고운 말! | 34 고운 말 | 끼룩에게 막말을 한다 | 달이·끼룩·엄마 | 갈매기가 그 말을 그대로 따라 한다 | 가을 |
+| 14 | 치카치카, 반짝! | 02 양치 | 양치를 안 한다 | 달이·엄마·끼룩 | 이 사이 조개 껍질 조각 | 가을 |
+| 15 | 제자리에, 척! | 10 정리 | 장난감을 계단에 둔다 | 달이·아빠·콩알 | 나선 계단의 장난감 | 가을 |
+| 16 | 화나면, 후~! | 25 화 | 화가 나면 소리 지른다 | 달이·엄마·끼룩 | 크게 숨 쉬면 파도가 가라앉듯 | 가을 |
+| 17 | 바람 불면, 아래로! | 20 지진→폭풍 | 폭풍인데 등실 유리창에 붙어 있다 | 달이·아빠·엄마 | 계단 아래 난로 옆 | 가을 |
+| 18 | 조끼 찰칵! | 17 안전벨트 | 배 탈 때 구명조끼를 안 입는다 | 달이·아빠·등대 검사 아주머니 | 구명조끼 단추 | 가을 |
+| 19 | 비옷은 앞발부터! | 11 옷 입기 | 비옷을 혼자 못 입는다 | 달이·엄마·끼룩 | 비옷 소매 하나씩 | 겨울 |
+| 20 | 꼭꼭 씹고, 천천히! | 05 꼭꼭 씹기 | 급히 먹다 체한다 | 달이·엄마·의사 선생님 | 국그릇과 숟가락 | 겨울 |
+| 21 | 안 되면, 또! | 28 실패 다시 | 조개를 못 까고 포기한다 | 달이·아빠·콩알 | 여러 번 두드려 열린 조개 | 겨울 |
+| 22 | 판자 한 칸, 한 걸음! | 26 부끄러움 | 우체선 아저씨 앞에서 숨는다 | 달이·엄마·우체선 아저씨 | 선착장 한 걸음 | 겨울 |
+| 23 | 미안해 하면, 마음이 환해! | 31 미안해 | 콩알 장난감을 부수고 안 말한다 | 달이·콩알·엄마 | 부서진 장난감 옆 고친 장난감 | 겨울 |
+| 24 | 형아니까 할 수 있어! | 39 동생 질투 | 엄마가 콩알만 안는다고 삐친다 | 달이·엄마·콩알 | 요람 옆 달이 자리 | 봄 |
+| 25 | 할머니 최고! | 42 할머니댁 | 할머니 배를 기다린다 | 달이·할머니·엄마 | 배에서 내리는 보자기 꾸러미 | 봄 |
+
+🔴 은행 비율 — A 건강 6(03·04·08·14·20 + 01) · B 자립 4(02·11·15·19) · C 안전 4(07·12·17·18) · D 감정 5(05·06·16·21·22) · E 관계 4(09·10·13·23) · F 가족 2(24·25).
+🔴 「모야·밤이와 겹치는 제목」은 일부러 피하지 않는다 — **같은 주제를 다른 시리즈로 읽히는 게 목적**이다. 단 **문구는 새로**(밤이의 「안녕하세요, 하고!」와 같은 문구는 안 쓴다 → 10권 후렴을 무대에 맞게 다시 짓는다).
+
+## §5. 지킬 것 (모야·밤이에서 나온 것 — 전부 사용자 지적)
+
+1. **p1 첫 대사는 지금 화면에 있는 것을 가리킨다.** 앞으로 할 일의 충고 금지. 후렴은 그 자리에서 뜻이 통하는 **문장**.
+2. **아이가 뭘 원하는지를 p1~p2 에 말로 적는다** — 「토끼들이 또 뛰어나오라고요」가 없으면 「왜 시무룩해?」가 나온다. 호리 표본마다 이게 있다(「조금만 더, 조금만 더!」).
+3. **문장마다 앞 문장을 받는다.** 소개는 수식어 한 조각.
+4. **작가가 중간에 교훈을 말하지 않는다** — p10 한 줄만.
+5. **한 쪽 = 그림 한 장.** 「~다가/~더니/한참 뒤」로 두 장면을 잇지 않는다.
+6. **탈의 주어는 달이.**
+7. **네 살 낱말.** 플랫폼 같은 외래어·대합실 같은 어른 말 금지. 등대 말도 아이 말로(등실→「꼭대기 방」, 선착장→「배 대는 데」 첫 등장에서).
+8. **후렴은 p4~p7 에서 태어나고 p10 에 한 번 더.**
+9. **곁가지 묘사는 한 쪽에 하나.** 쪽당 세 줄.
+10. **누가 누구에게 무엇을 주는지**, 방향이 있는 일은 방향을 글로 박는다(밤이 02 「표 주세요」에서 걸렸다).
+11. **말하는 이를 안 밝힌 대사 금지** — 아이가 누가 말하는지 짐작해야 하면 멈춘다.
+</pre></details>
+
+<h2 class="sec">2. 캐스트</h2>
+<p class="lead">시트를 만들어 카드에 붙여넣으면 회차 페이지의 「🎬 이 화 등장」 스트립이 그 그림을 읽어 옵니다.
+카드마다 <b>[📋 시트 프롬프트]</b> = 그 한 명만 그리는 프롬프트(앵커 + 규격 + 전신 정면·3/4·뒷모습).</p>
+<div class="grid">
+  <div class="cast-card">
+    <div class="chead"><h4>🦭 달이</h4><button class="copy-btn" data-sheet="dari">📋 시트 프롬프트</button></div>
+    <p><code>Dari seal</code></p>
+    <div data-paste="dari"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦭 아빠</h4><button class="copy-btn" data-sheet="father">📋 시트 프롬프트</button></div>
+    <p><code>등대지기 아빠</code></p>
+    <div data-paste="father"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦭 엄마</h4><button class="copy-btn" data-sheet="mother">📋 시트 프롬프트</button></div>
+    <p><code>Mother seal</code></p>
+    <div data-paste="mother"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🦭 콩알</h4><button class="copy-btn" data-sheet="kongal">📋 시트 프롬프트</button></div>
+    <p><code>Kongal baby seal</code></p>
+    <div data-paste="kongal"></div>
+  </div>
+  <div class="cast-card">
+    <div class="chead"><h4>🐦 끼룩</h4><button class="copy-btn" data-sheet="kkiruk">📋 시트 프롬프트</button></div>
+    <p><code>Kkiruk gull</code></p>
+    <div data-paste="kkiruk"></div>
+  </div>
+</div>
+
+<h2 class="sec">3. 25권</h2>
+<p class="lead">🔴 <b>작가에게 빈칸을 주지 않는 것</b>이 이 체제의 전부입니다.</p>
+<table><thead><tr><th>#</th><th>제목(=후렴)</th><th>호리</th><th>달이가</th><th>나오는 인물</th><th>그림 하나</th><th>계절</th></tr></thead><tbody><tr><td>01</td><td>불 켜지면, 코~</td><td>08 일찍 자기</td><td>등대 불이 켜졌는데 안 자려 한다</td><td>달이·아빠·엄마</td><td>등실 램프가 켜지면 온 섬이 잘 시간</td><td>봄</td></tr><tr><td>02</td><td>불 꺼지면, 쭉쭉!</td><td>09 아침 일어나기</td><td>아침에 못 일어난다</td><td>달이·아빠·끼룩</td><td>램프가 꺼지고 창이 밝아진다</td><td>봄</td></tr><tr><td>03</td><td>초록도 냠냠!</td><td>01 편식</td><td>미역·초록 것을 밀어낸다</td><td>달이·엄마·콩알</td><td>국그릇의 색 — 초록이 빠지면 힘이 빠진다</td><td>봄</td></tr><tr><td>04</td><td>거품 바다, 첨벙!</td><td>07 목욕</td><td>목욕을 싫어한다</td><td>달이·아빠·끼룩</td><td>나무 통 욕조의 거품</td><td>봄</td></tr><tr><td>05</td><td>깜깜해도 옆에 있어!</td><td>24 어둠</td><td>침실 작은 등불을 끈 밤이 무섭다 (등대 불은 밤새 켜져 있다 — 그 불빛이 둥근 창으로 빙 지날 때 벽에 그림자가 생긴다)</td><td>달이·아빠·콩알</td><td>작은 등불 하나</td><td>봄(밤)</td></tr><tr><td>06</td><td>힘 빼면, 둥실!</td><td>29 물 무서움</td><td>물범인데 물이 무섭다</td><td>달이·아빠·끼룩</td><td>힘을 빼면 몸이 뜬다</td><td>여름</td></tr><tr><td>07</td><td>갯바위는 살금살금!</td><td>21 킥보드</td><td>미끄러운 바위를 뛰어다닌다</td><td>달이·엄마·끼룩</td><td>젖은 바위의 미끄러운 자리</td><td>여름</td></tr><tr><td>08</td><td>뽀득뽀득 씻고!</td><td>03 손 씻기</td><td>갯벌 흙 묻은 채 먹으려 한다</td><td>달이·엄마·콩알</td><td>씻은 지느러미와 안 씻은 지느러미</td><td>여름</td></tr><tr><td>09</td><td>반씩 나눠!</td><td>33 나눔</td><td>조개를 혼자 먹으려 한다</td><td>달이·콩알·엄마</td><td>조개 두 짝</td><td>여름</td></tr><tr><td>10</td><td>지느러미 흔들고, 안녕하세요!</td><td>36 인사</td><td>낚시꾼 손님에게 인사를 못 한다</td><td>달이·아빠·낚시꾼 아저씨</td><td>배에서 내리는 손님</td><td>여름</td></tr><tr><td>11</td><td>가방에 쏙, 준비 끝!</td><td>12 스스로 준비</td><td>뭍에 가는 날 가방을 안 싼다</td><td>달이·아빠·우체선 아저씨</td><td>선착장의 가방</td><td>여름</td></tr><tr><td>12</td><td>엄마 곁에, 꼭!</td><td>18 미아</td><td>항구 장터에서 엄마를 놓친다</td><td>달이·엄마·장터 사람들</td><td>엄마 꼬리 잡기</td><td>여름</td></tr><tr><td>13</td><td>고운 말 하면, 고운 말!</td><td>34 고운 말</td><td>끼룩에게 막말을 한다</td><td>달이·끼룩·엄마</td><td>갈매기가 그 말을 그대로 따라 한다</td><td>가을</td></tr><tr><td>14</td><td>치카치카, 반짝!</td><td>02 양치</td><td>양치를 안 한다</td><td>달이·엄마·끼룩</td><td>이 사이 조개 껍질 조각</td><td>가을</td></tr><tr><td>15</td><td>제자리에, 척!</td><td>10 정리</td><td>장난감을 계단에 둔다</td><td>달이·아빠·콩알</td><td>나선 계단의 장난감</td><td>가을</td></tr><tr><td>16</td><td>화나면, 후~!</td><td>25 화</td><td>화가 나면 소리 지른다</td><td>달이·엄마·끼룩</td><td>크게 숨 쉬면 파도가 가라앉듯</td><td>가을</td></tr><tr><td>17</td><td>바람 불면, 아래로!</td><td>20 지진→폭풍</td><td>폭풍인데 등실 유리창에 붙어 있다</td><td>달이·아빠·엄마</td><td>계단 아래 난로 옆</td><td>가을</td></tr><tr><td>18</td><td>조끼 찰칵!</td><td>17 안전벨트</td><td>배 탈 때 구명조끼를 안 입는다</td><td>달이·아빠·등대 검사 아주머니</td><td>구명조끼 단추</td><td>가을</td></tr><tr><td>19</td><td>비옷은 앞발부터!</td><td>11 옷 입기</td><td>비옷을 혼자 못 입는다</td><td>달이·엄마·끼룩</td><td>비옷 소매 하나씩</td><td>겨울</td></tr><tr><td>20</td><td>꼭꼭 씹고, 천천히!</td><td>05 꼭꼭 씹기</td><td>급히 먹다 체한다</td><td>달이·엄마·의사 선생님</td><td>국그릇과 숟가락</td><td>겨울</td></tr><tr><td>21</td><td>안 되면, 또!</td><td>28 실패 다시</td><td>조개를 못 까고 포기한다</td><td>달이·아빠·콩알</td><td>여러 번 두드려 열린 조개</td><td>겨울</td></tr><tr><td>22</td><td>판자 한 칸, 한 걸음!</td><td>26 부끄러움</td><td>우체선 아저씨 앞에서 숨는다</td><td>달이·엄마·우체선 아저씨</td><td>선착장 한 걸음</td><td>겨울</td></tr><tr><td>23</td><td>미안해 하면, 마음이 환해!</td><td>31 미안해</td><td>콩알 장난감을 부수고 안 말한다</td><td>달이·콩알·엄마</td><td>부서진 장난감 옆 고친 장난감</td><td>겨울</td></tr><tr><td>24</td><td>형아니까 할 수 있어!</td><td>39 동생 질투</td><td>엄마가 콩알만 안는다고 삐친다</td><td>달이·엄마·콩알</td><td>요람 옆 달이 자리</td><td>봄</td></tr><tr><td>25</td><td>할머니 최고!</td><td>42 할머니댁</td><td>할머니 배를 기다린다</td><td>달이·할머니·엄마</td><td>배에서 내리는 보자기 꾸러미</td><td>봄</td></tr></tbody></table>
+
+<h2 class="sec">4. 앵커 — 한 시리즈 = 한 그림체</h2>
+<p class="lead">시리즈 전권이 한 그림체입니다. 무대·계절 차이는 앵커 안 <b>무대 조항</b>이 처리합니다 — 매체·색은 그대로 두고 「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 바뀝니다.
+🔴 악센트 <b>달이 목의 가리비 조개 하나 (가슴=평소 / 입=무섭·부끄 / 등 뒤=달림·헤엄 / 침대 기둥·욕조 가=잠·목욕). 25권 통틀어 분홍은 그것뿐 — 등대·램프·깃발에도 안 쓴다</b> 에만 닿습니다.</p>
+<div class="swatches">
+  <span class="sw"><i style="background:#FBF6EA"></i>종이 <code>#FBF6EA</code></span><span class="sw"><i style="background:#4F9BD0"></i>색1 <code>#4F9BD0</code></span><span class="sw"><i style="background:#A8917A"></i>색2 <code>#A8917A</code></span><span class="sw"><i style="background:#24486E"></i>겹침 <code>#24486E</code></span><span class="sw"><i style="background:#EE6B8D"></i>악센트 <code>#EE6B8D</code></span>
+</div>
+<div class="anchor-card">
+  <div class="ahead"><b>dari-waxtide</b><button class="copy-btn" data-copy="anchor">📋 앵커 프롬프트 복사</button></div>
+  <div class="award-ref">
+    <a href="https://imagedelivery.net/02vYSQfLRblc9N7aAcvddQ/2024/12/Ping-An-Shih_Tai-Chi_image1.jpg/original" target="_blank" rel="noopener"><b>🖼 앵커 원본 보기</b></a>
+    <span>Ping-An Shih · Tai Chi (WIA 2025 Category Winner)</span>
+    <em>손톱만 한 인물 하나. 몸짓만으로 캐릭터</em>
+  </div>
+  <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - dari-waxtide   (Dari's lighthouse / wax crayon laid first, one sea-blue wash flooded after, on bright paper)
+
+Style: wax crayon under a thin water wash on rough warm-white paper, for a child of four to six who is being read
+  to. 🔴 THE ORDER IS THE WHOLE METHOD: everything that will stay light is drawn FIRST in white wax, everything
+  that has a body is drawn in coloured wax, and THEN one blue wash is flooded over the page in a single wet pass.
+  The wash beads off the wax and soaks into bare paper. So nothing light was ever painted - foam, fog, rain, snow,
+  the lamp's beam, the lighthouse tower and the walls of the house are paper the wax kept dry. The wash is the only
+  wet thing, the wax the only drawn thing, and where wash met wax there is a granular bright edge, never a blend.
+
+RENDERING (finish hierarchy): everything on the page is one of three pressures of crayon.
+  PRESSED HARD = the child and whatever the page is about: opaque wax, so the wash beads off the whole shape and
+  leaves a pale halo of dry paper round it; inside the shape, DEEP marks - eyes, spots, nostrils, a buckle - 5 to
+  12 on a figure, 0 to 4 on a thing. RUBBED ON ITS SIDE = the place: one light rub per thing, so the wash catches in
+  the grain and speckles it - a table is one rub, a rock one rub, the hull one rub, 0 marks inside. NO CRAYON AT
+  ALL = sea, sky, night and weather: wash alone, in which the only drawing is white wax - crests, slants, dots,
+  rubs, and the beam.
+  🔴 THE WASH BEADS OFF A FIGURE AND OFF NOTHING ELSE - look for the dry halo and you have found who is on the
+  page. TWO FINISHED THINGS A PAGE, no more; each volume names its quiet spread in its own cut.
+  AT MOST: crests 24 · rain slants 24 · snow dots 20 · fog rubs 6 · beam wedges 2 · window squares 3 · stair treads
+  7 · shells 9 · bowls 4 · seaweed strips 12 · rope coils 3 · gulls other than Kkiruk 0.
+  🔴 FOG, SPRAY, STEAM AND BREATH ON GLASS ARE ONE THING: the white crayon on its side, rubbed, so the wash breaks
+  into speckle over it. That speckle is the only place wash and paper mix; it sits on top of something already
+  finished and never stands in for it.
+
+PALETTE (only these): PAPER #FBF6EA warm white - whatever the wax kept dry, the sun disc, and Kongal's whole
+  body · SEA #4F9BD0 the one wash, one pass - sky, water, shade ·
+  FUR #A8917A the one coloured crayon - seal fur, wood, rope, rock, the boat, the stove pot, a guest's coat · DEEP
+  #24486E the wash where it pooled or went over a third time - night, deep water, eyes, spots, the lamp-room iron,
+  the shadow under a rock; 🔴 DEEP IS NEVER A LINE ROUND A THING.
+  No white, black, grey, yellow or green paint exists: white is paper, black is DEEP, grey is FUR rubbed light,
+  yellow is the paper sun, and green is FUR rubbed light with the wash caught in its grain (seaweed, the vegetable
+  patch, a wet rock). THREE THINGS TOUCH THE PAPER - WHITE WAX, FUR WAX, SEA WASH - AND THE SHELL.
+  🔴 SHELL PINK #EE6B8D: across twenty-five books this colour exists on one object, the scallop shell on a string
+  round Dari's neck. Not a sunset, a crab, a shrimp, a flower, a guest's cloth, or any other shell (every other
+  shell is paper or FUR). Wherever Dari is, the shell is, and where it hangs says what she is doing: on the chest
+  (at ease), in the mouth (afraid or shy), swung round onto the back (running, sliding, swimming), hung on the
+  bedpost or the rim of the tub (asleep, bathing).
+
+STAGE CLAUSES (one lighthouse and the house under it, twenty-five volumes):
+  🔴 TIME OF DAY = HOW MANY TIMES THE WASH WENT OVER. MORNING AND DAY: one pass, pale, the sky mostly paper; the
+    lamp is a paper disc and looks off. EVENING: two passes on sea and sky, and THE LAMP IS LIT - which means only
+    this: a wedge of paper runs from the lamp room across the washed sky, straight-edged, cut through whatever it
+    crosses. NIGHT: three passes, DEEP, and the wedge is the brightest thing; indoors a window is a DEEP square and
+    the wedge crosses it as a paper stripe. The house has no clock - the wedge is the clock.
+  🔴 WEATHER = THE SHAPE OF THE WHITE WAX STROKE UNDER THE WASH. CLEAR: crests only, short curls on the water, 6 to
+    24. FOG: the side of the crayon rubbed over sea and sky, 1 to 6 rubs, and nothing beyond the pier is drawn.
+    RAIN AND WIND: straight slants all leaning one way, 12 to 24, crossing wash only, never a figure. STORM (one
+    volume): slants 24, crests 24, three passes, no figure outdoors.
+    SNOW: dots at most 20, and the ground is paper edge to edge.
+  🔴 SEASON = HOW MUCH OF THE PAGE THE WASH COVERS AND WHAT HANGS ON THE LINE. SPRING: wash on the top third only,
+    the drying line empty. SUMMER: wash on two thirds, the sun a paper disc, the line hung with up to
+    12 seaweed strips. AUTUMN: wash on two thirds and slanted, the line hung and leaning. WINTER: wash on the top
+    third, the ground paper, the line empty, breath on glass rubbed.
+  KITCHEN - the walls are paper; table and bench FUR rubbed once; the stove a FUR pot with a paper mouth and no
+    flame drawn, and its door is closed on any page where Dari is nearer to it than her own length; bowls at most
+    4, seaweed in a bowl at most 3 strips.
+  BATHROOM - the tub a FUR half-barrel, its water one SEA patch with crests drawn before the wash; foam is paper;
+    toothbrush and soap FUR, the towel paper.
+  BEDROOM - one round window, a DEEP disc at night and paper by day; the quilt paper with a FUR edge; Kongal's
+    cradle FUR with one rocker; the small lantern a FUR frame round a paper square, the only lit thing on a page
+    where the lamp is out.
+  SPIRAL STAIR - treads FUR, 3 to 7 in view, always climbing to the right; a seal takes it on its belly one tread
+    at a time; a thing left on a tread is one FUR shape with a halo.
+  LAMP ROOM - glass all round: the panes are wash squares by night and paper by day; the lamp a paper disc in a
+    DEEP frame with one FUR brass handle; the rail FUR. Nobody is on the rail and the door to the gallery is shut.
+  PIER, ROCKS AND SAND - the pier three FUR planks; the boat FUR with a paper cabin, small enough to fit whole;
+    rocks FUR rubbed once with one DEEP shadow each; sand is paper; the water's edge is ONE crest the width of the
+    page, the only long white line there is.
+  🔴 THE LIGHTHOUSE - on the right edge of every outdoor page, a paper tower with ONE SEA band, its lamp room cut
+    off by the top edge unless the lamp is the event. It is the largest paper shape on any page it is on, and it
+    is never red.
+  🔴 GUESTS COME BY BOAT, from the left, one party a volume, and A GUEST IS KNOWN BY THE BOAT: on every page a
+    guest is on, the boat it came in is on the page too - moored at the pier, its prow at the page edge, or its
+    mast in a window. A guest's cloth is FUR or DEEP, never the accent. A guest never enters the water.
+
+CHARACTER DESIGN LANGUAGE: 🔴 HOW MUCH OF THE BELLY TOUCHES THE GROUND CARRIES THE FEELING - NOT THE FACE. A seal
+  is a bean that never changes its width; it only bends, and what it feels is which end comes off the ground: at
+  ease or pleased = both ends up, head and tail lifted, the belly touching in the middle only · curious or
+  listening = head up, tail down, touching from the middle back · sulky, sleepy or unwell = flat, the whole belly
+  down · playful = rolled over, the back on the ground, all four flippers up · afraid or shy = flat AND the shell
+  in the mouth. 🔴 DARI'S SIGNATURE IS THE TAIL FLIPPER FLICKED UP - the both-ends-up bend - and it closes every
+  volume.
+  EYES: two DEEP pools, each as wide as the two nostrils are apart, and that width is fixed for the whole series -
+  an eye is open or shut and nothing in between, no white, no pupil, no lid line; both shut = asleep and nothing
+  else. Whiskers are three white wax lines a side, seen only where they cross wash, and it is right that they
+  vanish indoors. The mouth is one short DEEP mark, never a smile arc.
+  GRADE: 🔴 SEALS DO NOT STAND. The belly is on the ground or on the tread; moving is a hop that lifts the middle;
+  nobody walks on flippers. 🔴 WHATEVER IS CARRIED IS CARRIED IN THE MOUTH - a
+  toothbrush, a spoon, a letter, a shell, the lantern's handle - OR HUGGED TO THE CHEST BETWEEN BOTH FORE-FLIPPERS -
+  a bowl, a bag, a lifejacket, Kongal. One flipper alone holds nothing and has no fingers; a buckle is pressed shut
+  between the two. IN WATER a seal is one curve and nothing else changes: the wash surrounds the body and its dry
+  halo is the water holding it up - a seal that is afraid in water is a straight stiff bean with no bend.
+  CLOTH ONLY WHEN IT RAINS: a FUR raincoat and hat with paper buttons; nothing else is ever worn but the shell.
+  🔴 THE CAST IS TOLD APART BY HEAD AGAINST BODY AND BY THE SNOUT, NOT BY SIZE: Dad's head is a fifth of his
+  length and his snout long and straight; Mom's head a fifth and her snout short and round; Dari's head a third of
+  her length; Kongal is a ball, the head half of everything. SPOTS ARE COUNTED: Dad 20, Mom 12, Dari 7, Kongal 0 -
+  Kongal has no FUR wax at all, paper with two DEEP eyes, the only paper body in the book.
+  KKIRUK the gull: paper body, DEEP wingtips and eye, a FUR beak; 🔴 NOTHING ON THE PAGE IS ABOVE KKIRUK - the
+  lamp-room roof, the rail, the mast, or the air, never the ground; talking is an open beak with nothing drawn
+  leaving it. A guest has the seals' eyes and marks and its own animal's way of moving.
+
+CANVAS: 16:9 double-page spread. 🔴 NO LETTERS, NUMERALS OR SIGNS ANYWHERE, the mail sack, the doctor's bag and
+  the inspector's notebook included. 🔴 ONE ISLAND, ONE MAP, TWENTY-FIVE BOOKS: the lighthouse on the right with the
+  house at its foot and Kkiruk's roof above, the stair spiralling up inside it, the pier and the boat at the left,
+  the rocks and the sand between, the vegetable patch and the drying line behind the house, the sea along the
+  bottom edge and out to the left. Any camera, never mirrored.
+
+NOT: no airbrush, no gradient, no glow or bloom round the lamp or the beam, no 3D render, no texture filter /
+  🔴 NO INVERTED SHAPE IN WATER OR GLASS - a reflection is one white crest / 🔴 NO FIGURE ON THE ROCKS OR IN THE
+  WATER WHILE A STORM OR NIGHT IS ON THE PAGE, no boat leaves the pier with a figure in it that has no lifejacket
+  hugged on, nobody on the gallery rail / no page fully washed: paper shows on every page.</pre></details>
+  <div data-paste="anchor"></div>
+</div>
+
+<h2 class="sec">5. 캐스트 시트</h2>
+<p class="lead">한 장에 전원을 그립니다. 🔴 <b>시트가 최종 그림을 지배</b>하므로 시트를 먼저 확정하고 쪽 삽화로 갑니다.</p>
+<div class="anchor-card">
+  <div class="ahead"><b>전원 시트</b><button class="copy-btn" data-copy="sheet">📋 시트 프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre id="sheet">CHARACTER SHEET - dari lighthouse   (five figures, one sheet)
+
+STYLE ANCHOR - dari-waxtide   (Dari's lighthouse / wax crayon laid first, one sea-blue wash flooded after, on bright paper)
+
+Style: wax crayon under a thin water wash on rough warm-white paper, for a child of four to six who is being read
+  to. 🔴 THE ORDER IS THE WHOLE METHOD: everything that will stay light is drawn FIRST in white wax, everything
+  that has a body is drawn in coloured wax, and THEN one blue wash is flooded over the page in a single wet pass.
+  The wash beads off the wax and soaks into bare paper. So nothing light was ever painted - foam, fog, rain, snow,
+  the lamp's beam, the lighthouse tower and the walls of the house are paper the wax kept dry. The wash is the only
+  wet thing, the wax the only drawn thing, and where wash met wax there is a granular bright edge, never a blend.
+
+RENDERING (finish hierarchy): everything on the page is one of three pressures of crayon.
+  PRESSED HARD = the child and whatever the page is about: opaque wax, so the wash beads off the whole shape and
+  leaves a pale halo of dry paper round it; inside the shape, DEEP marks - eyes, spots, nostrils, a buckle - 5 to
+  12 on a figure, 0 to 4 on a thing. RUBBED ON ITS SIDE = the place: one light rub per thing, so the wash catches in
+  the grain and speckles it - a table is one rub, a rock one rub, the hull one rub, 0 marks inside. NO CRAYON AT
+  ALL = sea, sky, night and weather: wash alone, in which the only drawing is white wax - crests, slants, dots,
+  rubs, and the beam.
+  🔴 THE WASH BEADS OFF A FIGURE AND OFF NOTHING ELSE - look for the dry halo and you have found who is on the
+  page. TWO FINISHED THINGS A PAGE, no more; each volume names its quiet spread in its own cut.
+  AT MOST: crests 24 · rain slants 24 · snow dots 20 · fog rubs 6 · beam wedges 2 · window squares 3 · stair treads
+  7 · shells 9 · bowls 4 · seaweed strips 12 · rope coils 3 · gulls other than Kkiruk 0.
+  🔴 FOG, SPRAY, STEAM AND BREATH ON GLASS ARE ONE THING: the white crayon on its side, rubbed, so the wash breaks
+  into speckle over it. That speckle is the only place wash and paper mix; it sits on top of something already
+  finished and never stands in for it.
+
+PALETTE (only these): PAPER #FBF6EA warm white - whatever the wax kept dry, the sun disc, and Kongal's whole
+  body · SEA #4F9BD0 the one wash, one pass - sky, water, shade ·
+  FUR #A8917A the one coloured crayon - seal fur, wood, rope, rock, the boat, the stove pot, a guest's coat · DEEP
+  #24486E the wash where it pooled or went over a third time - night, deep water, eyes, spots, the lamp-room iron,
+  the shadow under a rock; 🔴 DEEP IS NEVER A LINE ROUND A THING.
+  No white, black, grey, yellow or green paint exists: white is paper, black is DEEP, grey is FUR rubbed light,
+  yellow is the paper sun, and green is FUR rubbed light with the wash caught in its grain (seaweed, the vegetable
+  patch, a wet rock). THREE THINGS TOUCH THE PAPER - WHITE WAX, FUR WAX, SEA WASH - AND THE SHELL.
+  🔴 SHELL PINK #EE6B8D: across twenty-five books this colour exists on one object, the scallop shell on a string
+  round Dari's neck. Not a sunset, a crab, a shrimp, a flower, a guest's cloth, or any other shell (every other
+  shell is paper or FUR). Wherever Dari is, the shell is, and where it hangs says what she is doing: on the chest
+  (at ease), in the mouth (afraid or shy), swung round onto the back (running, sliding, swimming), hung on the
+  bedpost or the rim of the tub (asleep, bathing).
+
+STAGE CLAUSES (one lighthouse and the house under it, twenty-five volumes):
+  🔴 TIME OF DAY = HOW MANY TIMES THE WASH WENT OVER. MORNING AND DAY: one pass, pale, the sky mostly paper; the
+    lamp is a paper disc and looks off. EVENING: two passes on sea and sky, and THE LAMP IS LIT - which means only
+    this: a wedge of paper runs from the lamp room across the washed sky, straight-edged, cut through whatever it
+    crosses. NIGHT: three passes, DEEP, and the wedge is the brightest thing; indoors a window is a DEEP square and
+    the wedge crosses it as a paper stripe. The house has no clock - the wedge is the clock.
+  🔴 WEATHER = THE SHAPE OF THE WHITE WAX STROKE UNDER THE WASH. CLEAR: crests only, short curls on the water, 6 to
+    24. FOG: the side of the crayon rubbed over sea and sky, 1 to 6 rubs, and nothing beyond the pier is drawn.
+    RAIN AND WIND: straight slants all leaning one way, 12 to 24, crossing wash only, never a figure. STORM (one
+    volume): slants 24, crests 24, three passes, no figure outdoors.
+    SNOW: dots at most 20, and the ground is paper edge to edge.
+  🔴 SEASON = HOW MUCH OF THE PAGE THE WASH COVERS AND WHAT HANGS ON THE LINE. SPRING: wash on the top third only,
+    the drying line empty. SUMMER: wash on two thirds, the sun a paper disc, the line hung with up to
+    12 seaweed strips. AUTUMN: wash on two thirds and slanted, the line hung and leaning. WINTER: wash on the top
+    third, the ground paper, the line empty, breath on glass rubbed.
+  KITCHEN - the walls are paper; table and bench FUR rubbed once; the stove a FUR pot with a paper mouth and no
+    flame drawn, and its door is closed on any page where Dari is nearer to it than her own length; bowls at most
+    4, seaweed in a bowl at most 3 strips.
+  BATHROOM - the tub a FUR half-barrel, its water one SEA patch with crests drawn before the wash; foam is paper;
+    toothbrush and soap FUR, the towel paper.
+  BEDROOM - one round window, a DEEP disc at night and paper by day; the quilt paper with a FUR edge; Kongal's
+    cradle FUR with one rocker; the small lantern a FUR frame round a paper square, the only lit thing on a page
+    where the lamp is out.
+  SPIRAL STAIR - treads FUR, 3 to 7 in view, always climbing to the right; a seal takes it on its belly one tread
+    at a time; a thing left on a tread is one FUR shape with a halo.
+  LAMP ROOM - glass all round: the panes are wash squares by night and paper by day; the lamp a paper disc in a
+    DEEP frame with one FUR brass handle; the rail FUR. Nobody is on the rail and the door to the gallery is shut.
+  PIER, ROCKS AND SAND - the pier three FUR planks; the boat FUR with a paper cabin, small enough to fit whole;
+    rocks FUR rubbed once with one DEEP shadow each; sand is paper; the water's edge is ONE crest the width of the
+    page, the only long white line there is.
+  🔴 THE LIGHTHOUSE - on the right edge of every outdoor page, a paper tower with ONE SEA band, its lamp room cut
+    off by the top edge unless the lamp is the event. It is the largest paper shape on any page it is on, and it
+    is never red.
+  🔴 GUESTS COME BY BOAT, from the left, one party a volume, and A GUEST IS KNOWN BY THE BOAT: on every page a
+    guest is on, the boat it came in is on the page too - moored at the pier, its prow at the page edge, or its
+    mast in a window. A guest's cloth is FUR or DEEP, never the accent. A guest never enters the water.
+
+CHARACTER DESIGN LANGUAGE: 🔴 HOW MUCH OF THE BELLY TOUCHES THE GROUND CARRIES THE FEELING - NOT THE FACE. A seal
+  is a bean that never changes its width; it only bends, and what it feels is which end comes off the ground: at
+  ease or pleased = both ends up, head and tail lifted, the belly touching in the middle only · curious or
+  listening = head up, tail down, touching from the middle back · sulky, sleepy or unwell = flat, the whole belly
+  down · playful = rolled over, the back on the ground, all four flippers up · afraid or shy = flat AND the shell
+  in the mouth. 🔴 DARI'S SIGNATURE IS THE TAIL FLIPPER FLICKED UP - the both-ends-up bend - and it closes every
+  volume.
+  EYES: two DEEP pools, each as wide as the two nostrils are apart, and that width is fixed for the whole series -
+  an eye is open or shut and nothing in between, no white, no pupil, no lid line; both shut = asleep and nothing
+  else. Whiskers are three white wax lines a side, seen only where they cross wash, and it is right that they
+  vanish indoors. The mouth is one short DEEP mark, never a smile arc.
+  GRADE: 🔴 SEALS DO NOT STAND. The belly is on the ground or on the tread; moving is a hop that lifts the middle;
+  nobody walks on flippers. 🔴 WHATEVER IS CARRIED IS CARRIED IN THE MOUTH - a
+  toothbrush, a spoon, a letter, a shell, the lantern's handle - OR HUGGED TO THE CHEST BETWEEN BOTH FORE-FLIPPERS -
+  a bowl, a bag, a lifejacket, Kongal. One flipper alone holds nothing and has no fingers; a buckle is pressed shut
+  between the two. IN WATER a seal is one curve and nothing else changes: the wash surrounds the body and its dry
+  halo is the water holding it up - a seal that is afraid in water is a straight stiff bean with no bend.
+  CLOTH ONLY WHEN IT RAINS: a FUR raincoat and hat with paper buttons; nothing else is ever worn but the shell.
+  🔴 THE CAST IS TOLD APART BY HEAD AGAINST BODY AND BY THE SNOUT, NOT BY SIZE: Dad's head is a fifth of his
+  length and his snout long and straight; Mom's head a fifth and her snout short and round; Dari's head a third of
+  her length; Kongal is a ball, the head half of everything. SPOTS ARE COUNTED: Dad 20, Mom 12, Dari 7, Kongal 0 -
+  Kongal has no FUR wax at all, paper with two DEEP eyes, the only paper body in the book.
+  KKIRUK the gull: paper body, DEEP wingtips and eye, a FUR beak; 🔴 NOTHING ON THE PAGE IS ABOVE KKIRUK - the
+  lamp-room roof, the rail, the mast, or the air, never the ground; talking is an open beak with nothing drawn
+  leaving it. A guest has the seals' eyes and marks and its own animal's way of moving.
+
+CANVAS: 16:9 double-page spread. 🔴 NO LETTERS, NUMERALS OR SIGNS ANYWHERE, the mail sack, the doctor's bag and
+  the inspector's notebook included. 🔴 ONE ISLAND, ONE MAP, TWENTY-FIVE BOOKS: the lighthouse on the right with the
+  house at its foot and Kkiruk's roof above, the stair spiralling up inside it, the pier and the boat at the left,
+  the rocks and the sand between, the vegetable patch and the drying line behind the house, the sea along the
+  bottom edge and out to the left. Any camera, never mirrored.
+
+NOT: no airbrush, no gradient, no glow or bloom round the lamp or the beam, no 3D render, no texture filter /
+  🔴 NO INVERTED SHAPE IN WATER OR GLASS - a reflection is one white crest / 🔴 NO FIGURE ON THE ROCKS OR IN THE
+  WATER WHILE A STORM OR NIGHT IS ON THE PAGE, no boat leaves the pier with a figure in it that has no lifejacket
+  hugged on, nobody on the gallery rail / no page fully washed: paper shows on every page.
+
+SHEET LAYOUT: one sheet of bare warm-white paper - 🔴 NO WASH ANYWHERE ON THE SHEET AND NO SCENERY: with no wash
+  there is no halo, no whisker, no speckle, so every figure must be read from its FUR wax and its DEEP marks alone.
+  Five figures lie on a single ground line at their true relative lengths: Dad longest with the long straight snout
+  and 20 spots, Mom shorter and rounder with 12, Dari half of Dad with 7 spots and the pink shell on her chest,
+  Kongal a paper ball with two DEEP eyes and no wax at all, and Kkiruk perched on the top edge of the sheet. Each
+  seal is drawn THREE times - flat on the belly seen from the side, mid-hop with the middle lifted and a thing in
+  the mouth, and the head and body outline alone, large enough that the ratio of head to body is clear. The belly
+  line is drawn in every one of them, so the no-standing rule is fixed before any prop exists.
+🔴 TEST ON THE THREE LARGE SEAL OUTLINES: paint the eyes and the shell out entirely and the feeling must still be
+  readable from which end is off the ground. If it is not, the eye was doing the work and the sheet is wrong.
+🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the same five again, side by side, filled solid in flat DEEP with 0
+  interior marks, no spots, no pink, and 🔴 THE GROUND LINE COVERED so length cannot be read. THREE THINGS ARE READ
+  OFF THAT ROW AND THE SHEET IS WRONG IF ANY ONE FAILS: the three grown or growing seals are told apart by the head
+  against the body and by the snout (long straight · short round · a third of the length); Kongal is the only shape
+  that is a ball; and Kkiruk is the only shape not touching the covered ground line.
+🔴 A SECOND SMALL ROW: Dari's whole outline five times at thumbnail size - at ease, curious, sulky, playful, afraid -
+  WITH THE EYES AND THE SHELL PAINTED OUT. The five must still be told apart from which end is up. Nothing else on
+  the sheet: no props beyond the shell, no scenery, no wash, no shadow, and no lettering, numerals, labels or name
+  tags anywhere.</pre></details>
+  <div data-paste="cast-sheet"></div>
+</div>
+
+</div>
+<script src="/dari-core.js"></script>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (el) window.SERIES.copyText(el.textContent, b);
+    });
+  });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.SERIES.copyText(window.SERIES.sheetPrompt(b.getAttribute('data-sheet')), b);
+    });
+  });
+  window.SERIES.mountPasteSlots('dari-plan');
+</script>
+</body>
+</html>

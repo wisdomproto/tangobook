@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>달이네 등대 — 갯바위는 살금살금!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --accent:#EE6B8D; --slope:#24486E; --peach:#F3E7DA; --cream:#FBF8F3;
+          --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:940px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:30px 0; border-bottom:3px solid var(--slope); margin-bottom:22px; }
+  .hero .kicker { color:var(--slope); font-weight:800; letter-spacing:.14em; font-size:12px; }
+  .hero h1 { font-size:28px; font-weight:900; margin:8px 0 6px; word-break:keep-all; }
+  .hero .sub { color:var(--ink-soft); font-size:13.5px; font-weight:600; word-break:keep-all; }
+  .hero .by { margin-top:9px; font-size:12.5px; color:var(--ink-soft); }
+  .hero .by b { color:var(--ink); }
+  .note { background:#FDF3EC; border:1px solid var(--accent); border-radius:12px; padding:12px 15px; font-size:13px; margin:14px 0 22px; word-break:keep-all; }
+  h2.sec { font-size:20px; font-weight:900; margin:38px 0 6px; padding-top:18px; border-top:2px solid var(--line); word-break:keep-all; }
+  h2.sec:first-of-type { border-top:0; }
+  .lead { color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; word-break:keep-all; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:12px 0 18px; font-size:13px; }
+  th, td { padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; word-break:keep-all; }
+  th { background:var(--peach); font-weight:800; font-size:12.5px; }
+  tr:last-child td { border-bottom:0; }
+  code { background:var(--peach); border-radius:5px; padding:1px 5px; font-size:12px; }
+  pre.block { white-space:pre-wrap; font-family:inherit; font-size:12.5px; line-height:1.8; background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0 18px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px; }
+  .pnum { background:var(--slope); color:#fff; font-weight:900; font-size:12px; border-radius:7px; padding:2px 9px; }
+  .tag { background:var(--peach); border-radius:999px; padding:1px 10px; font-size:11.5px; font-weight:800; }
+  .copy-btn { background:#fff; color:var(--slope); border:1.5px solid var(--slope); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--slope); color:#fff; }
+  p.ko { font-size:16px; line-height:1.95; margin:8px 0 10px; word-break:keep-all; }
+  details { border-top:1px dashed var(--line); padding-top:9px; }
+  summary { cursor:pointer; font-size:12.5px; font-weight:800; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; font-family:inherit; font-size:13px; line-height:1.8; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:9px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#FFFDFA; margin-top:10px; }
+  .paste-box:focus { border-color:var(--accent); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--slope); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .paste-del { position:absolute; top:6px; right:6px; border:0; border-radius:8px; background:#fff; padding:3px 9px; font-weight:800; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin:12px 0 20px; }
+  .cast-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .cast-card .chead { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+  .cast-card h4 { font-size:15px; font-weight:900; }
+  .cast-card .copy-btn { margin-left:auto; padding:3px 11px; font-size:11.5px; }
+  .cast-card p { font-size:12.5px; color:var(--ink-soft); line-height:1.65; word-break:keep-all; }
+  .anchor-card { background:#fff; border:1.5px solid var(--slope); border-radius:16px; padding:16px 20px; margin:14px 0; }
+  .anchor-card .ahead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .anchor-card .ahead b { font-size:16px; }
+  .anchor-card pre { white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.65; background:#F7F4EF; border-radius:10px; padding:12px 14px; margin-top:8px; }
+  .award-ref { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; background:var(--peach); border-radius:10px; padding:8px 13px; margin:2px 0 10px; font-size:12.5px; }
+  .award-ref a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .award-ref a:hover { text-decoration:underline; }
+  .award-ref span { font-weight:700; }
+  .award-ref em { color:var(--ink-soft); font-style:normal; word-break:keep-all; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px; }
+  .sw { display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 12px 4px 5px; font-size:12px; font-weight:700; }
+  .sw i { width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,.12); display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">달이네 등대 · 07</div>
+  <h1>갯바위는 살금살금!</h1>
+  <div class="sub"></div>
+  <div class="by">글 <b>오하람</b> · 그림 <b>유하람</b></div>
+</header>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 앵커(1회) + 캐릭터 레퍼런스 + 전 페이지 장면을 한 번에. 쪽별 🎨 버튼은 그 쪽만. 생성한 그림은 각 박스에 붙여넣어 보관(R2).</div>
+
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>판을 깐다</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"끼룩아, 나 잡아 봐!" 달이가 갯바위 위를 폴짝폴짝 뛰어요. 등대 지붕의 갈매기 끼룩이 소리쳐요. "달이야, 젖은 바위는 미끄러워!" 달이는 들은 척도 안 해요. "빠를수록 재밌어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>원함</b> <span class="tag">원함</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저 끝 바위까지 한 번에 갈 거야!" 달이가 앞을 안 보고 폴짝, 폴짝. 바위마다 초록 이끼가 미끌미끌 붙어 있어요. 끼룩이 날개를 파닥이며 외쳐요. "천천히! 앞을 봐!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 앞발이 초록 이끼 위에 찍— 주르륵! 달이가 기우뚱, 배가 바위에 쿵! "아야!" 가슴이 콩닥콩닥, 바다에 빠질 뻔했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 헐레벌떡 달려왔어요. "달이야, 괜찮아? 어디 부딪혔어?" 엄마가 달이 배를 살살 문질러요. "초록 이끼 자리를 못 봤어…" 달이가 고개를 푹 숙여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>결점대로</b> <span class="tag">어긋남</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 바위 두 개를 가리켰어요. "초록 이끼는 미끌미끌, 마른 회색은 딱딱. 갯바위는 초록을 피해서 가는 거야." 달이가 앞발로 회색 바위를 꾹 눌러 봐요. 안 미끄러져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 세 가지 약속을 알려 줬어요. "하나, 앞을 잘 보고! 둘, 초록 이끼는 피하고! 셋, 갯바위는 살금살금!" 달이가 따라 해요. "갯바위는 살금살금!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>탈</b> <span class="tag">탈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 달이가 앞을 보며 살금살금. 초록 자리는 빙 돌아가요. 지붕에서 끼룩이 그대로 따라 해요. "살금살금! 살금살금!" 앞에 파도가 촤악! 달이는 딱 멈춰서 파도가 가기를 기다려요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>어른 한 마디</b> <span class="tag">어른</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">끝 바위에 척 올라섰어요. 하나도 안 넘어졌어요! 달이가 신이 나서 꼬리지느러미를 탁! "천천히 가니까 초록 자리가 다 보여!" 끼룩이 옆에 내려앉아 날개를 짝짝 쳐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>다시</b> <span class="tag">고침</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 달이는 갯바위에 갈 때마다 세 약속을 지켜요. "하나, 앞을 잘 보고! 둘, 초록 이끼는 피하고! 셋, 갯바위는 살금살금!" 다음 날, 달이가 먼저 회색 바위를 골라 밟으며 외쳐요. "갯바위는 살금살금!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>착지</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 달이를 지느러미로 꼭 안아 주었어요. "우리 달이, 천천히 가서 정말 멋졌어!" 빠른 것보다 안 넘어지는 게 훨씬 재밌어요. "갯바위는 살금살금!" 달이 배가 이제 하나도 안 아파요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">(SCENE 미작성)</pre></details>
+</div>
+
+</div>
+<script src="/dari-core.js"></script>
+</body>
+</html>

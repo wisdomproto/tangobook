@@ -356,6 +356,26 @@ export const SERIES = {
   /** 🔴 17 — 앙상블형(호리·대발이 결). 손님 등록부가 없다: 고정 캐스트 다섯이 돌고 **한 편에 최대 셋**이다.
    *  캐스트가 여럿이고 권마다 일부만 나오므로, 그 권에 처음 나오는 인물은 **등장 쪽에서 한 조각으로** 밝힌다
    *  (아이가 어느 권을 첫 권으로 집을지 모른다 → docs/changjak-books/CLAUDE.md §처음 나오는 인물). */
+  dari: {
+    no: '19',
+    title: '달이네 등대',
+    icon: '🦭',
+    awardRef: 'shih-taichi',
+    sub: '물범 아이 달이와 등대지기 가족 · 섬 끝 등대의 사계절 · <b>호리형</b>(주제 25개 = 호리 45편 은행에서, 권마다 그 편을 표본으로) · 그림체 = 흰 왁스 크레용 먼저, 파란 워시 한 번 나중',
+    form: 'debari',
+    pen: { author: '오하람', illustrator: '유하람' },
+    // 🔴 overlap 은 잉크 겹침이 아니라 워시 셋째 겹(밤·눈·반점·쇠)
+    palette: { paper: '#FBF6EA', ink1: '#4F9BD0', ink2: '#A8917A', overlap: '#24486E', accent: '#EE6B8D' },
+    accentWhere: '달이 목의 가리비 조개 하나 (가슴=평소 / 입=무섭·부끄 / 등 뒤=달림·헤엄 / 침대 기둥·욕조 가=잠·목욕). 25권 통틀어 분홍은 그것뿐 — 등대·램프·깃발에도 안 쓴다',
+    cast: [
+      { key: 'dari',   name: '달이', face: '🦭', aliases: ['달이', 'Dari seal', 'Dari'] },
+      { key: 'father', name: '아빠', face: '🦭', aliases: ['아빠', '등대지기 아빠', 'Father seal', 'Lighthouse keeper'] },
+      { key: 'mother', name: '엄마', face: '🦭', aliases: ['엄마', 'Mother seal'] },
+      { key: 'kongal', name: '콩알', face: '🦭', aliases: ['콩알', 'Kongal baby seal', 'Kongal'] },
+      { key: 'kkiruk', name: '끼룩', face: '🐦', aliases: ['끼룩', 'Kkiruk gull', 'Kkiruk'] },
+    ],
+    guests: DARI_GUESTS,
+  },
   bami: {
     no: '18',
     title: '밤이네 작은 역',
