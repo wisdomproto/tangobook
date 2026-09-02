@@ -67,48 +67,54 @@ function BlockArt({ id, rotDeg, color }: { id: number; rotDeg: number; color: st
 
 /** 트레이 조각 한 개 — 탭하면 회전, 다시 탭하면 고른다. */
 function TrayPiece({
-  id,
-  rotDeg,
-  selected,
-  onSelect,
-  onRotate,
+  entry,
+  picked,
+  onPick,
 }: {
-  id: number;
-  rotDeg: number;
-  selected: boolean;
-  onSelect: () => void;
-  onRotate: () => void;
+  entry: { id: number; rotDeg: number };
+  picked: { id: number; rotDeg: number } | null;
+  onPick: (p: { id: number; rotDeg: number }) => void;
 }) {
+  const id = entry.id;
+  const selected = picked?.id === id;
+  const rotDeg = selected ? picked.rotDeg : entry.rotDeg;
+  const onSelect = () => onPick({ id, rotDeg });
+  const onRotate = () => {
+    const keys = BLOCKS[id].rotKeys;
+    onPick({ id, rotDeg: keys[(keys.indexOf(rotDeg) + 1) % keys.length] });
+  };
   const sh = shapeAt(id, rotDeg);
   const ch = charAt(id, rotDeg);
   const canRotate = BLOCKS[id].rotKeys.length > 1;
   // 큰 조각(모음 5칸)과 작은 조각(자음 3칸)이 트레이에서 같은 높이로 보이게 여백을 맞춘다.
   const pad = 0.4;
   return (
-    <div className="flex flex-col items-center gap-1">
-      <button
-        type="button"
-        onClick={selected && canRotate ? onRotate : onSelect}
-        aria-label={selected && canRotate ? `${ch} 돌리기` : `${ch} 고르기`}
-        className={cn(
-          'relative rounded-2xl bg-white transition-all min-h-[44px] min-w-[44px] p-1.5 flex items-center justify-center',
-          selected
-            ? 'ring-4 ring-coral-400 shadow-pop -translate-y-0.5'
-            : 'shadow-soft hover:shadow-pop hover:-translate-y-0.5'
-        )}
-      >
-        <svg
-          viewBox={`${-pad} ${-pad} ${sh.w + pad * 2} ${sh.h + pad * 2}`}
-          className="w-full"
-          style={{ height: 'clamp(2.25rem, 7vh, 3.25rem)', aspectRatio: `${sh.w} / ${sh.h}` }}
-        >
-          <BlockArt id={id} rotDeg={rotDeg} color="#3F2F24" />
-        </svg>
-      </button>
-      {selected && canRotate && (
-        <span className="text-[0.65rem] font-black text-coral-600">↻ 돌리기</span>
+    <button
+      type="button"
+      onClick={selected && canRotate ? onRotate : onSelect}
+      aria-label={selected && canRotate ? `${ch} 돌리기` : `${ch} 고르기`}
+      className={cn(
+        'relative rounded-2xl bg-white transition-all min-h-[44px] min-w-[44px] p-1 flex items-center justify-center',
+        selected
+          ? 'ring-4 ring-coral-400 shadow-pop -translate-y-0.5'
+          : 'shadow-soft hover:shadow-pop hover:-translate-y-0.5'
       )}
-    </div>
+    >
+      <svg
+        viewBox={`${-pad} ${-pad} ${sh.w + pad * 2} ${sh.h + pad * 2}`}
+        className="w-full"
+        style={{ height: 'clamp(1.75rem, 4.5vh, 2.5rem)', aspectRatio: `${sh.w} / ${sh.h}` }}
+      >
+        <BlockArt id={id} rotDeg={rotDeg} color="#3F2F24" />
+      </svg>
+      {/* 🔴 「돌리기」 표시는 **띄워서** 붙인다 — 아래에 글자로 두면 트레이 줄 높이가 커지고
+          그만큼 판이 줄어든다(트레이가 194px 를 먹어 판이 180px 밖에 못 받았다). */}
+      {selected && canRotate && (
+        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-coral-500 text-white text-[0.7rem] font-black flex items-center justify-center shadow-soft">
+          ↻
+        </span>
+      )}
+    </button>
   );
 }
 
@@ -136,19 +142,23 @@ export function TangoBoard({
   onRotatePlaced,
   disabled,
 }: TangoBoardProps) {
-  const boardRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const handleBoardTap = useCallback(
     (e: ReactMouseEvent) => {
-      if (disabled || !picked || !boardRef.current) return;
-      const r = boardRef.current.getBoundingClientRect();
-      const cw = r.width / COLS;
-      const chh = r.height / ROWS;
+      const svg = svgRef.current;
+      if (disabled || !picked || !svg) return;
+      // 🔴 누른 지점을 **SVG 좌표계로** 되돌린다(`getScreenCTM`). 컨테이너 rect 를 칸 수로 나누면
+      //    판이 레터박스로 그려질 때(납작한 화면) 어긋난다 — 그림과 판정이 갈라지는 종류의 버그다.
+      const m = svg.getScreenCTM();
+      if (!m) return;
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const p = pt.matrixTransform(m.inverse());
       const sh = shapeAt(picked.id, picked.rotDeg);
       // 누른 곳이 조각의 **가운데**가 되게 놓는다 — 아이는 놓을 자리를 가운데로 겨눈다.
-      const x = Math.round((e.clientX - r.left) / cw - sh.w / 2);
-      const y = Math.round((e.clientY - r.top) / chh - sh.h / 2);
-      onPlace(x, y);
+      onPlace(Math.round(p.x - sh.w / 2), Math.round(p.y - sh.h / 2));
     },
     [disabled, picked, onPlace]
   );
@@ -160,101 +170,64 @@ export function TangoBoard({
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-3">
-      {/* 판 — 흰 카드 위 격자. 칸 비율은 정사각이라 aspect 로 고정한다. */}
-      <div
-        ref={boardRef}
-        onClick={handleBoardTap}
-        className={cn(
-          'relative w-full rounded-3xl bg-white shadow-card border-4 border-peach-200 overflow-hidden',
-          picked && !disabled && 'cursor-copy ring-4 ring-coral-200'
-        )}
-        style={{ aspectRatio: `${COLS} / ${ROWS}` }}
-      >
-        <svg viewBox={`0 0 ${COLS} ${ROWS}`} className="absolute inset-0 w-full h-full">
-          {pins.map((p, i) => (
-            <circle key={i} cx={p.x} cy={p.y} r={0.12} fill="#EDE1D4" />
+    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3">
+      {/* 🔴 판이 남는 높이를 **먹고** 트레이는 제 높이를 지킨다. 예전엔 판이 폭 기준(24:10)이라
+          납작한 화면(태블릿 가로 768 · 폰 가로 375)에서 트레이를 화면 밖으로 11~80px 밀어냈다. */}
+      <div className="flex-1 min-h-0 flex justify-center">
+        <div
+          onClick={handleBoardTap}
+          className={cn(
+            // 🔴 폭 기준(24:10)이되 **높이 상한**을 건다. 높이 기준으로 두면 트레이가 먼저 자리를
+            //    차지해 판이 굶는다(실측 칸 6.8px). 상한에 걸리면 판이 레터박스로 그려지는데,
+            //    탭 판정은 SVG 좌표계(`getScreenCTM`)라 그림과 안 어긋난다.
+            'relative w-full max-h-full rounded-3xl bg-white shadow-card border-4 border-peach-200 overflow-hidden',
+            picked && !disabled && 'cursor-copy ring-4 ring-coral-200'
+          )}
+          style={{ aspectRatio: `${COLS} / ${ROWS}` }}
+        >
+          <svg
+            ref={svgRef}
+            viewBox={`0 0 ${COLS} ${ROWS}`}
+            className="absolute inset-0 w-full h-full"
+          >
+            {pins.map((p, i) => (
+              <circle key={i} cx={p.x} cy={p.y} r={0.12} fill="#EDE1D4" />
+            ))}
+            {placed.map((b) => {
+              const sh = shapeAt(b.id, b.rotDeg);
+              return (
+                <g
+                  key={b.uid}
+                  transform={`translate(${b.x} ${b.y})`}
+                  onClick={(e) => {
+                    if (disabled) return;
+                    e.stopPropagation();
+                    onRotatePlaced(b.uid);
+                  }}
+                  className={disabled ? undefined : 'cursor-pointer'}
+                >
+                  {/* 투명한 판 — 획만 있으면 탭할 면적이 없다 */}
+                  <rect x={0} y={0} width={sh.w} height={sh.h} fill="transparent" />
+                  <BlockArt id={b.id} rotDeg={b.rotDeg} color="#FF5E3A" />
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+      </div>
+
+      {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
+          (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
+      <div className="shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200 p-1.5 sm:p-2">
+        <div className="flex flex-wrap gap-1 sm:gap-1.5 justify-center items-center">
+          {TRAY_CHO.map((e) => (
+            <TrayPiece key={e.id} entry={e} picked={picked} onPick={onPick} />
           ))}
-          {placed.map((b) => {
-            const sh = shapeAt(b.id, b.rotDeg);
-            return (
-              <g
-                key={b.uid}
-                transform={`translate(${b.x} ${b.y})`}
-                onClick={(e) => {
-                  if (disabled) return;
-                  e.stopPropagation();
-                  onRotatePlaced(b.uid);
-                }}
-                className={disabled ? undefined : 'cursor-pointer'}
-              >
-                {/* 투명한 판 — 획만 있으면 탭할 면적이 없다 */}
-                <rect x={0} y={0} width={sh.w} height={sh.h} fill="transparent" />
-                <BlockArt id={b.id} rotDeg={b.rotDeg} color="#FF5E3A" />
-              </g>
-            );
-          })}
-        </svg>
-      </div>
-
-      {/* 트레이 — 자음 13 · 모음 3. 나머지 글자는 돌리고 붙여서 만든다. */}
-      <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr] gap-3">
-        <TraySection
-          title="자음"
-          hint="돌리면 ㄱ→ㄴ · 둘을 나란히 놓으면 ㄲ"
-          entries={TRAY_CHO}
-          picked={picked}
-          onPick={onPick}
-        />
-        <TraySection
-          title="모음"
-          hint="돌리면 ㅏ→ㅗ→ㅓ→ㅜ · ㅣ 를 더하면 ㅐ"
-          entries={TRAY_JUNG}
-          picked={picked}
-          onPick={onPick}
-        />
-      </div>
-    </div>
-  );
-}
-
-function TraySection({
-  title,
-  hint,
-  entries,
-  picked,
-  onPick,
-}: {
-  title: string;
-  hint: string;
-  entries: { id: number; rotDeg: number }[];
-  picked: { id: number; rotDeg: number } | null;
-  onPick: (p: { id: number; rotDeg: number } | null) => void;
-}) {
-  return (
-    <div className="rounded-3xl bg-cream-50 border-2 border-peach-200 p-2 sm:p-3">
-      <div className="flex items-baseline gap-2 mb-1.5 px-1">
-        <h3 className="text-sm sm:text-base font-black font-display text-ink-900">{title}</h3>
-        <span className="text-[0.65rem] sm:text-xs font-bold text-ink-600 break-keep">{hint}</span>
-      </div>
-      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-        {entries.map((e) => {
-          const selected = picked?.id === e.id;
-          return (
-            <TrayPiece
-              key={e.id}
-              id={e.id}
-              rotDeg={selected ? picked.rotDeg : e.rotDeg}
-              selected={selected}
-              onSelect={() => onPick({ id: e.id, rotDeg: selected ? picked.rotDeg : e.rotDeg })}
-              onRotate={() => {
-                const keys = BLOCKS[e.id].rotKeys;
-                const next = keys[(keys.indexOf(picked!.rotDeg) + 1) % keys.length];
-                onPick({ id: e.id, rotDeg: next });
-              }}
-            />
-          );
-        })}
+          <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
+          {TRAY_JUNG.map((e) => (
+            <TrayPiece key={e.id} entry={e} picked={picked} onPick={onPick} />
+          ))}
+        </div>
       </div>
     </div>
   );

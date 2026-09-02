@@ -542,7 +542,7 @@ function KoreanBlockPlayerInner({
         {/* 메인 — 3 섹션 세로 stack. 세로 비율 1.5:1.5:1 (flex-[3]:[3]:[2]). 가로 풀폭. */}
         <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] min-h-0">
           {/* 섹션 1 — 타겟 단어 + 그림 hero. 세로 비중 2 (짧은 가로화면에서 자모 키보드에 공간 양보). */}
-          <section className="flex-[2] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
+          <section className="flex-[1] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
             {currentItem.imageUrl && (
               <div className="relative shrink-0">
                 <img
@@ -574,7 +574,7 @@ function KoreanBlockPlayerInner({
           {/* 섹션 2 — 드롭존 화면 가운데. 확인/초기화 absolute 로 우측 띄움. 가로 풀폭, 세로 비중 3 (1.5). */}
           <section
             className={cn(
-              'relative flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex items-center justify-center transition-all',
+              'relative flex-[4] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
               roundCorrect &&
                 'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
