@@ -68,7 +68,7 @@ def main():
     dst = os.path.join(K.OUT, "tongue_views.png")
     out.save(dst)
     b = K.tongue().val().BoundingBox()
-    print(f"{dst}   혀 {b.xlen:.1f} × {b.ylen:.1f} × {b.zlen:.1f} mm  두께 {K.TONGUE_T}")
+    print(f"{dst}   혀 {b.xlen:.1f} × {b.ylen:.1f} × {b.zlen:.1f} mm  두께 {K.PLATE_T}")
 
 
 if __name__ == "__main__":

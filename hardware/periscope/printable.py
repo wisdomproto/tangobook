@@ -50,21 +50,24 @@ MIR_W, MIR_H, MIR_T = 17.0, 11.0, 1.1   # 창 + 사방 1.5mm 테두리
 #       곡률 변화가 최대가 된다 — 배부름을 2mm 쯤 남겨야 한다(11mm 에서 2.7%).
 #       이게 「거울 밑면에서 끊기」의 대가다. 맨몸 폰(7~9)과 얇은 케이스는 덮지만
 #       두꺼운 케이스는 안 들어간다. 넓히려면 몸체를 거울 아래로 더 내려야 한다.
-GRIP_MIN, GRIP_MAX = 7.0, 11.0   # 🔴 11 이 한계 — 12 면 4.1%, 13 이면 5.2%
-GRIP_FREE = 6.0
-# 🔴 +3 이다. +1 로 묶어 뒀더니 제일 두꺼운 폰에서 **혀가 완전히 펴져** 곡률이 0 이
-#    되고 변형률이 튀었다(5.2%). 배부름을 2mm 남겨 두어야 한다.
-CHANNEL   = GRIP_MAX + 3.0           # 몸체 벽 ↔ 뒷다리 안쪽 = 고정 폭
+GRIP_MIN, GRIP_MAX = 7.0, 11.0
 
-# ── 혀 (활 스프링)
-# 🔴 혀도 거울 밑면에 맞춘다 — 지붕에서 거기까지가 곧 현 길이다.
-TONGUE_C  = 0.0                      # main() 에서 파생
-# 🔴 0.8 = 0.4mm 노즐에서 **벽 2줄** — 속이 꽉 차게 뽑히고 변형률도 3% 안에 든다.
-#    1.0 이면 3.4% 로 넘고, 인필이 섞여 스프링이 고르지 않다.
-TONGUE_T  = 0.8
-TONGUE_W  = 22.0
+# ── 혀 (누르는 판) + 폼 (스프링)
+# 🔴 **판과 스프링을 나눈다** — 오스모 실물이 「축 핀 2개 + 검정 폼 + 곡면 판」이다.
+#    예전엔 판 자체가 스프링이라 두께가 곧 힘이고 곧 응력이었다: 0.8mm 를 넘기면
+#    변형률이 터지고, 얇으니 판이 뒤틀렸다. 힘을 폼에 넘기면 그 매듭이 풀린다.
+#    → 판은 **두껍고 뻣뻣하게**(1.6), 힘은 **폼 두께로** 조절한다. 시험 인쇄로
+#      두께 4종을 뽑아 고르던 일도 없어진다(폼 테이프를 바꿔 끼우면 된다).
+PLATE_T   = 1.6                      # 누르는 판 — 0.4 노즐에서 벽 4줄, 안 휜다
+PLATE_W   = 22.0
+RIB_T     = 3.2                      # 🔴 경첩 쪽 리브 — 실물도 힌지 모서리만 굵다
+RIB_H     = 4.0                      #    뿌리 비틀림을 여기서 받는다
 PIN_D     = 3.0                      # 프린팅이라 굵게
-TONGUE_Z  = 0.0                      # main() 에서 파생
+FOAM_FREE = 10.0                     # 폼 테이프 자유 두께 (10mm 규격품)
+FOAM_MIN  = 3.0                      # 제일 두꺼운 폰에서 남는 두께 (70% 압축)
+# 🔴 채널 폭은 이제 **폼에서 파생**된다 — 손으로 안 적는다.
+CHANNEL   = GRIP_MAX + PLATE_T + FOAM_MIN
+GRIP_FREE = CHANNEL - PLATE_T - FOAM_FREE   # 쉴 때 판 앞면이 서는 자리
 
 # ── 사출·프린팅 공통
 WALL      = 2.4                      # 프린팅이라 두툼하게
@@ -103,7 +106,8 @@ MIR_TOP   = -(CAM_DROP - (MIR_H / 2) * math.cos(math.radians(90 - MU)))
 #    🔴 「거울 앞을 비워라」는 **앞쪽(y<0)** 이야기다. 혀는 채널 뒤(y 6~13)에 있어서
 #       애초에 거울을 가릴 수 없다 — 높이로 피할 일이 아니었다.
 PHONE_TOP  = -1.0                    # 폰 윗변이 닿는 자리 (지붕 밑 여유 1mm)
-GRIP_DEEP  = 10.0                    # 폰 윗변에서 이만큼 내려간 데를 문다
+GRIP_DEEP  = 8.5                     # 폰 윗변에서 이만큼 내려간 데를 문다
+#    ⚠ 10.0 이면 말린 끝(반지름 2.1)이 몸체 밑면 밖으로 0.1mm 만 남기고 나온다.
 TONGUE_BOT = PHONE_TOP - GRIP_DEEP   # 혀 끝 = 무는 자리
 TONGUE_TOP = 11.5                    # 축 — 위를 길게 (오스모처럼)
 TONGUE_C   = TONGUE_TOP - TONGUE_BOT # 혀 현 길이
@@ -203,7 +207,7 @@ def body():
 
     # 혀 축 구멍 — 옆에서 핀을 밀어 넣는다
     for sx in (-1, 1):
-        outer = outer.cut(cq.Workplane("YZ").workplane(offset=sx * (TONGUE_W / 2 + CLR))
+        outer = outer.cut(cq.Workplane("YZ").workplane(offset=sx * (PLATE_W / 2 + CLR))
                           .center(CHANNEL - 1.0, TONGUE_Z + TONGUE_C / 2)
                           .circle(PIN_D / 2 + CLR).extrude(sx * 8.0))
 
@@ -236,20 +240,28 @@ def tongue():
         return [(y_chord - sag * math.sin(math.pi / 2 * (i / N)) + off,
                  z_top + (z_bot - z_top) * (i / N)) for i in range(N + 1)]
 
-    leaf = (cq.Workplane("YZ").workplane(offset=-TONGUE_W / 2)
-            .polyline(curve(0.0) + list(reversed(curve(TONGUE_T))))
-            .close().extrude(TONGUE_W))
+    leaf = (cq.Workplane("YZ").workplane(offset=-PLATE_W / 2)
+            .polyline(curve(0.0) + list(reversed(curve(PLATE_T))))
+            .close().extrude(PLATE_W))
+
+    # 🔴 **경첩 쪽 리브** — 실물 오스모 혀도 힌지 모서리만 굵고 스팬은 얇다.
+    #    판이 힘을 안 내게 됐어도 **비틀림**은 받는다(폰이 한쪽으로 기울어 들어올 때).
+    #    축 바로 아래에 살을 얹어 그 비틀림을 여기서 받는다.
+    leaf = leaf.union(cq.Workplane("YZ").workplane(offset=-PLATE_W / 2)
+                      .center(y_chord - RIB_T / 2 + PLATE_T / 2, z_top - RIB_H / 2)
+                      .rect(RIB_T, RIB_H).extrude(PLATE_W)
+                      .edges("|X").fillet(0.8))
 
     # 🔴 **끝을 만다.** 실물 오스모 혀는 자유단이 둥글게 말려 있고, 우리 건 0.8mm
     #    **날 그대로** 폰 등을 눌렀다 — 자국이 난다. 사진과 나란히 놓고서야 보였다.
     #    앞으로 나온 정도(GRIP_FREE)는 그대로 두려고, 원기둥 중심을 반지름만큼 뒤에 둔다.
-    lip_r = TONGUE_T + 0.5
-    leaf = leaf.union(cq.Workplane("YZ").workplane(offset=-TONGUE_W / 2)
+    lip_r = PLATE_T + 0.5
+    leaf = leaf.union(cq.Workplane("YZ").workplane(offset=-PLATE_W / 2)
                       .center(GRIP_FREE + lip_r, TONGUE_BOT)
-                      .circle(lip_r).extrude(TONGUE_W))
+                      .circle(lip_r).extrude(PLATE_W))
 
     for sx in (-1, 1):
-        leaf = leaf.union(cq.Workplane("YZ").workplane(offset=sx * TONGUE_W / 2)
+        leaf = leaf.union(cq.Workplane("YZ").workplane(offset=sx * PLATE_W / 2)
                           .center(y_chord, z_top).circle(PIN_D / 2)
                           .extrude(sx * 3.0))
     return leaf
@@ -258,6 +270,14 @@ def tongue():
 def mirror():
     return _tilt(cq.Workplane("XY").box(MIR_W, MIR_T, MIR_H,
                                         centered=(True, True, True)))
+
+
+def foam():
+    """폼 테이프 — **프린팅하지 않는다**(사서 붙인다). 뒷다리 안쪽에 붙는다."""
+    return (cq.Workplane("XY")
+            .box(PLATE_W, FOAM_FREE, TONGUE_TOP - TONGUE_BOT - 4.0,
+                 centered=(True, False, False))
+            .translate((0, CHANNEL - FOAM_FREE, TONGUE_BOT + 2.0)))
 
 
 PARTS = {"print_body": body, "print_tongue": tongue, "print_mirror": mirror}
@@ -311,7 +331,7 @@ def grip_span():
     return 0.0 if lo is None else hi - lo
 
 
-SHOW = dict(PARTS, phone=phone)          # 영상에 나오는 것 = 부품 + 폰
+SHOW = dict(PARTS, foam=foam, phone=phone)   # 영상에 나오는 것 = 부품 + 폼 + 폰
 
 # 🔴 조립 순서는 **여기 한 곳**에서 온다. 영상 스크립트가 제 목록을 들고 있으면
 #    모델을 고쳐도 영상이 안 따라온다 — 실제로 그렇게 갈라져서, 자막은 2부품
@@ -327,15 +347,14 @@ STEPS = [
 ]
 
 
-def bow_strain():
-    """활의 변형률 — eps = t/2·|κ1 − κ2|. 외팔보 식이 아니다.
+def foam_squeeze():
+    """폼이 얼마나 눌리나 (%). 🔴 **변형률 계산은 이제 없다** — 판이 스프링이 아니다.
+    힘은 폼이 내므로 볼 것은 「폼이 살아 있는 압축 범위 안에 있나」뿐이다.
+    폴리우레탄 폼은 70% 까지는 눌러도 되살아나고, 그 위로는 바닥을 친다."""
+    lo = (FOAM_FREE - (CHANNEL - PLATE_T - GRIP_MIN)) / FOAM_FREE * 100
+    hi = (FOAM_FREE - (CHANNEL - PLATE_T - GRIP_MAX)) / FOAM_FREE * 100
+    return lo, hi
 
-    🔴 사분원으로 바꾸면서 식도 바꿔야 했다. 옛 식은 **현과 배부름**으로 반원의
-       반지름을 냈는데, 지금 모양은 배가 아니라 **끝**이 제일 휘어 있다.
-       y(z) = y0 − s·sin(k(z_top−z)),  k = π/(2C)  →  최대 곡률 = s·k² (끝에서).
-       두 상태의 차이는 s 의 차이뿐이므로 |κ1−κ2| = (GRIP_MAX−GRIP_FREE)·k²."""
-    k = math.pi / (2 * TONGUE_C)
-    return TONGUE_T / 2 * (GRIP_MAX - GRIP_FREE) * k * k * 100
 
 
 def main():
@@ -346,8 +365,9 @@ def main():
     print(f"  부품 2개 + 거울(구매)   |   거울 {MIR_W:.0f}×{MIR_H:.0f} · 창 {APER_W:.0f}×{APER_H:.0f}")
     print(f"  거울각 {MU:.0f}° → 하향 {PAD_TILT + 2*MU - 90:.0f}°   화각 {h:.0f}° × {v:.0f}°")
     print(f"  무는 두께 {GRIP_MIN:.0f}~{GRIP_MAX:.0f}mm · 쉴 때 틈 {GRIP_FREE:.0f}mm")
-    print(f"  혀 변형률 {bow_strain():.1f}%  (활 · 현 {TONGUE_C:.0f} · 두께 {TONGUE_T:.1f})"
-          f"  {'OK' if bow_strain() <= 3.0 else '⚠ 3% 초과'}")
+    lo, hi = foam_squeeze()
+    print(f"  폼 압축 {lo:.0f}~{hi:.0f}%  (자유 {FOAM_FREE:.0f}mm · 판 {PLATE_T:.1f}mm)"
+          f"  {'OK' if hi <= 72 and lo >= 5 else '⚠ 폼 두께를 다시'}")
     g = grip_span()
     print(f"  혀가 무는 길이 {g:.1f}mm  (혀 끝 z {TONGUE_BOT:.1f} · 폰 윗변 z {PHONE_TOP:.1f})"
           f"  {'OK' if g >= 6.0 else '⚠ 윗변에 얹히기만 한다'}")
