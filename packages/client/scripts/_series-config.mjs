@@ -126,7 +126,7 @@ export const KOTA_GUESTS = {
 };
 
 
-// 시리즈 18 「밤이네 작은 역」 손님 등록부 — 🔴 손님은 항상 무언가를 든다(고정 캐스트와 갈리는 한 가지). 염소만 빈손.
+// 시리즈 18 「밤이네 기차」 손님 등록부 — 손님은 역에서 탄다(삐삐의 「역이다!」) — 🔴 손님은 항상 무언가를 든다(고정 캐스트와 갈리는 한 가지). 염소만 빈손.
 export const BAMI_GUESTS = {
   "Guest rabbit": {
     "key": "rabbit",
@@ -238,6 +238,46 @@ export const BAMI_GUESTS = {
       "염소"
     ],
     "desc": "처음 온 손님. 아무것도 안 들었다(그게 그 권의 실마리). 턱수염, 낡은 모자."
+  },
+  "Guest teacher": {
+    "key": "teacher",
+    "name": "유치원 선생님",
+    "aliases": [
+      "Guest teacher",
+      "유치원 선생님",
+      "선생님"
+    ],
+    "desc": "염소 아주머니. 출석부를 든다. 안경."
+  },
+  "Guest granny": {
+    "key": "granny",
+    "name": "할머니",
+    "aliases": [
+      "Guest granny",
+      "할머니",
+      "올빼미 할머니"
+    ],
+    "desc": "올빼미 할머니. 보따리 하나. 귀깃이 희다."
+  },
+  "Guest station": {
+    "key": "station",
+    "name": "큰 역 사람들",
+    "aliases": [
+      "Guest station",
+      "큰 역 사람들",
+      "큰 역"
+    ],
+    "desc": "여러 종의 손님들, 짐을 들고 오간다. 얼굴은 안 그린다(배경)."
+  },
+  "Guest stationmaster": {
+    "key": "stationmaster",
+    "name": "종점 역장",
+    "aliases": [
+      "Guest stationmaster",
+      "종점 역장",
+      "소 아저씨"
+    ],
+    "desc": "소 아저씨. 깃발과 역장 모자. 종점에서만 나온다."
   }
 };
 
@@ -303,6 +343,31 @@ export const DARI_GUESTS = {
       "장터"
     ],
     "desc": "항구 장터의 여러 종(게·갈매기·수달). 좌판 뒤에 서 있다. 얼굴은 안 그린다(배경)."
+  }
+};
+
+
+// 시리즈 17 「모야네 물웅덩이」 손님 (호리 은행 재집필에서 생김)
+export const MOYA_GUESTS = {
+  "Guest granny": {
+    "key": "granny",
+    "name": "할머니 얼룩말",
+    "aliases": [
+      "Guest granny",
+      "할머니 얼룩말",
+      "할머니"
+    ],
+    "desc": "먼 무리에서 온 얼룩말 할머니. 등에 흰 털이 섞였다. 걸음이 느리다."
+  },
+  "Guest wildebeest": {
+    "key": "wildebeest",
+    "name": "누 떼",
+    "aliases": [
+      "Guest wildebeest",
+      "누 떼",
+      "누"
+    ],
+    "desc": "지나가는 누 떼. 얼굴은 안 그린다(배경 — 흙먼지와 뿔의 줄)."
   }
 };
 
@@ -378,10 +443,10 @@ export const SERIES = {
   },
   bami: {
     no: '18',
-    title: '밤이네 작은 역',
+    title: '밤이네 기차',
     icon: '🦉',
     awardRef: 'boyd-flashlight',
-    sub: '올빼미 아이 밤이와 역장 아빠 · 산골 간이역 사계절 · <b>호리형</b>(주인공 하나, 결점은 권마다 · 손님은 기차로) · 그림체 = 과슈, 어두운 종이 위에 등불만 칠한다',
+    sub: '올빼미 아이 밤이와 기관사 아빠 · 산골 기찻길을 도는 작은 기차가 집 · <b>호리형</b>(주제 25개 = 호리 45편 은행) · 그림체 = 과슈, 어두운 종이 위에 등불만 칠한다',
     form: 'debari',
     pen: { author: '오하람', illustrator: '유하람' },
     // 🔴 이 시리즈만 ink1/ink2 가 밝은 칠 둘이고 overlap 이 어둠이다(종이가 어둠) — 키 이름만 읽으면 문제없다
@@ -389,8 +454,8 @@ export const SERIES = {
     accentWhere: '밤이의 뜬 목도리 하나 (목=추움 / 배에 묶음=더움 / 난로 옆 못=잠). 25권 통틀어 청록은 그것뿐 — 신호등·깃발·우편함에도 안 쓴다',
     cast: [
       { key: 'bami',   name: '밤이', face: '🦉', aliases: ['밤이', 'Bami owl', 'Bami'] },
-      { key: 'father', name: '아빠', face: '🦉', aliases: ['아빠', '역장 아빠', 'Father owl', 'Stationmaster'] },
-      { key: 'mother', name: '엄마', face: '🦉', aliases: ['엄마', '매점 엄마', 'Mother owl'] },
+      { key: 'father', name: '아빠', face: '🦉', aliases: ['아빠', '기관사 아빠', 'Father owl', 'Engine driver'] },
+      { key: 'mother', name: '엄마', face: '🦉', aliases: ['엄마', '식당칸 엄마', 'Mother owl'] },
       { key: 'nabi',   name: '나비', face: '🐱', aliases: ['나비', 'Nabi cat', 'Nabi'] },
       { key: 'pipi',   name: '삐삐', face: '🐦', aliases: ['삐삐', 'Pipi sparrow', 'Pipi'] },
     ],
@@ -413,6 +478,7 @@ export const SERIES = {
       { key: 'nia',    name: '니아', face: '🦒', aliases: ['니아', 'Nia giraffe', 'Nia'] },
       { key: 'mother', name: '엄마', face: '🦓', aliases: ['엄마', 'Mother zebra'] },
     ],
+    guests: MOYA_GUESTS,
   },
   kota: {
     guests: KOTA_GUESTS,

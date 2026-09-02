@@ -1,21 +1,24 @@
-# 밤이네 작은 역 — 앵커
+# 밤이네 기차 — 앵커
 
-> 창작동화 **시리즈 18** (25권). 설계 SSOT = `docs/changjak-books/bami/_design.md` (미작성)
-> 유럽 산골의 간이역 한 채 · 고정 캐스트 5(밤이·아빠·엄마·나비·삐삐) · 손님 한 조(組)씩 · 기관사 소 아저씨 · 기차는 매 권
+> 창작동화 **시리즈 18** (25권). 설계 SSOT = `docs/changjak-books/bami/_design.md`
+> 산골 기찻길을 도는 작은 기차가 곧 집 · 고정 캐스트 5(밤이·아빠=기관사·엄마·나비·삐삐) · 손님 한 조(組)씩, 역에서 탄다 · 종점 역장 소 아저씨
+> 🔴 **2026-09-02 무대 교체** — 초판 「밤이네 작은 역」(간이역 한 채, 방 일곱)은 사용자 「너무 좁아 뭔가」로 폐기. **슬러그·팔레트·매체·캐릭터 규격은 그대로**, 무대 조항만 기차로 다시 썼다. 초판 앵커는 git 에 있다.
 > 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
-> 🔴 **한 시리즈 = 한 앵커.** 무대 조항은 **자리별 + 계절 넷 + 시간대 셋**이다 — 25권이 한 역을 나눠 쓰고, 이 역은 사계절을 다 지나며 저녁 등불 장면이 가장 많다.
+> 🔴 **한 시리즈 = 한 앵커.** 무대 조항은 **칸별(다섯) + 통로·지붕·바깥 + 역(권마다 하나) + 창밖(권마다 하나 = 계절) + 시간대 셋**이다 — 25권이 한 기차를 나눠 쓰고, 창밖만 권마다 바뀐다. 저녁 등불 장면이 가장 많고, **밤 기차의 창문 불빛**이 이 앵커의 첫 그림이다(§1-a).
 > 개체 규격(키·표지·실루엣)은 **`bami-cast.md` 가 SSOT**(미작성) — 여기엔 화가가 매 쪽 지켜야 할 최소치만 있다.
 
 **앵커 원본** = `boyd-flashlight`(BolognaRagazzi 2015 Fiction 위너 · C6 검정 바탕 위 과슈, 빛은 컷아웃). 배정 근거 = §2.
 사용자 지시 = 「호리처럼 읽기 쉬운 · 과슈 또는 색연필+수채 · 난로 불빛·김 서린 창·눈 오는 플랫폼의 등불 · 보기만 해도 기분 좋은」
-→ **과슈, 단 어두운 종이 위에** — 이 라인 열일곱 시리즈 중 처음으로 **종이가 빛이 아니라 어둠**인 앵커다(§2-a).
+→ **과슈, 단 어두운 종이 위에** — 이 라인 열일곱 시리즈 중 처음으로 **종이가 빛이 아니라 어둠**인 앵커다(§2-a). 무대가 기차로
+바뀌며 이 골격은 더 맞아졌다 — 밤에 달리는 기차는 **바깥에서 보면 창문 불빛 한 줄이 곧 기차**이고, 안에서 보면 창문이
+**칠하지 않은 종이 구멍**이다(§1 `A CAR SEEN FROM INSIDE`).
 
 ---
 
 ## §1. 앵커 — `bami-lamplight`
 
 ```
-STYLE ANCHOR - bami-lamplight   (Bami's little station / opaque gouache on dark paper, painted only as far as the light reaches)
+STYLE ANCHOR - bami-lamplight   (Bami's little train / opaque gouache on dark paper, painted only as far as the light reaches)
 
 Style: opaque gouache on warm dark-taupe paper, a picture book read aloud to children of four to six.
   🔴 HERE THE PAPER IS THE DARK. Night, shadow, fog, the far side and the unlit half of every thing are
@@ -28,59 +31,96 @@ RENDERING (finish hierarchy): one measure, HOW FAR THE LIGHT REACHES, gives all 
   (1) THE CHILD, AND THE ONE THING THE PAGE TURNS ON - fully reached: a lit patch of LAMP or FROST on the
   side facing the light, and INSIDE the patch the IRON marks that say what it is (eyes, beak, feather
   marks, cap peak) - 5 to 12 marks on a figure, 0 to 4 on a thing. (2) THE PLACE - reached in part:
-  ONE flat lit patch per thing, on its top or its lamp side, with 0 marks inside it: a bench is one plank
-  of light, a wall one strip under its lamp, the clock one pale disc with two IRON hands. (3) WHAT THE
-  LIGHT DOES NOT REACH: bare paper, or one flat IRON silhouette with nothing inside.
+  ONE flat lit patch per thing, on its top or its lamp side, with 0 marks inside it: a table is one plank
+  of light, a wall one strip under its lamp, a bunk one plank. (3) WHAT THE LIGHT DOES NOT REACH: bare
+  paper, or one flat IRON silhouette with nothing inside.
   🔴 A FIGURE IS THE ONLY THING WHOSE LIT PATCH HAS MARKS INSIDE IT - that is how it is found on any page.
   FINISHED THINGS PER PAGE = 2. DENSITY RATION = none; each volume names its quiet spread in its own cut.
-  AT MOST: lamps lit 3 · lit patches on the place 9, never touching, paper between them · bench planks 5 ·
-  umbrellas 7 · lost things 9 · leaf marks 30 · snowflakes 20 · blossom dabs 30 · rain strokes 24 · nest
-  twigs 12 · flowers 12 · steam strokes 5.
+  AT MOST: lamps lit 3 (a lit window seen from outside is a patch, not a lamp) · lit patches on the place
+  9, never touching, paper between them · lit windows in a train seen from outside 9 · umbrellas 7 · lost
+  things 9 · leaf marks 30 · snowflakes 20 · blossom dabs 30 · rain strokes 24 · flowers 12 · steam
+  strokes 5 · foam strokes 5.
   🔴 FOG, STEAM, SMOKE AND BREATH ON GLASS ARE THE ONE SOFT THING: FROST dragged nearly dry so the paper
   shows through the stroke - the only place paint and paper mix, never a wet blend, and it lies OVER a
   finished thing, never instead of one.
 
 PALETTE (only these): PAPER #75695F warm taupe - the dark, the unlit, the body of every owl, the cat, the
-  wood and the walls · LAMP #F4DFA4 warm light - lamps, the stove mouth, sun on a thing, the headlamp,
-  autumn leaves · FROST #D6DEE2 cool light - day sky, snow, fog, steam, the moon, blossom, the platform
-  line, cloth · IRON #27221E the one dark darker than the paper - rails, the locomotive, the stove, the
-  signal, the bell, every drawn mark; 🔴 IRON NEVER RUNS ROUND A THING AS AN OUTLINE. No white, black,
-  grey or brown paint exists: white is FROST, black is IRON, grey is dry-dragged FROST, brown is the paper.
-  AT MOST FOUR PAINTED COLOURS ON A PAGE, ACCENT INCLUDED. 🔴 WOOL TEAL #1F9E92 IS THE ACCENT, ONE IN ALL
-  TWENTY-FIVE VOLUMES - Bami's knitted scarf and nothing else: not a signal glass, a guest's coat, a
-  flower, the sky or water. It is on every page Bami is on, and its place is the weather: round the neck
-  (cold), knotted at the belly (warm), on the peg by the stove (asleep).
+  wood and the walls · LAMP #F4DFA4 warm light - lamps, the stove and firebox mouths, sun on a thing, the
+  headlamp, the lit windows, autumn leaves · FROST #D6DEE2 cool light - day sky, snow, fog, steam, the
+  moon, blossom, water, cloth · IRON #27221E the one dark darker than the paper - rails, the train's body,
+  the stove, the signal, the bell, every drawn mark; 🔴 IRON NEVER RUNS ROUND A THING AS AN OUTLINE. No
+  white, black, grey or brown paint exists: white is FROST, black is IRON, grey is dry-dragged FROST, brown
+  is the paper. AT MOST FOUR PAINTED COLOURS ON A PAGE, ACCENT INCLUDED. 🔴 WOOL TEAL #1F9E92 IS THE
+  ACCENT, ONE IN ALL TWENTY-FIVE VOLUMES - Bami's knitted scarf and nothing else: not a signal glass, a
+  guest's coat, a flower, the sky or water. It is on every page Bami is on, and its place is the weather:
+  round the neck (cold), knotted at the belly (warm), on the peg by the stove (asleep).
 
-STAGE CLAUSES (one station house, its platform and the track in front, in all twenty-five volumes):
-  🔴 SEASON = WHERE THE COOL PAINT LIES AND HOW MUCH PAPER IT COVERS. SPRING: FROST dabs on the two trees'
-    branches, 12 to 30, none on the ground. SUMMER: FROST is the sky, one field a third of the page high
-    or more; a shower is 12 to 24 straight FROST strokes crossing lit patches only, never bare paper.
-    AUTUMN: no FROST on the page; LAMP takes the ground as 12 to 30 leaf marks and the sky is paper.
-    WINTER: FROST covers the ground edge to edge, no paper underfoot; falling snow at most 20 dots.
-  🔴 TIME OF DAY = WHO IS DOING THE LIGHTING. DAY: the sky is a FROST field and each thing gets ONE patch
-    on its sun side. EVENING (most pages): the sky is paper, the lamps are LAMP, and a thing is painted
-    only where a lamp reaches it; a lamp's reach is a hard-edged cone or disc cut straight through
-    whatever it crosses. MORNING FOG: the sky is paper and all beyond the platform edge goes under one
-    dry-dragged FROST scumble; nothing in the fog is drawn.
-  WAITING ROOM - the stove is IRON with a LAMP mouth, the brightest thing indoors, and its light stops at
-    the near bench and the cat. Clock = one FROST disc, two IRON hands. Benches = paper, one LAMP plank
-    each. Window = one FROST rectangle; steamed, it is dry-dragged, and a wiped place is a hard FROST shape.
-  OFFICE AND TICKET WINDOW - a small LAMP square in a paper wall with one face disc in it, counter one LAMP
-    strip, ticket one FROST rectangle held in a foot; timetable an IRON grid, telephone IRON; the cap
-    hangs on a peg when off Dad's head, and only the scarf shares that peg.
-  PLATFORM - the edge line is ONE straight FROST stroke the whole width, the only straight FROST line on
-    the page. Signal = IRON post, one arm up or down, one LAMP glass. Bell = IRON, hung from the roof edge.
-    Lamp posts = IRON with a LAMP disc. Rails = two IRON lines along the bottom edge, never painted light.
-  STATION FRONT - Mom's kiosk = a paper box with a LAMP hatch; mailbox and bicycle IRON; flower bed at
-    most 12 dabs of FROST or LAMP, never the accent; the two trees by the road are the only trees; under
-    the top-left eave Ppippi's nest = 12 IRON twigs, chimney IRON, smoke dry-dragged.
-  STOREROOM - the darkest place: only what stands in the door's light is painted - broom, umbrellas, and
-    the lost-property box, at most 9 flat IRON silhouettes with one LAMP patch on the thing looked for.
-  🔴 THE TRAIN - in every volume, and it never fits: cropped by at least one page edge. The locomotive is
-    the largest IRON thing in the book, headlamp LAMP, windows LAMP squares, steam at most 5 dry-dragged
-    FROST strokes. It always comes in from the right.
-  🔴 THE DRIVER - an ox, the same face in every volume, never whole: head, horns and one forearm on the cab
-    window sill, lit from below by the firebox. He never steps down.
+STAGE CLAUSES (one small train that is the family's home, the station it stands at, and the one view
+  through its windows, in all twenty-five volumes):
+  🔴 THE TRAIN IS THE HOUSE - the engine, then DINING CAR, SLEEPING CAR (wash corner at its far end) and
+    GOODS VAN in that order, joined by open passages, one roof over all. Half of every volume is seen from
+    INSIDE a car; a cut carries one place clause below, never two.
+  🔴 A CAR SEEN FROM INSIDE - the wall is paper and a lamp is the only light: ONE LAMP patch on the table,
+    sill or floor, one on the near wall, one on the child; the far end of the car is bare paper. THE WINDOW
+    IS A HOLE IN THE LIT WALL: by night nothing is painted inside it - it is paper showing through the LAMP
+    strip round it - and only the view's own marks may enter it (moon disc, snow dots, a far station lamp).
+    By day the window is a FROST rectangle and the sun comes in as ONE patch in the window's exact shape on
+    the floor or table, cut across whatever it crosses. Breath and steam on the glass = dry-dragged FROST
+    over the hole; a wiped place is one hard FROST shape; a drawing in the steam is IRON marks inside it.
+  🔴 RUNNING = ONE TILT. While the train runs, every hung thing - lamp, strap, the scarf on its peg, a cup
+    on its hook - leans the same way at one angle, 5 to 15 degrees, one angle per page, and what lies loose
+    has slid to that side; Nabi lies along the lean. When the train stands, all of it hangs plumb. Nothing
+    streaks, blurs, doubles or shakes: the tilt is the whole difference between running and standing.
+  ENGINE CAB - Dad's place: the firebox IRON with a LAMP mouth, the brightest thing in the train, its light
+    on Dad's face disc and the big handle (one LAMP bar); whistle cord IRON. Dad is seen from behind in
+    three-quarter or through the cab door, never from outside the cab while the train runs.
+  DINING CAR - the stove IRON with a LAMP mouth, its light stopping at the near table and the cat; table
+    one LAMP plank; lunchbox one FROST rectangle with one IRON lid line; cup one FROST shape; the window
+    seat is the one seat with a lit patch. Mom's apron and the scarf's peg are here.
+  SLEEPING CAR - two bunks, paper, one LAMP plank each; the round window a FROST disc by day, paper by
+    night; the small lamp the smallest LAMP disc in the train and the last lit patch of any evening; toy
+    box IRON. WASH CORNER: basin one FROST shape; the big tub one FROST shape with foam at most 5
+    dry-dragged strokes; towel FROST; toothbrush one IRON mark.
+  GOODS VAN - the darkest place: only what stands in the door's light is painted - broom, umbrellas, the
+    lost-property box and the guests' luggage, at most 9 flat IRON silhouettes with one LAMP patch on the
+    thing looked for.
+  PASSAGE - two paper floor plates with one IRON gap line between, the handrail one IRON bar with a LAMP
+    strip where the lamp reaches it, doors IRON frames; the wind is the one dry-dragged FROST stroke indoors.
+  ROOF - Ppippi's place and the chimney's: chimney IRON, smoke at most 5 dry-dragged FROST strokes trailing
+    back. While the train runs nothing is on the roof but Ppippi and smoke; an owl stands there only while
+    the train stands.
+  🔴 THE TRAIN SEEN FROM OUTSIDE - it never fits, cropped by at least one page edge, and it always faces
+    right, the engine at the right end. By night THE TRAIN IS ITS WINDOWS: a row of LAMP squares, at most
+    9, in an IRON body otherwise unpainted, the headlamp one LAMP disc throwing one hard cone along the
+    track. By day one IRON shape with one LAMP patch on its sun side and FROST windows. Rails two IRON lines
+    along the bottom edge, never painted light. The train is the largest IRON thing on any page it is on.
+  STATION (one a volume, where guests get on) - the platform line ONE straight LAMP stroke the whole width,
+    the only straight LAMP line on the page and the "yellow line" of the text, the train standing along it
+    at the right; signal IRON post, one arm, one LAMP glass; lamp post IRON with a LAMP disc; the station
+    house paper at the left with one LAMP ticket window and a face disc in it. ONE thing names the station:
+    the terminus a big FROST clock disc with two IRON hands · Granny's station a flower bed of at most 12
+    dabs · the kindergarten a gate · the crossing an IRON barrier arm and bell. The bell that starts the
+    train hangs IRON in the cab by the big handle, its rope reaching Bami's foot; ticket one FROST rectangle held
+    in a foot; flag FROST; mailbox IRON.
+  🔴 THE WINDOW VIEW = THE VOLUME'S SEASON, ONE A VOLUME - the same view in every window and on every
+    outside page of that book; it is WHERE THE COOL PAINT LIES AND HOW MUCH PAPER IT COVERS. SPRING FIELD:
+    FROST dabs on branches, 12 to 30, none on the ground. SUMMER SHORE: FROST is sky and sea above the sill,
+    a third of the view or more, one straight FROST line between them. AUTUMN HILL: no FROST in the view,
+    LAMP as 12 to 30 leaf marks, the sky paper. MOUNTAIN BEND: the track curves so the train's own tail
+    shows in the view - the one view with the train seen from inside and outside at once. TUNNEL: the view
+    is bare paper even by day and the lamps inside are all the light there is; the pages before and after
+    hold one FROST arch. RIVER BRIDGE: IRON girders across the view, one straight FROST stroke of water
+    below. SNOW FIELD: FROST fills the view edge to edge, falling snow at most 20 dots.
+  🔴 TIME OF DAY = WHO IS DOING THE LIGHTING. DAY: the view is a FROST field and each thing gets ONE patch
+    on its sun side. EVENING (most pages): the view is paper, the lamps are LAMP, and a thing is painted
+    only where a lamp reaches it; a lamp's reach is a hard-edged cone or disc cut straight through whatever
+    it crosses. MORNING FOG: the view goes under one dry-dragged FROST scumble; nothing in the fog is drawn.
+  🔴 THE CLOCK OF THE DAY IS THE LAMPS. MORNING: the first whistle - steam 5 strokes over a FROST scumble -
+    and the train moves. EVENING: the train stands at the terminus and it is bedtime - THE LAMPS GO OUT ONE
+    BY ONE, each page one fewer lit window in the row, the last page one small lamp in the sleeping car and
+    nothing else lit. No clock face is ever read.
+  🔴 THE DRIVER IS DAD, the owl with the cap. THE STATIONMASTER of the terminus is an ox, the same face in
+    every volume he is in, on the platform with a FROST flag in one hoof, never in the cab.
 
 CHARACTER DESIGN LANGUAGE: 🔴 THE OUTLINE CARRIES THE FEELING - NOT THE EYES. An owl says what it feels
   with the width of its body and the tilt of its face: at ease = round, the body below the head as wide as
@@ -96,9 +136,10 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE OUTLINE CARRIES THE FEELING - NOT THE EYES. 
   GRADE: owls stand upright on two feet and walk. 🔴 WINGS ARE WINGS - no hands, fingers or sleeves: a wing
   spreads, folds, shields the eyes from a lamp, covers the child in rain. 🔴 WHATEVER IS HELD IS HELD IN A
   FOOT WHILE THE OWL STANDS ON THE OTHER - bell rope, flag pole, ticket, cup, suitcase handle: an owl at
-  work is an owl on one foot. They fly only between platform and roof, never over the track.
-  WORN, ONE THING EACH: Dad the stationmaster's cap, IRON peak and band on a paper crown · Mom a FROST
-  apron · Bami the teal scarf · Nabi and Ppippi nothing. No adult ever carries the scarf.
+  work is an owl on one foot. They fly only between a car door, the platform and the roof, never over the
+  track and never off a running train.
+  WORN, ONE THING EACH: Dad the driver's cap, IRON peak and band on a paper crown · Mom a FROST apron ·
+  Bami the teal scarf · Nabi and Ppippi nothing. No adult ever carries the scarf.
   🔴 GROWN OWLS HAVE EAR TUFTS - two IRON points at the crown - AND BAMI HAS NONE: Bami is the one owl
   whose outline has no points, and the fluffiest edge in the cast. Dad is tall and narrow, Mom wide and
   low; the two are told apart filled solid, not by cap or apron.
@@ -108,21 +149,23 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE OUTLINE CARRIES THE FEELING - NOT THE EYES. 
   PPIPPI the sparrow: thumb-sized against Bami, 🔴 THE HIGHEST FIGURE ON ANY PAGE it is on - in the air or
   on the highest edge, never on the ground; chatter is the beak open, nothing drawn coming out.
   🔴 GUESTS: one party a volume, one sheet a species, and A GUEST IS KNOWN BY ITS LUGGAGE - one bag, case,
-  basket or bundle touching it on every page it is on, and nobody in the cast ever owns one. A guest's
-  coat is FROST, LAMP or IRON, never the accent. Guests take the owls' rules for eyes and marks, and
-  their own animal's for feet.
+  basket or bundle touching it on every page it is on, and nobody in the cast ever owns one; the
+  stationmaster's flag is his luggage. A guest's coat is FROST, LAMP or IRON, never the accent. Guests
+  take the owls' rules for eyes and marks, and their own animal's for feet. A guest boards at the station
+  and is never seen getting on or off a running train.
 
-CANVAS: 16:9 double-page spread. 🔴 NO LETTERS, NUMERALS OR SIGNS ANYWHERE, timetable, clock and ticket
-  included. 🔴 THE STATION IS LAID OUT THE SAME IN EVERY VOLUME: the house at the left with the
-  nest under its top-left eave and the kiosk before it, the platform running right to the storeroom at
-  the far end, the track along the bottom edge, the two trees and the road behind the house, the train
-  entering from the right. Any camera, never mirrored.
+CANVAS: 16:9 double-page spread. 🔴 NO LETTERS, NUMERALS OR SIGNS ANYWHERE, clock, ticket and station
+  board included. 🔴 THE TRAIN IS LAID OUT THE SAME IN EVERY VOLUME: outside, the engine at the right and
+  the cars running left from it, the track along the bottom edge; inside a car, the windows on the far
+  wall and the door toward the engine on the right; at a station, the house at the left and the platform
+  line the whole width. Any camera, never mirrored.
 
-NOT: no airbrush, soft gradient, glow or bloom round a lamp, 3D render or texture filter / 🔴 NO
-  INVERTED SHAPE IN GLASS, ICE OR A PUDDLE - a reflection is one FROST patch / 🔴 NO FIGURE ON THE RAILS
-  OR PAST THE PLATFORM LINE WHILE THE TRAIN IS ON THE PAGE, the stove door shut whenever Bami is within a
-  body-length of it, nobody ever falling from the roof / no page fully dark: at least one lit patch on
-  every page.
+NOT: no airbrush, soft gradient, glow or bloom round a lamp, 3D render or texture filter / no motion
+  blur, speed lines or doubled edges - running is the tilt / 🔴 NO INVERTED SHAPE IN GLASS, ICE OR A
+  PUDDLE - a reflection is one FROST patch / 🔴 NO FIGURE ON THE RAILS OR PAST THE PLATFORM LINE WHILE
+  THE TRAIN IS ON THE PAGE, nobody leaning out of a window or standing in an open doorway while it runs,
+  the stove door shut whenever Bami is within a body-length of it, nobody ever falling from the roof / no
+  page fully dark: at least one lit patch on every page.
 ```
 
 **관통 줄** (매 쪽)
@@ -133,8 +176,30 @@ LIGHT:   three paints only - LAMP warm, FROST cool, IRON dark - and fog is the o
 OUTLINE: the body's width and the tilt of the face carry the feeling, the eyes never change size, and the one teal scarf is on Bami
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 자리의 `STAGE CLAUSES` 한 조항 + 계절 조항 + 시간대 조항만 붙인다.** 자리 조항이
-일곱(기차·기관사 포함)인 것은 25권이 한 역을 나눠 쓰기 때문이고, **한 쪽에 동시에 쓰이지 않는다.** 자수 = §6.
+🔴 **컷에 붙일 때는 그 쪽 자리의 `STAGE CLAUSES` 한 조항(칸 하나 · 통로 · 지붕 · 바깥 · 역 중 하나) + 그 권의 창밖
+조항 한 값 + 시간대 조항만 붙인다.** 자리 조항이 아홉(칸 다섯·통로·지붕·바깥·역)인 것은 25권이 한 기차를 나눠 쓰기
+때문이고, **한 쪽에 동시에 쓰이지 않는다.** 「기차는 집」·「안에서 본 칸」·「달림 = 기울기」 세 조항은 자리가 아니라
+규칙이라 **안에서 보는 컷마다** 따라간다. 자수 = §6.
+
+### §1-a. 🔴 앵커의 첫 그림 — 밤 기차의 창문 불빛
+
+이 앵커에 가장 맞는 장면이 곧 참조 슬롯 1 이다. 승인되면 `comic-assets/changjak-anchors` `bami-lamplight-1` 로 고정하고
+이후 25권이 이걸 자기참조한다. 아래는 그 한 장의 컷 — **앵커 전문 + 이 블록**으로 뽑는다.
+
+```
+SEED CUT - bami-lamplight-1   (the train standing at a small station, first evening of winter, seen from the platform)
+STAGE: the train seen from outside + station. TIME: evening. VIEW: snow field.
+The whole train stands along the platform line, cropped at the left page edge so the goods van runs off
+the page; the engine at the right, cold, no steam. The page is bare taupe paper except: the platform line
+(one straight LAMP stroke the whole width) · the ground beyond it FROST edge to edge · a row of seven LAMP
+windows in the IRON body of the two cars · the lamp post's one LAMP disc and its cone on the snow · the
+firebox glow as one LAMP patch on the cab window · at most 20 snow dots · the station house at the far
+left, paper, one LAMP ticket window. In the third window from the engine, Bami's face disc in LAMP, eyes
+two IRON discs, beak one mark, the teal scarf round the neck - the only teal on the page and the only lit
+patch with marks inside it. Nabi is a paper-coloured length along the sill of the next window, two LAMP
+dots for eyes. Ppippi one IRON mark on the roof edge, the highest thing. Nobody on the platform.
+FINISHED THINGS = 2 (Bami · the lamp post). Painted colours = 4 (LAMP, FROST, IRON, teal).
+```
 
 ## §1-b. 캐릭터 시트 — `CHARACTER SHEET`
 
@@ -142,7 +207,7 @@ OUTLINE: the body's width and the tilt of the face carry the feeling, the eyes n
 시트이고, **읽히는가를 검사하는 두 줄**(실루엣 줄 · 눈 지운 윤곽 줄)이 여기 있다.
 
 ```
-CHARACTER SHEET - bami station   (five figures, one sheet)
+CHARACTER SHEET - bami train   (five figures, one sheet)
 
 [여기에 §1 의 Style / RENDERING / PALETTE / CHARACTER DESIGN LANGUAGE 네 문단을 그대로 붙인다]
 
@@ -171,8 +236,9 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 
 **손님 시트 규칙**(종마다 하나 · 같은 종 재방문은 공유): 같은 시트 규격에 **그 종 한 마리(가족이면 어른 하나 + 아이
 하나) + 짐 하나**. 짐은 시트에서 몸에 닿아 있어야 하고(앵커의 손님 규칙이 시트에서부터 성립), 코트는 FROST 또는 LAMP
-한 판, 눈·부리·입 마크는 올빼미 규칙(IRON, 크기 고정), 발은 그 동물 것. 🔴 **기관사 시트는 「머리·뿔·팔뚝 + 창틀」
-하나뿐** — 전신을 시트에 그리면 컷에서 내려선다.
+한 판, 눈·부리·입 마크는 올빼미 규칙(IRON, 크기 고정), 발은 그 동물 것. 🔴 **종점 역장(소 아저씨)도 손님 시트 규격이다 —
+짐 자리에 FROST 깃발 하나**, 전신, 승강장에 선다(초판의 「창틀 시트」는 폐기 — 그는 이제 기차의 일부가 아니다). 🔴 **기관사
+아빠는 캐스트 시트에 있다** — 따로 굽지 않는다.
 
 ---
 
@@ -249,7 +315,7 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 | 질문 | 판단 | 왜 |
 |---|---|---|
 | 올빼미가 날개로 종·깃발·표를 다루는가 | **아니다 — 발로 잡고 다른 발로 선다** | 날개 끝은 아무것도 못 쥔다. 손을 붙이면 dodo(「날개는 날개, 손 없음」)와 반대로 가면서 옷 입은 새가 된다. **진짜 올빼미는 발로 나르고 한 발로 선다** — 해부를 안 굽히고도 「일하는 올빼미 = 한 발로 선 올빼미」라는 셀 수 있는 실루엣이 생긴다 |
-| 서서 걷는가 | **그렇다** | 올빼미는 원래 직립이라 이족이 곧 사실이다. 비행은 「플랫폼↔지붕」만 — 날면 역이 필요 없어진다 |
+| 서서 걷는가 | **그렇다** | 올빼미는 원래 직립이라 이족이 곧 사실이다. 비행은 「칸 문↔승강장↔지붕」만, **달리는 기차에서는 안 난다** — 날면 기차도 역도 필요 없어진다 |
 | 낮에도 깨어 있는가 | **그렇다 — 기차 시간을 산다** | 「밤이」는 아이 이름이지 야행성이 아니다. 조항 = 「두 눈 감은 올빼미는 자는 것이고 다른 뜻이 없다」. 졸음 개그를 이 시리즈에서 쓰지 않는다 |
 | 고양이·참새 | **사족·무의상 / 새·무의상** | 나비는 25권 내내 **서지 않는다**(눕고 앉고 늘어진다 — 「느긋함」이 성격 형용사가 아니라 자세 규칙) · 삐삐는 그 쪽의 **가장 높은 인물** — 실루엣 줄에서 「땅에 안 닿은 유일한 것」으로 걸러진다 |
 
@@ -260,8 +326,9 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 - **손님 규칙 = 짐.** 「손님은 늘 짐을 든다」에 하나를 더 못박았다 — **캐스트는 짐을 소유하지 않는다**. 밤이가
   가방을 들어 주는 쪽은 허용되지만 그 가방은 손님의 것이고 손님이 화면에 있다. 옷으로 가르지 않은 이유 =
   캐스트도 옷 하나씩 입는다.
-- **기관사** = 한 줄 규칙 「전신이 없다 — 머리·뿔·팔뚝 + 창틀, 내려서지 않는다」. 캐스트도 손님도 아닌 자리를
-  **그림으로** 만든 것: 기차의 일부다.
+- **기관사 = 아빠**(2026-09-02). 초판의 소 아저씨(「전신이 없다 — 머리·뿔·팔뚝 + 창틀」)는 **종점 역장**으로 내려섰고,
+  손님 규칙 「짐으로 안다」에서 그의 짐이 **깃발**이다. 아빠는 기관실에서 **뒤 3/4 또는 문 너머로만** 보인다 — 달리는
+  기차 밖에서 기관실 안을 보는 컷이 없으니 아빠의 「일하는 얼굴」은 화실 불빛에 받은 얼굴 원반 하나로 읽힌다.
 
 ### §2-d. 🔴 악센트 색 — 무대가 이미 지닌 색과 등록부를 먼저 세고 골랐다
 
@@ -270,7 +337,7 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 
 | 후보 | 왜 떨어졌나 |
 |---|---|
-| 빨강 | **역이 빨강을 원한다**(신호등 · 깃발 · 우편함) → §5-b② 사고 재현 위험. 게다가 전래동화 「화면당 빨강 1점」과 충돌(§7.2) · 01 pongi · 03 coco 가 이미 빨강 |
+| 빨강 | **기차와 역이 빨강을 원한다**(신호등 · 깃발 · 우편함 · 건널목 차단기 · 기차 앞머리) → §5-b② 사고 재현 위험. 게다가 전래동화 「화면당 빨강 1점」과 충돌(§7.2) · 01 pongi · 03 coco 가 이미 빨강 |
 | 노랑·주황 | 등불이 노랑 · 06 twins · 08 pipo · 03 mei |
 | 파랑 | **셋**(04 dodo · 05 bruno · 10 lulu) — 가장 붐빈다 |
 | 초록 | 09 nono · 신호등 초록 |
@@ -278,8 +345,9 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 | **청록 #1F9E92** | **등록부 열일곱 중 0.** 무대가 안 지닌 유일한 색상환 구역이고, LAMP 크림의 **보색**이라 등불 옆에서 가장 세게 뜬다 |
 
 🔴 그 대신 `PALETTE` 에 **「신호등 유리 · 손님 코트 · 꽃 · 하늘 · 물에 안 쓴다」**를 명시했다 — 청록은 신호등(초록)과
-겨울 하늘로 샌다. 그리고 **신호등 유리는 LAMP, 우편함은 IRON, 깃발은 FROST** 로 못박아 무대가 빨강·초록을
-부를 자리를 미리 지웠다(§5-b②의 처방 그대로).
+겨울 하늘로 샌다. 그리고 **신호등 유리는 LAMP, 우편함·차단기·기차 몸체는 IRON, 깃발은 FROST, 승강장 노란 선은
+LAMP** 로 못박아 무대가 빨강·초록·노랑을 부를 자리를 미리 지웠다(§5-b②의 처방 그대로). ⚠️ 무대 교체로 새로 빨강을
+부르는 것 = **기차 앞머리·건널목 차단기** — 둘 다 IRON 이다. 기차가 「빨간 기차」로 새면 앵커가 아니라 대본이 부른 것이다.
 
 **자리 = 밤이의 뜬 목도리.** 사용자 후보 둘(역장 모자 띠 / 밤이 목도리) 중 후자다 — 모자 띠는 어른 것이고
 「어른은 악센트를 안 지닌다」(§6 시그니처 규칙)와 부딪힌다. 🔴 **덤**: 목도리의 **자리 셋**(목 / 배 / 난로 옆
@@ -338,15 +406,18 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 
 ---
 
-## §5. 🔴 안전선 — 역의 위험과 먹이 관계
+## §5. 🔴 안전선 — 달리는 기차의 위험과 먹이 관계
 
-사용자 지시(4~6세)를 **화가가 그리다가 어길 수 있는 것만** `NOT` 과 캐릭터 조항으로 내렸다.
+사용자 지시(4~6세)를 **화가가 그리다가 어길 수 있는 것만** `NOT` 과 캐릭터 조항으로 내렸다. 무대가 기차가 되며
+위험이 셋 늘었다(달리는 기차의 창·문·지붕) — 전부 **「기차가 서 있을 때만」**으로 막았다.
 
 | 정책 | 앵커 |
 |---|---|
-| **선로·플랫폼 끝** | `NO FIGURE IS EVER ON THE RAILS OR PAST THE PLATFORM LINE WHILE THE TRAIN IS ON THE PAGE` — 기차가 없는 쪽에서 선로를 건너는 것은 대본의 몫(설계서 §안전) |
-| **난로 불** | 밤이가 몸 하나 거리 안에 있으면 **난로 문이 닫혀 있다**. 불은 LAMP 한 패치(입)뿐이고 불꽃 모양을 안 그린다 |
-| **지붕** | 「떨어지는 중」인 인물 없음. 삐삐는 나는 새라 높이가 위험이 아니다 |
+| **선로·승강장 끝** | `NO FIGURE ON THE RAILS OR PAST THE PLATFORM LINE WHILE THE TRAIN IS ON THE PAGE` — 기차가 없는 쪽에서 선로를 건너는 것(11권 건널목)은 대본의 몫(설계서 §안전) |
+| **달리는 기차의 창·문** | `nobody leaning out of a window or standing in an open doorway while it runs` — 17권 「창문마다 손」은 **서 있는 기차**에서만 성립하고, 컷이 그걸 못박아야 한다 |
+| **지붕** | 달리는 동안 지붕 위는 **삐삐와 연기뿐**(`an owl stands on the roof only while the train stands`). 「떨어지는 중」인 인물 없음. 삐삐는 나는 새라 높이가 위험이 아니다 |
+| **통로** | 흔들림은 **기울기 하나**로만 그린다 — 넘어지는 중·미끄러지는 중은 안 그린다(12권 「손잡이 꼭」은 잡은 발을 그린다). 탄 손님은 역에서만 타고 내린다 |
+| **난로·화실 불** | 밤이가 몸 하나 거리 안에 있으면 **난로 문이 닫혀 있다**. 불은 LAMP 한 패치(입)뿐이고 불꽃 모양을 안 그린다. 화실은 아빠 자리라 밤이가 기관실에 있는 컷은 아빠가 사이에 있다 |
 | **고양이 ↔ 참새** | 나비는 **눕고**(가장 낮음) 삐삐는 **가장 높다** — 같은 높이에 있는 쪽이 없고, 삐삐가 닿을 거리면 **나비의 눈은 감겨 있다**. 발톱은 25권 내내 안 그린다 |
 | **올빼미 ↔ 먹이** | 이 세계에 쥐가 없다. 손님 열한 종에 설치류가 없는 것도 그 이유 |
 | **여우 손님 ↔ 토끼 가족** | 손님은 「한 권에 한 조」라 **같은 권에 안 나온다**. 설계서가 두 조를 한 권에 넣으면 이 조항이 먼저 걸린다 |
@@ -363,24 +434,27 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 🔴 **직접 셌다**(첫 펜스 블록의 코드포인트 수, node `[...s].length`). 다른 앵커의 값도 문서에 적힌 값을 안 믿고
 같은 자로 다시 셌다(모야 §6 이 8,082 라 적은 블록이 이 자로 **8,065** 다 — 셈 단위 차이라 아래는 전부 같은 자로).
 
-| | 앵커 전문 | 시트 | **컷 실효**(자리 조항 둘[플랫폼+기차] + 계절 + 시간대) | + 관통 줄 |
+| | 앵커 전문 | 시트 | **컷 실효**(자리 조항 하나[식당칸] + 규칙 조항 셋[집·안에서·기울기] + 창밖 한 값 + 시간대 + 시계 + 기관사) | + 관통 줄 |
 |---|---|---|---|---|
-| `bami-lamplight` | **9,706** | 2,082 | **8,421** | 8,772 |
+| `bami-lamplight` **(기차, 2026-09-02)** | **13,664** | 2,080 | **10,327** | 10,678 |
+| (초판) `bami-lamplight` 역 | 9,706 | 2,082 | 8,421 | 8,772 |
 | (대조) `moya-daylight` | 8,065 | 1,833 | 6,647 | 7,010 |
-| (대조) `kota-mineral` 8,010 · `twins` 10,186 · `mio` 10,051 | | | | |
+| (대조) `dari-waxtide` 10,427 · `kota-mineral` 8,010 · `twins` 10,186 · `mio` 10,051 | | | | |
 
-🔴 **첫 초안은 11,398 이었다.** 모야 골격을 베낀 문장(겹침 73)을 다시 쓰고 자리 조항의 형용사·중복(「빛 밖의
-사물 목록」·시계 숫자 금지 두 번·낮/밤 문장 반복)을 걷어내 1,700 을 줄였다. 모야보다 **+1,641** 남는 이유는
-문장이 아니라 **변수**다:
+🔴 **무대 교체로 +3,958.** 무대 조항이 2,550 → **6,508** 이다(첫 초안 7,132 에서 문장을 조여 624 를 뺐고, 더 빼면
+조항이 없어진다). 늘어난 것은 문장이 아니라 **자리와 값**이다:
 
-- **쪽마다 추적하는 변수가 셋이다**: ①빛이 닿은 단계(1/2/3) ②찬 칠의 자리와 양(계절) ③시간대(누가 비추나).
-  관통 줄은 규격대로 셋이지만, **변수 셋 + 계절 넷 + 시간대 셋**이 이 앵커의 무게다 — 모야(계절 둘)보다
-  시간축이 하나 더 있어 자리 조항이 하나 더 두껍다.
-- **이미 걷어낸 것** = 키 사다리(→ `bami-cast.md`) · 빛 밖 회색 선묘(참조에 있었으나 안 가져옴) · 시계 숫자·
-  시간표 글자(CANVAS 한 줄로) · 손님 열한 종의 개별 규격(시트 규칙 한 문단으로).
-- **다음에 줄어들 자리** = `bami-stages.md` 를 쓰면 자리 조항 일곱이 「그 시트를 보라」로 얇아진다.
-- **깎지 말 자리** = `RENDERING` 의 「빛이 닿은 만큼」 위계와 계절·시간대 조항, 그리고 `CHARACTER` 의 「잡는 것은
-  발」. 이 셋이 이 시리즈의 전부다.
+- **자리 일곱 → 아홉**(칸 다섯 + 통로 + 지붕 + 바깥 + 역) — 역 한 채가 기차 한 대 + 역 한 채가 됐다.
+- **계절 넷 → 창밖 일곱 값**(봄 들판·여름 바닷가·가을 산·굽은 산길·터널·강 다리·겨울 눈밭) — 계절이 「찬 칠의
+  자리」인 건 그대로인데 터널·다리·굽은 길은 계절이 아니라 **창의 상태**라 값이 셋 늘었다.
+- 🔴 **안에서 보는 컷마다 따라가는 규칙 조항 셋**(`THE TRAIN IS THE HOUSE` · `A CAR SEEN FROM INSIDE` · `RUNNING =
+  ONE TILT`) — 초판엔 없던 층이다. 역은 안 움직였고 창이 사건이 아니었다. **컷 실효 +1,906 의 대부분이 여기**다.
+- **이미 걷어낸 것** = 키 사다리(→ `bami-cast.md`) · 빛 밖 회색 선묘 · 시계 숫자·시간표 글자(CANVAS 한 줄로) · 손님
+  열다섯 종의 개별 규격(시트 규칙 한 문단으로) · 초판의 역 방 일곱(대합실·사무실·매점·창고·나무 둘·둥지).
+- **다음에 줄어들 자리** = `bami-stages.md` 를 쓰면 자리 조항 아홉이 「그 시트를 보라」로 얇아진다. 창밖 일곱 값은
+  **권마다 하나만 컷에 실리므로** 실효에서는 이미 얇다.
+- **깎지 말 자리** = `RENDERING` 의 「빛이 닿은 만큼」 위계 · 「창문은 칠한 벽에 난 구멍」 · 「달림 = 기울기 하나」 ·
+  `CHARACTER` 의 「잡는 것은 발」. 이 넷이 이 시리즈의 전부다.
 
 ---
 
@@ -389,15 +463,16 @@ SHEET LAYOUT: one sheet of bare dark-taupe paper - 🔴 THE GROUND IS NOT PAINTE
 1. **`bami-cast.md`** — 개체 규격 SSOT. 앵커에는 **표지 셋과 어른≠큰 아이(귀깃)**만 남겼고, 키 사다리는 여기로.
    제안(아빠 = 1 기준): **엄마 0.85(폭은 아빠의 1.6배) · 밤이 0.5 · 나비 누운 길이 0.9, 높이 0.3 · 삐삐 0.12.**
    🔴 제목은 `_series-config.mjs` 의 `aliases[1]` 과 **글자까지** 같아야 한다.
-2. **`_series-config.mjs` 에 `bami` 항목** — `palette: { paper: '#75695F', ink1: '#F4DFA4', ink2: '#D6DEE2',
-   overlap: '#27221E', accent: '#1F9E92' }` · `awardRef: 'boyd-flashlight'` · `accentWhere: '밤이 목도리 (목/배/난로 옆 못 — 자리가 계절)'`.
-   🔴 `ink1/ink2` 가 이 시리즈에서는 **어두운 잉크 둘이 아니라 밝은 칠 둘**이고 `overlap` 이 유일한 어둠이다 —
-   빌더가 키 이름으로만 읽으면 문제없고, 「겹침색」이라는 라벨을 화면에 찍는 곳이 있으면 그 라벨만 확인할 것.
-   손님 열한 종은 코타처럼 **`BAMI_GUESTS` 등록부**(`window.SH_GUESTS` → @image9~), 기관사도 그 목록에 「소 아저씨 — 창틀
-   시트」로 한 항목.
-3. **`bami-stages.md`** — 자리 일곱의 시트. 🔴 매체 번역 한 줄 = **「밝은 것은 칠한 것 · 빛이 안 닿은 것은 종이」**.
-4. **`_SERIES-ANCHORS.md` 표에 18행** — 축 = 「윤곽(몸의 폭·얼굴 기울기)이 표정을 진다」, 눈 처리 = 「IRON 원반 둘,
-   크기 25권 불변」, 레퍼런스 = `boyd-flashlight`. `changjak-anchor-refs.json` 도 같이 고치고 `build-award-index.mjs`
-   재실행.
-5. **설계서 `docs/changjak-books/bami/_design.md`** — 25권 표에 🔴 **「이 권의 계절 · 시간대 · 손님 조」 세 칸**.
-   이 무대의 물리는 **빛이 어디까지 닿나**이므로, 시간대 칸이 빈 권은 역을 배경화면으로 쓰고 있는 것이다.
+2. ✅ **`_series-config.mjs` `bami` 항목** — 있다(`title: '밤이네 기차'`, 팔레트·awardRef·캐스트·`BAMI_GUESTS`).
+   🔴 `ink1/ink2` 가 이 시리즈에서는 **밝은 칠 둘**이고 `overlap` 이 유일한 어둠이다 — 「겹침색」 라벨을 화면에 찍는
+   곳이 있으면 그 라벨만 확인할 것. `BAMI_GUESTS` 의 `Guest stationmaster`(소 아저씨) desc 가 아직 「창틀」이면 **깃발·전신·승강장**으로.
+3. **`bami-stages.md`** — 칸 다섯(기관실·식당칸·침대칸+세면 구석·화물칸) + 통로·지붕·바깥·역 = **아홉 자리**의 시트와
+   **창밖 일곱 값**의 시트. 🔴 매체 번역 한 줄 = **「밝은 것은 칠한 것 · 빛이 안 닿은 것은 종이」**. 🔴 역 시트는 「이름을 주는
+   것 하나」(종점 시계·할머니 꽃밭·유치원 문·건널목 차단기)만 다르고 나머지는 한 장.
+4. **`_SERIES-ANCHORS.md` 표 18행** — 제목을 「밤이네 기차」로 (2026-09-02 반영). 축·눈 처리·레퍼런스는 불변.
+   `changjak-anchor-refs.json` + `build-award-index.mjs` 재실행은 그대로 남은 일.
+5. **설계서 `docs/changjak-books/bami/_design.md` §4** — 「창밖·계절」 칸은 있다. 🔴 **시간대 칸이 없다** — 이 무대의
+   물리는 **빛이 어디까지 닿나**이므로, 시간대가 빈 권은 기차를 배경화면으로 쓰고 있는 것이다. 특히 06권(등불이 하나씩
+   꺼진다)은 쪽마다 시간대가 다르니 SCENE 이 쪽별로 적어야 한다.
+6. 🔴 **SCENE 이 나오면 「창밖 하나」를 기계로 센다** — 한 권의 SCENE 에서 창밖 토큰이 둘 이상이면 설계 §1 위반이다.
+   경로표(`build-series-routes.mjs`)의 자리 칸이 `Window*` 토큰을 읽게 하면 따로 스크립트가 필요 없다.
