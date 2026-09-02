@@ -22,8 +22,10 @@
 🔴 프린팅 방향
    몸체 — **뒤(껍데기 바깥면)를 바닥에 눕혀서**. 거울 경사면이 위를 보고,
           채널 입구가 옆으로 열려 서포트가 거의 없다.
-   혀   — **활을 눕혀서**(층이 아치를 따라 흐르게). 세워서 뽑으면 층 사이가
-          벌어지며 첫 번에 부러진다. 🔴 이게 프린팅에서 제일 중요하다.
+   혀   — **폭을 세워서**. 한 층 한 층이 활 모양 그 자체가 되고 굽힘이 층 **안에서**
+          걸린다. 🔴 여기 「눕혀라」라고 적어 두었던 건 **틀렸다** — 서포트를 재 보니
+          눕히면 523mm², 세우면 33mm² 였다(plate.py 의 overhang_area). 측정이
+          조언을 뒤집었는데 plate.py 만 고치고 이 파일이 옛말을 들고 있었다.
    재질 — 혀는 **PETG**(PLA 는 잘 부러진다). 몸체는 아무거나.
 ────────────────────────────────────────────────────────────────────────
 """
@@ -177,7 +179,8 @@ def body():
 # ─────────────────────────────────────────── 부품 2. 혀 (활 스프링)
 
 def tongue():
-    """활. 🔴 **눕혀서 뽑는다** — 세우면 층 사이가 벌어져 첫 번에 부러진다."""
+    """활. 🔴 **폭을 세워서 뽑는다**(plate.py 가 서포트를 재서 정한 것 — 눕히면 523mm²,
+    세우면 33mm²). 층 하나하나가 활 그 자체가 되어 굽힘이 층 안에서 걸린다."""
     z_top = TONGUE_Z + TONGUE_C / 2
     z_bot = TONGUE_Z - TONGUE_C / 2
     y_chord = CHANNEL - 1.0
@@ -206,6 +209,52 @@ def mirror():
 PARTS = {"print_body": body, "print_tongue": tongue, "print_mirror": mirror}
 
 
+# ─────────────────────────────────────────── 검산 · 조립 영상
+
+def check_optics():
+    """🔴 모델링한 거울로 **실제 반사를 계산**한다 — 하향각을 손으로 적지 않는다."""
+    a = math.radians(MU)
+    n = (0.0, math.sin(a), -math.cos(a))          # 거울 법선 (로컬)
+    t = math.radians(PAD_TILT)
+    up_w = (0.0, math.cos(t), math.sin(t))
+    back_w = (0.0, math.sin(t), -math.cos(t))     # 로컬 +Y (시뮬 rigGeometry 규약)
+    out_w = tuple(-x for x in back_w)
+    nw = tuple(n[0] * ax + n[1] * bx + n[2] * cx
+               for ax, bx, cx in zip((1, 0, 0), back_w, up_w))
+    dot = sum(p * q for p, q in zip(out_w, nw))
+    r = tuple(p - 2 * dot * q for p, q in zip(out_w, nw))
+    return (math.degrees(math.atan2(-r[2], math.hypot(r[0], r[1]))),
+            PAD_TILT + 2 * MU - 90.0)
+
+
+PHONE_T = (GRIP_MIN + GRIP_MAX) / 2      # 무는 범위 한가운데
+
+
+def phone():
+    """🔴 **프린팅하지 않는다** — 조립 영상에서 「어디에 씌우는지」를 보여주는 몸이다.
+    그래서 PARTS 에는 없고 SHOW 에만 있다."""
+    return (cq.Workplane("XY")
+            .box(72.0, PHONE_T, 90.0, centered=(True, False, False))
+            .translate((0, 0, -91.0))
+            .edges("|Y").fillet(6.0))
+
+
+SHOW = dict(PARTS, phone=phone)          # 영상에 나오는 것 = 부품 + 폰
+
+# 🔴 조립 순서는 **여기 한 곳**에서 온다. 영상 스크립트가 제 목록을 들고 있으면
+#    모델을 고쳐도 영상이 안 따라온다 — 실제로 그렇게 갈라져서, 자막은 2부품
+#    프린팅 이야기를 하는데 화면에는 옛 사출 부품(초록 rocker_pad)이 스쳤다.
+# 🔴 벌어지는 방향은 **실제로 들어가는 방향**이어야 한다. 거울 슬롯은 +X 쪽으로
+#    열려 있고(body() 의 entry), 혀와 폰은 아래로 열린 채널로 들어간다.
+#    옛 영상은 셋 다 위에서 내려와서 자막과 그림이 서로 다른 말을 했다.
+STEPS = [
+    ("print_body",   (0, 0, 0),    "몸체 — 프린팅 한 덩어리"),
+    ("print_tongue", (0, 0, -48),  "혀를 아래에서 채널로 넣고 핀을 축 구멍에 끼운다"),
+    ("print_mirror", (62, 0, 0),   "거울 17×11 을 옆에서 슬롯으로 밀어 넣는다"),
+    ("phone",        (0, 0, -75),  "폰 윗변을 채널에 끼운다 — 혀가 눌리며 문다"),
+]
+
+
 def bow_strain():
     """활의 변형률 — eps = t/2·|1/R1 − 1/R2|. 외팔보 식이 아니다."""
     c = TONGUE_C
@@ -228,7 +277,7 @@ def main():
     print()
     print("  프린팅")
     print("   · 몸체 — 뒤를 바닥에 눕혀서. 서포트 거의 없음")
-    print("   · 혀   — 활을 눕혀서. 🔴 세우면 층 사이가 벌어져 부러진다. PETG 권장")
+    print("   · 혀   — 폭을 세워서. 서포트 33mm² (눕히면 523). PETG 권장")
     print("   · 거울 — 옆 슬롯으로 밀어 넣는다 (융착 없음)")
     print()
     # 🔴 **밖으로 나온 부품이 있나** — 아이 물건이라 이게 제일 중요하다.
