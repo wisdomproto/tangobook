@@ -97,10 +97,16 @@ MIR_TOP   = -(CAM_DROP - (MIR_H / 2) * math.cos(math.radians(90 - MU)))
 # 🔴 그리고 혀는 **아래쪽 끝**으로 문다(배가 아니라). 실물 혀는 위에서 아래로
 #    비스듬히 기울어 내려오고, 제일 안쪽으로 나온 데가 **끝**이다. 배로 물면
 #    닿는 자리가 폰 두께에 따라 위아래로 미끄러진다.
-TONGUE_GAP = 1.0                     # 거울 꼭대기에서 이만큼 띄운다
-TONGUE_BOT = MIR_TOP + TONGUE_GAP    # 혀 끝 = 무는 자리
-TONGUE_C   = 14.0                    # 혀 현 길이 (전부 거울 위)
-TONGUE_TOP = TONGUE_BOT + TONGUE_C   # 축
+# 🔴 **혀 끝은 폰 얼굴 위에 있어야 한다.** 「거울 위에서만 문다」를 z 로 옮겨
+#    혀 끝을 거울 꼭대기(−4.5)에 뒀더니, 폰 윗변이 z −1 이라 **무는 구간이 3mm** 뿐이었다.
+#    그건 무는 게 아니라 윗변에 얹힌 것이다.
+#    🔴 「거울 앞을 비워라」는 **앞쪽(y<0)** 이야기다. 혀는 채널 뒤(y 6~13)에 있어서
+#       애초에 거울을 가릴 수 없다 — 높이로 피할 일이 아니었다.
+PHONE_TOP  = -1.0                    # 폰 윗변이 닿는 자리 (지붕 밑 여유 1mm)
+GRIP_DEEP  = 10.0                    # 폰 윗변에서 이만큼 내려간 데를 문다
+TONGUE_BOT = PHONE_TOP - GRIP_DEEP   # 혀 끝 = 무는 자리
+TONGUE_TOP = 11.5                    # 축 — 위를 길게 (오스모처럼)
+TONGUE_C   = TONGUE_TOP - TONGUE_BOT # 혀 현 길이
 TONGUE_Z   = (TONGUE_TOP + TONGUE_BOT) / 2
 # 🔴 축을 지붕 높이에 놓으면 **핀 반지름만큼 지붕을 뚫고 나온다**(실측 1.5mm).
 ROOF      = TONGUE_TOP + PIN_D / 2 + WALL
@@ -271,11 +277,29 @@ PHONE_T = (GRIP_MIN + GRIP_MAX) / 2      # 무는 범위 한가운데
 
 def phone():
     """🔴 **프린팅하지 않는다** — 조립 영상에서 「어디에 씌우는지」를 보여주는 몸이다.
-    그래서 PARTS 에는 없고 SHOW 에만 있다."""
+    그래서 PARTS 에는 없고 SHOW 에만 있다. 윗변은 PHONE_TOP 에 앉는다."""
     return (cq.Workplane("XY")
             .box(72.0, PHONE_T, 90.0, centered=(True, False, False))
-            .translate((0, 0, -91.0))
+            .translate((0, 0, PHONE_TOP - 90.0))
             .edges("|Y").fillet(6.0))
+
+
+def grip_span():
+    """🔴 **혀가 폰을 무는 길이(mm)**. 이 숫자가 없어서 혀가 폰 윗변에 얹히기만 하는
+    상태를 못 잡았다(무는 구간 3mm). 혀 곡선의 y 가 폰 등(PHONE_T)보다 앞에 있고,
+    동시에 폰이 있는 높이(z ≤ PHONE_TOP)인 구간의 길이를 잰다."""
+    y_chord = CHANNEL - 1.0
+    sag = y_chord - GRIP_FREE
+    lo = hi = None
+    N = 400
+    for i in range(N + 1):
+        t = i / N
+        y = y_chord - sag * math.sin(math.pi / 2 * t)
+        z = TONGUE_TOP + (TONGUE_BOT - TONGUE_TOP) * t
+        if z <= PHONE_TOP and y < PHONE_T:
+            lo = z if lo is None else min(lo, z)
+            hi = z if hi is None else max(hi, z)
+    return 0.0 if lo is None else hi - lo
 
 
 SHOW = dict(PARTS, phone=phone)          # 영상에 나오는 것 = 부품 + 폰
@@ -315,6 +339,9 @@ def main():
     print(f"  무는 두께 {GRIP_MIN:.0f}~{GRIP_MAX:.0f}mm · 쉴 때 틈 {GRIP_FREE:.0f}mm")
     print(f"  혀 변형률 {bow_strain():.1f}%  (활 · 현 {TONGUE_C:.0f} · 두께 {TONGUE_T:.1f})"
           f"  {'OK' if bow_strain() <= 3.0 else '⚠ 3% 초과'}")
+    g = grip_span()
+    print(f"  혀가 무는 길이 {g:.1f}mm  (혀 끝 z {TONGUE_BOT:.1f} · 폰 윗변 z {PHONE_TOP:.1f})"
+          f"  {'OK' if g >= 6.0 else '⚠ 윗변에 얹히기만 한다'}")
     print()
     print("  프린팅")
     print("   · 몸체 — 뒤를 바닥에 눕혀서. 서포트 거의 없음")
