@@ -125,6 +125,122 @@ export const KOTA_GUESTS = {
   }
 };
 
+
+// 시리즈 18 「밤이네 작은 역」 손님 등록부 — 🔴 손님은 항상 무언가를 든다(고정 캐스트와 갈리는 한 가지). 염소만 빈손.
+export const BAMI_GUESTS = {
+  "Guest rabbit": {
+    "key": "rabbit",
+    "name": "토끼 가족",
+    "aliases": [
+      "Guest rabbit",
+      "토끼 가족",
+      "토끼"
+    ],
+    "desc": "어른 토끼 둘과 아이 셋. 큰 바구니 하나를 함께 든다. 귀가 모자 밖으로 나온다."
+  },
+  "Guest mole": {
+    "key": "mole",
+    "name": "두더지 우체부",
+    "aliases": [
+      "Guest mole",
+      "두더지 우체부",
+      "두더지"
+    ],
+    "desc": "작은 두더지. 어깨에 편지 가방을 비스듬히 멘다. 눈이 거의 감겨 있고 코가 분홍."
+  },
+  "Guest fox": {
+    "key": "fox",
+    "name": "여우 화가",
+    "aliases": [
+      "Guest fox",
+      "여우 화가",
+      "여우"
+    ],
+    "desc": "마른 여우. 접은 이젤과 물감 상자를 든다. 붓 하나를 귀에 꽂았다."
+  },
+  "Guest tortoise": {
+    "key": "tortoise",
+    "name": "거북 할아버지",
+    "aliases": [
+      "Guest tortoise",
+      "거북 할아버지",
+      "거북"
+    ],
+    "desc": "등딱지가 낡은 거북. 지팡이와 작은 가죽 가방. 걸음이 아주 느리다."
+  },
+  "Guest duck": {
+    "key": "duck",
+    "name": "오리 부부",
+    "aliases": [
+      "Guest duck",
+      "오리 부부",
+      "오리 신혼부부",
+      "오리"
+    ],
+    "desc": "오리 둘. 꽃다발 하나와 똑같은 트렁크 둘. 늘 나란히 선다."
+  },
+  "Guest hedgehog": {
+    "key": "hedgehog",
+    "name": "고슴도치 악단",
+    "aliases": [
+      "Guest hedgehog",
+      "고슴도치 악단",
+      "고슴도치"
+    ],
+    "desc": "고슴도치 넷. 저마다 악기 케이스(바이올린·트럼펫·북·아코디언)를 든다. 가시 위에 작은 모자."
+  },
+  "Guest bear": {
+    "key": "bear",
+    "name": "곰 아주머니",
+    "aliases": [
+      "Guest bear",
+      "곰 아주머니",
+      "곰"
+    ],
+    "desc": "큰 곰. 아주 무거운 가방 하나. 앞치마에 꽃무늬."
+  },
+  "Guest sheep": {
+    "key": "sheep",
+    "name": "양 세 자매",
+    "aliases": [
+      "Guest sheep",
+      "양 세 자매",
+      "양"
+    ],
+    "desc": "양 셋. 똑같은 모자 셋, 똑같은 손가방 셋. 늘 셋이 붙어 다닌다."
+  },
+  "Guest deer": {
+    "key": "deer",
+    "name": "사슴 학생",
+    "aliases": [
+      "Guest deer",
+      "사슴 학생",
+      "사슴"
+    ],
+    "desc": "어린 사슴. 책가방을 메고 접은 지도를 든다. 뿔이 아직 짧다."
+  },
+  "Guest badger": {
+    "key": "badger",
+    "name": "오소리 아저씨",
+    "aliases": [
+      "Guest badger",
+      "오소리 아저씨",
+      "오소리"
+    ],
+    "desc": "마지막 기차의 손님. 작은 등불 하나를 든다. 얼굴에 흰 줄 둘."
+  },
+  "Guest goat": {
+    "key": "goat",
+    "name": "염소 아저씨",
+    "aliases": [
+      "Guest goat",
+      "염소 아저씨",
+      "염소"
+    ],
+    "desc": "처음 온 손님. 아무것도 안 들었다(그게 그 권의 실마리). 턱수염, 낡은 모자."
+  }
+};
+
 export const SERIES = {
   pongi: {
     no: '01', title: '퐁이네 운하 마을', icon: '🦦',
