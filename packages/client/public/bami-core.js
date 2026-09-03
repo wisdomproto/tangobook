@@ -28,8 +28,8 @@
     "name": "아빠",
     "aliases": [
       "아빠",
-      "기관사 아빠",
       "Father owl",
+      "기관사 아빠",
       "Engine driver"
     ],
     "spec": ""
@@ -39,8 +39,8 @@
     "name": "엄마",
     "aliases": [
       "엄마",
-      "식당칸 엄마",
-      "Mother owl"
+      "Mother owl",
+      "식당칸 엄마"
     ],
     "spec": ""
   },

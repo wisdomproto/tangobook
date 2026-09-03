@@ -28,8 +28,8 @@
     "name": "아빠",
     "aliases": [
       "아빠",
-      "등대지기 아빠",
       "Father seal",
+      "등대지기 아빠",
       "Lighthouse keeper"
     ],
     "spec": ""
