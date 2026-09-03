@@ -73,10 +73,14 @@ function checkSeries(key) {
       .some((a) => String(scene).toLowerCase().includes(String(a).toLowerCase())));
     const s1 = scenes[id]?.p1 ?? '';
     const n1 = onPage(s1).length;
-    // 🔴 진짜 규칙은 「그림은 본문에 없는 사람을 못 더한다」다(2026-09-01) — 승인 본문이 p1 에
-    //    손님을 세운 권(21·23·24 등)은 셋이 맞다. 본문 p1 에 손님 호칭이 있으면 셋까지 허용.
-    const proseHasGuest = /손님|아저씨|아주머니|할머니|할아버지|아이/.test(bk.pages[0]?.ko ?? '');
-    if (horiForm && n1 > (proseHasGuest ? 3 : 2)) fail.push(at(`p1 에 인물 ${n1}명 (본문보다 많다)`));
+    // 🔴 진짜 규칙은 「그림은 본문에 없는 사람을 못 더한다」다(2026-09-01) — 그러니 **본문 p1 을 세서**
+    //    그 수와 견준다. 상수(둘)로 잡았더니 도도 37·38·47 처럼 남매+엄마가 다 나오는 멀쩡한 쪽이
+    //    걸렸다. 🔴 호리 45편 실측 p1 인물 수 = 1명 13 · 2명 23 · **3명 6 · 4명 2 · 5명 1** —
+    //    원본이 20% 를 어기는 상한은 상한이 아니다(2026-09-03). 손님 호칭은 캐스트에 없으니 +1.
+    const proseP1 = bk.pages[0]?.ko ?? '';
+    const proseHasGuest = /손님|아저씨|아주머니|할머니|할아버지|아이/.test(proseP1);
+    const inProse = onPage(proseP1).length + (proseHasGuest ? 1 : 0);
+    if (horiForm && n1 > Math.max(inProse, 2)) fail.push(at(`p1 에 인물 ${n1}명 (본문은 ${inProse}명)`));
 
     // 🔴 마지막 쪽은 인물의 입에서 닫는다. 375권 중 257권(69%)이 대사도 물음도 없이 서술로 끝났고,
     //    출판 그림책 12편은 전부 인물의 한 문장으로 닫았다. 덮는 순간 뭐가 정리됐는지 부모가 알아야 한다.
