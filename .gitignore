@@ -130,3 +130,4 @@ packages/client/public/worksheet/*
 !packages/client/public/worksheet/ko_phonics.html
 !packages/client/public/worksheet/en_phonics.html
 packages/server/scripts/_preview-flat/
+docs/changjak-books/*/_drafts/
