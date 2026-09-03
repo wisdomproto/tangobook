@@ -434,7 +434,7 @@ export const SERIES = {
     accentWhere: '달이 목의 가리비 조개 하나 (가슴=평소 / 입=무섭·부끄 / 등 뒤=달림·헤엄 / 침대 기둥·욕조 가=잠·목욕). 25권 통틀어 분홍은 그것뿐 — 등대·램프·깃발에도 안 쓴다',
     cast: [
       { key: 'dari',   name: '달이', face: '🦭', aliases: ['달이', 'Dari seal', 'Dari'] },
-      { key: 'father', name: '아빠', face: '🦭', aliases: ['아빠', '등대지기 아빠', 'Father seal', 'Lighthouse keeper'] },
+      { key: 'father', name: '아빠', face: '🦭', aliases: ['아빠', 'Father seal', '등대지기 아빠', 'Lighthouse keeper'] },
       { key: 'mother', name: '엄마', face: '🦭', aliases: ['엄마', 'Mother seal'] },
       { key: 'kongal', name: '콩알', face: '🦭', aliases: ['콩알', 'Kongal baby seal', 'Kongal'] },
       { key: 'kkiruk', name: '끼룩', face: '🐦', aliases: ['끼룩', 'Kkiruk gull', 'Kkiruk'] },
@@ -454,8 +454,8 @@ export const SERIES = {
     accentWhere: '밤이의 뜬 목도리 하나 (목=추움 / 배에 묶음=더움 / 난로 옆 못=잠). 25권 통틀어 청록은 그것뿐 — 신호등·깃발·우편함에도 안 쓴다',
     cast: [
       { key: 'bami',   name: '밤이', face: '🦉', aliases: ['밤이', 'Bami owl', 'Bami'] },
-      { key: 'father', name: '아빠', face: '🦉', aliases: ['아빠', '기관사 아빠', 'Father owl', 'Engine driver'] },
-      { key: 'mother', name: '엄마', face: '🦉', aliases: ['엄마', '식당칸 엄마', 'Mother owl'] },
+      { key: 'father', name: '아빠', face: '🦉', aliases: ['아빠', 'Father owl', '기관사 아빠', 'Engine driver'] },
+      { key: 'mother', name: '엄마', face: '🦉', aliases: ['엄마', 'Mother owl', '식당칸 엄마'] },
       { key: 'nabi',   name: '나비', face: '🐱', aliases: ['나비', 'Nabi cat', 'Nabi'] },
       { key: 'pipi',   name: '삐삐', face: '🐦', aliases: ['삐삐', 'Pipi sparrow', 'Pipi'] },
     ],
