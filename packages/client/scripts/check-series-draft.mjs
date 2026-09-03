@@ -79,8 +79,15 @@ function checkSeries(key) {
     //    원본이 20% 를 어기는 상한은 상한이 아니다(2026-09-03). 손님 호칭은 캐스트에 없으니 +1.
     const proseP1 = bk.pages[0]?.ko ?? '';
     const proseHasGuest = /손님|아저씨|아주머니|할머니|할아버지|아이/.test(proseP1);
-    const inProse = onPage(proseP1).length + (proseHasGuest ? 1 : 0);
-    if (horiForm && n1 > Math.max(inProse, 2)) fail.push(at(`p1 에 인물 ${n1}명 (본문은 ${inProse}명)`));
+    // 🔴 본문이 무리를 **뭉뚱그려** 부르면(친구들·다들·반 이름) 그림은 그 얼굴들을 세워야 한다 —
+    //    이름을 안 부른다고 없는 사람이 아니다(미오 28 「친구들이 우르르」·40 「무지개반은」).
+    const proseHasCrowd = /친구들|아이들|다들|모두|우르르|다 같이|반은|반이|반 친구/.test(proseP1);
+    const inProse = proseHasCrowd ? 99 : onPage(proseP1).length + (proseHasGuest ? 1 : 0);
+    // 🔴 **❌ 가 아니라 ⚠️ 다**(2026-09-03) — 실측 750권에서 걸린 일곱 쪽이 **전부 그림이 옳았다**.
+    //    한국어 본문은 무리를 이름으로 안 부른다: 「자리가 다섯」(메이 37)·「무지개반은」(미오 40)·
+    //    산책 줄·낮잠 매트처럼 **장치가 사람 수를 정하는** 쪽도 있다. 세는 자가 그걸 못 읽으므로
+    //    막지 말고 눈으로 보라고만 한다. 막았으면 그 일곱 쪽을 나쁘게 고쳤을 것이다.
+    if (horiForm && n1 > Math.max(inProse, 2)) warn.push(at(`p1 에 인물 ${n1}명 (본문은 ${inProse}명) — 그림이 사람을 더했는지 눈으로 볼 것`));
 
     // 🔴 마지막 쪽은 인물의 입에서 닫는다. 375권 중 257권(69%)이 대사도 물음도 없이 서술로 끝났고,
     //    출판 그림책 12편은 전부 인물의 한 문장으로 닫았다. 덮는 순간 뭐가 정리됐는지 부모가 알아야 한다.
