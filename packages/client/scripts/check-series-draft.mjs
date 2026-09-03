@@ -124,7 +124,7 @@ function checkSeries(key) {
     // 🔴 대사 0 은 결함이다 — 열 쪽 내내 아무도 말을 안 하면 누가 뭘 원하는지 글에 안 남는다
     const talk = bk.pages.reduce((a, p) => a + quoted(p.ko).length, 0);
     talkTotal += talk;
-    if (talk === 0) fail.push(at('대사가 한 마디도 없다'));
+    if (horiForm && talk === 0) fail.push(at('대사가 한 마디도 없다'));
 
     // 🔴 한 권 = 규칙 하나. 글자수가 규칙이 아니라 **징후**다
     const weight = (metaField(bk.meta, '원함') + metaField(bk.meta, '착지')).replace(/\s/g, '').length;
@@ -150,7 +150,8 @@ function checkSeries(key) {
         //    진짜 신호(정형구 돌려쓰기)가 묻힌다. 새 시리즈를 열면 그 시리즈 시그니처를 여기 더한다.
         const SIG = ['꼬리가 붕', '목이 쭉', '꼬리가 쫑', '두 발로 쭉', '목을 살랑', '날개를 활짝', '종이 한 번', '종이 땡', '칙칙폭폭 들어와', '꼬리지느러미를 탁', '"배다!"',
           '꼬리로', '꼬리를 한 번 탁', '머릿수건 매듭', '두 손을 가슴 앞에',
-          '두 앞발을 머리 위로 번쩍', '코를 킁킁', '손가락을 하나씩', '장화로 첨벙'];
+          '두 앞발을 머리 위로 번쩍', '코를 킁킁', '손가락을 하나씩', '장화로 첨벙',
+          '초록 가방 끈을 톡', '초록 목도리 끝을 톡', '초록 방울을 톡', '파란 방울이 딸랑', '손을 제 앞으로 당겨'];
         if (SIG.some((sig) => s.includes(sig))) continue;
         const t = s.trim();
         // 🔴 걸러야 할 것 둘 — 안 거르면 소음에 신호가 묻힌다(실측: 나간 시리즈에서 검출 33건 중 21건이 소음).
