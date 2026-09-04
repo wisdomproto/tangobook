@@ -48,6 +48,13 @@
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
       }
+      /* 🔴 `display` 를 지정한 클래스는 브라우저 기본 `[hidden]{display:none}` 을 이긴다.
+         이게 없으면 `hidden` 인 #status(fixed·inset:0)가 화면 위에 그대로 남아
+         **보이지 않는 채로 모든 탭을 먹는다.** 자바스크립트 `.click()` 은 직접 호출이라
+         이 상태에서도 먹혀서, 스크립트 검증만으로는 절대 안 잡힌다. */
+      [hidden] {
+        display: none !important;
+      }
       html,
       body {
         height: 100%;
