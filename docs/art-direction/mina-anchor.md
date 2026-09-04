@@ -29,9 +29,13 @@ RENDERING (finish hierarchy): dot spacing has exactly FOUR settings - touching, 
   crowd at most 7 dot-outlines with 0 faces and 0 hands; no repeat mirrors its neighbour. FINISHED
   THINGS PER PAGE = 2.
 
-PALETTE: GROUND OCHRE #EFE0C4, the earth wash - walls, sky, dust, everything left between the dots ·
+PALETTE: GROUND OCHRE #EFE0C4, the earth wash - walls, sky, dust, everything left between the dots.
+  🔴 IT IS NEVER STAMPED. There is no ochre dot and no earth-brown dot: whatever the script calls an
+  earth-brown dot is a DOT INK dot set OPEN, and what looks lighter is only dots set further apart ·
   DOT WHITE #F4EFE4, water, light, cloth, anything wet or bright · DOT INK #2E2A24, bodies, trees,
-  roofs, tools, shade · GOLD #E8A33D, 🔴 Mina's ankle band and nothing else, the ONE thing in the
+  roofs, tools, shade · 🔴 WHEN THE SCRIPT SPLITS TWO OF THE SAME THING BY COLOUR (two kites, two
+  beads, two doors), THEY ARE SPLIT BY DOT COLOUR - one INK, one WHITE - never by a new pigment, and
+  the WHITE one is the one the book is following · GOLD #E8A33D, 🔴 Mina's ankle band and nothing else, the ONE thing in the
   book painted as a solid filled shape with 0 dots, so it is the only smooth thing on any page. No
   red, no blue, no green.
 
@@ -75,12 +79,25 @@ NOT: no airbrush, gradient, glow or 3D render / no continuous drawn line and no 
 
 🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 4,116자지만 조항 넷 중 셋을 빼면 실효 3,482자(관통 줄 포함 3,753)라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
 
+🔴 **2026-09-04 수리 둘** (사물 시트 34장을 쓰며 드러났다 · `mina-stages.md` §2 신고).
+①**대본이 색 셋을 쓴다** — 초록 12쪽 · 강청 9쪽 · 붉은 1쪽. 대부분 장식 낱말이라 빼면 되는데
+**05·22권의 「흙갈 연 ↔ 강청 연」만 무겁다**(두 연이 색으로 갈리는 것이 누구 연인지 읽는 유일한 장치).
+색을 늘리지 않고 **점 색으로** 가른다 — 라주 연 = INK · 미나 연 = WHITE(팔레트가 이미 `DOT WHITE = cloth`
+라고 적어 뒀다). 덤으로 밝은 쪽이 주인공에게 붙어 금 발찌 논리와 방향이 같다. 그 판정을 위 PALETTE 에
+**일반 조항으로** 올렸다(12권 구슬·43권 열매도 같은 줄이 덮는다).
+②🔴 **대본이 한 색을 두 이름으로 부른다** — `먹점`과 `흙갈 점`이 같은 `DOT INK` 다(28 p1 이 증거:
+「빵은 **흙갈 점을 벌려** 찍어 밝고 그 위 손자국은 **먹점을 닿게** 찍어 가장 어둡다」= 같은 잉크의 간격
+차이). 그런데 **`흙갈`은 팔레트에서 바탕색 이름**이라, 글자대로 읽으면 **바탕에 바탕색을 찍어**
+16권 흙탕물과 17·23권 밤하늘이 통째로 사라진다. → `GROUND OCHRE IS NEVER STAMPED` 한 줄로 못 박았다.
+
 **관통 줄** (매 쪽)
 
 ```
-DOTS:  every edge and every surface is separate dots of one size - no line, no filled area
+DOTS:  every edge and every surface is separate dots of one size - no line, and no filled area
+       anywhere except the gold band
 SOLID: the gold ankle band is the only smooth shape in the book, and it is Mina's
-LADDER: when all three are on the page Mina stands between the other two, middle of three heights
+LADDER: the three children are 5 : 4 : 3 and Mina is the middle one - read the ladder by HEIGHT,
+       not by where she stands; the script decides who leads and who is behind
 ```
 
 ---

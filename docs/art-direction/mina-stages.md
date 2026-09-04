@@ -27,7 +27,7 @@ anywhere - every single thing is stamped dots` 를 첫 줄로 둔다.**
 
 ---
 
-## §1. 자리 시트 — 6장 (후보 10에서 접음)
+## §1. 자리 시트 — 7장 (후보 10에서 접고 · 2026-09-04 `Market` 신설 · `Village`→`VillageLane`)
 
 🔴 **접은 내역**
 
@@ -38,7 +38,8 @@ anywhere - every single thing is stamped dots` 를 첫 줄로 둔다.**
 | `House` | 마당 · 집 마당 · 집 안 · 집 안 방 · 집 문 앞 | 마당에서 방문이 보인다 |
 | `StoneCauseway` | (돌다리 · 돌밭) | 21·18 — 🔴 발이 아픈 곳이라 **신을 신는 유일한 자리** |
 | `BankField` | (풀밭 · 밭) | |
-| `Village` | (마을 길 · 강가 길) | |
+| `VillageLane` | (마을 길 · 강가 길) | 🔴 **`Village` 를 고친 것이다**(2026-09-04) — SCENE 은 `VillageLane` 을 찍는데 이 표만 `Village` 였다. **이름이 다르면 안 붙는데 검사기는 「미매칭 0」으로 통과한다** = 없는 것보다 나쁘다. 시트 이름 쪽을 SCENE 에 맞췄다(SCENE 500쪽이 데이터고 표는 한 줄이다). §1.3 |
+| 🔴 `Market` | 강 건너 장터 | **신설**(37권) — 강 **건너**라 `VillageLane` 과 다른 자리고, 배를 타야 닿는다. §1.4 |
 
 ### §1.1 RiverStairs — 실제 프롬프트 (가장 먼저)
 
@@ -89,6 +90,120 @@ NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots
 나루의 널판(14권). 🔴 **물이 빠진 바닥 = 흰 점이 하나도 없는 맨 바탕**이고, 젖은 자리만 INK 점 CLOSE 다.
 🔴 **그림자는 물 반대쪽으로 나란히**(13 p6 이 열댓 개를 그렇게 적었다) — INK 필드 CLOSE, 가장자리 단단,
 안은 균일. `SPOTS` = A 둑에서 / B 바닥 한가운데 / C 돌 하나 close / D 물가 선.
+
+🔴 **SPOT E = 나루터** (2026-09-04 신설 · 14 · 35 · 41 · 44 네 권이 여기서 열리고 그중 둘은 이 자리가
+화면의 전부다). 지금까지 「널판 한 줄」로만 적혀 있었다. 정할 것 =
+**널판 한 장**(강바닥에서 배까지 걸치는 판 하나 — 젖은 끝과 마른 끝이 INK 점 간격으로 갈린다) ·
+**말뚝 하나와 거기 감긴 줄**(🔴 **줄이 감겨 있으면 못 간다 · 풀리면 간다** — 배가 나아가는 것을 그리는
+유일한 장치다) · **나무배 한 척**(뱃전 한 줄 · 바닥 널 세 줄) · **닿는 흙길**. `SPOT E` 는 **둑에서
+널판·배·말뚝이 한 프레임**, `SPOT F` 는 **배 안에서 바깥**(14 p10 · 35 p7 · 37 p10 이 배 위다 —
+셋 다 토큰이 `RiverBed` 라 이 시트가 받는다).
+
+🔴 **다른 시트가 받아야 할 조항 넷** (사물 시트가 넘긴 것 · §2 「§1 에 넘기는 것」 3):
+
+| 시트 | 넣을 것 | 왜 |
+|---|---|---|
+| `RiverStairs` §1.1 | **칸마다 흰 표시 돌 하나** | 39권의 수위 자. 칸을 세는 것과 별개로 「몇째 칸인가」를 말한다. 돌 규격은 §2.19 |
+| `House` | **평상 밑 간격 두 단** — 30권은 널빤지 아래가 INK 점 TOUCHING 인 가로 띠(화면에서 가장 어둡다) / 33 p4 는 **같은 자리를 OPEN 으로 벌려 찍어 속이 훤히 보인다**(찾는데 없다) | 두 권의 사건이 **같은 자리의 간격 차이** 하나다 |
+| `House` | **창틀 안 흰 점 등불 4 → 2 → 1 → 0** | 31권의 시계. 등불 자체는 §2.13 |
+| `RiverBed` | **얕은 웅덩이 넷 · 그 안의 물고기 = 흰 점 두세 알** | 19권 — 마른 바닥에서 유일하게 밝은 것 |
+
+### §1.3 VillageLane — 실제 프롬프트 (2쪽 · 1권)
+
+> 36 p1 · p9. 🔴 **두 쪽뿐이지만 그 두 쪽이 한 권의 처음과 끝이고, 둘이 같은 자리에서 정면으로 갈린다** —
+> p1 은 물소 일곱이 길을 **가로로 끝까지 막고**, p9 는 그 줄이 **화면 오른쪽 끝으로 빠져나간 뒤**의 같은
+> 길이다. 그러니 이 시트가 정할 것은 길가 풍경이 아니라 **길이 화면을 가로지르는 각**과 **계단 머리가
+> 어디 보이나**다(길 건너 오른쪽 위 = 「보이는데 못 간다」의 근거).
+
+```
+STAGE SHEET - VillageLane   (mina-dotfolk · SCENE token: VillageLane)
+
+The earth lane through the village, at the end where it meets the head of the river stairs. One book
+opens and lands here, and both of its pages are about WHETHER THE LANE IS BLOCKED.
+
+FIXED PARTS - everything is stamped dots of one size, nothing is drawn and nothing is filled:
+  THE LANE crosses the picture LEFT TO RIGHT and leaves it at both edges - bare GROUND ochre with 0
+    dots on it, so it is the emptiest thing on the page and a thing standing on it reads at once.
+  🔴 THE HEAD OF THE STAIRS enters at the UPPER RIGHT, across the lane: the top step and the start
+    of the low wall, and NOTHING MORE OF THE STAIRS. That corner is the whole reason this stage
+    exists - the stairs must be visible from the lane, because a book stands here unable to reach
+    them. Its build is fixed on STAGE SHEET RiverStairs and does not change here.
+  HOUSES along the far side, at most 4, each an INK dot OUTLINE with 0 fill and 0 windows.
+  A LOW EARTH WALL along the near side, INK dots CLOSE, knee high on a child.
+  THE RIVER beyond and below, a field of WHITE dots. 0 ripples, 0 reflections, 0 glints. Its height
+    is given as a fraction of the page width on every page, the same ruler as everywhere else.
+  THE SKY is bare GROUND edge to edge with 0 dots.
+
+🔴 THE STATE THAT MATTERS - draw both, at one size, from SPOT A:
+  1 BLOCKED - a line of animals crossing the lane and leaving BOTH edges of the frame, at most 7
+    dot-outlines with 0 faces and 0 hands, all facing one way. 🔴 THE LINE IS UNBROKEN FROM EDGE TO
+    EDGE: no gap anywhere, so a reader sees there is no way through even though the stairs show.
+  2 GONE - the same frame with the line off the page except ONE last tail at the right edge, and the
+    lane carrying hoof marks: INK dots CLOSE, packed, covering the bare lane from edge to edge.
+    🔴 The marks are what says the lane was blocked a moment ago; without them the two pages read
+    as the same picture.
+
+SPOTS:
+  A ALONG THE LANE, wide, high: the lane crossing the lower half, the stairs head at the upper
+    right, houses along the far side.
+  B AT THE LANE'S EDGE, medium, low: the near wall and the empty lane running away, sky above -
+    🔴 low enough that a raised trunk reaches the top edge of the frame.
+  C THE LANE FLOOR, close, high: bare ochre, and whatever has been pressed into it.
+
+PLATE: A drawn TWICE (blocked and gone) side by side at one size, then B and C once each.
+
+NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots, and the only smooth
+  thing in this series is the gold ankle band, which is not on this sheet / no character of any kind
+  / no gold anywhere on this sheet / no lettering, numerals or signs / no continuous drawn line /
+  no gradient, glow or soft edge / no ripple or reflection on the water / no face or hand on any
+  crowd or animal silhouette.
+```
+
+### §1.4 Market — 실제 프롬프트 (신설 · 37권)
+
+> 37 p1~p9. 🔴 **강 건너다.** 배를 타야 닿으므로 `VillageLane` 과 접히지 않고, 그 건너감이 이 권의 전부다.
+> 🔴 정할 것 셋 = **골목의 좁기**(사람 사이로 걷는다) · **가게 셋이 무엇을 파는가**(고정) ·
+> **북의 크기**(미나 키만 하다 — 견줄 것이 없으면 이 권의 클라이맥스가 안 읽힌다).
+
+```
+STAGE SHEET - Market   (mina-dotfolk · SCENE token: Market)
+
+The market lane on the far side of the river. One book spends nine pages in it. It is reached only
+by boat, and it is the only place in this series that is CROWDED.
+
+FIXED PARTS - everything is stamped dots of one size, nothing is drawn and nothing is filled:
+  🔴 THE LANE IS NARROW - one adult and one child abreast and no more, walls of stalls close on both
+    sides, and it runs AWAY from the viewer rather than across. That narrowness is the point: this
+    is the one stage where a child cannot step aside.
+  THE FERRY PLANK at the LOWER LEFT, entering the frame - the lane starts where the plank ends, so
+    the crossing and the market are in one picture. Its build is on STAGE SHEET RiverBed SPOT E.
+  🔴 THREE STALLS AND NO MORE, always the same three, always in the same order going up the lane:
+    1 A HEAP OF JARS - INK outlines, 0 fill, stacked, at most 9 of them.
+    2 A BASKET OF FRUIT - one basket outline with the fruit as INK dots CLOSE mounded above its rim.
+    3 A CLOTH HUNG UP - ONE sheet of WHITE dots, the brightest thing in the lane, hanging still.
+  🔴 THE DRUM at the top of the lane - AS TALL AS THE MIDDLE CHILD, standing on end. It is drawn
+    beside a figure at least once so the size is fixed and never guessed. Its skin is WHITE dots
+    OPEN, its body INK dots CLOSE, and its two hoops are one row of touching dots each.
+  THE CROWD is at most 7 dot-outlines with 0 faces and 0 hands, standing, never walking towards the
+    viewer. 🔴 They are OPEN dots so the ochre shows through them and nothing in front of them is
+    lost; the two the book is following are the only CLOSE-dotted bodies on the page.
+  THE SKY is bare GROUND edge to edge with 0 dots. Awnings are INK outlines with 0 fill.
+
+SPOTS:
+  A THE MOUTH OF THE LANE, wide, eye level: the plank at the lower left, the lane going up to the
+    right, all three stalls in order and the drum small at the top.
+  B IN THE LANE, medium, eye level: stalls close on both sides, crowd outlines between the viewer
+    and the far end.
+  C AT THE DRUM, medium, low: the drum and one figure beside it, so the height reads.
+  D LOOKING BACK, medium wide: down the lane to the plank and the water beyond, the way home.
+
+PLATE: A, B, C, D once each, plus one measuring panel with the drum and the middle child standing
+  side by side at true relative height.
+
+NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots / no character of any
+  kind / no gold anywhere on this sheet / no lettering, numerals, signs or prices on any stall /
+  no face or hand on any crowd figure / no continuous drawn line / no gradient, glow or soft edge.
+```
 
 ---
 
@@ -210,6 +325,15 @@ NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots
 | 37 「북」 · 「가게 셋」 | `[Market]` 자리 시트 몫. 🔴 단 북은 **미나 키만 하다**는 것이 규격이라 그 자리 시트에 키 견줌을 넣을 것 |
 | 05 「실타래」 · 「사탕」 | `MarketBundle` 안에서 보따리를 열면 나오는 것. 따로 그릴 만큼 안 쓰인다 |
 
+### ✅ §1 로 넘긴 것 — 처리 (2026-09-04)
+
+셋 다 §1 에 들어갔다. ①`Market` **시트를 새로 썼다**(§1.4) · ②`Ferry` = **`RiverBed` SPOT E·F**
+(별개 시트로 안 세운 이유 = 널판·말뚝·배가 강바닥 위에 있고 카메라가 한 걸음이면 닿는다. dodo `MillStream`
+SPOT E 와 같은 판정) · ③넷은 각 시트에 조항으로 박았다(§1.2 표) · 그리고 `Village`(§1)와
+`VillageLane`(SCENE)의 **이름 어긋남**은 시트 이름을 SCENE 에 맞춰 통일했다.
+🔴 그 어긋남은 **검사기가 「미매칭 0」으로 통과시키던 종류**였다 — 지금은 `check-stage-tokens.mjs mina` 가
+0 이고, 그 0 은 진짜다.
+
 ### 🔴 §1(자리 시트)에 넘기는 것 — 사물 시트로는 못 푼다
 
 1. **`[Market]` 자리 시트가 없다.** SCENE 은 `[House] [RiverBed] [StoneCauseway] [BankField]
@@ -238,6 +362,12 @@ green` 으로 못 박혀 있다. 그런데 SCENE 전수를 세면 **초록 12쪽
 → **대본을 고칠 것**(색 낱말 삭제, 22·05 는 「흙갈 연/강청 연」 → 「먹점 연/흰 점 연」).
 고치기 전이라도 §2.5 가 그림을 확정하므로 렌더는 멎지 않는다.
 
+✅ **처리(2026-09-04)** — 대본은 아직 안 고쳤고 **앵커가 먼저 답을 들게 했다.** §2.5 의 판정(라주 연 =
+INK · 미나 연 = WHITE)을 한 권의 예외가 아니라 **일반 조항**으로 `PALETTE` 에 올렸다:
+`WHEN THE SCRIPT SPLITS TWO OF THE SAME THING BY COLOUR … THEY ARE SPLIT BY DOT COLOUR - one INK,
+one WHITE - never by a new pigment, and the WHITE one is the one the book is following`.
+🔴 **한 줄이 05·22(연)·12(구슬)·43(열매)을 다 덮는다** — 권마다 예외를 달면 그 예외가 다음 권에서 또 필요해진다.
+
 **② SCENE 이 한 색을 두 이름으로 부른다 — 이게 더 위험하다.**
 
 `먹점`(20회 이상)과 `흙갈 점`(04·16·17·23·43 등)이 **같은 `DOT INK`** 다. 28 p1 이 그 증거다 —
@@ -245,6 +375,19 @@ green` 으로 못 박혀 있다. 그런데 SCENE 전수를 세면 **초록 12쪽
 같은 잉크의 간격 차이지 다른 색이 아니다. 🔴 그런데 **`흙갈`은 팔레트에서 바탕색 이름**
 (`GROUND OCHRE #EFE0C4`)이기도 하다. 이대로 읽으면 **바탕에 바탕색 점을 찍게 되어** 16 의 흙탕물과
 17·23 의 밤하늘이 통째로 사라진다. 아래 시트들은 전부 `INK` 로만 쓴다.
+
+✅ **처리(2026-09-04)** — 앵커 `PALETTE` 의 `GROUND OCHRE` 항목에 **`IT IS NEVER STAMPED`** 를 박았다
+(「흙갈 점」이라 적힌 것은 전부 **OPEN 으로 벌려 찍은 INK 점**이고, 밝아 보이는 것은 간격일 뿐이다).
+🔴 시트마다 `INK 로만 쓴다`고 적는 것보다 **팔레트가 한 번 말하는 편**이 낫다 — 새 시트를 쓸 사람은
+시트를 안 읽고 앵커를 읽는다.
+
+### ✅ 관통 줄 — 세어 봤다 (2026-09-04)
+
+| 줄 | 판정 |
+|---|---|
+| `DOTS: … no line, no filled area` | 🔴 **바로 다음 줄 `SOLID:` 와 스스로 모순**이었다(금 발찌는 메운 면이고 팔레트가 「책에서 유일하게 메운 것」이라 못 박아 뒀다). 매 쪽에 이 둘을 같이 붙이면 화가가 발찌를 점으로 찍는다 → `except the gold band` 한 구절을 달았다 |
+| `SOLID:` | 참. 그대로 |
+| `LADDER: when all three are on the page Mina stands between the other two` | 🔴 **거짓이다.** 셋이 다 있는 쪽 **57쪽**을 세어 보니 미나가 가운데가 아닌 쪽이 여럿이고, 하필 **그게 착지인 권들**이다 — 23 p10 은 미나가 **앞장서** 걷는 것이 그 권의 결말이고(뒤에 라주·소누), 08 p10 은 미나만 그네 위에 있고 둘은 아래에서 올려다본다. 이대로 매 쪽에 붙이면 화가가 **착지를 되돌려 미나를 가운데로 밀어 넣는다** → 「가운데」를 **자리가 아니라 키(5:4:3)로** 읽게 고치고, 누가 앞서는지는 대본이 정한다고 못 박았다 |
 
 
 ### §2.1 ThreeBowls — 실제 프롬프트

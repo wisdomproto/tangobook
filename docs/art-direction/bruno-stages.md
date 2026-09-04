@@ -24,7 +24,7 @@ begins, and THAT CHANGE OF DIRECTION IS THE EDGE.`
 
 ---
 
-## §1. 자리 시트 — 5장 (후보 13에서 접음)
+## §1. 자리 시트 — 9장 (후보 13에서 접고 · 2026-09-04 `Path`·`SnowSlope` 신설)
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -34,6 +34,8 @@ begins, and THAT CHANGE OF DIRECTION IS THE EDGE.`
 | `Lake` | 호숫가 | 🔴 **21권 얼음** |
 | `Wood` | 숲 개울가 · 개울가 · (자작나무 숲) | 01 p1 의 자작나무 한 그루가 고정 부품 |
 | ⚠️ `Attic` | 다락 창가 | 🔴 **미결의 답 — 25권** · §3 |
+| 🔴 `Path` | 큰길 · 샛길 · 길 끝 눈밭 | **신설**(8쪽·5권) — 마을·오두막 밖으로 나가는 **한 길**이다. `Wood`(개울가·자작나무)와 다르다: 길은 **다져진 바닥**이 있고 04·24 는 그 바닥이 사건이다. §1.3 |
+| 🔴 `SnowSlope` | 오두막 앞 눈 언덕 · 비탈 · 언덕 아래 | **신설**(신고 2) — 19·46·47 **세 권**이 한 비탈에 걸려 있고 **비탈의 길이와 경사가 자국의 자**다. 토큰이 `CabinOutside`(마당·문간·텃밭)로 가 있어 화가가 **마당을 그린다.** §1.4 · SCENE 6쪽 재태깅함 |
 | 🔴 `FeedBoard` | 창밖 모이대 · 창가 모이대 | **신설**(23권 10쪽 중 4쪽) — `Cabin` 은 실내이고 `CabinOutside` 는 마당·문간·텃밭뿐이라 **모이대가 어느 시트에도 없었다.** 창턱 바깥에 달린 판 하나 + 그 아래 눈 딛는 자리. 🔴 23 p4 「파란 장화가 눈을 딛는다」가 **밖**이라 실내로 묶으면 안 된다 |
 
 ### §1.1 Cabin — 실제 프롬프트 (가장 먼저)
@@ -78,12 +80,141 @@ NOT: no character of any kind, no boot blue anywhere on this sheet (the blue is 
   soft edge, nothing darker or paler with distance.
 ```
 
+🔴 **SCENE 이 찍는 좌표 토큰** — `Cabin/C` (22 p9·p10 · 23 p5·p7·p10) = 아래 `Cabin` 시트의 **SPOT C
+(THE WINDOW)** 다. 다른 이름이 아니라 **같은 시트의 카메라 자리**이므로 시트를 새로 만들지 않는다.
+🔴 다만 23권은 창 **너머**에 모이대가 있으므로 `Cabin/C` 와 `FeedBoard` 가 **한 화면에 겹친다**
+(23 p10 「창을 사이에 두고 안팎이 한 프레임」) — 두 시트의 창턱 높이를 같은 값으로 굽는다.
+
 ### §1.2 Lake — 요약 명세
 
 🔴 **호수는 안 칠한 종이다.** 물가 선은 **땅 쪽 획이 멈추는 자리**이고 물 쪽엔 아무것도 없다.
 21권 얼음도 **같은 안 칠한 자리** — 얼음과 물이 같은 종이라 **구멍만이 둘을 가른다**(21권 구멍 6쪽).
 구멍 = OVERLAY 한 덩어리, 가장자리는 획 방향이 바뀌는 자리. `SPOTS` = A 물가에서 / B 얼음 위 /
 C 구멍 close / D 건너편.
+
+### §1.3 Path — 실제 프롬프트 (신설 · 8쪽 · 5권)
+
+> 04(봄) · 06(봄) · 24 · 19 · 46(겨울). 🔴 **이 시리즈에서 길은 「바닥이 다져졌나」로만 존재한다** —
+> 06 은 다져진 큰길을 두고 **풀에 덮인 좁은 틈**으로 들어가는 것이 사건이고, 24 는 그 바닥을 눈에서
+> **파내는** 것이 사건이며, 04 는 바닥에 남은 **젖은 점 자국**이 사건이다. 셋 다 「길가에 무엇이 있나」가
+> 아니라 **발밑**이다.
+
+```
+STAGE SHEET - Path   (bruno-crayonwood · SCENE token: Path)
+
+The one path that leaves the cabin clearing and goes out through the wood. Five books use it and in
+every one of them THE THING THAT MATTERS IS UNDERFOOT, so this sheet decides the floor of it.
+
+🔴 STROKE DIRECTION MAP - every area is one field of one crayon laid in ONE direction, and the
+  direction changes ONLY at an edge (there are no outlines in this book):
+  THE BEATEN PATH - BARK, strokes running ALONG the path, away from the viewer. This is a third
+    direction and it is what makes the path read as a path and not as ground.
+  THE GROUND EITHER SIDE - BARK too, but strokes running ACROSS. 🔴 The path has no edge of its own:
+    the change of direction IS its edge, and that is the whole picture in 06.
+  GRASS AND UNDERGROWTH - SPRUCE, strokes running UPWARD.
+  TRUNKS - BARK, strokes running UP. The canopy takes whatever the season clause says.
+
+FIXED PARTS:
+  THE MAIN PATH runs from the bottom of the frame and BENDS ONCE, out of sight, so the far end is
+    never shown. It is about two grandfathers wide.
+  THE FORK - at one point the grass closes over a SECOND, NARROW way, no wider than a cub's
+    shoulders. It shows only as a gap in the SPRUCE, and 🔴 THE BEATEN PATH CARRIES ON PAST IT to
+    the right of frame, so both ways are in one picture and a reader can see which one was refused.
+  ONE FALLEN TRUNK lies ACROSS the narrow way, chest-high on the cub, its strokes running ALONG it,
+    at most 4 broken branch stubs, SPRUCE moss on its upper side.
+  THE END OF THE NARROW WAY opens on a gap between trunks with THE CABIN ROOF AND CHIMNEY seen
+    through it, small - the path is a loop and it comes home.
+  Trunks at most 9. Nothing else stands beside this path: no gate, no post, no bench, no marker.
+
+SEASON - use ONE season only, the one that book is in.
+  SPRING: the canopy is bare PAPER; SPRUCE only as new growth low down and in the grass; the beaten
+    path is BARK at its most open. 🔴 A WET MARK ON THE PATH IS NOT WAX - it is the path left
+    UNWAXED, a bare-paper shape with a hard edge, and a line of them running away from the viewer is
+    the whole subject of 04. Never a darker patch.
+  WINTER: ground and sky are BARE PAPER edge to edge and THE PATH DOES NOT EXIST until something
+    clears it. 🔴 A CLEARED PATH IS A BARK FIELD ON BARE PAPER with a hard edge each side and its
+    strokes running away from the viewer; ITS LENGTH IS THE CLOCK of 24 - draw it three times in the
+    same frame, reaching a third of the way, two thirds, and out of frame.
+  A DINT WHERE A BODY HAS LAIN DOWN is bare paper with at most 3 BARK marks along its lower lip and
+    nothing at all inside it.
+
+SPOTS - four, do not invent a fifth. 🔴 None of them crops closer than the cub from the knee up.
+  A ALONG THE PATH, wide, eye level: the beaten way running away and bending once.
+  B THE FORK, medium wide, high: the wide way going right, the narrow gap in the grass at the left,
+    both in one frame.
+  C UNDERFOOT, close, high: only the path floor and what is on it - the change of stroke direction
+    at its edge, and prints or a cleared line running away.
+  D THE FALLEN TRUNK, medium wide, low: the trunk crossing the frame horizontally, ground on both
+    sides of it, the narrow way carrying on beyond.
+
+PLATE: A, B, C, D once each, plus 🔴 C DRAWN THREE TIMES at one size - bare spring path, path with a
+  run of unwaxed wet prints, winter path cleared a third of the way - so the floor reads as one
+  floor in all three. Plus one small direction diagram (path away / ground across / grass up).
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind - edges are changes of stroke direction, no third crayon, no solid area, no
+  waxed sky, water, ice or snow, no white crayon, no shading, gradient, glow or soft edge, nothing
+  darker or paler with distance, no gate, post, fence, bench, marker or sign of any kind.
+```
+
+### §1.4 SnowSlope — 실제 프롬프트 (신설 · §3-a 신고 2 의 답)
+
+> 19 · 46 · 47. 🔴 **세 권이 같은 비탈 하나에 걸려 있고, 그 비탈에 남는 「한 줄」이 세 권의 착지다** —
+> 19 p10 「아침에 자국 없던 언덕에 이제 줄이 하나 났다」 · 46 p10 「꼭대기부터 발치까지 한 줄」 ·
+> 47 p9 「올라간 자국과 내려온 자국이 같은 비탈에 나란하다」. 정할 것은 경치가 아니라 **길이와 경사**다.
+> 🔴 47 p3 은 **꼭대기의 아이와 비탈 끝의 할아버지를 한 화면**에 놓으므로 비탈 전체가 한 프레임에
+> 들어가는 각이 반드시 있어야 한다.
+> ⚠️ 50권의 「눈밭」은 여기가 아니다 — 오두막에서 헛간으로 가는 **평평한 눈밭**이고 비탈이 없다.
+
+```
+STAGE SHEET - SnowSlope   (bruno-crayonwood · SCENE token: SnowSlope · winter only)
+
+The hill in front of the cabin. Three books slide down it. 🔴 THE SLOPE IS A RULER: what gets drawn
+on it is a TRACK, and the LENGTH of that track is what each of those books is about, so the slope's
+length and steepness are fixed here once and never change again.
+
+🔴 IT IS ALL BARE PAPER. Ground and sky are unwaxed edge to edge, so the slope has no surface of its
+  own - what tells the eye there is a hill is ONLY where the four fixed things below sit, and the
+  track. Never wax the snow. No white crayon, no blue shadow on snow.
+
+FIXED PARTS - the only waxed things on this stage, and they are the scale:
+  TWO SPRUCES AT THE CREST, BARK trunks with SPRUCE crowns, standing close together.
+  THREE SPRUCES AT THE FOOT, same build, standing further apart. 🔴 DEPTH IS SPACING - the crest
+    pair stands closer together at the same weight of wax, and that spacing is the only thing that
+    says one pair is further off.
+  THE CABIN ROOF AND CHIMNEY below and beyond the foot, small, BARK, at most 4 windows.
+  ONE SHOULDER partway down where the fall eases: steep above it, gentle below it. That break is a
+    named place - two of the three books cross it, and it is where being afraid stops.
+STEEPNESS: side on, the steep part falls about one in two and the gentle part about one in five.
+  Seen wide from the foot, the crest sits in the upper third of the frame.
+
+🔴 THE TRACK - the one thing that changes, and it is drawn, never implied:
+  A SLED TRACK is TWO parallel BARK lines a sled's width apart, unbroken, running the length of the
+    slope. A SKI TRACK is the same with the two lines a body's width apart.
+  A FOOT TRACK is separate BARK marks, at most 14, in ONE line, none a mirrored copy of its
+    neighbour - and it runs UP the slope where a sled track runs down.
+  LENGTHS ARE THE CLOCK: draw the same wide frame FOUR times - no track at all, a track a third of
+    the way down, a track from crest to foot, and a down-track with an up-track beside it.
+  Flung snow is at most 14 bare-paper points, and there are none of them on a page with no track.
+
+SPOTS - four, do not invent a fifth. 🔴 None of them crops closer than the cub from the knee up.
+  A THE WHOLE SLOPE FROM THE FOOT, wide, low: the three spruces at the near edge, the crest and its
+    two spruces in the upper third. 🔴 THIS IS THE SPOT THAT HOLDS ONE FIGURE AT THE CREST AND
+    ANOTHER AT THE FOOT IN ONE FRAME, both legible.
+  B AT THE CREST looking down, medium wide, low: the two spruces close, the slope running out of the
+    bottom of the frame, the cabin roof far below.
+  C SIDE ON, wide: crest at one edge, foot at the other, the shoulder plainly between them, so the
+    two steepnesses can be compared.
+  D THE SHOULDER, medium, eye level: the gentle fall ahead, the steep part behind and above.
+
+PLATE: A, B, C, D once each, plus 🔴 A DRAWN FOUR TIMES at one size for the four track lengths, plus
+  one small side diagram of the slope with the shoulder marked.
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind, no third crayon, no solid area, 🔴 no waxed snow and no waxed sky, no white
+  crayon, no blue on snow, no shading, gradient, glow or soft edge, nothing darker or paler with
+  distance, no motion line, speed line or spray behind a sled.
+```
 
 ---
 
@@ -1275,6 +1406,20 @@ no outline, no third crayon, no solid area, no shading, gradient, glow or soft e
 
 → 22·23 은 둘 다 부엌 창(모이대가 창밖에 있다) = `Cabin/C`. 다락은 25권이고 이름이 이미 「다락 창가」라
 미결이 아니다.
+
+### ✅ §3-a 처리 (2026-09-04 앵커 수리)
+
+| 신고 | 어떻게 |
+|---|---|
+| 1 빨간 사과 | 🔴 **앵커를 안 고쳤다.** §2.12 의 판정(사과 = BARK 한 판 · 멍 = 겹침색 한 점)이 더 낫다는 근거가 그 자리에 적혀 있고, 이 시리즈의 파랑 하나 규칙(§0)이 「악센트는 하나」로 서 있다. 대본 13권 SCENE 의 「빨갛게」는 comic-writer 몫이라 손 안 댔다 |
+| 2 눈 비탈 시트 없음 | **§1.4 `SnowSlope` 를 썼다** + SCENE 6쪽 재태깅(19 p1·p10 · 46 p1·p10 · 47 p1·p5). 🔴 토큰이 `CabinOutside`(마당·문간·텃밭) 로 가 있어 **화가가 마당을 그릴 자리**였다 — 없는 것보다 나쁜 쪽 |
+| 3 사다리가 어느 시트에도 없다 | 🔜 **미처리** — `Attic` 시트 자체가 아직 요약도 없다. 19 p3↔p4↔p8 의 높이가 안 맞을 자리이므로 `Attic` 을 쓸 때 「가로대 칸수·간격·다락 입구가 몇 칸 위인가」를 반드시 넣을 것 |
+| 4 닐스의 「바짓단」 | **①로 확정** — `bruno-cast.md` 닐스 절에 `HE WEARS NO TROUSERS AND NO COAT … IT CATCHES THE BOOT CUFF` 한 줄. 추천대로 옷을 안 늘렸다(악센트 유지 + 실루엣이 「턱에서 장화까지 한 덩어리」로 남는다). 06 p4 SCENE 의 한국어는 안 고쳤다 |
+| 5 조끼 가슴의 젖은 자국 | `bruno-cast.md` **브루노** 절에 상태 한 줄(32 p7·p10 이 같은 한 점이고, **안 바뀌는 것**이 그 권의 착지다) |
+| 6·6-a·6-b·6-c 작업표 결함 | 🔜 추출기 쪽 일이라 여기서 안 건드렸다 |
+| 무대 조항의 권 번호 | 🔴 갈래 ① — 계절 넷 `(volumes 01-06 …)` 과 `NIGHT (volumes 11, 25)` 를 **조건**으로 바꿨다. 25권 시절 목록이라 **26~50이 통째로 조항 밖**이었고, 실측하면 밤 쪽이 **27(6쪽)·35(8쪽)·38** 에도 있다. 계절은 SCENE 이 권마다 글자로 적어 두므로(26~32 봄 · 33~38 여름 · 39~44 가을 · 45~50 겨울) 조건으로 답이 나온다 |
+| 관통 줄 | 🔴 `TWO: there are two bears and nobody else` 가 **30·31권 16쪽에서 거짓**이었다(`Guest chick`). 「동물이 들어온다」가 아니라 **「들어와도 캐스트가 아니다」**로 좁혔다. ⚠️ `BOOTS:`·`LIGHT:` 는 세어 보고 **그대로 뒀다** |
+| 앵커 자기모순 | 🔴 `exactly TWO crayons` 인데 `PALETTE` 가 셋을 든다(`never a third crayon` 바로 옆에 `ACCENT BOOT BLUE`). Style 줄이 **둘 + 악센트**를 세게 고쳤다 |
 
 ### §3-a. 🔴 사물 시트를 쓰다 앵커·시트가 깨진 자리 (2026-09-04 신고)
 

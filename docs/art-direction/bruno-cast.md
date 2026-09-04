@@ -42,6 +42,9 @@ are short stubs held close against that mass.
 🔴 HIS OUTLINE ENDS IN TWO SQUARE BLOCKS. The BOOT BLUE boots are WIDER THAN THE LEG above them, so
 the widest part of his lower half is the very bottom. Boots in every season, and they are the only
 blue in the book.
+🔴 HE WEARS NO TROUSERS AND NO COAT - the boots are the whole of his clothing, so his outline runs
+chin to boot as ONE mass with no hem anywhere. When something catches at him low down (a bramble, a
+snowdrift, water), IT CATCHES THE BOOT CUFF - there is no trouser leg to catch.
 FOREPAW: a small ROUND MITT, toes not separated, no wider than his own muzzle patch. In a close-up
 that mitt - and the blue cuff when it is a foot - is how the page says the paw is his.
 🔴 HE DOES ALL THE ACTING. The mouth curve swings wide, the two brow strokes tilt hard, the arms go
@@ -71,4 +74,8 @@ ROUND GLASSES, two rings on one straight bar - the only closed rings drawn on ei
 whatever is happening. He does not point, does not throw both arms up, does not lean in. The cub
 over-acts and he does not; that gap is the other half of the size gap.
 🔴 NO BLUE ANYWHERE ON HIM, no walking stick, and nothing of his own in his hands on the sheet.
+🔴 THE VEST TAKES A WET PATCH. When a volume asks for one, it is ONE OVERLAY patch on the vest
+chest, hard edged, about the size of the cub's face, and it is IDENTICAL on both pages that use it -
+the knit rows read dry all round it. (32 p7 is an extreme close-up of that patch and p10 is the same
+patch under a face that has turned right round; the volume lands on the patch NOT having changed.)
 ```

@@ -12,7 +12,8 @@
 ```
 STYLE ANCHOR - yuki-inkwash   (Yuki's mountain hamlet through four seasons / one ink, one stroke)
 
-Style: black ink and water on absorbent unsized paper, ONE ink, 4-6 year old picture book. 🔴 ONE
+Style: black ink and water on absorbent unsized paper, ONE ink for the whole world and ONE flat
+  vermilion that touches nothing but the scarf, 4-6 year old picture book. 🔴 ONE
   THING IS ONE STROKE - the brush is loaded once and lifted once, and the stroke carries its own
   change of density inside itself: wet and dark where it started, dry and broken where the brush ran
   out. A stroke is NEVER gone over twice; a second stroke means a second object. SHADING IS ZERO -
@@ -39,7 +40,8 @@ STAGE CLAUSES (the season changes stroke count and wetness, not the ink):
   SUMMER - the wettest: leaf masses are ONE dark wash on damp paper, edges bleeding into each other.
     Rain at most 11 dry broken strokes leaning one way.
   AUTUMN - the driest brush: every stroke broken along its length. Fallen leaves at most 21 dry
-    touches, never overlapping.
+    touches that read ONE BY ONE, never overlapping - 🔴 leaves that COVER the ground are not counted
+    at all: they are ONE wash with a ragged edge, the way a stack of logs is one run.
   🔴 WINTER - the fewest strokes of the year and the ground is not painted at all, bare PAPER edge to
     edge; the ink draws ONLY what stands on it. A dip in the snow gets at most 3 strokes on its lip.
   INSIDE - the room is at most 11 strokes: floor line, beams, doorway. Firelight is bare PAPER and
@@ -133,6 +135,26 @@ and never on a face.`** 부드러운 음영·그러데이션 금지는 그대로
 **예산** — 둘을 넣으면서 **이 시리즈에 안 쓰이는 문장을 걷어냈다**(3,652 → 3,947 · 쪽에 실제로 붙는 실효 3,333).
 걷어낸 것 = ①`a crowd at most 7 silhouettes…`(캐스트가 셋뿐이라 SCENE 250쪽에 군중 **0회**)
 ②`DENSITY RATION = none.` ③NOT 의 `no white paint and no second pigment`(팔레트가 이미 두 번 말한다).
+
+---
+
+## §5. 🔴 낙엽 상한을 갈랐다 (2026-09-04 · 되돌리지 말 것)
+
+옛 문구 `Fallen leaves at most 21 dry touches, never overlapping` 이 **세 권을 못 그리게** 했다 —
+41 p1 「그 밖은 낙엽뿐」 · 42 p5 「두껍게 쌓인 마른 낙엽」 · 17 p10 「산처럼 쌓인 잎 더미」. 21장을 낱개로
+세어 그리면 **비탈 하나에 낱장 21개가 떠 있는 그림**이 된다.
+
+🔴 **같이 고친 것 하나 — 앵커가 스스로 색 수를 다르게 말했다.** `ONE ink` 인데 `PALETTE` 는
+`VERMILION … the only colour in the book` 을 더 든다. 주홍은 이 시리즈의 설계 그 자체라 뼺 수 없으므로
+Style 줄이 **먹 하나 + 주홍 하나**를 세게 고쳤다.
+⚠️ **`RED:` 와 `MUTE:` 는 세어 보고 그대로 뇠다** — 주홍이 붙은 것은 33·36·38권까지 전부
+**목도리 매듭**이고 목도리 아닌 주홍은 500쪽에 없다.
+
+🔴 **상한을 올리지 않았다. 「무엇을 세는가」를 갈랐다.** 이 시리즈가 이미 같은 문법을 갖고 있다 —
+`Firewood` §2.2 의 `a STACK is a RUN and is exempt from the repeat cap`, `Yard` 여름의
+`leaf mass is ONE dark wash`. 낱장으로 읽히는 잎에만 21이 걸리고, **덮은 낙엽은 한 면**이다.
+갈래 셋(`_ANCHOR-REPAIR.md` ③)의 정본 처방이고 획 예산은 안 는다. 세 갈래의 실제 값은
+`yuki-stages.md` §2.23 `FallenLeaves` 가 한 곳에서 든다.
 
 ---
 

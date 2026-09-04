@@ -40,13 +40,18 @@
 ```
 STYLE ANCHOR - dodo-gouachemill   (a duck family at a French watermill / gouache, the brush stops short)
 
-Style: gouache on warm flour-cream paper, exactly TWO colours, 4-6 year old picture book. Every area
+Style: gouache on warm flour-cream paper, TWO colours that paint the world, ONE accent that touches
+  nothing but the two children's cloth, and CHALK, which is the paper colour in a tube and not a
+  colour at all, 4-6 year old picture book. Every area
   is laid with a flat brush in visible strokes that STOP SHORT of the outline, so a rim of bare paper
   is left around most shapes and THE PAPER DRAWS THE EDGE INSTEAD OF A LINE - there is no outline
   anywhere in this book. The paint is opaque and matte and is never thinned to a wash. Where the two
   colours overlap wet, a third darker colour appears - that is the only dark. Unpainted paper is not
   white space, it is the sky, the flour and the light. SHADING IS ZERO - no modelling, no gradient,
-  no cast shadow, no highlight.
+  no highlight. 🔴 EXCEPT a shadow LYING ON THE GROUND, which is not a darkness but a FLAT SHAPE:
+  ONE sweep of MILLPOND on the WHEAT ground, hard edged the whole way round, 0 interior, a
+  bare-paper rim between it and the feet that own it. Never on a body, never on a face, and only
+  where the script makes the shadow the event - the length of it - and nowhere else.
 
 RENDERING (finish hierarchy): an area is ONE sweep of ONE colour, never lighter or darker inside
   itself; the only variation is where one brush stroke ends and the next begins. FINISHED THINGS PER
@@ -87,18 +92,27 @@ STAGE CLAUSES (the stage changes what the two colours do, never which two they a
   YARD - the ground is ONE sweep of WHEAT; the mill house, the wheel, the cart and the straw stack
     are WHEAT too, and only shutters, door and washing line are MILLPOND. Depth between things is
     made by putting them CLOSER TOGETHER, never darker.
-  FIELD - the field is ONE sweep of WHEAT running to a flat horizon, 0 furrows picked out. Willow,
-    hedge and berry bushes are MILLPOND, at most 5 of them. Sunflowers are WHEAT discs on MILLPOND
-    stems, at most 9.
-  🔴 MIST (volume 12) - everything but the nearest thing is bare PAPER. Things enter the page by
+  FIELD - SEEN FROM OUTSIDE the field is ONE sweep of WHEAT running to a flat horizon, 0 furrows
+    picked out. Willow, hedge and berry bushes are MILLPOND, at most 5 of them. Sunflowers are WHEAT
+    discs on MILLPOND stems, at most 9. 🔴 SEEN FROM INSIDE IT IS NOT A SWEEP BUT ONE REPEATED
+    STROKE - one stroke is one stalk, the same stroke every time, running off every edge, ears above
+    an adult's head. Depth among them is SPACING (far stalks stand closer together), never a paler
+    or darker wheat.
+  🔴 MIST (any page the script calls mist or fog) - everything but the nearest thing is bare PAPER. Things enter the page by
     appearing at FULL strength, never by fading, and there is no pale version of any colour.
-  🔴 NIGHT (volumes 09, 19, 25) - the sky is OVERLAP laid as one flat sweep. Stars, fireflies, the
+  🔴 NIGHT (any page the script sets after dark) - the sky is OVERLAP laid as one flat sweep. Stars, fireflies, the
     moon and the moon lying on the pond are BARE PAPER points, each cut on its own, at most 14. A
     lantern is bare paper and it carries the whole page.
-  🔴 SNOW (volumes 08, 23) - the yard and the field are not painted at all, bare PAPER from edge to
+  🔴 SNOW (any page with snow on the ground) - the yard and the field are not painted at all, bare PAPER from edge to
     edge, and the two colours paint ONLY what stands on it. A mound of snow gets at most 3 WHEAT
     strokes along its lower lip and nothing else. Falling snow is CHALK, but only where it crosses a
     painted area. Icicles are bare paper with one MILLPOND stroke down one side.
+
+  🔴 A THING ONLY IMAGINED - some volumes show what a duckling is picturing. There is no blur and no
+    border in this medium, so the page is told apart by ITS STAGE BEING GONE: the whole ground is
+    bare PAPER edge to edge and ONLY the imagined things are painted, standing on nothing. Every
+    real page has a painted stage, so that one difference carries it. No cloud frame, no outline,
+    no faded edge, no second colour.
 
 CHARACTER DESIGN LANGUAGE: ducks are built from the same flat sweeps as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright. 🔴 THEY HAVE WINGS, NOT ARMS - no
@@ -134,14 +148,16 @@ CHARACTER DESIGN LANGUAGE: ducks are built from the same flat sweeps as the worl
   SHOWING and a body WIDER THAN IT IS TALL on short wide-set legs, a straw hat whose brim is wider
   than his shoulders, no blue. Adults never carry blue and never wear the other two children's cloth.
   🔴 The full build of each is given on that character's own sheet, and the sheet governs.
-  🔴 DODO IS NEVER DRAWN MEAN. She is wrong on 25 pages out of 25 and she must be lovable on every
-  one of them: when she is wrong her WHOLE BODY is the joke - feet up, wings flung wide, bill open,
+  🔴 DODO IS NEVER DRAWN MEAN. She is wrong in nearly every volume she appears in and she must be
+  lovable every time: when she is wrong her WHOLE BODY is the joke - feet up, wings flung wide, bill open,
   eyes shut in her own laugh. Never a sneer, never a narrowed eye, never crossed wings, never a wing
   pointed at Mumu, never standing over him. And 🔴 MUMU NEVER SMIRKS AT HER - when she fails he is
   looking at the task, not at her.
 
-CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - sacks, doors and the
-  height post in volume 21 stay blank or carry a single scratched line.
+CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - sacks and doors stay
+  blank. A height post carries SHORT HORIZONTAL SCRATCHES and nothing else: no name, no date, no
+  arrow, no tick. 🔴 WHAT IS FORBIDDEN IS LETTERING, NOT THE COUNT - a post may carry up to four
+  scratches, and the gaps between them are what a volume is measuring.
 
 NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no watercolour wash, bleed or
   transparency / no outline of any kind / no hands, fingers or sleeves on a duck.
@@ -158,6 +174,22 @@ BUILD:  four different ducks, not one duck at four sizes - Mumu no neck and a bi
         Dodo long legs and long wings with the chin up, Mommy a long neck standing straight up off a
         narrow body, Daddy no neck and a body wider than it is tall
 ```
+
+🔴 **2026-09-04 수리** — ①`no cast shadow` 가 **21권을 통째로 못 그리게** 했다(열 쪽 중 다섯이 그림자이고
+길이 변화가 그 권의 전부다). 금지를 푼 게 아니라 **번역했다** — 막고 싶었던 건 부드러운 음영이지 그림자가
+아니다(lulu 처방이 정본). ②`the height post … a single scratched line` 은 **줄 수를 금지하고 있었는데
+막고 싶었던 것은 글자·숫자**였다(대본 21 p9 는 금 넷이고 그 간격이 착지다). ③`FIELD` 가 **밖에서 본 밭**만
+정해서 37권 아홉 쪽(밭 **속**)이 조항 밖이었다. ④상상 쪽 조항이 아예 없었다(27·29·30). ⑤무대 조항의
+**권 번호를 조건으로 바꿨다** — 25권 시절 목록이라 26~50이 통째로 밖이었고, 실측하면 밤 쪽이 27·31(9쪽)·
+41(8쪽)·49 에도 있다. ⑥`She is wrong on 25 pages out of 25` 는 **두 겹으로 거짓**이었다 — 25는 옛 권수이고,
+도도는 **48권에만 나온다**(35·36 은 무무 권이다).
+
+⑦🔴 **앵커가 스스로 색 수를 두 번 다르게 말했다** — `exactly TWO colours` 인데 같은 파일이
+`CHALK IS NOT A FIFTH COLOUR` 라고 한다(즉 넷을 세고 있다). Style 줄이 **둘 + 악센트 + 초크**를 세게
+고쳤다. bami 와 같은 모양의 모순이다.
+⚠️ **`BLUE:` 와 `WINGS:` 는 세어 보고 그대로 뒀다** — 파란 것은 34·42·45·47권까지 전부 리본·목수건이고
+(50 p1 은 「파란 것은 하나도 없다」로 손님을 가른다), 「손바닥」은 **손바닥만 한**·**손바닥 깊이** 라는
+길이 비유일 뿐 오리 손이 아니다.
 
 🔴 **`LOVE:` 를 관통 줄에 올린 이유.** 설계서가 이 시리즈의 유일한 위험으로 「도도를 미워하게
 만드는 것」을 꼽았는데, 그림에서 그 사고는 **글이 아니라 자세로** 난다 — 팔짱, 내려다보기,

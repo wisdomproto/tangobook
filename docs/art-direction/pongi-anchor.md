@@ -71,11 +71,25 @@
 
 각 6~7권으로 정책 상한 안이다.
 
+🔴 **2026-09-04 수리 셋.** ①`Reeds = at most 7 strokes` 가 **41권을 못 그리게** 했다(갈대가 아이 하나를
+가려야 하는데 7획으로는 못 가린다). 상한을 올리지 않고 **가까운 갈대(세는 것) / 갈대밭(한 덩이)**로 갈랐다
+— 값은 `pongi-stages.md` §2.18 `Reeds` 가 든다. ②관통 줄 `WHO: Pongi is the smallest standing figure` 가
+**104쪽·26권에서 거짓**이었다 — `Baby otter` 가 퐁이보다 작다(`pongi-cast.md`). 매 쪽에 붙는 줄이
+거짓이면 화가가 그 26권에서 **아기를 퐁이 크기로 그리거나 퐁이를 아기 자리에 놓는다**.
+③🔴 **앵커가 스스로 잉크 수를 두 번 다르게 말했다** — 앵커 A 의 `exactly TWO ink screens` 인데 같은
+`PALETTE` 가 `RED PLATE … a third pull` 을 든다(§0 도 「마지막에 한 판 더 찍는다」라고 이미 적어 뒀다).
+Style 줄이 **두 판 + 붉은 판**을 세게 고쳤다. bami 와 같은 모양의 모순이다.
+⚠️ **`CORD:` 와 `FACE:` 는 그대로 뒀다** — 세어 보고 어긋난 자리가 없다.
+④**상상 쪽 조항이 아예 없었다** — 27 p5(화면 전체가 입속) · 30 p6(화면 전체가 배 속)은 무대가 없는
+쪽인데 앵커가 그걸 어떻게 갈라 그리는지 한 줄도 안 갖고 있었다(dodo 에서 같은 구멍이 나왔다).
+이 매체엔 흐림도 테두리도 없으므로 **「무대를 안 찍는다」**로 갈랐다.
+
 **관통 줄** (전 묶음 공통, 3개)
 
 ```
 CORD:  the red plate is printed last and touches nothing but Pongi's neck cord
-WHO:   Pongi is the smallest standing figure unless she is alone on the page
+WHO:   the cord finds Pongi - she is the smallest of the ones who go out, and the only figure
+       smaller than her is the baby, who is rounder, shorter-limbed and always holding one shell
 FACE:  the joke is on a face - never let an object cross a face
 ```
 
@@ -86,7 +100,8 @@ FACE:  the joke is on a face - never let an object cross a face
 ```
 STYLE ANCHOR - pongi-screenwater   (an otter family on a Dutch canal / two screens and the paper)
 
-Style: silkscreen, exactly TWO ink screens on cream paper, 4-6 year old picture book. Each screen
+Style: silkscreen, TWO ink screens that print the world plus ONE red plate that touches nothing but
+  Pongi's neck cord, on cream paper, 4-6 year old picture book. Each screen
   is one flat opaque colour pulled in one pass. Where the two overlap a third, darker colour
   appears - that is the only way a dark exists. Unprinted paper is not white space, it is the sky
   and the light. SHADING IS ZERO - no modelling, no gradient, no cast shadow, no highlight.
@@ -96,10 +111,18 @@ RENDERING (finish hierarchy): water is ONE unbroken pull of INK1, never lighter 
   hard edge, no distortion, never mirrored or flipped. A thing on the water sits on top with its
   whole outline showing. Ice is the same area left as PAPER instead of pulled. FINISHED THINGS PER
   PAGE = 2, Pongi and the one thing she touches. Far bank = at most 5 silhouettes in INK2, 0
-  windows. Reeds = at most 7 strokes. Boat seams = at most 4 lines. Stars = at most 14 separate
+  windows. 🔴 Reeds come in two kinds and are never mixed in one clump: NEAR REEDS = at most 7
+  separate INK2 strokes, and that cap is on reeds drawn one by one; A REED BED is ONE flat INK2 mass
+  with a ragged top, uncounted, tall enough to hide a standing child, opaque - nothing shows faintly
+  through it. Boat seams = at most 4 lines. Stars = at most 14 separate
   paper holes, each cut on its own, never a mirrored copy of the sky. Registration is one hair off
   on every page - the screens do not line up perfectly and that misfit is visible at 2 or 3 edges.
   DENSITY RATION = none.
+  🔴 A PAGE THAT IS ONLY IMAGINED - some volumes show what Pongi is picturing. There is no blur and
+  no border in this medium, so it is told apart by HAVING NO STAGE: everything but the imagined
+  thing is left as unprinted PAPER, and the imagined thing is pulled at FULL strength. Every real
+  page has a printed stage, so that one difference carries it. No cloud frame, no outline, no soft
+  or faded edge, no half-strength pull, and no character on the page.
 
 PALETTE: PAPER CREAM #F6F4EE, sky, ice, light, everything not pulled · INK1 CANAL #2C4A3C, water ·
   INK2 EARTH #8C7C68, wood, boats, chests, rope, banks · OVERLAP PINE #21372E, otter backs, night,
@@ -119,8 +142,9 @@ CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for 
   ALONE - whatever is being looked at is inside the frame, and no page has every animal aiming its
   dots at nothing. Shut, a dot is replaced by one short lying curve.
   The mouth curve says how the character feels; the pair of dots says what it is thinking about.
-  Nothing ever crosses a face. Silhouettes separate at thumbnail size: Pongi is the
-  smallest standing figure, the goose is the tallest and thinnest.
+  Nothing ever crosses a face. Silhouettes separate at thumbnail size: 🔴 THE BABY IS THE SMALLEST
+  FIGURE IN THE BOOK - rounder than Pongi, limbs much shorter, one shell held against its chest;
+  Pongi is the next smallest and is the one with the cord; the goose is the tallest and thinnest.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 

@@ -31,7 +31,7 @@
 
 ---
 
-## §1. 자리 시트 — 7장 (후보 16에서 접음)
+## §1. 자리 시트 — 11장 (후보 16에서 접고 · 2026-09-04 `Village`·`Dentist`·`Library`·`Imagined` 신설)
 
 🔴 **접은 내역**
 
@@ -43,7 +43,20 @@
 | `Boat` | 배 위 | 카메라가 안에 타면 다른 화면 |
 | `GrandpaHouse` | 할아버지 집 현관 | 🔴 **미결의 답 — 다른 집이다** |
 | `NeighbourHouse` | 이웃집 앞 | |
-| `Windmill` | (18권) | |
+| `Windmill` | (18권) · **마을 밖 들판** | 🔴 풍차는 들판 **안에** 서 있다. 18 p1·p8·p10 이 `Village` 로 찍혀 있던 것을 여기로 옮겼다 — 그 세 쪽의 사건이 **날개 각도와 눕는 풀**이라 마을 길 시트로는 못 그린다 |
+| 🔴 `Village` | 마을 길 · 시장 · 시장 길 · 돌아오는 길 · 빵집 앞 | **신설**(13쪽·5권) — §1.3 |
+| 🔴 `Dentist` | 치과 안 | **신설** — 14권 **여덟 쪽**(p3~p10)이 이 방이다. 「마을 길」로 찍혀 있었다 |
+| 🔴 `Library` | 도서관 · 책장 앞 | **신설** — 19권 **여덟 쪽**(p1~p8). p1 은 `Village`, p3 은 `PongiHouse` 로 찍혀 **한 방이 두 이름**이었다 |
+| 🔴 `Imagined` | 퐁이 눈앞에 그려진 그림 | **신설** — 27 p5(입속) · 30 p6(배 속). **무대가 없는 쪽**이고, 그래서 시트가 필요하다 |
+
+🔴 **SCENE 을 고친 자리 열셋 — 「없는 것보다 나쁜 것」이 이 시리즈에 제일 많았다**(2026-09-04)
+
+| 고친 것 | 왜 |
+|---|---|
+| `[PongiHouse/문간]` 3쪽 → `PongiHouse/E` · `[GrandpaHouse/문간]` 1쪽 → `GrandpaHouse/B` | 🔴 **대괄호 안에 한글이 섞여 검사기가 아예 못 읽었다** — 안 세었으니 「미매칭 0」으로 통과했다. §3 이 정한 판정(문간 = 그 집 시트의 한 자리)은 그대로고 **글자만** 좌표로 바꿨다 |
+| `Village` 13쪽 → `Windmill` 3 · `Bridge` 2 · `Dentist` 1 · `Library` 1 | `Village` 하나가 **들판·치과·도서관·다리 비탈**까지 먹고 있었다. 20 p4·p6 의 「비탈」은 **다리 비탈**이고(같은 권 p3 이 `[Bridge] 다리 비탈`) 난간이 그 증거다 |
+| `[PongiHouse]` 19 p3 → `Library` · 06 p5 → `Village` | 19 p3 「책장 앞」은 **도서관**이다(p1 과 한 방인데 두 이름이었다) · 06 p5 「빵집 앞」은 **남의 가게**다 |
+| 토큰이 아예 없던 3쪽 | 41 p7 → `Canal`(그 권 전체가 둑길) · 27 p5·30 p6 → `Imagined` |
 
 ### §1.1 Canal — 실제 프롬프트 (가장 먼저)
 
@@ -100,7 +113,87 @@ NOT: no character of any kind, no red anywhere on this sheet (the red plate touc
 바닥에 든다 = **안 찍은 종이**) · 소파 · 벽(그림을 붙이는 면). `WHERE THE OVERLAP FALLS` = 창에서 먼 쪽
 바닥·가구 밑. `SPOTS` = A 현관에서 / B 탁자 위 하이앵글 / C 창가 / D 벽.
 
-나머지 5장도 같은 네 절 + `WHERE THE OVERLAP FALLS`.
+🔴 **SCENE 이 찍는 좌표 토큰** — `PongiHouse/A` = SPOT A(현관) · `PongiHouse/E` = **문간**(밖에서 본
+문 앞. 03 p4·p10 · 34 p10) · `GrandpaHouse/B` = 할아버지 집 문간(11 p6). 🔴 A 와 E 는 **같은 문을
+안팎에서** 보는 것이라 문짝·문턱·신발 자리가 두 판에서 같아야 한다.
+
+### §1.3 Village — 실제 프롬프트 (신설 · 13쪽 · 5권)
+
+> 13(시장 5쪽) · 14 p1 · 01 p10 · 06 p4·p5·p6·p10 · 21 p3·p8. 🔴 **길 하나에 장이 서고, 그 길에 가게가
+> 붙어 있다** — 다섯 권이 이 한 자리를 쓰는데 붐비는 날과 빈 날이 갈릴 뿐이다. 그래서 **장은 자리가
+> 아니라 이 시트의 상태**다(같은 규칙으로 38권은 **다리 위에** 장이 서고, 그건 `Bridge` 시트가 든다).
+> 🔴 **금 간 돌 하나**가 21권의 처음과 끝을 잇는다(p3 에 보이고 p8 에 다시 나온다) — 자리와 모양이 이
+> 시트에서 고정되지 않으면 그 권이 성립하지 않는다.
+
+```
+STAGE SHEET - Village   (pongi-screenwater · SCENE token: Village)
+
+The paved lane through the village, along the canal. Five books walk it and one of them fills it
+with a market, so the lane is drawn once and the market is a STATE of it, not another place.
+
+FIXED PARTS - two screens only, pulled flat, one pass each:
+  THE LANE is UNPRINTED PAPER running away from the viewer and bending once - it is the brightest
+    thing underfoot and nothing is pulled on it except what is listed here.
+  🔴 ONE CRACKED PAVING STONE near the bottom of the frame: a flat INK2 shape with ONE thin INK2
+    line across it. 🔴 THE SHAPE OF THAT CRACK IS FIXED HERE AND NEVER REDRAWN - a book shows it
+    twice and the second time is only worth anything if a child recognises it.
+  THE HOUSE FRONTS along the LEFT, at most 5 flat INK2 silhouettes standing shoulder to shoulder,
+    0 windows, their doors a darker overlap notch.
+  🔴 ONE SHOPFRONT among them, and only one: its opening is a WIDE OVERLAP notch with a shelf across
+    it, wide enough that a whole loaf and two paws can pass through and NOTHING ELSE OF THE SHOP IS
+    SHOWN. (06 p5 - the seller stays out of frame and only one arm comes down.)
+  THE CANAL along the RIGHT with the near bank between it and the lane, both as on STAGE SHEET
+    Canal - INK1 water, INK2 bank, and they do not change here.
+  A LOW IRON RAIL between the lane and the bank, INK2, at most 7 uprights.
+  ONE ROADSIDE TREE standing between lane and rail, INK2, 🔴 its trunk WIDE ENOUGH TO HIDE A WHOLE
+    OTTER with only a tail tip showing past it (06 p6 is that and nothing else).
+  THE SKY IS NOT PULLED - bare PAPER, the brightest thing on the page.
+
+🔴 WHERE THE OVERLAP FALLS: doorways, the shop opening, the underside of the rail and the far side
+  of the tree are overlap. The lane itself takes no overlap at all - a thing standing on it keeps
+  its whole outline and is not overlapped, the way a thing floating on the canal is not.
+
+STATES:
+  1 EMPTY, the ordinary day: lane, houses, rail, tree, canal, and nobody.
+  2 🔴 MARKET DAY, and it is built ONLY out of repeats: a run of trestle tops along the left at one
+    height, at most 5 awning triangles above them at one angle, and at most 7 shopper silhouettes in
+    INK2 with 0 faces and 0 hands. 🔴 THE LANE FLOOR STAYS BARE PAPER between them, so a small
+    figure on it never disappears into the crowd - that is the whole picture of a book that spends
+    five pages here.
+  3 FOG, morning: everything but the nearest thing is bare PAPER. Things arrive at FULL strength
+    with a hard edge, never by fading, and there is no pale version of anything. 🔴 THE CRACKED
+    STONE IS THE NEAREST THING and stays fully printed while the houses are simply absent.
+  4 MUD beside the lane after rain: ONE flat INK2 area with a crisp edge against the bare paper.
+
+SPOTS:
+  A ALONG THE LANE, wide, eye level: houses left, rail and canal right, the lane bending away.
+  B THE SHOPFRONT, medium close: the opening, the shelf, and one arm entering from above.
+  C UNDERFOOT, close, high: bare paper and the cracked stone.
+  D THE TREE, medium: the trunk filling the middle of the frame and blocking it.
+
+PLATE: A drawn TWICE at one size - empty and market day - then B, C, D once each, plus 🔴 ONE LARGE
+  PANEL OF THE CRACKED STONE alone, at the size it appears in a close-up, so the crack can be copied
+  exactly a second time.
+
+NOT: no character of any kind, no red anywhere on this sheet (the red plate touches only Pongi's
+  neck cord), no lettering, numerals, prices or shop signs, no face or hand on any shopper
+  silhouette, no third mixed colour that is not an overprint, no airbrush, gradient, glow or 3D
+  render, no soft or feathered edge, no ripple, glint or sparkle on the water, nothing on the water
+  mirrored or flipped.
+```
+
+### §1.4 나머지 여섯 — 요약 명세 (🔴 예산과 「그 권의 시계」는 시트마다 다르다)
+
+| 시트 | `FIXED PARTS` · `WHERE THE OVERLAP FALLS` | 🔴 그 권의 시계 |
+|---|---|---|
+| `Bridge` | 아치 하나 · 난간 · 초입/꼭대기/내리막 세 자리 · 아치 밑 제비집 줄(§2.24) · **기둥 하나가 물에 잠긴다** | 🔴 **기둥의 금 한 줄과 수면 3단계**(39권 p4↔p8) — 금은 INK2 한 줄이고 **높이가 고정**, 물이 그 금 **아래·바로·위** 세 상태. 안 정하면 두 쪽 비교가 성립하지 않는다. 🔴 **장 서는 상태**도 여기가 든다(38권 = 천막 줄 + 실루엣 아홉, `Village` STATE 2 와 같은 규칙). 비탈은 다리의 일부다(20 p4·p6) |
+| `Windmill` | 들판 한복판의 풍차 하나 · 날개 넷 · **풀** | 🔴 **날개 각도 3단계**(18 p1 멈춤 → p9 조금 → p10 더) — 셋을 **같은 각도에서 같은 크기로** 그려 겹쳐 볼 수 있게. 🔴 **풀은 바람의 눈금**이다: p1 곧게 섬 → p8 한 방향으로 눕기 시작 → p10 전부 누움. 눕는 것은 **모든 느슨한 것이 같은 쪽으로**, 최대 7 |
+| `Dentist` | 🔴 **하얀 의자 = 안 찍은 종이 한 덩이**(이 방에서 가장 밝다) · 젖혀지는 등받이 2단계 · 옆 작은 쟁반 · 벽은 INK2 한 판에 창 0 | 의자가 **아이보다 훨씬 크다** — 아이와 나란히 놓인 판을 반드시 한 장. 의자 자체 규격은 §2.4 `DentistChair` |
+| `Library` | 🔴 **천장까지 닿는 책장 벽**(§2.19 `Bookshelf`) · 낮은 열람대 하나 · 바닥은 안 찍은 종이 | 🔴 **로우앵글이 이 자리의 기본**(19 p1 이 아이를 작게 만든다) — 책장 벽이 화면 위로 잘려 끝이 안 보여야 한다 |
+| `Boat` | 뱃전 한 줄 · 바닥 널 세 줄 · 이음매 최대 4 · 노·조끼·바구니가 놓이는 **바닥 세 자리 고정**(35권) | 🔴 **배가 묶였나 풀렸나** — 뱃머리 밧줄이 말뚝에 **감겨 있으면 못 간다 · 풀리면 간다**. 35권 열 쪽이 그 하나로 갈린다 |
+| `Imagined` | 🔴 **무대가 없다.** 화면 전체가 상상한 것 하나로 차고, **그 밖은 안 찍은 종이**다 | 🔴 실제 쪽은 늘 무대가 찍혀 있으므로 **그 차이 하나로 갈린다** — 구름 테·흐림·테두리·희미하게 안 그린다. 인물도 안 나온다(27 p5·30 p6 둘 다 `인물 없음`) |
+
+나머지 시트(`PongiHouse`·`GrandpaHouse`·`NeighbourHouse`)도 같은 네 절 + `WHERE THE OVERLAP FALLS`.
 
 ---
 
@@ -688,6 +781,12 @@ texture beyond 5 lines, no cast shadow, no third mixed colour, no gradient or so
 
 > 앵커가 `Reeds = at most 7 strokes` 로 못 박아 놨는데, 41권은 **갈대가 아이 하나를 가려야** 한다.
 > 7획으로는 못 가린다. 규칙을 어기는 게 아니라 **가까운 갈대와 갈대밭을 갈라** 둘 다 지키게 한다.
+>
+> ✅ **처리(2026-09-04)** — 🔴 **이 시트의 처방을 앵커로 올렸다.** 상한을 올리는 게 아니라
+> 「무엇을 세는가」를 가른 것이라 그대로 옮겨 붙는다(`_ANCHOR-REPAIR.md` 갈래 ③ 의 정본 처방):
+> `NEAR REEDS = at most 7 separate INK2 strokes, and that cap is on reeds drawn one by one;
+> A REED BED is ONE flat INK2 mass with a ragged top, uncounted, tall enough to hide a standing
+> child, opaque`. 🔴 시트에만 두면 **다음 사람은 앵커를 읽고 7획으로 되돌린다.**
 
 ```
 PROP SHEET - Reeds   (pongi-screenwater · SCENE token: Reeds)
@@ -899,6 +998,23 @@ colour, no gradient or soft edge.
 
 ---
 
+## §2-a. 🔴 35권 6→7쪽 — 조끼 싣는 순간이 없다 (판정 · 2026-09-04)
+
+35권은 **세는 권**이다. p5 에서 둑 흙바닥에 **노 · 구명조끼 · 빵 바구니 셋**이 한 줄로 놓이고,
+p6 에서 노를 싣고(대본이 「하나를 세고」라고 못 박았다), p7 에서 바구니를 내려놓는 순간 바닥에 **셋이
+나란하다**. 🔴 **둘째(조끼)가 실리는 순간이 어느 쪽에도 없다** — 아이가 따라 세면 **하나 다음이 셋**이다.
+콘티에도 같은 틈이 있으니 그림으로 메울 수 있는 종류가 아니다.
+
+**판정 — 그림이 아니라 글을 고칠 일이고, 새 쪽을 만들 일도 아니다.**
+🔴 **p7 을 건드리면 안 된다.** p7 은 대본이 `p2와 같은 각도·같은 크기`라고 못 박은 쪽이고,
+**빈 바닥(p2) ↔ 찬 바닥(p7)** 한 짝이 이 권의 그림 하나다. 여기에 손대면 권이 무너진다.
+→ **고칠 곳은 p6 한 줄이다.** 퐁이가 노를 안고 **조끼는 목에 걸치거나 어깨에 멘 채** 배에 내려놓고
+「하나, 둘」을 세게 하면 ①p6 이 이미 그리는 자세 그대로이고(안는 것은 여전히 노 하나) ②p8 에서
+그 조끼를 **입는** 것과도 이어지며 ③셈이 1 → 2 → 3 이 된다. 컷 수·구도·p2↔p7 짝 전부 그대로다.
+⚠️ **본문(한국어)은 안 고쳤다** — 이 문서의 일이 아니다. comic-writer 에게 넘기는 신고다.
+
+---
+
 ## §3. 🔴 미결 — 「현관」 3갈래 · 「문간」 3갈래
 
 > 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
@@ -916,6 +1032,11 @@ colour, no gradient or soft edge.
 | 「할아버지 집 현관」 (11 p5) | 🔴 **`GrandpaHouse` — 별개 시트** | **다른 집이다.** 묶으면 11권의 「집을 나와서 다른 집에 닿았다」가 그림에서 사라진다 |
 | 「문간」 (11 p6) | `GrandpaHouse` / 문간 | 11 p5 바로 다음 쪽이라 그 집이다 |
 | 「집 앞 문간」 · 「마당과 문간」 | `PongiHouse` / 문간 | |
+
+🔴 **좌표에 한글을 쓰지 않는다**(2026-09-04). 위 판정이 SCENE 에 `[PongiHouse/문간]`·`[GrandpaHouse/문간]`
+으로 붙어 있었는데, **대괄호 안에 한글이 섞이면 검사기가 그 쪽을 아예 못 읽고 건너뛴다** — 안 세었으니
+「미매칭 0」으로 통과했다(pongi 4쪽). 판정은 그대로 두고 글자만 `PongiHouse/E`·`GrandpaHouse/B` 로 바꿨다.
+**A/B/C/D/E 는 §1 시트의 SPOT 문자와 같은 자다.**
 
 ⚠️ 11 p6 은 이름만으로는 **어느 집 문간인지 알 수 없었다** — 앞 쪽을 읽어야 정해진다. 타로 「나무 밑」과
 같은 종류이고, 이런 건 **경로표를 채울 때만 드러난다**.

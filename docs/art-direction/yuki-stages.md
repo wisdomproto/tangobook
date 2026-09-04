@@ -23,7 +23,7 @@
 
 ---
 
-## §1. 자리 시트 — 8장 (후보 17에서 접음)
+## §1. 자리 시트 — 9장 (후보 17에서 접고 · 2026-09-04 `Shed` 신설)
 
 🔴 **접은 내역** (기준 = 카메라가 한 걸음 옮기면 닿는가)
 
@@ -36,6 +36,7 @@
 | `MountainPath` · `ChestnutGrove` · `BackOfHouse` | (각 1) | 🔴 §3 |
 | 🔴 `HillPath` | 언덕길 · 언덕 중턱 · 언덕 꼭대기 · 집 뒤 언덕길 | **신설** — 25권 **7쪽**(p3·p4·p5·p6·p7·p9·p10)이 여기다. 14권 산길(`MountainPath`)과 다르다: 25 p1 이 **방 창 너머로 그 언덕을 본다** = 집에서 보이는 언덕 |
 | `Kennel` | 개집 안 · 개집 앞 | 16권 |
+| 🔴 `Shed` | 집 뒤 헛간 처마 밑 · 헛간 앞 · 헛간 옆 눈밭 · 헛간 뒤 · 헛간 안 | **신설**(13쪽·3권) — 🔴 **21권은 열 쪽이 통째로 여기**다. `BackOfHouse`(집 뒤 벽 + 장작더미)와 다르다: 헛간은 **제 벽과 제 처마를 가진 건물**이고 21권의 감 줄이 그 처마에 걸린다. §1.4 |
 
 ### §1.1 Yard — 실제 프롬프트
 
@@ -72,7 +73,8 @@ STROKE BUDGET - the season sets the count, not the objects.
   SUMMER - the wettest: the zelkova's leaf mass is ONE dark wash on damp paper, bleeding at its own
     edge, and its shade on the ground is ONE flat wash with a hard edge and 0 strokes inside.
   AUTUMN - the driest brush, every stroke broken along its length. Fallen leaves at most 21 dry
-    touches, never overlapping. Persimmons on the bare branches: at most 12 wet blunt touches.
+    touches that read ONE BY ONE, never overlapping - leaves that COVER the ground are not counted
+    and are ONE wash with a ragged edge (§2.23). Persimmons on the bare branches: at most 12 wet blunt touches.
   🔴 WINTER - THE FEWEST OF THE YEAR: the wall top line and the veranda edge, AND NOTHING ELSE. The
     ground is unpainted PAPER edge to edge and carries no mark at all. Falling snow, when a book
     asks for it, is at most 14 holes of bare paper - never a dot of white paint. Snow sitting on the
@@ -110,6 +112,71 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 | `MountainPath` | 가을 = 마른 붓, 나무 최대 9 트렁크 1획씩 · 낙엽 최대 21 | A 길 / B 나무 밑 / C 바닥 |
 | `Creek` | 여름 = 젖은 종이, 물은 **안 칠한 종이** · 돌 2획 | A 물가 / B 물속 |
 | `Field` | 봄·여름 = 이랑 최대 9 · 겨울엔 안 온다 | A 밭 / B 밭 가 |
+### §1.4 Shed — 실제 프롬프트 (신설 · 13쪽 · 3권)
+
+> 21 · 32 p2 · 50 p3·p4. 🔴 **21권은 열 쪽이 전부 이 처마 밑**이고, 그 열 쪽의 시계는 **줄에 매달린 감
+> 개수**(아홉 → 여덟 → 여섯)다 — 개수는 §2.15 `Persimmons` 가 들고, 이 시트는 **그 줄이 걸리는 자리**와
+> **몇 알이 걸리는 길이인지**를 정한다. 🔴 50권은 **널벽 틈으로 든 빛 세 줄이 몸 위를 지나는 것**이 그림
+> 전부이므로 틈의 수·자리·간격이 여기서 고정돼야 한다.
+> ⚠️ **겨울 말고는 이 권들이 안 온다** — 계절 넷을 다 배급하지 않는다.
+
+```
+STAGE SHEET - Shed   (yuki-inkwash · SCENE token: Shed · winter only)
+
+The plank shed behind the house. Three books use it and one of them spends all ten of its pages
+under its eave, so the eave, the wall and the inside are decided here once.
+
+FIXED PARTS - each is ONE stroke unless said otherwise, loaded once and lifted once:
+  THE DEEP EAVE across the top - ONE long stroke, wet and dark where it starts, dry and broken where
+    it runs out. Never two strokes.
+  🔴 A LINE STRUNG UNDER THE EAVE, corner to corner - ONE thin stroke crossing the WHOLE frame and
+    leaving it at both edges. IT IS LONG ENOUGH TO HANG NINE THINGS ON WITH A GAP BETWEEN EACH, and
+    that length never changes, so that six on the same line reads as gaps and not as a shorter line.
+  THE PLANK WALL - the boards are 2 short strokes, no more, and the wall is otherwise unpainted.
+  🔴 THREE GAPS BETWEEN THE BOARDS - and they are NOT strokes. They are three narrow strips of bare
+    PAPER left unpainted, evenly spaced, running the full height of the wall. Inside the shed they
+    are the only light there is, and 🔴 THEY LIE STRAIGHT ACROSS WHATEVER IS IN FRONT OF THEM,
+    unbroken, body included - a body does not stop them and does not bend them.
+  THE DOORWAY, ONE short stroke each side, standing open on darkness that is ONE flat wash with 0
+    strokes inside it.
+  ONE STRAW HEAP against the inside wall - ONE wash for the mass with at most 11 loose stalks
+    breaking its top edge.
+  🔴 THE GROUND IS NOT A THING. Outside and in, it is bare PAPER and carries no mark at all.
+
+STROKE BUDGET - winter, and winter here is the fewest of the year:
+  OUTSIDE = 3 strokes and nothing else - THE EAVE, THE LINE, and ONE wall board. The ground takes 0.
+    Falling snow, when a book asks for it, is at most 14 holes of bare paper, never a dot of white
+    paint. Snow lying on the eave is bare paper, so the eave stroke stops short of its own top.
+  INSIDE = 4 - two board strokes, the straw wash, the doorway dark. The three gaps are not strokes
+    and are not counted, because they are paper.
+  🔴 WHAT HANGS ON THE LINE IS BUDGETED SEPARATELY and is the only crowded thing on the page: it may
+    break the outside count, and nothing else may.
+
+🔴 THE THREE STATES OF THE GAPS - 50 turns on this and the change must be readable at one size:
+  1 SHARP - three clean strips of bare paper, hard edged, crossing the body.
+  2 FAINT - the same three strips NARROWER, still hard edged, still three, still in the same places.
+    🔴 They do not blur and they do not fade at the ends; the strip gets thinner, that is all.
+  3 GONE - the wall is one flat wash with no strips at all and the inside has no light.
+
+SPOTS - four, do not invent a fifth:
+  A UNDER THE EAVE, medium wide, low: the line crossing the top of the frame with what hangs on it,
+    the wall behind, empty ground below.
+  B IN FRONT OF THE SHED, wide, eye level: the whole face of it - eave, wall, doorway - with open
+    snow to one side.
+  C BEHIND THE SHED, medium: 🔴 the plank wall standing UPRIGHT THROUGH THE MIDDLE OF THE FRAME so
+    the picture is cut in two, with the near side the narrower half.
+  D INSIDE, medium close, high: the straw heap, the doorway dark, and the three paper gaps lying
+    across the frame.
+
+PLATE: A, B, C, D once each, plus 🔴 THE LINE DRAWN TWICE at one size - with nine hanging and with
+  six - so the gaps are countable, and 🔴 D DRAWN THREE TIMES for the three states of the gaps.
+
+NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering or numerals, no
+  stroke gone over twice, no white paint on snow, no drawn grain or knot on a plank, no beam of
+  light, no dust in a beam, no glow, no gradient, no soft or feathered edge, no blurred or faded
+  gap, no shadow on a body or a face.
+```
+
 
 ---
 
@@ -230,8 +297,14 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 🔴 **고칠 곳은 그 세 권이 아니라 조항 한 줄이다.** 이 시리즈는 이미 같은 문법을 갖고 있다 —
 `Firewood` §2.2 의 `a STACK is a RUN and is exempt from the repeat cap`, `Yard` 여름의 `leaf mass is ONE dark wash`.
 → **덮인 낙엽은 낱장이 아니라 한 면이고, ≤21 은 「낱장으로 읽히는 잎」에만 걸린다.** 이 규칙을
-§2.23 `FallenLeaves` 가 한 곳에서 들고 있다. 앵커 조항을 고칠 거면 `never overlapping` 앞에 **`loose leaves that
-read one by one`** 을 넣으면 된다(문장 하나, 획 예산 불변).
+§2.23 `FallenLeaves` 가 한 곳에서 들고 있다.
+
+✅ **처리(2026-09-04)** — 앵커 `AUTUMN` 조항을 **`at most 21 dry touches that read ONE BY ONE, never
+overlapping - leaves that COVER the ground are not counted at all: they are ONE wash with a ragged
+edge`** 로 고쳤다(`yuki-anchor.md` §5). §1.1 `Yard` 의 AUTUMN 예산에도 **같은 문구가 복사돼 있어서 같이
+고쳤다** — 🔴 상한은 조용히 번지므로 **앵커만 고치면 반쪽**이다.
+같이 고친 것 = 앵커가 스스로 색 수를 다르게 말하던 자리(`ONE ink` ↔ `VERMILION … the only colour`).
+⚠️ 관통 줄 `RED:`·`MUTE:` 는 **세어 보고 그대로 뒀다**(주홍이 붙은 것은 500쪽 전부 목도리 매듭이다).
 
 ### §2.1 Jars — 실제 프롬프트
 

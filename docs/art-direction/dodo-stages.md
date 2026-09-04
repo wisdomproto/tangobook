@@ -37,7 +37,7 @@ highlight on a form, never an outline, never blended, and never laid on bare pap
 
 ---
 
-## §1. 자리 시트 — 5장 (후보 13에서 접음)
+## §1. 자리 시트 — 6장 (후보 13에서 접고 · 2026-09-04 `Meadow` 신설)
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -46,9 +46,12 @@ highlight on a form, never an outline, never blended, and never laid on bare pap
 | `MillInside` | 부엌 · 방앗간 부엌 · 부엌 탁자 | |
 | `Field` | 들판 가장자리 | 건너편 |
 | `Wheel` | (물레방아) | 🔴 `MillStream` 의 고정 부품이나 02·22권이 그것만 본다 |
+| 🔴 `Meadow` | 개울 건너 풀밭 · 버드나무 밑 · 딸기 덤불 · 방앗간 뒤 언덕 | **신설**(§5 ① 의 답 · 9쪽 · 4권) — `MillStream`(개울)에도 `Field`(밀밭)에도 안 접힌다. 18권은 **여섯 쪽**이 여기다. §1.3 |
 
-🔴 **`Meadow` 가 목록에 없는데 대본은 9쪽에서 쓴다**(12 p5 · 16 p9 · 18 p2·p4·p5·p6·p7·p8 · 19 p1).
-**여섯째 자리 시트가 빠져 있다** — 아래 §5 ① 참조.
+🔴 **SCENE 이 찍는 좌표 토큰** — `MillStream/E` (07 p3 · 13 p6 · 14 p6) = §1.1 의 **SPOT E
+(STANDING AT THE WATER'S EDGE)** 다. ⚠️ **SCENE 은 `/B` 를 찍고 있었는데 그 시트의 B 는 「돌 위」**라,
+글자대로 따르면 세 권의 「아직 못 건넜다」가 **돌 위에 선 그림**이 된다. 시트가 그 세 쪽을 **이름 대어**
+E 로 세워 뒀으므로(나중에 쓰인 쪽이 더 잘 알고 있다) SCENE 을 `/E` 로 고쳤다. §3 표도 같이 고쳤다.
 
 ### §1.1 MillStream — 실제 프롬프트 (가장 먼저)
 
@@ -114,6 +117,74 @@ NOT: no character of any kind, no ribbon blue anywhere on this sheet, no letteri
 p5 물이 끊기고 멈춤 → p10 다시 돎) 그 셋이 그 권의 전부다. 사물 시트로 빼면 바퀴와 규격이 갈라진다.
 🔴 **`MillOutside` 가 맡을 붙박이**: 짚더미(🔴 파인 자국·오목한 자국 상태 포함 — 17 p10 · 36 p9) ·
 빨랫줄 · 처마 · 마당가 나무(높은 가지 하나, 04권이 거기에 목수건을 건다) · 담장 · 도랑 · 나무다리 · 문턱.
+
+### §1.3 Meadow — 실제 프롬프트 (신설 · §5 ① 의 답 · 9쪽 · 4권)
+
+> 12 p5(안개 속 버드나무) · 16 p9(버드나무 그늘) · 18 p2·p4·p5·p6·p7·p8(딸기 덤불) · 19 p1(방앗간 뒤 언덕
+> 여름밤). 🔴 **네 권이 같은 풀밭의 다른 구석을 쓴다** — 그래서 한 시트이고, 그 셋(버드나무 · 덤불 ·
+> 언덕)의 **서로에 대한 자리**가 이 시트가 정하는 전부다. 18권은 여섯 쪽이 덤불 하나에 걸려 있으므로
+> 덤불의 **안팎**이 여기서 확정돼야 §2.25 `BerryBush` 가 그 위에서 성립한다.
+
+```
+STAGE SHEET - Meadow   (dodo-gouachemill · SCENE token: Meadow)
+
+The rough grass across the stream from the mill - not the wheat field and not the water. Four books
+stand here and each one uses a different corner of it, so the three corners and where they sit
+relative to one another are fixed once.
+
+FIXED PARTS:
+  THE GROUND is ONE sweep of WHEAT, 0 blades picked out, running to a low horizon.
+  🔴 ONE GREAT WILLOW at the LEFT, MILLPOND: a thick knotted bole with THREE branches splitting off
+    it low down, one of them low enough for a duckling to walk into. Its long trailing branches are
+    ONE repeated stroke, all leaning the SAME way, and that lean is the wind of the page. Its shade
+    on the ground is ONE flat MILLPOND sweep with a HARD edge and 0 strokes inside it.
+  🔴 ONE BRAMBLE at the RIGHT, a broad low MILLPOND mass (its own build is PROP SHEET BerryBush).
+    🔴 THE BUSH IS OPAQUE - a duckling inside it shows as ONE part only (two webbed feet under the
+    hem, a ribbon end through the leaves) and never faintly through the mass.
+  🔴 ONE HILL BEHIND, rising between the meadow and the mill, so that FROM ITS TOP THE MILL ROOF IS
+    BELOW AND SMALL. Its crest is one long WHEAT edge and nothing stands on it.
+  THE STREAM leaves the frame at the bottom edge; the mill is on its far side. Trees at most 5 in
+    the whole stage, willow included.
+
+🔴 WHERE THE PAPER RIM IS LEFT: a rim IS left between WILLOW and GROUND · between BRAMBLE and
+  GROUND · between HILL CREST and SKY. A rim is NOT left between the willow's shade and the ground
+  it lies on - the shade sits INSIDE the ground sweep as a hole, hard edged. Never draw a line to
+  separate anything; if two masses read as one, widen the rim.
+
+STATES - the weather and hour each book brings:
+  1 CLEAR DAY - sky bare PAPER, willow shade a hard flat sweep, bramble fruit on its sunlit edge.
+  2 🔴 MIST - everything but the nearest thing is bare PAPER; the willow arrives at FULL strength
+    with a hard edge and NOTHING behind it, so it reads as a wall. There is no pale version of it,
+    no fading and no haze. The bramble and the hill are simply not on the page.
+  3 🔴 SUMMER NIGHT ON THE HILL - the sky is OVERLAP laid as one flat sweep filling most of the
+    frame; the hill is a WHEAT edge along the bottom with the mill roof a small outline below it.
+    Stars are BARE PAPER points, each cut on its own, at most 14, none a mirrored copy of another.
+    No moon glow, no halo, no star of a different size.
+  4 LEAF SHADE ON A BODY - the willow's leaf shade falling across something lying on the ground is
+    the SAME flat MILLPOND with hard edges, cut as separate patches, at most 9, never a soft dapple
+    and never a gradient.
+
+🔴 COLOUR: the berries the script calls red are OVERLAP, not red - there is no red tube in this
+  book. The one berry a volume ends on is a single OVERLAP round with bare paper all round it.
+
+SPOTS:
+  A ACROSS THE MEADOW, wide, eye level: willow left, bramble right, hill behind, stream at the
+    bottom edge - the one panel that fixes the three corners against each other.
+  B UNDER THE WILLOW, medium low: the bole close, the three branches overhead, the shade edge
+    crossing the ground.
+  C AT THE BRAMBLE, medium: its outer face straight on, ground in front of it.
+  D ON THE HILL TOP, wide, low: sky filling most of the frame, the crest a band along the bottom
+    with the mill roof below and beyond.
+
+PLATE: A, B, C, D once each, plus 🔴 A DRAWN TWICE at one size - clear and in mist - so the mist
+  panel can be checked as the SAME meadow with things simply absent.
+
+NOT: no character of any kind, no ribbon blue anywhere on this sheet, no red berry or any third
+  tube, no lettering or numerals, no outline of any kind, no thinned wash, no chalk on bare paper,
+  no chalk as a highlight, no blade-by-blade grass, no darker green for shade (density only), no
+  figure showing faintly through the bramble, no shading, gradient, glow or soft edge, no soft
+  dapple of leaf shade, no moon glow or halo around a star.
+```
 
 ---
 
@@ -1460,7 +1531,7 @@ NOT: no character face (silhouettes only, for scale), no ribbon blue, no letteri
 | SCENE | 결정 | 종류 |
 |---|---|---|
 | 물레방아 아래 물가 | `MillStream/D` | 좌표 |
-| 개울가 물가 | `MillStream/B` | 좌표 |
+| 개울가 물가 | `MillStream/E` | 좌표. 🔴 **`/B` 였던 것을 고쳤다**(2026-09-04) — 그 시트의 B 는 「돌 위」이고, §1.1 이 07 p3·13 p6·14 p6 을 이름 대어 **E(돌이 한 개도 안 보이는 물가)** 로 세워 뒀다. SCENE 세 쪽도 같이 고쳤다 |
 
 정하면 된다(딩딩식 좌표). 15시리즈 중 **미결이 가장 적다**.
 
@@ -1476,6 +1547,19 @@ NOT: no character face (silhouettes only, for scale), no ribbon blue, no letteri
 
 > 사물 시트 33장을 쓰면서 나온 것이다. **여기 다섯은 시트로 덮을 일이 아니라 위쪽 문서를 고칠 일**이다.
 > 낱개로 고치지 말고 **한 곳씩** 고칠 것.
+
+### ✅ 처리 (2026-09-04 앵커 수리)
+
+| 신고 | 어떻게 |
+|---|---|
+| ① `Meadow` 없음 | **§1.3 에 시트를 썼다.** §1 표에도 올렸다 |
+| ② `no cast shadow` 가 21권을 막는다 | 🔴 **금지를 푼 게 아니라 번역했다** — 앵커 `SHADING IS ZERO` 에서 `no cast shadow` 를 빼고 대신 **「바닥에 놓인 그림자는 어둠이 아니라 납작한 면 하나」**를 못 박았다(MILLPOND 한 판 · 하드 에지 · 안 0 · 발과 사이에 종이 테 · 몸·얼굴엔 절대 안 놓임 · **길이가 사건인 쪽에서만**). 값은 §2.20 이 든다 |
+| ③ 키 재는 기둥 「금 한 줄」 | 앵커 CANVAS 를 **「금지되는 것은 줄 수가 아니라 글자·숫자」**로 고쳤다 — 금은 최대 넷, 이름·날짜·화살표·체크 금지. 값은 §2.21 |
+| ④ `FIELD` 가 밭 속을 못 덮음 | 앵커 FIELD 를 **밖에서 본 밭 / 안에서 본 밭** 두 문장으로 갈랐다(안 = 반복 획 하나, 깊이는 간격). 값은 §2.27 |
+| ⑤ 23권 「반짝인다·서리 결정」 | 🔴 **그림에서 무시한다로 확정.** 앵커 NOT 이 이긴다 — 그리면 그 한 쪽에서 매체가 무너진다(§2.19 가 이미 그렇게 썼다). 대본 낱말은 손 안 댔다 |
+| ⑥ 머릿속 그림 조항 없음 | 앵커 STAGE CLAUSES 에 한 줄 신설 — **상상 쪽은 무대가 통째로 안 칠한 종이**이고 상상한 것만 칠한다. 실제 쪽은 늘 무대가 칠해져 있으므로 그 차이 하나가 갈라 준다(구름 테·흐림·테두리 금지). ⚠️ 대본 27 p5·29 p5·30 p5 는 토큰이 `MillInside` 로 붙어 있고 그대로 둔다 — **상상해도 그 부엌이라서** 맞다 |
+| 무대 조항의 권 번호 | 🔴 갈래 ① — `MIST (volume 12)`·`NIGHT (volumes 09, 19, 25)`·`SNOW (volumes 08, 23)` 를 **조건**으로 바꿨다. 25권 시절 목록이라 26~50이 통째로 밖이었고, 실측하면 밤 쪽이 **27·31(9쪽)·41(8쪽)·49** 에도 있다 |
+| 관통 줄 | 🔴 앵커의 `She is wrong on 25 pages out of 25` 가 **두 겹으로 거짓**이었다(25는 옛 권수 · 도도는 **48권**에만 나온다 — 35·36 은 무무 권). ⚠️ `BLUE:`·`WINGS:` 는 **세어 보고 그대로 뒀다**(파란 것은 전부 리본·목수건이고, 「손바닥」은 길이 비유다) |
 
 **① `Meadow` 자리 시트가 통째로 없다.** `_scenes.json` 이 `[Meadow]` 를 **9쪽**에서 쓴다
 (12 p5 안개 속 버드나무 앞 · 16 p9 버드나무 그늘 · 18 p2·p4·p5·p6·p7·p8 덤불 · 19 p1 방앗간 뒤 언덕).

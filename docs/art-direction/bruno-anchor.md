@@ -43,19 +43,22 @@
 STYLE ANCHOR - bruno-crayonwood   (a bear cub and his grandfather in a Swedish forest / wax crayon,
                                    snagged on the grain)
 
-Style: wax crayon on oat-grey toothy paper, exactly TWO crayons, 4-6 year old picture book. Crayon
-  SKIPS - it catches the high points of the paper and misses the pits, so every area is a broken
-  field of wax with the paper's grain showing through and NO AREA IS EVER SOLID. Pressure is even
+Style: wax crayon on oat-grey toothy paper, TWO crayons that draw the world and ONE accent stick
+  that touches nothing but the cub's boots, 4-6 year old picture book. Crayon SKIPS - it catches the
+  high points of the paper and misses the pits, so every area is a broken field of wax with the
+  paper's grain showing through and NO AREA IS EVER SOLID. Pressure is even
   everywhere; the breaking is the paper's doing, not the hand's. Where the two crayons overlay, a
   third darker colour appears - that is the only dark. Unwaxed paper is not white space, it is the
   sky, the water and the snow. SHADING IS ZERO - the only variation is WHERE THE WAX SKIPPED, and
   how much of the area it covers.
 
 RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE direction, never denser
-  or lighter inside itself. Direction NEVER changes inside one area - it changes only where one thing
+  or lighter inside itself. Direction NEVER changes inside one area - it changes only where one
+  thing
   ends and another begins, and THAT CHANGE OF DIRECTION IS THE EDGE. FINISHED THINGS PER PAGE = 2,
   the bear the page is about and the one thing that bear touches - 3 only when both bears are on the
-  page, and then it is the two bears and the one thing they share; everything else is a shape with no
+  page, and then it is the two bears and the one thing they share; everything else is a shape with
+  no
   interior detail. Repeats are capped and the cap is the whole design: trunks at most 9 · boughs on
   one tree at most 7 · logs in a stack at most 6 · berries at most 9 dots · seeds at most 9 dots ·
   planks at most 6 · cabin windows at most 4 · birds at most 3 · falling snow at most 14 bare paper
@@ -73,28 +76,35 @@ RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE dir
 
 PALETTE: PAPER OAT GREY #E9E3D3, sky, water, ice, snow, light, everything not waxed · CRAYON1 SPRUCE
   #4F6B4E, needles, leaves, moss, the vegetable bed, painted shutters, the grandfather's knitted
-  vest - the cool one · CRAYON2 BARK #96674A, trunks, the cabin logs, floors, tools, baskets, ground,
+  vest - the cool one · CRAYON2 BARK #96674A, trunks, the cabin logs, floors, tools, baskets,
+  ground,
   autumn leaves - the warm one · OVERLAY PEAT #2E3A2A, bear backs and heads, iron, the inside of the
-  woodshed, night, blueberries, anything in shade - overlay only, never a third crayon · ACCENT BOOT
-  BLUE #1C4E8A, 🔴 nothing but Nils's boots. 🔴 SKY, WATER, ICE AND SNOW ARE NEVER WAXED - there is
-  no pale blue anywhere and no white crayon anywhere, ever. No purple, no pink, no orange, no red.
+  woodshed, night, blueberries, anything in shade - overlay only, never a stick of its own ·
+  ACCENT BOOT BLUE #1C4E8A, 🔴 nothing but Nils's boots. 🔴 SKY, WATER, ICE AND SNOW ARE NEVER
+  WAXED - there is no pale blue anywhere and no white crayon anywhere, ever. No purple, no pink, no
+  orange, no red.
 
 STAGE CLAUSES (the stage changes what the two crayons do, never which two they are):
-  🔴 SPRING (volumes 01-06) - the canopy is bare PAPER; SPRUCE appears only as new growth, sparse
-    marks low down and at branch tips, coverage well under half. The ground is BARK. Melt water is
+  🔴 SPRING (any volume the script sets in spring) - the canopy is bare PAPER; SPRUCE appears
+    only as new growth, sparse marks low down and at branch tips, coverage well under half. The
+    ground is BARK. Melt water is
     bare paper. Everything is at its most open and the paper does most of the work.
-  🔴 SUMMER (volumes 07-12) - SPRUCE becomes ONE field overhead covering the top of the page, at its
-    fullest coverage. BARK is the trunks and the forest floor beneath it. Blueberries are OVERLAY
+  🔴 SUMMER (any volume the script sets in summer) - SPRUCE becomes ONE field overhead covering
+    the top of the page, at its fullest coverage. BARK is the trunks and the forest floor beneath
+    it. Blueberries are OVERLAY
     dots, at most 9, and they are the only near-black thing in daylight.
-  🔴 AUTUMN (volumes 13-18) - THE TWO CRAYONS SWAP JOBS. BARK now takes the canopy as ONE field
-    overhead; SPRUCE retreats to at most 3 evergreens standing among the bare trunks. The ground is
+  🔴 AUTUMN (any volume the script sets in autumn) - THE TWO CRAYONS SWAP JOBS. BARK now takes
+    the canopy as ONE field overhead; SPRUCE retreats to at most 3 evergreens standing among the
+    bare trunks. The ground is
     BARK too, laid in a second field running the other way, and the change of direction is the only
     thing that separates ground from tree. This is the fullest page in the series.
-  🔴 WINTER (volumes 19-25) - the ground and the sky are not waxed at all, BARE PAPER from edge to
-    edge, and the two crayons draw ONLY what stands on it. Snow on a bough is the paper left, with at
+  🔴 WINTER (any volume the script sets in winter) - the ground and the sky are not waxed at
+    all, BARE PAPER from edge to edge, and the two crayons draw ONLY what stands on it. Snow on a
+    bough is the paper left, with at
     most 3 BARK marks along its underside. Ice on the lake is bare paper; the hole cut in it is
     OVERLAY with a hard edge. There is no white crayon and no blue shadow on snow.
-  CABIN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, cloth a zigzag.
+  CABIN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, cloth a
+  zigzag.
     The mark is the SAME shape every time and may run off an edge but is never redrawn. Beams,
     furniture and shelves are BARK; cloth, shutters and the vest are SPRUCE. 🔴 FIRELIGHT AND
     LAMPLIGHT ARE BARE PAPER and are the brightest thing on the page. A thing being looked for is
@@ -103,33 +113,41 @@ STAGE CLAUSES (the stage changes what the two crayons do, never which two they a
     water is OVERLAY lying inside that bare shape, hard edge, never distorted. A thing on the water
     sits on top with its whole shape showing. Banks, stones and logs are BARK with the marks running
     ALONG the thing, not across it.
-  NIGHT (volumes 11, 25) - the sky is OVERLAY laid as one field. Stars, the moon and the glow-worms
-    in the grass are BARE PAPER points, each taken on its own, at most 14. 🔴 The glow-worms are
+  NIGHT (any page the script sets after dark) - the sky is OVERLAY laid as one field. Stars, the
+    moon and the glow-worms in the grass are BARE PAPER points, each taken on its own, at most 14. 🔴
+    The glow-worms are
     DOWN IN THE GRASS, never in the air.
 
 CHARACTER DESIGN LANGUAGE: the bears are built from the same marks as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads are
-  OVERLAY, chests and bellies are BARK - that is the material rule and it is the same for both. 🔴 THE
+  OVERLAY, chests and bellies are BARK - that is the material rule and it is the same for both. 🔴
+  THE
   TWO BEARS ARE NOT BUILT FROM THE SAME SHAPES: filled in solid black at thumbnail size the two
   outlines must not be one shape scaled. Each bear's own sheet says how it differs.
   🔴 ONE ACTION DRAWN AT TWO SIZES. When both bears are on the page AND BOTH ARE WORKING, they do the
   SAME thing at the same limb angles, one body twice the height and much wider. But THE CUB IS ALONE
   ON MOST PAGES, and the grandfather's page is usually him showing while the cub watches - there the
-  size gap is carried ACROSS TWO PAGES (he does it, the cub does the same thing on the next page). So
+  size gap is carried ACROSS TWO PAGES (he does it, the cub does the same thing on the next page).
+  So
   each bear must be recognisable WITH THE OTHER ONE ABSENT.
-  Eyes are TWO SHORT WAX STROKES, never round dots - pressed and dragged a little, each ending broken
+  Eyes are TWO SHORT WAX STROKES, never round dots - pressed and dragged a little, each ending
+  broken
   where the wax skipped; a nose of the same stroke; the mouth is ONE curve; above each eye ONE short
   stroke. Feeling is in the mouth curve and the two brow strokes; an eye stroke lengthens or shuts
   but never becomes a dot.
-  THE TWO, separable at thumbnail size: NILS a small bear cub, head as wide as his shoulders with two
+  THE TWO, separable at thumbnail size: NILS a small bear cub, head as wide as his shoulders with
+  two
   ears standing on the crown and bare paper between them, the smaller figure by half, 🔴 BLUE BOOTS
   in every season and the only blue in the forest · BRUNO GRANDFATHER a large bear built on a
   straight-sided vest block, twice Nils's height and much wider but 🔴 THE TWO HEADS NEARLY THE SAME
   SIZE, ears low at the sides so head and ears are one unbroken dome, a BARE PAPER muzzle sticking
-  out past the brow, a SPRUCE knitted vest and round glasses. 🔴 NO WALKING STICK - he does the forest work himself and his hands are always free or
+  out past the brow, a SPRUCE knitted vest and round glasses. 🔴 NO WALKING STICK - he does the
+  forest work himself and his hands are always free or
   full of the work. He never carries blue. He is only ever shown doing the same task Nils is doing.
-  🔴 THERE IS NOBODY ELSE. Birds, squirrels and fish appear as plain shapes with no clothes, no
-  eyebrows and no expression - they are weather, not cast.
+  🔴 THERE IS NOBODY ELSE - except that a volume may turn on ONE small animal (a chick in its box, a
+  bird at the feed board), and that animal is still not cast: a plain shape with no clothes, no
+  eyebrows and no expression, doing only what its own body does. Birds, squirrels and fish elsewhere
+  are weather.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
@@ -143,8 +161,23 @@ NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no blended,
 GRAIN: the wax skips - the paper's grain shows through every area, nothing is ever solid
 LIGHT: sky, water, ice and snow are BARE PAPER - never waxed, never white
 BOOTS: the only pure blue in the forest is Nils's boots
-TWO:   there are two bears and nobody else - the forest and the season fill the rest
+TWO:   two bears and nobody else, except the one plain animal a volume is about - the forest and
+       the season fill the rest
 ```
+
+🔴 **앵커가 스스로 색 수를 두 번 다르게 말하고 있었다**(2026-09-04). `exactly TWO crayons` 인데
+`PALETTE` 는 그 둘 말고 **`ACCENT BOOT BLUE`** 를 더 들고, 바로 앞줄에서 `never a third crayon` 이라고
+한다. 파란 장화는 이 시리즈의 **유일한 악센트이자 설계의 핵심**(§0)이라 뺄 수 없으므로 **Style 줄이
+셋을 세게** 고쳤다(둘 + 악센트 하나). 세지 않고 「둘」이라 적어 둔 것이 원인이고, bami 에서 같은 모양의
+모순이 나왔다.
+⚠️ **`BOOTS:` 와 `LIGHT:` 는 세어 보고 그대로 뒀다** — SCENE 500쪽에서 파란 것은 장화뿐이다
+(29 p10 「유일하게 파란 것 둘」= 장화 두 짝 · 09 p1 「짙푸른 여름 잎」은 SPRUCE 초록의 한국어다).
+멀쩡한 줄에 조건을 달면 규칙이 흐물해진다.
+
+🔴 **`TWO:` 에 예외를 단 이유**(2026-09-04 실측): SCENE 500쪽에 셋째 인물 토큰이 하나 있다 —
+**`Guest chick` 30·31권 16쪽**. 「둘뿐이고 아무도 없다」를 그 16쪽에 그대로 붙이면 **그 권의 주인공을
+지운다**. 예외는 「동물이 하나 들어온다」가 아니라 **「들어와도 캐스트가 아니다」**로 좁혔다(SCENE 도
+이미 「옷도 눈썹도 없는 단순한 새 형태·표정 없음」으로 쓰여 있다).
 
 🔴 **`TWO:` 는 인원 제한이 아니라 화면 지시다.** 인물이 둘뿐인 화면은 모델이 자꾸 **여백을 채우려고**
 다른 동물·아이·오두막 사람을 불러들인다. 관통 줄이 「나머지는 숲과 계절이 채운다」를 매 쪽 못박는다.
