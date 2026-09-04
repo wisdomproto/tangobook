@@ -33,6 +33,11 @@ PALETTE: PAPER #F2EEE3, snow, mist, water, light, every unpainted place · INK #
   strengths made with water only - there is no second pigment in the world · VERMILION #C8452E, 🔴
   the only colour in the book, touching nothing but Yuki's scarf, laid flat with 0 strokes showing.
   No white paint anywhere ever.
+  🔴 THE SCARF IS USED, NOT TIDIED. It hangs loose, is wound round a hand, is pulled off and folded,
+  is laid over someone else's shoulders, is held at one end while the dog pulls the other, is
+  trodden on, or is NOT ON THE PAGE AT ALL - and that is the only time the book has no colour, which
+  is why its absence can be the whole event. Never the use the page before had, and the knot
+  retied at the throat is one of these, not the one they all end on.
 
 STAGE CLAUSES (the season changes stroke count and wetness, not the ink):
   SPRING - the most strokes of the year, all short: at most 9 trunks plus at most 30 tip-touches for
@@ -77,13 +82,16 @@ NOT: no airbrush, gradient, glow or 3D render / no airbrushed mist - mist is bar
   edge where the ink stops.
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 3,947자지만 조항 다섯 중 넷을 빼면 실효 3,333자(관통 줄 포함 3,597)라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
+🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 조항 다섯 중 넷은 한 쪽에 동시에 쓰이지 않는다.
+
+⚠️ **자수는 재서 적는다 — 여기 적혀 있던 「3,947 / 실효 3,333」은 낡은 값이었다**(2026-09-05 실측 전문 **5,528** · 조항 넷을 뺀 실효 약 **4,650**). 재는 값은 `node packages/client/scripts/sync-anchor-to-core.mjs yuki` 가 갱신할 때 찍는다. 🔴 **「그림 한 장 4,500」을 넘는다** — 이번 목도리 조항이 +457 이고 나머지는 §4·§5 수리 때부터 넘고 있었다. 🔴 **줄일 자리는 `STAGE CLAUSES` 다**(자리 시트가 매 컷에 붙는데 계절 조항 넷과 내용이 겹친다 — 획 수·젖은 정도·낙엽 상한이 양쪽에 다 있다). 겹치는 만큼 걷어내는 것은 별건이라 여기서 하지 않았다.
 
 **관통 줄** (매 쪽)
 
 ```
 ONE:   one thing is one stroke, laid once and never gone over - a second stroke is a second thing
-RED:   the vermilion is the scarf and nothing else, in every season
+RED:   the vermilion is the scarf and nothing else, in every season - used a different way each
+       page, and where the scarf is off the page there is no colour on it at all
 MUTE:  the companion never speaks - a dog's mouth (pant, carry, bark) yes, a word-shaped mouth no
 ```
 

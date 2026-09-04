@@ -60,6 +60,10 @@ CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no 
     are never the biggest piece on the head.
   🔴 THE KEY BLOCK DRAWS THE OUTER CONTOUR AND THE FACE PIECES ONLY - never a seam between two pieces
   of one colour. An arm is one unbroken shape; 0 joint gaps, 0 pegs, 0 hinges on a body.
+  🔴 THE TWO CHILDREN ARE A SET AND THE PAGE SHOWS IT, never the same way twice running: a lean on
+  the shoulder, a fold of the top held, a knee sat across, both ends of one carried thing, a back
+  slept against, or a gap no wider than a hand. Where the little one is off the page - the event of
+  some books - the page keeps the empty place at Bung's side, or the hand that has let go.
   A FACE CARRIES DOME, MUZZLE, 2 HORNS, 2 EARS, EYE DISC, BROW BAR, MOUTH CURVE AND NOTHING ELSE.
   Nothing is added for feeling - a full mouth is the SAME dome cut wider for that page. The eye is a
   solid KEY-INK DISC on the dome and in three-quarter or profile ONLY ONE is cut, on the near side;
@@ -100,14 +104,15 @@ SHEET LAYOUT: one cream sheet, four buffaloes standing in a row on a single grou
 
 🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문 **4,800자**, 조항 넷 중 셋을 빼면 **실효 약 4,440**(관통 줄 포함 4,730). 한 시리즈 = 한 앵커 구조라 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
 
-⚠️ **그래도 「그림 한 장 4,500」은 넘는다**(실효 4,440 + 컷 중앙값 1,200). 🔴 **이 초과는 이번에 생긴 게 아니다** — 위 문장에 적혀 있던 「3,487 / 실효 3,094」는 2026-08-16 캐릭터 절 확장(+575, `_SERIES-ANCHORS.md` 자수표) **이전 값이 갱신 없이 남아 있던 것**이고, 재 보니 그 시점에 이미 4,389 / 실효 약 4,030 이었다. 이번 수리분은 +440 이다. 🔴 **줄일 자리는 캐릭터 절이 아니라 `STAGE CLAUSES` 다** — `bung-stages.md` 의 자리 시트가 매 컷에 붙으므로 조항 넷과 내용이 겹친다. 겹치는 만큼 걷어내는 것은 별건이라 여기서 하지 않았다.
+⚠️ **그래도 「그림 한 장 4,500」은 넘는다**(2026-09-05 실측 전문 **5,188** · 조항 셋을 뺀 실효 약 **4,690** + 컷 중앙값 1,200 — 이번 `HOLD` 수리분이 +387 이고 나머지는 그 전부터였다. 자수는 `sync-anchor-to-core.mjs` 가 갱신할 때 찍는 값으로 갱신한다). 🔴 **이 초과는 이번에 생긴 게 아니다** — 위 문장에 적혀 있던 「3,487 / 실효 3,094」는 2026-08-16 캐릭터 절 확장(+575, `_SERIES-ANCHORS.md` 자수표) **이전 값이 갱신 없이 남아 있던 것**이고, 재 보니 그 시점에 이미 4,389 / 실효 약 4,030 이었다. 2026-08-17 수리분이 +440 이었다. 🔴 **줄일 자리는 캐릭터 절이 아니라 `STAGE CLAUSES` 다** — `bung-stages.md` 의 자리 시트가 매 컷에 붙으므로 조항 넷과 내용이 겹친다. 겹치는 만큼 걷어내는 것은 별건이라 여기서 하지 않았다.
 
 **관통 줄** (매 쪽)
 
 ```
 OFF:   the key block slips one hair off the colour, the same direction all page, never on a face
 SUNK:  a thing under the water has no outline - that absence is the only way sinking is drawn
-HOLD:  the little one is touching Bung or inside Bung's reach, on every page, with no exception
+HOLD:  the two are a set - touching or inside each other's reach, in a different way each page;
+       where the little one is off the page, the page shows the empty place at Bung's side
 ```
 
 ---

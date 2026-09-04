@@ -25,9 +25,45 @@ page width`. SCENE 이 이미 그 분수를 25권 내내 적고 있다 — **1/8
 위험하다 — 색이 아니라 **질감**이라 무심코 어긴다. → **모든 시트 `NOT` 에 `no filled or solid shape
 anywhere - every single thing is stamped dots` 를 첫 줄로 둔다.**
 
+**③ 🔴 「몸이 닿는 자리」는 카메라이지 사물이 아니다 — 자리 시트마다 스팟 하나가 더 있어야 한다**
+(2026-09-04 · `_ROUTE-FINDINGS.md` §13).
+
+지금까지 이 시리즈의 SPOTS 는 **예외 없이 「자리를 보는 카메라」**다(넓게 · 낮게 · 위에서 · 저 끝에서).
+그런데 경로표를 채우니 **권마다 두세 쪽이 「마주 본 두 얼굴」이거나 「걸린 두 코」이거나 「겹친 두 손」**
+이고, **그게 대개 그 권이 도는 쪽**이다(27 p5 · 36 p10 · 50 p5 · 38 p5·p7 …). 사물 시트는 `STATES`
+만 들고 **카메라를 안 들어서** 이 구멍을 못 메운다.
+
+→ **모든 자리 시트(§1.1~§1.4, 아직 안 쓴 `House`·`StoneCauseway`·`BankField` 포함)가 아래 스팟을
+그대로 한 줄 갖는다.** 자리마다 다른 것은 **배경 한 줄**뿐이다.
+
+```
+  X CLOSE ON TWO - the one place where two bodies (or a body and the one thing it holds) touch. The
+    touching point is the ONLY thing dotted TOUCHING on the page; everything around it is dotted
+    WIDE and reads as one soft mass; the background is <이 자리의 것 한 줄>. Faces may be cut by
+    the frame. 🔴 ON THIS SHEET IT IS DRAWN EMPTY - the background alone with no body in it, because
+    a stage sheet carries no character; what it fixes is what lies BEHIND the two.
+```
+
+🔴 **익스트림 클로즈업에는 한 줄이 더 붙는다** — 이 매체는 **점 크기가 500쪽 내내 같다**(앵커
+`all the SAME size on every page`). 그러므로 한 물건이 화면을 다 채울 때 **점을 키우면 안 되고**,
+그 물건의 간격을 손 거리에서 쓰던 것보다 **한 단만 조인다**(OPEN → CLOSE). 그리고 그 쪽에서
+CLOSE 이상으로 조여진 것은 **그 물건 하나뿐**이다.
+
 ---
 
 ## §1. 자리 시트 — 7장 (후보 10에서 접고 · 2026-09-04 `Market` 신설 · `Village`→`VillageLane`)
+
+🔴 **쪽·권 수는 손으로 적지 않는다** — `node packages/client/scripts/build-series-routes.mjs --count mina`
+가 SCENE 에서 센다(**되짚는 쪽까지** 센다 — 토큰 붙은 쪽만 세면 물려받는 쪽이 통째로 빠진다).
+2026-09-04 실측:
+
+```
+House 279쪽·33권 · RiverBed 122쪽·18권 · RiverStairs 60쪽·9권 · StoneCauseway 13쪽·3권 ·
+VillageLane 9쪽·1권 · Market 9쪽·1권 · BankField 8쪽·2권
+```
+
+⚠️ **아직 프롬프트가 없는 시트 셋** — `House`(279쪽 · 이 시리즈 최대 무대) · `StoneCauseway` ·
+`BankField`. 쓸 때 §0 ③ 의 `CLOSE ON TWO` 와 §0 ② 의 `NOT` 첫 줄을 그대로 갖고 시작할 것.
 
 🔴 **접은 내역**
 
@@ -64,19 +100,34 @@ FIXED PARTS - everything is stamped dots of one size, nothing is drawn and nothi
 
 🔴 THE RULER: the height of the river is given as a fraction of the PAGE WIDTH, and on this stage it
   is also readable as HOW MANY OF THE EIGHT STEPS THE WHITE DOTS COVER. Draw the ruler explicitly:
-  1/8 of the page width = 0 steps covered, bare stone all the way down
+  1/10 = 0 steps covered AND the water has pulled back past the foot of the stairs, leaving a band
+    of bare GROUND between the bottom step and the WHITE field. This is the lowest the river goes.
+  1/8 of the page width = 0 steps covered, bare stone all the way down, the water at the foot
   1/6 = 1 step · 1/5 = 2 · 1/4 = 3 · 1/3 = 5 · 1/2 = 7, only the top step dry.
+  2/3 = all eight steps gone under and the WHITE field up over the top step into the yard, so the
+    stairs are read only by the low wall standing out of the water.
   A covered step keeps NO dots of its own - the WHITE field simply reaches it.
+  🔴 EIGHT VALUES AND NO OTHERS. A page that wants "the lowest ever" uses 1/10 and a page that wants
+  "up into the yard" uses 2/3; nothing is invented between two rungs, because the fraction is what
+  the next book is checked against.
+
+  🔴 A WHITE MARKER STONE ON EVERY TREAD, one per step, set into the tread near its right end (build
+  on PROP SHEET RiverStones). Counting steps says how far the water came; the marker stones say
+  WHICH step, and they are how a page names one step without lettering.
 
 SPOTS:
   A FROM THE TOP looking down, high: all eight steps and the water at the bottom of the frame.
   B FROM THE WATER looking up, low: the steps rising, the village edge above.
-  C ONE STEP, close: the tread, its touching-dot edge, and one dry-ring mark.
+  C ONE STEP, close: the tread, its touching-dot edge, its marker stone and one dry-ring mark.
   D ALONG THE STAIRS, side on: the low wall on the right, the fall of the steps read as a slope.
+  E CLOSE ON TWO - what stands behind two bodies where they touch: bare GROUND with ONE step edge
+    crossing it as a row of touching dots and ONE marker stone, and nothing else. On the page the
+    touching point is the only thing dotted TOUCHING and everything around it is dotted WIDE; 🔴 on
+    this sheet it is drawn EMPTY, with no body in it.
 
-PLATE: A drawn SIX TIMES in a row, once at each of the six river heights above, all at the same
-  size - this single strip is the calibration the other books are checked against. Plus B, C, D once
-  each.
+PLATE: A drawn EIGHT TIMES in a row, once at each of the eight river heights above, all at the same
+  size - this single strip is the calibration the other books are checked against. Plus B, C, D, E
+  once each.
 
 NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots, and the only smooth
   thing in this series is the gold ankle band, which is not on this sheet / no character of any kind
@@ -91,6 +142,11 @@ NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots
 🔴 **그림자는 물 반대쪽으로 나란히**(13 p6 이 열댓 개를 그렇게 적었다) — INK 필드 CLOSE, 가장자리 단단,
 안은 균일. `SPOTS` = A 둑에서 / B 바닥 한가운데 / C 돌 하나 close / D 물가 선.
 
+🔴 **`SPOT G = CLOSE ON TWO`**(§0 ③ · 2026-09-04 신설 — E·F 는 아래 나루터가 이미 쓴다).
+배경 한 줄 = **맨 바탕 흙에 젖은 자리 가장자리 한 줄**(INK 점 CLOSE)이 화면을 가로지르고 그 밖엔 0점.
+38 p5·p7(열매 하나 / 흰 덩어리 하나 close)이 여기다 — 🔴 **`C` 는 「돌 하나 close」로 못박혀 있어서
+사물 하나를 손 거리에서 보는 쪽을 못 받는다**(그게 이 자리의 신고였다). 익스트림은 §0 ③ 의 한 단 규칙.
+
 🔴 **SPOT E = 나루터** (2026-09-04 신설 · 14 · 35 · 41 · 44 네 권이 여기서 열리고 그중 둘은 이 자리가
 화면의 전부다). 지금까지 「널판 한 줄」로만 적혀 있었다. 정할 것 =
 **널판 한 장**(강바닥에서 배까지 걸치는 판 하나 — 젖은 끝과 마른 끝이 INK 점 간격으로 갈린다) ·
@@ -103,17 +159,22 @@ NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots
 
 | 시트 | 넣을 것 | 왜 |
 |---|---|---|
-| `RiverStairs` §1.1 | **칸마다 흰 표시 돌 하나** | 39권의 수위 자. 칸을 세는 것과 별개로 「몇째 칸인가」를 말한다. 돌 규격은 §2.19 |
+| ✅ `RiverStairs` §1.1 | **칸마다 흰 표시 돌 하나** — 2026-09-04 시트 본문에 넣었다(`THE RULER` 아래 줄) | 39권의 수위 자. 칸을 세는 것과 별개로 「몇째 칸인가」를 말한다. 돌 규격은 §2.19 |
 | `House` | **평상 밑 간격 두 단** — 30권은 널빤지 아래가 INK 점 TOUCHING 인 가로 띠(화면에서 가장 어둡다) / 33 p4 는 **같은 자리를 OPEN 으로 벌려 찍어 속이 훤히 보인다**(찾는데 없다) | 두 권의 사건이 **같은 자리의 간격 차이** 하나다 |
 | `House` | **창틀 안 흰 점 등불 4 → 2 → 1 → 0** | 31권의 시계. 등불 자체는 §2.13 |
 | `RiverBed` | **얕은 웅덩이 넷 · 그 안의 물고기 = 흰 점 두세 알** | 19권 — 마른 바닥에서 유일하게 밝은 것 |
 
-### §1.3 VillageLane — 실제 프롬프트 (2쪽 · 1권)
+### §1.3 VillageLane — 실제 프롬프트 (🔴 **9쪽 · 1권**)
 
-> 36 p1 · p9. 🔴 **두 쪽뿐이지만 그 두 쪽이 한 권의 처음과 끝이고, 둘이 같은 자리에서 정면으로 갈린다** —
-> p1 은 물소 일곱이 길을 **가로로 끝까지 막고**, p9 는 그 줄이 **화면 오른쪽 끝으로 빠져나간 뒤**의 같은
-> 길이다. 그러니 이 시트가 정할 것은 길가 풍경이 아니라 **길이 화면을 가로지르는 각**과 **계단 머리가
-> 어디 보이나**다(길 건너 오른쪽 위 = 「보이는데 못 간다」의 근거).
+> 36 p1~p7 · p9 · p10. ⚠️ **이 머리글은 「2쪽 · 1권」이었다**(2026-09-04 수정) — 세는 사람이
+> **토큰 붙은 쪽(p1 · p9)만** 세서, 「같은 길가」로 물려받는 일곱 쪽이 통째로 안 보였다. 그 숫자를
+> 믿고 아래 `THE STATE THAT MATTERS` 가 상태를 **둘만**(막힘 / 지나감) 정해 두었는데, 실제 권은
+> **일곱 → 다섯 → 한 마리가 화면을 채움 → 셋 → 셋 → 마지막 하나 → 꼬리 하나 → 0** 으로 간다.
+> 🔴 **줄어드는 도중이 이 권의 계기 그 자체**라, 시트가 중간 값을 안 들면 열 쪽이 두 그림이 된다.
+> 🔴 쪽·권 수는 `--count`(§1 머리)로 세고 손으로 안 적는다.
+>
+> 정할 것 = 길가 풍경이 아니라 **길이 화면을 가로지르는 각** · **계단 머리가 어디 보이나**(길 건너
+> 오른쪽 위 = 「보이는데 못 간다」의 근거) · **줄이 줄어드는 다섯 값**.
 
 ```
 STAGE SHEET - VillageLane   (mina-dotfolk · SCENE token: VillageLane)
@@ -134,14 +195,19 @@ FIXED PARTS - everything is stamped dots of one size, nothing is drawn and nothi
     is given as a fraction of the page width on every page, the same ruler as everywhere else.
   THE SKY is bare GROUND edge to edge with 0 dots.
 
-🔴 THE STATE THAT MATTERS - draw both, at one size, from SPOT A:
-  1 BLOCKED - a line of animals crossing the lane and leaving BOTH edges of the frame, at most 7
-    dot-outlines with 0 faces and 0 hands, all facing one way. 🔴 THE LINE IS UNBROKEN FROM EDGE TO
-    EDGE: no gap anywhere, so a reader sees there is no way through even though the stairs show.
-  2 GONE - the same frame with the line off the page except ONE last tail at the right edge, and the
-    lane carrying hoof marks: INK dots CLOSE, packed, covering the bare lane from edge to edge.
-    🔴 The marks are what says the lane was blocked a moment ago; without them the two pages read
-    as the same picture.
+🔴 THE STATE THAT MATTERS IS HOW MANY ARE STILL CROSSING - draw all five, at one size, from
+  SPOT A. The animals are dot-outlines with 0 faces and 0 hands, all facing one way, at most 7:
+  1 SEVEN, BLOCKED - the line leaves BOTH edges of the frame. 🔴 UNBROKEN EDGE TO EDGE: no gap
+    anywhere, so a reader sees there is no way through even though the stairs show.
+  2 FIVE - the line still reaches both edges but a gap has opened at one end.
+  3 THREE - the line no longer touches the left edge; through the legs the empty lane and the stairs
+    head show, and that gap is the first thing on the page that is bare GROUND.
+  4 ONE - a single animal at the right, the lane bare from the left edge to it.
+  5 NONE - the frame empty except ONE last tail at the right edge, and the lane carrying hoof marks:
+    INK dots CLOSE, packed, covering the bare lane from edge to edge. 🔴 The marks are what says
+    the lane was blocked a moment ago; without them the first and last pages are the same picture.
+  🔴 THE LINE ALWAYS THINS FROM THE LEFT: the gap opens at the left edge and grows rightward, so
+  the count and the direction agree on every page and the last one out is always at the right.
 
 SPOTS:
   A ALONG THE LANE, wide, high: the lane crossing the lower half, the stairs head at the upper
@@ -149,8 +215,17 @@ SPOTS:
   B AT THE LANE'S EDGE, medium, low: the near wall and the empty lane running away, sky above -
     🔴 low enough that a raised trunk reaches the top edge of the frame.
   C THE LANE FLOOR, close, high: bare ochre, and whatever has been pressed into it.
+  D FROM THE LANE FLOOR LOOKING UP, low, close: ONE animal's body crossing the whole upper frame
+    with its hooves on the ground at the bottom, the horns cut off by the top edge, and a strip of
+    bare GROUND lane left along the lower edge. 🔴 This is the only spot where one of the line
+    fills the page, and it is still an outline with 0 face.
+  E CLOSE ON TWO - what stands behind two bodies where they touch: bare GROUND lane with the hoof
+    marks (INK dots CLOSE) low in the frame and NOTHING else - no houses, no wall, no stairs. On the
+    page the touching point is the only thing dotted TOUCHING and everything around it is dotted
+    WIDE; 🔴 on this sheet it is drawn EMPTY, with no body in it.
 
-PLATE: A drawn TWICE (blocked and gone) side by side at one size, then B and C once each.
+PLATE: A drawn FIVE TIMES (seven / five / three / one / none) in a row at one size, then B, C, D and
+  E once each.
 
 NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots, and the only smooth
   thing in this series is the gold ankle band, which is not on this sheet / no character of any kind
@@ -196,8 +271,12 @@ SPOTS:
     and the far end.
   C AT THE DRUM, medium, low: the drum and one figure beside it, so the height reads.
   D LOOKING BACK, medium wide: down the lane to the plank and the water beyond, the way home.
+  E CLOSE ON TWO - what stands behind two bodies where they touch: ONE stall wall of the three,
+    dotted OPEN, filling the frame behind them, and nothing else - no crowd, no drum, no sky. On the
+    page the touching point is the only thing dotted TOUCHING and everything around it is dotted
+    WIDE; 🔴 on this sheet it is drawn EMPTY, with no body in it.
 
-PLATE: A, B, C, D once each, plus one measuring panel with the drum and the middle child standing
+PLATE: A, B, C, D, E once each, plus one measuring panel with the drum and the middle child standing
   side by side at true relative height.
 
 NOT: 🔴 no filled or solid shape anywhere - every single thing is stamped dots / no character of any
@@ -1688,6 +1767,6 @@ NOT: 🔴 no filled or solid shape anywhere - everything is stamped dots / no ch
 
 ## §4. 권별 경로표
 
-🔴 **`mina-routes.md` 로 옮겼다**(25권 250쪽 전부). 같은 표를 두 곳에 두면 반드시 갈라진다 —
+🔴 **`mina-routes.md` 로 옮겼다**(**50권 500쪽 전부** — 「25권 250쪽」이라 적혀 있던 것을 2026-09-05 에 고쳤다). 같은 표를 두 곳에 두면 반드시 갈라진다 —
 여기 있던 13 「납작한 돌」 견본도 p9 의 자리가 SCENE 토큰과 이미 어긋나 있었다.
 검사 = `node packages/client/scripts/build-series-routes.mjs --check mina`.

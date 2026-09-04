@@ -56,8 +56,11 @@ CHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching IN
   OPEN INK dots fill them so the ochre shows through. GRADE: bipedal, upright, a
   short top and loose trousers, forelimbs are HANDS and everything is carried in them, bare feet -
   shoes go on ONLY where the ground hurts the feet, the stony field and the stone causeway. 🔴 THE
-  TRUNK STAYS A TRUNK - it drinks, smells, pulls a high thing down and hooks another trunk, and it
-  never picks up or works an object.
+  TRUNK STAYS A TRUNK - it drinks, smells, pulls a high thing down, hooks another trunk, curls back
+  over the head or lies along a smaller one's back, and it never picks up or works an object.
+  🔴 A RAISED TRUNK IS ONE LANDING, NOT THE LANDING: a book may land on any of those, or on the
+  FEET both off the ground, the EARS both forward, or THE GOLD BAND brought to the front - never the
+  one the book beside it used, and on any page of the book.
   🔴 A BODY HAS NO OUTLINE - IT IS WHEREVER THE DOTS GOT CLOSE ENOUGH TOGETHER. The dots crowd at the
   middle of an elephant and thin out towards its edge, so no edge is ever a decided line. Nothing on
   a figure is drawn: a shoulder, a knee, the fold of an ear, a wrinkle are only changes in how
@@ -77,7 +80,16 @@ CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 NOT: no airbrush, gradient, glow or 3D render / no continuous drawn line and no brushed area.
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 4,116자지만 조항 넷 중 셋을 빼면 실효 3,482자(관통 줄 포함 3,753)라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**.
+🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 조항 넷 중 셋은 한 쪽에 동시에 쓰이지 않는다.
+
+⚠️ **자수는 재서 적는다 — 여기 적혀 있던 「4,116 / 실효 3,482」는 낡은 값이었다**(2026-09-04 실측 =
+전문 **5,509** · 조항 셋을 뺀 실효 약 **4,760**). 🔴 **재는 법은 손 계산이 아니라 도구다** —
+`node packages/client/scripts/sync-anchor-to-core.mjs mina` 가 갱신할 때 두 자수를 같이 찍는다.
+
+🔴 **「그림 한 장 4,500」을 넘는다.** 이번 수리분(착지 조항)은 +314 이고 나머지는 그 전부터 넘고 있었다.
+🔴 **줄일 자리는 캐릭터 절이 아니라 `STAGE CLAUSES` 다** — `mina-stages.md` 의 자리 시트가 매 컷에
+붙는데 조항 넷과 내용이 겹친다(강 높이 자·맨 바탕 하늘·등불 흰 점밭이 양쪽에 다 있다). 겹치는 만큼
+걷어내는 것은 별건이라 여기서 하지 않았다 — bung 앵커가 같은 자리에 같은 신고를 달고 있다.
 
 🔴 **2026-09-04 수리 둘** (사물 시트 34장을 쓰며 드러났다 · `mina-stages.md` §2 신고).
 ①**대본이 색 셋을 쓴다** — 초록 12쪽 · 강청 9쪽 · 붉은 1쪽. 대부분 장식 낱말이라 빼면 되는데

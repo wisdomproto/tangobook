@@ -21,9 +21,47 @@
 버리고, 그 순간 「겨울은 획이 가장 적다」는 이 시리즈의 유일한 계절 장치가 죽는다. → **모든 자리 시트에
 `STROKE BUDGET` 절을 계절 넷으로 배급한다.**
 
+🔴 **계절은 권 번호가 정한다 — 시트에 권 목록을 적지 마라**(2026-09-05 · `yuki-routes.md` ③·⑧).
+
+한 시리즈가 한 해이고 **그 해가 두 번 돈다**:
+
+| | 봄 | 여름 | 가을 | 겨울 |
+|---|---|---|---|---|
+| 첫 해 | 01~06 | 07~12 | 13~18 | 19~25 |
+| 둘째 해 | 26~31 | 32~37 | 38~43 | 44~50 |
+
+⚠️ 시트 넷이 「가을만 · 여름만 · 겨울만」이라 배급해 두었는데 **전부 틀렸다** — 특히 `HillPath` 는
+**겨울만 배급했는데 26~50 에 겨울이 한 쪽도 없다**(봄 03 다섯 쪽 · 가을 41 열 쪽). 🔴 그러므로
+**계절을 권 목록으로 적지 않는다.** 자리 시트는 **자기가 실제로 받는 계절을 전부 배급**하고, 그 자리에
+안 오는 계절은 「안 온다」가 아니라 **적지 않는다**(다음 권이 오면 그 줄이 또 틀린다).
+
+🔴 **둘째 — 「몸이 닿는 자리」는 카메라이고, 자리 시트마다 스팟 하나가 더 있어야 한다**
+(`_ROUTE-FINDINGS.md` §13 · 이 시리즈 신고는 `yuki-routes.md` ⑦). **열일곱 권의 p9 가 「두 손을 목 뒤로
+올려 매듭을 고쳐 맨다」**이고, 그 쪽은 어깨 위만 있는 화면이라 A~D 어디도 아니다.
+
+→ **모든 자리 시트가 아래 스팟을 갖는다.** 자리마다 다른 것은 **배경 한 줄**뿐이다.
+
+```
+  X CLOSE ON TWO - where two bodies (or a body and the one thing it holds) touch. The touching place
+    is where BOTH strokes ran wettest and their ink pooled - the darkest thing in the frame - and
+    away from it the same two strokes run dry and break. 🔴 IT IS STILL ONE STROKE PER BODY: coming
+    closer does not add strokes, and the page's count does not rise. Background = <이 자리의 것 한
+    줄>, and nothing else. 🔴 ON THIS SHEET IT IS DRAWN EMPTY - the background alone with no body
+    in it, because a stage sheet carries no character.
+```
+
 ---
 
-## §1. 자리 시트 — 9장 (후보 17에서 접고 · 2026-09-04 `Shed` 신설)
+## §1. 자리 시트 — 10장 (후보 17에서 접고 · 2026-09-04 `Shed` 신설)
+
+🔴 **쪽·권 수는 손으로 적지 않는다** — `node packages/client/scripts/build-series-routes.mjs --count yuki`
+가 SCENE 에서 센다(**되짚는 쪽까지**). 2026-09-05 실측:
+
+```
+Yard 253쪽·35권 · Room 103쪽·19권 · MountainPath 37쪽·5권 · Field 29쪽·5권 · Creek 24쪽·6권 ·
+HillPath 22쪽·3권 · Shed 14쪽·3권 · ChestnutGrove 8쪽·1권 · BackOfHouse 7쪽·2권 · Kennel 3쪽·1권
+```
+
 
 🔴 **접은 내역** (기준 = 카메라가 한 걸음 옮기면 닿는가)
 
@@ -52,15 +90,34 @@ FIXED PARTS - each is ONE stroke unless said otherwise, loaded once and lifted o
   VERANDA EDGE across the near right - ONE straight stroke; the boards under it are 2 short strokes
     and the dark beneath is ONE flat wash with 0 strokes inside it.
   DEEP EAVE above the veranda - ONE stroke, its dry broken end at the far side.
-  🔴 THREE TREES STAND IN THIS YARD AND THE BOOKS SAY ONLY "the tree" - fix which is which here:
+  🔴 THREE TREES STAND IN THIS YARD AND THE BOOKS SAY ONLY "the tree" - fix which is which here.
+  🔴 WHEN A SCRIPT SAYS ONLY "the big tree" OR "the tree in the middle", IT IS THE ZELKOVA: it is
+  the tallest, and it is the one a body stands under for shelter. A page that names a tree keeps
+  that name in the spot (Yard/C zelkova), because C alone cannot choose between three.
   PERSIMMON at the LEFT - trunk ONE stroke, THREE branches bending downward, each ONE stroke.
-    (07 the round shade · 13 the fruit · 15 p8 the shade indoors.)
+    (the round shade · the fruit · the shade indoors.)
   ZELKOVA at the RIGHT, taller, ONE thick horizontal branch - trunk ONE stroke; a nail is driven
-    into the wall below it (one dry touch). (09 the branch · 11 the rope tied round the trunk.)
+    into the wall below it (one dry touch). (the branch · the rope tied round the trunk.)
   🔴 BLOSSOM TREE at the BACK of the yard, small, THREE flowering branches, the topmost one thick
-    with blossom. (05, and it exists only in spring.)
+    with blossom. It exists only in spring.
+  🔴 HOW MANY BRANCHES SHOW IS THE SEASON, AND SEEN FROM UNDERNEATH IT IS DIFFERENT:
+    from outside, in leaf (spring, summer) the branches are hidden and the crown is ONE wash - only
+      the zelkova's one thick horizontal branch still shows through it, and it always shows;
+    from outside, bare (autumn, winter) each tree shows exactly the branches listed above and no
+      more - three, one, three;
+    🔴 FROM UNDERNEATH (SPOT C), looking up inside the crown, the branches show even in leaf: at
+      most 9, ONE stroke each, ALL LEANING THE SAME WAY, and they are counted INSTEAD OF the leaf
+      wash for that page, never as well as it. A branch torn off by weather is one of these nine -
+      🔴 never the zelkova's one thick horizontal branch, which is how that tree is known.
   FOUR JARS standing in a row at the right corner (see PROP SHEET Jars).
   THRESHOLD, one short stroke, where the yard meets the room.
+  THE LANE OUTSIDE THE GATE - ONE stroke for its far edge, running off the frame past the wall's
+    left end. 🔴 IT IS OUTSIDE THE YARD and it is where a thing is lost and found again; when a
+    book stands on it, the wall top line and the veranda edge are behind the viewer, not in frame.
+  THE WATER BUTT at the foot of the veranda, ONE stroke for its side and ONE short stroke for its
+    rim; the water inside it is bare PAPER.
+  UNDER THE VERANDA - the dark beneath the boards is ONE flat wash with 0 strokes inside it (already
+    named above) and 🔴 ITS MOUTH IS A PLACE, not a shadow: things go in and come out of it.
   🔴 THE GROUND IS NOT A THING. It is bare PAPER in every season except after rain.
 
 STROKE BUDGET - the season sets the count, not the objects.
@@ -76,52 +133,91 @@ STROKE BUDGET - the season sets the count, not the objects.
     touches that read ONE BY ONE, never overlapping - leaves that COVER the ground are not counted
     and are ONE wash with a ragged edge (§2.23). Persimmons on the bare branches: at most 12 wet blunt touches.
   🔴 WINTER - THE FEWEST OF THE YEAR: the wall top line and the veranda edge, AND NOTHING ELSE. The
-    ground is unpainted PAPER edge to edge and carries no mark at all. Falling snow, when a book
+    ground is unpainted PAPER edge to edge and carries no mark at all.
+    🔴 THE ONE THING THAT BOOK IS ABOUT IS OUTSIDE THIS COUNT - the jars standing in the corner, the
+    stack of firewood, the snow figure, the tracks pressed into the ground. It is drawn to its own
+    prop sheet and nothing else joins it, so the yard is still the emptiest page of the year with
+    one thing in it. (Same wording as the firewood sheet's "a STACK is a RUN and is exempt".) Falling snow, when a book
     asks for it, is at most 14 holes of bare paper - never a dot of white paint. Snow sitting on the
     jar lids is bare paper too, so the lids lose their strokes.
 
-SPOTS - four, do not invent a fifth:
+SPOTS - seven, and no more:
   A FROM THE GATE, wide: wall along the back, both trees left and right, veranda entering at right.
   B ON THE VERANDA looking out, medium: the veranda edge across the bottom, yard beyond, eave above.
-  C UNDER THE PERSIMMON, medium low: trunk close, the three bent branches overhead, wall behind.
+  C UNDER A TREE (name which - persimmon, zelkova or blossom), medium low: trunk close, that tree's
+    branches overhead, wall behind.
   D THE GROUND, close, high: bare paper and whatever is lying on it.
+  🔴 E THE WHOLE YARD FROM ABOVE, wide, high, looking straight down: wall, veranda edge, trees and
+    jars all as their top lines, and the ground bare PAPER between them. This is the spot that shows
+    A SHADE MOVING ACROSS THE YARD, the yard split in two, or ONE mark on an empty ground - the
+    landing of several books - and it cannot be had from A.
+  🔴 F THE MOUTH UNDER THE VERANDA, medium close, low: the boards' edge across the top, the flat
+    dark wash below it, a hand's width of bare ground in front. What is inside shows only where it
+    comes out past the boards.
+  G CLOSE ON TWO - where two bodies touch. Background = ONE stroke only, the veranda edge or the
+    wall top line, crossing behind them, and bare PAPER everywhere else. 🔴 On this sheet it is
+    drawn EMPTY, with no body in it.
 
-PLATE: A, B, C, D as four panels, EACH DRAWN TWICE - once in spring and once in winter, side by
-  side, so the stroke budget can be counted against itself. Plus one small plan diagram of where
-  wall, veranda, two trees and jars sit.
+PLATE: A, B, C, D, E, F, G as seven panels, EACH DRAWN TWICE - once in spring and once in winter,
+  side by side, so the stroke budget can be counted against itself. Plus one small plan diagram of
+  where wall, veranda, three trees, jars, water butt and the lane outside the gate sit.
 
 NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering or numerals, no
   stroke gone over twice, no white paint, no airbrushed mist, no gradient, no soft edge.
 ```
 
-### §1.2 Room — 요약 명세 (같은 형식)
+### §1.2 Room — 요약 명세 (같은 형식 · 🔴 **103쪽 · 19권**)
 
-`FIXED PARTS` = 방바닥 선 1획 · 들보 1줄 · 문 한 짝 · 창 한 칸 · 아궁이 아가리.
+`FIXED PARTS` = 방바닥 선 1획 · 들보 1줄 · 문 한 짝 · 창 한 칸 · 아궁이 아가리 · 🔴 **화로 한 짝**
+(테 1획 · 안의 재는 안 칠한 종이 · 불이 있으면 그 자리가 화면에서 가장 밝다).
 🔴 **아궁이 불빛은 안 칠한 종이이고 화면에서 가장 밝다**(20 p1). `STROKE BUDGET` = 방 전체 **11획 상한**,
 20 p7 은 「아궁이 쪽 밝기가 좁아졌다」 = **종이 면적이 줄어드는 것**이지 획을 더하는 게 아니다.
-`SPOTS` = A 문 쪽 / B 밥상 / C 창가 / D 잠자리.
+
+🔴 **계절 넷을 여기도 배급한다**(§0) — 지금까지 방만 11획 하나로 사계절을 다 덮고 있었고, 그러면
+**겨울 방과 봄 방이 같은 예산**이라 이 시리즈의 유일한 계절 장치가 방 안에서만 죽는다.
+`SPRING·SUMMER` = 11획, 열린 문·창으로 든 바깥이 안 칠한 종이 · `AUTUMN` = 9획, 마른 붓 ·
+🔴 `WINTER` = **7획**, 닫힌 문 한 짝과 들보와 방바닥 선, 그리고 **불의 자리(안 칠한 종이)가 그 쪽에서
+가장 밝다** — 겨울 방은 획이 아니라 **밝은 자리 하나**로 그린다.
+
+`SPOTS` — 🔴 **넷이 아니라 일곱이다**(2026-09-05 · `yuki-routes.md` ④·⑨):
+A 문 쪽 / B 밥상 / C 창가 / D 잠자리 /
+🔴 **E 불 앞**(아궁이 아가리 또는 화로 — 26~50 에서만 **36쪽**이고, 30권은 상자를 화로 옆으로 옮기는 것이
+열 쪽 전부, 45권은 **칠하지 않고 남은 자리가 줄어드는 것**이 그 권의 시계다. 시트에 이 스팟이 없어서
+앞 사람이 다섯째를 안 만들었다 — 고칠 곳은 시트였다) /
+🔴 **F 방바닥을 바로 위에서**(20 p5·p7·p10 · 바닥 선과 놓인 것들의 윗면만) /
+🔴 **G CLOSE ON TWO**(§0 둘째) — 배경 한 줄 = **방바닥 선 1획**이 화면을 가로지르고 나머지는 맨 종이,
+불빛이 드는 쪽이면 그 종이가 한쪽만 넓다.
+
 🔴 `Yard` SPOT C 는 **어느 나무인지 함께 적는다**(`Yard/C 감나무`) — 나무가 셋이라 C 만 붙이면 못 정한다.
 
 ### §1.3 나머지 여섯 — 🔴 **「같은 네 절」로 넘기지 않는다. 예산은 시트마다 다르다.**
 
+🔴 **2026-09-05 — 계절 칸을 다시 배급했다.** 여섯 중 넷이 **자기가 안 받는 계절만** 들고 있었다
+(`yuki-routes.md` ③·⑧). 특히 `HillPath` 는 **겨울만 배급했는데 겨울이 한 쪽도 안 온다.**
+계절을 권 목록으로 적지 않는다 — §0 의 달력이 정한다. 🔴 **여섯 다 마지막 스팟은 `CLOSE ON TWO`**(§0 둘째)
+이고, 배경 한 줄만 자리마다 다르다.
+
 | 시트 | `STROKE BUDGET` (계절) | `FIXED PARTS` · `SPOTS` |
 |---|---|---|
-| `ChestnutGrove` | 가을 = 마른 붓, 밤나무 **한 그루 1획** + 가시 껍질 최대 6 + 낙엽 최대 21 · 🔴 **그늘 덩어리 1획 wash** | 🔴 **SPOT E = 그늘 경계선**(15 p3·p4·p6 이 그 선 위에서 벌어진다 — 한 획으로 바닥을 가로지르는 하드 에지, 안쪽은 한 덩이 짙은 wash) |
-| `BackOfHouse` | 🔴 겨울 = **나무 1획 + 장작더미 wash 1 = 2획**, 바닥은 안 칠한 종이. 다른 계절엔 이 권이 안 온다 | 집 뒤 벽선 1획 · 나무 1 · A 나무 밑 / B 더미 앞 / C 눈길 |
-| `HillPath` | 🔴 겨울 = **길 1획도 안 긋는다**(눈이라 종이 그대로) · 나무 1획 · 마을 지붕 윤곽 최대 7 | A 언덕길 / B 중턱 / C 꼭대기(내려다봄) |
-| `MountainPath` | 가을 = 마른 붓, 나무 최대 9 트렁크 1획씩 · 낙엽 최대 21 | A 길 / B 나무 밑 / C 바닥 |
-| `Creek` | 여름 = 젖은 종이, 물은 **안 칠한 종이** · 돌 2획 | A 물가 / B 물속 |
-| `Field` | 봄·여름 = 이랑 최대 9 · 겨울엔 안 온다 | A 밭 / B 밭 가 |
+| `ChestnutGrove` | 가을 = 마른 붓, 밤나무 **한 그루 1획** + 가시 껍질 최대 6 + 낙엽 최대 21 · 🔴 **그늘 덩어리 1획 wash** | 🔴 **SPOT E = 그늘 경계선**(15 p3·p4·p6 이 그 선 위에서 벌어진다 — 한 획으로 바닥을 가로지르는 하드 에지, 안쪽은 한 덩이 짙은 wash) · ⚠️ **A~D 를 안 정했다**(E 라는 글자는 앞에 넷이 있다는 뜻이다 — 쓸 때 채울 것) · F CLOSE ON TWO (배경 = 그늘 경계선 1획) |
+| `BackOfHouse` | 🔴 겨울 = **나무 1획 + 장작더미 wash 1 = 2획**, 바닥은 안 칠한 종이 | 집 뒤 벽선 1획 · 나무 1 · A 나무 밑 / B 더미 앞 / C 눈길 / 🔴 **D 집 뒤 벽**(09 p3 — FIXED PARTS 에 벽선이 있는데 스팟이 없었다) / E CLOSE ON TWO (배경 = 벽선 1획) |
+| `HillPath` | 🔴 **봄 · 가을 · 겨울 셋을 배급한다**(22쪽·3권). 봄 = 눈 녹은 비탈, 길이 **1획**으로 드러나고 젖은 자리는 palest wash · 가을 = 마른 붓, 길 1획이 길이를 따라 끊긴다 · 겨울 = **길을 1획도 안 긋는다**(눈이라 종이 그대로). 어느 계절이나 나무 1획 · 마을 지붕 윤곽 최대 7 | A 언덕길 / B 중턱 / C 꼭대기(내려다봄) / D CLOSE ON TWO (배경 = 비탈 선 1획, 나머지 맨 종이) |
+| `MountainPath` | 🔴 **봄 · 여름 · 가을**(37쪽·5권 — 여름 한 권이 열 쪽이다). 봄 = 짧은 획들 + 안개는 **먹이 멎은 자리의 맨 종이**(에어브러시 금지) · 여름 = 젖은 종이, 잎 덩이 1 wash · 가을 = 마른 붓, 낙엽 최대 21(덮은 낙엽은 한 면). 나무 최대 9, 트렁크 1획씩 | A 길 / B 나무 밑 / C 바닥 / D CLOSE ON TWO (배경 = 나무 기둥 1획) |
+| `Creek` | 🔴 **봄 · 여름**(24쪽·6권 — 봄이 아홉 쪽으로 더 많다). 봄 = palest wash, 물은 **안 칠한 종이**, 젖은 돌만 2획 · 여름 = 젖은 종이, 잎 덩이가 물 위로 1 wash. 물은 어느 계절이나 안 칠한 종이다 | A 물가 / B 물속 / C CLOSE ON TWO (배경 = 물가 선 1획) |
+| `Field` | 🔴 **봄 · 여름 · 가을**(29쪽·5권 — 가을이 여덟 쪽이다). 봄·여름 = 이랑 최대 9 · 가을 = 마른 붓, 이랑 최대 9 에 **서리는 안 칠한 종이**(흰 물감 금지) | A 밭 / B 밭 가 / C CLOSE ON TWO (배경 = 이랑 1획) |
+| 🔴 `Kennel` | 겨울(3쪽·1권) — 🔴 **§1 표에 이름만 있고 명세가 없었다**: 개집 아가리는 **안쪽이 한 덩이 wash** 이고 그 안의 풀 결이 그 권의 계기다 | 아가리 테 1획 · 지붕 선 1획 / A 앞에서 / B 아가리 close / C CLOSE ON TWO (배경 = 아가리의 어두운 한 면) |
 ### §1.4 Shed — 실제 프롬프트 (신설 · 13쪽 · 3권)
 
 > 21 · 32 p2 · 50 p3·p4. 🔴 **21권은 열 쪽이 전부 이 처마 밑**이고, 그 열 쪽의 시계는 **줄에 매달린 감
 > 개수**(아홉 → 여덟 → 여섯)다 — 개수는 §2.15 `Persimmons` 가 들고, 이 시트는 **그 줄이 걸리는 자리**와
 > **몇 알이 걸리는 길이인지**를 정한다. 🔴 50권은 **널벽 틈으로 든 빛 세 줄이 몸 위를 지나는 것**이 그림
 > 전부이므로 틈의 수·자리·간격이 여기서 고정돼야 한다.
-> ⚠️ **겨울 말고는 이 권들이 안 온다** — 계절 넷을 다 배급하지 않는다.
+> ⚠️ **이 줄은 「겨울 말고는 이 권들이 안 온다」였다**(2026-09-05 수정) — **32권이 여름에 두 쪽**
+> (p2·p3) 여기 온다. 겨울만 배급하면 그 두 쪽이 눈 온 헛간으로 그려진다. → 아래 예산에 **여름 두 줄**을
+> 같이 둔다. 🔴 계절은 권 목록이 아니라 §0 의 달력이 정한다.
 
 ```
-STAGE SHEET - Shed   (yuki-inkwash · SCENE token: Shed · winter only)
+STAGE SHEET - Shed   (yuki-inkwash · SCENE token: Shed · winter, and two summer pages)
 
 The plank shed behind the house. Three books use it and one of them spends all ten of its pages
 under its eave, so the eave, the wall and the inside are decided here once.
@@ -143,7 +239,7 @@ FIXED PARTS - each is ONE stroke unless said otherwise, loaded once and lifted o
     breaking its top edge.
   🔴 THE GROUND IS NOT A THING. Outside and in, it is bare PAPER and carries no mark at all.
 
-STROKE BUDGET - winter, and winter here is the fewest of the year:
+STROKE BUDGET - winter, and winter here is the fewest of the year (SUMMER is at the foot):
   OUTSIDE = 3 strokes and nothing else - THE EAVE, THE LINE, and ONE wall board. The ground takes 0.
     Falling snow, when a book asks for it, is at most 14 holes of bare paper, never a dot of white
     paint. Snow lying on the eave is bare paper, so the eave stroke stops short of its own top.
@@ -151,6 +247,9 @@ STROKE BUDGET - winter, and winter here is the fewest of the year:
     and are not counted, because they are paper.
   🔴 WHAT HANGS ON THE LINE IS BUDGETED SEPARATELY and is the only crowded thing on the page: it may
     break the outside count, and nothing else may.
+  🔴 SUMMER = 4 outside - the eave, the line, ONE wall board, and the deep shade under the eave as
+    ONE flat wash with a hard edge and 0 strokes inside it. The ground stays bare PAPER, the line
+    hangs EMPTY, and there is no snow anywhere. Inside is unchanged at 4.
 
 🔴 THE THREE STATES OF THE GAPS - 50 turns on this and the change must be readable at one size:
   1 SHARP - three clean strips of bare paper, hard edged, crossing the body.
@@ -158,7 +257,7 @@ STROKE BUDGET - winter, and winter here is the fewest of the year:
     🔴 They do not blur and they do not fade at the ends; the strip gets thinner, that is all.
   3 GONE - the wall is one flat wash with no strips at all and the inside has no light.
 
-SPOTS - four, do not invent a fifth:
+SPOTS - five:
   A UNDER THE EAVE, medium wide, low: the line crossing the top of the frame with what hangs on it,
     the wall behind, empty ground below.
   B IN FRONT OF THE SHED, wide, eye level: the whole face of it - eave, wall, doorway - with open
@@ -167,9 +266,13 @@ SPOTS - four, do not invent a fifth:
     the picture is cut in two, with the near side the narrower half.
   D INSIDE, medium close, high: the straw heap, the doorway dark, and the three paper gaps lying
     across the frame.
+  E CLOSE ON TWO - where two bodies touch. Background = ONE of the three paper gaps running straight
+    behind them, and the plank wall's flat wash either side. 🔴 On this sheet it is drawn EMPTY,
+    with no body in it - and the gap still does not bend.
 
-PLATE: A, B, C, D once each, plus 🔴 THE LINE DRAWN TWICE at one size - with nine hanging and with
-  six - so the gaps are countable, and 🔴 D DRAWN THREE TIMES for the three states of the gaps.
+PLATE: A, B, C, D, E once each, plus 🔴 THE LINE DRAWN TWICE at one size - with nine hanging and
+  with six - so the gaps are countable, and 🔴 D DRAWN THREE TIMES for the three states of the gaps,
+  and 🔴 B DRAWN TWICE, winter and summer, so the two budgets are counted against each other.
 
 NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering or numerals, no
   stroke gone over twice, no white paint on snow, no drawn grain or knot on a plank, no beam of
@@ -1771,5 +1874,5 @@ NOT: no character face, no vermilion on the towel, no lettering or numerals, no 
 
 ## §4. 권별 경로표
 
-🔴 **권별 경로표는 [`yuki-routes.md`](yuki-routes.md) 로 옮겼다**(25권 250쪽 · 23권 견본과 그 두
+🔴 **권별 경로표는 [`yuki-routes.md`](yuki-routes.md) 로 옮겼다**(**50권 500쪽** · 23권 견본과 그 두
 주석도 거기 있다). 같은 표를 두 곳에 두면 반드시 갈라지므로 여기엔 다시 적지 않는다.

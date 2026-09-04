@@ -24,6 +24,27 @@ at least 4 shapes per page, every slip running the SAME direction.` 시트가 �
 
 ⚠️ 셋째 — 청록은 **붕이 코뚜레 끈**과 **동생 발목 방울 끈** 두 곳뿐. 두 아이가 한 세트라 어른도 물건도 안 받는다.
 
+🔴 **넷째 — 「몸이 닿는 자리」는 카메라이고, 자리 시트마다 스팟 하나가 더 있어야 한다**
+(2026-09-04 · `_ROUTE-FINDINGS.md` §13 · 이 시리즈의 신고는 `bung-routes.md` ⑨).
+
+이 시리즈의 SPOTS 는 예외 없이 **자리를 보는 카메라**인데, 경로표를 채우니 **스물한 권이 일곱째~아홉째
+장에서 「또리 손을 제 앞으로 당겨 잡는다」**를 쓴다 — 두 손과 두 얼굴만 있는 쪽이고, **그게 그 권이 도는
+쪽**이다. 사물 시트는 `STATES` 만 들고 카메라를 안 들어서 이 구멍을 못 메운다.
+
+→ **모든 자리 시트가 아래 스팟을 갖는다.** 자리마다 다른 것은 **배경 한 줄**뿐이다.
+
+```
+  X CLOSE ON TWO - where two bodies (or a body and the one thing it holds) touch. 🔴 THE KEY BLOCK
+    CUTS ONLY THE TWO AND WHAT THEY TOUCH; everything else in the frame is one flat colour area
+    with 0 outline, which is this book's way of saying "not the finished thing". The slip stays one
+    hair and runs the same direction as everywhere else, and 🔴 the faces are the one place the
+    blocks land true. Background = <이 자리의 것 한 줄>. 🔴 ON THIS SHEET IT IS DRAWN EMPTY -
+    the background alone with no body in it, because a stage sheet carries no character.
+```
+
+🔴 **한 물건이 화면을 다 채울 때**(익스트림)도 판 수는 안 는다 — 색면 하나 + 윤곽판이고,
+**나뭇결의 굵기는 그대로 둔다**(크게 그린다고 결을 굵게 켜면 그 쪽만 다른 나무가 된다).
+
 ---
 
 ## §1. 🔴 좌표가 두 층이다 — 딩딩과 다른 점
@@ -39,7 +60,18 @@ at least 4 shapes per page, every slip running the SAME direction.` 시트가 �
 물이 위에서 아래로 흘러 번호가 곧 방향이었지만, 여기서는 **뱃머리가 기준점**이고 나머지가 그로부터의
 거리다. 좌표 이름을 그대로 쓴다.
 
-## §2. 자리 시트 — 5장 (후보 19에서 접음)
+## §2. 자리 시트 — 6장 (후보 19에서 접고 · 2026-09-05 `OtherBoat` 신설)
+
+🔴 **쪽·권 수는 손으로 적지 않는다** — `node packages/client/scripts/build-series-routes.mjs --count bung`
+가 SCENE 에서 센다(**되짚는 쪽까지**). 2026-09-05 실측:
+
+```
+NoodleBoat 278쪽·38권 · GrandpaBoat 76쪽·11권 · PlankWalk 51쪽·10권 · Market 47쪽·21권 ·
+OtherBoat 37쪽·13권 · Channel 11쪽·5권
+```
+
+⚠️ 아래 표의 「29쪽」류 옛 숫자는 **토큰 붙은 쪽만** 센 값이었다 — 물려받는 쪽이 빠져 있었다.
+
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -49,13 +81,13 @@ at least 4 shapes per page, every slip running the SAME direction.` 시트가 �
 | `PlankWalk` | 나무 길 위 · 나무 길 첫머리 | 시장 안쪽 |
 | `Channel` | (물길 · 물 빠진 자리) | 10권 얼음 · `CHANNEL AND LOW WATER` 조항 |
 
-🔴 **여섯째 자리가 표에 없다 — `OtherBoat`**(2026-09-04 발견). SCENE 이 그 토큰을 **29쪽**에서 쓴다
+✅ **여섯째 자리 `OtherBoat` — 2026-09-05 시트를 만들었다(§2.3).** 아래는 그 신고 원문이다. SCENE 이 그 토큰을 **29쪽**에서 쓰고(물려받는 쪽까지 세면 **37쪽·13권**)
 (얼음 배 · 과일 배 · 열매 배 · 꽃 배 · 고기잡이 배 · 천막 배 · 과자 배). 시트가 없으면 「남의 배」가
 쪽마다 달라지고, **07·10·13·15·24·36·47 일곱 권이 그 배 위에서 벌어진다.** 사물 시트가 든 것 중
 `Ice`(통과 덮은 천) · `FishTub` · `Fruit` 은 전부 이 배에 실려 있으므로 자리 시트를 만들 때 그 셋과
 겹치지 않게 할 것 — 🔴 **자리는 배의 생김새(뱃전·천막·좌판 널)만 들고, 실린 물건은 사물 시트가 든다.**
-`[OtherBoat]` 쪽 분포 = 500쪽 중 NoodleBoat 177 · GrandpaBoat 48 · PlankWalk 44 · Market 43 ·
-**OtherBoat 29** · Channel 10.
+⚠️ 여기 적힌 분포(NoodleBoat 177 · GrandpaBoat 48 · PlankWalk 44 · Market 43 · OtherBoat 29 ·
+Channel 10)는 **토큰 붙은 쪽만** 센 값이다 — 물려받는 쪽까지는 §2 머리의 `--count` 값을 볼 것.
 
 ### §2.1 NoodleBoat — 실제 프롬프트 (가장 먼저)
 
@@ -91,13 +123,17 @@ BLOCKS: planks RIVER, the awning cloth LEAF, the pot and ironwork OVERLAP, produ
   Never a mirrored image, never a flipped reflection, never a distorted shape. There are no
   reflections in this book.
 
-SPOTS:
+SPOTS - five, one per part plus the close:
   A THE WHOLE BOAT from another boat, wide: bow left, awning over the middle, stern right.
   B THE COOKING PLACE, medium: the pot, the stacked bowls, the awning above.
   C OVER THE GUNWALE, medium high: the rail across the bottom, market water below it.
   D THE FLOOR, close, high: planks, baskets, and whatever is lying on them.
+  E CLOSE ON TWO - where two bodies touch. Background = ONE flat RIVER area of deck plank with its
+    grain running one way and NOTHING else on it - no pot, no basket, no rail, no water. The key
+    block cuts only the two and what they touch; 🔴 on this sheet it is drawn EMPTY, with no body
+    in it.
 
-PLATE: A, B, C, D once each, plus 🔴 A PART DIAGRAM naming bow / cooking place / gunwale / floor /
+PLATE: A, B, C, D, E once each, plus 🔴 A PART DIAGRAM naming bow / cooking place / gunwale / floor /
   stern in order, plus one panel showing the same object floating (outlined) and sunken (no
   outline) side by side.
 
@@ -112,7 +148,63 @@ NOT: no character of any kind, no accent teal anywhere on this sheet (the teal i
 
 🔴 **배 여섯**(01 p1 · 앵커 상한 6)이 좌표: 국수 배 · 할아버지 배 · 과일 배 · 나머지 셋(실루엣, 안쪽 표시 0).
 물은 RIVER 한 면(잔물결 0 · 반짝임 0), 하늘은 안 찍은 종이, 🔴 **마른 땅이 한 뼘도 없다**(01 p1).
-`SPOTS` = A 장터 전체 / B 두 배 사이 / C 뱃전 너머 물 / D 나무 길에서.
+`SPOTS` = A 장터 전체 / B 두 배 사이 / C 뱃전 너머 물 / D 나무 길에서 / 🔴 **E CLOSE ON TWO**(§0 넷째) —
+배경 한 줄 = **RIVER 물 한 면**이 화면을 가득 채우고 그 위에 아무 배도 안 걸린다(장터에서만 쓸 수 있는
+배경이다 · 잔물결 0 · 반짝임 0).
+
+### §2.3 OtherBoat — 실제 프롬프트 (🔴 **37쪽 · 13권 · 2026-09-05 신설**)
+
+> ⚠️ **이 자리는 시트가 한 줄도 없었다** — `Market`(47쪽)에 맞먹는데 §2 표에 이름조차 없었다
+> (`bung-routes.md` ⑤·⑩). 남의 배가 쪽마다 달라지면 **36권의 「두 뱃전 사이를 건너간다」와 47권의
+> 「과일 배가 갔다가 다시 온다」가 성립하지 않는다** — 둘 다 그 배가 같은 배로 읽혀야 하는 권이다.
+> 🔴 **자리는 배의 생김새만 든다. 실린 물건은 사물 시트다**(`Ice` §3.7 · `FishTub` §3.12 ·
+> `Fruit` §3.9 · `Packet` §3.19 · `Flowers` §3.32). 대본이 부르는 배는 여덟이다 —
+> 얼음 · 열매 · 고기잡이 · 천막 · 과자 · 과일 · 꽃 · 수박.
+
+```
+STAGE SHEET - OtherBoat   (bung-woodblock · SCENE token: OtherBoat)
+
+Any boat in the market that is NOT Bung's noodle boat and not Grandpa's. Thirteen books step onto
+one, so the hull is decided here ONCE and only its load changes. 🔴 A BOAT IS TOLD FROM ANOTHER BY
+WHAT IS ON IT, NEVER BY ITS BUILD.
+
+FIXED PARTS - the hull is one build, drawn once:
+  ONE GUNWALE LINE running the length of the boat, RIVER with the plank's grain along it, low
+    enough that a child seated inside shows from the chest up.
+  A HOOPED AWNING over the middle third only, LEAF cloth, its two end hoops bare - the bow and the
+    stern are open to the sky. 🔴 IT IS ONE HOOP SHORTER THAN THE NOODLE BOAT'S, so the two boats
+    side by side are never the same silhouette.
+  A COUNTER PLANK laid across the boat just behind the bow, RIVER: this is where the load sits and
+    where a hand reaches over. 🔴 EVERY TRADING BOAT IN THIS SERIES HAS ONE and it is always at
+    the bow end, so a reader knows where the goods will be before seeing them.
+  A MOORING POST at the bow with its rope: 🔴 COILED ROUND THE POST = the boat stays · UNCOILED AND
+    HANGING = it is going. That is the only way this book draws a boat leaving (see PROP SHEET
+    MooringRope).
+  THE HULL SIDE below the gunwale is one flat RIVER area; the part under the water is OVERLAP with
+    RIVER printed over it and 0 outline, like everything submerged.
+
+🔴 TWO BOATS SIDE BY SIDE - four books turn on the gap between two gunwales, so fix it: the gap is
+  ONE CHILD'S SHOULDER WIDTH, both rails at the SAME height, and the water between them is one
+  unbroken RIVER area with 0 ripples. When one boat drifts, the gap opens and the rails go OUT OF
+  LEVEL - that tilt is the whole signal.
+
+SPOTS - five:
+  A THE BOAT FROM THE WATER, wide, low: gunwale, awning over the middle, counter plank at the bow.
+  B AT THE COUNTER PLANK, medium: the plank across the lower frame, awning above, market behind.
+  C BETWEEN TWO BOATS, medium, eye level: two gunwales left and right, the strip of water between.
+  D INSIDE, medium, high: the floor planks, the awning underside, the load's shapes with 0 outline.
+  E CLOSE ON TWO - where two bodies touch. Background = ONE flat LEAF area of awning cloth filling
+    the frame and nothing else. 🔴 On this sheet it is drawn EMPTY, with no body in it.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE PANEL OF THE NOODLE BOAT AND THIS BOAT SIDE BY SIDE at
+  true relative size, so the awning hoop count and the counter plank are read as the difference,
+  plus the mooring post drawn TWICE (coiled and hanging).
+
+NOT: no character of any kind, no accent teal anywhere on this sheet, no lettering, numerals or shop
+  signs, no reflection or mirrored image in the water, no ripple or glint, no key outline on a
+  submerged thing, no corrected registration, no shading, gradient, glow or soft edge, 🔴 no goods
+  drawn on the counter plank (the load is a prop sheet, not this one).
+```
 
 ---
 
@@ -1510,7 +1602,7 @@ NOT: no character, no hands beyond silhouettes, no accent teal anywhere (especia
 
 ## §5. 권별 경로표
 
-🔴 **권별 경로표는 `bung-routes.md` 로 옮겼다**(25권 250쪽 전부). 견본 한 장과 그 주석도 거기 08권 자리에 있다 — 같은 표를 두 곳에 두면 반드시 갈라진다.
+🔴 **권별 경로표는 `bung-routes.md` 로 옮겼다**(**50권 500쪽 전부** — 「25권 250쪽」이라 적혀 있던 것을 2026-09-05 에 고쳤다). 견본 한 장과 그 주석도 거기 08권 자리에 있다 — 같은 표를 두 곳에 두면 반드시 갈라진다.
 
 ⚠️ 옮기면서 **견본이 SCENE 과 어긋나 있는 것이 드러났다**(수박은 한 번도 안 가라앉는다). `bung-routes.md` 08권 주석과 파일 끝 ① 참조 — §3.1 Watermelon 시트의 근거가 걸려 있다.
 
@@ -1520,7 +1612,7 @@ NOT: no character, no hands beyond silhouettes, no accent teal anywhere (especia
 
 사물을 그리려고 500쪽을 훑다가 **사물 밖에서** 걸린 것들이다. 여기서 고치지 않고 신고만 한다.
 
-### ① 🔴 관통 줄 `HOLD` 가 **500쪽 중 123쪽에서 거짓**이다 (제일 큰 것)
+### ① ✅ 관통 줄 `HOLD` 가 **500쪽 중 123쪽에서 거짓**이다 (제일 큰 것) — 2026-09-05 앵커 수리
 
 ```
 HOLD:  the little one is touching Bung or inside Bung's reach, on every page, with no exception
@@ -1534,6 +1626,11 @@ HOLD:  the little one is touching Bung or inside Bung's reach, on every page, wi
 | 0쪽 | **16** |
 | 1~4쪽 | 03(1) · 05(3) · 20(3) · 08(4) · 10(4) · 21(4) · 45(4) |
 | 10쪽(=온전) | 26~50 대부분 |
+
+✅ **2026-09-05 — 앵커를 고쳤다.** `with no exception` 을 빼고 「두 아이는 한 세트다 · **쪽마다 다른
+방법으로** 닿는다 · 또리가 화면 밖이면 **그 빈 자리를 그린다**」로 바꿨고, 닿는 방법 여섯을 펜스 안
+`CHARACTER DESIGN LANGUAGE` 에 넣었다(`bung-routes.md` ⑨ 의 「한 쪽에 몰아 갚는 정형구」와 같은
+수리다). 아래는 그 신고 원문이다.
 
 🔴 **원인이 보인다** — `HOLD` 는 **26~50권(호리 은행 주제, 또리가 고정 출연)을 보고 쓴 줄**인데
 앵커는 50권 전부에 붙는다. 지금 이대로 구우면 **또리가 없는 쪽에 또리를 하나 만들어 넣는다**(앵커가
@@ -1647,3 +1744,44 @@ NOT: no character face beyond a silhouette, no teal on any other object, person 
   sparkle on the bell, no sound lines or marks in the air around it, no third colour that is not an
   overprint, no corrected registration, no shading, gradient, glow or soft edge.
 ```
+
+### §3.32 Flowers — 🔴 **36권 · 다섯 쪽** (2026-09-05 신설 · `bung-routes.md` ⑩ 이 남긴 자리)
+
+> 꽃 배의 꽃이 **어느 시트에도 없었다.** `Fruit`(§3.9)에 얹을지 따로 뺄지가 신고였는데, 따로 뺀다 —
+> 과일은 **한 덩어리 면**이고 꽃은 **다발과 한 송이**가 갈려야 이 권이 성립한다(다발 = 저쪽 배에 있는 것 /
+> 한 송이 = 건너가서 손에 든 것). 🔴 **하얀 것은 안 찍은 종이다**(§6 ⑥ 과 같은 가족 — 떡·얼음·불빛·국수).
+
+```
+PROP SHEET - Flowers   (bung-woodblock · SCENE token: Flowers)
+
+The white flowers of the flower boat. One book crosses two gunwales to reach them and comes back
+with two of them, so this sheet decides ONE bunch and ONE single bloom.
+
+🔴 A WHITE FLOWER IS NOT PRINTED - it is the bare PAPER of the sheet, and it is read only by what
+is printed around it: the key outline of its petals and the LEAF green behind it. There is no white
+block in this series.
+FORM: ONE BLOOM = a flat rosette of 5 petals cut in the key block, the paper left bare inside every
+  petal, with ONE short LEAF stem. It is the size of a child's palm, and that size never changes.
+  A BUNCH = at most 9 blooms standing in one massed LEAF shape (the stems), 🔴 with 0 outlines
+  inside the mass and only the blooms on its top edge outlined - so the bunch reads as one thing and
+  a single bloom reads as the finished one.
+STATES:
+  1 BUNCHES STANDING on the far boat's counter plank, seen from another boat: two or three massed
+    shapes, blooms only along their top edges.
+  2 ONE BUNCH lying on the gunwale plank, side on.
+  3 ONE BLOOM IN AN OPEN PALM, from above - the only outlined thing in the frame.
+  4 TWO BLOOMS, one in each of two palms, at the same size, side by side.
+  5 ONE BLOOM TUCKED BESIDE AN EAR, seen three-quarter: the stem disappears behind the ear and the
+    rosette sits flat against the head, not sticking out.
+  6 🔴 ON THE WATER - one bloom fallen on the flat RIVER area, WHOLE, its key outline complete all
+    round. It floats; it does not sink and there is no ring around it.
+
+PLATE: the bunch and one bloom side by side first, at true relative size, then states 1-6.
+
+NOT: no character face, no accent teal, no lettering or numerals, no white paint or white block
+  anywhere (the flower is bare paper), no colour in the petals, no shading to make a petal curl, no
+  scent marks or sparkles in the air, no reflection or mirrored image, no ripple or ring round the
+  floating bloom, no third colour that is not an overprint, no corrected registration, no gradient,
+  glow or soft edge.
+```
+
