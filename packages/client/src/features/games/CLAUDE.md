@@ -44,11 +44,13 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 **현재 노출 (한/영 각 5종 = 10 타입)**
 | ID | 이름 | language |
 |----|------|---|
-| korean-block / english-block | 블록 맞추기 | ko / en |
+| korean-block / english-block | 블록 맞추기 (한글 = **탱고 보드**, 아래 절) | ko / en |
 | korean-word-writing / english-word-writing | 낱말쓰기 | ko / en |
 | connect-the-dots | 단어 그림 그리기 | (중립) |
 | korean-line-matching / english-line-matching | 그림-단어 선긋기 | ko / en |
 | korean-story-image / english-story-image | 이야기 듣고 그림 찾기 | ko / en |
+| korean-object-scene | 장면 속 사물 찾기 | ko |
+| korean-page-order | 이야기 순서 맞추기 | ko |
 | hidden-object | 숨은그림 찾기 (전부 찾기형) | (중립) |
 
 **Hidden** (코드/데이터 유지, 게임 리스트 숨김): `korean/english-speaking` (Azure 도입 후 재공개), `word-writing` (legacy)
@@ -71,6 +73,31 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **🔴 ConnectTheDotsPlayer 다국어 (2026-07-13)** — 예전엔 `viewerLang` 을 `?lang`(ko/en)에서만 읽어 vi/zh/th 어휘게임에서 **한국어로 발음·칭찬·결과**가 나왔다(사용자 "그림그리기인데 한글로 나오네"). 이제 **`lang?: Lang` prop** 수용(vocab GameOverlay 가 전달, 책 뷰어 registry 경로는 `?lang` 폴백 유지=하위호환). `resolveSpeakTarget`(vi/zh/th=`nameTranslations[lang]`, 없으면 발음 스킵)·directUrl(`ttsUrls[lang]`)·`playCorrectSequence({language:lang})`·`resolveSceneFromWord(text,lang)`·`GameResultScreen lang` 전부 실제 언어를 따름. **LineMatchingPlayer 는 원래 `lang` prop 수용**이라 정상(subLabel 은 vi/zh/th 에서 한국어 뜻 생략).
 - 진입/토글: `VocabularyStudyPage`가 5개 언어 칩(한국어·English·Tiếng Việt·中文·ไทย, 콘텐츠 있는 것만 노출).
 - 🔴 **레지스트리 미등록**: order-block/order-writing은 vocab GameOverlay가 직접 렌더(`game==='order-block'`)라 등록 불필요(에디터 생성 게임 아님).
+
+## 독후활동 — 낱말이 아니라 **책**에서 나오는 게임 (2026-09-02)
+
+기존 4종(그림짝·블록·그리기·따라쓰기)은 전부 `key_objects` 를 먹는다. 그래서 낱말 카드가
+없는 책 — 전래동화·세계명작 상당수 — 에서는 게임이 하나도 안 떴다. 독후활동은 **쪽(pages)**
+에서 파생하므로 삽화와 글만 있으면 뜬다.
+
+| ID                           | 데이터 소스                   | 빌더                       |
+| ---------------------------- | ----------------------------- | -------------------------- |
+| `korean/english-story-image` | 쪽 글 + 쪽 삽화               | `lib/story-image-data.ts`  |
+| `korean-object-scene`        | 쪽 삽화 + 그 쪽에 나오는 사물 | `lib/object-scene-data.ts` |
+| `korean-page-order`          | 쪽 삽화 + 쪽 번호             | `lib/page-order-data.ts`   |
+
+- 🔴 **빌더가 `null` 을 내면 카드를 아예 안 낸다** — 데이터가 애매한 책에 억지로 게임을
+  만들지 않는다. 쪽이 `MIN_PAGES` 미만이거나 그 언어 번역이 없으면 그 책은 건너뛴다.
+- 🔴 **학습자 화면은 레지스트리를 안 본다** — `vocabulary-unit/lib/game-data-adapter.ts`
+  의 `getAvailableGames()` 가 카드 목록의 SSOT 다. 새 게임은 **레지스트리와 이 함수 둘 다**
+  에 넣어야 아이 화면에 뜬다(등록만 하고 여기 빠뜨려 안 보이던 게임이 실제로 있었다 →
+  `docs/content-activity-status.md`).
+- **카드는 두 무리** — `group: 'word' | 'story'`. 「놀며 익히기」가 단어 익히기(peach) /
+  동화 내용 놀이(mint) 를 먼저 고르게 하고 그 안에서 게임이 나온다.
+- ⚠️ **인물 짝 맞추기는 만들다 버렸다** — 미사용 캐릭터 이미지 420장이 있어 공짜로 보였지만,
+  그건 저작용 **캐릭터 시트**(포즈 여러 개·장식 테두리·그림 위에 영문 이름)라 게임 카드가
+  못 되고, `styleAssets` 밖이라 아이가 고른 그림체를 따르지도 않는다. **자산 개수를 세기 전에
+  한 장을 열어 볼 것.**
 
 ## 숨은그림 찾기 (hidden-object, 2026-06-06)
 
@@ -121,6 +148,9 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 4. `client/features/games/components/config/{Name}ConfigPanel.tsx` 생성
 5. `client/features/games/registry/games/{game-id}.register.ts` 생성
 6. `client/features/games/registry/index.ts`에 side-effect import 1줄 추가
+7. 🔴 `client/features/vocabulary-unit/lib/game-data-adapter.ts` `getAvailableGames()` 에 카드 추가
+   — **레지스트리는 저작도구 쪽이고 아이 화면은 이 함수만 본다.** 6번까지만 하면 게임은
+   존재하는데 아이에게는 안 보인다(등록된 12종 중 3종이 실제로 그 상태였다).
 
 ### 시각 체크리스트
 
@@ -180,7 +210,7 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 ## 게임별 튜토리얼 — 호리 시연 (2026-05-12)
 
-5게임 (한글/영어블록/그림짝/점잇기/스토리/낱말쓰기) 에 "🪄 도와줘" 버튼 + 호리 시연 튜토리얼. 모든 게임 동일 패턴:
+게임 (영어블록/그림짝/점잇기/스토리/낱말쓰기) 에 "🪄 도와줘" 버튼 + 호리 시연 튜토리얼. 모든 게임 동일 패턴:
 
 - **state machine**: idle → intro → (게임별 wait) → end → fade-out → idle
 - **호리 + 말풍선**: 우하단 floating (`fixed bottom-4 right-4 z-[90]`)
@@ -189,7 +219,6 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 | 게임          | 트리거 조건               | 시연 방식                  | 사용자 액션                                                                                                 |
 | ------------- | ------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| 한글 블록     | difficulty=easy 쉬움 only | 글자별 pop+arrow+cell glow | 해당 자모를 셀로 드래그                                                                                     |
 | 영어 블록     | difficulty=easy 쉬움 only | 글자별 pop+arrow+slot glow | 해당 글자 타일을 **탭** (2026-07-12 드래그→탭 전환, 4-5세 드래그 부담↓. 튜토리얼 멘트는 generic이라 무변경) |
 | 그림짝 (Line) | 매칭 안 된 쌍 존재 시     | 1쌍 highlight + 곡선 arrow | 그림↔단어 클릭                                                                                              |
 | 점잇기        | 진행 중 (2점 이상)        | 1번→2번 점 pulse 순차      | 점 탭                                                                                                       |
@@ -206,36 +235,35 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - **data attrs**: `data-letter-tile={char}` (panel block) + `data-slot={i}` (drop slot)
 - 나머지 (state machine, Hori, 말풍선, Arrow SVG, 인터랙션 가드, 뾱 효과음) 한글블록과 동일
 
-## 한글 블록 튜토리얼 — 쉬움 레벨 (2026-05-12)
+## 한글 블록 = 탱고 보드 (2026-09-04)
 
-쉬움 (difficulty=easy) 진입 시 단어 카드에 "🪄 도와줘" 버튼. 클릭 시 호리가 우하단 등장 + 정답 자모를 패널에서 그리드로 옮기는 시퀀스 시연.
+3행×6열 드롭존을 **실물 탱고 보드 그대로**로 바꿨다. 아이가 손에 쥐는 블록과
+화면이 같은 물건이어야 두 번 배우지 않는다. 원형은 `packages/client/public/tango-board.html`.
 
-- **state machine**: idle → intro → (pop → arrow → place) × N글자 → syllable-done → end → fade-out → idle
-- **인터랙션 차단**: 재생 중 (`isPlaying`) 패널 드래그 / 그리드 클릭 / 확인·초기화·도와줘 버튼 모두 비활성
-- **시연만**: 그리드는 빈 상태 유지 (튜토리얼 끝나면 사용자가 직접 드래그)
-- **음성**: `public/sounds/games/tutorial/hori-{intro,pop,place,syllable-done,end}.mp3` (없으면 말풍선만 graceful)
-- **canonical layout**: row 1 베이스, 수직 모음 (ㅗㅛㅜㅠㅡ) 시 row 2. `planTutorialLayout(word)` pure 함수 — 단위 테스트 있음
-- 🔴 **수직 모음 목록 = `@tangobook/shared` `VERTICAL_VOWELS` / `isVerticalVowel`** (2026-07-28). 여기와 파닉스 학습 활동이 각자 사본을 들고 있었다 — **세 번째 사본을 만들지 말 것**. 글자가 합쳐지는 방향이라 게임·학습이 같은 답을 내야 한다(실제로 파닉스 자음 쓰기가 이 규칙을 안 봐서 `구` 를 옆으로 쓰게 하고 있었다).
-- **Context 기반**: `TutorialProvider` 가 BlockTile/그리드셀에 highlight (popJamo / glowCell) 공유 → 컴포넌트 자체적으로 pop / glow 클래스 적용. 디커플 깔끔.
-- **Arrow**: `data-jamo-tile` (BlockTile 에 부착) + `data-grid-cell` (그리드셀에 부착) querySelector 로 좌표 측정 → Quadratic Bézier 곡선 SVG. `fixed inset-0 z-[85] pointer-events-none`.
-- **위치**: `packages/client/src/features/games/components/players/KoreanBlockTutorial/`
-- **difficulty prop 매핑**: `RandomBlockGamePage` 에서 `L1→easy, L2→medium, L3→hard`. 책 기반 게임 (VocabularyStudy 등) 은 컨텍스트별 다른 값 전달 가능.
+- **판 = 24열 × 8행**. 인식판 자체는 10행이지만 **한 음절이 최대 8칸**이라 8로 줄였다
+  (모바일 가로에서 칸이 2.9px 까지 눌리던 걸 10.9px 로 되돌린 것도 이 변경이다).
+- **조각** `lib/tango-board/blocks.ts` — 자음 13 + 쌍자음 5 + 모음 3형(ㅏ/ㅑ/ㅣ 회전으로 전부 파생).
+  `rotShape`/`rasterize`/`shapeAt`/`charAt`. 트레이는 **한 줄 16개 + 가로 스크롤**.
+- 🔴 **색은 실물에서 가져온다** — 자음 `#F09E5C` · 모음 `#59B89E`.
+  값을 지어내지 말고 `public/tango-board-3d.html` 의 `COLOR.cho`/`COLOR.jung` 를 볼 것.
+- **인터랙션 = 드래그 + 탭 둘 다**. 조각을 끌면 유령이 손가락을 따라오고, 그냥 누르면 선택 후
+  판을 눌러 놓는다. 회전 가능한 조각은 ↻ 배지가 **항상** 보인다 — 선택했을 때만 보이면
+  아이는 그 기능이 있는 줄 모른다. HTML5 drag&drop 은 터치에서 안 떠서 포인터 이벤트로 직접 짰다.
+- 🔴 **탭 좌표는 `svg.getScreenCTM().inverse()`** 로 viewBox 로 옮긴다. 폭÷24 로 나누면
+  레터박싱(`aspectRatio: 24/8` 이라 판이 남는 폭 안에서 가운데 정렬)에서 어긋난다.
 
-## KoreanBlockPlayer — 공간 음절 인식 + 수직 모음 시각 배치 (2026-05-10)
+### 합성 = `lib/tango-board/compose.ts` `parseBoard(items)`
 
-3행×6열 드롭존. 입력 순서가 아닌 **공간 위치** 로 음절 인식 (`parseSpatialKorean`). 한글 시각 구조 그대로:
+슬롯이 없다. **놓인 자리**로 읽는다 — 자음 오른쪽의 세로 모음 = `가`, 아래의 가로 모음 = `구`,
+그 아래 자음 = 받침. 원형 HTML 에서 그대로 옮겼고 테스트 13개(`compose.test.ts`).
 
-- **수평 모음** (ㅏ/ㅑ/ㅓ/ㅕ/ㅐ/ㅒ/ㅔ/ㅖ/ㅣ): cho 의 **오른쪽** `(r, c+1)`. 예: 가, 나
-- **수직 모음** (ㅗ/ㅛ/ㅜ/ㅠ/ㅡ): cho 의 **아래** `(r+1, c)`. 예: 구, 누
-- 받침(jong) 후보 — 무조건 "아래" 만 인정 (2026-05-11 인라인 받침 제거):
-  - 수평 모음 케이스: (a) cho 아래 `(r+1, c)` 또는 (b) jung 아래 `(r+1, c+1)`
-  - 수직 모음 케이스: jung 아래 `(r+2, c)` — 그래서 받침 있는 수직 모음 단어 (국/물/꿀) 는 3행 필요 (2행으로 줄이면 안 됨)
-  - 인라인 `(r, c+2)` 위치의 자음은 다음 음절의 cho 로 취급 (예: `ㄱ ㅏ ㄱ` 가로 → `가`, 마지막 ㄱ 은 jung 못 만나 음절 형성 X). 가로 일렬로 놓는 placement 가 의도치 않게 받침 인식되어 `각`/`렛` 으로 잘못 합성되던 버그 (62a91a8 회귀) 차단.
-- 🔴 **읽기 순서 = 열 우선 정렬 (2026-07-10 fix)**: `parseSpatialKorean` 이 예전엔 음절을 **행 순서(위→아래)** 로 수집해서, 뒤 음절이 수직 모음이라 cho 가 윗행에 놓이는 단어(예: "거울" — 거=가운데행 / 울=ㅇ 윗행)를 `울거` 로 잘못 읽어 **오답 처리**되었다. 각 음절을 `{syl, r, c}` 로 모아 `out.sort((a,b)=>a.c-b.c||a.r-b.r)`(시작 셀의 **열 먼저**, 한글 좌→우 읽기 순서)로 정렬. `parseSpatialKorean` export + 유닛테스트 `KoreanBlockPlayer.parse.test.ts`(거울/가나/국/바다).
-- 자모 패널 reorder (학습 순서): 자음 = 기본 14 (ㄱ~ㅎ) → 쌍자음 5 / 모음 = 기본 10 (ㅏ~ㅣ) → 어려운 11 (ㅐ~ㅢ)
-- 합성에 쓰인 셀은 `used` set 으로 mark → 다른 음절 cho 로 재처리 X.
-- "초기화" 버튼: 셀 모두 비움.
-- TTS: usePhonicsMap 의 7종성 alias 로 ㅅ/ㅆ/ㅈ/ㅊ/ㅌ/ㅎ/ㅋ/ㅍ 받침 음절도 phonics mp3 재생. 그래도 누락이면 `speechSynthesis` (ko-KR) 폴백.
+- 🔴 **겹받침 판정** — 받침 오른쪽에 붙은 자음이 **자기 모음을 데리고 있으면** 겹받침이 아니라
+  다음 음절의 초성이다. 이게 없으면 `갈비` 를 `갋이` 로 읽는다.
+- `composedSyllables: string[]` 이 이음매다 — 정답 판정·TTS chain·SceneReveal·학습 이벤트가
+  전부 이 배열만 본다. 판을 또 바꿔도 이 형태만 유지하면 아래는 안 건드려도 된다.
+
+⚠️ 옛 3×6 그리드의 `parseSpatialKorean` 과 그 그리드를 시연하던 `KoreanBlockTutorial` 은
+2026-09-04 에 삭제했다(파서는 호출부 0, 튜토리얼 트리거는 2026-05-20부터 죽어 있었다).
 
 ## 낱말쓰기 정책 (2026-05-18)
 
@@ -308,7 +336,7 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 KoreanBlockPlayer / EnglishBlockPlayer 공통:
 
-- 🔴 **인터랙션 (2026-07-12)**: **한글 = 드래그**(자모 조합형이라 공간 배치가 의미), **영어 = 탭-투-플레이스**(`handleTilePlace` — 글자 타일 탭 시 왼쪽 빈 슬롯부터 채움, `useBlockDrag` 제거). vi/zh/th `OrderBlockPlayer`도 탭. 4-5세 드래그 부담 완화. (영어 튜토리얼은 pop+arrow 가리키기만 하고 멘트가 generic이라 탭에도 그대로 맞음 — 무변경.)
+- 🔴 **인터랙션**: **한글 = 탱고 보드 위 드래그·탭 둘 다**(자모 조합형이라 공간 배치가 의미), **영어 = 탭-투-플레이스**(`handleTilePlace` — 글자 타일 탭 시 왼쪽 빈 슬롯부터 채움, `useBlockDrag` 제거). vi/zh/th `OrderBlockPlayer`도 탭. 4-5세 드래그 부담 완화. (영어 튜토리얼은 pop+arrow 가리키기만 하고 멘트가 generic이라 탭에도 그대로 맞음 — 무변경.)
 - **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
 - **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
 - **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 (audio `ended` 이벤트 대기) → 시스템 칭찬 음원 (audio `ended` 이벤트 대기) → onDone. `playAudio(url, onEnded)` 콜백으로 chain — 단어 길이/칭찬 길이 무관 안 잘림. 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. **2026-05-19 변경**: 고정 1.2s/1.5s 타임아웃은 다음절 한글 단어 (강아지·바나나 등) TTS 가 잘리는 원인 → ended 이벤트 chain 으로 교체.
