@@ -19,7 +19,7 @@ STYLE ANCHOR - moya-daylight   (Moya's waterhole / broken colour in watercolour,
 Style: transparent watercolour on warm rag paper, for a picture book read aloud to four- to six-year-olds.
   🔴 THE PAPER IS THE LIGHT: anything bright is bright BECAUSE IT WAS LEFT UNPAINTED, there is no white
   paint, and nothing is made lighter by adding. Bare paper shows BETWEEN the touches on every page,
-  inside the figures as much as around them. 🔴 NO COLOUR IS EVER MIXED TO MAKE ANOTHER ONE: two colours
+  inside any figure as much as around it. 🔴 NO COLOUR IS EVER MIXED TO MAKE ANOTHER ONE: two colours
   are laid beside each other and the third happens in the eye at reading distance - a green is a lemon
   touch beside a blue one, AND THERE IS NO GREEN IN THIS PALETTE. Every touch is one press of a loaded
   brush, put down once and lifted, never gone over again, and it keeps the shape the brush made.
@@ -37,7 +37,10 @@ RENDERING (finish hierarchy): everything in this book is graded by HOW WET THE P
   SOAKING paper: one bloom, 0 countable touches, no line and no drawn shape at all.
   🔴 HOW TO FIND A CHILD ON A FINISHED PAGE: paint and line meet on nothing else, and no other edge in
   the picture contradicts itself. FINISHED THINGS PER PAGE = 2 - the child, and the single thing that
-  page turns on; every other object stops at step (2) or step (3). DENSITY RATION: none fixed for the series -
+  page turns on; every other object stops at step (2) or step (3). 🔴 A GROUP THE PAGE DOES NOT ASK ANYONE
+  TO COUNT IS ONE THING - a pile of fruit, a heap of stones, a passing herd, a bed of reeds is one mass
+  with its touches run together, and it costs one of the two. It comes apart into several things only on
+  the one page in that volume that counts it. DENSITY RATION: none fixed for the series -
   each volume names its own quiet spread in that volume's cut.
 
 PALETTE (and there are only these): PAPER #FBF3E4 warm rag, the only light in the book · LEMON #F2CE55 ·
@@ -45,18 +48,21 @@ PALETTE (and there are only these): PAPER #FBF3E4 warm rag, the only light in th
   #3B6E9E for water with depth and for rain · VIOLET #6B62A6 for every shadow and every drawn line.
   🔴 NO BLACK AND NO GREY EXIST HERE: a shadow is a VIOLET touch laid BESIDE or UNDER a thing, never that
   thing's own colour made darker, and a zebra's dark stripe is violet too. AT MOST FIVE OF THESE ON ONE
-  PAGE, plus the paper. 🔴 MAGENTA #D6417A IS THE ONE ACCENT IN TWENTY-FIVE BOOKS - the plaited cord at
+  PAGE, plus the paper - 🔴 AND THE ACCENT BELOW IS NOT ONE OF THE FIVE (it is one cord). 🔴 MAGENTA #D6417A IS THE ONE ACCENT IN TWENTY-FIVE BOOKS - the plaited cord at
   Moya's neck and nowhere else ever: not a flower, not a sunset, not a bird, not on another child.
 
 STAGE CLAUSES (one waterhole and its rim, the same one in all twenty-five books):
+  🔴 EACH PLACE HAS A STAGE SHEET (moya-stages.md §1) THAT HOLDS ITS INVENTORY; below is only the physics.
   🔴 SEASON IS COUNTED IN BLUE TOUCHES AMONG THE YELLOW ONES: dry = 0 blue touches in any grass, so a
     field reads yellow-brown; wet = one blue touch to every two lemon ones, so THE SAME FIELD READS GREEN
     WITH NO GREEN USED. Nothing else about a place changes season except what its own clause says.
   THE WATERHOLE - dry: the water has pulled back and left rings of cracked mud, and THE NUMBER OF RINGS
     IS HOW DRY IT IS (three at the driest); what is left is one flat deep-blue touch with nothing drawn
-    under the surface. wet: it reaches past every ring and goes to step (3) - soaking, no edge, the sky's
-    colours lying in it.
-  THE ACACIA AND ITS SHADE - a flat top of separate dabs. dry: 20 to 30 dabs with paper in the gaps.
+    under the surface. 🔴 NEVER A FOURTH RING - past three, drier is said by the blue touch narrowing.
+    wet: it reaches past every ring and goes to step (3) - soaking, no edge, the sky's colours lying in it.
+  THE ACACIA AND ITS SHADE - 🔴 THREE TREES STAND IN THESE BOOKS AND ONLY THIS ONE IS THE ACACIA (the
+    fruit tree and the small acacia are lower and rounder, and have their own sheets). A flat top of
+    separate dabs. dry: 20 to 30 dabs with paper in the gaps.
     wet: the dabs close until fewer than five gaps are left. Its shade is the largest violet on any page,
     laid as separate touches beside the foot of the trunk, never as a darkening of the ground.
   THE RED ROAD - dry: dust, the one thing at step (3) that comes near the figures - above knee height the
@@ -64,13 +70,31 @@ STAGE CLAUSES (one waterhole and its rim, the same one in all twenty-five books)
     the ruts, and 🔴 THE WATER LYING IN THE RUTS IS BARE PAPER.
   THE REED BED - vertical touches only, all leaning one way per page. dry: 12 to 20, paper showing
     between every reed, ochre at the tips. wet: twice as many and the paper closes up.
-  THE ROCK HILL - two or three damp touches, never more than four, tops LEFT AS BARE PAPER: 🔴 THE ONLY
-    PLACE WHERE PAPER IS THE LIGHT ON A THING RATHER THAN THE LIGHT IN THE AIR. dry: violet on one side
-    only. wet: a blue touch beside each ochre one, so the hill reads cool.
+  THE ROCK HILL - 🔴 IT IS DRAWN AT TWO DISTANCES AND THE TOUCH COUNT BELONGS TO THE FAR ONE.
+    FAR (the hill on the right of the plan, seen from anywhere else): two or three damp touches, never
+      more than four, tops LEFT AS BARE PAPER: 🔴 THE ONLY PLACE WHERE BARE PAPER MEANS
+      SUNLIGHT LANDING ON A SURFACE (elsewhere paper means the thing is pale in itself - a crest, white
+      hair, a seed, a cut face - or that the thing IS light: the sun, water in a rut, a backlit edge).
+    NEAR (on it, under it, or facing the wall across the gully): one damp upright face that may fill half
+      the picture, feathered together, TOP EDGE STILL BARE PAPER. 🔴 A NEAR FACE IS NOT COUNTED IN
+      TOUCHES; what is checked is that it has no line and no black.
+    dry: violet on one side only. wet: a blue touch beside each ochre one, so the hill reads cool.
   THE GRASS PLAIN - where the season is counted. Touches lean one way per page, paper runs between them,
     and nothing else is drawn out there: no path, no fence, no single named plant.
-  THE BIG SKY - always step (3), one bloom, 0 countable touches, at least a third of the page height.
+  THE BIG SKY - always step (3), one bloom, 0 countable touches. 🔴 AT LEAST A THIRD OF THE PAGE HEIGHT
+    ON ANY PAGE THAT HAS A HORIZON IN IT - on a close-up or a page looking straight down there is no sky
+    at all and the clause does not apply (58 of these 250 cuts).
     dry: lemon meeting sky blue high up. wet: deep blue dropped in at the top edge and let fall.
+  THE SUN AND THE STARS - 🔴 THE SUN IS BARE PAPER, the one round area the brush went around, never
+    outlined and never painted; its HEIGHT ABOVE THE HORIZON IS THE CLOCK. Stars are the same decision
+    smaller - unpainted specks in a soaking sky. 🔴 BACKLIT, WITH NO BLACK TO DO IT WITH: a figure
+    against a low sun is NOT a silhouette. It keeps its usual finish, its SUN-SIDE EDGE IS LEFT AS BARE
+    PAPER with the touches stopping short of the outline, and the far side takes one extra VIOLET touch
+    beside it. No rim light, no darkened body.
+  THE BURROW - a hole a snout's width across in a low earth mound, its lip broken on the near side,
+    the earth that came out heaped to ONE side. 🔴 ITS INSIDE IS STEP (3) - one violet bloom with
+    nothing drawn in it and NEVER A BLACK OPENING. dry: morning sun runs in and what it reaches is BARE
+    PAPER. wet: the lip slumps.
 
 CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - and it is read against that
   animal's own shoulder. Head below the shoulder line = downcast. Level = ordinary. Pushed forward past
@@ -87,7 +111,9 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - an
   carried on as a pattern across a soft edge.
   ONE WORN THING EACH, and it tells the children apart at any size: Moya the magenta cord · Nia a coil of
   pale reed at the base of her neck · Tumba a crest of bristle LEFT AS UNPAINTED PAPER, the only
-  unpainted thing on any figure · Kiki wears nothing and is known by standing. 🔴 AN ADULT IS NOT A
+  unpainted thing on a child · Kiki wears nothing and is known by standing. 🔴 ONE OTHER BODY SHOWS PAPER AND ONLY ONE - white hair on
+  an old visitor, drawn the same way: the touches are simply not put down there and the boundary is made
+  by the stripe touches around it plus one VIOLET touch under it. There is no white paint to reach for. 🔴 AN ADULT IS NOT A
   BIGGER CHILD: the mother wears nothing, and her stripes run the whole way down to the hoof, while a
   child's stop above the knee and the leg below is bare paper and line. Heights never tell two figures
   apart - the giraffe child is the tallest thing in the cast and is still a child.
@@ -102,19 +128,21 @@ NOT: no airbrush, no soft gradient, no glow, no 3D render, no digital texture fi
   DRAWN UPSIDE DOWN IN THE WATER - a reflection is horizontal touches of the same colours, no shape
   repeated inverted / 🔴 NO PREDATOR IS EVER ON THE SAME BANK AS A CHILD: a lion or hyena appears only at
   step (3) as a far bloom with no face, no eyes and no teeth, and there is no chase, no carcass, no bone
-  and no blood in twenty-five books / a child never goes into the water past the knee, and the deep water
-  is where the adult stands.
+  and no blood in twenty-five books / 🔴 A CHILD'S HOOVES ARE ALWAYS ON THE BOTTOM. Water may come
+  over a child who is lying on her side in the shallows - that is how mud gets into it and one whole
+  volume is about that - but no child ever swims, floats, or goes where the bottom is out of reach, and
+  the deep water is where the adult stands.
 ```
 
 **관통 줄** (매 쪽)
 
 ```
-WET:    how wet the paper was is the whole finish - dry at the figures, damp at the place, soaking at the back
+WET:    how wet the paper was is the whole finish - dry at the figures, damp at the place, soaking at whatever has no edge (and that is not always far: dust comes to the knee, and in the wet season the pool in the front of the picture is soaking too)
 BROKEN: no colour is mixed to make another and there is no green paint - a lemon touch beside a blue one is the green
-NECK:   the head against its own shoulder carries the feeling, the eyes never change size, and the one magenta cord is at Moya's neck
+NECK:   the head against its own shoulder carries the feeling, the eyes never change size, and magenta exists only as Moya's neck cord - on a page without Moya there is no magenta at all
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 자리의 `STAGE CLAUSES` 한 조항 + 계절 조항만 붙인다.** 자리 조항이 일곱인 것은
+🔴 **컷에 붙일 때는 그 쪽 자리의 `STAGE CLAUSES` 한 조항 + 계절 조항만 붙인다.** 자리 조항이 아홉인 것은
 25권이 한 웅덩이를 나눠 쓰기 때문이고, **한 쪽에 동시에 쓰이지 않는다.** 자수 = §6.
 
 ## §1-b. 캐릭터 시트 — `CHARACTER SHEET`
@@ -315,7 +343,8 @@ written mark` · `NOT: no airbrush…` · `twenty-five books` · `AN ADULT IS NO
 
 | | 앵커 전문 | 시트 | **컷 실효**(자리 조항 하나 + 계절/김 조항) | + 관통 줄 |
 |---|---|---|---|---|
-| `moya-daylight` | **8,082** | 1,837 | **6,647** | 7,010 |
+| `moya-daylight` (첫 판) | 8,082 | 1,837 | 6,647 | 7,010 |
+| 🔴 **지금**(2026-09-04 수리 뒤) | **10,912** | 1,837 | **7,944** | 8,307 |
 | (대조) `kota-mineral` | 8,010 | 1,824 | 6,162 | 6,446 |
 | (대조) `yuki` 4,835 · `bung` 4,801 · `mina` 4,768 · `mio` 10,051 · `twins` 10,186 | | | | |
 
@@ -328,9 +357,15 @@ written mark` · `NOT: no airbrush…` · `twenty-five books` · `AN ADULT IS NO
   규격대로 셋이지만, **변수 셋 + 계절 둘**이 곧 이 앵커의 무게다.
 - **이미 걷어낸 것** = 키 사다리(→ `moya-cast.md`, §7-1) · `Style` 과 `RENDERING` 이 두 번 말하던
   「터치를 다시 안 덧칠한다」 · 자리 조항의 형용사.
-- **다음에 줄어들 자리** = `moya-stages.md` 를 쓰면 자리 조항이 「그 시트를 보라」로 얇아진다(코타가
-  2,084 → 1,203 으로 그렇게 줄였다). 지금 조항이 **재고(무슨 나무·무슨 바위)를 안 들고 물리(터치 수·
-  젖은 정도·파랑 개수)만** 들고 있는 것이 그 준비다.
+- 🔴 **왜 2,831 자가 늘었나**(2026-09-04 수리) — 조항 둘이 **아예 없었고** 하나가 **권을 통째로 막고
+  있었다.** `THE SUN AND THE STARS`(해의 높이가 시계인 권이 여섯인데 조항 0) · `THE BURROW`(15쪽인데
+  조항 0)를 신설하고, `THE ROCK HILL` 을 두 거리로 갈라 22권(메아리)을 열었다. **깎아서 되돌릴 값이
+  아니다** — 없는 조항은 화가가 매 쪽 새로 정하고, 그게 이 라인의 제일 비싼 결함이다.
+- **재고는 이미 자리 시트로 내렸다** — `moya-stages.md` §1 아홉 장이 가져갔고(코타 2,084 → 1,203 과 같은
+  정리), 조항은 **재고 없이 물리만**(터치 수·젖은 정도·파랑 개수) 든다. 굴의 둔덕·입술·흙무더기 치수,
+  바위벽의 틈 만드는 법, 별 개수, 물가 바위의 생김새는 전부 시트에 있다.
+- **컷 실효 7,944 의 이유** = 컷에는 자리 조항이 **하나만** 붙는데 지금 가장 큰 조항이 `THE ROCK HILL`
+  (두 거리)이라서다. 그 조항이 붙는 쪽은 250 중 **14쪽**이고 나머지 쪽은 그보다 200~400 자 작다.
 - **깎지 말 자리** = `RENDERING` 의 물감/선 분업과 계절 조항. 이 둘이 이 시리즈의 전부다.
 
 ---
@@ -343,8 +378,10 @@ written mark` · `NOT: no airbrush…` · `twenty-five books` · `AN ADULT IS NO
    툼바(혹멧돼지 아이) 0.40, 몸이 가장 길고 머리가 가장 낮다 · 키키 서면 0.28 / 네 발이면 0.14 —
    🔴 캐스트에서 키가 변하는 유일한 아이.** 🔴 제목은 `_series-config.mjs` 의 `aliases[1]` 과
    **글자까지** 같아야 한다(빌더가 못 찾으면 조용히 빈칸).
-2. **`moya-stages.md`** — 자리 일곱의 시트. 🔴 매체 번역 한 줄 = **「밝은 것은 안 칠한 것 · 초록은 두 색이
-   옆에 놓인 것」**.
+2. ✅ **`moya-stages.md`** — 자리 시트 **아홉 장 완성**(2026-09-04). 일곱이 아니라 아홉인 이유 = 굴과
+   나무 둘(열매 나무·작은 아카시아)이 조항 밖에 있었다. 🔴 매체 번역 한 줄 = **「밝은 것은 안 칠한 것 ·
+   초록은 두 색이 옆에 놓인 것」**. 🔜 남은 것은 §4 권별 경로표
+   (`build-series-routes.mjs --skeleton moya` — 25권 전권에 토큰이 붙었으니 이제 돌릴 수 있다).
 3. **`_SERIES-ANCHORS.md` 표에 17행 추가** — 축 = 「목선이 표정을 진다」, 눈 처리 = 「보라 아몬드 하나,
    크기 25권 불변」, 레퍼런스 = `rutten-ombre`. `changjak-anchor-refs.json` 도 같이 고치고
    `build-award-index.mjs` 재실행.

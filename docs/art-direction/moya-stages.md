@@ -38,17 +38,502 @@ p9에서만 선을 갖는다. 나머지 쪽에서 같은 물건은 축축한 종
 
 ---
 
-## §1. 자리 시트 — 미작성
+## §1. 자리 시트 — 9장
 
-앵커 §1 `STAGE CLAUSES` 일곱 조항(물웅덩이 · 아카시아와 그늘 · 붉은 길 · 갈대밭 · 바위 언덕 · 풀 벌판 ·
-큰 하늘)이 임시 SSOT다. 자리 시트를 쓸 때 **아래 구멍 넷부터** 메울 것.
+> 🔴 **형식 정본 = `taro-stages.md` §2.1 · `pongi-stages.md` §1.1.** 절은 `FIXED PARTS` / `SEASON HERE` /
+> `WHERE THE FINISH CHANGES` / `SPOTS` / `PLATE` / `NOT` 여섯이고, 셋째 절이 이 시리즈 전용이다 —
+> 이 앵커의 기계가 **「종이가 얼마나 젖었나」** 하나뿐이라, 자리마다 **어디가 (2) 축축하고 어디가 (3) 흠뻑인지**를
+> 시트가 못 박지 않으면 매 쪽 화가가 다시 정한다.
 
-| 구멍 | 어디 | 왜 문제인가 |
+| # | 토큰 | 자리 | 가는 권 | 쪽 |
+|---|---|---|---|---|
+| 1.1 | `Waterhole` | 물웅덩이 · 기슭 · 진흙 테 · 물가 바위 | 01 02 03 05 06 07 09 10 11 12 14 15 16 17 18 19 23 24 | **79** |
+| 1.2 | `GrassPlain` | 풀 벌판 · 키 큰 풀 · 누운 자리 · 파낸 자리 | 01 03 04 06 09 13 14 15 16 20 21 22 25 | **47** |
+| 1.3 | `RedRoad` | 붉은 흙길 · 길가 흙더미 · 들머리 | 01 02 06 09 12 17 23 25 | **32** |
+| 1.4 | `Acacia` | 아카시아와 그 그늘 (🔴 `AcaciaShade` 를 흡수했다) | 02 04 06 11 16 19 21 25 | **26** |
+| 1.5 | `Burrow` | 흙둔덕의 굴 입구 (바위 언덕 밑 굴도 이 시트) | 07 08 (+22) | **15** |
+| 1.6 | `RockHill` | 바위 언덕 · 건너편 바위벽 · 언덕 밑 그늘 | 01 10 16 17 22 | **14** |
+| 1.7 | `ReedBed` | 갈대밭 · 갈대 속 | 05 12 18 25 | **10** |
+| 1.8 | `FruitTree` | 열매 나무 (🔴 아카시아가 아니다) | 04 | **4** |
+| 1.9 | `SmallAcacia` | 작은 아카시아 (🔴 세 번째 나무) | 20 | **3** |
+
+### 🔴 SCENE 토큰을 고친 것 — 47쪽 (한국어는 한 글자도 안 건드렸다)
+
+| 무엇 | 몇 쪽 | 왜 |
 |---|---|---|
-| 🔴 **열매 나무** | 04 · 20 | **대본이 스스로 신고해 뒀다**(04 p1: `이 자리는 앵커 무대 조항 일곱에 없다 — 아카시아와 다른 나무`). 게다가 20권은 또 다른 세 번째 나무(「작은 아카시아」)를 쓴다. 🔴 **이 시리즈에 나무가 셋인데 조항은 하나**다 |
-| 🔴 **굴** | 07 · 08 · 22 | `[Burrow]` 흙둔덕의 굴 입구가 세 권에 걸쳐 20쪽 가까이 나오는데 조항이 없다. 입구 · 둔덕 · 안쪽까지 드는 아침 해가 전부 화가 재량 |
-| ⚠️ **물가 바위** | 24 | 키키가 기어올라 꼭대기에 서는 바위 하나. 앵커 `THE ROCK HILL` 은 **오른쪽 언덕**이고 이건 물가에 있다 — 다른 물건이다 |
-| ⚠️ **잎 진 아카시아의 실루엣** | 16 p3 ↔ p6 | p3 의 「크고 뾰족한 보라 얼룩」이 p6 에서 잎 진 아카시아로 밝혀진다. **두 쪽의 윤곽이 같아야** 정체가 밝혀지는데, 그건 사물이 아니라 `Acacia` 자리 시트가 물고 있어야 할 조항이다 |
+| `AcaciaShade` → `Acacia` | 9 | 🔴 **같은 자리를 두 이름으로 부르고 있었다**(02 p4 「아카시아 그늘 가장자리」=`Acacia` ↔ 11 p1 「아카시아 그늘」=`AcaciaShade`). coco 의 `Home`/`Attic` 과 같은 병 — 앵커 조항도 `THE ACACIA **AND ITS SHADE**` 하나다 |
+| `DryPlain` → `GrassPlain` | 1 | 09 p3 「흙길 옆 마른 풀 벌판」. 마른 풀 벌판의 다른 이름일 뿐이다 |
+| `BigSky` → `GrassPlain` | 1 | 06 p9. **하늘은 서는 자리가 아니다** — 아주 먼 데서 본 벌판이고, 하늘 조항은 앵커가 매 쪽 들고 있다. `GrassPlain` SPOT D 로 받았다 |
+| 🔴 16~20권에 토큰 넣기 | 36 | **다섯 권 50쪽에 토큰이 한 개도 없었다.** 검사기는 *찍힌* 토큰만 대조하므로 이 다섯 권은 「미매칭 0」으로 조용히 통과하고 있었다 — mina 의 `Village`/`VillageLane` 과 같은, **없는 것보다 나쁜** 자리. 🔴 자리를 새로 부르는 쪽에만 붙였다(「같은 …」 14쪽은 앞 쪽을 물려받는다 — `build-series-routes.mjs` 규칙) |
+
+### 🔴 합성 토큰 넷 — 새 시트를 안 만든다
+
+`Waterhole/RedRoad`(02 p1) · `RedRoad/Waterhole`(05 p9 · 17 p2) · `ReedBed/Waterhole`(05 p4 · 18 p3) ·
+`GrassPlain/Acacia`(03 p1). 여섯 쪽 전부 **자리 둘이 한 화면에 든 컷**이지 새 자리가 아니다.
+
+> **만나는 규칙 — 앞이 틀, 뒤가 든 것.** 앞 토큰의 시트가 그 화면의 `FIXED PARTS` 와 카메라를 가지고,
+> 뒤 토큰의 시트는 **거기 들어온 부분만** 자기 규격으로 그린다. 마감은 거리가 정한다 — 뒤에 있는 것은
+> 대개 (3) 흠뻑이라 가장자리가 없다. 🔴 **순서가 뜻이다**: `Waterhole/RedRoad` 는 물가에 서서 길이
+> 들어오는 것을 보고, `RedRoad/Waterhole` 은 길 위에 서서 물이 시작되는 자리를 본다. 두 쪽이 같은
+> 자리인데 그림이 다른 이유가 그것뿐이고, 그래서 순서를 바꿔 적으면 안 된다.
+
+### §1.1 Waterhole — 🔴 열여덟 권이 여기 선다
+
+```
+STAGE SHEET - Waterhole   (moya-daylight · anchor clause: THE WATERHOLE · SCENE token: Waterhole)
+
+The one waterhole the whole series is named for. Eighteen of the twenty-five books stand on this bank,
+so this drawing decides the water, the rim, the cracked rings and the one rock a meerkat climbs, and
+nothing about them is invented again afterwards.
+
+FIXED PARTS:
+  THE WATER - one flat DEEP BLUE area lying in the LOWER HALF of the picture, never lighter or darker
+    inside itself, with NOTHING DRAWN UNDER THE SURFACE. Its far rim runs across the middle of the page.
+  THE SHALLOW END is the near third: 🔴 THE BOTTOM IS ALWAYS WITHIN A CHILD'S REACH THERE, and it is
+    the only part of the water a child is ever in. THE DEEP END is the far side and it is where the
+    mother stands. The two are told apart by how much of a leg is left showing, never by a colour change.
+  THE RINGS - concentric bands of cracked RED EARTH between the bank and the water's dry-season edge,
+    AT MOST THREE, the outermost widest. 🔴 THE NUMBER OF RINGS IS THE CLOCK AND THERE IS NEVER A
+    FOURTH - past three, drier is said by the blue area narrowing, and only by that.
+  THE NEAR BANK - bare damp RED EARTH, 4 to 6 touches, no line. This is the ground marks are read on,
+    so it is kept plain and it is drawn at the same height in every book.
+  THE FAR RIM AND EVERYTHING PAST IT - step (3): one soaking bloom, 0 countable touches, no edge. The
+    acacia stands at the left third, the reeds behind the water to the right of it, the rock hill on
+    the right, and the red road comes in at the bottom left corner and reaches the water.
+  🔴 THE WATER ROCK - ONE rock sitting ON THE NEAR BANK at the water's edge, no higher than the
+    mother's knee, with a flat top just big enough for one meerkat to stand on and three steps up its
+    side. 🔴 IT IS NOT THE ROCK HILL AND MUST NOT BE READ AS IT: it is on the bank, not on the right of
+    the plan, and 🔴 ITS TOP IS PAINTED - 4 to 6 damp touches - because bare paper on top of a thing
+    belongs to the rock hill alone.
+  THE ROAD'S END - the last stretch of red road before the water, bare earth carrying hoofprints.
+
+SEASON HERE:
+  dry - the water has pulled back, one to three rings showing, the blue one flat touch. Grass on the
+    bank has 0 blue touches.
+  wet - the water reaches past every ring (the rings are simply not there) and goes to step (3):
+    soaking, no edge at all, the sky's own colours lying in it. Bank grass takes one blue to two lemon.
+
+WHERE THE FINISH CHANGES - this is what the sheet is for:
+  DAMP (2): the near bank, the rings, the water rock, the road's end.
+  DRY (1): only the child and the one thing that page turns on.
+  SOAKING (3): the far rim, the far bank, the heat above the water, and the water itself in the wet
+    season. 🔴 NOTHING IS EVER DRAWN UPSIDE DOWN IN THE WATER - a reflection is horizontal touches of
+    the same colours, and there is no ripple ring, no glint and no sparkle anywhere on this sheet.
+
+SPOTS - the five places the camera stands. Do not invent a sixth.
+  A FROM THE BANK, wide, child eye level: bank along the bottom, water filling the lower half, the far
+    rim across the middle, acacia left third, hill right.
+  B AT THE WATER'S EDGE, close, muzzle height: where the blue meets the red earth, one ring in frame.
+  C FROM ABOVE, looking straight down: the rings as complete curves and a trail of prints on them.
+    🔴 A trail that goes right round the pool is only ever seen from here.
+  D ON THE WATER ROCK'S TOP, looking back at the bank: the bank and the road below, the water at the
+    left edge.
+  E THE ROAD'S END, medium, low: the red road running in from the bottom left and stopping at the blue.
+
+PLATE: A drawn TWICE side by side at one size - dry with three rings and wet with none - so the two can
+  be laid over each other and the same rim checked. Then B C D E once each, plus one small overhead
+  diagram showing where water, rings, bank, water rock, road end, acacia, reeds and hill sit.
+
+NOT: no character of any kind, no magenta anywhere on this sheet, no lettering or numerals, no fourth
+ring, no ripple, glint, sparkle or drop-circle on the water, nothing mirrored or drawn upside down in
+it, no black and no grey, no green paint, no drawn edge on anything at step (3), no bare paper on the
+water rock's top, no airbrush, gradient, glow or 3D render.
+```
+
+### §1.2 GrassPlain — 🔴 계절이 세어지는 유일한 자리
+
+```
+STAGE SHEET - GrassPlain   (moya-daylight · anchor clause: THE GRASS PLAIN · SCENE token: GrassPlain)
+
+The open plain around the water. Thirteen books cross it, one book stands inside grass taller than a
+child's back, one book sleeps out on it, and one book watches smoke on its far edge. It is the place
+where the season is counted, so it is drawn twice on this sheet and never once.
+
+FIXED PARTS:
+  THE GRASS - separate upward touches, ALL LEANING ONE WAY ON ANY ONE PAGE, with bare paper running
+    between them. Damp paper, no line. 🔴 NOTHING ELSE IS DRAWN OUT THERE: no path, no fence, no rock,
+    no single named plant, no flower.
+  THE HORIZON - a single flat line where the grass touches stop and the sky bloom begins. It is drawn
+    at the same height in every wide shot of this sheet. 🔴 SMOKE, WHEN A BOOK HAS IT, SITS ON THIS LINE
+    AND NEVER LEAVES IT - never nearer, never taller, never in the upper third.
+  TALL GRASS - the same drawing language at THREE TIMES the height, blades crossing one another, so a
+    standing child has grass above her back and nothing else is visible in the frame. It is the same
+    grass, not another plant.
+  THE PRESSED PLACE - where a body lay: the touches flattened and turned to lie one way, one body long,
+    with NO edge drawn round it.
+  THE DUG PATCH - a shallow scoop with its earth heaped to one side, sitting on top of undisturbed
+    grass so the two are told apart.
+
+SEASON HERE - 🔴 THIS IS THE PLACE THE ANCHOR'S SEASON RULE IS MEASURED ON:
+  dry - SUN OCHRE and LEMON only, 0 blue touches. The field reads yellow-brown.
+  wet - ONE SKY touch to every TWO LEMON ones, and the same field reads green with no green used.
+  Draw the two at one size on this sheet, same angle, same lean, so the ratio can be counted.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): the grass under and around the figures, the pressed place, the dug patch.
+  SOAKING (3): the far half of the plain, the heat over it, the sky, and any smoke.
+  🔴 THERE IS NO MIDDLE GROUND WITH AN EDGE. Where the damp touches stop the bloom begins, and the two
+    are told apart by countable touches versus none.
+
+SPOTS - four. Do not invent a fifth.
+  A ACROSS THE PLAIN, wide, child eye level: grass filling the lower half, one flat horizon, sky above.
+  B INSIDE TALL GRASS, medium, low: crossing blades filling both edges and the top, a slot of sky.
+  C LOOKING STRAIGHT DOWN, close: a pressed place or a dug patch, no horizon at all.
+  D THE WHOLE PLAIN FROM VERY FAR, extreme wide: sky two-thirds of the page, the plain one low band,
+    a single closed ring of sleeping backs on it, and at night unpainted specks for stars.
+
+PLATE: A drawn TWICE at one size - dry and wet - then B C D once each, plus one large panel of a dry
+  tuft and a wet tuft at four times size so the blue-to-lemon ratio can be counted.
+
+NOT: no character, no magenta, no green paint of any kind, no black or grey, no path, fence, rock,
+flower or single named plant on the plain, no drawn blade edges or serrations, no fire, flame or ember,
+no smoke above the horizon line, no countable touch inside any bloom, no airbrush, gradient, glow or 3D
+render.
+```
+
+### §1.3 RedRoad — 마른 철엔 먼지, 젖은 철엔 바큇자국의 안 칠한 종이
+
+```
+STAGE SHEET - RedRoad   (moya-daylight · anchor clause: THE RED ROAD · SCENE token: RedRoad)
+
+The road that comes in at the bottom left corner of the plan and runs to the water. Eight books walk
+it: one arrives on it, one leaves on it, one is blocked on it, and one is afraid of the dust on it.
+
+FIXED PARTS:
+  THE ROAD - a band of bare RED EARTH, damp paper, 4 to 6 touches, no line, WIDER AT THE BOTTOM OF THE
+    FRAME AND NARROWING AWAY. It has no hard edge against the grass: the earth touches simply stop and
+    the grass touches begin.
+  TWO RUTS - two shallow parallel hollows running along it, and they are the only structure it has.
+  THE SHOULDER - a ragged half-stride of grass on each side, thinner than the plain's grass.
+  THE ROADSIDE MOUND - ONE low heap of loose earth at the left shoulder, about a zebra child's chest
+    high, with a flat enough top for a meerkat to stand on. 🔴 It is not a rock and it is not the water
+    rock: it is loose earth, 4 to 6 touches, and it slumps in the wet season.
+  THE FAR MOUTH - where the road leaves the plan for somewhere else, drawn as the band narrowing to a
+    stop at the horizon, step (3), with nothing at all beyond it.
+
+SEASON HERE:
+  dry - DUST. 🔴 The one thing at step (3) that comes near the figures: ABOVE KNEE HEIGHT the road's
+    edges are a soaking bloom with nothing drawn in it, and BELOW knee height the ground is readable.
+    Dust never makes a puff, a swirl or a ring, and when it settles the marks under it become readable.
+  wet - MUD. The same red earth, VIOLET touches lying in the ruts, and 🔴 THE WATER LYING IN THE RUTS
+    IS BARE PAPER - it is the brightest thing on the page and it is never painted blue.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): the road surface, the ruts, the shoulder, the mound.
+  SOAKING (3): the dust above knee height, the far mouth, everything past the shoulder.
+
+SPOTS - four. Do not invent a fifth.
+  A ALONG THE ROAD, wide, child eye level: the band running from the bottom of the frame to the far
+    mouth, empty, shoulders on both sides.
+  B WHERE IT REACHES THE WATER, medium, low: the band stopping at flat blue.
+  C DOWN AT THE RUTS, close, high: two hollows, and either violet in them (wet) or prints in them (dry).
+  D THE ROADSIDE MOUND, medium, low: the heap at the left shoulder with the road running past it.
+
+PLATE: A drawn TWICE at one size - dry with the dust bloom and wet with bare-paper water in the ruts -
+  then B C D once each.
+
+NOT: no character, no magenta, no lettering, numerals or signposts, no fence, no wheel or tyre tread,
+no puff, swirl or ring in the dust, no blue paint in the ruts, no black or grey, no hard edge between
+road and grass, no airbrush, gradient, glow or 3D render.
+```
+
+### §1.4 Acacia — 🔴 16권은 두 쪽의 윤곽이 같아야만 성립한다
+
+```
+STAGE SHEET - Acacia   (moya-daylight · anchor clause: THE ACACIA AND ITS SHADE · SCENE token: Acacia)
+
+The big flat-topped tree at the left third of the plan, and the shade under it. Eight books sit here.
+🔴 THIS SHEET ABSORBS WHAT WAS ONCE CALLED AcaciaShade - the tree and its shade are one place and one
+clause, and they were being drawn as two.
+
+FIXED PARTS:
+  THE TRUNK - one damp mass at the LEFT THIRD, going up and out of the top of the frame in any near
+    view. No bark drawn, no knots, no rings.
+  THE CROWN - a FLAT top made of SEPARATE dabs with paper in the gaps. 🔴 ITS OUTLINE IS FIXED ON THIS
+    SHEET AND DRAWN ONCE: wide, flat on top, and coming to points at the two ends. One volume shows the
+    same tree at night, across the water, as a single soaking VIOLET bloom with nothing inside it, and
+    the reveal on the next page only works IF THAT BLOOM AND THIS CROWN HAVE THE SAME OUTLINE. Draw the
+    two side by side on the plate and check them against each other.
+  THE SHADE - the largest violet on any page in the series, laid as SEPARATE violet touches BESIDE the
+    foot of the trunk, never as a darkening of the ground beneath. 🔴 Its far edge is where the violet
+    touches stop and the ochre grass touches begin - a boundary between two colours, not a fade.
+  THE BIG STONE - ONE stone at the trunk's foot, high enough for a meerkat standing on it to be above a
+    zebra child's head. It stays in the frame after she gets off it, and an empty stone is a state.
+
+SEASON HERE:
+  dry - 20 to 30 dabs with paper in the gaps.
+  wet - the dabs close up until fewer than five gaps are left.
+  🔴 AT ITS BAREST (leaves gone, one book, at night) about 20 dabs are left, paper showing everywhere
+    between them, and the crown is read by its outline alone.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): the trunk, the shade touches, the stone, the ground under the crown.
+  SOAKING (3): the whole tree whenever it is seen from across the water, and everything past it.
+  🔴 A TREE AT STEP (3) HAS NO BRANCHES DRAWN IN IT, no eyes, no teeth and no face. That is the rule
+    that keeps one book's night shape from becoming a monster.
+
+SPOTS - four. Do not invent a fifth.
+  A UNDER THE CROWN LOOKING OUT, wide: shade in the foreground, the water as a flat band at the right
+    edge, the crown cropped by the top of the frame.
+  B AT THE TRUNK FOOT, medium, low: trunk filling the left, the stone beside it, shade touches on the
+    ground.
+  C THE SHADE'S EDGE, close, slightly high: violet touches stopping and dry ochre grass beginning.
+  D THE WHOLE TREE FROM ACROSS THE WATER AT NIGHT, wide: one soaking violet bloom, nothing inside it,
+    water in front of it.
+
+PLATE: B and D side by side at one size so the outlines can be laid over each other, then A and C,
+  plus one panel of the crown drawn dry and wet at one size so the dabs can be counted.
+
+NOT: no character, no magenta, no green paint, no black or grey (the night shape is VIOLET), no
+branches, eyes, teeth or face inside the far bloom, no bark texture, knots or growth rings, no drawn
+leaf shapes, no shadow made by darkening the ground, no thorns drawn on this sheet, no airbrush,
+gradient, glow or 3D render.
+```
+
+### §1.5 Burrow — 🔴 앵커에 없던 자리 (조항을 새로 올렸다)
+
+```
+STAGE SHEET - Burrow   (moya-daylight · anchor clause: THE BURROW · SCENE token: Burrow)
+
+A hole in an earth mound beside the water, where the meerkat lives. Two books spend nearly all their
+pages here and a third book has the same burrow at the foot of the rock hill. It had no anchor clause
+at all until now, so everything below was being decided page by page.
+
+FIXED PARTS:
+  THE MOUND - a low dome of RED EARTH standing above the surrounding ground, damp paper, 4 to 6
+    touches, no line, its top no higher than a zebra child's chest.
+  THE HOLE - ONE opening, a snout's width across, set low on the mound's near face, with its LIP BROKEN
+    on the near side so the earth spills a little towards the reader.
+  THE THROWN EARTH - the heap that came out, on ONE side of the hole only, loose touches with paper
+    between, sitting on top of undisturbed ground so the two are told apart.
+  🔴 THE DOORWAY GROUND - the patch of bare earth directly in front of the hole. It is DRAWN AT ONE
+    SIZE AND ONE ANGLE in every book, because one whole volume is the reader watching that patch go
+    from cluttered to bare, and if the camera moves between those pages the comparison is gone. Swept
+    bare, it is flat earth with a faint sheen of use - which is 3 or 4 touches laid closer together,
+    never a gloss and never a highlight.
+  A SECOND BURROW, identical in every part, stands in the earth at the foot of the rock hill. Same
+    drawing, no heap, and it is empty in the book that uses it.
+
+SEASON HERE:
+  dry - the lip is sharp, the heap holds its shape, and MORNING SUN REACHES INSIDE THE HOLE: the part
+    it reaches is BARE PAPER, running in a long wedge from the lip.
+  wet - the lip slumps, the heap flattens and spreads, and no sun goes in.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): the mound, the lip, the heap, the doorway ground.
+  SOAKING (3): 🔴 THE INSIDE OF THE HOLE - one violet bloom with nothing drawn in it. There is no
+    black, so a dark opening is violet and it has no edge. No tunnel walls, no floor, no bedding.
+  BARE PAPER: whatever the morning sun reaches, inside and out.
+
+SPOTS - four. Do not invent a fifth.
+  A THE DOORWAY OBLIQUELY, medium: inside and outside in one frame, the sun wedge running in.
+  B FROM BEHIND, wide: the burrow at the left, the water at the right, a figure walking away between.
+  C THE DOORWAY GROUND, medium, slightly high - 🔴 the fixed size and angle, nothing else in frame.
+  D FROM ABOVE THE MOUND, wide, low: standing on the mound's top and looking down at the doorway, with
+    room at the top of the frame for a long neck to come down into it.
+
+PLATE: C drawn TWICE at one size - cluttered and bare - then A B D once each, plus one small section
+  diagram showing mound, hole, lip and heap in their fixed relation.
+
+NOT: no character, no magenta, no black opening (the inside is violet), no drawn tunnel, walls, floor,
+straw, bedding or door, no gloss or highlight on the swept ground, no second hole in the same mound, no
+gravel scatter, no cast shadow inside the hole, no airbrush, gradient, glow or 3D render.
+```
+
+### §1.6 RockHill — 🔴 두 거리로 갈랐다 (터치 넷 상한이 22권을 통째로 막고 있었다)
+
+```
+STAGE SHEET - RockHill   (moya-daylight · anchor clause: THE ROCK HILL · SCENE token: RockHill)
+
+The rocks on the right of the plan. Five books use them, and one of those books is about an echo - so
+the far hill of the anchor's clause and the wall that sends a voice back are BOTH on this sheet, at two
+distances, and the anchor's touch count belongs only to the far one.
+
+FIXED PARTS:
+  THE HILL - THREE rock masses sitting in steps, the highest at the back, and 🔴 THE TOP ONE IS FLAT
+    ENOUGH FOR A ZEBRA CHILD AND A MEERKAT TO STAND ON TOGETHER. Damp paper, no line anywhere.
+  THE TOPS ARE LEFT AS BARE PAPER - 🔴 the only place in twenty-five books where paper is the light ON
+    a thing instead of the light in the air. This is true at both distances and it is what says "rock".
+  🔴 THE OPPOSITE WALL - an upright rock face standing across a shallow dry gully from the hill top. It
+    is at the NEAR distance: it may fill half the picture, its touches feather into one another, it has
+    NO LINE, its top edge is still bare paper, and its cracks are made by laying a VIOLET touch BESIDE
+    the rock's own colour - never by darkening the rock and never with black. 🔴 A near face is not
+    counted in touches; what is counted is that it has no line.
+  THE GULLY - the fold of dry grass plain between hill and wall, running away from the reader.
+  THE FOOT - the ground at the hill's base, with the hill's own shade lying beside it as separate
+    violet touches, and ONE burrow hole in the earth there (see the Burrow sheet).
+
+SEASON HERE:
+  dry - violet on one side of each mass only.
+  wet - a SKY touch laid beside each SUN OCHRE one, so the whole hill reads cool without a new colour.
+
+WHERE THE FINISH CHANGES:
+  FAR (2 damp, and this is where the anchor's count lives): two or three touches for the whole hill,
+    never more than four, tops bare paper.
+  NEAR (2 damp, uncounted): one upright face, feathered, no line, top edge bare paper.
+  SOAKING (3): the plain beyond the gully, the sky, the heat off the rock.
+
+SPOTS - four. Do not invent a fifth.
+  A FROM BELOW, medium wide, low angle: the three masses stepping up, the top one against the sky, a
+    small figure on it.
+  B ON THE TOP LOOKING ACROSS, medium wide: the near figure at the left, 🔴 THE OPPOSITE WALL FILLING
+    THE RIGHT HALF OF THE FRAME, the gully between them.
+  C OVER HILL AND FOOT TOGETHER, wide, high: the steps, the foot with its burrow hole, and the water
+    below in the distance with its rings.
+  D THE FOOT, medium: the side of the lowest mass, its shade beside it, nothing else.
+
+PLATE: A and B side by side so the far count and the near face can be compared, then C and D, plus one
+  small overhead diagram showing hill, gully and wall in their fixed relation.
+
+NOT: no character, no magenta, no line anywhere on any rock, no black or grey crack, no cave, cave
+mouth or overhang in the wall, no drawn strata, no boulders scattered at the foot, no gravel texture,
+no bare paper on any rock face that is not a top edge, no airbrush, gradient, glow or 3D render.
+```
+
+### §1.7 ReedBed — 안에서 내다보는 틀이 이 시트의 일이다
+
+```
+STAGE SHEET - ReedBed   (moya-daylight · anchor clause: THE REED BED · SCENE token: ReedBed)
+
+The reeds standing behind the water, to the right of the acacia. Four books use them, and two of those
+put the camera INSIDE, so this sheet has to decide what a reed looks like from a hand's width away as
+well as from across the water.
+
+FIXED PARTS:
+  THE REEDS - VERTICAL touches only, ALL LEANING ONE WAY PER PAGE, with bare paper between every reed
+    and SUN OCHRE at the tips. Damp paper, no line, no drawn leaf edges.
+  THEIR FEET stand in the shallow water at the far right of the pool; the bed never crosses in front of
+    the acacia and never reaches the red road.
+  THE SEED HEADS - loose specks of UNPAINTED PAPER at the tips, never painted white and never drawn as
+    a shape. When they come off they are the same specks, scattered in the air.
+  🔴 THE FRAMING RULE - looking out from inside, THREE OR FOUR NEAR STEMS ARE DAMP (2) AND HOLD THEIR
+    EDGES, and EVERYTHING PAST THEM IS SOAKING (3) - the water, the far bank and any figure out there
+    is one bloom with no edge. That contrast is the whole reason a book puts the camera in here.
+  A BIG BIRD SITTING ON THE TOPS bends the stems it stands on: the touches under it lean further than
+    their neighbours, and its weight is read from that and never from a drawn shadow.
+
+SEASON HERE:
+  dry - 12 to 20 reeds, paper showing between every one.
+  wet - twice as many and the paper closes up between them.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): the near stems, the bed seen from outside at close range, the wet ground at its foot.
+  SOAKING (3): everything seen through or past the reeds, and the whole bed when seen from across the
+    water.
+
+SPOTS - four. Do not invent a fifth.
+  A THE BED FROM OUTSIDE, wide: reeds as a vertical band at the right of the water, all leaning one way.
+  B FROM INSIDE LOOKING OUT, medium: near stems narrowing the frame at both edges, everything beyond
+    them a bloom.
+  C THE EDGE, medium, low: where the last reeds meet open water and the tips catch ochre.
+  D THE TOPS, medium: reed tips against the sky with one bird on them, the stems under it leaning.
+
+PLATE: A drawn TWICE at one size - dry and wet - so the reed count can be checked, then B C D once each,
+  plus a close panel of three stems showing tip ochre and bare paper between.
+
+NOT: no character, no magenta, no green paint, no black or grey, no drawn leaf edges, serrations or
+sheaths, no cattail heads or drawn seed shapes, no white paint on the seeds, no reed crossing in front
+of the acacia, no reflection or anything drawn upside down in the water at their feet, no airbrush,
+gradient, glow or 3D render.
+```
+
+### §1.8 FruitTree — 🔴 대본이 스스로 신고한 자리 (아카시아가 아니다)
+
+```
+STAGE SHEET - FruitTree   (moya-daylight · anchor clause: THE ACACIA AND ITS SHADE, but read the first
+line below first · SCENE token: FruitTree)
+
+The low tree that drops fruit, standing between the rock hill and the water. One book lives under it.
+🔴 THIS IS NOT THE ACACIA AND MUST NOT BE DRAWN LIKE IT - the script itself flagged that the anchor had
+one tree clause and the series has three trees.
+
+FIXED PARTS - the four differences from the acacia, and they are the point of this sheet:
+  HEIGHT - about two grown zebras, so a warthog standing under it still has sky above him. The acacia
+    goes out of the top of the frame; this one does not.
+  CROWN - ROUNDED, not flat, and its leaves are in CLUMPS - four or five bunched masses with paper
+    between the bunches - not the acacia's separate scattered dabs.
+  TRUNK - short and single, branching low, as thick as a warthog's body.
+  PLACE - between the rock hill and the water, on the right of the plan. The acacia is at the left
+    third and the two are never in one frame close enough to be confused.
+  THE GROUND UNDER IT carries the fallen fruit: one uncountable mass with a ragged edge (see the Fruit
+    prop sheet), and a bare patch with a few pressed dents where a mass has been eaten away.
+
+SEASON HERE: this book is in the wet season. Grass around the trunk takes one blue to two lemon and the
+  leaf clumps close up. In the dry season the clumps open and paper shows inside each bunch.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): the trunk, the crown, the ground and the grass under it.
+  DRY (1): only the child and the fruit mass on the page that turns on it.
+  SOAKING (3): the water at the frame's edge and everything beyond the tree.
+
+SPOTS - four. Do not invent a fifth.
+  A WIDE, child eye level: the tree at frame right, the water at the lower left, the whole crown in
+    frame.
+  B LOOKING STRAIGHT DOWN at the ground under it: the fruit as one mass, no trunk in frame.
+  C AT THE TRUNK FOOT, medium: the short trunk, the low branching, fruit at its base.
+  D THE TREE BEHIND A DEPARTURE, wide: the tree at frame left with fruit still under it, the ground
+    running away to the right and empty.
+
+PLATE: A and the acacia sheet's SPOT A side by side at one size - 🔴 the two trees must be tellable
+  apart at a glance by crown shape and height alone - then B C D once each.
+
+NOT: no character, no magenta, no flat top (that is the acacia), no separate scattered dabs in the
+crown, no thorns, no fruit drawn hanging on the branches, no countable fruit on the ground except on
+the one page that counts it, no green paint, no black or grey, no airbrush, gradient, glow or 3D render.
+```
+
+### §1.9 SmallAcacia — 🔴 세 번째 나무 · 부러진 자리의 높이가 여기서 정해진다
+
+```
+STAGE SHEET - SmallAcacia   (moya-daylight · anchor clause: THE ACACIA AND ITS SHADE, at a young tree's
+size · SCENE token: SmallAcacia)
+
+A young acacia beside the water. One book breaks a branch off it and ends on the shoot that grows at
+the break, so the thing this sheet really has to fix is WHERE THE SCAR IS.
+
+FIXED PARTS:
+  THE TREE - the same flat top and the same drawing language as the big acacia, at about a giraffe
+    child's shoulder height, with 8 to 12 dabs in the crown instead of 20 to 30. Its trunk is one damp
+    mass no thicker than a zebra child's leg, and the whole tree fits inside the frame.
+  🔴 THE SCAR'S PLACE IS FIXED HERE: ONE low side branch leaves the trunk on the WATER SIDE at a
+    warthog's shoulder height. When it snaps, the pale torn face left on the trunk is at that height
+    and it is THE SAME SIZE as the torn face on the fallen branch (see the Branch prop sheet) - that
+    matching pair is what says this branch came off this tree.
+  THE SHOOT grows directly beside that scar and nowhere else: three touches, upright, and it is the
+    only finished thing on the page it appears on.
+  THE GROUND - dry plain grass, with the red road passing at a distance on the left.
+
+SEASON HERE: dry. 0 blue touches in the grass, the crown dabs open with paper between them.
+
+WHERE THE FINISH CHANGES:
+  DAMP (2): trunk, crown, ground.
+  DRY (1): the child, and either the branch or the shoot depending on the page.
+  SOAKING (3): the plain and the water beyond.
+
+SPOTS - four. Do not invent a fifth.
+  A THE WHOLE TREE with the low side branch still on it, medium wide, child eye level.
+  B THE SAME TREE, SAME SIZE AND SAME ANGLE, with the branch gone and the pale scar showing.
+  C CLOSE ON THE SCAR, with the shoot beside it and nothing else in the frame.
+  D FROM THE ROAD SIDE, wide: the small tree at frame right, the road running past at the left.
+
+PLATE: A and B one above the other at one size so the missing branch reads as a change and not as a
+  different tree, then C and D, plus one panel showing the trunk scar and the branch's torn face side
+  by side at one size.
+
+NOT: no character, no magenta, no green paint for the shoot (one lemon touch beside one sky touch), no
+black or grey, no bark texture, knots or growth rings, no second broken branch, no leaves on the fallen
+wood, no line on the trunk except at the break, no airbrush, gradient, glow or 3D render.
+```
+
+### 🔴 §1 이 메운 구멍 넷
+
+| 신고 (구판 §1) | 어디로 갔나 |
+|---|---|
+| **열매 나무**(04) · **작은 아카시아**(20) | §1.8 · §1.9 로 각각 시트를 만들고, 앵커 `THE ACACIA` 조항에 「나무가 셋이고 이것만 아카시아다」 한 줄을 올렸다 |
+| **굴**(07 · 08 · 22) | §1.5. 🔴 앵커에 **`THE BURROW` 조항을 새로 올렸다** — 안쪽이 (3) 보라 번짐이고 검정 구멍이 아니라는 것이 그 조항의 값이다 |
+| **물가 바위**(24) | §1.1 `FIXED PARTS` 의 `THE WATER ROCK`. 🔴 바위 언덕과 갈리는 자리는 **꼭대기다** — 언덕 꼭대기만 안 칠한 종이이고 물가 바위 꼭대기는 칠한다 |
+| **잎 진 아카시아의 실루엣**(16 p3 ↔ p6) | §1.4 `THE CROWN` + `SPOT D` + 플레이트. **B 와 D 를 한 판에 나란히 굽어 윤곽을 겹쳐 보게** 했다 |
+
 
 ---
 
@@ -701,6 +1186,42 @@ airbrush, gradient or 3D render.
 ⚠️ 단 **물웅덩이의 「진흙 테 셋」이 다섯 권(07·10·14·16·17·19)에서 최대치**라 「더 마르다」를 말할 여유가
 0이다 — 조항이 `three at the driest` 라 늘릴 수 없으니, **더 마른 것은 테가 아니라 남은 물의 크기로**
 말해야 한다는 한 줄이 앵커에 있어야 한다.
+
+### ✅ 앵커 수리 — 위 신고를 어떻게 처리했나 (2026-09-04 · `_ANCHOR-REPAIR.md` 갈래대로)
+
+> 🔴 **신고를 지우지 않고 남겨 둔다** — 위 표는 그때의 관찰 기록이고, 아래가 그 처분이다.
+
+| 신고 | 처분 | 앵커의 어느 줄 |
+|---|---|---|
+| ① 바위 언덕 터치 상한이 22권을 막는다 | **금지를 풀지 않고 거리를 갈랐다**(갈래 ③의 처방 = 상한을 올리지 말고 「무엇을 세는가」를 가른다). `FAR` 는 종전 2~4 터치 그대로, `NEAR` 는 **터치를 세지 않고** 「선이 없다·검정이 없다」로 판정 | `THE ROCK HILL` 전면 개정 + 자리 시트 §1.6 |
+| ② 무릎 조항이 깊이를 말하는데 대본은 자세를 요구한다 | 제안 그대로 **「발굽이 바닥에 닿는가」로 다시 썼다.** 눕는 것은 허용, 헤엄·뜨기·바닥이 안 닿는 곳은 금지 | `NOT` 의 마지막 항 |
+| ③ 해 조항이 없다 | **`THE SUN AND THE STARS` 를 여덟째 조항으로 올렸다** — 해 = 안 칠한 종이 · 높이가 시계 · 🔴 **역광은 실루엣이 아니라 「해 쪽 가장자리를 종이로 남기는 것」** | `STAGE CLAUSES` 신설 |
+| ④ 25권 손님의 흰 털 | 앵커가 **툼바의 갈기를 「인물에서 유일한 안 칠한 것」이라고 못 박고 있었고 그게 거짓이었다**(25 p1·p3·p4·p7). 「a child」로 좁히고 **몸에서 종이가 드러나는 둘째 자리**를 명시 | `CHARACTER DESIGN LANGUAGE` |
+| ⚠️ 진흙 테 셋이 여유 0 | 제안 그대로 **「넷째 테는 없다 — 더 마른 것은 남은 물의 크기로 말한다」** 한 줄 | `THE WATERHOLE` 조항 |
+| 🔴 굴 조항이 없다 | **`THE BURROW` 를 아홉째 조항으로 올렸다**(안쪽은 (3) 보라 번짐, 검정 구멍 아님) + 자리 시트 §1.5 | `STAGE CLAUSES` 신설 |
+| 🔴 나무가 셋인데 조항이 하나 | 앵커 `THE ACACIA` 첫 줄에 **「셋 중 이것만 아카시아다」** + 자리 시트 §1.8 `FruitTree` · §1.9 `SmallAcacia` | `THE ACACIA AND ITS SHADE` |
+
+### 🔴 관통 줄을 실제로 세었다 — 셋이 거짓이었다
+
+`_ANCHOR-REPAIR.md` 넷째 갈래(`ALWAYS` · `every page` · `without exception` 를 세어 보라)를 250쪽에 돌렸다.
+
+| 줄 | 실측 | 처분 |
+|---|---|---|
+| 🔴 관통 줄 `NECK: … the one magenta cord is at Moya's neck` | **250쪽 중 91쪽(36%)에 모야가 없다.** 04 · 08 · 11 · 17 · 19 는 **한 쪽도 없다** | bung 의 `HOLD` 와 같은 병 — 이대로 컷마다 붙이면 **모야 없는 쪽마다 자홍을 하나 만들어 넣는다.** 「on a page without Moya there is no magenta at all」로 조건을 달았다 |
+| 🔴 `THE BIG SKY … at least a third of the page height` | **250컷 중 58컷(23%)이 하늘을 못 담는다** — 익스트림 클로즈업 7 · 클로즈업 30 · 부감 23, 겹치는 2를 빼고 **58** | 「하늘이 원리상 없는 쪽이 넷 중 하나」인데 「매 쪽 3분의 1」은 규칙이 아니라 거짓말이다. **「지평선이 든 쪽에 한해」**로 조건을 달고 실측 수치를 조항 안에 적어 뒀다 |
+| 🔴 `Tumba … the only unpainted thing on any figure` | **25권 네 쪽에서 거짓**(할머니 등의 흰 털) | 위 표 ④ |
+| ⚠️ `Bare paper shows … inside the figures as much as around them` | 인물이 한 마리도 없는 쪽이 **하나**(06 p9) | `inside any figure as much as around it` 로 한 낱말만 고쳤다 |
+| ✅ `NOT ONE WRITTEN MARK ANYWHERE` | 글자·숫자·간판을 부르는 지문 **0쪽** | 그대로 |
+| ✅ `THE PLACE DOES NOT MOVE BETWEEN BOOKS` · `MAGENTA … nowhere else ever`(금지 쪽) | 반례 없음 | 그대로 |
+
+🔴 **갈래 ①(권 번호에 박힌 조항)은 이 시리즈에 없다** — `volume` 을 전수로 찾아 확인했고, 조항은 전부
+「dry / wet」 조건형이라 26~50권이 생겨도 밖으로 밀려나지 않는다. 이 시리즈가 그 함정을 피한 이유는
+**조항이 재고(무슨 나무·무슨 바위)를 안 들고 물리(터치 수·젖은 정도·파랑 개수)만 들고 있어서**다.
+
+🔴 **갈래 ③ 을 하나 더 손봤다** — `FINISHED THINGS PER PAGE = 2` 는 신고 목록에 없었는데,
+08권(돌 다섯 + 풀 뭉치 셋) · 21권(열매 더미) · 15권(무리) · 18권(갈대밭)이 **전부 상한을 넘길 수 있는
+모양**이었다. yuki `Firewood` 의 `a STACK is a RUN and is exempt from the repeat cap` 을 그대로 옮겨
+**「그 쪽이 세라고 하지 않는 무리는 하나다」**를 조항에 붙였다 — 상한은 2 그대로다.
 
 ## §4. 권별 경로표
 
