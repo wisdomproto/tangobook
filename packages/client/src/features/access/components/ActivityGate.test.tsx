@@ -5,8 +5,15 @@ import type { AccessState } from '@tangobook/shared';
 import { ActivityGate } from './ActivityGate';
 import * as authCtx from '@/features/auth/context/AuthContext';
 import * as accessHook from '../hooks/useAccess';
+import * as config from '../config';
 
-function mock(session: unknown, isEntitled: boolean, isConfigured = true) {
+/**
+ * 🔴 베타 플래그를 끈 상태가 기본이다 — 이 파일이 지키는 건 **베타 이후 정책**이라
+ *    켜 둔 채로 두면 벽 관련 기대가 전부 무의미해진다(다 통과해 버린다).
+ *    베타 동작은 마지막 describe 에서 따로 본다.
+ */
+function mock(session: unknown, isEntitled: boolean, isConfigured = true, beta = false) {
+  vi.spyOn(config, 'BETA_OPEN', 'get').mockReturnValue(beta);
   vi.spyOn(authCtx, 'useAuth').mockReturnValue({
     session,
     isConfigured,
@@ -70,5 +77,25 @@ describe('ActivityGate', () => {
     mock(null, false);
     renderGate();
     expect(screen.getByText('독후활동')).toBeInTheDocument();
+  });
+});
+
+/**
+ * 🔴 베타 기간(BETA_OPEN=true) — 벽이 하나도 서지 않는다.
+ *    `useAccess()` 만 열면 반쪽이다. 이 컴포넌트는 `!session` 을 **직접** 보기 때문에
+ *    훅이 무슨 값을 주든 미로그인이면 가입 벽이 섰다. 그 회귀를 여기서 잡는다.
+ */
+describe('ActivityGate — 베타 개방', () => {
+  it('미로그인이어도 벽이 없다', () => {
+    mock(null, false, true, true);
+    renderGate();
+    expect(screen.getByText('독후활동')).toBeInTheDocument();
+    expect(screen.queryByText(/회원가입|무료 체험이 끝났어요/)).toBeNull();
+  });
+
+  it('로그인했고 권한이 없어도 벽이 없다', () => {
+    mock({ user: { id: 'u1' } }, false, true, true);
+    renderGate();
+    expect(screen.queryByText(/회원가입|무료 체험이 끝났어요/)).toBeNull();
   });
 });

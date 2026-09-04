@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useAccess } from '../hooks/useAccess';
+import { BETA_OPEN } from '../config';
 import { EntryGate } from './EntryGate';
 import { PaywallNotice } from './PaywallNotice';
 
@@ -28,7 +29,17 @@ export const ActivityGate: React.FC<{ children: React.ReactNode }> = ({ children
   const access = useAccess();
   const navigate = useNavigate();
 
-  const wall = !isConfigured ? null : !session ? 'signup' : !access.isEntitled ? 'expired' : null;
+  // 🔴 베타 기간엔 벽을 아예 만들지 않는다. `useAccess()` 만 열어선 부족하다 —
+  //    여기는 `!session` 을 직접 보므로 미로그인이면 권한과 무관하게 가입 벽이 섰다.
+  const wall = BETA_OPEN
+    ? null
+    : !isConfigured
+      ? null
+      : !session
+        ? 'signup'
+        : !access.isEntitled
+          ? 'expired'
+          : null;
 
   return (
     <>

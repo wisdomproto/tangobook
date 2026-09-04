@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { computeAccess, type AccessState } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { PAYWALL_ENABLED, LOCK_FOR_GUESTS, OVERSEAS_FREE_UNTIL_PADDLE } from '../config';
+import { BETA_OPEN, PAYWALL_ENABLED, LOCK_FOR_GUESTS, OVERSEAS_FREE_UNTIL_PADDLE } from '../config';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 
 /** 유료화 비활성(개발단계) 시 — 항상 접근 허용. */
@@ -35,6 +35,9 @@ export function useAccess(): AccessState {
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
   return useMemo(() => {
+    // 🔴 베타 기간 — 다른 무엇보다 먼저. 로그인 여부·언어·콘텐츠 종류를 안 본다.
+    //    베타 종료 = config.ts 의 BETA_OPEN 을 false 로.
+    if (BETA_OPEN) return ALWAYS_ENTITLED;
     // 🔴 게스트 30일 창 폐지(2026-08-11) — 미로그인은 **언제나 무료 책만**. 예전엔 진입 게이트에서
     //    "게스트로 시작"을 고르면 30일 전체가 열려, 같은 비회원인데 대우가 둘로 갈렸다(게이트를
     //    누른 사람 전체 / 그냥 온 사람 무료책). 게다가 가입은 그보다 더 좋은 조건이었다.

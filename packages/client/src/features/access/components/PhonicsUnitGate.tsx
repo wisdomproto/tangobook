@@ -4,6 +4,7 @@ import { canReadBook } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybook } from '@/features/storybook';
 import { useAccess } from '../hooks/useAccess';
+import { BETA_OPEN } from '../config';
 import { EntryGate } from './EntryGate';
 
 /**
@@ -24,8 +25,16 @@ export const PhonicsUnitGate: React.FC<{ children: React.ReactNode }> = ({ child
   const access = useAccess();
   const { data: unit, isLoading } = useStorybook(unitId);
 
+  // 🔴 베타 기간엔 단원 단위 잠금도 없다. 여기도 `!session` 을 직접 보므로
+  //    `useAccess()` 만으로는 안 열린다.
   const locked =
-    !session && isConfigured && !!unitId && !isLoading && !!unit && !canReadBook(unit, access);
+    !BETA_OPEN &&
+    !session &&
+    isConfigured &&
+    !!unitId &&
+    !isLoading &&
+    !!unit &&
+    !canReadBook(unit, access);
 
   return (
     <>
