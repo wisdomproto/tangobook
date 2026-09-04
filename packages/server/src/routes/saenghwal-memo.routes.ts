@@ -11,7 +11,10 @@ const router = Router();
 
 const MEMO_KEY = '_index/saenghwal-memo.json';
 const DOC_RE = /^[A-Za-z0-9-]{1,64}$/; // 대소문자 허용 (yuchiwon-Y01 등 대문자 docId 지원)
-const MAX_LEN = 4000;
+// 🔴 2026-09-04: 4000 → 20만. 브랜딩/마스터 문서 메모를 길게 쓰기로 했다(사용자).
+//    완전 무제한으로 두지 않는 이유 = 이 저장소가 **JSON 파일 하나**라서, 실수로 붙여넣은
+//    한 덩어리가 다른 기획서 메모까지 같이 무겁게 만든다. 산문으로는 사실상 제한이 없는 값.
+const MAX_LEN = 200_000;
 type MemoMap = Record<string, string>;
 
 async function load(): Promise<MemoMap> {

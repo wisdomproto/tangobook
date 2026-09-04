@@ -242,6 +242,8 @@ export function probeBook(sb: BookLike) {
     illust: pages.filter((p) => p.illustrationUrl).length,
     tts: pages.filter((p) => p.ttsUrl).length,
     cover: sb.coverImage ? 1 : 0,
+    // 마스터 문서가 표지를 그린다 — URL 문자열 하나라 rows 크기엔 거의 영향이 없다.
+    coverImage: sb.coverImage || null,
     words: isPhonics ? (pc.targetWords ?? []).length : ko.length,
     cards: isPhonics ? fc.filter((f) => f.imageUrl).length : koi.length,
     keypoints: isPhonics

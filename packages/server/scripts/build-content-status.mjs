@@ -392,7 +392,7 @@ async function main() {
   };
   write(OUT, html);
 
-  // rows(책별 원본)는 빼고 낸다 — 화면이 안 쓰는데 파일만 커진다.
+  // rows(책별 원본)는 빼고 낸다 — 화면이 안 쓰는데 파일만 커진다. 책 목록은 현황판 HTML 이 보여준다.
   const { rows: _drop, ...json } = st;
   write(OUT_JSON, `${JSON.stringify({ at: new Date().toISOString(), api: API, ...json }, null, 2)}\n`);
 

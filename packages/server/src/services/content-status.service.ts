@@ -9,32 +9,26 @@
 import { buildContentStatus } from '@tangobook/shared';
 import { R2Repository } from '../repositories/r2.repository.js';
 
-type Status = Omit<ReturnType<typeof buildContentStatus>, 'rows'> & { at: string; source: 'live' };
+type Full = ReturnType<typeof buildContentStatus> & { at: string; source: 'live' };
+type Status = Omit<Full, 'rows'>;
 
 // 🔴 캐시 상태는 별도 모듈에 있다 — 저장소가 무효화를 부르는데 여기를 import 하면 순환이 된다.
 import { contentStatusCache as C, invalidateContentStatus } from './content-status.cache.js';
 export { invalidateContentStatus };
 
-async function compute(): Promise<Status> {
+async function compute(): Promise<Full> {
   const list = await R2Repository.listStorybooks();
   // 요약엔 pages·key_objects 가 없어 한 권씩 열어야 한다(목록만 보면 전부 0 이 나온다).
   const full = await Promise.all(
     list.map((s) => R2Repository.getStorybook(s.id).catch(() => null))
   );
-  // 🔴 rows(책별 원본 1,200여 건)는 빼고 낸다 — 화면은 categories/seam/graph 만 쓰는데
-  //    같이 실으면 응답이 몇 MB가 된다. 책별 표가 필요하면 정적 현황판을 굽는다.
   const books = full.filter((b): b is NonNullable<typeof b> => b !== null);
-  const { rows: _rows, ...built } = buildContentStatus(books);
-  return { ...built, at: new Date().toISOString(), source: 'live' };
+  return { ...buildContentStatus(books), at: new Date().toISOString(), source: 'live' };
 }
 
-/**
- * 캐시된 현황. `fresh` 면 캐시를 무시하고 다시 계산한다.
- * 🔴 동시 요청이 겹쳐도 계산은 한 번만 한다 — 안 그러면 새로고침 두 번에 R2 를 2,500번 읽는다.
- */
-export async function getContentStatus(fresh = false): Promise<Status> {
+async function cached(fresh: boolean): Promise<Full> {
   if (fresh) C.data = null;
-  if (C.data) return C.data as Status;
+  if (C.data) return C.data as Full;
   if (!C.inflight) {
     C.inflight = compute()
       .then((s) => {
@@ -45,5 +39,18 @@ export async function getContentStatus(fresh = false): Promise<Status> {
         C.inflight = null;
       });
   }
-  return C.inflight as Promise<Status>;
+  return C.inflight as Promise<Full>;
+}
+
+/**
+ * 캐시된 현황. `fresh` 면 캐시를 무시하고 다시 계산한다.
+ * 🔴 동시 요청이 겹쳐도 계산은 한 번만 한다 — 안 그러면 새로고침 두 번에 R2 를 2,500번 읽는다.
+ * 🔴 `rows`(책별 1,200여 건)는 **달라고 할 때만** 준다 — 현황판·그래프는 집계만 쓰는데
+ *    같이 실으면 응답이 몇백 KB 가 된다. 마스터 문서처럼 책 목록이 필요한 화면만 `withRows`.
+ */
+export async function getContentStatus(fresh = false, withRows = false): Promise<Status | Full> {
+  const full = await cached(fresh);
+  if (withRows) return full;
+  const { rows: _rows, ...rest } = full;
+  return rest;
 }
