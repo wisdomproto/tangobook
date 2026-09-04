@@ -77,6 +77,40 @@ p9에서만 선을 갖는다. 나머지 쪽에서 같은 물건은 축축한 종
 > 들어오는 것을 보고, `RedRoad/Waterhole` 은 길 위에 서서 물이 시작되는 자리를 본다. 두 쪽이 같은
 > 자리인데 그림이 다른 이유가 그것뿐이고, 그래서 순서를 바꿔 적으면 안 된다.
 
+### §1.0 🔴 가까이 가는 카메라 — 아홉 장이 공유한다
+
+```
+STAGE SHEET - CloseWork   (moya-daylight · read this with any sheet below · not a place)
+
+The two cameras nearly every volume turns on, and no place sheet held either of them. The nine sheets
+below fix only WHAT IS BEHIND at these two distances; HOW THE FINISH IS SPENT is fixed once, here.
+
+🔴 WHERE TWO BODIES TOUCH. Muzzle to muzzle, muzzle to belly, two necks crossed, three heads laid
+  together - twenty-two of the twenty-five volumes close on this. ONE POINT IS FINISHED AND IT IS THE
+  POINT THEY MEET AT: step (1), dry paper, touches that hold their own edges, and the violet line
+  last. EVERYTHING ELSE IN THE FRAME, INCLUDING THE REST OF BOTH BODIES, GOES TO STEP (3) - one
+  soaking bloom, 0 countable touches, no edge anywhere. 🔴 THE TOUCH IS ONE OF THE PAGE'S TWO
+  FINISHED THINGS AND THE SECOND IS NOT SPENT: no prop, no plant and no third animal is finished on
+  a page like this. The background is ONE colour, and which one is named on that place's own sheet.
+🔴 WHEN ONE THING FILLS THE FRAME. A thorn in a hoof, one line on a forehead, three halves on bare
+  earth. THE THING CLIMBS TO STEP (1) WHATEVER IT IS ELSEWHERE - dry paper, its own edges - and it
+  takes the BODY COUNT OF 9 TO 14 TOUCHES, not the 4 to 6 a place-thing gets, with the violet line
+  laid on last and only where the paint does not already describe that part. It is then the page's
+  ONE finished thing and the second is not spent.
+  🔴 ITS SIZE IN THE STORY DOES NOT CHANGE WITH THE CAMERA. The thorn that fills a page here is
+  shorter than a forefoot when it is held up later in the same book, and that is not a contradiction:
+  the camera moved and the thing did not. Draw the two panels side by side once and check it is the
+  same thorn.
+  Nothing else in that frame is drawn: the rest is one soaking bloom of a single colour, and there is
+  no sky on such a page (the anchor's sky clause does not apply to a close-up).
+🔴 THE PLATE PANEL FOR EITHER CAMERA IS THE EMPTY FIELD BEHIND, never the bodies - characters stay
+  off stage sheets, and what a stage sheet owes these pages is the background and nothing more.
+
+NOT: no character on any plate, no magenta, no black or grey, no drawn edge on anything at step (3),
+no vignette, no blur and no depth of field of any kind - a thing is far because it is soaking, never
+because it is soft, no airbrush, gradient, glow or 3D render.
+```
+
 ### §1.1 Waterhole — 🔴 열여덟 권이 여기 선다
 
 ```
@@ -120,7 +154,7 @@ WHERE THE FINISH CHANGES - this is what the sheet is for:
     season. 🔴 NOTHING IS EVER DRAWN UPSIDE DOWN IN THE WATER - a reflection is horizontal touches of
     the same colours, and there is no ripple ring, no glint and no sparkle anywhere on this sheet.
 
-SPOTS - the five places the camera stands. Do not invent a sixth.
+SPOTS - the seven places the camera stands. Do not invent an eighth.
   A FROM THE BANK, wide, child eye level: bank along the bottom, water filling the lower half, the far
     rim across the middle, acacia left third, hill right.
   B AT THE WATER'S EDGE, close, muzzle height: where the blue meets the red earth, one ring in frame.
@@ -129,6 +163,11 @@ SPOTS - the five places the camera stands. Do not invent a sixth.
   D ON THE WATER ROCK'S TOP, looking back at the bank: the bank and the road below, the water at the
     left edge.
   E THE ROAD'S END, medium, low: the red road running in from the bottom left and stopping at the blue.
+  F LOW AT THE WATER ROCK'S FOOT, LOOKING UP: the rock's side filling the lower three quarters of the
+    frame and whoever has climbed it standing against open sky above it. 🔴 Its top is painted here as
+    everywhere - bare paper on top of a thing belongs to the rock hill alone.
+  G WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them ONE flat DEEP BLUE band and nothing else, or
+    the near bank's RED EARTH if the touch is down on the ground. No ring, no far rim, no acacia.
 
 PLATE: A drawn TWICE side by side at one size - dry with three rings and wet with none - so the two can
   be laid over each other and the same rim checked. Then B C D E once each, plus one small overhead
@@ -175,12 +214,17 @@ WHERE THE FINISH CHANGES:
   🔴 THERE IS NO MIDDLE GROUND WITH AN EDGE. Where the damp touches stop the bloom begins, and the two
     are told apart by countable touches versus none.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - six. Do not invent a seventh.
   A ACROSS THE PLAIN, wide, child eye level: grass filling the lower half, one flat horizon, sky above.
   B INSIDE TALL GRASS, medium, low: crossing blades filling both edges and the top, a slot of sky.
   C LOOKING STRAIGHT DOWN, close: a pressed place or a dug patch, no horizon at all.
   D THE WHOLE PLAIN FROM VERY FAR, extreme wide: sky two-thirds of the page, the plain one low band,
     a single closed ring of sleeping backs on it, and at night unpainted specks for stars.
+  E THE RING FROM INSIDE, medium, low: sleeping backs closing the frame on three sides, one gap
+    between two of them showing a band of grass and sky. 🔴 D is this same ring from very far and the
+    two must read as one ring - draw them on the plate one above the other.
+  F WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them SUN OCHRE grass touches leaning one way and
+    gone soaking, or bare LEMON ground. No horizon in frame, so no sky.
 
 PLATE: A drawn TWICE at one size - dry and wet - then B C D once each, plus one large panel of a dry
   tuft and a wet tuft at four times size so the blue-to-lemon ratio can be counted.
@@ -222,12 +266,14 @@ WHERE THE FINISH CHANGES:
   DAMP (2): the road surface, the ruts, the shoulder, the mound.
   SOAKING (3): the dust above knee height, the far mouth, everything past the shoulder.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - five. Do not invent a sixth.
   A ALONG THE ROAD, wide, child eye level: the band running from the bottom of the frame to the far
     mouth, empty, shoulders on both sides.
   B WHERE IT REACHES THE WATER, medium, low: the band stopping at flat blue.
   C DOWN AT THE RUTS, close, high: two hollows, and either violet in them (wet) or prints in them (dry).
   D THE ROADSIDE MOUND, medium, low: the heap at the left shoulder with the road running past it.
+  E WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them RED EARTH gone soaking, and in the dry
+    season the dust bloom above knee height. No ruts, no shoulder, no far mouth.
 
 PLATE: A drawn TWICE at one size - dry with the dust bloom and wet with bare-paper water in the ruts -
   then B C D once each.
@@ -272,7 +318,7 @@ WHERE THE FINISH CHANGES:
   🔴 A TREE AT STEP (3) HAS NO BRANCHES DRAWN IN IT, no eyes, no teeth and no face. That is the rule
     that keeps one book's night shape from becoming a monster.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - five. Do not invent a sixth.
   A UNDER THE CROWN LOOKING OUT, wide: shade in the foreground, the water as a flat band at the right
     edge, the crown cropped by the top of the frame.
   B AT THE TRUNK FOOT, medium, low: trunk filling the left, the stone beside it, shade touches on the
@@ -280,6 +326,9 @@ SPOTS - four. Do not invent a fifth.
   C THE SHADE'S EDGE, close, slightly high: violet touches stopping and dry ochre grass beginning.
   D THE WHOLE TREE FROM ACROSS THE WATER AT NIGHT, wide: one soaking violet bloom, nothing inside it,
     water in front of it.
+  E WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them the shade's VIOLET touches run together into
+    one bloom, or the crown's dabs gone soaking if the camera is under it. No trunk edge and no shade
+    boundary - the boundary between violet and ochre is a wide-shot thing.
 
 PLATE: B and D side by side at one size so the outlines can be laid over each other, then A and C,
   plus one panel of the crown drawn dry and wet at one size so the dabs can be counted.
@@ -325,12 +374,16 @@ WHERE THE FINISH CHANGES:
     black, so a dark opening is violet and it has no edge. No tunnel walls, no floor, no bedding.
   BARE PAPER: whatever the morning sun reaches, inside and out.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - six. Do not invent a seventh.
   A THE DOORWAY OBLIQUELY, medium: inside and outside in one frame, the sun wedge running in.
   B FROM BEHIND, wide: the burrow at the left, the water at the right, a figure walking away between.
   C THE DOORWAY GROUND, medium, slightly high - 🔴 the fixed size and angle, nothing else in frame.
   D FROM ABOVE THE MOUND, wide, low: standing on the mound's top and looking down at the doorway, with
     room at the top of the frame for a long neck to come down into it.
+  E LOW AT THE MOUND'S FOOT, LOOKING UP: the mound filling the lower half of the frame and whoever
+    stands on its top against open sky. The hole is not in frame from here.
+  F WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them the mound's RED EARTH gone soaking, or the
+    hole's violet bloom if the touch is at the doorway. 🔴 Never a black field.
 
 PLATE: C drawn TWICE at one size - cluttered and bare - then A B D once each, plus one small section
   diagram showing mound, hole, lip and heap in their fixed relation.
@@ -373,7 +426,7 @@ WHERE THE FINISH CHANGES:
   NEAR (2 damp, uncounted): one upright face, feathered, no line, top edge bare paper.
   SOAKING (3): the plain beyond the gully, the sky, the heat off the rock.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - six. Do not invent a seventh.
   A FROM BELOW, medium wide, low angle: the three masses stepping up, the top one against the sky, a
     small figure on it.
   B ON THE TOP LOOKING ACROSS, medium wide: the near figure at the left, 🔴 THE OPPOSITE WALL FILLING
@@ -381,6 +434,11 @@ SPOTS - four. Do not invent a fifth.
   C OVER HILL AND FOOT TOGETHER, wide, high: the steps, the foot with its burrow hole, and the water
     below in the distance with its rings.
   D THE FOOT, medium: the side of the lowest mass, its shade beside it, nothing else.
+  E LOW UNDER THE HIGHEST MASS, LOOKING UP: the three masses stepping up and filling the lower two
+    thirds, whoever stands on the flat top small against the sky, the top edge still bare paper.
+  F WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them one near rock face gone soaking - SUN OCHRE
+    with one VIOLET touch laid beside it - and 🔴 no bare paper at all, because at this distance no
+    top edge is in frame.
 
 PLATE: A and B side by side so the far count and the near face can be compared, then C and D, plus one
   small overhead diagram showing hill, gully and wall in their fixed relation.
@@ -421,12 +479,14 @@ WHERE THE FINISH CHANGES:
   SOAKING (3): everything seen through or past the reeds, and the whole bed when seen from across the
     water.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - five. Do not invent a sixth.
   A THE BED FROM OUTSIDE, wide: reeds as a vertical band at the right of the water, all leaning one way.
   B FROM INSIDE LOOKING OUT, medium: near stems narrowing the frame at both edges, everything beyond
     them a bloom.
   C THE EDGE, medium, low: where the last reeds meet open water and the tips catch ochre.
   D THE TOPS, medium: reed tips against the sky with one bird on them, the stems under it leaning.
+  E WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them three or four near stems gone soaking into
+    one vertical bloom with paper between. No tips, no seed specks, no water.
 
 PLATE: A drawn TWICE at one size - dry and wet - so the reed count can be checked, then B C D once each,
   plus a close panel of three stems showing tip ochre and bare paper between.
@@ -466,13 +526,15 @@ WHERE THE FINISH CHANGES:
   DRY (1): only the child and the fruit mass on the page that turns on it.
   SOAKING (3): the water at the frame's edge and everything beyond the tree.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - five. Do not invent a sixth.
   A WIDE, child eye level: the tree at frame right, the water at the lower left, the whole crown in
     frame.
   B LOOKING STRAIGHT DOWN at the ground under it: the fruit as one mass, no trunk in frame.
   C AT THE TRUNK FOOT, medium: the short trunk, the low branching, fruit at its base.
   D THE TREE BEHIND A DEPARTURE, wide: the tree at frame left with fruit still under it, the ground
     running away to the right and empty.
+  E WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them one leaf clump gone soaking, or the ground
+    under the tree with the fruit mass left unfinished. No trunk, no crown outline.
 
 PLATE: A and the acacia sheet's SPOT A side by side at one size - 🔴 the two trees must be tellable
   apart at a glance by crown shape and height alone - then B C D once each.
@@ -510,11 +572,14 @@ WHERE THE FINISH CHANGES:
   DRY (1): the child, and either the branch or the shoot depending on the page.
   SOAKING (3): the plain and the water beyond.
 
-SPOTS - four. Do not invent a fifth.
+SPOTS - five. Do not invent a sixth.
   A THE WHOLE TREE with the low side branch still on it, medium wide, child eye level.
   B THE SAME TREE, SAME SIZE AND SAME ANGLE, with the branch gone and the pale scar showing.
   C CLOSE ON THE SCAR, with the shoot beside it and nothing else in the frame.
   D FROM THE ROAD SIDE, wide: the small tree at frame right, the road running past at the left.
+  E WHERE TWO BODIES TOUCH (CloseWork §1.0): behind them dry plain grass gone soaking in SUN OCHRE.
+    🔴 If the scar or the shoot is what the two are over, THAT is the finished point and the bodies
+    are not.
 
 PLATE: A and B one above the other at one size so the missing branch reads as a change and not as a
   different tree, then C and D, plus one panel showing the trunk scar and the branch's torn face side

@@ -101,6 +101,21 @@ A LIT ROOM AT NIGHT is azure at the coarsest grind over everything EXCEPT one HA
 STEAM IS THE OTHER CLOCK (anchor): four passes on a cold morning, two on an ordinary day, one lying
   low along the ground in rain, none indoors as weather. Pot steam is a different thing and is
   always drawn (anchor STAGE CLAUSES).
+🔴 CLOSE ON TWO, AND WHAT THE LIGHT DOES AT THAT DISTANCE. Two faces turned to each other, two
+  hands over one thing, a muzzle against a shoulder - twenty-six pages turn on this camera and no
+  place sheet held it. THE TWO ARE THE PAGE'S TWO COARSE THINGS (anchor: at most two) AND NOTHING
+  ELSE ON THE PAGE TAKES THE COARSEST GRIND. The place behind them drops to ONE PASS AT THE FINEST
+  GRIND and becomes a single flat field with no grain, no furniture and no edge inside it - each
+  stage sheet below names which of its own fields that is. At night the field is azure and the two
+  are inside the hard-edged patch; 🔴 THE PATCH DOES NOT SOFTEN, SPREAD OR GROW AT THIS DISTANCE,
+  and its border is still cut.
+🔴 WHEN ONE THING FILLS THE FRAME. It climbs ONE STEP AND NO MORE: what was the place (2) becomes
+  the coarsest grind at four or five passes with the thin dry ink contour, and it is then ONE of the
+  page's two coarse things, never both. 🔴 ITS SIZE IN THE STORY DOES NOT CHANGE WITH THE CAMERA -
+  a thing drawn a hand wide here is the same true size two pages later, and the sheets below fix
+  that size, not this camera.
+🔴 THE PLATE PANEL FOR EITHER CAMERA IS THE EMPTY FIELD BEHIND, never the bodies - characters stay
+  off stage sheets, and what a stage sheet owes these pages is the background and nothing more.
 
 PLATE: one paper door drawn four times at one size - dark, afterglow, leaking, flash - side by side;
   one lamp patch on matting and one ochre round patch on a board; and one panel of a lit room at
@@ -108,7 +123,8 @@ PLATE: one paper door drawn four times at one size - dark, afterglow, leaking, f
 
 NOT: no character, no pink anywhere, no lettering or numerals, no flame, wick, ember, smoke or lamp
 body, 🔴 no glow, halo, bloom, ray or soft falloff at any edge of a lit patch, no lightning bolt or
-lit sky, no gradient or airbrush.
+lit sky, no gradient or airbrush, no vignette, blur or depth of field at any distance - a thing is
+far because it is ground finer and laid in one pass, never because it is soft.
 ```
 
 ### §1.1 Yard — 49쪽, 이 여관에서 가장 넓고 가장 많이 그려지는 자리
@@ -135,6 +151,14 @@ FIXED PARTS:
   THE PLATFORM - ONE low wooden platform standing on the dry side of the yard, ochre, waist high on
     an adult, wide enough for two to sit on. 🔴 IT IS THE SAME PLATFORM IN EVERY BOOK - two volumes
     sit on it and if each invents its own the yard becomes two yards.
+  🔴 THE MIDDLE POOL - the one pool with no sheet of its own, and two volumes work at it: the
+    first opens with three pages in it and the last lowers its final guest into it. Its rim follows
+    the LowerBath rule (wet stone burnt earth with ONE shell-white dot, dry stone pale with none,
+    the line between them cut) and it carries TWO PASSES OF STEAM - one more than the lower, two
+    fewer than the upper - so the whole ladder can be read off any wide view of the slope.
+  🔴 THE STEPPING STONE AND THE VERANDA LIP BELONG TO THE VERANDA SHEET (§1.4), not to this one,
+    even on the pages the script tokens as Yard. Their widths are fixed there and the footwear row is
+    measured against them; a thing measured on two sheets ends up two sizes.
   THE WASH TUB CORNER - one wide wooden tub standing on the ground beside the channel, with room to
     kneel at it. THE DRYING LINE - two posts on the far side of the yard from the tub, one cord
     between them at an adult's raised-hand height, empty unless the script hangs something.
@@ -154,6 +178,13 @@ SPOTS:
   E THE LINE AND THE TUB, medium: tub in the foreground beside the channel, the empty line beyond.
   F THE YARD FROM THE VERANDA STEP, medium wide, low: the stepping stone in the foreground, the yard
     and its steam past it - the view eight volumes open on.
+  G THE MIDDLE POOL'S RIM, medium, from the water's edge: its stone ring with the wet line cut across
+    it, two passes of steam over it, and the lower pool small below and the upper pool small above so
+    the ladder is in one frame.
+  H ALONG THE STONE PATH FROM THE ENTRY DOORWAY, medium wide, low: the flat burnt-earth slabs running
+    away to the gate, dry ochre earth on both sides of them, the gate posts small at the far end.
+  I CLOSE ON TWO (InnLight §1.0): behind them one flat field of the yard's ochre earth, or the pool's
+    azure if they are at a rim. No path, no platform, no line, no eaves.
 
 PLATE: A to F, plus panel A drawn twice at one size - ordinary day and snow - and one small overhead
   diagram showing pools, channel, path, platform, tub and line relative to gate and veranda.
@@ -203,6 +234,8 @@ SPOTS:
   D THE FAR END, medium: the basket against the wall and the bath door beyond it.
   E THE NIGHT RUN, medium wide, same camera as A: one azure field, two frame-corner angles, one
     leaking wedge on the boards, nothing else.
+  F CLOSE ON TWO (InnLight §1.0): behind them one flat field of board ochre with the grain
+    running one way, or at night the azure field with a single frame corner as the only angle.
 
 PLATE: A to E, with A and E one directly above the other at one size, plus the door drawn in the
   four brightnesses in a row.
@@ -249,6 +282,8 @@ SPOTS:
   D THE EVENING FLOOR, medium, same camera as A: everything sunk, one hard-edged patch on the boards
     between two places.
   E FROM THE KITCHEN DOORWAY, medium: the dim opening in the foreground and the bright boards past it.
+  F CLOSE ON TWO (InnLight §1.0): behind them the boards' ochre, or the flat ink dark
+    under the board end if the two are down at the edge - and nothing is drawn inside that dark.
 
 PLATE: A to E, plus panel B drawn three times at one size - three specks, one speck, empty.
 
@@ -298,6 +333,8 @@ SPOTS:
     reaching the stone.
   E IN RAIN, medium: the eave line, the fall of water clear of the boards, the wet outer strip with
     its hard border.
+  F CLOSE ON TWO (InnLight §1.0): behind them the boards' ochre, or the stepping stone's
+    burnt earth, or one blank paper door at whichever of its four brightnesses the page is on.
 
 PLATE: A to E, with A and D one above the other at one size, plus panel B twice (five pairs, one
   pair) and one elevation of the stone against a standing child for width.
@@ -346,6 +383,9 @@ SPOTS:
   D THE HEAD OF THE BEDDING, close, straight down: the folded clothes stack, squared.
   E THE FLASH, medium, same camera as A: the yard-side paper panel gone to shell white, cut square by
     its frame, throwing three long hard shadows across the matting - 🔴 no bolt and no sky.
+  F CLOSE ON TWO (InnLight §1.0): behind them the azure field, the two inside the
+    lamp's hard-edged patch and nothing else in it - which is what the room's own clause already
+    asks of eleven last pages. By day, the flat ochre matting with no grain.
 
 PLATE: A, B and E one directly above the other at one size, then C and D.
 
@@ -388,6 +428,8 @@ SPOTS:
   C THE OUTSIDE DOOR, medium, from inside - drawn four times on the plate at the four openings.
   D THE MATTING, close, straight down: one flat ochre field with one travelling thing on it.
   E THE ROOM AT NIGHT, same camera as A: azure field, one hard-edged lamp patch, door frame angles.
+  F CLOSE ON TWO (InnLight §1.0): behind them one flat ochre matting field, or the
+    wall above the chest with the chest itself out of frame.
 
 PLATE: A and E one above the other at one size, then B, D, and C's four openings in a row.
 
@@ -433,6 +475,8 @@ SPOTS:
   D THE ROAD, medium, along it: the wall, the road, the hill shoulder - EMPTY.
   E THE GATE SHUT, medium, from inside at evening: two flat leaves, the sky above them sunk, a thin
     pass of steam over the channel.
+  F CLOSE ON TWO (InnLight §1.0): behind them one post's flat ochre field with its single
+    ink corner, or the empty road at the finest grind with no hill shoulder in frame.
 
 PLATE: A to E, plus one DEPTH panel - a near standing figure silhouette and a figure at the hill
   shoulder in the same frame, the far one smaller than the near one's head.
@@ -468,6 +512,11 @@ FIXED PARTS:
   THE DOOR - one wide opening to the yard, its threshold flat. Open, it is a rectangle of the yard
     with the day's steam in it; the light coming in is a FLAT EVEN FIELD on the earth floor, never a
     beam and never a shaft.
+  🔴 THE ENTRY POST - one plain ochre upright standing where the earth floor meets the raised
+    board floor. It is drawn to the Gate sheet's post spec (§1.7 SPOT B: one flat field, ONE ink
+    corner line down it, no wood grain) and it is WIDE ENOUGH TO HIDE A CHILD AND NOT AN ADULT - one
+    volume is two children on its two sides. The only difference from a gate post is what shows
+    behind it: the earth floor and the board edge, never the yard.
   A WOODEN TUB stands upright against the wall in one corner and stays there.
 
 SPOTS:
@@ -479,6 +528,10 @@ SPOTS:
   D THE BOARD EDGE, low: the ink dark under it with a scrape line in the earth leading out of it.
   E AT NIGHT, medium, same camera as A: the earth all sunk, one hard-edged wedge leaking from the
     paper door of the house onto the stone, and the toes of one pair inside that wedge.
+  F THE POST, medium, low: the upright standing floor to ceiling at the middle of the frame with the
+    earth floor either side of it and the board edge behind - the frame one volume is built on.
+  G CLOSE ON TWO (InnLight §1.0): behind them the packed earth floor as one flat ochre field, or the
+    flat ink dark under the board edge. No wall row, no doorway, no post.
 
 PLATE: A to E, with A and E one above the other at one size, plus B at three counts and C's five
   states in a row.
@@ -525,6 +578,9 @@ SPOTS:
   D THE BOARDS, close and low: grain, one azure-pass footprint with a hard edge.
   E AT EVENING, medium, same camera as B: a hard-edged wedge lying across the side of a stack so the
     layer lines run through it.
+  F CLOSE ON TWO (InnLight §1.0): behind them the boards' ochre with grain, or one shelf
+    bay as a flat field with its stack read as a block and its layer lines gone. 🔴 Nothing behind
+    them is pink - the pink is the child's neck towel and it is never on this shelf.
 
 PLATE: A, B, D, E, plus C at three heights in a row, and one elevation of the shelf against a
   standing child silhouette showing chest / tiptoe / out of reach.
@@ -576,6 +632,8 @@ SPOTS:
   D THE BLOCK, close, from the front: solid stone face, no opening - the check panel.
   E AT EVENING, medium, same camera as A: the yard doorway sunk, one hard-edged patch on the board
     lip, one thread of steam above the seated lid.
+  F CLOSE ON TWO (InnLight §1.0): behind them the dim back wall as one flat medium
+    field, or the block's burnt earth - 🔴 never the pot's mouth and never an opening in the block.
 
 PLATE: A to E, plus B's three lid positions and the three steam counts in two rows at one size.
 
@@ -625,6 +683,9 @@ SPOTS:
   C A CLEAR STROKE, very close: the wiped shape with rain runs visible through it.
   D FROM THE CORRIDOR, medium wide, low: the boards running to the misted doors, the yard gone to blots.
   E AT EVENING, medium, same camera as A: the low row lit by a hard-edged patch, the upper rows faint.
+  F CLOSE ON TWO (InnLight §1.0): behind them one misted pane as a flat shell-white
+    field with the yard behind it having no shape at all. A clear stroke may cross it and it is
+    still a hole, not a line.
 
 PLATE: A, D, E, plus B's three thicknesses in a row at one size and C large.
 
@@ -670,6 +731,8 @@ SPOTS:
     gone with the hole, the hole at dusk.
   C THE HOLE, very close, straight down: the ink opening and its four crumbs.
   D THE FURROW, close and low, looking along it: the low steam thread running away between two ridges.
+  E CLOSE ON TWO (InnLight §1.0): behind them one ridge's ochre mass, or one leaf clump
+    as a flat green field with no leaves drawn in it. The furrow steam stays, one pass, low.
 
 PLATE: A, C, D, plus B's three states one above the other at one size.
 
@@ -711,6 +774,9 @@ SPOTS:
   C A FINGERTIP, very close, high angle: the surface, the touch point and its small ripple ring, the
     wrist plainly clear of the water.
   D AT NIGHT, medium, same camera as A: azure field, the water one step paler, two steam passes.
+  E CLOSE ON TWO (InnLight §1.0): behind them the flat pale azure of the water, or the
+    rim's dry stone. 🔴 No body goes into the water at this distance either - the hand rule above
+    still holds when the camera is close.
 
 PLATE: A and D one above the other at one size, then B (wet line low and high) and C.
 
@@ -751,6 +817,8 @@ SPOTS:
     pool's narrow one for comparison.
   D FROM ABOVE, looking down the slope: the upper pool at the near edge and the two lower pools small
     below with fewer passes each.
+  E CLOSE ON TWO (InnLight §1.0): behind them the four passes of steam and nothing
+    else, or the coarse burnt-earth rim. Shell white, never pure white.
 
 PLATE: A to D, plus one LADDER panel - upper (four passes) / middle (two) / lower (one) in a row at
   one size.
@@ -787,6 +855,8 @@ SPOTS:
   B THE PATCH, close, straight down: the board, the round pale field, the pillow end inside it.
   C THE ROOM BY DAY, same camera as A: the paper door pale and whole, matting flat, bedding folded -
     drawn so the one-door, one-bed count is unmistakable.
+  D CLOSE ON TWO (InnLight §1.0): behind them the azure field with the round ochre
+    patch, or the paper door pale and whole by day. Only ever one bed in frame here.
 
 PLATE: A and C one directly above the other at one size, then B.
 
@@ -921,8 +991,9 @@ STATES - draw all at consistent scale:
   8 ON WET STONE - a single dragged water streak one clog wide, one pass of azure over the ochre
     with a hard edge, and no prints at all.
 
-FINISH: shoes are usually the place they stand in - medium grind, two passes, no contour. 🔴 IN
-  VOLUMES 02 AND 11 THEY ARE THE THING THE STORY IS ABOUT: coarsest grind, four passes, a thin dry
+FINISH: shoes are usually the place they stand in - medium grind, two passes, no contour. 🔴 ON ANY PAGE
+  THAT TURNS ON THE SHOES THEMSELVES - which way the toes point, how many pairs stand in the row, or
+  the mark they leave - THEY ARE THE THING THE STORY IS ABOUT: coarsest grind, four passes, a thin dry
   ink contour, and then they are one of the two coarse things on the page. Never both a coarse shoe
   row and a coarse figure and something else.
 
@@ -959,7 +1030,8 @@ STATES - draw all at consistent scale:
   6 A HILL WITH A CHILD IN IT - a domed mass with 0 interior marks and one small opening at the
     top edge. The shape alone must read as somebody hiding.
   7 SOAKED - a squat dense lump, darker: the same ochre with ONE pass of azure over it and a hard
-    edge where the wet stops. 🔴 THREE OF THESE AT ONCE, one large and two small (volume 14).
+    edge where the wet stops. 🔴 THREE OF THESE AT ONCE, one large and two small, whenever a household's
+    bedding is washed together.
   8 HUNG AND FILLED WITH WIND - on a line, the lower edge lifted, all of them bellying the SAME way.
   9 THE HAND-PRESSED SURFACE - flat behind the hand, two low pushed ridges in front of it, and the
     two halves parting exactly at the fingertips.
@@ -1269,7 +1341,8 @@ STATES:
 
 FINISH: 🔴 THE DOT IS THE ONLY PLACE SHELL WHITE APPEARS ON A STONE and it is laid last, at the
   finest grind, one pass. Stones are the place they stand in - medium grind, no contour - except in
-  volume 10's close panels (p4, p5) where the two compared stones are the page's coarse things.
+  any page that asks the reader to tell a wet stone from a dry one, where the two compared stones
+  are the page's coarse things.
 
 NOT: no character, no pink, no lettering or numerals, no sparkle, star, streak or lens flare on the
   dot, no reflection in the water, no moss, crack or texture drawn inside the stone field, no
@@ -1400,7 +1473,7 @@ STATES:
   3 A ROW OF WHITE TOWELS, all the same length, hanging still.
   4 EMPTY AT DUSK - the same frame as 1, the cord a single line against a sunk yard.
 
-FINISH: the line is the place. 🔴 In volume 14 p7 the three filled quilts ARE the page and take the
+FINISH: the line is the place. 🔴 Whenever the filled quilts are what the page is about they ARE the page and take the
   coarsest grind - but then the posts and the cord drop back and the child below stays fine.
 
 NOT: no character, no pink, no lettering or numerals, no flapping lines, motion arcs or speed marks,
@@ -1432,7 +1505,7 @@ STATES: each of the four empty; B full of white towels; C with the six toys heap
   can be counted from the rim; C empty; D full of white towels with a hand on each end grip.
 
 FINISH: baskets are the place on every page - medium grind, two passes, no contour. 🔴 The only
-  exception is volume 08 p5, where the boat going in is coarse and the basket is not.
+  exception is a page about what is going INTO it, where that thing is coarse and the basket is not.
 
 NOT: no character above the wrist, no pink, no lettering, numerals or tags, no handle unless named
   above, no lid, no cloth lining, no cast shadow, no gradient or soft edge.
@@ -1456,9 +1529,9 @@ FORM - four road shapes and one house shape:
   3 BIG BACK LOAD - a tall lumpy pack that rises above the shoulders, with an open mouth at the top
     that things can be taken out of. (ox)
   4 CARRYING FRAME - a wooden A-frame with two shoulder cords, stood leaning against a doorpost when
-    not worn. (ox, volume 19)
+    not worn. (ox)
   5 🔴 THE HOUSE SHAPE - a market net-bag, bulging, carried on the FATHER'S back with one hand on
-    the cord (volume 25). It is the one bundle in twenty-five books that belongs to this house, and
+    the cord - the house's own bundle. It is the one bundle in twenty-five books that belongs to this house, and
     it must read differently from all four road shapes: open netting, not knotted cloth.
 🔴 A GUEST WITH NO BUNDLE AT ALL: the turtle carries a stick instead (§2.20). Do not give her one.
 🔴 A HOUSE TOWEL IN A GUEST'S HANDS IS CARRIED, NOT WORN - never at the neck or waist.
