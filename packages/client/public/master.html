@@ -204,6 +204,79 @@ textarea.dirty{border-color:var(--am)}
   </div>
 </section>
 
+<section data-id="id-map">
+  <div class="sh"><h2>구조 한 장 — 파닉스 · 동화책 · 아날로그</h2><span class="tag t-open">초안 (간단판)</span></div>
+  <div class="body">
+    <!-- 간단판. 디테일판은 「활동·연계」 탭에 따로 둔다(2026-09-04 사용자). 색: 파닉스=coral · 동화책=teal · 아날로그=amber -->
+    <svg viewBox="0 0 960 470" role="img" aria-label="파닉스와 동화책, 그리고 아날로그 콘텐츠의 연결" style="width:100%;height:auto;display:block;margin:0 0 10px;font-family:inherit">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--faint)"/>
+        </marker>
+      </defs>
+      <style>
+        .b{fill:var(--sf);stroke:var(--line);stroke-width:1.5}
+        .hd{font-size:17px;font-weight:700;fill:var(--ink)}
+        .t{font-size:13px;font-weight:600;fill:var(--ink)}
+        .ex{font-size:11.5px;fill:var(--mut)}
+        .lb{font-size:12px;font-weight:600}
+        .ln{fill:none;stroke:var(--faint);stroke-width:1.6;marker-end:url(#ah)}
+      </style>
+
+      <!-- 파닉스 (왼쪽) -->
+      <rect x="20" y="20" width="400" height="290" rx="16" fill="var(--cow)" stroke="var(--co)" stroke-width="1.5"/>
+      <text x="40" y="52" class="hd">🔤 파닉스</text>
+      <text x="40" y="72" class="ex">한글 32단원 · 영어 39단원 · 단원마다 나무 동화 한 권</text>
+
+      <rect x="40" y="92" width="360" height="92" rx="12" class="b"/>
+      <text x="56" y="116" class="t">익히기 콘텐츠</text>
+      <text x="56" y="136" class="ex">글자 → 음절 만들기 → 낱말 · 듣고 고르기 · 글자 쓰기(채점 99%)</text>
+      <text x="56" y="154" class="ex">한글 나무 동화 8쪽(그 글자로 된 이야기) · 안내 나레이션 4개 언어</text>
+      <text x="56" y="172" class="ex">복습 단원 7개 = 게임만(글자 사냥 · 뒤집기 · 듣고 음절)</text>
+
+      <rect x="40" y="200" width="360" height="92" rx="12" class="b"/>
+      <text x="56" y="224" class="t">학습 게임</text>
+      <text x="56" y="244" class="ex">그림 짝 찾기 · 탱고 보드 블록(실물 판 24×8) · 낱말 그리기</text>
+      <text x="56" y="262" class="ex">따라쓰기(한 글자씩) · 듣고 단어 · 글자 사냥</text>
+      <text x="56" y="280" class="ex">맞히면 → 그 낱말이 나오는 동화책 쪽이 뜬다 (SceneReveal)</text>
+
+      <!-- 동화책 (오른쪽) -->
+      <rect x="540" y="20" width="400" height="290" rx="16" fill="var(--grw)" stroke="var(--gr)" stroke-width="1.5"/>
+      <text x="560" y="52" class="hd">📚 동화책</text>
+      <text x="560" y="72" class="ex">공개 266권 + 대기 850권 · 5종 · 5개 언어 나레이션</text>
+
+      <rect x="560" y="92" width="360" height="92" rx="12" class="b"/>
+      <text x="576" y="116" class="t">읽기 콘텐츠</text>
+      <text x="576" y="136" class="ex">뷰어 자동 읽기(하이라이트) · 그림체 3종 골라 읽기 · 묶어 보기(잠자리)</text>
+      <text x="576" y="154" class="ex">명작 48 · 전래 40 · 생활 43 · 유치원 20 · 탐험 15 · 자연 100</text>
+      <text x="576" y="172" class="ex">레벨 L2 메인 · L3 전래 · (L1 씨앗은 나중에)</text>
+
+      <rect x="560" y="200" width="360" height="92" rx="12" class="b"/>
+      <text x="576" y="224" class="t">독후 게임</text>
+      <text x="576" y="244" class="ex">이야기 듣고 그림 찾기 · 쪽 순서 맞추기 · 이 물건 어느 장면?</text>
+      <text x="576" y="262" class="ex">단어 익히기 4종(그 책 낱말로 그림 짝·블록·그리기·쓰기)</text>
+      <text x="576" y="280" class="ex">🔜 문장 빈칸 채우기(문장 축) · 다음에 무슨 일이?</text>
+
+      <!-- 파닉스 → 동화책 -->
+      <path d="M420,60 C470,60 490,60 540,60" class="ln"/>
+      <text x="480" y="47" text-anchor="middle" class="lb" fill="var(--co)">배운 낱말이</text>
+      <text x="480" y="82" text-anchor="middle" class="lb" fill="var(--gr)">나오는 책 98%</text>
+
+      <!-- 아날로그 (아래) -->
+      <rect x="180" y="360" width="600" height="92" rx="16" fill="var(--amw)" stroke="var(--am)" stroke-width="1.5"/>
+      <text x="200" y="390" class="hd">✂️ 아날로그 콘텐츠 — 손에 잡히는 것</text>
+      <text x="200" y="412" class="ex">한글 워크지 A4 115쪽 · 영어 워크지 164쪽(앱 단원과 1:1, 인쇄물에 앱으로 돌아오는 버튼)</text>
+      <text x="200" y="430" class="ex">색칠 도안(칠하고 나면 「이 그림은 《신데렐라》에 나와요」) · 탱고보드 실물 블록(one of them)</text>
+
+      <!-- 게임 → 아날로그 -->
+      <path d="M220,292 C220,330 300,330 330,360" class="ln"/>
+      <path d="M740,292 C740,330 660,330 630,360" class="ln"/>
+      <text x="480" y="336" text-anchor="middle" class="lb" fill="var(--am)">같은 낱말 · 같은 그림이 화면과 종이에</text>
+    </svg>
+    <p class="ex" style="color:var(--mut);font-size:.88rem">🔴 한 그림에서 보이는 것: 파닉스는 <b>낱말까지</b>, 동화책은 <b>이야기까지</b>, 둘을 잇는 게 낱말(98%)이고, 게임 둘 다 <b>종이·블록</b>으로 내려온다. 대기업이 못 쓰는 「부터 ~까지」가 이 세 상자다.</p>
+  </div>
+</section>
+
 <section data-id="id-why">
   <div class="sh"><h2>왜 이 문장인가</h2><span class="tag t-fix">확정</span></div>
   <div class="body">

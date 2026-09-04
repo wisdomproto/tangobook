@@ -149,6 +149,31 @@ const CHANGJAK: ResourceItem[] = [
 ];
 
 /**
+ * 💼 BM — 사업계획·전략 문서. 콘텐츠 자료실(기획서)과 성격이 달라 폴더를 나눈다(2026-09-04 사용자).
+ * 🔴 셋 다 스크립트/서버가 만드는 산출물이라 라우트가 아니라 정적 HTML 새 탭이다.
+ */
+const BM: ResourceItem[] = [
+  {
+    href: '/master.html',
+    icon: '🧭',
+    label: '탱고북 마스터',
+    desc: '사업계획 전부 — 정체성·시장·브랜딩·콘텐츠·활동·BM·로드맵·숫자·이력·미결. 절마다 메모(R2)',
+  },
+  {
+    href: '/content-status.html',
+    icon: '📊',
+    label: '콘텐츠 현황판',
+    desc: '라인별 17축 · 난이도 · 이음매 · 책별 1,281권 검색 (라이브 /api/content-status)',
+  },
+  {
+    href: '/word-graph.html',
+    icon: '🕸',
+    label: '낱말 연결 그래프',
+    desc: '파닉스 단원 ↔ 동화책, 실로 이어서 · 한글/영어/중국어',
+  },
+];
+
+/**
  * 🧩 탱고 하드웨어 — 실물 보드·블록을 다루는 도구. 콘텐츠 자료실과 성격이 달라 메뉴를 나눈다.
  */
 const HARDWARE: ResourceItem[] = [
@@ -501,6 +526,11 @@ export function TopBar() {
           )}
         </button>
         <ResourceMenu
+          items={BM}
+          label="💼 BM"
+          tone="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30"
+        />
+        <ResourceMenu
           items={CHANGJAK}
           label="📖 창작동화"
           tone="text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/30"
@@ -515,35 +545,6 @@ export function TopBar() {
           label="🧩 탱고HW"
           tone="text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30"
         />
-        {/* 🧭 마스터 — 사업계획 전부(정체성·시장·브랜딩·콘텐츠·BM·로드맵·숫자·이력·미결) 탭으로. 절마다 메모. */}
-        <a
-          href="/master.html"
-          target="_blank"
-          rel="noopener"
-          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors font-semibold"
-          title="탱고북 마스터 — 사업계획 전부 한 곳에"
-        >
-          🧭 마스터
-        </a>
-        {/* 🔴 현황판은 스크립트가 굽는 정적 파일이라 라우트가 아니라 새 탭으로 연다.
-            다시 구우려면 `node packages/server/scripts/build-content-status.mjs` */}
-        <a
-          href="/content-status.html"
-          target="_blank"
-          rel="noopener"
-          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
-          title="전체 콘텐츠 현황 — 라인별·난이도·이음매·책별"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-            />
-          </svg>
-          현황판
-        </a>
         <button
           onClick={() => setVocabOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"

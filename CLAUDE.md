@@ -9,7 +9,7 @@ AI 기반 유아동 동화책 + 파닉스 + 어휘 저작도구. Gemini로 스�
 🔴 **정체성·포지셔닝·대상·BM·경쟁 이야기는 [docs/STRATEGY.md](docs/STRATEGY.md) 가 유일한 원본이고, 판단은 `strategy-director` 에이전트로 한다**(`.claude/agents/`). 이 파일(CLAUDE.md)은 **코드와 기능**만 다룬다.
 
 - 정체성 = **「첫 글자부터 혼자 읽기까지. 자기 말로, 그리고 영어로.」**(2026-09-04 확정) — 문장 안에 시작점과 끝점이 있어서 **그게 곧 책임 범위**다. 🔴 **안 한다** = 말하기·듣기 회화 · 전과목 · 성적 · 수학 과목. 경계 규칙 = **소재는 열려 있고 과목은 닫혀 있다**(공룡·우주 책 43%가 그래서 정당하다). 🔴 **「연결」은 정체성이 아니라 수단이다** — 전 과정을 직접 만들어서 따라오는 성질이지 목표가 아니다(2026-09-04 사용자 정정).
-- 🔴 **다시 조사·측정하지 말 것** — 경쟁사 포지셔닝·콘텐츠 권수·검색량·플레이탱고/교원 이력은 **STRATEGY.md §2·§3·§6 에 이미 있다**. 책별 현황은 [content-status.html](packages/client/public/content-status.html)(재생성 `node packages/server/scripts/build-content-status.mjs`). 사용자가 세 번 지적했다: 「매번 계속 새로 조사하게 되고 있어」.
+- 🔴 **다시 조사·측정하지 말 것** — 경쟁사 포지셔닝·콘텐츠 권수·검색량·플레이탱고/교원 이력은 **STRATEGY.md §2·§3·§6 에 이미 있다**. 책별 현황은 [content-status.html](packages/client/public/content-status.html) — **2026-09-04 부터 라이브**(`GET /api/content-status`, 책 저장·삭제 시 캐시 무효화; 정적 파일은 폴백, 재생성 `node packages/server/scripts/build-content-status.mjs`). 사업계획 전부는 [master.html](packages/client/public/master.html)(TopBar **💼 BM** 폴더). 사용자가 세 번 지적했다: 「매번 계속 새로 조사하게 되고 있어」. 🔴 **이음매(파닉스 낱말→동화책)를 손으로 세지 말 것** — 같은 값이 세 개(129/83·126/72·128/86)로 갈라졌고 전부 틀렸다. 맞는 값은 json 의 `seam.covered`(한글 126/128 · 영어 380/388). **나무 동화(한글 나무·ABC 나무)도 동화책이다** — 메인 라인업 밖이라고 빼면 67%로 잘못 나온다.
 - 🔴 **전략을 정했으면 STRATEGY.md 에 덧붙인다**(§4 결정 이력 · §5 아직 안 정한 것). 안 적으면 다음 세션이 또 처음부터 한다.
 
 ## 기술 스택
@@ -85,6 +85,8 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 
 ## 저작도구 자료실 페이지 (TopBar 📁 자료실 ▾)
 
+- **💼 BM 폴더**(TopBar, 2026-09-04 — 사업 문서는 콘텐츠 기획서와 성격이 달라 폴더를 나눴다): `/master.html` **탱고북 마스터**(사업계획 전부 — 탑다운 11탭 · 절 40개 · 절마다 메모, 메모 저장소는 기획서와 같은 `/api/saenghwal-memo` `master-*` · 숫자는 `/api/content-status` 라이브 → `content-status.json` 폴백 · 🔴 **책 목록은 안 그린다**, 현황판으로 링크) · `/content-status.html` **콘텐츠 현황판**(라인별 17축·난이도·이음매·책별 1,281권 검색) · `/word-graph.html` **낱말 연결 그래프**(파닉스 단원 ↔ 동화책, 단원 클릭 시 그 실만 · 한/영/중 탭). 🔴 셋 다 **집계식은 `packages/shared/src/utils/content-status.ts` 한 곳**(`buildContentStatus`) — 서버 라우트·`build-content-status.mjs`·`audit-reading-levels.mjs` 가 같은 함수를 쓴다. 각자 세면 값이 갈라진다(실제로 그랬다). 🔴 사실의 원본은 마스터가 아니라 `docs/STRATEGY.md`·`ROADMAP.md` — 굳은 결정은 그쪽으로 돌려보낸다.
+
 - `/library-master` — 라이브러리 순서 + 카테고리 CRUD + 책 메타 편집. 셀 단위 isPublic(`Storybook.publicByStyleLang`) + 📊 표 보기(`BookMatrixModal`). 양방향 동기화 `features/library/lib/public-sync.ts`. **셀 비공개는 BookDetailPage 학습자 화면에도 반영**(2026-06-09, 그림체 칩·언어 토글 필터).
 - `/vocabulary-table-ko.html` 📊 — 단어 마스터 표. 동화책 keyObject source, 난이도 분류 + 비명사 필터. `vocab-overrides API`(`GET/PUT /api/vocab-overrides` → R2). 영어판 `vocabulary-master.html`.
 - `/key-object-editor.html` ✏️ — 페이지 텍스트 기반 keyObject 재분류 + 책별 편집. 분석 source `public/_analysis/text-based-classify.json`(gitignored).
@@ -130,6 +132,9 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 
 ## 서버 gotcha
 
+- **`GET /api/content-status`**(2026-09-04) — 콘텐츠 현황을 **R2 에서 직접 계산**해 캐시. `?fresh=1` 재계산 · `?rows=1` 책별 목록까지(크다, 기본은 뺌). `saveStorybook`/`deleteStorybook` 이 `invalidateContentStatus()` 를 부른다 → 고친 책이 바로 대시보드에 뜬다. 🔴 캐시 상태는 **`content-status.cache.ts`(import 0개)** 에 따로 있다 — 저장소가 서비스를 import 하면 순환이라 상태만 든 모듈로 뺐다. 동시 요청은 `inflight` 하나로 합친다(안 그러면 새로고침 두 번에 R2 2,500번). 🔴 그전엔 스크립트가 `/api/storybooks/:id` 를 1,281번 때려 정적 파일로 구웠고 **프로덕션에선 배포 시점에 멈춰 있었다.**
+- **`fix-reading-levels.mjs`** — 선언 `readingLevel` 을 본문 실측(`_reading-level.mjs` = shared 와 같은 규칙)으로 덮는다. dry-run 기본·멱등·`--category`. 2026-09-04 전량 적용: **빈칸 885 · 불일치 67 → 0**. 호리 세상 탐험 15권이 `L1` 선언인데 실측 316어절(가장 긴 축)이라 정반대였다. 쓰기 전/후 대조로 낱말·쪽 손실 0 확인.
+- **`/api/saenghwal-memo` 한도 4,000 → 200,000자**(2026-09-04 — 마스터 메모를 길게 쓰기로). 완전 무제한이 아닌 이유 = 저장소가 JSON 파일 하나라 한 덩어리 실수가 다른 기획서 메모까지 무겁게 만든다.
 - **POST /api/storybooks** body 는 `{ storybook: {...} }` wrapper 필수. raw object → 500 "Cannot read properties of undefined (reading 'id')".
 - **동일 title 차단**: `R2Repository.saveStorybook` 에서 신규/title 변경 시 체크. 충돌 = `AppError(409, '같은 이름의 동화책이...')`. variant `__L\d+$`(같은 baseId) / storybook↔phonics 는 예외.
 - `normalizeStorybook` 가 `keyObjectImages[]` null entry 필터링(일부 책 silent 404 방지).
