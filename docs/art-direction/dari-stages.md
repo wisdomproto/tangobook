@@ -1525,4 +1525,6 @@ soft edge.
 
 ## §4. 권별 경로표
 
-미작성. 생성 = `node packages/client/scripts/build-series-routes.mjs --skeleton dari`.
+완성 = [`dari-routes.md`](dari-routes.md) — 25권 250쪽, 빈칸 0.
+🔴 그 문서 끝에 **표를 채우다 나온 신고 여섯 갈래**가 붙어 있다. 이 시트를 고치기 전에 그걸 먼저 읽을 것.
+재생성 = `node packages/client/scripts/build-series-routes.mjs dari --check`(빈칸·자리 어긋남 검사).

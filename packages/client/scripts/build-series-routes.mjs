@@ -39,7 +39,15 @@ export function routeOf(pages) {
   for (const [pg, t] of pages) {
     const tok = tokenOf(t);
     if (tok) last = tok;
-    out.push({ pg, place: tok ?? last, inherited: !tok });
+    // 🔴 **합성 토큰은 통째로 물려주지 않는다**(2026-09-04). `RedRoad/Waterhole` 은 「길에 서서 물이
+    //    시작되는 자리」라 **그 한 컷에만** 유효한데, 되짚는 쪽이 그대로 받으면 물이 프레임에 없는
+    //    쪽까지 물가가 된다(moya 17 p3~p5 가 그랬고, p6 이 `RedRoad` 를 새로 찍어 스스로 반증했다).
+    //    물려줄 땐 **앞 토큰(선 자리)만** 넘긴다 — 뒤는 그 컷에 든 것이지 자리가 아니다.
+    //    🔴 단 `Yard/C`·`Shore/A` 같은 **스팟**은 자르면 안 된다 — 그건 한 자리 안의 자리다.
+    //    합성(자리+자리)만 자른다: 뒤가 **두 글자 이상 ASCII 이름**일 때. 스팟은 한 글자이거나 한국어다.
+    const tail = last?.split('/')[1] ?? '';
+    const carried = /^[A-Za-z][A-Za-z0-9]+$/.test(tail) ? last.split('/')[0] : last;
+    out.push({ pg, place: tok ?? carried, inherited: !tok });
   }
   return out;
 }
