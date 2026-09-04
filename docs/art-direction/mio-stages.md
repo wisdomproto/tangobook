@@ -23,11 +23,13 @@ THAT SLIP IS LEFT IN`). 시트에도 미끄러진 자국을 하나씩 둔다. �
 ⚠️ **딩딩(전지)과의 판정축** — 둘 다 「깎아 낸다」라 위험하다. 딩딩은 **종이를 오려 얹고 모든 검정이
 이어져야** 하며 흰 것은 **밑장**이다. 미오는 **판을 파서 찍고** 흰 것은 **파낸 골**이라 그 안에 결이 남는다.
 🔴 **판정 = 흰 면에 결이 있는가**(미오 있음 / 딩딩 없음).
-⚠️ 셋째 — 🔴 `THE CLASS IS FIVE CHILDREN AND ONE TEACHER AND NOBODY ELSE`. 자리가 비면 **빈 채로 그린다**.
+⚠️ 셋째 — 🔴 `THERE IS NEVER A SIXTH CHILD`. 자리가 비면 **빈 채로 그린다**. 🔴 **손님은 여섯째 아이가 아니다** —
+26·28·50 이 손님 넷을 데려오고, 앵커가 그 규격(보라 0 · 어른 키 두 배 · 실루엣 표식 둘 · 멀면 얼굴 0 ·
+안긴 아기는 얼굴 없는 둥근 등)을 든다. 옛 문구 `AND NOBODY ELSE` 는 2026-09-04 에 폐기됐다.
 
 ---
 
-## §1. 자리 시트 — 8장 (후보 18에서 접음 · 🔴 2026-09-04 에 셋을 더했다)
+## §1. 자리 시트 — 8장 (후보 18에서 접음 · 🔴 2026-09-04 에 셋 · 2026-09-05 에 `TreeHouse` 프롬프트를 더했다)
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -35,10 +37,38 @@ THAT SLIP IS LEFT IN`). 시트에도 미끄러진 자국을 하나씩 둔다. �
 | `Kindergarten` | 마당 · 유치원 마당 · 마당 가운데 · 나무 밑 · 문간과 마당 · 통 옆 · 통 앞 · 문 안팎 | 🔴 **한 마당** — 나무·통이 다 그 안. 🔴 **창고는 뺐다**(→ `Store`) |
 | `River` | 강가 · 마을 강가 · 물가 · 물 위 · 강가 길 | |
 | `Shingle` | 자갈밭 · 강가 자갈밭 · 물가 자갈밭 | 🔴 강가의 **다른 바닥** |
-| `TreeHouse` | (나무집) | 18권 · 사다리 |
+| 🔴 `TreeHouse` | 나무집 · 나무집 밑 마당 · 사다리 · 나무집 창가 | 18권 · **41권 열 쪽 전부**. 🔴 프롬프트가 한 줄도 없었다 → **§1.6 신설** |
 | 🔴 `VillageRoad` | 유치원 앞 마을 길 · 길 가장자리 · 길 위 · 건너편 길가 | **신설**(§1.3). 40권 열 쪽 중 아홉. 🔴 **SCENE 이 p1 에 스스로 신고해 뒀다** |
 | 🔴 `BackLane` | 유치원 뒷길 · 나무 밑 · 뒷길 어귀 · 뒷길 옆 풀밭 · 굽은 길 · 유치원 앞 길 | **신설**(§1.4). 10권 열 쪽 중 아홉 |
 | 🔴 `Store` | 창고 문 앞 · 창고 문 · 창고 문 안팎 · 문 안팎 | **신설**(§1.5). 🔴 **문틈 폭이 시계라 마당에 접으면 그 권이 사라진다** |
+
+### 🔴 §1.0 여덟 장 공통 — `WHERE TWO BODIES TOUCH` (2026-09-05 신설)
+
+여덟 장의 SPOTS 가 **예외 없이 「자리를 보는 카메라」**다 — 넓게, 낮게, 위에서, 저 끝에서. 그런데 권마다
+두세 쪽이 **마주 본 두 얼굴 · 겹친 두 손 · 손목을 붙잡은 손 · 이마를 댄 자리**이고 그게 대개 **그 권이 도는 쪽**이다
+(34 p4 손목 · 40 p6 두 몸 · 45 p5 거울 앞 얼굴 · 48 p6 커튼 틈). 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+🔴 그래서 **여덟 장 전부에 스팟 하나를 더한다.** 시트마다 다시 안 적고 여기 한 번만 적는다.
+
+```
+SPOT (all eight sheets) - WHERE TWO BODIES TOUCH   close, at the height of the touch itself.
+
+Two bodies (or a hand and the thing it holds) filling the frame, cropped at the touch. 🔴 ONLY THE
+ONE TOUCHING POINT IS FINISHED - the fingers where they close, the cheek where it presses, the
+knuckles over the wrist. Everything round it is the loosest cut this medium has: a block shape with
+no interior mark and a ragged cut edge, and the cleared paper between the two bodies is the widest
+gouge on the sheet. 🔴 THE BACKGROUND IS ONE FLAT AREA OF THAT PLACE'S OWN COLOUR AND NOTHING ELSE -
+no furniture, no horizon, no second event:
+  Classroom SOOT with the floor furrows · Kindergarten bare paper · River one flat RIVER field ·
+  Shingle bare paper with at most 5 gouged stone points · TreeHouse SOOT with the plank furrows
+  running vertically · VillageRoad SOOT with the road furrows running across · BackLane SOOT with
+  the lane furrows running away · Store flat OVERLAP.
+🔴 WHEN ONE THING FILLS THE FRAME ITS FINISH GOES UP ONE STEP AND ONLY ONE: the thing keeps its cut
+outline and gains AT MOST ONE interior mark it did not have at arm's length (a crease, a ring, a
+crushed dent). It never becomes a drawn object. The same thing at arm's length on the next page
+keeps the outline and loses that mark - 🔴 that pair is what says the camera moved, not the thing.
+🔴 THE ACCENT IS NOT INVENTED INTO THE CORNER OF THIS SPOT. Nine pages of this series are framed
+too close to hold a child's purple thing; on those the crop is the reason and the purple stays out.
+```
 
 ### §1.1 Classroom — 실제 프롬프트 (가장 먼저)
 
@@ -63,6 +93,34 @@ FIXED PARTS: FIVE low desks and five chairs, no more · a low shelf of jars, at 
   · COAT HOOKS on the near wall, at most 6 · 🔴 SIX WINDOWS as rectangles with 0 frames, and THE
   WINDOW LIGHT IS UNPRINTED PAPER, the brightest thing in the room · the store cupboard at the
   back, its inside OVERLAP · a block corner with a mat · the teacher's tall stool.
+🔴 SEVEN MORE FIXED PARTS, AND THE FIRST OF THEM IS THE BUSIEST PLACE IN THE SERIES (added
+  2026-09-05 - eight volumes and fifty-one pages happen at it):
+  ① THE LONG TABLE UNDER THE WINDOWS - the eating table, and NOT the low drawing desks. One long
+    SOOT slab standing along the window wall with SIX CHAIRS down its far side and none at its near
+    side, so the camera always looks across it. 🔴 ONE CHAIR IS ALWAYS DRAWN EMPTY-ABLE: the chairs
+    are countable, identical and evenly spaced, because one volume turns on one of them staying
+    empty. 🔴 THE WINDOW LIGHT LIES ON THE TABLE TOP as ONE hard-edged rectangle of bare paper
+    running the length of the slab, its long edge parallel to the windows, 0 rays and 0 glow - and
+    it lies there on EVERY page at this table, so what sits in it reads as lit.
+  ② THE WASHING PLACE - a low basin shelf on the side wall with a hung mirror over it, one cloth
+    rail and a mug of brushes. The mirror follows the anchor: an empty cleared area with a cut edge,
+    and when a child stands in front of it, THAT ONE FACE and no room behind it.
+  ③ THE HOUSEKEEPING CORNER - ONE mat laid on the floor with its own furrow direction, and one low
+    play table on it. The mat's edge is where the furrows turn; there is no drawn border.
+  ④ THE WASHROOM DOOR AND ITS SILL - a narrow door in the side wall with a raised SOOT bar across
+    its foot. 🔴 IT IS NOT THE DOOR TO THE YARD (that one is wide and lets in bare-paper light) and
+    the two are never confused; this one gives onto OVERLAP.
+  ⑤ THE HOOK WALL WITH THINGS ON IT - the six hooks carry at most six garments as flat SOOT or
+    RIVER blocks with 0 interior detail, hanging at unequal heights, and 🔴 A HOOK THE PAGE COUNTS
+    IS DRAWN BARE, its shape complete, so an empty hook is legible against a full one.
+  ⑥ THE NAP FLOOR AND ITS CURTAIN - the same floor with the desks pushed to the walls, mats in a
+    row, and ONE curtain over the windows: a flat RIVER field hanging to the floor, whose only
+    feature is the GAP where two lengths meet - one straight gouged channel of bare paper, the
+    width fixed here and read on the page by how much of it is open.
+  ⑦ THE GROWN-UP'S LOW CHAIR - one broad seat with no back, lower than the teacher's tall stool and
+    twice the width of a child's chair. The five children's chairs are child-sized and this one is
+    not; a grown-up never sits on a child's chair. And ONE BOOKSHELF, at most 6 spines as flat
+    blocks with 0 lettering.
 EVERY EDGE IS A CUT EDGE - slightly ragged, never mechanically smooth. 🔴 ONE KNIFE SLIP per panel,
   left in.
 
@@ -71,9 +129,15 @@ SPOTS:
   B A DESK, medium, from a child's height.
   C THE WINDOW SILL, close: unprinted light and what sits on it.
   D THE BLOCK CORNER, medium high: the mat and the floor furrows.
+  🔴 E THE LONG TABLE, medium, from across it at a seated child's height: the slab, the row of
+    chairs beyond it, the bare-paper light lying along the top.
+  🔴 F THE WASHING PLACE, medium close, at a child's height: basin shelf, mirror, rail.
+  🔴 G THE NAP FLOOR, wide, high: mats in a row and the curtain closed behind them.
+  🔴 H WHERE TWO BODIES TOUCH - §1.0, background SOOT with the floor furrows.
 
-PLATE: A, B, C, D once each, plus 🔴 A FURROW DIAGRAM - the room as flat areas with an arrow in
-  each showing which way its gouges run - plus one panel of a knife slip done correctly.
+PLATE: A to H once each, plus 🔴 A FURROW DIAGRAM - the room as flat areas with an arrow in
+  each showing which way its gouges run - plus one panel of a knife slip done correctly, plus 🔴
+  THE LONG TABLE DRAWN TWICE at one size, every chair full and one chair empty.
 
 NOT: no character of any kind, no accent purple anywhere on this sheet, no lettering, numerals or
   wall charts, no drawn white line - every white is a gouged channel, no third block, no smooth
@@ -86,6 +150,18 @@ NOT: no character of any kind, no accent purple anywhere on this sheet, no lette
 `Kindergarten` = 마당 바닥(SOOT 고랑 가로) · 🔴 **큰 나무 하나**(밑동 OVERLAP) · 창고(안쪽 OVERLAP) ·
 그네 · 물통 · 문간. `River` = 강 = RIVER 한 면, 🔴 **둑 밑은 OVERLAP** · 오리 최대 5 · 물결 0.
 `Shingle` = 🔴 **자갈 = 고랑이 아니라 파낸 점**(14·25권), 강가와 바닥이 달라 별개 시트.
+
+🔴 **겨울에는 마당 바닥 고랑을 안 판다**(2026-09-05 · 44·47·48권 스물여섯 쪽). 앵커 `SNOW` 가 이기고
+이 요약이 진다 — 눈이 땅에 있는 쪽에서는 **바닥도 하늘도 통째로 맨 종이**이고 두 판은 **그 위에 선 것만** 찍는다.
+가로 고랑을 못 박아 두면 화가가 시트를 지키느라 **눈을 지운다.**
+🔴 그리고 **그 빈 화면에도 어두운 것 하나는 남는다** — 47권은 하얀 김이 열 쪽 중 넷을 도는데 김은 안 찍은 종이라
+**어두운 것 앞을 지나야만 읽힌다**(앵커 `SNOW` 새 줄). 반대쪽 끝이 48권이다: p1~p5 가 **벽부터 바닥까지 이어진
+OVERLAP 한 면**이고 그 어둠이 p6 의 빛 한 줄을 만든다 — 겨울이라고 다 비우는 게 아니라 **비운 쪽과 채운 쪽이 짝**이다.
+
+🔴 **갈대는 `River` 안이다** — 36권 다섯 쪽이 **갈대밭 안**이고 31권 두 쪽이 **갈대 그늘**인데 요약이 물과 길만 들었다.
+갈대는 SOOT 세로 줄기 무리(§2.30)이고 자리로서는 둘이다: **① 갈대 벽 앞**(줄기가 화면을 세로로 지르고 그 너머 강 한 면)
+**② 갈대 안**(줄기가 화면 앞뒤에 다 서서 강이 조각으로만 보인다 — 안에 있다는 것이 그 조각으로 읽힌다).
+🔴 **덤불은 `Shingle` 안이다**(34권 두 쪽) — 자갈밭 옆에 선 **SOOT 한 덩이**, 윗변만 너덜하고 안은 0.
 
 ### §1.3 VillageRoad — 실제 프롬프트 (🔴 신설 · SCENE 이 스스로 신고해 둔 자리)
 
@@ -250,6 +326,56 @@ NOT: no character face (the hand is a ruler, not a character), no accent purple,
   that comes through the door has hard cut edges and no beam.
 ```
 
+
+### §1.6 TreeHouse — 실제 프롬프트 (🔴 신설 · 41권 **열 쪽 전부** · 시트에 이름만 있었다)
+
+> 🔴 §1 표에 **「18권 · 사다리」 한 줄뿐**이었다. 41권은 열 쪽이 다 여기고, 그 권의 계기가
+> **빈 창틀 → 잎으로 다 두른 창**이라 **창틀이 시트에 없으면 그 권이 안 그려진다.**
+> 🔴 그리고 이 자리는 앵커 `ADULT IN FRAME` 의 **「높이」** 그 자체다 — 사다리가 서 있는 쪽은 조건에 걸린다.
+
+```
+STAGE SHEET - TreeHouse   (mio-cutschool · SCENE token: TreeHouse · bake AFTER Kindergarten)
+
+The tree house at the far end of the kindergarten yard: one hut up a trunk, one ladder leaning on
+it, and ONE EMPTY WINDOW FRAME that a whole volume fills.
+
+🔴 THE FURROW MAP:
+  THE HUT WALLS - SOOT cleared, furrows running VERTICALLY, plank by plank.
+  THE ROOF - cleared, furrows running WITH THE SLOPE.
+  THE TRUNK - one SOOT mass, furrows running UP it, at most 4 crack hairlines and never in a row.
+  THE YARD FLOOR BENEATH - bare paper, as in `Kindergarten`; the two are the same ground.
+  🔴 NO TWO TOUCHING AREAS SHARE A DIRECTION - wall against roof, roof against trunk.
+
+FIXED PARTS:
+  ONE HUT, small enough that two children fill it, standing at ONE trunk with a short railed
+    platform in front of it.
+  THE LADDER leaning against the platform, 🔴 SEVEN RUNGS, and the count never changes - height in
+    this book is read by WHICH RUNG a foot is on, so a ladder with an uncounted number of rungs
+    destroys every page that measures a climb.
+  🔴 ONE WINDOW OPENING IN THE HUT WALL, square, cut as a hole of flat OVERLAP with a ragged cut
+    edge and NO frame boards, NO glass and NO shutter. It is EMPTY by default and that emptiness is
+    the first page of one volume. 🔴 THINGS PUT ROUND IT - leaves, paper, a chain - are BARE PAPER
+    stamps laid ON the wall around the opening, never inside it, and the page counts how much of the
+    way round they have got: none · one side · three sides · all the way round.
+  THE YARD FENCE entering at ONE frame edge so the reader knows this stands in the yard, and NO
+    swing, tub or play house (those say `Kindergarten` wide, and this is the far corner).
+EVERY EDGE IS A CUT EDGE. 🔴 ONE KNIFE SLIP per panel, left in.
+
+SPOTS:
+  A THE WHOLE TREE HOUSE from the yard, wide, low: trunk, ladder, platform, hut, window.
+  B THE LADDER, medium, from the side: rungs countable, the ground and the platform both in frame.
+  C THE WINDOW, medium close, from outside at platform height: the opening and the wall round it.
+  D UNDER THE HUT, medium high: the ground, the ladder foot and what has fallen there.
+  🔴 E WHERE TWO BODIES TOUCH - §1.0, background SOOT with the plank furrows running vertically.
+
+PLATE: A to E once each, plus the FURROW DIAGRAM, plus 🔴 THE WINDOW DRAWN FOUR TIMES at one size -
+  bare, one side, three sides, all the way round.
+
+NOT: no character, no accent purple, no lettering or numerals, no glass, curtain or shutter in the
+  window, no drawn white line - every white is a gouged channel or a bare-paper stamp, no third
+  block, no smooth mechanical edge, no cleared area without furrows, no shading, gradient, glow,
+  cast shadow or soft edge, nothing paler with distance.
+```
 
 ---
 
@@ -1298,7 +1424,7 @@ FORM: a RIVER coat, one flat shape, a shoulder line, a front opening, and A ROW 
 🔴 BUTTONED WRONG IS THE BOOK: the dots and the holes are OFFSET BY ONE, so the coat hangs skewed -
   one hem corner lower than the other - and 🔴 ONE HOLE AT THE BOTTOM HAS NO BUTTON LEFT. Draw the
   wrong and the right front side by side at the same size.
-🔴 THE DARK MASS (volume 48): on the wall in an unlit room the coat is ONE tall shape with a
+🔴 THE DARK MASS (wherever the page says the room is unlit): on the wall the coat is ONE tall shape with a
   POINTED TOP and 🔴 ZERO interior marks - nothing in it may hint what it is. When the band of
   light crosses it, the SAME shape at the SAME size and angle gains three things and only three:
   the shoulder line, the button row, and the boots below. Those two panels must lay over one
@@ -1480,6 +1606,13 @@ FORM: THE BUSH is ONE flat SOOT mass with a ragged top edge and 0 interior detai
   on it as small bare-paper gaps in that mass, 🔴 AT MOST 9, in loose strings of two or three -
   countable, never a spatter. Off the bush a single berry is a small SOOT circle instead, because
   the ground is bare paper.
+🔴 THERE ARE TWO KINDS ON THIS BUSH AND THE STORY TELLS THEM APART BY A COLOUR THIS BOOK HAS NOT
+  GOT. They are told apart HERE, by size and by how they hang, and never by tint:
+  KIND A (the one she claims to know) - SMALL, hanging in strings of two or three, several at once.
+  KIND B (the one she carries in) - 🔴 TWICE THE WIDTH OF KIND A and hanging ALONE, one to a stem,
+    so a single one of them fills a palm the way three of Kind A would.
+  Both are bare-paper gaps on the bush and both are SOOT circles off it. 🔴 A PAGE THAT HOLDS ONE OF
+  EACH DRAWS THEM AT THE SAME DEPTH AND ON ONE LINE so the size difference is the whole comparison.
 STATES:
   1 THE BUSH, medium, berries hanging, at most 9.
   2 A HAND REACHING INTO THE MASS, berries at the same depth as the fingers.
@@ -1487,8 +1620,14 @@ STATES:
   4 ONE BERRY ALONE ON AN OPEN PALM, the palm cleared with 0 furrows so the berry is the only mark
     in it.
   5 A CLOSED FIST beside an open palm at the same size.
+  🔴 6 THE CRUSHED ONE - an open palm with NO berry in it and, in its place, THE CREASES OF THE PALM
+    FILLED WITH OVERLAP: at most 5 short channels following the lines of the hand, running from the
+    centre toward the wrist, each with a cut edge and a definite end. 🔴 NOT A STAIN, NOT A BLEED
+    AND NOT A GRADIENT - the wetness is which creases are filled and how far down they are filled,
+    and it is the darkest thing in the frame. State 6 stands beside state 4 at one size: the same
+    palm holding a thing, and the same palm holding the mark of the thing.
 
-PLATE: the five states, plus one berry at large size.
+PLATE: the six states, plus one berry of each kind side by side at large size.
 
 NOT: no character face, no accent purple, no lettering or numerals, no leaf veins on the bush, no
 berry gloss or highlight, no more than nine berries, no third block, no gradient, glow or soft

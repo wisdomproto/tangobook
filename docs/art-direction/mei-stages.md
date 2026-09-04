@@ -39,13 +39,39 @@
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
 | `Piazza` | 마을 광장 · 광장 · 무대 위와 광장 · 계단 · 무대 옆 계단 · 계단 첫 칸 · 화덕 앞 · 종탑 밑 | 광장에 무대·계단·화덕·종탑이 다 있다. SPOT `Piazza/A`~`Piazza/E` |
-| `Slope` | 비탈 풀밭 · 비탈 · 마을 뒤 비탈 · 비탈 아래 눈밭 | 🔴 **썰매 다섯이 좌표** |
-| `Chalet` | 산장 부엌 · 산장 문간 · 탁자 앞 · 긴 식탁 · 난로 옆 · 이층 계단 | §1.6 |
+| `Slope` | 비탈 풀밭 · 비탈 · 마을 뒤 비탈 · 비탈 아래 눈밭 · 🆕 굴밭 · 🆕 산장 앞 마당과 문 앞 계단 · 🆕 사과나무 밑 · 🆕 비탈 꼭대기 바위 · 🆕 눈굴 | 🔴 **썰매 다섯이 좌표**. 🔴 **눈 아닌 자리가 절반이다** — 34·38·41·43·44 가 각 열 쪽 → §1.1 에 여섯을 더했다 |
+| `Chalet` | 산장 부엌 · 산장 문간 · 탁자 앞 · 긴 식탁 · 난로 옆 · 이층 계단 · 🆕 산장 뒤 통 자리 · 🆕 처마 | §1.6. 🔴 **문 안쪽부터** — 앞 마당·계단은 `Slope` |
 | `Seats` | 메이 자리 · 루디 자리 · 소소 자리 | 🔴 **자리가 아니라 「누구의 자리인가」** · §3 |
 | `Slide` | 미끄럼틀 계단 앞 · 계단 앞 | 15권 · §1.6 |
 | 🆕 `Brook` | 개울 · 개울 둑 · 개울 속 바위 · 웅덩이 · 언 개울 · 얼음 위 · 통나무 위 | **38쪽 · 6권**(05·19·26·35·49 + 11). 🔴 최다 · §1.3 |
 | 🆕 `Path` | 산길 · 산길 초입/중턱 · 지름길 · 먼 길 · 갈림길 앞 · 바위 꼭대기 · 소소 집 앞 | **17쪽 · 4권**(04·11·13·20) · §1.4 |
 | 🆕 `Wood` | 숲 어귀 · 숲 안 · 숲 깊은 곳 · 숲속 덤불 앞 · 밤나무 아래 | **13쪽 · 3권**(04·32) · §1.5 |
+
+### 🔴 §1.0 여덟 장 공통 — `WHERE TWO BODIES TOUCH` (2026-09-05 신설)
+
+여덟 장의 SPOTS 가 **예외 없이 「자리를 보는 카메라」**다. 그런데 권마다 두세 쪽이 **볼에 닿은 가시 하나 ·
+이마를 댄 배 · 등에 통째로 얹힌 손 · 손을 경계로 갈린 등**이고 **그게 대개 그 권이 도는 쪽**이다(48권은 그것이
+착지다). 사물 시트는 `STATES` 만 들고 **카메라를 안 든다** — 그래서 여덟 장 전부에 스팟 하나를 더한다.
+시트마다 다시 안 적고 여기 한 번만 적는다.
+
+```
+SPOT (all eight sheets) - WHERE TWO BODIES TOUCH   close, at the height of the touch itself.
+
+Two bodies (or a hand and the thing it holds) filling the frame, cropped at the touch. 🔴 ONLY THE
+ONE TOUCHING POINT IS FINISHED - the cheek where the spine presses it, the fingers where they close,
+the hand where it lies on a back. Everything round it is the loosest work this medium has: a field
+with no outline, its strokes wider apart than anywhere else on the page. 🔴 THE BACKGROUND IS ONE
+FIELD OF THAT PLACE'S OWN COLOUR AND NOTHING ELSE - no furniture, no horizon, no second event:
+  Slope one MOSS field (bare PAPER in snow) · Piazza one EARTH field · Chalet that surface's own
+  repeated mark, one only · Brook one MOSS field · Path bare PAPER · Wood one EARTH trunk with the
+  MOSS shade field behind it · Seats the table's plank stroke · Slide the plank stroke.
+🔴 WHEN ONE THING FILLS THE FRAME ITS FINISH GOES UP ONE STEP AND ONLY ONE: it keeps its single
+outline and gains AT MOST ONE mark it did not have at arm's length (a crease, a bead, a dent). It
+never becomes a modelled object and it never gains shading. The same thing at arm's length on the
+next page loses that mark - 🔴 that pair is what says the camera moved, not the thing.
+🔴 THE ACCENT IS NOT INVENTED INTO THE CORNER OF THIS SPOT. Where the crop cannot hold the child's
+orange thing, the crop is the reason and the orange stays out.
+```
 
 ### §1.1 Slope — 실제 프롬프트 (가장 먼저)
 
@@ -84,20 +110,53 @@ TRACKS: a sled track on snow is where the bare paper is left AND the strokes eit
   that emptiness is the first page of one book.
 🔴 THE SAME RULE ON GRASS, and it is not only for snow: a trail of trodden grass is where the MOSS
   strokes lie DOWN with the walking, with the standing field either side unchanged - never a drawn
-  pair of lines, never thinner or paler grass. 🔴 THE LENGTH OF THE MARK IS THE RULER OF VOLUME 33
-  (one hand's span of flattened grass at the start, the whole slope crossed by the end), and volume 34
+  pair of lines, never thinner or paler grass. 🔴 ITS LENGTH IS A RULER WHEREVER A PAGE READS ONE
+  (one hand's span of flattened grass at the start, the whole slope crossed by the end) - 🔴 BUT IT IS
+  THE RULER OF NO WHOLE VOLUME. Volume 33 shows it on four pages and the other six are indoors, and
+  what runs through all ten of that book is the dried earth caught in the hedgehog's spines (cast
+  sheet). A state list on a sheet is not a route: WHICH pages carry it is decided by `mei-routes.md`.
+  Volume 34
   reads a running-about as a mark that doubles back on itself. Draw a short one and a slope-long one
   on one panel so the two ends of that range are fixed.
+
+🔴 SIX MORE PLACES ARE ON THIS HILLSIDE AND NONE OF THEM IS SNOW (added 2026-09-05 - the four spots
+  below were all sledging spots, and five volumes of ten pages each happen at these instead):
+  ① THE DOOR-YARD AT THE TOP - the flat ground in front of the chalet door where the slope stops,
+    with TWO STONE STEPS up to the door and NOTHING ELSE built on it. 🔴 IT IS A FIELD OF EARTH, not
+    of MOSS, and that change of stroke is where the yard stops and the slope starts - there is no
+    fence and no drawn line between them. The steps are THINGS, one outline each, two and never
+    three. (The chalet itself and its inside are `Chalet`; this sheet owns only the ground and the
+    steps.)
+  ② THE BURROW GROUND - a bank of bare EARTH on the slope with SMALL ROUND HOLES in it, AT MOST 6,
+    each one a hole in the field with NO outline and NO rim, at unequal heights, none mirrored. 🔴 A
+    HOLE IS THE ABSENCE OF STROKES, so an empty burrow and a full one look alike from outside and
+    the difference is only what stands at the mouth - which is why one volume can be six pages of
+    nothing coming out.
+  ③ THE SUMMER SLOPE - the same hillside with the MOSS field standing and NO snow anywhere: the
+    default for half of these books, and the trodden-grass rule above is its only track.
+  ④ THE APPLE TREE, standing alone part-way down and 🔴 NOT the single tree of the sledging pages -
+    it is shorter, its crown is one wide EARTH mass, and the ground under it is a MOSS field. Both
+    trees never appear in one frame.
+  ⑤ THE BERRY BANK - a low bush of MOSS at the top of the slope, one field with a ragged edge, and
+    the fruit on it as gaps in that field.
+  ⑥ THE CREST - the top of the slope closed by ONE big EARTH rock with an outline, and past it
+    nothing but bare paper. 🔴 THE CREST IS AS HIGH AS THE FRAME GOES; the far peaks are behind it
+    and the reader never sees over it.
 
 SPOTS:
   A THE WHOLE SLOPE from below, wide: fence across the bottom, tree part-way, peaks above.
   B IN THE LINE, medium, from behind: backs and sledges running away up the slope.
   C THE SNOW, close, high: bare paper and one outlined thing on it.
   D FROM THE TOP looking down, wide: the fall of the slope and the fence far below.
+  🔴 E THE DOOR-YARD, medium, at a child's height: the two steps, the door line at the frame edge,
+    the slope falling away behind.
+  🔴 F THE BURROW BANK, medium, straight on: the holes in a row across the frame, all of them in.
+  🔴 G UNDER THE APPLE TREE, medium low: the trunk, the crown mass overhead, the grass field below.
+  🔴 H WHERE TWO BODIES TOUCH - §1.0, background one MOSS field, or bare paper if the page is snow.
 
-PLATE: A, B, C, D once each, plus 🔴 A FIELD-OR-THING DIAGRAM - the slope drawn as flat areas, each
+PLATE: A to H once each, plus 🔴 A FIELD-OR-THING DIAGRAM - the slope drawn as flat areas, each
   marked FIELD (arrow for stroke direction) or THING (outlined) - plus the five sledges in a row by
-  length.
+  length, plus 🔴 THE SAME SLOPE TWICE AT ONE SIZE, in grass and in snow.
 
 NOT: no character of any kind, no accent orange anywhere on this sheet, no lettering or numerals,
   no outline on a field, no blending or smudging, no third pencil, no white pencil, no shading,
@@ -171,7 +230,7 @@ and it is one stream, drawn the same way every time.
   Volume 35 reads the afternoon off two of those lines one above the other. Never a gradient, never a
   darkening - the wet line is where one field stops and another begins.
 
-🔴 FROZEN (volume 49) - the same stream with the MOSS field GONE: the ice is bare PAPER from bank to
+🔴 FROZEN (wherever the SCENE says the brook is frozen) - the same stream with the MOSS field GONE: the ice is bare PAPER from bank to
   bank and the two pencils draw only what is on it or trapped under it. A thing under the ice is
   CROSS-HATCH seen whole through bare paper, not blurred and not paler. The banks do not change.
   🔴 The frozen and unfrozen stream must lay over each other: same width, same bend, same stones.
@@ -315,6 +374,16 @@ NOT: no character of any kind, no accent orange anywhere on this sheet, no lette
 - 🔴 **부엌 화덕**(02권) — `Piazza/D` 의 광장 화덕과 **다른 화덕이다.** 두 시트에 다 적는다: 이건 벽에
   붙은 실내 화덕이고 저건 광장 한가운데 선 것이다.
 
+🔴 **받아야 할 것 둘을 2026-09-05 에 더한다** — 26~50 에서 여덟 쪽이 이 둘이고 시트에 없었다.
+- 🔴 **산장 뒤 빨래 자리**(33권 여섯 쪽) — 뒷벽 밖의 좁은 땅에 **큰 나무 통 하나**가 놓인 곳. 통은 THING
+  (윤곽 한 줄, EARTH, 널과 테), 땅은 FIELD, 뒷벽은 그 면의 반복 마크. 🔴 **부엌 안이 아니다** — 통 안의
+  거품이 그 권에서 **화면에서 가장 밝은 것**이 되려면(§2.21) 둘레가 실내 어둠이 아니라 **바깥 맨 종이**여야 한다.
+  통 옆에 마른 것을 너는 줄 하나, 그게 전부다.
+- 🔴 **처마**(36권 두 쪽) — 앞벽 위로 내민 지붕 끝. 여기 매달리는 것(옥수수·마른 다발)은 **줄에 걸린 THINGS**
+  이고 개수는 쪽이 센다. 처마 밑은 벽면이라 반복 마크가 이어지고, 매달린 것만 윤곽을 갖는다.
+- ⚠️ **산장 앞 마당과 문 앞 두 계단은 `Slope` 시트가 든다**(41·31·33 의 그 쪽들이 SCENE 에서 `Slope` 토큰이다).
+  이 시트는 **문 안쪽부터**다 — 두 시트가 문지방에서 만나고, 만나는 자리의 바닥 획 방향은 서로 다르다.
+
 `Seats` = 장소가 아니라 **좌석표**(§3). 왼쪽부터 **소소 · 메이 · 루디**로 고정, 같은 탁자 같은 줄의 어느
 칸인지가 세 권의 사건이다.
 
@@ -445,7 +514,7 @@ FORM: EARTH, and 🔴 A SLEDGE IS A THING ON A FIELD, so it gets ONE CONTINUOUS 
 STATES: 1 the five in a row, side on · 2 one from above, deck planks countable · 3 one on its side,
   runners showing · 4 one in the line on the slope, seen from behind at a child's height.
 
-🔴 ROPE AND KNOT (volume 47): the rope at the front is ONE unbroken EARTH line and its knot
+🔴 ROPE AND KNOT (wherever a rope is in frame): the rope at the front is ONE unbroken EARTH line and its knot
   is a small tight EARTH lump at the sledge nose. TWO STATES, drawn at one size: TIGHT - the lump
   small and hard, the loop closed · LOOSE - the same lump opened into a visible loop with one rope
   end fallen free and lying on the snow. 🔴 That loose end in the snow is the volume's whole
@@ -488,7 +557,7 @@ STATES - all at one scale:
   6 THE SAME FIVE, clean - not one mark anywhere. 5 and 6 must lay over each other.
   7 TORN IN TWO by two paws, with at most 9 EARTH crumbs scattered on the table beside it.
   8 A BASKET OF LOAVES untouched, 0 crumbs on the board in front of it.
-🔴 THE ERRAND SET (volume 21) belongs on this sheet: the loaf, a FLOUR SACK and a SALT BAG, drawn
+🔴 THE ERRAND SET (wherever a child is sent on an errand) belongs on this sheet: the loaf, a FLOUR SACK and a SALT BAG, drawn
   in a row at one scale, all three EARTH with one outline each. They are counted 1 - 2 - 3 across
   that book, so the three must be plainly different shapes and never overlap on a table.
 

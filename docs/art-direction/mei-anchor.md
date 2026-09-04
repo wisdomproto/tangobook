@@ -68,6 +68,15 @@ RENDERING (finish hierarchy): an area is ONE field of strokes all running one wa
   interior detail. (Fourteen books of this series end on a row of five: sledges, stepping stones,
   cloths, furrows, sheets of paper, stakes, white loaves, bowls, wall pegs, quilts, bells, corn,
   apples, footprints. Finishing only one of the five kills the comparison, which is the book.)
+  🔴 EVERY VOLUME MEASURES SOMETHING, AND THE MEASURE AND THE MEASURED LIE SIDE BY SIDE. Six volumes
+  invented this separately, so it is the grammar of the series: a spoon stood against an empty jar ·
+  a grown-up's leg wading to the ankle and then two scratched lines on a rock at ankle and at knee ·
+  six grains on the floor going to none · two ear holes in a hat facing two ears · six paw prints
+  along a log · the gap between one footprint and the next. 🔴 THEY ARE DRAWN AT ONE DEPTH, AT ONE
+  SCALE AND ON ONE LINE, both of them finished things, and the ruler is never cropped out of the page
+  it rules. 🔴 WHEN THE MEASURE IS A COUNT OR A GAP, THE THINGS COUNTED STAY EXACTLY THE SAME SIZE
+  and only their number or the space between them changes - a ruler that also changes size measures
+  nothing. 🔴 A GROWN-UP'S BODY USED AS THE RULER IS DRAWN IN THE SAME POSE AS THE CHILD'S BESIDE IT.
   Repeats are capped and the cap is the whole design: trees at most 5,
   flowers at most 9 dots, windows at most 8, crowd at most 7 silhouettes with 0 faces and 0 hands,
   planks at most 6, jars at most 6, steam at most 5 curls, stars at most 14 separate paper holes.
@@ -85,6 +94,15 @@ PALETTE: PAPER WARM GREY #EDE9E1, sky, snow, plaster, light, everything not stro
   orange on the page; volume 10 ties a bell onto one. It is never given to anybody else and never
   duplicated.
   No sky blue, no purple, no pink, no white pencil anywhere ever.
+  🔴 WHEN THE STORY NAMES A COLOUR THESE TWO PENCILS HAVE NOT GOT, IT IS DRAWN AS A SHAPE, AN EDGE OR
+  A DEPTH OF CROSS-HATCH - never as a third pencil, never as a heavier press of one of the two, and
+  never by leaving the orange to stand in for it. Four volumes have already reached the same answer
+  and it is the rule: two kinds of berry are told apart by THE EDGE OF THEIR LEAVES, toothed against
+  smooth · a roast chestnut is told from a raw one by WHAT IS LEFT UNSTROKED, shell laid, kernel bare
+  · a hot face and a wept face are MORE STROKES CROSSED INTO THE EYE KNOT, nothing else · a cold nose
+  and a reddened eye are the same. 🔴 WHERE TWO THINGS DIFFER ONLY BY COLOUR IN THE TEXT THEY DIFFER
+  BY SIZE, BY PLACE IN THE ROW OR BY EDGE ON THE PAGE - the reddest apple is the topmost and the
+  biggest - and the sheet for that thing fixes which before the page is drawn.
 
 STAGE CLAUSES (the stage changes what the two pencils do, never which two they are):
   SLOPE - the hillside is ONE field of MOSS running downhill, 0 individual blades. Fences and
@@ -146,7 +164,11 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world 
   belongs to the five and would make a guest read as one of them), and it never joins their group
   silhouette. A guest on four feet stays on four feet and wears nothing. 🔴 A GUEST MAY HAVE AN
   ERRAND OF ITS OWN - the badger is walking somewhere the children are not - and that is the one thing
-  the grandmother never has.
+  the grandmother never has. 🔴 A GUEST BUILT LIKE THE GRANDMOTHER IS BUILT SMALLER, NOT DIFFERENTLY:
+  the baby bear is the grandmother's shape reduced - entirely rounded, no exaggerated part, no orange
+  - and he is HALF A CHILD'S HEIGHT, which is the one measurement that keeps him from reading as her
+  at a distance. 🔴 A GUEST WHO COMES BACK IN A LATER VOLUME IS THE SAME FIGURE AT THE SAME SIZE, and
+  the volume that brings him back does not re-specify him; the spec is here and there is one of it.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 

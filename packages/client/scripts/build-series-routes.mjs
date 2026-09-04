@@ -29,15 +29,30 @@ const SERIES = fs.readdirSync(DOCS).filter((d) => fs.existsSync(path.join(DOCS, 
 const only = process.argv.slice(2).filter((a) => SERIES.includes(a));
 const TARGETS = only.length ? only : SERIES;
 
-/** SCENE 한 쪽에서 무대 토큰을 꺼낸다 — `[Alley]` · `[Terraces/B · 칸 1]` → 'Alley' · 'Terraces/B · 칸 1' */
-const tokenOf = (t) => String(t).match(/<b>장소·시간<\/b>\s*\[([^\]]+)\]/)?.[1]?.trim() ?? null;
+/** SCENE 한 쪽의 `장소·시간` 줄 본문. */
+const labelOf = (t) => String(t).match(/<b>장소·시간<\/b>([^<]*)/)?.[1] ?? '';
+
+/** SCENE 한 쪽에서 무대 토큰을 꺼낸다 — `[Alley]` · `[Terraces/B · 칸 1]` → 'Alley' · 'Terraces/B · 칸 1'
+ *  🔴 대괄호 앞의 이모지·접두는 건너뛴다(`🔴 상상 그림 — [Barn]`). 전에는 `\s*\[` 라 그런 쪽의 토큰을
+ *  **못 읽고 앞 쪽을 물려받았는데**, 그 답이 우연히 맞았던 탓에 접두 한 글자가 경로표를 정하고 있었다
+ *  (pipo 35 p5, 9,500쪽 중 유일). 이제 토큰은 읽고, 상상 쪽 판정은 아래에서 **규칙으로** 한다.
+ *  `check-stage-tokens.mjs` 도 같은 방식으로 읽으므로 두 검사기가 같은 것을 본다. */
+const tokenOf = (t) => labelOf(t).match(/^[^[]*\[([^\]]+)\]/)?.[1]?.trim() ?? null;
+
+/** 🔴 그 쪽이 통째로 「상상 그림」인가 — `장소·시간` 줄이 스스로 그렇게 말한 쪽만이다.
+ *  (사물 하나만 상상인 쪽은 `배경·소품` 에 적혀 있고, 그 쪽의 자리는 진짜 자리라 여기 안 걸린다.) */
+const IMAGINED = /상상 그림|머릿속에 그린 그림/;
 
 /** 권 하나의 쪽별 자리 — 토큰이 없으면 앞의 이름 붙은 쪽을 물려받는다. */
 export function routeOf(pages) {
   const out = [];
   let last = null;
   for (const [pg, t] of pages) {
-    const tok = tokenOf(t);
+    let tok = tokenOf(t);
+    // 🔴 **상상 쪽은 새 자리를 들이지 않는다.** 아이가 머릿속에 그린 헛간은 그 권이 간 자리가 아니라
+    //    그 부엌에 앉아 떠올린 것이라, 토큰을 그대로 받으면 경로표가 「이 권이 헛간에 갔다」고 말한다.
+    //    앞 쪽과 같은 자리를 찍은 상상 쪽(dodo 셋)은 그대로 통과한다 — 바뀌는 건 **새 자리일 때뿐**.
+    if (tok && last && tok !== last && IMAGINED.test(labelOf(t))) tok = null;
     if (tok) last = tok;
     // 🔴 **합성 토큰은 통째로 물려주지 않는다**(2026-09-04). `RedRoad/Waterhole` 은 「길에 서서 물이
     //    시작되는 자리」라 **그 한 컷에만** 유효한데, 되짚는 쪽이 그대로 받으면 물이 프레임에 없는
@@ -75,6 +90,15 @@ if (process.argv.includes('--selftest')) {
   ok(r[2].place === 'Shop' && !r[2].inherited, '이름이 나오면 거기서 자리가 바뀐다');
   const head = routeOf(P({ p1: '<b>장소·시간</b> 같은 자리.' }));
   ok(head[0].place === null, '첫 쪽이 되짚기면 물려받을 것이 없다 — 빈칸으로 두고 신고한다');
+  const im = routeOf(P({
+    p1: '<b>장소·시간</b> [House] 부엌.',
+    p2: '<b>장소·시간</b> 🔴 상상 그림 — [Barn] 헛간, 낮.',
+    p3: '<b>장소·시간</b> [House] 같은 부엌 — 무무가 머릿속에 그린 그림.',
+    p4: '<b>장소·시간</b> [Shop] 가게 안.',
+  }));
+  ok(im[1].place === 'House' && im[1].inherited, '🔴 상상 쪽은 새 자리를 안 들인다 — 대괄호 앞 접두가 아니라 규칙이 정한다');
+  ok(im[2].place === 'House' && !im[2].inherited, '앞 쪽과 같은 자리를 찍은 상상 쪽은 그대로 통과한다');
+  ok(im[3].place === 'Shop' && !im[3].inherited, '상상이 아니면 새 이름이 그대로 자리를 바꾼다');
   console.log('\n셀프테스트 통과');
   process.exit(0);
 }
@@ -145,6 +169,29 @@ if (process.argv.includes('--skeleton')) {
   process.exit(0);
 }
 
+// ── 자리마다 몇 쪽·몇 권인가 ─────────────────────────────────────────────────
+// 🔴 시트가 이 숫자를 손으로 들고 있으면 반드시 낡는다 — 25권 시절에 적은 「2쪽 · 1권」이
+//    26~50 이 얹힌 뒤에도 그대로였고(mina `VillageLane` 은 실제 9쪽), 그 숫자를 믿고 시트가
+//    상태를 둘만 정해 두었다. **되짚는 쪽까지 세야 한다** — 토큰 붙은 쪽만 세면 물려받는
+//    일곱 쪽이 통째로 안 보인다. 그래서 `routeOf`(물려받기 포함)로 센다.
+if (process.argv.includes('--count')) {
+  for (const key of TARGETS) {
+    const scenes = loadScenes(path.join(DOCS, key));
+    const cnt = new Map();
+    for (const [b, pages] of Object.entries(scenes))
+      for (const r of routeOf(Object.entries(pages))) {
+        if (!r.place) continue;
+        const base = r.place.split('/')[0].split('·')[0].trim();
+        const c = cnt.get(base) ?? cnt.set(base, { pages: 0, books: new Set() }).get(base);
+        c.pages += 1; c.books.add(b);
+      }
+    console.log(`## ${key}`);
+    for (const [t, c] of [...cnt].sort((a, b) => b[1].pages - a[1].pages))
+      console.log(`   ${t.padEnd(16)} ${String(c.pages).padStart(4)}쪽 · ${String(c.books.size).padStart(2)}권`);
+  }
+  process.exit(0);
+}
+
 // ── 되짚는 쪽 판정 후보 ──────────────────────────────────────────────────────
 // 🔴 되짚는 쪽(「같은 …」)에는 토큰을 안 붙인다 — 규칙에 태우면 타로 18권 「같은 나무 밑」이 `나무` 에
 //    걸려 `WellTree` 가 되는데 그 권 나무는 `ForkTree` 다. 그래서 **앞 쪽에서 물려받는다.**
@@ -199,7 +246,10 @@ if (process.argv.includes('--resync')) {
     let book = null; const changed = [];
     for (let i = 0; i < lines.length; i++) {
       const bm = lines[i].match(/^## (\d+) 「/); if (bm) { book = bm[1]; continue; }
-      const m = lines[i].match(/^\| (p\d+) \| ([^|]*)\|(.*)$/); if (!m || !book) continue;
+      // 🔴 경로표 19개가 전부 CRLF 다. `(.*)$` 는 `.` 가 \r 을 안 먹어 **한 줄도 안 잡히고**,
+      //    그래서 이 `--resync` 가 그동안 말없이 `자리 갱신 0` 만 찍고 있었다(토큰을 고쳐도 표가 안 따라온다).
+      //    뒤 칸은 줄바꿈까지 통째로 받아서 다시 쓸 때 줄 끝이 안 바뀌게 한다.
+      const m = lines[i].match(/^\| (p\d+) \| ([^|]*)\|([\s\S]*)$/); if (!m || !book) continue;
       const r = want.get(`${book} ${m[1]}`); if (!r) continue;
       const cell = `${r.place ? '`' + r.place + '`' : '🔴 ?'}${r.inherited ? ' ↑' : ''}`;
       if (m[2].trim() === cell) continue;

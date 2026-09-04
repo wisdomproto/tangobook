@@ -80,9 +80,19 @@ RENDERING (finish hierarchy): a cleared area is not blank - it carries the paral
   DENSITY RATION = none. 🔴 THE KNIFE SLIPS ONCE PER SPREAD AND THAT SLIP IS LEFT IN.
   🔴 THE CLASS IS FIVE CHILDREN AND ONE TEACHER AND THERE IS NEVER A SIXTH CHILD - never an extra
   child to fill a gap. When fewer than five are in the story, fewer than five are on the page and the
-  place they left shows. A grown-up from outside the class (a mother, a grandmother, the postman)
-  stands in the volume that brings one; a grown-up is BUILT LIKE TEACHER BAU AND NEVER LIKE A LARGER
-  CHILD, and wears no purple.
+  place they left shows.
+  🔴 A GUEST IS ANYBODY FROM OUTSIDE THE CLASS and this series brings four - a mother, a baby she
+  carries, a grandmother, the postman - each standing in the one volume that fetched them and leaving
+  with it. A GUEST WEARS NO PURPLE AT ALL; the accent belongs to the five, and a guest carrying any of
+  it reads as a sixth child. A GROWN-UP GUEST IS BUILT LIKE TEACHER BAU AND NEVER LIKE A LARGER CHILD
+  - TWICE A CHILD'S HEIGHT standing, a hem past the knees, hands as wide as a child's head - and IS
+  TOLD APART FROM HER BY EXACTLY TWO SILHOUETTE MARKS, fixed for the whole volume: a horned pair and a
+  bag worn across the back · a fur cap and a bundle · one carried baby. Never a third mark, and never
+  an interior mark, because the inside is gone at this size. 🔴 A GUEST FURTHER OFF THAN A CHILD CAN
+  REACH HAS NO FACE - the head is a solid block with 0 eye chips and 0 mouth, and a guest's face is
+  cut only on a page where a child is close enough to touch her. 🔴 A CARRIED BABY IS ONE FACELESS
+  ROUNDED BACK at every distance and never anything more. Unlike Teacher Bau, a guest MAY have an
+  errand of her own, and that errand is why she is on the page.
 
 PALETTE: PAPER OATMEAL #F0EAD8, window light, snow, whitewash, paper, everything not printed · INK1
   SOOT #3B3A33, walls, floor, furniture, the teacher's mass, blocks, tree trunks, animal backs - the
@@ -91,6 +101,14 @@ PALETTE: PAPER OATMEAL #F0EAD8, window light, snow, whitewash, paper, everything
   the store cupboard, the river under the bank, anything in deep shade - overprint only, never a
   third block · ACCENT PURPLE #6E4E9E, 🔴 cut last, touching nothing but the one small purple thing
   each child carries. No sky blue that is not RIVER, no green, no red, no pink, no white ink.
+  🔴 WHEN THE STORY NAMES A COLOUR THIS PALETTE HAS NOT GOT, IT IS DRAWN AS A SHAPE, A PLACE OR A
+  DEPTH OF OVERLAP - never as a third block, never as a lighter or darker tint of one of the two.
+  Four volumes have already reached the same answer and it is the rule: a graze is the darkest
+  OVERLAP channel, one line · a scrap caught between teeth is one OVERLAP dot · an angry face and a
+  hot face are the mouth channel, the size of the eye chip and the two brows, with nothing added.
+  🔴 WHERE TWO THINGS DIFFER ONLY BY COLOUR IN THE TEXT THEY DIFFER BY SIZE OR BY OUTLINE ON THE
+  PAGE - one small and one twice it, or one printed solid and one a gap in a mass - and the sheet for
+  that thing fixes which of the two it is before the page is drawn.
 
 STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
   CLASSROOM - floor and walls are SOOT cleared with furrows, the furrows running one way for the
@@ -120,6 +138,11 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
     into a thing it is a thing standing on the ground, so it gets its own cut outline like anything
     else that stands. A snowball in a hand, a snow duck, a heap somebody piled: printed. The white
     ground it came from: still bare paper.
+    🔴 A PAGE THIS EMPTY STILL PRINTS ONE DARK THING WHENEVER SOMETHING WHITE HAS TO CROSS IT -
+    breath, steam and blown snow are BARE PAPER and are legible ONLY in front of a printed mass, so
+    a page that counts a breath keeps ONE SOOT or OVERLAP shape inside the frame for it to cross.
+    That one thing is the whole exception to the bare ground and sky; nothing else is printed to
+    fill the space, and a winter page with nothing white to carry prints nothing at all.
   🔴 MADE THINGS NEVER TAKE THE ACCENT - a paper chain (19) is cut in SOOT and RIVER links only, and
     cut snowflakes (11) are BARE PAPER. The purple in this world is worn, never made. If a made thing
     were purple the five signatures would stop working on the page they matter most.
@@ -128,6 +151,13 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
     hands. 🔴 THE CONDITION IS THE WHOLE RULE AND IT HOLDS ON EVERY PAGE OF EVERY VOLUME, not on a
     list of pages, and not only from p8 onward. Read the page: is there water, a height, or a door
     that can close? Then she is in it.
+  🔴 A GROWN-UP'S BODY IS THE RULER, AND THE RULER IS NEVER LEFT OUT. Wherever a page measures
+    something - how wide a gap is, how far away a line is, how big a foot is, how much is left - the
+    measure is A GROWN-UP PART AND THE CHILD'S PART LAID SIDE BY SIDE: same depth, same size on the
+    page, on one line, in the same pose. A flat hand held beside the door gap · an adult foot beside a
+    child's foot at the white line · one arm against another. Never at two depths, never one behind
+    the other, and never one of them finished and the other a block shape - on a page that measures,
+    BOTH are the finished things and there is no third.
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 and ALL FIVE
