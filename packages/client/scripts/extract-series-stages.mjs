@@ -10,6 +10,19 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const DOCS = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', 'docs', 'changjak-books');
+const ART = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', 'docs', 'art-direction');
+
+/** 🔴 인물 이름은 사물이 아니다 — 「코타 23회 · 미나 29회」가 사물 상위를 먹었다.
+ *  이름 목록을 손으로 들지 않고 그 시리즈 캐스트 시트에서 뽑는다(없으면 안 거른다). */
+function castNames(key) {
+  const f = path.join(ART, `${key}-cast.md`);
+  if (!fs.existsSync(f)) return new Set();
+  const md = fs.readFileSync(f, 'utf8');
+  const out = new Set(['엄마', '아빠', '할머니', '할아버지', '누나', '형아', '오빠', '언니', '동생', '선생님']);
+  for (const m of md.matchAll(/^#{2,3}.*?([가-힣]{2,4})/gm)) out.add(m[1]);
+  for (const m of md.matchAll(/\*\*([가-힣]{2,4})\*\*/g)) out.add(m[1]);
+  return out;
+}
 
 // 🔴 사물이 아닌 것 — 안 거르면 조사·부사·방향어가 상위를 다 먹는다(실측: 「하나」가 66회로 1등이었다).
 const STOP = new RegExp('^(' + [
@@ -18,6 +31,13 @@ const STOP = new RegExp('^(' + [
   '위에', '아래', '옆에', '앞에', '뒤로', '뒤에', '왼쪽', '오른쪽', '사이', '가운데', '한쪽', '양쪽',
   '남은', '놓인', '젖은', '마른', '있다', '없다', '나란히', '발밑에', '바닥에', '폭의', '너머',
   '하며', '한다', '된다', '보인다', '만큼', '정도', '때문', '동안', '다음', '처음', '마지막',
+  // 🔴 카메라 낱말 — 「컷」 라벨을 읽기 시작하면서 상위를 통째로 먹었다(퐁이 08 의 1등이 「미디엄」).
+  //    그림에 그려지는 물건이 아니라 그리는 방법이다.
+  '미디엄', '클로즈업', '와이드', '아이레벨', '하이앵글', '로우앵글', '풀샷', '익스트림', '앵글',
+  '정면', '측면', '뒷모습', '실루엣', '순간', '살짝', '천천히', '한참', '잠깐', '내내',
+  // 🔴 카메라 **자리** — 사물이 아니라 어디서 보느냐다.
+  '위에서', '아래에서', '옆에서', '뒤에서', '앞에서', '왼쪽에', '오른쪽에', '가운데에', '밖에서',
+  '내려다본', '올려다본', '내려다본다', '올려다본다', '끝에', '너머로', '사이로',
 ].join('|') + ')$');
 
 /** 「물방앗간 앞 개울, 맑은 아침.」 → 「물방앗간 앞 개울」
@@ -70,6 +90,7 @@ function analyse(key) {
   const books = [];
 
   for (const [id, pages] of Object.entries(scenes).sort()) {
+    const cast = castNames(key);
     const spots = [];       // 쪽 순서대로의 자리
     const named = [];       // 「같은 …」이 아닌 실제 이름
     const propPages = new Map();
@@ -84,10 +105,19 @@ function analyse(key) {
         if (head && !isBackRef(head)) { current = head; named.push(head); }
         else if (current) named.push(current);   // 되짚는 쪽도 그 자리를 한 번 더 방문한 것이다
       }
-      const bm = text.match(/<b>배경·소품<\/b>([^<]*)/);
-      if (bm) {
-        for (const w of new Set(bm[1].match(/[가-힣]{2,6}/g) ?? [])) {
-          if (STOP.test(w)) continue;
+      // 🔴 **다섯 라벨 중 세 곳을 본다**(2026-09-04). 예전엔 「배경·소품」 한 줄만 읽었는데,
+      //    그 권의 주인공 사물일수록 **카메라가 그것을 향하므로 「컷」에 적힌다** — 퐁이 08 은
+      //    의자가 다섯 쪽에 나오고 「의자 다리 넷」·「의자 정면. 의자만」 두 컷이 통째로 의자인데
+      //    배경·소품엔 한 쪽뿐이라 3쪽 문턱에 걸려 **목록에서 통째로 빠져 있었다**.
+      //    컷에 적힌 사물은 `lead` 로 표시한다 — 시트를 먼저 그려야 할 것이 그것이다.
+      const cut = (text.match(/<b>컷<\/b>([^<]*)/) ?? [])[1] ?? '';
+      const bg = (text.match(/<b>배경·소품<\/b>([^<]*)/) ?? [])[1] ?? '';
+      const bm = [`${cut} ${bg}`];   // 🔴 「인물」은 뺀다 — 몸·자세·표정 낱말이 사물을 덮는다(실측 681→)
+      if (bm[1] !== undefined || bm[0].trim()) {
+        for (const w of new Set(bm[0].match(/[가-힣]{2,6}/g) ?? [])) {
+          if (STOP.test(w) || cast.has(w)) continue;
+          // 🔴 조사가 붙은 채 잡힌 것 — 「사람이·배가·아빠가」는 낱말이 아니라 주어다.
+          if (/[이가은는을를의도만]$/.test(w) && w.length <= 3) continue;
           // 🔴 사물은 명사다. 「굵은·마른·작은」 같은 관형형이 자주 섞여 들어온다(실측: 타로 06 의
           //    사물 둘 중 하나가 「굵은」이었다). 짧은 낱말의 관형 어미만 거른다.
           if (w.length <= 3 && /[은는한린운던]$/.test(w)) continue;
@@ -97,7 +127,11 @@ function analyse(key) {
           if (/^(마당|논둑|마루|골목|바닥|하늘|땅바닥|벽면|천장|문턱|담장|둑길)$/.test(w)) continue;
           // 🔴 **앵커 조항이 맡는 것** — 그림자·빗줄기·그늘은 매체 규칙이지 그 권의 물건이 아니다.
           if (/^(그림자|빗줄기|그늘|햇빛|불빛|어둠|안개|김이|연기)$/.test(w)) continue;
-          (propPages.get(w) ?? propPages.set(w, new Set()).get(w)).add(p);
+          // 🔴 컷 라벨에만 있는 낱말은 앵글·구도어(미디엄·클로즈업·아이레벨)가 많다 — 그건 이미
+          //    STOP 과 어미 필터가 대부분 거른다. 남은 판정은 「그 낱말이 컷에 있었나」로 표시만 한다.
+          const rec = propPages.get(w) ?? propPages.set(w, { pages: new Set(), lead: false }).get(w);
+          rec.pages.add(p);
+          if (cut.includes(w)) rec.lead = true;
         }
       }
     }
@@ -113,9 +147,9 @@ function analyse(key) {
 
     // 🔴 사물 = **그 권에서 3쪽 이상**(사용자 기준: 「한 권에서 여러 번 나오는 것만」).
     //    시리즈 전체 빈도로 세면 「물레방아 25권에 26회」(권당 한 번 = 배경)가 1등이 된다.
-    const props = [...propPages].filter(([, v]) => v.size >= 3)
-      .sort((a, b) => b[1].size - a[1].size)
-      .map(([w, v]) => ({ name: w, pages: [...v].sort((x, y) => +x.slice(1) - +y.slice(1)) }));
+    const props = [...propPages].filter(([, v]) => v.pages.size >= 3)
+      .sort((a, b) => (b[1].lead - a[1].lead) || b[1].pages.size - a[1].pages.size)
+      .map(([w, v]) => ({ name: w, lead: v.lead, pages: [...v.pages].sort((x, y) => +x.slice(1) - +y.slice(1)) }));
 
     books.push({ id, stage, spots, props });
   }
