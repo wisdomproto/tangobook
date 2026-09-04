@@ -95,6 +95,19 @@ RENDERING (finish hierarchy): an area is ONE rubbed field, even everywhere, neve
   🔴 "BLURRED", "HAZY" OR "FAINT" IN A SCENE MEANS AN UNMODELLED SHAPE - the same charcoal weight
   with 0 interior marks, outline only. Never paler, never softer, never out of focus. The only
   depth cue in this book is spacing.
+  🔴 A THING ONLY IMAGINED - some volumes draw what Pipo is picturing. This medium has three values
+  and no outline, so there is no frame, no cloud edge and no soft focus to mark it with. THE WORLD IS
+  LIFTED AWAY AROUND IT: an imagined thing is PRESSED, and the rubbed field stops short of it on
+  every side, leaving a band of untouched paper all round where it meets the real page. It rests on
+  nothing - no ground under it, no contact line, no shadow, and it never touches Pipo or the yellow.
+  When the whole page is imagined, nothing is rubbed at all and the pressed thing stands in bare
+  paper edge to edge. 🔴 THAT IS NOT A SNOW PAGE - on snow, a thing stands ON the ground and gets its
+  strokes along the lower lip where it meets it; an imagined thing meets no ground and gets no lower
+  lip. No frame, no outline, no faded edge, no graded value, no second way of drawing it.
+  🔴 EXTREME CLOSE - when one thing fills the frame the finish does NOT go up a step. It is the same
+  drawing enlarged, not a more detailed one: the same three hands at the same weight, the paper's
+  tooth the same size, the number of marks NO higher than when the thing is small. Nothing gains an
+  interior it does not have on a wide page.
   🔴 SHADOWS: a shadow is ANOTHER PRESSED SHAPE with a furry edge and 0 marks inside it - never a
   grey wash, never graded, and never laid across a body or a face. It appears only where the script
   puts one, in two kinds: a LONG shadow lying on the ground when the sun is low, whose LENGTH is

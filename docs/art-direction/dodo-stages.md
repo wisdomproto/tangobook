@@ -39,6 +39,13 @@ highlight on a form, never an outline, never blended, and never laid on bare pap
 
 ## §1. 자리 시트 — 6장 (후보 13에서 접고 · 2026-09-04 `Meadow` 신설)
 
+> 🔴 **모든 시트에 스팟 `T` 가 있다 — 「닿는 자리」**(2026-09-05). 기존 스팟은 예외 없이 **자리를 보는
+> 카메라**인데, 권마다 두세 쪽이 **아빠 옆구리에 붙은 몸 · 포갠 두 날개 · 날개 안에 든 얼굴 · 부리와
+> 부리**이고 **대개 그게 그 권이 도는 쪽**이다(39 p5 · 41 · 43 · 50). 사물 시트는 이 구멍을 못 메운다 —
+> 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**. `T` 는 시트마다 **배경 한 줄만** 다르다.
+> 🔴 익스트림 클로즈업에서 **마감을 한 단계 올리지 않는다**는 것은 앵커 `RENDERING` 이 든다(붓 폭이
+> 같으므로 획이 **줄고** 종이 테두리가 **넓어진다** — 자세해지는 게 아니다).
+
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
 | `MillStream` | 물방앗간 앞 개울 · 개울 한복판 · 개울가 · 개울가 물가 · 물가 · 물레방아 아래 물가 · 개울가 길 | 🔴 **징검돌 일곱이 좌표** · §1.1 |
@@ -73,6 +80,17 @@ FIXED PARTS:
     most 8 paddles, never more.
   THE FAR FIELD across the water, WHEAT, with the far bank as one edge.
   REEDS at the near bank, at most 7 strokes.
+  🔴 THE BANK is a raised bank along the near side, its top a WHEAT edge with dry grass on it, high
+    enough that standing on it puts the water well BELOW the feet. A trodden path runs along it. A
+    whole book is spent up there, so this is a fixed part and not weather.
+  🔴 THE GREAT WILLOW stands where this bank, the meadow and the far field meet - THE SAME TREE the
+    Meadow sheet specifies (thick knotted bole, three low branches, long trailing branches reaching
+    the water, one flat hard-edged MILLPOND shade). Six books draw it from three sides; the knot and
+    the three branches must match every time.
+  🔴 ONE BANK BUSH on top of the bank, and 🔴 IT IS NOT THE MEADOW BRAMBLE. Round berries sitting
+    singly on the twig; the meadow one carries the berries a duckling is allowed to eat, and this one
+    carries the berry a book is spent asking about. They are on opposite sides of the water and must
+    not look alike - different branch shape, different way the fruit sits.
   THE SKY IS BARE PAPER and is the light of the page.
 
 🔴 WHERE THE PAPER RIM IS LEFT - this is what the sheet is for. Every brush sweep stops short of
@@ -94,6 +112,19 @@ SPOTS:
   🔴 E STANDING AT THE WATER'S EDGE, medium, eye level: the near bank underfoot, shallow water
      running past it, and NO STEPPING STONES IN FRAME - this is the spot a duckling stands on when
      it has not crossed. Three books need it (07 p3 · 13 p6 · 14 p6) and A/B/C/D all show stones.
+  🔴 F ON TOP OF THE BANK, wide, eye level: the raised bank running across the frame with its dry
+     grass, the water BELOW and further off, the mill small at the right. 🔴 A-E are all down at the
+     water; a whole book is spent up here waiting for a flood to go down, and the point of standing
+     here is that the water is not underfoot.
+  🔴 G IN THE SHALLOWS, medium, high: ankle-deep water over the near bed, the bank behind, and again
+     NO STEPPING STONES - the stones are the deep part, so a page that wades is not on the stone run.
+  🔴 H THE BANK PATH, medium wide, eye level: the trodden path along the near bank running away
+     lengthways, water on one side, reeds and bushes on the other. This is the walking spot; A-E all
+     face the water instead of following it.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = ONE sweep of MILLPOND water, or ONE sweep of
+     WHEAT bank, 0 strokes in it, with a bare-paper rim between it and the bodies. The touching
+     point is the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C, D once each, plus 🔴 A NUMBERED DIAGRAM of the seven stones with the largest marked
   as 4, plus one CHALK panel showing spray done correctly beside spray done as a highlight (wrong).
@@ -110,13 +141,40 @@ NOT: no character of any kind, no ribbon blue anywhere on this sheet, no letteri
 `Wheel` = 🔴 **날개 여덟이 상한이자 눈금**(02·22권이 도는 것을 세게 한다) — 도는 상태는 **날개 위치 셋**
 (위 · 옆 · 아래)으로 굽고, 물이 튀는 것은 CHALK 최대 9. 흐림·모션 블러 금지.
 
-🔴 **`MillInside` 는 방이 둘이다** — 아래층 **부엌**(식탁 하나 · 의자 둘 · 화덕 아가리 · 물동이 · 반죽대)과
-위층 **잠자는 방**(둥근 창 하나 · 나란한 이불 둘). 32·41·31·27권이 위층에서만 벌어지는데 시트 이름이 하나라
-같은 방으로 그려질 위험이 있다. **자리 시트에 SPOT 을 아래층/위층으로 갈라 둘 것.**
+🔴 **`MillInside` 는 방이 셋이다**(2026-09-05 정정 — 26~50 을 세니 셋째가 나왔다. 예전엔 둘로 적혀 있었다):
+① 아래층 **부엌**(식탁 하나 · 의자 둘 · 화덕 아가리 · 물동이 · 반죽대) — 26·27·29·30·32·35·46·49
+② 위층 **잠자는 방**(둥근 창 하나 · 나란한 이불 둘 · 머리맡 등불) — 27·31·32·41
+③ 🔴 **방앗간 작업장**(맷돌과 굴대 · 세워 둔 자루 넷 · 밀가루가 깔린 바닥 · 나무 상자 · 굵은 나무 기둥 ·
+   나무 문) — 33·42·44·48. 🔴 **굴대가 물레방아 축에 이어져 있어 `Wheel` 과 한 몸이다**(44권이 그 이음을
+   그린다) — 벽 하나를 사이에 두고 바퀴가 바로 바깥이라는 것이 이 방의 자리다.
+시트 이름이 하나뿐이면 **33·42·44·48 의 방이 26·29·30 의 부엌으로 그려진다.** **자리 시트에 SPOT 을 세 방으로
+갈라 둘 것** — 부엌 · 위층 방 · 작업장.
 🔴 **`Wheel` 시트에 「물문(sluice)」 3단계를 넣을 것** — 31권이 손잡이를 내려 바퀴를 세우고(p4 도는 중 →
 p5 물이 끊기고 멈춤 → p10 다시 돎) 그 셋이 그 권의 전부다. 사물 시트로 빼면 바퀴와 규격이 갈라진다.
 🔴 **`MillOutside` 가 맡을 붙박이**: 짚더미(🔴 파인 자국·오목한 자국 상태 포함 — 17 p10 · 36 p9) ·
 빨랫줄 · 처마 · 마당가 나무(높은 가지 하나, 04권이 거기에 목수건을 건다) · 담장 · 도랑 · 나무다리 · 문턱.
+
+🔴 **버드나무는 두 그루다 — 갈라 두지 않으면 여섯 권이 한 나무를 제각기 그린다**(2026-09-05).
+① **큰 버드나무** = `Meadow` 시트가 이미 규격을 든 그 나무이고, **풀밭·개울 둑·건너편 들판 끝이 만나는
+자리**에 한 그루 서 있어 세 시트에서 다 보인다(12 p5 `Meadow` ↔ 12 p6 `MillStream` 이 **같은 나무**임을
+SCENE 이 옹이·갈라진 가지 셋·걸린 깃털 한 올로 못 박았다 · 16 p8 · 20 p5 · 38 · 43). 굵고 옹이진 밑동에서
+갈라진 가지 셋, 그중 하나는 아이가 걸어 들어갈 만큼 낮고, 긴 가지는 물까지 늘어진다.
+② 🔴 **마당 버드나무**(40권) = **방앗간 마당 한쪽**의 딴 그루다. 규격의 전부는 **가지 끝 높이**다 —
+**목을 쭉 편 도도의 날개 끝이 겨우 닿고, 뛰어오른 무무의 날개 끝은 한참 아래**다. 그 한 뼘이 그 권의
+사건이므로 가지를 낮추면 40권이 사라진다. 밑동은 큰 버드나무보다 가늘고 갈라진 가지가 셋이 아니다.
+
+🔴 **요약 명세 시트에도 스팟 `T` 가 걸린다**(§1 머리말) — `MillInside`(둘레 = 되풀이 획 한 면, 또는
+밀가루 깔린 안 칠한 바닥) · `Wheel`(둘레 = WHEAT 날개 한 면, 0 획) · `MillOutside`(둘레 = 마당 WHEAT
+한 면) · `Field`(둘레 = WHEAT 한 면, 이랑 0). 나머지 규칙은 전부 같다.
+
+🔴 **크롭 목록 — 한 자리에 갇힌 권이 열여섯이다**(01~25 는 아홉이었다). 49권은 열 쪽 중 아홉이 화덕
+앞이고 34권은 열 쪽이 다 빨랫줄 언저리다. 앵커 §4③(연속 동일 앵글 금지)이 여기서 제일 세게 걸리는데,
+지금은 SCENE 이 그때그때 익스트림 클로즈업으로 버티고 있어 **크롭이 매 쪽 새로 발명된다.** 시트마다
+쓸 수 있는 크롭은 **이 넷뿐**이고 한 권에서 같은 것을 **연달아 두 번 쓰지 않는다**:
+① 스팟 그대로(자리를 보는 카메라) ② `T`(닿는 자리) ③ **발치 하나** — 물갈퀴 둘과 그 아래 바닥만 ·
+④ **그 권의 사물 하나가 화면을 채운다**(사물 시트의 `STATES` 중 하나 그대로 · 앵커 `EXTREME CLOSE` 대로
+획이 줄고 종이 테두리가 넓어진다). 다섯째를 발명하지 말고, 넷으로 열 쪽이 안 되면 **그 권이 자리를 하나
+더 써야 한다는 뜻**이다.
 
 ### §1.3 Meadow — 실제 프롬프트 (신설 · §5 ① 의 답 · 9쪽 · 4권)
 
@@ -135,7 +193,10 @@ relative to one another are fixed once.
 FIXED PARTS:
   THE GROUND is ONE sweep of WHEAT, 0 blades picked out, running to a low horizon.
   🔴 ONE GREAT WILLOW at the LEFT, MILLPOND: a thick knotted bole with THREE branches splitting off
-    it low down, one of them low enough for a duckling to walk into. Its long trailing branches are
+    it low down, one of them low enough for a duckling to walk into. 🔴 IT IS THE SAME TREE THE
+    STREAM SHEET AND THE FIELD SHEET SHOW - it stands where meadow, bank and far field meet, so six
+    books draw one tree from three sides and the knot, the three branches and the trailing lean must
+    match every time. (The willow in the MILL YARD is a DIFFERENT, thinner tree - see §1.2.) Its long trailing branches are
     ONE repeated stroke, all leaning the SAME way, and that lean is the wind of the page. Its shade
     on the ground is ONE flat MILLPOND sweep with a HARD edge and 0 strokes inside it.
   🔴 ONE BRAMBLE at the RIGHT, a broad low MILLPOND mass (its own build is PROP SHEET BerryBush).
@@ -175,6 +236,9 @@ SPOTS:
   C AT THE BRAMBLE, medium: its outer face straight on, ground in front of it.
   D ON THE HILL TOP, wide, low: sky filling most of the frame, the crest a band along the bottom
     with the mill roof below and beyond.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = ONE sweep of WHEAT ground, or the flat hard-edged
+     MILLPOND of the willow's shade, 0 strokes in it. The touching point is the only finished thing.
 
 PLATE: A, B, C, D once each, plus 🔴 A DRAWN TWICE at one size - clear and in mist - so the mist
   panel can be checked as the SAME meadow with things simply absent.
@@ -196,13 +260,20 @@ NOT: no character of any kind, no ribbon blue anywhere on this sheet, no red ber
 > 🔴 **이 시리즈에서 제일 새기 쉬운 것은 CHALK 다**(§0 ②). 물·밀가루·눈이 매 권 튀는데, 그것을
 > 「형태 위 하이라이트」로 얹는 순간 과슈가 수채가 된다. 튀는 것이 나오는 시트마다 그 자리를 못 박아 뒀다.
 
-| § | 토큰 | 사물 | 권 (쪽 수) |
+🔴 **아래 「권 (쪽 수)」 열은 셈이 아니라 무게다 — 조건으로 읽어라**(2026-09-05). 이 열은 손으로 적힌
+것이라 **새로 쓴 권이 조용히 밖에 남는다** — 앜커 조항의 권 번호 목록과 **같은 병**이고, 앜커는 2026-09-04에
+번호를 조건으로 바꿔 고쳤다. 실측하니 빗자루 39권 · 밀짚 피리 41권 · 버드나무 20권이 목록 밖에 있었다.
+**시트가 걸리는 조건 = 그 사물이 프레임에 든 모든 쪽**이고, 목록에 없는 권이 그 사물을 써도 시트는
+그대로 적용된다. 🔴 **굵은 권만이 이 열에서 하중을 받는다** — 그 사물이 열 쪽을 도는 권이라 시트가
+그 권을 위해 쓰였다는 뜻이다. 나머지 번호는 **인용하지 말고**, 정말 필요하면 `_scenes.json` 을 세라.
+
+| § | 토큰 | 사물 | 권 (쪽 수 · 🔴 하중은 굵은 것뿐) |
 |---|---|---|---|
 | 2.1 | `Icicles` | 고드름 | 08(6) |
 | 2.2 | `Sacks` | 밀·밀가루·씨앗 자루 | **42**(8) · **44**(7) · 03(6) · 33(5) · 40(4) · 11 |
 | 2.3 | `FlourFloor` | 밀가루가 깔린 바닥과 그 위 자국 | **44**(6) · 33(5) · 42(4) |
 | 2.4 | `Millstone` | 맷돌과 굴대 | 44(5) |
-| 2.5 | `Cart` | 수레 · 짐칸 · 바퀴 자국 | **45**(10) · 36(5) · 03(4) · 40(1) |
+| 2.5 | `Cart` | 수레 · 짐칸 · 바퀴 자국 — 🔴 **세 대**(아래 「두 낱말」) | **45**(10) · 36(5) · 03(4) · 40(1) |
 | 2.6 | `DoughBowl` | 큰 나무 그릇 · 주걱 · 반죽 | **10**(10) |
 | 2.7 | `PebbleBox` | 나무 상자와 조약돌 | **33**(6) |
 | 2.8 | `Jar` | 잼 단지 · 꿀단지 · 숟갈 | **30**(7) · 50(3) · 46(2) · 06 |
@@ -215,11 +286,11 @@ NOT: no character of any kind, no ribbon blue anywhere on this sheet, no red ber
 | 2.15 | `Quilt` | 이불 | **32**(6) · **41**(7) · 31(6) · 27 |
 | 2.16 | `BlueCloth` | 🔴 파란 리본과 목수건 | **04**(7) · **34**(5) · 42(3) · 09 · 22 · 전권 |
 | 2.17 | `Feathers` | 깃털에 붙은 것과 눕는 결 | **49**(6) · 28(5) · 42(3) · 18 |
-| 2.18 | `StrawPipe` | 밀짚 피리 | 31(4) · 43(2) · 33 |
+| 2.18 | `StrawPipe` | 밀짚 피리 | **31**(5) · 33 · 41 · 43 |
 | 2.19 | `SnowDucks` | 눈오리 | **23**(6) |
 | 2.20 | `Shadow` | 🔴 그림자 — 앵커가 금지한 것 | **21**(5) · 09 |
 | 2.21 | `HeightPost` | 🔴 키 재는 기둥의 금 넷 | **21**(4) |
-| 2.22 | `Broom` | 빗자루와 쓸린 결 | **47**(7) · 49 · 43 |
+| 2.22 | `Broom` | 빗자루와 쓸린 결 | **47**(9) · 39 · 43 · 49 |
 | 2.23 | `Plank` | 미끄럼 나무판 | **17**(8) |
 | 2.24 | `Sunflower` | 해바라기와 데이지 | **24**(7) |
 | 2.25 | `BerryBush` | 산딸기 가시덤불 | **18**(6) |
@@ -230,7 +301,7 @@ NOT: no character of any kind, no ribbon blue anywhere on this sheet, no red ber
 | 2.30 | `BarkBoat` | 나무껍질 조각배 | **13**(7) |
 | 2.31 | `Fish` | 은빛 물고기 | **05**(6) |
 | 2.32 | `SeedMounds` | 해바라기 씨앗 · 흙더미 · 참새 | **11**(8) · 35 |
-| 2.33 | `WillowTree` | 버드나무 밑동과 늘어진 가지 | 43(4) · 40(3) · 38(2) · 12 · 16 |
+| 2.33 | `WillowTree` | 버드나무 밑동과 늘어진 가지 — 🔴 **두 그루**(§1.2) | **43**(4) · **40**(4) · 12 · 16 · 20 · 38 |
 
 ### 🔴 접은 내역
 
@@ -250,6 +321,14 @@ NOT: no character of any kind, no ribbon blue anywhere on this sheet, no red ber
 | 28 진흙 · 42 밀가루가 앉은 깃 · 49 「깃털」 | `Feathers` | 🔴 셋 다 **깃 위에 무엇이 있나**이고, 그림자를 못 쓰는 매체에서 「곤두선 깃 vs 누운 깃」을 어떻게 가르나가 같은 문제다 |
 | 24 「해바라기」 + 데이지 | `Sunflower` | 🔴 이 권의 그림은 꽃이 아니라 **크기 차이**다. 키 세 배짜리와 주머니에 꽂히는 것을 한 시트에 놓아야 그 차이가 규격이 된다 |
 | 34 목수건 · 04 목수건 · 42 리본 | `BlueCloth` | 🔴 **이 세계의 유일한 순청색**이라 한 장이 다 정해야 한다. 두 아이의 천이 서로 달라야 하는 것도 여기서 |
+
+### 🔴 두 낱말 — 같은 글자, 다른 물건 (2026-09-05)
+
+| 글자 | 갈라지는 물건 | 근거 |
+|---|---|---|
+| **수레** | ① **손수레** — 오리 하나가 **밀고** 다니는 작은 것(03 p7~p10) ② **염소가 끄는 나무 수레** — 채를 두 앞다리 사이에 끼운 짐승이 끈다, 길을 건널 때 오는 그것(36 p1~p9) ③ **아빠가 끄는 수레** — 손잡이 **둘**을 두 날개로 잡고 끈다, 45권의 바퀴 자국이 그 권의 시계(45 전권) | 🔴 시트가 45권 것 하나만 정하면 **36권이 새로 발명한다** — 그리고 36권은 「멈춰, 수레 보고, 건너!」라 그 수레의 크기가 곧 그 권의 위험이다 |
+| **버드나무** | ① **큰 버드나무**(풀밭·둑·들판 끝이 만나는 자리, 여섯 권이 세 방향에서 그린다) ② **마당 버드나무**(40권, 더 가늘고 가지 끝 높이가 규격) | §1.2 · `Meadow` 시트 |
+| **다리** | ① **돌다리**(16·25 · `MillStream`) ② **나무다리**(36·47·50 · `MillOutside` 마당 끝) | ⚠️ **같은 개울에 다리가 둘인지 같은 다리를 두 이름으로 부르는지는 아직 아무도 안 정했다 — 사람 몫**(50권이 그 다리로 열고 닫는다) |
 
 ### 🔴 뺀 것과 이유
 
@@ -1457,6 +1536,12 @@ FORM (MOUND): one low rounded heap of turned earth, WHEAT, ONE sweep, 🔴 with 
 FORM (SPARROW): 🔴 one plain OVERLAP silhouette, 0 faces, 0 toes, 0 feather detail, per the anchor's
   crowd rule. At most 7 in a frame. Two of them may be in the air with wings open, and 🔴 those two
   are the only ones that differ.
+🔴 SPARROWS ARE NOT A COUNTED THING - only the mounds and the seed are. Another book puts SEVEN on
+  the yard ground round a dropped loaf and later THREE outside a kitchen window; those are two
+  different places at two different hours, NOT seven birds becoming three, and nothing is owed for
+  the other four. Draw each group at the number its own page says and do not carry a running total
+  between them. (The volume that DOES run a count down says so on the page - the icicle book states
+  the eaves are empty. If the page does not say it, there is no count.)
 🔴 THE COUNT, drawn in a row at the SAME size, from the same side-on angle:
   1 ONE MOUND alone with an open hole beside it.
   2 SIX MOUNDS in a line, evenly spaced.
@@ -1547,6 +1632,24 @@ NOT: no character face (silhouettes only, for scale), no ribbon blue, no letteri
 
 > 사물 시트 33장을 쓰면서 나온 것이다. **여기 다섯은 시트로 덮을 일이 아니라 위쪽 문서를 고칠 일**이다.
 > 낱개로 고치지 말고 **한 곳씩** 고칠 것.
+
+### ✅ 처리 (2026-09-05 경로표 신고 수리)
+
+| 신고 | 어떻게 |
+|---|---|
+| ⑫ 사물 시트의 「N권」이 25권 시절 숫자 | 🔴 **고칠 곳은 시트 스물다섯이 아니라 세는 방법이라, 열을 조건으로 읽게 바꿨다**(§2 머리말) — 목록에 없는 권이 그 사물을 써도 시트는 걸리고, **하중은 굵은 권만** 받는다. 실측으로 빠져 있던 셋(빗자루 39 · 밀짚 피리 41 · 버드나무 20)은 채웠다. ⚠️ 09-04 에 이미 절반이 갱신돼 있었다 — 손으로 세면 이렇게 갈라진다 |
+| ⑫ 꼬리 · `Cart` 가 **세 대** | §2 아래 **「두 낱말」** 표 신설 — 손수레(03) / 염소가 끄는 수레(36) / 아빠가 끄는 수레(45). 45권 것만 정하면 36권이 새로 발명한다 |
+| ⑬ `MillInside` 가 방 셋 | §1.2 를 **부엌 · 위층 방 · 🔴 방앗간 작업장**(33·42·44·48) 셋으로 갈랐다. 작업장은 굴대로 `Wheel` 과 한 몸이다 |
+| ⑭ 한 컷 안에서 시트가 바뀜 | 🔴 **토큰은 「몸이 선 자리」다**로 정하고 SCENE 두 곳을 고쳤다 — 31 p4 `MillStream`→**`Wheel`**(물문은 `Wheel` 시트의 붙박이) · 39 p4 `Wheel`→**`MillStream`**(둑 위에 서서 바퀴를 내려다볼 뿐). `--resync --apply` 로 경로표 세 칸 갱신 |
+| ⑭ 버드나무가 네 시트 | 🔴 **두 그루로 갈랐다** — 큰 버드나무(풀밭·둑·들판 끝이 만나는 자리, 12 p5↔p6 이 같은 나무임을 SCENE 이 못 박았다)와 마당 버드나무(40권, **가지 끝 높이가 그 권의 사건**) |
+| ⑯ 상상 쪽 그리는 법 | ✅ **이미 앵커에 있다**(09-04 신설). 09-05 에 두 줄 보탬 — **눈 쪽과 어떻게 다른가**(눈은 땅에 닿는 아랫동아리 획이 있고 상상은 없다) 와 **자리 토큰은 그대로 둔다**(몸은 그 부엌에 있다 — 「고쳐」 놓지 말 것) |
+| ⑰ 35권 참새 일곱 → 셋 | 🔴 **결함이 아니다** — 마당의 일곱과 창턱 밖의 셋은 **다른 자리·다른 때**이고 08권 고드름처럼 「이제 비었다」고 말하는 쪽이 없다. 세는 것은 흙더미와 씨앗뿐이라고 §2.32 에 못 박았다(신중한 독자가 이미 한 번 오독했다) |
+| ⑱ 캐스트에 없는 인물 둘 | `dodo-cast.md` 에 **`Guest goat`**(네 발로 걷는 유일한 몸 · 등이 무무 눈높이 · 부리 아닌 입)와 **`Guest granny`**(앞으로 낮게 접힌 목 · 🔴 **몸에 안 칠한 종이가 한 군데도 없다** = 엄마와 갈리는 자리 · 파랑 0) |
+| ⑲ 한 자리에 갇힌 권 16 | §1.2 에 **크롭 목록 넷**(스팟 그대로 / `T` / 발치 하나 / 사물 하나가 화면을 채움). 다섯째를 발명하지 말고, 넷으로 열 쪽이 안 되면 그 권이 자리를 하나 더 써야 한다는 뜻 |
+| ㉒ `MillStream` SPOTS 밖 | 스팟 **F 둑 위 · G 얕은 물 · H 둑길** 신설 + 붙박이에 **둑 · 큰 버드나무 · 둑 위 덤불**(38권의 열매는 **풀밭 산딸기와 달라야 한다** — 하나는 먹어도 되고 하나는 물어봐야 한다) |
+| ① 전 시트에 「닿는 자리」가 없다 | 모든 시트에 스팟 **`T`** + 앵커 `RENDERING` 에 **`EXTREME CLOSE`**(붓 폭이 같으니 획이 줄고 종이 테가 넓어진다 — 자세해지는 게 아니다) |
+
+⚠️ **다리 둘(돌다리 / 나무다리)은 손대지 않았다 — 사람 몫이다.** 「두 낱말」 표에 그렇게 적어 두었다.
 
 ### ✅ 처리 (2026-09-04 앵커 수리)
 

@@ -127,3 +127,47 @@ CLOTH: one straw hat, WHEAT, and 🔴 ITS BRIM IS WIDER THAN HIS SHOULDERS - one
   else. NO BLUE ANYWHERE.
 SILHOUETTE: filled in solid he is a mushroom - a wide low mass with a flat bar across the top and
   nothing between the two.
+
+## 🔴 게스트 둘 — 캐스트에 없었다 (2026-09-05)
+
+한 권에만 나오는데 **그 권에서는 주인공 다음으로 많이 나온다**(염소 36권 네 쪽 · 할머니 50권 여섯 쪽).
+🔴 **규격의 급소는 옷이 아니라 파랑이다** — 앵커의 「파랑은 두 아이의 천에만」이 게스트에도 걸리므로
+**둘은 색을 하나도 못 가진다**. 그 한 줄이 없으면 화가가 바구니나 지팡이에 파랑을 넣는다.
+
+## Guest goat (36권 · 수레를 끄는 염소)
+
+BUILD: 🔴 NOT A DUCK AND NOT BIPEDAL - this is the one four-legged body in the series. A goat,
+  standing and walking ON FOUR LEGS, back running level, adult size: 🔴 its back is at Mumu's eye
+  height, so the cart it pulls is a thing a duckling has to look UP the side of. That size is the
+  danger the book is about.
+HEAD: horns curving BACK over the neck, a long straight muzzle and 🔴 A MOUTH, NOT A BILL - the book
+  says so in as many words, and it is the fastest way a reader sees this is not one of the family.
+  Ears hang out sideways. Eyes are two plain marks like everyone else's.
+PULLING: the cart shafts are carried BETWEEN THE TWO FORELEGS against the chest, head down, body
+  leaning forward. When it stops it turns halfway round and 🔴 PUTS ONE FORELEG ON THE WHEEL - that
+  foreleg on the wheel is its one held thing.
+CLOTH: 🔴 NONE AT ALL. No hat, no cloth, no harness decoration.
+COLOUR: WHEAT body, OVERLAP where the anchor puts backs and heads. 🔴 NO BLUE ANYWHERE - not on the
+  cart, not on the shafts, not on anything it carries.
+SILHOUETTE: filled in solid it is a low horizontal bar on four posts with two backward hooks at one
+  end - the only silhouette in fifty books that is longer than it is tall.
+
+## Guest granny (50권 · 할머니 오리)
+
+BUILD: an adult duck, 🔴 Mommy's height class but read as older by ONE thing: THE NECK IS FOLDED
+  FORWARD AND LOW and stays there. Where Mommy's neck stands vertical and arches only at work, this
+  one is carried down and forward on every page, so 🔴 HER HEAD IS ALWAYS LOWER THAN MOMMY'S WOULD BE
+  AT THE SAME DISTANCE. Back rounded rather than upright.
+🔴 SHE IS NOT MOMMY AND NOT A BIGGER DODO - the two things that separate her are THE FOLDED NECK and
+  BARE PAPER NOWHERE ON HER BODY (Mommy is the only one with an unpainted apron, and that pale panel
+  is how Mommy is found). If this one is drawn with a pale front the two adults swap.
+HELD THINGS: a WALKING STICK carried the duck way - pinched between one wing edge and the body - and
+  a BASKET held against the chest with the other wing. At rest the stick lies on the ground beside
+  her and the basket sits in front. 🔴 When she takes both children in at once, the stick stays
+  pinched under the wing; it is never set down for that.
+CLOTH: none. No shawl, no apron, no hat.
+COLOUR: 🔴 NOT ONE BLUE THING ANYWHERE - the script says it outright, and in this series blue is the
+  children's mark, so an adult with no blue is the rule being confirmed rather than an omission.
+  Stick and basket are WHEAT.
+SILHOUETTE: filled in solid she is a question mark - a rounded body with the neck coming forward and
+  down off the top of it, and one straight line (the stick) leaning out of her side.

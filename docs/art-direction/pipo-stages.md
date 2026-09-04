@@ -36,6 +36,15 @@ yellow.` → **무대·사물 시트의 모든 가장자리는 보슬보슬해�
 > 🔴 **여섯이 26~50권에서 새로 생겼다**(§5.3 신고 그대로) — `Market` · `PotatoField` · `GrannyFarm` ·
 > `CartRoad` · `Well` · `HenHouse`. 없는 채로 두면 그 권은 배경을 매 쪽 새로 그린다.
 > 검사 = `node packages/client/scripts/check-stage-tokens.mjs pipo` (**0** 이어야 한다).
+>
+> 🔴 **모든 시트에 스팟 `T` 가 있다 — 「닿는 자리」**(2026-09-05). 기존 스팟은 예외 없이 **자리를 보는
+> 카메라**(넓게 · 낮게 · 위에서 · 저 끝에서)인데, 권마다 두세 쪽이 **마주 본 두 얼굴 · 겹친 두 손 ·
+> 볼을 감싼 두 손 · 흙에 닿은 목도리 끝**이고 **대개 그게 그 권이 도는 쪽**이다(45 p4 · 34 p4 · 47 p6 ·
+> 50 p8). 사물 시트는 이 구멍을 못 메운다 — 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+> `T` 는 시트마다 **배경 한 줄만** 다르고 나머지는 같다: 닿은 한 점만 마감하고, 둘레는 그 자리의 가장
+> 옅은 문지름이거나 맨 종이이며, 얼굴은 얼굴이 닿는 자리일 때만 든다.
+> 🔴 익스트림 클로즈업에서 **마감을 한 단계 올리지 않는다**는 것은 앵커 `RENDERING` 이 든다(같은 그림을
+> 크게 그리는 것이지 더 자세히 그리는 것이 아니다).
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -97,7 +106,16 @@ this drawing decides it once - and it decides the wall, which is the ruler.
 
 FIXED PARTS: the wall as above · ONE big tree at the top end, trunk PRESSED · a gate in the wall at
   the gap · sheep, at most 9 as separate animals and 🔴 a flock further off is ONE RUBBED MASS with
-  0 outlines inside it · the farm buildings small at the foot of the hill.
+  0 outlines inside it · the farm buildings small at the foot of the hill ·
+  🔴 TWO BUSHES, AND THEY ARE NOT THE SAME BUSH. Two books pick from a bush and one of them is about
+  fruit that must NOT be eaten, so they cannot grow on one plant. Fix them by the wall:
+  THE BERRY BUSH stands BELOW THE STILE on the open downhill grass with NO WALL IN FRAME - loose
+    arching canes, long thin leaves, the fruit hanging in clusters clear of the leaf.
+  THE OTHER BUSH stands AGAINST THE WALL between THE GAP and THE BEND, so the wall always runs low
+    behind it - short stiff twigs going straight out, small round leaves, the fruit sitting tight on
+    the twig in ones and twos.
+  🔴 A reader must be able to tell which bush it is WITH THE FRUIT COVERED UP - by the wall behind it
+  and by the shape of the branch, not by the berry. The fruit itself is PROP SHEET Bush.
 
 🔴 EVERY EDGE ON THIS SHEET IS SLIGHTLY FURRY. Do not clean any of them. The one clean pressed
   outline in this book belongs to Pipo, and he is not on this sheet - if the stage has crisp edges
@@ -109,6 +127,11 @@ SPOTS:
   C THE GROUND, close, high: rubbed field, lifted highlights, one pressed thing.
   D FROM THE TOP looking down, wide: the wall running away, the farm small below.
   E AT THE GAP, medium: the fallen stones and the gate, yard visible through it.
+  🔴 F AT A BUSH, medium, eye level: one bush filling frame left, the hill falling away right - drawn
+     TWICE, once for each bush, so the two are settled against each other in one look.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = ONE rubbed field of hillside and nothing else,
+     at its lightest, 0 shapes in it. The touching point is the only finished thing.
 
 PLATE: A, B, C, D once each, plus 🔴 A WALL DIAGRAM marking last stone · gap · stile · bend · top end
   in order WITH PIPO DRAWN TO SCALE AT THREE OF THEM, so the three heights are settled in one look,
@@ -134,10 +157,24 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 든다 ③ **창밖 방향 = 늘 우리 문 쪽**. 방향이 권마다 바뀌면 집이 돈다. 창유리 자리는 들어낸 종이.
 난로 아궁이도 들어낸 종이이고 그 쪽에서 가장 밝다.
 
-**`Barn`** — 🔴 **닫힌 문의 널판 사이 세로 틈 하나가 붙박이다**(29·48·49 세 권이 같은 장치, §5.5).
+**`Barn`** — 🔴 **「틈」이 두 물건이다. 이름을 갈라 쓴다**(2026-09-05 · 물통을 셋으로 가른 것과 같은
+함정): ① **문틈**(THE DOOR SLIT) = 아래 문단의 널판 사이 세로 틈 · ② **밑틈**(THE UNDER-BARN GAP) =
+헛간 널빤지 바닥과 땅 사이의 **가로로 난 낮은 틈**. 둘은 방향도 규격도 반대라 한 낱말로 두면 45권이
+문에서 벌어진다. 🔴 **밑틈** — 헛간 옆벽 아래를 따라 땅에 붙어 가로로 뻗고, **높이는 피포가 배를 붙여야
+겨우 들어가는 한 뼘**이다: 어른 말의 **어깨가 입구에 걸려 팔 하나만 들어가고**, 피포는 **몸이 절반
+들어간다**(뒷다리 둘만 밖에 남는다). 안쪽은 눌러 그은 어둠 한 덩이이고 그 안의 것(아기 양)은 **들어낸
+종이**라 어둠 속에서 가장 밝다. 틈 앞 흙바닥에는 배를 끌며 눌린 자국이 남는다. 카메라는 **땅에 붙는다**
+(이 한 권의 네 쪽이 전부 여기다).
+🔴 **닫힌 문의 널판 사이 세로 틈 하나가 붙박이다**(29·49 두 권이 같은 장치, §5.5).
 **널 여섯, 그 사이 틈 하나**, 틈은 널 폭의 1/6, 위치는 문 한가운데에서 한 널 오른쪽. 🔴 **틈만 들어낸
 종이**라 화면에서 가장 밝고, 그 빛 한 줄이 건초와 몸 위에 **세로로** 눕는다. 틈 안으로 마당 한 조각이
-보인다 — 그 조각의 위치도 세 권이 같아야 한다. 열린 문간도 들어낸 종이(앵커 `YARD AND BYRE`).
+보인다 — 그 조각의 위치도 **두 권**이 같아야 한다. 열린 문간도 들어낸 종이(앵커 `YARD AND BYRE`).
+
+🔴 **요약 명세 시트에도 스팟 `T` 가 걸린다**(§1 머리말) — `FarmYard`(둘레 = 마당 바닥 한 면) ·
+`House`(둘레 = 문지른 방바닥, 또는 난로 아궁이의 들어낸 종이) · `Barn`(둘레 = 눌러 그은 헛간 안 어둠
+한 덩이, 또는 건초의 들어낸 종이) · `Fold`(둘레 = 우리 바닥 한 면) · `Brook`(둘레 = 문지른 물 한 면,
+잔결 0) · `BigTree`(둘레 = 눌러 그은 나무 밑동 한 면) · `GooseYard`(둘레 = 마당가 풀숲의 되풀이 자국).
+나머지 규칙은 전부 같다 — **닿은 한 점만 마감 · 얼굴은 얼굴이 닿을 때만.**
 
 ### §1.3 Market — 실제 프롬프트 (05 · 23)
 
@@ -175,6 +212,9 @@ SPOTS:
     one diagonal-grain roof showing among sideways ones.
   E INSIDE A SHOP, medium wide: shelves to the back, the open doorway behind as LIFTED PAPER and the
     brightest thing in the panel, the goods on the shelves pressed shapes with no interior detail.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = one rubbed awning or one rubbed counter face, 0 shapes on it, and NO crowd. The touching point is
+     the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C (twice, two stalls), D and E, plus 🔴 A GRAIN PANEL - nine roof shapes at one size,
   eight rubbed sideways and one rubbed in diagonals, to prove the trick reads at thumbnail size.
@@ -216,6 +256,9 @@ SPOTS:
   D ONE FURROW, close, high: only rubbed earth and one pair of hands' worth of ground, with a
     pressed round top just breaking the surface.
   E THE WHOLE FIELD, wide, eye level, from the far side: rows and corner and pile all at once.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = one rubbed field of bare earth, 0 rows picked out. The touching point is
+     the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C, D, E once each, plus 🔴 ONE OVERHEAD DIAGRAM of the field showing which end the rows
   are and which end the bare corner is, so no page ever swaps them.
@@ -261,6 +304,12 @@ SPOTS:
   D INSIDE THE BARN, wide, eye level: dark pressed interior, the hay bed, the open door behind as
     the one lifted shape - and the SAME panel again from the threshold looking out.
   E THE YARD, wide, eye level: wall all round, cart drawn up at the house door, fold gate open.
+  🔴 F INSIDE THE HOUSE, medium, eye level: the hearth mouth at one side as LIFTED PAPER and the
+     brightest thing in the panel, ONE stool in front of it, the floor a rubbed field. A whole page
+     happens in here (the last page of the last book) and A-E are all outdoors.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = one rubbed field of yard ground, or the pressed dark of the byre wall, 0 shapes in it. The touching point is
+     the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C, D (twice), E, plus 🔴 A SIDE-BY-SIDE PLAN of Pipo's farm and this one at the same
   size, to prove the parts are identical and the layout is not.
@@ -303,6 +352,9 @@ SPOTS:
     boundary running straight through the middle of the panel.
   D THE FAR SIDE, wide, high: looking back across the road at the wall end, the road between.
   E ALONG THE ROAD, medium wide, eye level: the road running away right toward the market roofs.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = one rubbed field of road earth, 0 ruts drawn. The touching point is
+     the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C, D, E once each, plus 🔴 ONE MATCHING PANEL - the last stone drawn beside the Hill
   sheet's version at the same size, to prove they are the same stone.
@@ -343,6 +395,9 @@ SPOTS:
   D THE CORNER AT NIGHT, medium wide: everything pressed, one lifted hole for the lantern, the round
     house window small and lifted in the background.
   E WIDE from the yard gate: the well corner in its place, so a reader knows where in the farm it is.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = one rubbed field of wet flagstone, or the water field inside the pail, 0 shapes in it. The touching point is
+     the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C, D, E once each, plus 🔴 ONE PAIR PANEL - the same pail of water clean and then
   clouded, at one size, to fix that the difference is pressed threads and not a change of value.
@@ -384,6 +439,9 @@ SPOTS:
   C THE GROUND IN FRONT OF THE DOOR, close, high: rubbed floor, the doorway's lifted light falling
     across it, one pressed thing standing on it.
   D THE HEN HOUSE IN ITS CORNER, wide, eye level: shed, yard, wall, so its place in the farm is fixed.
+  🔴 T WHERE TWO BODIES TOUCH, extreme close, at the height of the touch: only the one place two
+     bodies meet fills the frame. Background here = the lifted paper of straw, or one rubbed field of shed floor, 0 shapes in it. The touching point is
+     the only finished thing; 0 faces unless a face is what touches.
 
 PLATE: A, B, C, D once each, plus 🔴 A GRAIN PANEL - a handful of straw and a whole egg side by side
   at one size, both bare paper, to prove they read as two different things without a line between
@@ -416,14 +474,22 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 > (§5.9 가 초안한 문안은 `ONE exception - volume 44` 였는데, 그대로 넣었으면 46권을 못 그린다.
 > **권 번호로 예외를 적으면 반드시 이렇게 된다** — 조건으로 썼다.)
 
-| § | 토큰 | 사물 | 권 (쪽 수) |
+🔴 **아래 「권 (쪽 수)」 열은 셈이 아니라 무게다 — 조건으로 읽어라**(2026-09-05). 이 열은 손으로 적힌
+것이라 **새로 쓴 권이 조용히 밖에 남는다**(앵커 조항의 권 번호 목록과 **같은 병**이고, 앵커는 2026-09-04에
+번호를 조건으로 바꿔 고쳤다. 실측으로 42권 나무 공 일곱 쪽 · 26 p8 물통이 목록 밖이었다).
+**시트가 걸리는 조건 = 그 사물이 프레임에 든 모든 쪽**이고, 목록에 없는 권이 그 사물을 써도 시트는
+그대로 적용된다. 🔴 **굵은 권만이 이 열에서 하중을 받는다** — 그 사물이 열 쪽을 도는 권이라 시트가
+그 권을 위해 쓰였다는 뜻이다. 나머지 번호는 **인용하지 말고**, 어느 권이 걸리는지가 정말 필요하면
+`_scenes.json` 을 세라.
+
+| § | 토큰 | 사물 | 권 (쪽 수 · 🔴 하중은 굵은 것뿐) |
 |---|---|---|---|
 | 2.1 | `Hay` | 건초 | **06**(8) · 48(10) · 25 · 29 · 32 · 45 · 50 · 12 · 14 |
 | 2.2 | `FoldGate` | 양 우리 문 (문고리 · 빗장 · 문틈) | **16**(6) · **20**(8) · 01 · 12 · 25 · 26 · 43 · 47 |
 | 2.3 | `FarmGate` | 목장 문 · 문설주 · 돌쩌귀 | **11**(9) |
 | 2.4 | `Cart` | 나무 수레 | **09**(5) · **37**(7) · **50**(5) · 14 · 45 · 25 |
 | 2.5 | `MilkCan` | 우유통 넷 | **09**(6) |
-| 2.6 | `WaterTub` | 물통 — 세 크기 + 비누 · 거품 | **28**(5) · **32**(6) · 25 · 33 · 38 · 43 |
+| 2.6 | `WaterTub` | 물통 — 세 크기 + 비누 · 거품 | **38**(9) · **28**(4) · **32**(5) · 33 · 25 · 26 · 14 · 43 |
 | 2.7 | `Basket` | 바구니 | **14**(4) · **34**(6) · 05 · 17 · 37 · 39 |
 | 2.8 | `Eggs` | 달걀 여덟 · 짚 둥지 · 노른자 | **14**(5) |
 | 2.9 | `Washing` | 빨랫줄 · 빨래 여섯 · 집게 · 이불보 | **17**(8) |
@@ -436,7 +502,7 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 | 2.16 | `Lantern` | 등불 두 종류 | **43**(3) · **44**(2) · 33 · 39 |
 | 2.17 | `Pegs` | 벽에 박은 못 · 헛간 선반 | **38**(8) · **39**(4) · 43 · 44 |
 | 2.18 | `Scarf` | 🔴 몸을 떠난 노란 목도리 | **38**(6) · **47**(3) · 41 · 43 · 44 |
-| 2.19 | `WoodBall` | 나무 공 (+ 삽) | **39**(6) · 29 · 31 · 43 · 44 |
+| 2.19 | `WoodBall` | 나무 공 (+ 삽) | **42**(7) · **39**(6) · **43**(5) · 29 · 31 · 44 |
 | 2.20 | `Bush` | 덤불 + 열매 두 가지 | **36**(9) · **34**(4) · 18 |
 | 2.21 | `Snowball` | 눈덩이 · 건초 자루 | **12**(5) · 50 |
 | 2.22 | `FeedingBottle` | 젖병 | **48**(6) |
@@ -482,7 +548,7 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 | 15 「개울」·「돌다리」 | 자리 시트 `Brook`. 🔴 단 **돌다리 규격이 15권의 전부**다(「징검돌이 아니라 이어진 면, 물 위 한 뼘」 · 「뛰지 않는다, 두 발이 늘 돌에 닿아 있다」) → `Brook` 시트에 **다리 둘**을 넣을 것: 낮은 이어진 돌다리 · 기둥 둘만 남고 아무것도 없는 자리(p4). 안 넣으면 p4↔p9 가 같은 물이 안 된다 |
 | 05 「가게」 | 자리 시트 `Market`. 🔴 **그 시트가 아직 §1 목록에 없다** — 아래 §5 신고 |
 | 37·41·49 「돌담」 · 01·02·04 「돌들」 | 🔴 **자리다** — 앵커가 `THE STONE WALL IS THE COORDINATE` 로 못 박았고 `Hill` 시트가 이미 든다. 사물 시트를 따로 만들면 좌표가 둘이 된다. 🔴 단 **`Hill` 시트에 두 가지를 더해야 한다** → §5 신고 (담의 **높이 구간** · **담이 끝나는 마지막 돌**) |
-| 49 「널판」 | 자리 시트 `Barn`(헛간 뒷벽). 🔴 단 **널판 사이 세로 틈 하나가 들어낸 종이**라는 것은 `Barn` 시트가 들어야 한다 — 48 p3·49 p3·29 p7 이 같은 틈을 쓴다 |
+| 49 「널판」 | 자리 시트 `Barn`(헛간 뒷벽). 🔴 단 **널판 사이 세로 틈 하나가 들어낸 종이**라는 것은 `Barn` 시트가 들어야 한다 — **29 p7·49 p3** 이 같은 틈을 쓴다(🔴 48 p3 은 건초 줄기 사이 틈이고 45권은 헛간 **밑** 틈이라 셋이 딴 물건이다 — §5.5) |
 | 26·33·39·43·44 둥근 창 | 자리 시트 `House` 붙박이. 🔴 단 **창턱 높이**(26 p6 은 침대 발치를 딛고 밀어야 닿는다)와 **창밖에 우리 문이 보이는 방향**(26·33·43 이 같은 방향을 쓴다)을 `House` 시트에 넣을 것 |
 | 21 「손과」 · 48 「무릎」 · 05 「서로」 류 | 낱말이 아니라 문장에서 잘린 조각이다 |
 | 49 왕진 가방 · 약병 | 🔴 **게스트 캐릭터 시트 몫** — 이 가방은 손을 떠나지 않고 그 캐릭터를 읽는 표지다. 소품으로 떼면 캐릭터가 가방 없이 그려진다 |
@@ -872,9 +938,14 @@ STATES:
   4 KNEELING UP on the seat, elbows on the table.
   5 THE EMPTY CHAIR pushed back from the table, a plate still on the table above it.
   6 FROM ABOVE, looking down at the tabletop with one plate on it and nothing else.
-🔴 ONE IMAGINED PANEL (31 p5): the same chair standing on the plank floor with a low ring of ELEVEN
-  stone-wall stones drawn round its four legs, the stones pressed exactly as the hill wall is. It is
-  a drawn idea, not a real wall - nothing else in the kitchen changes.
+🔴 ONE IMAGINED PANEL (31 p5): the same chair on the plank floor with a low ring of ELEVEN
+  stone-wall stones round its four legs. 🔴 IT IS A THING ONLY IMAGINED, so it follows the anchor
+  clause of that name and NOT the way a real wall is drawn: the floor's repeated plank mark STOPS
+  SHORT all round the ring and leaves a band of untouched paper between the stones and the floor, so
+  the ring rests on nothing and is standing in a gap in the room rather than on the boards. Each
+  stone is ONE pressed shape with 0 marks inside it - 🔴 do NOT give them the coursed, furry-edged
+  build of the hill wall, or a real wall will be standing in the kitchen. Nothing else in the room
+  changes and no shadow is drawn under the ring.
 
 PLATE: the six states, plus the imagined stone ring, plus a close-up of the footrest joint.
 
@@ -1439,6 +1510,21 @@ NOT: no character face beyond a plain silhouette, 🔴 no gorse yellow on the ha
 > 와 「흐리게」 번역과 새끼 양 크기 계단을 넣고, 관통 줄 `YELLOW:`·`BARE:` 의 거짓을 고쳤으며,
 > `Hill` 에 담 높이 셋과 다섯째 지점을 붙이고 §5.3 의 자리 시트 여섯을 §1.3~§1.8 로 썼다.
 > §5.4·§5.5 는 §1.2 요약 명세로 들어갔다. 🔴 **아래 본문은 근거이므로 남긴다 — 지우지 말 것.**
+>
+> ✅ **2026-09-05 · 경로표 신고 수리** — ①앵커 `RENDERING` 에 **`A THING ONLY IMAGINED`**(31 p5 ·
+> 33 p5 · 35 p5, 셋 다 p5) 와 **`EXTREME CLOSE`** 를 넣었다 ②전 시트에 스팟 **`T` 닿는 자리** ③`Hill`
+> 에 **덤불 두 그루**(34 산딸기 ↔ 36 못 먹는 열매 — 같은 자리면 34를 읽은 아이가 36의 알을 산딸기로
+> 본다) 와 스팟 `F` ④`Barn` 의 **「틈」을 문틈·밑틈으로 가름**(45권 넉 쪽) ⑤`GrannyFarm` 스팟 `F` 집 안
+> ⑥§2 「권 (쪽 수)」 열을 **조건으로** 읽게 바꾸고 42 나무 공 · 26·14 물통을 채움 ⑦§5.5 의 48 p3 오인용
+> 정정 ⑧27 p8 「돌담이 끝나는 자리」 → 「돌담의 꼭대기 끝」(37권의 마지막 돌과 같은 말이라 두 권이 같은
+> 곳으로 읽혔다).
+>
+> 🔴 **35 p5 의 `🔴 상상 그림 — ` 접두는 이제 하중을 안 받는다**(같은 날). 예전엔 그 접두 때문에
+> 추출기가 `[Barn]` 을 **못 읽어** 앞 쪽의 `House` 를 물려받았고, 답은 맞았지만 **접두 한 글자가 경로표를
+> 정하고 있었다**(누가 「정리」해서 `[Barn]` 을 앞으로 옮기면 표가 「35권이 헛간에 갔다」고 말한다).
+> `build-series-routes.mjs` 가 이제 ①대괄호 앞 접두를 건너뛰어 토큰을 **읽고** ②**상상 쪽은 새 자리를
+> 들이지 않는다**는 규칙으로 되물린다(셀프테스트 있음). 접두는 지워도 표가 안 틀리지만, **사람이 읽는
+> 표시**로 남겨 둔다.
 
 ### §5.1 🔴 앵커의 무대 조항이 **권 번호 목록**이라 26~50이 통째로 밖에 있다
 
@@ -1503,9 +1589,15 @@ NOT: no character face beyond a plain silhouette, 🔴 no gorse yellow on the ha
 ### §5.5 🔴 `Barn` 무대에 넣을 것 — 널판 사이 세로 틈
 
 29 p7 「닫힌 문의 세로 틈 하나 — 그 틈이 **빼낸 종이로 화면에서 가장 밝고**, 그 빛 한 줄이 건초와
-두 몸 위에 세로로 눕는다」 · 48 p3 「좁은 틈 하나 — **틈만 들어낸 종이**」 · 49 p3 「널판 여섯, 그 사이
-세로 틈 하나」. 🔴 **세 권이 같은 장치를 쓴다** — 널판 폭과 틈 폭이 시트에 없으면 세 권이 딴 헛간이
-된다. 널 여섯 · 틈 하나 · 틈 안에 마당 한 조각이 보이는 위치까지 못 박을 것.
+두 몸 위에 세로로 눕는다」 · 49 p3 「널판 여섯, 그 사이 세로 틈 하나」. 🔴 **두 권이 같은 장치를 쓴다** —
+널판 폭과 틈 폭이 시트에 없으면 두 권이 딴 헛간이 된다. 널 여섯 · 틈 하나 · 틈 안에 마당 한 조각이
+보이는 위치까지 못 박을 것.
+
+🔴 **48 p3 은 이 근거가 아니다**(2026-09-05 정정). 그 쪽은 문이 아니라 **건초 더미 속**이고 거기 난
+틈은 **건초 줄기 사이**다(「앞을 가린 건초 줄기 몇, 그 사이로 난 좁은 틈 하나」). 결론(널 여섯·틈 하나)은
+그대로 맞고 근거 목록만 고쳤다.
+🔴 **45권의 틈도 이 틈이 아니다** — 헛간 **밑**의 가로 틈이고 규격이 반대다(§1.2 「밑틈」).
+「틈」이라는 한 낱말에 세 물건이 들어 있었다.
 
 ### §5.6 🔴 캐스트 — 아기 양의 크기
 

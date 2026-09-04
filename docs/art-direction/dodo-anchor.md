@@ -67,6 +67,10 @@ RENDERING (finish hierarchy): an area is ONE sweep of ONE colour, never lighter 
   ONLY for what is thrown UP off a coloured field: splash, spray, flour dust, falling snow, mist over
   water. At most 9 separate CHALK marks per page, each one single opaque stroke with a hard edge. It
   is never a highlight on a form, never an outline, never blended, and never laid on bare paper.
+  🔴 EXTREME CLOSE - when one thing fills the frame the finish does NOT go up a step. The brush is
+  the same width, so a thing filling the frame is made of FEWER strokes, not more, and the bare
+  paper rim round it gets WIDER, never thinner. No interior appears that the thing does not have on
+  a wide page, and the caps above do not rise because the thing got bigger.
 
 PALETTE: PAPER FLOUR CREAM #F5EFDF, sky, flour, mist, light, everything not painted, and Mommy's
   apron · COLOUR1 MILLPOND #4E7D77, the stream, the pond, reeds, willow, shutters, doors, anything
@@ -112,7 +116,11 @@ STAGE CLAUSES (the stage changes what the two colours do, never which two they a
     border in this medium, so the page is told apart by ITS STAGE BEING GONE: the whole ground is
     bare PAPER edge to edge and ONLY the imagined things are painted, standing on nothing. Every
     real page has a painted stage, so that one difference carries it. No cloud frame, no outline,
-    no faded edge, no second colour.
+    no faded edge, no second colour. 🔴 THAT IS NOT A SNOW PAGE - on snow, a thing stands ON the
+    ground and gets its WHEAT strokes along the lower lip where it meets it; an imagined thing meets
+    no ground and gets no lower lip. 🔴 THE PAGE STILL CARRIES ITS STAGE TOKEN and that is correct -
+    the duckling is still sitting in that kitchen while it pictures the thing. The token says where
+    the body is; this clause says the stage is NOT PAINTED. Do not "fix" one to match the other.
 
 CHARACTER DESIGN LANGUAGE: ducks are built from the same flat sweeps as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright. 🔴 THEY HAVE WINGS, NOT ARMS - no
