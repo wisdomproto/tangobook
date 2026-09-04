@@ -54,8 +54,13 @@ for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
       if (!m) {
         // 🔴 대괄호 앞에 이모지가 붙어 못 읽던 쪽이 있었다(kota 22 p1 `🔴 [Kitchen]`) — 위 정규식이
         //    이제 그 사이를 건너뛴다. 그래도 없으면 되짚는 쪽인지 보고, 아니면 진짜로 안 붙은 것이다.
+        // 🔴 자리가 아니라고 SCENE 이 스스로 적은 쪽도 뺀다(2026-09-04). dari 14 p5 =
+        //    「달이 머릿속 그림 — 방이 아니다」로, 250쪽 중 인물이 없는 유일한 쪽이다. 자리 시트를
+        //    한 장 지어 붙이면 화가가 없는 방을 그리게 되므로(lulu `[Piazza]` 와 같은 사고) 안 붙인다.
         const label = (text.match(/<b>장소·시간<\/b>([^<]*)/) ?? [])[1] ?? '';
-        if (!/^\s*(같은|그|저|바로)\s/.test(label)) bare.push(`${vol} ${p}`);
+        const inherits = /^\s*(같은|그|저|바로)\s/.test(label);
+        const noStage = /(방|자리|곳|장소)이? 아니다/.test(label);
+        if (!inherits && !noStage) bare.push(`${vol} ${p}`);
         continue;
       }
       const r = used.get(m) ?? used.set(m, { pages: 0, books: new Set() }).get(m);
