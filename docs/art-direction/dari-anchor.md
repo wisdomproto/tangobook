@@ -61,8 +61,9 @@ STAGE CLAUSES (one lighthouse and the house under it, twenty-five volumes):
     this: a wedge of paper runs from the lamp room across the washed sky, straight-edged, cut through whatever it
     crosses. NIGHT: three passes, DEEP, and the wedge is the brightest thing; indoors a window is a DEEP square and
     the wedge crosses it as a paper stripe. The house has no clock - the wedge is the clock.
-  🔴 WEATHER = THE SHAPE OF THE WHITE WAX STROKE UNDER THE WASH. CLEAR: crests only, short curls on the water, 6 to
-    24. FOG: the side of the crayon rubbed over sea and sky, 1 to 6 rubs, and nothing beyond the pier is drawn.
+  🔴 WEATHER = THE SHAPE OF THE WHITE WAX STROKE UNDER THE WASH. 🔴 THE CREST COUNT IS A SCALE, NOT A CAP: 24 IS
+    THE TOP OF IT AND MEANS THE WORST WATER THERE IS, so a calm day never reaches it. CLEAR: crests only, short
+    curls on the water, 6 to 12. FOG: the side of the crayon rubbed over sea and sky, 1 to 6 rubs, and nothing beyond the pier is drawn.
     RAIN AND WIND: straight slants all leaning one way, 12 to 24, crossing wash only, never a figure. STORM (one
     volume): slants 24, crests 24, three passes, no figure outdoors.
     SNOW: dots at most 20, and the ground is paper edge to edge.
@@ -110,8 +111,10 @@ CHARACTER DESIGN LANGUAGE: 🔴 HOW MUCH OF THE BELLY TOUCHES THE GROUND CARRIES
   in the mouth. 🔴 DARI'S SIGNATURE IS THE TAIL FLIPPER FLICKED UP - the both-ends-up bend - and it closes every
   volume.
   EYES: two DEEP pools, each as wide as the two nostrils are apart, and that width is fixed for the whole series -
-  an eye is open or shut and nothing in between, no white, no pupil, no lid line; both shut = asleep and nothing
-  else. Whiskers are three white wax lines a side, seen only where they cross wash, and it is right that they
+  an eye is open or shut and nothing in between, no white, no pupil, no lid line. 🔴 BOTH SHUT DOES NOT MEAN
+  ASLEEP BY ITSELF - THE BEND SAYS WHICH: both shut on a body lying FLAT, belly down, in a quilt or a cradle =
+  asleep; both shut on the BOTH-ENDS-UP BEND, or held, or hugged = the good shut, the one that means enough or
+  well done. Where a page must not read as sleep, the eyes stay open and the bend does the work anyway. Whiskers are three white wax lines a side, seen only where they cross wash, and it is right that they
   vanish indoors. The mouth is one short DEEP mark, never a smile arc.
   GRADE: 🔴 SEALS DO NOT STAND. The belly is on the ground or on the tread; moving is a hop that lifts the middle;
   nobody walks on flippers. 🔴 WHATEVER IS CARRIED IS CARRIED IN THE MOUTH - a

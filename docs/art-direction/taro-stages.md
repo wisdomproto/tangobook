@@ -1,6 +1,8 @@
 # 타로와 무무 — 무대·사물 시트 (견본)
 
-> art-director 산출물 (2026-08-16). 시리즈 13 `taro-batik` · 25권 250쪽.
+> art-director 산출물 (2026-08-16 · 2026-09-05 뒤 25권 반영). 시리즈 13 `taro-batik` · **50권 500쪽**
+> (§0·§2 표의 「25권」은 늘기 전 숫자다 — 🔴 시트 제목의 「N권 공유」류 숫자도 **그때 센 값이지 조건이 아니다**.
+> 뒤 25권이 같은 물건을 쓰면 그 시트를 쓴다. 숫자를 문지기로 읽지 마라).
 > 🔴 **앵커는 `taro-anchor.md` 가 SSOT다. 이 문서는 그 그림체로 그릴 대상을 확정한다** — 앵커를 고치지 않는다.
 > 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
 > 후보 원본 = `docs/changjak-books/taro/_stages.json` · 대본 SSOT = `docs/changjak-books/taro/_scenes.json`
@@ -92,6 +94,34 @@ NOT: no character of any kind, no orange anywhere on this sheet, no lettering, n
 | 13 | `GrassPatch` | 풀숲·풀밭 | 07 13 17 19 | |
 | 14 | `VillageMap` | 마을 전체 | 01 12 | §1 |
 
+### 🔴 §2-0. 스팟 `E` 와 스팟 `T` — 뒤 절반이 요구한 두 자리 (2026-09-05)
+
+**`E` = 가지 위.** `WellTree` 는 나무를 **밑동으로만** 정의하고 `Do not invent a fifth` 로 못을 박았는데,
+뒤 절반이 **가지 위를 아홉 쪽** 요구한다(한 권은 열 쪽 중 여섯이 가지다 — 닭이 하나씩 올라앉고, 가지 끝이
+몸무게로 활처럼 휘고, 나무 위와 나무 밑이 한 화면에 든다). 🔴 **금지 문구를 그대로 두고 그리면 화가가
+매번 가지를 새로 지어내고, 「같은 가지가 휘었다」가 성립하지 않는다.** → `E` 를 연다. 열매 시트(`Fruit`)에
+가지를 얹는 길은 안 골랐다 — 사물 시트는 `STATES` 만 들고 **카메라를 안 들기 때문**에 「아래에서 올려다본
+가지」를 못 준다.
+
+**`T` = 몸이 닿는 자리.** 자리 시트의 SPOT 은 전부 「자리를 보는 카메라」인데, 권마다 두세 쪽이
+**마주 본 두 얼굴 · 겹쳐 쥔 두 손 · 코가 배에 닿은 자리**이고 대개 그게 그 권이 도는 쪽이다.
+🔴 **열네 장 전부에 있고 이름은 어디서나 `T`** 다(알파벳을 잇지 않는다 — 시트마다 스팟 수가 달라
+letter 를 이으면 같은 자리가 시트마다 딴 글자가 된다). 경로표 SPOT 칸에도 `T` 로 적는다.
+
+```
+  T WHERE TWO BODIES TOUCH, extreme close: the single point of contact and nothing else - two faces
+    at one breath, two hands closed over each other, a nose against a belly. ONLY THE CONTACT IS
+    WAXED AND FINISHED. Everything round it is ONE broad CLOTH field carried out to all four edges
+    with 0 marks in it, and the sheet's own background value is named on its SPOTS list.
+```
+
+🔴 **한 물건이 화면을 다 채울 때 이 매체에서 올라가는 것은 하나뿐이다 — 크랙(crackle)이다.**
+값은 셋 그대로고 마크 수도 그대로다(가까이 갔다고 잎이 늘지 않는다). 늘어나는 것은 **크랙의 굵기와 간격**
+이라, `T` 와 익스트림 클로즈업에서는 크랙을 **그 크기에 맞춰** 굵게 성기게 그린다. 그게 「가까이 왔다」를
+이 그림체가 말하는 유일한 방법이고, 안 그러면 클로즈업이 와이드를 확대한 것으로만 보인다.
+
+---
+
 ### §2.1 WellTree — 실제 프롬프트
 
 ```
@@ -111,6 +141,14 @@ FIXED PARTS:
     one flat DEEP area and the only marks inside it are at most 4 crack hairlines, never in a row.
   CROWN - one DEEP mass, reaching further over the road than over the back, so its shade falls on
     the road. Its leaves are one stamped shape, at most 9 of them showing along the mass edge.
+  🔴 THE BRANCHES - THREE and no more, all on the road side, and their shape is fixed here because
+    books are read against each other on it:
+      THE LOW ONE, at a standing child's reach, thick and near level, long enough for FIVE hens to
+        perch along it side by side. It is the one that is climbed onto and sat astride.
+      THE MIDDLE ONE, higher and shorter, going back into the crown.
+      THE THIN TIP - the low branch's own far end, and 🔴 IT IS DRAWN TWICE ON THIS SHEET AT ONE
+        SIZE: straight, and bowed down under a body like a drawn bow. Same branch, same length,
+        same start point - only the curve differs. A book turns ten pages on that one comparison.
   WELL - a round rim about knee-high on a child, one flat MID band with a DEEP circle inside it,
     standing to the RIGHT of the trunk about one trunk-width away, low enough that the trunk hides
     its left half when seen from the road.
@@ -118,16 +156,26 @@ FIXED PARTS:
     HARD LINE, never a fade.
   ROAD - leaves the frame to the LEFT and runs long and empty toward the rest of the village.
 
-SPOTS - the four places the camera stands. Do not invent a fifth.
+SPOTS - A to E are the five places the camera stands, and T is the contact spot every sheet has
+(§2-0). Do not invent a sixth.
   A ROAD SIDE, wide, low: trunk at frame right, the long empty road filling frame left.
   B AT THE FOOT, medium, low: the trunk close at a seated child's height, well rim entering at the
     right edge with its left half behind the trunk.
   C THE EARTH, close, high: only the CLOTH ground and the three roots, looking straight down.
   D BEHIND THE TRUNK, medium: the trunk fills the middle of the frame and blocks it; the road is
     visible only at the two edges.
+  E THE BRANCHES, medium, LOW AND LOOKING UP: the low branch runs across the frame against a CLOTH
+    sky, the trunk entering at one edge, the ground out of frame. This is where anything sitting,
+    perching or bending on the tree is drawn. 🔴 ONE VERSION OF E IS PULLED BACK far enough to hold
+    THE BRANCH AND THE GROUND UNDER IT IN ONE FRAME - what is up and what is waiting below, so a
+    thing dropped from the branch has somewhere to land in the same picture.
+  T WHERE TWO BODIES TOUCH, extreme close (§2-0). BACKGROUND FOR T ON THIS SHEET: ONE broad CLOTH
+    field - the bare earth under the crown if the contact is at ground level, the sky if it is on
+    the branch. Never the trunk's DEEP mass; a contact drawn on DEEP loses its own edge.
 
-PLATE: A, B, C and D as four panels on one sheet, plus one small overhead diagram showing where
-  trunk, well, roots and road sit relative to one another.
+PLATE: A, B, C, D and E as five panels on one sheet, plus T, plus the straight tip and the bowed tip
+  at one size, plus one small overhead diagram showing where trunk, well, roots and road sit
+  relative to one another.
 
 NOT: no character of any kind, no orange anywhere on this sheet, no lettering or numerals, no
   gradient, no glow, no soft or feathered edge.
@@ -149,8 +197,10 @@ nothing else.
     so are separate stamps and the rest carries on as one joined CLOTH area (this is a BED and is
     exempt from the repeat cap).
 
-Same four SPOTS as WellTree, in the same order, so that A/B/C/D of the two sheets can be laid side
-by side and read as one mirrored pair.
+Same SPOTS as WellTree - A, B, C, D, E and T - in the same order, so that the panels of the two
+sheets can be laid side by side and read as one mirrored pair. 🔴 THE THREE BRANCHES ARE COPIED TOO,
+same lengths, same heights, same bow on the tip: the twin rule holds for the branches or the two
+trees stop being one tree. BACKGROUND FOR T on this sheet is the leaf bed under the crown.
 
 PLATE: the four panels, plus ONE COMPARISON PANEL - CreekTree and WellTree at the same size side by
   side, so that the crowns can be checked as identical.
@@ -158,7 +208,33 @@ PLATE: the four panels, plus ONE COMPARISON PANEL - CreekTree and WellTree at th
 NOT: no character, no orange, no lettering or numerals, no gradient, no glow, no soft edge.
 ```
 
+### §2.3 TaroYard · MumuYard — 🔴 두 마당이 전체의 절반이다 (2026-09-05 판정)
+
+뒤 25권의 자리가 다섯 곳에 몰렸다: 두 마당만 **138쪽 = 55%**이고, `TaroYard`+`MumuYard`+`WellTree` 셋이
+전체의 73%를 든다. 반대로 `ForkTree`·`FruitTree`·`ShadeHouse`·`NewPath`·`UpturnedBoat`·`GrassPatch`·
+`VillageMap` **일곱은 뒤 절반에서 한 쪽도 안 나온다**. 🔴 **예산이 모자라면 저 일곱을 접는 게 아니라
+두 마당을 더 깊게 판다** — 접어 봐야 아끼는 것이 1~4권짜리 시트이고, 모자란 것은 55%짜리 자리다.
+
+🔴 **그리고 두 마당에는 접기 기준(「카메라가 한 걸음 옮기면 닿는가」)에 안 걸리는 자리가 셋 있다.**
+셋 다 「같은 마당의 다른 각도」가 아니라 **다른 판**이므로 SPOT 으로 올린다 — 굽기 전에 정하는 것이
+이 절의 일이다. `MumuYard` 는 `TaroYard` 의 좌우 반전이므로 셋을 그대로 물려받는다.
+
+| 새 SPOT | 무엇을 보나 | 왜 한 걸음이 아닌가 |
+|---|---|---|
+| **E 마루 안쪽 방** | 문턱 너머 방 안이 통째로 한 판. 🔴 **방바닥에 든 밝은 띠**가 한 권 열 쪽의 시계라, 띠의 폭·각도·시작 자리가 이 판에서 굳는다. 벽은 DEEP 한 판, 바닥은 CLOTH, 창은 하나 | 문턱을 넘어야 보인다 — 마당에서도 마루에서도 안 보이는 화면 |
+| **F 처마 끝 물줄기** | 지붕 끝에서 **곧게 떨어지는 한 줄기**가 화면을 세로로 가른다. 미디엄, 처마와 땅이 한 프레임. 줄기는 MID 한 줄이고 떨어지는 자리에 DEEP 웅덩이 하나 | 마당 와이드에서는 줄기가 지붕 선에 묻히고, 마루에서는 프레임 밖이다 |
+| **G 마른 자리 경계선** | 널 위에 그어진 **젖은 데와 마른 데의 한 선**. 하이앵글, 널결이 화면을 가로지르고 선이 그것을 비스듬히 자른다. 젖은 쪽 DEEP · 마른 쪽 CLOTH · **선은 하드 에지, 절대 페이드 없음** | 한 권 열 쪽이 이 선 안쪽에서만 벌어진다 — 선이 프레임에 없으면 그 권이 없다 |
+
+기존 SPOT 은 그대로다(A 마당 와이드 / B 마루 / C 마루 밑 어둠 / D 처마 밑). 여기에 **T**(§2-0)가 붙고,
+두 마당의 T 배경은 **마당의 CLOTH 흙바닥**(밖) 또는 **마루 널의 CLOTH**(안)이다.
+
+---
+
 🔴 **나머지 11장은 이 형식 그대로다** — `FIXED PARTS` / `SPOTS` / `PLATE` / `NOT`, 장당 900~1,500자.
+🔴 **열네 장 전부가 `T` 를 든다**(§2-0) — 시트별 T 배경은 한 줄로 정해 둔다: `VillageRoad`·`NewPath` =
+**길의 CLOTH** · `Creek`·`SandFlat`·`UpturnedBoat` = **모래·물가의 CLOTH**(물 위면 물의 MID 한 판) ·
+`GrassPatch`·`ShadeHouse`·`FruitTree`·`ForkTree` = **잎 그늘의 DEEP 이 아니라 그 옆 CLOTH 땅** ·
+`VillageMap` = **T 없음**(사람이 안 나오는 시트다).
 
 ---
 
@@ -305,11 +381,13 @@ NOT: no character, no hands, no orange anywhere on this sheet, no lettering or n
 
 ### 🔴 §3.1 · §3.2 에 붙이는 조항 (기존 시트를 다시 쓰지 않는다)
 
-`CoconutHalf` 는 19·20 만 보고 쓰였다. 33·44·45 가 같은 물건을 쓰는데 **상태가 셋 더 필요하다** —
-아래 세 줄을 그 시트의 `STATES` 뒤에 그대로 얹는다.
+`CoconutHalf` 는 19·20 만 보고 쓰였다. 그 뒤 권들이 같은 물건을 **물그릇으로** 쓰면서 **상태가 셋 더
+필요해졌다** — 아래 세 줄을 그 시트의 `STATES` 뒤에 그대로 얹는다.
+🔴 **권 번호로 걸지 않는다**(2026-09-05) — 처음 판에 `(volumes 33, 44, 45)` 라고 적어 두었더니
+그 목록 밖의 권이 같은 그릇에 물을 담을 때 화가가 상태를 새로 지어내게 된다. 조건으로 읽어라.
 
 ```
-STATES (added for volumes 33, 44, 45):
+STATES (added - for any page where this half is used AS A VESSEL: set down in a row, carried full, or tipped out):
   4 A ROW OF THREE, mouth-up on the ground, EVENLY SPACED and IDENTICAL in size - one dry inside,
     two with a single round wet mark in the bottom. 🔴 A DROP HAS FALLEN INTO TWO OF THEM AND NOT
     THE THIRD, and that difference must be visible at thumbnail size.
@@ -320,11 +398,12 @@ STATES (added for volumes 33, 44, 45):
     outside-wet, so never shade the inside.
 ```
 
-`Shells` 는 09 의 모래밭만 보고 쓰였다. 38 은 마루 널 위에 늘어놓고, 43 은 한 개를 굴리고 불어서
-소리를 낸다 — 43 의 조개는 **같은 부채 조개를 매끈한 바깥쪽에서 본 것**이지 다른 조개가 아니다.
+`Shells` 는 09 의 모래밭만 보고 쓰였다. 그 뒤로 **모래 아닌 바닥**(마루 널) 위에 늘어놓는 권과, 한 개를
+굴리고 불어서 소리를 내는 권이 나왔다 — 굴리고 부는 조개는 **같은 부채 조개를 매끈한 바깥쪽에서 본 것**
+이지 다른 조개가 아니다. 🔴 여기도 권 번호가 아니라 조건이다.
 
 ```
-STATES (added for volumes 38, 43):
+STATES (added - for any page where a shell is NOT on sand, or is rolled, or is blown):
   5 ON A PLANK FLOOR, laid in a row along the boards, the near six separate and the rest one joined
     line. 🔴 The floor is pale wood, so here the shell is the DARKER thing - the reverse of the
     sand, and the reason this state is drawn.
@@ -739,7 +818,12 @@ FORM: EXACTLY FIVE flat-topped stones in a line from the near bank to the far ba
   simply a DEEP shape inside the MID area. That is how a flooded crossing reads without a word.
 STATES - all drawn from the same side-on position at one size:
   1 THE FIVE, dry, water low, all five standing clear.
-  2 THE FIVE, water high - the middle three submerged as edgeless DEEP shapes, the first and last
+  2a 🔴 ONE GONE - the water up just far enough that THE MIDDLE STONE ALONE is submerged as an
+    edgeless DEEP shape and the other four stand clear. This is the one a whole book turns on:
+    ONE CANNOT-STEP IN THE MIDDLE OF A ROW THAT IS OTHERWISE WHOLE, and it comes back in the same
+    place later. 🔴 Drawn with 2b at one size - the difference between them is the difference
+    between "wait" and "you cannot cross", and a book that means one must not be given the other.
+  2b THE FIVE, water high - the middle three submerged as edgeless DEEP shapes, the first and last
     still clear. 🔴 The row must still be countable as five.
   3 WET PRINTS - the five dry, with ONE flat DEEP footmark on each of the first three and the last
     two bare. The prints are the counter.
@@ -747,7 +831,8 @@ STATES - all drawn from the same side-on position at one size:
     it, so the line reads as blocked.
   5 FROM ABOVE, straight down, the five as a row of flat shapes in a MID band.
 
-PLATE: the five states, plus one stone close up showing the flat top and the hard water line.
+PLATE: the six states, with 1, 2a and 2b in one column at one size so the water line can be traced
+across all three, plus one stone close up showing the flat top and the hard water line.
 
 NOT: no character face (plain silhouettes only), no orange anywhere on this sheet, no lettering or
 numerals, no ripple, glint, sparkle or reflection on the water, no moss, crack or grain on a stone,
@@ -1078,9 +1163,32 @@ DESIGN LANGUAGE` 는 타로(아이)·무무(아이)·어른 둘까지만 규격�
 
 ---
 
+## §3-a. 🔴 「같은 판, 한 가지만 다름」 — 열두 짝은 판을 **한 장만** 그린다 (2026-09-05)
+
+뒤 절반에 첫 쪽과 끝 쪽이 **같은 화면인데 한 가지만 다른** 짝이 열둘 있고, **그중 일곱은 SCENE 이 톤 줄에
+직접 못 박았다**(「첫 쪽과 같은 띠가 같은 자리에 있는데 몸만 일어서 있어」 · 「같은 물건이 반대로 쥐인다」 ·
+「같은 자리가 정반대로 조용하다」…). 🔴 **두 쪽을 각각 그리면 그 권의 착지가 통째로 없어진다** — 다른
+그림 두 장은 비교가 안 되고, 아이가 「달라진 하나」를 못 찾는다.
+
+**그래서 이 짝은 쪽이 아니라 판으로 굽는다.**
+
+1. **판 한 장을 그린다** — 카메라·거리·프레임·바닥선·붙박이 배치가 전부 그 한 장에서 나온다.
+2. **바꾸는 것은 정확히 하나다.** 그 하나는 SCENE 이 이미 이름을 대 준다(누운 몸 ↔ 일어선 몸 · 떼는 손 ↔
+   덮은 손 · 구른 자국 ↔ 눌린 자국 · 들썩이는 널 ↔ 조용한 널 · 끊긴 줄 ↔ 이어진 줄 · 빈 옆자리 ↔ 찬 옆자리).
+3. **나머지는 한 획도 안 옮긴다.** 잎 개수·크랙 자리·그림자 각도까지 같다. 🔴 크랙은 특히 눈에 띄는데,
+   같은 판에서 크랙이 다르면 아이가 **그 차이를 「달라진 하나」로 읽는다** — 정답이 두 개가 된다.
+4. 시트의 `PLATE` 규약과 같은 일이다(`states 1 and 6 at one size (the reset pair)`). 🔴 짝인 줄 모르고
+   굽지 않도록, 경로표의 「이어짐」 칸에 그 짝을 적어 둔다.
+
+말 없이 짝이 되는 다섯(네 덩이 · 덮인 바닥↔드러난 흙 · 비뚤어진 끈↔조인 매듭 · 파인 한 줄↔얕은 두 줄 ·
+한 통만 참↔둘 다 참 · 길에 놓임↔밑동에 깔림)도 **같은 규칙**이다. 🔴 **못 박은 일곱만 지키면 안 된다** —
+말이 없다고 짝이 아닌 게 아니라, 말이 없어서 더 쉽게 두 장이 된다.
+
+---
+
 ## §4. 권별 경로표 — 25개
 
-🔴 **권별 경로표는 [`taro-routes.md`](taro-routes.md) 로 옮겼다**(25권 250쪽, 넷째 칸 = 그 권의 계기).
+🔴 **권별 경로표는 [`taro-routes.md`](taro-routes.md) 로 옮겼다**(50권 500쪽, 넷째 칸 = 그 권의 계기).
 
 ---
 

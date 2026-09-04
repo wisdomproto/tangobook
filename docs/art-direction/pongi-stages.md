@@ -58,6 +58,32 @@
 | `[PongiHouse]` 19 p3 → `Library` · 06 p5 → `Village` | 19 p3 「책장 앞」은 **도서관**이다(p1 과 한 방인데 두 이름이었다) · 06 p5 「빵집 앞」은 **남의 가게**다 |
 | 토큰이 아예 없던 3쪽 | 41 p7 → `Canal`(그 권 전체가 둑길) · 27 p5·30 p6 → `Imagined` |
 
+## §1-0. 🔴 스팟 `T` — 몸이 닿는 자리 (자리 시트 전부에 있다 · 2026-09-05)
+
+자리 시트의 SPOT 은 **예외 없이 「자리를 보는 카메라」**였다 — 넓게, 낮게, 위에서, 저 끝에서.
+그런데 권마다 두세 쪽이 **마주 본 두 얼굴 · 겹쳐 쥔 두 앞발 · 코가 배에 닿은 자리**이고,
+**대개 그게 그 권이 도는 쪽**이다(45권은 열 쪽 중 여덟이 「둑에 앉아 마주 본 두 얼굴」이다).
+사물 시트는 이 구멍을 못 메운다 — 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+
+🔴 **그래서 자리 시트마다 스팟이 하나 더 있고, 이름은 열 장 전부에서 `T` 다**(A·B·C·D 뒤에 오지만
+알파벳을 잇지 않는다 — 자리마다 스팟 수가 달라 letter 를 이으면 같은 자리가 시트마다 딴 글자가 된다).
+경로표의 SPOT 칸에도 `T` 로 적는다.
+
+```
+  T WHERE TWO BODIES TOUCH, extreme close: the single point of contact and nothing else - two faces
+    at one breath, two paws closed over each other, a nose against a chest. ONLY THE CONTACT IS
+    FINISHED. Everything round it is ONE flat pull of this sheet's own background colour carried out
+    to all four edges with 0 interior marks; no furniture, no horizon, no third thing.
+    Each sheet names its own background colour for T on its own SPOTS list.
+```
+
+🔴 **한 물건이 화면을 다 채울 때 이 매체에서 올라가는 것은 하나뿐이다 — 어긋남이다.**
+겹은 겹이고 마크 수는 그대로다(가까이 갔다고 리브가 늘지 않는다). 늘어나는 것은 `REGISTRATION` 뿐이라,
+`T` 와 익스트림 클로즈업에서는 **어긋남을 그 크기에 맞춰 그린다** — 한쪽에 종이 한 줄, 반대쪽에 겹 한 줄이
+다른 스팟보다 눈에 띄게 넓다. 그게 「가까이 왔다」를 이 그림체가 말하는 유일한 방법이다.
+
+---
+
 ### §1.1 Canal — 실제 프롬프트 (가장 먼저)
 
 ```
@@ -73,8 +99,23 @@ FIXED PARTS - two screens only, pulled flat, one pass each:
     and a worn earth path on top of it. Reeds at the water's edge, at most 7 strokes.
   THE FAR BANK is at most 5 flat INK2 silhouettes of houses with 0 windows, standing on the far
     edge of the water. Nothing behind them.
+  🔴 THE BRIDGE ARCH MAY STAND AT THE FAR END OF THIS VIEW - it is the same arch as STAGE SHEET
+    Bridge, drawn there and only copied here as ONE flat INK2 curve over the water with its pier
+    standing in the pull. It is never invented on this sheet and never a second bridge.
   THE SKY IS NOT PULLED - it is bare PAPER, and it is the brightest thing on every page.
   ONE MOORED BOAT lies against the near bank, INK2, seams at most 4 lines.
+  🔴 ONE SLUICE GATE at the far end of the near bank: a flat INK2 board standing across a notch in
+    the bank, with ONE straight INK2 line for its lifting bar. IT IS WHY THE WATER GOES DOWN. Shut,
+    it is one unbroken board; open, the same board raised clear of the notch and the notch left as
+    a gap in the bank line. Draw both - a book reads the bridge pier's crack against the water three
+    times and none of it is caused by anything else.
+  🔴 THE MUD ON THE BANK is ONE flat INK2 area with a crisp edge against the path, the same mud as
+    the Village sheet's STATE 4 and the same mud as PROP SHEET Mud - one substance in this series,
+    never a second brown.
+  🔴 ONE WORN PATCH OF BARE EARTH at the bank end where everybody stands to jump: a flat INK2 shape
+    the size of two children standing, its edge hard against the grass lip. ITS SIZE AND PLACE DO
+    NOT CHANGE - a book keeps the same camera on it for ten pages and the whole book is that one
+    patch staying the same while the queue on it changes.
 
 🔴 WHERE THE OVERLAP FALLS - this is what the sheet is for:
   A thing FLOATING ON the water sits on top of the INK1 pull with its WHOLE outline showing and is
@@ -96,9 +137,22 @@ SPOTS:
   B FROM THE BANK LOOKING ACROSS, medium: the near lip in the foreground, water, far bank.
   C THE WATER'S EDGE, close, high: where INK1 meets INK2, and one moored post.
   D ON THE ICE, wide, low: the same frame as A with the water area left as bare paper.
+  E AT WATER LEVEL, medium, the camera ON the water: the bank is out of frame or a low strip at the
+    top edge, the INK1 pull fills the picture, and a head above the surface is whole outline while
+    the same body below it is overlap. THE SURFACE IS A STRAIGHT LINE ACROSS THE FRAME and it is the
+    only line that says where the air stops.
+  F SITTING ON THE BANK, medium to close, at a seated child's eye: the worn earth path fills the
+    lower frame, the water is a flat band behind, the far houses a thin strip at the top. This is
+    the talking spot of this sheet - two bodies side by side on the lip are drawn from here, not
+    from A. The bank's SLOPE between path and water reads here as ONE flat INK2 wedge with a hard
+    edge, and that is the only place the slope is ever drawn.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET: ONE flat INK1
+    pull if the contact is at or below the bank lip, bare PAPER if it is above it - nothing else,
+    and the registration sliver drawn at the size it appears.
 
-PLATE: A, B, C, D once each, plus A DRAWN TWICE side by side - water and ice - at exactly the same
-  size, so the two can be laid over each other and the area checked as identical.
+PLATE: A, B, C, D, E, F once each, plus A DRAWN TWICE side by side - water and ice - at exactly the
+  same size, so the two can be laid over each other and the area checked as identical, plus T with
+  both of its backgrounds.
 
 NOT: no character of any kind, no red anywhere on this sheet (the red plate touches only Pongi's
   neck cord), no lettering, numerals or signs, no third mixed colour that is not an overprint, no
@@ -111,7 +165,24 @@ NOT: no character of any kind, no red anywhere on this sheet (the red plate touc
 `FIXED PARTS` = 현관문 한 짝 · 신발 놓는 자리 · 낮은 선반 하나 · **탁자 한 장**(04·15 가 같은 탁자를 쓴다.
 🔴 04 는 그 위에 종이 **석 장**이 왼쪽·가운데·오른쪽으로 놓인다 — 세 자리가 고정) · 창 한 칸(미색 빛이
 바닥에 든다 = **안 찍은 종이**) · 소파 · 벽(그림을 붙이는 면). `WHERE THE OVERLAP FALLS` = 창에서 먼 쪽
-바닥·가구 밑. `SPOTS` = A 현관에서 / B 탁자 위 하이앵글 / C 창가 / D 벽.
+바닥·가구 밑.
+
+🔴 **붙박이 셋을 더 박는다**(2026-09-05 · 뒤 절반이 이 셋 위에서 돈다):
+
+- **물통 — 현관 옆 한 자리다.** 나무 통 하나, INK2 한 판, 테 두 줄, 아이 가슴 높이. 🔴 **창가에도 있는 물건이
+  아니다** — 네 권이 이 통을 쓰는데 한 권만 라벨을 「창가」라 불렀고 **그 권의 소품 줄조차 「현관 옆 물통」이라
+  적어 스스로 반증한다**(SCENE 라벨을 고쳤다). 물은 운하에서 길어 들어오므로 문 옆이 그 통의 자리다.
+  통 안 물은 INK1 한 판이고, 흐려지는 것은 **맑은 자리와 흐린 자리가 한 통 안에서 겹으로 갈리는 것**이다.
+- **신발 자리 = 칸 셋이고 크기가 규격이다** — 큰 것 · 중간 · 제일 작은 것이 왼쪽부터 그 순서로 붙박이다.
+  🔴 한 권이 「빈 칸 하나」로 열 쪽을 돌므로 칸 수도 순서도 안 바뀐다.
+- **낮은 선반과 탁자는 한 화면에 위아래로 들어올 수 있어야 한다** — 선반이 탁자보다 높고, 둘 사이 거리가
+  한 프레임에 담긴다. 한 권이 「덩이가 선반 위로 올라갔다」를 그 높이 차이 하나로 말한다.
+
+`SPOTS` = A 현관에서 / B 탁자(🔴 **하이앵글 하나가 아니다** — 아이레벨·로우앵글·옆에서가 뒤 절반에만
+다섯 쪽이다. 같은 탁자를 네 높이에서 그린 판을 한 장에) / C 창가 / D 벽 / **E 문간**(밖에서 본 문 앞 —
+아래 좌표 줄 참조. 🔴 **이미 SCENE 이 찍고 있는 글자라 새 스팟에 안 준다**) / **F 신발 자리, 클로즈업,
+정면**(칸 셋이 프레임을 채우고 방은 안 보인다) / **G 선반과 탁자, 로우앵글**(둘이 위아래로 한 화면) /
+**T 닿는 자리**(§1-0. 이 시트의 T 배경 = 창에서 먼 쪽의 **겹색 한 판**, 창가면 **안 찍은 종이 한 판**).
 
 🔴 **SCENE 이 찍는 좌표 토큰** — `PongiHouse/A` = SPOT A(현관) · `PongiHouse/E` = **문간**(밖에서 본
 문 앞. 03 p4·p10 · 34 p10) · `GrandpaHouse/B` = 할아버지 집 문간(11 p6). 🔴 A 와 E 는 **같은 문을
@@ -170,8 +241,10 @@ SPOTS:
   B THE SHOPFRONT, medium close: the opening, the shelf, and one arm entering from above.
   C UNDERFOOT, close, high: bare paper and the cracked stone.
   D THE TREE, medium: the trunk filling the middle of the frame and blocking it.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET: bare PAPER,
+    because the lane takes no overlap at all - a contact made on this lane sits on nothing.
 
-PLATE: A drawn TWICE at one size - empty and market day - then B, C, D once each, plus 🔴 ONE LARGE
+PLATE: A drawn TWICE at one size - empty and market day - then B, C, D, T once each, plus 🔴 ONE LARGE
   PANEL OF THE CRACKED STONE alone, at the size it appears in a close-up, so the crack can be copied
   exactly a second time.
 
@@ -190,14 +263,26 @@ NOT: no character of any kind, no red anywhere on this sheet (the red plate touc
 | `Windmill` | 들판 한복판의 풍차 하나 · 날개 넷 · **풀** | 🔴 **날개 각도 3단계**(18 p1 멈춤 → p9 조금 → p10 더) — 셋을 **같은 각도에서 같은 크기로** 그려 겹쳐 볼 수 있게. 🔴 **풀은 바람의 눈금**이다: p1 곧게 섬 → p8 한 방향으로 눕기 시작 → p10 전부 누움. 눕는 것은 **모든 느슨한 것이 같은 쪽으로**, 최대 7 |
 | `Dentist` | 🔴 **하얀 의자 = 안 찍은 종이 한 덩이**(이 방에서 가장 밝다) · 젖혀지는 등받이 2단계 · 옆 작은 쟁반 · 벽은 INK2 한 판에 창 0 | 의자가 **아이보다 훨씬 크다** — 아이와 나란히 놓인 판을 반드시 한 장. 의자 자체 규격은 §2.4 `DentistChair` |
 | `Library` | 🔴 **천장까지 닿는 책장 벽**(§2.19 `Bookshelf`) · 낮은 열람대 하나 · 바닥은 안 찍은 종이 | 🔴 **로우앵글이 이 자리의 기본**(19 p1 이 아이를 작게 만든다) — 책장 벽이 화면 위로 잘려 끝이 안 보여야 한다 |
-| `Boat` | 뱃전 한 줄 · 바닥 널 세 줄 · 이음매 최대 4 · 노·조끼·바구니가 놓이는 **바닥 세 자리 고정**(35권) | 🔴 **배가 묶였나 풀렸나** — 뱃머리 밧줄이 말뚝에 **감겨 있으면 못 간다 · 풀리면 간다**. 35권 열 쪽이 그 하나로 갈린다 |
-| `Imagined` | 🔴 **무대가 없다.** 화면 전체가 상상한 것 하나로 차고, **그 밖은 안 찍은 종이**다 | 🔴 실제 쪽은 늘 무대가 찍혀 있으므로 **그 차이 하나로 갈린다** — 구름 테·흐림·테두리·희미하게 안 그린다. 인물도 안 나온다(27 p5·30 p6 둘 다 `인물 없음`) |
+| `Boat` | 뱃전 한 줄 · 바닥 널 세 줄 · 이음매 최대 4 · 노·조끼·바구니가 놓이는 **바닥 세 자리 고정** | 🔴 **배가 묶였나 풀렸나** — 뱃머리 밧줄이 말뚝에 **감겨 있으면 못 간다 · 풀리면 간다**. 🔴 **밧줄만으로는 못 대는 권이 있다** — 열 쪽 내내 안 풀리는 권(배가 목적지가 아니라 밥상이다)과, 매인 채 흔들리다 끝에서 처음 풀리는 권과, **노가 물 안이냐 밖이냐**로 나아감·멎음이 갈리는 권이 있다 → **밧줄 두 상태 × 노 두 상태 = 네 판**을 한 장에 |
+| `Imagined` | 🔴 **무대가 없다.** 화면 전체가 상상한 것 하나로 차고, **그 밖은 안 찍은 종이**다 | 🔴 실제 쪽은 늘 무대가 찍혀 있으므로 **그 차이 하나로 갈린다** — 구름 테·흐림·테두리·희미하게 안 그린다. 인물도 안 나온다(27 p5·30 p6 둘 다 `인물 없음`). ⚠️ **그 규칙을 깨는 실제 쪽이 하나 있다** — 이불 안이 화면 전체인 쪽. 거기서 갈라 주는 것은 무대가 아니라 **이불 안쪽 면**이므로 `Quilt`(§2.6)가 그 판을 든다 |
 
 나머지 시트(`PongiHouse`·`GrandpaHouse`·`NeighbourHouse`)도 같은 네 절 + `WHERE THE OVERLAP FALLS`.
+
+🔴 **위 여섯 장에도 스팟 `T` 가 있다**(§1-0). 시트별 T 배경은 한 줄로 정해 둔다 —
+`Bridge` = 난간 너머 **INK1 물 한 판**(밤이면 겹 한 판) · `Windmill` = **안 찍은 종이 하늘 한 판** ·
+`Dentist` = **안 찍은 종이**(이 방에서 가장 밝은 것이 의자이므로 그 흰 면이 배경이다) ·
+`Library` = **INK2 책장 한 판**(책등 줄은 T 에서 안 그린다) · `Boat` = **뱃전 INK2 한 판** ·
+`GrandpaHouse`·`NeighbourHouse` = 창에서 먼 쪽 **겹색 한 판** · `Imagined` = **T 없음**(인물이 없는 시트다).
+🔴 **`Bridge` 의 등불은 두 크기를 다 든다** — 가까이서 켜는 큰 판과 창 한 칸 안의 한 점(§2.23 의 상태 2 ↔ 5).
+두 권이 같은 등불을 그 두 크기로 쓴다.
 
 ---
 
 ## §2. 사물 시트 — 24장 (후보 36에서 접고 뺐다)
+
+🔴 **시트 제목의 「N권 공유」는 25권 시절에 센 값이지 조건이 아니다**(2026-09-05). 뒤 25권이 같은 물건을
+쓰면 그 시트를 쓴다 — 실제로 `Sofa` 는 「4권」이라 적혀 있었는데 **여덟 권**이었다. 숫자를 문지기로
+읽지 말고, 세야 할 값이면 손으로 적지 말고 파생시켜라.
 
 > 🔴 **단위는 권이다.** 한 권이 기대는 사물부터. 형식 정본 = 아래 §2.1 `PaperSheet` · §2.2 `Skates`.
 > 🔴 **밝은 것은 그리는 게 아니라 안 찍는 것이다** — §0 ② 의 얼음 규칙이 이 시리즈에서 계속 되풀이된다.
@@ -394,14 +479,16 @@ NOT: no character face (a plain silhouette only, for scale), no red anywhere, no
   outline around the chair, no third mixed colour, no gradient or soft edge.
 ```
 
-### §2.5 Sofa — 4권 공유 (`PongiHouse` 파생)
+### §2.5 Sofa — 🔴 **여덟 권**이 쓴다 (`PongiHouse` 파생 · 「4권」은 25권 시절 숫자였다)
 
 ```
 PROP SHEET - Sofa   (pongi-screenwater · SCENE token: Sofa)
 
-The living-room sofa. Four books act ON it - an adult falls asleep on it, a child stands up on it
-to stretch, a quilt is dragged over it, and a mother sits on it with a child on each knee - so the
-stage sheet naming it is not enough; its seat height, arm height and facing are fixed here.
+The living-room sofa. 🔴 EVERY BOOK THAT PUTS A BODY IN THE LIVING ROOM ENDS UP ON IT - an adult
+falls asleep on it, a child stands up on it to stretch, a quilt is dragged over it, a mother sits
+on it with a child on each knee, two brothers share it, a night is spent listening from it. Count
+it as the room's floor, not as a prop of a few books; the stage sheet naming it is not enough, so
+its seat height, arm height and facing are fixed here.
 
 FORM: a low three-seat sofa, INK2, one flat pull with at most 6 seam lines: two arms, a back, one
   long seat. 0 pattern, 0 buttons, 0 feet worth drawing.
@@ -424,13 +511,14 @@ NOT: no character face (silhouettes only, for scale), no red anywhere, no letter
   pattern or piping on the fabric, no cast shadow, no third mixed colour, no gradient or soft edge.
 ```
 
-### §2.6 Quilt — 5권 공유
+### §2.6 Quilt — 🔴 **이불이 나오는 모든 권**(「5권」은 25권 시절 숫자였다 — 뒤 절반이 더 쓴다)
 
 ```
 PROP SHEET - Quilt   (pongi-screenwater · SCENE token: Quilt)
 
-The family quilt. Five books use it on a bed, on the sofa and dragged across the floor, and in two
-of them the quilt is what a character HIDES inside, so its lump shape is a character shape.
+The family quilt. It is used on a bed, on the sofa and dragged across the floor, and in several
+books the quilt is what a character HIDES inside, so its lump shape is a character shape. 🔴 COUNT
+IT AS A FIXTURE OF THE HOUSE, not as the prop of a few books - every evening page can reach it.
 
 FORM: one thick cloth, INK2, one flat pull. Its only interior marks are at most 5 long fold lines
 running the length of the quilt, and a plain hem line round the edge. 0 pattern, 0 patchwork,
@@ -446,8 +534,14 @@ STATES:
   5 SLID HALF OFF, one corner pooled on the floor.
   6 A HOLLOW - the quilt left with a body-sized dent pressed in it and nobody there.
   7 FOLDED into a squared-off block on a sofa corner.
+  8 🔴 THE INSIDE, from under it - the quilt's own underside fills the whole frame and no part of
+    the room is in the picture. THIS IS THE ONLY WAY A REAL PAGE IS ALLOWED TO HAVE NO STAGE IN IT,
+    so it has to be unmistakable: ONE flat INK2 field with the hem line entering at one edge, and
+    🔴 ONE UNPRINTED SLIT OF PAPER where the two edges do not meet - the gap that says there is a
+    room outside. Nothing in an Imagined page ever carries that slit; that slit is the difference.
 
-PLATE: the seven states at one scale, plus a close-up of the hem and one fold line.
+PLATE: the eight states at one scale, plus a close-up of the hem and one fold line, plus state 8
+  drawn beside an Imagined-style panel so the slit can be checked as the only thing telling them apart.
 
 NOT: no character face, no patchwork, quilting grid or printed pattern, no red anywhere except the
   single cord end in state 4, no lettering or numerals, no cast shadow, no third mixed colour, no
@@ -469,6 +563,15 @@ FORM: a single fan-shaped shell, INK2, one flat pull, with at most 5 ribs fannin
 and one plain lip. About as wide as a child's two paws together. 0 pearl, 0 sheen, 0 speckle.
 🔴 THE SHELL IS NEVER RED and never any colour but INK2 - the red plate touches nothing but Pongi's
   neck cord, and a red shell would give the wrong child the accent.
+🔴 THREE CONDITIONS, AND THEY ARE NOT THE SAME DRAWING - this is what the sheet is really for:
+  OUT OF THE WATER, whole outline, INK2, ribs showing.
+  UNDER THE WATER, INK1+INK2 overlap lying inside the water pull, hard edge, no distortion, and
+    🔴 NO OUTLINE OF ITS OWN - the same rule as any sunken thing on STAGE SHEET Canal.
+  OPEN, the two halves apart on a hinge with the inside left as BARE PAPER, so an opened shell is
+    the brightest thing on its page and a shut one never is.
+🔴 THERE CAN BE TWO SHELLS IN ONE FRAME - a book has the brother's own shell held to his chest while
+  a second one lies under the water he is looking into. They are the same drawing in two conditions,
+  never two different shells, and the held one is the one with the outline.
 STATES:
   1 HELD - both small paws wrapped round it against the chest, from the front.
   2 RAISED - held up overhead in both paws, seen slightly from below.
@@ -478,8 +581,13 @@ STATES:
   5 TWO PAIRS OF PAWS on it at once - a small pair holding it and a bigger pair closed over both.
   6 IN A BASKET among several other shells, so this one is not singular in the world - only
     singular to him.
+  7 UNDER THE WATER - the same shell as overlap inside the INK1 pull, no outline, hinge down.
+  8 OPEN ON THE GROUND - two halves apart, the inside bare paper, one small INK2 pebble in it.
+  9 🔴 TWO IN ONE FRAME - held shell (whole outline, above the water line) and sunken shell (overlap,
+    below it) in one picture, at the same size, so the two conditions are read against each other.
 
-PLATE: the six states at one scale, plus one large single shell showing the rib count.
+PLATE: the nine states at one scale, plus one large single shell showing the rib count, plus states
+  1, 7 and 8 in a row - out, under, open - because that row is the whole reason this sheet exists.
 
 NOT: no character face, no red anywhere, no lettering or numerals, no pearl, iridescence, sparkle
   or highlight, no sand, no third mixed colour, no gradient or soft edge.

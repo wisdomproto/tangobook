@@ -64,6 +64,40 @@
 25 p5 의 **채소밭**은 토큰이 아예 없다(§3). 앵커 `CANVAS` 는 둘을 「집 뒤」에 나란히 놓으므로 **한 자리 한 시트**로
 확정한다 — 안 그러면 화가가 밭과 줄을 섬의 딴 데에 각각 세운다.
 
+### 🔴 §1-0. 스팟 `T` — 몸이 닿는 자리 (열 장 전부 · 2026-09-05)
+
+자리 시트의 SPOT 은 열 장 모두 **「자리를 보는 카메라」**다 — 넓게, 낮게, 위에서, 저 끝에서.
+그런데 권마다 두세 쪽이 **닿은 한 점**이고 대개 그게 그 권이 도는 쪽이다. 사물 시트는 이 구멍을
+못 메운다 — 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+
+🔴 **이 시리즈에서는 그 자리를 「겹친 두 손」이라 부르면 안 된다 — 물범은 손가락이 없다.**
+닿는 것은 **코 · 배 · 가슴**이고, 두 몸이 만나는 방식도 셋뿐이다:
+**코와 코**(마주 누워 코끝이 닿는다) · **코와 배**(누운 어른 배에 아이 코가 묻힌다) ·
+**가슴과 등**(앞지느러미 둘 사이에 안긴다 — 쥐는 게 아니라 **끼우는** 것이다).
+🔴 앞지느러미가 화면에 들어오면 **끝이 잘리지 않은 판**으로 그린다 — 손가락처럼 갈라진 끝을 그리면
+그 한 쪽에서 종이 다 무너진다(앵커 `SEALS DO NOT STAND` 와 같은 자리).
+
+이름은 열 장 어디서나 `T` 다(알파벳을 잇지 않는다 — 시트마다 스팟 수가 A~D·A~E 로 달라 letter 를 이으면
+같은 자리가 시트마다 딴 글자가 된다). 경로표 SPOT 칸에도 `T` 로 적는다.
+
+```
+  T WHERE TWO BODIES TOUCH, extreme close: nose to nose, a snout pushed into a belly, a small body
+    held between two fore-flippers. ONLY THE CONTACT IS FINISHED - 🔴 IT IS THE PAGE'S ONE FINISHED
+    THING and it takes the figure's whole allowance of DEEP marks (5 to 12) all by itself; the second
+    finished thing on such a page is nothing, not a bowl, not a shell.
+    Everything round it is ONE FUR rub with 0 marks inside, or the sheet's own background named below,
+    carried out to all four edges. No room, no horizon, no furniture, no third body.
+    A fore-flipper in frame is ONE unbroken shape with a rounded end - never split, never fingered.
+```
+
+🔴 **한 물건이 화면을 다 채울 때 이 매체에서 올라가는 것은 마크가 아니라 흰 왁스다.**
+마크 수는 그대로다(가까이 갔다고 주름이 늘지 않는다). 늘어나는 것은 **먼저 그어 둔 흰 왁스 선의 굵기**라,
+`T` 와 익스트림 클로즈업에서는 왁스를 **그 크기에 맞춰** 굵게 긋는다 — 코끝의 흰 자리가 와이드에서는
+머리카락 한 올이지만 `T` 에서는 손가락 폭이다. 그게 「가까이 왔다」를 이 그림체가 말하는 유일한 방법이고,
+안 그러면 클로즈업이 와이드를 확대한 것으로만 보인다.
+
+---
+
 ### §1.1 Kitchen — 53쪽, 이 섬에서 제일 많이 그려지는 자리
 
 ```
@@ -90,6 +124,13 @@ FIXED PARTS:
     normally ONE. By day it is paper; at night it is a DEEP square; when the lamp is lit a straight
     paper stripe crosses it and 🔴 THAT STRIPE FALLS ON THE FAR END OF THE TABLE AND NOWHERE ELSE,
     so the same three volumes can put the clock in the same place.
+  🔴 A FOURTH WINDOW STATE - BREATHED ON. Two books breathe on this glass and one breathes on the
+    round window of the bedroom, so it is a state of the glass, not a trick of a page: it is THE SIDE
+    OF THE CRAYON RUBBED ACROSS THE PANE, ONE stroke, ONE direction, wax under the wash - 🔴 IT IS
+    NEVER A DRAWN LINE AND NEVER A DRAWN CLOUD. What a snout clears in it is the pane's own state
+    showing through: a rounded hole with the rub stopping hard at its edge, and through the hole
+    whatever the weather clause says. Same crayon, same stroke as fog on the sea; that is why there
+    is no fifth soft thing in this book.
   THE DOOR - one FUR leaf in the wall to the left of the stove, opening OUTWARD onto rock. Its sill
     is one flat FUR board level with the floor, because a seal crosses it on its belly. Open, the
     doorway is a rectangle of whatever the weather clause says; shut, it is one FUR field.
@@ -97,7 +138,8 @@ FIXED PARTS:
   THE FLOOR MARK - the room's floor is where dirt shows, and it shows because the floor is paper:
     a track of DEEP dots from the sill to the table foot, and the same view with 0 dots. Draw both.
 
-SPOTS - the five places the camera stands. Do not invent a sixth.
+SPOTS - A to F are the six places the camera stands, and T is the contact spot every sheet has
+(§1-0). Do not invent a seventh.
   A THE ROOM, wide, at belly height: door at the left, table across the middle, stove and window
     behind. This is the only spot that shows all four fixed parts at once.
   B ACROSS THE TABLE, medium, eye level with the table top - the far edge of the slab runs across
@@ -107,8 +149,16 @@ SPOTS - the five places the camera stands. Do not invent a sixth.
   D THE CORNER, medium: two DEEP corner lines and bare paper wall, the room's emptiest view.
   E THE SILL, low and close: the FUR board across the frame, the floor inside it paper, and whatever
     the weather is standing outside beyond it.
+  🔴 F UNDER THE TABLE, low, the camera on the floor looking along it: the FUR slab's underside runs
+    across the top of the frame on its FOUR plain legs, the paper floor runs away underneath, and the
+    room beyond is read between the legs only. TWO BOOKS CANNOT MOVE THE CAMERA OUT OF HERE - one
+    hides under the table and the whole page is being under it, and one measures the table's height
+    by looking up at it from the floor. 🔴 A young seal lying here has her eyes BELOW the underside,
+    which is the same measurement spot A makes from the side; draw the two so they agree.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    bare PAPER - the walls and floor of this room are paper, so a contact made here sits on the brightest field in the book.
 
-PLATE: A, B, C, D and E as five panels on one sheet, plus one small overhead diagram showing where
+PLATE: A to F as six panels on one sheet, plus T, plus one small overhead diagram showing where
   door, table, benches, stove and window sit relative to one another.
 
 NOT: no character of any kind, no pink anywhere on this sheet, no lettering, numerals, labels, hooks,
@@ -158,9 +208,11 @@ SPOTS:
   D THE PLANK END, medium, the last plank stopping in open water with the one crest line beyond.
   E FROM ABOARD, medium: a FUR gunwale across the bottom of the frame, the planks and the tower
     behind it, so the pier is seen from below.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    ONE FUR plank rubbed along its length with 0 marks; if the contact is over the side, one flat SEA band with a single white crest.
 
 PLATE: A to E as five panels, plus one small elevation showing the plank top, the water line one
-  young seal's length below it, and the mail box drawn beside a lying seal silhouette for height.
+  young seal's length below it, and the mail box drawn beside a lying seal silhouette for height, plus T.
 
 NOT: no character, no pink anywhere on this sheet, no lettering, numerals or markings on the mail
 box or anywhere, no railing, ladder, cleat, bollard or lamp post, 🔴 no inverted shape in the water -
@@ -204,9 +256,11 @@ SPOTS:
   D THE LAST ROCK, medium: it stands alone with open water past it and no land beyond.
   E THE KITCHEN DOOR FROM BELOW, medium: rock in the foreground, the FUR door leaf above and to the
     right, so the rocks and the kitchen read as one place.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    ONE FUR rock field rubbed ONE WAY ONLY, 0 marks inside - the grain direction still says wet or dry even this close.
 
 PLATE: A to E, plus ONE COMPARISON PANEL - a wet green rock and a dry rock at the same size, same
-  depth, side by side, with the two rub directions clear.
+  depth, side by side, with the two rub directions clear, plus T.
 
 NOT: no character, no pink anywhere, no lettering or numerals, 🔴 no green paint of any kind - the
 green is FUR rubbed one way with the wash in its grain, no barnacle, weed or pebble texture, no
@@ -248,8 +302,10 @@ SPOTS:
   D THE FOOT, wide: bottom tread at the left, floor, stove at the right, boxes on the floor.
   E BESIDE THE STOVE, close and low: the FUR flank of the stove filling one side, floor paper, the
     stove door plainly shut.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    bare PAPER - the outer wall, with 0 rubs; a lit page puts the straight-edged paper wedge across it and nothing else.
 
-PLATE: A to E, plus one small elevation showing a tread depth against a lying young seal silhouette.
+PLATE: A to E, plus one small elevation showing a tread depth against a lying young seal silhouette, plus T.
 
 NOT: no character, no pink anywhere, no lettering or numerals, no banister spindles, newel, carpet or
 tread nosing, no flame, ember, smoke or glow at the stove, 🔴 no glow, halo or spreading light under
@@ -266,7 +322,11 @@ window, the bed, the cradle and the one bare patch of floor beside it are settle
 
 FIXED PARTS:
   THE ROUND WINDOW - ONE, in the wall at the head of the bed. Paper by day, a DEEP disc by night,
-    and when the lamp is lit a straight paper stripe crosses it with hard edges. 🔴 IT IS ROUND AND
+    and when the lamp is lit a straight paper stripe crosses it with hard edges. 🔴 IT TAKES THE
+    BREATHED-ON STATE TOO, exactly as the kitchen square does (Kitchen sheet, fourth window state):
+    the side of the crayon rubbed across it in ONE direction, and a snout's cleared hole is that rub
+    stopping hard at a rounded edge. Draw it once here so the round pane and the square pane are
+    breathed on in the same stroke. 🔴 IT IS ROUND AND
     IT IS THE ONLY ROUND THING BUILT INTO THIS HOUSE - the kitchen window is square, and that is how
     a reader knows which room a night page is in.
   THE BED - one low FUR platform rubbed once, 0 marks inside, its top no higher than a lying grown
@@ -295,9 +355,11 @@ SPOTS:
     the empty strip running towards the camera.
   E THE ROOM AT NIGHT, wide, same camera as A: everything DEEP except the round window's stripe and,
     on a second version of this panel, except the lantern's square.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    the quilt's PAPER field with its FUR hem entering at one edge, or the bare paper wall - never the round window.
 
 PLATE: A to E, plus panel A and panel E drawn one directly above the other at one size so day and
-  night of the same room can be laid over each other.
+  night of the same room can be laid over each other, plus T.
 
 NOT: no character, 🔴 no pink anywhere on this sheet (the shell is a separate last pull on the post),
 no lettering or numerals, no rug, chest, wardrobe, picture, curtain, hook or shelf, no bed legs
@@ -340,9 +402,11 @@ SPOTS:
   D THE FLOOR BESIDE THE TUB, low: bare paper floor, the tub flank rising at one side, a flat SEA wet
     patch with a hard edge.
   E THE OPEN DOOR, medium, from inside: the FUR leaf and, past it, the corner of the kitchen table.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    PAPER FOAM - the lumpy field the wax kept dry, and it is the brightest thing in the room.
 
 PLATE: A to E, plus one elevation of the tub with a lying young seal silhouette beside it for the
-  eye-to-rim height, and one close-up of a foam edge showing it is paper and not painted.
+  eye-to-rim height, and one close-up of a foam edge showing it is paper and not painted, plus T.
 
 NOT: no character, no pink anywhere on this sheet, no lettering or numerals, no tap, pipe, drain,
 plug, mirror, rail, hook or peg, no tiles, 🔴 no white paint anywhere - the foam and the towel are
@@ -385,9 +449,11 @@ SPOTS:
     line, nobody on it, the door shut.
   E THE WEDGE LEAVING, medium: the lamp at the frame edge and the paper strip running out across a
     washed sky, cut straight and stopping nowhere.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    one SEA wash pane by night, bare PAPER by day - the glass and nothing else.
 
 PLATE: A to E, plus panel B drawn twice at one size - day and night - so the disc can be checked as
-  the same disc in both.
+  the same disc in both, plus T.
 
 NOT: no character, no pink anywhere, no lettering or numerals, no lens, prism, mirror, mechanism,
 cogs or fresnel ring drawn inside the lamp, 🔴 no glow, halo, ray fan, bloom or lens flare of any
@@ -430,8 +496,10 @@ SPOTS:
   D IN THE SHALLOWS, low, the camera at water level: flat wash to the horizon, curls, no bottom drawn.
   E THE BEACH FROM THE ROCK, medium high: the whole strip seen along its length with the pier at the
     far end.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    bare PAPER sand, edge to edge; below the crest line, one flat thin SEA strip with a hard edge.
 
-PLATE: A to E, plus panel A drawn twice at one size - summer and snow - so the two read as one place.
+PLATE: A to E, plus panel A drawn twice at one size - summer and snow - so the two read as one place, plus T.
 
 NOT: no character, no pink anywhere, no lettering or numerals, no dune grass, driftwood, footprints,
 paw prints, dotted trails or arrows, no ripple rings, splash crowns or motion lines, 🔴 no sand
@@ -472,8 +540,10 @@ SPOTS:
   C ONE FURROW, close, straight down: FUR rub and paper earth, the dug hole in the middle of the frame.
   D UNDER THE LINE, low, looking up: the cord across the top of the frame with the strips hanging into
     the picture, sky beyond.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    bare PAPER earth between the furrows, 0 marks.
 
-PLATE: A to D, plus the three line states (empty, twelve, leaning eight) in a row at one size.
+PLATE: A to D, plus the three line states (empty, twelve, leaning eight) in a row at one size, plus T.
 
 NOT: no character, no pink anywhere, no lettering or numerals, no fence, gate, scarecrow, tool, basket
 or watering can, no pegs on the line, no more than 12 strips, no leaf or plant detail beyond one FUR
@@ -520,9 +590,18 @@ SPOTS:
     frame with a slot of paper lane between them.
   E THE END OF THE LANE, medium: the stalls stopping, the mast and its paper cabin block, open water
     beyond, and 🔴 nothing that looks like a tower.
+  🔴 F ONE LOOK FROM ABOVE, medium, high: the lane seen down onto, the stalls a row along one side,
+    the grown FUR silhouettes STREAMING past with their feet OFF the paper ground, and ONE small dark
+    shape stopped dead in the middle of it with its belly down. THIS SHEET IS OTHERWISE BUILT AT
+    BELLY HEIGHT ON PURPOSE and this spot is its one exception - it exists because a page has to say
+    「everything is moving and one thing is not」, and from the ground that reads as「hidden」instead
+    of「stopped」. 🔴 IT IS USED ONCE. If a second page in this lane wants height, the answer is spot
+    D (between two strangers), not this.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-0). BACKGROUND FOR T ON THIS SHEET:
+    bare PAPER lane, so the two bodies are the darkest thing in the frame - the only way she is ever found on these pages.
 
-PLATE: A to E, plus one small overhead diagram of the lane showing the five stalls on one side, the
-  wall on the other, and the mast at the end.
+PLATE: A to F, plus T, plus one small overhead diagram of the lane showing the five stalls on one
+  side, the wall on the other, and the mast at the end.
 
 NOT: no character face on the strangers (silhouettes from the fourth on), 🔴 no pink anywhere on this
 sheet, 🔴 no lighthouse, tower or beam of any kind, no lettering, numerals, signs, price tags, awning
@@ -808,6 +887,11 @@ no wake, spray or motion line, 🔴 no boat drawn upside down in the water, no g
 
 > 🔴 p3 = **아빠의 두 앞지느러미**가 단추를 누른다 / p7 = **같은 단추 같은 거리**에서 **달이의 두
 > 앞지느러미**가 누른다. 그 두 쪽이 나란히 읽히지 않으면 이 권에 사건이 없다.
+> 🔴 **그런데 p3 은 판자 위이고 p7 은 배 위다**(2026-09-05 신고). 자리가 다르면 「같은 거리·같은 크기」가
+> 배경에서 깨진다 — 실제로 두 쪽 다 뒤에 뱃전 한 줄을 그려 넣어 **자리를 얼버무리고 있었다**.
+> **판정: 이 짝은 `Pier/T` 로 굽는다**(§1-0). `T` 는 **자리를 안 보여 주는 스팟**이라 — 닿은 한 점만
+> 마감하고 둘레는 문지른 한 판 — 두 쪽의 자리가 달라도 두 판이 정확히 겹친다. 이 짝을 위해 자리를
+> 옮길 필요도, 이야기를 고칠 필요도 없다. p3 의 「뒤로 뱃전 한 줄」은 그래서 SCENE 에서 뺐다.
 
 ```
 PROP SHEET - LifeJacket   (dari-waxtide · SCENE token: LifeJacket)
@@ -836,6 +920,9 @@ STATES:
     frame the chest and the two flippers.
   5 🔴 BEING FASTENED BY THE CHILD - the SAME distance, the SAME size, the SAME button, with two small
     fore-flippers overlapped on it instead. States 4 and 5 must lay over each other exactly.
+    🔴 BOTH ARE DRAWN AT SPOT T: nothing behind the chest but ONE rubbed FUR field with 0 marks - no
+    plank grain, no gunwale, no horizon. The two pages happen in two different places and the reader
+    must not be able to tell, or the pair stops being a pair.
   6 WORN, side on, a plain child silhouette in it, the pink cord hanging outside the jacket.
   7 SOAKED - the same jacket dark and heavy, being squeezed between two flippers, water running off in
     straight lines.

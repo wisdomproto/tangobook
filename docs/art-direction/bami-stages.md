@@ -54,8 +54,13 @@
    ────────────────────────  Station 승강장 선  ────────────────────────────────
 ```
 
-- **A · B · C 가 `Passage` 다 — 시트는 한 장이고 SPOT 이 셋이다.** A = 기관실↔식당칸(01 p3 「침대칸 쪽」이 아니라
-  「식당칸 쪽」으로 읽어야 맞는 유일한 자리는 08 p2) · B = 식당칸↔침대칸 · C = 세면 구석↔화물칸(05 p9 「세면 구석 앞 통로」).
+- **A · B · C 가 `Passage` 다 — 시트는 한 장이고 SPOT 이 셋이다.** A = 기관실↔식당칸 · B = 식당칸↔침대칸 ·
+  C = 세면 구석↔화물칸(05 p9 「세면 구석 앞 통로」).
+  🔴 **08 p2 는 이음 A 가 아니라 B 다**(2026-09-05 정정 — 이 줄의 괄호가 그 쪽을 A 로 읽고 있었다).
+  밤이는 **침대칸에서 상자를 엎고 굴러 나왔으므로** 그가 선 통로는 식당칸↔침대칸이다. 배치도를 보면
+  침대칸에서 기관실 쪽 통로로 나오려면 식당칸을 통째로 지나야 한다 — 그 쪽에 식당칸이 안 나온다.
+  🔴 **이런 오기는 그림에 바로 새어 나간다** — 이음이 A 면 문 너머가 기관실(화실 빛)이고 B 면 식당칸
+  (난로 동그라미)이라, **문 너머에 무엇이 있는가**가 통째로 바뀐다.
 - 🔴 **바깥으로 나가는 문은 통로에만 있다.** 사람이 타고 내리는 곳이 여기 하나뿐이고(10 p10 · 14 p7),
   지붕에 오르는 것도 이 문 밖에서다(02 p9 삐삐가 그 문 위 지붕 가장자리). 칸(식당·침대)에는 바깥 문이 없다 —
   **창만 있다.** 이걸 안 정해 두면 손님이 식당칸 벽에서 튀어나온다.
@@ -85,6 +90,41 @@
 섞여 검사기가 **아예 못 읽던** 변종 라벨 둘을 ASCII 로: `[Station/큰 역]`→`[Station/Big]`(13권 9쪽) ·
 `[Station/건널목]`→`[Station/Crossing]`(11권 7쪽). 🔴 **못 읽는 토큰은 「미매칭 0」으로 통과한다 — 없는 것보다 나쁘다.**
 
+### 🔴 §1-c. 스팟 `T` — 몸이 닿는 자리 (아홉 장 중 여덟에 있다 · 2026-09-05)
+
+자리 시트의 SPOT 은 아홉 장 모두 **「자리를 보는 카메라」**다 — 넓게, 낮게, 위에서, 저 끝에서.
+그런데 권마다 두세 쪽이 **닿은 한 점**(마주 본 두 얼굴 · 겹친 두 날개 · 목에 파묻힌 부리)이고
+대개 그게 그 권이 도는 쪽이다. 사물 시트는 이 구멍을 못 메운다 — `STATES` 만 들고 **카메라를 안 든다**.
+
+🔴 **이 시리즈에서 `T` 는 다른 열여덟 시리즈보다 쉽다 — 종이가 어둠이기 때문이다.**
+다른 데서는 「둘레를 무엇으로 채우나」가 문제인데, 여기서는 **아무것도 안 칠하면 그게 곧 칸 안의 어둠**이다.
+그래서 `T` 의 규칙은 한 줄로 떨어진다: **닿은 자리에만 패치가 얹히고 나머지는 안 칠한 종이다.**
+
+🔴 **그리고 그 안 칠한 종이가 곧 칸 벽이라, `T` 는 §1-a 배치도와 절대 안 부딪힌다** — 창도 문도
+안 보이므로 「창은 먼 벽 · 앞 칸 문은 오른쪽」을 어길 방법 자체가 없다. 🔴 **거꾸로, `T` 에 벽 무늬나
+창 모서리를 그려 넣으면 그 순간 배치도를 어긴다.** 아무것도 그리지 마라.
+
+이름은 여덟 장 어디서나 `T` 다(알파벳을 잇지 않는다 — 시트마다 스팟이 A~C·A~D 로 달라 letter 를 이으면
+같은 자리가 시트마다 딴 글자가 된다). 경로표 SPOT 칸에도 `T` 로 적는다.
+⚠️ **`Outside` 에는 `T` 가 없다** — 그 시트의 규격이 「창 안 얼굴 원반 = 창 높이의 1/9」이라 몸이 닿는
+거리까지 갈 수가 없다. 밖에서 닿는 쪽은 `Station` 이 든다.
+
+```
+  T WHERE TWO BODIES TOUCH, extreme close: the single point of contact and nothing else - two faces
+    at one breath, two wings folded over each other, a beak pushed into a neck. ONLY THE CONTACT IS
+    PAINTED: ONE LAMP patch shaped to the contact itself, and 🔴 EVERYTHING ELSE IN THE FRAME IS
+    UNPAINTED PAPER, edge to edge. No wall, no window, no window frame, no door, no furniture, no
+    horizon and no second light. If the contact happens inside a lit shape that already exists on
+    this sheet, the LAMP field is that shape's own hard edge and stops there.
+```
+
+🔴 **한 물건이 화면을 다 채울 때 이 매체에서 올라가는 것은 패치 수가 아니라 마른 끌림이다.**
+빛의 개수(등불 셋 상한)도 마크 수도 그대로다. 늘어나는 것은 **FROST 를 거의 마른 붓으로 끌 때 끊기는 결**
+이라, `T` 와 익스트림 클로즈업에서는 그 끊김을 **그 크기에 맞춰** 굵게 그린다 — 와이드에서 김 한 줄이던 것이
+`T` 에서는 결이 보이는 한 판이다. 그게 「가까이 왔다」를 이 그림체가 말하는 유일한 방법이다.
+
+---
+
 ### §1.1 DiningCar — 104쪽 19권, 이 시리즈의 주 무대
 
 ```
@@ -111,7 +151,8 @@ FIXED PARTS - and their places relative to one another, which never change:
   THE SCARF'S PEG - on the wall by the stove. When the scarf is on it, it hangs there and nowhere else.
   DOOR TO THE ENGINE - IRON frame at the RIGHT. Door to the passage aft at the LEFT. 🔴 NO OUTSIDE DOOR.
 
-SPOTS - the four places the camera stands. Do not invent a fifth.
+SPOTS - A to D are the four places the camera stands, and T is the contact spot every sheet has
+(§1-c). Do not invent a sixth.
   A THE ROOM, wide, child height: stove at frame left with its circle, table across the middle, windows
     behind it, the engine door a bright frame at the right.
   B THE WINDOW SEAT, medium, from the aisle: one window fills the upper frame, the table's end below it,
@@ -122,9 +163,11 @@ SPOTS - the four places the camera stands. Do not invent a fifth.
 🔴 THE DRAWING BOARD PAIRING (§2.16) LIVES IN SPOT B: a board stood on the table has its top edge sitting
   directly against the real window, at the same depth, so the painted field and the real field touch along
   one line. Draw that alignment here so no page has to invent it.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER, the car's own dark. Inside the stove's circle, the LAMP field is that circle's hard edge and stops there; on the window seat, the window's own patch.
 
 PLATE: A, B, C, D as four panels, plus one small overhead diagram of the car showing where stove, circle,
-  table, window seat, cup rail, peg and the two doors sit.
+  table, window seat, cup rail, peg and the two doors sit, plus T.
 
 NOT: no character of any kind, no teal, no lettering or numerals, no flame or ember in the stove, no glow,
 halo or soft falloff on any lamp or on the stove circle, no painted floor outside a lit patch, no outside
@@ -163,9 +206,11 @@ SPOTS:
   C IN THE BUNK, close, low: the quilt's hem across the frame and the lamp's plank of light on it; the
     room beyond is unpainted.
   D THE FLOOR, high: bare boards, the toy box, and the unpainted dark under the lower bunk.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER. If the contact is in the round window's patch, that patch keeps its ROUND edge and its own size - it never grows to fill the frame.
 
 PLATE: A, B, C, D, plus one overhead diagram showing bunks, window, small lamp, post, toy box, the forward
-  door and the open aft end into the wash corner.
+  door and the open aft end into the wash corner, plus T.
 
 NOT: no character, no teal except a scarf hanging on the post where a page calls for it, no lettering or
 numerals, no second round window, no glow or halo round the small lamp, no painted floor outside a lit
@@ -203,8 +248,10 @@ SPOTS:
   B THE TUB, medium, slightly high: rim across the lower frame, the wall's lit strip behind.
   C THE BASIN, medium, low: basin at the top of the frame with the water band coming down, feet below.
   D FROM THE DOORWAY, medium: the IRON door frame around the whole shot, the tub beyond it.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER, with a FROST edge of basin or tub entering at one side only when the page is at that end.
 
-PLATE: A, B, C, D, plus the basin and the tub side by side at one scale so the three-to-one size holds.
+PLATE: A, B, C, D, plus the basin and the tub side by side at one scale so the three-to-one size holds, plus T.
 
 NOT: no character, no teal except a scarf on its peg, no lettering or numerals, no taps, pipes or plumbing,
 no tiles or pattern, no ripple, glint or inverted shape in any water, no more than 5 foam strokes on this
@@ -246,9 +293,21 @@ SPOTS:
   C AT THE SIDE WINDOW, medium: the window at frame right, the handle at left.
   D THE FIREBOX SEAM, close, dark: one straight LAMP line low in the frame and unpainted paper everywhere
     else, with the edge of a shoulder in it. This is the tunnel spot.
+  🔴 E THE CAB HEAD ON, medium, dead centre and symmetrical: the front window across the top, the big
+    handle standing up the middle of the frame, the firebox low at frame left and the doorway sill at
+    frame right, both cut by the frame edges at the SAME distance. SPOT A IS A THREE-QUARTER FROM
+    BEHIND AND CANNOT DO THIS - a page whose whole picture is「everything in this room is arranged
+    around one bar」has to be square on, and turning the camera loses the page. 🔴 The symmetry is the
+    spot: if the two edges are not cut equally, it is spot A drawn badly.
+  🔴 F THE BIG HANDLE ALONE, close: the LAMP bar filling the frame from edge to edge, unpainted paper
+    behind it, and a foot or two feet closed round it. 🔴 THIS IS THE HANDLE, NOT THE DOOR RAIL - the
+    two are different objects (see §2.14) and this spot exists so they are never drawn as one.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER with ONE LAMP SEAM of the shut firebox low in the frame - the tunnel light, and the only light this room gives a close shot.
 
-PLATE: A, B, C, D, plus the bell rope and the whistle cord together at one scale, and one small elevation
-  showing firebox, handle, bell, rope end and sill at their fixed heights against a plain child silhouette.
+PLATE: A to F, plus T, plus the bell rope and the whistle cord together at one scale, and one small
+  elevation showing firebox, handle, bell, rope end and sill at their fixed heights against a plain
+  child silhouette.
 
 NOT: no character face beyond a plain disc for scale, no teal, no lettering, numerals, dials or gauges, 🔴
 no flame, ember, spark or flicker, no orange or red, no glow, halo or ray from the firebox, no sound marks
@@ -291,9 +350,11 @@ SPOTS:
   C THE FLOOR, high: the two plates and the one gap line, nothing else, for the pages where loose things
     have gathered against one wall.
   D A TILTED PASSAGE, wide: spot A again with the gap line corner to corner and every strap at one angle.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER. 🔴 THE GAP LINE IS NOT IN FRAME HERE, so on a running page the tilt is carried by the two bodies themselves, leaning at the volume's one angle - never by an invented floor line.
 
 PLATE: A, B, C, D, plus one overhead diagram of the joint showing the two car ends, the three doors and
-  which way is forward.
+  which way is forward, plus T.
 
 NOT: no character, no teal, no lettering or numerals, no varied strap lengths, no metal sheen or reflection
 on the bar, no motion blur, speed line or doubled edge on a swinging strap, no coupling machinery, no
@@ -327,8 +388,10 @@ SPOTS:
   B AT THE CHIMNEY, medium, front on: the chimney centred, roof planes either side, nothing else.
   C FROM BEHIND, wide: two small figures on the roof seen from behind, the view they are looking at filling
     the right of the frame.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER, with the roof's near IRON edge allowed to enter at the bottom. 🔴 NO SMOKE - a roof page is a standing page.
 
-PLATE: A, B, C, plus the three smoke states (none / shallow / flat) at one scale beside the chimney.
+PLATE: A, B, C, plus the three smoke states (none / shallow / flat) at one scale beside the chimney, plus T.
 
 NOT: no character face beyond a plain disc, no teal, no lettering or numerals, 🔴 no figure falling, sliding
 or off balance, no railing, ladder or walkway, no smoke on a standing page, no second chimney, no sparks or
@@ -413,7 +476,15 @@ VARIANT `Station/Crossing` - the same station with the crossing as its naming th
     NEVER DRAWN, each with one LAMP patch where a lamp reaches it. From a child's height an adult is knees
     and nothing else.
   4 THE WAY OUT TO THE PLATFORM IS ONE BRIGHT RECTANGLE at the far end, and it is the only bright shape
-    other than the clock.
+    other than the clock. 🔴 ONE EXCEPTION, AND IT IS BUILT SO IT CANNOT BE MISTAKEN FOR THE WAY OUT:
+    A SHOP COUNTER SET INTO THE SIDE WALL - a LAMP rectangle 🔴 LYING DOWN (wider than it is tall,
+    about a third the height of the way out), with ONE IRON shelf line across it and at most 3 IRON
+    loaf shapes on that shelf. The way out is UPRIGHT, TALL AND EMPTY; the counter is LOW, WIDE AND
+    HAS THINGS IN IT. Nothing else indoors is ever lit.
+  6 🔴 BALLOONS, IF A PAGE HAS THEM: they are IRON - one round shape each with one IRON string, at most
+    5, held in a crowd's hand at the top of the frame. 🔴 NOT teal (teal is the scarf and nothing else)
+    and 🔴 NOT FROST or LAMP (the clock and the way out own the light indoors, and a bright bunch would
+    pull the eye off both). An unlit round thing high in a dark hall is exactly what a balloon is.
   5 The floor is paper; only what stands under a lamp is painted. There is no platform line indoors - it
     begins at that bright rectangle.
 
@@ -424,9 +495,11 @@ SPOTS (the shared station):
   C ON THE LINE, high, looking straight down: the LAMP stroke across the frame and what is set down on it,
     each thing with its own lit patch, none touching.
   D UNDER THE LAMP POST, medium, evening: the post, its hard cone on the ground, unpainted beyond it.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER. Under the lamp post, the LAMP field is the cone's own hard edge and stops there; the platform line is NOT in frame (it is a full-width line and this frame has no width to spare).
 
 PLATE: A, B, C, D as four panels, plus the four naming things in a row at one scale, plus the three
-  `Station/Big` panels (under the clock, in the legs, the bright way out).
+  `Station/Big` panels (under the clock, in the legs, the bright way out), plus T.
 
 NOT: no character beyond plain silhouettes and face discs, no teal, 🔴 no lettering, numerals, signs,
 timetables or station boards anywhere, including on the clock, no red or green in the signal glass, no glow
@@ -472,8 +545,10 @@ SPOTS:
   B AT THE GLASS, medium: the window fills the frame, the train small in it.
   C THE GATE, wide, evening: gate at frame left, the road falling right, the lamp post cutting it once,
     the platform line far below.
+  T WHERE TWO BODIES TOUCH, extreme close (see §1-c). BACKGROUND FOR T ON THIS SHEET:
+    UNPAINTED PAPER - the unlit inner half of the room. If the contact is in the window's patch, that patch keeps the window's exact shape.
 
-PLATE: the two pairing halves side by side as the widest panel, then A, B, C.
+PLATE: the two pairing halves side by side as the widest panel, then A, B, C, plus T.
 
 NOT: no character face on any silhouette, no teal except a scarf on the child, 🔴 no lettering, numerals,
 alphabet cards, posters, name tags or wall charts of any kind, no species given to the silhouettes, no
@@ -1131,17 +1206,24 @@ FORM: ONE IRON bar running the length of the passage wall at 🔴 A HEIGHT BAMI 
   floor plates with one IRON gap line between`. That single gap line is what makes a tilted page read
   as a slide - so on a steep page it runs corner to corner.
 🔴 A GRIPPING FOOT IS THE PICTURE OF VOLUME 12. Draw it twice at one size: A BROAD ADULT FOOT wrapped
-  round the bar, toes closed over it · A SMALL FOOT doing the same on the same bar, the toes barely
-  meeting. 🔴 Those two panels sit on facing pages of that book (p5 and p6) and they must be the same
-  camera, same bar, same crop.
+  round the bar, toes closed over it · A SMALL FOOT doing the same, the toes barely meeting.
+  🔴 THEY ARE NOT ON THE SAME BAR AND THIS SHEET USED TO SAY THEY WERE (fixed 2026-09-05). Those two
+  panels sit on facing pages and what repeats is 🔴 THE PLACE IN THE FRAME - same camera, same crop,
+  the gripping foot dead centre both times - while the thing gripped is the ENGINE CAB'S BIG HANDLE
+  on one page and the HANDRAIL BESIDE THE CAB DOOR on the other. That is the point of the pair: the
+  child does the same thing on his own bar, not on his father's. Draw the two bars once, side by
+  side, at one scale, so they are never swapped: THE BIG HANDLE is thicker, waist high to an adult
+  and standing clear of the wall (Engine cab sheet, spot F) · THE DOOR RAIL is the passage bar's own
+  gauge, thinner, at the height an owl reaches with one foot.
 🔴 NOT GRIPPING is drawn as EMPTY HANDS AND A FULL WALL: the bar and all 7 straps in frame with
   nothing touching any of them, and a running figure below. Volume 12 page 2 is exactly that - "잡을
   것이 화면에 가득한데 아무것도 안 잡혔다."
 STATES: 1 the bar and 7 straps, plumb · 2 the same at 8, 12 and 15 degrees · 3 an adult foot gripping
-  · 4 a small foot gripping, same crop · 5 nothing gripped, a figure running below · 6 a body sitting
-  on the floor at the low end of a 12-degree page, the gap line corner to corner.
+  the cab's big handle · 4 a small foot gripping the door rail, SAME CROP AND SAME CENTRE as 3 ·
+  5 nothing gripped, a figure running below · 6 a body sitting on the floor at the low end of a
+  12-degree page, the gap line corner to corner · 7 the two bars side by side at one scale.
 
-PLATE: states 1-6, with states 3 and 4 as a matched pair.
+PLATE: states 1-7, with states 3 and 4 as a matched pair and 7 beside them.
 
 NOT: no character face beyond a disc, no teal, no lettering or numerals, no motion blur, speed line
 or doubled edge on a swinging strap, no metal sheen or reflection on the bar, no varied strap
