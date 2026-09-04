@@ -99,8 +99,9 @@ RENDERING (finish hierarchy): an area is ONE torn piece of one paper, flat and e
   same weight of paper. Nothing recedes by getting paler, bluer or softer.
   🔴 THERE ARE THREE CHILDREN AND ONE GRANDFATHER AND NOBODY IS EVER ADDED TO FILL A GAP; when one of
   the three has walked off, the page shows two and the empty place they left.
-  🔴 THERE IS ONE MORE CHILD AND SHE IS A FORM OF THIS SERIES, NOT AN EXCEPTION: A BABY SQUIRREL, up to
-  a child's shoulder, WHO CARRIES NO GREEN ANYWHERE. Measured across 500 pages she stands in thirteen
+  🔴 THERE IS ONE MORE CHILD AND SHE IS A FORM OF THIS SERIES, NOT AN EXCEPTION: A BABY SQUIRREL, 🔴 KNEE
+  TO HIP HIGH ON A STANDING CHILD - not shoulder high; a bench plank stands well above her head and she
+  needs something to climb on to reach a seat - WHO CARRIES NO GREEN ANYWHERE. Measured across 500 pages she stands in thirteen
   of them across four volumes - she is the child who is not one of the three yet, and her having no
   green is the whole point of her. 🔴 SHE IS NEVER GIVEN A GREEN THING, NOT EVEN AT THE END OF A
   VOLUME WHERE SHE IS TAKEN IN: the greens on any page are still exactly three or fewer. She is drawn
@@ -149,8 +150,10 @@ STAGE CLAUSES (the stage changes what the papers do, never which papers they are
     piece.
   🔴 THAW (any page where the snow is going, not coming) - the TORN WHITE snow is torn back from its edges so STONE GREY
     appears in patches, always from the outside in. Drips from the eaves are at most 9 TORN WHITE
-    specks. The last shaded snow at the very end of the series is snow that has been torn away everywhere except in one
-    piece along the bottom of a wall.
+    specks. 🔴 THE LAST SNOW OF ALL is snow that has been torn away everywhere except along ONE EDGE - at the
+    foot of a wall in the alley, at the foot of a wall in a yard, and 🔴 ON A HILL ALONG ITS LOWER EDGE,
+    with the bare STONE GREY reaching further up the slope page by page. It is always one surviving
+    strip and never a scatter of patches, whatever the place.
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, 🔴 AND ALL THREE
@@ -250,7 +253,7 @@ CHARACTER SHEET - nono alley   (five characters, one sheet)
 SHEET LAYOUT: one winter-light ground sheet, five animals standing in a row on a single ground line -
   🔴 THE THREE CHILDREN ARE ALL ABOUT THE SAME HEIGHT WITH THREE DIFFERENT HEAD SIZES, Grandpa Badger
   is twice any of them and the widest figure, and 🔴 THE BABY SQUIRREL STANDS IN THE
-  ROW AT HER TRUE HEIGHT, up to a child's shoulder, CARRYING NO GREEN AT ALL - she is in four volumes,
+  ROW AT HER TRUE HEIGHT, KNEE TO HIP HIGH ON A STANDING CHILD, CARRYING NO GREEN AT ALL - she is in four volumes,
   not one, so she is a member of this sheet and not a guest. Each character is drawn
   THREE times: front standing, three-quarter walking, and back.
   🔴 In all twelve child drawings the FRONT LIMBS ARE HANDS WITH THREE FINGERS AND ARE EMPTY - nobody

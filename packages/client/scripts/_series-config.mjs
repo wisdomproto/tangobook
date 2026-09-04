@@ -30,6 +30,30 @@ const LABELS = {
   },
 };
 
+/** 🔴 딩딩 손님 등록부 (2026-09-05) — SCENE 이 `Guest goat`·`Guest buffalo`·`Guest village` 을 찍는데
+ *  등록부가 없어서 셋 다 **아무 시트도 안 받고 있었다**(규격이 SCENE 지문에만 있었다).
+ *  규격 정본 = `docs/art-direction/dingding-cast.md` 의 `## Guest` 절. 여기엔 그 한 줄 요약만 둔다. */
+export const DINGDING_GUESTS = {
+  "Guest buffalo": {
+    "key": "buffalo",
+    "name": "뭉이 (물소)",
+    "aliases": ["Guest buffalo", "뭉이"],
+    "desc": "이 시리즈에서 몸이 가장 큰 아이. 뿔이 옆으로 뻗어 머리 윤곽이 높이보다 넓다. 엄마보다 반 머리 크지만 머리가 큰 아이 비례 그대로 — 딩딩보다 크되 형이 아니다. 엉덩이까지 오는 짧은 윗도리 하나, 조끼 없음. 늘 두 손으로 배 앞에 바구니를 들어 팔이 고리를 만든다. 빨강 0.",
+  },
+  "Guest goat": {
+    "key": "goat",
+    "name": "염소 의사 선생님",
+    "aliases": ["Guest goat", "염소 의사"],
+    "desc": "찾아온 어른. 뿔이 뒤로 굽어 머리 윤곽이 길게 눕는다(뭉이는 넓다). 턱 밑 수염은 한 조각으로 잘라 턱에 붙인다. 소매가 손목까지 내려온 겉옷 — 이 시리즈에서 팔뚝이 늘 덮인 유일한 인물. 드는 것은 작고 한 손, 몸 밖으로 내밀어 윤곽에 든다. 빨강 0.",
+  },
+  "Guest village": {
+    "key": "village",
+    "name": "마을 아이 여섯",
+    "aliases": ["Guest village", "마을 아이"],
+    "desc": "얼굴 구멍이 하나도 없는 실루엣 여섯. 🔴 오리도 얼굴이 없으므로 가르는 것은 윤곽이다 — 아이는 팔 둘이 몸에서 나와 손으로 끝나고 목 위에 머리가 있고 엉덩이에 옷단 선이 있다. 오리는 머리부터 꼬리까지 한 덩어리라 삐져나온 것이 없다. 여섯 다 딩딩 키, 귀 모양과 팔 동작으로만 서로 다르다. 넷과 겹쳐 서지 않는다. 빨강 0.",
+  },
+};
+
 /** 🔴 코타 손님 등록부 — 종마다 하나(얼굴 먹 도형은 `docs/changjak-books/kota/_design.md` 등록부와 같은 정본).
  *  회차 HTML 이 `window.SH_GUESTS` 로 받아 @image9~ 시트를 만든다. 같은 종이 다시 오면 같은 시트를 쓴다.
  *  🔴 손님을 고정 캐스트에 두면 25권이 「❓ 손님」 하나로 뭉개진다 — 그래서 단역이다. */
@@ -627,6 +651,7 @@ export const SERIES = {
       overlap: '(없음 — 한 장을 오려 내는 것이라 겹치는 곳이 없다)', accent: '#C62828',
     },
     accentWhere: '딩딩 앞치마',
+    guests: DINGDING_GUESTS,
     cast: [
       { key: 'dingding', name: '딩딩', face: '🐷', aliases: ['딩딩', 'Dingding piglet'] },
       { key: 'granny', name: '할머니', face: '🐷', aliases: ['할머니', 'Grandma pig'] },

@@ -21,6 +21,24 @@ ON EVERY PAGE AND NEVER BREAKS`.
 있어야 한다」와 「위 논의 물이 아래로 흐른다」가 **한 문장**이다. 15시리즈 중 매체와 무대가 이렇게 겹치는
 곳은 여기뿐이다.
 
+**③ 오려 낸 자리를 도로 메우는 것이 이 매체의 시계다.** (🔴 2026-09-05 신설 — 세 권이 이미 이렇게 쓰고 있다)
+
+한 물건이 **흰 자리**로 뚫려 있다가 다음 쪽에 **검정으로 메워진다**: 대야 안이 흰 자리였다가 검정으로 ·
+나무통 안이 흰 자리였다가 검정으로 · 등불 구멍이 손바닥만 한 흰 자리였다가 닫힌다. 셋 다 「끝났다」를
+말하는 같은 장치인데, 지금까지 **우연히** 같았다.
+
+```
+🔴 TIME IS A HOLE BEING FILLED BACK IN. Where a book needs to say that a thing is finished, over,
+  emptied or put out, it does NOT change the thing's shape: the CUT-AWAY WHITE inside it is FILLED
+  BACK TO SOLID BLACK, and everything else in the frame stays where it was. So the two pages must be
+  the SAME ANGLE, THE SAME SIZE AND THE SAME DISTANCE, with only that one area different - a reader
+  compares them by laying one on the other. 🔴 THE FILLING IS ALL OR NOTHING: there is no half-filled
+  hole, no shrinking hole and no grey, because there is no grey in this medium. It is white, then it
+  is black.
+```
+
+🔴 **거꾸로도 같다** — 검정이 흰 자리로 열리는 것은 「시작됐다」이고, 규칙은 그대로다(같은 각도·전부 아니면 전무).
+
 🔴 **시트가 정해야 하는 것**: ①그 자리에서 **흰 물길이 어디로 나가나**(위 가장자리 → 아래 가장자리,
 한 번도 안 끊긴다) ②**검은 것이 어디서 이어져 있나**. 자리 시트에 `THE WHITE CHANNEL` 절과
 `WHERE THE BLACK STAYS JOINED` 절을 둘 다 쓴다. 하나만 쓰면 나머지 하나가 반드시 깨진다.
@@ -65,6 +83,14 @@ somewhere on this one hillside, so this drawing decides it once and for all.
   ABOVE BANK 1 - and that never changes either, so a reader can always say whether a page is above
   it or below.
   A page shows at most seven banks; when it shows fewer, it shows a NUMBERED RUN of them (3-4-5).
+  🔴 A PAGE MAY NAME ITS TERRACE THREE DIFFERENT WAYS AND ALL THREE MEAN THE SAME NUMBER: "bank 3" ·
+  "the third one down" · and no name at all. Read them like this and never invent a number:
+    - "bank N" or "the Nth from the top" = bank N. They are the same counting, top down.
+    - NO NAME AT ALL = 🔴 THE TOP TERRACE, Dingding's own field, and its bank 1 - that is the default
+      of this series, because home is where a book starts unless it says otherwise. If the page shows
+      a place that plainly is not the top (Ming's yard, the bottom water, the path down), the run of
+      banks visible tells the reader where, and it must AGREE with the neighbouring pages of that
+      volume: 🔴 a volume never changes terrace without a page that walks between them.
 
 🔴 THE WHITE CHANNEL: one continuous cut of SHEET WHITE runs from the TOP EDGE of the picture to the
   BOTTOM EDGE and never breaks - it is the water going down the hill, and it passes through every
@@ -102,8 +128,24 @@ SPOTS:
      different heights. Use this whenever a page walks from one terrace to another.
   C A NOTCH, close: the gap in one bank, at most 3 cuts wide, water passing through.
   D ONE TERRACE from its edge, medium: the black bank in the foreground, the cut-away water beyond.
+  🔴 F THE EATING STONE, medium, eye level: the wide flat stone set into the top of a bank where the
+    field work stops to eat. 🔴 THERE ARE TWO STONES AND THAT IS FIXED HERE - the near one on the
+    bank beside Dingding's field, and A SECOND ONE ON THE SAME BANK ABOUT FOUR ADULT PACES ALONG IT,
+    far enough that two figures sitting one on each are at opposite ends of a wide frame and cannot
+    reach one another, near enough that both are in that frame whole. Both stones are ONE cut piece
+    each, joined to the bank's black along their whole lower edge (nothing floats), their top faces
+    flat and level with the path, about wide enough for two children or one adult. 🔴 A BODY IS
+    EITHER ON THE STONE OR NOT - a book turns on whether a bottom is fully on the top face, so draw
+    the stone with a seated figure fully on, and again with one perched half off, at one size.
+  🔴 Z WHERE TWO BODIES TOUCH, close, at the height of the touch: the one point where two bodies meet
+    (two faces, two hands over each other, a snout against a shoulder) and NOTHING ELSE identifiable
+    in frame. 🔴 THE TOUCHING POINT IS THE ONLY PLACE WITH A CUT IN IT - everything else is one flat
+    black area, and the frame edge is where that black runs off. Background here is ONE cut-away
+    white area behind the two, unbroken, with 0 bank, 0 rice and 0 ripple in it - the white channel
+    rule does not apply at this distance and none is invented. 🔴 EVEN AT THIS SIZE THE TWO BODIES
+    ARE STILL JOINED to each other or to the frame edge somewhere: nothing floats, no matter how close.
 
-PLATE: A, B, C, D, E once each, plus 🔴 ONE NUMBERED DIAGRAM of the seven banks with the house and yard
+PLATE: A, B, C, D, E, F, Z once each, plus 🔴 ONE NUMBERED DIAGRAM of the seven banks with the house and yard
   above bank 1 and Dingding's field as the top terrace, and one panel showing the white channel traced from top edge to bottom
   edge as a single unbroken white line.
 
@@ -113,12 +155,45 @@ NOT: no character of any kind, no red anywhere on this sheet (the red piece is D
   piece, no shading, gradient or glow.
 ```
 
-### §1.2 House · Yard · TreeOnBank — 요약 명세
+### §1.2 House · Yard · TreeOnBank — 요약 명세 (🔴 2026-09-05 `House` 를 네 자리로 갈랐다)
 
 `House` = 방은 검정, 바닥이 흰 슬롯 하나, 면마다 반복 칼자국 하나. 🔴 **등불은 오려 낸 흰 구멍**이고 그
 쪽에서 가장 밝다(18권 등불). 🔴 **방에는 흰 물길이 없다** — 앵커 관통 줄이 「계단 논이 화면에 있을 때」로
 조건이 붙었으므로(2026-09-04), 방 안에서 창·문틈을 억지로 위아래로 잇지 않는다. 창은 창이고, 그 쪽에서
 가장 밝은 구멍일 뿐이다. 🔴 `Yard` = 마당 흙은 검정, **마당은 언덕 꼭대기이고 마당 옆이 곧 `Terraces` 의 bank 1**.
+
+🔴 **`House` 는 방 하나가 아니다 — 네 자리이고, 그중 하나(문턱)는 한 권이 열 쪽을 통째로 산다.**
+한 이름으로 두면 처마 높이·문설주·문턱 나무가 권마다 새로 발명된다. **A~D 로 못 박는다.**
+
+| SPOT | 무엇이 그 자리에만 있나 |
+|---|---|
+| **A 안방** | 이불 두세 채 · 밥상 · 벽 걸이 · **네모 창 구멍 하나**(해의 높이만 바뀌므로 창틀이 흔들리면 시간이 안 읽힌다) · 등불 구멍 |
+| 🔴 **B 문턱** | 문설주 둘 · **처마 끝** · 문턱 나무 한 장 · 그 아래 맨발. 🔴 **안에서 밖을 보는 자리이자 밖에서 안을 보는 자리**이고, 같은 문턱이 양쪽에서 다 나온다 |
+| **C 문간 벽** | 🔴 **나무 걸이 셋** — 한 권의 시계다. 높이·간격이 흔들리면 「왼쪽부터 차례로 찬다」가 안 읽힌다 |
+| **D 부엌 세간** | 물 담긴 대야와 치약 · 주전자 |
+| 🔴 **Z 닿는 자리** | §1.1 `Terraces/Z` 와 같은 규칙. 배경 한 조각 = **문턱 나무 한 장**(방 안이면 벽 검정 한 장), 걸이·창·이불은 한 조각도 안 든다 |
+
+🔴 **B 문턱이 정해야 하는 것 — 한 권이 여기서 열 쪽을 보낸다.**
+- **처마 끝의 한 자리를 못 박는다.** 물방울이 셋 → 하나로 줄어드는 것을 **같은 끝**에서 봐야 세어진다.
+  처마는 문턱 앞으로 **아이 한 걸음만큼** 나와 있고, 그 끝은 문턱 나무의 바깥 모서리 바로 위다.
+- **문설주 사이 폭 = 어른 하나가 지나가는 폭.** 아이 둘이 나란히는 못 선다 — 그래야 「문턱에 앉아 있다」와
+  「문턱을 막고 있다」가 갈린다.
+- **문턱 나무는 마당 흙보다 한 뼘 높다.** 앉으면 아이 발이 땅에 닿는다.
+- 🔴 **문턱 안쪽은 통째로 검정이고, 문 밖에서 볼 때 그 안은 하나도 안 보인다**(종이는 불투명하다).
+  밤에 안에서 등불을 켜면 그때만 문간이 **오려 낸 흰 자리**가 되고, 그것이 §0 ③ 의 「뚫림」이다.
+
+🔴 **대야가 두 곳에 있다 — 하나이고, 옮겨 다닌다.** 방 안(D)에도 마당(`Yard`)에도 같은 대야가 나오는데
+어느 쪽도 「둘」이라고 안 썼다. **둘로 굽지 않는다** — `WaterVessels`(§2.13)의 그 대야 한 짝이고,
+🔴 **자리가 곧 시간이다**: 물을 데워 들여놓으면 방 안, 쓰고 나면 마당. 어느 쪽에 있든 **테의 이 빠진
+자리가 같은 쪽에 있어야** 같은 대야로 읽힌다(사물 시트가 그 자국을 정할 것).
+
+🔴 **`House`·`Yard`·`Village` 의 흰 물길 — 106쪽이 규칙 밖에 있었다.**
+§1.1 의 「흰 물길이 위 끝에서 아래 끝까지 안 끊긴다」는 `Terraces` 규칙이라 논이 화면에 없는 쪽에는
+적용할 것이 없다. 그 자리를 실제로 메우고 있는 것은 셋이고, 셋 다 **화면에 하나뿐인 밝은 자리**다:
+**문간에서 새어 나온 밝은 자락 한 줄 · 등불 구멍 하나 · 열린 문이나 창이 통째로 흰 자리.**
+→ 세 시트의 규칙은 한 줄이다: 🔴 **「논이 화면에 없는 쪽에는 흰 물길 대신 밝은 자리가 정확히 하나 있고,
+그것이 그 쪽에서 유일한 오려 낸 자리다. 둘을 두지 않는다.」** (등불과 열린 문이 한 쪽에 같이 있으면
+하나는 닫혀 있거나 꺼져 있다 — 그것이 §0 ③ 의 짝이 된다.)
 
 `TreeOnBank` = 밑동 하나 + 가지, **밑동이 논둑 검정과 이어져 있어야 한다**(안 이어지면 나무가 뜬다).
 🔴 **그림자를 두 방향으로 굽는다** — 한 권이 「오전에 한쪽으로 누운 그림자 ↔ 오후에 반대쪽으로 누운
@@ -171,8 +246,14 @@ SPOTS:
   E THE NEXT VALLEY'S FIELD, wide, eye level: dry black earth in rows with 0 water anywhere, a low
     ring of stones round the edge - 🔴 the ONE page in this series with no cut-away water in it at
     all, and it must feel wrong.
+  🔴 Z WHERE TWO BODIES TOUCH, close, at the height of the touch: the one point where two bodies meet
+    and NOTHING ELSE identifiable in frame. 🔴 THE TOUCHING POINT IS THE ONLY PLACE WITH A CUT IN IT -
+    everything else is one flat black area running off the frame edge. Background here is ONE
+    cut-away white area behind the two, unbroken, with 0 straw mark, 0 door and 0 water in it - no
+    white channel is invented at this distance. 🔴 THE TWO ARE STILL JOINED to each other or to the
+    frame edge somewhere; nothing floats, however close the camera is.
 
-PLATE: A, B, C, D, E once each, plus 🔴 ONE STRAW PANEL - the same patch of straw floor plain and
+PLATE: A, B, C, D, E, Z once each, plus 🔴 ONE STRAW PANEL - the same patch of straw floor plain and
   then with a hollow flattened in it, at one size, to fix that the difference is the same mark
   spread, not a second mark.
 
@@ -562,8 +643,14 @@ NOT: no character, no red, no lettering or numerals, no pattern or glaze on the 
 ```
 PROP SHEET - FlatStone   (dingding-papercut · SCENE token: FlatStone)
 
-The broad flat stone set into the bank path. It is where the field meals are eaten in six books and
-one book is about staying seated on it, so its height is a rule and not a look.
+The broad flat stones set into the bank path. They are where the field meals are eaten in six books
+and one book is about staying seated on one, so the height is a rule and not a look.
+🔴 THERE ARE TWO OF THEM AND THE DISTANCE BETWEEN THEM IS THE POINT. The near stone sits on the bank
+beside Dingding's field; the second sits ON THE SAME BANK about four adult paces along it. A book
+that puts one figure on each stone puts them at OPPOSITE ENDS OF A WIDE FRAME with the bank path
+running between - both stones whole in the frame, neither reachable from the other. 🔴 The two are
+the SAME stone drawn twice, not two different rocks: same shape, same height, same three facets. On
+every other page only the near one is in frame and the far one is off the edge.
 
 FORM: one black boulder with a FLAT top, wider than it is tall, at most 3 facet lines where the
   knife turned. It is part of the bank: 🔴 its lower edge is joined to the bank black, never a rock
@@ -580,8 +667,11 @@ STATES:
   5 TWO SEATED, shoulders touching, filling the top.
   6 THE STONE WITH FOUR BOWLS ON IT in a ring, from above.
   7 THE STONE BARE with a trail of rice-grain notches on the bank earth leading away from it.
+  🔴 8 BOTH STONES, wide, eye level along the bank: one at each end of the frame, the path between
+    them, a seated figure on each. This is the one panel that fixes the four paces, so draw the path
+    between them with nothing on it.
 
-PLATE: states 1-7, plus a straight-on elevation with a child silhouette beside it.
+PLATE: states 1-8, plus a straight-on elevation with a child silhouette beside it.
 
 NOT: no character face (silhouettes only, for scale), no red, no lettering or numerals, no moss,
   speckle or rock texture, no cast shadow under the stone, no floating piece, no grey, no gradient.

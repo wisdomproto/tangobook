@@ -79,3 +79,53 @@ CLOTHES - a sleeveless VEST over a plain shirt and loose trousers; the vest open
   appears in, wet or dry.
 NOT - no red anywhere, no apron, no head cloth, no bun, no hat.
 🔴 Eye and mouth holes show SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta.
+
+## Guest
+
+🔴 EVERYONE WHO IS NOT ONE OF THE FOUR ABOVE. There are three kinds and they are told apart by the
+OUTLINE ONLY - this is one flat black sheet, so nothing else is available.
+GRADE: bipedal, upright, wearing cloth, with hands, exactly like the four. Species size is whatever
+  the species is; size never identifies anybody here.
+🔴 NO RED ANYWHERE ON ANY GUEST, ever. The red apron is the child's and it is the only red in the
+  series - a guest carrying red would read as a second Dingding at thumbnail size.
+🔴 EACH GUEST HAS EXACTLY TWO MARKS IN THE OUTLINE AND NO MORE, one on the head and one on the body,
+  and those two are the whole character. A third mark makes them compete with the four.
+🔴 EYE AND MOUTH HOLES SHOW SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta -
+  the same rule as the four.
+
+THE BIG ONE (the buffalo who comes twice):
+  HEAD - 🔴 TWO HORNS SWEEPING OUT SIDEWAYS AND UP, cut as part of the head so the skull outline is
+    WIDER THAN IT IS TALL. Ears low and out, under the horns. A broad blunt muzzle.
+  BUILD - 🔴 THE BIGGEST BODY IN THE SERIES, half a head taller than the mother and much heavier
+    through the chest and shoulder, but 🔴 STILL A CHILD'S PROPORTIONS: big head against the body,
+    short legs. He is bigger than Dingding and NOT older than him, and that must survive at thumbnail.
+  CLOTHES - a short shirt to the hip and nothing else; bare arms, bare legs, barefoot. No vest (that
+    is Ming's), no head cloth, no apron.
+  🔴 HE CARRIES WITH BOTH HANDS AT THE BELLY, always - a basket held in front in two hands, so his
+    arms make a closed ring in the outline. That ring is his second read.
+
+THE VISITING ADULT (the goat who comes once):
+  HEAD - 🔴 TWO HORNS CURVING BACK AND DOWN along the skull, close to it, so the head outline reads
+    long and swept BACK where the buffalo's reads wide. ONE BEARD PIECE under the chin, a single cut
+    wedge joined to the jaw - never separate hairs.
+  BUILD - a grown adult, about the mother's height, narrower than Ming.
+  CLOTHES - 🔴 A LONG-SLEEVED OVER-JACKET WITH THE SLEEVES DOWN TO THE WRIST, the only figure in the
+    series whose forearms are covered on every page (the mother rolls hers, the grandmother's stay
+    down but she has no jacket, Ming is sleeveless). Hem below the hip. Barefoot like everyone.
+  🔴 WHAT HE CARRIES IS SMALL AND IN ONE HAND, held clear of the body so it is in the outline.
+
+THE VILLAGE CHILDREN (six of them, one book):
+  🔴 THEY HAVE NO FACES: no eye hole, no mouth hole, nothing cut inside the head at all. They are
+    the only figures in the series drawn that way, and it is what keeps six extra bodies from
+    competing with the four.
+  🔴 THE DUCKS ARE ALSO FACELESS, SO THE OUTLINE MUST SEPARATE THEM AND THIS IS THE RULE: A CHILD
+    SILHOUETTE HAS ARMS. Two arms come off the body and end in hands, the head sits on a neck above
+    the shoulders, and the body is CLOTHED - a shirt hem cuts across the hip. A duck has NO arms at
+    all: it is one continuous piece from head to tail with a bill in the outline and no hem anywhere.
+    🔴 At thumbnail: a child is a shape with things sticking out of it; a duck is a shape with
+    nothing sticking out of it.
+  BUILD - all six about Dingding's height, and 🔴 NO TWO OF THE SIX ARE THE SAME OUTLINE: they differ
+    only by ear shape and by what their arms are doing. No horns, no head cloth, no bun, no bill.
+  CLOTHES - a plain shirt to the hip, bare legs, barefoot. Nothing carried, nothing on the head.
+  🔴 THEY ARE ALWAYS A GROUP AND NEVER A CROWD BEHIND THE FOUR: they stand at their own depth in the
+    water or on their own bank, spaced apart, and they never overlap one of the four.

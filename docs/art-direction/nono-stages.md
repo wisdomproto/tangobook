@@ -42,10 +42,36 @@ p5·p6), 16권은 **손가락으로 그어서** 낸 가는 고리다(p4 「동�
 | `Shop` | 가게 안 · 가게 앞 · 골목 끝 가게 안 · 창턱 · 모이통 · 난로 앞 · 난로 옆 | 가게 창턱에서 골목이 보인다. SPOT = A~E + 🔴 **`Shop/창턱` · `Shop/뒷방`** |
 | 🔴 `Square` | 광장 겨울 장터 · 시장 통로 · 군밤 화로 앞 · 무대 앞 · 시장 어귀 | **신설**(§1.3). 07·09·38 = 21쪽 |
 | 🔴 `Corner` | 골목 끝 모퉁이 · 모퉁이 앞 큰길 · 큰길 건너편 · 가게 천막 아래 | **신설**(§1.4). 🔴 **큰길은 골목과 깊이 규칙이 다르다** — 간격이 아니라 **폭**이 사건이다 |
-| `NonoHome` | 마당 · 집 앞 마당 · 노노네 집 창가 | 🔴 가게 창가와 **다른 집**(25권) |
+| `NonoHome` | 마당 · 집 앞 마당 · 노노네 집 창가 · 🔴 **처마 밑 집 안** | 🔴 가게 창가와 **다른 집**. **§1.6 신설**(2026-09-05) — 다섯 권 27쪽이고 **마당·문턱·집 안이 한 채**다 |
 | 🔴 `GuguRoom` | 구구네 방 안 · 방 안 창가 · 창턱 · 커튼 친 방 | **신설**(17권 10쪽 중 8쪽). ⚠️ 앞서 「방 안 창가」를 `NonoHome` 에 넣은 건 오류다 — **17 p1 이 「구구네 방 안」**이라 그대로 두면 화가가 **구구 방을 노노네 집으로** 그린다 |
-| `Hut` | 오두막 · 오두막 앞 골목 | 20권 |
-| `SnowHill` | (눈 언덕 · 썰매) | 08권 |
+| `Hut` | 오두막 · 오두막 앞 골목 | 20권. ⚠️ 아직 프롬프트가 없다(7쪽) |
+| `SnowHill` | (눈 언덕 · 썰매) | 08·50권 **19쪽**. **§1.7 신설**(2026-09-05) — 50권 열 쪽이 통째로 여기고 **시리즈의 마지막 눈**이 이 비탈에서 진다 |
+
+### §1.0 🔴 전 자리 공통 — `WHERE TWO BODIES TOUCH` (2026-09-05 신설)
+
+자리 시트의 SPOTS 는 예외 없이 **자리를 보는 카메라**다(넓게 · 낮게 · 위에서 · 저 끝에서).
+그런데 권마다 두세 쪽은 **마주 본 두 얼굴 · 겹친 두 손 · 부리가 가슴에 닿은 자리**이고,
+🔴 **그게 대개 그 권이 도는 쪽**이다(48 p10 · 45 p8 · 49 p7 이 전부 그렇다).
+사물 시트는 이 구멍을 못 메운다 — 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+
+→ **자리 시트마다 스팟 하나를 더한다.** 규칙은 한 벌이고, **자리마다 다른 것은 배경 한 줄뿐**이다.
+
+- 닿은 **한 점만 마감**한다. 거기서 멀어질수록 가장자리가 성겨지고, 화면 끝은 이 시트에서 가장 거친 찢김이다.
+- 배경은 **그 자리의 색 한 조각**뿐이다(아래 표). 문·창·선반·바닥은 한 조각도 안 든다.
+- 🔴 **한 물건이 화면을 다 채워도 찢김이 고와지지 않는다** — 같은 크기의 찢김을 가까이서 보는 것이라
+  조각이 더 크고 더 거칠어질 뿐이다. 고와지면 그 쪽만 다른 매체가 된다.
+- 밤이면 배경 조각은 그 자리 색 대신 **DEEP SLATE 바탕**이다(앵커 `LONG NIGHT` 그대로).
+
+| 자리 | 배경 한 조각 |
+|---|---|
+| `Alley` | 벽 STONE GREY 한 장 (덧문·문간·바닥 0) |
+| `Shop` | 난로 불빛 흰 조각의 가장자리 하나 (낮은 OVERLAP 한 장) |
+| `Square` | 두꺼운 외투 등 OVERLAP 한 장 (실루엣 얼굴·손 0) |
+| `Corner` | 큰길 STONE GREY 한 장 (바퀴 자국 0) |
+| `NonoHome` | 처마 밑 WOOD BROWN 한 장 |
+| `GuguRoom` | 뿌연 창 TORN WHITE 한 장 |
+| `Hut` | 눈벽 TORN WHITE 한 장 |
+| `SnowHill` | 언덕의 흰 바닥 한 장 |
 
 ### §1.1 Alley — 실제 프롬프트 (가장 먼저)
 
@@ -69,8 +95,15 @@ FIXED PARTS - every one torn by hand, edge fibrous, and NOT ONE MECHANICALLY STR
   ROOF CAPS of TORN WHITE snow along every eave. Icicles at most 7.
   THREE STEPS up at the near end, each step's edge wobbling.
   DOORWAYS are OVERLAP - two papers pasted over each other, and that overlap is the only dark.
+  🔴 THE DRY STRIP ALONG THE FOOT OF EACH WALL - under the eaves the snow never reaches the ground,
+    so a band of bare STONE GREY runs along the foot of both walls, ONE HAND AND A HALF WIDE (a child
+    lying against the wall fits into it and nothing more), its outer edge a torn edge of the white
+    floor piece and not a drawn line. It runs the whole length of the alley and it is the ONLY bare
+    ground on an untouched floor. 🔴 IT CAN BE FILLED: when the eaves shed or the wind blows the snow
+    in, the white piece closes over it and the wall foot has no grey left at all. Draw the strip open
+    and the strip filled, at one size - one book turns on a body fitting into it and then not fitting.
 
-🔴 THE FLOOR IS A SHEET THAT COMES AND GOES - draw all four states:
+🔴 THE FLOOR IS A SHEET THAT COMES AND GOES - draw all eight states:
   1 UNTOUCHED - the alley floor is ONE unbroken piece of TORN WHITE from wall to wall, and the only
     torn edges crossing it are none at all.
   2 TRACKED - the same white piece with footprints; a footprint is a small torn hole where the
@@ -84,21 +117,22 @@ FIXED PARTS - every one torn by hand, edge fibrous, and NOT ONE MECHANICALLY STR
     fibrous edge of the tear left showing, and the swept snow heaped at one side as a second white
     piece.
   4 COVERED AGAIN - back to state 1, with nothing of state 2 or 3 remaining anywhere.
-  🔴 5 FROZEN (volume 06) - the white piece is GONE and the floor is ONE flat piece of STONE GREY,
+  🔴 5 FROZEN (any page whose alley floor is ice, whether it is called frozen ground, an iced-over
+    puddle or a sheet of ice wall to wall) - the white piece is GONE and the floor is ONE flat piece of STONE GREY,
     smooth, with TORN WHITE only at the very edges of the alley. A reflection on it is ONE MORE
     PIECE OF THE SAME PAPER laid below the wall with 0 interior detail - a smear, never a mirrored
     copy. 🔴 THE SMOOTH AREA IS THE DANGEROUS AREA, and ash thrown down on it is at most 11 WOOD
     BROWN specks in ONE BAND - that band is the safe path and it must read as rough against smooth.
-  🔴 6 THAWING (volumes 23, 24) - the white piece has been torn away in PATCHES so wet STONE GREY
+  🔴 6 THAWING (any page where the snow is going, not coming - wet stone showing through) - the white piece has been torn away in PATCHES so wet STONE GREY
     shows through in the middle and white survives only along the walls. 🔴 THE AREA OF WHITE IS THE
     CLOCK: it shrinks page by page and never grows back within a volume. Puddles are one flat piece
     of the darker overlap, 0 reflections.
-  🔴 7 DUG (volume 12) - holes torn out of the white piece BY HAND, not by feet. A dug hole is
+  🔴 7 DUG (any page where snow is dug, scooped or heaped BY HAND) - holes torn out of the white piece BY HAND, not by feet. A dug hole is
     THREE TO FOUR TIMES the width of a footprint, its torn edge raggeder, and the snow taken out of
     it lies beside it as small white scraps ON TOP of the sheet. At most 6 holes. 🔴 THEY
     ACCUMULATE ACROSS THE BOOK AND NEVER CLOSE - the last page of that volume still has them, and
     at dusk they are the only thing left of the digging, read as bare grey with no scraps visible.
-  🔴 8 SCORED (volume 16) - circles a finger drew in the snow. A circle is a THIN TORN RING, one
+  🔴 8 SCORED (any page where a finger, a stick or a heel has drawn in the snow) - circles a finger drew in the snow. A circle is a THIN TORN RING, one
     finger wide, grey showing through it, the ring never closing perfectly and never twice the same
     size. AT MOST 3 WHEN THEY ARE BEING COUNTED (16 p4 says three); when the book says the snow is
     covered in them (16 p5) it is ONE AREA of overlapping rings, not a tally. 🔴 NOT A DRAWN LINE -
@@ -111,9 +145,31 @@ SPOTS:
   B THE MIDDLE, medium: two facing doorways, floor across the bottom.
   C THE FLOOR, close, high: the torn white and whatever is or is not on it.
   D FROM THE WALL TOP looking down: the alley floor seen whole, so a track can be read as a line.
+  🔴 E ACROSS THE ALLEY, wide, eye level - standing at one wall looking at the other, the alley
+    running left to right out of both frame edges instead of away from the reader. 🔴 HERE THE
+    SPACING RULE DOES NOT APPLY AND NOTHING RECEDES AT ALL: what fixes the frame is the HEIGHT OF THE
+    TWO WALLS against the figures and the WIDTH OF ONE DOORWAY. Fix both here - the wall is four
+    children high and a doorway is one and a half children wide - and never change them.
+  🔴 F LOOKING UP AT THE EAVES, medium, from the floor: the wall going up out of the top of the
+    frame, the eaves line with its ROOF CAP of TORN WHITE and its icicles, and above the eaves BARE
+    GROUND SHEET and nothing else. 🔴 THE ROOF CAP OVERHANGS - its torn edge stands past the wall by
+    about one icicle's length, and that overhang is what makes an eave read from below.
+  🔴 G THE ALLEY CORNER, medium wide, eye level - a place where the alley turns and one wall crosses
+    the other, so the frame is cut in two: alley on the near side, and past the turn nothing at all
+    but a single further wall piece with 0 doors and 0 shutters. 🔴 THIS IS NOT THE `Corner` SHEET -
+    that one is where the alley MEETS THE BIG ROAD and the event there is a width. Here the turn is
+    still alley on both sides, both walls the same height, and the event is that you cannot see round it.
+  🔴 H WHERE TWO BODIES TOUCH, close, at the height of the touch: the one point where two bodies meet
+    (two faces at one breath, two hands over each other, a beak against a chest) and NOTHING ELSE
+    identifiable in frame. Only the touching point is finished; every edge away from it is the
+    raggedest tear on the sheet. 🔴 BACKGROUND HERE IS ONE FLAT PIECE OF STONE GREY (the alley wall)
+    with 0 shutters, 0 doorways and 0 floor - at night it is the deep slate ground sheet instead.
+    🔴 WHEN ONE OBJECT FILLS THE FRAME its tearing gets no finer: it is the SAME size of tear seen
+    close, so the piece looks bigger and rougher, never smoother.
 
-PLATE: A, B, C, D once each, plus the EIGHT FLOOR STATES drawn as eight panels of the same frame,
-  and one spacing diagram of the doorway intervals.
+PLATE: A, B, C, D, E, F, G, H once each, plus the EIGHT FLOOR STATES drawn as eight panels of the same
+  frame, the dry wall-foot strip open and filled at one size, and one spacing diagram of the doorway
+  intervals.
 
 NOT: no character of any kind, no wool green anywhere on this sheet (the green touches only the one
   small thing each child carries), no lettering, numerals or shop signs, no fourth paper, no cut or
@@ -126,7 +182,23 @@ NOT: no character of any kind, no wool green anywhere on this sheet (the green t
 `FIXED PARTS` = 난로 하나 + **나무 의자 하나**(05권 내내 그 의자다) · 선반 · 자루들 · 뿌연 창 · 창턱 ·
 창밖 모이통 · 장작 바구니. 🔴 **난로 불빛은 TORN WHITE 를 찢어 얹은 것**이고 그 쪽에서 가장 밝다 —
 05 p4·p6·p10 이 「불빛이 한쪽 면에만 / 앞 가장자리만 / 고르게」로 **면적을 세고 있으므로**, 시트가 그
-흰 조각의 크기 셋을 함께 굽는다. `SPOTS` = A 문 쪽 / B 난로 앞 / C 창턱 / D 가게 구석.
+흰 조각의 크기 셋을 함께 굽는다. `SPOTS` = A 문 쪽 / B 난로 앞 / C 창턱 / D 가게 구석
+/ E 가게 앞바닥(아래) / F 뒷방(§1.5) / **G 긴 탁자** / **H 난로 뒤 틈** / **Z 닿는 자리**.
+
+🔴 **G 긴 탁자 — 26~50 의 `Shop` 98쪽 중 60쪽이 여기다.** 지금까지 이 카메라를 든 것은 자리 시트가
+아니라 **사물 시트**였다(`LongTable` 상태 1~5 · `LongBench` 상태 1~7 이 정면 아이레벨·바로 위
+하이앵글·판 끝·로우앵글을 각각 들고 있다). 🔴 **그 넷이 곧 G 의 네 카메라**이고, 시트가 새로 정하는
+것은 하나뿐이다 — **난로가 늘 같은 끝에 있고**(`LongTable` 규칙), G 의 어느 카메라에서도 그 끝이
+어디인지 읽혀야 한다. 즉 판을 정면으로 잡을 때 **난로는 언제나 화면 왼쪽 끝**이다. 판 위 물건은
+G 가 안 정한다(사물 시트 몫).
+
+🔴 **H 난로 뒤 틈 — `D 가게 구석`과 다른 자리다.** 난로와 벽 사이의 좁은 틈이고, **좌우가 막히고
+위쪽 한 줄만 밝다**. 폭 = 아이 하나가 몸을 옆으로 돌려야 반쯤 들어간다. 좌우는 난로 몸통(OVERLAP)과
+벽(STONE GREY) 두 조각이 화면 양끝을 통째로 먹고, 위쪽 한 줄만 TORN WHITE 다. 🔴 **그 한 줄이
+손 하나만큼 넓어지는 상태를 함께 굽는다** — 한 권의 전환이 그 폭이다(좁은 한 줄 / 손 하나 폭 / 통째로 트임).
+
+🔴 **Z 닿는 자리(`WHERE TWO BODIES TOUCH`)** — §1.0. 이 자리의 배경 한 줄 = **난로 불빛의 흰 조각
+가장자리 하나**(낮의 가게 안은 OVERLAP 한 장), 선반·자루·창은 한 조각도 안 든다.
 
 🔴 **`Shop` 에는 SPOT E 「가게 앞바닥」이 붙는다 — 이 시트만이 「어른이 손 댄 바닥」을 갖는다.**
 가게 앞은 골목과 붙어 있지만 `Alley` 가 아니라 여기다(01 p8 · 06 p10 · 16 p8 이 그렇게 붙어 있다).
@@ -194,8 +266,13 @@ SPOTS:
   C AT THE BRAZIER, medium: the drum, the straight steam, a queue running off to one side.
   D THE STAGE, wide, low: looking up at the cloth and the ledge.
   E THE MOUTH, wide: the square behind, empty snow ahead.
+  🔴 F WHERE TWO BODIES TOUCH, close, at the height of the touch: the one point where two bodies meet
+    and NOTHING ELSE identifiable in frame. Only the touching point is finished; every edge away from
+    it is the raggedest tear on the sheet. 🔴 BACKGROUND HERE IS ONE FLAT OVERLAP PIECE - the back of
+    a heavy coat - with 0 face, 0 hand, 0 stall and 0 ground. 🔴 WHEN ONE OBJECT FILLS THE FRAME its
+    tearing gets no finer: the same size of tear seen close, so the piece looks bigger and rougher.
 
-PLATE: A, B, C, D, E once each, plus 🔴 A PLAN DIAGRAM naming where the brazier, the stage, the two
+PLATE: A, B, C, D, E, F once each, plus 🔴 A PLAN DIAGRAM naming where the brazier, the stage, the two
   stall rows and the mouth sit, plus spot B drawn TWICE - blocked and open - at one size.
 
 NOT: no wool green anywhere on this sheet, no character of the cast, no face or hand on any crowd
@@ -253,8 +330,13 @@ SPOTS:
   C UNDER THE AWNING, medium: the brown piece overhead, the corner and the road beyond it.
   D THE FAR SIDE, medium: standing with the low wall behind, looking back across the road at the
     alley mouth - 🔴 the only spot in the series that looks at the alley from outside.
+  🔴 E WHERE TWO BODIES TOUCH, close, at the height of the touch: the one point where two bodies meet
+    and NOTHING ELSE identifiable in frame. Only the touching point is finished; every edge away from
+    it is the raggedest tear on the sheet. 🔴 BACKGROUND HERE IS ONE FLAT PIECE OF STONE GREY - the
+    empty road - with 0 wheel track, 0 kerb and 0 far wall. 🔴 WHEN ONE OBJECT FILLS THE FRAME its
+    tearing gets no finer: the same size of tear seen close, so the piece looks bigger and rougher.
 
-PLATE: A, B, C, D once each, plus 🔴 A WIDTH DIAGRAM - the road drawn with a child figure laid across
+PLATE: A, B, C, D, E once each, plus 🔴 A WIDTH DIAGRAM - the road drawn with a child figure laid across
   it to fix how many child-lengths wide it is, plus A drawn twice, busy and quiet.
 
 NOT: no wool green, no character of the cast, no lettering, numerals, road markings or shop signs, no
@@ -286,6 +368,117 @@ NOT: no wool green, no character of the cast, no lettering, numerals, road marki
 목욕하는 자리다. 못이 벽에 박혀 있고 — 🔴 **그 못이 이 자리가 따로 있어야 하는 이유다**(30 p6~p9 는 초록
 방울이 아이 목이 아니라 **그 못에** 걸려 있는 것이 그림이다) — 큰 대야 하나, 김 한 줄, 수건걸이.
 가게 쪽 문은 **열린 만큼만** 그리고 그 틈은 OVERLAP 이다.
+
+### §1.6 NonoHome — 실제 프롬프트 (🔴 2026-09-05 신설 · 다섯 권 27쪽 · 골목 다음으로 큰 자리)
+
+> 🔴 **이 시트는 「집이 없다」를 고치려고 굽는다.** §1 표는 `NonoHome` 을 「마당 · 집 앞 마당 · 창가」로만
+> 적어 두었는데, **04·22·31·43 이 그 집 **안**에 들어가고**(잠자리·벽 틈·탁자·문턱) 25권은 열 쪽이
+> **마당**이다. 시트가 없으니 화가가 권마다 집을 새로 짓는다.
+>
+> 🔴 **그리고 높이가 안 맞았다.** 31 p8 · 43 p8 은 문턱에서 「**저 아래** 골목」을 내려다보고,
+> 04 p1 은 골목에서 「지붕 밑 문턱」을 **올려다본다** — 집은 골목보다 위다. 그런데 25권 마당은
+> 눈덩이를 굴리고 담 밑 그늘이 있는 **평평한 땅**이다. 둘이 같은 집에 붙으려면 사이에 층이 있어야 한다.
+> **여기서 한 번 정한다** — 아래 `THE THREE HEIGHTS`. 안 정하면 25권 마당과 43권 문턱이 두 채가 된다.
+
+```
+STAGE SHEET - NonoHome   (nono-tornpaper · SCENE token: NonoHome · bake AFTER Alley)
+
+Nono's own place: a walled yard at the top of the alley steps, and the small house whose door is up
+under its eave. Five books stand here and one of them (the last winter) spends all ten pages in the
+yard, so the yard and the door must be one drawing, not two.
+
+🔴 THE THREE HEIGHTS, FIXED HERE ONCE AND NEVER CHANGED - this sheet exists because the books
+  disagreed about them:
+  1 THE ALLEY FLOOR is the lowest. This is the `Alley` sheet's floor and nothing on this sheet
+    changes it.
+  2 THE YARD stands ONE FLIGHT ABOVE IT, at the top of the THREE STEPS at the near end of the alley
+    (the same three steps the `Alley` sheet already has - they are the way up, and they are drawn on
+    both sheets identically). The yard is a flat piece of ground the width of three doorways, closed
+    on the far side by a LOW WALL of STONE GREY at a child's chest height. Snow lies on it as one
+    TORN WHITE piece, and 🔴 THE STRIP OF IT IN THE WALL'S SHADE IS THE LAST SNOW TO GO.
+  3 THE DOOR is ONE STOREY ABOVE THE YARD, up under the eave of the house that stands at the yard's
+    edge - a small threshold with the roof directly over it, reached from the corner of the yard by
+    ONE SHORT SLOPING PLANK of WOOD BROWN. 🔴 SO: FROM THE ALLEY YOU LOOK UP AT THIS DOOR, AND FROM
+    THE DOOR YOU LOOK DOWN PAST THE YARD INTO THE ALLEY. Both readings appear in the books and both
+    must be true of the same drawing. Draw the whole stack once as an elevation.
+
+FIXED PARTS - every one torn by hand, edge fibrous, NOT ONE MECHANICALLY STRAIGHT EDGE:
+  THE YARD: flat ground, the low wall across the far side, ONE bare tree stump or post at one corner,
+    and the top of the three steps entering at one edge. 🔴 NOTHING ELSE STANDS IN THE YARD - it is
+    kept empty on purpose, because a whole book fills it by rolling one thing across it.
+  THE HOUSE FRONT: WOOD BROWN wall boards running UP AND DOWN, their edges wandering, 🔴 WITH ONE
+    NARROW GAP BETWEEN TWO BOARDS - a long thin tear of the darker overlap, about a finger wide,
+    and it goes right through to the inside. That gap is a whole book, so it is in the SAME PLACE on
+    the outside and the inside drawings.
+  THE EAVE AND THE THRESHOLD: the roof overhangs the threshold by about one icicle's length, ROOF CAP
+    of TORN WHITE along it, icicles at most 7 (anchor). The threshold is ONE WOOD BROWN piece, and
+    the doorway behind it is OVERLAP.
+  ONE SMALL WINDOW in the house front beside the door, at the height of a seated child inside.
+  INSIDE, ONE ROOM UNDER THE ROOF - the roof boards slope down to meet the walls so the room is
+    widest at the floor; a BED OF DRY GRASS in the corner furthest from the door; ONE LOW TABLE of
+    WOOD BROWN; the window and the gap in the wall. 🔴 THE ROOM IS SMALL ENOUGH THAT A CHILD
+    STANDING IN THE MIDDLE CAN TOUCH BOTH SIDE WALLS - fix that width here.
+  🔴 THE DRY GRASS IS COUNTED, NOT MASSED: single WOOD BROWN strands, at most 9 where they can be
+    counted; a bed of it is ONE torn shape with strand ends showing along its edge only.
+
+🔴 WHAT THIS SHEET DOES WITH THE THINGS THE ALLEY SHEET OWNS: seen from the threshold at night, the
+  alley below is the DEEP SLATE ground sheet with the lit windows and the hanging lanterns as small
+  TORN WHITE pieces IN IT - 🔴 they get NO smaller and NO paler for being far below; they are simply
+  fewer and closer together (anchor: depth is spacing). The light that reaches into the threshold
+  from them is ONE pasted white piece with a torn edge, laid across the threshold boards. 0 rays.
+
+SPOTS:
+  A THE WHOLE PLACE, wide, from the alley floor looking up: the three steps, the yard wall above
+    them, the house front, the door under the eave. This is the geography panel.
+  B THE YARD, wide, eye level: flat snow across the frame, the low wall behind, the house front at
+    one side, the alley invisible below. 🔴 The book that lives here lives in this spot.
+  C THE THRESHOLD FROM OUTSIDE, medium, low: looking up at the small door, the eave and its icicles
+    directly over it.
+  D FROM THE THRESHOLD LOOKING OUT, medium: the small doorframe cutting the frame, the yard wall
+    below and the alley beyond and below that, small and lit. 🔴 The frame within the frame is the
+    picture here - what is seen through it is at most a thumbnail's worth of the page.
+  E INSIDE, medium, eye level: the sloping roof boards, the grass bed, the gap in the wall, the
+    window - the room read as one small box.
+  F THE GAP, close: two wall boards and the long thin tear between them, at the size where a finger
+    laid against it measures it.
+  🔴 G WHERE TWO BODIES TOUCH, close, at the height of the touch: the one point where two bodies meet
+    and NOTHING ELSE identifiable in frame. Only the touching point is finished; every edge away from
+    it is the raggedest tear on the sheet. 🔴 BACKGROUND HERE IS ONE FLAT PIECE OF WOOD BROWN (the
+    boards under the eave) with 0 gap, 0 window and 0 grass - at night the deep slate ground sheet
+    instead. 🔴 WHEN ONE OBJECT FILLS THE FRAME its tearing gets no finer: the same size of tear seen
+    close, so the piece looks bigger and rougher.
+
+PLATE: A, B, C, D, E, F, G once each, plus 🔴 ONE ELEVATION of the three heights (alley floor -
+  steps - yard - plank - threshold) with a standing child laid beside it for scale, and the yard
+  drawn TWICE at one size, snow whole and snow gone except the strip in the wall's shade.
+
+NOT: no character of any kind, no wool green anywhere on this sheet, no lettering, numerals or signs,
+  no fourth paper, no cut or scissored edge - every edge is torn, no drawn line of any kind, no white
+  ink or paint, no shading, gradient, glow or cast shadow, nothing paler, bluer or smaller with
+  distance, no second house in the yard, no fence, gate or garden, no chimney smoke.
+```
+
+### §1.7 SnowHill — 요약 명세 (🔴 2026-09-05 신설 · 두 권 19쪽)
+
+§1 표에 `SnowHill | (눈 언덕 · 썰매) | 08권` 한 줄뿐이었는데 **50권 열 쪽이 통째로 여기**이고,
+그 권은 **시리즈의 마지막 눈**을 이 언덕에서 쓴다.
+
+`FIXED PARTS` = 골목 끝 너머의 한 비탈 · 언덕 아래 평지 · 꼭대기의 낮은 등성이 하나 · 썰매 자국 두 줄
+(`Alley` 상태 3 과 같은 규칙 = 흰 종이를 찢어 낸 자리) · 아래쪽 가장자리에 드러난 STONE GREY 돌.
+🔴 **높이는 사물이 잰다** — 비탈의 길이는 「썰매가 몇 대 길이」로 못 박고, 꼭대기에서 아래를 볼 때
+아래 선 몸이 **작아지지 않고 간격만 좁아진다**(앵커 · 깊이는 간격이다).
+
+`SPOTS` = **A 언덕 아래**(비탈 전체가 화면을 대각으로 지난다) / **B 언덕 허리**(위아래 양쪽이 잘려 나가
+비탈만 남는다) / **C 비탈 위에서 아래로**(내려갈 방향) / **D 꼭대기**(등성이 너머로 골목 지붕들이
+간격만 좁아진 채 놓인다) / **Z 닿는 자리**(§1.0 · 배경 = 언덕의 흰 바닥 한 장).
+
+🔴 **`MELT` 상태 넷을 함께 굽는다 — 이것이 이 시트가 있어야 하는 이유다.** 마지막 눈은 **가장자리부터
+벗겨져 돌이 드러나고 위로 갈수록 이어진다**: ①온전(흰 한 장) ②발치만 벗겨짐 ③아래쪽 가장자리에만
+흰 것이 남음 ④가장자리부터 벗겨져 드러난 돌 자리들이 위까지 이어짐. 🔴 **네 장을 같은 크기·같은
+카메라(A)로** 그린다 — 그 기울기가 그 권의 마지막 그림이고, 크기가 달라지면 비교가 안 된다.
+앵커 `THAW` 조항이 「벽 밑 한 줄」로만 쓰여 있으므로 **언덕에서는 「아래쪽 가장자리 한 줄」로 읽는다**
+(같이 고쳤다 — `nono-anchor.md`).
+
 
 
 ---
@@ -493,7 +686,17 @@ FORM: TORN2 WOOD BROWN - one long seat plank torn as a single piece, a low back 
   reads as a hole in a row. Never fill it with anything, never shade it, never put a shadow in it.
 🔴 SEAT HEIGHT IS A REGISTER: sitting on it, a child's feet do not reach the floor; a squirrel-sized
   visitor cannot see over the plank at all and needs a small barrel to climb. Both readings must
-  survive at thumbnail size.
+  survive at thumbnail size. 🔴 THIS SETTLES THE SQUIRREL'S HEIGHT FOR THE WHOLE SERIES - THE PLANK
+  STANDS WELL ABOVE HER HEAD, so she is about knee-to-hip high on a standing child and not shoulder
+  high. The cast sheet and the anchor carry the same measure; if a page says otherwise, the page is
+  wrong.
+🔴 THE SEATED STATES ARE A SET, NOT SEPARATE PICTURES - states 2 to 5 are the SAME FRAME with only
+  the bodies changed: STRAIGHT ON, EYE LEVEL, THE WHOLE BENCH ACROSS THE FRAME, the stove at the same
+  end, the camera at the same distance. 🔴 A VOLUME ALREADY DOES THIS AND IT IS THE MODEL: one book
+  puts states 3, 4 and 5 on its pages 3, 7 and 10 and writes the same cut line for all three
+  ("straight on, eye level, the whole bench"), so the bare place moves and shrinks and closes while
+  nothing else moves at all. Any page that shows a bare place from a different distance or angle
+  breaks the count - the reader cannot tell a place that was filled from a place that is off-frame.
 STATES - all drawn straight on at the SAME size so the row can be compared:
   1 EMPTY, the whole plank bare, the stove behind it.
   2 THREE SEATED AT ONE END, two places bare at the other.
@@ -832,7 +1035,9 @@ glass, no gradient or soft edge.
 ```
 PROP SHEET - Snowball   (nono-tornpaper · SCENE token: Snowball)
 
-Snowballs, and the snowman one of them becomes. Four books roll them.
+Snowballs, and the snowman one of them becomes. 🔴 ANY PAGE WHERE SNOW IS GATHERED INTO A BALL USES
+THIS SHEET - rolled, packed in a hand, thrown, or stacked (stacking is the SnowTower sheet, but the
+balls are these). Do not go looking for a list of volumes: there is none.
 
 FORM: a ball of TORN WHITE, ONE piece, its outline torn and slightly lumpy - 🔴 NEVER A COMPASS
   CIRCLE. Its only interior mark is nothing at all: no seam, no facet, no shading, no drawn line.
@@ -852,6 +1057,11 @@ STATES:
   2 A HAND'S BALL held, its surface pressed smooth - the torn edge tighter and less ragged than a
     fresh one. (One volume is about a ball packed hard.)
   3 BROKEN - the same ball in five separate torn pieces on the floor, 0 motion lines, 0 dust.
+  🔴 3b THROWN - hand-sized balls IN THE AIR, at most four in one frame, crossing each other at
+    different heights, each one a separate torn piece, none mirroring another, 0 motion line, 0 arc,
+    0 trail and 0 puff. 🔴 A THROWN BALL IS THE SAME BALL AS STATE 2, NOT A SMALLER ONE - it does not
+    shrink for being far off (anchor: depth is spacing); a ball thrown from further away is simply
+    nearer the other balls in the frame. A ball that has landed is state 3.
   4 ROLLED - a knee-high ball at the end of a torn-away band, the stone grey showing.
   5 MELTING - a child-high ball reduced to knee height, ragged, a wide overlap wet patch round it.
   6 A SNOWMAN - a large ball with a smaller ball set on it, TWO pieces only, 0 arms, 0 face, 0 hat,
@@ -859,7 +1069,7 @@ STATES:
     and it is not on a child - it is the one place in the series where a child's green thing is worn
     by something else.
 
-PLATE: the four sizes in a row, then states 2-6.
+PLATE: the four sizes in a row, then states 2, 3, 3b, 4, 5, 6.
 
 NOT: no character face (a plain torn silhouette only, for scale), no wool green anywhere except the
 scarf in state 6, no lettering or numerals, no fourth paper, no cut edge, no drawn line, no face,
