@@ -162,7 +162,7 @@ NOT: no character, no orange, no lettering or numerals, no gradient, no glow, no
 
 ---
 
-## §3. 사물 시트 — 24장 (후보 33에서 접고 뺐다 · 2026-09-04 전권 판)
+## §3. 사물 시트 — 31장 (후보 33에서 접고 뺐다 + 표 밖에서 여섯 · 2026-09-04 전권 판)
 
 > 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
 > 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens taro` (**미매칭 0** 이어야 한다).
@@ -882,7 +882,191 @@ falling fruit, no airbrush, gradient, glow or soft edge.
 
 ---
 
-### §3.25 검수 — 사물 시트의 다섯
+### 🔴 §3.26 ~ §3.31 — 작업표 밖에서 찾은 것 (추출기가 못 본 여섯)
+
+> 🔴 **작업표는 바닥이지 천장이 아니다.** `_scenes.json` 을 50권 전부 훑어 보니 추출기가 세 가지 이유로
+> 물건을 놓치고 있었다 — ①**조사가 붙으면 딴 낱말이 된다**(「모래/모래에」·「밑동/밑에」가 따로 세어져
+> 문턱을 못 넘는다) ②**한 글자 낱말은 원리상 못 잡는다**(돌·잎·김·떡·공·끈) ③**「배경·소품」에만
+> 걸려 있고 「인물」 라벨은 안 본다**(나뭇가지·빗자루·두레박이 전부 손에 들려 있어 표에 한 줄도 없었다).
+> 아래 여섯은 그렇게 표 밖에 있던 것이고, **그중 셋은 한 권을 통째로 든다**.
+
+| § | 토큰 | 사물 | 권 (쪽 수) | 왜 표에 없었나 |
+|---|---|---|---|---|
+| 3.26 | `Stick` | 나뭇가지 한 개비 | 10 · 26 · 28 · 29 · 32 · 36 · 42 · 43 · 50 (12쪽) | 🔴 **늘 손에 들려 있어 「인물」 라벨에만 있다.** 두드리고·그리고·건드리는 이 시리즈의 손 연장이고, §3.6 의 모래 그림도 이것으로 판다 |
+| 3.27 | `BigRock` | 타로 키만 한 큰 돌 | **18**(7) | 🔴 「돌」이 한 글자다. 그리고 §3.4 의 손바닥 돌멩이와 **다른 물건**이다 — 이건 밀면 흙에 고랑이 파인다 |
+| 3.28 | `RiceCake` | 동그란 떡 다섯 개 | **23**(8) | 🔴 「떡」이 한 글자다. **23권이 표에 아예 없었다** — 열 쪽 중 여덟이 이 떡 하나다 |
+| 3.29 | `MudTracks` | 젖은 흙에 난 자국 (발자국·미끄럼 자국) | **39**(8) · 02 · 07 · 17 | 🔴 「자국」이 매번 다른 꾸밈말과 붙어 갈라졌다. **39권이 표에 없었다** — 열 쪽이 통째로 바닥의 자국이다 |
+| 3.30 | `Broom` | 빗자루 | **15**(3) | 🔴 인물 라벨에만 있다. 15권의 첫 세 쪽은 「이걸 끝내야 나갈 수 있다」이고, 빗자루가 없으면 그 쪽들이 그냥 서 있는 그림이 된다 |
+| 3.31 | `Ball` | 굴러가는 코코넛(공) | **16**(4) · 10 | 「공」이 한 글자. 16권의 착지가 「반 뼘도 못 가 툭 멈춘다」라 **굴러가는 거리**가 규격이다 |
+
+**같이 고쳐야 할 기존 시트 넷** (권을 더 찾았거나 상태가 모자란다)
+
+| 시트 | 무엇을 얹나 |
+|---|---|
+| §3.3 `BroadLeaf` | 🔴 **크기가 둘이다.** 밥상 크기(26·29·43·48) 말고 **47권의 야자 잎**은 길을 가로지르고 닭 넷이 올라앉는다 — 열 쪽 전부가 그 잎이다. 두 크기를 한 장에 나란히 그릴 것 |
+| §3.13 `WaterPails` | 🔴 **08권은 물 높이가 아니라 통 길이가 사건이다** — 「손바닥 두 뼘짜리와 팔뚝 길이짜리」가 밑바닥을 같은 선에 두고 서서 꼭대기 높이만 다르다(08 p1·p9). 46권의 물 높이 사다리와 **다른 축**이라 둘 다 넣는다. 권도 늘어난다 → 08 · 11 · 17 · 35 · 46 · 47 |
+| §3.14 `SteppingStones` | 🔴 **36권을 통째로 놓쳤다**(p2~p10). 그리고 36 p4 가 앵커 `WATER` 조항의 교과서다 — 「양옆 돌 둘은 물 위로 나와 제 윤곽을 지녔고, 가운데 자리에는 윤곽 없이 물 밑에 잠긴 덩어리 하나」. 그 컷을 시트의 비교 패널로 삼을 것 |
+| §3.8 `LightBand` | 07권 추가(p5·p6·p8 「마루 널 틈으로 든 빛 몇 줄」). 🔴 07 은 그 빛줄기 사이로 **밖의 다리가 오가는** 것이 사건이라, 띠 위를 무엇이 지나갈 때의 상태를 하나 더 넣는다 |
+
+```
+PROP SHEET - Stick   (taro-batik · SCENE token: Stick)
+
+A single dry stick, about as long as a child's forearm. Nine books have one in a hand - it knocks on
+a trunk, it draws in sand, it pokes at a shell, it points.
+
+FORM: one plain DEEP stick, ONE flat area, slightly crooked, with at most 2 side twigs and 0 bark
+  marks, 0 grain, 0 leaves. Both ends blunt. It is the SAME stick everywhere; there is not a
+  different stick per book.
+🔴 IT IS ALWAYS DEEP AND NEVER CLOTH, so against pale earth or pale sand it is the darkest line in
+  the frame and reads at thumbnail size. That is why it can be the only thing in a close-up.
+🔴 IT DOES NOT MOVE ON ITS OWN. There are no motion lines, no arcs and no impact stars. A stick that
+  has just struck something is shown by what it struck - a dent, a groove, a shell knocked over.
+STATES:
+  1 THE STICK ALONE on bare earth, from straight above.
+  2 HELD at one end, raised, side on, the far end out of frame.
+  3 DRAWING - the tip in wet sand with a DEEP groove trailing behind it (see the SandMark sheet for
+    the grooves themselves).
+  4 KNOCKING - the tip against a trunk, and one small DEEP dent in the bark where it has been.
+  5 POKING - the tip touching a shell on a plank floor, the shell tipped a hair off level.
+  6 LAID DOWN beside a body on the ground, done with.
+
+PLATE: the six states, plus the stick drawn beside a child's forearm for length.
+
+NOT: no character face, no orange anywhere on this sheet, no lettering or numerals, no bark texture,
+grain or leaves, no motion line, arc, swoosh or impact mark, no airbrush, gradient, glow or soft edge.
+```
+
+```
+PROP SHEET - BigRock   (taro-batik · SCENE token: BigRock)
+
+The big rock beside the wet ground. One book, seven of its ten pages, and the whole book is pushing
+it. 🔴 This is NOT the palm-sized stone of the Stones sheet - draw the two side by side once here so
+they can never be confused.
+
+FORM: one boulder, DEEP, ONE flat area with 0 interior mark, its outline lumpy and slightly wider
+  than it is tall. 🔴 IT IS AS TALL AS TARO AND AS HIGH AS MUMU'S CHEST - draw it once beside two
+  plain child silhouettes to fix that, because every page reads off that size.
+🔴 A PUSHED ROCK LEAVES A FURROW AND THAT IS THE ONLY EVIDENCE OF EFFORT. The furrow is ONE straight
+  DEEP groove behind the rock, exactly the rock's width, with a low ridge of pushed earth along each
+  side. Its LENGTH is the score of the book: draw it at three lengths - a hand, an arm, and running
+  out of the frame. There are no strain lines, no sweat drops and no motion marks anywhere.
+🔴 THE SMALL STONE IS ITS ANSWER: one palm-sized stone from the Stones sheet lies in front of the
+  boulder on the last page and the two must be in one frame at one size, because the joke is that
+  the small one is the one that got moved.
+STATES:
+  1 THE BOULDER alone on wet ground, side on, two child silhouettes beside it for size.
+  2 A BODY BEHIND IT, shoulder to the rock, the rock not yet moved - 0 furrow.
+  3 THE SHORT FURROW - a hand's length behind it.
+  4 THE LONG FURROW - running off the frame edge, ridges along both sides.
+  5 HALF HIDDEN - a body behind the rock with only its top half showing past the boulder's outline.
+  6 THE PAIR - the boulder and one palm-sized stone in front of it, wet ground around both.
+
+PLATE: the six states, plus the boulder and one palm stone at one size.
+
+NOT: no character face (plain silhouettes only, for size), no orange anywhere on this sheet, no
+lettering or numerals, no crack, moss or grain on the rock, no strain line, sweat drop, motion line
+or dust puff, no airbrush, gradient, glow or soft edge.
+```
+
+```
+PROP SHEET - RiceCake   (taro-batik · SCENE token: RiceCake)
+
+Five round rice cakes on a broad leaf. One book, eight of its ten pages, and the count going down is
+the book.
+
+FORM: a round flat cake the size of a child's palm, CLOTH - it is pale food, so it is among the
+  brightest things on the page and it sits on a MID leaf, which is what makes it read. Its only
+  interior mark is nothing: 0 pattern, 0 dusting, 0 sheen, 0 line.
+🔴 THE COUNT ONLY GOES DOWN AND THE LEAF STAYS THE SAME. Draw the same leaf from straight above at
+  one size with FIVE, then ONE, then NONE. 🔴 An eaten cake leaves BARE LEAF, never a smaller cake
+  and never a nibbled one.
+🔴 THE LAST CAKE IS THE OBJECT OF THE BOOK, so it gets three states of its own, all at one size:
+  WHOLE - a plain circle in the middle of the leaf.
+  DRYING - the same circle with its rim slightly shrunken and puckered, still one flat area.
+  BROKEN IN TWO - snapped clean across the middle into two pieces that are plainly EQUAL, lying
+    apart with a few crumbs between them. 🔴 A four-year-old must see that neither half is bigger;
+    that is the ending.
+CRUMBS: at most 9 tiny DEEP specks on the pale cake side and on the leaf, each its own mark, none
+  mirroring its neighbour.
+STATES:
+  1 FIVE on the leaf, evenly spaced, from above.
+  2 ONE on the leaf, from above, the rest of the leaf plainly bare.
+  3 THE THREE STATES OF THE LAST CAKE in a row.
+  4 AN ANT LINE approaching across plank boards, its head a hand's width from the cake - the near
+    six or seven ants separate and the rest one joined line. (A RUN is exempt from the repeat cap.)
+  5 THE EMPTY LEAF, same size as state 1, with an ant line leaving it carrying crumbs.
+
+PLATE: states 1, 2 and 5 stacked at one size, then 3 and 4.
+
+NOT: no character, no orange anywhere on this sheet, no lettering or numerals, no pattern, stamp,
+dusting or sheen on a cake, no bite mark, no steam, no airbrush, gradient, glow or soft edge.
+```
+
+```
+PROP SHEET - MudTracks   (taro-batik · use the anchor's RAIN AND AFTER clause · SCENE token: MudTracks)
+
+The marks bodies leave in the wet ground after the rain has passed. One book is ten pages of them.
+
+🔴 AFTER THE RAIN THE GROUND IS DEEP AND WET, so a mark in it is NOT darker - it is the ground
+  BROKEN. A print is a small area where the smooth wet surface is gone, showing as a harder-edged
+  patch with a thin ridge of thrown earth along one side. 🔴 The difference between marked and
+  unmarked ground is EDGE, never value: smooth wet ground has no edges in it at all, and that
+  smoothness is what a fresh mark destroys.
+FOUR KINDS, and they must be tellable apart at thumbnail size:
+  A DEEP PRINT - one clear foot shape with a raised rim, made by running.
+  A SHALLOW PRINT - the same shape without a rim, made by walking. 🔴 One page compares a set of
+    deep prints with a set of shallow ones, so both are on this sheet at one size.
+  A SLIDE - ONE long straight groove the width of a body, with a low ridge pushed up along BOTH
+    sides and at most 5 clods thrown clear.
+  A SPLAYED PRINT - a small hand-like mark with the toes spread wide (a gecko's), quite different in
+    shape from any of the above.
+🔴 A TRACK LINE OBEYS THE RUN RULE: the near six or seven prints are separate and the rest carry on
+  as one joined line into the distance. Two bodies walking make TWO lines side by side, at different
+  sizes, never crossing.
+🔴 RAIN RESETS IT. Draw the same stretch of road once with a full set of marks and once completely
+  smooth and even, at the same size, so the page can show that everything was washed out.
+STATES:
+  1 SMOOTH WET ROAD, 0 marks, one flat area with a faint pale skin of water on it.
+  2 FOUR DEEP PRINTS, the last one throwing earth.
+  3 THE SLIDE, one long groove with its two ridges.
+  4 SIX SHALLOW PRINTS in a row, no rims.
+  5 A SPLAYED PRINT close up, and beside it one foot print at the same size.
+  6 TWO TRACK LINES side by side receding, the near pairs separate and the rest joined.
+
+PLATE: states 1 and 6 at one size (the reset pair), then 2, 3, 4, 5.
+
+NOT: no character, no orange anywhere on this sheet, no lettering or numerals, no gloss, reflection
+or wet highlight on the mud, no stipple or spatter texture, no motion line beside a slide, no
+airbrush, gradient, glow or soft edge.
+```
+
+**§3.30 `Broom` · §3.31 `Ball` — 요약 명세**
+
+| § | 토큰 | 매체 판정 한 줄 | 반드시 들어갈 상태 |
+|---|---|---|---|
+| 3.30 | `Broom` | 자루는 DEEP · 🔴 **솔은 풀을 묶은 것이라 CLOTH**(앵커 팔레트 `anything woven from grass`) — 어두운 마루 위에서 솔만 밝다 | 세워 둔 / 쓰는 중(솔 끝이 널에 닿음) / 🔴 **쓴 자리와 안 쓴 자리가 한 화면에**(15 p1) / 벽에 기대 놓은 |
+| 3.31 | `Ball` | 마른 코코넛이라 MID · 🔴 **구르는 것은 자국으로만 말한다** — 모션 라인 0, 뒤에 짧게 파인 DEEP 자국 한 줄 | 마루 한복판에 놓인 하나 / 두 손 사이 공중에 / **반 뼘 굴러가다 멈춘 것과 그 뒤의 짧은 자국**(16 착지) / 땅에 튀어 오르는 참 |
+
+---
+
+### 🔴 §3.32 앵커 신고 — 사물 때문에 앵커가 깨지는 자리 넷
+
+> 🔴 **고치지 않고 적어 둔다.** 앵커는 `taro-anchor.md` 가 SSOT 이고 이 문서는 그림체를 안 고친다.
+> 아래 넷은 **사물 시트를 쓰면서 드러난 것**이고, 그중 둘은 앵커 문안을 한 줄 손대야 한다.
+
+| # | 어디가 부딪히나 | 무슨 일이 벌어지나 | 제안 |
+|---|---|---|---|
+| 1 | 앵커 `RENDERING`: `FINISHED THINGS PER PAGE = 2` | 🔴 **23권 p1(떡 다섯) · 09권(조개 서른) · 44권(껍질 넷) · 33권(돌과 조개가 바닥을 덮음)이 이 조항과 정면으로 부딪힌다.** 앵커 §3 이 이미 `A RUN OR A BAND … IS EXEMPT FROM THESE CAPS` 를 넣어 **반복 상한**은 풀었는데, `FINISHED THINGS PER PAGE = 2` 는 **다른 조항이고 안 풀렸다** | `FINISHED THINGS PER PAGE = 2 (a RUN or a BAND counts as ONE finished thing)` 로 한 줄. 없으면 화가가 떡 다섯 중 둘만 마무리하고 셋을 뭉갠다 |
+| 2 | 앵커 `NIGHT` 조항: `MID exists only where a light reaches and the light itself is CLOTH` | 41권 p7 은 **낮인데 등불을 켠다**(비 오는 한낮, 마루 안이 어둡다). `NIGHT` 조항은 밤에만 걸려 있어 그 쪽의 값이 정해지지 않는다 | 조항 이름을 `NIGHT AND DARK INTERIORS` 로. §3.9 `Lamp` 는 그 전제로 썼다 |
+| 3 | 앵커 `EXCEPT a shadow LYING ON THE GROUND` | 🔴 **그림자를 허용은 했는데 길이를 아무도 안 정했다.** 32·04·11·26·40 다섯 권이 길이로 시간을 재는데, 앵커는 「평평한 실루엣 하나」까지만 말한다 | 앵커는 그대로 두고 **§3.7 시트가 사다리를 든다**(이미 그렇게 썼다). 앵커에 `(its length is fixed on the Shadow prop sheet)` 한 줄만 |
+| 4 | 앵커 `SCENE 쪽에 남은 자리 하나`(앵커 §3 맨 끝 ⚠️) | 앵커가 스스로 적어 둔 12 p8 「얼굴을 덮은 잎 그림자」 문제 — **아직 SCENE 이 안 고쳐졌다**. §3.7 은 「그림자는 얼굴에 절대 안 닿는다」로 썼으므로 지금은 시트와 대본이 어긋나 있다 | 12 p8 SCENE 을 「얼굴 위 DEEP 잎 덩어리」로 한 줄 수정(앵커가 이미 제안해 둔 것). 🔴 **미결로 남기지 말 것** |
+
+⚠️ **캐스트 쪽 신고 하나** — 49·50권의 **아기 원숭이**가 사물이 아니라 새 인물인데, 앵커 `CHARACTER
+DESIGN LANGUAGE` 는 타로(아이)·무무(아이)·어른 둘까지만 규격을 준다. 🔴 **어린 것이 하나 더 있으면
+「어린 것은 팔다리가 길고 몸이 동그랗다」 규칙이 타로와 겹친다** — 아기는 무엇이 길어야 하는지 캐스트
+시트가 정해야 두 권이 선다.
+
+### §3.33 검수 — 사물 시트의 다섯
 
 1. 시트에 **주황이 0점**인가. 주황은 타로 허리끈·무무 머리끈에만 닿는다(자리 시트와 같은 규칙).
 2. 밝은 것이 전부 **막은 자리**인가 — 구멍(§3.5)·띠(§3.8)·불(§3.9)·번개(§3.10)·물줄기(§3.11)·
