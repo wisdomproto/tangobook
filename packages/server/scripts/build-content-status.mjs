@@ -66,6 +66,21 @@ const COLS = [
   { key: 'cast', label: '캐스트', group: '메타' },
 ];
 
+/**
+ * 대분류 — 표의 맨 위 층. 🔴 순서가 곧 화면 순서라 의미순으로 둔다(권수순 아님).
+ * 라인(category)이 어느 대분류에 드는지는 여기 한 곳에서만 정한다. 창작동화는 「미공개 · 파닉스 아님」으로 잡는다
+ * (시리즈 이름이 19개라 목록을 손으로 들면 새 시리즈마다 빠진다).
+ */
+const GROUPS = [
+  { name: '파닉스', match: (cat, r) => r.isPhonics },
+  { name: '세계 명작', match: (cat) => cat === '세계 명작' },
+  { name: '전래 동화', match: (cat) => cat === '전래 동화' },
+  { name: '생활 동화', match: (cat) => cat === '생활동화' || cat === '호리 유치원동화' },
+  { name: '자연 관찰 · 논픽션', match: (cat) => /친구들$|우주와 자연|우리 몸|호리 세상 탐험/.test(cat) },
+  { name: '창작 동화', match: (cat, r, pubOfCat) => pubOfCat === 0 },
+  { name: '기타', match: () => true },
+];
+
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -82,6 +97,15 @@ function render(rows, meta) {
     return { cat: c, n: g.length, have, pub: g.filter((r) => r.isPublic).length };
   });
 
+  // 대분류 배정 — 라인마다 첫 번째로 맞는 GROUPS 항목. 공개 0권 판정은 라인 단위(창작동화 시리즈).
+  const groupOf = (a) => {
+    const sample = rows.find((r) => r.category === a.cat) ?? {};
+    return GROUPS.findIndex((g) => g.match(a.cat, sample, a.pub));
+  };
+  const grouped = GROUPS.map((g, gi) => ({ ...g, gi, cats: agg.filter((a) => groupOf(a) === gi) })).filter(
+    (g) => g.cats.length
+  );
+
   const cell = (n, total) => {
     if (!total) return '<td class="z">—</td>';
     const p = Math.round((n / total) * 100);
@@ -89,7 +113,7 @@ function render(rows, meta) {
     return `<td class="${cls}">${n}<span class="p">/${total}</span></td>`;
   };
 
-  const groupRow = () => {
+  const groupRow = (lead = 2) => {
     const gs = [];
     let cur = null;
     for (const c of COLS) {
@@ -98,7 +122,7 @@ function render(rows, meta) {
         cur = c.group;
       } else gs[gs.length - 1].n++;
     }
-    return `<tr class="gh"><th></th><th></th>${gs
+    return `<tr class="gh">${'<th></th>'.repeat(lead)}${gs
       .map((x) => `<th colspan="${x.n}" class="g-${x.g}">${x.g}</th>`)
       .join('')}</tr>`;
   };
@@ -155,6 +179,20 @@ color:var(--ink);font:inherit;font-size:.9rem;margin:0 10px 10px 0}
 #q:focus{outline:2px solid var(--h);outline-offset:1px}
 .chk{font-size:.86rem;color:var(--mut);margin-right:10px;cursor:pointer;user-select:none}
 #cnt{font-size:.86rem}
+.tb{font:inherit;font-size:.82rem;padding:5px 11px;border:1px solid var(--line);border-radius:7px;background:var(--sf);color:var(--mut);cursor:pointer;margin:0 6px 10px 0}
+.tb:hover{color:var(--ink);border-color:var(--h)}
+tr.grp td{cursor:pointer;font-weight:700;background:var(--hw);color:var(--ink)}
+tr.grp td:first-child{background:var(--hw)}
+tr.cat td{cursor:pointer;font-weight:600;background:var(--sunk)}
+tr.cat td:first-child{background:var(--sunk);padding-left:22px}
+tr.grp .tg,tr.cat .tg{display:inline-block;width:16px;color:var(--faint);transition:.15s;font-weight:400}
+tr.grp[aria-expanded=true] .tg,tr.cat[aria-expanded=true] .tg{transform:rotate(90deg)}
+tr.bk td:first-child{padding-left:44px;font-weight:400}
+th.sort{cursor:pointer;user-select:none}
+th.sort:hover{color:var(--ink)}
+th.sort[data-dir]::after{content:' ▼';font-size:.7em}
+th.sort[data-dir=asc]::after{content:' ▲'}
+.bad{color:var(--l);font-weight:700;font-size:.8em}
 </style>
 <div class="wrap">
 <h1>콘텐츠 현황판</h1>
@@ -175,17 +213,73 @@ color:var(--ink);font:inherit;font-size:.9rem;margin:0 10px 10px 0}
   <span><b class="l">~50%</b> 절반 미만</span><span><b class="z">0</b> 없음</span>
 </div>
 
-<h2>라인별 — 몇 권 중 몇 권이 그 칸을 갖고 있나</h2>
-<div class="tw"><table>
-<thead>${groupRow()}<tr><th>라인</th><th>권</th>${COLS.map((c) => `<th>${c.label}</th>`).join('')}</tr></thead>
+<h2>대분류 › 라인 › 책 — 한 표</h2>
+<p class="sub" style="margin:0 0 10px">대분류·라인 행을 누르면 아래 층이 펼쳐진다. 묶음 셀은 <b>몇 권 중 몇 권</b>, 책 셀은 그 책의 값. <b>열 머리를 누르면 그 열로 정렬</b>(대분류 순서는 고정, 안에서 라인·책이 정렬). 검색하면 맞는 책이 있는 줄만 펼쳐진 채 남는다. <code>backup</code> 폴더는 뺐다.</p>
+<input id="q" placeholder="제목·라인으로 거르기 (예: 전래 · 코코네 · 명작)" autocomplete="off">
+<label class="chk"><input type="checkbox" id="pubOnly"> 공개만</label>
+<button class="tb" id="expAll" type="button">전부 펼치기</button>
+<button class="tb" id="colAll" type="button">전부 접기</button>
+<span class="p" id="cnt"></span>
+<div class="tw"><table id="books">
+<thead>${groupRow(3)}<tr><th>대분류 › 라인 › 책</th><th class="sort" data-key="n">권</th><th class="sort" data-key="lv">레벨</th>${COLS.map(
+      (c) => `<th class="sort" data-key="${c.key}">${c.label}</th>`
+    ).join('')}</tr></thead>
 <tbody>
-${agg
-  .map(
-    (a) =>
-      `<tr><td>${esc(a.cat)}</td><td>${a.n}<span class="p">/${a.pub}공개</span></td>${COLS.map((c) =>
-        cell(a.have[c.key], a.n)
-      ).join('')}</tr>`
-  )
+${grouped
+  .map((g) => {
+    const gn = g.cats.reduce((t, a) => t + a.n, 0);
+    const gp = g.cats.reduce((t, a) => t + a.pub, 0);
+    const ghave = {};
+    for (const col of COLS) ghave[col.key] = g.cats.reduce((t, a) => t + a.have[col.key], 0);
+    const gv = { n: gn, lv: 0, ...Object.fromEntries(COLS.map((col) => [col.key, ghave[col.key]])) };
+    const grow =
+      `<tr class="grp" data-g="${g.gi}" data-k="${esc(g.name).toLowerCase()}" data-v='${JSON.stringify(gv)}' aria-expanded="false">` +
+      `<td><span class="tg">▸</span>${esc(g.name)}<span class="p"> · ${g.cats.length}라인</span></td>` +
+      `<td>${gn}<span class="p">/${gp}공개</span></td><td class="p">—</td>${COLS.map((col) => cell(ghave[col.key], gn)).join('')}</tr>`;
+    const crows = g.cats
+      .map((a, ci) => {
+        const c = meta.categories.find((x) => x.category === a.cat) ?? {};
+        const key = `${g.gi}-${ci}`;
+        const lvSum = c.wordsMedian
+          ? `${c.wordsMedian}<span class="p">어절</span>${c.levelWrong ? ` <span class="bad">≠${c.levelWrong}</span>` : ''}`
+          : '<span class="p">—</span>';
+        const cv = { n: a.n, lv: c.wordsMedian || 0, ...Object.fromEntries(COLS.map((col) => [col.key, a.have[col.key]])) };
+        const head =
+          `<tr class="cat" data-g="${g.gi}" data-c="${key}" data-k="${esc(a.cat).toLowerCase()}" data-v='${JSON.stringify(cv)}' aria-expanded="false" hidden><td><span class="tg">▸</span>${esc(a.cat)}</td>` +
+          `<td>${a.n}<span class="p">/${a.pub}공개</span></td><td>${lvSum}</td>${COLS.map((col) => cell(a.have[col.key], a.n)).join('')}</tr>`;
+        const kids = rows
+          .filter((r) => r.category === a.cat)
+          .map((r) => {
+            const lvN = r.levelActual ? Number(r.levelActual.slice(1)) : 0;
+            const lv = r.isPhonics
+              ? '<td class="p">—</td>'
+              : r.levelDeclared && r.levelActual && r.levelDeclared !== r.levelActual
+                ? `<td class="l">${r.levelDeclared}→${r.levelActual}</td>`
+                : `<td class="${r.levelDeclared ? 'f' : 'z'}">${r.levelActual ?? '—'}${r.levelDeclared ? '' : '<span class="p"> 미선언</span>'}</td>`;
+            const bv = {
+              n: 1,
+              lv: lvN,
+              ...Object.fromEntries(
+                COLS.map((col) => {
+                  const v = r[col.key];
+                  return [col.key, typeof v === 'number' ? v : v ? 1 : 0];
+                })
+              ),
+            };
+            return `<tr class="bk" data-g="${g.gi}" data-c="${key}" data-k="${esc(`${r.title} ${r.category}`).toLowerCase()}" data-pub="${r.isPublic ? 1 : 0}" data-v='${JSON.stringify(bv)}' hidden><td>${
+              r.isPublic ? '' : '<span class="p">비공개 </span>'
+            }${esc(r.title)}</td><td class="p">${r.isPhonics ? '단원' : ''}</td>${lv}${COLS.map((col) => {
+              const v = r[col.key];
+              const n = typeof v === 'number' ? v : v ? 1 : 0;
+              return `<td class="${n ? 'f' : 'z'}">${n || '—'}</td>`;
+            }).join('')}</tr>`;
+          })
+          .join('\n');
+        return head + '\n' + kids;
+      })
+      .join('\n');
+    return grow + '\n' + crows;
+  })
   .join('\n')}
 </tbody></table></div>
 
@@ -240,44 +334,72 @@ ${meta.seam.byTrack
       .join(' &nbsp;/&nbsp; ') || '없음'
   }</p>
 
-<h2>책별 — 전체 ${rows.length}권</h2>
-<input id="q" placeholder="제목·라인으로 거르기 (예: 전래 · 코코네 · 명작)" autocomplete="off">
-<label class="chk"><input type="checkbox" id="pubOnly"> 공개만</label>
-<span class="p" id="cnt"></span>
-<div class="tw"><table id="books">
-<thead>${groupRow()}<tr><th>제목</th><th>라인</th><th>레벨</th>${COLS.map((c) => `<th>${c.label}</th>`).join('')}</tr></thead>
-<tbody>
-${rows
-  .map((r) => {
-    const lv = r.isPhonics
-      ? '<td class="p">—</td>'
-      : r.levelDeclared && r.levelActual && r.levelDeclared !== r.levelActual
-        ? `<td class="l">${r.levelDeclared}→${r.levelActual}</td>`
-        : `<td class="${r.levelDeclared ? 'f' : 'z'}">${r.levelActual ?? '—'}${r.levelDeclared ? '' : '<span class="p"> 미선언</span>'}</td>`;
-    return `<tr data-k="${esc(`${r.title} ${r.category}`).toLowerCase()}" data-pub="${r.isPublic ? 1 : 0}"><td>${
-      r.isPublic ? '' : '<span class="p">비공개 </span>'
-    }${esc(r.title)}</td><td class="p">${esc(r.category)}</td>${lv}${COLS.map((c) => {
-      const v = r[c.key];
-      const n = typeof v === 'number' ? v : v ? 1 : 0;
-      return `<td class="${n ? 'f' : 'z'}">${n || '—'}</td>`;
-    }).join('')}</tr>`;
-  })
-  .join('\n')}
-</tbody></table></div>
 </div>
 <script>
-// 거르기 — 1,200행에서 눈으로 찾지 않게. 라이브러리 없이.
+// 대분류 › 라인 › 책 — 세 층 펼치기/접기 + 거르기 + 열 정렬. 라이브러리 없이.
 (function(){
   var q=document.getElementById('q'),p=document.getElementById('pubOnly'),c=document.getElementById('cnt');
-  var rows=[].slice.call(document.querySelectorAll('#books tbody tr'));
+  var tbody=document.querySelector('#books tbody');
+  var grps=[].slice.call(tbody.querySelectorAll('tr.grp'));
+  var cats=[].slice.call(tbody.querySelectorAll('tr.cat'));
+  var books=[].slice.call(tbody.querySelectorAll('tr.bk'));
+  var openG={}, openC={};
+  var val=function(r,k){ try{ return (JSON.parse(r.dataset.v)||{})[k]||0 }catch(e){ return 0 } };
+
   function run(){
-    var s=q.value.trim().toLowerCase(), only=p.checked, n=0;
-    rows.forEach(function(r){
-      var ok=(!s||r.dataset.k.indexOf(s)>=0)&&(!only||r.dataset.pub==='1');
-      r.hidden=!ok; if(ok)n++;
+    var s=q.value.trim().toLowerCase(), only=p.checked, shown=0, total=0;
+    grps.forEach(function(gr){
+      var gi=gr.dataset.g, gAny=false, gVis=0;
+      cats.filter(function(cr){return cr.dataset.g===gi}).forEach(function(cr){
+        var ci=cr.dataset.c, cAny=false, cVis=0;
+        var catMatch = s && cr.dataset.k.indexOf(s)>=0;
+        books.filter(function(r){return r.dataset.c===ci}).forEach(function(r){
+          var ok=(!s||r.dataset.k.indexOf(s)>=0||catMatch)&&(!only||r.dataset.pub==='1');
+          if(!only||r.dataset.pub==='1') total++;
+          var show = s ? ok : (openG[gi] && openC[ci] && ok);
+          r.hidden=!show; if(ok){cAny=true; cVis++;}
+        });
+        cr.hidden = s ? !cAny : !openG[gi];
+        cr.setAttribute('aria-expanded', s ? 'true' : (openC[ci]?'true':'false'));
+        if(cAny){gAny=true; gVis+=cVis;}
+      });
+      gr.hidden = s ? !gAny : false;
+      gr.setAttribute('aria-expanded', s ? 'true' : (openG[gi]?'true':'false'));
+      if(!gr.hidden) shown+=gVis;
     });
-    c.textContent=n+' / '+rows.length+'권';
+    c.textContent = s ? ('맞는 책 '+shown+'권') : ('책 '+total+'권 · 대분류 '+grps.length+' · 라인 '+cats.length);
   }
+  grps.forEach(function(gr){ gr.addEventListener('click',function(){ if(q.value.trim())return; openG[gr.dataset.g]=!openG[gr.dataset.g]; run(); }); });
+  cats.forEach(function(cr){ cr.addEventListener('click',function(){ if(q.value.trim())return; openC[cr.dataset.c]=!openC[cr.dataset.c]; run(); }); });
+  document.getElementById('expAll').onclick=function(){ q.value=''; grps.forEach(function(g){openG[g.dataset.g]=true}); cats.forEach(function(cr){openC[cr.dataset.c]=true}); run(); };
+  document.getElementById('colAll').onclick=function(){ q.value=''; openG={}; openC={}; run(); };
+
+  // 정렬 — 대분류 순서는 고정(의미순). 그 안에서 라인을, 라인 안에서 책을 그 열 값으로.
+  var sortKey=null, sortDir='desc';
+  function sortRows(){
+    var frag=document.createDocumentFragment();
+    grps.forEach(function(gr){
+      var gi=gr.dataset.g;
+      var cs=cats.filter(function(cr){return cr.dataset.g===gi});
+      if(sortKey) cs.sort(function(a,b){ var d=val(b,sortKey)-val(a,sortKey); return sortDir==='asc'?-d:d; });
+      frag.appendChild(gr);
+      cs.forEach(function(cr){
+        var bs=books.filter(function(r){return r.dataset.c===cr.dataset.c});
+        if(sortKey) bs.sort(function(a,b){ var d=val(b,sortKey)-val(a,sortKey); return sortDir==='asc'?-d:d; });
+        frag.appendChild(cr); bs.forEach(function(r){ frag.appendChild(r); });
+      });
+    });
+    tbody.appendChild(frag);
+  }
+  [].forEach.call(document.querySelectorAll('#books th.sort'),function(th){
+    th.addEventListener('click',function(){
+      var k=th.dataset.key;
+      if(sortKey===k){ sortDir = sortDir==='desc'?'asc':'desc'; } else { sortKey=k; sortDir='desc'; }
+      [].forEach.call(document.querySelectorAll('#books th.sort'),function(t){ t.removeAttribute('data-dir'); });
+      th.setAttribute('data-dir',sortDir);
+      sortRows(); run();
+    });
+  });
   q.addEventListener('input',run); p.addEventListener('change',run); run();
 })();
 </script>`;
@@ -365,7 +487,8 @@ async function main() {
   });
 
   const st = buildContentStatus(full.filter(Boolean));
-  const rows = [...st.rows].sort(
+  // 🔴 backup 폴더는 표에서 뺀다(사용자, 2026-09-04) — 옛 파일 67권이 라인처럼 보였다. 집계 json 은 그대로.
+  const rows = st.rows.filter((r) => r.category !== 'backup').sort(
     (a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
   );
 
