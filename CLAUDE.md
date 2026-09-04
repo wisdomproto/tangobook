@@ -4,6 +4,14 @@ AI 기반 유아동 동화책 + 파닉스 + 어휘 저작도구. Gemini로 스�
 
 > 이 파일은 **인덱스**다. 상세는 모듈별 `features/*/CLAUDE.md`, `docs/*`, memory 를 가리킨다. 완료된 마이그레이션·스크립트 나열은 `git log` / 코드 / memory 에서 확인.
 
+## 🧭 전략 — 여기부터 (2026-09-04)
+
+🔴 **정체성·포지셔닝·대상·BM·경쟁 이야기는 [docs/STRATEGY.md](docs/STRATEGY.md) 가 유일한 원본이고, 판단은 `strategy-director` 에이전트로 한다**(`.claude/agents/`). 이 파일(CLAUDE.md)은 **코드와 기능**만 다룬다.
+
+- 정체성 = **연결**: 「글자를 떼고, 그 글자로 읽을 책까지. 한 가지만 한다 — 읽기.」 라인업이 아니라 **라인업 사이의 연결**이 자산이다. 대기업은 라인업을 다 갖고도 **사업부가 갈라져** 못 잇는다.
+- 🔴 **다시 조사·측정하지 말 것** — 경쟁사 포지셔닝·콘텐츠 권수·검색량·플레이탱고/교원 이력은 **STRATEGY.md §2·§3·§6 에 이미 있다**. 책별 현황은 [content-status.html](packages/client/public/content-status.html)(재생성 `node packages/server/scripts/build-content-status.mjs`). 사용자가 세 번 지적했다: 「매번 계속 새로 조사하게 되고 있어」.
+- 🔴 **전략을 정했으면 STRATEGY.md 에 덧붙인다**(§4 결정 이력 · §5 아직 안 정한 것). 안 적으면 다음 세션이 또 처음부터 한다.
+
 ## 기술 스택
 
 - **Monorepo**: pnpm workspaces (`packages/{client,server,shared,remotion}`)

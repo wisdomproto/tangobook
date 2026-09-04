@@ -1,5 +1,9 @@
 # 탱고북 마케팅 브리프 (Brand Brief)
 
+> 🔴 **상위 문서 = [../STRATEGY.md](../STRATEGY.md)** (2026-09-04 신설). 정체성·포지셔닝·대상·BM·경쟁은
+> 거기가 원본이고 판단은 `strategy-director` 에이전트가 한다. **이 문서는 그 아래의 마케팅 실행 브리프**다
+> — 톤·채널·키워드·성장 루프. 둘이 충돌하면 STRATEGY.md 가 이긴다.
+>
 > **마케팅 단일 소스(source of truth).** `marketing-specialist` 에이전트가 작업을 시작할 때
 > 가장 먼저 읽는 문서다. 전략/사실이 바뀌면 **여기를 갱신**한다 (사용자 선호·피드백은 `memory/`).
 > 깊은 자료는 §8 자료 지도를 따라 그때그때 로드한다.
@@ -23,6 +27,10 @@
 ---
 
 ## 2. 핵심 포지셔닝 (2개 레이어 — 모순 아닌 단계)
+
+> ⚠️ **2026-09-04 재검토 대기.** 아래 「마켓플레이스」 비전은 2026-06-19 판단이고,
+> 지금 확정된 정체성(**연결** — 글자를 떼고 그 글자로 읽을 책까지)·아날로그 매출 작전과 맞지 않는다.
+> 살릴지 접을지 미결 → [../STRATEGY.md](../STRATEGY.md) §5. **그 전까지 이 절을 광고 카피 근거로 쓰지 말 것.**
 
 > Phase 1에서 **부모를 모으고**(큐레이션 명작이 마중물), Phase 2에서 **작가를 영입**(오픈 마켓플레이스). 단기 메시지와 장기 비전을 레이어로 구분해서 쓴다.
 
@@ -113,6 +121,7 @@
 
 | 영역 | 경로 |
 |---|---|
+| **전략(상위 원본)** | **`docs/STRATEGY.md`** · 에이전트 `strategy-director` |
 | 키워드 데이터 | `docs/marketing/data/` (+ `docs/marketing/README.md`) |
 | 투자자 deck | `packages/client/public/strategy.html` · `strategy-detail.html` · `docs/strategy-deck-rules.md` |
 | 운영 플레이북 | `packages/client/public/operations-playbook.html` |
