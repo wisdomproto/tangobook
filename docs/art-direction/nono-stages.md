@@ -138,7 +138,7 @@ BROWN` 알갱이 최대 11이 한 줄. `Alley` 상태 5 와 같은 규칙이고,
 
 ---
 
-## §2. 사물 시트 — 35장 (고유 47에서 접고 뺐다 · 2026-09-04 전권 판)
+## §2. 사물 시트 — 40장 (고유 47에서 접고 뺐다 + 표 밖에서 다섯 · 2026-09-04 전권 판)
 
 > 🔴 **단위는 권이다.** 한 권이 기대는 사물부터. 형식 정본 = 아래 §2.1 `Stove` · §2.2 `Sledge`.
 > 🔴 **이 시리즈에서 밝은 것은 「안 붙인 자리」이거나 「더 흰 종이를 찢어 붙인 것」 둘 중 하나다**(§0 ①②).
@@ -1065,7 +1065,132 @@ second shadow from a second light, no white ink or paint, no gradient or glow.
 
 ---
 
-### §2.36 검수 — 사물 시트의 여섯
+### 🔴 §2.37 ~ §2.41 — 작업표 밖에서 찾은 것 (추출기가 못 본 다섯)
+
+> 🔴 **작업표는 바닥이지 천장이 아니다.** `_scenes.json` 을 50권 전부 훑어 보니 추출기가 세 가지 이유로
+> 물건을 놓치고 있었다 — ①**조사가 붙으면 딴 낱말이 된다**(「처마/처마와」·「대야/대야와」·「눈덩이/눈덩이가」가
+> 각각 세어져 문턱을 못 넘는다) ②**한 글자 낱말은 원리상 못 잡는다**(김·빵·통·컵·못·재·북·끈)
+> ③**「배경·소품」에만 걸려 있고 「인물」 라벨은 안 본다**(주전자·숟가락·행주가 전부 손에 들려 있어 표에
+> 한 줄도 없었다). 아래 다섯은 그렇게 표 밖에 있던 것이고, **그중 둘은 한 권을 통째로 든다**.
+
+| § | 토큰 | 사물 | 권 (쪽 수) | 왜 표에 없었나 |
+|---|---|---|---|---|
+| 2.37 | `ShinyThings` | 반짝이는 것 여섯 — 유리 조각 셋 + 단추 셋 | **17**(6) | 🔴 **17권이 표에 아예 없었다.** 열 쪽 중 여섯이 이 여섯 개를 세는 이야기인데 낱말이 「것」·「단추」로 흩어져 문턱을 못 넘었다. 🔴 그리고 이 물건은 **앵커와 부딪힌다**(아래 신고 1) |
+| 2.38 | `Curtain` | 커튼 | **17**(3) | 자리(`GuguRoom`)로 보이지만 **여닫는 물건**이고, 17권은 커튼이 닫힌 동안이 통째로 그 권의 어둠이다 |
+| 2.39 | `Drum` | 큰 북과 북채 | **07**(3) | 「북」이 한 글자. 07권 장터의 두 번째 축이고, 군밤 줄이 짧아지는 것과 짝을 이룬다 |
+| 2.40 | `Scarf` | 초록 목도리 (몸을 떠났을 때) | **34**(6) · 25 p10 · 01 · 04 · 13 · 40 · 43 | 🔴 **캐스트 물건이라 아무도 사물로 안 셌다.** 그런데 34권은 목도리가 **목에서 미끄러져 눈 위에 떨어지는** 이야기다 — 캐스트 시트는 「목에 감긴 것」만 정한다 |
+| 2.41 | `Kettle` | 주전자 | 27 · 29 · 30(2) | 🔴 인물 라벨에만 있다. 더운물을 물통과 대야로 나르는 물건이고, 김(§2.7)의 출처가 매번 이것이다 |
+
+**같이 고쳐야 할 기존 시트 다섯** (권을 더 찾았거나 상태가 모자란다)
+
+| 시트 | 무엇을 얹나 |
+|---|---|
+| §2.15 `WallTools` | 🔴 **16권을 통째로 놓쳤다** — 열 쪽 중 여섯이 빗자루다(p2 자루가 화면을 세로로 지른다 · p5 골목이 쓸린 절반과 안 쓸린 절반으로 갈린다 · p9·p10 드러난 돌바닥 띠). 42권도 추가(p4 세워 짚은 빗자루) |
+| §2.13 `Snowball` | 23권(p6·p7·p10 던지는 눈덩이)·42권(p1·p9) 추가. 🔴 23권은 **던져서 부서지는** 것이라 「굴려서 커진다」와 다른 상태가 필요하다 — 공중에 넷이 엇갈려 나는 상태를 넣을 것 |
+| §2.25 `PastedShadow` | 03권 추가(p1 처마 밑 짧은 그림자 · p7 **벽과 바닥에 길게 누운** 그림자). 🔴 벽에 지는 그림자가 19권 말고도 있다는 뜻이라 신고 2가 더 무거워진다 |
+| §2.11 `PaperLantern` | 12권 추가(p8 「등불이 화면에서 유일한 밝은 점」 · p9 · p10). 🔴 12권은 **초록이 없는 권**이라 그 등불 조각이 화면의 유일한 밝은 것이고, §2.11 의 「빛은 붙인 흰 조각, 번짐 0」 규칙이 거기서 가장 크게 걸린다 |
+| §2.8 `Bowl` | 국자·숟가락을 상태로 넣을 것(26 p6 국자에서 떨어지는 건더기 셋 · 37 p5 난로 위 냄비에 걸쳐 둔 국자). 🔴 지금 시트에 **떠서 옮기는 동작**이 하나도 없다 |
+
+```
+PROP SHEET - ShinyThings   (nono-tornpaper · SCENE token: ShinyThings)
+
+The six treasures kept in a row on a windowsill - three pieces of glass and three buttons. One book,
+six of its ten pages, and the book calls them shiny.
+
+🔴 THE PROBLEM THIS SHEET SOLVES: there is no shine in this medium. No gloss, no highlight, no
+  sparkle, no transparency. So a shiny thing is made the only way this book makes brightness - IT IS
+  TORN FROM THE WHITE PAPER. A glass piece is a small torn white shape; a button is a small torn
+  white disc with 🔴 TWO tiny torn holes in it, and those two holes are the ONLY thing that tells a
+  button from a glass piece. Keep that difference: glass = a straight-sided sliver, no holes;
+  button = a rounded disc, two holes.
+🔴 SIX EXACTLY, AND THEY ARE COUNTED. Draw the row once and reuse it: left to right, ALWAYS THE SAME
+  ORDER, evenly spaced along the sill, alternating glass and button. A page that shows five is a
+  page where one is missing, and the gap must be the empty sill showing through.
+🔴 BRIGHT MEANS MORE PAPER, NOT MORE LIGHT. When the light comes in and "they all brighten at once",
+  nothing is added to the objects - the SILL AND THE WALL AROUND THEM go to the deep slate ground
+  sheet, so the same six white pieces become the only pale things in the frame. Draw that pair.
+STATES - all of the same sill at one size:
+  1 SCATTERED on a floor, all six apart, from above.
+  2 FIVE IN A ROW on the sill, one place bare at the right end.
+  3 SIX IN A ROW, complete.
+  4 THE SAME SIX with the room around them gone deep - the brightening page.
+  5 ONE PIECE close - a glass sliver and a button side by side at large size, so the two holes read.
+  6 THE ROW BEHIND A MISTED PANE - the sill outside, the pane a torn white piece, and 🔴 the six do
+    NOT show through at all.
+
+PLATE: states 2, 3, 4 stacked at one size, then 1, 5, 6.
+
+NOT: no character, no wool green, no lettering or numerals, no fourth paper, no cut or scissored
+edge - 🔴 a button is TORN, not punched, no drawn line, no gloss, highlight, sparkle, glint or
+transparency of any kind, no white ink or paint, no more or fewer than six, no gradient or soft edge.
+```
+
+```
+PROP SHEET - Scarf   (nono-tornpaper · SCENE token: Scarf)
+
+Nono's green scarf, on the pages where it is NOT round his neck. The cast sheet fixes it worn; this
+sheet exists because three volumes take it off him.
+
+🔴 THIS IS THE SERIES SIGNATURE COMING LOOSE, so it is drawn with more care than any other prop. It
+  is ONE torn piece of ACCENT WOOL GREEN, pasted LAST, and it is the only green in any frame that
+  holds it. 0 fringe, 0 stripe, 0 knit texture, 0 drawn line.
+🔴 IT IS ONE LONG SHAPE, NOT A LOOP. Worn, it is a band round the neck with two ends hanging; off, it
+  is one long flat strip. Its length is fixed here: laid out straight it is about as long as Nono is
+  tall, and both ends are torn square.
+🔴 A DRAGGED SCARF TAKES THE FLOOR PAPER WITH IT - where the trailing end has swept the snow, the
+  white floor piece is TORN AWAY in a thin line exactly the scarf's width. That torn line is how a
+  reader sees it slipped without being told.
+STATES:
+  1 WORN, round the neck, two ends hanging even.
+  2 SLIPPING - the band down at the shoulders, one end a hand's length on the ground, and a thin
+    torn line in the snow behind that end.
+  3 OFF, lying folded on the snow at the feet - one green shape on white, the brightest-coloured
+    thing in the frame and the smallest.
+  4 HELD in two hands, hanging as a loose U.
+  5 KNOTTED - the band round the neck with a plain torn knot at the front and the ends short and
+    even. 🔴 One volume ends on the knot holding while everything else blows one way; the knot is a
+    small overlap where the strip crosses itself, nothing more.
+  6 ROUND A SNOWMAN'S NECK, the wearer's own throat bare in the same frame. 🔴 This is the one page
+    in the series where the green is on something that is not a child - draw the bare throat too.
+
+PLATE: the six states at one size, plus the scarf laid out straight beside a standing Nono
+silhouette for length.
+
+NOT: no character face (plain torn silhouettes only), no second green anywhere in a frame, no
+lettering or numerals, no fringe, tassel, stripe or knit texture, no fourth paper, no cut edge, no
+drawn line, no white ink or paint, no gradient or soft edge.
+```
+
+**§2.38 `Curtain` · §2.39 `Drum` · §2.41 `Kettle` — 요약 명세**
+
+| § | 토큰 | 매체 판정 한 줄 | 반드시 들어갈 상태 |
+|---|---|---|---|
+| 2.38 | `Curtain` | TORN1 한 장 · 🔴 **닫히면 뒤가 하나도 안 비친다**(종이는 불투명하다) · 새어 든 빛은 **틈 자리의 바탕 종이 한 줄**이지 번지는 광선이 아니다 | 활짝 열림 / 닫힘(뒤가 통째로 안 보임) / **틈 한 줄만 열려 손끝에만 빛이 닿음**(17 p5) / 걷히는 중 |
+| 2.39 | `Drum` | 통은 TORN2 · 가죽면은 TORN1 · 북채 둘은 가는 TORN2 · 🔴 **소리를 선으로 그리지 않는다** — 앵커에 그린 선이 0이므로 울림은 **둘러선 실루엣이 그쪽으로 돈 것**으로만 말한다 | 세워 놓은 북 / 북채가 면에 닿은 참 / 둘러선 실루엣 일곱(앵커 상한)이 다 그쪽을 봄 / 멀리 작게(간격만 좁아짐) |
+| 2.41 | `Kettle` | TORN2 몸통 · 손잡이와 주둥이는 같은 종이 · 🔴 **김은 §2.7 사다리**, 붓는 물은 **겹쳐 붙인 짙은 조각 한 줄**(잔물결 0) | 바닥에 놓인 / 김이 굵게 오르는 / 기울여 붓는(물줄기 한 줄) / 물통 옆에 내려놓은 |
+
+---
+
+### 🔴 §2.42 앵커 신고 — 사물 때문에 앵커가 깨지는 자리 다섯
+
+> 🔴 **고치지 않고 적어 둔다.** 앵커는 `nono-anchor.md` 가 SSOT 이고 이 문서는 그림체를 안 고친다.
+> 다섯 중 **셋은 앵커 문안을 손대야 하고**, 하나는 이미 앵커가 스스로 예외 목록을 들고 있는데 **그 목록이
+> 모자란다**.
+
+| # | 어디가 부딪히나 | 무슨 일이 벌어지나 | 제안 |
+|---|---|---|---|
+| 1 | 앵커 `NOT`: `no airbrush, gradient, glow … no white paint` + `RENDERING` 에 광택 언급 0 | 🔴 **17권이 「반짝이는 것 여섯」을 세는 이야기인데 이 매체엔 반짝임이 없다.** 금지를 어기면 매체가 죽고, 지키면 그 권의 제목이 그림에 없다 | 뒤집지 말고 **번역**한다 — §2.37 이 「반짝임 = 흰 종이 조각」으로 냈다. 앵커 `PALETTE` 의 `TORN WHITE SNOW` 목록에 `and anything the book calls shiny` 한 줄을 더할 것 |
+| 2 | 앵커 `NOT`: `no … cast shadow` | 🔴 **19권 p2**(난로 불빛에 손 그림자가 벽에 크게 진다) · **20권 p7**(오두막 그림자가 눈 위로 길게 눕는다) · **03권 p1·p7**(처마 밑 짧은 그림자 / 벽과 바닥에 길게 누운 그림자). **세 권 다섯 쪽이 이 조항 하나에 막혀 있고**, 19권은 그 그림자 놀이가 긴 밤의 놀이 자체다 | §2.25 가 매체 안의 답을 냈다 — **그림자는 드리우는 게 아니라 겹침 조각을 한 장 더 붙이는 것**. 앵커 `NOT` 을 `no cast shadow (a shadow, where a volume needs one, is ONE more pasted OVERLAP piece - see the PastedShadow sheet)` 로 |
+| 3 | 앵커: `EACH CHILD'S GREEN THING IS ALWAYS VISIBLE … except volume 12 … and volume 25 page 10` | 🔴 **예외가 둘이 아니라 넷이다.** ③**30권** — 목욕하는 동안 키키의 초록 방울이 뒷방 벽 못에 걸려 있다(p6·p7). ④**34권** — 노노의 목도리가 목에서 미끄러져 눈 위에 떨어진다(p3·p4·p7). 예외 목록이 모자라면 화가는 「늘 보여야 한다」를 지키려고 **없어야 할 초록을 그려 넣는다** | 예외 목록에 30·34 를 넣을 것. 🔴 그리고 넷 다 **초록이 아이를 떠나는 이야기**라 이건 예외가 아니라 **이 시리즈의 한 형식**이다 — 앵커에 그렇게 적는 편이 안전하다 |
+| 4 | 앵커 `CHARACTER DESIGN LANGUAGE`: `WHAT EACH ONE WEARS IS FIXED ON THE CAST SHEET AND IS NEVER ADDED TO. Two of the three wear no coat at all` | SCENE 의 「인물」 라벨에 **소매**가 아홉 권 열한 쪽에 나온다(19·26·28·31·41·43·44·46·49). 할아버지의 앞치마 소매라면 문제없지만, **아이 셋 중 누구의 소매인지 대본에서 갈리지 않는다** | 🔴 **캐스트 시트에서 확인할 것.** 아이 둘이 옷이 없다면 그 열한 쪽의 소매는 전부 할아버지여야 하고, 아니면 앵커가 거짓말을 하고 있는 것이다 |
+| 5 | 자리 시트 없음 | 🔴 **`Square`(겨울 장터) 시트가 없다** — 07·09·38 세 권이 거기 산다. `nono-routes.md` 도 같은 것을 신고해 뒀다. 그리고 **`Corner`(골목 끝 모퉁이와 큰길)** 도 없다 — 36권 열 쪽이 통째로 거기다. §1 자리 시트 5장은 이 둘을 안 든다 | §1 을 **7장**으로: `Square` · `Corner` 신설. 🔴 `Corner` 는 「큰길 = 아이가 건너면 안 되는 선」이라 골목과 **깊이 규칙이 다르다**(간격이 아니라 폭이 사건이다) |
+
+⚠️ **캐스트 쪽 신고 하나** — 35권의 **겨울새 아홉**은 SCENE 이 스스로 「노노와 달리 사족 새의 몸이고 옷도
+초록도 없는 작은 조각들」이라 적어 뒀다. 🔴 **노노가 참새인데 화면에 진짜 참새가 같이 있는 권**이라,
+캐스트 시트가 「아이 참새 ↔ 그냥 새」를 실루엣으로 갈라 두지 않으면 그 권이 통째로 헷갈린다.
+앵커 `sparrows at most 11` 은 **개수만** 말하고 생김새를 안 말한다.
+
+### §2.43 검수 — 사물 시트의 여섯
 
 1. 시트 어디에도 **가위로 자른 가장자리·자로 그은 직선·그린 선**이 없는가. 🔴 특히 §2.12(창의 자국)과
    §2.26(서리 자국) — 이 둘이 그린 선이 되면 이 시리즈가 통째로 다른 매체가 된다.
