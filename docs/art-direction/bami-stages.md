@@ -29,19 +29,457 @@
 
 ---
 
-## §1. 자리 시트 — 🔴 **앵커의 `STAGE CLAUSES` 가 이미 자리 시트다**
+## §1. 자리 시트 — 아홉 장
 
-이 시리즈는 자리 시트를 따로 만들지 않는다. 앵커가 **칸 다섯(기관실·식당칸·침대칸·세면 구석·화물칸) +
-통로 + 지붕 + 바깥 + 역 + 창밖 일곱 + 시간대 셋**을 조항으로 들고 있고, `CANVAS` 가 배치까지
-못 박아 놨다(`the engine at the right … the house at the left … Any camera, never mirrored`).
-같은 표를 두 곳에 두면 갈라지므로 **여기서 되풀이하지 않는다.**
+> 🔴 **2026-09-04 정정.** 이 절은 「앵커의 `STAGE CLAUSES` 가 이미 자리 시트다 · 여기서 되풀이하지 않는다」라고
+> 적혀 있었다. **틀린 문장이었다.** 실측하니 SCENE 이 250쪽에 찍은 자리 토큰 가운데
+> `DiningCar`(104쪽·19권) · `SleepingCar`(36·8) · `EngineCab`(21·5) · `Passage`(16·6) · `WashCorner`(14·4) ·
+> `Roof`(3·1) · `Outside`(2·2) 이 **앵커 어디에도 그 이름으로 없다.** 조항은 산문으로 「식당칸에는 난로가 있다」를
+> 말할 뿐이고, 화가는 `[DiningCar]` 를 들고 찾아갈 데가 없었다.
+> 🔴 **조항과 시트는 다른 물건이다** — 조항은 컷에 붙는 문장(그 쪽에 실린다), 시트는 그 자리를 **한 번 정해 두는
+> 판**(굽어서 다시 안 정한다). 조항이 있다는 것은 시트가 있다는 뜻이 아니다.
 
-🔴 **다만 조항이 없는 자리가 둘 있다 — §3 신고.**
+### 🔴 §1-a. 기차 배치도 — 아홉 자리는 **이어져 있어야 한다**
 
-| 없는 자리 | 어디 | 왜 문제인가 |
-|---|---|---|
-| `Kindergarten` 교실 | 24 p6·p7·p8 | 기차도 역도 아니다. 그리고 24 p6 이 **「아까는 기차에서 유치원을 봤고, 지금은 유치원에서 기차를 본다」**라 **창 두 개가 정확히 마주 봐야** 한다 |
-| `BigStation` 큰 역 | 13 p1~p9 (아홉 쪽) | 앵커 `STATION` 조항은 **간이역 한 채**(역사 왼쪽·승강장 선 전폭·표 창구 하나)인데 13권은 **천장이 아주 높고 시계가 화면 맨 위**인 실내 역이다. 한 권의 아홉 쪽이 조항 밖에 있다 |
+25권이 한 기차를 나눠 쓰는데 칸이 서로 어디에 붙었는지가 어디에도 없었다. **칸 하나씩 그리면 스무 권이 스무 대의
+기차를 그린다.** 아래가 그 한 대이고, 아홉 시트 전부 이 도면을 먼저 읽는다.
+
+```
+        (오른쪽 = 앞)                                                    (왼쪽 = 뒤)
+   ┌─ENGINE─┐   ┌──────────────┐   ┌───────────────────────────┐   ┌─────────┐
+   │EngineCab│═A═│  DiningCar   │═B═│ SleepingCar ┄┄ WashCorner │═C═│ GoodsVan│
+   └────┬────┘   └──────┬───────┘   └──────┬─────────────┬──────┘   └────┬────┘
+        │  화실          │ 난로·식탁         │ 이층 침대      │ 물통·세면대     │  어둠
+   ═════╧════════════════╧═════════════════ Roof ═════════════════════════╧═════   ← 굴뚝은 기관차 위
+   ────────────────────────  Station 승강장 선  ────────────────────────────────
+```
+
+- **A · B · C 가 `Passage` 다 — 시트는 한 장이고 SPOT 이 셋이다.** A = 기관실↔식당칸(01 p3 「침대칸 쪽」이 아니라
+  「식당칸 쪽」으로 읽어야 맞는 유일한 자리는 08 p2) · B = 식당칸↔침대칸 · C = 세면 구석↔화물칸(05 p9 「세면 구석 앞 통로」).
+- 🔴 **바깥으로 나가는 문은 통로에만 있다.** 사람이 타고 내리는 곳이 여기 하나뿐이고(10 p10 · 14 p7),
+  지붕에 오르는 것도 이 문 밖에서다(02 p9 삐삐가 그 문 위 지붕 가장자리). 칸(식당·침대)에는 바깥 문이 없다 —
+  **창만 있다.** 이걸 안 정해 두면 손님이 식당칸 벽에서 튀어나온다.
+- 🔴 **`WashCorner` 는 별개 칸이 아니라 `SleepingCar` 의 뒤쪽 끝**이다(앵커 `SLEEPING CAR (wash corner at its far
+  end)`). 그래서 세면 구석에서 침대가 프레임 끝에 걸릴 수 있고(02 p8 둥근 창), 침대칸 카메라를 뒤로 물리면 세면
+  구석이 들어온다. **두 자리 사이에 문이 없다.**
+- 🔴 **안에서 본 칸은 전부 같은 방향이다**(앵커 `CANVAS`): 창은 **먼 벽**, 앞 칸으로 가는 문은 **오른쪽**.
+  뒤 칸으로 가는 문은 왼쪽. 절대 좌우 반전하지 않는다.
+- `Outside` 는 자리가 아니라 **카메라가 기차 밖에 선 것**이고, `Station` 과 거의 늘 겹쳐 찍힌다(`[Outside]+[Station]`).
+
+### 🔴 §1-b. 아홉 장
+
+| # | 토큰 | 자리 | 쪽·권 | 시트가 드는 자 |
+|---|---|---|---|---|
+| 1 | `DiningCar` | 식당칸 | 104쪽·19권 | 난로 동그라미와 식탁의 거리 · 식탁 밑 어둠 | ✅ **2026-09-04 반영.** 앵커 `STAGE CLAUSES` 에 `A BIG STATION, INDOORS` 와 `THE KINDERGARTEN CLASSROOM` 두 조항 추가(권 번호 아닌 **조건**으로) + 자리 시트 §1.8 `Station/Big` 변종 · §1.9 `Kindergarten`(마주 보는 창 두 짝을 한 판에) |
+| 2 | `SleepingCar` | 침대칸 | 36·8 | 둥근 창의 크기 · 작은 등불 = 기차에서 가장 작은 원반 | ✅ 반영. 앵커 `DINING CAR` 가 `its three compartments read by what is in them and never by colour` 를 든다 |
+| 3 | `WashCorner` | 침대칸 뒤끝 세면 구석 | 14·4 | 세면대 끝 ↔ 물통 끝 · 수건 걸이(기울기를 지는 것) | ✅ 반영. 앵커 `WASH CORNER` 가 「겹쳐 산 하나 / 몸의 거품은 밝은 한 덩이」를 든다 |
+| 4 | `EngineCab` | 기관실 | 28·7 (`Cab` 7쪽 흡수) | 종 줄 끝 = 밤이 정수리 위 · 아빠가 늘 화실과 밤이 사이 | ✅ 반영. 앵커를 안 고치고 `A FROZEN PANE IS THIS CLAUSE TURNED OVER` 예외 한 줄을 `A CAR SEEN FROM INSIDE` 안에 달았다(권 번호 없이 「대본이 언 창이라 부르는 쪽」 조건) |
+| 5 | `Passage` | 연결 통로 A·B·C | 16·6 | 🔴 바깥 문 · 손잡이 봉 높이 |
+| 6 | `Roof` | 지붕 | 3·1 | 굴뚝 자리 · 「선 기차에서만」 | ✅ 반영. `ONE ANGLE FOR THE WHOLE VOLUME` + 예외를 **권 번호가 아니라 조건**으로(「굽이가 주제인 책」, 7·8·10·12·15). 갈래 ① 규칙대로 12 를 안 적었다 |
+| 7 | `Outside` | 밖에서 본 기차 | 2·2 | 창 줄이 곧 기차 |
+| 8 | `Station` | 역 (`Station/Big` · `Station/Crossing` 포함) | 43·13 (`Platform` 3쪽 흡수) | 승강장 선 · 이름을 주는 것 하나 |
+| 9 | `Kindergarten` | 유치원 교실과 문 앞 언덕길 | 4·1 | 🔴 **마주 보는 창 두 개** |
+
+🔴 **토큰 오기 둘을 SCENE 에서 고쳤다**(한국어는 안 건드렸다): `[Cab]`→`[EngineCab]`(06·07, 7쪽 — 같은 기관실을
+두 이름으로 불렀다) · `[Platform]`→`[Station]`(06·10, 3쪽 — 승강장은 `STATION` 조항 한 자리다). 그리고 한글이
+섞여 검사기가 **아예 못 읽던** 변종 라벨 둘을 ASCII 로: `[Station/큰 역]`→`[Station/Big]`(13권 9쪽) ·
+`[Station/건널목]`→`[Station/Crossing]`(11권 7쪽). 🔴 **못 읽는 토큰은 「미매칭 0」으로 통과한다 — 없는 것보다 나쁘다.**
+
+### §1.1 DiningCar — 104쪽 19권, 이 시리즈의 주 무대
+
+```
+STAGE SHEET - DiningCar   (bami-lamplight · use the anchor's DINING CAR + A CAR SEEN FROM INSIDE clauses · SCENE token: DiningCar)
+
+The second vehicle: the family's kitchen, dining room and living room. Nineteen of the twenty-five books
+sit here and it is where most evenings end, so this drawing decides the room once.
+
+FIXED PARTS - and their places relative to one another, which never change:
+  WINDOWS - on the FAR WALL, a row of them, evenly spaced. By day each is a FROST rectangle; by night each
+    is UNPAINTED PAPER inside the LAMP strip of the wall. THE WINDOW SEAT is the one under the middle
+    window and it is THE ONLY SEAT THAT EVER TAKES A LIT PATCH.
+  TABLE - one long plank below the windows, its top ONE LAMP plank and its underside IRON. 🔴 UNDER IT IS
+    UNPAINTED PAPER, always, and it is a place: three volumes send a body or a lost thing into that dark.
+    A face at the table sits at the height of the sill.
+  STOVE - IRON, upright with a flue, at the END OF THE ROOM AWAY FROM THE ENGINE (frame left), its door
+    shut and its mouth ONE LAMP patch. Its circle of light lies on the floor 🔴 CLOSE ENOUGH THAT THE
+    NEAREST TABLE LEG STANDS AT THE CIRCLE'S EDGE and no further - the reach of that stove is the distance
+    from stove to near table and it is fixed here (see §2.4).
+  HANGING LAMP - one, over the table, on a hook from the ceiling. It is a tilt-bearer.
+  CUP HOOKS - a short rail on the near wall with cups hanging from it, tilt-bearers (see §2.2).
+  SHELF and CUPBOARD - one IRON plank shelf high on the right-hand wall, one IRON cupboard below it. 0
+    contents drawn except what a page needs.
+  THE SCARF'S PEG - on the wall by the stove. When the scarf is on it, it hangs there and nowhere else.
+  DOOR TO THE ENGINE - IRON frame at the RIGHT. Door to the passage aft at the LEFT. 🔴 NO OUTSIDE DOOR.
+
+SPOTS - the four places the camera stands. Do not invent a fifth.
+  A THE ROOM, wide, child height: stove at frame left with its circle, table across the middle, windows
+    behind it, the engine door a bright frame at the right.
+  B THE WINDOW SEAT, medium, from the aisle: one window fills the upper frame, the table's end below it,
+    the rest of the car falling away unpainted to the left.
+  C THE TABLE TOP, high, looking straight down: the LAMP plank and what is on it, nothing else painted.
+  D UNDER THE TABLE, low: the plank's IRON underside across the top of the frame, unpainted dark below it,
+    and ONE lit sliver of floor where a lamp or a platform reaches in.
+🔴 THE DRAWING BOARD PAIRING (§2.16) LIVES IN SPOT B: a board stood on the table has its top edge sitting
+  directly against the real window, at the same depth, so the painted field and the real field touch along
+  one line. Draw that alignment here so no page has to invent it.
+
+PLATE: A, B, C, D as four panels, plus one small overhead diagram of the car showing where stove, circle,
+  table, window seat, cup rail, peg and the two doors sit.
+
+NOT: no character of any kind, no teal, no lettering or numerals, no flame or ember in the stove, no glow,
+halo or soft falloff on any lamp or on the stove circle, no painted floor outside a lit patch, no outside
+door, no gradient, no outline, no white, black, grey or brown paint, no soft or feathered edge.
+```
+
+### §1.2 SleepingCar — 36쪽 8권
+
+```
+STAGE SHEET - SleepingCar   (bami-lamplight · use the anchor's SLEEPING CAR + A CAR SEEN FROM INSIDE clauses · SCENE token: SleepingCar)
+
+The third vehicle: two bunks, one round window and the smallest lamp in the train. Eight books sleep here
+and one whole book puts the lights out in it. 🔴 THE WASH CORNER IS THE AFT END OF THIS SAME ROOM - there
+is no door between them; pull the camera back from the bunks and the corner enters the frame.
+
+FIXED PARTS:
+  THE ROUND WINDOW - ONE, on the far wall, and it is 🔴 THE ONLY ROUND WINDOW IN THE TRAIN, about a face
+    disc and a half across. By day a FROST disc; by night UNPAINTED PAPER with only the view's own marks in
+    it (a moon disc, at most six star dots). 🔴 BY DAY IT THROWS A ROUND LAMP PATCH IN ITS OWN SHAPE onto
+    the quilt or the floor, cut straight across whatever it crosses - four volumes turn a page on that
+    round patch, so its size is the window's size and never larger.
+  THE BUNKS - two, one above the other, against the near wall, each one LAMP plank and otherwise paper.
+    The lower bunk's plank is at a standing child's chest. 🔴 UNDER THE LOWER BUNK IS UNPAINTED PAPER and
+    it is a place - a book hunts in it.
+  THE BUNK POST at the foot of the bunks: the peg the scarf hangs from in this car.
+  THE SMALL LAMP - on the wall by the lower bunk. 🔴 IT IS THE SMALLEST LAMP DISC IN THE TRAIN and the last
+    lit thing of any evening; its size is fixed here and never grows.
+  THE TOY BOX - IRON, on the floor at the foot of the bunks. Its inside is unpainted (see §2.9).
+  DOOR forward to the dining car at the RIGHT, IRON frame. Aft, no door: the room simply continues into the
+    wash corner. 🔴 NO OUTSIDE DOOR.
+
+SPOTS:
+  A THE CAR, wide, child height: bunks at frame right, round window on the far wall, the aft end falling
+    away toward the wash corner at frame left.
+  B AT THE ROUND WINDOW, medium: the disc fills the upper frame, the lower bunk's plank beneath it.
+  C IN THE BUNK, close, low: the quilt's hem across the frame and the lamp's plank of light on it; the
+    room beyond is unpainted.
+  D THE FLOOR, high: bare boards, the toy box, and the unpainted dark under the lower bunk.
+
+PLATE: A, B, C, D, plus one overhead diagram showing bunks, window, small lamp, post, toy box, the forward
+  door and the open aft end into the wash corner.
+
+NOT: no character, no teal except a scarf hanging on the post where a page calls for it, no lettering or
+numerals, no second round window, no glow or halo round the small lamp, no painted floor outside a lit
+patch, no gradient, no outline, no white, black, grey or brown paint, no soft edge.
+```
+
+### §1.3 WashCorner — 14쪽 4권 (침대칸의 뒤끝)
+
+```
+STAGE SHEET - WashCorner   (bami-lamplight · use the anchor's WASH CORNER clause · bake AFTER SleepingCar · SCENE token: WashCorner)
+
+The aft end of the sleeping car. 🔴 IT IS NOT A ROOM: copy the sleeping car's wall, floor and ceiling
+exactly and change only what stands in this end of it. Four books wash here.
+
+🔴 THE CORNER HAS TWO ENDS AND THE BOOKS USE THEM DIFFERENTLY - fix both here, in one frame, so a reader
+  can tell which end a page is at:
+  1 THE BASIN END, nearer the bunks: the basin ONE FROST shape at a standing child's chest, a straight
+    FROST band of water falling from above it when it runs, and it STOPS where it lands. Feet get washed
+    here.
+  2 THE TUB END, right aft: the big tub ONE FROST shape, round and deep enough that a seated child shows
+    only face disc and beak above the rim. The tub is 🔴 THREE TIMES the basin.
+FIXED PARTS:
+  THE TOWEL RAIL on the near wall between the two ends, with one FROST towel over it. 🔴 THE TOWEL IS ONE
+    OF THE SIX TILT-BEARERS - it hangs plumb when the train stands and leans at the volume's angle when it
+    runs, and eleven of these fourteen pages are standing pages, so it is nearly always plumb.
+  THE PEG beside the rail - the scarf's place in this car (it is off Bami on most pages here).
+  THE TOOTHBRUSH lives on a hook or in a cup above the basin; it is a loose thing, not a tilt-bearer.
+  THE ROUND WINDOW of the sleeping car catches THE FRAME'S EDGE from here and no more - it is never
+    centred in a wash-corner shot.
+  THE DOORWAY aft to passage C, IRON frame. Standing in it, the tub is visible past the door post.
+
+SPOTS:
+  A THE CORNER, wide: basin end at frame left, towel rail in the middle, tub end at frame right, round
+    window clipped at the top left edge.
+  B THE TUB, medium, slightly high: rim across the lower frame, the wall's lit strip behind.
+  C THE BASIN, medium, low: basin at the top of the frame with the water band coming down, feet below.
+  D FROM THE DOORWAY, medium: the IRON door frame around the whole shot, the tub beyond it.
+
+PLATE: A, B, C, D, plus the basin and the tub side by side at one scale so the three-to-one size holds.
+
+NOT: no character, no teal except a scarf on its peg, no lettering or numerals, no taps, pipes or plumbing,
+no tiles or pattern, no ripple, glint or inverted shape in any water, no more than 5 foam strokes on this
+sheet, no glow or soft edge, no gradient, no outline, no white, black, grey or brown paint.
+```
+
+### §1.4 EngineCab — 28쪽 7권 (`Cab` 7쪽을 흡수)
+
+```
+STAGE SHEET - EngineCab   (bami-lamplight · use the anchor's ENGINE CAB clause · SCENE token: EngineCab)
+
+Dad's place, at the right-hand end of the train. Seven books go in, and it holds the brightest thing in the
+series - the firebox mouth - beside the darkest pages in the series, the tunnel.
+
+FIXED PARTS:
+  THE FIREBOX - IRON, low and at frame left, ITS DOOR SHUT on every page. Two states and no third: shut
+    with ONE LAMP mouth patch, and shut with ONE LAMP SEAM - a single straight line of light at the door's
+    edge, which on a tunnel page is the only light in the frame. 🔴 IT IS THE BRIGHTEST LAMP IN THE TRAIN
+    and everything else is measured against it.
+  THE BIG HANDLE - ONE LAMP bar, waist high to an adult, standing clear of the wall so a foot can close
+    round it. Dad's foot is on it on nearly every page of this room.
+  THE BELL - IRON, hung high near the handle, 🔴 AS BIG AS BAMI'S BODY (see §2.7), with ONE IRON rope of
+    even thickness hanging from its crown. 🔴 THE ROPE'S END STOPS JUST ABOVE BAMI'S CROWN when he stands -
+    that height is fixed here and it is why a book can be about jumping for it.
+  THE WHISTLE CORD - a THINNER IRON line, reaching only to an adult's height, with no bell on it. Draw it
+    beside the bell rope once so the two are never swapped.
+  THE FRONT WINDOW - wide, on the forward wall, carrying the volume's view: a FROST rectangle by day, and
+    on a tunnel page 🔴 PAINTED NOTHING AT ALL, edge to edge.
+  THE SIDE WINDOW - one, on the left wall, small, opening. It is the only window in the train anybody opens.
+  THE HANGING LAMP - one, a tilt-bearer.
+  THE DOORWAY aft to passage A at the LEFT, with a raised SILL. 🔴 A CHILD IN THIS ROOM STANDS INSIDE THAT
+    SILL and Dad's body is between the child and the firebox on every page (anchor safety line).
+
+SPOTS:
+  A THE CAB, medium wide, three-quarter from behind: Dad's back at frame left with the handle, the front
+    window beyond, the doorway and its sill at frame right.
+  B UNDER THE BELL, medium, low: the bell high and centred, the rope dividing the frame vertically, the
+    handle a lit bar behind.
+  C AT THE SIDE WINDOW, medium: the window at frame right, the handle at left.
+  D THE FIREBOX SEAM, close, dark: one straight LAMP line low in the frame and unpainted paper everywhere
+    else, with the edge of a shoulder in it. This is the tunnel spot.
+
+PLATE: A, B, C, D, plus the bell rope and the whistle cord together at one scale, and one small elevation
+  showing firebox, handle, bell, rope end and sill at their fixed heights against a plain child silhouette.
+
+NOT: no character face beyond a plain disc for scale, no teal, no lettering, numerals, dials or gauges, 🔴
+no flame, ember, spark or flicker, no orange or red, no glow, halo or ray from the firebox, no sound marks
+or motion arcs on the bell, no open firebox door ever, no gradient, no outline, no white, black, grey or
+brown paint, no soft edge.
+```
+
+### §1.5 Passage — 16쪽 6권 (🔴 바깥으로 나가는 문이 여기 하나뿐이다)
+
+```
+STAGE SHEET - Passage   (bami-lamplight · use the anchor's PASSAGE clause · SCENE token: Passage)
+
+The open joint between two cars. There are three of them (A engine/dining, B dining/sleeping, C wash
+corner/goods van) and 🔴 THEY ARE ONE DRAWING - the same plates, the same rail, the same doors. Which one a
+page is in is said by what is through the doors, never by the passage itself.
+
+FIXED PARTS:
+  THE FLOOR - two paper plates with ONE IRON GAP LINE between them, running across the frame. 🔴 THAT GAP
+    LINE IS THE SERIES' SPIRIT LEVEL: it is level when the train stands and it runs corner to corner on a
+    steep page. It is the only line here that says which way is down.
+  THE HANDRAIL - ONE IRON bar along the near wall at 🔴 A HEIGHT A STANDING CHILD REACHES WITH ONE FOOT
+    WHILE STANDING ON THE OTHER (the anchor's owl grade rule fixes it, once, here). It takes ONE LAMP strip
+    along its top where a lamp reaches, and is unpainted elsewhere.
+  THE STRAPS - at most 7 identical loops hanging from the bar, evenly spaced, all tilt-bearers, all at the
+    same angle (see §2.2).
+  THE LAMP - one, over the forward door. A tilt-bearer.
+  THREE DOORS, and this is the part no clause held:
+    1 FORWARD, IRON frame, at the RIGHT - toward the engine.
+    2 AFT, IRON frame, at the LEFT. Both have one FROST square of glass by day.
+    3 🔴 THE OUTSIDE DOOR, on the near side, and IT IS THE ONLY DOOR OUT OF THIS TRAIN. Everybody who
+      boards or gets off does it here; the roof is reached from outside it; a body standing in it while the
+      train runs is forbidden (anchor). Open, it is ONE bright rectangle with the platform line and the
+      station beyond it; shut, one IRON frame with a FROST pane.
+
+SPOTS:
+  A DOWN THE PASSAGE, wide, child height: rail along the right wall with its straps, gap line across the
+    floor, forward door bright at the far end.
+  B THE OUTSIDE DOOR, medium: the open rectangle filling frame right, platform line and one station tree
+    beyond it, the passage dark at left.
+  C THE FLOOR, high: the two plates and the one gap line, nothing else, for the pages where loose things
+    have gathered against one wall.
+  D A TILTED PASSAGE, wide: spot A again with the gap line corner to corner and every strap at one angle.
+
+PLATE: A, B, C, D, plus one overhead diagram of the joint showing the two car ends, the three doors and
+  which way is forward.
+
+NOT: no character, no teal, no lettering or numerals, no varied strap lengths, no metal sheen or reflection
+on the bar, no motion blur, speed line or doubled edge on a swinging strap, no coupling machinery, no
+gangway bellows detail, no gradient, no outline, no white, black, grey or brown paint, no soft edge.
+```
+
+### §1.6 Roof — 3쪽 1권 (🔴 「선 기차에서만」이 이 시트의 절반이다)
+
+```
+STAGE SHEET - Roof   (bami-lamplight · use the anchor's ROOF clause · SCENE token: Roof)
+
+The top of the train. Ppippi lives here; an owl is allowed here on THREE PAGES OF ONE BOOK and only because
+the train is standing. 🔴 THAT CONDITION IS DRAWN, NOT ASSUMED: on every roof page the platform line runs
+below and every hung thing in frame is plumb.
+
+FIXED PARTS:
+  THE ROOF - one long unbroken paper plane, gently curved, its near edge a single IRON line that is 🔴 THE
+    HIGHEST EDGE IN THE SERIES - Ppippi's perch on outside pages.
+  THE CHIMNEY - IRON, ONE, and it stands 🔴 OVER THE ENGINE, at the right, not over the cars. It is a plain
+    upright with 0 texture. There is no second chimney and no vent.
+  THE SMOKE - at most 5 dry-dragged FROST strokes and IT IS A MOTION SIGNAL (see §2.5): standing = NO SMOKE
+    AT ALL, which is how a roof page proves itself safe; moving = strokes laid back shallow; running = flat
+    along the roof.
+  BELOW AND BEYOND - from roof height the camera sees the platform line as ONE straight LAMP stroke and the
+    volume's view over it. There is no railing, no walkway, no ladder drawn: an owl gets here by flying from
+    outside the passage door.
+
+SPOTS:
+  A ALONG THE ROOF, medium wide, camera at roof height: the plane running left out of frame, the chimney at
+    frame right, the platform line low behind.
+  B AT THE CHIMNEY, medium, front on: the chimney centred, roof planes either side, nothing else.
+  C FROM BEHIND, wide: two small figures on the roof seen from behind, the view they are looking at filling
+    the right of the frame.
+
+PLATE: A, B, C, plus the three smoke states (none / shallow / flat) at one scale beside the chimney.
+
+NOT: no character face beyond a plain disc, no teal, no lettering or numerals, 🔴 no figure falling, sliding
+or off balance, no railing, ladder or walkway, no smoke on a standing page, no second chimney, no sparks or
+cinders, no gradient, no outline, no white, black, grey or brown paint, no glow or soft edge.
+```
+
+### §1.7 Outside — 2쪽 2권 (🔴 늘 `Station` 과 함께 찍힌다)
+
+```
+STAGE SHEET - Outside   (bami-lamplight · use the anchor's THE TRAIN SEEN FROM OUTSIDE clause · SCENE token: Outside)
+
+Not a room - the camera standing off the train. Both SCENE pages that carry this token carry [Station] with
+it, so this sheet and §1.8 are baked as a pair and share one horizon.
+
+FIXED PARTS:
+  THE TRAIN NEVER FITS - it is cropped by at least one page edge, and 🔴 THE ENGINE IS ALWAYS AT THE RIGHT
+    with the cars running left. Never mirrored, at any camera.
+  BY NIGHT THE TRAIN IS ITS WINDOWS - a row of at most 9 LAMP squares in an IRON body that is otherwise
+    unpainted, evenly spaced, all the same size, none touching. 🔴 A LIT WINDOW IS A PATCH, NOT A LAMP, and
+    does not count against the cap of three lit lamps.
+  BY DAY it is ONE IRON shape with ONE LAMP patch on its sun side and FROST windows.
+  THE HEADLAMP - ONE LAMP disc at the engine's front with ONE hard-edged cone cut along the track. Nothing
+    outside that cone is painted.
+  THE RAILS - two IRON lines along the bottom edge of the page, never painted light, and 🔴 NOBODY IS EVER
+    ON THEM.
+  SCALE - the train is the largest IRON thing on any page it is on; a face disc in a window is about a
+    ninth of the window's height, which is how small a child reads from out here.
+  🔴 THE CAR ORDER READS FROM THIS SIDE: cab window, then the dining car's row of square windows, then the
+    sleeping car with ONE ROUND WINDOW among the squares, then the goods van, unlit. The round window is the
+    only way a reader can count the cars from outside, so it is always drawn when the sleeping car is in
+    frame.
+
+SPOTS:
+  A THE WHOLE TRAIN AT NIGHT, wide, slightly low: engine right, window row across the frame, cropped left,
+    rails along the bottom.
+  B AT ONE WINDOW, medium: two or three windows only, one face disc inside one of them, the body around
+    them unpainted.
+  C THE ENGINE HEAD ON, medium wide: headlamp disc and its cone on the ground, chimney above.
+
+PLATE: A, B, C, plus one long strip elevation of the whole train at one scale showing cab window, square
+  window row, the one round window and the dark van, with the maximum of nine lit windows marked.
+
+NOT: no character beyond face discs in windows, no teal larger than a mark, no lettering, numerals or
+livery, 🔴 no glow, halo, ray or lens flare on the headlamp or on any lit window, no smoke on a standing
+train, no figure on the rails, no reflection of the train in anything, no gradient, no outline, no white,
+black, grey or brown paint, no soft edge.
+```
+
+### §1.8 Station — 43쪽 13권 (`Platform` 3쪽 흡수 · `Station/Big` · `Station/Crossing` 포함)
+
+```
+STAGE SHEET - Station   (bami-lamplight · use the anchor's STATION clause · SCENE token: Station, Station/Big, Station/Crossing)
+
+Where guests get on. One a volume, thirteen books, and 🔴 THEY ARE ALL THE SAME STATION EXCEPT FOR ONE
+THING EACH - that is the anchor's rule and this sheet holds the shared part so the one thing can do its work.
+
+FIXED PARTS - the shared station, never varied:
+  THE PLATFORM LINE - ONE straight LAMP stroke THE WHOLE WIDTH of the page. 🔴 IT IS THE ONLY STRAIGHT
+    BRIGHT LINE ON THE PAGE and it is the "yellow line" the text speaks of. Nobody is ever drawn beyond it
+    while the train is on the page.
+  THE TRAIN stands along it AT THE RIGHT, cropped by the right page edge, engine rightmost.
+  THE STATION HOUSE - at the LEFT, paper, low, with ONE LAMP ticket window and a face disc in it.
+  THE LAMP POST - IRON, one LAMP disc at the top, its reach ONE hard-edged cone or ellipse cut into the
+    ground. 🔴 Nobody standing outside that shape is painted at all.
+  THE SIGNAL - IRON post, ONE arm, ONE LAMP glass. Never green, never red.
+  THE GROUND beyond the line carries the volume's view, edge to edge.
+🔴 THE ONE NAMING THING - exactly one per station, and never two on a page: THE TERMINUS = a big FROST
+  clock disc with two IRON hands, no numerals · GRANNY'S = a flower bed of at most 12 dabs · THE
+  KINDERGARTEN = a gate, one IRON frame, on the hill above · THE CROSSING = an IRON barrier arm and its
+  bell (see §2.15).
+
+VARIANT `Station/Crossing` - the same station with the crossing as its naming thing: the road crosses the
+  rails at frame right, the barrier arm in one of its three angles, the bell on its post. The standing
+  place is always BEHIND the down arm on the road side, and it is drawn explicitly.
+
+🔴 VARIANT `Station/Big` - ONE BOOK, NINE PAGES, AND IT IS THE ONLY STATION THAT IS INDOORS. It is not the
+  clause above made larger; it is the clause turned upward, and the anchor now carries it:
+  1 THE CEILING IS ABOVE THE FRAME. Nothing shows how high it is except that everything is cut off.
+  2 ONE BIG FROST CLOCK DISC WITH TWO IRON HANDS SITS AT THE VERY TOP OF THE PAGE, no numerals. It is the
+    only thing that is at the top, and a child is small under it.
+  3 THE CROWD IS LEGS AND BODIES ONLY - a stand of IRON uprights cropped by the frame's top edge, 🔴 FACES
+    NEVER DRAWN, each with one LAMP patch where a lamp reaches it. From a child's height an adult is knees
+    and nothing else.
+  4 THE WAY OUT TO THE PLATFORM IS ONE BRIGHT RECTANGLE at the far end, and it is the only bright shape
+    other than the clock.
+  5 The floor is paper; only what stands under a lamp is painted. There is no platform line indoors - it
+    begins at that bright rectangle.
+
+SPOTS (the shared station):
+  A THE PLATFORM, wide, slightly low: the line across the full width, the train cropped at frame right, the
+    house at frame left, lamp post between them.
+  B THE HOUSE, medium: ticket window lit, face disc in it, the line running out of frame right.
+  C ON THE LINE, high, looking straight down: the LAMP stroke across the frame and what is set down on it,
+    each thing with its own lit patch, none touching.
+  D UNDER THE LAMP POST, medium, evening: the post, its hard cone on the ground, unpainted beyond it.
+
+PLATE: A, B, C, D as four panels, plus the four naming things in a row at one scale, plus the three
+  `Station/Big` panels (under the clock, in the legs, the bright way out).
+
+NOT: no character beyond plain silhouettes and face discs, no teal, 🔴 no lettering, numerals, signs,
+timetables or station boards anywhere, including on the clock, no red or green in the signal glass, no glow
+or halo on the lamp post, no soft-edged cone, no figure on the rails or beyond the platform line, no crowd
+face, no gradient, no outline, no white, black, grey or brown paint, no soft edge.
+```
+
+### §1.9 Kindergarten — 4쪽 1권 (🔴 **창 두 개가 마주 봐야 한다**)
+
+```
+STAGE SHEET - Kindergarten   (bami-lamplight · use the anchor's KINDERGARTEN CLASSROOM clause · SCENE token: Kindergarten)
+
+The one place in the series that is neither train nor station. Four pages, one book, and one of them is
+that book's whole picture. 🔴 THIS SHEET EXISTS FOR ONE MEASUREMENT: the classroom window and the dining-car
+window are THE SAME WINDOW SEEN FROM THE TWO SIDES, and the two pages face each other.
+
+🔴 THE PAIRING, WHICH IS THE POINT - draw both halves on this sheet, side by side, same scale:
+  1 FROM THE TRAIN: the car's window in the near wall; through it, up the hill, the kindergarten's window
+    as ONE small LAMP or FROST rectangle with a gate below it.
+  2 FROM THE CLASSROOM: the classroom window filling the frame; through it, DOWN the hill, the platform
+    line as one straight LAMP stroke, the train IRON along it with the engine at the right cropped by the
+    frame edge, the rails two IRON lines, and one small face disc and a waving wing in one car window.
+  🔴 The hill must fall the same way in both, and the train must be on the same side. If the two drawings
+  cannot be swapped, the pair is wrong.
+
+FIXED PARTS - the classroom:
+  THE WALL is paper. ONE WINDOW, a FROST rectangle, on the wall facing the hill, and the sun comes in as
+    ONE LAMP patch in the window's exact shape on the floor, cut straight across whatever it crosses.
+  🔴 THE INNER HALF OF THE ROOM IS FLAT IRON SILHOUETTES WITH NOTHING INSIDE THEM - the other children.
+    No species, no marks, no faces, no clothes, no count fixed. That is not a shortcut, it is the clause:
+    they are where the light does not reach.
+  ON THE FLOOR, at most one thing: a few IRON blocks, half stacked. Nothing else furnishes this room.
+  THE DOOR is one IRON frame in the inner half, unlit.
+FIXED PARTS - the gate and the hill road:
+  THE GATE - ONE IRON frame, no leaf, no lettering, at the top of a road that falls left to right down to
+    the platform line.
+  ONE LAMP POST beside the road, the same post as the station's, its hard cone cutting the road once.
+  THE HILL carries the volume's view - at most 12 LAMP flower dabs.
+
+SPOTS:
+  A THE WINDOW FROM INSIDE, wide: window at frame right with the whole view in it, lit near half at right,
+    IRON silhouettes filling the left.
+  B AT THE GLASS, medium: the window fills the frame, the train small in it.
+  C THE GATE, wide, evening: gate at frame left, the road falling right, the lamp post cutting it once,
+    the platform line far below.
+
+PLATE: the two pairing halves side by side as the widest panel, then A, B, C.
+
+NOT: no character face on any silhouette, no teal except a scarf on the child, 🔴 no lettering, numerals,
+alphabet cards, posters, name tags or wall charts of any kind, no species given to the silhouettes, no
+desks, chairs or teaching furniture beyond the blocks, no gradient, no glow, no outline, no white, black,
+grey or brown paint, no soft edge.
+```
 
 ---
 
@@ -866,6 +1304,9 @@ no outline, no white, black, grey or brown paint, no gradient, glow or soft edge
 
 ## §3. 🔴 사물 시트를 쓰다 깨진 자리 (2026-09-04 신고)
 
+> 🔴 **같은 날 수리했다**(`_ANCHOR-REPAIR.md`). 아래 표의 「처방」 칸 끝에 ✅ 가 붙은 것은 **앵커에 반영된 것**이고,
+> 자리 구멍은 §1 의 자리 시트 아홉 장으로 메웠다(`check-stage-tokens.mjs bami` = **0**). 남은 것은 7 번뿐이다.
+
 | # | 어디가 | 무엇이 | 처방 |
 |---|---|---|---|
 | 1 | **앵커 `STAGE CLAUSES`** | 🔴 **없는 자리 둘.** ①`Kindergarten` 교실 — 24 p6·p7·p8. ②`BigStation` 큰 역 — **13권 아홉 쪽**. 앵커의 `STATION` 조항은 간이역 한 채(역사 왼쪽·승강장 선 전폭·표 창구 하나)라 천장 높은 실내 역을 못 그린다 | 조항 둘을 앵커에 추가할 것. 🔴 **교실 조항의 핵심은 창 하나**다 — 24 p6 이 「아까는 기차에서 유치원을 봤고 지금은 유치원에서 기차를 본다」라 **두 창이 정확히 마주 봐야** 하고, 교실 안쪽 절반은 `빛이 안 닿는 IRON 실루엣`(SCENE 이 이미 지정). 🔴 **큰 역 조항의 핵심은 높이**다 — 시계가 화면 맨 위, 밤이가 아주 작고, 어른들은 **무릎 아래만** 그린다(13 p3) |
@@ -877,3 +1318,25 @@ no outline, no white, black, grey or brown paint, no gradient, glow or soft edge
 | 7 | **`bami-cast.md`** | 🔴 **아직 없다**(앵커가 「미작성」이라 적어 뒀다). 그런데 12 p5·p6 은 **어른 발과 아이 발이 같은 봉을 쥔 두 컷**이 마주 보는 쪽이고, 25 p6 의 그림 속 아기는 **귀깃이 없어야** 한다 | 캐스트 시트를 만들 때 **쥔 발 규격**과 **귀깃 유무**를 반드시 넣을 것. 사물 시트로는 못 덮는다 |
 | 8 | **`_PROP-SHEETS.md` `## bami`** | 🔴 **조사** — 09권이 「목도리」와 「목도리가」로 **한 물건을 둘로** 세고 있다. 🔴 **한 글자** — 종(18) · 컵(20·전권) · 창(16) · 붓(19) · 표(09·10) · 불(21) · 줄(18) 이 표에 한 줄도 없다. 🔴 **인물 라벨 전용** — **청록 목도리**는 250쪽 전 쪽에 있는 유일한 악센트인데 표에 없다. 🔴 **조각** — 01 「셋째」(=셋째 칸) · 08 「나무」(=나무 공/나무 기차) · 19 「원반」(=**얼굴 원반**, 캐스트 용어) | 브루노와 **똑같은 네 결함**이다(`bruno-stages.md` §3-a 6-a~6-c). 뽑기 단계에서 ①어근 합치기 ②한 글자 화이트리스트 ③**인물 라벨도 읽기** ④2자 미만 조각 버리기 |
 | 9 | **23권** | 사물 시트가 **필요 없는 유일한 권**이다 — 그림이 「꾸벅」 자세 하나이고 손님은 **짐이 없는 것이 표지**다 | 시트를 억지로 만들지 않았다. 🔴 다만 `GuestLuggage` 시트에 **예외 칸**으로 그려 넣어 뒀다 — 안 그러면 나중에 누가 「짐이 빠졌다」며 가방을 붙인다 |
+
+---
+
+## §4. 🔴 관통 줄을 세어 봤다 — **넷 중 넷이 거짓이었다** (2026-09-04)
+
+`_ANCHOR-REPAIR.md` 넷째 갈래(「26~50을 보고 쓴 줄이 01~25에 그대로 붙었다」)를 이 시리즈에서 실측했다.
+🔴 **밤이는 25권짜리라 26~50 이 없는데도 관통 줄이 거짓이었다** — 원인이 「나중 권을 보고 썼다」가 아니라
+**「규칙을 쓸 때 아무도 안 셌다」**라는 뜻이다. 250쪽을 스크립트로 셌고, 넷 다 앵커에서 조건절로 고쳤다.
+
+| 관통 줄 | 앵커가 뭐라 했나 | 실측 | 고친 방향 |
+|---|---|---|---|
+| **목도리** | `It is on every page Bami is on` · 관통 줄 `the one teal scarf is on Bami` | 🔴 **밤이가 있는데 목도리가 그의 몸에 없는 쪽이 최소 16쪽**(02권은 다섯 쪽 내내 못에, 05 p7·p8·p10 목욕, 06 p7·p8 기둥, 07 p1, 09 p1~p3 탁자와 바닥 무더기, 11 p2 아빠 발밑, 24 p3 이불 밖 끝만). 그리고 **25 p5 는 청록이 둘**이다 | `IT IS ON EVERY PAGE BUT NOT ALWAYS ON BAMI` + 자리 다섯(목·배·못/기둥·눕혀 놓음·이불 밖 한 끝) + 두 개인 쪽을 조건으로 명시 |
+| **손님 짐** | `touching it on every page it is on, and nobody in the cast ever owns one` | 🔴 **양쪽 다 거짓.** 23권 손님 염소는 **짐이 없는 것이 표지**이고 SCENE 이 「가방을 만들어 붙이지 말 것」이라 못박았다 · 10권과 25권은 **밤이가 제 보따리를 가진 이야기**다 | 「빈 앞발이 그 손님의 표지인 곳은 예외」 + 「밤이의 매듭 보따리는 손님 기호가 아니며 캐스트가 가진 유일한 것」 |
+| **삐삐 높이** | `THE HIGHEST FIGURE ON ANY PAGE it is on` | 🔴 16 p9 에서 삐삐는 **식탁 위 찻잔 가장자리**에 앉아 있고 바로 옆에 밤이 얼굴이 있다 — 그 쪽에서 가장 높은 인물이 아니다 | `NEVER ON THE GROUND AND NEVER BELOW ANOTHER FIGURE'S FEET` + 「와이드면 화면 최고, 클로즈업이면 **그 프레임 안에서** 가장 높은 것 위」 |
+| **기울기 단위** | `one angle per page` | 대본은 **권마다 하나**로 굳어 있다(01=10·12 만 예외적으로 둘, 09=8 · 16=12 · 17=10 · 20=10 · 21=8 · 22=10 · 23=6 · 24=7 · 25=9). 12권만 7→8→10→12→15 | `ONE ANGLE FOR THE WHOLE VOLUME` + 예외를 **권 번호가 아니라 조건**으로(갈래 ①) |
+
+- ⚠️ **참이었던 줄**: 나비 `NEVER STANDING`(250쪽 전수, 위반 0) · 눈 원반 크기 불변 · 「기차는 오른쪽이 앞」 ·
+  「달리는 지붕에는 삐삐와 연기뿐」. 🔴 **거짓만 고치고 참인 줄은 손대지 않았다** — 세어 보지 않고 다 의심하면
+  멀쩡한 규칙까지 조건이 붙어 흐물해진다.
+- 🔴 **`three paints only`** 도 고쳤다. 관통 줄이 「물감은 셋뿐」이라 말하는데 같은 앵커의 `PALETTE` 는
+  `AT MOST FOUR PAINTED COLOURS ON A PAGE, ACCENT INCLUDED` 다 — **한 문서가 자기와 어긋나 있었다.**
+  `three paints and the one teal` 로.
