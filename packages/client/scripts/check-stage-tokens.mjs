@@ -30,6 +30,7 @@ function stageSection(key) {
 
 const only = process.argv[2];
 let totMissing = 0;
+let totBare = 0;
 for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
   const sf = path.join(DOCS, key, '_scenes.json');
   if (!fs.existsSync(sf)) continue;
@@ -37,6 +38,10 @@ for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
 
   // 쪽마다 `장소·시간` 라벨 뒤의 `[Token]` 하나
   const used = new Map();                  // 토큰 → {pages, books:Set}
+  // 🔴 **토큰이 아예 없는 쪽도 센다**(2026-09-04). 검사기가 *찍힌* 토큰만 대조하니, 한 권에 토큰이
+  //    하나도 없으면 그 권은 조용히 「미매칭 0」으로 통과한다 — moya 다섯 권 50쪽 · dari 열 권
+  //    100쪽이 그 상태였다. 「같은 …」으로 앞 쪽을 물려받는 쪽은 정상이므로 뺀다.
+  const bare = [];
   for (const [vol, pages] of Object.entries(scenes))
     for (const [p, text] of Object.entries(pages)) {
       // 🔴 대괄호 안을 **글자 종류로 거르지 않는다**(2026-09-04). 예전 정규식은 `[A-Za-z0-9/]` 만 받아
@@ -44,9 +49,15 @@ for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
       //    건너뛰었고**, 안 세었으니 「미매칭 0」으로 통과했다 — 없는 것보다 나쁜 통과다
       //    (실측 2026-09-04: bung 21쪽 · nono 57쪽 · twins 26쪽 · pongi 4 · dingding 3).
       //    상태 꼬리(` · 젖음`)는 자리가 아니라 그 자리의 상태라 시트 이름에서 뗀다.
-      const raw = (text.match(/<b>장소·시간<\/b>\s*\[([^\]]+)\]/) ?? [])[1];
+      const raw = (text.match(/<b>장소·시간<\/b>[^\[<]*\[([^\]]+)\]/) ?? [])[1];
       const m = raw?.split('·')[0].trim();
-      if (!m) continue;
+      if (!m) {
+        // 🔴 대괄호 앞에 이모지가 붙어 못 읽던 쪽이 있었다(kota 22 p1 `🔴 [Kitchen]`) — 위 정규식이
+        //    이제 그 사이를 건너뛴다. 그래도 없으면 되짚는 쪽인지 보고, 아니면 진짜로 안 붙은 것이다.
+        const label = (text.match(/<b>장소·시간<\/b>([^<]*)/) ?? [])[1] ?? '';
+        if (!/^\s*(같은|그|저|바로)\s/.test(label)) bare.push(`${vol} ${p}`);
+        continue;
+      }
       const r = used.get(m) ?? used.set(m, { pages: 0, books: new Set() }).get(m);
       r.pages += 1; r.books.add(vol);
       void p;
@@ -58,6 +69,9 @@ for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
     .sort((a, b) => b[1].pages - a[1].pages);
   totMissing += missing.length;
   const line = missing.map(([t, r]) => `${t}(${r.pages}쪽·${r.books.size}권)`).join(' ');
-  console.log(`${key.padEnd(10)} 토큰 ${String(used.size).padStart(2)} · 시트 없음 ${String(missing.length).padStart(2)}${line ? '  ' + line : ''}`);
+  const bareBooks = new Set(bare.map((x) => x.split(' ')[0]));
+  const bareNote = bare.length ? `  🔴 토큰 없는 쪽 ${bare.length}(${bareBooks.size}권: ${[...bareBooks].sort().join(',')})` : '';
+  totBare += bare.length;
+  console.log(`${key.padEnd(10)} 토큰 ${String(used.size).padStart(2)} · 시트 없음 ${String(missing.length).padStart(2)}${line ? '  ' + line : ''}${bareNote}`);
 }
 console.log(`\n자리 시트 없는 토큰 합계 ${totMissing}`);
