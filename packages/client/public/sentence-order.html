@@ -203,9 +203,6 @@
         border-color: var(--mint-300);
         border-style: solid;
       }
-      .slots.wrong {
-        animation: shake 0.42s;
-      }
       @keyframes shake {
         25% {
           transform: translateX(-9px);
@@ -295,12 +292,62 @@
       .praise.show {
         opacity: 1;
       }
-      .note {
+      .actions {
         flex: 0 0 auto;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(10px, 2vw, 20px);
+      }
+      .note {
         color: var(--ink-300);
         font-size: clamp(10px, 1.3vw, 13px);
         font-weight: 700;
+      }
+      .confirm {
+        min-height: clamp(38px, 6vh, 52px);
+        padding: 0 clamp(18px, 3vw, 34px);
+        border-radius: 999px;
+        background: var(--coral-500);
+        color: #fff;
+        font-weight: 900;
+        font-size: clamp(14px, 2vh, 20px);
+        box-shadow: 0 4px 0 var(--coral-600);
+        transition:
+          transform 0.1s,
+          opacity 0.15s;
+      }
+      .confirm:active {
+        transform: translateY(3px);
+        box-shadow: none;
+      }
+      .confirm:disabled {
+        opacity: 0.35;
+        cursor: default;
+        box-shadow: none;
+      }
+      /* 오답 — 붉게 물들이지 않는다. 흔들고 테두리만 진하게(「틀렸다」고 말하지 않기). */
+      .slots.wrong {
+        animation: shake 0.42s;
+        border-color: var(--coral-300);
+      }
+      .mark {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(80px, 22vh, 220px);
+        font-weight: 900;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.18s;
+        /* 🔴 삽화 위에 뜬다 — 색만으로는 그림에 묻힌다(코랄 ✗ 가 가을 숲에서 사라졌다). */
+        -webkit-text-stroke: 6px #fff;
+        paint-order: stroke fill;
+        filter: drop-shadow(0 6px 14px rgba(63, 47, 36, 0.45));
+      }
+      .mark.show {
+        opacity: 1;
       }
     </style>
   </head>
@@ -324,11 +371,15 @@
       </div>
       <div class="slots" id="slots"></div>
       <div class="tray" id="tray"></div>
-      <div class="note" id="note"></div>
+      <div class="actions">
+        <button class="confirm" id="confirm" disabled>✓ 확인</button>
+        <span class="note" id="note"></span>
+      </div>
     </main>
 
     <div class="center" id="status">불러오는 중…</div>
     <div class="praise" id="praise">🎉</div>
+    <div class="mark" id="mark"></div>
 
     <script>
       // ─────────────────────────────────────────────────────────────
@@ -343,6 +394,35 @@
       const MAX_UNITS = { ko: 7, en: 8 };
 
       const el = (id) => document.getElementById(id);
+
+      // ── 효과음 — 앱이 이미 쓰는 자산 그대로 ─────────────────────
+      // /sounds/game/{correct,incorrect,clear}.mp3 · /sounds/ui/{tap,select,back}.mp3
+      // 🔴 같은 요소를 다시 틀려면 currentTime 을 0으로 되돌려야 한다(연타 시 안 나는 것 방지).
+      const SFX = {
+        place: '/sounds/ui/select.mp3',
+        back: '/sounds/ui/back.mp3',
+        tap: '/sounds/ui/tap.mp3',
+        correct: '/sounds/game/correct.mp3',
+        wrong: '/sounds/game/incorrect.mp3',
+        clear: '/sounds/game/clear.mp3',
+      };
+      const sfxPool = {};
+      for (const [k, url] of Object.entries(SFX)) {
+        const a = new Audio(url);
+        a.preload = 'auto';
+        a.volume = 0.6;
+        sfxPool[k] = a;
+      }
+      function sfx(name) {
+        const a = sfxPool[name];
+        if (!a) return;
+        try {
+          a.currentTime = 0;
+          a.play().catch(() => {});
+        } catch {
+          /* 자동재생 차단 — 첫 탭 이후엔 난다 */
+        }
+      }
       const clean = (t) =>
         String(t || '')
           .replace(/\*\*/g, '') // 저작 표기용 굵게 마크업
@@ -547,6 +627,8 @@
         });
 
         el('listenLabel').textContent = lang === 'ko' ? '눌러서 듣기' : 'tap to listen';
+        el('confirm').textContent = lang === 'ko' ? '✓ 확인' : '✓ Check';
+        el('confirm').disabled = locked || placed.includes(null);
         el('note').textContent =
           lang === 'ko'
             ? '들은 문장을 순서대로 놓아요 · 놓은 것을 누르면 되돌아와요'
@@ -558,24 +640,35 @@
         const slot = placed.indexOf(null);
         if (slot === -1) return;
         placed[slot] = i;
+        const done = !placed.includes(null) && isCorrect();
+        // 🔴 문장을 **완성하는** 타일은 놓기 소리를 내지 않는다 — 냈다가는 정답 효과음과
+        //    1ms 간격으로 겹친다(실측). 소리는 check() 가 가져간다.
+        //    앱 블록 게임이 `pendingLastLetterRef` 로 푼 것과 같은 문제다.
+        if (!done) sfx('place');
         render();
-        if (!placed.includes(null)) check();
+        // 🔴 정답만 자동으로 처리한다. 오답은 아이가 「확인」을 눌렀을 때만 —
+        //    다 채우자마자 「틀렸다」고 하면 아직 고치는 중인 아이를 나무라는 셈이다.
+        if (done) check(true);
       }
 
       function takeBack(slot) {
         if (locked) return;
         placed[slot] = null;
+        sfx('back');
         el('slots').classList.remove('correct');
         render();
       }
 
-      function check() {
+      const isCorrect = () =>
+        !placed.includes(null) && placed.every((i, n) => tray[i] === rounds[idx].units[n]);
+
+      function check(auto) {
         const r = rounds[idx];
-        const made = placed.map((i) => tray[i]);
-        const ok = made.every((w, i) => w === r.units[i]);
         const slots = el('slots');
-        if (!ok) {
-          // 🔴 「틀렸어요」라고 말하지 않는다 — 흔들어 보이고 계속 고칠 수 있게 둔다.
+        if (!isCorrect()) {
+          // 확인을 눌러서 온 경로에서만 온다.
+          sfx('wrong');
+          showMark('✗');
           slots.classList.add('wrong');
           setTimeout(() => slots.classList.remove('wrong'), 430);
           return;
@@ -583,15 +676,32 @@
         locked = true;
         score++;
         el('score').textContent = `${score} / ${rounds.length}`;
+        el('confirm').disabled = true;
         slots.classList.add('correct');
+        sfx('correct');
+        showMark('✓');
         el('praise').classList.add('show');
-        // 🔴 소리 사이 쉼 400~450ms → 완성 문장을 읽어 주고, 그게 끝난 뒤에 다음으로.
+        // 🔴 소리 사이 쉼 430ms — 효과음이 문장을 덮지 않게. 문장이 끝나야 다음으로.
         setTimeout(() => {
+          hideMark();
           play(r.sentence, () => {
             el('praise').classList.remove('show');
             setTimeout(next, 420);
           });
         }, 430);
+      }
+
+      let markTimer = null;
+      function showMark(ch) {
+        const m = el('mark');
+        m.textContent = ch;
+        m.style.color = ch === '✓' ? 'var(--mint-500)' : 'var(--coral-400)';
+        m.classList.add('show');
+        clearTimeout(markTimer);
+        markTimer = setTimeout(hideMark, ch === '✓' ? 1200 : 700);
+      }
+      function hideMark() {
+        el('mark').classList.remove('show');
       }
 
       function next() {
@@ -612,6 +722,7 @@
       }
 
       function finish() {
+        sfx('clear');
         el('game').hidden = true;
         el('status').hidden = false;
         el('status').innerHTML = `<div><div style="font-size:clamp(48px,12vh,120px)">🏅</div>
@@ -673,10 +784,14 @@
         }
       }
 
-      el('langKo').onclick = () => setLang('ko');
-      el('langEn').onclick = () => setLang('en');
-      el('shuffle').onclick = () => pickBook();
+      el('confirm').onclick = () => {
+        if (!locked && !placed.includes(null)) check(false);
+      };
+      el('langKo').onclick = () => (sfx('tap'), setLang('ko'));
+      el('langEn').onclick = () => (sfx('tap'), setLang('en'));
+      el('shuffle').onclick = () => (sfx('tap'), pickBook());
       el('reset').onclick = () => {
+        sfx('tap');
         if (!locked) startRound();
       };
       el('speak').onclick = () => play(rounds[idx].sentence);
