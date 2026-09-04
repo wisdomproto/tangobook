@@ -1,4 +1,4 @@
-# bruno — 권별 경로표 (25권)
+# bruno — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton bruno`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -295,7 +295,7 @@
 
 | 쪽 | 자리 | SPOT | 🔴 썰매까지 | 이어짐 |
 |---|---|---|---|---|
-| p1 | `CabinOutside` | 오두막 앞 언덕 (익스트림 와이드·아이레벨) | 썰매는 다락에 · 눈에 자국 0 | 겨울 조항 — 🔴 땅도 하늘도 통째로 맨 종이, 두 크레용은 그 위에 선 것만 그린다 |
+| p1 | `SnowSlope` | 오두막 앞 언덕 (익스트림 와이드·아이레벨) | 썰매는 다락에 · 눈에 자국 0 | 겨울 조항 — 🔴 땅도 하늘도 통째로 맨 종이, 두 크레용은 그 위에 선 것만 그린다 |
 | p2 | `CabinOutside` | 오두막 문간 (미디엄 클로즈업·하이) | 장화를 신는다 | p1 의 그 하얀 언덕이 열린 문 밖에 보인다 |
 | p3 | `Attic` | 사다리 아래 (미디엄·측면) | 첫 칸 앞에서 멈춘다 | p2 에서 신은 장화가 첫 칸 앞에 나란히 멈춘다 |
 | p4 | `Attic` ↑ | 같은 사다리 아래 (미디엄 와이드·웜즈아이) | 어둠 속 형체 앞에서 물러난다 | p3 의 그 검은 네모를 곧장 올려다본다 |
@@ -304,7 +304,7 @@
 | p7 | `CabinOutside` | 오두막 밖 (익스트림 와이드·하이) | 해가 넘어감 · 눈에 자국 0 | 🔴 p1 과 같은 언덕 — 아침과 똑같다 |
 | p8 | `Attic` | 다락 입구 (미디엄 와이드·로우) | 등불을 든 할아버지가 입구에 | p3·p4 의 그 검은 네모가 안에서부터 밝아진다 |
 | p9 | `Attic` | 다락 안 (미디엄·아이레벨) | 외투 뒤에 썰매 | 🔴 p4 의 어른거리던 형체와 같은 윤곽 |
-| p10 | `Path` | 언덕 아래 (와이드·로우) | 비탈에 썰매 자국 한 줄 | p1·p7 의 자국 하나 없던 그 언덕 |
+| p10 | `SnowSlope` | 언덕 아래 (와이드·로우) | 비탈에 썰매 자국 한 줄 | p1·p7 의 자국 하나 없던 그 언덕 |
 
 ## 20 「눈은 뭉치면 돼」
 
@@ -466,3 +466,377 @@
 SCENE 은 09 p8 을 「익스트림 클로즈업, 손바닥 위」, 13 p6 을 「익스트림 클로즈업, 사과 한 알과 손가락」, 22 p4 를 「익스트림 클로즈업, 손가락 사이」로 적었다.
 **앵커와 SCENE 이 정면으로 부딪히는 자리**이므로 그리기 전에 어느 쪽을 따를지 정해야 한다(고치는 건 이 표의 일이 아니다).
 
+## 26 「똑똑똑 하면, 벌떡!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` |  |  |  |
+| p3 | `Cabin` |  |  |  |
+| p4 | `Cabin` |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Attic` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `CabinOutside` |  |  |  |
+| p9 | `Cabin` |  |  |  |
+| p10 | `CabinOutside` |  |  |  |
+
+## 27 「부엉 하면, 코~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Attic` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `Attic` |  |  |  |
+| p9 | `Attic` |  |  |  |
+| p10 | `Attic` |  |  |  |
+
+## 28 「뽀득뽀득, 흙 안녕!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `CabinOutside` |  |  |  |
+| p6 | `CabinOutside` ↑ |  |  |  |
+| p7 | `CabinOutside` ↑ |  |  |  |
+| p8 | `CabinOutside` ↑ |  |  |  |
+| p9 | `CabinOutside` |  |  |  |
+| p10 | `Cabin` |  |  |  |
+
+## 29 「발 쏙, 장화 쑥!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CabinOutside` |  |  |  |
+| p2 | `CabinOutside` ↑ |  |  |  |
+| p3 | `CabinOutside` ↑ |  |  |  |
+| p4 | `CabinOutside` |  |  |  |
+| p5 | `CabinOutside` ↑ |  |  |  |
+| p6 | `CabinOutside` ↑ |  |  |  |
+| p7 | `CabinOutside` ↑ |  |  |  |
+| p8 | `CabinOutside` |  |  |  |
+| p9 | `CabinOutside` |  |  |  |
+| p10 | `CabinOutside` ↑ |  |  |  |
+
+## 30 「나는 형아, 도와줄게!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Attic` |  |  |  |
+| p4 | `Attic` |  |  |  |
+| p5 | `Cabin` |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` ↑ |  |  |  |
+| p8 | `Cabin` ↑ |  |  |  |
+| p9 | `Cabin` |  |  |  |
+| p10 | `Cabin` ↑ |  |  |  |
+
+## 31 「부리 앞에, 살살!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` |  |  |  |
+| p3 | `Cabin` |  |  |  |
+| p4 | `Cabin` |  |  |  |
+| p5 | `Cabin` |  |  |  |
+| p6 | `Cabin` |  |  |  |
+| p7 | `Cabin` |  |  |  |
+| p8 | `Cabin` |  |  |  |
+| p9 | `Cabin` |  |  |  |
+| p10 | `Cabin` |  |  |  |
+
+## 32 「눈물 나면, 그냥 울어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CabinOutside` |  |  |  |
+| p2 | `CabinOutside` |  |  |  |
+| p3 | `CabinOutside` |  |  |  |
+| p4 | `CabinOutside` |  |  |  |
+| p5 | `CabinOutside` |  |  |  |
+| p6 | `CabinOutside` |  |  |  |
+| p7 | `CabinOutside` |  |  |  |
+| p8 | `CabinOutside` |  |  |  |
+| p9 | `CabinOutside` |  |  |  |
+| p10 | `CabinOutside` |  |  |  |
+
+## 33 「내가 심은 콩, 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` |  |  |  |
+| p3 | `CabinOutside` |  |  |  |
+| p4 | `CabinOutside` |  |  |  |
+| p5 | `CabinOutside` |  |  |  |
+| p6 | `CabinOutside` |  |  |  |
+| p7 | `CabinOutside` |  |  |  |
+| p8 | `CabinOutside` |  |  |  |
+| p9 | `Cabin` |  |  |  |
+| p10 | `Cabin` |  |  |  |
+
+## 34 「호수가 커다란 욕조!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Lake` |  |  |  |
+| p2 | `Lake` |  |  |  |
+| p3 | `Lake` |  |  |  |
+| p4 | `Lake` |  |  |  |
+| p5 | `Lake` |  |  |  |
+| p6 | `Lake` |  |  |  |
+| p7 | `Lake` |  |  |  |
+| p8 | `Lake` |  |  |  |
+| p9 | `Lake` |  |  |  |
+| p10 | `Lake` |  |  |  |
+
+## 35 「치카치카, 보라 안녕!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CabinOutside` |  |  |  |
+| p2 | `Cabin` |  |  |  |
+| p3 | `Attic` |  |  |  |
+| p4 | `Attic` |  |  |  |
+| p5 | `Attic` |  |  |  |
+| p6 | `CabinOutside` |  |  |  |
+| p7 | `CabinOutside` |  |  |  |
+| p8 | `Attic` |  |  |  |
+| p9 | `CabinOutside` |  |  |  |
+| p10 | `Attic` |  |  |  |
+
+## 36 「예쁘게 부르면, 예쁘게 와요!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Lake` |  |  |  |
+| p2 | `Lake` ↑ |  |  |  |
+| p3 | `Lake` ↑ |  |  |  |
+| p4 | `Lake` ↑ |  |  |  |
+| p5 | `Lake` ↑ |  |  |  |
+| p6 | `Lake` ↑ |  |  |  |
+| p7 | `Lake` ↑ |  |  |  |
+| p8 | `Lake` ↑ |  |  |  |
+| p9 | `Lake` ↑ |  |  |  |
+| p10 | `Lake` ↑ |  |  |  |
+
+## 37 「잼은 한 숟갈만!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` ↑ |  |  |  |
+| p8 | `Cabin` ↑ |  |  |  |
+| p9 | `Cabin` ↑ |  |  |  |
+| p10 | `Cabin` ↑ |  |  |  |
+
+## 38 「우르릉 하면, 오두막으로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Wood` |  |  |  |
+| p2 | `Wood` ↑ |  |  |  |
+| p3 | `Wood` ↑ |  |  |  |
+| p4 | `Wood` ↑ |  |  |  |
+| p5 | `Cabin` |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` |  |  |  |
+| p8 | `Wood` |  |  |  |
+| p9 | `Cabin` |  |  |  |
+| p10 | `Cabin` ↑ |  |  |  |
+
+## 39 「초록 조끼 보이는 데까지!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Wood` |  |  |  |
+| p2 | `Wood` ↑ |  |  |  |
+| p3 | `Wood` ↑ |  |  |  |
+| p4 | `Wood` ↑ |  |  |  |
+| p5 | `Wood` ↑ |  |  |  |
+| p6 | `Wood` ↑ |  |  |  |
+| p7 | `Wood` ↑ |  |  |  |
+| p8 | `Wood` ↑ |  |  |  |
+| p9 | `Wood` ↑ |  |  |  |
+| p10 | `Wood` ↑ |  |  |  |
+
+## 40 「따면 먼저 할아버지한테!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Wood` |  |  |  |
+| p2 | `Wood` ↑ |  |  |  |
+| p3 | `Wood` ↑ |  |  |  |
+| p4 | `Wood` ↑ |  |  |  |
+| p5 | `Wood` ↑ |  |  |  |
+| p6 | `Wood` ↑ |  |  |  |
+| p7 | `Wood` ↑ |  |  |  |
+| p8 | `Wood` |  |  |  |
+| p9 | `Wood` ↑ |  |  |  |
+| p10 | `Wood` ↑ |  |  |  |
+
+## 41 「반으로 쪼개면, 김이 둘!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` ↑ |  |  |  |
+| p8 | `Cabin` ↑ |  |  |  |
+| p9 | `Cabin` |  |  |  |
+| p10 | `Cabin` ↑ |  |  |  |
+
+## 42 「못 하나, 물건 하나!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shed` |  |  |  |
+| p2 | `Shed` ↑ |  |  |  |
+| p3 | `Shed` ↑ |  |  |  |
+| p4 | `Shed` ↑ |  |  |  |
+| p5 | `Shed` ↑ |  |  |  |
+| p6 | `Shed` ↑ |  |  |  |
+| p7 | `Shed` ↑ |  |  |  |
+| p8 | `Shed` ↑ |  |  |  |
+| p9 | `Shed` ↑ |  |  |  |
+| p10 | `Shed` ↑ |  |  |  |
+
+## 43 「둘이면, 영차!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Wood` |  |  |  |
+| p2 | `Wood` ↑ |  |  |  |
+| p3 | `Wood` ↑ |  |  |  |
+| p4 | `Wood` ↑ |  |  |  |
+| p5 | `Wood` ↑ |  |  |  |
+| p6 | `Wood` ↑ |  |  |  |
+| p7 | `Wood` |  |  |  |
+| p8 | `Shed` |  |  |  |
+| p9 | `Shed` |  |  |  |
+| p10 | `Shed` ↑ |  |  |  |
+
+## 44 「장화 신고, 바구니 들고, 출발!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CabinOutside` |  |  |  |
+| p2 | `CabinOutside` ↑ |  |  |  |
+| p3 | `CabinOutside` ↑ |  |  |  |
+| p4 | `CabinOutside` ↑ |  |  |  |
+| p5 | `CabinOutside` ↑ |  |  |  |
+| p6 | `CabinOutside` ↑ |  |  |  |
+| p7 | `Wood` |  |  |  |
+| p8 | `Wood` |  |  |  |
+| p9 | `CabinOutside` |  |  |  |
+| p10 | `CabinOutside` ↑ |  |  |  |
+
+## 45 「가시 쏙, 끝!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` ↑ |  |  |  |
+| p8 | `Cabin` ↑ |  |  |  |
+| p9 | `Cabin` ↑ |  |  |  |
+| p10 | `Cabin` ↑ |  |  |  |
+
+## 46 「후~ 하면, 하얀 김!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `SnowSlope` |  |  |  |
+| p2 | `SnowSlope` ↑ |  |  |  |
+| p3 | `SnowSlope` ↑ |  |  |  |
+| p4 | `SnowSlope` ↑ |  |  |  |
+| p5 | `SnowSlope` ↑ |  |  |  |
+| p6 | `SnowSlope` ↑ |  |  |  |
+| p7 | `SnowSlope` ↑ |  |  |  |
+| p8 | `SnowSlope` ↑ |  |  |  |
+| p9 | `SnowSlope` ↑ |  |  |  |
+| p10 | `SnowSlope` |  |  |  |
+
+## 47 「무릎 굽히면, 스르르!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `SnowSlope` |  |  |  |
+| p2 | `SnowSlope` ↑ |  |  |  |
+| p3 | `SnowSlope` ↑ |  |  |  |
+| p4 | `SnowSlope` ↑ |  |  |  |
+| p5 | `SnowSlope` |  |  |  |
+| p6 | `SnowSlope` ↑ |  |  |  |
+| p7 | `SnowSlope` ↑ |  |  |  |
+| p8 | `SnowSlope` ↑ |  |  |  |
+| p9 | `SnowSlope` ↑ |  |  |  |
+| p10 | `SnowSlope` ↑ |  |  |  |
+
+## 48 「제가 그랬어요, 미안해요!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` ↑ |  |  |  |
+| p8 | `Cabin` ↑ |  |  |  |
+| p9 | `Cabin` ↑ |  |  |  |
+| p10 | `Cabin` ↑ |  |  |  |
+
+## 49 「심심하면, 그림자 놀이!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Cabin` |  |  |  |
+| p2 | `Cabin` ↑ |  |  |  |
+| p3 | `Cabin` ↑ |  |  |  |
+| p4 | `Cabin` ↑ |  |  |  |
+| p5 | `Cabin` ↑ |  |  |  |
+| p6 | `Cabin` ↑ |  |  |  |
+| p7 | `Cabin` ↑ |  |  |  |
+| p8 | `Cabin` ↑ |  |  |  |
+| p9 | `Cabin` ↑ |  |  |  |
+| p10 | `Cabin` |  |  |  |
+
+## 50 「작은 발자국은 내 발자국!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CabinOutside` |  |  |  |
+| p2 | `CabinOutside` ↑ |  |  |  |
+| p3 | `CabinOutside` ↑ |  |  |  |
+| p4 | `CabinOutside` ↑ |  |  |  |
+| p5 | `CabinOutside` ↑ |  |  |  |
+| p6 | `CabinOutside` ↑ |  |  |  |
+| p7 | `CabinOutside` ↑ |  |  |  |
+| p8 | `CabinOutside` ↑ |  |  |  |
+| p9 | `Shed` |  |  |  |
+| p10 | `Shed` ↑ |  |  |  |

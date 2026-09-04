@@ -1,4 +1,4 @@
-# mina — 권별 경로표 (25권)
+# mina — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton mina`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -530,3 +530,378 @@ p3(고르게 뿌옇다) → p4(저어서 소용돌이) → **p5(위까지 촘촘
   말이 한 쪽에 둘 있게 된다. → 24 p5 의 톤을 「둘레 조각보다 결이 성글다」로 낮추거나, 그 쪽에서
   발찌를 화면 밖에 두어야 한다(지금 p5 는 인물이 없어서 실제로 발찌가 없다 — **그대로 두면 통과한다.**
   다만 p6 에서 미나가 그 나무를 들 때 발찌와 나무가 한 화면에 온다).
+
+## 26 「초록 잎도 한 입!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 27 「쓱싹쓱싹, 이가 하얘!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverStairs` |  |  |  |
+| p2 | `RiverStairs` ↑ |  |  |  |
+| p3 | `RiverStairs` ↑ |  |  |  |
+| p4 | `RiverStairs` ↑ |  |  |  |
+| p5 | `RiverStairs` ↑ |  |  |  |
+| p6 | `RiverStairs` |  |  |  |
+| p7 | `RiverStairs` ↑ |  |  |  |
+| p8 | `RiverStairs` ↑ |  |  |  |
+| p9 | `RiverStairs` |  |  |  |
+| p10 | `RiverStairs` |  |  |  |
+
+## 28 「씻은 손으로, 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 29 「열 번 꼭꼭, 그다음 꿀꺽!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 30 「코로 뿜으면, 첨벙 비!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 31 「건너 불 꺼지면, 잘 시간!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 32 「해 오르면, 이불 걷고 쭉!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `RiverStairs` |  |  |  |
+| p10 | `RiverStairs` |  |  |  |
+
+## 33 「놀고 나면, 바구니에 쏙!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` |  |  |  |
+| p3 | `House` |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 34 「구멍 하나에, 다리 하나!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 35 「바구니·물병·수건, 셋!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverBed` |  |  |  |
+| p2 | `RiverBed` ↑ |  |  |  |
+| p3 | `RiverBed` ↑ |  |  |  |
+| p4 | `RiverBed` |  |  |  |
+| p5 | `RiverBed` ↑ |  |  |  |
+| p6 | `RiverBed` ↑ |  |  |  |
+| p7 | `RiverBed` |  |  |  |
+| p8 | `RiverBed` ↑ |  |  |  |
+| p9 | `RiverBed` |  |  |  |
+| p10 | `RiverBed` |  |  |  |
+
+## 36 「꼬리 지나가면, 그다음 건너!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `VillageLane` |  |  |  |
+| p2 | `VillageLane` ↑ |  |  |  |
+| p3 | `VillageLane` ↑ |  |  |  |
+| p4 | `VillageLane` ↑ |  |  |  |
+| p5 | `VillageLane` ↑ |  |  |  |
+| p6 | `VillageLane` ↑ |  |  |  |
+| p7 | `VillageLane` ↑ |  |  |  |
+| p8 | `RiverStairs` |  |  |  |
+| p9 | `VillageLane` |  |  |  |
+| p10 | `VillageLane` ↑ |  |  |  |
+
+## 37 「코 걸고, 장 구경!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Market` |  |  |  |
+| p2 | `Market` ↑ |  |  |  |
+| p3 | `Market` ↑ |  |  |  |
+| p4 | `Market` ↑ |  |  |  |
+| p5 | `Market` ↑ |  |  |  |
+| p6 | `Market` ↑ |  |  |  |
+| p7 | `Market` ↑ |  |  |  |
+| p8 | `Market` ↑ |  |  |  |
+| p9 | `Market` ↑ |  |  |  |
+| p10 | `RiverBed` |  |  |  |
+
+## 38 「모르는 건 손도 입도, 안 돼!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverBed` |  |  |  |
+| p2 | `RiverBed` ↑ |  |  |  |
+| p3 | `RiverBed` ↑ |  |  |  |
+| p4 | `RiverBed` ↑ |  |  |  |
+| p5 | `RiverBed` ↑ |  |  |  |
+| p6 | `RiverBed` ↑ |  |  |  |
+| p7 | `RiverBed` ↑ |  |  |  |
+| p8 | `RiverBed` ↑ |  |  |  |
+| p9 | `RiverBed` ↑ |  |  |  |
+| p10 | `RiverBed` ↑ |  |  |  |
+
+## 39 「눈금 돌 잠기면, 위로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverStairs` |  |  |  |
+| p2 | `RiverStairs` ↑ |  |  |  |
+| p3 | `RiverStairs` ↑ |  |  |  |
+| p4 | `RiverStairs` ↑ |  |  |  |
+| p5 | `RiverStairs` ↑ |  |  |  |
+| p6 | `RiverStairs` ↑ |  |  |  |
+| p7 | `RiverStairs` ↑ |  |  |  |
+| p8 | `House` |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 40 「귀 내려올 때까지, 후~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 41 「엄마 뒤에서, 한 걸음!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverBed` |  |  |  |
+| p2 | `RiverBed` ↑ |  |  |  |
+| p3 | `RiverBed` ↑ |  |  |  |
+| p4 | `RiverBed` ↑ |  |  |  |
+| p5 | `RiverBed` ↑ |  |  |  |
+| p6 | `RiverBed` ↑ |  |  |  |
+| p7 | `RiverBed` ↑ |  |  |  |
+| p8 | `RiverBed` ↑ |  |  |  |
+| p9 | `RiverBed` ↑ |  |  |  |
+| p10 | `RiverBed` ↑ |  |  |  |
+
+## 42 「울어도 돼, 코 걸어 줄게!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 43 「안 되면, 또 감아!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 44 「기다릴 땐, 흙 그림!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverBed` |  |  |  |
+| p2 | `RiverBed` ↑ |  |  |  |
+| p3 | `RiverBed` ↑ |  |  |  |
+| p4 | `RiverBed` ↑ |  |  |  |
+| p5 | `RiverBed` ↑ |  |  |  |
+| p6 | `RiverBed` ↑ |  |  |  |
+| p7 | `RiverBed` ↑ |  |  |  |
+| p8 | `RiverBed` ↑ |  |  |  |
+| p9 | `RiverBed` ↑ |  |  |  |
+| p10 | `RiverBed` ↑ |  |  |  |
+
+## 45 「미안해, 다시 같이 접자!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 46 「예쁜 말 하면, 예쁜 말 배워!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 47 「밀지 말고, 말로 해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `RiverStairs` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 48 「자는 옆에선, 살살 소리!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 49 「가운데니까, 내가 할게!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 50 「코는 살살, 걸어 줘!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `RiverStairs` |  |  |  |
+| p2 | `RiverStairs` ↑ |  |  |  |
+| p3 | `RiverStairs` ↑ |  |  |  |
+| p4 | `RiverStairs` ↑ |  |  |  |
+| p5 | `RiverStairs` ↑ |  |  |  |
+| p6 | `RiverStairs` ↑ |  |  |  |
+| p7 | `RiverStairs` ↑ |  |  |  |
+| p8 | `RiverStairs` ↑ |  |  |  |
+| p9 | `RiverStairs` ↑ |  |  |  |
+| p10 | `RiverStairs` ↑ |  |  |  |

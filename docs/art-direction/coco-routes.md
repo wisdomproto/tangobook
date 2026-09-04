@@ -1,4 +1,4 @@
-# coco — 권별 경로표 (25권)
+# coco — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton coco`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -471,3 +471,378 @@ p6 이 `[Shop] 가게 문 앞`이고 p7·p8 이 「같은 골목」이라 물려
 **⑩ 문서-코드 이음매** — `build-series-routes.mjs` 의 `axisLabel()` 이 `coco-stages.md` §4 **표 머리**에서
 넷째 칸 이름을 읽는다. §4 를 한 줄 안내로 바꿨으므로, 앞으로 `--skeleton coco` 를 돌리면 넷째 칸 머리가
 `상태` 로 나온다(어차피 `--skeleton` 은 이 파일을 통째로 덮으므로 이 표를 지우는 명령이다 — 돌리지 말 것).
+
+## 26 「빵만 말고, 수프도 냠냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Bakery` ↑ |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Bakery` |  |  |  |
+| p5 | `Bakery` ↑ |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Bakery` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 27 「반죽 전엔, 손부터!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Bakery` ↑ |  |  |  |
+| p3 | `Bakery` |  |  |  |
+| p4 | `Bakery` |  |  |  |
+| p5 | `Bakery` ↑ |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Bakery` |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 28 「한 입은 작게, 열 번 꼭꼭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Shop` |  |  |  |
+| p3 | `Shop` ↑ |  |  |  |
+| p4 | `Shop` |  |  |  |
+| p5 | `Bakery` |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Bakery` |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 29 「쿠키는 한 개, 저녁이 먼저!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` ↑ |  |  |  |
+| p3 | `Bakery` |  |  |  |
+| p4 | `Bakery` ↑ |  |  |  |
+| p5 | `Bakery` |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Shop` |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 30 「밀가루 씻고, 첨벙!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Bakery` |  |  |  |
+| p3 | `Bakery` ↑ |  |  |  |
+| p4 | `WashTub` |  |  |  |
+| p5 | `WashTub` |  |  |  |
+| p6 | `WashTub` |  |  |  |
+| p7 | `WashTub` |  |  |  |
+| p8 | `WashTub` |  |  |  |
+| p9 | `WashTub` |  |  |  |
+| p10 | `WashTub` |  |  |  |
+
+## 31 「화덕 문 닫히면, 코~」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Bakery` ↑ |  |  |  |
+| p3 | `Bakery` ↑ |  |  |  |
+| p4 | `Shop` |  |  |  |
+| p5 | `Shop` |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `Attic` ↑ |  |  |  |
+| p9 | `Attic` ↑ |  |  |  |
+| p10 | `Attic` |  |  |  |
+
+## 32 「화덕 문 끼익, 쭉쭉!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` ↑ |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Bakery` |  |  |  |
+| p5 | `Bakery` ↑ |  |  |  |
+| p6 | `Shop` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Shop` ↑ |  |  |  |
+
+## 33 「쓰고 나면, 못에 걸어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `BackRoom` |  |  |  |
+| p2 | `BackRoom` ↑ |  |  |  |
+| p3 | `BackRoom` ↑ |  |  |  |
+| p4 | `BackRoom` |  |  |  |
+| p5 | `BackRoom` ↑ |  |  |  |
+| p6 | `BackRoom` ↑ |  |  |  |
+| p7 | `BackRoom` ↑ |  |  |  |
+| p8 | `BackRoom` ↑ |  |  |  |
+| p9 | `BackRoom` |  |  |  |
+| p10 | `BackRoom` ↑ |  |  |  |
+
+## 34 「머릿수건, 매듭 꼭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` ↑ |  |  |  |
+| p3 | `Attic` ↑ |  |  |  |
+| p4 | `Attic` ↑ |  |  |  |
+| p5 | `Attic` |  |  |  |
+| p6 | `Attic` ↑ |  |  |  |
+| p7 | `Attic` ↑ |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Attic` |  |  |  |
+| p10 | `Attic` ↑ |  |  |  |
+
+## 35 「할아버지 먼저, 그다음 코코!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` ↑ |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Shop` ↑ |  |  |  |
+| p5 | `Shop` ↑ |  |  |  |
+| p6 | `Shop` ↑ |  |  |  |
+| p7 | `Shop` ↑ |  |  |  |
+| p8 | `Shop` ↑ |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Shop` ↑ |  |  |  |
+
+## 36 「큰길 앞엔, 발 멈춰!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `AlleyMouth` |  |  |  |
+| p2 | `AlleyMouth` |  |  |  |
+| p3 | `AlleyMouth` |  |  |  |
+| p4 | `AlleyMouth` |  |  |  |
+| p5 | `AlleyMouth` |  |  |  |
+| p6 | `AlleyMouth` |  |  |  |
+| p7 | `AlleyMouth` |  |  |  |
+| p8 | `AlleyMouth` |  |  |  |
+| p9 | `AlleyMouth` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 37 「놓치면, 그 자리에!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Market` |  |  |  |
+| p2 | `Market` |  |  |  |
+| p3 | `Market` |  |  |  |
+| p4 | `Market` |  |  |  |
+| p5 | `Market` |  |  |  |
+| p6 | `Market` |  |  |  |
+| p7 | `Market` |  |  |  |
+| p8 | `Market` |  |  |  |
+| p9 | `Market` |  |  |  |
+| p10 | `Market` |  |  |  |
+
+## 38 「점 난 빵은, 안 먹어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Bakery` |  |  |  |
+| p5 | `Bakery` |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Shop` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 39 「화덕 앞은, 걸어서!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Bakery` |  |  |  |
+| p3 | `Bakery` |  |  |  |
+| p4 | `Bakery` |  |  |  |
+| p5 | `Bakery` |  |  |  |
+| p6 | `Bakery` |  |  |  |
+| p7 | `Bakery` |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 40 「깜깜해도, 불빛 한 줄!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Attic` |  |  |  |
+| p3 | `Attic` |  |  |  |
+| p4 | `Attic` |  |  |  |
+| p5 | `Attic` |  |  |  |
+| p6 | `Attic` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `Attic` |  |  |  |
+| p9 | `Attic` |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 41 「화나면, 김 불듯 후~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` ↑ |  |  |  |
+| p3 | `Shop` ↑ |  |  |  |
+| p4 | `Shop` |  |  |  |
+| p5 | `Shop` ↑ |  |  |  |
+| p6 | `Shop` ↑ |  |  |  |
+| p7 | `Shop` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 42 「작게 먼저, 다음엔 크게!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` ↑ |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Shop` ↑ |  |  |  |
+| p5 | `Shop` ↑ |  |  |  |
+| p6 | `Shop` |  |  |  |
+| p7 | `AlleyShop` |  |  |  |
+| p8 | `AlleyShop` |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 43 「아프면 울고, 엄마 품에!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `AlleyShop` |  |  |  |
+| p2 | `AlleyShop` ↑ |  |  |  |
+| p3 | `AlleyShop` ↑ |  |  |  |
+| p4 | `AlleyShop` |  |  |  |
+| p5 | `AlleyShop` ↑ |  |  |  |
+| p6 | `AlleyShop` ↑ |  |  |  |
+| p7 | `AlleyShop` ↑ |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 44 「껍질 들어가도, 다시 톡!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Bakery` |  |  |  |
+| p2 | `Bakery` ↑ |  |  |  |
+| p3 | `Bakery` ↑ |  |  |  |
+| p4 | `Bakery` ↑ |  |  |  |
+| p5 | `Bakery` ↑ |  |  |  |
+| p6 | `Bakery` ↑ |  |  |  |
+| p7 | `Bakery` ↑ |  |  |  |
+| p8 | `Bakery` |  |  |  |
+| p9 | `Bakery` ↑ |  |  |  |
+| p10 | `Bakery` |  |  |  |
+
+## 45 「굳기 전에, 미안해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` ↑ |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Shop` |  |  |  |
+| p5 | `Shop` |  |  |  |
+| p6 | `Shop` |  |  |  |
+| p7 | `AlleyShop` |  |  |  |
+| p8 | `AlleyShop` ↑ |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 46 「줄은 뒤에서, 차례차례!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `AlleyShop` |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `AlleyShop` |  |  |  |
+| p5 | `AlleyShop` ↑ |  |  |  |
+| p6 | `AlleyShop` |  |  |  |
+| p7 | `AlleyShop` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `AlleyShop` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 47 「반으로 뚝, 둘 다 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Shop` ↑ |  |  |  |
+| p5 | `Shop` |  |  |  |
+| p6 | `Shop` |  |  |  |
+| p7 | `Shop` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Bakery` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 48 「손님 오면, 안녕하세요!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Shop` |  |  |  |
+| p5 | `Shop` |  |  |  |
+| p6 | `Shop` |  |  |  |
+| p7 | `Shop` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 49 「아기 까치는, 살살!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` |  |  |  |
+| p3 | `Shop` |  |  |  |
+| p4 | `Shop` |  |  |  |
+| p5 | `Shop` |  |  |  |
+| p6 | `Shop` |  |  |  |
+| p7 | `Shop` |  |  |  |
+| p8 | `Shop` |  |  |  |
+| p9 | `Shop` |  |  |  |
+| p10 | `Shop` |  |  |  |
+
+## 50 「할아버지 굴은, 폭신폭신!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shop` |  |  |  |
+| p2 | `Shop` |  |  |  |
+| p3 | `MoleBurrow` |  |  |  |
+| p4 | `MoleBurrow` |  |  |  |
+| p5 | `MoleBurrow` |  |  |  |
+| p6 | `MoleBurrow` |  |  |  |
+| p7 | `MoleBurrow` |  |  |  |
+| p8 | `MoleBurrow` |  |  |  |
+| p9 | `MoleBurrow` |  |  |  |
+| p10 | `AlleyShop` |  |  |  |

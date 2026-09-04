@@ -1,4 +1,4 @@
-# taro — 권별 경로표 (25권)
+# taro — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton taro`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -492,3 +492,378 @@ p1·p2·p3 처럼 **두 처마가 한 화면에 있는 쪽**은 `VillageRoad` �
 01·05·06 만 카메라가 축이고, 나머지 스물두 권은 **세는 물건 하나**가 축이었다(바나나·조개·물통 둘·
 날벌레 수·떡 개수·배 넷…). SCENE 이 이미 개수로 세어 놓은 덕이다 — 「몇 개인가」가 매 쪽 정보라서,
 컷을 구울 때 **그 개수를 틀리면 그 권의 마지막 장이 안 읽힌다**.
+
+## 26 「잎 접시, 싹싹 비워!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `MumuYard` |  |  |  |
+| p3 | `VillageRoad` |  |  |  |
+| p4 | `Creek` |  |  |  |
+| p5 | `MumuYard` |  |  |  |
+| p6 | `MumuYard` ↑ |  |  |  |
+| p7 | `MumuYard` |  |  |  |
+| p8 | `WellTree` |  |  |  |
+| p9 | `MumuYard` |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 27 「밥 먹고 쓱쓱, 이가 하얘!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `MumuYard` |  |  |  |
+| p3 | `MumuYard` |  |  |  |
+| p4 | `WellTree` |  |  |  |
+| p5 | `WellTree` |  |  |  |
+| p6 | `WellTree` |  |  |  |
+| p7 | `WellTree` |  |  |  |
+| p8 | `WellTree` |  |  |  |
+| p9 | `WellTree` |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 28 「손 먼저 씻고, 그다음 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `TaroYard` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |
+
+## 29 「바나나는 둘까지!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` ↑ |  |  |  |
+| p3 | `Creek` |  |  |  |
+| p4 | `Creek` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `Creek` |  |  |  |
+| p10 | `Creek` |  |  |  |
+
+## 30 「처마 물로 쏴아, 반짝!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` |  |  |  |
+| p3 | `TaroYard` ↑ |  |  |  |
+| p4 | `TaroYard` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |
+
+## 31 「닭이 자러 가면, 나도 집으로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `WellTree` |  |  |  |
+| p2 | `WellTree` |  |  |  |
+| p3 | `WellTree` |  |  |  |
+| p4 | `WellTree` |  |  |  |
+| p5 | `WellTree` |  |  |  |
+| p6 | `WellTree` |  |  |  |
+| p7 | `VillageRoad` |  |  |  |
+| p8 | `MumuYard` |  |  |  |
+| p9 | `WellTree` |  |  |  |
+| p10 | `VillageRoad` |  |  |  |
+
+## 32 「꼬끼오 하면, 벌떡!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` ↑ |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `WellTree` |  |  |  |
+| p5 | `WellTree` |  |  |  |
+| p6 | `WellTree` |  |  |  |
+| p7 | `WellTree` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `WellTree` |  |  |  |
+| p10 | `WellTree` |  |  |  |
+
+## 33 「놀고 나면, 껍질에 쏙!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `TaroYard` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |
+
+## 34 「귀 뒤로 돌려, 꼭 묶고!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `MumuYard` |  |  |  |
+| p3 | `MumuYard` ↑ |  |  |  |
+| p4 | `MumuYard` |  |  |  |
+| p5 | `MumuYard` |  |  |  |
+| p6 | `MumuYard` |  |  |  |
+| p7 | `MumuYard` |  |  |  |
+| p8 | `MumuYard` |  |  |  |
+| p9 | `MumuYard` |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 35 「물통 하나, 잎 밥 하나, 출발!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `MumuYard` |  |  |  |
+| p3 | `MumuYard` |  |  |  |
+| p4 | `MumuYard` |  |  |  |
+| p5 | `MumuYard` |  |  |  |
+| p6 | `MumuYard` |  |  |  |
+| p7 | `MumuYard` |  |  |  |
+| p8 | `SandFlat` |  |  |  |
+| p9 | `MumuYard` |  |  |  |
+| p10 | `SandFlat` |  |  |  |
+
+## 36 「멈춰! 물 보고! 돌 하나씩!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Creek` |  |  |  |
+| p2 | `Creek` |  |  |  |
+| p3 | `Creek` |  |  |  |
+| p4 | `Creek` |  |  |  |
+| p5 | `Creek` |  |  |  |
+| p6 | `Creek` |  |  |  |
+| p7 | `Creek` |  |  |  |
+| p8 | `Creek` |  |  |  |
+| p9 | `SandFlat` |  |  |  |
+| p10 | `SandFlat` |  |  |  |
+
+## 37 「몰라? 그럼 안 먹어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `VillageRoad` |  |  |  |
+| p2 | `VillageRoad` |  |  |  |
+| p3 | `VillageRoad` |  |  |  |
+| p4 | `VillageRoad` |  |  |  |
+| p5 | `MumuYard` |  |  |  |
+| p6 | `MumuYard` |  |  |  |
+| p7 | `MumuYard` |  |  |  |
+| p8 | `VillageRoad` |  |  |  |
+| p9 | `VillageRoad` |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 38 「우르릉 하면, 지붕 밑으로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `TaroYard` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |
+
+## 39 「미끌미끌 길은, 한 발 한 발!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `VillageRoad` |  |  |  |
+| p3 | `VillageRoad` |  |  |  |
+| p4 | `VillageRoad` |  |  |  |
+| p5 | `VillageRoad` |  |  |  |
+| p6 | `VillageRoad` |  |  |  |
+| p7 | `VillageRoad` |  |  |  |
+| p8 | `WellTree` |  |  |  |
+| p9 | `VillageRoad` |  |  |  |
+| p10 | `VillageRoad` |  |  |  |
+
+## 40 「꼬리는 꼬리대로, 다리는 다리대로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CreekTree` |  |  |  |
+| p2 | `CreekTree` |  |  |  |
+| p3 | `CreekTree` |  |  |  |
+| p4 | `CreekTree` |  |  |  |
+| p5 | `CreekTree` |  |  |  |
+| p6 | `CreekTree` |  |  |  |
+| p7 | `CreekTree` |  |  |  |
+| p8 | `CreekTree` |  |  |  |
+| p9 | `CreekTree` |  |  |  |
+| p10 | `CreekTree` |  |  |  |
+
+## 41 「깜깜한 건 구름, 곧 지나가!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` ↑ |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `TaroYard` ↑ |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |
+
+## 42 「손은 등 뒤로, 숨은 크게!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `SandFlat` |  |  |  |
+| p2 | `SandFlat` ↑ |  |  |  |
+| p3 | `SandFlat` |  |  |  |
+| p4 | `SandFlat` ↑ |  |  |  |
+| p5 | `SandFlat` |  |  |  |
+| p6 | `SandFlat` ↑ |  |  |  |
+| p7 | `SandFlat` |  |  |  |
+| p8 | `SandFlat` |  |  |  |
+| p9 | `SandFlat` |  |  |  |
+| p10 | `SandFlat` |  |  |  |
+
+## 43 「한 번 더, 또 한 번 더!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `MumuYard` ↑ |  |  |  |
+| p3 | `MumuYard` |  |  |  |
+| p4 | `MumuYard` |  |  |  |
+| p5 | `MumuYard` |  |  |  |
+| p6 | `MumuYard` ↑ |  |  |  |
+| p7 | `MumuYard` |  |  |  |
+| p8 | `MumuYard` |  |  |  |
+| p9 | `MumuYard` ↑ |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 44 「기다리는 동안, 빗방울 악기!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MumuYard` |  |  |  |
+| p2 | `MumuYard` ↑ |  |  |  |
+| p3 | `MumuYard` |  |  |  |
+| p4 | `MumuYard` |  |  |  |
+| p5 | `MumuYard` ↑ |  |  |  |
+| p6 | `MumuYard` |  |  |  |
+| p7 | `MumuYard` |  |  |  |
+| p8 | `MumuYard` ↑ |  |  |  |
+| p9 | `MumuYard` |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 45 「미안해, 그리고 다시 채워!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `WellTree` |  |  |  |
+| p2 | `WellTree` ↑ |  |  |  |
+| p3 | `WellTree` |  |  |  |
+| p4 | `WellTree` |  |  |  |
+| p5 | `WellTree` ↑ |  |  |  |
+| p6 | `WellTree` |  |  |  |
+| p7 | `WellTree` |  |  |  |
+| p8 | `WellTree` |  |  |  |
+| p9 | `WellTree` |  |  |  |
+| p10 | `WellTree` |  |  |  |
+
+## 46 「한 번은 너, 한 번은 나!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `WellTree` |  |  |  |
+| p2 | `WellTree` |  |  |  |
+| p3 | `WellTree` |  |  |  |
+| p4 | `WellTree` |  |  |  |
+| p5 | `WellTree` |  |  |  |
+| p6 | `WellTree` |  |  |  |
+| p7 | `WellTree` |  |  |  |
+| p8 | `WellTree` |  |  |  |
+| p9 | `WellTree` |  |  |  |
+| p10 | `WellTree` |  |  |  |
+
+## 47 「앞은 나, 뒤는 너, 영차!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `VillageRoad` |  |  |  |
+| p2 | `VillageRoad` |  |  |  |
+| p3 | `VillageRoad` |  |  |  |
+| p4 | `VillageRoad` |  |  |  |
+| p5 | `VillageRoad` |  |  |  |
+| p6 | `VillageRoad` |  |  |  |
+| p7 | `WellTree` |  |  |  |
+| p8 | `WellTree` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `WellTree` |  |  |  |
+
+## 48 「귀 옆에선, 소곤소곤!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `CreekTree` |  |  |  |
+| p2 | `CreekTree` |  |  |  |
+| p3 | `CreekTree` |  |  |  |
+| p4 | `CreekTree` |  |  |  |
+| p5 | `CreekTree` |  |  |  |
+| p6 | `CreekTree` |  |  |  |
+| p7 | `CreekTree` |  |  |  |
+| p8 | `CreekTree` |  |  |  |
+| p9 | `MumuYard` |  |  |  |
+| p10 | `MumuYard` |  |  |  |
+
+## 49 「형아는 이렇게 해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `TaroYard` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |
+
+## 50 「아기는 살살, 잎 만지듯!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TaroYard` |  |  |  |
+| p2 | `TaroYard` |  |  |  |
+| p3 | `TaroYard` |  |  |  |
+| p4 | `TaroYard` |  |  |  |
+| p5 | `TaroYard` |  |  |  |
+| p6 | `TaroYard` |  |  |  |
+| p7 | `TaroYard` |  |  |  |
+| p8 | `TaroYard` |  |  |  |
+| p9 | `TaroYard` |  |  |  |
+| p10 | `TaroYard` |  |  |  |

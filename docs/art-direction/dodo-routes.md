@@ -1,4 +1,4 @@
-# dodo — 권별 경로표 (25권)
+# dodo — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton dodo`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -129,7 +129,7 @@ p9 는 **한 장 안에서 아래 절반은 젖고 위 절반은 마름**이 SCE
 |---|---|---|---|---|
 | p1 | `MillStream` | D | 아직 물속 — 안 보인다 | — |
 | p2 | `MillStream` ↑ | E | 엄마 부리에 물렸다 | p1 에서 퍼진 동그란 물결 자리에서 올라온다 |
-| p3 | `MillStream/B` | E | — | 무무는 p2 자세 그대로 — 화면 옆 어깨와 목수건 |
+| p3 | `MillStream/E` | E | — | 무무는 p2 자세 그대로 — 화면 옆 어깨와 목수건 |
 | p4 | `MillStream` | C | — | p3 에서 내딛은 그 발로 뛰어들었다 |
 | p5 | `MillStream` ↑ | C | — 수초만 올라왔다 | 물 위에 남았던 엉덩이 자리에서 머리가 나온다 |
 | p6 | `MillStream` | E | — 수초만 | 머리에 걸린 수초 — p5 에서 감긴 그대로 |
@@ -236,8 +236,8 @@ p8~p10 의 「1 → 6 → 7」이 같은 화면 언어(개수)로 마주 선다.
 | p3 | `MillStream` ↑ | E | 뱃머리를 웅덩이 쪽으로 | 배 밑의 얕은 물결 — 아직 아무도 안 밀었다 |
 | p4 | `MillStream` ↑ | E | 도도가 힘껏 민다 | 뱃머리는 p3 에서 무무가 돌려 둔 방향 |
 | p5 | `MillStream` ↑ | C | 뒤집힌다 — 돛이 물에 잠겼다 | 미는 힘이 남아 있다 — 도도 날개 끝만 화면에 |
-| p6 | `MillStream/B` | E | 건져 들었다 — 돛이 축 늘어졌다 | 물에 잠겼던 그 나뭇잎 돛 |
-| p7 | `MillStream/B` ↑ | C | — 배는 화면 밖 · 나뭇잎만 흘러간다 | 물살 줄무늬가 모두 웅덩이 쪽으로 |
+| p6 | `MillStream/E` | E | 건져 들었다 — 돛이 축 늘어졌다 | 물에 잠겼던 그 나뭇잎 돛 |
+| p7 | `MillStream/E` ↑ | C | — 배는 화면 밖 · 나뭇잎만 흘러간다 | 물살 줄무늬가 모두 웅덩이 쪽으로 |
 | p8 | `MillStream` | C | 밀지 않고 놓는다 — 돛이 다시 섰다 | p6 에서 늘어졌던 돛이 마르고 다시 섰다 |
 | p9 | `MillStream` | 둑길 | 물살에 실려 살랑살랑 | 밀지 않아 생긴 얕은 물결 그대로 |
 | p10 | `Wheel` | 물레방아 아래 웅덩이(하이앵글) | 웅덩이 한가운데서 뱅그르르 | 걷는 속도로 같이 흘러온 그 배가 웅덩이에 든다 |
@@ -253,7 +253,7 @@ p8~p10 의 「1 → 6 → 7」이 같은 화면 언어(개수)로 마주 선다.
 | p3 | `MillStream` ↑ | 개울가 돌밭 | 0 | 무무가 고르던 그 돌밭에서 도도가 집는다 |
 | p4 | `MillStream` | E | 0 — 아직 공중이다 | 들어 올렸던 그 동글 돌 — 크기 그대로 |
 | p5 | `MillStream` ↑ | C | 0 — 물기둥 하나가 곧게 솟는다 | 위로 던진 각 그대로 떨어졌다 |
-| p6 | `MillStream/B` | E | 0 — 발밑에 고인 물자국뿐 | 머리끝까지 뒤집어쓴 물 — p5 그대로 젖었다 |
+| p6 | `MillStream/E` | E | 0 — 발밑에 고인 물자국뿐 | 머리끝까지 뒤집어쓴 물 — p5 그대로 젖었다 |
 | p7 | `MillStream` | E | 0 | 아빠는 p1 자리에 그대로 서 있다 |
 | p8 | `MillStream` | E 수면 높이 | 0 — 막 떠났다 | 아빠 날개 위에 있던 그 납작 돌 |
 | p9 | `MillStream` ↑ | C | **하나** + 튀는 중인 돌 하나 | 수면과 나란히 떠난 선이 그대로 이어진다 |
@@ -565,3 +565,378 @@ p7 은 마당 창고 앞(`MillOutside`), p9 는 문간(`MillOutside`)인데 그 
 - **`-stages.md` §4 를 지웠으므로** `build-series-routes.mjs` 의 `axisLabel()` 이 dodo 의 축 이름을
   더는 못 읽는다(폴백 「상태」). `--skeleton dodo` 를 다시 돌리면 이 파일이 통째로 지워지므로
   **어차피 다시 돌리면 안 되는 스크립트**다 — 실질 영향은 없다.
+
+## 26 「골고루 냠냠, 씽씽 헤엄!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillStream` |  |  |  |
+| p4 | `MillStream` |  |  |  |
+| p5 | `MillStream` ↑ |  |  |  |
+| p6 | `MillInside` |  |  |  |
+| p7 | `MillInside` ↑ |  |  |  |
+| p8 | `MillStream` |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillStream` |  |  |  |
+
+## 27 「부리 치카, 반짝!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 28 「날개 뽀득뽀득!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillStream` |  |  |  |
+| p6 | `MillStream` ↑ |  |  |  |
+| p7 | `MillStream` ↑ |  |  |  |
+| p8 | `MillStream` |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 29 「한 입은 작게, 꼭꼭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` ↑ |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 30 「잼은 한 숟갈, 밥이 먼저!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 31 「물레방아 멈추면, 코~」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillStream` |  |  |  |
+| p5 | `Wheel` |  |  |  |
+| p6 | `MillOutside` |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` ↑ |  |  |  |
+| p10 | `MillInside` |  |  |  |
+
+## 32 「물문 열리면, 쭉쭉!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 33 「자루 옆 상자에, 척!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 34 「한 바퀴 돌리고, 쏙 당겨!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillOutside` ↑ |  |  |  |
+| p3 | `MillOutside` |  |  |  |
+| p4 | `MillOutside` ↑ |  |  |  |
+| p5 | `MillOutside` |  |  |  |
+| p6 | `MillOutside` ↑ |  |  |  |
+| p7 | `MillOutside` ↑ |  |  |  |
+| p8 | `MillOutside` |  |  |  |
+| p9 | `MillOutside` |  |  |  |
+| p10 | `MillOutside` ↑ |  |  |  |
+
+## 35 「의자에 엉덩이 딱!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillOutside` |  |  |  |
+| p3 | `MillOutside` ↑ |  |  |  |
+| p4 | `MillInside` |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` |  |  |  |
+| p7 | `MillInside` ↑ |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 36 「멈춰, 수레 보고, 건너!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillOutside` ↑ |  |  |  |
+| p3 | `MillOutside` |  |  |  |
+| p4 | `MillOutside` ↑ |  |  |  |
+| p5 | `MillOutside` |  |  |  |
+| p6 | `MillOutside` ↑ |  |  |  |
+| p7 | `MillOutside` |  |  |  |
+| p8 | `MillOutside` |  |  |  |
+| p9 | `MillOutside` |  |  |  |
+| p10 | `MillOutside` |  |  |  |
+
+## 37 「엄마 꼬리, 꼭 잡고!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Field` |  |  |  |
+| p2 | `Field` |  |  |  |
+| p3 | `Field` |  |  |  |
+| p4 | `Field` ↑ |  |  |  |
+| p5 | `Field` |  |  |  |
+| p6 | `Field` ↑ |  |  |  |
+| p7 | `Field` |  |  |  |
+| p8 | `Field` |  |  |  |
+| p9 | `Field` |  |  |  |
+| p10 | `MillOutside` |  |  |  |
+
+## 38 「모르는 건, 물어보고!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillStream` |  |  |  |
+| p2 | `MillStream` |  |  |  |
+| p3 | `MillStream` ↑ |  |  |  |
+| p4 | `MillStream` |  |  |  |
+| p5 | `MillStream` ↑ |  |  |  |
+| p6 | `MillStream` |  |  |  |
+| p7 | `MillStream` |  |  |  |
+| p8 | `MillStream` ↑ |  |  |  |
+| p9 | `MillStream` |  |  |  |
+| p10 | `MillStream` |  |  |  |
+
+## 39 「물 불면, 둑 위로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillStream` |  |  |  |
+| p3 | `MillStream` ↑ |  |  |  |
+| p4 | `Wheel` |  |  |  |
+| p5 | `Wheel` ↑ |  |  |  |
+| p6 | `MillStream` |  |  |  |
+| p7 | `MillStream` |  |  |  |
+| p8 | `MillStream` |  |  |  |
+| p9 | `MillStream` |  |  |  |
+| p10 | `MillOutside` |  |  |  |
+
+## 40 「무무는 무무니까!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillOutside` ↑ |  |  |  |
+| p3 | `MillOutside` |  |  |  |
+| p4 | `MillOutside` ↑ |  |  |  |
+| p5 | `MillOutside` ↑ |  |  |  |
+| p6 | `MillOutside` |  |  |  |
+| p7 | `MillOutside` ↑ |  |  |  |
+| p8 | `MillOutside` ↑ |  |  |  |
+| p9 | `MillOutside` |  |  |  |
+| p10 | `MillOutside` |  |  |  |
+
+## 41 「깜깜해도, 아빠 여기 있어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` |  |  |  |
+| p4 | `MillInside` |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` |  |  |  |
+| p7 | `MillInside` ↑ |  |  |  |
+| p8 | `MillInside` |  |  |  |
+| p9 | `MillInside` ↑ |  |  |  |
+| p10 | `MillInside` |  |  |  |
+
+## 42 「화나면, 밀가루 후~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` |  |  |  |
+
+## 43 「울어도 돼, 날개 안에서!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillStream` |  |  |  |
+| p2 | `MillStream` ↑ |  |  |  |
+| p3 | `MillStream` |  |  |  |
+| p4 | `MillStream` ↑ |  |  |  |
+| p5 | `MillStream` ↑ |  |  |  |
+| p6 | `MillStream` |  |  |  |
+| p7 | `MillStream` ↑ |  |  |  |
+| p8 | `MillStream` |  |  |  |
+| p9 | `MillOutside` |  |  |  |
+| p10 | `MillOutside` ↑ |  |  |  |
+
+## 44 「다 빻을 동안, 밀가루 그림!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` |  |  |  |
+| p8 | `MillInside` |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` |  |  |  |
+
+## 45 「수레는 차례차례!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillOutside` ↑ |  |  |  |
+| p3 | `MillOutside` |  |  |  |
+| p4 | `MillOutside` ↑ |  |  |  |
+| p5 | `MillOutside` ↑ |  |  |  |
+| p6 | `MillOutside` |  |  |  |
+| p7 | `MillOutside` ↑ |  |  |  |
+| p8 | `MillOutside` |  |  |  |
+| p9 | `MillOutside` |  |  |  |
+| p10 | `MillOutside` |  |  |  |
+
+## 46 「반 갈라, 같이 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` ↑ |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 47 「날개 말고, 말로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillOutside` ↑ |  |  |  |
+| p3 | `MillOutside` ↑ |  |  |  |
+| p4 | `MillOutside` ↑ |  |  |  |
+| p5 | `MillOutside` ↑ |  |  |  |
+| p6 | `MillOutside` ↑ |  |  |  |
+| p7 | `MillOutside` |  |  |  |
+| p8 | `MillOutside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillOutside` |  |  |  |
+
+## 48 「둘이 밀면, 문이 쓱!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillOutside` |  |  |  |
+| p8 | `MillOutside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 49 「깃털은 살살!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillInside` |  |  |  |
+| p2 | `MillInside` ↑ |  |  |  |
+| p3 | `MillInside` ↑ |  |  |  |
+| p4 | `MillInside` ↑ |  |  |  |
+| p5 | `MillInside` ↑ |  |  |  |
+| p6 | `MillInside` ↑ |  |  |  |
+| p7 | `MillInside` ↑ |  |  |  |
+| p8 | `MillInside` ↑ |  |  |  |
+| p9 | `MillInside` |  |  |  |
+| p10 | `MillInside` ↑ |  |  |  |
+
+## 50 「할머니 날개, 폭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `MillOutside` |  |  |  |
+| p2 | `MillOutside` ↑ |  |  |  |
+| p3 | `MillOutside` ↑ |  |  |  |
+| p4 | `MillOutside` ↑ |  |  |  |
+| p5 | `MillOutside` ↑ |  |  |  |
+| p6 | `MillOutside` ↑ |  |  |  |
+| p7 | `MillOutside` ↑ |  |  |  |
+| p8 | `MillOutside` ↑ |  |  |  |
+| p9 | `MillOutside` |  |  |  |
+| p10 | `MillOutside` |  |  |  |

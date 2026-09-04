@@ -105,7 +105,30 @@ if (process.argv.includes('--skeleton')) {
     // 🔴 채워진 표를 뼈대로 되돌리지 않는다. 자동화가 **옳은 것을 지우는** 것이 이 파이프라인에서
     //    가장 나쁜 실패다(무대 토큰 때 이미 한 번 겪었다). 되굽고 싶으면 `--force` 를 명시한다.
     if (fs.existsSync(f) && /^\| p\d+ \|[^|]*\|\s*\S/m.test(fs.readFileSync(f, 'utf8')) && !process.argv.includes('--force')) {
-      console.log(`${key.padEnd(9)} ⏭  이미 채워져 있다 — 건너뜀 (되굽으려면 --force)`);
+      // 🔴 **없는 권만 이어 붙인다**(2026-09-04). 예전엔 파일 단위로 건너뛰어서, 25권 시절에 만든
+      //    표가 채워져 있으면 **26~50권 250쪽이 영영 안 생겼다**(15 시리즈 전부 그 상태였다).
+      //    채운 칸은 여전히 한 글자도 안 덮는다 — 이미 `## NN` 이 있는 권은 통째로 건너뛴다.
+      if (process.argv.includes('--append')) {
+        const md = fs.readFileSync(f, 'utf8');
+        const have = new Set([...md.matchAll(/^## (\d+)[ 「]/gm)].map((m) => m[1]));
+        const add = [];
+        for (const [id, bk] of [...books].sort((a, b) => a[0].localeCompare(b[0]))) {
+          if (have.has(id)) continue;
+          const pages = Object.entries(scenes[id] ?? {});
+          add.push(`## ${id} 「${bk.title}」`, '');
+          add.push('| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |', '|---|---|---|---|---|');
+          for (const r of routeOf(pages))
+            add.push(`| ${r.pg} | ${r.place ? '`' + r.place + '`' : '🔴 ?'}${r.inherited ? ' ↑' : ''} |  |  |  |`);
+          add.push('');
+        }
+        if (!add.length) { console.log(`${key.padEnd(9)} ⏭  빠진 권 없음`); continue; }
+        // 제목의 권수도 실제로 맞춘다 — 「(25권)」이 50권짜리 표에 남아 있었다
+        const fixed = md.replace(/^(# \S+ — 권별 경로표) \(\d+권\)/m, `$1 (${books.size}권)`);
+        fs.writeFileSync(f, [fixed.replace(/\s*$/, ''), '', ...add].join('\n'));
+        console.log(`${key.padEnd(9)} ＋${add.filter((l) => l.startsWith('## ')).length}권 이어 붙임`);
+        continue;
+      }
+      console.log(`${key.padEnd(9)} ⏭  이미 채워져 있다 — 건너뜀 (되굽으려면 --force · 없는 권만 --append)`);
       continue;
     }
     fs.writeFileSync(f, out.join('\n'));

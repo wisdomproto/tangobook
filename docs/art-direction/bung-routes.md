@@ -1,4 +1,4 @@
-# bung — 권별 경로표 (25권)
+# bung — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton bung`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -578,3 +578,378 @@
 - **소품만 같다** (18 담요 · 21 탑의 꼴) — 안전하다.
 - **소품과 카메라가 같다** (11 오리 아홉 · 19 갠 그물 · 25 등 다섯) — 화면 안 인물 수로 갈라야 두 장이 안 겹친다. 19 는 인물까지 비슷해 **가장 위험**하다.
 - 🔴 **카메라·소품·앵글이 다 같다** (01 p1 · p10 — 와이드 하이앵글에 배 여섯) — 컷 라벨이 이미 「배 위에서」로 갈라 두었는지 확인할 것.
+
+## 26 「초록도 새우도, 후루룩!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `Market` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 27 「이에 낀 국수, 쓱쓱!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 28 「씻은 손으로, 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Channel` |  |  |  |
+| p2 | `Channel` |  |  |  |
+| p3 | `Channel` |  |  |  |
+| p4 | `GrandpaBoat` |  |  |  |
+| p5 | `GrandpaBoat` |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `GrandpaBoat` |  |  |  |
+| p8 | `Channel` |  |  |  |
+| p9 | `GrandpaBoat` |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 29 「후루룩 말고, 꼭꼭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `Market` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 30 「간식 배는 한 척만!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Market` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `Market` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 31 「촤악 붓고, 반짝!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `Market` |  |  |  |
+| p3 | `NoodleBoat/뱃바닥` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` ↑ |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` ↑ |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 32 「연기 오르면, 쭉쭉!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` ↑ |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat/뱃바닥` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 33 「바구니에 쏙, 배가 넓어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat/뱃바닥` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `Market` |  |  |  |
+| p4 | `NoodleBoat/뱃바닥` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` ↑ |  |  |  |
+| p7 | `NoodleBoat/뱃바닥` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 34 「뿔 쏙, 팔 쏙!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` ↑ |  |  |  |
+| p3 | `NoodleBoat/뱃바닥` |  |  |  |
+| p4 | `Market` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` ↑ |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` ↑ |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 35 「앉아서 먹으면, 안 쏟아!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `GrandpaBoat` |  |  |  |
+| p2 | `GrandpaBoat` |  |  |  |
+| p3 | `Market` |  |  |  |
+| p4 | `GrandpaBoat/뱃바닥` |  |  |  |
+| p5 | `GrandpaBoat/뱃바닥` |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `GrandpaBoat` |  |  |  |
+| p8 | `GrandpaBoat/뱃바닥` |  |  |  |
+| p9 | `Market` |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 36 「물결 지나가면, 건너!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `GrandpaBoat` |  |  |  |
+| p2 | `GrandpaBoat` |  |  |  |
+| p3 | `Market` |  |  |  |
+| p4 | `Market` |  |  |  |
+| p5 | `GrandpaBoat` |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `Market` |  |  |  |
+| p8 | `OtherBoat` |  |  |  |
+| p9 | `OtherBoat` |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 37 「안 보이면, 기둥 앞에!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `PlankWalk` |  |  |  |
+| p2 | `PlankWalk` |  |  |  |
+| p3 | `PlankWalk` |  |  |  |
+| p4 | `PlankWalk` |  |  |  |
+| p5 | `PlankWalk` |  |  |  |
+| p6 | `PlankWalk` |  |  |  |
+| p7 | `PlankWalk` |  |  |  |
+| p8 | `PlankWalk` |  |  |  |
+| p9 | `PlankWalk` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 38 「떠온 열매는 안 먹어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `GrandpaBoat` |  |  |  |
+| p2 | `GrandpaBoat/뱃바닥` |  |  |  |
+| p3 | `GrandpaBoat` |  |  |  |
+| p4 | `GrandpaBoat` |  |  |  |
+| p5 | `GrandpaBoat/뱃바닥` |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `Market` |  |  |  |
+| p8 | `Market` |  |  |  |
+| p9 | `GrandpaBoat` |  |  |  |
+| p10 | `Channel` |  |  |  |
+
+## 39 「바람 불면, 한가운데!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat/뱃머리` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat/뱃바닥` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 40 「작은 뿔도 붕이 뿔!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `GrandpaBoat` |  |  |  |
+| p2 | `GrandpaBoat` |  |  |  |
+| p3 | `GrandpaBoat/뱃바닥` |  |  |  |
+| p4 | `GrandpaBoat` |  |  |  |
+| p5 | `GrandpaBoat` |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `GrandpaBoat` |  |  |  |
+| p8 | `PlankWalk` |  |  |  |
+| p9 | `PlankWalk` |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 41 「출렁출렁, 엄마 옆!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` ↑ |  |  |  |
+| p3 | `NoodleBoat` ↑ |  |  |  |
+| p4 | `NoodleBoat` ↑ |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` ↑ |  |  |  |
+| p7 | `NoodleBoat` ↑ |  |  |  |
+| p8 | `NoodleBoat` ↑ |  |  |  |
+| p9 | `NoodleBoat` ↑ |  |  |  |
+| p10 | `NoodleBoat` ↑ |  |  |  |
+
+## 42 「뜨거우면 후~, 화나도 후~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` ↑ |  |  |  |
+| p3 | `NoodleBoat` ↑ |  |  |  |
+| p4 | `NoodleBoat` ↑ |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` ↑ |  |  |  |
+| p7 | `NoodleBoat` ↑ |  |  |  |
+| p8 | `NoodleBoat` ↑ |  |  |  |
+| p9 | `NoodleBoat` ↑ |  |  |  |
+| p10 | `NoodleBoat` ↑ |  |  |  |
+
+## 43 「손 들고, 한 마디!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` ↑ |  |  |  |
+| p3 | `NoodleBoat` ↑ |  |  |  |
+| p4 | `Market` |  |  |  |
+| p5 | `Market` ↑ |  |  |  |
+| p6 | `Market` ↑ |  |  |  |
+| p7 | `Market` |  |  |  |
+| p8 | `Market` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` ↑ |  |  |  |
+
+## 44 「그물 뭉쳐도, 또!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `GrandpaBoat` |  |  |  |
+| p2 | `GrandpaBoat` ↑ |  |  |  |
+| p3 | `GrandpaBoat` |  |  |  |
+| p4 | `GrandpaBoat` ↑ |  |  |  |
+| p5 | `GrandpaBoat` ↑ |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `GrandpaBoat` ↑ |  |  |  |
+| p8 | `GrandpaBoat` |  |  |  |
+| p9 | `GrandpaBoat` ↑ |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 45 「미안해요, 같이 주울게요!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `GrandpaBoat` |  |  |  |
+| p2 | `GrandpaBoat` ↑ |  |  |  |
+| p3 | `GrandpaBoat` ↑ |  |  |  |
+| p4 | `GrandpaBoat` |  |  |  |
+| p5 | `GrandpaBoat` ↑ |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `GrandpaBoat` ↑ |  |  |  |
+| p8 | `GrandpaBoat` ↑ |  |  |  |
+| p9 | `GrandpaBoat` ↑ |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 46 「배도 차례차례!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Market` |  |  |  |
+| p2 | `GrandpaBoat` |  |  |  |
+| p3 | `GrandpaBoat` |  |  |  |
+| p4 | `Market` |  |  |  |
+| p5 | `GrandpaBoat` |  |  |  |
+| p6 | `GrandpaBoat` |  |  |  |
+| p7 | `Market` |  |  |  |
+| p8 | `Market` |  |  |  |
+| p9 | `Market` |  |  |  |
+| p10 | `GrandpaBoat` |  |  |  |
+
+## 47 「배가 오면, 안녕하세요!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `OtherBoat` |  |  |  |
+| p4 | `OtherBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `OtherBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 48 「셋이 당기면, 스르륵!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `PlankWalk` |  |  |  |
+| p2 | `PlankWalk` |  |  |  |
+| p3 | `PlankWalk` |  |  |  |
+| p4 | `PlankWalk` |  |  |  |
+| p5 | `PlankWalk` |  |  |  |
+| p6 | `PlankWalk` |  |  |  |
+| p7 | `PlankWalk` |  |  |  |
+| p8 | `PlankWalk` |  |  |  |
+| p9 | `PlankWalk` |  |  |  |
+| p10 | `PlankWalk` |  |  |  |
+
+## 49 「엄마 옆은 붕이 자리!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |
+
+## 50 「아기 손은 살살!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `NoodleBoat` |  |  |  |
+| p2 | `NoodleBoat` |  |  |  |
+| p3 | `NoodleBoat` |  |  |  |
+| p4 | `NoodleBoat` |  |  |  |
+| p5 | `NoodleBoat` |  |  |  |
+| p6 | `NoodleBoat` |  |  |  |
+| p7 | `NoodleBoat` |  |  |  |
+| p8 | `NoodleBoat` |  |  |  |
+| p9 | `NoodleBoat` |  |  |  |
+| p10 | `NoodleBoat` |  |  |  |

@@ -1,4 +1,4 @@
-# lulu — 권별 경로표 (25권)
+# lulu — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton lulu`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -590,3 +590,378 @@ p10 에서 등 뒤 그늘로 다시 나온다.
 반대로 04·09·20·23 은 **거리·높이**인데, 이것도 「사이의 빈 자리」라 결국 같은 자를 쓴다.
 앵커의 상한(알 12 · 접시 8 · 빵 8 · 자루 5 · 리본 5)이 그대로 **계기의 천장**이 되는 권이
 07·12·17·25 넷이다 — 상한에 닿는 쪽이 곧 그 권의 꼭대기다.
+
+## 26 「접시 한 바퀴, 다 냠냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Road` |  |  |  |
+| p4 | `Kitchen` |  |  |  |
+| p5 | `Kitchen` ↑ |  |  |  |
+| p6 | `Kitchen` ↑ |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `Kitchen` |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` ↑ |  |  |  |
+
+## 27 「쓱싹쓱싹, 이가 하얘!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Attic` |  |  |  |
+| p3 | `Attic` ↑ |  |  |  |
+| p4 | `Kitchen` |  |  |  |
+| p5 | `Kitchen` ↑ |  |  |  |
+| p6 | `Kitchen` ↑ |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `Kitchen` ↑ |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` ↑ |  |  |  |
+
+## 28 「우물물 콸콸, 손 뽀득!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` ↑ |  |  |  |
+| p3 | `FarmYard` |  |  |  |
+| p4 | `FarmYard` |  |  |  |
+| p5 | `FarmYard` ↑ |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `FarmYard` ↑ |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `FarmYard` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 29 「톡톡 열 번, 꼭꼭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Kitchen` ↑ |  |  |  |
+| p4 | `Kitchen` ↑ |  |  |  |
+| p5 | `Kitchen` |  |  |  |
+| p6 | `Kitchen` |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `Kitchen` ↑ |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` ↑ |  |  |  |
+
+## 30 「거품 모자 쓰고, 첨벙!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` |  |  |  |
+| p3 | `FarmYard` ↑ |  |  |  |
+| p4 | `FarmYard` |  |  |  |
+| p5 | `FarmYard` |  |  |  |
+| p6 | `FarmYard` ↑ |  |  |  |
+| p7 | `FarmYard` ↑ |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `FarmYard` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 31 「덧문 닫으면, 코~」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` ↑ |  |  |  |
+| p3 | `Attic` ↑ |  |  |  |
+| p4 | `Attic` |  |  |  |
+| p5 | `Attic` ↑ |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `Attic` ↑ |  |  |  |
+| p9 | `Attic` ↑ |  |  |  |
+| p10 | `Attic` ↑ |  |  |  |
+
+## 32 「덧문 열고, 햇빛 한 줌!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` ↑ |  |  |  |
+| p3 | `Attic` ↑ |  |  |  |
+| p4 | `Attic` ↑ |  |  |  |
+| p5 | `Attic` ↑ |  |  |  |
+| p6 | `Attic` |  |  |  |
+| p7 | `Attic` ↑ |  |  |  |
+| p8 | `Grove` |  |  |  |
+| p9 | `Attic` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 33 「상자에 쏙, 햇빛 네모!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` ↑ |  |  |  |
+| p3 | `Attic` ↑ |  |  |  |
+| p4 | `Attic` |  |  |  |
+| p5 | `Attic` ↑ |  |  |  |
+| p6 | `Attic` ↑ |  |  |  |
+| p7 | `Attic` ↑ |  |  |  |
+| p8 | `Attic` ↑ |  |  |  |
+| p9 | `Attic` ↑ |  |  |  |
+| p10 | `Attic` ↑ |  |  |  |
+
+## 34 「내 의자에 앉아야, 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Kitchen` ↑ |  |  |  |
+| p4 | `Kitchen` |  |  |  |
+| p5 | `Kitchen` ↑ |  |  |  |
+| p6 | `Kitchen` ↑ |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `Kitchen` ↑ |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` ↑ |  |  |  |
+
+## 35 「큰아버지 먼저, 그다음 나!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Kitchen` ↑ |  |  |  |
+| p4 | `Kitchen` |  |  |  |
+| p5 | `Kitchen` |  |  |  |
+| p6 | `Kitchen` ↑ |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `Kitchen` ↑ |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` ↑ |  |  |  |
+
+## 36 「귀 쫑긋 세우고, 건너!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `VillageRoad` |  |  |  |
+| p2 | `VillageRoad` |  |  |  |
+| p3 | `VillageRoad` |  |  |  |
+| p4 | `VillageRoad` |  |  |  |
+| p5 | `VillageRoad` |  |  |  |
+| p6 | `VillageRoad` |  |  |  |
+| p7 | `VillageRoad` |  |  |  |
+| p8 | `VillageRoad` |  |  |  |
+| p9 | `VillageRoad` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 37 「엄마한테 물어보고, 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Grove` |  |  |  |
+| p2 | `Grove` |  |  |  |
+| p3 | `Grove` |  |  |  |
+| p4 | `Grove` |  |  |  |
+| p5 | `Grove` |  |  |  |
+| p6 | `Grove` |  |  |  |
+| p7 | `Grove` |  |  |  |
+| p8 | `Grove` |  |  |  |
+| p9 | `Grove` |  |  |  |
+| p10 | `Road` |  |  |  |
+
+## 38 「우르릉 하면, 집 안으로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Grove` |  |  |  |
+| p2 | `Grove` |  |  |  |
+| p3 | `Grove` |  |  |  |
+| p4 | `Road` |  |  |  |
+| p5 | `Kitchen` |  |  |  |
+| p6 | `Kitchen` |  |  |  |
+| p7 | `Kitchen` |  |  |  |
+| p8 | `Kitchen` |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` |  |  |  |
+
+## 39 「언덕길은 또박또박!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Road` |  |  |  |
+| p2 | `Road` |  |  |  |
+| p3 | `Road` |  |  |  |
+| p4 | `Road` |  |  |  |
+| p5 | `Road` |  |  |  |
+| p6 | `Road` |  |  |  |
+| p7 | `Road` |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `Road` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 40 「작아서 쏙, 룰루니까!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` |  |  |  |
+| p3 | `Kitchen` |  |  |  |
+| p4 | `Kitchen` |  |  |  |
+| p5 | `Kitchen` |  |  |  |
+| p6 | `Kitchen` |  |  |  |
+| p7 | `Kitchen` |  |  |  |
+| p8 | `Kitchen` |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` |  |  |  |
+
+## 41 「깜깜해도, 방울 딸랑!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Attic` |  |  |  |
+| p2 | `Attic` |  |  |  |
+| p3 | `Attic` |  |  |  |
+| p4 | `Attic` |  |  |  |
+| p5 | `Attic` |  |  |  |
+| p6 | `Attic` |  |  |  |
+| p7 | `Attic` |  |  |  |
+| p8 | `Attic` |  |  |  |
+| p9 | `Attic` |  |  |  |
+| p10 | `Attic` |  |  |  |
+
+## 42 「귀 내려가면, 후~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` |  |  |  |
+| p3 | `FarmYard` |  |  |  |
+| p4 | `FarmYard` |  |  |  |
+| p5 | `FarmYard` |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `FarmYard` |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `FarmYard` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 43 「울어도 돼, 앞치마에 쓱!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` |  |  |  |
+| p3 | `FarmYard` |  |  |  |
+| p4 | `FarmYard` |  |  |  |
+| p5 | `FarmYard` |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `FarmYard` |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` |  |  |  |
+
+## 44 「한 번 더, 꼬옥!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` |  |  |  |
+| p3 | `FarmYard` |  |  |  |
+| p4 | `FarmYard` |  |  |  |
+| p5 | `FarmYard` |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `FarmYard` |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `FarmYard` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 45 「열 번 딸랑, 다음 차례!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` |  |  |  |
+| p3 | `FarmYard` |  |  |  |
+| p4 | `FarmYard` |  |  |  |
+| p5 | `FarmYard` |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `FarmYard` |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `FarmYard` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 46 「쪼개면 둘, 다 같이 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Kitchen` ↑ |  |  |  |
+| p4 | `Kitchen` ↑ |  |  |  |
+| p5 | `Kitchen` |  |  |  |
+| p6 | `Kitchen` ↑ |  |  |  |
+| p7 | `FarmYard` |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` |  |  |  |
+
+## 47 「밀지 말고, 말해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `FarmYard` |  |  |  |
+| p2 | `FarmYard` ↑ |  |  |  |
+| p3 | `FarmYard` |  |  |  |
+| p4 | `FarmYard` ↑ |  |  |  |
+| p5 | `FarmYard` ↑ |  |  |  |
+| p6 | `FarmYard` |  |  |  |
+| p7 | `FarmYard` ↑ |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `FarmYard` |  |  |  |
+| p10 | `FarmYard` |  |  |  |
+
+## 48 「방울 소리만큼만!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Kitchen` ↑ |  |  |  |
+| p4 | `Kitchen` ↑ |  |  |  |
+| p5 | `Kitchen` |  |  |  |
+| p6 | `Kitchen` ↑ |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `FarmYard` |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` |  |  |  |
+
+## 49 「아기는 살살, 깃털처럼!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kitchen` |  |  |  |
+| p2 | `Kitchen` ↑ |  |  |  |
+| p3 | `Kitchen` ↑ |  |  |  |
+| p4 | `Kitchen` |  |  |  |
+| p5 | `Kitchen` ↑ |  |  |  |
+| p6 | `Kitchen` |  |  |  |
+| p7 | `Kitchen` ↑ |  |  |  |
+| p8 | `Kitchen` ↑ |  |  |  |
+| p9 | `Kitchen` |  |  |  |
+| p10 | `Kitchen` |  |  |  |
+
+## 50 「창밖에 우리 언덕!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kindergarten` |  |  |  |
+| p2 | `Kindergarten` ↑ |  |  |  |
+| p3 | `Kindergarten` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Kindergarten` ↑ |  |  |  |
+| p7 | `Kindergarten` ↑ |  |  |  |
+| p8 | `Kindergarten` |  |  |  |
+| p9 | `Kindergarten` |  |  |  |
+| p10 | `Road` |  |  |  |

@@ -1,4 +1,4 @@
-# dingding — 권별 경로표 (25권)
+# dingding — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton dingding`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -212,7 +212,7 @@
 | p1 | `Terraces` | B · 바구니 위 크롭 | 위쪽 잎이 전부 곧다 (밑은 화면 밖) | 논둑 위에 놓여 있다 |
 | p2 | `Terraces` ↑ | B · 바구니 밑 크롭 | 위는 곧고 밑은 누웠다 — 한 화면에 | 한쪽이 들린다 |
 | p3 | `Terraces` ↑ | B | 🔴 위쪽만 보인다 — 밑이 화면에 없다 | 그대로 (어른 눈높이) |
-| p4 | `Terraces/B · 칸 1` | B · 칸 1 | — | 논둑에 툭 놓인다 |
+| p4 | `Terraces/B` | B · 칸 1 | — | 논둑에 툭 놓인다 |
 | p5 | `Terraces` | D · 딩딩 논 | 심은 줄 하나 — 잎이 다 누웠다 | — (논 안) |
 | p6 | `Terraces` ↑ | D · 물낯 크롭 | 누운 잎 다섯 (안 움직인다) | — |
 | p7 | `Terraces` | D · 논 안에서 논둑을 올려다본다 | 어른은 위쪽 / 아이 손끝은 누운 줄 | 논둑 위 그 자리 |
@@ -225,7 +225,7 @@
 | 쪽 | 자리 | SPOT | 🔴 벼 줄 다섯의 상태 | 이어짐 · 뽑힌 것 무더기 |
 |---|---|---|---|---|
 | p1 | `Terraces` | D · 딩딩 논 (위에서 곧게) | 곧은 줄 다섯 · 줄 밖 풀 여섯 | — (아직 없다) |
-| p2 | `Terraces/D · 칸 1` | D · 칸 1 | 곧은 줄 둘 (뒤로) | — |
+| p2 | `Terraces/D` | D · 칸 1 | 곧은 줄 둘 (뒤로) | — |
 | p3 | `Terraces` | D · 논 안 (물 높이) | 줄 둘 + 줄 안팎에 섞인 풀 | — |
 | p4 | `Terraces` ↑ | D · 손 크롭 | 🔴 줄 안 한 자리가 빈다 | 옆에 놓인 무더기 |
 | p5 | `Terraces` | D · 무더기 크롭 | — | 일곱이 뒤엉켰다 — 그중 둘은 벼다 |
@@ -368,7 +368,7 @@
 | p2 | `Terraces` | B · 마당 옆 논둑 흙 크롭 | 열둘이 한 줄로 위로 + 개미집 앞에 뭉친 여럿 | — (논둑) |
 | p3 | `Yard` | 마당 (로우) | — (딩딩이 논둑 쪽을 가리킨다) | 널린 벼 줄 |
 | p4 | `Yard` ↑ | 마당 · 하늘 (로우) | — | — (하늘만) |
-| p5 | `Terraces/B · 칸 1` | B · 칸 1 · 논둑 | 앞 쪽보다 길게 화면 밖까지 + 개미집 앞이 더 뭉쳤다 | — (논둑) |
+| p5 | `Terraces/B` | B · 칸 1 · 논둑 | 앞 쪽보다 길게 화면 밖까지 + 개미집 앞이 더 뭉쳤다 | — (논둑) |
 | p6 | `Yard` | 마당 가장자리 (낮게, 하늘 정면) | — | 널린 벼 줄 + 바람에 눕는 마당가 풀 |
 | p7 | `Yard` | 마당가 그늘 | — | 뒤로 널린 벼 마당 |
 | p8 | `Yard` | 마당 (위에서 비스듬히) | — | 반쯤 걷혔다 — 걷힌 쪽은 맨바닥 |
@@ -583,3 +583,378 @@
 그런데 **02 권은 열 쪽 어디에도 절대 번호가 없다**(「위쪽 논 한 칸」·「아래 칸」뿐).
 목록으로 관리하면 이렇게 샌다 — §3 이 「쪽 목록은 폐기했다」고 적어 놓고 목록을 하나 더 만든 셈이다.
 **규칙으로 쓰는 편이 낫다: 「SCENE 이 절대 번호를 안 주면 칸은 비우고 `E` 로 찍는다.」**
+
+## 26 「밥그릇 한 바퀴, 냠냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` ↑ |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` ↑ |  |  |  |
+| p6 | `Terraces` ↑ |  |  |  |
+| p7 | `Terraces` ↑ |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 27 「쓱싹쓱싹, 밥풀 안녕!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 28 「흙 손은 물에 쓱쓱!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Yard` |  |  |  |
+| p2 | `Yard` ↑ |  |  |  |
+| p3 | `Yard` ↑ |  |  |  |
+| p4 | `Yard` ↑ |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Yard` |  |  |  |
+| p7 | `Yard` ↑ |  |  |  |
+| p8 | `Yard` ↑ |  |  |  |
+| p9 | `Yard` |  |  |  |
+| p10 | `Yard` ↑ |  |  |  |
+
+## 29 「한 술에 꼭꼭 열 번!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `House` ↑ |  |  |  |
+| p5 | `House` ↑ |  |  |  |
+| p6 | `House` ↑ |  |  |  |
+| p7 | `House` ↑ |  |  |  |
+| p8 | `House` ↑ |  |  |  |
+| p9 | `House` ↑ |  |  |  |
+| p10 | `House` ↑ |  |  |  |
+
+## 30 「오리처럼 첨벙첨벙!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Yard` |  |  |  |
+| p2 | `House` |  |  |  |
+| p3 | `House` ↑ |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Yard` |  |  |  |
+| p8 | `Yard` ↑ |  |  |  |
+| p9 | `Yard` |  |  |  |
+| p10 | `Yard` |  |  |  |
+
+## 31 「오리도 집에 갔으니, 코~!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Yard` |  |  |  |
+| p2 | `House` |  |  |  |
+| p3 | `Yard` |  |  |  |
+| p4 | `Yard` |  |  |  |
+| p5 | `Yard` |  |  |  |
+| p6 | `House` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `House` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 32 「오리 꽥꽥, 딩딩 쭉쭉!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` |  |  |  |
+| p3 | `House` |  |  |  |
+| p4 | `House` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Yard` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 33 「쓰고 나면 걸이에 척!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Yard` |  |  |  |
+| p2 | `Yard` |  |  |  |
+| p3 | `Yard` |  |  |  |
+| p4 | `Yard` |  |  |  |
+| p5 | `House` |  |  |  |
+| p6 | `Yard` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `Yard` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 34 「모자 쓰고, 물통 들고, 출발!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 35 「엉덩이는 돌 위에, 밥은 앉아서!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 36 「주사 콕, 딩딩 튼튼!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` ↑ |  |  |  |
+| p3 | `Village` |  |  |  |
+| p4 | `Village` |  |  |  |
+| p5 | `Village` |  |  |  |
+| p6 | `Village` |  |  |  |
+| p7 | `Village` |  |  |  |
+| p8 | `Village` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 37 「할머니가 안 준 건, 안 먹어!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` ↑ |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` ↑ |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` ↑ |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 38 「우르릉 하면, 집으로!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `House` |  |  |  |
+| p6 | `House` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `House` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 39 「좁은 길은 한 발, 한 발!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 40 「오리는 오리, 딩딩은 딩딩!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 41 「후~ 불면, 물도 잔잔!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 42 「울어도 돼, 할머니 무릎!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Yard` |  |  |  |
+| p5 | `House` |  |  |  |
+| p6 | `House` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `House` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `House` |  |  |  |
+
+## 43 「쓰러지면, 다시 꽂기!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 44 「기다릴 땐, 빗방울 세기!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `House` |  |  |  |
+| p2 | `House` |  |  |  |
+| p3 | `House` |  |  |  |
+| p4 | `House` |  |  |  |
+| p5 | `House` |  |  |  |
+| p6 | `House` |  |  |  |
+| p7 | `House` |  |  |  |
+| p8 | `House` |  |  |  |
+| p9 | `House` |  |  |  |
+| p10 | `Yard` |  |  |  |
+
+## 45 「반 뚝, 같이 냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 46 「밀지 말고, 말해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` ↑ |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` ↑ |  |  |  |
+| p5 | `Terraces` ↑ |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` ↑ |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |
+
+## 47 「셋이 들면, 번쩍!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` ↑ |  |  |  |
+| p3 | `Terraces` ↑ |  |  |  |
+| p4 | `Terraces/E` |  |  |  |
+| p5 | `Terraces/E` ↑ |  |  |  |
+| p6 | `Terraces/E` ↑ |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` ↑ |  |  |  |
+| p9 | `Yard` |  |  |  |
+| p10 | `Yard` |  |  |  |
+
+## 48 「작은 소리로, 오리가 와!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Village` |  |  |  |
+
+## 49 「아기 오리는 두 손으로, 살살!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Village` |  |  |  |
+| p2 | `Village` ↑ |  |  |  |
+| p3 | `Village` |  |  |  |
+| p4 | `Village` ↑ |  |  |  |
+| p5 | `Village` ↑ |  |  |  |
+| p6 | `Village` ↑ |  |  |  |
+| p7 | `Village` ↑ |  |  |  |
+| p8 | `Village` |  |  |  |
+| p9 | `Village` |  |  |  |
+| p10 | `Village` |  |  |  |
+
+## 50 「한 줄 같이 꽂으면, 친구!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Terraces/E` |  |  |  |
+| p2 | `Terraces` |  |  |  |
+| p3 | `Terraces` |  |  |  |
+| p4 | `Terraces` |  |  |  |
+| p5 | `Terraces` |  |  |  |
+| p6 | `Terraces` |  |  |  |
+| p7 | `Terraces` |  |  |  |
+| p8 | `Terraces` |  |  |  |
+| p9 | `Terraces` |  |  |  |
+| p10 | `Terraces` |  |  |  |

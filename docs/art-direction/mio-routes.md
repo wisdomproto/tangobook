@@ -1,4 +1,4 @@
-# mio — 권별 경로표 (25권)
+# mio — 권별 경로표 (50권)
 
 > 🔴 **자리 칸은 생성된 것이다.** `node packages/client/scripts/build-series-routes.mjs --skeleton mio`
 > 가 SCENE 의 무대 토큰에서 뽑아 쓴다 — 손으로 고치지 마라. 자리가 틀렸으면 고칠 곳은 SCENE 이다.
@@ -576,3 +576,378 @@ A(방 전체) · B(책상) · C(창턱) · D(블록 코너) **밖**에서 벌어
 01 p1↔p7 · 06 p6↔p1 · 21 p1↔p6 · 24 p1↔p6↔p10. SCENE 이 「p1 과 같은 부감」이라고 **직접 못박았고**,
 같은 각도라야 비교가 성립한다(흩어진 폭 · 덮인 낙엽 · 눈 면). 🔴 **좌우 반전 쌍은 한 곳도 없다** —
 앵커의 `Nothing in a repeat is a mirrored copy of its neighbour` 를 어기는 쪽이 250쪽에 없다.
+
+## 26 「한 손은 아기, 한 손은 미오!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kindergarten` |  |  |  |
+| p2 | `Kindergarten` ↑ |  |  |  |
+| p3 | `Kindergarten` ↑ |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` ↑ |  |  |  |
+| p6 | `Kindergarten` |  |  |  |
+| p7 | `Kindergarten` ↑ |  |  |  |
+| p8 | `Kindergarten` ↑ |  |  |  |
+| p9 | `Kindergarten` ↑ |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 27 「손부터 씻고, 빵은 그다음!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` ↑ |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 28 「할머니 무릎에, 폭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` ↑ |  |  |  |
+| p5 | `Classroom` ↑ |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` ↑ |  |  |  |
+| p8 | `Classroom` ↑ |  |  |  |
+| p9 | `Classroom` ↑ |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 29 「고운 말 하면, 웃는 입!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` ↑ |  |  |  |
+| p5 | `Classroom` ↑ |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` ↑ |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` ↑ |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 30 「단추는 맨 위부터, 하나씩!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 31 「모자 톡, 물통 톡, 출발!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `River` |  |  |  |
+| p4 | `Shingle` |  |  |  |
+| p5 | `River` |  |  |  |
+| p6 | `River` |  |  |  |
+| p7 | `River` |  |  |  |
+| p8 | `River` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Shingle` |  |  |  |
+
+## 32 「발은 천천히, 눈은 앞에!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kindergarten` |  |  |  |
+| p2 | `Kindergarten` |  |  |  |
+| p3 | `Kindergarten` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Kindergarten` |  |  |  |
+| p7 | `Kindergarten` |  |  |  |
+| p8 | `Kindergarten` |  |  |  |
+| p9 | `Kindergarten` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 33 「접시에 색 다섯, 냠냠!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Kindergarten` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 34 「모르는 열매, 선생님한테 먼저!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Shingle` |  |  |  |
+| p2 | `Shingle` |  |  |  |
+| p3 | `Shingle` |  |  |  |
+| p4 | `Shingle` |  |  |  |
+| p5 | `Shingle` |  |  |  |
+| p6 | `Shingle` |  |  |  |
+| p7 | `River` |  |  |  |
+| p8 | `Shingle` |  |  |  |
+| p9 | `Shingle` |  |  |  |
+| p10 | `Shingle` |  |  |  |
+
+## 35 「밥은 의자에서, 끝까지!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 36 「안 보이면 멈춰서, 선생님!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `River` |  |  |  |
+| p2 | `River` |  |  |  |
+| p3 | `River` |  |  |  |
+| p4 | `River` |  |  |  |
+| p5 | `River` |  |  |  |
+| p6 | `River` |  |  |  |
+| p7 | `River` |  |  |  |
+| p8 | `River` |  |  |  |
+| p9 | `River` |  |  |  |
+| p10 | `River` |  |  |  |
+
+## 37 「한 접시만, 점심 자리 남겨!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 38 「쉬 마려우면, 바로 가!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 39 「한 입에 열 번, 꼭꼭!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Kindergarten` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 40 「발 멈춰, 고개 돌려, 손 들고!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `VillageRoad` |  |  |  |
+| p2 | `VillageRoad` |  |  |  |
+| p3 | `VillageRoad` |  |  |  |
+| p4 | `VillageRoad` |  |  |  |
+| p5 | `VillageRoad` |  |  |  |
+| p6 | `VillageRoad` |  |  |  |
+| p7 | `VillageRoad` |  |  |  |
+| p8 | `VillageRoad` |  |  |  |
+| p9 | `VillageRoad` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 41 「아프면 울어도 돼, 그다음 다시!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `TreeHouse` |  |  |  |
+| p2 | `TreeHouse` |  |  |  |
+| p3 | `TreeHouse` |  |  |  |
+| p4 | `TreeHouse` |  |  |  |
+| p5 | `TreeHouse` |  |  |  |
+| p6 | `TreeHouse` |  |  |  |
+| p7 | `TreeHouse` |  |  |  |
+| p8 | `TreeHouse` |  |  |  |
+| p9 | `TreeHouse` |  |  |  |
+| p10 | `TreeHouse` |  |  |  |
+
+## 42 「밀지 말고, 말로 해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 43 「한 소절씩, 조금 크게!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 44 「부쉈으면, 미안해!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kindergarten` |  |  |  |
+| p2 | `Kindergarten` |  |  |  |
+| p3 | `Kindergarten` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Kindergarten` |  |  |  |
+| p7 | `Kindergarten` |  |  |  |
+| p8 | `Kindergarten` |  |  |  |
+| p9 | `Kindergarten` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
+
+## 45 「위, 아래, 안쪽까지!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` |  |  |  |
+| p3 | `Kindergarten` |  |  |  |
+| p4 | `Kindergarten` |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` |  |  |  |
+| p7 | `Classroom` |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 46 「커튼 걷히면, 쭉쭉!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` ↑ |  |  |  |
+| p4 | `Classroom` ↑ |  |  |  |
+| p5 | `Classroom` |  |  |  |
+| p6 | `Classroom` ↑ |  |  |  |
+| p7 | `Classroom` ↑ |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 47 「화나면, 후~ 하얀 김!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kindergarten` |  |  |  |
+| p2 | `Kindergarten` ↑ |  |  |  |
+| p3 | `Kindergarten` ↑ |  |  |  |
+| p4 | `Kindergarten` ↑ |  |  |  |
+| p5 | `Kindergarten` ↑ |  |  |  |
+| p6 | `Kindergarten` ↑ |  |  |  |
+| p7 | `Kindergarten` ↑ |  |  |  |
+| p8 | `Kindergarten` ↑ |  |  |  |
+| p9 | `Kindergarten` ↑ |  |  |  |
+| p10 | `Kindergarten` ↑ |  |  |  |
+
+## 48 「커튼 틈에, 빛 한 줄!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` |  |  |  |
+| p4 | `Classroom` ↑ |  |  |  |
+| p5 | `Classroom` ↑ |  |  |  |
+| p6 | `Classroom` ↑ |  |  |  |
+| p7 | `Classroom` ↑ |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` ↑ |  |  |  |
+| p10 | `Classroom` ↑ |  |  |  |
+
+## 49 「넘어져도, 또 돌려!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Classroom` |  |  |  |
+| p2 | `Classroom` ↑ |  |  |  |
+| p3 | `Classroom` ↑ |  |  |  |
+| p4 | `Classroom` ↑ |  |  |  |
+| p5 | `Classroom` ↑ |  |  |  |
+| p6 | `Classroom` ↑ |  |  |  |
+| p7 | `Classroom` ↑ |  |  |  |
+| p8 | `Classroom` |  |  |  |
+| p9 | `Classroom` ↑ |  |  |  |
+| p10 | `Classroom` |  |  |  |
+
+## 50 「문 앞에 멈춰서, 안녕!」
+
+| 쪽 | 자리 | SPOT | 🔴 ? | 이어짐 |
+|---|---|---|---|---|
+| p1 | `Kindergarten` |  |  |  |
+| p2 | `Kindergarten` ↑ |  |  |  |
+| p3 | `Kindergarten` |  |  |  |
+| p4 | `Classroom` |  |  |  |
+| p5 | `Kindergarten` |  |  |  |
+| p6 | `Kindergarten` ↑ |  |  |  |
+| p7 | `Kindergarten` |  |  |  |
+| p8 | `Kindergarten` |  |  |  |
+| p9 | `Classroom` |  |  |  |
+| p10 | `Kindergarten` |  |  |  |
