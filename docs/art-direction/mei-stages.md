@@ -29,15 +29,23 @@
 
 ---
 
-## §1. 자리 시트 — 5장 (후보 13에서 접음)
+## §1. 자리 시트 — 8장 (2026-09-04: 5장 + 세 장 신설)
+
+🔴 **세 장을 새로 썼다.** 앵커에 `BROOK` 조항이 **있는데** 자리 시트가 없어서, 사물 시트 여섯 장
+(`SteppingStones`·`Log`·`Rock`·`Ice`·`Berries`·`StoneWall`)이 **자리 없는 물 위와 길 위에 떠 있었다**
+(§2-A ⑤). `Path` 없이는 20권 첫 쪽이 아예 성립하지 않는다 — 그 권은 **짧은 길과 먼 길이 같은 지붕에서
+만나는 한 화면**이 전부다. 검사 = `node packages/client/scripts/check-stage-tokens.mjs mei` → **0**.
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
-| `Piazza` | 마을 광장 · 광장 · 무대 위와 광장 · 계단 · 무대 옆 계단 · 계단 첫 칸 · 화덕 앞 | 광장에 무대·계단·화덕이 다 있다 |
-| `Slope` | 비탈 풀밭 · 비탈 · 마을 뒤 비탈 | 🔴 **썰매 다섯이 좌표** |
-| `Chalet` | 산장 부엌 · 산장 문간 · 탁자 앞 | |
+| `Piazza` | 마을 광장 · 광장 · 무대 위와 광장 · 계단 · 무대 옆 계단 · 계단 첫 칸 · 화덕 앞 · 종탑 밑 | 광장에 무대·계단·화덕·종탑이 다 있다. SPOT `Piazza/A`~`Piazza/E` |
+| `Slope` | 비탈 풀밭 · 비탈 · 마을 뒤 비탈 · 비탈 아래 눈밭 | 🔴 **썰매 다섯이 좌표** |
+| `Chalet` | 산장 부엌 · 산장 문간 · 탁자 앞 · 긴 식탁 · 난로 옆 · 이층 계단 | §1.6 |
 | `Seats` | 메이 자리 · 루디 자리 · 소소 자리 | 🔴 **자리가 아니라 「누구의 자리인가」** · §3 |
-| `Slide` | 미끄럼틀 계단 앞 · 계단 앞 | 15권 |
+| `Slide` | 미끄럼틀 계단 앞 · 계단 앞 | 15권 · §1.6 |
+| 🆕 `Brook` | 개울 · 개울 둑 · 개울 속 바위 · 웅덩이 · 언 개울 · 얼음 위 · 통나무 위 | **38쪽 · 6권**(05·19·26·35·49 + 11). 🔴 최다 · §1.3 |
+| 🆕 `Path` | 산길 · 산길 초입/중턱 · 지름길 · 먼 길 · 갈림길 앞 · 바위 꼭대기 · 소소 집 앞 | **17쪽 · 4권**(04·11·13·20) · §1.4 |
+| 🆕 `Wood` | 숲 어귀 · 숲 안 · 숲 깊은 곳 · 숲속 덤불 앞 · 밤나무 아래 | **13쪽 · 3권**(04·32) · §1.5 |
 
 ### §1.1 Slope — 실제 프롬프트 (가장 먼저)
 
@@ -60,13 +68,26 @@ this series from its neighbour.
   THE SLEDGES - EARTH, one outline each. 🔴 FIVE SLEDGES, and they are the ruler: they are the same
     five all series, told apart by length only - one long, two middling, two short. A page that
     shows sledges shows a numbered set of these five, never a new one.
-  A SINGLE TREE part-way down, trunk CROSS-HATCH, one outline.
+  A SINGLE TREE part-way down, trunk CROSS-HATCH, one outline. 🔴 ITS BOLE IS THICK ENOUGH TO HIDE
+    ONE CROUCHING CHILD - volume 30 shelters under it from rain, and rain through its leaves falls
+    STRAIGHT, one stroke per fall, never slanted and never in a curtain.
   🔴 NOTHING ELSE GETS AN OUTLINE. If a shape needs separating from the slope and it is not on this
   list, separate it by changing the stroke direction, not by drawing round it.
+
+🔴 A CAST SHADOW IS NOT ON THIS SHEET'S NOT LIST. Volume 15 lays one right across this slope and
+  volume 20 reads the hour off its length. It is ONE field of CROSS-HATCH strokes on the ground, flat
+  all the way through, its edge made by the stroke direction changing - never a tone, never a
+  darkening of the slope under it. 🔴 LENGTH IS THE CLOCK: draw a short one and a frame-long one.
 
 TRACKS: a sled track on snow is where the bare paper is left AND the strokes either side run with
   it - never a drawn pair of lines. Before anyone slides, the slope carries no track at all, and
   that emptiness is the first page of one book.
+🔴 THE SAME RULE ON GRASS, and it is not only for snow: a trail of trodden grass is where the MOSS
+  strokes lie DOWN with the walking, with the standing field either side unchanged - never a drawn
+  pair of lines, never thinner or paler grass. 🔴 THE LENGTH OF THE MARK IS THE RULER OF VOLUME 33
+  (one hand's span of flattened grass at the start, the whole slope crossed by the end), and volume 34
+  reads a running-about as a mark that doubles back on itself. Draw a short one and a slope-long one
+  on one panel so the two ends of that range are fixed.
 
 SPOTS:
   A THE WHOLE SLOPE from below, wide: fence across the bottom, tree part-way, peaks above.
@@ -80,7 +101,7 @@ PLATE: A, B, C, D once each, plus 🔴 A FIELD-OR-THING DIAGRAM - the slope draw
 
 NOT: no character of any kind, no accent orange anywhere on this sheet, no lettering or numerals,
   no outline on a field, no blending or smudging, no third pencil, no white pencil, no shading,
-  gradient, glow, cast shadow or soft edge, nothing paler with distance.
+  gradient, glow or soft edge, nothing paler with distance.
 ```
 
 ### §1.2 Piazza — 요약 명세
@@ -89,7 +110,216 @@ NOT: no character of any kind, no accent orange anywhere on this sheet, no lette
 `THINGS` = 무대 널빤지(최대 6) · 계단 난간 · 분수 · 화덕 · 탁자 · 🔴 **종탑**(신설 — 17권이 **10쪽 전부**
 그 밑인데 §1.2 에 탑도 종도 줄도 없었다: 벽은 FIELD(EARTH 세로), **탑 몸통·종·당김줄은 THINGS 라 윤곽 한 줄씩**,
 종은 하나뿐이고 줄은 바닥까지 닿는다).
-`SPOTS` = A 광장 전체 / B 무대 앞 / C 계단 / D 화덕 / 🔴 **E 종탑 밑**(올려다보는 로우앵글, 줄이 화면 세로를 지른다).
+
+🔴 **SPOT 은 토큰까지 적는다** — SCENE 이 `[Piazza/A]`·`[Piazza/E]` 를 찍는데 이 절은 「A 광장 전체」라고만
+써 놨었다. **이름이 다르면 검사기가 그냥 통과한다**(미나에서 실측된 그 결함이 여기 그대로 있었다).
+
+| 토큰 | 자리 | 카메라 |
+|---|---|---|
+| `Piazza/A` | 광장 전체 | 와이드 · 아이레벨. 🔴 다섯 + 군중 한 덩어리가 다 들어가는 폭 |
+| `Piazza/B` | 무대 앞 | 미디엄 · 로우앵글(무대가 아이 가슴 높이) |
+| `Piazza/C` | 계단 | 미디엄 · 측면(칸이 세어진다) |
+| `Piazza/D` | 화덕 앞 | 미디엄 · 아이레벨 |
+| `Piazza/E` | 종탑 밑 | 로우앵글 · 줄이 화면 세로를 지른다 |
+
+🔴 **사물 시트가 넘긴 조항 셋을 여기에 얹는다**(§2-A 「자리 시트에 넘긴 것」).
+
+1. **무대는 널빤지만이 아니다**(08권 10쪽) — 무대 뒤에 건 천 한 장 · 무대 앞 긴 의자 줄 · **무대 옆 계단
+   세 칸**. 셋 다 THINGS 라 윤곽 한 줄씩이고, 계단은 세 칸에서 늘거나 줄지 않는다.
+2. 🔴 **광장에 두 상태가 있고 17권은 그 둘을 같은 각도로 견준다** — ①**빈 돌바닥**(탁자도 천도 깃발도
+   없다, 바닥 반복 마크가 화면의 전부) ②**장날**(긴 탁자 · 건 천 · 늘어놓은 그릇 · 좌판 지붕 넷).
+   40권은 ②만 쓴다. **두 상태를 한 판에 같은 크기·같은 각도로** 그려 겹쳐 볼 수 있게 한다.
+3. 🔴 **광장에도 그림자가 눕는다**(03권 p6 「광장을 가로질러 길게 누운 그림자」) — 앵커가 이제 그것을
+   **CROSS-HATCH 면 하나**로 정의한다. 톤이 아니라 면이고, **길이가 시계**다.
+4. 🔴 **해가 지붕 선 어디에 걸렸는가가 17권의 시계다**(가려짐 → 반쯤 → 완전히 위). 그러니 이 시트가
+   **지붕 선 높이를 못 박아야** 세 상태가 견줘진다 — 지붕 선은 광장 건너편 벽 위 한 줄이고, 해는 맨 종이
+   원 하나이며 **번지지 않는다**(가장자리는 획 방향이 바뀌는 자리다).
+
+---
+
+### §1.3 Brook — 🔴 이 시리즈 최다 자리인데 시트가 없었다 (38쪽 · 05 · 19 · 26 · 35 · 49 + 11)
+
+> 앵커에 `BROOK` 조항은 **있었다**. 없던 것은 「그 개울이 어떻게 생겼는가」다. 그 사이에 사물 시트 넷이
+> 떠 있었다 — 디딤돌 다섯(05) · 통나무(19·28·46) · 넓은 바위(35·49·50) · 얼음(49).
+> 🔴 **한 개울이다.** 다섯 권이 같은 물을 건너고, 씻고, 앉고, 얼린다. 갈라 두면 05권의 돌과 49권의 얼음이
+> 다른 물에서 일어난 일이 되고, **35권의 웅덩이와 49권의 언 개울이 같은 자리라는 것**이 안 읽힌다.
+
+```
+STAGE SHEET - Brook   (mei-pencilslope · use the anchor's BROOK clause · SCENE token: Brook)
+
+The stream below the village. Six books cross it, wash in it, sit beside it and walk on it frozen -
+and it is one stream, drawn the same way every time.
+
+🔴 FIELDS (no outline anywhere - the edge is where the stroke direction changes):
+  THE WATER - ONE field of MOSS strokes running ACROSS the page with the current, 0 ripples, 0
+    glints, 0 sparkle, never denser or lighter inside itself, and never distorting what stands in it.
+  THE BANKS - EARTH strokes running ALONG the bank, so the change of direction at the water's edge
+    IS the edge. Nothing is drawn round the water.
+  THE SKY - bare PAPER.
+🔴 THINGS ON THE FIELD (harder point, ONE continuous outline each) - and this list is closed:
+  FIVE STEPPING STONES in a line across the water, flat EARTH shapes, told apart by size only, the
+    same five every time (prop sheet §2.4 owns them; this sheet owns that they cross HERE).
+  ONE THICK LOG laid bank to bank, further downstream than the stones, EARTH, its own outline. 🔴 IT
+    IS THE ONLY OTHER WAY OVER, and volume 19 is about there being one way.
+  THE WIDE FLAT ROCK on the near bank beside the pool, EARTH, its top a plain unstroked field.
+  THE POOL - a widening of the same water below the rock, deep enough to stand in to the chest.
+🔴 A THING IN THE WATER IS CROSS-HATCH LYING INSIDE THE MOSS FIELD, hard edge, whole, never mirrored,
+  never wobbled and never reflected. A thing ON the water sits on top with its whole outline showing.
+
+🔴 THE WATER LEVEL IS A RULER AND THE ROCK CARRIES IT. Wet stone is CROSS-HATCH; dry stone is EARTH;
+  the boundary between them is a HARD LINE across the rock's face and it does not move within a page.
+  Volume 35 reads the afternoon off two of those lines one above the other. Never a gradient, never a
+  darkening - the wet line is where one field stops and another begins.
+
+🔴 FROZEN (volume 49) - the same stream with the MOSS field GONE: the ice is bare PAPER from bank to
+  bank and the two pencils draw only what is on it or trapped under it. A thing under the ice is
+  CROSS-HATCH seen whole through bare paper, not blurred and not paler. The banks do not change.
+  🔴 The frozen and unfrozen stream must lay over each other: same width, same bend, same stones.
+
+SPOTS:
+  A ACROSS THE STREAM, wide, eye level: near bank low in frame, water across the middle, far bank and
+    its bushes above. 🔴 Wide enough to hold five children on one bank.
+  B ON THE STONES, medium, low: two or three stones and the water running between them.
+  C THE LOG, wide, from below at water height: the log spanning the frame with the current under it.
+  D THE POOL AND THE ROCK, medium, eye level: the flat rock at one side, the pool below it.
+  E THE WATER, close, high: one field of MOSS and one outlined thing lying in it.
+
+PLATE: A, B, C, D, E once each, plus 🔴 A FIELD-OR-THING DIAGRAM (water/banks marked FIELD with an
+  arrow for stroke direction, stones/log/rock marked THING) and 🔴 ONE PANEL OF THE SAME STRETCH
+  TWICE - flowing and frozen - at one size.
+
+NOT: no character of any kind, no accent orange anywhere on this sheet, no lettering or numerals, no
+  outline round the water, no ripple, glint, sparkle, foam or reflection, no blending or smudging, no
+  third pencil, no white pencil, no shading, gradient, glow or soft edge, nothing paler
+  with distance.
+```
+
+### §1.4 Path — 🔴 20권 첫 쪽이 이 시트 없이는 성립하지 않는다 (17쪽 · 04 · 11 · 13 · 20)
+
+> 20권의 사건은 **짧은 길과 먼 길이 같은 지붕에 닿는 것**이고, 대본이 p1 에 「두 길이 같은 곳에서 만나는
+> 것이 한 화면에서 보여야 **「금방」이 읽힌다**」라고 못 박아 뒀다. 🔴 **그건 카메라 지시가 아니라 지형이다** —
+> 두 길의 관계는 쪽마다 정할 게 아니라 시트가 한 번 정하는 것이고, 안 정하면 열 쪽이 서로 다른 산이 된다.
+> 11권은 같은 길의 위쪽(돌투성이 오르막과 그 끝의 민둥 바위), 04권은 아래쪽 숲 어귀의 갈림길이다.
+
+```
+STAGE SHEET - Path   (mei-pencilslope · use the anchor's PATH clause · SCENE token: Path)
+
+The paths above and behind the village. Four books walk them. One hillside, four places on it, and
+their relative positions are decided here once.
+
+🔴 THE PATH IS BARE PAPER - one strip running through whatever field it crosses, hard edged where the
+  strokes of the ground begin, and it stays bare however far it goes. It does not narrow to a
+  vanishing point, does not fade and does not get paler; it leaves the frame or it stops at a thing.
+🔴 WIDTH IS THE ONLY THING THAT TELLS TWO PATHS APART, and it never varies for effect:
+  THE SHORTCUT - one body wide. It runs STRAIGHT to the chalet roof and is short.
+  THE LONG WAY - twice that. It curves out wide and comes back to THE SAME ROOF.
+  🔴 BOTH ENDS MUST BE VISIBLE IN ONE FRAME (volume 20 p1) - the two paths and the one roof they
+  share. If a reader cannot see that they arrive at the same place, that book has no story.
+FIXED PARTS:
+  THE LOW STONE WALL along the shortcut only - EARTH, one outline, 🔴 its top course at a child's eye
+    height so that what is behind it cannot be seen, and dry grass growing between the top stones.
+    (Prop sheet §2.14 owns the wall's courses; this sheet owns which path it runs beside.)
+  THE CHALET ROOF at the top end of both paths, one EARTH shape with an outline, small.
+  THE STONY STRETCH on the upper path - loose angular stones scattered on the bare paper, at most 9
+    drawn separately, and one of them is the one that gets under a foot.
+  🔴 THE BARE ROCK TOP where the upper path ends - a rounded unstroked hump above the last of the
+    grass, wide enough for FIVE to stand along in a row, with the village roofs far below it. That
+    top is the last page of volume 11 and the path exists to reach it.
+  A HOUSE DOOR AND ITS WALL at the lower path's side (volume 13 stands at Soso's door): one plain
+    EARTH wall with a doorway and a bare stretch of wall beside it where a sledge can lean. It is a
+    THING with an outline; it is NOT the chalet.
+  THE FORK at the wood's edge, where the path splits in two before the trees close in.
+
+🔴 A CAST SHADOW IS NOT ON THIS SHEET'S NOT LIST EITHER, and on this path it is the whole clock of
+  volume 20 - "the sun is lower than yesterday" is read off a shadow that reaches the front of the
+  frame. ONE field of CROSS-HATCH on the bare paper of the path, flat through, hard edged, and its
+  LENGTH is the only thing that changes between the two days. Never a tone, never a soft end.
+
+SPOTS:
+  A THE TWO PATHS, wide, high: both routes and the one roof they share, in one frame.
+  B ON THE PATH, medium, low: bare paper filling the lower frame, the ground field either side.
+  C THE WALL, medium, from the path side: the top course at eye height, dry grass in its joints.
+  D THE ROCK TOP, wide, from behind and above: the hump, the roofs far below.
+  E THE DOOR, medium, eye level: wall, doorway, the leaning place beside it.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE WIDTH PANEL - the shortcut and the long way drawn side by
+  side at the same distance with the same child standing on each, so the two widths are fixed and
+  cannot drift.
+
+NOT: no character of any kind, no accent orange anywhere on this sheet, no lettering or numerals, no
+  outline round the path, no drawn kerb or edging, no signpost, no blending or smudging, no third
+  pencil, no white pencil, no shading, gradient, glow or soft edge, nothing paler with
+  distance.
+```
+
+### §1.5 Wood — 🔴 앵커 `FOREST` 조항이 04권만 덮고 있었다 (13쪽 · 04 · 32)
+
+> `FOREST` 는 **줄기·간격·길**을 정하는데 그 조항이 「(volume 04)」로 잠겨 있어서 **32권 숲속 덤불 여섯 쪽이
+> 통째로 조항 밖**이었다(§2-A ③ · 앵커에서 조건으로 고쳤다). 두 권은 같은 숲의 다른 깊이다 —
+> 04권은 **깊이 들어갈수록 촘촘해지는 것**이 사건이고, 32권은 **덤불 잎 두 장의 가장자리 차이**가 사건이다.
+
+```
+STAGE SHEET - Wood   (mei-pencilslope · use the anchor's FOREST clause · SCENE token: Wood)
+
+The wood above the village. Two books go in - one to look for chestnuts and get lost, one to pick
+berries that are not all the same berry.
+
+🔴 FIELDS: the shade between the trunks is ONE horizontal field of MOSS behind everything, never
+  denser or lighter inside itself. The ground is a field of EARTH. The sky is bare PAPER and it is
+  seen only in gaps.
+🔴 THINGS: EARTH draws the trunks, ONE FLAT STROKE PER TRUNK, at most 9 in a frame, ALL VERTICAL,
+  each with its own outline. 🔴 DEEPER IN, THE TRUNKS STAND CLOSER TOGETHER AND NEVER DARKER - that
+  spacing is the only depth this wood has, and it is the whole of volume 04. Draw the same stand of
+  trees at three spacings so "further in" can be shown without a single tone change.
+FIXED PARTS:
+  THE EDGE where the wood begins - a hard line of trunks with the open hillside behind, the path
+    entering between two of them.
+  THE PATH, bare PAPER, narrowing to one body's width inside and 🔴 FORKING TWICE: once at the edge
+    and once deep in. The two forks look the same and that is why volume 04 goes wrong.
+  ONE BIG ROCK deep in the wood, EARTH with an outline, knee high, sat on and walked past twice.
+  THE CHESTNUT TREE at the far side, the one tree with its own crown drawn, standing where the trunks
+    thin out again. Under it the ground is covered (prop sheet §2.27 owns the nuts and husks).
+  THE BERRY BUSHES nearer the edge, TWO of them side by side and 🔴 THEY ARE DIFFERENT PLANTS: one
+    leaf smooth-edged, one leaf toothed. The bushes themselves are FIELDS with no outline; the single
+    leaf held up to compare is a THING with an outline (prop sheet §2.5).
+  🔴 NO UNDERGROWTH, NO FLOWERS, NO MUSHROOMS, NO ANIMAL. The floor is leaves and the trunks are the
+  only vertical thing.
+🔴 IT NEVER GETS DARKER, ONLY CLOSER. If a page has to feel deeper in, it gets more trunks in the
+  same width - not a heavier MOSS field.
+
+SPOTS:
+  A THE EDGE, wide, eye level: open hillside at one side, the wall of trunks at the other, the path
+    going in between two of them.
+  B INSIDE, medium, eye level: trunks in three depths, the path bare between them.
+  C DEEP IN, wide, low: trunks at their closest, crowns joining over the top of the frame, one narrow
+    gap of bare paper.
+  D THE BUSHES, medium, eye level: the two bushes side by side at one size.
+
+PLATE: A, B, C, D once each, plus 🔴 A SPACING PANEL - the same trunks at three spacings in a row
+  (edge / inside / deep) at ONE pencil weight, so that nobody reaches for a darker field, and 🔴 ONE
+  LEAF PANEL - the smooth leaf and the toothed leaf at the same size.
+
+NOT: no character of any kind, no accent orange anywhere on this sheet, no lettering or numerals, no
+  bark texture, no branches on the ordinary trunks (they are one flat stroke each), no light shaft or
+  dappled floor, no mist, no blending or smudging, no third pencil, no white pencil, no shading,
+  gradient, glow or soft edge, nothing paler or thinner with distance.
+```
+
+### §1.6 Chalet · Seats · Slide — 요약 명세 (🔴 사물 시트가 넘긴 것을 받는다)
+
+`Chalet` = 앵커 `CHALET` 조항 그대로(면마다 반복 마크 하나 · 들보·가구 EARTH · 천·덧문 MOSS ·
+🔴 불빛과 등불은 안 칠한 종이). 받아야 할 것 둘:
+- 🔴 **이층 계단**(10권) — 곧게 뻗은 널 · **난간 살**(그 사이로 인형 발이 나온다) · 🔴 **중턱에서 어둠에
+  잘리는 높이가 p2·p7·p9 에서 똑같아야 한다.** 위가 안 보이는 것이 그 권의 사건이다.
+  🔴 15권 미끄럼틀 사다리와 **다른 물건**이다(안/밖 · 나무/디딤 · 위가 안 보임/아래가 멀다).
+- 🔴 **부엌 화덕**(02권) — `Piazza/D` 의 광장 화덕과 **다른 화덕이다.** 두 시트에 다 적는다: 이건 벽에
+  붙은 실내 화덕이고 저건 광장 한가운데 선 것이다.
+
+`Seats` = 장소가 아니라 **좌석표**(§3). 왼쪽부터 **소소 · 메이 · 루디**로 고정, 같은 탁자 같은 줄의 어느
+칸인지가 세 권의 사건이다.
+
+`Slide` = 15권. 꼭대기 발판 · 널 · 양옆 난간 · 사다리 칸수(고정). 🔴 p1 이 **같은 물건의 두 끝을 한
+화면에서 크기 차로** 보여 달라고 한다 — 아래 첫 칸과 꼭대기 발판이 한 프레임에 들어가야 한다.
 
 ---
 
@@ -1510,6 +1740,31 @@ pencil, no blending, no third pencil, no shading, gradient, glow or cast shadow.
 
 > 퐁이의 「갈대 7획이 41권에서 아이를 못 가린다」와 같은 자리다. 시트를 쓰다가 드러난 것만 적는다.
 > 🔴 **고칠 곳은 시트가 아니라 `mei-anchor.md` §1 이다.**
+>
+> ✅ **2026-09-04 — 다섯 다 처리했다.** ①은 `RENDERING` 의 `FINISHED THINGS PER PAGE = 2` 뒤에 「다섯을
+> 세는 쪽에서는 그 다섯이 완성된 것 하나」 · ②는 `PALETTE` 의 주황 항에 「떠나도 된다, 총량은 안 변한다」 ·
+> ③은 `SNOW`·`FOREST` 의 권 번호를 조건으로(그리고 `PATH` 조항을 하나 신설) · ④는 `CHALET` 조항에
+> 「안 칠한 자리가 둘이면 작은 쪽이 불, 큰 쪽이 창·눈이고 주인공은 아이가 향한 쪽」 · ⑤는 이 문서 **§1.3~§1.5**.
+> 여기에 더해 **관통 줄 두 줄이 실측으로 거짓**이라 같이 고쳤다(`FIVE:` 13쪽 · `GROWN:` 28권 일곱 쪽,
+> 근거는 `mei-anchor.md` 관통 줄 밑에).
+>
+> **✅ SCENE 토큰 오기 — 3쪽 고쳤다** (한국어는 안 건드렸다)
+>
+> | 권·쪽 | 대본이 말하는 자리 | 붙어 있던 토큰 | 고친 토큰 |
+> |---|---|---|---|
+> | 19 p2 · p10 | 개울에 걸친 **통나무 위**(밑으로 물살이 흐른다) | `[Wood]` (숲) | `[Brook]` |
+> | 11 p10 | 산길 끝의 **민둥 바위 꼭대기**(p1 이 「길 끝 저 위에」로 예고한다) | `[Brook]` (물) | `[Path]` |
+>
+> 🔴 **그리고 앵커가 스스로 그림자를 막고 있었다**(갈래 ②를 앵커에서 발견한 자리) — `SHADING IS ZERO` 줄이
+> `no cast shadow` 를 달고 있는데, **20권 p6 은 그림자 길이가 「어제보다 해가 더 기울었다」를 말하는 유일한
+> 수단**이고 15권 p7·03권 p6 도 같은 가족이다(실측 3쪽). 금지를 푸는 대신 **매체로 옮겼다** — 「그림자는
+> CROSS-HATCH 면 하나이고, 가장자리는 여기 모든 가장자리와 같이 **획 방향이 바뀌는 자리**이며, 길이가 시계다」.
+> 🔴 **금지어는 복사가 기본값이라** `Slope` 시트 NOT 에도 그대로 있었고 내가 새로 쓴 세 장에도 베껴 넣을
+> 뻔했다 — 자리 시트 넷의 NOT 에서 `cast shadow` 를 뺐다(사물 시트 31장은 그대로 둔다. 판 위에 바닥이 없다).
+>
+> ⚠️ **안 고친 것**: 13권 p6·p8 「소소 집 앞」은 `[Path]` 로 둔다. 산길이 아니라 문 앞이지만 **길가에 붙은
+> 집**이고, SCENE 을 건드리는 대신 §1.4 `Path` FIXED PARTS 에 **「길가의 문과 벽, 썰매를 기대 세우는 자리」**
+> 를 넣었다 — 고칠 곳이 둘일 때 시트 쪽이 싸다.
 
 **① `FINISHED THINGS PER PAGE = 2` 가 「다섯을 세는 쪽」과 충돌한다.**
 앵커는 한 쪽에 완성된 것 둘(그 쪽의 아이 + 그 아이가 만지는 것 하나)만 허용하고 나머지는 속이 빈
@@ -1543,27 +1798,27 @@ when it moves.` (31권 p9 은 다섯 개가 벽에 걸린 채로 다섯이 다 �
 → 제안: `When two unstroked areas share a frame, the SMALLER one is the fire or the lamp and the
 LARGER one is the window or the snow; the page's subject is whichever the child is facing.`
 
-**⑤ 🔴 매체 규칙은 있는데 자리 시트가 없다 — `Brook` · `Wood` · `Path`.**
+**✅ ⑤ 🔴 매체 규칙은 있는데 자리 시트가 없었다 — `Brook` · `Wood` · `Path`.** (→ §1.3~§1.5 로 썼다)
 앵커에는 `BROOK` 조항과 `FOREST` 조항이 있고 SCENE 은 `[Brook]`(05·19·26·35·49) · `[Wood]`(04·32) ·
 `[Path]`(04·20) 를 실제로 찍고 있는데, `mei-stages.md` §1 의 자리 시트는 **다섯 장(Piazza·Slope·
 Chalet·Seats·Slide)뿐**이라 그 셋이 없다. 사물 시트 여섯 장(`SteppingStones`·`Log`·`Rock`·`Ice`·
 `Berries`·`StoneWall`)이 지금 **자리 없는 물 위와 길 위에 떠 있다.**
-→ §1 에 세 장을 더 만들 것. 특히 `Path` 는 20권이 **짧은 길과 먼 길이 같은 지붕에서 만나는 한 화면**을
-요구하므로 자리 시트 없이는 그 권의 첫 쪽이 성립하지 않는다.
+→ ✅ §1 에 세 장을 더 만들었다. 특히 `Path` 는 20권이 **짧은 길과 먼 길이 같은 지붕에서 만나는 한 화면**을
+요구하므로 자리 시트 없이는 그 권의 첫 쪽이 성립하지 않는다 — 그래서 그 관계를 §1.4 가 지형으로 못 박는다.
 
 ### 🔴 자리 시트에 넘긴 것 (§1 이 받아야 할 것)
 
 | 넘긴 것 | 받을 시트 | 무엇을 얹어야 하나 |
 |---|---|---|
-| 08 「무대」(10쪽) | `Piazza` | §1.2 THINGS 에 「무대 널빤지」만 있다. **뒤에 건 천 · 무대 앞 긴 의자 줄 · 무대 옆 계단 세 칸**이 빠져 있다 |
-| 17 p6↔p10 · 40 「장날」 | `Piazza` | 🔴 **광장에 두 상태가 있다** — 「빈 돌바닥(탁자도 천도 깃발도 없다)」과 「긴 탁자·건 천·늘어놓은 그릇·좌판 지붕 넷」. 17권은 같은 각도로 그 둘을 견주고, 40권은 장날 쪽만 쓴다 |
-| 17 「해와 지붕 선」 | `Piazza` | 🔴 **해가 지붕 선 어디에 걸렸는가가 17권의 시계다**(가려짐 → 반쯤 → 완전히 위). 지붕 선 높이를 시트가 못 박아야 세 상태가 견줘진다 |
-| 15 「미끄럼틀 · 사다리 계단」 | `Slide` | 꼭대기 발판 · 널 · 양옆 난간 · 사다리 칸수. 🔴 p1 이 **같은 물건의 두 끝을 한 화면에서 크기 차로** 보여 달라고 한다 |
-| 10 「이층 계단」 | `Chalet` | 곧게 뻗은 널 · 난간 살(그 사이로 인형 발이 나온다) · 🔴 **중턱에서 어둠에 잘리는 높이**가 p2·p7·p9 에서 똑같아야 한다 |
-| 30 「큰 나무」 | `Slope` | `Slope` 의 「비탈 중간 나무 한 그루」에 **밑동 굵기 = 웅크린 아이 하나를 가린다**와 **잎 사이로 곧게 떨어지는 빗줄기**를 얹을 것 |
-| 33 「눌린 풀 자국」 · 34 「뛰어다닌 자국」 | `Slope` | 🔴 `TRACKS` 절이 **눈만** 말한다. 풀밭에 눌린 자국도 같은 규칙(맨 자리 + 양옆 획이 그 방향)이고, **자국 길이가 33권의 자**다(한 뼘 → 비탈 통째) |
-| 20 「지름길과 먼 길」 | 🔴 `Path`(신설) | 좁은 길이 곧게 지붕에 닿고 넓은 길이 크게 휘돌아 **같은 지붕**에 닿는 한 화면 |
-| 02 「부엌 화덕」 | `Chalet` | 🔴 `Piazza` §1.2 의 화덕과 **다른 화덕**임을 두 시트에 다 적을 것 |
+| ✅ 08 「무대」(10쪽) | `Piazza` §1.2 | §1.2 THINGS 에 「무대 널빤지」만 있다. **뒤에 건 천 · 무대 앞 긴 의자 줄 · 무대 옆 계단 세 칸**이 빠져 있다 |
+| ✅ 17 p6↔p10 · 40 「장날」 | `Piazza` §1.2 | 🔴 **광장에 두 상태가 있다** — 「빈 돌바닥(탁자도 천도 깃발도 없다)」과 「긴 탁자·건 천·늘어놓은 그릇·좌판 지붕 넷」. 17권은 같은 각도로 그 둘을 견주고, 40권은 장날 쪽만 쓴다 |
+| ✅ 17 「해와 지붕 선」 | `Piazza` §1.2 | 🔴 **해가 지붕 선 어디에 걸렸는가가 17권의 시계다**(가려짐 → 반쯤 → 완전히 위). 지붕 선 높이를 시트가 못 박아야 세 상태가 견줘진다 |
+| ✅ 15 「미끄럼틀 · 사다리 계단」 | `Slide` §1.6 | 꼭대기 발판 · 널 · 양옆 난간 · 사다리 칸수. 🔴 p1 이 **같은 물건의 두 끝을 한 화면에서 크기 차로** 보여 달라고 한다 |
+| ✅ 10 「이층 계단」 | `Chalet` §1.6 | 곧게 뻗은 널 · 난간 살(그 사이로 인형 발이 나온다) · 🔴 **중턱에서 어둠에 잘리는 높이**가 p2·p7·p9 에서 똑같아야 한다 |
+| ✅ 30 「큰 나무」 | `Slope` §1.1 | `Slope` 의 「비탈 중간 나무 한 그루」에 **밑동 굵기 = 웅크린 아이 하나를 가린다**와 **잎 사이로 곧게 떨어지는 빗줄기**를 얹을 것 |
+| ✅ 33 「눌린 풀 자국」 · 34 「뛰어다닌 자국」 | `Slope` §1.1 | 🔴 `TRACKS` 절이 **눈만** 말한다. 풀밭에 눌린 자국도 같은 규칙(맨 자리 + 양옆 획이 그 방향)이고, **자국 길이가 33권의 자**다(한 뼘 → 비탈 통째) |
+| ✅ 20 「지름길과 먼 길」 | `Path` §1.4 | 좁은 길이 곧게 지붕에 닿고 넓은 길이 크게 휘돌아 **같은 지붕**에 닿는 한 화면 |
+| ✅ 02 「부엌 화덕」 | `Chalet` §1.6 | 🔴 `Piazza` §1.2 의 화덕과 **다른 화덕**임을 두 시트에 다 적을 것 |
 
 ### 🔴 작업표(`_PROP-SHEETS.md` `## mei`)가 틀린 자리 — 다섯
 

@@ -24,16 +24,26 @@ PLATE IS PRINTED ONCE. Light is made by TAKING INK AWAY.`
 
 ---
 
-## §1. 자리 시트 — 6장 (후보 18에서 접음)
+## §1. 자리 시트 — 11장 (2026-09-04: 6장 + 다섯 장 신설)
+
+🔴 **다섯 장을 새로 썼다.** SCENE 이 이미 `[Attic]`(19쪽·5권) · `[Mill]`(9쪽) · `[VillageRoad]`(9쪽) ·
+`[Kindergarten]`(5쪽) 을 찍고 있는데 시트가 없어 **다섯 권이 자리 없이 그려질 참**이었고,
+`Meadow` 는 03권 여섯 쪽이 `[Grove]` 로 잘못 찍혀 **올리브밭으로 그려질 참**이었다(§2-R 신고).
+검사 = `node packages/client/scripts/check-stage-tokens.mjs lulu` → **0**.
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
-| `FarmYard` | 마당 · 농가 마당 · 마당 한가운데 · 헛간 옆 마당 · 통 앞 마당 · 식탁 옆 마당 · 마당 긴 식탁 · 마당 포도 시렁 아래 · 올리브나무 아래 | 🔴 **한 마당** — 시렁·올리브나무·긴 식탁이 다 그 안에 있다 |
-| `Kitchen` | 부엌 · 농가 부엌 · 부엌 안 · 부엌 식탁 · 부엌 탁자 · 탁자 앞 · 탁자 위 | |
+| `FarmYard` | 마당 · 농가 마당 · 마당 한가운데 · 헛간 옆 마당 · 통 앞 마당 · 식탁 옆 마당 · 마당 긴 식탁 · 마당 포도 시렁 아래 · 올리브나무 아래 · 그늘진 마루 | 🔴 **한 마당** — 시렁·올리브나무·긴 식탁·마루가 다 그 안에 있다 |
+| `Kitchen` | 부엌 · 농가 부엌 · 부엌 안 · 부엌 식탁 · 부엌 탁자 · 탁자 앞 · 탁자 위 · 세면대 앞 | |
 | `Barn` | 헛간 안 · 헛간 문 앞 | |
-| `Grove` | 밭 가장자리 · 낮은 가지 앞 · (올리브밭) | 01 p1 |
+| `Grove` | 올리브밭 · 밭 가장자리 · 낮은 가지 앞 · 그물 둘레 | 01 p1 |
 | `Piazza` | 광장 · 마을 광장 | 🔴 **마을 것 — 농가와 다른 곳** |
-| `Road` | 언덕 큰길 | |
+| `Road` | 언덕 큰길 · 언덕 비탈 · 언덕 꼭대기 · 농가 대문 앞 | |
+| 🆕 `Attic` | 룰루 다락방 · 다락 창가 · 다락 창 앞 · 다락 벽 앞 | 27·31·32·33·41 **다섯 권**. §1.3 |
+| 🆕 `Mill` | 맷돌 앞 · 맷돌 옆 · 손잡이 앞 · 맷돌 둘레 · 맷돌 홈 끝 | 18권 **열 쪽 전부**. §1.4 |
+| 🆕 `VillageRoad` | 언덕 아래 마을 큰길 · 길 어귀 · 길 건너편 | 36권. 🔴 `Road`(언덕길)와 **다른 길** · §1.5 |
+| 🆕 `Kindergarten` | 유치원 문 앞 · 교실 구석 · 교실 창가 · 교실 바닥 | 50권. 🔴 **유일하게 남의 집이다** · §1.6 |
+| 🆕 `Meadow` | 풀숲 초입 · 풀숲 한가운데 · 풀숲 밖 큰길 어귀 | 03권 여섯 쪽. 🔴 `Grove` 와 **다른 곳** · §1.7 |
 
 ### §1.1 FarmYard — 실제 프롬프트 (가장 먼저)
 
@@ -56,27 +66,44 @@ decides it once - and above all it decides WHAT IS WIPED.
     tools, jars, sacks.
   🔴 A WIPED SHAPE HAS A HARD EDGE BECAUSE A RAG MADE IT. Nothing fades into anything.
 
-FIXED PARTS: ONE olive tree at the left edge of the yard, low branches · THE VINE PERGOLA over the
-  right half, at most 5 posts · THE LONG TABLE under it · THE BARN closing the back · THE HOUSE
-  DOOR at the right · a water trough by the barn.
+FIXED PARTS: ONE olive tree at the left edge of the yard, low branches (🔴 the fig tree of volume 10
+  stands in this yard too, nearer the house, and it is NOT this tree - broader leaves, fruit on it) ·
+  THE VINE PERGOLA over the right half, at most 5 posts · THE LONG TABLE under it · THE BARN closing
+  the back · THE HOUSE DOOR at the right · 🔴 A ROUND STONE WELL between the barn and the pergola,
+  rim knee-high on a child, with a bucket on a rope - volume 16 counts the yard's four hiding places
+  as barn, WELL, pergola and empty cart, so the well is a fixed part and not a prop · a water trough
+  by the barn · THE SHADED VERANDA along the house front, a low board floor under the eaves, three
+  steps up from the yard (volume 05 sleeps here and volume 11 lies here).
+
+🔴 SHADE IS A SUBJECT IN THIS YARD, NOT A BAN. Ten pages are about it. A cast shadow here is ONE flat
+  inked field with a rag-hard edge, the same shape as the thing above it, lying on the wiped floor -
+  never a darkening, never a fade, never a grade. Three kinds and they must be tellable apart:
+  THE AWNING'S SHADE - a hard-edged RECTANGLE, and what happens to its corners is volume 11.
+  THE TREE'S SHADE - a scatter of separate leaf-shaped dark patches over the same ground, each hard
+    edged. A DIFFERENT KIND of shade, not a softer one.
+  THE SQUARE OF SUN - the reverse: a hard-edged bright rectangle wiped out of a dark floor.
+  Prop sheet §2.28 `Awning` carries the same sentence; the two must not drift apart.
 
 🔴 THE PLATE MARK: the print runs out at the border of the plate, and that soft fade is the ONLY
   soft edge in the book. Leave it on every panel of this sheet, a hand's width inside the frame.
 
 SPOTS:
   A THE WHOLE YARD from the road, wide: 🔴 wide enough to hold five children, tree left, pergola
-    and table right, barn behind.
+    and table right, barn behind, the well between them.
   B UNDER THE PERGOLA, medium: the table, the wiped cloth, posts.
   C THE FLOOR, close, high: bare wiped paper and one inked thing lying on it.
   D FROM THE BARN DOOR looking out, medium: the dark doorway framing the wiped yard.
+  E THE VERANDA, medium, low: the board floor under the eaves, its shade a hard-edged band, the
+    burnt-white yard beyond it.
 
-PLATE: A, B, C, D once each, plus 🔴 A WIPE DIAGRAM - the yard drawn as flat areas, each marked
+PLATE: A, B, C, D, E once each, plus 🔴 A WIPE DIAGRAM - the yard drawn as flat areas, each marked
   INKED or WIPED, so nobody paints the floor.
 
 NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals,
   🔴 NO WHITE INK EVER - every bright thing is wiped, no third ink, no graded area, no soft edge
-  except the plate mark, no shading, gradient, glow or cast shadow, nothing paler or bluer with
-  distance.
+  except the plate mark, no shading, gradient or glow, nothing paler or bluer with distance.
+  🔴 (Cast shadow is NOT on this list - see SHADE above. The earlier version of this sheet banned it
+  and that one word blocked volume 11 entirely, plus 04, 06 and 33.)
 ```
 
 ### §1.2 Kitchen · Piazza — 요약 명세
@@ -85,6 +112,268 @@ NOT: no character of any kind, no accent colour anywhere on this sheet, no lette
 병 최대 4 · 자루 최대 5.
 `Piazza` = 🔴 **마을 것이라 농가와 별개**. 잔치 군중은 **한 덩어리 닦은 자국** + 앞줄 실루엣 최대 7
 (얼굴 0 · 손 0).
+🔴 `Kitchen` 에 **세면대 한 자리**를 붙박이로 넣는다 — 27권이 열 쪽 중 여섯을 그 앞에서 쓰고(p1 은 긴 식탁
+다리 사이로 그것을 본다), 세면대 높이가 쪽마다 달라지면 그 권의 「어른 것과 내 것」이 안 읽힌다(§2.27).
+
+---
+
+### §1.3 Attic — 🔴 다섯 권이 여기 있는데 시트가 없었다 (27 · 31 · 32 · 33 · 41)
+
+> 이 방의 사건은 언제나 **어둠이 얼마나 닦여 나가는가**다 — 32권은 널판 틈 한 줄이 방 전체로 넓어지고,
+> 41권은 등불이 켜졌다 꺼졌다 하며 벽의 뿔이 마른 가지로 밝혀지고, 33권은 열린 창이 바닥에 네모를 앉힌다.
+> 🔴 **그러므로 이 시트가 정하는 것은 「방이 얼마나 어두운가」가 아니라 「어디를 닦을 수 있는가」다** —
+> 방의 어둠은 다섯 권 내내 **한 값으로 고정**이고 변하는 건 닦인 면적뿐이다(앵커 `ATTIC` 조항).
+
+```
+STAGE SHEET - Attic   (lulu-monotype · use the anchor's ATTIC clause · SCENE token: Attic)
+
+Lulu's room in the roof. Five books sleep, hide, count and are frightened here, so this drawing
+decides the room once and nothing about it changes afterwards.
+
+🔴 THE ROOM IS ONE FLAT FIELD OF PLATE MIX FROM WALL TO WALL AND IT NEVER GETS LIGHTER. Everything
+  bright is WIPED out of that one field with a hard edge. Nothing in this room fades at its border,
+  and the field is printed at the same weight on every page of every one of the five books.
+
+FIXED PARTS:
+  THE LOW BED against the left wall, a plain DRY EARTH frame, mattress low enough that a child sits
+    on it with hooves on the floor. The quilt on it is the widest wiped area indoors after the
+    tablecloth (prop sheet Blankets).
+  THE WINDOW in the end wall, ONE opening with TWO shutter leaves that open OUTWARD, a wooden sill
+    wide enough for a child to be lifted onto and lean on (volume 31 does exactly that). 🔴 THE GAP
+    BETWEEN TWO OF THE SHUTTER PLANKS IS A FIXED PART OF THIS ROOM, not a drawing accident - prop
+    sheet §2.23 owns its light and this sheet owns where it is.
+  THE STAIR DOOR in the floor at the right, a hinged plank hatch with a few steps showing below it.
+    When it opens it is the ONLY other bright shape in the room and it is exactly one door wide.
+  THE END WALL beside the window, bare, where things hang (the dried olive branch of volume 41 - the
+    horns).
+  THE RAFTERS, low, DRY EARTH, at most 6 of them, running one way, close enough over the bed that an
+    adult standing here stoops.
+  THE FLOOR, plank stroke, running toward the window.
+🔴 THE ROOM IS SMALL AND THAT IS THE POINT: a standing adult's head reaches the rafters and the whole
+  room fits in one wide frame. Never open it out into a hall.
+
+🔴 THE FOUR LIGHTS, and they are the only bright things this room can have. Draw all four in the same
+  room from the same corner so they can be compared:
+  1 A SLIT - one straight bright line from the shutter gap crossing the floor, the SAME WIDTH along
+    its whole length, hard edged both sides. It does not spread, glow or fan.
+  2 A WEDGE - one leaf pushed part open, a bright wedge widening from the opening.
+  3 A SQUARE - both leaves open, the window's shape laid flat on the floor, hard edged, no rays.
+    Things lying in it bite pieces out of its edge (volume 33 is that).
+  4 A LAMP PATCH - a hard-edged patch whose shape says where the lamp points: round on two faces held
+    close, rectangular on the wall at arm's length. Outside the patch the field is unchanged.
+  🔴 Nothing else in this room is ever bright. There is no ambient light and no second window.
+
+SPOTS:
+  A THE WHOLE ROOM, wide, high: bed left, window in the end wall, stair door right, rafters over.
+  B AT THE WINDOW, medium, low: the sill and the two leaves filling the frame, the room behind flat
+    dark. 🔴 Wide enough to hold an adult holding a child up to the sill.
+  C ON THE BED, close, high: the quilt's wiped field and one head or one hand on it.
+  D THE END WALL, medium: flat dark wall with the hanging thing on it and a lamp patch on it.
+  E FROM THE SILL LOOKING OUT AND DOWN: the night yard as one broad dark mass with the lower windows
+    of the house as bright rectangles in it (volume 31).
+
+PLATE: A, B, C, D, E once each, plus 🔴 THE FOUR LIGHTS drawn as four panels of THE SAME CORNER of
+  this room at the same size, so they lay over one another and the darkness can be checked identical.
+
+NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals, no
+  white ink, no light ray, beam, shaft, dust mote, halo or glow, no warm tint in any bright area, no
+  second window, no third ink, no graded area, no soft edge except the plate mark, no shading or
+  gradient. 🔴 The dark never grades into the light - it stops.
+```
+
+### §1.4 Mill — 🔴 18권 열 쪽이 전부 여기다
+
+> 사물 시트 §2.4 `MillStone` 이 **돌·팔·홈·그릇**을 들고, 이 시트는 **그 돌이 어디 있고 둘레가 어떻게
+> 생겼는가**를 든다. 🔴 갈라 두는 이유가 있다 — 18권 p9 는 **일곱 몸이 한 원을 그리며 도는 것**이 그림인데,
+> 그 원은 돌의 규격이 아니라 **바닥의 규격**이다(팔 길이가 곧 원의 반지름이고, 그 원이 밟혀 다져진 자리다).
+> 🔴 앵커 조항 이름이 `PRESS AND VAT`(기름틀)였다 — **누르는 틀이 아니라 도는 맷돌**이라 고쳤다(§2-R).
+
+```
+STAGE SHEET - Mill   (lulu-monotype · use the anchor's MILL AND VAT clause · SCENE token: Mill)
+
+The olive mill, on the beaten ground beside the barn, just off the farm yard. One book, all ten of
+its pages, and the whole book happens without the camera leaving this circle.
+
+FIXED PARTS:
+  THE MILL ITSELF at the centre - the standing stone on its broad bed stone with the long timber arm
+    out to one side. Prop sheet §2.4 owns its form; do not redesign it here, copy it.
+  🔴 THE TRODDEN CIRCLE - the ground the arm sweeps is a RING of beaten earth, its radius the length
+    of the arm, and it is the widest WIPED area on these pages: bare paper, hard edged where the
+    untrodden ground starts. 🔴 THE RING IS THE COMPOSITION OF PAGE NINE - seven bodies stand along
+    the arm and walk that circle, and the ring has to be wide enough from above to hold them all.
+  THE BARN WALL closing one side, DRY EARTH, with the barn's dark doorway in it.
+  A LOW ROOF on two posts over the mill only - the bed stone and the bowl stay out of the weather -
+    at most 4 rafters, DRY EARTH, and it does NOT reach the trodden ring.
+  THE HEAP OF OLIVES waiting at the edge of the bed stone: ONE inked mass (anchor cap: at most 12
+    berries drawn separately).
+  THE BOWL PLACE - a flat stone set under the channel's lip where the small bowl waits. It is a fixed
+    part, because the last page of the book is a close-up of exactly this spot.
+  🔴 NO GEARS, NO IRON, NO BOLTS, NO ANIMAL HARNESS. The arm is pushed by bodies.
+
+WHAT IS WIPED: the trodden ring, the sky over the low roof, the top of the bed stone where it is worn.
+WHAT STAYS INKED: 🔴 THE ROUND STONE - it is the heaviest mass in the series and it is the one thing
+  on these pages that is NOT wiped anywhere. The roof, the arm, the barn wall, the heap.
+
+SPOTS:
+  A THE WHOLE MILL from the yard side, wide, eye level: stone, arm, bed, bowl place, barn behind.
+  B ALONG THE ARM, medium, low: the timber running diagonally out of frame, 🔴 long enough that six
+    bodies could line up on it.
+  C THE LIP, close, low: the channel narrowing, the bowl below, nothing else in frame.
+  D THE CIRCLE FROM ABOVE, wide, high: the ring, the stone at its centre, the arm as one radius.
+
+PLATE: A, B, C, D once each, plus 🔴 AN OVERHEAD DIAGRAM giving the radius of the trodden ring in
+  arm-lengths and marking where the bowl place, the heap and the barn door sit on it.
+
+NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals, no
+  white ink, no yellow or golden oil, no shine on the stone, no motion line, no dust swirl, no third
+  ink, no graded area, no soft edge except the plate mark, no shading, gradient or glow.
+```
+
+### §1.5 VillageRoad — 🔴 `Road`(언덕 큰길)와 다른 길이다 (36권)
+
+> 36권은 **길을 건너는 법**이 통째로 한 권이고, 그 길은 언덕을 오르내리는 흙길이 아니라 **마을 밑 큰길**이다.
+> 자동차가 지나가는 유일한 자리이기도 하다. 🔴 두 길을 한 시트로 묶으면 **언덕길에 가게와 자동차가 생긴다.**
+> (SCENE 은 이미 두 토큰을 갈라 찍고 있었고, 없던 것은 시트뿐이었다.)
+
+```
+STAGE SHEET - VillageRoad   (lulu-monotype · use the anchor's HILL ROAD clause · SCENE token:
+                             VillageRoad · 🔴 this is NOT the hill road sheet)
+
+The wide road at the foot of the hill, where the village shops begin. One book, nine of its ten
+pages, and the road itself is the antagonist.
+
+🔴 THE ROAD IS THE WIDEST WIPED STRIP IN THE SERIES - bare paper running clean across the frame from
+  edge to edge, hard edged at both kerbs, and it stays bare however far it goes. 🔴 IT IS PLAINLY
+  WIDER THAN THE HILL ROAD: the hill road holds one cart, this one holds a motor car crossing it
+  sideways with room to spare, and that width is what makes a child stop at its edge.
+FIXED PARTS:
+  THE NEAR KERB, a line of low stones along this side, and beyond it a strip of trodden earth where
+    everyone waits.
+  THE SHOP ROW on the far side: at most 4 DRY EARTH silhouettes standing shoulder to shoulder, 🔴 0
+    windows, 0 lettering, 0 signs, 0 awnings - flat shapes with a low step in front of one of them
+    and two baskets set down by it.
+  A LOW STONE WALL along the near side behind the waiting strip.
+  THE HILL far off in one corner, at most 4 DRY EARTH farmhouse silhouettes on the ridge, spaced
+    CLOSER TOGETHER the further they are, never paler.
+🔴 THE CROSSING RUNS LEFT TO RIGHT AND ALWAYS THE SAME WAY, so the going and the coming back are
+  legible as opposites in one book.
+
+SPOTS:
+  A FROM THE NEAR KERB, wide, eye level: the whole road across the middle of the frame, shop row far
+    side, 🔴 wide enough to hold five children and an adult on the near strip alone.
+  B THE KERB, medium, from the side: the exact line where the earth stops and the wiped road starts.
+  C ON THE ROAD, wide, high: bare paper filling the frame with a line of bodies laid across it.
+  D THE FAR SIDE, medium, eye level: the shop step and its baskets, the road behind now empty.
+  E DOWN THE EMPTY ROAD, low: the wiped strip running away with one very small dark shape at its end.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE WIDTH PANEL - the hill road and this road drawn one above
+  the other at the same distance with the same child standing at the edge of each, so the difference
+  in width is fixed and cannot drift.
+
+NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering, numerals, shop
+  signs or road markings, no white ink, no kerbstone drawn as a repeated brick, no third ink, no
+  graded area, no soft edge except the plate mark, no shading, gradient or glow, nothing paler or
+  bluer with distance.
+```
+
+### §1.6 Kindergarten — 🔴 이 시리즈에서 유일하게 남의 집이다 (50권)
+
+> 50권은 마지막 권이고, **엄마 없이 하루를 보내는 곳**이다. 🔴 그래서 이 방의 규격은 「농가가 아닌 것」이
+> 전부다 — 농가는 물건이 낡고 손때가 묻었고 무엇이든 일하는 물건인데, 여긴 **놀기 위해 만든 방**이다.
+> 🔴 **그리고 이 방의 사건은 창 하나다**: p5~p7 이 「창 너머 멀리 올리브 언덕 능선과 그 위 작은 농가 하나」이고,
+> 그 창 안의 언덕이 **다른 마흔아홉 권의 그 언덕과 같은 능선**이어야 마지막 쪽이 성립한다.
+
+```
+STAGE SHEET - Kindergarten   (lulu-monotype · SCENE token: Kindergarten)
+
+The village kindergarten: the door from the road, and one classroom. One book, five of its pages,
+and it is the only building in this series that does not belong to the family.
+
+FIXED PARTS - THE DOOR:
+  ONE wide doorway standing OPEN in a whitewashed wall, its threshold one worn stone step, the inside
+    beyond it a flat dark field. 🔴 THE OPEN DOORWAY IS THE BIGGEST DARK SHAPE ON ITS PAGE while the
+    wall around it is wiped whitewash - the reverse of the barn door, where the dark is inside a dark
+    building.
+FIXED PARTS - THE ROOM:
+  🔴 ONE WINDOW, and only one, in the long wall, its sill at a child's chest. THROUGH IT: the olive
+    ridge far off and ONE small farmhouse on it. 🔴 That ridge is the SAME ridge as volume 01's, drawn
+    small - copy its profile, do not invent a new skyline. It is wiped bare paper and it is the
+    brightest thing in the room.
+  A LOW BENCH along the wall under the window, and one low stool in the corner (prop sheet §2.6
+    `Seats` owns both - the stool is the backless knee-high one).
+  THE FLOOR, plank stroke, running toward the window; a clear bare middle where things get built.
+  🔴 NOTHING ELSE. No shelves of toys, no pictures on the wall, no rows of small chairs, no cubbies.
+    The room is nearly empty and that emptiness is why the window works.
+🔴 THE GUESTS: the children of this room are drawn to the anchor's guest rule - different cloth from
+  the cousins, NO BLUE anywhere on them, each in its OWN outline, never touching a cousin, never
+  merged into a block. There are three of them and there are never more. The teacher is an adult
+  donkey by the anchor's adult rule (widest at the torso, ears shorter than the head), round glasses,
+  sleeves rolled, no blue.
+
+SPOTS:
+  A THE DOOR FROM THE ROAD, medium wide, eye level: the open dark doorway, the wiped wall, the ridge
+    far off at the frame's edge. 🔴 Wide enough to hold an adult and a child on the step.
+  B THE CORNER, medium, eye level: two walls meeting, the stool, the door across the room now shut.
+  C AT THE WINDOW, medium wide: the sill, the ridge in the opening, the room around it dim.
+  D THE FLOOR, close, high: bare plank stroke and one built thing standing on it.
+  E ACROSS THE ROOM, wide, eye level: window at one end, doorway at the other, both bright, the middle
+    of the room empty. 🔴 This is the run of volume 50's ninth page.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE PANEL OF WHAT IS IN THE WINDOW at large size - the ridge
+  and the one farmhouse - laid beside the same ridge as it appears from the farm, so the two match.
+
+NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering, numerals, signs,
+  alphabet charts or wall pictures of any sort, no white ink, no second window, no toy shelves, no
+  third ink, no graded area, no soft edge except the plate mark, no shading, gradient, glow or graded
+  shadow, nothing paler or bluer with distance.
+```
+
+### §1.7 Meadow — 🔴 03권 여섯 쪽이 `[Grove]` 로 찍혀 있어 올리브밭이 될 뻔했다
+
+> 03권 p3~p8: 「풀이 **벽처럼** 높다」 · 「지나간 자리에만 풀이 눕고 나머지는 빽빽하다」 · 그리고 그 권의
+> 사건인 **바퀴에 감기는 풀**. `Grove` 시트는 「밭 가장자리 · 낮은 가지 앞」만 들고 있어 **사람 키를 넘는
+> 풀벽이 없다.** 🔴 SCENE 토큰을 `[Meadow]` 로 고쳤고(§2-R), 앵커에 `MEADOW` 조항을 한 줄 넣었다.
+
+```
+STAGE SHEET - Meadow   (lulu-monotype · use the anchor's MEADOW clause · SCENE token: Meadow)
+
+The tall grass between the olive grove and the hill road. One book walks into it and cannot see out.
+
+🔴 THE GRASS IS ONE BROAD FIELD OF OLIVE LEAF WITH 0 INDIVIDUAL BLADES, and it stands HIGHER THAN A
+  CHILD'S HEAD. A child in it is read only by what rises above the field - the top of a head, two
+  ears, one raised hand. 🔴 THIS IS NOT A LAWN AND NOT A HILLSIDE: it is a wall you walk into.
+  At the near edge of frame at most 9 blades may be lifted out individually with a rag corner and
+  nowhere else.
+🔴 A TRAIL IS WHERE THE GRASS IS DOWN: ONE wiped strip of bare paper with a hard edge, running back
+  through the field, and everything either side stays the SAME dense field. Never thinner grass,
+  never paler grass, never a drawn parting. The trail is the only evidence anyone has been here and
+  it does not fade as it goes back.
+FIXED PARTS:
+  THE EDGE where the grass starts, one hard line across the frame with trodden earth on the near side.
+  THE ROAD MOUTH at the far end - a wiped strip of the hill road showing through a gap in the wall of
+    grass, the way out, and it is visible in only one of the four spots.
+  THE GROVE'S TREES standing above the grass in the far distance, at most 5, spaced closer together
+    the further off, never paler.
+  🔴 NO FENCE, NO PATH, NO FLOWERS, NO STONES. The field has no landmarks and that is why the book
+    works.
+
+SPOTS:
+  A THE EDGE, wide, eye level: trodden earth in front, the wall of grass across the frame, a child's
+    head just clearing it.
+  B INSIDE, medium, low: grass filling the whole frame to the top edge, one narrow bright gap of sky.
+  C FROM ABOVE, wide, high: the field as one flat texture-less area with ONE wiped trail curling
+    through it - 🔴 the only page in the book where anyone can see where they are.
+  D THE ROAD MOUTH, medium: the wall of grass parting on a wiped strip of road.
+
+PLATE: A, B, C, D once each, plus 🔴 ONE HEIGHT PANEL - a plain child silhouette standing in the
+  grass and an adult standing in the same grass, so the wall height is fixed once (child: over the
+  head. adult: at the chest).
+
+NOT: no character face (silhouettes only, for height), no accent colour anywhere on this sheet, no
+  lettering or numerals, no white ink, no individual blades beyond the 9 at the near edge, no
+  flowers, no seed heads, no wind lines, no third ink, no graded area, no soft edge except the plate
+  mark, no shading, gradient or glow, nothing paler with distance.
+```
 
 ---
 
@@ -294,7 +583,7 @@ NOT: no character face, no lettering or numerals, no white ink, no second blue a
 
 > 앵커 `PRESS AND VAT (volumes 18, 24)` 은 「기름틀(press)에서 흘러나오는 첫 기름」이라고 적혀 있는데
 > **대본은 누르는 틀이 아니라 도는 맷돌**이다. 기름은 짜여 나오는 게 아니라 **받침돌 홈 끝에서 방울로 맺힌다.**
-> 🔴 SCENE 은 `[Mill]` 이라는 자리 토큰까지 쓰는데 §1 에 그 자리 시트가 없다(신고).
+> ✅ SCENE 이 쓰는 `[Mill]` 자리 시트는 **§1.4 로 썼다** — 이 시트는 돌·팔·홈·그릇을, 그 시트는 **바닥의 원**을 든다.
 
 ```
 PROP SHEET - MillStone   (lulu-monotype · SCENE token: MillStone)
@@ -1075,7 +1364,7 @@ NOT: no character face (silhouettes only, for height), no accent colour, no lett
 ### §2.25 WellBucket — 물 한 줄기가 우물 돌 사이에서 유일하게 밝다 (28 · 16 · 47)
 
 > 🔴 **우물 자체는 자리 몫이다** — 16권이 「헛간·우물·포도 시렁·빈 수레」를 마당의 붙박이 넷으로 쓰므로
-> `FarmYard` FIXED PARTS 에 **우물을 넣어야 한다**(지금은 물받이만 있다, 신고). 이 시트가 드는 것은
+> ✅ `FarmYard` FIXED PARTS 에 **우물을 넣었다**(그전엔 물받이뿐이었다). 이 시트가 드는 것은
 > **두레박과 쏟아지는 물**이다.
 
 ```
@@ -1770,6 +2059,29 @@ NOT: no character face, no accent colour (the blue belongs to §2.3 alone), no l
 
 ## §2-R. 🔴 앵커·작업표에 되돌리는 신고
 
+> ✅ **2026-09-04 — 아래 신고 중 앵커·자리·토큰 몫은 처리했다.** 남은 것은 캐스트 시트와 작업표(추출기)뿐이다.
+>
+> | 처리한 것 | 어디에 |
+> |---|---|
+> | `PRESS AND VAT` → **`MILL AND VAT`** (기름틀 → 도는 맷돌 · 첫 기름 = 홈 끝의 **방울 하나**) | `lulu-anchor.md` §1 |
+> | 권 번호 목록 다섯 → **조건** (`PIAZZA`·`NIGHT`·`RAIN` · 23·25가 광장이 아니던 오류가 저절로 사라짐) | 같은 곳 |
+> | `ATTIC` 조항 신설 (방의 어둠은 고정 · **닦인 면적이 시계**) | 같은 곳 |
+> | `MEADOW` 조항 신설 (사람 키를 넘는 풀벽 · 자국은 **눕힌 자리**) | 같은 곳 |
+> | 마을 큰길 + **이 세계의 유일한 기계**(자동차) 한 줄 | `HILL ROAD` 조항 |
+> | **그림자를 매체로 번역** — 「금지」가 아니라 「톤이 아니라 가장자리가 또렷한 잉크 면 하나」 | `RENDERING` + §1.1 |
+> | 제비 규격 + **노란 부리 → 닦아 낸 자리** | `CHARACTER DESIGN LANGUAGE` |
+> | 사촌 키 계단이 **썸네일에서 읽혀야 한다** · 제일 작은 사촌이 덩어리에서 나오는 예외(15쪽) | 캐스트 줄 + 관통 줄 `FIVE:` |
+> | 50권 **유치원 아이 셋·선생** — `ALWAYS EXACTLY FIVE` 가 다섯 쪽에서 거짓이라 게스트 조항 | 같은 곳 |
+> | 자리 시트 **다섯 장 신설** `Attic`·`Mill`·`VillageRoad`·`Kindergarten`·`Meadow` | §1.3~§1.7 |
+> | `FarmYard` FIXED PARTS 에 **우물**·마루(베란다) 추가, `no cast shadow` 제거 | §1.1 |
+> | SCENE 토큰 오기 **20쪽** | `_scenes.json` (아래 「SCENE 토큰 오기」) |
+> | 🆕 **앵커가 스스로 모순됐다** — `No sky blue that is not the accent` 는 **글자 그대로 읽으면 하늘을 악센트 파랑으로 칠해도 된다**. 관통 줄 `BELL:`·`touching NOTHING but Lulu's cord and bell` 과 정면 충돌 → 「그 목끈과 방울 아닌 파랑은 어디에도 없다(낮 하늘 = 맨 종이, 밤 하늘 = PLATE MIX, 물도 아니다)」로 | `PALETTE` |
+> | 🆕 **`FINISHED THINGS PER PAGE = 2` 가 「룰루와 룰루가 만지는 것」이라 못 박혀 있었다** — 🔴 **룰루가 없는 쪽이 500 중 35쪽**이고(10-p5·14-p4~p6·18-p5·22-p1 …) 그 쪽엔 규칙이 아무것도 안 정한다. 게다가 **세는 쪽**(자루 다섯·접시 여덟·씨 아홉·반죽의 알 열둘)은 다섯 중 하나만 완성하면 견줌이 죽는다 | `RENDERING` |
+>
+> 🔴 **상한은 전수로 재 봤다** — 대본이 앵커 상한(올리브 12·접시 8·꽃 8·빵 8·자루 5·병 4·리본 5·무화과 5·
+> 포도송이 7·기둥 5·항아리 6·널 6·별 14)을 **넘는 쪽은 한 곳도 없다.** 여유가 0인 상한(자루 5·옛날 물건 6·
+> 알 12)은 그 권이 상한을 **정확히** 쓰는 것이라 「하나 더」가 생기면 바로 깨진다 — 지금은 안 깨져 있다.
+
 **앵커(`lulu-anchor.md`)를 고쳐야 하는 자리 — 사물 때문에 깨진다**
 
 | 자리 | 무엇이 어긋났나 | 고칠 방향 |
@@ -1784,24 +2096,35 @@ NOT: no character face, no accent colour (the blue belongs to §2.3 alone), no l
 | 캐스트 시트 | 앵커는 사촌 셋을 「키 한 계단 말고는 구별되면 안 된다」로 못 박았는데, **45·16·46·48권은 「제일 작은 사촌」 하나가 따로 읽혀야 한다** | 캐스트 시트에 **그 계단이 실루엣에서 읽혀야 한다**를 명시 |
 | 🔴 **`FarmYard` 자리 시트(§1.1)의 `no cast shadow`** | **11권이 통째로 그림자 이야기다** — p1 「그림자가 발밑에 동그랗게만 남을 만큼 해가 높다」 · p4 「천막 그늘이 바닥에 **네모나게** 든다」 · p8 「잎 그림자가 얼룩덜룩」. 04권 p1 「바닥엔 얼룩진 그늘」, 06·33권의 볕 네모도 같은 가족이다. **앵커는 그림자를 금지하지 않는데 자리 시트가 금지하고 있다** | §1.1 NOT 에서 `cast shadow` 를 빼고, 대신 **「그림자는 톤이 아니라 가장자리가 또렷한 잉크 면 하나다」**로 바꿀 것. (이번에 쓴 §2.28 `Awning` 이 그 문장을 들고 있다 — 처음엔 나도 같은 금지를 베껴 넣었다가 되돌렸다) |
 
-**자리 시트(§1)에 없는 자리 넷** — SCENE 이 이미 토큰으로 쓰고 있다
+**✅ 자리 시트(§1)에 없던 자리 넷** — SCENE 이 이미 토큰으로 쓰고 있었다 → **§1.3~§1.6 으로 썼다**
 
-`[Attic]`(27·31·32·33·41) · `[Mill]`(18) · `[VillageRoad]`(36) · `[Kindergarten]`(50).
-🔴 §1 은 여섯 장뿐이라 이 다섯 권이 **자리 없이 그려진다.** 그리고 `FarmYard` FIXED PARTS 에 **우물이 없다** —
-16권이 마당의 숨을 자리 넷을 「헛간 · 우물 · 포도 시렁 · 빈 수레」로 쓰므로 우물이 붙박이여야 한다.
+`[Attic]`(19쪽·27·31·32·33·41) · `[Mill]`(9쪽·18) · `[VillageRoad]`(9쪽·36) · `[Kindergarten]`(5쪽·50).
+🔴 §1 이 여섯 장뿐이라 이 다섯 권이 **자리 없이 그려질 참**이었다. 그리고 `FarmYard` FIXED PARTS 에
+**우물이 없었다** — 16권이 마당의 숨을 자리 넷을 「헛간 · 우물 · 포도 시렁 · 빈 수레」로 쓰므로 우물이
+붙박이여야 한다 → **넣었다**(마루도 같이 — 05·11권이 거기서 잔다).
 
-🔴 **다섯째 — 풀숲(`Meadow`)이 `Grove` 안에 숨어 있다.** 03권 p3~p8 **여섯 쪽이 키 큰 풀숲**인데(「풀이
+🔴 **✅ 다섯째 — 풀숲(`Meadow`)이 `Grove` 안에 숨어 있었다.** 03권 p3~p8 **여섯 쪽이 키 큰 풀숲**인데(「풀이
 벽처럼 높다」 · 「지나간 자리에만 풀이 눕고 나머지는 빽빽하다」 · 바퀴에 감기는 그 풀) 토큰이 전부 `[Grove]` 라
 화가는 **올리브밭을 그린다.** 39권 p3 「길 옆 풀밭」, 23권 p8 「풀만 한 방향으로 눕는다」도 같은 자리다.
 `Grove` 시트는 「밭 가장자리 · 낮은 가지 앞」만 들고 있어 **사람 키를 넘는 풀벽이 없다.**
 (다른 시리즈에서도 같은 이름이 빠졌다고 들었다 — 라인 공통으로 한 장 세우는 게 맞다.)
 
-**SCENE 토큰 오기 셋** (그림이 딴 데서 그려진다)
+**✅ SCENE 토큰 오기 — 20쪽 고쳤다** (그대로 두면 그림이 딴 데서 그려진다. 한국어는 한 글자도 안 건드렸다)
 
-- 11권 p4·p5·p6 = **농가 마당의 천막 밑**인데 `[Piazza]`(마을 광장)가 붙어 있다. p3·p7 은 `[FarmYard]` 다.
-- 05권 p5·p7 = **농가 마루**인데 `[Kitchen]` 이 붙어 있다. p1~p4 는 마루로 쓰여 있다.
-- 10권 p1·p4~p9 = **마당 무화과나무 아래**인데 `[Grove]`(언덕 올리브밭)다. p3·p10 은 `[FarmYard]`.
-  🔴 무화과나무는 마당에 있다 — 셋 다 한 권 안에서 자리가 오간다.
+| 권·쪽 | 대본이 말하는 자리 | 붙어 있던 토큰 | 고친 토큰 |
+|---|---|---|---|
+| 11 p4·p5·p6 | 농가 마당 **천막 밑** | `[Piazza]` (마을 광장) | `[FarmYard]` |
+| 11 p8·p9·p10 | **마당 가장자리 올리브나무 아래** | `[Grove]` (언덕 올리브밭) | `[FarmYard]` |
+| 10 p1·p4~p9 | **마당 무화과나무 아래** | `[Grove]` | `[FarmYard]` |
+| 05 p5·p7 | 농가 **마루의 요 위** | `[Kitchen]` | `[FarmYard]` |
+| 03 p3~p8 | 사람 키를 넘는 **풀숲** | `[Grove]` | `[Meadow]` |
+| 50 p1 | **유치원 문 앞** (p3 과 같은 자리) | `[Road]` | `[Kindergarten]` |
+
+🔴 **11권과 10권은 한 권 안에서 자리가 오갔다** — 같은 마당인데 쪽마다 `[FarmYard]`·`[Piazza]`·`[Grove]`
+셋이 섞여 있었다. 무화과나무도 그 올리브나무도 **마당에 있다**(§1.1 FIXED PARTS 가 이제 둘 다 든다).
+🔴 03 p6·p7 은 원래 토큰이 없다(「같은 풀숲」) — 앞 쪽에서 물려받으므로 안 건드렸다.
+⚠️ **안 고친 것**: 39권 p3·p4 「길 옆 풀밭」과 23권 p8 은 `[Road]` 로 둔다. 길가에 난 낮은 풀이지
+03권의 **풀벽**이 아니다 — `Meadow` 로 옮기면 그 시트의 「키를 넘는 벽」이 길가에 서 버린다.
 
 **작업표(`_PROP-SHEETS.md`)가 틀린 자리**
 

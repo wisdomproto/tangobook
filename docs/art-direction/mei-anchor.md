@@ -49,14 +49,26 @@ Style: coloured pencil on warm grey toothy paper, exactly TWO pencils, 4-6 year 
   Every area is built from parallel strokes laid in ONE direction, and the tooth of the paper breaks
   every stroke so no area is ever solid. Where the two pencils cross-hatch, a third darker colour
   appears - that is the only dark. Unlaid paper is not white space, it is the sky and the light.
-  SHADING IS ZERO - no blending, no smudging, no gradient, no cast shadow, no highlight.
+  SHADING IS ZERO - no blending, no smudging, no gradient, no highlight.
+  🔴 A CAST SHADOW IS NOT SHADING AND IS NOT BANNED. It is ONE field of CROSS-HATCH strokes lying on
+  the ground, its edge made the way every edge here is made - by the stroke direction changing - and
+  it is flat all the way through. 🔴 ITS LENGTH IS A CLOCK and three pages use it that way: volume 20
+  reads "the sun is lower than yesterday" off a shadow reaching the front of the frame, volume 15 off
+  one crossing the slope, volume 03 off one laid across the square. What is forbidden is a shadow that
+  softens, grades or darkens the field under it - never a tone, always a field.
 
 RENDERING (finish hierarchy): an area is ONE field of strokes all running one way, never denser or
   lighter inside itself. Stroke direction NEVER changes inside one area - it changes only where one
   thing ends and another begins, and THAT CHANGE OF DIRECTION IS THE EDGE. A thing sitting on that
   field is drawn with a harder point so its outline is one continuous line. FINISHED THINGS PER PAGE
   = 2, the child the page is about and the one thing that child touches; everything else is a shape
-  with no interior detail. Repeats are capped and the cap is the whole design: trees at most 5,
+  with no interior detail. 🔴 WHEN A PAGE COUNTS A SET OF FIVE, THE FIVE COUNT AS ONE FINISHED THING -
+  drawn identically at one detail level, one size and one depth, so that the odd one out is the only
+  difference in the row - and the child is the other finished thing. Nothing else on that page gets
+  interior detail. (Fourteen books of this series end on a row of five: sledges, stepping stones,
+  cloths, furrows, sheets of paper, stakes, white loaves, bowls, wall pegs, quilts, bells, corn,
+  apples, footprints. Finishing only one of the five kills the comparison, which is the book.)
+  Repeats are capped and the cap is the whole design: trees at most 5,
   flowers at most 9 dots, windows at most 8, crowd at most 7 silhouettes with 0 faces and 0 hands,
   planks at most 6, jars at most 6, steam at most 5 curls, stars at most 14 separate paper holes.
   Nothing in a repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
@@ -66,6 +78,12 @@ PALETTE: PAPER WARM GREY #EDE9E1, sky, snow, plaster, light, everything not stro
   wood, stone, floors, roofs, baskets, ground - the warm one · CROSS-HATCH PEAT #40483A, animal
   backs, tree trunks, iron, night, anything in shade - this is never a third pencil, only the two
   crossed · ACCENT ORANGE #D4622A, 🔴 nothing but the one small orange thing each child carries.
+  🔴 THE ORANGE THING MAY LEAVE ITS OWNER - hung on a wall peg, torn in two, set down, taken off - and
+  while it is off the child it is still that child's marker and still the same orange. THE TOTAL
+  AMOUNT OF ORANGE IN A FRAME DOES NOT CHANGE WHEN IT MOVES: volume 31 hangs five of them on five
+  pegs and all five are in the picture; volume 38 cuts one and the cut piece becomes the darkest
+  orange on the page; volume 10 ties a bell onto one. It is never given to anybody else and never
+  duplicated.
   No sky blue, no purple, no pink, no white pencil anywhere ever.
 
 STAGE CLAUSES (the stage changes what the two pencils do, never which two they are):
@@ -76,6 +94,11 @@ STAGE CLAUSES (the stage changes what the two pencils do, never which two they a
     redrawn. Beams and furniture are EARTH, cloth and shutters are MOSS. 🔴 FIRELIGHT AND LAMPLIGHT
     ARE BARE PAPER and are the brightest thing on the page. A thing being looked for is drawn with
     its own outline while everything it hides among is the repeated mark - that is how the eye finds it.
+    🔴 WHEN TWO UNSTROKED AREAS SHARE ONE FRAME the smaller one is the fire or the lamp and the larger
+    one is the window or the snow beyond it; they are the same bare paper and neither is brightened to
+    beat the other. THE PAGE'S SUBJECT IS WHICHEVER THE CHILD IS FACING, and it is told by the body,
+    never by making one of the two lighter. (Volume 45 puts a stove and a window in one frame and the
+    child looks only at the window; volume 30 has a single lit window in a whole rainy page.)
   BROOK - water is ONE field of MOSS running across the page, 0 ripples, 0 glints. A thing in the
     water is CROSS-HATCH lying inside that field, hard edge, never distorted or mirrored. A thing on
     the water sits on top with its whole outline showing. Rocks and logs are EARTH with the strokes
@@ -83,12 +106,20 @@ STAGE CLAUSES (the stage changes what the two pencils do, never which two they a
   SQUARE - the ground is ONE field of EARTH; roofs and the bell tower are EARTH too but drawn with
     an outline, and shutters are MOSS. Depth in a crowd is made by figures standing CLOSER TOGETHER,
     never darker.
-  🔴 SNOW (volumes 01, 13, 16) - the slope or square is not stroked at all, it is bare PAPER from
-    edge to edge, and the two pencils draw ONLY what stands on it. A dip in the snow gets at most 3
-    EARTH strokes along its lower lip and nothing else.
-  🔴 FOREST (volume 04) - EARTH draws the trunks, one flat stroke per trunk, at most 9, all vertical;
-    MOSS becomes the shade between them as ONE horizontal field behind. The path stays bare PAPER.
-    Deeper in the wood the trunks stand CLOSER TOGETHER, never darker - that spacing is the only depth.
+  🔴 PATH (wherever the SCENE stage is Path) - the path is ONE strip of bare PAPER running through
+    whatever field it crosses, and it stays bare however far it goes. 🔴 ITS WIDTH IS THE ONLY THING
+    THAT TELLS TWO PATHS APART - a short steep one is narrow enough for one body, a long winding one
+    is twice that - so width is never varied for effect. Stone walls, roofs and gateposts beside it
+    are EARTH THINGS with one outline each; the ground either side is a FIELD with no outline.
+    Farther along, the path does not narrow to a vanishing point and does not get paler; it simply
+    leaves the frame or stops at a roof.
+  🔴 SNOW (wherever the SCENE says the ground is snow) - the slope, path or square is not stroked at
+    all, it is bare PAPER from edge to edge, and the two pencils draw ONLY what stands on it. A dip in
+    the snow gets at most 3 EARTH strokes along its lower lip and nothing else.
+  🔴 FOREST (wherever the SCENE stage is Wood) - EARTH draws the trunks, one flat stroke per trunk, at
+    most 9, all vertical; MOSS becomes the shade between them as ONE horizontal field behind. The path
+    stays bare PAPER. Deeper in the wood the trunks stand CLOSER TOGETHER, never darker - that spacing
+    is the only depth.
 
 CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world - two or three shapes
   with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads are
@@ -109,6 +140,13 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world 
   hedgehog, A BACK OF SPINES TWICE AS WIDE AS HE IS TALL, an ORANGE ribbon · LEO a fox, A MUZZLE AS LONG AS THE REST OF HIS SKULL and one
   straight tail as long as he is tall, an ORANGE collar. GRANDMOTHER BEAR is twice any child's height, entirely
   rounded, no orange anywhere, and she is only ever shown doing the same task the children are doing.
+  🔴 GUESTS ARE NOT THE FIVE AND NOT THE GRANDMOTHER. Where the script brings an animal from outside
+  the village - the marmot of volume 34, the postman badger of volume 28, the grandmother's baby bear,
+  the dog behind the wall - it carries NO ORANGE, it is given NO EXAGGERATED PART (that language
+  belongs to the five and would make a guest read as one of them), and it never joins their group
+  silhouette. A guest on four feet stays on four feet and wears nothing. 🔴 A GUEST MAY HAVE AN
+  ERRAND OF ITS OWN - the badger is walking somewhere the children are not - and that is the one thing
+  the grandmother never has.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
@@ -120,9 +158,18 @@ NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no blended 
 
 ```
 WARM:  the warm grey paper is the light - never lay colour where light belongs
-FIVE:  each child carries one small ORANGE thing and it is always visible
-GROWN: the bear is the only adult and she never has an errand of her own
+FIVE:  each child has one small ORANGE thing - on the body, or hung, set down or torn, but in frame
+GROWN: the bear is the only adult of this village and she never has an errand of her own
 ```
+
+🔴 **`FIVE:` 와 `GROWN:` 을 실제로 셌다 (2026-09-04).**
+「**always visible**」이 **13쪽에서 거짓**이다 — 주황이 아이 몸을 떠나는 쪽이다(38권은 리본을 **끊고**,
+31권은 다섯을 **벽 못에 걸고**, 10권은 목도리 끝에 종을 **새로 매단다**). 「몸에 달려 있다」로 읽히면
+화가가 **31권 p9 의 못 다섯을 빈 못으로 그리고 아이 목에 리본을 다시 그린다** — 그 권의 그림이 죽는다.
+→ 팔레트에 「떠나도 된다, 다만 화면 안 주황의 총량은 안 변한다」를 넣었다.
+「**the bear is the only adult**」은 **28권 일곱 쪽에서 거짓**이다 — 배낭을 진 오소리가 편지를 들고
+비탈을 올라온다. 그는 어른이고 **제 볼일로 간다.** 게스트(마멋·오소리·아기 곰·개)는 다섯의 규격도
+할머니의 규격도 안 받으므로 캐릭터 문단에 게스트 조항을 넣고, 이 줄은 「이 마을의 유일한 어른」으로 좁혔다.
 
 🔴 **주황은 인물이 아니라 무리를 가리킨다.** 시리즈 01은 주인공 하나에 붉은 목끈이었지만 02는 주인공이
 권마다 바뀐다. 누가 주인공이든 화면에 주황이 있고, 다섯이 모이면 한 무리로 읽힌다.

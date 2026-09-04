@@ -87,8 +87,17 @@ Style: monotype on warm white paper, exactly TWO inks plus one small accent, 4-6
 RENDERING (finish hierarchy): an area is ONE broad inked field, flat inside itself apart from the
   mottle; a wiped shape inside it has a CLEAN HARD EDGE because a rag made it. 🔴 THE ONLY SOFT EDGE
   IN THIS BOOK IS THE PLATE MARK, where the print runs out at the border of the plate - leave it on
-  every page. FINISHED THINGS PER PAGE = 2, Lulu and the one thing Lulu touches; everything else is a
-  wiped shape with no interior detail. Repeats are capped and the cap is the whole design: a heap of
+  every page. 🔴 A CAST SHADOW IS NOT A TONE - it is ONE flat inked field with a rag-hard edge, the
+  same shape as the thing that casts it, and shade is often the SUBJECT of a page (an awning's
+  rectangle on the yard floor, a tree's scatter of leaf patches, a square of sun on a barn floor).
+  What is forbidden is a shadow that softens, grades or bleeds. NO SHEET MAY BAN CAST SHADOW OUTRIGHT.
+  FINISHED THINGS PER PAGE = 2, Lulu and the one thing Lulu touches; everything else is a
+  wiped shape with no interior detail. 🔴 ON THE PAGES WHERE LULU IS NOT THERE (35 of the 500) the two
+  are THE FIGURE THE PAGE IS ABOUT and the one thing that figure touches - the rule is about how many,
+  not about who. 🔴 AND WHERE A PAGE COUNTS A SET, THE SET COUNTS AS ONE FINISHED THING: five sacks,
+  eight plates, nine olive stones in a row, twelve olives pressed into dough - drawn identically at
+  one detail level, one size and one depth so that the odd one out is the only difference. Finishing
+  only one of them kills the comparison, and the comparison is the book. Repeats are capped and the cap is the whole design: a heap of
   olives is ONE mass and at most 12 olives are ever drawn as separate berries · plates at most 8 ·
   flowers at most 8 · loaves or bread pieces at most 8 · sacks at most 5 · bottles at most 4 · the
   armful of old things at most 6 objects · ribbons at most 5 on one cousin · figs at most 5 · grape
@@ -102,6 +111,14 @@ RENDERING (finish hierarchy): an area is ONE broad inked field, flat inside itse
   walking cousin, never a second baby, never an extra child to fill a corner. THE THREE COUSINS MOVE
   AS ONE BLOCK - they touch or overlap and share one silhouette, and the baby is always lying down or
   being carried, never on its feet.
+  🔴 THE BLOCK HAS ONE EXCEPTION AND IT IS WRITTEN INTO THE SCRIPT: where a page singles out THE
+  SMALLEST COUSIN, that one steps clear and stands in its own outline while the OTHER TWO stay one
+  shape. The count is still three and nothing else about them changes. (Measured: 15 pages of 500,
+  volumes 17, 22, 25, 35, 45, 47, 48 - volume 47 is nearly the whole book.)
+  🔴 THE FIVE ARE THIS FAMILY'S CHILDREN. Where the script brings children of somewhere else - the
+  kindergarten of volume 50 - they are GUESTS: different cloth, NO BLUE, each in its own outline,
+  never touching a cousin and never merged into the block, so the family's five stay countable in the
+  same frame.
 
 PALETTE: PAPER WARM WHITE #F7F2E6, sun, the dry road, the tablecloth, whitewash, light, everything
   wiped clean off the plate · INK1 OLIVE LEAF #8C9478, leaves, the hillside, vine leaves, shutters,
@@ -110,8 +127,10 @@ PALETTE: PAPER WARM WHITE #F7F2E6, sun, the dry road, the tablecloth, whitewash,
   terracotta, the warm one · PLATE MIX OLIVE BLACK #3E3A2E, ripe olives, donkey backs and heads, the
   inside of the barn, night sky, the grape stain - made where the two inks meet on the plate, never a
   third tube · ACCENT MAJOLICA BLUE #1F7FA8, 🔴 dabbed onto the plate last with a small rag so it
-  prints in the same pass, touching NOTHING but Lulu's bell cord and its bell. No sky blue that is not
-  the accent, no purple anywhere, no pink, no red, no yellow, no white ink.
+  prints in the same pass, touching NOTHING but Lulu's bell cord and its bell. 🔴 NO BLUE ANYWHERE
+  THAT IS NOT THAT CORD AND THAT BELL - the sky is never blue (day sky is bare paper, night sky is
+  PLATE MIX), the water is never blue, no adult and no cousin ever carries it. No purple anywhere, no
+  pink, no red, no yellow, no white ink.
 
 STAGE CLAUSES (the stage changes what the two inks do, never which two they are):
   GROVE - the hillside is ONE broad field of OLIVE LEAF, 0 individual leaves. Trunks and the ground
@@ -131,20 +150,38 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
     the number of wiped shapes, never by adding a colour.
   HILL ROAD - the road is ONE wiped strip of bare paper running through the OLIVE LEAF hillside, and
     it stays bare however far it goes. Far farmhouses are at most 4 DRY EARTH silhouettes with 0
-    windows.
-  PIAZZA (volumes 09, 17, 23, 25) - the dancing ring is ONE wiped mass of PLATE MIX with the ground
+    windows. 🔴 THE VILLAGE ROAD at the foot of the hill is the same wiped strip, wider, with a row of
+    at most 4 DRY EARTH shopfront silhouettes across it, 0 windows and 0 lettering. 🔴 THE ONE MOTOR
+    VEHICLE IN THIS WORLD is ONE flat DRY EARTH mass lying right across the frame - 0 windows, 0
+    lettering, 0 shine, 0 speed lines, 0 people in it - and the dust behind it is a scatter of at most
+    9 marks. It is the only made machine in the series and it is drawn like a cart, not like a car.
+  MEADOW - tall grass beside the road or at the edge of the grove is ONE broad field of OLIVE LEAF
+    standing HIGHER THAN A CHILD'S HEAD, 0 individual blades, and the child inside it is read only by
+    what rises above the field. 🔴 A TRAIL IS WHERE THE GRASS IS DOWN: one wiped strip of bare paper
+    with a hard edge, and everything either side stays the same dense field. Never a thinner or paler
+    grass - the grass that is still standing is never modified.
+  PIAZZA (any page whose stage is the village square) - the dancing ring is ONE wiped mass of PLATE MIX with the ground
     bare paper inside and around it; only the 7 nearest figures have their own silhouette. Cloth
     banners are single flat pulls of either ink. 🔴 The ribbons in volume 17 are OLIVE LEAF and DRY
     EARTH only - a made thing never takes the accent.
-  🔴 PRESS AND VAT (volumes 18, 24) - the first oil running from the press is BARE PAPER, one clean
-    wiped line, and it carries the whole page. 🔴 THE GRAPE JUICE IS NOT PURPLE. It is the darkest
+  🔴 MILL AND VAT (any page at the olive mill or the grape vat) - 🔴 THE MILL IS A TURNING STONE, NOT
+    A PRESS: a big round stone standing on edge on a broad bed stone, pushed round by a long timber
+    arm, with a channel cut round the bed to a lip. Nothing is squeezed. THE FIRST OIL IS BARE PAPER
+    AND IT IS ONE DROP swelling at the lip of that channel over a waiting bowl - not a stream, not a
+    line, not yellow - and it carries the whole page. 🔴 THE GRAPE JUICE IS NOT PURPLE. It is the darkest
     print of DRY EARTH - a deep saturated stain of the same warm ink - and "purple feet" and "purple
     bottom" are made by HOW DARK THE STAIN IS, never by a new colour. The blue in volume 24 is on the
     bell and nowhere else.
-  🔴 NIGHT (volume 14) - the sky is PLATE MIX laid as one flat field. The stars and the one shooting
-    star are BARE PAPER wiped out of it, each taken on its own, at most 14, with no trail longer than
-    a finger and no glow.
-  🔴 RAIN (volume 13) - the storm cloud is ONE flat mass of PLATE MIX entering from one side, with a
+  🔴 NIGHT (any page the script calls night) - the sky is PLATE MIX laid as one flat field. The stars
+    and the one shooting star are BARE PAPER wiped out of it, each taken on its own, at most 14, with
+    no trail longer than a finger and no glow.
+  🔴 ATTIC (any page in Lulu's attic room) - the room is ONE flat field of PLATE MIX from wall to wall
+    and IT NEVER GETS LIGHTER. Everything bright in it is wiped out of that one field with a hard edge
+    and nothing fades at its border: a shutter slit is one straight bright line the same width along
+    its whole length, a half-pushed leaf is a wedge, an open window is a square laid flat on the floor,
+    a lamp lights a patch whose shape says where it is pointing. 🔴 THE AMOUNT WIPED IS THE CLOCK -
+    the darkness of the room is the same on every page and only the wiped area changes.
+  🔴 RAIN (any page the script calls rain) - the storm cloud is ONE flat mass of PLATE MIX entering from one side, with a
     hard wiped edge against the bare sky. Raindrops are at most 11 short DRY EARTH strokes all leaning
     the same way. Nothing gets paler as the sky darkens.
 
@@ -171,6 +208,12 @@ CHARACTER DESIGN LANGUAGE: the donkeys are built from the same broad fields as t
   ONE short wiped stroke. 🔴 THE PLATE PRINTS ONCE - no two faces in this book come out identical, the
   scoops sit a little differently on every page and that drift is left in, never corrected. Feeling
   is in the mouth curve, the two brow strokes and the two long ears.
+  🔴 BIRDS ARE NOT DONKEYS AND ARE NOT DRESSED. The swallows that carry volume 19 are wild animals of
+  their own kind - the mother ONE PLATE MIX shape with a forked tail, no clothing, no blunt hand,
+  never upright; the nestlings are heads with no bodies in the mouth of the nest. 🔴 A NESTLING'S OPEN
+  BEAK IS BARE PAPER, wiped out of the dark nest hole. It is NOT yellow, and being the one bright
+  thing in that hole is exactly what makes it read. Any other wild animal takes the same rule: it
+  keeps its own body and it takes no cloth.
   THE CAST, separable at thumbnail size: LULU a young donkey, the smallest standing figure,
   round-headed, two long ears, a BLUE CORD WITH ONE BLUE BELL at the throat and nothing else blue in
   the world · MAMA a donkey, a full-grown adult two thirds taller than Lulu, a BIB APRON, no blue ·
@@ -180,7 +223,9 @@ CHARACTER DESIGN LANGUAGE: the donkeys are built from the same broad fields as t
   motion with the skirt swinging behind her, no blue · BEPPO a donkey, the heaviest and TWICE ANYONE
   ELSE'S WIDTH though not the tallest, a WAISTCOAT and a CROOKED STICK, no blue · THE THREE
   COUSINS one single regulation drawn three times - same build, same cloth, told apart only by a small
-  step in height - always touching or overlapping so they read as ONE shape, no blue · THE BABY COUSIN
+  step in height, 🔴 AND THAT STEP MUST SURVIVE AT THUMBNAIL SIZE because seven books name THE
+  SMALLEST COUSIN as a person - normally touching or overlapping so they read as ONE shape, no blue ·
+  THE BABY COUSIN
   the smallest of all, always lying, carried or on somebody's back, never standing, no blue.
   🔴 NO ADULT AND NO COUSIN EVER CARRIES BLUE. In a family this size the accent is the only thing that
   finds the child the page is about.
@@ -198,8 +243,16 @@ NOT: no airbrush, gradient, glow or 3D render / no white ink or white paint - wh
 WIPE:   the light is wiped off the plate - white is bare paper, never ink
 ONCE:   one plate, one pull - leave the plate mark, and let the ink print unevenly
 BELL:   the only blue in the world is Lulu's cord and bell
-FIVE:   three walking cousins moving as one block, and one baby who never stands
+FIVE:   three walking cousins as one block - except where the smallest steps out - and one baby
+        who never stands
 ```
+
+🔴 **`FIVE:` 를 실제로 셌다 (2026-09-04).** 「사촌 셋은 언제나 한 덩어리」는 **500쪽 중 15쪽에서 거짓**이다
+(17·22·25·35·45·47·48권 — **47권은 열 쪽 중 여섯**이 제일 작은 사촌 하나와 룰루의 이야기다).
+이대로 구우면 그 열다섯 쪽에서 화가가 **떨어져 나온 사촌을 도로 붙여** 그 권의 사건을 지운다.
+그리고 「아기는 절대 안 선다」는 500쪽 전부에서 참이다(05권 p7 의 「벌떡 일어나 앉아」는 앉은 것).
+**50권에는 유치원 아이 셋과 선생이 있다** — `THE CHILDREN ARE ALWAYS EXACTLY FIVE` 가 그 다섯 쪽에서
+거짓이라, 앵커에 게스트 조항을 넣어 다섯을 「이 집 아이 다섯」으로 좁혔다.
 
 🔴 **`FIVE:` 는 인원 제한이 아니라 대가족을 그리는 법이다.** 설계서가 사촌 수를 못박은 자리가
 본문 셈과 맞물려 있다 — **21권**은 그물 귀퉁이 넷을 룰루와 사촌 셋이 하나씩 잡고,
