@@ -6,251 +6,301 @@
   {
     "file": "taro-01.html",
     "label": "01 큰 나무는 둘",
-    "title": "큰 나무는 둘"
+    "title": "큰 나무는 둘",
+    "pages": 10
   },
   {
     "file": "taro-02.html",
     "label": "02 저쪽만 파래요",
-    "title": "저쪽만 파래요"
+    "title": "저쪽만 파래요",
+    "pages": 10
   },
   {
     "file": "taro-03.html",
     "label": "03 바나나가 너무 많아",
-    "title": "바나나가 너무 많아"
+    "title": "바나나가 너무 많아",
+    "pages": 10
   },
   {
     "file": "taro-04.html",
     "label": "04 해가 저기 올 때",
-    "title": "해가 저기 올 때"
+    "title": "해가 저기 올 때",
+    "pages": 10
   },
   {
     "file": "taro-05.html",
     "label": "05 서로의 집",
-    "title": "서로의 집"
+    "title": "서로의 집",
+    "pages": 10
   },
   {
     "file": "taro-06.html",
     "label": "06 나무를 돌았어",
-    "title": "나무를 돌았어"
+    "title": "나무를 돌았어",
+    "pages": 10
   },
   {
     "file": "taro-07.html",
     "label": "07 안 찾아",
-    "title": "안 찾아"
+    "title": "안 찾아",
+    "pages": 10
   },
   {
     "file": "taro-08.html",
     "label": "08 이건 내 통이 아닌데",
-    "title": "이건 내 통이 아닌데"
+    "title": "이건 내 통이 아닌데",
+    "pages": 10
   },
   {
     "file": "taro-09.html",
     "label": "09 열 개 모으자",
-    "title": "열 개 모으자"
+    "title": "열 개 모으자",
+    "pages": 10
   },
   {
     "file": "taro-10.html",
     "label": "10 저기 타로다",
-    "title": "저기 타로다"
+    "title": "저기 타로다",
+    "pages": 10
   },
   {
     "file": "taro-11.html",
     "label": "11 이쪽이 빨라",
-    "title": "이쪽이 빨라"
+    "title": "이쪽이 빨라",
+    "pages": 10
   },
   {
     "file": "taro-12.html",
     "label": "12 한낮",
-    "title": "한낮"
+    "title": "한낮",
+    "pages": 10
   },
   {
     "file": "taro-13.html",
     "label": "13 내일 먹자",
-    "title": "내일 먹자"
+    "title": "내일 먹자",
+    "pages": 10
   },
   {
     "file": "taro-14.html",
     "label": "14 이쪽이라니까",
-    "title": "이쪽이라니까"
+    "title": "이쪽이라니까",
+    "pages": 10
   },
   {
     "file": "taro-15.html",
     "label": "15 혼자 만든 놀이",
-    "title": "혼자 만든 놀이"
+    "title": "혼자 만든 놀이",
+    "pages": 10
   },
   {
     "file": "taro-16.html",
     "label": "16 네가 가져오는 줄 알았어",
-    "title": "네가 가져오는 줄 알았어"
+    "title": "네가 가져오는 줄 알았어",
+    "pages": 10
   },
   {
     "file": "taro-17.html",
     "label": "17 네가 앞에 가",
-    "title": "네가 앞에 가"
+    "title": "네가 앞에 가",
+    "pages": 10
   },
   {
     "file": "taro-18.html",
     "label": "18 큰 돌 하나",
-    "title": "큰 돌 하나"
+    "title": "큰 돌 하나",
+    "pages": 10
   },
   {
     "file": "taro-19.html",
     "label": "19 그거 말고 그거",
-    "title": "그거 말고 그거"
+    "title": "그거 말고 그거",
+    "pages": 10
   },
   {
     "file": "taro-20.html",
     "label": "20 벌써 다 했어",
-    "title": "벌써 다 했어"
+    "title": "벌써 다 했어",
+    "pages": 10
   },
   {
     "file": "taro-21.html",
     "label": "21 비가 지웠어",
-    "title": "비가 지웠어"
+    "title": "비가 지웠어",
+    "pages": 10
   },
   {
     "file": "taro-22.html",
     "label": "22 뭐라고?",
-    "title": "뭐라고?"
+    "title": "뭐라고?",
+    "pages": 10
   },
   {
     "file": "taro-23.html",
     "label": "23 마지막 하나",
-    "title": "마지막 하나"
+    "title": "마지막 하나",
+    "pages": 10
   },
   {
     "file": "taro-24.html",
     "label": "24 오지 말라는 줄 알았어",
-    "title": "오지 말라는 줄 알았어"
+    "title": "오지 말라는 줄 알았어",
+    "pages": 10
   },
   {
     "file": "taro-25.html",
     "label": "25 몰래 만든 것",
-    "title": "몰래 만든 것"
+    "title": "몰래 만든 것",
+    "pages": 10
   },
   {
     "file": "taro-26.html",
     "label": "26 잎 접시, 싹싹 비워!",
-    "title": "잎 접시, 싹싹 비워!"
+    "title": "잎 접시, 싹싹 비워!",
+    "pages": 10
   },
   {
     "file": "taro-27.html",
     "label": "27 밥 먹고 쓱쓱, 이가 하얘!",
-    "title": "밥 먹고 쓱쓱, 이가 하얘!"
+    "title": "밥 먹고 쓱쓱, 이가 하얘!",
+    "pages": 10
   },
   {
     "file": "taro-28.html",
     "label": "28 손 먼저 씻고, 그다음 냠!",
-    "title": "손 먼저 씻고, 그다음 냠!"
+    "title": "손 먼저 씻고, 그다음 냠!",
+    "pages": 10
   },
   {
     "file": "taro-29.html",
     "label": "29 바나나는 둘까지!",
-    "title": "바나나는 둘까지!"
+    "title": "바나나는 둘까지!",
+    "pages": 10
   },
   {
     "file": "taro-30.html",
     "label": "30 처마 물로 쏴아, 반짝!",
-    "title": "처마 물로 쏴아, 반짝!"
+    "title": "처마 물로 쏴아, 반짝!",
+    "pages": 10
   },
   {
     "file": "taro-31.html",
     "label": "31 닭이 자러 가면, 나도 집으로!",
-    "title": "닭이 자러 가면, 나도 집으로!"
+    "title": "닭이 자러 가면, 나도 집으로!",
+    "pages": 10
   },
   {
     "file": "taro-32.html",
     "label": "32 꼬끼오 하면, 벌떡!",
-    "title": "꼬끼오 하면, 벌떡!"
+    "title": "꼬끼오 하면, 벌떡!",
+    "pages": 10
   },
   {
     "file": "taro-33.html",
     "label": "33 놀고 나면, 껍질에 쏙!",
-    "title": "놀고 나면, 껍질에 쏙!"
+    "title": "놀고 나면, 껍질에 쏙!",
+    "pages": 10
   },
   {
     "file": "taro-34.html",
     "label": "34 귀 뒤로 돌려, 꼭 묶고!",
-    "title": "귀 뒤로 돌려, 꼭 묶고!"
+    "title": "귀 뒤로 돌려, 꼭 묶고!",
+    "pages": 10
   },
   {
     "file": "taro-35.html",
     "label": "35 물통 하나, 잎 밥 하나, 출발!",
-    "title": "물통 하나, 잎 밥 하나, 출발!"
+    "title": "물통 하나, 잎 밥 하나, 출발!",
+    "pages": 10
   },
   {
     "file": "taro-36.html",
     "label": "36 멈춰! 물 보고! 돌 하나씩!",
-    "title": "멈춰! 물 보고! 돌 하나씩!"
+    "title": "멈춰! 물 보고! 돌 하나씩!",
+    "pages": 10
   },
   {
     "file": "taro-37.html",
     "label": "37 몰라? 그럼 안 먹어!",
-    "title": "몰라? 그럼 안 먹어!"
+    "title": "몰라? 그럼 안 먹어!",
+    "pages": 10
   },
   {
     "file": "taro-38.html",
     "label": "38 우르릉 하면, 지붕 밑으로!",
-    "title": "우르릉 하면, 지붕 밑으로!"
+    "title": "우르릉 하면, 지붕 밑으로!",
+    "pages": 10
   },
   {
     "file": "taro-39.html",
     "label": "39 미끌미끌 길은, 한 발 한 발!",
-    "title": "미끌미끌 길은, 한 발 한 발!"
+    "title": "미끌미끌 길은, 한 발 한 발!",
+    "pages": 10
   },
   {
     "file": "taro-40.html",
     "label": "40 꼬리는 꼬리대로, 귀는 귀대로!",
-    "title": "꼬리는 꼬리대로, 귀는 귀대로!"
+    "title": "꼬리는 꼬리대로, 귀는 귀대로!",
+    "pages": 10
   },
   {
     "file": "taro-41.html",
     "label": "41 깜깜한 건 구름, 곧 지나가!",
-    "title": "깜깜한 건 구름, 곧 지나가!"
+    "title": "깜깜한 건 구름, 곧 지나가!",
+    "pages": 10
   },
   {
     "file": "taro-42.html",
     "label": "42 손은 등 뒤로, 숨은 크게!",
-    "title": "손은 등 뒤로, 숨은 크게!"
+    "title": "손은 등 뒤로, 숨은 크게!",
+    "pages": 10
   },
   {
     "file": "taro-43.html",
     "label": "43 한 번 더, 또 한 번 더!",
-    "title": "한 번 더, 또 한 번 더!"
+    "title": "한 번 더, 또 한 번 더!",
+    "pages": 10
   },
   {
     "file": "taro-44.html",
     "label": "44 기다리는 동안, 빗방울 악기!",
-    "title": "기다리는 동안, 빗방울 악기!"
+    "title": "기다리는 동안, 빗방울 악기!",
+    "pages": 10
   },
   {
     "file": "taro-45.html",
     "label": "45 미안해, 그리고 다시 채워!",
-    "title": "미안해, 그리고 다시 채워!"
+    "title": "미안해, 그리고 다시 채워!",
+    "pages": 10
   },
   {
     "file": "taro-46.html",
     "label": "46 한 번은 너, 한 번은 나!",
-    "title": "한 번은 너, 한 번은 나!"
+    "title": "한 번은 너, 한 번은 나!",
+    "pages": 10
   },
   {
     "file": "taro-47.html",
     "label": "47 앞은 나, 뒤는 너, 영차!",
-    "title": "앞은 나, 뒤는 너, 영차!"
+    "title": "앞은 나, 뒤는 너, 영차!",
+    "pages": 10
   },
   {
     "file": "taro-48.html",
     "label": "48 귀 옆에선, 소곤소곤!",
-    "title": "귀 옆에선, 소곤소곤!"
+    "title": "귀 옆에선, 소곤소곤!",
+    "pages": 10
   },
   {
     "file": "taro-49.html",
     "label": "49 형아는 이렇게 해!",
-    "title": "형아는 이렇게 해!"
+    "title": "형아는 이렇게 해!",
+    "pages": 10
   },
   {
     "file": "taro-50.html",
     "label": "50 아기는 살살, 잎 만지듯!",
-    "title": "아기는 살살, 잎 만지듯!"
+    "title": "아기는 살살, 잎 만지듯!",
+    "pages": 10
   }
 ]

@@ -6,251 +6,301 @@
   {
     "file": "mina-01.html",
     "label": "01 나도 이고 갈래",
-    "title": "나도 이고 갈래"
+    "title": "나도 이고 갈래",
+    "pages": 10
   },
   {
     "file": "mina-02.html",
     "label": "02 똑같이 나눠",
-    "title": "똑같이 나눠"
+    "title": "똑같이 나눠",
+    "pages": 10
   },
   {
     "file": "mina-03.html",
     "label": "03 혼자 만들 거야",
-    "title": "혼자 만들 거야"
+    "title": "혼자 만들 거야",
+    "pages": 10
   },
   {
     "file": "mina-04.html",
     "label": "04 내가 다 할게",
-    "title": "내가 다 할게"
+    "title": "내가 다 할게",
+    "pages": 10
   },
   {
     "file": "mina-05.html",
     "label": "05 손을 내렸어",
-    "title": "손을 내렸어"
+    "title": "손을 내렸어",
+    "pages": 10
   },
   {
     "file": "mina-06.html",
     "label": "06 내가 빨아 줄게",
-    "title": "내가 빨아 줄게"
+    "title": "내가 빨아 줄게",
+    "pages": 10
   },
   {
     "file": "mina-07.html",
     "label": "07 나도 탈래",
-    "title": "나도 탈래"
+    "title": "나도 탈래",
+    "pages": 10
   },
   {
     "file": "mina-08.html",
     "label": "08 제일 오래 탈래",
-    "title": "제일 오래 탈래"
+    "title": "제일 오래 탈래",
+    "pages": 10
   },
   {
     "file": "mina-09.html",
     "label": "09 라주처럼 했는데",
-    "title": "라주처럼 했는데"
+    "title": "라주처럼 했는데",
+    "pages": 10
   },
   {
     "file": "mina-10.html",
     "label": "10 라주 건 더 커",
-    "title": "라주 건 더 커"
+    "title": "라주 건 더 커",
+    "pages": 10
   },
   {
     "file": "mina-11.html",
     "label": "11 따라오기만 해",
-    "title": "따라오기만 해"
+    "title": "따라오기만 해",
+    "pages": 10
   },
   {
     "file": "mina-12.html",
     "label": "12 등 뒤에 숨겼어",
-    "title": "등 뒤에 숨겼어"
+    "title": "등 뒤에 숨겼어",
+    "pages": 10
   },
   {
     "file": "mina-13.html",
     "label": "13 그냥 끄덕였어",
-    "title": "그냥 끄덕였어"
+    "title": "그냥 끄덕였어",
+    "pages": 10
   },
   {
     "file": "mina-14.html",
     "label": "14 나도 건널래",
-    "title": "나도 건널래"
+    "title": "나도 건널래",
+    "pages": 10
   },
   {
     "file": "mina-15.html",
     "label": "15 내가 미리 주웠어",
-    "title": "내가 미리 주웠어"
+    "title": "내가 미리 주웠어",
+    "pages": 10
   },
   {
     "file": "mina-16.html",
     "label": "16 휘저어 봤어",
-    "title": "휘저어 봤어"
+    "title": "휘저어 봤어",
+    "pages": 10
   },
   {
     "file": "mina-17.html",
     "label": "17 그건 아니야",
-    "title": "그건 아니야"
+    "title": "그건 아니야",
+    "pages": 10
   },
   {
     "file": "mina-18.html",
     "label": "18 큰 신을 신었어",
-    "title": "큰 신을 신었어"
+    "title": "큰 신을 신었어",
+    "pages": 10
   },
   {
     "file": "mina-19.html",
     "label": "19 소누는 안 하잖아",
-    "title": "소누는 안 하잖아"
+    "title": "소누는 안 하잖아",
+    "pages": 10
   },
   {
     "file": "mina-20.html",
     "label": "20 밤에 옮겼어",
-    "title": "밤에 옮겼어"
+    "title": "밤에 옮겼어",
+    "pages": 10
   },
   {
     "file": "mina-21.html",
     "label": "21 소누는 두고 가자",
-    "title": "소누는 두고 가자"
+    "title": "소누는 두고 가자",
+    "pages": 10
   },
   {
     "file": "mina-22.html",
     "label": "22 너는 아직 안 돼",
-    "title": "너는 아직 안 돼"
+    "title": "너는 아직 안 돼",
+    "pages": 10
   },
   {
     "file": "mina-23.html",
     "label": "23 안 무섭다고 했어",
-    "title": "안 무섭다고 했어"
+    "title": "안 무섭다고 했어",
+    "pages": 10
   },
   {
     "file": "mina-24.html",
     "label": "24 두 손이 꽉 찼어",
-    "title": "두 손이 꽉 찼어"
+    "title": "두 손이 꽉 찼어",
+    "pages": 10
   },
   {
     "file": "mina-25.html",
     "label": "25 가운데 아이",
-    "title": "가운데 아이"
+    "title": "가운데 아이",
+    "pages": 10
   },
   {
     "file": "mina-26.html",
     "label": "26 초록 잎도 한 입!",
-    "title": "초록 잎도 한 입!"
+    "title": "초록 잎도 한 입!",
+    "pages": 10
   },
   {
     "file": "mina-27.html",
     "label": "27 쓱싹쓱싹, 이가 하얘!",
-    "title": "쓱싹쓱싹, 이가 하얘!"
+    "title": "쓱싹쓱싹, 이가 하얘!",
+    "pages": 10
   },
   {
     "file": "mina-28.html",
     "label": "28 씻은 손으로, 냠!",
-    "title": "씻은 손으로, 냠!"
+    "title": "씻은 손으로, 냠!",
+    "pages": 10
   },
   {
     "file": "mina-29.html",
     "label": "29 열 번 꼭꼭, 그다음 꿀꺽!",
-    "title": "열 번 꼭꼭, 그다음 꿀꺽!"
+    "title": "열 번 꼭꼭, 그다음 꿀꺽!",
+    "pages": 10
   },
   {
     "file": "mina-30.html",
     "label": "30 코로 뿜으면, 첨벙 비!",
-    "title": "코로 뿜으면, 첨벙 비!"
+    "title": "코로 뿜으면, 첨벙 비!",
+    "pages": 10
   },
   {
     "file": "mina-31.html",
     "label": "31 건너 불 꺼지면, 잘 시간!",
-    "title": "건너 불 꺼지면, 잘 시간!"
+    "title": "건너 불 꺼지면, 잘 시간!",
+    "pages": 10
   },
   {
     "file": "mina-32.html",
     "label": "32 해 오르면, 이불 걷고 쭉!",
-    "title": "해 오르면, 이불 걷고 쭉!"
+    "title": "해 오르면, 이불 걷고 쭉!",
+    "pages": 10
   },
   {
     "file": "mina-33.html",
     "label": "33 놀고 나면, 바구니에 쏙!",
-    "title": "놀고 나면, 바구니에 쏙!"
+    "title": "놀고 나면, 바구니에 쏙!",
+    "pages": 10
   },
   {
     "file": "mina-34.html",
     "label": "34 구멍 하나에, 다리 하나!",
-    "title": "구멍 하나에, 다리 하나!"
+    "title": "구멍 하나에, 다리 하나!",
+    "pages": 10
   },
   {
     "file": "mina-35.html",
     "label": "35 바구니·물병·수건, 셋!",
-    "title": "바구니·물병·수건, 셋!"
+    "title": "바구니·물병·수건, 셋!",
+    "pages": 10
   },
   {
     "file": "mina-36.html",
     "label": "36 꼬리 지나가면, 그다음 건너!",
-    "title": "꼬리 지나가면, 그다음 건너!"
+    "title": "꼬리 지나가면, 그다음 건너!",
+    "pages": 10
   },
   {
     "file": "mina-37.html",
     "label": "37 코 걸고, 장 구경!",
-    "title": "코 걸고, 장 구경!"
+    "title": "코 걸고, 장 구경!",
+    "pages": 10
   },
   {
     "file": "mina-38.html",
     "label": "38 모르는 건 냄새만, 입엔 안 돼!",
-    "title": "모르는 건 냄새만, 입엔 안 돼!"
+    "title": "모르는 건 냄새만, 입엔 안 돼!",
+    "pages": 10
   },
   {
     "file": "mina-39.html",
     "label": "39 눈금 돌 잠기면, 위로!",
-    "title": "눈금 돌 잠기면, 위로!"
+    "title": "눈금 돌 잠기면, 위로!",
+    "pages": 10
   },
   {
     "file": "mina-40.html",
     "label": "40 귀 내려올 때까지, 후~!",
-    "title": "귀 내려올 때까지, 후~!"
+    "title": "귀 내려올 때까지, 후~!",
+    "pages": 10
   },
   {
     "file": "mina-41.html",
     "label": "41 엄마 뒤에서, 한 걸음!",
-    "title": "엄마 뒤에서, 한 걸음!"
+    "title": "엄마 뒤에서, 한 걸음!",
+    "pages": 10
   },
   {
     "file": "mina-42.html",
     "label": "42 울어도 돼, 코 걸어 줄게!",
-    "title": "울어도 돼, 코 걸어 줄게!"
+    "title": "울어도 돼, 코 걸어 줄게!",
+    "pages": 10
   },
   {
     "file": "mina-43.html",
     "label": "43 안 되면, 또 감아!",
-    "title": "안 되면, 또 감아!"
+    "title": "안 되면, 또 감아!",
+    "pages": 10
   },
   {
     "file": "mina-44.html",
     "label": "44 기다릴 땐, 흙 그림!",
-    "title": "기다릴 땐, 흙 그림!"
+    "title": "기다릴 땐, 흙 그림!",
+    "pages": 10
   },
   {
     "file": "mina-45.html",
     "label": "45 미안해, 다시 같이 접자!",
-    "title": "미안해, 다시 같이 접자!"
+    "title": "미안해, 다시 같이 접자!",
+    "pages": 10
   },
   {
     "file": "mina-46.html",
     "label": "46 예쁜 말 하면, 예쁜 말 배워!",
-    "title": "예쁜 말 하면, 예쁜 말 배워!"
+    "title": "예쁜 말 하면, 예쁜 말 배워!",
+    "pages": 10
   },
   {
     "file": "mina-47.html",
     "label": "47 밀지 말고, 말로 해!",
-    "title": "밀지 말고, 말로 해!"
+    "title": "밀지 말고, 말로 해!",
+    "pages": 10
   },
   {
     "file": "mina-48.html",
     "label": "48 자는 옆에선, 살살 소리!",
-    "title": "자는 옆에선, 살살 소리!"
+    "title": "자는 옆에선, 살살 소리!",
+    "pages": 10
   },
   {
     "file": "mina-49.html",
     "label": "49 가운데니까, 내가 할게!",
-    "title": "가운데니까, 내가 할게!"
+    "title": "가운데니까, 내가 할게!",
+    "pages": 10
   },
   {
     "file": "mina-50.html",
     "label": "50 코는 살살, 걸어 줘!",
-    "title": "코는 살살, 걸어 줘!"
+    "title": "코는 살살, 걸어 줘!",
+    "pages": 10
   }
 ]

@@ -28,6 +28,30 @@ const prefixFor = (docId: string): string => `comic-assets/${docId}/`;
 const keyFor = (docId: string, key: string, ext: string): string =>
   `comic-assets/${docId}/${key}.${ext}`;
 
+// 🔴 이 라우트는 `/:docId` **앞**에 있어야 한다 — express 는 선언 순서로 맞추므로
+//    뒤에 두면 `/series/pongi` 가 docId="series" 로 먹힌다.
+// 🔴 시리즈 목록이 권마다 물으면 50번이 된다 — R2 를 한 번만 나열해 권별 컷 수를 센다.
+router.get('/series/:key', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const key = String(req.params.key ?? '');
+    if (!SAFE.test(key)) {
+      res.status(400).json({ success: false, error: '잘못된 시리즈 키' });
+      return;
+    }
+    const objects = await listR2Objects(`comic-assets/${key}-`);
+    const counts: Record<string, number> = {};
+    for (const obj of objects) {
+      // 쪽 삽화만 센다 — 앵커·캐스트 시트(`anchor`·`cast-*`)는 컷이 아니다.
+      const m = (obj.Key ?? '').match(/^comic-assets\/([A-Za-z0-9-]+)\/p\d+\.(?:png|jpg|webp)$/);
+      if (m) counts[m[1]] = (counts[m[1]] ?? 0) + 1;
+    }
+    res.set('Cache-Control', CACHE);
+    res.json({ success: true, data: counts });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:docId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const docId = String(req.params.docId ?? '');

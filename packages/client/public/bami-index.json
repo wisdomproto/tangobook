@@ -6,126 +6,151 @@
   {
     "file": "bami-01.html",
     "label": "01 도시락은 골고루!",
-    "title": "도시락은 골고루!"
+    "title": "도시락은 골고루!",
+    "pages": 10
   },
   {
     "file": "bami-02.html",
     "label": "02 치카치카, 반짝!",
-    "title": "치카치카, 반짝!"
+    "title": "치카치카, 반짝!",
+    "pages": 10
   },
   {
     "file": "bami-03.html",
     "label": "03 발 씻고, 냠냠!",
-    "title": "발 씻고, 냠냠!"
+    "title": "발 씻고, 냠냠!",
+    "pages": 10
   },
   {
     "file": "bami-04.html",
     "label": "04 꼭꼭 씹고, 천천히!",
-    "title": "꼭꼭 씹고, 천천히!"
+    "title": "꼭꼭 씹고, 천천히!",
+    "pages": 10
   },
   {
     "file": "bami-05.html",
     "label": "05 거품 물통, 첨벙!",
-    "title": "거품 물통, 첨벙!"
+    "title": "거품 물통, 첨벙!",
+    "pages": 10
   },
   {
     "file": "bami-06.html",
     "label": "06 종점에 서면, 코~",
-    "title": "종점에 서면, 코~"
+    "title": "종점에 서면, 코~",
+    "pages": 10
   },
   {
     "file": "bami-07.html",
     "label": "07 첫 뿌웅 전에, 쭉쭉!",
-    "title": "첫 뿌웅 전에, 쭉쭉!"
+    "title": "첫 뿌웅 전에, 쭉쭉!",
+    "pages": 10
   },
   {
     "file": "bami-08.html",
     "label": "08 제자리에, 척!",
-    "title": "제자리에, 척!"
+    "title": "제자리에, 척!",
+    "pages": 10
   },
   {
     "file": "bami-09.html",
     "label": "09 목도리는 한 바퀴!",
-    "title": "목도리는 한 바퀴!"
+    "title": "목도리는 한 바퀴!",
+    "pages": 10
   },
   {
     "file": "bami-10.html",
     "label": "10 표·모자·도시락, 준비 끝!",
-    "title": "표·모자·도시락, 준비 끝!"
+    "title": "표·모자·도시락, 준비 끝!",
+    "pages": 10
   },
   {
     "file": "bami-11.html",
     "label": "11 건널목은 멈춰 보고!",
-    "title": "건널목은 멈춰 보고!"
+    "title": "건널목은 멈춰 보고!",
+    "pages": 10
   },
   {
     "file": "bami-12.html",
     "label": "12 손잡이 꼭!",
-    "title": "손잡이 꼭!"
+    "title": "손잡이 꼭!",
+    "pages": 10
   },
   {
     "file": "bami-13.html",
     "label": "13 아빠 곁에, 꼭!",
-    "title": "아빠 곁에, 꼭!"
+    "title": "아빠 곁에, 꼭!",
+    "pages": 10
   },
   {
     "file": "bami-14.html",
     "label": "14 승강장은 살금살금!",
-    "title": "승강장은 살금살금!"
+    "title": "승강장은 살금살금!",
+    "pages": 10
   },
   {
     "file": "bami-15.html",
     "label": "15 등불 하나면 돼!",
-    "title": "등불 하나면 돼!"
+    "title": "등불 하나면 돼!",
+    "pages": 10
   },
   {
     "file": "bami-16.html",
     "label": "16 화나면, 창에 후~!",
-    "title": "화나면, 창에 후~!"
+    "title": "화나면, 창에 후~!",
+    "pages": 10
   },
   {
     "file": "bami-17.html",
     "label": "17 날개 흔들어요!",
-    "title": "날개 흔들어요!"
+    "title": "날개 흔들어요!",
+    "pages": 10
   },
   {
     "file": "bami-18.html",
     "label": "18 안 되면, 또 당겨!",
-    "title": "안 되면, 또 당겨!"
+    "title": "안 되면, 또 당겨!",
+    "pages": 10
   },
   {
     "file": "bami-19.html",
     "label": "19 눈길은 천천히!",
-    "title": "눈길은 천천히!"
+    "title": "눈길은 천천히!",
+    "pages": 10
   },
   {
     "file": "bami-20.html",
     "label": "20 깨뜨렸어요, 하고!",
-    "title": "깨뜨렸어요, 하고!"
+    "title": "깨뜨렸어요, 하고!",
+    "pages": 10
   },
   {
     "file": "bami-21.html",
     "label": "21 난로는 돌아가며!",
-    "title": "난로는 돌아가며!"
+    "title": "난로는 돌아가며!",
+    "pages": 10
   },
   {
     "file": "bami-22.html",
     "label": "22 고운 말 하면, 고운 메아리!",
-    "title": "고운 말 하면, 고운 메아리!"
+    "title": "고운 말 하면, 고운 메아리!",
+    "pages": 10
   },
   {
     "file": "bami-23.html",
     "label": "23 안녕하세요, 하고!",
-    "title": "안녕하세요, 하고!"
+    "title": "안녕하세요, 하고!",
+    "pages": 10
   },
   {
     "file": "bami-24.html",
     "label": "24 기차가 보이면, 괜찮아!",
-    "title": "기차가 보이면, 괜찮아!"
+    "title": "기차가 보이면, 괜찮아!",
+    "pages": 10
   },
   {
     "file": "bami-25.html",
     "label": "25 할머니 역, 폭 안겨!",
-    "title": "할머니 역, 폭 안겨!"
+    "title": "할머니 역, 폭 안겨!",
+    "pages": 10
   }
 ]

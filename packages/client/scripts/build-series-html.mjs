@@ -245,7 +245,8 @@ ${guestTag}<script src="/${key}-core.js"></script>
 </body>
 </html>
 `);
-    index.push({ file: `${key}-${id}.html`, label: `${id} ${bk.title}`, title: bk.title });
+    // 🔴 쪽수를 실어야 사이드바가 「삽화 7/10」을 셀 수 있다 — 10 을 상수로 박으면 쪽수가 다른 라인에서 거짓말한다.
+    index.push({ file: `${key}-${id}.html`, label: `${id} ${bk.title}`, title: bk.title, pages: bk.pages.length });
     made++;
   }
   // 🔴 들여쓰기 2 + 끝 개행 = prettier 기본값. 안 맞추면 커밋 훅이 되포맷하고 다음 빌드가 되돌린다.

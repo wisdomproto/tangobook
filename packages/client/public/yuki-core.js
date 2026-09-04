@@ -85,6 +85,8 @@
       '.ep-badge,.ep-memo{flex:0 0 auto;cursor:pointer;border:0;background:transparent;line-height:1;padding:3px;border-radius:6px;}',
       '.ep-badge{font-size:15px;}.ep-memo{font-size:14px;opacity:.35;}.ep-memo.has{opacity:1;}',
       '.ep-badge:hover,.ep-memo:hover{background:#f1f1f1;}',
+      '.ep-art{flex:0 0 auto;font-size:11px;line-height:1;padding:2px 4px;border-radius:5px;color:#bbb;}',
+      '.ep-art.part{color:#8a6d1f;background:#fdf6e0;}.ep-art.full{font-size:14px;color:inherit;background:transparent;}',
       '#ep-memo-modal{position:fixed;inset:0;z-index:1003;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;}',
       '#ep-memo-modal.on{display:flex;}',
       '#ep-memo-modal .box{background:#fff;border-radius:14px;width:min(480px,94vw);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.3);overflow:hidden;}',
@@ -320,8 +322,15 @@
     try { var ri = await fetch('/' + KEY + '-index.json', { cache: 'no-store' }); idx = await ri.json(); } catch (e) {}
     var eps = idx.filter(function (e) { return e.file && e.file !== KEY + '-plan.html'; }).map(function (e) {
       var m = (e.label || '').match(/(\d+)/);
-      return { file: e.file, docId: e.file.replace(/\.html$/, ''), num: m ? +m[1] : 0, title: e.title || e.label };
+      return { file: e.file, docId: e.file.replace(/\.html$/, ''), num: m ? +m[1] : 0, title: e.title || e.label, pages: e.pages || 0 };
     }).sort(function (a, b) { return a.num - b.num; });
+
+    // 🔴 삽화 수는 **한 번의 요청**으로 받는다 — 권마다 물으면 50번이 된다.
+    var art = {};
+    try {
+      var ra = await fetch('/api/comic-assets/series/' + KEY);
+      var ja = await ra.json(); art = (ja && ja.data) || {};
+    } catch (e) {}
 
     var here = location.pathname.split('/').pop() || '';
     if (here === KEY + '-plan.html' || here === '') {
@@ -333,7 +342,9 @@
     function updateSummary() {
       var d = 0, w = 0;
       eps.forEach(function (e) { var s = status[e.docId] || ''; if (s === 'done') d++; else if (s === 'wip') w++; });
-      summary.textContent = '✅ ' + d + ' · 🟡 ' + w + ' / ' + eps.length;
+      var full = 0;
+      eps.forEach(function (e) { if (e.pages && (art[e.docId] || 0) >= e.pages) full++; });
+      summary.textContent = '✅ ' + d + ' · 🟡 ' + w + ' · 🖼 ' + full + ' / ' + eps.length;
     }
     eps.forEach(function (e) {
       var s = status[e.docId] || '';
@@ -364,7 +375,13 @@
           alert('상태 저장 실패 — 서버 확인');
         }
       });
-      row.appendChild(n); row.appendChild(a); row.appendChild(mbtn); row.appendChild(badge);
+      // 🖼 삽화 — 다 들어갔으면 ✔, 일부면 몇 장인지, 없으면 빈 자리(회색)
+      var got = art[e.docId] || 0, need = e.pages || 0;
+      var art_ = document.createElement('span');
+      art_.className = 'ep-art' + (need && got >= need ? ' full' : got ? ' part' : '');
+      art_.textContent = need && got >= need ? '🖼' : got ? got + '/' + need : '·';
+      art_.title = need ? '삽화 ' + got + '/' + need + '쪽' : '삽화 ' + got + '장';
+      row.appendChild(n); row.appendChild(a); row.appendChild(art_); row.appendChild(mbtn); row.appendChild(badge);
       list.appendChild(row);
     });
     updateSummary();
