@@ -281,14 +281,14 @@ function KoreanBlockPlayerInner({
   }, []);
 
   const handlePlace = useCallback(
-    (x: number, y: number) => {
-      if (roundCorrect || !picked) return;
-      if (!canPlace(placed, picked.id, picked.rotDeg, x, y)) return;
-      setPlaced((prev) => [...prev, { uid: ++uidRef.current, ...picked, x, y }]);
+    (x: number, y: number, id: number, rotDeg: number) => {
+      if (roundCorrect) return;
+      if (!canPlace(placed, id, rotDeg, x, y)) return;
+      setPlaced((prev) => [...prev, { uid: ++uidRef.current, id, rotDeg, x, y }]);
       setIsWrong(false);
       playPlacementTick();
     },
-    [roundCorrect, picked, placed, playPlacementTick]
+    [roundCorrect, placed, playPlacementTick]
   );
 
   /** 판 위 조각 탭 = 돌리기. 마지막 방향에서 한 번 더 돌면 제자리로 온다. */
@@ -584,17 +584,6 @@ function KoreanBlockPlayerInner({
                 'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
             )}
           >
-            {/* 🔴 지금 만들어진 글자 — 없으면 아이가 블록을 놓아도 단어를 다 맞출 때까지
-                아무 반응이 없다. 실물 프로토타입도 판 아래 이 줄을 두고 있다. */}
-            <div className="shrink-0 mb-2 short:mb-0.5 flex items-center justify-center gap-2 min-h-[2.5rem] short:min-h-0">
-              {composedSyllables.length > 0 ? (
-                <span className="text-3xl sm:text-4xl short:text-xl font-black font-display text-ink-900 tracking-[0.15em]">
-                  {composedSyllables.join('')}
-                </span>
-              ) : (
-                <span className="text-sm font-bold text-ink-600">블록을 올려보세요</span>
-              )}
-            </div>
             <TangoBoard
               placed={placed}
               picked={picked}
@@ -608,7 +597,9 @@ function KoreanBlockPlayerInner({
           {/* 섹션 3 — 조작 안내 + 되돌리기/지우기. 판이 곧 트레이를 품고 있어 별도 패널이 없다. */}
           <div className="shrink-0 flex items-center justify-between gap-2 flex-wrap px-1">
             <span className="text-xs sm:text-sm font-bold text-ink-700 break-keep">
-              {picked ? '판을 눌러 놓아요 · 한 번 더 누르면 돌아가요' : '조각을 골라요'}
+              {picked
+                ? '판에 놓아요 · 놓인 조각을 누르면 돌아가요'
+                : '조각을 끌어다 놓아요 · ↻ 는 눌러서 돌려요'}
             </span>
             <div className="flex gap-2">
               <button

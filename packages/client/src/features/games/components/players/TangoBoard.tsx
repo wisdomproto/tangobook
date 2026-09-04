@@ -1,4 +1,11 @@
-import { useCallback, useMemo, useRef, type MouseEvent as ReactMouseEvent } from 'react';
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from 'react';
 import {
   BLOCKS,
   TRAY_CHO,
@@ -55,6 +62,19 @@ export function canPlace(
 
 const STROKE = 0.58;
 
+/**
+ * 🔴 자음과 모음을 **색으로** 가른다. 아이는 아직 이름으로 못 가르는데, 자음은 왼쪽·위에
+ * 모음은 오른쪽·아래에 붙는다는 규칙을 색이 먼저 알려 준다.
+ */
+/**
+ * 🔴 **실물 블록 색 그대로** — 자음 노랑 · 모음 녹색. 값은 지어내지 않고
+ * 3D 보드(`public/tango-board-3d.html` 의 `COLOR.cho`/`COLOR.jung`)에서 가져왔다.
+ * 앱이 다른 색을 쓰면 아이가 실물 보드를 쥐었을 때 색을 다시 배워야 한다.
+ */
+const CHO_COLOR = '#F09E5C'; // 자음 — rgb(0.94, 0.62, 0.36)
+const JUNG_COLOR = '#59B89E'; // 모음 — rgb(0.35, 0.72, 0.62)
+const colorOf = (id: number) => (BLOCKS[id].kind === 'jung' ? JUNG_COLOR : CHO_COLOR);
+
 /** 블록 한 개를 칸 좌표계 SVG 로 그린다 — 획은 중심선이라 둥근 선으로 긋는다. */
 function BlockArt({ id, rotDeg, color }: { id: number; rotDeg: number; color: string }) {
   const sh = shapeAt(id, rotDeg);
@@ -70,15 +90,21 @@ function BlockArt({ id, rotDeg, color }: { id: number; rotDeg: number; color: st
   );
 }
 
-/** 트레이 조각 한 개 — 탭하면 회전, 다시 탭하면 고른다. */
+/**
+ * 트레이 조각 한 개.
+ * - **끌어다 놓기**(주된 방법) — 실물 보드처럼 집어서 판에 놓는다.
+ * - 짧게 **탭**하면 고르고, 고른 걸 또 탭하면 **돌아간다**(판을 탭해도 놓인다).
+ */
 function TrayPiece({
   entry,
   picked,
   onPick,
+  onDragStart,
 }: {
   entry: { id: number; rotDeg: number };
   picked: { id: number; rotDeg: number } | null;
   onPick: (p: { id: number; rotDeg: number }) => void;
+  onDragStart: (p: { id: number; rotDeg: number }, e: ReactPointerEvent) => void;
 }) {
   const id = entry.id;
   const selected = picked?.id === id;
@@ -96,8 +122,10 @@ function TrayPiece({
   return (
     <button
       type="button"
+      onPointerDown={(e) => onDragStart({ id, rotDeg }, e)}
       onClick={selected && canRotate ? onRotate : onSelect}
       aria-label={selected && canRotate ? `${ch} 돌리기` : `${ch} 고르기`}
+      style={{ touchAction: 'none' }}
       className={cn(
         'relative rounded-2xl bg-white transition-all min-h-[44px] min-w-[44px] p-1 flex items-center justify-center',
         selected
@@ -110,12 +138,18 @@ function TrayPiece({
         className="w-full"
         style={{ height: 'clamp(1.75rem, 4.5vh, 2.5rem)', aspectRatio: `${sh.w} / ${sh.h}` }}
       >
-        <BlockArt id={id} rotDeg={rotDeg} color="#3F2F24" />
+        <BlockArt id={id} rotDeg={rotDeg} color={colorOf(id)} />
       </svg>
       {/* 🔴 「돌리기」 표시는 **띄워서** 붙인다 — 아래에 글자로 두면 트레이 줄 높이가 커지고
           그만큼 판이 줄어든다(트레이가 194px 를 먹어 판이 180px 밖에 못 받았다). */}
-      {selected && canRotate && (
-        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-coral-500 text-white text-[0.7rem] font-black flex items-center justify-center shadow-soft">
+      {/* 🔴 돌아가는 조각은 **늘** ↻ 를 달고 있는다 — 눌러보기 전엔 돌아가는지 알 수가 없다. */}
+      {canRotate && (
+        <span
+          className={cn(
+            'absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-[0.7rem] font-black flex items-center justify-center shadow-soft',
+            selected ? 'bg-coral-500 text-white' : 'bg-peach-200 text-ink-700'
+          )}
+        >
           ↻
         </span>
       )}
@@ -128,7 +162,7 @@ export interface TangoBoardProps {
   /** 트레이에서 고른 조각 — `null` 이면 아무것도 안 골랐다. */
   picked: { id: number; rotDeg: number } | null;
   onPick: (p: { id: number; rotDeg: number } | null) => void;
-  onPlace: (x: number, y: number) => void;
+  onPlace: (x: number, y: number, id: number, rotDeg: number) => void;
   onRotatePlaced: (uid: number) => void;
   disabled?: boolean;
 }
@@ -148,24 +182,64 @@ export function TangoBoard({
   disabled,
 }: TangoBoardProps) {
   const svgRef = useRef<SVGSVGElement>(null);
+  /**
+   * 끌고 있는 조각. 🔴 포인터 이벤트로 직접 짠다 — HTML5 drag&drop 은 터치에서 안 뜨고,
+   * 4~7세는 마우스보다 손가락으로 논다. 손가락 아래에 조각이 따라다녀야 「집었다」가 읽힌다.
+   */
+  const [drag, setDrag] = useState<{
+    id: number;
+    rotDeg: number;
+    x: number;
+    y: number;
+    moved: boolean;
+  } | null>(null);
+  const dragRef = useRef<typeof drag>(null);
+  dragRef.current = drag;
+
+  /** 화면 좌표 → 판 칸. 조각의 가운데가 그 지점에 오게 놓는다. */
+  const cellAt = useCallback((clientX: number, clientY: number, id: number, rotDeg: number) => {
+    const svg = svgRef.current;
+    const m = svg?.getScreenCTM();
+    if (!svg || !m) return null;
+    const pt = svg.createSVGPoint();
+    pt.x = clientX;
+    pt.y = clientY;
+    const p = pt.matrixTransform(m.inverse());
+    const sh = shapeAt(id, rotDeg);
+    return { x: Math.round(p.x - sh.w / 2), y: Math.round(p.y - sh.h / 2) };
+  }, []);
+
+  const handleDragStart = useCallback(
+    (piece: { id: number; rotDeg: number }, e: ReactPointerEvent) => {
+      if (disabled) return;
+      (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
+      setDrag({ ...piece, x: e.clientX, y: e.clientY, moved: false });
+    },
+    [disabled]
+  );
+
+  const handleDragMove = useCallback((e: ReactPointerEvent) => {
+    setDrag((d) => (d ? { ...d, x: e.clientX, y: e.clientY, moved: true } : d));
+  }, []);
+
+  const handleDragEnd = useCallback(
+    (e: ReactPointerEvent) => {
+      const d = dragRef.current;
+      setDrag(null);
+      if (!d || !d.moved) return; // 안 움직였으면 그냥 탭 — onClick 이 고른다
+      const cell = cellAt(e.clientX, e.clientY, d.id, d.rotDeg);
+      if (cell) onPlace(cell.x, cell.y, d.id, d.rotDeg);
+    },
+    [cellAt, onPlace]
+  );
 
   const handleBoardTap = useCallback(
     (e: ReactMouseEvent) => {
-      const svg = svgRef.current;
-      if (disabled || !picked || !svg) return;
-      // 🔴 누른 지점을 **SVG 좌표계로** 되돌린다(`getScreenCTM`). 컨테이너 rect 를 칸 수로 나누면
-      //    판이 레터박스로 그려질 때(납작한 화면) 어긋난다 — 그림과 판정이 갈라지는 종류의 버그다.
-      const m = svg.getScreenCTM();
-      if (!m) return;
-      const pt = svg.createSVGPoint();
-      pt.x = e.clientX;
-      pt.y = e.clientY;
-      const p = pt.matrixTransform(m.inverse());
-      const sh = shapeAt(picked.id, picked.rotDeg);
-      // 누른 곳이 조각의 **가운데**가 되게 놓는다 — 아이는 놓을 자리를 가운데로 겨눈다.
-      onPlace(Math.round(p.x - sh.w / 2), Math.round(p.y - sh.h / 2));
+      if (disabled || !picked) return;
+      const cell = cellAt(e.clientX, e.clientY, picked.id, picked.rotDeg);
+      if (cell) onPlace(cell.x, cell.y, picked.id, picked.rotDeg);
     },
-    [disabled, picked, onPlace]
+    [disabled, picked, cellAt, onPlace]
   );
 
   const pins = useMemo(() => {
@@ -175,7 +249,12 @@ export function TangoBoard({
   }, []);
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1">
+    <div
+      className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1"
+      onPointerMove={drag ? handleDragMove : undefined}
+      onPointerUp={drag ? handleDragEnd : undefined}
+      onPointerCancel={drag ? () => setDrag(null) : undefined}
+    >
       {/* 🔴 판이 남는 높이를 **먹고** 트레이는 제 높이를 지킨다. 예전엔 판이 폭 기준(24:10)이라
           납작한 화면(태블릿 가로 768 · 폰 가로 375)에서 트레이를 화면 밖으로 11~80px 밀어냈다. */}
       <div className="flex-1 min-h-0 flex justify-center">
@@ -185,7 +264,8 @@ export function TangoBoard({
             // 🔴 폭 기준(24:10)이되 **높이 상한**을 건다. 높이 기준으로 두면 트레이가 먼저 자리를
             //    차지해 판이 굶는다(실측 칸 6.8px). 상한에 걸리면 판이 레터박스로 그려지는데,
             //    탭 판정은 SVG 좌표계(`getScreenCTM`)라 그림과 안 어긋난다.
-            'relative w-full max-h-full rounded-3xl bg-white shadow-card border-4 border-peach-200 overflow-hidden',
+            // 🔴 판이 화면을 가득 채울 필요는 없다 — 가운데로 모으면 조각이 오가는 거리가 짧아진다.
+            'relative w-full max-w-5xl mx-auto max-h-full rounded-3xl bg-white shadow-card border-4 border-peach-200 overflow-hidden',
             picked && !disabled && 'cursor-copy ring-4 ring-coral-200'
           )}
           style={{ aspectRatio: `${COLS} / ${ROWS}` }}
@@ -196,7 +276,7 @@ export function TangoBoard({
             className="absolute inset-0 w-full h-full"
           >
             {pins.map((p, i) => (
-              <circle key={i} cx={p.x} cy={p.y} r={0.12} fill="#EDE1D4" />
+              <circle key={i} cx={p.x} cy={p.y} r={0.1} fill="#F4ECE2" />
             ))}
             {placed.map((b) => {
               const sh = shapeAt(b.id, b.rotDeg);
@@ -213,13 +293,31 @@ export function TangoBoard({
                 >
                   {/* 투명한 판 — 획만 있으면 탭할 면적이 없다 */}
                   <rect x={0} y={0} width={sh.w} height={sh.h} fill="transparent" />
-                  <BlockArt id={b.id} rotDeg={b.rotDeg} color="#FF5E3A" />
+                  <BlockArt id={b.id} rotDeg={b.rotDeg} color={colorOf(b.id)} />
                 </g>
               );
             })}
           </svg>
         </div>
       </div>
+
+      {/* 끌고 있는 조각 — 손가락 아래에 그린다. */}
+      {drag?.moved && (
+        <div
+          className="pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]"
+          style={{ left: drag.x, top: drag.y }}
+        >
+          <svg
+            viewBox={`-0.4 -0.4 ${shapeAt(drag.id, drag.rotDeg).w + 0.8} ${shapeAt(drag.id, drag.rotDeg).h + 0.8}`}
+            style={{
+              height: '3rem',
+              aspectRatio: `${shapeAt(drag.id, drag.rotDeg).w} / ${shapeAt(drag.id, drag.rotDeg).h}`,
+            }}
+          >
+            <BlockArt id={drag.id} rotDeg={drag.rotDeg} color={colorOf(drag.id)} />
+          </svg>
+        </div>
+      )}
 
       {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
           (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
@@ -232,11 +330,23 @@ export function TangoBoard({
           aria-label="블록 고르기"
         >
           {TRAY_CHO.map((e) => (
-            <TrayPiece key={e.id} entry={e} picked={picked} onPick={onPick} />
+            <TrayPiece
+              key={e.id}
+              entry={e}
+              picked={picked}
+              onPick={onPick}
+              onDragStart={handleDragStart}
+            />
           ))}
           <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
           {TRAY_JUNG.map((e) => (
-            <TrayPiece key={e.id} entry={e} picked={picked} onPick={onPick} />
+            <TrayPiece
+              key={e.id}
+              entry={e}
+              picked={picked}
+              onPick={onPick}
+              onDragStart={handleDragStart}
+            />
           ))}
         </div>
       </div>
