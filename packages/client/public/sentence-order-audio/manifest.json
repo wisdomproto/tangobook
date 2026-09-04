@@ -1,0 +1,67 @@
+{
+  "bookId": "1784529062118",
+  "title": "임금님 귀는 당나귀 귀",
+  "lang": "ko",
+  "rounds": [
+    {
+      "sentence": "궁궐 마당은 언제나 웃음소리로 가득했답니다",
+      "units": ["궁궐", "마당은", "언제나", "웃음소리로", "가득했답니다"],
+      "illus": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangnagwi/p1.png",
+      "page": 1
+    },
+    {
+      "sentence": "하루하루 조금씩, 쫑긋쫑긋 더 커졌답니다",
+      "units": ["하루하루", "조금씩,", "쫑긋쫑긋", "더", "커졌답니다"],
+      "illus": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangnagwi/p2.png",
+      "page": 2
+    },
+    {
+      "sentence": "아무도 보면 안 돼",
+      "units": ["아무도", "보면", "안", "돼"],
+      "illus": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangnagwi/p3.png",
+      "page": 3
+    },
+    {
+      "sentence": "둘은 새끼손가락을 꼬옥 걸었답니다",
+      "units": ["둘은", "새끼손가락을", "꼬옥", "걸었답니다"],
+      "illus": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangnagwi/p4.png",
+      "page": 4
+    },
+    {
+      "sentence": "복두도 갓도 척척 만들던 솜씨였으니까요",
+      "units": ["복두도", "갓도", "척척", "만들던", "솜씨였으니까요"],
+      "illus": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangnagwi/p5.png",
+      "page": 5
+    }
+  ],
+  "audio": {
+    "궁궐": "a000.mp3",
+    "마당은": "a001.mp3",
+    "언제나": "a002.mp3",
+    "웃음소리로": "a003.mp3",
+    "가득했답니다": "a004.mp3",
+    "하루하루": "a005.mp3",
+    "조금씩,": "a006.mp3",
+    "쫑긋쫑긋": "a007.mp3",
+    "더": "a008.mp3",
+    "커졌답니다": "a009.mp3",
+    "아무도": "a010.mp3",
+    "보면": "a011.mp3",
+    "안": "a012.mp3",
+    "돼": "a013.mp3",
+    "둘은": "a014.mp3",
+    "새끼손가락을": "a015.mp3",
+    "꼬옥": "a016.mp3",
+    "걸었답니다": "a017.mp3",
+    "복두도": "a018.mp3",
+    "갓도": "a019.mp3",
+    "척척": "a020.mp3",
+    "만들던": "a021.mp3",
+    "솜씨였으니까요": "a022.mp3",
+    "궁궐 마당은 언제나 웃음소리로 가득했답니다": "a023.mp3",
+    "하루하루 조금씩, 쫑긋쫑긋 더 커졌답니다": "a024.mp3",
+    "아무도 보면 안 돼": "a025.mp3",
+    "둘은 새끼손가락을 꼬옥 걸었답니다": "a026.mp3",
+    "복두도 갓도 척척 만들던 솜씨였으니까요": "a027.mp3"
+  }
+}

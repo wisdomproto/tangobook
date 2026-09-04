@@ -11,16 +11,16 @@
          판정해야 하고(그래서 실물은 사람이 판정한다) 우리는 그 쪽의 실제 문장과 배열을
          비교하면 끝이다. 문법 엔진도 LLM 도 필요 없다.
 
-      🔴 소리 = **문장 단위**. 쪽 나레이션(`page.ttsUrl`)은 쪽 전체를 읽는데 쪽이 전부
-         2~6문장 10~26초라 한 문장에 너무 길다(실측: 한 문장짜리 쪽 0개).
-         ❌ **쪽 mp3 를 무음으로 자르는 건 안 된다** — 문장 4개에 무음이 7~11개 나오고
-            (쉼표에서도 쉰다) 「가장 긴 N−1개에서 자르기」를 재 보니 조각 길이가 문장
-            길이를 따라가는 쪽이 **30개 중 10개**뿐이었다(r≥0.90). 다시 시도하지 말 것.
-         → `POST /api/tts/generate`(gemini · Leda = 책 나레이션과 같은 목소리)로 문장을 만들고
-            localStorage 에 캐시 + 다음 라운드 프리워밍.
-         ⚠️ 2026-09-04 현재 **서버 TTS 가 전부 막혀 있다** — gemini 429(크레딧 소진) ·
-            google 403 · minimax/elevenlabs 미구현. 그동안은 브라우저 speechSynthesis 로
-            떨어진다(로봇 목소리). 크레딧이 복구되면 코드 수정 없이 책 목소리로 돌아온다.
+      🔴 소리 = **어절 하나하나 + 문장 전체**를 미리 구워 둔다
+         (`/sentence-order-audio/`, 생성기 `packages/server/scripts/build-sentence-order-audio.mjs`).
+         목소리는 책 나레이션과 같은 것 — voicebox `qwen` 1.7B + `Tangobook Narrator KO`.
+         ❌ **쪽 나레이션(`page.ttsUrl`)은 못 쓴다** — 쪽 전체를 읽어(2~6문장 10~26초)
+            타일 하나에 대응하는 소리가 없다.
+         ❌ **쪽 mp3 를 무음으로 자르는 것도 안 된다** — 문장 4개에 무음이 7~11개 나오고
+            (쉼표에서도 쉰다) 「가장 긴 N−1개에서 자르기」로 재 보니 30쪽 중 10쪽만
+            맞았다(r≥0.90). 다시 시도하지 말 것.
+         ⚠️ 그래서 이 시안은 **구워 둔 한 권**(manifest.json)만 논다. 다른 책·영어로 넓히려면
+            그 책 음원을 먼저 구워야 한다 — 서버 TTS 는 지금 막혀 있다(gemini 429 · google 403).
 
       🔴 실데이터를 쓴다 — `/api/storybooks`. 프리뷰 서버(client-prod-api)가 프록시하므로
          `http://localhost:<port>/sentence-order.html` 로 열어야 한다. file:// 은 CORS 로 막힌다.
@@ -386,6 +386,7 @@
       // 데이터
       // ─────────────────────────────────────────────────────────────
       const API = '/api/storybooks';
+      const AUDIO_DIR = '/sentence-order-audio';
       const CATEGORIES = ['전래 동화', '세계 명작', '생활동화'];
       const ROUNDS = 5;
 
@@ -470,69 +471,39 @@
       }
 
       // ─────────────────────────────────────────────────────────────
-      // 소리 — 문장 단위. 서버 TTS 를 먼저 쓰고, 막혀 있으면 브라우저로 떨어진다.
+      // 소리 — 구워 둔 어절/문장 mp3. 없으면 브라우저 음성으로 떨어진다.
       // 🔴 chain 은 ended 로만 잇는다(setTimeout 길이 가정 금지).
       // ─────────────────────────────────────────────────────────────
-      const TTS_VOICE = 'Leda'; // 책 나레이션과 같은 목소리
-      const memo = new Map(); // 세션 캐시 + in-flight 중복 요청 방지
-      const ttsKey = (text, l) => `proto-sent:${l}:${text}`;
+      let voice = null; // manifest.audio — { "낱말": "a000.mp3" }
+      const voicePool = new Map();
 
-      /** 같은 문장이면 같은 R2 키 — 다시 만들어도 같은 자리에 덮인다. */
-      function identifierFor(text, l) {
-        let h = 0;
-        for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) | 0;
-        return `proto-sent-${l}-${(h >>> 0).toString(36)}`;
+      function voiceEl(text) {
+        const file = voice?.[text];
+        if (!file) return null;
+        let a = voicePool.get(text);
+        if (!a) {
+          a = new Audio(`${AUDIO_DIR}/${file}`);
+          a.preload = 'auto';
+          voicePool.set(text, a);
+        }
+        return a;
       }
 
-      async function ttsUrl(text, l) {
-        const k = ttsKey(text, l);
-        if (memo.has(k)) return memo.get(k);
-        let cached = null;
+      /** 낱말 하나 — 타일을 누를 때. 짧아서 chain 이 필요 없다. */
+      function sayWord(text) {
+        const a = voiceEl(text);
+        if (!a) return false;
         try {
-          cached = localStorage.getItem(k);
+          a.currentTime = 0;
+          a.play().catch(() => {});
         } catch {
-          /* 시크릿창 등 — 캐시 없이 진행 */
+          /* 자동재생 차단 */
         }
-        if (cached) {
-          memo.set(k, Promise.resolve(cached));
-          return cached;
-        }
-        const req = fetch('/api/tts/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            text,
-            provider: 'gemini',
-            voice: TTS_VOICE,
-            language: l,
-            storybookId: 'proto-sentence-order',
-            identifier: identifierFor(text, l),
-          }),
-        })
-          .then((r) => r.json())
-          .then((j) => {
-            const url = j?.data?.audioUrl;
-            if (!url) throw new Error(j?.error || 'no audioUrl');
-            try {
-              localStorage.setItem(k, url);
-            } catch {
-              /* 저장 못 해도 이번 세션은 memo 로 동작 */
-            }
-            return url;
-          })
-          .catch(() => null); // null = 브라우저 TTS 로
-        memo.set(k, req);
-        return req;
-      }
-
-      /** 다음 문장을 미리 만들어 둔다 — 첫 재생이 늦지 않게. */
-      function prewarm(i) {
-        const r = rounds[i];
-        if (r) ttsUrl(r.sentence, lang);
+        return true;
       }
 
       let audio = null;
-      async function play(text, onEnd) {
+      function play(text, onEnd) {
         const btn = el('speak');
         try {
           speechSynthesis.cancel();
@@ -548,20 +519,20 @@
           btn.classList.remove('playing');
           onEnd && onEnd();
         };
-        const url = await ttsUrl(text, lang);
-        if (!url) return browserTts(text, done);
-        audio = new Audio(url);
+        const src = voice?.[text];
+        if (!src) return browserTts(text, done);
+        audio = new Audio(`${AUDIO_DIR}/${src}`);
         audio.onended = done;
         audio.onerror = () => browserTts(text, done);
         audio.play().catch(() => browserTts(text, done));
       }
 
-      /** 서버 TTS 가 막혔을 때만 — 로봇 목소리라 평소엔 안 쓴다. */
+      /** 음원을 안 구운 문장에서만 — 로봇 목소리라 평소엔 안 쓴다. */
       function browserTts(text, done) {
         try {
           const u = new SpeechSynthesisUtterance(text);
           u.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
-          u.rate = 0.92; // 4~7세에게는 조금 느리게
+          u.rate = 0.92;
           u.onend = done;
           u.onerror = done;
           speechSynthesis.speak(u);
@@ -641,10 +612,12 @@
         if (slot === -1) return;
         placed[slot] = i;
         const done = !placed.includes(null) && isCorrect();
-        // 🔴 문장을 **완성하는** 타일은 놓기 소리를 내지 않는다 — 냈다가는 정답 효과음과
+        // 🔴 문장을 **완성하는** 타일은 소리를 내지 않는다 — 냈다가는 정답 효과음과
         //    1ms 간격으로 겹친다(실측). 소리는 check() 가 가져간다.
         //    앱 블록 게임이 `pendingLastLetterRef` 로 푼 것과 같은 문제다.
-        if (!done) sfx('place');
+        // 🔴 낱말 음원이 있으면 **그 낱말을 읽어 준다** — 딸깍 효과음보다 그게 배울 거리다.
+        //    음원이 없을 때만 효과음(sfx 는 true/false 로 갈린다).
+        if (!done && !sayWord(tray[i])) sfx('place');
         render();
         // 🔴 정답만 자동으로 처리한다. 오답은 아이가 「확인」을 눌렀을 때만 —
         //    다 채우자마자 「틀렸다」고 하면 아직 고치는 중인 아이를 나무라는 셈이다.
@@ -717,7 +690,6 @@
         tray = shuffled(r.units);
         placed = new Array(r.units.length).fill(null);
         render();
-        prewarm(idx + 1); // 다음 문장을 미리 데운다
         setTimeout(() => play(r.sentence), 420);
       }
 
@@ -739,6 +711,34 @@
         if (!books.length) throw new Error('책 목록이 비어 있습니다');
       }
 
+      /**
+       * 구워 둔 음원이 있으면 그 책으로 시작한다. 없으면(또는 언어를 바꾸면) 무작위 책 +
+       * 브라우저 음성. 🔴 라운드도 manifest 에서 그대로 읽는다 — 여기서 다시 뽑으면
+       * 규칙이 갈라져 음원 없는 문장이 나온다.
+       */
+      let manifest = null;
+      async function loadManifest() {
+        try {
+          const m = await (await fetch(`${AUDIO_DIR}/manifest.json`)).json();
+          if (m?.rounds?.length && m?.audio) manifest = m;
+        } catch {
+          /* 음원을 안 구웠으면 그냥 무작위 책으로 */
+        }
+      }
+
+      function startManifestBook() {
+        if (!manifest || lang !== manifest.lang) return false;
+        book = { id: manifest.bookId, title: manifest.title };
+        rounds = manifest.rounds;
+        voice = manifest.audio;
+        idx = 0;
+        score = 0;
+        el('status').hidden = true;
+        el('game').hidden = false;
+        startRound();
+        return true;
+      }
+
       async function pickBook() {
         el('status').hidden = false;
         el('game').hidden = true;
@@ -752,6 +752,7 @@
             if (!r) continue;
             book = d;
             rounds = r;
+            voice = null; // 이 책은 음원을 안 구웠다 — 브라우저 음성으로
             idx = 0;
             score = 0;
             el('status').hidden = true;
@@ -770,6 +771,7 @@
         lang = next;
         el('langKo').setAttribute('aria-pressed', String(lang === 'ko'));
         el('langEn').setAttribute('aria-pressed', String(lang === 'en'));
+        if (startManifestBook()) return;
         // 같은 책으로 언어만 바꿔 본다 — 안 되면 다른 책.
         const r = book && buildRounds(book, lang);
         if (r) {
@@ -796,8 +798,10 @@
       };
       el('speak').onclick = () => play(rounds[idx].sentence);
 
-      loadList()
-        .then(pickBook)
+      Promise.all([loadList(), loadManifest()])
+        .then(() => {
+          if (!startManifestBook()) return pickBook();
+        })
         .catch((e) => {
           el('status').innerHTML = `불러오지 못했습니다 — ${e.message}<br /><br />
              <span style="font-weight:600">프리뷰 서버 주소로 열어야 합니다 (file:// 은 CORS 로 막힙니다)</span>`;
