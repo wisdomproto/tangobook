@@ -255,9 +255,13 @@
       .tile:active {
         transform: scale(0.94);
       }
+      /* 🔴 놓인 카드는 트레이 카드와 **다른 색**이어야 한다 — 둘 다 흰 카드였을 땐
+         어디까지 놓았는지가 위치로만 구분됐다. 상태 셋을 색으로 가른다:
+         트레이=흰색 / 놓임=복숭아 / 완성=민트. */
       .tile.placed {
-        background: #fff;
-        border-color: var(--peach-300);
+        background: var(--peach-200);
+        border-color: var(--coral-400);
+        box-shadow: 0 3px 0 var(--peach-300);
       }
       .slots.correct .tile.placed {
         background: var(--mint-100);
@@ -266,6 +270,11 @@
       }
       .tile.used {
         visibility: hidden;
+      }
+      /* 순서가 아닌 카드를 눌렀을 때 — 그 카드만 흔든다(화면 전체를 흔들지 않는다). */
+      .tile.reject {
+        animation: shake 0.36s;
+        border-color: var(--coral-400);
       }
 
       /* 상태 */
@@ -303,28 +312,6 @@
         color: var(--ink-300);
         font-size: clamp(10px, 1.3vw, 13px);
         font-weight: 700;
-      }
-      .confirm {
-        min-height: clamp(38px, 6vh, 52px);
-        padding: 0 clamp(18px, 3vw, 34px);
-        border-radius: 999px;
-        background: var(--coral-500);
-        color: #fff;
-        font-weight: 900;
-        font-size: clamp(14px, 2vh, 20px);
-        box-shadow: 0 4px 0 var(--coral-600);
-        transition:
-          transform 0.1s,
-          opacity 0.15s;
-      }
-      .confirm:active {
-        transform: translateY(3px);
-        box-shadow: none;
-      }
-      .confirm:disabled {
-        opacity: 0.35;
-        cursor: default;
-        box-shadow: none;
       }
       /* 오답 — 붉게 물들이지 않는다. 흔들고 테두리만 진하게(「틀렸다」고 말하지 않기). */
       .slots.wrong {
@@ -372,7 +359,6 @@
       <div class="slots" id="slots"></div>
       <div class="tray" id="tray"></div>
       <div class="actions">
-        <button class="confirm" id="confirm" disabled>✓ 확인</button>
         <span class="note" id="note"></span>
       </div>
     </main>
@@ -598,30 +584,40 @@
         });
 
         el('listenLabel').textContent = lang === 'ko' ? '눌러서 듣기' : 'tap to listen';
-        el('confirm').textContent = lang === 'ko' ? '✓ 확인' : '✓ Check';
-        el('confirm').disabled = locked || placed.includes(null);
         el('note').textContent =
           lang === 'ko'
-            ? '들은 문장을 순서대로 놓아요 · 놓은 것을 누르면 되돌아와요'
-            : 'Put the words in order · tap a placed word to take it back';
+            ? '들은 문장을 순서대로 놓아요 · 순서가 맞아야 올라가요'
+            : 'Put the words in order · only the next one goes up';
       }
 
       function place(i) {
         if (locked || placed.includes(i)) return;
         const slot = placed.indexOf(null);
         if (slot === -1) return;
+        // 🔴 **순서가 아닌 카드는 올라가지 않는다.** 틀린 줄을 다 만들게 두었다가 나중에
+        //    「틀렸다」고 하면, 아이는 무엇이 틀렸는지 모른 채 통째로 다시 해야 한다.
+        //    여기서 막으면 판정이 탭마다 즉시 나고, 올라간 것은 언제나 맞는 것이다.
+        if (tray[i] !== rounds[idx].units[slot]) return reject(i);
         placed[slot] = i;
-        const done = !placed.includes(null) && isCorrect();
-        // 🔴 문장을 **완성하는** 타일은 소리를 내지 않는다 — 냈다가는 정답 효과음과
+        const done = !placed.includes(null);
+        // 🔴 문장을 **완성하는** 카드는 소리를 내지 않는다 — 냈다가는 정답 효과음과
         //    1ms 간격으로 겹친다(실측). 소리는 check() 가 가져간다.
         //    앱 블록 게임이 `pendingLastLetterRef` 로 푼 것과 같은 문제다.
         // 🔴 낱말 음원이 있으면 **그 낱말을 읽어 준다** — 딸깍 효과음보다 그게 배울 거리다.
-        //    음원이 없을 때만 효과음(sfx 는 true/false 로 갈린다).
         if (!done && !sayWord(tray[i])) sfx('place');
         render();
-        // 🔴 정답만 자동으로 처리한다. 오답은 아이가 「확인」을 눌렀을 때만 —
-        //    다 채우자마자 「틀렸다」고 하면 아직 고치는 중인 아이를 나무라는 셈이다.
-        if (done) check(true);
+        if (done) check();
+      }
+
+      /** 순서가 아닌 카드 — 그 카드만 흔들고 소리를 낸다. 화면은 건드리지 않는다. */
+      function reject(i) {
+        sfx('wrong');
+        const t = [...document.querySelectorAll('#tray .tile')][i];
+        if (!t) return;
+        t.classList.remove('reject');
+        void t.offsetWidth; // 연타해도 애니메이션이 다시 돌게
+        t.classList.add('reject');
+        setTimeout(() => t.classList.remove('reject'), 380);
       }
 
       function takeBack(slot) {
@@ -632,25 +628,14 @@
         render();
       }
 
-      const isCorrect = () =>
-        !placed.includes(null) && placed.every((i, n) => tray[i] === rounds[idx].units[n]);
-
-      function check(auto) {
+      function check() {
+        // 🔴 오답 분기가 없다 — place() 가 틀린 카드를 아예 안 올리므로 줄이 다 찼다는 건
+        //    곧 맞다는 뜻이다. 「다 채우고 나서 틀렸다」는 상태가 이 게임엔 존재하지 않는다.
         const r = rounds[idx];
-        const slots = el('slots');
-        if (!isCorrect()) {
-          // 확인을 눌러서 온 경로에서만 온다.
-          sfx('wrong');
-          showMark('✗');
-          slots.classList.add('wrong');
-          setTimeout(() => slots.classList.remove('wrong'), 430);
-          return;
-        }
         locked = true;
         score++;
         el('score').textContent = `${score} / ${rounds.length}`;
-        el('confirm').disabled = true;
-        slots.classList.add('correct');
+        el('slots').classList.add('correct');
         sfx('correct');
         showMark('✓');
         el('praise').classList.add('show');
@@ -786,9 +771,6 @@
         }
       }
 
-      el('confirm').onclick = () => {
-        if (!locked && !placed.includes(null)) check(false);
-      };
       el('langKo').onclick = () => (sfx('tap'), setLang('ko'));
       el('langEn').onclick = () => (sfx('tap'), setLang('en'));
       el('shuffle').onclick = () => (sfx('tap'), pickBook());
