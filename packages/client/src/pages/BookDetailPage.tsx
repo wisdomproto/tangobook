@@ -22,6 +22,7 @@ import {
   type StorybookSummary,
 } from '@tangobook/shared';
 import { useAccess, PaywallNotice, LockBadge } from '@/features/access';
+import { BETA_OPEN } from '@/features/access/config';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { isDevEmail } from '@/config/dev';
 
@@ -234,7 +235,9 @@ export default function BookDetailPage() {
   //    로그인이 필요한 건 **독후활동(단어 익히기)** 과 학습현황이다.
   // 미로그인은 가입으로, 체험이 끝난 사람은 구독으로 — 보낼 곳이 다르다.
   //    (라우트의 `ActivityGate` 가 URL 직행까지 같은 규칙으로 막는다.)
-  const activityBlocked = isConfigured && (!session || !access.isEntitled);
+  // 🔴 베타 기간엔 버튼도 막지 않는다. 이곳은 네 번째 판정지다 — 라우트의 `ActivityGate` 를 열어도
+  //    여기서 막히면 버튼이 로그인 페이지로 보내버려 게이트까지 닿지도 못한다.
+  const activityBlocked = !BETA_OPEN && isConfigured && (!session || !access.isEntitled);
 
   const enterMode = (mode: 'read' | 'video' | 'vocab', opts?: { selfRead?: boolean }) => {
     if (mode === 'video') {

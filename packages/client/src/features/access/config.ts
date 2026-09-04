@@ -11,12 +11,19 @@
  * **다시 켤 때 원래 조합을 복원하지 못한다.** 이 플래그는 아래를 **건드리지 않고 덮기만** 하므로
  * `false` 로 되돌리는 순간 베타 이전 정책이 그대로 돌아온다.
  *
- * 🔴 **한 곳만 열어선 안 된다.** 판정이 세 군데에 있다 —
- *    ① `useAccess()` (권한) ② `ActivityGate` ③ `PhonicsUnitGate`.
- *    ②③ 은 `useAccess` 와 별개로 **`!session` 을 직접 보기 때문에**, 훅만 열면
- *    미로그인에게는 여전히 가입 벽이 선다. 셋 다 이 플래그를 봐야 한다.
+ * 🔴 **한 곳만 열어선 안 된다.** 판정이 네 군데에 있고, 그중 셋은 `useAccess` 와 별개로
+ *    **`!session` 을 직접 본다** — 훅만 열면 미로그인에게는 여전히 가입 벽이 선다.
+ *      ① `useAccess()`                 권한 판정 자체
+ *      ② `ActivityGate`                독후활동 라우트
+ *      ③ `PhonicsUnitGate`             파닉스 단원
+ *      ④ `BookDetailPage.activityBlocked`  「놀며 익히기」 **버튼**
+ *    ④ 를 빼면 라우트는 열려 있는데 버튼이 로그인 페이지로 보내버려
+ *    게이트까지 닿지도 못한다(실제로 그랬다).
+ *
+ * 🔴 **문구도 같이 바뀐다.** `/intro` FAQ 의 「가입하면 나머지 책이 열립니다」는
+ *    베타엔 거짓이다 — 남기는 책이 없다. `faq.items.noSignup.aBeta`(5개 언어)로 갈라 쓴다.
  */
-export const BETA_OPEN = true;
+export const BETA_OPEN: boolean = true;
 
 /**
  * 유료화(paywall) 전역 스위치.

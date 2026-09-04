@@ -205,7 +205,8 @@
       },
       "noSignup": {
         "q": "Không đăng ký thì có xem được không?",
-        "a": "Có. {{n}} cuốn truyện đọc được ngay. Đăng ký rồi thì mở thêm những cuốn còn lại, trò chơi sau khi đọc và nhật ký học tập."
+        "a": "Có. {{n}} cuốn truyện đọc được ngay. Đăng ký rồi thì mở thêm những cuốn còn lại, trò chơi sau khi đọc và nhật ký học tập.",
+        "aBeta": "Có. Đang trong giai đoạn beta nên mọi cuốn truyện và mọi bài ngữ âm đều mở. Đăng ký thì mỗi bé sẽ có nhật ký học tập riêng."
       },
       "install": {
         "q": "Có phải cài đặt gì không?",

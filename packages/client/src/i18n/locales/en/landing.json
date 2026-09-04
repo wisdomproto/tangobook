@@ -205,7 +205,8 @@
       },
       "noSignup": {
         "q": "Can I look around without signing up?",
-        "a": "Yes. {{n}} storybooks are open to read right away. Signing up opens the rest, plus the reading games and the learning record."
+        "a": "Yes. {{n}} storybooks are open to read right away. Signing up opens the rest, plus the reading games and the learning record.",
+        "aBeta": "Yes. We are in beta, so every storybook and every phonics unit is open. Signing up keeps a learning record for each child."
       },
       "install": {
         "q": "Do I need to install anything?",

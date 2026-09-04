@@ -9,6 +9,7 @@ import { SiteFooter } from '@/components/SiteFooter';
 import { PublicNav } from '@/components/PublicNav';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { BookCover } from '@/design-system/primitives/BookCover';
+import { BETA_OPEN } from '@/features/access/config';
 
 /**
  * `/intro` — 광고 랜딩(상세페이지). 네이버·메타 광고의 도착지.
@@ -1407,7 +1408,11 @@ export default function IntroPage() {
                 </span>
               </summary>
               <p className="mt-2 text-base text-ink-600 break-keep">
-                {t(`faq.items.${k}.a`, FAQ_VARS)}
+                {/* 🔴 베타엔 「가입하면 나머지 책이 열립니다」가 거짓이 된다 — 남기는 책이 없다. */}
+                {t(
+                  BETA_OPEN && k === 'noSignup' ? `faq.items.${k}.aBeta` : `faq.items.${k}.a`,
+                  FAQ_VARS
+                )}
               </p>
             </details>
           ))}
