@@ -30,6 +30,10 @@ PLATE IS PRINTED ONCE. Light is made by TAKING INK AWAY.`
 `[Kindergarten]`(5쪽) 을 찍고 있는데 시트가 없어 **다섯 권이 자리 없이 그려질 참**이었고,
 `Meadow` 는 03권 여섯 쪽이 `[Grove]` 로 잘못 찍혀 **올리브밭으로 그려질 참**이었다(§2-R 신고).
 검사 = `node packages/client/scripts/check-stage-tokens.mjs lulu` → **0**.
+🔴 **2026-09-05: `Kitchen` 을 요약 넉 줄에서 시트 한 장으로 올렸다**(§1.2, 92쪽 최대 무대인데 SPOT 이
+하나도 없었다) · **§1.0 「닿는 자리」 스팟을 자리 시트 전부에 붙였다** · `FarmYard` 에 붙박이 넷(통 자리 ·
+마당 돌 · 빨랫줄 · 그네)과 SPOT 셋(F 우물 · G 통 · H 닿는 자리)을 더했다 · `Attic` 에 **틈 수와 볕 모양을
+정하는 두 문단**을 더했다.
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -44,6 +48,43 @@ PLATE IS PRINTED ONCE. Light is made by TAKING INK AWAY.`
 | 🆕 `VillageRoad` | 언덕 아래 마을 큰길 · 길 어귀 · 길 건너편 | 36권. 🔴 `Road`(언덕길)와 **다른 길** · §1.5 |
 | 🆕 `Kindergarten` | 유치원 문 앞 · 교실 구석 · 교실 창가 · 교실 바닥 | 50권. 🔴 **유일하게 남의 집이다** · §1.6 |
 | 🆕 `Meadow` | 풀숲 초입 · 풀숲 한가운데 · 풀숲 밖 큰길 어귀 | 03권 여섯 쪽. 🔴 `Grove` 와 **다른 곳** · §1.7 |
+
+### §1.0 🔴 자리 시트 전부가 함께 쓰는 마지막 스팟 — 닿는 자리 (2026-09-05 신설)
+
+> 이 시트들의 SPOT 은 **예외 없이 「자리를 보는 카메라」**였다 — 넓게, 낮게, 위에서, 문간에서.
+> 그런데 앵커가 **`WHO IS TOUCHING WHOM IS THE SENTENCE OF THE PAGE`** 라고 못 박아 둔 시리즈에서
+> 권마다 두세 쪽은 **마주 본 두 얼굴 · 겹친 두 손 · 코를 댄 자리**이고, **대개 그게 그 권이 도는 쪽**이다
+> (46 p4 들춰진 식탁보 아래 두 얼굴 · 47 p7 맞잡은 손 둘만 · 49 p5 깃털과 손등만 · 50 p6 유리에 붙은 얼굴).
+> 🔴 **사물 시트는 이 구멍을 못 메운다** — 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+> 🔴 고칠 곳은 그 쪽들이 아니라 **시트마다 한 줄**이다. 아래 문단을 자리 시트 전부의 **SPOTS 마지막 줄**로
+> 붙였고(§1.1~§1.7), 시트마다 다른 것은 **배경 한 줄**뿐이다.
+
+```
+ADDED TO EVERY STAGE SHEET IN THIS SERIES - THE LAST SPOT
+
+🔴 WHERE TWO BODIES TOUCH, close, at the height of the touch itself. Two heads, two blunt hands, a
+  nose against a cheek, a face against a windowpane: the frame holds the point of contact and
+  nothing else, and neither body is whole in it.
+  🔴 THE ONE POINT WHERE THEY TOUCH IS THE ONLY THING GIVEN A RAG-HARD EDGE. Everything around it is
+  the loosest pull this plate makes - wiped thin, the rag's drag left where it fell, nothing gone
+  back over. 🔴 THE BACKGROUND IS ONE FLAT FIELD OF THIS STAGE'S OWN BROADEST AREA AT ONE WEIGHT
+  and nothing in it is named; each sheet's spot line below says which field that is.
+  🔴 THE PLATE MARK STILL RUNS. This spot is CLOSER, not BIGGER: the print still fades out at the
+  plate's border a hand's width inside the frame, exactly as on the wide spots.
+🔴 AND WHEN ONE OBJECT FILLS THE WHOLE FRAME (the bell, a feather, a wooden spoon, one olive), it
+  keeps the form its prop sheet gives it AND TAKES ONE MARK MORE - one, not a new finish: the grain
+  along a stave, the scar on the stone, the wiped scoop in a bead. 🔴 IT DOES NOT BECOME A DIFFERENT
+  OBJECT WHEN IT IS BIG. Print it once at full-frame size and once at hand size on the same panel so
+  the two can be laid over each other.
+```
+
+🔴 **시트가 없는 자리도 이 스팟을 쓴다** — `Grove` · `Barn` · `Road` 는 프롬프트 시트 없이 앵커의
+`GROVE` · `YARD AND BARN` · `HILL ROAD` 조항으로 그린다. 셋도 같은 문단을 쓰고 배경만 그 조항의 제일 넓은
+면으로 한다(그물 아래 밭 = OLIVE LEAF 한 면 · 헛간 안 = 어두운 한 면 · 언덕길 = 닦아 낸 흙길 한 줄).
+
+🔴 **상한 문장 주의** — 다른 시리즈 시트에는 `Do not invent a fifth spot` 류가 있어서 스팟을 더해 놓고
+같은 문장이 그걸 금지한다. **이 시리즈 시트에는 그 문장이 없다**(2026-09-05 전수 확인, lulu·coco 0건).
+새로 쓸 때도 넣지 말 것 — 넣으려면 그 수를 이 한 장만큼 올려서 쓴다.
 
 ### §1.1 FarmYard — 실제 프롬프트 (가장 먼저)
 
@@ -74,6 +115,23 @@ FIXED PARTS: ONE olive tree at the left edge of the yard, low branches (🔴 the
   as barn, WELL, pergola and empty cart, so the well is a fixed part and not a prop · a water trough
   by the barn · THE SHADED VERANDA along the house front, a low board floor under the eaves, three
   steps up from the yard (volume 05 sleeps here and volume 11 lies here).
+🔴 FOUR MORE THINGS ARE FIXED IN THIS YARD AND NONE OF THEM IS A PROP - each stands in the same
+  place in every book that shows that side of the yard, whether or not the book is about it. They
+  are here because 53 of the yard's later 76 pages happen at one of them and none of them was on
+  this sheet:
+  THE TUB PLACE - a patch of trodden earth UNDER THE OLIVE TREE where the big wooden tub stands.
+    Prop sheet §2.7 owns the tub; this sheet owns that a bath, a trough or a set-down tub is ALWAYS
+    here and never out in the middle of the wiped floor.
+  THE FLAT YARD STONE - one low flat stone lying clear in the open floor, wide enough to stack on
+    and low enough to sit on, 🔴 with ONE much smaller stone beside it. Prop sheet §2.37 stacks on
+    exactly this stone and the last page of that book uses the small one.
+  THE WASHING LINES - TWO high lines crossing the yard and ONE low line in a corner. Prop sheet
+    §2.24 owns their heights; this sheet owns WHERE they cross and what they cut the wiped sky into.
+  THE SWING - two ropes and a plank hung from the OLIVE TREE'S thick low branch at the yard's left
+    edge (prop sheet §2.29). It hangs there on every yard page; only the ropes' angle changes.
+  ⚠️ AND THE BARN'S OUTSIDE CORNER - where the barn wall turns into the yard, with just enough room
+  behind it for a child to stand out of sight. 🔴 It is NOT spot D: D looks OUT from inside the barn
+  door, this is the outside of the same building looked along.
 
 🔴 SHADE IS A SUBJECT IN THIS YARD, NOT A BAN. Ten pages are about it. A cast shadow here is ONE flat
   inked field with a rag-hard edge, the same shape as the thing above it, lying on the wiped floor -
@@ -95,8 +153,14 @@ SPOTS:
   D FROM THE BARN DOOR looking out, medium: the dark doorway framing the wiped yard.
   E THE VERANDA, medium, low: the board floor under the eaves, its shade a hard-edged band, the
     burnt-white yard beyond it.
+  F THE WELLHEAD, medium, eye level: the round rim at a child's chest, the bucket on its rope, the
+    wiped floor running off behind it. 🔴 The well was already a fixed part and had no camera.
+  G AT THE TUB, medium, low: the tub standing under the olive tree, its rim crossing the frame, the
+    trunk behind it. The same spot serves any tub, trough or basin set down in this yard.
+  H WHERE TWO BODIES TOUCH - §1.0. Background here: the wiped yard floor, bare paper, with ONE hard
+    rag edge somewhere in the frame and nothing else in it.
 
-PLATE: A, B, C, D, E once each, plus 🔴 A WIPE DIAGRAM - the yard drawn as flat areas, each marked
+PLATE: A to H once each, plus 🔴 A WIPE DIAGRAM - the yard drawn as flat areas, each marked
   INKED or WIPED, so nobody paints the floor.
 
 NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals,
@@ -106,14 +170,102 @@ NOT: no character of any kind, no accent colour anywhere on this sheet, no lette
   and that one word blocked volume 11 entirely, plus 04, 06 and 33.)
 ```
 
-### §1.2 Kitchen · Piazza — 요약 명세
+### §1.2 Kitchen — 🔴 92쪽 최대 무대인데 넉 줄이었다 (2026-09-05 시트로 승격)
 
-`Kitchen` = 벽·식탁보 닦아 냄, 들보·가구 DRY EARTH, 🔴 **불빛·창빛은 닦아 낸 자리**. 접시 최대 8 ·
-병 최대 4 · 자루 최대 5.
+> 앞 판은 이 자리가 **요약 넉 줄 · SPOT 0개**였다. 그런데 26~50 만 세어도 **92쪽**으로 `FarmYard` 76쪽보다
+> 많고 `Attic` 39쪽의 두 배가 넘는다. 실제로 요구하는 자리는 여덟이다 — 긴 식탁 · **식탁 밑** · **세면대** ·
+> **벽 높은 선반** · **난로** · **작은 창과 창턱** · 낮은 선반 · 문간과 의자.
+> 🔴 **40권은 「위(선반) · 가운데(식탁) · 아래(식탁 밑)」 세 층이 그 권의 전부**이고(p7 이 셋을 한 화면에
+> 넣는다), 그 권의 그림 하나는 **밝은 식탁보와 어두운 식탁 밑이 한 선에서 갈리는 그 선**(p3)인데 시트에
+> 그 선이 없었다. 앞 판이 이미 「세면대 한 자리를 붙박이로」라고 적어 두었다 — **붙박이가 그것 하나가
+> 아니었을 뿐이다.**
+
+```
+STAGE SHEET - Kitchen   (lulu-monotype · use the anchor's KITCHEN AND LONG TABLE clause ·
+                         SCENE token: Kitchen · 92 pages in volumes 26-50 alone, the largest stage)
+
+The farmhouse kitchen. It is ONE room - there is no dining room and no scullery in this house - and
+it is where this family eats, washes, dries out, hides and is put to bed. Like the yard, what this
+sheet really decides is 🔴 WHAT IS WIPED AND WHERE THE WIPING STOPS.
+
+🔴 THE WIPE MAP:
+  THE TABLECLOTH is the brightest thing indoors, bare paper, and it is the widest wiped area in the
+    room (prop sheet §2.8 owns its marks).
+  THE WHITEWASHED WALLS, wiped, a short dash where they are inked at all.
+  THE MOUTH OF THE HEARTH and THE SMALL WINDOW, wiped to bare paper - and they are the only two
+    light sources this room has.
+  WHAT STAYS INKED: the beams, the table's own timber, chairs, the doorframe, jars, sacks - all DRY
+    EARTH - and 🔴 THE SPACE UNDER THE TABLE, which is PLATE MIX at full weight.
+🔴 THE LINE IS THE PICTURE OF THIS ROOM. The white cloth hangs over the table's edge and the dark
+  under the table begins directly beneath it, so 🔴 THE BRIGHTEST FIELD AND THE DARKEST FIELD IN THE
+  BOOK MEET ALONG ONE STRAIGHT HORIZONTAL RAG EDGE with nothing in between - no fade, no half tone,
+  no shadow creeping up the cloth. Draw that edge once, large, on its own panel. A whole book is
+  spent below it and the family's supper is spent above it.
+
+FIXED PARTS - and their HEIGHTS are the half of this sheet that keeps drifting:
+  THE LONG TABLE down the middle, four plain legs, its cloth over it. Under it there is room for a
+    child to sit upright with knees drawn up, and room to CROSS the room on all fours between the
+    chair legs from one side to the other.
+  🔴 THE HIGH WALL SHELF above the table's far end, with A LINE STRUNG UNDER IT where dried things
+    hang. It is out of reach: a child jumping cannot touch it, three cousins on tiptoe get fingertips
+    to its edge, and the TALLEST ADULT reaches the line with an arm straight up and no stretching.
+  🔴 THE WASHSTAND against the wall, LOW - its rim at a child's chest, so it is plainly the child's
+    height and not an adult's. Prop sheet §2.27 owns the basin, the two brushes and the mirror; this
+    sheet owns that it is ALWAYS on that wall and 🔴 that it can be seen from under the table between
+    the table legs.
+  🔴 THE HEARTH in the back wall - an open arched mouth at floor level, big enough for four children
+    wrapped in one blanket to sit in front of it. 🔴 THE INSIDE OF THE MOUTH IS THE ONLY WIPED THING
+    when it is lit, and the room around it stays one dark field: the fire does not lighten the
+    kitchen. Draw the mouth open and burning, and dying down to a smaller wiped shape. Two pots hang
+    on the wall beside it.
+  🔴 THE SMALL WINDOW, ONE only, high in the side wall with a sill AT A CHILD'S CHEST that a thing
+    can be set down on. It has three states and all three are in the books: black (night), 🔴 WIPED
+    COMPLETELY BLANK edge to edge (the instant of lightning), and throwing A HARD-EDGED RECTANGLE OF
+    LIGHT onto the kitchen floor.
+  THE LOW SHELF, at a child's chest, the one shelf in the room a child can put something on and take
+    something off without help. It is the answer to the high shelf and must be plainly lower.
+  THE DOORWAY to the yard, a plank door that opens INWARD, with a raised threshold. 🔴 The widest
+    adult in the family fills it side to side; that is what the frame is measured against.
+  CHAIRS and one low stool (prop sheet §2.6 `Seats` owns them). A child on a chair does not reach
+    the floor with her hooves - that gap of bare paper is a ruler this room shares with the swing.
+🔴 THE THREE TIERS MUST FIT IN ONE FRAME: high shelf, tabletop, under-table floor. Set the heights so
+  a single side-on wide frame holds all three at once with a body working at each. If they do not
+  fit, the shelf is too high or the room is too tall - fix it here, not on the page.
+
+SPOTS:
+  A THE WHOLE ROOM from the doorway, wide: table down the middle, hearth back, washstand and window
+    at the sides. 🔴 Wide enough to hold five children and two adults.
+  B THE TABLE FROM ABOVE, high: the cloth as one wiped field with the inked things wiped out of it.
+  C THE TABLE FROM THE SIDE, eye level - 🔴 THE THREE TIERS in one frame.
+  D UNDER THE TABLE, at floor level, looking out between the legs: the dark field overhead, the hem
+    of the cloth as the hard bright line across the top of the frame, and one lit thing out beyond
+    the legs (the washstand, the hearth, a pair of hooves).
+  E THE WASHSTAND, medium, eye level at the CHILD's height, the mirror above it.
+  F THE HEARTH, medium, low: the mouth wiped bright, the room around it one flat dark.
+  G THE SMALL WINDOW AND ITS SILL, medium: the sill across the frame, the rectangle it throws on the
+    floor below.
+  H WHERE TWO BODIES TOUCH - §1.0. Background here: the plate mix under the table, one flat dark,
+    unbroken.
+
+PLATE: A to H once each, plus 🔴 THE LINE - the cloth's hem meeting the under-table dark, large, on
+  its own panel - plus 🔴 ONE HEIGHT PANEL: a plain child silhouette standing against the high shelf,
+  the tabletop, the washstand rim, the low shelf and the window sill in one row, so five heights are
+  fixed once and never guessed.
+
+NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals, no
+  white ink - every bright thing is wiped - no second window, no lamp or candle (this room's light is
+  the hearth and the window), no firelight glow, flicker, ray or warm tint, no third ink, no graded
+  area, no soft edge except the plate mark, no shading or gradient. 🔴 The dark under the table does
+  not grade into the cloth - it stops.
+```
+
+Caps carried over from the old summary: 접시 최대 8 · 병 최대 4 · 자루 최대 5 (앵커 상한과 같다).
+
+### §1.2b Piazza — 요약 명세
+
 `Piazza` = 🔴 **마을 것이라 농가와 별개**. 잔치 군중은 **한 덩어리 닦은 자국** + 앞줄 실루엣 최대 7
-(얼굴 0 · 손 0).
-🔴 `Kitchen` 에 **세면대 한 자리**를 붙박이로 넣는다 — 27권이 열 쪽 중 여섯을 그 앞에서 쓰고(p1 은 긴 식탁
-다리 사이로 그것을 본다), 세면대 높이가 쪽마다 달라지면 그 권의 「어른 것과 내 것」이 안 읽힌다(§2.27).
+(얼굴 0 · 손 0). 🔴 SPOTS 는 앵커 `PIAZZA` 조항이 대신하고, 여기에도 **§1.0 의 닿는 자리**가 붙는다 —
+배경은 **광장 바닥의 닦아 낸 맨 종이**.
 
 ---
 
@@ -158,10 +310,32 @@ FIXED PARTS:
     its whole length, hard edged both sides. It does not spread, glow or fan.
   2 A WEDGE - one leaf pushed part open, a bright wedge widening from the opening.
   3 A SQUARE - both leaves open, the window's shape laid flat on the floor, hard edged, no rays.
-    Things lying in it bite pieces out of its edge (volume 33 is that).
+    Things lying in it bite pieces out of its edge (volume 33 is that). 🔴 See THE SUN'S HEIGHT
+    below: early in the morning the same open window gives a long slab instead, not a square.
   4 A LAMP PATCH - a hard-edged patch whose shape says where the lamp points: round on two faces held
     close, rectangular on the wall at arm's length. Outside the patch the field is unchanged.
   🔴 Nothing else in this room is ever bright. There is no ambient light and no second window.
+
+🔴 HOW MANY SLITS, AND THE ANSWER IS NOT A CHOICE. There are EXACTLY TWO gaps between the shutter
+  planks and they never move. A gap between two thick planks only passes light when the source is
+  nearly square-on to it, so the count follows the source and the artist does not pick it:
+  SOURCE STRAIGHT ON AND LOW BELOW (the lit windows of the house down in the yard, at night) - BOTH
+    gaps pass, and because the light comes from beneath, the two lines lie SLANTED and HIGH, across
+    the bed and the quilt.
+  SOURCE OFF TO ONE SIDE (the sun just up) - ONE gap passes, and that single line lies STRAIGHT
+    across the floor to the foot of the bed.
+  🔴 So a night page carries TWO slanted lines on the bedding and a morning page carries ONE straight
+  line on the floor, and neither is a mistake made by whoever drew the other. Draw both panels here,
+  same corner, same size.
+🔴 THE SUN'S HEIGHT DECIDES THE SHAPE ON THE FLOOR, and BOTH shapes are in this series - same room,
+  same two leaves thrown equally wide, different hour:
+  EARLY, THE SUN LOW - a LONG SLAB running from under the window all the way to the opposite wall.
+    Nearly the whole floor is wiped and the room is bright to its back corner.
+  MIDDAY, THE SUN HIGH - the WINDOW'S OWN RECTANGLE, small and square, sitting on the floor close in
+    under the wall it came through, with dark floor all round it.
+  🔴 Do not average the two and do not let a page choose: the script names the hour. Draw them as two
+  panels of the same wide frame so a book that opens the window in the morning and a book that opens
+  it at noon can both be checked against this sheet.
 
 SPOTS:
   A THE WHOLE ROOM, wide, high: bed left, window in the end wall, stair door right, rafters over.
@@ -171,9 +345,12 @@ SPOTS:
   D THE END WALL, medium: flat dark wall with the hanging thing on it and a lamp patch on it.
   E FROM THE SILL LOOKING OUT AND DOWN: the night yard as one broad dark mass with the lower windows
     of the house as bright rectangles in it (volume 31).
+  F WHERE TWO BODIES TOUCH - §1.0. Background here: the room's one flat field of PLATE MIX, at the
+    same weight as every other page (anchor's ATTIC clause) - the closeness does not lighten it.
 
-PLATE: A, B, C, D, E once each, plus 🔴 THE FOUR LIGHTS drawn as four panels of THE SAME CORNER of
-  this room at the same size, so they lay over one another and the darkness can be checked identical.
+PLATE: A to F once each, plus 🔴 THE FOUR LIGHTS drawn as four panels of THE SAME CORNER of
+  this room at the same size, so they lay over one another and the darkness can be checked identical,
+  plus the TWO-SLIT / ONE-SLIT pair and the LOW-SUN / HIGH-SUN pair.
 
 NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals, no
   white ink, no light ray, beam, shaft, dust mote, halo or glow, no warm tint in any bright area, no
@@ -220,8 +397,10 @@ SPOTS:
     bodies could line up on it.
   C THE LIP, close, low: the channel narrowing, the bowl below, nothing else in frame.
   D THE CIRCLE FROM ABOVE, wide, high: the ring, the stone at its centre, the arm as one radius.
+  E WHERE TWO BODIES TOUCH - §1.0. Background here: the trodden ring, wiped bare paper, one hard
+    edge where the untrodden ground starts.
 
-PLATE: A, B, C, D once each, plus 🔴 AN OVERHEAD DIAGRAM giving the radius of the trodden ring in
+PLATE: A to E once each, plus 🔴 AN OVERHEAD DIAGRAM giving the radius of the trodden ring in
   arm-lengths and marking where the bowl place, the heap and the barn door sit on it.
 
 NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering or numerals, no
@@ -265,8 +444,10 @@ SPOTS:
   C ON THE ROAD, wide, high: bare paper filling the frame with a line of bodies laid across it.
   D THE FAR SIDE, medium, eye level: the shop step and its baskets, the road behind now empty.
   E DOWN THE EMPTY ROAD, low: the wiped strip running away with one very small dark shape at its end.
+  F WHERE TWO BODIES TOUCH - §1.0. Background here: the wiped road, bare paper, running edge to edge
+    behind the contact with nothing on it.
 
-PLATE: A, B, C, D, E once each, plus 🔴 ONE WIDTH PANEL - the hill road and this road drawn one above
+PLATE: A to F once each, plus 🔴 ONE WIDTH PANEL - the hill road and this road drawn one above
   the other at the same distance with the same child standing at the edge of each, so the difference
   in width is fixed and cannot drift.
 
@@ -318,8 +499,11 @@ SPOTS:
   D THE FLOOR, close, high: bare plank stroke and one built thing standing on it.
   E ACROSS THE ROOM, wide, eye level: window at one end, doorway at the other, both bright, the middle
     of the room empty. 🔴 This is the run of volume 50's ninth page.
+  F WHERE TWO BODIES TOUCH - §1.0. Background here: the wiped whitewashed wall, flat, nothing on it.
+    🔴 Two faces at the windowpane belong to this spot, and then the background is the ridge in the
+    opening instead - the only case in this series where the background field is not blank.
 
-PLATE: A, B, C, D, E once each, plus 🔴 ONE PANEL OF WHAT IS IN THE WINDOW at large size - the ridge
+PLATE: A to F once each, plus 🔴 ONE PANEL OF WHAT IS IN THE WINDOW at large size - the ridge
   and the one farmhouse - laid beside the same ridge as it appears from the farm, so the two match.
 
 NOT: no character of any kind, no accent colour anywhere on this sheet, no lettering, numerals, signs,
@@ -364,8 +548,10 @@ SPOTS:
   C FROM ABOVE, wide, high: the field as one flat texture-less area with ONE wiped trail curling
     through it - 🔴 the only page in the book where anyone can see where they are.
   D THE ROAD MOUTH, medium: the wall of grass parting on a wiped strip of road.
+  E WHERE TWO BODIES TOUCH - §1.0. Background here: the OLIVE LEAF field, one broad flat area, 0
+    blades (the 9 lifted blades are for the near edge of a wide frame, not for this one).
 
-PLATE: A, B, C, D once each, plus 🔴 ONE HEIGHT PANEL - a plain child silhouette standing in the
+PLATE: A to E once each, plus 🔴 ONE HEIGHT PANEL - a plain child silhouette standing in the
   grass and an adult standing in the same grass, so the wall height is fixed once (child: over the
   head. adult: at the chest).
 
@@ -416,7 +602,7 @@ NOT: no character face (silhouettes only, for height), no accent colour anywhere
 | 2.26 | `Lamp` | 작은 등불 | **41(4)** · 31 · 27 |
 | 2.27 | `Washstand` | 세면대 · 칫솔 · 거울 | **27(6)** |
 | 2.28 | `Awning` | 천막 | **11(5)** |
-| 2.29 | `Swing` | 그네 | **45(7)** |
+| 2.29 | `Swing` | 그네 | **45(9)** |
 | 2.30 | `Kite` | 연 | **23(9)** |
 | 2.31 | `Ribbons` | 리본 | **17(6)** |
 | 2.32 | `SwallowNest` | 진흙 제비집 · 어미 · 아기 | **19(8)** |
@@ -720,20 +906,25 @@ FORM - all three: vertical staves, two hoops, DRY EARTH, the roller running ALON
   comes to her chest and is wide enough for FOUR children inside · STEP TUB is a hand's span high
   turned upside down, and standing on it lifts her exactly one hand's span. Draw a plain child
   silhouette beside all three in one panel and nowhere else.
-STATES - WATER BARREL (volume 08):
+🔴 THE THREE ARE FIXED PARTS OF THE FARM, NOT THE PROPERTY OF ONE BOOK EACH. The states below are
+  named by WHICH TUB, never by which volume: any page that carries water uses the barrel (two books
+  do, and in one of them two cousins drag it by its handles), any page that bathes uses the wash tub
+  under the olive tree (two books do), any page that needs a child a hand's span taller uses the step
+  tub. Draw the states once and let any volume take the one it needs.
+STATES - WATER BARREL, the one with handles that is carried:
   1 FULL, carried, the water inside bare paper level with the rim.
   2 🔴 THE LEAK - a thin gap between two staves low down, with drops falling from it in a line and a
     wet trail behind on the road: the trail is BARE PAPER wiped out of the earth, and it gets no
     fainter as it goes back. That trail is the whole book.
   3 NEARLY EMPTY, seen from above: one thin skin of bare paper on the bottom.
   4 TIPPED, mouth down, one cup's worth running out.
-STATES - WASH TUB (volume 30):
+STATES - WASH TUB, the chest-high one under the olive tree:
   5 FULL OF WATER, three children inside as one mass at the rim.
   6 🔴 FOAM - a heaped mound of bare paper standing higher than the tub itself, its edge hard because
     a rag made it, at most 8 lobes at the outline. Never grey, never outlined, never bubbly-dotted.
   7 A HEAD OF FOAM on somebody: the same wiped mound sitting on a dark head, edge hard.
   8 HALF EMPTY with one lump of foam left on the rim.
-STATES - STEP TUB (volume 04):
+STATES - STEP TUB, the hand-span one that is stood on:
   9 UPSIDE DOWN on the ground, with a curved drag mark in the earth behind showing it was rolled.
   10 UPSIDE DOWN with one hoof on it.
 
@@ -1326,7 +1517,7 @@ NOT: no character, no accent colour, no lettering or numerals, no white ink, no 
   plate mark, no shading, gradient or cast shadow.
 ```
 
-### §2.24 WashLine — 높은 줄 둘과 낮은 줄 하나 (20권)
+### §2.24 WashLine — 높은 줄 둘과 낮은 줄 하나 (높이가 사건인 권은 20권 · 세 권이 쓴다)
 
 > 20권의 사건은 **높이**다 — 마당을 가로지르는 높은 줄 둘은 룰루 키보다 훨씬 높고(p3), 구석의 낮은 줄 하나가
 > **룰루 어깨 높이**다(p8). 그 하나를 찾아내는 것이 이 권이고, 마지막 쪽은 오른쪽 낮은 줄이 반듯하고 왼쪽 높은
@@ -1335,7 +1526,11 @@ NOT: no character, no accent colour, no lettering or numerals, no white ink, no 
 ```
 PROP SHEET - WashLine   (lulu-monotype · SCENE token: WashLine)
 
-The washing lines in the yard, and the wooden pegs. One book turns on the difference between them.
+The washing lines in the yard, and the wooden pegs. 🔴 THEY BELONG TO THE YARD, NOT TO ONE BOOK -
+they are a fixed part of the stage (§1.1) and they hang across any page that shows that side, whether
+or not the book is about them: a windy book reads the wind off the angle of what is pegged to them, a
+book about somebody's cord has them running behind. Only their HEIGHTS are the story of the one book
+that turns on the difference between them.
 
 🔴 THERE ARE EXACTLY THREE LINES AND THEIR HEIGHTS ARE THE STORY: TWO HIGH LINES crossing the middle
   of the yard, well above a child's reach even on tiptoe, and ONE LOW LINE in the corner by the wall
@@ -1513,7 +1708,7 @@ NOT: no character, no accent colour, no lettering or numerals, no white ink, no 
   shading, gradient or glow. 🔴 (Cast shadow is NOT forbidden on this sheet - it is the subject.)
 ```
 
-### §2.29 Swing — 45권 일곱 쪽
+### §2.29 Swing — 45권 **아홉 쪽**(p1~p8 · p10 · 세었더니 일곱이 아니었다)
 
 > 45권은 **차례**가 사건이라 그네가 빈 채로 흔들리는 쪽(p6·p7)이 있어야 하고, p8 은 **제일 작은 사촌이 앉아
 > 발이 땅에 안 닿는다**. 🔴 그 「발이 안 닿는다」는 §2.6 의자와 같은 자다 — 두 시트의 아이 키가 어긋나면 안 된다.
@@ -1521,7 +1716,10 @@ NOT: no character, no accent colour, no lettering or numerals, no white ink, no 
 ```
 PROP SHEET - Swing   (lulu-monotype · SCENE token: Swing)
 
-The plank swing hung from a low branch of the olive tree at the edge of the yard. One book.
+The plank swing hung from a low branch of the olive tree at the edge of the yard. 🔴 IT HANGS THERE
+ALL SERIES - it is a fixed part of that stage (§1.1) and it is on the tree in the background of any
+page that shows the tree; only the ropes' angle changes. One book is about taking turns on it and
+that book uses it on nine of its ten pages.
 
 FORM: TWO ropes from one thick branch to a plain plank seat, DRY EARTH, the ropes each ONE line of
   even thickness knotted under the plank. The seat hangs at a child's knee height. The ropes are fat

@@ -62,6 +62,42 @@ block bit`. 시트에도 **가장자리에 잉크가 몰리고 안쪽으로 종�
 | §1.9 `MoleBurrow` | `MoleBurrow` | 7 | 골목 밑 두더지 굴 |
 | §1.10 `GrandmaHouse` | `GrandmaHouse` | 7 | 남의 집 문 앞 (골목 밖) |
 
+### §1.0 🔴 자리 시트 열 장이 함께 쓰는 마지막 스팟 — 닿는 자리 (2026-09-05 신설)
+
+> 열 장의 SPOT 은 **전부 「자리를 보는 카메라」**다 — 방 전체 · 선반 정면 · 문턱 · 위에서 · 골목 목.
+> 그런데 이 시리즈의 앵커는 **`FINISHED THINGS PER PAGE = 2, Coco and the one thing she touches`** 이고,
+> 권마다 두세 쪽은 **빵 하나를 사이에 둔 두 얼굴 · 굽힌 큰 몸과 든 작은 얼굴 · 품 안**이며 **대개 그게 착지**다
+> (41 p5 빵을 사이에 둔 두 얼굴 · 41 p7 문 앞에서 높이가 같아진 두 얼굴 · 41 p10 품 안 · 37 p5 앞발과 천 사이).
+> 🔴 **사물 시트는 이 구멍을 못 메운다** — 사물 시트는 `STATES` 만 들고 **카메라를 안 든다**.
+> 🔴 고칠 곳은 그 쪽들이 아니라 **시트마다 한 줄**이다. 아래 문단을 열 장 전부의 **SPOTS 마지막 항목**으로
+> 붙였고, 시트마다 다른 것은 **배경 한 줄**뿐이다.
+
+```
+ADDED TO EVERY STAGE SHEET IN THIS SERIES - THE LAST SPOT
+
+🔴 WHERE TWO BODIES TOUCH, close, at the height of the touch itself. Two heads over one loaf, a bent
+  grown-up's face brought down level with a small one, a paw on a shoulder, arms round a back: the
+  frame holds the point of contact and nothing else, and neither body is whole in it.
+  🔴 THE TWO BODIES ARE THE PAGE'S TWO FINISHED THINGS - the ration is spent here and on nothing
+  else, so no prop in this frame is finished and none is named.
+  🔴 THE POINT WHERE THEY TOUCH IS THE ONLY PLACE PRINTED AT FULL BITE, ink heaviest right at that
+  edge. Everything around it is the SAME block pulled at a LIGHT BITE, paper showing through, and
+  🔴 THE DEEPEST OVERLAP IN THE FRAME IS WHERE THE TWO BODIES OVERLAP - that overprinted seam is what
+  says they are together, and it is the only dark.
+  🔴 THE BACKGROUND IS ONE FLAT FIELD OF THIS STAGE'S OWN REPEATED BLOCK at a light bite, running off
+  every edge, with 0 fixed parts in it; each sheet's spot line below names which block that is.
+  🔴 THE PRESS STILL DENTS THE SHEET. This spot is CLOSER, not BIGGER: registration and bite do not
+  change because the camera came in.
+🔴 AND WHEN ONE OBJECT FILLS THE WHOLE FRAME (a loaf, a button, an egg, a lantern), it keeps the
+  block its prop sheet cut for it AND TAKES ONE MARK MORE - one, not a new finish: a scored line on
+  a crust, the chip on a claw, the thread through a buttonhole. 🔴 IT DOES NOT BECOME A DIFFERENT
+  OBJECT WHEN IT IS BIG, and above all 🔴 A BLOCK IS NOT RECUT AT A LARGER SIZE. Print it once at
+  full-frame size and once at hand size on the same panel so the two can be laid over each other.
+```
+
+🔴 **상한 문장 주의** — 다른 시리즈 시트에는 `Do not invent a fifth spot` 류가 있어 스팟을 더해 놓고 같은
+문장이 그걸 금지한다. **이 시리즈 시트에는 그 문장이 없다**(2026-09-05 전수 확인). 새로 쓸 때도 넣지 말 것.
+
 ### §1.1 Bakery — 실제 프롬프트 (가장 먼저)
 
 ```
@@ -135,10 +171,30 @@ ADDED - Bakery
   stand on top of and jump, with a gap behind the stack she hides in, and the BACK DOOR beside it
   standing open onto the wash tub outside (§1.7). That stack, that gap and that doorway are one
   frame in the bath volume.
+🔴 THE KITCHEN WASHES AND THE KITCHEN THROWS THINGS AWAY, and neither place was on this sheet - four
+  pages had nowhere to stand. ⚠️ NEITHER OF THEM IS THE WASH TUB OF §1.7: that one is the big tub
+  OUTSIDE the back door, standing on cobbles, that a mouse gets into. These two are INDOORS, on the
+  plank floor, and they are small:
+  THE WATER BASIN - a shallow round basin, INK1, standing on its own low stand against the wall
+    beside the back door, at a height a small mouse dips her paws into WITHOUT climbing. It is wide
+    enough for two paws and no more; nobody could sit in it. 🔴 ITS WATER IS THE DEEPEST THING IN THE
+    FRAME - INK2 at full press inside the rim while the basin's own rim stays INK1 - so that anything
+    pale on it reads: draw the water plain, draw it with black threads unwinding off a dipped paw,
+    and draw it with a broad bare-paper foam cloud on it.
+    🔴 AND WATER COMES DOWN INTO IT FROM ABOVE - a pail tipped over the rim, its stream ONE narrow
+    unprinted strip from lip to water with 0 droplets, 0 splash crown and 0 spray. Draw that panel.
+  THE SLOP TUB - one small waisted wooden tub on the floor beside the basin, staves and one hoop,
+    and it is where things go that are finished with. 🔴 THE INSIDE OF IT IS THE DARKEST HOLE IN THE
+    ROOM: OVERLAP at full press right up to the rim line, no bottom visible, no contents drawn. What
+    goes in is read on the way in, never in the tub.
+  🔴 Both stand on the same wall as the back door, so ONE frame can hold basin, tub, the sack stack
+  and the doorway - the order along that wall is fixed here and does not change between books.
 🔴 SPOT E - FLOOR LEVEL, added to the four spots above: the eye on the floor, looking across the room
   from under the kneading table. At this height the room is a wood of legs and the PLANK BLOCK is the
   whole picture, so 🔴 THE SPACING OF THE PLANKS IS THE PERSPECTIVE - nothing else says depth. One
   volume is ten pages of searching this floor and it has nowhere to stand without this spot.
+🔴 SPOT F - WHERE TWO BODIES TOUCH - §1.0. Background here: the DOT BLOCK of the plaster wall at a
+  light bite, or the PLANK BLOCK if the touch is down on the floor - one field, nothing in it.
 🔴 THE INSIDE AND THE OUTSIDE OF THIS WINDOW ARE ONE DRAWING. One volume spends five pages inside at
   this window and five pages outside it among the pots, and SCENE calls the outside `Shop`. Bake the
   window HERE first - frame, sill depth, pot row, the gap behind the pots - and let the outside view
@@ -206,7 +262,9 @@ FIXTURES OF THE ALLEY - each drawn once, in its own place, and it is ALWAYS in t
     winter 🔴 ITS ICICLES ARE BARE PAPER while the cobbles below stay printed.
   THE ROOF RIDGE above, where a bird sits: drawn once from the alley looking up.
 
-SPOTS: A the bakery front, wide · B the bend with the well · C the narrow throat · D the shut end.
+SPOTS: A the bakery front, wide · B the bend with the well · C the narrow throat · D the shut end ·
+  🔴 E WHERE TWO BODIES TOUCH - §1.0. Background here: the ARCH BLOCK of the cobbles at a light bite
+  if the touch is low, the WINDOW/SHUTTER wall if it is standing height - one field, no fixtures.
 
 PLATE: the four necks in a row FIRST, then each block printed alone at large size, then the fixtures
   each in place, then the sky strip by day beside the sky at night.
@@ -242,7 +300,9 @@ TRAFFIC IS CARTS AND BICYCLES AND NOTHING ELSE - no motor of any kind exists in 
   frame while two figures stand small behind the line - the whole point is that the passing body is
   nearer and bigger.
 SPOTS: A standing in the alley looking out at the road · B the line itself, close, from above ·
-  C the far kerb looking back at the alley mouth.
+  C the far kerb looking back at the alley mouth ·
+  🔴 D WHERE TWO BODIES TOUCH - §1.0. Background here: the ROAD BLOCK at a light bite, or the join
+  itself running behind the contact as one hard edge and nothing else.
 
 PLATE: the line close up with two pairs of feet on it, then the two ground blocks printed alone side
   by side at one scale, then spots A and C, then the cart and the bicycle silhouettes.
@@ -286,9 +346,17 @@ FIXED PARTS:
   THE KITCHEN DOORWAY at the back - an opening with no door, through which the oven mouth shows as a
   small bright hole. That hole is how the shop knows what time it is.
 SPOTS: A the whole room from the kitchen doorway · B the shelf straight on · C the door from inside,
-  threshold across the bottom · D the window from inside, alley beyond.
+  threshold across the bottom · D the window from inside, alley beyond ·
+  🔴 E THE LOW CHAIR, medium, AT SEATED EYE LEVEL - the camera at the height of somebody sitting in
+  it, which is the height at which A SEATED GROWN-UP AND A STANDING SMALL MOUSE HAVE THEIR EYES
+  LEVEL. Four volumes happen in that chair and without this spot all four get pushed out to A and B
+  and the room is drawn from above them. Draw it with the chair empty and with the shelf behind it,
+  and mark the two eye heights on the panel. ⚠️ D, by contrast, is used on ONE page of the later
+  half - keep it, do not grow it ·
+  🔴 F WHERE TWO BODIES TOUCH - §1.0. Background here: the LOAF BLOCK of the shelf at a light bite,
+  or the DOT BLOCK of the plaster wall - one field, nothing named in it.
 
-PLATE: A, B, C, D once each, plus the threshold from its three places, plus the open door's light
+PLATE: A to F once each, plus the threshold from its three places, plus the open door's light
   shape on the floor, plus the bell still and swung, plus the low chair in its corner.
 
 NOT: no character of any kind, no accent red anywhere on this sheet, no lettering, numerals, shop
@@ -323,7 +391,9 @@ FIXED PARTS:
   🔴 CROWD = flat silhouettes in one ink, 0 faces, 0 hands, at most 7 in a frame - and from directly
   above, a crowd is a field of those silhouettes with ONE small gap in it where a child stands still.
 SPOTS: A the lane from the entrance, awnings both sides · B under the yellow awning · C the size
-  ladder at a stall · D straight down from above onto the crowd.
+  ladder at a stall · D straight down from above onto the crowd ·
+  🔴 E WHERE TWO BODIES TOUCH - §1.0. Background here: the AWNING BLOCK cloth at a light bite, or the
+  TENT LEGS as one field - 🔴 and NO crowd silhouette in this frame, the ration is the two bodies.
 
 PLATE: the lane with nine awning presses and the yellow one far off, the yellow awning close, the
   size ladder with the silhouette, the crowd from above with its gap.
@@ -370,9 +440,11 @@ FIXED PARTS, and each is always in the same place:
   shape across the boards, and the kerchief and its shadow must both be readable in one frame - a
   whole volume is that pairing. Draw it once here so the page does not have to invent it.
 SPOTS: A the whole loft from the stair hole · B the bed from above · C the nail and the wall behind
-  it · D the floor close, the light line in it.
+  it · D the floor close, the light line in it ·
+  🔴 E WHERE TWO BODIES TOUCH - §1.0. Background here: the bare boards of the wall or the PLANK BLOCK
+  of the floor at a light bite - 🔴 no dot field ever, this room has none.
 
-PLATE: A-D, the window by day and by night side by side, the nail hung and empty, the quilt flat and
+PLATE: A-E, the window by day and by night side by side, the nail hung and empty, the quilt flat and
   heaped, the knot's shadow with the knot in the same frame.
 
 NOT: no character of any kind, 🔴 no accent red on this sheet (the kerchief that hangs here is drawn
@@ -409,9 +481,11 @@ FIXED PARTS:
   A WATER PAIL, INK1, one handle.
 SPOTS: A the yard wide, door left, tub right · B the tub from the side, the wall and nail behind ·
   C straight down onto the water surface, the tub rim framing all four edges of the picture ·
-  D from the doorway looking out at the tub.
+  D from the doorway looking out at the tub ·
+  🔴 E WHERE TWO BODIES TOUCH - §1.0. Background here: the ARCH BLOCK cobbles at a light bite, or the
+  tub's own staves running behind the contact as one field.
 
-PLATE: A-D, the tub with the child silhouette for height, the water empty and clouded, the nail in
+PLATE: A-E, the tub with the child silhouette for height, the water empty and clouded, the nail in
   its three states.
 
 NOT: no character of any kind, no accent red on this sheet, no lettering or numerals, no third mixed
@@ -447,9 +521,11 @@ FIXED PARTS:
   OUTSIDE. Draw it from inside with the roof line beyond, and note the sill outside is wide enough
   for a bird to perch on with its tail out past the frame.
 SPOTS: A the whole room from the door, nail row on the left wall · B the nail row straight on ·
-  C the floor from directly above · D the tub from above, looking in.
+  C the floor from directly above · D the tub from above, looking in ·
+  🔴 E WHERE TWO BODIES TOUCH - §1.0. Background here: the bare boards of the wall or the PLANK BLOCK
+  of the floor at a light bite - 🔴 with NO nail in the frame; the row is not scenery for a close-up.
 
-PLATE: A-D, the nail row empty and hung side by side, the floor covered and clear side by side.
+PLATE: A-E, the nail row empty and hung side by side, the floor covered and clear side by side.
 
 NOT: no character of any kind, no accent red on this sheet, no lettering or numerals, no third mixed
   ink, no solid area, no white ink, no cast-shadow tone, no gradient or soft edge.
@@ -486,9 +562,11 @@ FIXED PARTS:
   🔴 THE DIGGING WALL - one patch of the earth wall drawn scraped open, with a potato half out of it
   and loose earth falling. Draw the same patch unscraped beside it. A page is those two.
 SPOTS: A the whole burrow wide, entrance top left · B the straw bed from above · C the wall patch
-  close · D from the floor looking up the entrance at the alley.
+  close · D from the floor looking up the entrance at the alley ·
+  🔴 E WHERE TWO BODIES TOUCH - §1.0. Background here: the ONE broad INK1 earth pull with its bitten
+  edge, paper showing through - 🔴 no block of any kind, same as the rest of this stage.
 
-PLATE: A-D, the wall pull printed alone at large size so its bite is visible, the entrance wedge, the
+PLATE: A-E, the wall pull printed alone at large size so its bite is visible, the entrance wedge, the
   wall patch before and after.
 
 NOT: no character of any kind, no accent red on this sheet, no lettering or numerals, no third mixed
@@ -518,9 +596,11 @@ FIXED PARTS: a step at each door, one block. A doorway that stands half open wit
   series and it is the only bright thing in the frame. A high blank wall closing one end (the same
   wall as AlleyDead - it is the same drawing).
 SPOTS: A the lane with four doors down it · B one door straight on, a small figure at it · C the half
-  open door with steam at the gap.
+  open door with steam at the gap ·
+  🔴 D WHERE TWO BODIES TOUCH - §1.0. Background here: ONE door press at a light bite, filling the
+  frame flat behind the contact - no knocker, no panels counted, no step.
 
-PLATE: the door block printed alone, the four presses in a row, spots A-C.
+PLATE: the door block printed alone, the four presses in a row, spots A-D.
 
 NOT: no character face (silhouettes only), no accent red anywhere on this sheet, no lettering,
   numerals, house numbers or name plates, no third mixed ink, no solid area, no white ink, no smell
@@ -722,6 +802,22 @@ identical loaves with ONE loaf that is not identical. This sheet settles which i
   6 THE SPOILED CRESCENT - the same block as 3 with COLD-INK SPOTS on the crust, at most 9 presses
     of one tiny dot block. 🔴 Draw it beside a fresh crescent at the same size; the ONLY difference
     is the spots, and volume 38 depends on that being true.
+🔴 A TOWER OF LOAVES IS NOT A SHELF, AND THE CAP OF NINE DOES NOT REACH IT. The anchor caps the
+  plain block at nine presses PER SHELF BOARD; one volume stacks the same block into a free-standing
+  column on the shop floor, twice, and 🔴 THE HEIGHT IS THAT VOLUME'S WHOLE EVENT - the grown-up who
+  knocks it over builds it back HIGHER. A column of identical discs gets taller by COUNT and by
+  nothing else, so the count is the ruler and it is settled here:
+  TOWER ONE - NINE presses. It stands exactly as tall as the child: with both arms straight up she
+    just reaches the top one.
+  TOWER TWO - TEN presses, one press higher, and she cannot reach it. 🔴 THE TALLEST GROWN-UP PUTS
+    THE TOP ONE ON with his arm straight up while she watches from under it. Same block, same base,
+    same camera as tower one.
+  🔴 Draw the two side by side at one scale with the same child silhouette beside both. Do not get
+  the second tower's height by widening the base, by standing it on a sack, by adding a second column
+  or by drawing the loaves bigger - 🔴 nine against ten of the SAME disc is the entire difference, and
+  a child counts it. (Judgment, 2026-09-05: the script said "nine" on both pages and "one notch
+  higher" on the second, which cannot both be drawn. The cap was a shelf cap, the height was the
+  event, so the count moved. SCENE 41 p8 now reads ten.)
 🔴 SUGARED AND SEEDED are surface, not shape: sugar is at most 11 tiny bare-paper flecks on a plain
   loaf, seeds are at most 9 tiny INK2 dots. Neither gets a block of its own.
 🔴 A HALVED LOAF: cut straight across, the two halves plainly EQUAL, and 🔴 THE CUT FACE IS BARE
