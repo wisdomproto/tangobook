@@ -16,9 +16,10 @@
 STYLE ANCHOR - kota-mineral   (Kota's hot-spring inn / opaque ground pigment, built up in passes)
 
 Style: ground mineral pigment bound in warm glue and laid OPAQUE on a toned sized surface, for a
-  picture book read aloud to four- to six-year-olds. 🔴 NOTHING HERE IS FINISHED IN ONE PASS. Every
+  picture book read aloud to four- to six-year-olds. 🔴 NOTHING THE STORY IS ABOUT IS FINISHED IN ONE PASS. Every
   field is built by laying the same colour down again over itself - two passes for a far thing, four
-  or five for the thing the story is about - and the earlier passes are meant to show through the
+  or five for the thing the story is about, and one pass only for what is past the eaves and for
+  steam - and the earlier passes are meant to show through the
   last one as grain rather than be covered by it. 🔴 THE SUPPORT IS NEVER LEFT BARE: there is no
   reserved white, no empty corner and no place where the paper is doing the work of light. If a
   thing is pale it is pale BECAUSE IT WAS PAINTED PALE. Water thins nothing here.
@@ -29,27 +30,39 @@ RENDERING (finish hierarchy): the dial of this book is GRIND, not brightness. On
   THE ONE THING THEY ARE TOUCHING - coarsest grind, four to five passes, and a thin dry ink contour
   drawn first and still showing at the end. (2) THE PLACE THEY STAND IN - medium grind, two or three
   passes, NO contour: a wall meets a floor because the two fields stop, not because a line says so.
-  (3) ANYTHING PAST THE EAVES, AND ALL STEAM - finest grind, one pass, no contour. 🔴 SO A FIGURE
-  CAN BE FOUND ON ANY GROUND IN THIS BOOK BY ONE TEST: it is the only thing on the page with a drawn
-  edge. 🔴 EVERY EDGE IS A CUT EDGE - grain lives inside a field and never at its border, and two
-  fields never blend into each other. AT MOST TWO THINGS ON A PAGE GET THE COARSEST GRIND.
+  (3) ANYTHING PAST THE EAVES, AND ALL STEAM - finest grind, one pass, no contour. 🔴 SO WHAT THE PAGE IS ABOUT
+  CAN BE FOUND ON ANY GROUND IN THIS BOOK BY ONE TEST: the figure AND the one thing it is touching are
+  the only things on the page with a drawn edge, and nothing else carries a contour ever. 🔴 EVERY EDGE IS A CUT EDGE - grain lives inside a field and never at its border, and two
+  fields never blend into each other. AT MOST TWO THINGS ON A PAGE GET THE COARSEST GRIND, AND
+  🔴 A SET THAT THE PAGE COUNTS AS ONE THING - three quilts on a line, six toys across a floor, a
+  stack of folded towels - IS ONE OF THE TWO: the whole set takes the coarsest grind together, never
+  two of it coarse and the rest medium, because the count is what the page is about.
 
 PALETTE (mineral, and there are only these): GROUND #C9BEA8, a warm clay tone that is painted on,
   never bare · SHELL WHITE #EDE7DC for steam, wet-stone shine and the inn's towels - 🔴 THIS IS THE
   LIGHTEST THING PERMITTED AND IT IS NOT WHITE; pure white appears nowhere, because a white mass of
   steam swallows the one pink on the page · AZURE #3B5A72, deep and coarse, spent on night, water
-  and the father's robe · GREEN #6E8A6A · OCHRE #B98F52 for wood, straw and matting · BURNT EARTH
+  and the father's robe · GREEN #6E8A6A · OCHRE #B98F52 for wood, straw and matting, and 🔴 OCHRE AT THE
+  FINEST GRIND IN ONE PASS IS THE ONLY YELLOW THIS BOOK HAS - a lamp's round patch on a floor or a
+  pillow is that, and no new colour is ever mixed for it · BURNT EARTH
   #8A4E3C for roof tile and hot stone · INK #2A2622 for every contour and every marking · 🔴 PEACH
   PINK #E9A6A0, the one accent in twenty-five books, on Kota's neck towel and nowhere else ever -
   not on a flower, not on a lantern, not on a guest. AT MOST FOUR OF THE MINERAL COLOURS ON ONE
-  PAGE, plus ink and shell white. The inn's own towels are shell white and plain, all of them.
+  PAGE, plus ink and shell white - 🔴 AND THE FOUR ARE CHOSEN FROM AZURE, GREEN, OCHRE AND BURNT EARTH.
+  GROUND AND THE ONE PINK ARE NEVER COUNTED IN THEM: the ground tone is under every page by definition and
+  the pink is one small shape. Counting those two would put the YARD clause alone over the limit.
+  The inn's own towels are shell white and plain, all of them - 🔴 THE CHILD'S NECK TOWEL IS NOT ONE
+  OF THEM. It is his own, it is the one pink in twenty-five books, and the two hang in the same frame on
+  thirty pages, so a white one and the pink one must be tellable apart at thumbnail size.
 
-STAGE CLAUSES
-POT STEAM (2026-09-01) - the indoor no-steam rule is about WEATHER steam. Steam rising from a pot or a split bun IS the event of its book (07, 22) and is drawn — count its strands per page as the script says. (one inn and its yard; the place sets the grind and the number of steam passes):
+STAGE CLAUSES (one inn and its yard; the place sets the grind and the number of steam passes):
   🔴 STEAM IS COUNTED IN PASSES OF SHELL WHITE at the finest grind, laid over a field already
     finished so that field still reads through it: a cold morning is four passes and the far side of
     the valley goes under, an ordinary day is two, a rainy day is ONE and it lies low along the
-    ground instead of rising, and indoors there is none.
+    ground instead of rising, and indoors there is no WEATHER steam. 🔴 STEAM OFF A POT, A LID, A
+    SPLIT BUN OR A BOWL IS A DIFFERENT THING AND IS ALWAYS DRAWN INDOORS wherever the script counts
+    its strands - it is the event of the page it is on, so it takes the coarsest grind it is allowed
+    and the room behind it stays medium.
   UPPER POOL — 🔴 THIS PLACE TAKES ONE MORE PASS OF STEAM THAN ANY LOWER PLACE DRAWN ON THE SAME PAGE. - hottest, highest up the slope. Stone here is burnt earth at the coarsest grind in the
     book. Water is not transparent: one flat field of azure, and nothing under the surface is drawn.
   LOWER POOL AND CHANNEL - the same water further down and cooler, so the same azure is ground finer
@@ -100,7 +113,9 @@ CANVAS: 16:9 double-page spread. 🔴 NOT ONE WRITTEN MARK ANYWHERE - the door c
 
 NOT: no airbrush, no soft gradient, no glow, no 3D render / 🔴 NO FIRE ANYWHERE IN THIS BOOK - no
   hearth, no stove, no lit wood,
-  no flame, no smoke: this water is hot because it comes out of the ground / 🔴 THE CHILD IS NEVER
+  no flame, no smoke: this water is hot because it comes out of the ground. 🔴 A LAMP IS DRAWN AS A
+  CLOSED SHADE AND THE HARD-EDGED PATCH IT THROWS; the flame, the wick and any smoke are never in
+  frame, and the light source itself stays off the page / 🔴 THE CHILD IS NEVER
   IN THE WATER - his hands and his feet only, and only at the lower pool and the channel edge; hot
   water is carried and poured by the adult on every page where it moves / a slip lands sitting on
   the floor, never head first and never on a stair.

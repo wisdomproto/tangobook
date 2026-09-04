@@ -39,6 +39,764 @@ thin dry ink contour … AT MOST TWO THINGS ON A PAGE GET THE COARSEST GRIND`.
 
 ---
 
+## §1. 자리 시트 — 15장
+
+> 형식 정본 = `taro-stages.md` §2(`FIXED PARTS` / `SPOTS` / `PLATE` / `NOT`).
+> 🔴 **앵커 `STAGE CLAUSES` 는 여섯 자리뿐인데 SCENE 은 열다섯 자리를 쓴다** — 탕 셋·마당·복도와 탈의 마루·손님방
+> 말고는 조항이 없다. 부엌(12쪽)·툇마루(22쪽)·안방(22쪽)·대문(16쪽)·문간(15쪽)·밥상 마루(26쪽)·유리문(9쪽)·
+> 텃밭(6쪽)이 **조항 없이 그려지고 있었다.** 앵커를 열다섯 조항으로 불리는 대신 여기 시트가 든다 —
+> 앵커 자수는 이미 상한을 넘었고(§6), 자리는 원래 시트의 일이다.
+> 🔴 **§3 이 「자리 시트가 받을 조항」으로 넘긴 열둘을 전부 아래에 박았다** — 디딤돌 · 밤 복도 · 마루 밑 어둠 ·
+> 선반 칸 셋 · 유리 김 세 두께 · 문갑 자리 · 평상 · 장지문 밝기 3단계 · 이랑과 흙 구멍 · 부뚜막 · 대문 기둥 · 널의 결.
+> 🔴 **좌우 축은 시트가 정하지 않는다** — SCENE 이 권마다 첫 쪽에 「이 권 내내 …는 화면 왼쪽」을 적어 둔다(10·11·
+> 14·15·16·20·23·25). 시트는 **무엇이 무엇 옆에 있는가**만 고정하고, 카메라가 어느 쪽에서 보는지는 그 권이 정한다.
+
+| # | 토큰 | 자리 | 가는 권 (쪽) | 상속 조항 |
+|---|---|---|---|---|
+| 1.1 | `Yard` | 여관 마당과 탕 비탈 | 01 02 06 10 11 13 14 15 21 25 (**49쪽**) | `YARD` + `LOWER POOL AND CHANNEL` |
+| 1.2 | `Corridor` | 여관 안 긴 널 복도 | 03 08 09 13 23 24 (**35쪽**) | `CORRIDOR AND CHANGING FLOOR` |
+| 1.3 | `Meal` | 부엌 옆 밥상 마루 | 04 06 17 18 22 (**26쪽**) | 신규 (§3 「마루 밑 어둠」) |
+| 1.4 | `Veranda` | 마당으로 트인 툇마루 | 03 06 11 13 14 15 19 22 23 (**22쪽**) | 신규 (§3 「디딤돌」·「장지문 밝기」) |
+| 1.5 | `FamilyRoom` | 여관 안쪽 살림방(안방) | 03 05 06 13 15 16 21 22 23 24 25 (**22쪽**) | `GUEST ROOM` 의 밤 조항을 공유 |
+| 1.6 | `GuestRoom` | 손님방 | 05 23 24 25 (**18쪽**) | `GUEST ROOM` + §3 「문갑 자리」 |
+| 1.7 | `Gate` | 여관 대문과 문 밖 나무다리 | 01 06 15 20 25 (**16쪽**) | 신규 (§3 「대문 기둥」) |
+| 1.8 | `Entry` | 현관 봉당(문간 흙바닥) | 02 18 20 (**15쪽**) | 신규 (§3 「디딤돌 폭」) |
+| 1.9 | `Changing` | 탈의 마루 | 09 12 13 (**12쪽**) | `CORRIDOR AND CHANGING FLOOR` + §3 「선반 칸 셋」 |
+| 1.10 | `Kitchen` | 부엌 봉당과 부뚜막 | 07 22 (**12쪽**) | 신규 (§3 「부뚜막」 · 🔴 불 없음) |
+| 1.11 | `GlassDoor` | 복도 끝 유리 미닫이 | 19 (**9쪽**) | 신규 (§3 「김 세 두께」) |
+| 1.12 | `Garden` | 여관 뒷마당 텃밭 | 04 (**6쪽**) | 신규 (§3 「이랑과 흙 구멍」) |
+| 1.13 | `LowerBath` | 비탈 아래 탕 턱 | 01 06 25 (**4쪽**) | `LOWER POOL AND CHANNEL` |
+| 1.14 | `UpperBath` | 맨 위 탕 턱 | 01 (**2쪽**) | `UPPER POOL` |
+| 1.15 | `KotaRoom` | 코타네 작은 방 | 09 (**1쪽**) | `GUEST ROOM` 의 밤 조항 |
+
+🔴 **모든 시트가 함께 지는 두 줄**(매 장 `NOT` 에 다시 안 적는다):
+① **글자·숫자·문양이 어디에도 없다** — 무지 천, 등롱, 나무 패, 장지문 전부(앵커 `CANVAS`).
+② **불이 화면에 없다** — 아궁이·화로·장작·불꽃·연기, 그리고 **등불은 닫힌 갓과 그것이 던지는 각진 조각으로만** 있다
+(앵커 `NOT`, 2026-09-04 신설). 이 둘을 어기면 스물다섯 권이 함께 무너진다.
+
+### §1.0 🔴 이 여관의 밝기 사전 — 열다섯 장이 공유한다
+
+```
+STAGE SHEET - InnLight   (kota-mineral · read this before every other stage sheet · not a place)
+
+The one dictionary of light for the whole inn. Every stage sheet below refers to it instead of
+restating it, so that "evening" is the same drawing in fifteen places.
+
+A LIT ROOM AT NIGHT is azure at the coarsest grind over everything EXCEPT one HARD-EDGED PATCH.
+  That patch is a flat shape with a cut border - never a fade, never a halo, never a circle of
+  falling-off brightness. 🔴 THE SOURCE IS OFF THE PAGE. The lamp itself, its flame and its wick are
+  never in frame; what is in frame is the shade, closed, and the shape it throws.
+  ONE EXCEPTION AND ONE ONLY: a lamp's round patch laid on a floor board or a pillow, which is OCHRE
+  AT THE FINEST GRIND IN ONE PASS (anchor PALETTE). It is still hard-edged.
+🔴 THE PAPER DOOR HAS FOUR BRIGHTNESSES AND NEVER A FIFTH, and the sheets below call them by name:
+  DARK    - the panel is the same azure as the wall beside it; only the ink of the lattice separates
+            them, and the frame corners are the only angles that survive.
+  AFTERGLOW - the panel is ONE STEP paler than the lamp patch in the same room and no more. This is
+            a storm that has passed, or a room next door still awake.
+  LEAKING - the panel is dark but a hard-edged wedge escapes from its edge onto the boards or the
+            stepping stone outside it. THIS IS HOW EVERY EVENING PAGE IN THIS SERIES IS TOLD.
+  FLASH   - the panel goes up to SHELL WHITE, cut square by the door frame, for one instant. 🔴 NO
+            BOLT, NO SKY, NO STREAK IS EVER DRAWN - the lightning is this one panel and nothing
+            else, and it is the only moment in twenty-five books that throws long shadows indoors.
+STEAM IS THE OTHER CLOCK (anchor): four passes on a cold morning, two on an ordinary day, one lying
+  low along the ground in rain, none indoors as weather. Pot steam is a different thing and is
+  always drawn (anchor STAGE CLAUSES).
+
+PLATE: one paper door drawn four times at one size - dark, afterglow, leaking, flash - side by side;
+  one lamp patch on matting and one ochre round patch on a board; and one panel of a lit room at
+  night with everything but the patch in coarse azure.
+
+NOT: no character, no pink anywhere, no lettering or numerals, no flame, wick, ember, smoke or lamp
+body, 🔴 no glow, halo, bloom, ray or soft falloff at any edge of a lit patch, no lightning bolt or
+lit sky, no gradient or airbrush.
+```
+
+### §1.1 Yard — 49쪽, 이 여관에서 가장 넓고 가장 많이 그려지는 자리
+
+```
+STAGE SHEET - Yard   (kota-mineral · anchor clauses YARD + LOWER POOL AND CHANNEL · SCENE token: Yard)
+
+The inn's yard: the slope with the three pools on it, the channel that runs down through it, the
+wash tub corner, the drying line and the low platform. Ten books work here.
+
+FIXED PARTS:
+  THE SLOPE - the ground climbs from the lower pool at the bottom to the upper pool at the top, and
+    🔴 THE THREE POOLS ARE ALWAYS IN THIS ORDER ALONG IT: lower, middle, upper. Which side of the
+    frame the top is on is set per volume by the script; the ORDER never changes.
+  THE CHANNEL - one narrow run of water crossing the yard downhill, azure ground finer and paler
+    than pool water. 🔴 ITS FALL IS ALWAYS VISIBLE (anchor): a floating thing sits nearer the bottom
+    edge of the page than the place it went in. Stone in it is pale and dry on top, burnt earth where
+    the water reaches, and that wet line is HARD-EDGED.
+  THE GROUND - ochre, medium grind. Two kinds and a hard border between them: DRY EARTH, plain
+    ochre; and the STONE PATH, flat burnt-earth slabs running from the gate to the veranda step.
+  🔴 THE WET STONE ZONE - the ring of stone round each pool. Wet stone carries ONE small shell-white
+    highlight per stone and dry stone carries none; that dot is the only shine in the book and it
+    survives into the night pages. The border between wet and dry is a cut line, never a fade.
+  THE PLATFORM - ONE low wooden platform standing on the dry side of the yard, ochre, waist high on
+    an adult, wide enough for two to sit on. 🔴 IT IS THE SAME PLATFORM IN EVERY BOOK - two volumes
+    sit on it and if each invents its own the yard becomes two yards.
+  THE WASH TUB CORNER - one wide wooden tub standing on the ground beside the channel, with room to
+    kneel at it. THE DRYING LINE - two posts on the far side of the yard from the tub, one cord
+    between them at an adult's raised-hand height, empty unless the script hangs something.
+  THE WALLS - a low stone wall closes the yard on the slope side; the inn's eaves close it on the
+    other. Past the eaves and past the wall, finest grind, one pass, no contour (anchor).
+  SNOW - shell white over everything EXCEPT a hand's width along the channel, which stays bare ochre
+    (anchor). Draw the snow yard and the plain yard at one size.
+
+SPOTS:
+  A THE WHOLE YARD, wide, standing height: the three pools stepping up the slope, the channel
+    crossing, the stone path, the platform on the dry side, the eaves at one edge.
+  B THE CHANNEL, close, low: one band of pale azure running downhill across the frame, wet stone
+    with its highlight dots on the near bank, dry ochre beyond.
+  C THE WET/DRY BORDER, close: half the frame wet stone with highlights, half dry, the cut line
+    between them across the middle - the comparison panel of this sheet.
+  D THE PLATFORM, medium: it stands alone on dry ground with the pools behind it.
+  E THE LINE AND THE TUB, medium: tub in the foreground beside the channel, the empty line beyond.
+  F THE YARD FROM THE VERANDA STEP, medium wide, low: the stepping stone in the foreground, the yard
+    and its steam past it - the view eight volumes open on.
+
+PLATE: A to F, plus panel A drawn twice at one size - ordinary day and snow - and one small overhead
+  diagram showing pools, channel, path, platform, tub and line relative to gate and veranda.
+
+NOT: no character, 🔴 no pink anywhere, no bathers or bodies in any pool, no reflection or inverted
+shape in the water, no ripple rings except where the script sets them, no more than one highlight dot
+per wet stone, no plants beyond one flat green field, no cast shadow from a lamp, no gradient, glow,
+airbrush or soft edge.
+```
+
+### §1.2 Corridor — 35쪽 · 🔴 밤 조항이 여기 없어서 09권 전체가 조항 밖이었다
+
+```
+STAGE SHEET - Corridor   (kota-mineral · anchor clause CORRIDOR AND CHANGING FLOOR · SCENE token: Corridor)
+
+The long board corridor through the inn. Six books use it and one spends all ten pages in it at
+night, so its darkness is defined here and not left to the page.
+
+FIXED PARTS:
+  THE BOARDS - ochre at medium grind with the grain running THE LENGTH of each board, so the corridor
+    points. 🔴 A WET BOARD IS THE SAME OCHRE WITH ONE PASS OF AZURE OVER IT and a hard edge where the
+    wet stops (anchor) - that is how a corridor says somebody came in from the bath.
+  THE DOORS - paper doors down BOTH sides, their lattice ink only, all blank. Their brightness comes
+    from the InnLight sheet: dark / afterglow / leaking / flash.
+  THE THRESHOLDS - one low wooden sill at each doorway, ochre, a hand's thickness proud of the
+    boards. 🔴 ONE VOLUME TRIPS ON ONE, so a sill must be visible on any low view: it is the only
+    thing that breaks the run of the grain.
+  THE ENDS - one end opens on the entry hall and the daylight from the yard door; the other end runs
+    on to the changing floor and the bath door. A large wooden basket stands against the wall at
+    that far end and stays there in every book.
+  🔴 THE NIGHT CORRIDOR (this is the clause that was missing). The whole run is ONE FIELD of azure at
+    the coarsest grind. Inside that field the ONLY things that survive are: the ink corners of the
+    door frames, drawn as angles and never as full rectangles; and HARD-EDGED PATCHES - a wedge
+    leaking from one door's edge onto the boards, or the lantern's patch under the ceiling lamp.
+    Everything else - grain, sills, the basket, the far end - is inside the azure and not drawn.
+    There is no middle grey between the patch and the dark.
+  THE CEILING LANTERN - one, hanging over the middle of the run. 🔴 CLOSED SHADE ONLY: the shade is a
+    flat ochre shape and what it throws is one hard-edged patch on the boards below it. No flame, no
+    wick, no glow round the shade.
+
+SPOTS:
+  A THE RUN, medium wide, standing height, looking down the corridor: doors both sides, the grain
+    pointing away, the far end lit by the yard door.
+  B THE BOARDS, close, low: grain running to the camera, one sill crossing the frame.
+  C A DOOR, medium, straight on: one paper panel with its lattice - drawn four times on the plate,
+    once for each brightness.
+  D THE FAR END, medium: the basket against the wall and the bath door beyond it.
+  E THE NIGHT RUN, medium wide, same camera as A: one azure field, two frame-corner angles, one
+    leaking wedge on the boards, nothing else.
+
+PLATE: A to E, with A and E one directly above the other at one size, plus the door drawn in the
+  four brightnesses in a row.
+
+NOT: no character, no pink anywhere, no lettering, numerals or crest on any door, no pictures,
+hangings, vases or furniture in the run except the one basket, no flame, wick or lamp body, 🔴 no
+glow, halo or falloff round a lantern or a leaking wedge, no moonlight wash, no gradient or soft edge.
+```
+
+### §1.3 Meal — 26쪽 · 🔴 널 끝 아래 어둠이 한 권의 사건이다
+
+```
+STAGE SHEET - Meal   (kota-mineral · new clause; take CORRIDOR grain and InnLight · SCENE token: Meal)
+
+The boarded floor beside the kitchen where meals are eaten. Five books work here; one of them is
+about what has been pushed under the edge of it.
+
+FIXED PARTS:
+  THE FLOOR - ochre boards, medium grind, grain running the length. It is a raised floor: its edge
+    stops in mid-air above the earth outside, one adult's shin above the ground.
+  🔴 THE DARK UNDER THE BOARD END (this is the clause the whole sheet exists for). Under that edge,
+    running the width of the picture, ONE FIELD OF FLAT BLACK INK - not azure, not shaded, not a
+    receding space: a single unbroken dark with a cut top edge where the board end stops.
+    WHAT IS IN IT IS SEEN AS SHELL-WHITE SPECKS AND AS NOTHING ELSE - no shape, no outline, no
+    half-lit body. One volume hides white food scraps there and the count of those specks is the
+    story: draw the dark with three specks, with one, and empty, at the same size and angle.
+    🔴 NOTHING EVER REACHES INTO IT ON THE PAGE. It is cleared between pages, never during one.
+  THE LOW TABLE - one small tray table standing on the boards, ochre, ankle high, so everyone kneels.
+    A second one for a guest stands apart from it. The kitchen doorway is behind them.
+  THE KITCHEN DOORWAY - one dark opening in the wall at the back. 🔴 IT IS ALWAYS DIM AND THERE IS
+    NEVER A FIRE IN IT (anchor): a flat medium-grind dark, with the shapes of the kitchen only as
+    fields, never as a lit interior.
+  THE VERANDA SIDE - the floor runs on into the veranda and the yard past it, so a Meal page can show
+    the yard's steam over the channel at the edge of frame.
+  THE LANTERN - one standing lantern on the boards for evening pages: closed shade, one hard-edged
+    patch on the boards. See InnLight.
+
+SPOTS:
+  A THE FLOOR, medium wide, low: two tray tables on the boards, the kitchen doorway behind, the yard
+    at the edge.
+  B THE BOARD END, low and close, from outside and slightly below: the board edge across the upper
+    frame and the flat ink dark filling the lower half - the counting view.
+  C ONE TRAY TABLE, close, straight down: the ochre top and what is on it.
+  D THE EVENING FLOOR, medium, same camera as A: everything sunk, one hard-edged patch on the boards
+    between two places.
+  E FROM THE KITCHEN DOORWAY, medium: the dim opening in the foreground and the bright boards past it.
+
+PLATE: A to E, plus panel B drawn three times at one size - three specks, one speck, empty.
+
+NOT: no character, no pink anywhere, no lettering or numerals, 🔴 no fire, stove, hearth, ember or
+smoke in the kitchen doorway, no shape, outline or lit object inside the under-board dark, no cast
+shadow, no gradient, glow or soft edge.
+```
+
+### §1.4 Veranda — 22쪽 · 🔴 디딤돌과 신코가 이 시리즈의 시계다
+
+```
+STAGE SHEET - Veranda   (kota-mineral · new clause; take YARD and InnLight · SCENE token: Veranda)
+
+The board veranda between the rooms and the yard, and the stepping stone at its foot. Nine books use
+it, and four of them tell the time of day and who is in the house purely by what stands on the stone.
+
+FIXED PARTS:
+  THE BOARDS - ochre, medium grind, grain running ALONG the veranda. The lip of the veranda is one
+    straight edge the width of the picture, an adult's shin above the earth.
+  🔴 THE STEPPING STONE - ONE broad flat stone set in the earth at the foot of the veranda, burnt
+    earth, medium grind. ITS WIDTH IS FIXED HERE AND IT IS THE MOST-USED MEASURE IN THE SERIES:
+    FOUR ADULT PAIRS AND ONE CHILD'S PAIR OF CLOGS STAND ON IT IN ONE ROW WITH THEIR TOES ALL ONE
+    WAY, AND THAT ROW FILLS IT. One volume counts pairs to say a guest has changed; if the stone is
+    drawn narrower the row cannot be read, and if it is wider the count stops meaning anything.
+    A pair set down "properly" has both toes pointing at the yard.
+  THE PAPER DOORS - the room side of the veranda is paper doors, blank, their lattice ink. Their four
+    brightnesses are the InnLight sheet. 🔴 THE EVENING SIGN OF THIS WHOLE SERIES IS SET HERE: a
+    hard-edged wedge leaking from a door's edge onto the boards and down onto the stepping stone,
+    with the source off the page.
+  THE POSTS AND EAVES - plain ochre posts at the veranda corners, no grain drawn, one ink corner line
+    each. The eave overhangs enough that rain falls in a line clear of the boards - 🔴 IN RAIN THE
+    BOARDS ARE DRY EXCEPT A STRIP ALONG THE OUTER EDGE, one azure pass with a hard border where the
+    wet stops (anchor's wet-board rule).
+  THE YARD BEYOND - the channel and its steam are visible from most spots; how many passes of steam
+    is the weather clause, and this is the place a reader reads it from.
+  WHAT MAY STAND ON THE BOARDS - a cushion, a tray table, a stick laid down, a folded quilt stack, a
+    carrying frame leant on a door post. Each is a prop sheet; the veranda only fixes that they sit
+    ON the boards and never on the stone, and that footwear never comes up onto the boards.
+
+SPOTS:
+  A THE VERANDA, medium wide, low: boards running away, paper doors on one side, yard and steam on
+    the other, stepping stone at the near foot.
+  B THE STONE, close, from above and slightly to one side: the whole stone with a full row of
+    footwear on it - the counting view, drawn with five pairs and with one pair on the plate.
+  C THE LIP, close and low, from the yard: the board edge across the frame with the stone below it.
+  D THE EVENING VERANDA, medium, same camera as A: everything sunk, one leaking wedge on the boards
+    reaching the stone.
+  E IN RAIN, medium: the eave line, the fall of water clear of the boards, the wet outer strip with
+    its hard border.
+
+PLATE: A to E, with A and D one above the other at one size, plus panel B twice (five pairs, one
+  pair) and one elevation of the stone against a standing child for width.
+
+NOT: no character, no pink anywhere, no lettering, numerals or crest on any door, no railing, no
+lantern hanging from the eave (the light source is always off the page), no flame or smoke, 🔴 no
+glow or falloff at the edge of a leaking wedge, no rain streaks crossing a figure, no gradient or
+soft edge.
+```
+
+### §1.5 FamilyRoom — 22쪽 · 🔴 열한 권이 이 방에서 끝난다
+
+```
+STAGE SHEET - FamilyRoom   (kota-mineral · anchor clause GUEST ROOM night rule · SCENE token: FamilyRoom)
+
+The inn family's own room at the back. Eleven books end their last page here, so this ONE night
+drawing is the most repeated image in the series and it must be the same room every time.
+
+FIXED PARTS:
+  THE MATTING - ONE FLAT OCHRE FIELD WITH NO GRAIN AT ALL (anchor). This is the only floor in the inn
+    that has no direction in it, and that is how a reader knows the day has stopped.
+  THE BEDDING - laid out on the matting: a low quilt mound for the child and a second for the adult.
+    A folded set stacked in the corner means the night has not started. 🔴 ONE CORNER OF THE CHILD'S
+    QUILT TURNED BACK IS THE ONLY THING THAT SAYS "COME IN" and several volumes end on it - draw the
+    quilt closed, turned back, and flat-and-smooth at one size.
+  THE FOLDED CLOTHES - at the head of the bedding, one squared ochre stack. Squared and neat = folded
+    by the child himself, which one volume ends on; loose = folded by an adult.
+  THE TWO DOORS - a paper door to the YARD on one wall and a solid door to the CORRIDOR on another.
+    They are on DIFFERENT WALLS and never the same one: one volume needs the corridor dark behind and
+    the yard door flashing at the same moment.
+  THE LOW LAMP - one, standing on the matting. Closed shade; what is drawn is the HARD-EDGED PATCH it
+    lays on the matting or across the quilt mound, and the source is off the page (InnLight).
+    🔴 THE PATCH IS THE COMPOSITION OF ELEVEN LAST PAGES: it holds two faces and nothing else, and
+    the rest of the room is one flat azure field with no furniture drawn inside it.
+  🔴 WHAT IS NOT IN THIS ROOM - no chest, no shelf, no picture, no hanging, no window other than the
+    two doors. Eleven endings in one room only stay quiet if the room has nothing to look at.
+  MORNING IN IT - the yard-side paper door becomes the brightest field in the room, one flat pale
+    panel, and the matting reads pale beside it. No sunbeam, no shaft, no dust.
+
+SPOTS:
+  A THE ROOM AT NIGHT, medium, low: azure field, one hard-edged patch on the matting with the bedding
+    in it, the frame corners of the two doors as angles. THIS IS THE MOST USED FRAME IN THE SERIES.
+  B THE ROOM IN THE MORNING, same camera as A: the yard door pale and whole, the matting flat, the
+    bedding folded in the corner.
+  C THE BEDDING, close, from the foot: the mound and the turned-back corner.
+  D THE HEAD OF THE BEDDING, close, straight down: the folded clothes stack, squared.
+  E THE FLASH, medium, same camera as A: the yard-side paper panel gone to shell white, cut square by
+    its frame, throwing three long hard shadows across the matting - 🔴 no bolt and no sky.
+
+PLATE: A, B and E one directly above the other at one size, then C and D.
+
+NOT: no character, no pink anywhere, no lettering, numerals or crest on any door, no chest, shelf,
+picture, scroll, vase, window or furniture of any kind, no flame, wick or lamp body, 🔴 no glow, halo
+or falloff at the patch edge, no lightning bolt or lit sky, no matting grain, no gradient or soft edge.
+```
+
+### §1.6 GuestRoom — 18쪽 · 🔴 문갑이 두 권에서 같은 자리에 있어야 한다
+
+```
+STAGE SHEET - GuestRoom   (kota-mineral · anchor clause GUEST ROOM · SCENE token: GuestRoom)
+
+The room a guest stays in. The anchor calls it the quietest page in the book; four volumes work in
+it and two of them are the same room on different days.
+
+FIXED PARTS:
+  THE MATTING - one flat ochre field, no grain (anchor). The room is square and small.
+  🔴 THE CHEST - ONE low wooden chest of drawers standing against the wall opposite the corridor door.
+    ITS PLACE IS FIXED HERE AND FOR THE SERIES, because two volumes are set in this same room and one
+    of them puts something on it that the other must find in the same spot. It is knee high, ochre,
+    with TWO drawers, their pulls plain ink shapes and no metalwork.
+  THE DOORS - a paper door to the corridor, and a second paper door to the outside. 🔴 HOW FAR THE
+    OUTSIDE DOOR IS OPEN IS THE ROOM'S DIAL and one volume runs the whole scale: shut (the room at
+    its dimmest, the lamp patch doing all the work) - a hand's width - half - wide, which is the
+    brightest this room ever gets. Draw all four at one size.
+  THE LOW LAMP - one, closed shade, hard-edged patch (InnLight). It is the only light on a shut-door
+    page.
+  THE GUEST'S THINGS - a bundle, a hat, a stick, a basket: one travelling thing on the outline is
+    what tells a guest from the house (anchor). They lie ON THE MATTING beside the bedding, never on
+    the chest, except the one object a volume deliberately puts there.
+  THE BEDDING - a single set, laid or folded. Folded and stacked against the wall = the guest is up.
+  🔴 NOTHING ELSE. No alcove, no scroll, no flower, no tea set left standing, no window. The anchor
+    calls this the quietest page and that is a rule about how much is on the floor.
+
+SPOTS:
+  A THE ROOM, medium wide, low: corridor door at one side, outside door at the other, chest against
+    the far wall, bedding on the matting.
+  B THE CHEST, medium, straight on: the two drawers, the top surface empty, the wall flat behind it.
+  C THE OUTSIDE DOOR, medium, from inside - drawn four times on the plate at the four openings.
+  D THE MATTING, close, straight down: one flat ochre field with one travelling thing on it.
+  E THE ROOM AT NIGHT, same camera as A: azure field, one hard-edged lamp patch, door frame angles.
+
+PLATE: A and E one above the other at one size, then B, D, and C's four openings in a row.
+
+NOT: no character, no pink anywhere, no lettering, numerals, crest or picture, no alcove, scroll,
+flower, screen, window, shelf or hanging, no flame, wick or lamp body, 🔴 no glow or falloff at a
+patch edge, no matting grain, no metal fittings on the chest, no gradient or soft edge.
+```
+
+### §1.7 Gate — 16쪽 · 🔴 여기서만 바깥 세상이 보인다
+
+```
+STAGE SHEET - Gate   (kota-mineral · new clause; take YARD and the anchor's past-the-eaves rule · SCENE token: Gate)
+
+The inn's gate, the little wooden bridge over the channel outside it, and the road beyond. Five books
+work here. 🔴 THIS IS THE ONLY PLACE IN TWENTY-FIVE BOOKS THAT SHOWS DISTANCE, and one volume's whole
+event is how small a friend becomes on that road.
+
+FIXED PARTS:
+  THE GATE - TWO plain wooden posts, ochre, medium grind, NO WOOD GRAIN DRAWN: each post is one flat
+    field with ONE ink corner line down it. A low sill runs between them on the ground and the channel
+    passes under it. Two leaves hang on the posts and are open on every page except the one that shuts
+    them; shut, they are one flat ochre field the width of the opening.
+  🔴 A POST IS EXACTLY WIDE ENOUGH TO HIDE A CHILD AND NOT AN ADULT. Two volumes hide behind one, and
+    that width is the joke.
+  THE BRIDGE - one short flat wooden span over the channel just outside the gate, no rail. 🔴 A CHILD
+    GOES AS FAR AS THE NEAR END OF IT AND NO FURTHER, in every volume; the far end is where the world
+    starts.
+  THE ROAD - it leaves the bridge and runs away to one side, closed at the far end by a shoulder of
+    hill. A low stone wall runs along it. 🔴 THE DEPTH LADDER OF THIS SHEET: the near post is a
+    full-height field, the bridge is a hand's width of board, a figure at the hill shoulder is SMALLER
+    THAN A NEAR FIGURE'S HEAD. Draw that comparison on the plate; one volume's event is that size.
+  🔴 STEAM STOPS AT THE GATE. Inside, the channel carries the day's passes; OUTSIDE THE GATE THERE IS
+    NONE, and that is what opens the distance up. Everything past the bridge is finest grind, one
+    pass, no contour (anchor).
+  THE EMPTY ROAD - the same view with nobody in it. One volume ends on it, so draw it: bridge, wall,
+    road, hill shoulder, and not one figure.
+
+SPOTS:
+  A FROM INSIDE THE GATE, medium wide: the two posts framing the opening, the bridge past them, the
+    road and the hill shoulder small beyond, steam only on the near side of the sill.
+  B THE POST, close, low: one flat ochre field, one ink corner, the yard's stone path behind it.
+  C THE BRIDGE, medium, from the gate: the span, the channel under it, no rail.
+  D THE ROAD, medium, along it: the wall, the road, the hill shoulder - EMPTY.
+  E THE GATE SHUT, medium, from inside at evening: two flat leaves, the sky above them sunk, a thin
+    pass of steam over the channel.
+
+PLATE: A to E, plus one DEPTH panel - a near standing figure silhouette and a figure at the hill
+  shoulder in the same frame, the far one smaller than the near one's head.
+
+NOT: no character, no pink anywhere, no lettering, numerals, sign board, name plate, crest or lantern
+on the gate, no wood grain on the posts, no rail on the bridge, no steam outside the gate, no village
+buildings or fields beyond the hill shoulder, no gradient, glow or soft edge.
+```
+
+### §1.8 Entry — 15쪽 · 🔴 신코의 방향이 한 권의 그림 전체다
+
+```
+STAGE SHEET - Entry   (kota-mineral · new clause; shares the stepping stone with Veranda · SCENE token: Entry)
+
+The entrance hall: the earth floor inside the door, the stepping stone, and the wall the guests'
+footwear stands against. Three books work here and one of them is nothing but rows of shoes.
+
+FIXED PARTS:
+  THE EARTH FLOOR - packed earth, ochre at medium grind, one flat field, level with the ground
+    outside. The raised board floor of the house begins at its inner edge, one adult's shin above it.
+  🔴 THE STONE AND THE WALL ROW - the same broad flat stepping stone as the Veranda sheet, and behind
+    it, against the wall, THE PLACE THE STAYING GUESTS' FOOTWEAR STANDS. Both hold one row with all
+    toes one way. 🔴 THE COUNT IS THE STORY: three adult pairs and one adult's own pair is a full
+    house; two pairs is a changed guest. Draw the wall row with four pairs, with three, and with two,
+    at one size and one angle, so a reader can put two pages side by side.
+  🔴 TOE DIRECTION IS A STATE AND NOT A DETAIL. Toes at the yard = set down properly, ready to leave.
+    Toes at the house = walked out of and left. A clog on its side, or upside down, or one of a pair
+    off in the earth alone, is a page's whole event. Draw: paired-and-facing-out · paired-and-facing-
+    in · one on its side · one upside down · a pair split a stride apart.
+  THE DARK UNDER THE BOARDS - the raised floor's edge leaves a low dark under it here as it does at
+    the meal floor: ONE FLAT INK FIELD with a cut top edge. A thing dragged out of it leaves a
+    scraped line in the earth - one ink line, no dust cloud.
+  THE DOOR - one wide opening to the yard, its threshold flat. Open, it is a rectangle of the yard
+    with the day's steam in it; the light coming in is a FLAT EVEN FIELD on the earth floor, never a
+    beam and never a shaft.
+  A WOODEN TUB stands upright against the wall in one corner and stays there.
+
+SPOTS:
+  A THE HALL, medium wide, low: the doorway with the yard beyond, the stone in the middle, the wall
+    row behind, the board edge and its dark at one side.
+  B THE WALL ROW, medium, straight on and slightly above - the counting view, drawn at four, three
+    and two pairs on the plate.
+  C ONE PAIR, close, on the earth: two clogs and the earth around them, drawn in the five states.
+  D THE BOARD EDGE, low: the ink dark under it with a scrape line in the earth leading out of it.
+  E AT NIGHT, medium, same camera as A: the earth all sunk, one hard-edged wedge leaking from the
+    paper door of the house onto the stone, and the toes of one pair inside that wedge.
+
+PLATE: A to E, with A and E one above the other at one size, plus B at three counts and C's five
+  states in a row.
+
+NOT: no character, no pink anywhere, no lettering, numerals, tags or crest, no shoe rack, shelf,
+umbrella stand, hook or coat peg, no flame, wick or lamp body, 🔴 no beam, shaft or dust in the
+doorway light and no glow at a wedge edge, no gradient or soft edge.
+```
+
+### §1.9 Changing — 12쪽 · 🔴 선반 칸 셋의 높이가 한 권의 사건이다
+
+```
+STAGE SHEET - Changing   (kota-mineral · anchor clause CORRIDOR AND CHANGING FLOOR · SCENE token: Changing)
+
+The boarded room before the bath, with the shelf wall and the baskets. Three books use it; one
+builds three stacks of folded towels on the shelf and the height of each stack is its clock.
+
+FIXED PARTS:
+  THE BOARDS - ochre, medium grind, grain along their length. Wet footprints are the anchor's wet
+    board: the same ochre with one azure pass and a hard edge - 🔴 A FOOTPRINT IS A SHAPE, NOT A
+    SMUDGE, and it dries by being drawn smaller, never by fading.
+  🔴 THE SHELF - THREE OPEN BAYS, one above the other, on one wall. THEIR HEIGHTS ARE FIXED HERE:
+    the LOWEST bay is at a child's chest, so he loads it standing; the MIDDLE bay he reaches ON
+    TIPTOE and only with both hands empty; the TOP bay HE CANNOT REACH AT ALL and an adult loads it
+    without stretching. Several volumes turn on which bay a thing is in, and if the bays are drawn at
+    one comfortable height the whole book stops working. The shelf boards are dry ochre; steam
+    gathers high, so 🔴 THE TOP BAY'S BOARD TAKES ONE AZURE PASS (anchor) and the lower two do not.
+  THE STACKS - a folded towel is a squared shell-white block with its folded edges ALL ONE WAY, so a
+    stack shows a row of horizontal lines on its side and the LAYERS CAN BE COUNTED. Draw a stack of
+    one, of five, and of six at one size and one angle; six is the tallest this book ever builds.
+    A rolled towel is a ball with no lines on it - 🔴 balls and stacks must be tellable apart at
+    thumbnail size, because one volume is entirely the change from one to the other.
+  THE BASKETS - shallow round wooden baskets standing on the boards, for what has not been folded.
+  THE TWO WAYS OUT - the bath door on one wall (past it, steam and the pools) and the open side to
+    the veranda on the other. A page can see the yard's channel and its steam through the open side.
+  🔴 THE INN'S TOWELS ARE SHELL WHITE AND PLAIN, ALL OF THEM (anchor). The pink is the child's neck
+    towel and nothing on this shelf is ever pink.
+
+SPOTS:
+  A THE ROOM, medium wide, low: shelf wall on one side, baskets on the boards, bath door at the back,
+    the open side and the yard at the other.
+  B THE SHELF, medium, straight on - the three bays with their stacks; the counting view.
+  C ONE STACK, close, from the side: the layer lines readable, drawn at one, five and six on the plate.
+  D THE BOARDS, close and low: grain, one azure-pass footprint with a hard edge.
+  E AT EVENING, medium, same camera as B: a hard-edged wedge lying across the side of a stack so the
+    layer lines run through it.
+
+PLATE: A, B, D, E, plus C at three heights in a row, and one elevation of the shelf against a
+  standing child silhouette showing chest / tiptoe / out of reach.
+
+NOT: no character, 🔴 no pink anywhere on this sheet, no lettering, numerals or crest on a towel,
+basket or tag, no hooks, pegs, mirrors, taps or lockers, no steam indoors as weather, no flame or lamp
+body, 🔴 no glow at a wedge edge, no fading or blurred footprint, no gradient or soft edge.
+```
+
+### §1.10 Kitchen — 12쪽 · 🔴 불이 없는 부엌이다
+
+```
+STAGE SHEET - Kitchen   (kota-mineral · new clause; the anchor's NO FIRE rule governs it · SCENE token: Kitchen)
+
+The kitchen's earth floor with its one stone hearth-block and the pot on it. Two books work here and
+one of them spends nine pages on a lid.
+
+🔴 THE ONE THING THIS SHEET EXISTS FOR: THIS KITCHEN COOKS AND HAS NO FIRE. The anchor forbids
+  hearth, stove, lit wood, flame and smoke, because the water of this valley comes out of the ground
+  hot. So the heat is drawn as ONE THING ONLY - the pot's steam - and the block under the pot is a
+  plain stone mass with 🔴 NO OPENING, NO GRATE, NO ASH, NO FUEL AND NO DARK MOUTH ANYWHERE IN IT.
+  Draw the block from the front on this sheet with its face plainly solid; that is the check.
+
+FIXED PARTS:
+  THE EARTH FLOOR - packed earth, ochre, one flat field, a step lower than the boarded floors. The
+    board lip of the meal floor runs along one side at shin height and people sit on it.
+  THE BLOCK AND THE POT - ONE stone block, burnt earth at a coarse grind, and ONE round stone pot
+    standing on it, big enough that a child cannot see into it from the floor. A wide WOODEN LID sits
+    on the pot: 🔴 THE LID IS THE MAIN CHARACTER OF ONE VOLUME AND ITS THREE POSITIONS ARE FIXED HERE
+    - flat and seated · tipped a finger's width at one side with one straight strand of steam escaping
+    · off, leaning against the block. Draw all three at one size and one angle.
+  🔴 THE STEAM COUNT IS THE STORY (anchor pot-steam rule): ONE THREAD = it has been opened too often
+    and the heat has gone · ONE STRAIGHT STRAND from the lifted edge = the moment · FOUR COARSE
+    COLUMNS filling the upper half of the page = it is ready. Draw the three at one size in a row.
+  THE WATER JAR and THE FLAT WOVEN TRAY - one each, standing on the floor and against the wall. The
+    tray is where what comes out of the pot is set; empty and leaning against the wall is how the
+    last page of that volume says the day is over.
+  THE SHELF - one dim shelf on the back wall holding one empty round basket. It stays dim; the
+    kitchen is the darkest room the series draws by day, medium grind throughout.
+  THE DOORWAY TO THE YARD - one opening at one side. 🔴 THE BRIGHT YARD THROUGH IT IS THE ONLY LIGHT
+    THIS ROOM HAS, and it is a flat pale field, never a beam.
+
+SPOTS:
+  A THE KITCHEN, medium wide, low: block and pot in the middle, board lip at one side, doorway to the
+    yard at the other, shelf behind.
+  B THE POT, medium, straight on, from the board lip - the lid readable; drawn in its three positions
+    on the plate.
+  C THE LID, close, from slightly below: the tipped edge and the one straight strand of steam.
+  D THE BLOCK, close, from the front: solid stone face, no opening - the check panel.
+  E AT EVENING, medium, same camera as A: the yard doorway sunk, one hard-edged patch on the board
+    lip, one thread of steam above the seated lid.
+
+PLATE: A to E, plus B's three lid positions and the three steam counts in two rows at one size.
+
+NOT: no character, no pink anywhere, 🔴 no fire, flame, ember, glow, ash, soot, smoke, fuel, grate,
+bellows or fire opening of any kind - the block is solid, no lettering or numerals, no hanging pans,
+knives, ladles or utensils on the walls, no beam or shaft in the doorway light, no gradient or soft
+edge.
+```
+
+### §1.11 GlassDoor — 9쪽 · 🔴 사건이 유리 위에서 벌어진다
+
+```
+STAGE SHEET - GlassDoor   (kota-mineral · new clause; take CORRIDOR boards and the rain clause · SCENE token: GlassDoor)
+
+The two glass sliding doors at the end of the corridor, onto the yard. ONE book, eight of its ten
+pages, and the whole story happens ON the glass.
+
+FIXED PARTS:
+  THE DOORS - two sliding leaves, their wooden frames ochre with 🔴 EXACTLY SIX PANES EACH IN A TWO-BY-
+    THREE LATTICE, and that count never changes: the book gives one pane to each character's drawing
+    and puts them side by side, so twelve panes is the whole board it plays on.
+  🔴 THE THREE THICKNESSES OF MIST, and a page tells time by which pane has which:
+    NEW - freshly breathed on: an even shell-white field over the whole pane, at the finest grind,
+      one pass, and the yard behind it has NO SHAPE AT ALL - only flat blots where dark things are.
+    WORKED - a drawing has been wiped into it: the mist stays but CLEAR STROKES cut through it, and
+      those strokes are the yard's dark showing through, hard-edged, never grey.
+    DRYING - the mist thins from the edges of each clear stroke inward, so a stroke shortens and
+      finally closes up. 🔴 IT IS DRAWN AS THE STROKE GETTING SHORTER, NOT AS THE WHOLE PANE FADING.
+      One volume loses an ear that way and it has to be visible which end went first.
+  🔴 A CLEAR STROKE IS A HOLE, NOT A LINE. It is drawn as the shape of what was wiped away, with the
+    yard behind showing through it; it never takes ink and never has an outline of its own.
+  🔴 WHAT IS DRAWN ON THE GLASS IS A CHILD'S HAND - a circle that does not close, two dots, two
+    triangles for ears, wobbly lines. It is not in the book's own style. AND THERE IS NEVER A LETTER,
+    A NUMERAL OR A WORD ON THE GLASS (anchor CANVAS).
+  THE RAIN OUTSIDE - on the OUTER face, water runs in straight vertical runs. 🔴 THE RUNS ARE ON THE
+    OUTSIDE AND THE MIST IS ON THE INSIDE, and where a clear stroke lets the eye through, the runs
+    show inside it. That is the only depth this sheet has.
+  THE BOARDS AND THE EAVE - corridor boards run to the doors; outside, one line of stone under the
+    eave takes the drip, drawn as a darker flat patch. 🔴 IN RAIN THE YARD'S STEAM IS ONE PASS LYING
+    LOW ALONG THE GROUND (anchor) and never rising past the glass.
+  EVENING - a hard-edged lantern patch reaches only the LOWEST row of panes; the upper rows keep
+    their drawings faint in the dusk. Source off the page (InnLight).
+
+SPOTS:
+  A THE DOORS, medium, straight on: both leaves, twelve panes, the lattice - the working view.
+  B ONE PANE, close, straight on - drawn three times on the plate: new, worked, drying.
+  C A CLEAR STROKE, very close: the wiped shape with rain runs visible through it.
+  D FROM THE CORRIDOR, medium wide, low: the boards running to the misted doors, the yard gone to blots.
+  E AT EVENING, medium, same camera as A: the low row lit by a hard-edged patch, the upper rows faint.
+
+PLATE: A, D, E, plus B's three thicknesses in a row at one size and C large.
+
+NOT: no character, no pink anywhere, 🔴 no lettering, numerals or words on the glass or anywhere, no
+outline round a clear stroke, no drip beads, sparkle, highlight or lens effect on the glass, no
+reflection of a face or a room in the glass, no rising steam past the glass in rain, no flame or lamp
+body, 🔴 no glow at a patch edge, no gradient or soft edge.
+```
+
+### §1.12 Garden — 6쪽 · 🔴 흙 구멍이 남는다
+
+```
+STAGE SHEET - Garden   (kota-mineral · new clause; take YARD ground and the steam clause · SCENE token: Garden)
+
+The vegetable plot behind the inn. ONE book, six pages, and its last page comes back to look at a
+hole in the earth.
+
+FIXED PARTS:
+  THE RIDGES - THREE OR FOUR, running ACROSS the picture, parallel, each one a rounded ochre mass at
+    medium grind. Between them the furrows are a step lower and slightly darker.
+  🔴 ONE PASS OF STEAM LIES LOW IN EACH FURROW AND NEVER OVER A RIDGE. This ground is warm because
+    the valley is; that low thread in the furrow is the only thing that says so, and it is drawn on
+    every page of this place whatever the weather.
+  THE LEAF CLUMPS - one green field per clump, flat, no leaf drawing inside it, standing in a row
+    along each ridge at even spacing. 🔴 THEY ARE COUNTED: a clump pulled leaves a gap in the row and
+    that gap is what the page is about.
+  🔴 THE HOLE - where a root came out: a dark opening in the ridge top, INK, a hand's width, with the
+    crumbs beside it as at most four flat ink shapes. IT STAYS FOR THE REST OF THE BOOK. Draw the
+    ridge with a full row, with one clump gone and the hole open, and with the hole at dusk.
+  A ROOT OUT OF THE GROUND - earth-covered (a burnt-earth field over its shell-white body) and then
+    wiped clean (shell white with a few ink root hairs). Both on this sheet; the prop sheet carries
+    the rest.
+  THE BACK WALL - the inn's back wall and the veranda close the plot on one side, one flat ochre
+    field with no windows drawn. The channel passes at one lower corner with its own steam pass.
+  DUSK HERE - the only place in the series that goes ORANGE: sky and ridge earth take burnt earth
+    over the ochre, and the furrow steam takes one thin pass tinted the same. 🔴 It is still flat
+    fields with cut edges - a sunset in this book is a colour change, not a gradient.
+
+SPOTS:
+  A THE PLOT, medium wide, low: three ridges running across, clumps in rows, furrow steam, the inn's
+    back wall behind.
+  B ONE RIDGE, close, from the side at ground level - drawn three times on the plate: full row, one
+    gone with the hole, the hole at dusk.
+  C THE HOLE, very close, straight down: the ink opening and its four crumbs.
+  D THE FURROW, close and low, looking along it: the low steam thread running away between two ridges.
+
+PLATE: A, C, D, plus B's three states one above the other at one size.
+
+NOT: no character, no pink anywhere, no lettering or numerals, no fence, stake, trellis, scarecrow,
+watering can or tool, no leaf veins or individual leaves inside a clump, no insects, no steam over a
+ridge top, 🔴 no gradient in the dusk sky - flat fields only, no glow or soft edge.
+```
+
+### §1.13 LowerBath — 4쪽 · 🔴 아이의 손끝이 닿아도 되는 유일한 물
+
+```
+STAGE SHEET - LowerBath   (kota-mineral · anchor clause LOWER POOL AND CHANNEL · SCENE token: LowerBath)
+
+The lowest and coolest pool, at the bottom of the yard slope. Three books touch it, and it is the
+ONLY water in twenty-five books a child may put a hand or a foot into (anchor).
+
+FIXED PARTS:
+  THE WATER - ONE FLAT FIELD of azure ground FINER AND PALER than the upper pool's, with nothing
+    under the surface drawn. The surface line is straight and the field stops at a cut edge.
+  THE STEAM - ONE PASS, or none. 🔴 THIS PLACE ALWAYS HAS FEWER PASSES THAN ANY POOL HIGHER UP THE
+    SLOPE DRAWN ON THE SAME PAGE (anchor) - the count IS the temperature, and three volumes use it
+    as an answer to "is it hot?".
+  THE STONE RIM - a ring of flat stones. Wet stone is burnt earth where the water reaches, with ONE
+    shell-white highlight dot; dry stone above it is pale and carries none. 🔴 THE WET LINE IS A CUT
+    EDGE AND IT IS ALSO A WATER GAUGE - draw the rim with the wet line low and high at one size.
+  🔴 WHAT A HAND IS ALLOWED TO DO, drawn here so no page invents more: one fingertip in the surface
+    with the wrist clear of the water and a small ring of ripples round it; a whole flat hand laid on
+    the surface; a bare foot in to the ankle at the rim. Nothing else, ever, at any pool.
+  THE SURROUND - a low stone wall behind, the channel leaving the pool at one side and running
+    downhill out of frame, and clogs set on dry stone at the rim.
+  AT NIGHT - the whole frame is one azure field and the WATER IS ONE STEP PALER THAN EVERYTHING ELSE,
+    with two straight passes of steam rising off it. The inn's leaking door wedge shows small in the
+    background on the veranda boards.
+
+SPOTS:
+  A THE POOL, medium, from the rim: the flat water, the wet-and-dry rim across the foreground, the
+    wall behind.
+  B THE RIM, close, high angle: the cut wet line across the frame with its highlight dots.
+  C A FINGERTIP, very close, high angle: the surface, the touch point and its small ripple ring, the
+    wrist plainly clear of the water.
+  D AT NIGHT, medium, same camera as A: azure field, the water one step paler, two steam passes.
+
+PLATE: A and D one above the other at one size, then B (wet line low and high) and C.
+
+NOT: no character face, 🔴 no pink anywhere, no body in the water, no lettering or numerals, no
+reflection or inverted shape on the surface, nothing drawn below the surface, no bubbles, no splash
+crown, no more than one highlight dot per stone, no flame or lamp body, no gradient, glow or soft edge.
+```
+
+### §1.14 UpperBath — 2쪽 · 🔴 이 시리즈에서 가장 거친 돌과 가장 많은 김
+
+```
+STAGE SHEET - UpperBath   (kota-mineral · anchor clause UPPER POOL · SCENE token: UpperBath)
+
+The hottest pool, at the top of the slope. Only two pages are set at it, but it is the top of the
+temperature ladder that three other books measure against.
+
+FIXED PARTS:
+  THE STONE - burnt earth AT THE COARSEST GRIND IN THE BOOK (anchor). Nothing else in twenty-five
+    volumes is ground this coarse except a figure, and that is deliberate: this stone is as present
+    as a character.
+  THE WATER - one flat field of azure, NOT transparent, nothing under the surface drawn.
+  🔴 THE STEAM - FOUR COARSE PASSES, pushed up between and above whatever is at the rim, filling the
+    upper half of the frame. IT TAKES ONE MORE PASS THAN ANY LOWER PLACE DRAWN ON THE SAME PAGE
+    (anchor). On the widest yard views the far side of the valley goes under it entirely.
+  THE WET RIM - the stone is soaked far back from the water, so the wet field here is WIDE and dark,
+    and the cut line between wet and dry sits well back. That width, against the lower pool's narrow
+    wet line, is the second way this sheet says "hotter".
+  RIPPLES AND SPLASH - one group of spreading rings on the surface and a few flat splash marks on the
+    rim stone, both ink shapes with cut edges and no crowns, no droplets in the air, no motion lines.
+  THE SURROUND - a low stone wall, a plain blank cloth hung at the bath entrance, and the slope
+    falling away so the middle and lower pools show small below.
+
+SPOTS:
+  A THE POOL, medium, from the rim: coarse stone across the foreground, flat water, four passes of
+    steam filling the top of the frame.
+  B THE STEAM, medium wide, from a step back: the four passes and the far valley going under them.
+  C THE WET RIM, close: the wide dark wet field and the cut line, drawn beside a strip of the lower
+    pool's narrow one for comparison.
+  D FROM ABOVE, looking down the slope: the upper pool at the near edge and the two lower pools small
+    below with fewer passes each.
+
+PLATE: A to D, plus one LADDER panel - upper (four passes) / middle (two) / lower (one) in a row at
+  one size.
+
+NOT: no character face, 🔴 no pink anywhere, no body in the water, no lettering or numerals, nothing
+drawn below the surface, no reflection or inverted shape, no droplets in the air, no splash crown, no
+motion lines, no white steam - it is shell white, never pure white (anchor), no gradient, glow or soft
+edge.
+```
+
+### §1.15 KotaRoom — 1쪽 · 🔴 살림방과 다른 방이라는 것만 서면 된다
+
+```
+STAGE SHEET - KotaRoom   (kota-mineral · anchor clause GUEST ROOM night rule · SCENE token: KotaRoom)
+
+The child's own small room in the family wing. ONE page in twenty-five books, and its whole job is to
+be plainly NOT the family room, so that one night reads as a child alone.
+
+FIXED PARTS:
+  THE ROOM - the smallest in the inn: one flat ochre matting field with no grain, ONE paper door, and
+    NOTHING ELSE STANDING IN IT - no chest, no shelf, no basket, no second door. 🔴 THE FAMILY ROOM
+    HAS TWO DOORS AND TWO BEDS; THIS ROOM HAS ONE DOOR AND ONE BED, and at thumbnail size that is the
+    only difference a reader gets, so it has to be exact.
+  THE BEDDING - a single set on the matting, the pillow at the wall opposite the door.
+  🔴 THE LIGHT - one low lamp at the pillow head, closed shade, and what it lays on the board beside
+    the pillow is a SMALL ROUND PATCH, OCHRE AT THE FINEST GRIND IN ONE PASS (anchor PALETTE). It is
+    round where every other patch in the inn is angular, it holds one end of the pillow and no more,
+    and 🔴 the flame and the wick are not in frame. The rest of the room is ONE flat deep azure field
+    in which only the ink corners of the door frame survive as angles.
+
+SPOTS:
+  A THE ROOM AT NIGHT, medium, low: azure field, the round ochre patch at the pillow, the door frame
+    corners as angles, one bed.
+  B THE PATCH, close, straight down: the board, the round pale field, the pillow end inside it.
+  C THE ROOM BY DAY, same camera as A: the paper door pale and whole, matting flat, bedding folded -
+    drawn so the one-door, one-bed count is unmistakable.
+
+PLATE: A and C one directly above the other at one size, then B.
+
+NOT: no character, no pink anywhere, no lettering, numerals or crest, no chest, shelf, toy, picture,
+window or second door, no flame, wick or lamp body, 🔴 no glow, halo or falloff round the round patch,
+no matting grain, no gradient or soft edge.
+```
+
+---
+
 ## §2. 사물 시트 — 21장 (후보 58에서 접고 빼고, **작업표에 없던 여섯을 새로 넣었다**)
 
 > 🔴 **단위는 권이다.** 형식 정본 = `pongi-stages.md` §2.1 · §2.2.
@@ -852,10 +1610,10 @@ NOT: no character beyond the muzzle in state 4, no pink, no lettering or numeral
 
 ---
 
-## §3. 🔴 §1 자리 시트가 받을 조항 — 사물에서 빼며 넘긴 것
+## §3. ✅ 자리 시트가 받을 조항 — **전부 §1 에 들어갔다**(2026-09-04)
 
-사물이 아니라 자리인데, **그 권이 기대는 성질**이라 그냥 「자리 몫」으로 넘기면 잊힌다.
-§1 을 쓸 때 아래 아홉을 조항으로 넣지 않으면 그 권이 흔들린다.
+아래 열둘은 사물에서 빼며 넘긴 것이고, 이제 **§1 자리 시트 열다섯 장 안에 그대로 박혀 있다.**
+이 표는 「어느 시트가 어느 조항을 들고 있나」를 되찾는 색인으로 남긴다.
 
 | 자리 | 넣을 조항 | 왜 |
 |---|---|---|
@@ -869,7 +1627,7 @@ NOT: no character beyond the muzzle in state 4, no pink, no lettering or numeral
 | 장지문 (여러 자리) | **밝기 3단계** — 캄캄 / 잔광 / 번쩍(번개 한 찰나) | 16 의 사건이 문 한 판이 번쩍하는 순간이다 |
 | `[Garden]` 텃밭 | **이랑 서너 줄 · 고랑마다 낮은 김 한 겹** + 무를 뽑은 흙 구멍이 남는다 | 04 의 마지막 쪽이 그 구멍을 다시 본다 |
 
-## §3-b. 🔴 앵커에 신고 — 사물 때문에 깨지는 자리 셋
+## §3-b. ✅ 앵커에 신고했던 셋 — **전부 §3-c 에서 고쳤다**(아래 ①②③)
 
 **① 등불이 앵커의 「불 금지」와 부딪히고, SCENE 이 열 쪽 넘게 손으로 때우고 있다.**
 앵커 `NOT` 은 `no hearth, no stove, no lit wood, no flame, no smoke` 라 **등불 자체는 안 막는다.**
@@ -892,6 +1650,34 @@ flame, the wick and any smoke are never in frame`.
 across a floor) is one of the two`. 안 넣으면 화가가 셋 중 둘만 거칠게 그려 개수가 깨진다.
 
 ---
+
+## §3-c. ✅ 2026-09-04 앵커 수리 — 여덟 곳
+
+| # | 고친 곳 | 전 | 후 |
+|---|---|---|---|
+| ① | `NOT` 등불 | 앵커가 불·연기만 막고 **등불 자체를 안 막아** 모델이 불꽃을 그렸다 → SCENE **여덟 곳**(17 p6·p10 · 18 p1·p10 · 19 p1·p10 · 09 p4·p10)이 각자 손으로 「불꽃 없음」을 적고 있었고 **등불이 나오는 나머지 40쪽은 무방비**였다 | `A LAMP IS DRAWN AS A CLOSED SHADE AND THE HARD-EDGED PATCH IT THROWS; the flame, the wick and any smoke are never in frame` |
+| ② | `PALETTE` 노랑 | 팔레트에 노랑이 없는데 09 가 「노란 동그라미」 | `OCHRE AT THE FINEST GRIND IN ONE PASS IS THE ONLY YELLOW THIS BOOK HAS` — 🔴 색을 안 늘렸다 |
+| ③ | `AT MOST TWO … COARSEST GRIND` | 14 p7 이불 셋 · 08 p1 장난감 여섯이 **한 무리가 곧 그 쪽의 사건**이라 못 지킴 | `A SET THAT THE PAGE COUNTS AS ONE THING … IS ONE OF THE TWO` — 무리를 통째로 거칠게, 「둘만 거칠게」 금지 |
+| ④ | 🔴 관통 줄 `NOTHING HERE IS FINISHED IN ONE PASS` | **두 줄 아래 (3)단계가 `finest grind, one pass`** — 앵커가 스스로 모순 | `NOTHING THE STORY IS ABOUT IS FINISHED IN ONE PASS` + 처마 밖·김은 한 판이라고 같은 문장에 명시 |
+| ⑤ | 🔴 관통 줄 `it is the only thing on the page with a drawn edge` | **바로 앞 (1)단계가 `THE FIGURES AND THE ONE THING THEY ARE TOUCHING` 에 윤곽을 준다** — 또 자기모순이고, 07 뚜껑·22 반쪽 찐빵·19 유리 그림처럼 **사물이 그 쪽의 주인공**인 권이 조항 밖으로 밀려난다 | `the figure AND the one thing it is touching are the only things on the page with a drawn edge` |
+| ⑥ | 🔴 `AT MOST FOUR OF THE MINERAL COLOURS` | GROUND(모든 쪽의 바탕)와 분홍(코타가 있는 모든 쪽)을 세면 **`YARD` 조항 하나만으로 이미 넘는다**(오커 흙 + 버넌트어스 돌길 + 애저 도랑 + 초록) | `THE FOUR ARE CHOSEN FROM AZURE, GREEN, OCHRE AND BURNT EARTH. GROUND AND THE ONE PINK ARE NEVER COUNTED` |
+| ⑦ | 🔴 `The inn's own towels are shell white … all of them` | 코타 목의 분홍 수건도 「여관 수건」인지 안 적혀 있는데 **둘이 같은 화면에 있는 쪽이 30쪽**(12·23·03 권 전체 포함) | `THE CHILD'S NECK TOWEL IS NOT ONE OF THEM … must be tellable apart at thumbnail size` |
+| ⑧ | `STAGE CLAUSES` 머리에 덧댄 `POT STEAM (2026-09-01) … (07, 22)` | 🔴 **권 번호가 박힌 조항**(지시서 갈래 ①)이고, 덧대느라 `(one inn and its yard; …)` 가 문장에서 떨어져 나가 있었다 | 조건으로 바꿔 `STEAM` 조항 본문에 접어 넣었다 — `STEAM OFF A POT, A LID, A SPLIT BUN OR A BOWL … wherever the script counts its strands` |
+
+🔴 **거짓이 아니었던 관통 줄은 안 건드렸다** — 실제로 세었다.
+`THE CHILD IS NEVER IN THE WATER - his hands and his feet only, and only at the lower pool and the
+channel edge` = 250쪽 전수에서 위반 0(01 p5 는 손끝 하나에 손목이 물 밖이라 조항대로다).
+`THERE ARE ONLY THREE INK MARKINGS ON A RACCOON DOG` · `Height never tells two figures apart` ·
+`NOT ONE WRITTEN MARK ANYWHERE`(SCENE 이 쪽마다 「글자가 없다」로 되받는다) 전부 참.
+⚠️ `BOILING POOL` 조항은 **25권 어디에도 안 나온다**(가마솥 탕·국자 언급 0). 거짓은 아니지만 죽은 조항이고,
+07권의 실제 조리 자리는 **부엌 부뚜막**이라 그 규격은 자리 시트 §1.10 이 든다 — 🔴 그 시트의 핵심이
+**「불이 없는 부엌」**(부뚜막 몸통에 아궁이 구멍이 없다는 것)이다.
+
+### 🔴 SCENE 쪽 수정 1건
+
+`22 p1` 의 자리 라벨이 `🔴 [Kitchen] 신설 —` 이라 **토큰 앞에 이모지가 붙어 검사기가 그 쪽을 통째로 못 읽었다**
+→ `[Kitchen] 🔴 신설 —` 로 옮겼다(한국어는 안 건드렸다). 이제 kota 250쪽 전부 토큰이 읽힌다.
+⚠️ 이 시리즈에 **한글 섞인 토큰·잘못 가리킨 토큰은 없다**(전수 확인 — 15종 전부 `[A-Za-z]` 한 낱말).
 
 ## §4. 🔴 작업표(`_PROP-SHEETS.md` 의 `## kota` 절)가 틀린 자리
 

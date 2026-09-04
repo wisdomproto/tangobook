@@ -27,14 +27,16 @@ Style: wax crayon under a thin water wash on rough warm-white paper, for a child
 RENDERING (finish hierarchy): everything on the page is one of three pressures of crayon.
   PRESSED HARD = the child and whatever the page is about: opaque wax, so the wash beads off the whole shape and
   leaves a pale halo of dry paper round it; inside the shape, DEEP marks - eyes, spots, nostrils, a buckle - 5 to
-  12 on a figure, 0 to 4 on a thing. RUBBED ON ITS SIDE = the place: one light rub per thing, so the wash catches in
+  12 on a figure, 0 to 4 on a thing; 🔴 A MARK THE STORY MAKES - a nick, a crack, a gape, a dent - REPLACES A
+  STANDING MARK INSTEAD OF BEING ADDED TO IT, so the count never rises above four however much happens to it. RUBBED ON ITS SIDE = the place: one light rub per thing, so the wash catches in
   the grain and speckles it - a table is one rub, a rock one rub, the hull one rub, 0 marks inside. NO CRAYON AT
   ALL = sea, sky, night and weather: wash alone, in which the only drawing is white wax - crests, slants, dots,
   rubs, and the beam.
-  🔴 THE WASH BEADS OFF A FIGURE AND OFF NOTHING ELSE - look for the dry halo and you have found who is on the
-  page. TWO FINISHED THINGS A PAGE, no more; each volume names its quiet spread in its own cut.
+  🔴 THE WASH BEADS OFF THE TWO FINISHED THINGS AND OFF NOTHING ELSE - a figure and the one thing that page
+  is about, both PRESSED HARD, both haloed; everything else in the frame is a side-rub or wash and has no halo.
+  Look for the dry halos and you have found what the page is. TWO FINISHED THINGS A PAGE, no more; each volume names its quiet spread in its own cut.
   AT MOST: crests 24 · rain slants 24 · snow dots 20 · fog rubs 6 · beam wedges 2 · window squares 3 · stair treads
-  7 · shells 9 · bowls 4 · seaweed strips 12 · rope coils 3 · gulls other than Kkiruk 0.
+  7 · shells 9 (🔴 the scallop on Dari's neck is NEVER counted in this or any other total) · bowls 4 · seaweed strips 12 · rope coils 3 · gulls other than Kkiruk 0.
   🔴 FOG, SPRAY, STEAM AND BREATH ON GLASS ARE ONE THING: the white crayon on its side, rubbed, so the wash breaks
   into speckle over it. That speckle is the only place wash and paper mix; it sits on top of something already
   finished and never stands in for it.
@@ -83,9 +85,19 @@ STAGE CLAUSES (one lighthouse and the house under it, twenty-five volumes):
   PIER, ROCKS AND SAND - the pier three FUR planks; the boat FUR with a paper cabin, small enough to fit whole;
     rocks FUR rubbed once with one DEEP shadow each; sand is paper; the water's edge is ONE crest the width of the
     page, the only long white line there is.
-  🔴 THE LIGHTHOUSE - on the right edge of every outdoor page, a paper tower with ONE SEA band, its lamp room cut
-    off by the top edge unless the lamp is the event. It is the largest paper shape on any page it is on, and it
+  🔴 THE LIGHTHOUSE - a paper tower with ONE SEA band, its lamp room cut off by the top edge unless the lamp is
+    the event. IT IS ON THE RIGHT EDGE OF EVERY OUTDOOR PAGE THAT SHOWS THE SHORE OR ANY MIDDLE DISTANCE, AND IT
+    IS OFF THE PAGE WHEN THE CAMERA IS CLOSE ON PLANKS, ROCK, SAND OR WATER and nothing past arm's length is
+    drawn; it is not on the page at all in the market volume, which is the one volume off this island. Where it
+    is drawn it is on the right and never anywhere else. It is the largest paper shape on any page it is on, and it
     is never red.
+  THE PATCH AND THE DRYING LINE - behind the house, between it and the rocks: three or four FUR furrows rubbed
+    once with the earth between them paper, one dug hole a DEEP hollow, and ONE line on two FUR posts carrying at
+    most 12 seaweed strips. The line's load and lean is the season clause; an empty line is spring or winter.
+  THE MARKET - the one volume off this island: a mainland harbour lane, stalls in a row down ONE side only, each
+    stall one FUR trestle rubbed once with a paper cloth over it. 🔴 NO LIGHTHOUSE ANYWHERE ON THESE PAGES - the
+    lane closes at the far end with a boat's mast instead. Grown strangers past the third are one flat FUR
+    silhouette each with 0 marks inside, and 🔴 nothing on any stall is the accent colour.
   🔴 GUESTS COME BY BOAT, from the left, one party a volume, and A GUEST IS KNOWN BY THE BOAT: on every page a
     guest is on, the boat it came in is on the page too - moored at the pier, its prow at the page edge, or its
     mast in a window. A guest's cloth is FUR or DEEP, never the accent. A guest never enters the water.
@@ -124,8 +136,8 @@ CANVAS: 16:9 double-page spread. 🔴 NO LETTERS, NUMERALS OR SIGNS ANYWHERE, th
 
 NOT: no airbrush, no gradient, no glow or bloom round the lamp or the beam, no 3D render, no texture filter /
   🔴 NO INVERTED SHAPE IN WATER OR GLASS - a reflection is one white crest / 🔴 NO FIGURE ON THE ROCKS OR IN THE
-  WATER WHILE A STORM OR NIGHT IS ON THE PAGE, no boat leaves the pier with a figure in it that has no lifejacket
-  hugged on, nobody on the gallery rail / no page fully washed: paper shows on every page.
+  WATER WHILE A STORM OR NIGHT IS ON THE PAGE, no boat leaves the pier carrying A CHILD without a lifejacket hugged
+  on - a grown guest in its own boat wears none, and the jacket is the event of one volume, not a fixture, nobody on the gallery rail / no page fully washed: paper shows on every page.
 ```
 
 **관통 줄** (매 쪽)
@@ -137,7 +149,7 @@ BEND:   a seal is a bean that only bends, which end leaves the ground is the fee
 ```
 
 🔴 **컷에 붙일 때는 그 쪽 자리의 `STAGE CLAUSES` 한 조항 + 시간대 조항 + 날씨 조항 + 계절 조항만 붙인다.** 자리 조항이
-여덟(등대·손님 포함)인 것은 25권이 한 등대를 나눠 쓰기 때문이고, **한 쪽에 동시에 쓰이지 않는다.** 자수 = §6.
+열(등대·장터·밭과 말리는 줄·손님 포함)인 것은 25권이 한 등대를 나눠 쓰기 때문이고, **한 쪽에 동시에 쓰이지 않는다.** 자수 = §6.
 
 ## §1-b. 캐릭터 시트 — `CHARACTER SHEET`
 
@@ -395,7 +407,7 @@ Style 과 PALETTE 에 각각 · 「미역 줄이 기운다」를 날씨와 계�
 - **컷 실효 +589** 도 같은 자리다 — 컷에 붙는 조항이 밤이는 넷(자리 둘 + 계절 + 시간대), 여기는 다섯(+ 날씨).
 - **이미 걷어낸 것** = 길이 사다리(→ `dari-cast.md`) · 반점의 위치(→ 캐스트) · 손님 여섯 종의 개별 규격(시트 규칙 한 문단으로) ·
   램프의 색(종이 원반 한 줄로).
-- **다음에 줄어들 자리** = `dari-stages.md` 를 쓰면 자리 조항 여덟이 「그 시트를 보라」로 얇아진다.
+- **다음에 줄어들 자리** = `dari-stages.md` 를 쓰면 자리 조항 열이 「그 시트를 보라」로 얇아진다.
 - **깎지 말 자리** = `Style` 의 「순서」 문단과 `RENDERING` 의 「누른 정도」 위계, `TIME OF DAY` 의 겹 수, 그리고 `CHARACTER` 의
   「입에 물거나 가슴에 안는다」. 이 넷이 이 시리즈의 전부다.
 
@@ -410,7 +422,7 @@ Style 과 PALETTE 에 각각 · 「미역 줄이 기운다」를 날씨와 계�
    ink1: '#4F9BD0', ink2: '#A8917A', overlap: '#24486E', accent: '#EE6B8D' }` · `awardRef: 'shih-taichi'` ·
    `accentWhere: '달이 목의 조개 하나 (가슴/입/등 뒤/침대 기둥 — 자리가 행동). 25권 통틀어 분홍은 그것뿐 — 노을·새우·다른 조개에도 안 쓴다'`.
    🔴 `overlap` 이 이 시리즈에서는 **잉크 둘의 겹침이 아니라 워시 셋째 겹**이다 — 빌더가 키 이름으로만 읽으면 문제없다.
-3. **`dari-stages.md`** — 자리 여덟의 시트. 🔴 매체 번역 한 줄 = **「밝은 것은 왁스가 먼저 간 자리 · 어두운 것은 워시가 몇 번 갔나」**.
+3. **`dari-stages.md`** — 자리 열의 시트. 🔴 매체 번역 한 줄 = **「밝은 것은 왁스가 먼저 간 자리 · 어두운 것은 워시가 몇 번 갔나」**.
    시트가 반드시 정해야 하는 것 = **어디에 흰 왁스가 먼저 가나**(거품 줄 · 등대 탑 · 벽 · 눈 오는 땅).
 4. **`_SERIES-ANCHORS.md` 표에 19행** — 축 = 「굽힘(어느 끝이 땅에서 뜨나)이 표정을 진다」, 눈 처리 = 「DEEP 웅덩이 둘, 크기 25권
    불변」, 레퍼런스 = `shih-taichi`. `changjak-anchor-refs.json` 도 같이 고치고 `build-award-index.mjs` 재실행(`_AWARDS` 의

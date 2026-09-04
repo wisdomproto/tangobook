@@ -37,15 +37,498 @@
 
 ---
 
-## §1. 자리 시트 — 미작성
+## §1. 자리 시트 — 10장
 
-앵커 §1 `STAGE CLAUSES` 여덟 조항(부엌 · 욕실 · 침실 · 나선 계단 · 꼭대기 방 · 판자와 바위와 모래 ·
-등대 · 손님의 배)이 임시 SSOT다. 자리 시트를 쓸 때 **아래 두 구멍부터** 메울 것.
+> 형식 정본 = `taro-stages.md` §2(`FIXED PARTS` / `SPOTS` / `PLATE` / `NOT`).
+> 🔴 **이 시리즈의 자리 시트가 지켜야 할 것은 몸이다.** 물범은 **손가락이 없고 서지 않는다** — 배를 바닥에 붙이고
+> 물건은 **입에 물거나 두 앞지느러미 사이에 안는다**. 그래서 이 열 장에서 높이는 전부 **배를 붙인 아이의 코 높이**로
+> 재고, 손잡이·선반·문고리처럼 「손 있는 몸」을 전제한 물건은 **아예 두지 않는다**(있는 것은 입이 물 수 있는
+> 고리 하나뿐이다). 앵커의 `SEALS DO NOT STAND` 를 무대가 어기면 캐릭터 시트가 혼자 못 버틴다.
+> 🔴 각 시트 첫 줄의 괄호에 그 자리가 상속하는 앵커 조항 이름을 박아 뒀다 — 컷에는 **그 조항 하나 + 시간대 + 날씨 +
+> 계절**만 붙는다(앵커 §1 끝 줄).
 
-| 구멍 | 어디 | 왜 문제인가 |
-|---|---|---|
-| 🔴 **장터(12권)** | `[Market]` 뭍 항구의 좌판 골목 | **앵커 여덟 조항에 없는 자리**다. 25권 중 유일하게 섬 밖이고(등대가 화면에 없다) 좌판이 6쪽에 걸쳐 있는데 규격이 아무 데도 없다. 좌판 줄 · 낯선 다리 숲 · 목걸이 좌판 셋이 시트를 기다린다 |
-| ⚠️ **채소밭** | 25 p5 집 뒤 밭이랑 | 앵커 `CANVAS` 에 이름만 있고 조항이 없다. 이랑 · 흙 구멍 · 모종 한 촉이 한 쪽에 나온다 |
+| # | 토큰 | 자리 | 가는 권 (쪽) | 상속 조항 |
+|---|---|---|---|---|
+| 1.1 | `Kitchen` | 부엌 — 식탁 · 난로 · 문간 | 03 08 09 19 20 21 25 (**53쪽**) | `KITCHEN` |
+| 1.2 | `Pier` | 배 대는 데 — 판자 셋 | 10 11 18 22 25 (**49쪽**) | `PIER, ROCKS AND SAND` + `GUESTS COME BY BOAT` |
+| 1.3 | `Rocks` | 갯바위 | 03 07 13 16 (**31쪽**) | `PIER, ROCKS AND SAND` |
+| 1.4 | `Stair` | 나선 계단과 그 아래 난로 | 02 04 15 17 (**20쪽**) | `SPIRAL STAIR` |
+| 1.5 | `Bedroom` | 침실 | 01 02 05 14 23 24 (**47쪽**) | `BEDROOM` |
+| 1.6 | `Bathroom` | 욕실 | 02 04 08 14 (**16쪽**) | `BATHROOM` |
+| 1.7 | `LampRoom` | 꼭대기 방 | 01 10 17 (**8쪽**) | `LAMP ROOM` + `THE LIGHTHOUSE` |
+| 1.8 | `Sand` | 모래톱과 얕은 물 | 03 06 22 (**12쪽**) | `PIER, ROCKS AND SAND` |
+| 1.9 | `Patch` | 집 뒤 밭과 미역 말리는 줄 | 13 25 (**4쪽**) | `THE PATCH AND THE DRYING LINE` |
+| 1.10 | `Market` | 뭍 항구의 좌판 골목 | 12 (**10쪽**) | `THE MARKET` |
+
+🔴 **`Patch` 토큰이 두 자리를 가리키고 있었다** — SCENE 은 13 p4~p6 의 **미역 말리는 줄**에만 이 토큰을 찍었고,
+25 p5 의 **채소밭**은 토큰이 아예 없다(§3). 앵커 `CANVAS` 는 둘을 「집 뒤」에 나란히 놓으므로 **한 자리 한 시트**로
+확정한다 — 안 그러면 화가가 밭과 줄을 섬의 딴 데에 각각 세운다.
+
+### §1.1 Kitchen — 53쪽, 이 섬에서 제일 많이 그려지는 자리
+
+```
+STAGE SHEET - Kitchen   (dari-waxtide · anchor clause KITCHEN · SCENE token: Kitchen)
+
+The lighthouse keeper's kitchen. Seven of the twenty-five books sit here and four of them spend all
+ten pages in it, so this one drawing settles the room and nothing about it moves afterwards.
+
+FIXED PARTS:
+  WALLS AND FLOOR - bare paper, edge to edge, with 0 rubs on them. This is the brightest room in the
+    book and it is bright because nothing was drawn there. The corner where two walls meet is ONE
+    DEEP line and there is no skirting, no panelling and no shelf on any wall.
+  THE TABLE - one FUR slab rubbed once on its side, 0 marks inside, standing on FOUR plain legs.
+    🔴 ITS HEIGHT IS THE WHOLE OF THIS SHEET: a young seal lying on her belly beside it has her eyes
+    just under the table top, so what is on the table is a thing she looks UP at, and a grown seal
+    lying beside it looks along it. NOBODY EVER SITS AT IT AND THERE IS NOT ONE CHAIR OR BENCH BACK
+    IN THIS ROOM - two low FUR benches lie flat along the long sides at belly height and are climbed
+    onto, not sat on.
+  THE STOVE - a FUR body rubbed once, standing against the wall opposite the door, with ONE round
+    paper mouth and a FUR pot on top. 🔴 NO FLAME IS EVER DRAWN AND THE DOOR IS SHUT ON EVERY PAGE
+    WHERE A CHILD IS NEARER TO IT THAN HER OWN LENGTH (anchor). Its door has no handle - a mouth
+    pushes it, so the edge is a plain FUR lip.
+  THE WINDOW - one square in the wall beside the table, 3 window squares at most in this room and
+    normally ONE. By day it is paper; at night it is a DEEP square; when the lamp is lit a straight
+    paper stripe crosses it and 🔴 THAT STRIPE FALLS ON THE FAR END OF THE TABLE AND NOWHERE ELSE,
+    so the same three volumes can put the clock in the same place.
+  THE DOOR - one FUR leaf in the wall to the left of the stove, opening OUTWARD onto rock. Its sill
+    is one flat FUR board level with the floor, because a seal crosses it on its belly. Open, the
+    doorway is a rectangle of whatever the weather clause says; shut, it is one FUR field.
+    🔴 A PUDDLE OUTSIDE THE OPEN DOOR IS ONE FLAT SEA PATCH WITH A HARD EDGE, never a shine.
+  THE FLOOR MARK - the room's floor is where dirt shows, and it shows because the floor is paper:
+    a track of DEEP dots from the sill to the table foot, and the same view with 0 dots. Draw both.
+
+SPOTS - the five places the camera stands. Do not invent a sixth.
+  A THE ROOM, wide, at belly height: door at the left, table across the middle, stove and window
+    behind. This is the only spot that shows all four fixed parts at once.
+  B ACROSS THE TABLE, medium, eye level with the table top - the far edge of the slab runs across
+    the bottom of the frame and the window is behind it.
+  C ON THE TABLE, close, looking straight down: the FUR slab fills the frame and nothing of the room
+    is in it. This is where clams, bowls and shells are counted.
+  D THE CORNER, medium: two DEEP corner lines and bare paper wall, the room's emptiest view.
+  E THE SILL, low and close: the FUR board across the frame, the floor inside it paper, and whatever
+    the weather is standing outside beyond it.
+
+PLATE: A, B, C, D and E as five panels on one sheet, plus one small overhead diagram showing where
+  door, table, benches, stove and window sit relative to one another.
+
+NOT: no character of any kind, no pink anywhere on this sheet, no lettering, numerals, labels, hooks,
+handles, knobs, taps, shelves, hanging pans or curtains, no flame, ember, smoke or glow at the stove,
+no wall texture, no wood grain beyond the one rub, no cast shadow on the paper walls, no gradient,
+glow, airbrush or soft edge.
+```
+
+### §1.2 Pier — 49쪽 · 🔴 손님 규칙이 성립하는 곳
+
+```
+STAGE SHEET - Pier   (dari-waxtide · anchor clauses PIER, ROCKS AND SAND + GUESTS COME BY BOAT · SCENE token: Pier)
+
+The three planks that carry every arrival and every leaving in this series. Five books work here and
+every guest in twenty-five books lands on it, so its length, its water's edge and its mail box are
+fixed once.
+
+FIXED PARTS:
+  THE PLANKS - EXACTLY THREE, laid side by side, FUR rubbed once along their length with 0 marks
+    inside. Together they are two grown seals wide. They run from the bottom-right of the picture out
+    to the LEFT, and the sea is on both sides of them. A gap of SEA shows between plank and plank.
+  🔴 THE LEFT IS THE OPEN SEA AND THE RIGHT IS THE ISLAND. Boats come from the left, always. The
+    lighthouse stands at the right edge on any view that reaches the shore, and is off the page on
+    the close spots (anchor THE LIGHTHOUSE).
+  THE WATER'S EDGE - ONE white crest the full width of the page where planks meet shore. It is the
+    only long white line on this sheet; the rest of the water is wash with at most 24 short crests.
+  THE MOORING - one FUR rope coiled flat on the planks near the shore end. At most 3 coils in view.
+    Uncoiled and slack on the planks = something has just cast off, and that is the only way this
+    sheet ever says a boat left.
+  THE MAIL BOX - a FUR post box on ONE leg standing on the plank at the shore end, its slot a
+    horizontal bare-paper cut. 🔴 IT IS EXACTLY WIDE ENOUGH FOR A YOUNG SEAL TO LIE BEHIND AND NO
+    WIDER - two volumes hide behind it, and if it is drawn wider that hiding is not a joke any more.
+    No writing, numeral or crest on it (anchor CANVAS).
+  🔴 HEIGHT OFF THE WATER - the plank top is one young seal's length above the water, so a seal on
+    the planks looks DOWN at the sea and a seal in a boat looks UP at the planks. Both readings are
+    drawn on this sheet, because two volumes turn on which way a face is looking.
+  WHAT IS NOT HERE - no railing, no bollard, no ladder, no steps, no cleat, no lamp post. A seal
+    slides off the plank edge; nothing on this pier is built for a hand.
+
+SPOTS:
+  A THE WHOLE PIER, wide, from the shore: three planks running out to the left, the sea both sides,
+    the lighthouse at the right edge, a boat moored whole at the far end.
+  B ON THE PLANKS, low and close: the FUR grain running away from the camera, the mail box entering
+    at one edge, the sea a flat band beyond.
+  C STRAIGHT DOWN, close: only the three planks and the two SEA gaps between them - the spot where a
+    thing set down on the planks is counted.
+  D THE PLANK END, medium, the last plank stopping in open water with the one crest line beyond.
+  E FROM ABOARD, medium: a FUR gunwale across the bottom of the frame, the planks and the tower
+    behind it, so the pier is seen from below.
+
+PLATE: A to E as five panels, plus one small elevation showing the plank top, the water line one
+  young seal's length below it, and the mail box drawn beside a lying seal silhouette for height.
+
+NOT: no character, no pink anywhere on this sheet, no lettering, numerals or markings on the mail
+box or anywhere, no railing, ladder, cleat, bollard or lamp post, 🔴 no inverted shape in the water -
+a reflection is one white crest, no wake, spray, ripple ring or splash, no more than 3 rope coils, no
+gradient, glow or soft edge.
+```
+
+### §1.3 Rocks — 31쪽 · 🔴 젖은 자리와 마른 자리가 같은 깊이여야 한다
+
+```
+STAGE SHEET - Rocks   (dari-waxtide · anchor clause PIER, ROCKS AND SAND · SCENE token: Rocks)
+
+The rocks between the pier and the house. Four books work on them: one counts shells laid out on
+them, one stacks and scatters shells, one is entirely about which rock is slippery, and one crosses
+them at a run.
+
+FIXED PARTS:
+  THE ROCKS - FIVE of them in the full view, each ONE FUR shape rubbed once on its side with 0 marks
+    inside and ONE DEEP shadow under it (anchor). They step down from the house towards the water,
+    the nearest one broad and flat enough for a lying seal and a row of shells, the last one standing
+    alone in the water.
+  🔴 THE FLAT TOP OF THE NEAREST ROCK IS THE COUNTING TABLE OF THIS SERIES: shells are laid on it in
+    a row at equal spacing and read from straight above. It is drawn wide enough for SEVEN shells in
+    one row with room to spare, because one volume goes from five to seven and the row must not run
+    out of rock.
+  🔴 WET AND DRY ARE THE SAME DEPTH. A wet green patch is FUR rubbed ONE WAY ONLY so the wash catches
+    in the grain and lies along it; dry rock is FUR rubbed in the other direction. Neither is darker
+    than the other - the two read apart by the DIRECTION OF THE GRAIN and nothing else. Draw the two
+    side by side on this sheet at the same depth; if one has to be made darker the sheet is wrong.
+  A TRACK ACROSS THEM - where a wet belly has crossed dry rock, ONE FUR band a body wide, same rub,
+    turned across the grain. It bends round the green patches and that bend is the drawing.
+  THE WATER BELOW - one flat SEA band along the bottom of any view that reaches it, with one crest
+    the width of the page at the rock foot.
+  THE HOUSE AND THE TOWER - up and to the right: the kitchen door leaf at the top of the rocks, and
+    the lighthouse at the right edge on any view with middle distance in it.
+
+SPOTS:
+  A THE WHOLE SLOPE, wide: five rocks stepping down to the left, water at the bottom, tower right.
+  B THE FLAT TOP, close, straight down: one broad FUR field and nothing else - shells are counted here.
+  C BETWEEN TWO ROCKS, low: one rock filling the left, one the right, a DEEP shadow slot between them.
+  D THE LAST ROCK, medium: it stands alone with open water past it and no land beyond.
+  E THE KITCHEN DOOR FROM BELOW, medium: rock in the foreground, the FUR door leaf above and to the
+    right, so the rocks and the kitchen read as one place.
+
+PLATE: A to E, plus ONE COMPARISON PANEL - a wet green rock and a dry rock at the same size, same
+  depth, side by side, with the two rub directions clear.
+
+NOT: no character, no pink anywhere, no lettering or numerals, 🔴 no green paint of any kind - the
+green is FUR rubbed one way with the wash in its grain, no barnacle, weed or pebble texture, no
+sparkle, gloss or wet highlight, no more than one DEEP shadow per rock, 🔴 no inverted shape in the
+water, no gradient, glow or soft edge.
+```
+
+### §1.4 Stair — 20쪽 · 🔴 칸이 세어지는 자리라 개수와 방향이 시트에서 굳는다
+
+```
+STAGE SHEET - Stair   (dari-waxtide · anchor clause SPIRAL STAIR · SCENE token: Stair)
+
+The spiral stair inside the tower and the stove at its foot. Four books use it; one lays a toy on
+each tread and clears them one by one, so the treads are counted and must not change number.
+
+FIXED PARTS:
+  THE TREADS - FUR, rubbed once, 0 marks inside, ALWAYS CLIMBING TO THE RIGHT (anchor), 3 to 7 in
+    view and 🔴 FIVE IN THE FULL VIEW - one volume opens and closes on the same five and they must
+    lie over each other exactly.
+  🔴 A TREAD IS AS DEEP AS A YOUNG SEAL IS LONG, because a seal takes the stair on its belly one
+    tread at a time. That depth is why one object per tread reads as one object per tread.
+  🔴 AN EMPTY TREAD IS BARE PAPER RIGHT ACROSS. A cleared step is brighter than a full one, and that
+    is the only thing the last page of that volume has to say.
+  THE WALL - the outer wall curves away to the left of the treads, paper, with 0 rubs. The inner
+    edge of the stair is a DEEP drop with nothing drawn in it.
+  THE RAIL - ONE FUR line following the outer wall up to the right. 🔴 NOBODY EVER HOLDS IT: it is a
+    line that says which way is up, not a handrail, and no flipper touches it on any page.
+  THE FOOT OF THE STAIR - the floor beside the bottom tread, paper, wide enough for two wooden boxes
+    and a quilt spread flat. THE STOVE STANDS HERE, the same stove as the kitchen sheet, FUR body,
+    paper mouth, no flame, its door shut on every page where a child is nearer than her own length.
+  THE LIGHT FROM ABOVE - when the lamp room above is lit, ONE straight-edged paper wedge comes down
+    the stair and lands ON THE TREADS, cut hard where it stops. It never spreads and never glows.
+
+SPOTS:
+  A THE FIVE TREADS, medium, low, from the foot looking up along the curve - the counting view, and
+    the one that two pages of the same volume must repeat exactly.
+  B ONE TREAD, close, straight on: one FUR band across the frame with paper above and below it.
+  C THE LANDING, medium, looking up the well of the stair with the rail curving out of frame.
+  D THE FOOT, wide: bottom tread at the left, floor, stove at the right, boxes on the floor.
+  E BESIDE THE STOVE, close and low: the FUR flank of the stove filling one side, floor paper, the
+    stove door plainly shut.
+
+PLATE: A to E, plus one small elevation showing a tread depth against a lying young seal silhouette.
+
+NOT: no character, no pink anywhere, no lettering or numerals, no banister spindles, newel, carpet or
+tread nosing, no flame, ember, smoke or glow at the stove, 🔴 no glow, halo or spreading light under
+the wedge, no more than 7 treads in view, no cast shadow on the paper wall, no gradient or soft edge.
+```
+
+### §1.5 Bedroom — 47쪽 · 🔴 요람 옆의 빈 자리가 한 권의 결말이다
+
+```
+STAGE SHEET - Bedroom   (dari-waxtide · anchor clause BEDROOM · SCENE token: Bedroom)
+
+The room the family sleeps in. Six books work here and four of them never leave it, so the round
+window, the bed, the cradle and the one bare patch of floor beside it are settled once.
+
+FIXED PARTS:
+  THE ROUND WINDOW - ONE, in the wall at the head of the bed. Paper by day, a DEEP disc by night,
+    and when the lamp is lit a straight paper stripe crosses it with hard edges. 🔴 IT IS ROUND AND
+    IT IS THE ONLY ROUND THING BUILT INTO THIS HOUSE - the kitchen window is square, and that is how
+    a reader knows which room a night page is in.
+  THE BED - one low FUR platform rubbed once, 0 marks inside, its top no higher than a lying grown
+    seal's shoulder so a seal hauls onto it without climbing. One FUR post at the corner nearest the
+    window. 🔴 THE POST IS WHERE THE PINK SHELL HANGS WHEN SHE IS ASLEEP (anchor) - so the post must
+    be drawn on every full view of this room, at the same corner every time.
+  THE QUILT - paper with a FUR hem (anchor). See the Quilt prop sheet; the room only fixes that it
+    lies on the bed and that a body under it is one outline.
+  THE CRADLE - FUR, one rocker, standing on the floor to the side of the bed away from the window.
+    See the Cradle prop sheet. 🔴 THE PLACE BESIDE IT IS PART OF THIS ROOM AND NOT PART OF THE PROP:
+    a bare-paper strip of floor the length of a young seal, hard against the rocker on the room side.
+    It is empty in every view on this sheet and one volume ends by filling it.
+  THE FLOOR AND WALLS - paper, 0 rubs, corners one DEEP line each. No rug, no chest, no picture.
+  THE LANTERN'S PLACE - the small lantern (prop sheet) stands on the floor beside the bed or on a low
+    FUR block at the bed head. When it is the only lit thing, the room around it is pulled DEEP and
+    the lantern's square is the only paper left. 🔴 NO POOL OF LIGHT ON THE FLOOR OR THE QUILT.
+
+SPOTS:
+  A THE ROOM, wide, at floor height: window at the left over the bed head, bed across the middle,
+    cradle at the right with the empty strip of floor beside it.
+  B THE BED, medium, from the foot - the FUR platform, the post at the far corner, the window round
+    and whole above it.
+  C THE WINDOW, close: the round shape filling the frame with the wall paper around it, drawn twice
+    on the plate - day and night with the wedge.
+  D THE FLOOR, close and low: bare paper floor and the foot of the cradle rocker entering at one edge,
+    the empty strip running towards the camera.
+  E THE ROOM AT NIGHT, wide, same camera as A: everything DEEP except the round window's stripe and,
+    on a second version of this panel, except the lantern's square.
+
+PLATE: A to E, plus panel A and panel E drawn one directly above the other at one size so day and
+  night of the same room can be laid over each other.
+
+NOT: no character, 🔴 no pink anywhere on this sheet (the shell is a separate last pull on the post),
+no lettering or numerals, no rug, chest, wardrobe, picture, curtain, hook or shelf, no bed legs
+carved or turned, no patchwork or pattern on the quilt, 🔴 no glow, halo or lit pool from the lantern
+or the wedge, no cast shadow on paper walls, no gradient or soft edge.
+```
+
+### §1.6 Bathroom — 16쪽 · 🔴 이 방에서 가장 밝은 것은 거품이고 거품은 안 칠한다
+
+```
+STAGE SHEET - Bathroom   (dari-waxtide · anchor clause BATHROOM · SCENE token: Bathroom)
+
+The washing room. Four books use it - a bath with three floating toys, a scrub that carries six tiny
+creatures away, a toothbrush at midnight, and a morning after.
+
+FIXED PARTS:
+  THE TUB - a FUR half-barrel rubbed once, standing on the floor, its staves shown by AT MOST 3 DEEP
+    lines and one hoop. 🔴 ITS RIM COMES TO A YOUNG SEAL'S EYE WHEN SHE IS LYING BESIDE IT - so she
+    looks over the rim, and going in is a haul over the edge, never a step. A grown seal beside it
+    looks down into it.
+  THE WATER IN IT - ONE flat SEA patch with its crests drawn in white wax BEFORE the wash (anchor).
+    The surface is a straight line across the tub and nothing under it is drawn.
+  🔴 FOAM IS PAPER. It is not painted, not tinted and not outlined: it is the shape the white wax
+    kept dry, a lumpy field sitting on the water line, and it is the brightest thing in the room. A
+    thing floating in it keeps its whole outline on top of the foam and is not overlapped.
+  THE SMALL THINGS - toothbrush, soap and dipper are FUR (prop sheets); THE TOWEL IS PAPER with a FUR
+    hem, hanging over the tub rim or lying on the floor. 🔴 There is no rail, hook or peg in this
+    room: a towel lies over the rim, because nothing here is hung by a hand.
+  THE WINDOW - one small square high in the wall opposite the door. At night it is DEEP and the lamp's
+    stripe crosses it; by day paper.
+  THE DOOR - one FUR leaf, and 🔴 WHEN IT IS OPEN THE KITCHEN TABLE CORNER SHOWS THROUGH IT, because
+    two volumes pass between the two rooms in one page turn and the house must hold together.
+  WALLS AND FLOOR - paper, 0 rubs. A wet patch on the floor is ONE flat SEA shape with a hard edge.
+
+SPOTS:
+  A THE ROOM, medium wide, low: tub at the middle, door at the left, high window at the right.
+  B OVER THE RIM, close, from a young seal's eye at the rim - the FUR rim across the bottom of the
+    frame and the water and foam beyond it.
+  C STRAIGHT DOWN INTO THE TUB, close: the water field, the foam, and the rim as a FUR ring round it.
+  D THE FLOOR BESIDE THE TUB, low: bare paper floor, the tub flank rising at one side, a flat SEA wet
+    patch with a hard edge.
+  E THE OPEN DOOR, medium, from inside: the FUR leaf and, past it, the corner of the kitchen table.
+
+PLATE: A to E, plus one elevation of the tub with a lying young seal silhouette beside it for the
+  eye-to-rim height, and one close-up of a foam edge showing it is paper and not painted.
+
+NOT: no character, no pink anywhere on this sheet, no lettering or numerals, no tap, pipe, drain,
+plug, mirror, rail, hook or peg, no tiles, 🔴 no white paint anywhere - the foam and the towel are
+paper, no bubble outlines, sparkle, steam or wet gloss, no more than 3 stave lines on the tub, no
+gradient, glow or soft edge.
+```
+
+### §1.7 LampRoom — 8쪽 · 🔴 쐐기가 나가는 자리이므로 여기서 굳는다
+
+```
+STAGE SHEET - LampRoom   (dari-waxtide · anchor clauses LAMP ROOM + THE LIGHTHOUSE · SCENE token: LampRoom)
+
+The glass room at the top of the tower. Only eight pages are set inside it, but the wedge that leaves
+it is the clock of all twenty-five books, so where it comes from is fixed here.
+
+FIXED PARTS:
+  THE GLASS - all round, in a ring of FUR uprights. Panes are PAPER BY DAY and SEA WASH SQUARES BY
+    NIGHT (anchor). Their number is fixed: SIX uprights in the full view, five panes between them.
+  THE LAMP - one PAPER DISC in a DEEP frame at the centre of the room, with ONE FUR brass handle on
+    its side. 🔴 LIT AND UNLIT ARE THE SAME DISC: unlit, it is a paper disc that looks off because
+    the sky behind it is paper too; lit, the sky behind it has gone two or three passes DEEP and the
+    disc is the brightest thing on the page. Nothing about the disc itself changes.
+  🔴 THE WEDGE STARTS HERE. It is a straight-edged strip of bare paper leaving the lamp horizontally
+    through one pane, cut hard, at most 2 wedges on a page. It does not widen, fade, or throw
+    anything onto the floor of this room. Draw its start on this sheet at the lamp's own height, so
+    every outdoor volume can trace it back to the same point.
+  THE FLOOR AND THE RAIL - floor FUR rubbed once; a FUR rail runs round the outside of the glass.
+    🔴 NOBODY IS EVER ON THE RAIL AND THE DOOR TO THE GALLERY IS SHUT ON EVERY PAGE (anchor). Draw
+    the door shut on this sheet; there is no open state of it.
+  THE STAIR MOUTH - the top three treads of the spiral stair entering the floor at one side, climbing
+    to the right, so the stair sheet and this sheet join.
+  WHAT IS OUTSIDE - through the glass by day, the sea as a pale wash and nothing else; by night, DEEP.
+    Weather is drawn on the glass only as the weather clause says, never inside the room.
+
+SPOTS:
+  A THE ROOM, wide: glass ring, lamp at the centre, stair mouth at one side, gallery door shut behind.
+  B THE LAMP, close, side on: the paper disc, the DEEP frame, the one brass handle.
+  C ONE PANE, close: a single square with the weather beyond it and the FUR upright at each side.
+  D FROM BELOW, medium, from outside and under: the glass room seen from the rock, the rail as a FUR
+    line, nobody on it, the door shut.
+  E THE WEDGE LEAVING, medium: the lamp at the frame edge and the paper strip running out across a
+    washed sky, cut straight and stopping nowhere.
+
+PLATE: A to E, plus panel B drawn twice at one size - day and night - so the disc can be checked as
+  the same disc in both.
+
+NOT: no character, no pink anywhere, no lettering or numerals, no lens, prism, mirror, mechanism,
+cogs or fresnel ring drawn inside the lamp, 🔴 no glow, halo, ray fan, bloom or lens flare of any
+kind, no smoke, no figure on the rail or on the gallery, no open gallery door, no more than 2 wedges,
+no gradient or soft edge.
+```
+
+### §1.8 Sand — 12쪽 · 🔴 모래는 종이라 그 위의 것은 종이일 수 없다
+
+```
+STAGE SHEET - Sand   (dari-waxtide · anchor clause PIER, ROCKS AND SAND · SCENE token: Sand)
+
+The sand between the rocks and the water, and the shallow water off it. One book spends all ten pages
+here going in and out of the water; two others cross it.
+
+FIXED PARTS:
+  🔴 THE SAND IS PAPER (anchor) - the whole beach is bare, 0 rubs, edge to edge. So NOTHING LAID ON
+    IT MAY BE PAPER TOO: a shell on the sand is FUR, a track is DEEP, foam at the edge is where the
+    sand already was. Get this wrong and the beach swallows whatever is on it.
+  THE WATER'S EDGE - ONE white crest the full width of the page, the only long white line here, and
+    it is the line the whole sheet is organised around: dry sand above it, wet sand below it.
+  WET SAND - the strip below the crest, ONE flat SEA patch laid thin with a HARD EDGE where it stops.
+    🔴 A TRACK OUT OF THE WATER IS A BAND OF DRY PAPER THROUGH THAT WET STRIP, not a line drawn on
+    it - the belly pushed the water aside. Draw it as an absence.
+  THE SHALLOWS - beyond the crest, wash with at most 24 short curls. There is no depth: the wash is
+    flat and nothing under it is drawn except as the FishPail sheet allows.
+  SPRAY - at most 8 white wax dots, always ABOVE the crest line, never a streak and never a ring.
+  THE ENDS OF THE BEACH - rocks close it at the right, the pier planks enter at the left. The
+    lighthouse stands at the right edge on any view with middle distance; on the close spots the
+    tower's lower body only, cut by the top edge.
+  SNOW ON IT (one winter volume) - the ground is paper edge to edge (anchor), so a snow beach and a
+    summer beach are THE SAME DRAWING and only the dot count and the sky's passes differ. Draw both
+    on this sheet at one size to prove it.
+
+SPOTS:
+  A THE BEACH, wide, low: dry sand across the bottom, the crest line across the middle, water and
+    tower beyond.
+  B THE WATER'S EDGE, close, low: the crest across the frame with wet SEA below it and paper above.
+  C DRY SAND, close, straight down: bare paper with one FUR thing on it for scale and nothing else.
+  D IN THE SHALLOWS, low, the camera at water level: flat wash to the horizon, curls, no bottom drawn.
+  E THE BEACH FROM THE ROCK, medium high: the whole strip seen along its length with the pier at the
+    far end.
+
+PLATE: A to E, plus panel A drawn twice at one size - summer and snow - so the two read as one place.
+
+NOT: no character, no pink anywhere, no lettering or numerals, no dune grass, driftwood, footprints,
+paw prints, dotted trails or arrows, no ripple rings, splash crowns or motion lines, 🔴 no sand
+texture, stipple or speckle - the sand is paper, 🔴 no inverted shape in the water, no more than 8
+spray dots, no gradient, glow or soft edge.
+```
+
+### §1.9 Patch — 4쪽 · 🔴 한 자리다 (밭과 말리는 줄)
+
+```
+STAGE SHEET - Patch   (dari-waxtide · anchor clause THE PATCH AND THE DRYING LINE · SCENE token: Patch)
+
+The ground behind the house: the vegetable furrows and the seaweed line. Only four pages, but the
+line's load is the season clause of all twenty-five books, so it is drawn once and read everywhere.
+
+FIXED PARTS:
+  THE FURROWS - three or four, running across the picture, each ONE FUR rub with the earth between
+    them left PAPER. 0 marks inside a furrow. They are low - a lying seal sees over all of them.
+  ONE DUG HOLE - a DEEP hollow the width of a young seal's snout, with the crumbs beside it as at
+    most 4 DEEP dots. 🔴 IT STAYS. One volume digs it and looks at it again later, so this sheet
+    draws the hole and the hole-with-a-seedling-in-it at the same size and angle.
+  THE LINE - ONE cord between TWO FUR posts, standing to the seaward side of the furrows. 🔴 THE
+    POSTS ARE ONE YOUNG SEAL'S LENGTH APART AND THE CORD IS AT A GROWN SEAL'S NOSE HEIGHT when she
+    is lying - so a strip is hung by a mouth reaching up, not by a hand.
+  🔴 WHAT HANGS ON IT IS THE SEASON (anchor): spring and winter EMPTY, summer up to 12 seaweed
+    strips hanging straight, autumn hung and leaning one way. Draw the empty line, the twelve, and
+    the leaning eight - three states at one size.
+  THE GROUND ROUND IT - paper. Behind the line, the rocks step down to the left; the lighthouse
+    stands at the right edge on any view that reaches it; the back wall of the house closes the right
+    of the wide view as one FUR field with 0 windows on this side.
+  🔴 THIS PLACE IS BEHIND THE HOUSE AND IN FRONT OF THE ROCKS. One volume reads it from the rock
+    side and one from the house side, and those are the two directions - there is no third.
+
+SPOTS:
+  A FROM THE HOUSE, wide: furrows across the middle, the line beyond them, rocks and tower past that.
+  B FROM THE ROCKS, wide, the reverse: the line first, the furrows behind it, the house wall at the
+    right - the same place, mirrored by the camera and not by the drawing.
+  C ONE FURROW, close, straight down: FUR rub and paper earth, the dug hole in the middle of the frame.
+  D UNDER THE LINE, low, looking up: the cord across the top of the frame with the strips hanging into
+    the picture, sky beyond.
+
+PLATE: A to D, plus the three line states (empty, twelve, leaning eight) in a row at one size.
+
+NOT: no character, no pink anywhere, no lettering or numerals, no fence, gate, scarecrow, tool, basket
+or watering can, no pegs on the line, no more than 12 strips, no leaf or plant detail beyond one FUR
+shape per clump, no cast shadow on the paper earth, no gradient, glow or soft edge.
+```
+
+### §1.10 Market — 10쪽 · 🔴 25권 중 유일하게 등대가 없는 권
+
+```
+STAGE SHEET - Market   (dari-waxtide · anchor clause THE MARKET · SCENE token: Market)
+
+The stall lane in the mainland harbour. ONE volume, all ten pages, and it is the only place in the
+series that is not this island - so the two things that hold every other page (the tower on the right
+and the family) are both gone, and the sheet has to hold the page without them.
+
+FIXED PARTS:
+  🔴 NO LIGHTHOUSE ON ANY PAGE OF THIS SHEET. The lane closes at its far end with a BOAT'S MAST -
+    one thin FUR line with a paper cabin block under it - and that mast does the job the tower does
+    everywhere else: it is the largest thing at the end of the view and it says which way home is.
+  THE LANE - one straight run of ground, paper, with the stalls down ONE SIDE ONLY and a plain FUR
+    wall down the other. It is two grown seals wide and no wider: a young seal in it cannot see over
+    the stalls and cannot cross the lane without passing a stranger.
+  THE STALLS - a row of FUR trestles rubbed once, 0 marks inside, each with a paper cloth laid over
+    it. 🔴 THEY ARE AT A GROWN SEAL'S NOSE HEIGHT, WHICH IS OVER A YOUNG SEAL'S HEAD - what is on a
+    stall is a thing she cannot see from the ground, and that is the whole trouble of this volume.
+    FIVE stalls in the widest view and no more.
+  THE NECKLACE STALL - the one at the near end, the only stall this sheet distinguishes: its cloth
+    carries a plain FUR rail with shell cords hanging from it (ShellCord prop sheet). 🔴 NOTHING ON
+    IT IS PINK. Two pages hang a FUR necklace beside Dari's pink scallop and the two must read as
+    different colours at thumbnail size.
+  THE STRANGERS - grown seals and other animals, standing close. The first three are drawn as figures
+    to the anchor's rules; 🔴 FROM THE FOURTH ON, ONE FLAT FUR SILHOUETTE EACH WITH 0 MARKS INSIDE,
+    standing behind. A forest of grown bodies seen from belly height is what this place is.
+  THE GROUND - paper, 0 rubs, so a young seal lying on it is the darkest thing in the frame and can
+    be found in any crowd view. That is the only way she is found on these pages.
+
+SPOTS:
+  A THE LANE, wide, from belly height: stalls down the right, wall down the left, mast at the far end,
+    FUR silhouettes filling the middle distance.
+  B UNDER A STALL, low and close: the FUR trestle top across the top of the frame, paper cloth
+    hanging, paper ground below, grown bodies past it.
+  C THE NECKLACE STALL, medium, straight on: the rail and the hanging cords at nose height.
+  D BETWEEN TWO STRANGERS, close, low: two flat FUR silhouettes filling the left and right of the
+    frame with a slot of paper lane between them.
+  E THE END OF THE LANE, medium: the stalls stopping, the mast and its paper cabin block, open water
+    beyond, and 🔴 nothing that looks like a tower.
+
+PLATE: A to E, plus one small overhead diagram of the lane showing the five stalls on one side, the
+  wall on the other, and the mast at the end.
+
+NOT: no character face on the strangers (silhouettes from the fourth on), 🔴 no pink anywhere on this
+sheet, 🔴 no lighthouse, tower or beam of any kind, no lettering, numerals, signs, price tags, awning
+stripes, bunting or banners, no more than 5 stalls, no goods drawn in detail beyond one FUR shape
+each, no cast shadow on the paper ground, no gradient, glow or soft edge.
+```
 
 ---
 
@@ -998,10 +1481,34 @@ soft edge.
 
 | 무엇 | 어디 | 내용 |
 |---|---|---|
-| 🔴 **앵커 구멍 — 장터** | 12권 | `STAGE CLAUSES` 여덟에 없는 자리이고 25권 중 유일하게 섬 밖이다. 좌판 규격이 아무 데도 없어 6쪽이 화가 재량이 된다. **자리 시트 `Market` 필요** |
-| ⚠️ 앵커 구멍 — 채소밭 | 25 p5 | `CANVAS` 에 이름만 있고 조항이 없다 |
+| ✅ 앵커 구멍 — 장터 | 12권 | **닫혔다**(2026-09-04) — 앵커에 `THE MARKET` 조항을 넣고 자리 시트 §1.10 을 썼다 |
+| ✅ 앵커 구멍 — 채소밭 | 25 p5 | **닫혔다** — `THE PATCH AND THE DRYING LINE` 조항 + 자리 시트 §1.9 |
 | ⚠️ 후보 목록의 잘린 낱말 | 04 「위로」 · 22 「우편」 · 05 「위로」 | 사물이 아니라 문장에서 잘린 조각이다. 추출기가 컷 라벨을 읽기 시작하면서 생긴 잡음 |
 | ⚠️ 후보 목록이 통째로 빠뜨린 권 | 19 · 24 | 두 권 다 사물 하나(비옷 · 요람)로 열 쪽을 끌고 가는데 표에 줄이 없다 |
+
+### 🔴 2026-09-04 앵커 수리 — 위 셋을 포함해 다섯을 고쳤다
+
+| # | 고친 곳 | 전 | 후 |
+|---|---|---|---|
+| ① | `NOT` 구명조끼 | `no boat leaves the pier with a figure in it that has no lifejacket hugged on` — 손님 셋(10 p9 · 22 p9 · 25 p10)이 위반 | `carrying A CHILD without a lifejacket hugged on - a grown guest in its own boat wears none` |
+| ② | `AT MOST … shells 9` | 여유 0(16권이 정확히 아홉 + 목의 가리비 = 열) | `shells 9 (🔴 the scallop on Dari's neck is NEVER counted in this or any other total)` |
+| ③ | `DEEP marks … 0 to 4 on a thing` | 21권 조개가 상한에 딱 참 | `A MARK THE STORY MAKES … REPLACES A STANDING MARK INSTEAD OF BEING ADDED TO IT` |
+| ④ | 🔴 `THE LIGHTHOUSE` 관통 줄 | `on the right edge of every outdoor page` — **바깥 98쪽 중 61쪽에서 거짓**(판자·바위 클로즈업 · 장터 10쪽 전부) | 조건으로 바꿨다: `EVERY OUTDOOR PAGE THAT SHOWS THE SHORE OR ANY MIDDLE DISTANCE … OFF THE PAGE WHEN THE CAMERA IS CLOSE ON PLANKS, ROCK, SAND OR WATER` + 장터 권 제외 |
+| ⑤ | `STAGE CLAUSES` 여덟 → **열** | 장터·밭이 조항 없이 그려짐 | `THE MARKET` · `THE PATCH AND THE DRYING LINE` 신설 |
+
+🔴 **거짓이 아니었던 관통 줄** — 실제로 세어 보고 남겼다.
+`A GUEST IS KNOWN BY THE BOAT: on every page a guest is on, the boat it came in is on the page too`
+= **손님 28쪽 / 배 없는 쪽 0**. `STORM (one volume)` = 폭풍은 17 p1 하나뿐이라 참.
+⚠️ `THE WASH BEADS OFF A FIGURE … you have found who is on the page` 는 **14 p5 한 쪽에서만** 성립하지 않는다
+(25권 250쪽 중 인물이 없는 유일한 쪽 — 달이 머릿속 그림). 그 쪽은 이미 SCENE 이 08권 꼬물이와 같은 처리로
+못 박아 뒀으므로 앵커는 안 건드렸다.
+
+### 🔴 남은 신고 — SCENE 쪽 (이 문서 밖)
+
+| 무엇 | 어디 | 내용 |
+|---|---|---|
+| 🔴 **자리 토큰이 통째로 없는 열 권** | 01~05 · 21~25 (**100쪽**) | `장소·시간` 에 `[Token]` 이 안 찍혀 있다(06~20 은 전부 찍혀 있다). 자리 시트가 열 장 다 있어도 **그 쪽이 어느 시트를 상속하는지 기계가 못 읽는다** → `check-stage-tokens.mjs` 가 「0」이어도 이 100쪽은 검사 밖이다. 한국어는 안 건드리고 `[Kitchen]`·`[Bedroom]`·`[Pier]`·`[Rocks]`·`[Bathroom]`·`[Stair]`·`[LampRoom]`·`[Patch]` 만 얹으면 된다 |
+| ⚠️ **`Patch` 토큰이 두 자리를 가리켰다** | 13 p4~p6 ↔ 25 p5 | SCENE 은 **미역 말리는 줄**에만 이 토큰을 찍었고 **채소밭**(25 p5)은 토큰이 없다. 앵커 `CANVAS` 가 둘을 「집 뒤」에 나란히 놓으므로 **한 자리 한 시트**로 확정했다(§1.9). 25 p5 에 `[Patch]` 를 찍으면 맞는다 |
 
 ### 🔴 앵커가 사물 때문에 깨지는 자리 — 셋
 
