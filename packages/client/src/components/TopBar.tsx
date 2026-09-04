@@ -515,6 +515,25 @@ export function TopBar() {
           label="🧩 탱고HW"
           tone="text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30"
         />
+        {/* 🔴 현황판은 스크립트가 굽는 정적 파일이라 라우트가 아니라 새 탭으로 연다.
+            다시 구우려면 `node packages/server/scripts/build-content-status.mjs` */}
+        <a
+          href="/content-status.html"
+          target="_blank"
+          rel="noopener"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
+          title="전체 콘텐츠 현황 — 라인별·난이도·이음매·책별"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            />
+          </svg>
+          현황판
+        </a>
         <button
           onClick={() => setVocabOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"
