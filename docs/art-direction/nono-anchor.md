@@ -1,6 +1,6 @@
 # 노노네 겨울 골목 — 앵커 + 캐스트 시트
 
-> 창작동화 **시리즈 09** (25권 · 250쪽). 설계 SSOT = `docs/changjak-books/nono/_design.md` ·
+> 창작동화 **시리즈 09** (**50권 · 500쪽**. 「25권 250쪽」은 늘기 전 숫자다). 설계 SSOT = `docs/changjak-books/nono/_design.md` ·
 > 대본 = `docs/changjak-books/nono/*.md` · SCENE = `_scenes.json`(01~15 완성)
 > 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
 > 🔴 **한 시리즈 = 한 그림체.** 이 시리즈는 **찢은 종이 콜라주 전권**이고, 보류 문안이 없는
@@ -78,8 +78,13 @@ Style: torn paper collage, exactly TWO coloured papers plus WHITE, laid on a win
   straight edge in this book; walls, roofs, steps and doorframes all wobble slightly. Where two papers
   are pasted over each other the overlap is a shade thicker and darker - that is the only dark.
   🔴 THE GROUND SHEET LEFT UNPASTED IS NOT WHITE SPACE, IT IS THE WINTER LIGHT. Snow is a SECOND,
-  WHITER paper torn and laid on top of it. SHADING IS ZERO - no modelling, no gradient, no cast
-  shadow, no highlight, no drawn line of any kind.
+  WHITER paper torn and laid on top of it. SHADING IS ZERO - no modelling, no gradient, no soft
+  shading, no highlight, no drawn line of any kind.
+  🔴 A SHADOW IS ONE MORE PIECE OF PAPER PASTED ON, NOT A DARKENING - a flat piece of the OVERLAP with
+  its own torn fibrous edge, 0 interior detail, 0 softness, 0 fade. It does not match the thing that
+  cast it and is never traced from it; it never falls on a face, on a body or on another child; there
+  is never more than ONE in a frame, and it exists only where the page says a fire or a low sun makes
+  one. It is the same trick as an ice reflection here: another piece, not an optical event.
 
 RENDERING (finish hierarchy): an area is ONE torn piece of one paper, flat and even inside itself; the
   only variation is the fibre at its edge and the thickness where pieces overlap. FINISHED THINGS PER
@@ -92,15 +97,20 @@ RENDERING (finish hierarchy): an area is ONE torn piece of one paper, flat and e
   a repeat is a mirrored copy of its neighbour. DENSITY RATION = none.
   🔴 DEPTH IS SPACING, NEVER DARKNESS - houses further down the alley stand CLOSER TOGETHER at the
   same weight of paper. Nothing recedes by getting paler, bluer or softer.
-  🔴 THERE ARE THREE CHILDREN AND ONE GRANDFATHER AND NOBODY ELSE. Never a fourth child to fill a gap;
-  when one of the three has walked off, the page shows two and the empty place they left.
-  🔴 ONE VOLUME BREAKS THIS AND IT IS THE STORY (volume 23): a fourth child stands in five of its pages,
-  and she carries NO GREEN ANYWHERE. She is not there to fill a gap - she is the child who is not one
-  of the three yet, and on the last page of that volume the greens are still exactly three.
+  🔴 THERE ARE THREE CHILDREN AND ONE GRANDFATHER AND NOBODY IS EVER ADDED TO FILL A GAP; when one of
+  the three has walked off, the page shows two and the empty place they left.
+  🔴 THERE IS ONE MORE CHILD AND SHE IS A FORM OF THIS SERIES, NOT AN EXCEPTION: A BABY SQUIRREL, up to
+  a child's shoulder, WHO CARRIES NO GREEN ANYWHERE. Measured across 500 pages she stands in thirteen
+  of them across four volumes - she is the child who is not one of the three yet, and her having no
+  green is the whole point of her. 🔴 SHE IS NEVER GIVEN A GREEN THING, NOT EVEN AT THE END OF A
+  VOLUME WHERE SHE IS TAKEN IN: the greens on any page are still exactly three or fewer. She is drawn
+  only where the script puts her; she is never used to fill a hole in a composition.
 
 PALETTE: GROUND SHEET WINTER LIGHT #EFEDE6, sky, air, the light, everything left unpasted · TORN WHITE
   SNOW #FBFAF6, 🔴 snow, ice, roof caps, steam, firelight and lamplight, the eye scraps of every face,
-  and the grandfather's white face - always a torn piece, never
+  the grandfather's white face, 🔴 AND ANYTHING THE BOOK CALLS SHINY - a shine in this world is not a
+  highlight and not a gloss, it is ONE SMALL TORN SCRAP OF THIS PAPER laid on the thing, hard-edged
+  and flat, and a page that counts six shiny things lays six scraps - always a torn piece, never
   painted and never a drawn white line · TORN1 STONE GREY #7C8085, walls, cobbles, roof slates,
   shutters, the alley - the cool one · TORN2 WOOD BROWN #8A6A4C, doors, beams, the shop counter, the
   sledge, barrels, tables, animal chests - the warm one · OVERLAP DEEP SLATE #333A3E, animal backs and
@@ -110,36 +120,36 @@ PALETTE: GROUND SHEET WINTER LIGHT #EFEDE6, sky, air, the light, everything left
   white ink or white paint anywhere ever.
 
 STAGE CLAUSES (the stage changes what the papers do, never which papers they are):
-  🔴 UNTOUCHED SNOW (volumes 01, 02) - the alley floor is ONE unbroken piece of TORN WHITE from wall to
+  🔴 UNTOUCHED SNOW (any page whose alley floor has not been walked on) - the alley floor is ONE unbroken piece of TORN WHITE from wall to
     wall, and the ONLY torn edges crossing it are the footprints. When the footprint line breaks, the
     break is the page - it is the sharpest edge on the sheet.
-  🔴 FROST AND ICE (volumes 04, 05, 06) - the frozen floor is ONE flat piece of STONE GREY with TORN
+  🔴 FROST AND ICE (any page whose floor is frozen, not snowed on) - the frozen floor is ONE flat piece of STONE GREY with TORN
     WHITE only at the edges of the alley. 🔴 A REFLECTION ON ICE IS ONE MORE PIECE OF THE SAME PAPER
     LAID BELOW THE WALL WITH 0 INTERIOR DETAIL - it is a smear, never a mirrored or flipped copy of
     anything. Ash scattered on the ice is at most 11 WOOD BROWN specks in one band.
-  SNOW HILL AND SWEEPING (volumes 08, 13, 14, 16, 20) - fresh snow is one large TORN WHITE piece; a
+  SNOW HILL AND SWEEPING (any page where somebody has swept, slid or scraped the snow) - fresh snow is one large TORN WHITE piece; a
     swept or slid place is that piece TORN AWAY so the STONE GREY beneath shows, with the fibrous edge
     marking exactly how far the work got. 🔴 THE UNSWEPT HALF AND THE SWEPT HALF MEET AT ONE TORN EDGE
     and that edge carries the whole page.
-  WINTER MARKET (volumes 07, 09) - stalls and awnings are single flat pieces of TORN1 or TORN2; the
+  WINTER MARKET (any page in the market square) - stalls and awnings are single flat pieces of TORN1 or TORN2; the
     crowd is at most 7 flat OVERLAP silhouettes with 0 faces and 0 hands, and depth in the crowd is
     made by figures standing CLOSER TOGETHER, never darker. Steam over the chestnut brazier is TORN
     WHITE, one piece, rising straight.
-  🔴 LONG NIGHT AND FIRELIGHT (volumes 10, 11, 12, 19) - the GROUND SHEET ITSELF CHANGES TO DEEP SLATE
+  🔴 LONG NIGHT AND FIRELIGHT (any page the script calls night, dusk or lamplight) - the GROUND SHEET ITSELF CHANGES TO DEEP SLATE
     GREY #545A5E and nothing else changes: snow stays TORN WHITE, the two papers stay themselves, and
     the three greens stay full strength. The stove fire, the lamp and the lit window are TORN WHITE
     pieces with no glow, no rays and no halo, and they are the brightest thing on the page.
-  🔴 BURIED (volume 12) - the green bell is lost in the snow, so 🔴 KIKI CARRIES NO GREEN FROM PAGE 1
+  🔴 BURIED (any volume where a green thing is lost - the bell in the snow) - so 🔴 KIKI CARRIES NO GREEN FROM PAGE 1
     TO PAGE 9 - her neck is bare and there is no cord. The other two greens stay. On page 10 the third
     green comes back inside the lamplight and it is the only green touching that patch of snow. This
     is the one volume in the series where the signature rule is the story.
-  STEAMED WINDOW AND ICICLES (volumes 17, 18, 21) - a misted pane is TORN WHITE laid OVER the window
+  STEAMED WINDOW AND ICICLES (any page with a misted pane or an eave of icicles) - a misted pane is TORN WHITE laid OVER the window
     piece, covering it from the bottom edge upward with one torn line; what is behind it does not show
     through at all. Icicles are TORN WHITE, at most 7, each torn on its own, hanging from one eaves
     piece.
-  🔴 THAW (volumes 22, 23, 24, 25) - the TORN WHITE snow is torn back from its edges so STONE GREY
+  🔴 THAW (any page where the snow is going, not coming) - the TORN WHITE snow is torn back from its edges so STONE GREY
     appears in patches, always from the outside in. Drips from the eaves are at most 9 TORN WHITE
-    specks. The last shaded snow (volume 25) is snow that has been torn away everywhere except in one
+    specks. The last shaded snow at the very end of the series is snow that has been torn away everywhere except in one
     piece along the bottom of a wall.
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as the world - two or three
@@ -147,8 +157,10 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as th
   CHILDREN HAVE HANDS - the sparrow and the pigeon have hands, not wings, on every ordinary page.
   🔴 A HAND IS A TORN SHAPE WITH THREE SEPARATE FINGERS. A rounded fingerless mitten reads as a wing
   and is wrong on any page where the child is not flying.
-  WINGS ARE DRAWN ONLY WHEN SOMEBODY IS FLYING OR SPREADING THEM: Nono in flight (volumes 01, 04, 07,
-  10, 18, 19, 25) and Gugu spreading herself across the chair (volume 05). 🔴 NEVER ARMS AND WINGS ON
+  WINGS ARE DRAWN ONLY WHEN SOMEBODY IS FLYING OR SPREADING THEM: Nono in flight (any page the
+  script has him leave the ground) and Gugu spreading herself wide (any page the script has her spread).
+  🔴 THE TEST IS THE PAGE, NOT A LIST OF VOLUMES: is this child off the ground or deliberately spread?
+  If not, it has hands. 🔴 NEVER ARMS AND WINGS ON
   THE SAME CHILD ON THE SAME PAGE. Beaks and tails are part of the face and body and are always there.
   Backs and heads are OVERLAP, chests and bellies are TORN2.
   🔴 WHAT EACH ONE WEARS IS FIXED ON THE CAST SHEET AND IS NEVER ADDED TO. Two of the three wear no
@@ -175,9 +187,19 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as th
   on a broad deep chest, the widest of the three, a GREEN CLOTH BAG worn across one shoulder so it
   hangs at her hip · KIKI a cat, two sharp triangle ears and one long tail, the tallest silhouette by
   the ears alone, a GREEN BELL on a cord at her throat.
-  🔴 EACH CHILD'S GREEN THING IS ALWAYS VISIBLE AND IS THE ONLY GREEN ON THE PAGE - except volume 12,
-  where Kiki has none, and volume 25 page 10, where Nono's scarf is round the snowman's neck and
-  Nono's own throat is bare.
+  🔴 GREEN IS THE ONLY GREEN ON THE PAGE, and each child's green thing is in frame whenever THAT
+  CHILD'S BODY IS IN FRAME - worn, or lying where it came off.
+  🔴 GREEN LEAVING A CHILD IS A FORM OF THIS SERIES, NOT AN EXCEPTION TO IT. Four volumes are built on
+  it and they are all the same move: the bell buried in the snow and gone from the page for nine
+  pages · the bell hung on a nail on the back-room wall while its owner is in the tub, still in frame
+  and still the only green · the scarf slipped off into the snow and then carried in two hands instead
+  of worn · the scarf tied round a snowman's neck at the very end while its owner's throat is bare.
+  🔴 SO THE RULE IS NOT "ALWAYS ON THE NECK" - IT IS "GREEN IS WHERE THE STORY PUT IT, AND THERE IS
+  NEVER ANY OTHER GREEN." Where a page has taken a green away on purpose, DO NOT PUT IT BACK: a bare
+  throat is the sentence of that page.
+  🔴 THE OTHER PLACE A GREEN IS ABSENT IS A CROP THAT CANNOT HOLD IT - a frame on two hands, a foot,
+  the lower half of a beak. Measured across 500 pages there are three such pages and they are all
+  extreme close-ups. Nothing green is invented into the corner of those frames.
   GRANDPA BADGER a badger, twice a child's height and the widest figure, a dark band torn straight
   across the eyes, an apron, calm and still, hands always occupied with the same work the children are
   doing. 🔴 HE WEARS NO GREEN ANYWHERE - not the apron, not the cap, not the shop awning - and he
@@ -188,16 +210,20 @@ CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere -
 
 NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no drawn or painted line of any
   kind / no scissor-cut, knife-cut or mechanically straight edge / no white paint - white is a torn
-  piece.
+  piece / no cast shadow as a darkening (a shadow, where a page needs one, is ONE more pasted OVERLAP
+  piece - see the PastedShadow sheet) / no gloss, sheen, sparkle or specular highlight - a shine is a
+  torn white scrap.
 ```
 
 **관통 줄** (매 쪽 · 앞의 셋은 설계서 §6 의 것을 그대로 쓴다)
 
 ```
 SNOW:  the snow is torn white paper left bare - never paint it
-THREE: each of the three children carries one small GREEN thing, always
+THREE: green is the ONLY green on the page and it is where the story put it - on the child, or
+       lying where it came off. Never invent one back onto a bare throat
 EDGE:  every shape has a torn fibrous edge; nothing is cut with scissors
 FLY:   the sparrow and the pigeon have HANDS - wings appear only in flight
+SHADOW: a shadow is one more pasted piece, never a darkening
 ```
 
 🔴 **`FLY:` 를 넷째 줄로 올린 이유.** 설계서 §1 이 「셋 다 이족보행 · 앞다리는 손 · 단 구구가 날개를
@@ -223,8 +249,9 @@ CHARACTER SHEET - nono alley   (five characters, one sheet)
 
 SHEET LAYOUT: one winter-light ground sheet, five animals standing in a row on a single ground line -
   🔴 THE THREE CHILDREN ARE ALL ABOUT THE SAME HEIGHT WITH THREE DIFFERENT HEAD SIZES, Grandpa Badger
-  is twice any of them and the widest figure, and 🔴 THE FOURTH CHILD (volume 23 only) STANDS IN THE
-  ROW AT HER TRUE HEIGHT, up to a child's shoulder, CARRYING NO GREEN AT ALL. Each character is drawn
+  is twice any of them and the widest figure, and 🔴 THE BABY SQUIRREL STANDS IN THE
+  ROW AT HER TRUE HEIGHT, up to a child's shoulder, CARRYING NO GREEN AT ALL - she is in four volumes,
+  not one, so she is a member of this sheet and not a guest. Each character is drawn
   THREE times: front standing, three-quarter walking, and back.
   🔴 In all twelve child drawings the FRONT LIMBS ARE HANDS WITH THREE FINGERS AND ARE EMPTY - nobody
   holds anything, and no wing is spread, so the hand shape is fixed before any prop or any flight exists.
@@ -232,9 +259,9 @@ SHEET LAYOUT: one winter-light ground sheet, five animals standing in a row on a
   page-state that replaces the hands is fixed on the same sheet.
 🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the three children again, side by side, pasted as FLAT
   OVERLAP SILHOUETTES with 0 interior marks and NO GREEN AT ALL. If the three silhouettes cannot be
-  told apart by the ears, the chest depth and the tail alone, the sheet is wrong - volume 12 spends
-  nine pages with one child's green missing, and volume 25 ends with a green scarf that is not on a
-  child at all.
+  told apart by the ears, the chest depth and the tail alone, the sheet is wrong - four volumes take a
+  green off its child (buried in the snow, hung on a nail, dropped in the snow, tied round a
+  snowman), and on those pages the silhouette is all the reader has.
   Nothing else on the sheet - no props, no scenery, no snow, no ground beyond the one line.
 🔴 No lettering, numerals, labels or name tags anywhere on the sheet.
 ```

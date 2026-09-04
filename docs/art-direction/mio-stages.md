@@ -27,15 +27,18 @@ THAT SLIP IS LEFT IN`). 시트에도 미끄러진 자국을 하나씩 둔다. �
 
 ---
 
-## §1. 자리 시트 — 5장 (후보 18에서 접음)
+## §1. 자리 시트 — 8장 (후보 18에서 접음 · 🔴 2026-09-04 에 셋을 더했다)
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
 | `Classroom` | 교실 · 무지개반 교실 · 교실 창가 · 책상 앞 · 책상 옆 · 그림 책상 옆 · 창턱 앞 | 창가·책상이 한 방 안 |
-| `Kindergarten` | 마당 · 유치원 마당 · 마당 가운데 · 나무 밑 · 문간과 마당 · 교실 문과 마당 · 통 옆 · 통 앞 · 문 안팎 · 창고 문 안팎 | 🔴 **한 마당** — 나무·통·창고가 다 그 안 |
+| `Kindergarten` | 마당 · 유치원 마당 · 마당 가운데 · 나무 밑 · 문간과 마당 · 통 옆 · 통 앞 · 문 안팎 | 🔴 **한 마당** — 나무·통이 다 그 안. 🔴 **창고는 뺐다**(→ `Store`) |
 | `River` | 강가 · 마을 강가 · 물가 · 물 위 · 강가 길 | |
 | `Shingle` | 자갈밭 · 강가 자갈밭 · 물가 자갈밭 | 🔴 강가의 **다른 바닥** |
 | `TreeHouse` | (나무집) | 18권 · 사다리 |
+| 🔴 `VillageRoad` | 유치원 앞 마을 길 · 길 가장자리 · 길 위 · 건너편 길가 | **신설**(§1.3). 40권 열 쪽 중 아홉. 🔴 **SCENE 이 p1 에 스스로 신고해 뒀다** |
+| 🔴 `BackLane` | 유치원 뒷길 · 나무 밑 · 뒷길 어귀 · 뒷길 옆 풀밭 · 굽은 길 · 유치원 앞 길 | **신설**(§1.4). 10권 열 쪽 중 아홉 |
+| 🔴 `Store` | 창고 문 앞 · 창고 문 · 창고 문 안팎 · 문 안팎 | **신설**(§1.5). 🔴 **문틈 폭이 시계라 마당에 접으면 그 권이 사라진다** |
 
 ### §1.1 Classroom — 실제 프롬프트 (가장 먼저)
 
@@ -83,6 +86,170 @@ NOT: no character of any kind, no accent purple anywhere on this sheet, no lette
 `Kindergarten` = 마당 바닥(SOOT 고랑 가로) · 🔴 **큰 나무 하나**(밑동 OVERLAP) · 창고(안쪽 OVERLAP) ·
 그네 · 물통 · 문간. `River` = 강 = RIVER 한 면, 🔴 **둑 밑은 OVERLAP** · 오리 최대 5 · 물결 0.
 `Shingle` = 🔴 **자갈 = 고랑이 아니라 파낸 점**(14·25권), 강가와 바닥이 달라 별개 시트.
+
+### §1.3 VillageRoad — 실제 프롬프트 (🔴 신설 · SCENE 이 스스로 신고해 둔 자리)
+
+> 🔴 40권 p1 지문에 **「⚠️ 이 자리는 자리 시트에 없다(신고 참조)」**가 그대로 적혀 있다. 열 쪽 중 아홉이 여기다.
+> 그리고 이 권의 그림 하나가 **「하얀 선과 네 발이 같은 깊이, 같은 바닥에」**(p5)라서, 선이 무엇으로 그려지는지를
+> 시트가 안 정하면 화가가 **그린 선**을 넣는다 — 그 순간 이 매체가 아니게 된다.
+
+```
+STAGE SHEET - VillageRoad   (mio-cutschool · SCENE token: VillageRoad · bake AFTER Kindergarten)
+
+The village road outside the kindergarten gate. It is the one place in the series that is NOT the
+school, and the whole reason it exists is that a child may not cross it alone.
+
+🔴 THE FURROW MAP - fix them here, and no two touching areas share a direction:
+  THE ROAD SURFACE - SOOT cleared, furrows running ACROSS the road, left to right.
+  THE VERGE the children stand on - cleared, furrows running ALONG the road, away from the viewer.
+  🔴 THAT CHANGE OF DIRECTION IS THE KERB. There is no drawn line where the verge meets the road.
+  THE FAR SIDE beyond the road - cleared, furrows across again, so the far verge reads as the same
+    ground as the near one and the road is the strip between two identical banks.
+
+🔴 THE WHITE LINE IS ONE STRAIGHT GOUGED CHANNEL and it is the most important mark on this sheet.
+  ONE channel, the width of a tool, running the length of the road a hand's width in from the kerb,
+  UNBROKEN and DEAD STRAIGHT while everything else on the sheet is a ragged cut edge. 🔴 IT IS
+  CLEARED PAPER, NEVER A PRINTED WHITE STROKE AND NEVER A DRAWN LINE. There is a second identical
+  channel on the far side. 🔴 BEYOND THE LINE THERE IS NOTHING - no kerbstones, no drain, no markings,
+  no gravel: bare cleared road. The line is the edge of the world for this class and the emptiness
+  past it is what says so.
+
+FIXED PARTS:
+  THE KINDERGARTEN GATE and its wall enter at ONE END of the frame only, so the reader always knows
+    which side is home. Beyond the far verge, village house fronts as flat SOOT blocks, at most 6,
+    standing CLOSER TOGETHER as they run off - never smaller, never paler.
+  NO PARKED THING, NO POST, NO SIGN, NO LAMP. The road is empty and that emptiness is the stage.
+  🔴 A PASSING BICYCLE OR CART ENTERS FROM ONE EDGE AND IS CUT BY THE FRAME - the rear wheel and the
+    rack only, the rider outside the frame. Nothing that moves is ever drawn whole here.
+  FALLEN LEAVES: at most 4 in the air, at most 4 on the ground, each its own cut shape. A drift of
+    leaves is ONE cleared area and is exempt from that count.
+
+SPOTS:
+  A THE ROAD, wide, eye level: gate wall at one edge, both white lines, the far houses.
+  B THE KERB, medium: the furrow direction changing across the frame with feet standing on the verge
+    side of it.
+  C THE LINE, close, high: looking straight down at the channel and the feet beside it - nothing else
+    in frame, no horizon.
+  D THE FAR VERGE, medium: standing on the other side looking back at the gate wall across the road.
+
+PLATE: A, B, C, D once each, plus 🔴 A FURROW DIAGRAM of road, near verge and far verge with an arrow
+  in each, plus one panel of the white channel drawn at C size beside a wrongly DRAWN white line,
+  marked as the error.
+
+NOT: no character of any kind, no accent purple anywhere, no lettering, numerals, road signs or
+  markings other than the two channels, no drawn white line - every white is a gouged channel, no
+  third block, no smooth mechanical edge except the two line channels, no cleared area left blank
+  without furrows, no vehicle drawn whole, no shading, gradient, glow, cast shadow or soft edge,
+  nothing paler or smaller with distance.
+```
+
+### §1.4 BackLane — 실제 프롬프트 (🔴 신설 · 10권 열 쪽 중 아홉)
+
+> 🔴 **앞길(`VillageRoad`)과 다른 곳이다.** 앞길은 포장된 마을 길이고 **건너면 안 되는 선**이 사건이지만,
+> 뒷길은 **흙길**이고 **떨어진 것이 줄로 남는** 곳이다 — 10권이 그 줄 하나로 성립한다(p7 「길 위에 도토리가
+> 점점이 떨어져 나무 밑까지 줄을 이룬다」 · p9 「지나온 쪽은 깨끗하고 앞쪽엔 아직 남아 있다」).
+> 묶었으면 그 권이 아스팔트 위에서 벌어진다.
+
+```
+STAGE SHEET - BackLane   (mio-cutschool · SCENE token: BackLane · bake AFTER VillageRoad)
+
+The earth lane behind the kindergarten, under the big oak. Three books walk it, and one of them is
+ten pages of a thing coming out of a bag onto this ground.
+
+🔴 THE FURROW MAP:
+  THE LANE - SOOT cleared, furrows running AWAY FROM THE VIEWER along the lane, so the lane pulls the
+    eye into the frame. 🔴 This is the opposite of `VillageRoad`, whose furrows run across, and that
+    difference alone must tell the two roads apart with no other cue.
+  THE GRASS EACH SIDE - cleared, furrows running UP. The change of direction is the lane edge; there
+    is no drawn line and no kerb, because this ground has none.
+
+FIXED PARTS:
+  🔴 THE OAK stands at ONE END of the lane, its trunk a single SOOT mass going straight up and out of
+    frame, at most 4 crack hairlines inside it and never in a row. Its crown is one SOOT mass reaching
+    over the lane. 🔴 IT IS NOT THE KINDERGARTEN TREE - the yard tree stands in an open yard with a
+    fence and a tub; this one stands over a lane with grass both sides and nothing built near it.
+  THE LANE BENDS ONCE, to the right, and goes behind the trees - so a walker can leave the frame
+    without reaching a wall. The bend is fixed here and is the same bend in every volume.
+  THE KINDERGARTEN BACK WALL closes the other end, one flat SOOT block with one gate in it.
+  FALLEN LEAVES ON THE GROUND: a lane in autumn is a BED - ONE cleared area with its own furrows,
+    exempt from the count - with at most 11 separate leaf stamps lying loose on top of it near the
+    camera.
+
+🔴 THE GROUND HAS ONE STATE THAT IS THE WHOLE OF VOLUME 10 - A LINE OF DROPPED THINGS. Small SOOT
+  stamps lying in a broken trail down the middle of the lane, following the lane's furrows, thinning
+  as they go. 🔴 IT IS A TRAIL, NOT A SCATTER: it reads as an arrow pointing back the way somebody
+  came, and it must be legible from spot A. The lane is drawn TWICE on this sheet - clean, and with
+  the trail - at the same size, so the pair can be read as before and after.
+  ACORNS UNDER THE OAK: at most 9 counted as separate stamps; ground thick with them is ONE cleared
+  area and is exempt.
+
+SPOTS:
+  A THE LANE, wide, eye level: oak at one end, the bend, grass both sides, back wall behind.
+  B UNDER THE OAK, medium low: the trunk close, the lane running away past it.
+  C THE GROUND, close, high: leaves, earth furrows and whatever lies on them - no horizon.
+  D THE BEND, wide, high: looking down the lane to where it turns out of sight.
+
+PLATE: A, B, C, D once each, plus the FURROW DIAGRAM, plus A drawn twice - clean and with the trail.
+
+NOT: no character, no accent purple, no lettering or numerals, no fence, tub, swing or play house
+  (those belong to `Kindergarten` and put this lane inside the yard), no white line or kerb, no drawn
+  white line, no third block, no smooth mechanical edge, no cleared area without furrows, no shading,
+  gradient, glow, cast shadow or soft edge, nothing paler with distance.
+```
+
+### §1.5 Store — 실제 프롬프트 (🔴 신설 · **문틈 폭 세 단계가 이 시트의 전부다**)
+
+> 🔴 **마당(`Kindergarten`)에 접으면 08권이 사라진다.** 08권은 문틈이 **손바닥 하나 → 손가락 하나 → 닫힘 →
+> 활짝**으로 좁아졌다 넓어지는 것이 열 쪽의 시계이고, 그 폭은 **라라 손바닥과 같은 깊이에 나란히 놓여야만**
+> 읽힌다(p3 지문이 그것을 못 박아 놨다). 마당 시트에는 그 자를 걸 데가 없다.
+> 🔴 그리고 이 자리는 앵커 `ADULT IN FRAME` 이 말하는 **「닫히는 문」** 그 자체다 — 여기 서는 쪽은 조건에 걸린다.
+
+```
+STAGE SHEET - Store   (mio-cutschool · SCENE token: Store · bake AFTER Kindergarten)
+
+The store shed in the corner of the kindergarten yard: one door, one dark inside, and a gap between
+them that is measured on the page. Two books use it and one of them is ten pages of that gap.
+
+🔴 THE FURROW MAP:
+  THE DOOR LEAF - SOOT cleared, furrows running VERTICALLY, board by board.
+  THE WALL beside it - cleared, furrows running HORIZONTALLY. The change is the door frame; there is
+    no drawn frame line.
+  THE GROUND at the threshold - bare earth, cleared, furrows running ACROSS the doorway.
+  🔴 THE INSIDE OF THE SHED IS OVERLAP - both blocks printed over each other, flat, 0 furrows, 0
+    detail. It is the darkest area in this whole series and it has no bottom and no back wall.
+
+🔴 THE GAP IS THE INSTRUMENT AND IT HAS FOUR WIDTHS, FIXED HERE:
+  1 A PALM WIDE - the door standing ajar. The OVERLAP strip is exactly as wide as a child's open palm.
+  2 A FINGER WIDE - almost shut. The strip is exactly as wide as one child finger.
+  3 SHUT - no strip at all; the door leaf meets the frame at one cut edge and the OVERLAP is gone.
+  4 WIDE OPEN - the leaf swung back, and the light from outside lies on the shed floor as a HARD-EDGED
+    RECTANGLE OF BARE PAPER reaching all the way to the back, with the OVERLAP driven out of frame.
+  🔴 EVERY ONE OF THE FOUR IS DRAWN AT THE SAME CAMERA AND THE SAME SIZE, with A CHILD'S HAND HELD
+  FLAT BESIDE THE GAP AT THE SAME DEPTH, because the width is only readable against the hand. 🔴 THE
+  HAND IS THE RULER AND IT IS NEVER LEFT OUT.
+
+FIXED PARTS: one plank door on two hinges, hinges at the left, opening INWARD · a raised wooden
+  threshold, one SOOT bar across the doorway · inside, when the light reaches it, ONE shelf and the
+  big ball on the floor and nothing else - never a full store room · the yard's fence entering at the
+  frame edge so the reader knows this shed stands in the yard.
+
+SPOTS:
+  A THE SHED FROM THE YARD, medium: door, wall, threshold, fence at the edge.
+  B THE GAP, medium close, low: the door leaf cutting the frame on a diagonal and the strip of
+    OVERLAP beside it, hand in frame.
+  C THE THRESHOLD, close, high: looking down at the bar, the earth outside it and the dark inside it.
+  D FROM INSIDE LOOKING OUT, medium low: the doorway as a bright bare-paper shape in a black frame.
+
+PLATE: A, B, C, D once each, plus 🔴 THE FOUR GAP WIDTHS as four panels of spot B at one size with
+  the hand in every one, plus the FURROW DIAGRAM.
+
+NOT: no character face (the hand is a ruler, not a character), no accent purple, no lettering,
+  numerals or labels on the door, no third block, no drawn white line - the light on the floor is
+  cleared paper, no smooth mechanical edge, no cleared area without furrows, no interior detail
+  inside the OVERLAP, no shading, gradient, glow, cast shadow, light ray or soft edge - the light
+  that comes through the door has hard cut edges and no beam.
+```
+
 
 ---
 
@@ -219,6 +386,42 @@ NOT: no character of any kind, no accent purple anywhere on this sheet, no lette
 | F | 개수 상한 `acorns at most 9` · `fallen leaves at most 11` | **10 · 21** | 10권 p1 「도토리가 촘촘히」·p10 「산처럼 쌓이고」, 21권 p1 「마당을 한 뼘도 안 남기고」·p10 「키만큼 쌓여 산을」. 처방 = 퐁이 `Reeds` 와 같은 갈래 — **세는 것(상한 지킴) / 덩어리(한 면, 세지 않음)**. 상한은 세어지는 것에만 건다 |
 | G | `SNOW … the two blocks print ONLY what stands on it` 과 `MADE THINGS` 사이 | **44 · 47** | 눈으로 **빚은 것**을 찍느냐 마느냐가 안 적혀 있다. 처방 = 🔴 **쌓인 눈은 안 찍고, 빚은 눈은 찍는다**(빚은 것만 서 있는 것이므로). 이 한 줄이 44·47 열 쪽을 다 정한다 |
 | H | 자리 시트에 `VillageRoad` 가 없다 | **40**(9쪽) · 23(3쪽) | 유치원 밖 마을 길. 사물이 아니라 자리라 §1 에 여섯째 시트가 필요하다. 그 안에 「길가 하얀 선 = 곧은 골 한 줄, 그 너머는 아무것도 없다」 |
+
+
+### 🔴 ✅ 2026-09-04 — 위 여덟(A~H)을 앵커·시트에 반영했고, 그러다 셋이 더 나왔다
+
+**앵커(`mio-anchor.md`)에서 고친 조항**
+
+| 신고 | 어떻게 고쳤나 |
+|---|---|
+| **A** `SNOW (volumes 24 …)` | → **`SNOW (any page where snow is on the ground)`**. 11·44·47 이 조항 안으로 들어왔다 |
+| **G** 쌓인 눈 ↔ 빚은 눈 | 같은 조항 끝에 한 줄 — 🔴 **「굴리거나 다지거나 빚은 순간 그것은 땅 위에 선 물건이라 제 윤곽을 얻는다. 그 눈이 나온 흰 바닥은 여전히 맨 종이」**. 관통 줄에도 `SNOW:` 를 넷째 줄로 올렸다(44·47 열 쪽이 이 한 줄에 달려 있다) |
+| **B** `ADULT IN FRAME` 의 쪽 목록 | 목록을 지우고 **조건만** 남겼다 — 「물·높이·닫히는 문이 있으면 전 권 전 쪽에서 바우가 프레임 안」. 🔴 목록이 있으니 26~50 은 조항 밖이었다 |
+| **C** `RIVERBANK … 0 ripples` | 물결을 **쪽이 셀 때만 · 파낸 닫힌 고리로** 열었다. 🔴 **빛 튐(`0 glints`)은 그대로 금지** — 12 p10 「잔물결마다 빛이 튄다」는 이 매체로 못 그린다(작가 몫으로 남긴다) |
+| **D** `no cast shadow` | `Style` 의 금지를 `no soft shading` 으로 좁히고, 33권 p5 가 찾아 둔 답을 조항으로 — 🔴 **「그림자는 두 판이 겹쳐 찍힌 자리다」**(OVERLAP 평면 · 칼자국 가장자리 · 번짐 0 · 얼굴에 안 걸침) |
+| **E** `no reflections` | **거울만** 예외로 갈랐다 — 물에는 여전히 반사 0, 거울은 아무도 없으면 **빈 파낸 면**이고 아이가 서면 **그 얼굴 하나만**(방은 한 조각도 안 비친다) |
+| **F** 개수 상한 | `RENDERING` 에 **「쪽이 하나로 세는 무리는 한 덩어리이고 상한 밖이다」**. 상한은 앞에 흩어진 낱개에만 걸린다(퐁이 `Reeds` 와 같은 갈래) |
+| **H** `VillageRoad` 없음 | 자리 시트로 신설 — §1.3 |
+
+**자리 시트 셋을 새로 썼다** — §1.3 `VillageRoad`(H) · §1.4 `BackLane` · §1.5 `Store`.
+🔴 뒤의 둘은 위 표에 없던 것이다. `BackLane`(10권 열 쪽 중 아홉)과 `Store`(창고, 08권 열 쪽 중 여섯)를
+**`Kindergarten` 마당에 접어 뒀는데**, 접으면 그 두 권이 사라진다:
+- `BackLane` 은 **흙길**이고 **떨어진 것이 줄로 남는** 곳이다(10 p7·p9 가 그 줄 하나로 성립). 앞길은 포장길이라
+  고랑 방향이 반대이고, 시트가 그 둘을 **고랑 방향만으로** 가르게 못 박았다.
+- `Store` 는 **문틈 폭이 시계**다(손바닥 → 손가락 → 닫힘 → 활짝). 🔴 그 폭은 **라라 손바닥과 같은 깊이에
+  나란히** 놓여야만 읽히는데(08 p3 지문이 그렇게 적어 놨다) 마당 시트에는 그 자를 걸 데가 없다.
+  그리고 이 자리는 앵커 `ADULT IN FRAME` 이 말하는 **「닫히는 문」 그 자체**다.
+
+**SCENE 토큰 3쪽을 고쳤다** — 23 p6·p7·p8 `BackLane` → **`VillageRoad`**. 지문이 「**유치원 앞** 길」인데
+**뒷길** 토큰이 붙어 있었다. 경로표는 `--resync mio --apply`(**자리 어긋남 0**).
+
+**관통 줄을 500쪽에서 세어 봤다 — 하나가 거짓이었다**
+
+| 줄 | 실측 |
+|---|---|
+| 🔴 `CLASS: … each carries one small PURPLE thing, always` | **거짓이다.** 아이가 있는데 보라가 화면에 없는 쪽 **9**(25 p6·25 p9·28 p7·36 p4·36 p5·38 p6·40 p5·07 p6·09 p9). 🔴 **아홉 다 익스트림 클로즈업이다** — 손가락 둘·발끝·주둥이만 든 프레임이라 가방이 물리적으로 못 들어온다. 「always」를 지키려 들면 화가가 **구석에 보라를 만들어 넣고**, 그러면 그 물건이 쪽마다 몸에서 옮겨 다닌다 → **「그 아이의 몸이 프레임 안에 있는 동안」**으로 조건을 달고, 잘린 프레임 아홉은 예외로 명시했다 |
+| 🔴 `THE CLASS IS … NOBODY ELSE` | **거짓이다.** 26권(엄마 고양이 8쪽) · 28권(할머니 양 8쪽) · 50권(우체부 염소 4쪽) = **20쪽에 손님 어른**이 선다. 조항이 겨눈 것은 **여섯째 아이**지 손님이 아니었다 → **`THERE IS NEVER A SIXTH CHILD`** 로 좁히고, 「손님 어른은 바우처럼 짓고 아이를 크게 그린 것으로 만들지 않는다 · 보라 없음」을 달았다 |
+| `CARVE:` · `BAU:` | 참이다. 바우에게 보라가 붙은 쪽 **0** |
 
 ### §2.1 PaperChain — 실제 프롬프트 (🔴 색 셋을 잉크 둘로)
 

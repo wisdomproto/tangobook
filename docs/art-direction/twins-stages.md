@@ -30,16 +30,18 @@ ALLOWED HERE` — 기름옷·부표·등불·그물·뜸·등대 몸통·종이�
 
 ---
 
-## §1. 자리 시트 — 6장 (후보 16에서 접음)
+## §1. 자리 시트 — 8장 (후보 16에서 접음 · 🔴 2026-09-04 에 둘을 더했다)
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
 | `SeaAndSky` | (전 권 공통) | 🔴 **자리가 아니라 방향표.** 아래 §1.1 |
-| `Shore` | 모래밭 · 모래밭 위 · 언덕 아래 모래밭 · 파도가 물러간 모래밭 · 바위 앞 모래밭 · 등대 아래 모래밭 · 배 밑과 모래밭 · 넓은 모래밭 · 부두 앞 모래밭 | 한 모래밭의 여러 목 + **상태 하나** |
-| `Harbour` | 부두 · 부두 바닥 · 부두 앞 · 부두 위 · 부두 초입 · 물 위 · 배 옆 | |
-| `Home` | 집 안 · 집 마당 · 집 부엌 · 마당 | |
+| `Shore` | 모래밭 · 모래밭 위 · 언덕 아래 모래밭 · 파도가 물러간 모래밭 · 바위 앞 모래밭 · 등대 아래 모래밭 · 배 밑과 모래밭 · 넓은 모래밭 · 부두 앞 모래밭 | 한 모래밭의 여러 목 + **상태 하나**. SPOT = `Shore/A`~`Shore/D` |
+| `Harbour` | 부두 · 부두 바닥 · 부두 앞 · 부두 위 · 부두 초입 · 물 위 · 배 옆 | 🔴 **뭍에서 본 배까지**. 배에 타면 `Boat` |
+| 🔴 `Boat` | 배 위 · 뱃전 · 뱃고물 · 뱃바닥 · 통통배 안 | **신설**(§1.5). 카메라가 배에 타면 다른 무대다 |
+| `Home` | 집 안 · 집 부엌 · 방 · 집 마당 · 마당 | §1.3. SPOT = `Home/방`·`Home/부엌`·`Home/마당` |
 | `Village` | 골목 안 · 마을 마당 · 잔치 마당 | 🔴 **집 마당과 다른 곳** |
-| `Lighthouse` | 등대 언덕 · 언덕 옆 바위 | 09권 · 소나무 한 그루가 고정 부품 |
+| 🔴 `RockPools` | 바위밭 · 바위틈 웅덩이 · 물가 자갈밭 · 갯벌 | **신설**(§1.4). 🔴 **23권 마당 웅덩이는 여기가 아니라 `Home/마당`** |
+| `Lighthouse` | 등대 언덕 · 언덕 옆 바위 | 소나무 한 그루가 고정 부품 + 🔴 **불의 상태 셋 · 크기 세 단**(§1.6) |
 
 ### §1.1 SeaAndSky — 실제 프롬프트 (🔴 가장 먼저 · 이건 자리가 아니다)
 
@@ -105,11 +107,14 @@ FIXED PARTS:
   · IN FRONT OF THE HARBOUR (far right, the wall visible). Fix on this sheet WHERE EACH ONE IS, so
   that a page which names one of them is standing in a decided spot and not a new beach.
 
-SPOTS:
-  A THE WHOLE SAND, wide, eye level: rocks left, hill and lighthouse right, sea across the top.
-  B BY THE ROCKS, medium: the group at frame left, sand running away right.
-  C THE SAND, close, high: bare paper and whatever is on it.
-  D THE WATER LINE, medium: the hard edge where the wet ATLANTIC pull meets bare sand.
+SPOTS - 🔴 the SCENE token carries the letter, so the letters are the names and nothing else:
+  Shore/A THE WHOLE SAND, wide, eye level: rocks left, hill and lighthouse right, sea across the top.
+    This is the default - a page that just says "the sand" is standing here.
+  Shore/B BY THE ROCKS, medium: the group at frame left, sand running away right.
+  Shore/C THE SAND, close, high: bare paper and whatever is on it, no horizon in frame.
+  Shore/D THE WATER LINE, medium: the hard edge where the wet ATLANTIC pull meets bare sand.
+  🔴 A SECOND WORD AFTER THE LETTER IS THE STATE, NOT A PLACE - `Shore/A · 젖음` is spot A with the
+    WET SAND pull laid on it. The state never changes which spot the camera stands in.
 
 PLATE: A, B, C, D once each, plus 🔴 A PLAN DIAGRAM of the sand with the four named places marked,
   plus A drawn TWICE - dry and with the wet pull - at the same size.
@@ -117,6 +122,204 @@ PLATE: A, B, C, D once each, plus 🔴 A PLAN DIAGRAM of the sand with the four 
 NOT: 🔴 no yellow anywhere / no character / no lettering or numerals / no third drum / no foam,
   glint or reflection / no seaweed drawn strand by strand / no gradient, glow or soft edge / the
   sand is never printed.
+```
+
+### §1.3 Home — 실제 프롬프트 (🔴 104쪽 23권 · 이 시리즈에서 제일 많이 서는 자리)
+
+> 🔴 **이 시트가 노랑 규칙을 걸 데를 만든다.** 앵커 표식 ①은 「리리 노랑은 화면 위 띠 · 롤로 노랑은 아래 띠」인데,
+> 31·32·41 은 그 규칙을 **가구로** 낸다(31 p6 「걸린 노랑은 화면 위, 늘어진 노랑은 화면 아래」).
+> 못과 침대 밑이 어디 있는지 시트가 안 정하면 화가가 걸 데가 없다.
+
+```
+STAGE SHEET - Home   (twins-risoshore · SCENE token: Home · SPOTS: Home/방 · Home/부엌 · Home/마당)
+
+The twins' house above the harbour. Twenty-three of the fifty books stand here, so this drawing
+decides it once. It is THREE ROOMS AND A YARD and they never move.
+
+FIXED PARTS - THE ROOM (Home/방):
+  🔴 TWO BEDS, LOW, SIDE BY SIDE, HEADBOARDS AGAINST THE BACK WALL - RIRI'S ON THE LEFT AND LOLO'S ON
+    THE RIGHT, the same order as the anchor's SIDES rule, on every page of every volume. The beds are
+    INK2, the blankets one flat pull each, identical.
+  🔴 THE TOP BAND AND THE BOTTOM BAND. A WOODEN PEG is driven into the wall at the head of Riri's bed,
+    one hand above her pillow - that peg is WHERE THE YELLOW HAT HANGS and it is the highest thing in
+    the room after the window. THE FLOOR UNDER LOLO'S BED is open, no drawer and no box - that gap is
+    WHERE THE YELLOW BOOTS STAND and it is the lowest thing in the room. 🔴 The two are on the SAME
+    WALL and at OPPOSITE ENDS OF THE FRAME'S HEIGHT, so a page that shows both shows one yellow near
+    the top edge and one near the bottom edge with the whole room between them.
+  ONE WINDOW in the left wall, a plain INK2 rectangle with 0 frame bars, sill at a child's chest. The
+    sea shows through it as that volume's SeaAndSky pull, running that volume's direction.
+  A CHEST at the foot of the beds, INK2. Nothing else. No pictures, no shelf, no rug.
+FIXED PARTS - THE KITCHEN (Home/부엌): one table with two child chairs and two adult chairs, the
+  chairs identical · a stove against the right wall · a shelf of at most 6 vessels of one shape · a
+  second window over the work top. Floor is BARE PAPER, walls are bare PAPER, everything standing on
+  it is INK1 or INK2.
+FIXED PARTS - THE YARD (Home/마당): whitewashed wall waist-high closing the far side, one gate in it ·
+  a line for washing running wall to wall · the big wooden tub standing to the right of the door ·
+  BARE PAPER ground. Beyond the wall, roofs going down toward the harbour, INK2, at most 8, standing
+  CLOSER TOGETHER as they go down - never smaller and never paler.
+
+🔴 THE YARD HAS ONE STATE AND IT IS NOT A NEW PLACE - AFTER RAIN, the middle of the yard is a single
+  flat pull of ATLANTIC with a HARD edge against the bare ground: a puddle. It sits between the door
+  and the gate, wider than a twin is tall, and it is the only water in this sheet. 🔴 THIS IS WHERE
+  VOLUME 23 LIVES, all ten pages - it is not a rock pool and there is no rock, no seaweed and no sea
+  in frame. A ripple on it exists only where the page counts one (at most 3 closed rings of bare
+  paper, hard-edged); otherwise 0.
+
+SPOTS:
+  Home/방 THE ROOM, medium, from the door: both beds, the peg above the left one, the gap under the
+    right one, the window at frame left.
+  Home/부엌 THE KITCHEN, medium, eye level: the table across the frame, stove right, window behind.
+  Home/마당 THE YARD, wide, eye level: door at frame left, tub right, the low wall and the roofs
+    beyond it - drawn TWICE at the same size, dry and with the puddle.
+
+PLATE: the three spots once each, plus 🔴 A HEIGHT DIAGRAM of the room wall showing the peg and the
+  under-bed gap as the two extreme bands of the frame, plus the yard drawn dry and wet side by side.
+
+NOT: 🔴 no yellow anywhere on this sheet (the peg is empty and the gap under the bed is empty) / no
+  character / no lettering, numerals or signs / no third drum / no reflection in the puddle / no
+  gradient, glow or soft edge / no roof paler or smaller with distance / the ground is never printed
+  except where the puddle is.
+```
+
+### §1.4 RockPools — 실제 프롬프트 (🔴 신설 · SCENE 이 쓰는데 시트가 없던 자리)
+
+> 🔴 **이 토큰 안에 서로 다른 바닥 넷이 들어 있었다** — 바위틈 웅덩이(15·02·09·01) · 물가 자갈밭(10) ·
+> 갯벌(05) · **집 마당 웅덩이(23)**. 앞의 셋은 **물이 빠지고 드러난 한 바닥**이라 한 시트의 세 자리로 접었고,
+> **23권만 뺐다** — 거기는 바다가 아니라 집 마당이고 열 쪽 전부 집이다(→ `Home/마당`, §1.3).
+> 접어 두었으면 23권이 통째로 바닷가로 갔다.
+
+```
+STAGE SHEET - RockPools   (twins-risoshore · use the anchor's ROCKPOOL AND LOW-TIDE GROUND clause ·
+                           SCENE token: RockPools · bake AFTER Shore)
+
+The left end of the shore when the tide has gone out. Six books stand here. It is ONE GROUND with
+THREE FACES, and this sheet decides which face is where so that a page naming one is standing in a
+decided spot and not on a new beach.
+
+🔴 THE ONE THING ALL THREE SHARE: the tide has left, so the GROUND is INK2 and the WATER THAT STAYED
+  is ATLANTIC - one flat pull each, meeting at a HARD edge. There is no wet-to-dry fade anywhere on
+  this sheet. The sea itself is a single ATLANTIC pull far off at the top, running that volume's
+  SeaAndSky direction, 0 ripples and 0 glints.
+
+FIXED PARTS:
+  THE ROCKS - a low group of INK2 masses, each ONE flat shape, 0 texture, the streak running ALONG
+    each rock and never across it. They are the same rocks that close the left end of the `Shore`
+    sheet, seen from the other side; 🔴 the hill and the lighthouse are still at the far right, so a
+    reader can place themselves.
+  THE POOLS - at most 6 of them between the rocks, each ONE pull of ATLANTIC with a hard edge, no two
+    the same shape and none mirroring its neighbour. 🔴 ONE OF THEM IS THE BIG ONE - deeper than a
+    twin's knee, wide enough to hold a whole body's reflection if this book had reflections (it does
+    not), and it is the pool every volume that needs a big pool uses.
+  WHAT IS INSIDE A POOL IS OVERLAP LYING INSIDE THE PULL - hard edge, never distorted, never
+    mirrored, and it never breaks the pool's outline.
+  SEAWEED is INK2, at most 9 separate strands lying loose; a bed of weed is ONE flat shape and is
+    exempt from that count.
+  A DARK CLEFT between two rocks, OVERLAP, open on one side - the place a thing can be lost into.
+
+🔴 THREE FACES OF THE SAME GROUND - fix WHERE EACH ONE IS:
+  ROCK FIELD (nearest the shore) - rock masses and pools between them; the ground underfoot is rock.
+  PEBBLE BANK (between the rock field and the water) - the ground is INK2 covered with loose stones.
+    🔴 AT MOST 12 STONES ARE DRAWN AS SEPARATE SHAPES, each a different size and outline; the rest of
+    the bank is ONE flat INK2 shape with no interior marks. A page that says the pebbles go on and on
+    draws the one shape, never a tally.
+  MUDFLAT (out beyond both, where the sea went) - one wide flat INK2 ground running to the horizon,
+    the retreated waterline a single hard ATLANTIC edge far off. Holes dug into it are OVERLAP marks
+    with a small INK2 heap beside each; at most 9 counted, more than that is ONE shape of worked
+    ground. 🔴 NOTHING STANDS UP HERE - this is the emptiest sheet in the book and that is the point.
+
+SPOTS:
+  A THE WHOLE GROUND, wide, high: rock field at frame left, pebble bank, mudflat running out to the
+    waterline, the hill and lighthouse small at the far right.
+  B ONE POOL, medium, eye level: the big pool with its rock lip, a twin's-eye view across it.
+  C INTO A POOL, close, straight down: only the ATLANTIC pull and the OVERLAP shapes inside it.
+  D THE PEBBLE BANK, close, high: the twelve separate stones in front, the one flat shape behind.
+
+PLATE: A, B, C, D once each, plus 🔴 A PLAN DIAGRAM naming where the rock field, the pebble bank, the
+  big pool, the cleft and the mudflat sit relative to one another and to the `Shore` sheet's rocks.
+
+NOT: 🔴 no yellow anywhere / no character / no lettering or numerals / no third drum / no reflection
+  of any kind in any pool / no ripple, glint, sparkle or foam / no gradient, glow or soft edge / no
+  wet-to-dry fade - the wet edge is hard / nothing paler with distance / no yard, wall, house or
+  washing line (that is `Home/마당`, and volume 23 belongs there).
+```
+
+### §1.5 Boat — 실제 프롬프트 (🔴 신설 · 46권은 열 쪽 중 여덟이 여기다)
+
+> 🔴 **`Harbour` 가 「배 옆·물 위」를 든다고 적혀 있었지만, 카메라가 배에 타면 다른 화면이다.**
+> 뭍에서 보는 배는 실루엣 하나지만, 타고 있으면 뱃전이 화면을 자르고 바다가 그 밖으로만 보인다.
+> 실측 = 25·36·46 이 이 자리를 여러 쪽씩 쓰고, 46권은 여덟 쪽이 배 안이다.
+
+```
+STAGE SHEET - Boat   (twins-risoshore · use the anchor's BOAT clause · SCENE token: Boat ·
+                      bake AFTER Harbour)
+
+Dad's motor boat, seen FROM INSIDE IT. This is not the harbour and it is not the sea - it is the one
+stage in the book that MOVES, and the whole point of it is that the boat never changes while
+everything outside the gunwale does.
+
+FIXED PARTS - one boat, drawn once and never redesigned:
+  THE HULL is INK2. THE GUNWALE is the top edge of that hull and 🔴 IT CUTS THE FRAME AS ONE HARD
+    INK2 EDGE AT A TWIN'S CHIN when the twin stands on the floor boards - that height is the whole
+    measure of this stage and it never varies. A twin can lay its chin on it; a twin cannot see over
+    it sitting down.
+  THE FLOOR BOARDS are INK2 with the streak running FORE AND AFT, bow to stern, on every page - 🔴
+    that direction is what tells the reader which way the boat is pointing when the sea gives no clue.
+  THE STERN carries the TILLER, one INK2 bar standing up from the deck at a twin's shoulder, hinged
+    at its foot, swinging left and right in the plane of the boards. Riri's place is beside it.
+  THE BOW carries the MOORING BITT and the coiled rope, INK2, and Dad's place is there.
+  THE THWART, one plank across the middle at a twin's knee - the only place to sit.
+  BILGE WATER lies in the lowest part of the floor as ONE flat ATLANTIC pull with a hard edge, and it
+    is the only water inside the boat.
+  A LAMP on a hook at the stern - BARE PAPER when it is lit, INK2 when it is not, no glow and no halo.
+
+🔴 WHAT IS OUTSIDE THE GUNWALE IS ONLY THIS: that volume's SeaAndSky pull, running that volume's
+  direction, and at most ONE far thing sitting whole on top of it - the harbour wall, the lighthouse
+  hill, another hull. 0 ripples off the bow, 0 wake, 0 spray and 0 reflections, unless the page
+  COUNTS a wake, in which case it is at most 3 closed rings or ONE bare-paper strip and nothing else.
+  🔴 THE SEA OUTSIDE NEVER GETS PALER TOWARD THE HORIZON.
+
+SPOTS:
+  A THE WHOLE BOAT FROM THE STERN, wide, eye level: tiller near, thwart across the middle, bow and
+    Dad far, the gunwale cutting both sides of the frame.
+  B AT THE GUNWALE, medium: the hard INK2 edge across the frame with a chin on it and only sea beyond.
+  C THE FLOOR, close, high: boards running fore and aft, the bilge pull, boots on them.
+  D THE STERN, medium low: the tiller bar and the hand on it, the boat's wake side of the frame.
+
+PLATE: A, B, C, D once each, plus 🔴 A SIDE DIAGRAM of the boat with the gunwale height marked
+  against a twin standing and the same twin sitting, plus one panel of the same view A with the three
+  SeaAndSky directions outside it, to prove the boat does not change when the weather does.
+
+NOT: 🔴 no yellow except a twin's own hat and boots / no lettering, numerals or a name on the stern /
+  no third drum / no reflection or mirrored shape in the water / no spray, foam, glint or sparkle /
+  no gradient, glow, soft edge or motion blur / no rope drawn strand by strand / nothing paler with
+  distance / no harbour crowd - if the quay is in frame it is at most 4 flat silhouettes.
+```
+
+### §1.6 Lighthouse — 🔴 불의 상태 셋과 크기 세 단을 이 시트가 확정한다
+
+> 기존 표는 「소나무 한 그루가 고정 부품」뿐이었다. 그런데 불이 나오는 권이 **09 · 30 · 40 · 46 · 48 다섯**이고,
+> 권마다 다른 거리에서 본다. 🔴 **크기가 권마다 커졌다 작아졌다 하면 마을이 늘었다 줄었다 한다.**
+
+기존 `FIXED PARTS`(언덕 · 탑 몸통 INK2 · 소나무 한 그루 · 언덕 옆 바위)에 아래를 **더한다**.
+
+```
+🔴 THE LIGHT HAS EXACTLY THREE STATES AND NOTHING BETWEEN THEM:
+  DARK - the lamp room is INK2 like the tower. Nothing bare.
+  LIT - ONE clean shape of BARE PAPER cut into the lamp room, hard-edged, 0 glow, 0 rays, 0 halo,
+    and it is the brightest thing on the page.
+  SWEEPING - the same bare shape plus ONE CUT BAND of bare paper leaving the lamp room and crossing
+    the sky toward the sea: a band of even width with two hard parallel edges, NOT a cone, NOT a
+    fan and NOT tapered. It is a piece of paper, not a ray of light.
+
+🔴 THE LIGHT HAS EXACTLY THREE SIZES AND THEY ARE FIXED BY WHERE THE READER STANDS:
+  NEAR (under the tower, volume 09) - the lit shape is as wide as a twin's head.
+  MIDDLE (from the sand below the hill) - as wide as a twin's hand.
+  FAR (from the village or the harbour, over the wall) - THE SAME SIZE AS ONE LIT WINDOW IN THE
+    VILLAGE, and never bigger. 🔴 This is the size that keeps the village the size it is.
+  The TOWER shrinks with distance in the ordinary way; THE LIGHT DOES NOT SHRINK BELOW ONE WINDOW.
+
+PLATE: add one strip - the three states at the NEAR size, and the LIT state at all three sizes with
+  a village window drawn beside the FAR one at the same scale.
 ```
 
 ---
@@ -1852,6 +2055,81 @@ p10 「바닥까지 길게 내려온 초록 빛무늬」로 **착지 전체가 �
 
 → 추출기가 **다섯 라벨을 다 읽고 · 조사를 떼고 · 한 글자를 버리지 않게** 고치는 편이 낫다.
 안 고치면 남은 시리즈에서 같은 것이 또 빠지고, **표를 천장으로 쓰는 다음 사람이 그대로 놓친다.**
+
+
+### §2.41 ✅ 2026-09-04 — 위 신고 중 처리한 것과, 처리하며 새로 나온 것
+
+**앵커(`twins-anchor.md`)에서 고친 조항 일곱**
+
+| # | 무엇 | 어떻게 |
+|---|---|---|
+| ⑩ | `no cast shadow` 가 일곱 권을 막던 것 | `Style` 의 금지를 `no soft shading` 으로 좁히고, **`A LOW-SUN SHADOW IS A FLAT OVERLAP SHAPE … HARD edge`** 한 줄을 그 자리에 넣었다. 금지를 푼 게 아니라 **번역했다**(lulu 처방과 같은 갈래) |
+| ② | `0 ripples` 와 대본 네 곳 | `RENDERING` 에 **「물결은 쪽이 셀 때만, 한 프레임에 담기는 물에서만, 맨 종이 닫힌 고리 최대 셋」**. 바다는 여전히 0 이라 10권 세 고리와 30권 통 한 줄만 통과한다 |
+| ③ | `shells at most 9` vs 「서른 개」 | `RENDERING` 에 **「쪽이 하나로 세는 무리는 한 덩어리이고 상한 밖이다」**. 상한은 앞에 흩어진 낱개에만 걸린다 |
+| 🔴 | **권 번호에 박힌 조항 넷** | `LIGHTHOUSE (volume 09)` → **탑이나 불이 화면에 있는 쪽** · `FOG (volume 12)` → **안개 낀 쪽** · `NIGHT (volume 17)` → **밤·저녁이라고 적힌 쪽** · `RAIN AND SQUALL (volume 19)` → **비가 그 권의 날씨인 권** |
+| 🔴 | **그 목록이 틀려 있었다** | 🔴 **19권은 비 오는 권이 아니다** — 열 쪽 중 비는 p8·p9 둘뿐이고 p5 는 해가 기운 쪽이다. **진짜 비 권은 34권**(열 쪽 전부 비, 비옷 권). 조건으로 바꾸니 34가 들어오고 19가 빠졌다. 대신 「한 소나기만 지나가는 권은 제 방향을 지키고 소나기는 빗줄기 11 뿐」을 달았다(방향은 권의 것이라 권 안에서 못 바뀐다) · 등대도 09 하나가 아니라 **09·30·40·46·48 다섯**이었다 |
+| ⑫ | `Boat` 무대 조항 없음 | `STAGE CLAUSES` 에 **`BOAT (any page where the camera is aboard)`** 신설 — 뱃전이 턱 높이의 INK2 한 줄로 화면을 자르고, 그 밖은 그 권의 SeaAndSky 뿐 |
+| ⑬⑧ | 주머니 · 쥔 앞치마 | `CHARACTER DESIGN LANGUAGE` 에 **엉덩이 양쪽 주머니 둘(자리 고정 · 불룩/홀쭉 두 상태)** 과 **앞치마 아랫귀퉁이가 쥐어져 윤곽이 당겨진 상태**. §2 캐스트 시트에도 그 두 상태를 따로 그리게 넣었다 |
+
+**자리 시트 넷을 새로 썼다** — §1.3 `Home`(⑦) · §1.4 `RockPools`(⑪) · §1.5 `Boat`(⑫) · §1.6 `Lighthouse` 불 조항(⑥).
+§1.2 `Shore` 의 SPOT 에 **토큰 이름(`Shore/A`~`Shore/D`)** 을 박았다 — SCENE 이 글자로 그 이름을 쓰는데 시트가
+「A 넓은 모래밭」처럼만 적어 놔서 **검사기가 넷을 「없는 자리」로 세고 있었다**.
+
+**SCENE 토큰 23쪽을 고쳤다**(한국어 지문은 한 글자도 안 건드렸다)
+
+- **23권 8쪽** `RockPools`·`Home` → **`Home/마당`**. ⑪ 의 판정 그대로 — 23권은 바다가 아니라 **집 마당 웅덩이**이고
+  열 쪽 전부 집이다. 접어 뒀으면 화가가 바위와 해초를 그렸다.
+- **02권 2쪽** `RockPools` → **`Shore/B`**. §3 표가 「바위 앞 모래밭 = `Shore/B`」로 이미 정해 놨는데 SCENE 만 옛 답을
+  들고 있었다. 이걸 안 고치면 `Shore/B` 는 **아무 쪽도 안 가리키는 이름**으로 남는다.
+- **25·36·46권 13쪽** `Harbour`·`SeaAndSky` → **`Boat`**. 🔴 그중 여섯 쪽은 `SeaAndSky` 였는데 **그건 자리가 아니라
+  방향표**다(§1.1 첫 줄이 스스로 그렇게 말한다) — 자리 칸에 그게 들어가 있으면 화가가 그릴 것이 없다.
+- 경로표는 `build-series-routes.mjs --resync twins --apply` 로 따라가게 했다(**자리 어긋남 0**).
+- 검사 = `check-stage-tokens.mjs twins` **0**.
+
+**관통 줄을 실제로 세어 봤다** — 넷 중 **거짓은 하나도 없었다.**
+
+| 줄 | 실측 |
+|---|---|
+| `SIDES:` | 500쪽 중 **둘 다 나오는 쪽 245**, 그중 **좌우를 명시한 18쪽이 예외 0**으로 리리 왼쪽. 참이다. 🔴 다만 앵커 본문이 **`on all 250 pages`** 라고 적고 있어 **숫자만 낡아 있었다** → 실측값으로 교체 |
+| `YELLOW:` | 노랑이 모자·장화 아닌 것에 붙은 쪽 **0**. 31·32·50 의 「노랑」은 전부 **띠 위치를 말하는 문장**이다 |
+| `OFF:` · `TWINS:` | 매체·규격 규칙이라 셀 대상이 아니고, 어기는 쪽도 없다 |
+
+
+**🔴 앵커가 스스로 모순돼 있었다 — 노랑 띠 규칙**(코디네이터 신고 갈래, 실측 2026-09-04)
+
+같은 파일 안에서 두 조항이 싸우고 있었다.
+
+- 표식 ① : `The two yellows are never in the same band of the page` (예외 없음)
+- `PALETTE` : `THE HAT AND THE BOOTS KEEP THEIR YELLOW WHEN THEY ARE OFF THEIR OWNER - on a hermit
+  crab, on an octopus, floating on water, lying on sand`
+
+**벗겨진 노랑은 띠를 못 지킨다.** 그리고 대본이 그걸 **일부러** 한다 — 500쪽을 세어 보니 다섯 쪽이다:
+🔴 **09 p8·p9·p10 은 두 띠가 통째로 뒤바뀐다**(모자가 모래에 떨어지고 장화가 하늘을 찬다. 그 권의 웃음이다) ·
+**15 p8·p10 은 모자가 웅덩이에 뜬다**(아래 띠). 나머지 쪽에서는 규칙이 그대로 참이고, 31·32·41 은
+**그 규칙을 가구로 증명한다**(기둥의 모자 = 위 / 침대 밑 장화 = 아래).
+
+→ 규칙을 지우지 않고 **조건을 달았다**: 띠 규칙은 **쓰고 신고 있는 노랑**을 다스리고, 벗겨진 노랑은
+이야기가 놓는 자리로 간다. 🔴 그리고 **「두 표식이 매 쪽 보인다」를 귀에만 남겼다** — 노랑은 다섯 쪽에서
+사라지지만 귀는 안 사라지므로, 앵커가 둘을 같은 무게로 말하면 안 된다.
+
+**🔴 검사기가 한글 섞인 토큰을 통째로 못 읽고 있었다** — 같은 날 고쳤다(`check-stage-tokens.mjs`).
+정규식이 `[A-Za-z0-9/]` 만 받아서 `[Home/마당]`·`[Alley · 자국]`·`[NoodleBoat/뱃바닥]` 같은 토큰이
+**세어지지도 대조되지도 않은 채 「미매칭 0」으로 통과**했다. 실측 = **bung 21쪽 · nono 57쪽 · twins 26쪽 ·
+pongi 4쪽 · dingding 3쪽**. 🔴 지시서가 「taro · bung = 0」이라 적은 것은 이 눈먼 자리 때문이고,
+고친 뒤 bung 은 **시트 없는 토큰 5종(21쪽)** 이다. 상태 꼬리(` · 젖음`)는 자리가 아니라 상태라 시트
+이름에서 떼고 대조한다.
+
+**새로 나온 것 둘 — 이건 안 고쳤다**
+
+1. 🔴 **25권 p10 이 앵커를 어긴다.** 지문이 「롤로는 두 귀가 **목 뒤로 누운** 채」인데 앵커는 그 방향을 못 박아
+   금지한다 — `Lolo's ears are never folded away behind his neck where a front view loses them`.
+   쌍둥이를 가르는 **유일하게 남는 표식**이라 이 한 쪽에서 롤로가 리리가 된다.
+   → SCENE 지문 한 줄 수정(「양옆으로 늘어진 채」). 🔴 **토큰이 아니라 지문이라 여기서 안 고쳤다.**
+2. **18권 「초록 유리」 = ① 안 (a) 로 판정한다.** 팔레트에 초록이 없고, 세 번째 드럼은 앵커·무대·캐스트·사물
+   시트 전부를 떠받치는 「드럼 둘」을 무너뜨린다. **고칠 곳은 앵커가 아니라 본문 낱말 서넛**이다 —
+   바다 유리는 파란 게 흔하고, 그 쪽이 요구하는 것은 「넓은 밝은 모래에서 작은 것 하나만 색을 가진다」이지
+   초록이 아니다. 실측 = 「초록」이 나오는 쪽은 **18권 p8·p9·p10 셋뿐**이라 고칠 범위가 좁다.
+   → **comic-writer 몫**(본문 + SCENE). 앵커는 손대지 않았다.
 
 ---
 

@@ -1,6 +1,6 @@
 # 미오네 유치원 — 앵커 + 캐스트 시트
 
-> 창작동화 **시리즈 07** (25권 · 250쪽). 설계 SSOT = `docs/changjak-books/mio/_design.md` ·
+> 창작동화 **시리즈 07** (**50권 · 500쪽**. 「25권 250쪽」은 늘기 전 숫자다). 설계 SSOT = `docs/changjak-books/mio/_design.md` ·
 > 대본 = `docs/changjak-books/mio/*.md`
 > 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
 > 🔴 **한 시리즈 = 한 그림체.** 이 시리즈는 **리노컷 전권** — `pongi-anchor.md` §5 보류분
@@ -54,7 +54,10 @@ Style: linocut printed in exactly TWO inks on thick oatmeal paper, 4-6 year old 
   every edge is a cut edge, slightly ragged, never mechanically smooth. The gouge marks that clear an
   area stay visible as parallel furrows. Where the two blocks overlap a third, darker colour appears
   - that is the only dark. Unprinted paper is not white space, it is the window light, the snow and
-  the whitewashed wall. SHADING IS ZERO - no modelling, no gradient, no cast shadow, no highlight.
+  the whitewashed wall. SHADING IS ZERO - no modelling, no gradient, no soft shading, no highlight.
+  🔴 A SHADOW IS THE PLACE THE TWO BLOCKS PRINTED OVER EACH OTHER, NOTHING ELSE - a flat OVERLAP area
+  with a CUT edge, 0 fade at its far end, 0 furrows inside it, drawn only where the page says a low
+  sun or a lamp throws one. It never sits under a thing as a modelling tone and never falls on a face.
 
 RENDERING (finish hierarchy): a cleared area is not blank - it carries the parallel furrows of the
   tool that cleared it, AT MOST 9 FURROWS PER AREA, all running one way within that area, and the
@@ -69,9 +72,17 @@ RENDERING (finish hierarchy): a cleared area is not blank - it carries the paral
   most 11 · acorns at most 9 · ducks on the river at most 5 · a village crowd at most 7 flat
   silhouettes with 0 faces and 0 hands · falling snow at most 14 gouged points · stars at most 14
   gouged points. Nothing in a repeat is a mirrored copy of its neighbour.
+  🔴 A CAP COUNTS THE THINGS THE PAGE COUNTS. A crowd of one kind that the page treats as ONE THING -
+  leaves covering a yard, acorns heaped into a hill - is a SINGLE cleared area with its own furrow
+  direction and no interior detail, and it is exempt from its cap; the cap then applies only to the
+  few that lie loose in front of it. A page that says the yard is covered draws the one area, never a
+  tally.
   DENSITY RATION = none. 🔴 THE KNIFE SLIPS ONCE PER SPREAD AND THAT SLIP IS LEFT IN.
-  🔴 THE CLASS IS FIVE CHILDREN AND ONE TEACHER AND NOBODY ELSE - never an extra child to fill a
-  gap. When fewer than five are in the story, fewer than five are on the page.
+  🔴 THE CLASS IS FIVE CHILDREN AND ONE TEACHER AND THERE IS NEVER A SIXTH CHILD - never an extra
+  child to fill a gap. When fewer than five are in the story, fewer than five are on the page and the
+  place they left shows. A grown-up from outside the class (a mother, a grandmother, the postman)
+  stands in the volume that brings one; a grown-up is BUILT LIKE TEACHER BAU AND NEVER LIKE A LARGER
+  CHILD, and wears no purple.
 
 PALETTE: PAPER OATMEAL #F0EAD8, window light, snow, whitewash, paper, everything not printed · INK1
   SOOT #3B3A33, walls, floor, furniture, the teacher's mass, blocks, tree trunks, animal backs - the
@@ -91,20 +102,32 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
   YARD - the ground is BARE PAPER; the fence, the swing frame, the ladder and the tree are SOOT; the
     play house roof and the water tub are RIVER. Depth is made by things standing CLOSER TOGETHER,
     never darker.
-  RIVERBANK - the river is ONE flat block of RIVER running across the page, 0 ripples, 0 glints. A
-    thing on the water sits on top with its whole shape showing; a thing under it is OVERLAP inside
-    that block. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are no reflections in this book.
+  RIVERBANK - the river is ONE flat block of RIVER running across the page, 0 glints and 0 sparkle.
+    🔴 A RIPPLE EXISTS ONLY WHERE A PAGE COUNTS ONE, and it is then a CLOSED GOUGED RING - a channel
+    of cleared paper cut into the block, one ring per thing that touched the water, the count set by
+    the page and the rings never overlapping. Water that nobody touched carries 0 rings. A thing on
+    the water sits on top with its whole shape showing; a thing under it is OVERLAP inside that
+    block. 🔴 NOTHING IS EVER MIRRORED IN THE WATER - there are no reflections in water in this book.
     The bank, the reeds and the stones are SOOT with the furrows running ALONG the thing.
-  🔴 SNOW (volumes 24 and the winter yard) - the ground and the sky are not printed at all, BARE
+  🔴 A MIRROR IS THE ONE EXCEPTION AND IT IS NOT WATER - a hung mirror or a washstand glass is a
+    cleared area with a cut edge, EMPTY when nobody is in front of it, and when a child stands in
+    front of it it holds THAT ONE FACE AND NOTHING ELSE. The room behind is never in it, no furniture,
+    no window, no second child. Nothing is flipped or distorted.
+  🔴 SNOW (any page where snow is on the ground) - the ground and the sky are not printed at all, BARE
     PAPER from edge to edge, and the two blocks print ONLY what stands on it. A footprint in the snow
     is a single SOOT mark; a mound gets at most 3 SOOT marks along its lower lip and nothing else.
+    🔴 LYING SNOW IS NOT PRINTED AND MADE SNOW IS - the moment snow has been rolled, patted or built
+    into a thing it is a thing standing on the ground, so it gets its own cut outline like anything
+    else that stands. A snowball in a hand, a snow duck, a heap somebody piled: printed. The white
+    ground it came from: still bare paper.
   🔴 MADE THINGS NEVER TAKE THE ACCENT - a paper chain (19) is cut in SOOT and RIVER links only, and
     cut snowflakes (11) are BARE PAPER. The purple in this world is worn, never made. If a made thing
     were purple the five signatures would stop working on the page they matter most.
   🔴 ADULT IN FRAME - whenever the page contains water, a height, or a door that can close, TEACHER
     BAU IS INSIDE THE FRAME, whole, at the same depth as the children, doing something with her
-    hands. This holds on the pages before p8 as well: volume 03 pages 1, 3, 5 · volume 02 pages 4, 5
-    · volume 18 pages 4, 5 · volume 08 pages 3, 4 · volume 17 page 5.
+    hands. 🔴 THE CONDITION IS THE WHOLE RULE AND IT HOLDS ON EVERY PAGE OF EVERY VOLUME, not on a
+    list of pages, and not only from p8 onward. Read the page: is there water, a height, or a door
+    that can close? Then she is in it.
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth, 🔴 and ALL FIVE
@@ -142,8 +165,12 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same cut blocks as the
     only by the neck. A PURPLE ribbon where the neck meets the body.
   DURI a raccoon - LOW ROUND EARS, wider than they are tall, never pointed - and ONE TAIL AS THICK AS
     HIS OWN LEG, at most 5 rings. A PURPLE handkerchief TIED ROUND HIS NECK, never carried in a hand.
-  🔴 EACH CHILD'S PURPLE THING IS IN FRAME ON EVERY PAGE THAT CHILD IS ON - worn, or set down where
-  the child put it - AND IT IS THE ONLY PURPLE ON THE PAGE.
+  🔴 EACH CHILD'S PURPLE THING IS IN FRAME WHENEVER THAT CHILD'S BODY IS IN FRAME - worn, or set down
+  where the child put it - AND IT IS THE ONLY PURPLE ON THE PAGE. 🔴 THE ONE PLACE IT IS ABSENT IS A
+  CROP THAT CANNOT HOLD IT: a page framed on two hands, a foot, a muzzle. Measured across 500 pages
+  there are nine such pages and they are all extreme close-ups. On those the purple is NOT invented
+  into the corner of the frame - the crop is the reason, and forcing it in makes the object move
+  around the body from page to page, which is worse than its being out of shot.
   TEACHER BAU a big dog. 🔴 SHE IS TWICE A CHILD'S HEIGHT STANDING, BUT SHE IS KNEELING OR SITTING ON
   HALF HER PAGES AND HEIGHT IS THEN GONE, so three things carry her and all three survive her sitting
   down on the floor: HER HEAD IS WIDER THAN IT IS TALL, a long muzzle projecting forward and two heavy
@@ -168,8 +195,9 @@ NOT: no airbrush, gradient, glow, 3D render or soft feathered edge / no drawn wh
 
 ```
 CARVE: white lines are gouged away, never drawn - the block remembers the knife
-CLASS: five children, each carries one small PURPLE thing, always
+CLASS: five children, each carries one small PURPLE thing whenever its body is in frame
 BAU:   the teacher dog is large and calm and never wears purple
+SNOW:  lying snow is bare paper - only snow somebody MADE gets printed
 ```
 
 🔴 **`ADULT IN FRAME` 조항은 해당 쪽의 프롬프트에 반드시 실어 보낸다.** 앵커에 적혀 있어도

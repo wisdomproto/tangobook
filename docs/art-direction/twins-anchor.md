@@ -1,6 +1,6 @@
 # 쌍둥이네 바닷가 — 앵커 + 캐스트 시트
 
-> 창작동화 **시리즈 06** (25권 · 250쪽). 설계 SSOT = `docs/changjak-books/twins/_design.md` ·
+> 창작동화 **시리즈 06** (**50권 · 500쪽**. 「25권 250쪽」은 늘기 전 숫자다). 설계 SSOT = `docs/changjak-books/twins/_design.md` ·
 > 대본 = `docs/changjak-books/twins/*.md` · SCENE = `_scenes.json`
 > 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
 > 🔴 **한 시리즈 = 한 그림체.** 이 시리즈는 **리소(risograph) 전권** — `pongi-anchor.md` §4 보류분
@@ -31,7 +31,8 @@
 그래서 앵커에 표식을 셋 더 얹는다. 셋 다 **이야기를 안 건드리는 그림 결정**이다.
 
 ```
-① 노랑의 높이   리리는 실루엣 맨 위, 롤로는 맨 아래. 두 노랑이 같은 띠에 오는 일이 없다
+① 노랑의 높이   리리는 실루엣 맨 위, 롤로는 맨 아래. 🔴 **쓰고 신고 있는 동안만** 그렇다 —
+               벗겨진 노랑은 이야기가 놓는 자리로 간다(500쪽 중 5쪽, 전부 그 쪽의 사건이다)
 ② 귀           리리는 두 귀가 곧게 서고 붙어 있다 · 롤로는 두 귀가 머리 양옆으로 늘어진다
 ③ 무게 중심     리리는 뒷발에 실려 멈춰 서 있고, 롤로는 앞발 너머로 몸이 기울어 있다
 ④ 자리         둘이 함께 있는 쪽은 언제나 리리 왼쪽 · 롤로 오른쪽
@@ -63,7 +64,10 @@ Style: risograph, exactly TWO ink drums on salt-cream paper, 4-6 year old pictur
   only dark. 🔴 THE TWO DRUMS NEVER REGISTER: on every page the colour runs past the shape at TWO OR
   THREE edges by about a hair, and that misfit is left showing - it is the picture, not a fault.
   Unprinted paper is not white space, it is the sky, the sand and the whitewash. SHADING IS ZERO -
-  no modelling, no gradient, no cast shadow, no highlight.
+  no modelling, no gradient, no soft shading, no highlight.
+  🔴 A LOW-SUN SHADOW IS A FLAT OVERLAP SHAPE lying on the ground with a HARD edge - it is a shape,
+  not shading, and it is drawn only when the page says the sun is low. It never softens, never
+  fades at its far end and never sits under a thing as a modelling tone. No other shadow exists.
 
 RENDERING (finish hierarchy): an area is ONE pull of one ink, never lighter or darker inside itself;
   the only variation is the mottle and the streak. 🔴 THE SEA AND SKY OF ONE VOLUME ARE ONE PULL
@@ -75,6 +79,14 @@ RENDERING (finish hierarchy): an area is ONE pull of one ink, never lighter or d
   at most 5 · awnings at most 5 · windows down a street at most 8 · cobbles one arc mark at most 12
   presses · shells at most 9 · rain at most 11 straight strokes all leaning one way · stars at most
   14 bare paper points. Nothing in a repeat is a mirrored copy of its neighbour.
+  🔴 A CAP COUNTS THE THINGS THE PAGE COUNTS. A crowd of one kind that the page treats as ONE THING -
+  a bed of shells, a bank of seaweed, a heap of pebbles, a shoal - is a SINGLE flat shape with no
+  interior detail and is exempt from its cap; the cap then applies only to the few that lie loose in
+  front of it. A page that says "thirty" draws at most 9 loose and the rest as that one shape.
+  🔴 THE SEA CARRIES 0 RIPPLES AND 0 GLINTS ON EVERY PAGE. A ripple exists ONLY where a page COUNTS
+  it, and only in water small enough to hold inside one frame - a rock pool, a tub, a yard puddle.
+  It is then a CLOSED RING of bare paper cut into the pull, hard-edged, at most 3, never a texture,
+  never a sparkle and never on the open sea.
   DENSITY RATION = none.
   🔴 BOTH TWINS ARE FINISHED ON THE PAGES WHERE BOTH ARE WRONG (p3 through p7 in most volumes) -
   they are one unit, and the "one thing touched" is then a single prop shared between them.
@@ -103,19 +115,29 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
   MARKET - awnings and stalls are single flat pulls of INK1 or INK2 with the misfit showing at their
     corners; the ground is bare PAPER; the crowd is at most 7 flat silhouettes with 0 faces and 0
     hands. Depth in the crowd is made by figures standing CLOSER TOGETHER, never darker.
-  ROCKPOOL - the pool is ONE pull of ATLANTIC with a hard edge; what lives in it is OVERLAP inside
-    that pull. The rock around it is INK2 with the streak running ALONG the rock, not across it.
-  🔴 LIGHTHOUSE (volume 09) - the tower body is INK2 and the sky is ATLANTIC. THE LIGHT ITSELF IS
-    BARE PAPER, one clean shape with no glow, no rays and no halo, and it is the brightest thing on
-    the page.
-  🔴 FOG (volume 12) - ATLANTIC at its lightest single pass with 0 shapes behind it. Things enter the
-    page by appearing at FULL strength, never by fading, and there is no pale version of any colour.
-  🔴 RAIN AND SQUALL (volume 19) - the whole sky-and-sea pull runs DOWN on every page of that volume;
-    rain is at most 11 straight ATLANTIC strokes leaning the same way; wet stone carries ONE bare
-    paper strip and nothing mirrors in it.
-  🔴 NIGHT (volume 17) - the sky and sea are OVERLAP as one flat pull. The moon, the stars and the
-    lit windows are BARE PAPER, each cut on its own, at most 14. A lamp on the boat is bare paper and
-    it carries the whole page.
+  ROCKPOOL AND LOW-TIDE GROUND - the pool is ONE pull of ATLANTIC with a hard edge; what lives in it
+    is OVERLAP inside that pull. The rock around it is INK2 with the streak running ALONG the rock,
+    not across it. The same clause covers every ground the tide has left behind - a pebble bank, a
+    mudflat - where the ground is INK2 and the water that stayed is ATLANTIC with a hard edge.
+  🔴 BOAT (any page where the camera is aboard) - being on a boat is a different stage from the
+    harbour it left. The hull, the gunwale and the floor boards are INK2, the boards running FORE
+    AND AFT, and the gunwale cuts the frame as one hard INK2 edge at a child's chin. Outside that
+    edge there is only that volume's SeaAndSky pull, running the direction that volume runs it. 0
+    ripples off the bow and 0 wake unless the page counts one. Nothing on the water is mirrored.
+  🔴 LIGHTHOUSE (any page the tower or its light is in frame) - the tower body is INK2 and the sky is
+    ATLANTIC. THE LIGHT ITSELF IS BARE PAPER, one clean shape with no glow, no rays and no halo, and
+    it is the brightest thing on the page. A beam is a CUT BAND of bare paper, never a ray.
+  🔴 FOG (any page the script fogs) - ATLANTIC at its lightest single pass with 0 shapes behind it.
+    Things enter the page by appearing at FULL strength, never by fading, and there is no pale
+    version of any colour.
+  🔴 RAIN AND SQUALL (any volume whose weather is rain) - the whole sky-and-sea pull runs DOWN on
+    every page of that volume; rain is at most 11 straight ATLANTIC strokes leaning the same way; wet
+    stone carries ONE bare paper strip and nothing mirrors in it. 🔴 A VOLUME THAT ONLY PASSES
+    THROUGH ONE SHOWER KEEPS ITS OWN DIRECTION - the shower is the 11 strokes alone, because the
+    direction belongs to the volume and cannot change inside it.
+  🔴 NIGHT (any page the script calls night or evening) - the sky and sea are OVERLAP as one flat
+    pull. The moon, the stars and the lit windows are BARE PAPER, each cut on its own, at most 14. A
+    lamp on the boat is bare paper and it carries the whole page.
 
 CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the world - two or
   three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads
@@ -128,9 +150,11 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   🔴 A CHARACTER HERE IS TWO MARKED THINGS, NOT A FACE. Each twin is stated by exactly two fixed
   marks THAT ARE ON IN EVERY FRAME - THE BAND OF THE PAGE ITS YELLOW SITS IN and THE SET OF ITS EARS
   - because the two faces are drawn identical and can never tell them apart; two further marks
-  (weight, and where a failure is drawn) come in when the page gives them. 🔴 BOTH MARKS ARE VISIBLE
-  ON EVERY APPEARANCE, INCLUDING BACK VIEWS, BATHS, BLANKETS AND PURE SILHOUETTES, and the two
-  yellows never share a band of the page. A difference between the twins is never written on a face.
+  (weight, and where a failure is drawn) come in when the page gives them. 🔴 THE EARS ARE ON EVERY
+  APPEARANCE WITHOUT EXCEPTION, INCLUDING BACK VIEWS, BATHS, BLANKETS AND PURE SILHOUETTES. 🔴 THE
+  BAND IS THE WEAKER OF THE TWO AND IT IS ALLOWED TO GO - it needs the yellow to be worn, and five
+  pages take a yellow off its owner (see mark ① below). That is exactly why the ears carry the
+  series and the yellow does not. A difference between the twins is never written on a face.
   🔴 AN EYE IS A BARE PAPER OVAL CUT INTO THE DARK HEAD with an OVERLAP pupil inside it - the head is
   already OVERLAP, so an eye printed in that same colour would not exist; the paper is what makes the
   eye and the pupil is the one place on a body where both drums land. 🔴 REGISTRATION IS A
@@ -141,7 +165,13 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   🔴 THE TWINS ARE ONE BODY DRAWN TWICE - same height, same build, same colour, same face. They are
   told apart by FOUR things and nothing else:
     ① RIRI wears a YELLOW HAT, so her yellow sits at the TOP of her silhouette · LOLO wears YELLOW
-      BOOTS, so his yellow sits at the BOTTOM. The two yellows are never in the same band of the page.
+      BOOTS, so his yellow sits at the BOTTOM. 🔴 THIS GOVERNS YELLOW THAT IS BEING WORN, and while
+      both are worn the two yellows are never in the same band of the page. 🔴 A YELLOW THAT HAS COME
+      OFF ITS OWNER GOES WHERE THE STORY PUTS IT AND THE BAND RULE LETS GO OF IT - a hat floating in a
+      pool sits at the bottom of the frame, boots kicked over a fall stand at the top. Measured across
+      500 pages that happens on five pages and every one of them is the event of its page (09 p8-p10
+      swaps the two bands on purpose; 15 p8 and p10 put the hat in the water). Forcing the band there
+      would delete the joke. Everywhere else the bands hold.
     ② 🔴 EARS - Riri's two ears STAND STRAIGHT UP, close together and taller than her head · Lolo's
       two ears HANG DOWN THE SIDES OF HIS HEAD past his chin, so his head reads half again as wide as
       hers and carries no spike on top at all. This is the ONLY mark that survives a back view, a
@@ -154,7 +184,8 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
     ④ RIRI'S FAILURE IS DRAWN AS A LEFTOVER, NOT AS TIREDNESS - a neat heap of sorted sand, a single
       line of footprints, white dust on her hands, her own face in the pool. Never slumped shoulders.
   🔴 SIDES ARE FIXED: WHENEVER BOTH TWINS ARE IN A FRAME, RIRI IS ON THE LEFT AND LOLO IS ON THE
-  RIGHT, on all 250 pages - the one who stops to measure stands where the page starts and the one who
+  RIGHT - measured across all 500 pages: 245 hold both twins, 18 of them name a side, and those 18
+  are Riri left with 0 exceptions - the one who stops to measure stands where the page starts and the one who
   jumps in stands where it goes. On the pages where the two of them are also the direction of travel,
   swapping them runs the story backwards. They are still never a mirrored pair: the two bodies are
   the same drawing placed twice, not a reflection.
@@ -166,7 +197,18 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   POST with a neck that shows and long thin limbs, in ONE flat ATLANTIC apron from chest to below the
   knee in a single unbroken piece, so she is THE ONLY FIGURE IN THE BOOK WITH NO GAP BETWEEN THE
   LEGS, tied in a bow at the small of her back. Adults never carry yellow and never carry a second
-  piece of cloth. THE ANIMALS - gulls, the harbour cat, crabs, a hermit crab, an octopus -
+  piece of cloth.
+  🔴 EACH TWIN HAS EXACTLY TWO PATCH POCKETS, one on each hip, a hand's width square, sewn flat on
+  the outside of the cloth and IN THE SAME PLACE ON EVERY PAGE - four books show weight by filling
+  and emptying them, and the comparison only reads if the pocket never moves. Full, the square bulges
+  into a rounded mass hanging BELOW the hem line and swinging clear of the leg; empty, it lies flat
+  and its bottom edge is a straight seam. Never three pockets, never a breast pocket, never a bag
+  instead.
+  🔴 MOM'S APRON HAS ONE MORE STATE: its lower corner folded up inside a child's paw. The apron is
+  still ONE unbroken piece - the fold pulls its outline in toward the held corner, the pull stays for
+  as long as the child holds on, and it travels with her when she walks, so her silhouette is a
+  little different on every page of that holding. The paw is closed over cloth, never over her hand.
+  THE ANIMALS - gulls, the harbour cat, crabs, a hermit crab, an octopus -
   are plain shapes with no clothes, no eyebrows and no expression.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - stalls, boat sterns
@@ -206,6 +248,11 @@ SHEET LAYOUT: one salt-cream sheet, four rabbits standing in a row on a single g
   true relative heights - Dad twice a twin, Mom a head over the twins, and 🔴 RIRI AND LOLO EXACTLY
   THE SAME HEIGHT AND BUILD. Each character is drawn THREE times: front standing, three-quarter
   walking, and back.
+🔴 TWO EXTRA STATES DRAWN BESIDE THE ROW, because three books hang on them:
+  POCKETS - Riri once more at full length with BOTH HIP POCKETS EMPTY and once more with BOTH FULL,
+    the two drawings the same size side by side, so the bulge can be measured against the flat seam.
+  THE HELD APRON - Mom standing, her apron's lower corner folded up inside a twin's paw, drawn
+    beside Mom standing free at the same size, so the pull in her outline can be compared.
 🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: Riri and Lolo again, side by side, printed as FLAT
   OVERLAP SILHOUETTES with 0 interior marks and NO YELLOW AT ALL - no hat, no boots. If the two
   silhouettes cannot be told apart by the ears and the stance alone, the sheet is wrong.

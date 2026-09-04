@@ -34,12 +34,14 @@ p5·p6), 16권은 **손가락으로 그어서** 낸 가는 고리다(p4 「동�
 
 ---
 
-## §1. 자리 시트 — 5장 (후보 13에서 접음)
+## §1. 자리 시트 — 8장 (후보 13에서 접음 · 🔴 2026-09-04 에 셋을 더했다)
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
-| `Alley` | 골목 · 골목 가운데 · 골목 앞쪽 · 눈밭 · 골목 눈밭 · 문간 앞 | 한 골목의 앞·가운데·끝 |
-| `Shop` | 가게 안 · 가게 앞 · 골목 끝 가게 안 · 창턱 · 모이통 · 난로 앞 · 난로 옆 | 가게 창턱에서 골목이 보인다 |
+| `Alley` | 골목 · 골목 가운데 · 골목 앞쪽 · 눈밭 · 골목 눈밭 · 문간 앞 | 한 골목의 앞·가운데·끝. 🔴 **`KikiHome` 은 이 골목의 정해진 문 하나**(§1.3 끝) |
+| `Shop` | 가게 안 · 가게 앞 · 골목 끝 가게 안 · 창턱 · 모이통 · 난로 앞 · 난로 옆 | 가게 창턱에서 골목이 보인다. SPOT = A~E + 🔴 **`Shop/창턱` · `Shop/뒷방`** |
+| 🔴 `Square` | 광장 겨울 장터 · 시장 통로 · 군밤 화로 앞 · 무대 앞 · 시장 어귀 | **신설**(§1.3). 07·09·38 = 21쪽 |
+| 🔴 `Corner` | 골목 끝 모퉁이 · 모퉁이 앞 큰길 · 큰길 건너편 · 가게 천막 아래 | **신설**(§1.4). 🔴 **큰길은 골목과 깊이 규칙이 다르다** — 간격이 아니라 **폭**이 사건이다 |
 | `NonoHome` | 마당 · 집 앞 마당 · 노노네 집 창가 | 🔴 가게 창가와 **다른 집**(25권) |
 | 🔴 `GuguRoom` | 구구네 방 안 · 방 안 창가 · 창턱 · 커튼 친 방 | **신설**(17권 10쪽 중 8쪽). ⚠️ 앞서 「방 안 창가」를 `NonoHome` 에 넣은 건 오류다 — **17 p1 이 「구구네 방 안」**이라 그대로 두면 화가가 **구구 방을 노노네 집으로** 그린다 |
 | `Hut` | 오두막 · 오두막 앞 골목 | 20권 |
@@ -135,6 +137,156 @@ NOT: no character of any kind, no wool green anywhere on this sheet (the green t
 반원, 쓸어 모은 눈 둔덕 하나가 그 옆에 흰 조각으로) · ② **재를 뿌린 띠**(06 p10 — 언 바닥 위 `WOOD
 BROWN` 알갱이 최대 11이 한 줄. `Alley` 상태 5 와 같은 규칙이고, **그 띠가 가게 문으로 이어진다**) ·
 ③ **안 쓸린 채**(눈이 문턱까지 그대로 — 16 p1 의 아침).
+
+### §1.3 Square — 실제 프롬프트 (🔴 신설 · 세 권 21쪽 · 이 시리즈에서 유일하게 사람이 많은 자리)
+
+> 🔴 **골목의 반대말이다.** 골목은 「집이 촘촘해지는 것」으로 깊이를 내는데, 광장은 **사람이 촘촘해지는 것**으로 낸다.
+> 그리고 세 권이 전부 **「앞이 막혀 안 보인다 → 뚫린다」**로 굴러간다(09 p2 「두꺼운 외투 등들이 화면 위쪽을 가로막고
+> 그 틈으로 무대 천 귀퉁이만」 → p7 「앞쪽 사람들이 흩어져 시야가 뚫렸다」 · 07 p3 줄 뒤 → p6 줄 사라짐 ·
+> 38 p3 「일곱이 바짝 붙어 통로를 막았다」 → p9 어귀). **막힘과 뚫림이 이 시트의 두 상태**다.
+
+```
+STAGE SHEET - Square   (nono-tornpaper · use the anchor's WINTER MARKET clause · SCENE token: Square ·
+                        bake AFTER Alley)
+
+The market square at the top of the alley, in winter. Three books stand here and all three are about
+NOT BEING ABLE TO SEE PAST GROWN-UPS.
+
+🔴 DEPTH IS SPACING HERE TOO, BUT THE SPACING IS PEOPLE. The stalls run away down two sides and stand
+  CLOSER TOGETHER as they go, at the SAME weight of paper and the SAME size of tear - never smaller,
+  never paler, never bluer. The crowd does the same thing: figures further off stand shoulder to
+  shoulder, figures near have gaps between them. 🔴 NOTHING RECEDES BY GETTING SOFTER.
+
+FIXED PARTS - every one torn by hand, edge fibrous, NOT ONE MECHANICALLY STRAIGHT EDGE:
+  🔴 THE CROWD IS AT MOST 7 FLAT OVERLAP SILHOUETTES WITH 0 FACES AND 0 HANDS, and it is the same seven
+    shapes rearranged - never a mass of small people, never a second row behind them at a smaller
+    size. Heavy coats: each silhouette is ONE piece, widest at the shoulders, hem at mid-calf, no arms
+    separated out. 🔴 NO GREEN ANYWHERE IN THE CROWD.
+  STALLS AND AWNINGS in single flat pieces of STONE GREY or WOOD BROWN, at most 5 stalls, awnings at
+    most 5, no two the same shape, none mirroring a neighbour.
+  🔴 THE CHESTNUT BRAZIER stands at the CENTRE and it is the fixed point of this square. A squat WOOD
+    BROWN drum on legs with a TORN WHITE steam piece rising STRAIGHT UP from it, one piece, no curl and
+    no wisp. The steam is the tallest thing at the middle of the frame and it is how a reader finds
+    the centre from any spot.
+  🔴 THE PUPPET STAGE stands at ONE SIDE and never moves to the middle. A cloth hung on a frame at
+    twice a child's height, the cloth ONE flat piece with 0 pattern and 0 lettering. Above it the
+    playing ledge. When the puppets are gone the cloth hangs slack and the ledge is empty - that
+    emptiness is the picture of one page, so the slack cloth is drawn on this sheet too.
+  THE MOUTH OF THE SQUARE at one edge, opening onto bare trodden snow with nothing in it.
+  THE GROUND is snow the whole town has walked on: 🔴 ONE AREA torn away in small ragged bites with
+    STONE GREY showing through, drawn as one shape and NEVER as a tally of prints (that is the
+    `Alley` sheet's rule and it holds here).
+
+🔴 TWO STATES, AND THEY ARE WHAT THE THREE BOOKS ARE MADE OF:
+  BLOCKED - the crowd stands shoulder to shoulder across the frame, coat backs filling the upper half,
+    and of whatever is beyond them ONLY ONE CORNER SHOWS - a corner of stage cloth, the top of the
+    steam. 🔴 NOTHING BEHIND THE CROWD IS DRAWN FAINT: it is simply covered by paper. Not visible is
+    not the same as pale.
+  OPEN - the same square from the same spot with the crowd scattered: three or four silhouettes with
+    body-widths between them, and the thing that was hidden now whole. Draw the two AT THE SAME SIZE
+    from the same spot so the pair reads as before and after.
+
+SPOTS:
+  A THE WHOLE SQUARE, wide, high (from the top of the alley looking down): both rows of stalls, the
+    brazier at centre, the stage at one side.
+  B IN THE CROWD, medium, CHILD HEIGHT: coat hems and legs across the frame, the world above them cut
+    off. 🔴 This is the spot the books live in.
+  C AT THE BRAZIER, medium: the drum, the straight steam, a queue running off to one side.
+  D THE STAGE, wide, low: looking up at the cloth and the ledge.
+  E THE MOUTH, wide: the square behind, empty snow ahead.
+
+PLATE: A, B, C, D, E once each, plus 🔴 A PLAN DIAGRAM naming where the brazier, the stage, the two
+  stall rows and the mouth sit, plus spot B drawn TWICE - blocked and open - at one size.
+
+NOT: no wool green anywhere on this sheet, no character of the cast, no face or hand on any crowd
+  silhouette, no lettering, numerals, prices or shop signs on stalls, awnings or the stage cloth, no
+  fourth paper, no cut or scissored edge - every edge is torn, no drawn line of any kind, no white ink
+  or paint, no shading, gradient, glow or cast shadow, nothing paler, bluer or smaller with distance,
+  no crowd beyond seven.
+```
+
+### §1.4 Corner — 실제 프롬프트 (🔴 신설 · 36권 열 쪽이 통째로 여기다)
+
+> 🔴 **골목과 깊이 규칙이 다르다.** 골목은 **간격**(집이 촘촘해진다)으로 깊이를 내는데, 여기서 사건은 **폭**이다 —
+> 큰길은 아이가 혼자 건너면 안 되는 선이고, 36권은 그 폭 앞에서 열 쪽을 보낸다. 골목에 접으면
+> **「골목이 끝나는 자리」가 사라지고**, 그러면 그 권에 무서울 것이 없어진다.
+
+```
+STAGE SHEET - Corner   (nono-tornpaper · SCENE token: Corner · bake AFTER Alley)
+
+Where the alley ends and the big road runs across it. One book lives here for all ten of its pages,
+and the whole book is a width.
+
+🔴 THIS SHEET'S DEPTH RULE IS NOT THE ALLEY'S. The alley narrows by spacing; here the frame is cut
+  ACROSS by a wide empty band and the reader is on one side of it. 🔴 THE BIG ROAD IS AT LEAST HALF
+  THE FRAME'S WIDTH AND IT IS EMPTY. That emptiness is the danger, and it is made by leaving a large
+  flat piece of STONE GREY with nothing pasted on it - never by darkening, never by a drawn kerb line.
+
+FIXED PARTS - torn by hand, fibrous edge, NOT ONE MECHANICALLY STRAIGHT EDGE:
+  🔴 THE ALLEY WALL STOPS. The last STONE GREY wall piece of the alley ends at ONE torn vertical edge
+    and beyond it there is no wall at all - that stopping edge is the corner and it is the sharpest
+    edge on this sheet. Everything the alley had (shutters, doorways, roof caps) is on the near side
+    of it and NONE of it continues past.
+  THE BIG ROAD: one wide flat piece of STONE GREY running left to right out of both frame edges.
+  THE FAR SIDE: a low wall of STONE GREY across the top of the road with TORN WHITE snow along its
+    foot, and NOTHING ELSE - no doors, no shutters, no depth. 🔴 THE FAR SIDE IS A BACKDROP, NOT A
+    PLACE. It is the same height on every page so the road's width can be read against it.
+  THE SHOP AWNING reaches the corner from the near side, one flat piece of WOOD BROWN, its edge
+    fibrous, and the ground under it is the one sheltered patch in this frame.
+  🔴 TWO WHEEL TRACKS cross the road: TWO PARALLEL BANDS of STONE GREY where the TORN WHITE has been
+    torn away, running the whole width of the frame and out of both edges. They are the same two
+    tracks on every page of that volume and they never fade at their ends. 🔴 A SLEDGE'S OWN TWO
+    LINES ARE NARROWER AND SHORTER THAN THE CART'S - the pair must be tellable apart in one frame,
+    because a page puts both there.
+  🔴 A PASSING CART IS CUT BY THE FRAME - its back half only, going out of one edge, and the puller
+    is never in frame. Nothing that crosses this road is ever drawn whole.
+
+🔴 STATES OF THE ROAD:
+  BUSY - the cart's back half leaving one edge, the tracks fresh, the near-side children stopped at
+    the corner edge.
+  QUIET - the same frame with nothing on the road at all, tracks still there. 🔴 The two are drawn at
+    one size, because the book turns on the moment the second one arrives.
+
+SPOTS:
+  A THE CORNER, wide, low: alley wall stopping at frame left, the road band across, the far wall.
+  B THE TRACKS, close, high: the two grey bands and feet standing just short of them.
+  C UNDER THE AWNING, medium: the brown piece overhead, the corner and the road beyond it.
+  D THE FAR SIDE, medium: standing with the low wall behind, looking back across the road at the
+    alley mouth - 🔴 the only spot in the series that looks at the alley from outside.
+
+PLATE: A, B, C, D once each, plus 🔴 A WIDTH DIAGRAM - the road drawn with a child figure laid across
+  it to fix how many child-lengths wide it is, plus A drawn twice, busy and quiet.
+
+NOT: no wool green, no character of the cast, no lettering, numerals, road markings or shop signs, no
+  fourth paper, no cut or scissored edge, no drawn line of any kind - the kerb is where one piece
+  stops, no white ink or paint, no shading, gradient, glow or cast shadow, nothing paler or smaller
+  with distance, no vehicle drawn whole, no doorway or shutter on the far side.
+```
+
+### §1.5 🔴 `Alley` · `Shop` 에 붙는 정해진 자리 셋 — `KikiHome` · `Shop/창턱` · `Shop/뒷방`
+
+> 🔴 **새 시트를 만들지 않는다.** 셋 다 「카메라가 한 걸음 옮기면 닿는가」에서 **닿는다** — 시트를 새로 굽는 대신
+> 이미 있는 두 시트에 **자리를 못 박는다.** 다만 SCENE 이 이 이름들을 글자로 찍으므로, **이름을 여기 적어 둔다**
+> (안 적으면 검사기가 「없는 자리」로 세고, 화가는 어느 문·어느 창턱인지 모른다).
+
+**`KikiHome`** = `Alley` 시트가 정한 **여덟 덧문 중 하나 아래의 문**이고, **그 문은 언제나 같은 문**이다.
+- 골목 **가운데 왼쪽**, 세 계단이 있는 가까운 쪽 끝이 아니라 그 너머 · 처마가 다른 집보다 한 뼘 낮아
+  **문턱에 서면 지붕 눈이 머리 바로 위**에 온다 · 문턱은 WOOD BROWN 한 조각, 골목 바닥보다 한 단 높다 ·
+  🔴 그 처마 끝에 **고드름 셋**이 걸린다(앵커 상한 7 안).
+- 🔴 **이 자리는 밤과 아침 둘 다로 굽는다** — 27권이 같은 문턱을 밤과 갠 아침으로 두 번 쓰고, 갈리는 것은
+  **바탕 종이의 색**뿐이다(밤 = DEEP SLATE 바탕, 나머지는 한 조각도 안 바뀐다).
+- `Alley` 시트 PLATE 에 **이 문 하나만 크게** 한 판 더 넣는다.
+
+**`Shop/창턱`** = §1.2 `Shop` 의 SPOT C. 🔴 **가게 안에서 골목이 보이는 유일한 자리**이고, 그래서 이 시리즈에서
+「안에 있으면서 밖을 본다」가 성립하는 자리도 여기뿐이다. 창턱 = WOOD BROWN 한 조각, 앉으면 아이 가슴 높이 ·
+창유리는 안 그린다(뿌연 창은 TORN WHITE 를 창 조각 **위에** 아래에서부터 덮어 얹은 것이고 그 너머는 **하나도
+안 비친다**) · 창턱 밖에 모이통이 걸린다.
+
+**`Shop/뒷방`** = §1.2 `Shop` 의 SPOT F 로 더한다. 🔴 **가게 안에서 문 하나로 이어지는 다른 방**이고, 30권이
+목욕하는 자리다. 못이 벽에 박혀 있고 — 🔴 **그 못이 이 자리가 따로 있어야 하는 이유다**(30 p6~p9 는 초록
+방울이 아이 목이 아니라 **그 못에** 걸려 있는 것이 그림이다) — 큰 대야 하나, 김 한 줄, 수건걸이.
+가게 쪽 문은 **열린 만큼만** 그리고 그 틈은 OVERLAP 이다.
+
 
 ---
 
@@ -1189,6 +1341,42 @@ drawn line, no white ink or paint, no gradient or soft edge.
 초록도 없는 작은 조각들」이라 적어 뒀다. 🔴 **노노가 참새인데 화면에 진짜 참새가 같이 있는 권**이라,
 캐스트 시트가 「아이 참새 ↔ 그냥 새」를 실루엣으로 갈라 두지 않으면 그 권이 통째로 헷갈린다.
 앵커 `sparrows at most 11` 은 **개수만** 말하고 생김새를 안 말한다.
+
+
+### 🔴 ✅ 2026-09-04 — §2.42 의 다섯을 앵커·시트에 반영했고, 그러다 셋이 더 나왔다
+
+**앵커(`nono-anchor.md`)에서 고친 조항**
+
+| 신고 | 어떻게 고쳤나 |
+|---|---|
+| **1** 반짝임이 이 매체에 없다(17권) | `PALETTE` 의 `TORN WHITE SNOW` 목록에 — 🔴 **「이 책이 반짝인다고 부르는 것 전부. 여기서 반짝임은 광택도 하이라이트도 아니라 그 물건 위에 얹은 **작은 흰 종이 조각 하나**이고, 여섯을 세는 쪽은 조각을 여섯 놓는다」**. 개수가 세어지므로 17권 제목이 그림에 남는다 |
+| **2** `no cast shadow` 가 세 권 다섯 쪽을 막음 | §2.25 `PastedShadow` 가 낸 답을 앵커 본문 조항으로 올렸다 — 🔴 **「그림자는 겹침 조각을 한 장 더 붙인 것이지 어둡게 하는 게 아니다」**(제 섬유질 가장자리 · 속 무늬 0 · 번짐 0 · 만든 것과 모양이 안 맞음 · 얼굴·몸에 안 걸침 · 한 화면에 하나). `NOT` 도 같이 고쳤고 관통 줄에 `SHADOW:` 를 넣었다 |
+| **3** 초록 예외가 둘이 아니라 넷 | 🔴 **예외를 세는 대신 형식으로 다시 썼다** — 「**초록이 아이를 떠나는 것이 이 시리즈의 한 형식**이고, 넷이 다 같은 동작이다: 눈에 묻혀 아홉 쪽 사라짐 · 뒷방 못에 걸림 · 눈 위에 떨어졌다가 두 손에 안김 · 눈사람 목에 둘림」. 규칙은 「늘 목에」가 아니라 **「초록은 이야기가 놓은 자리에 있고, 다른 초록은 없다」** 이고, 🔴 **가져간 쪽에 되돌려 놓지 말 것**(맨 목이 그 쪽의 문장이다) |
+| **4** 소매가 아홉 권 열한 쪽 | 🔴 **앵커가 참이었다.** 실측 — 소매가 나오는 **9쪽 전부 할아버지**다(19·26·28·31·43·44·46·49·01, 전부 `Grandpa Badger` + 앞치마 + 「소매를 걷었다」). 아이 셋의 소매는 **한 쪽도 없다**. `nono-cast.md` 도 노노의 몸 가로줄을 「소매 단·옷단」으로 이미 규격에 넣어 뒀다. → **아무것도 안 고쳤다** |
+| **5** `Square`·`Corner` 시트 없음 | 둘 다 신설 — §1.3 · §1.4. 🔴 `Corner` 는 지시대로 **깊이 규칙을 갈랐다**: 골목은 **간격**으로, 큰길은 **폭**으로 낸다(큰길이 화면 폭의 절반 이상이고 비어 있는 것이 곧 위험이다) |
+
+**자리 시트 둘을 새로 쓰고, 정해진 자리 셋을 못 박았다** — §1.3 `Square` · §1.4 `Corner` ·
+§1.5 `KikiHome`(= `Alley` 의 정해진 문 하나) · `Shop/창턱`(SPOT C) · `Shop/뒷방`(SPOT F 신설).
+🔴 **뒤의 셋은 새 시트를 만들지 않았다** — 카메라가 한 걸음 옮기면 닿는 자리라 접는 것이 맞고,
+다만 **SCENE 이 그 이름을 글자로 찍으므로 §1 에 이름을 적어야** 검사기가 세고 화가가 어느 문인지 안다.
+🔴 `Shop/뒷방` 이 따로 있어야 하는 이유는 방이 아니라 **못**이다 — 30 p6~p9 는 초록 방울이 아이 목이
+아니라 **그 못에** 걸려 있는 것이 그림이다.
+
+**🔴 검사기가 한글 섞인 토큰을 통째로 못 읽고 있었다** — 같은 날 고쳤다(`check-stage-tokens.mjs`).
+`[Alley · 자국]`·`[Shop/뒷방]` 처럼 대괄호 안에 한글이 있으면 **세어지지도 대조되지도 않은 채**
+「미매칭 0」으로 통과했다. **nono 만 57쪽**이 그 상태였고, 고친 뒤 드러난 것이 `Shop/뒷방`·`Shop/창턱`이다.
+
+**관통 줄과 권 번호를 500쪽에서 세어 봤다**
+
+| 줄 · 조항 | 실측 |
+|---|---|
+| 🔴 **권 번호에 박힌 조항 13** | 무대 조항 여덟(`UNTOUCHED SNOW (volumes 01, 02)` · `FROST AND ICE (04,05,06)` · `SNOW HILL AND SWEEPING (08,13,14,16,20)` · `WINTER MARKET (07,09)` · `LONG NIGHT (10,11,12,19)` · `BURIED (12)` · `STEAMED WINDOW (17,18,21)` · `THAW (22,23,24,25)`)과 날개 조항(`Nono in flight (volumes 01,04,…)`)·해빙 마지막 눈·넷째 아이·초록 예외까지 **전부 조건으로 바꿨다**. 🔴 **26~50 이 통째로 조항 밖이었다** |
+| 🔴 `THERE ARE THREE CHILDREN AND ONE GRANDFATHER AND NOBODY ELSE` + `(volume 23)` | **거짓이다.** 넷째 아이(아기 다람쥐)는 23권 다섯 쪽이 아니라 **23·48·49·50 네 권 13쪽**에 선다. 그리고 열세 쪽 전부에서 SCENE 이 스스로 「**초록이 없다**」를 적어 뒀다 → **예외가 아니라 형식**으로 다시 썼고, 캐스트 시트 줄의 「23권만」도 같이 고쳤다 |
+| 🔴 `THREE: each of the three children carries one small GREEN thing, always` | **거짓이다.** 아이가 있는데 초록이 화면에 없는 쪽 **10** — 다섯은 12권(앵커가 이미 아는 것), **셋은 익스트림 클로즈업**(21 p6 손만 · 47 p6 부리 아래 · 02 p6 발 하나), 둘은 인물이 아예 없는 쪽. → 관통 줄을 **「초록은 화면에서 유일한 초록이고 이야기가 놓은 자리에 있다 · 맨 목에 되돌려 만들지 마라」**로 바꿨다. 잘린 프레임 셋도 앵커에 명시 |
+| `SNOW:` · `EDGE:` · `FLY:` | 참이다. 흰 물감·가위 자국·아이 날개가 지문에 나오는 쪽 0 |
+
+**⚠️ 안 고친 것 하나** — §2.42 의 캐스트 신고(35권 겨울새 아홉 ↔ 참새인 노노)는 **캐스트 시트 몫**이라
+여기서 손대지 않았다. 앵커 `sparrows at most 11` 은 개수만 말하고 생김새를 안 말하는 것이 맞다.
 
 ### §2.43 검수 — 사물 시트의 여섯
 
