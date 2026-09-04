@@ -1225,4 +1225,4 @@ airbrush, gradient or 3D render.
 
 ## §4. 권별 경로표
 
-미작성. 생성 = `node packages/client/scripts/build-series-routes.mjs --skeleton moya`.
+✅ `moya-routes.md` 25권 250쪽 완비(2026-09-04). 검사 = `node packages/client/scripts/build-series-routes.mjs moya --check`.
