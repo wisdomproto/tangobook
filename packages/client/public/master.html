@@ -3,6 +3,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>탱고북 마스터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap" rel="stylesheet">
 <!--
   사업계획에 필요한 전부를 한 곳에 — 탑다운(목표 → 정체성 → 시장 → 브랜드 → 콘텐츠 → BM → 실행 → 숫자 → 이력 → 미결).
   사용자가 보는 용. 절마다 메모를 달고, 메모를 근거로 문장을 고쳐 나간다.
@@ -276,6 +278,154 @@ textarea.dirty{border-color:var(--am)}
     <p class="ex" style="color:var(--mut);font-size:.88rem">🔴 한 그림에서 보이는 것: 파닉스는 <b>낱말까지</b>, 동화책은 <b>이야기까지</b>, 둘을 잇는 게 낱말(98%)이고, 게임 둘 다 <b>종이·블록</b>으로 내려온다. 대기업이 못 쓰는 「부터 ~까지」가 이 세 상자다.</p>
   </div>
 </section>
+
+<section data-id="id-map-visual">
+  <div class="sh"><h2>구조 한 장 — 이미지판</h2><span class="tag t-open">초안 · 실제 화면·표지·도안</span></div>
+  <div class="body" style="padding:0">
+    <!--
+      이미지판. 위 간단판과 같은 구조를 진짜 자산으로 그린다.
+      🔴 그림은 전부 우리 것: 파닉스 화면 3컷(landing/hangul/cycle-*), 라이브 표지(/api/content-status?rows=1),
+         게임 타일(images/games/*-bg), 색칠 도안(coloring/*.png), 호리(mascot/hori/pointing). 탱고보드는 실물 색으로 그린다
+         (자음 #F09E5C · 모음 #59B89E = tango-board-3d.html 의 COLOR.cho/jung — 눈대중 금지).
+      🔴 연결선은 JS 가 요소 위치를 재서 그린다(word-graph 와 같은 방식). 고정 좌표면 폭이 바뀔 때 어긋난다.
+    -->
+    <div class="mapx" id="mapx">
+      <div class="mx-grain" aria-hidden="true"></div>
+
+      <!-- 파닉스 -->
+      <article class="mx-plate mx-ph" id="mx-ph">
+        <div class="mx-hero"><img src="/landing/hangul/letters.webp" alt=""><div class="mx-fade"></div>
+          <div class="mx-htxt"><span class="mx-kicker">첫 글자부터</span><h3 class="mx-title">파닉스</h3>
+            <p class="mx-sub" id="mx-ph-sub">한글 32단원 · 영어 39단원 · 단원마다 나무 동화 한 권</p></div></div>
+        <div class="mx-cards">
+          <div class="mx-card"><img class="mx-thumb" src="/landing/hangul/cycle-learn.webp" alt="">
+            <div><b>익히기 콘텐츠</b><span class="mx-chips"><i>글자 → 음절 → 낱말</i><i>듣고 고르기</i><i>글자 쓰기 99%</i><i>한글 나무 동화 8쪽</i></span></div></div>
+          <div class="mx-card"><img class="mx-thumb" src="/landing/hangul/cycle-play.webp" alt="">
+            <div><b>학습 게임</b><span class="mx-chips"><i>그림 짝 찾기</i><i>탱고 보드 블록</i><i>낱말 그리기</i><i>따라쓰기</i><i>글자 사냥</i></span></div></div>
+        </div>
+      </article>
+
+      <!-- 연결 -->
+      <div class="mx-link" id="mx-link">
+        <img class="mx-hori" src="/mascot/hori/pointing.webp" alt="">
+        <div class="mx-pill"><img src="/landing/hangul/cycle-reveal.webp" alt=""><div><small>배운 낱말이 나오는 책</small><b id="mx-seam">98%</b></div></div>
+      </div>
+
+      <!-- 동화책 -->
+      <article class="mx-plate mx-bk" id="mx-bk">
+        <div class="mx-hero mx-fan" id="mx-fan"><div class="mx-fade"></div>
+          <div class="mx-htxt"><span class="mx-kicker">혼자 읽기까지</span><h3 class="mx-title">동화책</h3>
+            <p class="mx-sub" id="mx-bk-sub">공개 266권 + 대기 850권 · 5종 · 5개 언어 나레이션</p></div></div>
+        <div class="mx-cards">
+          <div class="mx-card"><img class="mx-thumb" src="/landing/hangul/bridge-page.webp" alt="">
+            <div><b>읽기 콘텐츠</b><span class="mx-chips"><i>자동 읽기 · 하이라이트</i><i>그림체 3종</i><i>묶어 보기</i><i>L2 메인 · L3 전래</i></span></div></div>
+          <div class="mx-card"><div class="mx-tiles"><img src="/landing/hangul/cycle-reveal.webp" alt=""><img src="/images/games/result-celebrate.webp" alt=""><img src="/images/games/writing-bg.webp" alt=""><img src="/images/games/korean-block-bg.webp" alt=""></div>
+            <div><b>독후 게임</b><span class="mx-chips"><i>이야기 듣고 그림 찾기</i><i>쪽 순서</i><i>이 물건 어느 장면?</i><i>단어 익히기 4종</i></span></div></div>
+        </div>
+      </article>
+
+      <!-- 아날로그 -->
+      <article class="mx-plate mx-an" id="mx-an">
+        <div class="mx-anhd"><span class="mx-kicker">손에 잡히는 것</span><h3 class="mx-title">아날로그 콘텐츠</h3>
+          <p class="mx-sub">같은 낱말 · 같은 그림이 화면과 종이에 · 인쇄물엔 앱으로 돌아오는 버튼</p></div>
+        <div class="mx-anrow">
+          <div class="mx-paper mx-ws"><div class="mx-wsline"><b>ㄱ</b><span>+</span><b>ㅏ</b><span>=</span><b class="mx-ans">가</b></div>
+            <div class="mx-wsgrid"><i>가</i><i>거</i><i>고</i><i>구</i><i></i><i></i><i></i><i></i></div>
+            <div class="mx-wsgrid"><i>기</i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="mx-cap">한글 워크지 A4 · 115쪽 (영어 164쪽)</span></div>
+          <div class="mx-paper mx-col"><img src="/coloring/kr-h1-u02-고기.png" alt="고기 색칠 도안"><span class="mx-cap">색칠 도안 · 「고기」 — 칠하고 나면 그 책으로</span></div>
+          <div class="mx-paper mx-bd">
+            <svg viewBox="0 0 240 90" aria-label="탱고보드">
+              <rect x="4" y="4" width="232" height="82" rx="8" fill="#F6EEDC" stroke="#D9C9A6" stroke-width="2"/>
+              <g fill="none" stroke="#E4D8BE" stroke-width="1">
+                <path id="mx-grid"/>
+              </g>
+              <!-- 실물 색: 자음 #F09E5C · 모음 #59B89E -->
+              <rect x="34" y="24" width="30" height="42" rx="5" fill="#F09E5C"/><text x="49" y="52" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">ㄱ</text>
+              <rect x="70" y="24" width="30" height="42" rx="5" fill="#59B89E"/><text x="85" y="52" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">ㅗ</text>
+              <rect x="112" y="24" width="30" height="42" rx="5" fill="#F09E5C"/><text x="127" y="52" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">ㄱ</text>
+              <rect x="148" y="24" width="30" height="42" rx="5" fill="#59B89E"/><text x="163" y="52" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">ㅣ</text>
+              <text x="212" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="#8A7F76">고기</text>
+            </svg>
+            <span class="mx-cap">탱고보드 실물 블록 — 카메라가 읽는다 · one of them</span></div>
+        </div>
+      </article>
+
+      <svg class="mx-wires" id="mx-wires" aria-hidden="true"></svg>
+    </div>
+    <p style="padding:12px 18px 8px;color:var(--mut);font-size:.88rem">🔴 그림 전부 우리 자산이다 — 파닉스 화면 3컷(배우기·놀기·<b>리빌</b>) · 라이브 표지 · 게임 타일 · 진짜 색칠 도안 · 실물 색으로 그린 보드. 간판 그림은 위 간단판, 이건 그 그림에 살을 붙인 판.</p>
+  </div>
+</section>
+
+<style>
+/* ── 이미지판 (mapx) — 크림 종이 위 에디토리얼 포스터 ── */
+.mapx{position:relative;display:grid;grid-template-columns:1fr 168px 1fr;grid-template-areas:"ph link bk" "an an an";gap:18px 14px;
+  padding:26px 22px 22px;background:linear-gradient(160deg,#FFF9F0 0%,#F7EDE0 55%,#F2E6D4 100%);isolation:isolate;overflow:hidden}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .mapx{background:linear-gradient(160deg,#1E1913,#17130E 60%,#14110C)}}
+:root[data-theme=dark] .mapx{background:linear-gradient(160deg,#1E1913,#17130E 60%,#14110C)}
+.mx-grain{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+@media(max-width:900px){.mapx{grid-template-columns:1fr;grid-template-areas:"ph" "link" "bk" "an"}.mx-wires{display:none}}
+.mx-plate{position:relative;z-index:1;border-radius:22px;overflow:hidden;background:var(--sf);
+  box-shadow:0 1px 0 rgba(0,0,0,.04),0 18px 40px -22px rgba(60,40,20,.35);border:1.5px solid transparent}
+/* 🔴 등장 애니메이션은 탭이 보일 때만(.mx-anim, JS 가 붙임). 숨긴 탭에선 애니메이션 시간이 안 흘러
+   첫 프레임(투명)에 멈춘다 — forwards 도 both 도 마찬가지였다. 기본 상태는 그냥 보임. */
+.mx-anim .mx-plate{animation:mx-in .7s cubic-bezier(.2,.7,.2,1) both}
+.mx-ph{grid-area:ph;border-color:var(--co);animation-delay:.05s}
+.mx-bk{grid-area:bk;border-color:var(--gr);animation-delay:.2s}
+.mx-an{grid-area:an;border-color:var(--am);animation-delay:.45s;background:linear-gradient(180deg,var(--amw),var(--sf) 60%)}
+@keyframes mx-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mx-hero{position:relative;height:196px;overflow:hidden} /* 두 판이 같은 높이로 서게 — 부채(196)와 맞춘다 */
+.mx-hero>img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transform:scale(1.02);filter:saturate(1.05)}
+.mx-fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 20%,var(--sf) 92%)}
+.mx-htxt{position:absolute;left:18px;right:18px;bottom:8px}
+.mx-kicker{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--co);
+  background:var(--cow);padding:3px 9px;border-radius:999px}
+.mx-bk .mx-kicker{color:var(--gr);background:var(--grw)}
+.mx-an .mx-kicker{color:var(--am);background:var(--amw)}
+.mx-title{font-family:"Gowun Batang","Nanum Myeongjo",Georgia,serif;font-size:2rem;margin:6px 0 2px;letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+.mx-sub{margin:0;font-size:.84rem;color:var(--mut)}
+.mx-cards{display:grid;gap:10px;padding:8px 14px 16px}
+.mx-card{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start;padding:10px;border-radius:14px;background:var(--sunk);
+  border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.mx-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px -16px rgba(60,40,20,.45)}
+.mx-card b{display:block;font-size:.95rem;margin:2px 0 6px}
+.mx-thumb{width:96px;height:72px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:#fff}
+.mx-tiles{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:96px}
+.mx-tiles img{width:46px;height:34px;object-fit:cover;border-radius:7px;border:1px solid var(--line)}
+.mx-chips{display:flex;flex-wrap:wrap;gap:4px}
+.mx-chips i{font-style:normal;font-size:.74rem;padding:2px 8px;border-radius:999px;background:var(--sf);border:1px solid var(--line);color:var(--mut)}
+.mx-ph .mx-chips i{border-color:#F3C4B3}.mx-bk .mx-chips i{border-color:#B9E2D6}
+/* 표지 부채는 제목 배지 위에 얹히지 않게 — 판을 더 높이고 표지는 위쪽 띠에만 */
+.mx-fan{height:196px;background:radial-gradient(120% 90% at 50% 0%,var(--grw),var(--sf) 70%)}
+.mx-fan .mx-cover{position:absolute;top:12px;width:104px;height:58px;object-fit:cover;border-radius:8px;box-shadow:0 10px 22px -10px rgba(0,0,0,.45);border:2px solid #fff;transition:transform .3s}
+.mx-fan:hover .mx-cover{transform:translateY(-4px) rotate(0) !important}
+.mx-link{grid-area:link;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.mx-anim .mx-link{animation:mx-in .7s .35s both}
+.mx-hori{width:120px;height:auto;filter:drop-shadow(0 10px 16px rgba(0,0,0,.22));transform:scaleX(-1);margin-bottom:-6px}
+.mx-pill{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--ink);color:var(--bg);box-shadow:0 12px 24px -12px rgba(0,0,0,.5)}
+.mx-pill img{width:36px;height:36px;object-fit:cover;border-radius:50%;border:2px solid var(--bg)}
+.mx-pill small{display:block;font-size:.66rem;opacity:.75;white-space:nowrap}
+.mx-pill b{font-size:1.15rem;font-family:"Gowun Batang",Georgia,serif;letter-spacing:-.02em}
+.mx-anhd{padding:16px 18px 4px}
+.mx-anrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;padding:6px 18px 18px}
+.mx-paper{position:relative;background:#fff;border-radius:6px;padding:12px 12px 26px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 12px 24px -16px rgba(60,40,20,.5);
+  border:1px solid #EAE1D2;transform:rotate(-.6deg);transition:transform .25s}
+.mx-paper:nth-child(2){transform:rotate(.7deg)}.mx-paper:nth-child(3){transform:rotate(-.3deg)}
+.mx-paper:hover{transform:rotate(0) translateY(-3px)}
+.mx-cap{position:absolute;left:12px;right:12px;bottom:8px;font-size:.72rem;color:#8A7F76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mx-wsline{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:700;color:#1F1B18;margin:2px 0 8px}
+.mx-wsline span{color:#B4A99D;font-weight:400}.mx-ans{color:#17A184}
+.mx-wsgrid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin:0 0 4px}
+.mx-wsgrid i{aspect-ratio:1;border:1px dashed #C9BFAE;border-radius:3px;font-style:normal;font-size:.8rem;display:grid;place-items:center;color:#8A7F76;
+  background:linear-gradient(#EFE7D8,#EFE7D8) center/100% 1px no-repeat,linear-gradient(#EFE7D8,#EFE7D8) center/1px 100% no-repeat}
+.mx-col img{width:100%;height:118px;object-fit:contain;background:#fff}
+.mx-bd svg{width:100%;height:auto;display:block}
+.mx-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.mx-wires path{fill:none;stroke:var(--faint);stroke-width:2;stroke-dasharray:6 7;animation:mx-dash 1.6s linear infinite;opacity:.8}
+.mx-wires path.am{stroke:var(--am)}
+@keyframes mx-dash{to{stroke-dashoffset:-26}}
+</style>
 
 <section data-id="id-why">
   <div class="sh"><h2>왜 이 문장인가</h2><span class="tag t-fix">확정</span></div>
@@ -914,9 +1064,68 @@ textarea.dirty{border-color:var(--am)}
       + (d.seam.byTrack || []).map(function (r) { return '<div>' + esc(r.track) + ' — ' + r.units + '단원 · 낱말 ' + r.words + ' · 예문 있음 <b>' + r.covered + '</b> (' + r.coveredPct + '%)</div>'; }).join('')
       + '<div style="color:var(--faint);font-size:.84rem;margin-top:6px">단원별·낱말별은 <a href="/word-graph.html" target="_blank">낱말 그래프</a></div></div></details>';
     document.getElementById('ct-tree-live').innerHTML = out;
+
+    /* ── 이미지판(mapx) 채우기 ── */
+    document.getElementById('mx-seam').textContent = (kr.coveredPct || 0) + '%';
+    document.getElementById('mx-ph-sub').textContent =
+      '한글 ' + ((d.seam.byTrack||[]).filter(function(t){return t.track==='kr'})[0]||{}).units + '단원 · 영어 ' +
+      (en.units||0) + '단원 · 단원마다 나무 동화 한 권';
+    document.getElementById('mx-bk-sub').textContent = '공개 ' + pubBooks + '권 + 대기 ' + waiting + '권 · 5종 · 5개 언어 나레이션';
   }).catch(function (e) {
     document.getElementById('ct-tree-live').innerHTML = '<p style="color:var(--co)">숫자를 못 불러왔다 — ' + esc(e && e.message) + '. 현황판을 다시 구워라.</p>';
   });
+
+  /* ── 이미지판(mapx): 표지 부채 · 보드 격자 · 연결선 ── */
+  (function(){
+    var fan=document.getElementById('mx-fan'); if(!fan) return;
+    // 라이브 표지 — 라인마다 한 권. rows 는 크니 이 섹션만 따로 받는다. 실패하면 구운 표지 그리드로.
+    var WANT=['세계 명작','전래 동화','생활동화','공룡 친구들'];
+    fetch('/api/content-status?rows=1',{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(j){
+        var rows=(j.data||j).rows||[]; var picks=[];
+        WANT.forEach(function(c){ var b=rows.filter(function(r){return r.category===c&&r.coverImage&&r.isPublic})[0]; if(b) picks.push(b); });
+        if(picks.length<3) throw 0;
+        var n=picks.length, spread=Math.min(56, 300/n);
+        picks.forEach(function(b,i){
+          var img=document.createElement('img'); img.className='mx-cover'; img.src=b.coverImage; img.alt=b.title;
+          var t=(i-(n-1)/2); img.style.left='calc(50% - 48px + '+(t*spread)+'px)'; img.style.transform='rotate('+(t*6)+'deg) translateY('+(Math.abs(t)*6)+'px)'; img.style.zIndex=10-Math.abs(t)|0;
+          img.title=b.title; fan.insertBefore(img, fan.firstChild);
+        });
+      })
+      .catch(function(){ var img=document.createElement('img'); img.src='/landing/hangul/books.webp'; img.alt=''; img.style.cssText='width:100%;height:100%;object-fit:cover'; fan.insertBefore(img, fan.firstChild); });
+
+    // 보드 격자 24×8 — 실물 판 규격
+    var g=document.getElementById('mx-grid'); if(g){ var d='',x0=8,y0=8,w=224,h=74,cw=w/24,ch=h/8;
+      for(var i=1;i<24;i++){ d+='M'+(x0+i*cw)+','+y0+'v'+h; } for(var k=1;k<8;k++){ d+='M'+x0+','+(y0+k*ch)+'h'+w; } g.setAttribute('d',d); }
+
+    // 연결선 — 요소 위치를 재서 그린다. 폭이 바뀌면 다시.
+    var box=document.getElementById('mapx'), svg=document.getElementById('mx-wires');
+    function R(id){ var e=document.getElementById(id), b=box.getBoundingClientRect(), r=e.getBoundingClientRect(); return {l:r.left-b.left,t:r.top-b.top,r:r.right-b.left,b:r.bottom-b.top,cx:(r.left+r.right)/2-b.left,cy:(r.top+r.bottom)/2-b.top}; }
+    function wires(){
+      if(getComputedStyle(svg).display==='none') return;
+      var B=box.getBoundingClientRect(); svg.setAttribute('viewBox','0 0 '+B.width+' '+B.height);
+      var ph=R('mx-ph'), bk=R('mx-bk'), an=R('mx-an'), lk=R('mx-link');
+      var y=lk.cy+22;  // 알약(pill) 높이쯤
+      var p1='M'+ph.r+','+y+' L'+bk.l+','+y;
+      var p2='M'+ph.cx+','+ph.b+' C'+ph.cx+','+(ph.b+40)+' '+(an.cx-160)+','+(an.t-40)+' '+(an.cx-160)+','+an.t;
+      var p3='M'+bk.cx+','+bk.b+' C'+bk.cx+','+(bk.b+40)+' '+(an.cx+160)+','+(an.t-40)+' '+(an.cx+160)+','+an.t;
+      // 🔴 SVG 에 innerHTML 로 <path/> 여럿을 넣으면 첫 것이 나머지를 삼킬 수 있다 — 요소로 만든다.
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+      [[p1,''],[p2,'am'],[p3,'am']].forEach(function(pd){
+        var el=document.createElementNS('http://www.w3.org/2000/svg','path');
+        el.setAttribute('d',pd[0]); if(pd[1]) el.setAttribute('class',pd[1]); svg.appendChild(el);
+      });
+    }
+    // 🔴 rAF 로 합치지 않는다 — 탭이 숨겨져 있으면 rAF 가 영영 안 돌아 첫 호출이 걸린 채 이후 호출까지 막힌다.
+    // 등장 애니메이션은 탭이 보일 때만 켠다 — 숨긴 탭에선 첫 프레임(투명)에 멈춰 판이 안 보였다.
+    function arm(){ if(document.hidden) return; box.classList.add('mx-anim'); document.removeEventListener('visibilitychange',arm); }
+    if(document.hidden) document.addEventListener('visibilitychange',arm); else arm();
+
+    var raf=null; function again(){ if(raf) return; raf=setTimeout(function(){ raf=null; wires(); }, 16); }
+    addEventListener('resize',again); addEventListener('load',again); setTimeout(again,50); setTimeout(again,900);
+    document.getElementById('nav').addEventListener('click',function(){ setTimeout(again,60); });
+  })();
 })();
 </script>
 </html>
