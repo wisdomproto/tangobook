@@ -515,6 +515,16 @@ export function TopBar() {
           label="🧩 탱고HW"
           tone="text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30"
         />
+        {/* 🧭 마스터 — 사업계획 전부(정체성·시장·브랜딩·콘텐츠·BM·로드맵·숫자·이력·미결) 탭으로. 절마다 메모. */}
+        <a
+          href="/master.html"
+          target="_blank"
+          rel="noopener"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors font-semibold"
+          title="탱고북 마스터 — 사업계획 전부 한 곳에"
+        >
+          🧭 마스터
+        </a>
         {/* 🔴 현황판은 스크립트가 굽는 정적 파일이라 라우트가 아니라 새 탭으로 연다.
             다시 구우려면 `node packages/server/scripts/build-content-status.mjs` */}
         <a

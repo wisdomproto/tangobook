@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>탱고북 마스터</title>
+<!--
+  사업계획에 필요한 전부를 한 곳에 — 탑다운(목표 → 정체성 → 시장 → 브랜드 → 콘텐츠 → BM → 실행 → 숫자 → 이력 → 미결).
+  사용자가 보는 용. 절마다 메모를 달고, 메모를 근거로 문장을 고쳐 나간다.
+
+  🔴 사실의 원본은 이 파일이 아니다 — docs/STRATEGY.md · docs/ROADMAP.md · docs/content-activity-status.md.
+     여기는 그걸 **보기 좋게 조립**한 화면이고, 굳은 결정은 STRATEGY.md 로 돌려보낸다.
+  🔴 콘텐츠 목록은 여기 안 그린다 — 현황판(content-status.html)·낱말 그래프(word-graph.html)가 이미 있다. 링크만.
+  🔴 숫자는 /api/content-status(라이브) → content-status.json(폴백)에서 읽는다. 손으로 적지 않는다.
+  🔴 메모 = /api/saenghwal-memo, docId `master-<절>`. 기존 기획서와 같은 저장소(R2, 영구·공유). 20만자.
+-->
+<style>
+:root{
+  --bg:#FBF8F4; --sf:#fff; --sunk:#F4EEE5; --ink:#1F1B18; --mut:#6B615A; --faint:#8A7F76; --line:#E5DCD0;
+  --co:#E4572E; --cow:#FBEBE4; --gr:#17A184; --grw:#E4F4EF; --am:#C08A16; --amw:#F8F0DC; --vi:#6B5BD2; --viw:#EEEBFA;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#16130F; --sf:#201C18; --sunk:#1B1713; --ink:#F1EBE2; --mut:#B0A69C; --faint:#948A81; --line:#332C25;
+  --co:#FF7A54; --cow:#2E1F18; --gr:#3FCFAE; --grw:#142723; --am:#E0B457; --amw:#2A2216; --vi:#A89BFF; --viw:#211D33;
+}}
+:root[data-theme=dark]{
+  --bg:#16130F; --sf:#201C18; --sunk:#1B1713; --ink:#F1EBE2; --mut:#B0A69C; --faint:#948A81; --line:#332C25;
+  --co:#FF7A54; --cow:#2E1F18; --gr:#3FCFAE; --grw:#142723; --am:#E0B457; --amw:#2A2216; --vi:#A89BFF; --viw:#211D33;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);word-break:keep-all;
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;font-size:15px;line-height:1.7}
+a{color:var(--vi)}
+
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+@media(max-width:860px){.app{grid-template-columns:1fr}}
+nav{position:sticky;top:0;height:100vh;overflow:auto;background:var(--sf);border-right:1px solid var(--line);padding:18px 14px}
+@media(max-width:860px){nav{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:10px}}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 16px}
+.brand img{height:30px;width:auto}
+.brand b{font-size:.95rem;letter-spacing:-.02em}
+@media(max-width:860px){.brand{display:none}}
+.tab{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 11px;border:0;border-radius:9px;
+  background:transparent;color:var(--mut);font:inherit;font-size:.92rem;cursor:pointer;white-space:nowrap}
+.tab .n{font-size:.7rem;font-variant-numeric:tabular-nums;color:var(--faint);width:16px}
+.tab:hover{background:var(--sunk);color:var(--ink)}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
+.tab[aria-selected=true] .n{color:var(--bg);opacity:.7}
+.navft{margin-top:18px;padding:12px 10px;border-top:1px solid var(--line);font-size:.78rem;color:var(--faint);line-height:1.6}
+@media(max-width:860px){.navft{display:none}}
+
+main{padding:30px clamp(16px,4vw,44px) 120px;max-width:1040px}
+.panel{display:none}.panel.on{display:block}
+h1{font-size:1.85rem;margin:0 0 6px;letter-spacing:-.035em}
+.lede{color:var(--mut);margin:0 0 24px;font-size:1.02rem}
+section{background:var(--sf);border:1px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden}
+.sh{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--sunk);border-bottom:1px solid var(--line)}
+.sh h2{font-size:1.08rem;margin:0;flex:1;letter-spacing:-.02em}
+.body{padding:16px 18px 6px}
+.body>:first-child{margin-top:0}
+p{margin:0 0 12px}ul,ol{margin:0 0 12px;padding-left:20px}li{margin:0 0 4px}
+table{border-collapse:collapse;width:100%;margin:0 0 14px;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--sunk);font-weight:600;font-size:.84rem;color:var(--mut)}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+blockquote{margin:0 0 14px;padding:12px 16px;background:var(--sunk);border-left:3px solid var(--co);border-radius:0 8px 8px 0;color:var(--mut)}
+blockquote b{color:var(--ink)}
+.big{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.38;margin:2px 0 14px}
+.hl{color:var(--co);font-weight:600}
+code{background:var(--sunk);padding:1px 5px;border-radius:4px;font-size:.88em}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:2px 9px;border-radius:999px}
+.t-fix{background:var(--grw);color:var(--gr)}.t-open{background:var(--amw);color:var(--am)}.t-out{background:var(--cow);color:var(--co)}.t-info{background:var(--viw);color:var(--vi)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 16px}
+.kpi>div{background:var(--sf);padding:14px 16px}
+.kpi .v{font-size:1.55rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .k{font-size:.78rem;color:var(--mut);margin-top:5px}
+.kpi .s{font-size:.74rem;color:var(--faint)}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px}
+.chain .c{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--sunk);font-weight:600;font-size:.92rem}
+.chain .c.ok{background:var(--grw);border-color:var(--gr);color:var(--gr)}
+.chain .c.no{background:var(--cow);border-color:var(--co);color:var(--co)}
+.chain .a{color:var(--faint)}
+details{border:1px solid var(--line);border-radius:10px;margin:0 0 8px;background:var(--sf)}
+details>summary{cursor:pointer;padding:9px 13px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}
+details>summary::before{content:"▸";color:var(--faint);font-size:.8rem;transition:.15s}
+details[open]>summary::before{transform:rotate(90deg)}
+details>summary .s{font-weight:400;color:var(--faint);font-size:.84rem;margin-left:auto}
+details>.d{padding:4px 14px 12px 30px}
+details details{margin:6px 0}
+.fig{display:flex;gap:14px;align-items:center;margin:0 0 14px;padding:12px 14px;background:var(--sunk);border-radius:12px}
+.fig img{height:64px;width:auto;flex:none;border-radius:8px}
+.fig .cap{font-size:.88rem;color:var(--mut)}
+.icons{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px}
+.icons .i{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.76rem;color:var(--mut);width:64px;text-align:center}
+.icons img{width:44px;height:44px;border-radius:10px;background:var(--sunk)}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0 0 14px}
+.links a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--sunk);text-decoration:none;color:var(--ink)}
+.links a:hover{border-color:var(--vi)}
+.links a b{display:block;margin-bottom:3px}
+.links a span{font-size:.84rem;color:var(--mut)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:0 0 14px}
+.card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--sf)}
+.card h4{margin:0 0 8px;font-size:.96rem}
+.card.bad{border-color:var(--cow);background:var(--cow)}
+.card.good{border-color:var(--grw);background:var(--grw)}
+.flow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;background:var(--sunk);padding:14px 16px;border-radius:10px;white-space:pre;overflow-x:auto;margin:0 0 14px;line-height:1.55}
+
+.memo{border-top:1px dashed var(--line);padding:12px 18px 16px;background:var(--bg)}
+.memo .ml{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--faint);margin:0 0 7px}
+.memo .ml b{color:var(--mut)}
+textarea{width:100%;min-height:72px;resize:vertical;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
+  background:var(--sf);color:var(--ink);font:inherit;font-size:.92rem;line-height:1.6}
+textarea:focus{outline:2px solid var(--am);outline-offset:1px}
+textarea.dirty{border-color:var(--am)}
+.st{font-size:.78rem;color:var(--faint);margin-left:auto}.st.ok{color:var(--gr)}.st.err{color:var(--co)}
+</style>
+
+<div class="app">
+<nav id="nav">
+  <div class="brand"><img src="/logo/logo-kr-520.webp" alt=""><b>마스터</b></div>
+  <div class="navft">사실 원본 = <code>STRATEGY.md</code><br>메모 = R2 영구 저장<br><span id="gst">…</span></div>
+</nav>
+
+<main id="main">
+
+<!-- ═══════════════════ 0 한눈에 ═══════════════════ -->
+<div class="panel" data-tab="top" data-label="한눈에">
+<h1>탱고북, 한눈에</h1>
+<p class="lede">위에서부터. 목표 → 정체성 → 시장 → 브랜드 → 콘텐츠 → 돈 → 실행. 아래 탭이 그 순서다.</p>
+
+<section data-id="top-goal">
+  <div class="sh"><h2>목표</h2><span class="tag t-fix">ROADMAP</span></div>
+  <div class="body">
+    <p class="big">사람이 들어와서 머물고, 우리가 그 아이를 알아본다.</p>
+    <div class="kpi">
+      <div><div class="v">4 → 100</div><div class="k">외부 실사용자</div><div class="s">🔴 하나만 고르면 이것</div></div>
+      <div><div class="v">20 → 8,000</div><div class="k">브랜드 월 검색</div><div class="s">플레이탱고 실적치</div></div>
+      <div><div class="v" id="k-books">…</div><div class="k">공개 동화책</div><div class="s">라이브</div></div>
+      <div><div class="v" id="k-seam">…</div><div class="k">배운 낱말 → 동화책 (한글)</div><div class="s">라이브</div></div>
+    </div>
+    <div class="flow">들어오게        머물게          알아보게
+(유입)          (제품)          (데이터)
+활동축 68,070    266권 작동       주제축 → 추천
+      └──────────────┴──────────────┘
+                 저작도구
+전제: 주제축·메타 확정 — 「알아보게」 전부가 여기서 시작</div>
+  </div>
+</section>
+
+<section data-id="top-identity">
+  <div class="sh"><h2>정체성 한 줄</h2><span class="tag t-fix">2026-09-04</span></div>
+  <div class="body">
+    <p class="big">우리 아이 첫 글자부터 혼자 읽기까지</p>
+    <p>세계 명작 · 전래 동화 · 창작 동화 · 생활 동화 · 자연 관찰 — 아이의 그림체·캐릭터·배경 <b>취향</b>에 맞춘 추천.</p>
+    <div class="chain">
+      <span class="c ok">글자</span><span class="a">→</span><span class="c ok">낱말</span><span class="a">→</span>
+      <span class="c no">문장</span><span class="a">→</span><span class="c ok">이야기</span><span class="a">→</span><span class="c">혼자 읽기</span>
+    </div>
+    <p>문장 안에 <b>시작점과 끝점</b>이 둘 다 있다 — 그게 곧 책임 범위다. 대기업은 구간을 하나씩만 가져서 이 문장을 못 쓴다. 상세는 「정체성」 탭.</p>
+  </div>
+</section>
+
+<section data-id="top-weapon">
+  <div class="sh"><h2>무기 한 줄</h2><span class="tag t-fix">2026-09-04</span></div>
+  <div class="body">
+    <p class="big">200~300억짜리 플랫폼을 싸게 만들었다. 그래서 초반엔 공짜로 풀 수 있다.</p>
+    <p>무기는 콘텐츠 개수가 아니라 <span class="hl">원가 구조</span>다. 대기업은 이미 쓴 제작비와 방문 조직이 원가에 박혀 있어 이 가격에 못 판다.</p>
+  </div>
+</section>
+
+<section data-id="top-now">
+  <div class="sh"><h2>지금 어디인가</h2><span class="tag t-info">2026-09-04</span></div>
+  <div class="body">
+    <table>
+      <tr><th>단계</th><th></th><th>상태</th></tr>
+      <tr><td>1</td><td>정체성</td><td>✅ 확정</td></tr>
+      <tr><td>2</td><td>연결이 먹히는지 증명 — 성공 신호 확정</td><td>✅ 신호 확정 · <b>측정은 유입 뒤</b></td></tr>
+      <tr><td>3</td><td>언제부터 돈 받나 (BM)</td><td>🔜 2번 결과 뒤</td></tr>
+      <tr><td>4</td><td>아날로그</td><td>준비만 (거치대 견적)</td></tr>
+      <tr><td>5</td><td>8~9세 확장 (학습만화)</td><td>추가 콘텐츠</td></tr>
+    </table>
+    <p>🔴 <b>오픈은 지금, 대규모 광고는 자신 있을 때.</b> 여는 것과 돈 쓰는 것은 다른 결정이다. 지금 부으면 무엇 때문에 왔고 남았는지 모르는 채 돈만 나간다.</p>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 1 정체성 ═══════════════════ -->
+<div class="panel" data-tab="identity" data-label="정체성">
+<h1>정체성</h1>
+<p class="lede">무엇을 하고 무엇을 안 하는가. 「수학 할까요?」에 아니오라고 답하는 기준.</p>
+
+<section data-id="id-sentence">
+  <div class="sh"><h2>문장</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <p class="big">우리 아이 첫 글자부터 혼자 읽기까지</p>
+    <p><b>정식 문장</b>: 글자를 모르는 아이를 혼자 읽는 아이로 만든다.</p>
+    <p>🔴 <b>문장에 언어가 없다.</b> 언어 중립이라 나라를 늘려도 안 바뀐다. 지금 이 문장은 <b>한글 정체성</b>이고, 영어 정체성은 한글을 확실히 뗀 뒤 따로 잡는다(아이가 배우는 순서가 자국어 → 영어).</p>
+    <table>
+      <tr><th>어디</th><th>문장</th></tr>
+      <tr><td>내부 기준</td><td>글자를 모르는 아이를 혼자 읽는 아이로 만든다. 자기 말로, 그리고 영어로.</td></tr>
+      <tr><td>부모에게</td><td>우리 아이가 혼자 책을 읽게 됩니다. 한글로도, 영어로도. <span class="tag t-open">약함 — 브랜딩 탭</span></td></tr>
+      <tr><td>팀원·투자자</td><td>아이가 혼자 읽게 되는 전 과정을 직접 만든다. 조각을 사오지 않기 때문에 이어진다.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section data-id="id-why">
+  <div class="sh"><h2>왜 이 문장인가</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <p>🔴 <b>「부터 ~까지」를 대기업은 못 쓴다.</b> 교원은 「첫 글자」까지고 웅진북클럽은 「읽을 책」부터라 구간을 하나씩만 갖고 있다. 교원 REDPEN 이 우리 탱고보드로 한글을 떼고는 <b>거기서 멈췄다</b> — 읽을 책이 없어 빨간펜(전과목)으로 넘어간다. 그 빈자리가 우리 자리다.</p>
+    <p>🔴 <b>「연결」은 정체성이 아니라 수단이다.</b> 한때 연결로 잡았다가 내렸다 — 전 과정을 직접 만들어서 따라오는 성질이지 목표가 아니다. 정체성을 연결로 두면 일이 「이어붙이기」가 되고, 전 과정으로 두면 「빠진 칸 만들기」가 된다.</p>
+  </div>
+</section>
+
+<section data-id="id-five">
+  <div class="sh"><h2>콘텐츠 5종 — 그리고 진짜 축은 태그</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="icons">
+      <div class="i"><img src="/icons/category/nature.webp" alt="">자연</div>
+      <div class="i"><img src="/icons/category/daily.webp" alt="">생활</div>
+      <div class="i"><img src="/icons/category/adventure.webp" alt="">모험</div>
+      <div class="i"><img src="/icons/category/family.webp" alt="">가족</div>
+      <div class="i"><img src="/icons/category/friend.webp" alt="">친구</div>
+      <div class="i"><img src="/icons/category/emotion.webp" alt="">감정</div>
+      <div class="i"><img src="/icons/category/animal.webp" alt="">동물</div>
+    </div>
+    <table>
+      <tr><th>5종 (출처 축)</th><th>무엇</th></tr>
+      <tr><td>세계 명작</td><td>남의 이야기 (서양)</td></tr>
+      <tr><td>전래 동화</td><td>남의 이야기 (우리)</td></tr>
+      <tr><td>창작 동화</td><td>우리가 지은 이야기</td></tr>
+      <tr><td>생활 동화</td><td>습관·안전·마음·유치원 적응</td></tr>
+      <tr><td>자연 관찰</td><td>사실</td></tr>
+    </table>
+    <p>🔴 <b>5종은 배타적 트리가 아니다 — 한 권이 여러 칸에 놓인다</b>(넷플릭스처럼). 창작동화이면서 생활 주제인 책은 양쪽에 뜬다. 라인 이름은 제작 편의고, 보이는 건 <b>태그 조합</b>이다.</p>
+    <table>
+      <tr><th>메타 축</th><th></th></tr>
+      <tr><td>출처(5종) · 그림체(9종) · 레벨(L1~L3) · 언어</td><td>✅ 있음</td></tr>
+      <tr><td><b>주제(65개) · 무대 · 캐스트</b></td><td>❌ 없음 — ROADMAP 0-2</td></tr>
+    </table>
+    <p>🔴 <b>추천은 「수준」이 아니라 「취향」이 앞이다.</b> 대기업 여섯 곳이 전부 「맞춤」을 팔아 수준 맞춤은 차별이 안 된다. 취향 맞춤은 전집이 <b>박스 단위(30권)</b>로 팔고 작가가 제각각이라 구조적으로 못 한다. 우리는 창작동화 시리즈가 각각 한 그림체·한 캐스트라 「이 아이는 이 그림체를 좋아한다」가 성립한다.</p>
+    <p>🔴 <b>호리는 카테고리가 아니라 IP(라인)다.</b> 책은 카테고리에, 호리는 라인으로.</p>
+  </div>
+</section>
+
+<section data-id="id-scope">
+  <div class="sh"><h2>책임 범위 — 여기까지, 여기부터는 안 한다</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="two">
+      <div class="card good"><h4>여기까지 한다</h4>
+        <ul><li>자기 말 글자 — 한글 파닉스 32단원 ✅</li><li>영어 글자 — 영어 파닉스 39단원 ✅</li><li>낱말 — 핵심단어 ✅</li><li>문장·책 — 수준에 맞게 (레벨 체계 ✅)</li><li>혼자 읽기 — 🔴 여기까지 데려간 적 없음</li><li>부모가 그 과정을 본다 — 리포트 ✅</li></ul></div>
+      <div class="card bad"><h4>안 한다</h4>
+        <ul><li><b>말하기·듣기 회화</b> — 영어유치원·화상영어 자리. 못 지킬 약속을 안 넣으려고 「언어」 대신 「읽기」를 골랐다</li><li><b>전과목·성적·학교 진도·선행</b></li><li><b>수학 과목</b> — 문제은행 구조라 「직접 만들어 잇는다」가 안 통한다</li></ul></div>
+    </div>
+    <p><b>경계 규칙 — 소재는 열려 있고, 과목은 닫혀 있다.</b> 수학 <i>과목</i>은 ✗, 수학이 <i>소재</i>인 동화책(수 세기)은 ✅. 공개 책의 43%가 공룡·식물·우주인 것도 같은 원리 — 과학을 가르치는 게 아니라 아이가 읽고 싶어 하는 소재를 쓴다.</p>
+    <p><b>제안이 올 때 묻는 둘</b>: ① 글자 모르는 아이를 혼자 읽는 데까지 데려가는 일인가? ② 과목을 늘리는 건가, 소재를 늘리는 건가?</p>
+  </div>
+</section>
+
+<section data-id="id-target">
+  <div class="sh"><h2>대상 · 전제</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <ul>
+      <li><b>지금 4~7세</b> (콘텐츠 대부분) · 확장 <b>8~9세 = 시리즈 학습만화</b>(타임 티코 · 삼국지 · 그리스로마신화). 초등 저학년은 무조건 시리즈물.</li>
+      <li><b>AI 가 전제를 바꿨다</b> — 한 권 3~4개월·3인 → 한 사람이 검수까지 <b>월 500권</b>. 생산 비용·속도가 0 으로 수렴한다고 가정하고 BM 을 짠다.</li>
+      <li>🔴 <b>「AI 양산 안 한다」의 뜻</b> = 다 맡기는 양산을 안 한다. 편집자 역할은 사람이 계속 한다. 기술자(글·그림)만 AI.</li>
+      <li>🔴 <b>전략을 지금 재고로 짜지 않는다.</b> 콘텐츠 생산은 제약이 아니다. 「~가 없어서 못 합니다」는 전략의 입력이 아니다 — 필요하면 만들면 된다.</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 2 시장 ═══════════════════ -->
+<div class="panel" data-tab="market" data-label="시장·경쟁">
+<h1>시장 · 경쟁</h1>
+<p class="lede">🔴 조사 완료(2026-09-04). 재조사하지 않는다. 벤치마크는 한국 대기업 모델이다.</p>
+
+<section data-id="mk-model">
+  <div class="sh"><h2>벤치마크 = 한국 대기업 모델</h2><span class="tag t-fix">2026-09-04</span></div>
+  <div class="body">
+    <blockquote>"우리가 노리는 건 글로벌 플랫폼이잖아. 근데 벤치마킹할 건 우리나라 대기업 비즈니스인 거 같아. <b>대기업 모델이 아날로그–디지털 연계</b>지. 아날로그가 끼니까 비싸게 파는 거거든. <b>현물이 있어야 엄마가 돈을 쓰는 거야.</b> 해외에는 이렇게 촘촘한 사업 모델이 거의 없을 거야."</blockquote>
+    <table>
+      <tr><th>웅진</th><th>무엇</th><th>현물</th></tr>
+      <tr><td>싱크빅</td><td>한글·영어 등 학습 플랫폼</td><td><b>전용 패드</b></td></tr>
+      <tr><td>북클럽</td><td>동화책(전집) + 북큐레이션</td><td><b>전용 패드</b></td></tr>
+      <tr><td>방문 학습지</td><td>선생님이 온다</td><td>사람</td></tr>
+    </table>
+    <p><b>월 5~10만원.</b> 가격이 나오는 이유는 콘텐츠가 좋아서가 아니라 <span class="hl">현물이 끼어 있어서</span>다. 즉 아날로그–디지털 연계는 우리가 발명한 축이 아니라 <b>대기업이 이미 하는 모델</b>이다. 우리는 그걸 AI 시대에 다시 설계한다 — 더 좋은 콘텐츠, 훨씬 싼 가격.</p>
+  </div>
+</section>
+
+<section data-id="mk-big">
+  <div class="sh"><h2>대기업이 실제로 내세우는 말</h2><span class="tag t-fix">조사 완료</span></div>
+  <div class="body">
+    <table>
+      <tr><th>브랜드</th><th>내세우는 말</th><th>파는 것</th></tr>
+      <tr><td>웅진 스마트올</td><td>"습관 잡고 성적 올리는 AI 학습"</td><td>전과목 맞춤</td></tr>
+      <tr><td>대교 눈높이</td><td>"딛고 더 높이" · "당신을 배웁니다"</td><td>1:1 수준</td></tr>
+      <tr><td>메가 엘리하이</td><td>"앞서가는 초등학생은 시작부터"</td><td>선행·진학</td></tr>
+      <tr><td>아이스크림 홈런</td><td>"공부를 좋아하는 습관"</td><td>전과목 + 현직교사</td></tr>
+      <tr><td>천재 밀크T</td><td>"모두의 1등 공부법"</td><td>1등</td></tr>
+      <tr><td><b>웅진북클럽</b></td><td><b>"문해력 향상 맞춤 독서 프로그램"</b></td><td><b>전집 + 북큐레이션</b> ← 가장 가까움</td></tr>
+    </table>
+    <p><b>공통점 넷</b>: ① 전과목 ② 성적·등수를 판다(전부 "남보다") ③ 맞춤을 판다(여섯이 다 써서 차별점 아님) ④ 본진은 초등 전과목 태블릿(월 15~20만원), 4~7세는 입구.</p>
+    <p>→ <b>우리가 쓸 수 있는 자리 = 그들이 안 쓰는 말</b>: 전과목 아님 · 성적 아님 · 고르지 않고 만듦.</p>
+    <p>🔴 「대기업은 라인업이 있어서 못 이긴다」는 반증됐다 — 라인업은 있는데 <b>사업부가 갈라져 연결이 안 된다</b>(사용자 확인).</p>
+  </div>
+</section>
+
+<section data-id="mk-class">
+  <div class="sh"><h2>전집·서점은 동화를 어떻게 분류하나</h2><span class="tag t-fix">조사 완료</span></div>
+  <div class="body">
+    <table>
+      <tr><th></th><th>분류</th></tr>
+      <tr><td>예스24</td><td>명작 · <b>생활</b> · 인물 · 전래 · 종교 · <b>창작</b> · 학습</td></tr>
+      <tr><td>아람북스</td><td>통합발달 · <b>생활/정서/예술</b> · 수학/과학 · <b>창작/명작/전래</b> · 영어 · <b>자연관찰</b> · 사회/인물/역사</td></tr>
+      <tr><td>그레이트북스</td><td><b>정서·생활</b> · 언어·문학 · 수학·과학 · 사회·역사 · 창의·예술 · 통합발달 · 영어</td></tr>
+    </table>
+    <p><b>세 곳이 같다</b>: ① 창작·명작·전래는 한 축(출처) ② <b>생활동화는 항상 별도 축</b>(주제) — 어느 곳도 창작 안에 넣지 않는다 ③ 자연관찰은 독립 장르. → 그래서 우리도 5종이고, 「창작동화」를 「생활동화」로 개명할 수 없다(축이 다르다).</p>
+  </div>
+</section>
+
+<section data-id="mk-small">
+  <div class="sh"><h2>소형 경쟁 (파닉스 축)</h2><span class="tag t-fix">조사 완료</span></div>
+  <div class="body">
+    <p><b>소중한글 · 토도한글.</b> 파닉스만 놓고 보면 이쪽이 라이벌이다. 단 <b>글자→책 전체 사슬로 보면 양쪽 반을 다 가진 건 대기업뿐</b>이라 비교 대상은 대기업이 맞다.</p>
+    <p>🔴 <b>경쟁사 콘텐츠는 앱 안에 갇혀 검색에 0줄</b>(토도 2,000 · 소중 700). 「게임 해보기」조차 앱스토어로 보낸다. 우리가 웹·PWA 인 게 유입 경로에서 유일한 무기다.</p>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 3 브랜딩 ═══════════════════ -->
+<div class="panel" data-tab="brand" data-label="브랜딩">
+<h1>브랜딩</h1>
+<p class="lede">2026-09-04 논의. 차별화에 집착하지 않는다 — 있는 그대로 자랑한다.</p>
+
+<section data-id="br-premise">
+  <div class="sh"><h2>전제 — 차별화에 집착하지 않는다</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <blockquote>"뭔 소리를 해도 그냥 <b>세상에 있던 거 더 좋게 만드는 것</b>이다 보니, 브랜딩은 기존 거랑 크게 다를 수 없을 것 같다. 이건 <b>인정하고 가는 게</b> 맞을 것 같다." · "그냥 우리가 만든 거 <b>있는 대로 자랑하면</b> 될 듯."</blockquote>
+    <p>이 전제가 앞선 시도 둘을 정리한다: <b>호리를 간판으로</b>(카탈로그의 6%뿐 — 명작·전래·창작 1,000권엔 안 나온다) · <b>블록을 간판으로</b>(자모 조합이 천장이라 본진인 책을 못 담는다). 둘 다 차별화를 만들려던 시도였다. 블록은 <b>one of them</b>.</p>
+  </div>
+</section>
+
+<section data-id="br-weapon">
+  <div class="sh"><h2>무기 — 원가 구조</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <blockquote>"예전 같으면 <b>2~300억원 들어야만 만들 수 있는 플랫폼</b>을 엄청 저렴하게 만들었다는 거야. 초반 유저들한테 우리 브랜드를 알릴 때 <b>공짜로 풀 수가 있어.</b> 그게 일단 무기야."</blockquote>
+    <p>초반 전략이 「무료」인 이유 — 할인이 아니라 <b>우리만 감당 가능한 가격</b>이라는 사실의 표현. 단 대규모 광고는 신호를 본 뒤(「한눈에」 탭).</p>
+  </div>
+</section>
+
+<section data-id="br-brag">
+  <div class="sh"><h2>자랑할 것 — 있는 그대로</h2><span class="tag t-info">라이브</span></div>
+  <div class="body">
+    <div class="kpi" id="brag-kpi"><div><div class="v">…</div><div class="k">불러오는 중</div></div></div>
+    <p>🔴 <b>권수를 승부수로 쓰지 않는다</b> — 웅진 1만권에 지고 「AI 양산 반대」와 충돌한다. 자랑은 <b>이어져 있다는 사실</b>에 걸고 숫자는 근거로만.</p>
+    <p>🔴 이 숫자는 라이브(<code>/api/content-status</code>)다. 손으로 적지 않는다.</p>
+  </div>
+</section>
+
+<section data-id="br-line">
+  <div class="sh"><h2>한 줄 — 아직 안 정함</h2><span class="tag t-open">논의 중</span></div>
+  <div class="body">
+    <table>
+      <tr><th>후보</th><th>평가</th></tr>
+      <tr><td>우리 아이 첫 글자부터 혼자 읽기까지</td><td>범위 명확, 대기업이 못 씀. <b>교육업계 톤이라 기억에 안 남음</b></td></tr>
+      <tr><td>만든 글자로 읽는다</td><td>사진 한 장으로 설명됨. <b>블록이 천장이라 본진(책)을 못 담음</b></td></tr>
+      <tr><td>화면에서 배우고, 손으로 익힌다</td><td>정확하지만 <b>무딤</b> — 어느 학습지 광고에도 있는 그림</td></tr>
+    </table>
+    <p>🔴 전제를 받으면 한 줄은 <b>「새로운 개념」이 아니라 「분명한 약속」</b>이어야 한다 — 무엇을 사면 무엇이 되는지.</p>
+  </div>
+</section>
+
+<section data-id="br-image">
+  <div class="sh"><h2>이미지 — 「탱고북 하면 딱」</h2><span class="tag t-open">논의 중</span></div>
+  <div class="body">
+    <div class="fig"><img src="/mascot/hori/pointing.webp" alt="호리"><div class="cap"><b>호리</b> — 아기호랑이 마스코트. 생활 43 · 유치원 20 · 탐험 15 · 한글나무 32 · ABC나무 39. 사용자 판단: <b>간판으론 약하다.</b></div></div>
+    <ul>
+      <li><b>책상 하나</b> — 태블릿과 종이가 나란히, 같은 낱말이 양쪽에 (정확하나 흔하다)</li>
+      <li><b>판 위의 글자 블록 → 펼쳐진 책</b> (선명하나 블록이 앞선다)</li>
+      <li>⚠️ 대기업은 이 칸을 <b>전용 패드</b>로 채운다. 현물이 곧 이미지이자 가격 근거. 탱고보드가 나오면 같은 자리를 차지할 수 있으나 <b>지금은 물건이 없다.</b></li>
+    </ul>
+  </div>
+</section>
+
+<section data-id="br-ban">
+  <div class="sh"><h2>안 쓰는 말</h2><span class="tag t-out">금지</span></div>
+  <div class="body">
+    <ul>
+      <li><b>전과목 · 성적 · 1등 · 앞서가는 · 선행</b> — 전부 "남보다". 그들 운동장</li>
+      <li><b>맞춤</b> — 여섯 곳이 다 써서 차별점이 아님</li>
+      <li><b>읽기 독립</b> — 네이버 월 120회. 내부 나침반으로만</li>
+      <li><b>권수 자랑</b> · <b>AI 로 만들었다</b>(편집자는 사람) · <b>감수 흉내 · 마감일 · N배</b>(랜딩 규칙)</li>
+    </ul>
+    <p>부모가 실제로 치는 말: <b>파닉스 8,250</b>(입구) · <b>문해력 6,660</b>(출구) · 책추천 10,600 · 한글공부 2,250.</p>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 4 콘텐츠 ═══════════════════ -->
+<div class="panel" data-tab="content" data-label="콘텐츠">
+<h1>콘텐츠</h1>
+<p class="lede">목록은 여기 안 그린다 — 현황판이 있다. 여기는 구조와 링크.</p>
+
+<section data-id="ct-links">
+  <div class="sh"><h2>보러 가기</h2><span class="tag t-info">라이브</span></div>
+  <div class="body">
+    <div class="links">
+      <a href="/content-status.html" target="_blank"><b>📊 콘텐츠 현황판</b><span>라인별 17축 · 난이도 · 이음매 · 책별 1,281권 검색</span></a>
+      <a href="/word-graph.html" target="_blank"><b>🕸 낱말 연결 그래프</b><span>파닉스 단원 ↔ 동화책, 실로 이어서</span></a>
+      <a href="/library-master" target="_blank"><b>📚 라이브러리 마스터</b><span>카테고리·순서·표지 편집</span></a>
+      <a href="/changjak-plan.html" target="_blank"><b>📖 창작동화 1000 기획서</b><span>시리즈 19 · 850권</span></a>
+    </div>
+  </div>
+</section>
+
+<section data-id="ct-tree">
+  <div class="sh"><h2>구조 — 글자 · 낱말 · 읽기</h2><span class="tag t-info">라이브</span></div>
+  <div class="body">
+    <div id="ct-tree-live"><p class="lede">불러오는 중…</p></div>
+    <p>🔴 <b>나무 동화(한글 나무·ABC 나무)도 동화책이다.</b> 메인 라인업 밖(파닉스 단원 안의 8쪽)이라고 빼고 세면 없는 구멍이 생긴다 — 실제로 그렇게 세서 한글을 67%로 잘못 보고했다(맞는 값 98%).</p>
+  </div>
+</section>
+
+<section data-id="ct-level">
+  <div class="sh"><h2>독서 레벨 사다리</h2><span class="tag t-fix">확정 · 첫 출시 이후로 미룸</span></div>
+  <div class="body">
+    <table>
+      <tr><th></th><th>나이</th><th>낱말</th><th>무엇이</th><th>상태</th></tr>
+      <tr><td><b>L1 씨앗</b></td><td>3~4세</td><td>≤50</td><td>파닉스 막 뗀 아이 · <b>반복 구조 책</b></td><td>🔜 나중에 새로 쓴다 (20~30권, 낱말카드 재사용)</td></tr>
+      <tr><td><b>L2 새싹</b></td><td>4~6세</td><td>80~350</td><td><b>메인 라인업</b> — 창작·생활·명작·자연</td><td>✅</td></tr>
+      <tr><td><b>L3 나무</b></td><td>6~7세</td><td>400~700</td><td>전래 동화</td><td>✅ 자연 발생</td></tr>
+      <tr><td><b>L4</b></td><td>8~9세</td><td>—</td><td>학습만화 (타임 티코 · 신화 · 삼국지)</td><td>🔜 정체성 밖의 확장</td></tr>
+    </table>
+    <p>🔴 <b>같은 책 글밥만 늘려 레벨을 만들지 않는다</b>(사용자: 너무 복잡하다). 레벨은 <b>다른 책들이 다른 레벨에 있는</b> 것으로 채운다. ⚠️ L2 칸이 80~350으로 너무 넓다 — L1 만들 때 같이 볼 것. 선언 `readingLevel` 은 2026-09-04 에 실측으로 전부 덮었다(빈칸 885 · 불일치 67 → 0).</p>
+  </div>
+</section>
+
+<section data-id="ct-lines">
+  <div class="sh"><h2>라인별 한 줄</h2><span class="tag t-info">문서</span></div>
+  <div class="body">
+    <details><summary>세계 명작 48 · 전래 동화 40<span class="s">문학</span></summary><div class="d">명작 = 그림체 3종(수채·페이퍼3D·콜라주) × 5언어. 전래 = 점눈이 그림체, 시즌1·2, 순화 6원칙, 핵심단어 = 전통 공예 사물. 롱폼 오디오북·유튜브까지 배포.</div></details>
+    <details><summary>호리 3라인 78<span class="s">생활 43 · 유치원 20 · 탐험 15</span></summary><div class="d">니들펠트 그림체, 앙상블 8인. 생활 = 습관·안전·마음 45편 커리큘럼(7트랙). 유치원 = 적응·사회정서. 탐험 = 논픽션 발견형(탈것). 낱말 카드 320장 완비.</div></details>
+    <details><summary>자연 관찰 100<span class="s">지식·논픽션</span></summary><div class="d">육지 26 · 공룡 21 · 식물 18 · 바다 9 · 곤충 9 · 하늘 8 · 우주 6 · 우리 몸 3. 실사 그림체. 공개 책의 43% — 「언어 교육 회사」라 부르면 설명 안 되는 덩어리.</div></details>
+    <details><summary>창작 동화 850 (미공개)<span class="s">19시리즈 × 25~50</span></summary><div class="d">한 시리즈 = 한 그림체 + 한 캐스트. 무대 = 유럽 10 + 아시아 5 + 호리형 4. 주제 은행 = 호리 45편. 낱말 이미 839/850 붙음 → <b>추출이 아니라 검수·공개가 남은 일</b>. 실측 전부 L2(중앙 176~279어절).</div></details>
+    <details><summary>파닉스 95단원<span class="s">한글 32 · 영어 39 · 중국어 24</span></summary><div class="d">한글 나무 32권 · ABC 나무 39권이 단원마다 짝. 한글 = 복습 7 + 듣고 고르기. 영어 = Book 1~5. ⚠️ 중국어 24단원 공개 상태인데 예문 0 — 의도 확인 필요.</div></details>
+    <details><summary>학습만화 (L4)<span class="s">타임 티코</span></summary><div class="d">시대여행 12화 · 극한생존 6화 완성·검수. 프랜차이즈 구조. 그리스로마신화·삼국지(24권 552쪽 기획) 후보.</div></details>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 5 활동·연계 ═══════════════════ -->
+<div class="panel" data-tab="activity" data-label="활동·연계">
+<h1>활동 · 아날로그–디지털 연계</h1>
+<p class="lede">화면에서 하는 것, 손으로 하는 것, 그 둘이 만나는 자리.</p>
+
+<section data-id="ac-chain">
+  <div class="sh"><h2>활동 축 — 어디가 비었나</h2><span class="tag t-fix">2026-09-04</span></div>
+  <div class="body">
+    <div class="chain">
+      <span class="c ok">소리</span><span class="a">→</span><span class="c ok">글자</span><span class="a">→</span><span class="c ok">음절</span><span class="a">→</span>
+      <span class="c ok">낱말</span><span class="a">→</span><span class="c no">문장</span><span class="a">→</span><span class="c ok">이야기</span>
+    </div>
+    <p><b>문장만 비어 있다.</b> 1순위 = 문장 빈칸 채우기(나레이션이 읽다 낱말 자리에서 멈춤 → 그림 3장 중 고르기. 🔴 문장은 반드시 소리로). 난이도는 문장이 아니라 <b>오답 출처</b>가 정한다 — 다른 책 낱말이면 듣기(1회독), 같은 책 낱말이면 기억(2회독). 2순위 = 「다음에 무슨 일이?」(삽화만 필요, 266권 즉시).</p>
+    <p>🔴 <b>읽는 중 질문은 안 한다</b> — Khan Academy Kids 방식이지만 우리는 뷰어에서 이중언어까지 뺀 몰입 우선.</p>
+  </div>
+</section>
+
+<section data-id="ac-games">
+  <div class="sh"><h2>독후활동 — 아이에게 보이는 카드</h2><span class="tag t-info">2026-08-31 실측</span></div>
+  <div class="body">
+    <table>
+      <tr><th>축</th><th>게임</th><th>데이터</th><th>상태</th></tr>
+      <tr><td rowspan="4">낱말</td><td>그림 짝 찾기</td><td>낱말 + 카드</td><td>✅ 5언어</td></tr>
+      <tr><td>블록 — 한글은 <b>탱고 보드</b></td><td>낱말</td><td>✅ 실물 판 그대로(24×8, 자음 #F09E5C · 모음 #59B89E)</td></tr>
+      <tr><td>낱말 그리기</td><td>낱말 + keypoints</td><td>✅</td></tr>
+      <tr><td>따라쓰기</td><td>낱말</td><td>✅ 채점 99%, 한 글자씩</td></tr>
+      <tr><td rowspan="2">이야기</td><td>이야기 듣고 그림 찾기</td><td>삽화 + 나레이션</td><td>✅ 266권</td></tr>
+      <tr><td>쪽 순서 맞추기</td><td>삽화</td><td>✅ 266권</td></tr>
+      <tr><td>낱말↔장면</td><td>이 물건 어느 장면?</td><td>낱말 카드 + 본문</td><td>✅ ko · 호리는 5~7권만</td></tr>
+      <tr><td>—</td><td>말하기 (ko/en)</td><td>음성인식</td><td>❌ 코드 완비, 미노출 (Web Speech 로 켜고 재보기로)</td></tr>
+      <tr><td>—</td><td>숨은그림 찾기</td><td>씬</td><td>❌ <b>씬 0건</b> (게임·에디터·플랜 다 있음)</td></tr>
+    </table>
+    <p>🔴 <b>학습자 화면은 레지스트리를 안 본다</b> — <code>getAvailableGames()</code> 가 따로 만든다. 새 게임은 두 곳 다 등록. 🔴 <b>인물 축은 폐기</b> — <code>characters</code> 420장이 저작용 시트라 못 쓴다. 🔴 파닉스 낱말 게임 정답 → <b>그 낱말이 나오는 동화책 쪽(SceneReveal)</b>. 단 리빌에서 책으로 가는 <b>문이 없다</b> → ROADMAP 2-5.</p>
+  </div>
+</section>
+
+<section data-id="ac-analog">
+  <div class="sh"><h2>아날로그 — 손에 잡히는 것</h2><span class="tag t-info">현황</span></div>
+  <div class="body">
+    <table>
+      <tr><th>물건</th><th>지금</th><th>연계</th></tr>
+      <tr><td><b>한글 워크지</b> (A4 인쇄)</td><td>32단원 <b>115쪽</b> — 앱 32단원과 1:1</td><td>인쇄물 툴바에 <b>앱으로 가는 버튼</b> 구움 (그 언어 파닉스로)</td></tr>
+      <tr><td><b>영어 워크지</b></td><td>39단원 <b>164쪽</b></td><td>같음</td></tr>
+      <tr><td><b>색칠 도안</b></td><td>배포 중 · 검색 축 15,480</td><td>색칠 끝나면 「이 그림은 《신데렐라》에 나와요」 → 그 책 (ROADMAP 1-4)</td></tr>
+      <tr><td>숨은그림 (인쇄)</td><td>씬 0</td><td>검색 10,740</td></tr>
+      <tr><td><b>탱고보드</b> (실물 블록)</td><td>🔜 거치대 견적만 · 카메라 인식 ✅ 폰에서 동작</td><td>교원 ODM 검증됨. 매출은 여기서 난다. <b>one of them</b>.</td></tr>
+    </table>
+    <p><b>대기업과 같은 모델</b>(시장 탭) — 차이는 우리 현물이 종이·블록이고 그들은 패드·선생님이라는 것. 🔴 <b>이번 작전 = 디지털 먼저 출시 → 브랜딩 → 유저 → 연결된 아날로그로 큰 매출.</b> 예전(아날로그 먼저)은 실패했다.</p>
+  </div>
+</section>
+
+<section data-id="ac-hw">
+  <div class="sh"><h2>탱고보드 — 어디까지 왔나</h2><span class="tag t-info">2026-08-30</span></div>
+  <div class="body">
+    <ul>
+      <li>보드 3D + 카메라 인식 시뮬레이터 → <b>실물 폰에서 동작</b>(사용자: 「겁나 잘된다」). 색 분할 파이프라인 437 → 33ms.</li>
+      <li>잠망경 반사경 설계(CadQuery, 3D 프린팅·사출용). 거울 1도 = 시선 2도.</li>
+      <li>🔴 판에 슬롯 파서 꽂는 구조는 못 쓴다 · 새 판은 격자를 판 중앙에.</li>
+      <li>남은 일 = 못 읽는 프레임이 새로 나오면 그때. <b>잘 되고 있을 때 만지지 않는다.</b></li>
+    </ul>
+    <p>플레이탱고(전 사업) 의 구조적 한계가 <b>인식판 원가</b>였다 → 이번엔 카메라 인식(전자부품 없음). 브랜드는 「탱고북」으로 새로 간다(플레이탱고는 망가진 브랜드).</p>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 6 BM ═══════════════════ -->
+<div class="panel" data-tab="bm" data-label="BM·가격">
+<h1>BM · 가격</h1>
+<p class="lede">보기는 무료, 부모 도구층이 구독. 지금은 베타로 전부 열려 있다.</p>
+
+<section data-id="bm-frame">
+  <div class="sh"><h2>뼈대</h2><span class="tag t-fix">2026-08-25</span></div>
+  <div class="body">
+    <table>
+      <tr><th>무료 (미끼)</th><th>구독 (부모 도구층)</th></tr>
+      <tr><td>동화책 읽기 전권 · 애니 · 범용 도안 · 파닉스 무료 단원</td><td><b>독후활동 · 리포팅 · 추천</b></td></tr>
+    </table>
+    <p>🔴 <b>추천 = 커리큘럼 그래프</b>(배운 낱말 → 그 낱말 나오는 책 → 그 책의 활동). 협업필터링 불필요. 리포팅은 과거형이라 부모의 진짜 일 「다음에 뭘 읽혀?」에 답을 안 한다 — 추천이 구독의 실체.</p>
+    <p>🔴 <b>게이팅 축은 「어떤 책」이 아니라 「어떤 활동」</b>(2026-08-13). 책 잠금은 전부 사라졌다. 판정은 로그인이 아니라 <code>isEntitled</code>.</p>
+  </div>
+</section>
+
+<section data-id="bm-now">
+  <div class="sh"><h2>지금 — 베타 전부 개방</h2><span class="tag t-fix">2026-09-04</span></div>
+  <div class="body">
+    <p><code>BETA_OPEN = true</code> 하나가 네 플래그를 덮는다. 베타 종료 = 그 한 줄을 false. 🔴 판정이 네 곳이라 게이트 이름으로 찾지 말고 <b>판정식</b>으로 grep.</p>
+    <table>
+      <tr><th>이력</th><th></th></tr>
+      <tr><td>2026-08-11</td><td>접근 정책 = 「가입 30일 무료 / 가입 전 일부 공개」 한 줄. 게스트 모드·베타 1년·체험 7일 폐지(규칙 5겹인데 결과 둘뿐)</td></tr>
+      <tr><td>2026-08-13</td><td>게이팅 축 책 → 활동</td></tr>
+      <tr><td>2026-09-04</td><td>베타 개방 — 증명(2단계)의 전제 조건. 벽이 있으면 표본이 안 생긴다</td></tr>
+    </table>
+    <p>결제: 토스 단건 기간권 · 월 4,950(정가 9,900) · 연 39,500(정가 79,000) 오픈 반값 · 친구초대 양방향 +7일. 🔴 유료 결제자 0명 — 베타 1년이 나머지를 덮어 체험·보너스가 묻혀 있었다.</p>
+  </div>
+</section>
+
+<section data-id="bm-open">
+  <div class="sh"><h2>안 정한 것</h2><span class="tag t-open">열림</span></div>
+  <div class="body">
+    <ul>
+      <li><b>가격</b> — 「훨씬 싸게」의 실제 숫자. 대기업 5~10만원 대비 몇 분의 일</li>
+      <li><b>무료의 범위·기간</b> — 초반 유저에게 어디까지, 언제까지</li>
+      <li><b>BM 시작 시점</b> — 베타를 언제 닫나. 성공 신호가 나와야 답이 나온다</li>
+      <li><b>해외 결제</b> — Paddle (미병합 브랜치). 해외 로그인 사용자는 Paddle 전까지 전권 무료</li>
+      <li><b>대규모 광고 착수 조건</b> — 「자신 있다」를 신호 몇 %로 판정하나</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 7 로드맵 ═══════════════════ -->
+<div class="panel" data-tab="roadmap" data-label="로드맵">
+<h1>로드맵</h1>
+<p class="lede">자원은 한 사람 → 동시에 하는 목록이 아니라 <b>줄 세운 목록</b>. 원본 = docs/ROADMAP.md</p>
+
+<section data-id="rm-order">
+  <div class="sh"><h2>순서</h2><span class="tag t-fix">2026-09-02 · 09-04</span></div>
+  <div class="body">
+    <div class="flow">지표 확정 (✅ 오늘)  →  리빌 문 (작다)  →  오가닉 유입 (ROADMAP 1)  →  신호 확인  →  대규모 광고
+                                                      광고비 0                      여기서 처음 돈을 쓴다</div>
+    <p>🔴 <b>순서는 정해져 있다</b> — 「아날로그는 준비만, 디지털 집중」. 다시 묻지 말 것.</p>
+  </div>
+</section>
+
+<section data-id="rm-steps">
+  <div class="sh"><h2>장별</h2><span class="tag t-info">ROADMAP</span></div>
+  <div class="body">
+    <details open><summary>0. 전제 — 주제축·메타 스키마<span class="s">이번 주</span></summary><div class="d">호리 65주제 확정 · <code>Storybook</code> 에 주제·무대·캐스트·그림체장르 optional 필드. <b>2-1·2-2·3-1·3-2 를 전부 막고 있다.</b> 재료는 문서에 다 있다(<code>_series-slate.md</code> 무대·그림체, <code>_TOPICS.md</code> 주제) — 판단이 아니라 옮기기. ⚠️ 01~15 앞 25권 주제만 경로표를 봐야 한다.</div></details>
+    <details><summary>1. 들어오게 — 유입<span class="s">1~3개월 · 광고비 0</span></summary><div class="d">1-0 광고 없음(오가닉만) · 1-1 게이트 개방 ✅ · 1-2 색칠 도안 페이지(공주 3,000 · 자동차 2,390 · 공룡 2,070 — 지금 도안 18장은 검색어와 안 겹침) · 1-3 숨은그림 씬 저작(0 → 100) · 1-4 도안 → 그 책 퍼널. 🔴 SSR 빼면 크롤러가 빈 셸을 본다.</div></details>
+    <details><summary>2. 머물게 — 제품<span class="s">1개월</span></summary><div class="d">2-1 게임 자동 판정(31/266 → 266) · 2-2 창작동화 태깅 → 공개 · 2-3 매주 새 책(재고로 1년치 — 더 쓰기보다 내는 게 값이 크다) · 2-4 말하기·숨은그림 · <b>2-5 리빌에 「이 책 읽기」 문</b>(측정 이전에 제품 구멍).</div></details>
+    <details><summary>3. 알아보게 — 데이터·유료층<span class="s">2~6개월</span></summary><div class="d">3-1 창작동화 낱말 — 🔴 <b>이미 839/850 붙어 있다</b>(「0개」는 틀렸음) · 3-2 연결 채우기 — <b>한글은 끝났다</b>(126/128, 남은 건 얘기·참외) · 3-3 취향 기록(장르 어휘 넓히기) · 3-4 추천 엔진(커리큘럼 그래프, 아이 홈부터) · 3-5 리포팅(「12권」 → 「안전 5/8 · 감정 3/8」).</div></details>
+    <details><summary>4. 저작도구<span class="s">3~6개월</span></summary><div class="d">editor2 에 두 벌이 됐다(블로그·카드뉴스 탭 죽음) → marketing 탭은 보기 전용 · <b>시리즈 엔티티</b>(core.js 9벌 → 데이터 1) · 활동 저작 흡수 · 주소 정리(5곳 한 벌).</div></details>
+    <details><summary>5. 측정<span class="s">계속</span></summary><div class="d"><b>5-0 성공 신호</b>: 맞힌 낱말이 <i>나오는</i> 책 읽기율 vs <i>안 나오는</i> 책 읽기율(대조군). 새 코드 0 — <code>word_correct</code> × <code>page_read</code>. 🔴 「리빌 도달」은 아니다(자동으로 뜨므로 배선 커버리지를 재게 된다). 5-1 재측정(4명 전부 8월 개선 이전) · 5-2 후기 확보(지금 0줄).</div></details>
+    <details><summary>유통 — 늘리지 않는다<span class="s">전부 미검증</span></summary><div class="d">웹 블로그 1,029 URL · 유튜브 84영상(영상당 82회) · 릴스·롱폼·네이버 발행 중. <b>활동축 하나를 뚫고 나서 다음을 고른다.</b> 끄지 않되 새로 투자하지 않는다.</div></details>
+  </div>
+</section>
+
+<section data-id="rm-targets">
+  <div class="sh"><h2>목표치</h2><span class="tag t-info">ROADMAP</span></div>
+  <div class="body">
+    <table>
+      <tr><th>지표</th><th class="r">지금</th><th class="r">목표</th></tr>
+      <tr><td><b>외부 실사용자</b></td><td class="r"><b>4</b></td><td class="r"><b>100</b></td></tr>
+      <tr><td>브랜드 월 검색</td><td class="r">20</td><td class="r">8,000</td></tr>
+      <tr><td>공개 동화책</td><td class="r">266</td><td class="r">441</td></tr>
+      <tr><td>아이 화면 게임</td><td class="r">7종 · 31권</td><td class="r">10종 · 266권</td></tr>
+      <tr><td>색칠 도안</td><td class="r">18장</td><td class="r">100장 · 테마 4</td></tr>
+      <tr><td>숨은그림 씬</td><td class="r">0</td><td class="r">100</td></tr>
+      <tr><td>낱말↔책 예문 (한글)</td><td class="r">126/128 ✅</td><td class="r">128/128</td></tr>
+      <tr><td>후기</td><td class="r">0줄</td><td class="r">10줄</td></tr>
+    </table>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 8 숫자 ═══════════════════ -->
+<div class="panel" data-tab="numbers" data-label="숫자">
+<h1>숫자</h1>
+<p class="lede">🔴 다시 재지 말 것. 낡았으면 재생성 명령을 돌린다. 콘텐츠 숫자는 라이브.</p>
+
+<section data-id="nm-live">
+  <div class="sh"><h2>콘텐츠 — 라이브</h2><span class="tag t-info" id="nm-at">…</span></div>
+  <div class="body">
+    <div class="kpi" id="nm-kpi"></div>
+    <table id="nm-seam"><tr><th>트랙</th><th class="r">단원</th><th class="r">낱말</th><th class="r">예문 있음</th><th class="r">그중 다른 동화책</th></tr></table>
+    <p>재생성: <code>node packages/server/scripts/build-content-status.mjs</code> · 라이브: <code>/api/content-status</code>(책 저장·삭제 시 자동 갱신)</p>
+  </div>
+</section>
+
+<section data-id="nm-search">
+  <div class="sh"><h2>네이버 검색량</h2><span class="tag t-info">2026-09-02 실측</span></div>
+  <div class="body">
+    <table>
+      <tr><th>키워드</th><th class="r">월</th><th>뜻</th></tr>
+      <tr><td>책추천</td><td class="r">10,600</td><td></td></tr>
+      <tr><td><b>파닉스</b></td><td class="r"><b>8,250</b></td><td>입구</td></tr>
+      <tr><td><b>문해력</b></td><td class="r"><b>6,660</b></td><td>출구</td></tr>
+      <tr><td>한글공부</td><td class="r">2,250</td><td></td></tr>
+      <tr><td>어휘력</td><td class="r">2,000</td><td></td></tr>
+      <tr><td>한글떼기</td><td class="r">980</td><td></td></tr>
+      <tr><td>독후활동</td><td class="r">520</td><td></td></tr>
+      <tr><td>읽기독립</td><td class="r">120</td><td>❌ 간판 폐기</td></tr>
+    </table>
+    <p>활동축(색칠 15,480 · 숨은그림 10,740 · 틀린그림 8,160 · 종이접기 15,930) 은 한글 축(3,160)의 <b>20배</b>. 🔴 검색량은 <b>그 뜻이 맞는지</b>까지 — 「CVC」 2,510 중 파닉스는 200~300.</p>
+  </div>
+</section>
+
+<section data-id="nm-users">
+  <div class="sh"><h2>실사용</h2><span class="tag t-out">2026-08-13</span></div>
+  <div class="body">
+    <p>외부 사용자 <b>4명</b> · 학습 이벤트의 <b>94.6%가 우리</b>. 🔴 4명 전부 08-11·12 수정 이전 = <b>한 번도 제대로 측정한 적이 없다.</b> 셋은 2~3분 책장만 넘김(한 명은 새벽 0시 = 어른), 파닉스는 열지도 않음. 유일한 재사용자 1명은 32분 집중·정답률 89% → <b>직접 물어볼 것</b>.</p>
+    <p>🔴 <b>지표를 믿기 전에 우리 트래픽부터 뺀다</b> — 「Direct 80%」의 범인은 우리였다. 프로덕션은 <code>?__tb=internal</code> 로 열 것.</p>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 9 이력 ═══════════════════ -->
+<div class="panel" data-tab="history" data-label="이력·결정">
+<h1>이력 · 결정</h1>
+<p class="lede">🔴 매번 다시 묻지 말 것. 뒤집힌 결정은 지우지 않고 「뒤집었다」고 적는다.</p>
+
+<section data-id="hs-company">
+  <div class="sh"><h2>우리 이력</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <details open><summary>플레이탱고 (전 사업)</summary><div class="d">실물 한글 블록 + 인식판. 네이버 월 검색 <b>8,000~10,000</b>까지. 코로나로 접음. <b>인식판 원가</b>가 구조적 한계 → 이번엔 카메라 인식. 🔴 브랜드는 「탱고북」으로 새로(플레이탱고는 망가진 브랜드).</div></details>
+    <details open><summary>교원 ODM — 하드웨어가 대기업 커리큘럼에서 검증됨</summary><div class="d">2020 교원 REDPEN 유아 한글 = 자모음절식 + 스마트 튜터 + <b>교원 탱고보드</b>. 유치원 교구로도. 그 카피 "원리만 깨치면 처음 보는 글자를 쉽게 읽어내고" = 지금 우리 랜딩과 같은 말. 🔴 <b>교원은 거기서 멈췄다 — 읽을 책이 없다.</b></div></details>
+    <details open><summary>이번 작전</summary><div class="d">예전: 아날로그 먼저 → 디지털 (실패). 이번: <b>디지털 먼저 출시 → 브랜딩 → 유저 → 연결된 아날로그로 큰 매출.</b> 유아 사업은 아날로그에서 돈이 난다. 디지털은 유입·브랜딩·맞춤·게임화 담당.</div></details>
+  </div>
+</section>
+
+<section data-id="hs-decisions">
+  <div class="sh"><h2>결정 이력</h2><span class="tag t-fix">STRATEGY §4</span></div>
+  <div class="body">
+    <table>
+      <tr><th>날짜</th><th>결정</th></tr>
+      <tr><td>08-11</td><td>접근 정책 = 「가입 30일 무료 / 가입 전 일부 공개」 한 줄</td></tr>
+      <tr><td>08-13</td><td>게이팅 축 책 → <b>활동</b></td></tr>
+      <tr><td>08-25</td><td>BM = 보기 무료 / 부모 도구층 구독</td></tr>
+      <tr><td>09-02</td><td>1차 완성 = 약 500권 · 한/영만 · 아날로그는 준비만</td></tr>
+      <tr><td>09-04</td><td>베타 개방 · 정체성 「첫 글자부터 혼자 읽기까지」 · 수학·회화·전과목 안 함 · 마켓플레이스 폐기 · 4~7세 본진 · 콘텐츠 5종 · 태그 축 · 레벨 사다리(L4 되살림) · 글밥 늘려 레벨 안 만듦</td></tr>
+      <tr><td>09-04</td><td>성공 신호 = 맞힌 낱말 나오는 책 vs 안 나오는 책 · 검증은 아이 쪽만 · 리빌에 문 · 오픈 지금·광고 나중 · 브랜딩은 차별화 집착 안 함</td></tr>
+    </table>
+  </div>
+</section>
+
+<section data-id="hs-reversed">
+  <div class="sh"><h2>뒤집힌 것</h2><span class="tag t-out">지우지 않는다</span></div>
+  <div class="body">
+    <table>
+      <tr><th>무엇을</th><th>왜</th></tr>
+      <tr><td>게스트 모드 · 베타 1년 · 체험 7일</td><td>규칙 5겹인데 결과 둘뿐 — 잔재</td></tr>
+      <tr><td>「랜딩에 가격 안 쓴다」 → 쓴다</td><td>부모가 얼마 내는지 못 고름</td></tr>
+      <tr><td>「읽기 독립」 간판</td><td>월 120회</td></tr>
+      <tr><td>「정체성 = 연결」</td><td>연결은 수단(사용자)</td></tr>
+      <tr><td>마켓플레이스 비전</td><td>「우리가 끝까지 책임진다」와 정반대</td></tr>
+      <tr><td>「L3 는 인기작 텍스트 늘려서」</td><td>너무 복잡(사용자)</td></tr>
+      <tr><td>「호리는 창작 안 · 4종」</td><td>업계 셋 다 생활동화 별도 축 → 5종</td></tr>
+      <tr><td>「readingLevel 0권」</td><td>목록 API 에 필드가 없어 잘못 잼. 실제 85%</td></tr>
+      <tr><td>「리빌 도달을 성공 신호로」 · 「새 코드 없이 잰다」</td><td>리빌은 자동 — 아이 선택 아님. 리빌엔 문도 이벤트도 없음</td></tr>
+      <tr><td>「한글 이음매 64%」 · 「앞 단원이 나쁘다」 · 「명사 28개 채워야」</td><td>한글 나무를 빼고 셌다. <b>나무 동화도 동화책.</b> 실제 98%</td></tr>
+      <tr><td>「영어 이음매 33%」</td><td><code>korean||name</code> 로 하나만 골라 영어 낱말이 안 맞았다. 실제 98%</td></tr>
+      <tr><td>「호리를 간판으로」 · 「블록을 간판으로」</td><td>차별화 시도 — 전제 폐기(브랜딩 탭)</td></tr>
+    </table>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════ 10 미결 ═══════════════════ -->
+<div class="panel" data-tab="open" data-label="미결">
+<h1>아직 안 정한 것</h1>
+<p class="lede">다음 세션이 여기서 시작한다. 🔴 비워두고 끝내지 않는다.</p>
+
+<section data-id="op-list">
+  <div class="sh"><h2>목록</h2><span class="tag t-open">열림</span></div>
+  <div class="body">
+    <ol>
+      <li><b>영어 정체성</b> — 한글 뗀 뒤 따로. 지금 미리 정하지 말 것</li>
+      <li><b>대상 연령 확정</b> — 4~7세로 좁힐지, 8~9세 학습만화까지 한 브랜드로</li>
+      <li><b>BM 시작 시점</b> — 성공 신호가 나와야</li>
+      <li><b>앞세울 키워드</b> — 보류(후보 = 숫자 탭 검색량)</li>
+      <li><b>대규모 광고 착수 조건</b> — 「자신 있다」를 신호 몇 %로</li>
+      <li><b>브랜드 한 줄 · 이미지</b> — 브랜딩 탭</li>
+      <li><b>가격 · 무료 범위</b> — BM 탭</li>
+      <li><b>해외에서 이 모델을 어떻게 말할지</b> — 한국식 촘촘함이 통할지, 현물 없이 시작할지</li>
+      <li><b>독서 레벨 사다리 실행</b> — 첫 출시 이후 (결론은 콘텐츠 탭에 있음, 다시 도출하지 말 것)</li>
+      <li><b>중국어 파닉스 24단원</b> — 공개 상태인데 예문 0. 의도 확인</li>
+    </ol>
+  </div>
+</section>
+</div>
+
+</main>
+</div>
+
+<script>
+(function () {
+  var API_MEMO = '/api/saenghwal-memo';
+
+  /* ── 탭 ── */
+  var panels = [].slice.call(document.querySelectorAll('.panel'));
+  var nav = document.getElementById('nav');
+  var ft = nav.querySelector('.navft');
+  panels.forEach(function (p, i) {
+    var b = document.createElement('button');
+    b.className = 'tab'; b.dataset.tab = p.dataset.tab;
+    b.innerHTML = '<span class="n">' + i + '</span>' + p.dataset.label;
+    b.onclick = function () { go(p.dataset.tab, true); };
+    nav.insertBefore(b, ft);
+  });
+  function go(id, push) {
+    panels.forEach(function (p) { p.classList.toggle('on', p.dataset.tab === id); });
+    [].forEach.call(nav.querySelectorAll('.tab'), function (b) { b.setAttribute('aria-selected', b.dataset.tab === id ? 'true' : 'false'); });
+    if (push) history.replaceState(null, '', '#' + id);
+    document.getElementById('main').scrollIntoView({ block: 'start' });
+  }
+  go((location.hash || '#top').slice(1) || 'top', false);
+  addEventListener('hashchange', function () { go((location.hash || '#top').slice(1), false); });
+
+  /* ── 메모 (기존 기획서와 같은 저장소) ── */
+  var secs = [].slice.call(document.querySelectorAll('section[data-id]'));
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  secs.forEach(function (s) {
+    var id = 'master-' + s.dataset.id;
+    var box = el('div', 'memo'), lab = el('div', 'ml');
+    lab.appendChild(el('b', null, '📝 메모')); lab.appendChild(el('span', null, s.querySelector('h2').textContent));
+    var st = el('span', 'st', ''); lab.appendChild(st);
+    var ta = el('textarea'); ta.placeholder = '여기에 적으면 저장됩니다 (멈추면 자동 저장)';
+    box.appendChild(lab); box.appendChild(ta); s.appendChild(box);
+    s._id = id; s._ta = ta; s._st = st;
+    var timer = null;
+    ta.addEventListener('input', function () {
+      ta.classList.add('dirty'); st.className = 'st'; st.textContent = '…';
+      clearTimeout(timer); timer = setTimeout(function () { save(s); }, 700);  // 🔴 글자마다 R2 에 쓰지 않는다
+    });
+    ta.addEventListener('blur', function () { if (ta.classList.contains('dirty')) { clearTimeout(timer); save(s); } });
+  });
+  function save(s) {
+    fetch(API_MEMO, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ docId: s._id, memo: s._ta.value }) })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function () { s._ta.classList.remove('dirty'); s._st.className = 'st ok'; s._st.textContent = '저장됨';
+        setTimeout(function () { if (s._st.textContent === '저장됨') s._st.textContent = ''; }, 2000); })
+      .catch(function (e) { s._st.className = 'st err'; s._st.textContent = '저장 실패 — ' + e.message; });  // 🔴 조용히 넘기지 않는다
+  }
+  function loadMemos() {
+    var g = document.getElementById('gst');
+    fetch(API_MEMO, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
+      var m = (j && j.data) || {};
+      var n = 0;
+      secs.forEach(function (s) { if (s._ta.classList.contains('dirty')) return; s._ta.value = m[s._id] || ''; if ((m[s._id] || '').trim()) n++; });
+      g.textContent = '메모 ' + n + ' / ' + secs.length;
+    }).catch(function (e) { g.textContent = '메모 못 불러옴 — ' + e.message; });
+  }
+  loadMemos();
+
+  /* ── 라이브 숫자 (현황판과 같은 소스) ── */
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function kpi(v, k, s) { return '<div><div class="v">' + v + '</div><div class="k">' + k + '</div>' + (s ? '<div class="s">' + s + '</div>' : '') + '</div>'; }
+  function loadStatus() {
+    return fetch('/api/content-status', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) { return j.data || j; })
+      .catch(function () { return fetch('/content-status.json', { cache: 'no-store' }).then(function (r) { return r.json(); }); });
+  }
+  loadStatus().then(function (d) {
+    var kr = (d.seam.byTrack || []).filter(function (t) { return t.track === 'kr'; })[0] || {};
+    var en = (d.seam.byTrack || []).filter(function (t) { return t.track === 'en'; })[0] || {};
+    document.getElementById('k-books').textContent = d.public - d.phonicsUnits;  // 공개 중 파닉스 제외 근사 — 정확값은 현황판
+    document.getElementById('k-seam').textContent = (kr.covered || 0) + '/' + (kr.words || 0);
+    document.getElementById('nm-at').textContent = (d.at || '').slice(0, 16).replace('T', ' ') + (d.source === 'live' ? ' · 라이브' : ' · 구운 파일');
+
+    var pubCats = (d.categories || []).filter(function (c) { return c.public > 0; });
+    var pubBooks = pubCats.reduce(function (a, c) { return a + c.public; }, 0);
+    var waiting = (d.categories || []).filter(function (c) { return c.public === 0 && c.category !== 'backup'; }).reduce(function (a, c) { return a + c.books; }, 0);
+    var html = kpi(pubBooks, '공개 동화책', pubCats.length + ' 카테고리')
+      + kpi(waiting, '대기 (미공개)', '창작동화')
+      + kpi(d.phonicsUnits, '파닉스 단원', '한글·영어·중국어')
+      + kpi((kr.coveredPct || 0) + '%', '한글 낱말 → 동화책', (kr.covered || 0) + '/' + (kr.words || 0))
+      + kpi((en.coveredPct || 0) + '%', '영어 낱말 → 동화책', (en.covered || 0) + '/' + (en.words || 0))
+      + kpi(d.uniqueWords, '유니크 낱말', d.multiBookWordPct + '% 가 2권 이상');
+    document.getElementById('brag-kpi').innerHTML = html;
+    document.getElementById('nm-kpi').innerHTML = html + kpi(d.levels.missing + ' / ' + d.levels.wrong, '레벨 빈칸 / 불일치', '실측으로 덮음');
+
+    var t = document.getElementById('nm-seam');
+    (d.seam.byTrack || []).forEach(function (r) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + esc(r.track) + '</td><td class="r">' + r.units + '</td><td class="r">' + r.words + '</td><td class="r"><b>' + r.covered + '</b> · ' + r.coveredPct + '%</td><td class="r">' + r.other + '</td>';
+      t.appendChild(tr);
+    });
+
+    /* 콘텐츠 트리 — 카테고리를 5종으로 묶어 접기 */
+    var FIVE = [
+      ['문학', ['세계 명작', '전래 동화']],
+      ['생활', ['생활동화', '호리 유치원동화']],
+      ['지식·논픽션', ['육지 동물 친구들', '공룡 친구들', '식물 친구들', '바다 동물 친구들', '곤충 친구들', '하늘 동물 친구들', '우주와 자연', '우리 몸 이야기', '호리 세상 탐험']],
+    ];
+    var used = {}, out = '';
+    FIVE.forEach(function (g) {
+      var cats = (d.categories || []).filter(function (c) { return g[1].indexOf(c.category) >= 0; });
+      cats.forEach(function (c) { used[c.category] = 1; });
+      var n = cats.reduce(function (a, c) { return a + c.public; }, 0);
+      out += '<details open><summary>' + esc(g[0]) + '<span class="s">공개 ' + n + '권</span></summary><div class="d">'
+        + cats.map(function (c) { return '<div>' + esc(c.category) + ' <span class="s" style="color:var(--faint);font-size:.84rem">' + c.public + '/' + c.books + ' · 낱말 있는 책 ' + c.withWords + ' · 중앙 ' + c.wordsMedian + '어절</span></div>'; }).join('')
+        + '</div></details>';
+    });
+    var cj = (d.categories || []).filter(function (c) { return !used[c.category] && c.public === 0 && c.category !== 'backup'; });
+    out += '<details><summary>창작 동화 (미공개)<span class="s">' + cj.reduce(function (a, c) { return a + c.books; }, 0) + '권 · ' + cj.length + '시리즈</span></summary><div class="d">'
+      + cj.sort(function (a, b) { return a.category.localeCompare(b.category); }).map(function (c) { return '<div>' + esc(c.category) + ' <span style="color:var(--faint);font-size:.84rem">' + c.books + '권 · 낱말 ' + c.withWords + ' · 중앙 ' + c.wordsMedian + '어절</span></div>'; }).join('')
+      + '</div></details>';
+    out += '<details><summary>파닉스 (글자·낱말 층)<span class="s">' + d.phonicsUnits + '단원</span></summary><div class="d">'
+      + (d.seam.byTrack || []).map(function (r) { return '<div>' + esc(r.track) + ' — ' + r.units + '단원 · 낱말 ' + r.words + ' · 예문 있음 <b>' + r.covered + '</b> (' + r.coveredPct + '%)</div>'; }).join('')
+      + '<div style="color:var(--faint);font-size:.84rem;margin-top:6px">단원별·낱말별은 <a href="/word-graph.html" target="_blank">낱말 그래프</a></div></div></details>';
+    document.getElementById('ct-tree-live').innerHTML = out;
+  }).catch(function (e) {
+    document.getElementById('ct-tree-live').innerHTML = '<p style="color:var(--co)">숫자를 못 불러왔다 — ' + esc(e && e.message) + '. 현황판을 다시 구워라.</p>';
+  });
+})();
+</script>
+</html>
