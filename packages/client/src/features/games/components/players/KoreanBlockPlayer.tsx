@@ -8,8 +8,6 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
 import { gameSafeAreaStyle } from '../../lib/game-safe-area';
-import { TutorialProvider } from './KoreanBlockTutorial/KoreanBlockTutorial.context';
-import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { FeedbackOverlay } from '../FeedbackOverlay';
@@ -37,89 +35,6 @@ function isVowel(char: string) {
 
 // 쉬움 (easy) 는 strip UI (`EasyOrderStrip`) 로 전환 — ALL_CONSONANTS/ALL_VOWELS 패널 사용 X.
 // 보통/어려움 만 BlockPanel 사용. (이전 EASY_CONSONANTS/EASY_VOWELS slice 는 strip 도입으로 삭제)
-
-/**
- * 공간 위치 인식 파서 — 한글 음절의 시각적 배치 그대로 합성.
- *
- * 음절 시작 (cho) 위치별 모음 후보:
- *  A. 수평 모음: cho 의 **오른쪽** (r, c+1) — ㅏ/ㅑ/ㅓ/ㅕ/ㅐ/ㅒ/ㅔ/ㅖ/ㅣ. 예: 가, 나
- *  B. 수직 모음: cho 의 **아래** (r+1, c) — ㅗ/ㅛ/ㅜ/ㅠ/ㅡ. 예: 구, 누, 두
- *
- * 받침(jong) 후보 — 무조건 "아래" 만 인정 (인라인 받침 X):
- *  - 수평 모음의 경우: (a) cho 아래 (r+1,c) 또는 (b) jung 아래 (r+1,c+1)
- *  - 수직 모음의 경우: jung 아래 (r+2, c)
- *  인라인 (r, c+2) 위치의 자음은 다음 음절의 cho 로 취급.
- *
- * 자음·자음, 모음·모음 연속 X — 인접 동종은 별도 음절.
- *
- * 알고리즘: 위→아래, 좌→우 스캔. cho 발견 시 우측 (수평 모음) 우선 → 없으면 아래 (수직 모음) 시도.
- * 합성에 쓰인 셀은 다시 cho 로 처리되지 않게 mark.
- */
-export function parseSpatialKorean(grid: (string | null)[][]): string[] {
-  // 음절을 시작(cho) 위치와 함께 모아, 마지막에 **읽기 순서(열 왼→오, 같은 열이면 위→아래)**로 정렬.
-  // 🔴 행 순서로 읽으면 '거울' 처럼 뒤 음절이 세로(수직모음+받침)라 cho 가 윗행에 오는 경우
-  //    (울 ㅇ=row0, 거 ㄱ=row1) → '울거' 로 잘못 읽힘. 열 우선 정렬로 한글 읽기 순서 보장(2026-07-10).
-  const out: { syl: string; r: number; c: number }[] = [];
-  const used = new Set<string>(); // 'r-c' — jung/jong 으로 흡수된 셀
-  for (let r = 0; r < grid.length; r++) {
-    let c = 0;
-    while (c < grid[r].length) {
-      const choKey = `${r}-${c}`;
-      if (used.has(choKey)) {
-        c++;
-        continue;
-      }
-      const cho = grid[r][c];
-      if (!cho || isVowel(cho)) {
-        c++;
-        continue;
-      }
-
-      // (A) 수평 모음 — cho 의 우측
-      const jungH = c + 1 < grid[r].length ? grid[r][c + 1] : null;
-      if (jungH && isVowel(jungH) && !used.has(`${r}-${c + 1}`)) {
-        let jong: string | null = null;
-        const belowCho = r + 1 < grid.length ? grid[r + 1][c] : null;
-        const belowJung = r + 1 < grid.length ? grid[r + 1][c + 1] : null;
-        if (belowCho && !isVowel(belowCho) && !used.has(`${r + 1}-${c}`)) {
-          jong = belowCho;
-          used.add(`${r + 1}-${c}`);
-        } else if (belowJung && !isVowel(belowJung) && !used.has(`${r + 1}-${c + 1}`)) {
-          jong = belowJung;
-          used.add(`${r + 1}-${c + 1}`);
-        }
-        const composed = composeHangul(cho, jungH, jong);
-        if (composed) out.push({ syl: composed, r, c });
-        c += 2;
-        continue;
-      }
-
-      // (B) 수직 모음 — cho 의 아래
-      const jungV = r + 1 < grid.length ? grid[r + 1][c] : null;
-      if (jungV && isVowel(jungV) && !used.has(`${r + 1}-${c}`)) {
-        used.add(`${r + 1}-${c}`);
-        // 받침 후보: jung 아래 (r+2, c)
-        let jong: string | null = null;
-        const belowJungV = r + 2 < grid.length ? grid[r + 2][c] : null;
-        if (belowJungV && !isVowel(belowJungV) && !used.has(`${r + 2}-${c}`)) {
-          jong = belowJungV;
-          used.add(`${r + 2}-${c}`);
-        }
-        const composed = composeHangul(cho, jungV, jong);
-        if (composed) out.push({ syl: composed, r, c });
-        c++;
-        continue;
-      }
-
-      c++;
-    }
-  }
-  // 읽기 순서 = 음절 시작(cho) 위치 왼→오(열 우선), 같은 열이면 위→아래.
-  out.sort((a, b) => a.c - b.c || a.r - b.r);
-  return out.map((x) => x.syl);
-}
-
-// 3행 × 6열 고정 그리드 — 각 행이 1음절. 단어 음절 수 ≤ 3 가정.
 
 // 배경 일러스트 — public/images/games/korean-block-bg.png (없으면 gradient fallback).
 const BG_IMAGE_URL = '/images/games/korean-block-bg.webp';
@@ -151,12 +66,6 @@ function KoreanBlockPlayerInner({
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [typedChars, setTypedChars] = useState(0);
-  const [hintActive, setHintActive] = useState(false);
-  // handleHintStart 는 쉬움 모드 strip 도입 (2026-05-20) 으로 도와줘 버튼 제거되며 사용처 없음 — setter 만 사용.
-  const handleHintEnd = useCallback(() => {
-    setHintActive(false);
-  }, []);
-
   const currentItem = items[currentIndex];
 
   /**
@@ -349,7 +258,6 @@ function KoreanBlockPlayerInner({
         setHasTriedThisRound(false);
         setRoundCorrect(false);
         setIsWrong(false);
-        setHintActive(false);
       } else {
         setFinished(true);
       }
@@ -481,7 +389,6 @@ function KoreanBlockPlayerInner({
     setRoundCorrect(false);
     setIsWrong(false);
     clearBoard();
-    setHintActive(false);
   }, [clearBoard]);
 
   if (finished) {
@@ -620,7 +527,6 @@ function KoreanBlockPlayerInner({
           </div>
         </div>
       </div>
-      <KoreanBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
       {scene && (
         <SceneReveal
@@ -636,11 +542,7 @@ function KoreanBlockPlayerInner({
 }
 
 export function KoreanBlockPlayer(props: GamePlayerProps) {
-  return (
-    <TutorialProvider>
-      <KoreanBlockPlayerInner {...props} />
-    </TutorialProvider>
-  );
+  return <KoreanBlockPlayerInner {...props} />;
 }
 
 // ────────────────────────────────────────────────────────────────────────────
