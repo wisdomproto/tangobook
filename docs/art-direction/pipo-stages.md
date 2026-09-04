@@ -100,7 +100,7 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 
 ---
 
-## §2. 사물 시트 — 24장 (후보 39에서 접고 뺐다 · 36권)
+## §2. 사물 시트 — 26장 (후보 39에서 접고 뺐다 · 36권 · 🔴 표 밖에서 2장 추가)
 
 > 🔴 **단위는 권이다.** 한 권이 기대는 사물부터. 형식 정본 = `pongi-stages.md` §2.1 · §2.2.
 > 🔴 **밝은 것은 그리는 게 아니라 들어내는 것이다.** 이 시리즈에는 흰색이 없다 — 건초 · 양털 · 눈 ·
@@ -135,6 +135,8 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 | 2.22 | `FeedingBottle` | 젖병 | **48**(6) |
 | 2.23 | `Toothbrush` | 칫솔 · 치약 통 | **33**(4) |
 | 2.24 | `ClothBundle` | 보자기 보퉁이 | **41**(4) · **50**(4) |
+| 2.25 | `Crook` | 🔴 굽은 지팡이 (**작업표에 없음**) | **17권** · 23(6) · 30(6) · 01(5) · 15(5) |
+| 2.26 | `MomHat` | 🔴 챙 넓은 모자 (**작업표에 없음**) | **34권** · 37(9) · 32(8) |
 
 ### 🔴 접은 내역
 
@@ -1001,6 +1003,90 @@ NOT: no character face (silhouettes only), no gorse yellow anywhere, no letterin
   clean edge, no graded value.
 ```
 
+
+### 🔴 §2.25 · §2.26 — 작업표가 원리상 못 보는 자리 (인물 라벨 전용 소품)
+
+> 추출기는 **「배경·소품」과 컷 라벨**을 읽는다. 그런데 이 시리즈의 소품 둘은 **「인물」 라벨에만** 산다 —
+> 「Sheep grandpa가 굽은 지팡이를 짚고」 · 「Mom dog가 챙 넓은 모자를 눌러 내리며」. 실측:
+>
+> | 사물 | 나오는 권 | 작업표에 실린 줄 |
+> |---|---|---|
+> | **지팡이** | **17권**(01·04·08·12·13·15·19·22·23·25·26·27·30·36·38·46·48) — 23권 6쪽 · 30권 6쪽 · 01권 5쪽 | **0** |
+> | **챙 넓은 모자** | **34권** — 37권 9쪽 · 32권 8쪽 | **0** |
+>
+> 🔴 **01권은 열 쪽 중 다섯이 지팡이이고 두 컷이 통째로 지팡이다**(p4 「지팡이 끝과 땅」 · p5 「지팡이가
+> 화면 위를 가로지른다」). 퐁이 08권 의자와 정확히 같은 자리인데 표에는 한 줄도 없었다.
+> 도도의 파란 목수건·딩딩의 두 권과 같은 결함이다 — **작업표는 바닥이지 천장이 아니다.**
+
+### §2.25 Crook — 🔴 17권 · 할아버지를 읽는 두 번째 표지
+
+```
+PROP SHEET - Crook   (pipo-charcoalwall · SCENE token: Crook)
+
+Sheep Grandpa's crooked stick. Seventeen books have it and it is never once out of his reach, so it
+is drawn identically every time - it is how he is read at thumbnail size before his face is.
+
+FORM: one wooden staff, PRESSED, as tall as his shoulder, with a HOOK at the top that curves back on
+  itself in a little more than a half circle. At most 5 grain lines along the whole length, 0 knots,
+  0 carving, 0 binding, 0 metal.
+🔴 THE HOOK IS THE READ. Whatever the stick is doing, the hook must be visible and must keep the
+  same curve - it is what tells this stick from a fence rail, a broom or a pole at any size.
+🔴 IT IS ALWAYS DOING ONE OF SIX THINGS, and each is a separate state at one scale:
+  1 PLANTED - butt on the ground, one hand closed round the shaft below the hook, the body leaning
+    back over it. This is the default and it is in most of the seventeen books.
+  2 RAISED OVERHEAD - both hands on the shaft, the stick crossing the top of the frame, the body
+    bent back behind it.
+  3 STRUCK ON THE GROUND - the tip on the earth with at most 5 short pressed marks thrown sideways
+    and nothing else. 🔴 No impact rings, no motion arcs, no dust cloud.
+  4 POINTING - held out straight, arm and stick in ONE line, the hook still readable at the far end.
+  5 LAID DOWN - lying flat across a lap, or across hay, hook toward the reader.
+  6 STOOD UP BY ITSELF - pushed into hay or snow so it stands alone with the hook at the top. 🔴 In
+    two books the stick sticking up out of a heap is the ONLY thing that says he is under it.
+🔴 IT IS NEVER USED ON AN ANIMAL and it never touches a body. It taps ground, hay and posts only.
+
+PLATE: the six states at one size, plus the hook drawn large, plus the stick standing beside a plain
+  adult silhouette so its height is fixed.
+
+NOT: no character face (silhouettes only), no gorse yellow anywhere, no lettering, numerals or carved
+  marks, no white chalk or white paint, no motion lines, impact rings or dust puffs, no metal ferrule
+  or binding, no cast shadow, no clean or mechanical edge, no graded value.
+```
+
+### §2.26 MomHat — 🔴 34권 · 옷이 아니라 얹은 물건
+
+```
+PROP SHEET - MomHat   (pipo-charcoalwall · SCENE token: MomHat)
+
+Mom's wide-brimmed hat. It is in thirty-four of the fifty books. 🔴 THE ANCHOR CALLS IT "a prop set
+on the head, NOT a garment" - and that matters, because nobody in this world wears clothes and a hat
+drawn as clothing pulls sleeves and trousers in after it.
+
+FORM: one soft wide brim and a low round crown, PRESSED, one flat field with at most 4 fold lines in
+  the brim and nothing in the crown. 0 band, 0 ribbon, 0 stitching, 0 buckle, 0 feather.
+🔴 THE BRIM IS WIDER THAN HER SHOULDERS. That single proportion is the whole silhouette - at
+  thumbnail size the hat is how she is told from every other adult. Draw it once from straight above
+  with a plain adult silhouette under it to fix the overhang.
+🔴 THE BRIM IS AN INSTRUMENT, not decoration. It does four things and the SCENE uses all four:
+  1 PULLED DOWN - one hand on the brim front pressing it toward the eyes, the face half gone.
+  2 TIPPED FORWARD - the brim angled down over a bent head, so that a face looking at something low
+    is hidden from the reader and only the brim edge shows.
+  3 PUSHED BACK - the brim shoved off the forehead, the whole face open. 🔴 This is the state for
+    every page where she picks the puppy up.
+  4 SHELTERING TWO - the brim tipped over BOTH heads when she folds the puppy into her chest, so
+    that the two of them are inside one shape. In three books that is the last frame of the book.
+🔴 IT CARRIES NO YELLOW. The gorse plate touches nothing but the scarf; a hat with an accent on it
+  takes the eye off the child it belongs to.
+🔴 IT COMES OFF NEVER. Unlike the scarf, this hat is not hung, dropped, blown away or handed over in
+  any of the fifty books - do not invent a scene where it is off her head.
+
+PLATE: the four brim states at one size, plus the overhead overhang panel, plus the hat drawn beside
+  the scarf so the two accessories cannot be confused in a silhouette.
+
+NOT: no character face beyond a plain silhouette, 🔴 no gorse yellow on the hat, no lettering or
+  numerals, no white chalk or white paint, no band, ribbon, feather, flower or buckle, no sleeves,
+  cuffs or any other garment drawn with it, no cast shadow, no clean edge, no graded value.
+```
+
 ---
 
 ## §3. 🔴 미결 — 넷 (42쪽 · 15시리즈 중 최다)
@@ -1121,3 +1207,40 @@ NOT: no character face (silhouettes only), no gorse yellow anywhere, no letterin
 
 앵커: `in volume 08 only, ONE old boot on one foot with the other foot bare`. 26~50 어디에도 없다.
 문제는 아니지만 **권 번호로 박힌 조항이 또 하나** 있다는 뜻이고, §5.1 과 같이 손볼 때 같이 본다.
+
+### §5.8 🔴 앵커가 금지한 「흐리게」를 SCENE 이 반복해서 쓴다 — 진짜 충돌
+
+앵커: `🔴 DEPTH IS SPACING, NEVER DARKNESS. Sheep further up the hill stand CLOSER TOGETHER at the
+same weight of charcoal. Nothing recedes by getting paler or softer.`
+
+그런데 대본에 **「뒤쪽 흐린 자리」·「뒤로 흐린 …」이 열 권 넘게** 있다 — 01 p4 「뒤쪽 흐린 자리에 양
+두어 마리」 · 16 p5 「뒤로 흐린 양들」 · 34 p4 · 36 p4 · 45 p4 「뒤쪽 흐린 자리에 엎드린 등」 ·
+21 p2 「뒤로 흐린 털 더미」. 🔴 **글자 그대로 그리면 앵커를 어긴다.**
+
+**답은 조항을 고치는 게 아니라 번역을 못 박는 것이다.** 이 매체에서 「흐리다」 = 초점이 아니라
+**정보를 안 그린 것** — 같은 세기의 문지른 면에 **내부 선 0**, 윤곽만. 밝기도 대비도 그대로다.
+🔴 앵커 `RENDERING` 절에 한 줄: `"Blurred" or "hazy" in a SCENE means an unmodelled shape - same
+charcoal weight, 0 interior marks - never paler, never softer, never out of focus.`
+안 넣으면 화가가 쪽마다 흐림을 넣고, 그러면 이 시리즈의 유일한 깊이 장치(간격)가 죽는다.
+
+### §5.9 🔴 그림자 — 44권에만 있고, 앵커에는 한 줄도 없다
+
+44권은 **벽 그림자가 통째로 사건**이다(p3 「벽에 길게 늘어진 흔들리는 그림자 하나」 · p7 「벽에 나란히
+놓인 그림자 둘 — 둥근 공 그림자와 뾰족한 침대 기둥 그림자」). 그런데 앵커에는 그림자를 허락하는 줄도
+금지하는 줄도 없다.
+
+🔴 **비어 있는 게 더 나쁘다** — 사물 시트 스물여섯 장이 전부 `no cast shadow` 를 NOT 에 넣었는데
+(안 넣으면 숯에서 그림자가 마구 새어 세 값 규칙이 무너진다) 그 상태로 44권을 그리면 화가가 시트를
+따라 그림자를 안 그린다. 앵커에 명시할 것:
+`SHADOWS: there are no cast shadows anywhere in this series, with ONE exception - the two shapes
+thrown on the bedroom wall in volume 44, which are pressed charcoal with furry edges and NO light
+source drawn. Nothing else in fifty books casts a shadow.`
+(도도 21권이 `no cast shadow` 때문에 통째로 못 그려진 것과 같은 종류인데, 여기서는 **조항이 없어서**
+같은 결과가 난다.)
+
+### §5.10 ⚠️ 자리 시트 목록 재확인 — `Meadow` 류 누락은 없다
+
+세 시리즈에서 「없는 자리 시트」가 나왔다기에 pipo §1 여섯 장을 대본 50권 토큰과 전수 대조했다.
+빠진 것은 **§5.3 의 다섯**(`Market`·`Well`·`HenHouse`·`CartRoad`·`GrannyFarm`)뿐이고,
+풀밭·목초지에 해당하는 자리는 `Hill` 이 이미 덮는다(비탈·언덕·풀밭·눌린 풀이 전부 그 시트의
+`RUBBED` 한 면이다). 🔴 다만 `GrannyFarm` 은 **목장을 통째로 하나 더 짓는 일**이라 다섯 중 가장 비싸다.

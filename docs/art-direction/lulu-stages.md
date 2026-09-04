@@ -88,7 +88,7 @@ NOT: no character of any kind, no accent colour anywhere on this sheet, no lette
 
 ---
 
-## §2. 사물 시트 — 42장 (50권 전권을 대본으로 다시 셌다)
+## §2. 사물 시트 — 43장 (50권 전권을 대본으로 다시 셌다)
 
 > 🔴 **단위는 권이다.** 형식 정본 = `pongi-stages.md` §2.1·§2.2, 그리고 아래 §2.1 `Nets`.
 > 🔴 **밝은 것은 그리는 게 아니라 닦아 내는 것이다**(§0). 빈 그물 · 흰 식탁보 · 거품 · 기름 방울 ·
@@ -141,6 +141,7 @@ NOT: no character of any kind, no accent colour anywhere on this sheet, no lette
 | 2.40 | `Flowers` | 꽃 여덟 송이와 빈 병 | **02(6)** |
 | 2.41 | `Car` | 낡은 시골 자동차 | **36(3)** |
 | 2.42 | `DriedBranch` | 벽에 걸린 마른 올리브 가지 다발 | **41(2)** |
+| 2.43 | `WornThings` | 밀짚모자 · 앞치마 · 조끼 · 머릿수건 | **01(6)** · 43(3) · 40 · 24 · 19 · 30 |
 
 ### 🔴 접은 내역
 
@@ -1198,9 +1199,10 @@ The cloth awning stretched on four posts at the edge of the yard. One book, five
 
 FORM: one flat sheet of cloth pulled between FOUR posts by a cord at each corner, OLIVE LEAF, printed
   as ONE flat field with the roller running across it - 0 weave, 0 seams beyond 2 lines.
-🔴 THE SHADE UNDER IT IS THE PROP. It is a hard-edged dark RECTANGLE lying on the wiped yard floor -
-  the same shape as the cloth, offset - and the yard around it is bare paper burnt white. The
-  rectangle never softens at its edge and never grades. What happens to that rectangle is the book:
+🔴 THE SHADE UNDER IT IS THE PROP - AND IT IS THE ONE CAST SHADOW THIS SERIES ALLOWS. It is a
+  hard-edged dark RECTANGLE lying on the wiped yard floor - the same shape as the cloth, offset - and
+  the yard around it is bare paper burnt white. It is a flat field of ink, not a darkening: it never
+  softens at its edge and never grades. What happens to that rectangle is the book:
 STATES - draw these four from the SAME high angle at the SAME size so they lay over each other:
   1 TAUT - the cloth flat, four cords tight, the shade a clean rectangle with four square corners.
   2 ONE CORNER LIFTED - one edge of the cloth up in the air, one cord slack, and the shade's
@@ -1219,7 +1221,7 @@ PLATE: states 1-4 in a row at one size, then 5 and 6.
 
 NOT: no character, no accent colour, no lettering or numerals, no white ink, no stripes or pattern on
   the cloth, no flutter lines, no third ink, no graded area, no soft edge except the plate mark, no
-  shading, gradient, glow or cast shadow.
+  shading, gradient or glow. 🔴 (Cast shadow is NOT forbidden on this sheet - it is the subject.)
 ```
 
 ### §2.29 Swing — 45권 일곱 쪽
@@ -1258,6 +1260,571 @@ NOT: no character face, no accent colour, no lettering or numerals, no white ink
   speed lines or dust puffs, no third ink, no graded area, no soft edge except the plate mark, no
   shading, gradient, glow or cast shadow.
 ```
+
+### §2.30 Kite — 23권 아홉 쪽 (🔴 작업표에 이 권이 없다)
+
+> 23권은 **연 하나가 열 쪽**이다. 나무에 걸리고(p6), 떨어지고(p7), 나무가 한 그루도 없는 꼭대기에서 뜬다(p8~p10).
+> 🔴 이 매체에서 **하늘은 닦아 낸 종이**라 연은 **언제나 잉크**여야 보인다 — 반대로 하면 하늘에서 사라진다.
+
+```
+PROP SHEET - Kite   (lulu-monotype · SCENE token: Kite)
+
+The diamond kite with a long cloth tail. One book, nine of its ten pages.
+
+🔴 THE SKY IS BARE PAPER, SO THE KITE IS ALWAYS INKED - one flat DRY EARTH diamond with a single
+  cross spar, and against the wiped sky it is the only dark thing up there. It never gets paler as it
+  goes higher; it only gets SMALLER and the string gets longer.
+FORM: a diamond as wide as a child's chest · a cloth tail three times the diamond's length, printed
+  as one continuous ribbon with at most 5 kinks in it · a ball of string, and the string itself ONE
+  line of even weight from hand to kite, unbroken, never dotted.
+🔴 WIND IS SHOWN BY WHAT IT MOVES, NEVER BY LINES IN THE AIR: washing pulled taut one way, leaves
+  lying one way, grass all leaning one way, the tail streaming one way. 0 swirls, 0 gust marks.
+STATES:
+  1 HELD - the diamond hugged against a chest, tail bundled, string ball in the other hand.
+  2 FLOPPED - the kite tipping over sideways just off the ground, tail crumpled beneath it.
+  3 LOW - flying at an adult's head height behind a running body, tail out straight, string short.
+  4 🔴 CAUGHT IN A TREE - the diamond tilted between branches with the string wound twice round a
+    trunk. The kite is undamaged; it is simply stuck.
+  5 FACE DOWN on the ground under the tree, tail littered with leaves stuck to it.
+  6 THE STRING TAUT from a blunt hand at the bottom of the frame to a small kite at the top corner.
+  7 HIGH AND SMALL - the kite a small dark diamond high in a wiped sky beside one cloud, tail long
+    and loose. Nothing else in the frame.
+
+PLATE: the seven states, plus the kite alone flat at large size with its tail laid out.
+
+NOT: no character face, no accent colour, no lettering or numerals, no white ink, no wind lines,
+  swirls or motion arcs, no pattern on the cloth, no third ink, no graded area, no soft edge except
+  the plate mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.31 Ribbons — 앵커가 상한을 정확히 맞춰 둔 자리 (17권)
+
+> 앵커: `ribbons at most 5 on one cousin` · `The ribbons in volume 17 are OLIVE LEAF and DRY EARTH
+> only - a made thing never takes the accent.` 대본이 그 상한에 정확히 닿는다(p4 셋 → p5 **다섯**).
+> 🔴 **개수가 시계**이므로 매듭 자리가 정해져 있어야 한다 — 머리 · 꼬리 · 발목 순.
+
+```
+PROP SHEET - Ribbons   (lulu-monotype · SCENE token: Ribbons)
+
+The festival ribbons an aunt ties onto the cousins. One book, six of its ten pages.
+
+🔴 RIBBONS NEVER TAKE THE ACCENT. They are OLIVE LEAF and DRY EARTH only - a made thing is never
+  blue in this world, because the only blue is one bell. Alternate the two inks so a bunch of them
+  reads as more than one thing.
+FORM: a flat ribbon a finger wide, tied in a bow with two loops and two loose tails; the tails are as
+  long as the loops. 🔴 Tied ON A BODY it goes in this order and no other: head first, then tail, then
+  ankle, then the two extras anywhere.
+🔴 THE COUNT IS THE CLOCK: 3 on each cousin, then 5 on each cousin, and 5 is the cap.
+STATES:
+  1 ONE RIBBON FLAT, untied, at large size.
+  2 ONE BOW TIED, large, its two loops and two tails clear.
+  3 A CHILD SILHOUETTE WITH 3 - head, tail, ankle, marked on a plain body outline.
+  4 THE SAME SILHOUETTE WITH 5. 🔴 States 3 and 4 must lay over each other.
+  5 A HANDFUL PULLED FROM AN APRON POCKET - ribbons coming out in a continuous string, running off
+    the frame, at most 5 visible.
+  6 🔴 SPINNING - a body turning fast with every ribbon streaming straight OUTWARD from it, all of
+    them radiating from the same centre. The direction of the ribbons IS the spin: 0 motion arcs.
+  7 DROOPING - the same five hanging straight down off slumped shoulders, dead still.
+  8 ONE RIBBON DANGLING FROM A HEAD, single, half undone.
+
+PLATE: the eight states, plus a bow at large size.
+
+NOT: no character face (silhouettes only), no blue or any accent colour, no lettering or numerals, no
+  white ink, no pattern or print on the ribbon, no motion arcs, no third ink, no graded area, no soft
+  edge except the plate mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.32 SwallowNest — 🔴 19권은 제비가 주연인데 앵커에 제비가 없다 (신고)
+
+> 19권 여덟 쪽이 제비집 · 어미 제비 · 아기 제비다. 그런데 앵커 `CHARACTER DESIGN LANGUAGE` 는 **당나귀만**
+> 규정한다. 새를 어떻게 찍는지 규격이 없으면 이 권이 흔들린다 → 이 시트가 임시로 든다(앵커에 한 줄 필요).
+> 🔴 **대본 p9 의 「노란 부리」는 앵커의 `no yellow` 와 정면으로 부딪힌다** — 색이 아니라 **닦아 낸 자리**로
+> 옮긴다. 어두운 구멍에서 유일하게 밝은 것이 부리다. 그러면 노랑 없이도 그 쪽이 성립한다.
+
+```
+PROP SHEET - SwallowNest   (lulu-monotype · SCENE token: SwallowNest)
+
+The mud swallows' nest under the barn roof, and the two birds. One book, eight of its ten pages.
+
+FORM - NEST: a rounded cup of dried mud stuck against the beam where it meets the roof, DRY EARTH,
+  its surface built of small repeated dabs - the SAME dab every time. Its mouth is a small dark hole,
+  and 3 straws hang from its underside. It is the only round thing in a barn of straight lines.
+FORM - PARENT SWALLOW: a small dark PLATE MIX shape, swept back wings and a FORKED tail, drawn as one
+  silhouette - 0 feathers, 0 eye highlight. In flight it is a single wiped-edged dart.
+FORM - CHICK: only ever a head in the nest mouth.
+🔴 THE CHICK'S BEAK IS NOT YELLOW. It is BARE PAPER - a small wiped wedge in the black hole, and the
+  brightest thing in the whole frame, with two dark eyes beside it. That is the payoff of the book.
+STATES:
+  1 THE NEST from below, far: small under a dark roof, mouth shut and dark, straws still.
+  2 THE NEST close: the mud dabs readable, the mouth a flat black hole with nothing in it.
+  3 THE PARENT CIRCLING - one dark dart in the open air of the barn, wings back. 0 motion arcs; the
+    body's angle is the flight.
+  4 THE PARENT AT A HAT BRIM, beak just at the straw, wings half open.
+  5 🔴 THE MOUTH WITH A CHICK IN IT - the wiped beak wedge and two eyes filling the hole.
+  6 A SINGLE STRAW hanging from the nest, dead still, at large size.
+
+PLATE: the six states, plus the parent silhouette alone at large size from three angles.
+
+NOT: no character (donkeys), no accent colour, no yellow or orange anywhere, no lettering or numerals,
+  no white ink, no drawn feathers, no motion arcs or flight paths, no third ink, no graded area, no
+  soft edge except the plate mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.33 ToyBox — 33권 여덟 쪽 (담기는 것의 개수가 상자 크기를 정한다)
+
+> 33권: 상자를 엎어 **솔방울 여섯 · 나무 인형 셋 · 헝겊 공 둘**이 쏟아진다(p1) → 그것들이 바닥의 볕 네모를
+> 갉아먹는다(p5) → 하나씩 담을 때마다 네모가 되살아난다(p6) → 마지막에 **나무 새 하나**만 품는다(p9).
+> 🔴 **개수가 정확해야 p5 의 「이 빠진 네모」와 p8 의 「반듯한 네모」가 성립한다.**
+
+```
+PROP SHEET - ToyBox   (lulu-monotype · SCENE token: ToyBox)
+
+The wooden toy box in the attic and everything in it. One book, eight of its ten pages; a second book
+uses the same box on a low shelf.
+
+FORM - BOX: a plain wooden crate with a plank lid, DRY EARTH, wide enough that a child needs both
+  arms to tip it and light enough that she can. At most 6 seam lines in the whole box.
+🔴 THE CONTENTS ARE EXACTLY ELEVEN THINGS AND ALWAYS THESE: 6 PINE CONES (dark ovals with a stepped
+  edge) · 3 WOODEN DOLLS (plain peg bodies, no faces) · 2 CLOTH BALLS (soft round shapes with one
+  seam). Plus ONE WOODEN BIRD, which lives in the box and is the thing the book is really about: a
+  simple carved bird, one shape, wings folded, small enough to be held against a chest in two blunt
+  hands.
+🔴 EACH KIND MUST BE FOUND BY ITS SILHOUETTE ALONE, because volume 33 sorts them into separate heaps
+  and counts what is left lying in the light.
+STATES:
+  1 THE BOX SHUT, lid on, alone.
+  2 THE BOX TIPPED, mouth down, the eleven things spilling out from one point in a spreading scatter.
+  3 THE ELEVEN SCATTERED on a floor, from above, none touching, all identifiable.
+  4 🔴 THE SAME FLOOR WITH A BRIGHT SQUARE ON IT AND THINGS LYING IN THE SQUARE - the square's edge
+    bitten out wherever an object sits on it. Draw the square alone in one panel and the bitten square
+    in the next, at the same size.
+  5 TWO HEAPS - cones in one, dolls in the other, sorted, on bare floor.
+  6 ONE CONE BEING DROPPED INTO THE BOX MOUTH by a blunt hand, from above.
+  7 THE BOX FULL, lid off, from above: the eleven things as one mass with 6 readable at the top.
+  8 THE WOODEN BIRD ALONE, large, from the side; and the box interior with a bird-shaped empty space
+    left in it.
+
+PLATE: the four kinds laid out separately at one scale FIRST, then the eight states.
+
+NOT: no character face, no doll faces, no accent colour, no lettering or numerals, no white ink, no
+  paint or pattern on the toys, no third ink, no graded area, no soft edge except the plate mark, no
+  shading, gradient, glow or cast shadow.
+```
+
+### §2.34 Figs — 딴딴한 것과 말랑한 것 (10권 · 40권)
+
+> 10권의 사건은 **높이가 아니라 익음**이다 — 「높은 가지의 무화과는 **위로 빳빳이 붙어** 있고, 낮은 가지의
+> 무화과는 무거워 **가지째 아래로 축 처졌다**」(p1). 마지막 쪽은 무른 것 여럿과 **딴딴한 것 하나**가 한 화면에.
+> 40권은 같은 열매가 **말린 채 선반 줄에 다섯**이다.
+
+```
+PROP SHEET - Figs   (lulu-monotype · SCENE token: Figs)
+
+The figs on the tree in the yard, and the dried ones on the kitchen shelf. Two books.
+
+🔴 RIPENESS IS DRAWN AS POSTURE, NOT COLOUR. A HARD FIG stands up stiff and tight against the branch
+  and the branch stays straight. A RIPE FIG hangs heavy and drags its whole twig down into a curve.
+  Both are the same ink. If the two are told apart by anything but the line of the branch, this sheet
+  is wrong.
+FORM: a teardrop narrowing to the stem, wider than an olive and plainly a different fruit, with a
+  small eye at the fat end. DRIED: the same teardrop shrunk and flattened, its skin creased with at
+  most 4 marks, threaded on a string.
+STATES:
+  1 A HIGH BRANCH, hard figs, twigs straight and lifting.
+  2 A LOW BRANCH, ripe figs, twigs bent down into curves under the weight, the fruit at a child's
+    face height. 🔴 States 1 and 2 in one frame is page one of volume 10.
+  3 A HARD FIG AND A RIPE FIG SIDE BY SIDE at large size, same ink, different posture.
+  4 A RIPE FIG BEING TWISTED off its twig by two blunt hands, the twig springing back up straight.
+  5 FIVE RIPE FIGS IN A BASKET, stacked, seen from above.
+  6 A BITTEN FIG in a hand, the bite a hard-edged notch, 0 seeds drawn.
+  7 A HARD FIG BITTEN - the same notch, but the fig undented and the jaw set. The joke is that
+    nothing happened to it.
+  8 FIVE DRIED FIGS threaded on a string hanging from a high shelf, evenly spaced.
+
+PLATE: the eight states, plus a fig and an olive side by side so the two fruits can never be swapped.
+
+NOT: no character face, no accent colour, no lettering or numerals, no white ink, no purple or pink,
+  no seeds or flesh texture, no shine, no third ink, no graded area, no soft edge except the plate
+  mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.35 Apricot — 하나가 넷이 된다 (46권)
+
+> 46권: 한 알을 등 뒤로 숨긴다(p1) → 엄마가 **눌러 가른다**(p5, 반쪽 둘 + 씨 하나) → **조각 넷**(p6) →
+> 사촌 셋에게 하나씩 + 자기 하나(p8). 🔴 **1 → 2 → 4 가 이 권의 셈**이라 조각 크기가 고르게 보여야 한다.
+
+```
+PROP SHEET - Apricot   (lulu-monotype · SCENE token: Apricot)
+
+One apricot, and what happens to it. One book, six of its ten pages.
+
+FORM: a round fruit that fills a blunt hand, with ONE crease running over it from stem to base -
+  that crease is where it will split. DRY EARTH, one flat field, 0 blush, 0 shine.
+🔴 THE COUNT IS THE STORY AND THE PIECES MUST BE EQUAL: 1 whole → 2 halves → 4 quarters. Draw them
+  all at the same distance so the quarters plainly add back up to the whole.
+🔴 THE CUT FACE IS BARE PAPER - the inside of a split apricot is wiped clean, with the stone left as
+  one small dark oval at its centre. That bright inside is the brightest thing on the table.
+STATES:
+  1 WHOLE, large, the crease visible.
+  2 WHOLE, hidden behind a back in a closed blunt hand, only its curve showing past the body.
+  3 SPLIT IN TWO by a pressing hand: two halves lying face up side by side, cut faces wiped, one
+    stone between them, exactly as they fell apart.
+  4 THE STONE ALONE, small, dark, on bare cloth.
+  5 FOUR QUARTERS in two cupped blunt hands, held up, all four the same size.
+  6 FOUR QUARTERS ON A PLATE, evenly spaced round the rim.
+  7 ONE QUARTER laid on an open palm with three stubby fingers under it.
+
+PLATE: the seven states, plus one panel showing whole / halves / quarters in a row at one scale.
+
+NOT: no character face, no accent colour, no lettering or numerals, no white ink, no orange, pink or
+  blush, no shine or highlight, no flesh texture, no third ink, no graded area, no soft edge except
+  the plate mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.36 GrapeBunch — 🔴 작업표는 04권에서 「시렁」만 잡았다 (시렁은 자리다)
+
+> 04권이 기대는 사물은 시렁이 아니라 **시렁 맨 위의 굵은 송이 하나**다 — p2·p4·p6·p7 이 전부 「뻗은 손끝과
+> 그 송이 사이의 빈 자리」이고, p9 는 그 송이가 손 안에 들어온다. 앵커 상한 `grape bunches at most 7`.
+
+```
+PROP SHEET - GrapeBunch   (lulu-monotype · SCENE token: GrapeBunch)
+
+The one fat bunch at the very top of the vine pergola, and the ordinary bunches around it. One book.
+
+🔴 ONE BUNCH IS PLAINLY BIGGER THAN ALL THE OTHERS and it hangs HIGHEST. That single difference is
+  the whole book: everything on those pages is measured against the gap between a reaching hand and
+  this bunch.
+FORM: a bunch is a tapering mass of PLATE MIX with at most 9 grapes read as separate at its lower
+  edge and the rest one field; a short woody stem at the top. The FAT ONE is half again as long as
+  the others and wider at the shoulder. At most 7 bunches hang in any one frame.
+STATES:
+  1 THE PERGOLA UNDERSIDE from below: ordinary bunches hanging at even spacing, and the fat one
+    higher and larger at the top of the frame.
+  2 THE FAT BUNCH ALONE, large, its separate grapes at the rim countable.
+  3 THE GAP - the fat bunch at the top of the frame and an outstretched blunt hand at the bottom,
+    with a wide empty bare-paper space between them. 🔴 That empty space is the subject of the panel.
+  4 THE SAME GAP, smaller: the hand a hand's width closer, the bunch unchanged.
+  5 SWINGING - the fat bunch tipped off vertical while the ones beside it hang straight. 0 motion
+    lines.
+  6 HELD - the fat bunch cradled in two blunt hands, filling them.
+  7 HALF EATEN - the same bunch with its lower half stripped to bare stems, the stems drawn as at
+    most 7 thin lines.
+
+PLATE: the seven states, plus the fat bunch and an ordinary bunch side by side at one scale.
+
+NOT: no character face, no accent colour, no purple, red or pink, no lettering or numerals, no white
+  ink, no bloom or shine on the grapes, no third ink, no graded area, no soft edge except the plate
+  mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.37 OliveTower — 42권 (🔴 앵커의 낱개 상한이 이 권에서 그대로 그림이 된다)
+
+> 42 p1 「꼭대기 **여섯 알만 낱개로 보이고 아래는 한 덩어리**다」 — 앵커의 `a heap of olives is ONE mass and
+> at most 12 olives are ever drawn as separate berries` 를 대본이 이미 그림으로 쓰고 있다.
+> 🔴 **높이가 시계다**: 룰루 코 높이 → 무너짐 → **한 뼘 더 높은** 새 탑.
+
+```
+PROP SHEET - OliveTower   (lulu-monotype · SCENE token: OliveTower)
+
+The tower of olives stacked on the flat yard stone. One book, six of its ten pages.
+
+FORM: a tapering stack of olives on a low flat stone. 🔴 ONLY THE TOP 6 ARE DRAWN AS SEPARATE
+  BERRIES; everything below them is ONE inked mass with a stepped edge. The tower's outline is
+  slightly irregular - it is stacked, not moulded.
+🔴 HEIGHT IS THE CLOCK AND IT IS MEASURED ON A BODY, NOT IN THE AIR: tower one reaches a child's
+  NOSE; tower two reaches ABOVE HER HEAD by a hand's span. Draw both beside the same plain child
+  silhouette at the same size so the difference is checkable.
+STATES:
+  1 TOWER ONE, standing, nose high, top 6 separate.
+  2 🔴 COLLAPSING - 8 olives loose in the air in a scatter and the remaining mass leaning off
+    vertical. The lean plus the loose berries are the entire signal: 0 motion lines, 0 dust.
+  3 FALLEN - about 10 olives spread over the yard floor, none touching, the stone bare and wiped.
+  4 THE EMPTY STONE alone, from above, wiped clean.
+  5 THE BOTTOM COURSE being laid: a ring of olives on the stone, from above.
+  6 TOWER TWO, standing, a hand's span above the child's head. Same angle and size as state 1.
+  7 A SINGLE OLIVE placed on a small separate stone beside the big tower - the last page.
+
+PLATE: states 1, 2, 6 in a row with the same child silhouette, then 3, 4, 5, 7.
+
+NOT: no character face (silhouette only, for height), no accent colour, no lettering or numerals, no
+  white ink, no motion lines or dust puffs, no third ink, no graded area, no soft edge except the
+  plate mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.38 TwoBerries — 37권 (🔴 붉은 알을 새 색으로 그리면 앵커가 깨진다)
+
+> 37권 p5 「왼쪽에 **갸름한** 올리브 한 알, 오른쪽에 **동글고 매끈한** 덤불 알 한 알. **둘 다 까맣고 크기가 거의
+> 같다**」. 그리고 p7 「붉은 알이지만 **새 색을 쓰지 않는다** — 흙갈색 잉크의 가장 짙은 자국으로 찍어 진하기로만
+> 구별한다」 — **대본이 이미 이 매체로 쓰여 있다.** 시트가 그걸 받는다.
+
+```
+PROP SHEET - TwoBerries   (lulu-monotype · SCENE token: TwoBerries)
+
+Three berries that must be told apart without a third ink. One book, six of its ten pages.
+
+🔴 ALL THREE ARE THE SAME TWO INKS. They are separated by SHAPE and by HOW DARK THE PRINT IS, never
+  by colour:
+  OLIVE - an OVAL, longer than wide, small stem scar, PLATE MIX.
+  BUSH BERRY - a perfect ROUND, smooth, no scar, PLATE MIX, the same size as the olive. 🔴 The pair
+    must be nearly identical at a glance and plainly different when looked at. That is the book.
+  VINE BERRY ("red") - a round berry printed in DRY EARTH AT ITS DARKEST - the warm ink at full
+    saturation, so it reads as a different KIND of dark beside the other two. No red, no purple.
+FORM: the bush has ROUND leaves and grows low; the olive tree has narrow leaves. That leaf difference
+  is the only other clue in the book, so fix it here.
+STATES:
+  1 🔴 ONE OLIVE AND ONE BUSH BERRY SIDE BY SIDE ON AN OPEN PALM, extreme close, nothing else in the
+    frame. Same size, same ink, different outline.
+  2 THE BUSH - a low round-leaved bush with 5 round berries at its twig ends.
+  3 AN OLIVE BRANCH - narrow leaves with 5 oval olives.
+  4 THE TWO BRANCHES side by side at one scale, leaves included.
+  5 THE VINE ON THE WALL with 3 dark warm berries on it, and one olive beside them for comparison.
+  6 THE SAME VINE with 2 berries left.
+  7 ALL THREE BERRIES IN A ROW at large size, labelled by nothing but their shape and weight of ink.
+
+PLATE: state 1 largest, then the rest.
+
+NOT: no character face, no accent colour, no red, purple or pink, no lettering, numerals or labels,
+  no white ink, no shine, no third ink, no graded area, no soft edge except the plate mark, no
+  shading, gradient, glow or cast shadow.
+```
+
+### §2.39 OliveCombs — 01권을 푸는 물건 (작업표에 없다)
+
+> 01권은 흔들기가 실패하고 **빗질**로 풀린다 — p2 룰루가 빗을 들어 보이고, p8 이 「빗살 사이로 빠져나오는 까만
+> 알 두어 개」, p9 는 **빗 넷**이 동시에 낮은 가지에 붙는다. 🔴 **뭉툭한 손으로 쥐는 물건**이라 자루가 굵어야 한다.
+
+```
+PROP SHEET - OliveCombs   (lulu-monotype · SCENE token: OliveCombs)
+
+The small wooden combs used to rake olives off a low branch. One book, four of its ten pages, and
+they are how that book is solved.
+
+FORM: a short fat handle a blunt hand closes round, ending in a fan of 7 straight teeth about a hand
+  wide. DRY EARTH, one flat field, the teeth wiped OUT of it so the gaps between them are bare paper.
+  🔴 THE GAPS ARE THE POINT: an olive can pass between two teeth, a leaf mostly cannot.
+🔴 FOUR OF THEM EXIST and in one frame all four are in use at once - identical in shape, told apart
+  only by the arm holding them.
+STATES:
+  1 ONE COMB ALONE, flat, at large size: teeth, gaps, handle.
+  2 HELD UP beside a face, shown off, gripped by three stubby fingers.
+  3 IN THE BRANCH - the teeth pushed in among narrow leaves so half the comb is hidden.
+  4 🔴 DRAWN DOWNWARD - the comb mid-stroke with 3 olives coming free below the teeth and the leaves
+    springing back above them. The olives are separate; the leaves stay on the branch.
+  5 FOUR COMBS at four points along one low branch, all raised, arms cropped at the frame edge.
+  6 A COMB LYING on a spread net, alone, teeth up.
+
+PLATE: the six states, plus one large close-up of two teeth with a single olive passing between them.
+
+NOT: no character face, no accent colour, no lettering or numerals, no white ink, no wood grain
+  scribble, no motion lines, no third ink, no graded area, no soft edge except the plate mark, no
+  shading, gradient, glow or cast shadow.
+```
+
+### §2.40 Flowers — 흰 자리를 잡아먹는 것 (02권)
+
+> 02권은 **자리 싸움**이다 — 꽃 다섯이 눕혀지고(p4), 여덟이 되고(p5), 리본까지 덮여 「접시 하나 놓을 흰 자리도
+> 없다」(p7). 룰루는 **눕혀진 꽃을 세워 병에 꽂아** 자리를 되찾는다(p8). 앵커 상한 `flowers at most 8`.
+
+```
+PROP SHEET - Flowers   (lulu-monotype · SCENE token: Flowers)
+
+The armful of cut flowers laid on the feast table, and the empty bottle they end up in. One book.
+
+FORM: a simple flower - ONE round head of at most 7 petals on a straight stem with 2 leaves, OLIVE
+  LEAF stem and leaves, PLATE MIX head. 🔴 All eight are the same flower; they differ only in the
+  angle they lie at. THE BOTTLE is a plain tall bottle with a narrow neck, DRY EARTH, no label.
+🔴 LYING DOWN THEY EAT THE WHITE; STANDING UP THEY GIVE IT BACK. Every state below is about how much
+  bare cloth is left, so draw them all on the same stretch of table at the same size:
+  1 THE EMPTY CLOTH - a wide bare field, nothing on it.
+  2 FIVE FLOWERS LYING at random angles across it, stems crossing, white broken up.
+  3 EIGHT LYING, the white reduced to gaps too small to set a plate in.
+  4 EIGHT LYING PLUS TWO RIBBONS trailing over them - the cloth almost gone.
+  5 THE BOTTLE STANDING EMPTY on the cloth, alone.
+  6 THREE FLOWERS IN THE BOTTLE, five still lying.
+  7 🔴 ALL EIGHT IN THE BOTTLE, standing, and the cloth wide and bare around it again. States 3 and 7
+    must lay over each other: the same eight flowers, one page apart, and the white returned.
+  8 ONE FLOWER at large size, flat.
+
+PLATE: states 1-4 in a row, then 5-8.
+
+NOT: no character face, no accent colour, no pink, red, yellow or purple, no lettering, numerals or
+  bottle label, no white ink, no petal veins or pollen detail, no third ink, no graded area, no soft
+  edge except the plate mark, no shading, gradient, glow or cast shadow.
+```
+
+### §2.41 Car — 이 세계의 유일한 기계 (36권)
+
+> 36권 p3 「낡은 시골 자동차 한 대의 옆면 — **흙갈색 잉크 한 덩어리, 창도 글자도 없다**」. 대본이 규격을 거의
+> 다 적어 놨다. 🔴 **앵커에는 기계가 한 줄도 없다** — 이 시트가 그 자리를 대신한다(신고).
+> 🔴 `DEPTH IS SPACING` 이라 멀어지는 차는 **작아질 뿐 흐려지지 않는다**.
+
+```
+PROP SHEET - Car   (lulu-monotype · SCENE token: Car)
+
+The one old country car that passes on the village road. One book, three pages - but it is the only
+machine in five hundred pages, so it is fixed here.
+
+🔴 THE CAR IS ONE FLAT MASS OF DRY EARTH SEEN FROM THE SIDE. It has NO windows, NO lettering, NO
+  number plate, NO headlamp glass, NO chrome and NO driver. It is a silhouette with two round wheels
+  and a stepped roofline - old, high and slab-sided - and it is exactly as dark as a sack.
+🔴 IT DOES NOT MOVE WITH LINES. What says it moved is the DUST TRAIL behind the wheels: a low mass
+  of DRY EARTH lying along the road, hard edged, thinning by getting NARROWER, never by getting
+  paler.
+🔴 FAR AWAY IT IS SMALL, NOT FAINT. The distant car at the end of the road is the same weight of ink
+  as the near one, only tiny.
+STATES:
+  1 THE CAR IN PROFILE, large, crossing the frame, dust behind the rear wheel.
+  2 THE SAME CAR SMALL at the far end of a wiped road, same ink weight, no dust.
+  3 THE EMPTY ROAD - the same view with no car at all, wiped bare. 🔴 States 2 and 3 must lay over
+    each other.
+  4 THE WHEEL alone at large size: a dark disc with 6 spokes wiped out of it.
+
+PLATE: the four states.
+
+NOT: no character, no driver, no accent colour, no lettering, numerals or number plates, no white
+  ink, no windows or glass, no chrome, shine or reflections, no speed lines, no exhaust puffs, no
+  third ink, no graded area, no soft edge except the plate mark, no shading, gradient, glow or cast
+  shadow.
+```
+
+### §2.42 DriedBranch — 밤에 뿔이었던 것 (41권)
+
+> 41권 p3 「벽 앞에 뾰족한 것이 우뚝 서 있다 — 위로 **두 갈래가 뿔처럼** 뻗었다」 → p6 「벽에 걸린 **마른 올리브
+> 가지 다발** — 두 갈래로 뻗은 자리가 아까 그 뿔이다」. 🔴 **두 그림이 같은 윤곽이어야 한다** — 밝기만 다르고
+> 형태가 달라지면 그 권의 안심이 성립하지 않는다.
+
+```
+PROP SHEET - DriedBranch   (lulu-monotype · SCENE token: DriedBranch)
+
+The bundle of dried olive branches hanging on the attic wall - the thing that looks like horns in the
+dark. One book, two pages, and those two pages are the whole book.
+
+FORM: a bundle of thin dry branches tied at the middle and hung on a nail, its top splitting into
+  TWO clear forks that rise higher than the rest. At most 9 twigs read as separate; the rest is one
+  mass. DRY EARTH.
+🔴 THE TWO DRAWINGS ARE THE SAME DRAWING. Draw the bundle ONCE and print it twice:
+  1 IN THE DARK - the bundle as a flat PLATE MIX silhouette against a wall that is also dark, its two
+    forks the only thing rising clear. Nothing inside the mass is drawn. It is not distorted, not
+    spiky-ised, not made into a face: it is simply unreadable because nothing is wiped.
+  2 IN THE LAMPLIGHT - the SAME outline at the SAME size and angle, now inside a hard-edged wiped
+    rectangle of lamplight, with the twigs, the tie and the nail all readable inside it. 🔴 If the two
+    outlines do not lay over each other exactly, the sheet is wrong.
+  3 CLOSE - the tie at the middle of the bundle at large size.
+
+PLATE: states 1 and 2 side by side at identical size, then 3.
+
+NOT: no character, no accent colour, no lettering or numerals, no white ink, no eyes, face or
+  creature suggested in the dark state, no glow or halo round the lamplit patch, no third ink, no
+  graded area, no soft edge except the plate mark, no shading, gradient or cast shadow.
+```
+
+### §2.43 WornThings — 🔴 인물 라벨에만 있어서 표에 한 줄도 없는 물건들
+
+> 작업표는 **`배경·소품`과 `컷` 만 본다.** 그런데 이 시리즈에서 **몸에 걸친 것이 사건인 권**이 넷이다 —
+> 01권은 **밀짚모자가 가지에 걸린 채 마지막 쪽까지 남는 것**이 웃음이고(앵커도 캐스트에 그렇게 적어 뒀다),
+> 43권의 마지막 그림은 **앞치마에 남은 동그란 젖은 자국**이며, 24권 p7은 **조끼 아래 즙 자국**이고,
+> 40권 p4는 **챙이 식탁 모서리에 부딪혀 더 못 들어가는 것**이다. 넷 다 인물 라벨에만 적혀 있어 표 밖이었다.
+> 🔴 **파란 목끈과 방울(§2.3)도 같은 이유로 빠져 있었다** — 250쪽 전부에 있는데 늘 인물 라벨 안에 있다.
+
+```
+PROP SHEET - WornThings   (lulu-monotype · SCENE tokens: StrawHat / Apron / Waistcoat / Headscarf)
+
+The four pieces of cloth the adults wear. They are named on the cast sheet, but four books turn on
+what happens TO them, so their sizes and their marks are fixed here.
+
+FORM - STRAW HAT (Nino): a wide flat brim and a low round crown, DRY EARTH, the straw drawn as ONE
+  repeated short dash running round the brim, the same dash every time. 🔴 THE BRIM IS WIDER THAN HIS
+  SHOULDERS ARE - volume 40 has him fold in half to look under a table and the BRIM is what stops
+  him, so the brim must plainly be the widest thing on him.
+FORM - APRON (Mama): a bib apron, OLIVE LEAF, one flat field, with a straight hem and TWO waist
+  strings. 🔴 The strings are narrow and flat - plainly NOT the blue cord (volume 44 puts three apron
+  strings and the cord in one frame).
+FORM - WAISTCOAT (Beppo): a short open waistcoat over the widest body in the cast, DRY EARTH, 3 seam
+  lines, no buttons drawn.
+FORM - HEADSCARF (Rosa): a large square tied behind, OLIVE LEAF, one field with 4 folds.
+🔴 A MARK ON WORN CLOTH IS THE SAME MATERIAL AS A MARK ON THE TABLECLOTH (§2.8): a hard-edged shape
+  sitting ON the field, never a fade, never a wet gradient.
+STATES:
+  1 THE HAT ON, from the front, brim wider than the shoulders below it.
+  2 THE HAT PUSHED BACK, still on, crown tipped off the brow.
+  3 🔴 THE HAT ALONE, CAUGHT IN A BRANCH, crooked, upside-tilted, with olives hanging beside it at
+    the same height. It stays exactly like this to the end of volume 01, so draw it once and keep it.
+  4 THE HAT ON THE GROUND beside a seated body, brim down.
+  5 THE BRIM AGAINST AN EDGE - the brim jammed on a table corner, the head unable to go further.
+  6 THE APRON, plain, from the front, strings tied.
+  7 🔴 THE APRON WITH ONE ROUND DAMP MARK on the skirt - a single dark disc, hard edged, at the height
+    a child's face reaches. This is the last image of volume 43 and it must survive at thumbnail.
+  8 THE APRON HEM SWUNG BACK by running, one flat shape leaning.
+  9 THE WAISTCOAT FROM BEHIND with one large dark stain low on the back - the darkest print of the
+    warm ink, never purple (see §2.5).
+  10 THE HEADSCARF, front and back.
+
+PLATE: the four garments laid out flat at one scale FIRST, then the ten states.
+
+NOT: no character face, no accent colour (the blue belongs to §2.3 alone), no lettering or numerals,
+  no white ink, no pattern, embroidery, buttons or lace, no wet gradient or damp bloom, no third ink,
+  no graded area, no soft edge except the plate mark, no shading, gradient, glow or cast shadow.
+```
+
+---
+
+## §2-R. 🔴 앵커·작업표에 되돌리는 신고
+
+**앵커(`lulu-anchor.md`)를 고쳐야 하는 자리 — 사물 때문에 깨진다**
+
+| 자리 | 무엇이 어긋났나 | 고칠 방향 |
+|---|---|---|
+| `PRESS AND VAT (volumes 18, 24)` | 「기름틀(press)에서 흘러나오는 첫 기름」이라고 적혀 있는데 **18권은 누르는 틀이 아니라 도는 맷돌**이고, 기름은 짜여 나오는 게 아니라 **받침돌 홈 끝에서 방울로 맺힌다** | `the first oil` 문장을 **`ONE bare-paper drop swelling at the lip of the bed stone's channel`** 로 |
+| 조항 이름이 **권 번호 목록**이다 | `RAIN (volume 13)` 인데 **38권도 비**다(빗줄기 여덟·아홉·열하나). `NIGHT (volume 14)` 인데 **27·31·32·41권도 밤**이다. 26~50 이 통째로 조항 밖에 있다 | 🔴 이건 창작동화 라인 전체가 이미 겪은 그 문제다(`_SCENE-FINDINGS.md`). **권 번호를 조건으로 바꾸는 한 줄**이 답이지 조항을 늘리는 게 아니다 |
+| `PIAZZA (volumes 09, 17, 23, 25)` | **23권은 연날리기(언덕)** · **25권은 마당**이다. 광장은 09·17 뿐 | 목록을 고치거나(위와 같이) 조건으로 |
+| `ATTIC` 조항이 없다 | 27·31·32·33·41 **다섯 권이 다락**이고, 32권의 사건이 「덧문 널판 틈의 빛 한 줄이 방 전체로 넓어지는 것」이다. `NIGHT` 조항은 하늘만 덮는다 | 다락 조항 한 줄 — **방은 한 덩어리 어둠이고 빛은 닦아 낸 자리이며 가장자리가 딱 끊긴다** |
+| 캐스트에 **당나귀뿐이다** | 19권은 **어미 제비와 아기 제비가 주연**인데 새를 어떻게 찍는지 규격이 없다 | 앵커에 한 줄(§2.32 가 임시로 들고 있다) |
+| `no yellow` ↔ 19권 대본 | 대본 p9 가 「아기 제비의 **노란** 부리」다 — 앵커와 정면 충돌 | 🔴 **색을 허용하지 말고 매체로 옮긴다** — 부리를 **닦아 낸 자리**로. 어두운 구멍에서 유일하게 밝은 것이 되어 오히려 세진다(§2.32 가 그렇게 썼다) |
+| 기계가 한 줄도 없다 | 36권에 **자동차**가 나온다 | §2.41 이 규격을 들고 있으나 앵커에 한 줄 있는 편이 안전 |
+| 캐스트 시트 | 앵커는 사촌 셋을 「키 한 계단 말고는 구별되면 안 된다」로 못 박았는데, **45·16·46·48권은 「제일 작은 사촌」 하나가 따로 읽혀야 한다** | 캐스트 시트에 **그 계단이 실루엣에서 읽혀야 한다**를 명시 |
+| 🔴 **`FarmYard` 자리 시트(§1.1)의 `no cast shadow`** | **11권이 통째로 그림자 이야기다** — p1 「그림자가 발밑에 동그랗게만 남을 만큼 해가 높다」 · p4 「천막 그늘이 바닥에 **네모나게** 든다」 · p8 「잎 그림자가 얼룩덜룩」. 04권 p1 「바닥엔 얼룩진 그늘」, 06·33권의 볕 네모도 같은 가족이다. **앵커는 그림자를 금지하지 않는데 자리 시트가 금지하고 있다** | §1.1 NOT 에서 `cast shadow` 를 빼고, 대신 **「그림자는 톤이 아니라 가장자리가 또렷한 잉크 면 하나다」**로 바꿀 것. (이번에 쓴 §2.28 `Awning` 이 그 문장을 들고 있다 — 처음엔 나도 같은 금지를 베껴 넣었다가 되돌렸다) |
+
+**자리 시트(§1)에 없는 자리 넷** — SCENE 이 이미 토큰으로 쓰고 있다
+
+`[Attic]`(27·31·32·33·41) · `[Mill]`(18) · `[VillageRoad]`(36) · `[Kindergarten]`(50).
+🔴 §1 은 여섯 장뿐이라 이 다섯 권이 **자리 없이 그려진다.** 그리고 `FarmYard` FIXED PARTS 에 **우물이 없다** —
+16권이 마당의 숨을 자리 넷을 「헛간 · 우물 · 포도 시렁 · 빈 수레」로 쓰므로 우물이 붙박이여야 한다.
+
+🔴 **다섯째 — 풀숲(`Meadow`)이 `Grove` 안에 숨어 있다.** 03권 p3~p8 **여섯 쪽이 키 큰 풀숲**인데(「풀이
+벽처럼 높다」 · 「지나간 자리에만 풀이 눕고 나머지는 빽빽하다」 · 바퀴에 감기는 그 풀) 토큰이 전부 `[Grove]` 라
+화가는 **올리브밭을 그린다.** 39권 p3 「길 옆 풀밭」, 23권 p8 「풀만 한 방향으로 눕는다」도 같은 자리다.
+`Grove` 시트는 「밭 가장자리 · 낮은 가지 앞」만 들고 있어 **사람 키를 넘는 풀벽이 없다.**
+(다른 시리즈에서도 같은 이름이 빠졌다고 들었다 — 라인 공통으로 한 장 세우는 게 맞다.)
+
+**SCENE 토큰 오기 셋** (그림이 딴 데서 그려진다)
+
+- 11권 p4·p5·p6 = **농가 마당의 천막 밑**인데 `[Piazza]`(마을 광장)가 붙어 있다. p3·p7 은 `[FarmYard]` 다.
+- 05권 p5·p7 = **농가 마루**인데 `[Kitchen]` 이 붙어 있다. p1~p4 는 마루로 쓰여 있다.
+- 10권 p1·p4~p9 = **마당 무화과나무 아래**인데 `[Grove]`(언덕 올리브밭)다. p3·p10 은 `[FarmYard]`.
+  🔴 무화과나무는 마당에 있다 — 셋 다 한 권 안에서 자리가 오간다.
+
+**작업표(`_PROP-SHEETS.md`)가 틀린 자리**
+
+> 🔴 **표는 바닥이지 천장이 아니다.** 아래 셋은 kota·dingding·dodo 가 따로 같은 것을 신고한 **추출기 공통 결함**이고,
+> lulu 에서도 그대로 재현된다. 그래서 이 문서의 43장은 표(40 후보)가 아니라 **`_scenes.json` 500쪽**에서 세었다.
+
+1. 🔴 **한 글자 이름을 못 본다.** 통 · 연 · 알 · 탑 · 차 · 판 — 그래서 **08 · 09 · 18 · 23 · 24 · 36 · 37 ·
+   42 · 44 · 47 · 50 열한 권이 목록에 아예 없다.** 하필 그 권들이 **사물이 곧 책**인 권들이다
+   (맷돌 10쪽 · 포도 통 10쪽 · 연 9쪽 · **파란 목끈과 방울 10쪽**). 추출기의 최소 글자 수를 1로 내리거나,
+   1글자 명사 화이트리스트(통·연·알·탑·차·판·줄·씨)를 둘 것.
+2. 🔴 **인물 라벨 안의 물건은 안 보인다.** 표가 `배경·소품`·`컷` 만 읽는다. 그런데 이 시리즈에서 **가장 중요한
+   사물이 언제나 인물 라벨 안에 있다** — 「파란 방울 목끈」은 **250쪽 전부**에 있는데 표에 한 줄도 없고, 밀짚모자·
+   앞치마·조끼도 마찬가지다(§2.43). 인물 라벨도 같이 읽어야 한다.
+3. 🔴 **조사가 붙으면 딴 낱말이 된다.** 표 자체가 증거다 — bami 09 「목도리 / **목도리가**」, bung 03 「기둥 /
+   **기둥과**」, mei 15 「미끄럼틀 / **미끄럼틀이**」, kota 02 「흙바닥 / **흙바닥에**」가 각각 두 줄로 세어져 있다.
+   여덟 쪽짜리 물건이 넷·넷으로 갈리면 **3쪽 문턱을 못 넘고 통째로 사라진다.** 조사를 떼고 세야 한다.
+4. **04권은 「시렁」만 잡혔다** — 시렁은 자리(`FarmYard` FIXED PARTS)이고, 그 권의 사물은 **꼭대기 굵은 송이**다.
+5. **19권은 「헛간」만 잡혀 제비집이 빠졌다.** 06·13·16·30 의 「헛간」, 17 의 「광장」, 38·49 의 「부엌」,
+   02·22·28·29·35·40·46·48 의 「식탁」도 전부 자리다 — **자리 토큰을 사물 후보에서 먼저 걷어내면** 후보가
+   40에서 25쯤으로 줄고 진짜가 남는다.
+6. **「자루 · 수레」를 한 칸에 묶어 놨다**(옛 §2 표 `Sacks`). 두 물건이고, 03권의 사건은 **바퀴에 감긴 풀**이다.
+7. 후보에 「비스듬히」·「위로」·「자락」·「곧게」 같은 **카메라 지시의 잘린 조각**이 섞여 있다 — 조사·부사로 끝나는
+   토큰은 버릴 것.
 
 ---
 

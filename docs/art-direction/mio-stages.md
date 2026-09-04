@@ -86,7 +86,7 @@ NOT: no character of any kind, no accent purple anywhere on this sheet, no lette
 
 ---
 
-## §2. 사물 시트 — 44장 (권 50 · 후보 72에서 접고 뺐다)
+## §2. 사물 시트 — 48장 (권 50 · 후보 72에서 접고 뺐고, 🔴 표 밖에서 여덟을 더 찾았다)
 
 > 🔴 **단위는 권이다.** 한 권이 기대는 사물부터. 형식 정본 = `pongi-stages.md` §2.1 `PaperSheet` · §2.2 `Skates`.
 > 🔴 **밝은 것은 그리는 게 아니라 안 찍는 것이다** — §0 이 정한 규칙이 사물에서 계속 되풀이된다.
@@ -141,6 +141,16 @@ NOT: no character of any kind, no accent purple anywhere on this sheet, no lette
 | 2.42 | `Snowball` | 굴린 눈덩이 | **47**(7) |
 | 2.43 | `Curtain` | 커튼과 그 틈으로 든 빛 | **48**(6) · 46(4) · 12(2) |
 | 2.44 | `Top` | 나무 팽이와 줄 | **49**(9) |
+| 2.45 | `Chair` | 낮은 의자 다섯 | **35**(7) · 28(5) · 43(4) · 05(3) 🔴 표에 없던 물건 |
+| 2.46 | `Parcel` | 종이 꾸러미 | **50**(5) 🔴 표에 없던 물건 |
+| 2.47 | `PaperButterfly` | 종이 나비 | **26**(6) 🔴 표에 한 줄도 없던 권 |
+| 2.48 | `Plaster` | 반창고와 상처 자국 | **41**(4) 🔴 표에 없던 물건 |
+
+🔴 **뒤의 넷은 작업표에 없다.** 표는 SCENE 의 `배경·소품` 한 줄만 읽는데, 이 넷은 **`인물` 줄에서
+산다**(누가 들고 있거나 앉아 있거나 붙이고 있는 것). 50권 전 쪽의 `인물` 줄을 따로 훑어 찾았다 —
+35권 의자 7쪽 · 26권 종이 나비 6쪽 · 50권 꾸러미 5쪽 · 41권 반창고 4쪽이고, **26권은 표에 아예 한 줄도
+없는 권**이다. 🔴 `Blocks`(01) · `Raincoat`(30) · `BigBall` · `WashTub`(03) 까지 합치면 **표 밖에서
+찾은 것이 여덟**이다.
 
 ### 🔴 접은 내역
 
@@ -190,8 +200,9 @@ NOT: no character of any kind, no accent purple anywhere on this sheet, no lette
 | 24 「눈 발자국」 | 자리 몫 — 앵커 `SNOW` 가 「발자국 하나 = SOOT 한 점」으로 이미 정했다. 24권은 그 점의 **줄과 겹침**이 전부라 사물이 없다 |
 | 40 「하얀 선」 | 🔴 **뺀 게 아니라 갈 데가 없다** — 40권 열 쪽 중 아홉이 `VillageRoad` 인데 자리 시트가 없다(SCENE 자신이 p1 에 신고해 뒀다). 사물 시트로는 못 덮는다 → 아래 신고 |
 | 20 「참새」 | 창틀에 두 쪽. 창은 맨 종이라 그 앞의 새는 저절로 실루엣이 된다 — 규격이 필요 없다 |
-| 41 「반창고」 | 한 쪽. 크기는 캐스트 시트가 이미 정했다(선생님 손 = 아이 머리 너비) |
-| 39 「물컵」 · 44 「장갑」 · 50 「종이 꾸러미」 | 한 쪽짜리 배경 물건. 꾸러미는 `Paper` 의 「접힌 종이」로 족하다 |
+| 39 「물컵」 · 44 「장갑」 | 한 쪽짜리 배경 물건 |
+| 10·48·49 「상자」 | 두 쪽 이하이고 셋 다 다른 상자다. 각각 `Acorns`·`Curtain`·`Top` 시트 안에서 테두리로만 쓰인다 |
+| ⚠️ 41 「반창고」 · 50 「종이 꾸러미」 | 🔴 **뺐다가 되돌렸다** — 표에 없어서 한 쪽짜리인 줄 알았는데 `인물` 줄을 훑으니 각각 **4쪽·5쪽**이었다. §2.48 · §2.46 |
 | 27·46 「수건」 | `Washstand` 안의 한 상태로 넣었다(시트를 따로 만들 만큼 변하지 않는다) |
 
 ### 🔴 앵커에 되돌려야 할 것 — 사물을 그리다 부딪힌 자리 여덟
@@ -1571,6 +1582,143 @@ PLATE: the six states at one size, plus DOWN and UP side by side large.
 NOT: no character face, no accent purple, no lettering or numerals, no spin circles, rings, motion
 lines or speed streaks, no painted bands on the top, no cast shadow, no third block, no gradient,
 glow or soft edge.
+```
+
+### §2.45 Chair — 🔴 35권 · **퐁이 08권과 같은 물건이 여기서도 표에 없다**
+
+> 35권 p1 의 톤은 「화면에서 가장 잘 보이는 것이 **아무도 없는 의자 하나**」이고, p8 톤은 「p1에서 비어
+> 있던 의자에 처음으로 몸이 들어온다」, p10 톤은 「p1에서 빠져 있던 의자가 여기서는 식탁에 붙어 있다」다.
+> **한 권이 통째로 의자 하나의 위치로 쓰였다.** 작업표에는 「의자」가 한 줄도 없다 — 의자가 대개
+> `인물` 줄에 있기 때문이다(누가 앉거나 일어선다).
+
+```
+PROP SHEET - Chair   (mio-cutschool · SCENE token: Chair)
+
+The five low chairs at the long table. One book is about one of them being empty; three others sit
+on them. 🔴 THERE ARE FIVE AND THEY ARE IDENTICAL - the class is five - and a chair is never added
+to fill a composition.
+
+FORM: a low SOOT chair with a plain back and four square legs, at most 4 seam lines, 0 carving,
+  0 cushion. 🔴 SEATED ON IT A CHILD'S FEET REACH THE FLOOR - this is a child's chair, not the
+  adult chair of another series - and the teacher sitting on one has her knees above the seat.
+🔴 WHAT A CHAIR SAYS IS ITS ANGLE TO THE TABLE, and that is the whole sheet:
+  IN - pushed right up, the seat under the table edge, front on to the table.
+  OUT - pulled back a whole body's width and TURNED a little off square, so at thumbnail size it is
+    the one chair not lined up with the others. This is how an empty place reads before a reader
+    counts anything.
+  SCATTERED - four chairs each turned a different way after everyone has gone.
+STATES:
+  1 FIVE CHAIRS IN, seen along the table.
+  2 ONE OUT AND EMPTY, the other four in - 🔴 the empty one nearest the camera and clearly the
+    brightest gap in the row.
+  3 THE SAME CHAIR WITH A BODY IN IT, same camera and size as 2.
+  4 THE SAME CHAIR PUSHED BACK IN, same camera again. 🔴 States 2, 3 and 4 lay over one another.
+  5 FOUR EMPTY CHAIRS TURNED EVERY WHICH WAY, table cleared.
+  6 THREE CHAIRS IN A ROW, side on, all square to each other.
+  7 A BAG HUNG ON A CHAIR BACK - the strap over the top rail, the bag hanging behind the back.
+
+PLATE: the seven states at one size, plus one chair with a child silhouette seated on it and one
+with the teacher seated on it, for the two knee readings.
+
+NOT: no character face, no accent purple except the hung bag in state 7, no lettering or numerals,
+no cushions, carving or upholstery, no wood grain, no cast shadow, no third block, no gradient,
+glow or soft edge.
+```
+
+### §2.46 Parcel — 50권 (🔴 크기가 손에서 손으로 넘어가며 두 번 읽힌다)
+
+```
+PROP SHEET - Parcel   (mio-cutschool · SCENE token: Parcel)
+
+The paper parcel the postman brings. One book, five of ten pages, and it is handed down a chain -
+postman to teacher to child - so 🔴 ITS SIZE IS READ THREE TIMES AGAINST THREE DIFFERENT PAIRS OF
+HANDS, which is why it needs a sheet.
+
+FORM: a squarish parcel of BARE PAPER - it takes no ink, so it is the brightest thing in every
+  frame it is in - tied with ONE SOOT string crossing it both ways, and at most 3 fold creases as
+  gouged channels. 🔴 No lettering, numerals, stamps or address of any kind.
+🔴 SIZE: it fits WHOLLY BETWEEN THE TEACHER'S TWO HANDS, and a child has to use BOTH ARMS and hold
+  it against the chest. Those two readings are the sheet's one measurement and they must not drift.
+STATES:
+  1 IN AN ADULT'S TWO ARMS, held against the chest, standing.
+  2 IN THE TEACHER'S TWO HANDS - 🔴 the parcel disappearing between them, her hands as wide as a
+    child's head.
+  3 BEING HANDED DOWN - an adult crouched, two big hands offering it, two small hands coming up
+    UNDER it.
+  4 IN ONE CHILD'S ARM, hugged to the chest, the other arm free and up.
+
+PLATE: the four states at one size, plus the parcel alone with a child's hand and a teacher's hand
+beside it for scale.
+
+NOT: no character face, no accent purple, no lettering, numerals, stamps or postmarks, no ribbon
+bow, no outline round the parcel, no cast shadow, no third block, no gradient, glow or soft edge.
+```
+
+### §2.47 PaperButterfly — 26권 (🔴 작업표에 한 줄도 없는 권의 유일한 사물)
+
+```
+PROP SHEET - PaperButterfly   (mio-cutschool · SCENE token: PaperButterfly)
+
+The paper butterfly a child made and wants to show. One book, six of ten pages, and it is the only
+object in that book. 🔴 It is a MADE thing, so it never carries the accent purple.
+
+FORM: BARE PAPER, TWO wings either side of one narrow body channel, the wing edges cut and slightly
+  ragged. Held, it is about as wide as the child's own face. 🔴 It takes no ink at all and is read
+  only against what is behind it - which is why it must always be held UP against a printed thing
+  (a door post, a coat, a wall), never against bare sky.
+STATES:
+  1 HELD UP IN TWO HANDS above a head, both wings open and flat.
+  2 HANGING FROM ONE HAND at the side, wings folded together so it reads as ONE narrow shape - 🔴
+    the same object, half the width.
+  3 LOWERED TO THE HIP, wings open, the hand slack.
+  4 GOING INTO A BAG - the wings folded and pushed through the mouth of a satchel, ONE WING STILL
+    OUT.
+  5 SHAKEN AT SOMEONE'S FACE, wings open, a palm's width from a nose, both at the same depth.
+  6 CAUGHT BETWEEN TWO CLASPED HANDS, one wing edge showing between the fingers.
+
+PLATE: the six states at one size, plus states 1 and 2 side by side (open and folded).
+
+NOT: no character face, no accent purple, no lettering or numerals, no pattern, spots or eyes on
+the wings, no antennae detail beyond two hairline channels, no outline round the paper, no motion
+lines, no third block, no gradient, glow or soft edge.
+```
+
+### §2.48 Plaster — 41권 (🔴 반창고는 맨 종이다 · 상처에 빨강이 없다)
+
+> 41권 p7 의 톤이 이미 답을 적어 놨다 — 「상처를 덮은 것이 화면에서 가장 밝다 — **반창고는 맨
+> 종이다**」. 그리고 p4 는 「팔레트에 붉은색이 없으므로 **가장 어두운 겹침색 홈 한 줄**로 새긴다」.
+> 이 두 줄이 §2.39 `WhiteBreath`(밝은 것 = 안 찍은 것)와 §2.18 `Ladder`(붉은 자국 = 겹침색 홈)를
+> 그대로 되풀이한다 — **같은 매체 규칙이 세 번째로 나온 자리**라 한 장으로 못 박아 둔다.
+
+```
+PROP SHEET - Plaster   (mio-cutschool · SCENE token: Plaster)
+
+The sticking plaster on a knee, and the graze under it. One book, four of ten pages, and it is what
+that book ends holding on to.
+
+🔴 THE PLASTER IS BARE PAPER - a small rectangle with rounded corners, unprinted, and therefore THE
+  BRIGHTEST THING ON THE PAGE. It is read because the knee under it is printed. NEVER outline it.
+🔴 THE GRAZE IS ONE OVERLAP CHANNEL - a single short gouged line filled with the darkest colour in
+  the book. There is no red in this palette and none is invented: the mark is dark, not coloured,
+  and it is ONE line, never a cluster of scratches and never a blot.
+FORM: the plaster is about as wide as two of the child's own fingers. 🔴 Its corners tell time:
+  lifted at first, flat later.
+STATES:
+  1 THE BARE GRAZE on a stretched-out knee - one dark channel, nothing else on the leg.
+  2 BEING PRESSED ON - a hand as wide as a child's head over the knee, 🔴 THE FOUR CORNERS OF THE
+    PLASTER STILL HALF LIFTED.
+  3 ON, FLAT - all four corners down, with a hair of the dark channel showing beyond one edge so a
+    reader knows what is under it.
+  4 A SECOND MARK - one short dark channel across the back of a hand, no plaster on it, held out
+    straight.
+  5 THE KNEE AT A DISTANCE - the plaster still there at medium shot, and it must still read as the
+    brightest thing on that leg at that size.
+
+PLATE: the five states at one size, plus the plaster and the graze at large scale.
+
+NOT: no character face, no accent purple, no lettering, numerals or crosses on the plaster, no red
+anywhere, no blood, no scratch clusters, no outline round the plaster, no cast shadow, no third
+block, no gradient, glow or soft edge.
 ```
 
 ---

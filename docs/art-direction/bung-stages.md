@@ -401,6 +401,10 @@ STATES:
     and it is the rule of the whole book made small.
   6 HANGING WET on a line - the whole thing OVERLAP instead of LEAF, sagging in one long curve, the
     bottom edge lower in the middle, water leaving it as at most 5 separate key-ink drops.
+    🔴 THE LINE IS PART OF THIS SHEET: ONE cord strung across the boat from the gunwale to the awning
+    post, RIVER, drawn as a single line with 0 twist strokes (it is thinner than the mooring rope and
+    that is how the two are told apart), and 🔴 IT IS NEVER TEAL. Hung with a load it dips; empty it
+    is straight. Draw both.
   7 WRUNG - twisted into a rope in the middle, the twist at most 5 key lines running the same way.
   8 DRY AND FOLDED - a neat rectangle, at most 3 fold lines, back in LEAF.
 🔴 THE STAIN IS A CLOCK: a broth stain is one flat OVERLAP patch with a crisp edge, never a soft
@@ -573,8 +577,21 @@ STATES:
     massed area with 0 outlines inside it.
   7 HELD IN TWO ARMS - the big one, front on, the arms as plain key-ink silhouettes for size.
   8 THE BANANA BUNCH lying on a gunwale plank, side on.
+🔴 THE TOWER - one book stacks these on the selling plank for ten pages and the SHAPE OF THE STACK is
+  its whole argument. Draw the four stack states in a row at ONE camera distance, with a plain
+  key-ink child silhouette beside each for height:
+  9  NARROW - the base three fruits wide at the bottom and going straight up, taller than a child's
+     chest, its waist already off the upright axis to one side.
+  10 SPILLED - the top half gone, at most 9 fruits scattered over the deck planks at different
+     angles, none mirrored, and the selling plank EMPTY where the stack stood.
+  11 WIDE - the bottom course laid right across the width of the plank, the courses stepping in as
+     they rise, taller than the child and plainly stable. 🔴 9 AND 11 ARE THE SAME NUMBER OF FRUIT.
+     Count them; if the wide one has more, the drawing has made the wrong argument.
+  12 THE CRATE they come out of: a plain wooden box, RIVER, grain showing, lid leaning against it,
+     at most 4 key lines, filled to the top in state 1 and half empty by state 9.
 
-PLATE: the two sizes together first, then states 1-8, plus state 4 at large size.
+PLATE: the two sizes together first, then states 1-8, plus state 4 at large size, plus the 9-10-11
+  row at one distance with the silhouette.
 
 NOT: no character face, no accent teal, no lettering, numerals or price marks, no bruise, blush or
   speckling, no shading to make roundness, no reflection or mirrored image, no ripple or ring round
@@ -731,8 +748,18 @@ STATES:
     buried part is not drawn at all; the sand does not overlap it, it simply ends. Sand is not water.
   6 ONE SHELL AT LARGE SIZE, hinge to rim, showing the 4 ribs.
   7 A STACK of blocks, three high, one massed outline.
+🔴 THE SHELL TOWER - another book builds these into a tower and a passing boat's wake knocks it down,
+  so the tower is part of this sheet and not a separate object:
+  8 THE TOWER STANDING - EIGHT courses, one shell laid flat per course, each course turned a little
+    from the one below so the tower reads as built and not as a column. Taller than a seated child.
+  9 THE TOWER DOWN - the same eight shells on the planks around the spot where it stood, at different
+    angles, none mirrored, and the spot itself bare.
+  🔴 Draw 8 and 9 at the SAME camera distance. The boat's tilt is what knocked it over, so on the
+  standing panel every loose thing is level and on the fallen panel every loose thing leans the same
+  way - the water is never drawn as a wave anywhere in this series.
 
-PLATE: states 1-7, plus a counting panel that shows exactly nine shells and four blocks in a row.
+PLATE: states 1-9, plus a counting panel that shows exactly nine shells and four blocks in a row,
+  plus the 8-and-9 pair.
 
 NOT: no character face, no accent teal, no lettering or numerals, no pearlescence, sheen or spiral
   patterning, no sea creature inside the shell, no reflection or mirrored image, no third colour that

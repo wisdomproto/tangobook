@@ -1,7 +1,12 @@
 # 메이네 산마을 — 무대·사물 시트
 
-> art-director 산출물 (2026-08-16). 시리즈 02 `mei-pencilslope` · 25권 250쪽.
-> 🔴 앵커 SSOT = `mei-anchor.md`. 후보 = `_stages.json`(자리 13 · 사물 39항목 / 고유 34) · 대본 = `_scenes.json`
+> art-director 산출물 (2026-08-16 · **사물 시트 2026-09-04**). 시리즈 02 `mei-pencilslope` ·
+> **50권 500쪽**(§1·§3·§4 의 「25권」은 늘기 전 숫자다).
+> 🔴 앵커 SSOT = `mei-anchor.md`. 자리 후보 = `_stages.json` · **사물 후보 = `_PROP-SHEETS.md` 의
+> `## mei` 절**(43권 · 58장) · 대본 = `_scenes.json`
+> 🔴 **작업표는 바닥이지 천장이 아니다** — 이번 판에서 표에 없던 다섯 장(`Ball`·`Snowman`·`WallPegs`·
+> `FurHat`·`Kite`)과 표에 통째로 없던 두 권(16 · 31)을 `_scenes.json` 을 직접 훑어 찾아 넣었다.
+> 무엇이 왜 빠졌는지는 §2 끝 「작업표가 틀린 자리」에 적었다.
 > ⚠️ `mei-core.js` 가 앵커 한국어 압축본 사본을 들고 있다 — 화면에 붙일 거면 거기도 같이 본다.
 
 ---
@@ -720,6 +725,10 @@ FORM - LID: a disc with ONE knob handle, CROSS-HATCH, ONE outline. 🔴 A CLOSED
   VOLUME 22: closed, the pot has NO interior at all - not a hint, not a gap - and the only thing
   that says something is inside is steam escaping at the rim (see Steam).
 FORM - LADLE: a long-handled ladle, EARTH handle and CROSS-HATCH bowl, ONE outline.
+FORM - EATING SPOON: a small wooden spoon, EARTH, ONE outline - 🔴 plainly SHORTER than the
+  ladle and shorter than the big jam spoon, so the three are never confused. Volume 29 ends with one
+  held straight up above a head; that is the highest an arm goes in that book, so the spoon must
+  still read as a spoon at arm's length above a figure.
 FORM - BOWLS: FIVE identical round bowls, EARTH rim, 🔴 their insides left as BARE PAPER so that
   what is in them reads dark against light. Always drawn at the same size at the same depth.
 🔴 SOUP IS A MOSS FIELD INSIDE A BOWL - flat, level, hard-edged, 0 ripples, 0 glints, 0 highlight.
@@ -736,8 +745,10 @@ STATES:
   6 FIVE BOWLS FROM ABOVE: three full, one bottom-covered, one empty.
   7 FIVE BOWLS FROM ABOVE, all full and identical.
   8 ONE BOWL HELD UP in two paws, tipped towards a face, empty.
+  9 ONE EATING SPOON HELD STRAIGHT UP at full arm's stretch above a head, nothing else in frame.
 
-PLATE: the eight states, plus the ladle and one bowl drawn side by side for relative size.
+PLATE: the nine states, plus the ladle, the eating spoon and one bowl drawn side by side at one
+scale for relative size.
 
 NOT: no character face, no accent orange, no lettering or numerals, no ripple, glint, sparkle or
 reflection on the soup, no metal sheen or highlight on pot or ladle, no fire drawn under the pot,
@@ -1098,8 +1109,11 @@ STATES:
   5 THE SAME GROUND, no kernels, identical framing.
   6 FIVE COBS HANGING FROM AN EAVE in a row, tied at their tops.
   7 ONE WHITE STICK LYING ALONE on a bench, nothing else in the frame.
+  8 🔴 ONE BLACK SEED at the bottom of a plain wooden bowl of water, seen from straight above -
+    a single CROSS-HATCH mark, hard-edged, no outline, and the ONLY mark inside the bowl. Volume 36
+    turns on that one mark being findable, so the bowl is otherwise completely empty.
 
-PLATE: the four conditions in a row, then states 2-7, with 4 and 5 stacked.
+PLATE: the four conditions in a row, then states 2-8, with 4 and 5 stacked.
 
 NOT: no character face, no accent orange, no lettering or numerals, no silk, husk fibre or
 individually drawn kernels, no butter, steam or shine (steam belongs to the Steam sheet), no
@@ -1563,6 +1577,23 @@ Chalet·Seats·Slide)뿐**이라 그 셋이 없다. 사물 시트 여섯 장(`St
    「계단 10/15」 · 「탁자 21/23」. 넷 다 접으면 그 권의 그림이 죽는다.
 5. **§2 표의 토큰이 §1 과 부딪힌다** — 옛 표의 `Slide` 는 §1 자리 시트 `Slide` 와 **같은 이름**이었다.
    이번 판에서 사물 쪽을 지우고 자리로 넘겼다.
+
+### 🔴 인물 라벨에만 있어서 사물 시트가 못 받는 것 — **캐스트 시트로 넘긴다**
+
+> 추출기는 SCENE 의 「배경·소품」과 「컷」만 읽는다. 그래서 **몸에 붙어 있는 물건과 몸 자체의 상태**는
+> 표에 한 줄도 안 올라오는데, mei 에서는 그게 여러 권의 주인공이다. 사물 시트로 만들 수 없는 것들이라
+> (`mei-anchor.md` §2 캐스트 시트 몫) **여기에 목록으로 남긴다.**
+
+| 권 | 인물 라벨에만 있는 것 | 왜 시트가 필요한가 |
+|---|---|---|
+| **26** | 🔴 **흙이 새까맣게 낀 두 앞발 ↔ 씻어 뽀얀 두 앞발** | 열 쪽 중 여덟이 그 손이다. 「하얀 빵 위의 까만 자국」이 전부 이 손에서 나온다. 캐스트 시트에 **더러운 손 / 씻은 손** 두 상태 + 🔴 손가락 사이 골까지 보이는 클로즈업 |
+| **38** | 🔴 **끊긴 주황 리본 두 도막 / 매듭까지 다시 맨 리본** | 앵커는 리본을 「달고 다니는 주황 하나」로만 정해 뒀다. 이 권은 그걸 **끊는다** — 끊긴 조각이 화면에서 가장 진한 것이 되는 쪽이 있다 |
+| **10 이후 전권** | 🔴 **목도리 끝의 종** (종 이전 / 종 이후) | 앵커의 메이는 「주황 목도리」뿐이고 종이 없다. 10권 p8 이 그 시점이라 캐스트 시트가 **두 상태**를 들어야 그 앞뒤가 그림에서 갈린다 (사물 쪽은 §2.10 `Bell`) |
+| **41** | 🔴 **가운데가 한 번 꺾인 긴 귀 한 짝** | 모자에 눌렸던 자국이 나온 뒤에도 **한 쪽 귀에만** 남는다. 그 접힌 자국이 「아침에 있었던 일」의 유일한 표다 |
+| **33** | 굳은 흙이 껴 **부챗살처럼 벌어진 채 안 눕는 가시 등** ↔ 씻어 완전히 동그랗게 말리는 등 | 「반만 접힌다 / 끝까지 닫힌다」가 이 권의 사건 전부다. 등이 곧 몸이라 사물이 아니다 |
+| **32 · 42** | **열매로 불룩한 주황 앞치마 주머니 ↔ 납작한 주머니** | 앵커의 악센트 주머니가 **부피 상태**를 갖는다. 32 는 채우는 쪽이 착지이고 42 는 비우는 쪽이 착지다 |
+| **19 · 30 · 33 · 35** | **젖은 털이 몸에 붙어 몸집이 작아 보이는 상태** | 19 p6 이 「아까 제일 크던 몸이 제일 작아졌다」로 못 박는다. 젖음은 색이 아니라 **실루엣**이라 시트가 없으면 그냥 어둡게 칠하게 된다 |
+| **34 · 45 · 39 · 28** | 게스트 넷 — 마멋(네 발·옷 없음) · 오소리(배낭) · 아기 곰(할머니 축소형) · 개(담장 너머) | 넷 다 **주황이 없고** 다섯과 다른 규격이다. 앵커의 THE FIVE 는 이들을 안 덮는다 |
 
 ---
 

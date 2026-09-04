@@ -113,7 +113,7 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 
 ---
 
-## §2. 사물 시트 — 43장 (후보 61 + 작업표가 놓친 17 에서 접고 뺐다)
+## §2. 사물 시트 — 45장 (후보 61 에서 접고 뺀 뒤 + 🔴 **작업표에 없던 20** 을 대본에서 찾아 넣었다)
 
 > 🔴 **단위는 권이다.** 한 권이 기대는 사물부터. 형식 정본 = `pongi-stages.md` §2.1 · §2.2 와 아래 §2.1 `Jars`.
 > 🔴 **이 매체에서 밝은 것은 그리는 게 아니라 안 찍는 것이다** — 불빛 · 눈 · 입김 · 김 · 거품 · 문에 든 해가
@@ -166,8 +166,10 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 | 2.41 | `SmallBird` | 마당 새 | 24(4) |
 | 2.42 | `Scarf` | 주홍 목도리 (벗어 놓은 것만) | 21(6) · 47(4) · 46 · 43 · 30 |
 | 2.43 | `WhiteBreath` | 입김 · 김 | **47**(4) · 20 · 32 · 38 · 48 · 10 |
+| 2.44 | `LowTable` | 밥상 | **26**(5) · 38(4) · 05 · 22 · 03 |
+| 2.45 | `Towel` | 수건 | 27(2) · 32 · 35 · 13 |
 
-⚠️ 43장 = 신규 41(§2.3~§2.43) + 기존 2(§2.1 `Jars` · §2.2 `Firewood`). **굵은 권 번호 = 그 권이 이 사물 위에 서 있다.**
+⚠️ 45장 = 신규 43(§2.3~§2.45) + 기존 2(§2.1 `Jars` · §2.2 `Firewood`). **굵은 권 번호 = 그 권이 이 사물 위에 서 있다.**
 
 ### 🔴 접은 내역
 
@@ -195,6 +197,9 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 | `그릇 ·공유 10/14/26/38` | **10·14 = 나르는 큰 그릇 · 26·38 = 밥상 그릇** | 같은 흙그릇 집안이라 **한 시트에 두 계열로** 넣었다(§2.10). 대신 크기·용도를 갈라 적었다 — 안 가르면 도토리를 국그릇에 담게 된다 |
 | `밥그릇 ·공유 07/38` | 맞다 | 07 은 그 밥그릇을 마당 돗자리로 들고 나갔을 뿐이다 |
 
+🔴 **그리고 작업표에 아예 없던 20건을 대본에서 찾아 넣었다** — 추출기 결함 세 갈래다:
+① **조사·활용이 붙으면 딴 낱말이 된다**(「상 위」·「상에」·「상판」이 따로 세어진다) ② **한 글자 낱말은 원리상 못 잡는다**(**상**·**공**·**돌**·**솥**·**감**·**밤**) ③ **권마다 1~2쪽씩 다섯 권에 걸친 물건은 문턱 아래로 사라진다**(막대 5권 · 수건 4권). 🔴 **셋째가 제일 위험하다 — 시트가 없으면 권마다 딴 물건이 나온다.**
+
 ### 🔴 뺀 것과 이유
 
 | 뺀 것 | 이유 |
@@ -211,6 +216,9 @@ NOT: no character of any kind, no vermilion anywhere on this sheet, no lettering
 | 18 「무 잎 줄」 | 밭에 심긴 것이라 `Field` 몫. 🔴 단 **곧게 섬 ↔ 한쪽으로 늘어짐**이 이 권의 시계다 → **`Field` 시트에 그 2단계를 넣을 것** |
 | 20 「문틈」 | `Room` 의 문 한 짝. 🔴 단 **틈의 너비가 이 권의 시계**다(p4 벌어진 줄 → p9 한 선으로 붙음) → **`Room` 시트에 「문틈 3단계」를 넣을 것** |
 | 43 「종이 문에 든 네모난 해」 | `Room` 몫. 🔴 **p1 과 p9 가 같은 자리·같은 크기**여야 그 권이 닫힌다 → `Room` 시트에 못박을 것 |
+| 36 「부채」(07) · 「소쿠리」(36·39) | 각 1쪽이고, 소쿠리는 `Basket` 과 같은 결의 얕은 것이라 그 시트에 한 줄로 접었다 |
+| 30 「방석」 | `Box` STATE 6 으로 접었다 — **마지막 쪽의 뜻이 「그 줄에 자리가 셋이 되었다」**라 셋을 한 그림에 그려야 읽힌다 |
+| 04 「빨랫줄」 | `Yard` 붙박이(「필요한 권에서 한 획」) + `Quilt` STATE 6 이 이미 든다 |
 | 02 · 49 | 🔴 **사물이 없는 권이다.** 02 는 안개(=안 칠한 종이), 49 는 눈싸움뿐이라 두 몸 말고 화면에 아무것도 없다. 억지로 시트를 만들지 않았다 |
 
 ### 🔴 앵커가 부딪힌 자리 하나 — 신고
@@ -406,8 +414,12 @@ STATES:
   3 THE SAME, pushed until it touches the brazier - SAME size and angle as 2, so only the gap changed.
   4 INSIDE THE BOX from straight above: straw, and the chick curled at the bottom.
   5 THE NEAR EDGE ONLY - two rim strokes across the bottom of the frame with the small body beyond.
+  6 🔴 THE ROW - brazier, box, and a floor CUSHION laid in one line, evenly spaced, seen from above at
+    a slant. The cushion is ONE flat PALE wash, a square a child can sit on, with ONE edge stroke and
+    nothing else. It is folded in here because what the last page means is that the row has three
+    places in it, and that only reads if the three are drawn at one size in one picture.
 
-PLATE: the five states, plus one close-up of the chick at large size showing where the stroke starts
+PLATE: the six states, plus one close-up of the chick at large size showing where the stroke starts
   wet and where the underside is left unpainted.
 
 NOT: no character, no vermilion, no lettering or numerals, no wood grain or nails drawn, no feather
@@ -619,6 +631,8 @@ STATES - the fill is the clock and it is read AT THE RIM LINE:
     they break that outline, at most 6; everything below is one wash.
   5 ON ITS SIDE, tipped over, its mouth toward the camera, the inside wash showing and the fill gone.
   6 THE INSIDE FROM ABOVE, empty - 2 dry strokes for the bottom weave, nothing else.
+🔴 A SHALLOW TRAY of the same weave appears in two books (beans being sorted on a veranda): same
+  rules exactly, half the depth, no handle, and it is never called a second object.
 🔴 WHAT FILLS IT is drawn as the mound in state 4, not as a pile of counted things: leaves and greens
   are ONE wash with at most 20 short tip-touches over it; cones and nuts keep their own sheets.
 
@@ -1579,6 +1593,79 @@ PLATE: states 1 and 2 side by side at one distance, then 3-6, plus one panel sho
 NOT: no character, no vermilion, no lettering or numerals, no outlined cloud, no swirls, curls,
   wisps or dots, no white paint anywhere, no stroke inside the unpainted area, no gradient or soft
   edge.
+```
+
+---
+
+### §2.44 LowTable — 4권 · 🔴 **한 글자 낱말이라 작업표가 원리상 못 잡았다**
+
+> 「상」이 한 글자라 추출기 후보에 한 줄도 없다. 그런데 **26권은 이 상 위에서만 벌어지고**(4~5쪽),
+> 그 권의 시계는 **나물 그릇이 상 모서리에 반쯤 걸쳐 있다가 한가운데로 돌아오는 것**이다 —
+> 모서리가 어디인지 시트가 정해 놓지 않으면 그 비교가 쪽마다 무너진다.
+
+```
+PROP SHEET - LowTable   (yuki-inkwash · SCENE token: LowTable)
+
+The low meal table of the house, carried out and set down wherever the family eats. Four books put
+food on it and one of them is about a bowl sitting half off its edge.
+
+FORM: a small rectangular table on four short legs, low enough to sit at on the floor - its top comes
+  to a child's waist when the child stands. ONE stroke for the top's near edge, ONE for its far edge,
+  and TWO short strokes for the near legs; the far legs are not drawn. 🔴 The top is BARE PAPER, not a
+  wash - it is what the bowls are read against, and it is the second brightest thing in a room after
+  the fire. At most 2 dry grain strokes along its length, no more.
+🔴 THE EDGE IS THE MEASURE. Draw the near edge as a straight unbroken stroke and keep it in the same
+  place in frame across states 1-3, because one book compares them page by page.
+STATES - drawn from the SAME high slant at the SAME size:
+  1 SET, four vessels on it in their fixed order (see Bowls), all well inside the edge.
+  2 THE SAME, ONE vessel pushed until it is HALF OVER the near edge - its foot past the stroke, the
+    paper of the floor under it. 🔴 The overhang must be readable at thumbnail size.
+  3 THE SAME, that vessel back in the middle and the edge clear. The answer state; nothing else
+    changed.
+  4 CLEARED - the bare top, its two edge strokes and legs, and ONE pair of chopsticks laid straight
+    along it (ONE stroke each, parallel, touching).
+  5 A BRANCH LAID ACROSS IT (see BlossomBranch state 5) with two rice bowls - the branch is the only
+    wet thing on the table.
+  6 FROM THE FLOOR at table height, so the near edge is a line across the frame and only what stands
+    on the top shows above it.
+
+PLATE: states 1, 2, 3 in a row at one size (the book's whole comparison), then 4 5 6.
+
+NOT: no character, no vermilion, no lettering or numerals, no carving, inlay or drawn woodgrain
+  beyond the 2 strokes, no cloth on the table, no cast shadow under it, no stroke gone over twice,
+  no white paint, no gradient or soft edge.
+```
+
+### §2.45 Towel — 4권 · 🔴 **주홍이 아닌 천**을 못 박아 두는 시트다
+
+> 27·32·35·13 이 한두 쪽씩 수건을 쓴다 — 권마다 문턱을 못 넘어 작업표에 없다(막대와 같은 종류의 누락).
+> 시트가 없으면 **어깨에 두른 천이 목도리로 읽힌다.** 이 시리즈에서 그건 팔레트가 깨지는 것이다.
+
+```
+PROP SHEET - Towel   (yuki-inkwash · SCENE token: Towel)
+
+A plain cloth towel. Four books use one - beside a wash basin, over a lap, wrapped round a child
+after a bath.
+
+FORM: a rectangle about as long as a child's arm, ONE wash at the PALE step, at most 2 dry fold
+  strokes and NO hem, pattern, stripe or fringe. Its edge is where the wash ran dry.
+🔴 IT IS NEVER VERMILION AND IT IS NEVER MISTAKEN FOR THE SCARF. Draw it once beside the scarf on
+  this sheet: the towel is PALE INK and wider; the scarf is flat vermilion and a narrow band. Where a
+  book wraps a child in a towel, the scarf is either off (lying nearby) or plainly on top of it.
+STATES:
+  1 FOLDED, lying beside a basin on the ground, from above.
+  2 OVER A LAP, spread flat, seen from the side.
+  3 HANGING from a hand, one corner down, its lower edge dry-broken.
+  4 WRAPPED round a small standing figure from the shoulders down - ONE wash following the body, no
+    drawn folds, the head clear of it.
+  5 DAMP - the same wash one step darker, its hanging edge pulled straight instead of dry-broken
+    (exactly the Quilt rule).
+
+PLATE: the five states at one size, plus 🔴 one panel of the towel and the scarf side by side, so the
+  one colour of this series is fixed against the cloth that is not it.
+
+NOT: no character face, no vermilion on the towel, no lettering or numerals, no hem, fringe, stripe
+  or woven pattern, no drawn folds, no stroke gone over twice, no white paint, no gradient.
 ```
 
 ---

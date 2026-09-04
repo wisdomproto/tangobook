@@ -78,6 +78,7 @@
 | 2.18 | `Toothbrush` | 칫솔과 치약 | **14**(6) |
 | 2.19 | `Grime` | 흙 자국과 꼬물이 여섯 | **08**(6) · 14 |
 | 2.20 | `SlickRock` | 젖어 미끌미끌한 초록 자리 | **07**(5) |
+| 2.21 | `Trail` | 배로 밀고 간 자리 — 눈 · 모래 · 바위 · 바닥 | **22**(3) · 06 · 07 · 04 · 08 |
 
 ### 🔴 접은 내역
 
@@ -106,11 +107,19 @@
 | 20 「왕진 가방」 · 18 「공책」 · 25 「모종」 | 각각 두 쪽 이하이고 **손님이 들고 왔다 가는 것**이다. 규격은 `Boat` 시트의 「손님이 든 물건」 한 줄로 족하다(전부 FUR 한 판 · 글자 없음) |
 | 달이 목의 가리비 조개 | 앵커가 이미 못 박았다(`SHELL PINK … the scallop shell on a string round Dari's neck` + 걸린 자리가 곧 상태). 시트를 또 만들면 분홍이 두 곳에서 정의된다 |
 
-### 🔴 내가 찾아 넣은 것 (후보 목록에 없던 여덟)
+### 🔴 내가 찾아 넣은 것 (후보 목록에 없던 아홉)
 
 `Raincoat`(19권 전체) · `LifeJacket`(18권 전체) · `Boat`(7권) · `Letter`(22권) · `Grime`(08권 꼬물이 여섯) ·
-`Toys`(15권) · `Bundle`(25권) · `Lantern`(05권). **19·24 는 후보 목록에 줄 자체가 없었다** — 두 권 다 사물
-하나로 열 쪽을 끌고 가는 권이다.
+`Toys`(15권) · `Bundle`(25권) · `Lantern`(05권) · `Trail`(6권). **19·24 는 후보 목록에 줄 자체가 없었다** —
+두 권 다 사물 하나로 열 쪽을 끌고 가는 권이다.
+
+🔴 **왜 빠졌는지 — 세 갈래였다.**
+
+| 갈래 | 이 시리즈에서 걸린 것 |
+|---|---|
+| **조사가 붙으면 딴 낱말이 된다** | 「이불/이불을/이불이」 · 「비옷/비옷을」 · 「요람/요람에/요람 안」이 각각 세어졌다. `Quilt`(6권) · `Raincoat`(19권 8쪽) · `Cradle`(6권)이 그래서 3쪽 문턱을 못 넘었다 |
+| **한 글자 낱말은 원리상 못 잡는다** | **배**(10·11·18·22·25 = `Boat`) · **탑**(01·16) · **칸**(15, 열 쪽 전부) · **통**(04) · **솔**(04) · **줄**(13) · **컵**(04). 🔴 그중 **「배」는 이 시리즈에서 셋이다** — 배(船) · 배(腹, 「배를 붙이고」가 물범의 기본 자세라 250쪽 거의 전부에 나온다) · 배 대는 데(자리). 한 글자라 안 잡히고, 잡혔어도 갈랐어야 한다 |
+| **인물 라벨에만 있는 물건** | `LifeJacket` 은 **전부 인물 라벨 안에 있다**(「조끼를 두 앞지느러미 사이에 끼워」 · 「단추를 누른다」 · 「젖은 조끼를 눌러 물을 짠다」). 배경·소품 줄에는 18권 열 쪽 중 두 쪽에만 나온다. `Lantern`(「등불 손잡이를 입에 물고」) · `Letter`(「편지를 가슴에 끼워 안았고」) · `Bundle`(「보자기 꾸러미를 가슴에 안았다」)도 같다 — 🔴 **이 시리즈는 물범이 물건을 입에 물거나 가슴에 안으므로 사물이 구조적으로 인물 라벨에 들어간다.** 배경·소품만 읽으면 이 라인은 절반이 안 보인다 |
 
 ---
 
@@ -931,6 +940,58 @@ patch, no motion lines, arcs or speed streaks, no arrows, dotted paths or footst
 moss texture, no gradient, glow or soft edge.
 ```
 
+### §2.21 Trail — 🔴 물범은 걷지 않으므로 발자국이 없다
+
+> 앵커: `SEALS DO NOT STAND … moving is a hop that lifts the middle`. 그러니 이 시리즈에서 지나간 자리는
+> **발자국이 아니라 한 줄 홈**이다 — 아무도 이걸 어디에도 안 적어 놨고, 여섯 권이 그 자국으로 사건을 읽힌다.
+> 22 p1 은 눈밭이라 더 급하다: 앵커 `SNOW: the ground is paper edge to edge` 라서, **자국은 종이 바닥에
+> 유일하게 칠해지는 것**이 된다.
+
+```
+PROP SHEET - Trail   (dari-waxtide · SCENE token: Trail)
+
+The mark a seal leaves behind. Six books read something off the ground: where she came out of the water,
+which rocks she stepped on, where she carried water across a floor, how far she has come over the snow.
+
+🔴 A SEAL'S TRAIL IS NOT FOOTPRINTS. It has no feet on the ground - it hauls on its belly and hops by
+  lifting its middle - so its trail is ONE CONTINUOUS GROOVE about a body wide, with a small paired
+  scuff on either side of it wherever the fore-flippers pushed. NEVER draw a row of separate prints, and
+  never a dotted line.
+🔴 A HOPPING TRAIL IS A BROKEN GROOVE: short belly marks with clean gaps between them, and the gaps get
+  longer the faster she went. That is the only place in this book where speed exists - there are no
+  motion lines anywhere.
+🔴 FOUR GROUNDS, FOUR DRAWINGS, AND THE MEDIUM DECIDES EACH ONE:
+  ON SNOW - 🔴 the ground is bare PAPER edge to edge, so the trail is THE ONLY PULLED THING on it: a
+    broken groove in DEEP, two short scuffs a hop, hard-edged. Nothing else on that ground is drawn.
+  ON WET SAND - the sand is paper, the trail is one FUR groove with a crisp edge running from the
+    water's edge up the beach, and it stops where she is.
+  ON DRY ROCK - a DAMP track: FUR rubbed very light so the wash speckles it, shaped like the belly, and
+    it FADES BY DRYING - the far end of the track is fainter than the near end. This is the only trail
+    that thins, and it thins from the old end, not the new one.
+  ON A FLOOR INDOORS - one SEA line of spilled water, flat and hard-edged, running from a tub to a towel.
+    Never a puddle with a highlight.
+🔴 A TRAIL SAYS WHERE SHE DID NOT GO. In one volume the track bends in a curve around the slippery
+  patches (see the SlickRock sheet) - so the sheet must show a trail that CURVES for a reason, with the
+  thing it avoided in the same frame. Without that thing in frame, a curve means nothing.
+STATES:
+  1 A CONTINUOUS GROOVE on wet sand from the water's edge, seen from a low angle, one body wide.
+  2 THE SAME FROM ABOVE, so the width against a seal's body reads.
+  3 A HOPPING TRAIL on snow - broken groove, gaps widening, DEEP on bare paper, with a plain seal
+    silhouette at the near end for scale.
+  4 A DAMP TRACK ON DRY ROCK, faint at the far end, crisp at the near end.
+  5 A CURVED TRACK across five rocks, bending round three slick patches that are in the same frame.
+  6 A WATER LINE on a kitchen floor from a tub to a towel, flat SEA, hard edge.
+  7 A SINGLE HOP MARK, close - one belly scuff and the two flipper pushes beside it.
+
+PLATE: states 1 and 3 at one size so continuous and broken read against each other, then 2 4 5 6, plus
+  state 7 large.
+
+NOT: no character face (silhouettes only), no pink anywhere, no lettering or numerals, 🔴 no separate
+footprints, paw prints, dotted lines, arrows or footstep symbols, no motion lines, arcs or speed streaks,
+no puddle highlight or reflection, no snow sparkle, no cast shadow inside a groove, no gradient, glow or
+soft edge.
+```
+
 ---
 
 ## §3. 🔴 미결 · 신고
@@ -941,7 +1002,19 @@ moss texture, no gradient, glow or soft edge.
 | ⚠️ 앵커 구멍 — 채소밭 | 25 p5 | `CANVAS` 에 이름만 있고 조항이 없다 |
 | ⚠️ 후보 목록의 잘린 낱말 | 04 「위로」 · 22 「우편」 · 05 「위로」 | 사물이 아니라 문장에서 잘린 조각이다. 추출기가 컷 라벨을 읽기 시작하면서 생긴 잡음 |
 | ⚠️ 후보 목록이 통째로 빠뜨린 권 | 19 · 24 | 두 권 다 사물 하나(비옷 · 요람)로 열 쪽을 끌고 가는데 표에 줄이 없다 |
-| ✅ 앵커는 안 깨졌다 | — | 사물 스무 장 중 앵커 조항과 부딪히는 것이 없다. 가장 아슬아슬한 건 25권 딸기(§2.8)와 07권 초록(§2.20)이고, 둘 다 **팔레트를 늘리지 않고** 풀었다(딸기 = FUR 세게 눌러 마른 테 · 초록 = FUR 얕게 한 방향 문질러 워시가 결에 걸림) |
+
+### 🔴 앵커가 사물 때문에 깨지는 자리 — 셋
+
+| # | 앵커 조항 | 부딪히는 권 | 무엇이 문제인가 | 제안 |
+|---|---|---|---|---|
+| ① | `no boat leaves the pier with a figure in it that has no lifejacket hugged on` | **10 p9 · 22 p9 · 25 p10** | 🔴 조항이 **「배에 탄 인물」 전부**에 걸리는데, **떠나는 손님은 세 권 다 조끼가 없다**(수달이 배 위에서 손 흔들고 · 펠리컨이 배 위에 서 있고 · 할머니의 앞끝이 배 위에 작게). 조항대로면 손님 셋에게 구명조끼를 입혀야 하고, 그러면 `LifeJacket` 이 18권의 사건에서 **배경 소품**으로 내려앉는다(그 권은 조끼를 처음 채우는 이야기다) | 조항을 **「아이가 탄 배」**로 좁힌다 — 「no boat leaves the pier carrying a child without a lifejacket hugged on」. 손님은 제 배에 익숙한 어른이다 |
+| ② | `AT MOST: … shells 9` | **16 p2 · p3 · p8 · p9** | 🔴 **여유가 0이다.** 16권은 조개껍데기를 정확히 아홉 장 쓰고, 그 화면에 달이 목의 가리비가 늘 하나 더 있다 — 세면 열이다. 「shells 9」가 목의 가리비를 세는 건지 아닌지가 안 적혀 있어, 화가가 한 장만 더 흩뿌려도 상한을 넘는다 | 조항에 **「그 권의 조개껍데기 아홉 · 달이 목의 가리비는 이 수에 들지 않는다」**를 명시 |
+| ③ | `DEEP marks … 0 to 4 on a thing` | **21권** | 조개 하나가 이 권에서 **립 라인 + 두드린 자국 + 실금 + 벌어진 자리**를 차례로 갖는다. 넷을 다 남기면 상한에 딱 차고, 성장선을 넣을 자리가 없다 | 시트에서 **「사건 마크는 상시 마크를 대체한다」**로 풀어 뒀다(§2.2). 앵커에 그 한 줄을 올릴지 판단이 필요하다 |
+
+⚠️ **나머지는 안 깨졌다.** 가장 아슬아슬했던 건 25권 딸기(§2.8)와 07권 초록(§2.20)이고, 둘 다 **팔레트를
+늘리지 않고** 풀었다(딸기 = FUR 세게 눌러 마른 테 · 초록 = FUR 얕게 한 방향 문질러 워시가 결에 걸림).
+`no glow or bloom` · `NO INVERTED SHAPE IN WATER` · `no page fully washed` · `stair treads 7` · `crests 24`
+· `bowls 4` 는 전수 대조 결과 25권 어디서도 안 넘는다.
 
 ## §4. 권별 경로표
 
