@@ -58,6 +58,15 @@ tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 | 경쟁사 포지셔닝 웹서치 | STRATEGY.md **§2** (2026-09-04 조사 완료) |
 | 콘텐츠 권수·카테고리 API 집계 | STRATEGY.md **§6** · [content-status.html](../../packages/client/public/content-status.html) |
 | 책별 낱말·게임·삽화 유무 조회 | `node packages/server/scripts/build-content-status.mjs` **로 다시 굽는다** |
+| **이음매**(파닉스 낱말에 예문이 붙나) | 같은 스크립트가 굽는 **`content-status.json` 의 `seam`** |
+| **동화책 카테고리별 권수·공개 여부** | 같은 파일의 **`categories`** |
+
+🔴 **이음매·권수를 손으로 세지 마라.** 그렇게 세다가 같은 값이 세 개(129/83 · 126/72 · 128/86)가 됐고,
+그중 어느 것도 맞지 않았다. 맞는 값은 `covered` = **한글 126/128 = 98%**.
+
+🔴 **한글 나무 32권도 동화책이다**(사용자, 2026-09-04). 메인 라인업 밖(`type:'phonics'` 안의 8쪽)이라고
+빼고 세면 없는 구멍이 생긴다 — 실제로 그렇게 세서 한글을 67% 로 잘못 보고했다.
+json 의 `other`/`own` 은 **출처 내역일 뿐 등급이 아니다.** 인용은 언제나 `covered`.
 | 네이버 검색량 재조회 | STRATEGY.md **§6** · `docs/marketing/data/naver-axis-2026-09-02.json` |
 | 플레이탱고·교원 이력 재확인 | STRATEGY.md **§3** |
 
