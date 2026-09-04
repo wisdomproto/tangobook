@@ -39,7 +39,13 @@ for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
   const used = new Map();                  // 토큰 → {pages, books:Set}
   for (const [vol, pages] of Object.entries(scenes))
     for (const [p, text] of Object.entries(pages)) {
-      const m = (text.match(/<b>장소·시간<\/b>\s*\[([A-Za-z][A-Za-z0-9/]*)\]/) ?? [])[1];
+      // 🔴 대괄호 안을 **글자 종류로 거르지 않는다**(2026-09-04). 예전 정규식은 `[A-Za-z0-9/]` 만 받아
+      //    `[Home/마당]`·`[Alley · 자국]`·`[NoodleBoat/뱃바닥]` 처럼 한글이 섞인 토큰을 **아예 못 읽고
+      //    건너뛰었고**, 안 세었으니 「미매칭 0」으로 통과했다 — 없는 것보다 나쁜 통과다
+      //    (실측 2026-09-04: bung 21쪽 · nono 57쪽 · twins 26쪽 · pongi 4 · dingding 3).
+      //    상태 꼬리(` · 젖음`)는 자리가 아니라 그 자리의 상태라 시트 이름에서 뗀다.
+      const raw = (text.match(/<b>장소·시간<\/b>\s*\[([^\]]+)\]/) ?? [])[1];
+      const m = raw?.split('·')[0].trim();
       if (!m) continue;
       const r = used.get(m) ?? used.set(m, { pages: 0, books: new Set() }).get(m);
       r.pages += 1; r.books.add(vol);

@@ -4,9 +4,12 @@
 > **50권 500쪽**(§1·§3 의 「25권」은 늘기 전 숫자다).
 > 🔴 앵커 SSOT = `coco-anchor.md`. 자리 후보 = `_stages.json` · **사물 후보 = `_PROP-SHEETS.md` 의
 > `## coco` 절**(38권 · 38장) · 대본 = `_scenes.json`
-> 🔴 **§5 신고를 먼저 읽을 것** — 앵커의 `LOAF BLOCK` 한 줄이 여섯 권을 못 그리게 하고, 무대 조항이
-> 권 번호 목록이며, 자리 시트가 없는 무대가 여섯이다.
-> ⚠️ `coco-core.js` 가 앵커 한국어 압축본 사본을 들고 있다 — 화면에 붙일 거면 거기도 같이 본다.
+> ✅ **2026-09-04 수리 완료 — §5.0 을 먼저 읽을 것.** 앵커의 `LOAF BLOCK`·권 번호 조항·시장에만
+> 걸린 실루엣 조항을 고쳤고, 없던 자리 시트 다섯을 새로 썼고, 쓰레기통이던 `Home` 토큰을 없앴고,
+> 관통 줄 셋을 실제로 세어 둘을 고쳤다(`WRONG` 은 26~50 250쪽에서 거짓이었다).
+> 🔴 `coco-core.js` 가 앵커 **본문 사본**을 들고 있고 **컷 프롬프트는 `.md` 가 아니라 거기서 나온다**
+> (한국어 압축본이 아니라 통째 사본이었다). 앵커를 고쳤으면 반드시
+> `node packages/client/scripts/sync-anchor-to-core.mjs coco` — 2026-09-04 동기화 완료(5,605→8,736자).
 > **실행 순서** ① `Bakery` → ② `Alley` → ③ 나머지 → ④ 사물 → ⑤ 컷.
 
 ---
@@ -33,15 +36,31 @@ block bit`. 시트에도 **가장자리에 잉크가 몰리고 안쪽으로 종�
 
 ---
 
-## §1. 자리 시트 — 5장 (후보 27에서 접음 · 15시리즈 중 최대 압축)
+## §1. 자리 시트 — 10장 (2026-09-04 수리 · 앞 판은 5장이었고 26~50의 무대 다섯이 통째로 없었다)
 
-| 시트 | = 후보 | 왜 하나인가 |
-|---|---|---|
-| `Bakery` | 빵집 안 · 반죽대 · 빵집 반죽대 · 구석 반죽대 · 창가 반죽대 · 반죽대 앞 · 반죽대 위 · 화덕 앞 · 빵집 창가 · 창가 · 빵집 부엌 · 빵집 문 앞 | 반죽대에서 화덕과 창이 다 보인다 |
-| `Shop` | 가게 안 · 가게 문 · 가게 문 앞 · 가게 문 안 · 진열대 · 진열대 앞 · 진열대 정면 · 문간 · 문 안쪽 · 창밖 · 선반 | 진열대가 문에서 보인다 |
-| `Alley` | 골목 · 가게 앞 골목 · 골목 끝 · 골목 가운데 · 골목 모퉁이 · 골목 구석 · 막다른 골목 · 좁아지는 골목 · 이웃 골목 | 🔴 **한 골목망의 네 목** — §3 |
-| `Market` | 시장 어귀 · 시장 안 골목 | |
-| `GrandmaHouse` | 할머니 집 문 앞 | 🔴 **다른 집이라 별개** |
+> 🔴 **SCENE 이 찍는 토큰이 시트 이름이다.** 앞 판은 `Alley` 한 이름으로 적어 놨는데 SCENE 은
+> `AlleyShop`·`AlleyMid`·`AlleyNarrow`·`AlleyDead` 넷을 찍고 `Alley` 는 **한 번도 안 찍는다** —
+> 그래서 검사기가 「없다」고 했고, 화가는 붙일 시트가 없었다.
+> 🔴 **골목 넷은 접었다 — 시트 한 장, 폭 상태 넷.** 갈라 놓으면 골목이 네 개가 되고, 그러면
+> 「아까 지나간 모퉁이」(01 p7)·「돌아오는 다리」(19 p9)가 딴 동네가 된다. 한 장에 넷을 나란히
+> 찍어야 폭이 눈금이 된다.
+> 🔴 `AlleyMouth` 만 갈랐다 — 거기서 **자갈 판이 끝나고 큰길 돌이 시작된다**(새 블록). 골목이
+> 아니라 골목의 **끝나는 자리**다.
+> 🔴 **`Home` 은 지웠다** — 한 이름에 네 자리(세면대·잔치 상·반죽대 밑·다락 잠자리)가 들어 있었다.
+> §5.4 의 「같은 잠자리를 두 이름으로」가 그 증상이고, 원인은 이름 하나가 쓰레기통이었던 것이다.
+
+| 시트 | SCENE 토큰 | 쪽 | 무엇인가 |
+|---|---|---|---|
+| §1.1 `Bakery` | `Bakery` | 125 | 화덕·창가 반죽대·부엌 = 이 집의 일터이자 부엌 |
+| §1.2 `Alley` | `AlleyShop` 29 · `AlleyMid` 17 · `AlleyDead` 5 · `AlleyNarrow` 4 | 55 | 🔴 **한 골목의 네 목 — 폭 하나로만 가른다** |
+| §1.3 `AlleyMouth` | `AlleyMouth` | 9 | 자갈이 끝나고 큰길 돌이 시작되는 선 |
+| §1.4 `Shop` | `Shop` | 146 | 빵 선반·문·문턱·문 위 종 = 제일 많이 쓰는 자리 |
+| §1.5 `Market` | `Market` | 22 | 천막과 매대 |
+| §1.6 `Attic` | `Attic` | 17 | 빵집 위층 잠자리 — 둥근 창·계단 구멍·널 틈 |
+| §1.7 `WashTub` | `WashTub` | 8 | 부엌 뒷문 밖 나무 통 자리 |
+| §1.8 `BackRoom` | `BackRoom` | 3 | 뒷방 — 못 여섯·나무 통·널 바닥 |
+| §1.9 `MoleBurrow` | `MoleBurrow` | 7 | 골목 밑 두더지 굴 |
+| §1.10 `GrandmaHouse` | `GrandmaHouse` | 7 | 남의 집 문 앞 (골목 밖) |
 
 ### §1.1 Bakery — 실제 프롬프트 (가장 먼저)
 
@@ -92,12 +111,421 @@ NOT: no character of any kind, no accent red anywhere on this sheet (the red pla
   drawn individually where a block exists for it.
 ```
 
-### §1.2 Alley — 요약 명세
+### 🔴 §1.1 Bakery 에 더할 것 — 사물 시트가 넘긴 조항 넷 (§5.5)
 
-`THE BLOCK LIST` = **아치 블록**(자갈, 최대 12번) · **창 블록**(최대 8번, 이웃끼리 안 겹침) ·
-**덧문 블록**. `FIXED PARTS` = 양쪽 벽이 서로 조금 기운다 · 🔴 **지붕 사이 하늘 띠는 안 찍은 종이**이고
-그 쪽의 빛이다 · 골목 끝 = SLATE 실루엣 최대 3, 창 0. `SPOTS` = A 가게 앞 / B 가운데 / C 모퉁이 /
-D 막다른 끝. 🔴 **네 목의 차이는 폭 하나로만 낸다**(§3).
+```
+ADDED - Bakery
+
+🔴 ONE END OF THE KNEADING TABLE IS THE SUPPER TABLE. There is no dining room in this house. Draw the
+  table from the side and mark WHICH END: the end AWAY from the window, nearest the oven, is where
+  they eat - the window end stays the worktop, always. Volumes 26, 27, 28, 29 and 44 all eat at this
+  same end and if it moves, the family moves house between books. At the supper end draw one low
+  stool for Mom and one for a regular; Coco has no chair and rests her chin on the tabletop.
+🔴 UNDER THE TABLE, drawn once from floor level: four plain legs, the floor's plank block running
+  through, and a flour layer that takes marks. It is deep enough for a low round grown-up to push his
+  head and shoulders in, and that is a whole page of the button volume.
+🔴 THE SILL HAS AN OUTSIDE. Draw the window from inside AND from outside: the outer sill is wide
+  enough that a plate is set down on it, and directly below it on the alley side stand the flowerpots
+  with a gap behind them a small animal crouches in. One volume hides a kitten there and the sheet has
+  to say the pot row is far enough off the wall for that.
+🔴 THE OVEN'S ARCHED MOUTH belongs to this sheet even though the door that swings in it is a prop.
+  Draw the arch empty, with no door, so the door sheet has a hole to hang in - and the mouth's bare
+  paper is the brightest thing in the room whichever sheet is being read.
+🔴 THE FLOUR SACKS STACK. Four sacks piled against the kitchen wall, high enough for a small mouse to
+  stand on top of and jump, with a gap behind the stack she hides in, and the BACK DOOR beside it
+  standing open onto the wash tub outside (§1.7). That stack, that gap and that doorway are one
+  frame in the bath volume.
+🔴 SPOT E - FLOOR LEVEL, added to the four spots above: the eye on the floor, looking across the room
+  from under the kneading table. At this height the room is a wood of legs and the PLANK BLOCK is the
+  whole picture, so 🔴 THE SPACING OF THE PLANKS IS THE PERSPECTIVE - nothing else says depth. One
+  volume is ten pages of searching this floor and it has nowhere to stand without this spot.
+🔴 THE INSIDE AND THE OUTSIDE OF THIS WINDOW ARE ONE DRAWING. One volume spends five pages inside at
+  this window and five pages outside it among the pots, and SCENE calls the outside `Shop`. Bake the
+  window HERE first - frame, sill depth, pot row, the gap behind the pots - and let the outside view
+  be this same drawing reversed. Drawn twice from scratch, the two halves of that volume will not
+  line up.
+```
+
+---
+
+### §1.2 Alley — 실제 프롬프트 (🔴 네 목이 한 장 · 두 번째로 굽는다)
+
+> 후보 아홉(골목 · 가게 앞 골목 · 골목 끝 · 골목 가운데 · 골목 모퉁이 · 골목 구석 · 막다른 골목 ·
+> 좁아지는 골목 · 이웃 골목)이 SCENE 에서 토큰 넷이 됐다. **넷을 한 장에** 굽는다 — 폭이 눈금이라
+> 따로 그리면 눈금이 안 선다.
+
+```
+STAGE SHEET - Alley   (coco-pressalley · SCENE tokens: AlleyShop / AlleyMid / AlleyNarrow / AlleyDead
+                       · bake SECOND, after Bakery)
+
+The back alley the bakery opens onto. It is ONE alley, and the four tokens above are four NECKS of
+it, not four places. Everything on this sheet is drawn once and the necks differ by WIDTH ALONE.
+
+🔴 THE BLOCK LIST - cut each ONCE and press it again and again:
+  ARCH BLOCK - the cobbles. One arc shape, at most 12 presses across a spread, INK1. This block is
+    the ground of the whole series and it must be boring on purpose.
+  WINDOW BLOCK - at most 8 down one wall, INK2, and 🔴 NEVER MIRRORED against a neighbour - a
+    mirrored press reads as a different building.
+  SHUTTER BLOCK - one shutter, INK2, pressed open or pressed shut, never redrawn.
+  TILE BLOCK - the roofs, INK2, at most 9 presses per roof line.
+FIXED PARTS: the two walls lean slightly toward each other. 🔴 THE STRIP OF SKY BETWEEN THE ROOFS IS
+  BARE PAPER and it is the light of the whole page - by day. On a night page it is printed in OVERLAP
+  with at most 14 bare-paper stars, and the lanterns carry the page instead.
+
+🔴 THE FOUR NECKS, DRAWN IN A ROW, SAME CAMERA, SAME EYE LEVEL, SAME DEPTH - only the gap between the
+  two walls changes. This row IS the sheet:
+  1 AlleyShop - WIDEST. Four doors, one of them the bakery's, and room for a queue of seven
+    silhouettes to stand along one wall with people still passing. Windows up to 8. This is the
+    default neck and most of the series happens here.
+  2 AlleyMid - MIDDLE, and it BENDS ONCE, so the far part of it is hidden behind the bend. Windows
+    about 5. The bend is what lets a volume say "the corner we passed a while back" and mean a place
+    the reader has already seen.
+  3 AlleyNarrow - NARROW, two doors, windows about 3, the sky strip pinched to a thin line. An
+    umbrella opened here touches both walls; a corner here keeps snow a broom cannot reach.
+  4 AlleyDead - NARROWEST, and 🔴 IT IS SHUT: a high blank wall closes it, taller than the frame,
+    0 windows, 0 doors on the wall itself, and 🔴 THE SKY STRIP STOPS AT THAT WALL. At most 3 flat
+    SLATE silhouettes. This same drawing serves any high blank wall a lane runs into - a cat sitting
+    on top of it, a flowerpot in its corner - because it is the same wall.
+  🔴 If a reader cannot rank the four by width at thumbnail size, this sheet has failed and the
+  volumes that walk from one to another have no geography.
+
+FIXTURES OF THE ALLEY - each drawn once, in its own place, and it is ALWAYS in that place:
+  🔴 THE WELL, in AlleyMid at the bend: one round stone kerb, one bucket rope, nothing else. A race
+    volume ends up here by mistake, so it has to be a place the reader can be wrong about.
+  🔴 FIVE LANTERNS on brackets down the wall, evenly spaced, the same block five times. Draw the row
+    ALL LIT, and draw it with the FAR ONE STILL DARK - the four-lit-one-dark row is the clock of a
+    whole volume and it cannot be improvised. A lit lantern is bare paper; an unlit one is printed.
+  🔴 TWO WASHING LINES across the alley, at most 6 pieces on them, all one block, ALL AT ONE ANGLE.
+    The angle is the wind gauge - draw the row leaning left and leaning right side by side.
+  🔴 THE BURROW MOUTH in the cobbles: a hole in the ground where two arch blocks are missing, its lip
+    slanting down. Draw it from above (a hole in the floor of the alley with a round head coming up
+    out of it) and note that the alley's own cobbles run right up to its edge.
+  THE LONG FEAST TABLE: one plain trestle table standing DOWN THE MIDDLE of AlleyMid, long enough
+    that plates run end to end. Draw it empty, in place - what goes on it is the Dishes sheet.
+  THE EAVES: a shallow overhang along both walls, deep enough to stand under out of the rain, and in
+    winter 🔴 ITS ICICLES ARE BARE PAPER while the cobbles below stay printed.
+  THE ROOF RIDGE above, where a bird sits: drawn once from the alley looking up.
+
+SPOTS: A the bakery front, wide · B the bend with the well · C the narrow throat · D the shut end.
+
+PLATE: the four necks in a row FIRST, then each block printed alone at large size, then the fixtures
+  each in place, then the sky strip by day beside the sky at night.
+
+NOT: no character of any kind, no accent red anywhere on this sheet, no lettering, numerals, shop
+  signs or price cards, no third mixed ink, no solid 100-percent area, no white ink, no puddle
+  reflection that mirrors anything, no cobble drawn individually where the arch block exists, and no
+  airbrush, gradient, glow or soft edge.
+```
+
+---
+
+### §1.3 AlleyMouth — 🔴 한 권(36) 아홉 쪽이 이 한 줄에 걸려 있다
+
+```
+STAGE SHEET - AlleyMouth   (coco-pressalley · SCENE token: AlleyMouth)
+
+Where the alley ends and the main road begins. One volume lives here for nine pages and 🔴 THE WHOLE
+BOOK IS ONE LINE ON THE GROUND - so the line is what this sheet is for.
+
+🔴 THE LINE: the ARCH BLOCK of the alley (§1.2) stops, and the main road's ROAD BLOCK begins - one
+  broad flat stone, INK1, plainly three or four times the width of a cobble arc, pressed in courses.
+  The join between the two blocks runs straight across the frame as a single hard edge. Draw it
+  close, from directly above, with a big foot and a small foot standing toe to toe on it: that panel
+  is the book. Nothing else is in that panel.
+THE MAIN ROAD is WIDE - wide enough that the far kerb is plainly a walk away, with its own low
+  buildings behind it drawn at half the detail of the alley (TILE BLOCK and WINDOW BLOCK, no
+  shutters, no doors named). Behind the reader the alley's two leaning walls close back in, so a
+  page can look either way from the same standing spot.
+TRAFFIC IS CARTS AND BICYCLES AND NOTHING ELSE - no motor of any kind exists in this world. One
+  handcart block and one bicycle, each a flat silhouette in SLATE with 0 faces and 0 hands, crossing
+  left to right in front of the line. 🔴 Draw the bicycle at the size where it fills the FRONT of the
+  frame while two figures stand small behind the line - the whole point is that the passing body is
+  nearer and bigger.
+SPOTS: A standing in the alley looking out at the road · B the line itself, close, from above ·
+  C the far kerb looking back at the alley mouth.
+
+PLATE: the line close up with two pairs of feet on it, then the two ground blocks printed alone side
+  by side at one scale, then spots A and C, then the cart and the bicycle silhouettes.
+
+NOT: no character face (silhouettes only), no accent red anywhere on this sheet, no lettering,
+  numerals, road markings, kerb paint or signs, no motor vehicle, no third mixed ink, no solid area,
+  no white ink, no gradient or soft edge.
+```
+
+---
+
+### §1.4 Shop — 🔴 146쪽. 이 시리즈에서 제일 많이 쓰는 자리인데 앞 판은 표 한 줄이었다
+
+```
+STAGE SHEET - Shop   (coco-pressalley · SCENE token: Shop · 146 pages, more than any other stage)
+
+The front room of the bakery, where bread is sold. It is one small room between the alley door and
+the kitchen doorway, and almost a third of the series happens in it.
+
+🔴 THE BLOCK LIST: PLANK BLOCK - the floor, the same block as the Bakery floor (it is one house).
+  DOT BLOCK - the plaster wall, the same block again. LOAF BLOCK - the shelf, at most 9 presses per
+  board. Nothing here is drawn one at a time except the fixed parts below.
+FIXED PARTS:
+  THE BREAD SHELF against the side wall - three open boards. Its full specification is the ShopShelf
+  prop sheet; what this stage fixes is 🔴 WHERE IT STANDS AND HOW MUCH ROOM IS LEFT IN FRONT OF IT -
+  enough for two grown-ups to stand and no more.
+  🔴 THE DOOR TO THE ALLEY, and 🔴 ITS THRESHOLD - one raised INK1 board across the opening, drawn as
+  a single line the eye can follow. Six pages of one volume are spent getting from one side of that
+  line to the other, so draw the threshold from THREE places: from inside with the door shut, from
+  standing ON it, and from the cobbles looking back in. 🔴 WHEN THE DOOR IS OPEN THE ALLEY LIGHT
+  LIES ON THE FLOOR AS ONE FLAT BARE-PAPER SHAPE with a hard edge, in the shape of the doorway.
+  🔴 THE BELL ABOVE THE DOOR - one small INK2 bell on a bracket, always in the same place, drawn
+  hanging still and drawn swung to one side. It is the sound of a customer arriving and it is on
+  screen in more than one volume.
+  🔴 THE LOW CHAIR - one plain low wooden chair, ALWAYS in the same corner, beside the shelf, angled
+  toward the door. It is the old regular's seat; five volumes seat somebody in it and if it wanders
+  the room stops being a room.
+  THE WINDOW onto the alley, INK2 frame, 🔴 ITS LIGHT BARE PAPER - and it is low enough that a small
+  mouse held up on one arm reaches the sill and looks DOWN into the alley. At night the alley beyond
+  it is the night sky and the lantern row, still bare paper where they are lit.
+  THE KITCHEN DOORWAY at the back - an opening with no door, through which the oven mouth shows as a
+  small bright hole. That hole is how the shop knows what time it is.
+SPOTS: A the whole room from the kitchen doorway · B the shelf straight on · C the door from inside,
+  threshold across the bottom · D the window from inside, alley beyond.
+
+PLATE: A, B, C, D once each, plus the threshold from its three places, plus the open door's light
+  shape on the floor, plus the bell still and swung, plus the low chair in its corner.
+
+NOT: no character of any kind, no accent red anywhere on this sheet, no lettering, numerals, shop
+  sign, price card or opening-hours card, no third mixed ink, no solid area, no white ink, no glass
+  reflection or shine, no glow around the doorway light, no gradient or soft edge.
+```
+
+---
+
+### §1.5 Market — 🔴 노란 천막과 호박이 이 시트 몫이다 (§5.6)
+
+```
+STAGE SHEET - Market   (coco-pressalley · SCENE token: Market)
+
+The market two volumes go to. It is not the alley: 🔴 THE COBBLE ARCH BLOCK DOES NOT SHOW HERE - the
+ground is covered by stalls, feet and cloth, and what the reader sees instead is awnings overhead.
+
+🔴 THE BLOCK LIST: AWNING BLOCK - one awning shape, a single flat pull, pressed down both sides of a
+  lane, at most 9 presses. STALL BLOCK - one trestle-and-board, at most 7 presses. CRATE BLOCK - one
+  crate, stacked. 🔴 Every stall in the market is the same block; variety is what would kill it.
+FIXED PARTS:
+  🔴 THE YELLOW AWNING - ONE awning cut as its OWN block, plainly not the awning block: a different
+  outline, and in the volume that is about finding it, it carries the page's ONLY warm-yellow pull
+  (CRUST at half strength) while every other awning is the flat two-ink press. Draw it TWICE: small
+  and far off at the end of a lane of nine identical awnings, and close, standing under it. 🔴 Its
+  size far off must still be findable at thumbnail size - that is the whole of that volume.
+  🔴 THE PRODUCE SIZE LADDER, drawn in one row at one scale with a small child silhouette beside it:
+  a chestnut (smaller than her paw) · an apple (two paws) · 🔴 A PUMPKIN TALLER THAN SHE IS. The
+  pumpkin is not "big", it is taller than the child, and one page depends on that being literal.
+  THE LANE between the stalls, narrow, so a body at child height sees legs and cloth and no horizon.
+  THE TENT LEGS - plain poles, at most 7, and they are what a child at that height actually sees.
+  🔴 CROWD = flat silhouettes in one ink, 0 faces, 0 hands, at most 7 in a frame - and from directly
+  above, a crowd is a field of those silhouettes with ONE small gap in it where a child stands still.
+SPOTS: A the lane from the entrance, awnings both sides · B under the yellow awning · C the size
+  ladder at a stall · D straight down from above onto the crowd.
+
+PLATE: the lane with nine awning presses and the yellow one far off, the yellow awning close, the
+  size ladder with the silhouette, the crowd from above with its gap.
+
+NOT: no character face (silhouettes only), no accent red anywhere, 🔴 no warm-yellow anywhere except
+  the one sought awning, no lettering, numerals, stall signs or price cards, no third mixed ink, no
+  solid area, no white ink, no stall drawn individually where the block exists, no gradient or edge.
+```
+
+---
+
+### §1.6 Attic — 🔴 잠자리는 하나다 (`Home`/`Attic` 이중 이름을 여기서 끝냈다)
+
+```
+STAGE SHEET - Attic   (coco-pressalley · SCENE token: Attic · 17 pages, 4 volumes)
+
+The loft over the bakery. 🔴 COCO HAS EXACTLY ONE PLACE TO SLEEP IN FIFTY BOOKS AND IT IS THIS ONE -
+there is no bedroom and no second bed anywhere in the series.
+
+THE ROOM: low. The ceiling comes down to the floor on both sides so the top of the frame is pressed
+  down and a standing grown-up has to stoop. Floor = the PLANK BLOCK. 🔴 THE WALLS CARRY NO DOT
+  FIELD - they are bare boards, so the attic is plainly not a plastered room downstairs.
+FIXED PARTS, and each is always in the same place:
+  🔴 THE ROUND WINDOW in the end wall, one circle, INK2 frame. By day its light is bare paper; at
+  night it is OVERLAP with a few bare-paper stars, and the lantern light of the alley comes through
+  it as ONE thin bare-paper wedge and nothing more.
+  🔴 THE STAIR HOLE in the floor - a plain rectangle cut in the planks with the top of a ladder at
+  it. A grown-up's head and one shoulder come up out of it and nothing else; that is how mornings
+  arrive. Its light from the kitchen below is bare paper and is often the only unprinted thing in
+  the room.
+  🔴 THE FLOORBOARD GAP - one hair-thin unprinted line between two planks beside the bed. The shut
+  oven door's light comes up through it all night. Draw it once from directly above, close: the
+  whole frame printed dark, one thread of paper across it. A volume ends on that frame.
+  🔴 THE BEDSIDE NAIL, low in the wall at head height of somebody lying down. The red kerchief hangs
+  here every night of the series. Draw the nail EMPTY as well, because the volume where she ties it
+  herself opens on the empty nail.
+  THE STRAW BED with its quilt - a low straw pallet, the quilt one INK2 pull with at most 3 fold
+  marks. Draw the quilt flat, and drawn up in a heap with only two ear tips out of it.
+  ONE SMALL LANTERN, carried, and its light 🔴 DOES NOT SPREAD: no glow, no halo, no lit pool. What
+  it lights is printed at full strength; what it does not light is printed just the same.
+  ONE FLOUR SACK standing in the far corner - the shape a dark corner turns out to be.
+🔴 SHADOW LIVES HERE. One flat hard-edged SLATE or OVERLAP shape thrown by one thing, bigger than the
+  thing, no falloff and no second shadow. The knot of the kerchief on its nail throws a tall pointed
+  shape across the boards, and the kerchief and its shadow must both be readable in one frame - a
+  whole volume is that pairing. Draw it once here so the page does not have to invent it.
+SPOTS: A the whole loft from the stair hole · B the bed from above · C the nail and the wall behind
+  it · D the floor close, the light line in it.
+
+PLATE: A-D, the window by day and by night side by side, the nail hung and empty, the quilt flat and
+  heaped, the knot's shadow with the knot in the same frame.
+
+NOT: no character of any kind, 🔴 no accent red on this sheet (the kerchief that hangs here is drawn
+  on the Kerchief prop sheet), no lettering or numerals, no third mixed ink, no solid area, no white
+  ink, no glow, halo, ray or lit pool from the lantern, no soft-edged shadow, no gradient.
+```
+
+---
+
+### §1.7 WashTub — 🔴 대본이 「새 자리 — 무대 조항 필요」라고 직접 적어 둔 자리 (30 p4)
+
+```
+STAGE SHEET - WashTub   (coco-pressalley · SCENE token: WashTub · 8 pages)
+
+The washing place, OUTSIDE the kitchen's back door. 🔴 THERE IS NO BATHROOM IN THIS HOUSE - a big
+wooden tub in the open behind the bakery is where a mouse gets clean, and that is why a bath happens
+in daylight with the neighbours able to hear.
+
+THE PLACE: a small open yard between the kitchen's back door and a plain wall. Ground = the PLANK
+  BLOCK does not reach here; it is the ARCH BLOCK of the alley, the same cobbles, so this is plainly
+  outdoors. Sky above is bare paper, unroofed.
+FIXED PARTS:
+  🔴 THE BIG WOODEN TUB, chest-high on a small mouse - she gets INTO it and sits, and the rim comes
+  above her shoulders. INK1 staves with at most 5 vertical lines and 2 hoops. Draw a plain child
+  silhouette beside it once; three volumes hang on that height. 🔴 ITS WATER IS DARK (INK2 at full
+  press) so that anything pale on it reads: draw the water empty, and draw it with a broad pale
+  bare-paper cloud spreading across it.
+  🔴 THE WALL NAIL beside the tub, at a height a mouse on tiptoe just reaches. A towel hangs here,
+  and so does the red kerchief while she bathes. Draw the nail with a towel, with a kerchief, and
+  empty with one water mark under it.
+  THE KITCHEN'S BACK DOOR, open, with the flour-sack stack visible inside it - one frame has to hold
+  the door, the inside stack and the tub at once, because a whole page is somebody hiding on one side
+  of that doorway and somebody beckoning from the other.
+  A WATER PAIL, INK1, one handle.
+SPOTS: A the yard wide, door left, tub right · B the tub from the side, the wall and nail behind ·
+  C straight down onto the water surface, the tub rim framing all four edges of the picture ·
+  D from the doorway looking out at the tub.
+
+PLATE: A-D, the tub with the child silhouette for height, the water empty and clouded, the nail in
+  its three states.
+
+NOT: no character of any kind, no accent red on this sheet, no lettering or numerals, no third mixed
+  ink, no solid area, no white ink, 🔴 no splash crown, droplet spray or steam off the water, no
+  reflection in the water, no gradient or soft edge.
+```
+
+---
+
+### §1.8 BackRoom — 못 여섯 줄이 이 방의 전부다
+
+```
+STAGE SHEET - BackRoom   (coco-pressalley · SCENE token: BackRoom · one volume)
+
+The store room behind the bakery. One volume is ten pages of covering this floor and then clearing
+it, so the sheet's job is to make the FLOOR and the WALL readable against each other.
+
+THE ROOM: plain boards, no plaster - floor = PLANK BLOCK, walls = bare boards, no DOT field. Small
+  and square. It is the room the shop's spare things live in and nothing in it is decorative.
+FIXED PARTS:
+  🔴 SIX NAILS IN A ROW along one wall, evenly spaced, the same nail block six times, at a height a
+  small mouse reaches ONLY on tiptoe or from a grown-up's arms. Draw the row ALL EMPTY and draw it
+  ALL HUNG - the first page of that volume is the empty row and the last page is the full one, and
+  the two frames must be the same camera or the book has no ending.
+  🔴 THE BARE FLOOR IS THE OTHER HALF OF THAT PAIR. Draw the floor empty from directly above, wide,
+  the plank block running clean end to end. A page late in the volume is exactly this frame and it
+  only reads because the same frame was covered earlier.
+  THE CARRYING TUB - a waist-high wooden tub standing against the wall (the middle of the three tub
+  sizes; the prop sheet settles the sizes). Things get put IN it and one thing gets lifted OUT of it
+  over the rim, so the rim height against a small mouse matters.
+  ONE LOW SHELF, waist height on a grown-up, that a bird stands on to be above her.
+  🔴 THE WINDOW, small, with the alley roofs beyond it - and it is the kind that is tapped on from
+  OUTSIDE. Draw it from inside with the roof line beyond, and note the sill outside is wide enough
+  for a bird to perch on with its tail out past the frame.
+SPOTS: A the whole room from the door, nail row on the left wall · B the nail row straight on ·
+  C the floor from directly above · D the tub from above, looking in.
+
+PLATE: A-D, the nail row empty and hung side by side, the floor covered and clear side by side.
+
+NOT: no character of any kind, no accent red on this sheet, no lettering or numerals, no third mixed
+  ink, no solid area, no white ink, no cast-shadow tone, no gradient or soft edge.
+```
+
+---
+
+### §1.9 MoleBurrow — 🔴 빵집·골목과 블록을 하나도 안 나누는 유일한 무대
+
+```
+STAGE SHEET - MoleBurrow   (coco-pressalley · SCENE token: MoleBurrow · 7 pages, the last volume)
+
+The mole's burrow under the alley. 🔴 THIS IS THE ONLY PLACE IN FIFTY BOOKS THAT SHARES NO BLOCK WITH
+THE BAKERY OR THE ALLEY - so it is the most expensive sheet in the series and the one a page cannot
+improvise from anything it has already seen.
+
+🔴 NOTHING HERE IS A REPEATED BLOCK. Earth was dug, not printed: the walls and the ceiling are ONE
+  broad INK1 pull each, with a bitten irregular edge and the paper showing through inside, and there
+  is no cobble arc, no floor plank and no dot wall anywhere. That absence is what tells a reader they
+  have gone underground.
+THE ROOM: low and round. 🔴 THE CEILING PRESSES THE TOP OF EVERY FRAME DOWN - a small mouse sitting
+  has her ears near it and the old mole stands stooped. Draw the room wide once with both of them in
+  it so the height is settled and never guessed.
+FIXED PARTS:
+  🔴 THE SLANTED ENTRANCE at the top, coming down from the alley. Its light is ONE bare-paper wedge
+  falling in at an angle, and it is the only daylight in the stage. Draw it from below looking up:
+  the opening, the wedge, and the bottom of one cart wheel standing in the alley above it. That
+  upward frame is how the volume ends.
+  🔴 THE STRAW BED on the floor, one flat straw pallet, at most 9 straw strokes of one block. It is
+  where a loaf gets put and where two bodies sit side by side.
+  🔴 ONE LANTERN HUNG ON THE WALL, its light bare paper, and 🔴 IT DOES NOT SPREAD - at night the
+  bright part of the picture is the lantern itself and everything else is printed as usual. The
+  reason two bodies read as together is that they are inside the one ring the sheet allows.
+  🔴 THE DIGGING WALL - one patch of the earth wall drawn scraped open, with a potato half out of it
+  and loose earth falling. Draw the same patch unscraped beside it. A page is those two.
+SPOTS: A the whole burrow wide, entrance top left · B the straw bed from above · C the wall patch
+  close · D from the floor looking up the entrance at the alley.
+
+PLATE: A-D, the wall pull printed alone at large size so its bite is visible, the entrance wedge, the
+  wall patch before and after.
+
+NOT: no character of any kind, no accent red on this sheet, no lettering or numerals, no third mixed
+  ink, no solid area, no white ink, 🔴 no cobble, plank or dot block anywhere in this stage, no root,
+  tunnel network or cutaway cross-section diagram, no glow around the lantern, no gradient.
+```
+
+---
+
+### §1.10 GrandmaHouse — 남의 집 문 앞
+
+```
+STAGE SHEET - GrandmaHouse   (coco-pressalley · SCENE token: GrandmaHouse · 7 pages)
+
+Somebody else's front door. Every page with this token is a delivery: a small mouse standing at a
+door that is NOT hers, on a lane that is not her alley.
+
+🔴 IT IS NOT THE ALLEY AND MUST NOT LOOK LIKE IT: the walls do not lean, the sky strip is wide open
+  overhead instead of pinched between roofs, and the ground is the arch block at a LOOSER spacing so
+  the same cobbles read as a different street.
+🔴 ONE DOOR BLOCK, FOUR DOORS. One door shape cut once and pressed four times along the lane, each
+  press differing in exactly ONE readable way and nothing else - the position of the knocker, the
+  number of panels, the step, whether it stands open. A volume walks along knocking at the wrong ones
+  and it only reads if the doors are plainly the same door with one thing changed.
+FIXED PARTS: a step at each door, one block. A doorway that stands half open with 🔴 TWO OR THREE
+  CURLS OF BARE-PAPER STEAM coming out of the gap - that steam is how a smell is drawn in this
+  series and it is the only bright thing in the frame. A high blank wall closing one end (the same
+  wall as AlleyDead - it is the same drawing).
+SPOTS: A the lane with four doors down it · B one door straight on, a small figure at it · C the half
+  open door with steam at the gap.
+
+PLATE: the door block printed alone, the four presses in a row, spots A-C.
+
+NOT: no character face (silhouettes only), no accent red anywhere on this sheet, no lettering,
+  numerals, house numbers or name plates, no third mixed ink, no solid area, no white ink, no smell
+  drawn as wavy lines, no gradient or soft edge.
+```
 
 ---
 
@@ -349,7 +777,7 @@ PLATE: states 1, 2, 3 at one size, plus the reach panel with the silhouette, plu
 
 NOT: no character face (silhouettes only), no accent red anywhere, no lettering, numerals or price
   cards, no third mixed ink, no solid area, no white ink, no glass reflection, sheen or highlight,
-  no loaf drawn individually where the block exists, no cast shadow, no gradient or soft edge.
+  no loaf drawn individually where the block exists, no gradient or soft edge.
 ```
 
 ### §2.5 Dishes — 크기 계단이 전부다
@@ -381,7 +809,7 @@ PLATE: the four sizes in a row FIRST, then states 5-8.
 
 NOT: no character face (silhouettes only), no accent red anywhere, no lettering, numerals or
   maker's mark, no third mixed ink, no solid area, no white ink, no glaze, pattern or highlight, no
-  steam off a bowl, no cast shadow, no gradient or soft edge.
+  steam off a bowl, no gradient or soft edge.
 ```
 
 ### §2.6 BreadBasket — 🔴 26권은 이 바구니가 안 들리는 이야기다
@@ -414,7 +842,7 @@ PLATE: the three heights in a row at one size, then states 4-8, plus a close-up 
 
 NOT: no character face (silhouettes only), no accent red anywhere, no lettering or numerals, no
   third mixed ink, no solid area, no white ink, no woven texture beyond the 7 lines, no strain
-  lines, sweat drops or motion marks on a lift, no cast shadow, no gradient or soft edge.
+  lines, sweat drops or motion marks on a lift, no gradient or soft edge.
 ```
 
 ### §2.7 Flour — 🔴 여섯 권이 밀가루로 사건을 만든다
@@ -601,7 +1029,7 @@ PLATE: the six states, plus the open canopy measured against the alley walls, pl
 
 NOT: no character face (silhouettes only), no accent red anywhere, no lettering or numerals, no third
   mixed ink, no solid area, no white ink, no splash, spray, droplet or drip off the canopy, no
-  fabric pattern, no cast shadow, no gradient or soft edge.
+  fabric pattern, no gradient or soft edge.
 ```
 
 ### §2.12 Hat — 23권 (그리고 빨래는 바람의 눈금이다)
@@ -894,7 +1322,7 @@ STATES: 1 the chair alone, empty, straight on, the door beside it · 2 the chair
 PLATE: state 3 FIRST at large size (the level heads), then 1, 2, 4, 5, 6.
 
 NOT: no character face (silhouettes only), no accent red anywhere, no lettering or numerals, no third
-  mixed ink, no solid area, no white ink, no cushion, carving or turned legs, no cast shadow, no
+  mixed ink, no solid area, no white ink, no cushion, carving or turned legs, no
   gradient or soft edge.
 ```
 
@@ -963,7 +1391,7 @@ PLATE: the three toys large, then the covered and clear floors side by side, the
 
 NOT: no character face, no accent red anywhere, no lettering or numerals, no third mixed ink, no
   solid area, no white ink, no face, hair or clothing on the doll, no stripes or patterns on a ball,
-  no motion lines, arcs or bounce marks, no cast shadow, no gradient or soft edge.
+  no motion lines, arcs or bounce marks, no gradient or soft edge.
 ```
 
 ### 🔴 §2.23 — 작업표가 원리상 못 보는 자리 (인물 라벨 전용 소품)
@@ -1003,7 +1431,7 @@ PLATE: the three hem readings in a row FIRST, then 4-6, plus the flour-mark draw
 
 NOT: no character face (silhouettes only), no accent red anywhere, no lettering, numerals or
   embroidery, no third mixed ink, no solid area, no white ink, no frill, lace, ribbon or printed
-  pattern, no cast shadow, no gradient or soft edge.
+  pattern, no gradient or soft edge.
 ```
 
 ---
@@ -1028,7 +1456,11 @@ NOT: no character face (silhouettes only), no accent red anywhere, no lettering,
 | 가게 앞 골목 | 넓다 (양옆 문 넷) | 「가게 앞 골목」·「골목」 대부분 |
 | 골목 가운데·모퉁이 | 중간, 한 번 꺾인다 | 「골목 모퉁이」·「아까 지나간 골목 모퉁이」 |
 | 좁아지는 골목 | 좁다 (문 둘) | 「좁아지는 골목」·「골목 구석」 |
-| 막다른 골목 | 가장 좁고 **끝이 벽** | 「막다른 골목」·「골목 끝」 |
+| 막다른 골목 | 가장 좁고 **끝이 벽** | 「막다른 골목」·「골목 끝」·「담 아래」·「담 바깥 구석」 |
+
+🔴 **단 「골목 끝」이 큰길을 만나는 자리면 `AlleyMouth` 다**(36권 아홉 쪽). 같은 한국어가 두 자리를
+가리키므로 이름으로는 못 가른다 — **끝이 벽이면 `AlleyDead`, 끝이 열려 있으면 `AlleyMouth`**.
+(그래서 `AlleyEnd` 라는 옛 이름을 버렸다 — §5.0.)
 
 🔴 **이웃 골목은 `Alley` 가 아니다** — 다른 골목이므로 `GrandmaHouse` 쪽 접근로로 둔다.
 🔴 **시장 안 골목도 `Alley` 가 아니다** — `Market` 이다(천막이 있고 자갈 블록이 안 보인다).
@@ -1055,6 +1487,64 @@ NOT: no character face (silhouettes only), no accent red anywhere, no lettering,
 ## §5. 🔴 신고 — 사물 시트를 쓰다 나온 것 (앵커 · 무대 시트 · 캐스트 몫)
 
 > 사물 시트가 못 고치는 자리다. **낱개로 손대지 말고 여기 적힌 한 곳씩만 고친다.**
+
+### 🔴 §5.0 처리 결과 (2026-09-04 · 앵커 수리 · 자리 시트)
+
+**§5.1~§5.7 은 전부 반영했다.** 어디로 갔는지와, 신고 중 **틀린 것 하나**를 적어 둔다.
+
+| 신고 | 어떻게 | 어디에 |
+|---|---|---|
+| §5.1 권 번호 조항 | 괄호만 조건으로 — `RAIN (any page it is raining)` · `SNOW (any page whose ground is snow)` · `NIGHT (any night page)` · `SOUGHT THING (any volume built around finding one thing)`. 겨울 얼음·고드름 한 줄 추가 | `coco-anchor.md` STAGE CLAUSES |
+| §5.2 `LOAF BLOCK` | 상한을 안 올렸다 — **무엇을 세는가**를 갈랐다(9는 plain block 만 센다 + 여섯이 제 블록) | 앵커 RENDERING |
+| §5.3 실루엣이 시장에만 | `ANY UNNAMED FIGURE ANYWHERE ... at most 7 in a frame` — 「시장」이 아니라 **「이름 없음」**이 조건 | 앵커 RENDERING |
+| §5.4 없는 무대 여섯 | 자리 시트 §1.3·§1.6·§1.7·§1.8·§1.9 신설 + §1.2 재작성. `Home` 은 **지웠다**(아래) | §1 |
+| §5.5 `Bakery` 셋 | 넷으로 — 밥 먹는 끝 · 반죽대 밑 · 창턱 바깥과 화분 뒤 · 화덕 아치 · 포대 더미와 뒷문 | §1.1 ADDED |
+| §5.6 `Shop`·`Alley`·`Market` | 셋 다 **표 한 줄뿐이라 넣을 데가 없었다** → 시트를 새로 썼다(§1.4·§1.2·§1.5) | §1 |
+| §5.7 빨강 한 마디 | 관통 줄에 `whether it is on her head or hung on a nail` + 「이건 요구가 아니라 제한이다」 | 앵커 관통 줄 |
+| §5.8 진열대 유리 | 앵커·자리 시트가 §2.4 와 어긋나지 않게 — `Shop` 시트는 유리에 아무 말도 안 한다(선 한 줄은 §2.4 몫) | §1.4 |
+
+🔴 **§5.1 의 `SOUGHT THING · 16 · 38 · 47` 중 38·47 은 틀렸다.** SCENE 전수 검색으로 「찾는
+물건이라 제 판으로」 표시가 붙은 쪽은 **05 · 11 · 13 · 16 넉 권뿐이고 전부 01~25** 다. `_design.md`
+§H 가 그 이유를 적어 놨다 — **호리편(26~50)에는 찾기 권이 아예 없다**(「37 미아도 찾기가 아니라 그
+자리에 서기」). 38(점 난 빵)·47(마지막 하나)이 필요로 한 것은 노란 pull 이 아니라 **제 블록**이고,
+그건 §5.2 의 여섯 조항이 이미 준다. → 조건절에 예시를 05·11·13·16 으로 바꿔 달고, **노란 pull 은
+26~50에 안 나온다**는 것을 조건 자체가 막게 뒀다.
+
+🔴 **`Home` 은 「이중 이름」이 아니라 쓰레기통이었다.** §5.4 는 `Home`↔`Attic` 을 같은 잠자리
+두 이름으로 봤는데, 실제로 `Home` 일곱 쪽은 **네 자리**였다 — 04 p5 세면대 · 15 p7·p8·p10 골목
+잔치 상(같은 권 p3·p9 는 `AlleyMid` 다) · 16 p5 반죽대 밑 · 22 p4·p9 다락 잠자리. 잠자리만 고쳐
+봤자 나머지 다섯 쪽이 남는다 → **토큰을 없앴다**(아래).
+
+🔴 **`AlleyEnd` → `AlleyMouth` 로 고쳤다.** 「골목 끝」이라는 같은 한국어가 `AlleyDead`(01 p9 ·
+19 p1)와 `AlleyEnd`(36) 두 토큰에 걸려 있었고, §3 규칙표는 「골목 끝 → 막다른 골목」이라 적혀 있다.
+그대로 두면 자동 채움이 36권 아홉 쪽을 **막다른 담**으로 돌린다 — 36권은 길이 **열려 있어야** 하는
+권이다(자갈이 끝나고 큰길이 시작된다). 이름이 뜻을 지고 있어야 한다.
+
+🔴 **`no cast shadow` 를 사물 시트 일곱 곳에서 뺐다.** §2.9 state 6 이 **매듭 그림자로 한 권을
+그리라**고 하는데 같은 문서의 다른 시트 일곱 장이 그림자를 금지하고 있었다. 금지를 푼 게 아니라
+**번역했다** — 앵커에 `SHADOW` 조항(가장자리가 또렷한 잉크 면 하나, 던진 것보다 커도 된다, 톤 아님)을
+두고, 앵커 `NOT` 에 **「어떤 시트에도 no cast shadow 라고 쓰지 말 것」**을 박았다(복사가 기본값이라
+안 막으면 다음 시트에 또 번진다 — lulu 사례).
+
+🔴 **관통 줄 셋을 실제로 세어 봤다.**
+
+| 줄 | 실측 | 처리 |
+|---|---|---|
+| `RED` | 🔴 **500쪽 중 30쪽에 코코가 아예 없다**(빨강 0). 그 밖에 코코가 있는데 머릿수건이 몸에 없는 쪽 다섯(30 p5 맨 머리 · 31 p8 · 40 p4 · 28 p6 · 44 p6) | 「제한이지 요구가 아니다 · 30쪽엔 빨강이 없는 게 정상 · 못에 걸린 것도 그 빨강이다」를 줄에 넣음 |
+| `LIGHT` | 🔴 **앵커 안에서 자기모순**이었다 — 이 줄은 「하늘 띠는 절대 안 찍는다」인데 `NIGHT` 조항은 「하늘은 OVERLAP」이다. 밤 바깥 쪽 **5쪽**(22 p7 · 40 p1 · 31 p5 · 04 p4 · 04 p7)이 그 자리 | 낮/밤으로 갈라 씀 — 밤엔 하늘이 찍히고 **켜진 창·등불·화덕 입**이 대신 종이로 남는다 |
+| `WRONG` | 🔴 **절반이 거짓이다** — `_design.md` §H: 「호리편에서 단골은 틀리지 않는다」. 26~50 **25권 250쪽**에 「틀리는 어른」이 없다 | `volumes 01-25 only` 로 못 박고, 26~50 은 「틀리는 쪽이 코코, 어른은 조력자·증인」을 같은 줄에 적음 |
+
+🔴 **앵커가 스스로 모순이었다 — 「exactly TWO inks」인데 빨강 판이 있다.** 첫 줄이 「잉크는 정확히
+둘」이라고 못 박아 놓고, 같은 파일 `PALETTE` 는 `ACCENT RED ... printed last`(§2.9: 「제 패스로 마지막에
+찍는다」)를 든다. 실측 **500쪽 중 465쪽에 그 빨강이 있다** — 즉 첫 줄은 이 시리즈의 거의 모든 쪽에서
+거짓이다. → `TWO WORKING INKS` + 「빨강은 작업 잉크가 아니라 **세 번째 판**이고 천 하나에만 닿는다 ·
+「두 잉크와 빨강」이라고 부른다」로 고쳤다. **금지도 상한도 아니고 세는 단위가 틀린 것**이라 §5.2 와 같은
+종류다. (bami 신고를 받아 확인한 것 — 시리즈마다 관통 줄과 팔레트 절이 서로 맞는지 볼 것.)
+
+✅ **`[Token]` 에 한글이 섞인 곳 = 0.** 검사기 정규식이 `[A-Za-z][A-Za-z0-9/]*` 라 `[Station/큰 역]`
+같은 토큰은 **읽히지 않고 조용히 「토큰 없음」으로 빠진다**(미매칭 0 으로 통과한다). coco 500쪽 전수:
+대괄호 있는 399쪽 전부 ASCII, 나머지 101쪽은 「같은 …」 되짚기라 정상. 09 p9 만 「그 문 앞」으로
+「같은」을 안 쓰는데, `build-series-routes --check` 가 앞 쪽에서 제대로 물려받아 **빈칸 0** 이다.
 
 ### §5.1 🔴 앵커 조항이 **권 번호 목록**이라 26~50이 통째로 밖에 있다
 
