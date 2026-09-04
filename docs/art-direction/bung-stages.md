@@ -116,14 +116,17 @@ NOT: no character of any kind, no accent teal anywhere on this sheet (the teal i
 
 ---
 
-## §3. 사물 시트 — 30장 (후보 48 + 🔴 **대본에서 직접 찾은 10** 에서 접고 뺐다)
+## §3. 사물 시트 — 31장 (후보 48 + 🔴 **대본에서 직접 찾은 11** 에서 접고 뺐다)
 
 > 🔴 **2026-09-04 갱신 · 단위는 권이다.** 예전 이 절은 「40장」이라 적어 놓고 **프롬프트는 §3.1 수박
 > 한 장**뿐이었다(작업표 `_PROP-SHEETS.md` 머리말이 세어 둔 「521장 중 25장」의 붕이 몫이 이것이다).
-> 지금은 **30장 전부 프롬프트가 있다.** 목록은 아래 색인, 접은 내역과 뺀 것은 그 아래 두 표.
-> 🔴 **30 중 10은 작업표에 없던 것이다** — 신·젓가락·솔·끈·노·큰 나무·물고기·연기, 그리고 **작업표에
+> 지금은 **31장 전부 프롬프트가 있다.** 목록은 아래 색인, 접은 내역과 뺀 것은 그 아래 두 표.
+> 🔴 **31 중 11은 작업표에 없던 것이다** — 신·젓가락·솔·끈·노·큰 나무·물고기·연기·**청록 코끈**, 그리고 **작업표에
 > 한 줄도 없는 네 권(06·20·21·34)의 주인공 사물**. 추출기가 못 보는 세 가지(조사가 붙으면 딴 낱말 ·
 > 한 글자 낱말 · 인물 라벨 안의 물건)를 그대로 맞았다. **표는 착수 순서에만 쓰고 열 쪽을 다 읽었다.**
+> 🔴 **악센트를 지닌 물건은 표와 무관하게 무조건 시트를 만든다**(dodo·bruno·bami 에서 세 번 연속 빠진
+> 자리) → §3.31 `TealCords`. 몸에 걸치는 것이라 `인물` 라벨에만 살고, 다르게 그려지면 **앵커 관통 줄과
+> 13권의 단서가 통째로 깨진다.**
 
 > 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
 > 표 출력·검사 = `node packages/client/scripts/extract-series-stages.mjs --tokens bung` (**미매칭 0** 이어야 한다).
@@ -170,6 +173,7 @@ NOT: no character of any kind, no accent teal anywhere on this sheet (the teal i
 | 3.28 | `Gangplank` | 🔴 두 배를 잇는 걸친 널 | **06**(10) |
 | 3.29 | `Shirt` | 윗옷 (벗겨진 것) | **34**(8) |
 | 3.30 | `WaterBarrels` | 물 배의 통 넷 + 종 + 컵 | **20**(10) |
+| 3.31 | `TealCords` | 🔴 **청록 코끈 + 방울 끈** (이 책의 유일한 색점) | **500쪽 전부** · 단서 = 13 |
 
 ### 🔴 접은 내역
 
@@ -220,6 +224,28 @@ NOT: no character of any kind, no accent teal anywhere on this sheet (the teal i
 → §3.19 `Packet` 상태 4와 §3.27 `Oar` 상태 3·4가 그 실례이고, **나머지 시트에 「가라앉은 상태」를 안 넣었다**
 (그 권 SCENE 이 요구하지 않는 상태는 안 그린다). ⚠️ §3.1 수박 시트의 STATE 3(SUNK)은 `bung-routes.md`
 08권 주석이 이미 잡아 둔 대로 **대본에 없는 상태**다 — 되굽지 말고 그 주석과 함께 볼 것.
+
+**③ 🔴 통이 다섯이라 한 줄에 나란히 굽는다.** 이 시리즈의 「통」은 서로 다른 다섯이다 —
+**집 물통**(09·31, 아이 가슴 높이) · **고기 통**(15, 어른 허리 높이) · **물 배의 통**(20, 아이 가슴,
+뚜껑 있음) · **큰 바가지**와 **작은 바가지**(09) · 그리고 **컵**(20·27). 따로 구우면 **크기가 서로
+어긋난다**(bruno 에서 나온 처방). → §3.11 · §3.12 · §3.30 은 각자 굽되, **셋을 굽기 전에 다섯을 한 줄에
+세운 크기 사다리 판 하나를 먼저 굽는다**:
+
+```
+SCALE ROW - bung vessels   (bung-woodblock · 이 판은 시트가 아니라 자다. SCENE 토큰 없음)
+
+Six wooden vessels in one row on one ground line, at true relative size, all in RIVER with the
+plank's grain showing, drawn side on with 0 contents in them. From largest to smallest:
+  1 FISH TUB - up to an adult's waist, the widest of all, 3 hoops.
+  2 WATER BUTT - up to a child's chest, 2 hoops, standing inside the gunwale.
+  3 DELIVERY BARREL - a child's chest, narrower than 2, with a flat lid and a low spout.
+  4 BIG GOURD DIPPER - one whole hand round the handle.
+  5 SMALL GOURD DIPPER - a third of 4.
+  6 CUP - a third the height of 5.
+One plain key-ink child silhouette standing at the left end of the row, same ground line.
+🔴 Nothing else on this sheet - no water, no lids off, no character face, no accent teal, no
+  lettering or numerals.
+```
 
 ### §3.1 Watermelon — 실제 프롬프트 (🔴 가라앉는 것의 실례)
 
@@ -1570,3 +1596,54 @@ FINISHED THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 두어 **사물이 그 가족에 든다는 말이 없다.** 퐁이 앵커는 이걸 §0 ②로 따로 세워 뒀다.
 → 앵커에 한 줄: `A WHITE THING IS NOT PRINTED — it is the paper, and it is read only by what is
 printed around it.`
+
+### §3.31 TealCords — 🔴 **표에 없지만 무조건 만든다** (500쪽 전부 · 이 책의 유일한 색점)
+
+> 세 시리즈 연속으로 **그 시리즈의 유일한 악센트 물건이 작업표에 한 줄도 없었다**(dodo 파란 목수건 ·
+> bruno 파란 장화 · bami 청록 목도리). 전부 **몸에 걸치는 것**이라 `인물` 라벨에만 살기 때문이다.
+> 붕이네도 똑같다 — 청록은 앵커 팔레트가 **두 곳으로 못 박은 색**이고 대본은 그걸 **500쪽 내내**
+> 부르는데(`청록 코끈` · `발목 방울`) 후보에는 「방울 42/7」 한 줄뿐이다.
+> 🔴 **다르게 그려지면 앵커의 관통 줄과 13권의 단서가 통째로 깨진다.**
+> ⚠️ **개체 규격 SSOT 는 `bung-cast.md`** 다. 이 시트는 **끈과 방울 자체**만 들고 몸은 안 건드린다.
+
+```
+PROP SHEET - TealCords   (bung-woodblock · SCENE token: TealCords · 🔴 bake with the cast sheet)
+
+The two teal cords. They are the ONLY use of the accent block in fifty books, the palette names them
+by name, and one whole book turns on a child spotting one of them. How the wearers look is the cast
+sheet's; this sheet is the cords, so that they are the same object on every page of every volume.
+
+🔴 TWO PLACES AND NO THIRD - this is a palette rule, not a design choice:
+  1 BUNG'S NOSE CORD - ONE single teal line, ACCENT TEAL #1E8A8A. It is tied to a small ring at the
+    FRONT of the muzzle, runs back past the cheek, and 🔴 HANGS AT THE NECK - the hanging part is what
+    the script calls for on 214 pages. 🔴 THE MUZZLE IS NOT PIERCED: there is no hole, no slot and no
+    heavy ring through it. One cord, one thin line, one small ring.
+  2 THE LITTLE ONE'S ANKLE BELL - a small round bell tied to ONE ankle by a short ACCENT TEAL cord.
+    The bell itself is RIVER with a key outline and ONE short key line for its slot; 🔴 ONLY THE CORD
+    IS TEAL. The bell is the size of a small thumbnail.
+  Everything else in this book that is a cord is RIVER and never teal: the mooring rope, the washing
+  line, the sack neck cord, the water boat's bell cord. Draw one panel with all five together, the
+  two teal ones and three RIVER ones, so the difference is fixed once.
+🔴 THE CORD IS A LINE, NOT AN AREA. It is one stroke wide at every size, it never tapers, it never
+  gets a highlight, and 🔴 IT IS NOT PART OF THE KEY BLOCK - it is pulled in the accent block, so it
+  slips one hair off like everything else and it is never outlined in black.
+🔴 IT SURVIVES BEING SMALL. On a page where the figure is a fingernail high, the cord is still there
+  as a single teal mark. This is why one book can hide a whole child and leave only the bell showing.
+STATES:
+  1 THE NOSE CORD ALONE at large size: the muzzle ring, the run past the cheek, the hanging end.
+  2 THE SAME on a plain key-ink head silhouette, three-quarter, so its path is fixed.
+  3 THE ANKLE BELL alone at large size: cord, knot, bell.
+  4 🔴 THE BELL ALONE IN A GAP - the bell and a hand's width of ankle showing out of a dark massed
+    shape with 0 outlines in it, everything else in the frame unfinished. This is the state one book
+    is built on: the bell is the only teal and the only outlined thing on the page.
+  5 AT DISTANCE - the two children as small silhouettes with the two teal marks still visible.
+  6 THE FIVE CORDS SIDE BY SIDE - the two teal ones and the mooring rope, washing line and sack cord
+    in RIVER, at their true thicknesses. 🔴 The teal ones are the THINNEST of the five.
+
+PLATE: states 1-6, plus state 6 at large size.
+
+NOT: no character face beyond a silhouette, no teal on any other object, person or animal in this
+  book, no second bell, no ring through the muzzle, no lettering or numerals, no metal shine or
+  sparkle on the bell, no sound lines or marks in the air around it, no third colour that is not an
+  overprint, no corrected registration, no shading, gradient, glow or soft edge.
+```
