@@ -35,10 +35,10 @@ ALLOWED HERE` — 기름옷·부표·등불·그물·뜸·등대 몸통·종이�
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
 | `SeaAndSky` | (전 권 공통) | 🔴 **자리가 아니라 방향표.** 아래 §1.1 |
-| `Shore` | 모래밭 · 모래밭 위 · 언덕 아래 모래밭 · 파도가 물러간 모래밭 · 바위 앞 모래밭 · 등대 아래 모래밭 · 배 밑과 모래밭 · 넓은 모래밭 · 부두 앞 모래밭 | 한 모래밭의 여러 목 + **상태 하나**. SPOT = `Shore/A`~`Shore/D` |
+| `Shore` | 모래밭 · 모래밭 위 · 언덕 아래 모래밭 · 파도가 물러간 모래밭 · 바위 앞 모래밭 · 등대 아래 모래밭 · 배 밑과 모래밭 · 넓은 모래밭 · 부두 앞 모래밭 | 한 모래밭의 여러 목 + **상태 하나**. SPOT = `Shore/A`~`Shore/E`. 🔴 **다섯째 자리 = 마을로 오르는 길**(2026-09-05 · 48 p10) |
 | `Harbour` | 부두 · 부두 바닥 · 부두 앞 · 부두 위 · 부두 초입 · 물 위 · 배 옆 | 🔴 **뭍에서 본 배까지**. 배에 타면 `Boat` |
 | 🔴 `Boat` | 배 위 · 뱃전 · 뱃고물 · 뱃바닥 · 통통배 안 | **신설**(§1.5). 카메라가 배에 타면 다른 무대다 |
-| `Home` | 집 안 · 집 부엌 · 방 · 집 마당 · 마당 | §1.3. SPOT = `Home/방`·`Home/부엌`·`Home/마당` |
+| `Home` | 집 안 · 집 부엌 · 방 · 집 마당 · 마당 · 🔴 난롯가 · 처마 밑 | §1.3. SPOT = `Home/방`·**`Home/난롯가`**·`Home/부엌`·`Home/마당`·**`Home/처마`**·**`Home/닿는 자리`**. 🔴 **난롯가는 부엌이 아니다**(2026-09-05, 네 권 17쪽 — 49 p3 이 그 방에서 부엌 문간을 따로 본다) |
 | `Village` | 골목 안 · 마을 마당 · 잔치 마당 | 🔴 **집 마당과 다른 곳** |
 | 🔴 `RockPools` | 바위밭 · 바위틈 웅덩이 · 물가 자갈밭 · 갯벌 | **신설**(§1.4). 🔴 **23권 마당 웅덩이는 여기가 아니라 `Home/마당`** |
 | `Lighthouse` | 등대 언덕 · 언덕 옆 바위 | 소나무 한 그루가 고정 부품 + 🔴 **불의 상태 셋 · 크기 세 단**(§1.6) |
@@ -102,22 +102,35 @@ FIXED PARTS:
   AN UPTURNED HULL lies on the sand toward the middle, INK2, its underside OVERLAP.
   Footprints and dug holes are at most 9 OVERLAP marks - never more, and never in a row.
 
-🔴 FOUR NAMED PLACES ON ONE SAND - the books call them different things and they are all here:
+🔴 FIVE NAMED PLACES ON ONE SAND - the books call them different things and they are all here:
   BY THE ROCKS (left) · UNDER THE HILL (right) · UNDER THE LIGHTHOUSE (far right, the tower visible)
-  · IN FRONT OF THE HARBOUR (far right, the wall visible). Fix on this sheet WHERE EACH ONE IS, so
-  that a page which names one of them is standing in a decided spot and not a new beach.
+  · IN FRONT OF THE HARBOUR (far right, the wall visible) · 🔴 THE WAY UP TO THE VILLAGE (behind the
+  sand, between the hill and the harbour wall): a rise of bare PAPER ground with the roofs of the
+  village standing at the top of it, INK2, at most 8, CLOSER TOGETHER as they go up - never smaller
+  and never paler. It is the only way off this sand that is not the water, and a book that ends by
+  walking home goes up it. Fix on this sheet WHERE EACH ONE IS, so that a page which names one of
+  them is standing in a decided spot and not a new beach.
 
-SPOTS - 🔴 the SCENE token carries the letter, so the letters are the names and nothing else:
+SPOTS - five. 🔴 the SCENE token carries the letter, so the letters are the names and nothing else:
   Shore/A THE WHOLE SAND, wide, eye level: rocks left, hill and lighthouse right, sea across the top.
     This is the default - a page that just says "the sand" is standing here.
   Shore/B BY THE ROCKS, medium: the group at frame left, sand running away right.
   Shore/C THE SAND, close, high: bare paper and whatever is on it, no horizon in frame.
   Shore/D THE WATER LINE, medium: the hard edge where the wet ATLANTIC pull meets bare sand.
+  🔴 Shore/E WHERE TWO BODIES TOUCH, close: not the sand but the one point where two bodies meet -
+    four hands round one shell, a hand passing a stone into a hand. ONLY THE TOUCHED POINT IS
+    FINISHED; everything round it is ONE flat field with no interior marks - bare PAPER for dry
+    sand, ONE ATLANTIC pull for wet, INK2 for rock - and never two of them. 🔴 ONE EAR TIP OF EACH TWIN PRESENT STAYS INSIDE THE FRAME - the ear is on at
+    every range without exception, and at this range it is on as a tip at the frame's edge. 🔴 THE
+    YELLOW IS NOT THE FALLBACK: the anchor calls the band the weaker of the two marks and lets it go,
+    so a close frame that keeps a hat brim and loses both ears is a frame that cannot be read.
+    If no ear tip fits, the frame is wrong. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN. Drawn EMPTY on this sheet:
+    three small panels of those three fields at that range, no characters.
   🔴 A SECOND WORD AFTER THE LETTER IS THE STATE, NOT A PLACE - `Shore/A · 젖음` is spot A with the
     WET SAND pull laid on it. The state never changes which spot the camera stands in.
 
-PLATE: A, B, C, D once each, plus 🔴 A PLAN DIAGRAM of the sand with the four named places marked,
-  plus A drawn TWICE - dry and with the wet pull - at the same size.
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 A PLAN DIAGRAM of the sand with the
+  five named places marked, plus A drawn TWICE - dry and with the wet pull - at the same size.
 
 NOT: 🔴 no yellow anywhere / no character / no lettering or numerals / no third drum / no foam,
   glint or reflection / no seaweed drawn strand by strand / no gradient, glow or soft edge / the
@@ -131,10 +144,12 @@ NOT: 🔴 no yellow anywhere / no character / no lettering or numerals / no thir
 > 못과 침대 밑이 어디 있는지 시트가 안 정하면 화가가 걸 데가 없다.
 
 ```
-STAGE SHEET - Home   (twins-risoshore · SCENE token: Home · SPOTS: Home/방 · Home/부엌 · Home/마당)
+STAGE SHEET - Home   (twins-risoshore · SCENE token: Home · SPOTS: Home/방 · Home/난롯가 · Home/부엌 ·
+                      Home/마당 · Home/처마 · Home/닿는 자리)
 
 The twins' house above the harbour. Twenty-three of the fifty books stand here, so this drawing
-decides it once. It is THREE ROOMS AND A YARD and they never move.
+decides it once. It is TWO ROOMS, A YARD AND THE STRIP UNDER THE EAVES, and they never move. 🔴 THE
+ROOM HAS TWO ENDS - a hearth end and a bed end - and they are two cameras, not two rooms.
 
 FIXED PARTS - THE ROOM (Home/방):
   🔴 TWO BEDS, LOW, SIDE BY SIDE, HEADBOARDS AGAINST THE BACK WALL - RIRI'S ON THE LEFT AND LOLO'S ON
@@ -146,9 +161,34 @@ FIXED PARTS - THE ROOM (Home/방):
     WHERE THE YELLOW BOOTS STAND and it is the lowest thing in the room. 🔴 The two are on the SAME
     WALL and at OPPOSITE ENDS OF THE FRAME'S HEIGHT, so a page that shows both shows one yellow near
     the top edge and one near the bottom edge with the whole room between them.
+  🔴 THE PEG IS ONE THING WITH ONE NAME. It is a peg driven into the wall - not a post of the bed,
+    not a rail, not a hook, and there is only one of it in this room. In Korean it is
+    **「머리맡 나무못」** and the scripts say that and nothing else. (They used to call it three things -
+    「머리맡 벽 못」·「침대 머리맡 나무 기둥」·「벽 걸이」 - and because THIS is where yellow rule ① is
+    hung, three names put the hat in three places. Unified 2026-09-05.)
+  🔴 ONE IRON HOOK beside the door, at an adult's shoulder - THIS is where Dad's oilskin hangs, and
+    it is the ONLY other thing in this room anything hangs on. It is far from the peg and much lower,
+    it is iron and not wood, and 🔴 NO YELLOW EVER HANGS ON IT. In Korean it stays **「벽 걸이」**, which
+    now names one thing only. A winter volume has daylight cross the room and land on it.
   ONE WINDOW in the left wall, a plain INK2 rectangle with 0 frame bars, sill at a child's chest. The
     sea shows through it as that volume's SeaAndSky pull, running that volume's direction.
   A CHEST at the foot of the beds, INK2. Nothing else. No pictures, no shelf, no rug.
+🔴 FIXED PARTS - THE HEARTH (Home/난롯가). It is a FOURTH place, not a corner of the kitchen: four
+  volumes spend seventeen pages here, and one of them looks from this place THROUGH THE KITCHEN
+  DOORWAY - so it cannot be inside the kitchen. It is the near end of the room the family sits in.
+  THE FIREPLACE in the end wall, INK2, its opening a shape of BARE PAPER when there is a fire in it
+    and INK2 when there is not. 🔴 THERE IS NO THIRD STATE, no glow, no ember, no flicker and no
+    warm tint - the same rule the lighthouse lamp gets.
+  ONE ADULT CHAIR facing it, with arms; ONE LOW STOOL beside it at a child's height. A grown rabbit
+    in the chair has its knee at a child's chest, and both children fit on ONE knee - a volume ends
+    there, so the chair's seat width is fixed here as two children side by side.
+  THE FLOOR IN FRONT is bare PAPER and is kept clear - that clear span is where a blanket gets laid
+    down and a baby gets put on it, and it is as wide as an adult is tall.
+  🔴 THE HEARTH AND THE BEDS ARE THE TWO ENDS OF ONE ROOM - hearth at the near end, the two beds and
+    the peg at the far end, ONE window in the long side wall serving both, and the KITCHEN through an
+    INK2 doorway in the other side wall. That is why a volume can go 난롯가 → 방바닥 → 난롯가 and still
+    say 「같은 방」, and why a rabbit standing in the kitchen doorway is seen whole from the fire.
+    `Home/방` and `Home/난롯가` are two cameras in one room, not two rooms.
 FIXED PARTS - THE KITCHEN (Home/부엌): one table with two child chairs and two adult chairs, the
   chairs identical · a stove against the right wall · a shelf of at most 6 vessels of one shape · a
   second window over the work top. Floor is BARE PAPER, walls are bare PAPER, everything standing on
@@ -157,6 +197,17 @@ FIXED PARTS - THE YARD (Home/마당): whitewashed wall waist-high closing the fa
   a line for washing running wall to wall · the big wooden tub standing to the right of the door ·
   BARE PAPER ground. Beyond the wall, roofs going down toward the harbour, INK2, at most 8, standing
   CLOSER TOGETHER as they go down - never smaller and never paler.
+  🔴 FOUR HOOKS in a row on the yard wall, INK2, evenly spaced, at an adult's shoulder and above a
+    child's reach. Two volumes fill and empty them and the count is the clock, so the four never
+    become three or five. They are the yard's hooks and they are not the room's iron hook.
+  🔴 THE EAVES. The house roof overhangs the door by a stride, and 🔴 WHAT THAT OVERHANG MAKES IS A
+    LINE ON THE GROUND: dry ground under it, wet ground beyond it. In rain the wet part is ONE flat
+    pull of ATLANTIC with a HARD edge and 🔴 THAT EDGE IS STRAIGHT AND RUNS ACROSS THE FRAME PARALLEL
+    TO THE HOUSE WALL - it is the shadow line of the roof edge, not a puddle and not a splash. A
+    whole volume is about crossing it, so fix it here: the dry strip is ONE STRIDE deep, the same on
+    every page, and 🔴 THE PUDDLE OF THE YARD'S WET STATE IS BEYOND IT, out toward the gate, so the
+    two waters are never the same shape. Drips off the eave are at most 11 straight strokes all
+    leaning one way, the same as rain.
 
 🔴 THE YARD HAS ONE STATE AND IT IS NOT A NEW PLACE - AFTER RAIN, the middle of the yard is a single
   flat pull of ATLANTIC with a HARD edge against the bare ground: a puddle. It sits between the door
@@ -165,15 +216,41 @@ FIXED PARTS - THE YARD (Home/마당): whitewashed wall waist-high closing the fa
   in frame. A ripple on it exists only where the page counts one (at most 3 closed rings of bare
   paper, hard-edged); otherwise 0.
 
-SPOTS:
+SPOTS - six. 🔴 The first five look at the house; the last does not.
   Home/방 THE ROOM, medium, from the door: both beds, the peg above the left one, the gap under the
     right one, the window at frame left.
   Home/부엌 THE KITCHEN, medium, eye level: the table across the frame, stove right, window behind.
   Home/마당 THE YARD, wide, eye level: door at frame left, tub right, the low wall and the roofs
     beyond it - drawn TWICE at the same size, dry and with the puddle.
+  🔴 Home/난롯가 THE HEARTH, medium, eye level, from the bed end of the room: the fireplace across the
+    frame, the arm chair facing it, the low stool beside it, the clear floor in front, the kitchen
+    doorway at one edge. This is the DEFAULT spot for any page that says 난로 · 난롯가 · 걸상 · the
+    fire, and for a page laid on the floor in front of it.
+  🔴 Home/처마 UNDER THE EAVES, medium wide, eye level, standing at the door and looking out: the dry
+    strip across the bottom of the frame, the hard wet edge running straight across it, the yard and
+    the gate beyond. Drawn TWICE at one size - dry day and rain - because the edge is the picture.
+  🔴 Home/닿는 자리 WHERE TWO BODIES TOUCH, close: not a room but the one point where two bodies meet
+    - four hands round one shell, a baby's two hands round one finger, three faces inside one span.
+    ONLY THE TOUCHED POINT IS FINISHED; everything round it is ONE flat pull with a hard edge and no
+    interior marks - INK1, INK2 or bare PAPER, never two of them - and no ATLANTIC unless the page
+    is at water. 🔴 WHOSE BODY IT IS IS CARRIED THE WAY THE ANCHOR CARRIES IT AND THE ANCHOR IS
+    STRICT: the ears are on EVERY appearance without exception, so 🔴 ONE EAR TIP OF EACH TWIN PRESENT STAYS INSIDE THE FRAME - the ear is on at
+    every range without exception, and at this range it is on as a tip at the frame's edge. 🔴 THE
+    YELLOW IS NOT THE FALLBACK: the anchor calls the band the weaker of the two marks and lets it go,
+    so a close frame that keeps a hat brim and loses both ears is a frame that cannot be read.
+    If no ear tip fits, the frame is wrong.
+  🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN. A thing that fills the frame on one page
+  and is a hand's width on another is drawn at THE SAME level of finish in both - a fingermark, a
+  shell, a button. Magnification is a camera move, not a promotion.
+  🔴 ON THIS SHEET 닿는 자리 IS DRAWN EMPTY, like every other spot: four small panels of the
+  BACKGROUND at that range - INK2 (a bed, a hull, a wall), INK1, bare PAPER, and the hearth's fire
+  opening. No characters.
 
-PLATE: the three spots once each, plus 🔴 A HEIGHT DIAGRAM of the room wall showing the peg and the
-  under-bed gap as the two extreme bands of the frame, plus the yard drawn dry and wet side by side.
+PLATE: the five looking spots once each, plus 닿는 자리 as four empty fields, plus 🔴 A HEIGHT DIAGRAM
+  of the room wall showing the peg and the under-bed gap as the two extreme bands of the frame, plus
+  the yard drawn dry and wet side by side, plus 🔴 ONE PLAN OF THE HOUSE showing that the hearth and
+  the beds are the two ends of ONE room with the kitchen through a side doorway, plus 🔴 THE EAVES
+  LINE drawn dry and wet at one size.
 
 NOT: 🔴 no yellow anywhere on this sheet (the peg is empty and the gap under the bed is empty) / no
   character / no lettering, numerals or signs / no third drum / no reflection in the puddle / no
@@ -227,15 +304,26 @@ FIXED PARTS:
     with a small INK2 heap beside each; at most 9 counted, more than that is ONE shape of worked
     ground. 🔴 NOTHING STANDS UP HERE - this is the emptiest sheet in the book and that is the point.
 
-SPOTS:
+SPOTS - five. A to D look at the ground; E does not.
   A THE WHOLE GROUND, wide, high: rock field at frame left, pebble bank, mudflat running out to the
     waterline, the hill and lighthouse small at the far right.
   B ONE POOL, medium, eye level: the big pool with its rock lip, a twin's-eye view across it.
   C INTO A POOL, close, straight down: only the ATLANTIC pull and the OVERLAP shapes inside it.
   D THE PEBBLE BANK, close, high: the twelve separate stones in front, the one flat shape behind.
+  🔴 E WHERE TWO BODIES TOUCH, close: not the ground but the one point where two bodies meet - two
+    hands round one held thing, a head against a shoulder over a pool. ONLY THE TOUCHED POINT IS
+    FINISHED; everything round it is ONE flat field with no interior marks - INK2 for rock, ONE
+    ATLANTIC pull for a pool, bare PAPER - and never two of them. 🔴 ONE EAR TIP OF EACH TWIN PRESENT STAYS INSIDE THE FRAME - the ear is on at
+    every range without exception, and at this range it is on as a tip at the frame's edge. 🔴 THE
+    YELLOW IS NOT THE FALLBACK: the anchor calls the band the weaker of the two marks and lets it go,
+    so a close frame that keeps a hat brim and loses both ears is a frame that cannot be read.
+    If no ear tip fits, the frame is wrong. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME
+    CAME IN. Drawn EMPTY: three small panels of those three fields at that range, no characters.
+    ⚠️ Still no reflection at this range either - a face over a pool is a face over one flat pull.
 
-PLATE: A, B, C, D once each, plus 🔴 A PLAN DIAGRAM naming where the rock field, the pebble bank, the
-  big pool, the cleft and the mudflat sit relative to one another and to the `Shore` sheet's rocks.
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 A PLAN DIAGRAM naming where the
+  rock field, the pebble bank, the big pool, the cleft and the mudflat sit relative to one another
+  and to the `Shore` sheet's rocks.
 
 NOT: 🔴 no yellow anywhere / no character / no lettering or numerals / no third drum / no reflection
   of any kind in any pool / no ripple, glint, sparkle or foam / no gradient, glow or soft edge / no
@@ -278,14 +366,26 @@ FIXED PARTS - one boat, drawn once and never redesigned:
   COUNTS a wake, in which case it is at most 3 closed rings or ONE bare-paper strip and nothing else.
   🔴 THE SEA OUTSIDE NEVER GETS PALER TOWARD THE HORIZON.
 
-SPOTS:
+SPOTS - five. A to D look at the boat; E does not.
   A THE WHOLE BOAT FROM THE STERN, wide, eye level: tiller near, thwart across the middle, bow and
     Dad far, the gunwale cutting both sides of the frame.
   B AT THE GUNWALE, medium: the hard INK2 edge across the frame with a chin on it and only sea beyond.
   C THE FLOOR, close, high: boards running fore and aft, the bilge pull, boots on them.
   D THE STERN, medium low: the tiller bar and the hand on it, the boat's wake side of the frame.
+  🔴 E WHERE TWO BODIES TOUCH, close: the one point where two bodies meet - a big hand closed over a
+    small one on the tiller bar. ONLY THE TOUCHED POINT IS FINISHED; everything round it is ONE flat
+    field with no interior marks - the INK2 of the hull or the boards, or the sea's one pull beyond
+    the gunwale - and never two. 🔴 THE BOARDS' STREAK STILL RUNS FORE AND AFT at this range: it is
+    the only thing left in frame that says which way the boat points, so it is never turned to suit
+    a composition. 🔴 ONE EAR TIP OF EACH TWIN PRESENT STAYS INSIDE THE FRAME - the ear is on at
+    every range without exception, and at this range it is on as a tip at the frame's edge. 🔴 THE
+    YELLOW IS NOT THE FALLBACK: the anchor calls the band the weaker of the two marks and lets it go,
+    so a close frame that keeps a hat brim and loses both ears is a frame that cannot be read.
+    If no ear tip fits, the frame is wrong.
+    🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN. Drawn EMPTY: three small panels of those
+    three fields at that range, no characters.
 
-PLATE: A, B, C, D once each, plus 🔴 A SIDE DIAGRAM of the boat with the gunwale height marked
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 A SIDE DIAGRAM of the boat with the gunwale height marked
   against a twin standing and the same twin sitting, plus one panel of the same view A with the three
   SeaAndSky directions outside it, to prove the boat does not change when the weather does.
 
@@ -312,7 +412,8 @@ NOT: 🔴 no yellow except a twin's own hat and boots / no lettering, numerals o
     fan and NOT tapered. It is a piece of paper, not a ray of light.
 
 🔴 THE LIGHT HAS EXACTLY THREE SIZES AND THEY ARE FIXED BY WHERE THE READER STANDS:
-  NEAR (under the tower, volume 09) - the lit shape is as wide as a twin's head.
+  NEAR (any page standing on the lighthouse hill, under the tower) - the lit shape is as wide as a
+    twin's head.
   MIDDLE (from the sand below the hill) - as wide as a twin's hand.
   FAR (from the village or the harbour, over the wall) - THE SAME SIZE AS ONE LIT WINDOW IN THE
     VILLAGE, and never bigger. 🔴 This is the size that keeps the village the size it is.
@@ -320,6 +421,17 @@ NOT: 🔴 no yellow except a twin's own hat and boots / no lettering, numerals o
 
 PLATE: add one strip - the three states at the NEAR size, and the LIT state at all three sizes with
   a village window drawn beside the FAR one at the same scale.
+
+🔴 ADD ONE SPOT - WHERE TWO BODIES TOUCH, close: the one point where two bodies meet on this hill.
+  ONLY THE TOUCHED POINT IS FINISHED; everything round it is ONE flat field with no interior marks -
+  the INK2 of the tower body, the INK2 of the hillside rock, or bare PAPER - and never two. 🔴 IF THE
+  LIGHT IS IN FRAME AT ALL IT IS STILL ONE OF THE THREE SIZES; a close frame does not enlarge it,
+  because the size is what holds the village's scale. 🔴 ONE EAR TIP OF EACH TWIN PRESENT STAYS INSIDE THE FRAME - the ear is on at
+    every range without exception, and at this range it is on as a tip at the frame's edge. 🔴 THE
+    YELLOW IS NOT THE FALLBACK: the anchor calls the band the weaker of the two marks and lets it go,
+    so a close frame that keeps a hat brim and loses both ears is a frame that cannot be read.
+    If no ear tip fits, the frame is wrong. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN.
+  Drawn EMPTY: two small panels of those fields at that range, no characters.
 ```
 
 ---

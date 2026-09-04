@@ -24,16 +24,20 @@ begins, and THAT CHANGE OF DIRECTION IS THE EDGE.`
 
 ---
 
-## §1. 자리 시트 — 9장 (후보 13에서 접고 · 2026-09-04 `Path`·`SnowSlope` 신설)
+## §1. 자리 시트 — 9장 (후보 13에서 접고 · 2026-09-04 `Path`·`SnowSlope` 신설 · 🔴 **2026-09-05 에 `Wood`·`CabinOutside`·`Shed`·`Attic` 넷을 실제 프롬프트로 썼다**)
+
+> 🔴 **표에 이름만 있고 프롬프트가 없는 시트는 없는 것과 같다.** 26~50 경로표에서 못 댄 89칸 중
+> **73칸이 `Cabin`** 하나였고(난로 앞 · 난로 앞 의자 · 빈 벽 · 사다리 밑), 나머지도 전부 프롬프트가
+> 없던 시트로 떨어졌다. §1.5~§1.8 이 그 답이다.
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
 | `Cabin` | 오두막 부엌 · 오두막 안 · 부엌 식탁 · 식탁 옆 · 창가 · 부엌 창가 · 오두막 창가 · 오두막 안 창가 | 부엌에서 창이 보인다 |
-| `CabinOutside` | 마당 · 오두막 마당 · 오두막 앞 · 오두막 문간 · 오두막 옆 텃밭 | |
-| `Shed` | 헛간 안 · 헛간 앞마당 | 장작·연장 |
-| `Lake` | 호숫가 | 🔴 **21권 얼음** |
-| `Wood` | 숲 개울가 · 개울가 · (자작나무 숲) | 01 p1 의 자작나무 한 그루가 고정 부품 |
-| ⚠️ `Attic` | 다락 창가 | 🔴 **미결의 답 — 25권** · §3 |
+| `CabinOutside` | 마당 · 오두막 마당 · 오두막 앞 · 오두막 문간 · 오두막 옆 텃밭 · 🔴 오두막에서 헛간으로 가는 눈밭 | 🔴 **자리가 아니라 거리다** — 문↔우물 · 문↔헛간 · 문↔텃밭 셋이 세 권의 자다. §1.6 |
+| `Shed` | 헛간 안 · 헛간 앞마당 · 광 | 🔴 **한 지붕 아래 두 방**(헛간=천 문 / 광=쇠고리 판자문). 벽의 못 여섯이 42권의 시계. §1.7 |
+| `Lake` | 호숫가 | 🔴 **21권 얼음 + 여름 서른세 쪽** — 물속에서 보는 자리(E)가 없어 무릎까지 잠긴 몸이 안 잡혔다. §1.2 |
+| `Wood` | 숲 개울가 · 개울가 · (자작나무 숲) · 🔴 숲 비탈 · 깊은 숲 · 숲길 | 01 p1 의 자작나무 한 그루가 고정 부품. 🔴 **한 숲의 네 얼굴** — 서른 쪽 넘는 다른 무대가 이 토큰에 얹혀 있었다. §1.5 |
+| `Attic` | 다락 창가 · 다락 · 다락 침대 | 🔴 **미결 해소(2026-09-05)** — 25권 시절 두 권이 **여섯 권**이 됐다. 사다리 가로대·다락 입구 칸수를 `Cabin` 과 같은 값으로 든다. §1.8 |
 | 🔴 `Path` | 큰길 · 샛길 · 길 끝 눈밭 | **신설**(8쪽·5권) — 마을·오두막 밖으로 나가는 **한 길**이다. `Wood`(개울가·자작나무)와 다르다: 길은 **다져진 바닥**이 있고 04·24 는 그 바닥이 사건이다. §1.3 |
 | 🔴 `SnowSlope` | 오두막 앞 눈 언덕 · 비탈 · 언덕 아래 | **신설**(신고 2) — 19·46·47 **세 권**이 한 비탈에 걸려 있고 **비탈의 길이와 경사가 자국의 자**다. 토큰이 `CabinOutside`(마당·문간·텃밭)로 가 있어 화가가 **마당을 그린다.** §1.4 · SCENE 6쪽 재태깅함 |
 | 🔴 `FeedBoard` | 창밖 모이대 · 창가 모이대 | **신설**(23권 10쪽 중 4쪽) — `Cabin` 은 실내이고 `CabinOutside` 는 마당·문간·텃밭뿐이라 **모이대가 어느 시트에도 없었다.** 창턱 바깥에 달린 판 하나 + 그 아래 눈 딛는 자리. 🔴 23 p4 「파란 장화가 눈을 딛는다」가 **밖**이라 실내로 묶으면 안 된다 |
@@ -55,6 +59,8 @@ it, so this drawing decides the room once - and above all it decides ITS DIRECTI
     the table separates from the floor without any outline.
   SHUTTERS AND CLOTH - SPRUCE, strokes running VERTICALLY.
   THE STOVE - OVERLAY, strokes running LEFT TO RIGHT.
+  THE LADDER - BARK: the two uprights run UP, the rungs run LEFT TO RIGHT, and that crossing is the
+    only place in the room where one object holds two directions.
   🔴 NO TWO TOUCHING AREAS MAY SHARE A DIRECTION. Check this on the sheet by naming, for each pair
   of neighbours, which way each one runs.
 
@@ -62,17 +68,63 @@ FIXED PARTS: one table with two stools · a low shelf on the back wall · 🔴 O
   table, and THE LIGHT THROUGH IT IS BARE PAPER, unwaxed, the brightest thing in the room · a door
   to the yard · the stove in the corner with at most 5 curls of steam · at most 4 windows in the
   whole cabin, ever.
+🔴 FIXED PARTS - THE STOVE CORNER. This is where this book actually stands: more pages happen in
+  front of this stove than anywhere else in the series, and every fire-lit and every night page is
+  lit from here. Fix it once:
+  ONE LOW CHAIR stands facing the stove, at the cub's shoulder height when he sits on the floor, its
+    seat a hand lower than the two table stools so the two never read as the same furniture. It is
+    the only seat in the room with a back. A bear sitting in it can hold a paw out to the fire.
+  ONE WOOD BOX stands on the far side of the stove from the chair, open topped, BARK, holding at
+    most 6 split sticks. 🔴 It is also the box a small animal gets kept in, and what changes then is
+    what is laid in the bottom, never the box.
+  THE FLOOR BETWEEN CHAIR AND STOVE is bare of everything else - that clear span is where a bowl,
+    a pail, a wet pair of boots or a curled body gets put down, and it is a stride wide.
+  The stove MOUTH is on the chair's side. Its light and its shadows belong to the Lamplight sheet.
+🔴 FIXED PARTS - THE DOOR WALL. The wall the door is in carries, at its far end, THE LADDER to the
+  loft: uprights standing to a hole in the ceiling, at most 7 rungs, spaced a cub's chest apart, and
+  🔴 THE LOFT HOLE IS AT THE FOURTH RUNG FROM THE TOP - fix that count here, because three books
+  measure a climb against it and a rung that moves makes the climb a different height each time.
+  BETWEEN THE DOOR AND THE LADDER THE WALL IS BLANK: no shelf, no hook, no picture, nothing hangs on
+  it, and it is 🔴 WIDE AND TALL ENOUGH TO HOLD A SHAPE AS TALL AS THE ROOM. That blank stretch is
+  the only surface in the cabin a wall shadow can stand on, and a shadow that runs onto shelving
+  stops reading as an animal.
+ONE BED, low, BARK, stands against the wall opposite the stove, at most one blanket on it. 🔴 It is
+  not the loft bed - a book that says "the loft" is on the Attic sheet and got there up this ladder.
 COVERAGE: wax is at most 80 percent everywhere - the oat-grey grain of the paper shows through
   every single area, and no area is ever solid.
 
-SPOTS:
+SPOTS - seven. 🔴 A to F are cameras that look at the room; G is the only one that does not.
   A THE WHOLE ROOM from the door, wide: table under the window left, stove right, shelf behind.
   B THE TABLE, medium, 🔴 wide enough to hold two bears from the knee up.
   C THE WINDOW, medium: the bare-paper light and the sill.
   D THE FLOOR, close, high: plank direction and whatever is on it.
+  🔴 E THE STOVE FRONT, medium, eye level: the stove mouth across the frame, the low chair at one
+    side and the wood box at the other, the clear floor span between them. This is the DEFAULT spot
+    for any page that says the stove, the chair, the fire, the box or the floor beside them - and
+    it is the spot that carries the room's one bare-paper light source.
+  🔴 F THE DOOR WALL, medium wide, low: the blank stretch across the frame with the ladder's foot
+    and lowest rungs at one edge. Drawn low so the ladder runs up out of the top of the frame and
+    the blank wall stands full height - one framing serves both a page looking up the ladder and a
+    page throwing a shape onto the wall.
+  🔴 G WHERE TWO BODIES TOUCH, close: not the room but the one point where a paw meets a paw, a
+    muzzle meets a shoulder, a palm meets a back. ONLY THE TOUCHED POINT IS FINISHED; everything
+    round it is one field of BARK or OVERLAY running one way with no interior detail, and the
+    background is ONE of the room's colours, never two. 🔴 WHOSE PAW IT IS IS CARRIED THE WAY THE
+    ANCHOR CARRIES IT (small round mitt with a blue boot cuff / broad flat palm with five blunt toes
+    apart) and the other bear stays in frame as a face or two eyes at the edge.
+  🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN. A thing that fills the frame on one page
+  and is a paw's length on another is drawn at THE SAME level of finish in both - a splinter, a pea,
+  a fingermark. Magnification is a camera move, not a promotion.
+  🔴 ON THIS SHEET G IS DRAWN EMPTY, like every other spot: what the plate has to settle is THE
+  BACKGROUND AT THAT RANGE - the room seen so close that it is one field of one colour running one
+  way, and which colour that is beside the stove, on the floor, at the table and against the door
+  wall. Four small panels, no bodies. The bodies are the cut's business; the field is the sheet's.
 
-PLATE: A, B, C, D once each, plus 🔴 ONE DIRECTION DIAGRAM - the same room drawn as flat areas with
-  an arrow in each one showing which way its strokes run.
+PLATE: A to F once each, plus 🔴 G AS FOUR EMPTY FIELDS (stove side, floor, table, door wall) at one
+  size, plus 🔴 ONE DIRECTION DIAGRAM - the same room drawn as flat areas with an arrow in each one
+  showing which way its strokes run, plus 🔴 ONE PLAN OF THE ROOM naming which wall carries the
+  window, which the shelf, which the stove corner and which the door and ladder, plus 🔴 THE SAME
+  SMALL OBJECT DRAWN TWICE at G's range and at A's range, to prove the finish is the same in both.
 
 NOT: no character of any kind, no boot blue anywhere on this sheet (the blue is Nils's boots only),
   no lettering or numerals, no outline of any kind - edges are changes of stroke direction, no
@@ -85,12 +137,80 @@ NOT: no character of any kind, no boot blue anywhere on this sheet (the blue is 
 🔴 다만 23권은 창 **너머**에 모이대가 있으므로 `Cabin/C` 와 `FeedBoard` 가 **한 화면에 겹친다**
 (23 p10 「창을 사이에 두고 안팎이 한 프레임」) — 두 시트의 창턱 높이를 같은 값으로 굽는다.
 
-### §1.2 Lake — 요약 명세
+### §1.2 Lake — 실제 프롬프트 (🔴 2026-09-05 에 여름을 갈랐다 · 겨울 10쪽 + **여름 서른세 쪽**)
 
-🔴 **호수는 안 칠한 종이다.** 물가 선은 **땅 쪽 획이 멈추는 자리**이고 물 쪽엔 아무것도 없다.
-21권 얼음도 **같은 안 칠한 자리** — 얼음과 물이 같은 종이라 **구멍만이 둘을 가른다**(21권 구멍 6쪽).
-구멍 = OVERLAY 한 덩어리, 가장자리는 획 방향이 바뀌는 자리. `SPOTS` = A 물가에서 / B 얼음 위 /
-C 구멍 close / D 건너편.
+> 🔴 **옛 요약(A 물가 / B 얼음 위 / C 구멍 close / D 건너편)은 21권 겨울 한 권을 보고 쓴 것이다.**
+> 26~50 을 넣으니 여름이 **서른세 쪽**(34·36 이 각각 열 쪽 · 06 p10 · 08 · 12)인데 B·C 는 여름에
+> 못 쓰고 **전부 A 하나로 몰렸다**. 특히 34 p6·p7 과 36 열 쪽의 **무릎까지 잠긴 몸**은 A(물가에서)
+> 로는 원리상 안 잡힌다 — 카메라가 뭍에 있기 때문이다.
+> 🔴 그리고 21권은 D 를 한 번도 안 쓰고 **B 를 두 번** 쓴다. 그 권의 계기가 「물가 구멍 ↔ 가운데
+> 구멍」이라 **B 를 둘로 갈라야** 옮겨 앉은 것이 그림에 남는다.
+
+```
+STAGE SHEET - Lake   (bruno-crayonwood · SCENE token: Lake)
+
+The lake below the wood. Six books stand here and they stand in TWO DIFFERENT SEASONS, so this sheet
+is really two sheets that share one shoreline - and the shoreline is what makes them one place.
+
+🔴 THE LAKE IS BARE PAPER. The waterline is WHERE THE LAND'S STROKES STOP; there is nothing at all
+  on the water side. Ice is THE SAME BARE PAPER as open water - 🔴 so ONLY A HOLE TELLS THEM APART,
+  and that is why the winter book is a book about a hole. Never wax water, ice, snow or sky. No
+  white crayon, no blue on water, no ripple, glint or reflection anywhere on this sheet.
+
+FIXED PARTS - the same in both seasons, and they are what say this is one lake:
+  THE NEAR BANK runs across the lower third, BARK, strokes running ALONG it.
+  ONE LEANING TRUNK at the left of the bank, out over the water, BARK, at most 4 branch stubs. It is
+    the thing a rod rests on and the thing a body climbs onto.
+  A REED BED at the right of the bank, SPRUCE, strokes running UP, ONE flat shape and never counted.
+  THE FAR BANK is a single low BARK band across the top with at most 9 trunks standing on it, and
+    🔴 IT IS THE SAME WEIGHT OF WAX AS THE NEAR BANK - distance is the trunks standing closer
+    together, never paler and never softer.
+  🔴 THE WIDTH OF THE LAKE IS FIXED HERE: the far bank sits so that a bear standing on the near bank
+    is a fifth of the way up the frame in the wide spot. Both seasons use that same width.
+
+SUMMER: the canopy over the near bank is ONE SPRUCE field; the bank is BARK at its most open; the
+  water stays bare paper. 🔴 A BODY IN THE WATER IS CUT BY THE WATERLINE - what is above it is drawn
+  whole, what is below it IS NOT DRAWN AT ALL. There is no submerged half, no wobble, no shimmer and
+  no paler version under the surface. The line across the body is a hard edge and it is the picture.
+  🔴 THE ONLY MARK THE WATER EVER TAKES is a SPREADING RING: at most 3 closed rings of OVERLAY, hard
+  edged, and a page that has no reason to count a ring has none.
+WINTER: bank and sky are bare paper edge to edge and the lake is bare paper too, so the near bank
+  reads only as the line where the BARK stops. 🔴 A HOLE IS ONE OVERLAY MASS with a hard edge, and
+  its edge is a change of stroke direction, not an outline. Ice chips beside it are at most 9 bare
+  paper points. Snow is never waxed.
+
+SPOTS - six. 🔴 A to E look at the lake; F does not.
+  A THE WHOLE LAKE from the bank, wide, eye level: leaning trunk left, reeds right, far bank across
+    the top. This is the default for a page that just says the lake.
+  B1 ON THE ICE AT THE BANK, medium, low: the near bank behind, the bare-paper ice running out.
+  B2 ON THE ICE OUT IN THE MIDDLE, medium, low: 🔴 the near bank is now a far band and the reeds are
+    small - moving from B1 to B2 is the winter book's whole event, so the two are two spots and the
+    difference between them is measured in how much bank is left in frame.
+  C THE HOLE, close, high: only the OVERLAY mass, its hard edge, and what is at it.
+  D THE FAR BANK, medium: seen from the near bank across open paper.
+  🔴 E IN THE WATER, medium, eye level AT THE WATERLINE - the camera is in the lake, not on the
+    bank, so the hard edge runs straight across the frame at the height of the line and the near
+    bank is behind and above it. This is the spot for a page where the water is up to a knee, a
+    waist or a chin. Without it a wading page has to be shot from land and stops being about wading.
+  🔴 F WHERE TWO BODIES TOUCH, close: not the lake but the one point where two bodies meet - a paw
+    round a wrist in the water, a chin on a shoulder. ONLY THE TOUCHED POINT IS FINISHED; everything
+    round it is one field running one way with no interior detail, and the background is ONE colour
+    - which here can be bare paper, and often is, because the lake is the only bare field this book
+    has. Whose paw it is is carried the way the anchor's HANDS clause carries it.
+  🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN - the same rule as the Cabin sheet.
+  On this sheet F is drawn EMPTY: three small panels of the background at that range (bare water,
+  the bank's BARK field, the SPRUCE canopy). No bodies.
+
+PLATE: A, B1, B2, C, D, E once each, plus F as three empty fields, plus 🔴 A DRAWN TWICE at one size
+  - summer and winter - to prove the two seasons are the same lake, plus 🔴 ONE PANEL OF E WITH THE
+  WATERLINE AT THREE HEIGHTS (knee, waist, chin) against a standing figure's height mark.
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind - edges are changes of stroke direction, no third crayon, no solid area,
+  🔴 no waxed water, ice, snow or sky, no white crayon, no reflection of anything in the water, no
+  ripple, glint, foam, sparkle or spray, no shading, gradient, glow or soft edge, nothing darker or
+  paler with distance, no submerged half of a body, no boat, jetty, sign or post.
+```
 
 ### §1.3 Path — 실제 프롬프트 (신설 · 8쪽 · 5권)
 
@@ -138,18 +258,31 @@ SEASON - use ONE season only, the one that book is in.
   A DINT WHERE A BODY HAS LAIN DOWN is bare paper with at most 3 BARK marks along its lower lip and
     nothing at all inside it.
 
-SPOTS - four, do not invent a fifth. 🔴 None of them crops closer than the cub from the knee up.
+SPOTS - five. 🔴 A to D look at the path and NONE OF THEM CROPS CLOSER THAN THE CUB FROM THE KNEE
+UP; that is what keeps the path a path and not a patch of ground. E is the one spot that gives that
+up, and it gives it up for a stated reason.
   A ALONG THE PATH, wide, eye level: the beaten way running away and bending once.
   B THE FORK, medium wide, high: the wide way going right, the narrow gap in the grass at the left,
     both in one frame.
   C UNDERFOOT, close, high: only the path floor and what is on it - the change of stroke direction
-    at its edge, and prints or a cleared line running away.
+    at its edge, and prints or a cleared line running away. No body is in this frame, so the knee-up
+    measure does not apply to it.
   D THE FALLEN TRUNK, medium wide, low: the trunk crossing the frame horizontally, ground on both
     sides of it, the narrow way carrying on beyond.
+  🔴 E WHERE TWO BODIES TOUCH, close: not the path but the one point where a paw meets a paw or a
+    body leans on a body. ONLY THE TOUCHED POINT IS FINISHED; everything round it is one field
+    running one way with no interior detail, and the background is ONE colour of this stage - the
+    BARK of the beaten floor, the SPRUCE of the grass, or bare paper in winter. Whose paw it is is
+    carried the way the anchor's HANDS clause carries it (two different paw objects, and the other
+    bear in frame as a face or two eyes at the edge).
+  🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN - same rule as the Cabin sheet.
+  On this sheet E is drawn EMPTY: three small panels of the background at that range (beaten floor,
+  grass, winter paper). No bodies.
 
-PLATE: A, B, C, D once each, plus 🔴 C DRAWN THREE TIMES at one size - bare spring path, path with a
-  run of unwaxed wet prints, winter path cleared a third of the way - so the floor reads as one
-  floor in all three. Plus one small direction diagram (path away / ground across / grass up).
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 C DRAWN THREE TIMES at one size -
+  bare spring path, path with a run of unwaxed wet prints, winter path cleared a third of the way -
+  so the floor reads as one floor in all three. Plus one small direction diagram (path away / ground
+  across / grass up).
 
 NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
   outline of any kind - edges are changes of stroke direction, no third crayon, no solid area, no
@@ -195,9 +328,15 @@ STEEPNESS: side on, the steep part falls about one in two and the gentle part ab
     neighbour - and it runs UP the slope where a sled track runs down.
   LENGTHS ARE THE CLOCK: draw the same wide frame FOUR times - no track at all, a track a third of
     the way down, a track from crest to foot, and a down-track with an up-track beside it.
+  🔴 "LENGTHS ARE THE CLOCK" IS THE CLOCK OF THE BOOK THAT SLIDES, NOT OF EVERY BOOK THAT STANDS
+    HERE. A book whose own clock is something else (a knot tightening and letting go) draws the
+    track as scenery and lets its own thing carry the pages; the four lengths above are still the
+    only lengths a track may have.
   Flung snow is at most 14 bare-paper points, and there are none of them on a page with no track.
 
-SPOTS - four, do not invent a fifth. 🔴 None of them crops closer than the cub from the knee up.
+SPOTS - five. 🔴 A to D look at the slope and NONE OF THEM CROPS CLOSER THAN THE CUB FROM THE KNEE
+UP - the slope is a ruler and a crop that loses the ruler loses the book. E is the one spot that
+gives the ruler up, and it gives it up for a stated reason.
   A THE WHOLE SLOPE FROM THE FOOT, wide, low: the three spruces at the near edge, the crest and its
     two spruces in the upper third. 🔴 THIS IS THE SPOT THAT HOLDS ONE FIGURE AT THE CREST AND
     ANOTHER AT THE FOOT IN ONE FRAME, both legible.
@@ -206,15 +345,328 @@ SPOTS - four, do not invent a fifth. 🔴 None of them crops closer than the cub
   C SIDE ON, wide: crest at one edge, foot at the other, the shoulder plainly between them, so the
     two steepnesses can be compared.
   D THE SHOULDER, medium, eye level: the gentle fall ahead, the steep part behind and above.
+  🔴 E WHERE TWO BODIES TOUCH, close: not the slope but the one point where two bodies meet - a
+    broad palm holding one end of a rope while a small fist pulls the other, a paw inside a paw.
+    ONLY THE TOUCHED POINT IS FINISHED; everything round it is one field with no interior detail,
+    and 🔴 here that field is BARE PAPER, because on this stage the ground and the sky both are.
+    Whose paw it is is carried the way the anchor's HANDS clause carries it. 🔴 ONE OF THE TWO
+    SPRUCE CROWNS OR THE CABIN ROOF STAYS IN FRAME AT THE EDGE - that scrap of scenery is what stops
+    an all-paper close-up from being a page that could have happened anywhere.
+  🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN - same rule as the Cabin sheet.
+  On this sheet E is drawn EMPTY: two small panels of the background at that range (bare paper with
+  a spruce crown at the edge, bare paper with the cabin roof at the edge). No bodies.
 
-PLATE: A, B, C, D once each, plus 🔴 A DRAWN FOUR TIMES at one size for the four track lengths, plus
-  one small side diagram of the slope with the shoulder marked.
+PLATE: A, B, C, D once each, plus E as two empty fields, plus 🔴 A DRAWN FOUR TIMES at one size for
+  the four track lengths, plus one small side diagram of the slope with the shoulder marked.
 
 NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
   outline of any kind, no third crayon, no solid area, 🔴 no waxed snow and no waxed sky, no white
   crayon, no blue on snow, no shading, gradient, glow or soft edge, nothing darker or paler with
   distance, no motion line, speed line or spray behind a sled.
 ```
+
+#### 🔴 남은 판정 — 「무릎 위보다 가깝게」와 46·47 (2026-09-05 · 일곱 쪽 중 셋만 풀렸다)
+
+경로표 신고 ②가 든 일곱 쪽을 **하나씩 재 봤다.** 새 스팟 `E`(닿는 자리)와 앵커 `HANDS`
+(`THE FRAME MAY GO IN AS CLOSE AS THE PAW ITSELF`)가 **셋을 정당화한다**:
+
+| 쪽 | 무엇이 있나 | 풀린 이유 |
+|---|---|---|
+| 46 p1 | 앞발에 쥔 매듭 한 덩어리 | 앵커 `HANDS` — 앞발이 그 권이 도는 것이다 |
+| 46 p8 | 큰 손바닥이 한쪽을 누르고 작은 주먹이 끝을 당긴다 | **`SnowSlope/E`** — 두 몸이 한 점에서 만난다 |
+| 47 p6 | p5 의 손바닥을 쥔 채 두 무릎에 각이 생긴다 | **`SnowSlope/E`** — 잡은 손이 곧 그 점이다 |
+
+🔴 **나머지 넷은 억지로 풀지 않았다 — 사람이 정할 것.** 셋 다 아니기 때문이다:
+
+| 쪽 | 무엇이 있나 | 왜 E 도 HANDS 도 아닌가 |
+|---|---|---|
+| 46 p6 | 입김 한 줄 (클로즈업·로우) | 앞발이 아니고, 닿는 두 몸도 아니다. **입김은 맨 종이 자국**이라 넓게 찍으면 안 읽힌다 |
+| 46 p7 | 큰 입김 한 줄과 작은 두 줄 (미디엄 클로즈업) | **두 몸이 한 화면에 있으나 닿지 않는다.** 이 권의 착지가 「크기가 다른 같은 모양」이라 둘이 한 프레임에 있어야 한다 |
+| 47 p4 | 곧게 편 다리가 무너져 뒤로 넘어진다 | 몸 전체이고 앞발이 아니다. 🔴 **누운 몸에는 「무릎 위」라는 프레임이 없다** — 규칙이 서 있는 몸을 전제로 쓰였다 |
+| 47 p10 | 한 덩어리로 말린 몸 | 같은 이유 |
+
+🔴 **넷의 공통점 = 「한 몸(또는 그 몸이 낸 것) 하나만 화면에 있는 가까운 쪽」이다.** 이걸 열려면
+`E` 를 늘리는 게 아니라 **여섯째 스팟(`CLOSE ON ONE`)을 새로 두거나, 앵커 `HANDS` 의 대상을
+「앞발」에서 「그 권이 도는 것」으로 넓혀야** 한다. 둘 다 250쪽 전체의 프레임 정책을 바꾸는 일이라
+여기서 정하지 않았다. ⚠️ 안 정하고 그리면 화가가 쪽마다 다르게 정한다.
+
+### §1.5 Wood — 실제 프롬프트 (🔴 2026-09-05 신설 · 개울가 시트에 **서른 쪽 넘는 다른 무대**가 얹혀 있었다)
+
+> 🔴 §1 표는 `Wood` 를 「숲 개울가 · 개울가 · (자작나무 숲)」으로 접어 두었는데, 26~50 을 채우니
+> **숲 비탈(38 다섯 쪽) · 깊은 숲(39 열 쪽) · 숲길(40 열 쪽) · 43 p1~p7 · 44 p7·p8** 이 같은 토큰으로
+> 들어온다. 39 는 **줄기가 촘촘해지는 깊이**가, 40 은 **한 번 굽는 길**이 계기다 — 개울가만 정해 두면
+> 화가가 그 서른 쪽에서 개울을 그린다. ⚠️ `Path` 와 다른 곳이다: `Path` 는 **다져진 바닥**이 있고
+> 여기는 없다. 숲길은 밟혀 다져진 길이 아니라 **잎이 쌓여 있는 사이**다.
+
+```
+STAGE SHEET - Wood   (bruno-crayonwood · SCENE token: Wood)
+
+The wood behind the cabin. It is ONE wood with FOUR FACES, and this sheet fixes which face is where
+so that a page naming one is standing in a decided place and not in a new forest.
+
+🔴 DEPTH IS SPACING, NEVER DARKNESS - this is the sheet the anchor's rule was written for. Deeper in,
+  the trunks stand CLOSER TOGETHER at the SAME weight of wax. Nothing recedes by getting darker,
+  paler, bluer or softer, and there is no haze at the back.
+
+🔴 STROKE DIRECTION MAP: TRUNKS - BARK, running UP. THE GROUND - BARK, running ACROSS. FALLEN LEAVES
+  - in autumn the two crayons have swapped jobs, so leaves are BARK laid ACROSS in one field, at most
+  80 percent coverage, and a leaf is never drawn as a shape. THE CANOPY - one field, whatever the
+  season clause says. THE STREAM - not waxed at all.
+
+FIXED PARTS - the same wood in all four faces:
+  ONE BIRCH stands apart from the rest, its trunk the palest BARK field on the sheet, and it is the
+    one tree a reader can name. It stands at the STREAM face.
+  THE STREAM runs across the lower part of the stream face, BARE PAPER, its banks the line where the
+    BARK stops. Stones in it are OVERLAY masses, at most 5.
+  ONE FALLEN TRUNK lies across the ground at the SLOPE face, chest-high on the cub, moss SPRUCE on
+    its upper side, at most 4 branch stubs.
+  Trunks at most 9 in any frame, boughs on one tree at most 7.
+
+🔴 FOUR FACES OF ONE WOOD - fix WHERE EACH ONE IS:
+  THE STREAM (nearest the cabin) - open, the birch, the water, the widest spacing of trunks.
+  THE SLOPE - the ground runs UP across the frame; 🔴 THE RISE IS DRAWN BY THE TRUNKS' FEET STEPPING
+    UP THE FRAME, never by shading a hillside. The fallen trunk lies here, across the fall line.
+  DEEP WOOD - the same trunks standing at HALF the stream face's spacing, and at the back they touch.
+    🔴 THE SPACING IS THE WHOLE SUBJECT of the book that goes in too far: draw the same frame three
+    times at wide, half and touching spacing so "deeper" has a value and not a feeling.
+  THE TRACK - a way through the leaves that is NOT beaten: it shows only as the strip where the
+    leaf field thins and the ground's ACROSS strokes show through. 🔴 IT BENDS ONCE, and what is
+    round the bend is out of frame - that bend is what a book about keeping a green vest in sight is
+    about. A track and a path are different things; the beaten path is the `Path` sheet.
+
+SEASON - use ONE season only, the one that book is in.
+  SPRING: canopy is bare PAPER; SPRUCE low down only. SUMMER: canopy is ONE SPRUCE field overhead,
+  no sky through it. AUTUMN: 🔴 the two crayons swap jobs - the leaf field is BARK and the one green
+  thing in the frame is whatever the script says is green, so a single green stands out at any
+  distance. WINTER: ground and sky bare paper, canopy bare, trunks only.
+
+SPOTS - five. A to D look at the wood; E does not.
+  A THE STREAM, medium wide, eye level: the birch, the bare-paper water, the near bank.
+  B THE SLOPE, medium wide, low: the ground rising across the frame, the fallen trunk on it.
+  C DEEP WOOD, wide, eye level: trunks at close spacing filling the frame side to side, no sky, no
+    ground line at the back.
+  D THE TRACK, medium wide, high: the thinned strip running away and bending once, leaf field on
+    both sides.
+  🔴 E WHERE TWO BODIES TOUCH, close: the one point where two bodies meet. ONLY THE TOUCHED POINT IS
+    FINISHED; everything round it is ONE field with no interior detail - here the BARK of a trunk,
+    the leaf field, or the SPRUCE canopy - and never two. Whose paw it is is carried the way the
+    anchor's HANDS clause carries it. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN.
+    E is drawn EMPTY: three small panels of those three fields at that range. No bodies.
+
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 C DRAWN THREE TIMES at one size
+  for the three trunk spacings, plus one small plan naming where the stream, the slope, the deep
+  wood and the track sit relative to the cabin.
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind, no third crayon, no solid area, no waxed sky, water, ice or snow, no white
+  crayon, no shading, gradient, glow, mist, haze, godray or soft edge, nothing darker or paler with
+  distance, no leaf drawn as a separate shape, no path with a beaten floor (that is `Path`), no
+  fence, gate, sign or marker.
+```
+
+### §1.6 CabinOutside — 실제 프롬프트 (🔴 2026-09-05 신설 · 그루터기 · 계단 · **헛간까지의 거리**)
+
+> 🔴 이 시트가 없어서 세 가지가 갈 데가 없었다: **그루터기**(29 여섯 쪽 — 그 권의 전환점이 *발이 땅에서
+> 떨어지는 것*이다 · 32 p8) · **계단**(32 p10 — 무릎에 앉는 착지라 앉을 높이가 필요하다) ·
+> **오두막에서 헛간으로 가는 눈밭**(50 여덟 쪽). 50 의 착지는 「두 줄이 **같은 길이로** 나란한 것」이라
+> **그 사이 거리 자체가 규격**이다 — 24권의 「문에서 우물까지」와 같은 종류다.
+
+```
+STAGE SHEET - CabinOutside   (bruno-crayonwood · SCENE token: CabinOutside · bake AFTER Cabin)
+
+The ground round the cabin. It is not a view, it is a set of DISTANCES - three books turn on how far
+one thing is from another out here, so the distances are fixed on this sheet and never change.
+
+🔴 THE THREE DISTANCES, measured in the grandfather's strides:
+  DOOR TO WELL - 6 strides. THE WELL is a low ring of OVERLAY stones, a bucket on its lip.
+  DOOR TO SHED - 14 strides, and the shed stands at an angle to the cabin so both are in one wide
+    frame. 🔴 THIS IS THE DISTANCE A LINE OF FOOTPRINTS HAS TO CROSS from end to end, and the book
+    that counts prints counts them across it - so it is short enough for at most 14 marks and long
+    enough that a third of it is plainly a third.
+  DOOR TO THE VEGETABLE BED - 4 strides, to the side.
+  Draw all three on one plan. A page that puts a body between two of them is standing somewhere
+  decided.
+
+FIXED PARTS:
+  THE DOORSTEP is TWO STONE STEPS, OVERLAY, each at a cub's shin. 🔴 THE UPPER STEP IS A SEAT: an
+    adult sitting on it has his knee at a cub's chest, which is the whole reason a book ends there.
+  ONE LOW STUMP stands at the edge of the yard, BARK, its top a flat disc with the strokes running
+    ACROSS while the sides run UP. 🔴 ITS TOP IS AT THE CUB'S HIP - high enough that getting onto it
+    is an event and low enough that it can be done, and that height is the point of the book about
+    boots. At most 7 rings on the top and they are never concentric circles of even width.
+  THE WOOD PILE against the cabin wall, logs at most 6.
+  THE WASHING POST and one line running from it to the cabin.
+  THE FLAT GROUND BETWEEN CABIN AND SHED is open: nothing stands on it, ever. That emptiness is what
+    lets two lines of prints be compared.
+
+STATES - the ground has three and they are the only three:
+  DRY - BARK, strokes running ACROSS.
+  🔴 MUD - the wet ground is the ground LEFT UNWAXED, a bare-paper shape with a hard edge, and a
+    shine on it is more bare paper, never a darker patch. Mud on a body is the same OVERLAY as mud
+    in the yard - one material, drawn one way.
+  🔴 SNOW - the ground is bare paper edge to edge and NOTHING IS DRAWN ON IT BUT TRACKS. A track is
+    separate BARK marks, at most 14, in ONE line, none a mirrored copy of its neighbour. 🔴 TWO
+    TRACKS SIDE BY SIDE ARE THE SAME LENGTH OR THEY ARE NOT - draw the door-to-shed span three times
+    at one size: one line of large marks alone, that line with a short line of small marks starting
+    beside it, and two lines running the full span together. Those three are a book.
+
+SPOTS - five. A to D look at the yard; E does not.
+  A THE WHOLE YARD from the gate, wide, eye level: cabin with its door and steps at one side, shed
+    across the open ground, well between, stump at the edge.
+  B THE DOORSTEP, medium, low: the two steps across the frame, the door behind, the yard running
+    away past them.
+  C THE STUMP, medium, low: the stump's top at the height of the frame's middle, ground on both
+    sides, cabin small behind.
+  D THE OPEN GROUND, wide, high: cabin at one edge and shed at the other with nothing between them
+    but ground. 🔴 THIS IS THE SPOT THE TWO TRACKS ARE COMPARED IN and its framing never changes.
+  🔴 E WHERE TWO BODIES TOUCH, close: the one point where two bodies meet. ONLY THE TOUCHED POINT IS
+    FINISHED; everything round it is ONE field - the yard's BARK, the OVERLAY of mud, or bare paper
+    in snow - and never two. Whose paw it is is carried the way the anchor's HANDS clause carries
+    it. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN. E is drawn EMPTY: three small panels
+    of those three fields at that range. No bodies.
+
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 ONE PLAN with the three distances
+  marked in strides, plus 🔴 D DRAWN THREE TIMES at one size for the three track states.
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind, no third crayon, no solid area, no waxed snow, sky, water or ice, no white
+  crayon, no blue on snow, no shading, gradient, glow or soft edge, nothing darker or paler with
+  distance, no darker patch for wet ground, no hill or slope (that is `SnowSlope`), no fence, sign
+  or marker.
+```
+
+### §1.7 Shed — 실제 프롬프트 (🔴 2026-09-05 신설 · **한 토큰이 두 곳**이었고 못 줄이 없었다)
+
+> 🔴 신고 ② 두 건이 여기 걸려 있다. ①`Shed` 한 장이 **헛간**(작업대·대팻밥·장작 벽 · 07·09·10·15)과
+> **광**(사과 선반·쇠고리 문 · 13 p10·17)이라는 두 곳이다 — 17권은 *광 문이 열렸나 닫혔나가 계기 전체*라
+> 문·쇠고리·선반이 규격이어야 한다. ②**42권의 계기가 벽의 못 여섯**(0→2→3→5→6)인데 시트에 못 줄이 없다.
+> 개수·간격·높이가 안 정해지면 그 열 쪽이 쪽마다 흔들린다.
+
+```
+STAGE SHEET - Shed   (bruno-crayonwood · SCENE token: Shed · bake AFTER CabinOutside)
+
+The outbuilding across the yard. 🔴 IT IS TWO ROOMS UNDER ONE ROOF and they are told apart by their
+doors: THE WORKSHOP has a doorway with a cloth hung across it, THE STORE has a plank door with an
+iron ring. A page that names one is in one of them and never in a blend of both.
+
+🔴 STROKE DIRECTION MAP: WALLS inside - OVERLAY (this is the darkest interior in the series), strokes
+  running VERTICALLY with the boards. FLOOR - BARK, running ACROSS. THE BENCH TOP - BARK, running
+  AWAY FROM THE VIEWER. THE DOOR CLOTH - SPRUCE, running VERTICALLY. Light through the doorway is
+  BARE PAPER and it is the brightest thing in either room.
+
+FIXED PARTS - THE WORKSHOP:
+  ONE BENCH along the wall opposite the doorway, BARK, at a cub's chin.
+  🔴 THE NAIL ROW is driven into the wall ABOVE THE BENCH: SIX iron nails, OVERLAY, in ONE straight
+    line, evenly spaced a paw's width apart, the line at the grandfather's shoulder and a full arm
+    above the cub's reach. 🔴 THE COUNT AND THE SPACING ARE FIXED HERE AND NEVER VARY - a whole book
+    fills them one at a time (0, 2, 3, 5, 6) and a nail that moves makes that count unreadable.
+    Draw the row FIVE TIMES at one size for those five states, each hung thing a different outline.
+  SHAVINGS on the floor under the bench, OVERLAY, ONE flat shape, never counted.
+  THE FIREWOOD WALL - split sticks stacked against the end wall, at most 6 to a visible course.
+  A BROOM, A PAIL AND ONE COIL OF CORD stand on the floor and are the only loose things.
+FIXED PARTS - THE STORE:
+  🔴 ONE PLANK DOOR with an IRON RING, OVERLAY. It has exactly THREE STATES and nothing between
+    them: SHUT (a flat OVERLAY field, the ring against it) · AJAR (a hard-edged bare-paper slot the
+    width of a paw down one side) · OPEN (the doorway a bare-paper field, the door swung flat to the
+    wall). Draw the three in a row at one size - a whole book is those three.
+  SHELVES on the back wall, at most 3 courses, apples laid in rows on them.
+  🔴 THE TWO ROOMS SHARE ONE INSIDE WALL and the store has no window - so its only light is what
+    comes through its own door, and how much is the door's state.
+
+SPOTS - five. A to D look at the shed; E does not.
+  A THE WORKSHOP from the doorway, wide: the bench across the back, the nail row above it, the
+    firewood wall at one side.
+  B THE NAIL ROW, medium, low: the six nails across the frame at their true spacing, the bench top
+    below the bottom edge, wall boards running vertically behind.
+  C THE STORE DOOR from the yard, medium, eye level: the plank door, its ring, the shed wall round
+    it, ground below. This is the spot the three door states are compared in.
+  D INSIDE THE STORE, medium, eye level: shelves at the back, the door's light coming in from one
+    side as a bare-paper field with a hard edge.
+  🔴 E WHERE TWO BODIES TOUCH, close: the one point where two bodies meet. ONLY THE TOUCHED POINT IS
+    FINISHED; everything round it is ONE field - the OVERLAY of the inside wall, the BARK of the
+    bench top, or the bare paper of the doorway light. Whose paw it is is carried the way the
+    anchor's HANDS clause carries it. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN.
+    E is drawn EMPTY: three small panels of those three fields at that range. No bodies.
+
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 B DRAWN FIVE TIMES at one size for
+  the five nail-row states, plus 🔴 C DRAWN THREE TIMES for the three door states, plus one small
+  plan showing the two rooms, their two doors and the wall they share.
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind, no third crayon, no solid area, no white crayon, no shading, gradient, glow,
+  beam, dust mote or soft edge, nothing darker or paler with distance, no tool drawn with interior
+  detail, no lock, hinge plate, hasp or sign.
+```
+
+### §1.8 Attic — 실제 프롬프트 (🔴 2026-09-05 신설 · §3-a 신고 3 의 답 · **미결이 여섯 권이 됐다**)
+
+> §1 표가 「⚠️ 미결」로 남겨 둔 자리다. 25권 시절엔 두 권이었는데 26~50 을 넣으니 **여섯 권**
+> (19 p8·p9 · 25 여덟 쪽 · 26 네 쪽 · 27 다섯 쪽 · 30 두 쪽 · 35 네 쪽)이 실제로 쓴다.
+> 🔴 **사다리가 여기 붙는다** — 신고 3 이 요구한 「가로대 칸수 · 간격 · 다락 입구가 몇 칸 위인가」는
+> 오르는 쪽(`Cabin/F`)과 올라온 쪽(여기)이 **같은 값을 봐야** 19 p3↔p4↔p8 의 높이가 맞는다.
+
+```
+STAGE SHEET - Attic   (bruno-crayonwood · SCENE token: Attic · bake AFTER Cabin)
+
+The loft over the cabin, reached by the ladder on the door wall. 🔴 THE POINT OF THIS PLACE IS THAT
+IT IS ABOVE THE ROOM - so the one thing that must never be lost is THE HOLE IN THE FLOOR, and every
+spot but one has it in frame.
+
+🔴 THE HOLE AND THE LADDER ARE ONE MEASURE, SHARED WITH THE Cabin SHEET: the ladder has at most 7
+  rungs spaced a cub's chest apart and THE FLOOR OF THE LOFT IS AT THE FOURTH RUNG FROM THE TOP, so
+  the top three rungs stand up through the hole and are what a body holds while climbing out. Those
+  three standing rungs are how a reader knows this floor is the top of that ladder.
+
+🔴 STROKE DIRECTION MAP: THE FLOOR - BARK, running ACROSS the boards. THE RAFTERS - BARK, running
+  ALONG each rafter, which is a slope, so they are the only slanting strokes in the series and they
+  are what say "roof". THE GABLE WALL - OVERLAY, running VERTICALLY. Nothing here shares a direction
+  with its neighbour.
+
+FIXED PARTS:
+  THE HOLE in the floor, an OVERLAY opening with a hard edge, wide enough for a grandfather.
+  RAFTERS meeting overhead, at most 4 visible, and 🔴 THEY COME DOWN TO THE FLOOR AT THE SIDES - the
+    loft has no upright walls except the gable, so a standing adult can only stand in the middle.
+    That is why the two bears are drawn at different heights up here without changing size.
+  ONE SMALL WINDOW in the gable, half the cabin window's size, THE LIGHT THROUGH IT BARE PAPER, and
+    it is the only light this place has by day.
+  ONE BED under the low side, low, BARK, one blanket. 🔴 It is not the cabin bed.
+  STORED THINGS along the low sides: a chest, a sled stood on its end, a coat on a rafter peg, at
+    most 6 shapes in all and every one of them a flat shape with no interior detail.
+  🔴 DUST IS NOT DRAWN. No motes, no haze, no beam.
+
+STATES - two, and one book is the change between them:
+  DAY - the gable window is a bare-paper field and the hole in the floor is the darkest thing.
+  NIGHT - the window is OVERLAY and the hole in the floor is a bare-paper field, because the lit
+    room is now below. 🔴 THE TWO STATES SWAP WHICH OPENING IS BRIGHT and that swap is the picture.
+
+SPOTS - five. A to D look at the loft; E does not.
+  A THE WHOLE LOFT from the gable, wide, low: rafters coming down both sides, the hole in the floor
+    in the middle ground, the stored things along the low sides.
+  B THE HOLE, medium, high: straight down at the opening with the top three rungs standing through
+    it and the room's floor visible far below. 🔴 This is the spot that says how high up this is.
+  C THE GABLE WINDOW, medium, eye level: the window, the wall round it, one rafter coming into
+    frame.
+  D UNDER THE LOW SIDE, medium, low: the bed with rafters just above it, so the roof is a hand from
+    a head.
+  🔴 E WHERE TWO BODIES TOUCH, close: the one point where two bodies meet. ONLY THE TOUCHED POINT IS
+    FINISHED; everything round it is ONE field - the floor's BARK, the gable's OVERLAY, or the
+    bare paper of the window light. Whose paw it is is carried the way the anchor's HANDS clause
+    carries it. 🔴 THE FINISH DOES NOT GO UP BECAUSE THE FRAME CAME IN. E is drawn EMPTY: three
+    small panels of those three fields at that range. No bodies.
+
+PLATE: A, B, C, D once each, plus E as three empty fields, plus 🔴 A SECTION DRAWING of the cabin and
+  the loft together with the ladder in it, the rungs numbered and the loft floor marked at the fourth
+  from the top, plus 🔴 A DRAWN TWICE at one size for the day and night states.
+
+NOT: no character of any kind, no boot blue anywhere on this sheet, no lettering or numerals, no
+  outline of any kind, no third crayon, no solid area, no white crayon, no shading, gradient, glow,
+  beam, dust mote, cobweb or soft edge, nothing darker or paler with distance, no stored thing with
+  interior detail, no second window.
+```
+
+⚠️ **`FeedBoard` 는 아직 시트가 없다**(§1 표 한 줄뿐, 23권 4쪽 + 「창밖에서 창턱을 올려다본다」 한 쪽).
+경로표가 그 자리를 신고하지 않았으므로 이번에 안 지었다 — 지을 때 `Cabin/C` 와 **창턱 높이를 같은 값**
+으로 굽는 것이 유일한 제약이다(§1.1 각주).
 
 ---
 
@@ -1413,7 +1865,7 @@ no outline, no third crayon, no solid area, no shading, gradient, glow or soft e
 |---|---|
 | 1 빨간 사과 | 🔴 **앵커를 안 고쳤다.** §2.12 의 판정(사과 = BARK 한 판 · 멍 = 겹침색 한 점)이 더 낫다는 근거가 그 자리에 적혀 있고, 이 시리즈의 파랑 하나 규칙(§0)이 「악센트는 하나」로 서 있다. 대본 13권 SCENE 의 「빨갛게」는 comic-writer 몫이라 손 안 댔다 |
 | 2 눈 비탈 시트 없음 | **§1.4 `SnowSlope` 를 썼다** + SCENE 6쪽 재태깅(19 p1·p10 · 46 p1·p10 · 47 p1·p5). 🔴 토큰이 `CabinOutside`(마당·문간·텃밭) 로 가 있어 **화가가 마당을 그릴 자리**였다 — 없는 것보다 나쁜 쪽 |
-| 3 사다리가 어느 시트에도 없다 | 🔜 **미처리** — `Attic` 시트 자체가 아직 요약도 없다. 19 p3↔p4↔p8 의 높이가 안 맞을 자리이므로 `Attic` 을 쓸 때 「가로대 칸수·간격·다락 입구가 몇 칸 위인가」를 반드시 넣을 것 |
+| 3 사다리가 어느 시트에도 없다 | ✅ **2026-09-05 처리** — `Attic` 시트(§1.8)를 썼고 사다리를 **`Cabin` 과 `Attic` 이 같은 값으로** 든다: 가로대 최대 7 · 간격 = 새끼곰 가슴폭 · **다락 바닥 = 위에서 넷째 가로대**. 오르는 쪽은 `Cabin/F`, 올라온 쪽은 `Attic/B` 라 19 p3↔p4↔p8 이 한 자를 본다 |
 | 4 닐스의 「바짓단」 | **①로 확정** — `bruno-cast.md` 닐스 절에 `HE WEARS NO TROUSERS AND NO COAT … IT CATCHES THE BOOT CUFF` 한 줄. 추천대로 옷을 안 늘렸다(악센트 유지 + 실루엣이 「턱에서 장화까지 한 덩어리」로 남는다). 06 p4 SCENE 의 한국어는 안 고쳤다 |
 | 5 조끼 가슴의 젖은 자국 | `bruno-cast.md` **브루노** 절에 상태 한 줄(32 p7·p10 이 같은 한 점이고, **안 바뀌는 것**이 그 권의 착지다) |
 | 6·6-a·6-b·6-c 작업표 결함 | 🔜 추출기 쪽 일이라 여기서 안 건드렸다 |

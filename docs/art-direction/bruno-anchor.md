@@ -67,8 +67,10 @@ RENDERING (finish hierarchy): an area is ONE field of one crayon laid in ONE dir
   DENSITY RATION = none.
   🔴 DEPTH IS SPACING, NEVER DARKNESS. Deeper in the wood the trunks stand CLOSER TOGETHER at the
   same weight of wax. Nothing recedes by getting darker, paler, bluer or softer.
-  🔴 HANDS - eight volumes turn on what a paw does and the grandfather says nothing (02 · 03 · 07 ·
-  09 · 11 · 15 · 20 · 22). On those pages the paw is the second finished thing and THE FRAME MAY GO
+  🔴 HANDS - 🔴 ANY PAGE WHERE WHAT A PAW DOES IS THE THING THE VOLUME TURNS ON AND THE GRANDFATHER
+  SAYS NOTHING. (This was a list of eight volume numbers and the list stopped at 25, which put eight
+  more such pages outside the clause the moment 26-50 existed.) On those pages the paw is the second
+  finished thing and THE FRAME MAY GO
   IN AS CLOSE AS THE PAW ITSELF. What must never happen is losing WHOSE paw it is, and that is
   carried two ways: THE TWO PAWS ARE DIFFERENT OBJECTS (a small round mitt with a blue boot cuff / a
   broad flat palm with five blunt toes held apart), and the other bear stays in frame as a face or

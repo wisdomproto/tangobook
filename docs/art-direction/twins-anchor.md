@@ -151,7 +151,12 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   marks THAT ARE ON IN EVERY FRAME - THE BAND OF THE PAGE ITS YELLOW SITS IN and THE SET OF ITS EARS
   - because the two faces are drawn identical and can never tell them apart; two further marks
   (weight, and where a failure is drawn) come in when the page gives them. 🔴 THE EARS ARE ON EVERY
-  APPEARANCE WITHOUT EXCEPTION, INCLUDING BACK VIEWS, BATHS, BLANKETS AND PURE SILHOUETTES. 🔴 THE
+  APPEARANCE WITHOUT EXCEPTION, INCLUDING BACK VIEWS, BATHS, BLANKETS AND PURE SILHOUETTES.
+  🔴 AND INCLUDING FRAMES CLOSER THAN A HEAD. Pages that come right in on where two bodies touch -
+  four hands round one shell, two hands round one finger - keep ONE EAR TIP of each twin present
+  inside the frame, at an edge, cropped. The ear is still on; it is on as a tip. 🔴 THE YELLOW IS
+  NOT THE FALLBACK HERE - the band is the weaker mark and is allowed to go, so a close frame that
+  keeps a hat brim and loses both ears cannot be read at all. If no ear tip fits, the frame is wrong. 🔴 THE
   BAND IS THE WEAKER OF THE TWO AND IT IS ALLOWED TO GO - it needs the yellow to be worn, and five
   pages take a yellow off its owner (see mark ① below). That is exactly why the ears carry the
   series and the yellow does not. A difference between the twins is never written on a face.
