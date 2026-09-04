@@ -106,6 +106,32 @@ function render(rows, meta) {
     (g) => g.cats.length
   );
 
+  // 레벨 칸 — 난이도 표를 여기로 접었다. 분포(L1·L2·L3 중 0 아닌 것만) · 중앙 어절 · 선언≠실측.
+  //    파닉스 줄은 레벨이 무의미하니 대신 예문 커버리지(이음매)를 보여준다.
+  const trackOf = (cat) => {
+    const ids = rows.filter((r) => r.category === cat && r.isPhonics).map((r) => String(r.id).split('-')[0]);
+    if (!ids.length) return null;
+    const cnt = {};
+    for (const t of ids) cnt[t] = (cnt[t] ?? 0) + 1;
+    return Object.entries(cnt).sort((a, b) => b[1] - a[1])[0][0];
+  };
+  const lvDist = (actual, median, wrong) => {
+    const parts = ['L1', 'L2', 'L3'].filter((l) => actual?.[l]).map((l) => `<b>${l}</b> ${actual[l]}`);
+    if (!parts.length) return '<span class="p">—</span>';
+    return (
+      parts.join(' ') +
+      (median ? ` <span class="p">· ${median}어절</span>` : '') +
+      (wrong ? ` <span class="bad">≠${wrong}</span>` : '')
+    );
+  };
+  const seamCell = (cat) => {
+    const t = trackOf(cat);
+    const st = t && meta.seam.byTrack.find((x) => x.track === t);
+    if (!st) return '<span class="p">—</span>';
+    const cls = st.coveredPct >= 90 ? 'f' : st.coveredPct >= 50 ? 'h' : 'l';
+    return `<span class="${cls}" style="padding:1px 6px;border-radius:5px">예문 ${st.covered}/${st.words} · ${st.coveredPct}%</span>`;
+  };
+
   const cell = (n, total) => {
     if (!total) return '<td class="z">—</td>';
     const p = Math.round((n / total) * 100);
@@ -214,7 +240,7 @@ th.sort[data-dir=asc]::after{content:' ▲'}
 </div>
 
 <h2>대분류 › 라인 › 책 — 한 표</h2>
-<p class="sub" style="margin:0 0 10px">대분류·라인 행을 누르면 아래 층이 펼쳐진다. 묶음 셀은 <b>몇 권 중 몇 권</b>, 책 셀은 그 책의 값. <b>열 머리를 누르면 그 열로 정렬</b>(대분류 순서는 고정, 안에서 라인·책이 정렬). 검색하면 맞는 책이 있는 줄만 펼쳐진 채 남는다. <code>backup</code> 폴더는 뺐다.</p>
+<p class="sub" style="margin:0 0 10px">대분류·라인 행을 누르면 아래 층이 펼쳐진다. 묶음 셀은 <b>몇 권 중 몇 권</b>, 책 셀은 그 책의 값. <b>열 머리를 누르면 그 열로 정렬</b>(대분류 순서는 고정, 안에서 라인·책이 정렬). 레벨 열 = 라인은 <b>L1·L2·L3 분포 · 중앙 어절 · 선언≠실측</b>, 책은 실측 레벨, 파닉스 줄은 <b>예문 커버리지</b>. 검색하면 맞는 책이 있는 줄만 펼쳐진 채 남는다. <code>backup</code> 폴더는 뺐다. 고치기 = <code>node scripts/fix-reading-levels.mjs --apply</code></p>
 <input id="q" placeholder="제목·라인으로 거르기 (예: 전래 · 코코네 · 명작)" autocomplete="off">
 <label class="chk"><input type="checkbox" id="pubOnly"> 공개만</label>
 <button class="tb" id="expAll" type="button">전부 펼치기</button>
@@ -231,18 +257,25 @@ ${grouped
     const gp = g.cats.reduce((t, a) => t + a.pub, 0);
     const ghave = {};
     for (const col of COLS) ghave[col.key] = g.cats.reduce((t, a) => t + a.have[col.key], 0);
+    const gact = {};
+    let gwrong = 0;
+    for (const a of g.cats) {
+      const c = meta.categories.find((x) => x.category === a.cat) ?? {};
+      for (const [l, n] of Object.entries(c.actual ?? {})) gact[l] = (gact[l] ?? 0) + n;
+      gwrong += c.levelWrong ?? 0;
+    }
+    const gIsPhonics = g.cats.every((a) => trackOf(a.cat));
+    const gLv = gIsPhonics ? '<span class="p">—</span>' : lvDist(gact, 0, gwrong);
     const gv = { n: gn, lv: 0, ...Object.fromEntries(COLS.map((col) => [col.key, ghave[col.key]])) };
     const grow =
       `<tr class="grp" data-g="${g.gi}" data-k="${esc(g.name).toLowerCase()}" data-v='${JSON.stringify(gv)}' aria-expanded="false">` +
       `<td><span class="tg">▸</span>${esc(g.name)}<span class="p"> · ${g.cats.length}라인</span></td>` +
-      `<td>${gn}<span class="p">/${gp}공개</span></td><td class="p">—</td>${COLS.map((col) => cell(ghave[col.key], gn)).join('')}</tr>`;
+      `<td>${gn}<span class="p">/${gp}공개</span></td><td>${gLv}</td>${COLS.map((col) => cell(ghave[col.key], gn)).join('')}</tr>`;
     const crows = g.cats
       .map((a, ci) => {
         const c = meta.categories.find((x) => x.category === a.cat) ?? {};
         const key = `${g.gi}-${ci}`;
-        const lvSum = c.wordsMedian
-          ? `${c.wordsMedian}<span class="p">어절</span>${c.levelWrong ? ` <span class="bad">≠${c.levelWrong}</span>` : ''}`
-          : '<span class="p">—</span>';
+        const lvSum = trackOf(a.cat) ? seamCell(a.cat) : lvDist(c.actual, c.wordsMedian, c.levelWrong);
         const cv = { n: a.n, lv: c.wordsMedian || 0, ...Object.fromEntries(COLS.map((col) => [col.key, a.have[col.key]])) };
         const head =
           `<tr class="cat" data-g="${g.gi}" data-c="${key}" data-k="${esc(a.cat).toLowerCase()}" data-v='${JSON.stringify(cv)}' aria-expanded="false" hidden><td><span class="tg">▸</span>${esc(a.cat)}</td>` +
@@ -289,26 +322,6 @@ ${grouped
 🔴 <b>블로그·카드뉴스가 0 에 가까운 것도 정상</b> — 실제 데이터는 <code>/marketing</code>(Supabase)에 있고
 여기 열은 editor2(R2) 쪽이다. 두 벌이 있다는 사실 자체가 이 표의 정보다.
 </div>
-
-<h2>난이도 — 선언한 값과 본문 실측</h2>
-<div class="note">
-선언(<code>readingLevel</code>)과 실물이 어긋나면 여기 빨갛게 뜬다.
-고치기 = <code>node scripts/fix-reading-levels.mjs --apply</code> (실측으로 덮는다 · 멱등)
-</div>
-<div class="tw"><table>
-<thead><tr><th>라인</th><th>권</th><th>중앙 어절</th><th>실측 L1</th><th>L2</th><th>L3</th><th>선언 없음</th><th>선언≠실측</th></tr></thead>
-<tbody>
-${agg
-  .map((a) => {
-    const c = meta.categories.find((x) => x.category === a.cat) ?? {};
-    const ac = c.actual ?? {};
-    const bad = (n) => `<td class="${n ? 'l' : 'z'}">${n || '—'}</td>`;
-    return `<tr><td>${esc(a.cat)}</td><td>${a.n}</td><td>${c.wordsMedian || '—'}</td>${['L1', 'L2', 'L3']
-      .map((l) => `<td class="${ac[l] ? 'f' : 'z'}">${ac[l] || '—'}</td>`)
-      .join('')}${bad(c.levelMissing)}${bad(c.levelWrong)}</tr>`;
-  })
-  .join('\n')}
-</tbody></table></div>
 
 <h2>이음매 — 파닉스 낱말에 예문(동화책 쪽)이 붙나</h2>
 <div class="note">
