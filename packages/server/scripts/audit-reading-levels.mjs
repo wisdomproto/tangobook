@@ -32,33 +32,8 @@ const PUBLIC_ONLY = args.includes('--public-only');
 const JSON_OUT = argOf('json', null);
 const CONCURRENCY = Number(argOf('concurrency', 12));
 
-/** 총 어절 수와 쪽당 문장 수로 레벨을 매긴다. 낱말 수를 먼저 본다(문장 수는 보조). */
-function classify(words, sentPerPage) {
-  if (words === 0) return null;
-  if (words <= 60 && sentPerPage <= 1.6) return 'L1';
-  if (words <= 380) return 'L2';
-  return 'L3';
-}
-
-function measure(sb) {
-  const pages = Array.isArray(sb.pages) ? sb.pages : [];
-  let words = 0;
-  let sentences = 0;
-  let textPages = 0;
-  for (const p of pages) {
-    const t = (p && typeof p.text === 'string' ? p.text : '').trim();
-    if (!t) continue;
-    textPages++;
-    words += t.split(/\s+/).filter(Boolean).length;
-    const marks = (t.match(/[.!?…]|[。！？]/g) || []).length;
-    sentences += Math.max(1, marks);
-  }
-  return {
-    words,
-    textPages,
-    sentPerPage: textPages ? sentences / textPages : 0,
-  };
-}
+// 🔴 판정 규칙은 여기 없다 — build-content-status.mjs 와 **같은 사본**을 쓴다.
+import { classify, measure } from './_reading-level.mjs';
 
 async function pool(items, n, fn) {
   const out = new Array(items.length);
