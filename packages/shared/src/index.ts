@@ -55,3 +55,16 @@ export {
   getArtStyleLabel,
 } from './utils/art-style.js';
 export * from './constants/seo-i18n.js';
+// 🔴 콘텐츠 집계 — 서버 라우트·현황판 스크립트·감사표가 **같은 사본**을 쓴다(각자 세면 값이 갈라진다).
+export {
+  LEVELS,
+  classify,
+  measure,
+  normWord,
+  bookWordForms,
+  computeSeam,
+  probeBook,
+  buildContentStatus,
+  pct,
+} from './utils/content-status.js';
+export type { Level, Measured, SeamUnit } from './utils/content-status.js';

@@ -6,6 +6,8 @@ import {
   listR2Objects,
   downloadFromR2,
 } from '../providers/r2.provider.js';
+// 책이 바뀌면 현황판·낱말 그래프 캐시를 버린다(순환 import 를 피해 상태만 든 모듈에서 가져온다).
+import { invalidateContentStatus } from '../services/content-status.cache.js';
 import { imageToWebp } from '../utils/transcode.js';
 import {
   canonicalizeArtStyle,
@@ -328,6 +330,8 @@ export const R2Repository = {
       if (idx >= 0) listCache[idx] = summary;
       else listCache.unshift(summary);
     }
+    // 현황판·낱말 그래프가 다음 조회에서 다시 세게 한다 — 안 하면 고친 책이 대시보드에 안 뜬다.
+    invalidateContentStatus();
     return updated;
   },
 
@@ -336,6 +340,7 @@ export const R2Repository = {
     if (listCache) {
       listCache = listCache.filter((s) => s.id !== id);
     }
+    invalidateContentStatus();
   },
 
   async uploadImage(base64: string, key: string): Promise<string> {
