@@ -120,10 +120,12 @@ CLOTH: ONE apron from the chest to the ANKLE, so 🔴 HIS OUTLINE IS UNBROKEN FR
 
 ## Baby squirrel
 
-🔴 SHE IS NOT ONE OF THE THREE. She stands in five pages of ONE volume, and 🔴 SHE CARRIES NO GREEN
-  ANYWHERE - that absence is her whole part in the book: she is the child who is not in the group
-  yet. Even on the last page of that volume, where she plays with them, the greens are three.
-BUILD: 🔴 THE SMALLEST FIGURE IN THE SERIES - she comes up to a child's shoulder. ONE TAIL TORN AS A
+🔴 SHE IS NOT ONE OF THE THREE. She stands in thirteen pages across FOUR volumes, and 🔴 SHE CARRIES
+  NO GREEN ANYWHERE - that absence is her whole part in the book: she is the child who is not in the
+  group yet. Even on a last page where she is taken in and plays with them, the greens are three.
+BUILD: 🔴 THE SMALLEST FIGURE IN THE SERIES - 🔴 KNEE TO HIP HIGH ON A STANDING CHILD, NOT SHOULDER
+  HIGH: the shop's long bench plank stands WELL ABOVE HER HEAD, so she cannot see over it and cannot
+  get onto it without something to climb, and that is the measure to check at thumbnail size. ONE TAIL TORN AS A
   SINGLE PIECE, as tall as she is and wider than her body, standing up behind her: blacked out she is
   more tail than animal, and that is what separates her from the cat, whose tail is one thin whip.
   Round ears set low on the head, nothing sharp anywhere on her.
