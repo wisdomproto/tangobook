@@ -3,7 +3,10 @@
 > art-director 산출물 (2026-08-16 자리 · 2026-09-04 사물). 시리즈 12 `dingding-papercut` · **50권 500쪽**.
 > 🔴 앵커 SSOT = `dingding-anchor.md`. 후보 = `_stages.json` · 작업표 = `_PROP-SHEETS.md` · 대본 = `_scenes.json`
 > **실행 순서** ① `Terraces` → ② 나머지 자리 → ③ 사물(§2) → ④ 컷.
-> ⚠️ **§1·§3·§4 는 25권 시절에 쓰였다** — 자리 시트는 26~50권을 아직 안 읽었다. §5 ①을 볼 것.
+> ✅ **2026-09-04 에 §5 신고 일곱을 전부 반영했다** — 앵커에 물 위의 다리·물길 조건화·RUN 예외·
+> `BLACK SKY` 확장을 넣고 관통 줄 `DOWN:`·`RED:` 의 거짓을 고쳤으며, `Terraces` 의 `0 ripples` 를
+> 풀고 물풀 세 무더기와 마른 논바닥 젖는 계단을 넣고, `TreeOnBank` 에 그림자 두 방향을,
+> `[Village]` 자리 시트를 §1.3 으로 썼다. §1 표와 §3 변환표도 50권 기준으로 고쳤다.
 
 ---
 
@@ -24,7 +27,7 @@ ON EVERY PAGE AND NEVER BREAKS`.
 
 ---
 
-## §1. 자리 시트 — 4장 (후보 18에서 접음)
+## §1. 자리 시트 — 5장 (후보 18에서 접음 · 🔴 **2026-09-04 에 `Village` 추가**)
 
 🔴 **접은 내역** — 후보 18개 중 **15개가 「논둑」 계열**이었다. 이 시리즈는 무대가 사실상 하나다.
 
@@ -34,14 +37,27 @@ ON EVERY PAGE AND NEVER BREAKS`.
 | `House` | 집 안 방 · 문간 · 집 문간 | |
 | `Yard` | 집 앞 마당 | 마당 옆 논둑이 `Terraces` 와 맞닿는다 |
 | `TreeOnBank` | 나무 아래 논둑 | 🔴 `Terraces` 의 SPOT 이지만 **나무가 고정 부품이라 따로 굽는다** |
+| `Village` | 밍 아저씨네 마당·앞 · 오리집 문 앞 · 오리집 안 짚 바닥 · 옆 골짜기 밭 | 🔴 **딩딩네 산비탈 밖** · 49권은 열 쪽 중 여섯이 오리집이다 · §1.3 |
+
+🔴 **`Terraces/A` ~ `Terraces/E` 는 새 시트가 아니다.** `Terraces` **한 장 안의 다섯 카메라 자리**이고,
+§1.1 `SPOTS` 에 그대로 있다. SCENE 이 그 이름으로 찍힌 쪽(`Terraces/B` 8쪽 · `Terraces/E` 7쪽 ·
+`Terraces/D` 2쪽)에 **따로 굽는 것은 없다** — 시트 하나에 SPOT 을 골라 붙일 뿐이다.
+⚠️ 그런데 세 쪽이 **`[Terraces/B · 칸 1]` 처럼 대괄호 안에 한글을 달고 있어 검사기가 통째로 못 읽었다**
+(12 p4 · 13 p2 · 21 p5). 🔴 **없는 것보다 나쁜 통과**라 SCENE 을 고쳤다 — 칸 번호는 대괄호 밖 한국어
+지문으로 옮겼고(다른 231쪽이 이미 그렇게 한다), 토큰은 `[Terraces/B]` 만 남는다.
+🔴 **§3 변환표의 `[Terraces/B · 칸 N]` 표기도 같이 폐기했다** — 그 표기가 이 세 쪽을 만든 원인이다.
 
 ### §1.1 Terraces — 실제 프롬프트 (가장 먼저)
 
 ```
 STAGE SHEET - Terraces   (dingding-papercut · SCENE token: Terraces · bake FIRST)
 
-The stepped rice fields the whole series stands in. Fifteen of the eighteen named places in this
-series are somewhere on this one hillside, so this drawing decides it once and for all.
+The stepped rice fields the whole series stands in. Nearly every named place in these fifty books is
+somewhere on this one hillside, so this drawing decides it once and for all.
+
+🔴 SCENE TOKENS: this ONE sheet answers to `Terraces` and to the spot names `Terraces/A`,
+  `Terraces/B`, `Terraces/C`, `Terraces/D` and `Terraces/E`. Those are NOT other places - they are
+  the five camera positions listed under SPOTS below, and nothing extra is baked for them.
 
 🔴 SEVEN BANKS, NUMBERED. The hillside carries EXACTLY SEVEN black banks, and they are numbered 1 at
   the top to 7 at the bottom - fixed forever. Each bank is ONE unbroken cut piece. The bands get
@@ -60,10 +76,20 @@ series are somewhere on this one hillside, so this drawing decides it once and f
   meets the hillside edge, so the whole sheet lifts as one connected piece. Nothing floats anywhere.
   Check this on the sheet by naming, for each panel, the two places each bank is still joined.
 
-FIXED PARTS: the water in each terrace is cut away and is SHEET WHITE, 0 ripples · the earth path
+FIXED PARTS: the water in each terrace is cut away and is SHEET WHITE, 🔴 RIPPLES ONLY AS THE
+  WaterMarks SHEET DEFINES THEM - a ripple here is not decoration, it is the BRIDGE that keeps a
+  black shape on white water joined to the rest of the black (anchor `Style`), and one whole book
+  turns on "three rings against smooth", so a blanket "0 ripples" would kill it. Smooth water is
+  smooth because nothing has touched it, not because ripples are banned · the earth path
   along the top of each bank is black · dry cracked ground, when a terrace has none, is a set of
-  hairline cuts, at most 9, never in a row · rice in a band is one cut comb shape, at most 9 presses
-  · ONE FAR RIDGE behind everything is the FAR GREY second sheet, BEHIND the black, 0 holes in it,
+  hairline cuts, at most 9, never in a row, 🔴 AND IT HAS A WETTING STATE - as water comes back the
+  cuts get SHORTER AND FEWER from the middle of each crack outward until the ground is one unbroken
+  black again; that dissolving is the last picture of a book, so draw the ladder (9 cuts → 5 → 2 → 0)
+  on this sheet · rice in a band is one cut comb shape, at most 9 presses
+  · 🔴 THREE CLUMPS OF WATER WEED, fixed fixtures and not props: one in the lower terrace near the
+  notch, one against the bank on the left, one out in the open water - always the same three, always
+  in the same places, because two pages of one book are the SAME ANGLE compared and only work if the
+  clumps have not moved · ONE FAR RIDGE behind everything is the FAR GREY second sheet, BEHIND the black, 0 holes in it,
   at most one shape per page.
 
 SPOTS:
@@ -90,8 +116,71 @@ NOT: no character of any kind, no red anywhere on this sheet (the red piece is D
 ### §1.2 House · Yard · TreeOnBank — 요약 명세
 
 `House` = 방은 검정, 바닥이 흰 슬롯 하나, 면마다 반복 칼자국 하나. 🔴 **등불은 오려 낸 흰 구멍**이고 그
-쪽에서 가장 밝다(18권 등불). 🔴 `Yard` = 마당 흙은 검정, **마당은 언덕 꼭대기이고 마당 옆이 곧 `Terraces` 의 bank 1**.
+쪽에서 가장 밝다(18권 등불). 🔴 **방에는 흰 물길이 없다** — 앵커 관통 줄이 「계단 논이 화면에 있을 때」로
+조건이 붙었으므로(2026-09-04), 방 안에서 창·문틈을 억지로 위아래로 잇지 않는다. 창은 창이고, 그 쪽에서
+가장 밝은 구멍일 뿐이다. 🔴 `Yard` = 마당 흙은 검정, **마당은 언덕 꼭대기이고 마당 옆이 곧 `Terraces` 의 bank 1**.
+
 `TreeOnBank` = 밑동 하나 + 가지, **밑동이 논둑 검정과 이어져 있어야 한다**(안 이어지면 나무가 뜬다).
+🔴 **그림자를 두 방향으로 굽는다** — 한 권이 「오전에 한쪽으로 누운 그림자 ↔ 오후에 반대쪽으로 누운
+그림자」를 같은 물·같은 나무로 비교하는 이야기라, 시트에 **오전판과 오후판을 한 장에 나란히** 그린다.
+그림자는 앵커대로 **또 하나의 오려 낸 검은 조각**(같은 칼 가장자리 · 회색 금지 · 몸과 얼굴 위 금지)이고,
+물 위에 누운 그림자는 **그 자체가 나무를 물에 붙들어 주는 다리**다(앵커 `Style` 의 hairline 규칙).
+두 판의 나무·논둑·수면 높이가 한 픽셀도 달라지면 두 쪽이 비교되지 않는다.
+
+### §1.3 Village — 실제 프롬프트 (밍 아저씨네 · 🔴 2026-09-04 신규)
+
+```
+STAGE SHEET - Village   (dingding-papercut · SCENE token: Village · bake AFTER Terraces)
+
+Everything in the valley that is NOT Dingding's own hillside: Ming the duck's place at the foot of
+the terraces, and the dry field over in the next valley. Five books go here and one of them spends
+six of its ten pages inside the duck house, so it is a stage, not a background.
+
+🔴 IT SITS ON THE BOTTOM TERRACE. Ming's yard is level with BANK 7, the lowest of the seven, and the
+  water of the bottom terrace lies along one side of the yard. 🔴 That is how a reader knows this is
+  DOWNHILL FROM HOME without being told - from here the banks go UP and away, thinning toward the top,
+  and Dingding's house is a small shape at the far top of the frame. Never draw this place with the
+  terraces above the camera missing.
+🔴 THE WHITE CHANNEL ENDS HERE. This is the bottom of the hill, so on a wide page the channel comes
+  down through the banks and runs OUT of the bottom edge past the yard. In a close shot inside the
+  duck house there is no channel at all and none is invented (anchor `RENDERING`).
+
+FIXED PARTS: THE DUCK HOUSE - one low black shed with a shallow roof, its long side to the yard, ONE
+  door in the middle with a threshold, and 🔴 the OPEN DOOR IS A CUT-AWAY WHITE HOLE and the brightest
+  thing on any page here; a very small shape standing in that hole reads at thumbnail size, which is
+  the whole point of the door · INSIDE, the floor is STRAW - one repeated cut comb mark, the same
+  shape every time, running off the edges, never redrawn, with the black left between the marks; a
+  hollow where something has been sitting is that mark PRESSED FLAT AND SPREAD, not a different mark ·
+  THE YARD - black earth, ONE flat area with a repeated scratch mark, wide enough to spread a white
+  cloth on · ONE WOODEN CHEST standing at the edge of the cloth · at most 7 ducks as separate shapes,
+  🔴 and a FILE of ducks is a RUN and is exempt from the cap (anchor) · the bottom terrace water along
+  one side, cut away white.
+🔴 EVERY BLACK SHAPE ON THE WHITE FLOOR OR THE WHITE WATER IS BRIDGED by something the scene has -
+  a duck on water by its own wake, a duckling on straw by the straw it has flattened, the chest by
+  the cloth edge it sits on. Nothing here is an island.
+
+SPOTS:
+  A THE PLACE FROM THE HILL, wide, high: the yard and the duck house small at the bottom, the seven
+    banks climbing away above them, the house at the top. This is the geography panel.
+  B THE YARD, wide, eye level: the white cloth spread on the black ground, the chest beside it, the
+    duck house behind, the bottom terrace water at the left edge.
+  C THE DOOR, medium wide, eye level: the shed side, the open door as one white hole, the threshold,
+    a little of the straw floor showing inside.
+  D INSIDE, wide, high: the straw floor filling the frame, the threshold at one edge, the door hole
+    behind - the room read from above.
+  E THE NEXT VALLEY'S FIELD, wide, eye level: dry black earth in rows with 0 water anywhere, a low
+    ring of stones round the edge - 🔴 the ONE page in this series with no cut-away water in it at
+    all, and it must feel wrong.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE STRAW PANEL - the same patch of straw floor plain and
+  then with a hollow flattened in it, at one size, to fix that the difference is the same mark
+  spread, not a second mark.
+
+NOT: no character of any kind, no red anywhere on this sheet, no lettering, numerals or signs, no
+  grey except the one far ridge sheet BEHIND the black, no torn, soft or feathered edge - every edge
+  is a knife edge, no floating piece, no shading, gradient or glow, 🔴 no second village, road, gate,
+  fence or building beyond the shed named here - the valley is otherwise terraces.
+```
 
 ---
 
@@ -1188,15 +1277,21 @@ NOT: no character face, no red, no lettering, numerals or writing anywhere, no h
 
 **변환표** (작가에게 넘길 것)
 
-| SCENE | → 토큰 |
-|---|---|
-| 논둑 길 · 위쪽 논둑 길 · 위 논둑 길 | `[Terraces/B · 칸 N]` — 🔴 **한 칸을 따라 걸을 때만** |
-| 이리 굽고 저리 굽는 길 · 위에서 아래로 이어지는 줄(19 p7 · 09 p9) | 🔴 **`[Terraces/E]`** — 칸을 가로질러 내려간다 |
-| 맨 위 논둑 · 맨 위 칸 논둑 | `[Terraces/B · 칸 1]` |
-| 딩딩 논 · 딩딩네 칸 논둑 · 딩딩 논 가장자리 논둑 | `[Terraces/D · 칸 1]` |
-| 아래 논둑 · 아래 칸 논둑 · 맨 아래 논 | `[Terraces/B · 칸 6-7]` |
-| 물 넘어가는 자리 · 물꼬 | `[Terraces/C]` |
-| 나무 아래 논둑 | `[TreeOnBank]` |
+🔴 **대괄호 안에는 토큰만 넣는다 — 칸 번호는 대괄호 밖 한국어 지문으로**(2026-09-04 정정).
+예전 표기 `[Terraces/B · 칸 1]` 은 **검사기가 대괄호 안을 통째로 못 읽어 그 쪽을 건너뛰게** 만들었고,
+그래서 세 쪽(12 p4 · 13 p2 · 21 p5)이 「미매칭 0」 속에 숨어 있었다. **없는 것보다 나쁜 통과다.**
+나머지 231쪽은 이미 `[Terraces] 맨 아래 일곱째 칸 논둑` 식으로 쓰고 있었다 — 그쪽이 맞다.
+
+| SCENE | → 토큰 | 칸은 이렇게 (대괄호 **밖**) |
+|---|---|---|
+| 논둑 길 · 위쪽 논둑 길 · 위 논둑 길 | `[Terraces/B]` — 🔴 **한 칸을 따라 걸을 때만** | `… 칸 N 논둑 길` |
+| 이리 굽고 저리 굽는 길 · 위에서 아래로 이어지는 줄 | 🔴 **`[Terraces/E]`** — 칸을 가로질러 내려간다 | 칸을 안 적는다 |
+| 맨 위 논둑 · 맨 위 칸 논둑 | `[Terraces/B]` | `맨 위 칸 1 논둑` |
+| 딩딩 논 · 딩딩네 칸 논둑 · 딩딩 논 가장자리 논둑 | `[Terraces/D]` | `맨 위 칸 1 논 가장자리` |
+| 아래 논둑 · 아래 칸 논둑 · 맨 아래 논 | `[Terraces/B]` | `맨 아래 칸 6-7 논둑` |
+| 물 넘어가는 자리 · 물꼬 | `[Terraces/C]` | 칸을 안 적는다 |
+| 나무 아래 논둑 | `[TreeOnBank]` | |
+| 밍 아저씨네 · 오리집 · 옆 골짜기 밭 | `[Village]` | §1.3 |
 
 🔴 **칸 번호를 안 정하는 쪽이 있다** — 07 p2 · 09 p8 · 10 p3 · 17 p10 · 20 p4 · 25 p5~p7 은 대본이
 칸을 **상대적으로만** 말한다(「아래 칸」). **이 쪽들은 칸을 비운다 — 빈칸이 아니라 자유다.** 그 대신
@@ -1222,7 +1317,13 @@ NOT: no character face, no red, no lettering, numerals or writing anywhere, no h
 권마다 열 쪽을 다 읽으며 나온 것들이다. **여기서 고치지 않았다** — 앵커와 자리 시트가 SSOT 이고,
 그 두 곳을 사람이 보고 고쳐야 한다. 사물 시트는 아래를 **이미 지킨 상태로** 쓰여 있다.
 
-### ① 이 문서의 절반이 25권 시절 것이다
+### ① 이 문서의 절반이 25권 시절 것이다 — ✅ 반영 (2026-09-04)
+
+> 🔴 **아래 신고 일곱은 근거이므로 남긴다.** 어디를 어떻게 고쳤는지는 §1 표·§1.1·§1.2·§1.3·§3 과
+> `dingding-anchor.md` 에 있다. **여기서 다시 고치지 말 것.**
+> ⚠️ 한 가지는 신고와 다르게 처리했다 — ①이 든 「19 p9 · 31 p4·p10 · 38 p3 · 39 p1·p9·p10 이 같은
+> 곳을 부른다」는 **틀렸다**. 그 일곱 쪽의 토큰을 실제로 읽으니 `Terraces` 다섯 · `Yard` 하나 ·
+> `House` 하나이고 `Village` 는 하나도 없다. `Village` 는 **14쪽 5권**이 전부다.
 
 §1(자리) · §3(논둑 변환표) · §4(경로표)는 **01~25권만 보고** 쓰였다. 사물은 이번에 50권을 다 읽었고,
 26~50권에서 **자리 시트가 없는 무대**가 나왔다:

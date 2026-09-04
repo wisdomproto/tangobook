@@ -1,9 +1,9 @@
 # 딩딩네 계단 논 — 앵커
 
-> 창작동화 **시리즈 12** (25권). 명단 = `docs/changjak-books/_series-slate-asia.md`
+> 창작동화 **시리즈 12** (50권 · 500쪽 — 25권에서 늘었다). 명단 = `docs/changjak-books/_series-slate-asia.md`
 > 페파형(할머니와 엄마가 서로 다르게 틀린다) · 아기 돼지 딩딩 · 삼대 · 무대 = 남쪽 산비탈 계단식 논
 > 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
-> 🔴 **한 시리즈 = 한 앵커.** 25권의 무대 차이는 §1 의 `STAGE CLAUSES` 조항 한 줄로 처리한다.
+> 🔴 **한 시리즈 = 한 앵커.** 전권의 무대 차이는 §1 의 `STAGE CLAUSES` 조항 한 줄로 처리한다.
 
 ---
 
@@ -18,6 +18,11 @@ Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of b
   NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture
   lifts as one connected piece. Interior detail exists only as holes cut through the black. SHADING
   IS ZERO.
+  🔴 A BLACK SHAPE SITTING INSIDE CUT-AWAY WHITE IS JOINED BY ONE HAIRLINE OF BLACK - on water it is
+  the RIPPLE OR WAKE THE THING ITSELF MADE, in air it is the frame edge it runs off, on a floor it is
+  the mark it is standing in. 🔴 The bridge is ALWAYS something the scene already has, never a stick
+  invented to prop a shape up. That is how a duck sits on white water, a snail in a bowl, a shoe
+  floating away, a bird on a white sky - NOTHING IS EVER AN ISLAND.
   🔴 A KNIFE NEEDS ROOM TO PASS, SO WHEREVER A CHARACTER MEETS ANY OTHER BLACK THERE IS A HAIRLINE
   OF THE WHITE SHEET BETWEEN THEM - along the bank under its feet, against a wall behind it, against
   another character it stands beside. The line is thin and even, the width of the blade, and it
@@ -35,16 +40,25 @@ RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the he
   ISLAND INSIDE WHITE and nothing floats. A snout or a bill is the black that remains between two
   notches. 🔴 NEVER A WHITE PLATE LAID ON TOP OF A BLACK HEAD, and never eyes painted onto white.
   Terraces are curved black banks with white water between them, at most 7 banks per page, each bank ONE unbroken
-  piece. 🔴 ONE WHITE CHANNEL RUNS FROM THE TOP EDGE TO THE BOTTOM EDGE ON EVERY PAGE AND NEVER
-  BREAKS. Repeats are capped: rice in a band at most 9 of one cut comb shape · windows at most 6
+  piece. 🔴 ON ANY PAGE WITH THE TERRACES IN FRAME, ONE WHITE CHANNEL RUNS TOP EDGE TO BOTTOM EDGE
+  AND NEVER BREAKS; where the water has stopped, the channel is still cut and it is the NOTCH that is
+  closed. 🔴 Indoors, in the yard, at the neighbour's and in any shot too tight to hold the hillside
+  THERE IS NO CHANNEL AND NONE IS INVENTED - a face, a bowl or an open box is simply that shape.
+  Repeats are capped: rice in a band at most
+  9 of one cut comb shape · windows at most 6
   holes · a crowd at most 7 silhouettes with 0 faces and 0 hands; no repeat mirrors its neighbour.
+  🔴 A RUN IS EXEMPT FROM THE CAP - a line of ants, a file of ducks, a row of seedlings, a string of
+  footprints is ONE long thing, not many counted things; it may carry as many parts as it needs and
+  run off the frame edge. The cap counts SEPARATE things a reader would number.
   FINISHED THINGS PER PAGE = 2. 🔴 A SHADOW LYING ON THE GROUND OR ON THE WATER IS ANOTHER CUT BLACK
   SHAPE with the same knife edge - never a grey area and never soft, and never on a body or a face.
 
 PALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLACK #1C1A17, one
   sheet, everything not cut away · FAR GREY #B9B5A8, 🔴 a second sheet BEHIND the black, never in
   front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece
-  laid on top of the black, Dingding's apron and nothing else. No other colour exists.
+  laid on top of the black, Dingding's apron and nothing else. 🔴 ON A PAGE WITHOUT HER THERE IS NO
+  RED ANYWHERE - the picture is black and white and that is correct; nothing is reddened to keep the
+  accent alive. No other colour exists.
 
 STAGE CLAUSES (the stage changes what is cut away, not the sheets):
   TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands
@@ -55,8 +69,10 @@ STAGE CLAUSES (the stage changes what is cut away, not the sheets):
     repeated cut mark that may run off an edge but is never redrawn. 🔴 LAMPLIGHT AND FIRELIGHT ARE
     CUT AWAY - white holes, the brightest thing on the page. A thing being looked for is cut with
     its own outline; what hides it is the repeated mark.
-  NIGHT - the black covers the sky too, the white channel stays cut, windows at most 6 holes.
-    Nothing is added; night is simply less cut away.
+  🔴 BLACK SKY (night, rain, storm - any page whose sky is black) - the black covers the sky, so the
+    channel starts at the HORIZON instead of the top edge and that is correct, not a break. What is
+    cut out of that sky - stars, moon, cloud gaps, rain - is cut in a line leading DOWN to the water,
+    never scattered. Windows at most 6 holes. Nothing is added; a black sky is less cut away.
 
 CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
   piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs
@@ -84,15 +100,47 @@ NOT: no airbrush, gradient, glow or 3D render / no torn, soft or feathered edge 
   painted outline anywhere / no floating piece unjoined from the black sheet.
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 앵커 전문은 4,610자지만 조항 넷 중 셋을 빼면 실효 4,122자(관통 줄 포함 **4,387**)라 「그림 한 장 4,500」 예산 안이다. 한 시리즈 = 한 앵커 구조에서 앵커가 3,200 을 넘는 것은 무대를 다 덮기 때문이고, 그 초과분은 **한 쪽에 동시에 쓰이지 않는다**. ⚠️ 여기 적힌 자릿수는 **재서 넣는다** — 예전 값(3,815/3,325)은 문서에만 남고 실제와 300자 어긋나 있었다. 재는 법 = `STYLE ANCHOR` 블록 길이 − (조항 넷 중 가장 짧은 셋) + 관통 줄.
+🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다.** 재는 법 = `STYLE ANCHOR` 블록 길이 − (조항 넷 중 가장 짧은 셋) + 관통 줄.
+
+🔴 **2026-09-04 실측 — 예산을 넘었다. 사람이 판단할 자리다.**
+
+| | 전문 | 조항 셋 뺀 실효 | 관통 포함 |
+|---|---|---|---|
+| 이 문서에 적혀 있던 값 | 4,610 | 4,122 | **4,387**(「4,500 안」이라 적혀 있었다) |
+| 2026-09-04 수리 **전** 실측 | 5,915 | — | — |
+| 2026-09-04 수리 **후** 실측 | **7,366** | 6,673 | **7,435** |
+
+⚠️ **적혀 있던 4,610 부터가 실제와 1,300자 어긋나 있었다** — 「재서 넣는다」고 써 놓고 아무도 안 쟀다.
+늘어난 1,451자의 내역은 전부 §5 신고를 받은 것이다: 물 위의 다리(`Style`) · 물길 조건화(`RENDERING`,
+🔴 안 넣으면 **500쪽 중 261쪽에서 없는 물을 그린다**) · RUN 예외 · `NIGHT`→`BLACK SKY` 확장 · 빨강
+없는 쪽. 🔴 **어느 것도 예산 때문에 지울 수 없다** — 지우면 그 자리에서 그림이 틀린다. 문안은 이미 한 번
+줄였다(401자 감축). **예산 4,500을 지킬 것인지, 이 앵커는 7,435로 두고 그 숫자를 새 기준으로 삼을 것인지는
+사람이 정한다.**
 
 **관통 줄** (매 쪽)
 
 ```
-JOINED: every black piece touches another - nothing floats, the picture lifts as one sheet
-DOWN:   one unbroken white channel runs top edge to bottom edge, upper field to lower field
-RED:    one small red piece, Dingding's apron, and nothing else on the page is red
+JOINED: every black piece touches another - nothing floats, the picture lifts as one sheet, and a
+        shape sitting in white is bridged by a hairline the scene already has (its own ripple, its
+        own wake, the frame edge, the mark it stands in)
+DOWN:   wherever the terraces are in frame, one unbroken white channel runs top edge to bottom edge
+        (from the horizon down if the sky is black), and a stopped page shows the notch closed, not
+        the channel gone - indoors, in the yard, at the neighbour's and in a close shot there is no
+        channel and none is invented
+RED:    the only red in this world is Dingding's apron, one small piece - and on a page she is not
+        in, THERE IS NO RED AT ALL and none is invented to fill the gap
 ```
+
+🔴 **`DOWN:` 과 `RED:` 는 2026-09-04 에 실측으로 고쳤다.** 둘 다 거짓이었다.
+
+| 줄 | 옛 문안 | 실측 |
+|---|---|---|
+| `DOWN:` | 「흰 물길이 **위 가장자리에서 아래 가장자리까지** 이어진다」(앵커 `RENDERING` 은 `ON EVERY PAGE` 라고까지 못 박았다) | 🔴 **500쪽 중 261쪽(52%)에서 원리상 불가능**하다 — 클로즈업 162쪽(얼굴이 화면을 채우는 쪽·열린 상자 안을 바로 위에서 보는 쪽) + 집·마당·마을 156쪽. 겹치는 걸 빼고 261. 계단 논이 화면에 없는데 채널을 요구하면 화가는 **없는 물을 만들어 넣는다** |
+| `RED:` | 「작은 빨강 한 조각, 딩딩의 앞치마」 | 🔴 **딩딩도 앞치마도 없는 쪽이 70**(14·17·22·25권 등, 권마다 첫 쪽 풍경이 특히). 「한 조각이 있다」로 읽히면 그 쪽마다 빨강이 하나씩 발명된다 |
+
+`JOINED:` 는 참이되 **물 위에서 지킬 방법이 없었다** — 다리(hairline) 규칙을 `Style` 절에 올려
+성립시켰다(§5②). 🔴 **bung 의 `HOLD` 가 500쪽 중 123쪽에서 거짓이던 것과 같은 병**이고,
+여기서는 한 줄이 아니라 **두 줄**이 그랬다.
 
 **전원 시트** — 🔴 개체 규격은 `dingding-cast.md`(한 명씩 시트 프롬프트에 자동으로 붙는다). 이 블록은 **넷을 한 줄에 세워 보는 검사**다. 「할머니와 엄마가 서로 다른가」는 따로 굽는 넉 장으로는 안 보이고 **나란히 놓아야** 보인다.
 
@@ -124,7 +172,7 @@ CHARACTER SHEET - dingding-papercut   (all four, one line-up)
 - **계단 논이 이 매체의 본령이다.** 논둑 = 이어진 검은 띠, 물 = 오려 낸 흰 자리. 「위 논의 물이 아래로
   흐른다」가 장식이 아니라 **한 장으로 이어져야 한다는 전지의 물리 제약**과 같은 문장이 된다.
 - 🔴 **한 칸 잘못 트면 아래가 다 안다** → `WATER GATE` 조항에서 **물꼬 폭(칼자국 수)** 하나로 잰다.
-  25권이 이 눈금 하나를 공유하므로 권마다 새 장치를 만들 필요가 없다.
+  50권이 이 눈금 하나를 공유하므로 권마다 새 장치를 만들 필요가 없다.
 - 🔴 **얼굴도 검정이고, 흰 것은 뚫은 자리뿐**이라 페파형이 산다. 검은 머리에 뚫린 흰 구멍은 화면에서 **가장
   밝은 자리**라, 흰 얼굴 위의 검은 점보다 오히려 크게 읽힌다. ⚠️ **한때 「검은 테 안의 흰 얼굴」로 적어 두었다가
   뒤집었다**(§3) — 흰 얼굴 안의 검은 눈은 둘레가 전부 흰색이라 **한 장에서 떨어져 나가는 조각**이고,

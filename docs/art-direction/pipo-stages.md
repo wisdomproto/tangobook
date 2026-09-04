@@ -31,7 +31,11 @@ yellow.` → **무대·사물 시트의 모든 가장자리는 보슬보슬해�
 
 ---
 
-## §1. 자리 시트 — 6장 (후보 26에서 접음 · 🔴 코코 다음으로 큰 압축)
+## §1. 자리 시트 — 14장 (후보 26에서 접음 · 🔴 코코 다음으로 큰 압축 · **2026-09-04 에 여섯 추가**)
+
+> 🔴 **여섯이 26~50권에서 새로 생겼다**(§5.3 신고 그대로) — `Market` · `PotatoField` · `GrannyFarm` ·
+> `CartRoad` · `Well` · `HenHouse`. 없는 채로 두면 그 권은 배경을 매 쪽 새로 그린다.
+> 검사 = `node packages/client/scripts/check-stage-tokens.mjs pipo` (**0** 이어야 한다).
 
 | 시트 | = 후보 | 왜 하나인가 |
 |---|---|---|
@@ -43,6 +47,12 @@ yellow.` → **무대·사물 시트의 모든 가장자리는 보슬보슬해�
 | `Brook` | 개울가 · (돌다리) | 15권 |
 | ⚠️ `BigTree` | 나무 밑 · 큰 나무 밑 · 언덕 위 큰 나무 밑 | 🔴 `Hill` 의 SPOT 이나 나무가 고정 부품 |
 | ⚠️ `GooseYard` | 거위 아줌마네 마당 | 🔴 **다른 집** · §3 |
+| `Market` | 마을 장터 · 장터 어귀·입구·안·골목·바닥 · 사과 가게 · 냄비 가게 · 작은 물건 파는 가게 | 05 · 23 (37 은 지붕만 멀리) · §1.3 |
+| `PotatoField` | 감자밭 · 밭 가운데 · 밭 구석 · 밭 이랑 | 19 한 권이 열 쪽 · §1.4 |
+| `GrannyFarm` | 할머니 목장 · 할머니네 집·우리·헛간·마당 | 50 · 🔴 **목장을 하나 더 짓는다** · §1.5 |
+| `CartRoad` | 담이 끝나고 수레 길이 시작되는 자리 · 수레 길 · 담 끝 | 37 · 🔴 **담의 마지막 돌**이 좌표 · §1.6 |
+| `Well` | 우물가 · 우물 턱 · 우물가 물통 앞·안 | 26 · 28 · 33 · 43 · 🔴 마당의 한 귀퉁이지만 네 권이 여기서만 논다 · §1.7 |
+| `HenHouse` | 닭장 안 · 닭장 앞 · 닭장 앞 바닥 · 짚 둥지 | 14 · §1.8 |
 
 ### §1.1 Hill — 실제 프롬프트 (가장 먼저)
 
@@ -53,11 +63,28 @@ The pasture hill above the farm. Eight of the twenty-six named places in this se
 this drawing decides it once - and it decides the wall, which is the ruler.
 
 🔴 THE STONE WALL IS THE COORDINATE. ONE dry-stone wall crosses the hill from the left edge to the
-  right edge and it never moves. It has FOUR fixed features, in this order going up: THE GAP where
-  stones have fallen (low, near the yard) · THE STILE (two steps, a third of the way) · THE BEND
-  where it turns uphill (halfway) · THE TOP END where it meets the big tree. A page on the hill is
-  ABOVE or BELOW one of these four, and that is how "up the hill" and "down the hill" stay the same
-  across twenty-five books.
+  right edge and it never moves. It has FIVE fixed features, in this order going up from the market
+  end: 🔴 THE LAST STONE, where the wall simply stops and the cart road begins · THE GAP where
+  stones have fallen, at the yard, with the gate in it · THE STILE (two steps, a third of the way) ·
+  THE BEND where it turns uphill (halfway) · THE TOP END where it meets the big tree. A page on the
+  hill is ABOVE or BELOW one of these five, and that is how "up the hill" and "down the hill" stay
+  the same across fifty books.
+
+🔴 THE WALL HAS THREE HEIGHTS AND THEY NEVER SWAP. Two books use the wall in opposite ways on the
+  same page count, so height is not one number:
+  KNEE-HIGH ON PIPO from the gap at the yard all the way up - past the stile, the bend and the top
+    end. This is the stretch he SITS ASTRIDE, backside on the top and both legs hanging down the
+    outside, and the hill ridge shows clear above it.
+  CHEST-TO-EYE ON PIPO along THE WALL ROAD, the stretch running down from the yard toward the
+    market. Here he can only lay both hands on the top and get his eyes over it, and the top course
+    is wide and flat enough to be used as a TABLE - a cloth spread on it, two pairs of hands meeting
+    over it, with him standing below.
+  TAPERING for the last few paces before THE LAST STONE, coming down course by course.
+🔴 THE LAST STONE: the wall's final block, its top a flat face about as wide as two puppy hands laid
+  side by side and no wider - a page closes on two hands gripping it with the fingertips NOT reaching
+  over the far edge. Beyond it there is no pressed line at all, only rubbed earth. That boundary
+  between PRESSED and RUBBED cuts the picture in two, and it is drawn again on the CartRoad sheet -
+  🔴 the two sheets must show the SAME stone, same shape, same taper.
 
 🔴 THE THREE HANDS - name every area by what the hand did, never by a colour:
   RUBBED - the hillside, the ground, wet earth, weather, the whole field of the world. Laid and
@@ -83,7 +110,8 @@ SPOTS:
   D FROM THE TOP looking down, wide: the wall running away, the farm small below.
   E AT THE GAP, medium: the fallen stones and the gate, yard visible through it.
 
-PLATE: A, B, C, D once each, plus 🔴 A WALL DIAGRAM marking gap · stile · bend · top end in order,
+PLATE: A, B, C, D once each, plus 🔴 A WALL DIAGRAM marking last stone · gap · stile · bend · top end
+  in order WITH PIPO DRAWN TO SCALE AT THREE OF THEM, so the three heights are settled in one look,
   plus one HAND PANEL showing the same small area done three ways (rubbed / pressed / lifted).
 
 NOT: no character of any kind, no gorse yellow anywhere on this sheet, no lettering or numerals,
@@ -92,11 +120,279 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
   rubbed and pressed, no shading, gradient, glow or soft-focus, nothing paler with distance.
 ```
 
-### §1.2 FarmYard — 요약 명세
+### §1.2 FarmYard · House · Barn — 요약 명세
 
-`RUBBED` = 마당 바닥 · `PRESSED` = 돌담·문·연장·헛간 안 · `LIFTED` = 🔴 **건초 더미**(06·25권) ·
-빨래(17권) · 달걀(14권) · 우유. 고정 부품 = 마당 담(위에 올라간다, 2권) · 건초 더미 최대 7 ·
-빨랫줄(빨래 최대 6 · 집게 최대 6) · 우유통 최대 4. 🔴 **건초를 회색으로 문지르면 안 된다** — 들어낸다.
+**`FarmYard`** — `RUBBED` = 마당 바닥 · `PRESSED` = 돌담·문·연장·헛간 안 · `LIFTED` = 🔴 **건초
+더미**(06·25권) · 빨래(17권) · 달걀(14권) · 우유. 고정 부품 = 마당 담(위에 올라간다, 2권) · 건초 더미
+최대 7 · 빨랫줄(빨래 최대 6 · 집게 최대 6) · 우유통 최대 4. 🔴 **건초를 회색으로 문지르면 안 된다** —
+들어낸다. 🔴 **비 갠 뒤의 진흙 웅덩이는 마당 앞의 고정 자리다**(24권 여섯 쪽) — 마당 바닥보다 한 뼘
+낮은 자리에 늘 같은 크기로 고이고, 문지른 한 면에 들어낸 테두리가 딱딱하게 둘린다.
+
+**`House`** — 🔴 **둥근 창이 붙박이다**(26·33·39·43·44 다섯 권이 같은 창을 쓴다, §5.4). 세 가지를
+못 박는다: ① **창턱 높이 = 피포가 침대 발치를 딛고 서서 두 손바닥으로 밀어야 닿는다**(제 발로 서서는
+안 닿는다) ② **여는 방식 = 안쪽으로 활짝** — 다 열리면 창틀이 액자가 되고 그 안에 언덕과 돌담 한 줄이
+든다 ③ **창밖 방향 = 늘 우리 문 쪽**. 방향이 권마다 바뀌면 집이 돈다. 창유리 자리는 들어낸 종이.
+난로 아궁이도 들어낸 종이이고 그 쪽에서 가장 밝다.
+
+**`Barn`** — 🔴 **닫힌 문의 널판 사이 세로 틈 하나가 붙박이다**(29·48·49 세 권이 같은 장치, §5.5).
+**널 여섯, 그 사이 틈 하나**, 틈은 널 폭의 1/6, 위치는 문 한가운데에서 한 널 오른쪽. 🔴 **틈만 들어낸
+종이**라 화면에서 가장 밝고, 그 빛 한 줄이 건초와 몸 위에 **세로로** 눕는다. 틈 안으로 마당 한 조각이
+보인다 — 그 조각의 위치도 세 권이 같아야 한다. 열린 문간도 들어낸 종이(앵커 `YARD AND BYRE`).
+
+### §1.3 Market — 실제 프롬프트 (05 · 23)
+
+```
+STAGE SHEET - Market   (pipo-charcoalwall · use the anchor's MARKET clause · SCENE token: Market)
+
+The market at the foot of the hill. Two books walk the whole length of it and a third sees its roofs
+from far off, so this drawing settles the lane once - and it settles the ONE TRICK this series has
+for finding a shop, because there is no colour here and no lettering anywhere in this world.
+
+🔴 THE GRAIN IS THE SIGN. Every roof and awning is ONE rubbed field, and they are ALL rubbed
+  SIDEWAYS - except the shop that is being looked for on that page, whose roof is rubbed in TIGHT
+  DIAGONALS. That single change of direction is the only way a reader can pick a shop out of the
+  heap. It is NEVER a colour, NEVER a shape of goods, NEVER a sign.
+
+FIXED PARTS: ONE narrow lane running away from the reader, stalls down both sides, at most 5 stalls
+  and at most 8 roofs showing at once, the roofs OVERLAPPING in layers so the far ones sit higher in
+  frame (never paler - depth is spacing) · the MOUTH of the lane at the near end with two awning
+  posts, which is where a page enters the market · four named stalls, always in this order going in:
+  THE APPLE STALL (boxes heaped with round pressed fruit, first), THE POT STALL (pots hung in a row
+  from a line overhead, weighing the top of the frame down), THE STICK STALL, and last THE SMALL-GOODS
+  STALL, a low counter with a few tiny things on it · the CROWD is at most 7 flat pressed
+  silhouettes, 0 faces and 0 hands, backs and shoulders only, and it never comes nearer than the
+  middle distance · the ground is ONE rubbed field with no cobbles drawn.
+🔴 EVERY EDGE HERE IS FURRY. The market is the busiest picture in the book, and if the stalls take
+  clean edges Pipo's one clean outline stops working in the very place he is hardest to find.
+
+SPOTS:
+  A THE WHOLE MARKET from above the mouth, wide, high: the lane going away, roofs layered, the crowd
+    packed - one screen the reader cannot read yet.
+  B THE MOUTH, medium, low: the two awning posts framing the lane, the hill road behind.
+  C A STALL FRONT, wide, eye level: one counter filling the frame, its goods heaped, the lane thin
+    at both edges. Draw this for the apple stall and the pot stall.
+  D THE MIDDLE OF THE LANE, medium, low: standing among the roofs and looking OVER them, with the
+    one diagonal-grain roof showing among sideways ones.
+  E INSIDE A SHOP, medium wide: shelves to the back, the open doorway behind as LIFTED PAPER and the
+    brightest thing in the panel, the goods on the shelves pressed shapes with no interior detail.
+
+PLATE: A, B, C (twice, two stalls), D and E, plus 🔴 A GRAIN PANEL - nine roof shapes at one size,
+  eight rubbed sideways and one rubbed in diagonals, to prove the trick reads at thumbnail size.
+
+NOT: no character of any kind, no gorse yellow anywhere on this sheet, 🔴 no lettering, numerals,
+  signs, price tags or scratched symbols on any stall, sack or shop front, no white chalk or white
+  paint, no faces or hands in the crowd, no clean or mechanical edge, no graded value, no shading,
+  gradient or glow, nothing paler with distance.
+```
+
+### §1.4 PotatoField — 실제 프롬프트 (19 한 권이 열 쪽)
+
+```
+STAGE SHEET - PotatoField   (pipo-charcoalwall · SLOPE and YARD clauses · SCENE token: PotatoField)
+
+The potato patch at one side of the farm. One book lives here for all ten of its pages, and that book
+is TWO PLACES IN ONE FIELD compared - so both must be in frame together and must never trade sides.
+
+🔴 THE FIELD HAS TWO ENDS AND THEY ARE OPPOSITE. THE ROWS fill the near two thirds: ridges running
+  straight away from the reader, green tops as pressed masses over a rubbed earth, at most 9 potatoes
+  on any one lifted stem. THE BARE CORNER is at the far left: a patch with NO tops at all, one flat
+  rubbed field of earth, which is why a page can point at it and say the word "empty". Everything
+  that happens in this book happens because the digging is at the wrong end.
+🔴 THE STONE PILE STANDS IN THE BARE CORNER and it only ever grows. It is pressed stones stacked to
+  about a sheep's knee at its tallest. It never moves and it is never cleared away - the last page
+  needs it standing while the full basket stands at the other end.
+
+FIXED PARTS: the ridges as above, six of them, running away · the bare corner far left with its
+  hole and its pile · the earth is ONE rubbed field everywhere, with 0 clods drawn except where a
+  hand has just been · a low stretch of the stone wall closing the far side, PRESSED, keeping its
+  full weight however far off · the farm buildings small beyond the wall.
+
+SPOTS:
+  A THE HEAD OF THE FIELD, medium wide, eye level: rows going away on the right, the bare corner
+    small on the left - 🔴 both ends in one frame, and this is the geography panel.
+  B AMONG THE ROWS, medium, high: looking straight down a ridge, tops crowding the top of the frame
+    and earth filling the bottom.
+  C THE BARE CORNER, wide, eye level: flat earth, the hole, the pile beside it, no tops anywhere.
+  D ONE FURROW, close, high: only rubbed earth and one pair of hands' worth of ground, with a
+    pressed round top just breaking the surface.
+  E THE WHOLE FIELD, wide, eye level, from the far side: rows and corner and pile all at once.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE OVERHEAD DIAGRAM of the field showing which end the rows
+  are and which end the bare corner is, so no page ever swaps them.
+
+NOT: no character of any kind, no gorse yellow anywhere on this sheet, no lettering or numerals, no
+  white chalk or white paint, no earth colour or second pigment, no individual grass blades, no
+  clean or mechanical edge, no graded value, nothing paler with distance.
+```
+
+### §1.5 GrannyFarm — 실제 프롬프트 (50 · 🔴 여섯 중 가장 비싸다)
+
+```
+STAGE SHEET - GrannyFarm   (pipo-charcoalwall · WALL and YARD AND BYRE clauses · SCENE token: GrannyFarm)
+
+The grandmother's farm over the hill. The last book of the series goes there and stays. This is a
+SECOND FARM and it is the most expensive drawing in the set, because it has to read two ways at once:
+🔴 THE SAME KIND OF PLACE, AND NOT HOME.
+
+🔴 SAME PARTS, DIFFERENT PLAN. Build it out of Pipo's own parts, copied exactly - the same dry-stone
+  wall with the same courses, the same fold gate, the same barn door with its six planks and its one
+  vertical gap, the same kind of stone doorstep. Then LAY THEM OUT THE OTHER WAY ROUND: at home the
+  house is on the near side of the yard and the barn on the far; here the HOUSE STANDS ON THE FAR
+  SIDE facing back at the gate, the BARN is on the left and the FOLD on the right, and the yard is
+  SMALLER AND ROUNDER than the one at home. A reader must recognise every piece and still know at a
+  glance that this is somewhere else.
+
+FIXED PARTS: a dry-stone wall PRESSED, ringing the whole farm, with ONE gateway where the cart road
+  comes over the hill · the house, low, its door in the middle, a STONE DOORSTEP wide enough for a
+  grown dog to sit on with a puppy on her knees and both her feet on the stone below it · inside the
+  house ONE hearth mouth, 🔴 LIFTED PAPER and the brightest thing on any interior page · the barn,
+  its doorway LIFTED, with hay heaps at most 3 and 🔴 ONE HAY BED THE LENGTH OF PIPO made up on the
+  floor · the fold with its gate and at most 9 separate sheep · the cart standing at the house door
+  on the last two pages.
+🔴 EVERY EDGE FURRY, as at home. The three values do not change over the hill: RUBBED is the ground
+  and the far slope, PRESSED is the wall, the gates, the ironwork and the inside of the barn, LIFTED
+  is hay, fleece, the hearth mouth, the open doorways and the steam off bread.
+
+SPOTS:
+  A FROM THE ROAD ABOVE, wide, high: the whole farm inside its wall, small, seen down over the hill -
+    house, barn, fold and yard all placed at once. This is the geography panel.
+  B THE HOUSE DOOR, medium, eye level: the doorway LIFTED, the stone step below it, yard in front.
+  C THE FOLD GATE, medium wide, eye level: the gate, the sheep behind it, the empty cart beyond.
+  D INSIDE THE BARN, wide, eye level: dark pressed interior, the hay bed, the open door behind as
+    the one lifted shape - and the SAME panel again from the threshold looking out.
+  E THE YARD, wide, eye level: wall all round, cart drawn up at the house door, fold gate open.
+
+PLATE: A, B, C, D (twice), E, plus 🔴 A SIDE-BY-SIDE PLAN of Pipo's farm and this one at the same
+  size, to prove the parts are identical and the layout is not.
+
+NOT: no character of any kind, no gorse yellow anywhere on this sheet, no lettering or numerals, no
+  white chalk or white paint, 🔴 no new architecture - nothing here may be a shape that does not
+  already exist on Pipo's farm, no clean or mechanical edge, no graded value, nothing paler with
+  distance.
+```
+
+### §1.6 CartRoad — 실제 프롬프트 (37 · 🔴 담이 끝나는 자리가 이야기다)
+
+```
+STAGE SHEET - CartRoad   (pipo-charcoalwall · WALL clause · bake AFTER Hill · SCENE token: CartRoad)
+
+Where the stone wall stops and the cart road begins. One book spends eight of its ten pages here, and
+the picture of that book is a MEDIUM BOUNDARY: pressed charcoal on one side, rubbed charcoal on the
+other, with nothing in between.
+
+🔴 THE LAST STONE IS THE SAME STONE AS ON THE Hill SHEET. Copy it: the wall tapering down course by
+  course for its last few paces, then one final block whose top is a flat face about as wide as two
+  puppy hands laid side by side and no wider. Beyond that stone THERE IS NOT ONE PRESSED LINE - only
+  the rubbed road. 🔴 THAT BOUNDARY CUTS THE PICTURE, and a reader must be able to put a finger on
+  the exact place where drawn stops and rubbed begins.
+🔴 THE STOPPING LINE. The ground just inside the last stone is where feet get planted and stay. It is
+  not marked with anything drawn - it is where the wall's own line runs out. Several pages are about
+  two feet held on the inside of it while the rest of the body leans over.
+
+FIXED PARTS: the wall coming in from the left and ending as above · the cart road crossing the frame
+  left to right beyond it, ONE rubbed field with WHEEL RUTS as at most 4 pressed lines running ALONG
+  the road, never across · a gravel verge on the far side, at most 11 loose pressed stones · the
+  market roofs low on the right horizon, at most 6, one rubbed field each and keeping full weight
+  (they are far, not faint) · 🔴 no gate, no fence and no building anywhere on this sheet - the wall
+  simply runs out, which is the whole idea.
+
+SPOTS:
+  A THE END OF THE WALL head on, medium wide, eye level: wall filling frame left, road empty beyond.
+  B THE ROAD, wide, low: the road crossing the whole frame with the wall end at the right edge.
+  C THE LAST STONE, close, high: the stone's top face, the rubbed earth in front of it, and the
+    boundary running straight through the middle of the panel.
+  D THE FAR SIDE, wide, high: looking back across the road at the wall end, the road between.
+  E ALONG THE ROAD, medium wide, eye level: the road running away right toward the market roofs.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE MATCHING PANEL - the last stone drawn beside the Hill
+  sheet's version at the same size, to prove they are the same stone.
+
+NOT: no character of any kind, no gorse yellow anywhere on this sheet, no lettering, numerals or
+  signs on the far roofs, no white chalk or white paint, no gate, fence, post or building, no cart
+  drawn into the stage (the cart is a prop sheet), no clean or mechanical edge, no graded value,
+  nothing paler with distance.
+```
+
+### §1.7 Well — 실제 프롬프트 (26 · 28 · 33 · 43)
+
+```
+STAGE SHEET - Well   (pipo-charcoalwall · YARD AND BYRE clause · SCENE token: Well)
+
+The well corner of the farm yard. It is a few paces from the yard proper, but four books do all their
+washing here - hands, mouth, face - so the corner is drawn once and never rearranged. Two of those
+books come here in the dark.
+
+FIXED PARTS: ONE round well with a low PRESSED rim about chest height on Pipo - low enough that he
+  stands at it and high enough that he cannot see over it without lifting · a FLAGGED FLOOR round it,
+  ONE rubbed field with at most 7 pressed joint lines, never in a row · the WOODEN PAIL, pressed
+  staves and two pressed hoops, standing on the flags at the rim's foot; a SECOND smaller pail beside
+  it (two books need one to pour from and one to wash in) · a short stretch of the yard wall behind,
+  PRESSED, with the fold gate showing past it.
+🔴 THE WATER IN THE PAIL IS ONE RUBBED FIELD, 0 ripples, 0 glints, and NOTHING IS EVER MIRRORED IN
+  IT - there are no reflections anywhere in this book. Dirt going into clean water is drawn as
+  pressed threads spreading INSIDE that one rubbed field, never as a darker patch.
+🔴 SUDS, SPLASHES AND WET MARKS ON THE STONE ARE LIFTED PAPER, taken back out with the eraser, at
+  most 9 marks each taken out on its own. 🔴 They are never drawn white and never outlined.
+🔴 AT NIGHT the whole corner is PRESSED and the only bright thing is the lantern's hole of bare paper
+  - and 🔴 THAT LANTERN CARRIES NO YELLOW. The yellow at this stage is the scarf and nothing else.
+
+SPOTS:
+  A THE CORNER from the yard, medium wide, eye level: rim, pail, flags, wall behind.
+  B INTO THE PAIL, close, high: only the inside of the pail and the water field.
+  C THE FLAGS, close, high: wet stone, lifted marks, one pressed thing standing on it.
+  D THE CORNER AT NIGHT, medium wide: everything pressed, one lifted hole for the lantern, the round
+    house window small and lifted in the background.
+  E WIDE from the yard gate: the well corner in its place, so a reader knows where in the farm it is.
+
+PLATE: A, B, C, D, E once each, plus 🔴 ONE PAIR PANEL - the same pail of water clean and then
+  clouded, at one size, to fix that the difference is pressed threads and not a change of value.
+
+NOT: no character of any kind, no gorse yellow anywhere on this sheet including the lantern, no
+  lettering or numerals, no white chalk or white paint, 🔴 no reflection, glint, highlight, sparkle
+  or droplet-shine of any kind, no rope, bucket-winch or roof over the well beyond what is named,
+  no clean or mechanical edge, no graded value.
+```
+
+### §1.8 HenHouse — 실제 프롬프트 (14)
+
+```
+STAGE SHEET - HenHouse   (pipo-charcoalwall · YARD AND BYRE clause · SCENE token: HenHouse)
+
+The hen house in the corner of the farm yard, and the straw nest inside it. One book counts eggs here
+and breaks three of them, so this stage's whole job is to make STRAW and EGGSHELL tell apart while
+both of them are the same bare paper.
+
+🔴 STRAW AND SHELL ARE BOTH LIFTED PAPER AND ARE TOLD APART BY GRAIN ALONE - straw is thin separate
+  strands lying every which way, shell is ONE unbroken smooth round with nothing inside it. This is
+  the same rule the snow pages use for snow against hay, and it is the only rule this stage needs.
+  🔴 Yolk is lifted paper too: when it runs, only the RUNNING LINE is drawn and the yolk itself stays
+  bare paper.
+
+FIXED PARTS: a low shed, PRESSED, its long side to the yard, roof one repeated zigzag mark that may
+  run off the edge but is never redrawn · 🔴 THE OPEN DOORWAY IS LIFTED PAPER and is the brightest
+  thing on any page here · ONE straw nest on the floor just inside, to the left of the door, a shallow
+  ring of lifted strands · at most 8 eggs, which is the anchor's cap and also the number this book
+  starts with · one plain hen, a flat shape with no eyebrows and no expression · the yard floor in
+  front of the door as ONE rubbed field.
+🔴 THE NEST NEVER MOVES. Three pages come down close on it with nothing else in frame, and if it
+  sits somewhere different each time the counting stops working.
+
+SPOTS:
+  A THE NEST, close, high: straw and eggs filling the frame, floor round it, nothing else.
+  B THE DOORWAY from the yard, medium, eye level: the shed side, the lifted doorway, nest just
+    visible inside on the left.
+  C THE GROUND IN FRONT OF THE DOOR, close, high: rubbed floor, the doorway's lifted light falling
+    across it, one pressed thing standing on it.
+  D THE HEN HOUSE IN ITS CORNER, wide, eye level: shed, yard, wall, so its place in the farm is fixed.
+
+PLATE: A, B, C, D once each, plus 🔴 A GRAIN PANEL - a handful of straw and a whole egg side by side
+  at one size, both bare paper, to prove they read as two different things without a line between
+  them.
+
+NOT: no character of any kind, no gorse yellow anywhere on this sheet, no lettering or numerals, no
+  white chalk or white paint, 🔴 no feather texture, comb detail or drawn eye on the hen, no basket
+  (that is a prop sheet), no clean or mechanical edge, no graded value.
+```
 
 ---
 
@@ -108,6 +404,17 @@ NOT: no character of any kind, no gorse yellow anywhere on this sheet, no letter
 > (문질렀다가 지우개로 도로 가져간 맨 종이)이고, 시트마다 그 자리를 못 박아 뒀다. 하나라도 잉크로
 > 칠하면 이 매체가 아니게 되고, 하얗게 칠하면 **앵커가 금지한 흰 물감**이 된다.
 > 🔴 **그리고 모든 가장자리는 보슬보슬해야 한다**(§0 둘째). 시트가 깔끔하면 피포가 안 튀어나온다.
+>
+> 🔴 **`no cast shadow` 는 금지가 아니라 번역이다** (2026-09-04). 시트 스물여섯 장 중 스물셋이 NOT 에
+> 이 줄을 달고 있는데, **그것은 「그 사물이 그림자를 던지지 않는다」는 뜻이지 「이 세계에 그림자가 없다」가
+> 아니다.** 실측하면 그림자가 나오는 쪽은 **네 권 일곱 쪽**이다 — 01 p1·10 p4(해가 낮아 바닥에 길게
+> 누운 그림자, **길이가 시간을 말한다**) · 44 p3·p7(벽의 뾰족한 기둥 그림자와 둥근 공 그림자) ·
+> 46 p5·p6·p7(벽에 손으로 만든 양 그림자와 강아지 그림자). 앵커 `RENDERING` 에 `SHADOWS:` 조항을
+> 넣었고(그림자 = **또 하나의 눌러 그은 조각**, 안에 선 0, 광원은 절대 안 그린다), 그림자가 필요한 시트
+> 둘(`Bed` §2.15 · `WoodBall` §2.19)은 이미 예외를 달고 있다. 🔴 **새 시트에 이 줄을 베껴 넣을 때
+> 「이 사물이」인지 「이 세계가」인지 확인할 것** — 베끼다가 46권 세 쪽이 통째로 죽는다.
+> (§5.9 가 초안한 문안은 `ONE exception - volume 44` 였는데, 그대로 넣었으면 46권을 못 그린다.
+> **권 번호로 예외를 적으면 반드시 이렇게 된다** — 조건으로 썼다.)
 
 | § | 토큰 | 사물 | 권 (쪽 수) |
 |---|---|---|---|
@@ -1127,6 +1434,11 @@ NOT: no character face beyond a plain silhouette, 🔴 no gorse yellow on the ha
 ## §5. 🔴 신고 — 사물 시트를 쓰다 나온 것 (앵커 · 무대 시트 · 캐스트 몫)
 
 > 사물 시트가 못 고치는 자리다. **낱개로 손대지 말고 여기 적힌 한 곳씩만 고친다.**
+>
+> ✅ **2026-09-04 에 §5.1~§5.9 전부 반영했다** — 앵커 조항 여섯의 권 번호를 조건으로 바꾸고, `SHADOWS:`
+> 와 「흐리게」 번역과 새끼 양 크기 계단을 넣고, 관통 줄 `YELLOW:`·`BARE:` 의 거짓을 고쳤으며,
+> `Hill` 에 담 높이 셋과 다섯째 지점을 붙이고 §5.3 의 자리 시트 여섯을 §1.3~§1.8 로 썼다.
+> §5.4·§5.5 는 §1.2 요약 명세로 들어갔다. 🔴 **아래 본문은 근거이므로 남긴다 — 지우지 말 것.**
 
 ### §5.1 🔴 앵커의 무대 조항이 **권 번호 목록**이라 26~50이 통째로 밖에 있다
 
@@ -1237,6 +1549,24 @@ thrown on the bedroom wall in volume 44, which are pressed charcoal with furry e
 source drawn. Nothing else in fifty books casts a shadow.`
 (도도 21권이 `no cast shadow` 때문에 통째로 못 그려진 것과 같은 종류인데, 여기서는 **조항이 없어서**
 같은 결과가 난다.)
+
+🔴 **위 초안은 그대로 넣으면 안 됐다 — 넣은 문안은 다르다**(2026-09-04). 「44권 하나뿐」이 **거짓**이다.
+500쪽을 전수로 세니 그림자가 나오는 쪽은 **네 권 일곱 쪽**이다:
+
+| 권·쪽 | 무엇 |
+|---|---|
+| **01 p1 · 10 p4** | 해가 낮아 **바닥에 길게 누운 그림자** — 10 p4 는 톤 지문이 「**그림자 길이가 시간을 말한다**」이고 그게 그 쪽의 전부다 |
+| **44 p3 · p7** | 벽의 흔들리는 그림자 하나 → 뾰족한 기둥 그림자와 둥근 공 그림자 **둘이 나란히** |
+| **46 p5 · p6 · p7** | 🔴 **난로 앞 손 그림자 놀이** — 벽을 가득 채운 양 그림자, 귀 처진 강아지 그림자, 둘이 나란히. 「안에 아무 선도 없는 납작한 실루엣」이 지문에 이미 있다 |
+
+**초안대로 「예외는 44권 둘」이라고 박았으면 46권 세 쪽과 10 p4 가 통째로 못 그려진다.**
+🔴 이것이 §5.1 과 **똑같은 병**이다 — 예외를 권 번호로 적으면 그 순간 나머지가 조항 밖으로 나간다.
+그래서 앵커에는 **조건**으로 넣었다(`RENDERING` 의 `SHADOWS:`): 그림자 = 또 하나의 눌러 그은 조각 ·
+안에 선 0 · **대본이 부르는 자리에만** · 두 종류(바닥에 길게 누운 것 = 길이가 시간 / 벽에 던져진 것 =
+이름 붙일 수 있는 실루엣) · **광원은 절대 안 그린다**.
+그리고 사물 시트 스물셋의 `no cast shadow` 는 **손대지 않았다** — 그건 「이 세계에 그림자가 없다」가
+아니라 「**이 사물이** 그림자를 던지지 않는다」이고, 그림자가 필요한 두 장(`Bed`·`WoodBall`)은 이미
+예외를 달고 있어 실제로 막힌 권이 없다. 대신 §2 머리에 **베낄 때 확인하라는 줄**을 넣었다.
 
 ### §5.10 ⚠️ 자리 시트 목록 재확인 — `Meadow` 류 누락은 없다
 
