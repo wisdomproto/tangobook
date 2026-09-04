@@ -65,7 +65,15 @@ for (const key of fs.readdirSync(DOCS).filter((k) => !only || k === only)) {
 
   const sec = stageSection(key);
   if (sec === null) { console.log(`${key.padEnd(10)} 🔴 stages.md 자체가 없다 — 토큰 ${used.size}종`); totMissing += used.size; continue; }
-  const missing = [...used].filter(([t]) => !sec.includes(t))
+  // 🔴 `Stage/Spot` 은 **통짜로 찾으면 안 된다**(2026-09-04). bung 시트는 스팟을 `4 FLOOR (뱃바닥)`
+  //    처럼 이름으로 적어 두는데, 검사기가 `NoodleBoat/뱃바닥` 문자열을 찾느라 「시트 없음」이라 했다.
+  //    무대 이름과 스팟 이름이 **둘 다** 그 절에 있으면 그 자리는 정해져 있는 것이다.
+  const inSheet = (t) => {
+    if (sec.includes(t)) return true;
+    const i = t.indexOf('/');
+    return i > 0 && sec.includes(t.slice(0, i)) && sec.includes(t.slice(i + 1));
+  };
+  const missing = [...used].filter(([t]) => !inSheet(t))
     .sort((a, b) => b[1].pages - a[1].pages);
   totMissing += missing.length;
   const line = missing.map(([t, r]) => `${t}(${r.pages}쪽·${r.books.size}권)`).join(' ');
