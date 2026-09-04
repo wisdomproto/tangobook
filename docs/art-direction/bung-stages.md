@@ -1288,6 +1288,172 @@ NOT: no character face, no accent teal, no lettering, numerals, dates, heads, cr
   glow or soft edge.
 ```
 
+### §3.27 Oar — 4권 (🔴 **잠긴 부분이 윤곽을 잃는 두 번째 사물**)
+
+> 35권은 **노 젓는 배 위에서 국수를 먹는 것**이 열 쪽이라 노가 8쪽에 있다(01·06·46 도 쓴다). 작업표는
+> 이 낱말을 한 번도 안 세웠다 — 한 글자라서다. 🔴 **날이 물속에 들어간다**(01 p8 「물속에 곧게 박힌
+> 노」 · 35 p1 「물속에 밀어 넣는다」)라 §0 규칙이 사물에 걸리는 두 자리 중 하나다.
+
+```
+PROP SHEET - Oar   (bung-woodblock · SCENE token: Oar)
+
+The long stern oar. Four books; in one of them the grandfather rows for eight pages while the
+children eat, so the oar is on the page more often than most of the props in this series.
+
+FORM: one long shaft, RIVER, grain running the length of it, twice an adult's height, with a wide
+  flat blade at the lower end and a plain grip at the top. At most 3 key lines on the whole thing:
+  where blade meets shaft, and the grip. 0 rowlock, 0 rope, 0 carving.
+🔴 WHERE THE OUTLINE STOPS, and it is the reason this sheet exists:
+  OUT OF THE WATER - the whole oar, blade and all, keeps its full key outline.
+  IN THE WATER - the shaft keeps its outline down to the surface and THE PART BELOW THE SURFACE IS
+    OVERLAP WITH THE RIVER PRINTED OVER IT AND NO OUTLINE AT ALL. The outline does not fade or dot;
+    it stops at the waterline. There is no ring, no swirl, no foam and no wake anywhere.
+STATES - draw 1, 2 and 3 at one camera distance:
+  1 SHIPPED - laid along the gunwale, out of the water, whole, the blade over the stern.
+  2 LIFTED - held up clear of the water in two silhouette hands, the blade dripping at most 5
+    separate key-ink drops. This is the state that means STOPPED.
+  3 PUSHED IN - the shaft crossing the waterline at a slant, the underwater part outlineless. This is
+    the state that means MOVING.
+  4 STOOD UPRIGHT in the water, the shaft dead vertical, the underwater part outlineless. 🔴 In one
+    book this vertical is the only straight line on a tilting page - keep it exactly vertical.
+  5 THE BLADE ALONE at large size, out of water, showing its width against a hand silhouette.
+🔴 A MOVING BOAT IS NOT DRAWN WITH MOTION LINES. The oar's position IS the motion: shipped = still,
+  pushed in = going. 0 speed lines, 0 arcs, 0 wake, 0 spray, 0 foam.
+
+PLATE: states 1-5, plus the 1-and-3 pair at large size showing exactly where the outline stops.
+
+NOT: no character face, no accent teal, no lettering or numerals, no rowlock, oarlock or lashing, no
+  wake, ripple, swirl, foam or spray, no motion or speed lines, no reflection or mirrored image, no
+  key outline on the submerged part, no third colour that is not an overprint, no corrected
+  registration, no shading, gradient, glow or soft edge.
+```
+
+### §3.28 Gangplank — 🔴 06권 · 작업표에 **한 줄도 없던 권**
+
+> 06권 「나무 길 저쪽」은 열 쪽이 **배와 배 사이에 걸친 널 한 장** 위에서 벌어진다. 작업표엔 이 권이
+> 아예 없다. 🔴 **또 「같은 이름, 다른 물건」이다** — `널` 이 이 시리즈에서 세 가지다: 뱃바닥 널(자리
+> `NoodleBoat`) · 나무 길 널(자리 `PlankWalk`) · **두 배를 잇는 걸친 널**(이것). 셋을 안 가르면
+> 「건너간다」가 「걸어간다」가 된다.
+
+```
+PROP SHEET - Gangplank   (bung-woodblock · SCENE token: Gangplank)
+
+The single plank laid from one boat's gunwale to another's. One whole book crosses it, and it is not
+the market's plank walk - it is one loose board with water under all of it.
+
+FORM: ONE board, RIVER, the grain running its length and visible, 🔴 ONE FOOT WIDE - so narrow that
+  two feet cannot stand side by side on it, and that ratio must survive at thumbnail. At most 3 key
+  lines on it: the two long edges and one end. 0 rail, 0 rope, 0 cleats, 0 nails.
+🔴 ITS ENDS ARE THE WHOLE POINT: each end rests ON a gunwale and overhangs it a little. Nothing holds
+  it down. Draw the overhang in every panel that shows an end.
+STATES - all side on at one distance unless said otherwise:
+  1 EMPTY AND LEVEL, spanning from gunwale to gunwale, water under the whole span.
+  2 LOADED - the middle bowed DOWN in one shallow curve, both ends still on their gunwales. 🔴 The
+    bend is the only way weight is drawn: 0 motion lines, 0 creak marks, 0 wobble arcs.
+  3 THE BOATS DRIFTING APART - the span longer, the plank flatter, one end nearer the edge of its
+    gunwale than in state 1.
+  4 FROM ABOVE - the board seen straight down its length, so its narrowness reads: the board runs to
+    a point in the distance and there is water on both sides all the way.
+  5 CROWDED - four plain key-ink adult silhouettes standing along it end to end with no gap between
+    them, so a child could not pass.
+  6 ONE END, close: the board resting on the gunwale, the overhang, and the water below.
+
+PLATE: states 1-6, plus the 1-and-2 pair at large size, plus one panel with a child silhouette
+  standing on it for width.
+
+NOT: no character face, no accent teal, no lettering or numerals, no rail, rope, cleat or nail, no
+  motion or wobble lines, no reflection or mirrored image, no ripple under it, no third colour that
+  is not an overprint, no corrected registration, no shading, gradient, glow or soft edge.
+```
+
+### §3.29 Shirt — 🔴 34권 · 작업표에 없던 권 (옷인데 **사물이다**)
+
+> 34권 「뿔 쏙, 팔 쏙!」은 여덟 쪽에 윗옷이 있고 그중 여섯 쪽은 **몸에 안 걸쳐진 상태**다. 옷은 보통
+> 캐스트 시트 몫이지만, 이 권은 **옷 목 구멍과 뿔 폭의 관계**가 이야기의 전부라 사물로 굽는다.
+> 🔴 **입은 모습은 여기서 정하지 않는다** — `bung-cast.md` 가 SSOT 이고 이 시트는 **벗겨진 옷**만 든다.
+
+```
+PROP SHEET - Shirt   (bung-woodblock · SCENE token: Shirt)
+
+The child's short top, off the body. One book is ten pages of getting into it, and for six of them
+the shirt is a thing rather than clothing. How it looks WORN is the cast sheet's; this sheet is the
+shirt on its own.
+
+FORM: a short loose top, LEAF, the plank's grain visible inside it, with a plain round neck opening,
+  short sleeves and a straight hem. At most 5 key lines in the whole garment - neck, two sleeve
+  ends, hem - and 0 buttons, 0 collar, 0 pattern, 0 stitching.
+🔴 THE NECK OPENING IS A MEASUREMENT, NOT A DETAIL: it is a clean circle, and 🔴 IT IS NARROWER THAN
+  THE CHILD'S HORNS ARE WIDE, TIP TO TIP. Draw it once beside a plain key-ink head silhouette with
+  the horn crescents on it, so the ratio is fixed here and never redrawn by eye. The whole book is
+  that circle being too small until the horns go through one at a time.
+STATES:
+  1 HELD UP by two silhouette hands, front on, hanging open, the neck circle facing the reader.
+  2 CRUMPLED on the deck planks, one massed shape with at most 4 key creases, the neck circle still
+    findable in it.
+  3 PULLED OPEN - two hands stretching the neck circle wide, the circle now an oval, the rest of the
+    shirt gathered toward it.
+  4 🔴 STUCK - the shirt over a head with the neck ring caught ON the horns, so the fabric tents up
+    into two points and the face is completely covered. 0 features show through; the tenting is the
+    only sign of what is under it.
+  5 AT THE NECK - the ring down past the horns and resting on the shoulders, the head clear, arms
+    still inside.
+  6 THE SMALL ONE - the same shirt cut two thirds the size, laid beside the big one at the same
+    angle, for the little one. Both in one panel so the pair reads.
+
+PLATE: the neck-circle-and-horn-span panel FIRST, then states 1-6.
+
+NOT: no character face (silhouettes only), no accent teal, no lettering, numerals or motifs, no
+  buttons, collar, pattern or stitching, no motion lines, no reflection or mirrored image, no third
+  colour that is not an overprint, no corrected registration, no shading, gradient, glow or soft edge.
+```
+
+### §3.30 WaterBarrels — 🔴 20권 · 작업표에 없던 권
+
+> 20권 「물 배가 지나갔어요」의 그림은 **뚜껑 덮은 큰 물통 넷을 실은 배 + 뱃머리에 매단 작은 종 +
+> 컵에 차오르는 물**이다. 🔴 **집 물통(§3.11)과 다른 물건**이다 — 저건 파는 물이고 배에 실려 지나간다.
+> 🔴 **종에 청록을 쓰면 안 된다**: 이 책의 청록은 붕이 코끈과 또리 발목 방울 끈 **두 곳뿐**이고,
+> 방울이 13권에서 또리를 찾는 유일한 단서다. 물 배의 종이 같은 색이면 그 단서가 죽는다.
+
+```
+PROP SHEET - WaterBarrels   (bung-woodblock · SCENE token: WaterBarrels)
+
+The water seller's boat load - four covered barrels and the little bell at its bow - and the cup that
+gets filled from it. One book, and the level in the cup is its clock.
+
+FORM - BARREL: a tall wooden barrel, RIVER, grain showing, 3 key-line hoops, with a flat wooden LID
+  on top and a short spout low on one side. Standing on a deck it is chest high to a child.
+  🔴 FOUR OF THEM, in a row, and no two are mirrored copies.
+FORM - BELL: one small bell hanging from the bow post on a short cord. The bell is OVERLAP, the cord
+  is RIVER. 🔴 NEITHER IS EVER TEAL - the only teal in this book is at the two children's neck and
+  ankle, and a second teal cord would break the one rule the palette exists for.
+FORM - CUP: the same small straight-sided cup as the WaterButt sheet, RIVER, grain showing. Water in
+  it is one flat OVERLAP area with a level top edge.
+STATES:
+  1 THE LOADED BOAT, side on, four lidded barrels in a row, the bell at the bow. Barrels lidded means
+    full and moving.
+  2 POURING - one barrel tipped over the gunwale toward another boat, and 🔴 ONE straight column of
+    water from its spout, edges parallel, the same width all the way down. Never a fan, never a
+    spray, never droplets round it.
+  3 A THIN COLUMN - the same pour, half as wide, everything else identical. Draw 2 and 3 side by side;
+    the difference between a lot and a little is the width of that one column and nothing else.
+  4 THE LAST DROP - the spout with ONE key-ink drop hanging from it and nothing else.
+  5 THE CUP EMPTY - the inside bare PAPER, its bottom showing.
+  6 THE CUP FULL to the rim, one OVERLAP area with a level top edge and ONE drop running down the
+    outside. Draw 5 and 6 at the same size.
+  7 THE BELL, close, at rest hanging plumb.
+  8 THE BELL TIPPED to one side - and 🔴 that tilt is the ONLY way sound is drawn. 0 sound lines,
+    0 arcs, 0 stars, 0 marks in the air.
+  9 THE BOAT GONE - the far water with the boat small at the frame's edge, and 🔴 the water it came
+    across left as ONE unbroken RIVER area with no track, no wake and no mark of any kind.
+
+PLATE: states 1-9, plus the 2-and-3 pair and the 5-and-6 pair at large size.
+
+NOT: no character, no hands beyond silhouettes, no accent teal anywhere (especially not on the bell
+  or its cord), no lettering, numerals or shop marks, no water drawn as spray, splash, droplets or
+  wavy lines, no sound lines, motion lines or wake, no reflection or mirrored image, no third colour
+  that is not an overprint, no corrected registration, no shading, gradient, glow or soft edge.
+```
+
 ---
 
 ## §4. 🔴 미결 — 「배 안」 2갈래 (7쪽)

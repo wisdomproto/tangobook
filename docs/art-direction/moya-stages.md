@@ -111,10 +111,19 @@ p9에서만 선을 갖는다. 나머지 쪽에서 같은 물건은 축축한 종
   → 사물 시트로 접지 않고 **자리 시트의 구멍으로 신고**했다(§1). 사물은 그 나무가 떨군 것(`Branch` ·
   `Fruit`)뿐이다.
 
-### 🔴 내가 찾아 넣은 것 (후보 목록에 없던 다섯)
+### 🔴 내가 찾아 넣은 것 (후보 목록에 없던 여섯)
 
 `Herd`(15권 전체가 여기 걸려 있다) · `GroundMarks`(19권 전체) · `Fruit`(21권 전체) · `Thorn`(11권 전체) ·
-`Smoke`(14권). **11 · 14 · 21 은 후보 목록에 줄 자체가 없었다** — 세 권 다 사물 하나로 열 쪽을 끄는 권이다.
+`Smoke`(14권) · `Sun`(6권). **11 · 14 · 21 은 후보 목록에 줄 자체가 없었다** — 세 권 다 사물 하나로 열 쪽을
+끄는 권이다.
+
+🔴 **왜 빠졌는지 — 세 갈래였고, 이 라인은 세 번째가 제일 심하다.**
+
+| 갈래 | 이 시리즈에서 걸린 것 |
+|---|---|
+| **조사가 붙으면 딴 낱말이 된다** | 「열매/열매를/열매가/열매 더미」가 각각 세어져 **21권의 여덟 쪽짜리 주인공이 표에 없다**. 「금/금을/금이/금들」(19권 다섯 쪽) · 「가시/가시를」(11권) · 「연기/연기가」(14권)도 같다 |
+| **한 글자 낱말은 원리상 못 잡는다** | **금**(19) · **해**(06·07·16·22·25) · **돌**(08) · **굴**(07·08·22) · **새**(18·22·24) · **풀**(전권) · **물**(전권) · **흙**(전권). 🔴 이 시리즈는 **사물 이름이 거의 한 글자**다 — 초원이고 만든 물건이 없어서, 나오는 게 흙·물·풀·돌·굴·해·새뿐이다. 그래서 dari 보다 이 갈래의 손실이 훨씬 크다 |
+| **인물 라벨에만 있는 물건** | 🔴 **25권 할머니 등의 「흰 털」** — 이 권의 그림 하나(p7, 모야가 그 등에 올라앉는다)이고 p1·p3·p6·p7·p8 다섯 쪽에 나오는데 **전부 인물 라벨 안**이라 표에 한 줄도 없다. dodo 의 파란 목수건과 같은 자리다. 🔴 그리고 **흰 물감이 없는 팔레트에서 흰 털**이라 매체 문제이기도 하다 → §3 에 신고했다. 11권 「발굽 틈에 박힌 가시」, 20권 「부러진 가지 한쪽 끝을 물어 든」도 같은 이유로 반쯤 숨어 있었다 |
 
 ---
 
@@ -606,6 +615,61 @@ NOT: 🔴 no magenta anywhere, no black or grey, no hooked beak, talon, prey, di
 with anything in it, no feather detail, barbs or drawn plumage pattern, no violet line on a body, wing
 or tail, no motion lines behind a flying bird, no cast shadow under a perched bird, no airbrush,
 gradient, glow or 3D render.
+```
+
+### §2.12 Sun — 🔴 앵커에 해가 없다 (6권)
+
+> `THE BIG SKY` 조항은 하늘의 **색**만 정하고(`dry: lemon meeting sky blue high up`), **해는 한 번도 안
+> 나온다.** 그런데 06권은 열 쪽 중 여섯 쪽이 해의 높이로 시간을 재고(「반쯤 넘어간」→「넘어가기 직전」→
+> 「해 뜬 직후」), 07·22·25 도 해를 등지거나 낮게 걸어 둔다. 흰 물감이 없고 글로우가 금지된 팔레트에서
+> **해는 그리는 게 아니라 남기는 것**이라는 판단이 아무 데도 없다.
+
+```
+PROP SHEET - Sun   (moya-daylight · SCENE token: Sun)
+
+The sun on the horizon, and the stars. Six books use the sun's height as their clock - one book walks
+from late afternoon to sunrise across ten pages - and the anchor has no clause for it, so this sheet
+decides it.
+
+🔴 THE SUN IS BARE PAPER. It is not painted; it is the one round area the brush went around, so it is
+  exactly the same warm rag as everything else that is bright in this book. Its edge is read only by the
+  sky wash laid up to it. 🔴 NEVER outline it, never paint it lemon, never paint it orange, and 🔴 NEVER
+  put a glow, halo, ray, beam or lens flare anywhere near it - the anchor bans glow outright and this is
+  where an illustrator will reach for one.
+🔴 ITS SIZE NEVER CHANGES between books or between pages. Its height above the horizon is the ONLY thing
+  that moves, and that height is the clock: HIGH (morning and midday, the disc small against a big pale
+  sky) · LOW (late afternoon, the disc sitting a disc's width above the land) · HALF DOWN (the horizon
+  cutting the disc, the paper still one clean shape) · GONE (no disc at all, and the sky wash a deeper
+  drop at the top edge). Draw the four at one size on one sheet - that row IS the clock.
+🔴 A SKY WITH THE SUN IN IT IS STILL FINISH (3): one bloom, 0 countable touches, no line. The sun does
+  not get its own touches; it gets the absence of them.
+🔴 BACKLIT IS THE HARD PAGE AND THERE IS NO BLACK TO DO IT WITH. When a figure stands between the reader
+  and a low sun, it is NOT a silhouette: it is the same animal at its usual finish, and what says
+  "backlit" is that 🔴 THE EDGE OF THE BODY ON THE SUN SIDE IS BARE PAPER - the touches stop short of the
+  outline and let the paper run round it - while the far side carries an extra VIOLET touch laid beside
+  it. No rim light, no halo, no darkened body.
+🔴 STARS ARE THE SAME DECISION, SMALLER: unpainted specks left in a deep-blue soaking sky, at most 20,
+  scattered without pattern, never five-pointed and never drawn as a shape.
+🔴 THE SUN IS NEVER IN THE WATER. The anchor forbids anything drawn upside down in water - a sun on the
+  surface is horizontal touches of the sky's own colours and nothing round.
+STATES - the first four drawn in one row at ONE size and ONE horizon height:
+  1 HIGH - a small paper disc in a pale sky, the plain bright beneath it.
+  2 LOW - the same disc a disc's width above the land, the sky wash warmer at that edge.
+  3 HALF DOWN - the horizon cutting the disc, the remaining paper one clean shape.
+  4 GONE - no disc, the sky wash dropped deeper at the top edge.
+  5 BACKLIT - a plain zebra standing between the reader and state 2, its sun-side edge bare paper, one
+    violet touch beside its far side. No silhouette, no rim light.
+  6 STARS - a deep soaking night sky with unpainted specks, at most 20.
+  7 THE SUN BEHIND A ROCK HILL - the disc half hidden by the hill's shape, the hill's top still bare
+    paper as the anchor's rock clause requires.
+
+PLATE: states 1-4 in one row at one size, then 5 6 7, plus one large panel of the sun's edge showing the
+  wash laid up to bare paper with no outline.
+
+NOT: 🔴 no glow, halo, ray, beam, corona, lens flare or sunburst of any kind, no orange, gold, crimson or
+magenta anywhere, no outline round the disc, no lemon or ochre painted INSIDE the disc, no black or grey,
+no silhouetted figure, no rim light, 🔴 no sun or star reflected in the water, no five-pointed stars, no
+airbrush, gradient or 3D render.
 ```
 
 ---

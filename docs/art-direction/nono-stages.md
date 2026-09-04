@@ -274,6 +274,810 @@ NOT: no character, no wool green, no lettering or numerals, no fourth paper, no 
 
 ---
 
+### §2.7 Steam — 🔴 12권이 쓰고 한 권은 이것으로 시간을 잰다
+
+> 22권은 열 쪽 중 일곱이 김이다. p1 김 → p2 뚜껑 틈으로 가는 김 → p5 아까보다 가늘다 → **p6 한 가닥도
+> 안 오른다**(그 권의 사건) → p8 다시 김 → p10 넓게 피어올라 얼굴 앞을 지난다. 굵기와 개수를 시트가
+> 확정하지 않으면 그 여섯 쪽이 전부 같은 그림이 된다.
+
+```
+PROP SHEET - Steam   (nono-tornpaper · SCENE token: Steam)
+
+The steam that rises off hot food, a hot pail, a wash tub and a body just out of the water. Twelve
+books have it on the page and one book counts it.
+
+🔴 STEAM IS A TORN PIECE OF WHITE PAPER, pasted on top of whatever it rises from, with its own
+  fibrous edge. It is NOT painted, NOT a wisp, NOT a gradient and NOT the bare ground sheet - it is
+  the SECOND, whiter paper, the same paper as the snow. Its edge never fades at the top; it simply
+  ends where the tear ends.
+🔴 IT RISES STRAIGHT unless a state says otherwise, and it does not curl, swirl or spiral. There is
+  never a drawn line inside it.
+🔴 FOUR THICKNESSES AND THEY ARE A CLOCK. Draw them as one row over four identical bowls at one
+  size, so any two can be compared:
+  1 BROAD - a piece as wide as the bowl, rising past the top of the frame.
+  2 ONE COLUMN - a piece a finger wide, straight, twice the bowl's height.
+  3 THIN - a piece a hair wide, half as tall, torn from the same paper.
+  4 NONE - the same bowl with NO white piece above it at all. 🔴 Absence, not a fainter piece. This
+    state is the whole event of one volume and it only works if the other three are on the sheet.
+STATES:
+  5 THROUGH A LID GAP - the lid sits slightly askew and ONE thin piece comes out of the slot at the
+    side, not from the top.
+  6 LEANING - the same column pushed over to one side by movement, still one piece, still hard-edged.
+  7 SPREAD ACROSS A FACE - one broad piece laid over the lower part of a face, and 🔴 THE FACE
+    BEHIND IT DOES NOT SHOW THROUGH AT ALL, because paper is opaque. Choose the tear so that the
+    eyes stay clear.
+  8 FIVE SHORT PIECES rising off a wet body, all separate, none mirroring its neighbour.
+  9 FILLING A ROOM - one large piece pasted across the upper half of the frame with a ragged lower
+    edge, everything above it hidden.
+
+PLATE: thicknesses 1-4 as one row over four identical bowls, then states 5-9.
+
+NOT: no character face on this sheet (a plain torn silhouette only, for state 7), no wool green, no
+lettering or numerals, no fourth paper, no cut or scissored edge, no drawn line of any kind, no white
+ink or white paint, no swirl, curl, spiral or wisp, no gradient, glow or soft edge, nothing showing
+through a steam piece.
+```
+
+### §2.4 · §2.3 LongBench — 🔴 「의자」가 둘이라 접기를 거부한다
+
+> 옛 표는 `Chair` 하나로 05·47·48·49 를 묶었다. **48권이 그 표에서 죽는다** — 그 권은 열 쪽 중 아홉이
+> 「아무도 안 앉은 의자 판 **한 자리**」이고, 자리가 세어지려면 판이 길어야 한다. 05권의 의자는 반대로
+> **하나뿐**이라 셋이 앞뒤로 붙어 앉는 것이 사건이다. 두 물건이다.
+
+```
+PROP SHEET - LongBench   (nono-tornpaper · SCENE token: LongBench)
+
+The long bench that stands along the shop's long table by the stove. Seven books sit on it and two
+books count the empty places on it.
+
+FORM: TORN2 WOOD BROWN - one long seat plank torn as a single piece, a low back plank behind it torn
+  as a second, and four legs. Every edge fibrous and slightly wobbly; 🔴 THE SEAT PLANK IS NOT A
+  RECTANGLE and its long edges wander. 0 grain lines, 0 nails, 0 drawn line anywhere.
+🔴 THE SEAT IS FIVE PLACES LONG AND THE PLACES ARE NOT MARKED. There is no division, no gap and no
+  line on the plank - a place is simply the width of one child sitting. A reader counts them by
+  counting who is on the bench and how much bare plank is left. That is why the plank length is
+  fixed here: five children would fill it exactly.
+🔴 AN EMPTY PLACE IS BARE WOOD BROWN and it is the only wide area of that paper in the frame, so it
+  reads as a hole in a row. Never fill it with anything, never shade it, never put a shadow in it.
+🔴 SEAT HEIGHT IS A REGISTER: sitting on it, a child's feet do not reach the floor; a squirrel-sized
+  visitor cannot see over the plank at all and needs a small barrel to climb. Both readings must
+  survive at thumbnail size.
+STATES - all drawn straight on at the SAME size so the row can be compared:
+  1 EMPTY, the whole plank bare, the stove behind it.
+  2 THREE SEATED AT ONE END, two places bare at the other.
+  3 THE SAME THREE with ONE PLACE BARE BETWEEN THEM AND A FOURTH - the gap in the middle of the row.
+  4 ONE BARE PLACE AT THE RIGHT END, everyone else packed to the left.
+  5 FULL - five in a row, 0 bare plank showing. 🔴 The ending of one volume is that there is no gap
+    left, so state 5 and state 1 must be the same drawing with only the bodies changed.
+  6 A CLOSE-UP OF ONE BARE PLACE, high angle, the plank grainless and the edge of the plank beyond
+    it, nothing past that.
+  7 THE BENCH FROM THE FLOOR, low angle, showing how far above a small head the plank sits, with a
+    small barrel stood beside a leg as a step.
+
+PLATE: states 1-5 stacked one above the other at one size, then 6 and 7.
+
+NOT: no character face (plain torn silhouettes only, for the seating states), no wool green, no
+lettering or numerals, no fourth paper, no cut or scissored edge, no drawn line, no wood grain, no
+cushion, no white ink or paint, no cast shadow on or under the bench, no gradient or soft edge.
+```
+
+### §2.5 · §2.6 두 탁자 — 🔴 안과 밖이 다른 물건이다
+
+```
+PROP SHEET - LongTable   (nono-tornpaper · SCENE token: LongTable)
+
+The long table inside the shop, beside the stove, with the long bench along it. Six books work at it.
+
+FORM: TORN2 WOOD BROWN - one long top torn as a single piece with wandering long edges, four thick
+  legs. It runs across the frame and its ends leave the frame in the wide views. 0 grain, 0 drawn
+  line, 0 straight edge.
+🔴 THE TABLE TOP IS A COUNTING SURFACE, so it is drawn EMPTY on this sheet and everything else is a
+  separate sheet's object. Its only permanent feature is that it is bare - the paper is one flat
+  piece, and anything on it reads because the wood behind it is plain.
+🔴 IT STANDS BETWEEN THE STOVE AND THE DOOR, stove at one end, and every book uses that: the end
+  near the stove is where the food comes from, the far end is where a pushed-away bowl ends up.
+  Keep the stove at the SAME end in every panel.
+STATES:
+  1 THE TABLE EMPTY, side on at eye level, bench along the near side, stove at the left end.
+  2 THE SAME, high angle from above, the top filling the frame as one flat area.
+  3 THE FAR END, close - the edge of the top and the empty air past it, so an object pushed to the
+    edge reads as about to fall.
+  4 THREE PLACES SET - three plain torn rings laid evenly along the top, nothing else.
+  5 A WORK SURFACE - the top with three separate small heaps laid out in one layer, none overlapping.
+
+PLATE: the five states, plus one straight-on elevation with a standing child silhouette beside it
+for height.
+
+NOT: no character face, no wool green, no lettering or numerals, no fourth paper, no cut edge, no
+drawn line, no wood grain, no tablecloth, no white ink or paint, no cast shadow, no gradient or soft
+edge.
+```
+
+```
+PROP SHEET - ShopTable   (nono-tornpaper · SCENE token: ShopTable)
+
+The wooden table that stands OUTSIDE, in front of the shop, on the snow. Two books use it and one
+book is entirely about what falls off it.
+
+🔴 THIS IS NOT THE LONG TABLE. It is short - about a child's arm span - it has four legs standing IN
+  THE SNOW, and the ground under it is the alley floor piece, not a shop floor. A reader must be able
+  to tell the two tables apart from the legs alone.
+FORM: TORN2 WOOD BROWN, one top piece, four legs. Fibrous edges, 0 grain, 0 drawn line. 🔴 THE SNOW
+  ROUND ITS FEET IS THE TORN WHITE FLOOR PIECE and each leg makes a small torn hole in it.
+🔴 THE TOP IS TWO HALVES AND THAT IS ONE VOLUME'S PICTURE: one half wiped down to bare TORN2, the
+  other half still carrying what is on it, and the two meeting at ONE torn edge across the middle of
+  the top. Draw that edge here.
+STATES - the first four from straight above at one size:
+  1 BARE, the whole top wiped, one flat piece of brown.
+  2 HALF AND HALF - left half bare, right half loaded, one torn edge between them.
+  3 A WIDE SHALLOW WOODEN DISH set in the middle of the top, empty.
+  4 THE SAME DISH with its contents inside it and 🔴 NOTHING AT ALL on the wood around it or on the
+    snow below - that is the ending of that volume and it is an absence, so the surrounding areas
+    must be plainly bare.
+  5 SIDE ON at eye level, legs in the snow, the alley corner behind it.
+  6 A DAMP PATCH on the top after wiping - one torn piece of the darker overlap laid on the brown,
+    hard-edged, drying from its edges inward.
+
+PLATE: states 1-4 stacked at one size, then 5 and 6.
+
+NOT: no character face, no wool green, no lettering, numerals or shop signs, no fourth paper, no cut
+edge, no drawn line, no wood grain, no white ink or paint, no cast shadow, no gradient or soft edge.
+```
+
+### §2.8 Bowl — 🔴 그릇 안이 세 권에서 각각 다른 것을 센다
+
+```
+PROP SHEET - Bowl   (nono-tornpaper · SCENE token: Bowl)
+
+The soup bowls of the shop's long table. Three books turn on what is inside one.
+
+FORM: a plain round bowl seen from above as ONE torn ring of TORN2 WOOD BROWN with the inside a
+  separate piece of the same paper, slightly darker where the two overlap at the rim. Fibrous edge,
+  🔴 NOT A COMPASS CIRCLE - it wobbles. 0 pattern, 0 glaze, 0 highlight, 0 drawn line.
+🔴 THE INSIDE HAS THREE READINGS AND THEY MUST BE TELLABLE APART FROM ABOVE AT ONE SIZE:
+  BROTH ONLY - the inside one flat piece, nothing on it.
+  SOLIDS ROUND THE RIM - the pieces pushed outward into a ring, leaving the middle plainly bare.
+    🔴 This is one volume's whole picture: the eater has pushed everything to the edge.
+  FULL TO THE BRIM - the pieces covering the inside so that 0 bare inside shows.
+STATES - all from straight above at one size unless noted:
+  1 EMPTY, the bottom showing as one round bare piece.
+  2 BROTH ONLY.
+  3 SOLIDS IN A RING, middle bare.
+  4 FULL TO THE BRIM.
+  5 TWO BOWLS SIDE BY SIDE, one at state 1 and one at state 4 - the biggest gap, drawn once here so
+    the page cannot make them nearly alike.
+  6 SETTLING - two bowls of water side by side seen from above, the left one with a scatter of NINE
+    small dark specks on its bottom and cloudy water, the right one with THREE specks and clear
+    water. 🔴 The counts are the volume's evidence; do not draw a haze - cloudiness is one more
+    overlap piece laid over the water piece.
+  7 PUSHED TO THE TABLE EDGE, side on, half the bowl past the edge of the top.
+  8 TURNED UPSIDE DOWN on the table, one plain torn dome.
+
+PLATE: states 1-4 in one row at one size, then 5, 6, 7, 8.
+
+NOT: no character, no wool green, no lettering or numerals, no fourth paper, no cut edge, no drawn
+line, no pattern, glaze or rim highlight, no white ink or paint, no steam on this sheet (steam is its
+own sheet), no gradient or soft edge.
+```
+
+### §2.9 Bread — 개수가 두 권의 시계다
+
+```
+PROP SHEET - Bread   (nono-tornpaper · SCENE token: Bread)
+
+The shop's bread, and the crumbs it leaves. Four books use it and one book counts it down from seven
+to one.
+
+FORM: a round loaf, TORN2 WOOD BROWN, one flat torn piece, the size of two child hands. 0 crust
+  pattern, 0 score marks, 0 drawn line. A bite-sized piece is the same paper torn to a quarter of a
+  child's palm; all the pieces on a page are about the same size as one another.
+🔴 THE COUNT IS THE STORY AND IT ONLY GOES DOWN. Draw the row: SEVEN pieces laid out on a table top,
+  then SIX, then FOUR, then TWO, then ONE - all in the same frame at the same size and the same
+  spacing, so a reader can see which places went empty. 🔴 An eaten piece leaves BARE TABLE, never a
+  smaller piece.
+🔴 CRUMBS ARE AT MOST 9 AND THEY ARE COUNTABLE (this is the anchor's cap). Each crumb is its own tiny
+  torn speck, none mirroring its neighbour. When crumbs have been crushed underfoot they are NOT
+  specks any more - they are ONE small torn smear with no separate grains in it, and that difference
+  is a page of one volume.
+🔴 A DIRTY LOAF CARRIES FIVE BLACK HANDPRINTS - five separate torn overlap pieces pressed on the pale
+  crust, fingers legible, none mirrored. A washed pair of hands leaves ZERO. Draw the marked loaf and
+  the clean loaf at the same size side by side.
+STATES:
+  1 ONE WHOLE LOAF on a table.
+  2 THE COUNT ROW: 7, 6, 4, 2, 1 as five panels of one frame.
+  3 A HEAP OF CRUMBS on a table top, 9 separate specks.
+  4 CRUMBS IN A WOODEN DISH, the same 9 inside a torn ring, and 0 outside it.
+  5 CRUSHED - one smear on a snow floor piece, no separate grains.
+  6 MARKED and CLEAN, two loaves side by side at one size.
+
+PLATE: state 2 first (it is the reason for the sheet), then 1, 3, 4, 5, 6.
+
+NOT: no character face, no wool green, no lettering or numerals, no fourth paper, no cut edge, no
+drawn line, no crust texture, score mark or seed, no white ink or paint, no more than 9 crumbs, no
+gradient or soft edge.
+```
+
+### §2.22 BirdFeeder — 13권은 열 쪽이 이 통 하나다
+
+```
+PROP SHEET - BirdFeeder   (nono-tornpaper · SCENE token: BirdFeeder)
+
+The wooden feeder hung in the tree beside the shop, and the sack of grain under it. Three books use
+them and one book watches the level in the feeder for ten pages.
+
+FORM: an open-topped wooden box, TORN2 WOOD BROWN, hanging from a branch on two short cords, at an
+  adult's shoulder height. Its near wall is LOW so the inside can be seen from a low angle. Fibrous
+  edges, 0 grain, 0 drawn line, 0 perch, 0 roof.
+🔴 THE LEVEL INSIDE IS THE INSTRUMENT. Draw FIVE levels of the same box at one size, from the same
+  slightly high angle:
+  1 FULL to the rim, grain heaped above the edge and a few falling over the side.
+  2 HALF - the near wall's inside face half covered.
+  3 A THIN LAYER on the bottom, the whole inside wall showing bare above it. 🔴 Bare wall is what
+    says "nearly gone", so it must be a broad clean area.
+  4 EMPTY - bottom bare, 0 grain.
+  5 SNOW INSTEAD - the box holding one piece of TORN WHITE instead of grain, flush and smooth. 🔴
+    This is not "empty plus snow": it is a full-looking box holding the wrong thing, and it must
+    read as full at thumbnail and wrong up close.
+GRAIN: at most 11 separate specks where they can be counted; where the box is full they stop being
+  separate and become ONE torn heap piece. Grain is TORN2, so it is darker than the snow around it.
+🔴 THE SACK IS THE OTHER HALF OF THE CLOCK - the fuller the box, the thinner the sack. Draw the sack
+  twice at one size: BULGING (box empty) and SLACK (box full), same sack, same place on the ground.
+STATES:
+  6 THE TREE from below - the branch, the box hanging, and the branches above it with 0 birds.
+  7 THE SAME from below with birds crowding every branch and the box rim, at most 11 birds.
+
+PLATE: levels 1-5 in one row, the two sacks side by side, then states 6 and 7 at one size.
+
+NOT: no character, no wool green, no lettering or numerals, no fourth paper, no cut edge, no drawn
+line, no wood grain, no perch or roof on the box, no white ink or paint, no more than 11 birds, no
+gradient or soft edge.
+```
+
+### §2.23 SoupPail — 22권의 손잡이 통
+
+```
+PROP SHEET - SoupPail   (nono-tornpaper · SCENE token: SoupPail)
+
+The small lidded pail with a handle, carried full of hot soup down the alley. One book, nine of its
+ten pages.
+
+FORM: a straight-sided pail about as tall as a child's shin, TORN2 WOOD BROWN, with a bail handle
+  arching over it torn as ONE piece, and a flat lid that sits slightly askew. Fibrous edges, 0 hoop
+  lines beyond 2, 0 grain, 0 drawn line, 0 shine.
+🔴 THE LID SITS CROOKED AND THAT IS WHY THERE IS A GAP - one small wedge of dark overlap at one side
+  of the rim, and that is where the steam comes out (see the Steam sheet, state 5). The gap stays on
+  the SAME side in every panel.
+🔴 THE SOUP INSIDE, WHEN THE LID IS OFF, IS ONE FLAT PIECE OF THE DARKER OVERLAP, level and
+  hard-edged, 0 ripples, 0 gleam, 0 pieces floating in it.
+STATES:
+  1 STANDING ON A TABLE, lid on, handle laid over to one side.
+  2 CARRIED, handle in one hand, the pail hanging clear of the leg, side on.
+  3 KNOCKING A LEG - the pail tipped a hand's width off vertical, the handle bent to the same side,
+    and the soup NOT drawn (lid on).
+  4 SET DOWN IN THE SNOW - a torn hole in the white floor piece exactly the pail's base, and the
+    pail standing in it.
+  5 LID OFF, from straight above - the dark soup disc filling the rim, the lid lying beside it in
+    the snow.
+  6 EMPTY, lid off, the inside bare wood brown, from the same angle and size as state 5.
+
+PLATE: the six states, plus a close-up of the crooked lid and its gap.
+
+NOT: no character face, no wool green, no lettering or numerals, no fourth paper, no cut edge, no
+drawn line, no metal shine, hoop detail or rivets, no white ink or paint, no ripple or gleam on the
+soup, no steam drawn on this sheet, no gradient or soft edge.
+```
+
+### §2.10 Awning — 천막이 오르내리는 것이 가게의 시계다
+
+```
+PROP SHEET - Awning   (nono-tornpaper · SCENE token: Awning)
+
+The cloth awning over the shop front. Seven books show it and its height says what time of day it is
+and whether the shop is open.
+
+FORM: one piece of TORN1 STONE GREY cloth reaching out over the shop door, held on a frame of two
+  TORN2 arms, with a pull rope hanging at one side. 🔴 ITS FRONT EDGE IS TORN AND WANDERS - it is
+  never a straight hem and never scalloped.
+🔴 FOUR HEIGHTS, DRAWN AS ONE ROW OF THE SAME SHOP FRONT AT ONE SIZE:
+  1 FULLY UP - rolled to the wall, the shop window fully visible, the widest view of the front.
+  2 HALF DOWN - the awning's edge crossing the frame diagonally, covering the top half of the window.
+  3 FULLY DOWN - the window hidden behind it, only the door and the doorstep visible below.
+  4 COMING DOWN - the same as 2 but with the rope taut in a hand and the awning's edge at a slight
+    angle to state 2, so the two panels read as motion between them WITHOUT any motion line.
+🔴 THE LIT WINDOW BEHIND IT IS A TORN WHITE PIECE and the awning covers it by being pasted OVER it,
+  so at height 2 the white piece is plainly cut in half by the awning's fibrous edge. That halving is
+  the picture of one volume's evening.
+🔴 SNOW GATHERS ON IT when it is down: one narrow TORN WHITE strip along the top of the slope, and it
+  slides off in ONE piece, never in flakes.
+
+PLATE: heights 1-4 in one row of the same shop front, plus a close-up of the rope in a hand and of
+the awning's front edge.
+
+NOT: no character face, no wool green, no lettering, numerals or shop signs on the awning - 🔴 the
+anchor says the shop front stays blank or carries a single torn pictogram, no stripes or pattern, no
+fourth paper, no cut edge, no drawn line, no scalloped or straight hem, no white ink or paint, no
+cast shadow under the awning, no gradient or soft edge.
+```
+
+### §2.11 PaperLantern — 🔴 앵커가 「정확히 셋」이라 못 박은 물건
+
+```
+PROP SHEET - PaperLantern   (nono-tornpaper · SCENE token: PaperLantern)
+
+The three paper lanterns strung across the alley. One book makes them, three books light them, and
+the anchor's cap is exact: PAPER LANTERNS EXACTLY 3.
+
+🔴 A LANTERN IS PAPER MADE OF PAPER, and that is the joke of this sheet - the collage's own material
+  is the thing the children are folding. FORM: a squat cylinder of TORN1 STONE GREY, taller than it
+  is wide, with a thin TORN2 stick through the top and a loop of cord. Its side is ONE torn piece
+  curled round, so 🔴 THE SEAM WHERE THE TWO EDGES MEET IS VISIBLE AND FIBROUS, and one state turns
+  on that seam being open.
+🔴 LIT, THE LANTERN IS A TORN WHITE PIECE THE SHAPE OF ITS BODY, pasted over the grey - not a glow
+  round it, not rays, not a halo, and no light on the ground beneath. Unlit, it is the grey shape
+  with no white piece at all. Lit and unlit differ by ONE pasted piece and nothing else; draw them at
+  the same size.
+🔴 THE STRING ACROSS THE ALLEY IS ONE THIN TORN2 LINE from roof to roof, and the three hang from it
+  EVENLY SPACED, all the same size. A row with two, or four, is wrong.
+STATES:
+  1 THE MAKING - a table top with a heap of coloured paper, a paste dish, thin sticks and a coil of
+    thread laid out in one layer, 0 overlapping.
+  2 STANDING BUT OPEN - one lantern upright with its seam gaping so the inside is visible as a dark
+    overlap slot.
+  3 COLLAPSED - one lantern sat down flat into a creased lump, the creases as torn edges, 0 drawn
+    fold lines.
+  4 THE STRING, EMPTY - roof to roof with nothing hanging on it, one neighbour's window lit far off.
+  5 THE STRING WITH THREE, two lit and one unlit.
+  6 THE STRING WITH THREE, all lit, seen from below at night with the ground sheet gone deep slate.
+
+PLATE: states 1-3, then 4, 5, 6 at one size so the row can be compared, plus one lantern lit and
+unlit side by side.
+
+NOT: no character face, no wool green, no lettering, numerals or pictograms on a lantern, no fourth
+paper, no cut edge, no drawn line or drawn crease, no glow, halo, ray or pool of light, no white ink
+or paint, no more or fewer than three on the string, no gradient or soft edge.
+```
+
+### §2.12 MistedWindow — 🔴 「찢어 낸 자국」이 그린 선이 되면 매체가 깨진다
+
+```
+PROP SHEET - MistedWindow   (nono-tornpaper · SCENE token: MistedWindow)
+
+The shop window when it mists over, and the marks fingers make in it. Two books use it and the
+anchor already fixes the paste rule; this sheet fixes the marks.
+
+🔴 THE MIST IS A TORN WHITE PIECE LAID OVER THE WINDOW PIECE, covering it FROM THE BOTTOM EDGE
+  UPWARD, its top edge one torn line across the pane. 🔴 WHAT IS BEHIND IT DOES NOT SHOW THROUGH AT
+  ALL - not faintly, not softly. Paper is opaque. Above the torn line the window is its own piece and
+  the alley beyond is visible; below it, nothing.
+🔴 A FINGER MARK IS PAPER MISSING, NOT A DRAWN LINE. It is a narrow strip TORN OUT of the white
+  piece, one finger wide, with fibrous edges on both sides, showing the window piece beneath. 🔴 IF
+  IT READS AS INK, CRAYON OR SCRATCH ON TOP OF THE PAPER, THE MEDIUM IS BROKEN. A mark never closes
+  perfectly and no two are the same size.
+🔴 THREE MARKS WHEN THEY ARE COUNTED (one volume says three), and ONE OF THEM IS A RING. A ring is a
+  torn loop whose ends do not quite meet. When a book says the pane is covered in them it is ONE area
+  of overlapping torn-out shapes, never a tally.
+STATES - all of the same pane at one size:
+  1 CLEAR - the window piece alone, the alley visible through it as spaced houses.
+  2 MISTED - the white piece from the bottom edge up to two thirds, nothing visible below the line.
+  3 THREE SHORT MARKS torn out of the misted part, evenly apart, none a ring.
+  4 THREE MARKS, ONE OF THEM A RING.
+  5 WIPED - a broad band the width of a forearm torn out in one sweep, and 🔴 the three short marks
+    are GONE with it. That loss is the event of one volume, so states 4 and 5 must be the same
+    drawing.
+  6 RE-MISTED - back to state 2 exactly, 0 marks.
+
+PLATE: the six states stacked at one size, plus a close-up of one torn-out mark showing the fibre on
+both edges.
+
+NOT: no character, no wool green, no lettering, numerals or written words in the mist - 🔴 a ring is
+a shape, not a letter, no fourth paper, no cut or scissored edge, no drawn or scratched line of any
+kind, no white ink or paint, nothing showing faintly through the mist, no drip, run or bead on the
+glass, no gradient or soft edge.
+```
+
+### §2.13 · §2.14 눈덩이와 눈 탑 — 🔴 굴리는 것과 쌓는 것
+
+```
+PROP SHEET - Snowball   (nono-tornpaper · SCENE token: Snowball)
+
+Snowballs, and the snowman one of them becomes. Four books roll them.
+
+FORM: a ball of TORN WHITE, ONE piece, its outline torn and slightly lumpy - 🔴 NEVER A COMPASS
+  CIRCLE. Its only interior mark is nothing at all: no seam, no facet, no shading, no drawn line.
+  Against the white floor piece it reads only by its own torn edge and by the darker overlap sliver
+  where it sits on the ground.
+🔴 FOUR SIZES, DRAWN IN ONE ROW AT ONE SCALE beside the same standing child, because one volume grows
+  one and then loses it: a HAND'S ball · a KNEE-HIGH ball · one as tall as the CHILD · one the child
+  cannot see over.
+🔴 ROLLING TAKES THE FLOOR PAPER WITH IT. Behind a rolled ball the white floor piece is TORN AWAY in
+  a band exactly the ball's width, showing stone grey, and the band curves the way the ball went.
+  🔴 The band's width and the ball's width must match - that is how a reader knows it was rolled and
+  not carried.
+🔴 MELTING IS TEARING BACK FROM THE EDGES, never a smaller neat ball: the shape stays roughly round
+  but its edge gets raggeder and the wet ground round it grows as one overlap patch.
+STATES:
+  1 THE FOUR SIZES in a row.
+  2 A HAND'S BALL held, its surface pressed smooth - the torn edge tighter and less ragged than a
+    fresh one. (One volume is about a ball packed hard.)
+  3 BROKEN - the same ball in five separate torn pieces on the floor, 0 motion lines, 0 dust.
+  4 ROLLED - a knee-high ball at the end of a torn-away band, the stone grey showing.
+  5 MELTING - a child-high ball reduced to knee height, ragged, a wide overlap wet patch round it.
+  6 A SNOWMAN - a large ball with a smaller ball set on it, TWO pieces only, 0 arms, 0 face, 0 hat,
+    0 buttons, and 🔴 A WOOL GREEN SCARF round the join. That scarf is the ONLY green on that page
+    and it is not on a child - it is the one place in the series where a child's green thing is worn
+    by something else.
+
+PLATE: the four sizes in a row, then states 2-6.
+
+NOT: no character face (a plain torn silhouette only, for scale), no wool green anywhere except the
+scarf in state 6, no lettering or numerals, no fourth paper, no cut edge, no drawn line, no face,
+arms, buttons, hat or carrot on the snowman, no sparkle or glitter, no white ink or paint, no
+compass-round ball, no gradient or soft edge.
+```
+
+```
+PROP SHEET - SnowTower   (nono-tornpaper · SCENE token: SnowTower)
+
+A tower of stacked snowballs in front of the shop. Two books build it, knock it down and build it
+again - so its HEIGHTS and its WAY OF FALLING are the sheet.
+
+🔴 A TOWER IS STACKED, NOT ROLLED. It is a column of separate balls set one on another, each contact
+  flat, largest at the bottom, and the number of balls IS the height. Every ball is a TORN WHITE
+  piece and 🔴 THE JOINS SHOW as the torn edge of each ball against the next - never smooth the
+  column into one shape.
+🔴 FOUR HEIGHTS AT ONE SCALE beside the same standing child: WAIST (4 balls) · CHEST (6) · A CHILD'S
+  HEIGHT (8) · A HEAD ABOVE A CHILD (9). Neighbouring heights must be plainly different at thumbnail.
+🔴 IT FAILS AT THE WAIST. When it goes, the column SHEARS at about its middle: the lower half stands
+  untouched and the upper four balls go sideways through the air as separate pieces, none of them
+  mirrored, 0 motion lines and 0 puff of snow. The fallen balls then lie scattered on the ground and
+  🔴 THEY STAY THERE INTO THE NEXT DAY'S PAGES - one book still shows yesterday's five lying beside
+  the new tower.
+STATES:
+  1 THE FOUR HEIGHTS in a row beside a child silhouette.
+  2 SHEARED - lower half standing, upper four in the air.
+  3 THE AFTERMATH - five balls scattered on bare ground, the base circle of the tower left as a
+    round pressed mark in the floor piece.
+  4 REBUILT beside the scatter - a new tower at CHEST height with yesterday's five still lying to
+    one side, in the same frame.
+  5 THE PRESSED BASE MARK alone, close, high angle - a round torn depression in the white floor.
+
+PLATE: the four heights in a row, then states 2-5.
+
+NOT: no character face (plain torn silhouettes only), no wool green, no lettering or numerals, no
+fourth paper, no cut edge, no drawn line, no motion line, arc or snow puff, no smoothed column, no
+white ink or paint, no gradient or soft edge.
+```
+
+### §2.15 WallTools — 🔴 33권은 넷이 한 줄에 서야 성립한다
+
+> 작업표는 빗자루·눈삽·양동이·썰매를 따로 흩어 놨는데, **33권은 그 넷을 한 화면에 세우고 「손잡이가 같은
+> 간격으로 서 있다」를 사건으로 쓴다.** 낱개로 그리면 그 줄에서 서로 구별이 안 된다 — 같이 쓰이는 물건은
+> 같이 그려야 갈라진다.
+
+```
+PROP SHEET - WallTools   (nono-tornpaper · SCENE token: WallTools)
+
+The four things that lean against the shop wall: a broom, a snow shovel, a bucket and the sledge.
+Seven books use one or another of them, and one book is about all four standing in a row.
+
+🔴 THEY MUST BE TELLABLE APART AS SILHOUETTES, so their shapes are fixed against one another here:
+  BROOM - a long thin TORN2 handle with a wide flat TORN1 head of bristles, the bristle end torn
+    ragged along its bottom edge. Tallest of the four.
+  SNOW SHOVEL - a shorter TORN2 handle with a broad flat TORN1 blade, the blade a plain quadrilateral
+    with wandering edges and NO ragged bottom. 🔴 Broom and shovel differ by ONE thing at thumbnail:
+    ragged bottom edge against clean bottom edge. Keep that difference.
+  BUCKET - a TORN2 tapering body with a bail handle, standing on the ground, not leaning.
+  SLEDGE - as the Sledge sheet, stood on end against the wall so its two runners show.
+🔴 THE ROW: all four against the wall, their handle tops at EVEN INTERVALS, in the order broom,
+  sledge, shovel, bucket. Draw that row once here and reuse it - one volume compares three pages of
+  it. 🔴 NO SNOW SITS ON ANY OF THEM when they are under the eave, and the strip of ground at the
+  wall's foot is bare stone grey - that dryness is what says these things have a place.
+STATES:
+  1 THE ROW of four, straight on, even intervals, dry strip at the foot.
+  2 THE ROW WITH ONE MISSING - the shovel gone, a plain wall-width gap between sledge and bucket.
+  3 THE BROOM IN USE - held at an angle, its head at the floor, and behind it a broad area of the
+    white floor piece TORN AWAY in a curve, the tear edge showing exactly how far the sweeping got.
+  4 THE SHOVEL IN USE - tipped, a heap of clean TORN WHITE sliding off the blade, and a heap already
+    poured beneath it. 🔴 The snow on a shovel is one piece, not flakes.
+  5 THE SHOVEL AS A WEAPON BY ACCIDENT - the blade's edge touching the side of a snow tower, and one
+    skid mark torn out of the floor beneath the feet.
+  6 THE BUCKET buried - a hand-dug hole in the snow with only the bucket's rim showing, half of it.
+
+PLATE: the row (state 1) large, then 2-6, plus the broom head and shovel blade side by side at one
+size so the ragged/clean edge difference can be checked.
+
+NOT: no character face, no wool green, no lettering or numerals, no fourth paper, no cut or scissored
+edge, no drawn line, no wood grain, no metal shine on a blade, no white ink or paint, no snow on a
+tool that is standing under the eave, no gradient or soft edge.
+```
+
+### §2.16 Icicles — 처마에서 곧 떨어질 것들
+
+```
+PROP SHEET - Icicles   (nono-tornpaper · SCENE token: Icicles)
+
+What hangs off an eave in this winter: icicles, and the lip of roof snow that pushes out past the
+edge. Six books use them and one book waits ten pages for the lip to let go.
+
+🔴 BOTH ARE THE SAME PAPER - TORN WHITE, the snow paper. An icicle is a narrow torn wedge hanging
+  point down; a roof lip is a wide torn piece sitting on the eave and overhanging it. Neither is
+  glassy, neither is transparent, neither has a highlight, and neither is ever a drawn line.
+🔴 ICICLES ARE AT MOST 7 (the anchor's cap) AND EACH IS TORN ON ITS OWN - different lengths, none
+  mirroring its neighbour, hung from ONE eave piece at uneven intervals. A row of seven identical
+  ones is wrong.
+🔴 THE ROOF LIP IS A THREE-STEP CLOCK, drawn as the same eave three times at one size:
+  1 FLUSH - the snow stops at the eave's edge.
+  2 PUSHED OUT - the lower edge of the roof snow hangs a hand's width past the eave, its underside a
+    torn edge with nothing under it.
+  3 GONE - the eave bare, the roof's own piece showing, and a heap of TORN WHITE on the ground
+    below at the exact width of what was overhanging. 🔴 The heap's width must match the gap.
+STATES:
+  4 SEVEN ICICLES on one eave, from below, uneven lengths.
+  5 FIVE, with a scatter of at most 9 small torn drip marks in the snow directly beneath them - the
+    marks are torn holes in the white floor piece, showing grey.
+  6 BROKEN - six thin torn wedges lying on bare stone floor, none upright.
+  7 THIN NEW ICE at a tub's rim - one narrow torn white ring inside the tub's rim, the water piece
+    still showing in the middle.
+
+PLATE: the roof lip's three steps in one row, then states 4-7.
+
+NOT: no character, no wool green, no lettering or numerals, no fourth paper, no cut edge, no drawn
+line, no transparency, glassiness, highlight or sparkle, no white ink or paint, no more than 7
+icicles, no motion line on a falling piece, no gradient or soft edge.
+```
+
+### §2.17 FallingSnow — 🔴 41권은 눈이 「없는 자리」로 말한다
+
+```
+PROP SHEET - FallingSnow   (nono-tornpaper · SCENE token: FallingSnow)
+
+Snow in the air. Four books have it falling and one book uses the place where it ISN'T.
+
+🔴 A FALLING FLAKE IS ONE TINY TORN SPECK OF THE WHITE PAPER, at most 14 in a frame (the anchor's
+  cap), each torn on its own, none mirroring its neighbour, all of them roughly the same size. They
+  do not streak, do not blur, do not have tails, and are never six-pointed crystals.
+🔴 THEY DO NOT GET SMALLER WITH DISTANCE. Depth in this book is spacing, so specks further back sit
+  CLOSER TOGETHER at the same size, and never paler.
+🔴 THE ABSENCE IS THE PICTURE OF ONE VOLUME. Where a big body stands in the wind, the air BEHIND it
+  carries ZERO specks and the bare ground sheet shows there - a clean lane the width of three
+  children, its edges defined only by where the specks stop. 🔴 That lane must be drawn here, because
+  a page cannot invent "no snow" convincingly on its own.
+STATES - all at one size in the same alley frame:
+  1 LIGHT - 9 specks, evenly spread.
+  2 HEAVY - 14 specks, spread to the frame edges, spaced closer at the back.
+  3 THE LANE - 14 specks in front of and beside a large plain torn silhouette, and 0 specks in the
+    lane behind it. The lane edge is a clean boundary, not a fade.
+  4 SETTLED ON SHOULDERS - a row of small torn white pieces along the tops of three plain
+    silhouettes' shoulders and heads.
+  5 NOTHING SETTLED - the same three silhouettes at the same size with 0 white pieces on them. 🔴
+    States 4 and 5 are the two halves of one volume's ending; draw them as one pair.
+  6 THROUGH A DOOR GAP - a door half open, the alley visible as a bright rectangle in the dark
+    interior, with 12 specks inside that rectangle only.
+
+PLATE: the six states, plus one speck drawn large enough to show its torn edge.
+
+NOT: no character face (plain torn silhouettes only), no wool green, no lettering or numerals, no
+fourth paper, no cut edge, no drawn line, no crystal, star or six-point flake shape, no streak, tail,
+blur or motion line, no white ink or paint, no more than 14 specks, no fading with distance, no
+gradient or soft edge.
+```
+
+### §2.18 · §2.19 물통과 대야 — 🔴 이름이 비슷해 합쳐질 자리
+
+```
+PROP SHEET - WaterTub   (nono-tornpaper · SCENE token: WaterTub)
+
+The wooden water tub that stands outside the shop door. Four books wash at it standing up.
+
+🔴 IT IS NOT THE BATH. It comes up to a child's chest, it stands on stone in the open air with the
+  awning above it, and nobody ever gets into it. FORM: TORN2 WOOD BROWN, staves as at most 6 vertical
+  torn strips and 2 hoop strips, a broad flat rim. Beside it: a block of soap and a towel over the
+  rim, and cups standing on the rim.
+🔴 THE WATER IS ONE FLAT PIECE OF THE DARKER OVERLAP, level, hard-edged, 0 ripple, 0 reflection.
+  Dirty water is NOT another colour - it is one more overlap piece laid on top, growing outward from
+  where the hands are with a hard edge against the cleaner water.
+🔴 THE ICE STATE (one volume): a skin of ice on the water is a TORN WHITE ring starting at the rim
+  and growing inward, the dark water piece still showing in the middle. When the ice has been lifted
+  out, the water is bare again and the lifted piece lies on the stone beside the tub in six thin torn
+  fragments.
+STATES:
+  1 FULL AND CLEAR, three cups standing on the rim, one steam column above.
+  2 HANDS IN - two hands in the water, an overlap cloud round them, cleaner water beyond.
+  3 RINSING - three narrow overlap threads running off fingertips into the tub, a towel on the rim.
+  4 A HANDFUL OF SNOW on the rim beside a cup - one small torn white lump - and the same rim again
+    with that lump half its size. 🔴 The pair is a page of one volume.
+  5 ICE SKIN, from above - white ring at the rim, dark middle.
+  6 ICE LIFTED OUT - six thin torn fragments on the stone, the tub's water bare.
+
+PLATE: the six states, plus a close-up of the clean/dirty edge inside the tub.
+
+NOT: no character face, no wool green, no lettering or numerals, no fourth paper, no cut edge, no
+drawn line, no ripple, gleam or reflection on the water, no white ink or paint for foam, no gradient
+or soft edge.
+```
+
+```
+PROP SHEET - BathTub   (nono-tornpaper · SCENE token: BathTub)
+
+The big wooden tub in the shop's back room, the one a child gets into. One book, six of its ten
+pages.
+
+🔴 IT IS NOT THE DOOR TUB. It sits on the floor indoors, it is wide enough for a child to sit down
+  in, and its rim comes to a standing child's waist. Draw it once beside the WaterTub at one size on
+  this sheet so the two can never be confused.
+FORM: TORN2 WOOD BROWN, staves as at most 8 vertical torn strips, 2 hoop strips, a broad rim. On the
+  wall behind it, ONE nail - a small torn2 peg - and nothing else.
+🔴 THE FOAM IS TORN WHITE, PILED - one large torn piece heaped above the rim with a lumpy top edge,
+  never outlined, never white paint, and 🔴 with 0 bubbles drawn in it. Its height is the volume's
+  meter: draw it at RIM level, SHOULDER level, and OVER THE TOP.
+🔴 WATER PUSHED OVER THE RIM is one flat overlap tongue running down the outside of the tub and onto
+  the floor, hard-edged, 0 droplets.
+🔴 THE NAIL IS A STORY BEAT. A small WOOL GREEN bell hangs on it in one page and the nail is bare in
+  another. That is the third time in the series a child's green thing leaves the child (with volumes
+  12 and 25), and it must be drawable both ways - draw the nail with the bell and without, at one
+  size.
+STATES:
+  1 EMPTY, side on, the back-room doorway beside it.
+  2 FULL, foam at rim level, one steam column.
+  3 FOAM AT SHOULDER LEVEL with a small head just clear of it.
+  4 FOAM OVER THE TOP, high angle, with a small wooden duck pushed to one side by the overflow, and
+    the overflow tongue on the floor.
+  5 THE NAIL, close - with the green bell hanging, and again bare.
+  6 AFTER - the tub with foam collapsed to a thin torn strip in the bottom, the room's steam gone.
+
+PLATE: the two tubs side by side at one size FIRST, then states 1-6, plus the foam's three heights
+in a row.
+
+NOT: no character face, 🔴 no wool green anywhere except the bell on the nail in state 5, no lettering
+or numerals, no fourth paper, no cut edge, no drawn line, no bubbles drawn in the foam, no droplets,
+no white ink or paint, no reflection in the water, no gradient or soft edge.
+```
+
+### §2.20 DryGrass — 04권은 틈이 채워지는 만큼이 진도다
+
+```
+PROP SHEET - DryGrass   (nono-tornpaper · SCENE token: DryGrass)
+
+The dry grass of Nono's home under the eave: a bundle of it, the wall crack it is pushed into, and
+the bedding it is spread as. Four books use it and one book is ten pages of stopping a draught.
+
+FORM: TORN2 WOOD BROWN, paler in feel than a plank because it is loose - a bundle is ONE torn piece
+  with at most 9 stalk tips breaking its outline along the top, never a mass of separate drawn
+  stalks. Loose stalks in the air are at most 5, each its own tiny torn sliver.
+🔴 THE CRACK IN THE WALL IS THE OVERLAP - two wall pieces pasted so a dark slot shows between them,
+  running up the wall, fibrous on both sides. It is never a drawn line and never black paint.
+🔴 THE CRACK FILLS FROM THE BOTTOM AND THAT IS THE CLOCK. Draw the same wall four times at one size:
+  1 OPEN top to bottom - the dark slot full height.
+  2 LOWER HALF PACKED - grass pressed into the bottom half, the top half still dark slot.
+  3 STILL THE TOP HALF, unchanged from 2, with a fresh bundle lying untouched on the doorstep - 🔴
+    the picture of a day when nothing got done.
+  4 CLOSED - 0 slot anywhere, the wall one even surface, and a scatter of grass crumbs at its foot.
+🔴 A DRAUGHT SHOWS ONLY BY WHAT IT MOVES: loose stalks and a blanket edge leaning INTO the room, all
+  the same way. There are no wind lines, no arrows and no swirls anywhere in this book.
+STATES:
+  5 A BUNDLE lying on a doorstep, tied once.
+  6 BEDDING - the same grass spread flat as a low mound, its top edge ragged, a body-sized dip in it.
+  7 UNDER AN EAVE - a few stalks caught in the roof edge, all leaning one way.
+
+PLATE: the wall's four steps in one row at one size, then states 5-7.
+
+NOT: no character, no wool green, no lettering or numerals, no fourth paper, no cut edge, no drawn
+line, no individually drawn stalks beyond the 9 tips, no wind line, arrow or swirl, no white ink or
+paint, no cast shadow, no gradient or soft edge.
+```
+
+### §2.24 Mittens — 🔴 앵커와 정면으로 부딪히는 물건
+
+> 앵커: `A HAND IS A TORN SHAPE WITH THREE SEPARATE FINGERS. A rounded fingerless mitten reads as a
+> wing and is wrong on any page where the child is not flying.` **그런데 21권의 소품이 장갑이다.**
+> 이 시트는 그 충돌을 없애는 게 아니라 **가두는** 것이다 — 장갑은 이 시리즈에서 **손에 낀 채로는 거의
+> 안 그린다**. 21권 SCENE 도 이미 그렇게 쓰여 있다(p3 벗겨지는 중 · p4·p5·p7 눈 위에 벗어 놓은 두 짝).
+
+```
+PROP SHEET - Mittens   (nono-tornpaper · SCENE token: Mittens)
+
+A pair of knitted mittens. One book, five of its ten pages - and in four of those five they are OFF.
+
+🔴 THE RULE THAT KEEPS THIS OBJECT FROM BREAKING THE BOOK: a mitten is drawn ON a hand in ONE state
+  only, and in that state it is a mitten WITH A SEPARATE THUMB - a small torn piece standing out from
+  the palm shape - so that it can never be read as a wing. On every other page the mittens are lying
+  on the ground, empty. 🔴 A ROUNDED FINGERLESS SHAPE ON A HAND IS FORBIDDEN, and a mitten is NEVER
+  on a child on a page where anybody flies or spreads a wing.
+FORM: TORN1 STONE GREY, each mitten ONE torn piece with a separate thumb piece and a plain cuff strip
+  across the wrist. Fibrous edges, 🔴 0 knit texture, 0 stitch marks, 0 pattern, 0 drawn line. The
+  two mittens are the same size and shape but not identical tears.
+🔴 AN EMPTY MITTEN ON SNOW is a grey shape on a white floor piece, so it is the darkest thing in that
+  frame and it reads at thumbnail size. It lies FLAT - it does not hold the shape of a hand.
+STATES:
+  1 THE PAIR ON THE SNOW, side by side, thumbs pointing the same way, seen from above.
+  2 COMING OFF - one mitten half pulled from a hand, the hand's three fingers already clear of it
+    and legible, the mitten limp and hanging.
+  3 ONE OFF, ONE ON - a bare three-fingered hand and a mitten-with-thumb hand at the same size in
+    one frame. 🔴 This is the panel that proves the two shapes are not the same thing.
+  4 THE PAIR lying apart from each other in the snow, one further away, both flat.
+  5 PICKED UP - both held in one bare hand, hanging.
+
+PLATE: the five states, plus one mitten drawn large showing the separate thumb and the cuff.
+
+NOT: no character face, no wool green - 🔴 the mittens are grey, not green; the green belongs only to
+the one small thing each child carries, no lettering or numerals, no fourth paper, no cut edge, no
+drawn line, no knit, cable or stitch texture, no pattern, no white ink or paint, 🔴 no rounded
+fingerless mitten on any hand, no mitten on any page with a wing, no gradient or soft edge.
+```
+
+### §2.25 PastedShadow — 🔴 앵커의 `no cast shadow` 와 부딪힌다
+
+> 앵커 NOT 에 `no cast shadow` 가 있는데 **19권 p2 는 「난로 불빛에 손 그림자가 벽에 크게 진다」**이고
+> 20권 p7 은 「오두막 그림자가 눈 위로 길게 눕는다」이다. 긴 겨울밤의 손 그림자 놀이는 그 권의 놀이 자체라
+> 금지하면 쪽이 없어진다. **금지를 뒤집지 않고 매체로 바꿔 놓는다** — 이 시리즈에서 어둠은
+> **겹쳐 붙인 자리** 하나뿐이므로, 그림자는 드리우는 게 아니라 **한 조각 더 붙이는 것**이다.
+> 🔴 이 판정은 앵커에 한 줄로 반영해야 한다(아래 신고).
+
+```
+PROP SHEET - PastedShadow   (nono-tornpaper · SCENE token: PastedShadow)
+
+The shadow a hand throws on a wall by firelight, and the shadow a hut lays on the snow. Two books
+need one, and the anchor forbids cast shadows - so this sheet defines the only kind that exists here.
+
+🔴 A SHADOW IS ONE MORE PIECE OF PAPER PASTED ON, NOT A DARKENING. It is a piece of the OVERLAP DEEP
+  SLATE laid flat on the wall or on the floor, with its own fibrous torn edge, 0 interior detail, 0
+  softness and 0 fade. It is the same trick as an ice reflection in this book: another piece, not an
+  optical event.
+🔴 IT DOES NOT MATCH THE THING THAT MADE IT. A hand's shadow on a wall is BIGGER than the hand and a
+  little wrong in shape - that mismatch is the whole pleasure of the game, and it is also how paper
+  behaves. Never trace the hand.
+🔴 IT NEVER FALLS ON A FACE, ON A BODY OR ON ANOTHER CHILD, and there is never more than ONE shadow
+  in a frame. A room lit by a stove does not get shadows under the furniture.
+STATES:
+  1 A HAND SHAPE ON A WALL - the hand small in the lower corner, the pasted piece large on the wall
+    above it, plainly a different shape than the hand.
+  2 THE SAME WALL WITH NO PIECE ON IT, same size and angle - so the pair reads as the light going out.
+  3 A HUT'S SHADOW ON SNOW - one flat piece laid on the white floor, the same outline as the hut,
+    running away from the low sun and cut by the frame edge, not tapered.
+  4 A ROW OF THREE SMALL SHAPES on a wall, each a separate torn piece, none mirroring its neighbour.
+
+PLATE: the four states, plus states 1 and 2 side by side at one size.
+
+NOT: no character face, no wool green, no lettering or numerals, no fourth paper, no cut edge, no
+drawn line, no soft, faded or graded shadow edge, no shadow on a face, a body or under furniture, no
+second shadow from a second light, no white ink or paint, no gradient or glow.
+```
+
+### §2.21 · §2.26 ~ §2.35 — 요약 명세 (같은 네 절로 쓴다)
+
+> 아래 열두 장은 위와 같은 `FORM / STATES / PLATE / NOT` 형식이고, 시트마다 **매체 판정 한 줄**을 반드시
+> 첫 줄에 둔다(「종이 넉 장 중 어느 것인가 · 밝은 데는 바탕인가 흰 종이인가」). 장당 700~1,200자.
+
+| § | 토큰 | 매체 판정 한 줄 | 반드시 들어갈 상태 |
+|---|---|---|---|
+| 2.3 | `Chair` | 난로 앞 나무 의자 **하나** = TORN2 · 등받이 있고 팔걸이 없다 · 🔴 **셋이 앞뒤로 붙어 앉을 수 있는 폭** | 빈 의자 / 하나 앉음 / 둘이 붙어 앉음 / 셋이 붙어 앉아 어깨 사이에 겹친 자리가 없음(05 착지) / 옆으로 넘어진 |
+| 2.21 | `Steps` | 돌계단 세 칸 = TORN1 · 🔴 **눈이 녹아 드러난 젖은 돌은 흰 종이를 찢어 낸 자리**이고 골목의 흰 바닥과 하나의 찢긴 가장자리로 만난다 | 셋 다 눈에 덮임 / 셋 다 드러남(볕) / 한 칸이 통째로 차서 앉을 데 없음 / **빈 칸 두 자리**(14 착지) / 옆의 눈 둔덕 |
+| 2.26 | `FrostStreak` | 언 웅덩이는 벽에서 벽까지 이어진 TORN1 한 장 · 🔴 **밀린 자국은 그 위에 붙인 흰 조각**(그린 선 아님) | 자국 0(매끈) / 손바닥만큼 짧은 하나 / 얼음판을 가로지르는 긴 하나 / **짧은 것과 긴 것이 나란히**(길이가 그 권의 점수) / 다섯 줄 |
+| 2.27 | `CartTracks` | 큰길의 바퀴 자국 두 줄 = **흰 바닥을 뜯어낸 두 줄**, 사이 간격이 수레 폭 · 눈 수레는 TORN2 이고 언제나 화면 밖으로 반쯤 나가 있다 | 자국 두 줄만(길 비었음) / 수레가 지나가는 중(뒷부분만) / 자국 앞에 선 발 / 자국을 넘어간 발자국 |
+| 2.28 | `Marbles` | 구슬 = 작은 TORN1 조각 · 🔴 **컴퍼스 원이 아니다**(찢어서 만든 둥근 것) · 젖은 돌 위 지나간 자국은 **가는 흰 줄** | 손바닥 위 하나 / 굴러 담 쪽으로 비스듬히 / 자국 여러 줄 / 셋이 나란히 굴러 자국 세 줄(착지) |
+| 2.29 | `Cap` | 모자 = TORN1 한 조각(챙 없음) · 처마 위에 얹히면 **지붕 눈 흰 조각 위의 회색 하나**라 작아도 읽힌다 · 막대는 TORN2 | 공중에 뜬 / 처마 위에 얹힌 / 막대 끝이 **못 닿은 한 뼘** / 빈 처마(내려온 뒤) |
+| 2.30 | `PuppetStage` | 무대 천 = TORN1 한 장 · 손인형 둘 = TORN2 · 🔴 **천에는 글자도 그림도 없다**(앵커: blank or a single torn pictogram) | 인형 둘이 마주 봄 / 천만 늘어지고 인형 0 / 어른 등에 가려 천 귀퉁이만 / 앞이 뚫려 무대가 다 보임 |
+| 2.31 | `DriedBerries` | 말린 열매 = 작은 TORN2 조각들 · 🔴 **몫은 개수로만 말한다**(더미 크기 아님) | 상자 안에 그득 / 한 줌 / **두 몫이 나란히**(같은 개수) / 접시에 담긴 셋째 몫 / 두 몫이 한 알씩 줄어든 착지 |
+| 2.32 | `SledgeRope` | 줄 = TORN2 가는 띠 하나 · 🔴 **기존 §2.2 가 줄을 「앞에 달린 줄」 한 줄로만 정해 50권이 못 선다** | 길게 늘어져 화면 가로를 다 지남 / 팽팽함 / 눈 위에 놓쳐 늘어짐 / **세 바퀴 감김** / 짧게 감겨 썰매가 발뒤꿈치에 붙음(50 착지) |
+| 2.33 | `Brazier` | 화로 = OVERLAP 몸통 · 🔴 **불빛과 김은 TORN WHITE**(§2.7 규칙) · 밤 한 톨은 TORN2 작은 조각 | 김이 곧게 오르는 화로 / 바닥에 굴러온 밤 한 톨 / 껍질 조각 하나 / 장터 천막 아래 놓인 |
+| 2.34 | `Cup` | 나무 컵 = TORN2 · 🔴 **컵 위 김의 굵기는 §2.7 사다리를 따른다** | 턱에 나란히 셋 / 하나만 남음 / 짧은 김이 오르는 / 둘이 나란히 김 두 줄 |
+| 2.35 | `Towel` | 수건 = TORN1 한 장 · 🔴 물통 테에 **걸치면 한 번만 접힌다**(주름 그리지 않는다) | 테에 걸린 / 펼쳐 받는 / 몸을 감싼 / 마른 채 손에 든 |
+
+---
+
+### §2.36 검수 — 사물 시트의 여섯
+
+1. 시트 어디에도 **가위로 자른 가장자리·자로 그은 직선·그린 선**이 없는가. 🔴 특히 §2.12(창의 자국)과
+   §2.26(서리 자국) — 이 둘이 그린 선이 되면 이 시리즈가 통째로 다른 매체가 된다.
+2. **흰 물감이 0인가.** 눈·김·불빛·거품·고드름·등불이 전부 **찢어 붙인 흰 종이**여야 한다(§2.7 · §2.11 ·
+   §2.16 · §2.17 · §2.19).
+3. **초록이 0인가.** 예외는 셋뿐 — 12권(없어짐) · 25권 p10(눈사람 목) · 30권(못에 걸린 방울, §2.19).
+   🔴 30권은 앵커에 아직 안 적혀 있다(아래 신고).
+4. 앵커 상한을 넘지 않는가 — 눈 조각 14(§2.17) · 부스러기 9(§2.9) · 고드름 7(§2.16) · 등불 정확히 3
+   (§2.11) · 새 11(§2.22).
+5. **깊이가 어둡기가 아니라 간격인가**(§0 ①). 멀리 있는 눈 조각·집·사람이 흐려지거나 작아지면 안 된다.
+6. 시트에 **글자·숫자가 0개**인가. 🔴 특히 §2.30(무대 천)과 §2.10(천막) — 간판을 넣기 제일 쉬운 두 자리다.
+
 ## §3. 🔴 미결 — 「골목」 2갈래 · 「창가」 3갈래
 
 > 🔴 **이 §3 은 판정 근거만 적는다. 이름→토큰 변환의 SSOT 는 `_stage-tokens.json` 이다.**
