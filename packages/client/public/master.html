@@ -115,6 +115,60 @@ textarea{width:100%;min-height:72px;resize:vertical;padding:10px 12px;border:1px
 textarea:focus{outline:2px solid var(--am);outline-offset:1px}
 textarea.dirty{border-color:var(--am)}
 .st{font-size:.78rem;color:var(--faint);margin-left:auto}.st.ok{color:var(--gr)}.st.err{color:var(--co)}
+
+/* ── 정체성: 핵심 다섯 (cr) ── */
+.cr .body{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start}
+.cr.flip .body{grid-template-columns:1fr 1.15fr}.cr.flip .cr-txt{order:2}
+@media(max-width:900px){.cr .body,.cr.flip .body{grid-template-columns:1fr}.cr.flip .cr-txt{order:0}}
+.cr .sh h2{display:flex;align-items:center;gap:10px}
+.cr-n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--co);color:#fff;font-size:1.05rem;font-weight:800;flex:none;box-shadow:0 6px 14px -6px rgba(228,87,46,.6)}
+.cr-role{display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--co);margin-bottom:6px}
+.cr-txt p.lead{font-size:1.06rem;line-height:1.6;margin:0 0 10px}
+.cr-txt p.lead b{background:linear-gradient(transparent 62%,var(--cow) 62%)}
+.cr-go{margin-top:10px;font-size:.86rem}.cr-go a{color:var(--co);font-weight:700;text-decoration:none;border-bottom:1px dashed var(--co)}
+.cr-vis{position:relative;border-radius:16px;background:var(--sunk);padding:12px;overflow:hidden}
+.cr-hero{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#fff;border:1px solid var(--line)}
+.cr-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.cr-hero .cap{position:absolute;left:10px;bottom:10px;display:flex;gap:6px;flex-wrap:wrap}
+.cr-hero .cap i{font-style:normal;font-size:.74rem;padding:3px 10px;border-radius:999px;background:rgba(31,27,24,.82);color:#fff;backdrop-filter:blur(4px)}
+.cr-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.cr-strip figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.cr-strip img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.cr-strip figcaption{font-size:.72rem;color:var(--mut);padding:5px 8px;text-align:center}
+.cr-tag{position:absolute;top:18px;right:18px;z-index:2;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--ink);color:var(--bg);box-shadow:0 8px 18px -10px rgba(0,0,0,.6)}
+.cr-shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cr-shelf img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:9px;border:2px solid #fff;box-shadow:0 8px 18px -10px rgba(0,0,0,.45);background:#fff}
+.cr-shelf.fallback{display:block}.cr-shelf.fallback img{aspect-ratio:auto}
+.cr-cap{margin:8px 2px 0;font-size:.74rem;color:var(--faint)}
+.cr-vis .icons{margin:8px 0 0;justify-content:center;gap:4px}.cr-vis .icons .i{width:52px;font-size:.68rem}.cr-vis .icons .i img{width:34px;height:34px}
+.cr-seam{display:grid;grid-template-columns:1fr auto 1fr;gap:8px 6px;align-items:center}
+.cr-seam .l,.cr-seam .r{font-size:.82rem;padding:8px 10px;border-radius:10px;background:#fff;border:1px solid var(--line);line-height:1.35}
+.cr-seam .l{border-left:4px solid var(--co)}.cr-seam .r{border-left:4px solid var(--gr)}
+.cr-seam .l small,.cr-seam .r small{display:block;font-size:.68rem;color:var(--faint);letter-spacing:.06em}
+.cr-seam .w{width:34px;height:2px;background:linear-gradient(90deg,var(--co),var(--gr));position:relative}
+.cr-seam .w::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left-color:var(--gr)}
+.cr-reveal{margin-top:10px;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px}
+.cr-reveal img.sc{width:132px;aspect-ratio:16/10;object-fit:cover;border-radius:8px}
+.cr-reveal img.ho{width:44px;height:44px;object-fit:contain}
+.cr-reveal div{font-size:.8rem;line-height:1.4;color:var(--mut)}.cr-reveal div b{display:block;color:var(--ink);font-size:.9rem}
+.cr-home{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+.cr-home h4{margin:0 0 8px;font-size:.92rem;display:flex;align-items:center;gap:8px}
+.cr-home h4 span{font-size:.68rem;font-weight:600;color:var(--faint);letter-spacing:.06em;margin-left:auto}
+.cr-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cr-row figure{margin:0}.cr-row img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#fff}
+.cr-row figcaption{margin-top:4px;font-size:.7rem;color:var(--co);font-weight:700}
+.cr-report{margin-top:10px;display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}
+.cr-report img{width:96px;height:72px;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--line)}
+.cr-report b{display:block;font-size:.9rem}.cr-report span{font-size:.8rem;color:var(--mut);line-height:1.4}
+.cr-pairs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px 6px;align-items:center}
+.cr-pairs .h{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:700;padding:0 4px}
+.cr-pairs .h i{width:34px}
+.cr-pairs figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.cr-pairs img,.cr-pairs svg{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#fff}
+.cr-pairs figcaption{font-size:.72rem;color:var(--mut);padding:4px 8px;text-align:center}
+.cr-pairs .lk{width:34px;text-align:center;color:var(--am);font-weight:800;font-size:1.1rem}
+.cr-pairs .cr-ws{aspect-ratio:4/3;margin:0;transform:none;padding:10px 10px 8px;border-radius:0;box-shadow:none;overflow:hidden}
+.cr-pairs .cr-ws .mx-wsgrid{margin-top:4px}
 </style>
 
 <div class="app">
@@ -151,7 +205,7 @@ textarea.dirty{border-color:var(--am)}
       <span class="c ok">글자</span><span class="a">→</span><span class="c ok">낱말</span><span class="a">→</span>
       <span class="c">문장</span><span class="a">→</span><span class="c ok">이야기</span><span class="a">→</span><span class="c">혼자 읽기</span>
     </div>
-    <p><b>우리의 핵심 다섯</b> — ① <b>검증된 파닉스</b>(플레이탱고 콘텐츠를 그대로 디지털로) ② <b>AI 로 만들고 사람이 검수한 동화책</b> ③ <b>파닉스↔동화책 연결</b>(배운 낱말이 곧 읽을 책) ④ <b>맞춤형 추천</b> ⑤ <b>아날로그·디지털이 이어지는 독후활동</b>. 정체성 탭에서 전체를, 그 다음 탭 다섯이 하나씩.</p>
+    <p><b>우리의 핵심 다섯</b> — ① <b>검증된 파닉스</b>(플레이탱고 자체 상품 한글·영어를 그대로 디지털로, 한글은 교원 ODM 에도) ② <b>AI 로 만들고 사람이 검수한 동화책</b> ③ <b>파닉스↔동화책 연결</b>(배운 낱말이 곧 읽을 책) ④ <b>맞춤형 추천</b> ⑤ <b>아날로그·디지털이 이어지는 독후활동</b>. 정체성 탭에서 전체를, 그 다음 탭 다섯이 하나씩.</p>
   </div>
 </section>
 
@@ -188,16 +242,10 @@ textarea.dirty{border-color:var(--am)}
   <div class="sh"><h2>문장</h2><span class="tag t-fix">확정</span></div>
   <div class="body">
     <p class="big">우리 아이 첫 글자부터 혼자 읽기까지</p>
-    <p><b>정식 문장</b>: 글자를 모르는 아이를 혼자 읽는 아이로 만든다.</p>
+    <p><b>정식 문장</b>: 글자를 모르는 아이를 혼자 읽는 아이로 만든다. 그걸 되게 하는 <b>핵심이 다섯</b>이고, 아래에 순서대로 하나씩 — ①②는 재료, ③은 재료를 잇는 설계, ④는 그 설계의 결과, ⑤는 그 결과로 노는 법. 순서가 곧 이야기다.</p>
     <table>
       <tr><th>메인 타겟</th><td><b>4~7세 미취학 아이</b>. 콘텐츠 대부분이 여기. (초등 저학년은 ② 동화책 탭의 학습만화 절)</td></tr>
-      <tr><th>핵심 ①</th><td><b>시장에서 이미 검증된 플레이탱고 콘텐츠를 그대로 디지털로 옮긴 한글·영어 파닉스</b> — 새로 지은 커리큘럼이 아니라 실물로 팔리고 대기업 커리큘럼에 들어갔던 것. (근거는 「비교」 탭·이력 탭)</td></tr>
-      <tr><th>핵심 ②</th><td><b>AI 로 만들고 전문 동화책 편집자가 검수한 양질의 동화책</b> — 기술자 자리만 AI, 편집자 자리는 사람. 그래서 많으면서도 「AI 양산」이 아니다.</td></tr>
-      <tr><th>핵심 ③</th><td><b>파닉스 ↔ 동화책이 이어지도록 촘촘한 설계</b> — 파닉스에서 배운 <b>학습 낱말</b>이 곧 동화책의 낱말이다. 글자를 익히면 읽을 책이 기다린다.</td></tr>
-      <tr><th>핵심 ④</th><td><b>맞춤형 동화책 추천</b> — 아이의 그림체·캐릭터·배경 취향과 방금 익힌 낱말에 맞춰. 그러려면 동화책이 아주 다양해야 하고, ②가 그걸 가능하게 한다.</td></tr>
-      <tr><th>핵심 ⑤</th><td><b>아날로그·디지털이 이어지는 다양한 독후활동</b> — 화면 안 게임과 손으로 하는 것(탱고 보드·색칠·워크지)이 같은 낱말·같은 책으로 묶인다.</td></tr>
     </table>
-    <p style="color:var(--mut);font-size:.9rem">①②는 재료, ③은 재료를 잇는 설계, ④는 그 설계의 결과, ⑤는 그 결과로 노는 법 — 순서가 곧 이야기다. 다음 탭 다섯이 이 순서대로 하나씩이다.</p>
     <table>
       <tr><th>어디</th><th>문장</th></tr>
       <tr><td>내부 기준</td><td>글자를 모르는 아이를 혼자 읽는 아이로 만든다. 자기 말로, 그리고 영어로.</td></tr>
@@ -205,6 +253,108 @@ textarea.dirty{border-color:var(--am)}
       <tr><td>팀원·투자자</td><td>글자부터 책까지 전 과정을 우리가 직접 만든다. 그래서 이어진다.</td></tr>
     </table>
     <p style="color:var(--mut);font-size:.9rem">문장에 언어가 없다 — 「첫 글자부터 혼자 읽기까지」는 어느 나라 말에도 그대로 붙는다. 지금은 <b>한글</b>이 먼저고(아이가 배우는 순서가 자국어 → 영어), 영어 정체성은 한글을 확실히 뗀 뒤 따로 잡는다.</p>
+  </div>
+</section>
+
+<section data-id="id-core1" class="cr">
+  <div class="sh"><h2><span class="cr-n">①</span>시장에서 검증된 파닉스</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="cr-txt">
+      <span class="cr-role">재료 하나 · 첫 글자</span>
+      <p class="lead"><b>플레이탱고 자체 상품이던 한글·영어 파닉스를 그대로 디지털로 옮겼다.</b> 새로 지은 커리큘럼이 아니라 실물 교구로 팔린 것이고, 한글은 <b>교원 ODM 에도</b> 들어갔다. 순서·단원·낱말이 시장에서 이미 검증됐다는 뜻이라, 첫 글자를 맡는 층에서 우리가 새로 실험할 것은 없다.</p>
+      <p>단원마다 글자 → 소리 → 음절 → 낱말을 익히고, 그 글자로 된 <b>나무 동화 한 권</b>이 붙는다. 콘텐츠는 그 언어 그대로, 지시·칭찬은 아이 말로 — 그래서 외국 아이도 같은 화면으로 한글을 배운다.</p>
+      <p class="cr-go">자세히 → <a href="#core1" data-go="core1">① 파닉스 탭</a></p>
+    </div>
+    <div class="cr-vis">
+      <span class="cr-tag">플레이탱고 → 탱고북 · 한글은 교원 ODM 에도</span>
+      <div class="cr-hero"><img src="/landing/hangul/letters.webp" alt=""><div class="cap"><i>한글</i><i>영어</i><i>단원마다 나무 동화</i></div></div>
+      <div class="cr-strip">
+        <figure><img src="/landing/hangul/cycle-learn.webp" alt=""><figcaption>익히기 — 음절 만들기</figcaption></figure>
+        <figure><img src="/landing/hangul/tracing.webp" alt=""><figcaption>글자 쓰기</figcaption></figure>
+        <figure><img src="/landing/hangul/cycle-play.webp" alt=""><figcaption>낱말 놀이</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-id="id-core2" class="cr flip">
+  <div class="sh"><h2><span class="cr-n">②</span>AI 로 만들고 사람이 검수한 동화책</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="cr-txt">
+      <span class="cr-role">재료 둘 · 읽을 책</span>
+      <p class="lead"><b>기술자(글·그림) 자리만 AI 로 바꿨고 편집자 자리는 사람이 계속 한다.</b> 그래서 많으면서도 「AI 양산」이 아니다 — 다 맡기는 양산을 안 한다는 뜻이다. 한 사람이 검수까지 하며 월 수백 권이 가능해졌고, 그게 ④(취향 추천)가 성립하는 전제다.</p>
+      <p>출처로는 다섯(세계 명작 · 전래 · 창작 · 생활 · 자연 관찰)이지만 진짜 축은 <b>태그</b>다 — 한 권이 여러 칸에 놓이고, 라인마다 한 목소리(그림체·캐스트)가 있어 아이가 「이 그림체가 좋다」를 가질 수 있다. 초등 저학년은 학습만화가 잇는다.</p>
+      <p class="cr-go">자세히 → <a href="#core2" data-go="core2">② 동화책 탭</a></p>
+    </div>
+    <div class="cr-vis">
+      <div class="cr-shelf" id="cr-shelf"></div>
+      <p class="cr-cap">라이브 표지 — 라인마다 한 권 · 출처 다섯, 축은 태그</p>
+      <div class="icons">
+        <div class="i"><img src="/icons/category/nature.webp" alt="">자연</div>
+        <div class="i"><img src="/icons/category/daily.webp" alt="">생활</div>
+        <div class="i"><img src="/icons/category/adventure.webp" alt="">모험</div>
+        <div class="i"><img src="/icons/category/family.webp" alt="">가족</div>
+        <div class="i"><img src="/icons/category/friend.webp" alt="">친구</div>
+        <div class="i"><img src="/icons/category/emotion.webp" alt="">감정</div>
+        <div class="i"><img src="/icons/category/animal.webp" alt="">동물</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-id="id-core3" class="cr">
+  <div class="sh"><h2><span class="cr-n">③</span>파닉스와 동화책이 이어지는 설계</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="cr-txt">
+      <span class="cr-role">설계 · 재료를 잇는다</span>
+      <p class="lead"><b>파닉스에서 배운 학습 낱말이 곧 동화책의 낱말이다.</b> 세 겹으로 잇는다 — 단원마다 그 글자로 된 나무 동화 · 학습 낱말이 다른 동화책 본문에 실제로 나오도록 낱말을 고르고 책을 쓴다(뜻으로 매칭) · 파닉스와 동화책이 같은 낱말 카드를 쓴다.</p>
+      <p>게임에서 낱말을 맞히면 <b>그 낱말이 나오는 동화책 한 쪽</b>이 뜬다 — 파닉스에서 책으로 넘어가는 문. 🔴 「연결」은 목표가 아니라 <b>수단</b>이다. 전 과정을 우리가 직접 만들어서 따라오는 성질이고, 그래서 남의 책을 사서 붙이는 곳은 못 따라 한다.</p>
+      <p class="cr-go">자세히 → <a href="#core3" data-go="core3">③ 연결 탭</a></p>
+    </div>
+    <div class="cr-vis">
+      <div class="cr-seam">
+        <div class="l"><small>파닉스</small>단원 하나 · 글자 하나</div><div class="w"></div><div class="r"><small>동화책</small>그 글자로 된 나무 동화</div>
+        <div class="l"><small>파닉스</small>학습 낱말</div><div class="w"></div><div class="r"><small>동화책</small>다른 책 본문에 그 낱말 (뜻으로)</div>
+        <div class="l"><small>파닉스</small>낱말 카드</div><div class="w"></div><div class="r"><small>동화책</small>같은 카드 — 책 뒤 게임 · 색칠</div>
+      </div>
+      <div class="cr-reveal"><img class="sc" src="/landing/hangul/cycle-reveal.webp" alt=""><img class="ho" src="/mascot/hori/pointing.webp" alt=""><div><b>낱말을 맞히면 그 쪽이 뜬다</b>삽화 · 문장 · 나레이션 — 파닉스에서 책으로 넘어가는 문</div></div>
+    </div>
+  </div>
+</section>
+
+<section data-id="id-core4" class="cr flip">
+  <div class="sh"><h2><span class="cr-n">④</span>맞춤형 동화책 추천</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="cr-txt">
+      <span class="cr-role">결과 · 아이가 고른 책</span>
+      <p class="lead"><b>「수준」이 아니라 「취향」이 앞이다.</b> 아이의 그림체·캐릭터·배경 취향과 방금 익힌 낱말에 맞춰 다음 책을 앞에 세운다. 재료는 ②의 태그와 ③의 낱말 이음매 — 추천은 따로 만드는 기능이 아니라 그 둘의 출력이다.</p>
+      <p>나타나는 자리는 둘: <b>아이 홈</b>의 「다음에 읽을 책」과 <b>부모 리포트</b>의 「다음에 뭘 읽혀」. 「수준에 맞게」도 추천이 맡는다 — 같은 책의 글밥을 늘리지 않고 다른 레벨의 다른 책을 앞에 세운다.</p>
+      <p class="cr-go">자세히 → <a href="#core4" data-go="core4">④ 추천 탭</a></p>
+    </div>
+    <div class="cr-vis">
+      <div class="cr-home"><h4>📚 다음에 읽을 책 <span>아이 홈</span></h4><div class="cr-row" id="cr-next"></div></div>
+      <div class="cr-report"><img src="/landing/hangul/report-grid.webp" alt=""><div><b>다음에 뭘 읽혀 — 부모 리포트</b><span>이번 주 만난 낱말 · 다시 보면 좋을 낱말이 나오는 책으로 바로 간다</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section data-id="id-core5" class="cr">
+  <div class="sh"><h2><span class="cr-n">⑤</span>아날로그·디지털이 이어지는 독후활동</h2><span class="tag t-fix">확정</span></div>
+  <div class="body">
+    <div class="cr-txt">
+      <span class="cr-role">노는 법 · 화면과 손</span>
+      <p class="lead"><b>화면에서 하는 것과 손으로 하는 것이 같은 낱말·같은 그림으로 묶인다.</b> 낱말 게임(그림 짝 · 블록 · 낱말 그리기 · 따라쓰기)과 이야기 게임(듣고 그림 찾기 · 쪽 순서 · 이 물건 어느 장면)이 책 뒤에 오고, 그중 블록은 탱고보드로 · 낱말 그리기는 색칠 도안으로 · 따라쓰기는 워크지로 손에 잡힌다. 종이엔 늘 앱으로 돌아오는 문이 있다.</p>
+      <p>🔴 유아 시장에서 돈은 손에 잡히는 것에서 난다. 디지털은 유입·브랜딩·맞춤을 맡고, 매출은 여기 연결된 현물에서 — 그래서 순서가 디지털 먼저 → 브랜딩 → 아날로그다.</p>
+      <p class="cr-go">자세히 → <a href="#core5" data-go="core5">⑤ 독후활동 탭</a></p>
+    </div>
+    <div class="cr-vis">
+      <div class="cr-pairs">
+        <div class="h"><span>화면</span><i></i><span style="text-align:right">손</span></div>
+        <figure><svg viewBox="0 0 160 120" aria-label="앱 블록 게임"><rect x="4" y="6" width="152" height="108" rx="10" fill="#2B2623"/><rect x="10" y="12" width="140" height="96" rx="6" fill="#FBF3E6"/><rect x="18" y="30" width="124" height="60" rx="6" fill="#F6EEDC" stroke="#D9C9A6" stroke-width="1.5"/><rect x="34" y="44" width="20" height="32" rx="4" fill="#F09E5C"/><text x="44" y="67" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">ㄱ</text><rect x="60" y="44" width="20" height="32" rx="4" fill="#59B89E"/><text x="70" y="67" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">ㅗ</text><rect x="88" y="44" width="20" height="32" rx="4" fill="#F09E5C" opacity=".45"/><rect x="114" y="44" width="20" height="32" rx="4" fill="#59B89E" opacity=".45"/><text x="80" y="24" text-anchor="middle" font-size="9" fill="#8A7F76">고기 를 만들어요</text><text x="80" y="103" text-anchor="middle" font-size="8" fill="#8A7F76">드래그 · 탭</text></svg><figcaption>블록 게임 — 같은 판·같은 색</figcaption></figure><div class="lk">↔</div><figure><svg viewBox="0 0 160 120" aria-label="탱고보드"><rect x="6" y="18" width="148" height="84" rx="8" fill="#F6EEDC" stroke="#D9C9A6" stroke-width="2"/><rect x="26" y="40" width="22" height="34" rx="4" fill="#F09E5C"/><text x="37" y="64" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">ㄱ</text><rect x="54" y="40" width="22" height="34" rx="4" fill="#59B89E"/><text x="65" y="64" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">ㅗ</text><rect x="86" y="40" width="22" height="34" rx="4" fill="#F09E5C"/><text x="97" y="64" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">ㄱ</text><rect x="114" y="40" width="22" height="34" rx="4" fill="#59B89E"/><text x="125" y="64" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">ㅣ</text></svg><figcaption>탱고보드 실물</figcaption></figure>
+        <figure><svg viewBox="0 0 160 120" aria-label="앱 낱말 그리기"><rect x="4" y="6" width="152" height="108" rx="10" fill="#2B2623"/><rect x="10" y="12" width="140" height="96" rx="6" fill="#FBF3E6"/><path d="M40 78 C40 52 62 40 82 40 C104 40 120 52 120 70 C120 90 100 96 80 96" fill="none" stroke="#E4572E" stroke-width="3" stroke-linecap="round"/><path d="M80 96 C62 96 46 92 40 78" fill="none" stroke="#D9C9A6" stroke-width="2" stroke-dasharray="3 4"/><g font-size="7" fill="#fff" font-weight="700"><circle cx="40" cy="78" r="6" fill="#E4572E"/><text x="40" y="80.5" text-anchor="middle">1</text><circle cx="82" cy="40" r="6" fill="#E4572E"/><text x="82" y="42.5" text-anchor="middle">2</text><circle cx="120" cy="70" r="6" fill="#E4572E"/><text x="120" y="72.5" text-anchor="middle">3</text><circle cx="80" cy="96" r="6" fill="#E4572E"/><text x="80" y="98.5" text-anchor="middle">4</text><circle cx="58" cy="94" r="6" fill="#F6EEDC" stroke="#E4572E" stroke-width="1.5"/><text x="58" y="96.5" text-anchor="middle" fill="#E4572E">5</text></g><text x="80" y="24" text-anchor="middle" font-size="9" fill="#8A7F76">고기 — 점을 이어요</text></svg><figcaption>낱말 그리기 — 점 잇기</figcaption></figure><div class="lk">↔</div><figure><img src="/coloring/kr-h1-u02-고기.png" alt=""><figcaption>색칠 도안</figcaption></figure>
+        <figure><img src="/landing/hangul/tracing.webp" alt=""><figcaption>따라쓰기 — 손가락으로</figcaption></figure><div class="lk">↔</div><figure><div class="mx-paper mx-ws cr-ws"><div class="mx-wsline"><b>ㄱ</b><span>+</span><b>ㅏ</b><span>=</span><b class="mx-ans">가</b></div><div class="mx-wsgrid"><i>가</i><i>거</i><i>고</i><i>구</i><i></i><i></i><i></i><i></i></div><div class="mx-wsgrid"><i>기</i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><figcaption>워크지 A4 — 연필로</figcaption></figure>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -484,7 +634,7 @@ textarea.dirty{border-color:var(--am)}
 <section data-id="ct-phonics">
   <div class="sh"><h2>파닉스 — 글자 층은 이렇게 생겼다</h2><span class="tag t-fix">확정</span></div>
   <div class="body">
-    <p>🔴 <b>새로 지은 커리큘럼이 아니다.</b> 플레이탱고에서 실물 교구로 팔았고 대기업 커리큘럼(교원 ODM)에 들어갔던 것을 <b>그대로 디지털로 옮겼다</b> — 순서·단원·낱말이 시장에서 이미 검증됐다는 뜻이고, 우리가 여기서 새로 실험할 것은 없다. (이력은 「이력·결정」 탭)</p>
+    <p>🔴 <b>새로 지은 커리큘럼이 아니다.</b> 플레이탱고 <b>자체 상품이던 한글·영어 파닉스</b>를 <b>그대로 디지털로 옮겼다</b>(한글은 교원 ODM 에도 들어갔다) — 순서·단원·낱말이 시장에서 이미 검증됐다는 뜻이고, 우리가 여기서 새로 실험할 것은 없다. (이력은 「이력·결정」 탭)</p>
     <p>파닉스는 「글자 → 소리 → 음절 → 낱말」을 <b>단원</b> 단위로 익히는 층이다. 단원 하나가 글자 하나(또는 패턴 하나)를 맡고, 단원마다 <b>그 글자로 된 나무 동화 한 권</b>이 붙어 있어서 배운 글자가 곧바로 이야기가 된다.</p>
     <table>
       <tr><th></th><th>한글</th><th>영어</th></tr>
@@ -1201,15 +1351,30 @@ textarea.dirty{border-color:var(--am)}
     document.getElementById('ct-tree-live').innerHTML = '<p style="color:var(--co)">숫자를 못 불러왔다 — ' + esc(e && e.message) + '. 현황판을 다시 구워라.</p>';
   });
 
+  /* ── 정체성 핵심 ②·④: 라이브 표지 (부채와 같은 fetch 를 공유) ── */
+  (function(){
+    var shelf=document.getElementById('cr-shelf'), next=document.getElementById('cr-next'); if(!shelf&&!next) return;
+    window.__csRows = window.__csRows || fetch('/api/content-status?rows=1',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(j){ return (j.data||j).rows||[]; });
+    var WANT=['세계 명작','전래 동화','생활동화','호리 세상 탐험','공룡 친구들','호리 유치원동화'];
+    window.__csRows.then(function(rows){
+      var picks=[]; WANT.forEach(function(c){ var b=rows.filter(function(r){return r.category===c&&r.coverImage&&r.isPublic;})[0]; if(b) picks.push(b); });
+      if(picks.length<3) throw 0;
+      if(shelf) picks.slice(0,6).forEach(function(b){ var i=document.createElement('img'); i.src=b.coverImage; i.alt=b.title; i.title=b.title; shelf.appendChild(i); });
+      if(next){ var why=['좋아한 그림체','방금 맞힌 낱말이 나와요','들어서 아는 이야기']; picks.slice(0,3).forEach(function(b,k){ var f=document.createElement('figure'); f.innerHTML='<img alt=""><figcaption></figcaption>'; f.querySelector('img').src=b.coverImage; f.querySelector('img').alt=b.title; f.querySelector('figcaption').textContent=why[k]; next.appendChild(f); }); }
+    }).catch(function(){
+      if(shelf){ shelf.className='cr-shelf fallback'; shelf.innerHTML='<img src="/landing/hangul/books-720.webp" alt="">'; }
+      if(next){ next.innerHTML='<figure><img src="/landing/hangul/books-720.webp" alt=""><figcaption>좋아한 그림체 · 방금 맞힌 낱말</figcaption></figure>'; }
+    });
+  })();
   /* ── 이미지판(mapx): 표지 부채 · 보드 격자 · 연결선 ── */
   (function(){
     var fan=document.getElementById('mx-fan'); if(!fan) return;
     // 라이브 표지 — 라인마다 한 권. rows 는 크니 이 섹션만 따로 받는다. 실패하면 구운 표지 그리드로.
     var WANT=['세계 명작','전래 동화','생활동화','공룡 친구들'];
-    fetch('/api/content-status?rows=1',{cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(j){
-        var rows=(j.data||j).rows||[]; var picks=[];
+    window.__csRows = window.__csRows || fetch('/api/content-status?rows=1',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(j){ return (j.data||j).rows||[]; });
+    window.__csRows
+      .then(function(rows){
+        var picks=[];
         WANT.forEach(function(c){ var b=rows.filter(function(r){return r.category===c&&r.coverImage&&r.isPublic})[0]; if(b) picks.push(b); });
         if(picks.length<3) throw 0;
         var n=picks.length, spread=Math.min(56, 300/n);
