@@ -29,7 +29,9 @@ const only = process.argv[2]?.startsWith('--') ? null : process.argv[2];
 const BOTH = process.argv.includes('--both');
 const SPEAK = process.argv.includes('--speak');
 // 말하는 표시 — 입/부리를 벌리거나, 말하는 동사가 인물 칸에 있으면 화자가 그려진 것으로 본다.
-const SAYS = /입|부리|말한|말하|외친|외치|묻는|물어|소곤|속삭|노래|읊|중얼|따라 하|턱이 벌|하품/;
+// 🔴 **「입」이 있다고 말하는 것이 아니다**(2026-09-07, lulu 26~50). 「입이 꾹 다물렸다」·「입꼬리가
+// 올라갔다」·「입이 옆으로 삐죽」은 **말 신호가 아니라 그 반대**다. 그래서 **벌어진 입만** 센다.
+const SAYS = /(?:입|부리|입가|입술)[^.,]{0,12}(?:벌어|벌리|열리|열린|크게 열|헤벌)|말한다|말하는|외친다|외치|묻는다|물어본|소곤|속삭|노래(?:한다|해|를 부)|중얼|읊|턱이 벌/;
 
 const narration = (ko) => ko.replace(/"[^"]*"/g, ' ').replace(/[“][^”]*[”]/g, ' ');
 const personLabel = (html) => (String(html).match(/<b>인물<\/b>([\s\S]*?)(?:<br\s*\/?>\s*<b>|$)/) ?? [])[1] ?? '';
