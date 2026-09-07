@@ -341,9 +341,16 @@ export function buildContentStatus(all: BookLike[]) {
   const graph: Record<string, unknown> = {};
   for (const t of seam.byTrack as TrackAgg[]) {
     const units = seam.units.filter((u) => u.track === t.track);
+    // 🔴 다른 트랙의 파닉스 나무 동화는 잇지 않는다 — ABC 나무의 key_objects 에 한국어 번역(사자)이
+    //    있어서 한글 단원이 영어 파닉스 책에 걸렸다(2026-09-07). 동화책은 다국어라 어느 트랙이든
+    //    맞지만, 파닉스 단원은 한 언어짜리라 제 트랙에서만 책이다.
+    const inTrack = (id: string) => {
+      const b = byId.get(id);
+      return !!b && (!b.isPhonics || String(id).split('-')[0] === t.track);
+    };
+    const booksOf = (w: string) => [...(wordToBooks.get(w) ?? [])].filter(inTrack);
     const ids = new Set<string>();
-    for (const u of units)
-      for (const w of u.rawWords) for (const id of wordToBooks.get(w) ?? []) ids.add(id);
+    for (const u of units) for (const w of u.rawWords) for (const id of booksOf(w)) ids.add(id);
     const gb = [...ids].map((id) => byId.get(id)).filter(Boolean) as NonNullable<
       ReturnType<typeof probeBook>
     >[];
@@ -362,7 +369,7 @@ export function buildContentStatus(all: BookLike[]) {
         title: u.title,
         words: u.rawWords.map((w, i) => ({
           w: u.displayWords[i] ?? w,
-          books: [...(wordToBooks.get(w) ?? [])]
+          books: booksOf(w)
             .map((id) => idx.get(id))
             .filter((n) => n !== undefined),
         })),
