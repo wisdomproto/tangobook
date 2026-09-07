@@ -818,11 +818,17 @@ function parseGroup(items){
     var floorY = vertical ? Vv.cy : A.cy;
     var xs = [A.cx].concat(parts.map(function(v){ return v.cx; }));
     var loL = Math.min.apply(null, xs) - 2.5, hiL = Math.max.apply(null, xs) + 2.5;
+    /* 🔴 받침 반경은 9칸 — 7 이었을 때 「탸/턈」이 프레임마다 뒤바뀌었다(2026-09-07).
+          아이가 ㅁ 을 ㅌ 아래 서너 줄 띄워 놓아 중심 거리가 7.8칸이었고, 칸이 38~40 으로
+          흔들리니 6.9~7.8 을 오가며 경계에 걸렸다. ㅁ 은 0.83 으로 멀쩡히 잡혀 있었다.
+          넓힌 만큼 아래 줄 글자의 초성을 훔칠 수 있으므로 **제 모음을 가진 자음은 받침이
+          아니다**(hasOwnVowel) — 겹받침에서 이미 쓰던 가드를 홑받침에도 건다. */
     var J = nearest(cons, function(c){
       if (c === A) return null;
       var dy = c.cy - floorY;
-      if (dy < 1.5 || dy > 7) return null;
+      if (dy < 1.5 || dy > 9) return null;
       if (c.cx < loL || c.cx > hiL) return null;
+      if (dy > 7 && hasOwnVowel(c)) return null;
       return dy + Math.abs(c.cx - A.cx);
     });
     var jongCh = null, J2 = null;
