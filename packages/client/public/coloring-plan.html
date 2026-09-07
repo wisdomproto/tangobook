@@ -14,6 +14,7 @@
   :root{
     --ink:#2b2b31; --ink-soft:#6b6b76; --line:#e6e3dd;
     --cream:#fdfaf4; --coral:#ff6f61; --mint:#5ec8b6; --ok:#2aa876;
+    --warn:#e8b04b; --warn-ink:#a9761a;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:'Pretendard Variable',Pretendard,-apple-system,'Malgun Gothic',sans-serif;
@@ -52,6 +53,23 @@
   .row{display:grid;grid-template-columns:190px 1fr 190px;gap:16px;align-items:start;
        background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
   .row.has{border-color:var(--ok);background:#f6fdfa}
+  /* 검사에서 걸린 줄 — 붙인 뒤에도(초록) 흠 표시가 이긴다. */
+  .row.bad{border-color:var(--coral);background:#fff7f6}
+  .row.warn{border-color:var(--warn);background:#fffdf5}
+  .row.color{border-color:#a9b6c9;background:#fafbfd}
+  .why{font-size:11.5px;font-weight:800;line-height:1.45;margin-bottom:6px}
+  .why.bad{color:var(--coral)} .why.warn{color:var(--warn-ink)} .why.color{color:#5d7391}
+  .flagged{border:1.5px solid var(--coral);border-radius:14px;background:#fffaf9;
+           padding:13px 14px 1px;margin-bottom:22px}
+  .flagged .fh{display:flex;align-items:center;gap:12px;margin-bottom:11px}
+  .flagged .fh b{font-size:14px;color:var(--coral)}
+  .flagged.mild{border-color:#c3ccd9;background:#fbfcfe}
+  .flagged.mild .fh b{color:#5d7391}
+  .flagged .fh span{font-size:12px;color:var(--ink-soft)}
+  .flagged .fh button{margin-left:auto;border:1.5px solid var(--line);background:#fff;
+                      border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer}
+  .flagn{float:right;margin-right:7px;font-size:11px;font-weight:800}
+  .flagn.bad{color:var(--coral)} .flagn.warn{color:var(--warn-ink)}
   .slot:focus{outline:2px solid var(--mint);outline-offset:3px;border-radius:12px}
   .word{font-size:16px;font-weight:900;margin-bottom:6px}
   .subj{font-size:12px;color:var(--ink-soft);margin-bottom:8px;line-height:1.5}
@@ -115,6 +133,16 @@
   var PAGE = 30;            // 한 번에 그리는 줄 수 — 2,000장을 통째로 그리면 브라우저가 버틴다
   var BATCH = 10;           // 한 프롬프트에 담을 낱말 수
   var data = null, assets = {}, gi = 0, shown = PAGE;
+  /**
+   * 검사에서 걸린 도안 — `build-coloring-flags.mjs` 가 구운 `{key:{level,why}}`.
+   *
+   * 🔴 이건 **잰 그때의 사진**이다. 다시 붙여도 저절로 사라지지 않는다 —
+   *    고친 뒤엔 `check-coloring-sheets.mjs` → `build-coloring-flags.mjs` 를 다시 돌린다.
+   *    (붙여넣은 그림 자체는 그 자리에서 바로 바뀌므로 고쳤는지는 눈으로 보인다.)
+   */
+  var flags = {};
+  var showFlagged = true;
+  var showColor = false;
   // 프롬프트는 데이터에 한 벌만 실려 온다 — 낱말만 끼워 넣는다.
   function promptLineFor(it) { return data.promptLine.replace('{{subject}}', it.subject); }
   /**
@@ -146,9 +174,34 @@
       s.items.forEach(function (it) {
         if (q && it.word.toLowerCase().indexOf(q) < 0 && it.subject.toLowerCase().indexOf(q) < 0) return;
         if (todo && done(it)) return;
+        // 🔴 위쪽 흠 목록에 이미 있는 줄은 아래에 또 그리지 않는다 — 같은 칸이 두 개면
+        //    한쪽에 붙여도 다른 쪽은 빈 채라 붙였는지 아닌지가 화면마다 달라진다.
+        //    「접기」를 누르면 다시 제자리(섹션 흐름)로 돌아온다.
+        var f = flags[it.key];
+        if (f && (f.level === 'color' ? showColor : showFlagged)) return;
         out.push({ section: s.label, it: it });
       });
     });
+    return out;
+  }
+
+  /**
+   * 그 갈래에서 검사에 걸린 것들 — 사이드바 숫자와 위쪽 목록이 같은 함수를 본다.
+   *
+   * 🔴 **색이 안 맞는 것(`color`)은 따로 센다.** 그게 339장이라 같이 세면 다시 뽑아야 할
+   *    34장이 그 속에 묻힌다. 사이드바 ⚠ 숫자는 **손볼 것만** 가리킨다.
+   */
+  function flagsOf(g, level) {
+    var out = [];
+    g.sections.forEach(function (s) {
+      s.items.forEach(function (it) {
+        var f = flags[it.key];
+        if (!f) return;
+        if (level === 'color' ? f.level !== 'color' : f.level === 'color') return;
+        out.push({ section: s.label, it: it, flag: f });
+      });
+    });
+    if (level !== 'color') out.sort(function (a, b) { return (a.flag.level === 'bad' ? 0 : 1) - (b.flag.level === 'bad' ? 0 : 1); });
     return out;
   }
 
@@ -160,10 +213,15 @@
       g.sections.forEach(function (s) {
         s.items.forEach(function (it) { n++; if (done(it)) ok++; });
       });
+      var f = flagsOf(g);
       var b = document.createElement('button');
       b.className = 'grp' + (i === gi ? ' on' : '');
       b.innerHTML = g.label + '<span class="n' + (ok ? ' done' : '') + '">' +
-        (ok ? ok + '/' : '') + n + '</span>';
+        (ok ? ok + '/' : '') + n + '</span>' +
+        (f.length ? '<span class="flagn ' + (f.some(function (e) { return e.flag.level === 'bad'; })
+          ? 'bad' : 'warn') + '">⚠ ' + f.length + '</span>' : '');
+      // 🔴 색이 안 맞는 것은 ⚠ 에 안 섞는다 — 손볼 것 하나가 안 보이게 된다.
+      if (!f.length && flagsOf(g, 'color').length) b.innerHTML += '<span class="flagn" style="color:#8e9bad">🎨</span>';
       b.onclick = function () { gi = i; shown = PAGE; render(); };
       nav.appendChild(b);
     });
@@ -267,14 +325,17 @@
 
   function makeRow(section, it) {
     var row = document.createElement('div');
+    var flag = flags[it.key];
     function mark() {
-      row.className = 'row' + (done(it) ? ' has' : '');
+      row.className = 'row' + (done(it) ? ' has' : '') + (flag ? ' ' + flag.level : '');
       renderNav();
     }
 
     var left = document.createElement('div');
     left.className = 'src';
     left.innerHTML = '<div class="word">' + it.word + '</div>' +
+      (flag ? '<div class="why ' + flag.level + '">' +
+        (flag.level === 'bad' ? '🔴 ' : '⚠️ ') + flag.why + '</div>' : '') +
       '<div class="subj">' + section + '</div>' +
       '<img loading="lazy" src="' + it.imageUrl + '" alt="' + it.word + '" />';
 
@@ -309,6 +370,42 @@
 
     var list = document.getElementById('list');
     list.innerHTML = '';
+
+    // 🔴 걸린 것은 **맨 위에 따로** 모은다 — 2,000줄 안에 흩어 두면 고치러 찾아다녀야 한다.
+    //    같은 `makeRow` 라서 여기서 바로 다시 붙일 수 있다.
+    function flagBox(rows, opts) {
+      if (!rows.length) return;
+      var box = document.createElement('div');
+      box.className = 'flagged' + (opts.mild ? ' mild' : '');
+      var head = document.createElement('div');
+      head.className = 'fh';
+      head.innerHTML = '<b>' + opts.title(rows) + '</b><span>' + opts.sub(rows) + '</span>';
+      var fold = document.createElement('button');
+      fold.textContent = opts.open ? '접기' : '펼치기';
+      fold.onclick = function () { opts.toggle(); render(); };
+      head.appendChild(fold);
+      box.appendChild(head);
+      if (opts.open) rows.forEach(function (e) { box.appendChild(makeRow(e.section, e.it)); });
+      list.appendChild(box);
+    }
+
+    var flagged = flagsOf(g);
+    flagBox(flagged, {
+      open: showFlagged,
+      toggle: function () { showFlagged = !showFlagged; },
+      title: function (r) { return '⚠️ 다시 봐야 할 도안 ' + r.length + '장'; },
+      sub: function (r) {
+        var nBad = r.filter(function (e) { return e.flag.level === 'bad'; }).length;
+        return '다시 뽑을 것 ' + nBad + ' · 살펴볼 것 ' + (r.length - nBad);
+      },
+    });
+    flagBox(flagsOf(g, 'color'), {
+      open: showColor, mild: true,
+      toggle: function () { showColor = !showColor; },
+      title: function (r) { return '🎨 원본에서 색을 못 읽는 도안 ' + r.length + '장'; },
+      sub: function () { return '도안이 원본과 다른 것을 그렸거나 크기가 많이 달라, 칸 색이 배경에서 읽힌다'; },
+    });
+
     var lastSection = null, sec = null;
     all.slice(0, shown).forEach(function (e, i) {
       // 🔴 묶음 버튼은 **10줄마다** 붙는다. 상단에 하나만 두면 아래로 내려간 뒤엔 손이 안 닿는다.
@@ -342,9 +439,11 @@
   Promise.all([
     fetch('/coloring-plan-data.json').then(function (r) { return r.json(); }),
     fetch(API).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+    fetch('/coloring-plan-flags.json').then(function (r) { return r.json(); }).catch(function () { return {}; }),
   ]).then(function (res) {
     data = res[0];
     assets = (res[1] && res[1].data) || {};
+    flags = res[2] || {};
     render();
   }).catch(function (e) {
     document.getElementById('title').textContent = '목록을 못 불러왔어요: ' + e.message;
