@@ -1391,6 +1391,9 @@ var TUNE = {
   legoMinLong: 3.6,
   legoSplitOk: 0.62,             // 이만큼 닮았으면 뭉친 게 아니다 — 안 자른다
   legoSplitGain: 0.03,           // 자른 쪽이 이만큼은 나아야 받아들인다
+  /* 편 그림에서 위·아래 주기가 이 배수 안으로 들어와야 「폈다」로 친다(배음은 접고).
+     실측: 잘 읽힌 프레임 1.08·1.09 / 틀린 프레임 1.25·1.32. */
+  legoWarpOk: 1.15,
   legoWarpMax: 1600,             // 펴진 그림의 긴 변 상한
   legoSizeLo: 0.50,              // 자모의 긴 변이 중앙값의 이 배 미만이면 가짜
   legoSizeHi: 1.80,              // 이 배를 넘어도 가짜 (가구 모서리 등)
@@ -2507,7 +2510,34 @@ function legoRectify(){
     var rect = new cv.Mat();
     cv.warpPerspective(raw, rect, full, new cv.Size(ow, oh),
                        cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar(0,0,0,255));
-    reco.legoWarp = { 위:pA, 아래:pB, 칸:+(CELL*k).toFixed(1), 크기:[ow, oh] };
+    /* 🔴 **폈는지 같은 자로 다시 잰다.** 이 함수의 일이 「위아래 돌기 간격을 같게
+          만들기」이므로, 편 그림에서 두 띠를 다시 재서 같아졌나 보면 된다.
+          `폄:1` 은 「예외가 안 났다」는 뜻일 뿐 잘 폈다는 뜻이 아니었다 —
+          실측: 잘 읽힌 프레임 1.08·1.09 / 틀린 프레임 1.25·1.32 로 깨끗이 갈린다.
+          어긋나면 편 그림을 버리고 **안 편 그림 + 작은 쪽 주기**로 읽는다.
+          실측(캴): 편 그림 「ㅏㅕㅠㅡ」 · 안 편 그림 칸 34 에서 「ㅋ0.70 ㅑ0.80 ㄹ0.64」.
+       🔴 좌우 폭·판 실루엣으로 검사하지 말 것 — 거치대에서 좌우는 잘릴 때가 있고
+          위아래만 늘 다 보인다. 그래서 재는 것도 위아래 두 띠뿐이다. */
+    var g2 = M(new cv.Mat()); cv.cvtColor(rect, g2, cv.COLOR_RGBA2GRAY);
+    var g2d = g2.data;
+    var qA = legoBandPitch(g2d, ow, oh, Math.round(oh*0.28), Math.round(oh*0.36));
+    var qB = legoBandPitch(g2d, ow, oh, Math.round(oh*0.60), Math.round(oh*0.68));
+    var okWarp = false;
+    if (qA && qB){
+      for (var f = 0; f < 3; f++){          // 배음은 접고 본다
+        if (qB > qA*1.4) qB = Math.round(qB/2);
+        else if (qA > qB*1.4) qA = Math.round(qA/2);
+        else break;
+      }
+      okWarp = Math.max(qA, qB) / Math.max(Math.min(qA, qB), 1) <= TUNE.legoWarpOk;
+    }
+    reco.legoWarp = { 위:pA, 아래:pB, 칸:+(CELL*k).toFixed(1), 크기:[ow, oh],
+                      편뒤:[qA, qB], 폄확인:okWarp };
+    if (!okWarp){
+      try { rect.delete(); } catch(e2){}
+      done();
+      return { mat: null, cell: Math.min(pA, pB) };
+    }
     done();
     return { mat: rect, cell: CELL*k };
   } catch (e){
@@ -2538,9 +2568,11 @@ function recognizeLegoDirect(){
     /* 🔴 **먼저 편다.** 펴야 칸이 어디서나 같아지고, 그래야 붙은 자모를 칸 경계에서
           자를 수 있다. 못 펴면 편 적 없는 그림으로 그냥 읽는다(예전 동작). */
     var rc = legoRectify();
-    var raw = rc ? M(rc.mat) : M(cv.matFromArray(detBuf.H, detBuf.W, cv.CV_8UC4, detBuf.buf));
+    /* rc.mat 이 null 이면 펴기가 검사에 걸린 것 — 안 편 그림으로 읽되 칸은 받아 쓴다 */
+    var raw = (rc && rc.mat) ? M(rc.mat)
+                             : M(cv.matFromArray(detBuf.H, detBuf.W, cv.CV_8UC4, detBuf.buf));
     var W = raw.cols, H = raw.rows, N = W*H;
-    reco.legoCell = rc ? rc.cell : 0;
+    reco.legoCell = rc ? rc.cell : 0;   // 못 편 경우에도 칸은 온다
     /* 🔴 detBuf 는 readPixels 라 **아래가 0** 이다. 그대로 두면 덩어리가 세로로
           거울이 되어 자모가 통째로 틀린다(실측: ㅏ 가 ㅓ 로, ㄱ 이 ㄷ 으로).
           여기서 한 번 바로 세우고, 그 뒤로는 사진과 같은 좌표로 다룬다. */
@@ -2725,7 +2757,7 @@ function recognizeLegoDirect(){
                w:c.T.blockW, h:c.T.blockH };
     });
     var word = parseFree(items).join('');
-    reco.legoInfo = { 폄:rc ? 1 : 0, 칸:+med.toFixed(1), 후보:cand.length,
+    reco.legoInfo = { 폄:(rc && rc.mat) ? 1 : 0, 칸:+med.toFixed(1), 후보:cand.length,
                       자모:keep.length, 버린것:cand.length - keep.length };
     reco.ms = performance.now() - t0;
     return { word:word, items:items, comps:cand.length,
