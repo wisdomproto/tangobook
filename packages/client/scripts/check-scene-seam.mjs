@@ -65,7 +65,13 @@ for (const key of Object.keys(SERIES).filter((k) => !only || k === only)) {
         // 🔴 **화자별로 센다**(2026-09-07, twins). 「그 쪽에 벌어진 입이 하나라도 있으면 통과」로 뒀더니
         //    **대사가 둘 이상인 쪽**이 통째로 샜다 — 쌍둥이가 함께 외치면 아빠의 대사는 안 세어졌고,
         //    그렇게 놓친 다섯 중 셋이 **그 권의 착지 또는 전환**이었다. 대사 수와 벌어진 입 수를 견준다.
+        // 🔴 **「입이 다물렸다」는 표시가 *있는* 것이라 통과한다**(bung·twins·dodo). SCENE 이 대사와
+        //    **정면으로** 부딪히는 자리라 오히려 더 무겁다 — 따로 찍는다.
+        const SHUT = /(?:입|부리|입술)[^.,]{0,14}(?:다물|앙 다|한 일 자|한 줄로|삐죽|막았)/;
         const says = pg.ko.match(/"[^"]+"|[“][^”]+[”]/g) ?? [];
+        if (says.length && who && SHUT.test(who)) {
+          lines.push(`  ${id} p${pg.n} 🔇 대사가 있는데 인물 칸이 「입이 다물렸다」고 못박는다`);
+        }
         const mouths = who ? (who.match(new RegExp(SAYS.source, 'g')) ?? []).length : 0;
         if (says.length && mouths < Math.min(says.length, 2)) {
           lines.push(`  ${id} p${pg.n} 🗣 대사 ${says.length} · 벌어진 입 ${mouths}`);
