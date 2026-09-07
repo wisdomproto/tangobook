@@ -2522,6 +2522,16 @@ function legoRectify(){
     var full = M(new cv.Mat()); cv.gemm(A, Hm, 1, new cv.Mat(), 0, full);
     var ow = Math.round((x1-x0)*k), oh = Math.round((y1-y0)*k);
     if (ow < 40 || oh < 40){ reco.legoWarp = { why:'결과 너무 작음' }; done(); return null; }
+    /* 🔴 펴기가 꺼져 있으면 **여기서 끝낸다** — 워프를 만들고 버리면 안 된다.
+          예전엔 아래 warpPerspective 를 돌린 **뒤에** 끔을 검사해서, 최대 1600px 짜리
+          그림을 매 프레임 굽고 곧장 지웠다. 실측(배포본, 여섯 프레임) 한 프레임
+          94~130ms 중 12~55ms(중앙값 ~30ms, 약 1/4)가 그 헛일이었다.
+          위 검사(간격·줄수·크기)는 그대로 거친다 — 돌려주는 값이 달라지면 안 된다. */
+    if (!TUNE.legoRectifyOn){            // 펴기 끔 — 칸만 받아 간다
+      reco.legoWarp = { 위:pA, 아래:pB, 폄:'끔' };
+      done();
+      return { mat: null, cell: Math.min(pA, pB) };
+    }
     var rect = new cv.Mat();
     cv.warpPerspective(raw, rect, full, new cv.Size(ow, oh),
                        cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar(0,0,0,255));
@@ -2533,12 +2543,6 @@ function legoRectify(){
           실측(캴): 편 그림 「ㅏㅕㅠㅡ」 · 안 편 그림 칸 34 에서 「ㅋ0.70 ㅑ0.80 ㄹ0.64」.
        🔴 좌우 폭·판 실루엣으로 검사하지 말 것 — 거치대에서 좌우는 잘릴 때가 있고
           위아래만 늘 다 보인다. 그래서 재는 것도 위아래 두 띠뿐이다. */
-    if (!TUNE.legoRectifyOn){            // 펴기 끔 — 칸만 받아 간다
-      try { rect.delete(); } catch(e3){}
-      reco.legoWarp = { 위:pA, 아래:pB, 폄:'끔' };
-      done();
-      return { mat: null, cell: Math.min(pA, pB) };
-    }
     var g2 = M(new cv.Mat()); cv.cvtColor(rect, g2, cv.COLOR_RGBA2GRAY);
     var g2d = g2.data;
     var qA = legoBandPitch(g2d, ow, oh, Math.round(oh*0.28), Math.round(oh*0.36));
