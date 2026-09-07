@@ -62,8 +62,13 @@ for (const key of Object.keys(SERIES).filter((k) => !only || k === only)) {
       if (gone.length) { lines.push(`  ${id} p${pg.n} 🔴 본문에 선 인물이 그림에 없다 — ${gone.map((c) => c.name).join('·')}`); missing += 1; }
       if (SPEAK) {
         // 지문이 아니라 **따옴표 안**이 있어야 대사 쪽이다.
-        if (/"[^"]+"|[“][^”]+[”]/.test(pg.ko) && who && !SAYS.test(who)) {
-          lines.push(`  ${id} p${pg.n} 🗣 대사가 있는데 인물 칸에 말하는 표시가 없다`);
+        // 🔴 **화자별로 센다**(2026-09-07, twins). 「그 쪽에 벌어진 입이 하나라도 있으면 통과」로 뒀더니
+        //    **대사가 둘 이상인 쪽**이 통째로 샜다 — 쌍둥이가 함께 외치면 아빠의 대사는 안 세어졌고,
+        //    그렇게 놓친 다섯 중 셋이 **그 권의 착지 또는 전환**이었다. 대사 수와 벌어진 입 수를 견준다.
+        const says = pg.ko.match(/"[^"]+"|[“][^”]+[”]/g) ?? [];
+        const mouths = who ? (who.match(new RegExp(SAYS.source, 'g')) ?? []).length : 0;
+        if (says.length && mouths < Math.min(says.length, 2)) {
+          lines.push(`  ${id} p${pg.n} 🗣 대사 ${says.length} · 벌어진 입 ${mouths}`);
           extra += 1;
         }
       }
