@@ -154,12 +154,16 @@ export function createApp() {
       }
       const buffer = await downloadFromR2(key);
       const ext = key.split('.').pop()?.toLowerCase();
+      // 🔴 `nosniff` 를 같이 보내므로 여기 없는 확장자는 브라우저가 **그리지 않는다**.
+      //    색칠 도안의 원본 삽화가 전부 webp 라 이게 빠져 있으면 게임이 통째로 안 뜬다.
       const contentTypes: Record<string, string> = {
         mp4: 'video/mp4',
         mp3: 'audio/mpeg',
         wav: 'audio/wav',
         png: 'image/png',
         jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        webp: 'image/webp',
       };
       res.setHeader('Content-Type', contentTypes[ext ?? ''] ?? 'application/octet-stream');
       res.setHeader('Cache-Control', 'public, max-age=3600');

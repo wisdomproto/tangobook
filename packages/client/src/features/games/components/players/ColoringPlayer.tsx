@@ -5,7 +5,12 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { resolveTtsUrl } from '@/features/tts';
 import { playUi, playNote } from '@/lib/uiSound';
 import { buildWalls, labelRegions, paintableRegions, borderRegions } from '@tangobook/shared';
-import { buildPalette, type PaletteEntry } from '../../lib/answer-colors';
+import {
+  boundsOf,
+  buildPalette,
+  cornerBackground,
+  type PaletteEntry,
+} from '../../lib/answer-colors';
 
 /**
  * 색칠공부 — **안내 색칠**(guided).
@@ -44,6 +49,8 @@ export interface ColoringItem {
   ttsUrl?: string | null;
   /** 음원 캐시 키 — 파닉스는 단원 id. */
   storybookId?: string;
+  /** 낱말을 읽어 줄 언어. 영어 파닉스 낱말을 한국어로 이어 붙이면 딴 소리가 난다. */
+  language?: 'korean' | 'english' | 'zh';
 }
 
 interface ColoringPlayerProps {
@@ -96,6 +103,56 @@ function readPixels(img: HTMLImageElement, w: number, h: number): Uint8ClampedAr
   const dh = img.naturalHeight * s;
   ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
   return ctx.getImageData(0, 0, w, h).data;
+}
+
+/**
+ * 색 출처를 **도안에 맞춰 다시 그려서** 읽는다.
+ *
+ * 🔴 도안은 원본을 보고 **다시 그린** 그림이라 크기와 자세가 안 맞는다. 그냥 겹쳐 읽으면
+ *    고양이 몸통 칸에 원본의 흰 배경이 걸려 흰 고양이가 나온다. 그래서 원본에서 **그림이
+ *    차지한 사각형**을 도안에서 **선이 차지한 사각형**에 맞춰 늘려 놓고 읽는다.
+ *    (표본 200장: 칸 절반 이상을 배경색으로 읽은 도안 81장 → 28장.)
+ */
+function readColorSource(
+  img: HTMLImageElement,
+  w: number,
+  h: number,
+  ink: { x: number; y: number; w: number; h: number }
+): { pixels: Uint8ClampedArray; background: number[] } {
+  const flat = readPixels(img, w, h);
+  const background = cornerBackground(flat, w, h);
+  const subject = boundsOf(w, h, (i) => {
+    const o = i * 4;
+    return (
+      Math.abs(flat[o] - background[0]) > 18 ||
+      Math.abs(flat[o + 1] - background[1]) > 18 ||
+      Math.abs(flat[o + 2] - background[2]) > 18
+    );
+  });
+
+  const c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  const ctx = c.getContext('2d', { willReadFrequently: true });
+  if (!ctx) throw new Error('canvas 2d 없음');
+  ctx.fillStyle = `rgb(${background.map(Math.round).join(',')})`;
+  ctx.fillRect(0, 0, w, h);
+  // subject 는 위 캔버스 좌표다 — 원본 이미지 좌표로 되돌려 잘라낸다.
+  const s = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+  const ox = (w - img.naturalWidth * s) / 2;
+  const oy = (h - img.naturalHeight * s) / 2;
+  ctx.drawImage(
+    img,
+    (subject.x - ox) / s,
+    (subject.y - oy) / s,
+    subject.w / s,
+    subject.h / s,
+    ink.x,
+    ink.y,
+    ink.w,
+    ink.h
+  );
+  return { pixels: ctx.getImageData(0, 0, w, h).data, background };
 }
 
 export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
@@ -176,13 +233,17 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
 
       const w = line.naturalWidth;
       const h = line.naturalHeight;
-      const regions = labelRegions(buildWalls(readPixels(line, w, h)), w, h);
+      const walls = buildWalls(readPixels(line, w, h));
+      const regions = labelRegions(walls, w, h);
       const required = paintableRegions(regions, w * h, 0.003, borderRegions(regions.labels, w, h));
-      // 🔴 정답본은 도안 크기로 맞춰 읽는다 — 모델이 낸 크기가 달라도 같은 자리를 보게.
+      // 🔴 색 출처는 도안의 그림 사각형에 맞춰 읽는다 — 크기가 달라도 같은 자리를 보게.
+      const ink = boundsOf(w, h, (i) => walls[i] === 1);
+      const source = readColorSource(answer, w, h, ink);
       const { palette: pal, colorOfRegion } = buildPalette(
         regions,
-        readPixels(answer, w, h),
-        required
+        source.pixels,
+        required,
+        source.background
       );
 
       labelsRef.current = regions.labels;
@@ -257,12 +318,12 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
     revealTimerRef.current = window.setTimeout(() => setRevealed(true), 1400);
     const ttsUrl = await resolveTtsUrl({
       text: item.word,
-      language: 'korean',
+      language: item.language ?? 'korean',
       storybookId: item.storybookId,
       directUrl: item.ttsUrl ?? undefined,
       identifierPrefix: 'color',
     });
-    playCorrectSequence({ ttsUrl, language: 'ko' });
+    playCorrectSequence({ ttsUrl, language: item.language === 'english' ? 'en' : 'ko' });
   }, [item, playCorrectSequence]);
 
   const handleTap = useCallback(

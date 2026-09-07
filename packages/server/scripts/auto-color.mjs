@@ -76,7 +76,7 @@ async function read(src) {
  * ⚠️ 도안은 원본을 **다시 그린** 그림이라 자리가 정확히 겹치지 않는다 — 이 방법이 통하는지는
  *    눈으로 봐야 한다.
  */
-function colorsFromSource(labels, ids, srcRgba) {
+function colorsFromSource(labels, ids, srcRgba, bg) {
   const hist = new Map(ids.map((id) => [id, new Map()]));
   for (let i = 0; i < labels.length; i++) {
     const bins = hist.get(labels[i]);
@@ -88,13 +88,64 @@ function colorsFromSource(labels, ids, srcRgba) {
     if (acc) { acc[0]++; acc[1] += r; acc[2] += g; acc[3] += b; }
     else bins.set(key, [1, r, g, b]);
   }
+  // 🔴 배경색이 1등인 칸은 배경 아닌 색으로 바꿔 읽는다 — 앱 `buildPalette` 와 같은 규칙.
+  const near = (c) => bg && Math.abs(c[0] - bg[0]) < 26 && Math.abs(c[1] - bg[1]) < 26 && Math.abs(c[2] - bg[2]) < 26;
   const out = new Map();
   for (const id of ids) {
-    let best = null;
-    for (const acc of hist.get(id).values()) if (!best || acc[0] > best[0]) best = acc;
+    const bins = [...hist.get(id).values()].sort((a, b) => b[0] - a[0]);
+    const total = bins.reduce((n, a) => n + a[0], 0);
+    let best = bins[0];
+    if (best && near([best[1] / best[0], best[2] / best[0], best[3] / best[0]])) {
+      const alt = bins.find(
+        (a) => !near([a[1] / a[0], a[2] / a[0], a[3] / a[0]]) && a[0] / total >= 0.15
+      );
+      if (alt) best = alt;
+    }
     if (best) out.set(id, [best[1] / best[0], best[2] / best[0], best[3] / best[0]].map(Math.round));
   }
   return out;
+}
+
+/** 값이 참인 픽셀이 차지한 사각형 — 도안은 선, 원본은 배경 아닌 것. */
+function boundsOf(px, test) {
+  let x0 = S, y0 = S, x1 = -1, y1 = -1;
+  for (let y = 0; y < S; y++)
+    for (let x = 0; x < S; x++) {
+      const o = (y * S + x) * 4;
+      if (!test(px[o], px[o + 1], px[o + 2])) continue;
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      if (y > y1) y1 = y;
+    }
+  return x1 < 0 ? [0, 0, S - 1, S - 1] : [x0, y0, x1, y1];
+}
+
+/**
+ * 원본 삽화를 **도안에 맞춰 다시 그린다**.
+ *
+ * 🔴 도안은 원본을 보고 다시 그린 그림이라 크기·자세가 안 맞는다. 그냥 겹쳐 읽으면 고양이
+ *    몸통 칸에 원본의 흰 배경이 걸려 흰 고양이가 나온다. 앱(`readColorSource`)과 같은 처리다.
+ */
+async function alignToSheet(srcRgba, linePx, bg) {
+  const sb = boundsOf(linePx, (r, g, b) => (r + g + b) / 3 < 128);
+  const ob = boundsOf(srcRgba, (r, g, b) =>
+    Math.abs(r - bg[0]) > 18 || Math.abs(g - bg[1]) > 18 || Math.abs(b - bg[2]) > 18
+  );
+  const pad = Buffer.alloc(S * S * 4);
+  for (let i = 0; i < pad.length; i += 4) {
+    pad[i] = bg[0]; pad[i + 1] = bg[1]; pad[i + 2] = bg[2]; pad[i + 3] = 255;
+  }
+  const cut = await sharp(Buffer.from(srcRgba.buffer), { raw: { width: S, height: S, channels: 4 } })
+    .extract({ left: ob[0], top: ob[1], width: ob[2] - ob[0] + 1, height: ob[3] - ob[1] + 1 })
+    .resize(sb[2] - sb[0] + 1, sb[3] - sb[1] + 1, { fit: 'fill' })
+    .png()
+    .toBuffer();
+  const composed = await sharp(pad, { raw: { width: S, height: S, channels: 4 } })
+    .composite([{ input: cut, left: sb[0], top: sb[1] }])
+    .raw()
+    .toBuffer();
+  return new Uint8ClampedArray(composed.buffer, composed.byteOffset, composed.length);
 }
 
 const fromArg = process.argv.slice(2).find((a) => a.startsWith('--from='));
@@ -103,7 +154,8 @@ const fromSrc = fromArg ? fromArg.slice('--from='.length) : null;
 for (const src of process.argv.slice(2).filter((a) => !a.startsWith('--'))) {
   const buf = await read(src);
   const raw = await sharp(buf).resize(S, S, { fit: 'fill' }).ensureAlpha().raw().toBuffer();
-  const walls = buildWalls(new Uint8ClampedArray(raw.buffer, raw.byteOffset, raw.length));
+  const linePx = new Uint8ClampedArray(raw.buffer, raw.byteOffset, raw.length);
+  const walls = buildWalls(linePx);
   const { labels, sizes } = labelRegions(walls, S, S);
   const outside = borderRegions(labels, S, S);
   const radius = inscribedRadius(walls, labels, sizes.length - 1);
@@ -118,19 +170,25 @@ for (const src of process.argv.slice(2).filter((a) => !a.startsWith('--'))) {
   inside.sort((a, b) => b.px - a.px);
 
   const out = Buffer.alloc(S * S * 3);
-  const color = fromSrc
-    ? colorsFromSource(
-        labels,
-        inside.map((r) => r.id),
-        new Uint8ClampedArray(
-          await sharp(await read(fromSrc))
-            .resize(S, S, { fit: 'contain', background: '#ffffff' })
-            .ensureAlpha()
-            .raw()
-            .toBuffer()
-        )
-      )
-    : new Map(inside.map((r, i) => [r.id, PALETTE[i % PALETTE.length]]));
+  let color;
+  if (fromSrc) {
+    const srcBuf = await sharp(await read(fromSrc))
+      .resize(S, S, { fit: 'contain', background: '#ffffff' })
+      .ensureAlpha()
+      .raw()
+      .toBuffer();
+    let srcPx = new Uint8ClampedArray(srcBuf.buffer, srcBuf.byteOffset, srcBuf.length);
+    const at = (x, y) => {
+      const o = (y * S + x) * 4;
+      return [srcPx[o], srcPx[o + 1], srcPx[o + 2]];
+    };
+    const corners = [at(2, 2), at(S - 3, 2), at(2, S - 3), at(S - 3, S - 3)];
+    const bg = [0, 1, 2].map((c) => corners.reduce((a, p) => a + p[c], 0) / 4);
+    srcPx = await alignToSheet(srcPx, linePx, bg);
+    color = colorsFromSource(labels, inside.map((r) => r.id), srcPx, bg);
+  } else {
+    color = new Map(inside.map((r, i) => [r.id, PALETTE[i % PALETTE.length]]));
+  }
   for (let i = 0; i < S * S; i++) {
     const c = color.get(labels[i]) ?? (walls[i] ? [30, 30, 34] : [255, 255, 255]);
     out[i * 3] = c[0];

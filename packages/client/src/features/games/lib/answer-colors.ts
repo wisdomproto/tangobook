@@ -18,6 +18,41 @@ export interface PaletteEntry {
 }
 
 const BUCKET = 5; // 채널당 32단계로 뭉개 최빈색을 찾는다 (안티에일리어싱 흔들림 흡수)
+/** 배경색으로 칠 거리 — 이만큼 안이면 "그냥 배경"이다. */
+const BG_TOL = 26;
+/** 배경 대신 쓸 색이 칸에서 차지해야 할 최소 몫. 이보다 작으면 삐져나온 티끌이다. */
+const ALT_SHARE = 0.15;
+
+/** 그림의 배경색 — 네 귀퉁이 평균. 낱말 카드·삽화는 크림/흰 무지 배경이다. */
+export function cornerBackground(rgba: Uint8ClampedArray, w: number, h: number): number[] {
+  const at = (x: number, y: number): number[] => {
+    const o = (y * w + x) * 4;
+    return [rgba[o], rgba[o + 1], rgba[o + 2]];
+  };
+  const corners = [at(2, 2), at(w - 3, 2), at(2, h - 3), at(w - 3, h - 3)];
+  return [0, 1, 2].map((c) => corners.reduce((a, p) => a + p[c], 0) / 4);
+}
+
+/** `hit` 이 참인 픽셀이 차지한 사각형. 하나도 없으면 화면 전체. */
+export function boundsOf(
+  w: number,
+  h: number,
+  hit: (i: number) => boolean
+): { x: number; y: number; w: number; h: number } {
+  let x0 = w,
+    y0 = h,
+    x1 = -1,
+    y1 = -1;
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      if (!hit(y * w + x)) continue;
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      if (y > y1) y1 = y;
+    }
+  return x1 < 0 ? { x: 0, y: 0, w, h } : { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+}
 
 /** 두 색이 아이 눈에 같은 색인가 — 팔레트에 비슷한 물감이 두 개 뜨는 걸 막는다. */
 function near(a: number[], b: number[], tol = 40): boolean {
@@ -38,7 +73,17 @@ function hex([r, g, b]: number[]): string {
 export function buildPalette(
   regions: Regions,
   answerRgba: Uint8ClampedArray,
-  regionIds: number[]
+  regionIds: number[],
+  /**
+   * 색 출처의 배경색. 주면 **배경색이 1등인 칸은 배경이 아닌 색으로 바꿔 읽는다.**
+   *
+   * 🔴 도안은 원본을 **다시 그린** 그림이라 크기·자세가 안 맞는다. 겹치는 자리가 어긋나면
+   *    고양이 몸통 칸에 원본의 흰 배경이 가장 많이 걸려 **흰 고양이**가 나온다(실측: 표본
+   *    200장 중 81장이 칸 절반 이상을 배경색으로 읽었다). 배경을 빼면 그 자리에서 두 번째로
+   *    많은 색 — 주황 털 — 이 올라온다. 하얀 백조처럼 진짜 배경색인 것은 대신 쓸 색이
+   *    `ALT_SHARE` 를 못 넘어 그대로 남는다.
+   */
+  background?: readonly number[]
 ): { palette: PaletteEntry[]; colorOfRegion: Map<number, string> } {
   const wanted = new Set(regionIds);
   // regionId → bucket → [n, sumR, sumG, sumB]
@@ -66,11 +111,18 @@ export function buildPalette(
     }
   }
 
+  const isBg = (acc: number[]): boolean =>
+    background !== undefined &&
+    near([acc[1] / acc[0], acc[2] / acc[0], acc[3] / acc[0]], background as number[], BG_TOL);
+
   const rgbOfRegion = new Map<number, number[]>();
   for (const id of regionIds) {
-    let best: number[] | null = null;
-    for (const acc of (hist.get(id) as Map<number, number[]>).values()) {
-      if (!best || acc[0] > best[0]) best = acc;
+    const bins = [...(hist.get(id) as Map<number, number[]>).values()].sort((a, b) => b[0] - a[0]);
+    const total = bins.reduce((n, acc) => n + acc[0], 0);
+    let best = bins[0];
+    if (best && isBg(best)) {
+      const alt = bins.find((acc) => !isBg(acc) && acc[0] / total >= ALT_SHARE);
+      if (alt) best = alt;
     }
     if (best) rgbOfRegion.set(id, [best[1] / best[0], best[2] / best[0], best[3] / best[0]]);
   }
