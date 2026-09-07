@@ -61,6 +61,10 @@ const COLS = [
   { key: 'audiobook', label: '오디오북', group: '유통' },
   { key: 'blog', label: '블로그', group: '유통' },
   { key: 'cardnews', label: '카드뉴스', group: '유통' },
+  // 한글 ↔ 영어 연결 — 「전부 있을 때만」 1 (shared probeBook 의 enText/enTts/enWords)
+  { key: 'enText', label: '영어 본문', group: '영어' },
+  { key: 'enTts', label: '영어 나레이션', group: '영어' },
+  { key: 'enWords', label: '낱말 영어명', group: '영어' },
   { key: 'theme', label: '주제', group: '메타' },
   { key: 'setting', label: '무대', group: '메타' },
   { key: 'cast', label: '캐스트', group: '메타' },
@@ -181,7 +185,7 @@ max-width:280px;overflow:hidden;text-overflow:ellipsis}
 thead th{position:sticky;top:0;background:var(--sunk);z-index:3;font-weight:600;font-size:.78rem;color:var(--mut)}
 thead tr.gh th{top:0;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
 thead tr:nth-child(2) th{top:28px}
-.gh .g-제품{color:var(--f)}.gh .g-유통{color:var(--h)}.gh .g-메타{color:var(--l)}
+.gh .g-제품{color:var(--f)}.gh .g-유통{color:var(--h)}.gh .g-메타{color:var(--l)}.gh .g-영어{color:var(--f)}
 td.f{background:var(--fw);color:var(--f);font-weight:600}
 td.h{background:var(--hw);color:var(--h);font-weight:600}
 td.l{background:var(--lw);color:var(--l);font-weight:600}

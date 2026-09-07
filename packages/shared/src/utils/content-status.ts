@@ -13,12 +13,14 @@ interface KeyObjectLike {
   korean?: string;
   name?: string;
   nameEn?: string;
+  nameTranslations?: Record<string, string>;
   keypoints?: unknown[];
 }
 interface PageLike {
   text?: string;
   illustrationUrl?: string;
   ttsUrl?: string;
+  translations?: Record<string, { text?: string; ttsUrl?: string }>;
 }
 interface FlashcardLike {
   imageUrl?: string;
@@ -71,6 +73,10 @@ interface CategoryAgg {
   actual: Record<string, number>;
   levelMissing: number;
   levelWrong: number;
+  // 한글 ↔ 영어 연결 — 영어 본문·영어 나레이션·낱말 영어 이름이 **전부** 있는 권수
+  enText: number;
+  enTts: number;
+  enWords: number;
 }
 
 /* ────────────────────────────── 독서 레벨 ────────────────────────────── */
@@ -219,6 +225,12 @@ export const pct = (n: number, d: number) => (d ? Math.round((n / d) * 100) : 0)
 
 const num = (v: unknown) => (Array.isArray(v) ? v.length : v ? 1 : 0);
 
+/** 글 있는 쪽이 하나라도 있고, 그 쪽 **전부**에 `pick` 이 있으면 1. 빈 쪽은 안 센다(요구도 안 한다). */
+const enCoverage = (pages: PageLike[], pick: (p: PageLike) => unknown): 0 | 1 => {
+  const textPages = pages.filter((p) => typeof p.text === 'string' && p.text.trim());
+  return textPages.length && textPages.every((p) => pick(p)) ? 1 : 0;
+};
+
 /** 한 권에서 「있나 없나」를 뽑는다. 축 이름이 곧 화면의 열이다. */
 export function probeBook(sb: BookLike) {
   const pages = sb.pages ?? [];
@@ -256,6 +268,15 @@ export function probeBook(sb: BookLike) {
     levelDeclared: sb.readingLevel || null,
     levelActual: isPhonics ? null : classify(mz.words, mz.sentPerPage),
     textWords: mz.words,
+
+    // 한글 ↔ 영어 연결. 「전부 있을 때만 1」 — 반쪽짜리를 세면 「연결됐다」가 거짓이 된다.
+    //   enText  = 글 있는 쪽마다 영어 본문(translations.en.text)이 있다
+    //   enTts   = 글 있는 쪽마다 영어 나레이션(translations.en.ttsUrl)이 있다
+    //   enWords = 낱말마다 영어 이름(nameEn 또는 nameTranslations.en)이 있다 (낱말 0개면 0)
+    // 파닉스 단원은 한 언어짜리라 셋 다 0 — 그 층은 이 축을 안 본다.
+    enText: isPhonics ? 0 : enCoverage(pages, (p) => p.translations?.en?.text),
+    enTts: isPhonics ? 0 : enCoverage(pages, (p) => p.translations?.en?.ttsUrl),
+    enWords: !isPhonics && ko.length && ko.every((k) => k.nameEn || k.nameTranslations?.en) ? 1 : 0,
 
     longform: num(sb.longformProjects),
     audiobook: num(sb.audiobookProjects),
@@ -363,6 +384,9 @@ export function buildContentStatus(all: BookLike[]) {
       actual: {} as Record<string, number>,
       levelMissing: 0,
       levelWrong: 0,
+      enText: 0,
+      enTts: 0,
+      enWords: 0,
       _w: [] as number[],
     });
     c.books += 1;
@@ -371,6 +395,9 @@ export function buildContentStatus(all: BookLike[]) {
     if (r.words) c.withWords += 1;
     if (r.games) c.withGames += 1;
     if (r.hidden) c.withHidden += 1;
+    c.enText += r.enText;
+    c.enTts += r.enTts;
+    c.enWords += r.enWords;
     const key = r.levelActual ?? '없음';
     c.actual[key] = (c.actual[key] ?? 0) + 1;
     if (!r.levelDeclared) c.levelMissing += 1;
