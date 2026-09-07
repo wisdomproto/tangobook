@@ -7092,7 +7092,8 @@ function showCamDbg(){
     '전경 ' + (c.fg || 0) + ' · 경계 ' + (c.split != null ? c.split + '°' : '-') +
       ' · 덩어리 ' + ((reco.result && reco.result.comps) || 0) + '\n' +
     (isLego()
-      ? '레고 ' + JSON.stringify(reco.legoInfo || {}) + NL +
+      /* 🔴 한 프레임 계산 시간을 찍는다 — 폰의 숫자는 여기서만 나온다(하네스는 데스크톱). */
+      ? '레고 ' + JSON.stringify(reco.legoInfo || {}) + ' · ' + Math.round(reco.ms || 0) + 'ms' + NL +
         '조각 ' + ((reco.result && reco.result.detail) || [])
           .map(function(d){ return d.ch + d.iou; }).join(' ') + NL
       : '') +
