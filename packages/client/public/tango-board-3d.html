@@ -2481,6 +2481,60 @@ function legoBandPitch(gray, W, H, y0, y1){
   return lo + bi;
 }
 
+/** 화면을 위에서 아래로 띠 열둘로 훑어 돌기 주기의 **중앙값**을 돌려준다(못 재면 0).
+ *
+ *  🔴 고정 띠 둘(28~36% · 60~68%)로 재던 것을 버렸다. 블록이 띠에 걸리면 그 띠의
+ *     주기가 lag 하한(8)으로 무너지고, 배음 접기가 멀쩡한 쪽까지 그리로 끌어내려
+ *     칸이 6 이 됐다 — 그러면 `legoMaxBlob`(20칸=120px) 가 글자를 전부 버려
+ *     「후보 0」이 된다. 실측(2026-09-07 폰 프레임, 판이 화면 아래 70% 까지 차서
+ *     아래 띠에 ㅈ·ㅁ 이 앉음): 위 48 / 아래 8 → 칸 6 → 아무것도 못 읽음.
+ *     같은 원리로 예전 프레임 둘도 아래 띠가 8 이었는데 `min` 이 위 띠를 골라 운으로 살았다.
+ *  🔴 배음은 중앙값 기준으로 접는다(1.4배 넘으면 반). 블록이 놓인 띠는 2배 주기가
+ *     흔히 나오는데, 그게 곧 아래쪽 진짜 주기의 두 배라 접으면 맞아 들어간다.
+ *  🔴 하한은 **폭 비율**(W×0.015)이다. 픽셀 절대값을 두면 카메라·검출 버퍼가 바뀔 때
+ *     조용히 어긋난다. 검출 버퍼 긴 변 1440 에서 12px — 판이 화면 폭에 60칸 넘게
+ *     들어올 일은 없으므로 그보다 작은 주기는 잡음이다.
+ *  검증(7프레임): 옛 방식 8·28·38·8·34·34·6 → 훑기 42·58·39·42·49·49·53. */
+function legoCellSweep(gd, W, H){
+  var floor = W * 0.015, ps = [], i, p;
+  for (i = 0; i < 12; i++){
+    p = legoBandPitch(gd, W, H, Math.round(H * i * 0.08), Math.round(H * (i + 1) * 0.08));
+    if (p >= floor) ps.push(p);
+  }
+  if (!ps.length) return null;
+  var ys = [];
+  ps.sort(function(a, b){ return a - b; });
+  var med = ps[ps.length >> 1], fd = [];
+  for (i = 0; i < 12; i++){
+    p = legoBandPitch(gd, W, H, Math.round(H * i * 0.08), Math.round(H * (i + 1) * 0.08));
+    if (p < floor) continue;
+    if (p > med * 1.4) p /= 2;
+    if (p >= floor){ fd.push(p); ys.push(H * (i + 0.5) * 0.08); }
+  }
+  if (!fd.length) return null;
+  /* 🔴 칸은 숫자 하나가 아니라 **y 의 직선**이다. 원근 때문에 한 판 안에서도 아래 30 →
+        위 53 으로 벌어지는데(실측 7프레임), 관문(legoMinLong 3.6칸·legoMaxBlob 20칸)과
+        자르기(5칸)는 ±15% 만 어긋나도 글자를 통째로 버린다 — 「가」 프레임이 34~38 에서만
+        읽히고 화면 중앙값 49 에서는 하나도 못 읽었다. 덩어리마다 제 y 의 칸을 쓴다.
+        직선은 Theil–Sen(짝별 기울기 중앙값)으로 — 점이 12개뿐이고 이상점이 섞인다. */
+  function fit(v){
+    var n = v.length, slopes = [], ic = [], i2, j;
+    for (i2 = 0; i2 < n; i2++) for (j = i2 + 1; j < n; j++)
+      if (ys[j] !== ys[i2]) slopes.push((v[j] - v[i2]) / (ys[j] - ys[i2]));
+    slopes.sort(function(p2, q){ return p2 - q; });
+    var b2 = slopes.length ? slopes[slopes.length >> 1] : 0;
+    for (i2 = 0; i2 < n; i2++) ic.push(v[i2] - b2 * ys[i2]);
+    ic.sort(function(p2, q){ return p2 - q; });
+    return { a: ic[ic.length >> 1], b: b2 };
+  }
+  /* 배음을 화면 중앙값으로 접으면 판 아래쪽(작은 칸)의 2배 주기가 안 접힌다 —
+     직선을 한 번 맞춘 뒤 그 직선 기준으로 다시 접고 다시 맞춘다. */
+  var L1 = fit(fd);
+  for (i = 0; i < fd.length; i++) if (fd[i] > (L1.a + L1.b * ys[i]) * 1.4) fd[i] /= 2;
+  var L2 = fit(fd), a = L2.a, b = L2.b, lo = Math.min.apply(null, fd);
+  return { a:a, b:b, lo:lo, mid:a + b * H / 2, at:function(y){ return Math.max(floor, a + b * y); } };
+}
+
 /** 펴진 RGBA Mat 을 돌려준다(없으면 null). 부르는 쪽이 delete 한다. */
 function legoRectify(){
   var W = detBuf.W, H = detBuf.H, mats = [];
@@ -2490,6 +2544,14 @@ function legoRectify(){
     var raw = M(cv.matFromArray(H, W, cv.CV_8UC4, detBuf.buf));
     var gray = M(new cv.Mat()); cv.cvtColor(raw, gray, cv.COLOR_RGBA2GRAY);
     var gd = gray.data;
+    /* 🔴 펴기가 꺼져 있으면 여기서 끝난다 — 필요한 건 칸 하나뿐이고, 그건 띠 훑기가 준다.
+          (아래 두 띠 측정과 호모그래피는 펼 때만 쓴다.) */
+    if (!TUNE.legoRectifyOn){
+      var cs = legoCellSweep(gd, W, H);
+      reco.legoWarp = cs ? { 칸:[+cs.lo.toFixed(1), +cs.mid.toFixed(1)], 폄:'끔' } : { why:'간격 못 잼' };
+      done();
+      return cs ? { mat: null, cell: cs.mid, line: cs } : null;
+    }
     var yA = Math.round(H*0.32), yB = Math.round(H*0.64);
     var pA = legoBandPitch(gd, W, H, Math.round(H*0.28), Math.round(H*0.36));
     var pB = legoBandPitch(gd, W, H, Math.round(H*0.60), Math.round(H*0.68));
@@ -2522,16 +2584,6 @@ function legoRectify(){
     var full = M(new cv.Mat()); cv.gemm(A, Hm, 1, new cv.Mat(), 0, full);
     var ow = Math.round((x1-x0)*k), oh = Math.round((y1-y0)*k);
     if (ow < 40 || oh < 40){ reco.legoWarp = { why:'결과 너무 작음' }; done(); return null; }
-    /* 🔴 펴기가 꺼져 있으면 **여기서 끝낸다** — 워프를 만들고 버리면 안 된다.
-          예전엔 아래 warpPerspective 를 돌린 **뒤에** 끔을 검사해서, 최대 1600px 짜리
-          그림을 매 프레임 굽고 곧장 지웠다. 실측(배포본, 여섯 프레임) 한 프레임
-          94~130ms 중 12~55ms(중앙값 ~30ms, 약 1/4)가 그 헛일이었다.
-          위 검사(간격·줄수·크기)는 그대로 거친다 — 돌려주는 값이 달라지면 안 된다. */
-    if (!TUNE.legoRectifyOn){            // 펴기 끔 — 칸만 받아 간다
-      reco.legoWarp = { 위:pA, 아래:pB, 폄:'끔' };
-      done();
-      return { mat: null, cell: Math.min(pA, pB) };
-    }
     var rect = new cv.Mat();
     cv.warpPerspective(raw, rect, full, new cv.Size(ow, oh),
                        cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar(0,0,0,255));
@@ -2598,6 +2650,8 @@ function recognizeLegoDirect(){
                              : M(cv.matFromArray(detBuf.H, detBuf.W, cv.CV_8UC4, detBuf.buf));
     var W = raw.cols, H = raw.rows, N = W*H;
     reco.legoCell = rc ? rc.cell : 0;   // 못 편 경우에도 칸은 온다
+    var cellLine = rc && rc.line;        // y 마다 다른 칸(안 편 그림). 편 그림은 어디서나 같다.
+    function cellAt(y){ return cellLine ? cellLine.at(y) : (reco.legoCell || CELL); }
     /* 🔴 detBuf 는 readPixels 라 **아래가 0** 이다. 그대로 두면 덩어리가 세로로
           거울이 되어 자모가 통째로 틀린다(실측: ㅏ 가 ㅓ 로, ㄱ 이 ㄷ 으로).
           여기서 한 번 바로 세우고, 그 뒤로는 사진과 같은 좌표로 다룬다. */
@@ -2682,7 +2736,9 @@ function recognizeLegoDirect(){
           세로획을 잃고 막대가 되어 한 칸짜리 ㅡ 형판에 자리를 뺏겼다.
           칸의 0.2배 커널로 먼저 메우면 획이 이어진다. 순서를 뒤집으면 열기가
           이미 끊어 놓은 뒤라 메울 게 남지 않는다. */
-    var cellNow0 = reco.legoCell || CELL;
+    /* 커널은 **가장 작은 칸**으로 — 작은 커널은 글자를 안 뭉치지만 큰 커널은 옆 조각까지
+       메운다(실측: 「가」가 커널 칸 49 에서 사라지고 34 에서 읽힘). */
+    var cellNow0 = (cellLine ? cellLine.lo : 0) || reco.legoCell || CELL;
     /* 🔴 **옆벽을 먼저 뗀다** — 채도만 보면 블록 옆면까지 전경이라 ㄷ 의 입이 메워진다. */
     if (TUNE.legoWallCut) legoCutWalls(bin, val, cellNow0);
     /* 🔴 커널 모양이 곧 속도다 — 타원은 O(N·k²) 라 이 크기에서 160ms 를 쓴다.
@@ -2711,7 +2767,7 @@ function recognizeLegoDirect(){
             그게 칸 크기 무리를 흔들어 멀쩡한 글자를 밀어냈다 — 실측 「간교」가
             그렇게 ㄱㅏㄱㅛㄴ(정확)에서 ㄱㅏㅜㅗㅛ 로 뒤집혔다.
             한 음절은 길어야 10칸이고 두 음절이 붙어도 그 두 배다. */
-      var cellPre = reco.legoCell || CELL;
+      var cellPre = cellAt(by + bh / 2);
       if (Math.max(bw, bh) > cellPre * TUNE.legoMaxBlob) continue;
       var blob = new Uint8Array(bw*bh), vs = [], ss = [];
       for (var y = 0; y < bh; y++)
@@ -2721,7 +2777,7 @@ function recognizeLegoDirect(){
             vs.push(vd[(by+y)*W + bx+x]);
             ss.push(sd[(by+y)*W + bx+x]);
           }
-      var cellNow = reco.legoCell || CELL;
+      var cellNow = cellPre;
       /* 🔴 채도 중앙값으로 갈래를 정하고, **이 덩어리를 처리하는 동안만** 세워 둔다. */
       if (TUNE.legoVowelSat > 0 && ss.length){
         ss.sort(function(a2, b2){ return a2 - b2; });
