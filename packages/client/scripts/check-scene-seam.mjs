@@ -10,7 +10,14 @@
 //    **조사로 거른다** — 이름 뒤에 주격·목적격·여격이 붙은 것만 「이 쪽에 있다」로 센다.
 //    ⚠️ 남는 오검출 하나 = 「미나**가** 가리킨 쪽으로」 같은 **관형절**(지난 일이라 그 쪽엔 없다).
 //
-//   node packages/client/scripts/check-scene-seam.mjs [시리즈] [--both]
+// 🔴 **둘째 그물 — 「말하는 쪽에 말하는 입이 없다」**(2026-09-07). 이음매 검수 열두 묶음 중 **여섯 시리즈**가
+//    따로 같은 신고를 했고(mei 10쪽 · coco 19 · bruno 21 · dingding 9 · nono 7 · dodo 4), 첫째 그물은
+//    **한 쪽도 못 찍었다** — 지문의 인물만 보기 때문이다. 이 그물은 반대로 **대사가 있는 쪽에서 SCENE
+//    인물 칸에 말하는 표시가 하나도 없는 쪽**을 센다. bruno 검수자가 「세는 그물을 하나 더 만든다면
+//    그것이 수확이 가장 크다」고 짚어 준 그물이다.
+//    ⚠️ 후보다 — 「입을 앙 다문다」가 곧 그 쪽의 뜻인 자리가 있다(bruno 32 p2 · mei 16 p8).
+//
+//   node packages/client/scripts/check-scene-seam.mjs [시리즈] [--both] [--speak]
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,6 +27,9 @@ import { SERIES } from './_series-config.mjs';
 const DOCS = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', 'docs', 'changjak-books');
 const only = process.argv[2]?.startsWith('--') ? null : process.argv[2];
 const BOTH = process.argv.includes('--both');
+const SPEAK = process.argv.includes('--speak');
+// 말하는 표시 — 입/부리를 벌리거나, 말하는 동사가 인물 칸에 있으면 화자가 그려진 것으로 본다.
+const SAYS = /입|부리|말한|말하|외친|외치|묻는|물어|소곤|속삭|노래|읊|중얼|따라 하|턱이 벌|하품/;
 
 const narration = (ko) => ko.replace(/"[^"]*"/g, ' ').replace(/[“][^”]*[”]/g, ' ');
 const personLabel = (html) => (String(html).match(/<b>인물<\/b>([\s\S]*?)(?:<br\s*\/?>\s*<b>|$)/) ?? [])[1] ?? '';
@@ -38,11 +48,23 @@ for (const key of Object.keys(SERIES).filter((k) => !only || k === only)) {
       if (!html) continue;
       pages += 1;
       const who = personLabel(html);
-      const acts = (t, a) => new RegExp(`${a}(?:가|이|은|는|도|를|을|에게|한테|와|과|랑|야|아)(?![가-힣])`).test(t);
+      // 🔴 **부재·부정·회상 문장은 빼야 한다**(2026-09-07, mina 26~50 검수). 「엄마는 장에 **갔어요**」·
+      //    「엄마가 **안 보여요**」·「엄마를 **부르지 않고**」·「엄마가 늘 하던 말이 **생각났어요**」는
+      //    조사를 달고 있지만 **그 쪽에 없는 것이 오히려 그 쪽의 뜻**이다. 후보 여섯 중 다섯이 이것이었다.
+      const ABSENT = /없|안 보|못 보|안 오|못 오|갔어요|떠났|생각났|않고|않았/;
+      const acts = (t, a) => t.split(/(?<=[.!?])\s+/).some((sent) =>
+        new RegExp(`${a}(?:가|이|은|는|도|를|을|에게|한테|와|과|랑|야|아)(?![가-힣])`).test(sent) && !ABSENT.test(sent));
       const inProse = cast.filter((c) => c.aliases.some((a) => /[가-힣]/.test(a) && acts(narration(pg.ko), a)));
       const inScene = (c) => c.aliases.some((a) => who.includes(a));
       const gone = inProse.filter((c) => !inScene(c));
       if (gone.length) { lines.push(`  ${id} p${pg.n} 🔴 본문에 선 인물이 그림에 없다 — ${gone.map((c) => c.name).join('·')}`); missing += 1; }
+      if (SPEAK) {
+        // 지문이 아니라 **따옴표 안**이 있어야 대사 쪽이다.
+        if (/"[^"]+"|[“][^”]+[”]/.test(pg.ko) && who && !SAYS.test(who)) {
+          lines.push(`  ${id} p${pg.n} 🗣 대사가 있는데 인물 칸에 말하는 표시가 없다`);
+          extra += 1;
+        }
+      }
       if (BOTH) {
         const added = cast.filter((c) => inScene(c) && !inProse.includes(c) && !pg.ko.includes(c.name));
         if (added.length) { lines.push(`  ${id} p${pg.n} ⚠️ 그림에만 있는 인물 — ${added.map((c) => c.name).join('·')}`); extra += 1; }
