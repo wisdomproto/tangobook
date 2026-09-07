@@ -109,7 +109,13 @@ details details{margin:6px 0}
 .card.good{border-color:var(--grw);background:var(--grw)}
 .flow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;background:var(--sunk);padding:14px 16px;border-radius:10px;white-space:pre;overflow-x:auto;margin:0 0 14px;line-height:1.55}
 
-.memo{border-top:1px dashed var(--line);padding:12px 18px 16px;background:var(--bg)}
+.memo{border-top:1px dashed var(--line);padding:8px 18px;background:var(--bg)}
+.memo.open{padding:12px 18px 16px}
+.memo .ml{cursor:pointer;user-select:none;margin:0}
+.memo.open .ml{margin:0 0 7px}
+.memo .ml::before{content:"▸";width:12px;color:var(--faint)}.memo.open .ml::before{content:"▾"}
+.memo .has{margin-left:auto;font-size:.72rem;color:var(--am);font-weight:700}
+.memo textarea{display:none}.memo.open textarea{display:block}
 .memo .ml{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--faint);margin:0 0 7px}
 .memo .ml b{color:var(--mut)}
 textarea{width:100%;min-height:72px;resize:vertical;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
@@ -1265,6 +1271,8 @@ textarea.dirty{border-color:var(--am)}
     var box = el('div', 'memo'), lab = el('div', 'ml');
     lab.appendChild(el('b', null, '📝 메모')); lab.appendChild(el('span', null, s.querySelector('h2').textContent));
     var st = el('span', 'st', ''); lab.appendChild(st);
+    var has = el('span', 'has', ''); lab.appendChild(has); s._has = has;
+    lab.addEventListener('click', function () { box.classList.toggle('open'); if (box.classList.contains('open')) ta.focus(); });  // 🔴 기본은 접힘 — 메모가 본문을 밀어내지 않게
     var ta = el('textarea'); ta.placeholder = '여기에 적으면 저장됩니다 (멈추면 자동 저장)';
     box.appendChild(lab); box.appendChild(ta); s.appendChild(box);
     s._id = id; s._ta = ta; s._st = st;
@@ -1278,7 +1286,7 @@ textarea.dirty{border-color:var(--am)}
   function save(s) {
     fetch(API_MEMO, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ docId: s._id, memo: s._ta.value }) })
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function () { s._ta.classList.remove('dirty'); s._st.className = 'st ok'; s._st.textContent = '저장됨';
+      .then(function () { s._ta.classList.remove('dirty'); s._st.className = 'st ok'; s._st.textContent = '저장됨'; s._has.textContent = s._ta.value.trim() ? '● 메모 있음' : '';
         setTimeout(function () { if (s._st.textContent === '저장됨') s._st.textContent = ''; }, 2000); })
       .catch(function (e) { s._st.className = 'st err'; s._st.textContent = '저장 실패 — ' + e.message; });  // 🔴 조용히 넘기지 않는다
   }
@@ -1287,7 +1295,7 @@ textarea.dirty{border-color:var(--am)}
     fetch(API_MEMO, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
       var m = (j && j.data) || {};
       var n = 0;
-      secs.forEach(function (s) { if (s._ta.classList.contains('dirty')) return; s._ta.value = m[s._id] || ''; if ((m[s._id] || '').trim()) n++; });
+      secs.forEach(function (s) { if (s._ta.classList.contains('dirty')) return; s._ta.value = m[s._id] || ''; var has = !!(m[s._id] || '').trim(); if (has) n++; s._has.textContent = has ? '● 메모 있음' : ''; });
       g.textContent = '메모 ' + n + ' / ' + secs.length;
     }).catch(function (e) { g.textContent = '메모 못 불러옴 — ' + e.message; });
   }
