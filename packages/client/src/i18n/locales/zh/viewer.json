@@ -29,7 +29,9 @@
     "volumeHigh": "大声",
     "darkMode": "夜间模式",
     "textSize": "字体大小",
-    "fullscreenImage": "放大查看图片"
+    "fullscreenImage": "放大查看图片",
+    "listenOther": "用{{lang}}听一遍",
+    "listenOtherStop": "停止播放"
   },
   "nav": {
     "prev": "上一页",
@@ -91,5 +93,9 @@
       "restart": "🔁 再看一遍",
       "exit": "🏠 退出"
     }
+  },
+  "lang": {
+    "ko": "韩语",
+    "en": "英语"
   }
 }

@@ -29,7 +29,9 @@
     "volumeHigh": "ดัง",
     "darkMode": "โหมดมืด",
     "textSize": "ขนาดตัวอักษร",
-    "fullscreenImage": "ดูภาพขนาดใหญ่"
+    "fullscreenImage": "ดูภาพขนาดใหญ่",
+    "listenOther": "ฟังเป็น{{lang}}",
+    "listenOtherStop": "หยุดฟัง"
   },
   "nav": {
     "prev": "หน้าก่อนหน้า",
@@ -91,5 +93,9 @@
       "restart": "🔁 ดูอีกครั้ง",
       "exit": "🏠 ออก"
     }
+  },
+  "lang": {
+    "ko": "ภาษาเกาหลี",
+    "en": "ภาษาอังกฤษ"
   }
 }

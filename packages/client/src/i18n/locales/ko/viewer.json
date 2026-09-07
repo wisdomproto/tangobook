@@ -29,7 +29,9 @@
     "volumeHigh": "크게",
     "darkMode": "다크모드",
     "textSize": "글자 크기",
-    "fullscreenImage": "이미지 크게 보기"
+    "fullscreenImage": "이미지 크게 보기",
+    "listenOther": "{{lang}}로 들어보기",
+    "listenOtherStop": "그만 듣기"
   },
   "nav": {
     "prev": "이전 페이지",
@@ -91,5 +93,9 @@
       "restart": "🔁 다시 보기",
       "exit": "🏠 나가기"
     }
+  },
+  "lang": {
+    "ko": "한국어",
+    "en": "영어"
   }
 }

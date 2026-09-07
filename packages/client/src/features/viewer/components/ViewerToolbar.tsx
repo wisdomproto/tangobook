@@ -23,7 +23,12 @@ interface ViewerToolbarProps {
   volume: 'low' | 'mid' | 'high';
   onCycleVolume: () => void;
   language: string;
-  onToggleLanguage?: () => void;
+  /** 미리들을 반대 언어 — ko 로 읽는 중이면 'en'. */
+  otherLang: string;
+  /** 그 언어 음원·본문이 이 쪽에 다 있을 때만 낸다. */
+  canPreviewOther: boolean;
+  isPreviewing: boolean;
+  onPreviewOtherLang: () => void;
   fullscreenImage: boolean;
   onToggleFullscreen: () => void;
 }
@@ -132,7 +137,21 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
         <PillIconBtn onClick={props.onCycleTextSize} label={t('toolbar.textSize')}>
           Aa
         </PillIconBtn>
-        {/* 언어 바꾸기 버튼 제거 — 언어는 책 진입 전(BookDetailPage)에서 선택하므로 뷰어엔 불필요. */}
+        {/* 🔴 언어 **바꾸기**는 여전히 없다(BookDetailPage 와 겹친다). 이건 「이 쪽만 반대 언어로
+            한 번 들어보기」 — 끝나면 제자리로 돌아온다. 한영 공부용. */}
+        {props.canPreviewOther && (
+          <PillIconBtn
+            onClick={props.onPreviewOtherLang}
+            active={props.isPreviewing}
+            label={
+              props.isPreviewing
+                ? t('toolbar.listenOtherStop')
+                : t('toolbar.listenOther', { lang: t(`lang.${props.otherLang}`) })
+            }
+          >
+            {props.otherLang === 'en' ? 'EN' : '한'}
+          </PillIconBtn>
+        )}
         <PillIconBtn
           onClick={props.onToggleFullscreen}
           active={props.fullscreenImage}

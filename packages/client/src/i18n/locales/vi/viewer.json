@@ -29,7 +29,9 @@
     "volumeHigh": "Lớn",
     "darkMode": "Chế độ tối",
     "textSize": "Cỡ chữ",
-    "fullscreenImage": "Xem hình phóng to"
+    "fullscreenImage": "Xem hình phóng to",
+    "listenOther": "Nghe bằng {{lang}}",
+    "listenOtherStop": "Dừng nghe"
   },
   "nav": {
     "prev": "Trang trước",
@@ -91,5 +93,9 @@
       "restart": "🔁 Xem lại",
       "exit": "🏠 Thoát"
     }
+  },
+  "lang": {
+    "ko": "tiếng Hàn",
+    "en": "tiếng Anh"
   }
 }

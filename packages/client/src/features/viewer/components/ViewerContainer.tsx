@@ -61,7 +61,6 @@ interface ViewerContainerProps {
 }
 
 const TEXT_SIZE_CYCLE: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
-const LANG_CYCLE: LangCode[] = ['ko', 'en'];
 
 // 자동 넘김 페이싱 (4-5세 숨 고르기) — 음성이 끝난 뒤 바로 다음 음성이 깔리면 숨이 차서 쉼을 둔다.
 const PAGE_REST_MS = 900; // TTS 끝 → 다음 페이지로 넘기기 전 쉬는 시간
@@ -75,7 +74,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   //    자동 유지가 안 됐다(사용자: "우리 동화 볼 때 자꾸 자동 화면 잠금"). 재생 여부와 무관하게
   //    뷰어(단일·연속재생 공용)에 있으면 켜 둔다.
   useWakeLock();
-  const [sp, setSp] = useSearchParams();
+  const [sp] = useSearchParams();
   const mode = sp.get('mode');
 
   const { data: v1Storybook, isLoading, error } = useStorybook(storybookId);
@@ -160,6 +159,18 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   // playlist mode: error-skip guard — fire onBookEnd at most once per mount.
   const playlistSkippedRef = useRef(false);
 
+  /**
+   * 「이 쪽만 다른 언어로 들어보기」 — 한영 공부용. 언어를 **바꾸는** 게 아니라
+   * 이 쪽을 반대 언어로 한 번 들려주고 원래대로 돌아온다.
+   * 🔴 언어 토글이 아니다 — 토글은 BookDetailPage 와 겹쳐서 의도적으로 뺐다(ViewerToolbar 주석).
+   *    아이가 영어 상태로 남으면 이야기를 놓치므로, 끝나면 반드시 제자리로 돌린다.
+   */
+  const [previewLang, setPreviewLang] = useState<LangCode | null>(null);
+  const previewRef = useRef<LangCode | null>(null);
+  previewRef.current = previewLang;
+  /** 미리듣기가 끝난 뒤 이어 읽을 원래 언어 음원 — 누를 때 잡아 둔다. */
+  const resumeUrlRef = useRef<string | undefined>(undefined);
+
   // state ref로 콜백에서 최신 값 접근
   const stateRef = useRef({
     pageIndex: 0,
@@ -196,6 +207,18 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   // 마지막 페이지 + autoPlayTts ON → RewardScreen overlay (영상·게임·홈 선택)
   const handleTtsEnded = useCallback(() => {
     const st = stateRef.current;
+    // 🔴 미리듣기가 끝난 것이면 **넘기지 않는다** — 다른 언어를 한 번 들려준 것뿐이다.
+    //    자막을 원래 언어로 되돌리고, 읽어주는 중이었으면 그 쪽을 원래 언어로 이어 읽는다.
+    if (previewRef.current) {
+      previewRef.current = null;
+      setPreviewLang(null);
+      if (st.autoPlayTts) {
+        const url = resumeUrlRef.current;
+        lastPlayedTtsRef.current = url ?? null;
+        if (url) audio.playTts(url);
+      }
+      return;
+    }
     if (!st.autoPlayTts) return;
     if (st.rewardOpen || st.wordRevealOpen) return;
     if (st.pageIndex >= pages.length - 1) {
@@ -301,6 +324,19 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
       resumeTts();
     }
   }, [playlist, playlist?.paused, pauseTts, resumeTts]);
+
+  // 🔴 쪽을 넘기면 미리듣기를 반드시 푼다 — 안 풀면 자막이 반대 언어로 굳는다
+  //    (아이가 영어를 듣다 다음 장을 눌러 버리는 건 흔한 일이다).
+  // stopTts 는 useCallback([]) 이라 안정 — audio 객체 전체를 deps 에 넣으면 매 렌더 재실행된다
+  // (같은 이유로 위 playlist pause effect 도 pauseTts/resumeTts 만 뽑아 쓴다).
+  const stopTts = audio.stopTts;
+  useEffect(() => {
+    if (!previewRef.current) return;
+    stopTts();
+    previewRef.current = null;
+    setPreviewLang(null);
+    lastPlayedTtsRef.current = null;
+  }, [pageIndex, stopTts]);
 
   // 페이지 변경 시 자동 TTS 재생. 첫 진입은 ttsReady(버퍼링 완료) 후에만 — 로딩 끝나고 바로 재생.
   // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도).
@@ -604,18 +640,33 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
     setRewardOpen(true);
   }, [isVideoMode, hasAnyVideo, playlist]);
 
-  const onToggleLanguage = () => {
-    // 옛 언어 음성 즉시 정지 — 안 멈추면 재버퍼링 동안 옛 언어가 끝까지 재생되어
-    // "다음 페이지부터 바뀜 + 음성·자막 언어 불일치(한영 동시 체감)" 가 됨.
+  // 🔴 반대 언어 음원은 **직접** 본다 — `getPageTtsUrl(page,'en')` 은 영어 음원이 없으면
+  //    한국어 URL 로 폴백해서, 그대로 쓰면 「영어로 들어보기」가 한국어를 튼다.
+  const otherLang: LangCode = lang === 'ko' ? 'en' : 'ko';
+  const previewUrl =
+    otherLang === 'ko' ? currentPage?.ttsUrl : currentPage?.translations?.en?.ttsUrl;
+  const previewText = otherLang === 'ko' ? currentPage?.text : currentPage?.translations?.en?.text;
+  // 소리와 글이 둘 다 있어야 낸다 — 하나만 있으면 자막과 음성이 어긋난다.
+  // playlist(재우는 용도)·영상 모드에선 숨긴다.
+  const canPreviewOther =
+    !!previewUrl && !!previewText && !playlist && !isVideoMode && (lang === 'ko' || lang === 'en');
+
+  const onPreviewOtherLang = () => {
+    if (!previewUrl) return;
+    if (previewRef.current) {
+      // 재생 중 다시 누르면 취소 — 원래 언어로 되돌린다.
+      audio.stopTts();
+      previewRef.current = null;
+      setPreviewLang(null);
+      lastPlayedTtsRef.current = null;
+      return;
+    }
     audio.stopTts();
-    lastPlayedTtsRef.current = null;
-    const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
-    const next = LANG_CYCLE[(cur === -1 ? 0 : cur + 1) % LANG_CYCLE.length];
-    setSp((prev) => {
-      prev.set('lang', next);
-      return prev;
-    });
-    updateSettings({ language: next });
+    resumeUrlRef.current = currentTtsUrl;
+    lastPlayedTtsRef.current = null; // 끝난 뒤 같은 쪽을 다시 재생할 수 있게
+    previewRef.current = otherLang;
+    setPreviewLang(otherLang);
+    audio.playTts(previewUrl);
   };
 
   // playlist mode: skip to next book on load error (fire onBookEnd once).
@@ -731,7 +782,10 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
               updateSettings({ volume: cycle[(cur + 1) % cycle.length] });
             }}
             language={lang}
-            onToggleLanguage={onToggleLanguage}
+            otherLang={otherLang}
+            canPreviewOther={canPreviewOther}
+            isPreviewing={!!previewLang}
+            onPreviewOtherLang={onPreviewOtherLang}
             fullscreenImage={fullscreen}
             onToggleFullscreen={() => setFullscreenLocal((f) => !f)}
           />
@@ -743,7 +797,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
           page={currentPage}
           pageIndex={pageIndex}
           direction={direction}
-          lang={lang}
+          lang={previewLang ?? lang}
           textSize={settings.textSize}
           isDarkMode={settings.darkMode}
           ttsCurrentTime={audio.ttsCurrentTime}

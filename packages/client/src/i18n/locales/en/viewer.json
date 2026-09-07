@@ -29,7 +29,9 @@
     "volumeHigh": "High",
     "darkMode": "Dark mode",
     "textSize": "Text size",
-    "fullscreenImage": "View image larger"
+    "fullscreenImage": "View image larger",
+    "listenOther": "Listen in {{lang}}",
+    "listenOtherStop": "Stop listening"
   },
   "nav": {
     "prev": "Previous page",
@@ -91,5 +93,9 @@
       "restart": "🔁 Watch Again",
       "exit": "🏠 Exit"
     }
+  },
+  "lang": {
+    "ko": "Korean",
+    "en": "English"
   }
 }
