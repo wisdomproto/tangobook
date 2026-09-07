@@ -1371,6 +1371,8 @@ var TUNE = {
   legoPlateMad: 3,               // 'dist' 일 때만 — 판 자신의 산포(MAD) 배수
   legoCloseRect: 1,              // 1 = 닫기 커널을 사각으로(분리 가능 → 훨씬 싸다)
   legoWallCut: 1,                // 1 = 덩어리마다 V 를 갈라 **옆벽**을 뗀다(0=끔)
+  legoOpen: 0.15,                // 열기 커널(칸 배수). 예전엔 5px 로 박혀 있었다 — 칸 34 에서
+                                 // 0.15칸이라 값은 그대로고, 칸이 다른 폰에서만 달라진다.
   legoShadowFill: 0.40,          // 돌기 그림자를 메우는 닫기 커널(칸 배수) — 0 이면 안 메운다
                                  // 🔴 0.20 은 모자란다(6장 중 4장) · 0.40 에서 6/6
   legoMaxBlob: 20,               // 이 칸수를 넘는 덩어리는 글자가 아니다(가구·다른 판)
@@ -2685,7 +2687,12 @@ function recognizeLegoDirect(){
     var kc = M(cv.getStructuringElement(TUNE.legoCloseRect ? cv.MORPH_RECT : cv.MORPH_ELLIPSE,
                                         new cv.Size(ckr, ckr)));
     if (TUNE.legoShadowFill > 0) cv.morphologyEx(bin, bin, cv.MORPH_CLOSE, kc);
-    var k = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(5, 5)));
+    /* 🔴 **절대 픽셀을 쓰지 않는다.** 여기만 5x5 로 박혀 있었다 — 폰마다 해상도가
+          다르고 판까지의 거리도 달라서 칸이 12~51px 로 흔들리는데, 5px 는 칸 34 에서
+          0.15칸이지만 칸 12 에서는 0.4칸이라 획을 갉는다. 나머지 관문은 이미 상대값이다
+          (legoMinArea=화면 넓이 비율 · legoMaxBlob·legoMinLong=칸수 · legoShadowFill=칸 배수). */
+    var okr = Math.max(3, (Math.round(cellNow0*TUNE.legoOpen) | 1));
+    var k = M(cv.getStructuringElement(cv.MORPH_ELLIPSE, new cv.Size(okr, okr)));
     cv.morphologyEx(bin, bin, cv.MORPH_OPEN, k);
     var lab = M(new cv.Mat()), st = M(new cv.Mat()), cen = M(new cv.Mat());
     var n = cv.connectedComponentsWithStats(bin, lab, st, cen, 8, cv.CV_32S);
