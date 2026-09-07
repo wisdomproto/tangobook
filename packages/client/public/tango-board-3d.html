@@ -1330,14 +1330,44 @@ var TUNE = {
   legoScore: 'iou',              // 'iou' = 넓이 겹침(주) · 'corr' = 상관
   legoTieGap: 0.06,              // 1·2위 겹침 차이가 이보다 작으면 상관으로 다시 겨룬다
   legoTieMargin: 0.05,           // 상관이 **비율로** 이만큼 앞서야 뒤집는다
-  /* 🔴 지금은 **노란 블록 전용**이다. 다른 색 블록을 쓰려면 여기서부터 손봐야 한다.
+  /* 🔴 **판이 초록이 되면서 축이 b\* 에서 a\* 로 바뀌었다**(2026-09-07).
+     예전 판은 회색이라 「누런 기」밖에 기댈 게 없어 b\* 를 썼다. 지금 판은 초록이고
+     블록은 노랑·흰색이라 **a\*(초록–빨강 축) 하나가 둘 다 판에서 떼어 낸다**.
+       실측(손으로 고른 조각): 판 a\* −43 (밝은 데 −31 ~ 그늘 −50)
+                              노랑 +3 · 흰 −2  →  여백 25 = 판 산포의 6.1배
+     🔴 **b\* 로는 흰 블록이 원리상 안 보인다** — 흰색 b\* 는 −0.1 로 판과 같다.
+        실측: 배포본이 흰 ㅏ 를 통째로 놓치고 노랑 ㄹ 마저 두 조각 내어 「ㅡㅛㅛ」로 읽었다.
+        a\* 로 바꾸니 ㄹ 이 한 덩어리(113x121)로, ㅏ 도 (53x121) 로 잡힌다.
+     🔴 **밝기로 나누지 말 것.** 판 a\* 가 밝기와 0.82 로 같이 움직이길래 a\* ÷ L ·
+        g'=G/(R+G+B) · (G−R)/(G+R) · (G−R)/(R+G+B) 를 같은 조각으로 재 봤더니
+        여백/판산포가 1.8 · −0.8 · 2.1 · 2.2 로 **전부 a\*(6.1)보다 나빴다**.
+        어두운 화소에서 나눗셈이 L 자신의 잡음을 끌어들인다(그늘진 노랑 L=27).
+        상관은 실재하지만 기울기가 작다 — L 55→69 에 판 a\* 는 5 움직이고 여백은 25 다.
+     🔴 마스크로 자른 화소로 그 마스크의 문턱을 검증하지 말 것 — 순환논법이다.
+        한 번 그렇게 재고 「여백 1.0」이라는 헛것을 얻었다. 축 비교는 손으로 고른 조각으로.
+     ⚠ 파란 블록을 쓸 거면 여기서 또 축을 골라야 한다 — 그 색 실사부터 받을 것.
      ⚠ 색 무관으로 만들려고 `dist`(판 색에서의 |a*|+|b*| 거리)를 붙여 재 봤는데
         **더 나빴다** — 노랑 9장 기준 b* 9/9 vs dist 최고 7/9(MAD 배수 2·3·4·6·9 전부).
         이유: 절대값으로 접으면 **부호를 잃는다**. 이 판은 약간 파랗고(b*<128) 블록은
         누레서(b*>128) 그 **부호 차이가 곧 여유**인데, 거리로 바꾸면 그게 사라진다.
-        🔴 다른 색을 넣을 땐 **그 색 실사부터 받아서** 축을 다시 고를 것 —
-           파란 블록이면 b* 가 판보다 **낮아** 지금 코드로는 통째로 배경이 된다. */
-  legoChroma: 'lab',             // 'lab' = Lab b*(**노랑 전용**) · 'dist' = 판 색 거리(실험, 더 나쁨) · 'sat' = HSV 채도
+        🔴 이 dist 실험은 **회색 판 시절**의 것이다. 지금은 판이 초록이라 판 자신이
+           a* 한쪽 끝에 몰려 있고, 그래서 부호가 살아 있는 a* 한 축이면 충분하다. */
+  legoChroma: 'a',               // 'a' = Lab a*(**초록 판 기본**) · 'lab' = b*(회색 판 시절, 노랑 전용)
+                                 // 'dist' = 판 색 거리(실험, 더 나쁨) · 'sat' = HSV 채도
+  /* 🔴 자음(노랑)/모음(흰) 은 **채도**로 가른다. b* 로 하려다 한 번 틀렸다 —
+     실측 b* 자음 55·57 / 모음 −1·**25** 라 문턱을 25 에 두면 바로 모음 최댓값 자리다.
+     실제로 뒤집혔다: 옆 노랑이 반사된 흰 블록이 자음으로 분류돼 자음 형판만 보다 ㅂ0.46.
+     채도는 자음 168·193 / 모음 18·71 로 사이가 97 비어 있고, **흰색이 저채도인 것은
+     조명과 무관한 성질**이다(세 채널에 같은 밝기가 곱해져도 S 는 안 변한다).
+     0 이면 이 갈래 제한을 끈다.
+     🔴 **기본값 0 = 꺼 둔다.** 색 규칙(자음 노랑 · 모음 흰색)을 믿고 형판을 제한했다가
+        **맞게 읽던 것을 틀리게 만들었다** — 사용자가 「러」를 놓은 프레임은 ㄹ 도 ㅓ 도
+        노랑이었다(S 217 / 195). 모음이 자음으로 분류돼 자음 형판만 보게 된다.
+     🔴 그리고 **필요하지도 않았다.** 갈래 제한 없이 「랴」 ㄹ0.81+ㅑ0.92, 「러」 ㄹ0.81+ㅓ0.96
+        으로 둘 다 1위였다. 켜서 이득 본 건 흰 블록 한 장뿐인데 그건 문턱이 모음 최댓값에
+        걸린 경우라 애초에 갈래로 풀 문제가 아니었다.
+     ⚠ 켜려면 **색 규칙이 실제로 지켜지는지부터** 재라. 지금은 안 지켜진다. */
+  legoVowelSat: 0,
   legoPlateMad: 3,               // 'dist' 일 때만 — 판 자신의 산포(MAD) 배수
   legoCloseRect: 1,              // 1 = 닫기 커널을 사각으로(분리 가능 → 훨씬 싸다)
   legoWallCut: 1,                // 1 = 덩어리마다 V 를 갈라 **옆벽**을 뗀다(0=끔)
@@ -1475,6 +1505,12 @@ function buildTemplates(){
  *     1mm 마스크를 받아 CELL 배율로 늘려 쓴다. ㅁ 과 ㅇ 은 칸 발자국이
  *     **똑같아서**, 이 다섯을 칸으로 처리하면 두 글자가 영영 안 갈린다.
  */
+/* 🔴 지금 맞추는 덩어리의 갈래(자음/모음). 자르기 재귀가 matchLegoShape 를 수백 번
+      부르는데 그 사이에 끼울 인자가 세 함수(splitLego/Scored/Blob)를 타고 내려가야 해서,
+      **한 덩어리를 처리하는 동안만** 세워 두는 값으로 뒀다. 동기 호출 사슬이라 안전하다.
+      (ponytail: 인자로 바꾸려면 세 함수 시그니처를 다 고쳐야 한다 — 그럴 값어치가 생기면 그때) */
+var legoKindNow = null;
+
 function buildLegoTemplates(){
   if (!legoData) return [];
   var SHAPED = { 'ㅅ':1, 'ㅈ':1, 'ㅊ':1, 'ㅎ':1, 'ㅇ':1 };
@@ -1486,6 +1522,7 @@ function buildLegoTemplates(){
     if (!mask0) return;
     Object.keys(p.rots).forEach(function(rotKey){
       var rot = +rotKey, ch = p.rots[rotKey];
+      /* 갈래(자음/모음)는 조각 데이터가 이미 들고 있다 — 형판에 그대로 얹는다 */
       var m = legoRotate(mask0, rot);
       var x0 = m.w, y0 = m.h, x1 = -1, y1 = -1, n = 0;
       for (var y = 0; y < m.h; y++) for (var x = 0; x < m.w; x++){
@@ -1495,7 +1532,7 @@ function buildLegoTemplates(){
         if (y < y0) y0 = y; if (y > y1) y1 = y;
       }
       if (!n) return;
-      out.push({ ch:ch, base:name, rot:rot,
+      out.push({ kind:p.kind, ch:ch, base:name, rot:rot,
                  blockW:Math.round(m.w/CELL), blockH:Math.round(m.h/CELL),
                  mask:m.a, mw:m.w,
                  bx:x0, by:y0, sw:x1-x0+1, sh:y1-y0+1, area:n,
@@ -2504,6 +2541,7 @@ function recognizeLegoDirect(){
     var ch3 = M(new cv.MatVector()); cv.split(hsv, ch3);
     var sat = M(ch3.get(1)), val = M(ch3.get(2));
     var vd = val.data;                       // 옆벽 떼기에 쓴다
+    var sd = sat.data;                       // 자음/모음 가르기에 쓴다
     /* 🔴 전경을 가르는 자는 **채도가 아니라 Lab 의 b\*(파랑–노랑 축)**다.
           조명이 강하게 닿은 조각은 **과다 노출로 색이 날아가** 채도가 판 수준까지
           떨어진다 — 실측: 날아간 ㄱ 의 채도가 회색 판과 같아서 Otsu 가 통째로 버렸고,
@@ -2516,7 +2554,12 @@ function recognizeLegoDirect(){
     if (TUNE.legoChroma !== 'sat'){
       labM = M(new cv.Mat()); cv.cvtColor(rgb, labM, cv.COLOR_RGB2Lab);
       ch4 = M(new cv.MatVector()); cv.split(labM, ch4);
-      if (TUNE.legoChroma === 'lab'){
+      if (TUNE.legoChroma === 'a'){
+        /* 🔴 a* — 128 이 무채색. 초록 판은 **아래로**(실측 85), 노랑·흰 블록은
+              둘 다 가운데 근처(125~139). Otsu 가 그 빈 곳에 떨어진다.
+              b* 와 달리 **블록 색을 안 가린다** — 초록이 아니기만 하면 된다. */
+        chroma = M(ch4.get(1));
+      } else if (TUNE.legoChroma === 'lab'){
         chroma = M(ch4.get(2));              // b* — 128 이 무채색. **노랑 전용**
       } else {
         /* 🔴 b* 하나만 보면 **노랑에서만** 듣는다 — 파란 블록은 b* 가 판보다 **낮아서**
@@ -2597,12 +2640,22 @@ function recognizeLegoDirect(){
             한 음절은 길어야 10칸이고 두 음절이 붙어도 그 두 배다. */
       var cellPre = reco.legoCell || CELL;
       if (Math.max(bw, bh) > cellPre * TUNE.legoMaxBlob) continue;
-      var blob = new Uint8Array(bw*bh), vs = [];
+      var blob = new Uint8Array(bw*bh), vs = [], ss = [];
       for (var y = 0; y < bh; y++)
         for (var x = 0; x < bw; x++)
-          if (ld[(by+y)*W + bx+x] === i){ blob[y*bw + x] = 1; vs.push(vd[(by+y)*W + bx+x]); }
+          if (ld[(by+y)*W + bx+x] === i){
+            blob[y*bw + x] = 1;
+            vs.push(vd[(by+y)*W + bx+x]);
+            ss.push(sd[(by+y)*W + bx+x]);
+          }
       var cellNow = reco.legoCell || CELL;
+      /* 🔴 채도 중앙값으로 갈래를 정하고, **이 덩어리를 처리하는 동안만** 세워 둔다. */
+      if (TUNE.legoVowelSat > 0 && ss.length){
+        ss.sort(function(a2, b2){ return a2 - b2; });
+        legoKindNow = ss[ss.length >> 1] > TUNE.legoVowelSat ? '자음' : '모음';
+      } else legoKindNow = null;
       var parts = splitLego(blob, bw, bh, cellNow, 0);
+      legoKindNow = null;
       parts.forEach(function(p){
         if (!p.m || p.m.iou < TUNE.legoMinIou) return;
         var ch = p.m.T.ch, iou = p.m.iou;
@@ -2752,6 +2805,11 @@ function legoCutWalls(bin, val, cell){
       var base = L2*256, tot = 0, sum = 0, t;
       for (t = 0; t < 256; t++){ tot += hist[base+t]; sum += t*hist[base+t]; }
       if (tot < cell*cell) continue;                  // 한 칸도 안 되는 건 볼 것 없다
+      /* 🔴 **블록일 수 없는 덩어리는 건드리지 않는다.** a* 로 축을 바꾸면서 마루·책상이
+            전부 전경이 됐는데, 그 한 덩어리를 여기서 V Otsu 로 쪼개 놓으면 legoMaxBlob 에
+            걸려 죽던 것이 조각조각 크기 게이트를 통과한다(실측 덩어리 4개 -> 7개).
+            b* 시절엔 판 밖 세상이 애초에 전경이 아니라 안 드러나던 문제다. */
+      if (Math.max(st.intAt(L2, 2), st.intAt(L2, 3)) > cell*TUNE.legoMaxBlob) continue;
       var sB = 0, wB = 0, best = -1, cut = 0, keep = 0;
       for (t = 0; t < 256; t++){
         wB += hist[base+t]; if (!wB) continue;
@@ -2910,6 +2968,9 @@ function matchLegoShape(blob, bw, bh, onlyCh){
   for (var t = 0; t < tpls.length; t++){
     var T = tpls[t];
     if (onlyCh && T.ch !== onlyCh) continue;
+    /* 🔴 갈래가 정해졌으면 그 갈래 형판만 본다 — 후보가 반으로 준다.
+          자모 19종 중 자음 14 · 모음 5 라, 모음일 때 특히 크게 준다. */
+    if (legoKindNow && T.kind && T.kind !== legoKindNow) continue;
     /* 가로세로 비가 크게 다르면 볼 것도 없다 — 원근으로 눌려도 이만큼은 안 변한다. */
     var ar = (bw/bh) / (T.sw/T.sh);
     if (ar < TUNE.legoArLo || ar > TUNE.legoArHi) continue;
@@ -6818,7 +6879,15 @@ function startWebcam(){
   var ideal = { video: { facingMode: { ideal: 'user' },
                          width:{ ideal:1280 }, height:{ ideal:720 }, frameRate:{ ideal:15 } }, audio:false };
   navigator.mediaDevices.getUserMedia(ideal)
-    .catch(function(){ return navigator.mediaDevices.getUserMedia({ video:{ facingMode:{ ideal:'user' } }, audio:false }); })
+    /* 🔴 물러설 때도 **해상도는 계속 요구한다.** 예전엔 여기서 조건을 통째로 버렸는데,
+          `ideal` 은 못 맞춰도 실패하지 않으므로 버릴 이유가 없었다. 버린 대가로 첫 요청이
+          한 번 실패하면 폰 전면 카메라 기본값인 **640×480** 으로 조용히 떨어졌다 —
+          실측: 720×1280 이던 것이 480×640 이 되면서 칸이 38px → 25.5px 로 줄어
+          마스크가 거칠어졌고 자모가 통째로 틀렸다. 화면 맨 윗줄 「카메라 WxH」로 확인할 것. */
+    .catch(function(){ return navigator.mediaDevices.getUserMedia({
+             video:{ facingMode:{ ideal:'user' }, width:{ ideal:1280 }, height:{ ideal:720 } }, audio:false }); })
+    .catch(function(){ return navigator.mediaDevices.getUserMedia({
+             video:{ width:{ ideal:1280 }, height:{ ideal:720 } }, audio:false }); })
     .catch(function(){ return navigator.mediaDevices.getUserMedia({ video:true, audio:false }); })
     .then(function(stream){
     var v = document.createElement('video');
