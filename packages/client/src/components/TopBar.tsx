@@ -373,6 +373,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '명작 48권 × 그림체 3종 = 144장',
   },
   {
+    href: '/hidden-object.html',
+    icon: '🕵️',
+    label: '숨은그림찾기 해 보기',
+    desc: '붙인 씬으로 바로 논다 · 한국어/English 낱말 음원',
+  },
+  {
     href: '/letter-stroke-editor',
     icon: '🔠',
     label: '알파벳 stroke 편집',
