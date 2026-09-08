@@ -29,8 +29,20 @@ const SKIP = path.join(__dirname, '_data', 'coloring-skip.json');
  *    원본 크기로 칸을 나눠서 안 늘어나고, 나뭇잎·접시는 칸이 정말 두세 개다.
  */
 const RULES = [
-  { id: 'empty', level: 'bad', why: '칠할 칸이 없다 — 게임에서 뺐다',
-    hit: (m) => m.regions <= 1 },
+  /**
+   * 🔴 **칸이 하나인 것과 칠할 게 없는 것은 다르다.** 눈으로 스물두 장을 보고 고쳤다 —
+   *    하트·별·숟가락·뼈는 닫힌 덩어리 하나라 **한 번 탭하면 칠해진다**(게임은 멀쩡히 돈다).
+   *    진짜 못 칠하는 건 선이 테두리로 열려 안팎이 이어진 것뿐이고, 그건 남는 칸이 티끌이다
+   *    (물개 「귀」 0.5% · 「강」 0개 · 거미 「그물」 2%).
+   *
+   * 🔴 「가장 큰 칸이 5% 미만」만으로는 안 된다 — 칸이 스무 개인 빽빽한 그림도 걸려 314장이
+   *    잡혔다. **칸 수까지 봐야** 「그릴 게 없다」와 「잘게 나뉘었다」가 갈린다. 칸이 셋이면
+   *    작아도 탭할 게 셋이다(「하늘」 = 해·구름·달).
+   */
+  { id: 'empty', level: 'bad', why: '칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다',
+    hit: (m) => m.regions === 0 || (m.regions <= 2 && m.biggest < 0.05) },
+  { id: 'onetap', level: 'warn', why: '칸이 하나뿐 — 한 번 탭하면 끝난다',
+    hit: (m) => m.regions === 1 && !(m.biggest < 0.05) },
   { id: 'notlineart', level: 'bad', why: '도안이 아니다 — 색·회색이 남았다',
     hit: (m) => m.sat > 0.005 || m.mid > 0.05 },
   { id: 'blackfill', level: 'bad', why: '검게 칠한 면이 있다 — 검정은 벽이라 못 칠한다',
@@ -76,7 +88,8 @@ for (const m of measured) {
     why: hits.map((r) => r.why).join(' · '),
     word: m.word,
   };
-  if (hits.some((r) => r.id === 'empty')) skip[m.key] = `칠할 칸이 ${m.regions}개 — ${m.word}`;
+  if (hits.some((r) => r.id === 'empty'))
+    skip[m.key] = `칠할 칸이 없다 (칸 ${m.regions}개 · 가장 큰 칸 ${(m.biggest * 100).toFixed(0)}%) — ${m.word}`;
 }
 
 fs.writeFileSync(FLAGS, JSON.stringify(flags));

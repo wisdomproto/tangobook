@@ -510,6 +510,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fkr-h1-u13-tajo-68ffc3b7-w800.webp"
   },
   {
+    "key": "ph-0440",
+    "group": "한글 파닉스",
+    "section": "한글1: 기본음절 · unit 13: ㅌ 배우기",
+    "unitId": "kr-h1-u13",
+    "word": "하트",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0440.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fkr-h1-u13-hateu-575dcc70-w800.webp"
+  },
+  {
     "key": "ph-0441",
     "group": "한글 파닉스",
     "section": "한글1: 기본음절 · unit 14: ㅍ 배우기",
@@ -738,6 +748,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0463.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fkr-h2-u04-byeol-4f69757f-w800.webp"
+  },
+  {
+    "key": "ph-0464",
+    "group": "한글 파닉스",
+    "section": "한글2: 받침 · unit 04: ㄹ 받침 배우기",
+    "unitId": "kr-h2-u04",
+    "word": "하늘",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0464.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fkr-h2-u04-haneul-e81beca5-w800.webp"
   },
   {
     "key": "ph-0465",
@@ -1088,6 +1108,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0499.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fkr-h4-u01-remon-c34962b8-w800.webp"
+  },
+  {
+    "key": "ph-0500",
+    "group": "한글 파닉스",
+    "section": "한글4: 복잡한 모음 · unit 01: ㅐ, ㅔ 배우기",
+    "unitId": "kr-h4-u01",
+    "word": "베개",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0500.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fkr-h4-u01-begae-1ef938cb-w800.webp"
   },
   {
     "key": "ph-0501",
@@ -2320,16 +2350,6 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b2-u04-lid-ae3dc145-w800.webp"
   },
   {
-    "key": "ph-0108",
-    "group": "영어 파닉스",
-    "section": "Book 2: Short Vowels · Unit 04: Short Vowel i (2)",
-    "unitId": "en-b2-u04",
-    "word": "pin",
-    "language": "english",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0108.jpg",
-    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b2-u04-pin-79d77d8b-w800.webp"
-  },
-  {
     "key": "ph-0109",
     "group": "영어 파닉스",
     "section": "Book 2: Short Vowels · Unit 04: Short Vowel i (2)",
@@ -2598,6 +2618,16 @@
     "language": "english",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0135.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b2-u08-bud-8ee6c901-w800.webp"
+  },
+  {
+    "key": "ph-0136",
+    "group": "영어 파닉스",
+    "section": "Book 2: Short Vowels · Unit 08: Short Vowel u (2)",
+    "unitId": "en-b2-u08",
+    "word": "bun",
+    "language": "english",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0136.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b2-u08-bun-1fefbc86-w800.webp"
   },
   {
     "key": "ph-0137",
@@ -2890,6 +2920,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b3-u03-time-55efad89-w800.webp"
   },
   {
+    "key": "ph-0166",
+    "group": "영어 파닉스",
+    "section": "Book 3: Long Vowels (Magic e) · Unit 03: Long Vowel i (1)",
+    "unitId": "en-b3-u03",
+    "word": "vine",
+    "language": "english",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0166.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b3-u03-vine-70cd0b38-w800.webp"
+  },
+  {
     "key": "ph-0167",
     "group": "영어 파닉스",
     "section": "Book 3: Long Vowels (Magic e) · Unit 04: Long Vowel i (2)",
@@ -3048,6 +3088,16 @@
     "language": "english",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0182.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b3-u05-vote-c162badc-w800.webp"
+  },
+  {
+    "key": "ph-0183",
+    "group": "영어 파닉스",
+    "section": "Book 3: Long Vowels (Magic e) · Unit 06: Long Vowel o (2)",
+    "unitId": "en-b3-u06",
+    "word": "bone",
+    "language": "english",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0183.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b3-u06-bone-946f3eb0-w800.webp"
   },
   {
     "key": "ph-0184",
@@ -5070,6 +5120,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b5-u08-pool-9c8851ad-w800.webp"
   },
   {
+    "key": "ph-0386",
+    "group": "영어 파닉스",
+    "section": "Book 5: Double Letter Vowels & R-Controlled · Unit 08: oo (/ʊ/ & /uː/)",
+    "unitId": "en-b5-u08",
+    "word": "spoon",
+    "language": "english",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0386.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fen-b5-u08-spoon-02d97a63-w800.webp"
+  },
+  {
     "key": "ph-0387",
     "group": "영어 파닉스",
     "section": "Book 5: Double Letter Vowels & R-Controlled · Unit 08: oo (/ʊ/ & /uː/)",
@@ -5480,6 +5540,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fzh-l6-u06-ping_bottle-61cbbf77-w800.webp"
   },
   {
+    "key": "ph-0556",
+    "group": "중국어 파닉스",
+    "section": "중국어 파닉스 · 낱말 · Unit 06: 사물 (dēng xīng bīng píng)",
+    "unitId": "zh-l6-u06",
+    "word": "xīng",
+    "language": "zh",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0556.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fzh-l6-u06-xing_star-7e25b802-w800.webp"
+  },
+  {
     "key": "ph-0557",
     "group": "중국어 파닉스",
     "section": "중국어 파닉스 · 낱말 · Unit 07: 사물 (xióng zhōng chóng táng)",
@@ -5870,6 +5940,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fzh-l8-u06-shugen-eeab9225-w800.webp"
   },
   {
+    "key": "ph-0596",
+    "group": "중국어 파닉스",
+    "section": "중국어 파닉스 · 낱말 · Unit 06: 树根门口枕头金鱼钢琴奖品",
+    "unitId": "zh-l8-u06",
+    "word": "zhěntou",
+    "language": "zh",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0596.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fzh-l8-u06-zhentou-8cbdc0c1-w800.webp"
+  },
+  {
     "key": "ph-0597",
     "group": "중국어 파닉스",
     "section": "중국어 파닉스 · 낱말 · Unit 07: 轮船竹笋裙子军人绵羊冰箱",
@@ -6008,6 +6088,16 @@
     "language": "zh",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0610.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fzh-l8-u09-chuifeng-37901234-w800.webp"
+  },
+  {
+    "key": "ph-0611",
+    "group": "중국어 파닉스",
+    "section": "중국어 파닉스 · 낱말 · Unit 09: 开心吹风灰尘宝贵拥抱口袋",
+    "unitId": "zh-l8-u09",
+    "word": "huīchén",
+    "language": "zh",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0611.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fzh-l8-u09-huichen-b4eec860-w800.webp"
   },
   {
     "key": "ph-0612",
@@ -12450,6 +12540,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-c09ee8f08a76-w800.webp"
   },
   {
+    "key": "bk-0612",
+    "group": "생활동화",
+    "section": "08. 잘 자요, 코~ 잘 자요, 코~",
+    "unitId": "1782824085578",
+    "word": "별",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0612.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-e62ced9b1a66-w800.webp"
+  },
+  {
     "key": "bk-0613",
     "group": "생활동화",
     "section": "08. 잘 자요, 코~ 잘 자요, 코~",
@@ -13040,6 +13140,16 @@
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-babc51a7d80c-w800.webp"
   },
   {
+    "key": "bk-0672",
+    "group": "생활동화",
+    "section": "19. 이상하면 안 먹어, 퉤!",
+    "unitId": "1782831061108",
+    "word": "잔디",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0672.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-54abdf4093f8-w800.webp"
+  },
+  {
     "key": "bk-0673",
     "group": "생활동화",
     "section": "20. 흔들흔들, 책상 밑으로!",
@@ -13088,6 +13198,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0677.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-99e05325e38c-w800.webp"
+  },
+  {
+    "key": "bk-0678",
+    "group": "생활동화",
+    "section": "21. 천천히, 앞을 봐요!",
+    "unitId": "1783990181590",
+    "word": "돌멩이",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0678.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-f8ceee0d8e83-w800.webp"
   },
   {
     "key": "bk-0679",
@@ -13298,6 +13418,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0699.jpg",
     "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-11f39f53a426-w800.webp"
+  },
+  {
+    "key": "bk-0700",
+    "group": "생활동화",
+    "section": "26. 조금씩, 한 걸음씩!",
+    "unitId": "1782863608939",
+    "word": "노래",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0700.jpg",
+    "originalUrl": "/api/r2-proxy?key=phonics-word-cards%2Fhori-c9110f1f8a5c-w800.webp"
   },
   {
     "key": "bk-0701",
@@ -15868,6 +15998,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0957.jpg",
     "originalUrl": "/api/r2-proxy?key=comic-assets%2Fjeonrae-patjuk%2Fword-maetdol.jpg"
+  },
+  {
+    "key": "bk-0958",
+    "group": "전래 동화",
+    "section": "팥죽 할멈과 호랑이",
+    "unitId": "1784529057529",
+    "word": "멍석",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-0958.jpg",
+    "originalUrl": "/api/r2-proxy?key=comic-assets%2Fjeonrae-patjuk%2Fword-meongseok.jpg"
   },
   {
     "key": "bk-0959",
@@ -18480,6 +18620,16 @@
     "originalUrl": "/api/r2-proxy?key=1773554974102-%EB%B0%A4%EB%82%98%EB%AC%B4-keyobj-%EC%9E%8E-1783653898142.webp"
   },
   {
+    "key": "bk-1221",
+    "group": "식물 친구들",
+    "section": "밤나무",
+    "unitId": "1773554974102",
+    "word": "줄기",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1221.jpg",
+    "originalUrl": "/api/r2-proxy?key=1773554974102-%EB%B0%A4%EB%82%98%EB%AC%B4-keyobj-%EC%A4%84%EA%B8%B0-1783653902405.webp"
+  },
+  {
     "key": "bk-1222",
     "group": "식물 친구들",
     "section": "버섯",
@@ -18818,6 +18968,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1255.jpg",
     "originalUrl": "/api/r2-proxy?key=1773564252115-%EC%88%98%EB%B0%95-keyobj-%EC%94%A8%EC%95%97-1783651908637.webp"
+  },
+  {
+    "key": "bk-1256",
+    "group": "식물 친구들",
+    "section": "수박",
+    "unitId": "1773564252115",
+    "word": "잎",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1256.jpg",
+    "originalUrl": "/api/r2-proxy?key=1773564252115-%EC%88%98%EB%B0%95-keyobj-%EC%9E%8E-1783651882763.webp"
   },
   {
     "key": "bk-1257",
@@ -19218,16 +19378,6 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1296.jpg",
     "originalUrl": "/api/r2-proxy?key=1773365185498-%ED%8A%A4%EB%A6%BD-keyobj-%ED%8A%A4%EB%A6%BD-1783647525130.webp"
-  },
-  {
-    "key": "bk-1297",
-    "group": "식물 친구들",
-    "section": "파리지옥",
-    "unitId": "1773573591972",
-    "word": "가시",
-    "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1297.jpg",
-    "originalUrl": "/api/r2-proxy?key=1773573591972-%ED%8C%8C%EB%A6%AC%EC%A7%80%EC%98%A5-keyobj-%EA%B0%80%EC%8B%9C-1783820281577.webp"
   },
   {
     "key": "bk-1298",
@@ -19640,6 +19790,16 @@
     "originalUrl": "/api/r2-proxy?key=1777610290605-%EA%B3%A0%EB%9E%98-keyobj-%EC%88%98%EC%97%BC-1783671119517.webp"
   },
   {
+    "key": "bk-1339",
+    "group": "바다 동물 친구들",
+    "section": "고래",
+    "unitId": "1777610290605",
+    "word": "이빨",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1339.jpg",
+    "originalUrl": "/api/r2-proxy?key=1777610290605-%EA%B3%A0%EB%9E%98-keyobj-%EC%9D%B4%EB%B9%A8-1783671121524.webp"
+  },
+  {
     "key": "bk-1340",
     "group": "바다 동물 친구들",
     "section": "고래",
@@ -19808,16 +19968,6 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1357.jpg",
     "originalUrl": "/api/r2-proxy?key=1777431036899-%EB%AC%BC%EA%B0%9C-keyobj-%EB%AC%BC%EA%B3%A0%EA%B8%B0-1783671840115.webp"
-  },
-  {
-    "key": "bk-1358",
-    "group": "바다 동물 친구들",
-    "section": "물개",
-    "unitId": "1777431036899",
-    "word": "바다",
-    "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1358.jpg",
-    "originalUrl": "/api/r2-proxy?key=1777431036899-%EB%AC%BC%EA%B0%9C-keyobj-%EB%B0%94%EB%8B%A4-1783671838864.webp"
   },
   {
     "key": "bk-1359",
@@ -20108,6 +20258,16 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1388.jpg",
     "originalUrl": "/api/r2-proxy?key=1777612659016-%ED%8E%AD%EA%B7%84-keyobj-%EB%82%A0%EA%B0%9C-1783669308051.webp"
+  },
+  {
+    "key": "bk-1389",
+    "group": "바다 동물 친구들",
+    "section": "펭귄",
+    "unitId": "1777612659016",
+    "word": "눈",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1389.jpg",
+    "originalUrl": "/api/r2-proxy?key=1777612659016-%ED%8E%AD%EA%B7%84-keyobj-%EB%88%88-1783669476231.webp"
   },
   {
     "key": "bk-1390",
@@ -20430,6 +20590,16 @@
     "originalUrl": "/api/r2-proxy?key=1777605651238-%EA%B0%9C%EB%AF%B8-keyobj-%EB%82%A0%EA%B0%9C-1783898122346.webp"
   },
   {
+    "key": "bk-1422",
+    "group": "곤충 친구들",
+    "section": "개미",
+    "unitId": "1777605651238",
+    "word": "눈",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1422.jpg",
+    "originalUrl": "/api/r2-proxy?key=1777605651238-%EA%B0%9C%EB%AF%B8-keyobj-%EB%88%88-1783898806300.webp"
+  },
+  {
     "key": "bk-1423",
     "group": "곤충 친구들",
     "section": "개미",
@@ -20468,16 +20638,6 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1426.jpg",
     "originalUrl": "/api/r2-proxy?key=1773320745960-%EA%B1%B0%EB%AF%B8-keyobj-%EA%B1%B0%EB%AF%B8-1783840941199.webp"
-  },
-  {
-    "key": "bk-1427",
-    "group": "곤충 친구들",
-    "section": "거미",
-    "unitId": "1773320745960",
-    "word": "그물",
-    "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1427.jpg",
-    "originalUrl": "/api/r2-proxy?key=1773320745960-%EA%B1%B0%EB%AF%B8-keyobj-%EA%B1%B0%EB%AF%B8%EC%A4%84-1783840942893.webp"
   },
   {
     "key": "bk-1428",
@@ -23358,16 +23518,6 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1715.jpg",
     "originalUrl": "/api/r2-proxy?key=1773710246892-%EB%87%8C%EC%99%80%EC%8B%AC%EC%9E%A5%EC%9D%B4%EC%95%BC%EA%B8%B0-keyobj-%ED%98%88%EA%B4%80-1783669424304.webp"
-  },
-  {
-    "key": "bk-1716",
-    "group": "우리 몸 이야기",
-    "section": "맛있는 음식의 몸속 여행",
-    "unitId": "1773625335362",
-    "word": "그릇",
-    "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fbk-1716.jpg",
-    "originalUrl": "/api/r2-proxy?key=1773625335362-%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-keyobj-%EA%B7%B8%EB%A6%87-1783669251026.webp"
   },
   {
     "key": "bk-1717",
