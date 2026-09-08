@@ -25,6 +25,16 @@
 | 계획 밖 — `/intro` 재편(데모 1개·낱말 카드·히어로 문구), `SceneReveal` 문장 단위, 낱말쓰기 소리 버그 | ✅ |
 | `/` → `/intro` 라우트 전환 | ❌ |
 
+> **2026-09-08 — 색칠 자산이 다 붙었다.** `ColoringPage`·`ColoringSheetPage`(`/games/coloring`)는
+> 아직 ❌ 지만, 착수 전에 알아야 할 것:
+> - 목록은 `catalog.ts` 가 아니라 **`build-coloring-manifest.mjs` 가 구운 `manifest.json` 2,379장**이다.
+>   항목에 `group`·`section`·`language` 가 붙었고, `answerUrl` 은 파일럿에만 있던 필드라 이제 안 쓴다.
+> - 🔴 **도안·원본 주소는 `/api/r2-proxy?key=…`** — R2 공개 호스트가 CORS 를 안 줘서 캔버스로 못 읽는다.
+>   갤러리를 새로 짜도 이 주소를 그대로 써야 한다.
+> - 🔴 **2,379장을 한 격자에 깔지 말 것**(장당 200KB = 480MB). `/coloring-demo` 는 갈래 → 단원·책 →
+>   도안 세 단계로 들어간다. SEO 갤러리는 이 구조 위에 주소를 붙이는 일이 된다.
+> - 인쇄 경로를 만들 땐 `coloring-plan-flags.json` 의 `bad` 9장을 빼는 게 좋다(게임 목록에선 이미 빠짐).
+
 > **2026-08-27 — Chunk 4 의 배관이 바뀌었다(이 플랜 밖에서).** 아직 ❌ 이지만, 착수 전에 알아야 할 것:
 > - **sitemap 은 재생성됐다**(1,882 → 1,956). 생성기가 `/intro` 를 이미 뺐는데 **산출물을 안 구워서**
 >   301 되는 URL 이 3주간 제출되고 있었다 — 코드만 고치고 `pnpm --filter server sitemap` 을 빼먹지 말 것.
@@ -457,5 +467,7 @@ git commit -m "chore(seo): prerender the activity pages and rebuild the sitemap"
 
 - **루트(`/`) 개편** — 다른 세션. 스펙의 「루트 본문」 절 참조.
 - **숨은그림 씬 만들기** — 자산 생성이라 별도 계획.
-- **색칠 도안 2,067장** — 작업판(`/coloring-plan.html`)에서 사람이 붙이는 중. 18장으로 먼저 연다.
+- ~~**색칠 도안 2,067장** — 작업판(`/coloring-plan.html`)에서 사람이 붙이는 중. 18장으로 먼저 연다.~~
+  ✅ **끝났다**(2026-09-08). 2,387칸 중 **2,386장**이 붙었고 게임이 **2,379장**을 돈다
+  (`/coloring-demo`, `build-coloring-manifest.mjs`). 「18장으로 먼저 연다」는 필요 없어졌다.
 - **틀린그림찾기** — 구현 테스트 후 결정.
