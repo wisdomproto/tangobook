@@ -1415,6 +1415,8 @@ var TUNE = {
      ⚠ 근거가 네 장뿐이다. 붙은 조각이 많은 판에서 자르기가 나빠지면 1 로 되돌리고
         legoWarpOk 검사에 맡길 것. */
   legoRectifyOn: 0,
+  legoPlateHull: 1,              // 1 = 초록 판 가장 큰 덩어리의 볼록껍질 안만 전경으로 본다
+  legoPlateMin: 0.15,            // 그 덩어리가 화면의 이 비율은 돼야 판으로 믿는다
   legoWarpMax: 1600,             // 펴진 그림의 긴 변 상한
   legoSizeLo: 0.50,              // 자모의 긴 변이 중앙값의 이 배 미만이면 가짜
   legoSizeHi: 1.80,              // 이 배를 넘어도 가짜 (가구 모서리 등)
@@ -2730,13 +2732,42 @@ function recognizeLegoDirect(){
         preThresholded = true;
       }
     }
-    var bin = M(new cv.Mat());
+    var bin = M(new cv.Mat()), thrA = 0;
     if (preThresholded) chroma.copyTo(bin);
-    else cv.threshold(chroma, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+    else thrA = cv.threshold(chroma, bin, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
     /* 어두운 데서는 채도가 못 믿을 값이 된다 — 밝기 바닥 하나. */
     var lit = M(new cv.Mat());
     cv.threshold(val, lit, TUNE.legoVMin, 255, cv.THRESH_BINARY);
     cv.bitwise_and(bin, lit, bin);
+    /* 🔴 **판 밖은 애초에 안 본다** (2026-09-08). a* 는 「초록이 아니면 전경」이라 판 아래
+          나무 탁자·손·컵이 통째로 전경이 된다. 판 끝에 놓인 ㄴ·ㅂ 이 탁자 덩어리에 삼켜져
+          버려지고(「둔풉」이 「두포」), 탁자 조각이 형판에 걸려 칸 평균이 158 로 튀어 낱말이
+          비었으며, 그 덩어리를 자르느라 폰 한 프레임이 393~699ms 였다.
+          예전 「판을 찾지 않는다」는 판이 화면을 다 채우던 구도의 결론이고, 거치대에선
+          판 아래 탁자가 늘 보인다. 여기서 찾는 건 판 사각형이 아니다 — **초록 쪽 가장 큰
+          덩어리의 볼록껍질** 하나. 껍질이라 판 끝에 앉은 조각(초록에 파인 홈)도 안에 든다.
+          판 덩어리가 화면의 legoPlateMin 비율에 못 미치면 안 건드린다(예전 동작). */
+    if (TUNE.legoPlateHull && !preThresholded){
+      var plate = M(new cv.Mat());
+      cv.threshold(chroma, plate, thrA, 255, cv.THRESH_BINARY_INV);
+      var pl = M(new cv.Mat()), pst = M(new cv.Mat()), pce = M(new cv.Mat());
+      var pn = cv.connectedComponentsWithStats(plate, pl, pst, pce, 8, cv.CV_32S);
+      var bi = 0, bA = 0, pi;
+      for (pi = 1; pi < pn; pi++){ var pa = pst.intAt(pi, 4); if (pa > bA){ bA = pa; bi = pi; } }
+      if (bi && bA >= N * TUNE.legoPlateMin){
+        var pld = pl.data32S, pmd = plate.data;
+        for (pi = 0; pi < N; pi++) pmd[pi] = pld[pi] === bi ? 255 : 0;
+        var cts = M(new cv.MatVector()), hier = M(new cv.Mat());
+        cv.findContours(plate, cts, hier, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+        var hull = M(new cv.Mat());
+        cv.convexHull(cts.get(0), hull, false, true);
+        var hv = M(new cv.MatVector()); hv.push_back(hull);
+        plate.setTo(new cv.Scalar(0));
+        cv.fillPoly(plate, hv, new cv.Scalar(255));
+        cv.bitwise_and(bin, plate, bin);
+        reco.legoPlate = +(bA / N).toFixed(2);
+      } else reco.legoPlate = 0;
+    }
     /* 🔴 **닫기를 열기보다 먼저.** 블록 윗면에 광택 줄이 얹히면 그 자리 채도가
           판 수준(17~32)까지 무너져 획이 세로로 갈린다 — 실측 「가규」의 둘째 ㄱ 이
           세로획을 잃고 막대가 되어 한 칸짜리 ㅡ 형판에 자리를 뺏겼다.
