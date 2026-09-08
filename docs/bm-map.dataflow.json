@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "탱고북 BM — 돈이 도는 길",
+    "viewBox": [
+      1080,
+      640
+    ],
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    {
+      "label": "들어온다"
+    },
+    {
+      "label": "무료로 연다"
+    },
+    {
+      "label": "모인다"
+    },
+    {
+      "label": "돈이 난다"
+    },
+    {
+      "label": "다음"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "organic",
+      "type": "external",
+      "label": "오가닉 유입",
+      "sublabel": "검색 · 유튜브 · 블로그",
+      "stage": 0,
+      "row": 0,
+      "tag": "광고 없음"
+    },
+    {
+      "id": "factory",
+      "type": "backend",
+      "label": "콘텐츠 공장",
+      "sublabel": "AI 제작 · 사람 검수",
+      "stage": 0,
+      "row": 2,
+      "tag": "원가 무기"
+    },
+    {
+      "id": "free",
+      "type": "frontend",
+      "label": "무료 플랫폼",
+      "sublabel": "동화책 전권 · 무료 단원",
+      "stage": 1,
+      "row": 1,
+      "tag": "미끼"
+    },
+    {
+      "id": "users",
+      "type": "cloud",
+      "label": "사용자 · 브랜드",
+      "sublabel": "베타로 전부 개방",
+      "stage": 2,
+      "row": 1,
+      "tag": "브랜딩"
+    },
+    {
+      "id": "sub",
+      "type": "database",
+      "label": "구독 — 부모 도구층",
+      "sublabel": "독후활동 · 리포팅 · 추천",
+      "stage": 3,
+      "row": 0,
+      "tag": "월 · 연"
+    },
+    {
+      "id": "analog",
+      "type": "external",
+      "label": "아날로그",
+      "sublabel": "탱고보드 · 워크지 · 교구",
+      "stage": 3,
+      "row": 2,
+      "tag": "현물 매출"
+    },
+    {
+      "id": "overseas",
+      "type": "cloud",
+      "label": "해외 결제",
+      "sublabel": "Paddle 전까지 무료",
+      "stage": 4,
+      "row": 1,
+      "tag": "미결"
+    }
+  ],
+  "flows": [
+    {
+      "id": "organic-free",
+      "from": "organic",
+      "to": "free",
+      "label": "무료 콘텐츠로 들어온다",
+      "classification": "유입",
+      "variant": "emphasis"
+    },
+    {
+      "id": "factory-free",
+      "from": "factory",
+      "to": "free",
+      "label": "월 수백 권, 원가는 0 으로",
+      "classification": "공급",
+      "variant": "emphasis"
+    },
+    {
+      "id": "free-users",
+      "from": "free",
+      "to": "users",
+      "label": "읽고, 돌아온다",
+      "classification": "리텐션",
+      "variant": "emphasis"
+    },
+    {
+      "id": "users-sub",
+      "from": "users",
+      "to": "sub",
+      "label": "브랜딩 잡힌 뒤 게이트",
+      "classification": "구독",
+      "variant": "default"
+    },
+    {
+      "id": "users-analog",
+      "from": "users",
+      "to": "analog",
+      "label": "같은 낱말 · 같은 그림으로",
+      "classification": "현물",
+      "variant": "emphasis"
+    },
+    {
+      "id": "sub-overseas",
+      "from": "sub",
+      "to": "overseas",
+      "label": "결제 붙으면",
+      "classification": "해외",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "순서",
+      "items": [
+        "디지털을 먼저 무료로 열어 사용자를 모은다",
+        "브랜딩이 잡히면 그때 구독 게이트를 닫는다",
+        "매출의 본진은 화면이 아니라 손에 잡히는 것이다"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "무기",
+      "items": [
+        "콘텐츠 개수가 아니라 원가 구조가 무기다",
+        "기술자 자리만 AI, 편집자 자리는 사람",
+        "그래서 브랜딩이 잡힐 때까지 공짜로 풀 수 있다"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "아직 안 정한 것",
+      "items": [
+        "가격의 실제 숫자와 무료의 범위·기간",
+        "베타를 언제 닫나 — 성공 신호가 나와야 답이 나온다",
+        "해외 결제와 대규모 광고 착수 조건"
+      ]
+    }
+  ]
+}
