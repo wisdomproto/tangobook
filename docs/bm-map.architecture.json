@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "탱고북 BM — 플랫폼 안과 밖",
+    "viewBox": [
+      1080,
+      620
+    ],
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "search",
+      "type": "external",
+      "label": "오가닉 유입",
+      "sublabel": "검색 · 유튜브 · 블로그",
+      "pos": [
+        60,
+        80
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "tag": "광고 없음"
+    },
+    {
+      "id": "sub",
+      "type": "database",
+      "label": "구독",
+      "sublabel": "부모 도구층 · 독후활동 · 리포팅 · 추천",
+      "pos": [
+        785,
+        80
+      ],
+      "size": [
+        200,
+        64
+      ],
+      "tag": "월 · 연"
+    },
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "앱 · 뷰어",
+      "sublabel": "무료로 연다",
+      "pos": [
+        560,
+        320
+      ],
+      "size": [
+        140,
+        64
+      ],
+      "tag": "미끼"
+    },
+    {
+      "id": "users",
+      "type": "cloud",
+      "label": "사용자 · 부모",
+      "sublabel": "베타로 전부 개방",
+      "pos": [
+        810,
+        320
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "tag": "브랜딩"
+    },
+    {
+      "id": "authoring",
+      "type": "backend",
+      "label": "저작도구",
+      "sublabel": "AI 제작 · 사람 검수",
+      "pos": [
+        60,
+        370
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "tag": "원가 무기"
+    },
+    {
+      "id": "digital",
+      "type": "frontend",
+      "label": "디지털 콘텐츠",
+      "sublabel": "동화책 · 파닉스 · 게임",
+      "pos": [
+        300,
+        370
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "무료"
+    },
+    {
+      "id": "analogFree",
+      "type": "external",
+      "label": "아날로그 · 유입용",
+      "sublabel": "색칠 도안 · 워크지 (인쇄)",
+      "pos": [
+        300,
+        250
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "무료 · SEO"
+    },
+    {
+      "id": "analogPaid",
+      "type": "external",
+      "label": "아날로그 · 수익용",
+      "sublabel": "탱고보드 블록 · 교구",
+      "pos": [
+        300,
+        490
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "현물 매출"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "플랫폼 = 뷰어 + 저작도구 + 콘텐츠",
+      "wraps": [
+        "app",
+        "authoring",
+        "digital",
+        "analogFree",
+        "analogPaid"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "콘텐츠 — 디지털 하나 · 아날로그 둘",
+      "wraps": [
+        "digital",
+        "analogFree",
+        "analogPaid"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "search-app",
+      "from": "search",
+      "to": "app",
+      "label": "무료 콘텐츠로 들어온다",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          630,
+          112
+        ]
+      ]
+    },
+    {
+      "id": "print-search",
+      "from": "analogFree",
+      "to": "search",
+      "label": "인쇄물이 검색에 걸린다",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "via": [
+        [
+          390,
+          200
+        ],
+        [
+          135,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "authoring-digital",
+      "from": "authoring",
+      "to": "digital",
+      "label": "월 수백 권",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "id": "digital-app",
+      "from": "digital",
+      "to": "app",
+      "label": "읽고 논다",
+      "variant": "emphasis",
+      "labelAt": [
+        520,
+        424
+      ]
+    },
+    {
+      "id": "free-app",
+      "from": "analogFree",
+      "to": "app",
+      "label": "돌아오는 문",
+      "labelAt": [
+        520,
+        266
+      ]
+    },
+    {
+      "id": "app-users",
+      "from": "app",
+      "to": "users",
+      "label": "읽고, 돌아온다",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "id": "users-sub",
+      "from": "users",
+      "to": "sub",
+      "label": "브랜딩 잡힌 뒤 게이트",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "route": "straight"
+    },
+    {
+      "id": "users-paid",
+      "from": "users",
+      "to": "analogPaid",
+      "label": "블록·교구를 산다",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "right",
+      "via": [
+        [
+          885,
+          522
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "순서",
+      "items": [
+        "디지털을 먼저 무료로 열어 사용자를 모은다",
+        "브랜딩이 잡히면 그때 구독 게이트를 닫는다",
+        "매출의 본진은 화면이 아니라 손에 잡히는 것이다"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "아날로그는 둘",
+      "items": [
+        "유입용 — 도안·워크지는 무료 인쇄물이고 검색에 걸려 사람을 데려온다",
+        "수익용 — 탱고보드 블록·교구가 현물 매출이다",
+        "둘 다 같은 낱말·같은 그림이고 종이엔 앱으로 돌아오는 문이 있다"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "무기",
+      "items": [
+        "콘텐츠 개수가 아니라 원가 구조가 무기다",
+        "기술자 자리만 AI, 편집자 자리는 사람",
+        "그래서 브랜딩이 잡힐 때까지 공짜로 풀 수 있다"
+      ]
+    }
+  ]
+}
