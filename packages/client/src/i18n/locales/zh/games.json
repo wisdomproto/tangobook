@@ -92,6 +92,10 @@
       "label": "这个东西在哪一页？",
       "subtitle": "找出出现这个东西的图画！"
     },
+    "hiddenObject": {
+      "label": "找找看",
+      "subtitle": "把藏在图画里的东西都找出来！"
+    },
     "unavailable": {
       "line": "需要3个以上带图片的单词",
       "blockKo": "韩文单词不足",

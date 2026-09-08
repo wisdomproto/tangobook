@@ -22,6 +22,7 @@ import type {
 import { decomposeWord, decomposeEnglishWord, splitUnits } from '@tangobook/shared';
 import { buildStoryImageData } from '@/features/games/lib/story-image-data';
 import { buildPageOrderData } from '@/features/games/lib/page-order-data';
+import { buildHiddenObjectSceneData } from '@/features/games/lib/hidden-object-data';
 import { buildObjectSceneData } from '@/features/games/lib/object-scene-data';
 
 /** 순서 맞추기 블록 타일 최대 개수 (그리드/트레이 가독성). vi 어절·긴 zh/th 단어 수용 위해 10. */
@@ -282,6 +283,7 @@ export function getAvailableGames(
   // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
   const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
   const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
+  const hiddenObjectData = isKo ? buildHiddenObjectSceneData(book, style) : null;
 
   const cards: VocabGameOption[] = [
     {
@@ -374,6 +376,21 @@ export function getAvailableGames(
     });
   }
 
+  if (hiddenObjectData) {
+    cards.push({
+      id: 'hidden-object',
+      group: 'story',
+      // 🔴 「이 물건 어느 장면?」(korean-object-scene)이 이미 🔍 를 쓴다 — 같은 줄에 같은 그림이
+      //    둘이면 무엇이 다른지 안 읽힌다.
+      emoji: '🕵️',
+      label: t('cards.hiddenObject.label'),
+      subtitle: t('cards.hiddenObject.subtitle'),
+      bgFrom: 'from-coral-400',
+      bgTo: 'to-coral-600',
+      available: true,
+    });
+  }
+
   if (pageOrderData) {
     cards.push({
       id: 'korean-page-order',
@@ -406,6 +423,8 @@ export function getGameData(
       return buildPageOrderData(book, style);
     case 'korean-object-scene':
       return buildObjectSceneData(book, style);
+    case 'hidden-object':
+      return buildHiddenObjectSceneData(book, style);
     case 'korean-line-matching':
     case 'english-line-matching':
       return unitToLineMatchingData(unit, lang);

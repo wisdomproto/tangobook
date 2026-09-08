@@ -92,6 +92,10 @@
       "label": "이 물건 어느 장면?",
       "subtitle": "이 물건이 나온 그림을 찾아요!"
     },
+    "hiddenObject": {
+      "label": "숨은그림 찾기",
+      "subtitle": "그림 속에 숨은 것을 모두 찾아요!"
+    },
     "unavailable": {
       "line": "이미지 있는 단어가 3개 이상 필요해요",
       "blockKo": "한글 단어가 부족해요",

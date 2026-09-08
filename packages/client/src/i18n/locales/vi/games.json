@@ -92,6 +92,10 @@
       "label": "Đồ vật này ở đâu?",
       "subtitle": "Tìm bức tranh có đồ vật này!"
     },
+    "hiddenObject": {
+      "label": "Tìm đồ vật ẩn",
+      "subtitle": "Tìm hết những thứ đang trốn trong tranh nhé!"
+    },
     "unavailable": {
       "line": "Cần 3 từ trở lên có hình",
       "blockKo": "Không đủ từ tiếng Hàn",

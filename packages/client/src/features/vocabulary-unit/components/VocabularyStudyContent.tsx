@@ -25,6 +25,7 @@ import { LangWordWritingPlayer } from '@/features/games/components/players/LangW
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
+import { HiddenObjectPlayer } from '@/features/games/components/players/HiddenObjectPlayer';
 import { StoryImagePlayer } from '@/features/games/components/players/StoryImagePlayer';
 import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
 import { WordDetailModal } from './WordDetailModal';
@@ -683,6 +684,15 @@ export function GameOverlay({
         )}
         {game === 'korean-page-order' && (
           <PageOrderPlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+          />
+        )}
+        {game === 'hidden-object' && (
+          <HiddenObjectPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
             difficulty="medium"

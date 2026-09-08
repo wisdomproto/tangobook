@@ -92,6 +92,10 @@
       "label": "Where Was This?",
       "subtitle": "Find the picture this thing appeared in!"
     },
+    "hiddenObject": {
+      "label": "Hidden Pictures",
+      "subtitle": "Find everything hiding in the picture!"
+    },
     "unavailable": {
       "line": "Need 3+ words with images",
       "blockKo": "Not enough Korean words",

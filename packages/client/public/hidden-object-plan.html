@@ -394,6 +394,9 @@
       (function () {
         'use strict';
         var DOC = 'hidden-object-plan';
+  /** 잡아 놓은 사물 자리(퍼센트). `hidden-object-hotspots.json` — 없으면 상자만 안 그린다. */
+  var hotspots = {};
+  var HS_COLORS = ['#ff2d55','#00a6c9','#c69200','#3aa856','#c14fb0','#e06d1f','#6b5bd6','#0b9e7a','#d64545'];
         var API = '/api/comic-assets/' + DOC;
         var PAGE = 12; // 한 번에 그리는 줄 수 — 참조 이미지가 줄마다 7~10장이라 적게 잡는다
         var data = null,
@@ -542,9 +545,34 @@
           function paint() {
             box.innerHTML = '';
             if (assets[key]) {
+              // 🔴 붙인 그림 위에 **잡아 놓은 사물 자리**를 얹는다 — 상자가 맞는지는 그림 위에서만
+              //    보인다(숫자로는 「고양이를 짚었는데 아니라고 한다」가 안 보인다).
+              var wrap = document.createElement('div');
+              wrap.style.position = 'relative';
               var img = document.createElement('img');
               img.src = assets[key] + '?t=' + Date.now();
-              box.appendChild(img);
+              wrap.appendChild(img);
+              var boxes = hotspots[key];
+              if (boxes) {
+                var koOf = {};
+                (it.words || []).concat(it.scenery || []).forEach(function (w) { koOf[w.en] = w.ko; });
+                Object.keys(boxes).forEach(function (name, i) {
+                  var b = boxes[name];
+                  var m = document.createElement('div');
+                  m.className = 'hs';
+                  m.style.cssText =
+                    'position:absolute;left:' + b[0] + '%;top:' + b[1] + '%;width:' + b[2] + '%;height:' + b[3] +
+                    '%;border:2px solid ' + HS_COLORS[i % HS_COLORS.length] + ';border-radius:3px;pointer-events:none';
+                  var lab = document.createElement('span');
+                  lab.textContent = koOf[name] || name;
+                  lab.style.cssText =
+                    'position:absolute;left:0;top:0;font-size:10px;font-weight:800;padding:0 3px;color:#fff;background:' +
+                    HS_COLORS[i % HS_COLORS.length];
+                  m.appendChild(lab);
+                  wrap.appendChild(m);
+                });
+              }
+              box.appendChild(wrap);
               var act = document.createElement('div');
               act.className = 'act';
               var del = document.createElement('button');
@@ -812,11 +840,20 @@
             .catch(function () {
               return {};
             }),
+          fetch('/hidden-object-hotspots.json')
+            .then(function (r) {
+              return r.json();
+            })
+            .catch(function () {
+              return {};
+            }),
         ])
           .then(function (res) {
             data = res[0];
             var a = res[1];
             assets = (a && a.data) || a || {};
+            hotspots = res[2] || {};
+            delete hotspots._;
             si = -1;
             document.getElementById('q').addEventListener('input', function () {
               shown = PAGE;
