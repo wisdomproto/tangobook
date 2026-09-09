@@ -71,6 +71,11 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the w
   that ends in a closed curl; MUMU is a deer child, a head taller, the stretch in long straight legs
   and two tall ears that turn, a stub tail. The two grown animals sit or are seen from behind, run
   long in the back and the neck instead, and carry no accent colour anywhere.
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME - a grown
+  one turns its long neck to bring the open mouth round even when it sits or is seen from behind, and
+  a hand close-up hangs the speaker's open mouth at the top edge. 🔴 ONE EXCEPTION to the three-marks
+  rule: on a page whose whole point is a thing caught INSIDE the mouth (a leaf scrap between the
+  teeth), that thing is a fourth small DEEP mark - on that page only, never elsewhere.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 

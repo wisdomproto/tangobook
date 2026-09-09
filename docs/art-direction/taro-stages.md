@@ -87,7 +87,7 @@ NOT: no character of any kind, no orange anywhere on this sheet, no lettering, n
 | 6 | `MumuYard` | 무무네 마당·마루·처마 | 03 04 05 10 16 22 23 25 | 🔴 TaroYard 의 좌우 반전 |
 | 7 | `SandFlat` | 모래밭 | 09 14 21 | 모래 = CLOTH |
 | 8 | `ForkTree` | 갈림길 나무 | 11 **18** | 세 번째 나무 · 큰 나무 둘과 달라야. 🔴 **18권의 「나무 밑」이 이 나무다** — §3 |
-| 9 | `FruitTree` | 열매 나무 밑 | 13 | |
+| 9 | `FruitTree` | 열매 나무 밑 | 13 | 🔴 한 시트에 나무 둘 — 열매 나무와 그 옆 두 번째 나무(SPOT `N`, 두 밑동이 한 프레임). **13 p9·p10 은 옆 나무 밑**이다(p8 에서 열매 나무는 이미 비었으니 잎자리와 열매 셋은 옆 나무 밑에 놓인다) |
 | 10 | `ShadeHouse` | 큰 잎 자라는 자리·그늘집 | 12 | |
 | 11 | `NewPath` | 새 길 어귀 | 17 | |
 | 12 | `UpturnedBoat` | 뒤집힌 배 | 21 | 모래밭 안의 자리 |
