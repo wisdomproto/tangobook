@@ -73,6 +73,11 @@ CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no 
   Nothing is added for feeling - a full mouth is the SAME dome cut wider for that page. The eye is a
   solid KEY-INK DISC on the dome and in three-quarter or profile ONLY ONE is cut, on the near side;
   above it ONE short brow bar. Feeling is the mouth curve and the tilt of the brow bar; the disc
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   never changes size. 🔴 A CLOSED EYE is ONE short key-ink bar in the disc's place, exactly the disc's
   width; a smiling eye is that same bar bent upward; a shut-tight eye is the same bar with the brow bar
   pressed onto it. Neither is ever wider or narrower than the disc, and the disc is never cut larger for

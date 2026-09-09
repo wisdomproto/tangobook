@@ -98,6 +98,15 @@ CHARACTER DESIGN LANGUAGE: 🔴 A MARKING IS WHO SOMEBODY IS - NOT THE EYES. Eve
   FOREVER - one small round opening of shell white with an ink centre, the same size on every page
   of twenty-five books, open or shut. THERE ARE ONLY THREE INK MARKINGS ON A RACCOON DOG AND NEVER A
   FOURTH: the eye band, the dark forehands, the ringed tail.
+  THE MOUTH IS ONE SHORT INK MARK BELOW THE SNOUT, and it is not one of the three markings - it is
+  the coat's own edge opening. Shut it is a single short line; open it is a small dark opening that
+  widens with how loud the voice is, and nothing else about it changes.
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult
+  taller than the child crouches, sits or turns so that the mouth comes round; a back view is not used
+  on a page where that figure speaks. If a page's text has two speakers, two open mouths are drawn -
+  one each, not one between them. And never write that a mouth is shut on a page where that mouth is
+  the one speaking.
   A COAT IS A BUILT FIELD AND NOT HAIR - no hair strokes, no whisker lines, no drawn fur edge, no
   drawn folds in cloth. The coat ends where the field ends.
   GRADE: everyone here stands upright, wears cloth and has hands, guests included whatever animal a

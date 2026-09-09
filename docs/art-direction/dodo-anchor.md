@@ -145,6 +145,11 @@ CHARACTER DESIGN LANGUAGE: ducks are built from the same flat sweeps as the worl
   🔴 THE EYES SIT ON THE SIDES OF THE HEAD, where a duck's are. In three-quarter view ONE eye is whole
   and the far one is a sliver cut short by the curve of the skull; in profile there is ONE eye and no
   second one. Each eye is a dark almond, not a dot. The mouth is the line where the bill closes, the
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN BILL IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open bill at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the bill comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open bills are drawn - one each, not
+  one between them. And never write that a bill is shut on a page where that bill is the one speaking.
   bill angle carries the feeling, and above each eye ONE short stroke. An eye opens or closes and
   never changes size.
   THE FOUR - 🔴 WHAT TELLS THEM APART AT THUMBNAIL SIZE IS THE BUILD, NOT THE CLOTH. The cloth is a

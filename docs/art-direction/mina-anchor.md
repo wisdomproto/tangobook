@@ -71,6 +71,11 @@ CHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching IN
   in the book, and the only mark on the page whose position was decided instead of accumulated. Its
   size never changes; shut, it is replaced by one short lying row. A small dark nose; the mouth is
   ONE curved row of touching dots; ONE short row above each eye, and the feeling is in row and mouth. 🔴 THE THREE are elephant children
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3. 🔴 EACH ONE IS TOLD APART FIRST BY
   OUTLINE - where the dots crowd and where the hems fall, given per figure on that figure's sheet -
   BECAUSE A PAGE OFTEN HOLDS ONLY ONE OF THEM AND THE LADDER CANNOT BE READ. The small marks only

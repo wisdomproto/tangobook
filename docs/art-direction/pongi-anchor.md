@@ -149,6 +149,11 @@ CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for 
   over. GRADE: bipedal, standing upright, wearing cloth. The back and head are the OVERLAP colour,
   the chest and belly are INK2, so every animal is built the same way in every anchor. Eyes are two
   solid dark dots; a small dark nose; the mouth is ONE curve. There are no eyebrows.
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   🔴 WHERE THE TWO DOTS SIT INSIDE THE HEAD IS THE ACTING. They never change size and never change
   shape, but they are re-placed on every page: pushed to one side of the head to look at a thing,
   pushed to the far side to look away from it while the body still faces it, set high to look up, set

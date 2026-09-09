@@ -114,6 +114,11 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same pressed blocks as the
   full press even when the figure itself is small.
   Eyes are RINGS, not dots - the block bites only at the rim so the paper shows through the middle of
   each eye; a small nose; the mouth is ONE curve; above each eye ONE short eyebrow stroke. Feeling is
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   in the mouth curve and the two eyebrow strokes; a ring only opens or closes and never changes size.
   THE CAST, separable at thumbnail size and each with its own unhandsome mark: COCO a
   small mouse, big round ears, a thin tail with a single kink in it, 🔴 a RED head kerchief - the smallest

@@ -188,6 +188,11 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the worl
   EVER DRAWN WITH EMPTY HANDS AND FEET LEFT UNPLACED, not even in the background.
   An eye is a RUBBED DARK SMUDGE WITH NO EDGE ANYWHERE - you cannot say where it stops; the same for
   the nose. 🔴 THE MOUTH IS THE ONE HARD MARK ON A FACE, pressed with the stick's end, and above each
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH MARK IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth mark at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth mark comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouth marks are drawn - one each, not
+  one between them. And never write that a mouth mark is shut on a page where that mouth mark is the one speaking.
   eye ONE short pressed stroke; feeling is carried by those two alone.
   🔴 THE FIVE, separable at thumbnail size WITH EVERY PROP TAKEN AWAY: PIPO a puppy, three heads
   tall, head a third of him, no neck, ONE BARREL of a body with NO WAIST, short thick limbs, short

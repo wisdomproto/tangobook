@@ -73,6 +73,11 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world.
   where the character is looking on that page, and it is kept. A pool spreads wider when the eyes go
   wide and shrinks to nothing when they shut.
   🔴 THE ONLY MARKS LAID ONTO A FACE AFTERWARDS ARE THE MOUTH, ONE curve, and ONE short DRY brow
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   stroke above each eye, and the feeling is carried entirely by those three. The face is the one
   place a stroke may be steadied.
 

@@ -118,6 +118,11 @@ CHARACTER DESIGN LANGUAGE: 🔴 HOW MUCH OF THE BELLY TOUCHES THE GROUND CARRIES
   asleep; both shut on the BOTH-ENDS-UP BEND, or held, or hugged = the good shut, the one that means enough or
   well done. Where a page must not read as sleep, the eyes stay open and the bend does the work anyway. Whiskers are three white wax lines a side, seen only where they cross wash, and it is right that they
   vanish indoors. The mouth is one short DEEP mark, never a smile arc.
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   GRADE: 🔴 SEALS DO NOT STAND. The belly is on the ground or on the tread; moving is a hop that lifts the middle;
   nobody walks on flippers. 🔴 WHATEVER IS CARRIED IS CARRIED IN THE MOUTH - a
   toothbrush, a spoon, a letter, a shell, the lantern's handle - OR HUGGED TO THE CHEST BETWEEN BOTH FORE-FLIPPERS -

@@ -36,6 +36,11 @@ RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the he
   body and the face is a shape cut clean out of it, so what shows there is the white sheet beneath,
   the same white as the water. It is the brightest thing on the figure and it is what the eye finds
   first. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF THAT CUT-AWAY
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH NOTCH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth notch at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth notch comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouth notchs are drawn - one each, not
+  one between them. And never write that a mouth notch is shut on a page where that mouth notch is the one speaking.
   SHAPE, each one still joined to the black around the head, so NO BLACK PIECE IS EVER LEFT AS AN
   ISLAND INSIDE WHITE and nothing floats. A snout or a bill is the black that remains between two
   notches. 🔴 NEVER A WHITE PLATE LAID ON TOP OF A BLACK HEAD, and never eyes painted onto white.

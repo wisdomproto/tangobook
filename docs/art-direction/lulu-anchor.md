@@ -205,6 +205,11 @@ CHARACTER DESIGN LANGUAGE: the donkeys are built from the same broad fields as t
   page, and the figure left alone inside its own outline is the one the page is about.
   Eyes are LIFTED, not laid on: the ink is wiped off the plate with a rag end, so each eye is a pale
   scoop in the dark head with a soft rag edge; a dark muzzle; the mouth is ONE curve; above each eye
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   ONE short wiped stroke. 🔴 THE PLATE PRINTS ONCE - no two faces in this book come out identical, the
   scoops sit a little differently on every page and that drift is left in, never corrected. Feeling
   is in the mouth curve, the two brow strokes and the two long ears.

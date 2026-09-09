@@ -154,6 +154,11 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE OUTLINE CARRIES THE FEELING - NOT THE EYES. 
   EYES: two IRON discs, each as wide as the beak is long, identical on every page of every volume - open,
   half-lidded or shut, never bigger or smaller, no pupil, no eyebrow, no white; both shut = asleep and
   nothing else. The beak is one IRON mark, never a smile line.
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN BEAK IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open beak at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the beak comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open beaks are drawn - one each, not
+  one between them. And never write that a beak is shut on a page where that beak is the one speaking.
   🔴 THE FACE DISC IS PAINTED WHETHER OR NOT THE LIGHT REACHES IT: FROST by day and in fog, LAMP by
   lamplight - it takes the colour of the nearest light, and the eyes and beak sit in it. The rest of an
   owl is paper except its lit side.

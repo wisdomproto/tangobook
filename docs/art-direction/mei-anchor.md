@@ -150,6 +150,11 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same strokes as the world 
   STROKES LAID ACROSS EACH OTHER into a small dark knot, never a printed dot: more strokes make the
   knot bigger and darker when a child is startled, and one flat stroke laid alone means the eye is
   shut. A small nose; the mouth is ONE curve; above each eye ONE short stroke. Feeling is in the
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   mouth curve and the two brow strokes. 🔴 NO EYE IS EVER BIGGER THAN ITS OWNER'S EXAGGERATED PART.
   THE FIVE, separable at thumbnail size by that part alone: MEI a white goat kid, TWO LONG SOFT EARS
   HANGING WELL PAST HER JAW, two short horns above them, an ORANGE scarf, the

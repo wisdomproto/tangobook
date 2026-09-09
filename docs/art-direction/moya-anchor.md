@@ -105,6 +105,11 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - an
   their own. THE EYE IS FIXED FOREVER - one dark violet almond as wide as that animal's own nostril, the
   same on every page of twenty-five books, open or shut. NO eyebrows, NO eyelashes, NO white in the eye,
   NO drawn mouth line. 🔴 AN OPEN MOUTH IS NOT A LINE: on a page where a figure speaks, calls or shouts,
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   the lower jaw drops so THE OUTLINE OF THE MUZZLE MASS CHANGES - it is paint, and still no line is drawn
   for it. 🔴 TEARS NEVER CHANGE THE EYE: they are one wet trace down the bridge of the nose, or damp at
   the eye's edge, and the almond stays the same size.

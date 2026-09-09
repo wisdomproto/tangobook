@@ -146,6 +146,11 @@ CHARACTER DESIGN LANGUAGE: the bears are built from the same marks as the world 
   Eyes are TWO SHORT WAX STROKES, never round dots - pressed and dragged a little, each ending
   broken
   where the wax skipped; a nose of the same stroke; the mouth is ONE curve; above each eye ONE short
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   stroke. Feeling is in the mouth curve and the two brow strokes; an eye stroke lengthens or shuts
   but never becomes a dot.
   THE TWO, separable at thumbnail size: NILS a small bear cub, head as wide as his shoulders with

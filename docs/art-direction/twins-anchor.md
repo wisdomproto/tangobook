@@ -192,6 +192,11 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   HAIR OFF ON EVERY PAGE AND IT SHOWS AT AN EYE: one drum creeps past one eye and falls short of the
   other, leaving a thin coloured lip along one side of one eye only, and that misfit is left in. A
   small nose; the mouth is ONE curve; above each eye ONE short stroke; feeling is in the mouth curve
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   and the two strokes.
   🔴 THE TWINS ARE ONE BODY DRAWN TWICE - same height, same build, same colour, same face. They are
   told apart by FOUR things and nothing else:

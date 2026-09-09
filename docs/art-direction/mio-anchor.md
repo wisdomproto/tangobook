@@ -109,6 +109,11 @@ PALETTE: PAPER OATMEAL #F0EAD8, window light, snow, whitewash, paper, everything
   Four volumes have already reached the same answer and it is the rule: a graze is the darkest
   OVERLAP channel, one line · a scrap caught between teeth is one OVERLAP dot · an angry face and a
   hot face are the mouth channel, the size of the eye chip and the two brows, with nothing added.
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH CHANNEL IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth channel at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth channel comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouth channels are drawn - one each, not
+  one between them. And never write that a mouth channel is shut on a page where that mouth channel is the one speaking.
   🔴 WHERE TWO THINGS DIFFER ONLY BY COLOUR IN THE TEXT THEY DIFFER BY SIZE OR BY OUTLINE ON THE
   PAGE - one small and one twice it, or one printed solid and one a gap in a mass - and the sheet for
   that thing fixes which of the two it is before the page is drawn.

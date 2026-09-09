@@ -186,6 +186,11 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as th
   cropped or far off and his height cannot be compared to anything.
   Eyes are two TORN SCRAPS, never punched circles - white fibre showing along every edge, one always
   noticeably bigger than the other; a small beak or nose; the mouth is ONE torn curve; above each eye
+  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
+  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
+  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
+  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
+  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
   ONE short torn strip. Feeling is in the mouth or beak and the two strips.
   THE THREE, separable at thumbnail size, all about the same height 🔴 BUT WITH THREE DIFFERENT HEAD
   SIZES AGAINST THEIR BODIES, so the silhouette is top-heavy, bottom-heavy or spiked before any small
