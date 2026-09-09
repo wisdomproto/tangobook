@@ -812,6 +812,20 @@ function parseGroup(items){
       });
       if (Vi){ jung = PLUS_I[jung]; parts.push(Vi); }
     }
+    /* 🔴 ㅣ 바로 오른쪽에 ㅓ/ㅕ 가 서 있으면(획이 ㅣ 쪽을 향함) 눈에는 H = ㅐ/ㅒ 다
+          (2026-09-09, 사용자 프레임 「배」 — ㅏ+ㅣ 가 아니라 ㅣ+ㅓ 로 만들었다).
+          조각이 무엇이었든 **보이는 글자가 답**이다. 3칸 안에서만 — 「비어」처럼
+          사이에 자음이 끼면 4칸 넘게 벌어져 안 걸린다. */
+    if (jung === 'ㅣ' && parts.length === 1){
+      var iRef = parts[0];
+      var Vo = nearest(vows, function(v){
+        if (v === iRef || (v.ch !== 'ㅓ' && v.ch !== 'ㅕ')) return null;
+        var dx = v.cx - iRef.cx, dy = Math.abs(v.cy - iRef.cy);
+        if (dx <= 0 || dx > 3 || dy > 2.5) return null;
+        return dx + dy;
+      });
+      if (Vo){ jung = Vo.ch === 'ㅓ' ? 'ㅐ' : 'ㅒ'; parts.push(Vo); }
+    }
 
     used.add(A); parts.forEach(function(v){ used.add(v); });
 
