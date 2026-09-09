@@ -116,7 +116,9 @@ async function linkSeries(key, existingKeys) {
   const SRC = path.join(DOCS, key);
   const books = parseBooks(SRC);
   const scenes = loadScenes(SRC);
-  const category = cfg.title; // 라이브러리 카테고리 = 시리즈 이름
+  // 🔴 폴더 이름에 시리즈 번호를 붙인다 — 이름순 한 번으로 01~19 순서가 선다(2026-09-09).
+  //    editor2 사이드바는 R2 categoryOrder 순인데 창작동화 19개는 거기 없어 권수 desc 로 밀려 있었다.
+  const category = `${cfg.no}. ${cfg.title}`;
   const rows = [];
 
   for (const [id, bk] of [...books].sort((a, b) => a[0].localeCompare(b[0]))) {
@@ -145,7 +147,7 @@ async function linkSeries(key, existingKeys) {
       id: prev?.id ?? `changjak-${docId}`,
       title,
       category,
-      folder: category, // 🔴 editor2 사이드바 그룹핑은 category 가 아니라 folder 다
+      folder: category, // 🔴 사이드바는 category 로 묶는다(2026-08-01) — folder 는 같은 값으로 맞춰만 둔다
       type: 'storybook',
       authorPen: cfg.pen.author,
       illustratorPen: cfg.pen.illustrator,

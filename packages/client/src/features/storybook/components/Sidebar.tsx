@@ -260,6 +260,17 @@ export function Sidebar() {
 
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
   const [showNewFolder, setShowNewFolder] = useState(false);
+  // 🔴 폴더 정렬 — 기본은 라이브러리 순서(R2 categoryOrder)이고, 거기 없는 카테고리는 권수 desc 로
+  //    뒤에 밀린다. 창작동화 19개가 그래서 뒤엉켜 있었다. 이름순은 그 목록을 안 건드리고 화면에서만 세운다.
+  const [sortByName, setSortByName] = useState(
+    () => localStorage.getItem('tangobook-folder-sort') === 'name'
+  );
+  const toggleSortByName = () => {
+    setSortByName((v) => {
+      localStorage.setItem('tangobook-folder-sort', v ? 'order' : 'name');
+      return !v;
+    });
+  };
   const [newFolderName, setNewFolderName] = useState('');
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
@@ -309,11 +320,12 @@ export function Sidebar() {
     customFolders.forEach((f) => set.add(f));
     // 🔴 정렬은 가나다순이 아니라 R2 categoryOrder — 라이브러리에 보이는 순서 그대로 저작한다.
     //    order 에 없는 카테고리는 권수 desc(comparator 폴백)로 뒤에 붙는다.
+    if (sortByName) return Array.from(set).sort((a, b) => a.localeCompare(b, 'ko'));
     const cmp = makeCategoryComparator(libConfig?.categoryOrder);
     return Array.from(set).sort((a, b) =>
       cmp(a, b, categoryCounts[a] ?? 0, categoryCounts[b] ?? 0)
     );
-  }, [typeFiltered, customFolders, libConfig?.categoryOrder, categoryCounts]);
+  }, [typeFiltered, customFolders, libConfig?.categoryOrder, categoryCounts, sortByName]);
 
   // /editor2 mode — variant 카운트 (base id → 자식 variant 개수)
   const variantCountByBaseId = useMemo(() => {
@@ -659,12 +671,29 @@ export function Sidebar() {
                 >
                   카테고리
                 </span>
-                <button
-                  onClick={() => setShowNewFolder(!showNewFolder)}
-                  className="text-[11px] text-violet-500 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium"
-                >
-                  + 새 카테고리
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={toggleSortByName}
+                    title={
+                      sortByName
+                        ? '이름순 — 눌러서 라이브러리 순서로'
+                        : '라이브러리 순서 — 눌러서 이름순으로'
+                    }
+                    className={`text-[11px] font-medium ${
+                      sortByName
+                        ? 'text-violet-600 dark:text-violet-300'
+                        : 'text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300'
+                    }`}
+                  >
+                    {sortByName ? '가나다순 ✓' : '가나다순'}
+                  </button>
+                  <button
+                    onClick={() => setShowNewFolder(!showNewFolder)}
+                    className="text-[11px] text-violet-500 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium"
+                  >
+                    + 새 카테고리
+                  </button>
+                </div>
               </div>
               {showNewFolder && (
                 <div className="flex gap-1 mb-1.5">
@@ -704,7 +733,7 @@ export function Sidebar() {
                     count={categoryCounts[f] ?? 0}
                     isActive={folder === f}
                     isOver={false}
-                    reorderable
+                    reorderable={!sortByName}
                     onClick={() => setFolder(f)}
                     onDelete={() => handleDeleteFolder(f)}
                     onRename={(newName) => handleRenameFolder(f, newName)}
