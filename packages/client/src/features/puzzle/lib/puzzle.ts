@@ -95,6 +95,15 @@ export interface Challenge {
   start: Terminal;
   goal: Terminal;
   blocked: BlockedCell[];
+  /**
+   * 두 번째 출발 — 늑대.
+   *
+   * 🔴 늑대가 있으면 게임이 달라진다: **길을 두 개** 만들고, 둘은 집의 **서로 다른 문**으로
+   *    들어가야 하며, 한 길이 다른 길의 조각을 지나갈 수 없다(레퍼런스 규칙 2).
+   */
+  second?: Terminal;
+  /** 늑대 문제에서 집이 여는 문들. 없으면 `goal.port` 하나뿐이다. */
+  doors?: Dir[];
   /** defId → 이 문제에서 쓸 수 있는 개수 */
   inventory: Record<string, number>;
   /**
@@ -113,6 +122,9 @@ export const ALL_DIRS: Dir[] = ['N', 'E', 'S', 'W'];
 
 /** 터미널이 열어 두는 방향들 — port 가 없으면 사방 */
 export const terminalPorts = (t: Terminal): Dir[] => (t.port ? [t.port] : ALL_DIRS);
+
+/** 집이 여는 문들 */
+export const goalDoors = (ch: Challenge): Dir[] => ch.doors ?? terminalPorts(ch.goal);
 
 const flipsFor = (ch: Challenge): boolean[] => (ch.allowFlip === false ? [false] : [false, true]);
 
@@ -158,6 +170,7 @@ function occupiedKeys(ch: Challenge, set: PieceSet, placed: Placement[], ignore?
   for (const b of ch.blocked) taken.add(key(b.x, b.y));
   taken.add(key(ch.start.x, ch.start.y));
   taken.add(key(ch.goal.x, ch.goal.y));
+  if (ch.second) taken.add(key(ch.second.x, ch.second.y));
   placed.forEach((p, i) => {
     if (i === ignore) return;
     for (const c of placedCells(set[p.defId], p)) taken.add(key(c.x, c.y));
@@ -209,7 +222,8 @@ export function legalAnchors(
 export function portMap(ch: Challenge, set: PieceSet, placed: Placement[]): Map<string, Dir[]> {
   const map = new Map<string, Dir[]>();
   map.set(key(ch.start.x, ch.start.y), terminalPorts(ch.start));
-  map.set(key(ch.goal.x, ch.goal.y), terminalPorts(ch.goal));
+  if (ch.second) map.set(key(ch.second.x, ch.second.y), terminalPorts(ch.second));
+  map.set(key(ch.goal.x, ch.goal.y), goalDoors(ch));
   for (const p of placed) {
     for (const c of placedCells(set[p.defId], p)) map.set(key(c.x, c.y), c.ports);
   }
@@ -222,11 +236,12 @@ export function portMap(ch: Challenge, set: PieceSet, placed: Placement[]): Map<
  * 열린 끝(open end)은 허용한다(§11 — 게임별 constraint). 아이가 곁길을 만들어도
  * 목적지에 닿기만 하면 통과다. 「완벽하게 정리된 배치」를 요구하면 5세엔 너무 이르다.
  */
-export function isSolved(ch: Challenge, set: PieceSet, placed: Placement[]): boolean {
-  const ports = portMap(ch, set, placed);
+/** 이 터미널에서 집까지 이어졌다면, **어느 문으로** 들어갔는지 (여럿이면 전부) */
+function doorsReached(ch: Challenge, ports: Map<string, Dir[]>, from: Terminal): Set<Dir> {
   const goalKey = key(ch.goal.x, ch.goal.y);
-  const seen = new Set<string>([key(ch.start.x, ch.start.y)]);
-  const queue = [{ x: ch.start.x, y: ch.start.y }];
+  const hit = new Set<Dir>();
+  const seen = new Set<string>([key(from.x, from.y)]);
+  const queue = [{ x: from.x, y: from.y }];
   while (queue.length) {
     const cur = queue.shift()!;
     for (const d of ports.get(key(cur.x, cur.y)) ?? []) {
@@ -234,15 +249,29 @@ export function isSolved(ch: Challenge, set: PieceSet, placed: Placement[]): boo
       const nx = cur.x + dx;
       const ny = cur.y + dy;
       const nk = key(nx, ny);
-      if (seen.has(nk)) continue;
       const nPorts = ports.get(nk);
       if (!nPorts || !nPorts.includes(OPPOSITE[d])) continue;
-      if (nk === goalKey) return true;
+      if (nk === goalKey) {
+        hit.add(OPPOSITE[d]); // 집이 열어 준 문
+        continue;
+      }
+      if (seen.has(nk)) continue;
       seen.add(nk);
       queue.push({ x: nx, y: ny });
     }
   }
-  return false;
+  return hit;
+}
+
+export function isSolved(ch: Challenge, set: PieceSet, placed: Placement[]): boolean {
+  const ports = portMap(ch, set, placed);
+  const mine = doorsReached(ch, ports, ch.start);
+  if (mine.size === 0) return false;
+  if (!ch.second) return true;
+  // 🔴 늑대가 있으면 둘 다 닿아야 하고, **서로 다른 문**이어야 한다
+  const theirs = doorsReached(ch, ports, ch.second);
+  if (theirs.size === 0) return false;
+  return [...mine].some((a) => [...theirs].some((b) => a !== b));
 }
 
 // ─── Solver (§13 · §22.5) ───
@@ -292,11 +321,24 @@ export function boardSignature(ch: Challenge, set: PieceSet, placed: Placement[]
  * 빈 칸은 남은 재고에서 꺼내 놓아 본다. 반환값은 `placed` 를 포함한 완성 배치 목록.
  * `limit` 로 몇 개까지 찾을지 정한다(유일해 검사는 2개만 찾아 보면 된다).
  */
+export interface SolveOptions {
+  /** 어디서 출발할지. 기본은 `ch.start`(빨간모자) */
+  from?: Terminal;
+  /** 어느 문으로 들어갈지. 기본은 집이 여는 문 전부 */
+  doors?: Dir[];
+  /**
+   * 이미 놓인 조각을 **지나갈 수 있는지**. 기본 true(아이가 놓다 만 길을 힌트가 이어 간다).
+   * 🔴 늑대의 두 번째 길은 false — 두 길이 한 조각을 나눠 쓰면 길이 하나로 합쳐진다.
+   */
+  through?: boolean;
+}
+
 export function solve(
   ch: Challenge,
   set: PieceSet,
   placed: Placement[] = [],
-  limit = 1
+  limit = 1,
+  opts: SolveOptions = {}
 ): Placement[][] {
   const results: Placement[][] = [];
   const seenBoards = new Set<string>();
@@ -308,7 +350,7 @@ export function solve(
     const nx = x + dx;
     const ny = y + dy;
     if (nx === ch.goal.x && ny === ch.goal.y) {
-      if (!terminalPorts(ch.goal).includes(OPPOSITE[dir])) return;
+      if (!(opts.doors ?? goalDoors(ch)).includes(OPPOSITE[dir])) return;
       // 🔴 해는 **판 위 모습**으로 센다. 조각에 따라 r0 와 r180 이 같은 그림이라,
       //    (rot, flip) 조합으로 세면 같은 답이 4배, 8배로 부풀어 「유일해」가 뜻을 잃는다.
       const sig = boardSignature(ch, set, cur);
@@ -320,10 +362,12 @@ export function solve(
     if (nx < 0 || ny < 0 || nx >= ch.width || ny >= ch.height) return;
     if (ch.blocked.some((b) => b.x === nx && b.y === ny)) return;
     if (nx === ch.start.x && ny === ch.start.y) return;
+    if (ch.second && nx === ch.second.x && ny === ch.second.y) return;
 
     // 이미 놓인 조각이 그 칸에 있으면 그대로 통과한다
     const hit = cur.find((p) => placedCells(set[p.defId], p).some((c) => c.x === nx && c.y === ny));
     if (hit) {
+      if (opts.through === false) return;
       const cells = placedCells(set[hit.defId], hit);
       const entryCell = cells.find((c) => c.x === nx && c.y === ny)!;
       if (!entryCell.ports.includes(OPPOSITE[dir])) return;
@@ -362,8 +406,48 @@ export function solve(
     }
   };
 
-  for (const d of terminalPorts(ch.start)) step(ch.start.x, ch.start.y, d, [...placed]);
+  const from = opts.from ?? ch.start;
+  for (const d of terminalPorts(from)) step(from.x, from.y, d, [...placed]);
   return results;
+}
+
+/**
+ * 이 문제의 해를 찾는다 — 늑대가 있으면 **길 두 개**를.
+ *
+ * 늑대 문제는 빨간모자 길을 먼저 놓고, 남은 조각으로 늑대 길을 **다른 문**까지 잇는다.
+ * 두 번째 길은 첫 번째 길의 조각을 지나갈 수 없다(`through: false`) — 지나가면 두 길이
+ * 한 줄기로 합쳐져 「서로 다른 길」이 아니게 된다.
+ */
+export function solveGame(
+  ch: Challenge,
+  set: PieceSet,
+  placed: Placement[] = [],
+  limit = 1
+): Placement[][] {
+  if (!ch.second) return solve(ch, set, placed, limit);
+  const out: Placement[][] = [];
+  const seen = new Set<string>();
+  const doors = goalDoors(ch);
+  for (const d1 of doors) {
+    for (const first of solve(ch, set, placed, 60, { doors: [d1] })) {
+      for (const d2 of doors) {
+        if (d2 === d1) continue;
+        const both = solve(ch, set, first, 60, {
+          from: ch.second,
+          doors: [d2],
+          through: false,
+        });
+        for (const full of both) {
+          const sig = boardSignature(ch, set, full);
+          if (seen.has(sig)) continue;
+          seen.add(sig);
+          out.push(full);
+          if (out.length >= limit) return out;
+        }
+      }
+    }
+  }
+  return out;
 }
 
 const samePlacement = (a: Placement, b: Placement) =>
@@ -374,7 +458,18 @@ const samePlacement = (a: Placement, b: Placement) =>
  * 해가 없으면 null (놓인 조각 중 하나를 빼야 한다는 뜻이다).
  */
 export function nextHint(ch: Challenge, set: PieceSet, placed: Placement[]): Placement | null {
-  const [first] = solve(ch, set, placed, 1);
-  if (!first) return null;
-  return first.find((s) => !placed.some((p) => samePlacement(p, s))) ?? null;
+  if (!ch.second) {
+    const [first] = solve(ch, set, placed, 1);
+    return first ? (first.find((s) => !placed.some((p) => samePlacement(p, s))) ?? null) : null;
+  }
+  /**
+   * 🔴 늑대 문제는 「여기서부터 이어 풀기」로 힌트를 낼 수 없다. 판 위의 조각이 **어느 길의
+   *    것인지** 알 수 없어서, 빨간모자 길을 늑대 길 위로 지나가게 이어 버린다(그러면 두 길이
+   *    한 줄기가 된다). 처음부터 푼 답 중 **지금 놓인 것을 모두 품은 답**을 고른다.
+   */
+  const fit = solveGame(ch, set, [], 120).find((cand) =>
+    placed.every((p) => cand.some((q) => samePlacement(p, q)))
+  );
+  if (!fit) return null;
+  return fit.find((s) => !placed.some((p) => samePlacement(p, s))) ?? null;
 }

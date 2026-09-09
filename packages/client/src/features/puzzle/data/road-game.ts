@@ -30,20 +30,42 @@ const COTTAGE: Art = {
 // 나무는 숲의 일부다 — 카드에 얹지 않고 바닥에 바로 선다
 const TREE: Art = { label: '나무', imageUrl: '/images/puzzle/tree.webp', noCard: true };
 
-export const ROAD_CHALLENGES: Challenge[] = ROAD_CHALLENGE_DATA.map((d, i) => ({
-  id: d.id,
-  title: `${d.level} ${i + 1}`,
-  prompt: '숲을 지나 할머니 오두막까지 길을 이어 주세요.',
-  width: d.width,
-  height: d.height,
-  allowFlip: d.allowFlip,
-  // 🔴 출발은 방향이 없다 — 어느 쪽에서 길이 닿아도 된다. 문이 있는 건 오두막뿐이다.
-  start: { x: d.start.x, y: d.start.y, ...GIRL },
-  goal: { x: d.goal.x, y: d.goal.y, port: d.goal.port, ...COTTAGE },
-  blocked: d.trees.map((t) => ({ x: t.x, y: t.y, ...TREE })),
-  inventory: { ...d.inventory },
-  book: BOOK,
-}));
+const WOLF: Art = {
+  label: '늑대',
+  imageUrl: A + '1778476961082-빨간모자new-character-늑대-1778491644020.jpg',
+  crop: [0.015, 0.02, 0.185, 0.96],
+};
+
+type Data = (typeof ROAD_CHALLENGE_DATA)[number] & {
+  doors?: readonly string[];
+  wolf?: { x: number; y: number };
+};
+
+export const ROAD_CHALLENGES: Challenge[] = ROAD_CHALLENGE_DATA.map((raw, i) => {
+  const d = raw as Data;
+  const wolf = d.wolf;
+  return {
+    id: d.id,
+    title: `${d.level} ${(i % 24) + 1}`,
+    prompt: wolf
+      ? '빨간모자와 늑대가 각각 다른 문으로 들어가게, 길을 두 개 만들어 주세요.'
+      : '숲을 지나 할머니 오두막까지 길을 이어 주세요.',
+    width: d.width,
+    height: d.height,
+    allowFlip: d.allowFlip,
+    // 🔴 출발은 방향이 없다 — 어느 쪽에서 길이 닿아도 된다. 문이 있는 건 오두막뿐이다.
+    start: { x: d.start.x, y: d.start.y, ...GIRL },
+    goal: { x: d.goal.x, y: d.goal.y, port: d.goal.port, ...COTTAGE },
+    ...(wolf ? { second: { x: wolf.x, y: wolf.y, ...WOLF } } : {}),
+    ...(d.doors ? { doors: [...d.doors] as Challenge['doors'] } : {}),
+    blocked: d.trees.map((t) => ({ x: t.x, y: t.y, ...TREE })),
+    inventory: { ...d.inventory },
+    book: BOOK,
+  };
+});
+
+/** 늑대가 나오는 문제인가 — 화면에서 두 묶음으로 나눈다 */
+export const ROAD_HAS_WOLF = ROAD_CHALLENGES.map((c) => Boolean(c.second));
 
 export const ROAD_LEVELS = ROAD_CHALLENGE_DATA.map((d) => d.level);
 /** 화면의 난이도 탭 순서 */

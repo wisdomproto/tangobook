@@ -7,11 +7,13 @@
  * 「답이 정확히 하나」인 것만 통과시킨다. 조각 목록도 입력을 쓰지 않고 **해에서 파생**한다
  * — 꽃 색 판독이 흰 꽃(=흰 종이)에서 새기 때문이다.
  */
-import { solve, type Challenge, type Dir } from '../src/features/puzzle/lib/puzzle';
+import { solve, solveGame, type Challenge, type Dir } from '../src/features/puzzle/lib/puzzle';
 import { ROAD_PIECES } from '../src/features/puzzle/data/road-pieces';
 import { readFileSync } from 'node:fs';
 
 type Raw = {
+  wolfMode: boolean;
+  doorRank: [Dir, number][];
   no: number;
   level: string;
   door: [Dir | null, number];
@@ -25,6 +27,15 @@ type Raw = {
 
 const ALL = Object.keys(ROAD_PIECES);
 const raws: Raw[] = JSON.parse(readFileSync(process.argv[2], 'utf-8'));
+
+/** 늑대 문제 = 길 두 개 + 서로 다른 문 두 개 */
+function buildWolf(r: Raw, doors: Dir[], inventory: Record<string, number>): Challenge {
+  return {
+    ...build(r, doors[0], inventory),
+    second: { x: r.wolf[0][0], y: r.wolf[0][1], label: '늑대' },
+    doors,
+  };
+}
 
 function build(r: Raw, door: Dir, inventory: Record<string, number>): Challenge {
   return {
@@ -44,7 +55,7 @@ function build(r: Raw, door: Dir, inventory: Record<string, number>): Challenge 
 
 void ALL;
 
-const ok: Array<{ r: Raw; door: Dir; inv: Record<string, number>; n: number }> = [];
+const ok: Array<{ r: Raw; door: Dir; doors?: Dir[]; inv: Record<string, number>; n: number }> = [];
 const bad: string[] = [];
 
 for (const r of raws) {
@@ -56,17 +67,33 @@ for (const r of raws) {
   const order: Dir[] = r.door[0]
     ? [r.door[0], ...(['N', 'E', 'S', 'W'] as Dir[]).filter((d) => d !== r.door[0])]
     : (['N', 'E', 'S', 'W'] as Dir[]);
-  let hit: { door: Dir; inv: Record<string, number>; n: number } | null = null;
+  let hit: { door: Dir; doors?: Dir[]; inv: Record<string, number>; n: number } | null = null;
   const notes: string[] = [];
   // 🔴 재고는 페이지의 꽃 그대로 쓴다. solver 로 파생하면 **더 적은 조각으로 가는 다른 답**을
   //    찾아버려서 부클릿과 다른 문제가 된다(6문제가 그랬다).
   const inv = Object.fromEntries(r.pieces.map((p) => [p, 1]));
-  for (const door of order) {
-    const sols = solve(build(r, door, inv), ROAD_PIECES, [], 3);
-    notes.push(`${door}:${sols.length}`);
-    if (sols.length === 1) {
-      hit = { door, inv, n: sols[0].length };
-      break;
+  if (r.wolfMode) {
+    // 문 두 개를 고른다 — 이미지가 매긴 순위가 앞이지만, 안 풀리면 여섯 짝을 다 시험한다
+    const ranked = r.doorRank.map(([d]) => d);
+    const pairs: Dir[][] = [];
+    for (let i = 0; i < ranked.length; i++)
+      for (let j = i + 1; j < ranked.length; j++) pairs.push([ranked[i], ranked[j]]);
+    for (const doors of pairs) {
+      const sols = solveGame(buildWolf(r, doors, inv), ROAD_PIECES, [], 3);
+      notes.push(`${doors.join('+')}:${sols.length}`);
+      if (sols.length === 1) {
+        hit = { door: doors[0], doors, inv, n: sols[0].length };
+        break;
+      }
+    }
+  } else {
+    for (const door of order) {
+      const sols = solve(build(r, door, inv), ROAD_PIECES, [], 3);
+      notes.push(`${door}:${sols.length}`);
+      if (sols.length === 1) {
+        hit = { door, inv, n: sols[0].length };
+        break;
+      }
     }
   }
   if (hit) ok.push({ r, ...hit });
@@ -99,7 +126,11 @@ ${ok
     height: 4,
     allowFlip: false,
     start: { x: ${o.r.rrh[0][0]}, y: ${o.r.rrh[0][1]} },
-    goal: { x: ${o.r.house[0][0]}, y: ${o.r.house[0][1]}, port: '${o.door}' },
+    goal: { x: ${o.r.house[0][0]}, y: ${o.r.house[0][1]}, port: '${o.door}' },${
+      o.doors ? `
+    doors: [${o.doors.map((d) => `'${d}'`).join(', ')}],` : ''
+    }${o.r.wolfMode ? `
+    wolf: { x: ${o.r.wolf[0][0]}, y: ${o.r.wolf[0][1]} },` : ''}
     trees: [${o.r.trees.map(([x, y]) => `{ x: ${x}, y: ${y} }`).join(', ')}],
     inventory: { ${Object.entries(o.inv)
       .map(([k, v]) => `${k}: ${v}`)

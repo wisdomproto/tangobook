@@ -1,7 +1,12 @@
 import { useMemo, useState } from 'react';
 import { PathPuzzlePlayer } from '@/features/puzzle/components/PathPuzzlePlayer';
 import { ROAD_PIECES } from '@/features/puzzle/data/road-pieces';
-import { LEVEL_ORDER, ROAD_CHALLENGES, ROAD_LEVELS } from '@/features/puzzle/data/road-game';
+import {
+  LEVEL_ORDER,
+  ROAD_CHALLENGES,
+  ROAD_HAS_WOLF,
+  ROAD_LEVELS,
+} from '@/features/puzzle/data/road-game';
 
 /**
  * 길 잇기 — 4×4 판 · 길 조각 5종 · 《빨간모자》 24문제.
@@ -20,12 +25,21 @@ const LEVEL_STYLE: Record<string, string> = {
 };
 
 export default function PuzzleSamplePage() {
+  /** 늑대가 나오면 길을 두 개 만든다 — 규칙이 달라서 묶음을 나눈다 */
+  const [wolf, setWolf] = useState(false);
   const [level, setLevel] = useState<string>(LEVEL_ORDER[0]);
   const [idx, setIdx] = useState(0);
 
-  const inLevel = useMemo(() => ROAD_CHALLENGES.map((c, i) => ({ c, i })).filter(() => true), []);
-  const numbers = inLevel.filter(({ i }) => ROAD_LEVELS[i] === level);
+  const all = useMemo(() => ROAD_CHALLENGES.map((c, i) => ({ c, i })), []);
+  const numbers = all.filter(({ i }) => ROAD_HAS_WOLF[i] === wolf && ROAD_LEVELS[i] === level);
   const challenge = ROAD_CHALLENGES[idx];
+
+  const jump = (nextWolf: boolean, nextLevel: string) => {
+    const first = all.find(
+      ({ i }) => ROAD_HAS_WOLF[i] === nextWolf && ROAD_LEVELS[i] === nextLevel
+    );
+    if (first) setIdx(first.i);
+  };
 
   return (
     <div
@@ -34,14 +48,34 @@ export default function PuzzleSamplePage() {
     >
       <div className="mx-auto w-full max-w-2xl px-4 py-4 sm:px-6 md:px-8">
         <div className="mb-2 flex gap-2">
+          {[false, true].map((w) => (
+            <button
+              key={String(w)}
+              type="button"
+              onClick={() => {
+                setWolf(w);
+                jump(w, level);
+              }}
+              data-sound="select"
+              className={`min-h-[44px] flex-1 rounded-xl border-2 font-bold break-keep ${
+                wolf === w
+                  ? 'border-ink-900 bg-ink-900 text-white'
+                  : 'border-ink-200 bg-white/80 text-ink-700'
+              }`}
+            >
+              {w ? '🐺 늑대도 함께' : '🧒 빨간모자 혼자'}
+            </button>
+          ))}
+        </div>
+
+        <div className="mb-2 flex gap-2">
           {LEVEL_ORDER.map((lv) => (
             <button
               key={lv}
               type="button"
               onClick={() => {
                 setLevel(lv);
-                const first = ROAD_LEVELS.findIndex((l) => l === lv);
-                if (first >= 0) setIdx(first);
+                jump(wolf, lv);
               }}
               data-sound="select"
               className={`min-h-[44px] flex-1 rounded-xl border-2 font-bold break-keep ${

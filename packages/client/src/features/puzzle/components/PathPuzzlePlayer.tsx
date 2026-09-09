@@ -9,6 +9,7 @@ import {
   key,
   nextHint,
   placedCells,
+  goalDoors,
   remainingInventory,
   transformCells,
   type Art,
@@ -21,8 +22,6 @@ import {
   type Rot,
 } from '../lib/puzzle';
 
-/** 칸 중심에서 각 변 중앙까지 */
-const STUB: Record<Dir, [number, number]> = { N: [0.5, 0], E: [1, 0.5], S: [0.5, 1], W: [0, 0.5] };
 const NEIGHBOR: Record<Dir, [number, number]> = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] };
 /** 칸 변의 양 끝 (칸 좌상단 기준) */
 const EDGE: Record<Dir, [number, number, number, number]> = {
@@ -32,9 +31,7 @@ const EDGE: Record<Dir, [number, number, number, number]> = {
   W: [0, 0, 0, 1],
 };
 
-// 실물 타일과 같은 색 — 풀밭 위에 난 흙길
-const TILE = '#C6E39C';
-const TILE_EDGE = '#9AC96A';
+// 문 표시에 쓰는 흙길 색
 const ROAD = '#8A5A3B';
 
 /**
@@ -44,6 +41,33 @@ const ROAD = '#8A5A3B';
  *    변에만 테두리를 긋고 몸통은 이어서 칠한다.
  * 🔴 길이 조각을 알아보는 유일한 단서라 굵게 그린다. 조각 색은 **표식 점**으로만 쓴다
  *    (길까지 조각 색으로 칠하면 다섯 개가 다섯 가지 길처럼 보여 되레 헷갈린다).
+ */
+/**
+ * 칸 하나에 붙일 그림과 그 방향.
+ *
+ * 🔴 조각(2칸)마다 그림을 따로 그리면 **이음매가 안 맞는다**. 칸 그림 세 장(직선·모퉁이·풀밭)만
+ *    두고 돌려 쓰면, 길이 늘 변 한가운데에서 만나 어느 조합이든 이어진다.
+ * 기준 그림: 직선 = 좌→우, 모퉁이 = 위→오른쪽.
+ */
+function cellArt(ports: Dir[]): { href: string; rot: number } {
+  if (ports.length === 0) return { href: '/images/puzzle/road-grass.webp', rot: 0 };
+  const has = (d: Dir) => ports.includes(d);
+  if (has('W') && has('E')) return { href: '/images/puzzle/road-straight.webp', rot: 0 };
+  if (has('N') && has('S')) return { href: '/images/puzzle/road-straight.webp', rot: 90 };
+  const corner: Array<[Dir, Dir, number]> = [
+    ['N', 'E', 0],
+    ['E', 'S', 90],
+    ['S', 'W', 180],
+    ['W', 'N', 270],
+  ];
+  const hit = corner.find(([a, b]) => has(a) && has(b));
+  return { href: '/images/puzzle/road-corner.webp', rot: hit ? hit[2] : 0 };
+}
+
+/**
+ * 길 조각 한 개 — 칸 그림을 깔고, 이웃이 없는 변에만 테두리를 둘러 **판지 한 장**으로 보이게 한다.
+ *
+ * 🔴 칸마다 사각형을 그리면 「사각형 여러 개」로 보인다. 실물은 한 장이다.
  */
 function PieceShape({
   cells,
@@ -55,20 +79,49 @@ function PieceShape({
   cells: Cell[];
   color: string;
   opacity?: number;
-  /** 놓을 수 없는 자리에 있을 때 타일을 물들인다 */
-  tint?: string;
+  /** 놓을 수 없는 자리일 때 붉게 물들인다 */
+  tint?: boolean;
   selected?: boolean;
 }) {
+  const uid = useId().replace(/:/g, '');
   const has = new Set(cells.map((c) => key(c.x, c.y)));
-  const body = tint ?? TILE;
-  const mark = cells.find((c) => c.ports.length === 0) ?? cells[0];
   return (
     <g opacity={opacity}>
-      {cells.map((c) => (
-        <rect key={key(c.x, c.y)} x={c.x} y={c.y} width={1} height={1} fill={body} />
-      ))}
+      <clipPath id={`tile-${uid}`}>
+        {cells.map((c) => (
+          <rect key={key(c.x, c.y)} x={c.x} y={c.y} width={1} height={1} />
+        ))}
+      </clipPath>
+      <g clipPath={`url(#tile-${uid})`}>
+        {cells.map((c) => {
+          const art = cellArt(c.ports);
+          return (
+            <image
+              key={key(c.x, c.y)}
+              href={art.href}
+              x={c.x}
+              y={c.y}
+              width={1}
+              height={1}
+              preserveAspectRatio="xMidYMid slice"
+              transform={`rotate(${art.rot} ${c.x + 0.5} ${c.y + 0.5})`}
+            />
+          );
+        })}
+        {tint && (
+          <rect
+            x={Math.min(...cells.map((c) => c.x))}
+            y={Math.min(...cells.map((c) => c.y))}
+            width={Math.max(...cells.map((c) => c.x)) + 1 - Math.min(...cells.map((c) => c.x))}
+            height={Math.max(...cells.map((c) => c.y)) + 1 - Math.min(...cells.map((c) => c.y))}
+            fill="#E75757"
+            opacity={0.45}
+          />
+        )}
+      </g>
       <g
-        stroke={selected ? '#0B0805' : tint ? '#B03A3A' : TILE_EDGE}
+        stroke={selected ? '#0B0805' : tint ? '#B03A3A' : '#FFFFFF'}
+        strokeOpacity={selected || tint ? 1 : 0.85}
         strokeWidth={selected ? 0.09 : 0.06}
         strokeLinecap="square"
         fill="none"
@@ -90,20 +143,15 @@ function PieceShape({
             })
         )}
       </g>
-      <g stroke={ROAD} strokeWidth={0.4} strokeLinecap="butt" strokeLinejoin="round" fill="none">
-        {cells
-          .filter((c) => c.ports.length > 0)
-          .map((c) => (
-            <path
-              key={`road-${key(c.x, c.y)}`}
-              d={c.ports
-                .map((d) => `M${c.x + 0.5},${c.y + 0.5}L${c.x + STUB[d][0]},${c.y + STUB[d][1]}`)
-                .join(' ')}
-            />
-          ))}
-      </g>
-      {/* 조각 표식 — 어느 조각인지 알아보는 꽃 자리 */}
-      <circle cx={mark.x + 0.5} cy={mark.y + 0.5} r={0.12} fill={color} opacity={0.9} />
+      {/* 조각 표식 — 팔레트의 어느 조각인지 알아보는 자리 */}
+      <circle
+        cx={cells[0].x + 0.16}
+        cy={cells[0].y + 0.16}
+        r={0.1}
+        fill={color}
+        stroke="#FFFFFF"
+        strokeWidth={0.035}
+      />
     </g>
   );
 }
@@ -207,14 +255,14 @@ function TokenArt({
   y,
   art,
   ring,
-  door,
+  doors,
 }: {
   x: number;
   y: number;
   art: Art;
   ring: string;
-  /** 문이 난 쪽 — 길은 이 쪽으로만 들어온다 */
-  door?: Dir;
+  /** 문이 난 쪽들 — 길은 이 쪽으로만 들어온다 */
+  doors?: Dir[];
 }) {
   const clip = useId().replace(/:/g, '');
   const W = 16;
@@ -274,9 +322,11 @@ function TokenArt({
           {art.emoji ?? '?'}
         </text>
       )}
-      {/* 🔴 문은 칸 **안쪽 가장자리**에 그린다. 칸 밖으로 꼭지를 내밀면 얼룩으로 보였다. */}
-      {door && (
+      {/* 🔴 문은 칸 **안쪽 가장자리**에 그린다. 칸 밖으로 꼭지를 내밀면 얼룩으로 보였다.
+          늑대 문제는 문이 둘이고, 두 길은 서로 다른 문으로 들어가야 한다. */}
+      {(doors ?? []).map((door) => (
         <rect
+          key={door}
           x={x + (door === 'E' ? 0.86 : door === 'W' ? 0.05 : 0.34)}
           y={y + (door === 'S' ? 0.86 : door === 'N' ? 0.05 : 0.34)}
           width={door === 'N' || door === 'S' ? 0.32 : 0.09}
@@ -284,7 +334,7 @@ function TokenArt({
           rx={0.04}
           fill={ROAD}
         />
-      )}
+      ))}
       <title>{art.label}</title>
     </g>
   );
@@ -518,12 +568,15 @@ export function PathPuzzlePlayer({ challenge: ch, set }: Props) {
               <TokenArt key={key(b.x, b.y)} x={b.x} y={b.y} art={b} ring="#E75757" />
             ))}
             <TokenArt x={ch.start.x} y={ch.start.y} art={ch.start} ring="#FF5E3A" />
+            {ch.second && (
+              <TokenArt x={ch.second.x} y={ch.second.y} art={ch.second} ring="#6D5A4C" />
+            )}
             <TokenArt
               x={ch.goal.x}
               y={ch.goal.y}
               art={ch.goal}
               ring="#3AA87E"
-              door={ch.goal.port}
+              doors={goalDoors(ch)}
             />
 
             {hint && hintLevel >= 1 && (
@@ -553,7 +606,7 @@ export function PathPuzzlePlayer({ challenge: ch, set }: Props) {
                 cells={dragCells}
                 color={set[drag.defId].color}
                 opacity={0.85}
-                tint={drag.ok ? undefined : '#F6C7C7'}
+                tint={!drag.ok}
                 selected={drag.ok}
               />
             )}

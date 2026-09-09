@@ -7,6 +7,7 @@ import {
   legalAnchors,
   remainingInventory,
   solve,
+  solveGame,
   type Cell,
   type Dir,
   type Placement,
@@ -17,7 +18,7 @@ import { ROAD_CHALLENGES } from '../data/road-game';
 const SET = ROAD_PIECES;
 const STEP: Cell[] = SET.step.cells;
 /** 다섯 조각을 다 쓰는 문제 — 재고 때문이 아니라 규칙 때문에 막히는지 보려면 이게 필요하다 */
-const FULL = ROAD_CHALLENGES.find((c) => Object.keys(c.inventory).length === 5)!;
+const FULL = ROAD_CHALLENGES.find((c) => !c.second && Object.keys(c.inventory).length === 5)!;
 
 describe('transformCells', () => {
   it('90도 돌리면 좌표와 포트가 함께 돈다', () => {
@@ -121,10 +122,25 @@ describe('유한 재고 (기획서 §21)', () => {
 });
 
 describe('문제 — 전부 유일해인가 (기획서 §13 · §22.6)', () => {
+  it('늑대 문제는 24개다 — 길 두 개, 서로 다른 문', () => {
+    expect(ROAD_CHALLENGES.filter((c) => c.second)).toHaveLength(24);
+  });
+
+  it('늑대가 있으면 한 길만 이어서는 못 푼다', () => {
+    const ch = ROAD_CHALLENGES.find((c) => c.second)!;
+    const [full] = solveGame(ch, SET, [], 1);
+    // 빨간모자 길만 놓고 늑대 길을 빼면 통과가 아니다
+    for (let n = 1; n < full.length; n++) {
+      if (!isSolved(ch, SET, full.slice(0, n))) continue;
+      throw new Error(`${ch.id}: 조각 ${n}개만으로 통과했다`);
+    }
+    expect(isSolved(ch, SET, full)).toBe(true);
+  });
+
   it.each(ROAD_CHALLENGES.map((c) => [c.id, c] as const))(
     '%s — 해가 정확히 하나이고, 그 해가 판정을 통과한다',
     (_id, ch) => {
-      const sols = solve(ch, SET, [], 3);
+      const sols = solveGame(ch, SET, [], 3);
       expect(sols).toHaveLength(1);
       expect(isSolved(ch, SET, sols[0])).toBe(true);
       // 재고를 남김없이 쓴다 — 문제가 주는 조각이 곧 답에 드는 조각이다
@@ -139,14 +155,14 @@ describe('문제 — 전부 유일해인가 (기획서 §13 · §22.6)', () => {
 
   it('한 조각만 빠져도 안 풀린다', () => {
     for (const ch of ROAD_CHALLENGES) {
-      const [sol] = solve(ch, SET, [], 1);
+      const [sol] = solveGame(ch, SET, [], 1);
       expect(isSolved(ch, SET, sol.slice(0, -1))).toBe(false);
     }
   });
 
   it('뒤집기를 허용하면 유일해가 깨지는 문제가 있다 — 그래서 세트가 allowFlip:false 다', () => {
     const loosened = ROAD_CHALLENGES.map((c) => ({ ...c, allowFlip: true }));
-    const extra = loosened.filter((c) => solve(c, SET, [], 3).length > 1);
+    const extra = loosened.filter((c) => solveGame(c, SET, [], 3).length > 1);
     expect(extra.length).toBeGreaterThan(0);
   });
 });
@@ -155,7 +171,7 @@ describe('힌트 — 저장된 정답이 아니라 지금 판에서 계산한다
   it('힌트만 따라가면 모든 문제가 풀린다', () => {
     for (const ch of ROAD_CHALLENGES) {
       const placed: Placement[] = [];
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 12; i++) {
         const h = nextHint(ch, SET, placed);
         if (!h) break;
         expect(canPlace(ch, SET, placed, h)).toBe(true);
@@ -166,7 +182,7 @@ describe('힌트 — 저장된 정답이 아니라 지금 판에서 계산한다
   });
 
   it('엉뚱한 자리에 다 써 버리면 힌트가 없다 — 빼야 한다는 뜻이다', () => {
-    const ch = ROAD_CHALLENGES.find((c) => Object.keys(c.inventory).length === 1)!;
+    const ch = ROAD_CHALLENGES.find((c) => !c.second && Object.keys(c.inventory).length === 1)!;
     const defId = Object.keys(ch.inventory)[0];
     const [sol] = solve(ch, SET, [], 1);
     // 정답이 아닌 자리를 하나 골라 하나뿐인 조각을 거기에 쓴다
