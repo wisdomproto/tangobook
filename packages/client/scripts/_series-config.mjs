@@ -54,6 +54,24 @@ export const DINGDING_GUESTS = {
   },
 };
 
+/** 🔴 twins 손님 등록부 (2026-09-09) — 49 아기 토끼 · 50 할머니. 규격 정본 = `docs/art-direction/twins-cast.md`
+ *  의 `## Guest baby rabbit` · `## Guest grandma rabbit`. 여기엔 한 줄 요약만 둔다.
+ *  🔴 할머니는 엄마와 같은 기둥 몸꼴이라 「다리 틈 없는 한 장 옷」만으로는 엄마와 안 갈린다 — 굽은 등 + INK2 옷이 표식. */
+export const TWINS_GUESTS = {
+  "Guest baby rabbit": {
+    "key": "baby",
+    "name": "이웃집 아기 토끼",
+    "aliases": ["Guest baby rabbit", "아기 토끼", "아기"],
+    "desc": "쌍둥이 무릎 높이의 둥근 덩어리, 머리가 몸의 절반, 목 없음, 팔다리는 짧은 토막 넷. 서지 않는다 — 담요에 눕거나 안긴다. 옷 0 · 노랑 0, 배의 INK2 얼룩뿐. 🔴 귀는 짧고 옆으로 벌어진 V — 리리처럼 서지도 롤로처럼 늘어지지도 않는다(셋째 쌍둥이로 안 읽히게). 눈은 아이의 큰 선 타원, 입은 곡선 하나로 울음·웃음을 낸다. 두 손이 리리 손가락 하나를 감싸 쥔다.",
+  },
+  "Guest grandma rabbit": {
+    "key": "grandma",
+    "name": "뭍에서 온 할머니",
+    "aliases": ["Guest grandma rabbit", "할머니"],
+    "desc": "엄마와 같은 기둥 몸꼴(좁고 길고 목이 보인다)이되 🔴 어깨에서 한 번 굽어 머리가 발보다 앞에 놓인다 — 엄마는 곧은 기둥. 옷은 목에서 무릎 아래까지 한 장이라 다리 틈이 없지만 🔴 INK2(따뜻한 색) — 엄마 앞치마는 ATLANTIC 이라 둘이 같은 색이 되지 않는다. 앞치마·숄·둘째 천 없음, 노랑 0. 귀는 엄마처럼 모여 서되 짧고 끝이 바깥으로 살짝 기운다. 눈은 어른의 좁은 누운 타원. 소품 = 큰 보따리 · 뜨개바늘 둘 · 실 뭉치(INK2). 무릎 하나에 둘이 나란히 앉는다 — 리리 왼쪽 · 롤로 오른쪽.",
+  },
+};
+
 /** 🔴 코타 손님 등록부 — 종마다 하나(얼굴 먹 도형은 `docs/changjak-books/kota/_design.md` 등록부와 같은 정본).
  *  회차 HTML 이 `window.SH_GUESTS` 로 받아 @image9~ 시트를 만든다. 같은 종이 다시 오면 같은 시트를 쓴다.
  *  🔴 손님을 고정 캐스트에 두면 25권이 「❓ 손님」 하나로 뭉개진다 — 그래서 단역이다. */
@@ -562,6 +580,7 @@ export const SERIES = {
       { key: 'mom', name: '엄마', face: '🐰', aliases: ['엄마', 'Mom rabbit'] },
       { key: 'cat', name: '부둣가 고양이', face: '🐱', aliases: ['부둣가 고양이', 'Harbor cat'] },
     ],
+    guests: TWINS_GUESTS,
   },
   mio: {
     no: '07', title: '미오네 유치원', icon: '🐱',

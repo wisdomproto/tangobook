@@ -151,6 +151,40 @@ Read as a flat silhouette she is a TALL NARROW POST that widens once, at the apr
 bottom into one straight hem with two thin legs under it.
 ```
 
+## Guest baby rabbit
+
+```
+THE NEIGHBOURS' BABY, minded for one day (volume 49). A rabbit, but the FOURTH BUILD in the book: a
+ROUND LUMP no taller than a twin's knee, head HALF of the whole body, no neck, limbs four short stubs.
+It never stands - it lies on a blanket, is held, or sits propped. NOT DRESSED: no cloth, no bonnet,
+no yellow; the INK2 belly patch is the only mark on the body.
+EARS: two SHORT ears that stick out SIDEWAYS in a wide V, shorter than the head is high - they neither
+  stand up close together like Riri's nor hang past the chin like Lolo's, so the baby is never read
+  as a third twin.
+FACE: the child's WIDE UPRIGHT OVAL eye, larger against the head than a twin's; the mouth is ONE
+  curve and it is the only thing on the page allowed to open wider than a twin's - crying and
+  laughing are drawn there and nowhere else.
+HANDS: two round paws that close round ONE of Riri's fingers - that grip is the volume's picture.
+```
+
+## Guest grandma rabbit
+
+```
+MOM'S MOTHER, come by boat from the mainland (volume 50). A rabbit built on MOM'S POST - narrow,
+long-limbed, a neck that shows - but told from Mom by TWO things that read at any size:
+BEND: the post BENDS ONCE at the shoulders, so the head sits forward of the feet and the back is a
+  single curve; Mom's post is straight from head to hem. Seated, the bend is still there.
+CLOTH: ONE long dress from neck to below the knee in a SINGLE UNBROKEN piece, so from the chest
+  down there is no gap between the legs - BUT IT IS INK2, the warm ink, where Mom's apron is
+  ATLANTIC; the two women are never the same colour. No apron over it, no shawl, no second piece of
+  cloth, no yellow, no pattern.
+EARS: up and close together like Mom's but SHORTER, with the tips leaning a little OUTWARD.
+EYES: the NARROW LYING OVAL under a lid; the mouth is one short flat curve.
+PROPS: a knotted cloth bundle (ClothBundle, the big size) and two knitting needles with one ball of
+  wool - INK2 all. Her lap is a seat: both twins fit on it side by side, Riri left and Lolo right.
+Read as a flat silhouette she is a POST THAT LEANS, in the warm ink, with two short ears.
+```
+
 ## Harbor cat
 
 ```

@@ -87,6 +87,14 @@ RENDERING (finish hierarchy): an area is ONE pull of one ink, never lighter or d
   it, and only in water small enough to hold inside one frame - a rock pool, a tub, a yard puddle.
   It is then a CLOSED RING of bare paper cut into the pull, hard-edged, at most 3, never a texture,
   never a sparkle and never on the open sea.
+  🔴 EXCEPT WHERE THE WATER IS THE EVENT OF THE PAGE. A page whose event is a skipped stone, a glint
+  hunt, a moon on the sea or a count of bow-waves cuts EXACTLY what it counts into the open pull too,
+  as BARE PAPER with a hard edge: rings for a skipped stone (at most 3) · points for a glinting wet
+  sand or sea (at most 14, cut like stars) · ONE straight strip for a moon or a lamp lying on the
+  water · bow-waves under the crowd rule above (at most 3 loose, the rest one joined band). Still
+  NOTHING IS MIRRORED: a moon on the sea is a strip and never a second moon, and a face over a pool
+  is ONE flat OVERLAP silhouette of head, ears and brim lying UPRIGHT inside the pull, hard-edged,
+  with 0 features - drawn only on the page that says the face shows.
   DENSITY RATION = none.
   🔴 BOTH TWINS ARE FINISHED ON THE PAGES WHERE BOTH ARE WRONG (p3 through p7 in most volumes) -
   they are one unit, and the "one thing touched" is then a single prop shared between them.
@@ -138,6 +146,24 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
   🔴 NIGHT (any page the script calls night or evening) - the sky and sea are OVERLAP as one flat
     pull. The moon, the stars and the lit windows are BARE PAPER, each cut on its own, at most 14. A
     lamp on the boat is bare paper and it carries the whole page.
+  🔴 HOME (any page inside the twins' house or in its own yard) - TWO ROOMS, A YARD AND THE STRIP
+    UNDER THE EAVES, fixed once on the Home sheet and never moved. Walls and floor are BARE PAPER;
+    everything standing on them is INK1 or INK2. THE ROOM: two low beds side by side against the back
+    wall, RIRI'S LEFT and LOLO'S RIGHT, one WOODEN PEG in the wall above Riri's pillow (where the
+    yellow hat hangs - the top band) and open floor under Lolo's bed (where the yellow boots stand -
+    the bottom band), one iron hook by the door for Dad's oilskin, one window in the left wall, a
+    chest at the beds' foot, and at the room's other end the hearth with one arm chair and one low
+    stool. THE KITCHEN: one table, two child chairs, two adult chairs, a stove, a shelf of at most 6
+    vessels. THE YARD: a whitewashed waist-high wall with one gate, a washing line, the big wooden
+    tub right of the door, FOUR HOOKS in a row on the wall, roofs beyond the wall INK2 at most 8
+    standing CLOSER TOGETHER as they go down; after rain ONE flat ATLANTIC puddle with a hard edge
+    between door and gate. THE EAVES make one straight dry strip a stride deep along the house wall.
+    Nothing is ever added to this house.
+  🔴 VILLAGE (any page in a lane, the village square or a festival yard - not the twins' own yard) -
+    whitewashed walls are BARE PAPER; roof tiles, doors and shutters are INK1 or INK2; cobbles are
+    at most 12 arc presses and windows down a street at most 8. Stalls, awnings and the crowd follow
+    the MARKET clause. Roofs up a lane stand CLOSER TOGETHER as they climb, never smaller and never
+    paler. 0 lettering on any wall, door, cart or sign.
 
 CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the world - two or
   three shapes with limbs laid over. GRADE: bipedal, standing upright, wearing cloth. Backs and heads
@@ -202,7 +228,10 @@ CHARACTER DESIGN LANGUAGE: the rabbits are built from the same flat pulls as the
   POST with a neck that shows and long thin limbs, in ONE flat ATLANTIC apron from chest to below the
   knee in a single unbroken piece, so she is THE ONLY FIGURE IN THE BOOK WITH NO GAP BETWEEN THE
   LEGS, tied in a bow at the small of her back. Adults never carry yellow and never carry a second
-  piece of cloth.
+  piece of cloth. 🔴 A LIFE VEST IS GEAR, NOT CLOTH: on any page aboard or boarding, Dad wears one
+  exactly as the children do - ONE flat INK2 pull, three ties down the front, twice a child's vest
+  in every direction (the LifeVest sheet) - and it is the only thing an adult ever puts on over the
+  apron or the cap.
   🔴 EACH TWIN HAS EXACTLY TWO PATCH POCKETS, one on each hip, a hand's width square, sewn flat on
   the outside of the cloth and IN THE SAME PLACE ON EVERY PAGE - four books show weight by filling
   and emptying them, and the comparison only reads if the pocket never moves. Full, the square bulges
