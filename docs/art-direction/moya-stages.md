@@ -372,6 +372,9 @@ WHERE THE FINISH CHANGES:
   DAMP (2): the mound, the lip, the heap, the doorway ground.
   SOAKING (3): 🔴 THE INSIDE OF THE HOLE - one violet bloom with nothing drawn in it. There is no
     black, so a dark opening is violet and it has no edge. No tunnel walls, no floor, no bedding.
+    🔴 ONE EXCEPTION (anchor THE BURROW): when a body is inside, the first snout's-length past the lip is
+    DAMP (2) - the curled meerkat and the earth under her, no line, no black - and the bloom begins
+    behind her. One volume sleeps in there and is read only through that hand's width.
   BARE PAPER: whatever the morning sun reaches, inside and out.
 
 SPOTS - six. Do not invent a seventh.

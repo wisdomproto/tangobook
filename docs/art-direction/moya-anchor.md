@@ -93,8 +93,10 @@ STAGE CLAUSES (one waterhole and its rim, the same one in all twenty-five books)
     beside it. No rim light, no darkened body.
   THE BURROW - a hole a snout's width across in a low earth mound, its lip broken on the near side,
     the earth that came out heaped to ONE side. 🔴 ITS INSIDE IS STEP (3) - one violet bloom with
-    nothing drawn in it and NEVER A BLACK OPENING. dry: morning sun runs in and what it reaches is BARE
-    PAPER. wet: the lip slumps.
+    nothing drawn in it and NEVER A BLACK OPENING. 🔴 ONE EXCEPTION: when a body is inside, the first
+    snout's-length past the lip is drawn at step (2) - damp touches, no line, no black - and only the
+    depth beyond it is the bloom (one volume sleeps in there). dry: morning sun runs in and what it
+    reaches is BARE PAPER. wet: the lip slumps.
 
 CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - and it is read against that
   animal's own shoulder. Head below the shoulder line = downcast. Level = ordinary. Pushed forward past
@@ -102,7 +104,10 @@ CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - an
   whole underside of the throat shows = pleased. The ears follow the neck and are never given a job of
   their own. THE EYE IS FIXED FOREVER - one dark violet almond as wide as that animal's own nostril, the
   same on every page of twenty-five books, open or shut. NO eyebrows, NO eyelashes, NO white in the eye,
-  NO drawn mouth line.
+  NO drawn mouth line. 🔴 AN OPEN MOUTH IS NOT A LINE: on a page where a figure speaks, calls or shouts,
+  the lower jaw drops so THE OUTLINE OF THE MUZZLE MASS CHANGES - it is paint, and still no line is drawn
+  for it. 🔴 TEARS NEVER CHANGE THE EYE: they are one wet trace down the bridge of the nose, or damp at
+  the eye's edge, and the almond stays the same size.
   GRADE: everyone walks on four legs, wears no clothing and keeps animal proportions and an animal face.
   🔴 KIKI IS THE ONE EXCEPTION AND IT IS HER WHOLE SILHOUETTE: the meerkat alone stands upright and alone
   has forepaws that hold things; the others carry with mouth, hoof or snout.
