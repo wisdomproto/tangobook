@@ -84,7 +84,10 @@ for (const [bookId, list] of byBook) {
         dropped++;
         continue;
       }
-      hs.push({ objectName, x: x / 100, y: y / 100, w: w / 100, h: h / 100 });
+      // 🔴 층은 **작업판이 이미 갈라 놨다** — `words` 는 사물, `scenery` 는 배경(연못·하늘·마을).
+      //    겹친 자리는 앞 층이 가져가므로 배경 상자를 크게 둬도 사물을 안 가로챈다.
+      const scenery = (cell.scenery ?? []).some((p) => p.en === en);
+      hs.push({ objectName, x: x / 100, y: y / 100, w: w / 100, h: h / 100, layer: scenery ? 0 : 1 });
     }
     if (!hs.length) continue;
 

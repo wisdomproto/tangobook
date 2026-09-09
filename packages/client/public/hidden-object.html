@@ -243,7 +243,12 @@
       bookP: bookCache[b.bookId],
       targets: Object.keys(hotspots[b.cell.key]).map(function (en) {
         var w = words.filter(function (x) { return x.en === en; })[0] || {};
-        return { en: en, ko: w.ko || en, card: w.card || null, box: hotspots[b.cell.key][en], got: false, name: en };
+        // 배경 낱말(연못·하늘·마을)은 뒤 층 — 작업판이 `scenery` 로 갈라 놓은 그대로다.
+        var scenery = (b.cell.scenery || []).some(function (p) { return p.en === en; });
+        return {
+          en: en, ko: w.ko || en, card: w.card || null, name: en,
+          box: hotspots[b.cell.key][en], got: false, layer: scenery ? 0 : 1,
+        };
       })
     };
     el('title').textContent = b.title;
@@ -263,12 +268,14 @@
     var y = ((e.clientY - r.top) / r.height) * 100;
     if (x < 0 || y < 0 || x > 100 || y > 100) return;
 
-    // 🔴 상자가 겹치면 **작은 쪽이 이긴다** — 큰 상자(마차)가 그 안에 걸친 작은 것(연못)을
-    //    삼켜 영영 못 찾게 되는 걸 막는다. 앱 안 게임과 같은 규칙이다.
+    // 🔴 상자는 **겹쳐도 된다.** 겹친 자리는 **앞 층이 가져가고**(연못 위의 오리), 같은 층이면
+    //    **작은 쪽이 이긴다**(옷장 안의 셔츠). 앱 안 게임과 같은 규칙이다.
     var under = cur.targets.filter(function (t) {
       var b = t.box;
       return !t.got && x >= b[0] && x <= b[0] + b[2] && y >= b[1] && y <= b[1] + b[3];
-    }).sort(function (a, c) { return a.box[2] * a.box[3] - c.box[2] * c.box[3]; });
+    }).sort(function (a, c) {
+      return c.layer - a.layer || a.box[2] * a.box[3] - c.box[2] * c.box[3];
+    });
 
     if (under.length) {
       var t = under[0];

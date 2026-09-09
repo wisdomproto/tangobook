@@ -60,12 +60,12 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
       const norm = toImageNorm(px, py, { width: rect.width, height: rect.height }, aspect);
       if (!norm) return;
 
-      // 🔴 상자가 겹치면 **작은 쪽이 이긴다.** 옷장 상자가 그 안의 셔츠를 삼키면, 셔츠를 정확히
-      //    짚은 아이에게 「옷장」이라고 답한다 — 큰 상자가 늘 먼저 걸리기 때문이다.
-      //    작은 것부터 보면 「안에 있는 것」이 늘 제 이름을 받는다.
+      // 🔴 상자는 **겹쳐도 된다.** 겹친 자리는 **앞 층이 가져가고**(연못 위의 오리), 같은 층이면
+      //    **작은 쪽이 이긴다**(옷장 안의 셔츠). 겹침을 피하려고 상자를 깎으면 배경 낱말이
+      //    손톱만 해져서 아이가 눌러도 안 맞는다.
       const hit = targets
         .filter((t) => !found.has(t.objectName) && hitNormalizedBox(norm, t))
-        .sort((a, b) => a.w * a.h - b.w * b.h)[0];
+        .sort((a, b) => (b.layer ?? 1) - (a.layer ?? 1) || a.w * a.h - b.w * b.h)[0];
       if (!hit) {
         setMissFlash({ x: px, y: py, id: Date.now() });
         if (missTimerRef.current) clearTimeout(missTimerRef.current);

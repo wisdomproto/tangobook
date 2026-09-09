@@ -675,6 +675,14 @@ export interface HiddenObjectHotspot {
   y: number;
   w: number;
   h: number;
+  /**
+   * 앞뒤 층. 겹친 상자에서 **높은 층이 탭을 가져간다**(같으면 작은 상자가 이긴다).
+   *
+   * 🔴 넓이만으로는 못 가른다 — 연못(배경)이 마차(사물)보다 상자가 작다. 그러면 연못을 물 전체로
+   *    키우는 순간 마차를 가로챈다. 배경은 0, 사물은 1(기본)로 **명시**해야 배경을 크게 둘 수 있다.
+   *    배경을 잘게 깎으면 아이가 「연못」을 눌러도 안 맞는다(실측 신고).
+   */
+  layer?: number;
 }
 
 /** 저작자가 만든 숨은그림 씬 1장 (그림체별 자산으로 저장). */
@@ -702,6 +710,8 @@ export interface HiddenObjectTarget {
   y: number;
   w: number;
   h: number;
+  /** 앞뒤 층 — `HiddenObjectHotspot.layer` 를 그대로 나른다. */
+  layer?: number;
 }
 
 export interface HiddenObjectGameScene {

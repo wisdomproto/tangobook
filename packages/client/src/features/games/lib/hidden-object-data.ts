@@ -41,6 +41,7 @@ export function buildHiddenObjectSceneData(
           y: h.y,
           w: h.w,
           h: h.h,
+          layer: h.layer,
         })
       ),
     }))

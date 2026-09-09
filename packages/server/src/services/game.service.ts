@@ -471,6 +471,7 @@ export function buildHiddenObjectData(
         y: h.y,
         w: h.w,
         h: h.h,
+        layer: h.layer,
       })
     ),
   }));
