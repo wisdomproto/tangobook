@@ -31,15 +31,24 @@ loadEnv();
  *    - 반복 무늬를 이름으로 집어 금지해야 돌다리의 돌을 하나씩 안 그린다
  */
 const LINEART_RULES = [
+  // 🔴 **자리를 원본에 맞춘다**(2026-09-09 추가). 칸 색은 원본 삽화에서 읽으므로 두 그림이 겹쳐야
+  //    한다 — 크기·각도가 다르면 칸에 원본의 **배경**이 걸려 흰 고양이·흰 책상이 나온다.
+  //    실측: 붙인 2,386장 중 **347장(14.7%)** 이 칸 절반 이상을 배경색으로 읽었다.
+  `- The attached picture is the reference for this subject. Put the subject in the SAME place, at the SAME size and the SAME angle as it sits there — if it fills the page there, fill the page here; if it faces left, face left. This page is that picture with the colour taken out, not a new drawing of the same word.`,
   `- Pure white paper, and pure white INSIDE every shape. No grey, no shading, no gradient, no hatching, no texture, no fill of any kind.`,
   `- Black outlines only, even weight, about 6 pixels wide on a 1024x1024 page — bold enough to see, thin enough that neighbouring parts do not merge.`,
   `- Every outline must be a CLOSED loop with no gaps, so paint cannot leak between areas.`,
-  `- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes. Arms and legs must be closed off from the body by a line, never left open into it.`,
-  `- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. Only a tiny detail such as an eye pupil may be solid black.`,
+  // 🔴 **테두리로 열린 그림은 칠할 게 없다**(2026-09-09 추가). 바다·강·가시·거미줄·핀이 이 병으로
+  //    걸렸다 — 선이 화면 밖으로 나가면 안과 밖이 이어져 남는 칸이 티끌뿐이다(물개 「귀」 0.5%).
+  `- The page must hold ONE closed shape the child can fill. If the thing is normally an open expanse (sea, river, sky, grass) or a thin line (pin, thorn, web, string), give it a body: one curling wave instead of open water, a river between two banks that meet inside the page, a pin lying across a closed cushion. Lines that run off the edge leave nothing to fill.`,
+  `- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes. Arms and legs must be closed off from the body by a line, never left open into it. A face is not one area either: head, each ear, hair and neck are their own closed shapes.`,
+  // 🔴 검정은 벽이라 영영 못 칠한다. 옷·지붕은 이미 막았는데 **창살·기호**가 새로 새어 나왔다
+  //    (감옥의 검은 창살 · 체크 표시) → 이름을 집어 막는다.
+  `- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. This holds for bars, silhouettes and symbols too: prison bars are outlines with white between them, a tick or an arrow is an outlined shape — never a solid one. Only a tiny detail such as an eye pupil may be solid black.`,
   `- Draw no repeating pattern and no tiny parts: no bricks, stones, planks, wood grain, scales, fur tufts, petals, holes, dots, stripes or spots. A surface made of many pieces becomes ONE smooth empty shape.`,
   `- Every enclosed area must be wide enough for a small finger: no long thin tubes. Draw legs, antennae, tails, stalks and handles as one closed shape at least 1/12 of the page wide, or merge them into the body.`,
-  `- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is.`,
-  `- One single subject, centred, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.`,
+  `- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is and WHERE it sits.`,
+  `- One single subject, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.`,
 ].join('\n');
 
 /**
@@ -53,6 +62,23 @@ const LINEART_RULES = [
  * 그래서 예전의 2단계(도안 → 그걸 다시 칠하게)는 통째로 없앴다. 생성이 절반이고, 선을 다시
  * 그리는 바람에 칸과 색 경계가 어긋나던 사고(19장 중 5장)도 원리상 사라진다.
  */
+/**
+ * 다시 뽑을 때 프롬프트 끝에 붙일 말 — **무엇이 틀렸는지 집어 준다**.
+ *
+ * 🔴 규칙을 한 줄 더 늘리는 것보다 「지난번엔 이게 틀렸다」가 세다(숨은그림에서 배운 것).
+ *    키는 `build-coloring-flags.mjs` 의 규칙 id 와 같아야 한다.
+ */
+const RETRY_LINES = {
+  empty: `The last attempt had nothing to fill — its lines ran off the edge of the page, so the inside and the outside were one. Close the shape inside the frame.`,
+  notlineart: `The last attempt still had colour or grey in it. Outlines only, everything inside pure white.`,
+  blackfill: `The last attempt filled an area solid black. Black is a wall the child can never paint — outline it and leave the inside white.`,
+  halfregion: `In the last attempt one area covered half the picture, because arms, legs or a face were left open into the body. Close each part off with its own line.`,
+  thin: `The last attempt had slivers too narrow for a small finger. Make every area at least 1/12 of the page wide, or merge it into the body.`,
+  busy: `The last attempt had far too many areas to finish. Aim for 6 to 12, and let surfaces made of many pieces become one smooth shape.`,
+  onetap: `The last attempt was a single shape — one tap and the picture is done. Divide it into the parts that really have different colours.`,
+  washed: `The last attempt was drawn at a different size and angle from the reference, so its colours cannot be read from it. Match the reference's framing exactly.`,
+};
+
 function promptLine() {
   return [
     `From the attached picture, draw a COLORING BOOK PAGE for a 4-year-old.`,
@@ -72,6 +98,7 @@ function promptLine() {
 function promptBatchLine() {
   return [
     `Draw a COLORING BOOK PAGE for a 4-year-old for EACH of the {{n}} subjects listed at the end — {{n}} images, one per subject, strictly in the order listed.`,
+    `The {{n}} attached pictures are the references, in the same order as the list.`,
     `These are not illustrations; each is a page a small child will fill in with colour:`,
     LINEART_RULES,
     ``,
@@ -185,7 +212,11 @@ for (const [category, list] of [...books.entries()].sort((a, b) => b[1].length -
 //    그 파일을 화면 열 때마다 받는다. 낱말만 끼워 넣는 건 화면이 한다.
 fs.writeFileSync(
   OUT,
-  JSON.stringify({ promptLine: promptLine(), promptBatchLine: promptBatchLine(), groups }, null, 1)
+  JSON.stringify(
+    { promptLine: promptLine(), promptBatchLine: promptBatchLine(), retryLines: RETRY_LINES, groups },
+    null,
+    1
+  )
 );
 const total = groups.reduce((n, g) => n + g.sections.reduce((m, s) => m + s.items.length, 0), 0);
 console.log(`${groups.length}개 그룹 · ${total}장 → ${OUT}`);

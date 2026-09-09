@@ -1,6 +1,16 @@
 {
-  "promptLine": "From the attached picture, draw a COLORING BOOK PAGE for a 4-year-old.\nThis is not an illustration; it is a page a small child will fill in with colour:\n- Pure white paper, and pure white INSIDE every shape. No grey, no shading, no gradient, no hatching, no texture, no fill of any kind.\n- Black outlines only, even weight, about 6 pixels wide on a 1024x1024 page — bold enough to see, thin enough that neighbouring parts do not merge.\n- Every outline must be a CLOSED loop with no gaps, so paint cannot leak between areas.\n- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes. Arms and legs must be closed off from the body by a line, never left open into it.\n- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. Only a tiny detail such as an eye pupil may be solid black.\n- Draw no repeating pattern and no tiny parts: no bricks, stones, planks, wood grain, scales, fur tufts, petals, holes, dots, stripes or spots. A surface made of many pieces becomes ONE smooth empty shape.\n- Every enclosed area must be wide enough for a small finger: no long thin tubes. Draw legs, antennae, tails, stalks and handles as one closed shape at least 1/12 of the page wide, or merge them into the body.\n- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is.\n- One single subject, centred, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.\n\nThe subject is: {{subject}}.",
-  "promptBatchLine": "Draw a COLORING BOOK PAGE for a 4-year-old for EACH of the {{n}} subjects listed at the end — {{n}} images, one per subject, strictly in the order listed.\nThese are not illustrations; each is a page a small child will fill in with colour:\n- Pure white paper, and pure white INSIDE every shape. No grey, no shading, no gradient, no hatching, no texture, no fill of any kind.\n- Black outlines only, even weight, about 6 pixels wide on a 1024x1024 page — bold enough to see, thin enough that neighbouring parts do not merge.\n- Every outline must be a CLOSED loop with no gaps, so paint cannot leak between areas.\n- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes. Arms and legs must be closed off from the body by a line, never left open into it.\n- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. Only a tiny detail such as an eye pupil may be solid black.\n- Draw no repeating pattern and no tiny parts: no bricks, stones, planks, wood grain, scales, fur tufts, petals, holes, dots, stripes or spots. A surface made of many pieces becomes ONE smooth empty shape.\n- Every enclosed area must be wide enough for a small finger: no long thin tubes. Draw legs, antennae, tails, stalks and handles as one closed shape at least 1/12 of the page wide, or merge them into the body.\n- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is.\n- One single subject, centred, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.\n\nSubjects:\n{{subjects}}",
+  "promptLine": "From the attached picture, draw a COLORING BOOK PAGE for a 4-year-old.\nThis is not an illustration; it is a page a small child will fill in with colour:\n- The attached picture is the reference for this subject. Put the subject in the SAME place, at the SAME size and the SAME angle as it sits there — if it fills the page there, fill the page here; if it faces left, face left. This page is that picture with the colour taken out, not a new drawing of the same word.\n- Pure white paper, and pure white INSIDE every shape. No grey, no shading, no gradient, no hatching, no texture, no fill of any kind.\n- Black outlines only, even weight, about 6 pixels wide on a 1024x1024 page — bold enough to see, thin enough that neighbouring parts do not merge.\n- Every outline must be a CLOSED loop with no gaps, so paint cannot leak between areas.\n- The page must hold ONE closed shape the child can fill. If the thing is normally an open expanse (sea, river, sky, grass) or a thin line (pin, thorn, web, string), give it a body: one curling wave instead of open water, a river between two banks that meet inside the page, a pin lying across a closed cushion. Lines that run off the edge leave nothing to fill.\n- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes. Arms and legs must be closed off from the body by a line, never left open into it. A face is not one area either: head, each ear, hair and neck are their own closed shapes.\n- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. This holds for bars, silhouettes and symbols too: prison bars are outlines with white between them, a tick or an arrow is an outlined shape — never a solid one. Only a tiny detail such as an eye pupil may be solid black.\n- Draw no repeating pattern and no tiny parts: no bricks, stones, planks, wood grain, scales, fur tufts, petals, holes, dots, stripes or spots. A surface made of many pieces becomes ONE smooth empty shape.\n- Every enclosed area must be wide enough for a small finger: no long thin tubes. Draw legs, antennae, tails, stalks and handles as one closed shape at least 1/12 of the page wide, or merge them into the body.\n- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is and WHERE it sits.\n- One single subject, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.\n\nThe subject is: {{subject}}.",
+  "promptBatchLine": "Draw a COLORING BOOK PAGE for a 4-year-old for EACH of the {{n}} subjects listed at the end — {{n}} images, one per subject, strictly in the order listed.\nThe {{n}} attached pictures are the references, in the same order as the list.\nThese are not illustrations; each is a page a small child will fill in with colour:\n- The attached picture is the reference for this subject. Put the subject in the SAME place, at the SAME size and the SAME angle as it sits there — if it fills the page there, fill the page here; if it faces left, face left. This page is that picture with the colour taken out, not a new drawing of the same word.\n- Pure white paper, and pure white INSIDE every shape. No grey, no shading, no gradient, no hatching, no texture, no fill of any kind.\n- Black outlines only, even weight, about 6 pixels wide on a 1024x1024 page — bold enough to see, thin enough that neighbouring parts do not merge.\n- Every outline must be a CLOSED loop with no gaps, so paint cannot leak between areas.\n- The page must hold ONE closed shape the child can fill. If the thing is normally an open expanse (sea, river, sky, grass) or a thin line (pin, thorn, web, string), give it a body: one curling wave instead of open water, a river between two banks that meet inside the page, a pin lying across a closed cushion. Lines that run off the edge leave nothing to fill.\n- Divide the subject into 6 to 12 separate enclosed areas a child can fill one by one — draw the parts that really have different colours (limbs, ears, beak, cheeks, clothing, roof, windows) as their own outlined shapes. Arms and legs must be closed off from the body by a line, never left open into it. A face is not one area either: head, each ear, hair and neck are their own closed shapes.\n- NEVER fill a large area with black or any dark colour. Black is only for the outline strokes. Clothes, hair, shoes, doors and windows stay EMPTY WHITE inside, whatever colour the real thing is. This holds for bars, silhouettes and symbols too: prison bars are outlines with white between them, a tick or an arrow is an outlined shape — never a solid one. Only a tiny detail such as an eye pupil may be solid black.\n- Draw no repeating pattern and no tiny parts: no bricks, stones, planks, wood grain, scales, fur tufts, petals, holes, dots, stripes or spots. A surface made of many pieces becomes ONE smooth empty shape.\n- Every enclosed area must be wide enough for a small finger: no long thin tubes. Draw legs, antennae, tails, stalks and handles as one closed shape at least 1/12 of the page wide, or merge them into the body.\n- Ignore the texture of the reference (wool, felt, watercolour, pencil) and its drop shadow. Keep only WHAT it is and WHERE it sits.\n- One single subject, fully inside the frame with a small white margin. No text, no letters, no numbers, no border frame, no background scenery.\n\nSubjects:\n{{subjects}}",
+  "retryLines": {
+    "empty": "The last attempt had nothing to fill — its lines ran off the edge of the page, so the inside and the outside were one. Close the shape inside the frame.",
+    "notlineart": "The last attempt still had colour or grey in it. Outlines only, everything inside pure white.",
+    "blackfill": "The last attempt filled an area solid black. Black is a wall the child can never paint — outline it and leave the inside white.",
+    "halfregion": "In the last attempt one area covered half the picture, because arms, legs or a face were left open into the body. Close each part off with its own line.",
+    "thin": "The last attempt had slivers too narrow for a small finger. Make every area at least 1/12 of the page wide, or merge it into the body.",
+    "busy": "The last attempt had far too many areas to finish. Aim for 6 to 12, and let surfaces made of many pieces become one smooth shape.",
+    "onetap": "The last attempt was a single shape — one tap and the picture is done. Divide it into the parts that really have different colours.",
+    "washed": "The last attempt was drawn at a different size and angle from the reference, so its colours cannot be read from it. Match the reference's framing exactly."
+  },
   "groups": [
     {
       "id": "phonics-kr",
@@ -7467,7 +7477,7 @@
               "bookTitle": "인어 공주",
               "word": "꼬리",
               "subject": "tail",
-              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-꼬리-1779170667397-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-꼬리-1779173689683-w800.webp",
               "key": "bk-0207"
             },
             {
@@ -7475,7 +7485,7 @@
               "bookTitle": "인어 공주",
               "word": "바다",
               "subject": "Sea",
-              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Sea-1779170665676-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Sea-1779173964575-w800.webp",
               "key": "bk-0208"
             },
             {
@@ -7483,7 +7493,7 @@
               "bookTitle": "인어 공주",
               "word": "별",
               "subject": "star",
-              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-star-1783561192525-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-star-1783561477370-w800.webp",
               "key": "bk-0209"
             },
             {
@@ -7491,7 +7501,7 @@
               "bookTitle": "인어 공주",
               "word": "산호",
               "subject": "coral",
-              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Coral-1779170661281-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-Coral-1779173688411-w800.webp",
               "key": "bk-0210"
             },
             {
@@ -7499,7 +7509,7 @@
               "bookTitle": "인어 공주",
               "word": "조개",
               "subject": "seashell",
-              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-seashell-1783561190890-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-seashell-1783561475531-w800.webp",
               "key": "bk-0211"
             },
             {
@@ -7507,7 +7517,7 @@
               "bookTitle": "인어 공주",
               "word": "하늘",
               "subject": "sky",
-              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-sky-1779261671637-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1772181399388-인어공주-keyobj-sky-1779173816246-w800.webp",
               "key": "bk-0212"
             }
           ]
@@ -8249,7 +8259,7 @@
               "bookTitle": "헨젤과 그레텔",
               "word": "나무",
               "subject": "tree",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-tree-1783558659179-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1781588918173-헨젤과그레텔-keyobj-tree-1783558659179-w800.webp",
               "key": "bk-0296"
             },
             {
@@ -8257,7 +8267,7 @@
               "bookTitle": "헨젤과 그레텔",
               "word": "돌",
               "subject": "stone",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-stone-1783558663844-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1781588918173-헨젤과그레텔-keyobj-stone-1783558663844-w800.webp",
               "key": "bk-0297"
             },
             {
@@ -8265,7 +8275,7 @@
               "bookTitle": "헨젤과 그레텔",
               "word": "사탕",
               "subject": "candy",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-candy-1783558704363-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1781588918173-헨젤과그레텔-keyobj-candy-1783558704363-w800.webp",
               "key": "bk-0298"
             },
             {
@@ -8273,7 +8283,7 @@
               "bookTitle": "헨젤과 그레텔",
               "word": "숲",
               "subject": "forest",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-forest-1783558662258-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1781588918173-헨젤과그레텔-keyobj-forest-1783558662258-w800.webp",
               "key": "bk-0299"
             },
             {
@@ -8281,7 +8291,7 @@
               "bookTitle": "헨젤과 그레텔",
               "word": "집",
               "subject": "house",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-house-1783558635909-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1781588918173-헨젤과그레텔-keyobj-house-1783558635909-w800.webp",
               "key": "bk-0300"
             },
             {
@@ -8289,7 +8299,7 @@
               "bookTitle": "헨젤과 그레텔",
               "word": "쿠키",
               "subject": "cookie",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1781588918173-헨젤과그레텔-keyobj-cookie-1783558638451-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/1781588918173-헨젤과그레텔-keyobj-cookie-1783558638451-w800.webp",
               "key": "bk-0301"
             }
           ]
@@ -13302,7 +13312,7 @@
               "bookTitle": "선녀와 나무꾼",
               "word": "날개옷",
               "subject": "the fairy's winged robe",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-seonnyeo/word-nalgaeot.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-nalgaeot.jpg",
               "key": "bk-0871"
             },
             {
@@ -13310,7 +13320,7 @@
               "bookTitle": "선녀와 나무꾼",
               "word": "두레박",
               "subject": "a well bucket on a rope",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-seonnyeo/word-durebak.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-durebak.jpg",
               "key": "bk-0872"
             },
             {
@@ -13318,7 +13328,7 @@
               "bookTitle": "선녀와 나무꾼",
               "word": "물레",
               "subject": "a spinning wheel",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-seonnyeo/word-mulle.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-mulle.jpg",
               "key": "bk-0873"
             },
             {
@@ -13326,7 +13336,7 @@
               "bookTitle": "선녀와 나무꾼",
               "word": "비녀",
               "subject": "an ornamental hairpin",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-seonnyeo/word-binyeo.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-binyeo.jpg",
               "key": "bk-0874"
             },
             {
@@ -13334,7 +13344,7 @@
               "bookTitle": "선녀와 나무꾼",
               "word": "지게",
               "subject": "a Korean A-frame back carrier",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-seonnyeo/word-jige.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-jige.jpg",
               "key": "bk-0875"
             }
           ]
@@ -13572,7 +13582,7 @@
               "bookTitle": "은혜 갚은 까치",
               "word": "갓",
               "subject": "a horsehair hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kkachi/word-gat.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-gat.jpg",
               "key": "bk-0901"
             },
             {
@@ -13580,7 +13590,7 @@
               "bookTitle": "은혜 갚은 까치",
               "word": "도포",
               "subject": "a scholar's overcoat robe",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kkachi/word-dopo.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-dopo.jpg",
               "key": "bk-0902"
             },
             {
@@ -13588,7 +13598,7 @@
               "bookTitle": "은혜 갚은 까치",
               "word": "봇짐",
               "subject": "a cloth travel bundle",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kkachi/word-botjim.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-botjim.jpg",
               "key": "bk-0903"
             },
             {
@@ -13596,7 +13606,7 @@
               "bookTitle": "은혜 갚은 까치",
               "word": "종 (범종)",
               "subject": "a Korean temple bell",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kkachi/word-beomjong.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-beomjong.jpg",
               "key": "bk-0904"
             },
             {
@@ -13604,7 +13614,7 @@
               "bookTitle": "은혜 갚은 까치",
               "word": "활",
               "subject": "a Korean recurve bow",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kkachi/word-hwal.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-hwal.jpg",
               "key": "bk-0905"
             }
           ]
@@ -13932,7 +13942,7 @@
               "bookTitle": "콩쥐 팥쥐",
               "word": "꽃신",
               "subject": "embroidered flower shoes",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kongjwi/word-kkotsin.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-kkotsin.jpg",
               "key": "bk-0941"
             },
             {
@@ -13940,7 +13950,7 @@
               "bookTitle": "콩쥐 팥쥐",
               "word": "베틀",
               "subject": "a traditional loom",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kongjwi/word-beteul.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-beteul.jpg",
               "key": "bk-0942"
             },
             {
@@ -13948,7 +13958,7 @@
               "bookTitle": "콩쥐 팥쥐",
               "word": "소쿠리",
               "subject": "a woven bamboo basket",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kongjwi/word-sokuri.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-sokuri.jpg",
               "key": "bk-0943"
             },
             {
@@ -13956,7 +13966,7 @@
               "bookTitle": "콩쥐 팥쥐",
               "word": "옹기항아리",
               "subject": "earthenware jar",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kongjwi/word-onggi.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-onggi.jpg",
               "key": "bk-0944"
             },
             {
@@ -13964,7 +13974,7 @@
               "bookTitle": "콩쥐 팥쥐",
               "word": "호미",
               "subject": "a Korean hand hoe",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-kongjwi/word-homi.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-homi.jpg",
               "key": "bk-0945"
             }
           ]
@@ -14067,7 +14077,7 @@
               "bookTitle": "팥죽 할멈과 호랑이",
               "word": "가마솥",
               "subject": "a Korean cast-iron cauldron",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-patjuk/word-gamasot.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-gamasot.jpg",
               "key": "bk-0956"
             },
             {
@@ -14075,7 +14085,7 @@
               "bookTitle": "팥죽 할멈과 호랑이",
               "word": "맷돌",
               "subject": "a Korean hand millstone",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-patjuk/word-maetdol.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-maetdol.jpg",
               "key": "bk-0957"
             },
             {
@@ -14083,7 +14093,7 @@
               "bookTitle": "팥죽 할멈과 호랑이",
               "word": "멍석",
               "subject": "a woven straw floor mat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-patjuk/word-meongseok.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-meongseok.jpg",
               "key": "bk-0958"
             },
             {
@@ -14091,7 +14101,7 @@
               "bookTitle": "팥죽 할멈과 호랑이",
               "word": "소쿠리",
               "subject": "a shallow woven bamboo basket",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-patjuk/word-sokuri.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-sokuri.jpg",
               "key": "bk-0959"
             },
             {
@@ -14099,7 +14109,7 @@
               "bookTitle": "팥죽 할멈과 호랑이",
               "word": "지게",
               "subject": "a Korean A-frame back carrier",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-patjuk/word-jige.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-jige.jpg",
               "key": "bk-0960"
             }
           ]
@@ -14112,7 +14122,7 @@
               "bookTitle": "해와 달이 된 오누이",
               "word": "가마솥",
               "subject": "a cast-iron cauldron",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-haewadal/word-gamasot.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-gamasot.jpg",
               "key": "bk-0961"
             },
             {
@@ -14120,7 +14130,7 @@
               "bookTitle": "해와 달이 된 오누이",
               "word": "동아줄",
               "subject": "a thick twisted straw rope",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-haewadal/word-dongajul.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-dongajul.jpg",
               "key": "bk-0962"
             },
             {
@@ -14128,7 +14138,7 @@
               "bookTitle": "해와 달이 된 오누이",
               "word": "두레박",
               "subject": "a well bucket on a rope",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-haewadal/word-durebak.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-durebak.jpg",
               "key": "bk-0963"
             },
             {
@@ -14136,7 +14146,7 @@
               "bookTitle": "해와 달이 된 오누이",
               "word": "떡",
               "subject": "Korean rice cakes",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-haewadal/word-tteok.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-tteok.jpg",
               "key": "bk-0964"
             },
             {
@@ -14144,7 +14154,7 @@
               "bookTitle": "해와 달이 된 오누이",
               "word": "삼베옷",
               "subject": "hemp-cloth clothes",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-haewadal/word-sambeot.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-sambeot.jpg",
               "key": "bk-0965"
             }
           ]
@@ -14247,7 +14257,7 @@
               "bookTitle": "혹부리 영감",
               "word": "갓",
               "subject": "a Korean horsehair hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-hokburi/word-gat.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-gat.jpg",
               "key": "bk-0976"
             },
             {
@@ -14255,7 +14265,7 @@
               "bookTitle": "혹부리 영감",
               "word": "도포",
               "subject": "a scholar's overcoat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-hokburi/word-dopo.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-dopo.jpg",
               "key": "bk-0977"
             },
             {
@@ -14263,7 +14273,7 @@
               "bookTitle": "혹부리 영감",
               "word": "지팡이",
               "subject": "a wooden walking stick",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-hokburi/word-jipangi.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-jipangi.jpg",
               "key": "bk-0978"
             },
             {
@@ -14271,7 +14281,7 @@
               "bookTitle": "혹부리 영감",
               "word": "초가집",
               "subject": "a thatched-roof cottage",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-hokburi/word-chogajip.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-chogajip.jpg",
               "key": "bk-0979"
             },
             {
@@ -14279,7 +14289,7 @@
               "bookTitle": "혹부리 영감",
               "word": "호롱불",
               "subject": "an oil lamp",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-hokburi/word-horongbul.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-horongbul.jpg",
               "key": "bk-0980"
             }
           ]
@@ -14337,7 +14347,7 @@
               "bookTitle": "흥부와 놀부",
               "word": "박",
               "subject": "a round bottle gourd",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-heungbu/word-bak.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-bak.jpg",
               "key": "bk-0986"
             },
             {
@@ -14345,7 +14355,7 @@
               "bookTitle": "흥부와 놀부",
               "word": "엽전",
               "subject": "old Korean coins",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-heungbu/word-yeopjeon.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-yeopjeon.jpg",
               "key": "bk-0987"
             },
             {
@@ -14353,7 +14363,7 @@
               "bookTitle": "흥부와 놀부",
               "word": "지게",
               "subject": "a Korean A-frame back carrier",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-heungbu/word-jige.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jige.jpg",
               "key": "bk-0988"
             },
             {
@@ -14361,7 +14371,7 @@
               "bookTitle": "흥부와 놀부",
               "word": "짚신",
               "subject": "woven straw shoes",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-heungbu/word-jipsin.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jipsin.jpg",
               "key": "bk-0989"
             },
             {
@@ -14369,7 +14379,7 @@
               "bookTitle": "흥부와 놀부",
               "word": "톱",
               "subject": "a two-person frame saw",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-heungbu/word-top.jpg",
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-top.jpg",
               "key": "bk-0990"
             }
           ]
@@ -20291,7 +20301,7 @@
               "bookTitle": "01. 삐뽀삐뽀 불자동차",
               "word": "사다리",
               "subject": "a ladder",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-5dba07153814-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-5dba07153814-w800.webp",
               "key": "bk-1668"
             },
             {
@@ -20299,7 +20309,7 @@
               "bookTitle": "01. 삐뽀삐뽀 불자동차",
               "word": "소방복",
               "subject": "a red firefighter jacket",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-c5ed5fe2638a-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-c5ed5fe2638a-w800.webp",
               "key": "bk-1669"
             },
             {
@@ -20307,7 +20317,7 @@
               "bookTitle": "01. 삐뽀삐뽀 불자동차",
               "word": "소방차",
               "subject": "a red fire engine truck",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-638be6a9a939-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-638be6a9a939-w800.webp",
               "key": "bk-1670"
             },
             {
@@ -20315,7 +20325,7 @@
               "bookTitle": "01. 삐뽀삐뽀 불자동차",
               "word": "헬멧",
               "subject": "a bike helmet",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-4b42e68d54c4-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-4b42e68d54c4-w800.webp",
               "key": "bk-1671"
             },
             {
@@ -20323,7 +20333,7 @@
               "bookTitle": "01. 삐뽀삐뽀 불자동차",
               "word": "호스",
               "subject": "a coiled water hose",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-181f3d0d7d02-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-181f3d0d7d02-w800.webp",
               "key": "bk-1672"
             }
           ]
@@ -20336,7 +20346,7 @@
               "bookTitle": "02. 아파도 걱정 마",
               "word": "구급차",
               "subject": "a white ambulance van",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-4e0256216d7e-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-4e0256216d7e-w800.webp",
               "key": "bk-1673"
             },
             {
@@ -20344,7 +20354,7 @@
               "bookTitle": "02. 아파도 걱정 마",
               "word": "들것",
               "subject": "a stretcher bed with wheels",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-6560471521d0-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-6560471521d0-w800.webp",
               "key": "bk-1674"
             },
             {
@@ -20352,7 +20362,7 @@
               "bookTitle": "02. 아파도 걱정 마",
               "word": "무전기",
               "subject": "a black walkie talkie radio",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-c909a3888b09-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-c909a3888b09-w800.webp",
               "key": "bk-1675"
             },
             {
@@ -20360,7 +20370,7 @@
               "bookTitle": "02. 아파도 걱정 마",
               "word": "비상등",
               "subject": "a red flashing emergency light",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-abd9de0bd3f6-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-abd9de0bd3f6-w800.webp",
               "key": "bk-1676"
             },
             {
@@ -20368,7 +20378,7 @@
               "bookTitle": "02. 아파도 걱정 마",
               "word": "응급가방",
               "subject": "a red first aid bag",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-4c9878b4124e-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-4c9878b4124e-w800.webp",
               "key": "bk-1677"
             }
           ]
@@ -20381,7 +20391,7 @@
               "bookTitle": "03. 도둑 잡는 순찰차",
               "word": "모자",
               "subject": "hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-f38346a44dbc-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-f38346a44dbc-w800.webp",
               "key": "bk-1678"
             },
             {
@@ -20389,7 +20399,7 @@
               "bookTitle": "03. 도둑 잡는 순찰차",
               "word": "아이",
               "subject": "child",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-43893ae7b6dd-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-43893ae7b6dd-w800.webp",
               "key": "bk-1679"
             }
           ]
@@ -20402,7 +20412,7 @@
               "bookTitle": "04. 힘센 땅 파는 친구",
               "word": "무한궤도",
               "subject": "a black rubber crawler track belt",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-2ac223811b0b-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-2ac223811b0b-w800.webp",
               "key": "bk-1680"
             },
             {
@@ -20410,7 +20420,7 @@
               "bookTitle": "04. 힘센 땅 파는 친구",
               "word": "버킷",
               "subject": "an excavator bucket scoop with teeth",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-6cc4b55615c1-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-6cc4b55615c1-w800.webp",
               "key": "bk-1681"
             },
             {
@@ -20418,7 +20428,7 @@
               "bookTitle": "04. 힘센 땅 파는 친구",
               "word": "안전모",
               "subject": "a yellow safety helmet hard hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-73730fa9259e-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-73730fa9259e-w800.webp",
               "key": "bk-1682"
             },
             {
@@ -20426,7 +20436,7 @@
               "bookTitle": "04. 힘센 땅 파는 친구",
               "word": "포클레인",
               "subject": "a yellow excavator digger",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-21ac7682e6fd-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-21ac7682e6fd-w800.webp",
               "key": "bk-1683"
             },
             {
@@ -20434,7 +20444,7 @@
               "bookTitle": "04. 힘센 땅 파는 친구",
               "word": "흙",
               "subject": "a mound of brown soil",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-acb4cc49a085-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-acb4cc49a085-w800.webp",
               "key": "bk-1684"
             }
           ]
@@ -20447,7 +20457,7 @@
               "bookTitle": "05. 우르릉 흙 나르기",
               "word": "덤프트럭",
               "subject": "a yellow dump truck",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-a900d215e072-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-a900d215e072-w800.webp",
               "key": "bk-1685"
             },
             {
@@ -20455,7 +20465,7 @@
               "bookTitle": "05. 우르릉 흙 나르기",
               "word": "바퀴",
               "subject": "a single wheel",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-c9c496276459-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-c9c496276459-w800.webp",
               "key": "bk-1686"
             },
             {
@@ -20463,7 +20473,7 @@
               "bookTitle": "05. 우르릉 흙 나르기",
               "word": "자갈",
               "subject": "a small heap of grey and brown natural pebble stones, realistic stone colors, no rainbow colors",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-193b26848be2-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-193b26848be2-w800.webp",
               "key": "bk-1687"
             },
             {
@@ -20471,7 +20481,7 @@
               "bookTitle": "05. 우르릉 흙 나르기",
               "word": "핸들",
               "subject": "a steering wheel",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-fa7af1edbf9b-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-fa7af1edbf9b-w800.webp",
               "key": "bk-1688"
             },
             {
@@ -20479,7 +20489,7 @@
               "bookTitle": "05. 우르릉 흙 나르기",
               "word": "흙",
               "subject": "a mound of brown soil",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-acb4cc49a085-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-acb4cc49a085-w800.webp",
               "key": "bk-1689"
             }
           ]
@@ -20492,7 +20502,7 @@
               "bookTitle": "06. 빙글빙글 콘크리트",
               "word": "레미콘",
               "subject": "a concrete mixer truck",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-834dc0cb0ca1-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-834dc0cb0ca1-w800.webp",
               "key": "bk-1690"
             },
             {
@@ -20500,7 +20510,7 @@
               "bookTitle": "06. 빙글빙글 콘크리트",
               "word": "모래",
               "subject": "a mound of sand",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-bf634af79085-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-bf634af79085-w800.webp",
               "key": "bk-1691"
             },
             {
@@ -20508,7 +20518,7 @@
               "bookTitle": "06. 빙글빙글 콘크리트",
               "word": "안전모",
               "subject": "a yellow safety helmet hard hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-73730fa9259e-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-73730fa9259e-w800.webp",
               "key": "bk-1692"
             },
             {
@@ -20516,7 +20526,7 @@
               "bookTitle": "06. 빙글빙글 콘크리트",
               "word": "자갈",
               "subject": "a small heap of grey and brown natural pebble stones, realistic stone colors, no rainbow colors",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-193b26848be2-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-193b26848be2-w800.webp",
               "key": "bk-1693"
             }
           ]
@@ -20529,7 +20539,7 @@
               "bookTitle": "07. 칙칙폭폭 빠른 기차",
               "word": "기차",
               "subject": "train",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-1f72d4b69e8f-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-1f72d4b69e8f-w800.webp",
               "key": "bk-1694"
             },
             {
@@ -20537,7 +20547,7 @@
               "bookTitle": "07. 칙칙폭폭 빠른 기차",
               "word": "모자",
               "subject": "hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-f38346a44dbc-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-f38346a44dbc-w800.webp",
               "key": "bk-1695"
             },
             {
@@ -20545,7 +20555,7 @@
               "bookTitle": "07. 칙칙폭폭 빠른 기차",
               "word": "의자",
               "subject": "chair",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-5c8729e77558-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-5c8729e77558-w800.webp",
               "key": "bk-1696"
             }
           ]
@@ -20558,7 +20568,7 @@
               "bookTitle": "08. 땅속을 달려요",
               "word": "기차",
               "subject": "train",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-1f72d4b69e8f-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-1f72d4b69e8f-w800.webp",
               "key": "bk-1697"
             }
           ]
@@ -20571,7 +20581,7 @@
               "bookTitle": "09. 다 같이 타는 버스",
               "word": "버스",
               "subject": "bus",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-34883c097bed-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-34883c097bed-w800.webp",
               "key": "bk-1698"
             },
             {
@@ -20579,7 +20589,7 @@
               "bookTitle": "09. 다 같이 타는 버스",
               "word": "카드",
               "subject": "card",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-8bac27b84725-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-8bac27b84725-w800.webp",
               "key": "bk-1699"
             }
           ]
@@ -20592,7 +20602,7 @@
               "bookTitle": "10. 하늘을 나는 새",
               "word": "모자",
               "subject": "hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-f38346a44dbc-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-f38346a44dbc-w800.webp",
               "key": "bk-1700"
             }
           ]
@@ -20605,7 +20615,7 @@
               "bookTitle": "11. 빙글빙글 프로펠러",
               "word": "바다",
               "subject": "wave",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-21f1971c694b-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-21f1971c694b-w800.webp",
               "key": "bk-1701"
             }
           ]
@@ -20618,7 +20628,7 @@
               "bookTitle": "12. 바다 위 큰 집",
               "word": "바다",
               "subject": "wave",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-21f1971c694b-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-21f1971c694b-w800.webp",
               "key": "bk-1702"
             }
           ]
@@ -20631,7 +20641,7 @@
               "bookTitle": "13. 우주로 슝",
               "word": "누나",
               "subject": "older sister",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-ecf8e7a511bf-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-ecf8e7a511bf-w800.webp",
               "key": "bk-1703"
             },
             {
@@ -20639,7 +20649,7 @@
               "bookTitle": "13. 우주로 슝",
               "word": "별",
               "subject": "star",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-e62ced9b1a66-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-e62ced9b1a66-w800.webp",
               "key": "bk-1704"
             },
             {
@@ -20647,7 +20657,7 @@
               "bookTitle": "13. 우주로 슝",
               "word": "우주",
               "subject": "planet",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-38a2d5787e12-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-38a2d5787e12-w800.webp",
               "key": "bk-1705"
             }
           ]
@@ -20660,7 +20670,7 @@
               "bookTitle": "14. 깨끗깨끗 청소차",
               "word": "사과",
               "subject": "apple",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-0a842b42240f-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-0a842b42240f-w800.webp",
               "key": "bk-1706"
             }
           ]
@@ -20673,7 +20683,7 @@
               "bookTitle": "15. 편지 배달 왔어요",
               "word": "모자",
               "subject": "hat",
-              "imageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-word-cards/hori-f38346a44dbc-w800.webp",
+              "imageUrl": "https://assets.tangobook.co.kr/phonics-word-cards/hori-f38346a44dbc-w800.webp",
               "key": "bk-1707"
             }
           ]

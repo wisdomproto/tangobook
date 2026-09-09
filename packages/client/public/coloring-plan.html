@@ -144,7 +144,21 @@
   var showFlagged = true;
   var showColor = false;
   // 프롬프트는 데이터에 한 벌만 실려 온다 — 낱말만 끼워 넣는다.
-  function promptLineFor(it) { return data.promptLine.replace('{{subject}}', it.subject); }
+  /**
+   * 낱말 하나짜리 프롬프트.
+   *
+   * 🔴 **걸린 도안에는 「지난번엔 이게 틀렸다」를 붙인다.** 규칙을 한 줄 더 늘리는 것보다
+   *    실패를 집어 주는 게 세다(숨은그림에서 배운 것). 흠 종류 → 문장은 데이터에 실려 온다.
+   */
+  function promptLineFor(it) {
+    var base = data.promptLine.replace('{{subject}}', it.subject);
+    var f = flags[it.key];
+    var lines = ((f && f.ids) || [])
+      .map(function (id) { return (data.retryLines || {})[id]; })
+      .filter(Boolean);
+    if (!lines.length) return base;
+    return base + '\n\nThis subject is being redrawn. ' + lines.join(' ');
+  }
   /**
    * 🔴 붙일 것은 **도안 한 장뿐**이다. 칸별 정답색은 원본 삽화에서 읽어 만든다
    *    (`auto-color.mjs --from=<원본>`) — 색칠본을 따로 받을 이유가 없다.
@@ -316,6 +330,18 @@
         toast(list.length + '장 묶음을 복사했어요');
       });
     };
+    // 🔴 묶음으로 뽑을 땐 **원본 열 장을 같이 붙여야** 자리가 맞는다 — 낱말만 주면 모델이
+    //    제 마음대로 구도를 잡고, 그러면 칸 색을 원본에서 못 읽는다(실측 347장).
+    var cu = document.createElement('button');
+    cu.className = 'batch';
+    cu.textContent = '🔗 원본 ' + list.length + '장 주소';
+    cu.onclick = function () {
+      navigator.clipboard
+        .writeText(list.map(function (it) { return it.imageUrl; }).join('\n'))
+        .then(function () { toast('원본 ' + list.length + '장 주소를 복사했어요'); });
+    };
+    bar.appendChild(cu);
+
     var words = document.createElement('span');
     words.className = 'batchwords';
     words.textContent = list.map(function (it) { return it.word; }).join(', ');

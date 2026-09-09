@@ -85,6 +85,8 @@ for (const m of measured) {
       : 'color';
   flags[m.key] = {
     level,
+    // 🔴 id 도 같이 싣는다 — 작업판이 이걸로 「지난번엔 이게 틀렸다」 문장을 골라 프롬프트에 붙인다.
+    ids: hits.map((r) => r.id),
     why: hits.map((r) => r.why).join(' · '),
     word: m.word,
   };
