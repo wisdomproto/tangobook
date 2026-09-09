@@ -113,6 +113,11 @@ for (const { v, have } of todo) {
       `ON THIS PAGE THERE ARE EXACTLY ${who.length} FIGURE(S): ${who.join(', ') || 'none'}.`,
       'Nobody else appears - not characters from the reference image, not anyone the anchor names.',
       'Draw only the props the SCENE below asks for; an empty surface stays empty.',
+      // 🔴 무대 이름만 보고 모델이 없는 지형을 붙인다 — pipo 는 아일랜드 목장이라 바다·먼 섬이 두 번 들어왔다.
+      //    금지어보다 「그 자리에 무엇이 있는지」를 말하는 편이 먹는다(숨은그림 프롬프트에서 배운 것).
+      'Add no landscape the SCENE does not name. The horizon is more of the same place the SCENE is in.',
+      // 🔴 줄·행렬은 누가 앞인지가 곧 그 쪽의 뜻이다 — pipo 01 p9 는 앞장선 아이가 줄 맨 뒤로 갔다.
+      'If the SCENE says a figure leads a line, that figure is at the FRONT, ahead of everyone following.',
       'The open mouth of whoever speaks on this page is inside the frame.',
       '',
       'SCENE (Korean, follow it exactly):',
