@@ -96,6 +96,7 @@ if (!todo.length) { console.log(`${key}: 그릴 권이 없다(전부 완료).`);
 fs.mkdirSync(OUT, { recursive: true });
 const ref = await refFor(key, todo[0].v);
 const jobs = [];
+const flagged = [];  // 그리기는 안 멈춘다 — 나중에 한꺼번에 고칠 자리만 적어 둔다
 
 for (const { v, have } of todo) {
   const book = books.get(v);
@@ -109,6 +110,11 @@ for (const { v, have } of todo) {
     const scene = (scenes[v]?.[`p${pg.n}`] ?? '').replace(/<br\s*\/?>/g, '\n').replace(/<\/?b>/g, '');
     if (!scene) { console.log(`  p${pg.n} 🔴 SCENE 없음 — 건너뜀`); continue; }
     const who = castOf(scenes[v][`p${pg.n}`]);
+    // 🔴 대사가 있는데 SCENE 이 입을 닫아 두면 그림은 그걸 옳게 따른다 — pipo 02 p7·p10 이 그랬다.
+    //    다만 **그리기를 멈추지 않는다**(2026-09-10 사용자) — 다 그린 뒤 한꺼번에 고칠 수 있게 적어만 둔다.
+    if (/"[^"]+"|[“][^”]+[”]/.test(pg.ko) && /(입|부리|입술)[^.,]{0,14}(다물|굳었|오므라|한일자)/.test(scene)) {
+      flagged.push(`${key} ${v} p${pg.n} — SCENE 이 화자의 입을 닫아 놨다`);
+    }
     const prompt = [
       anchor,
       '',
@@ -131,35 +137,57 @@ for (const { v, have } of todo) {
 }
 if (!jobs.length) { console.log('\n그릴 쪽이 없다.'); process.exit(0); }
 
+// 🔴 매니페스트는 1 MiB 가 상한이다. 앵커 블록이 권마다 1만 자를 넘어 job 하나가 ~15KB 라
+//    66장을 한 덩이로 보내면 1.07MB 로 거절당한다 — 그리고 그 거절은 조용해서, 66장이
+//    한 장도 안 나온 채 「완료」처럼 보였다. 50장씩 끊는다(≈750KB).
+const CHUNK = 50;
+const chunks = [];
+for (let i = 0; i < jobs.length; i += CHUNK) chunks.push(jobs.slice(i, i + CHUNK));
+
 // 🔴 한 장씩 순차로 부르지 않는다 — gpt-image 스킬의 `batch` 가 동시 실행을 안전하게 해 준다.
 //    직접 여러 프로세스를 띄우면 서로 결과를 뺏는다: gen.mjs 의 폴백이 `~/.codex/generated_images` 에서
 //    「방금 생긴 png」를 집기 때문에, 동시에 셋을 굽자 두 장이 md5 까지 같은 파일이 됐다(실측).
 //    batch 는 인증을 한 번만 확인하고 job 마다 제 산출물을 돌려준다. 동시 실행 상한은 4다.
-const manifest = path.join(OUT, `_jobs-${key}.json`);
-fs.writeFileSync(manifest, JSON.stringify({ version: 1, jobs }, null, 1));
-console.log(`\n${jobs.length}장 · 동시 ${CONC} — batch 시작`);
-let log = '';
-try {
-  log = execFileSync('node', [GPT_IMAGE, 'batch', '--manifest', manifest, '--concurrency', String(CONC)], {
-    encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 1 << 26, timeout: 60 * 60 * 1000,
-  });
-} catch (e) {
-  log = `${e.stdout ?? ''}${e.stderr ?? ''}`;
-}
-process.stdout.write(log.split('\n').filter((l) => /^(BATCH|TOTAL|SUCCEEDED|FAILED)=/.test(l)).join('\n') + '\n');
-if (/usage limit|한도/i.test(log)) console.log('🔴 한도 — 다시 돌리면 남은 쪽부터 이어간다.');
-
-// 🔴 「did not write the requested image」는 실패가 아니다 — 샌드박스가 지정 경로에 못 써서
-//    Codex 가 제 폴더에 남긴 것이고, **그 실제 경로가 에러 문자열 끝에 들어 있다**.
-//    gen.mjs 는 이미 이걸 주워 오는데 batch 는 안 해 준다. 여기서 옮긴다.
+console.log(`\n${jobs.length}장 · ${chunks.length}묶음 · 동시 ${CONC}`);
 let rescued = 0;
-for (const line of log.split('\n')) {
-  const m = /^ERROR\[(p\d+)\]=.*?did not write the requested image:\s+(\S+\.png)\s+(\S+\.png)/.exec(line);
-  if (!m) continue;
-  const job = jobs.find((j) => j.id === m[1] && path.resolve(j.out) === path.resolve(m[2]));
-  if (job && fs.existsSync(m[3])) { fs.copyFileSync(m[3], job.out); rescued++; }
+for (const [i, chunk] of chunks.entries()) {
+  // 🔴 job id 는 매니페스트 안에서 고유해야 한다 — 여러 권을 한 묶음에 담으면 p1 이 겹친다.
+  const named = chunk.map((j) => ({ ...j, id: `${path.basename(path.dirname(j.out))}-${j.id}` }));
+  const manifest = path.join(OUT, `_jobs-${key}-${i + 1}.json`);
+  fs.writeFileSync(manifest, JSON.stringify({ version: 1, jobs: named }, null, 1));
+  const mb = (fs.statSync(manifest).size / 1048576).toFixed(2);
+  console.log(`\n[${i + 1}/${chunks.length}] ${chunk.length}장 · ${mb}MB`);
+  let log = '';
+  try {
+    log = execFileSync('node', [GPT_IMAGE, 'batch', '--manifest', manifest, '--concurrency', String(CONC)], {
+      encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 1 << 26, timeout: 3 * 60 * 60 * 1000,
+    });
+  } catch (e) {
+    log = `${e.stdout ?? ''}${e.stderr ?? ''}`;
+  }
+  const head = log.split('\n').filter((l) => /^(BATCH|TOTAL|SUCCEEDED|FAILED|ERROR)=/.test(l));
+  console.log(head.length ? head.join('\n') : `🔴 batch 가 아무 말도 안 했다: ${log.trim().slice(0, 200)}`);
+  if (/usage limit|한도/i.test(log)) { console.log('🔴 한도 — 다시 돌리면 남은 쪽부터 이어간다.'); break; }
+
+  // 🔴 「did not write the requested image」는 실패가 아니다 — 샌드박스가 지정 경로에 못 써서
+  //    Codex 가 제 폴더에 남긴 것이고, **그 실제 경로가 에러 문자열 끝에 들어 있다**.
+  for (const line of log.split('\n')) {
+    const m = /did not write the requested image:\s+(\S+\.png)\s+(\S+\.png)/.exec(line);
+    if (!m) continue;
+    const job = jobs.find((j) => path.resolve(j.out) === path.resolve(m[1]));
+    if (job && fs.existsSync(m[2])) { fs.copyFileSync(m[2], job.out); rescued++; }
+  }
 }
-if (rescued) console.log(`샌드박스가 못 쓴 ${rescued}장을 Codex 폴더에서 옮겼다.`);
+if (rescued) console.log(`\n샌드박스가 못 쓴 ${rescued}장을 Codex 폴더에서 옮겼다.`);
 const made = jobs.filter((j) => fs.existsSync(j.out)).length;
 console.log(`\n나온 것 ${made}/${jobs.length} · ${OUT}`);
 console.log('🔴 사람이 본 뒤 올린다 — upload-changjak-art.mjs');
+
+// 🔴 검수·수리는 다 그린 뒤에 한다 — 여기서는 파일로 쌓아만 둔다.
+if (flagged.length) {
+  const f = path.join(OUT, '_FLAGS.md');
+  fs.appendFileSync(f, flagged.map((l) => '- ' + l).join('
+') + '
+');
+  console.log('🔴 나중에 고칠 자리 ' + flagged.length + '건 → ' + f);
+}
