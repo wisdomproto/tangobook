@@ -209,7 +209,7 @@ A 문 쪽 / B 밥상 / C 창가 / D 잠자리 /
 ### §1.4 Shed — 실제 프롬프트 (신설 · 13쪽 · 3권)
 
 > 21 · 32 p2 · 50 p3·p4. 🔴 **21권은 열 쪽이 전부 이 처마 밑**이고, 그 열 쪽의 시계는 **줄에 매달린 감
-> 개수**(아홉 → 여덟 → 여섯)다 — 개수는 §2.15 `Persimmons` 가 들고, 이 시트는 **그 줄이 걸리는 자리**와
+> 개수**(열다섯 → 열넷 → 일곱 → 여섯 · 2026-09-09 이음매 검수 P0 ② — 아홉으로는 「다 따 올래」 뒤에 여섯이 남을 수 없었다)다 — 개수는 §2.15 `Persimmons` 가 들고, 이 시트는 **그 줄이 걸리는 자리**와
 > **몇 알이 걸리는 길이인지**를 정한다. 🔴 50권은 **널벽 틈으로 든 빛 세 줄이 몸 위를 지나는 것**이 그림
 > 전부이므로 틈의 수·자리·간격이 여기서 고정돼야 한다.
 > ⚠️ **이 줄은 「겨울 말고는 이 권들이 안 온다」였다**(2026-09-05 수정) — **32권이 여름에 두 쪽**
@@ -226,7 +226,7 @@ FIXED PARTS - each is ONE stroke unless said otherwise, loaded once and lifted o
   THE DEEP EAVE across the top - ONE long stroke, wet and dark where it starts, dry and broken where
     it runs out. Never two strokes.
   🔴 A LINE STRUNG UNDER THE EAVE, corner to corner - ONE thin stroke crossing the WHOLE frame and
-    leaving it at both edges. IT IS LONG ENOUGH TO HANG NINE THINGS ON WITH A GAP BETWEEN EACH, and
+    leaving it at both edges. IT IS LONG ENOUGH TO HANG FIFTEEN THINGS ON WITH A GAP BETWEEN EACH, and
     that length never changes, so that six on the same line reads as gaps and not as a shorter line.
   THE PLANK WALL - the boards are 2 short strokes, no more, and the wall is otherwise unpainted.
   🔴 THREE GAPS BETWEEN THE BOARDS - and they are NOT strokes. They are three narrow strips of bare
@@ -270,7 +270,7 @@ SPOTS - five:
     behind them, and the plank wall's flat wash either side. 🔴 On this sheet it is drawn EMPTY,
     with no body in it - and the gap still does not bend.
 
-PLATE: A, B, C, D, E once each, plus 🔴 THE LINE DRAWN TWICE at one size - with nine hanging and
+PLATE: A, B, C, D, E once each, plus 🔴 THE LINE DRAWN TWICE at one size - with fifteen hanging and
   with six - so the gaps are countable, and 🔴 D DRAWN THREE TIMES for the three states of the gaps,
   and 🔴 B DRAWN TWICE, winter and summer, so the two budgets are counted against each other.
 
@@ -874,7 +874,7 @@ STATES - one row, left to right, all at the same size:
   3 SOFT AND OVER-RIPE - the same touch, its bottom sagging, and where it has run there is ONE thin
     dry trail below it. Nothing more says sweet.
   4 DRIED ON THE LINE - a spent-brush touch, wrinkled by the break in the stroke itself, hanging from
-    ONE line stroke that crosses the whole frame. 🔴 THE COUNT IS THE CLOCK: draw the line with NINE,
+    ONE line stroke that crosses the whole frame. 🔴 THE COUNT IS THE CLOCK: draw the line with FIFTEEN,
     then with SIX, at the same size, and the gaps must be plainly countable.
   5 TWO ON A PLATE (see Plate), and its answer - THE STALK CAPS ALONE on the empty plate.
 
@@ -1469,8 +1469,10 @@ FORM (CLOTH): ONE wash at the PALE step, a square about as wide as a grown fox i
   2 dry fold strokes and no hem, no pattern, no weave.
 FORM (KNOT): ONE wet blunt touch the size of a fist with TWO short dry ends leaving it.
 STATES:
-  1 THE EMPTY YARD - a tree one side, a wall the other, and NOTHING between them. This is page one and
-    it must be plainly empty.
+  1 THE EMPTY GROUND UNDER THE WALL - the wall top line across the top and bare ground below it, and
+    🔴 the trees and the zelkova's summer shade OUT OF FRAME: this yard does have shade under its trees
+    (Yard sheet, SUMMER), and the book says only that THIS patch has none. This is page one and it must
+    be plainly empty.
   2 THE LINE WOUND round a trunk, its far end sagging to the foot of a wall.
   3 THE CLOTH DRAGGING on the ground, one corner still held, a wide skid of it on the earth.
   4 THE LINE TWISTED - the cord doubled on itself and gone thick, ONE stroke with 3 twist marks.

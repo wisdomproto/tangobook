@@ -111,7 +111,8 @@ STAGE CLAUSES (one small train that is the family's home, the station it stands 
     house paper at the left with one LAMP ticket window and a face disc in it. ONE thing names the station:
     the terminus a big FROST clock disc with two IRON hands · Granny's station a flower bed of at most 12
     dabs · the kindergarten a gate · the crossing an IRON barrier arm and bell. The bell that starts the
-    train hangs IRON in the cab by the big handle, its rope reaching Bami's foot; ticket one FROST rectangle held
+    train hangs IRON in the cab by the big handle, its rope ending JUST ABOVE BAMI'S CROWN when he stands - a child
+    reaches it only by jumping, and that height never changes; ticket one FROST rectangle held
     in a foot; flag FROST; mailbox IRON.
   🔴 A BIG STATION, INDOORS (wherever the script puts the train's stop under a roof, the small-station
     clause above is not enough) - the same house turned upward: the ceiling is far above the frame, ONE big

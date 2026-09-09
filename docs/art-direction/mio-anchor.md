@@ -66,7 +66,10 @@ RENDERING (finish hierarchy): a cleared area is not blank - it carries the paral
   no interior detail. 🔴 A CHILD WHO IS NOT THE SUBJECT OF THE PAGE IS NOT AN EXCEPTION AND IS NOT
   ERASED EITHER: it loses the face and everything inside its outline, and it KEEPS its own cut
   silhouette and its one small purple thing. Those two are how the reader counts the class, so they
-  are never what gets dropped. Repeats are capped and the cap is the whole design: blocks in a tower at most
+  are never what gets dropped. 🔴 THE ONE EXCEPTION IS A PAGE WHOSE SENTENCE IS A ROW OF MOUTHS - when
+  the page counts mouths turning down or up across the class, every child in that row keeps ONE gouged
+  mouth curve and nothing else inside the outline; the face is still gone, the curve is the count.
+  Repeats are capped and the cap is the whole design: blocks in a tower at most
   12 · paper chain links at most 14 · cut snowflakes at most 9 · coat hooks at most 6 · classroom
   windows at most 6 rectangles with 0 frames · shelved jars at most 6 of one shape · fallen leaves at
   most 11 · acorns at most 9 · ducks on the river at most 5 · a village crowd at most 7 flat

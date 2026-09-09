@@ -60,7 +60,9 @@ CHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching IN
   over the head or lies along a smaller one's back, and it never picks up or works an object.
   🔴 A RAISED TRUNK IS ONE LANDING, NOT THE LANDING: a book may land on any of those, or on the
   FEET both off the ground, the EARS both forward, or THE GOLD BAND brought to the front - never the
-  one the book beside it used, and on any page of the book.
+  one the book beside it used, and on any page of the book. 🔴 EXCEPT THE HORI-FORMAT BOOKS (any book
+  whose text ends with Mina's trunk raised to the sky): there the RAISED TRUNK IS THE FIXED SIGNATURE,
+  exactly once per book on p9-p10, and the other landings are not used.
   🔴 A BODY HAS NO OUTLINE - IT IS WHEREVER THE DOTS GOT CLOSE ENOUGH TOGETHER. The dots crowd at the
   middle of an elephant and thin out towards its edge, so no edge is ever a decided line. Nothing on
   a figure is drawn: a shoulder, a knee, the fold of an ear, a wrinkle are only changes in how
@@ -140,6 +142,11 @@ LADDER: the three children are 5 : 4 : 3 and Mina is the middle one - read the l
 | **맏이 표식** | `a cloth over one shoulder` | **`a POCKET on the top`(윗옷 주머니)** | SCENE 이 라주를 **「윗옷 주머니」로 86쪽**에서 가리킨다. 어깨 천은 250쪽에 **0회** |
 | **막내 표식** | `white dots banded across the back` | **`a round belly and a big head`** | SCENE 은 소누를 **「동그란 배」82쪽 · 「큰 머리」67쪽**으로 가리킨다. 등의 흰 점띠는 **0회** |
 | **신** | `bare feet`(통짜) | **맨발이 기본, 신은 발이 아픈 데서만**(돌밭·돌다리) | SCENE 은 맨발 60쪽이 기본이고 **신은 18·21 두 권에만** 나온다 — 18 p9 는 「제 신 안에 꼭 들어간 발」이 그 쪽의 전부고, 21 p4 는 **신은 두 발과 맨발 하나**가 문턱에서 갈리는 것이 사건이다. 통짜 `bare feet` 면 그 두 권이 안 그려진다 |
+
+🔴 **「쳐든 코는 그 착지가 아니다」 조항에 호리편 예외를 붙였다**(2026-09-09 이음매 검수) — 01~25 는 쳐든 코
+0회인데 26~50 은 스물다섯 권 전부 권당 정확히 1회 p9~p10 이고, 설계 §H 가 「시그니처 = 코를 하늘로 번쩍」으로
+못박아 두었다. 틀린 것은 25쪽이 아니라 우리가 넣은 조항 한 줄이라, 조건(「본문이 코를 하늘로 든 채 끝나는
+권」)으로 예외를 달았다. 권 번호 목록은 쓰지 않았다(`_SCENE-RULES` ④).
 
 🔴 **그늘 안에 놓인 그림자는 한 단 더 조인다**(`TOUCHING`) — 21 p10 착지가 **나무 그늘 안 바닥에서 셋의
 그림자가 하나로 겹치는** 그림인데, 그늘과 그림자가 둘 다 `CLOSE` 면 겹친 자국이 그늘에 먹혀

@@ -88,6 +88,12 @@ CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut 
   🔴 EXPRESSION IS THE SHAPE OF THE NOTCH, and the knife may cut it any shape: a round one is looking,
   a wide oval is startled, a thin lifted crescent is laughing, a crescent bent down is squinting or
   cross, a hairline slit is shut. There are no eyebrows and no pupils - the notch is the whole eye.
+  🔴 TEETH (any page where the mouth notch is open wide enough to show inside): teeth are a comb of
+  short black tines hanging DOWN from the black of the upper jaw into the mouth notch, joined to the
+  head at their roots - never separate pieces, never an island; a gap in the comb is one tine missing.
+  🔴 TEARS ARE NEVER CUT - no drop and no streak on a face, because the face is cut-away white and a
+  black drop in it would be an island. Crying is the body: the face buried in a lap or behind an arm,
+  fists clenched in cloth, shoulders pushed up; afterwards a sleeve wiping the snout is enough.
   THE FOUR: DINGDING a piglet, smallest,
   the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot
   a small animal can crawl into · MOTHER tallest and narrowest, a head cloth, trousers rolled below
@@ -191,6 +197,20 @@ CHARACTER SHEET - dingding-papercut   (all four, one line-up)
 | **바닥·물 위 그림자** | `SHADING IS ZERO.` 만 | **`A SHADOW LYING ON THE GROUND OR ON THE WATER IS ANOTHER CUT BLACK SHAPE`**(같은 칼자국·회색 금지·몸과 얼굴 위 금지) | 🔴 **14권이 통째로 그림자 이야기**다(14 p2 「물 위에 통째로 비친 나무 그림자」 · **14 p8 = 「논물에 비친 그림자만」 한 화면**) + 12 p6·p9. 전지에서 그림자는 **또 하나의 오려 낸 검은 조각**이라 매체와 안 부딪히는데, 안 적어 두면 모델이 회색 음영으로 칠한다 |
 
 **예산** — 3,476 → 3,815(실효 **3,325**). 걷어낸 것 = `DENSITY RATION = none.`
+
+---
+
+## §6. 🔴 호리편이 들여온 입 안·눈물 (2026-09-09 이음매 검수 P0)
+
+얼굴이 「오려 낸 흰 자리」라 그 안에 검은 조각을 못 넣는데, 26~50 이 **이(齒)**(27 p4·p8 = 그 권의 명제 그림 둘)와
+**눈물**(33 p3·p4)을 요구했다. 규약 ④ — 앵커 조항이 대본을 지우는 자리라 예외 두 줄을 `CHARACTER DESIGN LANGUAGE` 에 넣었다.
+
+| 무엇 | 처리 | 근거 |
+|---|---|---|
+| **이** | `TEETH` — 빗살은 **위턱 검정에 붙은 채 아래로** 뻗는다(섬이 아니다). 27 p4·p8 SCENE 도 같은 문구 | 안 넣으면 화가가 입 안을 안 그리고 **27권이 없어진다** |
+| **눈물** | `TEARS ARE NEVER CUT` — 얼굴을 묻고 **손·어깨가 대신**한다. 42 p6 이 이미 그렇게 쓴 house 해법을 올렸고 33 p3·p4 를 그리로 고쳤다 | 흰 얼굴 안 물방울 = 섬 |
+
+⚠️ 예산 +약 560자(§1 실측 7,435 → 약 8,000). §1 의 「사람이 정한다」 판단은 그대로 열려 있다.
 
 ---
 

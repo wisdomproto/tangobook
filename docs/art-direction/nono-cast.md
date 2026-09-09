@@ -54,8 +54,10 @@ GREEN: a GREEN SCARF round the throat with BOTH ENDS HANGING FREE, long enough t
   stay readable when the whole figure is thumbnail-sized.
 BEAK AND FEET: 🔴 TORN2 WOOD BROWN, never orange. The beak is SHORT AND BLUNT, no longer than one eye
   is wide - half the pigeon's. Feet wood brown with three splayed toes.
-HANDS: hands with THREE SEPARATE FINGERS on every ordinary page. Wings replace the arms ONLY in
-  volumes 01, 04, 07, 10, 18, 19 and 25, and on those pages he has no arms at all.
+HANDS: hands with THREE SEPARATE FINGERS on every ordinary page. Wings replace the arms ONLY on a
+  page where the script has him CROSS THE AIR from one place to another (up onto a wall, down off a
+  doorstep, over the alley), and on those pages he has no arms at all. A hop that lands where it
+  started is not flight - he hops on legs with his hands in the air.
 🔴 HIS FIXED MISMATCH IS SIZE: the RIGHT eye is clearly bigger than the left, and the head is one size
   too big for the body. Same direction on every page - only the fibre of the tear is new.
 🔴 AGAINST THE PIGEON, and the drawing fails if any of the three is missing: big head against small
@@ -75,8 +77,8 @@ GREEN: a GREEN CLOTH BAG on a strap worn across one shoulder, the bag hanging at
   🔴 THAT STRAP IS THE ONLY DIAGONAL ON ANY CHILD IN THE BOOK.
 BEAK AND FEET: 🔴 OVERLAP DEEP SLATE, never pink or orange. The beak is LONG AND TAPERING, about twice
   the sparrow's, and being the same paper as her head it half disappears into it. Feet the same slate.
-HANDS: hands with THREE SEPARATE FINGERS. Wings appear ONLY in volume 05, where she spreads them
-  across the chair; there she has no arms.
+HANDS: hands with THREE SEPARATE FINGERS. Wings appear ONLY on a page where the script has her
+  spread them wide (the chair in volume 05); there she has no arms.
 🔴 HER FIXED MISMATCH IS HEIGHT: the two eyes are about the same size but sit at CLEARLY DIFFERENT
   HEIGHTS on the head, the left one a scrap lower. Same direction on every page.
 

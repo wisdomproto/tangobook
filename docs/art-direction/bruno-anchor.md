@@ -85,6 +85,11 @@ PALETTE: PAPER OAT GREY #E9E3D3, sky, water, ice, snow, light, everything not wa
   ACCENT BOOT BLUE #1C4E8A, 🔴 nothing but Nils's boots. 🔴 SKY, WATER, ICE AND SNOW ARE NEVER
   WAXED - there is no pale blue anywhere and no white crayon anywhere, ever. No purple, no pink, no
   orange, no red.
+  🔴 COLOUR WORDS IN THE SCRIPT ARE NOT NEW CRAYONS. A red apple, red-and-yellow autumn leaves,
+  yellow-white-pink spring flowers and "mushrooms of every colour" are BARK at two coverages (ripe
+  or turned = the denser field, unripe or green = the sparser one, a white bloom = bare paper inside
+  a BARK ring); a flushed cheek or a cold red nose is the two brow strokes and the ears, never a
+  colour; a silver fish is bare paper inside a BARK outline.
 
 STAGE CLAUSES (the stage changes what the two crayons do, never which two they are):
   🔴 SPRING (any volume the script sets in spring) - the canopy is bare PAPER; SPRUCE appears
@@ -105,6 +110,9 @@ STAGE CLAUSES (the stage changes what the two crayons do, never which two they a
     bough is the paper left, with at
     most 3 BARK marks along its underside. Ice on the lake is bare paper; the hole cut in it is
     OVERLAY with a hard edge. There is no white crayon and no blue shadow on snow.
+    🔴 EXCEPTION - a mark pressed INTO the snow (a footprint, a sledge track, a ski track) is drawn
+    the same way as the hole in the ice: an OVERLAY outline with a hard edge, bare paper inside it
+    and around it. That is the only way snow is ever marked; still no shadow and no white crayon.
   CABIN - each surface is ONE repeated mark: floor a plank stroke, wall a short dash, cloth a
   zigzag.
     The mark is the SAME shape every time and may run off an edge but is never redrawn. Beams,
@@ -115,6 +123,9 @@ STAGE CLAUSES (the stage changes what the two crayons do, never which two they a
     water is OVERLAY lying inside that bare shape, hard edge, never distorted. A thing on the water
     sits on top with its whole shape showing. Banks, stones and logs are BARK with the marks running
     ALONG the thing, not across it.
+    🔴 EXCEPTION - on a page where the water's own movement IS the event (the ring the cub's stone
+    made, the wake behind his boat, the current he is afraid to cross), that movement is at most 5
+    BARK lines lying ON the bare paper, running along the water; glints and reflections stay at 0.
   NIGHT (any page the script sets after dark) - the sky is OVERLAY laid as one field. Stars, the
     moon and the glow-worms in the grass are BARE PAPER points, each taken on its own, at most 14. 🔴
     The glow-worms are
@@ -183,6 +194,14 @@ TWO:   two bears and nobody else, except the one plain animal a volume is about 
 
 🔴 **`TWO:` 는 인원 제한이 아니라 화면 지시다.** 인물이 둘뿐인 화면은 모델이 자꾸 **여백을 채우려고**
 다른 동물·아이·오두막 사람을 불러들인다. 관통 줄이 「나머지는 숲과 계절이 채운다」를 매 쪽 못박는다.
+
+🔴 **본문 색 낱말 대조(2026-09-09 이음매 검수 P0 — 이 시리즈 원고엔 프론트매터가 없어 `bodyColors:` 대신 여기)**:
+05 p1 「노랑·하양·분홍」 봄꽃 · 13 p1 「빨갛게 익은」 사과 · 18 p1 「빨강·노랑·갈색」 낙엽 · 15·17 p1 「노랗게 물든」 나무 ·
+06 p7·20 p7·21 p7 「볼·코끝이 빨갛다」 · 14 p4 「알록달록」 버섯 · 08 p10 「은빛」 물고기 · 35 「보라」 점(블루베리 = 겹침색).
+전부 PALETTE 의 `COLOUR WORDS` 줄이 받는다 — **본문은 안 고쳤다**(읽어 주는 말이지 색 지시가 아니다). 그전엔 파랑만 세어 봤고
+빨강·노랑·분홍은 아무도 안 셌다.
+🔴 **`WATER`·`WINTER` 에 예외 한 줄씩(같은 날)** — 물결이 사건인 권(03·06·08·09·12)과 눈 위 자국이 명제인 권(46·47·50)을
+조항이 지우고 있었다. 얼음 구멍이 이미 받은 예외와 같은 모양이다.
 
 🔴 **계절 조항은 쪽별 프롬프트마다 그 권의 것 하나만 붙인다.** 넷을 다 붙이면 모델이 섞는다
 (가을 조항의 「두 크레용이 일을 맞바꾼다」가 여름 쪽에 새면 여름 숲이 갈색이 된다).

@@ -95,6 +95,9 @@ drawing decides the water, the bank and the ice all at once.
 FIXED PARTS - two screens only, pulled flat, one pass each:
   THE WATER is ONE unbroken pull of INK1 across the picture, never lighter or darker inside itself.
     0 ripples, 0 glints, 0 reflections. Its far edge is a hard straight line.
+    🔴 STARS IN THE WATER (a night page where stars are counted in the water): paper holes are
+    cut INSIDE this pull as well - unprinted paper under the water, not reflections, each cut on
+    its own and never a mirrored copy of the sky. (same line as anchor A RENDERING)
   THE NEAR BANK runs along the bottom in INK2 - a grass lip, a low mooring post every so often,
     and a worn earth path on top of it. Reeds at the water's edge, at most 7 strokes.
   THE FAR BANK is at most 5 flat INK2 silhouettes of houses with 0 windows, standing on the far

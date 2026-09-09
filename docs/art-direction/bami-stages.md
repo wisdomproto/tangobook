@@ -916,7 +916,9 @@ detail, no outline, no white, black, grey or brown paint, no gradient, glow or s
 PROP SHEET - Bell   (bami-lamplight · SCENE token: Bell)
 
 The bell in the cab and the rope that hangs from it. Anchor: it hangs by the big handle and its rope
-reaches Bami's foot. Volume 18 pulls it three times and the third one works.
+ends just above Bami's crown when he stands (2026-09-09 - the anchor used to say "reaching Bami's
+foot", which erased this volume; one height now, here and in the anchor). Volume 18 pulls it three
+times and the third one works.
 
 🔴 SIZE FIRST - THE BELL IS AS BIG AS BAMI'S BODY, hanging high in the frame. The SCENE says it in
   so many words ("손톱만 하면 안 된다"). A small bell makes the volume a shrug.

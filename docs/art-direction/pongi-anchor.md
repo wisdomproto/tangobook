@@ -87,7 +87,8 @@ Style 줄이 **두 판 + 붉은 판**을 세게 고쳤다. bami 와 같은 모�
 **관통 줄** (전 묶음 공통, 3개)
 
 ```
-CORD:  the red plate is printed last and touches nothing but Pongi's neck cord
+CORD:  the red plate is printed last and touches nothing but Pongi's neck cord (the one
+       exception is the washing-day pale pink - see anchor A PALETTE)
 WHO:   the cord finds Pongi - she is the smallest of the ones who go out, and the only figure
        smaller than her is the baby, who is rounder, shorter-limbed and always holding one shell
 FACE:  the joke is on a face - never let an object cross a face
@@ -115,7 +116,16 @@ RENDERING (finish hierarchy): water is ONE unbroken pull of INK1, never lighter 
   separate INK2 strokes, and that cap is on reeds drawn one by one; A REED BED is ONE flat INK2 mass
   with a ragged top, uncounted, tall enough to hide a standing child, opaque - nothing shows faintly
   through it. Boat seams = at most 4 lines. Stars = at most 14 separate
-  paper holes, each cut on its own, never a mirrored copy of the sky. Registration is one hair off
+  paper holes, each cut on its own, never a mirrored copy of the sky. 🔴 STARS IN THE WATER (a night
+  page where stars are counted in the water): paper holes are cut INSIDE the INK1 water pull as
+  well - they are not reflections but unprinted paper showing under the water, each hole cut on
+  its own, never a mirrored copy of the sky above; the 0-reflections rule stays untouched.
+  🔴 FOG (a page where the village is fogged): everything but the nearest thing is left as bare
+  PAPER with 0 shapes in it; things arrive at FULL strength with a hard edge, never by fading, and
+  there is no pale version of anything - fog is not a lighter pull, it is nothing pulled.
+  🔴 MIRRORS: no mirror glass and no reflection is ever drawn - a page where someone looks in a
+  mirror puts the camera where the mirror is, and the face looks straight out.
+  Registration is one hair off
   on every page - the screens do not line up perfectly and that misfit is visible at 2 or 3 edges.
   DENSITY RATION = none.
   🔴 A PAGE THAT IS ONLY IMAGINED - some volumes show what Pongi is picturing. There is no blur and
@@ -128,6 +138,11 @@ PALETTE: PAPER CREAM #F6F4EE, sky, ice, light, everything not pulled · INK1 CAN
   INK2 EARTH #8C7C68, wood, boats, chests, rope, banks · OVERLAP PINE #21372E, otter backs, night,
   anything submerged - this colour is never mixed, only overprinted · RED PLATE #A8442F, 🔴 a third
   pull touching nothing but Pongi's neck cord. No sky blue, no purple, no pink.
+  🔴 EXCEPTION - any page where the cord has gone through the wash with the white cloth (the
+  washing-day volume, from the page the shirt comes out pink to its landing): the washed cloth -
+  shirt, towel, apron, those three and nothing else - is printed in a HALF-STRENGTH pull of the
+  RED PLATE, giving PALE PINK, and Pongi's cord stays at full strength beside it. Pink is never a
+  fourth ink and never appears on any other page.
 
 CHARACTER DESIGN LANGUAGE: 🔴 SHARED BY ALL FOUR ANCHORS - reproduce word for word, do not vary.
   Animals are built from the same flat pulls as the world - two or three shapes with limbs laid

@@ -151,9 +151,11 @@ STAGE CLAUSES (the stage changes what the papers do, never which papers they are
   🔴 THAW (any page where the snow is going, not coming) - the TORN WHITE snow is torn back from its edges so STONE GREY
     appears in patches, always from the outside in. Drips from the eaves are at most 9 TORN WHITE
     specks. 🔴 THE LAST SNOW OF ALL is snow that has been torn away everywhere except along ONE EDGE - at the
-    foot of a wall in the alley, at the foot of a wall in a yard, and 🔴 ON A HILL ALONG ITS LOWER EDGE,
-    with the bare STONE GREY reaching further up the slope page by page. It is always one surviving
-    strip and never a scatter of patches, whatever the place.
+    foot of a wall in the alley, at the foot of a wall in a yard - one surviving strip, never a scatter of
+    patches. 🔴 ON A HILL IT IS THE OTHER WAY UP: the foot of the slope melts first, so the TORN WHITE
+    holds the crest and the upper slope and the bare STONE GREY climbs from the bottom. The two meet at
+    ONE torn edge running across the hill; only along the very foot may that edge be bitten back into a
+    few torn-away bites. Snow is never left lower on the hill than the stone.
 
 CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as the world - two or three
   shapes with limbs laid over. GRADE: bipedal, standing upright, 🔴 AND ALL THREE
@@ -161,9 +163,11 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same torn pieces as th
   🔴 A HAND IS A TORN SHAPE WITH THREE SEPARATE FINGERS. A rounded fingerless mitten reads as a wing
   and is wrong on any page where the child is not flying.
   WINGS ARE DRAWN ONLY WHEN SOMEBODY IS FLYING OR SPREADING THEM: Nono in flight (any page the
-  script has him leave the ground) and Gugu spreading herself wide (any page the script has her spread).
-  🔴 THE TEST IS THE PAGE, NOT A LIST OF VOLUMES: is this child off the ground or deliberately spread?
-  If not, it has hands. 🔴 NEVER ARMS AND WINGS ON
+  script has him CROSS THE AIR from one place to another - up onto a wall, down off a doorstep, over
+  the alley) and Gugu spreading herself wide (any page the script has her spread).
+  🔴 THE TEST IS THE PAGE, NOT A LIST OF VOLUMES: is this child crossing the air or deliberately spread?
+  If not, it has hands. 🔴 A HOP IS NOT FLIGHT: feet off the ground for a jump that lands where it
+  started (폴짝) is done on legs with hands in the air, never wings. 🔴 NEVER ARMS AND WINGS ON
   THE SAME CHILD ON THE SAME PAGE. Beaks and tails are part of the face and body and are always there.
   Backs and heads are OVERLAP, chests and bellies are TORN2.
   🔴 WHAT EACH ONE WEARS IS FIXED ON THE CAST SHEET AND IS NEVER ADDED TO. Two of the three wear no
@@ -225,7 +229,7 @@ SNOW:  the snow is torn white paper left bare - never paint it
 THREE: green is the ONLY green on the page and it is where the story put it - on the child, or
        lying where it came off. Never invent one back onto a bare throat
 EDGE:  every shape has a torn fibrous edge; nothing is cut with scissors
-FLY:   the sparrow and the pigeon have HANDS - wings appear only in flight
+FLY:   the sparrow and the pigeon have HANDS - wings appear only in flight (crossing the air; a hop is not flight)
 SHADOW: a shadow is one more pasted piece, never a darkening
 ```
 
