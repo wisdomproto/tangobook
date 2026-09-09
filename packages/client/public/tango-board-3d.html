@@ -1413,6 +1413,7 @@ var TUNE = {
   legoMinLong: 3.6,
   legoSplitOk: 0.62,             // 이만큼 닮았으면 뭉친 게 아니다 — 안 자른다
   legoSplitGain: 0.03,           // 자른 쪽이 이만큼은 나아야 받아들인다
+  legoSplitSlack: 0.05,          // 제 형판 없는 덩어리(narrow)는 조각이 통짜보다 이만큼 못해도 자른다
   /* 편 그림에서 위·아래 주기가 이 배수 안으로 들어와야 「폈다」로 친다(배음은 접고).
      실측: 잘 읽힌 프레임 1.08·1.09 / 틀린 프레임 1.25·1.32. */
   legoWarpOk: 1.15,
@@ -2534,12 +2535,18 @@ function legoCellSweep(gd, W, H, y0, y1){
   if (!ps.length) return null;
   var ys = [];
   ps.sort(function(a, b){ return a - b; });
-  var med = ps[ps.length >> 1], fd = [];
+  /* 🔴 배음은 **정수배**다 — 블록이 앉은 띠는 기본 주기 봉우리가 죽고 2배·3배가 산다
+        (11:49 프레임: 판 위 41~45 · 블록 띠 78·76·72(2배) · 101·96·105(3배)). 「중앙값의
+        1.4배 넘으면 반」으로는 3배가 반만 접혀 직선이 끌려갔다(H 자리 칸 47, 실제 34).
+        1차: 작은 쪽 사분위(p25)를 기준으로 정수배로 나눈다. 2차: 그 직선을 기준으로 다시. */
+  var ref = ps[ps.length >> 2] || ps[0], raw = [], fd = [];
   for (i = 0; i < 12; i++){
-    p = legoBandPitch(gd, W, H, Math.round(H * i * 0.08), Math.round(H * (i + 1) * 0.08));
+    var ya = Math.round(H * i * 0.08), yb = Math.round(H * (i + 1) * 0.08);
+    if ((ya + yb) / 2 < y0 || (ya + yb) / 2 > y1) continue;
+    p = legoBandPitch(gd, W, H, ya, yb);
     if (p < floor) continue;
-    if (p > med * 1.4) p /= 2;
-    if (p >= floor){ fd.push(p); ys.push(H * (i + 0.5) * 0.08); }
+    raw.push(p); ys.push(H * (i + 0.5) * 0.08);
+    fd.push(p / Math.max(1, Math.round(p / ref)));
   }
   if (!fd.length) return null;
   /* 🔴 칸은 숫자 하나가 아니라 **y 의 직선**이다. 원근 때문에 한 판 안에서도 아래 30 →
@@ -2560,7 +2567,10 @@ function legoCellSweep(gd, W, H, y0, y1){
   /* 배음을 화면 중앙값으로 접으면 판 아래쪽(작은 칸)의 2배 주기가 안 접힌다 —
      직선을 한 번 맞춘 뒤 그 직선 기준으로 다시 접고 다시 맞춘다. */
   var L1 = fit(fd);
-  for (i = 0; i < fd.length; i++) if (fd[i] > (L1.a + L1.b * ys[i]) * 1.4) fd[i] /= 2;
+  for (i = 0; i < fd.length; i++){
+    var ex1 = Math.max(floor, L1.a + L1.b * ys[i]);
+    fd[i] = raw[i] / Math.max(1, Math.round(raw[i] / ex1));
+  }
   /* 🔴 커널 칸(lo)은 **직선에 붙어 있는 띠들 중** 최솟값이다(2026-09-09). 날 최솟값은 띠 하나가
         헛짚으면 그대로 따라간다 — 11:32 프레임에서 판 안 띠 하나가 15 를 내어 커널이 7·3px 로
         쪼그라들었고, 마스크가 거칠어져 H 의 ㅓ 가 0.49 로 떨어져 아무것도 못 읽었다.
@@ -3138,7 +3148,13 @@ function splitLegoScored(blob, w, h, cell, depth){
       }
     }
   }
-  if (!best || best.score <= Math.max(ownIou, TUNE.legoMinIou)) return self;
+  /* 🔴 통짜가 어느 형판과도 안 닮았으면(narrow) 통짜 점수는 견줄 자가 못 된다(2026-09-09).
+        붙은 ㅣ+ㅓ 가 ㅂ 0.57 로 앉고 갈라진 ㅓ 가 0.56 — 한 끗 차이로 자르기가 거부돼 「배」가
+        ㅂ 이 됐다. 그렇다고 통짜를 아예 무시하면 캴(붙은 셋)이 엉뚱하게 갈라졌다(가→∅).
+        제 형판이 없는 덩어리는 조각이 통짜에서 legoSplitSlack 안이면 두 조각으로 본다. */
+  var bar = narrow ? Math.max(TUNE.legoMinIou, ownIou - TUNE.legoSplitSlack)
+                   : Math.max(ownIou, TUNE.legoMinIou);
+  if (!best || best.score <= bar) return self;
   return best;
 }
 
