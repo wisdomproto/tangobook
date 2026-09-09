@@ -47,7 +47,10 @@ PALETTE (mineral, and there are only these): GROUND #C9BEA8, a warm clay tone th
   pillow is that, and no new colour is ever mixed for it · BURNT EARTH
   #8A4E3C for roof tile and hot stone · INK #2A2622 for every contour and every marking · 🔴 PEACH
   PINK #E9A6A0, the one accent in twenty-five books, on Kota's neck towel and nowhere else ever -
-  not on a flower, not on a lantern, not on a guest. AT MOST FOUR OF THE MINERAL COLOURS ON ONE
+  not on a flower, not on a lantern, not on a guest. 🔴 A BLUSH IS NOT A COLOUR: when the script says a
+  cheek goes red (발그레), lay BURNT EARTH AT THE FINEST GRIND IN ONE PASS on that cheek only, so the cheek
+  reads one step warmer than the face round it - no pink, no new mix, and it never spreads past the
+  cheek. AT MOST FOUR OF THE MINERAL COLOURS ON ONE
   PAGE, plus ink and shell white - 🔴 AND THE FOUR ARE CHOSEN FROM AZURE, GREEN, OCHRE AND BURNT EARTH.
   GROUND AND THE ONE PINK ARE NEVER COUNTED IN THEM: the ground tone is under every page by definition and
   the pink is one small shape. Counting those two would put the YARD clause alone over the limit.

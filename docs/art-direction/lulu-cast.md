@@ -97,7 +97,13 @@ THE SWINGING HEM: she is always mid-stride, and the hem swings out to one side a
   of a pile, where nobody else is read.
 APRON: a WAIST apron in OLIVE LEAF, from the waist down only, flaring with the skirt, with ONE DEEP
   POCKET. It confirms her; it never identifies her.
-EARS: shorter than her head is high, set close together.
+HEADSCARF: 🔴 a BIG HEADSCARF in OLIVE LEAF tied over her head, covering the crown and knotted at the
+  nape, on EVERY page she is in - it never comes off. It is the one mark that survives when she is
+  bent double, buried in washing or only a hand in frame (then its edge sits at the top of the frame).
+  Nobody else in this book wears anything on the head except Nino's hat, which comes off.
+ARMFUL: whenever her hands are free she is carrying something in a heap against her chest - soap,
+  washing, ribbons, flowers. Pages where both hands are at work are the exception, not a mistake.
+EARS: shorter than her head is high, set close together - the scarf sits between them.
 
 ## 큰아버지
 

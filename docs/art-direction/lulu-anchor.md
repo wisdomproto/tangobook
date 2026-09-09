@@ -113,8 +113,8 @@ RENDERING (finish hierarchy): an area is ONE broad inked field, flat inside itse
   being carried, never on its feet.
   🔴 THE BLOCK HAS ONE EXCEPTION AND IT IS WRITTEN INTO THE SCRIPT: where a page singles out THE
   SMALLEST COUSIN, that one steps clear and stands in its own outline while the OTHER TWO stay one
-  shape. The count is still three and nothing else about them changes. (Measured: 15 pages of 500,
-  volumes 17, 22, 25, 35, 45, 47, 48 - volume 47 is nearly the whole book.)
+  shape. The count is still three and nothing else about them changes. This is a CONDITION, not a list of
+  volumes: it applies on ANY page whose script names the smallest cousin as a person, in any book.
   🔴 THE FIVE ARE THIS FAMILY'S CHILDREN. Where the script brings children of somewhere else - the
   kindergarten of volume 50 - they are GUESTS: different cloth, NO BLUE, each in its own outline,
   never touching a cousin and never merged into the block, so the family's five stay countable in the
@@ -218,9 +218,12 @@ CHARACTER DESIGN LANGUAGE: the donkeys are built from the same broad fields as t
   round-headed, two long ears, a BLUE CORD WITH ONE BLUE BELL at the throat and nothing else blue in
   the world · MAMA a donkey, a full-grown adult two thirds taller than Lulu, a BIB APRON, no blue ·
   NINO a donkey, THE TALLEST AND THE NARROWEST, chest thrown forward and head tipped back, a STRAW HAT
-  (volume 01 leaves it up a tree and it stays there to the last page), no blue · ROSA a donkey, the
-  roundest and SHORTEST adult, a SKIRT to the hooves and a WAIST APRON WITH A DEEP POCKET, always in
-  motion with the skirt swinging behind her, no blue · BEPPO a donkey, the heaviest and TWICE ANYONE
+  (on any page whose script has left it in a tree or on the ground it stays where the script put it,
+  until the script gives it back), no blue · ROSA a donkey, the
+  roundest and SHORTEST adult, 🔴 A BIG HEADSCARF TIED OVER HER HEAD ON EVERY PAGE SHE IS IN (it is
+  what tells her from Mama at thumbnail size - when only her hands are in frame, the scarf's edge is
+  still at the top of it), an ARMFUL of something whenever her hands are free, a SKIRT to the hooves
+  and a WAIST APRON WITH A DEEP POCKET, always in motion with the skirt swinging behind her, no blue · BEPPO a donkey, the heaviest and TWICE ANYONE
   ELSE'S WIDTH though not the tallest, a WAISTCOAT and a CROOKED STICK, no blue · THE THREE
   COUSINS one single regulation drawn three times - same build, same cloth, told apart only by a small
   step in height, 🔴 AND THAT STEP MUST SURVIVE AT THUMBNAIL SIZE because seven books name THE
@@ -245,7 +248,13 @@ ONCE:   one plate, one pull - leave the plate mark, and let the ink print uneven
 BELL:   the only blue in the world is Lulu's cord and bell
 FIVE:   three walking cousins as one block - except where the smallest steps out - and one baby
         who never stands
+MARKS:  Mama = bib apron · Nino = straw hat · Rosa = big headscarf · Beppo = waistcoat + crooked
+        stick - written again on every page that adult is in, even when only a hand is in frame
 ```
+
+🔴 **`MARKS:` 는 2026-09-09 이음매 검수에서 올렸다.** 01~25 SCENE 은 로사가 든 55쪽에 머릿수건이 0회였고,
+26~50 은 SCENE 이 9/9 적었는데 **앵커 캐스트 줄과 시트 소품 목록에 머릿수건이 없어** 시트를 구우면
+SCENE 아홉 쪽이 시트와 싸울 참이었다. 표식은 **앵커·시트·SCENE 셋 다**에 있어야 한다.
 
 🔴 **`FIVE:` 를 실제로 셌다 (2026-09-04).** 「사촌 셋은 언제나 한 덩어리」는 **500쪽 중 15쪽에서 거짓**이다
 (17·22·25·35·45·47·48권 — **47권은 열 쪽 중 여섯**이 제일 작은 사촌 하나와 룰루의 이야기다).
@@ -290,8 +299,8 @@ SHEET LAYOUT: one warm white sheet, the family standing in a row on a single gro
   once carried on a cousin's back.
 🔴 ONE EXTRA DRAWING: Lulu standing beside the cousin group, touching, so the child scale is fixed as
   a single shape before any page puts five children in one frame.
-  Nothing else on the sheet - no props except Nino's straw hat, Rosa's apron pocket, Beppo's stick and
-  Lulu's blue cord; no scenery, no ground beyond the one line.
+  Nothing else on the sheet - no props except Nino's straw hat, Rosa's big headscarf and apron pocket,
+  Beppo's stick and Lulu's blue cord; no scenery, no ground beyond the one line.
 🔴 No lettering, numerals, labels or name tags anywhere on the sheet.
 ```
 
