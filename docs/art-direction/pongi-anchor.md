@@ -111,7 +111,7 @@ RENDERING (finish hierarchy): water is ONE unbroken pull of INK1, never lighter 
   hard edge, no distortion, never mirrored or flipped. A thing on the water sits on top with its
   whole outline showing. Ice is the same area left as PAPER instead of pulled. FINISHED THINGS PER
   PAGE = 2, Pongi and the one thing she touches. Far bank = at most 5 silhouettes in INK2, 0
-  windows. 🔴 Reeds come in two kinds and are never mixed in one clump: NEAR REEDS = at most 7
+  windows. A MARKET CROWD = at most 9 figures, each a plain INK2 silhouette, no faces. 🔴 Reeds come in two kinds and are never mixed in one clump: NEAR REEDS = at most 7
   separate INK2 strokes, and that cap is on reeds drawn one by one; A REED BED is ONE flat INK2 mass
   with a ragged top, uncounted, tall enough to hide a standing child, opaque - nothing shows faintly
   through it. Boat seams = at most 4 lines. Stars = at most 14 separate
@@ -267,11 +267,15 @@ NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no i
 
 | @ | 누구 | 늘 같은 것 | 나오는 권 |
 |---|---|---|---|
-| 1 | **퐁이** | 🔴 목에 두른 붉은 끈 하나 | 25권 전부 |
-| 2 | **아빠** | 흙색 헐렁한 멜빵바지 | 20권 |
-| 3 | **엄마** | 짙은 초록 머릿수건 | 04 · 06 · 10 · 13 · 16 · 22 · 23 |
-| 4 | **동생** | 두 앞발로 안은 조개 하나 | 02 · 03 · 04 · 05 · 07 · 09 · 17 · 23 |
-| 5 | **거위 할아버지** | 흙색 고무장화 | 08 · 10 · 11 · 14 · 21 · 25 |
+| 1 | **퐁이** | 🔴 목에 두른 붉은 끈 하나 | 전권 |
+| 2 | **아빠** | 흙색 헐렁한 멜빵바지 | 그 권 SCENE 인물 칸에 `Dad otter` 가 있는 권 |
+| 3 | **엄마** | 짙은 초록 머릿수건 | 그 권 SCENE 인물 칸에 `Mom otter` 가 있는 권 |
+| 4 | **동생** | 두 앞발로 안은 조개 하나 | 그 권 SCENE 인물 칸에 `Baby otter` 가 있는 권 |
+| 5 | **거위 할아버지** | 흙색 고무장화 | 그 권 SCENE 인물 칸에 `Goose grandpa` 가 있는 권 |
+
+🔴 **권 번호 목록을 지웠다**(2026-09-09). 01~25 시절 목록(엄마 7권·동생 8권·거위 6권)이 그대로 남아 26~50 이
+통째로 밖에 있었다 — 뒤 절반에서 엄마는 13권, 동생은 14권에 나온다. 쪽별로 프롬프트를 뽑는 라인이라 목록으로
+캐스트를 고르면 그 권들이 빠진다. **목록이 아니라 SCENE 인물 칸이 곧 출연표다.**
 
 🔴 **소품이 곧 정체다.** 05권 착지(조개가 처음부터 손에 있었다)와 09권 착지(양동이를 놓고 조개를 다시
 쥔다)가 그 소품 하나에 걸려 있다.
