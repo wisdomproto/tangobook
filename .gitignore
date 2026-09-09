@@ -132,3 +132,6 @@ packages/client/public/worksheet/*
 packages/server/scripts/_preview-flat/
 docs/changjak-books/*/_drafts/
 docs/changjak-books/*/_scene-drafts/
+
+# 창작동화 삽화 로컬 산출물 — 검수 전 단계라 저장소에 안 넣는다(진실은 R2).
+.draw/
