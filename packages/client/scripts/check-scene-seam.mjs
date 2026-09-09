@@ -88,6 +88,6 @@ for (const key of Object.keys(SERIES).filter((k) => !only || k === only)) {
       }
     }
   }
-  if (lines.length) console.log(`=== ${key} (${lines.length}) ===\n${lines.slice(0, 40).join('\n')}${lines.length > 40 ? `\n  … 외 ${lines.length - 40}` : ''}`);
+  if (lines.length) console.log(`=== ${key} (${lines.length}) ===\n${lines.join('\n')}`);
 }
 console.log(`\n${pages}쪽 · 본문에 선 인물이 그림에 없는 쪽 ${missing}${BOTH ? ` · 그림에만 있는 인물 ${extra}` : ''}`);
