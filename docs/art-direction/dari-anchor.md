@@ -108,8 +108,10 @@ CHARACTER DESIGN LANGUAGE: 🔴 HOW MUCH OF THE BELLY TOUCHES THE GROUND CARRIES
   ease or pleased = both ends up, head and tail lifted, the belly touching in the middle only · curious or
   listening = head up, tail down, touching from the middle back · sulky, sleepy or unwell = flat, the whole belly
   down · playful = rolled over, the back on the ground, all four flippers up · afraid or shy = flat AND the shell
-  in the mouth. 🔴 DARI'S SIGNATURE IS THE TAIL FLIPPER FLICKED UP - the both-ends-up bend - and it closes every
-  volume.
+  in the mouth. 🔴 DARI'S SIGNATURE IS THE TAIL FLIPPER FLICKED UP - a snap, ONCE a volume, on the page where she has
+  just done it (p7 or p8 - the one cut that carries the mark 「🔴 시그니처」, and no other page carries it).
+  The last page is NOT the signature: it is the at-ease bend, both ends lifted and the tail HELD STILL,
+  never labelled or drawn as the flick.
   EYES: two DEEP pools, each as wide as the two nostrils are apart, and that width is fixed for the whole series -
   an eye is open or shut and nothing in between, no white, no pupil, no lid line. 🔴 BOTH SHUT DOES NOT MEAN
   ASLEEP BY ITSELF - THE BEND SAYS WHICH: both shut on a body lying FLAT, belly down, in a quilt or a cradle =
