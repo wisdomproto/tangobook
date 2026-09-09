@@ -53,6 +53,7 @@ const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
 const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
 const WorksheetHubPage = lazy(() => import('../pages/WorksheetHubPage'));
 const WorksheetPage = lazy(() => import('../pages/WorksheetPage'));
+const PuzzleSamplePage = lazy(() => import('../pages/PuzzleSamplePage'));
 
 function EditorV2BidRedirect() {
   const { bid } = useParams();
@@ -252,6 +253,8 @@ export const router = createBrowserRouter([
           { path: 'games', element: <GamesHubPage /> },
           // 어휘 게임 — 사이드바 진입점이므로 AppShell 안 (2026-07-24, 동화책/파닉스와 통일).
           { path: 'games/vocab', element: <RandomVocabStudyPage /> },
+          // 길 잇기 퍼즐 — 온라인 샘플(공용 보드 플랫폼 기획서 §4 Digital First)
+          { path: 'games/puzzle', element: <PuzzleSamplePage /> },
           // 연속재생 홈 — 사이드바 있는 브라우즈 화면 (AppShell 안). 저장된 세트 목록 + 새 세트 만들기.
           { path: 'continuous', element: <ContinuousHomePage /> },
           { path: 'continuous/new', element: <ContinuousBuilder /> },
