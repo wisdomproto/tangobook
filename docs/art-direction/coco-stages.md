@@ -591,6 +591,17 @@ door that is NOT hers, on a lane that is not her alley.
   press differing in exactly ONE readable way and nothing else - the position of the knocker, the
   number of panels, the step, whether it stands open. A volume walks along knocking at the wrong ones
   and it only reads if the doors are plainly the same door with one thing changed.
+🔴 THE FOUR PRESSES ARE NAMED, AND SCENE CALLS A DOOR BY ITS NAME - so two households are never put
+  behind one press (six pages in four volumes shared this one token for five different doors):
+  DOOR A - THE OLD LADY'S: the knocker set HIGH. This is the door that stands half open with steam at
+    the gap, on any delivery to her, and it is the press nearest the shut wall.
+  DOOR B - ROUND-TOPPED: an arched head. It hangs ajar on a dark empty room when a volume knocks at
+    the wrong house.
+  DOOR C - LOW: half the height of the others. A low round grown-up comes out of it.
+  DOOR D - THE NEWCOMER'S: it STANDS OPEN, and 🔴 IT SITS DIRECTLY UNDER THE MAGPIE'S EAVE - the roof
+    ridge she perches on is this door's roof, which is the joke of a whole volume.
+  Spot A shows the four in a row in this order; a washing line may hang between them (the lane is
+  a street of homes). Any page with this token names one of A-D or says "spot A, the lane".
 FIXED PARTS: a step at each door, one block. A doorway that stands half open with 🔴 TWO OR THREE
   CURLS OF BARE-PAPER STEAM coming out of the gap - that steam is how a smell is drawn in this
   series and it is the only bright thing in the frame. A high blank wall closing one end (the same

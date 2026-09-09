@@ -84,7 +84,9 @@ RENDERING (finish hierarchy): an area is ONE rubbed field, even everywhere, neve
   eye finds him before it finds the yellow. FINISHED THINGS PER PAGE = 2, Pipo and the one thing he
   touches; everything else is a shape with no interior detail. Repeats are capped and the cap is the
   whole design: sheep at most 9 separate animals and a flock further off is ONE rubbed mass with 0
-  outlines inside it · loose stones at most 11 · hay heaps at most 7 and loose hay strands at most 11
+  outlines inside it - 🔴 EXCEPT on a page whose event IS the counting (the script counts them aloud):
+  there up to 12 may be told apart, and only as ONE FILE passing a gate gap, the counted ones on one
+  side and the uncounted still a mass on the other · loose stones at most 11 · hay heaps at most 7 and loose hay strands at most 11
   · eggs at most 8 · washing at most 6 with at most 6 pegs · milk cans at most 4 · market stalls at
   most 5 and roofs at most 8 · potatoes on one stem at most 9 · goslings exactly 4 · planks at most 6
   · windows at most 6 lifted rectangles with 0 frames · footprints at most 11 · a market crowd at most
@@ -179,7 +181,7 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the worl
   bends in ONE named way and in no other: Pipo drops into a crouch with both hands up in front of his
   chest · Mom folds at the waist with her arms hanging and her legs straight · Sheep Grandpa leans
   back belly-first and steps out ahead · Goose Auntie plants her feet and sends only her neck · Horse
-  Uncle throws his weight forward past a lifting front foot.
+  Uncle throws his weight forward past a lifting leading foot (a biped's foot - never a forepaw).
   On every page each figure is holding, carrying, dragging or has just set
   down ONE nameable thing, and each figure's feet are placed on ONE nameable thing - the top of the
   wall, wet mud, the doorstep, the lip of the barrow, a bale, another animal's back. 🔴 NOBODY IS
@@ -201,7 +203,9 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the worl
   the smallest body of the three neighbours, the tallest silhouette by the neck alone, no yellow ·
   HORSE UNCLE a horse, THE WIDEST SHOULDERS IN THE BOOK over a heavy slab of a chest, a long straight
   muzzle and a mane, blunt hooves for feet, hands - 🔴 and never a four-legged horse body, rump or
-  long horse tail, in any view, no yellow. 🔴 THE THREE NEIGHBOURS NEVER CARRY YELLOW and are never drawn standing over Pipo.
+  long horse tail, in any view, no yellow. 🔴 HIS TAIL IS ONE SHORT TASSEL that never leaves the
+  outline of his body - except on a page where the script buries him (in hay, in a heap) and the
+  tassel is the only thing showing: then that one short tassel, and nothing else of him, is drawn. 🔴 THE THREE NEIGHBOURS NEVER CARRY YELLOW and are never drawn standing over Pipo.
   THE ANIMALS - sheep, lambs, goslings, the farm cat - are plain shapes with no eyebrows and no
   expression, except a lamb wearing the bell. 🔴 THEIR SIZES ARE A FIXED LADDER: a grown sheep comes
   to PIPO'S SHOULDER, and a LAMB IS THE SIZE PIPO CAN CARRY IN BOTH ARMS AGAINST HIS CHEST - three
@@ -232,6 +236,8 @@ YELLOW: the accent touches nothing but Pipo's scarf - every lantern, lamp and fi
 BARE:   nobody wears clothes - the only worn things are Pipo's scarf, Mom's wide hat, and one old
         boot on Sheep Grandpa's one foot on the three pages the script asks for it
 WING:   Goose Auntie has wings and no hands - she points and holds with a wing edge
+BLANK:  no lettering, numerals or signs on anything - sacks, bags, bottles, cloth bundles, stall
+        roofs and shop fronts stay blank or carry a single scratched shape
 ```
 
 🔴 **`YELLOW:` 와 `BARE:` 는 2026-09-04 에 실측으로 고쳤다.** 옛 문안은 둘 다 거짓이었다 —

@@ -58,7 +58,10 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
     the page. Flour dust = bare paper showing through a thinner pull.
   ALLEY - cobbles = one arc block repeated, walls lean slightly toward each other, the strip of sky
     between the roofs is bare PAPER and it is the light of the whole page. Far end of the alley = at
-    most 3 silhouettes in SLATE, 0 windows.
+    most 3 silhouettes in SLATE, 0 windows. 🔴 EXCEPTION - on a page whose event IS a queue or a
+    procession reaching the far end, the same silhouette block is printed on down to that end (the
+    frame cap of 7 still holds) and the WINDOW BLOCK runs the whole wall (cap 8); faces and hands
+    stay 0. Without this the line cannot be drawn reaching the end, and that is a whole volume.
   ATTIC (any page above the bakery) - a dark room. The floor is the plank block, the walls carry NO
     dot field, the ceiling is low enough to press down the top of the frame. Only three things are
     bare PAPER and there are never more: the round window, the stair hole in the floor, and 🔴 THE
@@ -68,6 +71,21 @@ STAGE CLAUSES (the stage changes what the two inks do, never which two they are)
     because a burrow was dug and not printed. Bare PAPER exists twice only - the slanted light coming
     down the entrance, and the ring of a hung lantern. Nothing in this stage shares a block with the
     bakery or the alley; it is the one wholly separate place in the series.
+  WASHTUB (any page in the yard behind the kitchen's back door) - outdoors: ground = the alley's ARCH
+    BLOCK, sky = bare PAPER, unroofed. The big tub is INK1 staves (at most 5 lines, 2 hoops) and 🔴 ITS
+    WATER IS INK2 AT FULL PRESS so that flour cloud, foam and a dipped paw read as bare paper on it -
+    the only pale things in the frame. One wall nail beside the tub; the kerchief hangs there while
+    she bathes and the red stays on the page.
+  BACKROOM (any page in the store room behind the bakery) - boards, not plaster: floor = PLANK BLOCK,
+    walls = bare boards with NO dot field. 🔴 SIX NAILS IN A ROW along one wall, one nail block six
+    times, evenly spaced; the row is drawn ALL EMPTY and ALL HUNG from the same camera and nothing
+    else on the wall is ever added.
+  ALLEYMOUTH (any page where the alley meets the main road) - the ARCH BLOCK stops and a second
+    ground block begins: 🔴 THE ROAD BLOCK, one broad flat stone in INK1, plainly three or four times
+    the width of a cobble arc, pressed in courses. The join runs straight across the frame as ONE
+    hard edge and nothing is printed over it. Traffic = one handcart block and one bicycle, flat
+    SLATE silhouettes, 0 faces, 0 hands, no motor of any kind. The far kerb's buildings take TILE and
+    WINDOW blocks at half the alley's detail, no shutters, no doors.
   MARKET - awnings are single flat pulls of INK1 or INK2; the sought stall follows the SOUGHT THING
     rule below.
   🔴 SOUGHT THING (any volume built around finding one thing) - THAT thing may carry the page's ONLY
