@@ -59,6 +59,13 @@ export interface Art {
   crop?: Crop;
   /** 낱말 음원 — 맞히면 들려준다 */
   ttsUrl?: string;
+  /**
+   * 흰 카드 없이 판 위에 바로 그린다.
+   *
+   * 🔴 나무처럼 **배경이 비어 있는 그림**은 카드에 얹으면 숲에서 그 칸만 도드라진다.
+   *    사용자가 「2번째 줄은 왜 다르게 그렸냐」고 물은 게 그 줄이 전부 나무였기 때문이다.
+   */
+  noCard?: boolean;
 }
 
 export interface Terminal extends Art {
