@@ -143,6 +143,17 @@
     );
   }
 
+  /** 책의 낱말 카드 그림 — 배경 낱말은 작업판 목록에 없어서 여기서 채운다. */
+  function bookCard(t) {
+    var book = cur && cur.book;
+    var ko = findKeyObject(book, t);
+    if (!ko) return null;
+    var img = ((book && book.keyObjectImages) || []).filter(function (i) {
+      return i.objectName === ko.name && i.success;
+    })[0];
+    return img ? img.imageUrl : null;
+  }
+
   function pickAudio(book, t) {
     var ko = findKeyObject(book, t);
     if (lang === 'en') return Promise.resolve(ko && ko.ttsUrls && ko.ttsUrls.en);
@@ -191,8 +202,10 @@
       var d = document.createElement('div');
       d.className = 't' + (t.got ? ' got' : '');
       d.id = 'tgt' + i;
-      // 배경 낱말(연못·하늘)은 낱말 카드가 없다 — 그림 자리를 비우고 낱말만 보여 준다.
-      d.innerHTML = (t.card ? '<img src="' + t.card + '" alt="">' : '<div class="ph">🔎</div>') +
+      // 🔴 배경 낱말(연못·하늘)은 **작업판 목록에 카드가 안 붙어 있다** — 카드는 words 에만 달린다.
+      //    그런데 책에는 있다(개구리 왕자 「연못」). 책이 오면 거기서 찾아 채운다.
+      var card = t.card || bookCard(t);
+      d.innerHTML = (card ? '<img src="' + card + '" alt="">' : '<div class="ph">🔎</div>') +
         '<b>' + label(t) + '</b>';
       rail.appendChild(d);
     });
@@ -218,8 +231,15 @@
         .then(function (j) { return (j && j.data) || null; })
         .catch(function () { return null; });
     }
+    // 🔴 책이 늦게 와도 **그때 다시 그린다** — 안 그러면 배경 낱말 카드가 영영 빈 채로 남는다.
+    bookCache[b.bookId].then(function (book) {
+      if (!cur || cur.cell.key !== b.cell.key || !book) return;
+      cur.book = book;
+      renderRail();
+    });
     cur = {
       cell: b.cell,
+      book: null,
       bookP: bookCache[b.bookId],
       targets: Object.keys(hotspots[b.cell.key]).map(function (en) {
         var w = words.filter(function (x) { return x.en === en; })[0] || {};
