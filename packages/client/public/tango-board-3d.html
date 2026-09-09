@@ -812,19 +812,27 @@ function parseGroup(items){
       });
       if (Vi){ jung = PLUS_I[jung]; parts.push(Vi); }
     }
-    /* 🔴 ㅣ 바로 오른쪽에 ㅓ/ㅕ 가 서 있으면(획이 ㅣ 쪽을 향함) 눈에는 H = ㅐ/ㅒ 다
-          (2026-09-09, 사용자 프레임 「배」 — ㅏ+ㅣ 가 아니라 ㅣ+ㅓ 로 만들었다).
-          조각이 무엇이었든 **보이는 글자가 답**이다. 3칸 안에서만 — 「비어」처럼
-          사이에 자음이 끼면 4칸 넘게 벌어져 안 걸린다. */
-    if (jung === 'ㅣ' && parts.length === 1){
-      var iRef = parts[0];
-      var Vo = nearest(vows, function(v){
-        if (v === iRef || (v.ch !== 'ㅓ' && v.ch !== 'ㅕ')) return null;
-        var dx = v.cx - iRef.cx, dy = Math.abs(v.cy - iRef.cy);
-        if (dx <= 0 || dx > 3 || dy > 2.5) return null;
-        return dx + dy;
+    /* 🔴 H 글자(ㅐ/ㅒ)는 조각 조합이 여럿이다 — ㅏ+ㅣ · ㅣ+ㅓ · **ㅏ+ㅓ** … 붙은 H 를 자르면
+          칼자리에 따라 ㅣ+ㅓ 도 되고 ㅏ+ㅓ 도 된다(12:21 프레임: ㅏ0.74+ㅓ0.74 → 폰 「첲」).
+          기준은 조각 이름이 아니라 **획이 두 기둥 사이에 있는가**: 왼쪽이 ㅏ/ㅑ 이거나 오른쪽이
+          ㅓ/ㅕ 면 H 다(ㅓ+ㅣ 는 획이 바깥이라 ㅔ — 아래 PLUS_I 가 한다). 이웃한 세로모음 하나만
+          본다(중심 3칸 안). 어느 쪽이든 ㅑ/ㅕ 가 끼면 ㅒ. */
+    if (parts.length === 1 && (jung === 'ㅏ' || jung === 'ㅑ' || jung === 'ㅓ' || jung === 'ㅕ' || jung === 'ㅣ')){
+      var V0 = parts[0];
+      var Nb = nearest(vows, function(v){
+        if (v === V0 || v.h <= v.w) return null;
+        var dx = v.cx - V0.cx, dy = Math.abs(v.cy - V0.cy);
+        if (dx === 0 || Math.abs(dx) > 3 || dy > 2.5) return null;
+        return Math.abs(dx) + dy;
       });
-      if (Vo){ jung = Vo.ch === 'ㅓ' ? 'ㅐ' : 'ㅒ'; parts.push(Vo); }
+      if (Nb){
+        var Lc = Nb.cx < V0.cx ? Nb.ch : V0.ch, Rc = Nb.cx < V0.cx ? V0.ch : Nb.ch;
+        var isH = (Lc === 'ㅏ' || Lc === 'ㅑ') || (Rc === 'ㅓ' || Rc === 'ㅕ');
+        if (isH){
+          var two = (Lc === 'ㅑ' || Lc === 'ㅕ' || Rc === 'ㅑ' || Rc === 'ㅕ');
+          jung = two ? 'ㅒ' : 'ㅐ'; parts.push(Nb);
+        }
+      }
     }
 
     used.add(A); parts.forEach(function(v){ used.add(v); });
