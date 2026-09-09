@@ -1422,6 +1422,9 @@ var TUNE = {
   legoSplitOk: 0.62,             // 이만큼 닮았으면 뭉친 게 아니다 — 안 자른다
   legoSplitGain: 0.03,           // 자른 쪽이 이만큼은 나아야 받아들인다
   legoSplitSlack: 0.05,          // 제 형판 없는 덩어리(narrow)는 조각이 통짜보다 이만큼 못해도 자른다
+  legoPeelOn: 1,                 // 자르기로 안 풀린 큰 덩어리는 모서리에서 형판을 벗겨 읽는다
+  legoPeelIou: 0.55,             // 모서리에 댄 형판이 이만큼은 닮아야 벗긴다(깎인 마스크라 통짜보다 낮게)
+  legoPeelDepth: 4,              // 벗기기 재귀 깊이(조각 수)
   legoBotBar: 0.5,               // ㅂ 으로 읽힌 덩어리의 밑줄 채움이 이 아래면 H(ㅐ) — 실측 H ≤0.31 · ㅂ ≥0.77
   /* 편 그림에서 위·아래 주기가 이 배수 안으로 들어와야 「폈다」로 친다(배음은 접고).
      실측: 잘 읽힌 프레임 1.08·1.09 / 틀린 프레임 1.25·1.32. */
@@ -3176,8 +3179,122 @@ function splitLegoScored(blob, w, h, cell, depth){
   var bar = hOpen ? TUNE.legoMinIou
           : narrow ? Math.max(TUNE.legoMinIou, ownIou - TUNE.legoSplitSlack)
                    : Math.max(ownIou, TUNE.legoMinIou);
-  if (!best || best.score <= bar) return self;
-  return best;
+  var res = (!best || best.score <= bar) ? self : best;
+  /* 🔴 자르기로도 안 풀린 큰 덩어리(붙은 셋)는 모서리 벗기기로 한 번 더 (2026-09-09). */
+  /* 조각 하나(5칸)보다 확실히 큰 덩어리만 — H(3×5) 같은 두 조각짜리는 자르기가 맡는다.
+     벗기기를 거기까지 물리면 ㅡ 토막을 벗겨 내며 H 를 망친다(실측 3장 퇴행). */
+  if (depth === 0 && TUNE.legoPeelOn && res.score < TUNE.legoSplitOk && Math.max(w, h) > 5.5 * cell){
+    var pl = peelLego(blob, w, h, cell, 0);
+    if (pl && pl.score > res.score && pl.score > TUNE.legoMinIou) return pl;
+  }
+  return res;
+}
+
+/** 붙은 덩어리를 **모서리에서 형판을 대어 벗겨** 읽는다 (2026-09-09).
+ *
+ *  🔴 투영 자르기는 **옆으로 붙은 기둥**을 못 본다 — 캴(ㅋ+ㅑ+ㄹ)은 ㅋ 의 오른쪽 기둥과 ㅑ 의
+ *     기둥이 한 두께로 이어져 열 합에 골짜기가 없고, 열두 조합 전부 「ㅡ ㅓ ㅏ」 같은 헛조각만
+ *     냈다. 골짜기가 없어도 **모서리는 있다**: 잉크의 왼쪽 위 모서리는 어느 한 조각의 것이다.
+ *     거기에 33개 형판을 제 잉크 상자 크기(칸×cell)로 대어 가장 닮은 것을 떼어 내고, 남은
+ *     잉크를 성분으로 나눠 같은 일을 되풀이한다. 성분이 5칸 남짓이면 통짜/자르기로 돌린다.
+ *  🔴 벗겨낸 자리는 **상자 통째로** 지운다 — 형판 잉크만 지우면 마스크 잔여(돌기 그림자)가
+ *     남아 다음 조각에 붙는다. 옆 조각은 상자 밖에서 시작하므로 통째로 지워도 안 다친다.
+ *  결과는 splitLego 와 같은 parts 꼴. 부르는 쪽이 자르기 결과와 점수로 견줘 고른다. */
+function legoInkBox(blob, w, h){
+  var x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) if (blob[y*w+x]){
+    if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+  }
+  return x1 < x0 ? null : { x0:x0, y0:y0, x1:x1, y1:y1 };
+}
+function legoComponents(blob, w, h){
+  var seen = new Uint8Array(w*h), out = [], stack = [];
+  for (var s0 = 0; s0 < w*h; s0++){
+    if (!blob[s0] || seen[s0]) continue;
+    var px = [], k;
+    stack.push(s0); seen[s0] = 1;
+    while (stack.length){
+      k = stack.pop(); px.push(k);
+      var kx = k % w, ky = (k / w) | 0;
+      for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++){
+        var nx = kx + dx, ny = ky + dy;
+        if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+        var n = ny*w + nx;
+        if (blob[n] && !seen[n]){ seen[n] = 1; stack.push(n); }
+      }
+    }
+    out.push(px);
+  }
+  return out;
+}
+function peelLego(blob, w, h, cell, depth){
+  if (depth >= TUNE.legoPeelDepth) return null;
+  var tpls = legoTemplates || (legoData ? buildLegoTemplates() : null);
+  if (!tpls || !tpls.length) return null;
+  var box = legoInkBox(blob, w, h);
+  if (!box) return null;
+  var half = Math.max(2, Math.round(cell * 0.5));
+  /* 모서리 후보: 잉크 상자의 왼쪽 위, 왼쪽 기둥의 꼭대기, 위 막대의 왼쪽 끝 */
+  var anchors = [[box.x0, box.y0]], yy, xx;
+  for (yy = box.y0; yy <= box.y1; yy++){ var hit = false;
+    for (xx = box.x0; xx < Math.min(w, box.x0 + half); xx++) if (blob[yy*w+xx]){ hit = true; break; }
+    if (hit){ anchors.push([box.x0, yy]); break; } }
+  for (xx = box.x0; xx <= box.x1; xx++){ var hit2 = false;
+    for (yy = box.y0; yy < Math.min(h, box.y0 + half); yy++) if (blob[yy*w+xx]){ hit2 = true; break; }
+    if (hit2){ anchors.push([xx, box.y0]); break; } }
+  /* 🔴 고르는 자는 IoU 가 아니라 **설명한 잉크**(IoU × 형판 칸수)다 — 모서리에 ㅡ(5칸)를
+        대면 ㅋ 의 윗막대 한 토막에 0.89 로 완벽히 앉는다. 그러면 ㅋ 이 조각조각 난다.
+        큰 형판이 그런대로(≥ legoPeelIou) 맞으면 그쪽이 답이다.
+     🔴 배율은 셋을 시도한다(0.85·1·1.15). 붙은 덩어리는 위아래로 7~8칸이라 원근으로
+        끝과 끝의 칸이 15% 다르고, 마스크가 깎여 조각이 제 칸보다 작다(실측 ㅋ: 37.6 에서
+        0.54, 33 에서 0.65). */
+  var best = null, seenKey = {}, scales = [0.85, 1, 1.15];
+  for (var t = 0; t < tpls.length; t++){
+    var T = tpls[t];
+    for (var si = 0; si < scales.length; si++){
+      var sc = cell * scales[si];
+      var bw = Math.round(T.sw / CELL * sc), bh = Math.round(T.sh / CELL * sc);
+      if (bw < 2 || bh < 2) continue;
+      for (var ai = 0; ai < anchors.length; ai++){
+        var ax = anchors[ai][0], ay = anchors[ai][1];
+        var key = T.ch + ':' + T.base + ':' + si + ':' + ax + ':' + ay;
+        if (seenKey[key]) continue; seenKey[key] = 1;
+        var cw = Math.min(bw, w - ax), chh = Math.min(bh, h - ay);
+        if (cw < bw * 0.6 || chh < bh * 0.6) continue;
+        var sub = legoSub(blob, w, h, ax, ay, cw, chh);
+        var m = matchLegoShape(sub, cw, chh, T.ch);
+        if (!m || m.iou < TUNE.legoPeelIou) continue;
+        var gain = m.iou * (T.area / (CELL * CELL));
+        if (!best || gain > best.gain) best = { T:m.T, iou:m.iou, gain:gain, ax:ax, ay:ay, bw:cw, bh:chh, sub:sub, m:m };
+      }
+    }
+  }
+  if (!best) return null;
+  /* 벗겨내고 남은 잉크 */
+  var rest = new Uint8Array(blob);
+  for (yy = best.ay; yy < best.ay + best.bh; yy++)
+    for (xx = best.ax; xx < best.ax + best.bw; xx++) rest[yy*w + xx] = 0;
+  var parts = [{ blob:best.sub, w:best.bw, h:best.bh, dx:best.ax, dy:best.ay, m:best.m }];
+  var score = best.iou;
+  var comps = legoComponents(rest, w, h), minPx = cell * cell * 1.5;
+  for (var ci = 0; ci < comps.length; ci++){
+    var px = comps[ci];
+    if (px.length < minPx) continue;                   // 부스러기(반 칸 남짓)는 버린다
+    var cb = new Uint8Array(w*h);
+    for (var q = 0; q < px.length; q++) cb[px[q]] = 1;
+    var ib = legoInkBox(cb, w, h);
+    var cw2 = ib.x1 - ib.x0 + 1, ch2 = ib.y1 - ib.y0 + 1;
+    var sub2 = legoSub(cb, w, h, ib.x0, ib.y0, cw2, ch2);
+    var r = null;
+    if (Math.max(cw2, ch2) > 5.5 * cell) r = peelLego(sub2, cw2, ch2, cell, depth + 1);
+    if (!r) r = splitLegoScored(sub2, cw2, ch2, cell, 1);
+    for (var pi = 0; pi < r.parts.length; pi++){
+      var pp = r.parts[pi];
+      parts.push({ blob:pp.blob, w:pp.w, h:pp.h, dx:pp.dx + ib.x0, dy:pp.dy + ib.y0, m:pp.m });
+    }
+    if (r.score < score) score = r.score;
+  }
+  return { parts:parts, score:score };
 }
 
 /** 덩어리 하나를 레고 형판 전부와 견줘 가장 닮은 것. 형판을 덩어리 상자에 맞춰 늘린다. */
