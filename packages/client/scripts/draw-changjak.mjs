@@ -22,12 +22,13 @@ import { parseBooks } from './_series-parse.mjs';
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const API = 'https://www.tangobook.co.kr';
 const OUT = process.env.DRAW_OUT ?? path.join(ROOT, '.draw');
-const GEN = path.join(process.env.USERPROFILE ?? process.env.HOME, '.claude', 'skills', 'image-gen', 'scripts', 'gen.mjs');
+const GPT_IMAGE = path.join(process.env.USERPROFILE ?? process.env.HOME, '.claude', 'skills', 'gpt-image', 'scripts', 'gpt_image.mjs');
 
 const args = process.argv.slice(2);
 const key = args.find((a) => SERIES[a]);
 const only = args.find((a) => a.startsWith('--only='))?.slice(7);
 const limit = Number(args.find((a) => a.startsWith('--limit='))?.slice(8) ?? 1);
+const CONC = Math.min(4, Number(args.find((a) => a.startsWith('--conc='))?.slice(7) ?? 4));  // 스킬 상한이 4다
 
 const volsOf = (k) => (SERIES[k].no <= '15' ? 50 : 25);
 const drawn = async (k) => (await fetch(`${API}/api/comic-assets/series/${k}`).then((r) => r.json())).data ?? {};
@@ -94,6 +95,7 @@ if (!todo.length) { console.log(`${key}: 그릴 권이 없다(전부 완료).`);
 
 fs.mkdirSync(OUT, { recursive: true });
 const ref = await refFor(key, todo[0].v);
+const jobs = [];
 
 for (const { v, have } of todo) {
   const book = books.get(v);
@@ -123,17 +125,41 @@ for (const { v, have } of todo) {
       'SCENE (Korean, follow it exactly):',
       scene,
     ].join('\n');
-    const args2 = ['gpt', '--out', out, '--prompt', prompt];
-    if (ref) args2.push('--ref', ref);
-    try {
-      execFileSync('node', [GEN, ...args2], { stdio: 'pipe', timeout: 300000 });
-      console.log(fs.existsSync(out) ? `  p${pg.n} ✅ ${who.length}인` : `  p${pg.n} ❌ 파일 없음`);
-    } catch (e) {
-      const msg = String(e.stdout ?? e.message).slice(-160);
-      console.log(`  p${pg.n} ❌ ${msg}`);
-      if (/usage limit|한도/i.test(msg)) { console.log('\n🔴 한도 — 여기서 멈춘다. 다시 돌리면 이 자리에서 이어간다.'); process.exit(2); }
-    }
+    jobs.push({ id: `p${pg.n}`, prompt, out, ...(ref ? { references: [path.resolve(ref)] } : {}) });
+    console.log(`  p${pg.n} 대기 · ${who.length}인`);
   }
 }
-console.log(`\n로컬 산출물: ${OUT}`);
-console.log('🔴 사람이 본 뒤 올린다 — upload-changjak.mjs');
+if (!jobs.length) { console.log('\n그릴 쪽이 없다.'); process.exit(0); }
+
+// 🔴 한 장씩 순차로 부르지 않는다 — gpt-image 스킬의 `batch` 가 동시 실행을 안전하게 해 준다.
+//    직접 여러 프로세스를 띄우면 서로 결과를 뺏는다: gen.mjs 의 폴백이 `~/.codex/generated_images` 에서
+//    「방금 생긴 png」를 집기 때문에, 동시에 셋을 굽자 두 장이 md5 까지 같은 파일이 됐다(실측).
+//    batch 는 인증을 한 번만 확인하고 job 마다 제 산출물을 돌려준다. 동시 실행 상한은 4다.
+const manifest = path.join(OUT, `_jobs-${key}.json`);
+fs.writeFileSync(manifest, JSON.stringify({ version: 1, jobs }, null, 1));
+console.log(`\n${jobs.length}장 · 동시 ${CONC} — batch 시작`);
+let log = '';
+try {
+  log = execFileSync('node', [GPT_IMAGE, 'batch', '--manifest', manifest, '--concurrency', String(CONC)], {
+    encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 1 << 26, timeout: 60 * 60 * 1000,
+  });
+} catch (e) {
+  log = `${e.stdout ?? ''}${e.stderr ?? ''}`;
+}
+process.stdout.write(log.split('\n').filter((l) => /^(BATCH|TOTAL|SUCCEEDED|FAILED)=/.test(l)).join('\n') + '\n');
+if (/usage limit|한도/i.test(log)) console.log('🔴 한도 — 다시 돌리면 남은 쪽부터 이어간다.');
+
+// 🔴 「did not write the requested image」는 실패가 아니다 — 샌드박스가 지정 경로에 못 써서
+//    Codex 가 제 폴더에 남긴 것이고, **그 실제 경로가 에러 문자열 끝에 들어 있다**.
+//    gen.mjs 는 이미 이걸 주워 오는데 batch 는 안 해 준다. 여기서 옮긴다.
+let rescued = 0;
+for (const line of log.split('\n')) {
+  const m = /^ERROR\[(p\d+)\]=.*?did not write the requested image:\s+(\S+\.png)\s+(\S+\.png)/.exec(line);
+  if (!m) continue;
+  const job = jobs.find((j) => j.id === m[1] && path.resolve(j.out) === path.resolve(m[2]));
+  if (job && fs.existsSync(m[3])) { fs.copyFileSync(m[3], job.out); rescued++; }
+}
+if (rescued) console.log(`샌드박스가 못 쓴 ${rescued}장을 Codex 폴더에서 옮겼다.`);
+const made = jobs.filter((j) => fs.existsSync(j.out)).length;
+console.log(`\n나온 것 ${made}/${jobs.length} · ${OUT}`);
+console.log('🔴 사람이 본 뒤 올린다 — upload-changjak-art.mjs');
