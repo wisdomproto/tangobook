@@ -99,9 +99,11 @@ STAGE CLAUSES (the stage changes what the two colours do, never which two they a
   FIELD - SEEN FROM OUTSIDE the field is ONE sweep of WHEAT running to a flat horizon, 0 furrows
     picked out. Willow, hedge and berry bushes are MILLPOND, at most 5 of them. Sunflowers are WHEAT
     discs on MILLPOND stems, at most 9. 🔴 SEEN FROM INSIDE IT IS NOT A SWEEP BUT ONE REPEATED
-    STROKE - one stroke is one stalk, the same stroke every time, running off every edge, ears above
-    an adult's head. Depth among them is SPACING (far stalks stand closer together), never a paler
-    or darker wheat.
+    STROKE - one stroke is one stalk, the same stroke every time, running off every edge, 🔴 ears AT
+    AN ADULT'S SHOULDER - an adult's neck and head stand clear above the ears, a tall duckling's crown
+    just clears them, a small duckling is under them (that is volume 37's one picture: Mommy's long
+    neck rising out of the wheat). Depth among them is SPACING (far stalks stand closer together),
+    never a paler or darker wheat.
   🔴 MIST (any page the script calls mist or fog) - everything but the nearest thing is bare PAPER. Things enter the page by
     appearing at FULL strength, never by fading, and there is no pale version of any colour.
   🔴 NIGHT (any page the script sets after dark) - the sky is OVERLAP laid as one flat sweep. Stars, fireflies, the

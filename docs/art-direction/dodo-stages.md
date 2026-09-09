@@ -380,7 +380,8 @@ STATES:
   🔴 5 THREE STOOD UPRIGHT IN THE SNOW, side by side, each pushed point-down into a snowfield, with
     ONE DEEP HOLE at the foot of each. The snowfield is bare paper too, so 🔴 THIS IS BARE PAPER
     INSIDE BARE PAPER: the only thing that separates icicle from snow is the HOLE, which is the one
-    painted mark in the group (a short OVERLAP wedge at the base). The eave above is now EMPTY.
+    painted mark in the group (a short OVERLAP wedge at the base). 🔴 THE EAVE ABOVE IS NOT EMPTY -
+    only three fell, so three or four short ones still hang there, plainly fewer than in state 1.
     Volume 08 ends on this and on the three empty holes left after they are taken away.
 
 PLATE: the five states, plus one panel showing state 1 against the timber and (wrong, marked) the
@@ -1049,11 +1050,12 @@ FORM: two stacked rounds - a bigger body and a smaller head - with 🔴 A SHORT 
 STATES - drawn at one size:
   1 THE PAIR, newly made, side by side, identical.
   2 ONE CARRIED, held against a chest in both wings, and one left standing on the ground.
-  3 MELTING INDOORS ON A SHELF - the head round has slumped into the body, the twig bill has FALLEN
-    OUT and lies on the shelf beside it, and 🔴 water spreading at its foot is a MILLPOND shape on
-    the WHEAT shelf, hard edged.
-  4 GONE - only a shallow MILLPOND puddle on the shelf and the twig bill lying beside it. 🔴 This
-    panel and panel 1 are the two ends of the volume.
+  3 MELTING INDOORS ON A SHELF - the head round has slumped into the body and 🔴 THE TWIG BILL IS
+    GONE FROM THE PICTURE - it has dropped off behind the shelf and is never shown lying beside the
+    duck (the script says the bill "disappeared first"), and 🔴 water spreading at its foot is a
+    MILLPOND shape on the WHEAT shelf, hard edged.
+  4 GONE - only a shallow MILLPOND puddle on the shelf and NOTHING ELSE, no twig, no wing piece.
+    🔴 This panel and panel 1 are the two ends of the volume.
   5 THE SURVIVOR on an outdoor sill next morning, EXACTLY THE SHAPE OF PANEL 1, twig bill still in
     place. 🔴 It is NOT sparkling and NOT frosted - it is the same bare paper it always was, and
     it reads because the sill and the wall behind it are painted.
@@ -1339,7 +1341,7 @@ NOT: no character, no ribbon blue, no red, orange or yellow (there are only the 
 ### §2.27 WheatStalks — 🔴 앵커의 FIELD 조항이 이 권을 못 덮는다
 
 > 앵커 FIELD: `the field is ONE sweep of WHEAT running to a flat horizon, 0 furrows picked out.`
-> 그건 **밖에서 본 밭**이다. 그런데 37권은 **밭 속**이고 이삭이 어른 키만큼이라, 열 쪽 중 아홉이
+> 그건 **밖에서 본 밭**이다. 그런데 37권은 **밭 속**이고 이삭이 어른 어깨 높이라, 열 쪽 중 아홉이
 > 「화면 가장자리까지 빈틈없는 밀 줄기」다. 🔴 한 번 쓸기로는 그릴 수 없다 — §5 ④에 신고했다.
 
 ```
@@ -1354,8 +1356,10 @@ and applies ONLY when the camera is among the stalks.
   time. It may run off any edge and is never redrawn.
 🔴 DEPTH IS MADE BY SPACING, NEVER BY TONE. Near stalks stand further apart; far stalks stand closer
   together. There is no paler wheat and no darker wheat. 🔴 Do not use a second colour for distance.
-🔴 HEIGHT IS THE POINT: the ears are ABOVE AN ADULT'S HEAD, so a duckling among them sees nothing
-  but stems, and the sky is only reachable by looking straight up.
+🔴 HEIGHT IS THE POINT: the ears are AT AN ADULT'S SHOULDER - an adult's neck and head stand clear
+  above them, a tall duckling's crown just clears them, a small duckling is under them and sees
+  nothing but stems, the sky only reachable by looking straight up. (Volume 37's one picture is
+  Mommy's long neck rising out of the wheat, so the ears must NOT be above her head.)
 STATES:
   1 EDGE OF THE FIELD, from outside - one flat sweep to the horizon, per the anchor, with the wall
     of stalks beginning at the near edge. 🔴 This panel exists so the two views can be joined.
@@ -1541,7 +1545,7 @@ FORM (SPARROW): 🔴 one plain OVERLAP silhouette, 0 faces, 0 toes, 0 feather de
   different places at two different hours, NOT seven birds becoming three, and nothing is owed for
   the other four. Draw each group at the number its own page says and do not carry a running total
   between them. (The volume that DOES run a count down says so on the page - the icicle book states
-  the eaves are empty. If the page does not say it, there is no count.)
+  that three fell and three stand in the snow. If the page does not say it, there is no count.)
 🔴 THE COUNT, drawn in a row at the SAME size, from the same side-on angle:
   1 ONE MOUND alone with an open hole beside it.
   2 SIX MOUNDS in a line, evenly spaced.
