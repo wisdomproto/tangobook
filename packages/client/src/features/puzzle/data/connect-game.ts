@@ -85,7 +85,15 @@ export const CHALLENGES: Challenge[] = [
       coverUrl:
         'https://assets.tangobook.co.kr/1778476961082-빨간모자new-cover-misc-1778494478564.webp',
     },
-    start: { x: 0, y: 2, port: 'E', label: '빨간모자', emoji: '🧒' },
+    start: {
+      x: 0,
+      y: 2,
+      port: 'E',
+      label: '빨간모자',
+      imageUrl:
+        'https://assets.tangobook.co.kr/1778476961082-빨간모자new-character-소녀-1778491641310.jpg',
+      crop: [0.01, 0.02, 0.2, 0.96],
+    },
     goal: {
       x: 4,
       y: 2,
@@ -96,7 +104,14 @@ export const CHALLENGES: Challenge[] = [
       ttsUrl: 'https://assets.tangobook.co.kr/1778476961082-tts-page3-1779940001449.mp3',
     },
     blocked: [
-      { x: 2, y: 2, label: '늑대', emoji: '🐺' },
+      {
+        x: 2,
+        y: 2,
+        label: '늑대',
+        imageUrl:
+          'https://assets.tangobook.co.kr/1778476961082-빨간모자new-character-늑대-1778491644020.jpg',
+        crop: [0.01, 0.02, 0.21, 0.96],
+      },
       { x: 2, y: 0, label: '나무', emoji: '🌳' },
       { x: 1, y: 4, label: '나무', emoji: '🌳' },
     ],
@@ -114,7 +129,15 @@ export const CHALLENGES: Challenge[] = [
       coverUrl:
         'https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-cover-misc-1781257260984.webp',
     },
-    start: { x: 0, y: 1, port: 'E', label: '아기 돼지', emoji: '🐷' },
+    start: {
+      x: 0,
+      y: 1,
+      port: 'E',
+      label: '아기 돼지',
+      imageUrl:
+        'https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-character-셋째돼지-1781254260304.jpg',
+      crop: [0.06, 0.19, 0.17, 0.38],
+    },
     goal: {
       x: 5,
       y: 3,
@@ -124,7 +147,14 @@ export const CHALLENGES: Challenge[] = [
         'https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-house-1783553436398-w800.webp',
     },
     blocked: [
-      { x: 3, y: 1, label: '늑대', emoji: '🐺' },
+      {
+        x: 3,
+        y: 1,
+        label: '늑대',
+        imageUrl:
+          'https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-character-늑대-1781254264674.jpg',
+        crop: [0.246, 0.07, 0.105, 0.52],
+      },
       {
         x: 1,
         y: 4,
@@ -154,7 +184,14 @@ export const CHALLENGES: Challenge[] = [
       coverUrl:
         'https://assets.tangobook.co.kr/1784529056876-흥부와놀부-cover-misc-1785231385300.webp',
     },
-    start: { x: 0, y: 1, port: 'E', label: '제비', emoji: '🐦' },
+    start: {
+      x: 0,
+      y: 1,
+      port: 'E',
+      label: '제비',
+      imageUrl: 'https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/char-swallow.png',
+      crop: [0.34, 0.16, 0.36, 0.53],
+    },
     goal: {
       x: 5,
       y: 4,
@@ -163,7 +200,13 @@ export const CHALLENGES: Challenge[] = [
       imageUrl: 'https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-bak.jpg',
     },
     blocked: [
-      { x: 3, y: 1, label: '놀부', emoji: '😠' },
+      {
+        x: 3,
+        y: 1,
+        label: '놀부',
+        imageUrl: 'https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/char-nolbu.png',
+        crop: [0.01, 0.13, 0.26, 0.72],
+      },
       {
         x: 0,
         y: 4,

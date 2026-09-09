@@ -44,24 +44,33 @@ export interface Placement {
   flip: boolean;
 }
 
-export interface Terminal {
+/**
+ * 그림 잘라 쓰기 — [x, y, w, h] 를 원본의 0~1 비율로.
+ *
+ * 🔴 캐릭터 그림은 **캐릭터 시트**다(정면·측면·표정이 한 장에). 통째로 넣으면 가운데가
+ *    잘려 얼굴 반쪽만 나온다. 쓸 포즈 하나를 지정한다.
+ */
+export type Crop = [number, number, number, number];
+
+export interface Art {
+  label: string;
+  emoji?: string;
+  imageUrl?: string;
+  crop?: Crop;
+}
+
+export interface Terminal extends Art {
   x: number;
   y: number;
   /** 이 칸에서 길이 나가는 방향 (하나) */
   port: Dir;
-  label: string;
-  emoji?: string;
-  imageUrl?: string;
   /** 낱말 음원 — 맞히면 들려준다 */
   ttsUrl?: string;
 }
 
-export interface BlockedCell {
+export interface BlockedCell extends Art {
   x: number;
   y: number;
-  label: string;
-  emoji?: string;
-  imageUrl?: string;
 }
 
 /** 문제 하나 (§22.3 Challenge) */
