@@ -1414,6 +1414,7 @@ var TUNE = {
   legoSplitOk: 0.62,             // 이만큼 닮았으면 뭉친 게 아니다 — 안 자른다
   legoSplitGain: 0.03,           // 자른 쪽이 이만큼은 나아야 받아들인다
   legoSplitSlack: 0.05,          // 제 형판 없는 덩어리(narrow)는 조각이 통짜보다 이만큼 못해도 자른다
+  legoBotBar: 0.5,               // ㅂ 으로 읽힌 덩어리의 밑줄 채움이 이 아래면 H(ㅐ) — 실측 H ≤0.31 · ㅂ ≥0.77
   /* 편 그림에서 위·아래 주기가 이 배수 안으로 들어와야 「폈다」로 친다(배음은 접고).
      실측: 잘 읽힌 프레임 1.08·1.09 / 틀린 프레임 1.25·1.32. */
   legoWarpOk: 1.15,
@@ -3095,7 +3096,19 @@ function splitLegoScored(blob, w, h, cell, depth){
         답은 **자르기**다 — 어느 형판과도 안 닮은(legoSplitOk 미만) 덩어리는 2칸 넘으면
         가로로 잘라 본다. 잘린 ㅓ+ㅣ 는 각자 제 형판에 0.8 로 앉고 PLUS_I 가 ㅔ 로 합친다.
         잘 닮은 덩어리(ㅂ 0.73~0.86)는 여기 안 들어오므로 비용도 안 는다. */
-  var narrow = ownIou < TUNE.legoSplitOk;
+  var narrow = ownIou < TUNE.legoSplitOk, hOpen = false;
+  /* 🔴 ㅂ 과 H(붙은 ㅣ+ㅓ / ㅏ+ㅣ = ㅐ) 는 **밑줄 한 줄** 차이다 — ㅂ 잉크 14칸 중 12칸이
+        H 와 겹쳐 완벽한 H 도 ㅂ 형판에 0.86 이다. 통째로 견주는 어떤 자로도 못 가른다
+        (ㄹ/ㅌ·ㅁ/ㅇ 과 같은 병). 도면에서 다른 곳은 아래 한 줄뿐이니 **그 줄만 잰다**:
+        아래 20% 띠, 두 기둥 사이(폭 30~70%)의 채움. 실측 H 여섯 장 0.15~0.31 · 진짜 ㅂ 아홉 장
+        0.77~0.92. 밑줄이 비었으면 ㅂ 이 아니라 두 조각이다 → 자르기로 보내고, 통짜 점수(가짜
+        ㅂ)는 견줄 자에서 뺀다(2026-09-09, 12:09 프레임 ㅂ 0.69 로 「잘 닮은」 쪽에 들어가 안 갈렸다). */
+  if (own && own.T.ch === 'ㅂ' && w <= maxSide + slack){
+    var bn = 0, bk = 0, bx0 = Math.floor(w * 0.3), bx1 = Math.ceil(w * 0.7);
+    for (var by2 = Math.floor(h * 0.8); by2 < h; by2++)
+      for (var bx2 = bx0; bx2 < bx1; bx2++){ bn++; if (blob[by2*w + bx2]) bk++; }
+    if (bn && bk / bn < TUNE.legoBotBar){ narrow = true; hOpen = true; }
+  }
   var tall = h > maxSide + slack, wide = w > (narrow ? 2*cell : maxSide) + slack;
   var self = { parts:[{ blob:blob, w:w, h:h, dx:0, dy:0, m:own }], score:ownIou };
   if ((!tall && !wide) || depth >= TUNE.legoSplitDepth) return self;
@@ -3152,7 +3165,8 @@ function splitLegoScored(blob, w, h, cell, depth){
         붙은 ㅣ+ㅓ 가 ㅂ 0.57 로 앉고 갈라진 ㅓ 가 0.56 — 한 끗 차이로 자르기가 거부돼 「배」가
         ㅂ 이 됐다. 그렇다고 통짜를 아예 무시하면 캴(붙은 셋)이 엉뚱하게 갈라졌다(가→∅).
         제 형판이 없는 덩어리는 조각이 통짜에서 legoSplitSlack 안이면 두 조각으로 본다. */
-  var bar = narrow ? Math.max(TUNE.legoMinIou, ownIou - TUNE.legoSplitSlack)
+  var bar = hOpen ? TUNE.legoMinIou
+          : narrow ? Math.max(TUNE.legoMinIou, ownIou - TUNE.legoSplitSlack)
                    : Math.max(ownIou, TUNE.legoMinIou);
   if (!best || best.score <= bar) return self;
   return best;
