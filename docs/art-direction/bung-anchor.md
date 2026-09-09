@@ -27,11 +27,14 @@ RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR O
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
 PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, produce, hulls · OVERLAP SILT #3A4A2A,
+  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
   the two children are one set, so no adult and no other thing in the book ever carries it. No sky
   blue, no purple, no pink.
+  🔴 THERE IS NO RED OR YELLOW BLOCK EITHER. Where the script makes ONE thing's colour the point of the
+  page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
+  cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
   MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
@@ -43,7 +46,9 @@ STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
     at most 5.
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
-  in a short top and trousers, the two adults in a loose top and a round hat. Backs and heads
+  in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
+  head, Mom with a cloth wrapped between the horns. THAT HEADWEAR IS WHAT TELLS THE TWO ADULTS APART,
+  so the SCENE names it on every page the adult is on. Backs and heads
   OVERLAP, chests and bellies RIVER.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE
   THEY MEET, AND THE ASSEMBLY MUST NAME THE SPECIES. Only TWO pieces say buffalo, so those two are
@@ -68,7 +73,10 @@ CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no 
   Nothing is added for feeling - a full mouth is the SAME dome cut wider for that page. The eye is a
   solid KEY-INK DISC on the dome and in three-quarter or profile ONLY ONE is cut, on the near side;
   above it ONE short brow bar. Feeling is the mouth curve and the tilt of the brow bar; the disc
-  never changes size.
+  never changes size. 🔴 A CLOSED EYE is ONE short key-ink bar in the disc's place, exactly the disc's
+  width; a smiling eye is that same bar bent upward; a shut-tight eye is the same bar with the brow bar
+  pressed onto it. Neither is ever wider or narrower than the disc, and the disc is never cut larger for
+  surprise - surprise is the brow bar lifted high.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
@@ -139,7 +147,7 @@ HOLD:  the two are a set - touching or inside each other's reach, in a different
 | 무엇 | 옛 앵커 | 지금 | 근거 |
 |---|---|---|---|
 | **악센트 자리** | `ACCENT TEAL … nothing but Bung's nose-rope` | **청록은 두 곳** — 붕이 코끈 **+ 또리 발목 방울의 끈**. 어른도 다른 무엇도 안 지닌다 | 설계 §1 「형제 = 한 무리」. SCENE 은 **발목 방울을 140쪽**에 그려 두었고 13 p1 이 「한쪽 발목에 **청록 끈**으로 맨 작은 방울」로 색까지 못박았다. 🔴 **그 방울이 13권에서 또리를 찾는 유일한 단서**다(13 p1 「화면에 발과 방울뿐이라 방울이 유일하게 마감된 물건이 된다」 · 13 p9 「발목 방울이 그물 밖으로 나와 있다」) — 앵커대로면 단서가 **색을 잃어** 화면에서 안 읽힌다 |
-| **옷** | `wearing loose light cloth, bare feet` | **아이는 짧은 윗옷과 바지 · 어른 둘은 헐렁한 윗옷과 동그란 모자** | 설계 §1. SCENE 도 어른을 **「헐렁한 윗옷」 25쪽 · 「동그란 모자」 27쪽**으로 가리킨다 — 어른과 아이를 가르는 유일한 표식이라 앵커에 없으면 넷이 같은 옷이 된다 |
+| **옷** | `wearing loose light cloth, bare feet` | **아이는 짧은 윗옷과 바지 · 어른 둘은 헐렁한 윗옷 · 🔴 2026-09-09 머리는 갈랐다 — 할아버지 동그란 모자 · 엄마 뿔 사이 머릿수건**(`bung-cast.md` 가 이미 그렇게 적어 뒀는데 앵커와 SCENE 26~50 이 둘 다 엄마에게 「동그란 모자」를 씌우거나 아무것도 안 씌웠다) | 설계 §1. SCENE 도 어른을 **「헐렁한 윗옷」 25쪽 · 「동그란 모자」 27쪽**으로 가리킨다 — 어른과 아이를 가르는 유일한 표식이라 앵커에 없으면 넷이 같은 옷이 된다 |
 | **손** | 없음 | `forelimbs are HANDS with no hooves` | 설계 §1 「앞발·발굽이라 쓰지 않는다」. SCENE 은 **손 216쪽 · 앞발 1쪽**. §8 등록부의 룰루(앞발/손 혼용)와 같은 자리 |
 | **뿔** | 없음 | ~~`a buffalo child's horns are two tiny buds`~~ 🔴 **2026-08-17 폐기 → §4 ②** | 설계 §1 「뿔은 아기라 아주 작다」. SCENE 은 뿔을 **한 번도 안 부르므로**(0쪽) 안 적으면 모델이 어른 물소 뿔을 그린다. ⚠️ **「작다」만 적고 「무엇인가」를 안 적어서 종 신호가 통째로 지워졌다** — 지금은 모양(초승달)을 못박고 **폭만** 나이로 준다 |
 
