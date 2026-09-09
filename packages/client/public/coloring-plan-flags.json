@@ -1,1875 +1,2389 @@
 {
   "ph-0409": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "거미"
   },
   "ph-0414": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "두부"
   },
   "ph-0423": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "우유"
   },
   "ph-0435": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "코코아"
   },
   "ph-0437": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "기타"
   },
-  "ph-0440": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "하트" },
+  "ph-0440": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "하트"
+  },
   "ph-0457": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "눈"
   },
   "ph-0459": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "언니"
   },
   "ph-0462": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "달"
   },
   "ph-0464": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "하늘"
   },
   "ph-0468": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "옷"
   },
   "ph-0469": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "구름"
   },
   "ph-0480": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "토끼"
   },
   "ph-0488": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "오빠"
   },
   "ph-0500": {
     "level": "warn",
+    "ids": ["onetap", "halfregion"],
     "why": "칸이 하나뿐 — 한 번 탭하면 끝난다 · 한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "베개"
   },
   "ph-0016": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "fan"
   },
   "ph-0031": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "key"
   },
   "ph-0040": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "nest"
   },
   "ph-0041": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "net"
   },
   "ph-0043": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "octopus"
   },
   "ph-0044": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "ostrich"
   },
   "ph-0045": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "ox"
   },
-  "ph-0048": { "level": "warn", "why": "못 짚을 만큼 가는 칸이 3개 이상", "word": "piano" },
+  "ph-0048": {
+    "level": "warn",
+    "ids": ["thin"],
+    "why": "못 짚을 만큼 가는 칸이 3개 이상",
+    "word": "piano"
+  },
   "ph-0053": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "ring"
   },
   "ph-0063": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "up"
   },
   "ph-0066": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "violin"
   },
   "ph-0069": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "six"
   },
   "ph-0070": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "watch"
   },
   "ph-0082": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "fan"
   },
   "ph-0093": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "sad"
   },
   "ph-0104": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "dig"
   },
   "ph-0108": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "pin"
   },
   "ph-0114": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "net"
   },
   "ph-0122": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "hop"
   },
   "ph-0123": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "hot"
   },
   "ph-0125": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "mop"
   },
   "ph-0133": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "rug"
   },
   "ph-0134": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "tub"
   },
-  "ph-0136": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "bun" },
+  "ph-0136": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "bun"
+  },
   "ph-0146": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "cave"
   },
   "ph-0157": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "name"
   },
   "ph-0158": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "vase"
   },
-  "ph-0166": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "vine" },
+  "ph-0166": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "vine"
+  },
   "ph-0171": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "kite"
   },
-  "ph-0183": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "bone" },
+  "ph-0183": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "bone"
+  },
   "ph-0184": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "cone"
   },
   "ph-0187": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "home"
   },
   "ph-0221": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "front"
   },
   "ph-0222": {
     "level": "warn",
+    "ids": ["halfregion", "washed"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다 · 원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "frost"
   },
   "ph-0224": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "globe"
   },
   "ph-0226": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "glue"
   },
   "ph-0229": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "plate"
   },
   "ph-0236": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "dress"
   },
   "ph-0243": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "trace"
   },
   "ph-0248": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "smile"
   },
   "ph-0259": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "bang"
   },
   "ph-0265": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "long"
   },
   "ph-0268": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "ring"
   },
   "ph-0270": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "wink"
   },
   "ph-0272": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "branch"
   },
   "ph-0278": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "shape"
   },
-  "ph-0280": { "level": "warn", "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다", "word": "shop" },
+  "ph-0280": {
+    "level": "warn",
+    "ids": ["busy"],
+    "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다",
+    "word": "shop"
+  },
   "ph-0287": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "teeth"
   },
-  "ph-0288": { "level": "warn", "why": "못 짚을 만큼 가는 칸이 3개 이상", "word": "thick" },
+  "ph-0288": {
+    "level": "warn",
+    "ids": ["thin"],
+    "why": "못 짚을 만큼 가는 칸이 3개 이상",
+    "word": "thick"
+  },
   "ph-0292": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "whisper"
   },
   "ph-0293": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "white"
   },
   "ph-0308": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "bowl"
   },
   "ph-0311": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "pillow"
   },
   "ph-0329": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "boil"
   },
   "ph-0334": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "joy"
   },
   "ph-0335": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "oil"
   },
   "ph-0337": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "soil"
   },
   "ph-0343": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "cloud"
   },
   "ph-0347": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "crown"
   },
   "ph-0353": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "bird"
   },
   "ph-0355": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "letter"
   },
   "ph-0384": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "moon"
   },
-  "ph-0386": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "spoon" },
+  "ph-0386": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "spoon"
+  },
   "ph-0517": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "lù"
   },
   "ph-0520": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "mù"
   },
   "ph-0521": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "tù"
   },
   "ph-0527": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "gǔ"
   },
   "ph-0534": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "yǔ"
   },
   "ph-0539": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "māo"
   },
   "ph-0542": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "nǎi"
   },
   "ph-0544": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "shuǐ"
   },
   "ph-0548": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "yuè"
   },
   "ph-0552": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "yún"
   },
   "ph-0555": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "píng"
   },
-  "ph-0556": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "xīng" },
+  "ph-0556": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "xīng"
+  },
   "ph-0563": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "hǎibiān"
   },
   "ph-0579": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "èrhú"
   },
   "ph-0586": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "jīdàn"
   },
   "ph-0590": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "yǔsǎn"
   },
   "ph-0594": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "ménkǒu"
   },
-  "ph-0596": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "zhěntou" },
+  "ph-0596": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "zhěntou"
+  },
   "ph-0602": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "zhúsǔn"
   },
   "ph-0604": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "huāpíng"
   },
   "ph-0605": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "jǐngshuǐ"
   },
   "ph-0609": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "bǎoguì"
   },
-  "ph-0611": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "huīchén" },
+  "ph-0611": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "huīchén"
+  },
   "ph-0615": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "hējiǔ"
   },
   "ph-0618": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "xǐshǒu"
   },
   "ph-0619": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "xiūxī"
   },
   "ph-0620": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "zǒulù"
   },
   "ph-0621": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "érgē"
   },
   "ph-0626": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "zhèngquè"
   },
   "ph-0635": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "fángjiān"
   },
   "ph-0639": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "gǎizhèng"
   },
   "ph-0640": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "péngyǒu"
   },
   "ph-0641": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "tiàoshéng"
   },
   "ph-0643": {
     "level": "bad",
+    "ids": ["blackfill"],
     "why": "검게 칠한 면이 있다 — 검정은 벽이라 못 칠한다",
     "word": "tōngguò"
   },
   "bk-0002": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "마차"
   },
   "bk-0003": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "식탁"
   },
   "bk-0006": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "침대"
   },
   "bk-0008": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "기타"
   },
   "bk-0009": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "나무"
   },
   "bk-0010": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바람"
   },
   "bk-0012": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "옥수수"
   },
   "bk-0013": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Door"
   },
   "bk-0015": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Snow"
   },
   "bk-0016": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Sun"
   },
   "bk-0017": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "나무"
   },
   "bk-0020": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "정원"
   },
   "bk-0026": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "나무"
   },
   "bk-0027": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "독수리"
   },
   "bk-0030": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "구두"
   },
   "bk-0031": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "구두"
   },
   "bk-0037": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Candle"
   },
   "bk-0040": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Hammer"
   },
   "bk-0041": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "그릇"
   },
   "bk-0043": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "의자"
   },
   "bk-0045": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "침대"
   },
   "bk-0046": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "까마귀"
   },
   "bk-0047": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "마차"
   },
   "bk-0050": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가위"
   },
   "bk-0054": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "말"
   },
   "bk-0055": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "머리카락"
   },
   "bk-0057": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "성"
   },
   "bk-0059": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "탑"
   },
   "bk-0065": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사과"
   },
   "bk-0070": {
     "level": "bad",
+    "ids": ["blackfill"],
     "why": "검게 칠한 면이 있다 — 검정은 벽이라 못 칠한다",
     "word": "감옥"
   },
   "bk-0074": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "드레스"
   },
   "bk-0080": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바다"
   },
   "bk-0082": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "보물"
   },
   "bk-0085": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "파도"
   },
   "bk-0087": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바람"
   },
   "bk-0094": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "나무"
   },
   "bk-0097": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "지팡이"
   },
   "bk-0098": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "기차"
   },
   "bk-0103": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "몽둥이"
   },
   "bk-0115": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "코"
   },
   "bk-0116": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Apron"
   },
   "bk-0119": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Stick"
   },
   "bk-0120": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "다리"
   },
   "bk-0121": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물고기"
   },
   "bk-0122": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바람"
   },
   "bk-0131": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "성냥"
   },
   "bk-0143": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "계단"
   },
   "bk-0144": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "구두"
   },
   "bk-0146": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "성"
   },
   "bk-0148": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "지팡이"
   },
   "bk-0150": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Apron"
   },
   "bk-0157": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "보석"
   },
   "bk-0158": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "파도"
   },
   "bk-0169": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Watermelon"
   },
   "bk-0172": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "보석"
   },
   "bk-0174": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "양탄자"
   },
   "bk-0176": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꼬리"
   },
   "bk-0177": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바람"
   },
   "bk-0178": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "새싹"
   },
-  "bk-0181": { "level": "warn", "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다", "word": "정원" },
+  "bk-0181": {
+    "level": "warn",
+    "ids": ["busy"],
+    "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다",
+    "word": "정원"
+  },
   "bk-0182": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "지구"
   },
   "bk-0190": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "풍뎅이"
   },
   "bk-0192": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사자"
   },
   "bk-0194": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "허수아비"
   },
   "bk-0195": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "다리"
   },
   "bk-0196": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "뿔"
   },
   "bk-0197": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "언덕"
   },
   "bk-0202": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "시계"
   },
   "bk-0205": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "장미"
   },
   "bk-0207": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꼬리"
   },
   "bk-0208": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바다"
   },
-  "bk-0213": { "level": "warn", "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다", "word": "계단" },
-  "bk-0214": { "level": "warn", "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다", "word": "덩굴" },
+  "bk-0213": {
+    "level": "warn",
+    "ids": ["busy"],
+    "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다",
+    "word": "계단"
+  },
+  "bk-0214": {
+    "level": "warn",
+    "ids": ["busy"],
+    "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다",
+    "word": "덩굴"
+  },
   "bk-0215": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물레"
   },
   "bk-0216": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바늘"
   },
   "bk-0218": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "구름"
   },
   "bk-0223": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "콩"
   },
   "bk-0225": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Beans"
   },
   "bk-0242": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "순무"
   },
   "bk-0246": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "기차"
   },
   "bk-0252": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "깃털"
   },
   "bk-0256": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "새장"
   },
   "bk-0258": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "침대"
   },
   "bk-0260": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "구름"
   },
   "bk-0263": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "성당"
   },
   "bk-0266": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "풍차"
   },
   "bk-0267": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "고래"
   },
   "bk-0274": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "무지개"
   },
   "bk-0277": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "피리"
   },
   "bk-0287": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "눈물"
   },
   "bk-0291": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "동상"
   },
   "bk-0297": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "돌"
   },
   "bk-0298": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사탕"
   },
   "bk-0301": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "쿠키"
   },
   "bk-0303": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사탕"
   },
-  "bk-0305": { "level": "warn", "why": "못 짚을 만큼 가는 칸이 3개 이상", "word": "시계" },
-  "bk-0306": { "level": "warn", "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다", "word": "신발" },
+  "bk-0305": {
+    "level": "warn",
+    "ids": ["thin"],
+    "why": "못 짚을 만큼 가는 칸이 3개 이상",
+    "word": "시계"
+  },
+  "bk-0306": {
+    "level": "warn",
+    "ids": ["busy"],
+    "why": "칸이 25개 넘는다 — 네 살이 못 끝낸다",
+    "word": "신발"
+  },
   "bk-0313": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "Tree"
   },
   "bk-0542": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "정글"
   },
   "bk-0566": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "당근"
   },
   "bk-0568": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "밥"
   },
   "bk-0569": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "브로콜리"
   },
   "bk-0572": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "텃밭"
   },
   "bk-0576": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "세면대"
   },
   "bk-0577": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "이"
   },
   "bk-0584": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "세면대"
   },
   "bk-0588": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바지"
   },
   "bk-0591": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "형"
   },
   "bk-0593": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물"
   },
   "bk-0595": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "접시"
   },
   "bk-0598": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "도토리"
   },
   "bk-0601": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "접시"
   },
   "bk-0604": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "소파"
   },
   "bk-0611": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "달"
   },
-  "bk-0612": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "별" },
+  "bk-0612": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "별"
+  },
   "bk-0623": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "두부"
   },
   "bk-0625": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "선반"
   },
   "bk-0629": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "단추"
   },
   "bk-0630": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바지"
   },
   "bk-0633": {
     "level": "warn",
+    "ids": ["halfregion", "washed"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다 · 원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "형"
   },
   "bk-0636": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "모자"
   },
   "bk-0637": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물통"
   },
   "bk-0642": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "방석"
   },
   "bk-0643": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "의자"
   },
   "bk-0644": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "밥상"
   },
   "bk-0645": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "수저"
   },
   "bk-0647": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "젓가락"
   },
   "bk-0649": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "약"
   },
   "bk-0651": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "주사"
   },
   "bk-0652": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "체온계"
   },
   "bk-0666": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "풍선"
   },
   "bk-0667": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가위"
   },
   "bk-0669": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "뜨거운 냄비"
   },
   "bk-0670": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사탕"
   },
-  "bk-0672": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "잔디" },
+  "bk-0672": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "잔디"
+  },
   "bk-0677": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "책상"
   },
-  "bk-0678": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "돌멩이" },
+  "bk-0678": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "돌멩이"
+  },
   "bk-0680": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "킥보드"
   },
   "bk-0694": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "손전등"
   },
   "bk-0698": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "놀이터"
   },
   "bk-0699": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "블록탑"
   },
-  "bk-0700": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "노래" },
+  "bk-0700": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "노래"
+  },
   "bk-0702": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "손가락"
   },
   "bk-0703": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "커튼"
   },
   "bk-0708": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "풍선"
   },
   "bk-0709": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "형"
   },
   "bk-0710": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "놀이터"
   },
   "bk-0715": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물"
   },
   "bk-0717": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "수건"
   },
   "bk-0723": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "블록탑"
   },
   "bk-0730": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "도토리"
   },
   "bk-0735": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "블록탑"
   },
   "bk-0747": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "상자"
   },
   "bk-0752": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "동생"
   },
   "bk-0753": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "딸랑이"
   },
   "bk-0754": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "아기"
   },
   "bk-0756": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "이불"
   },
   "bk-0757": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "형"
   },
   "bk-0759": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "동생"
   },
   "bk-0761": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "블록"
   },
   "bk-0762": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "솜사탕"
   },
   "bk-0763": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "형"
   },
   "bk-0764": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가방"
   },
   "bk-0766": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "블록"
   },
   "bk-0768": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "토끼"
   },
   "bk-0770": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "고구마"
   },
   "bk-0776": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꼬리"
   },
   "bk-0777": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "동생"
   },
   "bk-0778": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "두부"
   },
   "bk-0780": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물그릇"
   },
   "bk-0788": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "단풍잎"
   },
-  "bk-0796": { "level": "warn", "why": "못 짚을 만큼 가는 칸이 3개 이상", "word": "베틀" },
+  "bk-0796": {
+    "level": "warn",
+    "ids": ["thin"],
+    "why": "못 짚을 만큼 가는 칸이 3개 이상",
+    "word": "베틀"
+  },
   "bk-0829": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "연"
   },
   "bk-0848": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "새끼줄"
   },
   "bk-0928": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "지게"
   },
   "bk-0942": {
     "level": "warn",
+    "ids": ["thin", "busy"],
     "why": "못 짚을 만큼 가는 칸이 3개 이상 · 칸이 25개 넘는다 — 네 살이 못 끝낸다",
     "word": "베틀"
   },
   "bk-0954": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "짚방석"
   },
-  "bk-0958": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "멍석" },
-  "bk-0973": { "level": "warn", "why": "못 짚을 만큼 가는 칸이 3개 이상", "word": "소달구지" },
-  "bk-0979": { "level": "warn", "why": "못 짚을 만큼 가는 칸이 3개 이상", "word": "초가집" },
+  "bk-0958": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "멍석"
+  },
+  "bk-0973": {
+    "level": "warn",
+    "ids": ["thin"],
+    "why": "못 짚을 만큼 가는 칸이 3개 이상",
+    "word": "소달구지"
+  },
+  "bk-0979": {
+    "level": "warn",
+    "ids": ["thin"],
+    "why": "못 짚을 만큼 가는 칸이 3개 이상",
+    "word": "초가집"
+  },
   "bk-0999": {
     "level": "warn",
+    "ids": ["halfregion"],
     "why": "한 칸이 그림의 절반 이상 — 팔·다리가 몸에 열려 있다",
     "word": "하늘"
   },
   "bk-1112": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "강"
   },
   "bk-1183": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "강아지풀"
   },
   "bk-1184": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꽃"
   },
   "bk-1186": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1188": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "잎"
   },
   "bk-1189": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "줄기"
   },
   "bk-1194": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1195": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "열매"
   },
   "bk-1196": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "이슬"
   },
   "bk-1198": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "줄기"
   },
   "bk-1203": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1209": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "뿌리"
   },
   "bk-1211": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "잎"
   },
   "bk-1214": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가시"
   },
   "bk-1216": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "밤"
   },
   "bk-1219": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "싹"
   },
-  "bk-1221": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "줄기" },
+  "bk-1221": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "줄기"
+  },
   "bk-1230": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사과"
   },
   "bk-1231": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "사과나무"
   },
   "bk-1235": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "줄기"
   },
   "bk-1243": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1251": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "잎"
   },
-  "bk-1256": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "잎" },
+  "bk-1256": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "잎"
+  },
   "bk-1257": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "줄기"
   },
   "bk-1263": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가지"
   },
   "bk-1268": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "새"
   },
   "bk-1270": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "열매"
   },
   "bk-1274": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꽃"
   },
   "bk-1276": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꿀벌"
   },
   "bk-1277": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1278": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "열매"
   },
   "bk-1279": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "잎"
   },
   "bk-1282": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "줄기"
   },
   "bk-1284": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꽃"
   },
   "bk-1288": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "싹"
   },
   "bk-1290": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "참나무"
   },
   "bk-1292": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "보석"
   },
   "bk-1293": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "싹"
   },
   "bk-1294": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "왕관"
   },
   "bk-1295": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "잎"
   },
   "bk-1297": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "가시"
   },
   "bk-1299": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1305": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "껍질"
   },
   "bk-1306": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꽃"
   },
   "bk-1308": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "씨앗"
   },
   "bk-1310": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "줄기"
   },
   "bk-1311": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "포도"
   },
   "bk-1312": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "포도나무"
   },
   "bk-1313": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꽃"
   },
   "bk-1314": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "꿀벌"
   },
   "bk-1316": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물"
   },
   "bk-1317": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "싹"
   },
   "bk-1355": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "귀"
   },
   "bk-1358": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "바다"
   },
   "bk-1372": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "바다"
   },
   "bk-1373": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "발"
   },
-  "bk-1389": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "눈" },
+  "bk-1389": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "눈"
+  },
   "bk-1415": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "촉수"
   },
   "bk-1427": {
     "level": "bad",
+    "ids": ["empty"],
     "why": "칠할 칸이 없다 — 선이 테두리로 열렸다 · 게임에서 뺐다",
     "word": "그물"
   },
   "bk-1567": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "옷"
   },
   "bk-1572": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가방"
   },
   "bk-1573": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "문"
   },
   "bk-1576": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "집"
   },
   "bk-1578": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "블록"
   },
   "bk-1582": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "미끄럼틀"
   },
   "bk-1584": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "북"
   },
   "bk-1586": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "탬버린"
   },
   "bk-1587": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가방"
   },
   "bk-1589": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물통"
   },
   "bk-1590": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "반창고"
   },
   "bk-1593": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "크레파스"
   },
   "bk-1594": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "도토리"
   },
   "bk-1596": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "숟가락"
   },
   "bk-1601": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "옷"
   },
   "bk-1602": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "의자"
   },
   "bk-1603": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "별"
   },
   "bk-1606": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "짝꿍"
   },
   "bk-1608": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "두부"
   },
   "bk-1612": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "비누"
   },
   "bk-1613": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가위"
   },
   "bk-1614": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "가방"
   },
   "bk-1616": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "물통"
   },
   "bk-1690": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "레미콘"
   },
   "bk-1696": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "의자"
   },
   "bk-1701": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바다"
   },
   "bk-1702": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바다"
   },
   "bk-1703": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "누나"
   },
   "bk-1704": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "별"
   },
   "bk-1712": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "책"
   },
   "bk-1713": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "청진기"
   },
   "bk-1714": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "현미경"
   },
   "bk-1715": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "혈관"
   },
   "bk-1719": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "숟가락"
   },
   "bk-1720": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "식도"
   },
   "bk-1723": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "음식"
   },
-  "bk-1726": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "근육" },
-  "bk-1727": { "level": "warn", "why": "칸이 하나뿐 — 한 번 탭하면 끝난다", "word": "뼈" },
+  "bk-1726": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "근육"
+  },
+  "bk-1727": {
+    "level": "warn",
+    "ids": ["onetap"],
+    "why": "칸이 하나뿐 — 한 번 탭하면 끝난다",
+    "word": "뼈"
+  },
   "bk-1730": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "자동차"
   },
   "bk-1731": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "장난감"
   },
   "bk-1732": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "탯줄"
   },
   "bk-1734": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "거품"
   },
   "bk-1737": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "바이러스"
   },
   "bk-1738": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "비누"
   },
   "bk-1740": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "우유"
   },
   "bk-1741": {
     "level": "color",
+    "ids": ["washed"],
     "why": "원본에서 색을 못 읽는다 — 칸 절반 이상이 배경색",
     "word": "유산균"
   }
