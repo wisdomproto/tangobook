@@ -17,6 +17,7 @@ import {
   type Dir,
   type PieceDef,
   type PieceSet,
+  type Terminal,
   type Placement,
   type Rot,
 } from '../lib/puzzle';
@@ -145,6 +146,24 @@ function TokenCell({
       )}
       <title>{label}</title>
     </g>
+  );
+}
+
+/**
+ * 시작·목적지에서 길이 나가는 방향 표시.
+ *
+ * 🔴 칸 **가장자리에 붙는 짧은 꼭지**다. 예전엔 칸 중심에서 그렸는데, 카드 그림 위를
+ *    가로질러 덮어서 방향 표시가 아니라 얼룩으로 보였다.
+ */
+function TerminalStub({ t, color }: { t: Terminal; color: string }) {
+  const [ex, ey] = STUB[t.port];
+  const cx = t.x + ex;
+  const cy = t.y + ey;
+  // 가장자리에서 칸 안쪽으로 조금만 들어온다
+  const ix = t.x + 0.5 + (ex - 0.5) * 0.62;
+  const iy = t.y + 0.5 + (ey - 0.5) * 0.62;
+  return (
+    <line x1={ix} y1={iy} x2={cx} y2={cy} stroke={color} strokeWidth={0.22} strokeLinecap="round" />
   );
 }
 
@@ -350,14 +369,8 @@ export function PathPuzzlePlayer({ challenge: ch, set }: Props) {
 
         <TokenCell {...ch.start} ring="#FF5E3A" />
         <TokenCell {...ch.goal} ring="#3AA87E" />
-        <Pipe
-          cells={[
-            { x: ch.start.x, y: ch.start.y, ports: [ch.start.port] },
-            { x: ch.goal.x, y: ch.goal.y, ports: [ch.goal.port] },
-          ]}
-          color="#B29E8E"
-          opacity={0.7}
-        />
+        <TerminalStub t={ch.start} color="#FF5E3A" />
+        <TerminalStub t={ch.goal} color="#3AA87E" />
 
         {hint && hintLevel >= 1 && (
           <g>

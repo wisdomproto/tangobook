@@ -58,15 +58,13 @@ describe('배치 규칙', () => {
   const ch = CHALLENGES[0];
 
   it('보드 밖으로 나가면 못 놓는다', () => {
-    expect(canPlace(ch, SET, [], { defId: 'straight3', x: 3, y: 0, rot: 0, flip: false })).toBe(
-      false
-    );
+    // step2 는 세로 2칸 — 맨 아랫줄에 놓으면 아래 칸이 판 밖이다
+    expect(canPlace(ch, SET, [], { defId: 'step2', x: 0, y: 4, rot: 0, flip: false })).toBe(false);
   });
 
   it('장애물(늑대) 위에는 못 놓는다', () => {
-    expect(canPlace(ch, SET, [], { defId: 'straight3', x: 1, y: 2, rot: 0, flip: false })).toBe(
-      false
-    );
+    // (2,1)에 놓으면 아래 칸이 늑대가 선 (2,2)다
+    expect(canPlace(ch, SET, [], { defId: 'step2', x: 2, y: 1, rot: 0, flip: false })).toBe(false);
   });
 
   it('이미 놓인 조각과 겹치면 못 놓는다', () => {
@@ -151,10 +149,14 @@ describe('힌트 — 저장된 정답이 아니라 지금 판에서 계산한다
     expect(isSolved(ch, SET, placed)).toBe(true);
   });
 
-  it('길을 막아 놓으면 힌트가 없다 — 빼야 한다는 뜻이다', () => {
-    // 시작 칸 바로 오른쪽을 엉뚱한 방향 조각으로 막는다
-    const blockIt: Placement[] = [{ defId: 'straight3', x: 1, y: 0, rot: 90, flip: false }];
-    const dead = [...blockIt, { defId: 'elbow3', x: 1, y: 1, rot: 90, flip: false } as Placement];
-    if (solve(ch, SET, dead, 1).length === 0) expect(nextHint(ch, SET, dead)).toBeNull();
+  it('엉뚱한 자리에 다 써 버리면 힌트가 없다 — 빼야 한다는 뜻이다', () => {
+    // 길과 상관없는 구석에 두 조각을 다 쓴다. 재고가 없으니 끝까지 갈 수 없다.
+    const dead: Placement[] = [
+      { defId: 'elbow3', x: 2, y: 3, rot: 0, flip: false },
+      { defId: 'step2', x: 0, y: 0, rot: 0, flip: false },
+    ];
+    for (const p of dead) expect(canPlace(ch, SET, dead.slice(0, dead.indexOf(p)), p)).toBe(true);
+    expect(solve(ch, SET, dead, 1)).toHaveLength(0);
+    expect(nextHint(ch, SET, dead)).toBeNull();
   });
 });

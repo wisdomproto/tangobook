@@ -100,7 +100,7 @@ export const CHALLENGES: Challenge[] = [
       { x: 2, y: 0, label: '나무', emoji: '🌳' },
       { x: 1, y: 4, label: '나무', emoji: '🌳' },
     ],
-    inventory: { elbow3: 1, step2: 1, straight3: 1 },
+    inventory: { elbow3: 1, step2: 1 },
   },
   {
     id: 'pigs-brick-house',
@@ -140,7 +140,7 @@ export const CHALLENGES: Challenge[] = [
           'https://assets.tangobook.co.kr/1772108045716-아기돼지삼형제-keyobj-Wood-1783553430196-w800.webp',
       },
     ],
-    inventory: { bend2: 2, z3: 1, straight2: 1 },
+    inventory: { bend2: 2, straight2: 1 },
   },
   {
     id: 'heungbu-bak',
@@ -177,6 +177,6 @@ export const CHALLENGES: Challenge[] = [
         imageUrl: 'https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-yeopjeon.jpg',
       },
     ],
-    inventory: { step2: 2, straight2: 1, elbow3: 1, bend2: 1 },
+    inventory: { step2: 2, elbow3: 1 },
   },
 ];
