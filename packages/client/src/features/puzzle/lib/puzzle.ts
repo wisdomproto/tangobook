@@ -57,15 +57,20 @@ export interface Art {
   emoji?: string;
   imageUrl?: string;
   crop?: Crop;
+  /** 낱말 음원 — 맞히면 들려준다 */
+  ttsUrl?: string;
 }
 
 export interface Terminal extends Art {
   x: number;
   y: number;
-  /** 이 칸에서 길이 나가는 방향 (하나) */
-  port: Dir;
-  /** 낱말 음원 — 맞히면 들려준다 */
-  ttsUrl?: string;
+  /**
+   * 이 칸에서 길이 드나드는 방향. 없으면 **어느 쪽이든** 된다.
+   *
+   * 🔴 실물에서 할머니 집은 **문이 난 쪽**으로만 길이 들어오지만, 빨간모자는 그냥 서 있는
+   *    말이라 어느 방향에서 길이 닿아도 된다. 목적지만 방향이 있다.
+   */
+  port?: Dir;
 }
 
 export interface BlockedCell extends Art {
@@ -85,10 +90,24 @@ export interface Challenge {
   blocked: BlockedCell[];
   /** defId → 이 문제에서 쓸 수 있는 개수 */
   inventory: Record<string, number>;
+  /**
+   * 조각을 뒤집을 수 있는가. 기본 true.
+   *
+   * 🔴 한 면에만 길이 인쇄된 실물 타일은 못 뒤집는다. 뒤집기를 허용하면 같은 문제의 해가
+   *    늘어나 「유일해」가 깨진다.
+   */
+  allowFlip?: boolean;
   book: { id: string; title: string; coverUrl?: string };
 }
 
 export const key = (x: number, y: number) => `${x},${y}`;
+
+export const ALL_DIRS: Dir[] = ['N', 'E', 'S', 'W'];
+
+/** 터미널이 열어 두는 방향들 — port 가 없으면 사방 */
+export const terminalPorts = (t: Terminal): Dir[] => (t.port ? [t.port] : ALL_DIRS);
+
+const flipsFor = (ch: Challenge): boolean[] => (ch.allowFlip === false ? [false] : [false, true]);
 
 // ─── 기하 ───
 
@@ -182,8 +201,8 @@ export function legalAnchors(
 /** 칸 → 그 칸에서 열린 방향들 (조각 + 터미널) */
 export function portMap(ch: Challenge, set: PieceSet, placed: Placement[]): Map<string, Dir[]> {
   const map = new Map<string, Dir[]>();
-  map.set(key(ch.start.x, ch.start.y), [ch.start.port]);
-  map.set(key(ch.goal.x, ch.goal.y), [ch.goal.port]);
+  map.set(key(ch.start.x, ch.start.y), terminalPorts(ch.start));
+  map.set(key(ch.goal.x, ch.goal.y), terminalPorts(ch.goal));
   for (const p of placed) {
     for (const c of placedCells(set[p.defId], p)) map.set(key(c.x, c.y), c.ports);
   }
@@ -282,7 +301,7 @@ export function solve(
     const nx = x + dx;
     const ny = y + dy;
     if (nx === ch.goal.x && ny === ch.goal.y) {
-      if (ch.goal.port !== OPPOSITE[dir]) return;
+      if (!terminalPorts(ch.goal).includes(OPPOSITE[dir])) return;
       // 🔴 해는 **판 위 모습**으로 센다. 조각에 따라 r0 와 r180 이 같은 그림이라,
       //    (rot, flip) 조합으로 세면 같은 답이 4배, 8배로 부풀어 「유일해」가 뜻을 잃는다.
       const sig = boardSignature(ch, set, cur);
@@ -310,7 +329,7 @@ export function solve(
     for (const defId of defIds) {
       if ((left[defId] ?? 0) <= 0) continue;
       for (const rot of ROTS) {
-        for (const flip of [false, true]) {
+        for (const flip of flipsFor(ch)) {
           const shape = transformCells(set[defId].cells, rot, flip);
           for (const anchorCell of shape) {
             // 이 칸이 (nx,ny) 에 오도록 놓았을 때
@@ -336,7 +355,7 @@ export function solve(
     }
   };
 
-  step(ch.start.x, ch.start.y, ch.start.port, [...placed]);
+  for (const d of terminalPorts(ch.start)) step(ch.start.x, ch.start.y, d, [...placed]);
   return results;
 }
 

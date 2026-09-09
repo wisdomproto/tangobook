@@ -8,154 +8,172 @@ import {
   remainingInventory,
   solve,
   type Cell,
+  type Dir,
   type Placement,
 } from './puzzle';
-import { CHALLENGES, CONNECT_PIECES } from '../data/connect-game';
+import { ROAD_PIECES } from '../data/road-pieces';
+import { ROAD_CHALLENGES } from '../data/road-game';
 
-const SET = CONNECT_PIECES;
-const STEP2: Cell[] = SET.step2.cells;
+const SET = ROAD_PIECES;
+const STEP: Cell[] = SET.step.cells;
+/** 다섯 조각을 다 쓰는 문제 — 재고 때문이 아니라 규칙 때문에 막히는지 보려면 이게 필요하다 */
+const FULL = ROAD_CHALLENGES.find((c) => Object.keys(c.inventory).length === 5)!;
 
 describe('transformCells', () => {
   it('90도 돌리면 좌표와 포트가 함께 돈다', () => {
-    expect(transformCells(STEP2, 90, false)).toEqual([
+    expect(transformCells(STEP, 90, false)).toEqual([
       { x: 1, y: 0, ports: ['N', 'W'] },
       { x: 0, y: 0, ports: ['E', 'S'] },
     ]);
   });
 
   it('네 번 돌리면 제자리', () => {
-    expect(transformCells(STEP2, 0, false)).toEqual(
-      transformCells(transformCells(transformCells(STEP2, 90, false), 90, false), 180, false)
+    expect(transformCells(STEP, 0, false)).toEqual(
+      transformCells(transformCells(transformCells(STEP, 90, false), 90, false), 180, false)
     );
   });
 
   it('뒤집으면 E/W 만 바뀐다', () => {
-    expect(transformCells(STEP2, 0, true)).toEqual([
+    expect(transformCells(STEP, 0, true)).toEqual([
       { x: 0, y: 0, ports: ['E', 'S'] },
       { x: 0, y: 1, ports: ['N', 'W'] },
     ]);
   });
 });
 
-describe('고정 세트', () => {
+describe('길 조각 세트', () => {
   it('1×1 조각은 없다 — 실물에서 아이가 집기 어렵다(기획서 §6)', () => {
     for (const def of Object.values(SET)) expect(def.cells.length).toBeGreaterThanOrEqual(2);
   });
 
   it('모든 조각은 열린 끝이 정확히 2개다 — solver 가 이 전제 위에 있다', () => {
+    const d: Record<Dir, [number, number]> = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] };
     for (const def of Object.values(SET)) {
       const inside = new Set(def.cells.map((c) => `${c.x},${c.y}`));
-      const d: Record<string, [number, number]> = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] };
       const open = def.cells.flatMap((c) =>
         c.ports.filter((p) => !inside.has(`${c.x + d[p][0]},${c.y + d[p][1]}`))
       );
       expect({ id: def.id, open: open.length }).toEqual({ id: def.id, open: 2 });
     }
   });
+
+  it('모퉁이 길에는 길이 없는 칸이 있다 — 자리만 차지한다', () => {
+    expect(SET.corner.cells.filter((c) => c.ports.length === 0)).toHaveLength(1);
+  });
+
+  it('되돌아 길은 두 끝이 같은 쪽을 본다', () => {
+    expect(SET.uturn.cells.flatMap((c) => c.ports).filter((p) => p === 'E')).toHaveLength(2);
+  });
 });
 
 describe('배치 규칙', () => {
-  const ch = CHALLENGES[0];
-
   it('보드 밖으로 나가면 못 놓는다', () => {
-    // step2 는 세로 2칸 — 맨 아랫줄에 놓으면 아래 칸이 판 밖이다
-    expect(canPlace(ch, SET, [], { defId: 'step2', x: 0, y: 4, rot: 0, flip: false })).toBe(false);
-  });
-
-  it('장애물(늑대) 위에는 못 놓는다', () => {
-    // (2,1)에 놓으면 아래 칸이 늑대가 선 (2,2)다
-    expect(canPlace(ch, SET, [], { defId: 'step2', x: 2, y: 1, rot: 0, flip: false })).toBe(false);
-  });
-
-  it('이미 놓인 조각과 겹치면 못 놓는다', () => {
-    const placed: Placement[] = [{ defId: 'elbow3', x: 1, y: 1, rot: 0, flip: false }];
-    expect(canPlace(ch, SET, placed, { defId: 'step2', x: 1, y: 1, rot: 0, flip: false })).toBe(
+    // 곧은 길은 가로 2칸 — 맨 오른쪽 열에 놓으면 한 칸이 판 밖이다
+    expect(canPlace(FULL, SET, [], { defId: 'straight', x: 3, y: 0, rot: 0, flip: false })).toBe(
       false
     );
   });
 
-  it('놓을 수 있는 자리를 전부 찾아 준다', () => {
-    const anchors = legalAnchors(ch, SET, [], 'step2', 0, false);
-    expect(anchors).toContainEqual({ x: 3, y: 1 });
+  it('나무 위에는 못 놓는다', () => {
+    const tree = FULL.blocked[0];
+    // 어느 조각이든 첫 칸이 나무 자리에 오면 막힌다
+    for (const defId of Object.keys(FULL.inventory)) {
+      expect(canPlace(FULL, SET, [], { defId, x: tree.x, y: tree.y, rot: 0, flip: false })).toBe(
+        false
+      );
+    }
+  });
+
+  it('이미 놓인 조각과 겹치면 못 놓는다', () => {
+    const [sol] = solve(FULL, SET, [], 1);
+    expect(canPlace(FULL, SET, [sol[0]], sol[0])).toBe(false);
+  });
+
+  it('놓을 수 있는 자리는 전부 규칙을 지킨다', () => {
+    const anchors = legalAnchors(FULL, SET, [], 'straight', 0, false);
+    expect(anchors.length).toBeGreaterThan(0);
     expect(
-      anchors.every((a) => canPlace(ch, SET, [], { defId: 'step2', ...a, rot: 0, flip: false }))
+      anchors.every((a) =>
+        canPlace(FULL, SET, [], { defId: 'straight', ...a, rot: 0, flip: false })
+      )
     ).toBe(true);
   });
 });
 
 describe('유한 재고 (기획서 §21)', () => {
-  const ch = CHALLENGES[1]; // bend2 × 2
-
   it('놓으면 줄고 빼면 돌아온다', () => {
-    expect(remainingInventory(ch, []).bend2).toBe(2);
-    const one: Placement[] = [{ defId: 'bend2', x: 1, y: 1, rot: 0, flip: false }];
-    expect(remainingInventory(ch, one).bend2).toBe(1);
-    expect(remainingInventory(ch, []).bend2).toBe(2);
+    const [sol] = solve(FULL, SET, [], 1);
+    const first = sol[0];
+    expect(remainingInventory(FULL, [])[first.defId]).toBe(1);
+    expect(remainingInventory(FULL, [first])[first.defId]).toBe(0);
+    expect(remainingInventory(FULL, [])[first.defId]).toBe(1);
   });
 
   it('재고가 바닥나면 더 못 놓는다 — 무한 팔레트가 아니다', () => {
-    const two: Placement[] = [
-      { defId: 'bend2', x: 1, y: 1, rot: 0, flip: false },
-      { defId: 'bend2', x: 2, y: 2, rot: 270, flip: true },
-    ];
-    expect(remainingInventory(ch, two).bend2).toBe(0);
-    expect(canPlace(ch, SET, two, { defId: 'bend2', x: 0, y: 4, rot: 0, flip: false })).toBe(false);
-    // 재고가 남은 다른 조각은 여전히 놓인다
-    expect(canPlace(ch, SET, two, { defId: 'straight2', x: 3, y: 3, rot: 0, flip: false })).toBe(
-      true
-    );
+    const [sol] = solve(FULL, SET, [], 1);
+    const first = sol[0];
+    // 같은 종류를 하나 더 놓으려 하면 자리와 무관하게 막힌다
+    const anywhere = legalAnchors(FULL, SET, [], first.defId, 0, false)[0];
+    expect(
+      canPlace(FULL, SET, [first], { defId: first.defId, ...anywhere, rot: 0, flip: false })
+    ).toBe(false);
   });
 });
 
-describe('solver — 문제가 실제로 풀리는가 (기획서 §13 · §22.6)', () => {
-  it.each(CHALLENGES.map((c) => [c.id, c] as const))(
-    '%s — 주어진 재고 안에서 해가 있고, 그 해가 판정을 통과한다',
+describe('문제 — 전부 유일해인가 (기획서 §13 · §22.6)', () => {
+  it.each(ROAD_CHALLENGES.map((c) => [c.id, c] as const))(
+    '%s — 해가 정확히 하나이고, 그 해가 판정을 통과한다',
     (_id, ch) => {
-      const sols = solve(ch, SET, [], 10);
-      expect(sols.length).toBeGreaterThan(0);
-      for (const s of sols) expect(isSolved(ch, SET, s)).toBe(true);
-      // 해가 지나치게 많으면 퍼즐이 아니다(§22.6 Branching Quality)
-      expect(sols.length).toBeLessThanOrEqual(6);
+      const sols = solve(ch, SET, [], 3);
+      expect(sols).toHaveLength(1);
+      expect(isSolved(ch, SET, sols[0])).toBe(true);
+      // 재고를 남김없이 쓴다 — 문제가 주는 조각이 곧 답에 드는 조각이다
+      const need = Object.values(ch.inventory).reduce((a, b) => a + b, 0);
+      expect(sols[0]).toHaveLength(need);
     }
   );
 
-  it.each(CHALLENGES.map((c) => [c.id, c] as const))('%s — 빈 판은 안 풀린다', (_id, ch) => {
+  it.each(ROAD_CHALLENGES.map((c) => [c.id, c] as const))('%s — 빈 판은 안 풀린다', (_id, ch) => {
     expect(isSolved(ch, SET, [])).toBe(false);
   });
 
   it('한 조각만 빠져도 안 풀린다', () => {
-    const ch = CHALLENGES[0];
-    const [sol] = solve(ch, SET, [], 1);
-    expect(isSolved(ch, SET, sol.slice(0, -1))).toBe(false);
+    for (const ch of ROAD_CHALLENGES) {
+      const [sol] = solve(ch, SET, [], 1);
+      expect(isSolved(ch, SET, sol.slice(0, -1))).toBe(false);
+    }
+  });
+
+  it('뒤집기를 허용하면 유일해가 깨지는 문제가 있다 — 그래서 세트가 allowFlip:false 다', () => {
+    const loosened = ROAD_CHALLENGES.map((c) => ({ ...c, allowFlip: true }));
+    const extra = loosened.filter((c) => solve(c, SET, [], 3).length > 1);
+    expect(extra.length).toBeGreaterThan(0);
   });
 });
 
 describe('힌트 — 저장된 정답이 아니라 지금 판에서 계산한다 (기획서 §12)', () => {
-  const ch = CHALLENGES[0];
-
-  it('빈 판에서는 첫 조각을 알려 준다', () => {
-    const h = nextHint(ch, SET, []);
-    expect(h).not.toBeNull();
-    expect(canPlace(ch, SET, [], h!)).toBe(true);
-  });
-
-  it('힌트만 따라가면 끝까지 풀린다', () => {
-    const placed: Placement[] = [];
-    for (let i = 0; i < 6; i++) {
-      const h = nextHint(ch, SET, placed);
-      if (!h) break;
-      placed.push(h);
+  it('힌트만 따라가면 모든 문제가 풀린다', () => {
+    for (const ch of ROAD_CHALLENGES) {
+      const placed: Placement[] = [];
+      for (let i = 0; i < 8; i++) {
+        const h = nextHint(ch, SET, placed);
+        if (!h) break;
+        expect(canPlace(ch, SET, placed, h)).toBe(true);
+        placed.push(h);
+      }
+      expect({ id: ch.id, solved: isSolved(ch, SET, placed) }).toEqual({ id: ch.id, solved: true });
     }
-    expect(isSolved(ch, SET, placed)).toBe(true);
   });
 
   it('엉뚱한 자리에 다 써 버리면 힌트가 없다 — 빼야 한다는 뜻이다', () => {
-    // 길과 상관없는 구석에 두 조각을 다 쓴다. 재고가 없으니 끝까지 갈 수 없다.
-    const dead: Placement[] = [
-      { defId: 'elbow3', x: 2, y: 3, rot: 0, flip: false },
-      { defId: 'step2', x: 0, y: 0, rot: 0, flip: false },
-    ];
-    for (const p of dead) expect(canPlace(ch, SET, dead.slice(0, dead.indexOf(p)), p)).toBe(true);
+    const ch = ROAD_CHALLENGES.find((c) => Object.keys(c.inventory).length === 1)!;
+    const defId = Object.keys(ch.inventory)[0];
+    const [sol] = solve(ch, SET, [], 1);
+    // 정답이 아닌 자리를 하나 골라 하나뿐인 조각을 거기에 쓴다
+    const wrong = legalAnchors(ch, SET, [], defId, sol[0].rot, false).find(
+      (a) => a.x !== sol[0].x || a.y !== sol[0].y
+    )!;
+    const dead: Placement[] = [{ defId, ...wrong, rot: sol[0].rot, flip: false }];
     expect(solve(ch, SET, dead, 1)).toHaveLength(0);
     expect(nextHint(ch, SET, dead)).toBeNull();
   });

@@ -86,7 +86,10 @@ function PieceShape({
       <g stroke={color} strokeWidth={0.22} strokeLinecap="round" fill="none">
         {cells.map((c) => (
           <g key={`pipe-${key(c.x, c.y)}`}>
-            <circle cx={c.x + 0.5} cy={c.y + 0.5} r={0.11} fill={color} stroke="none" />
+            {/* 길이 없는 칸(모퉁이 길의 풀밭)에는 점을 찍지 않는다 */}
+            {c.ports.length > 0 && (
+              <circle cx={c.x + 0.5} cy={c.y + 0.5} r={0.11} fill={color} stroke="none" />
+            )}
             {c.ports.map((d) => (
               <line
                 key={d}
@@ -241,7 +244,7 @@ function TokenArt({ x, y, art, ring }: { x: number; y: number; art: Art; ring: s
  *    덮었고, 방향 표시가 아니라 얼룩으로 보였다.
  */
 function TerminalStub({ t, color }: { t: Terminal; color: string }) {
-  const [ex, ey] = STUB[t.port];
+  const [ex, ey] = STUB[t.port!];
   return (
     <line
       x1={t.x + 0.5 + (ex - 0.5) * 0.62}
@@ -494,8 +497,8 @@ export function PathPuzzlePlayer({ challenge: ch, set }: Props) {
 
           <TokenArt x={ch.start.x} y={ch.start.y} art={ch.start} ring="#FF5E3A" />
           <TokenArt x={ch.goal.x} y={ch.goal.y} art={ch.goal} ring="#3AA87E" />
-          <TerminalStub t={ch.start} color="#FF5E3A" />
-          <TerminalStub t={ch.goal} color="#3AA87E" />
+          {ch.start.port && <TerminalStub t={ch.start} color="#FF5E3A" />}
+          {ch.goal.port && <TerminalStub t={ch.goal} color="#3AA87E" />}
 
           {hint && hintLevel >= 1 && (
             <g>
@@ -585,14 +588,16 @@ export function PathPuzzlePlayer({ challenge: ch, set }: Props) {
         >
           ↻ 돌리기
         </button>
-        <button
-          type="button"
-          onClick={() => turn('flip')}
-          disabled={!activeDef}
-          className="min-h-[44px] rounded-xl border-2 border-ink-200 bg-white px-4 font-bold text-ink-700 disabled:opacity-40"
-        >
-          ⇄ 뒤집기
-        </button>
+        {ch.allowFlip !== false && (
+          <button
+            type="button"
+            onClick={() => turn('flip')}
+            disabled={!activeDef}
+            className="min-h-[44px] rounded-xl border-2 border-ink-200 bg-white px-4 font-bold text-ink-700 disabled:opacity-40"
+          >
+            ⇄ 뒤집기
+          </button>
+        )}
         <button
           type="button"
           onClick={takeBack}
