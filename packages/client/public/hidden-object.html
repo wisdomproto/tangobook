@@ -328,8 +328,8 @@
   el('en').onclick = function () { lang = 'en'; el('en').className = 'on'; el('ko').className = ''; renderRail(); };
 
   Promise.all([
-    fetch('/hidden-object-plan-data.json').then(function (r) { return r.json(); }),
-    fetch('/hidden-object-hotspots.json').then(function (r) { return r.json(); }),
+    fetch('/hidden-object-plan-data.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
+    fetch('/hidden-object-hotspots.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
     fetch('/api/comic-assets/' + DOC).then(function (r) { return r.json(); }).catch(function () { return {}; })
   ]).then(function (res) {
     var cells = [];

@@ -80,7 +80,9 @@ export default function ColoringDemoPage() {
   const [start, setStart] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch('/coloring/manifest.json')
+    // 🔴 `public/` 는 7일 캐시라 목록을 고쳐도 일주일 동안 안 간다.
+    //    `no-cache` = 매번 물어보되 안 바뀌었으면 304 — 바이트는 안 쓰고 최신은 보장한다.
+    fetch('/coloring/manifest.json', { cache: 'no-cache' })
       .then((r) => r.json())
       .then(setItems)
       .catch(() => setItems([]));

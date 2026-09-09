@@ -830,7 +830,7 @@
         }
 
         Promise.all([
-          fetch('/hidden-object-plan-data.json').then(function (r) {
+          fetch('/hidden-object-plan-data.json', { cache: 'no-cache' }).then(function (r) {
             return r.json();
           }),
           fetch(API)
@@ -840,7 +840,7 @@
             .catch(function () {
               return {};
             }),
-          fetch('/hidden-object-hotspots.json')
+          fetch('/hidden-object-hotspots.json', { cache: 'no-cache' })
             .then(function (r) {
               return r.json();
             })

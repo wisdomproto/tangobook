@@ -437,9 +437,9 @@
   document.getElementById('todo').addEventListener('change', function () { shown = PAGE; render(); });
 
   Promise.all([
-    fetch('/coloring-plan-data.json').then(function (r) { return r.json(); }),
+    fetch('/coloring-plan-data.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
     fetch(API).then(function (r) { return r.json(); }).catch(function () { return {}; }),
-    fetch('/coloring-plan-flags.json').then(function (r) { return r.json(); }).catch(function () { return {}; }),
+    fetch('/coloring-plan-flags.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).catch(function () { return {}; }),
   ]).then(function (res) {
     data = res[0];
     assets = (res[1] && res[1].data) || {};
