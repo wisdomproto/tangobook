@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface ImageLightboxProps {
   src: string;
@@ -15,7 +16,9 @@ export function ImageLightbox({ src, alt, onClose }: ImageLightboxProps) {
     return () => document.removeEventListener('keydown', handleEsc);
   }, [onClose]);
 
-  return (
+  // 🔴 body 로 포털 — transform 이 걸린 조상(정렬 카드) 안에서는 fixed 가 그 카드 기준이 되고
+  //    조상의 opacity 까지 상속받아 확대 이미지가 반투명해진다.
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onClose}>
       <div className="fixed inset-0 bg-black/80" />
       <div className="relative max-w-[90vw] max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
@@ -27,6 +30,7 @@ export function ImageLightbox({ src, alt, onClose }: ImageLightboxProps) {
         </button>
         <img src={src} alt={alt ?? ''} className="max-w-full max-h-[90vh] rounded-lg shadow-2xl" />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
