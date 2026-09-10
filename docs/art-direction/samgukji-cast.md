@@ -450,7 +450,10 @@ COSTUME: a court official's dark robe, correct in every fold.
 ## Diaochan
 
 ```
-DIAOCHAN - the young woman who walks into it on her own feet. SHOULDERS = 1.1 head-widths.
+DIAOCHAN - the sixteen-year-old girl who walks into it on her own feet. SHOULDERS = 1.1 head-widths.
+🔴 SHE IS THE MOST BEAUTIFUL FACE IN THIS BOOK AND THAT HAS TO SHOW - the plot of volume 4 is two
+  warlords both losing their heads over her, and a reader who cannot see why is reading a story with a
+  hole in it. 🔴 BEAUTIFUL BUT STILL A CHILD: never a grown woman, never posed for the viewer.
 🔴 FACE: THE ONLY PAINTED FACE IN THIS BOOK - colour at the outer eye and on the lips, and nowhere
   else on any other figure, man or woman. Oval, with the chin drawn to a soft point.
 HAIR: gathered high with two pins; two strands left down in front of the ears.
