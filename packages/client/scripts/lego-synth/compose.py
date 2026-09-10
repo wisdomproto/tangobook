@@ -87,19 +87,26 @@ def render(bgname, cho, jung, jong, gap, ox, oy, rng):
     c = cell_at(bg, oy)
     pc = pick(cho); pv = pick(jung); pj = pick(jong) if jong else None
     if not pc or not pv or (jong and not pj): return None
-    imc = piece_img(pc, c / pc['cell']); hc, wc = imc.shape[:2]
+    render.used = [pc['id'], pv['id']] + ([pj['id']] if pj else [])
+    # 🔴 the piece's own cell comes from its size, not from the source frame's fitted line —
+    #    the line at the piece's row was off by up to 25% and a 4x5 ㄹ came out 3.8 cells tall.
+    #    Footprint cells are exact; side walls add the same ~10% to every piece.
+    def src_cell(pz):
+        fw, fh = FOOT[pz['ch']]
+        return (pz['w'] / fw + pz['h'] / fh) / 2
+    imc = piece_img(pc, c / src_cell(pc)); hc, wc = imc.shape[:2]
     if not blit(canvas, imc, ox, oy): return None
     g = gap * c
     if jung in VERT:
-        imv = piece_img(pv, c / pv['cell']); hv, wv = imv.shape[:2]
+        imv = piece_img(pv, c / src_cell(pv)); hv, wv = imv.shape[:2]
         if not blit(canvas, imv, ox + wc + g, oy): return None
         bottom = oy + max(hc, hv)
     else:
-        c2 = cell_at(bg, oy + hc); imv = piece_img(pv, c2 / pv['cell']); hv, wv = imv.shape[:2]
+        c2 = cell_at(bg, oy + hc); imv = piece_img(pv, c2 / src_cell(pv)); hv, wv = imv.shape[:2]
         if not blit(canvas, imv, ox, oy + hc + g): return None
         bottom = oy + hc + g + hv
     if jong:
-        c3 = cell_at(bg, bottom); imj = piece_img(pj, c3 / pj['cell']); hj, wj = imj.shape[:2]
+        c3 = cell_at(bg, bottom); imj = piece_img(pj, c3 / src_cell(pj)); hj, wj = imj.shape[:2]
         if not blit(canvas, imj, ox, bottom + g): return None
     return canvas
 
@@ -135,7 +142,7 @@ def main():
         word = compose_syl(cho, jung, jong)
         name = f'c{len(cases):03d}_g{gap}_{word}.jpg'
         cv2.imencode('.jpg', fr, [cv2.IMWRITE_JPEG_QUALITY, 90])[1].tofile(os.path.join(out, name))
-        cases.append({'file': name, 'word': word, 'gap': gap, 'items': [cho, jung, jong], 'bg': bgname, 'ox': ox, 'oy': oy,
+        cases.append({'file': name, 'word': word, 'gap': gap, 'items': [cho, jung, jong], 'pieces': render.used, 'bg': bgname, 'ox': ox, 'oy': oy,
                       'kind': ('vert' if jung in VERT else 'horz') + ('+jong' if jong else '')})
     json.dump(cases, open(os.path.join(out, 'cases.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('cases', len(cases), 'lib', {k: len(v) for k, v in LIB.items()})
