@@ -3,7 +3,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { resolveTtsUrl } from '@/features/tts';
-import { playUi, playNote } from '@/lib/uiSound';
+import { playUi, playNote, feedDrawLoop, stopDrawLoop } from '@/lib/uiSound';
 import { buildWalls, labelRegions, paintableRegions, borderRegions } from '@tangobook/shared';
 import {
   boundsOf,
@@ -57,6 +57,17 @@ interface ColoringPlayerProps {
   items: ColoringItem[];
   onBack?: () => void;
 }
+
+/**
+ * 손으로 칠한 넓이가 이만큼이면 그 칸을 다 칠한 것으로 본다.
+ *
+ * 🔴 글자 쓰기(`LetterFillCanvas`)는 99%를 요구한다 — 획을 빠뜨렸는지 보는 채점이라 그렇다.
+ *    색칠은 채점이 아니라 **칠하는 일**이라 같은 기준을 쓰면 가장자리를 문지르는 노동이 된다.
+ *    60%면 「이 칸을 칠했다」가 분명하고, 남은 가장자리는 코드가 채워 그림이 깔끔하게 끝난다.
+ */
+const FILL_THRESHOLD = 0.6;
+/** 붓 굵기 — 그림 짧은 변의 비율. 손가락으로도 몇 번이면 칸이 차야 한다. */
+const BRUSH_RATIO = 0.055;
 
 /** 힌트로 덧칠하는 진하기 — 원래 색을 알아볼 만큼은 보이되 다 칠한 칸과는 구분돼야 한다. */
 const HINT_ALPHA = 0.5;
@@ -172,6 +183,20 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
   const lineImgRef = useRef<HTMLImageElement | null>(null);
   const labelsRef = useRef<Int32Array | null>(null);
   const requiredRef = useRef<number[]>([]);
+  /** 칸별 넓이(픽셀). 얼마나 칠했는지 재려면 분모가 있어야 한다. */
+  const sizesRef = useRef<number[]>([]);
+  /** 칸별로 지금까지 손으로 칠한 픽셀 수. */
+  const coveredRef = useRef<Map<number, number>>(new Map());
+  /** 붓이 지나간 마지막 자리 — 빠르게 그으면 점이 띄엄띄엄 찍혀서 선을 이어 준다. */
+  const lastPtRef = useRef<{ x: number; y: number } | null>(null);
+  /**
+   * 손이 지나간 픽셀 표시.
+   *
+   * 🔴 **알파로는 못 센다** — 흰 종이를 `fill(255)` 로 깔아서 **모든 픽셀이 이미 알파 255**다.
+   *    그걸 「이미 칠함」으로 읽으면 붓이 한 점도 안 먹는다(실측: 화면이 그대로였다).
+   *    색을 비교하는 것도 흰 물감(백조)에서 무너진다. 지나간 자리는 따로 적는다.
+   */
+  const strokeMaskRef = useRef<Uint8Array | null>(null);
   const colorOfRegionRef = useRef<Map<number, string>>(new Map());
   const paintedRef = useRef<Set<number>>(new Set());
   const paintRef = useRef<ImageData | null>(null);
@@ -248,6 +273,9 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
 
       labelsRef.current = regions.labels;
       requiredRef.current = required;
+      sizesRef.current = regions.sizes;
+      coveredRef.current = new Map();
+      strokeMaskRef.current = new Uint8Array(w * h);
       colorOfRegionRef.current = colorOfRegion;
       lineImgRef.current = line;
 
@@ -326,8 +354,17 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
     playCorrectSequence({ ttsUrl, language: item.language === 'english' ? 'en' : 'ko' });
   }, [item, playCorrectSequence]);
 
-  const handleTap = useCallback(
-    (clientX: number, clientY: number) => {
+  /**
+   * 손으로 칠한다 — **누르면 그 칸이 차던 것을 붓질로 바꿨다**(2026-09-10 사용자).
+   *
+   * 🔴 탭 한 번에 칸이 차면 그건 색칠이 아니라 **순서대로 누르기**다. 아이가 하는 일이
+   *    「어디를 누를까」뿐이라 손이 하는 일이 없다.
+   * 🔴 대신 붓은 **고른 물감의 칸 안에서만 먹는다.** 밖으로 나가도 벌은 없고 그냥 안 칠해질 뿐이라,
+   *    선 밖으로 나가지 않으려고 애쓸 필요가 없다 — 선을 지키는 건 아이가 아니라 코드다.
+   *    (`WordFillCanvas` 가 지금 쓸 칸만 `clip` 으로 먹게 한 것과 같은 규칙.)
+   */
+  const paintStroke = useCallback(
+    (clientX: number, clientY: number, first: boolean) => {
       const canvas = canvasRef.current;
       const labels = labelsRef.current;
       const paint = paintRef.current;
@@ -335,54 +372,109 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
       if (!canvas || !labels || !paint || !entry || doneRef.current) return;
 
       const rect = canvas.getBoundingClientRect();
-      const x = Math.floor((clientX - rect.left) * (canvas.width / rect.width));
-      const y = Math.floor((clientY - rect.top) * (canvas.height / rect.height));
-      if (x < 0 || y < 0 || x >= canvas.width || y >= canvas.height) return;
+      const W = canvas.width;
+      const H = canvas.height;
+      const x = (clientX - rect.left) * (W / rect.width);
+      const y = (clientY - rect.top) * (H / rect.height);
+      if (x < 0 || y < 0 || x >= W || y >= H) return;
 
-      const id = labels[y * canvas.width + x];
-      if (id === 0 || paintedRef.current.has(id)) return; // 선 위이거나 이미 칠한 칸
-
-      const target = colorOfRegionRef.current.get(id);
-      if (!target) return; // 셈에서 뺀 티끌 칸 — 조용히 무시
-
-      // 🔴 다른 색 칸이면 **아무 벌도 주지 않는다.** 그 칸의 물감이 통통 튀어 알려 줄 뿐.
-      //    소리도 오답음(`playIncorrect`)을 쓰지 않는다 — 여기선 틀린 게 아니라 "거기 말고 여기"다.
-      //    음높이를 낮춰 낸 평범한 탭이면 아이가 "안 됐네"를 알아듣고도 혼난 기분은 안 든다.
-      if (target !== entry.color) {
-        playUi('toggle', 0.85);
-        setBounce(target);
-        if (bounceTimerRef.current != null) window.clearTimeout(bounceTimerRef.current);
-        bounceTimerRef.current = window.setTimeout(() => setBounce(null), 900);
-        return;
-      }
+      const radius = Math.max(6, Math.round(Math.min(W, H) * BRUSH_RATIO));
+      const from = first ? { x, y } : (lastPtRef.current ?? { x, y });
+      lastPtRef.current = { x, y };
 
       const r = parseInt(entry.color.slice(1, 3), 16);
       const g = parseInt(entry.color.slice(3, 5), 16);
       const b = parseInt(entry.color.slice(5, 7), 16);
       const data = paint.data;
-      for (let i = 0; i < labels.length; i++) {
-        if (labels[i] !== id) continue;
-        const o = i * 4;
-        data[o] = r;
-        data[o + 1] = g;
-        data[o + 2] = b;
-        data[o + 3] = 255;
+      const mask = strokeMaskRef.current;
+      if (!mask) return;
+      const covered = coveredRef.current;
+      const touched = new Set<number>();
+      let painted = 0;
+
+      const stamp = (cx: number, cy: number) => {
+        const x0 = Math.max(0, Math.floor(cx - radius));
+        const x1 = Math.min(W - 1, Math.ceil(cx + radius));
+        const y0 = Math.max(0, Math.floor(cy - radius));
+        const y1 = Math.min(H - 1, Math.ceil(cy + radius));
+        for (let py = y0; py <= y1; py++) {
+          for (let px = x0; px <= x1; px++) {
+            const dx = px - cx;
+            const dy = py - cy;
+            if (dx * dx + dy * dy > radius * radius) continue;
+            const i = py * W + px;
+            const id = labels[i];
+            if (id === 0 || paintedRef.current.has(id)) continue;
+            if (colorOfRegionRef.current.get(id) !== entry.color) continue;
+            if (mask[i]) continue; // 이미 지나간 픽셀은 두 번 안 센다
+            mask[i] = 1;
+            const o = i * 4;
+            data[o] = r;
+            data[o + 1] = g;
+            data[o + 2] = b;
+            data[o + 3] = 255;
+            covered.set(id, (covered.get(id) ?? 0) + 1);
+            touched.add(id);
+            painted++;
+          }
+        }
+      };
+
+      // 🔴 빠르게 그으면 점이 띄엄띄엄 찍힌다 — 지난 자리에서 여기까지 이어 찍는다.
+      const dist = Math.hypot(x - from.x, y - from.y);
+      const steps = Math.max(1, Math.ceil(dist / (radius * 0.5)));
+      for (let step = 1; step <= steps; step++) {
+        stamp(from.x + ((x - from.x) * step) / steps, from.y + ((y - from.y) * step) / steps);
       }
-      paintedRef.current.add(id);
+
+      if (painted === 0) {
+        // 🔴 누른 데가 **다른 색 칸**이면 그 물감이 통통 튀어 알려 준다 — 벌은 없다.
+        if (first) {
+          const id = labels[Math.floor(y) * W + Math.floor(x)];
+          const target = id ? colorOfRegionRef.current.get(id) : undefined;
+          if (target && target !== entry.color) {
+            playUi('toggle', 0.85);
+            setBounce(target);
+            if (bounceTimerRef.current != null) window.clearTimeout(bounceTimerRef.current);
+            bounceTimerRef.current = window.setTimeout(() => setBounce(null), 900);
+          }
+        }
+        return;
+      }
+
+      feedDrawLoop(); // 칠하는 동안 연필 소리 (`stopDrawLoop` 은 손을 떼면)
+
+      // 충분히 칠한 칸은 **남은 가장자리를 코드가 채운다** — 아이가 테두리를 문지르게 두지 않는다.
+      let completed = 0;
+      for (const id of touched) {
+        const size = sizesRef.current[id] ?? 0;
+        if (!size || (covered.get(id) ?? 0) / size < FILL_THRESHOLD) continue;
+        for (let i = 0; i < labels.length; i++) {
+          if (labels[i] !== id) continue;
+          const o = i * 4;
+          data[o] = r;
+          data[o + 1] = g;
+          data[o + 2] = b;
+          data[o + 3] = 255;
+        }
+        paintedRef.current.add(id);
+        completed++;
+      }
+
       render();
       setTick((t) => t + 1);
+      if (completed === 0) return;
 
       const total = requiredRef.current.length;
       const filled = requiredRef.current.filter((rid) => paintedRef.current.has(rid)).length;
       const colorCleared = entry.regionIds.every((rid) => paintedRef.current.has(rid));
 
       // 🔴 **칸을 채울 때마다 도레미파솔라시도 한 음씩.** 칸이 몇 개든 진행률에 음계를 얹으므로
-      //    첫 칸이 낮은 도, 마지막 칸이 높은 도로 **항상 한 옥타브가 완성된다**. 칸 수에 맞춰
-      //    음을 하나씩 세면 칸 3개짜리는 미에서 끝나고 14개짜리는 두 옥타브를 올라가 날카로워진다.
-      //    (예전엔 같은 mp3 를 배속으로 올렸는데, 그러면 음과 함께 **길이도 줄어** 소리가 잘린 느낌이 났다.)
+      //    첫 칸이 낮은 도, 마지막 칸이 높은 도로 **항상 한 옥타브가 완성된다**.
       playNote(((filled - 1) / Math.max(1, total - 1)) * 7, filled >= total ? 0.65 : 0.5);
 
       if (filled >= total) {
+        stopDrawLoop();
         finish();
         return;
       }
@@ -403,6 +495,9 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
     if (!paint) return;
     paint.data.fill(255);
     paintedRef.current = new Set();
+    coveredRef.current = new Map();
+    strokeMaskRef.current?.fill(0);
+    lastPtRef.current = null;
     doneRef.current = false;
     setDone(false);
     setRevealed(false);
@@ -438,24 +533,12 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
         </button>
       </div>
 
-      {/* 🔴 **왼쪽 정답 · 오른쪽 색칠** — 종이 색칠공부 책이 원래 이 모양이고, 아이가 "무슨 색인지"를
-          반짝임 하나로만 알아내야 하는 것보다 훨씬 분명하다(사용자 지적). 세로 화면에선 위/아래.
-          정답 그림은 작게 둔다 — 주인공은 아이가 칠하는 쪽이다. */}
-      {/* 🔴 `landscape:` 는 쓰지 않는다 — 이 저장소는 `theme.extend.screens.short:{raw}` 때문에
+      {/* 🔴 **원본 삽화는 칠하는 동안 안 보여 준다**(2026-09-10 사용자). 옆에 완성본을 띄워 두면
+          아이가 보는 것은 자기 그림이 아니라 남의 그림이고, 색은 물감통과 반짝이는 칸이 이미 말해 준다.
+          다 칠하면 그 자리에서 삽화로 바뀐다 — 끝에 한 번 보는 게 상이다.
+          🔴 `landscape:` 는 쓰지 않는다 — 이 저장소는 `theme.extend.screens.short:{raw}` 때문에
           변형이 조용히 안 만들어진 전례가 있다(`max-*`). 검증된 컨벤션인 모바일 base + `sm:` 로. */}
       <div className="flex-1 min-h-0 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-3">
-        <div className="shrink-0 flex flex-col items-center gap-1">
-          <span className="text-sm sm:text-base font-bold text-ink-500 break-keep">
-            이렇게 칠해요
-          </span>
-          <img
-            src={item.colorSourceUrl}
-            alt={`${item.word} 정답`}
-            className="block aspect-square h-[13vh] w-auto sm:h-auto sm:w-[26vw] sm:max-w-[280px] rounded-2xl border-4 border-peach-200 bg-white shadow-soft"
-            draggable={false}
-          />
-        </div>
-
         {/* 🔴 정사각을 **세로에선 폭으로, 가로에선 높이로** 잡는다. `aspect-square h-full` 하나로 두면
             세로 화면에서 `h-full` 이 이겨 그림이 455×864 로 늘어난다(도안이 찌그러져 보인다). */}
         <div className="relative aspect-square w-full sm:w-auto sm:h-full max-w-full max-h-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop">
@@ -465,7 +548,22 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
             style={{ touchAction: 'none', opacity: ready ? 1 : 0 }}
             onPointerDown={(e: ReactPointerEvent<HTMLCanvasElement>) => {
               e.preventDefault();
-              handleTap(e.clientX, e.clientY);
+              // 🔴 포인터를 이 캔버스에 묶는다 — 손이 그림 밖으로 나갔다 돌아와도 획이 안 끊긴다.
+              e.currentTarget.setPointerCapture(e.pointerId);
+              paintStroke(e.clientX, e.clientY, true);
+            }}
+            onPointerMove={(e: ReactPointerEvent<HTMLCanvasElement>) => {
+              if (e.buttons === 0) return;
+              e.preventDefault();
+              paintStroke(e.clientX, e.clientY, false);
+            }}
+            onPointerUp={() => {
+              lastPtRef.current = null;
+              stopDrawLoop();
+            }}
+            onPointerCancel={() => {
+              lastPtRef.current = null;
+              stopDrawLoop();
             }}
           />
           {/* 힌트 — 지금 고른 색으로 칠할 칸이 깜박인다. 탭은 아래 캔버스가 받는다. */}
