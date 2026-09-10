@@ -2944,7 +2944,9 @@ function recognizeLegoDirect(){
       ? keep.reduce(function(s, c){ return s + c.cell; }, 0) / keep.length
       : medL / 3;
     /* 편 그림 좌표라 원본 화면에 못 겹친다 — 편 경우엔 상자를 안 그린다. */
-    reco.boxes = rc ? [] : cand.map(function(c){
+    /* 🔴 `rc` 는 펴기를 꺼도 온다(칸만 실어서) — `rc.mat` 이 있을 때만 편 좌표다.
+          `rc ?` 로 두면 상자가 영영 안 그려진다(2026-09-10 실측, 폰 인식 사각형이 안 보이던 이유). */
+    reco.boxes = (rc && rc.mat) ? [] : cand.map(function(c){
       var ok = keep.indexOf(c) >= 0;
       return { x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? c.T.ch : '', color:0 };
     });
