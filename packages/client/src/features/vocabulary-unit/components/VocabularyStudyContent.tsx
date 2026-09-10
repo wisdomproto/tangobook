@@ -25,6 +25,8 @@ import { LangWordWritingPlayer } from '@/features/games/components/players/LangW
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
+import { ColoringPlayer } from '@/features/games/components/players/ColoringPlayer';
+import { useColoringBookIndex, useColoringItems } from '@/features/games/hooks/useColoringSheets';
 import { HiddenObjectPlayer } from '@/features/games/components/players/HiddenObjectPlayer';
 import { StoryImagePlayer } from '@/features/games/components/players/StoryImagePlayer';
 import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
@@ -121,7 +123,9 @@ export function VocabularyStudyContent({
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
   const { refetch: refetchBalance } = useStarBalance();
 
-  const games = getAvailableGames(unit, lang, t, storybook, currentStyle);
+  // 색칠 도안 장수만 먼저 본다(4.7KB 색인). 도안 목록은 색칠을 열 때 받는다.
+  const coloringCount = useColoringBookIndex()[storybook?.id ?? ''] ?? 0;
+  const games = getAvailableGames(unit, lang, t, storybook, currentStyle, coloringCount);
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
@@ -654,6 +658,7 @@ export function GameOverlay({
             onBack={onBack}
           />
         )}
+        {game === 'coloring' && <ColoringGame bookId={effectiveStorybookId} onBack={onBack} />}
         {game === 'connect-the-dots' && (
           <ConnectTheDotsPlayer
             storybookId={effectiveStorybookId}
@@ -724,4 +729,21 @@ export function GameOverlay({
       </VocabSourceProvider>
     </motion.div>
   );
+}
+
+/**
+ * 색칠 — 도안 목록은 **열 때만** 받는다(920KB manifest). 판정이 없는 활동이라 `onComplete` 이
+ * 없고, 아이가 그만두면 `onBack` 으로 나간다.
+ */
+function ColoringGame({ bookId, onBack }: { bookId: string; onBack: () => void }) {
+  const items = useColoringItems(bookId, true);
+  // manifest(920KB) 를 받는 동안 — 진행률을 못 재는 한 판이라 게이지 대신 한 줄만.
+  if (!items.length) {
+    return (
+      <div className="fixed inset-0 z-[70] grid place-items-center bg-cream-50">
+        <p className="font-display text-lg text-ink-500">🎨</p>
+      </div>
+    );
+  }
+  return <ColoringPlayer items={items} onBack={onBack} />;
 }

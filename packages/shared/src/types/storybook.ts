@@ -339,6 +339,8 @@ export type GameTypeId =
   // 독후활동 — 낱말이 아니라 책 자체(쪽)에서 나온다. 한국어부터.
   | 'korean-page-order'
   | 'korean-object-scene'
+  // 색칠 — 낱말 도안에 색을 골라 칠한다. 「단어 그림 그리기」(단색 paint-fill)를 대체한다.
+  | 'coloring'
   // 순서 맞추기 블록 / 따라쓰기 — vi/zh/th 공용. ko/en 은 자체 게임 사용.
   | 'order-block'
   | 'order-writing';

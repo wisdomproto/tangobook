@@ -104,6 +104,10 @@
       "dots": "需要有轮廓点的单词",
       "writing": "带图片的单词不足",
       "storyImage": "需要至少 3 页有朗读"
+    },
+    "coloring": {
+      "label": "涂色",
+      "subtitle": "选颜色，把图画涂满"
     }
   },
   "storyImage": {

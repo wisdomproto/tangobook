@@ -104,6 +104,10 @@
       "dots": "Cần từ có điểm viền",
       "writing": "Không đủ từ có hình",
       "storyImage": "Cần ít nhất 3 trang có lời đọc"
+    },
+    "coloring": {
+      "label": "Tô màu",
+      "subtitle": "Chọn màu và tô bức tranh"
     }
   },
   "storyImage": {

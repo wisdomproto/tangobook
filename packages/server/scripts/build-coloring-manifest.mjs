@@ -72,6 +72,17 @@ for (const g of plan.groups) {
 }
 
 fs.writeFileSync(OUT, JSON.stringify(sheets));
+
+// 🔴 **책별 장수 색인** — 독후활동 카드가 「이 책에 도안이 있나」를 물어보는데, 그걸 알자고
+//    920KB manifest 를 학습 화면에서 받을 수는 없다. 책 id → 장수만 담아 몇 KB로 만든다.
+//    (도안 목록 자체는 색칠 화면을 열 때 manifest 에서 걸러 쓴다 — 그때는 받아도 된다.)
+const bookIndex = {};
+for (const s2 of sheets) {
+  if (!/^\d{10,}$/.test(String(s2.unitId))) continue; // 파닉스 단원 id 는 책이 아니다
+  bookIndex[s2.unitId] = (bookIndex[s2.unitId] ?? 0) + 1;
+}
+const INDEX_OUT = path.join(path.dirname(OUT), 'book-index.json');
+fs.writeFileSync(INDEX_OUT, JSON.stringify(bookIndex));
 const byGroup = {};
 for (const s of sheets) byGroup[s.group] = (byGroup[s.group] ?? 0) + 1;
 console.log(
@@ -81,3 +92,7 @@ console.log(
 );
 for (const [g, n] of Object.entries(byGroup)) console.log(`  ${g.padEnd(16)} ${n}장`);
 console.log(`  ${(fs.statSync(OUT).size / 1024).toFixed(0)}KB`);
+console.log(
+  `  책 색인 ${Object.keys(bookIndex).length}권 → ${INDEX_OUT} ` +
+    `(${(fs.statSync(INDEX_OUT).size / 1024).toFixed(1)}KB)`
+);

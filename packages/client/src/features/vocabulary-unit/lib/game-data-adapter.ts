@@ -264,7 +264,9 @@ export function getAvailableGames(
   lang: Lang,
   t: TFn,
   book?: Storybook,
-  style?: string
+  style?: string,
+  /** 이 책의 색칠 도안 장수(`public/coloring/book-index.json`). 0/undefined 면 기존 그리기. */
+  coloringCount?: number
 ): VocabGameOption[] {
   const isKo = lang === 'ko';
   const isEn = lang === 'en';
@@ -279,6 +281,13 @@ export function getAvailableGames(
     ? unitToOrderWritingData(unit, lang)
     : unitToWordWritingData(unit, lang);
   const dotsData = unitToConnectTheDotsData(unit);
+  /**
+   * 🔴 색칠이 「단어 그림 그리기」를 **대체**한다 — 같은 자리, 더 나은 물건.
+   *    기존 것은 낱말 윤곽 안을 단색으로 메우는 paint-fill 이고, 색칠은 도안에 **색을 골라** 칠한다.
+   *    도안은 동화책 266권 중 264권에 있다(하늘 동물 2권만 빠짐) → 없는 책은 기존 그리기로 남는다.
+   *    도안 라벨·음원이 한국어라 ko 에서만 바꾼다(도안 그림 자체는 언어 무관 — 넓힐 여지 있음).
+   */
+  const useColoring = isKo && (coloringCount ?? 0) > 0;
   const storyData = buildStoryImageData(book, lang, style);
   // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
   const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
@@ -320,18 +329,30 @@ export function getAvailableGames(
             : t('cards.unavailable.blockOrder')
         : undefined,
     },
-    {
-      id: 'connect-the-dots',
-      group: 'word',
-      emoji: '🪡',
-      label: t('cards.connectDots.label'),
-      subtitle: t('cards.connectDots.subtitle'),
-      iconSrc: '/icons/game/connect-dots.webp',
-      bgFrom: 'from-coral-400',
-      bgTo: 'to-coral-600',
-      available: !!dotsData,
-      unavailableReason: !dotsData ? t('cards.unavailable.dots') : undefined,
-    },
+    useColoring
+      ? {
+          id: 'coloring' as const,
+          group: 'word' as const,
+          emoji: '🎨',
+          label: t('cards.coloring.label'),
+          subtitle: t('cards.coloring.subtitle'),
+          iconSrc: '/icons/game/connect-dots.webp',
+          bgFrom: 'from-coral-400',
+          bgTo: 'to-coral-600',
+          available: true,
+        }
+      : {
+          id: 'connect-the-dots' as const,
+          group: 'word' as const,
+          emoji: '🪡',
+          label: t('cards.connectDots.label'),
+          subtitle: t('cards.connectDots.subtitle'),
+          iconSrc: '/icons/game/connect-dots.webp',
+          bgFrom: 'from-coral-400',
+          bgTo: 'to-coral-600',
+          available: !!dotsData,
+          unavailableReason: !dotsData ? t('cards.unavailable.dots') : undefined,
+        },
     {
       id: isKo ? 'korean-word-writing' : isEn ? 'english-word-writing' : 'order-writing',
       group: 'word',
@@ -436,6 +457,11 @@ export function getGameData(
       return unitToOrderBlockData(unit, lang);
     case 'connect-the-dots':
       return unitToConnectTheDotsData(unit);
+    // 🔴 색칠은 단원이 아니라 **도안 목록**에서 나온다 — 그건 플레이어가 열 때 받는다.
+    //    여기서 null 을 주면 「다른 게임을 골라주세요」로 빠지므로, 빈 껍데기를 준다.
+    //    items 가 비어 있어 프리로드 게이트도 바로 통과한다(받을 자산이 여기엔 없다).
+    case 'coloring':
+      return { type: 'coloring' as const, items: [] };
     case 'korean-word-writing':
     case 'english-word-writing':
       return unitToWordWritingData(unit, lang);

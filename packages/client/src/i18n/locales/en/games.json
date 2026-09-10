@@ -104,6 +104,10 @@
       "dots": "Need words with outline dots",
       "writing": "Not enough words with images",
       "storyImage": "Need 3+ pages with narration"
+    },
+    "coloring": {
+      "label": "Coloring",
+      "subtitle": "Pick colors and fill the picture"
     }
   },
   "storyImage": {
