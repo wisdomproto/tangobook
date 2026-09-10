@@ -30,6 +30,21 @@ const CAST = {
   lvbu: { token: 'Lvbu', name: '여포', desc: '광이 있는 옥빛 흰 얼굴 · 수염 0 · 🔴 투구에서 길게 솟은 꿩깃 두 가닥(머리 위로 무언가 솟은 유일한 인물) · 붉은 술 · 붉은 말.', aliases: ['Lvbu', '여포'] },
   dongzhuo: { token: 'Dongzhuo', name: '동탁', desc: '분을 바른 흰 얼굴인데 🔴 살진 얼굴(볼이 눈을 밀어 실눈) + 코의 붉은 기 · 짧고 두툼한 검은 수염 · 🔴 어깨에서 어깨가 가장 넓은 낮은 덩이 · 금붙이 5개 이하.', aliases: ['Dongzhuo', '동탁'] },
   simayi: { token: 'Simayi', name: '사마의', desc: '회흑색 얼굴(흰 얼굴과 검은 얼굴 사이) · 늘 반쯤 감은 눈 · 좁고 길게 늘어뜨린 수염 · 소매 안에 넣은 두 손 · 악센트 색 없음.', aliases: ['Simayi', '사마의'] },
+  guanping: { token: 'Guanping', name: '관평', desc: '관우를 따라나선 젊은이 · 🔴 안 칠한 맨 얼굴에 수염 0, 녹색도 없다 · 머리를 하나로 높이 묶었다 · 두 손에 가슴 높이로 가로로 든 칼집째의 칼(제 것이 아니다).', aliases: ['Guanping', '관평'] },
+  liufeng: { token: 'Liufeng', name: '유봉', desc: '유비의 양아들 · 수염 0의 다부진 젊은이 · 🔴 등 뒤에 끈으로 매단 넓은 삿갓(쓰지는 않는다) · 큰 귀도 다홍 허리끈도 칼 두 자루도 없다.', aliases: ['Liufeng', '유봉'] },
+  // 🔴 한글 별칭 없음 — 「장간」이 「대장간」 안에 들어간다(14권 배경이 대장간이다).
+  //    whitehorse 의 /백마(?!성)/ 와 같은 병이라 토큰으로만 잡는다.
+  jianggan: { token: 'Jianggan', name: '장간', desc: '주유의 옛 동무로 강을 건너온 문관 · 🔴 늘 한 뼘 비뚜름한 검은 갓(끝까지 안 바로잡는다) · 첫 컷에서는 빈손이다.', aliases: ['Jianggan'] },
+  ganze: { token: 'Ganze', name: '감택', desc: '거짓 항복서를 품고 밤배로 건너가는 문관 · 🔴 맨머리(머리에 아무것도 없다) · 한 손이 제 가슴에 납작하게 붙어 있다 · 빈손으로 적진에 든다.', aliases: ['Ganze', '감택'] },
+  jiaxu: { token: 'Jiaxu', name: '가후', desc: '조조 곁의 꾀 많은 노신 · 🔴 흰 눈썹에 검은 수염 · 등이 조금 굽었고 늘 조조의 어깨 뒤 반 걸음 · 손에 붓 한 자루(두루마리는 안 든다).', aliases: ['Jiaxu', '가후'] },
+  zhanglu: { token: 'Zhanglu', name: '장로', desc: '한중을 다스리던 도가의 어른 · 눈꼬리 아래로 늘어진 긴 눈썹, 둥글게 빗은 잿빛 수염 · 🔴 목에 건 큰 쇠열쇠 하나 · 노란색도 지팡이도 없다.', aliases: ['Zhanglu', '장로'] },
+  zhangsong: { token: 'Zhangsong', name: '장송', desc: '익주에서 온 작은 체구의 관리 · 🔴 어깨가 좁은데 턱을 내리지 않는다 · 왼 소매 안에 넣은 두루마리 끝이 늘 나와 있다.', aliases: ['Zhangsong', '장송'] },
+  lihui: { token: 'Lihui', name: '이회', desc: '말로 사람을 데려오는 사신 · 짧고 둥근 수염 · 🔴 두 손에 세로로 세워 든 나무 홀 · 무기 0 · 설득할 상대와 늘 같은 눈높이로 그린다.', aliases: ['Lihui', '이회'] },
+  fazheng: { token: 'Fazheng', name: '법정', desc: '정군산 봉우리에서 신호를 주는 사람 · 🔴 그 산에서 유일하게 갑옷을 안 입었다 · 양손에 짧은 깃발 둘(흰 것·붉은 것) · 옷에는 붉은색이 없다.', aliases: ['Fazheng', '법정'] },
+  yangxiu: { token: 'Yangxiu', name: '양수', desc: '조조의 젊은 서기 · 수염 0에 매끈한 턱 · 🔴 그 권에서 유일하게 웃고 있는 얼굴 · 손이 늘 보따리를 묶거나 개고 있다 · 붓은 안 든다.', aliases: ['Yangxiu', '양수'] },
+  lvmeng: { token: 'Lvmeng', name: '여몽', desc: '병을 핑계로 누웠다 일어나는 도독 · 넓적한 얼굴에 짧고 두꺼운 수염, 왼 눈썹이 낮다 · 🔴 아픈 컷과 일어나는 컷의 얼굴이 똑같다 · 어깨에서 늘어지는 천이 하나도 없다.', aliases: ['Lvmeng', '여몽'] },
+  liaohua: { token: 'Liaohua', name: '요화', desc: '구원을 청하러 달려가는 장수 · 🔴 그 권에서 유일하게 해진 갑옷(한쪽 어깨 끈이 풀렸다) · 한 손에 봉한 대나무 통, 마지막 컷까지 그 손에 그대로 있다.', aliases: ['Liaohua', '요화'] },
+  weiyan: { token: 'Weiyan', name: '위연', desc: '매복하고 길을 막는 장수 · 긴 얼굴에 🔴 턱 밑에만 난 짧은 수염 · 머리를 바짝 넘겨 이마가 훤하다 · 🔴 왼 어깨에 감아 건 밧줄 사리(24권 장막 안에서도 그대로).', aliases: ['Weiyan', '위연'] },
   // ── 단역 ──
   zhangjue: { token: 'Zhangjue', name: '장각', desc: '노란 두건을 두른 도인 차림 · 손에 든 지팡이 하나 · 따르는 무리와 같은 노란색이고 지팡이만 다르다.', aliases: ['Zhangjue', '장각'] },
   duyou: { token: 'Duyou', name: '독우', desc: '거들먹거리는 감찰 관리 · 값비싼 관복 · 🔴 말 위에서 든 채찍 하나(예를 갖추지 않았다는 것이 이 채찍으로 읽힌다).', aliases: ['Duyou', '독우'] },
@@ -117,6 +132,19 @@ const EN = {
 
   // ── 새로 쓴 문구(같은 어투) ──
   simayi: 'SIMA YI — a patient dark-eyed strategist with half-lidded eyes, a long thin beard and a long neck he turns without turning his body',
+  guanping: 'GUAN PING — a young officer with an unpainted face and no beard, hair gathered high in a single tail, carrying a sheathed straight sword flat across his chest in both hands',
+  liufeng: 'LIU FENG — a broad beardless young man in a short field coat, a wide flat straw hat hanging on its cord behind his shoulders, leggings bound to the knee',
+  jianggan: 'JIANG GAN — a soft-faced envoy in a good wide-sleeved robe whose tall black gauze cap always leans a finger off true, arriving empty-handed',
+  ganze: 'GAN ZE — a lean bare-headed official with a plain topknot and nothing on his head, one hand laid flat on his own chest over the fold of his robe, unarmed',
+  jiaxu: 'JIA XU — a slightly stooped adviser with white eyebrows over a black beard and very still open eyes, a writing brush held upright in one hand, never a scroll',
+  zhanglu: 'ZHANG LU — a mild wide-faced Daoist master with long drooping eyebrows and a combed grey beard, one large iron key on a cord at his chest, no yellow and no staff',
+  zhangsong: 'ZHANG SONG — a small narrow-framed official who keeps his chin level, a rolled map carried inside the left sleeve with one end showing at the cuff',
+  lihui: 'LI HUI — a level-eyed persuader with a short rounded beard and a closed mouth, a flat wooden court tablet held upright in both hands, no weapon',
+  fazheng: 'FA ZHENG — the one man on the mountain not in armour, a thin-faced official in a civil robe tucked up at the belt, a small white flag in one hand and a vermilion one in the other',
+  yangxiu: 'YANG XIU — a smooth-jawed young secretary with no beard and a small closed-mouth smile, hands tying a knotted cloth bundle, standing in the open',
+  lvmeng: 'LU MENG — a broad flat-faced commander with a short thick beard and one brow lower than the other, dark scale under a short plain coat, nothing hanging from his shoulders',
+  liaohua: 'LIAO HUA — a plain-faced rider in the only travel-worn armour in his book, lacing frayed at one shoulder, a sealed bamboo message-tube held at his hip and never put away',
+  weiyan: 'WEI YAN — a long-jawed officer with a beard under the chin only and a hard-pulled-back hairline, a short coil of rope over the left shoulder',
   xiandi: 'EMPEROR XIAN — a slight emperor, quiet, looking to others before he speaks',
   childemp: 'THE CHILD EMPEROR — a boy of ten swamped by a grown mans crown and robe, the hem dragging, frightened',
   liuxie: 'PRINCE OF CHENLIU — a boy of nine, thin and straight-backed, one hand gathering the oversized sleeve, calm',
@@ -176,6 +204,7 @@ const EN = {
 const PROPS = [
   ['guandao', '청룡언월도', /청룡언월도|언월도/, 'GUAN YUS GREEN DRAGON CRESCENT BLADE - a pole-arm whose shaft is taller than a man, a single broad crescent blade at the head with a dragon head where blade meets shaft, dark red shaft'],
   ['zhangba', '장팔사모', /장팔사모/, 'ZHANG FEIS SERPENT SPEAR - a long spear whose steel head curves like a snake in two waves, black shaft, no crescent'],
+  ['halberd', '갈래창', /갈래창/, 'LU BUS HALBERD (FANGTIAN HUAJI) - a pole-arm shaft as tall as the man, a straight spear point at the tip with a crescent-moon blade branching off just below it, dark shaft, no dragon head (this is NOT Guan Yus blade)'],
   ['twinswords', '쌍고검', /쌍고검/, 'LIU BEIS PAIR OF SWORDS - two matching straight double-edged jian of equal length, even width from guard to near the tip, a flat ring at the end of each grip, plain wood scabbards, worn one on each hip on cords'],
   ['redhare', '적토마', /적토마|붉은 말/, 'RED HARE, the most famous horse in the story - a compact chibi warhorse, coat a deep flame red, black mane and tail, one white blaze, no rider, no saddle ornament of gold'],
   ['whitehorse', '백마', /백마(?!성)|흰 말/, 'ZHAO YUNS WHITE HORSE - a compact chibi warhorse, coat pure white, mane and tail white, no rider'],
@@ -243,8 +272,12 @@ const STAGES = {
     [22, '마흔여섯. 옷 그대로, 눈가에 주름. 승상의 검은 띠 하나만 더해진다.'],
     [24, '쉰넷. 옷 그대로. 수염에 흰 올, 손등이 마르고 어깨가 굽었다. 지팡이를 짚는 쪽이 있다.'],
   ],
+  guanping: [
+    [10, '막 따라나선 젊은이. 옷이 수수하고 묶은 머리가 높다.'],
+    [20, '같은 묶은 머리인데 얼굴선이 굳었다. 가벼운 갑옷.'],
+  ],
   zhaoyun: [
-    [10, '은빛 갑옷, 흰 술 달린 창, 흰 말. 얼굴이 젊다.'],
+    [4, '은빛 갑옷, 흰 술 달린 창, 흰 말. 얼굴이 젊다.'],
     [17, '같은 은빛 갑옷. 얼굴선이 굳었다.'],
     [21, '같은 갑옷인데 은빛이 낡았다. 눈가에 주름. 🔴 수염은 끝까지 없다.'],
   ],
@@ -319,7 +352,7 @@ const STAGES = {
     [8, '같은 푸른 옷이 낡았다. 그래도 등이 곧다.'],
   ],
   yuanshu: [
-    [3, '형보다 살졌고 턱을 든 채 말한다. 화려한 비단옷.'],
+    [2, '형보다 살졌고 턱을 든 채 말한다. 화려한 비단옷.'],
     [7, '스스로 황제라 한 뒤 — 🔴 옷이 새것인데 몸에 안 맞는다(소매가 길고 어깨가 뜬다).'],
   ],
   // 🔴 맹획·감녕은 한 권에서만 그려진다 — 단계를 두면 영영 안 쓰이는 글이 된다(빌드 검사가 잡았다).
@@ -350,7 +383,9 @@ const STAGE_EN = {
   'zhugeliang:14': 'Aged 32, no headband, the same white robe he will wear to the end, a short squared dark beard',
   'zhugeliang:22': 'Aged 46, the same white robe with a chancellor black sash, lines at the eyes',
   'zhugeliang:24': 'Aged 54, the same white robe, pale hairs in the beard, dry hands, shoulders stooped, leaning on a staff',
-  'zhaoyun:10': 'Silver armour, a spear with a white tassel, a white horse, a young face',
+  'guanping:10': 'A young man newly joined, plain clothes, the single high tail of hair',
+  'guanping:20': 'The same high tail, the face set harder, light armour',
+  'zhaoyun:4': 'Silver armour, a spear with a white tassel, a white horse, a young face',
   'zhaoyun:17': 'The same silver armour, the face set harder',
   'zhaoyun:21': 'The same armour with the silver dulled, lines at the eyes, still no beard at any age',
   'caocao:2': 'A young officer light armour, the black beard short',
@@ -390,7 +425,7 @@ const STAGE_EN = {
   'jiangwei:24': 'A short beard grown in, the same spear and more books',
   'chengong:2': 'A young magistrate, the blue civil robe new',
   'chengong:8': 'The same blue robe worn old, the back still straight',
-  'yuanshu:3': 'Heavier than his brother, the chin lifted, rich silk',
+  'yuanshu:2': 'Heavier than his brother, the chin lifted, rich silk',
   'yuanshu:7': 'After crowning himself, the clothes new but ill-fitting, sleeves too long and shoulders standing away',
   'menghuo:22': 'Animal hide over one bare shoulder, heavy arm-rings, a red headband worn high that slips lower each time he is caught',
   'ganning:18': 'Small bells at the belt, a silk scarf at the throat, the lightest armour of any general',
@@ -407,6 +442,7 @@ function parseVolume(file) {
 
   let chapter = null;
   let page = null;
+  let cut = null;
   let inScene = false;
   let inMeta = false;
 
@@ -425,15 +461,42 @@ function parseVolume(file) {
       vol.chapters.push(chapter); page = null; continue;
     }
     if ((m = line.match(/^###\s+p(\d+)\s*·\s*(.+?)\s*$/))) {
-      page = { n: +m[1], label: m[2].trim(), text: '', scene: [] };
+      page = { n: +m[1], label: m[2].trim(), text: '', scene: [], layout: '', cuts: [] };
+      cut = null;
       if (!chapter) throw new Error(`${path.basename(file)}: p${m[1]} 앞에 장이 없다`);
       chapter.pages.push(page); continue;
     }
+    // 🔴 만화판 컷 층. page.scene/page.text 는 «합집합»으로 계속 채운다 —
+    //    그래야 그림책판만 있는 지금도, 컷이 붙은 뒤에도 검증 7종이 그대로 돈다.
+    if ((m = line.match(/^####\s+c(\d+)\s*·\s*(.+?)\s*$/))) {
+      if (!page) throw new Error(`${path.basename(file)}: c${m[1]} 앞에 쪽이 없다`);
+      cut = { n: +m[1], label: m[2].trim(), lines: [], scene: [] };
+      page.cuts.push(cut); inScene = false; continue;
+    }
+    if (page && !cut && (m = line.match(/^판짜기\s+(.+)$/))) { page.layout = m[1].trim(); continue; }
     if (/^```scene\s*$/.test(line)) { inScene = true; continue; }
     if (inScene && /^```\s*$/.test(line)) { inScene = false; continue; }
-    if (inScene) { if (line.trim()) page.scene.push(line.trim()); continue; }
+    if (inScene) {
+      if (line.trim()) { page.scene.push(line.trim()); if (cut) cut.scene.push(line.trim()); }
+      continue;
+    }
     if (page && line.trim() && !line.startsWith('>') && !line.startsWith('---')) {
-      page.text += (page.text ? ' ' : '') + line.trim();
+      const t = line.trim();
+      if (cut) {
+        cut.lines.push(t);
+        // 🔴 page.text 에는 «화면에 실제로 찍히는 글자»만 넣는다.
+        //    `대사 관우 「…」` 의 「관우」는 화자 라벨(발주용)이지 지면의 글자가 아니다 —
+        //    이걸 세면 고유명사 첫 등장 검사가 말풍선 꼬리를 이름 소개로 착각한다.
+        const say = t.match(/^(나레이션|대사|생각|효과음)\s+(.+)$/);
+        let shown = say ? say[2] : t;
+        if (say && (say[1] === '대사' || say[1] === '생각')) {
+          const q = say[2].match(/^[^「]*「([\s\S]*)」\s*$/);
+          if (q) shown = q[1];
+        }
+        page.text += (page.text ? ' ' : '') + shown;
+      } else {
+        page.text += (page.text ? ' ' : '') + t;
+      }
     }
   }
   return vol;
@@ -450,7 +513,7 @@ const SCENE_LABELS = ['컷', '장소·시간', '인물', '배경·소품', '톤'
  * 그래서 전 권을 권 번호 순으로 미리 훑어 이름마다 최초 등장 지점을 구하고, 그 한 곳만 검사한다.
  * 실패시키지 않고 경고만 낸다 — 「그 사람의 이름은 동탁이었어요」처럼 옳은 변형이 있기 때문이다.
  */
-const ROLE_WORDS = /(라는|이라는|이름은|스승|고을|마을|고장|나라|도읍|성|산|장수|벼슬아치|땅|상인|장사꾼|호걸|청년|사내|황제|관리|사람|아우|형|아들|아내|어머니|아버지|누이)/;
+const ROLE_WORDS = /(라는|이라는|이름은|스승|선생|고을|마을|고장|나라|도읍|성|산|장수|벼슬아치|땅|상인|장사꾼|호걸|청년|사내|황제|관리|사람|아우|형|아들|아내|어머니|아버지|누이)/;
 
 /** 그 권에 적용되는 나이·복장 한 줄. 없으면 ''. 🔴 「그 권 이하의 마지막 단계」가 이긴다. */
 function stageFor(key, volN) {
@@ -820,7 +883,9 @@ if (!only) {
   fs.writeFileSync(path.join(OUT, 'samgukji-index.json'), JSON.stringify(index, null, 2) + '\n');
   console.log(`samgukji-index.json — ${index.length} entries`);
   buildPlan(built);
+  checkCuts(built);
   buildRead(built);
+  buildTree(built);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -872,6 +937,201 @@ function parseAnchor() {
  *   콘티가 섞이면 이야기가 읽히지 않는다.
  * 🔴 md 에서 굽는다 — 손으로 만들면 대본과 갈라진다.
  */
+/**
+ * 트리 페이지 — 권 › 장 › 쪽 › 컷 «글»을 한눈에.
+ * 🔴 접지 않는다. 목차가 아니라 «트리 모양으로 늘어놓은 원고»다 —
+ *    들여쓰기와 세로선으로 층을 보여 주고, 글은 전부 그 자리에 펼쳐 둔다.
+ *    (접었다 폈다 하는 목차는 samgukji-plan, 쭉 읽는 판은 samgukji-read 가 따로 있다.)
+ *    컷이 아직 없는 쪽은 산문을 그대로 — 그림책판과 만화판이 섞인 채로 보인다.
+ */
+/**
+ * 🔴 만화판 컷 검사 다섯.
+ *    문서(_comic-format.md)에만 적어 뒀더니 작가마다 지키는 정도가 갈렸다 —
+ *    45자는 한 작가가 「0」이라 보고했는데 실제로 23개였고, 화자 규칙은 아무도 안 셌다.
+ *    규칙은 문서가 아니라 «부를 수 있는 검사»여야 지켜진다.
+ */
+function checkCuts(vols) {
+  const SCENE_5 = ['컷 ', '장소·시간 ', '인물 ', '배경·소품 ', '톤 '];
+  const names = new Set(Object.values(CAST).map((c) => c.name));
+  const bad = { over: [], seq: [], scene: [], panel: [], speaker: [] };
+  let cuts = 0;
+
+  for (const v of vols) {
+    for (const pg of v.chapters.flatMap((c) => c.pages)) {
+      pg.cuts.forEach((ct, i) => {
+        cuts++;
+        const at = `vol-${v.n} p${pg.n} c${ct.n}`;
+        if (ct.n !== i + 1) bad.seq.push(at);
+        if (SCENE_5.some((l) => !ct.scene.some((x) => x.startsWith(l)))) bad.scene.push(at);
+
+        // 화면에 찍히는 글자만 — 화자 이름은 라벨이라 안 센다
+        let shown = 0;
+        const people = ct.scene.find((l) => l.startsWith('인물 ')) || '';
+        for (const line of ct.lines) {
+          const m = line.match(/^(나레이션|대사|생각|효과음)\s+(.+)$/);
+          if (!m) continue;
+          const q = m[2].match(/^([^「]*)「([\s\S]*)」\s*$/);
+          shown += q ? q[2].length : m[2].length;
+          if ((m[1] === '대사' || m[1] === '생각') && q) {
+            const who = q[1].trim();
+            // 🔴 이름 있는 캐스트가 화자면 그 컷 「인물」 줄에 있어야 한다.
+            //    역할명(장수·병졸·마을 사람)은 검사하지 않는다 — 그건 그림이 정한다.
+            if (names.has(who) && !people.includes(who)) bad.speaker.push(`${at} ${who}`);
+          }
+        }
+        if (shown > 45) bad.over.push(`${at} ${shown}자`);
+      });
+      if (pg.layout) {
+        const n = (pg.layout.match(/^(\d+)/) || [])[1];
+        if (n && pg.cuts.length && +n !== pg.cuts.length) {
+          bad.panel.push(`vol-${v.n} p${pg.n} 판짜기 ${n} ≠ 실제 ${pg.cuts.length}`);
+        }
+      }
+    }
+  }
+  if (!cuts) return;
+  const say = (label, arr) =>
+    arr.length
+      ? console.log(`  ⚠ ${label} ${arr.length}건 — ${arr.slice(0, 4).join(' / ')}${arr.length > 4 ? ' …' : ''}`)
+      : console.log(`  ✓ ${label}`);
+  say(`컷 ${cuts}개 전부 화면 글자 45자 이내`, bad.over);
+  say('컷 번호가 쪽마다 c1 부터 이어진다', bad.seq);
+  say('컷마다 SCENE 5라벨이 다 있다', bad.scene);
+  say('판짜기 선언이 실제 컷 수와 같다', bad.panel);
+  say('말풍선 화자가 그 컷 「인물」 줄에 있다', bad.speaker);
+}
+
+function buildTree(vols) {
+  const chapCount = vols.reduce((a, v) => a + v.chapters.length, 0);
+  const pages = vols.flatMap((v) => v.chapters.flatMap((c) => c.pages));
+  const cutCount = pages.reduce((a, pg) => a + pg.cuts.length, 0);
+
+  const sayHtml = (l) => {
+    const m = l.match(/^(나레이션|대사|생각|효과음)\s+(.+)$/);
+    if (!m) return `<div class="t-raw">${esc(l)}</div>`;
+    const kind = { 나레이션: 'narr', 대사: 'say', 생각: 'think', 효과음: 'sfx' }[m[1]];
+    const who = m[2].match(/^([^「]+?)\s*「([\s\S]*)」\s*$/);
+    const body = who && (kind === 'say' || kind === 'think')
+      ? `<b>${esc(who[1])}</b><span>${esc(who[2])}</span>`
+      : esc(m[2]);
+    return `<div class="${kind}"><i>${esc(m[1])}</i>${body}</div>`;
+  };
+
+  const body = vols.map((v) => {
+    const vp = v.chapters.reduce((a, c) => a + c.pages.length, 0);
+    const chapters = v.chapters.map((c) => {
+      const pagesHtml = c.pages.map((pg) => {
+        const inner = pg.cuts.length
+          ? pg.cuts.map((ct) => `<div class="cut"><h4>c${ct.n} · ${esc(ct.label)}</h4>` +
+              ct.lines.map(sayHtml).join('') +
+              (ct.scene.length ? `<div class="sc"><pre>${sceneHtml(ct.scene)}</pre></div>` : '') +
+              `</div>`).join('')
+          : `<p class="prose">${esc(pg.text)}</p>` +
+            (pg.scene.length ? `<div class="sc"><pre>${sceneHtml(pg.scene)}</pre></div>` : '');
+        return `<details class="pg" open><summary><code>p${pg.n}</code> ${esc(pg.label)}` +
+          (pg.cuts.length ? ` <em>${pg.cuts.length}컷</em>` : '') + `</summary>` +
+          (pg.layout ? `<div class="layout">판짜기 ${esc(pg.layout)}</div>` : '') + inner + `</details>`;
+      }).join('');
+      return `<details class="ch" open><summary>${c.n}장 · ${esc(c.name)}${c.star ? ' <span class="star">⭐</span>' : ''}` +
+        ` <em>${c.pages.length}쪽</em></summary>${pagesHtml}</details>`;
+    }).join('');
+    return `<details class="vol" id="v${v.n}" open><summary><code>${v.n}권</code> ${esc(v.title)}` +
+      ` <em>${v.chapters.length}장 ${vp}쪽</em></summary>${chapters}</details>`;
+  }).join('');
+
+  const nav = vols.map((v) => `<a href="#v${v.n}">${v.n}</a>`).join('');
+
+  const html = `<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>탱고북 삼국지 — 트리로 보는 글</title>
+<style>
+:root{--paper:#FBF7EE;--ink:#2A2723;--soft:#8C8172;--rule:#E7DECB;--accent:#B8352A;--line:#DCD2BE}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{margin:0;background:var(--paper);color:var(--ink);
+ font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+ font-size:15px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.bar{position:sticky;top:0;z-index:10;background:rgba(251,247,238,.96);
+ backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+.bar .in{max-width:66rem;margin:0 auto;padding:9px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.bar b{font-size:15px;font-weight:800;white-space:nowrap}
+.bar .sub{font-size:12px;color:var(--soft);white-space:nowrap}
+.bar label{font-size:12px;font-weight:700;color:var(--soft);display:flex;gap:5px;
+ align-items:center;cursor:pointer;user-select:none}
+.bar .btns{display:flex;gap:4px}
+.bar button{font:inherit;font-size:12px;font-weight:700;border:1px solid var(--rule);
+ background:#fff;color:var(--soft);border-radius:7px;padding:4px 9px;cursor:pointer;white-space:nowrap}
+.bar button:hover{color:var(--ink);border-color:var(--soft)}
+.bar nav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--soft);text-decoration:none;
+ padding:3px 6px;border-radius:5px;font-family:ui-monospace,monospace}
+.bar nav a:hover{background:#0000000d;color:var(--ink)}
+main{max-width:66rem;margin:0 auto;padding:6px 18px 30vh}
+
+/* 층 = 들여쓰기 + 세로선 */
+.vol{margin:26px 0 0}
+summary{cursor:pointer;list-style:none;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'▾';position:absolute;left:-14px;color:var(--soft);
+ font-size:11px;transition:transform .12s;top:.42em;line-height:1}
+details:not([open])>summary::before{transform:rotate(-90deg)}
+details:not([open])>summary{opacity:.72}
+.vol>summary{font-size:20px;font-weight:800;margin:0 0 2px;padding:12px 0 10px 4px;
+ border-top:2px solid var(--rule)}
+.ch{margin:0 0 2px 8px;padding-left:16px;border-left:2px solid var(--line)}
+.ch>summary{font-size:15.5px;font-weight:800;margin:12px 0 2px;color:#4a443c}
+.pg{margin:0 0 2px 6px;padding-left:16px;border-left:1px solid var(--line)}
+.pg>summary{font-size:13.5px;font-weight:700;margin:9px 0 3px;color:#6b6355}
+summary code{font-family:ui-monospace,monospace;color:var(--accent);font-weight:800}
+summary em{font-style:normal;font-size:11px;color:var(--soft);font-weight:700;margin-left:5px}
+.star{color:#C9A227}
+
+.prose{margin:0 0 6px;font-size:15px;line-height:1.95;color:#332f29;max-width:46rem}
+.layout{font-size:12px;color:var(--soft);font-weight:700;margin:0 0 5px}
+.cut{margin:0 0 8px 4px;padding:5px 0 5px 12px;border-left:3px solid #E4DBC8}
+.cut h4{margin:0 0 3px;font-size:12px;font-weight:800;color:var(--soft)}
+.narr,.say,.think,.sfx,.t-raw{margin:2px 0;font-size:14.5px;max-width:46rem}
+.narr i,.say i,.think i,.sfx i,.t-raw i{font-style:normal;display:inline-block;min-width:50px;
+ font-size:10.5px;font-weight:800;color:var(--soft);vertical-align:top}
+.say b,.think b{color:var(--accent);font-weight:800;margin-right:5px}
+.sfx{color:var(--soft);font-weight:800}
+.t-raw{color:#a33}
+
+/* SCENE — 글이 아니라 그림 지시라 기본은 숨긴다 */
+.sc{display:none;margin:3px 0 7px}
+body.scene-on .sc{display:block}
+.sc pre{margin:0;padding:8px 11px;background:#F3EDE0;border-radius:7px;max-width:52rem;
+ font-family:ui-monospace,monospace;font-size:11.5px;line-height:1.7;
+ white-space:pre-wrap;color:#4a443c}
+.sc pre b{color:var(--accent)}
+</style></head><body>
+<div class="bar"><div class="in">
+ <b>삼국지 — 트리로 보는 글</b>
+ <span class="sub">${vols.length}권 · ${chapCount}장 · ${pages.length}쪽 · ${cutCount}컷</span>
+ <span class="btns">
+  <button onclick="L(3)">전부 펼치기</button><button onclick="L(0)">권만</button
+  ><button onclick="L(1)">장까지</button><button onclick="L(2)">쪽 제목까지</button>
+ </span>
+ <label><input type="checkbox" onchange="document.body.classList.toggle('scene-on',this.checked)"/> SCENE 같이 보기</label>
+ <nav>${nav}</nav>
+</div></div>
+<main>${body}</main>
+<script>
+// 층을 n 까지 편다 — 0=권만 1=장까지 2=쪽 제목까지 3=전부
+function L(n){
+  document.querySelectorAll('.vol').forEach(d=>d.open=n>=0);
+  document.querySelectorAll('.ch').forEach(d=>d.open=n>=1);
+  document.querySelectorAll('.pg').forEach(d=>d.open=n>=3);
+}
+</script>
+</body></html>
+`;
+  fs.writeFileSync(path.join(OUT, 'samgukji-tree.html'), html);
+  console.log(`samgukji-tree.html — 트리 ${vols.length}권 ${chapCount}장 ${pages.length}쪽 ${cutCount}컷`);
+}
+
 function buildRead(vols) {
   const css = `
 :root{--paper:#FBF7EE;--ink:#2A2723;--soft:#8C8172;--rule:#E7DECB;--accent:#B8352A;--gold:#C9A227}

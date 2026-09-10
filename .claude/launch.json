@@ -4,43 +4,85 @@
     {
       "name": "dev",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "server", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "server",
+        "dev"
+      ],
       "port": 3500,
       "autoPort": true
     },
     {
       "name": "client",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "client", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "client",
+        "dev"
+      ],
       "port": 5175,
       "autoPort": true
     },
     {
       "name": "client-5174",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "client", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "client",
+        "dev"
+      ],
       "port": 5174,
       "autoPort": false
     },
     {
       "name": "client-prod-api",
       "runtimeExecutable": "cmd",
-      "runtimeArgs": ["/c", "set API_TARGET=https://www.tangobook.co.kr&& pnpm --filter client dev"],
+      "runtimeArgs": [
+        "/c",
+        "set API_TARGET=https://www.tangobook.co.kr&& pnpm --filter client dev"
+      ],
       "port": 5175,
       "autoPort": true
     },
     {
       "name": "client-pm",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "client", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "client",
+        "dev"
+      ],
       "port": 5180,
       "autoPort": true
     },
     {
       "name": "lottie-samples",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["-e", "const http=require('http'),fs=require('fs'),path=require('path');const dir='C:/projects/tangobook/lottie-samples';const types={'.html':'text/html; charset=utf-8'};http.createServer((req,res)=>{let u=req.url.split('?')[0];if(u==='/')u='/index.html';const f=path.join(dir,u);fs.readFile(f,(e,c)=>{if(e){res.writeHead(404);res.end('not found')}else{res.writeHead(200,{'Content-Type':types[path.extname(f)]||'application/octet-stream'});res.end(c)}})}).listen(8137,'127.0.0.1',()=>console.log('Lottie preview running on http://localhost:8137'))"],
+      "runtimeArgs": [
+        "-e",
+        "const http=require('http'),fs=require('fs'),path=require('path');const dir='C:/projects/tangobook/lottie-samples';const types={'.html':'text/html; charset=utf-8'};http.createServer((req,res)=>{let u=req.url.split('?')[0];if(u==='/')u='/index.html';const f=path.join(dir,u);fs.readFile(f,(e,c)=>{if(e){res.writeHead(404);res.end('not found')}else{res.writeHead(200,{'Content-Type':types[path.extname(f)]||'application/octet-stream'});res.end(c)}})}).listen(8137,'127.0.0.1',()=>console.log('Lottie preview running on http://localhost:8137'))"
+      ],
       "port": 8137
+    },
+    {
+      "name": "samgukji",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "C:/projects/tangobook/.claude/worktrees/samgukji-series/packages/client",
+        "dev"
+      ],
+      "port": 5181,
+      "autoPort": true
+    },
+    {
+      "name": "samgukji-static",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "-e",
+        "const http=require('http'),fs=require('fs'),path=require('path');const dir='C:/projects/tangobook/.claude/worktrees/tk-comics-planning-f92b67/packages/client/public';const types={'.html':'text/html; charset=utf-8','.json':'application/json; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'};http.createServer((req,res)=>{let u=decodeURIComponent(req.url.split('?')[0]);if(u==='/')u='/samgukji-tree.html';const f=path.join(dir,u);fs.readFile(f,(e,c)=>{if(e){res.writeHead(404);res.end('not found')}else{res.writeHead(200,{'Content-Type':types[path.extname(f)]||'application/octet-stream','Cache-Control':'no-store'});res.end(c)}})}).listen(8142,'127.0.0.1',()=>console.log('samgukji static on http://localhost:8142'))"
+      ],
+      "port": 8142
     }
   ]
 }

@@ -1,12 +1,12 @@
 # 탱고북 삼국지 — 개체 규격 (cast sheet)
 
-> 시리즈 16 `samgukji` · **시트 54장** — 고정 캐스트 10인(얼굴색 축을 쓰는 사람들) + 조역 44인.
+> 시리즈 16 `samgukji` · **시트 71장** — 고정 캐스트 10인(얼굴색 축을 쓰는 사람들) + 조역 61인.
 > 🔴 **나이·복장은 여기 없다.** 권 번호가 정하고 SSOT 는 `build-samgukji.mjs` 의 `STAGES` 다 —
 >   시트를 뽑을 때 빌더가 `AGES & COSTUMES` 블록을 붙여 주고, 쪽 발주서에는 그 권 한 줄만 나간다.
 >   두 곳에 적으면 갈라진다(예전엔 발주서에 네 단계가 통째로 나가 삽화가가 골랐다).
-> 🔴 **그림체 SSOT 는 `samgukji-anchor.md`**(수묵 산수 위의 5.5등신). 여기는 **한 사람씩 무엇이 다른가**만 적는다.
+> 🔴 **그림체 SSOT 는 `samgukji-anchor.md`**. 여기는 **한 사람씩 무엇이 다른가**만 적는다.
 > 🔴 여기 쓰는 것은 **권이 바뀌어도 안 변하는 것**뿐이다 — 얼굴색 · 실루엣 · 어깨 폭 · 악센트 자리.
-> 🔴 **등신 비율(5.5등신)은 앵커가 정한다 — 시트에 다시 쓰지 마라.** 시트가 재는 것은 어깨 폭이다.
+> 🔴 **등신 비율은 앵커가 정한다 — 시트에 다시 쓰지 마라.** 시트가 재는 것은 어깨 폭이다.
 > 매체 어휘(획·판·워시·겹수)는 앵커가 정하므로 **여기 쓰지 마라 — 두 곳이 갈라진다.**
 
 ## 왜 이 문서가 생겼나 (2026-08-20)
@@ -84,7 +84,8 @@
 
 ### 축 ④ 어깨 폭 — 머리 폭의 몇 배인가
 
-🔴 **전원이 5.5등신이다**(그림체가 그렇게 정했다 — `samgukji-anchor.md`. 2026-08-20 에 4등신에서 올렸다).
+🔴 **전원이 같은 등신이다**(그 값은 `samgukji-anchor.md` 가 정한다 — ⚠️ 여기 숫자를 다시 적지 마라.
+2026-08-20 에 5.5 로 적어 두었다가 앵커가 2.5 로 바뀌자 두 문서가 갈라졌다).
 그러니 **키로는 아무도 못 가른다.**
 대신 **어깨가 머리 폭의 몇 배인가**로 잰다. 이 값은 시트에 인물이 하나뿐이어도 자로 잴 수 있다.
 
@@ -998,6 +999,248 @@ COSTUME: a plain court robe, no armour ever, no belt plaque.
 🔴 ACCENT: none.
 ```
 
+---
+
+## Guanping
+
+```
+GUANPING - the young man who follows Guan Yu out of a village and is his son from that page on.
+SHOULDERS = 1.6 head-widths.
+🔴 HE STANDS BESIDE THE RED-FACED MAN ON MANY PAGES AND MUST NOT BORROW ONE THING FROM HIM:
+  🔴 THE FACE IS UNPAINTED - ordinary skin. 🔴 NO BEARD ON ANY PAGE, at any age.
+  🔴 NO GREEN ANYWHERE ON HIM. 🔴 NOTHING RISES ABOVE HIS SHOULDER - no shaft, no pole, no crest.
+FACE: bare, young, a round jaw, level brows, eyes wide open and steady.
+🔴 THE HAIR IS GATHERED HIGH INTO ONE TAIL and tied with a plain leather cord. Nobody else in this
+  book wears the hair up in a single tail.
+🔴 WHAT READS: A SHEATHED STRAIGHT SWORD CARRIED FLAT ACROSS THE CHEST IN BOTH HANDS, and 🔴 IT IS
+  NEVER DRAWN AND NEVER HUNG AT THE HIP. It is not his weapon, it is his father's, and carrying it
+  is the whole character. Where his hands are needed for something else (an ember, a rope), the
+  sword is on his back, still horizontal.
+POSTURE: 🔴 HE IS HALF A PACE BEHIND THE MAN HE FOLLOWS AND HIS FEET ARE TOGETHER. He never
+  overlaps that man's outline.
+🔴 SILHOUETTE: a narrow upright figure with ONE HORIZONTAL BAR at chest height.
+🔴 ACCENT: none.
+```
+
+## Liufeng
+
+```
+LIUFENG - the adopted son, the second young man in the grass at Bowang.
+SHOULDERS = 2.0 head-widths - 🔴 A FIELD-HAND'S FRAME on a face with no beard.
+FACE: bare, broad, blunt-nosed, thick brows that nearly meet. NO BEARD on any page.
+🔴 WHAT READS: A WIDE FLAT STRAW HAT HUNG ON ITS CORD BEHIND HIS SHOULDERS, never on his head.
+  Blacked out it is a DISC behind the neck, and that disc is how he is told from the other young man
+  crouched beside him.
+COSTUME: a short field coat belted with cord, leggings bound to the knee - he is dressed to walk
+  through grass, not to stand in a hall.
+🔴 HE IS THE ADOPTED SON OF THE MAN WITH THE LARGE EARS AND MUST NOT SHARE HIS TELLS: ordinary
+  ears that do not break the outline, 0 vermilion sash, 0 swords at the hips.
+🔴 SILHOUETTE: a broad young figure with a flat circle riding behind the shoulders.
+🔴 ACCENT: none.
+```
+
+## Jianggan
+
+```
+JIANGGAN - the old schoolmate who crosses the river to visit a friend and leaves with a letter.
+SHOULDERS = 1.5 head-widths.
+🔴 HIS FACE IS NOT THE READ - the manuscript keeps it turned, shadowed or out of frame on most of
+  his panels, so he must be knowable from the head down.
+🔴 WHAT READS: A TALL SOFT BLACK GAUZE CAP THAT LEANS. It sits a finger off true on his head in
+  EVERY panel - before the wine, during it, and while he is stealing. 🔴 IT IS NEVER STRAIGHTENED.
+  Blacked out: an upright figure with a lopsided block on top of it.
+FACE (when it is shown): bare, soft, a thin beard that does not fill the chin, eyebrows raised in
+  the middle so the face reads pleased with itself.
+🔴 HANDS: EMPTY IN THE FIRST PANEL. He arrives at an enemy camp carrying nothing, because he means
+  to be taken for a friend. After the banquet the same hands hold ONE FOLDED SHEET.
+COSTUME: a good civil robe with wide sleeves, kept clean, no rank plaque, 0 armour ever.
+🔴 SILHOUETTE: a soft column with a tilted cap.
+🔴 ACCENT: none.
+```
+
+## Ganze
+
+```
+GANZE - the man who takes a false surrender across the water at night, alone.
+SHOULDERS = 1.5 head-widths.
+🔴 BAREHEADED - hair drawn back into a plain topknot with 0 cap, 0 band, 0 pin. He is the only civil
+  official in these books with nothing at all on his head, and that is what tells him from the other
+  robed man crossing the same river in the same book.
+FACE: bare, lean, flat cheeks, a short beard along the jaw. 🔴 THE FACE DOES NOT CHANGE BETWEEN HIS
+  OWN BOAT AND THE ENEMY'S TENT - same brows, same closed calm mouth, in the panel where he is
+  accused as in the panel where he sets out.
+🔴 WHAT READS: ONE HAND LAID FLAT ON HIS OWN CHEST, over the fold of the robe, in nearly every
+  panel. What is under it is never drawn showing.
+🔴 HE GOES INTO THE ENEMY CAMP WITH NOTHING IN THE OTHER HAND - no weapon, no gift, no lantern.
+COSTUME: a plain dark civil robe, the hem wet from the boat, sleeves narrow.
+🔴 SILHOUETTE: a bare-headed column with one forearm folded flat across the chest.
+🔴 ACCENT: none.
+```
+
+## Jiaxu
+
+```
+JIAXU - the quiet adviser who tells the ruler of the north to smudge out the useful part of a letter.
+SHOULDERS = 1.5 head-widths.
+🔴 WHITE EYEBROWS OVER A BLACK BEARD. That contradiction is this character: the brows are the
+  oldest thing on him and the beard is still dark. Nobody else in this book is aged at the brow.
+FACE: bare, dry, 🔴 THE EYES ARE FULLY OPEN AND VERY STILL - they do not narrow, do not half-close,
+  do not move to the person speaking.
+POSTURE: 🔴 THE BACK IS BENT A LITTLE FROM THE WAIST IN EVERY PANEL, and 🔴 HE STANDS HALF A PACE
+  BEHIND THE RULER'S SHOULDER, never in front of him and never level with him.
+🔴 WHAT READS: A WRITING BRUSH HELD UPRIGHT IN THE RIGHT HAND, tip up, at chest height. 🔴 NEVER A
+  SCROLL, NEVER A BOOK - he points with the brush and does not carry paper.
+COSTUME: a dark civil robe, plain, 0 armour ever.
+🔴 SILHOUETTE: a slightly stooped column with one short vertical stick at the chest.
+🔴 ACCENT: none.
+```
+
+## Zhanglu
+
+```
+ZHANGLU - the old master who held a province and gave it up with the storehouses full.
+SHOULDERS = 1.5 head-widths.
+🔴 HE IS A DAOIST TEACHER LIKE THE MAN WHO STARTED THE REBELLION IN BOOK 1, AND HE MUST NOT BE READ
+  AS ONE OF THEM: 🔴 0 YELLOW ANYWHERE ON HIM - not on the robe, not on a head cloth, not on a cord.
+  🔴 0 STAFF IN HIS HANDS.
+FACE: bare, wide, calm. A soft grey beard combed into one rounded mass, and 🔴 LONG EYEBROWS WHOSE
+  OUTER ENDS HANG BELOW THE EYE CORNERS.
+🔴 THE FACE IS MILD IN EVERY PANEL INCLUDING THE ONE WHERE HE LOSES THE PROVINCE. He is not
+  frightened and he is not angry; nothing on this face moves.
+🔴 WHAT READS: ONE LARGE IRON KEY ON A CORD AROUND HIS NECK, hanging on the chest, drawn big enough
+  to count as an object. It is on him before the storehouse is locked and after.
+COSTUME: an undyed dark robe with a broad cloth belt tied in front, 0 ornament.
+POSTURE: both hands rest one on the other at the waist; they are never raised above the belt.
+🔴 SILHOUETTE: a wide soft column with a single hanging shape on the chest.
+🔴 ACCENT: none.
+```
+
+## Zhangsong
+
+```
+ZHANGSONG - the man who comes out of the west with a map inside his sleeve.
+🔴 SHOULDERS = 1.3 head-widths - a small narrow frame, and 🔴 HE NEVER MAKES IT SMALLER: the weight
+is on both feet, the chin is level or up, and he does not stoop to anyone in the room.
+FACE: bare, plain, a thin beard in two short points. Eyes quick and set wide.
+🔴 WHAT READS: A ROLLED SCROLL CARRIED INSIDE THE LEFT SLEEVE WITH ONE END SHOWING at the cuff -
+  drawn on every page he appears, before he takes it out and after he has handed it over.
+COSTUME: a travelling official's robe, narrow-sleeved except for the left, which is full enough to
+  hide the roll.
+🔴 SILHOUETTE: a small upright figure with a short cylinder breaking the line of one cuff.
+🔴 ACCENT: none.
+```
+
+## Lihui
+
+```
+LIHUI - the talker sent alone to bring a general in with words.
+SHOULDERS = 1.5 head-widths.
+FACE: bare, level, a short beard trimmed round the jaw, 🔴 THE MOUTH IS CLOSED IN THE FIRST PANEL OF
+  EVERY SCENE HE IS IN. He listens first and it is drawn: the head is turned to the other man and
+  the lips are together before any panel where he speaks.
+🔴 WHAT READS: A FLAT WOODEN COURT TABLET HELD UPRIGHT IN BOTH HANDS AT THE CHEST - a small vertical
+  plate, held the same way walking and sitting. 🔴 0 WEAPON on any page.
+🔴 HE IS DRAWN LEVEL WITH THE MAN HE IS PERSUADING - same eye-line, square on, sitting when that man
+  sits. He never stands over him and never bows below him. That equality is the character.
+COSTUME: a plain civil robe belted high, boots made for a road.
+🔴 SILHOUETTE: a plain column with a small UPRIGHT rectangle held at the chest.
+🔴 ACCENT: none.
+```
+
+## Fazheng
+
+```
+FAZHENG - the man on the ridge who tells an old general when to go down.
+SHOULDERS = 1.4 head-widths.
+🔴 HE IS THE ONE FIGURE ON THAT MOUNTAIN NOT IN ARMOUR - a civil robe among helmets, on the peak
+  and in the camp both. 0 plate, 0 helmet, 0 sword, on any page.
+FACE: bare, thin, a narrow chin, a short dark beard. Eyes open and level - 🔴 NOT NARROWED (the lean
+  officer on the opposite peak in this same book is drawn with narrowed eyes; this one is not).
+🔴 WHAT READS: TWO SMALL SIGNAL FLAGS ON SHORT STICKS, ONE IN EACH HAND - one white, one vermilion.
+  He is the only figure in this book holding a flag. Both are in his hands even when he is only
+  standing and watching.
+🔴 ARM: he points with the whole arm straight out from the shoulder, and the rest of the body does
+  not follow it - the feet stay where they are.
+COSTUME: a plain civil robe, the skirt gathered up and tucked at the belt for a hillside.
+🔴 SILHOUETTE: a narrow figure with two short bars sticking out at arm's ends.
+🔴 ACCENT: none of his own. 🔴 THE RED IS IN HIS HAND AND NEVER ON HIM - 0 red on the robe, so he is
+  not taken for the man with the red plume who rides in the same book.
+```
+
+## Yangxiu
+
+```
+YANGXIU - the clever secretary who reads the password and packs before he is told to.
+SHOULDERS = 1.4 head-widths.
+FACE: bare, young, 🔴 NO BEARD AT ALL, smooth jaw, a high clean forehead.
+🔴 HE IS THE ONE SMILING FACE IN HIS BOOK - a small closed-mouth smile that is on him in every
+  panel, including the one where the ruler is watching him through a doorway.
+POSTURE: 🔴 THE BACK IS STRAIGHT AND HE STANDS IN THE OPEN, in a doorway or the middle of a floor -
+  never behind anyone's shoulder.
+🔴 WHAT READS: HIS HANDS ARE TYING OR FOLDING SOMETHING THAT IS NOT HIS WORK - a cloth bundle
+  knotted at the top, a rolled mat, a coat being folded. 🔴 A TIED CLOTH BUNDLE is with him or at
+  his feet on every page. 🔴 0 BRUSH IN HIS HAND EVER.
+COSTUME: a junior official's robe, neat, a narrow sash, 0 armour.
+🔴 SILHOUETTE: a slim upright figure with a knotted lump beside it.
+🔴 ACCENT: none.
+```
+
+## Lvmeng
+
+```
+LVMENG - the commander who lies down sick and gets up well.
+SHOULDERS = 2.0 head-widths.
+🔴 THE FACE IS THE CHARACTER AND IT IS DRAWN IDENTICALLY IN BOTH PANELS - the one where he is
+  supposed to be dying and the one where he throws the quilt off. Same dark weathered colour, same
+  full cheeks, 0 hollow, 0 grey, 0 sweat. 🔴 The lie is in the bedding, never in the face.
+FACE: bare, wide and flat, a flat-bridged nose, a short thick beard, 🔴 THE LEFT BROW SITS LOWER
+  THAN THE RIGHT in every panel.
+🔴 NOTHING HANGS FROM HIS SHOULDERS - 0 cloak, 0 cape, 0 scarf, 0 sash ends. Among the commanders of
+  the east he is the one with no cloth flying anywhere on him, and that is how he is told from them.
+COSTUME: dark scale armour under a short plain coat that stops at the hip.
+🔴 SILHOUETTE: a broad blunt rectangle with clean shoulder edges and nothing loose on it.
+🔴 ACCENT: none.
+```
+
+## Liaohua
+
+```
+LIAOHUA - the officer sent for help who comes back with none.
+SHOULDERS = 1.7 head-widths.
+🔴 THE ARMOUR IS THE ONLY WORN ARMOUR IN HIS BOOK - the lacing frayed loose at one shoulder, the
+  coat marked from the knee down, in EVERY panel including the first one before he has ridden
+  anywhere. He has been on a horse longer than anyone else on the page.
+FACE: bare, ordinary, a short beard, eyebrows level. 🔴 Deliberately an unremarkable face - what the
+  reader remembers is the shut gate in front of it.
+🔴 WHAT READS: A SEALED BAMBOO MESSAGE-TUBE, as long as a forearm, HELD IN ONE HAND AT HIP HEIGHT
+  and never put away. 🔴 IT IS STILL IN THAT HAND IN HIS LAST PANEL, because nobody opened the gate
+  to take it.
+COSTUME: a rider's armour, the skirt split for a saddle.
+🔴 SILHOUETTE: an upright figure with ONE SHORT BAR hanging from one fist at the hip.
+🔴 ACCENT: none.
+```
+
+## Weiyan
+
+```
+WEIYAN - the officer who is always where the trap is, and once where he should not be.
+SHOULDERS = 2.0 head-widths.
+FACE: long, heavy at the jaw, 🔴 A SHORT BEARD THAT GROWS UNDER THE CHIN ONLY - the cheeks and the
+  upper lip are bare.
+🔴 THE HAIR IS PULLED BACK HARD so the hairline shows high and bare across the front of the head.
+🔴 WHAT READS: A COIL OF ROPE OVER THE LEFT SHOULDER, tied off short. 🔴 IT IS STILL ON HIM INSIDE
+  THE TENT IN BOOK 24 WHERE THERE IS NOTHING TO TIE. He is the man who ties things down, and he is
+  carrying that on the night he knocks a lamp over.
+🔴 THE COIL IS A CLOSED RING AT THE SHOULDER, not a long curve across the back - the old general
+  with the bow is the long curve, and these two must not be confused at a distance.
+COSTUME: a field officer's armour, plates dulled, one shoulder guard missing its cloth.
+POSTURE: 🔴 THE ARMS OPEN WIDE FROM THE SHOULDERS when he blocks a way - the only wide-armed
+  standing pose he is given.
+🔴 SILHOUETTE: a broad figure with a small closed loop sitting on one shoulder.
+🔴 ACCENT: none.
+```
+
+
 ## 🔴 부딪치는 짝 — 같은 화면에 서면 헷갈리는 자리
 
 > 시트를 다 뽑은 뒤 **이 표의 짝만 나란히 놓고 다시 본다.** 다른 데서 아무리 잘 갈려도
@@ -1017,6 +1260,20 @@ COSTUME: a plain court robe, no armour ever, no belt plaque.
 | **유비 ↔ 유선** | 21 | 귀는 같다. 유비 = 칼 두 자루 + 노란 띠 / 유선 = **아무것도 안 들었다** + 입이 조금 열려 있다 |
 | **노숙 ↔ 수경선생** | (안 만남) | 둘 다 소매에 손. 노숙 = **검은 수염** + 여행 망토 / 수경 = 흰 수염 + 망토 없음 |
 | **공손찬 ↔ 조운** | (안 만남) | 둘 다 흰 말·흰빛. 공손찬 = **수염 있음** / 조운 = 끝까지 수염 0 |
+| **관우 ↔ 관평** | 10·13·20 | 🔴 **이 라인에서 가장 자주 붙는 짝이다.** 관우 = 붉은 얼굴 · 가슴 아래로 늘어진 수염 한 덩이 · 녹색 · 어깨 위로 솟은 긴 자루 / 관평 = **안 칠한 맨 얼굴** · **수염 0** · **녹색 0** · **어깨 위로 솟은 것 0** · 두 손에 가슴 높이로 가로로 든 칼집째의 칼 |
+| **관평 ↔ 유봉** | 13 | 골짜기 뒤에 **둘이 나란히 웅크린다.** 관평 = 어깨 1.6 · 머리를 하나로 높이 묶음 · 가슴 앞 **가로 막대** / 유봉 = 어깨 2.0 · **등 뒤에 매달린 삿갓의 동그라미** · 머리는 안 묶는다 |
+| **유비 ↔ 유봉** | 13 | 양아들이지만 물려받은 표지가 하나도 없다 — 유봉 = **큰 귀 0 · 다홍 허리끈 0 · 허리의 칼 두 자루 0** |
+| **장간 ↔ 감택** | 14 | 같은 권에서 **둘 다 문관 옷으로 배를 타고 강을 건넌다.** 장간 = **비뚜름한 검은 갓**(끝까지 안 바로잡는다) · 첫 컷에서 빈손 / 감택 = **맨머리**(머리에 아무것도 없다) · **한 손이 제 가슴에 납작하게 붙어 있다** |
+| **가후 ↔ 양수** | (안 만남) | 둘 다 조조 곁의 꾀 많은 신하다. 가후 = **흰 눈썹 + 검은 수염** · 굽은 등 · 조조의 **어깨 뒤 반 걸음** · 손에 **붓** / 양수 = **수염 0** · 곧은 등 · **문 가운데 혼자 서 있다** · 손에 **매듭 묶은 보따리** · 붓 0 |
+| **가후 ↔ 사마의** | (안 만남) | 둘 다 조조 곁에서 몸을 굽히는 노신. 사마의 = **회흑색 얼굴** + 두 손이 소매 안 / 가후 = 맨 얼굴 + **손에 붓 한 자루** |
+| **장각 ↔ 장로** | (안 만남) | 둘 다 도가의 스승이다. 장각 = **노란 두건, 무리와 같은 노란색** + 키만 한 **지팡이** / 장로 = **노란색 0 · 지팡이 0** + 목에 건 **큰 열쇠 하나** |
+| **유장 ↔ 장송** | 17 | 익주 사람 둘이 한 화면에 선다. 유장 = 처진 눈썹 · **손이 늘 잔손질 중** / 장송 = 어깨 **1.3** · **턱을 들고 두 발로 버틴다** · 왼 소매 끝에 나온 **두루마리** |
+| **황충 ↔ 법정** | 19 | **같은 봉우리에 나란히 선다.** 황충 = 흰 수염 · 갑옷 · 몸보다 긴 **활의 큰 곡선** / 법정 = **갑옷 0**(그 산에서 유일) · 양손에 **짧은 깃발 두 개**(흰 것·붉은 것) |
+| **마초 ↔ 법정** | 19 | 같은 권에 붉은 것이 둘. 마초의 붉은 것은 **투구 위**(깃) / 법정의 붉은 것은 **손 안**(깃발), 옷에는 붉은색이 0 |
+| **주유 ↔ 여몽** | (안 만남) | 강동의 도독 자리를 잇는다. 주유 = **긴 망토** + 허리의 피리 / 여몽 = **어깨에서 늘어지는 천이 하나도 없다**(망토·목수건·띠끝 전부 0) |
+| **관평 ↔ 요화** | 20 | 맥성 안팎에 둘 다 관우 곁이다. 관평 = **두 손** · **가슴 높이** · **긴** 가로 막대 / 요화 = **한 손** · **허리 높이** · **짧은** 대나무 통 + 해진 갑옷 |
+| **황충 ↔ 위연** | (안 만남) | 둘 다 어깨에 무언가를 걸친다. 황충 = 몸보다 **긴 활의 큰 곡선** / 위연 = 어깨 위의 **작은 닫힌 고리**(밧줄 사리) |
+| **마속 ↔ 이회** | (안 만남) | 둘 다 말로 일하는 사람. 마속 = **입이 거의 늘 열려 있고** 손에 **납작한 책** / 이회 = 장면 첫 컷에서 **입을 다물고** 두 손에 **세로로 세운 홀** |
 
 ---
 
