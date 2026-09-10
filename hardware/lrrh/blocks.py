@@ -18,6 +18,8 @@
   · 고정물(집·나무·빨간모자·늑대)은 **높게**(OBJ_H) — 카메라가 길 조각과 다른 물건으로 본다.
     집은 문 방향 표시로 굴뚝 한 덩이(원작과 같은 장치, 종이가 덮지 않는 자리).
   · 모서리는 둥글게(아이 손), 밑 테두리는 살짝 모따기(꽂을 때 안내).
+  · 길 조각은 **2단** — 아래 치마는 발자국 그대로, 윗판은 사방 ROAD_TOP_INSET 안쪽(2026-09-10 사용자:
+    「윗부분을 좀 작게, 놓고 빼기 쉽게」). 붙여 놓은 조각들 사이에 윗판 홈이 생겨 손톱이 들어간다.
   · 원점 마커는 **없다** — 4칸 × 6돌기 = 24돌기 = 판 전체라 놓을 자리가 없다. 격자는 인식기가 이미 찾는
     판 윤곽(초록 hull)을 넷으로 나눈 것이고, 어느 변이 위인지는 거치대(잠망경)가 정한다.
 
@@ -40,7 +42,9 @@ STUD_HOLE_H = 2.2      # 소켓 깊이 (돌기 1.7 + 여유)
 CELL_STUDS  = 6                        # 한 칸 = 6돌기
 CELL        = CELL_STUDS * PITCH       # 48mm
 CLEAR       = 0.2                      # 발자국 사방 여유 → 옆 조각과 붙여도 안 낀다
-ROAD_H      = 4.0                      # 길 조각 두께 (소켓 2.2 + 살 1.8)
+ROAD_H      = 6.0                      # 길 조각 전체 높이
+ROAD_SKIRT_H = 3.0                     # 길 조각 아래 치마(발자국 그대로, 소켓 2.2 + 바닥 0.8)
+ROAD_TOP_INSET = 3.0                   # 길 조각 윗판을 사방 이만큼 들여 놓는다 → 붙여 놓아도 윗판 사이 6mm 홈
 OBJ_H       = 16.0                     # 고정물 높이
 PAPER_T     = 0.4                      # 종이 홈 깊이
 PAPER_INSET = 1.0                      # 종이 홈은 가장자리에서 이만큼 안쪽
@@ -69,20 +73,27 @@ def paper_recess(body, w, d, top_z):
     return body.cut(cut)
 
 
-def block(nx, ny, h, paper=True):
+def block(nx, ny, h, paper=True, top_inset=0.0, skirt_h=None):
+    """top_inset > 0 이면 2단: 아래 치마(발자국·skirt_h) + 사방 top_inset 들인 윗판."""
     w, d = footprint(nx, ny)
-    b = (cq.Workplane('XY').box(w, d, h, centered=(True, True, False))
-         .edges('|Z').fillet(CORNER_R)
-         .faces('<Z').edges().chamfer(BOTTOM_CH))
+    def slab(sw, sd, sh):
+        return cq.Workplane('XY').box(sw, sd, sh, centered=(True, True, False)).edges('|Z').fillet(CORNER_R)
+    if top_inset:
+        tw, td = w - 2 * top_inset, d - 2 * top_inset
+        b = (slab(w, d, skirt_h).faces('<Z').edges().chamfer(BOTTOM_CH)
+             .union(slab(tw, td, h - skirt_h + 0.01).translate((0, 0, skirt_h - 0.01))))   # 겹쳐야 닫힌다
+    else:
+        tw, td = w, d
+        b = slab(w, d, h).faces('<Z').edges().chamfer(BOTTOM_CH)
     b = sockets(b, nx, ny, w, d)
     if paper:
-        b = paper_recess(b, w, d, h)
+        b = paper_recess(b, tw, td, h)
     return b
 
 
 def road():
-    """길 조각 밑판 1×2칸 (6×12돌기). 5장 전부 이것 하나 — 그림은 종이."""
-    return block(CELL_STUDS * 2, CELL_STUDS, ROAD_H)
+    """길 조각 밑판 1×2칸 (6×12돌기), 2단. 5장 전부 이것 하나 — 그림은 종이."""
+    return block(CELL_STUDS * 2, CELL_STUDS, ROAD_H, top_inset=ROAD_TOP_INSET, skirt_h=ROAD_SKIRT_H)
 
 
 def obj():

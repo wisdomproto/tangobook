@@ -62,7 +62,7 @@ def main():
     gap, cap = 8, 30
     out = Image.new('RGB', (W * 2 + gap * 3, H * 2 + gap * 3 + cap * 2), (150, 150, 150))
     dr = ImageDraw.Draw(out); f = font(18)
-    for (img, label, x, y) in ((p1, '부품 — 길 1×2 · 고정물 1×1 · 집(굴뚝 = 문 방향)   (윗면: 종이 홈)', gap, gap),
+    for (img, label, x, y) in ((p1, '부품 — 길 1×2(2단: 윗판을 들여 손톱 홈) · 고정물 1×1 · 집(굴뚝 = 문 방향)', gap, gap),
                                (p2, '뒤집어서 — 밑면 소켓이 레고 돌기에 꽂힌다', W + gap * 2, gap),
                                (p3, '24×24 판 위 조립 (한 칸 = 6돌기 = 48mm, 4×4)', gap, H + gap * 2 + cap),
                                (p4, '위에서 — 4×4 격자 (집 문은 아래, 길 세 장, 나무 둘, 빨간모자, 늑대)', W + gap * 2, H + gap * 2 + cap)):
