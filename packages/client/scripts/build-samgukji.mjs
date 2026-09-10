@@ -1025,9 +1025,12 @@ function checkCuts(vols) {
     }
   }
   if (!cuts) return;
+  // 🔴 네 건에서 자르면 나머지를 손으로 다시 찾게 되고, 그 손 스캔이 빌더와 조건이 달라 헛것을 뱉는다.
+  //    SAMGUKJI_FULL=1 이면 전부 찍는다.
+  const CAP = process.env.SAMGUKJI_FULL ? Infinity : 4;
   const say = (label, arr) =>
     arr.length
-      ? console.log(`  ⚠ ${label} ${arr.length}건 — ${arr.slice(0, 4).join(' / ')}${arr.length > 4 ? ' …' : ''}`)
+      ? console.log(`  ⚠ ${label} ${arr.length}건 — ${arr.slice(0, CAP).join(' / ')}${arr.length > CAP ? ' …' : ''}`)
       : console.log(`  ✓ ${label}`);
   say(`컷 ${cuts}개 전부 화면 글자 45자 이내`, bad.over);
   say('컷 번호가 쪽마다 c1 부터 이어진다', bad.seq);
