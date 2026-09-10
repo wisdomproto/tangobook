@@ -400,6 +400,25 @@
         opacity: 1;
         transform: translateX(-50%);
       }
+      .sets {
+        display: flex;
+        gap: 4px;
+        margin: 0 0 10px;
+      }
+      .sets a {
+        flex: 1;
+        text-align: center;
+        padding: 6px 4px;
+        border-radius: 6px;
+        font-size: 12px;
+        text-decoration: none;
+        color: #444;
+        background: #eee;
+      }
+      .sets a.on {
+        background: #222;
+        color: #fff;
+      }
     </style>
   </head>
   <body>
@@ -408,6 +427,7 @@
       <p class="hint">
         그림만 만듭니다.<br />사물 박스는 editor2 「숨은그림」 탭에서 드래그하세요.
       </p>
+      <div class="sets" id="sets"></div>
       <div id="nav"></div>
     </aside>
 
@@ -431,6 +451,19 @@
     <script>
       (function () {
         'use strict';
+        /**
+         * 🔴 **라인마다 목록 파일이 따로다**(명작 · 전래 · 자연관찰). 한 파일에 몰면 다음 라인을
+         *    돌릴 때 앞 라인을 덮어쓰고, 키(`ho-0001`)가 겹쳐 이미 붙인 그림과 이미 찍은 상자가
+         *    엉뚱한 씬에 붙는다. 키 앞자리가 갈리므로 **붙여넣기 버킷과 핫스팟 파일은 한 벌**이다.
+         */
+        var SETS = [
+          { id: 'ho', label: '세계 명작' },
+          { id: 'jr', label: '전래 동화' },
+          { id: 'nt', label: '자연관찰' },
+        ];
+        var SET = (location.search.match(/[?&]set=([a-z]+)/) || [])[1] || 'ho';
+        if (!SETS.some(function (x) { return x.id === SET; })) SET = 'ho';
+        var PLAN_URL = '/hidden-object-plan-data' + (SET === 'ho' ? '' : '-' + SET) + '.json';
         var DOC = 'hidden-object-plan';
   /** 잡아 놓은 사물 자리(퍼센트). `hidden-object-hotspots.json` — 없으면 상자만 안 그린다. */
   var hotspots = {};
@@ -458,6 +491,23 @@
         //    「정원 안에 침대가 놓인」 그림이 됐다. 배경이 없는 책이면 그 문단째로 지운다.
         function promptFor(it) {
           var scenery = it.scenery || [];
+          var parts = it.parts || [];
+          // 🔴 자연관찰은 낱말의 절반이 **그 동물의 부분**이다 — 숨기라고 시키면 잘린 귀가
+          //    풀밭에 놓인다. 그래서 반대 지시(동물을 크게 그려라)를 따로 붙인다.
+          var pblock =
+            parts.length && data.partsBlock
+              ? data.partsBlock
+                  .split('{{pn}}')
+                  .join(String(parts.length))
+                  .split('{{parts}}')
+                  .join(
+                    parts
+                      .map(function (w) {
+                        return '- ' + w.en + ' (' + w.ko + ')';
+                      })
+                      .join('\n')
+                  )
+              : '';
           var block = scenery.length
             ? data.sceneryBlock
                 .split('{{sn}}')
@@ -486,9 +536,28 @@
                 })
                 .join('\n')
             )
+            .split('{{partsBlock}}')
+            .join(pblock)
             .split('{{sceneryBlock}}')
-            .join(block);
+            .join(block)
+            // 숨길 사물이 0개인 칸(공룡 한 마리와 그 몸의 부분들뿐인 책)은 그 문단째로 지운다.
+            .split('\n')
+            .filter(function (l) {
+              return it.words.length || l.indexOf('OBJECTS TO HIDE') !== 0;
+            })
+            .join('\n');
         }
+
+        (function () {
+          var el = document.getElementById('sets');
+          SETS.forEach(function (x) {
+            var a = document.createElement('a');
+            a.href = x.id === 'ho' ? '?' : '?set=' + x.id;
+            a.textContent = x.label;
+            if (x.id === SET) a.className = 'on';
+            el.appendChild(a);
+          });
+        })();
 
         var toastT;
         function toast(m) {
@@ -607,7 +676,10 @@
               var boxes = hotspots[key];
               if (boxes) {
                 var koOf = {};
-                (it.words || []).concat(it.scenery || []).forEach(function (w) { koOf[w.en] = w.ko; });
+                (it.words || [])
+                  .concat(it.scenery || [])
+                  .concat(it.parts || [])
+                  .forEach(function (w) { koOf[w.en] = w.ko; });
                 Object.keys(boxes).forEach(function (name, i) {
                   var b = boxes[name];
                   var m = document.createElement('div');
@@ -725,6 +797,7 @@
             '<span class="chip">숨길 사물 ' +
             it.words.length +
             '</span>' +
+            ((it.parts || []).length ? '<span class="chip">몸 ' + it.parts.length + '</span>' : '') +
             '<span class="chip">' +
             it.key +
             '</span>';
@@ -754,12 +827,14 @@
           lab2.textContent =
             '② 숨길 사물 ' +
             it.words.length +
-            '개 — 이걸 씬 안에 넣는다' +
+            '개' +
+            ((it.parts || []).length ? ' + 몸의 부분 ' + it.parts.length + '개' : '') +
+            ' — 이걸 씬 안에 넣는다' +
             ((it.scenery || []).length ? ' (배경 ' + it.scenery.length + '개는 참조 안 붙임)' : '');
           refs.appendChild(lab2);
           var cards = document.createElement('div');
           cards.className = 'cards';
-          it.words.forEach(function (w) {
+          it.words.concat(it.parts || []).forEach(function (w) {
             var f = document.createElement('figure');
             if (w.card) {
               var im = document.createElement('img');
@@ -790,13 +865,18 @@
           var mid = document.createElement('div');
           var words = document.createElement('div');
           words.className = 'words';
-          words.innerHTML =
-            '숨길 사물: ' +
-            it.words
+          var listOf = function (ws) {
+            return ws
               .map(function (w) {
                 return '<b>' + w.ko + '</b>(' + w.en + ')';
               })
               .join(' · ');
+          };
+          words.innerHTML =
+            (it.words.length ? '숨길 사물: ' + listOf(it.words) : '') +
+            ((it.parts || []).length
+              ? (it.words.length ? '<br>' : '') + '몸의 부분: ' + listOf(it.parts)
+              : '');
           mid.appendChild(words);
           var ta = document.createElement('textarea');
           ta.readOnly = true;
@@ -927,7 +1007,7 @@
         }
 
         Promise.all([
-          fetch('/hidden-object-plan-data.json', { cache: 'no-cache' }).then(function (r) {
+          fetch(PLAN_URL, { cache: 'no-cache' }).then(function (r) {
             return r.json();
           }),
           fetch(API)

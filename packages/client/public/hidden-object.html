@@ -223,7 +223,7 @@
 
   function start() {
     var b = books[bi];
-    var words = b.cell.words.concat(b.cell.scenery || []);
+    var words = b.cell.words.concat(b.cell.parts || []).concat(b.cell.scenery || []);
     // 🔴 책은 **음원과 이름 때문에** 받는다. 못 받아도 그림은 놀 수 있으니 진행을 막지 않는다.
     if (!bookCache[b.bookId]) {
       bookCache[b.bookId] = fetch('/api/storybooks/' + b.bookId)
@@ -245,9 +245,12 @@
         var w = words.filter(function (x) { return x.en === en; })[0] || {};
         // 배경 낱말(연못·하늘·마을)은 뒤 층 — 작업판이 `scenery` 로 갈라 놓은 그대로다.
         var scenery = (b.cell.scenery || []).some(function (p) { return p.en === en; });
+        // 🔴 몸의 부분(귀·코·이빨)은 **사물보다 위** — 그 동물 몸 위에 얹혀 있어서,
+        //    같은 층이면 큰 몸 상자가 작은 귀를 삼킨다. 링커와 같은 규칙이다.
+        var part = (b.cell.parts || []).some(function (p) { return p.en === en; });
         return {
           en: en, ko: w.ko || en, card: w.card || null, name: en,
-          box: hotspots[b.cell.key][en], got: false, layer: scenery ? 0 : 1,
+          box: hotspots[b.cell.key][en], got: false, layer: scenery ? 0 : part ? 2 : 1,
         };
       })
     };
@@ -334,8 +337,18 @@
   el('ko').onclick = function () { lang = 'ko'; el('ko').className = 'on'; el('en').className = ''; renderRail(); };
   el('en').onclick = function () { lang = 'en'; el('en').className = 'on'; el('ko').className = ''; renderRail(); };
 
+  // 🔴 목록 파일이 라인마다 따로다(명작 · 전래 `-jr` · 자연관찰 `-nt`). 키가 갈려 있어 합쳐도 안 부딪힌다.
+  //    아직 안 만든 라인은 404 라 빈 목록으로 넘긴다.
+  var PLANS = ['', '-jr', '-nt'].map(function (sfx) {
+    return fetch('/hidden-object-plan-data' + sfx + '.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : { sections: [] }; })
+      .catch(function () { return { sections: [] }; });
+  });
+
   Promise.all([
-    fetch('/hidden-object-plan-data.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
+    Promise.all(PLANS).then(function (ps) {
+      return { sections: ps.reduce(function (a, p) { return a.concat(p.sections || []); }, []) };
+    }),
     fetch('/hidden-object-hotspots.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
     fetch('/api/comic-assets/' + DOC).then(function (r) { return r.json(); }).catch(function () { return {}; })
   ]).then(function (res) {

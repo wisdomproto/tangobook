@@ -35,7 +35,16 @@ const ORIGIN = arg('origin', 'https://www.tangobook.co.kr');
 
 loadEnv();
 
-const plan = JSON.parse(fs.readFileSync(path.join(PUB, 'hidden-object-plan-data.json'), 'utf8'));
+/**
+ * 🔴 **목록 파일은 라인마다 따로다**(명작 `hidden-object-plan-data.json` · 전래 `-jr` ·
+ *    자연관찰 `-nt`). 키 앞자리가 갈려 있어 합쳐도 안 부딪히므로 **전부 읽어 한 목록으로** 본다.
+ */
+const plan = {
+  sections: fs
+    .readdirSync(PUB)
+    .filter((f) => /^hidden-object-plan-data(-[a-z]+)?.json$/.test(f))
+    .flatMap((f) => JSON.parse(fs.readFileSync(path.join(PUB, f), 'utf8')).sections),
+};
 const hotspots = JSON.parse(fs.readFileSync(path.join(PUB, 'hidden-object-hotspots.json'), 'utf8'));
 delete hotspots._;
 const assets = (await (await fetch(`${ORIGIN}/api/comic-assets/hidden-object-plan`)).json()).data;
@@ -74,7 +83,7 @@ for (const [bookId, list] of byBook) {
   let touched = false;
 
   for (const cell of list) {
-    const planWords = [...cell.words, ...(cell.scenery ?? [])];
+    const planWords = [...cell.words, ...(cell.parts ?? []), ...(cell.scenery ?? [])];
     const hs = [];
     for (const [en, [x, y, w, h]] of Object.entries(hotspots[cell.key])) {
       const ko = planWords.find((p) => p.en === en)?.ko;
@@ -87,7 +96,11 @@ for (const [bookId, list] of byBook) {
       // 🔴 층은 **작업판이 이미 갈라 놨다** — `words` 는 사물, `scenery` 는 배경(연못·하늘·마을).
       //    겹친 자리는 앞 층이 가져가므로 배경 상자를 크게 둬도 사물을 안 가로챈다.
       const scenery = (cell.scenery ?? []).some((p) => p.en === en);
-      hs.push({ objectName, x: x / 100, y: y / 100, w: w / 100, h: h / 100, layer: scenery ? 0 : 1 });
+      // 🔴 몸의 부분은 **사물보다 위**다 — 귀·코·이빨은 그 동물 몸 위에 얹혀 있어서,
+      //    같은 층이면 큰 몸 박스가 작은 귀를 삼킨다(명작에서 마차가 연못을 삼켰던 것과 같다).
+      const part = (cell.parts ?? []).some((p) => p.en === en);
+      const layer = scenery ? 0 : part ? 2 : 1;
+      hs.push({ objectName, x: x / 100, y: y / 100, w: w / 100, h: h / 100, layer });
     }
     if (!hs.length) continue;
 

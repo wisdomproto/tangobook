@@ -26,7 +26,16 @@ const W = 1000;
 const HEAD = 34;
 const COLORS = ['#ff2d55', '#00e5ff', '#ffd400', '#7cff4f', '#ff8ae0', '#ffa14f', '#9b8cff', '#00ffa3', '#ff5c5c'];
 
-const plan = JSON.parse(fs.readFileSync(path.join(PUB, 'hidden-object-plan-data.json'), 'utf8'));
+/**
+ * 🔴 **목록 파일은 라인마다 따로다**(명작 `hidden-object-plan-data.json` · 전래 `-jr` ·
+ *    자연관찰 `-nt`). 키 앞자리가 갈려 있어 합쳐도 안 부딪히므로 **전부 읽어 한 목록으로** 본다.
+ */
+const plan = {
+  sections: fs
+    .readdirSync(PUB)
+    .filter((f) => /^hidden-object-plan-data(-[a-z]+)?.json$/.test(f))
+    .flatMap((f) => JSON.parse(fs.readFileSync(path.join(PUB, f), 'utf8')).sections),
+};
 const hotspots = JSON.parse(fs.readFileSync(path.join(PUB, 'hidden-object-hotspots.json'), 'utf8'));
 delete hotspots._;
 const assets = (await (await fetch('https://www.tangobook.co.kr/api/comic-assets/hidden-object-plan')).json()).data;
@@ -41,7 +50,12 @@ async function panel(key) {
   const m = await sharp(buf).metadata();
   const h = Math.round((m.height / m.width) * W);
   const koOf = (en) =>
-    (cell.words.find((w) => w.en === en) || (cell.scenery ?? []).find((w) => w.en === en) || {}).ko ?? en;
+    (
+      cell.words.find((w) => w.en === en) ||
+      (cell.parts ?? []).find((w) => w.en === en) ||
+      (cell.scenery ?? []).find((w) => w.en === en) ||
+      {}
+    ).ko ?? en;
   const boxes = Object.entries(hotspots[key]).map(([name, [x, y, bw, bh]], i) => {
     const c = COLORS[i % COLORS.length];
     const L = (x / 100) * W, T = (y / 100) * h, RW = (bw / 100) * W, RH = (bh / 100) * h;

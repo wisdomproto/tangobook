@@ -24,9 +24,17 @@ const OUT = path.join(ROOT, 'grids');
 const W = 1000;
 const HEAD = 34;
 
-const plan = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '..', '..', 'client', 'public', 'hidden-object-plan-data.json'), 'utf8')
-);
+const PUB = path.join(__dirname, '..', '..', 'client', 'public');
+/**
+ * 🔴 **목록 파일은 라인마다 따로다**(명작 `hidden-object-plan-data.json` · 전래 `-jr` ·
+ *    자연관찰 `-nt`). 키 앞자리가 갈려 있어 합쳐도 안 부딪히므로 **전부 읽어 한 목록으로** 본다.
+ */
+const plan = {
+  sections: fs
+    .readdirSync(PUB)
+    .filter((f) => /^hidden-object-plan-data(-[a-z]+)?.json$/.test(f))
+    .flatMap((f) => JSON.parse(fs.readFileSync(path.join(PUB, f), 'utf8')).sections),
+};
 const assets = (await (await fetch('https://www.tangobook.co.kr/api/comic-assets/hidden-object-plan')).json()).data;
 const cells = plan.sections.flatMap((s) => s.items).filter((c) => c.genre === GENRE && assets[c.key]);
 
@@ -49,7 +57,11 @@ async function panel(cell) {
   const scene = await sharp(buf).resize(W, h, { fit: 'fill' })
     .composite([{ input: Buffer.from(`<svg width="${W}" height="${h}" xmlns="http://www.w3.org/2000/svg">${g.join('')}</svg>`), top: 0, left: 0 }])
     .png().toBuffer();
-  const words = [...cell.words.map((w) => `${w.en}(${w.ko})`), ...(cell.scenery ?? []).map((w) => `${w.en}(${w.ko})*`)];
+  const words = [
+    ...cell.words.map((w) => `${w.en}(${w.ko})`),
+    ...(cell.parts ?? []).map((w) => `${w.en}(${w.ko})+`),
+    ...(cell.scenery ?? []).map((w) => `${w.en}(${w.ko})*`),
+  ];
   const head = `<svg width="${W}" height="${HEAD}" xmlns="http://www.w3.org/2000/svg">` +
     `<rect width="${W}" height="${HEAD}" fill="#111"/>` +
     `<text x="8" y="24" font-size="19" fill="#fff" font-family="monospace">${esc(cell.key)} ${esc(cell.bookTitle)} — ${esc(words.join(' · '))}</text></svg>`;

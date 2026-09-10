@@ -25,8 +25,30 @@ import axios from 'axios';
 import { loadEnv, listStorybookKeys, getJsonByKey } from './translation-core.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, '..', '..', 'client', 'public', 'hidden-object-plan-data.json');
-const CATEGORY = process.argv.find((a) => a.startsWith('--category='))?.slice(11) ?? '세계 명작';
+/**
+ * 🔴 **라인마다 따로 담는다** — 목록 파일도 붙여넣기 키도 라인별로 갈린다(`--prefix=`).
+ *    한 파일에 몰면 다음 라인을 돌릴 때 앞 라인 목록을 덮어쓰고, 키(`ho-0001`)가 겹쳐
+ *    이미 붙여넣은 그림과 이미 찍은 핫스팟이 **엉뚱한 씬에 붙는다**.
+ *    핫스팟 파일(`hidden-object-hotspots.json`)과 붙여넣기 버킷은 키가 갈리므로 **한 벌 그대로** 쓴다.
+ * `--category=` 는 쉼표로 여러 개 — 자연관찰은 「공룡 친구들」처럼 카테고리가 여덟으로 쪼개져 있다.
+ */
+const CATEGORIES = (
+  process.argv.find((a) => a.startsWith('--category='))?.slice(11) ?? '세계 명작'
+)
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+const PREFIX = process.argv.find((a) => a.startsWith('--prefix='))?.slice(9) ?? 'ho';
+/** 화면 제목 — 자연관찰처럼 카테고리가 여덟으로 쪼개진 라인은 이걸로 한 이름을 준다. */
+const LABEL = process.argv.find((a) => a.startsWith('--label='))?.slice(8) ?? null;
+const OUT = path.join(
+  __dirname,
+  '..',
+  '..',
+  'client',
+  'public',
+  PREFIX === 'ho' ? 'hidden-object-plan-data.json' : `hidden-object-plan-data-${PREFIX}.json`
+);
 
 loadEnv();
 
@@ -94,7 +116,70 @@ const SCENERY = new Set([
   '구름',
   '별',
   '파도',
+  // 전래 동화 149 낱말을 훑어 더한 것
+  '초가집',
+  '부뚜막',
+  '서낭당 돌탑',
+  // 자연관찰 270 낱말을 훑어 더한 것 — 🔴 이 라인은 낱말의 절반이 **터·물·흙**이다
+  '강',
+  '초원',
+  '산',
+  '들판',
+  '밭',
+  '정글',
+  '갯벌',
+  '해변',
+  '땅',
+  '흙',
+  '모래',
+  '진흙',
+  '물',
+  '바닥',
+  '주방',
+  '구멍',
+  '굴',
+  '웅덩이',
+  '오아시스',
+  '화산',
+  '빙산',
+  '해초',
+  '물결',
+  '낙엽',
+  '태양계',
+  '은하',
+  '해',
+  '태양',
+  '달',
 ]);
+
+/**
+ * 🔴 **세 번째 통 — 몸의 부분**(2026-09-10, 자연관찰 라인을 열며 생겼다).
+ *
+ * 자연관찰 943 낱말 중 큰 덩어리가 **그 동물의 부분**이다(꼬리 27 · 이빨 23 · 발톱 17 ·
+ * 부리 15 · 혀 13 …). 이걸 사물 통에 넣으면 프롬프트가 「귀를 화면 어딘가에 숨겨라」를
+ * 시키게 되고, 그러면 모델은 **잘린 귀 하나를 풀밭에 놓는다** — 명작 첫 판의 「얹힘」과
+ * 같은 병이고, 이번엔 더 끔찍하다.
+ *
+ * 그래서 지시를 뒤집는다: **숨기지 말고, 그 동물을 크게 그려라.** 박스는 동물 위에 친다
+ * (핫스팟에 레이어가 있어서 귀·코·이빨이 얼굴 위에 겹쳐도 각각 눌린다).
+ *
+ * 🔴 `눈` 만 영어로 가른다 — eye 면 몸, snow 면 배경이다. 나머지는 한국어로 갈려 있다.
+ */
+const PARTS = new Set([
+  '꼬리', '이빨', '발톱', '부리', '혀', '날개', '깃털', '귀', '털', '뿔', '비늘', '볏',
+  '더듬이', '지느러미', '주둥이', '수염', '앞발', '상아', '갈기', '빨판', '촉수', '턱',
+  '목', '입', '발', '다리', '손', '손가락', '발가락', '얼굴', '머리', '코', '콧구멍',
+  '피부', '근육', '혈관', '식도', '위', '뇌', '심장', '뼈', '몸', '물갈퀴', '집게',
+  '주머니', '가죽', '껍질', '가시', '허물', '탯줄', '침',
+]);
+
+/** 그 낱말이 어느 통인가 — 사물 · 배경 · 몸의 부분. */
+function bucketOf(w) {
+  if (w.ko === '눈') return /snow/i.test(w.en) ? 'scenery' : 'part';
+  if (SCENERY.has(w.ko)) return 'scenery';
+  if (PARTS.has(w.ko)) return 'part';
+  return 'object';
+}
 /**
  * 🔴 **덩어리가 없어 보이는 낱말에는 「그릴 형태」를 준다 — 빼지 않는다.**
  *
@@ -122,6 +207,35 @@ const DRAW_AS = {
   눈물: 'tears — draw one or two large teardrops on the cheek of a character, big enough to tap',
   가죽: 'leather — draw it as one piece of hide lying on a workbench',
   지구: 'Earth — draw it as one globe on a stand',
+  // 전래 동화
+  떡: 'rice cakes — draw them as a plateful or a steamer of white rice cakes',
+  엿: 'yeot taffy — draw it as pieces of taffy laid out on a tray',
+  곶감: 'dried persimmons — draw them as one string of dried persimmons hanging up',
+  좁쌀: 'millet — draw it as one bowl or an open sack of millet grain',
+  마늘: 'garlic — draw one braid of garlic bulbs hanging on a wall',
+  // 자연관찰 — 덩어리가 없어 보이는 것들
+  꿀: 'honey — draw it as one honey pot, or one dripping piece of honeycomb',
+  그림자: "shadow — draw the animal's own shadow on the ground as one clear dark shape",
+  이슬: 'dew — draw two or three large dew drops resting on one leaf',
+  비: 'rain — draw it as one group of falling raindrops in a corner of the sky',
+  햇살: 'sunbeams — draw one clear shaft of light coming down through the trees',
+  거품: 'bubbles — draw one cluster of bubbles rising through the water',
+  물거품: 'bubbles — draw one cluster of bubbles rising through the water',
+  물방울: 'a water drop — draw one large drop hanging from a leaf',
+  먹물: 'ink — draw it as one dark cloud of ink puffing out of the octopus',
+  마그마: 'magma — draw it as one glowing stream inside the mountain',
+  용암: 'lava — draw it as one glowing stream running down the volcano',
+  밥: 'cooked rice — draw it as one filled bowl of rice on a table',
+  고기: 'meat — draw it as one piece of meat on a plate or a board',
+  과일: 'fruit — draw it as one bowl of fruit',
+  곡식: 'grain — draw it as one bundle of grain stalks',
+  똥: 'droppings — draw them as one small tidy pile on the ground, cartoon style',
+  세포: 'a cell — draw it as one round cell as a picture book shows it, plain and simple',
+  유산균: 'a good bacterium — draw it as one rounded cartoon microbe',
+  바이러스: 'a virus — draw it as one round spiky cartoon microbe',
+  은하수: 'the Milky Way — draw it as one wide band of stars across the sky',
+  블랙홀: 'a black hole — draw it as one dark spiral with the light bending around it',
+  오로라: 'the aurora — draw it as one ribbon of green light across the sky',
 };
 
 /**
@@ -139,7 +253,7 @@ const DRAW_AS = {
 const SCENE_RULES = [
   // 🔴 장면이 먼저다 — 「그림을 그린 뒤 사물을 숨겨라」가 아니라 「이것들이 함께 있을 만한
   //    순간을 고르고 그 순간을 그려라」. 첫 판이 진열장이 된 건 순서를 반대로 시켜서다.
-  `- FIRST choose a single moment in this story where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.`,
+  `- FIRST choose a single moment in this book where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party, a clearing in the forest, a shore at low tide. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.`,
   `- ONE single wide scene, 3:2 landscape, in EXACTLY the art style, palette and character design of the attached page illustration.`,
   `- Every object in the list must be somewhere in the picture. A missing one makes that word unplayable.`,
   // 🔴 첫 판에서 **기타가 둘**이었다(베짱이가 든 것 + 나무에 기댄 것). 그러면 어느 쪽에
@@ -171,7 +285,7 @@ function promptLine() {
     //    모델이 시중 찾기 문제집 포맷을 불러와 **사물마다 ①②③④ 번호 배지**를 붙였다 —
     //    프롬프트 아래쪽에 `no numbers` 를 적어 뒀는데도 장르 관성이 그걸 이겼다.
     //    금지어를 늘리는 대신 **부르는 이름을 바꾼다**: 그냥 이야기의 한 장면이다.
-    `Draw one busy storybook scene for a 4-to-7-year-old, from the story "{{book}}".`,
+    `Draw one busy storybook scene for a 4-to-7-year-old, from the book "{{book}}".`,
     ``,
     `The FIRST attached image is a page from this book — copy its art style exactly.`,
     `The other attached images show the objects — copy their shape, colour and material.`,
@@ -180,6 +294,7 @@ function promptLine() {
     ``,
     `OBJECTS TO HIDE ({{n}}) — put each one in the scene, findable but belonging there:`,
     `{{objects}}`,
+    `{{partsBlock}}`,
     `{{sceneryBlock}}`,
   ].join('\n');
 }
@@ -192,6 +307,22 @@ function sceneryBlock() {
     `separate props. Build the scene so each is plainly there and takes up its own area of the`,
     `picture, the way a garden or a forest does:`,
     `{{scenery}}`,
+  ].join('\n');
+}
+
+/**
+ * 몸의 부분이 있을 때만 붙는 문단(화면이 끼워 넣는다).
+ * 🔴 「숨겨라」의 반대를 시킨다 — 그 동물을 **크고 가깝게** 그려야 귀·코·이빨이 각각
+ *    손가락으로 누를 크기가 된다. 떼어내 늘어놓으면 그림이 통째로 못 쓰게 된다.
+ */
+function partsBlock() {
+  return [
+    ``,
+    `PARTS OF THE ANIMAL ({{pn}}) — these are NOT objects to hide. They belong to the animal this`,
+    `book is about. Draw that animal LARGE and close, filling much of the picture and turned so`,
+    `that every part listed here is plainly visible, each one at least 1/12 of the picture width.`,
+    `Never draw any of these as a separate loose prop lying about in the scene:`,
+    `{{parts}}`,
   ].join('\n');
 }
 
@@ -211,6 +342,17 @@ function pickStyle(styleAssets, genreOf, genre) {
  *    글자가 따라 들어온다(규칙에서 글자를 금지하고 있는데 참조가 그 반대를 보여주는 꼴).
  * 가운데쯤 쪽을 고른다: 첫 쪽은 인물만 크게 나오는 일이 잦아 배경을 못 보여준다.
  */
+/**
+ * 🔴 **그림체가 하나뿐인 라인은 쪽 삽화가 `styleAssets` 가 아니라 책 본문에 있다**
+ *    (전래 동화 40권 · 자연관찰 101권 — 둘 다 `styleAssets` 쪽 삽화가 0장이다).
+ *    이걸 몰라 첫 실행이 **0권**을 내놓고도 「건너뜀」 한 줄 없이 조용히 끝났다.
+ */
+function pickBasePageIllustration(sb) {
+  const pages = (sb.pages ?? []).filter((p) => p.illustrationUrl);
+  if (!pages.length) return null;
+  return pages[Math.floor(pages.length / 2)].illustrationUrl;
+}
+
 function pickPageIllustration(styleAsset) {
   const pages = Object.entries(styleAsset?.pageIllustrations ?? {})
     .map(([n, v]) => [Number(n), v?.illustrationUrl])
@@ -234,7 +376,7 @@ const skipped = [];
 
 for (const k of await listStorybookKeys()) {
   const sb = await getJsonByKey(k).catch(() => null);
-  if (!sb || sb.category !== CATEGORY) continue;
+  if (!sb || !CATEGORIES.includes(sb.category)) continue;
 
   // 낱말 — 화면에는 한국어, 프롬프트에는 영어. 둘 중 하나가 없으면 그 낱말은 못 쓴다.
   let words = (sb.key_objects ?? [])
@@ -249,19 +391,26 @@ for (const k of await listStorybookKeys()) {
     continue;
   }
 
-  for (const genre of GENRE_ORDER) {
-    const styleId = pickStyle(sb.styleAssets, genreOf, genre);
-    if (!styleId) continue;
-    const asset = sb.styleAssets[styleId];
-    const page = pickPageIllustration(asset);
+  // 🔴 그림체가 셋인 라인(명작)은 장르마다 한 칸, **하나뿐인 라인**(전래·자연)은 책마다 한 칸.
+  //    후자는 쪽 삽화가 styleAssets 이 아니라 책 본문에 있어서 아래 폴백이 필요하다.
+  const slots = GENRE_ORDER.map((genre) => ({
+    genre,
+    styleId: pickStyle(sb.styleAssets, genreOf, genre),
+  })).filter((s) => s.styleId);
+  if (!slots.length) slots.push({ genre: 'base', styleId: Object.keys(sb.styleAssets ?? {})[0] ?? null });
+
+  for (const { genre, styleId } of slots) {
+    const asset = styleId ? sb.styleAssets?.[styleId] : null;
+    const styled = pickPageIllustration(asset);
+    const page = styled ?? pickBasePageIllustration(sb);
     if (!page) {
-      skipped.push(`${sb.title} / ${GENRE_LABEL[genre]}: 쪽 삽화 없음`);
+      skipped.push(`${sb.title} / ${GENRE_LABEL[genre] ?? genre}: 쪽 삽화 없음`);
       continue;
     }
     // 낱말 카드는 **그 그림체 것 우선**, 없으면 책 공통. 그림체가 다른 카드를 참조로 주면
     // 씬의 사물이 그 그림체와 어긋난다.
     const cards =
-      (asset.keyObjectImages?.length ? asset.keyObjectImages : sb.keyObjectImages) ?? [];
+      (asset?.keyObjectImages?.length ? asset.keyObjectImages : sb.keyObjectImages) ?? [];
     const cardOf = (w) =>
       cards.find((c) => (c.objectName ?? '').toLowerCase() === (w.name ?? '').toLowerCase())
         ?.imageUrl ?? null;
@@ -270,15 +419,18 @@ for (const k of await listStorybookKeys()) {
       bookId: sb.id,
       bookTitle: sb.title ?? sb.id,
       genre,
-      genreLabel: GENRE_LABEL[genre],
+      genreLabel: (styled && GENRE_LABEL[genre]) || '기본 그림체',
       styleId,
       pageImage: page,
-      // 🔴 사물과 배경을 갈라 담는다 — 프롬프트가 둘에 다른 지시를 준다.
+      // 🔴 사물 · 배경 · 몸의 부분을 갈라 담는다 — 프롬프트가 셋에 다른 지시를 준다.
       words: words
-        .filter((w) => !SCENERY.has(w.ko))
+        .filter((w) => bucketOf(w) === 'object')
         // `draw` 가 있으면 화면이 목록에 **영어 낱말 대신 그 문장**을 싣는다.
         .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w), draw: DRAW_AS[w.ko] })),
-      scenery: words.filter((w) => SCENERY.has(w.ko)).map((w) => ({ ko: w.ko, en: w.en })),
+      scenery: words.filter((w) => bucketOf(w) === 'scenery').map((w) => ({ ko: w.ko, en: w.en })),
+      parts: words
+        .filter((w) => bucketOf(w) === 'part')
+        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w) })),
     });
   }
 }
@@ -290,7 +442,7 @@ entries.sort(
     a.bookTitle.localeCompare(b.bookTitle) ||
     GENRE_ORDER.indexOf(a.genre) - GENRE_ORDER.indexOf(b.genre)
 );
-entries.forEach((e, i) => (e.key = `ho-${String(i + 1).padStart(4, '0')}`));
+entries.forEach((e, i) => (e.key = `${PREFIX}-${String(i + 1).padStart(4, '0')}`));
 
 // 🔴 프롬프트는 **한 벌만** 싣는다 — 칸마다 복사하면 같은 1.5KB 가 144번 들어간다.
 //    낱말을 끼워 넣는 건 화면이 한다(색칠 작업판과 같은 규칙).
@@ -301,16 +453,24 @@ const sections = Object.entries(
 fs.writeFileSync(
   OUT,
   JSON.stringify(
-    { category: CATEGORY, promptLine: promptLine(), sceneryBlock: sceneryBlock(), sections },
+    {
+      category: LABEL ?? CATEGORIES.join(' · '),
+      prefix: PREFIX,
+      promptLine: promptLine(),
+      partsBlock: partsBlock(),
+      sceneryBlock: sceneryBlock(),
+      sections,
+    },
     null,
     1
   )
 );
 
-console.log(`${CATEGORY} · ${sections.length}권 · ${entries.length}장 → ${OUT}`);
-for (const g of GENRE_ORDER) {
-  const n = entries.filter((e) => e.genre === g).length;
-  console.log(`  ${GENRE_LABEL[g].padEnd(14)} ${n}장`);
+console.log(`${LABEL ?? CATEGORIES.join(' · ')} · ${sections.length}권 · ${entries.length}장 → ${OUT}`);
+for (const [label, n] of Object.entries(
+  entries.reduce((acc, e) => ((acc[e.genreLabel] = (acc[e.genreLabel] ?? 0) + 1), acc), {})
+)) {
+  console.log(`  ${label.padEnd(14)} ${n}장`);
 }
 const wordCount = entries.reduce((n, e) => n + e.words.length, 0);
 console.log(
@@ -318,7 +478,10 @@ console.log(
 );
 const sceneryCount = entries.reduce((n, e) => n + e.scenery.length, 0);
 const shaped = entries.reduce((n, e) => n + e.words.filter((w) => w.draw).length, 0);
-console.log(`  배경으로 돌린 낱말 ${sceneryCount}개 · 그릴 형태를 지정한 낱말 ${shaped}개`);
+const partCount = entries.reduce((n, e) => n + e.parts.length, 0);
+console.log(
+  `  배경으로 돌린 낱말 ${sceneryCount}개 · 몸의 부분으로 돌린 낱말 ${partCount}개 · 그릴 형태를 지정한 낱말 ${shaped}개`
+);
 if (skipped.length) {
   console.log(`  건너뜀 ${skipped.length}건:`);
   for (const s of skipped.slice(0, 10)) console.log(`    - ${s}`);

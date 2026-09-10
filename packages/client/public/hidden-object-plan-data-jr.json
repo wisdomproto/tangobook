@@ -1,0 +1,1734 @@
+{
+  "category": "전래 동화",
+  "prefix": "jr",
+  "promptLine": "Draw one busy storybook scene for a 4-to-7-year-old, from the book \"{{book}}\".\n\nThe FIRST attached image is a page from this book — copy its art style exactly.\nThe other attached images show the objects — copy their shape, colour and material.\n\n- FIRST choose a single moment in this book where these things would genuinely be together — a workshop, a kitchen, a market, a room after a party, a clearing in the forest, a shore at low tide. THEN draw that moment. Do not draw scenery and place the objects onto it afterwards.\n- ONE single wide scene, 3:2 landscape, in EXACTLY the art style, palette and character design of the attached page illustration.\n- Every object in the list must be somewhere in the picture. A missing one makes that word unplayable.\n- Each object appears EXACTLY ONCE in the whole picture. If a character is holding one, that held one is the only one — do not also stand another nearby. Check the finished picture for accidental second copies in the background.\n- Every object must TOUCH the world: resting on a surface, leaning against something, hanging from a hook, held by someone, half inside a basket. Nothing floats in mid-air, and nothing sits on a spot where it could not physically stay.\n- Every object casts the same kind of shadow and catches the same light as the things around it. It must look like it was built with the scene, not pasted on top of it.\n- Objects may be partly covered by what is in front of them — up to about a quarter of the object. This is wanted: a thing peeking out from behind a chair reads as part of the room. Never cover more than a quarter, and never let an object run off the edge of the picture.\n- Turn objects to whatever angle the place would put them. Do not lay them out flat and face-on like a catalogue.\n- Each object is big enough for a small child to tap: at least 1/12 of the picture width.\n- Match the attached object cards for shape, colour and material — but not for pose. The card shows what the thing is, not how it must sit.\n- Fill the scene with ordinary surroundings so the objects are not alone on empty ground, but keep it calm enough not to read as noise.\n- Never put a number, a letter, a badge, a circle, a ring or any other marker on or beside an object. No numbered tags, no legend, no key, no inset strip of things to find, no caption bar.\n- No text of any kind anywhere: no letters, no numbers, no speech bubbles, no arrows, no border frame, no watermark, no signature.\n- This is simply an illustration from the book. It is not a puzzle sheet, not a worksheet, not an activity page.\n\nOBJECTS TO HIDE ({{n}}) — put each one in the scene, findable but belonging there:\n{{objects}}\n{{partsBlock}}\n{{sceneryBlock}}",
+  "partsBlock": "\nPARTS OF THE ANIMAL ({{pn}}) — these are NOT objects to hide. They belong to the animal this\nbook is about. Draw that animal LARGE and close, filling much of the picture and turned so\nthat every part listed here is plainly visible, each one at least 1/12 of the picture width.\nNever draw any of these as a separate loose prop lying about in the scene:\n{{parts}}",
+  "sceneryBlock": "\nPART OF THE SETTING ({{sn}}) — these are NOT objects to hide, and must not be drawn as\nseparate props. Build the scene so each is plainly there and takes up its own area of the\npicture, the way a garden or a forest does:\n{{scenery}}",
+  "sections": [
+    {
+      "label": "개와 고양이",
+      "items": [
+        {
+          "bookId": "1785303655950",
+          "bookTitle": "개와 고양이",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/p8.jpg",
+          "words": [
+            {
+              "ko": "구슬",
+              "en": "guseul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-guseul.jpg"
+            },
+            {
+              "ko": "통발",
+              "en": "tongbal",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-tongbal.jpg"
+            },
+            {
+              "ko": "나룻배",
+              "en": "narutbae",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-narutbae.jpg"
+            },
+            {
+              "ko": "삿대",
+              "en": "satdae",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-satdae.jpg"
+            },
+            {
+              "ko": "대바구니",
+              "en": "daebaguni",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-daebaguni.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0001"
+        }
+      ]
+    },
+    {
+      "label": "견우와 직녀",
+      "items": [
+        {
+          "bookId": "1784529061222",
+          "bookTitle": "견우와 직녀",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/p7.png",
+          "words": [
+            {
+              "ko": "베틀",
+              "en": "beteul",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-beteul.jpg"
+            },
+            {
+              "ko": "실타래",
+              "en": "siltarae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-siltarae.jpg"
+            },
+            {
+              "ko": "소달구지",
+              "en": "sodalguji",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-sodalguji.jpg"
+            },
+            {
+              "ko": "한복",
+              "en": "hanbok",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-hanbok.jpg"
+            },
+            {
+              "ko": "부채",
+              "en": "buchae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-buchae.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0002"
+        }
+      ]
+    },
+    {
+      "label": "구렁덩덩 새선비",
+      "items": [
+        {
+          "bookId": "1785303657451",
+          "bookTitle": "구렁덩덩 새선비",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/p7.jpg",
+          "words": [
+            {
+              "ko": "댕기",
+              "en": "daenggi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-daenggi.jpg"
+            },
+            {
+              "ko": "삼태기",
+              "en": "samtaegi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-samtaegi.jpg"
+            },
+            {
+              "ko": "보자기",
+              "en": "bojagi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-bojagi.jpg"
+            },
+            {
+              "ko": "초례상",
+              "en": "choryesang",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-choryesang.jpg"
+            },
+            {
+              "ko": "사모",
+              "en": "samo",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-samo.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0003"
+        }
+      ]
+    },
+    {
+      "label": "금도끼 은도끼",
+      "items": [
+        {
+          "bookId": "1784529058143",
+          "bookTitle": "금도끼 은도끼",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/p6.png",
+          "words": [
+            {
+              "ko": "도끼",
+              "en": "dokki",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-dokki.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-jige.jpg"
+            },
+            {
+              "ko": "짚신",
+              "en": "jipsin",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-jipsin.jpg"
+            },
+            {
+              "ko": "물동이",
+              "en": "muldongi",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-muldongi.jpg"
+            },
+            {
+              "ko": "무명옷",
+              "en": "mumyeonot",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-mumyeonot.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0004"
+        }
+      ]
+    },
+    {
+      "label": "단군 이야기",
+      "items": [
+        {
+          "bookId": "1785303653015",
+          "bookTitle": "단군 이야기",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/p7.jpg",
+          "words": [
+            {
+              "ko": "솟대",
+              "en": "sotdae",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-sotdae.jpg"
+            },
+            {
+              "ko": "제기",
+              "en": "jegi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-jegi.jpg"
+            },
+            {
+              "ko": "쑥다발",
+              "en": "ssuk",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-ssuk.jpg"
+            },
+            {
+              "ko": "마늘",
+              "en": "maneul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-maneul.jpg",
+              "draw": "garlic — draw one braid of garlic bulbs hanging on a wall"
+            },
+            {
+              "ko": "북",
+              "en": "buk",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-buk.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0005"
+        }
+      ]
+    },
+    {
+      "label": "도깨비 감투",
+      "items": [
+        {
+          "bookId": "1785303655079",
+          "bookTitle": "도깨비 감투",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/p7.jpg",
+          "words": [
+            {
+              "ko": "감투",
+              "en": "gamtu",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-gamtu.jpg"
+            },
+            {
+              "ko": "망건",
+              "en": "manggeon",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-manggeon.jpg"
+            },
+            {
+              "ko": "초롱",
+              "en": "chorong",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-chorong.jpg"
+            },
+            {
+              "ko": "자물쇠",
+              "en": "jamulsoe",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-jamulsoe.jpg"
+            },
+            {
+              "ko": "염낭",
+              "en": "yeomnang",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-yeomnang.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0006"
+        }
+      ]
+    },
+    {
+      "label": "도깨비방망이",
+      "items": [
+        {
+          "bookId": "1784529057190",
+          "bookTitle": "도깨비방망이",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/p7.png",
+          "words": [
+            {
+              "ko": "도깨비방망이",
+              "en": "bangmangi",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-bangmangi.jpg"
+            },
+            {
+              "ko": "호롱불",
+              "en": "horongbul",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-horongbul.jpg"
+            },
+            {
+              "ko": "보따리",
+              "en": "bottari",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-bottari.jpg"
+            },
+            {
+              "ko": "개암",
+              "en": "gaeam",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-gaeam.jpg"
+            },
+            {
+              "ko": "곰방대",
+              "en": "gombangdae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-gombangdae.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0007"
+        }
+      ]
+    },
+    {
+      "label": "두더지의 혼인",
+      "items": [
+        {
+          "bookId": "1785303657748",
+          "bookTitle": "두더지의 혼인",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/p8.jpg",
+          "words": [
+            {
+              "ko": "활옷",
+              "en": "hwarot",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-hwarot.jpg"
+            },
+            {
+              "ko": "연",
+              "en": "yeon",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-yeon.jpg"
+            },
+            {
+              "ko": "목기러기",
+              "en": "mokgireogi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-mokgireogi.jpg"
+            },
+            {
+              "ko": "꽃가마",
+              "en": "kkotgama",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-kkotgama.jpg"
+            },
+            {
+              "ko": "떡시루",
+              "en": "tteoksiru",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-tteoksiru.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0008"
+        }
+      ]
+    },
+    {
+      "label": "떡보와 사신",
+      "items": [
+        {
+          "bookId": "1785303654489",
+          "bookTitle": "떡보와 사신",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/p7.jpg",
+          "words": [
+            {
+              "ko": "떡메",
+              "en": "tteokme",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-tteokme.jpg"
+            },
+            {
+              "ko": "시루",
+              "en": "siru",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-siru.jpg"
+            },
+            {
+              "ko": "주걱",
+              "en": "jugeok",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-jugeok.jpg"
+            },
+            {
+              "ko": "초립",
+              "en": "chorip",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-chorip.jpg"
+            },
+            {
+              "ko": "찬합",
+              "en": "chanhap",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-chanhap.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0009"
+        }
+      ]
+    },
+    {
+      "label": "말 안 듣는 청개구리",
+      "items": [
+        {
+          "bookId": "1784529059096",
+          "bookTitle": "말 안 듣는 청개구리",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/p7.png",
+          "words": [
+            {
+              "ko": "삿갓",
+              "en": "satgat",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-satgat.jpg"
+            },
+            {
+              "ko": "도롱이",
+              "en": "dorongi",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-dorongi.jpg"
+            },
+            {
+              "ko": "짚신",
+              "en": "jipsin",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-jipsin.jpg"
+            },
+            {
+              "ko": "소쿠리",
+              "en": "sokuri",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-sokuri.jpg"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "초가집",
+              "en": "chogajip"
+            }
+          ],
+          "parts": [],
+          "key": "jr-0010"
+        }
+      ]
+    },
+    {
+      "label": "바보 온달과 평강공주",
+      "items": [
+        {
+          "bookId": "1785303652738",
+          "bookTitle": "바보 온달과 평강공주",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/p8.jpg",
+          "words": [
+            {
+              "ko": "비단보자기",
+              "en": "bidan-bojagi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-bidanbojagi.jpg"
+            },
+            {
+              "ko": "거문고",
+              "en": "geomungo",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-geomungo.jpg"
+            },
+            {
+              "ko": "말안장",
+              "en": "malanjang",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-malanjang.jpg"
+            },
+            {
+              "ko": "화살통",
+              "en": "hwasaltong",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-hwasaltong.jpg"
+            },
+            {
+              "ko": "투구",
+              "en": "tugu",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-tugu.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0011"
+        }
+      ]
+    },
+    {
+      "label": "반쪽이",
+      "items": [
+        {
+          "bookId": "1785303658036",
+          "bookTitle": "반쪽이",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/p7.jpg",
+          "words": [
+            {
+              "ko": "쌀뒤주",
+              "en": "ssal-dwiju",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-dwiju.jpg"
+            },
+            {
+              "ko": "새끼줄",
+              "en": "saekkijul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-saekkijul.jpg"
+            },
+            {
+              "ko": "절굿공이",
+              "en": "jeolgutgongi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-gongi.jpg"
+            },
+            {
+              "ko": "반짇고리",
+              "en": "banjitgori",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-banjitgori.jpg"
+            },
+            {
+              "ko": "꽹과리",
+              "en": "kkwaenggwari",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-kkwaenggwari.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0012"
+        }
+      ]
+    },
+    {
+      "label": "방귀쟁이 며느리",
+      "items": [
+        {
+          "bookId": "1784529057861",
+          "bookTitle": "방귀쟁이 며느리",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/p6.png",
+          "words": [
+            {
+              "ko": "치마저고리",
+              "en": "chima-jeogori",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-chimajeogori.jpg"
+            },
+            {
+              "ko": "족두리",
+              "en": "jokduri",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-jokduri.jpg"
+            },
+            {
+              "ko": "소반",
+              "en": "soban",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-soban.jpg"
+            },
+            {
+              "ko": "부채",
+              "en": "buchae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-buchae.jpg"
+            },
+            {
+              "ko": "놋그릇",
+              "en": "notgeureut",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-notgeureut.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0013"
+        }
+      ]
+    },
+    {
+      "label": "복 타러 간 총각",
+      "items": [
+        {
+          "bookId": "1785303657174",
+          "bookTitle": "복 타러 간 총각",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/p8.jpg",
+          "words": [
+            {
+              "ko": "대님",
+              "en": "daenim",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-daenim.jpg"
+            },
+            {
+              "ko": "미투리",
+              "en": "mituri",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-mituri.jpg"
+            },
+            {
+              "ko": "조롱박",
+              "en": "jorongbak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-jorongbak.jpg"
+            },
+            {
+              "ko": "괭이",
+              "en": "gwaengi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-gwaengi.jpg"
+            },
+            {
+              "ko": "여의주",
+              "en": "yeouiju",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-yeouiju.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0014"
+        }
+      ]
+    },
+    {
+      "label": "삼년고개",
+      "items": [
+        {
+          "bookId": "1785303653631",
+          "bookTitle": "삼년고개",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/p6.jpg",
+          "words": [
+            {
+              "ko": "약초바구니",
+              "en": "yakcho baguni",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-yakcho-baguni.jpg"
+            },
+            {
+              "ko": "엿",
+              "en": "yeot",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-yeot.jpg",
+              "draw": "yeot taffy — draw it as pieces of taffy laid out on a tray"
+            },
+            {
+              "ko": "삿자리",
+              "en": "satjari",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-satjari.jpg"
+            },
+            {
+              "ko": "다듬잇돌",
+              "en": "dadeumitdol",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-dadeumitdol.jpg"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "서낭당 돌탑",
+              "en": "seonangdang doltap"
+            }
+          ],
+          "parts": [],
+          "key": "jr-0015"
+        }
+      ]
+    },
+    {
+      "label": "서동요",
+      "items": [
+        {
+          "bookId": "1785303653346",
+          "bookTitle": "서동요",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/p7.jpg",
+          "words": [
+            {
+              "ko": "삼태기",
+              "en": "samtaegi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-samtaegi.jpg"
+            },
+            {
+              "ko": "붓",
+              "en": "but",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-but.jpg"
+            },
+            {
+              "ko": "벼루",
+              "en": "byeoru",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-byeoru.jpg"
+            },
+            {
+              "ko": "한지",
+              "en": "hanji",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-hanji.jpg"
+            },
+            {
+              "ko": "종이연",
+              "en": "jongiyeon",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-jongiyeon.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0016"
+        }
+      ]
+    },
+    {
+      "label": "선녀와 나무꾼",
+      "items": [
+        {
+          "bookId": "1784529060026",
+          "bookTitle": "선녀와 나무꾼",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/p7.png",
+          "words": [
+            {
+              "ko": "날개옷",
+              "en": "nalgae-ot",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-nalgaeot.jpg"
+            },
+            {
+              "ko": "두레박",
+              "en": "dure-bak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-durebak.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-jige.jpg"
+            },
+            {
+              "ko": "물레",
+              "en": "mulle",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-mulle.jpg"
+            },
+            {
+              "ko": "비녀",
+              "en": "binyeo",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-binyeo.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0017"
+        }
+      ]
+    },
+    {
+      "label": "소가 된 게으름뱅이",
+      "items": [
+        {
+          "bookId": "1784529062415",
+          "bookTitle": "소가 된 게으름뱅이",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/p7.png",
+          "words": [
+            {
+              "ko": "소머리탈",
+              "en": "someori-tal",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-someoritai.jpg"
+            },
+            {
+              "ko": "멍에",
+              "en": "meonge",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-meonge.jpg"
+            },
+            {
+              "ko": "쟁기",
+              "en": "jaenggi",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-jaenggi.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-jige.jpg"
+            },
+            {
+              "ko": "멍석",
+              "en": "meongseok",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-meongseok.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0018"
+        }
+      ]
+    },
+    {
+      "label": "신기한 항아리",
+      "items": [
+        {
+          "bookId": "1785303655346",
+          "bookTitle": "신기한 항아리",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/p7.jpg",
+          "words": [
+            {
+              "ko": "됫박",
+              "en": "doetbak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-doetbak.jpg"
+            },
+            {
+              "ko": "씨오쟁이",
+              "en": "ssiojaengi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-ssiojaengi.jpg"
+            },
+            {
+              "ko": "시루",
+              "en": "siru",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-siru.jpg"
+            },
+            {
+              "ko": "체",
+              "en": "che",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-che.jpg"
+            },
+            {
+              "ko": "키",
+              "en": "ki",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-ki.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0019"
+        }
+      ]
+    },
+    {
+      "label": "심청전",
+      "items": [
+        {
+          "bookId": "1785303652428",
+          "bookTitle": "심청전",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/p9.jpg",
+          "words": [
+            {
+              "ko": "뒤주",
+              "en": "dwiju",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-dwiju.jpg"
+            },
+            {
+              "ko": "목탁",
+              "en": "moktak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-moktak.jpg"
+            },
+            {
+              "ko": "돛단배",
+              "en": "dotdanbae",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-dotdanbae.jpg"
+            },
+            {
+              "ko": "등잔",
+              "en": "deungjan",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-deungjan.jpg"
+            },
+            {
+              "ko": "병풍",
+              "en": "byeongpung",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-byeongpung.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0020"
+        }
+      ]
+    },
+    {
+      "label": "요술 맷돌",
+      "items": [
+        {
+          "bookId": "1785303654809",
+          "bookTitle": "요술 맷돌",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/p7.jpg",
+          "words": [
+            {
+              "ko": "됫박",
+              "en": "doetbak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-doetbak.jpg"
+            },
+            {
+              "ko": "시루",
+              "en": "siru",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-siru.jpg"
+            },
+            {
+              "ko": "궤",
+              "en": "gwe",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-gwe.jpg"
+            },
+            {
+              "ko": "노",
+              "en": "no",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-no.jpg"
+            },
+            {
+              "ko": "소금가마니",
+              "en": "sogeum-gamani",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-sogeum-gamani.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0021"
+        }
+      ]
+    },
+    {
+      "label": "우렁각시",
+      "items": [
+        {
+          "bookId": "1784529061520",
+          "bookTitle": "우렁각시",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/p7.png",
+          "words": [
+            {
+              "ko": "소반",
+              "en": "soban",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-soban.jpg"
+            },
+            {
+              "ko": "옹기",
+              "en": "onggi",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-onggi.jpg"
+            },
+            {
+              "ko": "가마솥",
+              "en": "gamasot",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-gamasot.jpg"
+            },
+            {
+              "ko": "조리",
+              "en": "jori",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-jori.jpg"
+            },
+            {
+              "ko": "함지박",
+              "en": "hamjibak",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-hamjibak.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0022"
+        }
+      ]
+    },
+    {
+      "label": "은혜 갚은 까치",
+      "items": [
+        {
+          "bookId": "1784529060634",
+          "bookTitle": "은혜 갚은 까치",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/p7.png",
+          "words": [
+            {
+              "ko": "종 (범종)",
+              "en": "beomjong",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-beomjong.jpg"
+            },
+            {
+              "ko": "활",
+              "en": "hwal",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-hwal.jpg"
+            },
+            {
+              "ko": "갓",
+              "en": "gat",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-gat.jpg"
+            },
+            {
+              "ko": "도포",
+              "en": "dopo",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-dopo.jpg"
+            },
+            {
+              "ko": "봇짐",
+              "en": "botjim",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-botjim.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0023"
+        }
+      ]
+    },
+    {
+      "label": "은혜 갚은 두꺼비",
+      "items": [
+        {
+          "bookId": "1785303656257",
+          "bookTitle": "은혜 갚은 두꺼비",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/p7.jpg",
+          "words": [
+            {
+              "ko": "밥주걱",
+              "en": "bapjugeok",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-bapjugeok.jpg"
+            },
+            {
+              "ko": "종지",
+              "en": "jongji",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-jongji.jpg"
+            },
+            {
+              "ko": "청사초롱",
+              "en": "cheongsachorong",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-cheongsachorong.jpg"
+            },
+            {
+              "ko": "무명실",
+              "en": "mumyeongsil",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-mumyeongsil.jpg"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "부뚜막",
+              "en": "buttumak"
+            }
+          ],
+          "parts": [],
+          "key": "jr-0024"
+        }
+      ]
+    },
+    {
+      "label": "의좋은 형제",
+      "items": [
+        {
+          "bookId": "1784529062755",
+          "bookTitle": "의좋은 형제",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/p6.png",
+          "words": [
+            {
+              "ko": "볏단",
+              "en": "byeotdan",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-byeotdan.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-jige.jpg"
+            },
+            {
+              "ko": "낫",
+              "en": "nat",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-nat.jpg"
+            },
+            {
+              "ko": "멍석",
+              "en": "meongseok",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-meongseok.jpg"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "초가집",
+              "en": "chogajip"
+            }
+          ],
+          "parts": [],
+          "key": "jr-0025"
+        }
+      ]
+    },
+    {
+      "label": "임금님 귀는 당나귀 귀",
+      "items": [
+        {
+          "bookId": "1784529062118",
+          "bookTitle": "임금님 귀는 당나귀 귀",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/p7.png",
+          "words": [
+            {
+              "ko": "익선관",
+              "en": "ikseongwan",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-ikseongwan.jpg"
+            },
+            {
+              "ko": "곤룡포",
+              "en": "gollyongpo",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-gollyongpo.jpg"
+            },
+            {
+              "ko": "복두",
+              "en": "bokdu",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-bokdu.jpg"
+            },
+            {
+              "ko": "갓",
+              "en": "gat",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-gat.jpg"
+            },
+            {
+              "ko": "부채",
+              "en": "buchae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-buchae.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0026"
+        }
+      ]
+    },
+    {
+      "label": "자린고비",
+      "items": [
+        {
+          "bookId": "1785303655646",
+          "bookTitle": "자린고비",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/p7.jpg",
+          "words": [
+            {
+              "ko": "굴비",
+              "en": "gulbi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-gulbi.jpg"
+            },
+            {
+              "ko": "됫박",
+              "en": "doetbak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-doetbak.jpg"
+            },
+            {
+              "ko": "뒤웅박",
+              "en": "dwiungbak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-dwiungbak.jpg"
+            },
+            {
+              "ko": "놋수저",
+              "en": "notsujeo",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-notsujeo.jpg"
+            },
+            {
+              "ko": "곳간 자물쇠",
+              "en": "gotgan jamulsoe",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-gotgan-jamulsoe.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0027"
+        }
+      ]
+    },
+    {
+      "label": "재주 많은 삼형제",
+      "items": [
+        {
+          "bookId": "1784529061822",
+          "bookTitle": "재주 많은 삼형제",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/p7.png",
+          "words": [
+            {
+              "ko": "활",
+              "en": "hwal",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-hwal.jpg"
+            },
+            {
+              "ko": "그물",
+              "en": "geumul",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-geumul.jpg"
+            },
+            {
+              "ko": "톱",
+              "en": "top",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-top.jpg"
+            },
+            {
+              "ko": "나막신",
+              "en": "namaksin",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-namaksin.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-jige.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0028"
+        }
+      ]
+    },
+    {
+      "label": "젊어지는 샘물",
+      "items": [
+        {
+          "bookId": "1784529060920",
+          "bookTitle": "젊어지는 샘물",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/p7.png",
+          "words": [
+            {
+              "ko": "물동이",
+              "en": "muldongi",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-muldongi.jpg"
+            },
+            {
+              "ko": "표주박",
+              "en": "pyojubak",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-pyojubak.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-jige.jpg"
+            },
+            {
+              "ko": "짚신",
+              "en": "jipsin",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-jipsin.jpg"
+            },
+            {
+              "ko": "무명옷",
+              "en": "mumyeong-ot",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-mumyeongot.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0029"
+        }
+      ]
+    },
+    {
+      "label": "좁쌀 한 톨로 장가든 총각",
+      "items": [
+        {
+          "bookId": "1785303656827",
+          "bookTitle": "좁쌀 한 톨로 장가든 총각",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/p7.jpg",
+          "words": [
+            {
+              "ko": "좁쌀",
+              "en": "jopssal",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-jopssal.jpg",
+              "draw": "millet — draw it as one bowl or an open sack of millet grain"
+            },
+            {
+              "ko": "등롱",
+              "en": "deungnong",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-deungnong.jpg"
+            },
+            {
+              "ko": "고삐",
+              "en": "gobbi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-gobbi.jpg"
+            },
+            {
+              "ko": "청사초롱",
+              "en": "cheongsachorong",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-cheongsachorong.jpg"
+            },
+            {
+              "ko": "목기러기",
+              "en": "mokgireogi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-mokgireogi.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0030"
+        }
+      ]
+    },
+    {
+      "label": "콩쥐 팥쥐",
+      "items": [
+        {
+          "bookId": "1784529059709",
+          "bookTitle": "콩쥐 팥쥐",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/p8.png",
+          "words": [
+            {
+              "ko": "꽃신",
+              "en": "kkotsin",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-kkotsin.jpg"
+            },
+            {
+              "ko": "옹기항아리",
+              "en": "onggi hangari",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-onggi.jpg"
+            },
+            {
+              "ko": "베틀",
+              "en": "beteul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-beteul.jpg"
+            },
+            {
+              "ko": "호미",
+              "en": "homi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-homi.jpg"
+            },
+            {
+              "ko": "소쿠리",
+              "en": "sokuri",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-sokuri.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0031"
+        }
+      ]
+    },
+    {
+      "label": "토끼와 자라",
+      "items": [
+        {
+          "bookId": "1784529058442",
+          "bookTitle": "토끼와 자라",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/p7.png",
+          "words": [
+            {
+              "ko": "갓",
+              "en": "gat",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-gat.jpg"
+            },
+            {
+              "ko": "도포",
+              "en": "dopo",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-dopo.jpg"
+            },
+            {
+              "ko": "부채",
+              "en": "buchae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-buchae.jpg"
+            },
+            {
+              "ko": "약탕관",
+              "en": "yaktanggwan",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-yaktanggwan.jpg"
+            },
+            {
+              "ko": "곰방대",
+              "en": "gombangdae",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-gombangdae.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0032"
+        }
+      ]
+    },
+    {
+      "label": "토끼의 재판",
+      "items": [
+        {
+          "bookId": "1785303653932",
+          "bookTitle": "토끼의 재판",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/p7.jpg",
+          "words": [
+            {
+              "ko": "통발",
+              "en": "tongbal",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-tongbal.jpg"
+            },
+            {
+              "ko": "새끼줄",
+              "en": "saekkijul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-saekkijul.jpg"
+            },
+            {
+              "ko": "삽",
+              "en": "sap",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-sap.jpg"
+            },
+            {
+              "ko": "괭이",
+              "en": "gwaengi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-gwaengi.jpg"
+            },
+            {
+              "ko": "짚방석",
+              "en": "jipbangseok",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-jipbangseok.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0033"
+        }
+      ]
+    },
+    {
+      "label": "팥죽 할멈과 호랑이",
+      "items": [
+        {
+          "bookId": "1784529057529",
+          "bookTitle": "팥죽 할멈과 호랑이",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": null,
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/p7.png",
+          "words": [
+            {
+              "ko": "가마솥",
+              "en": "gamasot",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-gamasot.jpg"
+            },
+            {
+              "ko": "맷돌",
+              "en": "maetdol",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-maetdol.jpg"
+            },
+            {
+              "ko": "멍석",
+              "en": "meongseok",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-meongseok.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-jige.jpg"
+            },
+            {
+              "ko": "소쿠리",
+              "en": "sokuri",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-sokuri.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0034"
+        }
+      ]
+    },
+    {
+      "label": "해와 달이 된 오누이",
+      "items": [
+        {
+          "bookId": "1784529059421",
+          "bookTitle": "해와 달이 된 오누이",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/p8.png",
+          "words": [
+            {
+              "ko": "동아줄",
+              "en": "dongajul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-dongajul.jpg"
+            },
+            {
+              "ko": "가마솥",
+              "en": "gamasot",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-gamasot.jpg"
+            },
+            {
+              "ko": "떡",
+              "en": "tteok",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-tteok.jpg",
+              "draw": "rice cakes — draw them as a plateful or a steamer of white rice cakes"
+            },
+            {
+              "ko": "두레박",
+              "en": "durebak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-durebak.jpg"
+            },
+            {
+              "ko": "삼베옷",
+              "en": "sambe-ot",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-sambeot.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0035"
+        }
+      ]
+    },
+    {
+      "label": "호랑이 형님",
+      "items": [
+        {
+          "bookId": "1785303656554",
+          "bookTitle": "호랑이 형님",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/p7.jpg",
+          "words": [
+            {
+              "ko": "새끼줄",
+              "en": "saekkijul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-saekkijul.jpg"
+            },
+            {
+              "ko": "지게작대기",
+              "en": "jigejakdaegi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-jigejakdaegi.jpg"
+            },
+            {
+              "ko": "머릿수건",
+              "en": "meoritsugeon",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-meoritsugeon.jpg"
+            },
+            {
+              "ko": "다래끼",
+              "en": "daraekki",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-daraekki.jpg"
+            },
+            {
+              "ko": "신틀",
+              "en": "sinteul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-sinteul.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0036"
+        }
+      ]
+    },
+    {
+      "label": "호랑이와 곶감",
+      "items": [
+        {
+          "bookId": "1784529060346",
+          "bookTitle": "호랑이와 곶감",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/p6.png",
+          "words": [
+            {
+              "ko": "곶감",
+              "en": "gotgam",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-gotgam.jpg",
+              "draw": "dried persimmons — draw them as one string of dried persimmons hanging up"
+            },
+            {
+              "ko": "멍석",
+              "en": "meongseok",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-meongseok.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-jige.jpg"
+            },
+            {
+              "ko": "호롱불",
+              "en": "horongbul",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-horongbul.jpg"
+            },
+            {
+              "ko": "소달구지",
+              "en": "sodalguji",
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-sodalguji.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0037"
+        }
+      ]
+    },
+    {
+      "label": "혹부리 영감",
+      "items": [
+        {
+          "bookId": "1784529058796",
+          "bookTitle": "혹부리 영감",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/p7.png",
+          "words": [
+            {
+              "ko": "갓",
+              "en": "gat",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-gat.jpg"
+            },
+            {
+              "ko": "도포",
+              "en": "dopo",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-dopo.jpg"
+            },
+            {
+              "ko": "호롱불",
+              "en": "horongbul",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-horongbul.jpg"
+            },
+            {
+              "ko": "지팡이",
+              "en": "jipangi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-jipangi.jpg"
+            }
+          ],
+          "scenery": [
+            {
+              "ko": "초가집",
+              "en": "chogajip"
+            }
+          ],
+          "parts": [],
+          "key": "jr-0038"
+        }
+      ]
+    },
+    {
+      "label": "훨훨 간다",
+      "items": [
+        {
+          "bookId": "1785303654219",
+          "bookTitle": "훨훨 간다",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/p7.jpg",
+          "words": [
+            {
+              "ko": "다듬이돌",
+              "en": "dadeumidol",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-dadeumidol.jpg"
+            },
+            {
+              "ko": "반짇고리",
+              "en": "banjitgori",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-banjitgori.jpg"
+            },
+            {
+              "ko": "화로",
+              "en": "hwaro",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-hwaro.jpg"
+            },
+            {
+              "ko": "인두",
+              "en": "indu",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-indu.jpg"
+            },
+            {
+              "ko": "부지깽이",
+              "en": "bujigaengi",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-bujigaengi.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0039"
+        }
+      ]
+    },
+    {
+      "label": "흥부와 놀부",
+      "items": [
+        {
+          "bookId": "1784529056876",
+          "bookTitle": "흥부와 놀부",
+          "genre": "base",
+          "genreLabel": "기본 그림체",
+          "styleId": "animation",
+          "pageImage": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/p8.png",
+          "words": [
+            {
+              "ko": "박",
+              "en": "bak",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-bak.jpg"
+            },
+            {
+              "ko": "지게",
+              "en": "jige",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jige.jpg"
+            },
+            {
+              "ko": "톱",
+              "en": "top",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-top.jpg"
+            },
+            {
+              "ko": "엽전",
+              "en": "yeopjeon",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-yeopjeon.jpg"
+            },
+            {
+              "ko": "짚신",
+              "en": "jipsin",
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jipsin.jpg"
+            }
+          ],
+          "scenery": [],
+          "parts": [],
+          "key": "jr-0040"
+        }
+      ]
+    }
+  ]
+}
