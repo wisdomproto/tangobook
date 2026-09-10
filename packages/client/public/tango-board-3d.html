@@ -1425,6 +1425,10 @@ var TUNE = {
   legoPeelOn: 1,                 // 자르기로 안 풀린 큰 덩어리는 모서리에서 형판을 벗겨 읽는다
   legoPeelIou: 0.55,             // 모서리에 댄 형판이 이만큼은 닮아야 벗긴다(깎인 마스크라 통짜보다 낮게)
   legoPeelDepth: 4,              // 벗기기 재귀 깊이(조각 수)
+  legoPeelTry: 3,                // 깊이 0 에서 형판이 다른 상위 후보 셋을 끝까지 벗겨 보고 설명한 잉크로 고른다
+  legoPeelCorners: 0,            // 0 = 왼쪽 위 모서리만. 🔴 네 귀퉁이(1)는 실측에서 더 나빴다(캴→캼·복→뵥) — 귀퉁이가 늘수록 부분집합·이웃 삼킴 후보가 는다
+  legoPeelPrec: 0,               // 벗길 상자의 정밀도 하한(0=끔). 🔴 0.8 로 켜면 깎인 막대 때문에 진짜 조각까지 떨어져 캴·복이 빈다(실측)
+  legoSuperRecall: 0.4,  // 상위집합 형판만의 획이 이만큼 보이면 상위집합으로 읽는다(ㄱ→ㅋ·ㄴ→ㄷ)
   legoBotBar: 0.5,               // ㅂ 으로 읽힌 덩어리의 밑줄 채움이 이 아래면 H(ㅐ) — 실측 H ≤0.31 · ㅂ ≥0.77
   /* 편 그림에서 위·아래 주기가 이 배수 안으로 들어와야 「폈다」로 친다(배음은 접고).
      실측: 잘 읽힌 프레임 1.08·1.09 / 틀린 프레임 1.25·1.32. */
@@ -3185,7 +3189,13 @@ function splitLegoScored(blob, w, h, cell, depth){
      벗기기를 거기까지 물리면 ㅡ 토막을 벗겨 내며 H 를 망친다(실측 3장 퇴행). */
   if (depth === 0 && TUNE.legoPeelOn && res.score < TUNE.legoSplitOk && Math.max(w, h) > 5.5 * cell){
     var pl = peelLego(blob, w, h, cell, 0);
-    if (pl && pl.score > res.score && pl.score > TUNE.legoMinIou) return pl;
+    /* 🔴 자르기와 벗기기를 견주는 자도 **설명한 잉크 비율**이다 — 조각 최소 점수로 견주면 벗기기가
+          ㅂ 옆 얇은 띠 하나(ㅏ 0.44)에 통째로 거부된다. 못 앉은 조각은 부르는 쪽이 어차피 버린다. */
+    if (pl){
+      var tot = 0, q3;
+      for (q3 = 0; q3 < w*h; q3++) if (blob[q3]) tot++;
+      if (pl.explained > legoExplained(res.parts, tot) && pl.explained > TUNE.legoMinIou) return pl;
+    }
   }
   return res;
 }
@@ -3227,6 +3237,18 @@ function legoComponents(blob, w, h){
   }
   return out;
 }
+/** 조각 목록이 덩어리 잉크를 얼마나 설명하나 — Σ(IoU × 조각 잉크) / 덩어리 잉크. 못 앉은 조각은 0. */
+function legoExplained(parts, totalInk){
+  var sum = 0;
+  for (var i = 0; i < parts.length; i++){
+    var pp = parts[i];
+    if (!pp.m || pp.m.iou < TUNE.legoMinIou) continue;
+    var ink = 0;
+    for (var q = 0; q < pp.w * pp.h; q++) if (pp.blob[q]) ink++;
+    sum += pp.m.iou * ink;
+  }
+  return sum / Math.max(1, totalInk);
+}
 function peelLego(blob, w, h, cell, depth){
   if (depth >= TUNE.legoPeelDepth) return null;
   var tpls = legoTemplates || (legoData ? buildLegoTemplates() : null);
@@ -3234,21 +3256,26 @@ function peelLego(blob, w, h, cell, depth){
   var box = legoInkBox(blob, w, h);
   if (!box) return null;
   var half = Math.max(2, Math.round(cell * 0.5));
-  /* 모서리 후보: 잉크 상자의 왼쪽 위, 왼쪽 기둥의 꼭대기, 위 막대의 왼쪽 끝 */
-  var anchors = [[box.x0, box.y0]], yy, xx;
+  /* 모서리 후보 = **네 귀퉁이**(각 [x, y, 오른쪽귀?, 아래귀?]) + 왼쪽 위의 정밀 후보 둘(왼 기둥
+     꼭대기 · 윗막대 왼끝). 🔴 왼쪽 위만 쓰면 세로로 붙은 짝(ㅜ 줄기 아래 ㄱ 윗막대)에서 ㅜ 상자
+     안에 ㄱ 막대가 들어와 0.54 로 떨어진다 — 아래 귀퉁이에서 ㄱ 을 먼저 떼면 ㅜ 는 혼자 남는다. */
+  var anchors = TUNE.legoPeelCorners ? [[box.x0, box.y0, 0, 0], [box.x1, box.y0, 1, 0], [box.x0, box.y1, 0, 1], [box.x1, box.y1, 1, 1]] : [[box.x0, box.y0, 0, 0]], yy, xx;
   for (yy = box.y0; yy <= box.y1; yy++){ var hit = false;
     for (xx = box.x0; xx < Math.min(w, box.x0 + half); xx++) if (blob[yy*w+xx]){ hit = true; break; }
-    if (hit){ anchors.push([box.x0, yy]); break; } }
+    if (hit){ anchors.push([box.x0, yy, 0, 0]); break; } }
   for (xx = box.x0; xx <= box.x1; xx++){ var hit2 = false;
     for (yy = box.y0; yy < Math.min(h, box.y0 + half); yy++) if (blob[yy*w+xx]){ hit2 = true; break; }
-    if (hit2){ anchors.push([xx, box.y0]); break; } }
+    if (hit2){ anchors.push([xx, box.y0, 0, 0]); break; } }
   /* 🔴 고르는 자는 IoU 가 아니라 **설명한 잉크**(IoU × 형판 칸수)다 — 모서리에 ㅡ(5칸)를
         대면 ㅋ 의 윗막대 한 토막에 0.89 로 완벽히 앉는다. 그러면 ㅋ 이 조각조각 난다.
         큰 형판이 그런대로(≥ legoPeelIou) 맞으면 그쪽이 답이다.
      🔴 배율은 셋을 시도한다(0.85·1·1.15). 붙은 덩어리는 위아래로 7~8칸이라 원근으로
         끝과 끝의 칸이 15% 다르고, 마스크가 깎여 조각이 제 칸보다 작다(실측 ㅋ: 37.6 에서
         0.54, 33 에서 0.65). */
-  var best = null, seenKey = {}, scales = [0.85, 1, 1.15];
+  /* 🔴 배율 1.3 까지 — 덩어리 위쪽 조각의 칸이 덩어리 중심 칸보다 20% 넘게 클 수 있다
+        (10:39 프레임: 중심 36 · ㅂ 자리 44. 1.15 까지만 대면 ㅂ 상자가 33px 모자라 오른쪽 띠가
+        남고 그 띠가 ㅏ 0.44 로 점수를 깎아 벗기기가 통째로 거부됐다). */
+  var cands = [], seenKey = {}, scales = [0.85, 1, 1.15, 1.3];
   for (var t = 0; t < tpls.length; t++){
     var T = tpls[t];
     for (var si = 0; si < scales.length; si++){
@@ -3256,7 +3283,9 @@ function peelLego(blob, w, h, cell, depth){
       var bw = Math.round(T.sw / CELL * sc), bh = Math.round(T.sh / CELL * sc);
       if (bw < 2 || bh < 2) continue;
       for (var ai = 0; ai < anchors.length; ai++){
-        var ax = anchors[ai][0], ay = anchors[ai][1];
+        var ax = anchors[ai][2] ? anchors[ai][0] - bw + 1 : anchors[ai][0];
+        var ay = anchors[ai][3] ? anchors[ai][1] - bh + 1 : anchors[ai][1];
+        if (ax < 0) ax = 0; if (ay < 0) ay = 0;
         var key = T.ch + ':' + T.base + ':' + si + ':' + ax + ':' + ay;
         if (seenKey[key]) continue; seenKey[key] = 1;
         var cw = Math.min(bw, w - ax), chh = Math.min(bh, h - ay);
@@ -3264,18 +3293,44 @@ function peelLego(blob, w, h, cell, depth){
         var sub = legoSub(blob, w, h, ax, ay, cw, chh);
         var m = matchLegoShape(sub, cw, chh, T.ch);
         if (!m || m.iou < TUNE.legoPeelIou) continue;
-        var gain = m.iou * (T.area / (CELL * CELL));
-        if (!best || gain > best.gain) best = { T:m.T, iou:m.iou, gain:gain, ax:ax, ay:ay, bw:cw, bh:chh, sub:sub, m:m };
+        /* 🔴 상자 안 잉크를 형판이 설명 못 하면(정밀도) 그 상자는 남의 조각까지 덮은 것이다 —
+              ㅁ 상자가 ㄹ 을 덮으면 가운데 막대가 남고(캴→캼), 큰 배율 ㅂ 이 아래 ㅜ 를 삼킨다.
+              (부분집합 형판은 이 자로 못 잡는다 — 그건 matchLegoShape 의 상위집합 규칙이 맡는다.) */
+        if (TUNE.legoPeelPrec && m.prec < TUNE.legoPeelPrec) continue;
+        cands.push({ T:m.T, iou:m.iou, gain:m.iou * (T.area / (CELL * CELL)), ax:ax, ay:ay, bw:cw, bh:chh, sub:sub, m:m });
       }
     }
   }
-  if (!best) return null;
+  if (!cands.length) return null;
+  cands.sort(function(p2, q){ return q.gain - p2.gain; });
+  /* 🔴 맨 위 후보 하나로 결정하지 않는다 — 설명한 잉크가 비슷한 후보(ㅜ·ㅗ·ㅛ 가 한 막대를 두고
+        0.54~0.56)는 **벗긴 뒤 남는 것**으로 갈린다. 깊이 0 에서만 **형판이 서로 다른** 상위 셋을
+        끝까지 벗겨 보고(같은 ㅂ 의 배율 셋을 고르면 헛수고) 고른다.
+     🔴 고르는 자 = **설명한 잉크 비율**(Σ 조각 IoU × 조각 잉크 / 덩어리 잉크, 부스러기·실패는 0).
+        조각 최소 점수로 고르면 ①큰 배율 ㅂ 이 아래 ㅜ 를 통째로 삼킨 뒤 0.64 로 「혼자」 남는 길과
+        ②부분집합 형판(ㄴ⊂ㄷ)이 얇아진 윗막대를 부스러기로 버리고 0.85 로 이기는 길이 열린다.
+        둘 다 남긴 잉크가 설명되지 않은 채라 이 자로는 진다(실측 10:39 ㅂ+ㅜ · 13:13 ㄷㅏㅂ). */
+  var totalInk = 0;
+  for (var q0 = 0; q0 < w*h; q0++) if (blob[q0]) totalInk++;
+  var picks = [], seenCh = {};
+  for (var ci0 = 0; ci0 < cands.length && picks.length < (depth === 0 ? TUNE.legoPeelTry : 1); ci0++){
+    if (seenCh[cands[ci0].T.ch]) continue;
+    seenCh[cands[ci0].T.ch] = 1; picks.push(cands[ci0]);
+  }
+  var bestRes = null;
+  for (var ti = 0; ti < picks.length; ti++){
+    var r0 = peelWith(picks[ti]);
+    if (r0 && (!bestRes || r0.explained > bestRes.explained)) bestRes = r0;
+  }
+  if (bestRes) bestRes.explained /= Math.max(1, totalInk);
+  return bestRes;
+  function peelWith(best){
   /* 벗겨내고 남은 잉크 */
-  var rest = new Uint8Array(blob);
+  var rest = new Uint8Array(blob), pieceInk = 0;
   for (yy = best.ay; yy < best.ay + best.bh; yy++)
-    for (xx = best.ax; xx < best.ax + best.bw; xx++) rest[yy*w + xx] = 0;
+    for (xx = best.ax; xx < best.ax + best.bw; xx++){ if (rest[yy*w + xx]) pieceInk++; rest[yy*w + xx] = 0; }
   var parts = [{ blob:best.sub, w:best.bw, h:best.bh, dx:best.ax, dy:best.ay, m:best.m }];
-  var score = best.iou;
+  var score = best.iou, explained = best.iou * pieceInk;
   var comps = legoComponents(rest, w, h), minPx = cell * cell * 1.5;
   for (var ci = 0; ci < comps.length; ci++){
     var px = comps[ci];
@@ -3288,13 +3343,22 @@ function peelLego(blob, w, h, cell, depth){
     var r = null;
     if (Math.max(cw2, ch2) > 5.5 * cell) r = peelLego(sub2, cw2, ch2, cell, depth + 1);
     if (!r) r = splitLegoScored(sub2, cw2, ch2, cell, 1);
+    /* 🔴 벗긴 상자 옆에 남은 얇은 띠(마스크가 형판보다 굵어서)는 조각이 아니라 부스러기다 —
+          어느 형판에도 안 앉고(< legoMinIou) 잉크가 벗긴 조각의 30% 미만이면 점수에서 뺀다. */
+    if (r.score < TUNE.legoMinIou && px.length < pieceInk * 0.3) continue;
     for (var pi = 0; pi < r.parts.length; pi++){
       var pp = r.parts[pi];
       parts.push({ blob:pp.blob, w:pp.w, h:pp.h, dx:pp.dx + ib.x0, dy:pp.dy + ib.y0, m:pp.m });
+      if (pp.m && pp.m.iou >= TUNE.legoMinIou){
+        var ink2 = 0;
+        for (var q2 = 0; q2 < pp.w * pp.h; q2++) if (pp.blob[q2]) ink2++;
+        explained += pp.m.iou * ink2;
+      }
     }
     if (r.score < score) score = r.score;
   }
-  return { parts:parts, score:score };
+  return { parts:parts, score:score, explained:explained };
+  }
 }
 
 /** 덩어리 하나를 레고 형판 전부와 견줘 가장 닮은 것. 형판을 덩어리 상자에 맞춰 늘린다. */
@@ -3361,7 +3425,7 @@ function matchLegoShape(blob, bw, bh, onlyCh){
     var corr = den > 1e-9 ? cov/den : 0;
     var pick = (TUNE.legoScore === 'iou') ? iou : corr;
     if (probe) probe.push({ ch:T.ch, key:T.key, iou:iou, corr:corr, ar:ar });
-    scored[ns++] = { pick:pick, iou:iou, corr:corr, T:T };
+    scored[ns++] = { pick:pick, iou:iou, corr:corr, prec:inter / Math.max(1, bn), T:T };
     if (!best || pick > best.pick) best = scored[ns-1];
   }
   /* 진단용 — window.__PROBE 가 배열일 때만 순위표를 남긴다(평소엔 null 이라 공짜). */
@@ -3389,6 +3453,29 @@ function matchLegoShape(blob, bw, bh, onlyCh){
     var rel = (best.corr - second.corr) / (Math.abs(best.corr) + Math.abs(second.corr) + 1e-6);
     if (rel < -TUNE.legoTieMargin) best = second;
   }
+  /* 🔴 **부분집합 형판은 깎인 마스크에서 언제나 이긴다** — ㄱ⊂ㅋ · ㄴ⊂ㄷ · ㄷ⊂ㅁ · ㅏ⊂ㅑ.
+        상위집합과 다른 건 획 하나뿐인데 그 획이 마스크에서 얇아지면 겹침이 부분집합 쪽으로
+        기운다(실측: 얇아진 ㄷ 자리에서 ㄴ 0.85 / ㄷ 0.62 · ㅋ 자리에서 ㄱ 이 앞섬 → 「답」→「납」,
+        「캴」→「걀」). 정밀도로도 못 잡는다(얇아진 획은 상자 잉크에서도 얇다).
+        규칙: 같은 칸 상자의 상위집합 형판 S(best⊂S, 잉크 90% 이상 포함)가 있고 **S 만의 획이
+        덩어리에 legoSuperRecall 이상 보이면** S 다 — 있는 획을 없다고 할 수는 없다.
+        여럿이면 가장 큰 S. (ㅗ/ㅛ 처럼 상자 크기가 다른 짝은 여기 안 든다.) */
+  var sup = null;
+  for (var t3 = 0; t3 < ns; t3++){
+    var S = scored[t3].T;
+    if (S === best.T || S.bitsN <= best.T.bitsN) continue;
+    if (Math.abs(S.sw - best.T.sw) > CELL * 0.5 || Math.abs(S.sh - best.T.sh) > CELL * 0.5) continue;
+    var inBoth = 0, extraN = 0, extraHit = 0;
+    for (var w3 = 0; w3 < W32; w3++){
+      inBoth += pop(best.T.bits[w3] & S.bits[w3]);
+      var ex = S.bits[w3] & ~best.T.bits[w3];
+      extraN += pop(ex); extraHit += pop(ex & bb[w3]);
+    }
+    if (inBoth < best.T.bitsN * 0.9 || !extraN) continue;
+    if (!TUNE.legoSuperRecall || extraHit / extraN < TUNE.legoSuperRecall) continue;
+    if (!sup || S.bitsN > sup.T.bitsN) sup = scored[t3];
+  }
+  if (sup) best = sup;
   best.iou = best.pick;
   best.tie = second ? second.T.ch : null;
   return best;
