@@ -267,12 +267,14 @@ function TokenArt({
   const clip = useId().replace(/:/g, '');
   const W = 16;
   const H = 9;
-  const BOX = art.noCard ? 0.99 : 0.84;
+  const BOX = art.noCard ? 0.99 : art.round ? 0.92 : 0.84;
   const [cx, cy, cw, chh] = art.crop ?? [0, 0, 1, 1];
   const sw = cw * W;
   const sh = chh * H;
-  // crop 이 있으면 잘라낸 인물이 통째로 보이게(맞춤), 없으면 카드가 칸을 채우게(채움)
-  const s = art.crop ? Math.min(BOX / sw, BOX / sh) * 0.93 : Math.max(BOX / sw, BOX / sh);
+  // 둥근 말은 얼굴이 원을 채우게(채움), 그 밖에 crop 이 있으면 통째로 보이게(맞춤),
+  // crop 이 없으면 카드가 칸을 채우게(채움)
+  const s =
+    art.crop && !art.round ? Math.min(BOX / sw, BOX / sh) * 0.93 : Math.max(BOX / sw, BOX / sh);
   const pad = (1 - BOX) / 2;
   const ox = x + pad + (BOX - sw * s) / 2;
   const oy = y + pad + (BOX - sh * s) / 2;
@@ -284,7 +286,17 @@ function TokenArt({
   const cH = Math.min(y + pad + BOX, oy + sh * s) - cY;
   return (
     <g>
-      {!art.noCard && (
+      {art.round && (
+        <circle
+          cx={x + 0.5}
+          cy={y + 0.5}
+          r={BOX / 2}
+          fill="#FFFFFF"
+          stroke={ring}
+          strokeWidth={0.075}
+        />
+      )}
+      {!art.noCard && !art.round && (
         <rect
           x={x + 0.05}
           y={y + 0.05}
@@ -299,7 +311,11 @@ function TokenArt({
       {art.imageUrl ? (
         <>
           <clipPath id={clip}>
-            <rect x={cX} y={cY} width={cW} height={cH} rx={0.1} />
+            {art.round ? (
+              <circle cx={x + 0.5} cy={y + 0.5} r={BOX / 2 - 0.035} />
+            ) : (
+              <rect x={cX} y={cY} width={cW} height={cH} rx={0.1} />
+            )}
           </clipPath>
           <image
             clipPath={`url(#${clip})`}

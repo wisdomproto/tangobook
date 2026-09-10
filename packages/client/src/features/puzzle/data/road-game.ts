@@ -18,7 +18,9 @@ const BOOK = {
 const GIRL: Art = {
   label: '빨간모자',
   imageUrl: A + '1778476961082-빨간모자new-character-소녀-1778491641310.jpg',
-  crop: [0.015, 0.02, 0.185, 0.96],
+  // 시트 아래줄 웃는 얼굴 — 전신은 세로가 길어 칸에서 작아진다
+  crop: [0.64, 0.56, 0.145, 0.33],
+  round: true,
 };
 
 const COTTAGE: Art = {
@@ -33,7 +35,9 @@ const TREE: Art = { label: '나무', imageUrl: '/images/puzzle/tree.webp', noCar
 const WOLF: Art = {
   label: '늑대',
   imageUrl: A + '1778476961082-빨간모자new-character-늑대-1778491644020.jpg',
-  crop: [0.015, 0.02, 0.185, 0.96],
+  // 입 닫은 얼굴 — 이빨 드러낸 컷은 네 살에게 과하다
+  crop: [0.56, 0.4, 0.155, 0.32],
+  round: true,
 };
 
 type Data = (typeof ROAD_CHALLENGE_DATA)[number] & {
