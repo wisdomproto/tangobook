@@ -777,10 +777,12 @@ function parseGroup(items){
       return dx + Math.abs(v.cy - A.cy);
     });
     dH = nearest.d;
+    /* 🔴 아래 모음 반경 7 → 10 (2026-09-10, 합성 120장) — 두 칸 띄운 ㅋ/ㅜ 가 옆벽 때문에 실측
+          중심 거리 8~9 라 못 붙어 「쿠」가 ∅ 이 됐다. 받침 반경(9→10)과 같은 자. */
     var Vv = nearest(vows, function(v){
       if (v.w <= v.h) return null;
       var dy = v.cy - A.cy, dx = Math.abs(v.cx - A.cx);
-      if (dy <= 0 || dy > 7 || dx > 3.5) return null;
+      if (dy <= 0 || dy > 10 || dx > 3.5) return null;
       return dy + dx;
     });
     dV = nearest.d;
@@ -848,7 +850,7 @@ function parseGroup(items){
     var J = nearest(cons, function(c){
       if (c === A) return null;
       var dy = c.cy - floorY;
-      if (dy < 1.5 || dy > 9) return null;
+      if (dy < 1.5 || dy > 10) return null;
       if (c.cx < loL || c.cx > hiL) return null;
       if (dy > 7 && hasOwnVowel(c)) return null;
       return dy + Math.abs(c.cx - A.cx);
