@@ -1,3 +1,4 @@
 out/*
 !out/review.png
+!out/paper_sheet.pdf
 __pycache__/
