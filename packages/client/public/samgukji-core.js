@@ -133,16 +133,19 @@
     var idx = [];
     try { var ri = await fetch('/samgukji-index.json'); idx = await ri.json(); } catch (e) {}
 
-    // 📘 기획서 링크 (항상 상단)
-    var planEntry = idx.filter(function (e) { return e.file === 'samgukji-plan.html'; })[0];
-    if (planEntry) {
+    // 🔴 도구 페이지(마스터·기획서·트리·읽기)는 상단에 모아 고정한다.
+    //   판정은 index.json 의 pin 이다 — 파일 이름을 여기 박아 두면 페이지를 늘릴 때마다
+    //   이 파일을 같이 고쳤어야 하고, 빼먹으면 도구 페이지에 «완성/진행 배지»가 붙는다.
+    var pinned = idx.filter(function (e) { return e.file && e.pin; });
+    pinned.forEach(function (e) {
       var prow = document.createElement('div'); prow.className = 'ep-plan';
-      var pa = document.createElement('a'); pa.href = planEntry.file; pa.textContent = planEntry.label || '📘 기획서';
+      var pa = document.createElement('a'); pa.href = e.file; pa.textContent = e.label || e.file;
+      if (e.file === (location.pathname.split('/').pop() || '')) prow.className += ' active';
       prow.appendChild(pa); list.appendChild(prow);
-    }
+    });
 
     var eps = idx
-      .filter(function (e) { return e.file && e.file !== 'samgukji-plan.html'; })
+      .filter(function (e) { return e.file && !e.pin; })
       .map(function (e) {
         var m = (e.label || '').match(/(\d+)/);
         return { file: e.file, docId: e.file.replace(/\.html$/, ''), num: m ? +m[1] : 0, title: e.title || (e.label || '').replace(/^\s*\d+\s*/, '') };

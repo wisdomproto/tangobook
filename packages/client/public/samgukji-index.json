@@ -1,11 +1,23 @@
 [
   {
+    "file": "samgukji-master.html",
+    "label": "🗺️ 마스터",
+    "pin": true
+  },
+  {
     "file": "samgukji-plan.html",
-    "label": "📕 기획서"
+    "label": "📕 기획서",
+    "pin": true
+  },
+  {
+    "file": "samgukji-tree.html",
+    "label": "🌳 트리",
+    "pin": true
   },
   {
     "file": "samgukji-read.html",
-    "label": "📖 글만 읽기"
+    "label": "📖 글만 읽기",
+    "pin": true
   },
   {
     "file": "samgukji-01.html",

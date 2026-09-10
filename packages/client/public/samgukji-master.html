@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>탱고북 삼국지 — 마스터</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+<style>
+  :root {
+    --jade:#8A2B1E; --jade-dark:#6E2117; --vermilion:#AE3325; --gold:#9C7620;
+    --hanji:#EAE3D3; --paper:#F5F0E4; --ink:#221F18; --ink-soft:#726A56;
+    --line:#D6CCB4; --mint:#3E7C51; --sky:#EDE6D5;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:1180px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:34px 0 26px; border-bottom:3px solid var(--jade); margin-bottom:22px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:38px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  h2 { font-size:20px; font-weight:900; margin:34px 0 12px; padding-left:11px; border-left:5px solid var(--jade); }
+  h2 i { font-style:normal; font-size:13px; color:var(--ink-soft); font-weight:700; margin-left:8px; }
+  .stats { display:flex; flex-wrap:wrap; gap:10px; }
+  .stat { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px 16px; min-width:94px; }
+  .stat b { display:block; font-size:24px; font-weight:900; color:var(--jade); line-height:1.25; }
+  .stat span { font-size:12px; color:var(--ink-soft); font-weight:700; }
+  .stat.warn b { color:var(--vermilion); }
+  .hub { display:grid; grid-template-columns:repeat(auto-fill, minmax(232px, 1fr)); gap:11px; }
+  .hub a { display:block; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:14px 16px; text-decoration:none; color:inherit; transition:border-color .12s, transform .12s; }
+  .hub a:hover { border-color:var(--jade); transform:translateY(-1px); }
+  .hub a b { display:block; font-size:15.5px; font-weight:900; }
+  .hub a span { display:block; font-size:12.5px; color:var(--ink-soft); font-weight:600; margin-top:3px; line-height:1.6; }
+  .tw { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:hidden; font-size:13.5px; }
+  th, td { padding:7px 9px; text-align:right; border-bottom:1px solid var(--line); }
+  th { background:var(--sky); font-size:12px; color:var(--ink-soft); font-weight:800; white-space:nowrap; }
+  td.n { font-weight:900; color:var(--jade); width:38px; text-align:center; }
+  td.t { text-align:left; }
+  td.t > a { color:inherit; font-weight:700; text-decoration:none; }
+  td.t > a:hover { text-decoration:underline; }
+  td.t .jump { font-size:11.5px; color:var(--ink-soft); margin-left:8px; font-weight:600; white-space:nowrap; }
+  td.t .jump a { color:var(--mint); font-weight:700; text-decoration:none; }
+  td.t .jump a:hover { text-decoration:underline; }
+  td i { font-style:normal; font-size:11px; color:var(--ink-soft); margin-left:4px; }
+  .bar { display:inline-block; width:52px; height:7px; border-radius:99px; background:var(--sky); overflow:hidden; vertical-align:middle; }
+  .bar > span { display:block; height:100%; background:var(--mint); }
+  tfoot td { font-weight:900; background:var(--sky); border-bottom:0; }
+  .fac { margin-bottom:14px; }
+  .fac h3 { font-size:14.5px; font-weight:900; margin:0 0 7px; display:flex; align-items:center; gap:7px; }
+  .fac h3 i { font-style:normal; font-size:12px; color:var(--ink-soft); font-weight:700; }
+  .dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { display:inline-flex; align-items:center; gap:5px; background:var(--paper); border:1px solid var(--line); border-radius:99px; padding:4px 11px; font-size:12.5px; font-weight:700; text-decoration:none; color:inherit; }
+  .chip b { font-size:11px; color:var(--ink-soft); font-weight:800; }
+  .chip.done { border-color:var(--mint); background:#3E7C5115; }
+  .chip.done b { color:var(--mint); }
+  .chip.part { border-color:var(--gold); background:#9C762015; }
+  .chip.part b { color:var(--gold); }
+  ul.checks { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:5px; }
+  ul.checks li { font-size:12.5px; font-weight:700; padding:6px 11px; border-radius:9px; background:var(--paper); border:1px solid var(--line); }
+  ul.checks li.ok { color:var(--mint); }
+  ul.checks li.bad { color:var(--vermilion); border-color:var(--vermilion); }
+  .note { background:var(--paper); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:11px; padding:13px 16px; font-size:13.5px; margin-top:12px; }
+  .note b { color:var(--jade-dark); }
+  .note ul { margin:7px 0 0; padding-left:20px; }
+  .note li { margin-bottom:4px; }
+  code { background:var(--sky); border-radius:5px; padding:1px 6px; font-size:12.5px; }
+  .src { font-size:12.5px; color:var(--ink-soft); }
+  @media (max-width:760px) {
+    .wrap { padding:16px 14px 90px; }
+    .hero h1 { font-size:28px; }
+    table { font-size:12px; }
+    th, td { padding:6px 5px; }
+    td.t .jump { display:block; margin:0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">탱고북 오리지널 · 시리즈물</div>
+  <h1>삼국지 마스터</h1>
+  <div class="sub">도원결의에서 오장원까지 50년을 24권으로 · 초등 저학년 학습만화</div>
+</header>
+
+<h2>한눈에</h2>
+<div class="stats">
+  <div class="stat"><b>24</b><span>권</span></div>
+  <div class="stat"><b>97</b><span>장</span></div>
+  <div class="stat"><b>607</b><span>쪽</span></div>
+  <div class="stat"><b>2065</b><span>컷</span></div>
+  <div class="stat"><b>55%</b><span>말풍선 있는 컷 (대사만 51%)</span></div>
+  <div class="stat"><b>71</b><span>그려지는 인물</span></div>
+  <div class="stat"><b>119</b><span>시트 칸 (인물+물건)</span></div>
+  <div class="stat"><b>12/12</b><span>빌더 검사 통과</span></div>
+</div>
+<div class="note" id="prog">🖼️ <b>그려진 것</b> — R2 에 물어보는 중…</div>
+
+<h2>가는 곳</h2>
+<div class="hub">
+  <a href="samgukji-tree.html"><b>🌳 트리</b><span>권 › 장 › 쪽 › 컷. 나레이션과 대사가 갈라진 원고 전문, 층마다 접고 펴기.</span></a>
+  <a href="samgukji-read.html"><b>📖 글만 읽기</b><span>콘티 없이 이야기만 처음부터 끝까지. 읽히는지 보는 화면.</span></a>
+  <a href="samgukji-plan.html"><b>📕 기획서</b><span>그림체 앵커 · 캐릭터 시트 프롬프트 · 시트 붙여넣기. 그림 발주는 여기서 한다.</span></a>
+  <a href="samgukji-01.html"><b>📜 권별 대본</b><span>대본 + SCENE 콘티 + 쪽 프롬프트 + 삽화 붙여넣기. 왼쪽 ☰ 로 24권.</span></a>
+</div>
+<div class="note">
+  🔴 <b>정하는 곳은 여기가 아니다.</b> 이 화면은 보는 곳이고, 바꾸려면 원본을 고친 뒤 빌더를 다시 돌린다 —
+  <code>node packages/client/scripts/build-samgukji.mjs</code>
+  <ul class="src">
+    <li>대본 24권 — <code>docs/samgukji/vol-01.md</code> … <code>vol-24.md</code></li>
+    <li>만화 형식(컷 라벨·판짜기·45자) — <code>docs/samgukji/_comic-format.md</code></li>
+    <li>연의 대조 감사(고침안 문장까지) — <code>docs/samgukji/_audit/</code></li>
+    <li>그림체 앵커 — <code>docs/art-direction/samgukji-anchor.md</code> · 캐릭터 시트 — <code>samgukji-cast.md</code></li>
+  </ul>
+</div>
+
+<h2>권별 <i>말풍선 % = 대사·생각이 든 컷 — 대사만 세면 51%</i></h2>
+<div class="tw">
+<table>
+  <thead><tr><th>권</th><th>제목</th><th>장</th><th>쪽</th><th>컷</th><th>말풍선</th><th>인물</th><th>삽화</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="n">1</td>
+      <td class="t"><a href="samgukji-01.html">복사꽃 동산의 맹세</a>
+        <span class="jump"><a href="samgukji-tree.html#v1">트리</a> · <a href="samgukji-read.html#v1">읽기</a></span></td>
+      <td>5<i>⭐1</i></td>
+      <td>35</td>
+      <td>134</td>
+      <td><span class="bar"><span style="width:57%"></span></span><i>57%</i></td>
+      <td>7</td>
+      <td class="art" data-doc="samgukji-01" data-pages="35"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">2</td>
+      <td class="t"><a href="samgukji-02.html">어둠을 몰고 온 동탁</a>
+        <span class="jump"><a href="samgukji-tree.html#v2">트리</a> · <a href="samgukji-read.html#v2">읽기</a></span></td>
+      <td>5</td>
+      <td>35</td>
+      <td>132</td>
+      <td><span class="bar"><span style="width:55%"></span></span><i>55%</i></td>
+      <td>12</td>
+      <td class="art" data-doc="samgukji-02" data-pages="35"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">3</td>
+      <td class="t"><a href="samgukji-03.html">데운 술이 식기 전에</a>
+        <span class="jump"><a href="samgukji-tree.html#v3">트리</a> · <a href="samgukji-read.html#v3">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>25</td>
+      <td>84</td>
+      <td><span class="bar"><span style="width:56%"></span></span><i>56%</i></td>
+      <td>11</td>
+      <td class="art" data-doc="samgukji-03" data-pages="25"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">4</td>
+      <td class="t"><a href="samgukji-04.html">천하를 흔든 미인</a>
+        <span class="jump"><a href="samgukji-tree.html#v4">트리</a> · <a href="samgukji-read.html#v4">읽기</a></span></td>
+      <td>4</td>
+      <td>25</td>
+      <td>92</td>
+      <td><span class="bar"><span style="width:57%"></span></span><i>57%</i></td>
+      <td>14</td>
+      <td class="art" data-doc="samgukji-04" data-pages="25"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">5</td>
+      <td class="t"><a href="samgukji-05.html">동탁의 최후</a>
+        <span class="jump"><a href="samgukji-tree.html#v5">트리</a> · <a href="samgukji-read.html#v5">읽기</a></span></td>
+      <td>5<i>⭐1</i></td>
+      <td>30</td>
+      <td>97</td>
+      <td><span class="bar"><span style="width:57%"></span></span><i>57%</i></td>
+      <td>11</td>
+      <td class="art" data-doc="samgukji-05" data-pages="30"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">6</td>
+      <td class="t"><a href="samgukji-06.html">천자를 모신 조조</a>
+        <span class="jump"><a href="samgukji-tree.html#v6">트리</a> · <a href="samgukji-read.html#v6">읽기</a></span></td>
+      <td>4</td>
+      <td>24</td>
+      <td>77</td>
+      <td><span class="bar"><span style="width:56%"></span></span><i>56%</i></td>
+      <td>9</td>
+      <td class="art" data-doc="samgukji-06" data-pages="24"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">7</td>
+      <td class="t"><a href="samgukji-07.html">강동의 젊은 호랑이</a>
+        <span class="jump"><a href="samgukji-tree.html#v7">트리</a> · <a href="samgukji-read.html#v7">읽기</a></span></td>
+      <td>3</td>
+      <td>19</td>
+      <td>62</td>
+      <td><span class="bar"><span style="width:58%"></span></span><i>58%</i></td>
+      <td>11</td>
+      <td class="art" data-doc="samgukji-07" data-pages="19"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">8</td>
+      <td class="t"><a href="samgukji-08.html">백문루의 여포</a>
+        <span class="jump"><a href="samgukji-tree.html#v8">트리</a> · <a href="samgukji-read.html#v8">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>24</td>
+      <td>77</td>
+      <td><span class="bar"><span style="width:57%"></span></span><i>57%</i></td>
+      <td>7</td>
+      <td class="art" data-doc="samgukji-08" data-pages="24"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">9</td>
+      <td class="t"><a href="samgukji-09.html">두 마음 없는 관우</a>
+        <span class="jump"><a href="samgukji-tree.html#v9">트리</a> · <a href="samgukji-read.html#v9">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>24</td>
+      <td>84</td>
+      <td><span class="bar"><span style="width:48%"></span></span><i>48%</i></td>
+      <td>9</td>
+      <td class="art" data-doc="samgukji-09" data-pages="24"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">10</td>
+      <td class="t"><a href="samgukji-10.html">다섯 관문의 관우</a>
+        <span class="jump"><a href="samgukji-tree.html#v10">트리</a> · <a href="samgukji-read.html#v10">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>23</td>
+      <td>87</td>
+      <td><span class="bar"><span style="width:52%"></span></span><i>52%</i></td>
+      <td>7</td>
+      <td class="art" data-doc="samgukji-10" data-pages="23"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">11</td>
+      <td class="t"><a href="samgukji-11.html">관도, 승부가 갈리다</a>
+        <span class="jump"><a href="samgukji-tree.html#v11">트리</a> · <a href="samgukji-read.html#v11">읽기</a></span></td>
+      <td>4</td>
+      <td>26</td>
+      <td>88</td>
+      <td><span class="bar"><span style="width:51%"></span></span><i>51%</i></td>
+      <td>6</td>
+      <td class="art" data-doc="samgukji-11" data-pages="26"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">12</td>
+      <td class="t"><a href="samgukji-12.html">잠자는 용을 찾아서</a>
+        <span class="jump"><a href="samgukji-tree.html#v12">트리</a> · <a href="samgukji-read.html#v12">읽기</a></span></td>
+      <td>4</td>
+      <td>27</td>
+      <td>94</td>
+      <td><span class="bar"><span style="width:54%"></span></span><i>54%</i></td>
+      <td>8</td>
+      <td class="art" data-doc="samgukji-12" data-pages="27"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">13</td>
+      <td class="t"><a href="samgukji-13.html">세 번 찾아간 초가집</a>
+        <span class="jump"><a href="samgukji-tree.html#v13">트리</a> · <a href="samgukji-read.html#v13">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>25</td>
+      <td>81</td>
+      <td><span class="bar"><span style="width:57%"></span></span><i>57%</i></td>
+      <td>9</td>
+      <td class="art" data-doc="samgukji-13" data-pages="25"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">14</td>
+      <td class="t"><a href="samgukji-14.html">적벽으로 가는 지혜</a>
+        <span class="jump"><a href="samgukji-tree.html#v14">트리</a> · <a href="samgukji-read.html#v14">읽기</a></span></td>
+      <td>5<i>⭐1</i></td>
+      <td>30</td>
+      <td>96</td>
+      <td><span class="bar"><span style="width:55%"></span></span><i>55%</i></td>
+      <td>14</td>
+      <td class="art" data-doc="samgukji-14" data-pages="30"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">15</td>
+      <td class="t"><a href="samgukji-15.html">불타는 적벽</a>
+        <span class="jump"><a href="samgukji-tree.html#v15">트리</a> · <a href="samgukji-read.html#v15">읽기</a></span></td>
+      <td>3<i>⭐1</i></td>
+      <td>18</td>
+      <td>54</td>
+      <td><span class="bar"><span style="width:56%"></span></span><i>56%</i></td>
+      <td>8</td>
+      <td class="art" data-doc="samgukji-15" data-pages="18"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">16</td>
+      <td class="t"><a href="samgukji-16.html">형주를 지켜라</a>
+        <span class="jump"><a href="samgukji-tree.html#v16">트리</a> · <a href="samgukji-read.html#v16">읽기</a></span></td>
+      <td>4</td>
+      <td>28</td>
+      <td>93</td>
+      <td><span class="bar"><span style="width:58%"></span></span><i>58%</i></td>
+      <td>9</td>
+      <td class="art" data-doc="samgukji-16" data-pages="28"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">17</td>
+      <td class="t"><a href="samgukji-17.html">서쪽으로 뻗는 길</a>
+        <span class="jump"><a href="samgukji-tree.html#v17">트리</a> · <a href="samgukji-read.html#v17">읽기</a></span></td>
+      <td>4</td>
+      <td>25</td>
+      <td>83</td>
+      <td><span class="bar"><span style="width:55%"></span></span><i>55%</i></td>
+      <td>11</td>
+      <td class="art" data-doc="samgukji-17" data-pages="25"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">18</td>
+      <td class="t"><a href="samgukji-18.html">장강을 뒤덮은 기개</a>
+        <span class="jump"><a href="samgukji-tree.html#v18">트리</a> · <a href="samgukji-read.html#v18">읽기</a></span></td>
+      <td>3</td>
+      <td>17</td>
+      <td>53</td>
+      <td><span class="bar"><span style="width:57%"></span></span><i>57%</i></td>
+      <td>6</td>
+      <td class="art" data-doc="samgukji-18" data-pages="17"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">19</td>
+      <td class="t"><a href="samgukji-19.html">정군산의 노장</a>
+        <span class="jump"><a href="samgukji-tree.html#v19">트리</a> · <a href="samgukji-read.html#v19">읽기</a></span></td>
+      <td>3<i>⭐1</i></td>
+      <td>20</td>
+      <td>66</td>
+      <td><span class="bar"><span style="width:59%"></span></span><i>59%</i></td>
+      <td>12</td>
+      <td class="art" data-doc="samgukji-19" data-pages="20"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">20</td>
+      <td class="t"><a href="samgukji-20.html">관우, 별이 되다</a>
+        <span class="jump"><a href="samgukji-tree.html#v20">트리</a> · <a href="samgukji-read.html#v20">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>33</td>
+      <td>107</td>
+      <td><span class="bar"><span style="width:52%"></span></span><i>52%</i></td>
+      <td>14</td>
+      <td class="art" data-doc="samgukji-20" data-pages="33"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">21</td>
+      <td class="t"><a href="samgukji-21.html">백제성의 눈물</a>
+        <span class="jump"><a href="samgukji-tree.html#v21">트리</a> · <a href="samgukji-read.html#v21">읽기</a></span></td>
+      <td>4<i>⭐1</i></td>
+      <td>23</td>
+      <td>77</td>
+      <td><span class="bar"><span style="width:56%"></span></span><i>56%</i></td>
+      <td>8</td>
+      <td class="art" data-doc="samgukji-21" data-pages="23"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">22</td>
+      <td class="t"><a href="samgukji-22.html">마음을 사로잡다</a>
+        <span class="jump"><a href="samgukji-tree.html#v22">트리</a> · <a href="samgukji-read.html#v22">읽기</a></span></td>
+      <td>4<i>⭐2</i></td>
+      <td>19</td>
+      <td>66</td>
+      <td><span class="bar"><span style="width:55%"></span></span><i>55%</i></td>
+      <td>6</td>
+      <td class="art" data-doc="samgukji-22" data-pages="19"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">23</td>
+      <td class="t"><a href="samgukji-23.html">기산을 향하여</a>
+        <span class="jump"><a href="samgukji-tree.html#v23">트리</a> · <a href="samgukji-read.html#v23">읽기</a></span></td>
+      <td>4<i>⭐2</i></td>
+      <td>21</td>
+      <td>69</td>
+      <td><span class="bar"><span style="width:58%"></span></span><i>58%</i></td>
+      <td>5</td>
+      <td class="art" data-doc="samgukji-23" data-pages="21"><i>…</i></td>
+    </tr>
+    <tr>
+      <td class="n">24</td>
+      <td class="t"><a href="samgukji-24.html">오장원에 지는 별</a>
+        <span class="jump"><a href="samgukji-tree.html#v24">트리</a> · <a href="samgukji-read.html#v24">읽기</a></span></td>
+      <td>5<i>⭐1</i></td>
+      <td>31</td>
+      <td>112</td>
+      <td><span class="bar"><span style="width:54%"></span></span><i>54%</i></td>
+      <td>6</td>
+      <td class="art" data-doc="samgukji-24" data-pages="31"><i>…</i></td>
+    </tr>
+  </tbody>
+  <tfoot><tr><td class="n">계</td><td class="t">24권</td><td>97</td><td>607</td><td>2065</td><td>55%</td><td>—</td><td id="artTotal">—</td></tr></tfoot>
+</table>
+</div>
+
+<h2>캐릭터·물건 <i>인물 71명 · 시트 119칸 — 나이·복장이 바뀌면 칸이 여럿이다</i></h2>
+
+    <div class="fac">
+      <h3><span class="dot" style="background:#3E7C51"></span>촉 <i>14명 · 시트 32칸</i></h3>
+      <div class="chips"><a class="chip" href="samgukji-plan.html" data-keys="char-liubei-b1,char-liubei-b3,char-liubei-b3-court,char-liubei-b13,char-liubei-b13-field,char-liubei-b19,char-liubei-b20">유비<b>7</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-guanyu-b1,char-guanyu-b3,char-guanyu-b18">관우<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhangfei-b1,char-zhangfei-b3,char-zhangfei-b21">장비<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhugeliang-b13,char-zhugeliang-b14,char-zhugeliang-b22,char-zhugeliang-b24">제갈량<b>4</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhaoyun-b4,char-zhaoyun-b17,char-zhaoyun-b21">조운<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-simahui">수경선생<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-xushu">서서<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-adou">아두<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-liushan-b21,char-liushan-b24">유선<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-pangtong">방통<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-machao-b17,char-machao-b19">마초<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-huangzhong">황충<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-jiangwei-b23,char-jiangwei-b24">강유<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-masu">마속<b>1</b></a></div>
+    </div>
+    <div class="fac">
+      <h3><span class="dot" style="background:#3A5C86"></span>위 <i>6명 · 시트 12칸</i></h3>
+      <div class="chips"><a class="chip" href="samgukji-plan.html" data-keys="char-caocao-b2,char-caocao-b6,char-caocao-b6-field,char-caocao-b18,char-caocao-b20">조조<b>5</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-simayi-b23,char-simayi-b24">사마의<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-dianwei">전위<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhangliao-b9,char-zhangliao-b18">장료<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-xiahouyuan">하후연<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-caopi">조비<b>1</b></a></div>
+    </div>
+    <div class="fac">
+      <h3><span class="dot" style="background:#B0473A"></span>오 <i>8명 · 시트 14칸</i></h3>
+      <div class="chips"><a class="chip" href="samgukji-plan.html" data-keys="char-sunquan-b7,char-sunquan-b14,char-sunquan-b21">손권<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-sunjian">손견<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-sunce-b4,char-sunce-b7">손책<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhouyu-b7,char-zhouyu-b14,char-zhouyu-b16">주유<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-lusu">노숙<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-huanggai">황개<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-ganning-b18">감녕<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-luxun-b20,char-luxun-b21">육손<b>2</b></a></div>
+    </div>
+    <div class="fac">
+      <h3><span class="dot" style="background:#C9A227"></span>한 <i>3명 · 시트 5칸</i></h3>
+      <div class="chips"><a class="chip" href="samgukji-plan.html" data-keys="char-childemperor">어린 황제<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-liuxie">진류왕<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-xiandi-b6,char-xiandi-b18,char-xiandi-b20">헌제<b>3</b></a></div>
+    </div>
+    <div class="fac">
+      <h3><span class="dot" style="background:#6E5A86"></span>군웅 <i>40명 · 시트 48칸</i></h3>
+      <div class="chips"><a class="chip" href="samgukji-plan.html" data-keys="char-lvbu-b2,char-lvbu-b3,char-lvbu-b8">여포<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-dongzhuo-b1,char-dongzhuo-b2">동탁<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhangjue">장각<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-duyou">독우<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-sushuang">소쌍<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-hejin">하진<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-dingyuan">정원<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-chengong-b2,char-chengong-b8">진궁<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-lvbosha">여백사<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-wangyun">왕윤<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-diaochan">초선<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-lijue">이각<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-guosi">곽사<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-taoqian">도겸<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-yuanshao-b2,char-yuanshao-b3,char-yuanshao-b11">원소<b>3</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-yuanshu-b2,char-yuanshu-b7">원술<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-gongsunzan">공손찬<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-huaxiong">화웅<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-liubiao">유표<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-anliang">안량<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-wenchou">문추<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-menghuo-b22">맹획<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-liuzhang">유장<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-huatuo">화타<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-pangde">방덕<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-taishici">태사자<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-caozhi">조식<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-guanping-b10,char-guanping-b20">관평<b>2</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-liufeng">유봉<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-jianggan">장간<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-ganze">감택<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-jiaxu">가후<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhanglu">장로<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-zhangsong">장송<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-lihui">이회<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-fazheng">법정<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-yangxiu">양수<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-lvmeng">여몽<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-liaohua">요화<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="char-weiyan">위연<b>1</b></a></div>
+    </div>
+<div class="fac">
+      <h3><span class="dot" style="background:var(--gold)"></span>이름난 물건 <i>8개 · 시트 8칸</i></h3>
+      <div class="chips"><a class="chip" href="samgukji-plan.html" data-keys="prop-guandao">청룡언월도<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-zhangba">장팔사모<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-halberd">갈래창<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-twinswords">쌍고검<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-redhare">적토마<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-whitehorse">백마<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-fan">흰 깃부채<b>1</b></a><a class="chip" href="samgukji-plan.html" data-keys="prop-seal">옥새<b>1</b></a></div>
+    </div>
+<div class="note">회색 숫자가 그 인물에게 <b>구워야 할 시트 장수</b>다. 붙여넣기는 <a href="samgukji-plan.html">기획서</a> 의 캐스트 카드에서 한다 — 시트는 한 곳에만 붙이고, 24권 대본은 이름으로만 참조한다.</div>
+
+<h2>빌더 검사 <i>이번 빌드가 실제로 찍은 줄</i></h2>
+<ul class="checks"><li class="ok">✓ 고유명사 117개 전부 시리즈 첫 등장에 설명이 붙었다</li><li class="ok">✓ 그려지는 인물 71명 전부 시트가 있다</li><li class="ok">✓ 나이·복장 61단계 전부 영문이 있다</li><li class="ok">✓ 나이·복장 24명 61단계 전부 등장 권 안에서 쓰인다</li><li class="ok">✓ 옷 갈아입는 3단계 전부 실제 단계를 가리킨다</li><li class="ok">✓ 24권 전부 장 번호가 1부터 빠짐없이 이어진다</li><li class="ok">✓ SCENE 에 그려지는 인물 전부 meta cast 에 있다</li><li class="ok">✓ 컷 2065개 전부 화면 글자 45자 이내</li><li class="ok">✓ 컷 번호가 쪽마다 c1 부터 이어진다</li><li class="ok">✓ 컷마다 SCENE 5라벨이 다 있다</li><li class="ok">✓ 판짜기 선언이 실제 컷 수와 같다</li><li class="ok">✓ 말풍선 화자가 그 컷 「인물」 줄에 있다</li></ul>
+
+<h2>남은 일</h2>
+<div class="note">
+  <ul>
+    <li><b>시트를 굽는다</b> — 인물마다 대표 단계를 먼저 승인받고, 나머지 단계는 그 승인본을 첨부해 얼굴을 물려받는다.</li>
+    <li><b>쪽 삽화 607쪽</b> — 권별 대본 화면의 쪽 프롬프트로 뽑아 그 자리에 붙여넣는다.</li>
+    <li><b>editor2 연동</b> — 다른 라인처럼 링커를 쓴다(<code>link-*-illustrations.mjs</code> 계열). 삽화가 붙은 뒤의 일이다.</li>
+    <li>⚠️ <b>권당 약 25쪽은 시중 학습만화 한 권(150~200쪽)보다 얇다.</b> 더 두꺼운 권으로 합칠지는 <b>아직 안 정했다</b> — 시중 것을 실제로 재 보지 않았으므로 그 비교는 추정이다.</li>
+  </ul>
+</div>
+</div>
+<script src="samgukji-core.js"></script>
+<script>
+// 🔴 그려졌는지는 빌드 시점에 알 수 없다(붙여넣기는 R2 에 있다) — 화면에서 물어본다.
+//    실패해도 페이지는 그대로 쓸 수 있어야 하므로 숫자만 「?」로 두고 넘어간다.
+(async function () {
+  var el = document.getElementById('prog');
+  function pct(a, b) { return b ? Math.round(a / b * 100) : 0; }
+
+  var sheetTotal = 119, sheetDone = 0, sheetOk = false;
+  try {
+    var r = await fetch('/api/comic-assets/samgukji-plan');
+    var j = await r.json();
+    var have = Object.keys((j && j.data) || {});
+    var set = {}; have.forEach(function (k) { set[k] = 1; });
+    sheetDone = have.filter(function (k) { return k.indexOf('char-') === 0 || k.indexOf('prop-') === 0; }).length;
+    sheetOk = true;
+    document.querySelectorAll('.chip[data-keys]').forEach(function (c) {
+      var ks = c.getAttribute('data-keys').split(',');
+      var n = ks.filter(function (k) { return set[k]; }).length;
+      if (n === ks.length) c.classList.add('done');
+      else if (n) { c.classList.add('part'); c.querySelector('b').textContent = n + '/' + ks.length; }
+    });
+  } catch (e) {}
+
+  var pageTotal = 0, pageDone = 0, pageOk = true;
+  var cells = [].slice.call(document.querySelectorAll('td.art'));
+  await Promise.all(cells.map(async function (td) {
+    var need = +td.getAttribute('data-pages');
+    pageTotal += need;
+    try {
+      var r2 = await fetch('/api/comic-assets/' + td.getAttribute('data-doc'));
+      var j2 = await r2.json();
+      var n = Object.keys((j2 && j2.data) || {}).filter(function (k) { return /^p[0-9]+$/.test(k); }).length;
+      pageDone += n;
+      td.innerHTML = n ? '<b>' + n + '</b><i>/' + need + '</i>' : '<i>0/' + need + '</i>';
+    } catch (e) { pageOk = false; td.innerHTML = '<i>?</i>'; }
+  }));
+  var tot = document.getElementById('artTotal');
+  if (tot) tot.textContent = pageOk ? pageDone + ' / ' + pageTotal : '?';
+
+  el.innerHTML = '🖼️ <b>그려진 것</b> — 시트 '
+    + (sheetOk ? '<b>' + sheetDone + ' / ' + sheetTotal + '</b> (' + pct(sheetDone, sheetTotal) + '%)' : '<b>?</b> — 서버(3500)에 못 물었다')
+    + ' &nbsp;·&nbsp; 쪽 삽화 '
+    + (pageOk ? '<b>' + pageDone + ' / ' + pageTotal + '</b> (' + pct(pageDone, pageTotal) + '%)' : '<b>?</b> — 서버(3500)에 못 물었다');
+})();
+</script>
+</body>
+</html>

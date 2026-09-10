@@ -18,6 +18,35 @@ const ROOT = path.resolve(HERE, '../../..');
 const SRC = path.join(ROOT, 'docs/samgukji');
 const OUT = path.join(ROOT, 'packages/client/public');
 
+// 🔴 마스터가 검사 결과를 보여 준다 — 또 세지 않고 «이번 빌드가 찍은 줄»을 받아적는다.
+//   검사 12개가 제각각 console.log 로 보고하므로, 불러오는 대신 지나가는 것을 받는다.
+const CHECKS = [];
+const _log = console.log;
+console.log = (...a) => {
+  const line = a.join(' ');
+  const m = line.match(/^\s{2}([✓⚠])\s+(.+)$/);
+  if (m) CHECKS.push({ pass: m[1] === '✓', msg: m[2] });
+  _log(...a);
+};
+
+// 🔴 진영은 기획서 카드의 색띄와 마스터의 진영별 묶음이 같이 쓴다 — 두 곳에 적지 않는다.
+//   여기 없는 토큰은 「군웅」이 되므로, 새 인물을 넣으면 여기도 채운다.
+const FAC = {
+  Liubei: '촉', Guanyu: '촉', Zhangfei: '촉', Zhugeliang: '촉', Zhaoyun: '촉',
+  Simahui: '촉', Xushu: '촉', Pangtong: '촉', Machao: '촉', Huangzhong: '촉',
+  Jiangwei: '촉', Masu: '촉', Liushan: '촉', Adou: '촉',
+  Caocao: '위', Simayi: '위', Dianwei: '위', Zhangliao: '위', Xiahouyuan: '위',
+  Caopi: '위', Anliang: '군웅', Wenchou: '군웅',
+  Sunquan: '오', Sunjian: '오', Sunce: '오', Zhouyu: '오', Lusu: '오',
+  Huanggai: '오', Ganning: '오', Luxun: '오',
+  Lvbu: '군웅', Dongzhuo: '군웅', Yuanshao: '군웅', Yuanshu: '군웅', Gongsunzan: '군웅',
+  Huaxiong: '군웅', Zhangjue: '군웅', Duyou: '군웅', Sushuang: '군웅', Hejin: '군웅',
+  Dingyuan: '군웅', Chengong: '군웅', Lvbosha: '군웅', Wangyun: '군웅', Diaochan: '군웅',
+  Lijue: '군웅', Guosi: '군웅', Taoqian: '군웅', Liubiao: '군웅', Liuzhang: '군웅',
+  Menghuo: '군웅', ChildEmperor: '한', Liuxie: '한', Xiandi: '한',
+};
+const FACC = { 촉: '#3E7C51', 위: '#3A5C86', 오: '#B0473A', 한: '#C9A227', 군웅: '#6E5A86' };
+
 // 프롬프트 범례용 짧은 설명. 🔴 전체 시트 규격은 docs/art-direction/samgukji-cast.md 가 SSOT.
 const CAST = {
   liubei: { token: 'Liubei', name: '유비', desc: '안 칠한 맨 얼굴 · 이 책에서 가장 큰 귀(윤곽을 깬다) · 허리 양옆 칼 두 자루 · 노란 허리끈. 1권 = 짚신·베옷, 수염 없음.', aliases: ['Liubei', '유비'] },
@@ -871,9 +900,14 @@ for (const f of files) {
 
 // index.json — 대본이 있는 권만 (전 권 빌드일 때만 다시 굽는다)
 if (!only) {
+  // 🔴 도구 페이지는 pin 으로 표시한다 — 사이드바가 파일 이름을 박아 두면
+  //   페이지를 하나 늘릴 때마다 core.js 를 같이 고쳐야 하고, 빼먹으면 그 페이지가
+  //   «완성/진행 배지가 붙은 회차»로 섬여 들어간다(읽기 페이지가 그러고 있었다).
   const index = [
-    { file: 'samgukji-plan.html', label: '📕 기획서' },
-    { file: 'samgukji-read.html', label: '📖 글만 읽기' },
+    { file: 'samgukji-master.html', label: '🗺️ 마스터', pin: true },
+    { file: 'samgukji-plan.html', label: '📕 기획서', pin: true },
+    { file: 'samgukji-tree.html', label: '🌳 트리', pin: true },
+    { file: 'samgukji-read.html', label: '📖 글만 읽기', pin: true },
     ...built.map((v) => ({
       file: `samgukji-${String(v.n).padStart(2, '0')}.html`,
       label: `${v.n} · ${v.title}`,
@@ -886,6 +920,7 @@ if (!only) {
   checkCuts(built);
   buildRead(built);
   buildTree(built);
+  buildMaster(built, CHECKS);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1269,6 +1304,10 @@ function buildPlan(builtVols) {
   if (anchor && (anchor.length < 3200 || anchor.length > 3700)) {
     console.log(`  ⚠ 앵커 ${anchor.length}자 — 규격(3,200~3,700) 밖이다`);
   }
+  // 🔴 등신은 앵커가 정하는 값이다 — 기획서가 그 숫자를 다시 적어 둔 사이에
+  //   앵커는 4 → 5.5 → 2.5 로 두 번 뒤집혔고, 이 페이지만 5.5 에 멈춰 있었다.
+  //   samgukji-cast.md 는 「여기 숫자를 다시 적지 마라」고 거절해 안 갈라졌다.
+  const headRatio = (anchor && anchor.match(/~?([0-9.]+)\s*heads/i) || [])[1] || '?';
   const byToken = Object.fromEntries(Object.values(CAST).map((c) => [c.token, c]));
   const keyByToken = Object.fromEntries(Object.entries(CAST).map(([k, c]) => [c.token, k]));
   const written = new Set(builtVols.map((v) => v.n));
@@ -1288,21 +1327,6 @@ function buildPlan(builtVols) {
 
   // 🔴 진영은 기획서 카드의 색띠와 정렬에만 쓴다. 여기 없는 토큰은 「군웅」이 되므로,
   //   새 인물을 넣으면 여기도 채운다 — 안 채우면 주유·장료가 군웅 칸에 가서 조용히 섞인다.
-  const FAC = {
-    Liubei: '촉', Guanyu: '촉', Zhangfei: '촉', Zhugeliang: '촉', Zhaoyun: '촉',
-    Simahui: '촉', Xushu: '촉', Pangtong: '촉', Machao: '촉', Huangzhong: '촉',
-    Jiangwei: '촉', Masu: '촉', Liushan: '촉', Adou: '촉',
-    Caocao: '위', Simayi: '위', Dianwei: '위', Zhangliao: '위', Xiahouyuan: '위',
-    Caopi: '위', Anliang: '군웅', Wenchou: '군웅',
-    Sunquan: '오', Sunjian: '오', Sunce: '오', Zhouyu: '오', Lusu: '오',
-    Huanggai: '오', Ganning: '오', Luxun: '오',
-    Lvbu: '군웅', Dongzhuo: '군웅', Yuanshao: '군웅', Yuanshu: '군웅', Gongsunzan: '군웅',
-    Huaxiong: '군웅', Zhangjue: '군웅', Duyou: '군웅', Sushuang: '군웅', Hejin: '군웅',
-    Dingyuan: '군웅', Chengong: '군웅', Lvbosha: '군웅', Wangyun: '군웅', Diaochan: '군웅',
-    Lijue: '군웅', Guosi: '군웅', Taoqian: '군웅', Liubiao: '군웅', Liuzhang: '군웅',
-    Menghuo: '군웅', ChildEmperor: '한', Liuxie: '한', Xiandi: '한',
-  };
-  const FACC = { 촉: '#3E7C51', 위: '#3A5C86', 오: '#B0473A', 한: '#C9A227', 군웅: '#6E5A86' };
 
   /**
    * 🔴 프롬프트는 «세 덩이»다 — 장면 / 스타일 한 줄 / Avoid 한 줄. 그 이상 쌓지 마라.
@@ -1621,17 +1645,17 @@ function buildPlan(builtVols) {
 </ul>
 <p>대상은 <b>초등 저학년</b>이다. 탱고북 본진(4~7세)보다 위이고 「타임 티코」와 같은 자리다.</p>
 
-<h2>2 · 그림체 — 수묵 산수 위의 5.5등신</h2>
+<h2>2 · 그림체 — 수묵 산수 위의 ${headRatio}등신</h2>
 <p>🔴 <b>출처는 우리 자산이다</b> — <code>C:/projects/threekingdoms</code>(영걸전형 SRPG)에서 <b>이미 렌더까지 나온</b> 하우스 스타일을 그림책으로 옮겼다.
 앞서 만들었던 후보 셋(그림자극·연환화·형지염색)은 <b>렌더가 하나도 없는 설계도</b>여서 폐기했다.
 분석 전문 = <code>docs/art-direction/samgukji-anchor.md</code>.</p>
 <div class="cand pick">
   <h3>정체 — 두 층으로 되어 있다</h3>
-  <div class="one">배경은 젖은 수묵 산수, 인물은 그 위에 얹은 굵은 먹 윤곽의 5.5등신(2026-08-20 에 4등신에서 올렸다 — 4등신 시안이 세 번 다 「애 같다」로 돌아왔다).</div>
+  <div class="one">배경은 젖은 수묵 산수, 인물은 그 위에 얹은 굵은 먹 윤곽의 ${headRatio}등신. 🔴 4 → 5.5 → ${headRatio} 로 두 번 뒤집혔다 — 5.5 로 올렸던 것이 오진이었고(「애 같다」의 원인은 등신이 아니라 <b>채색</b>이었다), 그 이력은 앵커 머리말에 있다.</div>
   <ul>
     <li>🔴 <b>두 층의 마감이 달라서</b> 「눈은 가장 마감된 것으로 간다」가 저절로 성립한다 — 인물이 늘 그 쪽에서 가장 마감된 것이다.</li>
     <li>🔴 <b>관우의 얼굴이 실제로 붉다</b>(SD 시트 실측 <code>#6C4836</code> 계열) — 얼굴색 축이 이 그림체에서 성립하는 것을 렌더로 확인했다.</li>
-    <li>🔴 <b>전원 5.5등신</b>이라 키로는 아무도 못 가른다 → 개체는 <b>어깨 폭(머리 폭의 몇 배)</b>으로 가른다. 동탁 2.6 ↔ 조조 1.5.</li>
+    <li>🔴 <b>전원 ${headRatio}등신</b>이라 키로는 아무도 못 가른다 → 개체는 <b>어깨 폭(머리 폭의 몇 배)</b>으로 가른다. 동탁 2.6 ↔ 조조 1.5.</li>
     <li>팔레트는 렌더에서 뽑았다 — 종이 <code>#F0E2C0</code>·먹 <code>#2B2B2B</code>·올리브 <code>#485A48</code>·황토 <code>#D8B46C</code>·가죽 <code>#5A4836</code>.</li>
     <li>⚠️ 법적 라인 상속 — 코에이 그래픽·일러스트 스타일 모방 금지, 「영걸전」 명칭 금지(NOT 절에 박아 두었다).</li>
   </ul>
@@ -1712,4 +1736,286 @@ ${slotCopyScript}
 `;
   fs.writeFileSync(path.join(OUT, 'samgukji-plan.html'), html);
   console.log(`samgukji-plan.html — 24권 ${totalCh}장 ⭐${stars} · 시트 ${sheets.length}장 · 대본 ${written.size}권`);
+}
+
+/**
+ * 마스터 — 삼국지 라인의 «현황판이자 입구».
+ *
+ * 🔴 여기서 새로 세는 숫자는 하나도 없다. 권·장·쪽·컷은 대본 파싱 결과(built)에서,
+ *    시트 칸은 방금 구운 samgukji-plan.html 의 data-key 에서, 검사 결과는 이번 빌드가
+ *    실제로 찍은 줄에서 가져온다. 손으로 옮겨 적으면 반드시 갈라진다 —
+ *    기획서가 등신을 다시 적어 뒀다가 5.5 에 멈춰 거짓말을 하고 있던 것이 그 예다.
+ * 🔴 사실의 원본은 이 페이지가 아니다. 정하는 곳은 docs/ 의 md 이고 여기는 «보는 곳»이다.
+ * 🔴 그려졌는지는 빌드가 모른다 — 붙여넣기는 R2 에 있으므로 «화면에서» 물어본다.
+ */
+function buildMaster(built, checks) {
+  const planHtml = fs.readFileSync(path.join(OUT, 'samgukji-plan.html'), 'utf8');
+  // 🔴 시트 칸 목록은 기획서에서 «읽어 온다». 같은 규칙을 여기 다시 구현하면 단계가
+  //    하나 늘 때마다 두 곳을 고쳐야 하고, 안 고친 쪽이 조용히 틀린 수를 보여 준다.
+  const slotKeys = [...planHtml.matchAll(/data-key="(char-[^"]+)"/g)].map((m) => m[1]);
+  const slotsByToken = {};
+  for (const k of slotKeys) {
+    const tok = k.replace(/^char-/, '').split('-b')[0];
+    (slotsByToken[tok] ||= []).push(k);
+  }
+
+  const pagesOf = (v) => v.chapters.flatMap((c) => c.pages);
+  // 🔴 「말풍선」은 둘로 갈린다 — 대사만인지, 생각까지인지. 한 숫자만 보이면 어느 쪽으로
+  //    잰 것인지 모른 채 인용된다 — 실제로 그래서 54% 라고 잘못 말한 적이 있다. 둘 다 보여 준다.
+  const hasSay = (cut) => (cut.lines || []).some((l) => l.startsWith('대사 '));
+  const isSpeech = (cut) => (cut.lines || []).some((l) => l.startsWith('대사 ') || l.startsWith('생각 '));
+
+  const rows = built.map((v) => {
+    const pages = pagesOf(v);
+    const cuts = pages.flatMap((p) => p.cuts || []);
+    const speech = cuts.filter(isSpeech).length;
+    return {
+      n: v.n, title: v.title,
+      ch: v.chapters.length, pg: pages.length, cut: cuts.length,
+      speech, say: cuts.filter(hasSay).length,
+      pct: cuts.length ? Math.round((speech / cuts.length) * 100) : 0,
+      cast: v.cast.length,
+      stars: v.chapters.filter((c) => c.star).length,
+    };
+  });
+  const sum = (f) => rows.reduce((a, r) => a + f(r), 0);
+  const totCut = sum((r) => r.cut);
+  const totPg = sum((r) => r.pg);
+  const totSpeech = sum((r) => r.speech);
+  const totSay = sum((r) => r.say);
+  const drawnCast = Object.keys(slotsByToken).length;
+
+  const FACO = ['촉', '위', '오', '한', '군웅'];
+  const byFac = {};
+  for (const [tok, keys] of Object.entries(slotsByToken)) {
+    // data-key 는 소문자다 — CAST 토큰과 맞추려면 소문자끼리 견준다.
+    const hit = Object.values(CAST).find((c) => c.token.toLowerCase() === tok);
+    const fac = hit ? FAC[hit.token] || '군웅' : '군웅';
+    (byFac[fac] ||= []).push({ name: hit ? hit.name : tok, keys });
+  }
+
+  const volRows = rows.map((r) => `
+    <tr>
+      <td class="n">${r.n}</td>
+      <td class="t"><a href="samgukji-${String(r.n).padStart(2, '0')}.html">${esc(r.title)}</a>
+        <span class="jump"><a href="samgukji-tree.html#v${r.n}">트리</a> · <a href="samgukji-read.html#v${r.n}">읽기</a></span></td>
+      <td>${r.ch}${r.stars ? `<i>⭐${r.stars}</i>` : ''}</td>
+      <td>${r.pg}</td>
+      <td>${r.cut}</td>
+      <td><span class="bar"><span style="width:${r.pct}%"></span></span><i>${r.pct}%</i></td>
+      <td>${r.cast}</td>
+      <td class="art" data-doc="samgukji-${String(r.n).padStart(2, '0')}" data-pages="${r.pg}"><i>…</i></td>
+    </tr>`).join('');
+
+  const castBlocks = FACO.filter((f) => byFac[f]).map((f) => `
+    <div class="fac">
+      <h3><span class="dot" style="background:${FACC[f]}"></span>${f} <i>${byFac[f].length}명 · 시트 ${byFac[f].reduce((a, c) => a + c.keys.length, 0)}칸</i></h3>
+      <div class="chips">${byFac[f].map((c) => `<a class="chip" href="samgukji-plan.html" data-keys="${c.keys.join(',')}">${esc(c.name)}<b>${c.keys.length}</b></a>`).join('')}</div>
+    </div>`).join('');
+
+  // 이름난 물건도 구워야 할 시트다 — 사람만 세면 발주량이 여덟 장 모자란다.
+  const propChips = PROPS.map(([k, nm]) => `<a class="chip" href="samgukji-plan.html" data-keys="prop-${k}">${esc(nm)}<b>1</b></a>`).join('');
+
+  const checkRows = checks.map((c) => `<li class="${c.pass ? 'ok' : 'bad'}">${c.pass ? '✓' : '⚠'} ${esc(c.msg)}</li>`).join('');
+  const failed = checks.filter((c) => !c.pass).length;
+
+  const html = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>탱고북 삼국지 — 마스터</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+<style>
+  :root {
+    --jade:#8A2B1E; --jade-dark:#6E2117; --vermilion:#AE3325; --gold:#9C7620;
+    --hanji:#EAE3D3; --paper:#F5F0E4; --ink:#221F18; --ink-soft:#726A56;
+    --line:#D6CCB4; --mint:#3E7C51; --sky:#EDE6D5;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:1180px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:34px 0 26px; border-bottom:3px solid var(--jade); margin-bottom:22px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:38px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  h2 { font-size:20px; font-weight:900; margin:34px 0 12px; padding-left:11px; border-left:5px solid var(--jade); }
+  h2 i { font-style:normal; font-size:13px; color:var(--ink-soft); font-weight:700; margin-left:8px; }
+  .stats { display:flex; flex-wrap:wrap; gap:10px; }
+  .stat { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px 16px; min-width:94px; }
+  .stat b { display:block; font-size:24px; font-weight:900; color:var(--jade); line-height:1.25; }
+  .stat span { font-size:12px; color:var(--ink-soft); font-weight:700; }
+  .stat.warn b { color:var(--vermilion); }
+  .hub { display:grid; grid-template-columns:repeat(auto-fill, minmax(232px, 1fr)); gap:11px; }
+  .hub a { display:block; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:14px 16px; text-decoration:none; color:inherit; transition:border-color .12s, transform .12s; }
+  .hub a:hover { border-color:var(--jade); transform:translateY(-1px); }
+  .hub a b { display:block; font-size:15.5px; font-weight:900; }
+  .hub a span { display:block; font-size:12.5px; color:var(--ink-soft); font-weight:600; margin-top:3px; line-height:1.6; }
+  .tw { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:hidden; font-size:13.5px; }
+  th, td { padding:7px 9px; text-align:right; border-bottom:1px solid var(--line); }
+  th { background:var(--sky); font-size:12px; color:var(--ink-soft); font-weight:800; white-space:nowrap; }
+  td.n { font-weight:900; color:var(--jade); width:38px; text-align:center; }
+  td.t { text-align:left; }
+  td.t > a { color:inherit; font-weight:700; text-decoration:none; }
+  td.t > a:hover { text-decoration:underline; }
+  td.t .jump { font-size:11.5px; color:var(--ink-soft); margin-left:8px; font-weight:600; white-space:nowrap; }
+  td.t .jump a { color:var(--mint); font-weight:700; text-decoration:none; }
+  td.t .jump a:hover { text-decoration:underline; }
+  td i { font-style:normal; font-size:11px; color:var(--ink-soft); margin-left:4px; }
+  .bar { display:inline-block; width:52px; height:7px; border-radius:99px; background:var(--sky); overflow:hidden; vertical-align:middle; }
+  .bar > span { display:block; height:100%; background:var(--mint); }
+  tfoot td { font-weight:900; background:var(--sky); border-bottom:0; }
+  .fac { margin-bottom:14px; }
+  .fac h3 { font-size:14.5px; font-weight:900; margin:0 0 7px; display:flex; align-items:center; gap:7px; }
+  .fac h3 i { font-style:normal; font-size:12px; color:var(--ink-soft); font-weight:700; }
+  .dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { display:inline-flex; align-items:center; gap:5px; background:var(--paper); border:1px solid var(--line); border-radius:99px; padding:4px 11px; font-size:12.5px; font-weight:700; text-decoration:none; color:inherit; }
+  .chip b { font-size:11px; color:var(--ink-soft); font-weight:800; }
+  .chip.done { border-color:var(--mint); background:#3E7C5115; }
+  .chip.done b { color:var(--mint); }
+  .chip.part { border-color:var(--gold); background:#9C762015; }
+  .chip.part b { color:var(--gold); }
+  ul.checks { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:5px; }
+  ul.checks li { font-size:12.5px; font-weight:700; padding:6px 11px; border-radius:9px; background:var(--paper); border:1px solid var(--line); }
+  ul.checks li.ok { color:var(--mint); }
+  ul.checks li.bad { color:var(--vermilion); border-color:var(--vermilion); }
+  .note { background:var(--paper); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:11px; padding:13px 16px; font-size:13.5px; margin-top:12px; }
+  .note b { color:var(--jade-dark); }
+  .note ul { margin:7px 0 0; padding-left:20px; }
+  .note li { margin-bottom:4px; }
+  code { background:var(--sky); border-radius:5px; padding:1px 6px; font-size:12.5px; }
+  .src { font-size:12.5px; color:var(--ink-soft); }
+  @media (max-width:760px) {
+    .wrap { padding:16px 14px 90px; }
+    .hero h1 { font-size:28px; }
+    table { font-size:12px; }
+    th, td { padding:6px 5px; }
+    td.t .jump { display:block; margin:0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">탱고북 오리지널 · 시리즈물</div>
+  <h1>삼국지 마스터</h1>
+  <div class="sub">도원결의에서 오장원까지 50년을 24권으로 · 초등 저학년 학습만화</div>
+</header>
+
+<h2>한눈에</h2>
+<div class="stats">
+  <div class="stat"><b>24</b><span>권</span></div>
+  <div class="stat"><b>${sum((r) => r.ch)}</b><span>장</span></div>
+  <div class="stat"><b>${totPg}</b><span>쪽</span></div>
+  <div class="stat"><b>${totCut}</b><span>컷</span></div>
+  <div class="stat"><b>${Math.round((totSpeech / totCut) * 100)}%</b><span>말풍선 있는 컷 (대사만 ${Math.round((totSay / totCut) * 100)}%)</span></div>
+  <div class="stat"><b>${drawnCast}</b><span>그려지는 인물</span></div>
+  <div class="stat"><b>${slotKeys.length + PROPS.length}</b><span>시트 칸 (인물+물건)</span></div>
+  <div class="stat${failed ? ' warn' : ''}"><b>${checks.length - failed}/${checks.length}</b><span>빌더 검사 통과</span></div>
+</div>
+<div class="note" id="prog">🖼️ <b>그려진 것</b> — R2 에 물어보는 중…</div>
+
+<h2>가는 곳</h2>
+<div class="hub">
+  <a href="samgukji-tree.html"><b>🌳 트리</b><span>권 › 장 › 쪽 › 컷. 나레이션과 대사가 갈라진 원고 전문, 층마다 접고 펴기.</span></a>
+  <a href="samgukji-read.html"><b>📖 글만 읽기</b><span>콘티 없이 이야기만 처음부터 끝까지. 읽히는지 보는 화면.</span></a>
+  <a href="samgukji-plan.html"><b>📕 기획서</b><span>그림체 앵커 · 캐릭터 시트 프롬프트 · 시트 붙여넣기. 그림 발주는 여기서 한다.</span></a>
+  <a href="samgukji-01.html"><b>📜 권별 대본</b><span>대본 + SCENE 콘티 + 쪽 프롬프트 + 삽화 붙여넣기. 왼쪽 ☰ 로 24권.</span></a>
+</div>
+<div class="note">
+  🔴 <b>정하는 곳은 여기가 아니다.</b> 이 화면은 보는 곳이고, 바꾸려면 원본을 고친 뒤 빌더를 다시 돌린다 —
+  <code>node packages/client/scripts/build-samgukji.mjs</code>
+  <ul class="src">
+    <li>대본 24권 — <code>docs/samgukji/vol-01.md</code> … <code>vol-24.md</code></li>
+    <li>만화 형식(컷 라벨·판짜기·45자) — <code>docs/samgukji/_comic-format.md</code></li>
+    <li>연의 대조 감사(고침안 문장까지) — <code>docs/samgukji/_audit/</code></li>
+    <li>그림체 앵커 — <code>docs/art-direction/samgukji-anchor.md</code> · 캐릭터 시트 — <code>samgukji-cast.md</code></li>
+  </ul>
+</div>
+
+<h2>권별 <i>말풍선 % = 대사·생각이 든 컷 — 대사만 세면 ${Math.round((totSay / totCut) * 100)}%</i></h2>
+<div class="tw">
+<table>
+  <thead><tr><th>권</th><th>제목</th><th>장</th><th>쪽</th><th>컷</th><th>말풍선</th><th>인물</th><th>삽화</th></tr></thead>
+  <tbody>${volRows}
+  </tbody>
+  <tfoot><tr><td class="n">계</td><td class="t">24권</td><td>${sum((r) => r.ch)}</td><td>${totPg}</td><td>${totCut}</td><td>${Math.round((totSpeech / totCut) * 100)}%</td><td>—</td><td id="artTotal">—</td></tr></tfoot>
+</table>
+</div>
+
+<h2>캐릭터·물건 <i>인물 ${drawnCast}명 · 시트 ${slotKeys.length + PROPS.length}칸 — 나이·복장이 바뀌면 칸이 여럿이다</i></h2>
+${castBlocks}
+<div class="fac">
+      <h3><span class="dot" style="background:var(--gold)"></span>이름난 물건 <i>${PROPS.length}개 · 시트 ${PROPS.length}칸</i></h3>
+      <div class="chips">${propChips}</div>
+    </div>
+<div class="note">회색 숫자가 그 인물에게 <b>구워야 할 시트 장수</b>다. 붙여넣기는 <a href="samgukji-plan.html">기획서</a> 의 캐스트 카드에서 한다 — 시트는 한 곳에만 붙이고, 24권 대본은 이름으로만 참조한다.</div>
+
+<h2>빌더 검사 <i>이번 빌드가 실제로 찍은 줄</i></h2>
+<ul class="checks">${checkRows}</ul>
+
+<h2>남은 일</h2>
+<div class="note">
+  <ul>
+    <li><b>시트를 굽는다</b> — 인물마다 대표 단계를 먼저 승인받고, 나머지 단계는 그 승인본을 첨부해 얼굴을 물려받는다.</li>
+    <li><b>쪽 삽화 ${totPg}쪽</b> — 권별 대본 화면의 쪽 프롬프트로 뽑아 그 자리에 붙여넣는다.</li>
+    <li><b>editor2 연동</b> — 다른 라인처럼 링커를 쓴다(<code>link-*-illustrations.mjs</code> 계열). 삽화가 붙은 뒤의 일이다.</li>
+    <li>⚠️ <b>권당 약 ${Math.round(totPg / 24)}쪽은 시중 학습만화 한 권(150~200쪽)보다 얇다.</b> 더 두꺼운 권으로 합칠지는 <b>아직 안 정했다</b> — 시중 것을 실제로 재 보지 않았으므로 그 비교는 추정이다.</li>
+  </ul>
+</div>
+</div>
+<script src="samgukji-core.js"></script>
+<script>
+// 🔴 그려졌는지는 빌드 시점에 알 수 없다(붙여넣기는 R2 에 있다) — 화면에서 물어본다.
+//    실패해도 페이지는 그대로 쓸 수 있어야 하므로 숫자만 「?」로 두고 넘어간다.
+(async function () {
+  var el = document.getElementById('prog');
+  function pct(a, b) { return b ? Math.round(a / b * 100) : 0; }
+
+  var sheetTotal = ${slotKeys.length + PROPS.length}, sheetDone = 0, sheetOk = false;
+  try {
+    var r = await fetch('/api/comic-assets/samgukji-plan');
+    var j = await r.json();
+    var have = Object.keys((j && j.data) || {});
+    var set = {}; have.forEach(function (k) { set[k] = 1; });
+    sheetDone = have.filter(function (k) { return k.indexOf('char-') === 0 || k.indexOf('prop-') === 0; }).length;
+    sheetOk = true;
+    document.querySelectorAll('.chip[data-keys]').forEach(function (c) {
+      var ks = c.getAttribute('data-keys').split(',');
+      var n = ks.filter(function (k) { return set[k]; }).length;
+      if (n === ks.length) c.classList.add('done');
+      else if (n) { c.classList.add('part'); c.querySelector('b').textContent = n + '/' + ks.length; }
+    });
+  } catch (e) {}
+
+  var pageTotal = 0, pageDone = 0, pageOk = true;
+  var cells = [].slice.call(document.querySelectorAll('td.art'));
+  await Promise.all(cells.map(async function (td) {
+    var need = +td.getAttribute('data-pages');
+    pageTotal += need;
+    try {
+      var r2 = await fetch('/api/comic-assets/' + td.getAttribute('data-doc'));
+      var j2 = await r2.json();
+      var n = Object.keys((j2 && j2.data) || {}).filter(function (k) { return /^p[0-9]+$/.test(k); }).length;
+      pageDone += n;
+      td.innerHTML = n ? '<b>' + n + '</b><i>/' + need + '</i>' : '<i>0/' + need + '</i>';
+    } catch (e) { pageOk = false; td.innerHTML = '<i>?</i>'; }
+  }));
+  var tot = document.getElementById('artTotal');
+  if (tot) tot.textContent = pageOk ? pageDone + ' / ' + pageTotal : '?';
+
+  el.innerHTML = '🖼️ <b>그려진 것</b> — 시트 '
+    + (sheetOk ? '<b>' + sheetDone + ' / ' + sheetTotal + '</b> (' + pct(sheetDone, sheetTotal) + '%)' : '<b>?</b> — 서버(3500)에 못 물었다')
+    + ' &nbsp;·&nbsp; 쪽 삽화 '
+    + (pageOk ? '<b>' + pageDone + ' / ' + pageTotal + '</b> (' + pct(pageDone, pageTotal) + '%)' : '<b>?</b> — 서버(3500)에 못 물었다');
+})();
+</script>
+</body>
+</html>
+`;
+  fs.writeFileSync(path.join(OUT, 'samgukji-master.html'), html);
+  console.log(`samgukji-master.html — 마스터 ${built.length}권 ${totPg}쪽 · 시트 ${slotKeys.length + PROPS.length}칸 · 검사 ${checks.length}종`);
 }
