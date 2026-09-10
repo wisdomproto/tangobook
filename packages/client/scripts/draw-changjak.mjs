@@ -166,7 +166,12 @@ for (const [i, chunk] of chunks.entries()) {
     log = `${e.stdout ?? ''}${e.stderr ?? ''}`;
   }
   const head = log.split('\n').filter((l) => /^(BATCH|TOTAL|SUCCEEDED|FAILED|ERROR)=/.test(l));
-  console.log(head.length ? head.join('\n') : `🔴 batch 가 아무 말도 안 했다: ${log.trim().slice(0, 200)}`);
+  // 🔴 `FAILED=N` 은 「그림이 안 나왔다」가 아니다 — 샌드박스가 Codex 제 폴더에서 우리 경로로
+  //    **복사하는 것**만 막은 것이고 그림은 있다(아래 구조 로직이 복사한다). 실제 손실은 「나온 것」이 말한다.
+  const annotated = head.map((l) => (l.startsWith('FAILED=') && l !== 'FAILED=0'
+    ? `${l}  ← 대개 샌드박스가 복사를 막은 것이다. 실제 손실은 아래 「나온 것」으로 판단할 것`
+    : l));
+  console.log(annotated.length ? annotated.join('\n') : `🔴 batch 가 아무 말도 안 했다: ${log.trim().slice(0, 200)}`);
   if (/usage limit|한도/i.test(log)) { console.log('🔴 한도 — 다시 돌리면 남은 쪽부터 이어간다.'); break; }
 
   // 🔴 「did not write the requested image」는 실패가 아니다 — 샌드박스가 지정 경로에 못 써서
@@ -186,8 +191,6 @@ console.log('🔴 사람이 본 뒤 올린다 — upload-changjak-art.mjs');
 // 🔴 검수·수리는 다 그린 뒤에 한다 — 여기서는 파일로 쌓아만 둔다.
 if (flagged.length) {
   const f = path.join(OUT, '_FLAGS.md');
-  fs.appendFileSync(f, flagged.map((l) => '- ' + l).join('
-') + '
-');
+  fs.appendFileSync(f, `${flagged.map((l) => `- ${l}`).join('\n')}\n`);
   console.log('🔴 나중에 고칠 자리 ' + flagged.length + '건 → ' + f);
 }
