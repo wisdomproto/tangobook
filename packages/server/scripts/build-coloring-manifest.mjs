@@ -73,13 +73,15 @@ for (const g of plan.groups) {
 
 fs.writeFileSync(OUT, JSON.stringify(sheets));
 
-// 🔴 **책별 장수 색인** — 독후활동 카드가 「이 책에 도안이 있나」를 물어보는데, 그걸 알자고
-//    920KB manifest 를 학습 화면에서 받을 수는 없다. 책 id → 장수만 담아 몇 KB로 만든다.
+// 🔴 **책별 낱말 색인** — 독후활동 카드가 「이 책에, 이 언어로 쓸 도안이 있나」를 물어보는데,
+//    그걸 알자고 920KB manifest 를 학습 화면에서 받을 수는 없다. 책 id → 도안 낱말만 담는다.
+//    장수만으로는 부족하다 — 라벨이 **언어마다** 달라서(vi·zh·th 는 87권이 0장) 낱말을 알아야
+//    그 책의 key_objects 와 대조해 셀 수 있다(`countColoringSheets`).
 //    (도안 목록 자체는 색칠 화면을 열 때 manifest 에서 걸러 쓴다 — 그때는 받아도 된다.)
 const bookIndex = {};
 for (const s2 of sheets) {
   if (!/^\d{10,}$/.test(String(s2.unitId))) continue; // 파닉스 단원 id 는 책이 아니다
-  bookIndex[s2.unitId] = (bookIndex[s2.unitId] ?? 0) + 1;
+  (bookIndex[s2.unitId] ??= []).push(s2.word);
 }
 const INDEX_OUT = path.join(path.dirname(OUT), 'book-index.json');
 fs.writeFileSync(INDEX_OUT, JSON.stringify(bookIndex));

@@ -265,7 +265,7 @@ export function getAvailableGames(
   t: TFn,
   book?: Storybook,
   style?: string,
-  /** 이 책의 색칠 도안 장수(`public/coloring/book-index.json`). 0/undefined 면 기존 그리기. */
+  /** 이 책·이 언어에서 쓸 수 있는 색칠 도안 수(`countColoringSheets`). 0/undefined 면 기존 그리기. */
   coloringCount?: number
 ): VocabGameOption[] {
   const isKo = lang === 'ko';
@@ -284,10 +284,11 @@ export function getAvailableGames(
   /**
    * 🔴 색칠이 「단어 그림 그리기」를 **대체**한다 — 같은 자리, 더 나은 물건.
    *    기존 것은 낱말 윤곽 안을 단색으로 메우는 paint-fill 이고, 색칠은 도안에 **색을 골라** 칠한다.
-   *    도안은 동화책 266권 중 264권에 있다(하늘 동물 2권만 빠짐) → 없는 책은 기존 그리기로 남는다.
-   *    도안 라벨·음원이 한국어라 ko 에서만 바꾼다(도안 그림 자체는 언어 무관 — 넓힐 여지 있음).
+   *    도안 그림은 언어와 무관하고 라벨·음원만 그 언어로 붙인다(`coloringLabel`).
+   *    `coloringCount` = **그 언어로 라벨을 붙일 수 있는 도안 수** — ko·en 은 265권 전부,
+   *    vi·zh·th 는 번역 없는 87권이 0이라 그 책들만 기존 그리기로 남는다(빈 색칠 화면을 안 연다).
    */
-  const useColoring = isKo && (coloringCount ?? 0) > 0;
+  const useColoring = (coloringCount ?? 0) > 0;
   const storyData = buildStoryImageData(book, lang, style);
   // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
   const pageOrderData = isKo ? buildPageOrderData(book, style) : null;

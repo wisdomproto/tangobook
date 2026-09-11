@@ -26,7 +26,11 @@ import { KoreanWordWritingPlayer } from '@/features/games/components/players/Kor
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
 import { ColoringPlayer } from '@/features/games/components/players/ColoringPlayer';
-import { useColoringBookIndex, useColoringItems } from '@/features/games/hooks/useColoringSheets';
+import {
+  countColoringSheets,
+  useColoringBookIndex,
+  useColoringItems,
+} from '@/features/games/hooks/useColoringSheets';
 import { HiddenObjectPlayer } from '@/features/games/components/players/HiddenObjectPlayer';
 import { StoryImagePlayer } from '@/features/games/components/players/StoryImagePlayer';
 import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
@@ -123,8 +127,9 @@ export function VocabularyStudyContent({
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
   const { refetch: refetchBalance } = useStarBalance();
 
-  // 색칠 도안 장수만 먼저 본다(4.7KB 색인). 도안 목록은 색칠을 열 때 받는다.
-  const coloringCount = useColoringBookIndex()[storybook?.id ?? ''] ?? 0;
+  // 🔴 장수가 아니라 **이 언어로 라벨을 붙일 수 있는 도안 수** — 카드를 내 놓고 빈 화면을 열지 않게.
+  const coloringIndex = useColoringBookIndex();
+  const coloringCount = countColoringSheets(coloringIndex[storybook?.id ?? ''], storybook, lang);
   const games = getAvailableGames(unit, lang, t, storybook, currentStyle, coloringCount);
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
@@ -658,7 +663,7 @@ export function GameOverlay({
             onBack={onBack}
           />
         )}
-        {game === 'coloring' && <ColoringGame bookId={effectiveStorybookId} onBack={onBack} />}
+        {game === 'coloring' && <ColoringGame book={storybook} lang={lang} onBack={onBack} />}
         {game === 'connect-the-dots' && (
           <ConnectTheDotsPlayer
             storybookId={effectiveStorybookId}
@@ -734,14 +739,32 @@ export function GameOverlay({
 /**
  * 색칠 — 도안 목록은 **열 때만** 받는다(920KB manifest). 판정이 없는 활동이라 `onComplete` 이
  * 없고, 아이가 그만두면 `onBack` 으로 나간다.
+ * 🔴 라벨·음원·칭찬은 **보고 있는 언어**로 붙인다 — 도안 그림은 언어와 무관하다.
  */
-function ColoringGame({ bookId, onBack }: { bookId: string; onBack: () => void }) {
-  const items = useColoringItems(bookId, true);
-  // manifest(920KB) 를 받는 동안 — 진행률을 못 재는 한 판이라 게이지 대신 한 줄만.
+function ColoringGame({
+  book,
+  lang,
+  onBack,
+}: {
+  book: Parameters<typeof useColoringItems>[0];
+  lang: Parameters<typeof useColoringItems>[1];
+  onBack: () => void;
+}) {
+  const { items, loading } = useColoringItems(book, lang, true);
   if (!items.length) {
+    // 받는 중이면 붓만 · 받았는데 비었으면(카드 판정과 데이터가 어긋난 드문 경우) 막다른 길이 되지 않게.
     return (
       <div className="fixed inset-0 z-[70] grid place-items-center bg-cream-50">
-        <p className="font-display text-lg text-ink-500">🎨</p>
+        {loading ? (
+          <p className="font-display text-lg text-ink-500">🎨</p>
+        ) : (
+          <button
+            onClick={onBack}
+            className="min-h-[44px] px-5 rounded-full bg-white shadow-soft text-ink-700 font-bold"
+          >
+            ←
+          </button>
+        )}
       </div>
     );
   }

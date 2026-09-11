@@ -5,6 +5,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { resolveTtsUrl } from '@/features/tts';
 import { playUi, playNote, feedDrawLoop, stopDrawLoop } from '@/lib/uiSound';
 import { buildWalls, labelRegions, paintableRegions, borderRegions } from '@tangobook/shared';
+import type { Lang } from '@tangobook/shared';
 import {
   boundsOf,
   buildPalette,
@@ -50,7 +51,12 @@ export interface ColoringItem {
   /** 음원 캐시 키 — 파닉스는 단원 id. */
   storybookId?: string;
   /** 낱말을 읽어 줄 언어. 영어 파닉스 낱말을 한국어로 이어 붙이면 딴 소리가 난다. */
-  language?: 'korean' | 'english' | 'zh';
+  language?: 'korean' | 'english' | 'vi' | 'zh' | 'th';
+  /**
+   * 칭찬 언어 — 지시·칭찬은 **아이 말**이다. 없으면 `language` 로 추정한다(파닉스 데모 호환).
+   * 🔴 예전엔 `english` 가 아니면 전부 `ko` 라 베트남 아이가 한국어 칭찬을 들을 뻔했다.
+   */
+  lang?: Lang;
 }
 
 interface ColoringPlayerProps {
@@ -354,7 +360,10 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
       directUrl: item.ttsUrl ?? undefined,
       identifierPrefix: 'color',
     });
-    playCorrectSequence({ ttsUrl, language: item.language === 'english' ? 'en' : 'ko' });
+    playCorrectSequence({
+      ttsUrl,
+      language: item.lang ?? (item.language === 'english' ? 'en' : 'ko'),
+    });
   }, [item, playCorrectSequence]);
 
   /**
