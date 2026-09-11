@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { Storybook } from '@tangobook/shared';
+import type { KeyObject, Storybook } from '@tangobook/shared';
 import { coloringLabel, countColoringSheets, findSheetKeyObject } from './useColoringSheets';
 
 /**
@@ -57,7 +57,7 @@ describe('coloringLabel', () => {
     expect(coloringLabel(findSheetKeyObject(jeonrae, '부뚜막'), 'en')).toBe('Buttumak');
   });
   it('한국어만 있는 이름은 영어 라벨이 되지 않는다', () => {
-    const koOnly = { name: '종지', korean: '종지' } as unknown as Storybook['key_objects'][number];
+    const koOnly = { name: '종지', korean: '종지' } as unknown as KeyObject;
     expect(coloringLabel(koOnly, 'en')).toBeNull();
   });
 });
