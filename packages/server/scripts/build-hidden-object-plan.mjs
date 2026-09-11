@@ -41,6 +41,12 @@ const CATEGORIES = (
 const PREFIX = process.argv.find((a) => a.startsWith('--prefix='))?.slice(9) ?? 'ho';
 /** 화면 제목 — 자연관찰처럼 카테고리가 여덟으로 쪼개진 라인은 이걸로 한 이름을 준다. */
 const LABEL = process.argv.find((a) => a.startsWith('--label='))?.slice(8) ?? null;
+/**
+ * 🔴 **영어 이름이 영어가 아닌 라인이 있다** — 전래 동화는 `nameEn` 이 로마자다(`tongbal`·`satdae`,
+ *    문화 수출용으로 일부러 그렇게 붙였다). 그대로 프롬프트에 실으면 GPT 는 `tongbal` 이 뭔지 모른다.
+ *    `--describe` 면 책에 이미 있는 영어 뜻풀이(`a woven bamboo fish trap`)를 이름 앞에 세운다.
+ */
+const DESCRIBE = process.argv.includes('--describe');
 const OUT = path.join(
   __dirname,
   '..',
@@ -172,6 +178,13 @@ const PARTS = new Set([
   '피부', '근육', '혈관', '식도', '위', '뇌', '심장', '뼈', '몸', '물갈퀴', '집게',
   '주머니', '가죽', '껍질', '가시', '허물', '탯줄', '침',
 ]);
+
+/** 목록에 실을 문장 — 형태 지정이 먼저, 그다음 (`--describe` 면) 책의 뜻풀이. 둘 다 없으면 이름 그대로. */
+function drawOf(w) {
+  if (DRAW_AS[w.ko]) return DRAW_AS[w.ko];
+  if (DESCRIBE && w.desc) return `${w.desc} (${w.en})`;
+  return undefined;
+}
 
 /** 그 낱말이 어느 통인가 — 사물 · 배경 · 몸의 부분. */
 function bucketOf(w) {
@@ -384,6 +397,7 @@ for (const k of await listStorybookKeys()) {
       name: o.name,
       ko: (o.korean || '').trim(),
       en: (o.nameEn || o.name || '').trim(),
+      desc: (o.definition || o.description || '').trim(),
     }))
     .filter((w) => w.ko && w.en && !/[가-힣]/.test(w.en));
   if (!words.length) {
@@ -426,11 +440,13 @@ for (const k of await listStorybookKeys()) {
       words: words
         .filter((w) => bucketOf(w) === 'object')
         // `draw` 가 있으면 화면이 목록에 **영어 낱말 대신 그 문장**을 싣는다.
-        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w), draw: DRAW_AS[w.ko] })),
-      scenery: words.filter((w) => bucketOf(w) === 'scenery').map((w) => ({ ko: w.ko, en: w.en })),
+        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w), draw: drawOf(w) })),
+      scenery: words
+        .filter((w) => bucketOf(w) === 'scenery')
+        .map((w) => ({ ko: w.ko, en: w.en, draw: drawOf(w) })),
       parts: words
         .filter((w) => bucketOf(w) === 'part')
-        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w) })),
+        .map((w) => ({ ko: w.ko, en: w.en, card: cardOf(w), draw: drawOf(w) })),
     });
   }
 }

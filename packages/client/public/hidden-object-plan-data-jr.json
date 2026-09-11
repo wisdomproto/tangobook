@@ -19,27 +19,32 @@
             {
               "ko": "구슬",
               "en": "guseul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-guseul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-guseul.jpg",
+              "draw": "a jade wish bead (guseul)"
             },
             {
               "ko": "통발",
               "en": "tongbal",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-tongbal.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-tongbal.jpg",
+              "draw": "a woven bamboo fish trap (tongbal)"
             },
             {
               "ko": "나룻배",
               "en": "narutbae",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-narutbae.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-narutbae.jpg",
+              "draw": "a flat river ferry boat (narutbae)"
             },
             {
               "ko": "삿대",
               "en": "satdae",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-satdae.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-satdae.jpg",
+              "draw": "a boat punting pole (satdae)"
             },
             {
               "ko": "대바구니",
               "en": "daebaguni",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-daebaguni.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gaegoyangi/word-daebaguni.jpg",
+              "draw": "a woven bamboo basket (daebaguni)"
             }
           ],
           "scenery": [],
@@ -62,27 +67,32 @@
             {
               "ko": "베틀",
               "en": "beteul",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-beteul.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-beteul.jpg",
+              "draw": "a Korean weaving loom (beteul)"
             },
             {
               "ko": "실타래",
               "en": "siltarae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-siltarae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-siltarae.jpg",
+              "draw": "a skein of thread (siltarae)"
             },
             {
               "ko": "소달구지",
               "en": "sodalguji",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-sodalguji.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-sodalguji.jpg",
+              "draw": "an ox-drawn cart (sodalguji)"
             },
             {
               "ko": "한복",
               "en": "hanbok",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-hanbok.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-hanbok.jpg",
+              "draw": "traditional Korean clothes (hanbok)"
             },
             {
               "ko": "부채",
               "en": "buchae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-buchae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gyeonwoo/word-buchae.jpg",
+              "draw": "a Korean fan (buchae)"
             }
           ],
           "scenery": [],
@@ -105,27 +115,32 @@
             {
               "ko": "댕기",
               "en": "daenggi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-daenggi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-daenggi.jpg",
+              "draw": "a maiden's braid ribbon (daenggi)"
             },
             {
               "ko": "삼태기",
               "en": "samtaegi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-samtaegi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-samtaegi.jpg",
+              "draw": "a woven straw carrying basket (samtaegi)"
             },
             {
               "ko": "보자기",
               "en": "bojagi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-bojagi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-bojagi.jpg",
+              "draw": "a patchwork wrapping cloth (bojagi)"
             },
             {
               "ko": "초례상",
               "en": "choryesang",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-choryesang.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-choryesang.jpg",
+              "draw": "the wedding ceremony table (choryesang)"
             },
             {
               "ko": "사모",
               "en": "samo",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-samo.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-saeseonbi/word-samo.jpg",
+              "draw": "the winged black wedding hat (samo)"
             }
           ],
           "scenery": [],
@@ -148,27 +163,32 @@
             {
               "ko": "도끼",
               "en": "dokki",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-dokki.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-dokki.jpg",
+              "draw": "a woodcutter's axe (dokki)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-jige.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "짚신",
               "en": "jipsin",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-jipsin.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-jipsin.jpg",
+              "draw": "woven straw shoes (jipsin)"
             },
             {
               "ko": "물동이",
               "en": "muldongi",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-muldongi.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-muldongi.jpg",
+              "draw": "a water jar carried on the head (muldongi)"
             },
             {
               "ko": "무명옷",
               "en": "mumyeonot",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-mumyeonot.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geumdokki/word-mumyeonot.jpg",
+              "draw": "plain cotton hanbok clothes (mumyeonot)"
             }
           ],
           "scenery": [],
@@ -191,17 +211,20 @@
             {
               "ko": "솟대",
               "en": "sotdae",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-sotdae.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-sotdae.jpg",
+              "draw": "a village guardian bird pole (sotdae)"
             },
             {
               "ko": "제기",
               "en": "jegi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-jegi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-jegi.jpg",
+              "draw": "a footed ritual offering vessel (jegi)"
             },
             {
               "ko": "쑥다발",
               "en": "ssuk",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-ssuk.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-ssuk.jpg",
+              "draw": "a bundle of mugwort (ssuk)"
             },
             {
               "ko": "마늘",
@@ -212,7 +235,8 @@
             {
               "ko": "북",
               "en": "buk",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-buk.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dangun/word-buk.jpg",
+              "draw": "a traditional Korean barrel drum (buk)"
             }
           ],
           "scenery": [],
@@ -235,27 +259,32 @@
             {
               "ko": "감투",
               "en": "gamtu",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-gamtu.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-gamtu.jpg",
+              "draw": "a soft brimless horsehair cap (gamtu)"
             },
             {
               "ko": "망건",
               "en": "manggeon",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-manggeon.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-manggeon.jpg",
+              "draw": "a horsehair headband (manggeon)"
             },
             {
               "ko": "초롱",
               "en": "chorong",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-chorong.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-chorong.jpg",
+              "draw": "a silk-covered hand lantern (chorong)"
             },
             {
               "ko": "자물쇠",
               "en": "jamulsoe",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-jamulsoe.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-jamulsoe.jpg",
+              "draw": "a fish-shaped iron padlock (jamulsoe)"
             },
             {
               "ko": "염낭",
               "en": "yeomnang",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-yeomnang.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-gamtu/word-yeomnang.jpg",
+              "draw": "an embroidered drawstring pouch (yeomnang)"
             }
           ],
           "scenery": [],
@@ -278,27 +307,32 @@
             {
               "ko": "도깨비방망이",
               "en": "bangmangi",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-bangmangi.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-bangmangi.jpg",
+              "draw": "a goblin's magic club (bangmangi)"
             },
             {
               "ko": "호롱불",
               "en": "horongbul",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-horongbul.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-horongbul.jpg",
+              "draw": "a small Korean oil lamp (horongbul)"
             },
             {
               "ko": "보따리",
               "en": "bottari",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-bottari.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-bottari.jpg",
+              "draw": "a cloth wrapping bundle (bottari)"
             },
             {
               "ko": "개암",
               "en": "gaeam",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-gaeam.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-gaeam.jpg",
+              "draw": "a Korean hazelnut (gaeam)"
             },
             {
               "ko": "곰방대",
               "en": "gombangdae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-gombangdae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dokkaebi/word-gombangdae.jpg",
+              "draw": "a short tobacco pipe (gombangdae)"
             }
           ],
           "scenery": [],
@@ -321,27 +355,32 @@
             {
               "ko": "활옷",
               "en": "hwarot",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-hwarot.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-hwarot.jpg",
+              "draw": "a bride's embroidered ceremonial robe (hwarot)"
             },
             {
               "ko": "연",
               "en": "yeon",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-yeon.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-yeon.jpg",
+              "draw": "a Korean shield kite (yeon)"
             },
             {
               "ko": "목기러기",
               "en": "mokgireogi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-mokgireogi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-mokgireogi.jpg",
+              "draw": "a carved wooden wedding goose (mokgireogi)"
             },
             {
               "ko": "꽃가마",
               "en": "kkotgama",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-kkotgama.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-kkotgama.jpg",
+              "draw": "a flower-decked bridal palanquin (kkotgama)"
             },
             {
               "ko": "떡시루",
               "en": "tteoksiru",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-tteoksiru.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dudeoji/word-tteoksiru.jpg",
+              "draw": "an earthenware rice-cake steamer (tteoksiru)"
             }
           ],
           "scenery": [],
@@ -364,27 +403,32 @@
             {
               "ko": "떡메",
               "en": "tteokme",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-tteokme.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-tteokme.jpg",
+              "draw": "a wooden rice-cake mallet (tteokme)"
             },
             {
               "ko": "시루",
               "en": "siru",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-siru.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-siru.jpg",
+              "draw": "an earthenware steamer (siru)"
             },
             {
               "ko": "주걱",
               "en": "jugeok",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-jugeok.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-jugeok.jpg",
+              "draw": "a wooden rice paddle (jugeok)"
             },
             {
               "ko": "초립",
               "en": "chorip",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-chorip.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-chorip.jpg",
+              "draw": "a young man's woven straw hat (chorip)"
             },
             {
               "ko": "찬합",
               "en": "chanhap",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-chanhap.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-tteokbo/word-chanhap.jpg",
+              "draw": "a tiered lacquered food box (chanhap)"
             }
           ],
           "scenery": [],
@@ -407,28 +451,33 @@
             {
               "ko": "삿갓",
               "en": "satgat",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-satgat.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-satgat.jpg",
+              "draw": "a conical woven rain hat (satgat)"
             },
             {
               "ko": "도롱이",
               "en": "dorongi",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-dorongi.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-dorongi.jpg",
+              "draw": "a straw rain cape (dorongi)"
             },
             {
               "ko": "짚신",
               "en": "jipsin",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-jipsin.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-jipsin.jpg",
+              "draw": "woven straw shoes (jipsin)"
             },
             {
               "ko": "소쿠리",
               "en": "sokuri",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-sokuri.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-cheonggaeguri/word-sokuri.jpg",
+              "draw": "a shallow woven bamboo basket (sokuri)"
             }
           ],
           "scenery": [
             {
               "ko": "초가집",
-              "en": "chogajip"
+              "en": "chogajip",
+              "draw": "a thatched-roof cottage (chogajip)"
             }
           ],
           "parts": [],
@@ -450,27 +499,32 @@
             {
               "ko": "비단보자기",
               "en": "bidan-bojagi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-bidanbojagi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-bidanbojagi.jpg",
+              "draw": "a silk wrapping cloth (bidan-bojagi)"
             },
             {
               "ko": "거문고",
               "en": "geomungo",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-geomungo.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-geomungo.jpg",
+              "draw": "a six-string zither (geomungo)"
             },
             {
               "ko": "말안장",
               "en": "malanjang",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-malanjang.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-malanjang.jpg",
+              "draw": "a Korean horse saddle (malanjang)"
             },
             {
               "ko": "화살통",
               "en": "hwasaltong",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-hwasaltong.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-hwasaltong.jpg",
+              "draw": "an arrow quiver (hwasaltong)"
             },
             {
               "ko": "투구",
               "en": "tugu",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-tugu.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-ondal/word-tugu.jpg",
+              "draw": "a warrior's helmet (tugu)"
             }
           ],
           "scenery": [],
@@ -493,27 +547,32 @@
             {
               "ko": "쌀뒤주",
               "en": "ssal-dwiju",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-dwiju.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-dwiju.jpg",
+              "draw": "a wooden rice chest (ssal-dwiju)"
             },
             {
               "ko": "새끼줄",
               "en": "saekkijul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-saekkijul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-saekkijul.jpg",
+              "draw": "hand-twisted straw rope (saekkijul)"
             },
             {
               "ko": "절굿공이",
               "en": "jeolgutgongi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-gongi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-gongi.jpg",
+              "draw": "a heavy wooden pestle (jeolgutgongi)"
             },
             {
               "ko": "반짇고리",
               "en": "banjitgori",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-banjitgori.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-banjitgori.jpg",
+              "draw": "a Korean sewing basket (banjitgori)"
             },
             {
               "ko": "꽹과리",
               "en": "kkwaenggwari",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-kkwaenggwari.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-banjjogi/word-kkwaenggwari.jpg",
+              "draw": "a small brass hand gong (kkwaenggwari)"
             }
           ],
           "scenery": [],
@@ -536,27 +595,32 @@
             {
               "ko": "치마저고리",
               "en": "chima-jeogori",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-chimajeogori.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-chimajeogori.jpg",
+              "draw": "Korean women's hanbok (chima-jeogori)"
             },
             {
               "ko": "족두리",
               "en": "jokduri",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-jokduri.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-jokduri.jpg",
+              "draw": "a bride's small coronet (jokduri)"
             },
             {
               "ko": "소반",
               "en": "soban",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-soban.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-soban.jpg",
+              "draw": "a small low dining table (soban)"
             },
             {
               "ko": "부채",
               "en": "buchae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-buchae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-buchae.jpg",
+              "draw": "a Korean folding fan (buchae)"
             },
             {
               "ko": "놋그릇",
               "en": "notgeureut",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-notgeureut.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-bangwi/word-notgeureut.jpg",
+              "draw": "Korean brassware bowls (notgeureut)"
             }
           ],
           "scenery": [],
@@ -579,27 +643,32 @@
             {
               "ko": "대님",
               "en": "daenim",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-daenim.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-daenim.jpg",
+              "draw": "hanbok ankle cords (daenim)"
             },
             {
               "ko": "미투리",
               "en": "mituri",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-mituri.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-mituri.jpg",
+              "draw": "hemp-woven travel shoes (mituri)"
             },
             {
               "ko": "조롱박",
               "en": "jorongbak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-jorongbak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-jorongbak.jpg",
+              "draw": "a dried gourd water flask (jorongbak)"
             },
             {
               "ko": "괭이",
               "en": "gwaengi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-gwaengi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-gwaengi.jpg",
+              "draw": "a Korean digging hoe (gwaengi)"
             },
             {
               "ko": "여의주",
               "en": "yeouiju",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-yeouiju.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-boktareo/word-yeouiju.jpg",
+              "draw": "a dragon's wish-granting orb (yeouiju)"
             }
           ],
           "scenery": [],
@@ -622,7 +691,8 @@
             {
               "ko": "약초바구니",
               "en": "yakcho baguni",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-yakcho-baguni.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-yakcho-baguni.jpg",
+              "draw": "a woven herb-gathering basket (yakcho baguni)"
             },
             {
               "ko": "엿",
@@ -633,18 +703,21 @@
             {
               "ko": "삿자리",
               "en": "satjari",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-satjari.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-satjari.jpg",
+              "draw": "a woven reed floor mat (satjari)"
             },
             {
               "ko": "다듬잇돌",
               "en": "dadeumitdol",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-dadeumitdol.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-samnyeon/word-dadeumitdol.jpg",
+              "draw": "a stone fulling block with wooden bats (dadeumitdol)"
             }
           ],
           "scenery": [
             {
               "ko": "서낭당 돌탑",
-              "en": "seonangdang doltap"
+              "en": "seonangdang doltap",
+              "draw": "a village guardian stone cairn (seonangdang doltap)"
             }
           ],
           "parts": [],
@@ -666,27 +739,32 @@
             {
               "ko": "삼태기",
               "en": "samtaegi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-samtaegi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-samtaegi.jpg",
+              "draw": "a woven straw carrying basket (samtaegi)"
             },
             {
               "ko": "붓",
               "en": "but",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-but.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-but.jpg",
+              "draw": "a Korean writing brush (but)"
             },
             {
               "ko": "벼루",
               "en": "byeoru",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-byeoru.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-byeoru.jpg",
+              "draw": "a stone ink slab (byeoru)"
             },
             {
               "ko": "한지",
               "en": "hanji",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-hanji.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-hanji.jpg",
+              "draw": "Korean mulberry paper (hanji)"
             },
             {
               "ko": "종이연",
               "en": "jongiyeon",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-jongiyeon.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seodong/word-jongiyeon.jpg",
+              "draw": "a Korean paper kite (jongiyeon)"
             }
           ],
           "scenery": [],
@@ -709,27 +787,32 @@
             {
               "ko": "날개옷",
               "en": "nalgae-ot",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-nalgaeot.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-nalgaeot.jpg",
+              "draw": "the fairy's winged robe (nalgae-ot)"
             },
             {
               "ko": "두레박",
               "en": "dure-bak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-durebak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-durebak.jpg",
+              "draw": "a well bucket on a rope (dure-bak)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-jige.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "물레",
               "en": "mulle",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-mulle.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-mulle.jpg",
+              "draw": "a spinning wheel (mulle)"
             },
             {
               "ko": "비녀",
               "en": "binyeo",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-binyeo.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-seonnyeo/word-binyeo.jpg",
+              "draw": "an ornamental hairpin (binyeo)"
             }
           ],
           "scenery": [],
@@ -752,27 +835,32 @@
             {
               "ko": "소머리탈",
               "en": "someori-tal",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-someoritai.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-someoritai.jpg",
+              "draw": "an ox-head mask (someori-tal)"
             },
             {
               "ko": "멍에",
               "en": "meonge",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-meonge.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-meonge.jpg",
+              "draw": "a wooden ox yoke (meonge)"
             },
             {
               "ko": "쟁기",
               "en": "jaenggi",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-jaenggi.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-jaenggi.jpg",
+              "draw": "a Korean wooden plow (jaenggi)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-jige.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "멍석",
               "en": "meongseok",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-meongseok.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-geeureum/word-meongseok.jpg",
+              "draw": "a woven straw mat (meongseok)"
             }
           ],
           "scenery": [],
@@ -795,27 +883,32 @@
             {
               "ko": "됫박",
               "en": "doetbak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-doetbak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-doetbak.jpg",
+              "draw": "a wooden grain measure (doetbak)"
             },
             {
               "ko": "씨오쟁이",
               "en": "ssiojaengi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-ssiojaengi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-ssiojaengi.jpg",
+              "draw": "a woven straw seed pouch (ssiojaengi)"
             },
             {
               "ko": "시루",
               "en": "siru",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-siru.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-siru.jpg",
+              "draw": "an earthenware rice-cake steamer (siru)"
             },
             {
               "ko": "체",
               "en": "che",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-che.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-che.jpg",
+              "draw": "a round sieve (che)"
             },
             {
               "ko": "키",
               "en": "ki",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-ki.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hangari/word-ki.jpg",
+              "draw": "a winnowing basket (ki)"
             }
           ],
           "scenery": [],
@@ -838,27 +931,32 @@
             {
               "ko": "뒤주",
               "en": "dwiju",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-dwiju.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-dwiju.jpg",
+              "draw": "a wooden rice chest (dwiju)"
             },
             {
               "ko": "목탁",
               "en": "moktak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-moktak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-moktak.jpg",
+              "draw": "a wooden temple hand-bell (moktak)"
             },
             {
               "ko": "돛단배",
               "en": "dotdanbae",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-dotdanbae.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-dotdanbae.jpg",
+              "draw": "a Korean sailing boat (dotdanbae)"
             },
             {
               "ko": "등잔",
               "en": "deungjan",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-deungjan.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-deungjan.jpg",
+              "draw": "an oil lamp on a stand (deungjan)"
             },
             {
               "ko": "병풍",
               "en": "byeongpung",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-byeongpung.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-simcheong/word-byeongpung.jpg",
+              "draw": "a folding painted screen (byeongpung)"
             }
           ],
           "scenery": [],
@@ -881,27 +979,32 @@
             {
               "ko": "됫박",
               "en": "doetbak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-doetbak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-doetbak.jpg",
+              "draw": "a wooden grain measure (doetbak)"
             },
             {
               "ko": "시루",
               "en": "siru",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-siru.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-siru.jpg",
+              "draw": "an earthenware steamer (siru)"
             },
             {
               "ko": "궤",
               "en": "gwe",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-gwe.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-gwe.jpg",
+              "draw": "a wooden storage chest (gwe)"
             },
             {
               "ko": "노",
               "en": "no",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-no.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-no.jpg",
+              "draw": "a Korean sculling oar (no)"
             },
             {
               "ko": "소금가마니",
               "en": "sogeum-gamani",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-sogeum-gamani.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-maetdol/word-sogeum-gamani.jpg",
+              "draw": "a straw salt sack (sogeum-gamani)"
             }
           ],
           "scenery": [],
@@ -924,27 +1027,32 @@
             {
               "ko": "소반",
               "en": "soban",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-soban.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-soban.jpg",
+              "draw": "a small portable dining table (soban)"
             },
             {
               "ko": "옹기",
               "en": "onggi",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-onggi.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-onggi.jpg",
+              "draw": "Korean earthenware jar (onggi)"
             },
             {
               "ko": "가마솥",
               "en": "gamasot",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-gamasot.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-gamasot.jpg",
+              "draw": "a cast-iron cauldron (gamasot)"
             },
             {
               "ko": "조리",
               "en": "jori",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-jori.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-jori.jpg",
+              "draw": "a woven rice-rinsing scoop (jori)"
             },
             {
               "ko": "함지박",
               "en": "hamjibak",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-hamjibak.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-ureong/word-hamjibak.jpg",
+              "draw": "a large carved wooden basin (hamjibak)"
             }
           ],
           "scenery": [],
@@ -967,27 +1075,32 @@
             {
               "ko": "종 (범종)",
               "en": "beomjong",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-beomjong.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-beomjong.jpg",
+              "draw": "a Korean temple bell (beomjong)"
             },
             {
               "ko": "활",
               "en": "hwal",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-hwal.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-hwal.jpg",
+              "draw": "a Korean recurve bow (hwal)"
             },
             {
               "ko": "갓",
               "en": "gat",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-gat.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-gat.jpg",
+              "draw": "a horsehair hat (gat)"
             },
             {
               "ko": "도포",
               "en": "dopo",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-dopo.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-dopo.jpg",
+              "draw": "a scholar's overcoat robe (dopo)"
             },
             {
               "ko": "봇짐",
               "en": "botjim",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-botjim.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kkachi/word-botjim.jpg",
+              "draw": "a cloth travel bundle (botjim)"
             }
           ],
           "scenery": [],
@@ -1010,28 +1123,33 @@
             {
               "ko": "밥주걱",
               "en": "bapjugeok",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-bapjugeok.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-bapjugeok.jpg",
+              "draw": "a wooden rice paddle (bapjugeok)"
             },
             {
               "ko": "종지",
               "en": "jongji",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-jongji.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-jongji.jpg",
+              "draw": "a tiny ceramic dish (jongji)"
             },
             {
               "ko": "청사초롱",
               "en": "cheongsachorong",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-cheongsachorong.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-cheongsachorong.jpg",
+              "draw": "a silk night lantern (cheongsachorong)"
             },
             {
               "ko": "무명실",
               "en": "mumyeongsil",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-mumyeongsil.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-dukkeobi/word-mumyeongsil.jpg",
+              "draw": "cotton sewing thread (mumyeongsil)"
             }
           ],
           "scenery": [
             {
               "ko": "부뚜막",
-              "en": "buttumak"
+              "en": "buttumak",
+              "draw": "a clay kitchen hearth (buttumak)"
             }
           ],
           "parts": [],
@@ -1053,28 +1171,33 @@
             {
               "ko": "볏단",
               "en": "byeotdan",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-byeotdan.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-byeotdan.jpg",
+              "draw": "a sheaf of rice (byeotdan)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-jige.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "낫",
               "en": "nat",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-nat.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-nat.jpg",
+              "draw": "a Korean harvest sickle (nat)"
             },
             {
               "ko": "멍석",
               "en": "meongseok",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-meongseok.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-uijoeun/word-meongseok.jpg",
+              "draw": "a woven straw mat (meongseok)"
             }
           ],
           "scenery": [
             {
               "ko": "초가집",
-              "en": "chogajip"
+              "en": "chogajip",
+              "draw": "a thatched-roof cottage (chogajip)"
             }
           ],
           "parts": [],
@@ -1096,27 +1219,32 @@
             {
               "ko": "익선관",
               "en": "ikseongwan",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-ikseongwan.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-ikseongwan.jpg",
+              "draw": "the king's winged court cap (ikseongwan)"
             },
             {
               "ko": "곤룡포",
               "en": "gollyongpo",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-gollyongpo.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-gollyongpo.jpg",
+              "draw": "the king's dragon robe (gollyongpo)"
             },
             {
               "ko": "복두",
               "en": "bokdu",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-bokdu.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-bokdu.jpg",
+              "draw": "an official's two-tiered cap (bokdu)"
             },
             {
               "ko": "갓",
               "en": "gat",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-gat.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-gat.jpg",
+              "draw": "a horsehair gentleman's hat (gat)"
             },
             {
               "ko": "부채",
               "en": "buchae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-buchae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-dangnagwi/word-buchae.jpg",
+              "draw": "a Korean folding fan (buchae)"
             }
           ],
           "scenery": [],
@@ -1139,27 +1267,32 @@
             {
               "ko": "굴비",
               "en": "gulbi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-gulbi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-gulbi.jpg",
+              "draw": "dried salted yellow croaker (gulbi)"
             },
             {
               "ko": "됫박",
               "en": "doetbak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-doetbak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-doetbak.jpg",
+              "draw": "a wooden grain measure (doetbak)"
             },
             {
               "ko": "뒤웅박",
               "en": "dwiungbak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-dwiungbak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-dwiungbak.jpg",
+              "draw": "a hollowed gourd seed jar (dwiungbak)"
             },
             {
               "ko": "놋수저",
               "en": "notsujeo",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-notsujeo.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-notsujeo.jpg",
+              "draw": "a brass spoon and chopsticks set (notsujeo)"
             },
             {
               "ko": "곳간 자물쇠",
               "en": "gotgan jamulsoe",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-gotgan-jamulsoe.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaringobi/word-gotgan-jamulsoe.jpg",
+              "draw": "an old iron storehouse lock (gotgan jamulsoe)"
             }
           ],
           "scenery": [],
@@ -1182,27 +1315,32 @@
             {
               "ko": "활",
               "en": "hwal",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-hwal.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-hwal.jpg",
+              "draw": "a Korean traditional bow (hwal)"
             },
             {
               "ko": "그물",
               "en": "geumul",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-geumul.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-geumul.jpg",
+              "draw": "a hand-knotted net (geumul)"
             },
             {
               "ko": "톱",
               "en": "top",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-top.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-top.jpg",
+              "draw": "a carpenter's hand saw (top)"
             },
             {
               "ko": "나막신",
               "en": "namaksin",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-namaksin.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-namaksin.jpg",
+              "draw": "Korean wooden clogs (namaksin)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-jige.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-samhyeongje/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             }
           ],
           "scenery": [],
@@ -1225,27 +1363,32 @@
             {
               "ko": "물동이",
               "en": "muldongi",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-muldongi.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-muldongi.jpg",
+              "draw": "a water jar carried on the head (muldongi)"
             },
             {
               "ko": "표주박",
               "en": "pyojubak",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-pyojubak.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-pyojubak.jpg",
+              "draw": "a small gourd dipper (pyojubak)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-jige.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "짚신",
               "en": "jipsin",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-jipsin.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-jipsin.jpg",
+              "draw": "woven straw shoes (jipsin)"
             },
             {
               "ko": "무명옷",
               "en": "mumyeong-ot",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-mumyeongot.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-saemmul/word-mumyeongot.jpg",
+              "draw": "plain undyed cotton hanbok (mumyeong-ot)"
             }
           ],
           "scenery": [],
@@ -1274,22 +1417,26 @@
             {
               "ko": "등롱",
               "en": "deungnong",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-deungnong.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-deungnong.jpg",
+              "draw": "a hanging paper lantern (deungnong)"
             },
             {
               "ko": "고삐",
               "en": "gobbi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-gobbi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-gobbi.jpg",
+              "draw": "a horse's lead rope (gobbi)"
             },
             {
               "ko": "청사초롱",
               "en": "cheongsachorong",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-cheongsachorong.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-cheongsachorong.jpg",
+              "draw": "a blue-and-red silk wedding lantern (cheongsachorong)"
             },
             {
               "ko": "목기러기",
               "en": "mokgireogi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-mokgireogi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jopssal/word-mokgireogi.jpg",
+              "draw": "a carved wooden wedding goose (mokgireogi)"
             }
           ],
           "scenery": [],
@@ -1312,27 +1459,32 @@
             {
               "ko": "꽃신",
               "en": "kkotsin",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-kkotsin.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-kkotsin.jpg",
+              "draw": "embroidered flower shoes (kkotsin)"
             },
             {
               "ko": "옹기항아리",
               "en": "onggi hangari",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-onggi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-onggi.jpg",
+              "draw": "earthenware jar (onggi hangari)"
             },
             {
               "ko": "베틀",
               "en": "beteul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-beteul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-beteul.jpg",
+              "draw": "a traditional loom (beteul)"
             },
             {
               "ko": "호미",
               "en": "homi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-homi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-homi.jpg",
+              "draw": "a Korean hand hoe (homi)"
             },
             {
               "ko": "소쿠리",
               "en": "sokuri",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-sokuri.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-kongjwi/word-sokuri.jpg",
+              "draw": "a woven bamboo basket (sokuri)"
             }
           ],
           "scenery": [],
@@ -1355,27 +1507,32 @@
             {
               "ko": "갓",
               "en": "gat",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-gat.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-gat.jpg",
+              "draw": "a horsehair scholar's hat (gat)"
             },
             {
               "ko": "도포",
               "en": "dopo",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-dopo.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-dopo.jpg",
+              "draw": "a scholar's overcoat robe (dopo)"
             },
             {
               "ko": "부채",
               "en": "buchae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-buchae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-buchae.jpg",
+              "draw": "a Korean folding fan (buchae)"
             },
             {
               "ko": "약탕관",
               "en": "yaktanggwan",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-yaktanggwan.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-yaktanggwan.jpg",
+              "draw": "a medicine-brewing pot (yaktanggwan)"
             },
             {
               "ko": "곰방대",
               "en": "gombangdae",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-gombangdae.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-tokki/word-gombangdae.jpg",
+              "draw": "a Korean tobacco pipe (gombangdae)"
             }
           ],
           "scenery": [],
@@ -1398,27 +1555,32 @@
             {
               "ko": "통발",
               "en": "tongbal",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-tongbal.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-tongbal.jpg",
+              "draw": "a woven bamboo fish trap (tongbal)"
             },
             {
               "ko": "새끼줄",
               "en": "saekkijul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-saekkijul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-saekkijul.jpg",
+              "draw": "a twisted rice-straw rope (saekkijul)"
             },
             {
               "ko": "삽",
               "en": "sap",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-sap.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-sap.jpg",
+              "draw": "a Korean digging spade (sap)"
             },
             {
               "ko": "괭이",
               "en": "gwaengi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-gwaengi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-gwaengi.jpg",
+              "draw": "a Korean field hoe (mattock) (gwaengi)"
             },
             {
               "ko": "짚방석",
               "en": "jipbangseok",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-jipbangseok.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-jaepan/word-jipbangseok.jpg",
+              "draw": "a woven straw sitting cushion (jipbangseok)"
             }
           ],
           "scenery": [],
@@ -1441,27 +1603,32 @@
             {
               "ko": "가마솥",
               "en": "gamasot",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-gamasot.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-gamasot.jpg",
+              "draw": "a Korean cast-iron cauldron (gamasot)"
             },
             {
               "ko": "맷돌",
               "en": "maetdol",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-maetdol.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-maetdol.jpg",
+              "draw": "a Korean hand millstone (maetdol)"
             },
             {
               "ko": "멍석",
               "en": "meongseok",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-meongseok.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-meongseok.jpg",
+              "draw": "a woven straw floor mat (meongseok)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-jige.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "소쿠리",
               "en": "sokuri",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-sokuri.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-patjuk/word-sokuri.jpg",
+              "draw": "a shallow woven bamboo basket (sokuri)"
             }
           ],
           "scenery": [],
@@ -1484,12 +1651,14 @@
             {
               "ko": "동아줄",
               "en": "dongajul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-dongajul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-dongajul.jpg",
+              "draw": "a thick twisted straw rope (dongajul)"
             },
             {
               "ko": "가마솥",
               "en": "gamasot",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-gamasot.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-gamasot.jpg",
+              "draw": "a cast-iron cauldron (gamasot)"
             },
             {
               "ko": "떡",
@@ -1500,12 +1669,14 @@
             {
               "ko": "두레박",
               "en": "durebak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-durebak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-durebak.jpg",
+              "draw": "a well bucket on a rope (durebak)"
             },
             {
               "ko": "삼베옷",
               "en": "sambe-ot",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-sambeot.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-haewadal/word-sambeot.jpg",
+              "draw": "hemp-cloth clothes (sambe-ot)"
             }
           ],
           "scenery": [],
@@ -1528,27 +1699,32 @@
             {
               "ko": "새끼줄",
               "en": "saekkijul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-saekkijul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-saekkijul.jpg",
+              "draw": "twisted rice-straw rope (saekkijul)"
             },
             {
               "ko": "지게작대기",
               "en": "jigejakdaegi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-jigejakdaegi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-jigejakdaegi.jpg",
+              "draw": "a forked prop stick (jigejakdaegi)"
             },
             {
               "ko": "머릿수건",
               "en": "meoritsugeon",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-meoritsugeon.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-meoritsugeon.jpg",
+              "draw": "a cotton head towel (meoritsugeon)"
             },
             {
               "ko": "다래끼",
               "en": "daraekki",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-daraekki.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-daraekki.jpg",
+              "draw": "a small waist basket (daraekki)"
             },
             {
               "ko": "신틀",
               "en": "sinteul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-sinteul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hyeongnim/word-sinteul.jpg",
+              "draw": "a straw-sandal weaving frame (sinteul)"
             }
           ],
           "scenery": [],
@@ -1577,22 +1753,26 @@
             {
               "ko": "멍석",
               "en": "meongseok",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-meongseok.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-meongseok.jpg",
+              "draw": "a woven straw mat (meongseok)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-jige.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "호롱불",
               "en": "horongbul",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-horongbul.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-horongbul.jpg",
+              "draw": "a Korean oil lamp (horongbul)"
             },
             {
               "ko": "소달구지",
               "en": "sodalguji",
-              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-sodalguji.jpg"
+              "card": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/comic-assets/jeonrae-gotgam/word-sodalguji.jpg",
+              "draw": "an ox cart (sodalguji)"
             }
           ],
           "scenery": [],
@@ -1615,28 +1795,33 @@
             {
               "ko": "갓",
               "en": "gat",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-gat.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-gat.jpg",
+              "draw": "a Korean horsehair hat (gat)"
             },
             {
               "ko": "도포",
               "en": "dopo",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-dopo.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-dopo.jpg",
+              "draw": "a scholar's overcoat (dopo)"
             },
             {
               "ko": "호롱불",
               "en": "horongbul",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-horongbul.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-horongbul.jpg",
+              "draw": "an oil lamp (horongbul)"
             },
             {
               "ko": "지팡이",
               "en": "jipangi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-jipangi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hokburi/word-jipangi.jpg",
+              "draw": "a wooden walking stick (jipangi)"
             }
           ],
           "scenery": [
             {
               "ko": "초가집",
-              "en": "chogajip"
+              "en": "chogajip",
+              "draw": "a thatched-roof cottage (chogajip)"
             }
           ],
           "parts": [],
@@ -1658,27 +1843,32 @@
             {
               "ko": "다듬이돌",
               "en": "dadeumidol",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-dadeumidol.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-dadeumidol.jpg",
+              "draw": "a cloth-smoothing stone (dadeumidol)"
             },
             {
               "ko": "반짇고리",
               "en": "banjitgori",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-banjitgori.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-banjitgori.jpg",
+              "draw": "a sewing basket (banjitgori)"
             },
             {
               "ko": "화로",
               "en": "hwaro",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-hwaro.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-hwaro.jpg",
+              "draw": "a charcoal brazier (hwaro)"
             },
             {
               "ko": "인두",
               "en": "indu",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-indu.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-indu.jpg",
+              "draw": "a small iron for pressing seams (indu)"
             },
             {
               "ko": "부지깽이",
               "en": "bujigaengi",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-bujigaengi.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-hwolhwol/word-bujigaengi.jpg",
+              "draw": "a fire-poking stick (bujigaengi)"
             }
           ],
           "scenery": [],
@@ -1701,27 +1891,32 @@
             {
               "ko": "박",
               "en": "bak",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-bak.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-bak.jpg",
+              "draw": "a round bottle gourd (bak)"
             },
             {
               "ko": "지게",
               "en": "jige",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jige.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jige.jpg",
+              "draw": "a Korean A-frame back carrier (jige)"
             },
             {
               "ko": "톱",
               "en": "top",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-top.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-top.jpg",
+              "draw": "a two-person frame saw (top)"
             },
             {
               "ko": "엽전",
               "en": "yeopjeon",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-yeopjeon.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-yeopjeon.jpg",
+              "draw": "old Korean coins (yeopjeon)"
             },
             {
               "ko": "짚신",
               "en": "jipsin",
-              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jipsin.jpg"
+              "card": "https://assets.tangobook.co.kr/comic-assets/jeonrae-heungbu/word-jipsin.jpg",
+              "draw": "woven straw shoes (jipsin)"
             }
           ],
           "scenery": [],

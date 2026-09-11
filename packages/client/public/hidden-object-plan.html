@@ -503,7 +503,7 @@
                   .join(
                     parts
                       .map(function (w) {
-                        return '- ' + w.en + ' (' + w.ko + ')';
+                        return '- ' + (w.draw || w.en) + ' (' + w.ko + ')';
                       })
                       .join('\n')
                   )
@@ -516,7 +516,7 @@
                 .join(
                   scenery
                     .map(function (w) {
-                      return '- ' + w.en + ' (' + w.ko + ')';
+                      return '- ' + (w.draw || w.en) + ' (' + w.ko + ')';
                     })
                     .join('\n')
                 )
@@ -558,6 +558,39 @@
             el.appendChild(a);
           });
         })();
+
+        /**
+         * 🔴 **clipboard API 는 조용히 거절될 수 있다** — 창에 초점이 없거나(다른 창·개발자도구에서
+         *    돌아온 직후) 권한 정책이 막으면 promise 가 reject 되고, `.catch` 가 없어 **토스트도 안 뜨고
+         *    아무것도 안 복사된 채** 끝났다. 그래서 거절되면 글을 골라 `execCommand('copy')` 로
+         *    한 번 더 하고, 그것도 안 되면 **안 됐다고 말한다**(골라 둔 채로 두니 Ctrl+C 로 이어진다).
+         */
+        function copyText(text, okMsg, field) {
+          function fallback() {
+            var t = field;
+            if (!t) {
+              t = document.createElement('textarea');
+              t.value = text;
+              t.style.cssText = 'position:fixed;left:-9999px;top:0';
+              document.body.appendChild(t);
+            }
+            t.focus();
+            t.select();
+            var ok = false;
+            try {
+              ok = document.execCommand('copy');
+            } catch (e) {}
+            if (!field) document.body.removeChild(t);
+            toast(ok ? okMsg : '복사가 막혔어요 — 글이 골라져 있으니 Ctrl+C 를 눌러 주세요');
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+              toast(okMsg);
+            }, fallback);
+          } else {
+            fallback();
+          }
+        }
 
         var toastT;
         function toast(m) {
@@ -888,9 +921,7 @@
           cp.className = 'primary';
           cp.textContent = '📋 프롬프트 복사';
           cp.onclick = function () {
-            navigator.clipboard.writeText(ta.value).then(function () {
-              toast('복사했어요');
-            });
+            copyText(ta.value, '복사했어요', ta);
           };
           btns.appendChild(cp);
           // 🔴 참조를 손으로 하나씩 저장하지 않게 — 주소를 한 번에 준다(GPT 에 URL 로 붙일 때도 쓴다).
@@ -904,9 +935,7 @@
                 })
                 .filter(Boolean)
             );
-            navigator.clipboard.writeText(urls.join('\n')).then(function () {
-              toast('참조 ' + urls.length + '장 주소를 복사했어요');
-            });
+            copyText(urls.join('\n'), '참조 ' + urls.length + '장 주소를 복사했어요');
           };
           btns.appendChild(cu);
           mid.appendChild(btns);
@@ -931,12 +960,14 @@
           var st = document.createElement('span');
           st.className = 'st';
           lab.appendChild(st);
-          var ta = document.createElement('textarea');
-          ta.value = memos[memoId(it)] || '';
-          ta.placeholder = '이 씬을 보고 남길 말 — 자리가 틀린 사물, 다시 뽑을 이유 …';
+          // 🔴 이름을 `ta` 로 두면 안 된다 — 위 프롬프트 칸도 `var ta` 라 함수 전체에서 하나로 합쳐지고,
+          //    「프롬프트 복사」가 이 빈 메모 칸을 복사한다(메모를 넣은 뒤로 복사가 통째로 비었다).
+          var memoTa = document.createElement('textarea');
+          memoTa.value = memos[memoId(it)] || '';
+          memoTa.placeholder = '이 씬을 보고 남길 말 — 자리가 틀린 사물, 다시 뽑을 이유 …';
           var timer = null;
           function saveMemo() {
-            var text = ta.value;
+            var text = memoTa.value;
             if ((memos[memoId(it)] || '') === text) return;
             st.textContent = '저장 중…';
             fetch(MEMO_API, {
@@ -958,14 +989,14 @@
           }
           // 🔴 멎고 1초 뒤 자동 저장 + 칸을 떠날 때 한 번 더 — 둘 중 하나만 두면
           //    적자마자 다른 줄로 넘어간 메모가 사라진다.
-          ta.addEventListener('input', function () {
+          memoTa.addEventListener('input', function () {
             clearTimeout(timer);
             st.textContent = '…';
             timer = setTimeout(saveMemo, 1000);
           });
-          ta.addEventListener('blur', function () { clearTimeout(timer); saveMemo(); });
+          memoTa.addEventListener('blur', function () { clearTimeout(timer); saveMemo(); });
           memoBox.appendChild(lab);
-          memoBox.appendChild(ta);
+          memoBox.appendChild(memoTa);
           row.appendChild(memoBox);
           return row;
         }
