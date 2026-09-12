@@ -49,20 +49,26 @@ def shot(path, parts, view, up=(0, 0, 1), zoom=0.9):
 def main():
     os.makedirs(B.OUT, exist_ok=True)
     C = B.COLORS
+    # 고정물엔 종이(흰 판)를 반쯤 밀어 넣은 채로 — 양옆 턱 밑으로 들어가는 게 보인다
+    pl, pw = B.paper_size(B.CELL_STUDS, B.CELL_STUDS)
+    tw = B.footprint(B.CELL_STUDS, B.CELL_STUDS)[0]
+    sheet = (cq.Workplane('XY').box(pl, pw, 0.25, centered=(False, True, False))
+             .translate((tw / 2 - B.PAPER_INSET - pl - 22, 0, B.OBJ_H - B.LIP_T - B.SLOT_H + 0.25)))
     row = [(B.road().translate((-70, 0, 0)), C['road']), (B.obj().translate((10, 0, 0)), C['tree']),
+           (sheet.translate((10, 0, 0)), (0.98, 0.98, 0.95)),
            (B.house().translate((70, 0, 0)), C['house'])]
     flipped = [(B.road().rotate((0, 0, 0), (1, 0, 0), 180).translate((-70, 0, 0)), C['road']),
                (B.house().rotate((0, 0, 0), (1, 0, 0), 180).translate((30, 0, 0)), C['house'])]
     scene = [(shape, C[key]) for _, shape, key in B.scene_parts()]
     p1, p2, p3, p4 = [os.path.join(B.OUT, f'_v{i}.png') for i in range(4)]
-    shot(p1, row, (1, -1, 0.75))
+    shot(p1, row, (-0.6, -1, 0.7))
     shot(p2, flipped, (1, -1, 0.75))
     shot(p3, scene, (0.9, -1, 1.1), zoom=0.8)
     shot(p4, scene, (0, -0.001, 1), up=(0, 1, 0), zoom=0.75)
     gap, cap = 8, 30
     out = Image.new('RGB', (W * 2 + gap * 3, H * 2 + gap * 3 + cap * 2), (150, 150, 150))
     dr = ImageDraw.Draw(out); f = font(18)
-    for (img, label, x, y) in ((p1, '부품 — 길 1×2(2단: 윗판을 들여 손톱 홈) · 고정물 1×1 · 집(굴뚝 = 문 방향)', gap, gap),
+    for (img, label, x, y) in ((p1, '부품 — 길 1×2(2단) · 고정물 1×1(종이를 반쯤 밀어 넣은 상태 — 양옆 턱 밑에 잡힌다) · 집(굴뚝 = 문 방향)', gap, gap),
                                (p2, '뒤집어서 — 밑면 소켓이 레고 돌기에 꽂힌다', W + gap * 2, gap),
                                (p3, '24×24 판 위 조립 (한 칸 = 6돌기 = 48mm, 4×4)', gap, H + gap * 2 + cap),
                                (p4, '위에서 — 4×4 격자 (집 문은 아래, 길 세 장, 나무 둘, 빨간모자, 늑대)', W + gap * 2, H + gap * 2 + cap)):

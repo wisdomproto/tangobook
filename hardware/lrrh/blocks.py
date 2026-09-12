@@ -7,8 +7,9 @@
 ────────────────────────────────────────────────────────────────────────
 설계 원칙 (2026-09-10, 사용자 결정)
   · 보드 = 기존 24×24 돌기 초록 레고판. 원작(4×4)과 같이 **한 칸 = 6돌기 = 48mm**.
-  · 조각 위에는 **인쇄한 종이를 붙인다** — 윗면은 평평, 종이가 앉을 0.4mm 홈만 판다.
-    그래서 길 조각은 **밑판 한 종류**로 끝난다(직선·곡선·S 는 종이 그림의 차이).
+  · 조각 위에는 **인쇄한 종이를 끼운다** — 윗면에 종이 통로를 파고 양 긴 변에 얇은 턱(LIP_W×LIP_T)을 남겨
+    한쪽 끝(−X)에서 밀어 넣으면 턱 밑에 잡힌다(2026-09-12 사용자: 「밀어 넣고 고정할 수 있게 턱」). 풀이 필요 없고
+    종이만 갈아 끼우면 다른 게임이 된다. 그래서 길 조각은 **밑판 한 종류**로 끝난다(직선·곡선·S 는 종이 그림의 차이).
   · 판에 **꽂힌다** — 밑면에 돌기 자리마다 소켓(지름 STUD_HOLE_D, 깊이 STUD_HOLE_H).
     프린팅 부품이라 진짜 레고처럼 속을 비우고 튜브를 세우지 않는다. 소켓 마찰로 충분하고
     설계도 검사도 단순하다. 🔴 소켓 값은 지어내지 않는다 — 오나미 거치대에서 같은 판에
@@ -49,8 +50,10 @@ ROAD_H      = 7.0                      # 길 조각 전체 높이
 ROAD_SKIRT_H = STUD_HOLE_H + 1.2       # 길 조각 아래 치마(발자국 그대로, 소켓 + 바닥살 1.2) = 3.8
 ROAD_TOP_INSET = 3.0                   # 길 조각 윗판을 사방 이만큼 들여 놓는다 → 붙여 놓아도 윗판 사이 6mm 홈
 OBJ_H       = 16.0                     # 고정물 높이
-PAPER_T     = 0.4                      # 종이 홈 깊이
-PAPER_INSET = 1.0                      # 종이 홈은 가장자리에서 이만큼 안쪽
+PAPER_INSET = 1.0                      # 종이 통로 벽은 윗면 가장자리에서 이만큼 안쪽
+LIP_W       = 1.5                      # 종이 잡는 턱 — 통로 위로 튀어나오는 폭 (양 긴 변)
+LIP_T       = 0.8                      # 턱 두께 (FDM 4겹. 1.5mm 돌출은 서포트 없이 뽑힌다 — 처지면 LIP_W 1.2)
+SLOT_H      = 0.8                      # 턱 밑 종이 통로 높이 (종이 0.15~0.25 + 미끄러질 여유)
 CORNER_R    = 2.0                      # 수직 모서리 반경
 BOTTOM_CH   = 0.6                      # 밑 테두리 모따기
 CHIMNEY     = (10.0, 8.0, 6.0)         # 집 굴뚝 (가로·세로·높이) — 문 있는 변에 붙는다
@@ -70,10 +73,21 @@ def sockets(body, nx, ny, w, d):
             .pushPoints(pts).hole(STUD_HOLE_D, STUD_HOLE_H))
 
 
-def paper_recess(body, w, d, top_z):
-    pw, pd = w - 2 * PAPER_INSET, d - 2 * PAPER_INSET
-    cut = cq.Workplane('XY').box(pw, pd, PAPER_T, centered=(True, True, False)).translate((0, 0, top_z - PAPER_T))
-    return body.cut(cut)
+def paper_slot(body, w, d, top_z):
+    """윗면 종이 통로. 폭 = w − 2·PAPER_INSET(턱 밑), 위 트임 = 그보다 2·LIP_W 좁게. −X 끝은 열리고 +X 끝은 벽(멈춤)."""
+    pw = w - 2 * PAPER_INSET
+    x0, x1 = -w / 2 - 1.0, w / 2 - PAPER_INSET
+    L = x1 - x0
+    lower = cq.Workplane('XY').box(L, pw, SLOT_H, centered=(False, True, False)).translate((x0, 0, top_z - LIP_T - SLOT_H))
+    upper = cq.Workplane('XY').box(L, pw - 2 * LIP_W, LIP_T, centered=(False, True, False)).translate((x0, 0, top_z - LIP_T))
+    return body.cut(lower).cut(upper)
+
+
+def paper_size(nx, ny, top_inset=0.0):
+    """끼우는 종이 크기 (X 길이 = 미는 방향, Y 폭). 통로보다 길이 0.3·폭 0.4 작게."""
+    w, d = footprint(nx, ny)
+    w, d = w - 2 * top_inset, d - 2 * top_inset
+    return (w - PAPER_INSET) - 0.3, (d - 2 * PAPER_INSET) - 0.4
 
 
 def block(nx, ny, h, paper=True, top_inset=0.0, skirt_h=None):
@@ -90,7 +104,7 @@ def block(nx, ny, h, paper=True, top_inset=0.0, skirt_h=None):
         b = slab(w, d, h).faces('<Z').edges().chamfer(BOTTOM_CH)
     b = sockets(b, nx, ny, w, d)
     if paper:
-        b = paper_recess(b, tw, td, h)
+        b = paper_slot(b, tw, td, h)
     return b
 
 
@@ -109,15 +123,16 @@ def house():
     b = obj()
     w, d = footprint(CELL_STUDS, CELL_STUDS)
     cw, cd, ch = CHIMNEY
-    # +Y 변 = 문 방향. 바깥 변에 붙이고 몸통 안으로 1mm 박는다 — 종이 홈 안에 띄우면(면 접촉·0.4mm 공중)
-    # 합집합이 닫히지 않아 STL 이 새는 메시가 된다(trimesh watertight False 로 잡혔다). 종이는 굴뚝을 피해 오린다.
-    chimney = (cq.Workplane('XY').box(cw, cd, ch + 1.0, centered=(True, True, False))
-               .translate((0, d / 2 - cd / 2, OBJ_H - 1.0)))
+    # +Y 변 = 문 방향. 바깥 변에 붙이고 **턱 밑면 높이(OBJ_H − LIP_T)에서** 세운다 — 그러면 +Y 턱과 겹쳐 합집합이
+    # 닫히고(면 접촉만 있으면 STL 이 샌다 — 실측), 종이 통로엔 안 들어와 종이가 굴뚝 밑으로 지나간다.
+    # 🔴 review() 의 종이 탐침이 이 침범을 잡는다.
+    chimney = (cq.Workplane('XY').box(cw, cd, ch + LIP_T, centered=(True, True, False))
+               .translate((0, d / 2 - cd / 2, OBJ_H - LIP_T)))
     return b.union(chimney)
 
 
-def review(name, shape, nx, ny, h):
-    """치수·소켓·윗살 검사. 실패하면 예외."""
+def review(name, shape, nx, ny, h, top_inset=0.0):
+    """치수·소켓·윗살·종이 통로 검사. 실패하면 예외. h = 블록 윗면 높이(굴뚝 제외)."""
     bb = shape.val().BoundingBox()
     w, d = footprint(nx, ny)
     assert abs(bb.xlen - w) < 0.05 and abs(bb.ylen - d) < 0.05, f'{name}: 발자국 {bb.xlen:.2f}×{bb.ylen:.2f} ≠ {w}×{d}'
@@ -125,11 +140,18 @@ def review(name, shape, nx, ny, h):
     # 소켓 수 = 밑면 원형 면 수
     cyl = [f for f in shape.faces().vals() if f.geomType() == 'CYLINDER' and abs(f.Center().z - STUD_HOLE_H / 2) < 0.5]
     assert len(cyl) == nx * ny, f'{name}: 소켓 {len(cyl)} ≠ {nx * ny}'
-    # 윗살: 소켓 바닥(z=STUD_HOLE_H)과 종이 홈 바닥(h-PAPER_T) 사이가 1.2mm 이상
-    skin = (h - PAPER_T) - STUD_HOLE_H
+    # 윗살: 소켓 바닥(z=STUD_HOLE_H)과 종이 통로 바닥(h − LIP_T − SLOT_H) 사이가 1.2mm 이상
+    skin = (h - LIP_T - SLOT_H) - STUD_HOLE_H
     assert skin >= 1.2, f'{name}: 윗살 {skin:.2f}mm < 1.2'
+    # 종이 탐침: 종이 크기 0.3mm 판을 통로 한가운데에 놓았을 때 몸통과 겹치는 부피가 0 이어야 한다
+    pl, pwid = paper_size(nx, ny, top_inset)
+    tw = footprint(nx, ny)[0] - 2 * top_inset
+    probe = (cq.Workplane('XY').box(pl, pwid, 0.3, centered=(False, True, False))
+             .translate((tw / 2 - PAPER_INSET - pl, 0, h - LIP_T - SLOT_H + 0.25)))
+    hit = shape.val().intersect(probe.val()).Volume()
+    assert hit < 1e-3, f'{name}: 종이 통로가 막혔다 (겹침 {hit:.2f}mm³)'
     vol = shape.val().Volume()
-    print(f'  ✓ {name:14s} {bb.xlen:6.1f}×{bb.ylen:6.1f}×{bb.zlen:5.1f}mm  소켓 {len(cyl):3d}  부피 {vol/1000:6.1f}cm³')
+    print(f'  ✓ {name:14s} {bb.xlen:6.1f}×{bb.ylen:6.1f}×{bb.zlen:5.1f}mm  소켓 {len(cyl):3d}  종이 {pl:.1f}×{pwid:.1f}  부피 {vol/1000:6.1f}cm³')
 
 
 def baseplate_preview():
@@ -170,16 +192,16 @@ def scene_parts():
             ('road3', put(road(), 2, 1, rot=0, dx=CELL / 2), 'road')]   # (2,1)-(3,1) → 집 문 앞
 
 
-ITEMS = [('road_1x2', road, CELL_STUDS * 2, CELL_STUDS, ROAD_H),
-         ('object_1x1', obj, CELL_STUDS, CELL_STUDS, OBJ_H),
-         ('house_1x1', house, CELL_STUDS, CELL_STUDS, OBJ_H + CHIMNEY[2])]
+ITEMS = [('road_1x2', road, CELL_STUDS * 2, CELL_STUDS, ROAD_H, ROAD_TOP_INSET),
+         ('object_1x1', obj, CELL_STUDS, CELL_STUDS, OBJ_H, 0.0),
+         ('house_1x1', house, CELL_STUDS, CELL_STUDS, OBJ_H, 0.0)]
 
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
-    built = [(name, fn(), nx, ny, h) for name, fn, nx, ny, h in ITEMS]
+    built = [(name, fn(), nx, ny, h, ti) for name, fn, nx, ny, h, ti in ITEMS]
     print('검사')
-    for name, shape, nx, ny, h in built:
-        review(name, shape, nx, ny, h)
+    for name, shape, nx, ny, h, ti in built:
+        review(name, shape, nx, ny, h, ti)
     import trimesh   # 🔴 내보낸 STL 이 닫힌 메시인지까지 검사 — 굴뚝 면 접촉 union 이 여기서 잡혔다
     for name, shape, *_ in built:
         stl = os.path.join(OUT, name + '.stl')

@@ -4,8 +4,8 @@
 실행:  python paper.py            → out/paper_sheet.html (자체 완결, 그림은 data URI)
        node paper_pdf.mjs         → out/paper_sheet.pdf  (A4, 크롬으로 인쇄)
 
-치수는 blocks.py 에서 읽는다 — 종이 = 블록 윗면 홈(PAPER_INSET 만큼 들어간 자리) 크기.
-  길 조각  87.6 × 39.6 mm (칸 43.8 두 개)     고정물  45.6 × 45.6 mm
+치수는 blocks.py `paper_size()` 에서 읽는다 — 종이 = 턱 밑 통로보다 길이 0.3·폭 0.4 작게(밀어 넣는다).
+  길 조각  88.3 × 39.2 mm     고정물  46.3 × 45.2 mm   (X 가 미는 방향, 열린 끝으로 넣는다)
 
 길 다섯 장 = 스마트게임즈 원작과 같은 다섯 모양(해답 22·23 에서 읽음. 조각은 뒤집을 수 없으니
 왼쪽/오른쪽 **손 방향까지** 원작 그대로). 칸 좌표 L(0~1)·R(1~2), y 는 위 0 → 아래 1:
@@ -26,9 +26,8 @@ OUT = B.OUT
 CACHE = os.path.join(HERE, 'out', '_img')
 BOOK = 'https://www.tangobook.co.kr/api/storybooks/1778476961082'
 
-ROAD_W, ROAD_D = B.footprint(B.CELL_STUDS * 2, B.CELL_STUDS)
-ROAD_W, ROAD_D = ROAD_W - 2 * (B.ROAD_TOP_INSET + B.PAPER_INSET), ROAD_D - 2 * (B.ROAD_TOP_INSET + B.PAPER_INSET)
-OBJ_W = B.footprint(B.CELL_STUDS, B.CELL_STUDS)[0] - 2 * B.PAPER_INSET
+ROAD_W, ROAD_D = B.paper_size(B.CELL_STUDS * 2, B.CELL_STUDS, B.ROAD_TOP_INSET)   # X = 미는 방향
+OBJ_W, OBJ_D = B.paper_size(B.CELL_STUDS, B.CELL_STUDS)
 
 GREEN, ROAD, EDGE = '#8DC63F', '#A84E2C', '#7DA836'
 STROKE = 0.34          # 길 폭 (칸 기준)
@@ -89,7 +88,18 @@ def crop_sq(im, cx, cy, side):
     W, H = im.size
     s = side * H
     x0, y0 = cx * W - s / 2, cy * H - s / 2
-    return im.crop((int(x0), int(y0), int(x0 + s), int(y0 + s))).resize((700, 700), Image.LANCZOS)
+    return fit(im.crop((int(x0), int(y0), int(x0 + s), int(y0 + s))))
+
+
+def fit(im):
+    """고정물 종이 비율(OBJ_W:OBJ_D)로 가운데 자르기."""
+    W, H = im.size
+    r = OBJ_W / OBJ_D
+    if W / H > r:
+        nw = int(H * r); im = im.crop(((W - nw) // 2, 0, (W - nw) // 2 + nw, H))
+    else:
+        nh = int(W / r); im = im.crop((0, (H - nh) // 2, W, (H - nh) // 2 + nh))
+    return im.resize((720, int(720 / r)), Image.LANCZOS)
 
 
 def house_tile(im):
@@ -106,7 +116,7 @@ def house_tile(im):
     s = int(max(W, H) / 0.92)
     bg = Image.new('RGBA', (s, s), GREEN)
     bg.alpha_composite(im, ((s - W) // 2, (s - H) // 2 + int(s * 0.03)))
-    return bg.resize((700, 700), Image.LANCZOS)
+    return fit(bg)
 
 
 def data_uri(im):
@@ -121,7 +131,7 @@ def tiles():
     tree = crop_sq(fetch(page_url(bk, 'paper-craft', 14)), 0.83, 0.25, 0.46)   # 소나무만(아래엔 늑대가 있다)
     cottage = next(k['imageUrl'] for k in bk['keyObjectImages'] if (k.get('objectName') or k.get('name')) == 'cottage')
     house = house_tile(fetch(cottage))
-    return [('house', '집 — 문이 굴뚝 쪽(아래)', house), ('girl', '빨간모자', girl), ('wolf', '늑대', wolf),
+    return [('house', '집 — 문(아래)이 굴뚝 변', house), ('girl', '빨간모자', girl), ('wolf', '늑대', wolf),
             ('tree', '나무 ①', tree), ('tree2', '나무 ②', tree), ('tree3', '나무 (예비)', tree)]
 
 
@@ -138,15 +148,16 @@ def html():
     .cut::after {{ content: ""; position: absolute; inset: -2.2mm; border: 0.15mm dashed #bbb; pointer-events: none; }}
     .lab {{ font-size: 6.5pt; color: #777; margin-top: 3mm; }}
     .road {{ width: {ROAD_W}mm; height: {ROAD_D}mm; }}
-    .obj {{ width: {OBJ_W}mm; height: {OBJ_W}mm; overflow: hidden; }}
+    .obj {{ width: {OBJ_W}mm; height: {OBJ_D}mm; overflow: hidden; }}
     .obj img {{ width: 100%; height: 100%; display: block; }}
     .legend {{ width: {ROAD_W}mm; font-size: 6.5pt; color: #555; line-height: 1.45; }}
     .legend b {{ color: #333; }}
     '''
-    legend = (f'<div class="legend"><b>붙이는 법</b><br>실선 안쪽으로 오린다 — 실선이 곧 블록 윗면 홈 크기(길 {ROAD_W:.1f}×{ROAD_D:.1f} · '
-              f'고정물 {OBJ_W:.1f}×{OBJ_W:.1f}mm). 점선은 여유 안내선.<br>무광 종이(120~160g)에 <b>실제 크기(100%)</b>로 인쇄. '
-              f'딱풀로 홈에 붙인다.<br>길 조각은 <b>뒤집지 않는다</b> — 그림이 위인 채로만 돌린다(원작과 같은 다섯 모양).<br>'
-              f'집은 <b>문이 굴뚝 변</b>을 보게 붙인다.</div>')
+    legend = (f'<div class="legend"><b>끼우는 법</b><br>실선 안쪽으로 오린다(길 {ROAD_W:.1f}×{ROAD_D:.1f} · '
+              f'고정물 {OBJ_W:.1f}×{OBJ_D:.1f}mm — 블록 턱 밑 통로보다 살짝 작다). 점선은 여유 안내선.<br>'
+              f'무광 종이(120~160g)에 <b>실제 크기(100%)</b>로 인쇄. 풀 없이 블록의 <b>열린 끝</b>으로 밀어 넣으면 양옆 턱 밑에 잡힌다.<br>'
+              f'길 조각은 <b>뒤집지 않는다</b> — 그림이 위인 채로만 돌린다(원작과 같은 다섯 모양).<br>'
+              f'집은 <b>문이 굴뚝 변</b>을 보게 넣는다(굴뚝 밑으로 종이가 지나간다).</div>')
     body = (f'<h1>빨간모자 블록 — 종이 시트 (24×24 판 · 4×4 · 한 칸 48mm)</h1>'
             f'<div class="note">R2 『빨간모자』 삽화(pixar-3d · paper-craft · 낱말 카드) · 길 다섯 장은 스마트게임즈 원작 모양 그대로</div>'
             f'<div class="row">{"".join(_chunk(roads_list(), 0, 2))}</div>'
