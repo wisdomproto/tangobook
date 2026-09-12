@@ -75,7 +75,9 @@ def sockets(body, nx, ny, w, d):
 
 def paper_slot(body, w, d, top_z):
     """윗면 종이 통로. 폭 = w − 2·PAPER_INSET(턱 밑), 위 트임 = 그보다 2·LIP_W 좁게. −X 끝은 열리고 +X 끝은 벽(멈춤)."""
-    pw = w - 2 * PAPER_INSET
+    # 🔴 통로 폭은 **짧은 변 d** 로 잰다 — w 로 잰 채 길 조각(89.6×41.6)을 뽑았더니 옆벽·턱이 통째로 깎였고
+    #    정사각 고정물은 w=d 라 우연히 멀쩡해서 못 봤다(2026-09-12). review() 의 턱 검사가 이제 이걸 잡는다.
+    pw = d - 2 * PAPER_INSET
     x0, x1 = -w / 2 - 1.0, w / 2 - PAPER_INSET
     L = x1 - x0
     lower = cq.Workplane('XY').box(L, pw, SLOT_H, centered=(False, True, False)).translate((x0, 0, top_z - LIP_T - SLOT_H))
@@ -150,6 +152,12 @@ def review(name, shape, nx, ny, h, top_inset=0.0):
              .translate((tw / 2 - PAPER_INSET - pl, 0, h - LIP_T - SLOT_H + 0.25)))
     hit = shape.val().intersect(probe.val()).Volume()
     assert hit < 1e-3, f'{name}: 종이 통로가 막혔다 (겹침 {hit:.2f}mm³)'
+    # 턱: 양 긴 변, 턱 두께 한가운데 높이에 살이 있어야 한다 (x=0, y=±(통로 반폭 − 턱 반폭))
+    td = footprint(nx, ny)[1] - 2 * top_inset
+    ly = td / 2 - PAPER_INSET - LIP_W / 2
+    for sy in (ly, -ly):
+        assert shape.val().isInside(cq.Vector(0, sy, h - LIP_T / 2), 1e-3), f'{name}: 턱이 없다 (y={sy:+.1f})'
+    assert not shape.val().isInside(cq.Vector(0, 0, h - LIP_T / 2), 1e-3), f'{name}: 윗면 트임이 막혔다'
     vol = shape.val().Volume()
     print(f'  ✓ {name:14s} {bb.xlen:6.1f}×{bb.ylen:6.1f}×{bb.zlen:5.1f}mm  소켓 {len(cyl):3d}  종이 {pl:.1f}×{pwid:.1f}  부피 {vol/1000:6.1f}cm³')
 
