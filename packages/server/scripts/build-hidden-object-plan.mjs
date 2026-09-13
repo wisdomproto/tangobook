@@ -285,6 +285,9 @@ const SCENE_RULES = [
   //    본 듯하다. 그래서 배지·범례·번호를 따로 이름 붙여 막는다.
   `- Never put a number, a letter, a badge, a circle, a ring or any other marker on or beside an object. No numbered tags, no legend, no key, no inset strip of things to find, no caption bar.`,
   `- No text of any kind anywhere: no letters, no numbers, no speech bubbles, no arrows, no border frame, no watermark, no signature.`,
+  // 🔴 **아이 책이다 — 피·사체·사냥 금지**(2026-09-13). 자연관찰 참조 쪽이 사냥 장면이면 그대로 따라 그린다
+  //    (티라노 nt-0085 가 사체를 뜯는 그림으로 나와 게임에서 뺐다).
+  `- This picture is for children aged 4 to 7: no blood, no wounds, no dead, half-eaten or torn animals, no animal catching or eating another animal. A predator may show its teeth, but only resting, walking or looking around. If the attached page shows a hunt or a kill, draw a calm moment instead.`,
   `- This is simply an illustration from the book. It is not a puzzle sheet, not a worksheet, not an activity page.`,
 ];
 
