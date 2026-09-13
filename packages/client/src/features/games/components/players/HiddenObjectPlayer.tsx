@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { HiddenObjectData, HiddenObjectTarget } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { usePrewarmWordTts } from '../../hooks/useGamePrefetch';
+import { resolveTtsUrl } from '@/features/tts';
 import { GameResultScreen } from '../GameResultScreen';
 import { GameProgressBar } from '../GameProgressBar';
 import { GamePlayerLayout } from '../GamePlayerLayout';
@@ -45,13 +47,22 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
     | { sceneImageUrl: string; targets: HiddenObjectTarget[] }
     | undefined;
   const targets = scene?.targets ?? [];
+  // 🔴 낱말 음원이 `key_objects[].ttsUrl` 에 있는 책은 드물다(전래 0/25 · 명작 3/34) — 없으면 정답에
+  //    띵동만 나고 낱말을 안 읽었다. 다른 게임과 같은 경로로 즉석 생성하고, 씬이 뜰 때 미리 데운다.
+  //    (identifierPrefix 는 아래 resolveTtsUrl 과 같아야 캐시가 맞는다.)
+  const prewarmItems = useMemo(
+    () => targets.map((t) => ({ text: t.label, directUrl: t.ttsUrl })),
+    [targets]
+  );
+  usePrewarmWordTts(prewarmItems, 'korean', storybookId, 'hidden');
+
   const totalTargets = useMemo(
     () => scenes.reduce((sum, s) => sum + s.targets.length, 0),
     [scenes]
   );
 
   const handleTap = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    async (e: React.MouseEvent<HTMLDivElement>) => {
       if (!scene || !imgRef.current || !imgReady) return;
       const rect = e.currentTarget.getBoundingClientRect();
       const px = e.clientX - rect.left;
@@ -88,9 +99,16 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
           setFound(new Set());
         }
       };
-      playWordCorrect({ ttsUrl: hit.ttsUrl, onDone: sceneCleared ? advance : undefined });
+      const ttsUrl = await resolveTtsUrl({
+        text: hit.label,
+        language: 'korean',
+        storybookId,
+        directUrl: hit.ttsUrl,
+        identifierPrefix: 'hidden',
+      }).catch(() => hit.ttsUrl);
+      playWordCorrect({ ttsUrl, onDone: sceneCleared ? advance : undefined });
     },
-    [scene, targets, found, sceneIdx, scenes.length, playWordCorrect, imgReady]
+    [scene, targets, found, sceneIdx, scenes.length, playWordCorrect, imgReady, storybookId]
   );
 
   const handleRestart = useCallback(() => {

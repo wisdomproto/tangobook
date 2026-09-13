@@ -5,7 +5,7 @@
  * 🔴 핫스팟은 정규화 0~1(왼쪽 위 x,y + 너비/높이)이다. 격자는 **10%마다** 긋고 숫자는
  *    퍼센트로 적는다 — 읽은 값을 100으로 나누면 그대로 좌표라 산수를 안 해도 된다.
  *
- * 사용: node packages/server/scripts/build-hidden-object-grids.mjs [--genre=paper3d] [--per=2]
+ * 사용: node packages/server/scripts/build-hidden-object-grids.mjs [--genre=paper3d | --prefix=nt-] [--per=2]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -20,6 +20,8 @@ const arg = (n, d) => {
 };
 const GENRE = arg('genre', 'paper3d');
 const PER = Number(arg('per', 2));
+// 라인 단위로 뽑을 때(`--prefix=nt-`) — 자연관찰은 그림체 칸이 watercolor·base 로 갈려 genre 로는 한 라인이 안 모인다.
+const PREFIX = arg('prefix', '');
 const OUT = path.join(ROOT, 'grids');
 const W = 1000;
 const HEAD = 34;
@@ -36,7 +38,7 @@ const plan = {
     .flatMap((f) => JSON.parse(fs.readFileSync(path.join(PUB, f), 'utf8')).sections),
 };
 const assets = (await (await fetch('https://www.tangobook.co.kr/api/comic-assets/hidden-object-plan')).json()).data;
-const cells = plan.sections.flatMap((s) => s.items).filter((c) => c.genre === GENRE && assets[c.key]);
+const cells = plan.sections.flatMap((s) => s.items).filter((c) => (PREFIX ? c.key.startsWith(PREFIX) : c.genre === GENRE) && assets[c.key]);
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
