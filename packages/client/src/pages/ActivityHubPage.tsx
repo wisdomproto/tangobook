@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { ACTIVITY_KINDS, ACTIVITY_KIND_LABEL, worksheetItems } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
 import { PublicNav } from '@/components/PublicNav';
 import { trackActivity } from '@/features/activity/lib/track';
+import { useActivitySummary } from '@/features/activity/hooks/useActivityCatalog';
 
 const BLURB = {
   hangul: '자음·모음부터 받침까지 32단원',
@@ -14,14 +14,7 @@ const BLURB = {
 
 /** 🔴 허브는 900KB 목록을 받지 않는다 — 워크지는 커리큘럼, 색칠·숨은그림은 `summary.json`(개수 · 첫 키). */
 function KindCard({ kind }: { kind: (typeof ACTIVITY_KINDS)[number] }) {
-  const { data } = useQuery({
-    queryKey: ['activity-data', 'summary'],
-    queryFn: async () =>
-      (await fetch('/activity-data/summary.json')).json() as Promise<
-        Record<string, { count: number; firstKey: string | null }>
-      >,
-    staleTime: 60 * 60 * 1000,
-  });
+  const { data } = useActivitySummary();
   const ws = kind === 'hangul' || kind === 'english' ? worksheetItems(kind) : null;
   const count = ws ? ws.length : data?.[kind]?.count;
   const to = ws

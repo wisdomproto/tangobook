@@ -15,6 +15,18 @@ const getJson = async <T>(url: string): Promise<T> => {
   return (await r.json()) as T;
 };
 
+/** 허브·레이아웃이 공유하는 개수·첫 키 요약 — 같은 쿼리 키라 한 번만 받는다. */
+export function useActivitySummary() {
+  return useQuery({
+    queryKey: ['activity-data', 'summary'],
+    queryFn: () =>
+      getJson<Record<string, { count: number; firstKey: string | null }>>(
+        '/activity-data/summary.json'
+      ),
+    staleTime: 60 * 60 * 1000,
+  });
+}
+
 /** 활동 종류별 목록 — 워크지는 커리큘럼(즉시), 색칠·숨은그림은 `/activity-data/*.json`. */
 export function useActivityItems(kind: ActivityKind): {
   items: ActivityItem[];
@@ -22,6 +34,7 @@ export function useActivityItems(kind: ActivityKind): {
   coloringEntries: Map<string, ColoringCatalogEntry>;
   hiddenEntries: Map<string, HiddenObjectCatalogEntry>;
   loading: boolean;
+  error: boolean;
 } {
   const coloring = useQuery({
     queryKey: ['activity-data', 'coloring'],
@@ -42,6 +55,7 @@ export function useActivityItems(kind: ActivityKind): {
       coloringEntries: new Map(),
       hiddenEntries: new Map(),
       loading: false,
+      error: false,
     };
   }
   if (kind === 'coloring') {
@@ -52,6 +66,7 @@ export function useActivityItems(kind: ActivityKind): {
       coloringEntries: new Map(data.map((e) => [e.key, e])),
       hiddenEntries: new Map(),
       loading: coloring.isLoading,
+      error: coloring.isError,
     };
   }
   const data = hidden.data ?? [];
@@ -61,5 +76,6 @@ export function useActivityItems(kind: ActivityKind): {
     coloringEntries: new Map(),
     hiddenEntries: new Map(data.map((h) => [h.key, h])),
     loading: hidden.isLoading,
+    error: hidden.isError,
   };
 }

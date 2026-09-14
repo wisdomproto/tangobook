@@ -1,42 +1,14 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { ActivityItem, ColoringCatalogEntry } from '@tangobook/shared';
 import { ActivityCta } from '../ActivityCta';
 import { trackActivity } from '../../lib/track';
+import { PanelHeader } from './PanelHeader';
 
 const ColoringPlayer = lazy(() =>
   import('@/features/games/components/players/ColoringPlayer').then((m) => ({
     default: m.ColoringPlayer,
   }))
 );
-
-export const BTN =
-  'inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-extrabold shadow-sm print:hidden';
-
-export function PanelHeader({
-  title,
-  onPlay,
-  onPrint,
-  playLabel = '🎮 온라인으로 하기',
-}: {
-  title: string;
-  onPlay: () => void;
-  onPrint: () => void;
-  playLabel?: string;
-}) {
-  return (
-    <div className="mb-3 flex flex-wrap items-center gap-2">
-      <h1 className="mr-auto font-display text-2xl font-extrabold text-ink-900 break-keep sm:text-3xl">
-        {title}
-      </h1>
-      <button onClick={onPlay} className={`${BTN} bg-mint-500 text-white hover:bg-mint-600`}>
-        {playLabel}
-      </button>
-      <button onClick={onPrint} className={`${BTN} bg-white text-ink-700 hover:bg-peach-100`}>
-        🖨 인쇄
-      </button>
-    </div>
-  );
-}
 
 export function ColoringPanel({
   item,
@@ -49,6 +21,8 @@ export function ColoringPanel({
 }) {
   const [playing, setPlaying] = useState(false);
   const [finished, setFinished] = useState(false);
+  const doneTimer = useRef<ReturnType<typeof window.setTimeout>>();
+  useEffect(() => () => window.clearTimeout(doneTimer.current), []);
   return (
     <div>
       <PanelHeader
@@ -99,7 +73,7 @@ export function ColoringPanel({
             // 🔴 플레이어는 `fixed inset-0` 이라 그 뒤에 그린 CTA 는 안 보인다 — 다 칠한 그림을 잠깐 보여 준 뒤
             //    게임을 닫고 CTA 를 띄운다(원본 그림이 드러나는 연출 시간만큼).
             onDone={() => {
-              window.setTimeout(() => {
+              doneTimer.current = window.setTimeout(() => {
                 setPlaying(false);
                 setFinished(true);
               }, 3000);

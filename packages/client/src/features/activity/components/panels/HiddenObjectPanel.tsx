@@ -3,7 +3,7 @@ import type { ActivityItem, HiddenObjectCatalogEntry } from '@tangobook/shared';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { buildHiddenObjectSceneData } from '@/features/games/lib/hidden-object-data';
 import { ActivityCta } from '../ActivityCta';
-import { PanelHeader } from './ColoringPanel';
+import { PanelHeader } from './PanelHeader';
 import { trackActivity } from '../../lib/track';
 
 const HiddenObjectPlayer = lazy(() =>
@@ -24,7 +24,11 @@ export function HiddenObjectPanel({
   const [playing, setPlaying] = useState(false);
   const [finished, setFinished] = useState(false);
   // 책은 「온라인으로」 누른 뒤에만 받는다.
-  const { data: book } = useStorybook(playing ? entry.bookId : '');
+  const {
+    data: book,
+    isLoading: bookLoading,
+    isError: bookError,
+  } = useStorybook(playing ? entry.bookId : '');
   const gameData = useMemo(
     () => buildHiddenObjectSceneData(book, undefined, entry.key),
     [book, entry.key]
@@ -69,6 +73,12 @@ export function HiddenObjectPanel({
       <div className="mt-4">
         <ActivityCta item={item} next={next} />
       </div>
+      {playing && bookLoading && (
+        <p className="mt-3 rounded bg-peach-100 p-3 print:hidden">그림을 불러오는 중…</p>
+      )}
+      {playing && bookError && (
+        <p className="mt-3 rounded bg-peach-100 p-3 print:hidden">그림을 불러오지 못했어요.</p>
+      )}
       {playing && book && !gameData && (
         <p className="mt-3 rounded bg-peach-100 p-3 print:hidden">이 그림은 지금 준비 중이에요.</p>
       )}

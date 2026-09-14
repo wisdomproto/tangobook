@@ -1,6 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import {
   ACTIVITY_KINDS,
   ACTIVITY_KIND_LABEL,
@@ -10,17 +9,11 @@ import {
 import { PublicNav } from '@/components/PublicNav';
 import { cn } from '@/lib/cn';
 import { ActivityList } from './ActivityList';
+import { useActivitySummary } from '../hooks/useActivityCatalog';
 
 /** 종류 탭 링크 — 워크지는 첫 단원, 색칠·숨은그림은 `summary.json` 의 첫 키(정규 slug 는 페이지가 replace 한다). */
 function useFirstPaths(): Record<ActivityKind, string> {
-  const { data } = useQuery({
-    queryKey: ['activity-data', 'summary'],
-    queryFn: async () =>
-      (await fetch('/activity-data/summary.json')).json() as Promise<
-        Record<string, { count: number; firstKey: string | null }>
-      >,
-    staleTime: 60 * 60 * 1000,
-  });
+  const { data } = useActivitySummary();
   return {
     hangul: '/activity/hangul/kr-h1-u01',
     english: '/activity/english/en-b1-u01',
@@ -47,6 +40,8 @@ export function ActivityLayout({
 }) {
   const [listOpen, setListOpen] = useState(false);
   const firstPath = useFirstPaths();
+  // 모바일에서 목록에서 다른 활동을 고르면 드로어를 닫는다(안 그러면 다음 화면 위에 그대로 덮여 있다).
+  useEffect(() => setListOpen(false), [currentKey]);
   return (
     <>
       <div className="print:hidden">
@@ -70,7 +65,7 @@ export function ActivityLayout({
               </Link>
             ))}
           </div>
-          <div className="grid gap-6 md:grid-cols-[16rem_1fr]">
+          <div className="grid gap-6 print:block md:grid-cols-[16rem_1fr]">
             <aside className="print:hidden">
               <button
                 onClick={() => setListOpen((v) => !v)}
