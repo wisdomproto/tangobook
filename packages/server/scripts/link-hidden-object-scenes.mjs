@@ -85,7 +85,9 @@ for (const [bookId, list] of byBook) {
   for (const cell of list) {
     const planWords = [...cell.words, ...(cell.parts ?? []), ...(cell.scenery ?? [])];
     const hs = [];
-    for (const [en, [x, y, w, h]] of Object.entries(hotspots[cell.key])) {
+    // 🔴 한 낱말이 **자리 여럿**일 수 있다(날개는 양쪽) — `[[x,y,w,h],[x,y,w,h]]` 면 상자를 여러 개 낸다.
+    //    같은 `objectName` 이라 게임은 둘 중 아무거나 누르면 그 낱말을 찾은 것으로 친다.
+    for (const [en, raw] of Object.entries(hotspots[cell.key])) {
       const ko = planWords.find((p) => p.en === en)?.ko;
       const objectName = resolveName(en, ko);
       if (!objectName) {
@@ -100,7 +102,9 @@ for (const [bookId, list] of byBook) {
       //    같은 층이면 큰 몸 박스가 작은 귀를 삼킨다(명작에서 마차가 연못을 삼켰던 것과 같다).
       const part = (cell.parts ?? []).some((p) => p.en === en);
       const layer = scenery ? 0 : part ? 2 : 1;
-      hs.push({ objectName, x: x / 100, y: y / 100, w: w / 100, h: h / 100, layer });
+      for (const [x, y, w, h] of Array.isArray(raw[0]) ? raw : [raw]) {
+        hs.push({ objectName, x: x / 100, y: y / 100, w: w / 100, h: h / 100, layer });
+      }
     }
     if (!hs.length) continue;
 

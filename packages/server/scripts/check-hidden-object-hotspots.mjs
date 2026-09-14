@@ -56,12 +56,13 @@ async function panel(key) {
       (cell.scenery ?? []).find((w) => w.en === en) ||
       {}
     ).ko ?? en;
-  const boxes = Object.entries(hotspots[key]).map(([name, [x, y, bw, bh]], i) => {
+  // 한 낱말이 자리 여럿이면(`[[…],[…]]`) 같은 색 상자를 여러 개 그린다.
+  const boxes = Object.entries(hotspots[key]).flatMap(([name, raw], i) => (Array.isArray(raw[0]) ? raw : [raw]).map(([x, y, bw, bh]) => {
     const c = COLORS[i % COLORS.length];
     const L = (x / 100) * W, T = (y / 100) * h, RW = (bw / 100) * W, RH = (bh / 100) * h;
     return `<rect x="${L}" y="${T}" width="${RW}" height="${RH}" fill="none" stroke="${c}" stroke-width="5"/>` +
       `<text x="${L + 6}" y="${T + 30}" font-size="26" font-weight="bold" fill="${c}" stroke="#000" stroke-width="5" paint-order="stroke">${esc(koOf(name))}</text>`;
-  });
+  }));
   const scene = await sharp(buf).resize(W, h, { fit: 'fill' })
     .composite([{ input: Buffer.from(`<svg width="${W}" height="${h}" xmlns="http://www.w3.org/2000/svg">${boxes.join('')}</svg>`), top: 0, left: 0 }])
     .png().toBuffer();

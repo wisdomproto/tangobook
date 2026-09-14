@@ -714,7 +714,9 @@
                   .concat(it.parts || [])
                   .forEach(function (w) { koOf[w.en] = w.ko; });
                 Object.keys(boxes).forEach(function (name, i) {
-                  var b = boxes[name];
+                  // 한 낱말이 자리 여럿이면(날개 양쪽) [[x,y,w,h],[x,y,w,h]] — 같은 색으로 전부 그린다.
+                  var list = Array.isArray(boxes[name][0]) ? boxes[name] : [boxes[name]];
+                  list.forEach(function (b) {
                   var m = document.createElement('div');
                   m.className = 'hs';
                   m.style.cssText =
@@ -727,6 +729,7 @@
                     HS_COLORS[i % HS_COLORS.length];
                   m.appendChild(lab);
                   wrap.appendChild(m);
+                  });
                 });
               }
               box.appendChild(wrap);

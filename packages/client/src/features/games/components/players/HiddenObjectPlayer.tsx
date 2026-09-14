@@ -47,17 +47,23 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
     | { sceneImageUrl: string; targets: HiddenObjectTarget[] }
     | undefined;
   const targets = scene?.targets ?? [];
+  // 🔴 한 낱말이 **상자 여럿**일 수 있다(날개는 양쪽). 찾기·완료 판정은 이름으로 하고,
+  //    카드·개수·음원은 낱말 하나에 한 번만 — 상자 수대로 세면 「날개」 카드가 두 장 뜬다.
+  const words = useMemo(
+    () => targets.filter((t, i) => targets.findIndex((o) => o.objectName === t.objectName) === i),
+    [targets]
+  );
   // 🔴 낱말 음원이 `key_objects[].ttsUrl` 에 있는 책은 드물다(전래 0/25 · 명작 3/34) — 없으면 정답에
   //    띵동만 나고 낱말을 안 읽었다. 다른 게임과 같은 경로로 즉석 생성하고, 씬이 뜰 때 미리 데운다.
   //    (identifierPrefix 는 아래 resolveTtsUrl 과 같아야 캐시가 맞는다.)
   const prewarmItems = useMemo(
-    () => targets.map((t) => ({ text: t.label, directUrl: t.ttsUrl })),
-    [targets]
+    () => words.map((t) => ({ text: t.label, directUrl: t.ttsUrl })),
+    [words]
   );
   usePrewarmWordTts(prewarmItems, 'korean', storybookId, 'hidden');
 
   const totalTargets = useMemo(
-    () => scenes.reduce((sum, s) => sum + s.targets.length, 0),
+    () => scenes.reduce((sum, s) => sum + new Set(s.targets.map((t) => t.objectName)).size, 0),
     [scenes]
   );
 
@@ -136,12 +142,12 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
 
   if (!scene) return null;
 
-  const remaining = targets.filter((t) => !found.has(t.objectName));
+  const remaining = words.filter((t) => !found.has(t.objectName));
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
       <div className="flex flex-col items-center gap-3 w-full h-full min-h-0">
-        <GameProgressBar current={found.size} total={targets.length} score={score} />
+        <GameProgressBar current={found.size} total={words.length} score={score} />
 
         <div
           className="relative flex-1 min-h-0 w-full max-w-5xl flex items-center justify-center cursor-pointer select-none"
@@ -157,8 +163,9 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
           />
           {imgReady &&
             targets
-              .filter((t) => found.has(t.objectName))
-              .map((t) => <FoundRing key={t.objectName} target={t} imgRef={imgRef} />)}
+              .map((t, i) => ({ t, i }))
+              .filter(({ t }) => found.has(t.objectName))
+              .map(({ t, i }) => <FoundRing key={i} target={t} imgRef={imgRef} />)}
           <AnimatePresence>
             {missFlash && (
               <motion.span
@@ -176,7 +183,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
 
         <div className="shrink-0 w-full overflow-x-auto">
           <div className="flex gap-3 justify-center px-2 pb-1">
-            {targets.map((t) => {
+            {words.map((t) => {
               const done = found.has(t.objectName);
               return (
                 <div
