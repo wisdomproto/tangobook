@@ -270,20 +270,6 @@ const RESOURCES: ResourceItem[] = [
     label: '타임 티코 · 극한생존 기획서',
     desc: '무인도 6부작 · 조상 생존술+현대과학+건강+부모감사 + 회차별 콘티(탭)',
   },
-  {
-    href: '/library-master',
-    icon: '📚',
-    label: '라이브러리 마스터',
-    desc: '카테고리·책 순서·메인 표지 편집',
-    internal: true,
-  },
-  {
-    href: '/book-groups',
-    icon: '🗂️',
-    label: '동화책 그룹',
-    desc: '같은 작품의 그림체 여러 권 · 시리즈를 한 묶음으로',
-    internal: true,
-  },
   { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
   {
     href: '/business-overview.html',
@@ -549,6 +535,21 @@ export function TopBar() {
               />
             </svg>
           )}
+        </button>
+        {/* 라이브러리 편집은 자주 여는 저작 화면이라 자료실 드롭다운 밖, 상단에 바로 둔다. */}
+        <button
+          onClick={() => navigate('/library-master')}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+          title="카테고리·책 순서·메인 표지 편집"
+        >
+          📚 라이브러리 마스터
+        </button>
+        <button
+          onClick={() => navigate('/book-groups')}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+          title="같은 작품의 그림체 여러 권 · 시리즈를 한 묶음으로"
+        >
+          🗂️ 동화책 그룹
         </button>
         <ResourceMenu
           items={BM}
