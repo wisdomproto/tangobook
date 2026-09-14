@@ -59,17 +59,23 @@ const cells = plan.sections
  *    작업판 목록을 새로 만들지는 않는다(붙여넣기 키가 흔들린다).
  */
 const groups = await getJsonByKey('_index/book-groups.json').then((d) => d.groups ?? []).catch(() => []);
-const splitTarget = new Map(); // `${원본id}|${styleId}` → 쪼갠 책 id
+// 🔴 작업판을 만든 뒤 쪼갤 때 **다른 그림체 id 를 고른 책이 있다**(콜라주가 둘 — 아기 돼지 삼형제·잭과 콩나무·빨간모자).
+//    id 로 못 찾으면 장르(수채·페이퍼 3D·콜라주)로 찾는다. 그래도 없으면 원본에 남는다.
+const genreOf = await fetch(`${ORIGIN}/api/style-genre-map`).then((r) => r.json()).then((j) => j.data ?? {}).catch(() => ({}));
+const splitTarget = new Map(); // `${원본id}|${styleId}` · `${원본id}|genre:${장르}` → 쪼갠 책 id
 for (const bookId of new Set(cells.map((c) => c.bookId))) {
   const g = groups.find((x) => x.kind === 'style' && x.bookIds.includes(bookId));
   for (const id of g?.bookIds ?? []) {
     if (id === bookId) continue;
     const b = await getStorybook(id);
-    if (b?.splitFrom?.bookId === bookId) splitTarget.set(`${bookId}|${b.splitFrom.styleId}`, id);
+    if (b?.splitFrom?.bookId !== bookId) continue;
+    splitTarget.set(`${bookId}|${b.splitFrom.styleId}`, id);
+    if (genreOf[b.artStyle]) splitTarget.set(`${bookId}|genre:${genreOf[b.artStyle]}`, id);
   }
 }
 for (const c of cells) {
-  const moved = splitTarget.get(`${c.bookId}|${c.styleId}`);
+  const moved =
+    splitTarget.get(`${c.bookId}|${c.styleId}`) ?? splitTarget.get(`${c.bookId}|genre:${genreOf[c.styleId] ?? c.genre}`);
   if (moved) c.bookId = moved;
 }
 
@@ -132,7 +138,7 @@ for (const [bookId, list] of byBook) {
       id: `hobj_${cell.key}`,
       sceneImageUrl: assets[cell.key],
       theme: cell.bookTitle,
-      artStyle: cell.styleId,
+      artStyle: sb.artStyle ?? cell.styleId,
       hotspots: hs,
     };
     const kept = (sb.hiddenObjectScenes ?? []).filter((s) => s.id !== scene.id);
