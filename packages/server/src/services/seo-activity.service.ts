@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import {
   ACTIVITY_KINDS,
   ACTIVITY_KIND_LABEL,
+  activityPageTitle,
   coloringItems,
   findActivity,
   flattenPhonicsUnits,
@@ -80,21 +81,6 @@ const enc = (p: string) =>
 const abs = (u?: string) =>
   !u ? `${SITE_URL}/og-image.png` : u.startsWith('/') ? `${SITE_URL}${u}` : u;
 const li = (xs: string[]) => xs.map((s) => `<li>${escapeHtml(s)}</li>`).join('');
-
-function titleOf(item: ActivityItem): string {
-  switch (item.kind) {
-    case 'coloring':
-      return item.key.startsWith('bk-')
-        ? `${item.title} 색칠도안 — ${item.section} | 탱고북`
-        : `${item.title} 색칠도안 무료 인쇄 · 온라인 색칠공부 | 탱고북`;
-    case 'hidden-object':
-      return `${item.title} 숨은그림찾기 도안 무료 인쇄 · 온라인 게임 | 탱고북`;
-    case 'hangul':
-      return `${item.title} 한글 학습지 무료 인쇄 | 탱고북`;
-    case 'english':
-      return `${item.title} 영어 파닉스 학습지 무료 인쇄 | 탱고북`;
-  }
-}
 
 function introOf(
   item: ActivityItem,
@@ -173,7 +159,7 @@ export function renderActivitySeo(
     provider: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
   };
   return {
-    title: escapeHtml(titleOf(item)),
+    title: escapeHtml(activityPageTitle(item)),
     description: escapeHtml(summarize(`${intro} ${item.blurb ?? ''}`)),
     canonical: url,
     ogImage: abs(item.image),

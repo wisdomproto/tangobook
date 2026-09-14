@@ -7,6 +7,7 @@ import {
   hiddenObjectItems,
   findActivity,
   nextInGroup,
+  activityPageTitle,
 } from './activity-catalog.js';
 
 describe('slugify', () => {
@@ -107,6 +108,51 @@ describe('items', () => {
     ]);
     expect(h.slug).toBe('jr-0034-팥죽-할멈과-호랑이');
     expect(h.group).toBe('전래 동화');
+  });
+});
+
+describe('activityPageTitle', () => {
+  it('varies by kind, and coloring splits by book vs phonics sheet', () => {
+    const [ph, bk] = coloringItems([
+      {
+        key: 'ph-0389',
+        group: 'g',
+        section: 's',
+        unitId: 'kr-h1-u01',
+        word: '아이',
+        lineartUrl: '/a',
+      },
+      {
+        key: 'bk-0001',
+        group: 'g',
+        section: '개구리 왕자',
+        bookId: '177',
+        bookTitle: '개구리 왕자',
+        word: '공',
+        lineartUrl: '/b',
+      },
+    ]);
+    expect(activityPageTitle(ph)).toBe('아이 색칠도안 무료 인쇄 · 온라인 색칠공부 | 탱고북');
+    expect(activityPageTitle(bk)).toBe('공 색칠도안 — 개구리 왕자 | 탱고북');
+
+    const [ho] = hiddenObjectItems([
+      {
+        key: 'jr-0034',
+        bookId: '9',
+        bookTitle: '팥죽 할멈',
+        category: '전래 동화',
+        sceneImageUrl: '/s',
+        words: ['팥죽'],
+      },
+    ]);
+    expect(activityPageTitle(ho)).toBe(
+      '팥죽 할멈 숨은그림찾기 도안 무료 인쇄 · 온라인 게임 | 탱고북'
+    );
+
+    const [kr] = worksheetItems('hangul');
+    expect(activityPageTitle(kr)).toBe(`${kr.title} 한글 학습지 무료 인쇄 | 탱고북`);
+    const [en] = worksheetItems('english');
+    expect(activityPageTitle(en)).toBe(`${en.title} 영어 파닉스 학습지 무료 인쇄 | 탱고북`);
   });
 });
 

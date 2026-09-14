@@ -145,6 +145,22 @@ export function hiddenObjectItems(entries: HiddenObjectCatalogEntry[]): Activity
   });
 }
 
+/** 페이지 `<title>` 규칙 — 서버 SSR(`seo-activity.service`)과 클라 `useSeo` 가 공유한다. */
+export function activityPageTitle(item: ActivityItem): string {
+  switch (item.kind) {
+    case 'coloring':
+      return item.key.startsWith('bk-')
+        ? `${item.title} 색칠도안 — ${item.section} | 탱고북`
+        : `${item.title} 색칠도안 무료 인쇄 · 온라인 색칠공부 | 탱고북`;
+    case 'hidden-object':
+      return `${item.title} 숨은그림찾기 도안 무료 인쇄 · 온라인 게임 | 탱고북`;
+    case 'hangul':
+      return `${item.title} 한글 학습지 무료 인쇄 | 탱고북`;
+    case 'english':
+      return `${item.title} 영어 파닉스 학습지 무료 인쇄 | 탱고북`;
+  }
+}
+
 /** 세그먼트(디코드된 값) → 항목. `canonical=false` 면 정규 주소(`item.path`)로 301/replace. */
 export function findActivity(
   kind: ActivityKind,
