@@ -373,7 +373,7 @@ export function Sidebar() {
       list = list.filter((s) => s.title.toLowerCase().includes(q));
     }
 
-    // Sort — typeFilter 별 디폴트 (phonics='title', storybook='latest').
+    // Sort — typeFilter 별 디폴트 (둘 다 'title').
     // vocabulary 는 별도 컴포넌트(VocabularyUnitSidebarList) 라 여기 안 옴.
     const sortKey: 'storybook' | 'phonics' =
       typeFilter === 'phonics-ko' || typeFilter === 'phonics-en' ? 'phonics' : 'storybook';

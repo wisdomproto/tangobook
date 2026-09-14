@@ -63,7 +63,7 @@ interface EditorStore {
   sidebarSort: 'latest' | 'title';
   /**
    * typeFilter 별 정렬. 파닉스 탭은 unit 번호 순서 (제목순) 가 학습 흐름에 자연스러워 디폴트 'title'.
-   * 동화책/어휘는 새 작업이 위에 오게 'latest'.
+   * 동화책은 제목순(같은 작품의 그림체 책이 나란히), 어휘는 새 작업이 위에 오게 'latest'.
    * key 매핑: 'storybook' / 'phonics-ko'+'phonics-en' = 'phonics' (둘이 한 정렬 공유) / 'vocabulary'.
    */
   sidebarSortByType: Record<'storybook' | 'phonics' | 'vocabulary', 'latest' | 'title'>;
@@ -121,7 +121,9 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   setSidebarVisibility: (v) => set({ sidebarVisibility: v }),
   sidebarSort: 'latest',
   sidebarSortByType: {
-    storybook: 'latest',
+    // 🔴 동화책도 제목순이 기본(2026-09-14) — 명작을 그림체별로 쪼갠 뒤 새 책 96권이 최신순 맨 위를 덮어
+    //    원래 책들이 목록에서 안 보였다. 제목순이면 「신데렐라」·「신데렐라_그림체1」이 나란히 선다.
+    storybook: 'title',
     phonics: 'title',
     vocabulary: 'latest',
   },
