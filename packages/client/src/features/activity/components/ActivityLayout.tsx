@@ -43,7 +43,9 @@ export function ActivityLayout({
       <div className="print:hidden">
         <PublicNav />
       </div>
-      <main className="min-h-screen bg-cream-50 px-4 py-4 sm:px-6 md:px-8">
+      <main className="min-h-screen bg-cream-50 px-4 py-4 sm:px-6 md:px-8 print:min-h-0 print:bg-white print:p-0">
+        {/* 🔴 인쇄는 A4 한 장 — 종이·여백을 고정해야 그림 높이(mm) 상한이 넘치지 않는다. */}
+        <style>{'@media print { @page { size: A4 portrait; margin: 10mm } }'}</style>
         <div className="mx-auto max-w-6xl">
           <div className="mb-4 flex gap-2 overflow-x-auto print:hidden">
             {ACTIVITY_KINDS.map((k) => (

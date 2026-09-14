@@ -57,7 +57,7 @@ export function HiddenObjectPanel({
         <img
           src={entry.sceneImageUrl}
           alt={`${item.title} 숨은그림찾기`}
-          className="mx-auto max-h-[62vh] w-auto print:max-h-[200mm]"
+          className="mx-auto max-h-[62vh] w-auto print:max-h-[190mm]"
         />
         <figcaption className="mt-3">
           <p className="mb-2 font-bold">찾을 것 {entry.words.length}가지</p>

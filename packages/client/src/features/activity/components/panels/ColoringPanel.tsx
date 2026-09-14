@@ -46,7 +46,7 @@ export function ColoringPanel({
         <img
           src={entry.lineartUrl}
           alt={`${item.title} 색칠도안`}
-          className="mx-auto max-h-[70vh] w-auto print:max-h-[250mm]"
+          className="mx-auto max-h-[70vh] w-auto print:max-h-[235mm]"
         />
         <figcaption className="mt-2 text-center font-display text-2xl font-extrabold">
           {item.title}
