@@ -255,7 +255,7 @@ const STYLE = `<style>
   .syls { --lg: 16mm; --lgf: 24pt; }
   .sq.lg { width: var(--lg); height: var(--lg); }
   /* 큰 칸은 「많이」가 아니라 「크게·천천히」 연습용. ⚠️ 56pt 면 칸의 35%뿐이라 구석에 붙어 보인다. */
-  .sq.xl { width: 57mm; height: 57mm; border: .6mm solid var(--coral-200); }
+  .sq.xl { width: var(--xl, 57mm); height: var(--xl, 57mm); border: .6mm solid var(--coral-200); }
   .sq::before, .sq::after { content: ''; position: absolute;
     background: repeating-linear-gradient(to right, var(--peach-200) 0 1.1mm, transparent 1.1mm 2.2mm); }
   .sq::before { left: 6%; right: 6%; height: .25mm; top: 50%; }
@@ -379,12 +379,18 @@ const STYLE = `<style>
  *    그다음, 이어지는 쪽이 가장 넓다. 넉넉히 잡지 말 것 — 넘치면 잘려서 사라진다.
  */
 const ROOM = { page1: 110, firstCombo: 176, more: 205 };
-function syllableBlock(rows, room = ROOM.more, wd = false) {
+/**
+ * 🔴 한글은 「크게 써 봐요」를 **두 줄**로 쓴다(2026-09-15 사용자). 1쪽에 조합 줄(`page1Rows`)까지 있는
+ * 받침 단원은 57mm 두 줄이면 215px 넘쳤다 — 그 경우만 큰 칸을 36mm 로, 조합 줄 칸 하한을 17mm 로 낮춰 덜어낸다.
+ */
+const xlMm = (spec) => (!spec.en && spec.page1Rows ? 36 : 57);
+const xlExtra = (spec) => (spec.en ? 0 : 2 * (xlMm(spec) + 2.5) - (57 + 2.5));
+function syllableBlock(rows, room = ROOM.more, wd = false, minMm = 20) {
   // 🔴 낱말 칸은 상한이 낮다 — 20mm 를 넘으면 칸 폭(2.3배)이 커져 빈 칸이 3개 밑으로 떨어진다.
   // 🔴 라벨(왼쪽 수식)을 뺀 만큼 칸을 키운다(2026-08-19 사용자: "각 칸을 좀 키워서 꽉 채워").
   //    전엔 16mm 짜리 라벨이 폭을 먹어 칸이 26mm 에서 멈췄다. 낱말 칸 상한은 그대로 - 그쪽은
   //    칸 폭이 높이의 2.3배라 세로가 아니라 **가로가 먼저 찬다**.
-  const [lo, hi] = wd ? [14, 20] : [20, 34];
+  const [lo, hi] = wd ? [14, 20] : [minMm, 34];
   const mm = Math.max(lo, Math.min(hi, Math.floor(room / rows.length - 2.4)));
   // 🔴 칸이 상한에 걸리면 남는 세로가 그대로 빈다(실측: 8줄짜리 낱말표가 26% 빔).
   //    칸을 더 키우면 가로가 먼저 차니, 남는 만큼 **줄 사이**로 흘려보낸다.
@@ -761,13 +767,16 @@ function renderPages({ head, spec, words }) {
             //    칸 크기도 전체 개수가 아니라 **한 줄 개수**로 잡아야 커진다(10개 기준 22mm → 32mm).
             const PER = 5;
             const per = Math.min(PER, spec.xlGhosts.length);
-            const md = Math.max(22, Math.min(33, Math.floor(178 / per) - 3));
+            // 두 번 쓰면 줄이 둘 늘어 한 줄에 1mm 씩 덜어낸다(기본모음 단원이 1px 넘쳤다).
+            const md = Math.max(22, Math.min(spec.en ? 33 : 31, Math.floor(178 / per) - 3));
             const len = Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length));
             // 글자 수가 늘면 폭이 먼저 찬다 — 0.64 배는 한 글자짜리 기준이다.
             const mdf = Math.min(md * 0.64, (md * 0.86) / (0.57 * len));
             const lines = [];
             for (let i = 0; i < spec.xlGhosts.length; i += PER) lines.push(spec.xlGhosts.slice(i, i + PER));
+            // 🔴 한글은 **한 줄을 두 번** 쓴다(2026-09-15 사용자) — 한 번 쓰고 넘어가면 손에 안 붙는다.
             return lines
+              .flatMap((ln) => Array(spec.en ? 1 : 2).fill(ln))
               .map(
                 (ln) =>
                   `<div class="row" style="--md:${md}mm;--mdf:${mdf.toFixed(1)}mm">${ln
@@ -778,12 +787,12 @@ function renderPages({ head, spec, words }) {
           })()
         // 🔴 자음은 1칸 본보기 + 2칸 연습이지만, 모음 단원에서 3칸을 고집하면 마지막 칸이
         //    「ㅐ 를 쓰라는 건지 ㅔ 를 쓰라는 건지」 모를 빈칸이 된다 → 모음 수만큼만 놓는다.
-        : `<div class="row" style="--xlf:${Math.min(
+        : `<div class="row" style="--xl:${xlMm(spec)}mm;--xlf:${Math.floor((Math.min(
             105,
             Math.floor(255 / Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length)))
-          )}pt">${Array.from({ length: spec.xlCycle ? spec.xlGhosts.length : 3 }, (_, i) =>
+          ) * xlMm(spec)) / 57)}pt">${Array.from({ length: spec.xlCycle ? spec.xlGhosts.length : 3 }, (_, i) =>
             box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : '') + (spec.en ? ' en' : ''))
-          ).join('')}</div>`
+          ).join('')}</div>`.repeat(spec.en ? 1 : 2)
     }</div>
   </section>
 
@@ -791,7 +800,7 @@ function renderPages({ head, spec, words }) {
     <h2 data-n="3">${spec.page1Title ?? `이제 작게 써요 ${spec.writeHint ? `<span class="hint">${spec.writeHint}</span>` : ''}`}</h2>
     ${
       spec.page1Rows
-        ? syllableBlock(spec.page1Rows, ROOM.page1, spec.wordy)
+        ? syllableBlock(spec.page1Rows, ROOM.page1 - xlExtra(spec), spec.wordy, spec.en ? 20 : 17)
         : Array.from(
             { length: 3 },
             (_, r) =>
