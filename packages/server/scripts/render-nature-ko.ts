@@ -81,7 +81,8 @@ async function main() {
       for (const r of (data ?? []) as Array<{ video_url: string | null; video_settings: any }>) {
         const vs = r.video_settings;
         if (vs?.bookId && vs?.artStyle && vs?.language && r.video_url) {
-          done.add(`${vs.bookId}|${vs.artStyle}|${vs.language}`);
+          // 한 책 = 한 그림체 — 그림체 id 가 바뀌어도(2026-09-14 정리) 같은 책·언어면 이미 렌더한 것이다.
+          done.add(`${vs.bookId}|${vs.language}`);
         }
       }
     }
@@ -103,7 +104,7 @@ async function main() {
       skipped.push(book?.title ?? bookId);
       continue;
     }
-    if (done.has(`${bookId}|${styleId}|${LANG}`)) continue;
+    if (done.has(`${bookId}|${LANG}`)) continue;
     combos.push({ bookId, styleId, title: book.title ?? bookId });
   }
 

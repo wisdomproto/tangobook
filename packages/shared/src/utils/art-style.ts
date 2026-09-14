@@ -1,4 +1,5 @@
 import { ART_STYLES } from '../constants/index.js';
+import type { LearnerStyleGenre, SavedArtStyle } from '../types/storybook.js';
 
 /**
  * 그림체 raw 문자열 (ART_STYLES.id 또는 prompt 전체) → canonical id 로 정규화.
@@ -43,4 +44,29 @@ export function getArtStyleLabel(raw: string): string {
   if (!raw) return raw;
   const id = canonicalizeArtStyle(raw);
   return ART_STYLES.find((s) => s.id === id)?.label ?? raw;
+}
+
+/** 라이브러리에서 그 그림체 항목 — id 또는 합쳐진 옛 id(`aliases`)로 찾는다. */
+export function findLibraryStyle(
+  library: SavedArtStyle[] | undefined,
+  styleId: string | undefined
+): SavedArtStyle | undefined {
+  if (!library || !styleId) return undefined;
+  return library.find((s) => s.id === styleId) ?? library.find((s) => s.aliases?.includes(styleId));
+}
+
+/**
+ * 그림체 id(옛 id 포함) → 학습자 갈래. 🔴 따로 두던 `_index/style-genre-map.json` 표를 대신한다(2026-09-14)
+ * — 갈래는 이제 라이브러리 항목의 한 칸이다.
+ */
+export function styleGenreMapOf(
+  library: SavedArtStyle[] | undefined
+): Record<string, LearnerStyleGenre> {
+  const out: Record<string, LearnerStyleGenre> = {};
+  for (const s of library ?? []) {
+    if (!s.genre) continue;
+    out[s.id] = s.genre;
+    for (const a of s.aliases ?? []) out[a] = s.genre;
+  }
+  return out;
 }

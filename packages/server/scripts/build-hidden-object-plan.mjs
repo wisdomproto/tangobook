@@ -378,12 +378,17 @@ function pickPageIllustration(styleAsset) {
   return pages[Math.floor(pages.length / 2)][1];
 }
 
+// 갈래는 라이브러리 항목(`genre` · 합쳐진 옛 id `aliases`)에서 읽는다(2026-09-14 — 따로 두던 표를 없앴다).
 const genreOf = await axios
-  .get('https://www.tangobook.co.kr/api/style-genre-map', { timeout: 10000 })
-  .then((r) => r.data?.data ?? {})
+  .get('https://www.tangobook.co.kr/api/art-style-library', { timeout: 10000 })
+  .then((r) =>
+    Object.fromEntries(
+      (r.data?.data ?? []).filter((st) => st.genre).flatMap((st) => [st.id, ...(st.aliases ?? [])].map((id) => [id, st.genre]))
+    )
+  )
   .catch(() => ({}));
 if (!Object.keys(genreOf).length) {
-  console.error('style-genre-map 을 못 읽었다 — 그림체를 장르로 묶을 수 없어 중단한다.');
+  console.error('그림체 라이브러리를 못 읽었다 — 그림체를 갈래로 묶을 수 없어 중단한다.');
   process.exit(1);
 }
 

@@ -1,11 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { ART_STYLES } from '@tangobook/shared';
 import type { Storybook } from '@tangobook/shared';
 import { settingsApi } from '../api/settings.api';
 import type { BgmItem } from '../api/settings.api';
 import { PhonicsAudioLibrary } from './PhonicsAudioLibrary';
 import { SystemSoundsLibrary } from './SystemSoundsLibrary';
 import { ArtStyleLibraryModal } from './ArtStyleLibraryModal';
+import { ArtStyleSelect } from '@/features/editor/components/ArtStyleSelect';
+import { applyArtStyle } from '@/features/editor/lib/style-assets';
 
 interface SettingsTabProps {
   storybook: Storybook;
@@ -14,11 +15,6 @@ interface SettingsTabProps {
 }
 
 export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
-  // Art style state
-  const [useCustom, setUseCustom] = useState(
-    () => !ART_STYLES.some((s) => s.prompt === storybook.artStyle)
-  );
-  const [customStyle, setCustomStyle] = useState(storybook.artStyle);
   const [extractedStyle, setExtractedStyle] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [dragOver, setDragOver] = useState(false);
@@ -64,37 +60,10 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
     }
   };
 
-  const handleApplyFromLibrary = (prompt: string) => {
-    setCustomStyle(prompt);
-    setUseCustom(true);
-    onUpdate((d) => {
-      d.artStyle = prompt;
-    });
+  const handleApplyFromLibrary = (styleId: string) => {
+    onUpdate((d) => applyArtStyle(d, styleId));
     onSave();
     setShowStyleLibrary(false);
-  };
-
-  // --- Art Style ---
-  const handlePresetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const val = e.target.value;
-    if (val === '__custom__') {
-      setUseCustom(true);
-      return;
-    }
-    setUseCustom(false);
-    const prompt = ART_STYLES.find((s) => s.id === val)?.prompt ?? val;
-    onUpdate((d) => {
-      d.artStyle = prompt;
-    });
-    onSave();
-  };
-
-  const handleCustomApply = () => {
-    if (!customStyle.trim()) return;
-    onUpdate((d) => {
-      d.artStyle = customStyle.trim();
-    });
-    onSave();
   };
 
   const handleAnalyzeFile = useCallback(async (file: File) => {
@@ -120,16 +89,6 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
     },
     [handleAnalyzeFile]
   );
-
-  const handleApplyExtracted = () => {
-    if (!extractedStyle) return;
-    setCustomStyle(extractedStyle);
-    setUseCustom(true);
-    onUpdate((d) => {
-      d.artStyle = extractedStyle;
-    });
-    onSave();
-  };
 
   // --- BGM ---
   const handleBgmUrlApply = () => {
@@ -257,11 +216,7 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
 
   const isPhonics = storybook.type === 'phonics';
 
-  const currentPresetId =
-    ART_STYLES.find((s) => s.prompt === storybook.artStyle)?.id ?? '__custom__';
   const labelClass = 'text-sm font-semibold text-slate-700 dark:text-slate-200';
-  const selectClass =
-    'text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100';
 
   return (
     <div className="space-y-8 max-w-2xl">
@@ -269,64 +224,23 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
       <section className="space-y-4">
         <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">그림체</h3>
 
-        <div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">현재 그림체</p>
-          <p className="text-sm text-violet-600 font-medium bg-violet-50 dark:bg-violet-900/30 px-3 py-2 rounded-lg">
-            {storybook.artStyle}
-          </p>
-          <div className="flex gap-2 mt-2">
-            <button
-              onClick={() => handleSaveToStyleLibrary(storybook.artStyle)}
-              disabled={savingStyle}
-              className="px-3 py-1.5 text-xs font-medium border border-violet-200 dark:border-violet-700 text-violet-600 dark:text-violet-400 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-900/30 transition-colors disabled:opacity-50"
-            >
-              {savingStyle ? '저장 중...' : '라이브러리에 저장'}
-            </button>
-            <button
-              onClick={() => setShowStyleLibrary(true)}
-              className="px-3 py-1.5 text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-            >
-              라이브러리
-            </button>
-          </div>
-        </div>
-
-        {/* 프리셋 or 커스텀 */}
-        <div className="space-y-3">
-          <label className={labelClass}>프리셋 선택</label>
-          <select
-            value={useCustom ? '__custom__' : currentPresetId}
-            onChange={handlePresetChange}
-            className={`${selectClass} w-full`}
+        {/* 🔴 그림체는 라이브러리 안에서만 고른다(2026-09-14). 새 그림체는 라이브러리에 먼저 추가한다. */}
+        <div className="flex items-center gap-2">
+          <ArtStyleSelect
+            storybook={storybook}
+            onUpdate={onUpdate}
+            onSave={onSave}
+            className="flex-1 py-2 text-sm"
+          />
+          <button
+            onClick={() => setShowStyleLibrary(true)}
+            className="px-3 py-2 text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
           >
-            {ART_STYLES.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.label} ({s.prompt})
-              </option>
-            ))}
-            <option value="__custom__">직접 입력</option>
-          </select>
-
-          {useCustom && (
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={customStyle}
-                onChange={(e) => setCustomStyle(e.target.value)}
-                placeholder="Art style prompt (영문)"
-                className="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-              />
-              <button
-                onClick={handleCustomApply}
-                className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg transition-colors shrink-0"
-              >
-                적용
-              </button>
-            </div>
-          )}
+            라이브러리
+          </button>
         </div>
 
-        {/* 이미지 드래그앤드랍 스타일 분석 */}
+        {/* 이미지 드래그앤드랍 스타일 분석 — 뽑은 프롬프트는 라이브러리에 새 그림체로 저장한다 */}
         <div className="space-y-3">
           <label className={labelClass}>참고 이미지로 스타일 추출</label>
           <div
@@ -389,12 +303,6 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
               <p className="text-xs text-slate-400 dark:text-slate-500">추출된 스타일 프롬프트:</p>
               <p className="text-sm text-slate-700 dark:text-slate-200">{extractedStyle}</p>
               <div className="flex gap-2">
-                <button
-                  onClick={handleApplyExtracted}
-                  className="px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-xs rounded-lg transition-colors"
-                >
-                  이 스타일 적용
-                </button>
                 <button
                   onClick={() => handleSaveToStyleLibrary(extractedStyle)}
                   disabled={savingStyle}
@@ -657,7 +565,7 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
       {/* 그림체 라이브러리 모달 */}
       {showStyleLibrary && (
         <ArtStyleLibraryModal
-          currentPrompt={storybook.artStyle}
+          currentStyleId={storybook.artStyle}
           onApply={handleApplyFromLibrary}
           onClose={() => setShowStyleLibrary(false)}
         />

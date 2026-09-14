@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { config } from '../../config/index.js';
+import { styleGenreMapOf, type SavedArtStyle } from '@tangobook/shared';
 
 // src/services/reel → ../../../scripts = packages/server/scripts
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -47,13 +48,16 @@ export function loadReelCaptions(id: string): string[] | undefined {
 
 let _genreMap: Record<string, string> | null = null;
 
-/** styleId → genre 매핑 (R2 _index/style-genre-map.json). 모듈 캐시. */
+/**
+ * styleId(옛 id 포함) → 학습자 갈래(watercolor·paper3d·collage). 모듈 캐시.
+ * 🔴 예전엔 `_index/style-genre-map.json` 표였다 — 이제 라이브러리 항목의 `genre`·`aliases` 에서 만든다(2026-09-14).
+ */
 export async function loadGenreMap(): Promise<Record<string, string>> {
   if (_genreMap) return _genreMap;
-  const url = encodeURI(`${config.r2.publicUrl}/_index/style-genre-map.json`);
+  const url = encodeURI(`${config.r2.publicUrl}/art-style-library.json?t=${Date.now()}`);
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`style-genre-map fetch 실패: HTTP ${res.status}`);
-  _genreMap = (await res.json()) as Record<string, string>;
+  if (!res.ok) throw new Error(`art-style-library fetch 실패: HTTP ${res.status}`);
+  _genreMap = styleGenreMapOf((await res.json()) as SavedArtStyle[]);
   return _genreMap;
 }
 

@@ -5,6 +5,7 @@ import { config } from './config/index.js';
 import { prewarmStorybookListCache } from './repositories/r2.repository.js';
 import { prewarmPhonicsLibraryCache } from './services/phonics-library.service.js';
 import { startPublishScheduler } from './services/mkt/publish-scheduler.service.js';
+import { ArtStyleLibraryService } from './services/art-style-library.service.js';
 
 const app = createApp();
 
@@ -16,6 +17,8 @@ app.listen(config.port, () => {
   // 첫 사용자 요청 전에 캐시 prewarm (fire-and-forget)
   prewarmStorybookListCache();
   prewarmPhonicsLibraryCache();
+  // 그림 생성 프롬프트가 그림체 id → 프롬프트를 동기로 찾는다(artStylePromptOf).
+  ArtStyleLibraryService.list().catch(() => {});
   // 마케팅 발행 스케줄러 (self_hosted 예약 flip + deploy webhook). admin client 없으면 no-op.
   startPublishScheduler(); // no-op when SUPABASE_SERVICE_ROLE_KEY unset
 });

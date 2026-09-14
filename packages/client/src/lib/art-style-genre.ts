@@ -1,22 +1,22 @@
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { settingsApi } from '@/features/settings/api/settings.api';
-import { apiGet, apiPut } from '@/lib/axios';
+import { styleGenreMapOf, findLibraryStyle, type LearnerStyleGenre } from '@tangobook/shared';
 
 /**
  * 학습자/부모/게임 화면에 노출하는 그림체 장르명.
  *
  * 정책: 실제 스튜디오/작가명(지브리·에릭칼 등)은 노출하지 않고 **장르명**만 표시한다.
- * 원본 데이터가 지저분해(고아 style id 등) 자동 분류가 어려우므로, /editor2 에서
- * **styleId → 장르**를 수동 지정(R2 `_index/style-genre-map.json`)한 값을 최우선으로 쓴다.
- * 지정이 없으면 프롬프트 자동 분류 → 그래도 없으면 "그림체 N".
+ * 🔴 갈래는 그림체 라이브러리 항목의 `genre` 한 칸이다(2026-09-14 — 따로 두던 `_index/style-genre-map.json`
+ *    표를 없앴다. 명작 그림체를 셋으로 합치자 표가 그림체와 1:1 이 됐다). 합쳐진 옛 id 는 `aliases` 로 읽는다.
+ *    갈래가 없으면 "그림체 N".
  */
 export const STYLE_GENRES = [
   { slug: 'watercolor', label: '수채동화풍' },
   { slug: 'paper3d', label: '페이퍼 3D 아트' },
   { slug: 'collage', label: '콜라주' },
 ] as const;
-export type StyleGenreSlug = (typeof STYLE_GENRES)[number]['slug'];
+export type StyleGenreSlug = LearnerStyleGenre;
 const SLUG_LABEL: Record<string, string> = Object.fromEntries(
   STYLE_GENRES.map((g) => [g.slug, g.label])
 );
@@ -61,78 +61,33 @@ export function useGenreLabel(): (koLabel: string) => string {
   return (koLabel: string) => genreLabel(koLabel, i18n.language);
 }
 
-/** 프롬프트/ID 기반 자동 분류 (수동 지정이 없을 때의 폴백). */
-export function classifyGenre(prompt: string | undefined, id?: string): GenreLabel | null {
-  const p = (prompt ?? '').toLowerCase();
-  const has = (kw: string[]) => kw.some((k) => p.includes(k));
-  if (id === 'collage' || has(['collage', '콜라주', '에릭', 'eric carle', 'torn'])) return '콜라주';
-  if (
-    id === 'paper-craft' ||
-    has(['paper craft', 'papercraft', '종이공예', '종이', 'cut paper', 'layered', '입체'])
-  )
-    return '페이퍼 3D 아트';
-  if (id === 'watercolor' || has(['watercolor', '수채', '지브리', 'ghibli'])) return '수채동화풍';
-  return null;
-}
+const LIBRARY_KEY = ['art-style-library'] as const;
 
-const MAP_KEY = ['style-genre-map'] as const;
-type StyleGenreMap = Record<string, string>;
-
-/** 전역 styleId → 장르 슬러그 맵 (R2). editor2 지정 결과. */
-export function useStyleGenreMap() {
-  const qc = useQueryClient();
+function useLibrary() {
   const { data } = useQuery({
-    queryKey: MAP_KEY,
-    queryFn: () => apiGet<StyleGenreMap>('/style-genre-map'),
+    queryKey: LIBRARY_KEY,
+    queryFn: () => settingsApi.getArtStyleLibrary(),
     staleTime: 60 * 60 * 1000,
   });
-  const map = data ?? {};
-
-  const mutation = useMutation({
-    mutationFn: (next: StyleGenreMap) => apiPut<StyleGenreMap>('/style-genre-map', next),
-    onSuccess: (saved) => qc.setQueryData(MAP_KEY, saved),
-  });
-
-  /** 한 styleId 의 장르를 지정/해제하고 저장. slug=null 이면 지정 해제. */
-  const setGenre = (styleId: string, slug: StyleGenreSlug | null) => {
-    const next: StyleGenreMap = { ...map };
-    if (slug) next[styleId] = slug;
-    else delete next[styleId];
-    mutation.mutate(next);
-  };
-
-  return { map, setGenre, saving: mutation.isPending };
+  return data;
 }
 
-/**
- * (styleId, fallbackIndex) → 학습자용 라벨.
- * 1) editor2 수동 지정(style-genre-map) 2) art-style-library 프롬프트 자동 분류 3) "그림체 N".
- */
+/** styleId(옛 id 포함) → 갈래 슬러그 — 그림체 라이브러리에서 만든다. */
+export function useStyleGenreMap(): { map: Record<string, StyleGenreSlug> } {
+  const library = useLibrary();
+  return { map: styleGenreMapOf(library) };
+}
+
+/** (styleId, fallbackIndex) → 학습자용 라벨. 라이브러리 갈래 → 없으면 "그림체 N". */
 export function useStyleGenreLabel(): (
   styleId: string | undefined,
   fallbackIndex: number
 ) => string {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const { data: mapData } = useQuery({
-    queryKey: MAP_KEY,
-    queryFn: () => apiGet<StyleGenreMap>('/style-genre-map'),
-    staleTime: 60 * 60 * 1000,
-  });
-  const { data: libData } = useQuery({
-    queryKey: ['art-style-library'],
-    queryFn: () => settingsApi.getArtStyleLibrary(),
-    staleTime: 60 * 60 * 1000,
-  });
-  const map = mapData ?? {};
-  const byId = new Map((libData ?? []).map((s) => [s.id, s]));
+  const library = useLibrary();
   return (styleId, fallbackIndex) => {
-    const fallback = genreFallback(fallbackIndex, lang);
-    if (!styleId) return fallback;
-    const manual = map[styleId];
-    // 라벨은 항상 UI 언어로 번역해서 반환 (수채동화풍 → Màu nước 등).
-    if (manual && SLUG_LABEL[manual]) return genreLabel(SLUG_LABEL[manual], lang);
-    const classified = classifyGenre(byId.get(styleId)?.prompt, styleId);
-    return classified ? genreLabel(classified, lang) : fallback;
+    const genre = findLibraryStyle(library, styleId)?.genre;
+    return genre ? genreLabel(SLUG_LABEL[genre], lang) : genreFallback(fallbackIndex, lang);
   };
 }

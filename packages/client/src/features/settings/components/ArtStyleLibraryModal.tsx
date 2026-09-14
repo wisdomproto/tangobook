@@ -4,13 +4,13 @@ import { settingsApi } from '../api/settings.api';
 import type { SavedArtStyle } from '@tangobook/shared';
 
 interface ArtStyleLibraryModalProps {
-  currentPrompt: string;
-  onApply: (prompt: string) => void;
+  currentStyleId: string;
+  onApply: (styleId: string) => void;
   onClose: () => void;
 }
 
 export function ArtStyleLibraryModal({
-  currentPrompt,
+  currentStyleId,
   onApply,
   onClose,
 }: ArtStyleLibraryModalProps) {
@@ -107,7 +107,7 @@ export function ArtStyleLibraryModal({
           ) : (
             <div className="space-y-3">
               {library.map((style) => {
-                const isActive = style.prompt === currentPrompt;
+                const isActive = style.id === currentStyleId;
                 return (
                   <div
                     key={style.id}
@@ -170,7 +170,7 @@ export function ArtStyleLibraryModal({
                               사용 중
                             </span>
                           ) : (
-                            <Button size="sm" onClick={() => onApply(style.prompt)}>
+                            <Button size="sm" onClick={() => onApply(style.id)}>
                               적용
                             </Button>
                           )}

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import {
   STYLE_GENRES,
-  classifyGenre,
   genreLabel,
   useStyleGenreMap,
   type StyleGenreSlug,
@@ -83,8 +82,7 @@ export default function ContinuousBuilder() {
     const b = (books ?? []).find((x) => x.id === id);
     if (!b) return {};
     const slug = b.artStyle ? styleGenreMap[b.artStyle] : undefined;
-    const genre =
-      (slug && GENRE_SLUG_LABEL[slug]) || classifyGenre(b.artStyle, b.artStyle) || undefined;
+    const genre = (slug && GENRE_SLUG_LABEL[slug]) || undefined;
     return { cover: b.coverImage, genre };
   };
 

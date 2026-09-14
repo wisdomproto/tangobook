@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useStorybook, useSaveStorybook } from '@/features/storybook';
 import { Spinner } from '@/components/Spinner';
@@ -14,7 +14,7 @@ import { findArtStylePreset } from '@/features/editor/lib/style-assets';
 import { syncBookPublicAfterCellToggle } from '@/features/library/lib/public-sync';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { StyleLibraryEditModal } from '@/features/settings/components/StyleLibraryEditModal';
-import { useStyleGenreMap, STYLE_GENRES, type StyleGenreSlug } from '@/lib/art-style-genre';
+import { ArtStyleSelect } from './ArtStyleSelect';
 
 interface LevelInfo {
   label: string;
@@ -212,8 +212,6 @@ function CardBody({ storybookId }: { storybookId: string }) {
     staleTime: 60_000,
   });
   const [styleEditOpen, setStyleEditOpen] = useState(false);
-  // 학습자용 그림체 장르(수채동화풍/페이퍼3D/콜라주) 수동 지정 — styleId 전역 맵.
-  const { map: styleGenreMap, setGenre } = useStyleGenreMap();
 
   // 🔴 한 책 = 한 그림체(2026-09-14) — 이 책의 그림체 하나. 다른 그림체 버전은 책을 복사해 바꾼다.
   const styleId = storybook ? canonicalizeArtStyle(storybook.artStyle) || storybook.artStyle : '';
@@ -244,45 +242,14 @@ function CardBody({ storybookId }: { storybookId: string }) {
           >
             🎨 {findArtStylePreset(styleId, styleLibrary)?.label ?? '커스텀'}
           </span>
-          {/* 그림체 변경 — 이 책의 그림체 이름만 바꾼다(삽화는 다시 만들어야 한다). 같은 이야기의
+          {/* 그림체 변경 — 라이브러리 안에서만 고른다(삽화는 다시 만들어야 한다). 같은 이야기의
               다른 그림체 버전이 필요하면 책을 복사해 그 사본의 그림체를 바꾸고 그룹으로 묶는다. */}
-          {styleLibrary && styleLibrary.length > 0 && (
-            <select
-              value=""
-              onChange={(e) => {
-                const v = e.target.value;
-                e.target.value = '';
-                if (!v || v === styleId) return;
-                const picked = styleLibrary.find((st) => st.id === v);
-                if (!picked) return;
-                if (
-                  !window.confirm(
-                    `이 책의 그림체를 「${picked.name}」 로 바꿀까요?\n\n지금 삽화는 그대로 남고, 새 그림체 삽화는 다시 만들어야 합니다.`
-                  )
-                )
-                  return;
-                handleUpdate((d) => {
-                  const old = canonicalizeArtStyle(d.artStyle) || d.artStyle;
-                  d.artStyle = picked.id;
-                  // 공개 설정은 그림체 id 를 키로 들고 있다 — 새 id 로 옮겨야 비공개가 풀리지 않는다.
-                  if (d.publicByStyleLang?.[old]) {
-                    d.publicByStyleLang = { [picked.id]: d.publicByStyleLang[old] };
-                  }
-                });
-                handleSave();
-              }}
-              className="px-2 py-0.5 rounded text-[11px] font-bold border border-coral-300 text-coral-700 bg-white dark:bg-slate-800 dark:text-coral-300 dark:border-slate-600 cursor-pointer"
-              title="이 책의 그림체 변경"
-            >
-              <option value="">▼ 그림체 변경</option>
-              {styleLibrary.map((st) => (
-                <option key={st.id} value={st.id}>
-                  {st.name}
-                  {st.id === styleId ? ' ✓ 현재' : ''}
-                </option>
-              ))}
-            </select>
-          )}
+          <ArtStyleSelect
+            storybook={storybook}
+            onUpdate={handleUpdate}
+            onSave={handleSave}
+            className="py-0.5 text-[11px]"
+          />
           {/* 라인 맨 오른쪽 — ⚙️ 그림체 라이브러리 편집 */}
           <button
             onClick={() => setStyleEditOpen(true)}
@@ -291,49 +258,6 @@ function CardBody({ storybookId }: { storybookId: string }) {
           >
             ⚙️ 그림체 편집
           </button>
-        </div>
-      </div>
-
-      {/* 학습자 장르 지정 row — 각 그림체를 학습자에게 보여줄 장르(수채동화풍/페이퍼3D/콜라주)로 매핑.
-          전역 styleId→장르 맵에 저장돼 라이브러리 표지·책 상세·게임 라벨에 반영됨. */}
-      <div className="px-5 py-2 bg-amber-50/60 dark:bg-slate-800/40 border-b border-slate-200 dark:border-slate-700 text-xs">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-[10px] font-bold text-amber-700 uppercase mr-1">학습자 장르</span>
-          {[styleId].map((styleId) => {
-            const preset = findArtStylePreset(styleId, styleLibrary);
-            const label = preset?.label ?? '커스텀';
-            const current = styleGenreMap[styleId] ?? '';
-            return (
-              <label
-                key={styleId}
-                className="flex items-center gap-1 bg-white dark:bg-slate-800 rounded px-1.5 py-0.5 border border-slate-200 dark:border-slate-600"
-                title={styleId}
-              >
-                <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                  🎨 {label}
-                </span>
-                <select
-                  value={current}
-                  onChange={(e) =>
-                    setGenre(styleId, (e.target.value || null) as StyleGenreSlug | null)
-                  }
-                  className={cn(
-                    'text-[11px] font-bold rounded border px-1 py-0.5 cursor-pointer',
-                    current
-                      ? 'border-emerald-300 text-emerald-700 bg-emerald-50 dark:bg-slate-700 dark:text-emerald-300'
-                      : 'border-slate-300 text-slate-500 bg-white dark:bg-slate-800 dark:text-slate-400'
-                  )}
-                >
-                  <option value="">미지정</option>
-                  {STYLE_GENRES.map((g) => (
-                    <option key={g.slug} value={g.slug}>
-                      {g.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            );
-          })}
         </div>
       </div>
 

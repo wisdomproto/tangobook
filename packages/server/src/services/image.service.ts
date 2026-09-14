@@ -5,6 +5,7 @@ import { buildR2Key } from '../utils/r2-key.js';
 import { imageToWebp } from '../utils/transcode.js';
 import { uploadJsonToR2, deleteFromR2, urlToR2Key } from '../providers/r2.provider.js';
 import { AppError } from '../middleware/error.middleware.js';
+import { artStylePromptOf } from './art-style-library.service.js';
 import type {
   Character,
   Page,
@@ -720,7 +721,8 @@ function replaceNamesWithAliases(text: string, aliasMap: Map<string, string>): s
 
 // --- 공통 프롬프트 블록 ---
 
-function artStyleBlock(artStyle: string, lang: 'en' | 'ko' = 'en'): string {
+function artStyleBlock(rawStyle: string, lang: 'en' | 'ko' = 'en'): string {
+  const artStyle = artStylePromptOf(rawStyle);
   if (lang === 'ko') {
     return `*** 필수 아트 스타일 (반드시 따를 것) ***
 ${artStyle}

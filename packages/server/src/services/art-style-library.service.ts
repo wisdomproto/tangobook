@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { uploadJsonToR2, r2PublicUrl } from '../providers/r2.provider.js';
-import { ART_STYLES, type SavedArtStyle } from '@tangobook/shared';
+import { ART_STYLES, findLibraryStyle, type SavedArtStyle } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 
 const LIBRARY_KEY = 'art-style-library.json';
+/** 마지막으로 읽거나 쓴 라이브러리 — 프롬프트 조립(동기)이 id 를 프롬프트로 바꿀 때 쓴다. */
+let cached: SavedArtStyle[] | null = null;
 
 /** ART_STYLES preset 을 SavedArtStyle 형태로 변환 — id 보존 (canonicalize 매칭 유지) */
 function seedFromPresets(): SavedArtStyle[] {
@@ -39,11 +41,25 @@ async function getLibrary(): Promise<SavedArtStyle[]> {
     await saveLibrary(seeded);
     return seeded;
   }
+  cached = existing;
   return existing;
 }
 
 async function saveLibrary(library: SavedArtStyle[]): Promise<void> {
   await uploadJsonToR2(library, LIBRARY_KEY);
+  cached = library;
+}
+
+/**
+ * 책의 그림체 값 → 그림 생성에 넣을 프롬프트. 🔴 책에는 그림체 **id**(`needlefelt`·`bung`)가 적혀 있어서,
+ * 그대로 넣으면 모델이 id 글자를 스타일로 받는다. 라이브러리에 없으면(옛 프롬프트 문자열 등) 그대로 둔다.
+ */
+export function artStylePromptOf(artStyle: string): string {
+  return (
+    findLibraryStyle(cached ?? undefined, artStyle)?.prompt ??
+    ART_STYLES.find((s) => s.id === artStyle)?.prompt ??
+    artStyle
+  );
 }
 
 export const ArtStyleLibraryService = {

@@ -749,12 +749,22 @@ export interface SavedCharacter extends Character {
   createdAt: string;
 }
 
+/** 학습자에게 보이는 명작 그림체 갈래 — 라이브러리 드롭다운·리포트가 이 셋으로 묶는다. */
+export type LearnerStyleGenre = 'watercolor' | 'paper3d' | 'collage';
+
 export interface SavedArtStyle {
   id: string;
   createdAt: string;
   name: string;
   prompt: string;
   referenceImageUrl?: string;
+  /**
+   * 학습자용 갈래. 🔴 따로 두던 표(`_index/style-genre-map.json`)를 없애고 그림체 항목 한 칸으로 옮겼다(2026-09-14)
+   * — 명작 그림체를 셋으로 합치자 표가 그림체와 1:1 이 됐다.
+   */
+  genre?: LearnerStyleGenre;
+  /** 이 그림체로 합쳐진 예전 id — 학습 기록·유튜브 행·작업판에 남은 옛 id 를 이 그림체로 읽는다. */
+  aliases?: string[];
 }
 
 export interface SceneStructure {

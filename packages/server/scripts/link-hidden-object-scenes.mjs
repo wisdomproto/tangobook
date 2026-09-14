@@ -61,7 +61,15 @@ const cells = plan.sections
 const groups = await getJsonByKey('_index/book-groups.json').then((d) => d.groups ?? []).catch(() => []);
 // 🔴 작업판을 만든 뒤 쪼갤 때 **다른 그림체 id 를 고른 책이 있다**(콜라주가 둘 — 아기 돼지 삼형제·잭과 콩나무·빨간모자).
 //    id 로 못 찾으면 장르(수채·페이퍼 3D·콜라주)로 찾는다. 그래도 없으면 원본에 남는다.
-const genreOf = await fetch(`${ORIGIN}/api/style-genre-map`).then((r) => r.json()).then((j) => j.data ?? {}).catch(() => ({}));
+// 갈래는 라이브러리 항목(`genre` · 합쳐진 옛 id `aliases`)에서 읽는다.
+const genreOf = await fetch(`${ORIGIN}/api/art-style-library`)
+  .then((r) => r.json())
+  .then((j) =>
+    Object.fromEntries(
+      (j.data ?? []).filter((st) => st.genre).flatMap((st) => [st.id, ...(st.aliases ?? [])].map((id) => [id, st.genre]))
+    )
+  )
+  .catch(() => ({}));
 const splitTarget = new Map(); // `${원본id}|${styleId}` · `${원본id}|genre:${장르}` → 쪼갠 책 id
 for (const bookId of new Set(cells.map((c) => c.bookId))) {
   const g = groups.find((x) => x.kind === 'style' && x.bookIds.includes(bookId));
