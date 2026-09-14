@@ -4,6 +4,9 @@ import type { ReactNode } from 'react';
 export const BTN =
   'inline-flex min-h-[44px] items-center rounded-full px-4 text-sm font-extrabold shadow-sm print:hidden';
 
+/** 페이지 안 놀이 상자의 높이 — `EmbedStage` 가 뷰포트 기준으로 그린 뒤 상자 폭에 맞춰 줄인다. */
+export const INLINE_STAGE_HEIGHT = '88dvh';
+
 export function PanelHeader({
   title,
   onPlay,
