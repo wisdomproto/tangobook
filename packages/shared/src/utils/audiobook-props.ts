@@ -1,5 +1,5 @@
-import type { Storybook, AudiobookProject } from '../types/storybook';
-import { stripStyleSuffix } from './book-groups';
+import type { Storybook, AudiobookProject } from '../types/storybook.js';
+import { stripStyleSuffix } from './book-groups.js';
 
 export type AudiobookSlideData = {
   imageUrl: string;
