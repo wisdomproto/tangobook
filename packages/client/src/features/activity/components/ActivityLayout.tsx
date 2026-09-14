@@ -1,0 +1,96 @@
+import { useState, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import {
+  ACTIVITY_KINDS,
+  ACTIVITY_KIND_LABEL,
+  type ActivityItem,
+  type ActivityKind,
+} from '@tangobook/shared';
+import { PublicNav } from '@/components/PublicNav';
+import { cn } from '@/lib/cn';
+import { ActivityList } from './ActivityList';
+
+/** 종류 탭 링크 — 워크지는 첫 단원, 색칠·숨은그림은 `summary.json` 의 첫 키(정규 slug 는 페이지가 replace 한다). */
+function useFirstPaths(): Record<ActivityKind, string> {
+  const { data } = useQuery({
+    queryKey: ['activity-data', 'summary'],
+    queryFn: async () =>
+      (await fetch('/activity-data/summary.json')).json() as Promise<
+        Record<string, { count: number; firstKey: string | null }>
+      >,
+    staleTime: 60 * 60 * 1000,
+  });
+  return {
+    hangul: '/activity/hangul/kr-h1-u01',
+    english: '/activity/english/en-b1-u01',
+    coloring: data?.coloring?.firstKey
+      ? `/activity/coloring/${data.coloring.firstKey}`
+      : '/activity',
+    'hidden-object': data?.['hidden-object']?.firstKey
+      ? `/activity/hidden-object/${data['hidden-object'].firstKey}`
+      : '/activity',
+  };
+}
+
+/** 네 종류가 같은 틀 — 종류 탭 · 왼쪽 목록 · 오른쪽 활동. 인쇄 때는 오른쪽 미리보기만 남는다. */
+export function ActivityLayout({
+  kind,
+  items,
+  currentKey,
+  children,
+}: {
+  kind: ActivityKind;
+  items: ActivityItem[];
+  currentKey?: string;
+  children: ReactNode;
+}) {
+  const [listOpen, setListOpen] = useState(false);
+  const firstPath = useFirstPaths();
+  return (
+    <>
+      <div className="print:hidden">
+        <PublicNav />
+      </div>
+      <main className="min-h-screen bg-cream-50 px-4 py-4 sm:px-6 md:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-4 flex gap-2 overflow-x-auto print:hidden">
+            {ACTIVITY_KINDS.map((k) => (
+              <Link
+                key={k}
+                to={k === kind && items[0] ? items[0].path : firstPath[k]}
+                className={cn(
+                  'shrink-0 rounded-full px-4 py-2 text-sm font-bold',
+                  k === kind
+                    ? 'bg-coral-600 text-white'
+                    : 'bg-white text-ink-700 hover:bg-peach-100'
+                )}
+              >
+                {ACTIVITY_KIND_LABEL[k]}
+              </Link>
+            ))}
+          </div>
+          <div className="grid gap-6 md:grid-cols-[16rem_1fr]">
+            <aside className="print:hidden">
+              <button
+                onClick={() => setListOpen((v) => !v)}
+                className="mb-2 w-full rounded-lg bg-white px-3 py-2 text-left text-sm font-bold md:hidden"
+              >
+                ☰ 목록 {listOpen ? '접기' : '보기'}
+              </button>
+              <div
+                className={cn(
+                  listOpen ? 'block' : 'hidden',
+                  'md:block md:sticky md:top-24 md:max-h-[calc(100vh-7rem)] md:overflow-y-auto'
+                )}
+              >
+                <ActivityList items={items} currentKey={currentKey} />
+              </div>
+            </aside>
+            <section className="min-w-0">{children}</section>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
