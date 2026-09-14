@@ -53,9 +53,12 @@ export function ColoringPanel({
         </figcaption>
       </figure>
       {item.blurb && <p className="mt-3 text-ink-700 print:hidden">{item.blurb}</p>}
-      <div className="mt-4">
-        <ActivityCta item={item} next={next} />
-      </div>
+      {/* 다 끝내면 위 완료 상자가 같은 버튼을 들고 있다 — 두 번 보이지 않게 아래는 숨긴다. */}
+      {!finished && (
+        <div className="mt-4">
+          <ActivityCta item={item} next={next} />
+        </div>
+      )}
       {playing && (
         <Suspense fallback={null}>
           <ColoringPlayer

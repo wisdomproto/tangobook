@@ -70,9 +70,12 @@ export function HiddenObjectPanel({
           </ul>
         </figcaption>
       </figure>
-      <div className="mt-4">
-        <ActivityCta item={item} next={next} />
-      </div>
+      {/* 다 끝내면 위 완료 상자가 같은 버튼을 들고 있다 — 두 번 보이지 않게 아래는 숨긴다. */}
+      {!finished && (
+        <div className="mt-4">
+          <ActivityCta item={item} next={next} />
+        </div>
+      )}
       {playing && bookLoading && (
         <p className="mt-3 rounded bg-peach-100 p-3 print:hidden">그림을 불러오는 중…</p>
       )}
