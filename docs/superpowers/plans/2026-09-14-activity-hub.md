@@ -1,5 +1,7 @@
 # 활동 모음 `/activity` Implementation Plan
 
+> ✅ **상태: 전 청크 구현·검수·배포 완료(2026-09-14).** 이후 변경은 스펙 머리말 참조.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 한글·영어 워크지 · 색칠 도안 · 숨은그림을 한 틀(왼쪽 목록 / 오른쪽 활동)로 모아, 장마다 인쇄와 온라인 활동이 되고 SSR 로 검색에 노출되는 `/activity` 를 만든다.

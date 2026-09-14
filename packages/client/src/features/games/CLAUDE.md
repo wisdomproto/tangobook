@@ -123,6 +123,8 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
   **CORS 헤더를 안 준다** — 게임은 두 그림의 픽셀을 읽어야 하므로(칸 나누기·정답색)
   `crossOrigin="anonymous"` 로는 아예 안 받아진다. ⚠️ 그 프록시의 content-type 표에 **확장자가
   없으면 `nosniff` 때문에 브라우저가 그리지 않는다**(webp 가 빠져 있어 원본 삽화가 통째로 안 떴다).
+- 🔴 **다 칠하면 그 낱말이 나오는 동화책 쪽을 띄워 읽어 준다**(2026-09-14) — 띵동 → 낱말 → 칭찬 → `resolveSceneFromWord` → `SceneReveal`(블록·낱말 게임과 같은 리빌) → `onDone`. 파닉스 낱말은 리빌이 동기라 **책을 미리 받아 둬야** 뜬다(파닉스 게임은 `PhonicsGameGate`, 활동 모음은 `ColoringPanel` 이 `preloadWordScenes`). 칭찬 중 「다시」는 회차(`runRef`)로 막는다 — 앞 판의 `onDone` 이 새 판을 닫았다.
+- 🔴 **낱말은 낱말로 찾는다**(`lib/word-in-text.ts`) — 글자 조각으로 찾아 「공」이 「막내 **공**주」에 걸렸다(명작은 거의 모든 쪽에 「공주」). 앞이 글자가 아니고 뒤가 글자가 아니거나 조사(영어는 -s/-es)인 자리를 먼저 찾고, 하나도 없을 때만 조각으로 물러난다. 쪽 고르기(`findValidatedPageNumber`)·문장 고르기(`sentenceWith`)·강조(`renderCaption`) 세 곳이 같은 함수를 쓴다.
 - 낱말 음원은 `ColoringItem.language`(`korean`|`english`|`zh`)로 고른다 — 예전엔 `'korean'` 하드코딩이라
   영어 낱말을 한글 음절맵에서 찾다가 무음이었다.
 
