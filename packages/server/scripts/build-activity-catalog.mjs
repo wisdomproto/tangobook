@@ -31,17 +31,19 @@ loadEnv();
 const keys = await listStorybookKeys();
 const books = [];
 let cursor = 0;
+let fetchFailed = 0;
 await Promise.all(
   Array.from({ length: 16 }, async () => {
     while (cursor < keys.length) {
       const k = keys[cursor++];
       const sb = await getJsonByKey(k).catch(() => null);
       if (sb) books.push(sb);
+      else fetchFailed++;
     }
   })
 );
 const publicBooks = new Map(books.filter((b) => b.isPublic !== false).map((b) => [String(b.id), b]));
-console.log(`책 ${books.length}권 · 공개 ${publicBooks.size}권`);
+console.log(`책 ${books.length}권(R2 실패 ${fetchFailed}) · 공개 ${publicBooks.size}권`);
 
 // ── 색칠
 const manifest = JSON.parse(fs.readFileSync(path.join(PUB, 'coloring', 'manifest.json'), 'utf8'));
@@ -75,7 +77,7 @@ for (const book of publicBooks.values()) {
   for (const scene of book.hiddenObjectScenes ?? []) {
     const key = String(scene.id ?? '').replace(/^hobj_/, '');
     if (!SCENE_KEY.test(key) || !scene.sceneImageUrl) { hdrop.badKey++; continue; }
-    const words = playableHiddenWords(scene).map((n) => hiddenObjectLabelOf(book.key_objects, n));
+    const words = playableHiddenWords({ hotspots: scene.hotspots ?? [] }).map((n) => hiddenObjectLabelOf(book.key_objects, n));
     if (words.length < 2) { hdrop.tooFew++; continue; }
     hidden.push({
       key, bookId: String(book.id), bookTitle: bookDisplayTitle(book),
@@ -89,13 +91,24 @@ hidden.sort((a, b) => a.key.localeCompare(b.key));
 console.log(`색칠 ${coloring.length}장 (manifest ${manifest.length} · 뺀 것 중국어 ${dropped.zh} · 비공개/없는 책 ${dropped.privateOrMissingBook})`);
 console.log(`숨은그림 ${hidden.length}장 (뺀 것 키 형식 ${hdrop.badKey} · 낱말 2개 미만 ${hdrop.tooFew})`);
 
+if (APPLY && fetchFailed > 0) {
+  console.error(`R2 조회 실패 ${fetchFailed}건 — 쓰지 않음`);
+  process.exit(1);
+}
+
 if (APPLY) {
+  const summaryPath = path.join(OUT, 'summary.json');
+  if (fs.existsSync(summaryPath)) {
+    const prev = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+    console.log(`색칠 이전 ${prev.coloring?.count ?? '?'} → 지금 ${coloring.length}`);
+    console.log(`숨은그림 이전 ${prev['hidden-object']?.count ?? '?'} → 지금 ${hidden.length}`);
+  }
   fs.mkdirSync(OUT, { recursive: true });
   fs.writeFileSync(path.join(OUT, 'coloring.json'), JSON.stringify(coloring));
   fs.writeFileSync(path.join(OUT, 'hidden-object.json'), JSON.stringify(hidden));
   // 허브·종류 탭이 900KB 목록을 받지 않고 개수와 첫 키만 알 수 있게.
   fs.writeFileSync(
-    path.join(OUT, 'summary.json'),
+    summaryPath,
     JSON.stringify({
       coloring: { count: coloring.length, firstKey: coloring[0]?.key ?? null },
       'hidden-object': { count: hidden.length, firstKey: hidden[0]?.key ?? null },

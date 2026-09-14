@@ -2,3 +2,5 @@
 # 🔴 mesh.json 은 4.7MB 양자화 메시라 prettier 를 태우면 몇 배로 불어난다.
 packages/client/public/*.mesh.json
 packages/client/public/*.standalone.html
+# 기계 산출물이라 포매팅하지 않는다(용량·diff).
+packages/client/public/activity-data/
