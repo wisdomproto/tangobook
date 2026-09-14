@@ -124,6 +124,26 @@ async function main() {
     // 🔴 조용히 넘기지 않는다 — 이 catch 가 말이 없으면 파닉스가 또 사이트맵에서 사라진다.
     console.warn('[sitemap] ⚠️ 파닉스 단원 스킵 — shared 미빌드?', e.message);
   }
+  // 활동 모음 — 🔴 목록은 shared activity-catalog 로 파생(IndexNow 와 같은 함수). JSON 은 build-activity-catalog.mjs 산출물.
+  try {
+    const shared = await import('../../shared/dist/index.js');
+    const dataDir = path.join(__dirname, '..', '..', 'client', 'public', 'activity-data');
+    const readJson = (f) => JSON.parse(fs.readFileSync(path.join(dataDir, f), 'utf8'));
+    const items = [
+      ...shared.worksheetItems('hangul'),
+      ...shared.worksheetItems('english'),
+      ...shared.coloringItems(readJson('coloring.json')),
+      ...shared.hiddenObjectItems(readJson('hidden-object.json')),
+    ];
+    entries.push(urlEntry({ loc: `${SITE_URL}/activity`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+    for (const it of items) {
+      const loc = `${SITE_URL}/activity/${it.kind}/${encodeURIComponent(it.slug)}`;
+      entries.push(urlEntry({ loc, lastmod: today, changefreq: 'monthly', priority: 0.5 }));
+    }
+    console.log(`[sitemap] 활동 ${items.length + 1}개`);
+  } catch (e) {
+    console.warn('[sitemap] ⚠️ 활동 모음 스킵 — shared 미빌드 또는 activity-data 없음?', e.message);
+  }
   // 광고 랜딩 — 「한글앱」(440)·「파닉스앱」(100) 을 노린다. 광고 도착지지만 색인도 받는다.
   // 🔴 `/intro` 는 2026-08-21 에 루트로 흡수됐다(서버 301) — 루트는 아래 정적 목록에 이미
   //    들어 있으므로 여기서 따로 넣지 않는다. 리다이렉트되는 URL 을 사이트맵에 실으면

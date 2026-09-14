@@ -122,6 +122,23 @@ async function collectPublicUrls() {
     console.warn('[indexnow] ⚠️ 파닉스 단원 스킵 — shared 미빌드?', e.message);
   }
 
+  // 활동 모음 — sitemap 과 같은 소스(shared activity-catalog)에서 파생.
+  try {
+    const shared = await import('../../shared/dist/index.js');
+    const dataDir = path.join(__dirname, '..', '..', 'client', 'public', 'activity-data');
+    const readJson = (f) => JSON.parse(fs.readFileSync(path.join(dataDir, f), 'utf8'));
+    const items = [
+      ...shared.worksheetItems('hangul'),
+      ...shared.worksheetItems('english'),
+      ...shared.coloringItems(readJson('coloring.json')),
+      ...shared.hiddenObjectItems(readJson('hidden-object.json')),
+    ];
+    urls.push(`${SITE_URL}/activity`);
+    for (const it of items) urls.push(`${SITE_URL}/activity/${it.kind}/${encodeURIComponent(it.slug)}`);
+  } catch (e) {
+    console.warn('[indexnow] ⚠️ 활동 모음 스킵 — shared 미빌드 또는 activity-data 없음?', e.message);
+  }
+
   // 같은 이야기의 그림체 책(그룹)은 대표 한 권만 — sitemap 과 같은 규칙(generate-sitemap.mjs).
   const nonPrimary = new Set();
   try {
