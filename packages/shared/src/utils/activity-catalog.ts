@@ -37,6 +37,8 @@ export interface HiddenObjectCatalogEntry {
   bookTitle: string;
   category: string;
   sceneImageUrl: string;
+  /** 같은 제목이 여럿일 때 붙는 갈래 이름(페이퍼 3D 아트 등) — 제목 뒤 괄호로 보인다. */
+  styleLabel?: string;
   words: string[];
   blurb?: string;
 }
@@ -133,7 +135,8 @@ export function hiddenObjectItems(entries: HiddenObjectCatalogEntry[]): Activity
       kind: 'hidden-object' as const,
       key: e.key,
       slug,
-      title: e.bookTitle,
+      // 🔴 slug 는 styleLabel 없이 만든다 — 붙이기 전 주소(sitemap·IndexNow 에 이미 나감)가 그대로 살아 있게.
+      title: e.styleLabel ? `${e.bookTitle} (${e.styleLabel})` : e.bookTitle,
       group: e.category,
       section: e.category,
       path: `/activity/hidden-object/${slug}`,

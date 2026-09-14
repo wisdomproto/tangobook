@@ -70,3 +70,13 @@ export function styleGenreMapOf(
   }
   return out;
 }
+
+/**
+ * 학습자 화면에 쓰는 갈래 이름 — 🔴 그림체 실명은 안 쓰고 이 갈래 라벨만 쓴다(저작권 예방 정책).
+ * 클라 `lib/art-style-genre.ts` 의 `STYLE_GENRES` 와 같은 글자여야 한다.
+ */
+export const LEARNER_GENRE_LABEL: Record<LearnerStyleGenre, string> = {
+  watercolor: '수채동화풍',
+  paper3d: '페이퍼 3D 아트',
+  collage: '콜라주',
+};

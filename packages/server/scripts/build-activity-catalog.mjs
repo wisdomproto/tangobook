@@ -17,6 +17,8 @@ import { fileURLToPath } from 'node:url';
 import { loadEnv, listStorybookKeys, getJsonByKey } from './translation-core.mjs';
 import {
   bookDisplayTitle,
+  findLibraryStyle,
+  LEARNER_GENRE_LABEL,
   coloringItems,
   hiddenObjectItems,
   hiddenObjectLabelOf,
@@ -118,6 +120,16 @@ for (const book of publicBooks.values()) {
   }
 }
 hidden.sort((a, b) => a.key.localeCompare(b.key));
+// 같은 제목이 여럿(세계 명작 = 한 이야기 × 그림체 3권)이면 목록에서 구분이 안 된다 — 갈래 이름을 붙인다.
+// 🔴 그림체 실명이 아니라 학습자 갈래 라벨(페이퍼 3D 아트·수채동화풍·콜라주)만 쓴다.
+const styleLibrary = await getJsonByKey('art-style-library.json').catch(() => []);
+const titleCount = new Map();
+for (const h of hidden) titleCount.set(h.bookTitle, (titleCount.get(h.bookTitle) ?? 0) + 1);
+for (const h of hidden) {
+  if (titleCount.get(h.bookTitle) < 2) continue;
+  const genre = findLibraryStyle(styleLibrary, publicBooks.get(h.bookId)?.artStyle)?.genre;
+  if (genre) h.styleLabel = LEARNER_GENRE_LABEL[genre];
+}
 
 console.log(
   `색칠 ${coloring.length}장 (manifest ${manifest.length} · 뺀 것 중국어 ${dropped.zh} · 비공개/없는 책 ${dropped.privateOrMissingBook})`
