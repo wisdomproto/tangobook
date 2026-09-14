@@ -23,6 +23,8 @@ import { CategoryPanel } from '@/features/library/components/CategoryPanel';
 import { BookCardEditable } from '@/features/library/components/BookCardEditable';
 import { MoveBooksModal } from '@/features/library/components/MoveBooksModal';
 import { BookMatrixModal } from '@/features/library/components/BookMatrixModal';
+import { useBookGroups, useSaveBookGroups } from '@/features/library/hooks/useBookGroups';
+import type { BookGroup } from '@tangobook/shared';
 
 const DEFAULT_CATEGORY_ORDER = [
   '세계 명작',
@@ -126,6 +128,49 @@ export default function LibraryMasterPage() {
   const [savedFlash, setSavedFlash] = useState(false);
   const [selectedLang, setSelectedLang] = useState<string>('ko');
   const [matrixOpen, setMatrixOpen] = useState(false);
+
+  // ── 그룹 묶기 (같은 작품의 그림체 여러 권 · 시리즈) ── 정본은 R2 _index/book-groups.json
+  const { data: groupsDoc } = useBookGroups();
+  const saveGroups = useSaveBookGroups();
+  const groups = useMemo(() => groupsDoc?.groups ?? [], [groupsDoc]);
+  const [selectMode, setSelectMode] = useState(false);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [openGroupId, setOpenGroupId] = useState<string | null>(null);
+  /** 책 id → 그림체 묶음. 카드 배지용(시리즈는 /book-groups 에서). */
+  const styleGroupOf = useMemo(() => {
+    const m = new Map<string, BookGroup>();
+    for (const g of groups) if (g.kind === 'style') for (const id of g.bookIds) m.set(id, g);
+    return m;
+  }, [groups]);
+  const persistGroups = (next: BookGroup[]) =>
+    saveGroups.mutate({ groups: next }, { onSuccess: flashSaved });
+  const groupSelected = () => {
+    const titles = selected.map((id) => storybooks?.find((b) => b.id === id)?.title ?? '');
+    const guess = (titles[0] ?? '').replace(/_그림체\d+$/, '');
+    const title = window.prompt('그룹 이름', guess)?.trim();
+    if (!title) return;
+    // 🔴 한 책은 그림체 묶음 하나에만 — 고른 책을 기존 그룹에서 먼저 뺀다(서버도 앞 그룹 우선으로 거른다).
+    const rest = groups
+      .map((g) =>
+        g.kind === 'style' ? { ...g, bookIds: g.bookIds.filter((b) => !selected.includes(b)) } : g
+      )
+      .filter((g) => g.bookIds.length > 0);
+    persistGroups([
+      ...rest,
+      { id: `group-${Date.now()}`, title, kind: 'style', bookIds: selected },
+    ]);
+    setSelected([]);
+    setSelectMode(false);
+  };
+  const ungroup = (groupId: string, bookId: string) =>
+    persistGroups(
+      groups
+        .map((g) =>
+          g.id === groupId ? { ...g, bookIds: g.bookIds.filter((b) => b !== bookId) } : g
+        )
+        .filter((g) => g.bookIds.length > 0)
+    );
+  const openGroup = groups.find((g) => g.id === openGroupId) ?? null;
 
   const flashSaved = () => {
     setSavedFlash(true);
@@ -321,6 +366,37 @@ export default function LibraryMasterPage() {
                           ({activeBooks.length}권)
                         </span>
                       </h2>
+                      <div className="flex items-center gap-2">
+                        {selectMode && (
+                          <>
+                            <span className="text-sm font-bold text-ink-600">
+                              {selected.length}권 선택
+                            </span>
+                            <button
+                              type="button"
+                              onClick={groupSelected}
+                              disabled={selected.length < 2 || saveGroups.isPending}
+                              className="px-4 py-1.5 rounded-full bg-mint-500 text-white font-black text-sm disabled:opacity-40"
+                            >
+                              선택한 책 한 그룹으로
+                            </button>
+                          </>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectMode((v) => !v);
+                            setSelected([]);
+                          }}
+                          className={`px-4 py-1.5 rounded-full font-black text-sm ${
+                            selectMode
+                              ? 'bg-ink-200 text-ink-700'
+                              : 'bg-mint-100 text-mint-700 hover:bg-mint-200'
+                          }`}
+                        >
+                          {selectMode ? '묶기 취소' : '🗂️ 그룹 묶기'}
+                        </button>
+                      </div>
                     </header>
                     {activeBooks.length === 0 ? (
                       <div className="text-center py-20 text-ink-500 text-sm">
@@ -349,6 +425,22 @@ export default function LibraryMasterPage() {
                                 actions
                                   .setBookPublic(book.id, !(book.isPublic !== false))
                                   .then(flashSaved)
+                              }
+                              group={(() => {
+                                const g = styleGroupOf.get(book.id);
+                                return g ? { title: g.title, size: g.bookIds.length } : undefined;
+                              })()}
+                              selectMode={selectMode}
+                              selected={selected.includes(book.id)}
+                              onToggleSelect={() =>
+                                setSelected((cur) =>
+                                  cur.includes(book.id)
+                                    ? cur.filter((x) => x !== book.id)
+                                    : [...cur, book.id]
+                                )
+                              }
+                              onOpenGroup={() =>
+                                setOpenGroupId(styleGroupOf.get(book.id)?.id ?? null)
                               }
                             />
                           ))}
@@ -383,6 +475,16 @@ export default function LibraryMasterPage() {
             await actions.moveBooksAndDelete(moveFromCat, to);
             flashSaved();
           }}
+        />
+      )}
+
+      {openGroup && (
+        <GroupMembersModal
+          group={openGroup}
+          books={storybooks ?? []}
+          onClose={() => setOpenGroupId(null)}
+          onRemove={(bookId) => ungroup(openGroup.id, bookId)}
+          onOpenEditor={() => navigate('/book-groups')}
         />
       )}
 
@@ -515,6 +617,86 @@ function CoverPickerModal({
             </>
           )}
         </div>
+      </div>
+    </div>
+  );
+}
+
+/** 그룹 배지를 누르면 뜨는 창 — 이 묶음에 무엇이 들었는지. 순서가 곧 학습자 그림체 칩 순서. */
+function GroupMembersModal({
+  group,
+  books,
+  onClose,
+  onRemove,
+  onOpenEditor,
+}: {
+  group: BookGroup;
+  books: StorybookSummary[];
+  onClose: () => void;
+  onRemove: (bookId: string) => void;
+  onOpenEditor: () => void;
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-ink-900/40 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-3xl shadow-soft w-full max-w-3xl p-5 space-y-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <header className="flex items-center justify-between gap-3">
+          <h2 className="text-xl font-black text-ink-900 font-display truncate">
+            🗂️ {group.title}{' '}
+            <span className="text-base text-ink-500">({group.bookIds.length}권)</span>
+          </h2>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={onOpenEditor}
+              className="px-3 py-1.5 rounded-full bg-peach-100 text-ink-900 font-black text-sm hover:bg-peach-200"
+            >
+              순서·이름 편집 →
+            </button>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-ink-100 text-ink-700 font-black"
+              aria-label="닫기"
+            >
+              ✕
+            </button>
+          </div>
+        </header>
+        <ol className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {group.bookIds.map((id, i) => {
+            const b = books.find((x) => x.id === id);
+            // 요약 coverImage 는 대표 그림체 표지라 원본 책에선 다른 그림체가 나온다 — 그 책의 활성 그림체 표지.
+            const cover = (b?.artStyle && b.coversByStyle?.[b.artStyle]) || b?.coverImage;
+            return (
+              <li key={id} className="rounded-2xl border border-ink-100 p-2 bg-cream-50">
+                <div className="aspect-video rounded-xl overflow-hidden bg-ink-100">
+                  {cover && <img src={cover} alt="" className="w-full h-full object-cover" />}
+                </div>
+                <div className="mt-2 flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="text-sm font-black text-ink-900 break-keep">
+                      {i + 1}. {b?.title ?? `(없는 책 ${id})`}
+                    </p>
+                    <p className="text-xs text-ink-500">
+                      {b ? (b.isPublic ? '공개' : '비공개') : ''}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => onRemove(id)}
+                    className="shrink-0 px-2 py-1 rounded-lg bg-ink-100 text-ink-600 text-xs font-black hover:bg-ink-200"
+                    title="이 책을 그룹에서 빼기"
+                  >
+                    빼기
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </div>
   );

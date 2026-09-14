@@ -12,6 +12,14 @@ interface Props {
   onChangeCategory: (next: string) => void;
   onTogglePublic: () => void;
   selectedLang?: string;
+  /** 이 책이 든 그룹 — 카드 아래 배지. */
+  group?: { title: string; size: number };
+  /** 그룹 묶기 모드 — 카드를 누르면 선택 토글(드래그·칩 대신). */
+  selectMode?: boolean;
+  selected?: boolean;
+  onToggleSelect?: () => void;
+  /** 그룹 배지를 누르면 — 그 그룹에 뭐가 있는지 연다. */
+  onOpenGroup?: () => void;
 }
 
 const LANG_LABEL: Record<string, string> = {
@@ -28,6 +36,11 @@ export function BookCardEditable({
   onChangeCategory,
   onTogglePublic,
   selectedLang = 'ko',
+  group,
+  selectMode = false,
+  selected = false,
+  onToggleSelect,
+  onOpenGroup,
 }: Props) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: book.id,
@@ -51,12 +64,23 @@ export function BookCardEditable({
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
-      className={`group relative rounded-2xl bg-cream-50 hover:bg-cream-100 transition cursor-grab active:cursor-grabbing overflow-hidden border-2 border-transparent hover:border-coral-300 select-none ${
-        !isPublic ? 'opacity-60 grayscale' : ''
+      {...(selectMode ? {} : { ...attributes, ...listeners })}
+      onClick={selectMode ? onToggleSelect : undefined}
+      className={`group relative rounded-2xl bg-cream-50 hover:bg-cream-100 transition overflow-hidden border-2 select-none ${
+        selectMode ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'
+      } ${selected ? 'border-mint-500 ring-4 ring-mint-200' : 'border-transparent hover:border-coral-300'} ${
+        !isPublic && !selected ? 'opacity-60 grayscale' : ''
       }`}
     >
+      {selectMode && (
+        <span
+          className={`absolute inset-0 z-20 flex items-center justify-center text-4xl font-black ${
+            selected ? 'bg-mint-500/20 text-mint-600' : 'text-transparent'
+          }`}
+        >
+          ✓
+        </span>
+      )}
       <div className="absolute top-2 left-2 z-10 flex items-center gap-1">
         <span className="bg-white/90 text-ink-900 text-xs font-black tabular-nums rounded-full w-7 h-7 flex items-center justify-center shadow-soft">
           {index + 1}
@@ -121,6 +145,21 @@ export function BookCardEditable({
       <div className="px-2.5 py-2">
         <div className="font-black text-ink-900 text-sm truncate">{book.title}</div>
         <div className="text-[11px] text-ink-500 mt-0.5">그림체 {styleCount}종</div>
+        {group && (
+          <button
+            type="button"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              if (selectMode) return;
+              e.stopPropagation();
+              onOpenGroup?.();
+            }}
+            className="mt-1 w-full truncate text-left rounded-full bg-mint-100 text-mint-700 text-[11px] font-black px-2 py-0.5 hover:bg-mint-200"
+            title={`그룹 「${group.title}」 ${group.size}권 — 눌러서 보기`}
+          >
+            🗂️ {group.title} · {group.size}권
+          </button>
+        )}
       </div>
     </div>
   );
