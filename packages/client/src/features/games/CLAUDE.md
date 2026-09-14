@@ -107,6 +107,9 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **데이터**: `Storybook.hiddenObjectScenes`(활성 그림체 미러) + `StyleAssets.hiddenObjectScenes`(그림체별 정본, `switchStyleAssets` swap 포함). `HiddenObjectScene{ id, sceneImageUrl, hotspots:[{objectName,x,y,w,h}] }` (정규화 0~1 박스).
 - **생성**: `buildHiddenObjectData`(server `game.service.ts`) 가 저장된 씬→`HiddenObjectData`. 라벨(ko)·썸네일(`keyObjectImages`)·TTS(`key_objects[].ttsUrl`)를 objectName 으로 resolve.
 - **플레이**: `HiddenObjectPlayer`. 탭 판정은 `utils/hitTest.ts`(`toImageNorm` object-fit contain 레터박스 보정 + `hitNormalizedBox`). 정답=✓ 링 펄스 + 단어 TTS(`playWordCorrect`) + 레일 체크 / 빗나감=페널티 없음. 다 찾으면 `GameResultScreen`.
+- 🔴 **낱말 음원은 `resolveTtsUrl` 로 즉석 생성 + 씬마다 프리워밍**(prefix `hidden`, 2026-09-13) — `key_objects[].ttsUrl` 이 있는 책이 거의 없어(전래 0/25 · 명작 3/34) 정답에 띵동만 나고 낱말을 안 읽었다.
+- 🔴 **한 `objectName` 에 박스 여럿**(2026-09-14) — 찾기·완료는 이름으로, 카드·개수·프리워밍은 `words`(이름 중복 제거)로. 박스 수로 세면 「날개」 카드가 두 장 뜬다.
+- **대량 저작 = 작업판**(`/hidden-object-plan.html`, 루트 CLAUDE.md) — editor2 탭은 한 장씩 손으로 할 때만.
 - 언어 중립(라벨 ko 기본, 다국어는 follow-up). `contentRequirements.needsHiddenObjectScenes` 플래그(현재 GamesTab 가용성 필터엔 미연결 — 씬 0개면 서버 400 + 패널 경고로 graceful).
 
 ## 색칠하기 (coloring, 2026-08-17 · 2026-09-08 라이브)
