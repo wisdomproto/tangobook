@@ -40,7 +40,11 @@ def paper_sheet(nx, ny, top_inset, h, out=0.0):
 
 def main():
     C = B.COLORS
+    import sticker_block as S
+    sw, sd, sr = S.sticker_size()
     views = [
+        ('스티커 블록 4×6', f'{B.footprint(S.NX, S.NY)[0]:.1f}×{B.footprint(S.NX, S.NY)[1]:.1f}×{S.H}mm · 사방 턱 {S.RIM_W}×{S.RIM_H} · 모서리 R{S.CORNER_R:.0f} · 스티커 {sw:.1f}×{sd:.1f} R{sr:.2f}',
+         [(S.sticker_block(), (0.93, 0.62, 0.36))]),
         ('길 조각 1×2', f'2단 · {B.footprint(12, 6)[0]:.1f}×{B.footprint(12, 6)[1]:.1f}×{B.ROAD_H:.0f}mm · 양 긴 변 턱 {B.LIP_W}×{B.LIP_T} · 종이 {B.paper_size(12, 6, B.ROAD_TOP_INSET)[0]:.1f}×{B.paper_size(12, 6, B.ROAD_TOP_INSET)[1]:.1f}',
          [(B.road(), C['road'])]),
         ('고정물 1×1', f'{B.footprint(6, 6)[0]:.1f}×{B.footprint(6, 6)[1]:.1f}×{B.OBJ_H:.0f}mm · 나무·빨간모자·늑대 공용 · 종이 {B.paper_size(6, 6)[0]:.1f}×{B.paper_size(6, 6)[1]:.1f}',
