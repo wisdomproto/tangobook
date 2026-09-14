@@ -277,6 +277,13 @@ const RESOURCES: ResourceItem[] = [
     desc: '카테고리·책 순서·메인 표지 편집',
     internal: true,
   },
+  {
+    href: '/book-groups',
+    icon: '🗂️',
+    label: '동화책 그룹',
+    desc: '같은 작품의 그림체 여러 권 · 시리즈를 한 묶음으로',
+    internal: true,
+  },
   { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
   {
     href: '/business-overview.html',

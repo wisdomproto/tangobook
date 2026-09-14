@@ -64,6 +64,7 @@ const BookSeoPage = lazy(() => import('../pages/BookSeoPage'));
 const GuideHubPage = lazy(() => import('../pages/GuideHubPage'));
 const CurriculumMasterPage = lazy(() => import('../pages/CurriculumMasterPage'));
 const LibraryMasterPage = lazy(() => import('../pages/LibraryMasterPage'));
+const BookGroupsPage = lazy(() => import('../pages/BookGroupsPage'));
 const LetterStrokeBulkEditorPage = lazy(() => import('../pages/LetterStrokeBulkEditorPage'));
 const KoreanJamoStrokeBulkEditorPage = lazy(
   () => import('../pages/KoreanJamoStrokeBulkEditorPage')
@@ -505,6 +506,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <LibraryMasterPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'book-groups',
+        element: (
+          <ErrorBoundary>
+            <BookGroupsPage />
           </ErrorBoundary>
         ),
       },
