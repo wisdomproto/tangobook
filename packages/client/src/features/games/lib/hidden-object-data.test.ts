@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { Storybook } from '@tangobook/shared';
 import { buildHiddenObjectSceneData } from './hidden-object-data';
 
@@ -21,6 +21,32 @@ const book = (over: Partial<Storybook> = {}): Storybook =>
   }) as unknown as Storybook;
 
 describe('숨은그림 데이터', () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  it('sceneKey 를 주면 그 씬만 쓴다', () => {
+    // 무작위를 0 으로 고정 — 안 고친 코드는 늘 첫 씬(a)을 골라 이 테스트가 확실히 실패한다.
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    const data = buildHiddenObjectSceneData(
+      book({
+        hiddenObjectScenes: [
+          { ...scene('a', ['Crown', '공']), id: 'hobj_ho-0001', sceneImageUrl: 'https://x/a.jpg' },
+          { ...scene('b', ['Crown', '공']), id: 'hobj_ho-0002', sceneImageUrl: 'https://x/b.jpg' },
+        ],
+      } as never),
+      undefined,
+      'ho-0002'
+    );
+    expect(data?.scenes[0].sceneImageUrl).toBe('https://x/b.jpg');
+  });
+
+  it('박스가 둘이어도 이름이 하나면 게임이 아니다', () => {
+    const one = scene('s1', ['Crown']);
+    const twoBoxes = { ...one, hotspots: [...one.hotspots, ...one.hotspots] };
+    expect(
+      buildHiddenObjectSceneData(book({ hiddenObjectScenes: [twoBoxes] } as never))
+    ).toBeNull();
+  });
+
   it('책의 씬을 읽고 라벨·카드·음원을 붙인다', () => {
     const data = buildHiddenObjectSceneData(
       book({ hiddenObjectScenes: [scene('s1', ['Crown', '공'])] } as never),
