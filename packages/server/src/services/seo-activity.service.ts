@@ -5,6 +5,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   ACTIVITY_KINDS,
   ACTIVITY_KIND_LABEL,
@@ -42,26 +43,33 @@ export function buildCatalog(
 
 let cached: ActivityCatalog | null = null;
 
-/** 운영 = `clientDist/activity-data`, 개발(dist 없음) = `packages/client/public/activity-data`. 프로세스 수명 캐시. */
+/**
+ * 운영 = `clientDist/activity-data`, 개발(dist 없음) = `packages/client/public/activity-data`
+ * (이 파일 기준 상대경로 — `process.cwd()` 는 실행 위치에 따라 어긋난다). 프로세스 수명 캐시.
+ * 🔴 두 목록이 전부 비어 오면 캐시하지 않는다 — 읽기 실패를 영구 캐싱하면 재시도 기회가 없다.
+ */
 export function loadActivityCatalog(clientDist: string): ActivityCatalog {
   if (cached) return cached;
+  const here = path.dirname(fileURLToPath(import.meta.url));
   const dirs = [
     path.join(clientDist, 'activity-data'),
-    path.join(process.cwd(), 'packages/client/public/activity-data'),
+    path.join(here, '../../../client/public/activity-data'),
   ];
   const dir = dirs.find((d) => fs.existsSync(path.join(d, 'coloring.json'))) ?? dirs[0];
   const read = <T>(f: string): T[] => {
+    const p = path.join(dir, f);
     try {
-      return JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) as T[];
-    } catch {
+      return JSON.parse(fs.readFileSync(p, 'utf8')) as T[];
+    } catch (err) {
+      console.error(`[seo-activity] failed to read ${p}:`, err);
       return [];
     }
   };
-  cached = buildCatalog(
-    read<ColoringCatalogEntry>('coloring.json'),
-    read<HiddenObjectCatalogEntry>('hidden-object.json')
-  );
-  return cached;
+  const coloring = read<ColoringCatalogEntry>('coloring.json');
+  const hidden = read<HiddenObjectCatalogEntry>('hidden-object.json');
+  const catalog = buildCatalog(coloring, hidden);
+  if (coloring.length || hidden.length) cached = catalog;
+  return catalog;
 }
 
 const enc = (p: string) =>
@@ -76,8 +84,7 @@ const li = (xs: string[]) => xs.map((s) => `<li>${escapeHtml(s)}</li>`).join('')
 function titleOf(item: ActivityItem): string {
   switch (item.kind) {
     case 'coloring':
-      return item.sourceHref.startsWith('/library/') &&
-        !item.sourceHref.startsWith('/library/phonics')
+      return item.key.startsWith('bk-')
         ? `${item.title} 색칠도안 — ${item.section} | 탱고북`
         : `${item.title} 색칠도안 무료 인쇄 · 온라인 색칠공부 | 탱고북`;
     case 'hidden-object':
@@ -129,9 +136,17 @@ export function renderActivitySeo(
   if (!canonical) return { redirect: enc(item.path) };
 
   const { intro, listHtml } = introOf(item, catalog);
-  const siblings = catalog.items[kind]
-    .filter((i) => i.group === item.group && i.key !== item.key)
-    .slice(0, 40);
+  // 40개씩만 링크하면 큰 그룹(300+)은 앞쪽 페이지만 링크를 받는다 — 현재 항목 "다음"부터
+  // 최대 40개, 그룹 끝에서 처음으로 넘겨(wrap) 모든 페이지가 어딘가에서 링크되게 한다.
+  const groupItems = catalog.items[kind].filter((i) => i.group === item.group);
+  const idx = groupItems.findIndex((i) => i.key === item.key);
+  const siblings =
+    idx === -1
+      ? []
+      : groupItems
+          .slice(idx + 1)
+          .concat(groupItems.slice(0, idx))
+          .slice(0, 40);
   const url = `${SITE_URL}${enc(item.path)}`;
   const bodyHtml =
     '<article>' +

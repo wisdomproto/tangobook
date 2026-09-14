@@ -392,7 +392,10 @@ export function createApp() {
     );
     app.get('/activity/:kind/:slug', (req, res, next) => {
       const kind = String(req.params.kind);
-      if (!['hangul', 'english', 'coloring', 'hidden-object'].includes(kind)) return next();
+      if (!['hangul', 'english', 'coloring', 'hidden-object'].includes(kind)) {
+        res.status(404);
+        return next();
+      }
       return sendSeo(res, next, async () => {
         const { loadActivityCatalog, renderActivitySeo } =
           await import('./services/seo-activity.service.js');
