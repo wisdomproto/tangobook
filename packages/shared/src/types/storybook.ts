@@ -1089,6 +1089,8 @@ export interface Storybook {
 
   // 숨은그림 찾기 씬 (활성 그림체 미러. 정본은 styleAssets[style].hiddenObjectScenes)
   hiddenObjectScenes?: HiddenObjectScene[];
+  /** 그림체별로 쪼갠 책의 출처(`split-classics-by-style.mjs`). 원본 책 id + 원본에서의 그림체 id. */
+  splitFrom?: { bookId: string; styleId: string };
 
   // 배경음악
   backgroundMusicUrl?: string;
