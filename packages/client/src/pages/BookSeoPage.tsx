@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { bookDisplayTitle, stripStyleSuffix } from '@tangobook/shared';
 import type { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useStorybook, useStorybooks } from '@/features/storybook';
@@ -122,9 +123,7 @@ export default function BookSeoPage() {
     if (!storybook) return;
     // 서버 SSR(seo-ssr.service.ts renderAboutSeo)과 동일 포맷 유지 — "동화책" 인접 배치 + 줄거리·교훈 롱테일
     const S = seoStrings(lang);
-    const displayTitle = isKo
-      ? storybook.title
-      : (storybook.titleTranslations?.[lang] ?? storybook.title);
+    const displayTitle = bookDisplayTitle(storybook, lang);
     const guide = isKo
       ? storybook.parentGuide
       : (storybook.parentGuideTranslations?.[lang] ?? storybook.parentGuide);
@@ -286,9 +285,7 @@ function BookSeoContent({
 }) {
   const isKo = lang === 'ko';
   const S = seoStrings(lang);
-  const displayTitle = isKo
-    ? storybook.title
-    : (storybook.titleTranslations?.[lang] ?? storybook.title);
+  const displayTitle = bookDisplayTitle(storybook, lang);
   const guide = isKo
     ? storybook.parentGuide
     : (storybook.parentGuideTranslations?.[lang] ?? storybook.parentGuide);
@@ -492,12 +489,14 @@ function BookSeoContent({
                     {b.coverImage && (
                       <img
                         src={b.coverImage}
-                        alt={b.title}
+                        alt={stripStyleSuffix(b.title)}
                         className="w-full h-full object-cover"
                       />
                     )}
                   </div>
-                  <div className="p-2 text-sm font-bold text-slate-800 line-clamp-2">{b.title}</div>
+                  <div className="p-2 text-sm font-bold text-slate-800 line-clamp-2">
+                    {stripStyleSuffix(b.title)}
+                  </div>
                 </Link>
               ))}
             </div>

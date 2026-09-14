@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { bookDisplayTitle } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 // 🔴 배럴 금지 — 이유는 `LibraryPage.tsx` 주석 참조(첫 화면 번들이 부푼다).
@@ -154,7 +155,7 @@ export function BookMultiSelectGrid({
                     )}
                   </div>
                   <h4 className="mt-1.5 truncate px-1 font-display text-sm font-black leading-tight text-ink-900 md:text-base">
-                    {b.titleTranslations?.[i18n.language] ?? b.title}
+                    {bookDisplayTitle(b, i18n.language)}
                   </h4>
                 </button>
               );

@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import i18n from '@/i18n';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
+import { useBookGroups } from '@/features/library/hooks/useBookGroups';
+import { bookDisplayTitle, styleGroupIndex } from '@tangobook/shared';
 import {
   getYoutubeVideoIds,
   getDirectVideoUrls,
@@ -42,13 +44,16 @@ export default function BookDetailPage() {
   // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: allStorybooks } = useStorybooks();
+  const { data: groupsDoc } = useBookGroups();
+  const location = useLocation();
+  const shownTitle = storybook ? bookDisplayTitle(storybook) : '';
 
   // SEO — 책 detail 페이지는 SEO 진입 페이지 (BookSeoPage 의 /about 는 부모용 가이드, /library/:id 는 학습자 진입).
   // 책 정보 로드되면 동적으로 title/description/og 세팅. 책 상세는 학습 진입점이라 robots=index.
   useSeo({
-    title: storybook ? `${storybook.title} — 탱고북` : '동화책 — 탱고북',
+    title: storybook ? `${shownTitle} — 탱고북` : '동화책 — 탱고북',
     description: storybook
-      ? `${storybook.title} | ${storybook.category ?? '동화책'} | ${storybook.parentGuide?.overview?.slice(0, 110) ?? '아이와 함께 읽는 동화책. 그림체와 글밥을 아이에게 맞춰서.'}`
+      ? `${shownTitle} | ${storybook.category ?? '동화책'} | ${storybook.parentGuide?.overview?.slice(0, 110) ?? '아이와 함께 읽는 동화책. 그림체와 글밥을 아이에게 맞춰서.'}`
       : '아이와 함께 읽는 동화책. 그림체와 글밥을 아이에게 맞춰서.',
     image: storybook?.coverImage || storybook?.coverImages?.[0]?.imageUrl,
     path: `/library/${id}`,
@@ -167,7 +172,31 @@ export default function BookDetailPage() {
   // 그림체 선택 UI 는 세계명작에만 노출 (자연관찰 등은 대표 그림체 1종만 보여줌).
   // 카테고리/폴더 문자열에 '명작' 포함 여부로 판별 ('세계 명작'·'세계명작'·'명작동화' 모두 커버).
   const isClassic = /명작/.test(storybook.category ?? '') || /명작/.test(storybook.folder ?? '');
-  const canPickStyle = isClassic && styles.length > 1;
+  // 🔴 그림체를 책마다 쪼갠 뒤엔 책 안에 그림체가 하나뿐이다 — 그 책이 그림체 묶음(그룹)에 들어 있으면
+  //    칩은 **같은 그룹의 다른 책**을 고르고, 고르면 그 책으로 이동한다. 책 안에 그림체가 여럿이면 옛 방식 그대로.
+  const groupMembers = (() => {
+    const g = styleGroupIndex(groupsDoc?.groups ?? []).get(storybook.id);
+    if (!g || !allStorybooks) return [];
+    return g.bookIds
+      .map((bid) => allStorybooks.find((b) => b.id === bid))
+      .filter(
+        (b): b is StorybookSummary =>
+          !!b && !!b.artStyle && (b.isPublic !== false || b.id === storybook.id)
+      );
+  })();
+  const pickByGroup = isClassic && styles.length <= 1 && groupMembers.length > 1;
+  const canPickStyle = isClassic && (styles.length > 1 || pickByGroup);
+  const pickerStyles = pickByGroup ? groupMembers.map((b) => b.artStyle as string) : null;
+  /** 칩 한 칸 옮기기 — 그룹이면 그 책으로 이동, 아니면 이 책 안에서 그림체 전환. */
+  const stepStyle = (dir: -1 | 1) => {
+    const list = pickerStyles ?? styles;
+    const cur = pickerStyles ? (storybook.artStyle as string) : effectiveStyle;
+    const idx = list.indexOf(cur);
+    const nextIdx = (idx + dir + list.length) % list.length;
+    if (pickerStyles)
+      navigate(`/library/${groupMembers[nextIdx].id}${location.search}`, { replace: true });
+    else setSelectedStyle(list[nextIdx]);
+  };
 
   // 효과 레벨/스타일 (URL params에 전달용)
   const launchLevel = storybook.curriculumMeta?.launchLevel;
@@ -329,9 +358,7 @@ export default function BookDetailPage() {
             </div>
           }
         >
-          <span className="truncate">
-            {storybook.titleTranslations?.[lang]?.trim() || storybook.title}
-          </span>
+          <span className="truncate">{bookDisplayTitle(storybook, lang)}</span>
         </PageHeader>
 
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}
@@ -409,11 +436,7 @@ export default function BookDetailPage() {
                     <div className="flex-1 min-w-0 flex items-center justify-between bg-white rounded-full px-2 py-1.5 shadow-soft">
                       <button
                         type="button"
-                        onClick={() => {
-                          const idx = styles.indexOf(effectiveStyle);
-                          const prev = idx <= 0 ? styles.length - 1 : idx - 1;
-                          setSelectedStyle(styles[prev]);
-                        }}
+                        onClick={() => stepStyle(-1)}
                         className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
                         aria-label={t('style.prev')}
                       >
@@ -425,17 +448,13 @@ export default function BookDetailPage() {
                         <span className="truncate">
                           {styleGenreLabel(
                             effectiveStyle,
-                            Math.max(0, styles.indexOf(effectiveStyle))
+                            Math.max(0, (pickerStyles ?? styles).indexOf(effectiveStyle))
                           )}
                         </span>
                       </span>
                       <button
                         type="button"
-                        onClick={() => {
-                          const idx = styles.indexOf(effectiveStyle);
-                          const next = idx >= styles.length - 1 ? 0 : idx + 1;
-                          setSelectedStyle(styles[next]);
-                        }}
+                        onClick={() => stepStyle(1)}
                         className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
                         aria-label={t('style.next')}
                       >

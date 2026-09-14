@@ -1,4 +1,5 @@
 import type { StorybookSummary, BookIndexEntry } from '@tangobook/shared';
+import { bookDisplayTitle } from '@tangobook/shared';
 export type CoverInput = Partial<StorybookSummary> &
   Partial<BookIndexEntry> & {
     title: string;
@@ -23,7 +24,7 @@ export function resolveCover(
     (opts.style ? cleanByStyle[opts.style] : undefined) ??
     book.cleanCoverImage ??
     book.cleanCoverImageUrl;
-  const title = (opts.lang && book.titleTranslations?.[opts.lang]) || book.title;
+  const title = bookDisplayTitle(book, opts.lang);
   // hasClean = 실제 표지가 없어 클린으로 폴백한 경우에만 true(그때만 오버레이로 제목 보충).
   return { img: legacy ?? clean, hasClean: !legacy && !!clean, title };
 }

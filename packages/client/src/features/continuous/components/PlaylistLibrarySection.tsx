@@ -6,6 +6,8 @@ import { useStorybooks } from '@/features/storybook';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { usePlaylists, useDeletePlaylist } from '../hooks/usePlaylists';
 import { buildCategoryBundles } from '../lib/category-bundles';
+import { collapseStyleGroups } from '@tangobook/shared';
+import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { estimatePlaySeconds, playtimeParts } from '../lib/playtime';
 import { beginPlaylist } from '../lib/begin-playlist';
 import { PlaylistCard } from './PlaylistCard';
@@ -36,7 +38,12 @@ export function PlaylistLibrarySection() {
   //    첫 책 표지가 화면 77% 지점에서야 나왔다. 되돌리기 전에 375px 로 재 볼 것.
   const [open, setOpen] = useState(false);
 
-  const bundles = useMemo(() => buildCategoryBundles(books ?? []), [books]);
+  // 같은 작품의 그림체 책(그룹)은 한 권만 — 안 접으면 명작 묶음이 같은 이야기를 세 번 틀어 준다.
+  const { data: groupsDoc } = useBookGroups();
+  const bundles = useMemo(
+    () => buildCategoryBundles(collapseStyleGroups(books ?? [], groupsDoc?.groups ?? [])),
+    [books, groupsDoc]
+  );
 
   // 표지 썸네일 — 묶음·내 세트 공용.
   const coverOf = useMemo(() => {

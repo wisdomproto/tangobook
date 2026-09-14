@@ -117,6 +117,17 @@ describe('renderAboutSeo', () => {
     expect(renderAboutSeo(eun).bodyHtml).toContain('숲으로 배우는 유아 단어');
   });
 
+  it('style-split books: title loses the _그림체N tag and canonical points at the group primary', () => {
+    const split = {
+      ...book,
+      id: 'split-1',
+      title: `${book.title}_그림체1`,
+    } as unknown as Storybook;
+    const seo = renderAboutSeo(split, 'ko', 'primary-1');
+    expect(seo.title).not.toContain('_그림체');
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/library/primary-1/about');
+  });
+
   it('renders body article with h1, overview, lessons, key words and FAQ text', () => {
     expect(seo.bodyHtml).toContain('<h1');
     expect(seo.bodyHtml).toContain('개구리 왕자');

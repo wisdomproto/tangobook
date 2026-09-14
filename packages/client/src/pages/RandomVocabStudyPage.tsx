@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { bookDisplayTitle } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Mascot } from '@/design-system';
@@ -125,7 +126,7 @@ export default function RandomVocabStudyPage() {
               />
             )}
             <span className="truncate font-display text-base font-black leading-tight text-ink-900 sm:text-lg">
-              {book?.titleTranslations?.[i18n.language] ?? book?.title}
+              {book ? bookDisplayTitle(book, i18n.language) : ''}
             </span>
           </div>
           <button

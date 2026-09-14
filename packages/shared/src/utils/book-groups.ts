@@ -15,6 +15,11 @@ export interface BookGroup {
   kind: BookGroupKind;
   /** 순서가 곧 표시 순서(그림체 칩 순서). */
   bookIds: string[];
+  /**
+   * 대표 책 — SEO 정본(canonical·sitemap)과 학습자 기본 진입. 없으면 `bookIds[0]`.
+   * 명작은 원본 id(페이퍼 3D)다 — 학습 기록·검색 색인·유튜브 링크가 이미 그 id 를 가리킨다.
+   */
+  primaryId?: string;
 }
 
 export interface BookGroupsDoc {
@@ -45,12 +50,45 @@ export function sanitizeBookGroups(input: unknown): BookGroupsDoc {
       bookIds.push(b);
     }
     ids.add(id);
-    groups.push({ id, title, kind, bookIds });
+    const primaryId =
+      typeof g.primaryId === 'string' && bookIds.includes(g.primaryId) ? g.primaryId : undefined;
+    groups.push(primaryId ? { id, title, kind, bookIds, primaryId } : { id, title, kind, bookIds });
   }
   return { groups };
 }
 
 const SUFFIX = /_그림체(\d+)$/;
+
+/**
+ * 학습자·검색엔진에게 보이는 제목 — 저작용 꼬리표 「_그림체N」 을 뗀다.
+ * 그림체별로 쪼갠 책은 제목이 `신데렐라_그림체1` 이지만 아이·부모·구글에게는 그냥 「신데렐라」다
+ * (그룹 이름도 같은 규칙으로 만든다). 다른 언어 제목엔 꼬리표가 없으니 번역이 있으면 그걸 쓴다.
+ */
+export function stripStyleSuffix(title: string): string {
+  return title.replace(SUFFIX, '');
+}
+
+export function bookDisplayTitle(
+  book: { title: string; titleTranslations?: Record<string, string> },
+  lang = 'ko'
+): string {
+  const tr = lang !== 'ko' ? book.titleTranslations?.[lang]?.trim() : undefined;
+  return tr || stripStyleSuffix(book.title);
+}
+
+/** 그룹의 대표 책 id. */
+export function groupPrimaryId(group: BookGroup): string | undefined {
+  return group.primaryId && group.bookIds.includes(group.primaryId)
+    ? group.primaryId
+    : group.bookIds[0];
+}
+
+/** 책 id → 그 책이 든 그림체 묶음. */
+export function styleGroupIndex(groups: BookGroup[]): Map<string, BookGroup> {
+  const m = new Map<string, BookGroup>();
+  for (const g of groups) if (g.kind === 'style') for (const id of g.bookIds) m.set(id, g);
+  return m;
+}
 
 /**
  * 제목으로 그림체 묶음을 제안한다 — `신데렐라` · `신데렐라_그림체1` · `신데렐라_그림체3` → 한 그룹.
@@ -80,12 +118,48 @@ export function suggestStyleGroups(
       !books.some((b) => list.some((l) => l.id === b.id) && SUFFIX.test(b.title))
     )
       continue;
+    const bare = list.find((l) => !SUFFIX.test(books.find((b) => b.id === l.id)?.title ?? ''));
     out.push({
       id: `style-${list.map((l) => l.id).sort()[0]}`,
       title: stem,
       kind: 'style',
       bookIds: list.sort((a, b) => a.n - b.n).map((l) => l.id),
+      ...(bare ? { primaryId: bare.id } : {}),
     });
+  }
+  return out;
+}
+
+/**
+ * 목록에서 같은 그림체 묶음을 한 권으로 접는다 — 라이브러리 카드·묶어 보기·사이트맵이 같은 규칙을 쓴다.
+ * 접은 자리는 **그 묶음이 목록에 처음 나온 자리**다(정렬을 흐트리지 않는다).
+ * `choose` 가 없으면 대표 책(목록에 있으면), 없으면 목록에 있는 첫 멤버.
+ * 목록에 없는 멤버(비공개 등)는 고려하지 않는다.
+ */
+export function collapseStyleGroups<T extends { id: string }>(
+  list: T[],
+  groups: BookGroup[],
+  choose?: (members: T[], group: BookGroup) => T | undefined
+): T[] {
+  const index = styleGroupIndex(groups);
+  const byGroup = new Map<string, T[]>();
+  for (const b of list) {
+    const g = index.get(b.id);
+    if (g) byGroup.set(g.id, [...(byGroup.get(g.id) ?? []), b]);
+  }
+  const done = new Set<string>();
+  const out: T[] = [];
+  for (const b of list) {
+    const g = index.get(b.id);
+    if (!g) {
+      out.push(b);
+      continue;
+    }
+    if (done.has(g.id)) continue;
+    done.add(g.id);
+    const members = byGroup.get(g.id)!;
+    const primary = members.find((m) => m.id === groupPrimaryId(g));
+    out.push(choose?.(members, g) ?? primary ?? members[0]);
   }
   return out;
 }

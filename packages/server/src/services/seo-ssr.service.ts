@@ -8,6 +8,7 @@
  * React 는 createRoot().render() 라 주입된 본문은 브라우저에서 자연히 교체된다.
  */
 import type { Storybook, StorybookSummary, ReadingLevel, ParentGuide } from '@tangobook/shared';
+import { bookDisplayTitle } from '@tangobook/shared';
 import {
   SUPPORTED_LANGUAGES,
   seoStrings,
@@ -120,7 +121,15 @@ function pickKoreanWord(k: { korean?: string; name?: string }): string {
   return HANGUL.test(name) ? name : '';
 }
 
-export function renderAboutSeo(storybook: Storybook, lang: string = 'ko'): AboutSeo {
+/**
+ * @param canonicalId 그림체 묶음의 대표 책 id — 같은 이야기의 그림체 책들은 한 쪽으로 신호를 모은다.
+ *   (쪼갠 책의 about 은 본문이 거의 같아 셋 다 색인시키면 구글이 중복으로 떨군다.)
+ */
+export function renderAboutSeo(
+  storybook: Storybook,
+  lang: string = 'ko',
+  canonicalId: string = storybook.id
+): AboutSeo {
   const sb = storybook as Storybook & {
     key_objects?: Array<{
       korean?: string;
@@ -134,13 +143,14 @@ export function renderAboutSeo(storybook: Storybook, lang: string = 'ko'): About
   };
   const isKo = lang === 'ko';
   const S = seoStrings(lang);
-  const displayTitle = isKo ? sb.title : (sb.titleTranslations?.[lang] ?? sb.title);
+  // 저작용 꼬리표 「_그림체N」 은 떼고 보여 준다(그룹 이름과 같은 규칙).
+  const displayTitle = bookDisplayTitle(sb, lang);
   const guide = isKo ? sb.parentGuide : (sb.parentGuideTranslations?.[lang] ?? sb.parentGuide);
 
   const title = fill(S.aboutTitle, displayTitle);
   const overview = guide?.overview || `${displayTitle} — Tangobook`;
   const description = summarize(overview);
-  const canonical = `${SITE_URL}${langPrefix(lang)}/library/${sb.id}/about`;
+  const canonical = `${SITE_URL}${langPrefix(lang)}/library/${canonicalId}/about`;
   const ogImage = encodeUrl(sb.coverImage || sb.coverImages?.[0]?.imageUrl || '');
   const level = sb.readingLevel ? LEVEL_INFO[sb.readingLevel] : null;
   const lessons = guide?.lessons ?? [];
@@ -161,10 +171,10 @@ export function renderAboutSeo(storybook: Storybook, lang: string = 'ko'): About
       ? altLangs
           .map(
             (l) =>
-              `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}/library/${sb.id}/about" />`
+              `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}/library/${canonicalId}/about" />`
           )
           .join('\n    ') +
-        `\n    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/library/${sb.id}/about" />`
+        `\n    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/library/${canonicalId}/about" />`
       : '';
 
   // ── JSON-LD ────────────────────────────────────────────────────────────────
@@ -523,8 +533,7 @@ export function renderHubSeo(
   const list = filterHubBooks(hub, books).filter(
     (b) => isKo || (b as (typeof withT)[number]).titleTranslations?.[lang]
   ) as typeof withT;
-  const displayTitle = (b: (typeof withT)[number]) =>
-    isKo ? b.title : (b.titleTranslations?.[lang] ?? b.title);
+  const displayTitle = (b: (typeof withT)[number]) => bookDisplayTitle(b, lang);
   const aboutHref = (b: { id: string }) => `${langPrefix(lang)}/library/${b.id}/about`;
 
   const canonical = `${SITE_URL}${langPrefix(lang)}/guide/${hub.slug}`;

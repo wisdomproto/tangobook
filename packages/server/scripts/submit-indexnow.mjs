@@ -123,6 +123,19 @@ async function collectPublicUrls() {
     console.warn('[indexnow] ⚠️ 파닉스 단원 스킵 — shared 미빌드?', e.message);
   }
 
+  // 같은 이야기의 그림체 책(그룹)은 대표 한 권만 — sitemap 과 같은 규칙(generate-sitemap.mjs).
+  const nonPrimary = new Set();
+  try {
+    const doc = await getJson('_index/book-groups.json');
+    for (const g of doc?.groups ?? []) {
+      if (g.kind !== 'style') continue;
+      const primary = g.primaryId && g.bookIds.includes(g.primaryId) ? g.primaryId : g.bookIds[0];
+      for (const id of g.bookIds) if (id !== primary) nonPrimary.add(id);
+    }
+  } catch {
+    // 그룹 파일이 없으면 접을 게 없다.
+  }
+
   let publicCount = 0;
   for (const key of bookKeys) {
     if (publicCount >= limit) break;
@@ -132,6 +145,7 @@ async function collectPublicUrls() {
       if (VARIANT_RE.test(book.id)) continue;
       if ((book.type ?? 'storybook') !== 'storybook') continue;
       if (book.isPublic === false) continue;
+      if (nonPrimary.has(book.id)) continue;
       urls.push(`${SITE_URL}/library/${book.id}`);
       urls.push(`${SITE_URL}/library/${book.id}/about`);
       publicCount++;

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { bookDisplayTitle } from '@tangobook/shared';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook';
@@ -588,8 +589,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
 
   // 표지+제목 인트로 데이터 (읽기 언어·현재 그림체) + 시작 핸들러.
   const introStyle = urlStyle ?? storybook?.artStyle ?? undefined;
-  const introTitle =
-    (lang !== 'ko' ? storybook?.titleTranslations?.[lang] : undefined) ?? storybook?.title ?? '';
+  const introTitle = storybook ? bookDisplayTitle(storybook, lang) : '';
   const introTitleTts = storybook?.titleTtsUrls?.[lang];
   const introCover =
     (introStyle ? storybook?.styleAssets?.[introStyle]?.primaryCoverByLang?.[lang] : undefined) ??
@@ -750,7 +750,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
       {controlsVisible && (
         <div onClick={(e) => e.stopPropagation()}>
           <ViewerToolbar
-            title={storybook.titleTranslations?.[lang]?.trim() || storybook.title}
+            title={bookDisplayTitle(storybook, lang)}
             onBack={() => {
               audio.stopTts();
               // 책 소개 페이지로 명시 이동 — history back 은 직전 진입 경로 따라 다른 곳으로 갈 수 있음
@@ -932,7 +932,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
       )}
 
       <RewardScreen
-        title={storybook.titleTranslations?.[lang]?.trim() || storybook.title}
+        title={bookDisplayTitle(storybook, lang)}
         videoId={getPrimaryVideoId(storybook) ?? undefined}
         directVideoUrl={getDirectVideoUrls(storybook)[0]}
         hasGames={hasGames(storybook)}

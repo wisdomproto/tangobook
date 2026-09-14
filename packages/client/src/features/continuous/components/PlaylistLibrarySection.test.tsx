@@ -38,6 +38,9 @@ const mockBooks: { data: BookSummary[] } = { data: [] };
 vi.mock('@/features/storybook', () => ({
   useStorybooks: () => mockBooks,
 }));
+vi.mock('@/features/library/hooks/useBookGroups', () => ({
+  useBookGroups: () => ({ data: { groups: [] } }),
+}));
 
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async () => {

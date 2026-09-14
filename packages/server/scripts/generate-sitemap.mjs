@@ -176,6 +176,20 @@ async function main() {
   let skippedVariant = 0;
   let skippedPrivate = 0;
   let skippedNonStorybook = 0;
+  let skippedGroupMember = 0;
+  // 🔴 같은 이야기의 그림체 책(그룹)은 대표 한 권만 싣는다 — 셋 다 실으면 본문이 같은 about 셋이
+  //    각자 색인을 요청해 중복으로 떨어진다. 대표 아닌 책의 about 은 canonical 이 대표를 가리킨다(app.ts).
+  const nonPrimary = new Set();
+  try {
+    const doc = await getJson('_index/book-groups.json');
+    for (const g of doc?.groups ?? []) {
+      if (g.kind !== 'style') continue;
+      const primary = g.primaryId && g.bookIds.includes(g.primaryId) ? g.primaryId : g.bookIds[0];
+      for (const id of g.bookIds) if (id !== primary) nonPrimary.add(id);
+    }
+  } catch {
+    // 그룹 파일이 없으면 접을 게 없다.
+  }
 
   for (const key of bookKeys) {
     try {
@@ -184,6 +198,7 @@ async function main() {
       if (VARIANT_RE.test(book.id)) { skippedVariant++; continue; }
       if ((book.type ?? 'storybook') !== 'storybook') { skippedNonStorybook++; continue; }
       if (book.isPublic === false) { skippedPrivate++; continue; }
+      if (nonPrimary.has(book.id)) { skippedGroupMember++; continue; }
 
       const cover =
         book.coverImage ||
@@ -239,7 +254,7 @@ async function main() {
   console.log(`  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2}) + 언어별 about ${langAboutCount}`);
   console.log(`  공개 블로그: ${blogCount}`);
   console.log(`  총 URL: ${entries.length}`);
-  console.log(`  스킵: variant=${skippedVariant} private=${skippedPrivate} non-storybook=${skippedNonStorybook}`);
+  console.log(`  스킵: variant=${skippedVariant} private=${skippedPrivate} non-storybook=${skippedNonStorybook} group-member=${skippedGroupMember}`);
 }
 
 main().catch((err) => {

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { bookDisplayTitle } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
 import type { StorybookSummary } from '@tangobook/shared';
 import { BookCover } from '@/design-system';
@@ -56,7 +57,7 @@ export function ReviewWordsCard({ words, storybooks }: Props) {
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-lg font-black text-ink-900">{word.word}</span>
                 <span className="block truncate text-xs font-semibold text-ink-500">
-                  {book.titleTranslations?.[i18n.language] ?? book.title}
+                  {bookDisplayTitle(book, i18n.language)}
                 </span>
               </span>
               <span className="shrink-0 rounded-full bg-coral-500 px-3 py-1.5 text-xs font-black text-white">

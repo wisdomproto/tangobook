@@ -25,7 +25,9 @@ import {
   genreLabel,
   type StyleGenreSlug,
 } from '@/lib/art-style-genre';
+import { collapseStyleGroups, stripStyleSuffix } from '@tangobook/shared';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
+import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 
 /**
  * v1 StorybookSummary 를 라이브러리 UI 가 기대하는 BookIndexEntry-shape 로 변환.
@@ -43,7 +45,8 @@ import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 function summaryToEntry(s: StorybookSummary, uiLang: string): BookIndexEntry {
   return {
     id: s.id,
-    title: s.title,
+    // 그림체별로 쪼갠 책의 저작용 꼬리표(「_그림체N」)는 학습자에게 안 보인다 — 검색도 이 제목으로 한다.
+    title: stripStyleSuffix(s.title),
     titleTranslations: s.titleTranslations,
     // v1 storybook 은 type 미지정이면 'storybook' 으로 호환 (legacy 룰).
     type: s.type ?? 'storybook',
@@ -275,9 +278,25 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     return false;
   };
 
+  // 🔴 같은 작품의 그림체 책(그룹)은 카드 한 장 — 고른 그림풍의 책을, 없으면 대표 책을 보여준다.
+  //    카드를 누르면 그 책으로 들어가고, 책 상세의 그림체 칩이 같은 그룹의 다른 책으로 옮겨 준다.
+  const { data: groupsDoc } = useBookGroups();
+  const bookGroups = groupsDoc?.groups;
+  const collapse = useCallback(
+    (list: BookIndexEntry[]) =>
+      bookGroups?.length
+        ? collapseStyleGroups(list, bookGroups, (members) =>
+            members.find((m) =>
+              Object.keys(m.coversByStyle ?? {}).some((st) => styleGenreMap[st] === styleGenre)
+            )
+          )
+        : list,
+    [bookGroups, styleGenreMap, styleGenre]
+  );
+
   const filtered = useMemo<BookIndexEntry[]>(() => {
     if (!all) return [];
-    const publicOnly = all.filter((b) => b.isPublic);
+    const publicOnly = collapse(all.filter((b) => b.isPublic));
     const result = publicOnly.filter(matchesType);
     const q = search.trim().toLowerCase();
     const searched = q
@@ -316,6 +335,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     readingFilter,
     statusMap,
     libConfig?.bookPriority,
+    collapse,
   ]);
 
   // 현재 보이는 책들 중 실제로 존재하는 그림풍(장르)만 선택지로 노출.
@@ -349,8 +369,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const allCategories = useMemo(() => {
     if (type !== 'storybook' || !all) return [];
     const q = search.trim().toLowerCase();
-    const base = all
-      .filter((b) => b.isPublic)
+    const base = collapse(all.filter((b) => b.isPublic))
       .filter(matchesType)
       .filter(
         (b) =>
@@ -362,7 +381,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       counts.set(k, (counts.get(k) ?? 0) + 1);
     });
     return [...counts.entries()].sort((a, b) => compareByPriority(a[0], b[0], a[1], b[1]));
-  }, [all, type, search, compareByPriority]);
+  }, [all, type, search, compareByPriority, collapse]);
 
   // 카테고리 chip 미선택 + 동화책 + 읽는 중 필터 X → 카테고리별 섹션, 그 외 → 플랫 그리드
   const showCategoryGroups = type === 'storybook' && !activeCategory && !readingFilter;

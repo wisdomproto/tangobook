@@ -2,6 +2,7 @@
 // 152개 블로그가 secondary 로 나눠 갖던 카테고리 키워드("유아 명작 동화" 등)를 모으는
 // 허브. 서버 SSR(seo-ssr.service.ts renderHubSeo)과 동일한 콘텐츠를 React 로 렌더.
 import { useMemo } from 'react';
+import { bookDisplayTitle } from '@tangobook/shared';
 import { Link, useParams } from 'react-router-dom';
 import { useStorybooks } from '@/features/storybook';
 import { Skeleton, StateScreen } from '@/design-system';
@@ -84,8 +85,7 @@ export default function GuideHubPage() {
 
   const total = grouped.reduce((n, [, items]) => n + items.length, 0);
   const c = copy ?? hub; // hub 존재 가드 통과 후라 non-undefined
-  const displayTitle = (b: SummaryWithTranslations) =>
-    isKo ? b.title : (b.titleTranslations?.[lang] ?? b.title);
+  const displayTitle = (b: SummaryWithTranslations) => bookDisplayTitle(b, lang);
 
   return (
     <article className="bg-gradient-to-b from-peach-50 to-white min-h-screen">

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { bookDisplayTitle } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
 import type { StorybookSummary } from '@tangobook/shared';
 import { BookCover } from '@/design-system';
@@ -59,7 +60,7 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
               </span>
             </div>
             <div className="mt-1.5 w-full break-keep text-center text-xs font-semibold text-ink-700">
-              {book.titleTranslations?.[i18n.language] ?? book.title}
+              {bookDisplayTitle(book, i18n.language)}
             </div>
             <div className="text-[10px] font-medium text-coral-500">
               {done && done.count > 1 ? t('recentBooks.readCount', { count: done.count }) : ''}
