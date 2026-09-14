@@ -104,6 +104,14 @@ const TTS_LANGUAGE: Record<Lang, NonNullable<ColoringItem['language']>> = {
 };
 
 /**
+ * 도안 목록을 찾을 책 id. 🔴 명작을 그림체별로 쪼갠 책(`splitFrom`)은 도안이 **원본 책 id** 로 적혀 있다
+ * (도안은 낱말 단위라 그림체와 무관하다) — 원본을 따라가야 그림체1·3 에도 색칠 카드가 뜬다.
+ */
+export function coloringBookId(book: { id: string; splitFrom?: { bookId: string } }): string {
+  return book.splitFrom?.bookId ?? book.id;
+}
+
+/**
  * 그 책의 도안 목록 — 라벨·음원·칭찬을 **보고 있는 언어**로 붙인다. 도안 그림 자체는 언어와 무관하다.
  *
  * 🔴 **`useMemo` 필수** — `ColoringPlayer` 는 `items[idx]` 가 바뀌면 도안을 새로 불러오는데,
@@ -117,7 +125,7 @@ export function useColoringItems(
   lang: Lang,
   enabled: boolean
 ): { items: ColoringItem[]; loading: boolean } {
-  const bookId = book?.id;
+  const bookId = book ? coloringBookId(book) : undefined;
   const { data, isLoading } = useQuery({
     queryKey: ['coloring', 'manifest'],
     queryFn: async (): Promise<ColoringSheet[]> => {

@@ -28,6 +28,7 @@ import { ConnectTheDotsPlayer } from '@/features/games/components/players/Connec
 import { ColoringPlayer } from '@/features/games/components/players/ColoringPlayer';
 import {
   countColoringSheets,
+  coloringBookId,
   useColoringBookIndex,
   useColoringItems,
 } from '@/features/games/hooks/useColoringSheets';
@@ -129,7 +130,11 @@ export function VocabularyStudyContent({
 
   // 🔴 장수가 아니라 **이 언어로 라벨을 붙일 수 있는 도안 수** — 카드를 내 놓고 빈 화면을 열지 않게.
   const coloringIndex = useColoringBookIndex();
-  const coloringCount = countColoringSheets(coloringIndex[storybook?.id ?? ''], storybook, lang);
+  const coloringCount = countColoringSheets(
+    coloringIndex[storybook ? coloringBookId(storybook) : ''],
+    storybook,
+    lang
+  );
   const games = getAvailableGames(unit, lang, t, storybook, currentStyle, coloringCount);
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.

@@ -21,7 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadEnv, getStorybook, putStorybook } from './translation-core.mjs';
+import { loadEnv, getStorybook, putStorybook, getJsonByKey } from './translation-core.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUB = path.join(__dirname, '..', '..', 'client', 'public');
@@ -52,6 +52,27 @@ const assets = (await (await fetch(`${ORIGIN}/api/comic-assets/hidden-object-pla
 const cells = plan.sections
   .flatMap((s) => s.items)
   .filter((c) => hotspots[c.key] && assets[c.key] && (!GENRE || c.genre === GENRE));
+
+/**
+ * 🔴 **명작은 그림체마다 책이 따로다**(2026-09-14). 작업판 칸은 여전히 `원본 책 id + 그림체` 로 적혀 있지만
+ *    그 그림체는 이제 쪼갠 책(`splitFrom: { bookId, styleId }`)에 산다 — 원본에 쓰면 아무도 못 본다.
+ *    그룹(`_index/book-groups.json`)에서 멤버를 읽어 `splitFrom` 이 맞는 책으로 칸을 옮긴다.
+ *    작업판 목록을 새로 만들지는 않는다(붙여넣기 키가 흔들린다).
+ */
+const groups = await getJsonByKey('_index/book-groups.json').then((d) => d.groups ?? []).catch(() => []);
+const splitTarget = new Map(); // `${원본id}|${styleId}` → 쪼갠 책 id
+for (const bookId of new Set(cells.map((c) => c.bookId))) {
+  const g = groups.find((x) => x.kind === 'style' && x.bookIds.includes(bookId));
+  for (const id of g?.bookIds ?? []) {
+    if (id === bookId) continue;
+    const b = await getStorybook(id);
+    if (b?.splitFrom?.bookId === bookId) splitTarget.set(`${bookId}|${b.splitFrom.styleId}`, id);
+  }
+}
+for (const c of cells) {
+  const moved = splitTarget.get(`${c.bookId}|${c.styleId}`);
+  if (moved) c.bookId = moved;
+}
 
 // 책 하나에 그림체가 여럿이므로 책 단위로 모아 한 번만 읽고 쓴다.
 const byBook = new Map();
