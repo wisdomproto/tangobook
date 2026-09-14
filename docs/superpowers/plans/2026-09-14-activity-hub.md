@@ -445,6 +445,7 @@ git commit -m "feat(shared): activity catalog — keys, slugs and items for the 
 ```ts
   it('sceneKey 를 주면 그 씬만 쓴다', () => {
     // 무작위를 0 으로 고정 — 안 고친 코드는 늘 첫 씬(a)을 골라 이 테스트가 확실히 실패한다.
+    // (describe 안에 `afterEach(() => vi.restoreAllMocks())` 를 한 번 넣어, 실패해도 목이 남지 않게 한다.)
     vi.spyOn(Math, 'random').mockReturnValue(0);
     const data = buildHiddenObjectSceneData(
       book({
@@ -457,7 +458,6 @@ git commit -m "feat(shared): activity catalog — keys, slugs and items for the 
       'ho-0002'
     );
     expect(data?.scenes[0].sceneImageUrl).toBe('https://x/b.jpg');
-    vi.restoreAllMocks();
   });
 
   it('박스가 둘이어도 이름이 하나면 게임이 아니다', () => {
@@ -1036,13 +1036,15 @@ git commit -m "feat(seo): server-rendered activity hub and item pages"
 - [ ] **Step 3: 응답 확인은 빌드된 서버로** — 🔴 `app.ts` 의 SSR 라우트·`sendSeo`·catch-all 은 전부 `NODE_ENV === 'production'` 블록 안이라 **개발 서버(`preview_start dev`)에는 이 라우트가 없다**. 여기서는 `pnpm build` 후 Task 13 Step 3 방식(빌드 서버 `PORT=3611 NODE_ENV=production`)으로 아래를 확인한다:
 
 ```bash
-curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" localhost:3500/worksheet
-curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" "localhost:3500/activity/coloring/bk-0001"
-curl -s -o /dev/null -w "%{http_code}\n" "localhost:3500/activity/coloring/bk-9999-x"
-curl -s "localhost:3500/activity/hidden-object/$(node -e "const d=require('./packages/client/public/activity-data/hidden-object.json');console.log(encodeURIComponent(d[0].key))")" -o /dev/null -w "%{http_code} %{redirect_url}\n"
+curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" localhost:3611/worksheet
+curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" "localhost:3611/activity/coloring/bk-0001"
+curl -s -o /dev/null -w "%{http_code}\n" "localhost:3611/activity/coloring/bk-9999-x"
+# 한글 정규 slug(인코딩) 한 장 — 200 이어야 한다(Express 가 디코드해서 넘기는지)
+curl -s -o /dev/null -w "%{http_code}\n" "localhost:3611$(node -e "const s=require('./packages/shared/dist/index.js');const d=require('./packages/client/public/activity-data/coloring.json');const it=s.coloringItems(d).find(i=>i.key.startsWith('bk-'));console.log('/activity/coloring/'+encodeURIComponent(it.slug))")"
+curl -s "localhost:3611/activity/hidden-object/$(node -e "const d=require('./packages/client/public/activity-data/hidden-object.json');console.log(encodeURIComponent(d[0].key))")" -o /dev/null -w "%{http_code} %{redirect_url}\n"
 ```
 
-(위 명령의 `localhost:3500` 을 `localhost:3611` 로.) Expected: `301 …/activity` · `301 …/activity/coloring/bk-0001-…` · `404` · `301` 정규 주소로. 정규 주소를 curl 하면 `200` 이고 `<h1>` 이 들어 있다.
+Expected: `301 …/activity` · `301 …/activity/coloring/bk-0001-…` · `404` · `301` 정규 주소로. 정규 주소를 curl 하면 `200` 이고 `<h1>` 이 들어 있다.
 
 - [ ] **Step 4: 서버 타입·테스트**
 
@@ -1178,11 +1180,12 @@ import { cn } from '@/lib/cn';
 export function ActivityList({ items, currentKey }: { items: ActivityItem[]; currentKey?: string }) {
   const [q, setQ] = useState('');
   const current = items.find((i) => i.key === currentKey);
+  const currentGroup = current?.group;
   const [open, setOpen] = useState<Set<string>>(() => new Set(current ? [current.group] : []));
   // 목록 JSON 이 늦게 오면 첫 렌더엔 current 가 없다 — 오면 그 갈래를 펼친다.
   useEffect(() => {
-    if (current) setOpen((s) => new Set(s).add(current.group));
-  }, [current?.group]);
+    if (currentGroup) setOpen((s) => new Set(s).add(currentGroup));
+  }, [currentGroup]);
   const groups = useMemo(() => {
     const m = new Map<string, ActivityItem[]>();
     const needle = q.trim();
@@ -1434,7 +1437,7 @@ export function ColoringPanel({ item, entry, next }: { item: ActivityItem; entry
               window.setTimeout(() => {
                 setPlaying(false);
                 setFinished(true);
-              }, 2500);
+              }, 3000);
             }}
           />
         </Suspense>
