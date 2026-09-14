@@ -15,7 +15,8 @@ export function PanelHeader({
   extra,
 }: {
   title: string;
-  onPlay: () => void;
+  /** 없으면 버튼을 안 그린다(워크지는 페이지 안 쓰기가 곧 온라인). */
+  onPlay?: () => void;
   onPrint: () => void;
   playLabel?: string;
   /** 인쇄 옆에 붙는 버튼(색칠책 인쇄 등). */
@@ -26,9 +27,11 @@ export function PanelHeader({
       <h1 className="mr-auto font-display text-2xl font-extrabold text-ink-900 break-keep sm:text-3xl">
         {title}
       </h1>
-      <button onClick={onPlay} className={`${BTN} bg-mint-500 text-white hover:bg-mint-600`}>
-        {playLabel}
-      </button>
+      {onPlay && (
+        <button onClick={onPlay} className={`${BTN} bg-mint-500 text-white hover:bg-mint-600`}>
+          {playLabel}
+        </button>
+      )}
       <button onClick={onPrint} className={`${BTN} bg-white text-ink-700 hover:bg-peach-100`}>
         🖨 인쇄
       </button>
