@@ -15,7 +15,7 @@ const AudiobookTab = lazy(() =>
 );
 import { SettingsTab } from '@/features/settings';
 import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/features/phonics';
-import { GamesTab, HiddenObjectEditorTab } from '@/features/games';
+import { GamesTab, StorybookGamesTab } from '@/features/games';
 import { BlogTab } from '@/features/blog';
 import { CardNewsTab } from '@/features/card-news';
 import { LongformVideoTab } from '@/features/longform-video';
@@ -79,10 +79,6 @@ export function EditorContent({
       id: 'key-objects',
       el: <KeyObjectTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
     },
-    {
-      id: 'hidden-object',
-      el: <HiddenObjectEditorTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
-    },
   ];
 
   const phonicsAfterCharTabs = [
@@ -112,7 +108,15 @@ export function EditorContent({
   ];
 
   const sharedEndTabs = [
-    { id: 'games', el: <GamesTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
+    {
+      id: 'games',
+      // 🔴 동화책은 학습자 화면과 같은 자동 게임(단어 익히기 / 동화 내용 놀이 + 숨은그림 씬) — 파닉스는 저장된 게임 그대로.
+      el: isPhonics ? (
+        <GamesTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
+      ) : (
+        <StorybookGamesTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
+      ),
+    },
     {
       id: 'audiobook',
       el: (
