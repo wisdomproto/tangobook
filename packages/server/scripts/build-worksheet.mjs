@@ -340,6 +340,9 @@ const STYLE = `<style>
     background: left center/contain no-repeat var(--logo); }
   .runhead .plogo { width: 30mm; height: 8.5mm; margin-right: 3mm; }
   .srow { display: flex; align-items: center; gap: 2.5mm; justify-content: center; }
+  /* 영어 낱말 줄 맨 앞 그림 — 낱말을 따로 모아 보여 주던 쪽을 없애고 그림을 쓰는 줄에 붙였다. */
+  .srow .rpic { width: calc(var(--lg) * 1.3); height: calc(var(--lg) * 1.3); object-fit: contain; flex: none;
+    border: .4mm solid var(--peach-200); border-radius: 2mm; background: #fff; }
   .formula { width: 16mm; flex: none; font-size: 12pt; font-weight: 700; color: var(--mint-600); text-align: center; }
   .formula i { font-style: normal; color: var(--mint-200); margin: 0 .6mm; }
 
@@ -383,8 +386,8 @@ const ROOM = { page1: 110, firstCombo: 176, more: 205 };
  * 🔴 한글은 「크게 써 봐요」를 **두 줄**로 쓴다(2026-09-15 사용자). 1쪽에 조합 줄(`page1Rows`)까지 있는
  * 받침 단원은 57mm 두 줄이면 215px 넘쳤다 — 그 경우만 큰 칸을 36mm 로, 조합 줄 칸 하한을 17mm 로 낮춰 덜어낸다.
  */
-const xlMm = (spec) => (!spec.en && spec.page1Rows ? 36 : 57);
-const xlExtra = (spec) => (spec.en ? 0 : 2 * (xlMm(spec) + 2.5) - (57 + 2.5));
+const xlMm = (spec) => (spec.ko && spec.page1Rows ? 36 : 57);
+const xlExtra = (spec) => (!spec.ko ? 0 : 2 * (xlMm(spec) + 2.5) - (57 + 2.5));
 function syllableBlock(rows, room = ROOM.more, wd = false, minMm = 20) {
   // 🔴 낱말 칸은 상한이 낮다 — 20mm 를 넘으면 칸 폭(2.3배)이 커져 빈 칸이 3개 밑으로 떨어진다.
   // 🔴 라벨(왼쪽 수식)을 뺀 만큼 칸을 키운다(2026-08-19 사용자: "각 칸을 좀 키워서 꽉 채워").
@@ -433,7 +436,9 @@ const comboRow = (formula, result, wd = false) => {
 const BLANKS = '<!--blanks-->';
 const fillWordRow = (row, lg) => {
   const per = 2.3 * lg + 2.5;
-  const n = Math.max(2, Math.min(5, Math.floor((178 - 26) / per))) - 1;
+  // 줄 앞에 그림이 있으면 그 폭만큼 빈 칸을 줄인다(그림 = 칸 높이의 1.3배).
+  const pic = row.includes('class="rpic"') ? 1.3 * lg + 2.5 : 0;
+  const n = Math.max(2, Math.min(5, Math.floor((178 - 26 - pic) / per))) - 1;
   return row.replace(BLANKS, Array.from({ length: n }, () => box('', 'lg wd')).join(''));
 };
 
@@ -685,13 +690,60 @@ function enUnitSpec(u, lesson) {
     })),
     packCap: 12,
     wordy: true,
+    // 🔴 패턴 하나를 끝까지(알아보기 → 크게 → 작게 → 낱말) 한 뒤 다음 패턴 — 이퓨처 Learn(-an) → Learn More(-at) 순서
+    //    (2026-09-15 사용자). 낱말은 그림을 줄 앞에 붙여 한 번만 — 모아 보기·따라 쓰기 쪽이 같은 낱말을 세 번 냈다.
+    patternPages: pats.map((pat, i) => ({
+      pat,
+      firstWord: families[i]?.words?.[0]?.word ?? '',
+      words: (families[i]?.words ?? []).map((w) => w.word),
+    })),
     readAll: (families[0].words ?? []).map((w) => w.word).join(' '),
     meetTitle: `${pats.map((p) => p.label).join(' · ')} 낱말이에요`,
   };
 }
 
+/**
+ * 영어 Book 2~5 — **패턴마다 한 묶음**: 알아봐요 → 크게 써 봐요 → 작게 써요 → 그림 + 낱말 쓰기.
+ * 낱말 줄이 한 쪽에 안 들어가면 이어지는 쪽으로 넘긴다(묶음 안에서만 — 다음 패턴과 섞지 않는다).
+ */
+const PATTERN_FIRST_ROWS = 4;
+const PATTERN_XL = 44;
+function renderPatternPages({ head, spec, words }) {
+  const UNIT = head.unitLabel ?? '익힘';
+  const imgOf = (w) => words.find((x) => x.word.toLowerCase() === w.toLowerCase())?.img;
+  const picRow = (w) =>
+    '<div class="srow">' +
+    (imgOf(w) ? '<img class="rpic" src="' + imgOf(w) + '" alt="">' : '') +
+    box(w, 'lg wd') + BLANKS + '</div>';
+  const out = [];
+  spec.patternPages.forEach(({ pat, firstWord, words: ws }, i) => {
+    const rows = ws.map(picRow);
+    const top = i === 0
+      ? '<header><div class="plogo"></div><div class="ttl">' + UNIT + ' ' + head.unitNo + '. <em>' + spec.glyph + '</em><small>' + spec.sub + '</small></div><div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div></header>'
+      : '<div class="runhead"><div class="plogo"></div><b>' + UNIT + ' ' + head.unitNo + '. ' + spec.glyph + '</b><span>' + pat.label + '</span></div>';
+    const xlf = Math.floor((Math.min(105, Math.floor(255 / [...pat.text].length)) * PATTERN_XL) / 57);
+    const say = firstWord ? firstWord + ' 의 ' + pat.label : pat.label;
+    out.push(
+      '<div class="page">' + top +
+      '<section><h2 data-n="1">' + pat.label + ' 을 알아봐요</h2><div class="learn"><div class="glyph">' + pat.label + '</div><dl><dt>소리</dt><dd>' + esc(say) + '</dd><dt>알아두기</dt><dd style="font-weight:400">' + (pat.onset ? '앞소리는 두 글자를 한 번에 이어서 소리 내요' : '뒤가 같으면 앞 글자만 바꿔도 새 낱말이 돼요') + '</dd></dl></div></section>' +
+      '<section><h2 data-n="2">크게 써 봐요 <span class="hint">쓸 때마다 “' + pat.label + '” 하고 소리 내요</span></h2><div class="row" style="--xl:' + PATTERN_XL + 'mm;--xlf:' + xlf + 'pt">' + Array.from({ length: 3 }, () => box(pat.text, 'xl en')).join('') + '</div></section>' +
+      '<section><h2 data-n="3">이제 작게 써요</h2>' + syllableBlock([comboRow(pat.label, pat.text, true)], 22, true) + '</section>' +
+      '<section><h2 data-n="4">' + pat.label + ' 낱말을 써요 <span class="hint">그림을 보고 소리 내어 읽으며 써요</span></h2>' + syllableBlock(rows.slice(0, PATTERN_FIRST_ROWS), i === 0 ? 74 : 79, true) + '</section>' +
+      '</div>'
+    );
+    for (let at = PATTERN_FIRST_ROWS; at < rows.length; at += 10) {
+      out.push(
+        '<div class="page"><div class="runhead"><div class="plogo"></div><b>' + UNIT + ' ' + head.unitNo + '. ' + spec.glyph + '</b><span>' + pat.label + '</span></div>' +
+        '<section><h2 data-n="4">' + pat.label + ' 낱말을 써요 <span class="hint">이어서 써요</span></h2>' + syllableBlock(rows.slice(at, at + 10), ROOM.more - 14, true) + '</section></div>'
+      );
+    }
+  });
+  return out.join('');
+}
+
 /** 한 단원의 3쪽 마크업. 스타일은 STYLE 로 분리해 합본에서 한 번만 싣는다. */
 function renderPages({ head, spec, words }) {
+  if (spec.patternPages) return renderPatternPages({ head, spec, words });
   const UNIT = head.unitLabel ?? '익힘';
   const splitMeet = words.length > 6;
   // 🔴 8장을 3열에 두면 마지막 줄에 2장만 남아 아래가 통째로 빈다 — 장수로 열을 정하고,
@@ -768,7 +820,7 @@ function renderPages({ head, spec, words }) {
             const PER = 5;
             const per = Math.min(PER, spec.xlGhosts.length);
             // 두 번 쓰면 줄이 둘 늘어 한 줄에 1mm 씩 덜어낸다(기본모음 단원이 1px 넘쳤다).
-            const md = Math.max(22, Math.min(spec.en ? 33 : 31, Math.floor(178 / per) - 3));
+            const md = Math.max(22, Math.min(spec.ko ? 31 : 33, Math.floor(178 / per) - 3));
             const len = Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length));
             // 글자 수가 늘면 폭이 먼저 찬다 — 0.64 배는 한 글자짜리 기준이다.
             const mdf = Math.min(md * 0.64, (md * 0.86) / (0.57 * len));
@@ -776,7 +828,7 @@ function renderPages({ head, spec, words }) {
             for (let i = 0; i < spec.xlGhosts.length; i += PER) lines.push(spec.xlGhosts.slice(i, i + PER));
             // 🔴 한글은 **한 줄을 두 번** 쓴다(2026-09-15 사용자) — 한 번 쓰고 넘어가면 손에 안 붙는다.
             return lines
-              .flatMap((ln) => Array(spec.en ? 1 : 2).fill(ln))
+              .flatMap((ln) => Array(spec.ko ? 2 : 1).fill(ln))
               .map(
                 (ln) =>
                   `<div class="row" style="--md:${md}mm;--mdf:${mdf.toFixed(1)}mm">${ln
@@ -792,7 +844,7 @@ function renderPages({ head, spec, words }) {
             Math.floor(255 / Math.max(1, ...spec.xlGhosts.map((c) => [...String(c)].length)))
           ) * xlMm(spec)) / 57)}pt">${Array.from({ length: spec.xlCycle ? spec.xlGhosts.length : 3 }, (_, i) =>
             box(spec.xlGhosts[i] ?? '', 'xl' + (spec.xlBig ? ' big' : '') + (spec.en ? ' en' : ''))
-          ).join('')}</div>`.repeat(spec.en ? 1 : 2)
+          ).join('')}</div>`.repeat(spec.ko ? 2 : 1)
     }</div>
   </section>
 
@@ -800,7 +852,7 @@ function renderPages({ head, spec, words }) {
     <h2 data-n="3">${spec.page1Title ?? `이제 작게 써요 ${spec.writeHint ? `<span class="hint">${spec.writeHint}</span>` : ''}`}</h2>
     ${
       spec.page1Rows
-        ? syllableBlock(spec.page1Rows, ROOM.page1 - xlExtra(spec), spec.wordy, spec.en ? 20 : 17)
+        ? syllableBlock(spec.page1Rows, ROOM.page1 - xlExtra(spec), spec.wordy, spec.ko ? 17 : 20)
         : Array.from(
             { length: 3 },
             (_, r) =>
@@ -1141,6 +1193,8 @@ async function main() {
     }
 
     const spec = en ? enUnitSpec(u, r.data.phonicsLesson) : unitSpec(u, kind, words);
+    // 🔴 한글 전용 규칙(크게 써 봐요 두 줄 등)의 판별 — 사양의 en 칸은 어디서도 안 채워져 늘 비어 있었다.
+    spec.ko = !en;
     const pages = renderPages({ head: { unitNo, levelName: u.levelName, unitLabel: L.unit }, spec, words });
     all.push(pages);
     const pageCount = (pages.match(/<div class="page/g) || []).length;
