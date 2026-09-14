@@ -9,12 +9,7 @@ import {
 // 책이 바뀌면 현황판·낱말 그래프 캐시를 버린다(순환 import 를 피해 상태만 든 모듈에서 가져온다).
 import { invalidateContentStatus } from '../services/content-status.cache.js';
 import { imageToWebp } from '../utils/transcode.js';
-import {
-  canonicalizeArtStyle,
-  canonicalizeStyleAssets,
-  type Storybook,
-  type StorybookSummary,
-} from '@tangobook/shared';
+import { canonicalizeArtStyle, type Storybook, type StorybookSummary } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 
 const STORYBOOK_PREFIX = 'storybook-';
@@ -98,73 +93,12 @@ function toSummary(sb: Storybook): StorybookSummary {
     complete: cover && pagesImage && pagesTts && vocabulary,
   };
 
-  // 대표 그림체 (defaultStyle) 가 있으면 그 styleAssets 의 coverImage 우선 — 라이브러리·검색 등 외부 노출 일관성용.
-  // 단 그 그림체의 카드 언어(ko) 표지가 publicByStyleLang 으로 비공개면, 라이브러리/검색 카드엔
-  // 공개된 그림체의 표지로 폴백한다 (비공개 그림체가 카드에 노출되는 것 방지).
-  const cardLang = sb.languages?.[0] ?? 'ko';
-  const isStyleLangPublic = (style: string) => sb.publicByStyleLang?.[style]?.[cardLang] !== false;
-  let targetStyle = sb.defaultStyle ?? sb.artStyle;
-  if (targetStyle && !isStyleLangPublic(targetStyle)) {
-    const allStyles =
-      sb.availableStyles && sb.availableStyles.length > 0
-        ? sb.availableStyles
-        : sb.artStyle
-          ? [sb.artStyle]
-          : [];
-    const publicStyle = allStyles.find((s) => isStyleLangPublic(s));
-    if (publicStyle) targetStyle = publicStyle;
-  }
-
-  // 그림체별 대표 표지 URL — 라이브러리 카드 배너용 (default 외 다른 그림체 썸네일).
-  // 활성 그림체(`sb.artStyle`)는 top-level 필드, 그 외는 `styleAssets[s]` 에서 추출.
-  const coversByStyle: Record<string, string> = {};
-  const pickCover = (a: {
-    coverImage?: string;
-    coverImages?: { imageUrl: string }[];
-  }): string | undefined => a.coverImage ?? a.coverImages?.find((c) => c.imageUrl)?.imageUrl;
-  const activeCover = pickCover({ coverImage: sb.coverImage, coverImages: sb.coverImages });
-  if (sb.artStyle && activeCover) coversByStyle[sb.artStyle] = activeCover;
-  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
-    if (!assets) continue;
-    const url = pickCover(assets);
-    if (url && !coversByStyle[style]) coversByStyle[style] = url;
-  }
-
-  const coverImageOut = coversByStyle[targetStyle ?? ''] ?? sb.coverImage;
-
-  // 그림체별 클린 표지 URL — 다국어 오버레이 베이스 (coversByStyle 와 짝).
-  const cleanCoversByStyle: Record<string, string> = {};
-  if (sb.artStyle && sb.cleanCoverImage) cleanCoversByStyle[sb.artStyle] = sb.cleanCoverImage;
-  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
-    const url = assets?.cleanCoverImage;
-    if (url && !cleanCoversByStyle[style]) cleanCoversByStyle[style] = url;
-  }
-  const cleanCoverImageOut = cleanCoversByStyle[targetStyle ?? ''] ?? sb.cleanCoverImage;
-
-  // 그림체 × 언어 표지 맵 — 활성 그림체는 top-level primaryCoverByLang, 그 외는 styleAssets[style].
-  const coverLangByStyle: Record<string, Record<string, string>> = {};
-  const addLangMap = (style: string | undefined, mp?: Record<string, string>) => {
-    if (!style || !mp) return;
-    for (const [lang, url] of Object.entries(mp)) {
-      if (url && !coverLangByStyle[style]?.[lang]) (coverLangByStyle[style] ??= {})[lang] = url;
-    }
-  };
-  addLangMap(sb.artStyle, sb.primaryCoverByLang);
-  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
-    addLangMap(style, assets?.primaryCoverByLang);
-  }
-
-  // defaultStyle 기준 언어별 대표 표지 — 라이브러리 마스터 언어 토글용
+  // 🔴 한 책 = 한 그림체(2026-09-14) — 표지·클린 표지·언어별 표지 전부 top-level 이 정본이다.
+  //    (예전엔 대표 그림체가 비공개면 다른 그림체 표지로 폴백하고, styleAssets 에서 그림체별 맵을 만들었다.)
+  const coverImageOut = sb.coverImage ?? sb.coverImages?.find((c) => c.imageUrl)?.imageUrl;
   const coversByLang: Record<string, string> = {};
-  const targetStyleAssets = sb.styleAssets?.[targetStyle ?? ''];
-  for (const [lang, url] of Object.entries(targetStyleAssets?.primaryCoverByLang ?? {})) {
+  for (const [lang, url] of Object.entries(sb.primaryCoverByLang ?? {}))
     if (url) coversByLang[lang] = url;
-  }
-  if (targetStyle === sb.artStyle) {
-    for (const [lang, url] of Object.entries(sb.primaryCoverByLang ?? {})) {
-      if (url && !coversByLang[lang]) coversByLang[lang] = url;
-    }
-  }
 
   return {
     id: sb.id,
@@ -183,12 +117,8 @@ function toSummary(sb: Storybook): StorybookSummary {
       sb.titleTranslations && Object.keys(sb.titleTranslations).length > 0
         ? sb.titleTranslations
         : undefined,
-    coversByStyle: Object.keys(coversByStyle).length > 0 ? coversByStyle : undefined,
     coversByLang: Object.keys(coversByLang).length > 0 ? coversByLang : undefined,
-    cleanCoverImage: cleanCoverImageOut,
-    cleanCoversByStyle: Object.keys(cleanCoversByStyle).length > 0 ? cleanCoversByStyle : undefined,
-    coverLangByStyle: Object.keys(coverLangByStyle).length > 0 ? coverLangByStyle : undefined,
-    availableStyles: sb.availableStyles,
+    cleanCoverImage: sb.cleanCoverImage,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,
@@ -287,7 +217,7 @@ export const R2Repository = {
 
   async saveStorybook(storybook: Storybook): Promise<Storybook> {
     // 같은 title 중복 방지 — 신규 저장 또는 title 변경 시에만 체크.
-    // (audiobook 생성 / styleAssets 정리 등 부수 update 는 title 동일 → skip)
+    // (audiobook 생성 등 부수 update 는 title 동일 → skip)
     // storybook ↔ phonics 끼리는 충돌로 보지 않음.
     const myTitle = storybook.title?.trim();
     if (myTitle) {
@@ -307,16 +237,14 @@ export const R2Repository = {
       }
     }
 
-    // 그림체 자료 정규화: prompt-form 키가 들어와도 canonical id 로 머지 + dedupe
-    const normalizedStyleAssets = canonicalizeStyleAssets(storybook.styleAssets);
-    const normalizedAvailable = storybook.availableStyles
-      ? Array.from(new Set(storybook.availableStyles.map((s) => canonicalizeArtStyle(s) || s)))
-      : storybook.availableStyles;
+    // 🔴 한 책 = 한 그림체(2026-09-14) — 옛 그림체별 필드는 저장할 때마다 떼어 낸다
+    //    (안 떼면 옛 클라이언트·스크립트가 들고 온 `styleAssets` 가 R2 에 되살아난다).
+    const legacy = storybook as Storybook &
+      Record<'styleAssets' | 'availableStyles' | 'defaultStyle', unknown>;
+    const { styleAssets: _sa, availableStyles: _as, defaultStyle: _ds, ...rest } = legacy;
     const updated: Storybook = {
-      ...storybook,
-      styleAssets: normalizedStyleAssets,
+      ...(rest as Storybook),
       artStyle: canonicalizeArtStyle(storybook.artStyle ?? '') || storybook.artStyle,
-      availableStyles: normalizedAvailable,
       updatedAt: new Date().toISOString(),
     };
     await uploadJsonToR2(updated, storybookKey(storybook.id));

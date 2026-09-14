@@ -64,12 +64,7 @@ export function getDirectVideoUrls(storybook: Storybook): string[] {
   return urls;
 }
 
-/**
- * 책이 지원하는 그림체 prompt 배열. availableStyles 가 비어있으면 [artStyle] 로 fallback.
- */
+/** 책의 그림체 — 한 책 = 한 그림체(2026-09-14)라 0 또는 1개. */
 export function getAvailableStyles(storybook: Storybook): string[] {
-  if (storybook.availableStyles && storybook.availableStyles.length > 0) {
-    return storybook.availableStyles;
-  }
   return storybook.artStyle ? [storybook.artStyle] : [];
 }

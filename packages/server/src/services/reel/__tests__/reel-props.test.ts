@@ -6,9 +6,18 @@ import {
   pickMainStyle,
   MORPH_LINES,
   buildReelProps,
+  styleMapOf,
 } from '../reel-props';
 
 const range = (a: number, b: number) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+
+/** 그림체 하나짜리 책 — 한 책 = 한 그림체. */
+const bookWithPages = (id: string, pages: number[]) => ({
+  title: '개구리 왕자',
+  artStyle: id,
+  coverImage: `https://r2/${id}/cover.png`,
+  pages: pages.map((p) => ({ pageNumber: p, illustrationUrl: `https://r2/${id}/page-${p}.png` })),
+});
 
 const styleWithPages = (id: string, pages: number[]) => ({
   coverImage: `https://r2/${id}/cover.png`,
@@ -105,15 +114,11 @@ describe('buildReelProps', () => {
   const WATER = 'style-1778405374347';
   const PAPER = 'paper-craft';
 
-  const makeStorybook = () => ({
-    title: '개구리 왕자',
-    artStyle: ACTIVE,
-    styleAssets: {
-      [ACTIVE]: styleWithPages(ACTIVE, range(1, 15)),
-      [WATER]: styleWithPages(WATER, range(1, 15)),
-      [PAPER]: styleWithPages(PAPER, range(1, 15)),
-    },
-  });
+  const makeBooks = (pages = range(1, 15)) => [
+    bookWithPages(ACTIVE, pages),
+    bookWithPages(WATER, pages),
+    bookWithPages(PAPER, pages),
+  ];
 
   const makeStoryboard = (nScenes = 5) => ({
     title: '개구리 왕자',
@@ -128,18 +133,17 @@ describe('buildReelProps', () => {
   const genreMap = { [ACTIVE]: 'collage', [WATER]: 'watercolor', [PAPER]: 'paper3d' };
 
   it('4 씬 조립 + 훅 라벨=책 제목 + 모프', () => {
-    const storybook = makeStorybook();
-    const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
+    const styleBooks = makeBooks();
+    const storybook = styleBooks[0];
+    const out = buildReelProps({ storybook, styleBooks, storyboard: makeStoryboard(), genreMap });
     expect(out).not.toBeNull();
     expect(out!.bookTitle).toBe('개구리 왕자');
     expect(out!.scenes.length).toBe(4);
     expect(out!.scenes[0].label).toBe('개구리 왕자');
     expect(out!.scenes[0].body).toBe('훅 자막'); // subtitle 우선
     // 메인 그림체는 3개 중 해시로 선택 → 그 그림체의 표지를 사용
-    const mainId = pickMainStyle(storybook.styleAssets, genreMap, '개구리 왕자')!;
-    expect(out!.scenes[0].imageUrls).toEqual([
-      encodeURI((storybook.styleAssets as any)[mainId].coverImage),
-    ]);
+    const mainId = pickMainStyle(styleMapOf(styleBooks), genreMap, '개구리 왕자')!;
+    expect(out!.scenes[0].imageUrls).toEqual([encodeURI(`https://r2/${mainId}/cover.png`)]);
     expect(out!.scenes[1].label).toBe('원작·배경');
     for (const s of out!.scenes) {
       expect(s.imageUrls.length).toBeGreaterThanOrEqual(1);
@@ -150,8 +154,10 @@ describe('buildReelProps', () => {
   });
 
   it('스토리보드가 5 씬 미만이면 null', () => {
+    const styleBooks = makeBooks();
     const out = buildReelProps({
-      storybook: makeStorybook(),
+      storybook: styleBooks[0],
+      styleBooks,
       storyboard: makeStoryboard(4),
       genreMap,
     });
@@ -160,16 +166,13 @@ describe('buildReelProps', () => {
 
   it('페이지<3이면 빈 버킷은 전체 페이지로 폴백(모든 씬 이미지≥1)', () => {
     // 3그림체 모두 2페이지 → 어느 그림체가 선택돼도 <3 폴백 트리거
-    const storybook = {
-      title: '개구리 왕자',
-      artStyle: ACTIVE,
-      styleAssets: {
-        [ACTIVE]: styleWithPages(ACTIVE, [1, 2]),
-        [WATER]: styleWithPages(WATER, [1, 2]),
-        [PAPER]: styleWithPages(PAPER, [1, 2]),
-      },
-    };
-    const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
+    const styleBooks = makeBooks([1, 2]);
+    const out = buildReelProps({
+      storybook: styleBooks[0],
+      styleBooks,
+      storyboard: makeStoryboard(),
+      genreMap,
+    });
     expect(out).not.toBeNull();
     expect(out!.scenes.length).toBe(4);
     for (const s of out!.scenes) expect(s.imageUrls.length).toBeGreaterThanOrEqual(1);
@@ -178,8 +181,10 @@ describe('buildReelProps', () => {
   });
 
   it('captions 오버라이드가 subtitle/narration보다 우선', () => {
+    const styleBooks = makeBooks();
     const out = buildReelProps({
-      storybook: makeStorybook(),
+      storybook: styleBooks[0],
+      styleBooks,
       storyboard: makeStoryboard(),
       genreMap,
       captions: ['훅캡션', '원작캡션', '줄거리캡션', '교훈캡션'],
@@ -192,8 +197,10 @@ describe('buildReelProps', () => {
     ]);
   });
   it('captions 일부만 있으면 그 씬만 오버라이드(나머지는 subtitle 폴백)', () => {
+    const styleBooks = makeBooks();
     const out = buildReelProps({
-      storybook: makeStorybook(),
+      storybook: styleBooks[0],
+      styleBooks,
       storyboard: makeStoryboard(),
       genreMap,
       captions: ['훅캡션'], // 씬0만
@@ -203,13 +210,7 @@ describe('buildReelProps', () => {
   });
 
   it('활성 그림풍에 일러스트가 없으면 null', () => {
-    const storybook = {
-      title: '개구리 왕자',
-      artStyle: ACTIVE,
-      styleAssets: {
-        [ACTIVE]: { coverImage: 'https://r2/x/cover.png', pageIllustrations: {} },
-      },
-    };
+    const storybook = bookWithPages(ACTIVE, []);
     const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
     expect(out).toBeNull();
   });

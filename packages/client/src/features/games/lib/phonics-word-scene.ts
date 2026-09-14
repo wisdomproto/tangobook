@@ -42,10 +42,7 @@ function remember(sb: Storybook) {
   met.set(sb.id, {
     id: sb.id,
     title: sb.title ?? '',
-    coverUrl:
-      sb.primaryCoverByLang?.ko ??
-      sb.coverImage ??
-      Object.values(sb.styleAssets ?? {}).find((s) => s?.coverImage)?.coverImage,
+    coverUrl: sb.primaryCoverByLang?.ko ?? sb.coverImage,
   });
 }
 
@@ -133,12 +130,7 @@ export function pickPhonicsWordScene(word: string, lang: Lang = 'ko'): PhonicsWo
   const sb = books.get(bookId);
   if (!sb) return null;
   const page = sb.pages?.[pageNumber - 1];
-  // 🔴 그림체별 삽화도 본다 — 자연관찰처럼 base 만 있는 책과 명작처럼 그림체별로 있는 책이 섞여 있다.
-  const url =
-    page?.illustrationUrl ??
-    Object.values(sb.styleAssets ?? {}).find(
-      (s) => s?.pageIllustrations?.[pageNumber]?.illustrationUrl
-    )?.pageIllustrations?.[pageNumber]?.illustrationUrl;
+  const url = page?.illustrationUrl;
   if (!url) return null;
   const pageText = lang === 'ko' ? page?.text : (page?.translations?.[lang]?.text ?? page?.text);
   const pageTtsUrl = lang === 'ko' ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;

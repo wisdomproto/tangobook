@@ -22,11 +22,7 @@ export {
   neutralizeKoreanFinal,
   expandKoreanFinalAliases,
 } from './utils/phonics-syllable.js';
-export {
-  buildAudiobookRenderData,
-  buildStyledAudiobookRenderData,
-  buildBaseAudiobookRenderData,
-} from './utils/audiobook-props.js';
+export { buildAudiobookRenderData, buildBaseAudiobookRenderData } from './utils/audiobook-props.js';
 export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-props.js';
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';
 export { getWordHotspots } from './utils/hotspots.js';
@@ -50,11 +46,7 @@ export {
   ALL_KOREAN_JAMO,
 } from './utils/compose-korean-syllable.js';
 export type { DecomposedSyllable } from './utils/compose-korean-syllable.js';
-export {
-  canonicalizeArtStyle,
-  canonicalizeStyleAssets,
-  getArtStyleLabel,
-} from './utils/art-style.js';
+export { canonicalizeArtStyle, getArtStyleLabel } from './utils/art-style.js';
 export * from './constants/seo-i18n.js';
 // 🔴 콘텐츠 집계 — 서버 라우트·현황판 스크립트·감사표가 **같은 사본**을 쓴다(각자 세면 값이 갈라진다).
 export {

@@ -41,11 +41,11 @@ export interface LongformMeta {
  */
 export function resolveLongformCoverUrl(
   storybook: any,
-  artStyle: string,
+  _artStyle: string,
   language: string
 ): string {
-  const sa = storybook?.styleAssets?.[artStyle] ?? {};
-  return sa.primaryCoverByLang?.[language] || sa.coverImage || storybook?.coverImage || '';
+  // 한 책 = 한 그림체(2026-09-14) — 그림체 인자는 호출부 호환용.
+  return storybook?.primaryCoverByLang?.[language] || storybook?.coverImage || '';
 }
 
 /**

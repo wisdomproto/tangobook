@@ -92,34 +92,10 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   }, [autoplayParam, updateSettings]);
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
-  // ?style 미지정(연속재생 등) 시 대표 그림체(defaultStyle) 우선 — 라이브러리 표지와 재생 그림체 일치.
-  // artStyle 은 "저작도구에서 마지막으로 활성화된 그림체"라 대표와 다를 수 있음.
-  // 🔴 임베드 `embed.style` 이 최우선 — 랜딩이 표지 그림체를 고정한다(그 스타일이 styleAssets 에
-  //    없는 책은 아래 swap 이 못 걸려 자연스레 base 로 폴백).
-  const urlStyle = embed?.style ?? sp.get('style') ?? v1Storybook?.defaultStyle ?? null;
-
-  // v1 단일화. URL ?style 이 base.artStyle 과 다르면 styleAssets 로 표지/페이지 일러스트 즉시 swap.
-  // 같은 이야기의 다른 그림체는 별도 책이다(그룹) — 여기서는 storybookId 가 가리키는 책만 본다.
-  const storybook = useMemo(() => {
-    if (!v1Storybook) return v1Storybook;
-    if (urlStyle && urlStyle !== v1Storybook.artStyle) {
-      const sa = v1Storybook.styleAssets?.[urlStyle];
-      if (sa) {
-        const pageIllus = sa.pageIllustrations ?? {};
-        const swapped = v1Storybook.pages.map((p) => ({
-          ...p,
-          illustrationUrl:
-            (p.pageNumber != null && pageIllus[p.pageNumber]?.illustrationUrl) || p.illustrationUrl,
-        }));
-        return {
-          ...v1Storybook,
-          coverImage: sa.coverImage ?? v1Storybook.coverImage,
-          pages: swapped,
-        };
-      }
-    }
-    return v1Storybook;
-  }, [v1Storybook, urlStyle]);
+  // 한 책 = 한 그림체(2026-09-14) — 같은 이야기의 다른 그림체는 별도 책(그룹)이라 swap 할 게 없다.
+  // `urlStyle` 은 학습 이벤트·게임 칩에 넘기는 그림체 이름으로만 남는다.
+  const urlStyle = embed?.style ?? sp.get('style') ?? v1Storybook?.artStyle ?? null;
+  const storybook = v1Storybook;
 
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -587,14 +563,9 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   };
 
   // 표지+제목 인트로 데이터 (읽기 언어·현재 그림체) + 시작 핸들러.
-  const introStyle = urlStyle ?? storybook?.artStyle ?? undefined;
   const introTitle = storybook ? bookDisplayTitle(storybook, lang) : '';
   const introTitleTts = storybook?.titleTtsUrls?.[lang];
-  const introCover =
-    (introStyle ? storybook?.styleAssets?.[introStyle]?.primaryCoverByLang?.[lang] : undefined) ??
-    storybook?.primaryCoverByLang?.[lang] ??
-    (introStyle ? storybook?.styleAssets?.[introStyle]?.coverImage : undefined) ??
-    storybook?.coverImage;
+  const introCover = storybook?.primaryCoverByLang?.[lang] ?? storybook?.coverImage;
   const introVolume = VOLUME_GAIN[settings.volume ?? 'high'];
   // 탭 게이트(첫 책/개별) 시작 — TitleIntro 가 탭→제목 낭독 후 이걸 호출 → 첫 페이지 재생.
   const handleIntroStart = () => {

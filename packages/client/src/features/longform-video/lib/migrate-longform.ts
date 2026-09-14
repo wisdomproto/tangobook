@@ -14,7 +14,7 @@ export function liftSubMasters(draft: Storybook): boolean {
 
   const projectsById = new Map(projects.map((p) => [p.id, p]));
   let changed = false;
-  const fallbackStyle = draft.artStyle ?? draft.availableStyles?.[0];
+  const fallbackStyle = draft.artStyle;
 
   for (const p of projects) {
     if (p.parentProjectId) {

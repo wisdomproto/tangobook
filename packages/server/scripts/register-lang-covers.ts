@@ -35,24 +35,13 @@ async function publicBooks(): Promise<string[]> {
     .map((s: any) => s.id);
 }
 
-// clean cover URL for a (book, style): styleAssets[style].cleanCoverImage, or top-level for the active style
+// 한 책 = 한 그림체(2026-09-14) — 클린 표지·언어별 표지는 책 top-level 에 하나씩.
 function cleanUrlFor(sb: any, style: string): string | undefined {
-  return (
-    sb.styleAssets?.[style]?.cleanCoverImage ??
-    (style === sb.artStyle ? sb.cleanCoverImage : undefined)
-  );
+  return style === sb.artStyle ? sb.cleanCoverImage : undefined;
 }
 
-// displayed styles only (availableStyles = 앱 노출 그림체; 명작 3 / 자연 1). fallback [artStyle].
 function displayStyles(sb: any): string[] {
-  const av =
-    sb.availableStyles && sb.availableStyles.length > 0
-      ? sb.availableStyles
-      : sb.artStyle
-        ? [sb.artStyle]
-        : [];
-  const have = new Set(pickStyleCovers(sb).map((s) => s.style));
-  return (av as string[]).filter((s) => have.has(s));
+  return pickStyleCovers(sb).map((s) => s.style);
 }
 
 async function manifest() {
@@ -98,8 +87,8 @@ async function ingest() {
     if (!sb) continue;
     let touched = false;
     for (const m of entries) {
-      const asset =
-        (sb.styleAssets = sb.styleAssets ?? {})[m.style] ?? (sb.styleAssets[m.style] = {});
+      if (m.style !== sb.artStyle) continue; // 옛 manifest 의 다른 그림체 — 그 그림체는 이제 다른 책이다
+      const asset = sb;
       asset.primaryCoverByLang = asset.primaryCoverByLang ?? {};
       for (const lang of LANGS) {
         if (!m[lang]) continue;
@@ -119,10 +108,6 @@ async function ingest() {
             'image/webp'
           );
           asset.primaryCoverByLang[lang] = url;
-          if (m.style === sb.artStyle) {
-            sb.primaryCoverByLang = sb.primaryCoverByLang ?? {};
-            sb.primaryCoverByLang[lang] = url;
-          }
           ok++;
           touched = true;
         } catch (e) {
@@ -148,19 +133,13 @@ async function report() {
     const perStyle: any[] = [];
     for (const style of styles) {
       const hasClean = !!cleanUrlFor(sb, style);
-      const pbl =
-        sb.styleAssets?.[style]?.primaryCoverByLang ??
-        (style === sb.artStyle ? sb.primaryCoverByLang : undefined) ??
-        {};
+      const pbl = (style === sb.artStyle ? sb.primaryCoverByLang : undefined) ?? {};
       const missLangs = LANGS.filter((l) => t[l] && !pbl[l]);
       if (!hasClean || missLangs.length) perStyle.push({ style, hasClean, missing: missLangs });
     }
     if (perStyle.length) {
       const noneRegistered = styles.every((style) => {
-        const pbl =
-          sb.styleAssets?.[style]?.primaryCoverByLang ??
-          (style === sb.artStyle ? sb.primaryCoverByLang : undefined) ??
-          {};
+        const pbl = (style === sb.artStyle ? sb.primaryCoverByLang : undefined) ?? {};
         return LANGS.every((l) => !pbl[l]);
       });
       if (noneRegistered) fullyMissing++;

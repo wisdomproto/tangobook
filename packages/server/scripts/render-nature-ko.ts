@@ -1,8 +1,7 @@
 // 전 자연관찰(실사) 책 × 한국어(ko) 롱폼 오디오북 일괄 렌더 러너.
 //
 // 명작(render-classics-ko.ts)과 달리 자연관찰 책은 그림체가 없는 실사 단일본이다.
-// 이미지가 styleAssets 가 아니라 base pages[].illustrationUrl 에 있어 render-book-audiobooks 가
-// base 렌더 경로로 처리한다(--style=<styleAssets 키, 보통 photographic>). 조합당 서브프로세스 격리 + 재개 가능.
+// 이미지는 pages[].illustrationUrl 에 있다(--style=<책의 artStyle, 보통 photographic>). 조합당 서브프로세스 격리 + 재개 가능.
 //
 // 사용:
 //   pnpm --filter @tangobook/server exec tsx scripts/render-nature-ko.ts --dry-run   # 대상 목록만
@@ -59,10 +58,9 @@ interface Combo {
   title: string;
 }
 
-/** 실사책의 styleAssets 키(보통 'photographic'). 없으면 'photographic' 폴백. */
+/** 책의 그림체(보통 'photographic'). 없으면 'photographic' 폴백. */
 function pickBaseStyle(book: any): string {
-  const keys = Object.keys(book?.styleAssets ?? {});
-  return keys[0] || 'photographic';
+  return book?.artStyle || 'photographic';
 }
 
 async function main() {

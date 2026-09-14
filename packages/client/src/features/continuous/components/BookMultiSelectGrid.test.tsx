@@ -52,6 +52,9 @@ vi.mock('@/features/storybook', () => ({
     isError: false,
   }),
 }));
+vi.mock('@/features/library/hooks/useBookGroups', () => ({
+  useBookGroups: () => ({ data: { groups: [] } }),
+}));
 
 // useLibraryConfig(useQuery) 가 QueryClient 를 요구하므로 목킹. makeCategoryComparator 는 실제 동작 유지.
 // 🔴 **mock 경로는 컴포넌트가 실제로 쓰는 경로여야 한다**(2026-08-21). 예전엔 배럴

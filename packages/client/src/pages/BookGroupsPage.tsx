@@ -273,11 +273,10 @@ function BookTile({
   id: string;
   children?: ReactNode;
 }) {
-  const cover = (book?.artStyle && book.coversByStyle?.[book.artStyle]) || book?.coverImage;
+  const cover = book?.coverImage;
   return (
     <div className="rounded-2xl border border-ink-100 p-2 bg-cream-50">
       <div className="aspect-video rounded-xl overflow-hidden bg-ink-100">
-        {/* 요약 coverImage 는 「대표 그림체」 표지라 원본 책에선 다른 그림체가 나온다 — 그 책의 활성 그림체 표지를 쓴다. */}
         {cover && <img src={cover} alt="" className="w-full h-full object-cover" />}
       </div>
       <p className="mt-2 text-sm font-bold text-ink-900 break-keep">

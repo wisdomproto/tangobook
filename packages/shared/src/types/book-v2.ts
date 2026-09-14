@@ -288,21 +288,14 @@ export interface BookIndexEntry {
   isAccessibleForFree?: boolean;
   usedVariants: UsedVariants;
   hasCover: boolean;
-  /** 라이브러리 카드 표지 URL — 첫 style의 cover.webp */
+  /** 라이브러리 카드 표지 URL. */
+  /** 이 책의 그림체 — 라이브러리 그림풍 드롭다운이 장르를 찾는 키. */
+  artStyle?: string;
   coverImageUrl?: string;
-  /**
-   * 그림체별 대표 표지 URL 맵 — 라이브러리 카드 배너 (default 외 다른 그림체 썸네일) 노출용.
-   * 키 = artStyle prompt/id, 값 = imageUrl. v1 어댑터에서 storybook.styleAssets 에서 추출한 값 전달.
-   */
-  coversByStyle?: Record<string, string>;
   /** 클린 표지 URL (다국어 오버레이 베이스). summaryToEntry 가 summary.cleanCoverImage 에서 채움. */
   cleanCoverImageUrl?: string;
-  /** 그림체별 클린 표지 URL 맵. */
-  cleanCoversByStyle?: Record<string, string>;
   /** 대표 그림체의 언어별 표지 (lang→url). 카드가 UI 언어별 표지 노출에 사용. */
   coversByLang?: Record<string, string>;
-  /** 그림체 × 언어 표지 맵 (style→lang→url). 선택 그림풍 × UI 언어 표지 노출에 사용. */
-  coverLangByStyle?: Record<string, Record<string, string>>;
   /** phonics 책 분리용 (라이브러리 탭). bid 패턴(kr-h..., en-b...)으로 derive */
   phonicsLanguage?: 'korean' | 'english';
   /** 커리큘럼 마스터 페이지에서 정렬·표시용 (no/originalTitle/author/source/priority/launchLevel) */

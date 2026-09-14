@@ -1,3 +1,4 @@
+import { stripStyleSuffix } from '@tangobook/shared';
 export function firstClause(text: string, maxLen = 40): string {
   const t = (text ?? '').trim();
   if (!t) return '';
@@ -115,6 +116,26 @@ export function splitIntoBuckets<T>(items: T[], n: number): T[][] {
   return out;
 }
 
+/**
+ * 그림체별 책 목록 → `{ 그림체 id: { 표지, 쪽 삽화 } }` 맵. 한 책 = 한 그림체(2026-09-14) —
+ * 그림체 모핑·메인 그림체 선택은 이제 같은 그룹의 책들을 모아 이 맵으로 만든다.
+ */
+export function styleMapOf(books: any[]): Record<string, StyleAsset> {
+  const out: Record<string, StyleAsset> = {};
+  for (const b of books) {
+    if (!b?.artStyle || out[b.artStyle]) continue;
+    out[b.artStyle] = {
+      coverImage: b.coverImage,
+      pageIllustrations: Object.fromEntries(
+        (b.pages ?? [])
+          .filter((p: any) => p.illustrationUrl)
+          .map((p: any) => [String(p.pageNumber), { illustrationUrl: p.illustrationUrl }])
+      ),
+    };
+  }
+  return out;
+}
+
 export interface ReelScene {
   label: string;
   body: string;
@@ -133,11 +154,14 @@ export interface ReelProps {
 
 export function buildReelProps({
   storybook,
+  styleBooks,
   storyboard,
   genreMap,
   captions,
 }: {
   storybook: any;
+  /** 같은 그룹(같은 이야기)의 그림체별 책 — 없으면 이 책 하나. 모핑은 2권 이상일 때만. */
+  styleBooks?: any[];
   storyboard: any;
   genreMap: Record<string, string>;
   captions?: string[]; // 씬 0..3 자막 오버라이드(손수 작성). 있으면 subtitle/narration보다 우선.
@@ -146,8 +170,9 @@ export function buildReelProps({
   if (!Array.isArray(scenes) || scenes.length < 5) return null; // guard: needs 5-scene storyboard
   // 메인 삽화 그림체 = 3개 중 책ID 해시로 고정 랜덤(다양성). 매핑 없으면 활성 그림체.
   const seed = String(storybook.id ?? storyboard.storybookId ?? storybook.title ?? '');
-  const mainId = pickMainStyle(storybook.styleAssets || {}, genreMap, seed) ?? storybook.artStyle;
-  const sa = storybook.styleAssets?.[mainId];
+  const styleAssets = styleMapOf(styleBooks?.length ? styleBooks : [storybook]);
+  const mainId = pickMainStyle(styleAssets, genreMap, seed) ?? storybook.artStyle;
+  const sa = styleAssets[mainId];
   const pi = sa?.pageIllustrations || {};
   const pages = Object.keys(pi)
     .map(Number)
@@ -155,15 +180,15 @@ export function buildReelProps({
     .sort((a, b) => a - b);
   if (pages.length === 0) return null; // guard: needs active-style illustrations
   const cover = encodeURI(
-    sa.coverImage || storybook.coverImage || pi[String(pages[0])].illustrationUrl
+    sa?.coverImage || storybook.coverImage || pi[String(pages[0])]!.illustrationUrl!
   );
-  const urlOf = (p: number) => encodeURI(pi[String(p)].illustrationUrl);
+  const urlOf = (p: number) => encodeURI(pi[String(p)]!.illustrationUrl!);
 
-  const bookTitle = storybook.title || storyboard.title || '';
+  const bookTitle = stripStyleSuffix(storybook.title || storyboard.title || '');
   const out: ReelProps = {
     bookTitle,
     scenes: [],
-    styleMorph: pickMorph(storybook.styleAssets || {}, genreMap),
+    styleMorph: pickMorph(styleAssets, genreMap),
   };
   // 자막 우선순위: 손수 작성한 captions[i] > 스토리보드 subtitle > 나레이션 첫 절.
   // (subtitle 은 "○○ 원작 이야기" 식 라벨이라 스토리를 못 담음 → 손수 캡션이 최우선.)

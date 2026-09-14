@@ -6,7 +6,6 @@ import { Button } from '@/design-system';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';
-import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
 import { DownloadButton } from '@/components/DownloadButton';
 import { UploadMenu } from '@/components/UploadMenu';
 import { illustrationApi } from '../api/illustration.api';
@@ -362,16 +361,6 @@ export function PageCard({
                   onFile={handleFileUpload}
                   openFilePicker={openFilePicker}
                   disabled={generateMutation.isPending || uploadMutation.isPending}
-                />
-              </div>
-
-              {/* 다른 그림체의 같은 페이지 일러스트 참고 (활성 그림체 외 styleAssets 에 있는 경우) */}
-              <div className="mt-2">
-                <OtherStyleReference
-                  storybook={storybook}
-                  slot={{ kind: 'page', pageNumber: page.pageNumber }}
-                  label={`🎨 다른 그림체 P${page.pageNumber}`}
-                  thumbSize={72}
                 />
               </div>
             </div>

@@ -15,9 +15,8 @@ import {
   SortableContext,
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
-import { useStorybooks, storybookApi } from '@/features/storybook';
+import { useStorybooks } from '@/features/storybook';
 import { useLibraryConfig, useUpdateLibraryConfig, useCategoryActions } from '@/features/library';
-import { useQueryClient } from '@tanstack/react-query';
 import type { LibraryConfig, StorybookSummary } from '@tangobook/shared';
 import { CategoryPanel } from '@/features/library/components/CategoryPanel';
 import { BookCardEditable } from '@/features/library/components/BookCardEditable';
@@ -116,13 +115,11 @@ function orderBooksInCategory(
 
 export default function LibraryMasterPage() {
   const navigate = useNavigate();
-  const qc = useQueryClient();
   const { data: storybooks, isLoading } = useStorybooks();
   const { data: config } = useLibraryConfig();
   const update = useUpdateLibraryConfig();
 
   const [activeCat, setActiveCat] = useState<string | null>(null);
-  const [coverModalBookId, setCoverModalBookId] = useState<string | null>(null);
   const [moveFromCat, setMoveFromCat] = useState<string | null>(null);
   const [progressText, setProgressText] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
@@ -257,19 +254,6 @@ export default function LibraryMasterPage() {
     }
   };
 
-  const handleChangeCover = async (bookId: string, newStyleId: string) => {
-    try {
-      const sb = await storybookApi.getById(bookId);
-      const updated = { ...sb, defaultStyle: newStyleId };
-      await storybookApi.save(updated);
-      await qc.invalidateQueries({ queryKey: ['storybooks'] });
-      flashSaved();
-      setCoverModalBookId(null);
-    } catch (err) {
-      alert(`표지 변경 실패: ${(err as Error).message}`);
-    }
-  };
-
   const moveCandidates = categoryOrder.filter((c) => c !== moveFromCat);
 
   return (
@@ -297,9 +281,9 @@ export default function LibraryMasterPage() {
         </div>
         <div className="max-w-[1480px] mx-auto px-6 pb-3 flex items-center justify-between gap-4">
           <span className="text-sm text-ink-600">
-            좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) · 🎨 (표지)
-            편집. 책 카드 드래그는 같은 카테고리 안에서 순서 바꾸기만 — 카테고리 이동은 카드 좌상단
-            카테고리 chip 으로 하세요.
+            좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) 편집. 책 카드
+            드래그는 같은 카테고리 안에서 순서 바꾸기만 — 카테고리 이동은 카드 좌상단 카테고리 chip
+            으로 하세요.
           </span>
           <div className="flex items-center gap-2 shrink-0">
             <button
@@ -417,7 +401,6 @@ export default function LibraryMasterPage() {
                               categories={categoryOrder}
                               emojiOf={emojiOf}
                               selectedLang={selectedLang}
-                              onChangeCover={() => setCoverModalBookId(book.id)}
                               onChangeCategory={(next) =>
                                 actions.setBookCategory(book.id, activeCat, next).then(flashSaved)
                               }
@@ -457,14 +440,6 @@ export default function LibraryMasterPage() {
         )}
       </div>
 
-      {coverModalBookId && (
-        <CoverPickerModal
-          bookId={coverModalBookId}
-          onClose={() => setCoverModalBookId(null)}
-          onPick={(styleId) => handleChangeCover(coverModalBookId, styleId)}
-        />
-      )}
-
       {moveFromCat && (
         <MoveBooksModal
           fromCategory={moveFromCat}
@@ -498,126 +473,6 @@ export default function LibraryMasterPage() {
           onSavedFlash={flashSaved}
         />
       )}
-    </div>
-  );
-}
-
-// =============== Cover picker modal (기존 그대로) ===============
-
-function CoverPickerModal({
-  bookId,
-  onClose,
-  onPick,
-}: {
-  bookId: string;
-  onClose: () => void;
-  onPick: (styleId: string) => void;
-}) {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<{
-    title: string;
-    defaultStyle?: string;
-    options: Array<{ styleId: string; imageUrl: string }>;
-  } | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const sb = await storybookApi.getById(bookId);
-        if (cancelled) return;
-        const opts: Array<{ styleId: string; imageUrl: string }> = [];
-        if (sb.styleAssets) {
-          for (const [styleId, assets] of Object.entries(sb.styleAssets)) {
-            const url =
-              assets?.primaryCoverByLang?.ko ??
-              assets?.coverImage ??
-              assets?.coverImages?.[0]?.imageUrl;
-            if (url) opts.push({ styleId, imageUrl: url });
-          }
-        }
-        if (opts.length === 0 && sb.coverImage) {
-          opts.push({ styleId: sb.artStyle || 'default', imageUrl: sb.coverImage });
-        }
-        setData({
-          title: sb.title,
-          defaultStyle: sb.defaultStyle ?? sb.artStyle,
-          options: opts,
-        });
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [bookId]);
-
-  return (
-    <div
-      className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-6"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-y-auto shadow-pop"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <header className="sticky top-0 bg-white border-b border-ink-100 px-6 py-4 flex items-center justify-between">
-          <h2 className="text-xl font-black text-ink-900 truncate">
-            🎨 메인 표지 선택{data ? ` — ${data.title}` : ''}
-          </h2>
-          <button
-            onClick={onClose}
-            className="w-9 h-9 rounded-full bg-ink-100 hover:bg-ink-200 text-ink-700 font-black"
-            aria-label="닫기"
-          >
-            ✕
-          </button>
-        </header>
-        <div className="p-6">
-          {loading ? (
-            <div className="text-center py-20 text-ink-500">불러오는 중...</div>
-          ) : !data || data.options.length === 0 ? (
-            <div className="text-center py-20 text-ink-500">사용 가능한 표지가 없습니다.</div>
-          ) : (
-            <>
-              <p className="text-sm text-ink-600 mb-4">
-                그림체를 클릭하면 라이브러리 카드에 그 그림체의 표지가 노출됩니다.
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {data.options.map((opt) => {
-                  const isCurrent = opt.styleId === data.defaultStyle;
-                  return (
-                    <button
-                      key={opt.styleId}
-                      onClick={() => onPick(opt.styleId)}
-                      className={`relative aspect-square rounded-2xl overflow-hidden border-4 transition hover:scale-[1.02] ${
-                        isCurrent
-                          ? 'border-coral-500 ring-4 ring-coral-200'
-                          : 'border-ink-100 hover:border-coral-300'
-                      }`}
-                    >
-                      <img
-                        src={opt.imageUrl}
-                        alt={opt.styleId}
-                        className="w-full h-full object-cover"
-                      />
-                      {isCurrent && (
-                        <span className="absolute top-2 right-2 bg-coral-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-black shadow-pop">
-                          ✓
-                        </span>
-                      )}
-                      <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-xs font-black px-2 py-1.5 truncate">
-                        {opt.styleId}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
@@ -669,8 +524,7 @@ function GroupMembersModal({
         <ol className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {group.bookIds.map((id, i) => {
             const b = books.find((x) => x.id === id);
-            // 요약 coverImage 는 대표 그림체 표지라 원본 책에선 다른 그림체가 나온다 — 그 책의 활성 그림체 표지.
-            const cover = (b?.artStyle && b.coversByStyle?.[b.artStyle]) || b?.coverImage;
+            const cover = b?.coverImage;
             return (
               <li key={id} className="rounded-2xl border border-ink-100 p-2 bg-cream-50">
                 <div className="aspect-video rounded-xl overflow-hidden bg-ink-100">

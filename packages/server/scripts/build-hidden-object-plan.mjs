@@ -390,9 +390,41 @@ if (!Object.keys(genreOf).length) {
 const entries = [];
 const skipped = [];
 
+const books = [];
 for (const k of await listStorybookKeys()) {
   const sb = await getJsonByKey(k).catch(() => null);
-  if (!sb || !CATEGORIES.includes(sb.category)) continue;
+  if (sb && CATEGORIES.includes(sb.category)) books.push(sb);
+}
+/**
+ * 🔴 한 책 = 한 그림체(2026-09-14) — 명작은 그림체마다 책이 따로다(`splitFrom`). 붙여넣기 키가
+ *    흔들리지 않게 칸은 여전히 **원본 책 + 그림체**로 만든다: 쪼갠 책을 원본 밑으로 접어 그림체 맵을 다시 짓는다.
+ *    (`link-hidden-object-scenes` 가 칸을 쪼갠 책으로 옮긴다.)
+ */
+const splitsOf = new Map();
+for (const b of books) {
+  if (b.splitFrom?.bookId) splitsOf.set(b.splitFrom.bookId, [...(splitsOf.get(b.splitFrom.bookId) ?? []), b]);
+}
+const styleMapOf = (members) =>
+  Object.fromEntries(
+    members
+      .filter((b) => b.artStyle)
+      .map((b) => [
+        b.artStyle,
+        {
+          pageIllustrations: Object.fromEntries(
+            (b.pages ?? []).filter((pg) => pg.illustrationUrl).map((pg) => [pg.pageNumber, { illustrationUrl: pg.illustrationUrl }])
+          ),
+          keyObjectImages: b.keyObjectImages,
+        },
+      ])
+  );
+
+for (const sb of books) {
+  if (sb.splitFrom?.bookId) continue;
+  const splits = splitsOf.get(sb.id);
+  // 그림체가 하나뿐인 라인(전래·자연)은 맵이 비고 아래 base 칸으로 간다 — 쪼개기 전과 같다.
+  const styleAssets = splits ? styleMapOf([sb, ...splits]) : {};
+  const title = (sb.title ?? sb.id).replace(/_그림체\d+$/, '');
 
   // 낱말 — 화면에는 한국어, 프롬프트에는 영어. 둘 중 하나가 없으면 그 낱말은 못 쓴다.
   let words = (sb.key_objects ?? [])
@@ -412,16 +444,16 @@ for (const k of await listStorybookKeys()) {
   //    후자는 쪽 삽화가 styleAssets 이 아니라 책 본문에 있어서 아래 폴백이 필요하다.
   const slots = GENRE_ORDER.map((genre) => ({
     genre,
-    styleId: pickStyle(sb.styleAssets, genreOf, genre),
+    styleId: pickStyle(styleAssets, genreOf, genre),
   })).filter((s) => s.styleId);
-  if (!slots.length) slots.push({ genre: 'base', styleId: Object.keys(sb.styleAssets ?? {})[0] ?? null });
+  if (!slots.length) slots.push({ genre: 'base', styleId: sb.artStyle ?? null });
 
   for (const { genre, styleId } of slots) {
-    const asset = styleId ? sb.styleAssets?.[styleId] : null;
+    const asset = styleId ? styleAssets[styleId] : null;
     const styled = pickPageIllustration(asset);
     const page = styled ?? pickBasePageIllustration(sb);
     if (!page) {
-      skipped.push(`${sb.title} / ${GENRE_LABEL[genre] ?? genre}: 쪽 삽화 없음`);
+      skipped.push(`${title} / ${GENRE_LABEL[genre] ?? genre}: 쪽 삽화 없음`);
       continue;
     }
     // 낱말 카드는 **그 그림체 것 우선**, 없으면 책 공통. 그림체가 다른 카드를 참조로 주면
@@ -434,7 +466,7 @@ for (const k of await listStorybookKeys()) {
 
     entries.push({
       bookId: sb.id,
-      bookTitle: sb.title ?? sb.id,
+      bookTitle: title,
       genre,
       genreLabel: (styled && GENRE_LABEL[genre]) || '기본 그림체',
       styleId,

@@ -2,8 +2,7 @@
 /**
  * 붙여넣은 숨은그림 씬 + 손으로 잡은 사물 자리 → **책에 물린다**.
  *
- * 정본은 `styleAssets[styleId].hiddenObjectScenes` 이고, 그 그림체가 지금 활성이면
- * top-level `hiddenObjectScenes` 에도 거울처럼 넣는다(서버 `buildHiddenObjectData` 가 읽는 자리).
+ * 자리는 책의 `hiddenObjectScenes` 하나다 — 한 책 = 한 그림체(2026-09-14).
  *
  * 🔴 **핫스팟의 `objectName` 은 `key_objects[].name` 과 글자까지 같아야 한다.** 라벨·낱말 카드·음원이
  *    전부 그 이름으로 붙으므로, 어긋나면 게임은 뜨는데 이름이 영어로 나오고 그림이 안 붙는다.
@@ -74,7 +73,7 @@ for (const c of cells) {
   if (moved) c.bookId = moved;
 }
 
-// 책 하나에 그림체가 여럿이므로 책 단위로 모아 한 번만 읽고 쓴다.
+// 책 단위로 모아 한 번만 읽고 쓴다.
 const byBook = new Map();
 for (const c of cells) {
   const list = byBook.get(c.bookId);
@@ -100,7 +99,6 @@ for (const [bookId, list] of byBook) {
     const byName = keyObjects.find((k) => lower(k.name) === lower(en));
     return byName?.name;
   };
-  sb.styleAssets ??= {};
   let touched = false;
 
   for (const cell of list) {
@@ -137,13 +135,8 @@ for (const [bookId, list] of byBook) {
       artStyle: cell.styleId,
       hotspots: hs,
     };
-    const slot = (sb.styleAssets[cell.styleId] ??= {});
-    const kept = (slot.hiddenObjectScenes ?? []).filter((s) => s.id !== scene.id);
-    slot.hiddenObjectScenes = [...kept, scene];
-    if (sb.artStyle === cell.styleId) {
-      const mirror = (sb.hiddenObjectScenes ?? []).filter((s) => s.id !== scene.id);
-      sb.hiddenObjectScenes = [...mirror, scene];
-    }
+    const kept = (sb.hiddenObjectScenes ?? []).filter((s) => s.id !== scene.id);
+    sb.hiddenObjectScenes = [...kept, scene];
     scenes++;
     boxes += hs.length;
     touched = true;

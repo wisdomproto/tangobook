@@ -29,29 +29,15 @@ import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
 import { getAudioDuration } from '../src/utils/audio-duration.js';
 import { generateSrt } from '../src/utils/srt-generator.js';
-import { buildStyledAudiobookRenderData, buildBaseAudiobookRenderData } from '@tangobook/shared';
+import { buildBaseAudiobookRenderData, stripStyleSuffix } from '@tangobook/shared';
 import type { AudiobookRenderData, Storybook } from '@tangobook/shared';
 
 /**
- * 렌더 데이터 빌더 선택 — 그림체(styleAssets[style].pageIllustrations)가 있으면 styled,
- * 없으면(자연관찰 실사책처럼 이미지가 base pages[].illustrationUrl 에 있는 경우) base 빌더.
- * 두 경로 모두 텍스트/TTS 는 translations[lang](ko=base)로 언어축을 바꾼다.
+ * 🔴 한 책 = 한 그림체(2026-09-14) — 삽화는 늘 `pages[].illustrationUrl` 이다. `--style` 은 기록용 라벨로만 남는다
+ * (마케팅 행이 (책, 그림체, 언어) 로 구분되므로).
  */
-function isBaseImageStyle(storybook: Storybook, artStyle: string): boolean {
-  const styleAsset = (storybook.styleAssets ?? {})[artStyle] as
-    | { pageIllustrations?: Record<string, unknown> }
-    | undefined;
-  return Object.keys(styleAsset?.pageIllustrations ?? {}).length === 0;
-}
-
-function buildRenderDataFor(
-  storybook: Storybook,
-  artStyle: string,
-  lang: string
-): AudiobookRenderData {
-  return isBaseImageStyle(storybook, artStyle)
-    ? buildBaseAudiobookRenderData(storybook, { language: lang })
-    : buildStyledAudiobookRenderData(storybook, { artStyle, language: lang });
+function buildRenderDataFor(storybook: Storybook, lang: string): AudiobookRenderData {
+  return buildBaseAudiobookRenderData(storybook, { language: lang });
 }
 
 // Remotion 은 Chromium 이 필요하므로 lazy import (config 로드 시점 부담 회피).
@@ -146,10 +132,11 @@ function loadMetaData(): Record<string, Record<string, MetaEntry>> {
 }
 
 function buildLongformMeta(storybook: Storybook, lang: string): LongformMeta {
-  const entry = loadMetaData()[storybook.id]?.[lang];
+  // 그림체로 쪼갠 책은 메타가 원본 id 에 적혀 있다.
+  const entry = loadMetaData()[storybook.splitFrom?.bookId ?? storybook.id]?.[lang];
   if (entry) {
     return {
-      title: entry.title || storybook.title,
+      title: entry.title || stripStyleSuffix(storybook.title),
       description: entry.description || '',
       tags: Array.isArray(entry.tags) ? entry.tags : [],
       categoryId: '27',
@@ -157,7 +144,8 @@ function buildLongformMeta(storybook: Storybook, lang: string): LongformMeta {
   }
   // 메타 미작성 책/언어 — 최소 폴백(제목만).
   console.warn(`[render-book-audiobooks] 메타 없음(${storybook.id}/${lang}) — 제목 폴백`);
-  return { title: storybook.title, description: '', tags: [storybook.title], categoryId: '27' };
+  const title = stripStyleSuffix(storybook.title);
+  return { title, description: '', tags: [title], categoryId: '27' };
 }
 
 // 다국어 자막(SRT). 책에 이미 있는 page.translations[lang].text 로 재구성 — Gemini 번역 미사용.
@@ -174,7 +162,7 @@ function generateCaptions(
 
   const otherLangs = (storybook.languages ?? []).filter((l) => l !== baseLang);
   for (const tl of otherLangs) {
-    const langData = buildRenderDataFor(storybook, artStyle, tl);
+    const langData = buildRenderDataFor(storybook, tl);
     // 자막 언어만 바뀌고 타이밍(오디오)은 base 언어 그대로 — 슬라이드는 그림체가 같아 1:1 정렬.
     langData.slides.forEach((s, i) => {
       s.ttsDuration = renderData.slides[i]?.ttsDuration;
@@ -219,15 +207,11 @@ async function main() {
   // 1. 동화책 로드
   const storybook = (await fetchStorybook(book)) as Storybook;
 
-  // 2. 렌더 데이터 빌드 (그림체 있으면 styled, 없으면 base 이미지)
-  const useBase = isBaseImageStyle(storybook, style);
-  const renderData = buildRenderDataFor(storybook, style, lang);
+  // 2. 렌더 데이터 빌드
+  const renderData = buildRenderDataFor(storybook, lang);
   if (renderData.slides.length === 0) {
-    throw new Error(
-      `(${style}) ${useBase ? 'base pages 에 삽화가' : '그림체에 삽화가 있는 페이지가'} 없습니다 — 렌더 불가.`
-    );
+    throw new Error(`(${style}) pages 에 삽화가 없습니다 — 렌더 불가.`);
   }
-  console.log(`[render-book-audiobooks] mode=${useBase ? 'base(실사)' : 'styled'}`);
   console.log(`[render-book-audiobooks] slides=${renderData.slides.length}`);
 
   // 2.5. 랜덤 BGM — 롱폼 영상은 기본 5곡 중 무작위 1곡을 은은한 배경음으로 넣는다.

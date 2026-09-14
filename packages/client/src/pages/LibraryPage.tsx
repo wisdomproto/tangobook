@@ -56,11 +56,9 @@ function summaryToEntry(s: StorybookSummary, uiLang: string): BookIndexEntry {
     isAccessibleForFree: s.isAccessibleForFree,
     // 대표 표지 = UI 언어별 표지 우선(ko/en 원본 · vi/th/zh 구운 것), 없으면 언어무관 원본.
     coverImageUrl: s.coversByLang?.[uiLang] ?? s.coverImage,
-    coversByStyle: s.coversByStyle,
+    artStyle: s.artStyle,
     coversByLang: s.coversByLang,
-    coverLangByStyle: s.coverLangByStyle,
     cleanCoverImageUrl: s.cleanCoverImage,
-    cleanCoversByStyle: s.cleanCoversByStyle,
     phonicsLanguage: s.phonicsLanguage,
     updatedAt: s.createdAt,
     usedVariants: { levels: [], languages: [], styles: [] },
@@ -286,9 +284,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     (list: BookIndexEntry[]) =>
       bookGroups?.length
         ? collapseStyleGroups(list, bookGroups, (members) =>
-            members.find((m) =>
-              Object.keys(m.coversByStyle ?? {}).some((st) => styleGenreMap[st] === styleGenre)
-            )
+            members.find((m) => !!m.artStyle && styleGenreMap[m.artStyle] === styleGenre)
           )
         : list,
     [bookGroups, styleGenreMap, styleGenre]
@@ -369,26 +365,11 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     for (const b of all ?? []) {
       if (!b.isPublic) continue;
       if (!shown.has(b.id) && !shownGroups.has(groupOf.get(b.id)?.id)) continue;
-      for (const styleId of Object.keys(b.coversByStyle ?? {})) {
-        const g = styleGenreMap[styleId];
-        if (g) present.add(g);
-      }
+      const g = b.artStyle ? styleGenreMap[b.artStyle] : undefined;
+      if (g) present.add(g);
     }
     return STYLE_GENRES.filter((g) => present.has(g.slug));
   }, [filtered, all, bookGroups, type, styleGenreMap]);
-
-  // 책 표지를 선택 장르 표지로 교체 (해당 장르 표지 없으면 대표 그대로).
-  const applyGenreCover = (b: BookIndexEntry): BookIndexEntry => {
-    for (const [styleId, url] of Object.entries(b.coversByStyle ?? {})) {
-      if (url && styleGenreMap[styleId] === styleGenre) {
-        // 선택 그림풍 × UI 언어 표지 우선(ko/en 원본 · vi/th/zh 구운 것), 없으면 그 그림풍 원본.
-        const cover = b.coverLangByStyle?.[styleId]?.[i18n.language] ?? url;
-        const cleanCoverImageUrl = b.cleanCoversByStyle?.[styleId] ?? b.cleanCoverImageUrl;
-        return b.coverImageUrl === cover ? b : { ...b, coverImageUrl: cover, cleanCoverImageUrl };
-      }
-    }
-    return b;
-  };
 
   // 카테고리 chip — 동화책일 때만
   const allCategories = useMemo(() => {
@@ -626,7 +607,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               first={sectionIdx === 0}
               icon={getCategoryIconNode(cat, 32)}
               title={displayCategory(cat)}
-              books={books.map(applyGenreCover)}
+              books={books}
               headerExtra={cat === '세계 명작' ? genreSelector : undefined}
               // 🔴 카테고리 키는 R2 데이터 값 그대로(`전래 동화`, 띄어쓰기 포함) — 표시명이
               // 아니라 원본 키로 비교한다. 이 라인만 표지가 밝은 크림(점눈이 그림체)이라 녹는다.
@@ -656,7 +637,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             )}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
               {filtered.map((b) => (
-                <BookCard key={b.id} book={applyGenreCover(b)} />
+                <BookCard key={b.id} book={b} />
               ))}
             </div>
           </>

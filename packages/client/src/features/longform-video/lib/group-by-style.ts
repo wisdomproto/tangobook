@@ -16,14 +16,13 @@ export interface StyleGroup {
 
 /**
  * `(artStyle, language)` 매트릭스 시각화용 그룹핑.
- *  - storybook.availableStyles + 영상이 등장한 그림체 모두 포함 (영상 0개 그룹도 노출)
+ *  - 책의 그림체 + 영상이 등장한 그림체 모두 포함 (영상 0개 그룹도 노출)
  *  - artStyle 미지정 + parentProjectId 있음 → 부모 따라감 (마이그 전 호환)
  *  - 그래도 미지정 → '__legacy'
  */
 export function groupLongformByStyle(storybook: Storybook): StyleGroup[] {
   const projects = storybook.longformProjects ?? [];
-  const availableStyles =
-    storybook.availableStyles ?? (storybook.artStyle ? [storybook.artStyle] : []);
+  const availableStyles = storybook.artStyle ? [storybook.artStyle] : [];
   const projectsById = new Map(projects.map((p) => [p.id, p]));
 
   const styleOf = (p: LongformProject): string => {

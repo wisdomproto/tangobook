@@ -7,15 +7,11 @@ import { useStorybook, useStorybooks } from '@/features/storybook';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { bookDisplayTitle, styleGroupIndex } from '@tangobook/shared';
-import {
-  getYoutubeVideoIds,
-  getDirectVideoUrls,
-  getAvailableStyles,
-} from '@/lib/storybook-accessors';
+import { getYoutubeVideoIds, getDirectVideoUrls } from '@/lib/storybook-accessors';
 import { StateScreen, Skeleton, Chip, PageHeader, BookCover } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
-import { useStyleGenreLabel, useStyleGenreMap } from '@/lib/art-style-genre';
+import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import {
   SUPPORTED_LANGUAGES,
@@ -63,14 +59,12 @@ export default function BookDetailPage() {
   // 기본 선택 언어 = 현재 UI 언어(진입 링크 /en 등). 책이 그 언어를 지원하면 그 언어로 열림
   // (아래 `lang` 계산에서 미지원 시 첫 공개 언어로 폴백).
   const [langState, setLang] = useState<string>(i18n.language);
-  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
   // 유료화 접근 권한 (체험/구독). 현재는 가입일 기반 체험만 — Supabase 연동 시 구독·레퍼럴 주입.
   const access = useAccess();
   const styleGenreLabel = useStyleGenreLabel();
-  const { map: styleGenreMap } = useStyleGenreMap();
   const { account, session, isConfigured } = useAuth();
   // "영상으로 보기" 모드는 아직 준비 중 — 개발자에게만 노출.
   const showVideoMode = isDevEmail(account?.email);
@@ -122,19 +116,11 @@ export default function BookDetailPage() {
 
   const allLanguages =
     storybook.languages && storybook.languages.length > 0 ? storybook.languages : ['ko'];
-  const allStyles = getAvailableStyles(storybook);
-  // 셀 단위 공개 필터 — publicByStyleLang[style][lang] === false 면 학습자에게 비공개.
-  // /editor2 헤더 체크박스 + /library-master 표에서 (그림체 × 언어) 셀 단위로 설정. 미정의 = 공개.
+  // 셀 단위 공개 필터 — publicByStyleLang[그림체][lang] === false 면 학습자에게 비공개.
   const isCellPublic = (s: string, l: string): boolean =>
     storybook.publicByStyleLang?.[s]?.[l] !== false;
-  // 그림체 칩 = 공개 언어가 ≥1 개인 그림체만. (모두 비공개면 폴백 — 그런 책은 isPublic=false 라 라이브러리 미노출)
-  const visibleStyles = allStyles.filter((s) => allLanguages.some((l) => isCellPublic(s, l)));
-  const styles = visibleStyles.length > 0 ? visibleStyles : allStyles;
-  // 그림체 선택 UI 는 세계명작에만 노출 (자연관찰 등은 대표 그림체 1종만 보여줌).
-  // 카테고리/폴더 문자열에 '명작' 포함 여부로 판별 ('세계 명작'·'세계명작'·'명작동화' 모두 커버).
-  const isClassic = /명작/.test(storybook.category ?? '') || /명작/.test(storybook.folder ?? '');
-  // 🔴 그림체를 책마다 쪼갠 뒤엔 책 안에 그림체가 하나뿐이다 — 그 책이 그림체 묶음(그룹)에 들어 있으면
-  //    칩은 **같은 그룹의 다른 책**을 고르고, 고르면 그 책으로 이동한다. 책 안에 그림체가 여럿이면 옛 방식 그대로.
+  // 🔴 한 책 = 한 그림체(2026-09-14). 그림체 칩은 **같은 그룹의 다른 책**으로 옮겨 주는 것뿐이다.
+  const effectiveStyle = storybook.artStyle;
   const groupMembers = (() => {
     const g = styleGroupIndex(groupsDoc?.groups ?? []).get(storybook.id);
     if (!g || !allStorybooks) return [];
@@ -145,30 +131,16 @@ export default function BookDetailPage() {
           !!b && !!b.artStyle && (b.isPublic !== false || b.id === storybook.id)
       );
   })();
-  const pickByGroup = isClassic && styles.length <= 1 && groupMembers.length > 1;
-  const canPickStyle = isClassic && (styles.length > 1 || pickByGroup);
-  const pickerStyles = pickByGroup ? groupMembers.map((b) => b.artStyle as string) : null;
-  /** 칩 한 칸 옮기기 — 그룹이면 그 책으로 이동, 아니면 이 책 안에서 그림체 전환. */
+  const canPickStyle = groupMembers.length > 1;
+  const pickerStyles = groupMembers.map((b) => b.artStyle as string);
+  /** 칩 한 칸 옮기기 — 같은 그룹의 이웃 책으로 이동. */
   const stepStyle = (dir: -1 | 1) => {
-    const list = pickerStyles ?? styles;
-    const cur = pickerStyles ? (storybook.artStyle as string) : effectiveStyle;
-    const idx = list.indexOf(cur);
-    const nextIdx = (idx + dir + list.length) % list.length;
-    if (pickerStyles)
-      navigate(`/library/${groupMembers[nextIdx].id}${location.search}`, { replace: true });
-    else setSelectedStyle(list[nextIdx]);
+    const idx = groupMembers.findIndex((b) => b.id === storybook.id);
+    const next = groupMembers[(idx + dir + groupMembers.length) % groupMembers.length];
+    navigate(`/library/${next.id}${location.search}`, { replace: true });
   };
 
-  // 효과 레벨/스타일 (URL params에 전달용)
-  // 기본 그림체 = 라이브러리 기본 그림풍(페이퍼 3D)과 일치 — 명작 책에 페이퍼3D 표지가 있으면
-  // 그걸 기본 선택(2026-07-16, "라이브러리는 페이퍼3D인데 들어가면 수채화" 불일치 fix).
-  // 없으면 기존 폴백(styles[0]). 사용자가 그림체 칩으로 바꾸면 selectedStyle 우선.
-  const paper3dStyle = styles.find((s) => styleGenreMap[s] === 'paper3d');
-  const effectiveStyle =
-    (selectedStyle && styles.includes(selectedStyle) ? selectedStyle : undefined) ??
-    paper3dStyle ??
-    styles[0];
-  // 언어 토글 = 현재 그림체에서 공개된 언어만 + 선택 언어가 비공개면 첫 공개 언어로 보정.
+  // 언어 토글 = 공개된 언어만 + 선택 언어가 비공개면 첫 공개 언어로 보정.
   const visibleLangs = allLanguages.filter((l) => isCellPublic(effectiveStyle, l));
   const languages = visibleLangs.length > 0 ? visibleLangs : allLanguages;
   // 기본 언어 = 사용자가 토글로 고른 값 → 없으면 UI 언어(책이 지원하면) → 없으면 첫 공개 언어.
@@ -179,36 +151,17 @@ export default function BookDetailPage() {
       ? i18n.language
       : languages[0];
 
-  // (그림체 × 언어) 조합 대표 표지.
-  //   1) styleAssets[style].primaryCoverByLang[lang] — 그림체별 자산 안 (style, lang) 마커
-  //   2) 활성 그림체일 때만 top-level primaryCoverByLang[lang] (CoverTab 이 ko 는 둘 다 mirror)
-  //   3) ko 만 레거시 coverImage fallback (활성 그림체면 top-level, 비활성이면 styleAssets[style].coverImage)
-  //   조합 표지가 없으면 placeholder 노출 (LibraryMaster 와 동일 정책).
-  const styleAssets = effectiveStyle ? storybook.styleAssets?.[effectiveStyle] : undefined;
-  const isActiveStyle = !!effectiveStyle && effectiveStyle === storybook.artStyle;
-  // (그림체, 언어) 대표 표지. 활성 그림체는 top-level(CoverTab 이 최신 저장하는 곳)을 우선,
-  // 비활성 그림체는 styleAssets 안의 마커를 본다.
-  const pickCover = (l: string): string | undefined =>
-    (isActiveStyle ? storybook.primaryCoverByLang?.[l] : undefined) ??
-    styleAssets?.primaryCoverByLang?.[l];
-  // 폴백: 요청 언어 → 그 그림체의 대표 coverImage(언어 무관) → 그래도 없으면 다른 언어.
-  //   en 을 ko 보다 우선하지 않는다 (ko 선택인데 en 표지 뜨는 버그 방지).
+  // 언어별 대표 표지. 없으면 대표 coverImage → 다른 언어 표지. en 을 ko 보다 우선하지 않는다.
   const coverUrl =
-    pickCover(lang) ??
-    styleAssets?.coverImage ??
-    (isActiveStyle ? storybook.coverImage : undefined) ??
-    pickCover('en') ??
-    pickCover('ko');
-  // hero 표지 어댑터 — BookCover(resolveCover)는 summary-shape(coverImage/cleanCoverImage)만 읽는다.
-  // detail 객체의 per-(style,lang) 표지는 styleAssets 안에 있어 coverUrl 이 이미 style+lang 을 해석함.
-  // 클린 표지는 language-agnostic(오버레이가 언어 담당) → 선택 그림체 기준으로만 고른다.
-  const heroCleanCover =
-    styleAssets?.cleanCoverImage ?? (isActiveStyle ? storybook.cleanCoverImage : undefined);
+    storybook.primaryCoverByLang?.[lang] ??
+    storybook.coverImage ??
+    storybook.primaryCoverByLang?.en ??
+    storybook.primaryCoverByLang?.ko;
   const heroBook = {
     title: storybook.title,
     titleTranslations: storybook.titleTranslations,
     coverImage: coverUrl,
-    cleanCoverImage: heroCleanCover,
+    cleanCoverImage: storybook.cleanCoverImage,
   };
   // 부모 가이드: 선택 언어 번역(parentGuideTranslations[lang])이 있으면 그것, 없으면 한국어 parentGuide 폴백.
   const guide =
@@ -400,7 +353,7 @@ export default function BookDetailPage() {
                         <span className="truncate">
                           {styleGenreLabel(
                             effectiveStyle,
-                            Math.max(0, (pickerStyles ?? styles).indexOf(effectiveStyle))
+                            Math.max(0, pickerStyles.indexOf(effectiveStyle))
                           )}
                         </span>
                       </span>

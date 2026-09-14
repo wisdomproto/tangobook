@@ -6,11 +6,11 @@ import { EditorContent } from '@/features/editor/components/EditorContent';
 import { EditorLangProvider } from '@/contexts/EditorLangContext';
 import { useEditorStore } from '@/store/editor.store';
 import { cn } from '@/lib/cn';
-import { ART_STYLES, SUPPORTED_LANGUAGES, canonicalizeArtStyle } from '@tangobook/shared';
+import { SUPPORTED_LANGUAGES, canonicalizeArtStyle } from '@tangobook/shared';
 import { getAvailableLanguages } from '@/lib/storybook-accessors';
-import type { Storybook, ReadingLevel, SavedArtStyle } from '@tangobook/shared';
-import { AddStyleConfirmModal, AddLanguageConfirmModal } from './VariantConfirmModals';
-import { switchStyleAssets, findArtStylePreset } from '@/features/editor/lib/style-assets';
+import type { Storybook, ReadingLevel } from '@tangobook/shared';
+import { AddLanguageConfirmModal } from './VariantConfirmModals';
+import { findArtStylePreset } from '@/features/editor/lib/style-assets';
 import { syncBookPublicAfterCellToggle } from '@/features/library/lib/public-sync';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { StyleLibraryEditModal } from '@/features/settings/components/StyleLibraryEditModal';
@@ -171,11 +171,6 @@ function CardBody({ storybookId }: { storybookId: string }) {
   const saveMutation = useSaveStorybook();
 
   const [activeLang, setActiveLang] = useState<string>('ko');
-  const [pendingStyleAdd, setPendingStyleAdd] = useState<{
-    id: string;
-    label: string;
-    prompt: string;
-  } | null>(null);
   const [pendingLangAdd, setPendingLangAdd] = useState<string | null>(null);
 
   const localRef = useRef<Storybook | null>(null);
@@ -220,21 +215,8 @@ function CardBody({ storybookId }: { storybookId: string }) {
   // 학습자용 그림체 장르(수채동화풍/페이퍼3D/콜라주) 수동 지정 — styleId 전역 맵.
   const { map: styleGenreMap, setGenre } = useStyleGenreMap();
 
-  // 그림체 정규화 — storybook 없을 땐 빈 array
-  const allStyles = useMemo(() => {
-    if (!storybook) return [];
-    const rawStyles = [...(storybook.availableStyles ?? []), storybook.artStyle];
-    return Array.from(new Set(rawStyles.map((s) => canonicalizeArtStyle(s) || s)));
-  }, [storybook]);
-
-  const missingStyles = useMemo(() => {
-    const lib: SavedArtStyle[] = styleLibrary ?? [];
-    const source =
-      lib.length > 0
-        ? lib.map((s) => ({ id: s.id, label: s.name, prompt: s.prompt }))
-        : ART_STYLES.map((s) => ({ id: s.id, label: s.label, prompt: s.prompt }));
-    return source.filter((s) => !allStyles.includes(s.id));
-  }, [styleLibrary, allStyles]);
+  // 🔴 한 책 = 한 그림체(2026-09-14) — 이 책의 그림체 하나. 다른 그림체 버전은 책을 복사해 바꾼다.
+  const styleId = storybook ? canonicalizeArtStyle(storybook.artStyle) || storybook.artStyle : '';
 
   if (isLoading) return <Spinner size="lg" className="m-8" />;
   if (error || !storybook) {
@@ -256,134 +238,47 @@ function CardBody({ storybookId }: { storybookId: string }) {
       <div className="px-5 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 text-xs">
         <div className="flex items-center gap-1 flex-wrap">
           <span className="text-[10px] font-bold text-slate-500 uppercase mr-1">그림체</span>
-          {allStyles.map((prompt) => {
-            const preset = findArtStylePreset(prompt, styleLibrary);
-            const label = preset?.label ?? '커스텀';
-            const active = prompt === storybook.artStyle;
-            const canRemove = active && allStyles.length > 1; // 활성이면서 다른 그림체 있을 때만
-            const isDefault = prompt === (storybook.defaultStyle ?? storybook.artStyle);
-            return (
-              <button
-                key={prompt}
-                onClick={() => {
-                  if (active) return;
-                  handleUpdate((d) => {
-                    switchStyleAssets(d, prompt);
-                  });
-                  handleSave();
-                }}
-                className={cn(
-                  'px-2 py-0.5 rounded text-[11px] font-bold border',
-                  active
-                    ? 'bg-coral-500 text-white border-coral-500'
-                    : 'bg-white text-coral-700 border-coral-200 hover:bg-coral-50 dark:bg-slate-800 dark:text-coral-300 dark:border-slate-600'
-                )}
-                title={prompt}
-              >
-                🎨 {label}
-                <span
-                  role="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (isDefault) return;
-                    handleUpdate((d) => {
-                      d.defaultStyle = prompt;
-                    });
-                    handleSave();
-                  }}
-                  title={
-                    isDefault
-                      ? '대표 그림체 (라이브러리 표지에 노출)'
-                      : '클릭하면 이 책의 대표 그림체로 지정'
-                  }
-                  className={cn(
-                    'ml-1 cursor-pointer',
-                    isDefault ? 'opacity-100' : 'opacity-50 hover:opacity-100'
-                  )}
-                >
-                  {isDefault ? '⭐' : '☆'}
-                </span>
-                {canRemove && (
-                  <span
-                    role="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (
-                        !window.confirm(
-                          `${label} 그림체를 목록에서 제거할까요?\n\n해당 그림체로 만든 표지·캐릭터·페이지 일러스트도 같이 사라집니다 (되돌릴 수 없음).`
-                        )
-                      )
-                        return;
-                      handleUpdate((d) => {
-                        const cur = d.availableStyles?.length ? d.availableStyles : [d.artStyle];
-                        // prompt = canonical id (styleSet 에서 정규화됨). cur 도 정규화 후 비교.
-                        const next = cur.filter((p) => (canonicalizeArtStyle(p) || p) !== prompt);
-                        d.availableStyles = next;
-                        // styleAssets 에서 해당 그림체 자산도 제거 (canonical id 매칭)
-                        if (d.styleAssets) {
-                          delete d.styleAssets[prompt];
-                        }
-                        // 다른 그림체로 전환 (자산 swap)
-                        if (
-                          (canonicalizeArtStyle(d.artStyle) || d.artStyle) === prompt &&
-                          next.length > 0
-                        ) {
-                          switchStyleAssets(d, next[0]);
-                        }
-                      });
-                      handleSave();
-                    }}
-                    className="ml-1 opacity-70 hover:opacity-100"
-                  >
-                    ×
-                  </span>
-                )}
-              </button>
-            );
-          })}
-          {missingStyles.length > 0 && (
-            <StyleAddDropdown
-              missingStyles={missingStyles}
-              onAdd={(picked) => {
-                setPendingStyleAdd({
-                  id: picked.id,
-                  label: picked.label,
-                  prompt: picked.prompt,
-                });
-              }}
-            />
-          )}
-          {/* 활성 그림체 swap dropdown — 라이브러리 전체에서 선택 (있으면 swap, 없으면 추가) */}
+          <span
+            className="px-2 py-0.5 rounded text-[11px] font-bold border bg-coral-500 text-white border-coral-500"
+            title={styleId}
+          >
+            🎨 {findArtStylePreset(styleId, styleLibrary)?.label ?? '커스텀'}
+          </span>
+          {/* 그림체 변경 — 이 책의 그림체 이름만 바꾼다(삽화는 다시 만들어야 한다). 같은 이야기의
+              다른 그림체 버전이 필요하면 책을 복사해 그 사본의 그림체를 바꾸고 그룹으로 묶는다. */}
           {styleLibrary && styleLibrary.length > 0 && (
             <select
               value=""
               onChange={(e) => {
                 const v = e.target.value;
                 e.target.value = '';
-                if (!v) return;
-                const picked = (styleLibrary ?? []).find((s) => s.id === v);
+                if (!v || v === styleId) return;
+                const picked = styleLibrary.find((st) => st.id === v);
                 if (!picked) return;
-                if (allStyles.includes(picked.id)) {
-                  // 이미 추가된 그림체 — 활성으로 swap
-                  if (picked.id === storybook.artStyle) return;
-                  handleUpdate((d) => {
-                    switchStyleAssets(d, picked.id);
-                  });
-                  handleSave();
-                } else {
-                  // 새 그림체 — 추가 확인 모달로
-                  setPendingStyleAdd({ id: picked.id, label: picked.name, prompt: picked.prompt });
-                }
+                if (
+                  !window.confirm(
+                    `이 책의 그림체를 「${picked.name}」 로 바꿀까요?\n\n지금 삽화는 그대로 남고, 새 그림체 삽화는 다시 만들어야 합니다.`
+                  )
+                )
+                  return;
+                handleUpdate((d) => {
+                  const old = canonicalizeArtStyle(d.artStyle) || d.artStyle;
+                  d.artStyle = picked.id;
+                  // 공개 설정은 그림체 id 를 키로 들고 있다 — 새 id 로 옮겨야 비공개가 풀리지 않는다.
+                  if (d.publicByStyleLang?.[old]) {
+                    d.publicByStyleLang = { [picked.id]: d.publicByStyleLang[old] };
+                  }
+                });
+                handleSave();
               }}
               className="px-2 py-0.5 rounded text-[11px] font-bold border border-coral-300 text-coral-700 bg-white dark:bg-slate-800 dark:text-coral-300 dark:border-slate-600 cursor-pointer"
-              title="라이브러리에서 그림체 변경"
+              title="이 책의 그림체 변경"
             >
               <option value="">▼ 그림체 변경</option>
-              {(styleLibrary ?? []).map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                  {s.id === storybook.artStyle ? ' ✓ 현재' : ''}
-                  {allStyles.includes(s.id) && s.id !== storybook.artStyle ? ' (추가됨)' : ''}
+              {styleLibrary.map((st) => (
+                <option key={st.id} value={st.id}>
+                  {st.name}
+                  {st.id === styleId ? ' ✓ 현재' : ''}
                 </option>
               ))}
             </select>
@@ -404,7 +299,7 @@ function CardBody({ storybookId }: { storybookId: string }) {
       <div className="px-5 py-2 bg-amber-50/60 dark:bg-slate-800/40 border-b border-slate-200 dark:border-slate-700 text-xs">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-[10px] font-bold text-amber-700 uppercase mr-1">학습자 장르</span>
-          {allStyles.map((styleId) => {
+          {[styleId].map((styleId) => {
             const preset = findArtStylePreset(styleId, styleLibrary);
             const label = preset?.label ?? '커스텀';
             const current = styleGenreMap[styleId] ?? '';
@@ -550,32 +445,6 @@ function CardBody({ storybookId }: { storybookId: string }) {
       </EditorLangProvider>
 
       {/* 모달 */}
-      {pendingStyleAdd && (
-        <AddStyleConfirmModal
-          presetId={pendingStyleAdd.id}
-          presetLabel={pendingStyleAdd.label}
-          presetPrompt={pendingStyleAdd.prompt}
-          onConfirm={() => {
-            // pendingStyleAdd.id 는 canonical (ART_STYLES.id). prompt-form 대신 id 로 저장.
-            const styleId = pendingStyleAdd!.id;
-            handleUpdate((d) => {
-              const cur = d.availableStyles?.length ? d.availableStyles : [d.artStyle];
-              const curCanonical = cur.map((s) => canonicalizeArtStyle(s) || s);
-              if (!curCanonical.includes(styleId)) {
-                d.availableStyles = [...curCanonical, styleId];
-              } else {
-                // 이미 있으면 raw → canonical 정규화만 해서 중복 정리
-                d.availableStyles = Array.from(new Set(curCanonical));
-              }
-              // styleAssets snapshot + 새 그림체로 전환 (canonical id 로)
-              switchStyleAssets(d, styleId);
-            });
-            handleSave();
-            setPendingStyleAdd(null);
-          }}
-          onCancel={() => setPendingStyleAdd(null)}
-        />
-      )}
       {pendingLangAdd && (
         <AddLanguageConfirmModal
           langCode={pendingLangAdd}
@@ -594,46 +463,6 @@ function CardBody({ storybookId }: { storybookId: string }) {
       )}
       {styleEditOpen && <StyleLibraryEditModal onClose={() => setStyleEditOpen(false)} />}
     </>
-  );
-}
-
-// ─── 그림체 추가 dropdown (미존재 그림체만) ─────────────────────────────────
-
-function StyleAddDropdown({
-  missingStyles,
-  onAdd,
-}: {
-  missingStyles: { id: string; label: string; prompt: string }[];
-  onAdd: (picked: { id: string; label: string; prompt: string }) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="relative ml-1">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 text-[11px] font-bold"
-      >
-        + 그림체
-      </button>
-      {open && (
-        <div className="absolute top-full left-0 mt-1 bg-white dark:bg-slate-800 rounded-md shadow-lg border border-slate-200 dark:border-slate-700 z-50 min-w-[260px] max-h-[60vh] overflow-y-auto">
-          {missingStyles.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => {
-                setOpen(false);
-                onAdd(s);
-              }}
-              className="w-full text-left px-3 py-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2"
-            >
-              <span>🎨</span>
-              <span className="font-bold">{s.label}</span>
-              <span className="opacity-60 text-[10px] truncate">{s.prompt}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
   );
 }
 

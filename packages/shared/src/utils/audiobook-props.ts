@@ -1,4 +1,5 @@
 import type { Storybook, AudiobookProject } from '../types/storybook';
+import { stripStyleSuffix } from './book-groups';
 
 export type AudiobookSlideData = {
   imageUrl: string;
@@ -63,7 +64,7 @@ export function buildAudiobookRenderData(
     if (coverImageUrl) {
       cover = {
         imageUrl: coverImageUrl,
-        title: storybook.title || '',
+        title: stripStyleSuffix(storybook.title || ''),
         duration: project.coverDuration || 3,
         showTitle: project.showCoverTitle !== false && project.includeSubtitles !== false,
       };
@@ -97,66 +98,10 @@ export function buildAudiobookRenderData(
   };
 }
 
-export function buildStyledAudiobookRenderData(
-  storybook: Storybook,
-  opts: { artStyle: string; language: string }
-): AudiobookRenderData {
-  const { artStyle, language: lang } = opts;
-  const styleAsset = (storybook.styleAssets ?? {})[artStyle] as
-    | {
-        pageIllustrations?: Record<string, { illustrationUrl?: string }>;
-        primaryCoverByLang?: Record<string, string>;
-        coverImage?: string;
-      }
-    | undefined;
-  const pageIllos = styleAsset?.pageIllustrations ?? {};
-
-  const slides: AudiobookSlideData[] = (storybook.pages ?? [])
-    .map((page): AudiobookSlideData | null => {
-      const styled = pageIllos[String(page.pageNumber)]?.illustrationUrl;
-      if (!styled) return null; // 그 그림체에 이미지 없는 페이지 스킵
-      const isTranslation = lang !== 'ko' && page.translations?.[lang];
-      const text = isTranslation ? page.translations![lang].text : page.text;
-      const ttsUrl = isTranslation ? page.translations![lang].ttsUrl : page.ttsUrl;
-
-      return {
-        imageUrl: styled,
-        ttsUrl,
-        ttsDuration: undefined,
-        subtitleText: text,
-      };
-    })
-    .filter((s): s is AudiobookSlideData => s !== null);
-
-  const coverImageUrl =
-    styleAsset?.primaryCoverByLang?.[lang] || styleAsset?.coverImage || storybook.coverImage;
-  const cover = coverImageUrl
-    ? { imageUrl: coverImageUrl, title: storybook.title || '', duration: 3, showTitle: true }
-    : undefined;
-
-  return {
-    slides,
-    aspectRatio: '16:9',
-    cover,
-    bgmUrl: storybook.backgroundMusicUrl,
-    bgmVolume: 30,
-    subtitleStyle: {
-      fontSize: 24,
-      color: '#ffffff',
-      backgroundColor: '#00000080',
-      position: 'bottom',
-      wordsPerGroup: 2,
-    },
-    enableParticles: true,
-    fps: 30,
-  };
-}
-
 /**
- * 실사(자연관찰) 책용 렌더 데이터. 그림체(styleAssets.pageIllustrations)가 없고 이미지가
- * base `pages[].illustrationUrl` 에 있는 책 — buildStyledAudiobookRenderData 는 0슬라이드가 된다.
- * 이미지는 실사 단일본이라 언어와 무관하게 동일하고, 텍스트/TTS 만 translations[lang] 로 바뀐다.
- * (buildStyledAudiobookRenderData 의 base-이미지 버전 — 롱폼 배치 렌더가 style 유무로 분기한다.)
+ * 롱폼 렌더 데이터 — 책의 `pages[].illustrationUrl` 과 언어별 표지.
+ * 이미지는 언어와 무관하고 텍스트/TTS 만 translations[lang] 로 바뀐다.
+ * 🔴 한 책 = 한 그림체(2026-09-14) — 예전엔 `styleAssets[style]` 에서 읽는 styled 빌더가 따로 있었다.
  */
 export function buildBaseAudiobookRenderData(
   storybook: Storybook,
@@ -182,7 +127,12 @@ export function buildBaseAudiobookRenderData(
 
   const coverImageUrl = storybook.primaryCoverByLang?.[lang] || storybook.coverImage;
   const cover = coverImageUrl
-    ? { imageUrl: coverImageUrl, title: storybook.title || '', duration: 3, showTitle: true }
+    ? {
+        imageUrl: coverImageUrl,
+        title: stripStyleSuffix(storybook.title || ''),
+        duration: 3,
+        showTitle: true,
+      }
     : undefined;
 
   return {

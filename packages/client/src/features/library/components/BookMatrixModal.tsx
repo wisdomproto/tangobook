@@ -18,14 +18,8 @@ interface Props {
 const LANG_FLAG: Record<string, string> = { ko: '🇰🇷', en: '🇺🇸' };
 const DEFAULT_LANGS = ['ko', 'en'];
 
-function getCellCover(sb: Storybook, style: string, lang: string): string | undefined {
-  const assets = sb.styleAssets?.[style];
-  const url = assets?.primaryCoverByLang?.[lang];
-  if (url) return url;
-  if (style === sb.artStyle && lang === 'ko') {
-    return assets?.coverImage ?? sb.coverImage;
-  }
-  return assets?.coverImage;
+function getCellCover(sb: Storybook, _style: string, lang: string): string | undefined {
+  return sb.primaryCoverByLang?.[lang] ?? (lang === 'ko' ? sb.coverImage : undefined);
 }
 
 function isCellPublic(sb: Storybook, style: string, lang: string): boolean {
@@ -36,10 +30,9 @@ function getStyleLabel(value: string, lib?: SavedArtStyle[]): string {
   return findArtStylePreset(value, lib)?.label ?? value.slice(0, 14);
 }
 
+// 한 책 = 한 그림체(2026-09-14)
 function getBookStyles(sb: Storybook): string[] {
-  const styles =
-    sb.availableStyles && sb.availableStyles.length > 0 ? sb.availableStyles : [sb.artStyle];
-  return Array.from(new Set(styles));
+  return [sb.artStyle];
 }
 
 function getBookLangs(sb: Storybook): string[] {

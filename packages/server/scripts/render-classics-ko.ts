@@ -13,6 +13,7 @@
 //   … --lang=en --one-style  # 영어, 책당 그림체 1종(해시로 고정 선택)
 import 'dotenv/config';
 import { spawnSync } from 'node:child_process';
+import { stripStyleSuffix } from '@tangobook/shared';
 import { fetchStorybook, loadGenreMap } from '../src/services/reel/reel-targets.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 
@@ -112,8 +113,9 @@ async function main() {
     }
   }
 
-  // 조합 구성: 책마다 메인 3장르에 매핑된 style id 하나씩.
-  const combos: Combo[] = [];
+  // 조합 구성 — 🔴 한 책 = 한 그림체(2026-09-14). 명작은 그림체마다 책이 따로라 **이야기**
+  //    (원본 id = `splitFrom.bookId ?? id`)로 묶는다. 그래야 `--one-style` 이 쪼개기 전과 같은 그림체를 고른다.
+  const byStory = new Map<string, Array<Combo & { doneKeys: string[] }>>();
   const noMapping: string[] = [];
   for (const bookId of bookIds) {
     let book: any;
@@ -123,24 +125,26 @@ async function main() {
       noMapping.push(`${bookId}(fetch실패)`);
       continue;
     }
-    const styleAssets = book?.styleAssets ?? {};
-    const styles = Object.keys(styleAssets);
-    // 그 장르에 매핑된 style 중 페이지 삽화가 실제로 있는 것만 (photographic 등 삽화 없는 style 제외).
-    const available = GENRES.map((genre) => ({
-      genre,
-      styleId: styles.find(
-        (s) =>
-          genreMap[s] === genre && Object.keys(styleAssets[s]?.pageIllustrations ?? {}).length > 0
-      ),
-    })).filter((x): x is { genre: string; styleId: string } => !!x.styleId);
-
-    if (!available.length) {
+    const styleId: string = book?.artStyle;
+    const genre = genreMap[styleId];
+    if (!GENRES.includes(genre) || !(book?.pages ?? []).some((pg: any) => pg.illustrationUrl)) {
       noMapping.push(book?.title ?? bookId);
       continue;
     }
-    for (const { genre, styleId } of ONE_STYLE ? [pickOne(bookId, available)] : available) {
-      if (done.has(`${bookId}|${styleId}|${LANG}`)) continue;
-      combos.push({ bookId, styleId, genre, title: book.title ?? bookId });
+    const root: string = book.splitFrom?.bookId ?? bookId;
+    // 쪼개기 전에 렌더한 것은 원본 id + 그 그림체로 기록돼 있다 — 둘 다 본다.
+    const doneKeys = [`${bookId}|${styleId}|${LANG}`];
+    if (book.splitFrom) doneKeys.push(`${root}|${book.splitFrom.styleId}|${LANG}`);
+    const list = byStory.get(root) ?? [];
+    list.push({ bookId, styleId, genre, title: stripStyleSuffix(book.title ?? bookId), doneKeys });
+    byStory.set(root, list);
+  }
+  const combos: Combo[] = [];
+  for (const [root, members] of byStory) {
+    members.sort((a, b) => GENRES.indexOf(a.genre) - GENRES.indexOf(b.genre));
+    for (const c of ONE_STYLE ? [pickOne(root, members)] : members) {
+      if (c.doneKeys.some((k) => done.has(k))) continue;
+      combos.push({ bookId: c.bookId, styleId: c.styleId, genre: c.genre, title: c.title });
     }
   }
 

@@ -35,7 +35,7 @@ export interface BookLike {
   type?: string;
   readingLevel?: string;
   languages?: unknown[];
-  styleAssets?: Record<string, unknown>;
+  artStyle?: string;
   pages?: PageLike[];
   key_objects?: KeyObjectLike[];
   keyObjects?: KeyObjectLike[];
@@ -248,7 +248,7 @@ export function probeBook(sb: BookLike) {
     isPublic: !!sb.isPublic,
     isPhonics,
     langs: (sb.languages ?? []).length,
-    styles: Object.keys(sb.styleAssets ?? {}).length,
+    styles: sb.artStyle ? 1 : 0, // 한 책 = 한 그림체(2026-09-14)
 
     pages: pages.length,
     illust: pages.filter((p) => p.illustrationUrl).length,

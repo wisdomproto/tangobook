@@ -8,7 +8,6 @@ interface Props {
   index: number;
   categories: string[];
   emojiOf: (cat: string) => string;
-  onChangeCover: () => void;
   onChangeCategory: (next: string) => void;
   onTogglePublic: () => void;
   selectedLang?: string;
@@ -32,7 +31,6 @@ export function BookCardEditable({
   index,
   categories,
   emojiOf,
-  onChangeCover,
   onChangeCategory,
   onTogglePublic,
   selectedLang = 'ko',
@@ -52,11 +50,10 @@ export function BookCardEditable({
     zIndex: isDragging ? 10 : undefined,
   };
   const langCover = book.coversByLang?.[selectedLang];
-  // ko 의 fallback 은 top-level coverImage (server 가 defaultStyle 우선해 채움)
+  // ko 의 fallback 은 top-level coverImage
   const cover = langCover ?? (selectedLang === 'ko' ? book.coverImage : undefined);
   const hasLangCover = !!langCover || (selectedLang === 'ko' && !!book.coverImage);
   const langLabel = LANG_LABEL[selectedLang] ?? selectedLang;
-  const styleCount = book.coversByStyle ? Object.keys(book.coversByStyle).length : 0;
   const isPublic = book.isPublic !== false;
   const currentCat = book.category || '기타';
 
@@ -112,20 +109,6 @@ export function BookCardEditable({
         >
           {isPublic ? '👁' : '🚫'}
         </button>
-        <button
-          type="button"
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={(e) => {
-            e.stopPropagation();
-            onChangeCover();
-          }}
-          disabled={styleCount < 2}
-          className="w-7 h-7 rounded-full bg-coral-500 text-white text-sm font-black shadow-soft hover:bg-coral-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center"
-          title={styleCount < 2 ? '그림체가 1종이라 변경 불가' : '메인 표지 변경'}
-          aria-label="메인 표지 변경"
-        >
-          🎨
-        </button>
       </div>
       <div className="aspect-[3/4] bg-peach-100 overflow-hidden">
         {hasLangCover && cover ? (
@@ -144,7 +127,6 @@ export function BookCardEditable({
       </div>
       <div className="px-2.5 py-2">
         <div className="font-black text-ink-900 text-sm truncate">{book.title}</div>
-        <div className="text-[11px] text-ink-500 mt-0.5">그림체 {styleCount}종</div>
         {group && (
           <button
             type="button"

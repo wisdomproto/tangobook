@@ -5,23 +5,21 @@ const summary = {
   titleTranslations: { en: 'The Frog Prince' },
   coverImage: 'legacy.webp',
   cleanCoverImage: 'clean.webp',
-  cleanCoversByStyle: { styleB: 'cleanB.webp' },
-  coversByStyle: { styleB: 'legacyB.webp' },
 } as any;
 describe('resolveCover', () => {
   // 접근 B: 실제 표지(원본 ko/en · 구운 vi/th/zh)를 항상 우선. 클린 표지는 굽기 베이스라 직접 노출 X.
-  it('prefers the real cover (per-style then representative), never the clean base', () => {
-    expect(resolveCover(summary, { style: 'styleB' }).img).toBe('legacyB.webp');
+  it('prefers the real cover, never the clean base', () => {
+    expect(resolveCover(summary, { style: 'styleB' }).img).toBe('legacy.webp');
     expect(resolveCover(summary, {}).img).toBe('legacy.webp');
   });
   it('falls back to clean only when no real cover exists', () => {
-    const noLegacy = { ...summary, coverImage: undefined, coversByStyle: undefined };
-    expect(resolveCover(noLegacy, { style: 'styleB' }).img).toBe('cleanB.webp');
+    const noLegacy = { ...summary, coverImage: undefined };
+    expect(resolveCover(noLegacy, { style: 'styleB' }).img).toBe('clean.webp');
     expect(resolveCover(noLegacy, {}).img).toBe('clean.webp');
   });
   it('hasClean=true only when falling back to clean (else overlay suppressed)', () => {
     expect(resolveCover(summary, {}).hasClean).toBe(false);
-    const noLegacy = { ...summary, coverImage: undefined, coversByStyle: undefined };
+    const noLegacy = { ...summary, coverImage: undefined };
     expect(resolveCover(noLegacy, {}).hasClean).toBe(true);
   });
   it('localizes title via titleTranslations[lang] with ko fallback', () => {

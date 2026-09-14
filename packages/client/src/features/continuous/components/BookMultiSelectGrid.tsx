@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { bookDisplayTitle } from '@tangobook/shared';
+import { bookDisplayTitle, collapseStyleGroups } from '@tangobook/shared';
+import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 // 🔴 배럴 금지 — 이유는 `LibraryPage.tsx` 주석 참조(첫 화면 번들이 부푼다).
@@ -17,7 +18,7 @@ interface BookMultiSelectGridProps {
   onToggle: (id: string) => void;
   /** 제목/카테고리 검색어 (없으면 전체). */
   search?: string;
-  /** 표지 미리보기 그림풍 (메인 라이브러리와 동일: coversByStyle × style-genre-map). 없으면 대표 표지. */
+  /** 표지 미리보기 그림풍 — 그룹에서 이 그림풍의 책을 보여 준다(메인 라이브러리와 동일). */
   styleGenre?: StyleGenreSlug;
 }
 
@@ -51,23 +52,23 @@ export function BookMultiSelectGrid({
     [libConfig?.categoryOrder]
   );
 
-  // 선택 그림풍에 해당하는 styleId (clean/legacy 표지 해석 키). 없으면 undefined → 대표 표지 폴백.
-  const styleIdFor = (b: { coversByStyle?: Record<string, string> }): string | undefined => {
-    if (styleGenre && b.coversByStyle) {
-      for (const styleId of Object.keys(b.coversByStyle)) {
-        if (styleGenreMap[styleId] === styleGenre) return styleId;
-      }
-    }
-    return undefined;
-  };
+  const { data: groupsDoc } = useBookGroups();
 
   // 공개 동화책 + **나레이션(모든 페이지 TTS) 있는 책만** (연속재생=자동 이어읽기라 무음 책 제외).
+  // 같은 이야기의 그림체 책(그룹)은 한 장 — 고른 그림풍의 책, 없으면 대표 책(라이브러리와 같은 규칙).
   const books = useMemo(
     () =>
-      (list ?? []).filter(
-        (b) => b.isPublic && (!b.type || b.type === 'storybook') && b.koCompletion?.pagesTts
+      collapseStyleGroups(
+        (list ?? []).filter(
+          (b) => b.isPublic && (!b.type || b.type === 'storybook') && b.koCompletion?.pagesTts
+        ),
+        groupsDoc?.groups ?? [],
+        (members) =>
+          styleGenre
+            ? members.find((m) => !!m.artStyle && styleGenreMap[m.artStyle] === styleGenre)
+            : undefined
       ),
-    [list]
+    [list, groupsDoc, styleGenre, styleGenreMap]
   );
 
   // 검색 필터 (제목 또는 카테고리) → 카테고리별 그룹 → 카테고리 순서 정렬.
@@ -142,12 +143,7 @@ export function BookMultiSelectGrid({
                   )}
                 >
                   <div className="relative aspect-video overflow-hidden rounded-2xl shadow-soft">
-                    <BookCover
-                      book={b}
-                      lang={i18n.language}
-                      style={styleIdFor(b)}
-                      overlayTitle={false}
-                    />
+                    <BookCover book={b} lang={i18n.language} overlayTitle={false} />
                     {selected && (
                       <span className="absolute left-1.5 top-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-coral-500 text-lg font-black text-white shadow-pop">
                         {order}

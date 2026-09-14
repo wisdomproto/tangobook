@@ -36,18 +36,4 @@ describe('buildPageOrderData', () => {
     holes.pages.slice(0, 3).forEach((p) => (p.illustrationUrl = ''));
     expect(buildPageOrderData(holes)).toBeNull();
   });
-
-  it('그림체가 있으면 그 그림체의 쪽 삽화를 쓴다', () => {
-    const styled = book(4, {
-      styleAssets: {
-        collage: {
-          pageIllustrations: Object.fromEntries(
-            [1, 2, 3, 4].map((n) => [n, { illustrationUrl: `https://cdn/collage${n}.webp` }])
-          ),
-        },
-      },
-    });
-    const d = buildPageOrderData(styled, 'collage');
-    expect(d!.items.every((i) => i.illustrationUrl.includes('collage'))).toBe(true);
-  });
 });

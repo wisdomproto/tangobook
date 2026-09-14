@@ -740,7 +740,7 @@ export interface Character {
   referenceImage?: string;
   imageHistory?: string[];
   customPrompt?: string;
-  /** 그림체별 이미지 생성 prompt (styleAssets snapshot 에 사용). 레거시 R2 데이터 호환. */
+  /** 이미지 생성 prompt. */
   prompt?: string;
 }
 
@@ -911,51 +911,6 @@ export interface ParentGuide {
   faq?: { q: string; a: string }[];
 }
 
-/**
- * 그림체별 분리 보관 자산 (Storybook.styleAssets[style]).
- * 텍스트·TTS·게임 데이터 등 그림체 무관 항목은 Storybook 의 top-level 에 그대로 둠.
- * 그림체별로 다른 항목만 여기 보관 (전환 시 swap).
- */
-export interface StyleAssets {
-  // 표지 (전체 셋)
-  coverImages?: CoverImageItem[];
-  coverImage?: string;
-  /** 텍스트 제거한 클린 표지 (다국어 오버레이 베이스). generate-clean-covers.ts 산출. */
-  cleanCoverImage?: string;
-  coverPrompt?: string;
-  coverImageHistory?: string[];
-  coverCharacterRefs?: number[];
-  /**
-   * 이 그림체에서의 (lang → 대표 표지 imageUrl) 매핑.
-   * 같은 (그림체, 언어) 조합당 한 표지를 대표로 표시. swap 시 top-level `primaryCoverByLang` 와 교체.
-   */
-  primaryCoverByLang?: Record<string, string>;
-  /** 캐릭터별 이미지 (Storybook.characters 인덱스 매칭). 텍스트 정보(name 등)는 그림체와 무관 */
-  characterImages?: Array<
-    | {
-        referenceImage?: string;
-        imageHistory?: string[];
-        prompt?: string;
-      }
-    | undefined
-  >;
-  /** 페이지별 일러스트 (Storybook.pages.pageNumber 매칭) */
-  pageIllustrations?: Record<
-    number,
-    {
-      illustrationUrl?: string;
-      illustrationHistory?: string[];
-      customModifications?: string;
-    }
-  >;
-  /** 핵심사물 이미지 (전체 셋, 그림체별로 다른 그림) */
-  keyObjectImages?: KeyObjectImage[];
-  /** 어휘 이미지 */
-  vocabularyImages?: VocabularyImage[];
-  /** 숨은그림 찾기 씬 (그림체별로 다른 장면) */
-  hiddenObjectScenes?: HiddenObjectScene[];
-}
-
 export interface Storybook {
   id: string;
   title: string;
@@ -996,26 +951,11 @@ export interface Storybook {
   languages?: string[];
   /** 기본 언어 — 위 languages 가 비어 있을 때의 fallback. 보통 'ko'. */
   defaultLanguage?: string;
+  /**
+   * 이 책의 그림체 하나. 🔴 한 책 = 한 그림체(2026-09-14) — 예전의 `defaultStyle`·`availableStyles`·
+   * `styleAssets`(그림체별 자산 swap) 는 걷어냈다. 같은 이야기의 다른 그림체는 다른 책이고, 그룹이 묶는다.
+   */
   artStyle: string;
-  /**
-   * 대표 그림체 (도감/라이브러리 표지/검색 결과 등 외부 노출 시 사용).
-   * `artStyle` 은 마지막 편집 그림체 (자동 갱신). `defaultStyle` 은 사용자가 명시적으로 지정.
-   * 미설정 → `artStyle` fallback. 2026-05-03 추가.
-   */
-  defaultStyle?: string;
-  /**
-   * 책이 지원하는 그림체 prompt 배열 (`ART_STYLES.prompt` 또는 커스텀).
-   * 비어 있으면 [artStyle] 로 취급. 사용자가 + 그림체 추가 로 늘릴 수 있음.
-   */
-  availableStyles?: string[];
-  /**
-   * 그림체별 자산 보관 (Phase 2 — 그림체 전환 시 표지/캐릭터/페이지 일러스트 등 swap).
-   * Key = artStyle prompt. 값 = 해당 그림체용 자산 셋.
-   * top-level 의 coverImage·characters[].referenceImage·pages[].illustrationUrl 등은
-   * "현재 활성 그림체의 자산" 으로 쓰이고, 전환 시 styleAssets 와 swap.
-   * 빈 그림체로 전환 시 top-level 자산은 비워짐 (재생성 필요).
-   */
-  styleAssets?: Record<string, StyleAssets>;
   category?: string;
   folder?: string;
   isPublic?: boolean;
@@ -1088,7 +1028,7 @@ export interface Storybook {
   vocabularyImages?: VocabularyImage[];
   vocabularyPrompt?: string;
 
-  // 숨은그림 찾기 씬 (활성 그림체 미러. 정본은 styleAssets[style].hiddenObjectScenes)
+  // 숨은그림 찾기 씬
   hiddenObjectScenes?: HiddenObjectScene[];
   /** 그림체별로 쪼갠 책의 출처(`split-classics-by-style.mjs`). 원본 책 id + 원본에서의 그림체 id. */
   splitFrom?: { bookId: string; styleId: string };
@@ -1293,25 +1233,13 @@ export type StorybookSummary = Pick<
   phonicsLanguage?: 'korean' | 'english';
   hasVideo?: boolean;
   /**
-   * 그림체별 대표 표지 URL 맵 — `styleAssets` 의 각 그림체 자산에서 추출.
-   * 라이브러리 카드 배너 (default 외 다른 그림체 썸네일) 노출에 사용.
-   * 키 = artStyle prompt/id, 값 = imageUrl.
-   */
-  coversByStyle?: Record<string, string>;
-  /**
-   * defaultStyle 기준 언어별 대표 표지 URL 맵 (ko/en 등).
+   * 언어별 대표 표지 URL 맵 (ko/en 등).
    * `/library-master` 의 언어 토글로 카드 표지 swap 에 사용.
    * 키에 해당 언어 표지가 없으면 그 언어 표지가 "없음" 으로 처리.
    */
   coversByLang?: Record<string, string>;
   /** 대표 그림체 클린 표지 (다국어 오버레이 베이스). 없으면 클라가 coverImage 폴백. */
   cleanCoverImage?: string;
-  /** 그림체별 클린 표지 URL 맵 (`coversByStyle`와 짝). */
-  cleanCoversByStyle?: Record<string, string>;
-  /** 노출되는 그림체 목록 (editor2 그림체별 클린 표지 매트릭스 등). */
-  availableStyles?: string[];
-  /** 그림체 × 언어 표지 맵 — `styleAssets[style].primaryCoverByLang`. 카드가 (선택 그림풍 × UI 언어) 표지 노출에 사용. */
-  coverLangByStyle?: Record<string, Record<string, string>>;
   /**
    * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
    * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.

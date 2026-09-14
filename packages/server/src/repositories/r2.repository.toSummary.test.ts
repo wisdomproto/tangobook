@@ -6,28 +6,21 @@ const base = {
   type: 'storybook',
   createdAt: '2026-01-01T00:00:00Z',
   artStyle: 'styleA',
-  defaultStyle: 'styleA',
-  availableStyles: ['styleA', 'styleB'],
   coverImage: 'https://r2/a-cover.webp',
   cleanCoverImage: 'https://r2/a-clean.webp',
-  styleAssets: {
-    styleB: { coverImage: 'https://r2/b-cover.webp', cleanCoverImage: 'https://r2/b-clean.webp' },
-  },
+  primaryCoverByLang: { ko: 'https://r2/a-ko.webp', vi: 'https://r2/a-vi.webp' },
   pages: [],
   key_objects: [],
 } as any;
-describe('toSummary cleanCover', () => {
-  it('emits representative cleanCoverImage + per-style map', () => {
+describe('toSummary covers (one book, one style)', () => {
+  it('emits the book cover, clean cover and per-language covers', () => {
     const s = toSummary(base);
+    expect(s.coverImage).toBe('https://r2/a-cover.webp');
     expect(s.cleanCoverImage).toBe('https://r2/a-clean.webp');
-    expect(s.cleanCoversByStyle).toEqual({
-      styleA: 'https://r2/a-clean.webp',
-      styleB: 'https://r2/b-clean.webp',
-    });
+    expect(s.coversByLang).toEqual({ ko: 'https://r2/a-ko.webp', vi: 'https://r2/a-vi.webp' });
+    expect(s.artStyle).toBe('styleA');
   });
-  it('omits clean fields when no clean covers exist', () => {
-    const s = toSummary({ ...base, cleanCoverImage: undefined, styleAssets: {} });
-    expect(s.cleanCoverImage).toBeUndefined();
-    expect(s.cleanCoversByStyle).toBeUndefined();
+  it('omits clean cover when there is none', () => {
+    expect(toSummary({ ...base, cleanCoverImage: undefined }).cleanCoverImage).toBeUndefined();
   });
 });

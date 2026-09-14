@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { Storybook, StyleAssets } from '@tangobook/shared';
+import type { Storybook } from '@tangobook/shared';
 import { ART_STYLES, getEffectiveVocabulary } from '@tangobook/shared';
 
 interface BookManageTabProps {
@@ -10,16 +10,11 @@ interface BookManageTabProps {
 
 /**
  * "책 관리" 탭 — 책 한 권(단일 storybook doc) 단위.
- *  - 메인 그림체 (defaultStyle) 명시 지정 — 라이브러리 표지/어휘 게임 일러스트가 이 그림체 따름
+ *  - 🔴 한 책 = 한 그림체(2026-09-14) — 매트릭스의 그림체 축은 이 책의 그림체 하나다.
  *  - (그림체 × 언어) 매트릭스에 페이지/삽화/TTS/표지/영상/게임 완성도 한눈에
  */
 export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProps) {
-  const styles = useMemo(() => {
-    const list = storybook.availableStyles?.length
-      ? [...storybook.availableStyles]
-      : [storybook.artStyle];
-    return list.filter(Boolean);
-  }, [storybook.availableStyles, storybook.artStyle]);
+  const styles = useMemo(() => [storybook.artStyle].filter(Boolean), [storybook.artStyle]);
 
   const langs = useMemo(() => {
     const list = storybook.languages?.length ? [...storybook.languages] : ['ko'];
@@ -27,21 +22,12 @@ export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProp
     return list;
   }, [storybook.languages]);
 
-  const defaultStyle = storybook.defaultStyle ?? storybook.artStyle;
-
-  const setDefaultStyle = (style: string) => {
-    onUpdate((draft) => {
-      draft.defaultStyle = style;
-    });
-    onSave();
-  };
-
-  // 메인 그림체의 활성 언어 표지 — 헤더 미리보기용 (없으면 fallback chain)
-  const headerCover = useMemo(() => {
-    const a = getStyleAssetsFor(storybook, defaultStyle);
-    const koCover = a.primaryCoverByLang?.ko ?? a.coverImage ?? a.coverImages?.[0]?.imageUrl;
-    return koCover ?? null;
-  }, [storybook, defaultStyle]);
+  // 헤더 미리보기용 한국어 표지
+  const headerCover =
+    storybook.primaryCoverByLang?.ko ??
+    storybook.coverImage ??
+    storybook.coverImages?.[0]?.imageUrl ??
+    null;
 
   return (
     <div className="space-y-6">
@@ -80,39 +66,6 @@ export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProp
               {storybook.isPublic ? '🌐 공개' : '🔒 비공개'}
             </span>
           </div>
-        </div>
-      </section>
-
-      {/* 메인 그림체 선택 */}
-      <section className="space-y-2">
-        <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
-          🎨 메인 그림체
-          <span className="ml-2 text-[11px] font-normal text-slate-500 dark:text-slate-400">
-            라이브러리 표지·어휘 게임 일러스트에서 이 그림체로 노출
-          </span>
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {styles.map((s) => {
-            const preset = ART_STYLES.find(
-              (a) =>
-                a.prompt.toLowerCase() === s.toLowerCase() || a.id.toLowerCase() === s.toLowerCase()
-            );
-            const isActive = s === defaultStyle;
-            return (
-              <button
-                key={s}
-                onClick={() => setDefaultStyle(s)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors ${
-                  isActive
-                    ? 'bg-amber-500 text-white border-amber-500'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-amber-300'
-                }`}
-              >
-                {isActive && '⭐ '}
-                {preset?.label ?? s}
-              </button>
-            );
-          })}
         </div>
       </section>
 
@@ -157,34 +110,25 @@ export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProp
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// Helpers — 그림체별 자산 추출 (활성 style 은 top-level, 그 외는 styleAssets)
+// Helpers — 한 책 = 한 그림체라 자산은 top-level 이 정본
 // ────────────────────────────────────────────────────────────────────────────
 
-function getStyleAssetsFor(sb: Storybook, style: string): StyleAssets {
-  if (style === sb.artStyle) {
-    return {
-      coverImages: sb.coverImages,
-      coverImage: sb.coverImage,
-      coverPrompt: sb.coverPrompt,
-      coverImageHistory: sb.coverImageHistory,
-      coverCharacterRefs: sb.coverCharacterRefs,
-      primaryCoverByLang: sb.primaryCoverByLang,
-      keyObjectImages: sb.keyObjectImages,
-      vocabularyImages: sb.vocabularyImages,
-    };
-  }
-  return sb.styleAssets?.[style] ?? {};
+function getStyleAssetsFor(sb: Storybook, _style: string) {
+  return {
+    coverImages: sb.coverImages,
+    coverImage: sb.coverImage,
+    primaryCoverByLang: sb.primaryCoverByLang,
+    keyObjectImages: sb.keyObjectImages,
+    vocabularyImages: sb.vocabularyImages,
+  };
 }
 
 function getPageIllustrationFor(
   sb: Storybook,
-  style: string,
+  _style: string,
   pageNumber: number
 ): string | undefined {
-  if (style === sb.artStyle) {
-    return sb.pages.find((p) => p.pageNumber === pageNumber)?.illustrationUrl;
-  }
-  return sb.styleAssets?.[style]?.pageIllustrations?.[pageNumber]?.illustrationUrl;
+  return sb.pages.find((p) => p.pageNumber === pageNumber)?.illustrationUrl;
 }
 
 // ────────────────────────────────────────────────────────────────────────────

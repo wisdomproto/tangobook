@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Mascot } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { Storybook, KeyObject, KeyObjectImage } from '@tangobook/shared';
+import { stripStyleSuffix } from '@tangobook/shared';
 import { useLogEvent } from '@/features/learning';
 
 interface WordRevealScreenProps {
@@ -58,8 +59,7 @@ export function WordRevealScreen({
 
   const items: WordItem[] = useMemo(() => {
     const ko = storybook.key_objects ?? [];
-    const styleKey = currentStyle ?? storybook.artStyle ?? 'paper-craft';
-    const styleImages: KeyObjectImage[] = storybook.styleAssets?.[styleKey]?.keyObjectImages ?? [];
+    const styleImages: KeyObjectImage[] = storybook.keyObjectImages ?? [];
     return ko
       .map((k: KeyObject) => {
         // 단일 언어 정책 (2026-07-13): UI 언어 단어 하나만 표시·발음. (전엔 한국어+영어 병기·둘 다 발음.)
@@ -181,7 +181,9 @@ export function WordRevealScreen({
               <h1 className="text-xl sm:text-3xl font-bold text-coral-600">
                 {t('wordReveal.title')}
               </h1>
-              <p className="text-sm sm:text-base text-ink-500 mt-1">{storybook.title}</p>
+              <p className="text-sm sm:text-base text-ink-500 mt-1">
+                {stripStyleSuffix(storybook.title)}
+              </p>
               {wordCount > 0 && (
                 <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white shadow-soft border border-coral-200">
                   <span className="text-coral-500 font-black text-base">{tappedCount}</span>

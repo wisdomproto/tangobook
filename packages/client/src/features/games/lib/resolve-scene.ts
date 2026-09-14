@@ -97,9 +97,7 @@ export function resolveSceneFromWord(
   if (!pageNum) return null;
 
   const page = storybook.pages?.[pageNum - 1];
-  const styleUrl =
-    style && storybook.styleAssets?.[style]?.pageIllustrations?.[pageNum]?.illustrationUrl;
-  const url = styleUrl ?? page?.illustrationUrl;
+  const url = page?.illustrationUrl;
   if (!url) return null;
 
   const pageText = lang === 'ko' ? page?.text : (page?.translations?.[lang]?.text ?? page?.text);

@@ -84,21 +84,9 @@ export function deriveAuthoring(sb: Storybook): AuthoringStatus {
   const series = rule?.key ?? 'unclassified';
   const pages = sb.pages ?? [];
   const textPages = textPagesOf(sb);
-  const styleAssets = Object.values(sb.styleAssets ?? {});
 
-  // illust — 언어 무관 (visual content 는 모든 언어 공유)
-  const baseIllust = pages.length > 0 && pages.every((p) => !!p.illustrationUrl);
-  let illust = baseIllust;
-  if (rule?.artStyleMode === 'styles3') {
-    // 한 그림체라도 pageIllustrations 가 전 페이지를 커버하면 완성. 없으면 base 폴백
-    // (활성 그림체 자산은 top-level pages[].illustrationUrl 에 있으므로).
-    const styleCovered =
-      pages.length > 0 &&
-      styleAssets.some(
-        (a) => a && pages.every((p) => !!a.pageIllustrations?.[p.pageNumber]?.illustrationUrl)
-      );
-    illust = styleCovered || baseIllust;
-  }
+  // illust — 언어 무관 (visual content 는 모든 언어 공유). 한 책 = 한 그림체라 pages 가 정본.
+  const illust = pages.length > 0 && pages.every((p) => !!p.illustrationUrl);
 
   const langs: Record<string, LangDone> = {
     ko: {
@@ -117,8 +105,7 @@ export function deriveAuthoring(sb: Storybook): AuthoringStatus {
       textPages.every((p) => (p.translations?.[lang]?.text ?? '').trim().length > 0);
     const tts = textPages.length > 0 && textPages.every((p) => !!p.translations?.[lang]?.ttsUrl);
     // 언어별 표지는 coverImage 폴백 금지 — 표지에 언어 텍스트가 구워져 있어 ko 표지로 대체 불가.
-    const cover =
-      !!sb.primaryCoverByLang?.[lang] || styleAssets.some((a) => !!a?.primaryCoverByLang?.[lang]);
+    const cover = !!sb.primaryCoverByLang?.[lang];
     langs[lang] = { text, tts, illust, cover };
   }
 

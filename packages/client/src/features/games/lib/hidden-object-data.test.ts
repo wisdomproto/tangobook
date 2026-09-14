@@ -21,11 +21,9 @@ const book = (over: Partial<Storybook> = {}): Storybook =>
   }) as unknown as Storybook;
 
 describe('숨은그림 데이터', () => {
-  it('그림체 자산에서 씬을 읽고 라벨·카드·음원을 붙인다', () => {
+  it('책의 씬을 읽고 라벨·카드·음원을 붙인다', () => {
     const data = buildHiddenObjectSceneData(
-      book({
-        styleAssets: { paper: { hiddenObjectScenes: [scene('s1', ['Crown', '공'])] } },
-      } as never),
+      book({ hiddenObjectScenes: [scene('s1', ['Crown', '공'])] } as never),
       'paper'
     );
     expect(data?.scenes).toHaveLength(1);
@@ -38,21 +36,9 @@ describe('숨은그림 데이터', () => {
     expect(ball.thumbnailUrl).toBeUndefined();
   });
 
-  /**
-   * 🔴 정본은 그림체 자산이고 top-level 은 활성 그림체 거울이다. 아이가 고른 그림체에 씬이 있으면
-   *    그걸 쓰고, 없을 때만 거울로 내려간다 — 반대로 하면 늘 활성 그림체 씬만 나온다.
-   */
-  it('고른 그림체에 없으면 top-level 거울을 쓴다', () => {
-    const data = buildHiddenObjectSceneData(
-      book({ hiddenObjectScenes: [scene('mirror', ['Crown', '공'])] } as never),
-      'other'
-    );
-    expect(data?.scenes[0].sceneImageUrl).toBe('https://x/mirror.jpg');
-  });
-
   it('찾을 게 하나뿐인 씬은 내지 않는다 — 한 번 누르면 끝난다', () => {
     const data = buildHiddenObjectSceneData(
-      book({ styleAssets: { paper: { hiddenObjectScenes: [scene('s1', ['Crown'])] } } } as never),
+      book({ hiddenObjectScenes: [scene('s1', ['Crown'])] } as never),
       'paper'
     );
     expect(data).toBeNull();

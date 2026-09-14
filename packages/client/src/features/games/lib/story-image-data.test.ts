@@ -51,22 +51,4 @@ describe('buildStoryImageData', () => {
     expect(data?.type).toBe('english-story-image');
     expect(data?.rounds[0].text).toMatch(/^trang /);
   });
-
-  it('그림체가 있으면 그 그림체의 쪽 삽화를 쓴다', () => {
-    const styled = book([page(1), page(2), page(3), page(4)], {
-      styleAssets: {
-        collage: {
-          pageIllustrations: {
-            1: { illustrationUrl: 'https://cdn/collage1.webp' },
-            2: { illustrationUrl: 'https://cdn/collage2.webp' },
-            3: { illustrationUrl: 'https://cdn/collage3.webp' },
-            4: { illustrationUrl: 'https://cdn/collage4.webp' },
-          },
-        },
-      },
-    });
-    const data = buildStoryImageData(styled, 'ko', 'collage');
-    const urls = data!.rounds.flatMap((r) => [r.correctImageUrl, ...r.distractorImageUrls]);
-    expect(urls.every((u) => u.includes('collage'))).toBe(true);
-  });
 });

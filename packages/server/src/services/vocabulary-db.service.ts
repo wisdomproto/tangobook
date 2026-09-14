@@ -112,7 +112,7 @@ interface ExtractedWord {
 
 /**
  * 단어가 등장하는 페이지의 일러스트를 수집 — 어휘 게임 회전 이미지용.
- * 모든 그림체(styleAssets) + top-level pages[].illustrationUrl 모두 포함, dedupe.
+ * 책의 pages[].illustrationUrl, dedupe.
  */
 function collectPageImagesForWord(
   storybook: Storybook,
@@ -122,22 +122,7 @@ function collectPageImagesForWord(
   const result: { page: number; illustrationUrl: string; style?: string }[] = [];
   const seen = new Set<string>();
 
-  // 1. styleAssets 의 모든 그림체 순회 (그림체 variation 도 자동 확보)
-  if (storybook.styleAssets) {
-    for (const [style, assets] of Object.entries(storybook.styleAssets)) {
-      if (!assets?.pageIllustrations) continue;
-      for (const pageNum of pageNums) {
-        const pi = assets.pageIllustrations[pageNum];
-        if (!pi?.illustrationUrl) continue;
-        const key = `${pageNum}-${pi.illustrationUrl}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        result.push({ page: pageNum, illustrationUrl: pi.illustrationUrl, style });
-      }
-    }
-  }
-
-  // 2. top-level pages[].illustrationUrl (그림체 미명시 — 단일 그림체일 때 사용)
+  // top-level pages[].illustrationUrl — 한 책 = 한 그림체(2026-09-14)
   const sbPages = storybook.pages ?? [];
   for (const pageNum of pageNums) {
     const page = sbPages.find((p) => p.pageNumber === pageNum);

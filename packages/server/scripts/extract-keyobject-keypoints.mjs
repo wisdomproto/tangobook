@@ -7,7 +7,7 @@
  * **어디서 읽고 어디에 쓰느냐**뿐이다:
  *
  *   파닉스: storybook.flashcards[].imageUrl        → flashcards[].keypoints
- *   동화책: styleAssets[*].keyObjectImages[] · top-level keyObjectImages[]
+ *   동화책: keyObjectImages[]
  *                                                  → 그 항목의 .keypoints
  *
  * 🔴 **같은 URL 이 여러 책·그림체에 걸쳐 재사용된다**(2,365 슬롯 / 고유 2,030장). 그래서
@@ -46,7 +46,6 @@ const API = process.env.API_BASE || 'http://localhost:3500';
 function imageSlots(sb) {
   return [
     ...(sb.keyObjectImages ?? []),
-    ...Object.values(sb.styleAssets ?? {}).flatMap((a) => a?.keyObjectImages ?? []),
   ].filter((im) => im?.imageUrl);
 }
 

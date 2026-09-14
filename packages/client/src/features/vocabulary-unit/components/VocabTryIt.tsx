@@ -34,16 +34,7 @@ export function VocabTryIt({ storybookId, lang = 'ko', title, note }: Props) {
   const { data: book } = useStorybook(storybookId);
   const boxRef = useRef<HTMLDivElement>(null);
 
-  // 활성 그림체 = 책 대표(defaultStyle → artStyle → 첫 그림체). RandomVocabStudyPage 와 동일 규칙.
-  const currentStyle = useMemo(() => {
-    if (!book) return undefined;
-    const styles =
-      book.availableStyles && book.availableStyles.length > 0
-        ? book.availableStyles
-        : Object.keys(book.styleAssets ?? {});
-    const inStyles = (s?: string) => (s && styles.includes(s) ? s : undefined);
-    return inStyles(book.defaultStyle) ?? inStyles(book.artStyle) ?? styles[0];
-  }, [book]);
+  const currentStyle = book?.artStyle;
 
   const unit = useMemo(
     () => (book ? deriveStorybookUnit(book, currentStyle) : null),

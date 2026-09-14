@@ -7,21 +7,11 @@ export interface StyleCover {
 }
 
 /**
- * 책의 (그림체, 표지 URL) 목록. 활성 그림체(top-level coverImage) 우선, 그다음 styleAssets.
- * 이미 나온 그림체는 중복 추가하지 않는다.
+ * 책의 (그림체, 표지 URL). 한 책 = 한 그림체(2026-09-14) — 0 또는 1개다.
  */
 export function pickStyleCovers(sb: any): StyleCover[] {
-  const pick = (a: any): string | undefined =>
-    a?.coverImage ?? a?.coverImages?.find((c: any) => c.imageUrl)?.imageUrl;
-  const out: StyleCover[] = [];
-  const active = pick({ coverImage: sb.coverImage, coverImages: sb.coverImages });
-  if (sb.artStyle && active) out.push({ style: sb.artStyle, url: active });
-  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
-    if (out.some((s) => s.style === style)) continue;
-    const url = pick(assets);
-    if (url) out.push({ style, url });
-  }
-  return out;
+  const url = sb.coverImage ?? sb.coverImages?.find((c: any) => c.imageUrl)?.imageUrl;
+  return sb.artStyle && url ? [{ style: sb.artStyle, url }] : [];
 }
 
 /** R2 key: 콘텐츠 변경 시 URL 이 바뀌도록 timestamp 포함 (immutable 캐시 안전). */

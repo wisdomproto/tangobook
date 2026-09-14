@@ -94,7 +94,7 @@ function findPageIllustration(
   word: VocabularyUnitWord,
   lang: Lang,
   storybook?: Storybook,
-  style?: string
+  _style?: string
 ): { url: string; pageNumber: number; pageText?: string; pageTtsUrl?: string } | null {
   if (!storybook) return null;
   const ko = findMatchingKeyObject(word, storybook);
@@ -107,10 +107,7 @@ function findPageIllustration(
   );
   if (!pageNum) return null;
 
-  const styleUrl =
-    style && storybook.styleAssets?.[style]?.pageIllustrations?.[pageNum]?.illustrationUrl;
-  const baseUrl = storybook.pages?.[pageNum - 1]?.illustrationUrl;
-  const url = styleUrl ?? baseUrl;
+  const url = storybook.pages?.[pageNum - 1]?.illustrationUrl;
   if (!url) return null;
 
   const page = storybook.pages?.[pageNum - 1];

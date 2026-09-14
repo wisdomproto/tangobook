@@ -3,18 +3,16 @@ import type { Storybook, HiddenObjectData, HiddenObjectTarget } from '@tangobook
 /**
  * 동화책 → 숨은그림 찾기 데이터.
  *
- * 🔴 **씬의 정본은 `styleAssets[style].hiddenObjectScenes`** 다. top-level 은 활성 그림체 거울일
- *    뿐이라, 아이가 고른 그림체가 활성이 아니면 거기엔 없다 — 그림체를 먼저 보고 없을 때만 내려간다.
+ * 한 책 = 한 그림체(2026-09-14) — 씬은 책의 `hiddenObjectScenes` 하나다.
  * 🔴 라벨·낱말 카드·음원은 **`hotspot.objectName` 으로 `key_objects` 를 찾아** 붙인다. 서버
  *    `buildHiddenObjectData` 와 같은 규칙이다(한쪽만 고치면 editor2 와 아이 화면이 달라진다).
  */
 export function buildHiddenObjectSceneData(
   book: Storybook | undefined,
-  style?: string
+  _style?: string
 ): HiddenObjectData | null {
   if (!book) return null;
-  const fromStyle = style ? book.styleAssets?.[style]?.hiddenObjectScenes : undefined;
-  const scenes = fromStyle?.length ? fromStyle : book.hiddenObjectScenes;
+  const scenes = book.hiddenObjectScenes;
   if (!scenes?.length) return null;
 
   const keyObjects = book.key_objects ?? [];

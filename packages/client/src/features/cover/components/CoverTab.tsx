@@ -13,7 +13,6 @@ import { apiClient } from '@/lib/axios';
 import { pushImageHistory } from '@/lib/image-history';
 import { settingsApi, type TitleTemplate } from '@/features/settings/api/settings.api';
 import { translationApi } from '@/features/translation/api/translation.api';
-import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
 import { ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, CoverImageItem, ImageGenerationResult } from '@tangobook/shared';
 
@@ -140,17 +139,6 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
       draft.primaryCoverByLang[primaryLang] = item.imageUrl;
       // ko 는 레거시 필드 (coverImage) 도 동기화 — 호환성 유지
       if (primaryLang === 'ko') draft.coverImage = item.imageUrl;
-      // styleAssets[활성 그림체] 에도 mirror — BookDetailPage 가 styleAssets 우선 읽으므로
-      // top-level 만 저장하면 학습자 화면에서 "대표 표지" 지정이 묻힌다.
-      const active = draft.artStyle;
-      if (active) {
-        if (!draft.styleAssets) draft.styleAssets = {};
-        if (!draft.styleAssets[active]) draft.styleAssets[active] = {};
-        const a = draft.styleAssets[active];
-        if (!a.primaryCoverByLang) a.primaryCoverByLang = {};
-        a.primaryCoverByLang[primaryLang] = item.imageUrl;
-        if (primaryLang === 'ko') a.coverImage = item.imageUrl;
-      }
     });
     onSave();
   };
@@ -427,13 +415,6 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
               </div>
             </div>
           )}
-
-          {/* 다른 그림체의 표지 참고 (활성 그림체 외 styleAssets 에 자산이 있는 경우) */}
-          <OtherStyleReference
-            storybook={storybook}
-            slot={{ kind: 'cover' }}
-            label="🎨 다른 그림체 표지 (참고)"
-          />
 
           {/* 표지 목록 */}
           {coverImages.length > 0 && (

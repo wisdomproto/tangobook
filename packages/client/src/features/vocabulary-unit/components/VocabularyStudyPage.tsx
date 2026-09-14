@@ -45,22 +45,8 @@ export function VocabularyStudyPage() {
   const bookId = unitId && isStorybookUnitId(unitId) ? storybookIdFromUnitId(unitId) : undefined;
   const { data: storybook } = useStorybook(bookId ?? undefined);
 
-  // 선택 가능한 그림체 목록 + 현재 활성 그림체 (선택 → 대표 → 활성 폴백).
-  const styles: string[] =
-    storybook?.availableStyles && storybook.availableStyles.length > 0
-      ? storybook.availableStyles
-      : storybook?.styleAssets
-        ? Object.keys(storybook.styleAssets)
-        : [];
-  // 활성 그림체는 반드시 선택지(styles=availableStyles) 안에서 고름 — defaultStyle/artStyle 이
-  // availableStyles 에 없는 stale 값(예: 하이디 defaultStyle=pixar-3d)이면 라벨이 "그림체 N" 으로
-  // 폴백되고 게임 이미지도 엉뚱해지므로 styles 로 제한 후 styles[0] 최종 폴백.
-  const inStyles = (s: string | undefined) => (s && styles.includes(s) ? s : undefined);
-  const activeStyle: string | undefined =
-    inStyles(selectedStyle) ??
-    inStyles(storybook?.defaultStyle) ??
-    inStyles(storybook?.artStyle) ??
-    styles[0];
+  // 한 책 = 한 그림체(2026-09-14) — 책의 그림체 하나.
+  const activeStyle: string | undefined = storybook?.artStyle ?? selectedStyle;
 
   // 활성 그림체를 derive 에 전달 → 게임/미리보기/모달 이미지가 그 그림체로 나옴.
   // (derive 는 캐시된 책 데이터 계산이라 그림체 변경 시 재fetch 없이 재derive.)

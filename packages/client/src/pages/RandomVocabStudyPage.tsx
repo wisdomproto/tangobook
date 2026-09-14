@@ -51,17 +51,7 @@ export default function RandomVocabStudyPage() {
   // 그 책만 fetch — 책 상세 "단어 익히기" 와 동일 캐시 키(['storybook', id]) 공유.
   const { data: book, isLoading: bookLoading } = useStorybook(pickedId);
 
-  // 활성 그림체 = 책 대표(defaultStyle) → artStyle → 첫 그림체. availableStyles 에 없는 stale 값
-  // (예: 하이디 defaultStyle=pixar-3d)은 제외해 게임 이미지가 엉뚱해지지 않도록 함. 어휘 게임 화면에선
-  // 그림체를 바꾸지 않음(선택기 미노출) — 책 대표 그림체로 고정.
-  const styles: string[] = book
-    ? book.availableStyles && book.availableStyles.length > 0
-      ? book.availableStyles
-      : Object.keys(book.styleAssets ?? {})
-    : [];
-  const inStyles = (s: string | undefined) => (s && styles.includes(s) ? s : undefined);
-  const currentStyle: string | undefined =
-    inStyles(book?.defaultStyle) ?? inStyles(book?.artStyle) ?? styles[0];
+  const currentStyle: string | undefined = book?.artStyle;
 
   // 실제 책 → 단원 (storybookId 세팅됨 → 게임이 진짜 책 컨텍스트로 동작).
   const unit = useMemo(

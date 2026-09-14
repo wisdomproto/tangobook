@@ -128,41 +128,11 @@ describe('deriveAuthoring', () => {
     expect(a.langs.en.cover).toBe(false);
   });
 
-  it('en cover 는 styleAssets[*].primaryCoverByLang 도 인정', () => {
-    const sb = book({
-      languages: ['ko', 'en'],
-      styleAssets: { watercolor: { primaryCoverByLang: { en: 'https://r2/wc-en.webp' } } },
-    });
-    expect(deriveAuthoring(sb).langs.en.cover).toBe(true);
-  });
-
-  it('styles3: styleAssets 한 그림체가 전 페이지 커버하면 illust=true (base 미완이어도)', () => {
-    const sb = book({
-      pages: [page(1, { illustrationUrl: undefined }), page(2, { illustrationUrl: undefined })],
-      styleAssets: {
-        watercolor: {
-          pageIllustrations: {
-            1: { illustrationUrl: 'https://r2/wc1.webp' },
-            2: { illustrationUrl: 'https://r2/wc2.webp' },
-          },
-        },
-      },
-    });
-    expect(deriveAuthoring(sb).langs.ko.illust).toBe(true);
-  });
-
-  it('styles3: styleAssets 부분 커버뿐이면 base 폴백 — base 완비 시 true, 미완 시 false', () => {
-    const partialAssets = {
-      watercolor: { pageIllustrations: { 1: { illustrationUrl: 'https://r2/wc1.webp' } } },
-    };
-    expect(deriveAuthoring(book({ styleAssets: partialAssets })).langs.ko.illust).toBe(true);
+  it('illust 는 pages[].illustrationUrl 전부로 판단 (한 책 = 한 그림체)', () => {
+    expect(deriveAuthoring(book({ pages: [page(1), page(2)] })).langs.ko.illust).toBe(true);
     expect(
-      deriveAuthoring(
-        book({
-          styleAssets: partialAssets,
-          pages: [page(1), page(2, { illustrationUrl: undefined })],
-        })
-      ).langs.ko.illust
+      deriveAuthoring(book({ pages: [page(1), page(2, { illustrationUrl: undefined })] })).langs.ko
+        .illust
     ).toBe(false);
   });
 

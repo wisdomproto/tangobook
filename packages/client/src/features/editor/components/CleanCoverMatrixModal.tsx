@@ -6,19 +6,15 @@ import type { StorybookSummary } from '@tangobook/shared';
 
 /**
  * editor2 그림체별 클린 표지(텍스트 없는 버전) 현황 매트릭스.
- * 세계 명작 + 자연관찰 책을 카테고리별로 묶고, 각 책의 노출 그림체(availableStyles)마다
- * 클린 표지(`cleanCoversByStyle[style]`)를 썸네일로 표시. 없으면 "빈칸".
+ * 세계 명작 + 자연관찰 책을 카테고리별로 묶고, 각 책(= 그림체 하나)의
+ * 클린 표지(`cleanCoverImage`)를 썸네일로 표시. 없으면 "빈칸".
  * 어느 책·그림체가 아직 클린 표지가 없는지(재생성 대상) 한눈에 파악하는 용도.
  */
 const NATURE_RE = /동물|공룡|식물|곤충|우주|자연|바다|하늘|육지|극지/;
 const isTargetCat = (cat?: string): boolean => !!cat && (/명작/.test(cat) || NATURE_RE.test(cat));
 
-const stylesOf = (b: StorybookSummary): string[] =>
-  b.availableStyles && b.availableStyles.length > 0
-    ? b.availableStyles
-    : b.artStyle
-      ? [b.artStyle]
-      : [];
+// 한 책 = 한 그림체(2026-09-14)
+const stylesOf = (b: StorybookSummary): string[] => (b.artStyle ? [b.artStyle] : []);
 
 export function CleanCoverMatrixModal({ onClose }: { onClose: () => void }) {
   const { data: books, isLoading } = useStorybooks();
@@ -36,7 +32,7 @@ export function CleanCoverMatrixModal({ onClose }: { onClose: () => void }) {
     for (const b of target) {
       for (const s of stylesOf(b)) {
         total++;
-        if (!b.cleanCoversByStyle?.[s]) missing++;
+        if (!b.cleanCoverImage) missing++;
       }
     }
     const groups: Record<string, StorybookSummary[]> = {};
@@ -53,7 +49,7 @@ export function CleanCoverMatrixModal({ onClose }: { onClose: () => void }) {
   }, [books]);
 
   const bookHasMissing = (b: StorybookSummary): boolean =>
-    stylesOf(b).some((s) => !b.cleanCoversByStyle?.[s]);
+    stylesOf(b).some((s) => !b.cleanCoverImage);
 
   return (
     <div
@@ -123,7 +119,7 @@ export function CleanCoverMatrixModal({ onClose }: { onClose: () => void }) {
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {stylesOf(b).map((style, i) => {
-                            const url = b.cleanCoversByStyle?.[style];
+                            const url = b.cleanCoverImage;
                             return (
                               <div key={style} className="w-32">
                                 {url ? (

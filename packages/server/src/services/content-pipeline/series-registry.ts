@@ -10,7 +10,7 @@ export interface SeriesRule {
   label: string;
   /** 이 시리즈로 분류되는 책 category 문자열들 (R2 실데이터 기준) */
   categories: string[];
-  /** styles3 = 그림체 3종(styleAssets) / base = 기본 pages[].illustrationUrl */
+  /** styles3 = 그림체 3종(그림체마다 책, 그룹으로 묶임) / base = 그림체 없는 실사 */
   artStyleMode: 'styles3' | 'base';
   /** storyboard = 책별 스토리보드 릴스 / nature = 자연 릴스 / derive = 블로그 파생 / none */
   reelPipeline: 'storyboard' | 'nature' | 'derive' | 'none';

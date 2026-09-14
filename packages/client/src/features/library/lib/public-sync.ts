@@ -1,7 +1,8 @@
 import type { Storybook } from '@tangobook/shared';
 
+// 한 책 = 한 그림체(2026-09-14) — 공개 셀의 그림체 축은 이 책의 그림체 하나다.
 function getBookStyles(sb: Storybook): string[] {
-  return sb.availableStyles && sb.availableStyles.length > 0 ? sb.availableStyles : [sb.artStyle];
+  return [sb.artStyle];
 }
 
 function getBookLangs(sb: Storybook): string[] {

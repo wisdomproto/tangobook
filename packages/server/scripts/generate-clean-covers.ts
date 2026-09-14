@@ -157,9 +157,8 @@ async function processStyle(
 ): Promise<StyleOutcome> {
   const { dryRun, force, retries, outDir, review } = opts;
 
-  // 멱등 skip — 이미 cleanCoverImage 가 있으면 (활성 그림체는 top-level, 그 외는 styleAssets) 건너뜀.
-  const existing =
-    style === sb.artStyle ? sb.cleanCoverImage : sb.styleAssets?.[style]?.cleanCoverImage;
+  // 멱등 skip — 이미 cleanCoverImage 가 있으면 건너뜀. 한 책 = 한 그림체(2026-09-14).
+  const existing = sb.cleanCoverImage;
   if (existing && !force) return { status: 'skip' };
 
   const originalB64 = await coverToPngBase64(url);
@@ -205,10 +204,7 @@ async function processStyle(
 
   const ts = Date.now();
   const cleanUrl = await uploadBufferToR2(webpBuf, buildCleanKey(id, style, ts), 'image/webp');
-  sb.styleAssets ??= {};
-  sb.styleAssets[style] ??= {};
-  sb.styleAssets[style].cleanCoverImage = cleanUrl;
-  if (style === sb.artStyle) sb.cleanCoverImage = cleanUrl;
+  sb.cleanCoverImage = cleanUrl;
   const saved = await R2Repository.saveStorybook(sb);
   console.log(`  ✓ ${id}/${style} → ${cleanUrl.slice(-52)}`);
   return { status: 'ok', saved };
@@ -243,15 +239,7 @@ async function main() {
       summary.fail++;
       continue;
     }
-    // 표시되는 그림체만 (availableStyles = 앱 노출 3종/명작·1종/자연). 낡은 styleAssets 키(watercolor 등) 제외.
-    const displaySet = new Set<string>(
-      (sb.availableStyles && sb.availableStyles.length > 0
-        ? sb.availableStyles
-        : sb.artStyle
-          ? [sb.artStyle]
-          : []) as string[]
-    );
-    let styles = pickStyleCovers(sb).filter((s) => displaySet.has(s.style));
+    let styles = pickStyleCovers(sb);
     if (styleFilter) styles = styles.filter((s) => s.style === styleFilter);
 
     for (const { style, url } of styles) {

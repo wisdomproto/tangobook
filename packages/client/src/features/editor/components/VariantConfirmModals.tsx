@@ -1,13 +1,6 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/cn';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
-import type { ReadingLevel } from '@tangobook/shared';
-
-const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; emoji: string }> = {
-  L1: { label: '씨앗', age: '3~4세', emoji: '📗' },
-  L2: { label: '새싹', age: '4~6세', emoji: '📘' },
-  L3: { label: '나무', age: '6~7세', emoji: '📙' },
-};
 
 const LANG_FLAG: Record<string, string> = {
   ko: '🇰🇷',
@@ -91,7 +84,7 @@ function ConfirmModalShell({
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// 레벨 추가 — 가장 무거움 (완전 새 콘텐츠)
+// 언어 추가 — 텍스트·TTS 는 언어별로 새로, 삽화는 공유
 // ────────────────────────────────────────────────────────────────────────────
 
 export function AddLanguageConfirmModal({
@@ -140,70 +133,6 @@ export function AddLanguageConfirmModal({
           <li>오디오북·롱폼·게임은 언어별 별도 프로젝트로 만듭니다 (자동 안 됨).</li>
         </ul>
       </div>
-    </ConfirmModalShell>
-  );
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// 그림체 추가 — availableStyles 에 push (텍스트/TTS 공유, 일러스트만 새로)
-// ────────────────────────────────────────────────────────────────────────────
-
-export function AddStyleConfirmModal({
-  presetId,
-  presetLabel,
-  presetPrompt,
-  pending,
-  onConfirm,
-  onCancel,
-}: {
-  presetId: string;
-  presetLabel: string;
-  presetPrompt: string;
-  pending?: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-}) {
-  return (
-    <ConfirmModalShell
-      title={`${presetLabel} 그림체 추가`}
-      emoji="🎨"
-      accentColor="violet"
-      onConfirm={onConfirm}
-      onCancel={onCancel}
-      confirmLabel={`${presetLabel} 추가`}
-      pending={pending}
-    >
-      <p>
-        이 책에 <strong>{presetLabel}</strong> 그림체를 새 옵션으로 추가합니다.
-      </p>
-      <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-lg p-3 space-y-2">
-        <p className="font-bold text-violet-900 dark:text-violet-200">
-          🎨 가벼움 — 텍스트·TTS·페이지 구조 그대로 공유
-        </p>
-        <ul className="text-xs text-violet-800 dark:text-violet-300 space-y-1 list-disc pl-5">
-          <li>
-            <strong>모든 그림체 공유:</strong> 페이지 텍스트, TTS, 핵심단어 이름, 게임 데이터,
-            오디오북 텍스트
-          </li>
-          <li>
-            <strong>{presetLabel} 전용 (새로 필요):</strong> 표지·캐릭터·페이지 일러스트·핵심단어
-            이미지
-          </li>
-          <li>
-            추가 후 활성 그림체로 전환됨. 캐릭터/표지/페이지 탭의 <strong>재생성 버튼</strong>으로
-            일러스트만 새로 만들 수 있음.
-          </li>
-          <li>
-            ⚠️ <strong>현재 한계:</strong> 한 책당 자산은 한 셋만 저장됨. 그림체별 일러스트 독립
-            보존(이전 그림체 일러스트 보관)은 후속.
-          </li>
-        </ul>
-      </div>
-      <p className="text-xs text-slate-500 dark:text-slate-400">
-        프롬프트:{' '}
-        <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">{presetPrompt}</code>
-      </p>
-      <input type="hidden" data-preset-id={presetId} />
     </ConfirmModalShell>
   );
 }

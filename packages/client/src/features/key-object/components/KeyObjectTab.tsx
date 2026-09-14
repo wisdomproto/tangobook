@@ -14,7 +14,6 @@ import { apiClient } from '@/lib/axios';
 import { useEditorLang } from '@/contexts/EditorLangContext';
 import { translationApi } from '@/features/translation/api/translation.api';
 import { ttsApi } from '@/features/tts/api/tts.api';
-import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
 import { TTS_VOICES } from '@tangobook/shared';
 import type { Storybook, KeyObject, ImageGenerationResult } from '@tangobook/shared';
 
@@ -358,15 +357,6 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
       if (draft.keyObjectImages) {
         draft.keyObjectImages = draft.keyObjectImages.filter((img) => img.objectName !== objName);
       }
-      // 3) 모든 styleAssets 의 keyObjectImages 에서도 제거 (그림체별 자산)
-      if (draft.styleAssets) {
-        for (const style of Object.keys(draft.styleAssets)) {
-          const sa = draft.styleAssets[style];
-          if (sa?.keyObjectImages) {
-            sa.keyObjectImages = sa.keyObjectImages.filter((img) => img.objectName !== objName);
-          }
-        }
-      }
       // KeyObject 자체가 사라지므로 nameTranslations·ttsUrls·ttsUrl 은 자동 소거됨
     });
     onSave();
@@ -581,16 +571,6 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                       }}
                     />
 
-                    {/* 다른 그림체의 같은 사물 이미지 참고 */}
-                    <div className="mb-2">
-                      <OtherStyleReference
-                        storybook={storybook}
-                        slot={{ kind: 'keyObject', objectName: obj.name }}
-                        label={`🎨 다른 그림체`}
-                        thumbSize={64}
-                      />
-                    </div>
-
                     {/* 활성 언어 이름 표시 — controlled 시 인라인 편집 */}
                     {isNonKo ? (
                       <>
@@ -771,23 +751,10 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
               initialKeypoints={img.keypoints ?? []}
               onSave={(keypoints) => {
                 onUpdate((draft) => {
-                  // 1. top-level (현재 활성 그림체의 데이터) 업데이트
                   const target = (draft.keyObjectImages ?? []).find(
                     (o) => o.objectName === obj.name
                   );
                   if (target) target.keypoints = keypoints;
-                  // 2. styleAssets[현재 그림체] 도 동기화 — 점잇기 게임 데이터 어댑터가
-                  //    styleAssets[style].keyObjectImages 에서 keypoints 를 읽음.
-                  //    switchStyleAssets snapshot 까지 기다리지 않고 즉시 mirror.
-                  //    styleAssets 에 entry 없을 수도 있어 top-level 전체 복사로 안전 처리.
-                  const currentStyle = draft.artStyle;
-                  if (currentStyle) {
-                    if (!draft.styleAssets) draft.styleAssets = {};
-                    if (!draft.styleAssets[currentStyle]) draft.styleAssets[currentStyle] = {};
-                    draft.styleAssets[currentStyle].keyObjectImages = (
-                      draft.keyObjectImages ?? []
-                    ).map((o) => ({ ...o }));
-                  }
                 });
                 onSave();
                 setDotEditIdx(null);

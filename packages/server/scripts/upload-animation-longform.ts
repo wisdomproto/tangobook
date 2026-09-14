@@ -140,13 +140,7 @@ for (const p of targets) {
     // 썸네일 = 언어별 표지
     try {
       const book: any = await R2Repository.getStorybook(p.id);
-      const styles = book.styleAssets ?? {};
-      const cover =
-        book.primaryCoverByLang?.ko ||
-        (Object.values(styles).find((v: any) => v?.primaryCoverByLang?.ko) as any)
-          ?.primaryCoverByLang?.ko ||
-        (Object.values(styles).find((v: any) => v?.coverImage) as any)?.coverImage ||
-        book.coverImage;
+      const cover = book.primaryCoverByLang?.ko || book.coverImage;
       if (cover) {
         const buf = Buffer.from(await (await fetch(encodeURI(cover))).arrayBuffer());
         await YouTubeProvider.setThumbnail(res.videoId, buf, CHANNEL);
