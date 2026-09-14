@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { ActivityItem, ColoringCatalogEntry } from '@tangobook/shared';
 import { ActivityCta } from '../ActivityCta';
 import { trackActivity } from '../../lib/track';
-import { PanelHeader } from './PanelHeader';
+import { BTN, PanelHeader } from './PanelHeader';
+import { ColoringBookPrint, type ColoringBookSheet } from './ColoringBookPrint';
 
 const ColoringPlayer = lazy(() =>
   import('@/features/games/components/players/ColoringPlayer').then((m) => ({
@@ -14,13 +15,17 @@ export function ColoringPanel({
   item,
   entry,
   next,
+  bookSheets,
 }: {
   item: ActivityItem;
   entry: ColoringCatalogEntry;
   next: ActivityItem | null;
+  /** 같은 책(파닉스는 같은 단원)의 도안 전부 — 2장 이상이면 「색칠책」 인쇄를 연다. */
+  bookSheets: ColoringBookSheet[];
 }) {
   const [playing, setPlaying] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [bookPrint, setBookPrint] = useState(false);
   const doneTimer = useRef<ReturnType<typeof window.setTimeout>>();
   useEffect(() => () => window.clearTimeout(doneTimer.current), []);
   return (
@@ -35,6 +40,19 @@ export function ColoringPanel({
           trackActivity('activity_print', { kind: item.kind, key: item.key });
           window.print();
         }}
+        extra={
+          bookSheets.length >= 2 && (
+            <button
+              onClick={() => {
+                trackActivity('activity_print', { kind: item.kind, key: item.key, target: 'book' });
+                setBookPrint(true);
+              }}
+              className={`${BTN} bg-coral-600 text-white hover:bg-coral-700`}
+            >
+              📚 {entry.bookId ? '이 책' : '이 단원'} 색칠책 인쇄 ({bookSheets.length}장)
+            </button>
+          )
+        }
       />
       {finished && (
         <div className="mb-3 rounded-xl bg-peach-100 p-3 print:hidden">
@@ -42,7 +60,16 @@ export function ColoringPanel({
           <ActivityCta item={item} next={next} />
         </div>
       )}
-      <figure className="rounded-2xl bg-white p-4 shadow-sm print:shadow-none print:p-0">
+      {bookPrint && (
+        <ColoringBookPrint
+          title={item.section}
+          sheets={bookSheets}
+          onDone={() => setBookPrint(false)}
+        />
+      )}
+      <figure
+        className={`${bookPrint ? 'print:hidden ' : ''}rounded-2xl bg-white p-4 shadow-sm print:shadow-none print:p-0`}
+      >
         <img
           src={entry.lineartUrl}
           alt={`${item.title} 색칠도안`}

@@ -67,6 +67,10 @@ export default function ActivityPage({ kind }: { kind: ActivityKind }) {
           item={item}
           entry={coloringEntries.get(item.key)!}
           next={next}
+          bookSheets={items
+            .filter((it) => it.group === item.group && it.section === item.section)
+            .map((it) => coloringEntries.get(it.key)!)
+            .map((e) => ({ key: e.key, word: e.word, lineartUrl: e.lineartUrl }))}
         />
       )}
       {kind === 'hidden-object' && (
