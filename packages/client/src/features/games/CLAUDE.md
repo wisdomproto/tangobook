@@ -476,7 +476,7 @@ PR 리뷰 체크리스트:
   - 🔴 **버그 교훈**: cleanup 에서 `audio.src=''` 하기 전에 'error' 리스너를 **먼저 removeEventListener + advanced 가드** 해야 함. 안 그러면 빈 src 가 'error' 이벤트 발생 → 즉시 다음 단어로. StrictMode 이중 마운트(mount→cleanup→mount)에서 장면이 ~0.4s 만에 사라져 "안 뜬다"로 보였음.
 - **연결**: `KoreanBlockPlayer`/`EnglishBlockPlayer` 가 `useStorybook(storybookId)` 로 소스 책 로드, `handleCheck` 정답 `onDone` 에서 `resolveSceneFromWord` → 있으면 `setScene` (SceneReveal), 없으면 바로 다음(`goToNext`).
 - **동작 조건**: **책 컨텍스트 게임**(책상세→단어익히기→블록, `storybookId`=소스 책)에서만. 사이드바 랜덤 게임(`RandomBlockGamePage`, `storybookId="__random_pool__"`)은 소스 책 없어 skip. ⚠️ **레벨 변형**(`{id}__L4`)은 페이지 일러스트/나레이션이 비어있을 수 있음(변형은 글밥만 다름) → 그 경우 장면 미표시. 필요 시 base 책 폴백 미구현(TODO).
-- 🔴 **장면 그림체 = 진입 그림체 일치 (2026-07-10 fix)**: `useGameStyle`(`components/GameStyleChip.tsx`)가 `useSearchParams().get('style')` 를 최우선으로 읽어 SceneReveal 의 `selectedStyle` 에 넘긴다(우선순위: URL `?style` → `defaultStyle` → `styles[0]` → `artStyle`). 책 상세에서 특정 그림체로 "단어 익히기" 진입(`/vocabulary/:id?style=…`)하면 게임 이미지는 그 그림체로 뜨지만 예전엔 SceneReveal 만 `defaultStyle` 을 써서 **정답 장면 그림체가 진입 그림체와 안 맞던 버그**가 있었다.
+- 🔴 **장면 그림체 = 진입 그림체 일치 (2026-07-10 fix)**: `useGameStyle`(`components/GameStyleChip.tsx`)가 `useSearchParams().get('style')` 를 최우선으로 읽어 SceneReveal 의 `selectedStyle` 에 넘긴다(우선순위: URL `?style` 이 책의 그림체와 같으면 그것, 아니면 `artStyle` — 2026-09-14 한 책 = 한 그림체). 책 상세에서 특정 그림체로 "단어 익히기" 진입(`/vocabulary/:id?style=…`)하면 게임 이미지는 그 그림체로 뜨지만 예전엔 SceneReveal 만 `defaultStyle` 을 써서 **정답 장면 그림체가 진입 그림체와 안 맞던 버그**가 있었다.
 
 ## TTS URL 폴백 chain 단일화 (2026-05-18)
 

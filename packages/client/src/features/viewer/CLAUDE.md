@@ -40,7 +40,7 @@ features/viewer/
 - **음량 3단계 (2026-07-02, 전역)**: `settings.volume: low(0.35)/mid(0.7)/high(1)` (`VOLUME_GAIN`) — TTS 직접, BGM 은 저작자 `backgroundMusicVolume` × 계수. 툴바 🔊→🔉→🔈 순환. `useAudioPlayer({ volumeGain })`, 재생 중에도 즉시 반영.
 - 🔴 **뷰어 BGM 은 없애지 말 것 (2026-08-11)** — 「배경음이 시끄럽다」는 말은 **라이브러리 화면**(`AppBgm`, main-{1..4}.mp3) 얘기였는데 뷰어 폴백을 지웠다가(08-05) 자동읽기에서 음악이 통째로 사라져 되돌렸다. **어느 화면의 소리인지 먼저 확인할 것** — 두 BGM 은 이름도 자산도 다르다. ⚠️ 임베드(광고 랜딩 상자)에서만 예외로 끈다(마운트 즉시 재생이라 아무도 안 눌렀는데 음악이 난다).
 - **기본 BGM 폴백 (2026-07-03)**: 저작 `backgroundMusicUrl` 없는 책은 `/sounds/bgm/default-{1..5}.mp3`(90s 루프) 중 **책 ID 해시로 고정 선택**(ViewerContainer `bgmUrl` useMemo — 같은 책=항상 같은 곡). 저작 BGM 우선, hasBgm 은 이제 항상 true. 자동재생/탭게이트/음소거 연동은 기존 로직 그대로.
-- **그림체 resolution**: `?style` → 없으면 **`defaultStyle`(대표)** → `artStyle` 폴백 (2026-07-02: 연속재생 등 style 미지정 진입이 라이브러리 표지와 같은 그림체로 재생).
+- **그림체**: 한 책 = 한 그림체(2026-09-14) — 뷰어는 책의 top-level 자산을 그대로 쓴다. `?style` 은 학습 이벤트·게임 칩에 넘기는 이름으로만 남는다.
 - 🔴 **`embed?:{style, noAutoStart}` prop (2026-08-05)** — 랜딩(`/hangul`) 임베드 전용. `style`=그림체 강제(`urlStyle` 최우선, `?style`·`defaultStyle` 보다 앞), `noAutoStart`=`TitleIntro` 의 **5초 자동 시작 카운트다운(`AUTO_START_SECONDS`) 끄기**(탭해야만 재생). 뷰어 라우트는 옵셔널이라 무변경. `HangulBookTryIt` 이 `paper-craft` + 탭재생으로 쓴다.
 - 홈 버튼 → `/library` · 뒤로 버튼 → 책 상세(`/library/:id`)
 - **풀스크린 좌상단 뒤로가기 (2026-07-16)**: 컨트롤 숨김(풀스크린 기본) 상태에 **좌상단 상시 ← 버튼**(→`/library/:id` 책 상세) — 우상단 🏠✕ 와 대칭. 없으면 인앱 브라우저(인스타) 하단 뒤로 눌러 앱 이탈. `!playlist && !controlsVisible` 조건.

@@ -87,7 +87,7 @@ VocabularyWordImage {
 - **단어 sub-section** — 📚 단어 둘러보기 chip + WordPreviewBanner (가로 스크롤 + `w-fit mx-auto` 가운데 정렬)
 - **게임 sub-section** — 🎮 게임으로 익히기 + 게임 카드 4개 (Duolingo 식 push button + 좌상단 번호 1·2·3·4)
 - **모달**: 게임 fullscreen + WordDetailModal (단어 상세)
-- **자동 채움 (TimelineEditorStep 와 별개)**: 책 단원의 `book.styleAssets[currentStyle].keyObjectImages` 에서 이미지 derive
+- **자동 채움 (TimelineEditorStep 와 별개)**: 책 단원의 `book.keyObjectImages` 에서 이미지 derive(한 책 = 한 그림체)
 
 ## WordDetailModal 2단계 흐름 (2026-05-19 재설계)
 

@@ -39,7 +39,7 @@
 ## 그림체 분포 (`ArtStyleGenreCard`, 2026-07-10 — 장르 3종)
 
 - `groupByGenre(events, storybooksById, resolveGenre, lang?)` — `metadata.style`(없으면 book `artStyle` 폴백) → `resolveGenre` 로 **장르명 or null**(3종 아님=제외) 변환 후 집계. variant ID → base strip.
-- `resolveGenre` = 컴포넌트가 `useStyleGenreLabel()`(수동 `style-genre-map` + 프롬프트 `classifyGenre`)로 만들어 넘김. 3종 라벨(`STYLE_GENRES`: 수채동화풍·페이퍼 3D 아트·콜라주)에 매칭될 때만 통과.
+- `resolveGenre` = 컴포넌트가 `useStyleGenreLabel()`(그림체 라이브러리 항목의 `genre`·`aliases` — 2026-09-14 장르 표 폐기)로 만들어 넘김. 3종 라벨(`STYLE_GENRES`: 수채동화풍·페이퍼 3D 아트·콜라주)에 매칭될 때만 통과.
 - 🔴 **메인 3종 장르명 노출** — 라이브러리 드롭박스와 동일한 학습자 장르 라벨(마케팅 안전, 실명 아님). 구 `ArtStyleDistributionCard`(그림체 N 익명 + `getArtStyleLabel/Emoji`)는 미사용 보존(정책 변경 시 복구).
 - 가로 막대 (이모지 + 장르명 + 권수 + %)
 
