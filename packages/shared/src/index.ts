@@ -17,6 +17,7 @@ export * from './utils/entitlement.js';
 export * from './utils/book-groups.js';
 export * from './utils/phonics-units.js';
 export * from './utils/hidden-object.js';
+export * from './utils/activity-catalog.js';
 export * from './utils/learning-aggregate.js';
 export {
   KOREAN_FINAL_TO_REPRESENTATIVE,
