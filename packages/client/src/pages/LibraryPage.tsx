@@ -25,7 +25,7 @@ import {
   genreLabel,
   type StyleGenreSlug,
 } from '@/lib/art-style-genre';
-import { collapseStyleGroups, stripStyleSuffix } from '@tangobook/shared';
+import { collapseStyleGroups, groupPrimaryId, stripStyleSuffix } from '@tangobook/shared';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 
@@ -293,6 +293,17 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         : list,
     [bookGroups, styleGenreMap, styleGenre]
   );
+  /**
+   * 정렬 키 — 라이브러리 마스터의 책 순서(bookPriority)는 그룹의 **대표 책 id** 로 적혀 있다.
+   * 수채·콜라주를 고르면 카드가 다른 멤버로 바뀌므로, 순서는 그 멤버가 속한 그룹의 대표로 찾는다.
+   */
+  const orderKey = useCallback(
+    (id: string) => {
+      const g = bookGroups?.find((x) => x.kind === 'style' && x.bookIds.includes(id));
+      return (g && groupPrimaryId(g)) || id;
+    },
+    [bookGroups]
+  );
 
   const filtered = useMemo<BookIndexEntry[]>(() => {
     if (!all) return [];
@@ -318,8 +329,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       : undefined;
     return [...byReading].sort((a, b) => {
       if (priorityIdx) {
-        const ai = priorityIdx.has(a.id) ? priorityIdx.get(a.id)! : Infinity;
-        const bi = priorityIdx.has(b.id) ? priorityIdx.get(b.id)! : Infinity;
+        const ak = orderKey(a.id);
+        const bk = orderKey(b.id);
+        const ai = priorityIdx.has(ak) ? priorityIdx.get(ak)! : Infinity;
+        const bi = priorityIdx.has(bk) ? priorityIdx.get(bk)! : Infinity;
         if (ai !== Infinity && bi !== Infinity) return ai - bi;
         if (ai !== Infinity) return -1;
         if (bi !== Infinity) return 1;
@@ -336,6 +349,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     statusMap,
     libConfig?.bookPriority,
     collapse,
+    orderKey,
   ]);
 
   // 현재 보이는 책들 중 실제로 존재하는 그림풍(장르)만 선택지로 노출.
@@ -343,14 +357,25 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const availableGenres = useMemo(() => {
     if (type !== 'storybook') return [];
     const present = new Set<string>();
-    for (const b of filtered) {
+    // 🔴 카드는 그룹을 한 권으로 접은 결과라 그 한 권의 그림체만 들고 있다 — 접기 전 멤버까지 봐야
+    //    「수채·콜라주도 있다」가 보인다(안 그러면 드롭다운이 페이퍼 3D 하나만 남아 통째로 숨는다).
+    const shown = new Set(filtered.map((b) => b.id));
+    const groupOf = new Map(
+      (bookGroups ?? [])
+        .filter((g) => g.kind === 'style')
+        .flatMap((g) => g.bookIds.map((id) => [id, g] as const))
+    );
+    const shownGroups = new Set(filtered.map((b) => groupOf.get(b.id)?.id).filter(Boolean));
+    for (const b of all ?? []) {
+      if (!b.isPublic) continue;
+      if (!shown.has(b.id) && !shownGroups.has(groupOf.get(b.id)?.id)) continue;
       for (const styleId of Object.keys(b.coversByStyle ?? {})) {
         const g = styleGenreMap[styleId];
         if (g) present.add(g);
       }
     }
     return STYLE_GENRES.filter((g) => present.has(g.slug));
-  }, [filtered, type, styleGenreMap]);
+  }, [filtered, all, bookGroups, type, styleGenreMap]);
 
   // 책 표지를 선택 장르 표지로 교체 (해당 장르 표지 없으면 대표 그대로).
   const applyGenreCover = (b: BookIndexEntry): BookIndexEntry => {
@@ -408,8 +433,8 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         if (!ids || ids.length === 0) continue;
         const idIdx = new Map(ids.map((id, i) => [id, i]));
         books.sort((a, b) => {
-          const ai = idIdx.has(a.id) ? (idIdx.get(a.id) ?? 0) : Infinity;
-          const bi = idIdx.has(b.id) ? (idIdx.get(b.id) ?? 0) : Infinity;
+          const ai = idIdx.get(orderKey(a.id)) ?? Infinity;
+          const bi = idIdx.get(orderKey(b.id)) ?? Infinity;
           if (ai === Infinity && bi === Infinity) return 0;
           return ai - bi;
         });
@@ -419,7 +444,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     return [...map.entries()].sort((a, b) =>
       compareByPriority(a[0], b[0], a[1].length, b[1].length)
     );
-  }, [filtered, showCategoryGroups, libConfig?.bookPriority, compareByPriority]);
+  }, [filtered, showCategoryGroups, libConfig?.bookPriority, compareByPriority, orderKey]);
 
   // 파닉스 한/영 카운트
   const phonicsCounts = useMemo(() => {
