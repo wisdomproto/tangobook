@@ -67,12 +67,11 @@ export function OnlineWorksheet({
   };
 
   // 칸이 바뀌면 쓰기 칸을 화면 안으로 — 375px 에선 큰 단원의 칸 목록이 첫 화면을 넘는다.
-  const firstRender = useRef(true);
+  // 🔴 이전 idx 와 비교한다 — 첫 렌더 플래그로 막으면 StrictMode 두 번째 실행에서 풀려 진입하자마자 스크롤한다.
+  const shownIdx = useRef(idx);
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
+    if (shownIdx.current === idx) return;
+    shownIdx.current = idx;
     stageRef.current?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' });
   }, [idx]);
 
@@ -173,13 +172,16 @@ export function OnlineWorksheet({
           <p className="mb-2 text-center text-lg text-ink-700">
             <b className="text-coral-600">{cell.reveal[0]}</b>
             {cell.reveal.slice(1)} 의 첫 글자를 써요{' '}
-            <button
-              onClick={() => void say(cell.sound)}
-              aria-label="낱말 듣기"
-              className="ml-1 inline-grid h-11 w-11 place-items-center rounded-full bg-coral-500 text-xl text-white"
-            >
-              🔊
-            </button>
+            {/* 다 쓴 칸(완성 소리가 나는 중)엔 안 둔다 — 누르면 완성 소리와 서로 끊어 낱말을 한 번도 끝까지 못 듣는다. */}
+            {!written.has(idx) && (
+              <button
+                onClick={() => void say(cell.sound)}
+                aria-label="낱말 듣기"
+                className="ml-1 inline-grid h-11 w-11 place-items-center rounded-full bg-coral-500 text-xl text-white"
+              >
+                🔊
+              </button>
+            )}
           </p>
         )}
         {written.has(idx) ? (
