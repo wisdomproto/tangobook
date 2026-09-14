@@ -51,8 +51,8 @@ import LibraryPage from '../pages/LibraryPage';
 const GamesHubPage = lazy(() => import('../pages/GamesHubPage'));
 const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
 const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
-const WorksheetHubPage = lazy(() => import('../pages/WorksheetHubPage'));
-const WorksheetPage = lazy(() => import('../pages/WorksheetPage'));
+const ActivityHubPage = lazy(() => import('../pages/ActivityHubPage'));
+const ActivityPage = lazy(() => import('../pages/ActivityPage'));
 const PuzzleSamplePage = lazy(() => import('../pages/PuzzleSamplePage'));
 
 function EditorV2BidRedirect() {
@@ -197,19 +197,47 @@ export const router = createBrowserRouter([
       // 인쇄 학습지 — AppShell 밖 풀화면. 🔴 게이트로 감싸지 않는다: 가입 전 사람이 그대로
       // 쓰는 표면이고, 벽 하나가 경쟁사의 앱스토어와 종류만 다른 벽이 된다.
       // 🔴 `/worksheet/*.html`(정적 인쇄물)은 파일이 먼저 매치되므로 이 라우트가 안 가로챈다.
+      { path: 'worksheet', element: <Navigate to="/activity" replace /> },
+      { path: 'worksheet/hangul', element: <Navigate to="/activity/hangul/kr-h1-u01" replace /> },
+      { path: 'worksheet/english', element: <Navigate to="/activity/english/en-b1-u01" replace /> },
       {
-        path: 'worksheet',
+        path: 'activity',
         element: (
           <ErrorBoundary>
-            <WorksheetHubPage />
+            <ActivityHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      // 🔴 종류는 정적 세그먼트 네 줄 — `:kind` 로 두면 다른 라우트와 점수 경합.
+      {
+        path: 'activity/hangul/:slug',
+        element: (
+          <ErrorBoundary>
+            <ActivityPage kind="hangul" />
           </ErrorBoundary>
         ),
       },
       {
-        path: 'worksheet/:track',
+        path: 'activity/english/:slug',
         element: (
           <ErrorBoundary>
-            <WorksheetPage />
+            <ActivityPage kind="english" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'activity/coloring/:slug',
+        element: (
+          <ErrorBoundary>
+            <ActivityPage kind="coloring" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'activity/hidden-object/:slug',
+        element: (
+          <ErrorBoundary>
+            <ActivityPage kind="hidden-object" />
           </ErrorBoundary>
         ),
       },

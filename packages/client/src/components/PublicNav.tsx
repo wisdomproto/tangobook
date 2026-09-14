@@ -20,11 +20,8 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 //    번역됐는데 네비만 한국어면 베트남 방문자가 첫 화면에서 **읽을 수 없는 줄**을 먼저 만난다.
 const LINKS: { to: string; k: string }[] = [
   { to: '/library', k: 'learn' },
-  { to: '/worksheet', k: 'worksheet' },
+  { to: '/activity', k: 'worksheet' },
   { to: '/games/vocab', k: 'games' },
-  // 🔜 페이지가 서면 여기 두 줄 — 링크를 먼저 걸면 방문자가 404 를 본다.
-  // { to: '/games/coloring', label: '색칠 도안' },
-  // { to: '/games/hidden', label: '숨은그림찾기' },
 ];
 
 export function PublicNav() {
