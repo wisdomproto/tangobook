@@ -103,7 +103,8 @@ export function worksheetItems(kind: 'hangul' | 'english'): ActivityItem[] {
 export function coloringItems(entries: ColoringCatalogEntry[]): ActivityItem[] {
   return entries.map((e) => {
     const slug = slugOf(e.key, e.bookTitle ? `${e.word} ${e.bookTitle}` : e.word);
-    const track: PhonicsTrack = e.language === 'english' ? 'english' : 'korean';
+    // 파닉스 트랙은 unit id 접두어(`kr-`/`en-`)가 정한다 — language 필드가 아니다(레포 규칙).
+    const track: PhonicsTrack = e.unitId?.startsWith('en-') ? 'english' : 'korean';
     return {
       kind: 'coloring' as const,
       key: e.key,
@@ -115,7 +116,9 @@ export function coloringItems(entries: ColoringCatalogEntry[]): ActivityItem[] {
       path: `/activity/coloring/${slug}`,
       sourceHref: e.bookId
         ? `/library/${e.bookId}`
-        : `${PHONICS_TRACK_META[track].learnBase}/${e.unitId ?? ''}`,
+        : e.unitId
+          ? `${PHONICS_TRACK_META[track].learnBase}/${e.unitId}`
+          : PHONICS_TRACK_META[track].learnBase,
       sourceLabel: e.bookId ? BOOK_CTA : PHONICS_CTA,
       image: e.lineartUrl,
       blurb: e.blurb,

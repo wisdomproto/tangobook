@@ -43,9 +43,11 @@ export function buildHiddenObjectSceneData(
           layer: h.layer,
         })
       ),
+      // 🔴 찾을 게 하나뿐인 씬은 게임이 아니다 — **이름 중복을 뺀** 개수로 센다(날개 박스 둘 = 한 낱말).
+      playable: playableHiddenWords(scene).length,
     }))
-    // 🔴 찾을 게 하나뿐인 씬은 게임이 아니다 — **이름 중복을 뺀** 개수로 센다(날개 박스 둘 = 한 낱말).
-    .filter((s, i) => s.sceneImageUrl && playableHiddenWords(scenes[i]).length >= 2);
+    .filter((s) => s.sceneImageUrl && s.playable >= 2)
+    .map(({ sceneImageUrl, targets }) => ({ sceneImageUrl, targets }));
 
   if (!built.length) return null;
   // 한 판에 한 장. 여러 장이면 그때그때 다른 그림이 나오는 게 더 재미있다.

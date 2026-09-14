@@ -66,6 +66,34 @@ describe('items', () => {
     expect(bk.path).toBe('/activity/coloring/bk-0001-공-개구리-왕자');
   });
 
+  it('coloring track comes from unitId prefix, not language', () => {
+    const [en] = coloringItems([
+      {
+        key: 'ph-0500',
+        group: '영어 파닉스',
+        section: 's',
+        unitId: 'en-b1-u01',
+        word: 'apple',
+        lineartUrl: '/c',
+      },
+    ]);
+    expect(en.sourceHref).toBe('/library/phonics/english/en-b1-u01');
+  });
+
+  it('no bookId and no unitId links to the track learn base alone', () => {
+    const [bare] = coloringItems([
+      {
+        key: 'ph-0600',
+        group: '영어 파닉스',
+        section: 's',
+        unitId: undefined,
+        word: 'apple',
+        lineartUrl: '/d',
+      },
+    ]);
+    expect(bare.sourceHref).toBe('/library/phonics/korean');
+  });
+
   it('hidden-object slug = key-bookTitle', () => {
     const [h] = hiddenObjectItems([
       {
