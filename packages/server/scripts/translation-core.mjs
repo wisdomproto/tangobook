@@ -66,6 +66,13 @@ export async function getJsonByKey(key) {
 
 export const getStorybook = (id) => getJsonByKey(`storybook-${id}.json`);
 
+export async function putJsonByKey(key, data) {
+  const { s3, bucket } = r2();
+  await s3.send(
+    new PutObjectCommand({ Bucket: bucket, Key: key, Body: JSON.stringify(data), ContentType: 'application/json' })
+  );
+}
+
 export async function putStorybook(id, data) {
   const { s3, bucket } = r2();
   await s3.send(
