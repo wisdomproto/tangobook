@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * R2 에서 공개 책 (isPublic=true, type='storybook', variant 제외) 가져와
+ * R2 에서 공개 책 (isPublic=true, type='storybook', 그림체 그룹은 대표만) 가져와
  * packages/client/public/sitemap.xml 생성.
  *
  * 포함: 정적 라우트 + 책별 about (/library/{id}/about, 언어별 포함). bare /library/{id}(앱
@@ -26,8 +26,6 @@ for (const line of envText.split(/\r?\n/)) {
 }
 
 const SITE_URL = 'https://www.tangobook.co.kr';
-const VARIANT_RE = /__L\d+$/;
-
 const s3 = new S3Client({
   region: 'auto',
   endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -173,7 +171,6 @@ async function main() {
   // 책별 라우트
   let publicCount = 0;
   let langAboutCount = 0;
-  let skippedVariant = 0;
   let skippedPrivate = 0;
   let skippedNonStorybook = 0;
   let skippedGroupMember = 0;
@@ -195,7 +192,6 @@ async function main() {
     try {
       const book = await getJson(key);
       if (!book || !book.id) continue;
-      if (VARIANT_RE.test(book.id)) { skippedVariant++; continue; }
       if ((book.type ?? 'storybook') !== 'storybook') { skippedNonStorybook++; continue; }
       if (book.isPublic === false) { skippedPrivate++; continue; }
       if (nonPrimary.has(book.id)) { skippedGroupMember++; continue; }
@@ -254,7 +250,7 @@ async function main() {
   console.log(`  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2}) + 언어별 about ${langAboutCount}`);
   console.log(`  공개 블로그: ${blogCount}`);
   console.log(`  총 URL: ${entries.length}`);
-  console.log(`  스킵: variant=${skippedVariant} private=${skippedPrivate} non-storybook=${skippedNonStorybook} group-member=${skippedGroupMember}`);
+  console.log(`  스킵: private=${skippedPrivate} non-storybook=${skippedNonStorybook} group-member=${skippedGroupMember}`);
 }
 
 main().catch((err) => {

@@ -40,7 +40,6 @@ const ENDPOINTS = [
   'https://api.indexnow.org/indexnow',
   'https://searchadvisor.naver.com/indexnow',
 ];
-const VARIANT_RE = /__L\d+$/;
 const BATCH = 10000; // IndexNow 요청당 URL 상한
 
 // --- args ---
@@ -142,7 +141,6 @@ async function collectPublicUrls() {
     try {
       const book = await getJson(key);
       if (!book || !book.id) continue;
-      if (VARIANT_RE.test(book.id)) continue;
       if ((book.type ?? 'storybook') !== 'storybook') continue;
       if (book.isPublic === false) continue;
       if (nonPrimary.has(book.id)) continue;

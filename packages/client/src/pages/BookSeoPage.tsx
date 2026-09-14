@@ -112,8 +112,8 @@ export default function BookSeoPage() {
           b.id !== storybook.id &&
           b.category === storybook.category &&
           (b.type ?? 'storybook') === 'storybook' &&
-          // variant 같은 base 는 제외
-          b.id.replace(/__L\d+$/, '') !== storybook.id.replace(/__L\d+$/, '')
+          // 같은 이야기의 다른 그림체 책(「_그림체N」)은 「다른 책」이 아니다
+          stripStyleSuffix(b.title) !== stripStyleSuffix(storybook.title)
       )
       .slice(0, 6);
   }, [storybook, storybookList]);

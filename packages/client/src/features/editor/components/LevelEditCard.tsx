@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useStorybook, useSaveStorybook, useDeleteStorybook } from '@/features/storybook';
+import { useStorybook, useSaveStorybook } from '@/features/storybook';
 import { Spinner } from '@/components/Spinner';
 import { EditorContent } from '@/features/editor/components/EditorContent';
 import { EditorLangProvider } from '@/contexts/EditorLangContext';
@@ -29,18 +29,18 @@ const LEVEL_INFO: Record<ReadingLevel, LevelInfo> = {
   L3: { label: '나무', age: '6~7세', emoji: '📙', color: 'amber' },
 };
 
-/** ReadingLevel 타입에 없지만 R2 에 잔존하는 `__L4` 등 unknown level 안전 폴백.
- *  메모리 [reading-level-3tier.md] 참고: L4 → L3 매핑 후 일부 sibling id 의 suffix 만 잔존.
- */
+/** 레벨이 비어 있거나 모르는 값일 때. */
 const UNKNOWN_LEVEL_INFO: LevelInfo = {
-  label: '(구버전)',
+  label: '레벨 없음',
   age: '',
   emoji: '📚',
   color: 'slate',
 };
 
-function getLevelInfo(level: string): LevelInfo {
-  return (LEVEL_INFO as Record<string, LevelInfo | undefined>)[level] ?? UNKNOWN_LEVEL_INFO;
+function getLevelInfo(level: string | undefined): LevelInfo {
+  return (
+    (level && (LEVEL_INFO as Record<string, LevelInfo | undefined>)[level]) || UNKNOWN_LEVEL_INFO
+  );
 }
 
 const LANG_FLAG: Record<string, string> = {
@@ -55,39 +55,24 @@ const LANG_FLAG: Record<string, string> = {
 
 interface LevelEditCardProps {
   storybookId: string;
-  level: ReadingLevel;
-  isBase: boolean;
   expanded: boolean;
   onToggle: () => void;
-  onDelete?: () => void;
-  hasMounted: boolean;
-  onMounted: () => void;
 }
 
 /**
- * 레벨 1개의 편집 카드 — 동영상 프로젝트 카드와 동일한 펼침/접힘 패턴.
- * - 접힌 상태: 헤더 1줄 (레벨 라벨 · 페이지수 · 그림체)
- * - 펼친 상태: 그림체/언어 row + 콘텐츠 탭 (v1 EditorContent)
- *
- * 한 번 펼쳐지면 mount 유지 (collapse 후 재펼침 시 fetch 재발생 방지 + 로컬 편집 보존).
+ * 책 한 권의 편집 카드 — 헤더(레벨 · 쪽수 · 그림체 · 언어) + 펼치면 그림체/언어 row + 콘텐츠 탭.
+ * 🔴 한 책 = 한 레벨(2026-09-14). 예전엔 `<id>__L1` 사본을 레벨마다 만들어 카드를 쌓았다.
+ * 레벨은 책의 `readingLevel` 필드 하나다.
+ * 한 번 펼쳐지면 mount 유지 (접었다 다시 펼칠 때 fetch 재발생 방지 + 로컬 편집 보존).
  */
-export function LevelEditCard({
-  storybookId,
-  level,
-  isBase,
-  expanded,
-  onToggle,
-  onDelete,
-  hasMounted,
-  onMounted,
-}: LevelEditCardProps) {
-  const info = getLevelInfo(level);
-
-  // 펼쳐진 적이 있으면 mount 유지 (display 로 숨김만)
-  const shouldMount = hasMounted || expanded;
+export function LevelEditCard({ storybookId, expanded, onToggle }: LevelEditCardProps) {
+  const { data: sb } = useStorybook(storybookId);
+  const info = getLevelInfo(sb?.readingLevel);
+  const [hasMounted, setHasMounted] = useState(expanded);
   useEffect(() => {
-    if (expanded && !hasMounted) onMounted();
-  }, [expanded, hasMounted, onMounted]);
+    if (expanded) setHasMounted(true);
+  }, [expanded]);
+  const shouldMount = hasMounted || expanded;
 
   return (
     <div
@@ -100,8 +85,7 @@ export function LevelEditCard({
     >
       <CardHeader
         info={info}
-        level={level}
-        isBase={isBase}
+        level={sb?.readingLevel}
         storybookId={storybookId}
         expanded={expanded}
         onToggle={onToggle}
@@ -111,7 +95,7 @@ export function LevelEditCard({
           style={{ display: expanded ? 'block' : 'none' }}
           className="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-b-[10px] relative"
         >
-          <CardBody storybookId={storybookId} level={level} isBase={isBase} onDelete={onDelete} />
+          <CardBody storybookId={storybookId} />
         </div>
       )}
     </div>
@@ -123,14 +107,12 @@ export function LevelEditCard({
 function CardHeader({
   info,
   level,
-  isBase,
   storybookId,
   expanded,
   onToggle,
 }: {
   info: { label: string; age: string; emoji: string };
-  level: ReadingLevel;
-  isBase: boolean;
+  level: ReadingLevel | undefined;
   storybookId: string;
   expanded: boolean;
   onToggle: () => void;
@@ -159,20 +141,13 @@ function CardHeader({
         <div className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-slate-100">
           {level} {info.label}
           <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{info.age}</span>
-          {isBase && (
-            <span className="text-[10px] px-1.5 py-px rounded bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 font-bold">
-              base
-            </span>
-          )}
         </div>
         <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">
           {sb ? (
             <>
               📄 {sb.pages?.length ?? 0}쪽 · 🎨 {styleLabel ?? sb.artStyle} ·{' '}
               {langCount > 1 ? `🌐 ${langCount}개 언어` : '🇰🇷 한국어'}
-              {sb.title?.replace(/\s*\(L[1-4]\)\s*$/, '') && (
-                <> · {sb.title.replace(/\s*\(L[1-4]\)\s*$/, '')}</>
-              )}
+              {sb.title && <> · {sb.title}</>}
             </>
           ) : (
             '로딩...'
@@ -190,22 +165,10 @@ function CardHeader({
 
 // ─── 카드 본문 ────────────────────────────────────────────────────────────────
 
-function CardBody({
-  storybookId,
-  level,
-  isBase,
-  onDelete,
-}: {
-  storybookId: string;
-  level: ReadingLevel;
-  isBase: boolean;
-  onDelete?: () => void;
-}) {
+function CardBody({ storybookId }: { storybookId: string }) {
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
   const { data: storybook, isLoading, error } = useStorybook(storybookId);
   const saveMutation = useSaveStorybook();
-  const deleteMutation = useDeleteStorybook();
-  void deleteMutation; // 부모가 처리
 
   const [activeLang, setActiveLang] = useState<string>('ko');
   const [pendingStyleAdd, setPendingStyleAdd] = useState<{
@@ -583,17 +546,6 @@ function CardBody({
               </label>
             );
           })()}
-          headerExtraActions={
-            !isBase && onDelete ? (
-              <button
-                onClick={onDelete}
-                className="px-3 py-1.5 text-xs font-bold text-rose-700 dark:text-rose-300 bg-white dark:bg-slate-800 border border-rose-300 dark:border-rose-700 rounded-md hover:bg-rose-50 dark:hover:bg-rose-900/30"
-                title={`${level} 레벨 variant 삭제 — 페이지·이미지·오디오 영구 삭제`}
-              >
-                🗑 {level} 삭제
-              </button>
-            ) : undefined
-          }
         />
       </EditorLangProvider>
 

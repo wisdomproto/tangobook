@@ -94,64 +94,6 @@ function ConfirmModalShell({
 // 레벨 추가 — 가장 무거움 (완전 새 콘텐츠)
 // ────────────────────────────────────────────────────────────────────────────
 
-export function AddLevelConfirmModal({
-  level,
-  baseTitle,
-  pending,
-  onConfirm,
-  onCancel,
-}: {
-  level: ReadingLevel;
-  baseTitle: string;
-  pending?: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-}) {
-  const info = LEVEL_INFO[level];
-  return (
-    <ConfirmModalShell
-      title={`${level} ${info.label} (${info.age}) 레벨 추가`}
-      emoji={info.emoji}
-      accentColor="emerald"
-      onConfirm={onConfirm}
-      onCancel={onCancel}
-      confirmLabel={`${level} 만들기`}
-      pending={pending}
-    >
-      <p>
-        <strong>"{baseTitle}"</strong> 의 <strong>{level}</strong> 레벨을 새로 추가합니다.
-      </p>
-      <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 space-y-2">
-        <p className="font-bold text-amber-900 dark:text-amber-200">
-          ⚠️ 이건 거의 새 책을 만드는 작업이에요
-        </p>
-        <ul className="text-xs text-amber-800 dark:text-amber-300 space-y-1 list-disc pl-5">
-          <li>
-            <strong>새로 작성 필요:</strong> 페이지 텍스트, 페이지 일러스트, TTS, 핵심단어 이미지,
-            오디오북·롱폼·게임
-          </li>
-          <li>
-            <strong>재사용 됨:</strong> 카테고리/폴더/캐릭터 디자인 컨셉/메타 정보 (base에서 복사)
-          </li>
-          <li>
-            기존 base의 페이지·이미지·TTS는 <strong>비워진 상태</strong>로 만들어집니다 — 레벨에
-            맞게 다시 작성/생성하세요.
-          </li>
-        </ul>
-      </div>
-      <p className="text-xs text-slate-500 dark:text-slate-400">
-        ID 규칙:{' '}
-        <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">{`{baseId}__${level}`}</code>{' '}
-        sibling storybook 으로 저장됨.
-      </p>
-    </ConfirmModalShell>
-  );
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// 언어 추가 — 중간 무게 (텍스트/TTS만)
-// ────────────────────────────────────────────────────────────────────────────
-
 export function AddLanguageConfirmModal({
   langCode,
   pending,

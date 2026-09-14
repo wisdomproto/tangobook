@@ -14,7 +14,6 @@ interface SidebarCardProps {
   onChangeCategory: (id: string, category: string | undefined) => void;
   onRename: (id: string, title: string) => void;
   /** /editor2 모드에서 base 책에 붙는 variant 개수 — 0/undefined 면 미표시 */
-  variantCount?: number;
 }
 
 export function SidebarCard({
@@ -27,7 +26,6 @@ export function SidebarCard({
   onTogglePublic,
   onChangeCategory,
   onRename,
-  variantCount,
 }: SidebarCardProps) {
   const categoriesByTab = useEditorStore((s) => s.categoriesByTab);
   const getCategoriesForTab = useEditorStore((s) => s.getCategoriesForTab);
@@ -162,14 +160,6 @@ export function SidebarCard({
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {storybook.targetAge}세 · {pageCount}쪽
             </p>
-            {variantCount !== undefined && variantCount > 0 && (
-              <span
-                className="text-[9px] px-1 py-px rounded bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 font-bold"
-                title={`레벨 variant ${variantCount}개`}
-              >
-                +{variantCount}
-              </span>
-            )}
             {/* 카테고리 배지 - 클릭하면 변경 메뉴 */}
             <div className="relative">
               <button

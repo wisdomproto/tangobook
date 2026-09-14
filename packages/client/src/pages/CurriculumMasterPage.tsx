@@ -68,14 +68,9 @@ function deriveStatus(
   b: BookIndexEntry,
   v1Map: Map<string, StorybookSummary>
 ): 'done' | 'wip' | 'todo' {
-  // base id 와 variants 모두 확인 — 어느 하나라도 한글 기본 완성이면 done
   const candidates: StorybookSummary[] = [];
   const base = v1Map.get(b.id);
   if (base) candidates.push(base);
-  // sibling variants (`${bid}__L1` 등) 도 확인
-  for (const [id, sb] of v1Map) {
-    if (id !== b.id && id.startsWith(b.id + '__L')) candidates.push(sb);
-  }
 
   if (candidates.length === 0) {
     // v1 데이터 매칭 실패 → v2 manifest fallback (예전 휴리스틱)

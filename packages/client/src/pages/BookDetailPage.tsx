@@ -63,7 +63,6 @@ export default function BookDetailPage() {
   // 기본 선택 언어 = 현재 UI 언어(진입 링크 /en 등). 책이 그 언어를 지원하면 그 언어로 열림
   // (아래 `lang` 계산에서 미지원 시 첫 공개 언어로 폴백).
   const [langState, setLang] = useState<string>(i18n.language);
-  const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
@@ -93,44 +92,6 @@ export default function BookDetailPage() {
   const hideVocab = !!storybook?.hideVocabulary;
   const vocabAvailable = !hideVocab && (storybook?.key_objects?.length ?? 0) > 0;
   const vocabWordCount = storybook?.key_objects?.length ?? 0;
-
-  // 레벨 sibling 추출 — 현재 책의 baseId 기준으로 같은 base 의 sibling __L1/L2/L3 찾기
-  // (StorybookSummary 는 readingLevel 미포함 이라 id suffix 로 level 유추, base 자체는 storybook.readingLevel)
-  const baseId = useMemo(() => id.replace(/__L\d$/, ''), [id]);
-  const baseLevel = storybook?.readingLevel as ReadingLevel | undefined;
-
-  const levelMap = useMemo<Map<ReadingLevel, StorybookSummary | { coverImage?: string }>>(() => {
-    const map = new Map<ReadingLevel, StorybookSummary | { coverImage?: string }>();
-    if (!allStorybooks) return map;
-    // 현재 책 (sibling 또는 base 자체)
-    if (baseLevel) {
-      const selfSummary = allStorybooks.find((s) => s.id === id);
-      if (selfSummary) map.set(baseLevel, selfSummary);
-    }
-    // sibling __L{n}
-    allStorybooks.forEach((s) => {
-      const m = s.id.match(/^(.+)__L(\d)$/);
-      if (!m) return;
-      if (m[1] !== baseId) return;
-      const lv = `L${m[2]}` as ReadingLevel;
-      if (!LEVEL_ORDER.includes(lv)) return;
-      // 자기 자신은 위에서 처리됨
-      if (s.id === id) return;
-      map.set(lv, s);
-    });
-    return map;
-  }, [allStorybooks, baseId, baseLevel, id]);
-
-  // 학습자에게 노출 가능한 레벨 — isPublic + 표지 보유. base 책 자체는 항상 노출.
-  const levels = useMemo<ReadingLevel[]>(() => {
-    return Array.from(levelMap.entries())
-      .filter(([lv, s]) => {
-        if (lv === baseLevel) return true;
-        return !!(s as StorybookSummary).isPublic && !!(s as StorybookSummary).coverImage;
-      })
-      .map(([lv]) => lv)
-      .sort((a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b));
-  }, [levelMap, baseLevel]);
 
   if (isLoading) {
     return (
@@ -199,11 +160,6 @@ export default function BookDetailPage() {
   };
 
   // 효과 레벨/스타일 (URL params에 전달용)
-  const launchLevel = storybook.curriculumMeta?.launchLevel;
-  const effectiveLevel =
-    selectedLevel ??
-    (launchLevel && levels.includes(launchLevel) ? launchLevel : levels[0]) ??
-    baseLevel;
   // 기본 그림체 = 라이브러리 기본 그림풍(페이퍼 3D)과 일치 — 명작 책에 페이퍼3D 표지가 있으면
   // 그걸 기본 선택(2026-07-16, "라이브러리는 페이퍼3D인데 들어가면 수채화" 불일치 fix).
   // 없으면 기존 폴백(styles[0]). 사용자가 그림체 칩으로 바꾸면 selectedStyle 우선.
@@ -282,11 +238,7 @@ export default function BookDetailPage() {
       }
       return;
     }
-    // 다른 레벨 선택 시 sibling storybook 으로 navigate (v1 sibling pattern: ${baseId}__L{n})
-    const targetId =
-      effectiveLevel && effectiveLevel !== baseLevel
-        ? `${baseId}__${effectiveLevel}`
-        : storybook.id;
+    const targetId = storybook.id;
     if (mode === 'vocab') {
       // 🔴 독후활동은 로그인 + 유효 권한 뒤에 — 이게 지금 계정의 값어치다(읽기는 이미 다 열려 있다).
       if (activityBlocked) {
@@ -342,8 +294,8 @@ export default function BookDetailPage() {
               )}
               {(() => {
                 const ageText =
-                  baseLevel && LEVEL_ORDER.includes(baseLevel)
-                    ? t(`level.${baseLevel}Age`)
+                  storybook.readingLevel && LEVEL_ORDER.includes(storybook.readingLevel)
+                    ? t(`level.${storybook.readingLevel}Age`)
                     : storybook.targetAge
                       ? t('meta.ageSuffix', { age: storybook.targetAge.replace('-', '~') })
                       : null;

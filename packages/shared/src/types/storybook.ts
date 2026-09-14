@@ -870,7 +870,8 @@ export interface CoverImageItem {
  * - L3 (나무, 6~7세): ORT Stage 6+, F&P H-J, 3~5문장/쪽, 총 400~700단어 — 졸업판
  *
  * NOTE: 2026-04-30 4단계(L1-L4) → 3단계(L1-L3) 통합. 기존 L3 → L2, 기존 L4 → L3 매핑.
- * R2 storybook variant id `__L4` suffix 는 호환을 위해 그대로 유지 (readingLevel 필드만 update).
+ * 🔴 한 책 = 한 레벨(2026-09-14): 레벨은 이 필드 하나다. 예전 레벨 사본(`<id>__L1`)은
+ *    R2 `_backup/level-variants/` 로 옮겼다(`archive-level-variants.mjs`).
  */
 export type ReadingLevel = 'L1' | 'L2' | 'L3';
 

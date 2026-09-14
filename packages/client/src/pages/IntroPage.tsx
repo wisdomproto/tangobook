@@ -575,7 +575,7 @@ const LINES: { k: string; n: number; match: (c: string) => boolean }[] = [
 const cleanTitle = (t?: string) =>
   (t ?? '')
     .replace(/^\s*\d+\.\s*/, '')
-    .replace(/\s*\(L\d+\)\s*$/, '')
+    .replace(/_그림체\d+$/, '')
     .trim();
 
 const A = 'https://assets.tangobook.co.kr/';
@@ -698,7 +698,7 @@ function LineSections() {
   return (
     <div className="!mt-6 space-y-8">
       {LINES.map((l) => {
-        // 같은 이야기의 난이도 변형(`__L4`)은 제목이 같아 한 라인에 두 번 선다 — 제목으로 걸러낸다.
+        // 같은 이야기의 그림체 책(「_그림체N」)은 제목이 같아 한 라인에 세 번 선다 — 제목으로 걸러낸다.
         const seen = new Set<string>();
         const picked = books
           .filter((b) => {

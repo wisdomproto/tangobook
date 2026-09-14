@@ -7,7 +7,7 @@ import { loadApprovals, saveApprovals } from '../services/content-pipeline/appro
  */
 const router = Router();
 
-const BOOK_RE = /^\d{6,20}$/; // base storybook id only (variants __L*/phonics 제외)
+const BOOK_RE = /^\d{6,20}$/; // storybook id (숫자만 — phonics 제외)
 
 router.get('/', async (_req: Request, res: Response, next: NextFunction) => {
   try {

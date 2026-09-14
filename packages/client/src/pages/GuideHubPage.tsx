@@ -2,7 +2,8 @@
 // 152개 블로그가 secondary 로 나눠 갖던 카테고리 키워드("유아 명작 동화" 등)를 모으는
 // 허브. 서버 SSR(seo-ssr.service.ts renderHubSeo)과 동일한 콘텐츠를 React 로 렌더.
 import { useMemo } from 'react';
-import { bookDisplayTitle } from '@tangobook/shared';
+import { bookDisplayTitle, collapseStyleGroups } from '@tangobook/shared';
+import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { Link, useParams } from 'react-router-dom';
 import { useStorybooks } from '@/features/storybook';
 import { Skeleton, StateScreen } from '@/design-system';
@@ -29,8 +30,6 @@ const HUBS = {
 
 const LANG_CODES: string[] = SUPPORTED_LANGUAGES.map((l) => l.code);
 
-const VARIANT_RE = /__L\d+$/;
-
 /** toSummary 가 titleTranslations 를 실어주는 경우의 로컬 확장 (서버 renderHubSeo 와 동일 캐스트) */
 type SummaryWithTranslations = StorybookSummary & {
   titleTranslations?: Record<string, string>;
@@ -46,6 +45,7 @@ export default function GuideHubPage() {
   const S = seoStrings(lang);
   const prefix = isKo ? '' : `/${lang}`;
   const { data: books, isLoading } = useStorybooks();
+  const { data: groupsDoc } = useBookGroups();
 
   useSeo({
     title: copy?.title,
@@ -57,7 +57,6 @@ export default function GuideHubPage() {
     if (!hub || !books) return [];
     const list = (books as SummaryWithTranslations[]).filter(
       (b) =>
-        !VARIANT_RE.test(b.id) &&
         (b.type ?? 'storybook') === 'storybook' &&
         b.isPublic !== false &&
         (hub.isClassics ? b.category === '세계 명작' : b.category !== '세계 명작') &&
@@ -65,7 +64,8 @@ export default function GuideHubPage() {
         (isKo || Boolean(b.titleTranslations?.[lang]))
     );
     const byCat = new Map<string, SummaryWithTranslations[]>();
-    for (const b of list) {
+    // 같은 이야기의 그림체 책(그룹)은 대표 한 권만 — 서버 renderHubSeo 와 같은 규칙.
+    for (const b of collapseStyleGroups(list, groupsDoc?.groups ?? [])) {
       const cat = b.category || '기타';
       if (!byCat.has(cat)) byCat.set(cat, []);
       byCat.get(cat)!.push(b);

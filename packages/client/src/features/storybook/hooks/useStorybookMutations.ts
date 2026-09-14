@@ -6,7 +6,6 @@ import type {
   GenerateStorybookRequest,
   GenerateStoryRequest,
   GeneratePhonicsBookRequest,
-  ReadingLevel,
 } from '@tangobook/shared';
 
 /** title 중복(409) 같은 user-facing 에러는 alert 으로 노출. */
@@ -119,19 +118,6 @@ export function useCopyStorybookAsync() {
   );
 
   return { progress, sourceTitle, start, reset };
-}
-
-/** /editor2 — base 책에서 새 레벨 variant 생성 (`${baseId}__L${level}`). */
-export function useCreateVariant() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, level }: { id: string; level: ReadingLevel }) =>
-      storybookApi.createVariant(id, level),
-    onSuccess: (data) => {
-      qc.invalidateQueries({ queryKey: ['storybooks'] });
-      qc.setQueryData(['storybook', data.id], data);
-    },
-  });
 }
 
 export function useDeleteStorybook() {

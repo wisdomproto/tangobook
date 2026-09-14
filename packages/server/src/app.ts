@@ -333,16 +333,13 @@ export function createApp() {
           if (!hubLangs().includes(lang))
             return missingLangVariant(lang, `/guide/${req.params.hub}`, true);
           const { StorybookService } = await import('./services/storybook.service.js');
-          // sitemap 과 동일한 공개 기준: variant(__L\d) 제외 + storybook 타입 + 공개
+          // sitemap 과 동일한 공개 기준: storybook 타입 + 공개
           const { BookGroupsService } = await import('./services/book-groups.service.js');
           const { collapseStyleGroups } = await import('@tangobook/shared');
           // 같은 이야기의 그림체 책은 대표 한 권만 싣는다(sitemap 과 같은 규칙).
           const books = collapseStyleGroups(
             (await StorybookService.list()).filter(
-              (b) =>
-                !/__L\d+$/.test(b.id) &&
-                (b.type ?? 'storybook') === 'storybook' &&
-                b.isPublic !== false
+              (b) => (b.type ?? 'storybook') === 'storybook' && b.isPublic !== false
             ),
             (await BookGroupsService.load()).groups
           );

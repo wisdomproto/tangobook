@@ -5,11 +5,7 @@ import {
 } from '../services/storybook.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { toCdnUrls } from '../providers/r2.provider.js';
-import type {
-  GenerateStorybookRequest,
-  GenerateStoryRequest,
-  ReadingLevel,
-} from '@tangobook/shared';
+import type { GenerateStorybookRequest, GenerateStoryRequest } from '@tangobook/shared';
 
 export const StorybookController = {
   list: asyncHandler(async (_req, res) => {
@@ -53,17 +49,6 @@ export const StorybookController = {
       return;
     }
     res.json({ success: true, data: progress });
-  }),
-
-  createVariant: asyncHandler(async (req, res) => {
-    const id = req.params['id'] as string;
-    const level = req.params['level'] as ReadingLevel;
-    if (!['L1', 'L2', 'L3'].includes(level)) {
-      res.status(400).json({ success: false, error: '잘못된 레벨입니다.' });
-      return;
-    }
-    const variant = await StorybookService.createVariant(id, level);
-    res.json({ success: true, data: variant });
   }),
 
   generateStory: asyncHandler(async (req, res) => {

@@ -99,8 +99,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   const urlStyle = embed?.style ?? sp.get('style') ?? v1Storybook?.defaultStyle ?? null;
 
   // v1 단일화. URL ?style 이 base.artStyle 과 다르면 styleAssets 로 표지/페이지 일러스트 즉시 swap.
-  // 레벨 variant 는 sibling pattern(`${baseId}__L1` 등)으로 별도 storybook 이므로
-  // BookDetailPage 가 sibling URL 로 navigate, 여기서는 storybookId 가 가리키는 책만 본다.
+  // 같은 이야기의 다른 그림체는 별도 책이다(그룹) — 여기서는 storybookId 가 가리키는 책만 본다.
   const storybook = useMemo(() => {
     if (!v1Storybook) return v1Storybook;
     if (urlStyle && urlStyle !== v1Storybook.artStyle) {

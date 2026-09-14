@@ -288,7 +288,7 @@ export const R2Repository = {
   async saveStorybook(storybook: Storybook): Promise<Storybook> {
     // 같은 title 중복 방지 — 신규 저장 또는 title 변경 시에만 체크.
     // (audiobook 생성 / styleAssets 정리 등 부수 update 는 title 동일 → skip)
-    // variant `__L\d+$` 끼리 (같은 base) 또는 storybook ↔ phonics 끼리는 충돌로 보지 않음.
+    // storybook ↔ phonics 끼리는 충돌로 보지 않음.
     const myTitle = storybook.title?.trim();
     if (myTitle) {
       const list = await R2Repository.listStorybooks();
@@ -296,13 +296,10 @@ export const R2Repository = {
       const isTitleChangeOrNew = !selfInList || selfInList.title?.trim() !== myTitle;
       if (isTitleChangeOrNew) {
         const myType = storybook.type ?? 'storybook';
-        const myBaseId = storybook.id.replace(/__L\d+$/, '');
         for (const sb of list) {
           if (sb.id === storybook.id) continue;
           const otherType = sb.type ?? 'storybook';
           if (otherType !== myType) continue;
-          const otherBaseId = sb.id.replace(/__L\d+$/, '');
-          if (otherBaseId === myBaseId) continue;
           if (sb.title?.trim() === myTitle) {
             throw new AppError(409, `같은 이름의 동화책이 이미 있어요: "${myTitle}"`);
           }

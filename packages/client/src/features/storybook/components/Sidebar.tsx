@@ -220,10 +220,7 @@ export function Sidebar() {
   const copyAsync = useCopyStorybookAsync();
   const location = useLocation();
   const navigate = useNavigate();
-  // /editor2 모드 — variant sibling 들 (`bid__L1` 등) 사이드바에서 숨김 (base 만 표시)
-  // /editor (백업) 은 기존처럼 모든 책 flat 으로 표시
-  const groupVariants = location.pathname.startsWith('/editor2');
-  const inEditor2 = groupVariants;
+  const inEditor2 = location.pathname.startsWith('/editor2');
 
   const selectedId = useEditorStore((s) => s.selectedStorybookId);
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
@@ -327,24 +324,8 @@ export function Sidebar() {
     );
   }, [typeFiltered, customFolders, libConfig?.categoryOrder, categoryCounts, sortByName]);
 
-  // /editor2 mode — variant 카운트 (base id → 자식 variant 개수)
-  const variantCountByBaseId = useMemo(() => {
-    if (!groupVariants) return new Map<string, number>();
-    const counts = new Map<string, number>();
-    for (const s of typeFiltered) {
-      const m = s.id.match(/^(.+)__L[1-4]$/);
-      if (m) counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
-    }
-    return counts;
-  }, [typeFiltered, groupVariants]);
-
   const filtered = useMemo(() => {
     let list = [...typeFiltered];
-
-    // /editor2 mode — variant sibling (`bid__L1` 등) 숨김, base 만 노출
-    if (groupVariants) {
-      list = list.filter((s) => !/__L[1-4]$/.test(s.id));
-    }
 
     // Folder filter
     if (folder !== 'all') {
@@ -833,11 +814,7 @@ export function Sidebar() {
                   <SidebarCard
                     key={sb.id}
                     storybook={sb}
-                    selected={
-                      selectedId === sb.id ||
-                      (groupVariants && selectedId?.startsWith(`${sb.id}__L`)) ||
-                      false
-                    }
+                    selected={selectedId === sb.id}
                     onSelect={() => {
                       setSelectedId(sb.id);
                       // /editor2 에서 어휘 unitId URL 잔존 시 동화책으로 갈아탈 때 분기 stuck 방지
@@ -851,7 +828,6 @@ export function Sidebar() {
                     onTogglePublic={handleTogglePublic}
                     onChangeCategory={handleChangeCategory}
                     onRename={handleRename}
-                    variantCount={groupVariants ? variantCountByBaseId.get(sb.id) : undefined}
                   />
                 ))
               )}

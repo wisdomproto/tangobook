@@ -7,7 +7,6 @@ import type {
   GeneratePhonicsBookRequest,
   StoryDraftPage,
   SceneStructure,
-  ReadingLevel,
 } from '@tangobook/shared';
 
 export interface CopyProgress {
@@ -28,8 +27,6 @@ export const storybookApi = {
   copy: (id: string) => apiPost<Storybook>(`/storybooks/${id}/copy`),
   copyAsync: (id: string) => apiPost<{ taskId: string }>(`/storybooks/${id}/copy-async`),
   copyProgress: (taskId: string) => apiGet<CopyProgress>(`/storybooks/copy-progress/${taskId}`),
-  createVariant: (id: string, level: ReadingLevel) =>
-    apiPost<Storybook>(`/storybooks/${id}/variants/${level}`),
   generateStory: (req: GenerateStoryRequest) =>
     apiPost<StoryDraftPage[]>('/storybooks/generate-story', req),
   generate: (req: GenerateStorybookRequest) => apiPost<Storybook>('/storybooks/generate', req),
