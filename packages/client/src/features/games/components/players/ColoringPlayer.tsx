@@ -218,6 +218,8 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   const paintedRef = useRef<Set<number>>(new Set());
   const paintRef = useRef<ImageData | null>(null);
   const doneRef = useRef(false);
+  /** 완료 회차 — 칭찬 중에 「다시」를 누르면 앞 회차의 onDone 이 새 판을 닫지 않게. */
+  const runRef = useRef(0);
   const revealTimerRef = useRef<number | null>(null);
   const bounceTimerRef = useRef<number | null>(null);
 
@@ -266,6 +268,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     setRevealed(false);
     setSelected(0);
     doneRef.current = false;
+    runRef.current++;
     paintedRef.current = new Set();
     if (revealTimerRef.current != null) window.clearTimeout(revealTimerRef.current);
 
@@ -359,6 +362,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   const finish = useCallback(async () => {
     if (doneRef.current) return;
     doneRef.current = true;
+    const run = ++runRef.current;
     setDone(true);
     revealTimerRef.current = window.setTimeout(() => setRevealed(true), 1400);
     const ttsUrl = await resolveTtsUrl({
@@ -372,7 +376,9 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       ttsUrl,
       language: item.lang ?? (item.language === 'english' ? 'en' : 'ko'),
       // 🔴 onDone 은 칭찬까지 **다 들린 뒤** — 칠한 순간 부르면 호출부가 게임을 닫아 칭찬이 잘린다.
-      onDone: () => onDoneRef.current?.(),
+      onDone: () => {
+        if (doneRef.current && runRef.current === run) onDoneRef.current?.();
+      },
     });
   }, [item, playCorrectSequence]);
 
@@ -521,6 +527,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     strokeMaskRef.current?.fill(0);
     lastPtRef.current = null;
     doneRef.current = false;
+    runRef.current++;
     setDone(false);
     setRevealed(false);
     setSelected(0);
