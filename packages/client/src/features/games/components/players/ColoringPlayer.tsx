@@ -62,6 +62,11 @@ export interface ColoringItem {
 interface ColoringPlayerProps {
   items: ColoringItem[];
   onBack?: () => void;
+  /**
+   * 다 칠한 순간 한 번. 활동 모음이 「사이트로 잇는 버튼」을 다시 띄우는 데 쓴다.
+   * 🔴 이게 있거나 한 장뿐이면 자체 「다음 그림」 버튼을 숨긴다 — 한 장이면 `(i+1)%1` 로 제자리다.
+   */
+  onDone?: () => void;
 }
 
 /**
@@ -175,7 +180,7 @@ function readColorSource(
   return { pixels: ctx.getImageData(0, 0, w, h).data, background };
 }
 
-export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
+export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   const [idx, setIdx] = useState(0);
   const [ready, setReady] = useState(false);
   const [palette, setPalette] = useState<PaletteEntry[]>([]);
@@ -186,6 +191,13 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
   const [revealed, setRevealed] = useState(false);
   /** 다시 그리기를 강제하는 카운터 — 칠한 칸은 ref 에 있어 state 로 안 들고 있다. */
   const [tick, setTick] = useState(0);
+
+  const onDoneRef = useRef(onDone);
+  onDoneRef.current = onDone;
+  useEffect(() => {
+    // onDone 은 호출부가 매 렌더 새로 만들 수 있어 ref 로 받는다 — done 이 바뀔 때만 부른다.
+    if (done) onDoneRef.current?.();
+  }, [done]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const hintRef = useRef<HTMLCanvasElement>(null);
@@ -598,12 +610,14 @@ export function ColoringPlayer({ items, onBack }: ColoringPlayerProps) {
 
       <div className="shrink-0 px-3 sm:px-6 py-3">
         {done ? (
-          <button
-            onClick={() => setIdx((i) => (i + 1) % items.length)}
-            className="w-full max-w-md mx-auto block min-h-[56px] rounded-full bg-coral-500 text-white text-2xl font-black shadow-pop break-keep"
-          >
-            다음 그림
-          </button>
+          onDone || items.length === 1 ? null : (
+            <button
+              onClick={() => setIdx((i) => (i + 1) % items.length)}
+              className="w-full max-w-md mx-auto block min-h-[56px] rounded-full bg-coral-500 text-white text-2xl font-black shadow-pop break-keep"
+            >
+              다음 그림
+            </button>
+          )
         ) : (
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {palette.map((entry, i) => {
