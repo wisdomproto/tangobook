@@ -26,53 +26,8 @@ export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProp
     return list;
   }, [storybook.languages]);
 
-  // 헤더 미리보기용 한국어 표지
-  const headerCover =
-    storybook.primaryCoverByLang?.ko ??
-    storybook.coverImage ??
-    storybook.coverImages?.[0]?.imageUrl ??
-    null;
-
   return (
     <div className="space-y-6">
-      {/* 헤더: 표지 + 제목 */}
-      <section className="flex gap-5 bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-200 dark:border-slate-700">
-        {headerCover ? (
-          <img
-            src={headerCover}
-            alt={storybook.title}
-            className="w-32 h-40 object-cover rounded-md shrink-0 bg-slate-100"
-          />
-        ) : (
-          <div className="w-32 h-40 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-4xl shrink-0">
-            📚
-          </div>
-        )}
-        <div className="flex-1 min-w-0">
-          <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-2 truncate">
-            {storybook.title}
-          </h2>
-          <div className="flex flex-wrap gap-2 text-xs">
-            {storybook.category && (
-              <span className="px-2 py-0.5 bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 rounded font-bold">
-                📂 {storybook.category}
-              </span>
-            )}
-            {storybook.readingLevel && (
-              <span className="px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded font-bold">
-                {storybook.readingLevel}
-              </span>
-            )}
-            <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
-              📄 {storybook.pages?.length ?? 0}쪽
-            </span>
-            <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
-              {storybook.isPublic ? '🌐 공개' : '🔒 비공개'}
-            </span>
-          </div>
-        </div>
-      </section>
-
       <BookInfoSection storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
 
       {/* 콘텐츠 설정 */}

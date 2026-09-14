@@ -1,18 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { useStorybook, useSaveStorybook } from '@/features/storybook';
 import { Spinner } from '@/components/Spinner';
 import { EditorContent } from '@/features/editor/components/EditorContent';
 import { EditorLangProvider } from '@/contexts/EditorLangContext';
 import { useEditorStore } from '@/store/editor.store';
 import { cn } from '@/lib/cn';
-import { SUPPORTED_LANGUAGES, canonicalizeArtStyle } from '@tangobook/shared';
+import { Button } from '@/design-system';
+import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { getAvailableLanguages } from '@/lib/storybook-accessors';
 import type { Storybook, ReadingLevel } from '@tangobook/shared';
 import { AddLanguageConfirmModal } from './VariantConfirmModals';
-import { findArtStylePreset } from '@/features/editor/lib/style-assets';
 import { syncBookPublicAfterCellToggle } from '@/features/library/lib/public-sync';
-import { settingsApi } from '@/features/settings/api/settings.api';
 import { StyleLibraryEditModal } from '@/features/settings/components/StyleLibraryEditModal';
 import { ArtStyleSelect } from './ArtStyleSelect';
 
@@ -83,19 +81,14 @@ export function LevelEditCard({ storybookId, expanded, onToggle }: LevelEditCard
           : 'border-slate-200 dark:border-slate-700'
       )}
     >
-      <CardHeader
-        info={info}
-        level={sb?.readingLevel}
-        storybookId={storybookId}
-        expanded={expanded}
-        onToggle={onToggle}
-      />
+      {/* 🔴 펼치면 맨 윗줄은 CardBody 가 그린다(제목·정보·공개·저장·접기 한 줄) — 헤더를 두 번 그리지 않는다. */}
+      {!expanded && <CardHeader info={info} storybookId={storybookId} onToggle={onToggle} />}
       {shouldMount && (
         <div
           style={{ display: expanded ? 'block' : 'none' }}
-          className="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-b-[10px] relative"
+          className="bg-white dark:bg-slate-900 rounded-[10px] relative"
         >
-          <CardBody storybookId={storybookId} />
+          <CardBody storybookId={storybookId} info={info} onToggle={onToggle} />
         </div>
       )}
     </div>
@@ -106,66 +99,62 @@ export function LevelEditCard({ storybookId, expanded, onToggle }: LevelEditCard
 
 function CardHeader({
   info,
-  level,
   storybookId,
-  expanded,
   onToggle,
 }: {
-  info: { label: string; age: string; emoji: string };
-  level: ReadingLevel | undefined;
+  info: LevelInfo;
   storybookId: string;
-  expanded: boolean;
   onToggle: () => void;
 }) {
   const { data: sb } = useStorybook(storybookId);
-  const { data: styleLibrary } = useQuery({
-    queryKey: ['art-style-library'],
-    queryFn: settingsApi.getArtStyleLibrary,
-    staleTime: 60_000,
-  });
-  const styleLabel = sb && findArtStylePreset(sb.artStyle, styleLibrary)?.label;
-  const langCount = sb ? getAvailableLanguages(sb).length : 1;
-
   return (
     <button
       onClick={onToggle}
-      className={cn(
-        'w-full text-left px-5 py-3 flex items-center gap-3 transition-colors rounded-t-[10px]',
-        expanded
-          ? 'bg-violet-50 dark:bg-violet-900/20'
-          : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-b-[10px]'
-      )}
+      className="w-full text-left px-5 py-3 flex items-center gap-3 rounded-[10px] bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800"
     >
       <span className="text-2xl shrink-0">{info.emoji}</span>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-slate-100">
-          {level} {info.label}
-          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{info.age}</span>
-        </div>
-        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">
-          {sb ? (
-            <>
-              📄 {sb.pages?.length ?? 0}쪽 · 🎨 {styleLabel ?? sb.artStyle} ·{' '}
-              {langCount > 1 ? `🌐 ${langCount}개 언어` : '🇰🇷 한국어'}
-              {sb.title && <> · {sb.title}</>}
-            </>
-          ) : (
-            '로딩...'
-          )}
-        </div>
-      </div>
-      <span
-        className={cn('text-slate-400 transition-transform shrink-0', expanded && 'rotate-180')}
-      >
-        ▾
-      </span>
+      {sb ? (
+        <TitleLine sb={sb} info={info} />
+      ) : (
+        <span className="text-sm text-slate-400">로딩...</span>
+      )}
+      <span className="ml-auto text-slate-400 shrink-0">▾</span>
     </button>
+  );
+}
+
+/** 카드 맨 윗줄의 제목 + 몇 가지 정보(레벨 · 쪽수 · 공개). 접힌 줄·펼친 줄이 같이 쓴다. */
+function TitleLine({ sb, info }: { sb: Storybook; info: LevelInfo }) {
+  return (
+    <div className="flex min-w-0 items-center gap-2">
+      <span className="truncate text-lg font-black text-slate-900 dark:text-slate-100">
+        {sb.title}
+      </span>
+      <span className="shrink-0 text-xs text-slate-500 dark:text-slate-400">
+        {[sb.readingLevel && `${sb.readingLevel} ${info.label}`, `${sb.pages?.length ?? 0}쪽`]
+          .filter(Boolean)
+          .join(' · ')}
+      </span>
+      {sb.isPublic === false && (
+        <span className="shrink-0 rounded bg-slate-100 px-1.5 py-px text-[10px] text-slate-500 dark:bg-slate-800">
+          🔒 비공개
+        </span>
+      )}
+    </div>
   );
 }
 
 // ─── 카드 본문 ────────────────────────────────────────────────────────────────
 
-function CardBody({ storybookId }: { storybookId: string }) {
+function CardBody({
+  storybookId,
+  info,
+  onToggle,
+}: {
+  storybookId: string;
+  info: LevelInfo;
+  onToggle: () => void;
+}) {
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
   const { data: storybook, isLoading, error } = useStorybook(storybookId);
   const saveMutation = useSaveStorybook();
@@ -205,16 +194,7 @@ function CardBody({ storybookId }: { storybookId: string }) {
     setSelectedId(storybookId);
   }, [storybookId, setSelectedId]);
 
-  // 그림체 라이브러리 (R2 저장, ART_STYLES preset 자동 seed). 모든 hooks 는 early return 위.
-  const { data: styleLibrary } = useQuery({
-    queryKey: ['art-style-library'],
-    queryFn: settingsApi.getArtStyleLibrary,
-    staleTime: 60_000,
-  });
   const [styleEditOpen, setStyleEditOpen] = useState(false);
-
-  // 🔴 한 책 = 한 그림체(2026-09-14) — 이 책의 그림체 하나. 다른 그림체 버전은 책을 복사해 바꾼다.
-  const styleId = storybook ? canonicalizeArtStyle(storybook.artStyle) || storybook.artStyle : '';
 
   if (isLoading) return <Spinner size="lg" className="m-8" />;
   if (error || !storybook) {
@@ -230,18 +210,75 @@ function CardBody({ storybookId }: { storybookId: string }) {
   const allLangs = ['ko', ...Array.from(langSet).filter((c) => c !== 'ko')];
   const missingLangs = SUPPORTED_LANGUAGES.filter((l) => !allLangs.includes(l.code));
 
+  const renderPublicToggle = () => {
+    const sb = localRef.current ?? storybook;
+    const style = sb.artStyle;
+    const isPublic = sb.publicByStyleLang?.[style]?.[activeLang] !== false;
+    const flag = LANG_FLAG[activeLang] ?? '🌐';
+    return (
+      <label
+        className={cn(
+          'flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border text-xs font-bold cursor-pointer transition',
+          isPublic
+            ? 'border-coral-300 bg-coral-50 text-coral-700 hover:bg-coral-100 dark:bg-coral-900/20 dark:text-coral-200 dark:border-coral-700'
+            : 'border-slate-300 bg-white text-slate-500 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600'
+        )}
+        title={`이 (그림체, 언어) 조합의 라이브러리 노출 토글`}
+      >
+        <input
+          type="checkbox"
+          checked={isPublic}
+          onChange={() => {
+            handleUpdate((d) => {
+              const s = d.artStyle;
+              const cur = d.publicByStyleLang?.[s]?.[activeLang] !== false;
+              const next = !cur;
+              if (!d.publicByStyleLang) d.publicByStyleLang = {};
+              if (!d.publicByStyleLang[s]) d.publicByStyleLang[s] = {};
+              d.publicByStyleLang[s][activeLang] = next;
+              // 책 단위 isPublic 자동 동기화 (모든 셀 false → isPublic=false, 하나라도 true → 회복)
+              const synced = syncBookPublicAfterCellToggle(d);
+              d.isPublic = synced.isPublic;
+            });
+            handleSave();
+          }}
+          className="w-4 h-4 accent-coral-500 cursor-pointer"
+        />
+        <span>공개</span>
+        <span className="text-[10px] opacity-70">
+          {flag} {activeLang}
+        </span>
+      </label>
+    );
+  };
+
+  const sbNow = localRef.current ?? storybook;
+
   return (
     <>
+      {/* 맨 윗줄 — 제목 · 정보 · 공개 · 저장 · 접기 */}
+      <div className="flex items-center gap-3 rounded-t-[10px] border-b border-slate-200 bg-violet-50 px-5 py-2.5 dark:border-slate-700 dark:bg-violet-900/20">
+        <button
+          onClick={onToggle}
+          className="flex min-w-0 flex-1 items-center gap-3 text-left"
+          title="접기"
+        >
+          <span className="text-2xl shrink-0">{info.emoji}</span>
+          <TitleLine sb={sbNow} info={info} />
+        </button>
+        {renderPublicToggle()}
+        <Button size="sm" onClick={handleSave} loading={saveMutation.isPending}>
+          저장
+        </Button>
+        <button onClick={onToggle} className="shrink-0 text-slate-400" title="접기">
+          ▴
+        </button>
+      </div>
+
       {/* 그림체 row */}
       <div className="px-5 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 text-xs">
         <div className="flex items-center gap-1 flex-wrap">
           <span className="text-[10px] font-bold text-slate-500 uppercase mr-1">그림체</span>
-          <span
-            className="px-2 py-0.5 rounded text-[11px] font-bold border bg-coral-500 text-white border-coral-500"
-            title={styleId}
-          >
-            🎨 {findArtStylePreset(styleId, styleLibrary)?.label ?? '커스텀'}
-          </span>
           {/* 그림체 변경 — 라이브러리 안에서만 고른다(삽화는 다시 만들어야 한다). 같은 이야기의
               다른 그림체 버전이 필요하면 책을 복사해 그 사본의 그림체를 바꾸고 그룹으로 묶는다. */}
           <ArtStyleSelect
@@ -321,50 +358,8 @@ function CardBody({ storybookId }: { storybookId: string }) {
           saving={saveMutation.isPending}
           onSave={handleSave}
           onUpdate={handleUpdate}
-          compactHeader
           hiddenTabIds={['quiz', 'blog', 'card-news']}
-          headerExtraLeft={(() => {
-            const sb = localRef.current ?? storybook;
-            const style = sb.artStyle;
-            const isPublic = sb.publicByStyleLang?.[style]?.[activeLang] !== false;
-            const styleLabel = findArtStylePreset(style, styleLibrary)?.label ?? '커스텀';
-            const flag = LANG_FLAG[activeLang] ?? '🌐';
-            return (
-              <label
-                className={cn(
-                  'flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border text-xs font-bold cursor-pointer transition',
-                  isPublic
-                    ? 'border-coral-300 bg-coral-50 text-coral-700 hover:bg-coral-100 dark:bg-coral-900/20 dark:text-coral-200 dark:border-coral-700'
-                    : 'border-slate-300 bg-white text-slate-500 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600'
-                )}
-                title={`이 (그림체, 언어) 조합의 라이브러리 노출 토글`}
-              >
-                <input
-                  type="checkbox"
-                  checked={isPublic}
-                  onChange={() => {
-                    handleUpdate((d) => {
-                      const s = d.artStyle;
-                      const cur = d.publicByStyleLang?.[s]?.[activeLang] !== false;
-                      const next = !cur;
-                      if (!d.publicByStyleLang) d.publicByStyleLang = {};
-                      if (!d.publicByStyleLang[s]) d.publicByStyleLang[s] = {};
-                      d.publicByStyleLang[s][activeLang] = next;
-                      // 책 단위 isPublic 자동 동기화 (모든 셀 false → isPublic=false, 하나라도 true → 회복)
-                      const synced = syncBookPublicAfterCellToggle(d);
-                      d.isPublic = synced.isPublic;
-                    });
-                    handleSave();
-                  }}
-                  className="w-4 h-4 accent-coral-500 cursor-pointer"
-                />
-                <span>공개</span>
-                <span className="text-[10px] opacity-70">
-                  🎨 {styleLabel} · {flag} {activeLang}
-                </span>
-              </label>
-            );
-          })()}
+          hideHeader
         />
       </EditorLangProvider>
 

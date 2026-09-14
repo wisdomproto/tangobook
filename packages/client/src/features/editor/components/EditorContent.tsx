@@ -33,6 +33,8 @@ interface EditorContentProps {
   headerExtraLeft?: import('react').ReactNode;
   /** 헤더 한 줄 모드 (/editor2). 기본 false 는 기존 2줄 (/editor). */
   compactHeader?: boolean;
+  /** 헤더(제목·저장 줄)를 그리지 않는다 — /editor2 는 카드 맨 윗줄이 그 일을 한다. */
+  hideHeader?: boolean;
   /** 숨길 탭 ID 배열. /editor2 에서 quiz/blog/card-news 등 마케팅 관련 탭 가림. /editor 미사용. */
   hiddenTabIds?: string[];
 }
@@ -45,6 +47,7 @@ export function EditorContent({
   headerExtraActions,
   headerExtraLeft,
   compactHeader = false,
+  hideHeader = false,
   hiddenTabIds,
 }: EditorContentProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
@@ -141,15 +144,17 @@ export function EditorContent({
 
   return (
     <div>
-      <EditorHeader
-        storybook={storybook}
-        saving={saving}
-        onSave={onSave}
-        onUpdate={onUpdate}
-        extraActions={headerExtraActions}
-        extraLeft={headerExtraLeft}
-        compact={compactHeader}
-      />
+      {!hideHeader && (
+        <EditorHeader
+          storybook={storybook}
+          saving={saving}
+          onSave={onSave}
+          onUpdate={onUpdate}
+          extraActions={headerExtraActions}
+          extraLeft={headerExtraLeft}
+          compact={compactHeader}
+        />
+      )}
       <TabBar storybookType={storybook.type} hiddenTabIds={hiddenTabIds} />
       {tabs.map(({ id, el }) => (
         <div key={id} className="p-6" style={{ display: activeTab === id ? 'block' : 'none' }}>
