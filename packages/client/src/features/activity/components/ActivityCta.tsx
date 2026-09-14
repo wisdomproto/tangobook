@@ -33,7 +33,7 @@ export function ActivityCta({ item, next }: { item: ActivityItem; next?: Activit
         <Link
           to={next.path}
           onClick={cta('next')}
-          className="ml-auto text-sm font-bold text-ink-700 underline-offset-4 hover:underline"
+          className="ml-auto inline-flex min-h-[44px] items-center text-sm font-bold text-ink-700 underline-offset-4 hover:underline"
         >
           {NEXT_LABEL[item.kind]}: {next.title} →
         </Link>

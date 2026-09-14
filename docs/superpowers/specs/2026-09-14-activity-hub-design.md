@@ -91,7 +91,7 @@
 
 ### 3-1. 카탈로그 JSON 둘 (굽기 · 커밋)
 
-`packages/server/scripts/build-activity-catalog.mjs` 가 R2 를 읽어 **`packages/client/public/activity-data/` 에 두 파일**을 굽고 **커밋한다**
+`packages/server/scripts/build-activity-catalog.mjs` 가 R2 를 읽어 **`packages/client/public/activity-data/` 에 두 파일(+ `summary.json`)**을 굽고 **커밋한다**
 (색칠 manifest 가 커밋인 것과 같다 — 작고, 운영 이미지에 들어가야 SSR 이 읽는다).
 
 - `coloring.json` — manifest 에서 `language:'zh'` 를 빼고, `bk-*` 는 `unitId`(=책 id)가 **살아 있는 공개 책**인 것만 남긴다.
@@ -128,6 +128,7 @@ sitemap/IndexNow 는 지금처럼 `../../shared/dist/...` 에서 import 한다 �
 - 서버 SSR: `path.join(clientDist, 'activity-data/*.json')` 을 첫 요청에 읽어 메모리에 둔다(프로세스 수명 캐시 — 파일은 배포 때만 바뀐다).
   개발(`dist` 없음)은 `packages/client/public/activity-data/` 로 폴백.
 - 클라: `fetch('/activity-data/coloring.json')` 등(TanStack Query, `staleTime` 길게).
+- 허브·종류 탭은 900KB 목록을 받지 않고 셋째 파일 **`summary.json`**(`{count, firstKey, firstPath}`)만 본다 — 같은 스크립트가 굽는다. `firstPath` 는 정규 slug 경로라 탭 링크가 한 번 튕기지 않는다.
 - sitemap/IndexNow: `packages/client/public/activity-data/*.json`.
 - 🔴 **JSON 폴더 이름을 페이지 주소와 겹치지 않게**(`activity-data`) — `public/activity/` 에 두면 `dist/activity/` 가 생겨 `express.static` 이 `/activity` 를 폴더로 보고 SSR 전에 `/activity/` 로 301 한다(`app.ts` 의 `/library` 주석과 같은 함정). 같은 이유로 **새 SSR 라우트와 `/worksheet*` 301 은 `express.static` 보다 앞에** 둔다(`dist/worksheet/` 가 이미 있다).
 

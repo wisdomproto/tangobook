@@ -17,6 +17,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
 
   const [sceneIdx, setSceneIdx] = useState(0);
   const [found, setFound] = useState<Set<string>>(new Set());
+  const foundRef = useRef<Set<string>>(new Set());
   const [finished, setFinished] = useState(false);
   const [score, setScore] = useState(0);
   const [missFlash, setMissFlash] = useState<{ x: number; y: number; id: number } | null>(null);
@@ -81,7 +82,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
       //    **작은 쪽이 이긴다**(옷장 안의 셔츠). 겹침을 피하려고 상자를 깎으면 배경 낱말이
       //    손톱만 해져서 아이가 눌러도 안 맞는다.
       const hit = targets
-        .filter((t) => !found.has(t.objectName) && hitNormalizedBox(norm, t))
+        .filter((t) => !foundRef.current.has(t.objectName) && hitNormalizedBox(norm, t))
         .sort((a, b) => (b.layer ?? 1) - (a.layer ?? 1) || a.w * a.h - b.w * b.h)[0];
       if (!hit) {
         setMissFlash({ x: px, y: py, id: Date.now() });
@@ -90,8 +91,10 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
         return;
       }
 
-      const nextFound = new Set(found);
+      // 🔴 같은 tick 에 두 번 눌리면 클로저의 `found` 가 낡아 앞 결과를 덮는다 — ref 로 즉시 반영.
+      const nextFound = new Set(foundRef.current);
       nextFound.add(hit.objectName);
+      foundRef.current = nextFound;
       setFound(nextFound);
       setScore((s) => s + 1);
 
@@ -102,6 +105,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
         if (sceneIdx + 1 >= scenes.length) setFinished(true);
         else {
           setSceneIdx((i) => i + 1);
+          foundRef.current = new Set();
           setFound(new Set());
         }
       };
@@ -114,11 +118,12 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
       }).catch(() => hit.ttsUrl);
       playWordCorrect({ ttsUrl, onDone: sceneCleared ? advance : undefined });
     },
-    [scene, targets, found, sceneIdx, scenes.length, playWordCorrect, imgReady, storybookId]
+    [scene, targets, sceneIdx, scenes.length, playWordCorrect, imgReady, storybookId]
   );
 
   const handleRestart = useCallback(() => {
     setSceneIdx(0);
+    foundRef.current = new Set();
     setFound(new Set());
     setScore(0);
     setFinished(false);

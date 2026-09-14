@@ -17,11 +17,7 @@ function KindCard({ kind }: { kind: (typeof ACTIVITY_KINDS)[number] }) {
   const { data } = useActivitySummary();
   const ws = kind === 'hangul' || kind === 'english' ? worksheetItems(kind) : null;
   const count = ws ? ws.length : data?.[kind]?.count;
-  const to = ws
-    ? ws[0].path
-    : data?.[kind]?.firstKey
-      ? `/activity/${kind}/${data[kind].firstKey}`
-      : '/activity';
+  const to = ws ? ws[0].path : (data?.[kind]?.firstPath ?? '/activity');
   return (
     <Link to={to} className="block rounded-3xl bg-white p-6 shadow-sm hover:shadow-md">
       <h2 className="font-display text-2xl font-extrabold text-ink-900">

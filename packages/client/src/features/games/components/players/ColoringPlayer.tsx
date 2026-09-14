@@ -194,10 +194,6 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
 
   const onDoneRef = useRef(onDone);
   onDoneRef.current = onDone;
-  useEffect(() => {
-    // onDone 은 호출부가 매 렌더 새로 만들 수 있어 ref 로 받는다 — done 이 바뀔 때만 부른다.
-    if (done) onDoneRef.current?.();
-  }, [done]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const hintRef = useRef<HTMLCanvasElement>(null);
@@ -375,6 +371,8 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     playCorrectSequence({
       ttsUrl,
       language: item.lang ?? (item.language === 'english' ? 'en' : 'ko'),
+      // 🔴 onDone 은 칭찬까지 **다 들린 뒤** — 칠한 순간 부르면 호출부가 게임을 닫아 칭찬이 잘린다.
+      onDone: () => onDoneRef.current?.(),
     });
   }, [item, playCorrectSequence]);
 

@@ -27,6 +27,9 @@ export interface ActivityCatalog {
   hiddenWords: Map<string, string[]>;
 }
 
+/** `</script>` 가 제목에 섞여도 태그가 닫히지 않게. */
+const jsonLd = (v: unknown) => JSON.stringify(v).replace(/</g, '\\u003c');
+
 export function buildCatalog(
   coloring: ColoringCatalogEntry[],
   hidden: HiddenObjectCatalogEntry[]
@@ -163,7 +166,7 @@ export function renderActivitySeo(
     description: escapeHtml(summarize(`${intro} ${item.blurb ?? ''}`)),
     canonical: url,
     ogImage: abs(item.image),
-    jsonLdHtml: `<script type="application/ld+json">${JSON.stringify(schema)}</script>`,
+    jsonLdHtml: `<script type="application/ld+json">${jsonLd(schema)}</script>`,
     bodyHtml,
     alternatesHtml: '',
   };
@@ -192,7 +195,7 @@ export function renderActivityHubSeo(catalog: ActivityCatalog): AboutSeo {
     description: escapeHtml(intro),
     canonical: url,
     ogImage: `${SITE_URL}/og-image.png`,
-    jsonLdHtml: `<script type="application/ld+json">${JSON.stringify({
+    jsonLdHtml: `<script type="application/ld+json">${jsonLd({
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: '탱고북 활동 모음',

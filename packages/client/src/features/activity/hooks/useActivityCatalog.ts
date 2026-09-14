@@ -20,9 +20,9 @@ export function useActivitySummary() {
   return useQuery({
     queryKey: ['activity-data', 'summary'],
     queryFn: () =>
-      getJson<Record<string, { count: number; firstKey: string | null }>>(
-        '/activity-data/summary.json'
-      ),
+      getJson<
+        Record<string, { count: number; firstKey: string | null; firstPath?: string | null }>
+      >('/activity-data/summary.json'),
     staleTime: 60 * 60 * 1000,
   });
 }
@@ -30,7 +30,6 @@ export function useActivitySummary() {
 /** 활동 종류별 목록 — 워크지는 커리큘럼(즉시), 색칠·숨은그림은 `/activity-data/*.json`. */
 export function useActivityItems(kind: ActivityKind): {
   items: ActivityItem[];
-  hiddenWords: Map<string, string[]>;
   coloringEntries: Map<string, ColoringCatalogEntry>;
   hiddenEntries: Map<string, HiddenObjectCatalogEntry>;
   loading: boolean;
@@ -51,7 +50,6 @@ export function useActivityItems(kind: ActivityKind): {
   if (kind === 'hangul' || kind === 'english') {
     return {
       items: worksheetItems(kind),
-      hiddenWords: new Map(),
       coloringEntries: new Map(),
       hiddenEntries: new Map(),
       loading: false,
@@ -62,7 +60,6 @@ export function useActivityItems(kind: ActivityKind): {
     const data = coloring.data ?? [];
     return {
       items: coloringItems(data),
-      hiddenWords: new Map(),
       coloringEntries: new Map(data.map((e) => [e.key, e])),
       hiddenEntries: new Map(),
       loading: coloring.isLoading,
@@ -72,7 +69,6 @@ export function useActivityItems(kind: ActivityKind): {
   const data = hidden.data ?? [];
   return {
     items: hiddenObjectItems(data),
-    hiddenWords: new Map(data.map((h) => [h.key, h.words])),
     coloringEntries: new Map(),
     hiddenEntries: new Map(data.map((h) => [h.key, h])),
     loading: hidden.isLoading,

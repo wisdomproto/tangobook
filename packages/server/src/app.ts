@@ -390,6 +390,7 @@ export function createApp() {
         return renderActivityHubSeo(loadActivityCatalog(clientDist));
       })
     );
+    app.get('/activity/:kind', (_req, res) => res.redirect(301, '/activity'));
     app.get('/activity/:kind/:slug', (req, res, next) => {
       const kind = String(req.params.kind);
       if (!['hangul', 'english', 'coloring', 'hidden-object'].includes(kind)) {

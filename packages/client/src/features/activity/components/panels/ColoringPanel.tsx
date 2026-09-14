@@ -63,20 +63,20 @@ export function ColoringPanel({
               {
                 word: entry.word,
                 lineartUrl: entry.lineartUrl,
-                colorSourceUrl: entry.answerUrl ?? entry.originalUrl ?? '',
+                colorSourceUrl: entry.answerUrl || entry.originalUrl || entry.lineartUrl,
                 originalUrl: entry.originalUrl,
                 language: entry.language ?? 'korean',
                 storybookId: entry.bookId ?? entry.unitId,
               },
             ]}
             onBack={() => setPlaying(false)}
-            // 🔴 플레이어는 `fixed inset-0` 이라 그 뒤에 그린 CTA 는 안 보인다 — 다 칠한 그림을 잠깐 보여 준 뒤
-            //    게임을 닫고 CTA 를 띄운다(원본 그림이 드러나는 연출 시간만큼).
+            // 🔴 플레이어는 `fixed inset-0` 이라 그 뒤에 그린 CTA 는 안 보인다 — onDone 은 칭찬 소리가
+            //    끝난 뒤에 오므로, 다 칠한 그림을 잠깐 더 보여 준 뒤 게임을 닫고 CTA 를 띄운다.
             onDone={() => {
               doneTimer.current = window.setTimeout(() => {
                 setPlaying(false);
                 setFinished(true);
-              }, 3000);
+              }, 1000);
             }}
           />
         </Suspense>

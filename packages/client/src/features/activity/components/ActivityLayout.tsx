@@ -11,18 +11,14 @@ import { cn } from '@/lib/cn';
 import { ActivityList } from './ActivityList';
 import { useActivitySummary } from '../hooks/useActivityCatalog';
 
-/** 종류 탭 링크 — 워크지는 첫 단원, 색칠·숨은그림은 `summary.json` 의 첫 키(정규 slug 는 페이지가 replace 한다). */
+/** 종류 탭 링크 — 워크지는 첫 단원, 색칠·숨은그림은 `summary.json` 의 첫 정규 경로. */
 function useFirstPaths(): Record<ActivityKind, string> {
   const { data } = useActivitySummary();
   return {
     hangul: '/activity/hangul/kr-h1-u01',
     english: '/activity/english/en-b1-u01',
-    coloring: data?.coloring?.firstKey
-      ? `/activity/coloring/${data.coloring.firstKey}`
-      : '/activity',
-    'hidden-object': data?.['hidden-object']?.firstKey
-      ? `/activity/hidden-object/${data['hidden-object'].firstKey}`
-      : '/activity',
+    coloring: data?.coloring?.firstPath ?? '/activity',
+    'hidden-object': data?.['hidden-object']?.firstPath ?? '/activity',
   };
 }
 

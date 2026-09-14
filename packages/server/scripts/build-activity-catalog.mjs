@@ -17,6 +17,8 @@ import { fileURLToPath } from 'node:url';
 import { loadEnv, listStorybookKeys, getJsonByKey } from './translation-core.mjs';
 import {
   bookDisplayTitle,
+  coloringItems,
+  hiddenObjectItems,
   hiddenObjectLabelOf,
   playableHiddenWords,
 } from '../../shared/dist/index.js';
@@ -42,7 +44,9 @@ await Promise.all(
     }
   })
 );
-const publicBooks = new Map(books.filter((b) => b.isPublic !== false).map((b) => [String(b.id), b]));
+const publicBooks = new Map(
+  books.filter((b) => b.isPublic !== false).map((b) => [String(b.id), b])
+);
 console.log(`책 ${books.length}권(R2 실패 ${fetchFailed}) · 공개 ${publicBooks.size}권`);
 
 // ── 색칠
@@ -50,18 +54,31 @@ const manifest = JSON.parse(fs.readFileSync(path.join(PUB, 'coloring', 'manifest
 const dropped = { zh: 0, privateOrMissingBook: 0 };
 const coloring = [];
 for (const it of manifest) {
-  if (it.language === 'zh') { dropped.zh++; continue; }
+  if (it.language === 'zh') {
+    dropped.zh++;
+    continue;
+  }
   const base = {
-    key: it.key, group: it.group, section: it.section, word: it.word,
-    language: it.language, lineartUrl: it.lineartUrl,
-    originalUrl: it.originalUrl ?? null, answerUrl: it.answerUrl ?? null,
+    key: it.key,
+    group: it.group,
+    section: it.section,
+    word: it.word,
+    language: it.language,
+    lineartUrl: it.lineartUrl,
+    originalUrl: it.originalUrl ?? null,
+    answerUrl: it.answerUrl ?? null,
   };
   if (it.key.startsWith('bk-')) {
     const book = publicBooks.get(String(it.unitId));
-    if (!book) { dropped.privateOrMissingBook++; continue; }
+    if (!book) {
+      dropped.privateOrMissingBook++;
+      continue;
+    }
     const ko = (book.key_objects ?? []).find((k) => (k.korean ?? '').trim() === it.word);
     coloring.push({
-      ...base, bookId: String(book.id), bookTitle: bookDisplayTitle(book),
+      ...base,
+      bookId: String(book.id),
+      bookTitle: bookDisplayTitle(book),
       ...(ko?.description ? { blurb: String(ko.description).slice(0, 160) } : {}),
     });
   } else {
@@ -76,20 +93,38 @@ const hdrop = { badKey: 0, tooFew: 0 };
 for (const book of publicBooks.values()) {
   for (const scene of book.hiddenObjectScenes ?? []) {
     const key = String(scene.id ?? '').replace(/^hobj_/, '');
-    if (!SCENE_KEY.test(key) || !scene.sceneImageUrl) { hdrop.badKey++; continue; }
-    const words = playableHiddenWords({ hotspots: scene.hotspots ?? [] }).map((n) => hiddenObjectLabelOf(book.key_objects, n));
-    if (words.length < 2) { hdrop.tooFew++; continue; }
+    if (!SCENE_KEY.test(key) || !scene.sceneImageUrl) {
+      hdrop.badKey++;
+      continue;
+    }
+    const words = playableHiddenWords({ hotspots: scene.hotspots ?? [] }).map((n) =>
+      hiddenObjectLabelOf(book.key_objects, n)
+    );
+    if (words.length < 2) {
+      hdrop.tooFew++;
+      continue;
+    }
     hidden.push({
-      key, bookId: String(book.id), bookTitle: bookDisplayTitle(book),
-      category: book.category ?? '기타', sceneImageUrl: scene.sceneImageUrl, words,
-      ...(book.parentGuide?.overview ? { blurb: String(book.parentGuide.overview).slice(0, 120) } : {}),
+      key,
+      bookId: String(book.id),
+      bookTitle: bookDisplayTitle(book),
+      category: book.category ?? '기타',
+      sceneImageUrl: scene.sceneImageUrl,
+      words,
+      ...(book.parentGuide?.overview
+        ? { blurb: String(book.parentGuide.overview).slice(0, 120) }
+        : {}),
     });
   }
 }
 hidden.sort((a, b) => a.key.localeCompare(b.key));
 
-console.log(`색칠 ${coloring.length}장 (manifest ${manifest.length} · 뺀 것 중국어 ${dropped.zh} · 비공개/없는 책 ${dropped.privateOrMissingBook})`);
-console.log(`숨은그림 ${hidden.length}장 (뺀 것 키 형식 ${hdrop.badKey} · 낱말 2개 미만 ${hdrop.tooFew})`);
+console.log(
+  `색칠 ${coloring.length}장 (manifest ${manifest.length} · 뺀 것 중국어 ${dropped.zh} · 비공개/없는 책 ${dropped.privateOrMissingBook})`
+);
+console.log(
+  `숨은그림 ${hidden.length}장 (뺀 것 키 형식 ${hdrop.badKey} · 낱말 2개 미만 ${hdrop.tooFew})`
+);
 
 if (APPLY && fetchFailed > 0) {
   console.error(`R2 조회 실패 ${fetchFailed}건 — 쓰지 않음`);
@@ -106,12 +141,13 @@ if (APPLY) {
   fs.mkdirSync(OUT, { recursive: true });
   fs.writeFileSync(path.join(OUT, 'coloring.json'), JSON.stringify(coloring));
   fs.writeFileSync(path.join(OUT, 'hidden-object.json'), JSON.stringify(hidden));
-  // 허브·종류 탭이 900KB 목록을 받지 않고 개수와 첫 키만 알 수 있게.
+  // 허브·종류 탭이 900KB 목록을 받지 않고 개수와 첫 정규 경로만 알 수 있게(키만 주면 slug 없는 주소라 한 번 튕긴다).
+  const first = (items) => ({ firstKey: items[0]?.key ?? null, firstPath: items[0]?.path ?? null });
   fs.writeFileSync(
     summaryPath,
     JSON.stringify({
-      coloring: { count: coloring.length, firstKey: coloring[0]?.key ?? null },
-      'hidden-object': { count: hidden.length, firstKey: hidden[0]?.key ?? null },
+      coloring: { count: coloring.length, ...first(coloringItems(coloring)) },
+      'hidden-object': { count: hidden.length, ...first(hiddenObjectItems(hidden)) },
     })
   );
   console.log(`쓰기 → ${OUT}`);

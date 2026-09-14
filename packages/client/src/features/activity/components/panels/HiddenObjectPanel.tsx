@@ -83,16 +83,19 @@ export function HiddenObjectPanel({
         <p className="mt-3 rounded bg-peach-100 p-3 print:hidden">이 그림은 지금 준비 중이에요.</p>
       )}
       {playing && gameData && (
-        <Suspense fallback={null}>
-          <HiddenObjectPlayer
-            storybookId={entry.bookId}
-            gameData={gameData}
-            difficulty="easy"
-            // 🔴 onComplete 는 결과 화면이 뜨는 순간 불린다 — 여기서 닫으면 결과 화면을 못 본다. 닫기는 onBack 만.
-            onComplete={() => setFinished(true)}
-            onBack={() => setPlaying(false)}
-          />
-        </Suspense>
+        // 🔴 결과 화면(GameResultScreen)은 fixed 가 아니다 — 감싸지 않으면 페이지 맨 아래에 붙어 안 보인다.
+        <div className="fixed inset-0 z-[60] overflow-auto bg-cream-50 print:hidden">
+          <Suspense fallback={null}>
+            <HiddenObjectPlayer
+              storybookId={entry.bookId}
+              gameData={gameData}
+              difficulty="easy"
+              // 🔴 onComplete 는 결과 화면이 뜨는 순간 불린다 — 여기서 닫으면 결과 화면을 못 본다. 닫기는 onBack 만.
+              onComplete={() => setFinished(true)}
+              onBack={() => setPlaying(false)}
+            />
+          </Suspense>
+        </div>
       )}
     </div>
   );
