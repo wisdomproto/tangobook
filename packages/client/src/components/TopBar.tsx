@@ -551,6 +551,15 @@ export function TopBar() {
         >
           🗂️ 동화책 그룹
         </button>
+        <a
+          href="/activity"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+          title="학습지·색칠·숨은그림 활동 모음 (새 탭)"
+        >
+          📇 활동 모음
+        </a>
         <ResourceMenu
           items={BM}
           label="💼 BM"
