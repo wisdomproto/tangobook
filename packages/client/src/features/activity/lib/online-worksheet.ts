@@ -27,7 +27,12 @@ export interface WorksheetCell {
   order?: number[];
   /** 영어 패턴 — 이어읽기 규칙용 */
   pattern?: string;
+  /** 몇 번 쓰나 — 한글 글자·음절은 3번, 낱말은 1번(2026-09-15 사용자). 없으면 1. */
+  reps?: number;
 }
+
+/** 한글 워크지는 글자를 여러 번 따라 쓰는 게 기본이다(인쇄 워크지도 줄마다 반복 칸). */
+const LETTER_REPS = 3;
 
 const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
 const JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ';
@@ -39,7 +44,15 @@ const BLEND_CONSONANTS = [...'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ'];
 function koreanCells(u: FlatPhonicsUnit): WorksheetCell[] {
   const words = u.sampleWords.map((w) => ({ section: '낱말 쓰기', write: w, sound: w }));
   if (u.phonemes[0]?.startsWith('받침')) {
-    return [...u.syllables.map((s) => ({ section: '글자 만들기', write: s, sound: s })), ...words];
+    return [
+      ...u.syllables.map((s) => ({
+        section: '글자 만들기',
+        write: s,
+        sound: s,
+        reps: LETTER_REPS,
+      })),
+      ...words,
+    ];
   }
   if (!u.syllables.length) {
     const vowels = u.phonemes;
@@ -47,21 +60,22 @@ function koreanCells(u: FlatPhonicsUnit): WorksheetCell[] {
       section: '글자 쓰기',
       write: v,
       sound: syllable('ㅇ', v),
+      reps: LETTER_REPS,
     }));
     // 기본모음 단원(모음 10개)은 자음을 아직 안 배웠다 — 조합 표 없음.
     if (vowels.length > 3) return [...letters, ...words];
     const combos = vowels.flatMap((v) =>
       BLEND_CONSONANTS.map((c) => {
         const s = syllable(c, v);
-        return { section: '글자 만들기', write: s, sound: s };
+        return { section: '글자 만들기', write: s, sound: s, reps: LETTER_REPS };
       })
     );
     return [...letters, ...combos, ...words];
   }
   const letter = u.phonemes[0];
   return [
-    { section: '글자 쓰기', write: letter, sound: letter },
-    ...u.syllables.map((s) => ({ section: '글자 만들기', write: s, sound: s })),
+    { section: '글자 쓰기', write: letter, sound: letter, reps: LETTER_REPS },
+    ...u.syllables.map((s) => ({ section: '글자 만들기', write: s, sound: s, reps: LETTER_REPS })),
     ...words,
   ];
 }

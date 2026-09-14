@@ -15,6 +15,13 @@ describe('worksheetCells', () => {
     expect(s['글자 만들기']).toEqual(['가', '갸', '거', '겨', '고', '교', '구', '규', '그', '기']);
     expect(s['낱말 쓰기']).toEqual(['고기', '가구', '아기', '야구']);
   });
+  it('Korean letters and syllables are written 3 times, words once; English once', () => {
+    const cells = worksheetCells('korean', 'kr-h1-u02');
+    expect(cells.find((c) => c.write === 'ㄱ')?.reps).toBe(3);
+    expect(cells.find((c) => c.write === '가')?.reps).toBe(3);
+    expect(cells.find((c) => c.write === '고기')?.reps).toBeUndefined();
+    expect(worksheetCells('english', 'en-b2-u01').every((c) => !c.reps)).toBe(true);
+  });
   it('coda unit never writes the coda alone', () => {
     const s = bySection('korean', 'kr-h2-u01');
     expect(s['글자 쓰기']).toBeUndefined();
