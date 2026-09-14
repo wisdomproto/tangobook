@@ -63,8 +63,15 @@ export function EditorHeader({
           </h1>
           <div className={cn('flex items-center gap-2', compact ? '' : 'mt-0.5')}>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              {storybook.targetAge}세 · {storybook.pages?.length ?? 0}쪽 ·{' '}
-              {new Date(storybook.createdAt).toLocaleDateString('ko-KR')}
+              {[
+                storybook.targetAge && `${storybook.targetAge}세`,
+                `${storybook.pages?.length ?? 0}쪽`,
+                storybook.createdAt && !Number.isNaN(new Date(storybook.createdAt).getTime())
+                  ? new Date(storybook.createdAt).toLocaleDateString('ko-KR')
+                  : null,
+              ]
+                .filter(Boolean)
+                .join(' · ')}
             </p>
             {storybook.category && (
               <span className="text-[10px] text-violet-500 bg-violet-50 dark:bg-violet-900/30 px-1.5 py-px rounded">

@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import type { Storybook } from '@tangobook/shared';
-import { ART_STYLES, getEffectiveVocabulary } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
+import { useQuery } from '@tanstack/react-query';
+import { settingsApi } from '@/features/settings/api/settings.api';
+import { findArtStylePreset } from '@/features/editor/lib/style-assets';
+import { BookInfoSection } from './BookInfoSection';
 
 interface BookManageTabProps {
   storybook: Storybook;
@@ -68,6 +72,8 @@ export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProp
           </div>
         </div>
       </section>
+
+      <BookInfoSection storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
 
       {/* 콘텐츠 설정 */}
       <section className="space-y-2">
@@ -202,6 +208,11 @@ function CompletenessMatrix({
   styles: string[];
   langs: string[];
 }) {
+  const { data: library } = useQuery({
+    queryKey: ['art-style-library'],
+    queryFn: settingsApi.getArtStyleLibrary,
+    staleTime: 60_000,
+  });
   return (
     <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
       <table className="min-w-full text-xs">
@@ -222,11 +233,7 @@ function CompletenessMatrix({
         </thead>
         <tbody>
           {styles.map((style) => {
-            const preset = ART_STYLES.find(
-              (a) =>
-                a.prompt.toLowerCase() === style.toLowerCase() ||
-                a.id.toLowerCase() === style.toLowerCase()
-            );
+            const preset = findArtStylePreset(style, library);
             return (
               <tr key={style} className="border-t border-slate-100 dark:border-slate-800">
                 <td className="px-3 py-2 font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">
