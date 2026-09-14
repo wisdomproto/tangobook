@@ -1,10 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import {
-  findActivity,
-  nextInGroup,
-  ACTIVITY_KIND_LABEL,
-  type ActivityKind,
-} from '@tangobook/shared';
+import { findActivity, nextInGroup, activityPageTitle, type ActivityKind } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
 import { ActivityLayout } from '@/features/activity/components/ActivityLayout';
 import { useActivityItems } from '@/features/activity/hooks/useActivityCatalog';
@@ -15,11 +10,11 @@ import { WorksheetPanel } from '@/features/activity/components/panels/WorksheetP
 /** 활동 한 장 — 서버 SSR(`seo-activity.service`)의 짝 페이지. 🔴 게이트로 감싸지 않는다. */
 export default function ActivityPage({ kind }: { kind: ActivityKind }) {
   const { slug = '' } = useParams<{ slug: string }>();
-  const { items, coloringEntries, hiddenEntries, loading } = useActivityItems(kind);
+  const { items, coloringEntries, hiddenEntries, loading, error } = useActivityItems(kind);
   const found = findActivity(kind, items, slug);
 
   useSeo({
-    title: found ? `${found.item.title} — ${ACTIVITY_KIND_LABEL[kind]} | 탱고북` : undefined,
+    title: found ? activityPageTitle(found.item) : undefined,
     description: found?.item.blurb,
     // 서버 canonical 과 같게 slug 는 인코딩한다(주소를 두 벌로 말하지 않게).
     path: found
@@ -28,6 +23,20 @@ export default function ActivityPage({ kind }: { kind: ActivityKind }) {
     image: found?.item.image,
   });
 
+  if (error)
+    return (
+      <ActivityLayout kind={kind} items={items}>
+        <div className="rounded-2xl bg-white p-8">
+          <h1 className="text-2xl font-extrabold">목록을 불러오지 못했어요</h1>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 inline-block font-bold text-coral-700 underline"
+          >
+            다시 시도
+          </button>
+        </div>
+      </ActivityLayout>
+    );
   if (loading)
     return (
       <ActivityLayout kind={kind} items={items}>

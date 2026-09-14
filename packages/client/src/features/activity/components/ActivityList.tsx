@@ -24,9 +24,9 @@ export function ActivityList({
   }, [currentGroup]);
   const groups = useMemo(() => {
     const m = new Map<string, ActivityItem[]>();
-    const needle = q.trim();
+    const needle = q.trim().toLowerCase();
     for (const it of items) {
-      if (needle && !`${it.title} ${it.section}`.includes(needle)) continue;
+      if (needle && !`${it.title} ${it.section}`.toLowerCase().includes(needle)) continue;
       m.set(it.group, [...(m.get(it.group) ?? []), it]);
     }
     return [...m.entries()];
@@ -38,6 +38,7 @@ export function ActivityList({
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="🔍 낱말·제목 찾기"
+        aria-label="활동 찾기"
         className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm"
       />
       <div className="flex flex-col gap-1">
@@ -54,6 +55,7 @@ export function ActivityList({
                     return n;
                   })
                 }
+                aria-expanded={isOpen}
                 className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-sm font-bold text-ink-700 hover:bg-peach-100"
               >
                 <span>

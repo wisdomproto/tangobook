@@ -1,7 +1,9 @@
 import { lazy, Suspense, useState } from 'react';
 import { flattenPhonicsUnits, type ActivityItem } from '@tangobook/shared';
+import { getActivityPlan } from '@/features/phonics-learner/lib/korean-phonics-units';
+import { getEnglishActivityPlan } from '@/features/phonics-learner/lib/english-phonics-units';
 import { ActivityCta } from '../ActivityCta';
-import { PanelHeader } from './ColoringPanel';
+import { PanelHeader } from './PanelHeader';
 import { trackActivity } from '../../lib/track';
 
 const PhonicsTryIt = lazy(() =>
@@ -15,6 +17,18 @@ const PRINT_FILE = {
   english: '/worksheet/en_phonics.html',
 } as const;
 
+/**
+ * 🔴 `PhonicsTryIt` 이 자동으로 고르는 「합쳐지는 순간」 kind 목록의 사본이다(그 파일 내부
+ * `BLEND_KINDS`, 안 건드린다). 영어 단원엔 이 kind 가 없어 자동 선택이 항상 실패하므로
+ * 여기서 명시적 `activityKey` 를 골라 넘긴다 — 없으면 그 활동은 `null` 을 반환해 상자가 조용히 사라진다.
+ */
+const BLEND_KINDS = [
+  'consonant-blend-listen',
+  'coda-blend-listen',
+  'vowel-blend-listen',
+  'vowel-listen',
+];
+
 export function WorksheetPanel({
   item,
   next,
@@ -26,6 +40,9 @@ export function WorksheetPanel({
   const track = item.kind === 'hangul' ? 'korean' : 'english';
   const u = flattenPhonicsUnits(track).find((x) => x.id === item.key);
   const combos = u ? (u.syllables.length ? u.syllables : u.patterns) : [];
+  const plan = track === 'korean' ? getActivityPlan(item.key) : getEnglishActivityPlan(item.key);
+  const activityKey =
+    plan.activities.find((a) => BLEND_KINDS.includes(a.kind))?.key ?? plan.activities[0]?.key;
 
   return (
     <div>
@@ -61,9 +78,15 @@ export function WorksheetPanel({
       </div>
       {playing && (
         <div className="mt-4 print:hidden">
-          <Suspense fallback={null}>
-            <PhonicsTryIt unitId={item.key} language={track} />
-          </Suspense>
+          {activityKey ? (
+            <Suspense fallback={null}>
+              <PhonicsTryIt unitId={item.key} activityKey={activityKey} language={track} />
+            </Suspense>
+          ) : (
+            <p className="rounded-2xl bg-peach-100 p-4 text-ink-700">
+              이 단원은 앱에서 해 볼 수 있어요.
+            </p>
+          )}
         </div>
       )}
       <div className="mt-4">
