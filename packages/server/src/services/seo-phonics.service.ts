@@ -107,7 +107,7 @@ export function renderPhonicsUnitSeo(track: PhonicsTrack, unitId: string): About
     '<p>소리를 듣고 고르기, 글자를 손가락으로 따라 쓰기, 낱말과 그림 짝 맞추기를 합니다. ' +
     '맞힌 낱말은 그 낱말이 나오는 동화책 한 쪽으로 이어집니다.</p>' +
     `<p><a href="${t.learnBase}/${u.id}">이 단원 학습하기</a> · ` +
-    '<a href="/worksheet/">인쇄용 활동지</a> · <a href="/library">동화책 보기</a></p>' +
+    `<a href="/activity/${track === 'korean' ? 'hangul' : 'english'}/${u.id}">인쇄용 활동지</a> · <a href="/library">동화책 보기</a></p>` +
     navHtml +
     '</article>';
 
@@ -191,7 +191,7 @@ export function renderPhonicsTrackSeo(track: PhonicsTrack): AboutSeo {
       `<article><h1>${escapeHtml(t.label)} ${units.length}단원</h1><p>${escapeHtml(intro)}</p>` +
       sections +
       `<p><a href="${t.learnBase}">${escapeHtml(t.label)} 시작하기</a> · ` +
-      '<a href="/worksheet/">인쇄용 활동지</a> · <a href="/library">동화책 보기</a></p></article>',
+      '<a href="/activity">인쇄용 활동지</a> · <a href="/library">동화책 보기</a></p></article>',
     alternatesHtml: '',
   };
 }

@@ -375,6 +375,38 @@ export function createApp() {
       })
     );
 
+    /**
+     * 활동 모음 — 스펙 docs/superpowers/specs/2026-09-14-activity-hub-design.md
+     * 🔴 `express.static` 보다 **앞**이어야 한다 — `dist/worksheet/` 같은 폴더가 있으면 static 이
+     *    `/worksheet` 를 폴더로 보고 `/worksheet/` 로 먼저 301 한다(`/library` 에서 겪은 함정).
+     */
+    app.get('/worksheet', (_req, res) => res.redirect(301, '/activity'));
+    app.get('/worksheet/hangul', (_req, res) => res.redirect(301, '/activity/hangul/kr-h1-u01'));
+    app.get('/worksheet/english', (_req, res) => res.redirect(301, '/activity/english/en-b1-u01'));
+    app.get('/activity', (_req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { loadActivityCatalog, renderActivityHubSeo } =
+          await import('./services/seo-activity.service.js');
+        return renderActivityHubSeo(loadActivityCatalog(clientDist));
+      })
+    );
+    app.get('/activity/:kind/:slug', (req, res, next) => {
+      const kind = String(req.params.kind);
+      if (!['hangul', 'english', 'coloring', 'hidden-object'].includes(kind)) return next();
+      return sendSeo(res, next, async () => {
+        const { loadActivityCatalog, renderActivitySeo } =
+          await import('./services/seo-activity.service.js');
+        const out = renderActivitySeo(
+          kind as 'hangul' | 'english' | 'coloring' | 'hidden-object',
+          String(req.params.slug),
+          loadActivityCatalog(clientDist)
+        );
+        // 없는 키 = 404. SPA 셸은 catch-all 이 그대로 그리되 상태 코드는 404 로 남는다(soft-404 금지).
+        if (!out) res.status(404);
+        return out;
+      });
+    });
+
     // 언어별 진입 링크(/en·/vi·/zh·/th·/ko) — 소셜 공유 미리보기 OG 를 그 언어로 주입.
     // SPA(LangEntry)가 브라우저에서 그 언어 설정 후 라이브러리로 리다이렉트한다.
     for (const lc of ['en', 'vi', 'zh', 'th', 'ko']) {
