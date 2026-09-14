@@ -2,8 +2,8 @@ import { useEditorStore } from '@/store/editor.store';
 import type { StorybookType } from '@tangobook/shared';
 
 const STORYBOOK_TABS = [
-  { id: 'meta' as const, label: '책 관리' },
   { id: 'settings' as const, label: '기본설정' },
+  { id: 'meta' as const, label: '책 관리' },
   { id: 'character' as const, label: '캐릭터' },
   { id: 'cover' as const, label: '표지' },
   { id: 'key-objects' as const, label: '핵심단어' },
@@ -18,8 +18,8 @@ const STORYBOOK_TABS = [
 ];
 
 const PHONICS_TABS = [
-  { id: 'meta' as const, label: '책 관리' },
   { id: 'settings' as const, label: '기본설정' },
+  { id: 'meta' as const, label: '책 관리' },
   { id: 'character' as const, label: '캐릭터' },
   { id: 'flashcards' as const, label: '핵심단어' },
   { id: 'cover' as const, label: '표지' },
