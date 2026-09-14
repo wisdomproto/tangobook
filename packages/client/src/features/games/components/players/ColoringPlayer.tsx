@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
+import { SceneReveal } from '../SceneReveal';
+import { useGameStyle } from '../GameStyleChip';
+import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { resolveTtsUrl } from '@/features/tts';
 import { playUi, playNote, feedDrawLoop, stopDrawLoop } from '@/lib/uiSound';
@@ -225,6 +229,11 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
 
   const { playCorrectSequence, praiseVisible } = useGameAudio();
   const item = items[idx];
+  // 다 칠하면 그 낱말이 나오는 동화책 한 쪽을 띄워 읽어 준다(블록·낱말 게임과 같은 리빌, 2026-09-14 사용자).
+  // 파닉스 단원이면 다른 동화책 예문 → 단원 나무 동화 순(`resolveSceneFromWord` 가 정한다).
+  const { data: sourceStorybook } = useStorybook(item?.storybookId ?? '');
+  const gameStyle = useGameStyle(sourceStorybook);
+  const [scene, setScene] = useState<WordScene | null>(null);
 
   useEffect(
     () => () => {
@@ -268,6 +277,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     setRevealed(false);
     setSelected(0);
     doneRef.current = false;
+    setScene(null);
     runRef.current++;
     paintedRef.current = new Set();
     if (revealTimerRef.current != null) window.clearTimeout(revealTimerRef.current);
@@ -372,15 +382,20 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       directUrl: item.ttsUrl ?? undefined,
       identifierPrefix: 'color',
     });
+    const lang: Lang = item.lang ?? (item.language === 'english' ? 'en' : 'ko');
     playCorrectSequence({
       ttsUrl,
-      language: item.lang ?? (item.language === 'english' ? 'en' : 'ko'),
+      language: lang,
       // 🔴 onDone 은 칭찬까지 **다 들린 뒤** — 칠한 순간 부르면 호출부가 게임을 닫아 칭찬이 잘린다.
+      //    장면이 있으면 그 장면 나레이션까지 끝난 뒤(SceneReveal onDone)에 부른다.
       onDone: () => {
-        if (doneRef.current && runRef.current === run) onDoneRef.current?.();
+        if (!doneRef.current || runRef.current !== run) return;
+        const s = resolveSceneFromWord(item.word, lang, sourceStorybook, gameStyle.selectedStyle);
+        if (s) setScene(s);
+        else onDoneRef.current?.();
       },
     });
-  }, [item, playCorrectSequence]);
+  }, [item, playCorrectSequence, sourceStorybook, gameStyle.selectedStyle]);
 
   /**
    * 손으로 칠한다 — **누르면 그 칸이 차던 것을 붓질로 바꿨다**(2026-09-10 사용자).
@@ -527,6 +542,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     strokeMaskRef.current?.fill(0);
     lastPtRef.current = null;
     doneRef.current = false;
+    setScene(null);
     runRef.current++;
     setDone(false);
     setRevealed(false);
@@ -656,6 +672,18 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      {scene && (
+        <SceneReveal
+          illustrationUrl={scene.illustrationUrl}
+          text={scene.pageText}
+          highlight={scene.highlight}
+          ttsUrl={scene.pageTtsUrl}
+          onDone={() => {
+            setScene(null);
+            onDoneRef.current?.();
+          }}
+        />
+      )}
     </div>
   );
 }

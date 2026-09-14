@@ -1,5 +1,6 @@
 import { pickPhonicsWordScene, pickUnitStoryScene } from './phonics-word-scene';
 import type { Lang, Storybook } from '@tangobook/shared';
+import { hasWord } from './word-in-text';
 
 export interface WordScene {
   /** 단어가 처음 등장하는 페이지의 장면 일러스트 */
@@ -51,11 +52,17 @@ export function findValidatedPageNumber(
   if (!koreanWord) return first;
   // 텍스트가 아예 없는 책(이미지 전용 등)은 검증 불가 — 기존대로 claimed 신뢰
   if (!pages.some((p) => !!p?.text)) return first;
-  for (const num of claimed ?? []) {
-    if (pages[num - 1]?.text?.includes(koreanWord)) return num;
-  }
-  for (let i = 0; i < pages.length; i++) {
-    if (pages[i]?.text?.includes(koreanWord)) return pages[i].pageNumber ?? i + 1;
+  // 낱말로 나오는 쪽을 먼저 찾고(「공」≠「공주」), 없을 때만 글자 조각으로 물러난다.
+  for (const found of [
+    (t?: string) => hasWord(t, koreanWord),
+    (t?: string) => !!t?.includes(koreanWord),
+  ]) {
+    for (const num of claimed ?? []) {
+      if (found(pages[num - 1]?.text)) return num;
+    }
+    for (let i = 0; i < pages.length; i++) {
+      if (found(pages[i]?.text)) return pages[i].pageNumber ?? i + 1;
+    }
   }
   return null;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { hasWord, wordIndices } from '../lib/word-in-text';
 
 interface SceneRevealProps {
   illustrationUrl: string;
@@ -22,12 +23,26 @@ const SCENE_BGM_VOLUME = 0.16;
 /** 자막 텍스트에서 맞춘 단어를 amber 칩으로 강조. 매칭 없으면 원문 그대로. 대소문자 무시. */
 export function renderCaption(text: string, term?: string) {
   if (!term || !term.trim()) return text;
-  const esc = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const parts = text.split(new RegExp(`(${esc})`, 'gi'));
-  if (parts.length <= 1) return text; // 본문에 단어 없음
-  const lower = term.toLowerCase();
-  return parts.map((part, i) =>
-    part && part.toLowerCase() === lower ? (
+  // 낱말로 나온 자리만 칠한다(「공」이면 「공주」의 공은 안 칠한다). 없으면 글자 조각 자리로 물러난다.
+  let at = wordIndices(text, term);
+  if (!at.length) {
+    const t = text.toLowerCase();
+    const w = term.toLowerCase();
+    at = [];
+    for (let i = t.indexOf(w); i !== -1; i = t.indexOf(w, i + w.length)) at.push(i);
+  }
+  if (!at.length) return text; // 본문에 단어 없음
+  const parts: Array<{ part: string; mark: boolean }> = [];
+  let pos = 0;
+  for (const i of at) {
+    if (i < pos) continue;
+    parts.push({ part: text.slice(pos, i), mark: false });
+    parts.push({ part: text.slice(i, i + term.length), mark: true });
+    pos = i + term.length;
+  }
+  parts.push({ part: text.slice(pos), mark: false });
+  return parts.map(({ part, mark }, i) =>
+    mark ? (
       <mark
         key={i}
         className="mx-0.5 rounded-md bg-amber-300 px-1.5 py-0.5 font-black text-ink-900"
@@ -53,7 +68,9 @@ export function sentenceWith(text: string, term?: string): string {
   if (!term?.trim()) return text;
   const parts = text.match(/[^.!?…]+[.!?…]*["'”’」』]*\s*/g);
   if (!parts) return text;
-  const hit = parts.find((p) => p.toLowerCase().includes(term.toLowerCase()));
+  const hit =
+    parts.find((p) => hasWord(p, term)) ??
+    parts.find((p) => p.toLowerCase().includes(term.toLowerCase()));
   return hit ? hit.trim() : text;
 }
 

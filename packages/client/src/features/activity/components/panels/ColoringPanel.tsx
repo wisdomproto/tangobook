@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { ActivityItem, ColoringCatalogEntry } from '@tangobook/shared';
 import { EmbedStage } from '@/features/phonics-learner/components/EmbedStage';
+import { preloadWordScenes } from '@/features/games/lib/phonics-word-scene';
 import { ActivityCta } from '../ActivityCta';
 import { trackActivity } from '../../lib/track';
 import { BTN, INLINE_STAGE_HEIGHT, PanelHeader } from './PanelHeader';
@@ -32,6 +33,11 @@ export function ColoringPanel({
   const [bookPrint, setBookPrint] = useState(false);
   const doneTimer = useRef<ReturnType<typeof window.setTimeout>>();
   useEffect(() => () => window.clearTimeout(doneTimer.current), []);
+  // 파닉스 낱말은 다 칠한 뒤 「다른 동화책 예문」을 띄운다 — 리빌은 동기라 그 책을 미리 받아 둔다
+  // (파닉스 게임은 PhonicsGameGate 가 하는 일. 활동 모음은 그 게이트를 안 거친다).
+  useEffect(() => {
+    if (entry.unitId) void preloadWordScenes([entry.word]);
+  }, [entry.unitId, entry.word]);
   const sheet = {
     word: entry.word,
     lineartUrl: entry.lineartUrl,
