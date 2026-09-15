@@ -1107,7 +1107,7 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
         .map((it) => {
           const unitA =
             `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(it.glyph)}">` +
-            `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`;
+            `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span>${L.hideWords ? '' : `<span class="w">${esc(it.words)}</span>`}</a>`;
           const subs = it.parts
             .map((pt) => `<a class="item sub" href="#${it.id}~${esc(pt.id)}" data-id="${it.id}" data-part="${esc(pt.id)}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(pt.label)}">${esc(pt.label)}</a>`)
             .join('');
@@ -1223,7 +1223,7 @@ async function main() {
   const allName = `${lang}_phonics_all.html`;
   const only = arg('unit', '');
   const L = en
-    ? { name: '영어 파닉스 워크지', unit: 'Unit', phonicsPath: 'english', kinds: { letter: '알파벳', family: '낱말 가족' } }
+    ? { name: '영어 파닉스 워크지', unit: 'Unit', phonicsPath: 'english', hideWords: true, kinds: { letter: '알파벳', family: '낱말 가족' } }
     : { name: '한글 워크지', unit: '익힘', phonicsPath: 'korean', kinds: { consonant: '자음', coda: '받침', vowel: '모음' } };
 
   // 동화책 연결은 한글 낱말 표라 영어엔 없다 — 없는 채로 돌아가야 한다.
