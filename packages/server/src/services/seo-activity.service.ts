@@ -9,6 +9,9 @@ import { fileURLToPath } from 'node:url';
 import {
   ACTIVITY_KINDS,
   ACTIVITY_KIND_LABEL,
+  activityKindLanding,
+  activityKindPath,
+  activityLandingSections,
   activityPageTitle,
   coloringItems,
   findActivity,
@@ -143,7 +146,7 @@ export function renderActivitySeo(
     `<p>${escapeHtml(intro)}</p>` +
     (item.blurb ? `<p>${escapeHtml(item.blurb)}</p>` : '') +
     listHtml +
-    `<p><a href="${escapeHtml(item.sourceHref)}">${escapeHtml(item.sourceLabel)}</a> · <a href="/">탱고북 둘러보기</a> · <a href="/activity">활동 모음</a></p>` +
+    `<p><a href="${escapeHtml(item.sourceHref)}">${escapeHtml(item.sourceLabel)}</a> · <a href="${activityKindPath(kind)}">${escapeHtml(activityKindLanding(kind, 0).h1)} 전체</a> · <a href="/activity">활동 모음</a></p>` +
     (siblings.length
       ? `<h2>${escapeHtml(item.group)} 더 보기</h2><ul>${siblings
           .map((s) => `<li><a href="${enc(s.path)}">${escapeHtml(s.title)}</a></li>`)
@@ -180,6 +183,7 @@ export function renderActivityHubSeo(catalog: ActivityCatalog): AboutSeo {
     const first = items[0];
     return (
       `<h2>${escapeHtml(ACTIVITY_KIND_LABEL[k])} (${items.length})</h2>` +
+      `<p><a href="${activityKindPath(k)}">${escapeHtml(activityKindLanding(k, items.length).h1)} 전체 보기</a></p>` +
       (first
         ? `<p><a href="${enc(first.path)}">${escapeHtml(ACTIVITY_KIND_LABEL[k])} 시작하기</a></p>`
         : '') +
@@ -202,6 +206,68 @@ export function renderActivityHubSeo(catalog: ActivityCatalog): AboutSeo {
       url,
     })}</script>`,
     bodyHtml: `<article><h1>활동 모음</h1><p>${escapeHtml(intro)}</p>${sections}<p><a href="/">탱고북 둘러보기</a></p></article>`,
+    alternatesHtml: '',
+  };
+}
+
+/**
+ * 종류 대표 페이지 `/activity/{kind}` — 큰 검색어(한글학습지·파닉스·색칠도안·숨은그림찾기)를 받는 자리.
+ * 문구·목록은 shared(`activityKindLanding`·`activityLandingSections`) 한 벌 — 화면(`ActivityKindPage`)과 같다.
+ */
+export function renderActivityKindSeo(kind: ActivityKind, catalog: ActivityCatalog): AboutSeo {
+  const items = catalog.items[kind];
+  const copy = activityKindLanding(kind, items.length);
+  const url = `${SITE_URL}${activityKindPath(kind)}`;
+  const sections = activityLandingSections(items)
+    .map(
+      (sec) =>
+        `<h2>${escapeHtml(sec.group)}</h2><ul>${sec.links
+          .map(
+            (l) =>
+              `<li><a href="${enc(l.path)}">${escapeHtml(l.title)}</a>${l.count > 1 ? ` (${l.count})` : ''}</li>`
+          )
+          .join('')}</ul>`
+    )
+    .join('');
+  const bodyHtml =
+    '<article>' +
+    `<h1>${escapeHtml(copy.h1)}</h1><p>${escapeHtml(copy.lead)}</p>` +
+    sections +
+    copy.about.map((p) => `<p>${escapeHtml(p)}</p>`).join('') +
+    `<h2>자주 묻는 질문</h2><dl>${copy.faq
+      .map(([q, a]) => `<dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd>`)
+      .join('')}</dl>` +
+    '<p><a href="/activity">활동 모음</a> · <a href="/">탱고북 둘러보기</a></p>' +
+    '</article>';
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: copy.h1,
+      description: copy.lead,
+      url,
+      isAccessibleForFree: true,
+      inLanguage: 'ko',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: copy.faq.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ];
+  return {
+    title: escapeHtml(copy.title),
+    description: escapeHtml(summarize(`${copy.lead} ${copy.about[0]}`)),
+    canonical: url,
+    ogImage: `${SITE_URL}/og-image.png`,
+    jsonLdHtml: schema
+      .map((x) => `<script type="application/ld+json">${jsonLd(x)}</script>`)
+      .join(''),
+    bodyHtml,
     alternatesHtml: '',
   };
 }

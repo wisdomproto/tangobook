@@ -3,24 +3,13 @@ import { Link } from 'react-router-dom';
 import {
   ACTIVITY_KINDS,
   ACTIVITY_KIND_LABEL,
+  activityKindPath,
   type ActivityItem,
   type ActivityKind,
 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 import { ActivityList } from './ActivityList';
-import { useActivitySummary } from '../hooks/useActivityCatalog';
 import { trackActivity } from '../lib/track';
-
-/** 종류 탭 링크 — 워크지는 첫 단원, 색칠·숨은그림은 `summary.json` 의 첫 정규 경로. */
-function useFirstPaths(): Record<ActivityKind, string> {
-  const { data } = useActivitySummary();
-  return {
-    hangul: '/activity/hangul/kr-h1-u01',
-    english: '/activity/english/en-b1-u01',
-    coloring: data?.coloring?.firstPath ?? '/activity',
-    'hidden-object': data?.['hidden-object']?.firstPath ?? '/activity',
-  };
-}
 
 /**
  * 네 종류가 같은 틀 — 헤더(로고·둘러보기 | 종류 탭) · 왼쪽 사이드바 목록 · 오른쪽 활동.
@@ -39,14 +28,14 @@ export function ActivityLayout({
   children: ReactNode;
 }) {
   const [listOpen, setListOpen] = useState(false);
-  const firstPath = useFirstPaths();
   // 모바일에서 목록에서 다른 활동을 고르면 드로어를 닫는다(안 그러면 다음 화면 위에 그대로 덮여 있다).
   useEffect(() => setListOpen(false), [currentKey]);
 
   const tabs = ACTIVITY_KINDS.map((k) => (
     <Link
       key={k}
-      to={k === kind && items[0] ? items[0].path : firstPath[k]}
+      // 종류 탭은 그 종류의 대표 페이지로 — 고르기 화면이자 큰 검색어를 받는 페이지라 안쪽 링크를 모은다.
+      to={activityKindPath(k)}
       aria-current={k === kind ? 'page' : undefined}
       className={cn(
         'inline-flex min-h-[40px] shrink-0 items-center rounded-full px-4 text-sm font-bold transition',

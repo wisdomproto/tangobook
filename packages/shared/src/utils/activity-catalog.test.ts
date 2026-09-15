@@ -187,3 +187,31 @@ describe('findActivity', () => {
     expect(nextInGroup(items, 'ph-0390')?.key).toBe('ph-0389');
   });
 });
+
+describe('activityLandingSections', () => {
+  it('worksheet units are one link each; coloring books fold to their first sheet', async () => {
+    const { activityLandingSections, worksheetItems } = await import('./activity-catalog.js');
+    const ko = activityLandingSections(worksheetItems('hangul'));
+    expect(ko.reduce((n, s) => n + s.links.length, 0)).toBe(worksheetItems('hangul').length);
+    const mk = (key: string, section: string) => ({
+      kind: 'coloring' as const,
+      key,
+      slug: key,
+      title: key,
+      group: '세계 명작',
+      section,
+      path: `/activity/coloring/${key}`,
+      sourceHref: '',
+      sourceLabel: '',
+    });
+    const secs = activityLandingSections([
+      mk('bk-0001', '개구리 왕자'),
+      mk('bk-0002', '개구리 왕자'),
+      mk('bk-0003', '신데렐라'),
+    ]);
+    expect(secs[0].links).toEqual([
+      { title: '개구리 왕자', path: '/activity/coloring/bk-0001', count: 2 },
+      { title: '신데렐라', path: '/activity/coloring/bk-0003', count: 1 },
+    ]);
+  });
+});

@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { buildCatalog, renderActivitySeo, renderActivityHubSeo } from './seo-activity.service.js';
+import {
+  buildCatalog,
+  renderActivitySeo,
+  renderActivityHubSeo,
+  renderActivityKindSeo,
+} from './seo-activity.service.js';
 
 const catalog = buildCatalog(
   [
@@ -96,5 +101,21 @@ describe('renderActivitySeo', () => {
     const hub = renderActivityHubSeo(catalog);
     expect(hub.bodyHtml).toContain('/activity/hangul/kr-h1-u01');
     expect(hub.bodyHtml).toContain('/activity/hidden-object/');
+  });
+});
+
+describe('renderActivityKindSeo', () => {
+  it('hangul landing: keyword title, every unit linked, FAQ schema', () => {
+    const seo = renderActivityKindSeo('hangul', catalog);
+    expect(seo.title).toContain('한글 학습지');
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/activity/hangul');
+    expect(seo.bodyHtml).toContain('/activity/hangul/kr-h1-u01');
+    expect(seo.bodyHtml).toContain('/activity/hangul/kr-h4-u05');
+    expect(seo.jsonLdHtml).toContain('FAQPage');
+  });
+  it('coloring landing folds a book to one link with its count', () => {
+    const seo = renderActivityKindSeo('coloring', catalog);
+    expect(seo.title).toContain('색칠도안');
+    expect(seo.bodyHtml).toContain('개구리 왕자</a>');
   });
 });

@@ -134,6 +134,7 @@ async function collectPublicUrls() {
       ...shared.hiddenObjectItems(readJson('hidden-object.json')),
     ];
     urls.push(`${SITE_URL}/activity`);
+    for (const k of shared.ACTIVITY_KINDS) urls.push(`${SITE_URL}${shared.activityKindPath(k)}`);
     for (const it of items) urls.push(`${SITE_URL}/activity/${it.kind}/${encodeURIComponent(it.slug)}`);
   } catch (e) {
     console.warn('[indexnow] ⚠️ 활동 모음 스킵 — shared 미빌드 또는 activity-data 없음?', e.message);

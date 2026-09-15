@@ -136,11 +136,14 @@ async function main() {
       ...shared.hiddenObjectItems(readJson('hidden-object.json')),
     ];
     entries.push(urlEntry({ loc: `${SITE_URL}/activity`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+    // 종류 대표 페이지 — 큰 검색어(한글학습지·파닉스·색칠도안·숨은그림찾기)를 받는 자리.
+    for (const k of shared.ACTIVITY_KINDS)
+      entries.push(urlEntry({ loc: `${SITE_URL}${shared.activityKindPath(k)}`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
     for (const it of items) {
       const loc = `${SITE_URL}/activity/${it.kind}/${encodeURIComponent(it.slug)}`;
       entries.push(urlEntry({ loc, lastmod: today, changefreq: 'monthly', priority: 0.5 }));
     }
-    console.log(`[sitemap] 활동 ${items.length + 1}개`);
+    console.log(`[sitemap] 활동 ${items.length + 1 + shared.ACTIVITY_KINDS.length}개`);
   } catch (e) {
     console.warn('[sitemap] ⚠️ 활동 모음 스킵 — shared 미빌드 또는 activity-data 없음?', e.message);
   }

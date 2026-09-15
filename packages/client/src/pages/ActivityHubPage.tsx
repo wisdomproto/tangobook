@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ACTIVITY_KINDS, ACTIVITY_KIND_LABEL, worksheetItems } from '@tangobook/shared';
+import {
+  ACTIVITY_KINDS,
+  ACTIVITY_KIND_LABEL,
+  activityKindPath,
+  worksheetItems,
+} from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
 import { PublicNav } from '@/components/PublicNav';
 import { trackActivity } from '@/features/activity/lib/track';
@@ -17,9 +22,11 @@ function KindCard({ kind }: { kind: (typeof ACTIVITY_KINDS)[number] }) {
   const { data } = useActivitySummary();
   const ws = kind === 'hangul' || kind === 'english' ? worksheetItems(kind) : null;
   const count = ws ? ws.length : data?.[kind]?.count;
-  const to = ws ? ws[0].path : (data?.[kind]?.firstPath ?? '/activity');
   return (
-    <Link to={to} className="block rounded-3xl bg-white p-6 shadow-sm hover:shadow-md">
+    <Link
+      to={activityKindPath(kind)}
+      className="block rounded-3xl bg-white p-6 shadow-sm hover:shadow-md"
+    >
       <h2 className="font-display text-2xl font-extrabold text-ink-900">
         {ACTIVITY_KIND_LABEL[kind]}
       </h2>

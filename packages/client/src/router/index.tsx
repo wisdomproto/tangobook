@@ -53,6 +53,7 @@ const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
 const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
 const ActivityHubPage = lazy(() => import('../pages/ActivityHubPage'));
 const ActivityPage = lazy(() => import('../pages/ActivityPage'));
+const ActivityKindPage = lazy(() => import('../pages/ActivityKindPage'));
 const PuzzleSamplePage = lazy(() => import('../pages/PuzzleSamplePage'));
 
 function EditorV2BidRedirect() {
@@ -209,6 +210,39 @@ export const router = createBrowserRouter([
         ),
       },
       // 🔴 종류는 정적 세그먼트 네 줄 — `:kind` 로 두면 다른 라우트와 점수 경합.
+      // 종류 대표 페이지(서버 SSR `renderActivityKindSeo` 의 짝) — 큰 검색어를 받는 자리.
+      {
+        path: 'activity/hangul',
+        element: (
+          <ErrorBoundary>
+            <ActivityKindPage kind="hangul" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'activity/english',
+        element: (
+          <ErrorBoundary>
+            <ActivityKindPage kind="english" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'activity/coloring',
+        element: (
+          <ErrorBoundary>
+            <ActivityKindPage kind="coloring" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'activity/hidden-object',
+        element: (
+          <ErrorBoundary>
+            <ActivityKindPage kind="hidden-object" />
+          </ErrorBoundary>
+        ),
+      },
       {
         path: 'activity/hangul/:slug',
         element: (

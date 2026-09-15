@@ -390,7 +390,22 @@ export function createApp() {
         return renderActivityHubSeo(loadActivityCatalog(clientDist));
       })
     );
-    app.get('/activity/:kind', (_req, res) => res.redirect(301, '/activity'));
+    // 종류 대표 페이지 — 큰 검색어를 받는 자리(2026-09-15). 예전엔 /activity 로 301 이었다.
+    app.get('/activity/:kind', (req, res, next) => {
+      const kind = String(req.params.kind);
+      if (!['hangul', 'english', 'coloring', 'hidden-object'].includes(kind)) {
+        res.status(404);
+        return next();
+      }
+      return sendSeo(res, next, async () => {
+        const { loadActivityCatalog, renderActivityKindSeo } =
+          await import('./services/seo-activity.service.js');
+        return renderActivityKindSeo(
+          kind as 'hangul' | 'english' | 'coloring' | 'hidden-object',
+          loadActivityCatalog(clientDist)
+        );
+      });
+    });
     app.get('/activity/:kind/:slug', (req, res, next) => {
       const kind = String(req.params.kind);
       if (!['hangul', 'english', 'coloring', 'hidden-object'].includes(kind)) {
