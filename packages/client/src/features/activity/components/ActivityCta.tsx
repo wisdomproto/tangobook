@@ -9,35 +9,23 @@ const NEXT_LABEL: Record<ActivityKind, string> = {
   english: '다음 단원',
 };
 
-/** 사이트로 잇는 버튼 — 🔴 모든 활동 페이지에 둔다(유입이 목적, 사용자 2026-09-14). */
+/**
+ * 다음 활동 링크. 🔴 사이트로 가는 버튼(앱에서 이어 하기·둘러보기)은 **헤더로 올렸다**(2026-09-15 사용자) —
+ * 활동 아래에 크게 두 번 붙어 있어 광고처럼 보였다. 헤더 = 로고 + 둘러보기(`ActivityLayout`).
+ */
 export function ActivityCta({ item, next }: { item: ActivityItem; next?: ActivityItem | null }) {
-  const cta = (target: 'source' | 'home' | 'next') => () =>
-    trackActivity('activity_cta', { kind: item.kind, key: item.key, target });
+  if (!next) return null;
   return (
-    <div className="flex flex-wrap items-center gap-2 print:hidden">
+    <div className="flex justify-end print:hidden">
       <Link
-        to={item.sourceHref}
-        onClick={cta('source')}
-        className="inline-flex min-h-[48px] items-center rounded-full bg-coral-600 px-5 text-base font-extrabold text-white shadow hover:bg-coral-700"
+        to={next.path}
+        onClick={() =>
+          trackActivity('activity_cta', { kind: item.kind, key: item.key, target: 'next' })
+        }
+        className="inline-flex min-h-[44px] items-center text-sm font-bold text-ink-700 underline-offset-4 hover:underline"
       >
-        {item.sourceLabel}
+        {NEXT_LABEL[item.kind]}: {next.title} →
       </Link>
-      <Link
-        to="/"
-        onClick={cta('home')}
-        className="inline-flex min-h-[48px] items-center rounded-full border-2 border-coral-300 bg-white px-5 text-base font-bold text-coral-700 hover:bg-coral-50"
-      >
-        탱고북 둘러보기
-      </Link>
-      {next && (
-        <Link
-          to={next.path}
-          onClick={cta('next')}
-          className="ml-auto inline-flex min-h-[44px] items-center text-sm font-bold text-ink-700 underline-offset-4 hover:underline"
-        >
-          {NEXT_LABEL[item.kind]}: {next.title} →
-        </Link>
-      )}
     </div>
   );
 }

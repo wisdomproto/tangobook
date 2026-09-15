@@ -60,7 +60,7 @@ export function ActivityList({
         onChange={(e) => setQ(e.target.value)}
         placeholder="🔍 낱말·제목 찾기"
         aria-label="활동 찾기"
-        className="w-full rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm"
+        className="w-full rounded-xl border border-ink-100 bg-cream-50 px-3 py-2.5 text-sm focus:border-coral-300 focus:bg-white focus:outline-none"
       />
       <div className="flex flex-col gap-1">
         {groups.map(([group, books]) => {
@@ -131,7 +131,7 @@ function Toggle({
       onClick={onClick}
       aria-expanded={open}
       className={cn(
-        'flex w-full items-center justify-between gap-2 rounded px-2 py-1.5 text-left hover:bg-peach-100',
+        'flex min-h-[36px] w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-cream-50',
         className
       )}
     >
@@ -151,10 +151,10 @@ function ItemLinks({ list, currentKey }: { list: ActivityItem[]; currentKey?: st
           <Link
             to={it.path}
             className={cn(
-              'block truncate rounded px-2 py-1 text-sm',
+              'block truncate rounded-lg border-l-4 px-2 py-1.5 text-sm',
               it.key === currentKey
-                ? 'bg-coral-100 font-bold text-coral-700'
-                : 'text-ink-700 hover:bg-peach-100'
+                ? 'border-coral-500 bg-coral-50 font-bold text-coral-700'
+                : 'border-transparent text-ink-700 hover:bg-cream-50'
             )}
           >
             {it.title}
