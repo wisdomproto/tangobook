@@ -183,7 +183,16 @@ function traceBlock(items, room, en) {
  */
 async function pic(url, px = 440) {
   const buf = Buffer.from(await (await fetch(url)).arrayBuffer());
-  const out = await sharp(buf).resize(px, px, { fit: 'inside' }).webp({ quality: px < 400 ? 78 : 82 }).toBuffer();
+  // 🔴 카드 배경(크림 #FBF7EF 무지)을 **흰색으로** 편다(2026-09-15 사용자: 인쇄 잉크가 너무 든다).
+  //    네 귀퉁이 중 가장 어두운 값을 배경으로 보고 채널마다 그 값이 255 가 되게 늘린다 — 그림은 2~4% 밝아질 뿐.
+  const { data } = await sharp(buf).resize(64, 64, { fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const bg = [0, 1, 2].map((c) => Math.min(...[[1, 1], [62, 1], [1, 62], [62, 62]].map(([x, y]) => data[(y * 64 + x) * 3 + c])));
+  const out = await sharp(buf)
+    .removeAlpha()
+    .linear(bg.map((v) => 255 / Math.max(v, 200)), [0, 0, 0])
+    .resize(px, px, { fit: 'inside' })
+    .webp({ quality: px < 400 ? 78 : 82 })
+    .toBuffer();
   return `data:image/webp;base64,${out.toString('base64')}`;
 }
 
@@ -219,7 +228,8 @@ const STYLE = `<style>
 
   /* 전체 가운데 정렬 — 왼쪽에 몰리면 오른쪽이 빈 종이로 보인다. */
   .page { width: 186mm; height: 273mm; display: flex; flex-direction: column; gap: 5mm;
-    break-after: page; text-align: center; background: var(--cream); }
+    break-after: page; text-align: center; background: #fff; }
+  /* 🔴 종이는 흰색 — 크림 배경을 print-color-adjust:exact 로 A4 한 장 통째로 찍어 잉크가 너무 들었다(2026-09-15 사용자). 색은 테두리·글자에만. */
   .page:last-child { break-after: auto; }
   /* 1쪽처럼 내용이 적은 장은 칸을 더 넣지 말고 **사이를 벌려** 채운다. */
   .page.airy { justify-content: space-between; gap: 0; }
@@ -314,7 +324,7 @@ const STYLE = `<style>
   .row { display: flex; gap: 2.5mm; flex-wrap: wrap; justify-content: center; }
 
   .learn { display: flex; align-items: center; justify-content: center; gap: 7mm;
-    border: .5mm solid var(--coral-200); border-radius: 4mm; background: var(--peach-50); padding: 5mm 7mm; }
+    border: .5mm solid var(--coral-200); border-radius: 4mm; background: #fff; padding: 5mm 7mm; }
   .learn .glyph.sm { font-size: 26pt; line-height: 1.15; max-width: 52mm; }
   .learn .glyph { font-size: 58pt; font-weight: 800; line-height: 1; color: var(--coral); }
   .learn dl { display: grid; grid-template-columns: auto 1fr; gap: 1.8mm 4mm; font-size: 11pt; text-align: left; }
@@ -322,7 +332,7 @@ const STYLE = `<style>
   .learn dd { font-weight: 700; }
 
   .demo { display: flex; align-items: center; justify-content: center; gap: 3mm; font-size: 25pt; font-weight: 800;
-    border: .5mm dashed var(--mint-200); border-radius: 4mm; padding: 3mm; background: var(--mint-50); flex-wrap: wrap; }
+    border: .5mm dashed var(--mint-200); border-radius: 4mm; padding: 3mm; background: #fff; flex-wrap: wrap; }
   .demo em { font-style: normal; color: var(--mint-600); font-size: 17pt; }
   .demo b { color: var(--mint-600); }
   .demo small { width: 100%; text-align: center; font-size: 9pt; font-weight: 400; color: var(--ink-600); margin-top: .8mm; }
