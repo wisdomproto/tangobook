@@ -5,6 +5,9 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useActivitySound } from '@/features/phonics-learner/hooks/useActivitySound';
 import { usePhonicsTtsWarm } from '@/features/phonics-learner/hooks/usePhonicsTtsWarm';
 import { writeStepRead } from '@/features/phonics-learner/lib/english-phonics-units';
+import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { findImageData } from '@/features/phonics-learner/lib/phonics-game-adapter';
+import type { Storybook } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 import { worksheetCells } from '../../lib/online-worksheet';
 
@@ -56,6 +59,14 @@ export function OnlineWorksheet({
   );
 
   const cell = cells[idx];
+  // 한글 낱말 칸은 왼쪽에 그 낱말 카드 그림(2026-09-15 사용자) — 인쇄 워크지 낱말 줄과 같은 카드.
+  const unitBook = useStorybook(track === 'korean' ? unitId : undefined).data as
+    | Storybook
+    | undefined;
+  const wordImage =
+    unitBook && cell && cell.section === '낱말 쓰기'
+      ? findImageData(unitBook, cell.write).imageUrl
+      : undefined;
   const sections = useMemo(() => {
     const m = new Map<string, number[]>();
     cells.forEach((c, i) => m.set(c.section, [...(m.get(c.section) ?? []), i]));
@@ -202,25 +213,36 @@ export function OnlineWorksheet({
             </span>
           </p>
         )}
-        {isDone(idx) ? (
-          <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 shadow-pop">
-            <span className="font-display text-[clamp(3rem,12vw,7rem)] font-black leading-none text-mint-600">
-              {cell.reveal ?? cell.write}
-            </span>
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-mint-500 text-2xl font-black text-white">
-              ✓
-            </span>
+        <div className={cn(wordImage && 'flex items-center gap-3 sm:gap-5')}>
+          {wordImage && (
+            <img
+              src={wordImage}
+              alt={cell.write}
+              className="aspect-square w-24 shrink-0 rounded-2xl bg-white object-contain shadow-sm sm:w-48"
+            />
+          )}
+          <div className="min-w-0 flex-1">
+            {isDone(idx) ? (
+              <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 shadow-pop">
+                <span className="font-display text-[clamp(3rem,12vw,7rem)] font-black leading-none text-mint-600">
+                  {cell.reveal ?? cell.write}
+                </span>
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-mint-500 text-2xl font-black text-white">
+                  ✓
+                </span>
+              </div>
+            ) : (
+              <WordFillCanvas
+                key={`${unitId}-${idx}-${counts[idx] ?? 0}`}
+                word={cell.write}
+                syllables={[...cell.write]}
+                order={cell.order}
+                onSyllableDone={handleSyllableDone}
+                onComplete={handleComplete}
+              />
+            )}
           </div>
-        ) : (
-          <WordFillCanvas
-            key={`${unitId}-${idx}-${counts[idx] ?? 0}`}
-            word={cell.write}
-            syllables={[...cell.write]}
-            order={cell.order}
-            onSyllableDone={handleSyllableDone}
-            onComplete={handleComplete}
-          />
-        )}
+        </div>
       </div>
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </div>
