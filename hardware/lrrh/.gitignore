@@ -5,3 +5,5 @@ out/*
 __pycache__/
 !out/alphabet_a4.pdf
 !out/alphabet_a4.png
+!out/hangul_a4.pdf
+!out/hangul_a4.png
