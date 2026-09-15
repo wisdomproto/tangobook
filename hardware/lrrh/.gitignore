@@ -3,3 +3,5 @@ out/*
 !out/paper_sheet.pdf
 !out/sticker_4x6.png
 __pycache__/
+!out/alphabet_a4.pdf
+!out/alphabet_a4.png
