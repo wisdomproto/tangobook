@@ -28,6 +28,17 @@ PAD = BORDER + 1.8             # 테두리 안쪽에서 글자까지 최소 여�
 FILL = 0.85                    # 글자가 차지할 몫 (테두리 안쪽 기준)
 
 
+def ruler(d, bottom_margin):
+    """아래 여백에 50mm 막대 — 뽑은 종이에서 이게 50mm 가 아니면 인쇄가 「페이지에 맞춤」으로 줄어든 것이다.
+    2026-09-15: 영어 시트는 딱 맞았는데 이 시트는 「거의 5mm 작다」 — 두 PNG 의 카드 폭은 똑같이 29.04mm 였다."""
+    x0, y = (A4[0] - 50) / 2, A4[1] - bottom_margin / 2
+    d.rectangle((px(x0), px(y) - px(0.3), px(x0 + 50), px(y) + px(0.3)), fill=INK)
+    for k in range(6):
+        d.rectangle((px(x0 + 10 * k) - px(0.2), px(y) - px(1.5), px(x0 + 10 * k) + px(0.2), px(y) + px(1.5)), fill=INK)
+    d.text((px(A4[0] / 2), px(y) + px(3)), '인쇄 확인: 이 막대가 50mm 여야 합니다 (실제 크기 100% 로 인쇄)',
+           font=ImageFont.truetype(FONT, px(3.2)), fill=(120, 120, 120), anchor='mt')
+
+
 def ink(font, ch):
     """글자를 실제로 찍어 잉크 상자를 잰다. 🔴 font.getbbox 는 이 글꼴에서 가로가 **글자 폭(advance)** 이라
     ㅣ 도 ㄱ 과 폭이 같게 나왔다(232px) — 획 굵기·가운데 맞춤을 그걸로 재면 틀린다."""
@@ -101,6 +112,8 @@ def main():
     d.text((px(mx), px(vy) - px(2)), f'모음 · 2×4 블록 세로 ({vw:.1f}×{vh:.1f}mm)', font=label, fill=(150, 150, 150), anchor='ls')
     for i, g in enumerate(VOWELS):
         card(d, mx + i * (vw + GAP), vy, vw, vh, vr, g, None, VOWEL, left=True, t=t)
+
+    ruler(d, my)
 
     os.makedirs(B.OUT, exist_ok=True)
     png, pdf = os.path.join(B.OUT, 'hangul_a4.png'), os.path.join(B.OUT, 'hangul_a4.pdf')
