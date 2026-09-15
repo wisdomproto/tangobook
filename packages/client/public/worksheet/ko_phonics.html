@@ -26,6 +26,9 @@
     break-after: page; text-align: center; background: #fff; }
   /* 🔴 종이는 흰색 — 크림 배경을 print-color-adjust:exact 로 A4 한 장 통째로 찍어 잉크가 너무 들었다(2026-09-15 사용자). 색은 테두리·글자에만. */
   .page:last-child { break-after: auto; }
+  /* 소리 덩이 묶음(.part)으로 쪽을 감싸도 덩이 사이는 새 종이 — 마지막 덩이의 마지막 쪽만 끊지 않는다. */
+  .part > .page:last-child { break-after: page; }
+  .part:last-child > .page:last-child { break-after: auto; }
   /* 1쪽처럼 내용이 적은 장은 칸을 더 넣지 말고 **사이를 벌려** 채운다. */
   .page.airy { justify-content: space-between; gap: 0; }
   @media screen {
@@ -185,6 +188,8 @@
   main { overflow-y:auto; min-width:0; }
   .unit { display:none; }
   .unit.on { display:block; }
+  .part.hide { display:none !important; }
+  a.item.sub { padding:5px 18px 5px 58px; font-size:14px; font-weight:700; color:var(--ink-600); }
 
   aside { background:var(--cream); border-right:1px solid var(--peach-200); overflow-y:auto; padding:16px 0 40px; text-align:left; }
   aside h1 { font-size:17px; font-weight:800; letter-spacing:-.03em; padding:4px 18px 12px; }
@@ -233,7 +238,7 @@
   <h1>한글 워크지 <em>인쇄용</em></h1>
   <!-- 🔴 만든 시각을 박아 둔다. file:// 도 브라우저가 캐시해서, 새로 구워도 옛 화면을 보고
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
-  <p class="stamp">2026. 9. 15. 10시 58분 9초 판</p>
+  <p class="stamp">2026. 9. 15. 11시 51분 47초 판</p>
   <h2>한글1 기본음절</h2><a class="item on" href="#kr-h1-u01" data-id="kr-h1-u01" data-name="한글1 기본음절 · 익힘 1 · ㅏ"><b>1</b><span class="g">ㅏ</span><span class="w">아이 오이 우유 여우</span></a><a class="item" href="#kr-h1-u02" data-id="kr-h1-u02" data-name="한글1 기본음절 · 익힘 2 · ㄱ"><b>2</b><span class="g">ㄱ</span><span class="w">고기 가구 아기 야구</span></a><a class="item" href="#kr-h1-u03" data-id="kr-h1-u03" data-name="한글1 기본음절 · 익힘 3 · ㄴ"><b>3</b><span class="g">ㄴ</span><span class="w">나 너 누나 누구야</span></a><a class="item" href="#kr-h1-u04" data-id="kr-h1-u04" data-name="한글1 기본음절 · 익힘 4 · ㄷ"><b>4</b><span class="g">ㄷ</span><span class="w">두유 도마 기도 구두</span></a><a class="item" href="#kr-h1-u05" data-id="kr-h1-u05" data-name="한글1 기본음절 · 익힘 5 · ㄹ"><b>5</b><span class="g">ㄹ</span><span class="w">오리 너구리 다리 노루</span></a><a class="item" href="#kr-h1-u06" data-id="kr-h1-u06" data-name="한글1 기본음절 · 익힘 6 · ㅁ"><b>6</b><span class="g">ㅁ</span><span class="w">머리 모두 모기 거미</span></a><a class="item" href="#kr-h1-u07" data-id="kr-h1-u07" data-name="한글1 기본음절 · 익힘 7 · ㅂ"><b>7</b><span class="g">ㅂ</span><span class="w">바다 비누 나비 두부</span></a><a class="item" href="#kr-h1-u08" data-id="kr-h1-u08" data-name="한글1 기본음절 · 익힘 8 · ㅅ"><b>8</b><span class="g">ㅅ</span><span class="w">사자 버스 가수 미소</span></a><a class="item" href="#kr-h1-u09" data-id="kr-h1-u09" data-name="한글1 기본음절 · 익힘 9 · ㅇ"><b>9</b><span class="g">ㅇ</span><span class="w">우주 여우 우유 어부</span></a><a class="item" href="#kr-h1-u10" data-id="kr-h1-u10" data-name="한글1 기본음절 · 익힘 10 · ㅈ"><b>10</b><span class="g">ㅈ</span><span class="w">지구 지도 자두 모자</span></a><a class="item" href="#kr-h1-u11" data-id="kr-h1-u11" data-name="한글1 기본음절 · 익힘 11 · ㅊ"><b>11</b><span class="g">ㅊ</span><span class="w">치마 치즈 마차 기차</span></a><a class="item" href="#kr-h1-u12" data-id="kr-h1-u12" data-name="한글1 기본음절 · 익힘 12 · ㅋ"><b>12</b><span class="g">ㅋ</span><span class="w">쿠키 코코아 마이크 카드</span></a><a class="item" href="#kr-h1-u13" data-id="kr-h1-u13" data-name="한글1 기본음절 · 익힘 13 · ㅌ"><b>13</b><span class="g">ㅌ</span><span class="w">타조 하트 기타 치타</span></a><a class="item" href="#kr-h1-u14" data-id="kr-h1-u14" data-name="한글1 기본음절 · 익힘 14 · ㅍ"><b>14</b><span class="g">ㅍ</span><span class="w">피자 파리 포도 소파</span></a><a class="item" href="#kr-h1-u15" data-id="kr-h1-u15" data-name="한글1 기본음절 · 익힘 15 · ㅎ"><b>15</b><span class="g">ㅎ</span><span class="w">하마 호두 휴지 호수</span></a><h2>한글2 받침</h2><a class="item" href="#kr-h2-u01" data-id="kr-h2-u01" data-name="한글2 받침 · 익힘 1 · ㅇ"><b>1</b><span class="g">ㅇ</span><span class="w">형 풍덩 농구 시장</span></a><a class="item" href="#kr-h2-u02" data-id="kr-h2-u02" data-name="한글2 받침 · 익힘 2 · ㄱ"><b>2</b><span class="g">ㄱ</span><span class="w">학교 축구 악어 탁구</span></a><a class="item" href="#kr-h2-u03" data-id="kr-h2-u03" data-name="한글2 받침 · 익힘 3 · ㄴ"><b>3</b><span class="g">ㄴ</span><span class="w">손 눈 언니 잔디</span></a><a class="item" href="#kr-h2-u04" data-id="kr-h2-u04" data-name="한글2 받침 · 익힘 4 · ㄹ"><b>4</b><span class="g">ㄹ</span><span class="w">별 달 하늘 가을</span></a><a class="item" href="#kr-h2-u05" data-id="kr-h2-u05" data-name="한글2 받침 · 익힘 5 · ㅅ"><b>5</b><span class="g">ㅅ</span><span class="w">옷 로봇 비옷 그릇</span></a><a class="item" href="#kr-h2-u06" data-id="kr-h2-u06" data-name="한글2 받침 · 익힘 6 · ㅁ"><b>6</b><span class="g">ㅁ</span><span class="w">엄마 몸 염소 구름</span></a><a class="item" href="#kr-h2-u07" data-id="kr-h2-u07" data-name="한글2 받침 · 익힘 7 · ㅂ"><b>7</b><span class="g">ㅂ</span><span class="w">집 컵 입술 김밥</span></a><h2>한글3 쌍자음</h2><a class="item" href="#kr-h3-u01" data-id="kr-h3-u01" data-name="한글3 쌍자음 · 익힘 1 · ㄲ"><b>1</b><span class="g">ㄲ</span><span class="w">꿀벌 꼬끼오 토끼 코끼리</span></a><a class="item" href="#kr-h3-u02" data-id="kr-h3-u02" data-name="한글3 쌍자음 · 익힘 2 · ㄸ"><b>2</b><span class="g">ㄸ</span><span class="w">떡국 똑딱 땅콩 딸기</span></a><a class="item" href="#kr-h3-u03" data-id="kr-h3-u03" data-name="한글3 쌍자음 · 익힘 3 · ㅃ"><b>3</b><span class="g">ㅃ</span><span class="w">오빠 뽀뽀 빨래 아빠</span></a><a class="item" href="#kr-h3-u04" data-id="kr-h3-u04" data-name="한글3 쌍자음 · 익힘 4 · ㅆ"><b>4</b><span class="g">ㅆ</span><span class="w">씨앗 새싹 쓱싹 썰매</span></a><a class="item" href="#kr-h3-u05" data-id="kr-h3-u05" data-name="한글3 쌍자음 · 익힘 5 · ㅉ"><b>5</b><span class="g">ㅉ</span><span class="w">찐빵 짝꿍 쫑긋 쪽지</span></a><h2>한글4 복잡한 모음</h2><a class="item" href="#kr-h4-u01" data-id="kr-h4-u01" data-name="한글4 복잡한 모음 · 익힘 1 · ㅐ"><b>1</b><span class="g">ㅐ</span><span class="w">고래 동생 레몬 베개</span></a><a class="item" href="#kr-h4-u02" data-id="kr-h4-u02" data-name="한글4 복잡한 모음 · 익힘 2 · ㅖ"><b>2</b><span class="g">ㅖ</span><span class="w">계란 예절 시계 얘기</span></a><a class="item" href="#kr-h4-u03" data-id="kr-h4-u03" data-name="한글4 복잡한 모음 · 익힘 3 · ㅟ"><b>3</b><span class="g">ㅟ</span><span class="w">생쥐 가위 참외 열쇠</span></a><a class="item" href="#kr-h4-u04" data-id="kr-h4-u04" data-name="한글4 복잡한 모음 · 익힘 4 · ㅘ"><b>4</b><span class="g">ㅘ</span><span class="w">과자 사과 화가 횃불</span></a><a class="item" href="#kr-h4-u05" data-id="kr-h4-u05" data-name="한글4 복잡한 모음 · 익힘 5 · ㅝ"><b>5</b><span class="g">ㅝ</span><span class="w">권투 스웨터 의자 의사</span></a>
 </aside>
 
@@ -242,6 +247,8 @@
     <span class="now">한글1 기본음절 · 익힘 1 · ㅏ</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
+    <!-- 권(Book·한글1…) 단위 인쇄 — 지금 보는 단원의 권 전체(2026-09-15 사용자). -->
+    <button id="printLevel">📘 한글1 기본음절 인쇄</button>
     <!-- 🔴 전체 인쇄는 **이 단원 인쇄 옆**이다(2026-08-19 사용자). 사이드바 맨 위에 있을 땐
          단원 목록의 머리처럼 보여서, 인쇄하러 온 사람이 목록을 스크롤하다 지나쳐 버렸다.
          두 인쇄 버튼은 같은 일의 범위 차이라 나란히 있어야 고르기가 된다.
@@ -260,7 +267,7 @@
   </div>
   <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
        스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
-  <div class="unit on" id="kr-h1-u01">
+  <div class="unit on" id="kr-h1-u01" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -316,7 +323,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u02">
+<div class="unit" id="kr-h1-u02" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -372,7 +379,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u03">
+<div class="unit" id="kr-h1-u03" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -428,7 +435,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u04">
+<div class="unit" id="kr-h1-u04" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -484,7 +491,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u05">
+<div class="unit" id="kr-h1-u05" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -540,7 +547,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u06">
+<div class="unit" id="kr-h1-u06" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -596,7 +603,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u07">
+<div class="unit" id="kr-h1-u07" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -652,7 +659,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u08">
+<div class="unit" id="kr-h1-u08" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -708,7 +715,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u09">
+<div class="unit" id="kr-h1-u09" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -764,7 +771,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u10">
+<div class="unit" id="kr-h1-u10" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -820,7 +827,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u11">
+<div class="unit" id="kr-h1-u11" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -876,7 +883,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u12">
+<div class="unit" id="kr-h1-u12" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -932,7 +939,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u13">
+<div class="unit" id="kr-h1-u13" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -988,7 +995,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u14">
+<div class="unit" id="kr-h1-u14" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1044,7 +1051,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h1-u15">
+<div class="unit" id="kr-h1-u15" data-level="한글1 기본음절">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1100,7 +1107,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u01">
+<div class="unit" id="kr-h2-u01" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1164,7 +1171,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u02">
+<div class="unit" id="kr-h2-u02" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1228,7 +1235,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u03">
+<div class="unit" id="kr-h2-u03" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1292,7 +1299,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u04">
+<div class="unit" id="kr-h2-u04" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1356,7 +1363,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u05">
+<div class="unit" id="kr-h2-u05" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1420,7 +1427,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u06">
+<div class="unit" id="kr-h2-u06" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1484,7 +1491,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h2-u07">
+<div class="unit" id="kr-h2-u07" data-level="한글2 받침">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1548,7 +1555,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h3-u01">
+<div class="unit" id="kr-h3-u01" data-level="한글3 쌍자음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1604,7 +1611,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h3-u02">
+<div class="unit" id="kr-h3-u02" data-level="한글3 쌍자음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1660,7 +1667,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h3-u03">
+<div class="unit" id="kr-h3-u03" data-level="한글3 쌍자음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1716,7 +1723,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h3-u04">
+<div class="unit" id="kr-h3-u04" data-level="한글3 쌍자음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1772,7 +1779,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h3-u05">
+<div class="unit" id="kr-h3-u05" data-level="한글3 쌍자음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1828,7 +1835,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h4-u01">
+<div class="unit" id="kr-h4-u01" data-level="한글4 복잡한 모음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1908,7 +1915,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h4-u02">
+<div class="unit" id="kr-h4-u02" data-level="한글4 복잡한 모음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -1988,7 +1995,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h4-u03">
+<div class="unit" id="kr-h4-u03" data-level="한글4 복잡한 모음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -2068,7 +2075,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h4-u04">
+<div class="unit" id="kr-h4-u04" data-level="한글4 복잡한 모음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -2148,7 +2155,7 @@
 </div>
 
 </div>
-<div class="unit" id="kr-h4-u05">
+<div class="unit" id="kr-h4-u05" data-level="한글4 복잡한 모음">
 <!-- ─────────── 1쪽 · 글자 ─────────── -->
 <div class="page airy">
   <header>
@@ -2250,28 +2257,49 @@
   const now = document.querySelector('.now');
   const links = [...document.querySelectorAll('a.item')];
   const main = document.querySelector('main');
+  const printBtn = document.getElementById('print');
+  const levelBtn = document.getElementById('printLevel');
+  let level = document.querySelector('.unit.on')?.dataset.level;
   function select(a) {
     links.forEach((l) => l.classList.toggle('on', l === a));
-    document.querySelectorAll('.unit').forEach((u) => u.classList.toggle('on', u.id === a.dataset.id));
+    document.querySelectorAll('.unit').forEach((u) => {
+      const on = u.id === a.dataset.id;
+      u.classList.toggle('on', on);
+      // 덩이 줄을 골랐으면 그 덩이 쪽만, 단원 줄이면 전부.
+      u.querySelectorAll('.part').forEach((pt) => pt.classList.toggle('hide', on && !!a.dataset.part && pt.dataset.part !== a.dataset.part));
+      if (on) level = u.dataset.level;
+    });
     now.textContent = a.dataset.name;
+    printBtn.textContent = a.dataset.part ? '🖨 이 부분 인쇄' : '🖨 이 단원 인쇄';
+    levelBtn.textContent = '📘 ' + level + ' 인쇄';
     // ⚠️ file:// 에서는 replaceState 가 던질 수 있다 — 그것 때문에 전환이 멈추면 안 된다.
-    try { history.replaceState(null, '', '#' + a.dataset.id); } catch {}
+    try { history.replaceState(null, '', '#' + a.dataset.id + (a.dataset.part ? '~' + a.dataset.part : '')); } catch {}
     main.scrollTop = 0;
   }
   links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
-  document.getElementById('print').addEventListener('click', () => window.print());
-  // 전체 인쇄 — 인쇄 규칙이 .on 만 남기므로, 잠깐 전부 켰다가 인쇄가 끝나면 되돌린다.
-  document.getElementById('printAll').addEventListener('click', () => {
+  printBtn.addEventListener('click', () => window.print());
+  // 여러 단원 인쇄 — 인쇄 규칙이 .on 만 남기므로, 잠깐 켜고(덩이 가림도 풀고) 인쇄가 끝나면 되돌린다.
+  function printUnits(pick) {
     const units = [...document.querySelectorAll('.unit')];
+    const parts = [...document.querySelectorAll('.part')];
     const was = units.filter((u) => u.classList.contains('on'));
-    units.forEach((u) => u.classList.add('on'));
-    const restore = () => { units.forEach((u) => u.classList.toggle('on', was.includes(u))); };
+    const hidden = parts.filter((pt) => pt.classList.contains('hide'));
+    units.forEach((u) => u.classList.toggle('on', pick(u)));
+    parts.forEach((pt) => pt.classList.remove('hide'));
+    const restore = () => {
+      units.forEach((u) => u.classList.toggle('on', was.includes(u)));
+      hidden.forEach((pt) => pt.classList.add('hide'));
+    };
     window.addEventListener('afterprint', restore, { once: true });
     window.print();
     // afterprint 를 안 쏘는 브라우저가 있어 보험을 하나 더 둔다.
     setTimeout(restore, 3000);
-  });
+  }
+  document.getElementById('printAll').addEventListener('click', () => printUnits(() => true));
+  levelBtn.addEventListener('click', () => printUnits((u) => u.dataset.level === level));
   // 주소에 단원이 적혀 있을 때만 옮긴다 — 없으면 마크업이 이미 켜 둔 첫 단원을 그대로 둔다.
-  const want = links.find((l) => l.dataset.id === location.hash.slice(1));
+  const [wantUnit, wantPart] = decodeURIComponent(location.hash.slice(1)).split('~');
+  const want = links.find((l) => l.dataset.id === wantUnit && (l.dataset.part ?? '') === (wantPart ?? ''))
+    ?? links.find((l) => l.dataset.id === wantUnit && !l.dataset.part);
   if (want) select(want);
 </script>

@@ -51,7 +51,11 @@ export function WorksheetPanel({
         // 🔴 워크지는 여러 쪽 HTML 이라 페이지 인쇄가 아니라 인쇄물을 그 단원으로 새 탭에서 연다(해시로 단원 선택).
         onPrint={() => {
           trackActivity('activity_print', { kind: item.kind, key: item.key });
-          window.open(`${PRINT_FILE[item.kind]}#${item.key}`, '_blank', 'noopener');
+          window.open(
+            `${PRINT_FILE[item.kind]}#${item.key}${part ? `~${part.id}` : ''}`,
+            '_blank',
+            'noopener'
+          );
         }}
       />
       {finished && (

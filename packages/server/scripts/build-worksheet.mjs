@@ -231,6 +231,9 @@ const STYLE = `<style>
     break-after: page; text-align: center; background: #fff; }
   /* 🔴 종이는 흰색 — 크림 배경을 print-color-adjust:exact 로 A4 한 장 통째로 찍어 잉크가 너무 들었다(2026-09-15 사용자). 색은 테두리·글자에만. */
   .page:last-child { break-after: auto; }
+  /* 소리 덩이 묶음(.part)으로 쪽을 감싸도 덩이 사이는 새 종이 — 마지막 덩이의 마지막 쪽만 끊지 않는다. */
+  .part > .page:last-child { break-after: page; }
+  .part:last-child > .page:last-child { break-after: auto; }
   /* 1쪽처럼 내용이 적은 장은 칸을 더 넣지 말고 **사이를 벌려** 채운다. */
   .page.airy { justify-content: space-between; gap: 0; }
   @media screen {
@@ -726,9 +729,11 @@ function renderPatternPages({ head, spec, words }) {
     (imgOf(w) ? '<img class="rpic" src="' + imgOf(w) + '" alt="">' : '') +
     box(w, 'lg wd') + BLANKS + '</div>';
   const out = [];
-  spec.patternPages.forEach(({ pat, firstWord, words: ws }, i) => {
+  spec.patternPages.forEach(({ pat, firstWord, words: ws }) => {
+    out.push('<div class="part" data-part="' + esc(pat.text) + '">');
     const rows = ws.map(picRow);
-    const top = i === 0
+    // 🔴 소리 덩이마다 따로 뽑을 수 있다(2026-09-15 사용자) — 그래서 덩이마다 첫 쪽에 이름·날짜 머리를 둔다.
+    const top = true
       ? '<header><div class="plogo"></div><div class="ttl">' + UNIT + ' ' + head.unitNo + '. <em>' + spec.glyph + '</em><small>' + spec.sub + '</small></div><div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div></header>'
       : '<div class="runhead"><div class="plogo"></div><b>' + UNIT + ' ' + head.unitNo + '. ' + spec.glyph + '</b><span>' + pat.label + '</span></div>';
     const xlf = Math.floor((Math.min(105, Math.floor(255 / [...pat.text].length)) * PATTERN_XL) / 57);
@@ -738,7 +743,7 @@ function renderPatternPages({ head, spec, words }) {
       '<section><h2 data-n="1">' + pat.label + ' 을 알아봐요</h2><div class="learn"><div class="glyph">' + pat.label + '</div><dl><dt>소리</dt><dd>' + esc(say) + '</dd><dt>알아두기</dt><dd style="font-weight:400">' + (pat.onset ? '앞소리는 두 글자를 한 번에 이어서 소리 내요' : '뒤가 같으면 앞 글자만 바꿔도 새 낱말이 돼요') + '</dd></dl></div></section>' +
       '<section><h2 data-n="2">크게 써 봐요 <span class="hint">쓸 때마다 “' + pat.label + '” 하고 소리 내요</span></h2><div class="row" style="--xl:' + PATTERN_XL + 'mm;--xlf:' + xlf + 'pt">' + Array.from({ length: 3 }, () => box(pat.text, 'xl en')).join('') + '</div></section>' +
       '<section><h2 data-n="3">이제 작게 써요</h2>' + syllableBlock([comboRow(pat.label, pat.text, true)], 22, true) + '</section>' +
-      '<section><h2 data-n="4">' + pat.label + ' 낱말을 써요 <span class="hint">그림을 보고 소리 내어 읽으며 써요</span></h2>' + syllableBlock(rows.slice(0, PATTERN_FIRST_ROWS), i === 0 ? 74 : 79, true) + '</section>' +
+      '<section><h2 data-n="4">' + pat.label + ' 낱말을 써요 <span class="hint">그림을 보고 소리 내어 읽으며 써요</span></h2>' + syllableBlock(rows.slice(0, PATTERN_FIRST_ROWS), 74, true) + '</section>' +
       '</div>'
     );
     for (let at = PATTERN_FIRST_ROWS; at < rows.length; at += 10) {
@@ -747,6 +752,7 @@ function renderPatternPages({ head, spec, words }) {
         '<section><h2 data-n="4">' + pat.label + ' 낱말을 써요 <span class="hint">이어서 써요</span></h2>' + syllableBlock(rows.slice(at, at + 10), ROOM.more - 14, true) + '</section></div>'
       );
     }
+    out.push('</div>');
   });
   return out.join('');
 }
@@ -982,6 +988,8 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
   main { overflow-y:auto; min-width:0; }
   .unit { display:none; }
   .unit.on { display:block; }
+  .part.hide { display:none !important; }
+  a.item.sub { padding:5px 18px 5px 58px; font-size:14px; font-weight:700; color:var(--ink-600); }
 
   aside { background:var(--cream); border-right:1px solid var(--peach-200); overflow-y:auto; padding:16px 0 40px; text-align:left; }
   aside h1 { font-size:17px; font-weight:800; letter-spacing:-.03em; padding:4px 18px 12px; }
@@ -1038,7 +1046,9 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
           .map(
             (it) =>
               `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(it.glyph)}">` +
-              `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`
+              `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>` +
+              // 소리 덩이마다 한 줄 — 누르면 그 덩이 쪽만 보이고 「이 부분 인쇄」가 그것만 뽑는다.
+              it.parts.map((pt) => `<a class="item sub" href="#${it.id}~${esc(pt.id)}" data-id="${it.id}" data-part="${esc(pt.id)}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(pt.label)}">${esc(pt.label)}</a>`).join('')
           )
           .join('')
     )
@@ -1050,6 +1060,8 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
     <span class="now">${esc(first.levelName)} · ${L.unit} ${first.unitNo} · ${esc(first.glyph)}</span>
     <span class="sp"></span>
     <button id="print">🖨 이 단원 인쇄</button>
+    <!-- 권(Book·한글1…) 단위 인쇄 — 지금 보는 단원의 권 전체(2026-09-15 사용자). -->
+    <button id="printLevel">📘 ${esc(first.levelName)} 인쇄</button>
     <!-- 🔴 전체 인쇄는 **이 단원 인쇄 옆**이다(2026-08-19 사용자). 사이드바 맨 위에 있을 땐
          단원 목록의 머리처럼 보여서, 인쇄하러 온 사람이 목록을 스크롤하다 지나쳐 버렸다.
          두 인쇄 버튼은 같은 일의 범위 차이라 나란히 있어야 고르기가 된다.
@@ -1068,36 +1080,57 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
   </div>
   <!-- 🔴 첫 단원은 마크업에서 이미 켜 둔다. 전부 display:none 으로 두고 JS 로만 켜면,
        스크립트가 한 줄이라도 막히는 환경(확장·정책·구형 브라우저)에서 **백지**가 된다. -->
-  ${items.map((it, i) => `<div class="unit${i === 0 ? ' on' : ''}" id="${it.id}">${it.pages}</div>`).join('\n')}
+  ${items.map((it, i) => `<div class="unit${i === 0 ? ' on' : ''}" id="${it.id}" data-level="${esc(it.levelName)}">${it.pages}</div>`).join('\n')}
 </main>
 
 <script>
   const now = document.querySelector('.now');
   const links = [...document.querySelectorAll('a.item')];
   const main = document.querySelector('main');
+  const printBtn = document.getElementById('print');
+  const levelBtn = document.getElementById('printLevel');
+  let level = document.querySelector('.unit.on')?.dataset.level;
   function select(a) {
     links.forEach((l) => l.classList.toggle('on', l === a));
-    document.querySelectorAll('.unit').forEach((u) => u.classList.toggle('on', u.id === a.dataset.id));
+    document.querySelectorAll('.unit').forEach((u) => {
+      const on = u.id === a.dataset.id;
+      u.classList.toggle('on', on);
+      // 덩이 줄을 골랐으면 그 덩이 쪽만, 단원 줄이면 전부.
+      u.querySelectorAll('.part').forEach((pt) => pt.classList.toggle('hide', on && !!a.dataset.part && pt.dataset.part !== a.dataset.part));
+      if (on) level = u.dataset.level;
+    });
     now.textContent = a.dataset.name;
+    printBtn.textContent = a.dataset.part ? '🖨 이 부분 인쇄' : '🖨 이 단원 인쇄';
+    levelBtn.textContent = '📘 ' + level + ' 인쇄';
     // ⚠️ file:// 에서는 replaceState 가 던질 수 있다 — 그것 때문에 전환이 멈추면 안 된다.
-    try { history.replaceState(null, '', '#' + a.dataset.id); } catch {}
+    try { history.replaceState(null, '', '#' + a.dataset.id + (a.dataset.part ? '~' + a.dataset.part : '')); } catch {}
     main.scrollTop = 0;
   }
   links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
-  document.getElementById('print').addEventListener('click', () => window.print());
-  // 전체 인쇄 — 인쇄 규칙이 .on 만 남기므로, 잠깐 전부 켰다가 인쇄가 끝나면 되돌린다.
-  document.getElementById('printAll').addEventListener('click', () => {
+  printBtn.addEventListener('click', () => window.print());
+  // 여러 단원 인쇄 — 인쇄 규칙이 .on 만 남기므로, 잠깐 켜고(덩이 가림도 풀고) 인쇄가 끝나면 되돌린다.
+  function printUnits(pick) {
     const units = [...document.querySelectorAll('.unit')];
+    const parts = [...document.querySelectorAll('.part')];
     const was = units.filter((u) => u.classList.contains('on'));
-    units.forEach((u) => u.classList.add('on'));
-    const restore = () => { units.forEach((u) => u.classList.toggle('on', was.includes(u))); };
+    const hidden = parts.filter((pt) => pt.classList.contains('hide'));
+    units.forEach((u) => u.classList.toggle('on', pick(u)));
+    parts.forEach((pt) => pt.classList.remove('hide'));
+    const restore = () => {
+      units.forEach((u) => u.classList.toggle('on', was.includes(u)));
+      hidden.forEach((pt) => pt.classList.add('hide'));
+    };
     window.addEventListener('afterprint', restore, { once: true });
     window.print();
     // afterprint 를 안 쏘는 브라우저가 있어 보험을 하나 더 둔다.
     setTimeout(restore, 3000);
-  });
+  }
+  document.getElementById('printAll').addEventListener('click', () => printUnits(() => true));
+  levelBtn.addEventListener('click', () => printUnits((u) => u.dataset.level === level));
   // 주소에 단원이 적혀 있을 때만 옮긴다 — 없으면 마크업이 이미 켜 둔 첫 단원을 그대로 둔다.
-  const want = links.find((l) => l.dataset.id === location.hash.slice(1));
+  const [wantUnit, wantPart] = decodeURIComponent(location.hash.slice(1)).split('~');
+  const want = links.find((l) => l.dataset.id === wantUnit && (l.dataset.part ?? '') === (wantPart ?? ''))
+    ?? links.find((l) => l.dataset.id === wantUnit && !l.dataset.part);
   if (want) select(want);
 </script>
 `;
@@ -1210,7 +1243,7 @@ async function main() {
     const pageCount = (pages.match(/<div class="page/g) || []).length;
     const html = wrap(`${L.name} · ${u.levelName} ${L.unit} ${unitNo} · ${spec.glyph}`, pages, lang);
     await writeFile(new URL(`${u.id}.html`, outDir), html, 'utf8');
-    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages, pageCount });
+    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages, pageCount, parts: (spec.patternPages ?? []).map(({ pat }) => ({ id: pat.text, label: pat.label })) });
     report.push({
       단원: u.id,
       종류: L.kinds[kind],
