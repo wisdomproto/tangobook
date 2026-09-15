@@ -353,6 +353,8 @@ const STYLE = `<style>
     background: left center/contain no-repeat var(--logo); }
   .runhead .plogo { width: 30mm; height: 8.5mm; margin-right: 3mm; }
   .srow { display: flex; align-items: center; gap: 2.5mm; justify-content: center; }
+  .srow .wlbl { width: 26mm; flex: none; text-align: right; font-size: 15pt; font-weight: 700; }
+  .srow .wlbl u { color: var(--coral); text-decoration-thickness: .5mm; text-underline-offset: 1mm; }
   /* 영어 낱말 줄 맨 앞 그림 — 낱말을 따로 모아 보여 주던 쪽을 없애고 그림을 쓰는 줄에 붙였다. */
   .srow .rpic { width: calc(var(--lg) * 1.3); height: calc(var(--lg) * 1.3); object-fit: contain; flex: none;
     border: .4mm solid var(--peach-200); border-radius: 2mm; background: #fff; }
@@ -652,6 +654,12 @@ function enUnitSpec(u, lesson) {
       meetTitle: `${pairs.join(' · ')} 소리로 시작하는 낱말이에요`,
       // 🔴 Book 1 은 낱말을 통째로 쓰지 않는다 — **첫 글자만**.
       traceMode: 'initial',
+      // 🔴 글자 하나를 끝까지(알아보기 → 크게 → 작게 → 그림 보고 첫 글자) 한 뒤 다음 글자 — 글자마다 따로 뽑는다
+      //    (2026-09-15 사용자: 「A 따로, B 따로」). renderLetterPages 가 이걸로 찍는다.
+      letterPages: pairs.map((pair, i) => ({
+        pair,
+        words: (families[i]?.words ?? []).map((w) => w.word),
+      })),
       // 줄은 renderPages 가 낱말에서 만든다 — 글자마다 한 줄이면 3줄이라 쪽의 3/4 가 빈다.
     };
   }
@@ -757,9 +765,51 @@ function renderPatternPages({ head, spec, words }) {
   return out.join('');
 }
 
+/** Book 1 — 글자(Aa)마다 한 묶음. 쪽 틀은 renderPatternPages 와 같다(머리 · ① 알아보기 · ② 크게 · ③ 작게 · ④ 그림 줄). */
+const LETTER_XL = 40;
+function renderLetterPages({ head, spec, words }) {
+  const UNIT = head.unitLabel ?? '익힘';
+  const imgOf = (w) => words.find((x) => x.word.toLowerCase() === w.toLowerCase())?.img;
+  const out = [];
+  spec.letterPages.forEach(({ pair, words: ws }) => {
+    const [up, low] = [...pair];
+    const kw = ws[0] ?? '';
+    // 그림 · 낱말(쓸 글자에 밑줄) · 첫 글자 칸 + 빈 칸 셋
+    const rows = ws.map((w) => {
+      const i = Math.max(0, w.toLowerCase().indexOf(low.toLowerCase()));
+      return (
+        '<div class="srow">' +
+        (imgOf(w) ? '<img class="rpic" src="' + imgOf(w) + '" alt="">' : '') +
+        '<span class="wlbl">' + esc(w.slice(0, i)) + '<u>' + esc(w[i]) + '</u>' + esc(w.slice(i + 1)) + '</span>' +
+        box(low, 'lg') + Array.from({ length: 3 }, () => box('', 'lg')).join('') +
+        '</div>'
+      );
+    });
+    const head1 = '<header><div class="plogo"></div><div class="ttl">' + UNIT + ' ' + head.unitNo + '. <em>' + spec.glyph + '</em><small>' + pair + '</small></div><div class="meta"><span>이름 <i class="fill"></i></span><span>날짜 <i class="fill"></i></span></div></header>';
+    const xlf = Math.floor((105 * LETTER_XL) / 57);
+    out.push(
+      '<div class="part" data-part="' + esc(low.toLowerCase()) + '"><div class="page">' + head1 +
+      '<section><h2 data-n="1">' + pair + ' 를 알아봐요</h2><div class="learn"><div class="glyph">' + pair + '</div><dl><dt>소리</dt><dd>' + esc(kw ? kw + ' 의 첫소리' : pair) + '</dd><dt>알아두기</dt><dd style="font-weight:400">대문자와 소문자는 짝이에요 — 모양은 달라도 소리는 같아요</dd></dl></div></section>' +
+      '<section><h2 data-n="2">크게 써 봐요 <span class="hint">쓸 때마다 “' + esc(kw) + '” 의 첫소리를 내요</span></h2><div class="row" style="--xl:' + LETTER_XL + 'mm;--xlf:' + xlf + 'pt">' + [up, low, up, low].map((c) => box(c, 'xl en')).join('') + '</div></section>' +
+      '<section><h2 data-n="3">이제 작게 써요</h2>' + syllableBlock(['<div class="srow">' + box(up, 'lg') + box('', 'lg') + box('', 'lg') + box(low, 'lg') + box('', 'lg') + box('', 'lg') + '</div>'], 22) + '</section>' +
+      '<section><h2 data-n="4">낱말의 첫 글자를 써요 <span class="hint">그림을 보고 소리를 낸 뒤, 밑줄 친 글자를 써요</span></h2>' + syllableBlock(rows.slice(0, PATTERN_FIRST_ROWS), 74) + '</section>' +
+      '</div>'
+    );
+    for (let at = PATTERN_FIRST_ROWS; at < rows.length; at += 10) {
+      out.push(
+        '<div class="page"><div class="runhead"><div class="plogo"></div><b>' + UNIT + ' ' + head.unitNo + '. ' + spec.glyph + '</b><span>' + pair + '</span></div>' +
+        '<section><h2 data-n="4">낱말의 첫 글자를 써요 <span class="hint">이어서 써요</span></h2>' + syllableBlock(rows.slice(at, at + 10), ROOM.more - 14) + '</section></div>'
+      );
+    }
+    out.push('</div>');
+  });
+  return out.join('');
+}
+
 /** 한 단원의 3쪽 마크업. 스타일은 STYLE 로 분리해 합본에서 한 번만 싣는다. */
 function renderPages({ head, spec, words }) {
   if (spec.patternPages) return renderPatternPages({ head, spec, words });
+  if (spec.letterPages) return renderLetterPages({ head, spec, words });
   const UNIT = head.unitLabel ?? '익힘';
   const splitMeet = words.length > 6;
   // 🔴 8장을 3열에 두면 마지막 줄에 2장만 남아 아래가 통째로 빈다 — 장수로 열을 정하고,
@@ -1243,7 +1293,9 @@ async function main() {
     const pageCount = (pages.match(/<div class="page/g) || []).length;
     const html = wrap(`${L.name} · ${u.levelName} ${L.unit} ${unitNo} · ${spec.glyph}`, pages, lang);
     await writeFile(new URL(`${u.id}.html`, outDir), html, 'utf8');
-    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages, pageCount, parts: (spec.patternPages ?? []).map(({ pat }) => ({ id: pat.text, label: pat.label })) });
+    index.push({ id: u.id, unitNo, levelName: u.levelName, glyph: spec.glyph, words: words.map((w) => w.word).join(' '), pages, pageCount, parts: spec.letterPages
+      ? spec.letterPages.map(({ pair }) => ({ id: pair[1].toLowerCase(), label: pair }))
+      : (spec.patternPages ?? []).map(({ pat }) => ({ id: pat.text, label: pat.label })) });
     report.push({
       단원: u.id,
       종류: L.kinds[kind],
