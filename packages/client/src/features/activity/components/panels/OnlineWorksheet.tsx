@@ -18,8 +18,8 @@ const PREFIX = 'activity-write';
  *
  * 🔴 워크지처럼 작은 칸을 화면에 다 깔지 않는다 — 네 살 손가락으로는 못 쓴다(2026-09-14 사용자와 합의).
  *    칸을 누르면 그 글자가 큰 칸에 뜬다.
- * 🔴 **맞히면 곧바로 다음 판**(2026-09-15 사용자) — 소리를 기다리지 않는다. 한글 글자·음절은 3번(`reps`),
- *    남은 횟수가 있으면 같은 글자 새 칸, 다 채우면 다음 안 쓴 칸. 소리는 뒤에서 이어 난다.
+ * 🔴 **소리가 다 끝난 뒤 다음 판**(2026-09-15 사용자 — 곧바로 넘기던 것을 뒤집음). 한글 글자·음절은 3번(`reps`),
+ *    남은 횟수가 있으면 같은 글자 새 칸, 다 채우면 다음 안 쓴 칸.
  * 🔴 소리 순서·채점은 앱 복습 쓰기(`ReviewWriteActivity`)와 같은 부품이다 — 글자마다 이어읽기(고 → 고기,
  *    영어는 `writeStepRead`), 다 쓰면 [소리 → 쉼 → 띵동], 마지막 칸이면 칭찬.
  */
@@ -63,6 +63,8 @@ export function OnlineWorksheet({
    *    끊긴 체인이 다음 단계로 새지 않게 단계마다 세대를 본다.
    */
   const soundGen = useRef(0);
+  /** 다 쓴 판의 소리가 나는 중 — 끝날 때까지 쓴 칸을 그대로 두고 다음으로 안 넘어간다. */
+  const [waiting, setWaiting] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const { say, chime, rest, sayThenChime, praiseVisible } = useActivitySound({
     unitId,
@@ -97,6 +99,7 @@ export function OnlineWorksheet({
   const pick = (i: number) => {
     soundGen.current++;
     writtenCellsRef.current = [];
+    setWaiting(false);
     setIdx(i);
   };
 
@@ -150,15 +153,21 @@ export function OnlineWorksheet({
       void sayThenChime(cell.sound, { praise: true, onDone, directUrl: book1?.ttsUrl });
       return;
     }
-    // 곧바로 다음 판 — 같은 글자에 남은 횟수가 있으면 그대로(새 칸), 아니면 뒤에서 처음 만나는 안 쓴 칸.
-    if (done(idx)) {
-      const after = cells.findIndex((_, i) => i > idx && !done(i));
-      setIdx(after >= 0 ? after : cells.findIndex((_, i) => !done(i)));
-    }
-    // 소리는 뒤에서 [낱말 → 쉼 → 띵동]. 아이가 벌써 다음 판을 쓰기 시작하면 그 체인이 세대를 올려 남은 단계를 버린다.
+    // 🔴 [낱말 → 쉼 → 띵동]이 **다 끝난 뒤** 다음 판(2026-09-15 사용자: 「너무 바로 넘어가」 — 09-15 오전의
+    //    「곧바로 다음 판」을 뒤집었다). 같은 글자에 남은 횟수가 있으면 그대로(새 칸), 아니면 뒤에서 처음 만나는 안 쓴 칸.
+    //    그 사이 다른 칸을 누르면 pick 이 세대를 올려 넘어가기를 버린다(쓴 횟수는 이미 셌다).
+    setWaiting(true);
     const gen = ++soundGen.current;
     const live = () => gen === soundGen.current;
-    void say(cell.sound, () => live() && rest(() => live() && chime()), book1?.ttsUrl);
+    const advance = () => {
+      if (!live()) return;
+      setWaiting(false);
+      if (done(idx)) {
+        const after = cells.findIndex((_, i) => i > idx && !done(i));
+        setIdx(after >= 0 ? after : cells.findIndex((_, i) => !done(i)));
+      }
+    };
+    void say(cell.sound, () => live() && rest(() => live() && chime(advance)), book1?.ttsUrl);
   }, [cell, cells, idx, counts, repsOf, say, rest, chime, sayThenChime, onDone, book1]);
 
   if (!cell) return null;
@@ -213,7 +222,7 @@ export function OnlineWorksheet({
             <b className="text-coral-600">{cell.reveal[0]}</b>
             {cell.reveal.slice(1)} 의 첫 글자를 써요{' '}
             {/* 다 쓴 칸(완성 소리가 나는 중)엔 안 둔다 — 누르면 완성 소리와 서로 끊어 낱말을 한 번도 끝까지 못 듣는다. */}
-            {!isDone(idx) && (
+            {!isDone(idx) && !waiting && (
               <button
                 onClick={() => void say(cell.sound)}
                 aria-label="낱말 듣기"
@@ -242,7 +251,7 @@ export function OnlineWorksheet({
               className="aspect-square w-24 shrink-0 rounded-2xl bg-white object-contain shadow-sm sm:w-48"
             />
           )}
-          <div className="min-w-0 flex-1">
+          <div className={cn('min-w-0 flex-1', waiting && 'pointer-events-none')}>
             {isDone(idx) ? (
               <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 shadow-pop">
                 <span className="font-display text-[clamp(3rem,12vw,7rem)] font-black leading-none text-mint-600">
@@ -254,7 +263,8 @@ export function OnlineWorksheet({
               </div>
             ) : (
               <WordFillCanvas
-                key={`${unitId}-${idx}-${counts[idx] ?? 0}`}
+                // 소리가 끝날 때까지 방금 쓴 칸을 그대로 둔다 — 횟수는 이미 올렸으니 하나 빼서 같은 키.
+                key={`${unitId}-${idx}-${(counts[idx] ?? 0) - (waiting ? 1 : 0)}`}
                 word={cell.write}
                 syllables={[...cell.write]}
                 order={cell.order}
