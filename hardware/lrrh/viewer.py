@@ -1,155 +1,123 @@
 # -*- coding: utf-8 -*-
-"""빨간모자 블록 3D 뷰어 — 한 장짜리 HTML (out/viewer.html). 마우스로 돌리고 확대해 본다.
+"""블록 모아 보기 — 한 장짜리 HTML (out/viewer.html). 블록마다 3D 카드 + STL 다운로드 버튼.
 
-실행:  python viewer.py      (blocks.py 형상을 GLB 로 구워 data URI 로 박는다 — 파일 하나면 된다)
-보기 = three.js(jsdelivr 모듈) — 형상은 페이지에 배열로 박혀 있어 **아무것도 fetch 하지 않는다**.
-       (model-viewer 는 GLB 를 fetch 해서 앱 미리보기 패널에서 DataCloneError 로 죽었다.)
+실행:  python blocks.py && python sticker_block.py && python viewer.py
+  · 형상은 **내보낸 STL 그대로** 읽어 페이지에 배열로 박는다 — 보이는 것과 받는 파일이 같은 삼각형이다.
+  · 다운로드는 그 배열로 브라우저에서 이진 STL 을 만들어 준다. 🔴 페이지는 아무것도 fetch 하지 않는다
+    (앱 미리보기 패널이 fetch 를 가로채다 `DataCloneError` 로 죽었다, 2026-09-14).
 """
-import base64, io, os, tempfile
-import numpy as np
+import base64, json, os
 import trimesh
-import cadquery as cq
 import blocks as B
+import sticker_block as S
 
-OUT = B.OUT
-PAPER = (0.98, 0.97, 0.93)
-
-
-def mesh(shape, rgb, tol=0.05):
-    f = os.path.join(tempfile.mkdtemp(), 'p.stl')
-    cq.exporters.export(shape, f, tolerance=tol, angularTolerance=0.2)
-    m = trimesh.load(f)
-    m.visual.face_colors = [int(c * 255) for c in rgb] + [255]
-    return m
+STICKER = (0.93, 0.62, 0.36)
 
 
-def pack(parts):
-    """형상 → {색, 꼭짓점 Float32, 면 Uint32} base64. 🔴 GLB 를 fetch 로 읽히면 앱 미리보기 패널이
-    요청을 가로채다 `DataCloneError: Request object could not be cloned` 로 죽는다(2026-09-14 실측).
-    그래서 페이지가 아무것도 요청하지 않게 배열을 그대로 박는다."""
-    rot = trimesh.transformations.rotation_matrix(-np.pi / 2, (1, 0, 0))   # CAD +Z 위 → three.js +Y 위
-    out = []
-    for shape, rgb in parts:
-        m = mesh(shape, rgb)
-        m.apply_transform(rot)
-        out.append({'c': [round(float(c), 3) for c in rgb],
-                    'v': base64.b64encode(m.vertices.astype('<f4').tobytes()).decode(),
-                    'f': base64.b64encode(m.faces.astype('<u4').tobytes()).decode()})
+def items():
+    C = B.COLORS
+    out = [
+        ('road_1x2', '길 조각 1×2', f'2단 · 양 긴 변 턱 {B.LIP_W}×{B.LIP_T} · 종이 {B.paper_size(12, 6, B.ROAD_TOP_INSET)[0]:.1f}×{B.paper_size(12, 6, B.ROAD_TOP_INSET)[1]:.1f}', C['road']),
+        ('object_1x1', '고정물 1×1', f'나무·빨간모자·늑대 공용 · 종이 {B.paper_size(6, 6)[0]:.1f}×{B.paper_size(6, 6)[1]:.1f}', C['tree']),
+        ('house_1x1', '집 1×1', '고정물 + 굴뚝(문 방향) · 굴뚝 밑으로 종이가 지나간다', C['house']),
+    ]
+    for name, nx, ny in S.SIZES:
+        sw, sd, sr = S.sticker_size(nx, ny)
+        out.append((f'sticker_{name}', f'스티커 블록 {name.replace("x", "×")}',
+                    f'사방 턱 {S.RIM_W}×{S.RIM_H} · 모서리 R{S.CORNER_R:.0f} · 스티커 {sw:.1f}×{sd:.1f} R{sr:.2f}', STICKER))
     return out
 
 
-def paper_sheet(nx, ny, top_inset, h, out=0.0):
-    pl, pw = B.paper_size(nx, ny, top_inset)
-    tw = B.footprint(nx, ny)[0] - 2 * top_inset
-    return (cq.Workplane('XY').box(pl, pw, 0.25, centered=(False, True, False))
-            .translate((tw / 2 - B.PAPER_INSET - pl - out, 0, h - B.LIP_T - B.SLOT_H + 0.25)))
+def pack(name, title, sub, rgb):
+    stl = os.path.join(B.OUT, name + '.stl')
+    assert os.path.exists(stl), f'{stl} 없음 — blocks.py / sticker_block.py 를 먼저 돌린다'
+    m = trimesh.load(stl)
+    e = m.extents
+    return {'n': name, 't': title, 's': f'{e[0]:.1f}×{e[1]:.1f}×{e[2]:.1f}mm · {sub}',
+            'c': [round(float(c), 3) for c in rgb],
+            'v': base64.b64encode(m.vertices.astype('<f4').tobytes()).decode(),
+            'f': base64.b64encode(m.faces.astype('<u4').tobytes()).decode()}
 
 
 def main():
-    C = B.COLORS
-    import sticker_block as S
-    sw, sd, sr = S.sticker_size()
-    views = [
-        ('스티커 블록 4×6', f'{B.footprint(S.NX, S.NY)[0]:.1f}×{B.footprint(S.NX, S.NY)[1]:.1f}×{S.H}mm · 사방 턱 {S.RIM_W}×{S.RIM_H} · 모서리 R{S.CORNER_R:.0f} · 스티커 {sw:.1f}×{sd:.1f} R{sr:.2f}',
-         [(S.sticker_block(), (0.93, 0.62, 0.36))]),
-        ('길 조각 1×2', f'2단 · {B.footprint(12, 6)[0]:.1f}×{B.footprint(12, 6)[1]:.1f}×{B.ROAD_H:.0f}mm · 양 긴 변 턱 {B.LIP_W}×{B.LIP_T} · 종이 {B.paper_size(12, 6, B.ROAD_TOP_INSET)[0]:.1f}×{B.paper_size(12, 6, B.ROAD_TOP_INSET)[1]:.1f}',
-         [(B.road(), C['road'])]),
-        ('고정물 1×1', f'{B.footprint(6, 6)[0]:.1f}×{B.footprint(6, 6)[1]:.1f}×{B.OBJ_H:.0f}mm · 나무·빨간모자·늑대 공용 · 종이 {B.paper_size(6, 6)[0]:.1f}×{B.paper_size(6, 6)[1]:.1f}',
-         [(B.obj(), C['tree'])]),
-        ('집 (굴뚝 = 문 방향)', f'고정물 + 굴뚝 {B.CHIMNEY[0]:.0f}×{B.CHIMNEY[1]:.0f}×{B.CHIMNEY[2]:.0f} · 굴뚝은 턱 밑면 높이에서 서서 종이가 그 밑으로 지나간다',
-         [(B.house(), C['house'])]),
-        ('종이 끼우기', '열린 끝으로 밀어 넣으면 양옆 턱 밑에 잡힌다 — 반쯤 넣은 상태',
-         [(B.obj(), C['tree']), (paper_sheet(6, 6, 0, B.OBJ_H, out=20), PAPER),
-          (B.road().translate((0, -70, 0)), C['road']), (paper_sheet(12, 6, B.ROAD_TOP_INSET, B.ROAD_H, out=30).translate((0, -70, 0)), PAPER)]),
-        ('밑면 소켓', f'Ø{B.STUD_HOLE_D}×{B.STUD_HOLE_H} · 피치 {B.PITCH:.0f} — 우리 판(돌기 4.0)에 꽂힌다. 뒤집어 놓은 것',
-         [(B.obj().rotate((0, 0, 0), (1, 0, 0), 180).translate((-30, 0, B.OBJ_H)), C['wolf']),
-          (B.road().rotate((0, 0, 0), (1, 0, 0), 180).translate((30, 60, B.ROAD_H)), C['road'])]),
-        ('판 위 조립 (4×4)', '24×24 판, 한 칸 6돌기 = 48mm · 집 문은 아래 · 길 3장 · 나무 2 · 빨간모자 · 늑대',
-         [(shape, C[key]) for _, shape, key in B.scene_parts()]),
-    ]
-    items = []
-    for title, sub, parts in views:
-        items.append({'t': title, 's': sub, 'p': pack(parts)})
-        print(' ', title, f'{sum(len(x["v"]) + len(x["f"]) for x in items[-1]["p"]) // 1024}KB')
-    import json
-    data = json.dumps(items, ensure_ascii=False)
-    html = f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>빨간모자 블록 3D</title>
+    data = json.dumps([pack(*it) for it in items()], ensure_ascii=False)
+    html = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>탱고 블록 모음</title>
 <style>
-  :root {{ --bg:#f6f4f0; --ink:#2b2b2b; --mute:#777; --acc:#e8693a; }}
-  * {{ box-sizing:border-box }} html,body {{ height:100% }}
-  body {{ margin:0; background:var(--bg); color:var(--ink); font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif; display:flex; flex-direction:column }}
-  header {{ padding:10px 16px 6px; display:flex; flex-wrap:wrap; gap:6px; align-items:center }}
-  header h1 {{ font-size:15px; margin:0 12px 0 0 }}
-  button {{ border:1px solid #cfc9bf; background:#fff; color:var(--ink); padding:6px 11px; border-radius:999px; cursor:pointer; font-size:13px }}
-  button.on {{ background:var(--acc); border-color:var(--acc); color:#fff }}
-  .sub {{ padding:0 16px 6px; font-size:12px; color:var(--mute) }}
-  #stage {{ flex:1; min-height:320px; position:relative; background:radial-gradient(ellipse at 50% 40%, #fff 0%, #ece8e0 100%) }}
-  #stage canvas {{ display:block; width:100%; height:100% }}
-  .tip {{ position:fixed; right:12px; bottom:10px; font-size:11px; color:var(--mute) }}
-  #err {{ position:absolute; left:16px; top:16px; color:#b00; font-size:13px; white-space:pre-wrap }}
+  :root { --bg:#f6f4f0; --card:#fff; --ink:#2b2b2b; --mute:#777; --acc:#e8693a; --line:#e4dfd6; }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif }
+  header { padding:16px 16px 4px } h1 { font-size:18px; margin:0 } header p { margin:4px 0 0; font-size:12px; color:var(--mute) }
+  main { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; padding:12px 16px 24px }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column }
+  .view { height:260px; background:radial-gradient(ellipse at 50% 40%, #fff 0%, #ece8e0 100%); touch-action:none }
+  .view canvas { display:block; width:100%; height:100% }
+  .meta { padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px }
+  .meta b { font-size:15px } .meta span { font-size:12px; color:var(--mute); line-height:1.4 }
+  button { align-self:flex-start; border:0; background:var(--acc); color:#fff; padding:8px 14px; border-radius:999px; cursor:pointer; font-size:13px }
 </style>
-<script type="importmap">{{"imports":{{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}}}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
-<header><h1>빨간모자 블록</h1><div id="tabs"></div></header>
-<div class="sub" id="sub"></div>
-<div id="stage"><div id="err"></div></div>
-<div class="tip">드래그 = 돌리기 · 휠 = 확대 · 우클릭 드래그 = 이동 · 밑면은 아래로 돌려 보면 소켓이 보입니다</div>
-<script id="data" type="application/json">{data}</script>
+<header><h1>탱고 블록 모음</h1><p>드래그 = 돌리기 · 휠 = 확대 · 아래로 돌리면 밑면 소켓이 보입니다 · 버튼 = 그 블록 STL 받기</p></header>
+<main id="grid"></main>
+<script id="data" type="application/json">__DATA__</script>
 <script type="module">
 import * as THREE from 'three';
-import {{ OrbitControls }} from 'three/addons/controls/OrbitControls.js';
-import {{ toCreasedNormals }} from 'three/addons/utils/BufferGeometryUtils.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 const V = JSON.parse(document.getElementById('data').textContent);
-const stage = document.getElementById('stage');
-const renderer = new THREE.WebGLRenderer({{ antialias: true, alpha: true }});
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-stage.appendChild(renderer.domElement);
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 5000);
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; controls.autoRotate = true; controls.autoRotateSpeed = 1.2;
-controls.addEventListener('start', () => controls.autoRotate = false);
-scene.add(new THREE.HemisphereLight(0xffffff, 0xb8b0a2, 1.6));
-const key = new THREE.DirectionalLight(0xffffff, 1.8); key.position.set(1, 2, 1.4); scene.add(key);
-const fill = new THREE.DirectionalLight(0xffffff, 0.6); fill.position.set(-1.2, 0.6, -1); scene.add(fill);
-const group = new THREE.Group(); scene.add(group);
-function b64(s, T) {{ const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return new T(u.buffer); }}
-const cache = [];
-function build(i) {{
-  if (cache[i]) return cache[i];
-  const g = new THREE.Group();
-  for (const p of V[i].p) {{
-    let geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(b64(p.v, Float32Array), 3));
-    geo.setIndex(new THREE.BufferAttribute(b64(p.f, Uint32Array), 1));
-    geo = toCreasedNormals(geo, Math.PI / 6);
-    const mat = new THREE.MeshStandardMaterial({{ color: new THREE.Color(p.c[0], p.c[1], p.c[2]), roughness: 0.62, metalness: 0.0 }});
-    g.add(new THREE.Mesh(geo, mat));
-  }}
-  return cache[i] = g;
-}}
-function fit(obj) {{
-  const box = new THREE.Box3().setFromObject(obj), size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
-  const r = size.length() / 2, d = r / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 0.95;
-  const dir = new THREE.Vector3(0.62, 0.62, 0.9).normalize();
-  camera.position.copy(c).addScaledVector(dir, d); camera.near = d / 100; camera.far = d * 10; camera.updateProjectionMatrix();
-  controls.target.copy(c); controls.update();
-}}
-const tabs = document.getElementById('tabs'), sub = document.getElementById('sub');
-V.forEach((v, i) => {{ const b = document.createElement('button'); b.textContent = v.t; b.onclick = () => show(i); tabs.appendChild(b); }});
-function show(i) {{
-  [...tabs.children].forEach((b, k) => b.classList.toggle('on', k === i)); sub.textContent = V[i].s;
-  group.clear(); const g = build(i); group.add(g); fit(g); controls.autoRotate = true;
-}}
-function resize() {{ const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }}
-new ResizeObserver(resize).observe(stage); resize();
-renderer.setAnimationLoop(() => {{ controls.update(); renderer.render(scene, camera); }});
-try {{ show(0); }} catch (e) {{ document.getElementById('err').textContent = String(e); }}
-</script></body></html>'''
-    p = os.path.join(OUT, 'viewer.html')
+function b64(s, T) { const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return new T(u.buffer); }
+function downloadStl(it, pos, idx) {
+  const n = idx.length / 3, buf = new ArrayBuffer(84 + 50 * n), dv = new DataView(buf);
+  dv.setUint32(80, n, true);
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), nr = new THREE.Vector3();
+  for (let t = 0; t < n; t++) {
+    const o = 84 + 50 * t, v = k => new THREE.Vector3(pos[idx[k] * 3], pos[idx[k] * 3 + 1], pos[idx[k] * 3 + 2]);
+    a.copy(v(t * 3)); b.copy(v(t * 3 + 1)); c.copy(v(t * 3 + 2));
+    nr.subVectors(b, a).cross(c.clone().sub(a)).normalize();
+    [nr, a, b, c].forEach((p, j) => { dv.setFloat32(o + 12 * j, p.x, true); dv.setFloat32(o + 12 * j + 4, p.y, true); dv.setFloat32(o + 12 * j + 8, p.z, true); });
+  }
+  const url = URL.createObjectURL(new Blob([buf], { type: 'model/stl' }));
+  const el = Object.assign(document.createElement('a'), { href: url, download: it.n + '.stl' });
+  el.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+const views = [];
+const grid = document.getElementById('grid');
+for (const it of V) {
+  const card = document.createElement('div'); card.className = 'card';
+  card.innerHTML = '<div class="view"></div><div class="meta"><b></b><span></span><button>STL 다운로드</button></div>';
+  card.querySelector('b').textContent = it.t; card.querySelector('span').textContent = it.s;
+  grid.appendChild(card);
+  const pos = b64(it.v, Float32Array), idx = b64(it.f, Uint32Array);
+  card.querySelector('button').onclick = () => downloadStl(it, pos, idx);
+  const stage = card.querySelector('.view');
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); stage.appendChild(renderer.domElement);
+  const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(35, 1, 0.1, 5000);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xb8b0a2, 1.6));
+  const key = new THREE.DirectionalLight(0xffffff, 1.8); key.position.set(1, 2, 1.4); scene.add(key);
+  let geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setIndex(new THREE.BufferAttribute(idx, 1));
+  geo = toCreasedNormals(geo, Math.PI / 6);
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: new THREE.Color(...it.c), roughness: 0.62 }));
+  mesh.rotation.x = -Math.PI / 2;   // CAD +Z 위 → three.js +Y 위
+  scene.add(mesh);
+  const box = new THREE.Box3().setFromObject(mesh), ctr = box.getCenter(new THREE.Vector3());
+  const d = box.getSize(new THREE.Vector3()).length() / 2 / Math.sin(THREE.MathUtils.degToRad(17.5)) * 0.9;
+  camera.position.copy(ctr).addScaledVector(new THREE.Vector3(0.62, 0.62, 0.9).normalize(), d);
+  camera.near = d / 100; camera.far = d * 10;
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.copy(ctr); controls.enableDamping = true; controls.autoRotate = true; controls.autoRotateSpeed = 1.2;
+  controls.addEventListener('start', () => controls.autoRotate = false);
+  const resize = () => { const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+  new ResizeObserver(resize).observe(stage); resize();
+  views.push({ renderer, scene, camera, controls });
+}
+(function loop() { for (const v of views) { v.controls.update(); v.renderer.render(v.scene, v.camera); } requestAnimationFrame(loop); })();
+</script></body></html>'''.replace('__DATA__', data)
+    p = os.path.join(B.OUT, 'viewer.html')
     open(p, 'w', encoding='utf-8').write(html)
-    print('뷰어 →', p, f'{os.path.getsize(p) // 1024}KB')
+    print('뷰어 →', p, f'{os.path.getsize(p) // 1024}KB · 블록 {len(json.loads(data))}개')
 
 
 if __name__ == '__main__':
