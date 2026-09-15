@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import type { ActivityItem } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
+import { worksheetParts } from '../lib/online-worksheet';
 
 /**
  * 왼쪽 목록 — 갈래 ▸ (책·단원) ▸ 항목. 🔴 항목은 `<Link>`(= `<a href>`) — 크롤러가 따라간다.
@@ -144,23 +145,61 @@ function Toggle({
 }
 
 function ItemLinks({ list, currentKey }: { list: ActivityItem[]; currentKey?: string }) {
+  const [params] = useSearchParams();
   return (
     <ul>
-      {list.map((it) => (
-        <li key={it.key}>
-          <Link
-            to={it.path}
-            className={cn(
-              'block truncate rounded-lg border-l-4 px-2 py-1.5 text-sm',
-              it.key === currentKey
-                ? 'border-coral-500 bg-coral-50 font-bold text-coral-700'
-                : 'border-transparent text-ink-700 hover:bg-cream-50'
-            )}
-          >
-            {it.title}
-          </Link>
-        </li>
-      ))}
+      {list.map((it) => {
+        // 🔴 영어 워크지는 단원 아래 조각(Aa·Bb / an·at)을 한 줄씩 — 온라인은 조각 하나씩 쓴다(2026-09-15 사용자).
+        const parts = it.kind === 'english' ? worksheetParts('english', it.key) : [];
+        if (parts.length) {
+          const on = it.key === currentKey;
+          const cur = on ? (params.get('part') ?? parts[0].id) : null;
+          return (
+            <li key={it.key}>
+              <span
+                className={cn(
+                  'block truncate px-2 pt-1.5 text-xs font-bold',
+                  on ? 'text-coral-700' : 'text-ink-500'
+                )}
+              >
+                {it.title}
+              </span>
+              <ul className="ml-2 border-l border-ink-100 pl-1">
+                {parts.map((p) => (
+                  <li key={p.id}>
+                    <Link
+                      to={`${it.path}?part=${encodeURIComponent(p.id)}`}
+                      className={cn(
+                        'block truncate rounded-lg border-l-4 px-2 py-1.5 text-sm',
+                        cur === p.id
+                          ? 'border-coral-500 bg-coral-50 font-bold text-coral-700'
+                          : 'border-transparent text-ink-700 hover:bg-cream-50'
+                      )}
+                    >
+                      {p.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        }
+        return (
+          <li key={it.key}>
+            <Link
+              to={it.path}
+              className={cn(
+                'block truncate rounded-lg border-l-4 px-2 py-1.5 text-sm',
+                it.key === currentKey
+                  ? 'border-coral-500 bg-coral-50 font-bold text-coral-700'
+                  : 'border-transparent text-ink-700 hover:bg-cream-50'
+              )}
+            >
+              {it.title}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }

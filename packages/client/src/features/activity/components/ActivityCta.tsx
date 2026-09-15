@@ -24,7 +24,7 @@ export function ActivityCta({ item, next }: { item: ActivityItem; next?: Activit
         }
         className="inline-flex min-h-[44px] items-center text-sm font-bold text-ink-700 underline-offset-4 hover:underline"
       >
-        {NEXT_LABEL[item.kind]}: {next.title} →
+        {next.key === item.key ? '다음' : NEXT_LABEL[item.kind]}: {next.title} →
       </Link>
     </div>
   );

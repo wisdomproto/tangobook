@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { worksheetCells } from './online-worksheet';
+import { flattenPhonicsUnits } from '@tangobook/shared';
+import { worksheetCells, worksheetParts } from './online-worksheet';
 
 const bySection = (track: 'korean' | 'english', id: string) => {
   const m = new Map<string, string[]>();
@@ -15,12 +16,14 @@ describe('worksheetCells', () => {
     expect(s['글자 만들기']).toEqual(['가', '갸', '거', '겨', '고', '교', '구', '규', '그', '기']);
     expect(s['낱말 쓰기']).toEqual(['고기', '가구', '아기', '야구']);
   });
-  it('Korean letters and syllables are written 3 times, words once; English once', () => {
+  it('letters, syllables and English sound chunks are written 3 times, words once', () => {
     const cells = worksheetCells('korean', 'kr-h1-u02');
     expect(cells.find((c) => c.write === 'ㄱ')?.reps).toBe(3);
     expect(cells.find((c) => c.write === '가')?.reps).toBe(3);
     expect(cells.find((c) => c.write === '고기')?.reps).toBeUndefined();
-    expect(worksheetCells('english', 'en-b2-u01').every((c) => !c.reps)).toBe(true);
+    const an = worksheetCells('english', 'en-b2-u01', 'an');
+    expect(an[0]).toMatchObject({ write: 'an', reps: 3 });
+    expect(an.slice(1).every((c) => !c.reps)).toBe(true);
   });
   it('coda unit never writes the coda alone', () => {
     const s = bySection('korean', 'kr-h2-u01');
@@ -42,24 +45,31 @@ describe('worksheetCells', () => {
     ]);
     const apple = cells.find((c) => c.reveal === 'apple');
     expect(apple).toMatchObject({ write: 'a', sound: 'apple', section: 'Aa' });
-    // 글자마다 한 묶음: A · a · a 낱말 → B
-    expect(cells.slice(0, 6).map((c) => c.reveal ?? c.write)).toEqual([
-      'A',
-      'a',
-      'alligator',
-      'ant',
-      'apple',
-      'B',
-    ]);
+    // 글자마다 한 조각: A · a · a 낱말 / 그다음 조각이 B
+    expect(cells.map((c) => c.reveal ?? c.write)).toEqual(['A', 'a', 'alligator', 'ant', 'apple']);
+    expect(worksheetParts('english', 'en-b1-u01').map((p) => p.label)).toEqual(['Aa', 'Bb', 'Cc']);
+    expect(worksheetCells('english', 'en-b1-u01', 'b')[0].write).toBe('B');
     // 첫 글자가 단원 글자가 아니면 들어 있는 글자로(box 의 x)
-    expect(worksheetCells('english', 'en-b1-u08').find((c) => c.reveal === 'box')).toMatchObject({
+    expect(
+      worksheetCells('english', 'en-b1-u08', 'x').find((c) => c.reveal === 'box')
+    ).toMatchObject({
       write: 'x',
       section: 'Xx',
     });
   });
-  it('English Book 2 writes patterns then words, pattern first', () => {
-    const cells = worksheetCells('english', 'en-b2-u01');
-    expect(cells.slice(0, 2).map((c) => c.write)).toEqual(['an', 'at']);
+  it('English Book 2 splits into sound chunks: an part = an then -an words, pattern first', () => {
+    expect(worksheetParts('english', 'en-b2-u01').map((p) => p.id)).toEqual(['an', 'at']);
+    const cells = worksheetCells('english', 'en-b2-u01', 'an');
+    expect(cells.map((c) => c.write)).toEqual(['an', 'can', 'fan', 'man', 'pan']);
     expect(cells.find((c) => c.write === 'can')?.order).toEqual([1, 2, 0]);
+  });
+  it('every English sample word lands in exactly one part', () => {
+    for (const u of flattenPhonicsUnits('english')) {
+      const written = worksheetParts('english', u.id)
+        .flatMap((p) => p.cells)
+        .map((c) => c.reveal ?? (c.section === '낱말 쓰기' ? c.write : null))
+        .filter(Boolean);
+      expect([...written].sort(), u.id).toEqual([...u.sampleWords].sort());
+    }
   });
 });

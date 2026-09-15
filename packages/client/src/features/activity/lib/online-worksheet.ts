@@ -82,43 +82,79 @@ function koreanCells(u: FlatPhonicsUnit): WorksheetCell[] {
   ];
 }
 
-function englishCells(u: FlatPhonicsUnit): WorksheetCell[] {
+export interface WorksheetPart {
+  /** 주소 `?part=` 값 — Book 1 은 글자(a), Book 2~5 는 소리 덩이(an). */
+  id: string;
+  label: string;
+  cells: WorksheetCell[];
+}
+
+/**
+ * 🔴 **영어 온라인 워크지는 단원을 글자·소리 덩이로 쪼갠다**(2026-09-15 사용자: 「A 따로, B 따로」·「an, at 따로」).
+ * 왼쪽 목록도 이 조각으로 한 줄씩 나오고, 한 화면에 한 조각만 쓴다. 인쇄물은 단원 그대로.
+ */
+function englishParts(u: FlatPhonicsUnit): WorksheetPart[] {
   if (u.levelName.startsWith('Book 1')) {
-    // 🔴 **글자마다 한 묶음**(2026-09-15 사용자: 「A 따로, B 따로」) — [A · a · 그 글자 낱말들] 다음에 B.
-    // 글자 칸은 **글자 소리**(a) — Book 1 의 목표는 글자다. 낱말 칸은 그 낱말 속 그 글자를 쓴다.
+    // [A · a · 그 글자 낱말들]. 글자 칸은 **글자 소리**(a) — Book 1 의 목표는 글자다. 낱말 칸은 그 낱말 속 그 글자를 쓴다.
     // 낱말은 첫 글자로 붙이고, 첫 글자가 이 단원 글자가 아니면(x: box·fox·six) 들어 있는 글자로.
     const letterOf = (w: string) =>
       u.phonemes.find((l) => w[0].toLowerCase() === l) ??
       u.phonemes.find((l) => w.toLowerCase().includes(l));
-    return u.phonemes.flatMap((l) => {
+    return u.phonemes.map((l) => {
       const section = l.toUpperCase() + l;
-      return [
-        { section, write: l.toUpperCase(), sound: l, wordSlot: 0 },
-        { section, write: l, sound: l, wordSlot: 1 },
-        ...u.sampleWords
-          .filter((w) => letterOf(w) === l)
-          .map((w) => ({ section, write: l, sound: w, reveal: w })),
-      ];
+      return {
+        id: l,
+        label: section,
+        cells: [
+          { section, write: l.toUpperCase(), sound: l, wordSlot: 0 },
+          { section, write: l, sound: l, wordSlot: 1 },
+          ...u.sampleWords
+            .filter((w) => letterOf(w) === l)
+            .map((w) => ({ section, write: l, sound: w, reveal: w })),
+        ],
+      };
     });
   }
   const patterns = getUnitPatterns(u.id);
-  return [
-    ...u.patterns.map((p) => {
-      const core = p.replace(/^[-_]+|[-_]+$/g, '');
-      return { section: '소리 덩이 쓰기', write: core, sound: core };
-    }),
-    ...u.sampleWords.map((w) => ({
-      section: '낱말 쓰기',
-      write: w,
-      sound: w,
-      order: patternWriteOrder(w, patterns),
-      pattern: patterns.find((p) => wordMatchesPattern(w, p)),
-    })),
-  ];
+  const patternOf = (w: string) => patterns.find((p) => wordMatchesPattern(w, p));
+  return patterns.map((p) => {
+    const core = p.replace(/^[-_]+|[-_]+$/g, '');
+    return {
+      id: core,
+      label: core,
+      cells: [
+        // 소리 덩이는 3번(2026-09-15 사용자: 「an 이건 3번정도」) — 낱말은 1번.
+        { section: '소리 덩이 쓰기', write: core, sound: core, reps: LETTER_REPS },
+        ...u.sampleWords
+          // 🔴 어느 덩이에도 안 맞는 낱말은 첫 조각에 둔다 — 버리면 온라인에서 그 낱말을 영영 못 쓴다.
+          .filter((w) => (patternOf(w) ?? patterns[0]) === p)
+          .map((w) => ({
+            section: '낱말 쓰기',
+            write: w,
+            sound: w,
+            order: patternWriteOrder(w, patterns),
+            pattern: patternOf(w),
+          })),
+      ],
+    };
+  });
 }
 
-export function worksheetCells(track: 'korean' | 'english', unitId: string): WorksheetCell[] {
+/** 단원의 조각 목록 — 한글은 단원이 곧 한 조각이라 빈 배열. */
+export function worksheetParts(track: 'korean' | 'english', unitId: string): WorksheetPart[] {
+  const u = flattenPhonicsUnits(track).find((x) => x.id === unitId);
+  return u && track === 'english' ? englishParts(u) : [];
+}
+
+/** 칸 목록 — 영어는 `part` 조각만(없거나 모르는 값이면 첫 조각). */
+export function worksheetCells(
+  track: 'korean' | 'english',
+  unitId: string,
+  part?: string
+): WorksheetCell[] {
   const u = flattenPhonicsUnits(track).find((x) => x.id === unitId);
   if (!u) return [];
-  return track === 'korean' ? koreanCells(u) : englishCells(u);
+  if (track === 'korean') return koreanCells(u);
+  const parts = englishParts(u);
+  return (parts.find((p) => p.id === part) ?? parts[0])?.cells ?? [];
 }

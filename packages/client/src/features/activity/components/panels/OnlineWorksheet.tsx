@@ -56,13 +56,16 @@ function RevealWord({ word, letter }: { word: string; letter: string }) {
 export function OnlineWorksheet({
   track,
   unitId,
+  part,
   onDone,
 }: {
   track: 'korean' | 'english';
   unitId: string;
+  /** 영어 조각(글자·소리 덩이) — `worksheetParts` 의 id. */
+  part?: string;
   onDone: () => void;
 }) {
-  const cells = useMemo(() => worksheetCells(track, unitId), [track, unitId]);
+  const cells = useMemo(() => worksheetCells(track, unitId, part), [track, unitId, part]);
   const [idx, setIdx] = useState(0);
   /** 칸별로 쓴 횟수 — `reps` 에 닿으면 그 칸은 끝. */
   const [counts, setCounts] = useState<Record<number, number>>({});
