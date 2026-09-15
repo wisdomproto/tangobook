@@ -302,7 +302,8 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       );
 
       labelsRef.current = regions.labels;
-      requiredRef.current = required;
+      // 흰 칸은 팔레트에서 빠진다(`buildPalette`) — 칠할 칸도 팔레트가 가진 칸만이어야 끝이 난다.
+      requiredRef.current = pal.flatMap((p) => p.regionIds);
       sizesRef.current = regions.sizes;
       coveredRef.current = new Map();
       strokeMaskRef.current = new Uint8Array(w * h);

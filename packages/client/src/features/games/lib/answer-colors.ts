@@ -22,6 +22,15 @@ const BUCKET = 5; // 채널당 32단계로 뭉개 최빈색을 찾는다 (안티
 const BG_TOL = 26;
 /** 배경 대신 쓸 색이 칸에서 차지해야 할 최소 몫. 이보다 작으면 삐져나온 티끌이다. */
 const ALT_SHARE = 0.15;
+/**
+ * 🔴 **흰 물감은 내지 않는다**(2026-09-15 사용자: 개구리 왕자 왕관). 종이가 흰색이라 칠해도 티가 안 나고,
+ *    대개는 진짜 흰색이 아니라 어긋난 자리에 걸린 원본 배경이다(금색 왕관 몸통이 흰색으로 읽혔다).
+ *    흰색이 1등인 칸은 흰색·검은 선이 아닌 색이 `WHITE_ALT_SHARE` 만 넘어도 그 색으로 읽고,
+ *    그래도 없으면 **칠할 칸에서 뺀다**(흰 종이 그대로 두면 이미 맞다). 그림 전체가 흰색뿐일 때만 흰 물감을 남긴다.
+ */
+const WHITE_MIN = 232;
+const WHITE_ALT_SHARE = 0.04;
+const INK_MAX = 70;
 
 /** 그림의 배경색 — 네 귀퉁이 평균. 낱말 카드·삽화는 크림/흰 무지 배경이다. */
 export function cornerBackground(rgba: Uint8ClampedArray, w: number, h: number): number[] {
@@ -115,7 +124,12 @@ export function buildPalette(
     background !== undefined &&
     near([acc[1] / acc[0], acc[2] / acc[0], acc[3] / acc[0]], background as number[], BG_TOL);
 
+  const avg = (acc: number[]) => [acc[1] / acc[0], acc[2] / acc[0], acc[3] / acc[0]];
+  const isWhite = (acc: number[]): boolean => avg(acc).every((v) => v >= WHITE_MIN);
+  const isInk = (acc: number[]): boolean => avg(acc).every((v) => v <= INK_MAX);
+
   const rgbOfRegion = new Map<number, number[]>();
+  const whiteRgb = new Map<number, number[]>();
   for (const id of regionIds) {
     const bins = [...(hist.get(id) as Map<number, number[]>).values()].sort((a, b) => b[0] - a[0]);
     const total = bins.reduce((n, acc) => n + acc[0], 0);
@@ -124,8 +138,20 @@ export function buildPalette(
       const alt = bins.find((acc) => !isBg(acc) && acc[0] / total >= ALT_SHARE);
       if (alt) best = alt;
     }
-    if (best) rgbOfRegion.set(id, [best[1] / best[0], best[2] / best[0], best[3] / best[0]]);
+    if (best && isWhite(best)) {
+      const alt = bins.find(
+        (acc) => !isWhite(acc) && !isInk(acc) && acc[0] / total >= WHITE_ALT_SHARE
+      );
+      if (!alt) {
+        whiteRgb.set(id, avg(best));
+        continue;
+      }
+      best = alt;
+    }
+    if (best) rgbOfRegion.set(id, avg(best));
   }
+  // 그림 전체가 흰색뿐이면(칠할 게 하나도 안 남으면) 흰 물감이라도 낸다 — 빈 도안이 되지 않게.
+  if (rgbOfRegion.size === 0) for (const [id, rgb] of whiteRgb) rgbOfRegion.set(id, rgb);
 
   // 비슷한 색끼리 한 물감으로 묶기.
   const groups: { rgb: number[]; regionIds: number[]; area: number }[] = [];

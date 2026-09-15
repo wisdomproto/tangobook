@@ -103,15 +103,15 @@ describe('배경색에서 색을 읽지 않는다', () => {
     return buildPalette(regions, src.rgba, [1], background);
   }
 
-  it('배경색을 안 주면 크림(최빈색)을 그대로 읽는다', () => {
-    expect(run().colorOfRegion.get(1)).toBe('#faf6ee');
+  it('흰색에 가까운 최빈색은 배경색을 안 줘도 건너뛰고 주황을 읽는다 — 흰 물감은 종이에서 안 보인다', () => {
+    expect(run().colorOfRegion.get(1)).toBe('#e68228');
   });
 
   it('배경색을 주면 주황을 읽는다', () => {
     expect(run(CREAM).colorOfRegion.get(1)).toBe('#e68228');
   });
 
-  it('칸이 정말 배경색뿐이면 그대로 둔다 — 하얀 백조는 하얗다', () => {
+  it('그림 전체가 흰색뿐이면 흰 물감을 남긴다 — 빈 도안이 되지 않게', () => {
     const line = paint(['.#', '.#'], { '.': [255, 255, 255] });
     const src = paint(['CC', 'CC'], PALETTE_COLORS);
     const regions = labelRegions(buildWalls(line.rgba), line.w, line.h);
@@ -140,5 +140,17 @@ describe('배경색과 그림 사각형', () => {
 
   it('하나도 없으면 화면 전체다', () => {
     expect(boundsOf(4, 3, () => false)).toEqual({ x: 0, y: 0, w: 4, h: 3 });
+  });
+});
+
+describe('흰 칸', () => {
+  it('흰색만 있는 칸은 칠할 칸에서 빠진다(다른 칸에 색이 있으면)', () => {
+    const line = paint(['.#.', '.#.'], { '.': [255, 255, 255] });
+    const src = paint(['W#O', 'W#O'], { W: [254, 254, 251], O: [230, 130, 40], '#': [0, 0, 0] });
+    const regions = labelRegions(buildWalls(line.rgba), line.w, line.h);
+    const ids = [...new Set(regions.labels)].filter((id) => id > 0);
+    const { palette, colorOfRegion } = buildPalette(regions, src.rgba, ids);
+    expect(palette.map((p) => p.color)).toEqual(['#e68228']);
+    expect(colorOfRegion.size).toBe(1);
   });
 });
