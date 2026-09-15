@@ -41,6 +41,18 @@ function book1Word(
   return undefined;
 }
 
+/** 「apple 의 첫 글자를 써요」 — 쓸 글자를 코랄로. 첫 글자가 아니면(box 의 x) 「에 들어 있는 글자」. */
+function RevealWord({ word, letter }: { word: string; letter: string }) {
+  const i = Math.max(0, word.toLowerCase().indexOf(letter.toLowerCase()));
+  return (
+    <>
+      {word.slice(0, i)}
+      <b className="text-coral-600">{word[i]}</b>
+      {word.slice(i + 1)} {i === 0 ? '의 첫 글자를 써요' : '에 들어 있는 글자를 써요'}
+    </>
+  );
+}
+
 export function OnlineWorksheet({
   track,
   unitId,
@@ -219,8 +231,7 @@ export function OnlineWorksheet({
       <div ref={stageRef} className="mx-auto mt-4 w-full max-w-2xl scroll-mb-4">
         {cell.reveal && (
           <p className="mb-2 text-center text-lg text-ink-700">
-            <b className="text-coral-600">{cell.reveal[0]}</b>
-            {cell.reveal.slice(1)} 의 첫 글자를 써요{' '}
+            <RevealWord word={cell.reveal} letter={cell.write} />{' '}
             {/* 다 쓴 칸(완성 소리가 나는 중)엔 안 둔다 — 누르면 완성 소리와 서로 끊어 낱말을 한 번도 끝까지 못 듣는다. */}
             {!isDone(idx) && !waiting && (
               <button

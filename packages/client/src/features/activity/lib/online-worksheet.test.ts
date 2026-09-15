@@ -41,7 +41,21 @@ describe('worksheetCells', () => {
       ['a', 1],
     ]);
     const apple = cells.find((c) => c.reveal === 'apple');
-    expect(apple).toMatchObject({ write: 'a', sound: 'apple' });
+    expect(apple).toMatchObject({ write: 'a', sound: 'apple', section: 'Aa' });
+    // 글자마다 한 묶음: A · a · a 낱말 → B
+    expect(cells.slice(0, 6).map((c) => c.reveal ?? c.write)).toEqual([
+      'A',
+      'a',
+      'alligator',
+      'ant',
+      'apple',
+      'B',
+    ]);
+    // 첫 글자가 단원 글자가 아니면 들어 있는 글자로(box 의 x)
+    expect(worksheetCells('english', 'en-b1-u08').find((c) => c.reveal === 'box')).toMatchObject({
+      write: 'x',
+      section: 'Xx',
+    });
   });
   it('English Book 2 writes patterns then words, pattern first', () => {
     const cells = worksheetCells('english', 'en-b2-u01');

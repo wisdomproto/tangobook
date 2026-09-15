@@ -84,19 +84,22 @@ function koreanCells(u: FlatPhonicsUnit): WorksheetCell[] {
 
 function englishCells(u: FlatPhonicsUnit): WorksheetCell[] {
   if (u.levelName.startsWith('Book 1')) {
-    // 글자 칸은 **글자 소리**(a) — Book 1 의 목표는 글자다. 낱말은 「낱말 첫 글자」 칸이 읽는다.
-    return [
-      ...u.phonemes.flatMap((l) => [
-        { section: '글자 쓰기', write: l.toUpperCase(), sound: l, wordSlot: 0 },
-        { section: '글자 쓰기', write: l, sound: l, wordSlot: 1 },
-      ]),
-      ...u.sampleWords.map((w) => ({
-        section: '낱말 첫 글자',
-        write: w[0],
-        sound: w,
-        reveal: w,
-      })),
-    ];
+    // 🔴 **글자마다 한 묶음**(2026-09-15 사용자: 「A 따로, B 따로」) — [A · a · 그 글자 낱말들] 다음에 B.
+    // 글자 칸은 **글자 소리**(a) — Book 1 의 목표는 글자다. 낱말 칸은 그 낱말 속 그 글자를 쓴다.
+    // 낱말은 첫 글자로 붙이고, 첫 글자가 이 단원 글자가 아니면(x: box·fox·six) 들어 있는 글자로.
+    const letterOf = (w: string) =>
+      u.phonemes.find((l) => w[0].toLowerCase() === l) ??
+      u.phonemes.find((l) => w.toLowerCase().includes(l));
+    return u.phonemes.flatMap((l) => {
+      const section = l.toUpperCase() + l;
+      return [
+        { section, write: l.toUpperCase(), sound: l, wordSlot: 0 },
+        { section, write: l, sound: l, wordSlot: 1 },
+        ...u.sampleWords
+          .filter((w) => letterOf(w) === l)
+          .map((w) => ({ section, write: l, sound: w, reveal: w })),
+      ];
+    });
   }
   const patterns = getUnitPatterns(u.id);
   return [
