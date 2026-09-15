@@ -27,6 +27,8 @@ export interface WorksheetCell {
   order?: number[];
   /** 영어 패턴 — 이어읽기 규칙용 */
   pattern?: string;
+  /** 영어 Book 1 글자 칸 — 그 글자의 몇 번째 낱말을 보여 주고 읽나(대문자 0 · 소문자 1, 앱 글자 쓰기와 같다). */
+  wordSlot?: number;
   /** 몇 번 쓰나 — 한글 글자·음절은 3번, 낱말은 1번(2026-09-15 사용자). 없으면 1. */
   reps?: number;
 }
@@ -85,8 +87,8 @@ function englishCells(u: FlatPhonicsUnit): WorksheetCell[] {
     // 글자 칸은 **글자 소리**(a) — Book 1 의 목표는 글자다. 낱말은 「낱말 첫 글자」 칸이 읽는다.
     return [
       ...u.phonemes.flatMap((l) => [
-        { section: '글자 쓰기', write: l.toUpperCase(), sound: l },
-        { section: '글자 쓰기', write: l, sound: l },
+        { section: '글자 쓰기', write: l.toUpperCase(), sound: l, wordSlot: 0 },
+        { section: '글자 쓰기', write: l, sound: l, wordSlot: 1 },
       ]),
       ...u.sampleWords.map((w) => ({
         section: '낱말 첫 글자',

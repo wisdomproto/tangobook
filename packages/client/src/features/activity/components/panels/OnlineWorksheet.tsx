@@ -9,7 +9,7 @@ import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { findImageData } from '@/features/phonics-learner/lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
-import { worksheetCells } from '../../lib/online-worksheet';
+import { worksheetCells, type WorksheetCell } from '../../lib/online-worksheet';
 
 const PREFIX = 'activity-write';
 
@@ -23,6 +23,24 @@ const PREFIX = 'activity-write';
  * 🔴 소리 순서·채점은 앱 복습 쓰기(`ReviewWriteActivity`)와 같은 부품이다 — 글자마다 이어읽기(고 → 고기,
  *    영어는 `writeStepRead`), 다 쓰면 [소리 → 쉼 → 띵동], 마지막 칸이면 칭찬.
  */
+/**
+ * 영어 Book 1 칸의 낱말 — 🔴 앱 글자 쓰기(AlphabetLetterWriteActivity)와 같은 낱말·음원을 쓴다.
+ * 그 음원이 「a a alligator」(글자 소리 두 번 + 낱말)라 다 쓰면 그대로 읽는다. 글자 칸은 대문자 = 첫 낱말,
+ * 소문자 = 둘째 낱말 · 「낱말 첫 글자」 칸은 그 낱말.
+ */
+function book1Word(
+  sb: Storybook,
+  cell: WorksheetCell
+): { word: string; ttsUrl?: string } | undefined {
+  const fams = sb.phonicsLesson?.wordFamilies ?? [];
+  if (cell.wordSlot !== undefined) {
+    const fam = fams.find((f) => f.words?.[0]?.word?.[0]?.toLowerCase() === cell.sound);
+    return fam?.words?.[cell.wordSlot] ?? fam?.words?.[0];
+  }
+  if (cell.reveal) return fams.flatMap((f) => f.words ?? []).find((w) => w.word === cell.reveal);
+  return undefined;
+}
+
 export function OnlineWorksheet({
   track,
   unitId,
@@ -59,14 +77,17 @@ export function OnlineWorksheet({
   );
 
   const cell = cells[idx];
-  // 한글 낱말 칸은 왼쪽에 그 낱말 카드 그림(2026-09-15 사용자) — 인쇄 워크지 낱말 줄과 같은 카드.
-  const unitBook = useStorybook(track === 'korean' ? unitId : undefined).data as
-    | Storybook
-    | undefined;
+  // 낱말 칸은 왼쪽에 그 낱말 카드 그림(2026-09-15 사용자) — 인쇄 워크지 낱말 줄과 같은 카드.
+  const unitBook = useStorybook(unitId).data as Storybook | undefined;
+  const book1 = unitBook && cell ? book1Word(unitBook, cell) : undefined;
   const wordImage =
-    unitBook && cell && cell.section === '낱말 쓰기'
-      ? findImageData(unitBook, cell.write).imageUrl
-      : undefined;
+    !unitBook || !cell
+      ? undefined
+      : book1
+        ? findImageData(unitBook, book1.word).imageUrl
+        : cell.section === '낱말 쓰기'
+          ? findImageData(unitBook, cell.write).imageUrl
+          : undefined;
   const sections = useMemo(() => {
     const m = new Map<string, number[]>();
     cells.forEach((c, i) => m.set(c.section, [...(m.get(c.section) ?? []), i]));
@@ -126,7 +147,7 @@ export function OnlineWorksheet({
     const allDone = cells.every((_, i) => done(i));
     if (allDone) {
       soundGen.current++;
-      void sayThenChime(cell.sound, { praise: true, onDone });
+      void sayThenChime(cell.sound, { praise: true, onDone, directUrl: book1?.ttsUrl });
       return;
     }
     // 곧바로 다음 판 — 같은 글자에 남은 횟수가 있으면 그대로(새 칸), 아니면 뒤에서 처음 만나는 안 쓴 칸.
@@ -137,8 +158,8 @@ export function OnlineWorksheet({
     // 소리는 뒤에서 [낱말 → 쉼 → 띵동]. 아이가 벌써 다음 판을 쓰기 시작하면 그 체인이 세대를 올려 남은 단계를 버린다.
     const gen = ++soundGen.current;
     const live = () => gen === soundGen.current;
-    void say(cell.sound, () => live() && rest(() => live() && chime()));
-  }, [cell, cells, idx, counts, repsOf, say, rest, chime, sayThenChime, onDone]);
+    void say(cell.sound, () => live() && rest(() => live() && chime()), book1?.ttsUrl);
+  }, [cell, cells, idx, counts, repsOf, say, rest, chime, sayThenChime, onDone, book1]);
 
   if (!cell) return null;
 

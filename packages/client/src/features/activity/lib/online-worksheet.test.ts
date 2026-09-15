@@ -36,7 +36,10 @@ describe('worksheetCells', () => {
   });
   it('English Book 1 writes upper+lower and only the first letter of words', () => {
     const cells = worksheetCells('english', 'en-b1-u01');
-    expect(cells.slice(0, 2).map((c) => c.write)).toEqual(['A', 'a']);
+    expect(cells.slice(0, 2).map((c) => [c.write, c.wordSlot])).toEqual([
+      ['A', 0],
+      ['a', 1],
+    ]);
     const apple = cells.find((c) => c.reveal === 'apple');
     expect(apple).toMatchObject({ write: 'a', sound: 'apple' });
   });
