@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ActivityItem } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
@@ -154,34 +154,27 @@ function ItemLinks({ list, currentKey }: { list: ActivityItem[]; currentKey?: st
         if (parts.length) {
           const on = it.key === currentKey;
           const cur = on ? (params.get('part') ?? parts[0].id) : null;
-          return (
-            <li key={it.key}>
-              <span
+          const links = parts.map((p) => (
+            <li key={`${it.key}-${p.id}`}>
+              <Link
+                to={`${it.path}?part=${encodeURIComponent(p.id)}`}
                 className={cn(
-                  'block truncate px-2 pt-1.5 text-xs font-bold',
-                  on ? 'text-coral-700' : 'text-ink-500'
+                  'block truncate rounded-lg border-l-4 px-2 py-1.5 text-sm',
+                  cur === p.id
+                    ? 'border-coral-500 bg-coral-50 font-bold text-coral-700'
+                    : 'border-transparent text-ink-700 hover:bg-cream-50'
                 )}
               >
-                {it.title}
-              </span>
-              <ul className="ml-2 border-l border-ink-100 pl-1">
-                {parts.map((p) => (
-                  <li key={p.id}>
-                    <Link
-                      to={`${it.path}?part=${encodeURIComponent(p.id)}`}
-                      className={cn(
-                        'block truncate rounded-lg border-l-4 px-2 py-1.5 text-sm',
-                        cur === p.id
-                          ? 'border-coral-500 bg-coral-50 font-bold text-coral-700'
-                          : 'border-transparent text-ink-700 hover:bg-cream-50'
-                      )}
-                    >
-                      {p.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                {p.label}
+              </Link>
             </li>
+          ));
+          // 🔴 Book 1 은 소단원(Aa Bb Cc) 없이 글자를 바로 편다(2026-09-15 사용자) — 글자 하나가 곧 한 조각.
+          if (it.group.startsWith('Book 1')) return links;
+          return (
+            <UnitParts key={it.key} title={it.title} on={on}>
+              {links}
+            </UnitParts>
           );
         }
         return (
@@ -201,5 +194,28 @@ function ItemLinks({ list, currentKey }: { list: ActivityItem[]; currentKey?: st
         );
       })}
     </ul>
+  );
+}
+
+/** 단원 한 줄 — 눌러서 소리 덩이 줄을 접었다 편다. 지금 보는 단원은 펼쳐서 시작한다. */
+function UnitParts({ title, on, children }: { title: string; on: boolean; children: ReactNode }) {
+  const [open, setOpen] = useState(on);
+  useEffect(() => {
+    if (on) setOpen(true);
+  }, [on]);
+  return (
+    <li>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className={cn(
+          'flex min-h-[36px] w-full items-center gap-1 truncate rounded-lg px-2 py-1.5 text-left text-sm hover:bg-cream-50',
+          on ? 'font-bold text-coral-700' : 'font-semibold text-ink-700'
+        )}
+      >
+        {open ? '▾' : '▸'} {title}
+      </button>
+      {open && <ul className="ml-3 border-l border-ink-100 pl-2">{children}</ul>}
+    </li>
   );
 }
