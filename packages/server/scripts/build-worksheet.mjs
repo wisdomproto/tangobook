@@ -1040,6 +1040,16 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
   .unit.on { display:block; }
   .part.hide { display:none !important; }
   a.item.sub { padding:5px 18px 5px 58px; font-size:14px; font-weight:700; color:var(--ink-600); }
+  a.item.sub.flat { padding:6px 18px 6px 34px; font-size:15px; color:var(--ink); }
+  aside summary { list-style:none; cursor:pointer; }
+  aside summary::-webkit-details-marker { display:none; }
+  /* 화살표는 h2 가 아니라 summary 에 — h2::before 는 인쇄물 번호 동그라미 자리라 코랄 원 안에 들어갔다. */
+  details.lv > summary { display:flex; align-items:center; padding-left:12px; color:var(--ink-500); font-size:11px; }
+  details.lv > summary::before { content:'▾'; }
+  details.lv:not([open]) > summary::before { content:'▸'; }
+  details.lv > summary h2 { padding-left:6px !important; }
+  details.u > summary a.item::after { content:'▾'; margin-left:auto; color:var(--ink-500); font-size:12px; }
+  details.u:not([open]) > summary a.item::after { content:'▸'; }
 
   aside { background:var(--cream); border-right:1px solid var(--peach-200); overflow-y:auto; padding:16px 0 40px; text-align:left; }
   aside h1 { font-size:17px; font-weight:800; letter-spacing:-.03em; padding:4px 18px 12px; }
@@ -1090,18 +1100,24 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
        「안 보인다」가 되기 쉽다(실측으로 두 번 헤맸다). 여기 시각이 안 바뀌면 캐시다. -->
   <p class="stamp">${new Date().toLocaleString('ko-KR', { hour12: false })} 판</p>
   ${groups
-    .map(
-      (g) => `<h2>${esc(g.level)}</h2>` +
-        g.items
-          .map(
-            (it) =>
-              `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(it.glyph)}">` +
-              `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>` +
-              // 소리 덩이마다 한 줄 — 누르면 그 덩이 쪽만 보이고 「이 부분 인쇄」가 그것만 뽑는다.
-              it.parts.map((pt) => `<a class="item sub" href="#${it.id}~${esc(pt.id)}" data-id="${it.id}" data-part="${esc(pt.id)}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(pt.label)}">${esc(pt.label)}</a>`).join('')
-          )
-          .join('')
-    )
+    .map((g) => {
+      // 🔴 트리로 접었다 편다(2026-09-15 사용자) — 권(details.lv) › 단원(details.u) › 소리 덩이.
+      //    Book 1 은 소단원(Aa Bb Cc) 없이 글자를 권 바로 아래에 편다.
+      const rows = g.items
+        .map((it) => {
+          const unitA =
+            `<a class="item${it.id === first.id ? ' on' : ''}" href="#${it.id}" data-id="${it.id}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(it.glyph)}">` +
+            `<b>${it.unitNo}</b><span class="g">${esc(it.glyph)}</span><span class="w">${esc(it.words)}</span></a>`;
+          const subs = it.parts
+            .map((pt) => `<a class="item sub" href="#${it.id}~${esc(pt.id)}" data-id="${it.id}" data-part="${esc(pt.id)}" data-name="${esc(g.level)} · ${L.unit} ${it.unitNo} · ${esc(pt.label)}">${esc(pt.label)}</a>`)
+            .join('');
+          if (!it.parts.length) return unitA;
+          if (it.id.startsWith('en-b1-')) return subs.replaceAll('class="item sub"', 'class="item sub flat"');
+          return `<details class="u"><summary>${unitA}</summary>${subs}</details>`;
+        })
+        .join('');
+      return `<details class="lv" open><summary><h2>${esc(g.level)}</h2></summary>${rows}</details>`;
+    })
     .join('')}
 </aside>
 
@@ -1141,6 +1157,8 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
   const levelBtn = document.getElementById('printLevel');
   let level = document.querySelector('.unit.on')?.dataset.level;
   function select(a) {
+    // 접힌 단원 안의 줄을 고르면(주소로 곧장 온 경우) 그 단원을 펼친다.
+    a.closest('details.u')?.setAttribute('open', '');
     links.forEach((l) => l.classList.toggle('on', l === a));
     document.querySelectorAll('.unit').forEach((u) => {
       const on = u.id === a.dataset.id;
@@ -1156,7 +1174,14 @@ ${STYLE.replace('__LOGO__', LOGO_DATA[L.phonicsPath === 'english' ? 'en' : 'ko']
     try { history.replaceState(null, '', '#' + a.dataset.id + (a.dataset.part ? '~' + a.dataset.part : '')); } catch {}
     main.scrollTop = 0;
   }
-  links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(a); }));
+  links.forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    // 단원 줄(요약)은 누를 때마다 접었다 편다 — 링크라 기본 동작을 막으면 details 가 스스로 안 바뀐다.
+    const d = a.parentElement.tagName === 'SUMMARY' ? a.closest('details.u') : null;
+    const wasOpen = d?.open;
+    select(a);
+    if (d) d.open = !wasOpen;
+  }));
   printBtn.addEventListener('click', () => window.print());
   // 여러 단원 인쇄 — 인쇄 규칙이 .on 만 남기므로, 잠깐 켜고(덩이 가림도 풀고) 인쇄가 끝나면 되돌린다.
   function printUnits(pick) {
