@@ -132,11 +132,14 @@ for (const unitId of unitIds) {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   const used = new Set();
 
-  for (const word of targetWords) {
+  // 🔴 익히기 화면은 targetWords 밖의 `wordFamilies` 낱말(mad·bad…)에도 그림을 찾는다 — 그 카드도 붙인다(2026-09-15).
+  //    targetWords 에 안 넣으므로 게임 문항은 그대로다. 삽화 없음 경고는 targetWords 만.
+  const familyWords = (sb.phonicsLesson?.wordFamilies ?? []).flatMap((f) => (f.words ?? []).map((w) => w.word));
+  for (const word of [...new Set([...targetWords, ...familyWords])]) {
     const key = normWord(word);
     const srcKey = cards[key];
     if (!srcKey) {
-      problems.push(`[${unitId}] "${word}" — 삽화 없음`);
+      if (targetWords.includes(word)) problems.push(`[${unitId}] "${word}" — 삽화 없음`);
       continue;
     }
     used.add(key);
