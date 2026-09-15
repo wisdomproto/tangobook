@@ -163,6 +163,32 @@
   "booksBanner": {
     "name": "Tangobook Storybooks"
   },
+  "activityBanner": {
+    "name": "Free Activities"
+  },
+  "activity": {
+    "title": "<c>Free worksheets and printables</c>, no sign-up needed",
+    "lead": "Print on A4 and do them with pencils and crayons at home, or do them right away online.",
+    "all": "See all activities",
+    "kinds": {
+      "hangul": {
+        "name": "Korean worksheets",
+        "desc": "32 units, from vowels and consonants to final consonants"
+      },
+      "english": {
+        "name": "English phonics worksheets",
+        "desc": "39 units, from letter sounds to vowel teams"
+      },
+      "coloring": {
+        "name": "Coloring pages",
+        "desc": "2,000+ pictures from storybooks and phonics words"
+      },
+      "hiddenObject": {
+        "name": "Hidden pictures",
+        "desc": "Find hidden objects in storybook scenes"
+      }
+    }
+  },
   "books": {
     "title": "World classics, Korean folk tales and more — <c>500+ storybooks</c> and reading games that build literacy and the <c>1,500 words needed before first grade</c>",
     "lead": "They come in four kinds, so there's something whatever your child is drawn to, and <b>new storybooks arrive every month.</b>",

@@ -163,6 +163,32 @@
   "booksBanner": {
     "name": "Truyện tranh Tangobook"
   },
+  "activityBanner": {
+    "name": "Hoạt động miễn phí"
+  },
+  "activity": {
+    "title": "<c>Phiếu học tập và tranh tô màu miễn phí</c>, không cần đăng ký",
+    "lead": "In khổ A4 để làm bằng bút chì, bút màu ở nhà, hoặc làm ngay trên mạng.",
+    "all": "Xem tất cả hoạt động",
+    "kinds": {
+      "hangul": {
+        "name": "Phiếu học tiếng Hàn",
+        "desc": "32 bài, từ nguyên âm, phụ âm đến phụ âm cuối"
+      },
+      "english": {
+        "name": "Phiếu học phonics tiếng Anh",
+        "desc": "39 bài, từ âm chữ cái đến nguyên âm đôi"
+      },
+      "coloring": {
+        "name": "Tranh tô màu",
+        "desc": "Hơn 2.000 hình từ truyện và từ vựng phonics"
+      },
+      "hiddenObject": {
+        "name": "Tìm đồ vật ẩn",
+        "desc": "Tìm hình ẩn trong cảnh truyện"
+      }
+    }
+  },
   "books": {
     "title": "Truyện kinh điển thế giới, cổ tích Hàn Quốc và nhiều nữa — <c>hơn 500 cuốn truyện</c> cùng trò chơi sau khi đọc để xây năng lực đọc hiểu và <c>1.500 từ vựng cần trước lớp Một</c>",
     "lead": "Chia làm bốn nhánh, nên trẻ thích gì cũng có sách để xem, và <b>mỗi tháng lại có truyện mới.</b>",

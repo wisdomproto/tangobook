@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { PLANS } from '@tangobook/shared';
+import { ACTIVITY_KINDS, PLANS, activityKindPath } from '@tangobook/shared';
 // 🔴 랜딩 문구는 `landing` 네임스페이스 하나에 모은다 — 파일만 놓으면 i18n 이 자동 등록한다
 //    (`i18n/index.ts` 가 `locales/ko/*.json` 글롭으로 ns 를 파생). `Trans` 는 문장 안 강조용.
 import { useTranslation, Trans } from 'react-i18next';
@@ -1359,6 +1359,46 @@ export default function IntroPage() {
             ⚠️ 그때 **세는 법**만 남긴다: 색인은 `[책, 쪽]` 쌍이라 한 책의 여러 쪽이 여러 항목으로
             들어간다 — 거미는 항목 12개인데 책은 2권이었고 그걸 「12권」이라 쓰고 있었다.
             권수를 쓸 일이 생기면 `new Set(...map(([id]) => id)).size` 로 셀 것. */}
+      </Section>
+
+      {/* ── ⑤.5 무료 활동 모음 — `/activity` 로 들어가는 길(2026-09-15 사용자). 가입 전 사람이 바로
+          쓰는 표면이라 요금 FAQ 앞에 둔다. 종류 카드는 각 종류 대표 페이지(큰 검색어를 받는 자리)로. */}
+      <ServiceBanner n={3} name={t('activityBanner.name')} />
+      <Section
+        title={
+          <Trans
+            t={t}
+            i18nKey="activity.title"
+            components={{ c: <span className="text-coral-700" /> }}
+          />
+        }
+      >
+        <p>{t('activity.lead')}</p>
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {ACTIVITY_KINDS.map((k) => (
+            <li key={k}>
+              <Link
+                to={activityKindPath(k)}
+                className="block rounded-3xl bg-white p-5 shadow-sm transition hover:shadow-md"
+              >
+                <span className="block font-display text-xl font-extrabold text-ink-900 sm:text-2xl">
+                  {t(`activity.kinds.${k === 'hidden-object' ? 'hiddenObject' : k}.name`)}
+                </span>
+                <span className="mt-1 block text-base text-ink-600 break-keep">
+                  {t(`activity.kinds.${k === 'hidden-object' ? 'hiddenObject' : k}.desc`)}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p>
+          <Link
+            to="/activity"
+            className="inline-flex min-h-[44px] items-center font-extrabold text-coral-700 underline-offset-4 hover:underline"
+          >
+            {t('activity.all')} →
+          </Link>
+        </p>
       </Section>
 
       {/* ── ⑥ FAQ (구 「왜 탱고북인가」 + 「요금」) ─────────────────────────
