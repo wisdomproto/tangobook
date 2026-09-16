@@ -1359,6 +1359,10 @@ var TUNE = {
      🔴 모드 선택 화면은 없다 — 카드가 있으면 카드로, 없으면 예전 경로로 간다.
         판정은 첫 프레임에서 공짜로 난다(카드는 채움 ≈1.0 의 네모, 획 블록은 자모 모양). */
   stickerOn: 1,                  // 0=끔 · 1=자동(카드가 보이면 카드 경로) · 2=강제 (?board=sticker)
+  /* 🔴 가장자리에 걸린 카드도 **읽는다**(2026-09-16). 잘리는 건 폰 화각이고
+     우리는 안 자른다(검출버퍼는 사진 비율 그대로 긴 변만 줄인다 — 레터박스 0).
+     잘려도 **글자는 카드 가운데에 있어** 잉크가 다 보이는 일이 많다 — 실측은 아래 주석. */
+  stickerEdge: 1,               // 1=읽는다 · 0=버린다(예전 동작)
   stickerMin: 2,                 // 카드가 이만큼은 보여야 카드 판으로 친다
   /* 흰 종이 · 검은 잉크를 **둘 다** 전경으로 잡는다 — 잉크까지 넣어야 카드가 속 빈 고리가 아니라
      꽉 찬 네모가 된다. 실측(올라온 두 프레임, Lab 중앙값): 초록 판 L116 a86 b149 ·
@@ -3906,8 +3910,14 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
     var bx = st.intAt(i, 0), by = st.intAt(i, 1);
     var bw = st.intAt(i, 2), bh = st.intAt(i, 3), ba = st.intAt(i, 4);
     if (ba < minA) continue;
-    /* 화면 가장자리에 걸린 카드는 잘려 있다 — 비율도 잉크도 못 믿는다 */
-    if (bx <= 1 || by <= 1 || bx + bw >= W - 1 || by + bh >= H - 1) continue;
+    /* 🔴 화면 가장자리에 걸린 카드 — 예전엔 통째로 버렸고, 그래서 사용자가
+          「마지막 글자를 못 읽는다」로 겪었다. 실측(잘린 카드 셋, 껍질을 씨운 뒤):
+          `o` 0.85 · `f` 0.71 · ㅑ 0.46 — 앞 둘은 안 잘린 카드 띄(0.64~0.96) 안이다.
+          잘리는 건 대개 주황 몸통이고 흰 종이는 남아 있어서다. 헛 카드는 13장에서 0장.
+          ⚠ 절반이 나간 카드는 아직 재 보지 못했다 — 갈래띄·칸·`stickerMinIou` 셋이 막을 것으로
+          보이나 그런 프레임이 오면 먼저 재 볼 것. */
+    var onEdge = (bx <= 1 || by <= 1 || bx + bw >= W - 1 || by + bh >= H - 1);
+    if (onEdge && !TUNE.stickerEdge) continue;
     var rw = rectW[i] || bw, rh = rectH[i] || bh;
     if (ba / (rw*rh) < TUNE.stickerFill) continue;
     /* 🔴 갈래는 **카드 비율**이 준다. 띠는 형판 JSON 이 들고 온다 — 집합마다 카드가 다르다
@@ -3921,7 +3931,7 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
     /* 🔴 **카드가 칸의 원본이다.** 돌기 주기(legoCellSweep)는 카드가 판을 덮으면 무너진다 —
           실측: 같은 판 두 장에서 칸 37.2 vs 137.9. 스티커 긴 변은 집합마다 고정이다
           (한글 29.1mm = 3.64돌기 · 알파벳 45.1mm = 5.64돌기). */
-    cards.push({ i:i, x:bx, y:by, w:bw, h:bh, kind:kind,
+    cards.push({ i:i, x:bx, y:by, w:bw, h:bh, kind:kind, edge:onEdge,
                  cell:Math.max(bw, bh)/stickerKinds[kind].studs });
   }
   if (cards.length < (TUNE.stickerOn === 2 ? 1 : TUNE.stickerMin)) return null;
@@ -3994,7 +4004,7 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
     }
     boxes.push({ x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? m.ch : '', color:0 });
     /* x 를 같이 싣는다 — 진단 줄을 **읽기 순서**로 찍기 위해서다(아래 showCamDbg). */
-    detail.push({ ch: ok ? m.ch : '?', iou:+((m ? m.iou : 0).toFixed(2)), x:c.x,
+    detail.push({ ch: ok ? m.ch : '?', iou:+((m ? m.iou : 0).toFixed(2)), x:c.x, 잘림:c.edge ? 1 : 0,
                   칸:+c.cell.toFixed(1), 갈래:c.kind, 곁획:m ? m.ticks : -1 });
   });
   reco.boxes = boxes;
