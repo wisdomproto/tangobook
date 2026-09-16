@@ -163,6 +163,8 @@ export interface TangoBoardProps {
   picked: { id: number; rotDeg: number } | null;
   onPick: (p: { id: number; rotDeg: number } | null) => void;
   onPlace: (x: number, y: number, id: number, rotDeg: number) => void;
+  /** 판 위 조각을 다른 자리로 — 끌어서 옮긴다(2026-09-16 사용자). */
+  onMovePlaced: (uid: number, x: number, y: number) => void;
   onRotatePlaced: (uid: number) => void;
   disabled?: boolean;
 }
@@ -178,6 +180,7 @@ export function TangoBoard({
   picked,
   onPick,
   onPlace,
+  onMovePlaced,
   onRotatePlaced,
   disabled,
 }: TangoBoardProps) {
@@ -189,12 +192,16 @@ export function TangoBoard({
   const [drag, setDrag] = useState<{
     id: number;
     rotDeg: number;
+    /** 판 위에서 집은 조각이면 그 조각의 uid — 트레이에서 집었으면 없다. */
+    uid?: number;
     x: number;
     y: number;
     moved: boolean;
   } | null>(null);
   const dragRef = useRef<typeof drag>(null);
   dragRef.current = drag;
+  /** 끌어 옮긴 직후의 클릭은 회전이 아니다 — 포인터를 떼면 클릭이 뒤따라 온다. */
+  const draggedRef = useRef(false);
 
   /** 화면 좌표 → 판 칸. 조각의 가운데가 그 지점에 오게 놓는다. */
   const cellAt = useCallback((clientX: number, clientY: number, id: number, rotDeg: number) => {
@@ -210,9 +217,10 @@ export function TangoBoard({
   }, []);
 
   const handleDragStart = useCallback(
-    (piece: { id: number; rotDeg: number }, e: ReactPointerEvent) => {
+    (piece: { id: number; rotDeg: number; uid?: number }, e: ReactPointerEvent) => {
       if (disabled) return;
       (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
+      draggedRef.current = false;
       setDrag({ ...piece, x: e.clientX, y: e.clientY, moved: false });
     },
     [disabled]
@@ -226,11 +234,14 @@ export function TangoBoard({
     (e: ReactPointerEvent) => {
       const d = dragRef.current;
       setDrag(null);
-      if (!d || !d.moved) return; // 안 움직였으면 그냥 탭 — onClick 이 고른다
+      if (!d || !d.moved) return; // 안 움직였으면 그냥 탭 — onClick 이 고르거나 돌린다
+      draggedRef.current = true;
       const cell = cellAt(e.clientX, e.clientY, d.id, d.rotDeg);
-      if (cell) onPlace(cell.x, cell.y, d.id, d.rotDeg);
+      if (!cell) return;
+      if (d.uid !== undefined) onMovePlaced(d.uid, cell.x, cell.y);
+      else onPlace(cell.x, cell.y, d.id, d.rotDeg);
     },
-    [cellAt, onPlace]
+    [cellAt, onPlace, onMovePlaced]
   );
 
   const handleBoardTap = useCallback(
@@ -284,11 +295,22 @@ export function TangoBoard({
                 <g
                   key={b.uid}
                   transform={`translate(${b.x} ${b.y})`}
+                  // 🔴 판 위 조각도 끌어서 옮긴다(2026-09-16 사용자) — 잘못 놓으면 되돌리기로 지웠다가
+                  //    다시 놓아야 했다. 끌면 옮기고, 그냥 누르면 예전처럼 돌아간다.
+                  onPointerDown={(e) =>
+                    handleDragStart({ id: b.id, rotDeg: b.rotDeg, uid: b.uid }, e)
+                  }
                   onClick={(e) => {
                     if (disabled) return;
                     e.stopPropagation();
+                    if (draggedRef.current) {
+                      draggedRef.current = false;
+                      return;
+                    }
                     onRotatePlaced(b.uid);
                   }}
+                  style={{ touchAction: 'none' }}
+                  opacity={drag?.uid === b.uid && drag.moved ? 0.25 : 1}
                   className={disabled ? undefined : 'cursor-pointer'}
                 >
                   {/* 투명한 판 — 획만 있으면 탭할 면적이 없다 */}

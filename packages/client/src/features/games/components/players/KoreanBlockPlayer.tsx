@@ -200,6 +200,31 @@ function KoreanBlockPlayerInner({
     [roundCorrect, placed, playPlacementTick]
   );
 
+  /** 판 위 조각을 끌어서 다른 자리로. 겹치거나 판 밖이면 제자리에 둔다(자기 자신은 빼고 본다). */
+  const handleMovePlaced = useCallback(
+    (uid: number, x: number, y: number) => {
+      if (roundCorrect) return;
+      setPlaced((prev) => {
+        const b = prev.find((o) => o.uid === uid);
+        if (
+          !b ||
+          !canPlace(
+            prev.filter((o) => o.uid !== uid),
+            b.id,
+            b.rotDeg,
+            x,
+            y
+          )
+        )
+          return prev;
+        return prev.map((o) => (o.uid === uid ? { ...o, x, y } : o));
+      });
+      setIsWrong(false);
+      playPlacementTick();
+    },
+    [roundCorrect, playPlacementTick]
+  );
+
   /** 판 위 조각 탭 = 돌리기. 마지막 방향에서 한 번 더 돌면 제자리로 온다. */
   const handleRotatePlaced = useCallback(
     (uid: number) => {
@@ -496,6 +521,7 @@ function KoreanBlockPlayerInner({
               picked={picked}
               onPick={setPicked}
               onPlace={handlePlace}
+              onMovePlaced={handleMovePlaced}
               onRotatePlaced={handleRotatePlaced}
               disabled={roundCorrect}
             />
