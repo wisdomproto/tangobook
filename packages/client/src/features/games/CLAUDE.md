@@ -422,6 +422,8 @@ PR 리뷰 체크리스트:
 - [ ] `setTimeout` + `setFinished`/씬 전환 조합 없음 — 마지막 정답 단어 발음이 잘림 (2026-07-10 숨은그림 `playWordCorrect({onDone})` 로 chain 수정)
 - [ ] 한 이벤트에서 소리 2개 동시 발화 금지 (`playAudio` 는 단일 채널이라 앞 소리를 끊음 — 블록 마지막 글자↔단어). 순서가 필요하면 `onEnded` chain
 - [ ] useEffect 완료 감지 + playCorrectSequence 패턴 — 핸들러 내부 chain 으로 옮기는 게 안전
+- [ ] 🔴 소리 내려고 `new Audio()` 를 만들지 않았나 — iOS 는 요소마다 잠근다. `useGameAudio` 의
+      공용 요소(`lib/audio-unlock` `getSharedAudio`)를 쓰고, 따로 둬야 하면 `registerAudio(el)`
 
 > **정답 오디오 전수 리뷰 (2026-07-10)**: 블록(글자↔단어 컷)·숨은그림(마지막 단어 컷) 2건 수정. 그림짝·점잇기·낱말쓰기·스토리이미지·말하기는 이미 `onEnded`/`onDone` chain 이라 정상. 낱말쓰기가 기준 구현.
 
