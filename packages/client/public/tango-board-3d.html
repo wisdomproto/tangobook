@@ -608,6 +608,9 @@ var PITCH = 15;                       // 실물 격자 — 로드 시 메시 메
 var API = location.origin;
 var PHONICS_BASE =
   'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-library/mod_korean/';
+/* 영어 음원도 같은 서랍에 있다 — 글자 26개(음가)와 파닉스 낱말이 파일 하나씩. */
+var PHONICS_BASE_EN =
+  'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/phonics-library/mod_english/';
 
 /* ---------------------------------------------------------------- 한글 */
 var CHO = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
@@ -8770,7 +8773,30 @@ function clearBoard(){
 
 /* ------------------------------------------------------------- 소리 */
 var GAP = 420, muted = false, audioGen = 0, lastAudio = null, chainTimer = null;
-function soundUrl(ch){ return PHONICS_BASE + encodeURIComponent(ch) + '.mp3'; }
+function soundUrl(ch){
+  return (LANG === 'en' ? PHONICS_BASE_EN : PHONICS_BASE) + encodeURIComponent(ch) + '.mp3';
+}
+/** 한 파일을 틀고 **났는지 못 났는지**를 알려 준다. playOne 과 달리 실패를 삼키지 않는다. */
+function playUrl(url, onOk, onFail){
+  if (muted){ if (onOk) onOk(); return; }
+  var gen = audioGen, done = false, a = audioEl();
+  lastAudio = a;
+  function fin(ok){
+    if (done) return;
+    done = true;
+    if (gen !== audioGen) return;
+    if (ok){ if (onOk) onOk(); } else if (onFail) onFail();
+  }
+  a.onended = function(){ fin(true); };
+  a.onerror = function(){ fin(false); };
+  try { a.pause(); } catch (e){}
+  a.currentTime = 0; a.src = url;
+  var pr = a.play();
+  if (pr && pr.catch) pr.catch(function(err){
+    audioBlocked = (err && err.name === 'NotAllowedError');
+    fin(false);
+  });
+}
 /* 🔴 **요소 하나를 재사용한다.** iOS/사파리는 「재생할 그 요소」가 사용자 제스처
       때 풀려 있어야 소리가 난다 — 다른 요소를 풀어 놔도 소용없다.
       예전엔 해금용 Audio 를 따로 만들어 풀고 버린 뒤, playOne 이 매번
@@ -9000,6 +9026,7 @@ function noteBadShape(n, w){
 
 var autoSay = true, SAY_STEADY = 2;
 var sayHold = '', sayCount = 0, saidLast = '';
+var enWord = {};                      // 영어 낱말 음원 있음(1)/없음(0)
 function autoSpeak(w){
   if (!camSim.on || !autoSay){ saidLast = ''; return; }
   if (w === sayHold) sayCount++; else { sayHold = w; sayCount = 1; }
@@ -9014,6 +9041,18 @@ function autoSpeak(w){
     saidLast = w;
     if (!fresh.length) return;
     stopAll();
+    /* 🔴 영어는 **만들어진 낱말 음원이 있으면 낱말**, 없으면 **방금 올린 글자의 음가**를
+          읽는다(2026-09-16 사용자). 있는지는 **틀어 봐야** 안다 — R2 공개 호스트가 CORS 를
+          안 줘서 fetch 로는 못 물어보고, <audio> 는 CORS 없이 재생된다. 한 번 없다고 나온
+          낱말은 기억해 두 번 헛돌지 않는다. */
+    if (LANG === 'en'){
+      var full = w.toLowerCase();
+      if (enWord[full] === 0){ playChain(fresh, 0, null); return; }
+      playUrl(PHONICS_BASE_EN + encodeURIComponent(full) + '.mp3',
+              function(){ enWord[full] = 1; },
+              function(){ enWord[full] = 0; playChain(fresh, 0, null); });
+      return;
+    }
     playChain(fresh, 0, null);
   }
 }
@@ -9209,7 +9248,13 @@ function win(){
     });
   }
   /* 🔴 영어는 낱말 음원이 없다 — 파닉스 카드가 가진 **예문 음원**을 읽어 준다. */
-  if ((w.lang || 'ko') === 'en'){ if (w.say) playFx(w.say, afterWord); else afterWord(); }
+  if ((w.lang || 'ko') === 'en'){
+    var full = w.word.toLowerCase();
+    playUrl(PHONICS_BASE_EN + encodeURIComponent(full) + '.mp3',
+            function(){ enWord[full] = 1; afterWord(); },
+            function(){ enWord[full] = 0;
+              if (w.say) playFx(w.say, afterWord); else afterWord(); });
+  }
   else playChain(w.word.split(''), 0, afterWord);
 }
 document.getElementById('revealGo').addEventListener('click', function(){
