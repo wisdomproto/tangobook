@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
+import { registerAudio, unregisterAudio } from '@/lib/audio-unlock';
 
 interface SystemSoundsOverride {
   correctUrl?: string;
@@ -45,8 +46,11 @@ export function useGameSound(opts?: UseGameSoundOptions) {
   useEffect(() => {
     const a = new Audio(correctUrl);
     a.preload = 'auto';
+    // 🔴 iOS 는 요소마다 따로 해금해야 한다 — 마운트는 제스처 밖이라 다음 탭에 열린다.
+    registerAudio(a);
     correctRef.current = a;
     return () => {
+      unregisterAudio(a);
       a.pause();
       a.src = '';
     };
@@ -55,8 +59,11 @@ export function useGameSound(opts?: UseGameSoundOptions) {
   useEffect(() => {
     const a = new Audio(incorrectUrl);
     a.preload = 'auto';
+    // 🔴 iOS 는 요소마다 따로 해금해야 한다 — 마운트는 제스처 밖이라 다음 탭에 열린다.
+    registerAudio(a);
     incorrectRef.current = a;
     return () => {
+      unregisterAudio(a);
       a.pause();
       a.src = '';
     };
@@ -65,8 +72,11 @@ export function useGameSound(opts?: UseGameSoundOptions) {
   useEffect(() => {
     const a = new Audio(clearUrl);
     a.preload = 'auto';
+    // 🔴 iOS 는 요소마다 따로 해금해야 한다 — 마운트는 제스처 밖이라 다음 탭에 열린다.
+    registerAudio(a);
     clearRef.current = a;
     return () => {
+      unregisterAudio(a);
       a.pause();
       a.src = '';
     };

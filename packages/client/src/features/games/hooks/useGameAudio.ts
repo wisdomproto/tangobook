@@ -1,6 +1,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
 import { settingsApi } from '@/features/settings/api/settings.api';
+import { getSharedAudio } from '@/lib/audio-unlock';
 import { useGameSound } from './useGameSound';
 
 export interface CorrectSequenceOpts {
@@ -11,14 +12,13 @@ export interface CorrectSequenceOpts {
   onDone?: () => void;
 }
 
+// 진행 중인 재생의 finish — 요소가 하나라 체인도 하나다(훅 인스턴스가 여럿이어도 공용).
+let currentFinish: (() => void) | null = null;
+
 /** 게임 공통 오디오 훅 — TTS 재생 + 정답/오답 효과음 + 칭찬 시퀀스 */
 export function useGameAudio() {
   const { playCorrect, playIncorrect } = useGameSound();
 
-  const lastAudioRef = useRef<HTMLAudioElement | null>(null);
-  // playAudio가 생성한 모든 Audio 인스턴스 (언마운트 시 전부 pause).
-  // `new Audio()`는 DOM에 부착되지 않은 detached MediaElement라 ref 놓치면 GC 시까지 재생 계속됨.
-  const allAudiosRef = useRef<Set<HTMLAudioElement>>(new Set());
   // playCorrectSequence 내부 setTimeout 들을 모아 언마운트 시 clearTimeout
   const pendingTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   // 언어별 칭찬 음원 풀 (SystemSoundLanguage → url[]). 플레이어가 language 지정 시 해당 pool만.
@@ -46,27 +46,32 @@ export function useGameAudio() {
       onEnded?.();
       return;
     }
-    // 이전 오디오 정지 후 새 인스턴스로 재생 (autoplay 정책 회피)
-    if (lastAudioRef.current) {
-      lastAudioRef.current.pause();
-      lastAudioRef.current.src = '';
-      lastAudioRef.current = null;
-    }
-    const audio = new Audio(url);
-    allAudiosRef.current.add(audio);
+    // 🔴 **요소 하나를 재사용한다**(2026-09-16). 예전엔 소리마다 `new Audio(url)` 였는데, iOS
+    //    Safari 는 재생 권한을 요소 단위로 주기 때문에 그 요소는 영영 안 풀린다(→ lib/audio-unlock).
+    //    공용 요소라 화면 여럿이 동시에 소리를 내진 못한다 — 어차피 이전 소리를 끊던 동작이라 같다.
+    const audio = getSharedAudio();
     const gen = genRef.current;
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
-      allAudiosRef.current.delete(audio);
+      if (currentFinish === finish) currentFinish = null;
       // 🔴 stopAll() 이후 취소된 재생이면 onEnded(체인의 다음 소리)를 부르지 않는다.
       if (gen !== genRef.current) return;
       onEnded?.();
     };
-    audio.addEventListener('ended', finish);
-    audio.addEventListener('error', finish);
-    lastAudioRef.current = audio;
+    // 끼어들기로 끝난 옛 재생의 체인을 닫아 준다 — 요소가 따로였을 땐 `src=''` 가 띄우는 'error'
+    // 가 대신 해 줬다(안 닫으면 그 화면의 onEnded 를 기다리던 진행이 멈춘다). 새 재생이 먼저
+    // 걸리도록 마이크로태스크로 미룬다.
+    const prev = currentFinish;
+    currentFinish = finish;
+    if (prev) queueMicrotask(prev);
+
+    audio.pause();
+    // 🔴 addEventListener 가 아니라 **대입** — 재사용 요소라 리스너가 쌓이면 옛 체인이 같이 운다.
+    audio.onended = finish;
+    audio.onerror = finish;
+    audio.src = url;
     audio.play().catch(finish);
   }, []);
 
@@ -91,17 +96,12 @@ export function useGameAudio() {
     genRef.current++;
     pendingTimersRef.current.forEach((id) => clearTimeout(id));
     pendingTimersRef.current.clear();
-    allAudiosRef.current.forEach((a) => {
-      try {
-        a.pause();
-        a.src = '';
-        a.load();
-      } catch {
-        /* ignore */
-      }
-    });
-    allAudiosRef.current.clear();
-    lastAudioRef.current = null;
+    currentFinish = null;
+    try {
+      getSharedAudio().pause();
+    } catch {
+      /* ignore */
+    }
     setPraiseVisible(false);
   }, []);
 
@@ -174,23 +174,17 @@ export function useGameAudio() {
     [playFeedbackSound, playAudio, correctPools, scheduleTimer]
   );
 
-  // 언마운트 시 재생 중 오디오 + 예약 타이머 모두 정리.
-  // 떠돌이 Audio(이미 play().then 전 상태 포함) 모두 stop.
+  // 언마운트 시 재생 중 소리 + 예약 타이머 정리.
   useEffect(() => {
     return () => {
       pendingTimersRef.current.forEach((id) => clearTimeout(id));
       pendingTimersRef.current.clear();
-      allAudiosRef.current.forEach((a) => {
-        try {
-          a.pause();
-          a.src = '';
-          a.load();
-        } catch {
-          /* ignore */
-        }
-      });
-      allAudiosRef.current.clear();
-      lastAudioRef.current = null;
+      currentFinish = null;
+      try {
+        getSharedAudio().pause();
+      } catch {
+        /* ignore */
+      }
     };
   }, []);
 

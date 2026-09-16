@@ -8,6 +8,7 @@ import { router } from './router';
 import { registerAssetCache } from './lib/asset-cache';
 import { registerStaleChunkReload, clearStaleChunkMark } from './lib/stale-chunk-reload';
 import './lib/pwa-install'; // beforeinstallprompt 조기 캡처 (홈에 설치 버튼용)
+import './lib/audio-unlock'; // 첫 탭에 오디오 해금 (iOS Safari 는 요소마다 잠긴다)
 import './i18n'; // UI 다국어 초기화 (localStorage 언어 감지 + lazy 로케일 로드)
 import './index.css';
 import './store/theme.store';
