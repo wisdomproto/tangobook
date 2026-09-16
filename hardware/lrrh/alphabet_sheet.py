@@ -35,8 +35,40 @@ def px(mm):
     return round(mm / 25.4 * DPI)
 
 
+def card_size():
+    """카드 치수 (높이, 폭, 모서리R) — 🔴 시트와 형판이 **같은 크기**를 써야 한다.
+    세로로 붙인다(2026-09-15 「세로야」) — 폭 29.1 · 높이 45.1."""
+    return S.sticker_size()
+
+
+def card_font(cw):
+    """카드 폭에서 글꼴 크기가 나온다. 🔴 시트와 형판이 **같은 크기**를 써야 한다."""
+    return ImageFont.truetype(FONT, px(cw * 0.85))
+
+
+def card(d, x0, y0, cw, ch, cr, letter, font):
+    """카드 한 장 — 흰 바탕 · 모음 민트 / 자음 주황 테두리 · 검은 소문자 · 색 밑줄.
+
+    🔴 `sticker_templates.py` 가 형판을 구울 때 **이 함수를 그대로 부른다.** 종이에 찍히는 그림과
+       인식기 형판이 갈라지면 인식이 조용히 나빠지고 그건 아무 데도 안 찍힌다.
+    """
+    box = (px(x0), px(y0), px(x0 + cw) - 1, px(y0 + ch) - 1)
+    col = VOWEL if letter in 'aeiou' else CONS
+    d.rounded_rectangle(box, radius=px(cr), fill='white', outline=col, width=px(BORDER))
+    by = box[3] - px(BASE_BOT)                      # 밑줄 윗변 (모든 카드 같은 자리)
+    c_ = ((box[0] + box[2]) / 2, (box[1] + by - px(1.8)) / 2 + px(BORDER) / 2)   # 글자는 줄 위 칸의 가운데
+    tb = d.textbbox(c_, letter, font=font, anchor='mm')
+    inner = px(BORDER + 1.0)
+    assert tb[0] >= box[0] + inner and tb[2] <= box[2] - inner and tb[1] >= box[1] + inner and tb[3] <= box[3] - inner, f'{letter} 가 테두리에 닿는다'
+    d.text(c_, letter, font=font, fill=INK, anchor='mm')
+    bw = (cw - 2 * BORDER) * BASE_W
+    assert tb[3] <= by - px(1.2), f'{letter} 가 밑줄에 닿는다'
+    assert by + px(BASE_T) <= box[3] - px(BORDER + 0.8), f'{letter} 밑줄이 테두리에 닿는다'
+    d.rectangle((px(x0 + cw / 2) - px(bw / 2), by, px(x0 + cw / 2) + px(bw / 2), by + px(BASE_T)), fill=col)
+
+
 def main():
-    ch, cw, cr = S.sticker_size()   # 세로로 붙인다 (2026-09-15 「세로야」) — 폭 29.1 · 높이 45.1
+    ch, cw, cr = card_size()
     letters = [chr(c) for c in range(ord('a'), ord('z') + 1)] + list('aeio')
     gw = COLS * cw + (COLS - 1) * GAP[0]
     gh = ROWS * ch + (ROWS - 1) * GAP[1]
@@ -45,23 +77,10 @@ def main():
 
     img = Image.new('RGB', (px(A4[0]), px(A4[1])), 'white')
     d = ImageDraw.Draw(img)
-    font = ImageFont.truetype(FONT, px(cw * 0.85))
+    font = card_font(cw)
     for i, ch_ in enumerate(letters):
         r, c = divmod(i, COLS)
-        x0, y0 = mx + c * (cw + GAP[0]), my + r * (ch + GAP[1])
-        box = (px(x0), px(y0), px(x0 + cw) - 1, px(y0 + ch) - 1)
-        col = VOWEL if ch_ in 'aeiou' else CONS
-        d.rounded_rectangle(box, radius=px(cr), fill='white', outline=col, width=px(BORDER))
-        by = box[3] - px(BASE_BOT)                      # 밑줄 윗변 (모든 카드 같은 자리)
-        c_ = ((box[0] + box[2]) / 2, (box[1] + by - px(1.8)) / 2 + px(BORDER) / 2)   # 글자는 줄 위 칸의 가운데
-        tb = d.textbbox(c_, ch_, font=font, anchor='mm')
-        inner = px(BORDER + 1.0)
-        assert tb[0] >= box[0] + inner and tb[2] <= box[2] - inner and tb[1] >= box[1] + inner and tb[3] <= box[3] - inner, f'{ch_} 가 테두리에 닿는다'
-        d.text(c_, ch_, font=font, fill=INK, anchor='mm')
-        bw = (cw - 2 * BORDER) * BASE_W
-        assert tb[3] <= by - px(1.2), f'{ch_} 가 밑줄에 닿는다'
-        assert by + px(BASE_T) <= box[3] - px(BORDER + 0.8), f'{ch_} 밑줄이 테두리에 닿는다'
-        d.rectangle((px(x0 + cw / 2) - px(bw / 2), by, px(x0 + cw / 2) + px(bw / 2), by + px(BASE_T)), fill=col)
+        card(d, mx + c * (cw + GAP[0]), my + r * (ch + GAP[1]), cw, ch, cr, ch_, font)
 
     os.makedirs(B.OUT, exist_ok=True)
     png, pdf = os.path.join(B.OUT, 'alphabet_a4.png'), os.path.join(B.OUT, 'alphabet_a4.pdf')

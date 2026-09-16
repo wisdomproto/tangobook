@@ -1,24 +1,26 @@
 # -*- coding: utf-8 -*-
 """스티커 카드 형판 굽기 — 종이에 찍히는 그림 그대로를 인식기 형판으로.
 
-실행:  python sticker_templates.py   → packages/client/public/tango-sticker.json
+실행:  python sticker_templates.py   → packages/client/public/tango-sticker-<집합>.json
 
-2026-09-16: 스티커 블록(4x4 자음 · 2x4 모음)이 생겼다. 기존 `tango-lego.pieces.json` 은
+2026-09-16: 스티커 블록(4x4·2x4 한글 · 4x6 알파벳)이 생겼다. 기존 `tango-lego.pieces.json` 은
   **플라스틱 획 조각의 칸 발자국**이라 인쇄 글꼴과 모양이 다르다 — 그걸 쓰면 안 된다.
 
-🔴 이 파일은 그림을 다시 그리지 않는다. `hangul_sheet.card()` 를 **그대로 불러서** 카드 한 장을
-   찍고 잉크만 뽑는다. 시트를 고치면(PAD·FILL·글꼴·획 굵기) 형판이 자동으로 따라온다 —
+🔴 이 파일은 그림을 다시 그리지 않는다. 시트의 `card()` 를 **그대로 불러서** 카드 한 장을 찍고
+   잉크만 뽑는다. 시트를 고치면(PAD·FILL·글꼴·획 굵기·밑줄) 형판이 자동으로 따라온다 —
    종이와 형판이 갈라지면 인식이 조용히 나빠지는데 그건 아무 데도 안 찍힌다.
 
 🔴 정규화 기준은 **잉크 bbox 가 아니라 카드**다. 잉크 bbox 로 40x40 을 채우면 ㅣ(2.75x20mm 막대)가
-   **까만 정사각형**이 되어 ㅂ·ㅌ·ㄹ·ㅁ 과 0.72~0.75 로 붙는다(실측). 카드가 액자를 주므로
-   그 액자 기준으로 재면 그 병이 없다.
+   **까만 정사각형**이 되어 ㅂ·ㅌ·ㄹ·ㅁ 과 0.72~0.75 로 붙는다(실측).
 
-🔴 표본법은 `matchLegoShape` 와 **같은 최근접 규칙**이어야 한다(관찰과 형판을 다른 자로 재면
+🔴 표본법은 `matchSticker` 와 **같은 최근접 규칙**이어야 한다(관찰과 형판을 다른 자로 재면
    겹침이 편향된다). 그래서 격자 크기를 JSON 에 같이 적는다.
 
-🔴 모음 회전표는 `tango-lego.pieces.json` 의 `rots` 와 같은 규칙 — 90 = 시계방향(페이지 legoRotate 와 동일).
-   자음은 **0도만 굽는다**. 아이가 ㄱ 카드를 뒤집으면 그림이 그대로 ㄴ 이라 ㄴ 형판이 받아 준다.
+🔴 **집합은 데이터다.** 한글·알파벳·(나중에)숫자를 한 통에 넣고 최고점으로 고르면 안 된다 —
+   `o`/`ㅇ` · `i`/`ㅣ` 는 같은 그림이고, `0`/`o`/`ㅇ` · `1`/`l`/`i`/`ㅣ` · `2`/`z` · `5`/`s` 도 그렇다.
+   어느 집합을 쓸지는 **화면(활동)이 링크로 정한다**. 여기서는 집합마다 파일 하나를 굽고,
+   판정 코드는 집합을 몰라도 되게 카드 갈래(`kinds`)와 동점 탐침(`tie`)까지 데이터로 실어 보낸다.
+   → 숫자를 붙일 때 할 일 = **인쇄 시트를 먼저 만들고**, 여기 `SETS` 에 한 줄 더하는 것뿐.
 """
 import base64, json, os, sys
 import numpy as np
@@ -26,23 +28,23 @@ from PIL import Image, ImageDraw
 
 import sticker_block as S
 import hangul_sheet as HS
+import alphabet_sheet as AS
 from alphabet_sheet import px, CONS, VOWEL
 
-GRID = 40            # matchLegoShape 의 legoMatchGrid 와 같아야 한다
+GRID = 40            # matchSticker 의 격자와 같아야 한다
 # 곁획 한 줄로 치는 기준 — 🔴 **잡티를 안 세려고** 둘 다 필요하다. 진짜 곁획은 굵기 2.75mm =
 # 카드 긴 변의 9.5% = 격자 약 4칸이라 넉넉히 통과하고, JPEG 잡티는 1칸짜리라 떨어진다.
 # 실측: 이 관문이 없을 때 진짜 ㅗ 카드가 **곁획 4개**로 세어져 통째로 버려졌다(겹침은 ㅗ 0.81 로 맞았는데).
 # 🔴 값은 JSON 으로 나가고 페이지가 읽는다 — 양쪽에 따로 적으면 조용히 갈라진다.
 TICK_INK = 2         # 그 줄의 기둥 반대쪽 절반에 잉크가 이만큼(격자칸)은 있어야 「곁획 줄」
 TICK_RUN = 2         # 그런 줄이 이만큼 이어져야 곁획 하나
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..',
-                   'packages', 'client', 'public', 'tango-sticker.json')
 
-# 회전 -> 글자. 자음은 0도만. (ㅁ·ㅇ 은 회전대칭이라 0도가 전부다)
-# 🔴 **네 회전을 다 굽는다.** 획 조각(tango-lego.pieces.json)의 ㅡㅣ 는 1x5 막대라 0도와 180도가
-#    같은 그림이어서 두 개면 됐지만, **카드는 대칭이 아니다** — 세로획이 왼쪽에 붙어 있어서
-#    0도(왼쪽 기둥)와 180도(오른쪽 기둥)가 다른 그림이고, 둘 다 ㅣ 다.
-#    실측: 아래쪽에 막대가 있는 ㅡ 카드가 형판에 없어 IoU 0.00 으로 통째로 버려졌다.
+PUB = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'packages', 'client', 'public')
+
+# 모음 회전 -> 글자. 🔴 **네 회전을 다 굽는다.** 획 조각(tango-lego.pieces.json)의 ㅡㅣ 는 1x5 막대라
+# 0도와 180도가 같은 그림이어서 두 개면 됐지만, **카드는 대칭이 아니다** — 세로획이 왼쪽에 붙어 있어서
+# 0도(왼쪽 기둥)와 180도(오른쪽 기둥)가 다른 그림이고, 둘 다 ㅣ 다.
+# 실측: 아래쪽에 막대가 있는 ㅡ 카드가 형판에 없어 IoU 0.00 으로 통째로 버려졌다.
 VOWEL_ROTS = {
     'ㅣ': {0: 'ㅣ', 90: 'ㅡ', 180: 'ㅣ', 270: 'ㅡ'},
     'ㅏ': {0: 'ㅏ', 90: 'ㅜ', 180: 'ㅓ', 270: 'ㅗ'},
@@ -50,10 +52,9 @@ VOWEL_ROTS = {
 }
 
 
-def render(glyph, cw, ch, cr, font, col, left=False, t=0):
-    """카드 한 장을 찍어 **잉크 마스크**(bool 2차원)로. 그리기는 hangul_sheet.card 그대로."""
-    img = Image.new('RGB', (px(cw), px(ch)), 'white')
-    HS.card(ImageDraw.Draw(img), 0, 0, cw, ch, cr, glyph, font, col, left=left, t=t)
+def ink_of(img):
+    """찍은 카드에서 **검은 잉크**만. 색 테두리·색 밑줄은 잉크가 아니다
+    (주황 R240 · 민트 G184 라 세 채널 모두 120 미만인 검정과 안 겹친다)."""
     a = np.array(img).astype(np.int16)
     return (a[:, :, 0] < 120) & (a[:, :, 1] < 120) & (a[:, :, 2] < 120)
 
@@ -69,16 +70,16 @@ def rot(m, deg):
 
 
 def grid_of(mask):
-    """matchLegoShape 와 같은 최근접 표본 — 카드 전체를 GRID x GRID 로."""
+    """matchSticker 와 같은 최근접 표본 — 카드 전체를 GRID x GRID 로."""
     h, w = mask.shape
     return np.array([[mask[int((y+0.5)*h/GRID), int((x+0.5)*w/GRID)]
                       for x in range(GRID)] for y in range(GRID)], dtype=bool)
 
 
 # ── 탐침 셋. 🔴 요약 지표를 더 손보는 게 아니라 **도면에서 다른 자리 하나만** 재는 것이다.
-#    (ㄹ/ㅌ 위칸 홈 · ㅁ/ㅇ 모서리 — 획 블록에서 이미 두 번 증명된 자.)
 def probe_bar(g):
-    """위칸 왼쪽−오른쪽 채움. 실측: ㄴ+0.50 ㅌ+0.33 ㄷ+0.25 ㄱ−0.20 ㄹ−0.22 ㅋ−0.33 · 나머지 0.00"""
+    """위칸 왼쪽−오른쪽 채움. ⚠ 한글 ㄹ/ㅌ 에서는 **실물에 안 들었다**(렌더 0.47 vs 카메라 0.12) —
+    지금은 진단으로만 싣는다. 되살리려면 카메라 프레임에서 먼저 재라."""
     ys, xs = np.where(g)
     if not len(ys): return 0.0
     y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max()
@@ -90,7 +91,7 @@ def probe_bar(g):
 
 
 def probe_corner(g):
-    """잉크 bbox 네 모서리(각 25%) 채움의 최솟값. 실측: ㅁ 1.00 · ㅇ 0.33"""
+    """잉크 bbox 네 모서리(각 25%) 채움의 최솟값. 실측: ㅁ 1.00 · ㅇ 0.33 (카메라 0.72 / 0.33)."""
     ys, xs = np.where(g)
     if not len(ys): return 0.0
     y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max()
@@ -103,20 +104,17 @@ def probe_corner(g):
     return float(min(q))
 
 
-def probe_ticks(g, kind):
+def probe_ticks(g, k):
     """기둥 반대쪽 절반의 곁획 덩어리 수. 실측: ㅣ 0 · ㅏ 1 · ㅑ 2 (겹침 없음).
     🔴 어느 쪽이 기둥인지 **세어서** 정한다 — ㅓ 는 기둥이 오른쪽이다. 「왼쪽 정렬」을
-       코드에 못 박으면 180도 돌린 카드를 통째로 놓친다."""
-    if kind == 'sq': return -1
+       코드에 못 박으면 180도 돌린 카드를 통째로 놓친다.
+    🔴 세로/가로는 **갈래 기록(k)**이 준다 — 격자는 늘 정사각이라 g.shape 로는 못 안다."""
+    if not k.get('tick'): return -1
     G = g.shape[0]
-    if kind == 'port':
-        a, b = g[:, :G//2], g[:, G//2:]
-        far = b if a.mean() >= b.mean() else a
-        cnt = far.sum(axis=1)
-    else:
-        a, b = g[:G//2, :], g[G//2:, :]
-        far = b if a.mean() >= b.mean() else a
-        cnt = far.sum(axis=0)
+    port = k['bh'] > k['bw']
+    a, b = (g[:, :G//2], g[:, G//2:]) if port else (g[:G//2, :], g[G//2:, :])
+    far = b if a.mean() >= b.mean() else a
+    cnt = far.sum(axis=1) if port else far.sum(axis=0)
     n, run = 0, 0
     for v in cnt:
         if v >= TICK_INK:
@@ -136,31 +134,47 @@ def pack(g):
     return base64.b64encode(bytes(out)).decode()
 
 
-def main():
+def glyph_rec(ch, mask, kind, kinds):
+    g = grid_of(mask)
+    assert g.sum() > 20, f'{ch} 잉크가 격자에서 사라졌다 ({g.sum()}칸)'
+    return dict(ch=ch, kind=kind, n=int(g.sum()),
+                bar=round(probe_bar(g), 3), corner=round(probe_corner(g), 3),
+                ticks=probe_ticks(g, kinds[kind]), bits=pack(g))
+
+
+# ══════════════════════════════════════════════════════════════════ 집합
+
+
+def build_ko():
+    """한글 자모 — 자음 4x4 · 모음 2x4(네 회전)."""
     cs, _, cr = S.sticker_size(4, 4)          # 자음 카드 29.1 정사각
     vh, vw, vr = S.sticker_size(4, 2)         # 모음 카드 13.1 x 29.1 (세로로 세운 상태)
     cfont = HS.fit(HS.FONT, set(HS.CONSONANTS),
                    px((cs - 2*HS.PAD)*HS.FILL), px((cs - 2*HS.PAD)*HS.FILL))
     t = min(HS.ink(cfont, 'ㅣ')[2] - HS.ink(cfont, 'ㅣ')[0], px((vw - 2*HS.PAD)*0.38))
+    studs = round(cs / 8.0, 4)                # 스티커 **긴 변** ÷ 피치. 발자국(31.6)이 아니다
+    # shift 0 = 밀어 보지 않는다. 한글 글자는 카드를 크게 채워(잉크 17.2mm / 카드 29.1mm)
+    # 손으로 오린 오차가 상대적으로 작고, 실측 39/39 가 이미 밀지 않고 나왔다.
+    kinds = {
+        'sq':   dict(bw=4, bh=4, ar=[0.72, 1.55], studs=studs, tick=False, shift=0),
+        'port': dict(bw=2, bh=4, ar=[0.30, 0.72], studs=studs, tick=True,  shift=0),
+        'land': dict(bw=4, bh=2, ar=[1.55, 3.40], studs=studs, tick=True,  shift=0),
+    }
+
+    def render(glyph, cw, ch2, cr2, font, col, left=False, t2=0):
+        img = Image.new('RGB', (px(cw), px(ch2)), 'white')
+        HS.card(ImageDraw.Draw(img), 0, 0, cw, ch2, cr2, glyph, font, col, left=left, t=t2)
+        return ink_of(img)
 
     glyphs = []
-
-    def add(ch, mask, kind, bw, bh):
-        g = grid_of(mask)
-        assert g.sum() > 20, f'{ch} 잉크가 격자에서 사라졌다 ({g.sum()}칸)'
-        glyphs.append(dict(ch=ch, kind=kind, bw=bw, bh=bh, n=int(g.sum()),
-                           bar=round(probe_bar(g), 3), corner=round(probe_corner(g), 3),
-                           ticks=probe_ticks(g, kind), bits=pack(g)))
-
     for ch in sorted(set(HS.CONSONANTS)):
-        add(ch, render(ch, cs, cs, cr, cfont, CONS), 'sq', 4, 4)
-
+        glyphs.append(glyph_rec(ch, render(ch, cs, cs, cr, cfont, CONS), 'sq', kinds))
     for base, table in VOWEL_ROTS.items():
-        m0 = render(base, vw, vh, vr, None, VOWEL, left=True, t=t)   # 세로 카드 (2x4)
+        m0 = render(base, vw, vh, vr, None, VOWEL, left=True, t2=t)   # 세로 카드 (2x4)
         for deg, ch in table.items():
             m = rot(m0, deg)
-            port = m.shape[0] > m.shape[1]
-            add(ch, m, 'port' if port else 'land', 2 if port else 4, 4 if port else 2)
+            kind = 'port' if m.shape[0] > m.shape[1] else 'land'
+            glyphs.append(glyph_rec(ch, m, kind, kinds))
 
     # 🔴 굽고 나서 바로 검산 — 종이와 형판이 갈라지는 건 여기서만 잡힌다
     by = {g['ch']: g for g in glyphs}
@@ -169,18 +183,62 @@ def main():
     for a, b in (('ㅓ', 'ㅏ'), ('ㅕ', 'ㅑ'), ('ㅗ', 'ㅏ'), ('ㅠ', 'ㅑ'), ('ㅡ', 'ㅣ')):
         assert by[a]['ticks'] == by[b]['ticks'], f'{a} 곁획 수가 {b} 와 다르다 (회전 방향?)'
     assert by['ㅁ']['corner'] - by['ㅇ']['corner'] > 0.3, 'ㅁ/ㅇ 모서리가 안 갈린다'
-    assert by['ㅌ']['bar'] - by['ㄹ']['bar'] > 0.3, 'ㄹ/ㅌ 위칸이 안 갈린다'
-    assert by['ㄴ']['bar'] - by['ㄱ']['bar'] > 0.3, 'ㄱ/ㄴ 위칸이 안 갈린다'
+    # 동점 탐침: **카메라로 재 본 짝만** 넣는다(ㄹ/ㅌ 위칸은 실물에서 안 들어 뺐다)
+    tie = [dict(probe='corner', chars=['ㅁ', 'ㅇ'])]
+    return dict(card=dict(cons=[round(cs, 2)]*2, vowel=[round(vw, 2), round(vh, 2)]),
+                kinds=kinds, tie=tie, glyphs=glyphs)
 
-    data = dict(grid=GRID, tick=dict(ink=TICK_INK, run=TICK_RUN),
-                card=dict(cons=[round(cs, 2)]*2, vowel=[round(vw, 2), round(vh, 2)]),
-                glyphs=glyphs)
-    with open(OUT, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
-    print(f'  ✓ 글자 {len(glyphs)}개 · 격자 {GRID}x{GRID} · {os.path.getsize(OUT)/1024:.1f}KB → {os.path.relpath(OUT)}')
-    for g in glyphs:
-        print(f'    {g["ch"]} {g["kind"]:4} {g["bw"]}x{g["bh"]}  칸 {g["n"]:4}  '
-              f'위칸 {g["bar"]:+.2f}  모서리 {g["corner"]:.2f}  곁획 {g["ticks"]}')
+
+def build_en():
+    """알파벳 소문자 — 4x6 카드 한 갈래.
+
+    🔴 **회전을 굽지 않는다.** `b/q` · `d/p` · `n/u` 가 180도로 서로 바뀌므로, 뒤집힌 카드를
+       읽어 주면 틀린 글자를 자신 있게 내놓는다. 안 읽는 게 맞다(카드에 색 밑줄이 있어서
+       아이는 어느 쪽이 위인지 안다).
+    """
+    ch2, cw, cr = AS.card_size()
+    font = AS.card_font(cw)
+    studs = round(ch2 / 8.0, 4)               # 긴 변 45.1mm ÷ 8 = 5.64돌기
+    # 🔴 **세로로 밀어 본다(shift).** 소문자는 카드를 작게 쓴다 — x높이 잉크가 카드 높이의 27%
+    #    (한글은 59%)라, 손으로 오린 가장자리 오차·원근·인쇄 세대 차이가 **상대적으로 훨씬 크게**
+    #    먹는다. 실측(올라온 프레임, 카드 13장): 안 밀면 겹침 0.26~0.58 에 글자도 거의 다 틀리는데,
+    #    **13장 중 11장이 dy −3 에서 최고**가 되고 그때 글자가 전부 맞는다(0.52~0.93).
+    #    −3행 = 카드 높이의 7.5% = 3.4mm. 그 프레임의 카드는 밑줄 커밋(397e5730) **이전에 뽑은**
+    #    인쇄물이라 글자가 지금 시트보다 그만큼 아래에 있다. 다시 뽑으면 dy≈0 이 되고,
+    #    그때도 손으로 오린 오차는 남으므로 허용치는 그대로 둔다.
+    kinds = {'alpha': dict(bw=4, bh=6, ar=[0.45, 0.95], studs=studs, tick=False, shift=4)}
+
+    glyphs = []
+    for c in [chr(x) for x in range(ord('a'), ord('z') + 1)]:
+        img = Image.new('RGB', (px(cw), px(ch2)), 'white')
+        AS.card(ImageDraw.Draw(img), 0, 0, cw, ch2, cr, c, font)
+        glyphs.append(glyph_rec(c, ink_of(img), 'alpha', kinds))
+
+    # 동점 탐침은 아직 없다 — **카메라로 재 본 뒤에** 넣는다(ㄹ/ㅌ 에서 렌더만 보고 넣었다가 틀렸다)
+    return dict(card=dict(alpha=[round(cw, 2), round(ch2, 2)]),
+                kinds=kinds, tie=[], glyphs=glyphs)
+
+
+SETS = [('ko', build_ko), ('en', build_en)]
+# 🔜 숫자: `number_sheet.py` 를 먼저 만들고 여기에 ('num', build_num) 한 줄.
+#    걸릴 게 뻔한 짝 = 0/o/ㅇ · 1/l/i/ㅣ · 6/9(회전) · 2/z · 5/s → **집합을 섞으면 안 되는 이유**다.
+
+
+def main():
+    for name, build in SETS:
+        d = build()
+        d['set'] = name
+        d['grid'] = GRID
+        d['tick'] = dict(ink=TICK_INK, run=TICK_RUN)
+        out = os.path.join(PUB, f'tango-sticker-{name}.json')
+        with open(out, 'w', encoding='utf-8') as f:
+            json.dump(d, f, ensure_ascii=False, separators=(',', ':'))
+        print(f'  ✓ [{name}] 글자 {len(d["glyphs"])}개 · 갈래 {list(d["kinds"])} · '
+              f'{os.path.getsize(out)/1024:.1f}KB → {os.path.basename(out)}')
+        for g in d['glyphs']:
+            k = d['kinds'][g['kind']]
+            print(f'      {g["ch"]} {g["kind"]:5} {k["bw"]}x{k["bh"]}  칸 {g["n"]:4}  '
+                  f'위칸 {g["bar"]:+.2f}  모서리 {g["corner"]:.2f}  곁획 {g["ticks"]}')
 
 
 if __name__ == '__main__':

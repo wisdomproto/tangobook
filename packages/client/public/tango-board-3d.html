@@ -1372,15 +1372,12 @@ var TUNE = {
   stickerHoleMax: 0.004,         // 화면 넓이의 이 비율보다 작은 구멍만 메운다(큰 영역 오염 방지)
   /* 구멍 메운 뒤 진짜 카드는 0.84~0.95(실측 36장) · 자모 획은 0.4~0.6 이라 사이가 넓다 */
   stickerFill: 0.80,             // 상자 채움이 이만큼은 돼야 카드(네모)다
-  /* 카드 가로세로비 띠 — 자음 4x4(1.0) · 모음 세로 2x4(0.45) · 모음 가로 4x2(2.2).
-     🔴 절대 크기로 고르지 않는다(칸 추정이 깨져도 카드는 찾아야 한다 — 실측 칸 37.2 vs 137.9).
-        오히려 **카드가 칸의 원본**이다: 자음 카드 한 변 = 3.95칸. */
-  stickerArSq: [0.72, 1.55],
-  stickerArPort: [0.30, 0.72],
-  stickerArLand: [1.55, 3.4],
-  /* 🔴 우리가 찾는 건 **흰 스티커**(29.1mm)이지 블록 발자국(31.6mm)이 아니다 — 29.1/8 = 3.64돌기.
-        발자국 값(3.95)을 쓰면 칸이 8% 작게 나온다(실측: 카드 81px 에서 20.5 vs 22.3). */
-  stickerStuds: 3.64,            // 스티커 긴 변 29.1mm ÷ 피치 8mm (sticker_block.sticker_size)
+  /* 🔴 카드 가로세로비 띠와 칸 배수는 **여기 없다** — 형판 JSON(`kinds`)이 들고 온다.
+        집합마다 카드가 다르기 때문이다(한글 자음 정사각 · 한글 모음 0.45 · 알파벳 0.645).
+        절대 크기로는 안 고른다(칸 추정이 깨져도 카드는 찾아야 한다 — 실측 칸 37.2 vs 137.9).
+        오히려 **카드가 칸의 원본**이다 — 스티커 긴 변이 집합마다 고정이라(한글 29.1mm=3.64돌기 ·
+        알파벳 45.1mm=5.64돌기) 카드 하나만 잡히면 px/돌기가 바로 나온다.
+        🔴 찾는 건 **흰 스티커**이지 블록 발자국(31.6mm)이 아니다 — 발자국 값을 쓰면 칸이 8% 작다. */
   stickerCellTol: 0.40,          // 칸이 중앙값에서 이 비율 넘게 벗어난 카드는 카드가 아니다
   stickerMinIou: 0.42,           // 잉크가 형판과 이만큼은 닮아야 글자로 본다
   stickerTieGap: 0.10,           // 1·2위 차이가 이보다 작고 **재 본 짝**이면 자리 탐침으로 가른다
@@ -3544,7 +3541,7 @@ function matchLegoShape(blob, bw, bh, onlyCh){
 /* ═══════════════════════════════════════════════════════════════════════════
    🧾 스티커 블록 경로 (2026-09-16)
 
-   인쇄한 한글 카드를 붙인 3D 프린팅 블록(4x4 자음 · 2x4 모음). 획 블록 경로와 **다른 물건**이라
+   인쇄한 카드를 붙인 3D 프린팅 블록(한글 4x4·2x4 · 알파벳 4x6). 획 블록 경로와 **다른 물건**이라
    같은 파이프라인의 뒷단을 쓸 수 없다:
 
    🔴 「덩어리 = 글자」가 아니라 「덩어리 = 액자, 글자는 액자 안 잉크」다. 그래서
@@ -3569,24 +3566,28 @@ function matchLegoShape(blob, bw, bh, onlyCh){
         모음 = 기둥 반대쪽 곁획 수 0/1/2 (실측 겹침 0) — **가르는 관문**
         ㅁ/ㅇ = 잉크 네 모서리 채움 (1.00 / 0.33)   — 동점일 때만
       🔴 **재 보지 않은 짝에는 안 건다. 그리고 「재 봤다」는 카메라로 재 봤다는 뜻이다** —
-         ㄹ/ㅌ 위칸 탐침은 형판끼리 0.47 로 갈렸는데 실물에서 0.12 라 맞던 답을 틀리게 만들었다
-         (matchSticker 의 STICKER_CORNER_SET 주석 참조).
+         ㄹ/ㅌ 위칸 탐침은 형판끼리 0.47 로 갈렸는데 실물에서 0.12 라 맞던 답을 틀리게 만들었다.
+
+   🔴 **집합(set)은 데이터다.** 한글·알파벳·(나중에)숫자를 한 통에 넣고 최고점으로 고르면 안 된다 —
+      `o`/`ㅇ` · `i`/`ㅣ` 는 같은 그림이고 카드 비율도 겹친다(영어 4x6 = 0.645 vs 한글 모음 2x4 =
+      실측 0.48~0.63). 나중 숫자도 `0`/`o`/`ㅇ` · `1`/`l`/`i`/`ㅣ` · `2`/`z` · `5`/`s` 로 겹친다.
+      어느 집합을 쓸지는 **화면(활동)이 링크로 정한다** — `?set=ko`(기본) · `?set=en` · `?set=en,num`.
+      이 코드는 집합 이름을 모른다: 카드 갈래(`kinds`)도 동점 탐침(`tie`)도 JSON 이 싣고 온다.
+      → 집합을 늘릴 때 여기 고칠 것은 **없다**.
    ═══════════════════════════════════════════════════════════════════════════ */
-var STICKER_URL = 'tango-sticker.json';
-var stickerTpl = null;          // [{ch, kind, bw, bh, bits, n, bar, corner, ticks}]
+var STICKER_URL = 'tango-sticker-';        // + 집합이름 + '.json'
+var stickerTpl = null;                     // [{ch, kind, bits, n, bar, corner, ticks}] — 켠 집합을 합친 것
+var stickerKinds = null;                   // { 갈래: {bw, bh, ar:[lo,hi], studs, tick} }
+var stickerTie = null;                     // [{probe, chars:{글자:1}}] — 동점일 때만 보는 자리 탐침
 var STICKER_G = 40;
 /* 곁획 한 줄로 치는 기준 — **굽는 쪽(sticker_templates.py)이 JSON 으로 실어 보낸다.**
    여기에 숫자를 따로 적지 않는 이유: 두 곳에 적으면 조용히 갈라진다. */
 var STICKER_TICK_INK = 2, STICKER_TICK_RUN = 2;
-/* 동점일 때 자리 탐침을 걸 짝 — **카메라로 재 본 무리만** 넣는다.
-   🔴 ㄱㄴㄷㄹㅋㅌ 의 「위칸 왼쪽−오른쪽」은 **뺐다.** 형판끼리는 깨끗이 갈렸지만
-      (ㄴ+0.50 ㅌ+0.25 ㄷ+0.25 ㄱ−0.20 ㄹ−0.22 ㅋ−0.33) **실물 카드에서는 안 갈린다** —
-      올라온 프레임에서 진짜 ㅌ 이 −0.08, 진짜 ㄹ 이 −0.20 으로 **둘 다 음수**였다(간격 0.12).
-      그 탓에 겹침이 이미 맞게 고른 것(ㅌ 0.79 > ㄹ 0.74)을 탐침이 **ㄹ 로 뒤집었다**.
-      ⚠ 렌더에서 잰 분리력은 카메라에서의 분리력이 아니다. 되살리려면 카메라 프레임에서
-        ㄹ·ㅌ 을 여러 장 재서 부호가 갈리는지부터 볼 것.
-   ✅ ㅁ/ㅇ 모서리는 카메라에서도 갈린다 — 실측 ㅁ 0.72 · ㅇ 0.33 (형판 1.00 / 0.33). */
-var STICKER_CORNER_SET = { 'ㅁ':1, 'ㅇ':1 };
+/* 링크가 고르는 집합. `?set=` 없으면 한글 — 기존 링크가 안 깨지게. */
+var STICKER_SETS = (function(){
+  var m = /(^|[?&])set=([A-Za-z0-9_,]+)/.exec(location.search);
+  return m ? m[2].split(',').filter(Boolean) : ['ko'];
+})();
 
 function popc32(v){
   v = v - ((v >> 1) & 0x55555555);
@@ -3636,15 +3637,16 @@ function stickerCorner(g, G){
   }
   return best;
 }
-/** 기둥 반대쪽 절반의 곁획 덩어리 수.
+/** 기둥 반대쪽 절반의 곁획 덩어리 수 (모음 전용).
     🔴 어느 쪽이 기둥인지 **세어서** 정한다 — ㅓ 는 기둥이 오른쪽이다. 시트의 「왼쪽 정렬」을
-       코드에 못 박으면 180도 돌린 카드를 통째로 놓친다. */
-function stickerTicks(g, G, kind){
-  if (kind === 'sq') return -1;
-  var half = G >> 1, a = 0, b = 0, x, y;
+       코드에 못 박으면 180도 돌린 카드를 통째로 놓친다.
+    🔴 세로/가로는 **갈래 기록(k)**이 준다 — 격자는 늘 정사각이라 g 만 보고는 못 안다. */
+function stickerTicks(g, G, k){
+  if (!k || !k.tick) return -1;
+  var half = G >> 1, port = k.bh > k.bw, a = 0, b = 0, x, y;
   for (y = 0; y < G; y++) for (x = 0; x < G; x++){
     var v = g[y*G + x] ? 1 : 0;
-    if (kind === 'port'){ if (x < half) a += v; else b += v; }
+    if (port){ if (x < half) a += v; else b += v; }
     else { if (y < half) a += v; else b += v; }
   }
   var farLo = (a >= b) ? half : 0, farHi = (a >= b) ? G : half;
@@ -3654,70 +3656,140 @@ function stickerTicks(g, G, kind){
   var n = 0, run = 0;
   for (var i = 0; i < G; i++){
     var cnt = 0;
-    for (var j = farLo; j < farHi; j++) cnt += (kind === 'port' ? g[i*G + j] : g[j*G + i]) ? 1 : 0;
+    for (var j = farLo; j < farHi; j++) cnt += (port ? g[i*G + j] : g[j*G + i]) ? 1 : 0;
     if (cnt >= STICKER_TICK_INK){ if (++run === STICKER_TICK_RUN) n++; }
     else run = 0;
   }
   return n;
 }
 
-/** 스티커 형판 읽기. 🔴 굽는 쪽이 적어 둔 탐침 값을 **되계산해 대조**한다(구현이 갈라지는 걸 여기서 잡는다). */
+/** 켠 집합들의 형판을 읽어 합친다.
+    🔴 굽는 쪽이 적어 둔 탐침 값을 **되계산해 대조**한다(구현이 갈라지는 걸 여기서 잡는다). */
 function loadSticker(){
-  fetch(STICKER_URL).then(function(r){
-    if (!r.ok) throw new Error('sticker ' + r.status);
-    return r.json();
-  }).then(function(js){
-    var G = STICKER_G = js.grid, bad = 0;
-    if (js.tick){ STICKER_TICK_INK = js.tick.ink; STICKER_TICK_RUN = js.tick.run; }
-    stickerTpl = js.glyphs.map(function(d){
-      var bin = atob(d.bits), g = new Uint8Array(G*G);
-      for (var k = 0; k < G*G; k++) g[k] = (bin.charCodeAt(k >> 3) >> (k & 7)) & 1;
-      var p = stickerPack(g, G);
-      var bar = stickerBar(g, G), cor = stickerCorner(g, G), tk = stickerTicks(g, G, d.kind);
-      if (Math.abs(bar - d.bar) > 0.02 || Math.abs(cor - d.corner) > 0.02 || tk !== d.ticks){
-        bad++;
-        if (window.console) console.error('[sticker] 탐침이 굽는 쪽과 다르다', d.ch,
-          { bar:[bar, d.bar], corner:[cor, d.corner], ticks:[tk, d.ticks] });
-      }
-      return { ch:d.ch, kind:d.kind, bw:d.bw, bh:d.bh,
-               bits:p.bits, n:p.n, bar:bar, corner:cor, ticks:tk };
+  Promise.all(STICKER_SETS.map(function(name){
+    return fetch(STICKER_URL + name + '.json').then(function(r){
+      if (!r.ok) throw new Error(name + ' ' + r.status);
+      return r.json();
     });
-    console.log('[tango-board-3d] 스티커 형판 ' + stickerTpl.length + ' 글자' + (bad ? ' · 탐침 불일치 ' + bad : ''));
+  })).then(function(list){
+    var tpl = [], kinds = {}, tie = [], bad = 0;
+    list.forEach(function(js){
+      var G = STICKER_G = js.grid;
+      if (js.tick){ STICKER_TICK_INK = js.tick.ink; STICKER_TICK_RUN = js.tick.run; }
+      Object.keys(js.kinds).forEach(function(k){
+        /* 같은 갈래 이름을 두 집합이 다르게 재면(en + num 처럼 같은 카드를 쓰는 짝) 조용히 틀린다 */
+        if (kinds[k] && JSON.stringify(kinds[k]) !== JSON.stringify(js.kinds[k])){
+          bad++;
+          if (window.console) console.error('[sticker] 갈래 ' + k + ' 가 집합마다 다르다', kinds[k], js.kinds[k]);
+        }
+        kinds[k] = js.kinds[k];
+      });
+      (js.tie || []).forEach(function(t){
+        var m = {};
+        t.chars.forEach(function(c){ m[c] = 1; });
+        tie.push({ probe:t.probe, chars:m });
+      });
+      js.glyphs.forEach(function(d){
+        var bin = atob(d.bits), g = new Uint8Array(G*G);
+        for (var k2 = 0; k2 < G*G; k2++) g[k2] = (bin.charCodeAt(k2 >> 3) >> (k2 & 7)) & 1;
+        var p = stickerPack(g, G);
+        var bar = stickerBar(g, G), cor = stickerCorner(g, G), tk = stickerTicks(g, G, js.kinds[d.kind]);
+        if (Math.abs(bar - d.bar) > 0.02 || Math.abs(cor - d.corner) > 0.02 || tk !== d.ticks){
+          bad++;
+          if (window.console) console.error('[sticker] 탐침이 굽는 쪽과 다르다', d.ch,
+            { bar:[bar, d.bar], corner:[cor, d.corner], ticks:[tk, d.ticks] });
+        }
+        tpl.push({ ch:d.ch, kind:d.kind, bits:p.bits, n:p.n, bar:bar, corner:cor, ticks:tk });
+      });
+    });
+    /* 🔴 갈래는 **카드 비율**로 고른다 — 띠가 겹치면 어느 집합의 글자인지 비율로는 못 가른다.
+          실제로 겹친다: 한글 모음 2x4 는 0.30~0.72, 알파벳 4x6 은 0.45~0.95 다. 그래서
+          `set=ko,en` 은 쓰면 안 되고, 쓰면 여기서 소리를 낸다(링크 오타를 조용히 넘기지 않게).
+          `set=en,num` 처럼 **카드가 같은** 집합끼리는 갈래 이름이 같아 위에서 대조된다. */
+    var kn = Object.keys(kinds);
+    for (var a = 0; a < kn.length; a++) for (var b2 = a + 1; b2 < kn.length; b2++){
+      var A = kinds[kn[a]], B = kinds[kn[b2]];
+      /* 맞닿는 건 겹치는 게 아니다 — 한 집합 안의 띠는 끝점을 나눠 쓴다(sq 0.72~ / port ~0.72) */
+      if (Math.min(A.ar[1], B.ar[1]) - Math.max(A.ar[0], B.ar[0]) > 0 && window.console)
+        console.error('[sticker] 갈래 ' + kn[a] + '·' + kn[b2] + ' 의 카드 비율이 겹친다 — ' +
+                      '집합을 섞지 마라(set=' + STICKER_SETS.join(',') + ')', A.ar, B.ar);
+    }
+    stickerKinds = kinds; stickerTie = tie; stickerTpl = tpl;
+    console.log('[tango-board-3d] 스티커 집합 [' + STICKER_SETS.join(',') + '] 형판 ' + tpl.length +
+                ' 글자 · 갈래 ' + Object.keys(kinds).join(',') + (bad ? ' · 🔴 어긋남 ' + bad : ''));
     invalidate();
   }).catch(function(e){
     if (window.console) console.warn('[tango-board-3d] 스티커 형판을 못 읽었다', e);
   });
 }
 
-/** 카드 한 장의 잉크 격자를 형판에 맞춘다. */
+/** 카드 한 장의 잉크 격자를 형판에 맞춘다.
+ *
+ *  🔴 갈래가 `shift` 를 달고 있으면 관찰 격자를 **가로·세로로 그만큼 밀어 보고** (밀기 × 형판)
+ *     전체에서 최고를 고른다. 알파벳 소문자에서만 켠다 — x높이 잉크가 카드의 27% 뿐이라
+ *     (한글은 59%) 손으로 오린 카드의 가장자리 오차가 상대적으로 훨씬 크게 먹는다.
+ *     실측(올라온 프레임, 카드 13장):
+ *        안 밀면        겹침 0.26~0.58 · 12장 틀림
+ *        세로만(dy)     겹침 0.52~0.93 · 12/13 맞음 (q 가 o 로)
+ *        가로+세로      겹침 0.64~0.96 · **13/13 맞음** (q 0.76 vs o 0.65)
+ *     최고는 대개 dx −2~+1 · dy −3 에 모인다. dy 가 한쪽으로 쏠린 건 그 프레임의 카드가
+ *     밑줄 커밋(397e5730) **이전에 뽑은** 인쇄물이라 글자가 지금 시트보다 3.4mm 아래여서다.
+ *     다시 뽑으면 dy≈0 이 되지만 **손으로 오리는 한 dx 는 남는다** — 그래서 허용치를 둔다.
+ *  🔴 맞수(second)는 **다른 글자 중 최고**여야 한다 — 밀기마다 같은 글자가 여러 번 들어오므로
+ *     그냥 2위를 보면 맞수가 제 자신이 되어 동점 판정이 통째로 건너뛰어진다.
+ */
 function matchSticker(g, G, kind){
   if (!stickerTpl) return null;
-  var o = stickerPack(g, G);
-  if (!o.n) return null;
-  var ticks = stickerTicks(g, G, kind);
-  var best = null, second = null;
-  for (var t = 0; t < stickerTpl.length; t++){
-    var T = stickerTpl[t];
-    if (T.kind !== kind) continue;
-    /* 🔴 모음은 겹침으로 못 가른다(카드 기준 ㅣ/ㅏ 0.829 · ㅣ/ㅑ 0.708) — 곁획 수가 가른다.
-          동점 뒤집기가 아니라 **관문**인 이유: 실측 분리가 0/1/2 로 겹침이 0 이다. */
-    if (kind !== 'sq' && T.ticks !== ticks) continue;
-    var inter = 0;
-    for (var w = 0; w < o.bits.length; w++) inter += popc32(o.bits[w] & T.bits[w]);
-    var iou = inter / (o.n + T.n - inter);
-    var e = { ch:T.ch, iou:iou, T:T };
-    if (!best || iou > best.iou){ second = best; best = e; }
-    else if (!second || iou > second.iou) second = e;
-  }
-  if (!best) return null;
-  if (second && best.iou - second.iou < TUNE.stickerTieGap){
-    var set = null, obs = 0;
-    if (STICKER_CORNER_SET[best.ch] && STICKER_CORNER_SET[second.ch]){ set = 'corner'; obs = stickerCorner(g, G); }
-    if (set){
-      best.probe = set;
-      if (Math.abs(obs - second.T[set]) < Math.abs(obs - best.T[set])){
-        var sw = best; best = second; second = sw; best.probe = set;
+  var k = stickerKinds[kind];
+  if (!stickerPack(g, G).n) return null;
+  var ticks = stickerTicks(g, G, k);
+  var maxS = k.shift || 0, buf = maxS ? new Uint8Array(G*G) : null;
+  var byCh = {}, bestG = g, bestIou = -1, t, w, y, x, dx, dy;
+  for (dy = -maxS; dy <= maxS; dy++) for (dx = -maxS; dx <= maxS; dx++){
+    var gg = g;
+    if (dx || dy){
+      buf.fill(0);
+      for (y = 0; y < G; y++){
+        var sy = y + dy;
+        if (sy < 0 || sy >= G) continue;
+        for (x = 0; x < G; x++){
+          var sx = x + dx;
+          if (sx >= 0 && sx < G) buf[sy*G + sx] = g[y*G + x];
+        }
       }
+      gg = buf;
+    }
+    var o = stickerPack(gg, G);
+    if (!o.n) continue;
+    for (t = 0; t < stickerTpl.length; t++){
+      var T = stickerTpl[t];
+      if (T.kind !== kind) continue;
+      /* 🔴 모음은 겹침으로 못 가른다(카드 기준 ㅣ/ㅏ 0.829 · ㅣ/ㅑ 0.708) — 곁획 수가 가른다.
+            동점 뒤집기가 아니라 **관문**인 이유: 실측 분리가 0/1/2 로 겹침이 0 이다.
+            (곁획을 안 쓰는 갈래는 양쪽 다 -1 이라 그냥 통과한다.) */
+      if (T.ticks !== ticks) continue;
+      var inter = 0;
+      for (w = 0; w < o.bits.length; w++) inter += popc32(o.bits[w] & T.bits[w]);
+      var iou = inter / (o.n + T.n - inter);
+      if (!byCh[T.ch] || iou > byCh[T.ch].iou) byCh[T.ch] = { ch:T.ch, iou:iou, T:T, dx:dx, dy:dy };
+      if (iou > bestIou){ bestIou = iou; bestG = (dx || dy) ? buf.slice() : g; }
+    }
+  }
+  var order = Object.keys(byCh).map(function(c){ return byCh[c]; })
+                    .sort(function(a, b){ return b.iou - a.iou; });
+  var best = order[0] || null, second = order[1] || null;
+  if (!best) return null;
+  g = bestG;                       // 아래 자리 탐침은 **이긴 밀기**의 그림에서 잰다
+  if (second && best.iou - second.iou < TUNE.stickerTieGap){
+    for (var ti = 0; ti < stickerTie.length; ti++){
+      var rule = stickerTie[ti];
+      if (!rule.chars[best.ch] || !rule.chars[second.ch]) continue;
+      var obs = rule.probe === 'corner' ? stickerCorner(g, G) : stickerBar(g, G);
+      best.probe = rule.probe;
+      if (Math.abs(obs - second.T[rule.probe]) < Math.abs(obs - best.T[rule.probe])){
+        var sw = best; best = second; second = sw; best.probe = rule.probe;
+      }
+      break;
     }
   }
   best.tie = second ? second.ch : null;
@@ -3761,6 +3833,7 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
   var lab = M(new cv.Mat()), st = M(new cv.Mat()), cen = M(new cv.Mat());
   var n = cv.connectedComponentsWithStats(card, lab, st, cen, 8, cv.CV_32S);
   var ldat = lab.data32S, minA = N*TUNE.legoMinArea, cards = [];
+  var kindNames = Object.keys(stickerKinds);
   for (i = 1; i < n; i++){
     var bx = st.intAt(i, 0), by = st.intAt(i, 1);
     var bw = st.intAt(i, 2), bh = st.intAt(i, 3), ba = st.intAt(i, 4);
@@ -3768,15 +3841,19 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
     /* 화면 가장자리에 걸린 카드는 잘려 있다 — 비율도 잉크도 못 믿는다 */
     if (bx <= 1 || by <= 1 || bx + bw >= W - 1 || by + bh >= H - 1) continue;
     if (ba / (bw*bh) < TUNE.stickerFill) continue;
-    var ar = bw / bh, kind = null, bW = 0, bH = 0;
-    if (ar >= TUNE.stickerArSq[0] && ar <= TUNE.stickerArSq[1]){ kind = 'sq'; bW = 4; bH = 4; }
-    else if (ar >= TUNE.stickerArPort[0] && ar < TUNE.stickerArPort[1]){ kind = 'port'; bW = 2; bH = 4; }
-    else if (ar > TUNE.stickerArLand[0] && ar <= TUNE.stickerArLand[1]){ kind = 'land'; bW = 4; bH = 2; }
+    /* 🔴 갈래는 **카드 비율**이 준다. 띠는 형판 JSON 이 들고 온다 — 집합마다 카드가 다르다
+          (한글 정사각 1.0 · 한글 모음 0.45 · 알파벳 0.645). */
+    var ar = bw / bh, kind = null, kk;
+    for (var ki = 0; ki < kindNames.length; ki++){
+      kk = stickerKinds[kindNames[ki]];
+      if (ar >= kk.ar[0] && ar <= kk.ar[1]){ kind = kindNames[ki]; break; }
+    }
     if (!kind) continue;
     /* 🔴 **카드가 칸의 원본이다.** 돌기 주기(legoCellSweep)는 카드가 판을 덮으면 무너진다 —
-          실측: 같은 판 두 장에서 칸 37.2 vs 137.9. 스티커 긴 변은 29.1mm = 3.64돌기로 고정이다. */
-    cards.push({ i:i, x:bx, y:by, w:bw, h:bh, kind:kind, bW:bW, bH:bH,
-                 cell:Math.max(bw, bh)/TUNE.stickerStuds });
+          실측: 같은 판 두 장에서 칸 37.2 vs 137.9. 스티커 긴 변은 집합마다 고정이다
+          (한글 29.1mm = 3.64돌기 · 알파벳 45.1mm = 5.64돌기). */
+    cards.push({ i:i, x:bx, y:by, w:bw, h:bh, kind:kind,
+                 cell:Math.max(bw, bh)/stickerKinds[kind].studs });
   }
   if (cards.length < (TUNE.stickerOn === 2 ? 1 : TUNE.stickerMin)) return null;
   /* ③ 칸이 다른 무리에서 벗어난 것은 카드가 아니다 */
@@ -3809,7 +3886,7 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
       var d = sumB/wB2 - (sum - sumB)/wF, bet = wB2*wF*d*d;
       if (bet > mx){ mx = bet; thr = v; }
     }
-    /* ⑤ 카드 상자 기준으로 GxG 표본 — matchLegoShape 와 **같은 최근접 규칙** */
+    /* ⑤ 카드 상자 기준으로 GxG 표본 — 굽는 쪽과 **같은 최근접 규칙** */
     for (y = 0; y < G; y++){
       var sy = c.y + (((y + 0.5)*c.h/G) | 0);
       for (x = 0; x < G; x++){
@@ -3819,25 +3896,46 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
       }
     }
     var m = matchSticker(grid, G, c.kind);
+    var kk2 = stickerKinds[c.kind];
     var cx = (c.x + c.w/2)/cell, cy = (c.y + c.h/2)/cell;
     var ok = !!(m && m.iou >= TUNE.stickerMinIou);
     if (ok){
       good++;
       /* 좌표는 **카드 가운데**에서 낸다 — 손으로 오려 붙여 가장자리가 들쭉날쭉해도
          가운데는 안 움직인다. parseGroup 이 어차피 cx = x + w/2 로 되돌린다. */
-      items.push({ ch:m.ch, x:cx - m.T.bw/2, y:cy - m.T.bh/2, w:m.T.bw, h:m.T.bh });
+      items.push({ ch:m.ch, x:cx - kk2.bw/2, y:cy - kk2.bh/2, w:kk2.bw, h:kk2.bh });
     }
     boxes.push({ x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? m.ch : '', color:0 });
     detail.push({ ch: ok ? m.ch : '?', iou:+((m ? m.iou : 0).toFixed(2)),
                   칸:+c.cell.toFixed(1), 갈래:c.kind, 곁획:m ? m.ticks : -1 });
   });
   reco.boxes = boxes;
-  var word = parseFree(items).join('');
+  /* 🔴 낱말 조합(parseFree)은 **한글 자모일 때만** 뜻이 있다. 알파벳 카드는 모아쓰기가 아니라
+        왼쪽에서 오른쪽으로 잇는다 — 낱말이 아니라 글자 줄이다. */
+  var word = hasHangul(items) ? parseFree(items).join('') : stickerLine(items);
   reco.legoCell = cell;
-  reco.legoInfo = { 스티커:1, 칸:+cell.toFixed(1), 카드:cards.length, 자모:good,
-                    버린것:cards.length - good };
+  reco.legoInfo = { 스티커:STICKER_SETS.join(','), 칸:+cell.toFixed(1), 카드:cards.length,
+                    자모:good, 버린것:cards.length - good };
   reco.ms = performance.now() - t0;
   return { word:word, items:items, comps:cards.length, detail:detail };
+}
+
+function hasHangul(items){
+  for (var i = 0; i < items.length; i++) if (items[i].ch.charCodeAt(0) >= 0x3131) return true;
+  return false;
+}
+/** 한글이 아닌 카드는 줄 단위로 왼쪽→오른쪽으로 읽는다(모아쓰기가 아니다). */
+function stickerLine(items){
+  var rows = [];
+  items.slice().sort(function(a, b){ return (a.y + a.h/2) - (b.y + b.h/2); }).forEach(function(it){
+    var cy = it.y + it.h/2, r = rows[rows.length - 1];
+    if (r && Math.abs(cy - r.cy) <= it.h*0.6) r.list.push(it);
+    else rows.push({ cy:cy, list:[it] });
+  });
+  return rows.map(function(r){
+    return r.list.sort(function(a, b){ return a.x - b.x; })
+                 .map(function(it){ return it.ch; }).join('');
+  }).join(' ');
 }
 
 /** 한 프레임 인식: 펴진 판 -> {ch,x,y,w,h}[] -> 낱말. */
@@ -9242,6 +9340,8 @@ var inlineMesh = document.getElementById('meshData');
     fitCamera();
     if (isLego()){
       if (/(^|[?&])board=sticker(&|$)/.test(location.search)) TUNE.stickerOn = 2;
+      /* 🔴 집합(한글/알파벳/…)은 **화면이 링크로 정한다** — `?set=en` · `?set=en,num`.
+            앱을 켤 때 묻지 않고, 기본값은 한글이라 기존 링크가 안 깨진다. */
       loadLego();
       if (TUNE.stickerOn) loadSticker();
     }
