@@ -51,6 +51,21 @@ VOWEL_ROTS = {
     'ㅑ': {0: 'ㅑ', 90: 'ㅠ', 180: 'ㅕ', 270: 'ㅛ'},
 }
 
+# 🔴 **ㅁ 은 돌려 놓아도 읽어야 한다**(2026-09-16 사용자). 자음 카드는 4x4 **정사각**이라 어느 쪽이
+#    위인지 겉모양으로 알 수 없고, ㅁ 은 돌려도 사람 눈에 멀쩡해 **실제로 돌아간 채 올라온다**.
+#    🔴 「자음은 0도만 구우면 된다 — 돌린 ㄱ 은 그림이 그대로 ㄴ 이라 ㄴ 형판이 받아 준다」는
+#       **ㄱ/ㄴ 에서만 맞다. ㅁ 은 짝이 없어서 돌아가면 형판이 아예 없다.**
+#    실측(14:25 「마」): 인쇄 글꼴 ㅁ 은 가로가 더 긴 네모(잉크 24x19 = 1.26)라 90도 돌면 0.79 가
+#       되는데 **관찰이 0.78** 이었다 → ㅁ 0.46 으로 밀리고 ㅍ 0.53 이 이겨 「파」로 읽혔다.
+#    🔴 **오독은 회전이 전부였다** — 형판을 0도짜리만 두고 **관찰을 세워** 재니 ㅁ 0.770 vs ㅍ 0.521
+#       (0.25 차). 그래서 **ㅁ/ㅍ 짝 탐침은 안 넣는다**(넣었으면 원인을 덮고 돌아간 ㅁ 은 계속 깨졌다).
+#    🔴 **A/B 로 「남이 끌려가지 않나」를 쟀다**: 형판이 넷이 돼도 조각 점수가 움직인 건 ㅁ 하나뿐이고
+#       ㅇ·ㅂ·ㅍ 은 한 자리도 안 변했다(프레임 넷 대조). 낱말은 전 프레임 불변.
+#    ⚠ 나머지 자음은 **안 굽는다**(사용자 지시 — ㅁ 만. ㄷ 을 돌리면 자모도 아니다).
+#    ⚠ ㅇ 도 넣으면 점수가 오른다(실측 0.74 → 0.94 · 0.69 → 0.91 — 그 ㅇ 카드들도 돌아가 있었다).
+#      낱말은 넣으나 빼나 같아서 지시대로 뺐다. 되살리려면 아래 괄호에 `'ㅇ': (0, 90, 180, 270)` 한 줄.
+CONS_ROTS = {'ㅁ': (0, 90, 180, 270)}
+
 
 def ink_of(img):
     """찍은 카드에서 **검은 잉크**만. 색 테두리·색 밑줄은 잉크가 아니다
@@ -172,7 +187,9 @@ def build_ko():
 
     glyphs = []
     for ch in sorted(set(HS.CONSONANTS)):
-        glyphs.append(glyph_rec(ch, render(ch, cs, cs, cr, cfont, CONS), 'sq', kinds))
+        m0 = render(ch, cs, cs, cr, cfont, CONS)
+        for deg in CONS_ROTS.get(ch, (0,)):
+            glyphs.append(glyph_rec(ch, rot(m0, deg), 'sq', kinds))
     for base, table in VOWEL_ROTS.items():
         m0 = render(base, vw, vh, vr, None, VOWEL, left=True, t2=t)   # 세로 카드 (2x4)
         for deg, ch in table.items():
@@ -187,6 +204,8 @@ def build_ko():
     for a, b in (('ㅓ', 'ㅏ'), ('ㅕ', 'ㅑ'), ('ㅗ', 'ㅏ'), ('ㅠ', 'ㅑ'), ('ㅡ', 'ㅣ')):
         assert by[a]['ticks'] == by[b]['ticks'], f'{a} 곁획 수가 {b} 와 다르다 (회전 방향?)'
     assert by['ㅁ']['corner'] - by['ㅇ']['corner'] > 0.3, 'ㅁ/ㅇ 모서리가 안 갈린다'
+    for ch, degs in CONS_ROTS.items():
+        assert sum(1 for g in glyphs if g['ch'] == ch) == len(degs), f'{ch} 회전 형판이 모자란다'
     # 동점 탐침: **카메라로 재 본 짝만** 넣는다(ㄹ/ㅌ 위칸은 실물에서 안 들어 뺐다)
     tie = [dict(probe='corner', chars=['ㅁ', 'ㅇ'])]
     return dict(card=dict(cons=[round(cs, 2)]*2, vowel=[round(vw, 2), round(vh, 2)]),
