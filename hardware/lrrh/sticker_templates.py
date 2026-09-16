@@ -155,10 +155,14 @@ def build_ko():
     studs = round(cs / 8.0, 4)                # 스티커 **긴 변** ÷ 피치. 발자국(31.6)이 아니다
     # shift 0 = 밀어 보지 않는다. 한글 글자는 카드를 크게 채워(잉크 17.2mm / 카드 29.1mm)
     # 손으로 오린 오차가 상대적으로 작고, 실측 39/39 가 이미 밀지 않고 나왔다.
+    # inkA 0 = 잉크 중성 관문 **끔**. 한글 시트에는 색 밑줄이 없고 글자가 카드를 크게 채워
+    # 카드 안 Otsu 가 색 테두리에 안 흔들린다. 🔴 켜 두면 **화이트밸런스가 틀어진 프레임에서
+    # 한글 잉크가 통째로 잘린다**(실측 2026-09-16 14:37: 그 프레임은 잉크 |a-128| 8~10 ·
+    # **종이마저 3~6** 이라 절대 문턱 6 이 잉크를 지웠다 → 점수 0.01~0.31).
     kinds = {
-        'sq':   dict(bw=4, bh=4, ar=[0.72, 1.55], studs=studs, tick=False, shift=0),
-        'port': dict(bw=2, bh=4, ar=[0.30, 0.72], studs=studs, tick=True,  shift=0),
-        'land': dict(bw=4, bh=2, ar=[1.55, 3.40], studs=studs, tick=True,  shift=0),
+        'sq':   dict(bw=4, bh=4, ar=[0.72, 1.55], studs=studs, tick=False, shift=0, inkA=0, inkB=0),
+        'port': dict(bw=2, bh=4, ar=[0.30, 0.72], studs=studs, tick=True,  shift=0, inkA=0, inkB=0),
+        'land': dict(bw=4, bh=2, ar=[1.55, 3.40], studs=studs, tick=True,  shift=0, inkA=0, inkB=0),
     }
 
     def render(glyph, cw, ch2, cr2, font, col, left=False, t2=0):
@@ -206,7 +210,14 @@ def build_en():
     #    −3행 = 카드 높이의 7.5% = 3.4mm. 그 프레임의 카드는 밑줄 커밋(397e5730) **이전에 뽑은**
     #    인쇄물이라 글자가 지금 시트보다 그만큼 아래에 있다. 다시 뽑으면 dy≈0 이 되고,
     #    그때도 손으로 오린 오차는 남으므로 허용치는 그대로 둔다.
-    kinds = {'alpha': dict(bw=4, bh=6, ar=[0.45, 0.95], studs=studs, tick=False, shift=4)}
+    # 🔴 inkA/inkB = 카드 안 잉크로 칠 **중성 한계**. 알파벳 시트만 글자 밑에 **색 밑줄**을 긋고,
+    #    소문자는 잉크가 카드의 27% 뿐이라 그 색이 Otsu 를 셋으로 갈라 문턱을 망가뜨린다
+    #    (실측 `i` 카드: 문턱 184 → 카드의 13.7% 가 잉크 → 글자 소실. 중성만 모으면 0.28 → 0.76).
+    #    ⚠ **절대 문턱이라 화이트밸런스에 약하다** — 한글에서 그렇게 깨졌다(위 build_ko 주석).
+    #      알파벳 프레임에 같은 색 치우침이 오면 여기도 같은 병이 난다. 그때는 값을 흔들지 말고
+    #      **그 카드 자신의 종이 색을 기준으로** 재라(절대 128 이 아니라).
+    kinds = {'alpha': dict(bw=4, bh=6, ar=[0.45, 0.95], studs=studs, tick=False, shift=4,
+                           inkA=6, inkB=10)}
 
     glyphs = []
     for c in [chr(x) for x in range(ord('a'), ord('z') + 1)]:
