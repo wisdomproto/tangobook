@@ -7,6 +7,12 @@
   · 카드마다 테두리 = 오리는 선. 테두리 바깥 끝이 곧 스티커 크기다.
   · 색은 탱고 보드와 같게: 모음 #59B89E · 자음 #F09E5C.
   · 🔴 인쇄는 PDF 를 「실제 크기(100%)」로 — 「페이지에 맞춤」이면 카드가 줄어 턱 안에서 헐렁해진다.
+  · 글자 밑에 **밑줄**을 긋는다(2026-09-16 사용자) — 공책 밑줄처럼 어느 쪽이 위인지 보인다.
+    b/q · d/p · n/u 는 180° 돌리면 서로 바뀌는데 카드 겉모양은 그걸 못 알려 준다. 인식기는 줄로
+    방향을 바로잡고, 줄을 떼어낸 뒤 글자를 맞힌다.
+  · 밑줄 색 = **모음 민트 · 자음 주황**(사용자). 테두리 색은 오려낼 때 잘려 나갔는데, 줄은 카드
+    **안쪽**이라 안 잘린다 — 잃었던 갈래 단서가 돌아온다. 🔴 한글 시트에는 안 넣는다 — 모음 카드는
+    **일부러 돌려 쓴다**(ㅏ→ㅗ·ㅓ·ㅜ).
 """
 import os
 from PIL import Image, ImageDraw, ImageFont
@@ -18,6 +24,9 @@ A4 = (210.0, 297.0)
 COLS, ROWS = 6, 5              # 30칸 — a~z 26장 + 여분 4장(자주 쓰는 모음 a·e·i·o)
 GAP = (3.5, 6.0)               # 카드 사이 (가로, 세로) mm — 가위가 들어갈 틈
 BORDER = 1.2                   # 테두리 두께 mm (오리는 선)
+BASE_W, BASE_T, BASE_BOT = 0.66, 1.4, 3.6   # 밑줄: 카드 안쪽 폭의 몫 · 두께 mm · 카드 아래끝에서 띄움 mm
+                                            # 🔴 자리는 **카드 기준 고정** — 글자 밑에 붙이면 g·j 처럼
+                                            #    내려긋는 글자에서 줄이 내려가 카드마다 높이가 달라진다.
 VOWEL, CONS, INK = (0x59, 0xB8, 0x9E), (0xF0, 0x9E, 0x5C), (0x2B, 0x2B, 0x2B)
 FONT = 'C:/Windows/Fonts/ARLRDBD.TTF'   # Arial Rounded MT Bold — 아이 교재에 흔한 둥근 글꼴
 
@@ -43,11 +52,16 @@ def main():
         box = (px(x0), px(y0), px(x0 + cw) - 1, px(y0 + ch) - 1)
         col = VOWEL if ch_ in 'aeiou' else CONS
         d.rounded_rectangle(box, radius=px(cr), fill='white', outline=col, width=px(BORDER))
-        c_ = ((box[0] + box[2]) / 2, (box[1] + box[3]) / 2)
+        by = box[3] - px(BASE_BOT)                      # 밑줄 윗변 (모든 카드 같은 자리)
+        c_ = ((box[0] + box[2]) / 2, (box[1] + by - px(1.8)) / 2 + px(BORDER) / 2)   # 글자는 줄 위 칸의 가운데
         tb = d.textbbox(c_, ch_, font=font, anchor='mm')
         inner = px(BORDER + 1.0)
         assert tb[0] >= box[0] + inner and tb[2] <= box[2] - inner and tb[1] >= box[1] + inner and tb[3] <= box[3] - inner, f'{ch_} 가 테두리에 닿는다'
         d.text(c_, ch_, font=font, fill=INK, anchor='mm')
+        bw = (cw - 2 * BORDER) * BASE_W
+        assert tb[3] <= by - px(1.2), f'{ch_} 가 밑줄에 닿는다'
+        assert by + px(BASE_T) <= box[3] - px(BORDER + 0.8), f'{ch_} 밑줄이 테두리에 닿는다'
+        d.rectangle((px(x0 + cw / 2) - px(bw / 2), by, px(x0 + cw / 2) + px(bw / 2), by + px(BASE_T)), fill=col)
 
     os.makedirs(B.OUT, exist_ok=True)
     png, pdf = os.path.join(B.OUT, 'alphabet_a4.png'), os.path.join(B.OUT, 'alphabet_a4.pdf')
