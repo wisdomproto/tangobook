@@ -1370,6 +1370,24 @@ var TUNE = {
         ⚠ 닫기 커널로 메우려던 길은 막혔다 — 획 굵기 13px > 카드 사이 틈 11px(칸 31 실측)라,
           획을 잇는 커널은 카드도 잇는다. */
   stickerHoleMax: 0.004,         // 화면 넓이의 이 비율보다 작은 구멍만 메운다(큰 영역 오염 방지)
+  /* 🔴 **카드 안 잉크는 「어둡다」가 아니라 「어둡고 **중성**이다」.** 알파벳 시트는 글자 밑에 방향을
+     알리는 **색 밑줄**을 긋고 카드 테두리도 색이라, 밝기만 보면 그 둘이 잉크로 딸려 들어온다.
+     실측(밑줄 넣은 새 인쇄물, 카드 15장) — 카드 안을 밝기 띠로 갈라 채도 중앙값을 재니:
+        L<130 (잉크)     |a-128| 1   |b-128| 1~4
+        L 160~195 (밑줄·테두리) 7~9         4~13     ← 색이다
+        L>195 (종이)          0~1          2~3
+     🔴 그 가운데 무리가 **Otsu 를 망가뜨린다** — Otsu 는 두 무리로 가르는데 히스토그램이 셋이라,
+        잉크가 적은 글자에서 「잉크+밑줄 vs 종이」로 갈라진다. 실측 `i` 카드: 잉크가 3% 뿐이라
+        문턱이 **184** 로 올라가 카드의 13.7% 가 잉크가 됐고(격자 208칸, 위아래 끝까지) 글자를 잃었다.
+        잉크가 넉넉한 `e`(8%)는 문턱 155 로 밑줄을 제대로 뺐다 — **운이었다**.
+     → 중성 화소만 모아 Otsu 를 돌리면 히스토그램이 「잉크 vs 종이」 둘로 돌아온다.
+     🔴 값은 **다섯 프레임 훑기**로 골랐다. 한글은 A 6·8·12 에서 가 켜기 전과 **똑같고**
+        (18/18 · 17/18 · 4/4) A 4 에서만 ㅅ 이 깨진다 — 한글 잉크의 |a-128| 중앙값이 카드에 따라
+        5 까지 간다. 알파벳은 A 3~8 에서 전부 14/15 이고 **끄면(99) i 가 깨진다**.
+        겹치는 창이 6~8 이라 **6**. 한 상수로 두 집합이 다 되므로 갈래 기록으로 내리지 않았다.
+     ⚠ 창이 두 칸뿐이다 — 한글 잉크(≤5)와 알파벳 밑줄(7~9) 사이가 좁다. 다른 조명에서 어느 쪽이
+        밀리면 그때는 이 값을 흔들지 말고 **갈래 기록(kinds)으로 내려라**(밑줄은 알파벳 시트에만 있다). */
+  stickerInkA: 6, stickerInkB: 10,
   /* 구멍 메운 뒤 진짜 카드는 0.84~0.95(실측 36장) · 자모 획은 0.4~0.6 이라 사이가 넓다 */
   stickerFill: 0.80,             // 상자 채움이 이만큼은 돼야 카드(네모)다
   /* 🔴 카드 가로세로비 띠와 칸 배수는 **여기 없다** — 형판 JSON(`kinds`)이 들고 온다.
@@ -3828,7 +3846,7 @@ function stickerMask(M, Lm, Am, Bm, W, H, N){
 
 /** 프레임에서 스티커 카드를 찾아 읽는다. 카드가 stickerMin 장에 못 미치면 null(= 예전 경로로). */
 function readSticker(M, Lm, Am, Bm, W, H, N, t0){
-  var ld = Lm.data, i;
+  var ld = Lm.data, ad = Am.data, bd = Bm.data, i;
   var card = stickerMask(M, Lm, Am, Bm, W, H, N);
   var lab = M(new cv.Mat()), st = M(new cv.Mat()), cen = M(new cv.Mat());
   var n = cv.connectedComponentsWithStats(card, lab, st, cen, 8, cv.CV_32S);
@@ -3865,13 +3883,20 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
   var G = STICKER_G, grid = new Uint8Array(G*G), hist = new Int32Array(256);
   var items = [], boxes = [], detail = [], good = 0;
   cards.forEach(function(c){
-    /* ④ 카드 안에서만 Otsu — 흰 종이와 검은 잉크 두 무리뿐이라 깨끗하다.
-          🔴 고정 밝기 문턱을 쓰면 그늘진 카드가 통째로 잉크가 된다. */
+    /* ④ 카드 안 **중성 화소**로만 Otsu — 그래야 「흰 종이 vs 검은 잉크」 두 무리가 된다.
+          🔴 색 밑줄·색 테두리를 빼지 않으면 무리가 셋이라 Otsu 가 엉뚱한 데를 자른다(위 TUNE 주석).
+          🔴 고정 밝기 문턱도 안 된다 — 그늘진 카드가 통째로 잉크가 된다. */
     var x, y, p, v, tot = 0;
+    var iA = TUNE.stickerInkA, iB = TUNE.stickerInkB;
     hist.fill(0);
     for (y = 0; y < c.h; y++) for (x = 0; x < c.w; x++){
       p = (c.y + y)*W + c.x + x;
-      if (ldat[p] === c.i){ hist[ld[p]]++; tot++; }
+      if (ldat[p] !== c.i) continue;
+      var da = ad[p] - 128, db = bd[p] - 128;
+      if (da < 0) da = -da;
+      if (db < 0) db = -db;
+      if (da > iA || db > iB) continue;
+      hist[ld[p]]++; tot++;
     }
     if (!tot) return;
     var sum = 0;
@@ -3886,13 +3911,17 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
       var d = sumB/wB2 - (sum - sumB)/wF, bet = wB2*wF*d*d;
       if (bet > mx){ mx = bet; thr = v; }
     }
-    /* ⑤ 카드 상자 기준으로 GxG 표본 — 굽는 쪽과 **같은 최근접 규칙** */
+    /* ⑤ 카드 상자 기준으로 GxG 표본 — 굽는 쪽과 **같은 최근접 규칙**.
+          잉크 판정도 ④ 와 같은 자다(어둡고 중성) — 굽는 쪽 `ink_of()` 가 색 테두리·밑줄을 빼는 것과 짝이다. */
     for (y = 0; y < G; y++){
       var sy = c.y + (((y + 0.5)*c.h/G) | 0);
       for (x = 0; x < G; x++){
         var sx = c.x + (((x + 0.5)*c.w/G) | 0);
         p = sy*W + sx;
-        grid[y*G + x] = (ldat[p] === c.i && ld[p] <= thr) ? 1 : 0;
+        var ga = ad[p] - 128, gb = bd[p] - 128;
+        if (ga < 0) ga = -ga;
+        if (gb < 0) gb = -gb;
+        grid[y*G + x] = (ldat[p] === c.i && ld[p] <= thr && ga <= iA && gb <= iB) ? 1 : 0;
       }
     }
     var m = matchSticker(grid, G, c.kind);
