@@ -4,3 +4,6 @@ packages/client/public/*.mesh.json
 packages/client/public/*.standalone.html
 # 기계 산출물이라 포매팅하지 않는다(용량·diff).
 packages/client/public/activity-data/
+# 🔴 tango-sticker.json 은 sticker_templates.py 가 굽는 산출물이다 — prettier 가 펴 놓으면
+#    베이커를 다시 돌릴 때마다 가짜 diff 가 난다.
+packages/client/public/tango-sticker.json
