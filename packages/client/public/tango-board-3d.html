@@ -192,7 +192,7 @@
   #recoView{position:absolute; right:10px; bottom:10px; width:30vw; max-width:190px;
     display:none; background:#0d1512; border:1px solid rgba(255,255,255,.18);
     border-radius:10px; z-index:3}
-  body.cam-only #recoView{display:block}
+  body.cam-only.dbg-on #recoView{display:block}   /* 인식 화면은 디버그 펼 때만 (2026-09-16 사용자) */
   body.cam-only #gl{visibility:hidden}
   /* 낱말 카드가 메인이다 — 가운데 크게. */
   body.cam-only #word{top:50%; left:50%; bottom:auto;
@@ -200,14 +200,20 @@
     padding:22px 30px; border-radius:24px; z-index:5}
   body.cam-only #word .lbl{font-size:13px; opacity:.75}
   body.cam-only #word .w{font-size:56px; font-weight:800; letter-spacing:.06em}
+  /* 🔴 낱말 카드 = 위 삽화 · 아래 낱말 (2026-09-16 사용자). 그림이 없으면 칸을 안 차지한다. */
+  #wordImg{display:none; height:44px; width:auto; border-radius:10px; background:#fff}  /* 알약 줄에선 작게 */
+  #wordImg.on{display:block}
+  body.cam-only #wordImg{height:auto; width:min(62vw,300px); max-height:34vh;
+    border-radius:16px; object-fit:contain}
   /* 🔴 카메라 모드에선 **읽은 낱말만** 남기고 버튼(🔊·🧹)은 숨긴다 —
         실물 블록이라 지울 게 없고 읽기는 저절로 된다.
         자리는 화면 아래가 아니라 **낱말카드 바로 밑**이다. 아래 가운데에 두면
         오른쪽 아래 인식화면을 가려서 예전엔 통째로 숨겼었는데, 그러니
         「내가 올린 블록을 뭐라고 읽었는지」를 볼 데가 없어졌다. */
   body.cam-only #read{
-    /* 🔴 +78 이면 카드 아래끝(50%+99)과 겹친다 — 실측으로 잡았다. 카드는
-          「다른 낱말」 버튼까지 안고 있어 197px 이다. */
+    /* 🔴 자리는 **재서 붙인다**(placeRead) — 카드 높이가 삽화에 따라 달라진다(2026-09-16).
+          예전엔 +116px 상수였는데, 삽화가 들어오자 카드가 길어져 낱말 위에 겹쳤다.
+          아래 값은 그림이 아직 안 뜬 첫 프레임용 기본값이다. */
     top:calc(50% + 116px); bottom:auto; left:50%; transform:translateX(-50%); z-index:5}
   body.cam-only #read .rbtn{display:none}
   body.cam-only #read .out{
@@ -250,7 +256,7 @@
     padding:10px 14px; border-radius:10px;
     border:1px solid rgba(255,255,255,.25); background:rgba(20,32,28,.72); color:#eaf3ef}
   #camOnlyDbg{display:none}
-  body.cam-only #camOnlyDbg{display:block; position:absolute; left:8px; top:58px; z-index:9;
+  body.cam-only.dbg-on #camOnlyDbg{display:block; position:absolute; left:8px; top:58px; z-index:9;
     font:500 11px/1.5 ui-monospace,monospace; color:#cfe6dd; background:rgba(20,32,28,.72);
     padding:6px 8px; border-radius:8px; white-space:pre; max-width:62vw}
   body.photo-on #camOff, body.photo-on #camExpect, body.photo-on .cam-tune{display:block}
@@ -349,6 +355,7 @@
     <canvas id="gl"></canvas>
     <div id="score">맞힌 낱말 <b id="scoreN">0</b></div>
     <div id="word">
+      <img id="wordImg" alt="">
       <span class="lbl">만들 낱말</span>
       <span class="w" id="wordText">…</span>
       <button id="nextWord">다른 낱말</button>
@@ -375,7 +382,8 @@
       <div>
         <h1>탱고 보드</h1>
         <p>무엇으로 볼까요?</p>
-        <button id="pickCam" class="go">📷 카메라로 읽기<b>실물 판을 카메라로 비추어 낱말을 맞혀요</b></button>
+        <button id="pickCam" class="go">📷 한글 카드로 읽기<b>자음·모음 스티커 블록으로 낱말을 만들어요</b></button>
+        <button id="pickCamEn" class="go">📷 영어 카드로 읽기<b>알파벳 스티커 블록으로 낱말을 만들어요</b></button>
         <button id="pickSim">🧊 시뮬레이터<b>화면 안 가짜 판으로 연습해요 (느려요)</b></button>
       </div>
     </div>
@@ -390,6 +398,7 @@
     </div>
     <div id="camOnlyBar">
       <button id="camOnlySave" title="지금 화면을 파일로 저장">💾 프레임</button>
+      <button id="camOnlyDbgBtn" title="숫자 보기/숨기기">🐞</button>
       <button id="camOnlyPanel" title="설정 보기">⚙️</button>
     </div>
     <!-- 🔴 폰에서 무엇이 어긋났는지는 숫자를 봐야 안다. 화면에 띄워 두면
@@ -3606,6 +3615,15 @@ var STICKER_SETS = (function(){
   var m = /(^|[?&])set=([A-Za-z0-9_,]+)/.exec(location.search);
   return m ? m[2].split(',').filter(Boolean) : ['ko'];
 })();
+/* 🔴 시작 화면이 고르는 언어 (2026-09-16 사용자) — 형판 집합과 낱말이 **같이** 따라간다.
+      `o` 와 `ㅇ`, `i` 와 `ㅣ` 는 같은 그림이라 두 집합을 섞어 최고점으로 고를 수 없다.
+      `?set=` 로 온 링크는 그대로 존중한다(하네스·학습 화면 핀). */
+var LANG = STICKER_SETS.indexOf('en') >= 0 ? 'en' : 'ko';
+function setLang(l){
+  if (LANG === l) return;
+  LANG = l; STICKER_SETS = [l];
+  if (TUNE.stickerOn) loadSticker();
+}
 
 function popc32(v){
   v = v - ((v >> 1) & 0x55555555);
@@ -8018,6 +8036,7 @@ function loseBoard(){
 function setCamOnly(on){
   camOnly = !!on;
   document.body.classList.toggle('cam-only', camOnly);
+  placeRead();
   if (camOnly){ boardReady = false; readyRun = 0; setBoardSearching(true); }
   else setBoardSearching(false);
   invalidate();
@@ -9000,21 +9019,7 @@ function autoSpeak(w){
 }
 
 /* ------------------------------------------- 낱말 + 동화 장면 (앱 API) */
-var booksPromise = null, detailCache = {};
-function getBooks(){
-  if (!booksPromise){
-    booksPromise = fetch(API + '/api/storybooks')
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        var arr = (d && d.data) || d || [];
-        return arr.filter(function(b){
-          return b.isPublic && b.koCompletion && b.koCompletion.pagesTts;
-        });
-      })
-      .catch(function(){ return []; });
-  }
-  return booksPromise;
-}
+var detailCache = {};
 function getDetail(id){
   if (!detailCache[id]){
     detailCache[id] = fetch(API + '/api/storybooks/' + id)
@@ -9024,66 +9029,57 @@ function getDetail(id){
   }
   return detailCache[id];
 }
-function validatedPage(det, ko){
-  var w = (ko.korean || '').trim();
-  var pages = det.pages || [], hit = null;
-  var claimed = ko.pages || [];
-  for (var i = 0; i < claimed.length; i++){
-    var p = pages[claimed[i]-1];
-    if (p && p.text && p.text.indexOf(w) >= 0){ hit = p; break; }
-  }
-  if (!hit)
-    for (var j = 0; j < pages.length; j++)
-      if (pages[j].text && pages[j].text.indexOf(w) >= 0){ hit = pages[j]; break; }
-  if (!hit || !hit.illustrationUrl) return null;
-  /* 🔴 ttsUrl 을 버리고 있었다 — 그래서 동화 장면이 떠도 나레이션이 안 났다. */
-  return { illustrationUrl: hit.illustrationUrl, text: hit.text || '',
-           ttsUrl: hit.ttsUrl || '' };
-}
-/** 트레이 블록만으로 만들 수 있는 낱말인가. */
-var UNBUILDABLE_JUNG = { 'ㅚ':1, 'ㅟ':1, 'ㅢ':1, 'ㅘ':1, 'ㅝ':1, 'ㅙ':1, 'ㅞ':1 };
-function isBuildableKo(word){
-  var chars = word.split('');
-  var syl = chars.filter(function(c){ return /[가-힣]/.test(c); });
-  if (syl.length < 1 || syl.length > 3 || syl.length !== chars.length) return false;
-  for (var i = 0; i < syl.length; i++){
-    var code = syl[i].charCodeAt(0) - 0xac00;
-    var jung = JUNG[Math.floor((code % 588) / 28)];
-    if (UNBUILDABLE_JUNG[jung]) return false;
-    // 겹받침(ㄳ ㄵ ㄺ …) 블록은 없다
-    var jong = JONG[code % 28];
-    if (jong && !CHAR_TO_BLOCK[jong]) return false;
-  }
-  return true;
-}
 function shuffle(a){
-  for (var i = a.length-1; i > 0; i--){
+  for (var i = a.length - 1; i > 0; i--){
     var j = Math.floor(Math.random() * (i+1));
     var t = a[i]; a[i] = a[j]; a[j] = t;
   }
   return a;
 }
-var FALLBACK_WORDS = ['가지','고기','나무','다리','머리','바다','사자','오리','토끼','포도'];
+/* 🔴 낱말은 **파닉스 타겟 단어**에서 뽑는다 (2026-09-16 사용자) — 한글 32단원 · 영어 39단원.
+      낱말 카드가 곧 그림이라 「위 삽화 · 아래 낱말」이 공짜로 따라온다.
+      🔴 거르지 않는다(사용자: 카드는 중복해서 많이 만들었다). ㅐ·ㅔ·ㅚ 는 카드가 없지만
+      모음 카드 두 장으로 만든다 — 합치는 규칙은 parseGroup 에 이미 있다. */
+var unitsPromise = null;
+function getUnits(){
+  if (!unitsPromise){
+    unitsPromise = fetch(API + '/api/storybooks')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var arr = (d && d.data) || d || [], by = { ko:[], en:[] };
+        arr.forEach(function(b){
+          if (b.type !== 'phonics') return;
+          var id = String(b.id || '');
+          if (id.indexOf('kr-') === 0) by.ko.push(id);
+          else if (id.indexOf('en-') === 0) by.en.push(id);
+        });
+        return by;
+      })
+      .catch(function(){ return { ko:[], en:[] }; })
+      /* 🔴 빈 목록을 캐시하지 않는다 — 첫 요청이 늦거나 끊기면 그 뒤로 영영 예비 낱말만 나온다. */
+      .then(function(by){ if (!by.ko.length && !by.en.length) unitsPromise = null; return by; });
+  }
+  return unitsPromise;
+}
+var FALLBACK_WORDS = { ko:['가지','고기','나무','다리','머리','바다','사자','오리','토끼','포도'],
+                       en:['cat','bug','sun','hat','pig','cup'] };
 function pickWord(){
-  return getBooks().then(function(books){
-    if (!books.length) return null;
-    var order = shuffle(books.slice()), idx = 0;
+  var lang = LANG;
+  return getUnits().then(function(by){
+    var ids = by[lang] || [];
+    if (!ids.length) return null;
+    var order = shuffle(ids.slice()), idx = 0;
     function tryNext(){
-      if (idx >= order.length || idx >= 15) return null;
-      var b = order[idx++];
-      return getDetail(b.id).then(function(det){
+      if (idx >= order.length || idx >= 6) return null;
+      return getDetail(order[idx++]).then(function(det){
         if (!det) return tryNext();
-        /* 🔴 두 글자만 낸다 — 세 글자는 판 한 줄에 다 안 들어오고
-              좌우가 잘려 보이지도 않는다(카메라가 판의 가로 45% 만 본다). */
-        var kos = shuffle((det.key_objects || []).filter(function(k){
-          var t = k.korean && k.korean.trim();
-          return t && t.length === 2 && isBuildableKo(t);
+        var cards = shuffle((det.flashcards || []).filter(function(f){
+          return f && f.word && String(f.word).trim() && f.imageUrl;
         }));
-        for (var i = 0; i < kos.length; i++){
-          var page = validatedPage(det, kos[i]);
-          if (page) return { word: kos[i].korean.trim(), page: page, book: det.title || '' };
-        }
-        return tryNext();
+        if (!cards.length) return tryNext();
+        var c = cards[0];
+        return { word: String(c.word).trim(), img: c.imageUrl, lang: lang, page: null,
+                 say: lang === 'en' ? (c.sentenceTtsUrl || '') : '' };
       });
     }
     return tryNext();
@@ -9093,19 +9089,36 @@ function setWord(w, scatter){
   current = w;
   winning = false;                   // 새 낱말 — 연출 끝
   document.getElementById('wordText').textContent = w ? w.word : '—';
-  if (w) warmSound(w.word);   // 카드의 두 글자는 미리 알고 있다 — 맞켤을 때 바로 읽도록
+  var im = document.getElementById('wordImg');   // 🔴 그림 없으면 칸을 안 차지한다
+  if (im){
+    if (w && w.img){ im.src = w.img; im.classList.add('on'); im.onload = placeRead; }
+    else { im.removeAttribute('src'); im.classList.remove('on'); }
+    placeRead();
+  }
+  // 카드의 글자는 미리 알고 있다 — 맞켤을 때 바로 읽도록. 음원은 한글 음절만 있다.
+  if (w && (w.lang || 'ko') === 'ko') warmSound(w.word);
   if (w){
-    if (scatter !== false) scatterFor(w.word);   // 시작 화면은 빈 판으로 연다
+    if (scatter !== false && (w.lang || 'ko') === 'ko') scatterFor(w.word);   // 시작 화면은 빈 판으로 연다
     readBoard();
     invalidate();
   }
 }
+/** 읽은 낱말 줄을 낱말 카드 **바로 밑**에 붙인다 — 카드 높이는 삽화에 따라 달라진다. */
+function placeRead(){
+  var read = document.getElementById('read');
+  if (!read) return;
+  if (!camOnly){ read.style.top = ''; return; }
+  var r = document.getElementById('word').getBoundingClientRect();
+  read.style.top = Math.round(r.bottom + 12) + 'px';
+}
+addEventListener('resize', placeRead);
+
 function nextWord(scatter){
   document.getElementById('wordText').textContent = '…';
   pickWord().then(function(w){
     if (!w){
-      var f = FALLBACK_WORDS[Math.floor(Math.random()*FALLBACK_WORDS.length)];
-      w = { word:f, page:null, book:'' };
+      var pool = FALLBACK_WORDS[LANG] || FALLBACK_WORDS.ko;
+      w = { word: pool[Math.floor(Math.random()*pool.length)], page:null, lang:LANG, img:'', say:'' };
     }
     setWord(w, scatter);
   });
@@ -9183,7 +9196,7 @@ function win(){
   /* 🔴 **낱말을 다 듣고 나서** 칭찬한다. 예전엔 칭찬을 먼저 띄우고 낱말을
         `setTimeout(500)` 으로 이어서 둘이 겹쳐 났다 — 칭찬 길이는 500ms 가
         아니다. 소리는 시계가 아니라 **콜백**으로 잇는다. */
-  playChain(w.word.split(''), 0, function(){
+  function afterWord(){
     praise(function(){
       if (!w.page){ nextWord(); clearBoard(); return; }
       document.getElementById('revealImg').src = w.page.illustrationUrl;
@@ -9194,7 +9207,10 @@ function win(){
             버려서 장면만 뜨고 소리가 없었다. */
       if (w.page.ttsUrl) playFx(w.page.ttsUrl);
     });
-  });
+  }
+  /* 🔴 영어는 낱말 음원이 없다 — 파닉스 카드가 가진 **예문 음원**을 읽어 준다. */
+  if ((w.lang || 'ko') === 'en'){ if (w.say) playFx(w.say, afterWord); else afterWord(); }
+  else playChain(w.word.split(''), 0, afterWord);
 }
 document.getElementById('revealGo').addEventListener('click', function(){
   revealEl.hidden = true;
@@ -9225,14 +9241,18 @@ function buildTray(){
   if (!pick) return;
   function close(){ pick.classList.add('gone'); }
   var camBtn = document.getElementById('pickCam');
+  var enBtn  = document.getElementById('pickCamEn');
   var simBtn = document.getElementById('pickSim');
-  if (camBtn) camBtn.addEventListener('click', function(){
+  function startCam(lang){
+    setLang(lang);
     close();
     setCamOnly(true);
     startWebcam();
     /* 낱말은 판을 잡은 뒤에 띄운다 (markBoardFrame). 미리 띄우면 판이 삐뚤어도
        게임이 시작된 것처럼 보인다. */
-  });
+  }
+  if (camBtn) camBtn.addEventListener('click', function(){ startCam('ko'); });
+  if (enBtn)  enBtn.addEventListener('click',  function(){ startCam('en'); });
   if (simBtn) simBtn.addEventListener('click', function(){
     close();
     camSim.on = false;
@@ -9843,6 +9863,11 @@ document.getElementById('camOnlySave').addEventListener('click', function(){
   var b = document.getElementById('camSave'); if (b) b.click();
 });
 document.getElementById('camOnlyPanel').addEventListener('click', function(){ setCamOnly(false); });
+/* 🔴 숫자와 인식 화면은 **기본 접힘** (2026-09-16 사용자) — 아이가 보는 화면이라 평소엔 방해다.
+      프레임을 보낼 때는 저장 코드가 스스로 펴서 찍으므로 여기 상태와 무관하다. */
+document.getElementById('camOnlyDbgBtn').addEventListener('click', function(){
+  document.body.classList.toggle('dbg-on');
+});
 
 /* 🔴 프레임을 그 자리에서 R2 로 올린다. 폰에서만 나는 문제를 PC 로 파일을
       옮기지 않고 같은 그림으로 재현하려는 것이다. PNG 는 4MB 라 본문 한도에
