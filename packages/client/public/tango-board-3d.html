@@ -3039,7 +3039,7 @@ function recognizeLegoDirect(){
     return { word:word, items:items, comps:cand.length,
              detail: cand.map(function(c){
                return { ch: keep.indexOf(c) >= 0 ? c.T.ch : '?', iou:+c.iou.toFixed(2),
-                        칸:+c.cell.toFixed(1) };
+                        x:c.x, 칸:+c.cell.toFixed(1) };
              }) };
   } catch (e){
     mats.forEach(function(m2){ try { m2.delete(); } catch(e2){} });
@@ -3956,7 +3956,8 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
       items.push({ ch:m.ch, x:cx - kk2.bw/2, y:cy - kk2.bh/2, w:kk2.bw, h:kk2.bh });
     }
     boxes.push({ x:c.x, y:H - c.y - c.h, w:c.w, h:c.h, ch: ok ? m.ch : '', color:0 });
-    detail.push({ ch: ok ? m.ch : '?', iou:+((m ? m.iou : 0).toFixed(2)),
+    /* x 를 같이 싣는다 — 진단 줄을 **읽기 순서**로 찍기 위해서다(아래 showCamDbg). */
+    detail.push({ ch: ok ? m.ch : '?', iou:+((m ? m.iou : 0).toFixed(2)), x:c.x,
                   칸:+c.cell.toFixed(1), 갈래:c.kind, 곁획:m ? m.ticks : -1 });
   });
   reco.boxes = boxes;
@@ -7992,10 +7993,16 @@ function showCamDbg(){
     (isLego()
       /* 🔴 한 프레임 계산 시간을 찍는다 — 폰의 숫자는 여기서만 나온다(하네스는 데스크톱). */
       ? '레고 ' + JSON.stringify(reco.legoInfo || {}) + ' · ' + Math.round(reco.ms || 0) + 'ms' + NL +
-        '조각 ' + ((reco.result && reco.result.detail) || [])
+        /* 🔴 **왼쪽부터 찍는다.** 예전엔 연결성분 라벨 순서(각 덩어리 첫 화소의 래스터 순)로 찍혀서
+              「마」가 `ㅏ… ㅍ…` 으로 나왔고, 그걸 보고 **좌우가 뒤집혔다고 잘못 읽었다**(상자를 재 보니
+              ㅁ 이 왼쪽에 제대로 있었다). 화면 숫자는 사람이 그걸로 판단하는 물건이다. */
+        '조각 ' + ((reco.result && reco.result.detail) || []).slice()
+          .sort(function(a, b){ return (a.x || 0) - (b.x || 0); })
           .map(function(d){ return d.ch + d.iou; }).join(' ') + NL
       : '') +
-    '글자 ' + ((reco.result && reco.result.items) || []).map(function(i){ return i.ch; }).join('') + '\n' +
+    '글자 ' + ((reco.result && reco.result.items) || []).slice()
+      .sort(function(a, b){ return a.x - b.x; })
+      .map(function(i){ return i.ch; }).join('') + '\n' +
     /* 🔴 소리는 안 나도 화면은 멀쩡해서 원인을 눈으로 볼 데가 없었다(아이패드).
           마지막으로 읽은 낱말과 막혔는지를 찍는다. */
     '소리 ' + (muted ? '음소거' : (audioBlocked ? '브라우저가 막음' : (saidLast || '-'))) +
@@ -8968,8 +8975,20 @@ function readBoard(){
   var raw = (reco.result && reco.result.word) || '';
   if (camSim.on) warmSound(raw);
   var w = camSim.on ? voteWord(raw) : truth;
+  /* 🔴 **「판이 안 보여요」는 판을 찾는 경로에서만 맞는 말이다.**
+        레고·스티커 경로는 판도 격자도 안 찾으므로(recognizeLegoDirect) 그 문구가 **거짓말**이다 —
+        사용자가 그걸 보고 「왜 갑자기 판이 안 보여요 라고 나오지」라고 물었다.
+        여기서는 **덩어리를 찾았느냐**로 갈린다: 아무것도 없으면 빈 판이고(블록을 옮겨 보세요),
+        찾았는데 못 맞히면 그렇게 말한다. 옛 tango 경로는 `camSim.detected` 가 진짜 판 검출이라 그대로. */
   var blind = camSim.on && !camSim.detected;
-  outEl.textContent = w || (blind ? '판이 안 보여요' : '블록을 옮겨 보세요');
+  var msg;
+  if (!blind) msg = '블록을 옮겨 보세요';
+  else if (!isLego()) msg = '판이 안 보여요';
+  else {
+    var li = reco.legoInfo || {};
+    msg = ((li.카드 || li.후보 || 0) > 0) ? '블록을 읽지 못했어요' : '블록을 옮겨 보세요';
+  }
+  outEl.textContent = w || msg;
   outEl.classList.toggle('empty', !w);
   var hit = !!(current && w && w === current.word);
   outEl.classList.toggle('hit', hit);
