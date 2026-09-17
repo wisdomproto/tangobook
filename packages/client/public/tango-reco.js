@@ -20,6 +20,13 @@
  * 규율·이미 반증된 시도는 .claude/agents/board-vision.md 가 원본이다.
  * ===================================================================== */
 
+/* 형판·조각 JSON 은 이 스크립트 **옆**에 있다. 앱은 /library/phonics/... 같은 주소에서
+   부르므로 상대 경로로 두면 404 다 — 제 위치에서 뽑는다. */
+var TANGO_BASE = (function(){
+  var sc = typeof document !== 'undefined' && document.currentScript;
+  return sc ? sc.src.replace(/[^/]*$/, '') : '';
+})();
+
 var TangoReco = {
   /* 실험시 화면을 다시 그려야 할 때 부른다. 앱에서는 할 일이 없다. */
   onChange: function(){},
@@ -43,7 +50,7 @@ var TangoReco = {
       `?board=lego` 는 자동 — 카드가 보이면 카드로, 아니면 획 블록으로 간다. */
 var BOARD_KIND = /(^|[?&])board=(lego|sticker)(&|$)/.test(location.search) ? 'lego' : 'tango';
 
-var LEGO_URL = { pieces:'tango-lego.pieces.json', masks:'tango-lego.masks.json' };
+var LEGO_URL = { pieces:TANGO_BASE + 'tango-lego.pieces.json', masks:TANGO_BASE + 'tango-lego.masks.json' };
 
 var legoData = null;                       // { pieces, masks }
 
@@ -1794,7 +1801,7 @@ function matchLegoShape(blob, bw, bh, onlyCh){
       이 코드는 집합 이름을 모른다: 카드 갈래(`kinds`)도 동점 탐침(`tie`)도 JSON 이 싣고 온다.
       → 집합을 늘릴 때 여기 고칠 것은 **없다**.
    ═══════════════════════════════════════════════════════════════════════════ */
-var STICKER_URL = 'tango-sticker-';        // + 집합이름 + '.json'
+var STICKER_URL = TANGO_BASE + 'tango-sticker-';   // + 집합이름 + '.json'
 
 var stickerTpl = null;                     // [{ch, kind, bits, n, bar, corner, ticks}] — 켠 집합을 합친 것
 
@@ -1894,7 +1901,7 @@ function stickerTicks(g, G, k){
 /** 켠 집합들의 형판을 읽어 합친다.
     🔴 굽는 쪽이 적어 둔 탐침 값을 **되계산해 대조**한다(구현이 갈라지는 걸 여기서 잡는다). */
 function loadSticker(){
-  Promise.all(STICKER_SETS.map(function(name){
+  return Promise.all(STICKER_SETS.map(function(name){
     return fetch(STICKER_URL + name + '.json').then(function(r){
       if (!r.ok) throw new Error(name + ' ' + r.status);
       return r.json();
@@ -2330,7 +2337,7 @@ function loadOpenCV(){
 
 /** 레고형 조각 발자국 + 1mm 마스크. 받고 나면 템플릿을 다시 만든다. */
 function loadLego(){
-  Promise.all([fetch(LEGO_URL.pieces), fetch(LEGO_URL.masks)])
+  return Promise.all([fetch(LEGO_URL.pieces), fetch(LEGO_URL.masks)])
     .then(function(rs){
       if (!rs[0].ok || !rs[1].ok) throw new Error('lego ' + rs[0].status + '/' + rs[1].status);
       return Promise.all([rs[0].json(), rs[1].json()]);
@@ -2349,8 +2356,65 @@ function loadLego(){
 }
 
 /* ── 바깥 입구 ────────────────────────────────────────────────────────────
-   실험실은 위 전역들을 예전처럼 그대로 쓰고, 앱은 이 입구만 쓴다. */
+   실험실은 위 전역들을 예전처럼 그대로 쓰고, 앱은 이 입구 셋만 쓴다. */
 TangoReco.recognize = recognizeLegoDirect;
 TangoReco.tune = TUNE;
+
+/** opencv + 형판을 받는다. 진행률은 onCvProgress 로 나간다. */
+TangoReco.load = function(opts){
+  var set = (opts && opts.set) || 'ko';
+  STICKER_SETS = [set];
+  BOARD_KIND = 'lego';
+  return loadOpenCV().then(function(ok){
+    if (!ok) throw new Error('opencv.js 를 못 받았다');
+    return Promise.all([loadLego(), loadSticker()]);
+  }).then(function(){ return true; });
+};
+
+/**
+ * 프레임 한 장을 읽는다. rgba 는 **readPixels 방향**(아래부터)이어야 한다 — grab() 이 맞춰 준다.
+ * 돌려주는 것: { word, detail } · 못 읽으면 null.
+ */
+TangoReco.read = function(rgba, W, H){
+  if (!cvReady) return null;
+  detBuf.W = W; detBuf.H = H; detBuf.buf = rgba;
+  return recognizeLegoDirect();
+};
+
+/**
+ * 영상 한 프레임을 read() 가 바라는 방향·크기로 굽는다.
+ *
+ * 🔴 **좌우만 되돌린다. 회전은 없다.** 카메라는 판 뒤에서 거울을 거쳐 보므로 좌우가 뒤집혀
+ *    들어온다. 세로는 건드리지 않는다 — 실험실은 readPixels(아래부터)로 읽고 우리는
+ *    getImageData(위부터)로 읽는데, 그 차이가 텍스처를 뒤집지 않고 올리는 것과 **상쇄**된다.
+ * 🔴 이건 유도한 게 아니라 **재서 맞춘 것**이다. 같은 프레임을 실험실에 넣어 detBuf 를 받고,
+ *    여기서 (좌우 O/X) x (0/90/180/270) 여덟 가지를 구워 낱말이 같아지는 하나를 골랐다.
+ *    처음엔 「좌우+상하 = 180° 회전」이라고 유도했는데 카드 수만 같고 글자가 전부 틀렸다 —
+ *    ㅗ↔ㅜ 만 뒤집히는 그 증상이다. 방향은 유도하지 말고 재라.
+ * 🔴 긴 변을 TUNE.detW 로 맞춘다. 가로만 고정하면 세로 화면에서 화소가 폭발한다.
+ * 🔴 늘리지 않는다 — 비율이 틀어지면 칸 주기가 실제와 달라진다.
+ *
+ * rotDeg 는 거치가 달라졌을 때 눈으로 확인하는 손잡이다(기본 0). 자동 판정은 안 한다 —
+ * 첫 프레임에 방향을 못 정하면 잠겨 헤맨다.
+ */
+TangoReco.grab = function(video, canvas, rotDeg){
+  var sw = video.videoWidth || video.naturalWidth, sh = video.videoHeight || video.naturalHeight;
+  if (!sw || !sh) return null;
+  var k = TUNE.detW / Math.max(sw, sh);
+  var W = Math.max(4, Math.round(sw * k)), H = Math.max(4, Math.round(sh * k));
+  var rot = ((rotDeg || 0) % 360 + 360) % 360;
+  var swap = rot === 90 || rot === 270;
+  canvas.width = swap ? H : W; canvas.height = swap ? W : H;
+  var cx = canvas.getContext('2d', { willReadFrequently:true });
+  cx.save();
+  cx.translate(canvas.width / 2, canvas.height / 2);
+  if (rot) cx.rotate(rot * Math.PI / 180);
+  cx.scale(-1, 1);                       // 거울 한 번
+  cx.drawImage(video, -W / 2, -H / 2, W, H);
+  cx.restore();
+  var im = cx.getImageData(0, 0, canvas.width, canvas.height);
+  return { rgba: im.data, W: canvas.width, H: canvas.height };
+};
+
 if (typeof window !== 'undefined') window.TangoReco = TangoReco;
 
