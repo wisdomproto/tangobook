@@ -269,11 +269,11 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
   // 4 games — wordFamilies 안 모든 단어 풀에서 어댑터가 픽업
   activities.push(
     /**
-     * 🔴 **Book 1 에도 블록 게임을 둔다**(2026-09-17 사용자 「다시 넣어 영어 파닉스 단원에」).
-     *    2026-07-29 에 뺐던 이유는 「블록이 한 칸이라 바로 앞 듣고 고르기와 같은 과제」였는데,
-     *    지금은 그 한 칸을 **실물 알파벳 블록을 집어 판에 올려서** 채울 수 있다 — 화면에서 고르는
-     *    것과 손으로 놓는 것은 다른 일이다. 화면 판만 쓰면 옛 지적이 그대로 살아 있으니,
-     *    Book 1 이 시끄럽다는 말이 다시 나오면 **여기 한 줄을 빼면 된다**.
+     * 🔴 **Book 1 에는 블록 게임을 두지 않는다** — 2026-07-29 에 정했고 2026-09-17 에 다시 확인했다.
+     *    이 권은 글자가 단위라 블록이 **한 칸**이고, 그 한 칸을 채우는 일은 바로 앞 「듣고 고르기」가
+     *    이미 시킨다 — 같은 과제를 게임 이름만 바꿔 한 번 더 하는 셈이다.
+     *    🔴 실물 블록(카메라)이 생겼으니 달라지지 않았냐고 한 번 더 물었고, 답은 **그대로 뺀다**였다.
+     *    Book 2 부터는 낱말을 통째로 조립하므로 거기서는 둔다.
      */
     {
       key: 'game-word-writing',
@@ -293,16 +293,6 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
       title: '낱말 그리기',
       titleKey: 'activity.wordDrawing',
       emoji: '🔵',
-      required: false,
-    },
-    {
-      key: 'game-english-block',
-      order: order++,
-      kind: 'game-english-block',
-      section: 'play',
-      title: '영어 블록 게임',
-      titleKey: 'activity.englishBlock',
-      emoji: '🧩',
       required: false,
     },
     {

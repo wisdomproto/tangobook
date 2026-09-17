@@ -242,15 +242,17 @@ describe('english phonics units', () => {
   });
 
   /**
-   * 🔴 **블록 게임은 전 권에 있다** (2026-09-17 사용자 「다시 넣어 영어 파닉스 단원에」).
-   *    2026-08-09 에 「전 권에서 뺀다」였던 것을 되돌린 것이라, 이 테스트가 그때는 정확히
-   *    반대를 지키고 있었다. 되돌릴 땐 **여기도 같이** 뒤집어야 한다 — 안 그러면 규칙과
-   *    검사가 서로 다른 말을 한다.
+   * 🔴 **블록 게임은 Book 2~5 에만 있다** (2026-09-17 사용자).
+   *    같은 날 두 번 움직였다: 2026-08-09 의 「전 권에서 뺀다」를 되돌려 전 권에 넣었다가,
+   *    Book 1 은 다시 뺐다 — 그 권은 블록이 **한 칸**이라 바로 앞 「듣고 고르기」와 같은 과제다.
+   *    🔴 **두 결정은 서로 다른 것이다.** 하나는 「블록 게임을 쓰느냐」이고 하나는
+   *    「Book 1 에서 한 칸짜리가 뜻이 있느냐」다. 한쪽을 되돌릴 때 다른 쪽까지 끌고 오지 말 것.
    */
-  it('영어 블록 게임이 전 권에 있다', () => {
+  it('영어 블록 게임은 Book 2~5 에만 있다', () => {
     for (const u of units.filter((x) => !x.isReview)) {
       const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
-      expect(kinds).toContain('game-english-block');
+      const book1 = u.id.startsWith('en-b1-');
+      expect(kinds.includes('game-english-block')).toBe(!book1);
     }
   });
 });
