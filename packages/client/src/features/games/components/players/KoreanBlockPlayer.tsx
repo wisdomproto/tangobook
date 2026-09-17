@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, useEffect, type ReactNode } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
@@ -22,6 +22,9 @@ import { useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { cn } from '@/lib/cn';
 import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
+import { useBoardCamera } from '../../hooks/useBoardCamera';
+import { useIsLandscape } from '../../hooks/useIsLandscape';
+import { BoardCameraPanel } from './BoardCameraPanel';
 
 const JUNGSUNG_SET = new Set<string>(JUNGSUNG);
 function isVowel(char: string) {
@@ -94,8 +97,18 @@ function KoreanBlockPlayerInner({
   ]);
   // 게임 시작 게이트 = phonics 맵(음절→URL JSON) 로드만. 맵은 localStorage 캐시라 재진입 즉시.
   const audioReady = !phonicsLoading;
+  /**
+   * 🔴 **판이 둘이다 — 그 밖은 전부 같다.** 화면 판은 놓인 조각에서, 실물 판은 카메라에서
+   *    음절을 받는다. 아래 로직(새 음절만 읽기 · 자동 정답 · 칭찬 · 장면 리빌 · 결과 · 리포트)은
+   *    `composedSyllables` 한 줄만 보므로 여기서 갈리고 끝난다.
+   */
+  const [camera, setCamera] = useState(false);
+  const cam = useBoardCamera({ set: 'ko', enabled: camera });
+  const landscape = useIsLandscape();
   // 놓인 자리로 음절 인식 — 자음 오른쪽 세로모음 = 가로 조합, 아래 가로모음 = 세로 조합, 그 아래 = 받침.
-  const composedSyllables = useMemo(() => parseBoard(toItems(placed)), [placed]);
+  const boardSyllables = useMemo(() => parseBoard(toItems(placed)), [placed]);
+  const camSyllables = useMemo(() => (cam.word ? [...cam.word] : []), [cam.word]);
+  const composedSyllables = camera ? camSyllables : boardSyllables;
 
   // 🔴 쉬움 모드(순서 strip)는 격자 칸에 자동 배치하는 방식이라 판과 맞지 않아 뺐다.
   //    판은 난이도가 하나다 — 조각을 고르고, 돌리고, 놓는다.
@@ -416,6 +429,13 @@ function KoreanBlockPlayerInner({
     clearBoard();
   }, [clearBoard]);
 
+  /**
+   * 🔴 **실물 모드에선 가로 강제 벽을 안 세운다.** 태블릿을 세로로 두든 가로로 두든 읽혀야 하는데
+   *    「가로로 돌려주세요」 오버레이가 곧 그 반대다. 화면 판 모드는 조각을 끌어다 놓아야 해서
+   *    가로가 필요하므로 그대로 둔다.
+   */
+  const Gate = camera ? Fragment : MobileLandscapeGate;
+
   if (finished) {
     return (
       <MobileLandscapeGate>
@@ -432,7 +452,7 @@ function KoreanBlockPlayerInner({
   }
 
   return (
-    <MobileLandscapeGate>
+    <Gate>
       {/* VocabularyStudyContent 의 motion.div(fixed inset-0) 가 어떤 이유로 viewport top 으로부터 ~32px 떨어진 위치에 렌더되어
         위쪽으로 뒷 페이지(헤더·표지)가 새어나옴. player 를 자체적으로 fixed inset-0 + z-[60] 로 바꿔서 viewport 0,0 부터 완전 덮음. */}
       <div
@@ -472,7 +492,15 @@ function KoreanBlockPlayerInner({
         )}
 
         {/* 메인 — 3 섹션 세로 stack. 세로 비율 1.5:1.5:1 (flex-[3]:[3]:[2]). 가로 풀폭. */}
-        <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] short:gap-1 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] short:py-0.5 min-h-0">
+        {/* 🔴 **적응형은 방향이 정한다.** 세로면 위아래로 쌓고(삽화 → 낱말 → 읽은 낱말),
+            가로면 좌우로 나눈다(삽화·낱말 ‖ 읽은 낱말). 폭(`sm:`)으로 가르면 안 된다 —
+            태블릿은 세로로 세워도 `sm` 을 넘어서 세로인데 가로 배치를 받는다. */}
+        <div
+          className={cn(
+            'flex-1 flex items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] short:gap-1 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] short:py-0.5 min-h-0',
+            camera && landscape ? 'flex-row' : 'flex-col'
+          )}
+        >
           {/* 섹션 1 — 타겟 단어 + 그림 hero. 세로 비중 2 (짧은 가로화면에서 자모 키보드에 공간 양보). */}
           {/* 🔴 짧은 화면에서는 이 줄이 판을 굶긴다 — 375px 높이에서 목표 단어·조합 표시·버튼이
               158px 을 먹고 판에 29px 만 남았다. `short:` 로 눌러 판에 넘긴다. */}
@@ -516,38 +544,58 @@ function KoreanBlockPlayerInner({
                 'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
             )}
           >
-            <TangoBoard
-              placed={placed}
-              picked={picked}
-              onPick={setPicked}
-              onPlace={handlePlace}
-              onMovePlaced={handleMovePlaced}
-              onRotatePlaced={handleRotatePlaced}
-              disabled={roundCorrect}
-            />
+            {camera ? (
+              <BoardCameraPanel cam={cam} />
+            ) : (
+              <TangoBoard
+                placed={placed}
+                picked={picked}
+                onPick={setPicked}
+                onPlace={handlePlace}
+                onMovePlaced={handleMovePlaced}
+                onRotatePlaced={handleRotatePlaced}
+                disabled={roundCorrect}
+              />
+            )}
           </section>
 
           {/* 섹션 3 — 조작 안내 + 되돌리기/지우기. 판이 곧 트레이를 품고 있어 별도 패널이 없다. */}
           <div className="shrink-0 flex items-center justify-between gap-2 flex-wrap px-1">
             <span className="text-xs sm:text-sm font-bold text-ink-700 break-keep">
-              {picked
-                ? '판에 놓아요 · 놓인 조각을 누르면 돌아가요'
-                : '조각을 끌어다 놓아요 · ↻ 는 눌러서 돌려요'}
+              {camera
+                ? '판 위에 블록을 놓아 보세요'
+                : picked
+                  ? '판에 놓아요 · 놓인 조각을 누르면 돌아가요'
+                  : '조각을 끌어다 놓아요 · ↻ 는 눌러서 돌려요'}
             </span>
             <div className="flex gap-2">
+              {/* 🔴 되돌리기·지우기는 실물 판에선 숨긴다 — 손으로 치우면 되므로 지울 게 없다. */}
+              {!camera && (
+                <>
+                  <button
+                    onClick={handleUndo}
+                    disabled={roundCorrect || placed.length === 0}
+                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
+                  >
+                    ↩ 되돌리기
+                  </button>
+                  <button
+                    onClick={handleResetGrid}
+                    disabled={roundCorrect || placed.length === 0}
+                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
+                  >
+                    ↺ {t('blockGame.reset')}
+                  </button>
+                </>
+              )}
               <button
-                onClick={handleUndo}
-                disabled={roundCorrect || placed.length === 0}
-                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
+                onClick={() => {
+                  setCamera((v) => !v);
+                  clearBoard();
+                }}
+                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition"
               >
-                ↩ 되돌리기
-              </button>
-              <button
-                onClick={handleResetGrid}
-                disabled={roundCorrect || placed.length === 0}
-                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
-              >
-                ↺ {t('blockGame.reset')}
+                {camera ? '🧩 화면 블록' : '📷 실물 블록'}
               </button>
             </div>
           </div>
@@ -563,7 +611,7 @@ function KoreanBlockPlayerInner({
           onDone={() => goToNext(currentIndex)}
         />
       )}
-    </MobileLandscapeGate>
+    </Gate>
   );
 }
 

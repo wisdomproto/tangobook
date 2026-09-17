@@ -912,6 +912,14 @@ function legoCellSweep(gd, W, H, y0, y1){
     🔴 **획 블록과 스티커가 같은 함수를 쓴다** — 두 벌로 두면 갈라진다.
     thrA > 0 이면 그 문턱을 쓰고(이미 Otsu 를 돌린 호출부), 아니면 여기서 Otsu.
     🔴 못 찾으면 **예전처럼 전부 볼 것** — 판 검출 실패가 인식 실패가 되면 안 된다. */
+/**
+ * 판(초록 바탕)의 볼록 껍질 — 판 밖에 있는 것(책상·종이 조각)을 버리는 데 쓴다.
+ *
+ * 🔴 **판이 화면 밖으로 나갈 때 껍질을 넓히는 건 답이 아니다**(2026-09-17 실측). 껍질을 판
+ *    짧은 변의 0·2·4% 로 넓혀 봐도 결과가 **한 글자도 안 달라졌다** — 좌우가 잘리면 그 자리
+ *    카드도 같이 잘려서 정보가 아예 없기 때문이다. 되살릴 게 없으니 **잘렸다고 말해 주는 것**이
+ *    유일한 답이고, 그래서 아래에서 판이 화면 가장자리에 닿았는지를 재 둔다.
+ */
 function legoPlateHullMask(M, chroma, thrA, W, H, N){
   var plate = M(new cv.Mat());
   if (thrA > 0) cv.threshold(chroma, plate, thrA, 255, cv.THRESH_BINARY_INV);
@@ -924,6 +932,14 @@ function legoPlateHullMask(M, chroma, thrA, W, H, N){
   if (!bi || bA < N * TUNE.legoPlateMin) return null;
   var pld = pl.data32S, pmd = plate.data;
   for (pi = 0; pi < N; pi++) pmd[pi] = pld[pi] === bi ? 255 : 0;
+  /* 🔴 **판이 화면 가장자리에 닿았으면 화면 밖에 판이 더 있다.** 거기 놓인 카드는 아예 안 보여서
+        「잘린 카드」로도 안 잡힌다 — 화면이 물어볼 수 있는 유일한 신호가 이것이다.
+        비율로 센다(닿은 길이 ÷ 그 변의 길이)라 해상도와 무관하다. */
+  var edgeN = [0, 0, 0, 0], ex, ey;
+  for (ex = 0; ex < W; ex++){ if (pmd[ex]) edgeN[0]++; if (pmd[(H-1)*W + ex]) edgeN[1]++; }
+  for (ey = 0; ey < H; ey++){ if (pmd[ey*W]) edgeN[2]++; if (pmd[ey*W + W-1]) edgeN[3]++; }
+  reco.legoPlateEdge = [edgeN[0]/W, edgeN[1]/W, edgeN[2]/H, edgeN[3]/H].map(function(v){
+    return +v.toFixed(2); });
   var cts = M(new cv.MatVector()), hier = M(new cv.Mat());
   cv.findContours(plate, cts, hier, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
   var hull = M(new cv.Mat());
@@ -2202,7 +2218,7 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
   var word = hasHangul(items) ? parseFree(items).join('') : stickerLine(items);
   reco.legoCell = cell;
   reco.legoInfo = { 스티커:STICKER_SETS.join(','), 칸:+cell.toFixed(1), 카드:cards.length,
-                    자모:good, 버린것:cards.length - good,
+                    자모:good, 버린것:cards.length - good, 판끝:reco.legoPlateEdge || null,
                     판:splate ? (reco.legoPlate || 0) : 0 };
   reco.ms = performance.now() - t0;
   return { word:word, items:items, comps:cards.length, detail:detail };
