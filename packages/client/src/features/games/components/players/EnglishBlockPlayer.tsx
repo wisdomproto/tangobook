@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, Fragment } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -28,6 +28,9 @@ import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
 import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
+import { useBoardCamera } from '../../hooks/useBoardCamera';
+import { useIsLandscape } from '../../hooks/useIsLandscape';
+import { BoardCameraPanel } from './BoardCameraPanel';
 
 interface LetterBlock {
   id: string;
@@ -109,6 +112,24 @@ function EnglishBlockPlayerInner({
   );
 
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
+
+  /**
+   * 🔴 **판이 둘이다 — 그 밖은 전부 같다.** 화면 판은 아이가 끌어다 놓은 칸에서, 실물 판은
+   *    카메라에서 글자를 받는다. 아래 로직(새 글자 소리 · 자동 정답 · 칭찬 · 장면 리빌 · 결과 ·
+   *    리포트)은 `grid` 만 보므로 여기서 갈리고 끝난다.
+   * 🔴 형판 집합은 **한글과 안 섞는다** — `o`/`ㅇ`, `i`/`ㅣ` 가 같은 그림이라 최고점으로 못 가른다.
+   */
+  const [camera, setCamera] = useState(false);
+  const cam = useBoardCamera({ set: 'en', enabled: camera });
+  const landscape = useIsLandscape();
+  const twoCol = camera && landscape;
+  useEffect(() => {
+    if (!camera) return;
+    /* 🔴 띄어쓰기는 버린다 — 조각이 떨어져 있으면 인식기가 글자 묶음을 공백으로 나눠 주는데,
+       낱말은 **왼쪽에서 오른쪽으로 읽은 글자들**이지 그 간격이 아니다. */
+    const w = cam.word.toLowerCase().replace(/\s+/g, '');
+    setGrid(Array.from({ length: letterCount }, (_, i) => w[i] ?? null));
+  }, [camera, cam.word, letterCount]);
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
@@ -443,6 +464,9 @@ function EnglishBlockPlayerInner({
     wordResultsRef.current = [];
   }, [items, initGrid]);
 
+  /** 🔴 실물 모드에선 가로 강제 벽을 안 세운다 — 「가로로 돌려주세요」가 곧 적응형의 반대다. */
+  const Gate = camera ? Fragment : MobileLandscapeGate;
+
   if (finished) {
     return (
       <MobileLandscapeGate>
@@ -573,7 +597,7 @@ function EnglishBlockPlayerInner({
   };
 
   return (
-    <MobileLandscapeGate>
+    <Gate>
       {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
       <div
         className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-hidden"
@@ -604,99 +628,140 @@ function EnglishBlockPlayerInner({
           </div>
         )}
 
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-4 py-[clamp(0.375rem,1.5vh,1.5rem)] gap-[clamp(0.5rem,1.5vh,1.5rem)]">
-          {/* 완성된 단어 타이핑 패널 */}
-          {roundCorrect && (
-            <div className="bg-success/15 backdrop-blur-sm rounded-2xl px-6 py-4 min-h-[60px] text-3xl sm:text-4xl font-black text-success text-center shadow-pop ring-4 ring-success/40 min-w-[220px]">
-              {currentItem.word.slice(0, typedChars)}
-              {typedChars < currentItem.word.length && (
-                <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
-              )}
-            </div>
+        {/* 🔴 적응형은 **방향**이 정한다 — 폭(`sm:`)으로 가르면 세로로 세운 태블릿이 가로 배치를
+            받는다(둘 다 `sm` 을 넘는다). 세로면 위아래로 쌓고 가로면 좌우로 나눈다. */}
+        <div
+          className={cn(
+            'flex-1 min-h-0 flex items-center justify-center px-4 py-[clamp(0.375rem,1.5vh,1.5rem)] gap-[clamp(0.5rem,1.5vh,1.5rem)]',
+            twoCol ? 'flex-row' : 'flex-col'
           )}
-
-          {currentItem.imageUrl && (
-            <div className="relative">
-              <div className="absolute inset-0 rounded-xl bg-peach-300/40 blur-2xl scale-110" />
-              <img
-                src={currentItem.imageUrl}
-                alt={currentItem.word}
-                className={cn(
-                  'relative w-auto object-contain rounded-xl bg-white shadow-card',
-                  // 🔴 알파벳 판은 확인·다음·도와줘가 없어 자리가 남는다 — 그림이 곧 문제라 크게 준다.
-                  isAlphabetRound ? 'h-[clamp(6rem,36vh,24rem)]' : 'h-[clamp(4rem,20vh,16rem)]'
+        >
+          <div
+            className={cn(
+              'flex flex-col items-center justify-center min-h-0 gap-[clamp(0.5rem,1.5vh,1.5rem)]',
+              twoCol && 'flex-1'
+            )}
+          >
+            {/* 완성된 단어 타이핑 패널 */}
+            {roundCorrect && (
+              <div className="bg-success/15 backdrop-blur-sm rounded-2xl px-6 py-4 min-h-[60px] text-3xl sm:text-4xl font-black text-success text-center shadow-pop ring-4 ring-success/40 min-w-[220px]">
+                {currentItem.word.slice(0, typedChars)}
+                {typedChars < currentItem.word.length && (
+                  <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
                 )}
-              />
-            </div>
-          )}
+              </div>
+            )}
 
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
-            {isAlphabetRound ? (
-              /* 🔴 **그림이 아니라 소리로 낸다**(2026-07-29) — 낱말을 들려주고 그 첫 글자를 넣는 게
+            {currentItem.imageUrl && (
+              <div className="relative">
+                <div className="absolute inset-0 rounded-xl bg-peach-300/40 blur-2xl scale-110" />
+                <img
+                  src={currentItem.imageUrl}
+                  alt={currentItem.word}
+                  className={cn(
+                    'relative w-auto object-contain rounded-xl bg-white shadow-card',
+                    // 🔴 알파벳 판은 확인·다음·도와줘가 없어 자리가 남는다 — 그림이 곧 문제라 크게 준다.
+                    isAlphabetRound ? 'h-[clamp(6rem,36vh,24rem)]' : 'h-[clamp(4rem,20vh,16rem)]'
+                  )}
+                />
+              </div>
+            )}
+
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
+              {isAlphabetRound ? (
+                /* 🔴 **그림이 아니라 소리로 낸다**(2026-07-29) — 낱말을 들려주고 그 첫 글자를 넣는 게
                  파닉스다. 그림만 보고 고르면 영어 소리는 한 번도 안 듣고 끝난다. 그림은 무엇의
                  소리인지 알려주는 보조로 남긴다. */
+                <button
+                  onClick={() => void sayWord()}
+                  className="inline-flex items-center gap-2 text-lg sm:text-2xl font-black text-ink-700 break-keep"
+                  aria-label={t('blockGame.listenFirstLetter')}
+                >
+                  <span className="text-2xl sm:text-3xl">🔊</span>
+                  {t('blockGame.listenFirstLetter')}
+                </button>
+              ) : (
+                <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
+                  {currentItem.word}
+                </span>
+              )}
+              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
+                {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+              </div>
+            </div>
+
+            {/* 🔴 알파벳 판에는 **버튼을 두지 않는다**(2026-07-29) — 한 칸짜리라 맞추면 자동 통과·자동
+              진행이고, 「확인·다음·도와줘」는 아이가 소리 대신 누를 것을 셋이나 만들어 준다. */}
+            {/* 🔴 실물 판에선 버튼 줄을 통째로 숨긴다 — 완성하면 저절로 넘어가고, 지울 것도 없다. */}
+            <div
+              className={cn(
+                'flex justify-center gap-3 sm:gap-4',
+                (isAlphabetRound || camera) && 'hidden'
+              )}
+            >
               <button
-                onClick={() => void sayWord()}
-                className="inline-flex items-center gap-2 text-lg sm:text-2xl font-black text-ink-700 break-keep"
-                aria-label={t('blockGame.listenFirstLetter')}
+                onClick={handleCheck}
+                disabled={roundCorrect || isTutorialPlaying}
+                className={cn(
+                  'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
+                  roundCorrect || isTutorialPlaying
+                    ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
+                    : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
+                )}
               >
-                <span className="text-2xl sm:text-3xl">🔊</span>
-                {t('blockGame.listenFirstLetter')}
+                {t('blockGame.check')}
               </button>
-            ) : (
-              <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
-                {currentItem.word}
-              </span>
-            )}
-            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
-              {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+              <button
+                onClick={handleNext}
+                disabled={isTutorialPlaying}
+                className={cn(
+                  'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card',
+                  isTutorialPlaying
+                    ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
+                    : 'bg-peach-500 hover:bg-peach-300 text-white'
+                )}
+              >
+                {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
+              </button>
+              {difficulty === 'easy' && (
+                <button
+                  onClick={handleHintStart}
+                  disabled={hintActive || isTutorialPlaying || roundCorrect}
+                  className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-gradient-to-b from-warn to-peach-500 text-white rounded-md text-xl font-black transition-all shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {t('blockGame.help')}
+                </button>
+              )}
             </div>
           </div>
-
-          {/* 🔴 알파벳 판에는 **버튼을 두지 않는다**(2026-07-29) — 한 칸짜리라 맞추면 자동 통과·자동
-              진행이고, 「확인·다음·도와줘」는 아이가 소리 대신 누를 것을 셋이나 만들어 준다. */}
-          <div className={cn('flex justify-center gap-3 sm:gap-4', isAlphabetRound && 'hidden')}>
-            <button
-              onClick={handleCheck}
-              disabled={roundCorrect || isTutorialPlaying}
-              className={cn(
-                'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
-                roundCorrect || isTutorialPlaying
-                  ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
-                  : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
-              )}
-            >
-              {t('blockGame.check')}
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={isTutorialPlaying}
-              className={cn(
-                'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card',
-                isTutorialPlaying
-                  ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
-                  : 'bg-peach-500 hover:bg-peach-300 text-white'
-              )}
-            >
-              {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-            </button>
-            {difficulty === 'easy' && (
-              <button
-                onClick={handleHintStart}
-                disabled={hintActive || isTutorialPlaying || roundCorrect}
-                className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-gradient-to-b from-warn to-peach-500 text-white rounded-md text-xl font-black transition-all shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-              >
-                {t('blockGame.help')}
-              </button>
-            )}
-          </div>
+          {camera && (
+            <div className={cn('min-h-0 w-full', twoCol ? 'flex-1' : 'flex-1')}>
+              <BoardCameraPanel cam={cam} />
+            </div>
+          )}
         </div>
 
-        <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 bg-white/40 backdrop-blur-sm">
-          <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">ABC</p>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-            {panelLetters.map(renderBlock)}
+        {/* 🔴 실물 판에선 글자 판을 숨긴다 — 아이 손에 진짜 블록이 있다. */}
+        {!camera && (
+          <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 bg-white/40 backdrop-blur-sm">
+            <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">ABC</p>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
+              {panelLetters.map(renderBlock)}
+            </div>
           </div>
+        )}
+        {/* 🔴 판 갈아타기 — 아이 손이 닿는 아래가 아니라 위(헤더 옆)에 두지 않는 이유는
+            한글 쪽과 같은 자리를 지키기 위해서다. */}
+        <div className="shrink-0 flex justify-end px-3 pb-2">
+          <button
+            onClick={() => {
+              setCamera((v) => !v);
+              setGrid(initGrid(currentItem.letters));
+            }}
+            className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition"
+          >
+            {camera ? '🧩 화면 블록' : '📷 실물 블록'}
+          </button>
         </div>
       </div>
       <EnglishBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
@@ -710,7 +775,7 @@ function EnglishBlockPlayerInner({
           onDone={() => goToNext(currentIndex)}
         />
       )}
-    </MobileLandscapeGate>
+    </Gate>
   );
 }
 

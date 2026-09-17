@@ -146,6 +146,7 @@ describe('english phonics units', () => {
       expect(play.map((a) => a.kind)).toEqual([
         'game-word-writing',
         'game-connect-dots',
+        'game-english-block',
         'game-line-matching',
       ]);
       expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
@@ -240,11 +241,16 @@ describe('english phonics units', () => {
     expect(listen.letters).toEqual(['A', 'B', 'C']);
   });
 
-  /** 🔴 영어 블록 게임은 전 권에서 뺀다 (2026-08-09 사용자). */
-  it('영어 블록 게임은 어느 단원에도 없다', () => {
+  /**
+   * 🔴 **블록 게임은 전 권에 있다** (2026-09-17 사용자 「다시 넣어 영어 파닉스 단원에」).
+   *    2026-08-09 에 「전 권에서 뺀다」였던 것을 되돌린 것이라, 이 테스트가 그때는 정확히
+   *    반대를 지키고 있었다. 되돌릴 땐 **여기도 같이** 뒤집어야 한다 — 안 그러면 규칙과
+   *    검사가 서로 다른 말을 한다.
+   */
+  it('영어 블록 게임이 전 권에 있다', () => {
     for (const u of units.filter((x) => !x.isReview)) {
       const kinds = getEnglishActivityPlan(u.id).activities.map((a) => a.kind);
-      expect(kinds).not.toContain('game-english-block');
+      expect(kinds).toContain('game-english-block');
     }
   });
 });

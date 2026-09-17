@@ -166,7 +166,10 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       cvcPattern: { ...p },
     });
   }
-  // 게임 — 패턴 단어 풀에서 랜덤 4개 (영어 블록 게임 제외, 2026-08-09 사용자)
+  /* 게임 — 패턴 단어 풀에서 랜덤 4개.
+     🔴 **영어 블록 게임이 돌아왔다**(2026-09-17 사용자 「다시 넣어 영어 파닉스 단원에」).
+        2026-08-09 에 전 권에서 뺐던 것을 되돌린다 — 이제 이 게임은 화면 판과 **실물 판**(카메라로
+        읽는 인쇄 알파벳 블록)을 같이 갖고 있어서, 뺐을 때와 같은 물건이 아니다. */
   activities.push(
     {
       key: 'game-word-writing',
@@ -186,6 +189,16 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       title: '낱말 그리기',
       titleKey: 'activity.wordDrawing',
       emoji: '🔵',
+      required: false,
+    },
+    {
+      key: 'game-english-block',
+      order: order++,
+      kind: 'game-english-block',
+      section: 'play',
+      title: '영어 블록 게임',
+      titleKey: 'activity.englishBlock',
+      emoji: '🧩',
       required: false,
     },
     {
@@ -256,10 +269,11 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
   // 4 games — wordFamilies 안 모든 단어 풀에서 어댑터가 픽업
   activities.push(
     /**
-     * 🔴 **Book 1 에는 영어 블록 게임을 두지 않는다**(2026-07-29 사용자 지시).
-     *    이 권은 글자가 단위라 블록이 **한 칸**이고, 그 한 칸을 채우는 일은 바로 앞 「배우기 2」
-     *    (듣고 고르기)가 이미 시킨다 — 같은 과제를 게임 이름만 바꿔 한 번 더 하는 셈이었다.
-     *    Book 2 부터는 낱말을 통째로 조립하므로 그대로 둔다.
+     * 🔴 **Book 1 에도 블록 게임을 둔다**(2026-09-17 사용자 「다시 넣어 영어 파닉스 단원에」).
+     *    2026-07-29 에 뺐던 이유는 「블록이 한 칸이라 바로 앞 듣고 고르기와 같은 과제」였는데,
+     *    지금은 그 한 칸을 **실물 알파벳 블록을 집어 판에 올려서** 채울 수 있다 — 화면에서 고르는
+     *    것과 손으로 놓는 것은 다른 일이다. 화면 판만 쓰면 옛 지적이 그대로 살아 있으니,
+     *    Book 1 이 시끄럽다는 말이 다시 나오면 **여기 한 줄을 빼면 된다**.
      */
     {
       key: 'game-word-writing',
@@ -279,6 +293,16 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
       title: '낱말 그리기',
       titleKey: 'activity.wordDrawing',
       emoji: '🔵',
+      required: false,
+    },
+    {
+      key: 'game-english-block',
+      order: order++,
+      kind: 'game-english-block',
+      section: 'play',
+      title: '영어 블록 게임',
+      titleKey: 'activity.englishBlock',
+      emoji: '🧩',
       required: false,
     },
     {
@@ -474,9 +498,10 @@ function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
     activities.push({ key: `learn-${p}`, order: order++, kind: 'word-family-learn', section: 'learn', title: `${label} 배우기`, titleKey: 'activity.patternLearn', titleVars: { pattern: label }, emoji: '🔊', required: true, pattern: p }); // prettier-ignore
   }
   activities.push(
-    // 영어 블록 게임 제외 (2026-08-09 사용자 — 전 권 통일)
+    // 🔴 블록 게임 복귀 (2026-09-17 사용자) — 화면 판 + 실물 판 둘 다 갖고 돌아왔다.
     { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', titleKey: 'activity.wordWriting', emoji: '🖍️', required: false }, // prettier-ignore
     { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', titleKey: 'activity.wordDrawing', emoji: '🔵', required: false }, // prettier-ignore
+    { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'play', title: '영어 블록 게임', titleKey: 'activity.englishBlock', emoji: '🧩', required: false }, // prettier-ignore
     { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', titleKey: 'activity.pictureMatch', emoji: '🔗', required: false } // prettier-ignore
   );
   return { activities };
