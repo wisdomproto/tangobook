@@ -2233,7 +2233,11 @@ var cvReady = false, cvFailed = false;
 function loadOpenCV(){
   if (window.cv && window.cv.Mat){ cvReady = true; return Promise.resolve(true); }
   if (loadOpenCV._p) return loadOpenCV._p;
-  var ov = document.getElementById('cvLoad');
+  /* 진행률은 바깥이 그린다 — 실험실은 자기 덮개를, 앱은 GameLoadingGate 를 쓴다.
+     frac === null 이면 「끝났다(또는 실패)」. */
+  function cvProgress(frac){
+    if (typeof TangoReco.onCvProgress === 'function') TangoReco.onCvProgress(frac);
+  }
 
   /* 🔴 opencv.js 는 11MB 인데 docs.opencv.org 는 `max-age=86400` 만 준다 —
         하루 지나면 다시 받고, 폰 캐시에서 밀려나도 다시 받는다. 한 번 받은 건
@@ -2245,6 +2249,16 @@ function loadOpenCV(){
         브라우저 캐시만으로도 1년간 다시 안 받고, 캐시가 밀려도 아래 Cache Storage 가 받친다. */
   var CACHE = 'tango-cv-v1',
       URL_CV = 'https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.11.0-release.1/dist/opencv.js';
+
+  /* 🔴 **`content-length` 를 진행률의 분모로 쓰면 안 된다.** jsDelivr 는 brotli 로 보내므로
+        그 머리값은 **압축 크기**(실측 3,479,188)인데 `getReader()` 가 주는 건 **풀린 바이트**다
+        (실측 11,386,540). 그대로 나누면 진행률이 327% 까지 올라간다.
+     🔴 그래서 분모는 **지난번에 실제로 받은 크기**를 기억해 쓴다 — 판이 올라가 파일이 커져도
+        저절로 따라간다. 처음 한 번은 오늘 잰 값으로 시작하고, 그 뒤로는 자기가 잰 값을 쓴다. */
+  var BYTES_KEY = 'tango-cv-bytes', BYTES_SEEN = 11386540;
+  function expectedBytes(){
+    try { return +localStorage.getItem(BYTES_KEY) || BYTES_SEEN; } catch (e){ return BYTES_SEEN; }
+  }
 
   function run(text){
     return new Promise(function(res){
@@ -2278,21 +2292,36 @@ function loadOpenCV(){
       }
     } catch (e){ /* 사파리 프라이빗 등 — 그냥 받는다 */ }
 
-    if (!cached && ov) ov.classList.add('on');   // 받을 때만 덮개를 띄운다
+    if (!cached) cvProgress(0);                 // 받을 때만 덮개를 띄운다
     try {
       if (!text){
         var r = await fetch(URL_CV, { cache:'force-cache' });
         if (!r.ok) throw new Error('HTTP ' + r.status);
-        text = await r.text();
+        /* 바이트를 세면서 받는다 — 11MB 를 말없이 기다리게 두면 멈춘 것과 구별이 안 된다. */
+        var reader = r.body && r.body.getReader ? r.body.getReader() : null;
+        if (!reader) text = await r.text();
+        else {
+          var chunks = [], got = 0, want = expectedBytes();
+          for (;;){
+            var s2 = await reader.read();
+            if (s2.done) break;
+            chunks.push(s2.value); got += s2.value.length;
+            /* 🔴 99% 에서 멈춰 둔다 — 분모는 지난번 크기라 조금 어긋나고, 100% 를 띄운 뒤에도
+                  wasm 이 깨어나기를 기다려야 한다. 「다 됐다」는 진짜 다 됐을 때만 말한다. */
+            cvProgress(Math.min(0.99, got / want));
+          }
+          text = await new Response(new Blob(chunks)).text();
+          try { localStorage.setItem(BYTES_KEY, String(got)); } catch (e){}
+        }
         try { if (window.caches) (await caches.open(CACHE)).put(URL_CV, new Response(text)); } catch (e){}
       }
       var ok = await run(text);
       if (!ok) cvFailed = true;
-      if (ov) ov.classList.remove('on');
+      cvProgress(null);
       return ok;
     } catch (e){
       cvFailed = true;
-      if (ov) ov.classList.remove('on');
+      cvProgress(null);
       return false;
     }
   })();
