@@ -435,6 +435,8 @@ function KoreanBlockPlayerInner({
    *    가로가 필요하므로 그대로 둔다.
    */
   const Gate = camera ? Fragment : MobileLandscapeGate;
+  /** 실물 + 가로 = 두 칸(삽화·낱말 ‖ 읽은 낱말). 그 밖에는 지금까지처럼 위아래로 쌓는다. */
+  const twoCol = camera && landscape;
 
   if (finished) {
     return (
@@ -498,13 +500,23 @@ function KoreanBlockPlayerInner({
         <div
           className={cn(
             'flex-1 flex items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] short:gap-1 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] short:py-0.5 min-h-0',
-            camera && landscape ? 'flex-row' : 'flex-col'
+            twoCol ? 'flex-row' : 'flex-col'
           )}
         >
           {/* 섹션 1 — 타겟 단어 + 그림 hero. 세로 비중 2 (짧은 가로화면에서 자모 키보드에 공간 양보). */}
           {/* 🔴 짧은 화면에서는 이 줄이 판을 굶긴다 — 375px 높이에서 목표 단어·조합 표시·버튼이
               158px 을 먹고 판에 29px 만 남았다. `short:` 로 눌러 판에 넘긴다. */}
-          <section className="flex-[1] min-h-0 shrink-0 short:flex-none rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
+          {/* 🔴 두 칸이 되면 이 칸의 **안쪽도 세로로 쌓아야** 한다. 가로 배치를 그대로 두면 칸이
+              절반으로 좁아진 채 글자 크기만 `12vw`(뷰포트 기준)라 삽화와 낱말이 칸 밖으로 나간다
+              (실측 1024x768: 「아기」가 잘렸다). 글자도 칸 폭에 맞춰 줄인다. */}
+          <section
+            className={cn(
+              'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
+              twoCol
+                ? 'flex-1 flex-col gap-[clamp(0.5rem,2vh,1.5rem)]'
+                : 'flex-[1] shrink-0 short:flex-none gap-[clamp(1rem,3vw,3rem)]'
+            )}
+          >
             {currentItem.imageUrl && (
               <div className="relative shrink-0 short:hidden">
                 <img
@@ -520,7 +532,9 @@ function KoreanBlockPlayerInner({
             <h1
               className="font-display font-black leading-none whitespace-nowrap"
               style={{
-                fontSize: 'clamp(1.75rem, min(12vw, 20vh, 9vh + 1rem), 12rem)',
+                fontSize: twoCol
+                  ? 'clamp(1.5rem, min(6vw, 16vh), 7rem)'
+                  : 'clamp(1.75rem, min(12vw, 20vh, 9vh + 1rem), 12rem)',
                 color: '#FF7A3C',
                 WebkitTextStroke: 'clamp(3px, 0.6vh, 6px) white',
                 paintOrder: 'stroke fill',
@@ -538,7 +552,8 @@ function KoreanBlockPlayerInner({
           {/* 섹션 2 — 드롭존 화면 가운데. 확인/초기화 absolute 로 우측 띄움. 가로 풀폭, 세로 비중 3 (1.5). */}
           <section
             className={cn(
-              'relative flex-[4] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
+              'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
+              twoCol ? 'flex-1' : 'flex-[4]',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
               roundCorrect &&
                 'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
