@@ -532,7 +532,7 @@ function KoreanBlockPlayerInner({
               'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
               twoCol
                 ? 'flex-1 flex-col gap-[clamp(0.5rem,2vh,1.5rem)]'
-                : 'flex-[1] shrink-0 short:flex-none gap-[clamp(1rem,3vw,3rem)]'
+                : 'flex-[2] shrink-0 short:flex-none gap-[clamp(1rem,3vw,3rem)]'
             )}
           >
             {currentItem.imageUrl && (
@@ -540,7 +540,7 @@ function KoreanBlockPlayerInner({
                 <img
                   src={currentItem.imageUrl}
                   alt={currentItem.word}
-                  className="h-[clamp(3.5rem,20vh,14rem)] w-[clamp(3.5rem,20vh,14rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-[5px] border-white"
+                  className="h-[clamp(4.5rem,24vh,18rem)] w-[clamp(4.5rem,24vh,18rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-[5px] border-white"
                 />
                 <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
               </div>
@@ -551,8 +551,8 @@ function KoreanBlockPlayerInner({
               className="font-display font-black leading-none whitespace-nowrap"
               style={{
                 fontSize: twoCol
-                  ? 'clamp(1.5rem, min(6vw, 16vh), 7rem)'
-                  : 'clamp(1.75rem, min(12vw, 20vh, 9vh + 1rem), 12rem)',
+                  ? 'clamp(1.75rem, min(7vw, 18vh), 8rem)'
+                  : 'clamp(2.25rem, min(14vw, 24vh, 11vh + 1.5rem), 14rem)',
                 color: '#FF7A3C',
                 WebkitTextStroke: 'clamp(3px, 0.6vh, 6px) white',
                 paintOrder: 'stroke fill',

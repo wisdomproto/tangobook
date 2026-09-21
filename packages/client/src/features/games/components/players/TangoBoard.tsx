@@ -153,7 +153,7 @@ function TrayPiece({
       aria-label={selected && canRotate ? `${ch} 돌리기` : `${ch} 고르기`}
       style={{ touchAction: 'none' }}
       className={cn(
-        'relative rounded-2xl bg-white transition-all min-h-[44px] min-w-[44px] p-1 flex items-center justify-center',
+        'relative rounded-2xl bg-white transition-all min-h-[56px] min-w-[56px] p-1.5 short:min-h-[40px] short:min-w-[40px] short:p-0.5 flex items-center justify-center',
         selected
           ? 'ring-4 ring-coral-400 shadow-pop -translate-y-0.5'
           : 'shadow-soft hover:shadow-pop hover:-translate-y-0.5'
@@ -162,7 +162,7 @@ function TrayPiece({
       <svg
         viewBox={`${-pad} ${-pad} ${sh.w + pad * 2} ${sh.h + pad * 2}`}
         className="w-full"
-        style={{ height: 'clamp(1.75rem, 4.5vh, 2.5rem)', aspectRatio: `${sh.w} / ${sh.h}` }}
+        style={{ height: 'clamp(2.25rem, 5.5vh, 3rem)', aspectRatio: `${sh.w} / ${sh.h}` }}
       >
         <BlockArt id={id} rotDeg={rotDeg} color={colorOf(id)} />
       </svg>
@@ -398,7 +398,7 @@ export function TangoBoard({
     >
       {/* 🔴 판이 남는 높이를 **먹고** 트레이는 제 높이를 지킨다. 예전엔 판이 폭 기준(24:10)이라
           납작한 화면(태블릿 가로 768 · 폰 가로 375)에서 트레이를 화면 밖으로 11~80px 밀어냈다. */}
-      <div className="flex-1 min-h-0 flex justify-center">
+      <div className="flex-1 min-h-0 flex items-center justify-center">
         <div
           onClick={handleBoardTap}
           className={cn(
@@ -406,7 +406,7 @@ export function TangoBoard({
             //    차지해 판이 굶는다(실측 칸 6.8px). 상한에 걸리면 판이 레터박스로 그려지는데,
             //    탭 판정은 SVG 좌표계(`getScreenCTM`)라 그림과 안 어긋난다.
             // 🔴 판이 화면을 가득 채울 필요는 없다 — 가운데로 모으면 조각이 오가는 거리가 짧아진다.
-            'relative w-full max-w-5xl mx-auto max-h-full rounded-3xl bg-white shadow-card border-4 border-peach-200 overflow-hidden',
+            'relative w-full max-w-5xl mx-auto max-h-full self-center rounded-3xl bg-white shadow-card border-4 border-peach-200 overflow-hidden',
             picked && !disabled && 'cursor-copy ring-4 ring-coral-200'
           )}
           style={{ aspectRatio: `${COLS} / ${ROWS}` }}
@@ -514,7 +514,7 @@ export function TangoBoard({
         {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
             라이브러리 표지 줄과 같은 규칙(스크롤바만 숨기고 네이티브 스크롤 유지). */}
         <div
-          className="flex flex-nowrap gap-1 sm:gap-1.5 items-center justify-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex flex-nowrap gap-1 sm:gap-1.5 items-center justify-start xl:justify-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="group"
           aria-label="블록 고르기"
         >
