@@ -2,13 +2,13 @@
 
 - id: 20260921-games-hangul-target-jamo-colors
 - domain: games
-- status: integrated
+- status: integrated-followup
 - updated: 2026-09-21
 - base: 2106623ee
 - branch: codex/hangul-target-colors
 - worktree: C:/projects/tangobook/.codex/worktrees/hangul-target-colors
 - integration: main 로컬 통합
-- delivery: 미푸시·미배포
+- delivery: 최초 구현은 `fa910902c`로 main push, 후속 조형 개선은 로컬 main
 
 ## 요청과 완료 조건
 
@@ -33,6 +33,16 @@
 ## 다음 행동
 
 사용자 요청이 있으면 main을 원격에 push하고 배포 화면에서 한 번 더 확인한다.
+
+## 후속 조형 개선 — 2026-09-21
+
+사용자 실화면에서 자모를 별도 격자로 조립한 글자가 지나치게 벌어지고, 옆모음과 아래모음의 크기도 서로 어색하다는 피드백을 받았다. 자모마다 임의 크기와 칸을 주는 방식을 제거하고, `NanumSquareRound`의 완성형 음절 글리프를 두 겹으로 정확히 포갠 뒤 중성 위치만 녹색으로 잘라 보여 주도록 바꿨다. 이 방식은 원래 글자의 획·비율·자간을 그대로 유지하며 초성·받침 주황색과 중성 녹색 규칙도 지킨다.
+
+- 옆모음/아래모음/복합모음과 받침 유무를 여섯 가지 레이아웃으로 나눠 녹색 영역을 제한한다.
+- 음절 바깥 크기를 `0.9em`으로 통일하고 음절 사이 간격은 `0.025em`으로 줄였다.
+- 부모 제목에 걸려 있던 큰 흰색 외곽선과 자간을 제거하고, 글리프 자체에 비례하는 외곽선과 그림자를 적용했다.
+- 관련 컴포넌트·판 조합 테스트 19개와 클라이언트 타입 검사·프로덕션 빌드를 통과했다.
+- 로컬 앱은 HTTP 200으로 응답했으나 이 세션의 인앱 브라우저가 localhost 탐색에서 시간 초과되어 새 렌더 화면 캡처는 완료하지 못했다.
 
 ## 인계·통합
 

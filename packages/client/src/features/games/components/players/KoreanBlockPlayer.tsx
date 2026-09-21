@@ -600,10 +600,7 @@ function KoreanBlockPlayerInner({
                   ? 'clamp(1.75rem, min(7vw, 18vh), 8rem)'
                   : 'clamp(2.25rem, min(14vw, 24vh, 11vh + 1.5rem), 14rem)',
                 color: '#FF7A3C',
-                WebkitTextStroke: 'clamp(3px, 0.6vh, 6px) white',
-                paintOrder: 'stroke fill',
-                filter: 'drop-shadow(0 6px 0 rgba(0,0,0,0.08))',
-                letterSpacing: '0.14em',
+                letterSpacing: 0,
               }}
             >
               <ColoredHangulWord
