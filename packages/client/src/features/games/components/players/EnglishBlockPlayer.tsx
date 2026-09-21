@@ -15,7 +15,6 @@ import {
   useTutorialExpected,
   useTutorialNotify,
 } from './EnglishBlockTutorial/EnglishBlockTutorial.context';
-import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { FeedbackOverlay } from '../FeedbackOverlay';
@@ -48,7 +47,6 @@ const ALL_LETTERS: LetterBlock[] = 'abcdefghijklmnopqrstuvwxyz'.split('').map((c
 function EnglishBlockPlayerInner({
   storybookId,
   gameData,
-  difficulty,
   onComplete: _onComplete,
   onBack,
   initialInputMode = 'screen',
@@ -84,19 +82,10 @@ function EnglishBlockPlayerInner({
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongSlots, setWrongSlots] = useState<Set<number>>(new Set());
   const [typedChars, setTypedChars] = useState(0);
-  const [hintActive, setHintActive] = useState(false);
   const isTutorialPlaying = useTutorialIsPlaying();
   const { popLetter, glowSlot } = useTutorialHighlight();
   const expected = useTutorialExpected();
   const notifyPlacement = useTutorialNotify();
-  const handleHintStart = useCallback(() => {
-    if (hintActive || isTutorialPlaying) return;
-    setHintActive(true);
-  }, [hintActive, isTutorialPlaying]);
-  const handleHintEnd = useCallback(() => {
-    setHintActive(false);
-  }, []);
-
   const currentItem = items[currentIndex];
   const letterCount = currentItem.letters.length;
   /**
@@ -338,7 +327,6 @@ function EnglishBlockPlayerInner({
         setHasTriedThisRound(false);
         setRoundCorrect(false);
         setWrongSlots(new Set());
-        setHintActive(false);
       } else {
         setFinished(true);
       }
@@ -431,18 +419,8 @@ function EnglishBlockPlayerInner({
   handleCheckRef.current = handleCheck;
 
   const handleNext = useCallback(() => {
-    if (currentIndex + 1 < items.length) {
-      const nextIdx = currentIndex + 1;
-      setCurrentIndex(nextIdx);
-      setGrid(initGrid(items[nextIdx].letters));
-      setHasTriedThisRound(false);
-      setRoundCorrect(false);
-      setWrongSlots(new Set());
-      setHintActive(false);
-    } else {
-      setFinished(true);
-    }
-  }, [currentIndex, items, initGrid]);
+    goToNext(currentIndex);
+  }, [currentIndex, goToNext]);
 
   // 게임 완료 시 학습 이벤트 emit (영어: 단어만)
   useEffect(() => {
@@ -461,7 +439,6 @@ function EnglishBlockPlayerInner({
     setRoundCorrect(false);
     setWrongSlots(new Set());
     setGrid(initGrid(items[0].letters));
-    setHintActive(false);
     wordResultsRef.current = [];
   }, [items, initGrid]);
 
@@ -691,27 +668,8 @@ function EnglishBlockPlayerInner({
               </div>
             </div>
 
-            {/* 🔴 알파벳 판에는 **버튼을 두지 않는다**(2026-07-29) — 한 칸짜리라 맞추면 자동 통과·자동
-              진행이고, 「확인·다음·도와줘」는 아이가 소리 대신 누를 것을 셋이나 만들어 준다. */}
-            {/* 🔴 실물 판에선 버튼 줄을 통째로 숨긴다 — 완성하면 저절로 넘어가고, 지울 것도 없다. */}
-            <div
-              className={cn(
-                'flex justify-center gap-3 sm:gap-4',
-                (isAlphabetRound || camera) && 'hidden'
-              )}
-            >
-              <button
-                onClick={handleCheck}
-                disabled={roundCorrect || isTutorialPlaying}
-                className={cn(
-                  'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
-                  roundCorrect || isTutorialPlaying
-                    ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
-                    : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
-                )}
-              >
-                {t('blockGame.check')}
-              </button>
+            {/* 정답은 자동으로 확인한다. 아이가 현재 문제를 건너뛰거나 결과로 갈 수 있는 다음 버튼만 둔다. */}
+            <div className="flex justify-center">
               <button
                 onClick={handleNext}
                 disabled={isTutorialPlaying}
@@ -724,15 +682,6 @@ function EnglishBlockPlayerInner({
               >
                 {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
               </button>
-              {difficulty === 'easy' && (
-                <button
-                  onClick={handleHintStart}
-                  disabled={hintActive || isTutorialPlaying || roundCorrect}
-                  className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-gradient-to-b from-warn to-peach-500 text-white rounded-md text-xl font-black transition-all shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  {t('blockGame.help')}
-                </button>
-              )}
             </div>
           </div>
           {camera && (
@@ -765,7 +714,6 @@ function EnglishBlockPlayerInner({
           </button>
         </div>
       </div>
-      <EnglishBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
       {scene && (
         <SceneReveal

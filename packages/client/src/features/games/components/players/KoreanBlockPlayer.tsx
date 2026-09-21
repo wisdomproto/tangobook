@@ -420,6 +420,10 @@ function KoreanBlockPlayerInner({
   const handleCheckRef = useRef(handleCheck);
   handleCheckRef.current = handleCheck;
 
+  const handleNext = useCallback(() => {
+    goToNext(currentIndex);
+  }, [currentIndex, goToNext]);
+
   // 게임 완료 시 학습 이벤트
   useEffect(() => {
     if (!finished) return;
@@ -603,6 +607,12 @@ function KoreanBlockPlayerInner({
                   : '조각을 끌어다 놓아요 · 판 위 조각은 누르면 회전, 판 밖에 놓으면 삭제'}
             </span>
             <div className="flex gap-2">
+              <button
+                onClick={handleNext}
+                className="min-h-[44px] px-5 rounded-full bg-peach-500 text-white font-black shadow-pop hover:bg-peach-300 transition"
+              >
+                {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
+              </button>
               {/* 🔴 되돌리기·지우기는 실물 판에선 숨긴다 — 손으로 치우면 되므로 지울 게 없다. */}
               {!camera && (
                 <>
