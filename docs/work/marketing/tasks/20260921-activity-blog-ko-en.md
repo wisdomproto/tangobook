@@ -2,11 +2,11 @@
 
 - id: 20260921-marketing-activity-blog-ko-en
 - domain: marketing
-- status: ready
+- status: complete
 - updated: 2026-09-21
 - branch: main
 - worktree: C:/projects/tangobook
-- delivery: 자체 블로그 초안 6편, 공개 발행 제외
+- delivery: 자체 블로그 한글·영문 6편 동시 공개
 
 ## 요청
 
@@ -24,16 +24,21 @@
 
 - 색칠공부, 숨은그림찾기, 블록 놀이 각각 한국어·영어 원고를 작성했다. 각 원고는 7카드이며 첫 이미지, 실천 방법, FAQ, 활동 CTA를 포함한다.
 - 활동 원고 전용 멱등 시더 `seed-marketing-activity-blogs.mjs`를 추가했다. `activity:*` 메모로 콘텐츠와 기본글을 만들고 한영 자체 블로그를 함께 갱신한다.
-- 2026-09-21 운영 DB에 콘텐츠 3건과 자체 블로그 6편을 시딩했다. 콘텐츠와 블로그 상태는 모두 `draft`, 블로그별 카드는 7개다.
-- `mkt_publish_records`는 0건이다. 공개 블로그에는 아직 노출되지 않는다.
+- 2026-09-21 운영 DB에 콘텐츠 3건과 자체 블로그 6편을 시딩했다. 저작 행은 기존 규칙대로 `draft`를 유지하고 블로그별 카드는 7개다.
+- 사용자 확인에 따라 순차 예약 없이 한국어 3편·영어 3편의 `self_hosted` 발행 기록 6건을 `2026-09-21T03:21:22.299Z`에 동시에 만들었다.
 
 ## 검증
 
 - `node --check packages/server/scripts/seed-marketing-activity-blogs.mjs`
 - `node packages/server/scripts/seed-marketing-activity-blogs.mjs --all --dry-run`
 - 이미지 8개와 CTA 3개를 HTTP HEAD로 확인했다. 최초 숨은그림 공 이미지의 영문 파일명이 404여서 실제 한글 파일명 URL로 수정했고 재검사 200을 확인했다.
-- DB 역조회: `activity:*` 콘텐츠 3건 draft, ko/en 블로그 6건 draft, 각 7카드, publish record 0건.
+- DB 역조회: `activity:*` 콘텐츠 3건, ko/en 블로그 6건, 각 7카드, `self_hosted` published record 6건.
+- 공개 API 목록에서 ko/en 각각 새 글 3편을 확인했다. 6개 상세 API 모두 HTTP 200, 카드 7개, `category=activity`, `storybookId=null`이다.
+- 실제 한국어·영어 공개 URL 6개도 HTTP 200을 확인했다.
 
-## 다음 행동
+## 공개 URL
 
-관리 화면에서 문안과 카드 순서를 최종 검토한 뒤 원하는 날짜에 `self_hosted` 발행 기록을 만든다. 활동 카테고리 필터·배지는 별도 제품 변경으로 다룬다.
+- 한국어: `/blog/hidden-object-reading-activity`, `/blog/kids-coloring-vocabulary-activity`, `/blog/korean-english-block-phonics`
+- 영어: `/en/blog/hidden-object-reading-activity`, `/en/blog/kids-coloring-vocabulary-activity`, `/en/blog/korean-english-block-phonics`
+
+활동 카테고리 전용 필터·배지는 아직 없지만 전체 목록과 상세 글 노출에는 영향이 없다. 필요하면 별도 제품 변경으로 추가한다.
