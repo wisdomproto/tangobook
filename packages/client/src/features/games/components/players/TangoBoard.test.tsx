@@ -141,9 +141,50 @@ describe('TangoBoard drag preview', () => {
     };
     fireEvent(placedBlock, pointerEvent('pointerdown', 35, 35));
     fireEvent(placedBlock, pointerEvent('pointermove', 45, 35));
+
+    const dropPreview = container.querySelector<SVGGElement>('[data-tango-drop-preview]');
+    expect(dropPreview?.getAttribute('transform')).toBe('translate(3 2)');
+    expect(dropPreview?.dataset.valid).toBe('true');
+
     fireEvent(placedBlock, pointerEvent('pointerup', 45, 35));
 
     expect(onMovePlaced).toHaveBeenCalledWith(7, 3, 2);
+  });
+
+  it('treats small pointer jitter as a rotation click', () => {
+    const onMovePlaced = vi.fn();
+    const onRotatePlaced = vi.fn();
+    const { getByRole } = render(
+      <TangoBoard
+        placed={[{ uid: 7, id: 0, rotDeg: 0, x: 2, y: 2 }]}
+        picked={null}
+        onPick={vi.fn()}
+        onPlace={vi.fn()}
+        onMovePlaced={onMovePlaced}
+        onRemovePlaced={vi.fn()}
+        onRotatePlaced={onRotatePlaced}
+      />
+    );
+
+    const placedBlock = getByRole('button', { name: /ㄱ 블록/ });
+    Object.defineProperty(placedBlock, 'setPointerCapture', { value: vi.fn() });
+    const pointerEvent = (type: string, clientX: number, clientY: number) => {
+      const event = new Event(type, { bubbles: true });
+      Object.defineProperties(event, {
+        pointerId: { value: 1 },
+        clientX: { value: clientX },
+        clientY: { value: clientY },
+      });
+      return event;
+    };
+
+    fireEvent(placedBlock, pointerEvent('pointerdown', 40, 30));
+    fireEvent(placedBlock, pointerEvent('pointermove', 43, 33));
+    fireEvent(placedBlock, pointerEvent('pointerup', 43, 33));
+    fireEvent.click(placedBlock);
+
+    expect(onMovePlaced).not.toHaveBeenCalled();
+    expect(onRotatePlaced).toHaveBeenCalledWith(7);
   });
 
   it('finds the nearest open position when rotation is blocked', () => {

@@ -86,6 +86,7 @@ export function findNearestPlacement(
 }
 
 const STROKE = 0.58;
+const DRAG_THRESHOLD_PX = 6;
 
 /**
  * 🔴 자음과 모음을 **색으로** 가른다. 아이는 아직 이름으로 못 가르는데, 자음은 왼쪽·위에
@@ -222,6 +223,8 @@ export function TangoBoard({
     rotDeg: number;
     /** 판 위에서 집은 조각이면 그 조각의 uid — 트레이에서 집었으면 없다. */
     uid?: number;
+    startX: number;
+    startY: number;
     x: number;
     y: number;
     moved: boolean;
@@ -292,6 +295,8 @@ export function TangoBoard({
           : undefined;
       setDrag({
         ...piece,
+        startX: e.clientX,
+        startY: e.clientY,
         x: e.clientX,
         y: e.clientY,
         moved: false,
@@ -304,17 +309,18 @@ export function TangoBoard({
 
   const handleDragMove = useCallback(
     (e: ReactPointerEvent) => {
-      setDrag((d) =>
-        d
-          ? {
-              ...d,
-              x: e.clientX,
-              y: e.clientY,
-              moved: true,
-              outsideBoard: d.uid !== undefined && !isPointInsideBoard(e.clientX, e.clientY),
-            }
-          : d
-      );
+      setDrag((d) => {
+        if (!d) return d;
+        const moved =
+          d.moved || Math.hypot(e.clientX - d.startX, e.clientY - d.startY) >= DRAG_THRESHOLD_PX;
+        return {
+          ...d,
+          x: e.clientX,
+          y: e.clientY,
+          moved,
+          outsideBoard: moved && d.uid !== undefined && !isPointInsideBoard(e.clientX, e.clientY),
+        };
+      });
     },
     [isPointInsideBoard]
   );
@@ -351,6 +357,19 @@ export function TangoBoard({
     for (let r = 0; r <= ROWS; r++) for (let c = 0; c <= COLS; c++) out.push({ x: c, y: r });
     return out;
   }, []);
+
+  /** 드래그를 놓았을 때 실제로 맞춰질 칸과 배치 가능 여부. */
+  const dragTarget = useMemo(() => {
+    if (!drag?.moved || !isPointInsideBoard(drag.x, drag.y)) return null;
+    const cell = cellAt(drag.x, drag.y, drag.id, drag.rotDeg, drag.grabOffset);
+    if (!cell) return null;
+    const otherBlocks =
+      drag.uid === undefined ? placed : placed.filter((block) => block.uid !== drag.uid);
+    return {
+      ...cell,
+      valid: canPlace(otherBlocks, drag.id, drag.rotDeg, cell.x, cell.y),
+    };
+  }, [cellAt, drag, isPointInsideBoard, placed]);
 
   /**
    * 화면 좌표(clientX/Y)를 쓰는 미리보기는 body 에 그린다. `EmbedStage`처럼 조상에
@@ -428,6 +447,35 @@ export function TangoBoard({
             {pins.map((p, i) => (
               <circle key={i} cx={p.x} cy={p.y} r={0.1} fill="#F4ECE2" />
             ))}
+            {dragTarget && drag && (
+              <g
+                data-tango-drop-preview
+                data-valid={dragTarget.valid ? 'true' : 'false'}
+                transform={`translate(${dragTarget.x} ${dragTarget.y})`}
+                className="pointer-events-none"
+                aria-hidden="true"
+              >
+                <rect
+                  x={-0.18}
+                  y={-0.18}
+                  width={shapeAt(drag.id, drag.rotDeg).w + 0.36}
+                  height={shapeAt(drag.id, drag.rotDeg).h + 0.36}
+                  rx={0.22}
+                  fill={dragTarget.valid ? colorOf(drag.id) : '#EF4444'}
+                  fillOpacity={0.14}
+                  stroke={dragTarget.valid ? colorOf(drag.id) : '#EF4444'}
+                  strokeWidth={0.1}
+                  strokeDasharray="0.22 0.16"
+                />
+                <g opacity={0.5}>
+                  <BlockArt
+                    id={drag.id}
+                    rotDeg={drag.rotDeg}
+                    color={dragTarget.valid ? colorOf(drag.id) : '#EF4444'}
+                  />
+                </g>
+              </g>
+            )}
             {placed.map((b) => {
               const sh = shapeAt(b.id, b.rotDeg);
               return (
