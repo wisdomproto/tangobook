@@ -31,6 +31,7 @@ import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntry
 import { useBoardCamera } from '../../hooks/useBoardCamera';
 import { useIsLandscape } from '../../hooks/useIsLandscape';
 import { BoardCameraPanel } from './BoardCameraPanel';
+import { ColoredHangulWord } from './ColoredHangulWord';
 
 const JUNGSUNG_SET = new Set<string>(JUNGSUNG);
 function isVowel(char: string) {
@@ -605,7 +606,9 @@ function KoreanBlockPlayerInner({
                 letterSpacing: '0.14em',
               }}
             >
-              {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
+              <ColoredHangulWord
+                word={roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
+              />
               {roundCorrect && typedChars < currentItem.word.length && (
                 <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
               )}

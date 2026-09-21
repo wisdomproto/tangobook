@@ -97,9 +97,9 @@ const DRAG_THRESHOLD_PX = 6;
  * 3D 보드(`public/tango-board-3d.html` 의 `COLOR.cho`/`COLOR.jung`)에서 가져왔다.
  * 앱이 다른 색을 쓰면 아이가 실물 보드를 쥐었을 때 색을 다시 배워야 한다.
  */
-const CHO_COLOR = '#F09E5C'; // 자음 — rgb(0.94, 0.62, 0.36)
-const JUNG_COLOR = '#59B89E'; // 모음 — rgb(0.35, 0.72, 0.62)
-const colorOf = (id: number) => (BLOCKS[id].kind === 'jung' ? JUNG_COLOR : CHO_COLOR);
+export const TANGO_CHO_COLOR = '#F09E5C'; // 자음 — rgb(0.94, 0.62, 0.36)
+export const TANGO_JUNG_COLOR = '#59B89E'; // 모음 — rgb(0.35, 0.72, 0.62)
+const colorOf = (id: number) => (BLOCKS[id].kind === 'jung' ? TANGO_JUNG_COLOR : TANGO_CHO_COLOR);
 
 /** 블록 한 개를 칸 좌표계 SVG 로 그린다 — 획은 중심선이라 둥근 선으로 긋는다. */
 function BlockArt({ id, rotDeg, color }: { id: number; rotDeg: number; color: string }) {
