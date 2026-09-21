@@ -2,12 +2,12 @@
 
 - id: 20260921-content-pipo-character-prompt
 - domain: content
-- status: ready
+- status: integrated
 - updated: 2026-09-21
 - base: c6dbb850
 - branch: codex/content-pipo-character-prompt
 - worktree: C:/projects/tangobook/.worktrees/pipo-character-prompt
-- integration: 검증 완료; main 통합 대기
+- integration: 9e77c5cb의 프롬프트·생성물·작업 기록을 로컬 main에 fast-forward 통합 완료
 - delivery: 미푸시·미배포; 이미지 재생성·운영 데이터 변경 없음
 
 ## 사용자 결정
@@ -26,6 +26,7 @@
 - `node --check packages/client/public/pipo-core.js`, `sync-anchor-to-core.mjs pipo --check`, `git diff --check` 통과.
 - Node VM에서 실제 생성된 `sheetPrompt('pipo')`, `composeBatchPrompt` 실행: 흰 털·긴 검은 귀·돌출 주둥이 포함, 이전 짧은 귀 지시 제거, @image1 피포 매핑 확인. 기획서 HTML에도 같은 규격 확인.
 - 새 그림 생성·육안 결과 검증은 하지 않음. 프롬프트 텍스트 변경만 검증함.
+- 작업 worktree의 커밋 훅이 lint-staged 경로를 찾지 못해 첫 커밋 실패. 기존 루트 설치의 `node_modules/.bin`을 실행 PATH에 추가해 훅을 정상 실행하고 커밋 완료(훅 우회 없음).
 
 ## 남은 일
 
