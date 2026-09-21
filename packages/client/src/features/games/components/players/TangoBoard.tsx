@@ -61,6 +61,30 @@ export function canPlace(
   return rasterize(sh).every(([r, c]) => !taken.has(`${y + r},${x + c}`));
 }
 
+/** 원하는 자리가 막혔을 때 판 안에서 가장 가까운 빈자리를 찾는다. */
+export function findNearestPlacement(
+  placed: PlacedBlock[],
+  id: number,
+  rotDeg: number,
+  preferredX: number,
+  preferredY: number
+): { x: number; y: number } | null {
+  const sh = shapeAt(id, rotDeg);
+  const originX = Math.max(0, Math.min(COLS - sh.w, Math.round(preferredX)));
+  const originY = Math.max(0, Math.min(ROWS - sh.h, Math.round(preferredY)));
+  let nearest: { x: number; y: number; distance: number } | null = null;
+
+  for (let y = 0; y <= ROWS - sh.h; y++) {
+    for (let x = 0; x <= COLS - sh.w; x++) {
+      if (!canPlace(placed, id, rotDeg, x, y)) continue;
+      const distance = (x - originX) ** 2 + (y - originY) ** 2;
+      if (!nearest || distance < nearest.distance) nearest = { x, y, distance };
+    }
+  }
+
+  return nearest ? { x: nearest.x, y: nearest.y } : null;
+}
+
 const STROKE = 0.58;
 
 /**
@@ -202,6 +226,8 @@ export function TangoBoard({
     y: number;
     moved: boolean;
     outsideBoard: boolean;
+    /** 판 위 블록을 잡은 칸 좌표. 가운데로 순간 이동하지 않고 잡은 지점을 유지한다. */
+    grabOffset?: { x: number; y: number };
   } | null>(null);
   const dragRef = useRef<typeof drag>(null);
   dragRef.current = drag;
@@ -216,33 +242,64 @@ export function TangoBoard({
     );
   }, []);
 
-  /** 화면 좌표 → 판 칸. 조각의 가운데가 그 지점에 오게 놓는다. */
-  const cellAt = useCallback((clientX: number, clientY: number, id: number, rotDeg: number) => {
+  const boardPointAt = useCallback((clientX: number, clientY: number) => {
     const svg = svgRef.current;
-    const m = svg?.getScreenCTM();
-    if (!svg || !m) return null;
+    if (!svg || typeof svg.getScreenCTM !== 'function' || typeof svg.createSVGPoint !== 'function')
+      return null;
+    const m = svg.getScreenCTM();
+    if (!m) return null;
     const pt = svg.createSVGPoint();
     pt.x = clientX;
     pt.y = clientY;
-    const p = pt.matrixTransform(m.inverse());
-    const sh = shapeAt(id, rotDeg);
-    return { x: Math.round(p.x - sh.w / 2), y: Math.round(p.y - sh.h / 2) };
+    return pt.matrixTransform(m.inverse());
   }, []);
+
+  /** 화면 좌표 → 판 칸. 판 위 블록은 처음 집은 지점, 트레이 블록은 가운데를 기준으로 놓는다. */
+  const cellAt = useCallback(
+    (
+      clientX: number,
+      clientY: number,
+      id: number,
+      rotDeg: number,
+      grabOffset?: { x: number; y: number }
+    ) => {
+      const p = boardPointAt(clientX, clientY);
+      if (!p) return null;
+      const sh = shapeAt(id, rotDeg);
+      return {
+        x: Math.round(p.x - (grabOffset?.x ?? sh.w / 2)),
+        y: Math.round(p.y - (grabOffset?.y ?? sh.h / 2)),
+      };
+    },
+    [boardPointAt]
+  );
 
   const handleDragStart = useCallback(
     (piece: { id: number; rotDeg: number; uid?: number }, e: ReactPointerEvent) => {
       if (disabled) return;
       (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
       draggedRef.current = false;
+      const placedBlock =
+        piece.uid === undefined ? undefined : placed.find((block) => block.uid === piece.uid);
+      const boardPoint = boardPointAt(e.clientX, e.clientY);
+      const shape = shapeAt(piece.id, piece.rotDeg);
+      const grabOffset =
+        placedBlock && boardPoint
+          ? {
+              x: Math.max(0, Math.min(shape.w, boardPoint.x - placedBlock.x)),
+              y: Math.max(0, Math.min(shape.h, boardPoint.y - placedBlock.y)),
+            }
+          : undefined;
       setDrag({
         ...piece,
         x: e.clientX,
         y: e.clientY,
         moved: false,
         outsideBoard: false,
+        grabOffset,
       });
     },
-    [disabled]
+    [boardPointAt, disabled, placed]
   );
 
   const handleDragMove = useCallback(
@@ -272,7 +329,7 @@ export function TangoBoard({
         onRemovePlaced(d.uid);
         return;
       }
-      const cell = cellAt(e.clientX, e.clientY, d.id, d.rotDeg);
+      const cell = cellAt(e.clientX, e.clientY, d.id, d.rotDeg, d.grabOffset);
       if (!cell) return;
       if (d.uid !== undefined) onMovePlaced(d.uid, cell.x, cell.y);
       else onPlace(cell.x, cell.y, d.id, d.rotDeg);
@@ -306,10 +363,16 @@ export function TangoBoard({
           <div
             data-tango-drag-preview
             className={cn(
-              'pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]',
+              'pointer-events-none fixed z-[95] drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]',
               drag.outsideBoard && 'opacity-60'
             )}
-            style={{ left: drag.x, top: drag.y }}
+            style={{
+              left: drag.x,
+              top: drag.y,
+              transform: drag.grabOffset
+                ? `translate(-${((drag.grabOffset.x + 0.4) / (shapeAt(drag.id, drag.rotDeg).w + 0.8)) * 100}%, -${((drag.grabOffset.y + 0.4) / (shapeAt(drag.id, drag.rotDeg).h + 0.8)) * 100}%)`
+                : 'translate(-50%, -50%)',
+            }}
           >
             <svg
               viewBox={`-0.4 -0.4 ${shapeAt(drag.id, drag.rotDeg).w + 0.8} ${shapeAt(drag.id, drag.rotDeg).h + 0.8}`}

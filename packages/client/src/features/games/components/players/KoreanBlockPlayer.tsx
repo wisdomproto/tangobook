@@ -13,7 +13,13 @@ import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
-import { COLS, ROWS, TangoBoard, toItems, canPlace, type PlacedBlock } from './TangoBoard';
+import {
+  TangoBoard,
+  toItems,
+  canPlace,
+  findNearestPlacement,
+  type PlacedBlock,
+} from './TangoBoard';
 import { parseBoard } from '../../lib/tango-board/compose';
 import { nextRot, shapeAt } from '../../lib/tango-board/blocks';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
@@ -258,24 +264,16 @@ function KoreanBlockPlayerInner({
           const rot = nextRot(b.id, b.rotDeg);
           const before = shapeAt(b.id, b.rotDeg);
           const after = shapeAt(b.id, rot);
-          const x = Math.max(
-            0,
-            Math.min(COLS - after.w, Math.round(b.x + (before.w - after.w) / 2))
-          );
-          const y = Math.max(
-            0,
-            Math.min(ROWS - after.h, Math.round(b.y + (before.h - after.h) / 2))
-          );
-          // 중심을 유지한 자리가 다른 조각과 겹치면 그대로 둔다.
-          return canPlace(
-            prev.filter((o) => o.uid !== uid),
+          const others = prev.filter((o) => o.uid !== uid);
+          const nearest = findNearestPlacement(
+            others,
             b.id,
             rot,
-            x,
-            y
-          )
-            ? { ...b, rotDeg: rot, x, y }
-            : b;
+            b.x + (before.w - after.w) / 2,
+            b.y + (before.h - after.h) / 2
+          );
+          // 현재 중심에서 회전할 수 없으면 가장 가까운 빈자리로 옮겨 회전한다.
+          return nearest ? { ...b, rotDeg: rot, ...nearest } : b;
         })
       );
       setIsWrong(false);
