@@ -69,7 +69,7 @@ function SideSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: st
         kind="vowel"
         role="medial"
         className={cn(
-          'left-[0.34em] w-[0.52em]',
+          'left-[0.41em] w-[0.52em]',
           hasCoda
             ? 'top-[-0.01em] h-[0.62em] text-[0.58em]'
             : 'top-[0.03em] h-[0.84em] text-[0.74em]'
@@ -81,7 +81,7 @@ function SideSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: st
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.1em] top-[0.56em] h-[0.34em] w-[0.66em] text-[0.45em]"
+          className="left-[0.14em] top-[0.6em] h-[0.34em] w-[0.66em] text-[0.45em]"
         >
           {jong}
         </Jamo>
@@ -113,8 +113,8 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         className={cn(
           'left-[0.04em] w-[0.78em]',
           hasCoda
-            ? 'top-[0.25em] h-[0.38em] text-[0.45em]'
-            : 'top-[0.34em] h-[0.53em] text-[0.58em]'
+            ? 'top-[0.29em] h-[0.38em] text-[0.45em]'
+            : 'top-[0.39em] h-[0.53em] text-[0.58em]'
         )}
       >
         {jung}
@@ -123,7 +123,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.1em] top-[0.58em] h-[0.31em] w-[0.66em] text-[0.41em]"
+          className="left-[0.14em] top-[0.63em] h-[0.31em] w-[0.66em] text-[0.41em]"
         >
           {jong}
         </Jamo>
@@ -153,8 +153,8 @@ function MixedSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         kind="vowel"
         role="medial"
         className={cn(
-          'left-[0.25em] w-[0.66em]',
-          hasCoda ? 'top-[0.2em] h-[0.46em] text-[0.47em]' : 'top-[0.25em] h-[0.62em] text-[0.6em]'
+          'left-[0.3em] w-[0.66em]',
+          hasCoda ? 'top-[0.23em] h-[0.46em] text-[0.47em]' : 'top-[0.29em] h-[0.62em] text-[0.6em]'
         )}
       >
         {jung}
@@ -163,7 +163,7 @@ function MixedSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.1em] top-[0.59em] h-[0.3em] w-[0.66em] text-[0.4em]"
+          className="left-[0.14em] top-[0.64em] h-[0.3em] w-[0.66em] text-[0.4em]"
         >
           {jong}
         </Jamo>
@@ -180,7 +180,7 @@ function ColoredSyllable({ char }: { char: string }) {
     <span
       data-hangul-syllable={char}
       data-syllable-layout={layout}
-      className="relative inline-block h-[0.94em] w-[0.86em] shrink-0 align-middle leading-none"
+      className="relative inline-block h-[0.98em] w-[0.94em] shrink-0 align-middle leading-none"
     >
       {layout.startsWith('side') ? (
         <SideSyllable {...syllable} />
@@ -201,7 +201,7 @@ export function ColoredHangulWord({ word, className }: ColoredHangulWordProps) {
   return (
     <span className={cn('inline-flex items-center tracking-normal', className)}>
       <span className="sr-only">{word}</span>
-      <span aria-hidden="true" className="inline-flex items-center gap-[0.02em]">
+      <span aria-hidden="true" className="inline-flex items-center gap-[0.035em]">
         {Array.from(word).map((char, index) =>
           isHangulSyllable(char) ? (
             <ColoredSyllable key={`${char}-${index}`} char={char} />

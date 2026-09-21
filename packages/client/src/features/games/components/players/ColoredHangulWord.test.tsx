@@ -35,8 +35,21 @@ describe('ColoredHangulWord', () => {
 
     expect(syllables).toHaveLength(4);
     for (const syllable of syllables) {
-      expect(syllable).toHaveClass('h-[0.94em]', 'w-[0.86em]');
+      expect(syllable).toHaveClass('h-[0.98em]', 'w-[0.94em]');
     }
+  });
+
+  it('leaves visible breathing room between an onset and its medial', () => {
+    const { container } = render(<ColoredHangulWord word="리오" />);
+
+    const sideMedial = container.querySelector(
+      '[data-hangul-syllable="리"] [data-jamo-role="medial"]'
+    );
+    const belowMedial = container.querySelector(
+      '[data-hangul-syllable="오"] [data-jamo-role="medial"]'
+    );
+    expect(sideMedial).toHaveClass('left-[0.41em]');
+    expect(belowMedial).toHaveClass('top-[0.39em]');
   });
 
   it('keeps codas as their own orange jamo', () => {
