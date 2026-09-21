@@ -597,8 +597,8 @@ function KoreanBlockPlayerInner({
               className="font-display font-black leading-none whitespace-nowrap"
               style={{
                 fontSize: twoCol
-                  ? 'clamp(1.75rem, min(7vw, 18vh), 8rem)'
-                  : 'clamp(2.25rem, min(14vw, 24vh, 11vh + 1.5rem), 14rem)',
+                  ? 'clamp(2rem, min(8vw, 20vh), 9rem)'
+                  : 'clamp(3rem, min(15vw, 18vh), 13rem)',
                 color: '#FF7A3C',
                 letterSpacing: 0,
               }}
