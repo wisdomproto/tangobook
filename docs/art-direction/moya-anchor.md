@@ -11,6 +11,8 @@
 
 ---
 
+> 2026-09-21 사용자 수정: 캐릭터 외형은 유지하고 표정은 장면마다 바꾼다. 아래 현행 규격이 과거의 목 중심·눈 고정 설계보다 우선한다.
+
 ## §1. 앵커 — `moya-daylight`
 
 ```
@@ -29,7 +31,7 @@ RENDERING (finish hierarchy): everything in this book is graded by HOW WET THE P
   A MUZZLE OR A PAW ON - painted on DRY paper as separate touches that hold their own edges and never run
   into one another: 9 to 14 countable touches on a body. Then, and ONLY AFTER EVERYTHING IS DRY, a thin violet line is drawn. 🔴 THE PAINT
   AND THE LINE NEVER DESCRIBE THE SAME PART: the masses are paint and carry no line (body, mane, stripes,
-  muzzle, rump), the thin things are line and carry no paint (legs below the knee, hooves, ears' inner
+  muzzle, rump; a short expressive mouth crease is the exception), the thin things are line and carry no paint (legs below the knee, hooves, ears' inner
   shape, tail hairs, whiskers, the meerkat's fingers), and where the two meet they disagree - the line
   runs inside the colour along the back, outside it along the belly, and stops before it closes.
   (2) THE GROUND UNDERFOOT AND WHATEVER GROWS OUT OF IT - painted on DAMP paper: 4 to 6 touches per
@@ -98,21 +100,33 @@ STAGE CLAUSES (one waterhole and its rim, the same one in all twenty-five books)
     depth beyond it is the bloom (one volume sleeps in there). dry: morning sun runs in and what it
     reaches is BARE PAPER. wet: the lip slumps.
 
-CHARACTER DESIGN LANGUAGE: 🔴 THE NECK CARRIES THE FEELING - NOT THE EYES - and it is read against that
-  animal's own shoulder. Head below the shoulder line = downcast. Level = ordinary. Pushed forward past
-  the front feet = wanting. Folded back so the head sits behind the shoulder = startled. Lifted until the
-  whole underside of the throat shows = pleased. The ears follow the neck and are never given a job of
-  their own. THE EYE IS FIXED FOREVER - one dark violet almond as wide as that animal's own nostril, the
-  same on every page of twenty-five books, open or shut. NO eyebrows, NO eyelashes, NO white in the eye,
-  NO drawn mouth line. 🔴 AN OPEN MOUTH IS NOT A LINE: on a page where a figure speaks, calls or shouts,
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
-  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
-  the lower jaw drops so THE OUTLINE OF THE MUZZLE MASS CHANGES - it is paint, and still no line is drawn
-  for it. 🔴 TEARS NEVER CHANGE THE EYE: they are one wet trace down the bridge of the nose, or damp at
-  the eye's edge, and the almond stays the same size.
+CHARACTER DESIGN LANGUAGE: SAME CHARACTER, CHANGING EXPRESSION. Keep each animal's skull, muzzle,
+  eye placement, coat pattern, body proportions and identifying accessory consistent with its reference.
+  A reference fixes identity, NOT a neutral expression. The face and the body act together on every page.
+  EYES: keep the dark violet colour and the animal's natural side-set placement. Eyelids may widen,
+  narrow, droop, squeeze shut or soften; the gaze must have a clear target. Do not copy one almond onto
+  every emotion. Tiny unpainted highlights are allowed; no oversized human eyes or decorative lashes.
+  MOUTH: allow a short, fine violet mouth crease, changing corners, lips and jaw tension that follow
+  the animal's muzzle. A smile is earned by the story, never the default face for fear, hurt or anger.
+  EARS can turn forward with interest, pull back with fear or anger, and relax with reassurance,
+  independently of the neck. Use eyelid and brow-ridge tension without adding floating human eyebrows.
+  NECK AND BODY support the face: lowered weight for discouragement, a recoil for surprise, a relaxed
+  shoulder for relief. Neck angle alone must not carry every feeling or force one pose onto every page.
+  ACTING: dislike = narrowed eyes, a turned gaze and a tense muzzle; worry = searching eyes and a held
+  breath; fear = widened or tightly shut eyes, backward ears and a tense small mouth; sadness = lowered
+  lids, a trembling lower lip and tears only when the text calls for them; anger = a tense upper lid,
+  backward ears and a tight or protesting mouth; curiosity = alert ears and a focused, opening gaze;
+  relief = softened lids, released jaw and a small returning smile; joy = lifted mouth corners and
+  lively eyes, or gently squeezed happy eyes. Choose the page's feeling, not all of these at once.
+  Each visible character reacts in their own role: a worried child and a reassuring adult must not
+  share the same smile. Keep expressions readable at page size and gentle enough for a young child.
+  SPEECH: when the depicted moment is a spoken line, the speaker's mouth follows that line, a small
+  opening for whispering and a larger opening for calling. Listeners react without automatically
+  opening their mouths. Do not add a second instant to show both drinking and speaking at once.
+  FRAMING: on an emotional close-up, show the eyes and muzzle clearly. Preserve deliberate back views,
+  prop close-ups and quiet landscapes; convey feeling through visible ears, weight and posture there,
+  without adding an extra head or an off-screen speaker. Never turn all scenes into face portraits.
+  TEARS may wet the eye edge and cheek while lids and muzzle also change with the emotion.
   GRADE: everyone walks on four legs, wears no clothing and keeps animal proportions and an animal face.
   🔴 KIKI IS THE ONE EXCEPTION AND IT IS HER WHOLE SILHOUETTE: the meerkat alone stands upright and alone
   has forepaws that hold things; the others carry with mouth, hoof or snout.
@@ -158,7 +172,7 @@ NECK:   the head against its own shoulder carries the feeling, the eyes never ch
 ## §1-b. 캐릭터 시트 — `CHARACTER SHEET`
 
 🔴 **개체 규격은 `moya-cast.md` 가 SSOT**(아직 없다 — 이 시리즈의 다음 일). 아래는 다섯을 한 장에 굽는
-단체 시트이고, **읽히는가를 검사하는 두 줄**(실루엣 줄 · 눈 지운 목 줄)이 여기 있다.
+단체 시트이고, **읽히는가를 검사하는 두 줄**(실루엣 줄 · 감정 변화 줄)이 여기 있다.
 
 ```
 CHARACTER SHEET - moya waterhole   (five figures, one sheet)
@@ -171,16 +185,16 @@ SHEET LAYOUT: one sheet of bare warm rag paper - 🔴 THE GROUND IS NOT PAINTED 
   long, and Kiki standing upright at the end. Each is drawn THREE times - standing in profile,
   three-quarter walking, and the head and neck alone, large enough that the line from ear to shoulder is
   clear. Legs are drawn in every one of them, so the line-only parts are fixed before any prop exists.
-🔴 TEST ON THE FIVE LARGE HEADS: paint the eye out entirely and the feeling must still be readable from
-  the set of the neck against the shoulder alone. If it is not, the eye was doing the work and the sheet
-  is wrong.
+🔴 TEST ON THE FIVE LARGE HEADS: retain each animal's identity while showing a readable expression.
+  Eyes, muzzle, ears and neck work together. Do not erase eyes or require a fixed neutral face.
 🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the same five again, side by side, filled solid in flat violet
   with 0 interior marks and no magenta at all. THREE THINGS ARE READ OFF THAT ROW AND THE SHEET IS WRONG
   IF ANY ONE FAILS: the five are told apart by build and stance, NOT by size (cover the ground line and
   they must still be five different animals); Kiki is upright with her forepaws clear of her body;
   and the mother is told from Moya by her stripes reaching the hoof, not by being taller.
-🔴 A SECOND SMALL ROW: Moya's head and neck five times at thumbnail size - downcast, ordinary, wanting,
-  startled, pleased - WITH THE EYE PAINTED OUT. The five must still be told apart from the neck alone.
+🔴 A SECOND SMALL ROW: Moya's head and neck six times at thumbnail size - curious, refusing,
+  frightened, tearful, relieved, delighted. Keep the same skull, markings and cord; change eyelids,
+  gaze, muzzle and ears as well as the neck. The six feelings must be clear without written labels.
   Nothing else on the sheet: no props beyond the four worn things, no scenery, no shadow, and no
   lettering, numerals, labels or name tags anywhere.
 ```
@@ -194,7 +208,7 @@ SHEET LAYOUT: one sheet of bare warm rag paper - 🔴 THE GROUND IS NOT PAINTED 
 | id | **`rutten-ombre`** · BolognaRagazzi 2014 Fiction 특별언급 · C8 수채 번짐 |
 | 카탈로그 `character` | 「얼굴은 점 눈 + 코 하나, **감정은 어깨선으로**」 |
 | 카탈로그 `medium` | 「수채 번짐 + **가는 잉크 선을 마른 뒤에** 얹음」 |
-| 가져온 축 | 🔴 **감정은 얼굴이 아니라 머리–어깨의 선이 진다** |
+| 가져온 축 | 🔴 **눈·입·귀와 머리–어깨의 자세가 함께 감정을 전한다** |
 
 **이 배정은 라이브러리가 이미 처방해 둔 것이다.** `verified-references.md` §7.3.1 이 C8(수채 번짐)을
 훑고 나서 이렇게 적어 뒀다 — 「C8 앵커는 **반드시 `rutten-ombre` 식 2단계 공정(번짐 먼저 → 마른 뒤 잉크
@@ -223,7 +237,7 @@ SHEET LAYOUT: one sheet of bare warm rag paper - 🔴 THE GROUND IS NOT PAINTED 
   캐릭터 축(목·어깨)과 공정 둘(분업하는 선 · 나란히 놓는 터치)뿐이다.
 - 🔴 **점 눈으로 안 갔다.** 16시리즈 중 점 눈은 셋이고 **점눈이는 전래동화의 하우스 스타일(2호)**이다.
   이 캐스트는 눈이 얼굴 옆에 붙은 초식동물이라 **정면 점 눈 두 개가 원천적으로 안 나오는** 드문 종
-  구성이고, 그래서 「눈이 아닌 것이 표정을 진다」가 억지가 아니라 해부학이다.
+  구성이다. 눈의 위치와 동물 해부학은 유지하되 눈꺼풀·시선·입·귀는 장면 감정에 따라 변한다.
 
 ### §2-b. 🔴 인상주의에서 가져온 것은 「원리 넷」이고 화풍이 아니다
 
@@ -289,7 +303,7 @@ SHEET LAYOUT: one sheet of bare warm rag paper - 🔴 THE GROUND IS NOT PAINTED 
 | **불투명도** | 불투명, 물이 안 묽힌다 | 투명 담채 | **투명. 밝게 하려면 안 칠한다** |
 | **색을 섞나** | 안료를 갈아 얹는다 | 먹 한 색 | **절대 안 섞는다. 옆에 놓는다(초록 물감 0)** |
 | **어둠** | 짙은 남색을 굵게 갈아서 | 먹이 진해진 자리 | **보라 터치를 옆에. 검정·회색이 없다** |
-| **표정** | 눈가 검은 띠의 각도 | 획이 진해진 자리 | **머리와 제 어깨선의 관계** |
+| **표정** | 눈가 검은 띠의 각도 | 획이 진해진 자리 | **눈매·입·귀 + 머리와 어깨선의 관계** |
 | **시간축** | 계절 없음 · 자리 다섯 | 계절 넷 | **자리 일곱 × 계절 둘(파랑 터치 개수)** |
 | **악센트** | 복숭아 분홍 수건 | 주홍 목도리 | **자홍 풀 끈** |
 | **의인화** | 이족 + 옷 + 손 | 이족/사족 두 등급 | **전원 사족·무의상. 키키만 이족(손)** |
@@ -319,7 +333,7 @@ written mark` · `NOT: no airbrush…` · `twenty-five books` · `AN ADULT IS NO
 |---|---|---|
 | **인물을 찾는다** | 앵커 `RENDERING` 끝 한 줄 | 화면에서 **물감과 선을 둘 다 지닌 것은 인물뿐**이고, **두 가장자리가 어긋난 것도 인물뿐**이다. 무대에 선이 생겼으면 틀렸다 (매 쪽 검사) |
 | **초록을 찾는다** | 관통 줄 `BROKEN:` | 초록으로 보이는 자리를 확대해 **노랑 터치와 파랑 터치로 갈라지는가.** 한 덩어리 초록이면 섞은 것이다 (매 쪽 검사) |
-| **눈을 지운다** | 시트 `TEST ON THE FIVE LARGE HEADS` + 발치 둘째 줄 | 시무룩·원함·놀람이 **목선만으로** 갈리는가. 안 갈리면 눈이 연기한 것이다 (🔴 한 쪽으로는 실행 불가 → 시트) |
+| **감정이 달라진다** | 시트 `TEST ON THE FIVE LARGE HEADS` + 감정 변화 줄 | 외형은 같은데 거부·겁남·울먹임·안도·기쁨이 눈매·입·귀·자세로 구분되는가. 겁난 얼굴에 미소를 복사하지 않는다. |
 | **통째로 메운다** | 시트 발치 실루엣 줄 | 다섯이 **크기 말고** 몸통·자세로 갈리는가. 🔴 **바닥선을 가리고도** 다섯이어야 한다 |
 
 🔴 **왜 「바닥선을 가리고」를 덧붙였나** — 이 캐스트는 종이 달라서 실루엣이 저절로 갈린다. 그래서
@@ -392,8 +406,8 @@ written mark` · `NOT: no airbrush…` · `twenty-five books` · `AN ADULT IS NO
    나무 둘(열매 나무·작은 아카시아)이 조항 밖에 있었다. 🔴 매체 번역 한 줄 = **「밝은 것은 안 칠한 것 ·
    초록은 두 색이 옆에 놓인 것」**. 🔜 남은 것은 §4 권별 경로표
    (`build-series-routes.mjs --skeleton moya` — 25권 전권에 토큰이 붙었으니 이제 돌릴 수 있다).
-3. **`_SERIES-ANCHORS.md` 표에 17행 추가** — 축 = 「목선이 표정을 진다」, 눈 처리 = 「보라 아몬드 하나,
-   크기 25권 불변」, 레퍼런스 = `rutten-ombre`. `changjak-anchor-refs.json` 도 같이 고치고
+3. **`_SERIES-ANCHORS.md` 표에 17행 추가** — 축 = 「얼굴과 자세가 함께 감정을 전한다」, 눈 처리 = 「보라색·눈 위치 유지,
+   눈꺼풀·시선·개방 정도는 감정에 따라 변화」, 레퍼런스 = `rutten-ombre`. `changjak-anchor-refs.json` 도 같이 고치고
    `build-award-index.mjs` 재실행.
 4. **설계서 `docs/changjak-books/moya/_design.md`** — 25권 표에 🔴 **「이 권이 쓰는 무대 물리」 칸**
    (딩딩 검수 규칙). 이 무대의 물리는 **계절과 물의 높이** 하나뿐이므로, 그 칸이 빈 권은 초원을 배경화면으로
