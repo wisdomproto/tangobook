@@ -22,5 +22,7 @@ shared 런타임 상대 import는 .js 확장자를 유지한다. 로컬 서버�
 
 ## 작업·과거 기록
 
+- [로컬 저장공간 진단](tasks/20260921-local-storage-cleanup.md): TangoBook 57.38GiB 중 의존성 30.07GiB(논리 크기). 오래된 worktree 19곳의 의존성 삭제가 자동 승인 검토에서 차단되어 실제 삭제하지 않았다. 원본 작업과 복구 자료는 보존했다.
+
 - [작업 목록](tasks/README.md)
 - [분야별 과거 메모리 검색](../LEGACY-MEMORY.md) — 파일명 기반 분류이며 본문 검토 여부와 구분한다.
