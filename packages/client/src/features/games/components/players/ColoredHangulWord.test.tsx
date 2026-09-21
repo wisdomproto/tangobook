@@ -8,10 +8,16 @@ describe('ColoredHangulWord', () => {
     const { container } = render(<ColoredHangulWord word="강" />);
 
     expect(container.querySelector('.sr-only')).toHaveTextContent('강');
-    const consonantLayer = container.querySelector('[data-color-layer="consonant"]');
-    const vowelLayer = container.querySelector('[data-color-layer="vowel"]');
-    expect(consonantLayer).toHaveStyle({ color: TANGO_CHO_COLOR });
-    expect(vowelLayer).toHaveStyle({ color: TANGO_JUNG_COLOR });
+    const consonants = container.querySelectorAll('[data-jamo-kind="consonant"]');
+    const vowels = container.querySelectorAll('[data-jamo-kind="vowel"]');
+    expect(consonants).toHaveLength(2);
+    expect(vowels).toHaveLength(1);
+    expect(consonants[0]).toHaveStyle({ color: TANGO_CHO_COLOR });
+    expect(consonants[1]).toHaveStyle({ color: TANGO_CHO_COLOR });
+    expect(vowels[0]).toHaveStyle({ color: TANGO_JUNG_COLOR });
+    expect(
+      Array.from(container.querySelectorAll('[data-jamo-role]')).map((node) => node.textContent)
+    ).toEqual(['ㄱ', 'ㅏ', 'ㅇ']);
   });
 
   it('keeps side and below vowel syllables in their matching layouts', () => {
@@ -29,11 +35,11 @@ describe('ColoredHangulWord', () => {
 
     expect(syllables).toHaveLength(4);
     for (const syllable of syllables) {
-      expect(syllable).toHaveClass('h-[0.94em]', 'w-[0.9em]');
+      expect(syllable).toHaveClass('h-[0.94em]', 'w-[0.86em]');
     }
   });
 
-  it('keeps codas orange by limiting the vowel color to the medial area', () => {
+  it('keeps codas as their own orange jamo', () => {
     const { container } = render(<ColoredHangulWord word="강공" />);
 
     expect(container.querySelector('[data-hangul-syllable="강"]')).toHaveAttribute(
@@ -46,13 +52,15 @@ describe('ColoredHangulWord', () => {
     );
   });
 
-  it('colors both parts of a compound vowel without changing the syllable measure', () => {
+  it('keeps a compound vowel as one green medial', () => {
     const { container } = render(<ColoredHangulWord word="과" />);
 
     expect(container.querySelector('[data-hangul-syllable="과"]')).toHaveAttribute(
       'data-syllable-layout',
       'mixed'
     );
-    expect(container.querySelectorAll('[data-color-layer="vowel"]')).toHaveLength(2);
+    const vowel = container.querySelector('[data-jamo-role="medial"]');
+    expect(vowel).toHaveTextContent('ㅘ');
+    expect(vowel).toHaveStyle({ color: TANGO_JUNG_COLOR });
   });
 });
