@@ -103,11 +103,13 @@ export function unitToKoreanBlockData(unit: VocabularyUnit): KoreanBlockData | n
     const syllables = decomposeWord(korean);
     if (syllables.length === 0) continue;
     const tts = pickTts(w, 'ko');
+    const sourceStorybookId = w.sourceStorybookId ?? unit.storybookId;
     candidates.push({
       word: korean,
       imageUrl: pickPrimaryImage(w) ?? '',
       syllables,
       ...(tts ? { ttsUrl: tts } : {}),
+      ...(sourceStorybookId ? { storybookId: sourceStorybookId } : {}),
     });
   }
   if (candidates.length === 0) return null;
@@ -121,12 +123,14 @@ export function unitToEnglishBlockData(unit: VocabularyUnit): EnglishBlockData |
     const word = (w.word ?? '').toLowerCase().trim();
     if (!word || !ENGLISH_WORD_RE.test(word) || word.length > MAX_BLOCK_WORD_LEN) continue;
     const tts = pickTts(w, 'en');
+    const sourceStorybookId = w.sourceStorybookId ?? unit.storybookId;
     candidates.push({
       word,
       korean: w.korean ?? '',
       imageUrl: pickPrimaryImage(w) ?? '',
       letters: decomposeEnglishWord(word),
       ...(tts ? { ttsUrl: tts } : {}),
+      ...(sourceStorybookId ? { storybookId: sourceStorybookId } : {}),
     });
   }
   if (candidates.length === 0) return null;

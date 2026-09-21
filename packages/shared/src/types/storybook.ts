@@ -475,6 +475,8 @@ export interface KoreanBlockItem {
   word: string;
   imageUrl: string;
   ttsUrl?: string;
+  /** 랜덤 어휘 풀 항목의 원본 동화책. 정답 뒤 연결 장면을 찾는 데 사용. */
+  storybookId?: string;
   syllables: KoreanBlockSyllable[];
 }
 export interface KoreanBlockData {
@@ -498,6 +500,8 @@ export interface EnglishBlockItem {
   korean: string;
   imageUrl: string;
   ttsUrl?: string;
+  /** 랜덤 어휘 풀 항목의 원본 동화책. 정답 뒤 연결 장면을 찾는 데 사용. */
+  storybookId?: string;
   letters: EnglishBlockLetter[];
 }
 export interface EnglishBlockData {

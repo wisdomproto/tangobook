@@ -128,7 +128,7 @@ export function RandomBlockGamePage({ lang }: Props) {
     if (!entries || !level) return null;
     const filtered = filterByLevel(entries, lang, level, classicIds);
     if (filtered.length === 0) return null;
-    const unit = vocabEntriesToVirtualUnit(filtered, lang);
+    const unit = vocabEntriesToVirtualUnit(filtered, lang, classicIds);
     return lang === 'ko' ? unitToKoreanBlockData(unit) : unitToEnglishBlockData(unit);
   }, [entries, lang, level, seed, classicIds]);
 

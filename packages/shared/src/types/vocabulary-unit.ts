@@ -19,6 +19,8 @@ export interface VocabularyWordImage {
 export interface VocabularyUnitWord {
   word: string;
   korean?: string;
+  /** 랜덤 어휘 풀에서 이 단어 장면을 가져올 원본 동화책 */
+  sourceStorybookId?: string;
   nameEn?: string;
   nameTranslations?: Record<string, string>;
   /** 이미지 prompt 베이스 (KeyObject.description 동일) */

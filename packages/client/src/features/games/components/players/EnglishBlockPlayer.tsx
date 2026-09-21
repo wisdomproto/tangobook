@@ -34,7 +34,7 @@ import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
-import { useStorybook } from '@/features/storybook';
+import { storybookApi, useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
@@ -180,6 +180,8 @@ function EnglishBlockPlayerInner({
   const expected = useTutorialExpected();
   const notifyPlacement = useTutorialNotify();
   const currentItem = items[currentIndex];
+  const sceneStorybookId =
+    currentItem.storybookId ?? (storybookId === '__random_pool__' ? undefined : storybookId);
   const letterCount = currentItem.letters.length;
   /**
    * 한 글자짜리 라운드 = 알파벳 단원.
@@ -216,7 +218,11 @@ function EnglishBlockPlayerInner({
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
-  const { data: sourceStorybook } = useStorybook(storybookId);
+  const { data: fetchedSourceStorybook } = useStorybook(sceneStorybookId);
+  const sourceStorybook =
+    fetchedSourceStorybook?.id === sceneStorybookId ? fetchedSourceStorybook : undefined;
+  const sourceStorybookRef = useRef(sourceStorybook);
+  sourceStorybookRef.current = sourceStorybook;
   const gameStyle = useGameStyle(sourceStorybook);
   const [scene, setScene] = useState<WordScene | null>(null);
   const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
@@ -384,11 +390,11 @@ function EnglishBlockPlayerInner({
     const url = await resolveTtsUrl({
       text: currentItem.word,
       language: 'english',
-      storybookId,
+      storybookId: sceneStorybookId,
       identifierPrefix: 'eblock',
     });
     playAudio(url);
-  }, [currentItem.ttsUrl, currentItem.word, isAlphabetRound, storybookId, playAudio]);
+  }, [currentItem.ttsUrl, currentItem.word, isAlphabetRound, sceneStorybookId, playAudio]);
 
   /**
    * 문제가 바뀌면 **한 번** 들려준다 — 아이가 버튼을 찾아 누를 필요가 없게.
@@ -472,7 +478,7 @@ function EnglishBlockPlayerInner({
         const wordUrlPromise = resolveTtsUrl({
           text: currentItem.word,
           language: 'english',
-          storybookId,
+          storybookId: sceneStorybookId,
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'eblock',
         });
@@ -483,14 +489,24 @@ function EnglishBlockPlayerInner({
             language: 'en',
             onDone: () => {
               // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-              const s = resolveSceneFromWord(
-                currentItem.word,
-                'en',
-                sourceStorybook,
-                gameStyle.selectedStyle
-              );
-              if (s) setScene(s);
-              else goToNext(currentIndex);
+              void (async () => {
+                let book = sourceStorybookRef.current;
+                if (!book && sceneStorybookId) {
+                  try {
+                    book = await storybookApi.getById(sceneStorybookId);
+                  } catch {
+                    // 연결 책이 없거나 삭제된 단어는 기존 정책대로 바로 다음 문제로 넘어간다.
+                  }
+                }
+                const s = resolveSceneFromWord(
+                  currentItem.word,
+                  'en',
+                  book,
+                  gameStyle.selectedStyle
+                );
+                if (s) setScene(s);
+                else goToNext(currentIndex);
+              })();
             },
           });
         };
@@ -516,9 +532,8 @@ function EnglishBlockPlayerInner({
     playCorrectSequence,
     playFeedbackSound,
     roundCorrect,
-    storybookId,
+    sceneStorybookId,
     goToNext,
-    sourceStorybook,
     gameStyle.selectedStyle,
   ]);
 

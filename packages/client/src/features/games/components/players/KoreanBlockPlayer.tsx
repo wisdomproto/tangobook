@@ -24,7 +24,7 @@ import { parseBoard } from '../../lib/tango-board/compose';
 import { nextRot, shapeAt } from '../../lib/tango-board/blocks';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
-import { useStorybook } from '@/features/storybook';
+import { storybookApi, useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { cn } from '@/lib/cn';
 import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
@@ -77,6 +77,8 @@ function KoreanBlockPlayerInner({
   const [isWrong, setIsWrong] = useState(false);
   const [typedChars, setTypedChars] = useState(0);
   const currentItem = items[currentIndex];
+  const sceneStorybookId =
+    currentItem.storybookId ?? (storybookId === '__random_pool__' ? undefined : storybookId);
 
   /**
    * 🔴 판이 실물 보드가 됐다(2026-09-02) — 글자마다 타일이 하나씩 있던 격자를 버리고,
@@ -95,7 +97,12 @@ function KoreanBlockPlayerInner({
   // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 한 번(사용자: 화면마다 멘트 통일).
   useGameEntryGuide(voiceUrl(ENTRY_GUIDE.blockMake), playAudio);
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
-  const { data: sourceStorybook } = useStorybook(storybookId);
+  const { data: fetchedSourceStorybook } = useStorybook(sceneStorybookId);
+  const sourceStorybook =
+    fetchedSourceStorybook?.id === sceneStorybookId ? fetchedSourceStorybook : undefined;
+  // 정답 음성과 칭찬이 재생되는 동안 책 로딩이 끝나도 onDone이 최신 책을 보도록 ref로 유지한다.
+  const sourceStorybookRef = useRef(sourceStorybook);
+  sourceStorybookRef.current = sourceStorybook;
   const gameStyle = useGameStyle(sourceStorybook);
   const [scene, setScene] = useState<WordScene | null>(null);
   const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
@@ -344,7 +351,7 @@ function KoreanBlockPlayerInner({
         const wordUrlPromise = resolveTtsUrl({
           text: currentItem.word,
           language: 'korean',
-          storybookId,
+          storybookId: sceneStorybookId,
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'kblock',
         });
@@ -355,14 +362,24 @@ function KoreanBlockPlayerInner({
             language: 'ko',
             onDone: () => {
               // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-              const s = resolveSceneFromWord(
-                currentItem.word,
-                'ko',
-                sourceStorybook,
-                gameStyle.selectedStyle
-              );
-              if (s) setScene(s);
-              else goToNext(currentIndex);
+              void (async () => {
+                let book = sourceStorybookRef.current;
+                if (!book && sceneStorybookId) {
+                  try {
+                    book = await storybookApi.getById(sceneStorybookId);
+                  } catch {
+                    // 연결 책이 없거나 삭제된 단어는 기존 정책대로 바로 다음 문제로 넘어간다.
+                  }
+                }
+                const s = resolveSceneFromWord(
+                  currentItem.word,
+                  'ko',
+                  book,
+                  gameStyle.selectedStyle
+                );
+                if (s) setScene(s);
+                else goToNext(currentIndex);
+              })();
             },
           });
         };
@@ -409,9 +426,8 @@ function KoreanBlockPlayerInner({
     playCorrectSequence,
     playFeedbackSound,
     roundCorrect,
-    storybookId,
+    sceneStorybookId,
     goToNext,
-    sourceStorybook,
     gameStyle.selectedStyle,
   ]);
 
@@ -430,7 +446,7 @@ function KoreanBlockPlayerInner({
     const audioUrl = await resolveTtsUrl({
       text: composedText,
       language: 'korean',
-      storybookId,
+      storybookId: sceneStorybookId,
       identifierPrefix: 'kblock-board',
     });
     if (audioUrl) {
@@ -447,7 +463,7 @@ function KoreanBlockPlayerInner({
     } catch {
       /* 미지원/차단 */
     }
-  }, [composedText, playAudio, storybookId]);
+  }, [composedText, playAudio, sceneStorybookId]);
 
   // 게임 완료 시 학습 이벤트
   useEffect(() => {

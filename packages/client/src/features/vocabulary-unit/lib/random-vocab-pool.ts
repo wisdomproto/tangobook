@@ -11,15 +11,24 @@ import type { Lang, VocabEntry, VocabularyUnit, VocabularyUnitWord } from '@tang
  */
 export function vocabEntriesToVirtualUnit(
   entries: VocabEntry[],
-  language: Lang = 'ko'
+  language: Lang = 'ko',
+  allowedStorybookIds?: ReadonlySet<string>
 ): VocabularyUnit {
   const words: VocabularyUnitWord[] = entries.map((e) => {
-    const imageUrl =
-      e.sources?.find((s) => s.imageUrl)?.imageUrl ??
-      e.sources?.find((s) => s.pageImages?.[0]?.illustrationUrl)?.pageImages?.[0]?.illustrationUrl;
+    const storySources = e.sources.filter(
+      (source) =>
+        source.sourceType === 'storybook-key-object' &&
+        (!allowedStorybookIds || allowedStorybookIds.has(source.storybookId))
+    );
+    // 화면의 단어 이미지와 정답 뒤 장면이 같은 책을 가리키도록, 이미지가 있는 출처를 우선한다.
+    const source =
+      storySources.find((candidate) => candidate.imageUrl || candidate.pageImages?.[0]) ??
+      storySources[0];
+    const imageUrl = source?.imageUrl ?? source?.pageImages?.[0]?.illustrationUrl;
     return {
       word: e.word,
       korean: e.korean,
+      ...(source?.storybookId ? { sourceStorybookId: source.storybookId } : {}),
       ...(imageUrl
         ? {
             images: [
