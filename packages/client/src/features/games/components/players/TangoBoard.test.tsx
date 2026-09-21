@@ -4,7 +4,7 @@ import { blockIndexOf } from '../../lib/tango-board/blocks';
 import { TangoBoard, canPlace, findNearestPlacement } from './TangoBoard';
 
 describe('TangoBoard drag preview', () => {
-  it('renders at viewport pointer coordinates outside a transformed container', () => {
+  it('does not render a small floating block while dragging', () => {
     const { getByRole } = render(
       <div style={{ transform: 'scale(0.5)', transformOrigin: 'top left' }}>
         <TangoBoard
@@ -33,11 +33,7 @@ describe('TangoBoard drag preview', () => {
     fireEvent(piece, pointerEvent('pointerdown', 60, 80));
     fireEvent(piece, pointerEvent('pointermove', 240, 180));
 
-    const preview = document.querySelector<HTMLElement>('[data-tango-drag-preview]');
-    expect(preview).not.toBeNull();
-    expect(preview?.parentElement).toBe(document.body);
-    expect(preview?.style.left).toBe('240px');
-    expect(preview?.style.top).toBe('180px');
+    expect(document.querySelector('[data-tango-drag-preview]')).toBeNull();
   });
 
   it('rotates a placed block on click and removes it when dropped outside the board', () => {
@@ -83,6 +79,11 @@ describe('TangoBoard drag preview', () => {
     };
     fireEvent(placedBlock, pointerEvent('pointerdown', 40, 30));
     fireEvent(placedBlock, pointerEvent('pointermove', 300, 120));
+
+    const deleteHint = document.querySelector<HTMLElement>('[data-tango-delete-hint]');
+    expect(deleteHint?.parentElement).toBe(document.body);
+    expect(deleteHint?.textContent).toBe('놓아서 삭제');
+
     fireEvent(placedBlock, pointerEvent('pointerup', 300, 120));
 
     expect(onRemovePlaced).toHaveBeenCalledWith(7);

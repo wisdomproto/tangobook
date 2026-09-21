@@ -371,47 +371,19 @@ export function TangoBoard({
     };
   }, [cellAt, drag, isPointInsideBoard, placed]);
 
-  /**
-   * 화면 좌표(clientX/Y)를 쓰는 미리보기는 body 에 그린다. `EmbedStage`처럼 조상에
-   * `transform: scale(...)`이 있으면 그 안의 fixed 요소도 로컬 좌표로 축소되어 포인터와
-   * 어긋난다. 포털 밖에서는 left/top이 실제 뷰포트 좌표와 그대로 일치한다.
-   */
-  const dragPreview =
-    drag?.moved && typeof document !== 'undefined'
+  /** 판 밖 삭제 안내만 화면 좌표로 띄운다. 블록 모양은 판 위 스냅 미리보기로 충분하다. */
+  const deleteHint =
+    drag?.moved && drag.uid !== undefined && drag.outsideBoard && typeof document !== 'undefined'
       ? createPortal(
           <div
-            data-tango-drag-preview
-            className={cn(
-              'pointer-events-none fixed z-[95] drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]',
-              drag.outsideBoard && 'opacity-60'
-            )}
+            data-tango-delete-hint
+            className="pointer-events-none fixed z-[95] -translate-x-1/2 translate-y-3 whitespace-nowrap rounded-full bg-danger px-3 py-1 text-xs font-black text-white shadow-pop"
             style={{
               left: drag.x,
               top: drag.y,
-              transform: drag.grabOffset
-                ? `translate(-${((drag.grabOffset.x + 0.4) / (shapeAt(drag.id, drag.rotDeg).w + 0.8)) * 100}%, -${((drag.grabOffset.y + 0.4) / (shapeAt(drag.id, drag.rotDeg).h + 0.8)) * 100}%)`
-                : 'translate(-50%, -50%)',
             }}
           >
-            <svg
-              viewBox={`-0.4 -0.4 ${shapeAt(drag.id, drag.rotDeg).w + 0.8} ${shapeAt(drag.id, drag.rotDeg).h + 0.8}`}
-              style={{
-                height: '3rem',
-                aspectRatio: `${shapeAt(drag.id, drag.rotDeg).w} / ${shapeAt(drag.id, drag.rotDeg).h}`,
-              }}
-            >
-              <BlockArt id={drag.id} rotDeg={drag.rotDeg} color={colorOf(drag.id)} />
-            </svg>
-            {drag.uid !== undefined && (
-              <span
-                className={cn(
-                  'absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-xs font-black text-white shadow-pop',
-                  drag.outsideBoard ? 'bg-danger' : 'bg-ink-700'
-                )}
-              >
-                {drag.outsideBoard ? '놓아서 삭제' : '판 밖으로 옮기면 삭제'}
-              </span>
-            )}
+            놓아서 삭제
           </div>,
           document.body
         )
@@ -534,8 +506,7 @@ export function TangoBoard({
         </div>
       </div>
 
-      {/* 끌고 있는 조각 — transform 조상 밖에서 실제 포인터 화면 좌표에 그린다. */}
-      {dragPreview}
+      {deleteHint}
 
       {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
           (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
