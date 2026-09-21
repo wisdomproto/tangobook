@@ -1,0 +1,198 @@
+{
+  "key": "hidden-object",
+  "category": "activity",
+  "tags": ["숨은그림찾기", "독후활동", "어휘놀이"],
+  "variants": {
+    "ko": {
+      "seo_title": "숨은그림찾기, 동화책을 다시 읽게 만드는 독후활동",
+      "meta_description": "동화 장면 속 낱말을 찾아보고 소리 내어 말하며 책으로 돌아가는 숨은그림찾기 독후활동 방법을 소개합니다.",
+      "primary_keyword": "숨은그림찾기",
+      "secondary_keywords": ["유아 숨은그림찾기", "독후활동", "그림책 놀이", "어휘 놀이"],
+      "url_slug": "hidden-object-reading-activity",
+      "cards": [
+        {
+          "card_type": "text",
+          "sort_order": 0,
+          "content": {
+            "alt": "개구리 왕자 동화의 연못 장면",
+            "url": "https://assets.tangobook.co.kr/1772009873865-%EA%B0%9C%EA%B5%AC%EB%A6%AC%EC%99%95%EC%9E%90-illustration-page8-1779790682566.webp",
+            "text": "<h2>읽은 이야기를 한 번 더 보게 하는 숨은그림찾기</h2><p>그림책을 덮은 뒤 곧바로 내용을 확인하는 질문을 하면 아이가 시험처럼 느낄 수 있습니다. 대신 이야기 속 장면에서 <strong>왕관, 공, 침대 같은 낱말을 찾아보는 놀이</strong>를 시작해 보세요. 아이는 답을 외우기보다 그림을 다시 살피며 이야기에 돌아갑니다.</p><p>탱고북의 숨은그림찾기는 지원하는 책의 한 장면과 그 책에서 만난 낱말 목록으로 구성됩니다. 찾은 물건을 누르면 낱말 소리를 들을 수 있습니다.</p>",
+            "caption": "이야기 속 장면이 그대로 놀이판이 됩니다.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 1,
+          "content": {
+            "alt": "개구리 왕자에 등장하는 왕관",
+            "url": "https://assets.tangobook.co.kr/1772009873865-%EA%B0%9C%EA%B5%AC%EB%A6%AC%EC%99%95%EC%9E%90-keyobj-Crown-1779842946888-w800.webp",
+            "text": "<h2>찾기 전에 낱말부터 함께 읽으세요</h2><p>찾을 물건 목록을 먼저 보며 이름을 천천히 말해 주세요. 글자를 아직 읽지 못해도 그림과 소리를 연결할 수 있습니다. \"왕관은 어디에 있을까?\"처럼 한 번에 하나만 제시하면 복잡한 장면에서도 시작하기 쉽습니다.</p><p>아이가 영어로도 놀고 싶다면 crown처럼 같은 물건의 영어 이름을 한 번 들려주세요. 두 언어를 모두 외우게 하기보다, 같은 그림에 이름이 두 개 있다는 사실을 자연스럽게 보여 주면 충분합니다.</p>",
+            "caption": "찾을 물건의 이름을 먼저 들으면 시선에 목표가 생깁니다.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 2,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>힌트는 위치보다 특징으로 주세요</h2><p>곧바로 \"오른쪽 위에 있어\"라고 알려주기보다 모양과 쓰임을 말해 보세요. \"반짝이는 물건이야\", \"머리에 쓰는 거야\" 같은 힌트는 아이가 그림을 더 자세히 관찰하게 합니다.</p><ul><li>색: 어떤 색과 비슷할까?</li><li>모양: 둥글까, 길쭉할까?</li><li>쓰임: 어디에 쓰는 물건일까?</li><li>장면: 이야기에서 누가 사용했을까?</li></ul><p>한두 번 시도한 뒤에도 어렵다면 손가락으로 넓은 구역을 가리켜 주세요.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 3,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>찾은 다음에는 장면을 한 문장으로 이어 보세요</h2><p>물건을 찾으면 \"왕관을 찾았어\"에서 한 걸음 더 나아가 <strong>\"왕자가 왕관을 썼어\"</strong>처럼 인물과 행동을 붙여 보세요. 아이가 만든 문장이 원래 이야기와 달라도 괜찮습니다. 그림에서 본 단서를 말로 옮기는 과정 자체가 독후활동입니다.</p><p>모든 물건을 찾은 뒤에는 책의 같은 장면을 다시 열고, 놀이판과 무엇이 같은지 비교해 보세요.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 4,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>형제자매와 할 때는 경쟁보다 역할을 나누세요</h2><p>한 아이는 찾을 낱말을 읽고, 다른 아이는 그림에서 찾게 해 보세요. 다음 물건에서는 역할을 바꾸면 빠른 아이가 화면을 독차지하는 일을 줄일 수 있습니다. 어른은 정답 판정자보다 힌트를 만드는 역할을 맡는 편이 좋습니다.</p><p>한 번에 전부 끝내기 어렵다면 세 개만 찾고 멈춰도 됩니다. 다음 읽기 시간에 같은 장면으로 돌아올 이유가 남습니다.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 5,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>자주 묻는 질문</h2><p><strong>Q. 모든 책에 숨은그림찾기가 있나요?</strong><br>현재는 숨은그림 장면이 준비된 책에서만 활동할 수 있습니다. 책을 고른 뒤 독후활동 목록을 확인해 주세요.</p><p><strong>Q. 글자를 읽지 못해도 할 수 있나요?</strong><br>네. 어른이 낱말을 읽어 주거나 소리를 들려주고 아이는 그림으로 찾을 수 있습니다.</p><p><strong>Q. 못 찾을 때 바로 알려 줘도 되나요?</strong><br>먼저 색·모양·쓰임 힌트를 하나씩 주고, 그래도 어렵다면 넓은 위치를 알려 주세요. 오래 막혀 흥미를 잃지 않게 하는 것이 중요합니다.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 6,
+          "content": {
+            "alt": "탱고북 동화책 고르기",
+            "url": "https://assets.tangobook.co.kr/1772009873865-%EA%B0%9C%EA%B5%AC%EB%A6%AC%EC%99%95%EC%9E%90-keyobj-%EA%B3%B5-1779843711271-w800.webp",
+            "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">이야기를 읽고, 같은 장면에서 낱말을 찾아보세요</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555;line-height:1.6;\">숨은그림찾기를 지원하는 책은 독후활동에서 바로 이어서 놀 수 있습니다.</p><a href=\"https://www.tangobook.co.kr/library\" style=\"display:inline-block;background:#FF6B5A;color:#FFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 동화책 고르기 →</a></div>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        }
+      ]
+    },
+    "en": {
+      "seo_title": "Hidden Object Games That Bring Children Back to the Story",
+      "meta_description": "Use a story-based hidden object game as an after-reading activity: name each object, give descriptive clues, and return to the picture book scene together.",
+      "primary_keyword": "hidden object games for kids",
+      "secondary_keywords": [
+        "after reading activities",
+        "picture book activities",
+        "vocabulary games for kids",
+        "hidden picture game"
+      ],
+      "url_slug": "hidden-object-reading-activity",
+      "cards": [
+        {
+          "card_type": "text",
+          "sort_order": 0,
+          "content": {
+            "alt": "Pond scene from The Frog Prince",
+            "url": "https://assets.tangobook.co.kr/1772009873865-%EA%B0%9C%EA%B5%AC%EB%A6%AC%EC%99%95%EC%9E%90-illustration-page8-1779790682566.webp",
+            "text": "<h2>A hidden object game gives children a reason to look again</h2><p>Questions about plot can feel like a test right after a picture book ends. Try looking for story objects instead: a crown, a ball, a bed, or another word from the book. The child returns to the scene to search rather than to recite an answer.</p><p>Tangobook's hidden object activity uses a scene and vocabulary from each supported book. Tapping a found object also plays its word audio.</p>",
+            "caption": "A familiar story scene becomes the game board.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 1,
+          "content": {
+            "alt": "A crown object from The Frog Prince",
+            "url": "https://assets.tangobook.co.kr/1772009873865-%EA%B0%9C%EA%B5%AC%EB%A6%AC%EC%99%95%EC%9E%90-keyobj-Crown-1779842946888-w800.webp",
+            "text": "<h2>Read the object names before searching</h2><p>Say each target word slowly before looking at the full scene. A child who does not read yet can still connect the spoken word with the picture. Offer one target at a time—\"Can you find the crown?\"—so a busy scene has a clear starting point.</p><p>For bilingual play, say the second name once, such as crown for 왕관. The goal is to notice that one object can have two names, not to memorize both on the spot.</p>",
+            "caption": "Hearing the target word gives the eyes something specific to seek.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 2,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>Give clues about features before location</h2><p>Instead of pointing to the upper right corner immediately, describe the object: \"It is shiny\" or \"Someone wears it on their head.\" A descriptive clue keeps the child looking closely.</p><ul><li>Color: What color might it be?</li><li>Shape: Is it round or long?</li><li>Use: What do people do with it?</li><li>Story: Which character used it?</li></ul><p>If the search is still frustrating, narrow it to a broad area of the picture.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 3,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>Turn each find into one sentence</h2><p>After \"I found the crown,\" add a character and action: <strong>\"The prince wore the crown.\"</strong> The sentence does not have to match the original story. Putting a visual clue into words is already a useful after-reading activity.</p><p>When every object is found, reopen the matching book scene and compare it with the game together.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 4,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>Share roles when siblings play</h2><p>One child can read or repeat the target word while another searches. Swap roles for the next item so the quickest player does not control the whole screen. An adult can invent clues instead of acting as the scorekeeper.</p><p>It is fine to find only three objects and stop. Leaving part of the scene unfinished creates a natural reason to return after the next reading.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 5,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>Frequently asked questions</h2><p><strong>Does every Tangobook story have a hidden object game?</strong><br>No. The activity appears only for books with a prepared hidden object scene. Check the after-reading activities for the book you choose.</p><p><strong>Can a child play before learning to read?</strong><br>Yes. An adult can say the word or play its audio while the child searches by picture.</p><p><strong>What if an object is too hard to find?</strong><br>Offer clues about color, shape, and use first. Then point to a broad area before interest turns into frustration.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 6,
+          "content": {
+            "alt": "Choose a Tangobook story",
+            "url": "https://assets.tangobook.co.kr/1772009873865-%EA%B0%9C%EA%B5%AC%EB%A6%AC%EC%99%95%EC%9E%90-keyobj-%EA%B3%B5-1779843711271-w800.webp",
+            "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Read a story, then search inside its world</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555;line-height:1.6;\">Choose a supported book and open Hidden Object in its after-reading activities.</p><a href=\"https://www.tangobook.co.kr/library\" style=\"display:inline-block;background:#FF6B5A;color:#FFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">📖 Choose a story →</a></div>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "key": "coloring",
+  "category": "activity",
+  "tags": ["색칠공부", "coloring", "어휘놀이"],
+  "variants": {
+    "ko": {
+      "seo_title": "유아 색칠공부, 색만 채우지 않고 낱말까지 익히는 방법",
+      "meta_description": "무료 색칠도안을 고르고, 그림의 이름을 말하고, 완성한 뒤 다시 이야기로 연결하는 유아 색칠공부 방법을 소개합니다.",
+      "primary_keyword": "유아 색칠공부",
+      "secondary_keywords": [
+        "무료 색칠도안",
+        "온라인 색칠공부",
+        "한글 낱말 놀이",
+        "엄마표 미술놀이"
+      ],
+      "url_slug": "kids-coloring-vocabulary-activity",
+      "cards": [
+        {
+          "card_type": "text",
+          "sort_order": 0,
+          "content": {
+            "alt": "여우 낱말 색칠도안",
+            "url": "https://www.tangobook.co.kr/coloring/kr-h1-u01-%EC%97%AC%EC%9A%B0.png",
+            "text": "<h2>색칠공부를 낱말 놀이로 바꾸는 세 번의 질문</h2><p>아이에게 색칠도안을 건네기 전에 <strong>\"무엇이 보이니?\"</strong>, 색을 고를 때 <strong>\"어떤 색으로 칠하고 싶어?\"</strong>, 완성한 뒤 <strong>\"이 그림으로 무슨 이야기를 만들까?\"</strong>라고 물어보세요. 색칠은 그대로 두면서 말하기와 낱말 익히기가 자연스럽게 붙습니다.</p><p>탱고북 색칠 활동은 동화책과 파닉스에서 만난 그림을 다시 색칠하도록 구성되어 있습니다. 화면에서 바로 칠하거나 도안을 인쇄해 사용할 수 있어요.</p>",
+            "caption": "그림의 이름을 먼저 말해 보면 색칠이 낱말 놀이가 됩니다.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 1,
+          "content": {
+            "alt": "여우 색칠 예시",
+            "url": "https://www.tangobook.co.kr/coloring/kr-h1-u01-%EC%97%AC%EC%9A%B0-answer.png",
+            "text": "<h2>1. 아이가 고른 그림부터 시작하세요</h2><p>어른이 학습 순서를 정하기보다 아이가 오늘 마음에 드는 그림을 고르게 해 주세요. 여우, 우유, 오이처럼 익숙한 낱말은 시작이 쉽고, 동화에서 본 인물이나 사물은 장면을 떠올리게 합니다.</p><p>처음부터 선 안을 완벽하게 채우게 할 필요는 없습니다. 넓은 부분 한두 곳만 칠해도 끝낼 수 있게 하고, 더 하고 싶어 할 때 다음 영역으로 넘어가면 부담이 적습니다.</p>",
+            "caption": "정답 색을 따라 해도 되고, 아이가 새 색을 골라도 좋습니다.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 2,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>2. 색을 고를 때 짧은 문장으로 말해 보세요</h2><p>\"빨간색\"에서 끝내지 말고 <strong>\"꼬리를 주황색으로 칠할래\"</strong>처럼 대상과 색을 한 문장에 넣어 보세요. 아이가 한 단어로 답하면 어른이 문장을 자연스럽게 늘려 주면 됩니다.</p><ul><li>이건 무엇일까?</li><li>어느 부분부터 칠할까?</li><li>실제로 본 것과 같은 색일까, 다른 색일까?</li></ul><p>시험하듯 정답을 묻기보다 아이의 선택을 받아 적듯 되말해 주는 것이 좋습니다.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 3,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>3. 완성한 그림을 다시 읽어 보세요</h2><p>색칠이 끝나면 그림의 이름을 한 번 더 말하고, 그 낱말이 나오는 짧은 문장을 만들어 보세요. \"여우가 숲을 걸어요\"처럼 한 문장이면 충분합니다. 동화에서 가져온 그림이라면 어느 장면에 나왔는지 찾아보는 것도 좋습니다.</p><p>탱고북 온라인 색칠에서는 영역을 모두 채운 뒤 낱말 소리를 듣고 관련 장면을 다시 볼 수 있습니다. 색칠의 끝이 곧 읽기의 시작이 되도록 만든 흐름입니다.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 4,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>온라인과 인쇄, 상황에 맞게 골라 쓰세요</h2><p><strong>온라인 색칠</strong>은 준비물이 없고 색을 쉽게 바꿀 수 있어 짧게 놀기 좋습니다. <strong>인쇄 도안</strong>은 크레용이나 색연필의 감촉을 느끼며 천천히 채우고, 완성작을 벽에 붙이거나 다시 이야기하기 좋습니다.</p><p>둘 중 하나만 고를 필요는 없습니다. 먼저 화면에서 색을 시험해 보고, 마음에 든 그림만 인쇄해 다시 칠하는 방식도 잘 맞습니다.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 5,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>자주 묻는 질문</h2><p><strong>Q. 몇 살부터 할 수 있나요?</strong><br>나이보다 아이가 화면을 누르거나 크레용을 잡는 데 관심을 보이는지가 더 중요합니다. 처음에는 큰 그림과 짧은 시간으로 시작하세요.</p><p><strong>Q. 선 밖으로 나가면 바로 고쳐 줘야 하나요?</strong><br>완성도보다 그림과 낱말을 즐기는 흐름을 먼저 지켜 주세요. 아이가 도움을 요청할 때 잡는 법이나 작은 부분을 함께 보여 주면 됩니다.</p><p><strong>Q. 매일 얼마나 해야 하나요?</strong><br>한 장을 꼭 끝내기보다 아이가 집중하는 동안만 해도 충분합니다. 다음 날 이어서 칠해도 괜찮습니다.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 6,
+          "content": {
+            "alt": "탱고북 색칠공부 시작하기",
+            "url": "https://www.tangobook.co.kr/coloring/kr-h1-u01-%EC%95%84%EC%9D%B4-answer.png",
+            "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">오늘 마음에 드는 그림 한 장을 골라 보세요</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555;line-height:1.6;\">탱고북 색칠 활동은 온라인에서 바로 하거나 도안을 인쇄할 수 있습니다.</p><a href=\"https://www.tangobook.co.kr/coloring-demo\" style=\"display:inline-block;background:#FF6B5A;color:#FFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">🎨 무료 색칠공부 시작하기 →</a></div>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        }
+      ]
+    },
+    "en": {
+      "seo_title": "Coloring Activities for Kids That Build Vocabulary",
+      "meta_description": "Turn a simple coloring page into a vocabulary activity with three prompts: name the picture, describe the colors, and tell a short story when it is finished.",
+      "primary_keyword": "coloring activities for kids",
+      "secondary_keywords": [
+        "free coloring pages",
+        "online coloring for kids",
+        "vocabulary activities",
+        "coloring and learning"
+      ],
+      "url_slug": "kids-coloring-vocabulary-activity",
+      "cards": [
+        {
+          "card_type": "text",
+          "sort_order": 0,
+          "content": {
+            "alt": "Fox vocabulary coloring page for kids",
+            "url": "https://www.tangobook.co.kr/coloring/kr-h1-u01-%EC%97%AC%EC%9A%B0.png",
+            "text": "<h2>Three prompts turn coloring into a word game</h2><p>Before your child starts, ask <strong>\"What do you see?\"</strong> While they choose colors, ask <strong>\"Which color will you use?\"</strong> When the picture is finished, ask <strong>\"What story could happen here?\"</strong> The activity stays playful while naming, describing, and storytelling become part of it.</p><p>Tangobook coloring activities reuse pictures from stories and phonics lessons. Children can color on screen or print a page for crayons and pencils.</p>",
+            "caption": "Name the picture first, then let the coloring begin.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 1,
+          "content": {
+            "alt": "Finished fox coloring example",
+            "url": "https://www.tangobook.co.kr/coloring/kr-h1-u01-%EC%97%AC%EC%9A%B0-answer.png",
+            "text": "<h2>1. Let your child choose the picture</h2><p>A child is more likely to begin when the first choice is theirs. Familiar objects and animals are easy entry points, while a picture from a story can bring back a scene they remember.</p><p>There is no need to finish every small space. One or two large areas can be enough for the first turn. Continue only while your child wants to keep going.</p>",
+            "caption": "The sample colors are an idea, not a rule.",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 2,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>2. Put the object and color into one sentence</h2><p>Instead of stopping at \"orange,\" model a short sentence such as <strong>\"I will color the tail orange.\"</strong> If your child answers with one word, repeat it back as a complete sentence without turning the moment into a quiz.</p><ul><li>What is this?</li><li>Which part will you color first?</li><li>Will you use a real-life color or invent a new one?</li></ul><p>These prompts give useful language to a choice the child is already making.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 3,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>3. Read the finished picture</h2><p>When the coloring is done, say the picture's name again and make one sentence with it: \"The fox walks through the forest.\" If the image came from a book, look for the scene together.</p><p>In Tangobook's guided online coloring activity, completing the regions leads to the word audio and a related story scene. The end of coloring becomes a reason to return to reading.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 4,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>Choose screen or print for the moment you have</h2><p><strong>Online coloring</strong> needs no materials and makes it easy to try another color. A <strong>printed page</strong> adds the feel of crayons or pencils and leaves a finished picture to display or talk about later.</p><p>You can combine them: test colors on screen, then print only the picture your child wants to revisit.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 5,
+          "content": {
+            "alt": "",
+            "url": "",
+            "text": "<h2>Frequently asked questions</h2><p><strong>What age is this for?</strong><br>Follow your child's interest rather than a fixed age. Start with a large picture and a short turn when they enjoy tapping the screen or holding a crayon.</p><p><strong>Should I correct coloring outside the lines?</strong><br>Keep the focus on enjoying the picture and its words. Show a grip or a smaller area when your child asks for help.</p><p><strong>How long should one session be?</strong><br>A page does not have to be finished. Stop while the activity still feels pleasant and continue another day.</p>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        },
+        {
+          "card_type": "text",
+          "sort_order": 6,
+          "content": {
+            "alt": "Start a Tangobook coloring activity",
+            "url": "https://www.tangobook.co.kr/coloring/kr-h1-u01-%EC%95%84%EC%9D%B4-answer.png",
+            "text": "<div data-blog-cta=\"1\" style=\"margin:2.5rem 0 0.5rem;padding:1.75rem 1.5rem;background:#FFF4F1;border-radius:16px;text-align:center;\"><p style=\"margin:0 0 0.5rem;font-size:17px;font-weight:700;color:#1A1A1A;\">Choose one picture your child likes today</p><p style=\"margin:0 0 1.25rem;font-size:15px;color:#555;line-height:1.6;\">Color online or print a page for crayons and pencils.</p><a href=\"https://www.tangobook.co.kr/coloring-demo\" style=\"display:inline-block;background:#FF6B5A;color:#FFF;padding:13px 30px;border-radius:999px;font-weight:700;text-decoration:none;font-size:16px;\">🎨 Start coloring for free →</a></div>",
+            "caption": "",
+            "image_style": "",
+            "image_prompt": ""
+          }
+        }
+      ]
+    }
+  }
+}
