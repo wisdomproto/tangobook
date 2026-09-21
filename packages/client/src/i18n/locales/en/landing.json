@@ -6,6 +6,7 @@
   "nav": {
     "learn": "Learn",
     "worksheet": "Worksheets",
+    "blocks": "Block play",
     "games": "Reading games",
     "login": "Log in",
     "signup": "Sign up",
@@ -170,6 +171,10 @@
     "title": "<c>Free worksheets and printables</c>, no sign-up needed",
     "lead": "Print on A4 and do them with pencils and crayons at home, or do them right away online.",
     "all": "See all activities",
+    "blocks": {
+      "name": "Korean & English phonics block play",
+      "desc": "Try it with on-screen blocks, then connect physical blocks with the camera."
+    },
     "kinds": {
       "hangul": {
         "name": "Korean worksheets",

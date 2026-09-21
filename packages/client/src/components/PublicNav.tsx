@@ -21,6 +21,7 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 const LINKS: { to: string; k: string }[] = [
   { to: '/library', k: 'learn' },
   { to: '/activity', k: 'worksheet' },
+  { to: '/blocks', k: 'blocks' },
   { to: '/games/vocab', k: 'games' },
 ];
 

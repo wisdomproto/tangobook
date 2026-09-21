@@ -1391,6 +1391,17 @@ export default function IntroPage() {
             </li>
           ))}
         </ul>
+        <Link
+          to="/blocks"
+          className="block rounded-3xl border-2 border-coral-200 bg-gradient-to-r from-coral-50 to-amber-50 p-5 shadow-sm transition hover:shadow-md"
+        >
+          <span className="block font-display text-xl font-extrabold text-ink-900 sm:text-2xl">
+            {t('activity.blocks.name')}
+          </span>
+          <span className="mt-1 block text-base text-ink-600 break-keep">
+            {t('activity.blocks.desc')}
+          </span>
+        </Link>
         <p>
           <Link
             to="/activity"

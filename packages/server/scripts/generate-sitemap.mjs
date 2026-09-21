@@ -81,9 +81,7 @@ function urlEntry({ loc, lastmod, changefreq = 'weekly', priority = 0.6, image }
     lastmod ? `    <lastmod>${lastmod}</lastmod>` : '',
     `    <changefreq>${changefreq}</changefreq>`,
     `    <priority>${priority}</priority>`,
-    image
-      ? `    <image:image><image:loc>${esc(image)}</image:loc></image:image>`
-      : '',
+    image ? `    <image:image><image:loc>${esc(image)}</image:loc></image:image>` : '',
     '  </url>',
   ].filter(Boolean);
   return lines.join('\n');
@@ -98,10 +96,28 @@ async function main() {
 
   // 정적 라우트
   const today = new Date().toISOString().slice(0, 10);
-  entries.push(urlEntry({ loc: `${SITE_URL}/`, lastmod: today, changefreq: 'weekly', priority: 1.0 }));
-  entries.push(urlEntry({ loc: `${SITE_URL}/library`, lastmod: today, changefreq: 'daily', priority: 0.9 }));
-  entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
-  entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/english`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
+  entries.push(
+    urlEntry({ loc: `${SITE_URL}/`, lastmod: today, changefreq: 'weekly', priority: 1.0 })
+  );
+  entries.push(
+    urlEntry({ loc: `${SITE_URL}/library`, lastmod: today, changefreq: 'daily', priority: 0.9 })
+  );
+  entries.push(
+    urlEntry({
+      loc: `${SITE_URL}/library/phonics/korean`,
+      lastmod: today,
+      changefreq: 'weekly',
+      priority: 0.7,
+    })
+  );
+  entries.push(
+    urlEntry({
+      loc: `${SITE_URL}/library/phonics/english`,
+      lastmod: today,
+      changefreq: 'weekly',
+      priority: 0.7,
+    })
+  );
   // 파닉스 단원 SEO — 커리큘럼에서 파생(트랙 허브 2 + 단원 71).
   // 🔴 여기 넣기 전엔 사이트맵 1,882개 중 **파닉스 URL 이 1개**였다. 홈 제목이
   //    「한글 파닉스 32단원 · 영어 파닉스 39단원」인데 간판 제품이 검색에 없었다.
@@ -113,10 +129,24 @@ async function main() {
       ['korean', KOREAN_PHONICS_CURRICULUM],
       ['english', ENGLISH_PHONICS_CURRICULUM],
     ]) {
-      entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/${track}/about`, lastmod: today, changefreq: 'monthly', priority: 0.8 }));
+      entries.push(
+        urlEntry({
+          loc: `${SITE_URL}/library/phonics/${track}/about`,
+          lastmod: today,
+          changefreq: 'monthly',
+          priority: 0.8,
+        })
+      );
       for (const level of curriculum) {
         for (const u of level.units) {
-          entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/${track}/${u.id}/about`, lastmod: today, changefreq: 'monthly', priority: 0.6 }));
+          entries.push(
+            urlEntry({
+              loc: `${SITE_URL}/library/phonics/${track}/${u.id}/about`,
+              lastmod: today,
+              changefreq: 'monthly',
+              priority: 0.6,
+            })
+          );
         }
       }
     }
@@ -135,10 +165,19 @@ async function main() {
       ...shared.coloringItems(readJson('coloring.json')),
       ...shared.hiddenObjectItems(readJson('hidden-object.json')),
     ];
-    entries.push(urlEntry({ loc: `${SITE_URL}/activity`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+    entries.push(
+      urlEntry({ loc: `${SITE_URL}/activity`, lastmod: today, changefreq: 'weekly', priority: 0.8 })
+    );
     // 종류 대표 페이지 — 큰 검색어(한글학습지·파닉스·색칠도안·숨은그림찾기)를 받는 자리.
     for (const k of shared.ACTIVITY_KINDS)
-      entries.push(urlEntry({ loc: `${SITE_URL}${shared.activityKindPath(k)}`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+      entries.push(
+        urlEntry({
+          loc: `${SITE_URL}${shared.activityKindPath(k)}`,
+          lastmod: today,
+          changefreq: 'weekly',
+          priority: 0.8,
+        })
+      );
     for (const it of items) {
       const loc = `${SITE_URL}/activity/${it.kind}/${encodeURIComponent(it.slug)}`;
       entries.push(urlEntry({ loc, lastmod: today, changefreq: 'monthly', priority: 0.5 }));
@@ -147,22 +186,62 @@ async function main() {
   } catch (e) {
     console.warn('[sitemap] ⚠️ 활동 모음 스킵 — shared 미빌드 또는 activity-data 없음?', e.message);
   }
+  // 공개 블록 놀이 허브 — 화면 블록과 실물 카메라 경로를 한 canonical 에 모은다.
+  entries.push(
+    urlEntry({ loc: `${SITE_URL}/blocks`, lastmod: today, changefreq: 'weekly', priority: 0.8 })
+  );
+  entries.push(
+    urlEntry({
+      loc: `${SITE_URL}/blocks/hangul`,
+      lastmod: today,
+      changefreq: 'weekly',
+      priority: 0.7,
+    })
+  );
+  entries.push(
+    urlEntry({
+      loc: `${SITE_URL}/blocks/english`,
+      lastmod: today,
+      changefreq: 'weekly',
+      priority: 0.7,
+    })
+  );
   // 광고 랜딩 — 「한글앱」(440)·「파닉스앱」(100) 을 노린다. 광고 도착지지만 색인도 받는다.
   // 🔴 `/intro` 는 2026-08-21 에 루트로 흡수됐다(서버 301) — 루트는 아래 정적 목록에 이미
   //    들어 있으므로 여기서 따로 넣지 않는다. 리다이렉트되는 URL 을 사이트맵에 실으면
   //    GSC 가 「리디렉션이 있는 페이지」로 뺀다.
-  entries.push(urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 }));
-  entries.push(urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 }));
+  entries.push(
+    urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 })
+  );
+  entries.push(
+    urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 })
+  );
   // 허브 — 언어별 (SSOT = shared seo-i18n HUB_STRINGS; dist 없으면 폴백 목록)
   let hubLangList = ['ko', 'en', 'vi', 'zh', 'th'];
   try {
     const { HUB_STRINGS } = await import('../../shared/dist/constants/seo-i18n.js');
     hubLangList = ['ko', ...Object.keys(HUB_STRINGS)];
-  } catch { /* shared 미빌드 시 폴백 */ }
+  } catch {
+    /* shared 미빌드 시 폴백 */
+  }
   for (const lang of hubLangList) {
     const p = lang === 'ko' ? '' : `/${lang}`;
-    entries.push(urlEntry({ loc: `${SITE_URL}${p}/guide/classics`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
-    entries.push(urlEntry({ loc: `${SITE_URL}${p}/guide/nature`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+    entries.push(
+      urlEntry({
+        loc: `${SITE_URL}${p}/guide/classics`,
+        lastmod: today,
+        changefreq: 'weekly',
+        priority: 0.8,
+      })
+    );
+    entries.push(
+      urlEntry({
+        loc: `${SITE_URL}${p}/guide/nature`,
+        lastmod: today,
+        changefreq: 'weekly',
+        priority: 0.8,
+      })
+    );
   }
 
   // 공개 블로그 (발행된 self_hosted 내부 블로그) — 언어별 공개 API 에서 목록 fetch.
@@ -177,12 +256,14 @@ async function main() {
       const posts = Array.isArray(body?.data) ? body.data : [];
       for (const post of posts) {
         if (!post?.slug) continue;
-        entries.push(urlEntry({
-          loc: `${SITE_URL}${p}/blog/${encodeURIComponent(post.slug)}`,
-          lastmod: fmtDate(post.publishedAt),
-          changefreq: 'monthly',
-          priority: 0.7,
-        }));
+        entries.push(
+          urlEntry({
+            loc: `${SITE_URL}${p}/blog/${encodeURIComponent(post.slug)}`,
+            lastmod: fmtDate(post.publishedAt),
+            changefreq: 'monthly',
+            priority: 0.7,
+          })
+        );
         blogCount++;
       }
     } catch (e) {
@@ -215,36 +296,47 @@ async function main() {
     try {
       const book = await getJson(key);
       if (!book || !book.id) continue;
-      if ((book.type ?? 'storybook') !== 'storybook') { skippedNonStorybook++; continue; }
-      if (book.isPublic === false) { skippedPrivate++; continue; }
-      if (nonPrimary.has(book.id)) { skippedGroupMember++; continue; }
+      if ((book.type ?? 'storybook') !== 'storybook') {
+        skippedNonStorybook++;
+        continue;
+      }
+      if (book.isPublic === false) {
+        skippedPrivate++;
+        continue;
+      }
+      if (nonPrimary.has(book.id)) {
+        skippedGroupMember++;
+        continue;
+      }
 
       const cover =
-        book.coverImage ||
-        (Array.isArray(book.coverImages) && book.coverImages[0]?.imageUrl) ||
-        '';
+        book.coverImage || (Array.isArray(book.coverImages) && book.coverImages[0]?.imageUrl) || '';
       const lastmod = fmtDate(book.updatedAt || book.createdAt);
 
       // 🔴 bare /library/:id 는 sitemap 에 넣지 않는다 — 앱 페이지라 canonical 이 /about 으로
       // 통합되므로(app.ts), 두 URL 을 다 색인 요청하면 중복("다른 표준 선택")을 유발한다.
       // 책의 SEO 서피스는 /about 단일. (앱 페이지는 내부 링크로 발견 → about 로 canonical 통합)
-      entries.push(urlEntry({
-        loc: `${SITE_URL}/library/${book.id}/about`,
-        lastmod,
-        changefreq: 'monthly',
-        priority: 0.8,
-        image: cover || undefined,
-      }));
+      entries.push(
+        urlEntry({
+          loc: `${SITE_URL}/library/${book.id}/about`,
+          lastmod,
+          changefreq: 'monthly',
+          priority: 0.8,
+          image: cover || undefined,
+        })
+      );
       // 언어별 about — 번역(제목+부모가이드) 있는 언어 자동 derive (SSR hasAboutLang 와 동일 술어)
       for (const lang of Object.keys(book.parentGuideTranslations ?? {})) {
         if (lang === 'ko' || !book.titleTranslations?.[lang]) continue;
-        entries.push(urlEntry({
-          loc: `${SITE_URL}/${lang}/library/${book.id}/about`,
-          lastmod,
-          changefreq: 'monthly',
-          priority: 0.7,
-          image: cover || undefined,
-        }));
+        entries.push(
+          urlEntry({
+            loc: `${SITE_URL}/${lang}/library/${book.id}/about`,
+            lastmod,
+            changefreq: 'monthly',
+            priority: 0.7,
+            image: cover || undefined,
+          })
+        );
         langAboutCount++;
       }
       publicCount++;
@@ -270,10 +362,14 @@ async function main() {
 
   console.log('[sitemap] 작성 완료:');
   console.log(`  ${outPath}`);
-  console.log(`  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2}) + 언어별 about ${langAboutCount}`);
+  console.log(
+    `  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2}) + 언어별 about ${langAboutCount}`
+  );
   console.log(`  공개 블로그: ${blogCount}`);
   console.log(`  총 URL: ${entries.length}`);
-  console.log(`  스킵: private=${skippedPrivate} non-storybook=${skippedNonStorybook} group-member=${skippedGroupMember}`);
+  console.log(
+    `  스킵: private=${skippedPrivate} non-storybook=${skippedNonStorybook} group-member=${skippedGroupMember}`
+  );
 }
 
 main().catch((err) => {

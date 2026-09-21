@@ -61,6 +61,20 @@ export default function ActivityHubPage() {
               <KindCard key={k} kind={k} />
             ))}
           </div>
+          <Link
+            to="/blocks"
+            className="mt-5 block rounded-3xl border-2 border-coral-200 bg-gradient-to-r from-coral-50 to-amber-50 p-6 shadow-sm transition hover:shadow-md"
+          >
+            <span className="text-sm font-extrabold text-coral-700">
+              화면에서 시작하고 · 손으로 이어서
+            </span>
+            <span className="mt-1 block font-display text-2xl font-extrabold text-ink-900">
+              한글·영어 파닉스 블록 놀이
+            </span>
+            <span className="mt-2 block text-ink-700 break-keep">
+              온라인 블록으로 해 보고, 실물 블록은 카메라로 연결해요. →
+            </span>
+          </Link>
           <div className="mt-8 flex flex-wrap justify-center gap-2">
             <Link
               to="/library"

@@ -51,6 +51,7 @@ function EnglishBlockPlayerInner({
   difficulty,
   onComplete: _onComplete,
   onBack,
+  initialInputMode = 'screen',
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
   const data = gameData as EnglishBlockData;
@@ -119,7 +120,7 @@ function EnglishBlockPlayerInner({
    *    리포트)은 `grid` 만 보므로 여기서 갈리고 끝난다.
    * 🔴 형판 집합은 **한글과 안 섞는다** — `o`/`ㅇ`, `i`/`ㅣ` 가 같은 그림이라 최고점으로 못 가른다.
    */
-  const [camera, setCamera] = useState(false);
+  const [camera, setCamera] = useState(initialInputMode === 'camera');
   const cam = useBoardCamera({ set: 'en', enabled: camera });
   const landscape = useIsLandscape();
   const twoCol = camera && landscape;

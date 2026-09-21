@@ -48,6 +48,7 @@ function KoreanBlockPlayerInner({
   difficulty: _difficulty,
   onComplete: _onComplete,
   onBack,
+  initialInputMode = 'screen',
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
   const data = gameData as KoreanBlockData;
@@ -102,7 +103,7 @@ function KoreanBlockPlayerInner({
    *    음절을 받는다. 아래 로직(새 음절만 읽기 · 자동 정답 · 칭찬 · 장면 리빌 · 결과 · 리포트)은
    *    `composedSyllables` 한 줄만 보므로 여기서 갈리고 끝난다.
    */
-  const [camera, setCamera] = useState(false);
+  const [camera, setCamera] = useState(initialInputMode === 'camera');
   const cam = useBoardCamera({ set: 'ko', enabled: camera });
   const landscape = useIsLandscape();
   // 놓인 자리로 음절 인식 — 자음 오른쪽 세로모음 = 가로 조합, 아래 가로모음 = 세로 조합, 그 아래 = 받침.

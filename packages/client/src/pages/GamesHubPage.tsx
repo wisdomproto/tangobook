@@ -25,7 +25,7 @@ const GAMES: GameCard[] = [
     iconSrc: 'game/korean-block.webp',
     title: '한글 블록 게임',
     subtitle: '자음과 모음을 조합해 한글 단어 완성',
-    path: '/games/korean-block',
+    path: '/blocks/hangul',
     gradient: 'from-coral-400 to-coral-500',
     badge: '한글',
   },
@@ -34,7 +34,7 @@ const GAMES: GameCard[] = [
     iconSrc: 'game/korean-block.webp', // TODO: alphabet-block.webp 자산 필요
     title: '알파벳 블록 게임',
     subtitle: '알파벳을 조합해 영어 단어 완성',
-    path: '/games/alphabet-block',
+    path: '/blocks/english',
     gradient: 'from-indigo-400 to-blue-500',
     badge: 'ABC',
   },

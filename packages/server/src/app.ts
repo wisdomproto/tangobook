@@ -425,6 +425,19 @@ export function createApp() {
         return out;
       });
     });
+    app.get('/blocks', (_req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderBlocksSeo } = await import('./services/seo-blocks.service.js');
+        return renderBlocksSeo();
+      })
+    );
+    app.get('/blocks/:track', (req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderBlockTrackSeo } = await import('./services/seo-blocks.service.js');
+        const track = String(req.params.track);
+        return track === 'hangul' || track === 'english' ? renderBlockTrackSeo(track) : null;
+      })
+    );
 
     // 언어별 진입 링크(/en·/vi·/zh·/th·/ko) — 소셜 공유 미리보기 OG 를 그 언어로 주입.
     // SPA(LangEntry)가 브라우저에서 그 언어 설정 후 라이브러리로 리다이렉트한다.

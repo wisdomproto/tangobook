@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useMemo, useState } from 'react';
 import { Mascot } from '@/design-system';
 import { useVocabularyList } from '@/features/vocabulary/hooks/useVocabulary';
@@ -108,6 +108,8 @@ function filterByLevel(
  */
 export function RandomBlockGamePage({ lang }: Props) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initialInputMode = searchParams.get('mode') === 'camera' ? 'camera' : 'screen';
   const [level, setLevel] = useState<Level | null>(null);
   const [seed, setSeed] = useState(0);
   const { data: entries, isLoading, isError } = useVocabularyList();
@@ -134,7 +136,7 @@ export function RandomBlockGamePage({ lang }: Props) {
     if (level) {
       setLevel(null);
     } else {
-      navigate('/library');
+      navigate('/blocks');
     }
   };
 
@@ -173,10 +175,10 @@ export function RandomBlockGamePage({ lang }: Props) {
         </h2>
         <p className="mt-2 text-base text-ink-500">잠시 후 다시 시도해 주세요</p>
         <button
-          onClick={() => navigate('/library')}
+          onClick={() => navigate('/blocks')}
           className="mt-6 px-6 py-3 bg-coral-500 text-white rounded-full font-black shadow-pop"
         >
-          🏠 라이브러리로
+          🏠 블록 놀이로
         </button>
       </div>
     );
@@ -195,7 +197,7 @@ export function RandomBlockGamePage({ lang }: Props) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 gap-8 relative">
         <button
-          onClick={() => navigate('/library')}
+          onClick={() => navigate('/blocks')}
           className="absolute top-6 left-6 w-12 h-12 rounded-full bg-white shadow-soft text-ink-700 hover:shadow-pop transition flex items-center justify-center text-2xl"
           title="뒤로 가기"
           aria-label="뒤로 가기"
@@ -271,6 +273,7 @@ export function RandomBlockGamePage({ lang }: Props) {
         difficulty={difficulty}
         onComplete={handleComplete}
         onBack={handleBack}
+        initialInputMode={initialInputMode}
       />
     );
   }
@@ -281,6 +284,7 @@ export function RandomBlockGamePage({ lang }: Props) {
       difficulty={difficulty}
       onComplete={handleComplete}
       onBack={handleBack}
+      initialInputMode={initialInputMode}
     />
   );
 }

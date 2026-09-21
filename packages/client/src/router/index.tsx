@@ -54,6 +54,7 @@ const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'))
 const ActivityHubPage = lazy(() => import('../pages/ActivityHubPage'));
 const ActivityPage = lazy(() => import('../pages/ActivityPage'));
 const ActivityKindPage = lazy(() => import('../pages/ActivityKindPage'));
+const BlockPlayHubPage = lazy(() => import('../pages/BlockPlayHubPage'));
 const PuzzleSamplePage = lazy(() => import('../pages/PuzzleSamplePage'));
 
 function EditorV2BidRedirect() {
@@ -272,6 +273,30 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <ActivityPage kind="hidden-object" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'blocks',
+        element: (
+          <ErrorBoundary>
+            <BlockPlayHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'blocks/hangul',
+        element: (
+          <ErrorBoundary>
+            <RandomBlockGamePage lang="ko" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'blocks/english',
+        element: (
+          <ErrorBoundary>
+            <RandomBlockGamePage lang="en" />
           </ErrorBoundary>
         ),
       },

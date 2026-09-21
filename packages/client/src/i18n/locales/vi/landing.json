@@ -6,6 +6,7 @@
   "nav": {
     "learn": "Học",
     "worksheet": "Phiếu bài tập",
+    "blocks": "Chơi xếp khối",
     "games": "Trò chơi sau khi đọc",
     "login": "Đăng nhập",
     "signup": "Đăng ký",
@@ -170,6 +171,10 @@
     "title": "<c>Phiếu học tập và tranh tô màu miễn phí</c>, không cần đăng ký",
     "lead": "In khổ A4 để làm bằng bút chì, bút màu ở nhà, hoặc làm ngay trên mạng.",
     "all": "Xem tất cả hoạt động",
+    "blocks": {
+      "name": "Xếp khối ngữ âm tiếng Hàn và tiếng Anh",
+      "desc": "Thử với khối trên màn hình, rồi kết nối khối thật bằng camera."
+    },
     "kinds": {
       "hangul": {
         "name": "Phiếu học tiếng Hàn",
