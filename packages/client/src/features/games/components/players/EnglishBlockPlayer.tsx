@@ -1,5 +1,17 @@
-import { useState, useCallback, useMemo, useRef, useEffect, Fragment } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  pointerWithin,
+  useDraggable,
+  useDroppable,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+  type DragStartEvent,
+} from '@dnd-kit/core';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
@@ -35,6 +47,83 @@ interface LetterBlock {
   id: string;
   char: string;
   isVowel: boolean;
+}
+
+function DroppableLetterSlot({
+  slot,
+  disabled,
+  onClick,
+  className,
+  children,
+}: {
+  slot: number;
+  disabled: boolean;
+  onClick: () => void;
+  className: string;
+  children: ReactNode;
+}) {
+  const { setNodeRef, isOver } = useDroppable({ id: `english-slot-${slot}`, disabled });
+  return (
+    <div
+      ref={setNodeRef}
+      data-slot={slot}
+      onClick={onClick}
+      className={cn(
+        className,
+        isOver && 'scale-110 border-success bg-success/15 ring-4 ring-success/40'
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function DraggableLetterTile({
+  block,
+  interactable,
+  popping,
+  onClick,
+}: {
+  block: LetterBlock;
+  interactable: boolean;
+  popping: boolean;
+  onClick: () => void;
+}) {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: `english-letter-${block.id}`,
+    disabled: !interactable,
+    data: { block },
+  });
+  return (
+    <motion.button
+      ref={setNodeRef}
+      type="button"
+      data-letter-tile={block.char}
+      onClick={onClick}
+      disabled={!interactable}
+      {...attributes}
+      {...listeners}
+      animate={
+        popping
+          ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
+          : { scale: 1, rotate: 0 }
+      }
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className={cn(
+        'w-[clamp(2.75rem,2.7vw,3.75rem)] h-[clamp(3.25rem,3.4vw,4.5rem)] touch-none rounded-2xl flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft',
+        interactable ? 'cursor-grab active:cursor-grabbing' : 'cursor-not-allowed',
+        interactable &&
+          'transition-transform hover:scale-105 hover:shadow-pop active:scale-95 active:shadow-pop',
+        popping && 'ring-4 ring-coral-300 shadow-pop',
+        isDragging && 'opacity-30'
+      )}
+    >
+      <span className="flex-1 flex items-center justify-center text-[clamp(1.15rem,1.5vw,2rem)] font-black text-ink-900">
+        {block.char}
+      </span>
+      <div className={cn('w-full h-1.5 lg:h-2', block.isVowel ? 'bg-coral-500' : 'bg-peach-500')} />
+    </motion.button>
+  );
 }
 
 // 하단 글자 패널 = a~z 알파벳 순서 (자음/모음 분리 대신 아이가 익숙한 abcd 순).
@@ -82,6 +171,10 @@ function EnglishBlockPlayerInner({
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongSlots, setWrongSlots] = useState<Set<number>>(new Set());
   const [typedChars, setTypedChars] = useState(0);
+  const [draggedBlock, setDraggedBlock] = useState<LetterBlock | null>(null);
+  const dragSensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } })
+  );
   const isTutorialPlaying = useTutorialIsPlaying();
   const { popLetter, glowSlot } = useTutorialHighlight();
   const expected = useTutorialExpected();
@@ -229,6 +322,22 @@ function EnglishBlockPlayerInner({
       notifyPlacement(block.char, slot);
     },
     [grid, expected, notifyPlacement, playPlacementTick]
+  );
+
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    const block = event.active.data.current?.block as LetterBlock | undefined;
+    setDraggedBlock(block ?? null);
+  }, []);
+
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      setDraggedBlock(null);
+      if (!event.over) return;
+      const block = event.active.data.current?.block as LetterBlock | undefined;
+      const slot = Number(String(event.over.id).replace('english-slot-', ''));
+      if (block && Number.isInteger(slot)) placeBlock(slot, block);
+    },
+    [placeBlock]
   );
 
   // 탭-투-플레이스: 글자 타일을 누르면 왼쪽 빈 슬롯부터 채워진다 (4-5세 드래그 어려움 → 탭).
@@ -512,12 +621,13 @@ function EnglishBlockPlayerInner({
     const slotDimmed = expected !== null && !isExpectedSlot;
     const interactable = !isTutorialPlaying && !slotDimmed;
     return (
-      <div
+      <DroppableLetterSlot
         key={cellKey}
-        data-slot={slot}
+        slot={slot}
+        disabled={!interactable || roundCorrect}
         onClick={() => interactable && handleCellClick(slot)}
         className={cn(
-          'w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-md flex flex-col items-center justify-center overflow-hidden transition-all select-none',
+          'w-[clamp(3.5rem,5vw,6.5rem)] h-[clamp(4rem,6vw,7.5rem)] rounded-2xl flex flex-col items-center justify-center overflow-hidden transition-all select-none',
           interactable ? 'cursor-pointer' : 'cursor-not-allowed',
           char
             ? isWrong
@@ -534,7 +644,7 @@ function EnglishBlockPlayerInner({
         )}
       >
         {cellBody}
-      </div>
+      </DroppableLetterSlot>
     );
   };
 
@@ -543,188 +653,194 @@ function EnglishBlockPlayerInner({
     const dimmed = expected !== null && expected.letter !== block.char;
     const interactable = !isTutorialPlaying && !dimmed;
     return (
-      <motion.button
+      <DraggableLetterTile
         key={block.id}
-        type="button"
-        data-letter-tile={block.char}
+        block={block}
+        interactable={interactable}
+        popping={popping}
         onClick={() => interactable && handleTilePlace(block)}
-        disabled={!interactable}
-        animate={
-          popping
-            ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
-            : { scale: 1, rotate: 0 }
-        }
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={cn(
-          'w-11 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-md flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft',
-          interactable ? 'cursor-pointer' : 'cursor-not-allowed',
-          interactable &&
-            'transition-transform hover:scale-105 hover:shadow-pop active:scale-95 active:shadow-pop',
-          popping && 'ring-4 ring-coral-300 shadow-pop',
-          dimmed && 'opacity-30'
-        )}
-      >
-        <span className="flex-1 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-black text-ink-900">
-          {block.char}
-        </span>
-        <div
-          className={cn('w-full h-1.5 lg:h-2', block.isVowel ? 'bg-coral-500' : 'bg-peach-500')}
-        />
-      </motion.button>
+      />
     );
   };
 
   return (
-    <Gate>
-      {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
-      <div
-        className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-hidden"
-        style={gameSafeAreaStyle()}
-      >
-        <div className="px-2 pt-2 shrink-0">
-          <GameHeader
-            title={t('cards.block.labelEn')}
-            current={score}
-            total={items.length}
-            onBack={onBack}
-          />
-        </div>
-
-        {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}
-        {!audioReady && (
-          <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
-            <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
-              <div
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
-                aria-hidden
-              />
-              <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
-                {t('audioLoading.title')}
-              </p>
-              <p className="text-sm sm:text-base text-ink-500">{t('audioLoading.sub')}</p>
-            </div>
-          </div>
-        )}
-
-        {/* 🔴 적응형은 **방향**이 정한다 — 폭(`sm:`)으로 가르면 세로로 세운 태블릿이 가로 배치를
-            받는다(둘 다 `sm` 을 넘는다). 세로면 위아래로 쌓고 가로면 좌우로 나눈다. */}
+    <DndContext
+      sensors={dragSensors}
+      collisionDetection={pointerWithin}
+      onDragStart={handleDragStart}
+      onDragCancel={() => setDraggedBlock(null)}
+      onDragEnd={handleDragEnd}
+    >
+      <Gate>
+        {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
         <div
-          className={cn(
-            'flex-1 min-h-0 flex items-center justify-center px-4 py-[clamp(0.375rem,1.5vh,1.5rem)] gap-[clamp(0.5rem,1.5vh,1.5rem)]',
-            twoCol ? 'flex-row' : 'flex-col'
-          )}
+          className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-hidden"
+          style={gameSafeAreaStyle()}
         >
+          <div className="px-2 pt-2 shrink-0">
+            <GameHeader
+              title={t('cards.block.labelEn')}
+              current={score}
+              total={items.length}
+              onBack={onBack}
+            />
+          </div>
+
+          {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}
+          {!audioReady && (
+            <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+              <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+                <div
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
+                  aria-hidden
+                />
+                <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
+                  {t('audioLoading.title')}
+                </p>
+                <p className="text-sm sm:text-base text-ink-500">{t('audioLoading.sub')}</p>
+              </div>
+            </div>
+          )}
+
+          {/* 🔴 적응형은 **방향**이 정한다 — 폭(`sm:`)으로 가르면 세로로 세운 태블릿이 가로 배치를
+            받는다(둘 다 `sm` 을 넘는다). 세로면 위아래로 쌓고 가로면 좌우로 나눈다. */}
           <div
             className={cn(
-              'flex flex-col items-center justify-center min-h-0 gap-[clamp(0.5rem,1.5vh,1.5rem)]',
-              twoCol && 'flex-1'
+              'flex-1 min-h-0 flex items-stretch justify-center px-[clamp(0.75rem,2vw,2rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] gap-[clamp(0.5rem,1.5vh,1.5rem)]',
+              twoCol ? 'flex-row' : 'flex-col'
             )}
           >
-            {/* 완성된 단어 타이핑 패널 */}
-            {roundCorrect && (
-              <div className="bg-success/15 backdrop-blur-sm rounded-2xl px-6 py-4 min-h-[60px] text-3xl sm:text-4xl font-black text-success text-center shadow-pop ring-4 ring-success/40 min-w-[220px]">
-                {currentItem.word.slice(0, typedChars)}
-                {typedChars < currentItem.word.length && (
-                  <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
-                )}
-              </div>
-            )}
-
-            {currentItem.imageUrl && (
-              <div className="relative">
-                <div className="absolute inset-0 rounded-xl bg-peach-300/40 blur-2xl scale-110" />
-                <img
-                  src={currentItem.imageUrl}
-                  alt={currentItem.word}
-                  className={cn(
-                    'relative w-auto object-contain rounded-xl bg-white shadow-card',
-                    // 🔴 알파벳 판은 확인·다음·도와줘가 없어 자리가 남는다 — 그림이 곧 문제라 크게 준다.
-                    isAlphabetRound ? 'h-[clamp(6rem,36vh,24rem)]' : 'h-[clamp(4rem,20vh,16rem)]'
-                  )}
-                />
-              </div>
-            )}
-
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
-              {isAlphabetRound ? (
-                /* 🔴 **그림이 아니라 소리로 낸다**(2026-07-29) — 낱말을 들려주고 그 첫 글자를 넣는 게
-                 파닉스다. 그림만 보고 고르면 영어 소리는 한 번도 안 듣고 끝난다. 그림은 무엇의
-                 소리인지 알려주는 보조로 남긴다. */
-                <button
-                  onClick={() => void sayWord()}
-                  className="inline-flex items-center gap-2 text-lg sm:text-2xl font-black text-ink-700 break-keep"
-                  aria-label={t('blockGame.listenFirstLetter')}
-                >
-                  <span className="text-2xl sm:text-3xl">🔊</span>
-                  {t('blockGame.listenFirstLetter')}
-                </button>
-              ) : (
-                <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
-                  {currentItem.word}
-                </span>
+            <div
+              className={cn(
+                'relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden rounded-[2rem] border-2 border-white bg-white/75 px-[clamp(1rem,4vw,4rem)] py-[clamp(0.75rem,2.5vh,2rem)] shadow-pop backdrop-blur-sm',
+                landscape && !camera
+                  ? 'flex-row gap-[clamp(2rem,6vw,8rem)]'
+                  : 'flex-col gap-[clamp(0.5rem,1.5vh,1.5rem)]'
               )}
-              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
-                {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+            >
+              <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-peach-200/45 blur-2xl" />
+              <div className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-coral-100/45 blur-3xl" />
+              {/* 완성된 단어 타이핑 패널 */}
+              {roundCorrect && (
+                <div className="absolute left-1/2 top-5 z-10 min-w-[220px] -translate-x-1/2 rounded-2xl bg-success/15 px-6 py-3 text-center text-3xl font-black text-success shadow-pop ring-4 ring-success/40 backdrop-blur-sm sm:text-4xl">
+                  {currentItem.word.slice(0, typedChars)}
+                  {typedChars < currentItem.word.length && (
+                    <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
+                  )}
+                </div>
+              )}
+
+              {currentItem.imageUrl && (
+                <div className="relative z-[1] shrink-0">
+                  <div className="absolute inset-0 scale-110 rounded-[2rem] bg-peach-300/45 blur-3xl" />
+                  <img
+                    src={currentItem.imageUrl}
+                    alt={currentItem.word}
+                    className={cn(
+                      'relative w-auto object-contain rounded-[2rem] border-[6px] border-white bg-white shadow-card',
+                      isAlphabetRound ? 'h-[clamp(9rem,42vh,28rem)]' : 'h-[clamp(9rem,34vh,24rem)]'
+                    )}
+                  />
+                </div>
+              )}
+
+              <div className="relative z-[1] flex min-w-0 flex-col items-center justify-center gap-[clamp(1rem,3vh,2.5rem)]">
+                <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
+                  {isAlphabetRound ? (
+                    /* 🔴 **그림이 아니라 소리로 낸다**(2026-07-29) — 낱말을 들려주고 그 첫 글자를 넣는 게
+                   파닉스다. 그림만 보고 고르면 영어 소리는 한 번도 안 듣고 끝난다. 그림은 무엇의
+                   소리인지 알려주는 보조로 남긴다. */
+                    <button
+                      onClick={() => void sayWord()}
+                      className="inline-flex items-center gap-3 rounded-full bg-white/80 px-5 py-3 text-lg font-black text-ink-700 shadow-soft sm:text-2xl"
+                      aria-label={t('blockGame.listenFirstLetter')}
+                    >
+                      <span className="text-2xl sm:text-4xl">🔊</span>
+                      {t('blockGame.listenFirstLetter')}
+                    </button>
+                  ) : (
+                    <span className="font-display text-[clamp(3rem,6vw,7rem)] font-black tracking-wide text-ink-900 drop-shadow-sm">
+                      {currentItem.word}
+                    </span>
+                  )}
+                  <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+                    {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+                  </div>
+                </div>
+
+                {/* 정답은 자동으로 확인한다. 아이가 현재 문제를 건너뛰거나 결과로 갈 수 있는 다음 버튼만 둔다. */}
+                <button
+                  onClick={handleNext}
+                  disabled={isTutorialPlaying}
+                  className={cn(
+                    'min-h-[52px] rounded-2xl px-8 py-3 text-xl font-black transition-all shadow-card sm:min-h-[60px] sm:px-12 sm:text-2xl',
+                    isTutorialPlaying
+                      ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
+                      : 'bg-peach-500 hover:bg-peach-300 text-white'
+                  )}
+                >
+                  {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
+                </button>
               </div>
             </div>
-
-            {/* 정답은 자동으로 확인한다. 아이가 현재 문제를 건너뛰거나 결과로 갈 수 있는 다음 버튼만 둔다. */}
-            <div className="flex justify-center">
-              <button
-                onClick={handleNext}
-                disabled={isTutorialPlaying}
-                className={cn(
-                  'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card',
-                  isTutorialPlaying
-                    ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
-                    : 'bg-peach-500 hover:bg-peach-300 text-white'
-                )}
-              >
-                {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-              </button>
-            </div>
+            {camera && (
+              <div className={cn('min-h-0 w-full', twoCol ? 'flex-1' : 'flex-1')}>
+                <BoardCameraPanel cam={cam} />
+              </div>
+            )}
           </div>
-          {camera && (
-            <div className={cn('min-h-0 w-full', twoCol ? 'flex-1' : 'flex-1')}>
-              <BoardCameraPanel cam={cam} />
+
+          {/* 🔴 실물 판에선 글자 판을 숨긴다 — 아이 손에 진짜 블록이 있다. */}
+          {!camera && (
+            <div className="mx-[clamp(0.75rem,2vw,2rem)] shrink-0 rounded-[2rem] border-2 border-white bg-white/65 px-3 py-3 shadow-soft backdrop-blur-sm sm:px-5 sm:py-4">
+              <div className="flex items-center gap-3 sm:gap-5">
+                <p className="shrink-0 rounded-full bg-ink-900 px-4 py-2 text-base font-black text-white sm:text-xl">
+                  ABC
+                </p>
+                <div className="flex flex-1 flex-wrap justify-center gap-1.5 sm:gap-2">
+                  {panelLetters.map(renderBlock)}
+                </div>
+              </div>
             </div>
           )}
+          {/* 🔴 판 갈아타기 — 아이 손이 닿는 아래가 아니라 위(헤더 옆)에 두지 않는 이유는
+            한글 쪽과 같은 자리를 지키기 위해서다. */}
+          <div className="shrink-0 flex justify-end px-3 pb-2">
+            <button
+              onClick={() => {
+                setCamera((v) => !v);
+                setGrid(initGrid(currentItem.letters));
+              }}
+              className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition"
+            >
+              {camera ? '🧩 화면 블록' : '📷 실물 블록'}
+            </button>
+          </div>
         </div>
-
-        {/* 🔴 실물 판에선 글자 판을 숨긴다 — 아이 손에 진짜 블록이 있다. */}
-        {!camera && (
-          <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 bg-white/40 backdrop-blur-sm">
-            <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">ABC</p>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-              {panelLetters.map(renderBlock)}
-            </div>
+        <FeedbackOverlay kind="correct" visible={praiseVisible} />
+        {scene && (
+          <SceneReveal
+            illustrationUrl={scene.illustrationUrl}
+            text={scene.pageText}
+            highlight={scene.highlight}
+            ttsUrl={scene.pageTtsUrl}
+            onDone={() => goToNext(currentIndex)}
+          />
+        )}
+      </Gate>
+      <DragOverlay dropAnimation={null}>
+        {draggedBlock && (
+          <div className="flex h-24 w-20 rotate-3 flex-col items-center justify-center overflow-hidden rounded-2xl bg-white shadow-pop ring-4 ring-coral-300">
+            <span className="flex-1 flex items-center justify-center text-4xl font-black text-ink-900">
+              {draggedBlock.char}
+            </span>
+            <div
+              className={cn('h-2 w-full', draggedBlock.isVowel ? 'bg-coral-500' : 'bg-peach-500')}
+            />
           </div>
         )}
-        {/* 🔴 판 갈아타기 — 아이 손이 닿는 아래가 아니라 위(헤더 옆)에 두지 않는 이유는
-            한글 쪽과 같은 자리를 지키기 위해서다. */}
-        <div className="shrink-0 flex justify-end px-3 pb-2">
-          <button
-            onClick={() => {
-              setCamera((v) => !v);
-              setGrid(initGrid(currentItem.letters));
-            }}
-            className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition"
-          >
-            {camera ? '🧩 화면 블록' : '📷 실물 블록'}
-          </button>
-        </div>
-      </div>
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
-      {scene && (
-        <SceneReveal
-          illustrationUrl={scene.illustrationUrl}
-          text={scene.pageText}
-          highlight={scene.highlight}
-          ttsUrl={scene.pageTtsUrl}
-          onDone={() => goToNext(currentIndex)}
-        />
-      )}
-    </Gate>
+      </DragOverlay>
+    </DndContext>
   );
 }
 
