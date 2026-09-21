@@ -94,6 +94,7 @@ export function useBoardCamera({ set, enabled, rotDeg = 0 }: BoardCameraOptions)
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const histRef = useRef<string[]>([]);
+  const stableWordRef = useRef('');
   const [ready, setReady] = useState(false);
   const [cvProgress, setCvProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -105,6 +106,7 @@ export function useBoardCamera({ set, enabled, rotDeg = 0 }: BoardCameraOptions)
   // 🔴 집합이 바뀌면 지난 판의 낱말을 물려주지 않는다.
   useEffect(() => {
     histRef.current = [];
+    stableWordRef.current = '';
     setWord('');
     setRaw('');
   }, [set]);
@@ -197,8 +199,9 @@ export function useBoardCamera({ set, enabled, rotDeg = 0 }: BoardCameraOptions)
         const r = api.read(g.rgba, g.W, g.H);
         const w = (r && r.word) || '';
         setRaw(w);
-        const voted = voteWord(histRef.current, w);
+        const voted = voteWord(histRef.current, w, stableWordRef.current);
         histRef.current = [...histRef.current, w].slice(-VOTE_WINDOW);
+        stableWordRef.current = voted;
         setWord(voted);
         setClipped((r?.detail ?? []).filter((d) => d.잘림).length);
         const dbg = (window as unknown as { reco?: { legoInfo?: Record<string, unknown> } }).reco;

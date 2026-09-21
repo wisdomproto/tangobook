@@ -7,7 +7,12 @@
  */
 export const VOTE_WINDOW = 7;
 
-export function voteWord(history: string[], next: string, window = VOTE_WINDOW): string {
+export function voteWord(
+  history: string[],
+  next: string,
+  stable = '',
+  window = VOTE_WINDOW
+): string {
   const hist = [...history, next].slice(-window);
   const count = new Map<string, number>();
   let best = next;
@@ -21,5 +26,9 @@ export function voteWord(history: string[], next: string, window = VOTE_WINDOW):
       best = w;
     }
   }
-  return best;
+  // 🔴 기록이 덜 찬 시작 순간이나 손이 판을 가리는 동안에는 최빈값만으로 바꾸지 않는다.
+  // 7회 중 과반수인 4회가 같은 값일 때만 새 결과로 확정한다. 빈 문자열도 같은 규칙으로
+  // 확정하므로 블록을 모두 치운 판은 약 1초 뒤 정상적으로 빈 상태가 된다.
+  const quorum = Math.floor(window / 2) + 1;
+  return bestN >= quorum ? best : stable;
 }
