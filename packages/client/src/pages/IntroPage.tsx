@@ -863,6 +863,45 @@ export default function IntroPage() {
     <div className="min-h-dvh bg-cream-50 pb-24">
       {/* ── ① 히어로 ─────────────────────────────────────────── */}
       <PublicNav />
+      <aside
+        className="bg-ink-900 px-4 py-3 text-white sm:px-6"
+        aria-label={t('hero.blocksBanner.title')}
+      >
+        <Link
+          to="/blocks"
+          className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl px-1 transition hover:text-peach-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-300"
+        >
+          <span className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <span className="hidden shrink-0 items-center gap-1 sm:flex" aria-hidden>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-coral-500 font-black">
+                ㄱ
+              </span>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-amber-400 font-black text-ink-900">
+                ㅏ
+              </span>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-indigo-500 font-black">
+                A
+              </span>
+            </span>
+            <span className="min-w-0">
+              <span className="flex items-center gap-2">
+                <span className="rounded-full bg-coral-500 px-2 py-0.5 text-[10px] font-black tracking-wide">
+                  NEW
+                </span>
+                <strong className="truncate font-display text-sm font-black sm:text-base">
+                  {t('hero.blocksBanner.title')}
+                </strong>
+              </span>
+              <span className="mt-0.5 block text-xs text-cream-100/85 sm:text-sm">
+                {t('hero.blocksBanner.description')}
+              </span>
+            </span>
+          </span>
+          <span className="shrink-0 rounded-full bg-white px-3 py-2 text-xs font-black text-ink-900 sm:px-5 sm:text-sm">
+            {t('hero.blocksBanner.cta')} →
+          </span>
+        </Link>
+      </aside>
       <header className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-peach-50 to-cream-50 px-4 pb-10 pt-4 sm:px-6 sm:pb-14 sm:pt-16">
         <div className="pointer-events-none absolute -right-20 -top-16 h-64 w-64 rounded-full bg-coral-100/60 blur-3xl" />
         {/* 🔴 로고를 큼지막하게 맨 위에(2026-08-05 사용자) — 브랜드가 먼저다. width/height 로 CLS 방지. */}

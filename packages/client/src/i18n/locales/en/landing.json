@@ -20,7 +20,12 @@
     "sub": "Build the <big>1,500</big> words a child needs before first grade, through all kinds of <c>reading games</c>.",
     "cycle": "Letters learned on their own fade fast — here the books your child can read with them live in the same app, so every book read <b>feeds back into letter progress.</b>",
     "cta": "Start your free month",
-    "ctaNote": "No payment details · No auto-renewal"
+    "ctaNote": "No payment details · No auto-renewal",
+    "blocksBanner": {
+      "title": "Korean & English Block Play",
+      "description": "Play on screen or connect physical blocks with your camera.",
+      "cta": "Try it now"
+    }
   },
   "chain": {
     "phonics": {
