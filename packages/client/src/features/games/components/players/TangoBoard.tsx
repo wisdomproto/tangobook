@@ -395,11 +395,27 @@ export function TangoBoard({
                   aria-label={`${charAt(b.id, b.rotDeg)} 블록 — 클릭해서 돌리기, 판 밖으로 끌어 삭제`}
                   style={{ touchAction: 'none' }}
                   opacity={drag?.uid === b.uid && drag.moved ? 0.25 : 1}
-                  className={disabled ? undefined : 'cursor-pointer'}
+                  className={cn(
+                    // 브라우저 기본 SVG 포커스 외곽선은 viewBox 배율로 확대되어 거대한 검은 도형처럼 보인다.
+                    // 기본 외곽선을 끄고 아래 rect로 키보드 포커스만 블록 크기에 맞게 표시한다.
+                    'group outline-none focus:outline-none',
+                    !disabled && 'cursor-pointer'
+                  )}
                 >
                   {/* 투명한 판 — 획만 있으면 탭할 면적이 없다 */}
                   <rect x={0} y={0} width={sh.w} height={sh.h} fill="transparent" />
                   <BlockArt id={b.id} rotDeg={b.rotDeg} color={colorOf(b.id)} />
+                  <rect
+                    x={-0.18}
+                    y={-0.18}
+                    width={sh.w + 0.36}
+                    height={sh.h + 0.36}
+                    rx={0.18}
+                    fill="none"
+                    stroke="#FF7A59"
+                    strokeWidth={0.08}
+                    className="pointer-events-none opacity-0 group-focus-visible:opacity-100"
+                  />
                 </g>
               );
             })}
