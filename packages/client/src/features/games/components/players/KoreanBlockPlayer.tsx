@@ -120,7 +120,7 @@ function KoreanBlockPlayerInner({
   // 🔴 쉬움 모드(순서 strip)는 격자 칸에 자동 배치하는 방식이라 판과 맞지 않아 뺐다.
   //    판은 난이도가 하나다 — 조각을 고르고, 돌리고, 놓는다.
 
-  // 새로 추가된 음절만 TTS 재생.
+  // 판에서 현재 완성된 음절을 왼쪽부터 한 단어로 읽는다.
   // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)·다음절은 라이브러리 miss.
   // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
   // 로딩 완료 후 라이브러리 miss 면 Web Speech API(`speechSynthesis`) 로 ko-KR 폴백.
@@ -131,27 +131,31 @@ function KoreanBlockPlayerInner({
   useEffect(() => {
     if (phonicsLoading) return;
     const prev = prevSyllablesRef.current;
-    const completesWord =
-      composedSyllables.join('') === currentItem.word && currentItem.word.length > 0;
-    for (let i = 0; i < composedSyllables.length; i++) {
-      const cur = composedSyllables[i];
-      if (cur !== prev[i]) {
-        const url = phonicsMapRef.current.get(cur);
-        if (completesWord) {
-          pendingLastSyllableRef.current = { url, text: cur };
-        } else if (url) {
-          playAudio(url);
-        } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-          try {
-            window.speechSynthesis.cancel(); // 빠른 연속 입력 시 큐 누적 방지
-            const u = new SpeechSynthesisUtterance(cur);
-            u.lang = 'ko-KR';
-            u.rate = 0.9;
-            window.speechSynthesis.speak(u);
-          } catch {
-            /* 미지원/차단 */
-          }
+    const boardText = composedSyllables.join('');
+    const previousText = prev.join('');
+    const completesWord = boardText === currentItem.word && currentItem.word.length > 0;
+    if (boardText && boardText !== previousText) {
+      const lastIndex = composedSyllables.length - 1;
+      const lastSyllable = composedSyllables[lastIndex];
+      const lastUrl = phonicsMapRef.current.get(lastSyllable);
+      if (completesWord) {
+        // 정답은 기존 순서(마지막 음절 → 단어 → 칭찬)를 지킨다.
+        pendingLastSyllableRef.current = { url: lastUrl, text: lastSyllable };
+      } else if (composedSyllables.length === 1 && lastUrl) {
+        playAudio(lastUrl);
+      } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel(); // 빠른 연속 입력 시 큐 누적 방지
+          const u = new SpeechSynthesisUtterance(boardText);
+          u.lang = 'ko-KR';
+          u.rate = 0.9;
+          window.speechSynthesis.speak(u);
+        } catch {
+          /* 미지원/차단 */
         }
+      } else if (lastUrl) {
+        // Web Speech 미지원 브라우저에서는 마지막 음절이라도 기존 녹음으로 들려준다.
+        playAudio(lastUrl);
       }
     }
     prevSyllablesRef.current = [...composedSyllables];

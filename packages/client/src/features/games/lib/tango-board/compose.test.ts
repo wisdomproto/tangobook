@@ -73,6 +73,20 @@ describe('parseBoard — 놓인 자리로 읽는다', () => {
     expect(parseBoard(나무)).toEqual(['나', '무']);
   });
 
+  it('화면에 떨어져 놓은 흑표범 세 음절을 왼쪽부터 읽는다', () => {
+    const 흑표범: PlacedItem[] = [
+      C('ㅎ', 2, 1),
+      H('ㅡ', 1, 4, 1),
+      C('ㄱ', 2, 5),
+      C('ㅍ', 7, 2),
+      H('ㅛ', 6, 5),
+      C('ㅂ', 11, 2),
+      V('ㅓ', 14, 1),
+      C('ㅁ', 11, 5),
+    ];
+    expect(parseBoard(흑표범)).toEqual(['흑', '표', '범']);
+  });
+
   it('짝을 못 찾은 블록은 그냥 빠진다 — 틀렸다고 하지 않는다', () => {
     expect(parseBoard([C('ㄱ', 0, 0)])).toEqual([]);
     expect(parseBoard([V('ㅏ', 0, 0)])).toEqual([]);

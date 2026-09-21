@@ -193,7 +193,10 @@ export function parseBoard(rawItems: PlacedItem[]): string[] {
   const hasOwnVowel = (c: Node): boolean =>
     vows.some((v) => {
       if (used.has(v)) return false;
-      if (v.h > v.w) return v.cx - c.cx > 0 && v.cx - c.cx <= 7 && Math.abs(v.cy - c.cy) <= 2.5;
+      if (v.h > v.w) {
+        const gapX = v.x - (c.x + c.w);
+        return gapX >= -1 && gapX <= 2 && Math.abs(v.cy - c.cy) <= 2.5;
+      }
       return v.cy - c.cy > 0 && v.cy - c.cy <= 7 && Math.abs(v.cx - c.cx) <= 3.5;
     });
 
@@ -206,7 +209,10 @@ export function parseBoard(rawItems: PlacedItem[]): string[] {
     const Vh = nearest(vows, (v) => {
       if (v.h <= v.w) return null;
       const dx = v.cx - A.cx;
-      if (dx <= 0 || dx > 7) return null;
+      // 세로 모음은 자음 **바로 오른쪽**에 붙은 것만 같은 음절이다. 중심거리만 7칸까지
+      // 허용하면 중간에 다른 초성이 있어도 그 너머 모음을 낚아챈다(흑표범 → 흑펌).
+      const gapX = v.x - (A.x + A.w);
+      if (dx <= 0 || gapX < -1 || gapX > 2) return null;
       const overlap = Math.min(A.y + A.h, v.y + v.h) - Math.max(A.y, v.y);
       if (overlap < -2) return null;
       return dx + Math.abs(v.cy - A.cy);
