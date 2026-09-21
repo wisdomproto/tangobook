@@ -632,14 +632,24 @@ function KoreanBlockPlayerInner({
                 type="button"
                 onClick={() => void handleReadBoard()}
                 disabled={!composedText || roundCorrect}
-                className="min-h-[48px] min-w-[5.5rem] px-4 rounded-2xl bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0"
+                className={cn(
+                  'bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0',
+                  twoCol
+                    ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
+                    : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
+                )}
               >
                 🔊 확인
               </button>
               <button
                 type="button"
                 onClick={handleNext}
-                className="min-h-[48px] min-w-[5.5rem] px-4 rounded-2xl bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition"
+                className={cn(
+                  'bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition',
+                  twoCol
+                    ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
+                    : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
+                )}
               >
                 {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
               </button>
