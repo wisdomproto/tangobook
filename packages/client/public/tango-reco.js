@@ -2099,12 +2099,25 @@ function readSticker(M, Lm, Am, Bm, W, H, N, t0){
         (RETR_EXTERNAL 윤곽 하나 = 8이웃 성분 하나). */
   var rectW = {}, rectH = {};
   var cts0 = M(new cv.MatVector()), hier0 = M(new cv.Mat());
-  cv.findContours(M(card.clone()), cts0, hier0, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+  /* 🔴 **RETR_EXTERNAL 로는 흰 판에서 카드를 하나도 못 받는다**(2026-09-21 실측).
+        초록 판일 땐 흰 마스크가 카드뿐이라 카드가 최상위 윤곽이었다. 판이 희어지면 계층이
+        `판(0) → 블록 몸통 구멍(1) → 카드 흰 면(2)` 이 되어 카드가 2단으로 내려앉고,
+        RETR_EXTERNAL 은 0단만 주므로 **카드 윤곽이 통째로 안 온다.**
+        그러면 아래 `rectW[i] || bw` 가 조용히 **축 정렬 상자로 폴백**해서, 기울기를 벌점으로
+        매기지 말라고 넣은 회전 관문이 흰 판에서는 꺼진 채로 돈다(실측: 원근으로 기울어진 ㅏ 가
+        회전 [63,131] 채움 0.92 인데 축 정렬로는 [78,124] 채움 0.78 이라 관문에서 떨어졌다). */
+  cv.findContours(M(card.clone()), cts0, hier0, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+  var rectA = {};
   for (var ci = 0; ci < cts0.size(); ci++){
     var ct0 = cts0.get(ci), cpt = ct0.data32S;
     if (!cpt || cpt.length < 2) continue;
     var lb0 = ldat[cpt[1]*W + cpt[0]];
-    if (!lb0 || rectW[lb0]) continue;
+    if (!lb0) continue;
+    /* 🔴 라벨마다 **가장 큰** 윤곽을 쓴다. RETR_LIST 는 구멍 윤곽까지 주므로 「먼저 온 것」으로
+          고르면 글자 획 구멍이 카드를 대신할 수 있다 — 바깥 윤곽이 언제나 제일 넓다. */
+    var ctA = Math.abs(cv.contourArea(ct0));
+    if (rectA[lb0] >= ctA) continue;
+    rectA[lb0] = ctA;
     var rr0 = cv.minAreaRect(ct0), rw0 = rr0.size.width, rh0 = rr0.size.height;
     /* 이미지 축에 더 가까운 변을 「가로」로 — 그래야 port/land 갈래 띄를 그대로 쓴다 */
     var th0 = rr0.angle*Math.PI/180;
