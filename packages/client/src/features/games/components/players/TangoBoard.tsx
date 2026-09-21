@@ -6,6 +6,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from 'react';
+import { createPortal } from 'react-dom';
 import {
   BLOCKS,
   TRAY_CHO,
@@ -259,6 +260,33 @@ export function TangoBoard({
     return out;
   }, []);
 
+  /**
+   * 화면 좌표(clientX/Y)를 쓰는 미리보기는 body 에 그린다. `EmbedStage`처럼 조상에
+   * `transform: scale(...)`이 있으면 그 안의 fixed 요소도 로컬 좌표로 축소되어 포인터와
+   * 어긋난다. 포털 밖에서는 left/top이 실제 뷰포트 좌표와 그대로 일치한다.
+   */
+  const dragPreview =
+    drag?.moved && typeof document !== 'undefined'
+      ? createPortal(
+          <div
+            data-tango-drag-preview
+            className="pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]"
+            style={{ left: drag.x, top: drag.y }}
+          >
+            <svg
+              viewBox={`-0.4 -0.4 ${shapeAt(drag.id, drag.rotDeg).w + 0.8} ${shapeAt(drag.id, drag.rotDeg).h + 0.8}`}
+              style={{
+                height: '3rem',
+                aspectRatio: `${shapeAt(drag.id, drag.rotDeg).w} / ${shapeAt(drag.id, drag.rotDeg).h}`,
+              }}
+            >
+              <BlockArt id={drag.id} rotDeg={drag.rotDeg} color={colorOf(drag.id)} />
+            </svg>
+          </div>,
+          document.body
+        )
+      : null;
+
   return (
     <div
       className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1"
@@ -323,23 +351,8 @@ export function TangoBoard({
         </div>
       </div>
 
-      {/* 끌고 있는 조각 — 손가락 아래에 그린다. */}
-      {drag?.moved && (
-        <div
-          className="pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]"
-          style={{ left: drag.x, top: drag.y }}
-        >
-          <svg
-            viewBox={`-0.4 -0.4 ${shapeAt(drag.id, drag.rotDeg).w + 0.8} ${shapeAt(drag.id, drag.rotDeg).h + 0.8}`}
-            style={{
-              height: '3rem',
-              aspectRatio: `${shapeAt(drag.id, drag.rotDeg).w} / ${shapeAt(drag.id, drag.rotDeg).h}`,
-            }}
-          >
-            <BlockArt id={drag.id} rotDeg={drag.rotDeg} color={colorOf(drag.id)} />
-          </svg>
-        </div>
-      )}
+      {/* 끌고 있는 조각 — transform 조상 밖에서 실제 포인터 화면 좌표에 그린다. */}
+      {dragPreview}
 
       {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
           (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
