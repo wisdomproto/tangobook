@@ -116,12 +116,13 @@ function KoreanBlockPlayerInner({
   const boardSyllables = useMemo(() => parseBoard(toItems(placed)), [placed]);
   const camSyllables = useMemo(() => (cam.word ? [...cam.word] : []), [cam.word]);
   const composedSyllables = camera ? camSyllables : boardSyllables;
+  const composedText = composedSyllables.join('');
 
   // 🔴 쉬움 모드(순서 strip)는 격자 칸에 자동 배치하는 방식이라 판과 맞지 않아 뺐다.
   //    판은 난이도가 하나다 — 조각을 고르고, 돌리고, 놓는다.
 
-  // 판에서 현재 완성된 음절을 왼쪽부터 한 단어로 읽는다.
-  // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)·다음절은 라이브러리 miss.
+  // 블록을 놓아 새로 만들어진 음절 하나만 읽는다. 판 전체 읽기는 우측 `확인` 버튼이 담당한다.
+  // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)는 Web Speech API로 폴백.
   // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
   // 로딩 완료 후 라이브러리 miss 면 Web Speech API(`speechSynthesis`) 로 ko-KR 폴백.
   const prevSyllablesRef = useRef<string[]>([]);
@@ -131,35 +132,31 @@ function KoreanBlockPlayerInner({
   useEffect(() => {
     if (phonicsLoading) return;
     const prev = prevSyllablesRef.current;
-    const boardText = composedSyllables.join('');
-    const previousText = prev.join('');
-    const completesWord = boardText === currentItem.word && currentItem.word.length > 0;
-    if (boardText && boardText !== previousText) {
-      const lastIndex = composedSyllables.length - 1;
-      const lastSyllable = composedSyllables[lastIndex];
-      const lastUrl = phonicsMapRef.current.get(lastSyllable);
+    const completesWord = composedText === currentItem.word && currentItem.word.length > 0;
+    // 앞쪽에 새 음절을 놓으면 뒤 음절의 index도 함께 밀린다. 첫 차이를 골라 실제 새 음절만 읽는다.
+    const changedIndex = composedSyllables.findIndex((syllable, index) => syllable !== prev[index]);
+    if (changedIndex >= 0) {
+      const changedSyllable = composedSyllables[changedIndex];
+      const syllableUrl = phonicsMapRef.current.get(changedSyllable);
       if (completesWord) {
         // 정답은 기존 순서(마지막 음절 → 단어 → 칭찬)를 지킨다.
-        pendingLastSyllableRef.current = { url: lastUrl, text: lastSyllable };
-      } else if (composedSyllables.length === 1 && lastUrl) {
-        playAudio(lastUrl);
+        pendingLastSyllableRef.current = { url: syllableUrl, text: changedSyllable };
+      } else if (syllableUrl) {
+        playAudio(syllableUrl);
       } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         try {
           window.speechSynthesis.cancel(); // 빠른 연속 입력 시 큐 누적 방지
-          const u = new SpeechSynthesisUtterance(boardText);
+          const u = new SpeechSynthesisUtterance(changedSyllable);
           u.lang = 'ko-KR';
           u.rate = 0.9;
           window.speechSynthesis.speak(u);
         } catch {
           /* 미지원/차단 */
         }
-      } else if (lastUrl) {
-        // Web Speech 미지원 브라우저에서는 마지막 음절이라도 기존 녹음으로 들려준다.
-        playAudio(lastUrl);
       }
     }
     prevSyllablesRef.current = [...composedSyllables];
-  }, [composedSyllables, playAudio, phonicsMapRef, phonicsLoading, currentItem.word]);
+  }, [composedSyllables, composedText, playAudio, phonicsMapRef, phonicsLoading, currentItem.word]);
 
   // 정답 시 단어 타이핑 효과
   useEffect(() => {
@@ -428,6 +425,30 @@ function KoreanBlockPlayerInner({
     goToNext(currentIndex);
   }, [currentIndex, goToNext]);
 
+  const handleReadBoard = useCallback(async () => {
+    if (!composedText) return;
+    const audioUrl = await resolveTtsUrl({
+      text: composedText,
+      language: 'korean',
+      storybookId,
+      identifierPrefix: 'kblock-board',
+    });
+    if (audioUrl) {
+      playAudio(audioUrl);
+      return;
+    }
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(composedText);
+      utterance.lang = 'ko-KR';
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      /* 미지원/차단 */
+    }
+  }, [composedText, playAudio, storybookId]);
+
   // 게임 완료 시 학습 이벤트
   useEffect(() => {
     if (!finished) return;
@@ -575,7 +596,7 @@ function KoreanBlockPlayerInner({
             </h1>
           </section>
 
-          {/* 섹션 2 — 드롭존 화면 가운데. 확인/초기화 absolute 로 우측 띄움. 가로 풀폭, 세로 비중 3 (1.5). */}
+          {/* 섹션 2 — 드롭존 화면 가운데. 전체 읽기와 다음은 판 오른쪽에 세로 배치. */}
           <section
             className={cn(
               'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
@@ -599,6 +620,30 @@ function KoreanBlockPlayerInner({
                 disabled={roundCorrect}
               />
             )}
+            <div
+              className={cn(
+                'absolute z-20 flex flex-col gap-2 sm:gap-3',
+                twoCol
+                  ? 'right-2 top-2 sm:right-3 sm:top-3'
+                  : 'right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
+              )}
+            >
+              <button
+                type="button"
+                onClick={() => void handleReadBoard()}
+                disabled={!composedText || roundCorrect}
+                className="min-h-[48px] min-w-[5.5rem] px-4 rounded-2xl bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0"
+              >
+                🔊 확인
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                className="min-h-[48px] min-w-[5.5rem] px-4 rounded-2xl bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition"
+              >
+                {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
+              </button>
+            </div>
           </section>
 
           {/* 섹션 3 — 조작 안내 + 되돌리기/지우기. 판이 곧 트레이를 품고 있어 별도 패널이 없다. */}
@@ -611,12 +656,6 @@ function KoreanBlockPlayerInner({
                   : '조각을 끌어다 놓아요 · 판 위 조각은 누르면 회전, 판 밖에 놓으면 삭제'}
             </span>
             <div className="flex gap-2">
-              <button
-                onClick={handleNext}
-                className="min-h-[44px] px-5 rounded-full bg-peach-500 text-white font-black shadow-pop hover:bg-peach-300 transition"
-              >
-                {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-              </button>
               {/* 🔴 되돌리기·지우기는 실물 판에선 숨긴다 — 손으로 치우면 되므로 지울 게 없다. */}
               {!camera && (
                 <>
