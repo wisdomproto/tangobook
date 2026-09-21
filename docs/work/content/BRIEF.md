@@ -14,6 +14,7 @@
 - [docs/comics](../../../docs/comics)
 - [docs/saenghwal-donghwa](../../../docs/saenghwal-donghwa)
 - [docs/art-direction](../../../docs/art-direction)
+- [창작동화 최신 라인 가이드](../../../docs/changjak-books/CLAUDE.md) — 단권/시리즈를 먼저 구분하며 초기 단권 지침을 시리즈에 일괄 적용하지 않는다.
 
 서버 관련 route → controller → service → repository/provider와 shared 타입을 따라 영향 범위를 확인한다. 위 목록은 독점 수정 허가가 아니며 공통 파일 변경은 다른 진행 작업과 조율한다.
 
