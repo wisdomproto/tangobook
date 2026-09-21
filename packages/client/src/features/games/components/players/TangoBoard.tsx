@@ -166,6 +166,8 @@ export interface TangoBoardProps {
   onPlace: (x: number, y: number, id: number, rotDeg: number) => void;
   /** 판 위 조각을 다른 자리로 — 끌어서 옮긴다(2026-09-16 사용자). */
   onMovePlaced: (uid: number, x: number, y: number) => void;
+  /** 판 위 조각을 보드 바깥에 놓으면 지운다. */
+  onRemovePlaced: (uid: number) => void;
   onRotatePlaced: (uid: number) => void;
   disabled?: boolean;
 }
@@ -182,6 +184,7 @@ export function TangoBoard({
   onPick,
   onPlace,
   onMovePlaced,
+  onRemovePlaced,
   onRotatePlaced,
   disabled,
 }: TangoBoardProps) {
@@ -198,11 +201,20 @@ export function TangoBoard({
     x: number;
     y: number;
     moved: boolean;
+    outsideBoard: boolean;
   } | null>(null);
   const dragRef = useRef<typeof drag>(null);
   dragRef.current = drag;
   /** 끌어 옮긴 직후의 클릭은 회전이 아니다 — 포인터를 떼면 클릭이 뒤따라 온다. */
   const draggedRef = useRef(false);
+
+  const isPointInsideBoard = useCallback((clientX: number, clientY: number) => {
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect) return false;
+    return (
+      clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom
+    );
+  }, []);
 
   /** 화면 좌표 → 판 칸. 조각의 가운데가 그 지점에 오게 놓는다. */
   const cellAt = useCallback((clientX: number, clientY: number, id: number, rotDeg: number) => {
@@ -222,14 +234,33 @@ export function TangoBoard({
       if (disabled) return;
       (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
       draggedRef.current = false;
-      setDrag({ ...piece, x: e.clientX, y: e.clientY, moved: false });
+      setDrag({
+        ...piece,
+        x: e.clientX,
+        y: e.clientY,
+        moved: false,
+        outsideBoard: false,
+      });
     },
     [disabled]
   );
 
-  const handleDragMove = useCallback((e: ReactPointerEvent) => {
-    setDrag((d) => (d ? { ...d, x: e.clientX, y: e.clientY, moved: true } : d));
-  }, []);
+  const handleDragMove = useCallback(
+    (e: ReactPointerEvent) => {
+      setDrag((d) =>
+        d
+          ? {
+              ...d,
+              x: e.clientX,
+              y: e.clientY,
+              moved: true,
+              outsideBoard: d.uid !== undefined && !isPointInsideBoard(e.clientX, e.clientY),
+            }
+          : d
+      );
+    },
+    [isPointInsideBoard]
+  );
 
   const handleDragEnd = useCallback(
     (e: ReactPointerEvent) => {
@@ -237,12 +268,16 @@ export function TangoBoard({
       setDrag(null);
       if (!d || !d.moved) return; // 안 움직였으면 그냥 탭 — onClick 이 고르거나 돌린다
       draggedRef.current = true;
+      if (d.uid !== undefined && !isPointInsideBoard(e.clientX, e.clientY)) {
+        onRemovePlaced(d.uid);
+        return;
+      }
       const cell = cellAt(e.clientX, e.clientY, d.id, d.rotDeg);
       if (!cell) return;
       if (d.uid !== undefined) onMovePlaced(d.uid, cell.x, cell.y);
       else onPlace(cell.x, cell.y, d.id, d.rotDeg);
     },
-    [cellAt, onPlace, onMovePlaced]
+    [cellAt, isPointInsideBoard, onPlace, onMovePlaced, onRemovePlaced]
   );
 
   const handleBoardTap = useCallback(
@@ -270,7 +305,10 @@ export function TangoBoard({
       ? createPortal(
           <div
             data-tango-drag-preview
-            className="pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]"
+            className={cn(
+              'pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]',
+              drag.outsideBoard && 'opacity-60'
+            )}
             style={{ left: drag.x, top: drag.y }}
           >
             <svg
@@ -282,6 +320,16 @@ export function TangoBoard({
             >
               <BlockArt id={drag.id} rotDeg={drag.rotDeg} color={colorOf(drag.id)} />
             </svg>
+            {drag.uid !== undefined && (
+              <span
+                className={cn(
+                  'absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-xs font-black text-white shadow-pop',
+                  drag.outsideBoard ? 'bg-danger' : 'bg-ink-700'
+                )}
+              >
+                {drag.outsideBoard ? '놓아서 삭제' : '판 밖으로 옮기면 삭제'}
+              </span>
+            )}
           </div>,
           document.body
         )
@@ -337,6 +385,14 @@ export function TangoBoard({
                     }
                     onRotatePlaced(b.uid);
                   }}
+                  onKeyDown={(e) => {
+                    if (disabled || (e.key !== 'Enter' && e.key !== ' ')) return;
+                    e.preventDefault();
+                    onRotatePlaced(b.uid);
+                  }}
+                  role="button"
+                  tabIndex={disabled ? -1 : 0}
+                  aria-label={`${charAt(b.id, b.rotDeg)} 블록 — 클릭해서 돌리기, 판 밖으로 끌어 삭제`}
                   style={{ touchAction: 'none' }}
                   opacity={drag?.uid === b.uid && drag.moved ? 0.25 : 1}
                   className={disabled ? undefined : 'cursor-pointer'}

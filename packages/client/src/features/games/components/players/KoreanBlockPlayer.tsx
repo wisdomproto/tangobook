@@ -13,9 +13,9 @@ import { useGameEntryGuide } from '../../hooks/useGameEntryGuide';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
-import { TangoBoard, toItems, canPlace, type PlacedBlock } from './TangoBoard';
+import { COLS, ROWS, TangoBoard, toItems, canPlace, type PlacedBlock } from './TangoBoard';
 import { parseBoard } from '../../lib/tango-board/compose';
-import { nextRot } from '../../lib/tango-board/blocks';
+import { nextRot, shapeAt } from '../../lib/tango-board/blocks';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook';
@@ -239,7 +239,16 @@ function KoreanBlockPlayerInner({
     [roundCorrect, playPlacementTick]
   );
 
-  /** 판 위 조각 탭 = 돌리기. 마지막 방향에서 한 번 더 돌면 제자리로 온다. */
+  const handleRemovePlaced = useCallback(
+    (uid: number) => {
+      if (roundCorrect) return;
+      setPlaced((prev) => prev.filter((b) => b.uid !== uid));
+      setIsWrong(false);
+    },
+    [roundCorrect]
+  );
+
+  /** 판 위 조각 탭 = 중심을 유지해 돌리고, 가장자리에선 판 안으로 당겨 맞춘다. */
   const handleRotatePlaced = useCallback(
     (uid: number) => {
       if (roundCorrect) return;
@@ -247,15 +256,25 @@ function KoreanBlockPlayerInner({
         prev.map((b) => {
           if (b.uid !== uid) return b;
           const rot = nextRot(b.id, b.rotDeg);
-          // 돌린 모양이 판 밖으로 나가거나 다른 조각과 겹치면 그대로 둔다.
+          const before = shapeAt(b.id, b.rotDeg);
+          const after = shapeAt(b.id, rot);
+          const x = Math.max(
+            0,
+            Math.min(COLS - after.w, Math.round(b.x + (before.w - after.w) / 2))
+          );
+          const y = Math.max(
+            0,
+            Math.min(ROWS - after.h, Math.round(b.y + (before.h - after.h) / 2))
+          );
+          // 중심을 유지한 자리가 다른 조각과 겹치면 그대로 둔다.
           return canPlace(
             prev.filter((o) => o.uid !== uid),
             b.id,
             rot,
-            b.x,
-            b.y
+            x,
+            y
           )
-            ? { ...b, rotDeg: rot }
+            ? { ...b, rotDeg: rot, x, y }
             : b;
         })
       );
@@ -569,6 +588,7 @@ function KoreanBlockPlayerInner({
                 onPick={setPicked}
                 onPlace={handlePlace}
                 onMovePlaced={handleMovePlaced}
+                onRemovePlaced={handleRemovePlaced}
                 onRotatePlaced={handleRotatePlaced}
                 disabled={roundCorrect}
               />
@@ -582,7 +602,7 @@ function KoreanBlockPlayerInner({
                 ? '판 위에 블록을 놓아 보세요'
                 : picked
                   ? '판에 놓아요 · 놓인 조각을 누르면 돌아가요'
-                  : '조각을 끌어다 놓아요 · ↻ 는 눌러서 돌려요'}
+                  : '조각을 끌어다 놓아요 · 판 위 조각은 누르면 회전, 판 밖에 놓으면 삭제'}
             </span>
             <div className="flex gap-2">
               {/* 🔴 되돌리기·지우기는 실물 판에선 숨긴다 — 손으로 치우면 되므로 지울 게 없다. */}
