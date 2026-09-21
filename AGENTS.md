@@ -7,9 +7,17 @@ Claude Code와 Codex가 같은 프로젝트 지식으로 작업하기 위한 진
 
 1. `git rev-parse --show-toplevel`, `git branch --show-current`, `git status --short`, `git worktree list`로 실제 작업 위치와 기존 변경을 확인한다. 폴더 이름이 main이라는 보장은 없다.
 2. [인수인계](docs/handoff/README.md)와 [공유 메모리](docs/handoff/MEMORY.md)를 읽는다.
+   이어서 [기능별 작업 지도](docs/work/README.md)에서 요청 영역의 `BRIEF.md`, `MEMORY.md`, 관련 `tasks/*.md`를 읽는다. 코드 수정 전에 이 순서를 수행한다.
 3. [CLAUDE.md](CLAUDE.md)의 해당 주제와 수정하는 기능 폴더의 `CLAUDE.md`를 읽는다. 파일 이름이 Claude라고 무시하지 않는다. 문서가 길면 제목을 검색해 필요한 절을 읽는다.
 4. 카메라/블록 인식은 [보드 인수인계](docs/handoff/board-camera.md)와 [.claude/agents/board-vision.md](.claude/agents/board-vision.md)를 먼저 읽는다.
 5. 과거 결정이 필요하면 [기존 메모리 목록](docs/handoff/legacy-memory-index.md)에서 관련 파일을 찾는다. 개인 폴더가 없는 환경은 저장소 문서와 코드로 진행하고, 확인하지 못한 과거 내용은 추정하지 않는다.
+
+## 대화를 이어가는 방식
+
+- 사용자는 같은 동료와 계속 이어서 작업하는 경험을 원한다. 기능명만 말해도 관련 기록을 먼저 읽고, 마지막 결론·남은 문제·다음 행동을 짧게 알린 뒤 진행한다. 기록된 사실을 다시 설명해 달라고 하지 않는다.
+- “작업 시작하자”처럼 범위가 없으면 `node scripts/work-status.mjs`로 실제 작업 후보를 읽고 선택형 질문을 제공한다. 현재 도구에 `request_user_input_async`가 있으면 사용한다. 구체적인 기능/수정 요청에는 메뉴를 끼워 넣지 않는다. 상세 규칙은 작업 지도에 있다.
+- worktree에만 남은 task도 확인한다. 복사된 기록은 작업 ID와 실제 브랜치를 대조하며, 기록 없음은 작업 없음이 아니다. 과거 대화나 파일에 없는 기억을 지어내지 않는다.
+- 사용자 결정·반증·중단 지점은 해당 영역의 작업별 기록에 즉시 남긴다. 완료 시 코드와 기억을 함께 커밋하고, main 통합 시 영역 MEMORY를 갱신한다. 폴더 정리 전에 코드와 기억의 main 포함 여부를 확인한다.
 
 ## Git와 외부 작업
 

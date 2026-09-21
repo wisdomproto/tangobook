@@ -1,0 +1,350 @@
+[
+  {
+    "id": "authoring",
+    "name": "동화책 저작도구",
+    "keywords": [
+      "편집기",
+      "책관리",
+      "이미지생성",
+      "번역",
+      "TTS"
+    ],
+    "features": [
+      "storybook",
+      "editor",
+      "book-v2",
+      "character",
+      "cover",
+      "illustration",
+      "key-object",
+      "translation",
+      "tts",
+      "library"
+    ],
+    "agents": [],
+    "sources": [
+      "packages/client/src/features/editor/CLAUDE.md",
+      "packages/client/src/features/storybook/CLAUDE.md"
+    ],
+    "decision": "한 책은 한 그림체·한 레벨이며 책 그룹으로 연결한다. editor2를 기준으로 작업하고 v1 수정은 별도 요청 범위를 확인한다.",
+    "verify": "저장·재조회·공개 상태·언어 전환을 확인하고 기존 R2 책 데이터 호환성을 검증한다.",
+    "role": "책 생성/편집 도구 구현 담당. 작품 집필은 content, 생성 공통 provider는 platform과 조율한다."
+  },
+  {
+    "id": "content",
+    "name": "동화·만화 콘텐츠 제작",
+    "keywords": [
+      "생활동화",
+      "창작동화",
+      "명작",
+      "집필",
+      "만화",
+      "그림체",
+      "장면"
+    ],
+    "features": [],
+    "agents": [
+      "changjak-director",
+      "comic-writer",
+      "comic-editor",
+      "scene-writer",
+      "scene-text-matcher",
+      "art-director"
+    ],
+    "sources": [
+      "docs/STRATEGY.md",
+      "docs/books",
+      "docs/comics",
+      "docs/saenghwal-donghwa",
+      "docs/art-direction"
+    ],
+    "decision": "작품의 기획서와 콘텐츠 라인 기준을 먼저 읽는다. 그림체와 장면 결정을 과거 작품에서 임의 복사하지 않는다.",
+    "verify": "해당 라인의 내용 검수와 장면-텍스트 대조를 수행하고 생성/게시된 결과와 초안을 구분한다.",
+    "role": "기획·집필·미술·검수 역할을 기존 지침으로 구분한다. 편집기 코드 변경은 authoring과 조율한다."
+  },
+  {
+    "id": "phonics",
+    "name": "파닉스·어휘",
+    "keywords": [
+      "파닉스",
+      "한글",
+      "영어",
+      "가나",
+      "병음",
+      "어휘",
+      "쓰기",
+      "단원"
+    ],
+    "features": [
+      "phonics",
+      "phonics-learner",
+      "vocabulary",
+      "vocabulary-unit"
+    ],
+    "agents": [
+      "phonics-builder",
+      "game-reviewer"
+    ],
+    "sources": [
+      "packages/client/src/features/phonics/CLAUDE.md",
+      "packages/client/src/features/phonics-learner/CLAUDE.md",
+      "packages/client/src/features/vocabulary-unit/CLAUDE.md"
+    ],
+    "decision": "콘텐츠 언어와 UI 언어를 구분한다. 영어 블록게임은 Book 2~5이며 Book 1에는 다시 넣지 않는다. 언어별 교육 순서를 보존한다.",
+    "verify": "활동 진입부터 정답·소리·완료까지 플레이한다. 음원 프리워밍과 취소/재생 이벤트를 확인한다.",
+    "role": "교육 순서와 활동 구현 담당. 공용 게임은 games, 인식 엔진은 camera와 조율한다."
+  },
+  {
+    "id": "games",
+    "name": "게임·독후활동",
+    "keywords": [
+      "게임",
+      "퍼즐",
+      "색칠",
+      "독후활동",
+      "호리",
+      "보상"
+    ],
+    "features": [
+      "games",
+      "activity",
+      "arcade-games",
+      "coloring",
+      "puzzle",
+      "quiz",
+      "playground",
+      "hori-room",
+      "rewards"
+    ],
+    "agents": [
+      "game-reviewer"
+    ],
+    "sources": [
+      "packages/client/src/features/games/CLAUDE.md",
+      "packages/client/src/features/arcade-games/CLAUDE.md",
+      "packages/client/src/features/rewards/CLAUDE.md"
+    ],
+    "decision": "검수는 실제 플레이까지 포함한다. 책에서 유래한 독후활동 맥락과 기존 정답·칭찬·보상 흐름을 유지한다.",
+    "verify": "정답/오답·연타·재시작·종료·소리 겹침·완료 보상을 확인한다. 공용 player 변경은 호출하는 학습 화면도 확인한다.",
+    "role": "게임 구현과 플레이 검수 담당. 카메라 파일이 games에 있어도 인식 로직은 camera 담당이다."
+  },
+  {
+    "id": "reading",
+    "name": "책 읽기·학습 기록",
+    "keywords": [
+      "뷰어",
+      "읽기",
+      "연속재생",
+      "진도",
+      "학습기록"
+    ],
+    "features": [
+      "viewer",
+      "continuous",
+      "learning",
+      "ebook-mosquito"
+    ],
+    "agents": [],
+    "sources": [
+      "packages/client/src/features/viewer/CLAUDE.md",
+      "packages/client/src/features/learning/CLAUDE.md"
+    ],
+    "decision": "iOS에서는 실제 재생 요소를 제스처에서 해금하고 재사용한다. 책 ID 변경은 학습 기록 호환성과 함께 검토한다.",
+    "verify": "페이지 전환·나레이션 취소·연속재생·종료 기록·게스트/로그인 복귀를 확인한다.",
+    "role": "읽기 경험과 학습 이력 담당. 로그인은 account, 공통 오디오는 platform과 조율한다."
+  },
+  {
+    "id": "camera",
+    "name": "카메라·블록 인식",
+    "keywords": [
+      "카메라",
+      "블록인식",
+      "흰판",
+      "흰색판",
+      "탱고블록",
+      "형판",
+      "프레임"
+    ],
+    "features": [],
+    "agents": [
+      "board-vision"
+    ],
+    "sources": [
+      "docs/handoff/board-camera.md",
+      "packages/client/public/tango-reco.js",
+      "packages/client/src/features/games/hooks/useBoardCamera.ts",
+      "packages/client/src/features/games/components/players/BoardCameraPanel.tsx"
+    ],
+    "decision": "인식 원본은 tango-reco.js다. 사진 재생과 실기기 연속 인식은 다른 증거이며 보내기 결과는 R2 정지 프레임이다.",
+    "verify": "node --check와 동일 입력 전후 비교를 수행한다. 한글/영어·기존 실패를 구분하고 방향·형판·버전을 기록한다.",
+    "role": "보드 인식과 카메라 연결 담당. 실물 도면은 hardware, 학습 화면 흐름은 games/phonics와 함께 검증한다."
+  },
+  {
+    "id": "hardware",
+    "name": "실물 교구·3D 설계",
+    "keywords": [
+      "하드웨어",
+      "교구",
+      "3D",
+      "STL",
+      "거치대",
+      "잠망경",
+      "돌기판"
+    ],
+    "features": [],
+    "agents": [],
+    "sources": [
+      "hardware/lrrh",
+      "hardware/periscope",
+      "hardware/stand",
+      "hardware/studboard",
+      "CLAUDE.md"
+    ],
+    "decision": "판·소켓 규격은 저장소의 실제 설계와 실측에서 확인한다. 출력 방향·공차·광학 경로를 분리해서 기록한다.",
+    "verify": "해당 설계의 검사 명령을 먼저 확인하고 치수·간섭·워터타이트·출력 방향을 검증한다. 시뮬레이션을 실물 출력 성공으로 보고하지 않는다.",
+    "role": "도면·출력·종이 시트 담당. 인식에 영향을 주는 규격 변경은 camera에 전달한다."
+  },
+  {
+    "id": "video",
+    "name": "영상·오디오북 제작",
+    "keywords": [
+      "영상",
+      "릴스",
+      "롱폼",
+      "오디오북",
+      "렌더",
+      "자막"
+    ],
+    "features": [
+      "audiobook",
+      "longform-video"
+    ],
+    "agents": [
+      "video-producer"
+    ],
+    "sources": [
+      "packages/client/src/features/audiobook/CLAUDE.md",
+      "packages/client/src/features/longform-video/CLAUDE.md",
+      "packages/remotion"
+    ],
+    "decision": "영상 제작과 채널 편성을 구분한다. 기존 렌더 파이프라인과 라이브 공유 컴포넌트를 확인한다.",
+    "verify": "현재 적용되는 영상 스킬과 기존 제작 지침에 따라 프레임·오디오·자막·실제 산출물을 검증한다. 렌더 성공과 외부 발행을 구분한다.",
+    "role": "제작/렌더 담당. 채널 전략은 marketing, 제품 포지셔닝은 strategy가 원본이다."
+  },
+  {
+    "id": "marketing",
+    "name": "마케팅·채널 운영",
+    "keywords": [
+      "마케팅",
+      "블로그",
+      "SEO",
+      "유튜브",
+      "채널",
+      "광고",
+      "카드뉴스"
+    ],
+    "features": [
+      "marketing",
+      "blog",
+      "blog-public",
+      "card-news"
+    ],
+    "agents": [
+      "marketing-specialist",
+      "naver-blog-manager",
+      "youtube-strategist"
+    ],
+    "sources": [
+      "docs/STRATEGY.md",
+      "docs/marketing/brand-brief.md",
+      "packages/client/src/features/marketing/CLAUDE.md",
+      "packages/client/src/features/blog/CLAUDE.md"
+    ],
+    "decision": "정체성/포지셔닝은 STRATEGY.md, 실행 톤/키워드는 brand-brief가 원본이다. 과거 채널 성과 수치를 현재 값으로 인용하지 않는다.",
+    "verify": "콘텐츠 미리보기·링크·공개 범위·예약 상태를 확인한다. 게시 권한과 로컬 스케줄러 비활성화를 확인한다.",
+    "role": "채널/카피/SEO 담당. 영상 산출물은 video, 사업 방향은 strategy와 조율한다."
+  },
+  {
+    "id": "account",
+    "name": "회원·결제·운영",
+    "keywords": [
+      "회원",
+      "로그인",
+      "인증",
+      "결제",
+      "구독",
+      "베타",
+      "권한",
+      "운영"
+    ],
+    "features": [
+      "auth",
+      "access",
+      "members",
+      "payment",
+      "ops",
+      "feedback",
+      "settings"
+    ],
+    "agents": [],
+    "sources": [
+      "packages/client/src/features/auth/CLAUDE.md",
+      "packages/client/src/features/access/config.ts"
+    ],
+    "decision": "베타 개방은 BETA_OPEN 덮개로 관리하고 종료 시점은 사용자가 정한다. 게스트와 인증된 환경의 차이를 보존한다.",
+    "verify": "게스트/회원·부모/자녀·직접 URL/버튼 진입을 확인한다. 결제 테스트는 실제 청구 없이 검증 가능한 환경에서 한다.",
+    "role": "인증·권한·운영 담당. 학습 이벤트는 reading, DB 공통 기반은 platform과 조율한다."
+  },
+  {
+    "id": "platform",
+    "name": "공통 기반·배포",
+    "keywords": [
+      "공통",
+      "기반",
+      "배포",
+      "서버",
+      "R2",
+      "DB",
+      "빌드",
+      "테스트",
+      "Git",
+      "오류",
+      "성능"
+    ],
+    "features": [],
+    "agents": [],
+    "sources": [
+      "CLAUDE.md",
+      "packages/shared",
+      "packages/server/src",
+      "docs/architecture-notes.md",
+      "docs/design-system.md"
+    ],
+    "decision": "shared 런타임 상대 import는 .js 확장자를 유지한다. 로컬 서버는 DISABLE_PUBLISH_SCHEDULER=1 설정을 확인한다.",
+    "verify": "변경에 맞는 typecheck/test/build와 실행 경로를 확인한다. tsc 통과와 Node ESM 실행 성공은 구분한다.",
+    "role": "저장소·공통 코드·빌드/배포 담당. 기능 데이터의 의미는 해당 영역 담당 지침과 대조한다."
+  },
+  {
+    "id": "strategy",
+    "name": "제품·사업 전략",
+    "keywords": [
+      "전략",
+      "사업",
+      "방향",
+      "우선순위",
+      "브랜딩",
+      "BM"
+    ],
+    "features": [],
+    "agents": [
+      "strategy-director"
+    ],
+    "sources": [
+      "docs/STRATEGY.md",
+      "docs/ROADMAP.md"
+    ],
+    "decision": "STRATEGY.md가 정체성·포지셔닝·사업 판단 원본이다. 뒤집힌 결정은 이유와 근거를 남긴다.",
+    "verify": "기존 결정·근거·미결 항목을 먼저 대조한다. 외부 사실이 필요한 판단은 자료 시점과 근거를 확인한다.",
+    "role": "사업 방향과 우선순위 담당. 마케팅 실행과 콘텐츠 제작은 각각 해당 영역으로 연결한다."
+  }
+]

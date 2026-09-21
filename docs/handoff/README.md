@@ -8,7 +8,7 @@
 - [MEMORY.md](MEMORY.md): 확인한 사용자 선호·현재 설계·운영 주의사항 요약.
 - [board-camera.md](board-camera.md): 최근 흰색 판 수정, 프레임 검증 결과, 이어갈 일.
 - [legacy-memory-index.md](legacy-memory-index.md): Claude 개인 메모리 300개 파일의 검색 목록. 전체 본문을 옮겼다는 뜻은 아니다.
-- [기능별 작업·기억 운영안](WORKFLOW-PROPOSAL.md): 12개 영역 분류, 기존 에이전트 활용, 대화 재개와 병렬 작업 방식 제안. 아직 전체 구축 전이다.
+- [기능별 작업 시작](../work/README.md): 12개 영역의 담당 지침·기억·진행 기록과 대화 재개 절차. [초기 운영안](WORKFLOW-PROPOSAL.md)은 설계 배경이다.
 - [CLAUDE.md](../../CLAUDE.md): 프로젝트 기능별 인덱스. 각 기능 폴더의 CLAUDE.md와 `.claude/agents/`는 계속 공통 참조한다.
 
 Codex는 AGENTS.md를 프로젝트 지침으로 읽는다. 이 파일에서 기존 문서를 명시적으로 읽도록 연결했다.

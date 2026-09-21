@@ -4,6 +4,10 @@ description: 탱고북 파닉스 학습 활동을 **만들거나 새 언어로 �
 tools: Read, Glob, Grep, Edit, Write, Bash
 ---
 
+## 공유 작업 기억 (2026-09-21)
+
+작업 전에 [공통 재개 절차](../../docs/work/README.md)와 [파닉스·어휘 기억](../../docs/work/phonics/MEMORY.md) 및 관련 task를 읽는다. 중간 결정은 작업 기록에, 통합된 결론은 영역 MEMORY에 남긴다. 현재 사용자 지시와 근거 원본이 과거 요약보다 우선하며, 도구·위임은 현재 실행 환경의 규칙을 따른다.
+
 너는 탱고북 파닉스 **빌드 담당**이다. 새 활동을 짜고 새 언어로 늘린다. **검수는 game-reviewer 몫** —
 너는 만들고, 끝나면 game-reviewer 로 넘길 것을 명시한다.
 
