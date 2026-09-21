@@ -28,7 +28,7 @@ THE ONLY THINGS THAT SAY WHO A FIGURE IS ARE WHAT ITS HANDS HOLD AND WHERE ITS F
 
 | | 몸 | 자세 | 까맣게 칠했을 때 |
 |---|---|---|---|
-| **피포** | 짧고 두툼한 통 하나, **머리가 몸의 1/3** | **내려간다** — 무릎을 접고 두 손이 가슴 앞으로 | 낮고 뭉툭한 덩어리, 늘 웅크림 |
+| **피포** | 흰 털의 작은 강아지, 길게 처진 검은 귀·앞으로 나온 주둥이 | 두 발로 서거나 걷고, 낮은 것을 만질 때 무릎을 굽힘 | 어린 체구·늘어진 귀·짧게 올라간 꼬리 |
 | **엄마** | 길고 가늘다, **몸 한가운데 허리** | **허리에서 접힌다** — 팔은 늘 아래로 늘어짐 | 긴 선 하나가 가운데서 한 번 꺾임 |
 | **할아버지** | **목 없는 달걀**, 머리는 몸에 비해 작다 | **뒤로 젖히고 앞장선다** | 다리 짧은 달걀 |
 | **아줌마** | **목이 몸 길이만큼**, 몸은 셋 중 제일 작다 | **몸은 붙박이고 목만 겨눈다** | 어깨에서 한 번 꺾이는 긴 목 |
@@ -46,17 +46,32 @@ THE ONLY THINGS THAT SAY WHO A FIGURE IS ARE WHAT ITS HANDS HOLD AND WHERE ITS F
 
 ## Pipo puppy
 
+2026-09-21 사용자 확정: **동화 본문 삽화의 흰 몸·긴 귀 피포**를 기준으로 한다.
+비교 표본은 `comic-assets/pipo-02/p1.webp`. 기획서에 저장된 짙은 회색·짧은 귀 시트는
+이 규격과 다르므로 새 피포의 외형 기준으로 사용하지 않는다. 시트 이미지는 별도 교체 작업이다.
+
 ```
-HE IS A CHILD BY BUILD, NOT BY SCALE. THREE HEADS TALL: the head is a THIRD of him and sits straight
-on the shoulders with NO NECK SHOWING. The body is ONE BARREL - chest and belly are a single curve
-and there is NO WAIST, so nothing on him folds in the middle. Arms and legs are SHORT AND THICK and
-hold the same width from shoulder to paw. EARS ARE SHORT AND SET HIGH ON TOP OF THE SKULL. The
-muzzle is BLUNT AND SHORT, no longer than one eye is wide. The tail is a STUB.
-STANCE: HE GOES DOWN TO THINGS. The knees bend and the whole body drops, and BOTH HANDS COME UP IN
-FRONT OF HIS CHEST onto whatever he is pressing, digging, rolling, hugging or carrying - his arms
-are never left hanging at his sides. HE IS THE ONLY FIGURE THAT CROUCHES.
-His outline is ONE CLEAN PRESSED LINE while every other edge on the page is furry.
-He wears a YELLOW SCARF and he is the only yellow thing in the book.
+PIPO IS A WHITE-FURRED PUPPY WITH LONG DROOPING BLACK EARS AND A YELLOW SCARF.
+Attach the existing story illustration pipo-02/p1 as a visual reference and match its puppy.
+That story-page puppy defines his identity; the older dark-grey, short-eared character sheet does not.
+FUR: the face, projecting muzzle, torso, arms and legs are warm white, visibly lighter than the
+cream paper. Keep the same white coat in front, side and back views. The ears are charcoal black;
+a few loose white tufts sit on the crown. Do not turn the whole body grey or add a dark facial mask.
+HEAD: a modest round skull with a clearly projecting, rounded dog muzzle and a black nose at its
+tip. The eyes are small, simple dark ovals, with short brow marks. No oversized glossy doll eyes.
+EARS: two long, soft black ears hang down along the cheeks to the jaw and neck, with rounded ends.
+They hang freely when he turns; they are neither short folded flaps nor upright ears.
+BUILD: a small childlike upright body, gently rounded belly, short rounded arms, short legs and
+broad white paw feet. Keep the head and body proportions of the story page, not a giant-headed toy.
+TAIL: a short dark tail curves upward behind him, clearly visible beyond the body in side view.
+SCARF: a plain golden-yellow scarf wraps his neck, with a loose flat end and small fringe. It is
+his only garment and only coloured accent. No cable-knit pattern, trousers, sleeves or shoes.
+STANCE: he stands and walks on two legs. His arms may rest at his sides when looking or listening;
+he bends his knees and brings his paws forward when handling something low. Follow the scene's
+action instead of forcing a crouch or an object into every pose.
+FINISH: textured charcoal/pencil on cream paper, white fur with gentle grey modelling, soft furry
+edges and clear dark facial marks, as in the story page. These Pipo-specific coat, face and shading
+rules take precedence over the anchor's generic flat-value, bare-paper and smudged-eye rules.
 ```
 
 ## Mom dog
