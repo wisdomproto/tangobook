@@ -18,13 +18,13 @@ Claude의 개인 memory나 에이전트 정의를 자동 실행/자동 로드한
 
 | 위치 | 확인한 상태 |
 |---|---|
-| `C:/projects/tangobook` | main으로 전환할 기본 개발 폴더. 전환 전 `claude/jeonrae-part2`의 변경은 로컬 보관 후 이동 |
+| `C:/projects/tangobook` | main으로 전환 완료. 이전 `claude/jeonrae-part2`의 미커밋 변경과 미추적 파일은 로컬 복구 참조에 보관 |
 | `C:/projects/tangobook/.claude/worktrees/board-white-plate` | 최근 작업 폴더. `fix/board-white-plate-contours`, 기준 커밋 `1822d143` |
 | `origin/main` | 흰색 판 수정 `1822d143` push 확인. 실제 배포 완료는 별도 확인 필요 |
 
 위 경로/브랜치를 영구 상수로 쓰지 않는다. 작업 시작 시 Git으로 다시 확인한다.
 다른 컴퓨터에서는 정상적인 최신 main checkout에서 작업하면 된다.
-전환 완료 후 이 루트에서 공통 AGENTS.md와 인수인계를 바로 읽을 수 있다.
+이 루트에서 공통 AGENTS.md와 인수인계를 바로 읽고 개발을 이어갈 수 있다.
 전환/브랜치 보관의 정확한 상태·복구 지점은 공통 Git 디렉터리의 `codex-main-migration-20260921/` 기록을 확인한다.
 
 ## 확인한 기존 문서
