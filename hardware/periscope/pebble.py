@@ -25,12 +25,14 @@ MIRROR_ADHESIVE_T = 0.20
 MIRROR_BACKING_T = 2.40
 MIRROR_BACKING_SIDE_MARGIN = 3.5
 MIRROR_BACKING_END_MARGIN = 0.8
+MIRROR_EDGE_CLEARANCE = 1.0
+MIRROR_FRONT_CLEARANCE = 1.0
 WIDTH = 49.0
 CAM_GAP = 15.0
 _MIR_HALF_Y = (MIR_H/2)*math.sin(math.radians(90-old.MU))+MIR_T/2
 BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
 FRONT = -BODY_D
-BACK = old.CHANNEL + old.WALL + 2.5
+BACK = old.CHANNEL + old.WALL + 3.5
 TOP = old.ROOF + 6.5
 SEAM = 0.20
 FIT = 0.30
@@ -48,7 +50,9 @@ PIN_R = 1.4
 FOAM_W = 16.0
 FOAM_H = 10.0
 FOAM_FREE_T = 6.0
-FOAM_POCKET = 1.0
+FOAM_BACK_WALL = 2.4
+FOAM_FIT = 0.60
+FOAM_MOUTH = 1.50
 FOAM_ARM_R = 0.40
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
@@ -149,6 +153,36 @@ def mirror_backing():
     return tilt(plate).intersect(envelope())
 
 
+@lru_cache(None)
+def mirror_fit_clearance():
+    """Open clearance around all four adhesive-mirror edges and corners."""
+    y0=-(MIR_T/2+MIRROR_ADHESIVE_T+0.05)
+    y1=MIR_T/2+MIRROR_FRONT_CLEARANCE
+    pocket=(cq.Workplane("XY")
+            .box(MIR_W+2*MIRROR_EDGE_CLEARANCE,y1-y0,
+                 MIR_H+2*MIRROR_EDGE_CLEARANCE)
+            .translate((0,(y0+y1)/2,0)))
+    return tilt(pocket)
+
+
+@lru_cache(None)
+def foam_pocket_volume():
+    """Main foam recess plus a wider lead-in mouth, for cutting and preview."""
+    foam_back=BACK-FOAM_BACK_WALL
+    foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
+    foam_front=foam_back-FOAM_FREE_T-FOAM_FIT
+    pocket=box(-FOAM_W/2-FOAM_FIT,FOAM_W/2+FOAM_FIT,
+               foam_front,foam_back+0.2,
+               foam_z-FOAM_H/2-FOAM_FIT,
+               foam_z+FOAM_H/2+FOAM_FIT)
+    mouth=box(-FOAM_W/2-FOAM_FIT-FOAM_MOUTH,
+              FOAM_W/2+FOAM_FIT+FOAM_MOUTH,
+              foam_front-0.8,foam_front+1.2,
+              foam_z-FOAM_H/2-FOAM_FIT-FOAM_MOUTH,
+              foam_z+FOAM_H/2+FOAM_FIT+FOAM_MOUTH)
+    return pocket.union(mouth)
+
+
 def camera_mouth():
     return (box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
                 CAMERA_Z-CAMERA_WINDOW_H/2,
@@ -243,13 +277,6 @@ def housing():
                           PHONE_TOP+0.15,TOP-old.WALL))
     shell = shell.cut(shaft(-old.PLATE_W/2-FIT,old.PLATE_W+2*FIT,
                             old.PIVOT_Y,PIVOT_Z,2.6))
-    # Open, visible pocket for a 16 x 10 x 6 mm foam block behind the paddle.
-    # The rear 1.4 mm sits in the wall; the remaining foam projects into the
-    # channel so it can compress instead of being trapped inside solid plastic.
-    foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
-    shell=shell.cut(box(-FOAM_W/2-0.3,FOAM_W/2+0.3,
-                        BACK-2.4,BACK-2.4+FOAM_POCKET+0.1,
-                        foam_z-FOAM_H/2-0.3,foam_z+FOAM_H/2+0.3))
     # Bearing blocks connect to the roof, unlike the original holes in empty space.
     for sign in (-1,1):
         lo, hi = sorted((sign*(old.PLATE_W/2+FIT), sign*(old.PLATE_W/2+4.8)))
@@ -275,13 +302,14 @@ def housing():
         rib_bottom=9.8 if y>0 else 2.5
         beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,rib_bottom,TOP)
         shell = shell.union(beam.intersect(envelope()))
-    # Cut this after adding ribs and the roof. The former shallow wall recess
-    # was later filled again by those unions, leaving no real foam volume.
-    foam_back=BACK-2.4+FOAM_POCKET
-    foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
-    shell=shell.cut(box(-FOAM_W/2-0.35,FOAM_W/2+0.35,
-                        foam_back-FOAM_FREE_T-0.35,foam_back+0.15,
-                        foam_z-FOAM_H/2-0.35,foam_z+FOAM_H/2+0.35))
+    # Cut this after adding ribs and the roof so later unions cannot refill it.
+    # The main rectangular pocket has 0.6 mm clearance around a 16 x 10 x 6 mm
+    # foam block. A wider shallow mouth makes the recess obvious and lets the
+    # foam slide in without catching an edge.
+    shell=shell.cut(foam_pocket_volume())
+    # Leave 1 mm around all four mirror edges. Cut this before adding the
+    # backing plate so the adhesive landing surface remains continuous.
+    shell=shell.cut(mirror_fit_clearance())
     # Add the plate after the broad U-channel cut so that cut cannot erase the
     # adhesive landing surface. The optical cut that follows only shaves its
     # front numerical boundary and preserves the plate behind the mirror.
@@ -318,7 +346,8 @@ def left_base():
     part=housing().intersect(box(-60,-SEAM/2,-100,100,-100,100))
     for y in LATCH_Y:
         z0=latch_z(y)
-        part=part.cut(box(LATCH_ROOT,0.2,y-2.5,y+2.5,z0-1.5,z0+2.6))
+        part=part.cut(box(LATCH_ROOT,0.2,y-2.5,y+2.5,
+                          z0-HOOK-0.15,z0+LATCH_THICK+1.0))
     for y in PIN_Y:
         pin=shaft(-2.0,5.5,y,PIN_Z,PIN_R).edges(">X").chamfer(0.35)
         part=part.union(pin)
@@ -337,8 +366,12 @@ def right():
     part=housing().intersect(box(SEAM/2,60,-100,100,-100,100))
     for y in LATCH_Y:
         z0=latch_z(y)
-        part=part.cut(box(0,7.2,y-2.5,y+2.5,z0-0.2,z0+2.6))
-        part=part.cut(box(2.7,7.2,y-2.5,y+2.5,z0-1.5,z0+2.6))
+        # Keep only the small ledge the snap hook actually catches. The old
+        # lower pocket was 1.5 mm deep and produced an oversized star-like cut.
+        part=part.cut(box(0,7.2,y-2.5,y+2.5,
+                          z0-0.2,z0+LATCH_THICK+1.0))
+        part=part.cut(box(2.7,7.2,y-2.5,y+2.5,
+                          z0-HOOK-0.15,z0+LATCH_THICK+1.0))
         # Small underside release port, no holes on the visible outer face.
         part=part.cut(box(3.4,5.8,y-1.2,y+1.2,-3.1,z0))
     for y in PIN_Y:part=part.cut(shaft(0,4.0,y,PIN_Z,PIN_R+0.2))
@@ -424,7 +457,7 @@ def print_plate():
 def foam():
     # Free-state soft PU foam. It intentionally intersects the resting paddle:
     # that overlap is preload, not a rigid-part clash.
-    back=BACK-2.4+FOAM_POCKET
+    back=BACK-FOAM_BACK_WALL
     z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
     return box(-FOAM_W/2,FOAM_W/2,back-FOAM_FREE_T,back,
                z-FOAM_H/2,z+FOAM_H/2)
@@ -438,7 +471,7 @@ def foam_compression(thickness):
     angle=math.radians(0 if thickness is None else paddle_angle(thickness))
     dy,dz=y-old.PIVOT_Y,z-PIVOT_Z
     rotated_y=old.PIVOT_Y+dy*math.cos(angle)-dz*math.sin(angle)
-    back=BACK-2.4+FOAM_POCKET
+    back=BACK-FOAM_BACK_WALL
     gap=back-rotated_y
     return 100*(FOAM_FREE_T-gap)/FOAM_FREE_T
 
@@ -461,6 +494,7 @@ def inspect():
         "mirror_mount":{"method":"factory adhesive back on continuous inclined pad",
             "adhesive_gap_mm":MIRROR_ADHESIVE_T,"insertion_groove":False,
             "mechanical_lips":False,
+            "edge_clearance_mm":MIRROR_EDGE_CLEARANCE,
             "finished_backing_volume_mm3":round(
                 volume(mirror_backing().cut(optical_path())),3)},
         "print_plate":{"file":"tango_pebble_print_plate.stl","bodies":3,
@@ -537,6 +571,12 @@ def inspect():
             "paddle_shell_mm3":round(volume(rotated.intersect(housing())),5),
             "foam_compression_percent":round(foam_compression(thickness),2)}
     report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
+        "pocket_inner_size":[FOAM_W+2*FOAM_FIT,FOAM_H+2*FOAM_FIT,
+                             FOAM_FREE_T+FOAM_FIT+0.2],
+        "lead_in_mouth_size":[FOAM_W+2*(FOAM_FIT+FOAM_MOUTH),
+                              FOAM_H+2*(FOAM_FIT+FOAM_MOUTH),2.0],
+        "rear_wall_thickness":round(FOAM_BACK_WALL-0.2,2),
+        "housing_overlap_mm3":round(volume(foam().intersect(housing())),5),
         "rest_preload_percent":round(foam_compression(None),2),
         "note":"Compression is geometric. Force, creep and recovery require a physical coupon."}
     report["rigid_optical_path_mm3"]={}
@@ -577,6 +617,7 @@ def inspect():
         report["pass"] &= all(v<0.01 for k,v in fit.items() if k.endswith("mm3"))
         report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
     report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
+    report["pass"] &= report["foam"]["housing_overlap_mm3"]<0.01
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
     report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01
