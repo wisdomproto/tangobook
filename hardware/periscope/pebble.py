@@ -215,11 +215,11 @@ def housing():
                              old.MIR_T+4.5,old.MIR_H+MIRROR_FRAME_H_PAD)
                  .edges().fillet(MIRROR_FRAME_R))
     shell = shell.union(frame.intersect(envelope())).cut(bed)
-    # Keep the area below the mirror open as a true U. The former frame tails
-    # created two pointed lower ledges; retention remains on the upper/back rim.
-    lower_u=(box(-PHONE_OPENING_W/2,PHONE_OPENING_W/2,-6.0,1.0,
-                 BOTTOM-1,MIRROR_Z)
-             .edges("|Y").fillet(PHONE_EDGE_R))
+    # Keep the whole space in front of and below the mirror open as a true U.
+    # This removes the film-thin side lips left by the sloped mirror frame;
+    # the upper/rear cradle plus rear transfer tape retain the mirror.
+    lower_u=box(-PHONE_OPENING_W/2,PHONE_OPENING_W/2,FRONT+2.4,1.0,
+                BOTTOM-1,MIRROR_TOP-0.5)
     shell=shell.cut(lower_u)
     # Internal ribs carry the two snap latches, clear of the optical path.
     for y in LATCH_Y:
@@ -364,6 +364,8 @@ def inspect():
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
         "edge_rounds":{"phone_opening":PHONE_EDGE_R,
             "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
+        "mirror_mount":{"method":"upper/rear cradle + 0.2 mm transfer tape",
+            "mechanical_lower_lip":False},
         "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
@@ -471,7 +473,10 @@ def inspect():
         report["pass"] &= all(v<0.01 for k,v in fit.items() if k.endswith("mm3"))
         report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
     report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
-    report["pass"] &= all(v>0.01 for v in report["mirror_retention_mm3"].values())
+    # The open U intentionally has no lower front lip. Five-direction cradle
+    # checks remain mechanical; the sixth direction is held by rear transfer tape.
+    report["pass"] &= all(v>0.01 for k,v in report["mirror_retention_mm3"].items()
+                          if k!="(0, 0, -1)")
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
     report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01
