@@ -102,7 +102,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="onset"
         className={cn(
           'left-[0.08em] w-[0.7em]',
-          hasCoda ? 'top-[-0.04em] h-[0.39em] text-[0.47em]' : 'top-[0.08em] h-[0.5em] text-[0.6em]'
+          hasCoda ? 'top-0 h-[0.42em] text-[0.42em]' : 'top-[0.08em] h-[0.5em] text-[0.6em]'
         )}
       >
         {cho}
@@ -112,7 +112,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="medial"
         className={cn(
           'left-[0.04em] w-[0.78em]',
-          hasCoda ? 'top-[0.29em] h-[0.38em] text-[0.45em]' : 'top-[0.5em] h-[0.53em] text-[0.58em]'
+          hasCoda ? 'top-[0.43em] h-[0.33em] text-[0.33em]' : 'top-[0.5em] h-[0.53em] text-[0.58em]'
         )}
       >
         {jung}
@@ -121,7 +121,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.14em] top-[0.63em] h-[0.31em] w-[0.66em] text-[0.41em]"
+          className="left-[0.14em] top-[0.77em] h-[0.38em] w-[0.66em] text-[0.38em]"
         >
           {jong}
         </Jamo>

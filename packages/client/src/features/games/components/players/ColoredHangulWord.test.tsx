@@ -82,6 +82,18 @@ describe('ColoredHangulWord', () => {
     );
   });
 
+  it('gives each row of a below-vowel syllable with a coda its own space', () => {
+    const { container } = render(<ColoredHangulWord word="불" />);
+
+    const onset = container.querySelector('[data-hangul-syllable="불"] [data-jamo-role="onset"]');
+    const medial = container.querySelector('[data-hangul-syllable="불"] [data-jamo-role="medial"]');
+    const coda = container.querySelector('[data-hangul-syllable="불"] [data-jamo-role="coda"]');
+
+    expect(onset).toHaveClass('top-0', 'h-[0.42em]', 'text-[0.42em]');
+    expect(medial).toHaveClass('top-[0.43em]', 'h-[0.33em]', 'text-[0.33em]');
+    expect(coda).toHaveClass('top-[0.77em]', 'h-[0.38em]', 'text-[0.38em]');
+  });
+
   it('keeps a compound vowel as one green medial', () => {
     const { container } = render(<ColoredHangulWord word="과" />);
 
