@@ -34,7 +34,7 @@ _MIR_HALF_Y = (MIR_H/2)*math.sin(math.radians(90-old.MU))+MIR_T/2
 BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
 FRONT = -BODY_D
 BACK = old.CHANNEL + old.WALL + 3.5
-TOP = old.ROOF + 6.5
+PHONE_INSERT_DEPTH = 8.0
 SEAM = 0.20
 FIT = 0.30
 LATCH_Y = (-22.0, 16.6)
@@ -46,7 +46,6 @@ LATCH_Z = 4.8
 HOOK = 0.75
 DEFLECT = 0.85
 PIN_Y = (-13.0, 5.0)
-PIN_Z = 7.3
 PIN_R = 1.4
 FOAM_W = 16.0
 FOAM_H = 10.0
@@ -60,13 +59,19 @@ CAMERA_WINDOW_H = 14.0
 PHONE_OPENING_W = 40.0
 PHONE_EDGE_R = 2.2
 MIRROR_FRAME_R = 1.2
-PHONE_TOP = old.ROOF-old.WALL
-Z_SHIFT = PHONE_TOP-old.PHONE_TOP
 _MIR_HALF_Z = (MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
               (MIR_T/2)*math.sin(math.radians(90-old.MU))
 MIRROR_Z = -old.CAM_DROP
 MIRROR_TOP = MIRROR_Z+_MIR_HALF_Z
 MIRROR_BOTTOM = MIRROR_Z-_MIR_HALF_Z
+# The phone's top edge seats this far beyond the mirror's visible top edge.
+PHONE_TOP = MIRROR_TOP+PHONE_INSERT_DEPTH
+Z_SHIFT = PHONE_TOP-old.PHONE_TOP
+BASE_Z_SHIFT = (old.ROOF-old.WALL)-old.PHONE_TOP
+MECHANISM_Z_DELTA = Z_SHIFT-BASE_Z_SHIFT
+PIN_Z = 7.3+MECHANISM_Z_DELTA
+# Preserve the original roof/mechanism clearance when the phone stop moves up.
+TOP = PHONE_TOP+old.WALL+6.5
 BOTTOM = min(-old.BODY_H, MIRROR_BOTTOM-old.WALL)
 CAMERA_R = 2.2
 # The visible top of the phone camera aligns with the visible top of the mirror.
@@ -102,7 +107,7 @@ def bounds_clearance(a,b):
 
 def latch_z(y):
     """Keep the rear latch above the foam pocket."""
-    return 11.0 if y > 0 else LATCH_Z
+    return 11.0+MECHANISM_Z_DELTA if y > 0 else LATCH_Z
 
 
 def export_print_stl(shape,path,tolerance=0.06,angular_tolerance=0.12):
@@ -443,7 +448,7 @@ def _place_on_bed(shape,x,y):
 
 @lru_cache(None)
 def print_plate_parts():
-    """Three separated, upside-down bodies on one 72 x 76 mm plate."""
+    """Three separated, upside-down bodies on one 78 x 76 mm plate."""
     # Start from the split-face-down layout, then turn every print body upside
     # down at the user's request and place its new lowest point on the bed.
     shell_left=(left().rotate((0,0,0),(0,1,0),90)
@@ -457,7 +462,7 @@ def print_plate_parts():
                      .rotate((0,0,0),(1,0,0),180))
     return {
         "shell_left":_place_on_bed(shell_left,0,0),
-        "shell_right":_place_on_bed(shell_right,38,0),
+        "shell_right":_place_on_bed(shell_right,41,0),
         "paddle":_place_on_bed(pressure_paddle,20,58),
     }
 
