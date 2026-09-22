@@ -49,7 +49,6 @@ PHONE_EDGE_R = 2.2
 MIRROR_FRAME_R = 1.2
 MIRROR_FRAME_W_PAD = 5.0
 MIRROR_FRAME_H_PAD = 3.0
-OUTLET_EDGE_R = 1.2
 PHONE_TOP = old.ROOF-old.WALL
 Z_SHIFT = PHONE_TOP-old.PHONE_TOP
 _MIR_HALF_Z = (old.MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
@@ -153,25 +152,7 @@ def optical_path():
     def loft(first,last):
         return cq.Workplane(obj=cq.Solid.makeLoft([
             cq.Wire.makePolygon(first+[first[0]]),cq.Wire.makePolygon(last+[last[0]])]))
-    def rounded_wire(points,radius,segments=5):
-        """Circumscribed rounded rectangle in an arbitrary 3D plane."""
-        center=sum(points,cq.Vector())*(1/4)
-        ux=(points[1]-points[0]).normalized()
-        uz=(points[3]-points[0]).normalized()
-        half_x=(points[1]-points[0]).Length/2
-        half_z=(points[3]-points[0]).Length/2
-        rounded=[]
-        for cx,cz,start_angle in ((half_x,-half_z,-90),(half_x,half_z,0),
-                                  (-half_x,half_z,90),(-half_x,-half_z,180)):
-            for i in range(segments+1):
-                angle=math.radians(start_angle+90*i/segments)
-                rounded.append(center+ux*(cx+radius*math.cos(angle))+
-                               uz*(cz+radius*math.sin(angle)))
-        return cq.Wire.makePolygon(rounded+[rounded[0]])
-    outgoing=cq.Workplane(obj=cq.Solid.makeLoft([
-        rounded_wire(corners,OUTLET_EDGE_R),
-        rounded_wire(far,OUTLET_EDGE_R*6)]))
-    return (loft(near,corners).union(outgoing)
+    return (loft(near,corners).union(loft(corners,far))
             .union(camera_mouth()).union(phone_u_opening()))
 
 
@@ -234,6 +215,12 @@ def housing():
                              old.MIR_T+4.5,old.MIR_H+MIRROR_FRAME_H_PAD)
                  .edges().fillet(MIRROR_FRAME_R))
     shell = shell.union(frame.intersect(envelope())).cut(bed)
+    # Keep the area below the mirror open as a true U. The former frame tails
+    # created two pointed lower ledges; retention remains on the upper/back rim.
+    lower_u=(box(-PHONE_OPENING_W/2,PHONE_OPENING_W/2,-6.0,1.0,
+                 BOTTOM-1,MIRROR_Z)
+             .edges("|Y").fillet(PHONE_EDGE_R))
+    shell=shell.cut(lower_u)
     # Internal ribs carry the two snap latches, clear of the optical path.
     for y in LATCH_Y:
         # Keep the rib high: after moving the mirror closer, the old low rib
@@ -376,8 +363,7 @@ def inspect():
         "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
         "edge_rounds":{"phone_opening":PHONE_EDGE_R,
-            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R,
-            "mirror_lower_ledges":OUTLET_EDGE_R},
+            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
         "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
