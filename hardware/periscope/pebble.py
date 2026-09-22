@@ -33,6 +33,11 @@ DEFLECT = 0.85
 PIN_Y = (-13.0, 5.0)
 PIN_Z = 7.3
 PIN_R = 1.4
+FOAM_W = 14.0
+FOAM_H = 8.0
+FOAM_FREE_T = 5.8
+FOAM_POCKET = 0.6
+FOAM_ARM_R = 0.40
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -92,6 +97,12 @@ def housing():
     shell = shell.cut(box(-WIDTH, WIDTH, 0, BACK-2.4, BOTTOM-1, old.ROOF-2.4))
     shell = shell.cut(shaft(-old.PLATE_W/2-FIT,old.PLATE_W+2*FIT,
                             old.PIVOT_Y,old.TONGUE_TOP,2.6))
+    # Shallow registered seat for the adhesive foam pad behind the paddle.
+    # Its back face is deeper than the channel wall, so the pad cannot wander.
+    foam_z=old.TONGUE_TOP-FOAM_ARM_R*old.TONGUE_C
+    shell=shell.cut(box(-FOAM_W/2-0.3,FOAM_W/2+0.3,
+                        BACK-2.4,BACK-2.4+FOAM_POCKET+0.1,
+                        foam_z-FOAM_H/2-0.3,foam_z+FOAM_H/2+0.3))
     # Bearing blocks connect to the roof, unlike the original holes in empty space.
     for sign in (-1,1):
         lo, hi = sorted((sign*(old.PLATE_W/2+FIT), sign*(old.PLATE_W/2+4.8)))
@@ -217,18 +228,31 @@ PARTS = {"shell_left":left, "shell_right":right, "paddle":paddle}
 
 
 def foam():
-    # Nominal 5 mm foam tape, locally preloaded by the straight paddle.
-    # Stiffness and compression recovery require a physical sample.
-    return box(-old.FOAM_W/2,old.FOAM_W/2,
-        BACK-2.4-5.0,BACK-2.4,
-        old.TONGUE_TOP-old.FOAM_ARM_R*old.TONGUE_C-old.FOAM_H/2,
-        old.TONGUE_TOP-old.FOAM_ARM_R*old.TONGUE_C+old.FOAM_H/2)
+    # Free-state soft PU foam. It intentionally intersects the resting paddle:
+    # that overlap is preload, not a rigid-part clash.
+    back=BACK-2.4+FOAM_POCKET
+    z=old.TONGUE_TOP-FOAM_ARM_R*old.TONGUE_C
+    return box(-FOAM_W/2,FOAM_W/2,back-FOAM_FREE_T,back,
+               z-FOAM_H/2,z+FOAM_H/2)
+
+
+def foam_compression(thickness):
+    """Geometric compression at the pad centre; force needs a real pad test."""
+    t=FOAM_ARM_R
+    y=old.PIVOT_Y+((old.GRIP_FREE+old.PLATE_T+0.5)-old.PIVOT_Y)*t+old.PLATE_T
+    z=old.TONGUE_TOP+(old.TONGUE_BOT-old.TONGUE_TOP)*t
+    angle=math.radians(0 if thickness is None else paddle_angle(thickness))
+    dy,dz=y-old.PIVOT_Y,z-old.TONGUE_TOP
+    rotated_y=old.PIVOT_Y+dy*math.cos(angle)-dz*math.sin(angle)
+    back=BACK-2.4+FOAM_POCKET
+    gap=back-rotated_y
+    return 100*(FOAM_FREE_T-gap)/FOAM_FREE_T
 
 
 SHOW = dict(PARTS, mirror=old.mirror, foam=foam)
 # Actual straight insertion trajectories, in reverse when exploding the view.
 EXPLODE = {"shell_left":(-28,0,0),"shell_right":(28,0,0),
-           "mirror":(0,0,0),"paddle":(0,0,0),"foam":(0,0,0)}
+           "mirror":(0,0,0),"paddle":(0,0,0),"foam":(0,0,22)}
 
 
 def inspect():
@@ -289,7 +313,11 @@ def inspect():
         report["phone_fit"][str(thickness)]={"paddle_angle_deg":round(deg,3),
             "phone_shell_mm3":round(volume(phone_shape.intersect(housing())),5),
             "phone_paddle_mm3":round(volume(phone_shape.intersect(rotated)),5),
-            "paddle_shell_mm3":round(volume(rotated.intersect(housing())),5)}
+            "paddle_shell_mm3":round(volume(rotated.intersect(housing())),5),
+            "foam_compression_percent":round(foam_compression(thickness),2)}
+    report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
+        "rest_preload_percent":round(foam_compression(None),2),
+        "note":"Compression is geometric. Force, creep and recovery require a physical coupon."}
     report["rigid_optical_path_mm3"]={}
     path=optical_path()
     for n in rigid:
@@ -321,6 +349,8 @@ def inspect():
         report["pass"] &= all(v<0.01 for v in report[key].values())
     for fit in report["phone_fit"].values():
         report["pass"] &= all(v<0.01 for k,v in fit.items() if k.endswith("mm3"))
+        report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
+    report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
     report["pass"] &= all(v>0.01 for v in report["mirror_retention_mm3"].values())
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     return report

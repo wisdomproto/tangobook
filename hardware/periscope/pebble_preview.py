@@ -45,13 +45,14 @@ def main():
                "paddle":(p.paddle(),(0,0,0)),"phone":(p.phone(drop=-24),(0,0,0))}
     render("insertion",(85,90,-50),scene=insertion,scale=42)
     installed={"shell_left":(p.left(),(0,0,0)),"paddle":(p.installed_paddle(),(0,0,0)),
-               "phone":(p.phone(),(0,0,0)),"mirror":(p.old.mirror(),(0,0,0))}
+               "phone":(p.phone(),(0,0,0)),"mirror":(p.old.mirror(),(0,0,0)),
+               "foam":(p.foam(),(0,0,0))}
     render("installed",(115,55,15),cutaway=True,scene=installed,scale=40)
     font=ImageFont.truetype("C:/Windows/Fonts/malgun.ttf",30)
     small=ImageFont.truetype("C:/Windows/Fonts/malgun.ttf",23)
     board=Image.new("RGB",(1800,1540),(248,244,237));draw=ImageDraw.Draw(board)
     draw.text((55,28),"TANGO / 스마트폰 반사경 — 조약돌형 조립 시안",font=font,fill="#3f2f24")
-    labels=[("assembled","01  완성 상태 — 누름판 축은 케이스 안에 숨음"),("exploded","02  케이스를 열어 거울·누름판 조립"),
+    labels=[("assembled","01  완성 상태 — 누름판 축은 케이스 안에 숨음"),("exploded","02  케이스를 열어 거울·스펀지·누름판 조립"),
             ("insertion","03  휴대폰 윗변을 아래에서 위로 밀어 넣음 ↑"),("installed","04  장착 단면 — 누름판이 뒤로 돌아 폰을 잡음")]
     for i,(n,label) in enumerate(labels):
         x=(i%2)*900;y=90+(i//2)*690
