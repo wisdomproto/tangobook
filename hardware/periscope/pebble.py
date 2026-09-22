@@ -16,7 +16,10 @@ import printable as old
 
 OUT = Path(__file__).resolve().parent / "out" / "pebble"
 WIDTH = 49.0
-FRONT = -old.BODY_D
+CAM_GAP = 12.0
+_MIR_HALF_Y = (old.MIR_H/2)*math.sin(math.radians(90-old.MU))+old.MIR_T/2
+BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
+FRONT = -BODY_D
 BACK = old.CHANNEL + old.WALL + 2.5
 BOTTOM = -old.BODY_H
 TOP = old.ROOF + 2.5
@@ -38,6 +41,8 @@ FOAM_H = 8.0
 FOAM_FREE_T = 5.8
 FOAM_POCKET = 0.6
 FOAM_ARM_R = 0.40
+CAMERA_WINDOW_W = 36.0
+CAMERA_WINDOW_H = 14.0
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -51,6 +56,25 @@ def shaft(x0, length, y, z, radius):
 
 def volume(shape):
     return sum(s.Volume() for s in shape.solids().vals())
+
+
+def mirror_center():
+    return (0.0,-CAM_GAP,-old.CAM_DROP)
+
+
+def tilt(shape):
+    return shape.rotate((0,0,0),(1,0,0),-(90.0-old.MU)).translate(mirror_center())
+
+
+def mirror():
+    return tilt(cq.Workplane("XY").box(old.MIR_W,old.MIR_T,old.MIR_H,
+                                             centered=(True,True,True)))
+
+
+def camera_mouth():
+    return box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
+               -old.CAM_DROP-CAMERA_WINDOW_H/2,
+               -old.CAM_DROP+CAMERA_WINDOW_H/2)
 
 
 @lru_cache(None)
@@ -70,7 +94,7 @@ def optical_path():
     a=math.radians(old.MU)
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
-    center=cq.Vector(*old.mirror_center())+normal*(old.MIR_T/2+0.02)
+    center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.02)
     camera=cq.Vector(0,0,-old.CAM_DROP)
     corners=[center+cq.Vector(x,0,0)+up*z for x,z in
              [(-old.APER_W/2,-old.APER_H/2),(old.APER_W/2,-old.APER_H/2),
@@ -80,11 +104,38 @@ def optical_path():
         incoming=point-camera
         reflected=incoming-normal*(2*incoming.dot(normal))
         far.append(point+reflected*5)
-    near=[camera+cq.Vector(x,0.6,z) for x,z in [(-0.8,-0.8),(0.8,-0.8),(0.8,0.8),(-0.8,0.8)]]
+    # Phone-facing opening is deliberately broad. A pinhole around one assumed
+    # lens position hides cameras that sit a few millimetres left/right or down.
+    # This is the Osmo-like hollow between the phone support and mirror.
+    near=[camera+cq.Vector(x,0.8,z) for x,z in
+          [(-CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
+           ( CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
+           ( CAMERA_WINDOW_W/2, CAMERA_WINDOW_H/2),
+           (-CAMERA_WINDOW_W/2, CAMERA_WINDOW_H/2)]]
     def loft(first,last):
         return cq.Workplane(obj=cq.Solid.makeLoft([
             cq.Wire.makePolygon(first+[first[0]]),cq.Wire.makePolygon(last+[last[0]])]))
-    return loft(near,corners).union(loft(corners,far))
+    return loft(near,corners).union(loft(corners,far)).union(camera_mouth())
+
+
+def camera_clearance():
+    """Incoming half only, exported for section views and HTML visualization."""
+    a=math.radians(old.MU)
+    normal=cq.Vector(0,math.sin(a),-math.cos(a))
+    up=cq.Vector(0,math.cos(a),math.sin(a))
+    center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.02)
+    camera=cq.Vector(0,0,-old.CAM_DROP)
+    mirror_corners=[center+cq.Vector(x,0,0)+up*z for x,z in
+        [(-old.APER_W/2,-old.APER_H/2),(old.APER_W/2,-old.APER_H/2),
+         (old.APER_W/2,old.APER_H/2),(-old.APER_W/2,old.APER_H/2)]]
+    phone_corners=[camera+cq.Vector(x,0.8,z) for x,z in
+        [(-CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
+         ( CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
+         ( CAMERA_WINDOW_W/2, CAMERA_WINDOW_H/2),
+         (-CAMERA_WINDOW_W/2, CAMERA_WINDOW_H/2)]]
+    return cq.Workplane(obj=cq.Solid.makeLoft([
+        cq.Wire.makePolygon(phone_corners+[phone_corners[0]]),
+        cq.Wire.makePolygon(mirror_corners+[mirror_corners[0]])]))
 
 
 @lru_cache(None)
@@ -116,15 +167,17 @@ def housing():
         a,b=sorted((sign*17.0,sign*21.0))
         shell=shell.union(box(a,b,0,BACK-1,old.PHONE_TOP,TOP-1).intersect(envelope()))
     # Mirror bed is closed at BOTH ends. The parting plane provides assembly access.
-    bed = old._tilt(cq.Workplane("XY").box(old.MIR_W+2*FIT,
+    bed = tilt(cq.Workplane("XY").box(old.MIR_W+2*FIT,
                          old.MIR_T+2*FIT,old.MIR_H+2*FIT))
     # Support the perimeter, including the upper/lower edges of the mirror.
-    frame = old._tilt(cq.Workplane("XY").box(old.MIR_W+9,
+    frame = tilt(cq.Workplane("XY").box(old.MIR_W+9,
                              old.MIR_T+4.5,old.MIR_H+5))
     shell = shell.union(frame.intersect(envelope())).cut(bed)
     # Internal ribs carry the two snap latches, clear of the optical path.
     for y in LATCH_Y:
-        beam = box(-WIDTH/2,WIDTH/2,y-3.5,y+3.5,-3.0,TOP)
+        # Keep the rib high: after moving the mirror closer, the old low rib
+        # crossed the mirror's near/top edge around z=-2.7 mm.
+        beam = box(-WIDTH/2,WIDTH/2,y-3.5,y+3.5,2.5,TOP)
         shell = shell.union(beam.intersect(envelope()))
     shell = shell.cut(optical_path())
     return shell
@@ -249,7 +302,7 @@ def foam_compression(thickness):
     return 100*(FOAM_FREE_T-gap)/FOAM_FREE_T
 
 
-SHOW = dict(PARTS, mirror=old.mirror, foam=foam)
+SHOW = dict(PARTS, mirror=mirror, foam=foam)
 # Actual straight insertion trajectories, in reverse when exploding the view.
 EXPLODE = {"shell_left":(-28,0,0),"shell_right":(28,0,0),
            "mirror":(0,0,0),"paddle":(0,0,0),"foam":(0,0,22)}
@@ -259,7 +312,9 @@ def inspect():
     shapes = {n:f() for n,f in SHOW.items()}
     report = {"units":"mm", "prototype":True,
         "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
-        "angle_deg":old.MU,"camera_gap":old.CAM_GAP,
+        "angle_deg":old.MU,"camera_gap":CAM_GAP,
+        "available_fov_deg":[round(2*math.degrees(math.atan((old.APER_W/2)/CAM_GAP)),2),
+            round(2*math.degrees(math.atan((old.APER_H*math.cos(math.radians(old.MU))/2)/CAM_GAP)),2)],
         "parts":{}, "interference_mm3":{},"assembly_sweep_mm3":{}}
     for n,s in shapes.items():
         b=s.val().BoundingBox()
@@ -329,7 +384,7 @@ def inspect():
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
     camera=cq.Vector(0,0,-old.CAM_DROP)
-    center=cq.Vector(*old.mirror_center())+normal*(old.MIR_T/2+0.04)
+    center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.04)
     for ix in (-1,0,1):
         for iz in (-1,0,1):
             hit=center+cq.Vector(ix*old.APER_W/2*0.98,0,0)+up*(iz*old.APER_H/2*0.98)
@@ -339,6 +394,12 @@ def inspect():
             outgoing=cq.Workplane(obj=cq.Solid.makeCylinder(0.01,70,hit,reflected))
             report["sampled_ray_obstruction_mm3"][f"{ix},{iz}"]=round(
                 volume(housing().intersect(incoming.union(outgoing))),7)
+    # Independent gauge at the phone face proves that the camera is not looking
+    # into a small pinhole or bridge left by the supports.
+    gauge=box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-1.0,0.75,
+              -old.CAM_DROP-CAMERA_WINDOW_H/2,-old.CAM_DROP+CAMERA_WINDOW_H/2)
+    report["camera_window"]={"width":CAMERA_WINDOW_W,"height":CAMERA_WINDOW_H,
+        "phone_face_obstruction_mm3":round(volume(housing().intersect(gauge)),7)}
     # Validate retention independently of the removed light path.
     report["mirror_retention_mm3"]={}
     for axis in [(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)]:
@@ -353,6 +414,7 @@ def inspect():
     report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
     report["pass"] &= all(v>0.01 for v in report["mirror_retention_mm3"].values())
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
+    report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
     return report
 
 

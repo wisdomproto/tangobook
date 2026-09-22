@@ -29,7 +29,7 @@ def encoded_stl(name, faces):
             # Keep the generator dependency-light: OCC can tessellate the exact
             # CAD with a coarse display tolerance when fast_simplification is absent.
             factories={"shell_left":cad.left,"shell_right":cad.right,
-                       "paddle":cad.paddle,"mirror":cad.old.mirror,"foam":cad.foam}
+                       "paddle":cad.paddle,"mirror":cad.mirror,"foam":cad.foam}
             with tempfile.TemporaryDirectory() as temp_dir:
                 temporary=Path(temp_dir)/f"{name}.stl"
                 cq.exporters.export(factories[name](),str(temporary),
@@ -37,6 +37,13 @@ def encoded_stl(name, faces):
                 mesh=trimesh.load(temporary,force="mesh")
     raw = mesh.export(file_type="stl")
     return base64.b64encode(raw).decode("ascii")
+
+
+def encoded_cad(factory):
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temporary=Path(temp_dir)/"display.stl"
+        cq.exporters.export(factory(),str(temporary),tolerance=0.25,angularTolerance=0.35)
+        return base64.b64encode(temporary.read_bytes()).decode("ascii")
 
 
 def main():
@@ -50,15 +57,17 @@ def main():
         "paddle": encoded_stl("paddle", 700),
         "mirror": encoded_stl("mirror", 12),
         "foam": encoded_stl("foam", 12),
+        "cameraSpace": encoded_cad(cad.camera_clearance),
     }
     fragment = r'''
 <div id="tango-pebble-viewer">
   <h2>스마트폰 반사경 조립</h2>
   <div class="nav nav-pills" role="tablist" aria-label="조립 상태">
-    <button class="nav-link active" type="button" data-state="closed" aria-selected="true">완성</button>
+    <button class="nav-link" type="button" data-state="closed" aria-selected="false">완성</button>
     <button class="nav-link" type="button" data-state="exploded" aria-selected="false">분해</button>
     <button class="nav-link" type="button" data-state="inserting" aria-selected="false">폰 끼우기</button>
     <button class="nav-link" type="button" data-state="installed" aria-selected="false">장착 단면</button>
+    <button class="nav-link active" type="button" data-state="camera" aria-selected="true">카메라 공간</button>
   </div>
   <div class="viz-controls">
     <label class="form-label" for="tango-phone-thickness">휴대폰 두께 <span id="tango-thickness-value" class="tabular-nums">9 mm</span></label>
@@ -143,6 +152,7 @@ def main():
   }
   addMesh('shellLeft',colors.shell); addMesh('shellRight',colors.shell);
   addMesh('paddle',colors.paddle); addMesh('mirror',colors.mirror,.82); addMesh('foam',colors.foam);
+  addMesh('cameraSpace',colors.mirror,.24); objects.cameraSpace.material.depthWrite=false;
 
   const phoneMaterial=material(colors.phone);
   let phone=new THREE.Mesh(); scene.add(phone); objects.phone=phone;
@@ -178,11 +188,13 @@ def main():
     exploded:{camera:[108,-130,86],text:'거울 → 스펀지 → 누름판을 넣고 좌우 케이스를 딸깍 닫습니다.'},
     inserting:{camera:[92,104,-50],text:'화면과 전면 카메라를 거울 쪽에 두고, 휴대폰 윗변을 아래에서 위로 밀어 넣습니다.'},
     installed:{camera:[118,66,18],text:'누름판이 휴대폰 뒷면 쪽으로 회전하며 스펀지를 압축해 고정합니다.'}
+    ,camera:{camera:[112,58,18],text:'휴대폰 전면과 거울 사이를 36 × 14 mm로 파내 카메라가 지지대에 가리지 않습니다.'}
   };
-  let current='closed';
+  let current='camera';
   function resetTransforms() {
     for(const object of Object.values(objects)) { object.visible=true; object.position.set(0,0,0); object.rotation.set(0,0,0); }
     setPaddleRotation(0);
+    objects.cameraSpace.visible=false;
     objects.shellRight.material.opacity=1; objects.shellRight.material.transparent=false;
   }
   function applyState(name,resetCamera=true) {
@@ -197,6 +209,11 @@ def main():
     if(name==='installed') {
       objects.shellRight.material.transparent=true; objects.shellRight.material.opacity=.12;
       objects.shellRight.material.depthWrite=false;
+      setPaddleRotation(paddleAngle(thickness));
+    } else if(name==='camera') {
+      objects.shellRight.material.transparent=true; objects.shellRight.material.opacity=.10;
+      objects.shellRight.material.depthWrite=false;
+      objects.cameraSpace.visible=true;
       setPaddleRotation(paddleAngle(thickness));
     } else { objects.shellRight.material.depthWrite=true; }
     status.textContent=states[name].text;
@@ -215,7 +232,7 @@ def main():
     const width=stage.clientWidth,height=stage.clientHeight;
     renderer.setSize(width,height,false); camera.aspect=width/height; camera.updateProjectionMatrix();
   }
-  new ResizeObserver(resize).observe(stage); resize(); applyState('closed');
+  new ResizeObserver(resize).observe(stage); resize(); applyState('camera');
   function frame() { controls.update(); renderer.render(scene,camera); requestAnimationFrame(frame); }
   frame();
 </script>

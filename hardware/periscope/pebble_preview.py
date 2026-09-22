@@ -45,7 +45,7 @@ def main():
                "paddle":(p.paddle(),(0,0,0)),"phone":(p.phone(drop=-24),(0,0,0))}
     render("insertion",(85,90,-50),scene=insertion,scale=42)
     installed={"shell_left":(p.left(),(0,0,0)),"paddle":(p.installed_paddle(),(0,0,0)),
-               "phone":(p.phone(),(0,0,0)),"mirror":(p.old.mirror(),(0,0,0)),
+               "phone":(p.phone(),(0,0,0)),"mirror":(p.mirror(),(0,0,0)),
                "foam":(p.foam(),(0,0,0))}
     render("installed",(115,55,15),cutaway=True,scene=installed,scale=40)
     font=ImageFont.truetype("C:/Windows/Fonts/malgun.ttf",30)
