@@ -340,8 +340,10 @@ ${awardBlock}
   //    두 판정은 여기서 갈리지 않는다 — naive 가 찾은 것들 중 **가장 긴 별칭은 엄격 판정에서도 살아남으므로**
   //    「하나도 없다」의 답이 같다. 🔴 감지를 고칠 일이 생기면 template 쪽을 고쳐라(여기는 개수만 센다).
   const empty = [];
-  for (const [v, pp] of Object.entries(SCENES)) for (const [p, t] of Object.entries(pp))
-    if (!cfg.cast.some((c) => c.aliases.some((al) => t.toLowerCase().includes(al.toLowerCase())))) empty.push(`${v} ${p}`);
+  for (const [v, pp] of Object.entries(SCENES)) for (const [p, t] of Object.entries(pp)) {
+    const visibleScene = t.split(/(?:<b>)?표정 연기/)[0];
+    if (!cfg.cast.some((c) => c.aliases.some((al) => visibleScene.toLowerCase().includes(al.toLowerCase())))) empty.push(`${v} ${p}`);
+  }
   // ③ 쪽수
   const badPages = [...books.values()].filter((b) => b.pages.length !== 10).map((b) => `${b.id}:${b.pages.length}`);
   // ④ 🔴 캐스트 규격이 조용히 안 붙는 것 — 시트가 이름만 다르고 지시가 같아지는 그 병이다.

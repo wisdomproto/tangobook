@@ -36,11 +36,6 @@ RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the he
   body and the face is a shape cut clean out of it, so what shows there is the white sheet beneath,
   the same white as the water. It is the brightest thing on the figure and it is what the eye finds
   first. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF THAT CUT-AWAY
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH NOTCH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth notch at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth notch comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouth notchs are drawn - one each, not
-  one between them. And never write that a mouth notch is shut on a page where that mouth notch is the one speaking.
   SHAPE, each one still joined to the black around the head, so NO BLACK PIECE IS EVER LEFT AS AN
   ISLAND INSIDE WHITE and nothing floats. A snout or a bill is the black that remains between two
   notches. 🔴 NEVER A WHITE PLATE LAID ON TOP OF A BLACK HEAD, and never eyes painted onto white.
@@ -88,22 +83,42 @@ CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut 
   plate, no painted eye. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF
   THAT CUT-AWAY SHAPE, each still joined to the black of the head, so no black piece is ever an
   island inside white. A pig's snout and a duck's bill are the black left standing between two
-  notches, on the outline of the head. The mouth notch is never wider than the two eye notches
-  together and never a hairline slit.
-  🔴 EXPRESSION IS THE SHAPE OF THE NOTCH, and the knife may cut it any shape: a round one is looking,
-  a wide oval is startled, a thin lifted crescent is laughing, a crescent bent down is squinting or
-  cross, a hairline slit is shut. There are no eyebrows and no pupils - the notch is the whole eye.
+  notches, on the outline of the head. Keep the snout proportions while the mouth notch changes
+  width and opening with emotion; a lightly pressed closed mouth is allowed.
+  EXPRESSION comes from the angle, opening and asymmetry of the eye and mouth notches. Eyelid
+  cuts and the upper eye edge may lift, narrow, soften or press inward. Shape the inner edge toward
+  what is being watched, with head direction supporting the gaze. Keep the connected-paper medium;
+  no floating pupils or separate painted eyebrows. A crescent alone does not mean every mood is joy.
   🔴 TEETH (any page where the mouth notch is open wide enough to show inside): teeth are a comb of
   short black tines hanging DOWN from the black of the upper jaw into the mouth notch, joined to the
   head at their roots - never separate pieces, never an island; a gap in the comb is one tine missing.
-  🔴 TEARS ARE NEVER CUT - no drop and no streak on a face, because the face is cut-away white and a
-  black drop in it would be an island. Crying is the body: the face buried in a lap or behind an arm,
-  fists clenched in cloth, shoulders pushed up; afterwards a sleeve wiping the snout is enough.
+  CRYING must be readable on a visible face: tense sloping eye cuts and a trembling downturned
+  mouth notch, supported by shoulders and hands. A tear cut may join the eye cut; no floating black
+  drops. Do not hide the face solely because the character is crying.
   THE FOUR: DINGDING a piglet, smallest,
   the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot
   a small animal can crawl into · MOTHER tallest and narrowest, a head cloth, trousers rolled below
   the knee so the calves are bare · GRANDMOTHER widest and shortest, back curved forward, hair in a
   bun, wide trousers to the ankle · MING a grown duck in a sleeveless VEST, the only bird.
+
+FACIAL ACTING: reference images fix species, head and muzzle proportions, body silhouette, palette,
+  markings, clothing and accessories; they do NOT fix a neutral expression. Keep the same character
+  while changing eyelid opening, eye angle, mouth corners, jaw tension and ear angle for this moment.
+  Curiosity: attentive eyes aimed toward the object, mouth slightly parted. Concern: tense lower lids,
+  inward-raised eye region, mouth corners lowered. Refusal or discomfort: narrowed tense eyes, firm
+  or downturned mouth, ears back; never a cheerful grin. Concentration: eyes directed at the task,
+  steady lids and a relaxed or lightly pressed mouth, not laughing. Sadness: lowered gaze, lifted
+  inner eye region and downturned trembling mouth. Relief: tension releases in lids and jaw, a small
+  soft smile. Joy: lifted cheeks, smiling eyes and raised mouth corners. Surprise: lifted lids and a
+  briefly open mouth, not the default face. Use only the emotion supported by this page's action/text;
+  two characters may feel differently. Preserve a scripted deliberate smile, joke or laugh.
+  SPEECH: an on-screen speaker's mouth may open only as much as the emotion and captured syllable
+  need; speaking never automatically means a grin or a round O. A listening face may stay closed.
+  Keep the specified crop: never add a face or speaker to a hand/prop close-up, back view, landscape
+  or empty scene solely to show a mouth. Facial detail uses the same flat medium, never glossy eyes,
+  realistic shading or a redesigned muzzle. When making a character sheet, include a small acting
+  row of the SAME character: curious, refusing, worried, sad, relieved and joyful; retain all identity
+  features across the row. Page prompts draw one moment, not a sheet of expressions.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 

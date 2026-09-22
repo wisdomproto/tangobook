@@ -87,7 +87,8 @@
   //    「타로 엄마」에는 어차피 「타로」가 들어 있다. 빌더의 별칭 충돌 가드는 그대로 두되(설계 경고),
   //    감지는 여기서 정확해진다.
   function detectChars(sceneText) {
-    var rest = String(sceneText || '').toLowerCase();
+    // 표정 참고 본문에는 화면 밖 인물도 언급된다. 등장 판정은 원래 컷 설명만 사용한다.
+    var rest = String(sceneText || '').split(/(?:<b>)?표정 연기/)[0].toLowerCase();
     var pairs = [];
     ALL.forEach(function (c) {
       (c.aliases || [c.name]).forEach(function (n) { pairs.push({ key: c.key, n: String(n).toLowerCase() }); });

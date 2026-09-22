@@ -28,7 +28,7 @@ THE STRETCH IS IN HIS ARMS AND HIS TAIL. Body a small round ball, legs short und
 run down past his feet at the same narrow width, and ONE tail runs longer than his whole body and
 ENDS IN A CLOSED CURL - the curl is his mark and no one else in the book has a closed loop anywhere.
 Fingers are thin and held APART, never bunched: his hands are the fast thing about him.
-He is the SHORTEST of the four. Eyes are the upright oval, wide open.
+He is the SHORTEST of the four. Resting eyes are upright ovals; expression follows the anchor acting guidance.
 He wears ONE cord at the waist and it is the accent dye.
 ```
 
@@ -39,7 +39,7 @@ THE STRETCH IS IN HER LEGS AND HER EARS. Two legs, long and straight and the sam
 width from hip to foot, carrying a small round body HIGH OFF THE GROUND, so there is open
 page between her belly and her feet where Taro has none. TWO EARS STAND UP TALLER THAN HER HEAD IS
 HIGH and turn to point where a sound came from; the tail is a stub. Arms are ordinary and short.
-She stands A HEAD TALLER than Taro. Eyes are the upright oval, wide open.
+She stands A HEAD TALLER than Taro. Resting eyes are upright ovals; expression follows the anchor acting guidance.
 She wears ONE cord on her head and it is the accent dye.
 ```
 

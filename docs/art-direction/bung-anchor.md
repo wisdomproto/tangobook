@@ -69,19 +69,29 @@ CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no 
   the shoulder, a fold of the top held, a knee sat across, both ends of one carried thing, a back
   slept against, or a gap no wider than a hand. Where the little one is off the page - the event of
   some books - the page keeps the empty place at Bung's side, or the hand that has let go.
-  A FACE CARRIES DOME, MUZZLE, 2 HORNS, 2 EARS, EYE DISC, BROW BAR, MOUTH CURVE AND NOTHING ELSE.
-  Nothing is added for feeling - a full mouth is the SAME dome cut wider for that page. The eye is a
-  solid KEY-INK DISC on the dome and in three-quarter or profile ONLY ONE is cut, on the near side;
-  above it ONE short brow bar. Feeling is the mouth curve and the tilt of the brow bar; the disc
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
-  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
-  never changes size. 🔴 A CLOSED EYE is ONE short key-ink bar in the disc's place, exactly the disc's
-  width; a smiling eye is that same bar bent upward; a shut-tight eye is the same bar with the brow bar
-  pressed onto it. Neither is ever wider or narrower than the disc, and the disc is never cut larger for
-  surprise - surprise is the brow bar lifted high.
+  Keep the buffalo dome, muzzle, horn span, ears and brow-bar design. Eyes are KEY-INK marks;
+  profile shows the near eye, a frontal face shows both. Eye opening, width and tilt may change with
+  emotion; closed eyes are expressive carved arcs, not fixed-width bars. Brow bars and mouth curves
+  work together with the eyes and ears. Preserve head proportions when the jaw opens.
+
+FACIAL ACTING: reference images fix species, head and muzzle proportions, body silhouette, palette,
+  markings, clothing and accessories; they do NOT fix a neutral expression. Keep the same character
+  while changing eyelid opening, eye angle, mouth corners, jaw tension and ear angle for this moment.
+  Curiosity: attentive eyes aimed toward the object, mouth slightly parted. Concern: tense lower lids,
+  inward-raised eye region, mouth corners lowered. Refusal or discomfort: narrowed tense eyes, firm
+  or downturned mouth, ears back; never a cheerful grin. Concentration: eyes directed at the task,
+  steady lids and a relaxed or lightly pressed mouth, not laughing. Sadness: lowered gaze, lifted
+  inner eye region and downturned trembling mouth. Relief: tension releases in lids and jaw, a small
+  soft smile. Joy: lifted cheeks, smiling eyes and raised mouth corners. Surprise: lifted lids and a
+  briefly open mouth, not the default face. Use only the emotion supported by this page's action/text;
+  two characters may feel differently. Preserve a scripted deliberate smile, joke or laugh.
+  SPEECH: an on-screen speaker's mouth may open only as much as the emotion and captured syllable
+  need; speaking never automatically means a grin or a round O. A listening face may stay closed.
+  Keep the specified crop: never add a face or speaker to a hand/prop close-up, back view, landscape
+  or empty scene solely to show a mouth. Facial detail uses the same flat medium, never glossy eyes,
+  realistic shading or a redesigned muzzle. When making a character sheet, include a small acting
+  row of the SAME character: curious, refusing, worried, sad, relieved and joyful; retain all identity
+  features across the row. Page prompts draw one moment, not a sheet of expressions.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
@@ -109,7 +119,7 @@ SHEET LAYOUT: one cream sheet, four buffaloes standing in a row on a single grou
   ROW AND THE SHEET IS WRONG IF EITHER FAILS: every one of the four is a buffalo at a glance, from
   the horn crescents and the muzzle alone; and the four are told apart from each other by horn span,
   height and headwear alone.
-  Nothing else on the sheet - no props, no scenery, no ground beyond the one line.
+  Include the facial acting row described above. No props or scenery beyond the ground line.
 🔴 No lettering, numerals, labels or name tags anywhere on the sheet.
 ```
 

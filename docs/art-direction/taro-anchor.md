@@ -60,22 +60,38 @@ CHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the w
   resting one, and the longest thing in any picture belongs to whoever is doing the thing the page
   is about.
   🔴 THE WHOLE FACE IS WAXED CLOTH, so a face is the palest thing on any page and
-  the eyes, nose and mouth are small DEEP marks left inside it. An eye is a NARROW UPRIGHT OVAL, not
-  a round dot: it stretches taller when the eyes go wide and squashes to a flat lying oval when they
-  narrow or shut, but covers the same area of face either way. 🔴 THERE ARE NO EYEBROWS - the deep
-  marks inside a waxed face are exactly three, two eyes and one mouth, and a fourth is never added.
-  🔴 AN EYE CANNOT POINT - an oval has no pupil and no direction, so where a character is looking is
-  said by the head, the neck and the stretched limb, never by the eye. The mouth is ONE curve and
-  carries the feeling; nothing crosses a face, not even rain.
+  the eyes and mouth are small DEEP marks left inside it. The resting eye is a narrow upright oval;
+  its opening, width, angle and position may change to show feeling and gaze without enlarging the
+  head. Closed eyes are expressive arcs. Short DEEP eyelid or brow strokes are allowed when needed
+  to distinguish worry, doubt and irritation; there is no fixed three-mark or equal-eye-area limit.
+  Mouth corners, opening and tension change with feeling. Preserve the waxed face shape and the
+  established body motifs in the attached references; never replace them with naturalistic fur or
+  remodel the muzzle to obtain expression. Rain and decorative cracks still avoid the face.
   TARO is a monkey child, small and round-bodied, the stretch in his thin arms and one long tail
   that ends in a closed curl; MUMU is a deer child, a head taller, the stretch in long straight legs
   and two tall ears that turn, a stub tail. The two grown animals sit or are seen from behind, run
   long in the back and the neck instead, and carry no accent colour anywhere.
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME - a grown
-  one turns its long neck to bring the open mouth round even when it sits or is seen from behind, and
-  a hand close-up hangs the speaker's open mouth at the top edge. 🔴 ONE EXCEPTION to the three-marks
-  rule: on a page whose whole point is a thing caught INSIDE the mouth (a leaf scrap between the
-  teeth), that thing is a fourth small DEEP mark - on that page only, never elsewhere.
+  If the story focuses on a leaf caught between teeth, show that small DEEP scrap inside the mouth
+  on that page. It is a story prop, not a permanent facial marking.
+
+FACIAL ACTING: reference images fix species, head and muzzle proportions, body silhouette, palette,
+  markings, clothing and accessories; they do NOT fix a neutral expression. Keep the same character
+  while changing eyelid opening, eye angle, mouth corners, jaw tension and ear angle for this moment.
+  Curiosity: attentive eyes aimed toward the object, mouth slightly parted. Concern: tense lower lids,
+  inward-raised eye region, mouth corners lowered. Refusal or discomfort: narrowed tense eyes, firm
+  or downturned mouth, ears back; never a cheerful grin. Concentration: eyes directed at the task,
+  steady lids and a relaxed or lightly pressed mouth, not laughing. Sadness: lowered gaze, lifted
+  inner eye region and downturned trembling mouth. Relief: tension releases in lids and jaw, a small
+  soft smile. Joy: lifted cheeks, smiling eyes and raised mouth corners. Surprise: lifted lids and a
+  briefly open mouth, not the default face. Use only the emotion supported by this page's action/text;
+  two characters may feel differently. Preserve a scripted deliberate smile, joke or laugh.
+  SPEECH: an on-screen speaker's mouth may open only as much as the emotion and captured syllable
+  need; speaking never automatically means a grin or a round O. A listening face may stay closed.
+  Keep the specified crop: never add a face or speaker to a hand/prop close-up, back view, landscape
+  or empty scene solely to show a mouth. Facial detail uses the same flat medium, never glossy eyes,
+  realistic shading or a redesigned muzzle. When making a character sheet, include a small acting
+  row of the SAME character: curious, refusing, worried, sad, relieved and joyful; retain all identity
+  features across the row. Page prompts draw one moment, not a sheet of expressions.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
