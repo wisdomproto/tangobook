@@ -27,6 +27,7 @@ MIRROR_BACKING_SIDE_MARGIN = 3.5
 MIRROR_BACKING_END_MARGIN = 0.8
 MIRROR_EDGE_CLEARANCE = 1.0
 MIRROR_FRONT_CLEARANCE = 1.0
+SIDE_VIEW_RELIEF_R = 2.5
 WIDTH = 49.0
 CAM_GAP = 15.0
 _MIR_HALF_Y = (MIR_H/2)*math.sin(math.radians(90-old.MU))+MIR_T/2
@@ -183,6 +184,17 @@ def foam_pocket_volume():
     return pocket.union(mouth)
 
 
+@lru_cache(None)
+def mirror_side_view_relief():
+    """Rounded lower/front notches that leave L-shaped mirror side walls."""
+    inner=MIR_W/2+MIRROR_EDGE_CLEARANCE
+    z_top=CAMERA_Z+CAMERA_WINDOW_H/2+0.8
+    def notch(x0,x1):
+        return (box(x0,x1,FRONT-1,-2.4,BOTTOM-1,z_top)
+                .edges("|X").fillet(SIDE_VIEW_RELIEF_R))
+    return notch(-WIDTH/2-1,-inner).union(notch(inner,WIDTH/2+1))
+
+
 def camera_mouth():
     return (box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
                 CAMERA_Z-CAMERA_WINDOW_H/2,
@@ -313,6 +325,9 @@ def housing():
     # front numerical boundary and preserves the plate behind the mirror.
     shell=shell.union(mirror_backing())
     shell = shell.cut(optical_path())
+    # Open the lower/front corner of each restored side wall. The remaining
+    # top rail and phone-side post form an L, with R2.5 internal corners.
+    shell=shell.cut(mirror_side_view_relief())
     return shell
 
 
@@ -488,7 +503,8 @@ def inspect():
         "mirror":[MIR_W,MIR_H,MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
         "edge_rounds":{"phone_opening":PHONE_EDGE_R,
-            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
+            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R,
+            "mirror_side_relief":SIDE_VIEW_RELIEF_R},
         "mirror_mount":{"method":"factory adhesive back on continuous inclined pad",
             "adhesive_gap_mm":MIRROR_ADHESIVE_T,"insertion_groove":False,
             "mechanical_lips":False,
