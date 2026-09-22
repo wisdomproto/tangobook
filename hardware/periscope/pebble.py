@@ -181,9 +181,36 @@ def paddle():
     panel=(cq.Workplane("YZ").workplane(offset=-old.PLATE_W/2)
            .polyline([(y0,z0),(y1,z1),(y1+old.PLATE_T,z1),
                       (y0+old.PLATE_T,z0)]).close().extrude(old.PLATE_W))
-    panel=panel.union(shaft(-old.PLATE_W/2,old.PLATE_W,y0,z0,2.2))
     panel=panel.union(shaft(-old.PLATE_W/2,old.PLATE_W,y1,z1,lip_r))
-    return panel.union(shaft(-old.PLATE_W/2-3,old.PLATE_W+6,y0,z0,old.PIN_D/2))
+    # Only two short axle stubs enter the shell bearings. A full-width round
+    # axle looked like an exposed handle across the phone opening.
+    panel=panel.union(shaft(-old.PLATE_W/2-3,3,y0,z0,old.PIN_D/2))
+    return panel.union(shaft(old.PLATE_W/2,3,y0,z0,old.PIN_D/2))
+
+
+def paddle_angle(thickness):
+    """Angle where the rolled lower edge first meets the phone back."""
+    radius=old.PLATE_T+0.5
+    dy=old.GRIP_FREE+radius-old.PIVOT_Y
+    dz=old.TONGUE_BOT-old.TONGUE_TOP
+    lo,hi=0.0,math.radians(40)
+    for _ in range(40):
+        t=(lo+hi)/2
+        front=old.PIVOT_Y+dy*math.cos(t)-dz*math.sin(t)-radius
+        if front<thickness:lo=t
+        else:hi=t
+    return math.degrees((lo+hi)/2)
+
+
+def installed_paddle(thickness=9.0):
+    return paddle().rotate((0,old.PIVOT_Y,old.TONGUE_TOP),
+                           (1,old.PIVOT_Y,old.TONGUE_TOP),paddle_angle(thickness))
+
+
+def phone(thickness=9.0, drop=0.0):
+    """Upper 52 mm of a phone, shown only for assembly review."""
+    return (box(-36,36,0,thickness,old.PHONE_TOP-52+drop,old.PHONE_TOP+drop)
+            .edges("|Y").fillet(5.0))
 
 
 PARTS = {"shell_left":left, "shell_right":right, "paddle":paddle}
@@ -255,22 +282,13 @@ def inspect():
     for thickness in (7,9,11):
         # The rolled contact lip is a circle; solve its front tangent against
         # the phone back, then test the ENTIRE paddle, not only that point.
-        radius=old.PLATE_T+0.5
-        dy=old.GRIP_FREE+radius-old.PIVOT_Y
-        dz=old.TONGUE_BOT-old.TONGUE_TOP
-        lo,hi=0.0,math.radians(40)
-        for _ in range(40):
-            t=(lo+hi)/2
-            front=old.PIVOT_Y+dy*math.cos(t)-dz*math.sin(t)-radius
-            if front<thickness:lo=t
-            else:hi=t
-        deg=math.degrees((lo+hi)/2)
+        deg=paddle_angle(thickness)
         rotated=paddle().rotate((0,old.PIVOT_Y,old.TONGUE_TOP),
                                 (1,old.PIVOT_Y,old.TONGUE_TOP),deg)
-        phone=box(-36,36,0,thickness,-91,old.PHONE_TOP)
+        phone_shape=box(-36,36,0,thickness,-91,old.PHONE_TOP)
         report["phone_fit"][str(thickness)]={"paddle_angle_deg":round(deg,3),
-            "phone_shell_mm3":round(volume(phone.intersect(housing())),5),
-            "phone_paddle_mm3":round(volume(phone.intersect(rotated)),5),
+            "phone_shell_mm3":round(volume(phone_shape.intersect(housing())),5),
+            "phone_paddle_mm3":round(volume(phone_shape.intersect(rotated)),5),
             "paddle_shell_mm3":round(volume(rotated.intersect(housing())),5)}
     report["rigid_optical_path_mm3"]={}
     path=optical_path()
