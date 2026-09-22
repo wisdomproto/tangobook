@@ -233,7 +233,7 @@ def main():
     if(name==='exploded') {
       objects.shellLeft.position.x=-30; objects.shellRight.position.x=30;
       objects.mirror.position.set(0,18,-18);
-      objects.foam.position.z=22; objects.phone.visible=false; objects.phoneCamera.visible=false;
+      objects.foam.position.set(0,18,8); objects.phone.visible=false; objects.phoneCamera.visible=false;
     }
     if(name==='inserting') { objects.phone.position.z-=24; objects.phoneCamera.position.z-=24; }
     if(name==='installed') {
