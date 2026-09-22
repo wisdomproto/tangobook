@@ -3,12 +3,12 @@
 - id: 20260921-games-hangul-target-jamo-colors
 - domain: games
 - status: integrated-followup
-- updated: 2026-09-21
+- updated: 2026-09-22
 - base: 2106623ee
 - branch: codex/hangul-target-colors
 - worktree: C:/projects/tangobook/.codex/worktrees/hangul-target-colors
 - integration: main 로컬 통합
-- delivery: 세 번째 간격 조정 `d3028a40f`까지 main push. 반응형 크기 조정은 로컬 main
+- delivery: 반응형 크기 조정 `4fada5641`까지 main push. `하프` 정렬 보정은 로컬 main
 
 ## 요청과 완료 조건
 
@@ -66,6 +66,14 @@
 - 일반 배치: `clamp(3rem, min(15vw, 18vh), 13rem)` — 큰 태블릿에서는 약 224px, 667×375 모바일 가로에서는 약 68px.
 - 카메라 가로 2열 배치: `clamp(2rem, min(8vw, 20vh), 9rem)` — 절반 폭 패널 안에서만 확대한다.
 - 짧은 모바일 화면에서는 높이 기준이 먼저 걸려 판 영역을 침범하지 않는다.
+
+## `하프` 기준 자모 정렬 보정 — 2026-09-22
+
+사용자 실화면에서 동일한 옆모음 간격을 적용하면 폭이 넓은 `ㅎ`과 `ㅏ`가 다시 붙고, 아래 모음형 `프`는 실제 획이 위쪽에 몰려 `하`보다 떠 보이는 것을 확인했다.
+
+- `ㅎ` 뒤의 옆모음은 일반 초성보다 `0.07em` 더 오른쪽에 배치한다.
+- 받침 없는 아래 모음형 음절은 초성과 중성을 함께 `0.11em` 아래로 내려 음절 사이의 시각적 중심선을 맞춘다.
+- `하프`를 회귀 사례로 추가해 넓은 초성 간격과 아래 모음형의 세로 위치를 함께 검사한다.
 
 ## 인계·통합
 

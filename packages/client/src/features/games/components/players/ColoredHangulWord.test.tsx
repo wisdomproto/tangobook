@@ -40,16 +40,33 @@ describe('ColoredHangulWord', () => {
   });
 
   it('leaves visible breathing room between an onset and its medial', () => {
-    const { container } = render(<ColoredHangulWord word="리오" />);
+    const { container } = render(<ColoredHangulWord word="리오하프" />);
 
     const sideMedial = container.querySelector(
       '[data-hangul-syllable="리"] [data-jamo-role="medial"]'
+    );
+    const wideSideMedial = container.querySelector(
+      '[data-hangul-syllable="하"] [data-jamo-role="medial"]'
     );
     const belowMedial = container.querySelector(
       '[data-hangul-syllable="오"] [data-jamo-role="medial"]'
     );
     expect(sideMedial).toHaveClass('left-[0.41em]');
-    expect(belowMedial).toHaveClass('top-[0.39em]');
+    expect(wideSideMedial).toHaveClass('left-[0.48em]');
+    expect(belowMedial).toHaveClass('top-[0.5em]');
+  });
+
+  it('aligns a below-vowel syllable lower than a side-vowel syllable', () => {
+    const { container } = render(<ColoredHangulWord word="하프" />);
+
+    const belowOnset = container.querySelector(
+      '[data-hangul-syllable="프"] [data-jamo-role="onset"]'
+    );
+    const belowMedial = container.querySelector(
+      '[data-hangul-syllable="프"] [data-jamo-role="medial"]'
+    );
+    expect(belowOnset).toHaveClass('top-[0.08em]');
+    expect(belowMedial).toHaveClass('top-[0.5em]');
   });
 
   it('keeps codas as their own orange jamo', () => {

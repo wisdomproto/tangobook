@@ -10,6 +10,7 @@ interface ColoredHangulWordProps {
 type SyllableLayout = 'side' | 'side-coda' | 'below' | 'below-coda' | 'mixed' | 'mixed-coda';
 
 const MIXED_VOWELS = new Set(['ㅘ', 'ㅙ', 'ㅚ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅢ']);
+const WIDE_SIDE_ONSETS = new Set(['ㅎ']);
 
 function getSyllableLayout(vowel: string, hasCoda: boolean): SyllableLayout {
   if (MIXED_VOWELS.has(vowel)) return hasCoda ? 'mixed-coda' : 'mixed';
@@ -69,7 +70,8 @@ function SideSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: st
         kind="vowel"
         role="medial"
         className={cn(
-          'left-[0.41em] w-[0.52em]',
+          'w-[0.52em]',
+          WIDE_SIDE_ONSETS.has(cho) ? 'left-[0.48em]' : 'left-[0.41em]',
           hasCoda
             ? 'top-[-0.01em] h-[0.62em] text-[0.58em]'
             : 'top-[0.03em] h-[0.84em] text-[0.74em]'
@@ -100,9 +102,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="onset"
         className={cn(
           'left-[0.08em] w-[0.7em]',
-          hasCoda
-            ? 'top-[-0.04em] h-[0.39em] text-[0.47em]'
-            : 'top-[-0.03em] h-[0.5em] text-[0.6em]'
+          hasCoda ? 'top-[-0.04em] h-[0.39em] text-[0.47em]' : 'top-[0.08em] h-[0.5em] text-[0.6em]'
         )}
       >
         {cho}
@@ -112,9 +112,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="medial"
         className={cn(
           'left-[0.04em] w-[0.78em]',
-          hasCoda
-            ? 'top-[0.29em] h-[0.38em] text-[0.45em]'
-            : 'top-[0.39em] h-[0.53em] text-[0.58em]'
+          hasCoda ? 'top-[0.29em] h-[0.38em] text-[0.45em]' : 'top-[0.5em] h-[0.53em] text-[0.58em]'
         )}
       >
         {jung}
