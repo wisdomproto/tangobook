@@ -119,6 +119,8 @@
     return ALL.map(function (c) {
       var on = !pages || pages.some(function (p) { return sceneHasChar(p.scene, c); });
       var gist = String(c.spec || c.desc || '').replace(/^[-•\s]+/, '').split('\n')[0].slice(0, 110);
+      // 코타는 시트의 의상·무늬 규격도 페이지 프롬프트로 전달한다.
+      if (KEY === 'kota') gist = [c.desc, c.spec].filter(Boolean).join('\n');
       return '@image' + c.img + ' = ' + c.name + (c.aliases[1] ? ' (' + c.aliases[1] + ')' : '') +
         (gist ? ': ' + gist : '') + (on ? '' : '  (이 화 미등장 — 첨부 불필요)');
     }).join('\n');
@@ -132,6 +134,7 @@
       '아래 @imageN 순서대로 시트를 첨부하고,',
       '얼굴·비율·색은 시트와 100% 동일하게 유지한다. @image1~' + NF + ' = 고정 캐스트(항상 이 순서), @image9~ = 이 화 단역.',
       castLegend(pages),
+      KEY === 'kota' ? '참조 우선: 위 문자 규격은 기본값이다. 첨부한 각 인물의 실제 얼굴 무늬·옷색·옷 형태를 우선한다. 참조에 없는 무늬를 추가하거나 다른 인물의 무늬·의상을 옮기지 않는다. 명시된 장면 행동에 따른 수건 전달·탈의·맨발만 예외로 한다.' : '',
       '※ 각 쪽 [등장]에 적힌 @imageN 만 그 컷에 그린다. 나머지는 넣지 않는다.',
       '',
       '[출력 규칙]',
@@ -165,6 +168,7 @@
       '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
       '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      KEY === 'kota' && g.desc ? '[해당 손님의 외형] ' + g.desc : null,
       // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
       //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
       g.spec ? '[이 인물만의 규격 — 위 규격에 덧쓴다]\n' + g.spec : null,
