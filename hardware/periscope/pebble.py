@@ -19,7 +19,7 @@ OUT = Path(__file__).resolve().parent / "out" / "pebble"
 MIR_W = 40.0
 MIR_H = 30.0
 MIR_T = 1.1  # Measure the purchased mirror before the final tolerance pass.
-APER_W = MIR_W - 4.0
+APER_W = MIR_W - 6.0
 APER_H = MIR_H - 4.0
 MIRROR_ADHESIVE_T = 0.20
 MIRROR_BACKING_T = 2.40
@@ -220,11 +220,6 @@ def optical_path():
     corners=[center+cq.Vector(x,0,0)+up*z for x,z in
              [(-APER_W/2,-APER_H/2),(APER_W/2,-APER_H/2),
               (APER_W/2,APER_H/2),(-APER_W/2,APER_H/2)]]
-    far=[]
-    for point in corners:
-        incoming=point-camera
-        reflected=incoming-normal*(2*incoming.dot(normal))
-        far.append(point+reflected*5)
     # Phone-facing opening is deliberately broad. A pinhole around one assumed
     # lens position hides cameras that sit a few millimetres left/right or down.
     # This is the Osmo-like hollow between the phone support and mirror.
@@ -236,8 +231,11 @@ def optical_path():
     def loft(first,last):
         return cq.Workplane(obj=cq.Solid.makeLoft([
             cq.Wire.makePolygon(first+[first[0]]),cq.Wire.makePolygon(last+[last[0]])]))
-    return (loft(near,corners).union(loft(corners,far))
-            .union(camera_mouth()).union(phone_u_opening()))
+    # The housing bottom is already open as a U. Cutting a second reflected
+    # cone from the mirror to a distant plane punched triangular holes through
+    # both outer side walls. Only the incoming camera-to-mirror tunnel belongs
+    # inside the housing; outgoing clearance is verified with independent rays.
+    return loft(near,corners).union(camera_mouth()).union(phone_u_opening())
 
 
 def camera_clearance():
