@@ -1,5 +1,5 @@
 import { CSSProperties, useState } from 'react';
-import { Plus, FileText, MoreHorizontal, Trash2, GripVertical } from 'lucide-react';
+import { Plus, FileText, MoreHorizontal, Trash2, GripVertical, Library } from 'lucide-react';
 import {
   DndContext,
   closestCenter,
@@ -21,6 +21,7 @@ import { useContents, useDeleteContent, useReorderContents } from '../../api/use
 import { ContentStatusPanel } from '../content/ContentStatusPanel';
 import { useUIStore } from '../../store/ui-store';
 import { CreateContentDialog } from './CreateContentDialog';
+import { BookSourceCatalogDialog } from './BookSourceCatalogDialog';
 import { Button } from '../../ui/button';
 import {
   DropdownMenu,
@@ -157,6 +158,7 @@ function SortableContentItem({
 export function ContentListPanel() {
   const [createOpen, setCreateOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
+  const [sourceCatalogOpen, setSourceCatalogOpen] = useState(false);
   const [catFilter, setCatFilter] = useState<string | null>(null);
   const [sortByTitle, setSortByTitle] = useState(false);
 
@@ -246,7 +248,7 @@ export function ContentListPanel() {
         {/* 정규 / 광고 탭 */}
         <div className="flex shrink-0 border-b border-border">
           {[
-            { kind: 'regular' as const, label: '정규 콘텐츠', count: regularCount },
+            { kind: 'regular' as const, label: '마케팅 기획', count: regularCount },
             { kind: 'ad' as const, label: '광고 콘텐츠', count: adCount },
           ].map((t) => (
             <button
@@ -270,10 +272,20 @@ export function ContentListPanel() {
         <div className="p-3 border-b border-border">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-semibold">
-              {isAd ? '광고' : '콘텐츠'}{' '}
+              {isAd ? '광고' : '기획'}{' '}
               <span className="text-muted-foreground font-normal">({sorted.length})</span>
             </span>
             <div className="flex items-center gap-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-7 px-1.5 text-[11px]"
+                onClick={() => setSourceCatalogOpen(true)}
+                title="editor2에서 동기화된 책 원본"
+                hidden={isAd}
+              >
+                <Library size={13} className="mr-1" />책 원본
+              </Button>
               <Button
                 size="sm"
                 variant="ghost"
@@ -301,8 +313,8 @@ export function ContentListPanel() {
                 variant="ghost"
                 className="h-7 w-7 p-0"
                 onClick={() => setCreateOpen(true)}
-                title="새 콘텐츠"
-                aria-label="새 콘텐츠"
+                title="새 마케팅 기획"
+                aria-label="새 마케팅 기획"
               >
                 <Plus size={14} />
               </Button>
@@ -349,13 +361,13 @@ export function ContentListPanel() {
         <div className="flex-1 overflow-y-auto px-1 py-2 space-y-0.5">
           {displayed.length === 0 ? (
             <div className="text-center py-8 text-xs text-muted-foreground">
-              {isAd ? '광고 콘텐츠가 없습니다' : '콘텐츠가 없습니다'}
+              {isAd ? '광고 콘텐츠가 없습니다' : '마케팅 기획이 없습니다'}
               <br />
               <button
                 onClick={() => setCreateOpen(true)}
                 className="mt-2 text-primary hover:underline"
               >
-                {isAd ? '+ 새 광고 만들기' : '+ 새 콘텐츠 만들기'}
+                {isAd ? '+ 새 광고 만들기' : '+ 새 마케팅 기획 만들기'}
               </button>
             </div>
           ) : (
@@ -383,6 +395,12 @@ export function ContentListPanel() {
           )}
         </div>
       </aside>
+      <BookSourceCatalogDialog
+        open={sourceCatalogOpen}
+        onOpenChange={setSourceCatalogOpen}
+        projectId={selectedProjectId}
+        contents={contents}
+      />
 
       <CreateContentDialog
         open={createOpen}

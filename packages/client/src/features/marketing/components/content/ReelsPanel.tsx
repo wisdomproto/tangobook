@@ -16,6 +16,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader2, Copy, Check, Film, ExternalLink, Trash2 } from 'lucide-react';
 import { useContent } from '../../api/use-contents';
+import { useStorybookId } from '../../api/use-storybook-ref';
 import { ReelsPublishDialog } from '../publish/ReelsPublishDialog';
 import {
   useCreateInstagramContent,
@@ -36,13 +37,6 @@ function loadStoryboardManifest(): Promise<Set<string>> {
       .catch(() => new Set<string>());
   }
   return _sbManifest;
-}
-
-/** content.memo (`storybook:<id>`) → storybookId. 없으면 null. */
-function parseStorybookId(memo: string | null | undefined): string | null {
-  if (!memo) return null;
-  const m = memo.match(/^storybook:(.+)$/);
-  return m ? m[1].trim() : null;
 }
 
 const LANG_LABELS: Record<string, string> = {
@@ -80,6 +74,7 @@ export function ReelsPanel({ content, project }: ReelsPanelProps) {
   const { data: graph, isLoading } = useContent(selectedContentId);
   const createInstagramContent = useCreateInstagramContent();
   const updateInstagramContent = useUpdateInstagramContent();
+  const { data: storybookId = null } = useStorybookId(content.content_source_id, content.memo);
 
   const igContents = (graph?.instagramContents ?? []) as Array<
     InstagramContent & { cards: InstagramCard[] }
@@ -122,7 +117,6 @@ export function ReelsPanel({ content, project }: ReelsPanelProps) {
     };
   }, []);
 
-  const storybookId = parseStorybookId(content.memo);
   const storyboardSrc =
     storybookId && sbSet && sbSet.has(storybookId)
       ? `/marketing-storyboards/${storybookId}.html`

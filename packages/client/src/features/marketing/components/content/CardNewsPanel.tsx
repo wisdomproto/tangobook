@@ -57,7 +57,7 @@ import { useChannelModels } from '../../api/use-channel-models';
 import { useContent } from '../../api/use-contents';
 import {
   useStorybookRef,
-  storybookIdFromMemo,
+  useStorybookId,
   type StorybookCharacterRef,
 } from '../../api/use-storybook-ref';
 import {
@@ -554,7 +554,7 @@ function CardNewsPanelInner({
   const contentId = content.id;
   const igContentId = igContent.id;
   // 명작 동화(classic)만 캐릭터 레퍼런스를 노출. 자연관찰은 캐릭터 없음.
-  const storybookId = storybookIdFromMemo(content.memo);
+  const { data: storybookId = null } = useStorybookId(content.content_source_id, content.memo);
   const showCharacterRefs = content.category === 'classic' && !!storybookId;
 
   // ── Server-side cards → local mirror ──────────────────────────────────────

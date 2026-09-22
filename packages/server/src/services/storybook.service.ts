@@ -15,6 +15,10 @@ import type {
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { VocabularyDbService } from './vocabulary-db.service.js';
+import {
+  syncStorybookMarketingSourceIfApproved,
+  updateStorybookMarketingSourceState,
+} from './marketing-source.service.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_GUIDE = fs.readFileSync(path.resolve(__dirname, '../../prompt_guide.md'), 'utf-8');
@@ -55,6 +59,11 @@ export const StorybookService = {
     VocabularyDbService.syncFromStorybook(saved).catch((err) =>
       console.error('[VocabDB] sync failed:', (err as Error).message)
     );
+    // 승인된 책의 원본 메타만 마케팅 카탈로그에 재동기화한다.
+    // 마케팅 장애가 editor2 저장을 막지 않도록 복구 가능한 background sync로 둔다.
+    syncStorybookMarketingSourceIfApproved(saved).catch((err) =>
+      console.error('[MarketingSource] sync failed:', (err as Error).message)
+    );
     return saved;
   },
 
@@ -65,6 +74,10 @@ export const StorybookService = {
     // 어휘 DB 출처 정리 (fire-and-forget)
     VocabularyDbService.removeSourcesByStorybookId(id).catch((err) =>
       console.error('[VocabDB] cleanup failed:', (err as Error).message)
+    );
+    // 마케팅 기획/발행 이력은 보존하고 원본만 보관 상태로 바꾼다.
+    updateStorybookMarketingSourceState(id, 'archived').catch((err) =>
+      console.error('[MarketingSource] archive failed:', (err as Error).message)
     );
   },
 

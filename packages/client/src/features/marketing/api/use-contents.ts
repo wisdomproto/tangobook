@@ -62,6 +62,7 @@ export function useCreateContent() {
       tags?: string[];
       topic?: string;
       content_kind?: ContentKind;
+      content_source_id?: string;
     }) => {
       const {
         data: { user },
@@ -83,6 +84,7 @@ export function useCreateContent() {
         memo: null,
         topic: data.topic ?? null,
         content_kind: data.content_kind ?? 'regular',
+        content_source_id: data.content_source_id ?? null,
         status: 'draft',
         confirmed: false,
         ai_model_settings: null,

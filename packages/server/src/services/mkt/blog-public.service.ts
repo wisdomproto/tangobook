@@ -236,11 +236,24 @@ export async function getPublishedBlog(slug: string, lang = 'ko'): Promise<BlogP
       .select('card_type, content, sort_order')
       .eq('blog_content_id', blog.id as string)
       .order('sort_order'),
-    sb.from('mkt_contents').select('category, memo').eq('id', contentId).single(),
+    sb
+      .from('mkt_contents')
+      .select('category, memo, content_source_id')
+      .eq('id', contentId)
+      .single(),
   ]);
 
   const memo = (content?.memo as string) ?? '';
-  const storybookId = memo.startsWith('storybook:') ? memo.slice('storybook:'.length) : null;
+  let storybookId = memo.startsWith('storybook:') ? memo.slice('storybook:'.length) : null;
+  if (content?.content_source_id) {
+    const { data: source } = await sb
+      .from('mkt_content_sources')
+      .select('source_id')
+      .eq('id', content.content_source_id as string)
+      .eq('source_type', 'storybook')
+      .maybeSingle();
+    storybookId = (source?.source_id as string | undefined) ?? storybookId;
+  }
 
   // 교차 블로그 링크 정리 — 미발행 블로그 링크는 텍스트로 강등(죽은 링크 방지).
   const published = await publishedSlugSet();

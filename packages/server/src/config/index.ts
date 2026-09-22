@@ -92,6 +92,8 @@ export const config = {
   mkt: {
     gateCode: process.env.MKT_GATE_CODE ?? '',
     ownerEmail: process.env.MKT_OWNER_EMAIL ?? '',
+    projectId: process.env.MKT_PROJECT_ID ?? '',
+    projectName: process.env.MKT_PROJECT_NAME ?? '탱고북 동화책',
   },
 
   cron: { secret: process.env.CRON_SECRET ?? '' }, // optional manual-tick guard (spec §4.5)

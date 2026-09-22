@@ -44,9 +44,18 @@ vi.mock('../CreateContentDialog', () => ({
     onOpenChange: (v: boolean) => void;
   }) =>
     open ? (
-      <div role="dialog" aria-label="새 콘텐츠 dialog">
-        <span>새 콘텐츠</span>
+      <div role="dialog" aria-label="새 마케팅 기획 dialog">
+        <span>새 마케팅 기획</span>
         <button onClick={() => onOpenChange(false)}>닫기</button>
+      </div>
+    ) : null,
+}));
+
+vi.mock('../BookSourceCatalogDialog', () => ({
+  BookSourceCatalogDialog: ({ open }: { open: boolean }) =>
+    open ? (
+      <div role="dialog" aria-label="책 원본 dialog">
+        책 원본 카탈로그
       </div>
     ) : null,
 }));
@@ -77,6 +86,7 @@ function makeContent(
     memo: null,
     topic: null,
     content_kind: kind,
+    content_source_id: null,
     status: 'draft',
     ai_model_settings: null,
     confirmed: false,
@@ -108,7 +118,7 @@ describe('ContentListPanel', () => {
   it('shows empty-state message when project has no contents', () => {
     _contents = [];
     render(<ContentListPanel />);
-    expect(screen.getByText('콘텐츠가 없습니다')).toBeInTheDocument();
+    expect(screen.getByText('마케팅 기획이 없습니다')).toBeInTheDocument();
   });
 
   it('renders content titles for the selected project', () => {
@@ -220,7 +230,7 @@ describe('ContentListPanel', () => {
     ];
     render(<ContentListPanel />);
     // Regular tab active by default → only regular content visible
-    expect(screen.getByText('정규 콘텐츠', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('마케팅 기획', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('광고 콘텐츠', { exact: false })).toBeInTheDocument();
     expect(screen.getByTitle('정규 글')).toBeInTheDocument();
     expect(screen.queryByTitle('광고 릴스')).not.toBeInTheDocument();
@@ -242,9 +252,17 @@ describe('ContentListPanel', () => {
     _contents = [];
     render(<ContentListPanel />);
 
-    await user.click(screen.getByRole('button', { name: '새 콘텐츠' }));
+    await user.click(screen.getByRole('button', { name: '새 마케팅 기획' }));
     // Dialog should be visible (CreateContentDialog renders when open=true)
     expect(screen.getByRole('dialog')).toBeInTheDocument();
-    expect(screen.getByText('새 콘텐츠')).toBeInTheDocument();
+    expect(screen.getByText('새 마케팅 기획')).toBeInTheDocument();
+  });
+
+  it('opens the editor2-synced book source catalog', async () => {
+    const user = userEvent.setup();
+    render(<ContentListPanel />);
+
+    await user.click(screen.getByRole('button', { name: /책 원본/ }));
+    expect(screen.getByRole('dialog', { name: '책 원본 dialog' })).toBeInTheDocument();
   });
 });

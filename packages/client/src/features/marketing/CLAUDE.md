@@ -261,6 +261,7 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 |---|---|
 | `mkt_projects` | 마케팅 프로젝트 (브랜드·채널·API 키·글쓰기 가이드; `published_site jsonb` + `saved_keywords jsonb` 컬럼 포함) |
 | `mkt_contents` | 콘텐츠 단위 (제목·주제·상태·`content_kind` regular\|ad — 2026-07-12 정규/광고 탭 분리) |
+| `mkt_content_sources` | editor2에서 승인된 읽기 전용 책 원본. `mkt_contents.content_source_id`로 여러 마케팅 기획 연결 |
 | `mkt_base_articles` | 기본글 (TipTap HTML body + body_plain_text) |
 | `mkt_blog_contents` | N블로그/내부블로그 버전 |
 | `mkt_blog_cards` | 블로그 카드 (text/image/divider/quote/list) |
@@ -509,7 +510,7 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
   - **자연관찰(nature)**: 실제 대상 사실 묘사, 캐릭터·스타일접미 없음.
   - 한국어 텍스트 = `textBlock()` 으로 프롬프트 끝에 verbatim 삽입(제목 상단 / 캡션 하단, 둥근 가독 폰트). 실행 시 **서버 3500 필요**(캐릭터·artStyle fetch). `[--all|--ids=|--title=] [--dry-run]`.
 - **CardNewsPanel UI**:
-  - **캐릭터 레퍼런스 바**(명작만): `api/use-storybook-ref.ts`(`GET /api/storybooks/:id`; `storybookIdFromMemo(content.memo)` + `content.category==='classic'` 분기)로 캐릭터 `referenceImage` 썸네일 표시 → 클릭 시 이미지 클립보드 복사(`/api/mkt/storage/proxy`→canvas→`ClipboardItem('image/png')`, 실패 시 새 탭) → AI 툴에 붙여넣어 캐릭터·그림체 일관성 유지.
+  - **캐릭터 레퍼런스 바**(명작만): `api/use-storybook-ref.ts`(`GET /api/storybooks/:id`; `content_source_id`의 `source_id` 우선, 이전 `memo` 폴백 + `content.category==='classic'` 분기)로 캐릭터 `referenceImage` 썸네일 표시 → 클릭 시 이미지 클립보드 복사(`/api/mkt/storage/proxy`→canvas→`ClipboardItem('image/png')`, 실패 시 새 탭) → AI 툴에 붙여넣어 캐릭터·그림체 일관성 유지.
   - **프롬프트 복사**: 카드별 "프롬프트 복사"(`CardNewsCardItem`) + 툴바 "전체 프롬프트"(`[1/6]…` 일괄).
   - **카드 그리드**: 반응형 `gridTemplateColumns: repeat(auto-fill, minmax(185px, 1fr))` 로 축소.
   - **PreviewModal**: 그리드·WebP export 와 동일 렌더 로직으로 통일(이전엔 박스/pill/divider/fit 미지원 구버전이었음).

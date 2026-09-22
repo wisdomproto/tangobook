@@ -224,10 +224,40 @@ export interface Content {
   memo: string | null;
   topic: string | null;
   content_kind: ContentKind;
+  /** 원본 책 카탈로그 연결. 광고·독립 기획은 null. */
+  content_source_id?: string | null;
   status: ContentStatus;
   ai_model_settings: Record<string, unknown> | null;
   confirmed: boolean;
   sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ContentSourceState = 'approved' | 'unapproved' | 'archived';
+
+/** editor2/R2에서 동기화된 읽기 전용 원본. 마케팅 기획 자체는 Content다. */
+export interface ContentSource {
+  id: string;
+  project_id: string;
+  user_id: string;
+  source_type: 'storybook';
+  source_id: string;
+  source_state: ContentSourceState;
+  title: string;
+  category: string | null;
+  cover_image_url: string | null;
+  languages: string[];
+  source_snapshot: {
+    artStyle?: string | null;
+    readingLevel?: string | null;
+    pageCount?: number;
+    isPublic?: boolean;
+    titleTranslations?: Record<string, string>;
+    coversByLanguage?: Record<string, string>;
+  };
+  source_updated_at: string | null;
+  last_synced_at: string;
   created_at: string;
   updated_at: string;
 }
