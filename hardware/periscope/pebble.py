@@ -87,6 +87,19 @@ def export_print_stl(shape,path,tolerance=0.06,angular_tolerance=0.12):
     mesh.export(path)
 
 
+def export_multi_body_stl(shape,path,expected_bodies,tolerance=0.06,
+                          angular_tolerance=0.12):
+    """Export one slicer file containing separate, individually closed parts."""
+    cq.exporters.export(shape,str(path),tolerance=tolerance,
+                        angularTolerance=angular_tolerance)
+    mesh=trimesh.load(path,force="mesh",process=False)
+    mesh.process(validate=True)
+    bodies=mesh.split(only_watertight=False)
+    if len(bodies)!=expected_bodies or not all(body.is_watertight for body in bodies):
+        raise ValueError(f"Invalid multi-body STL: {path}")
+    mesh.export(path)
+
+
 def mirror_center():
     return (0.0,-CAM_GAP,MIRROR_Z)
 
@@ -329,6 +342,35 @@ def phone(thickness=9.0, drop=0.0):
 PARTS = {"shell_left":left, "shell_right":right, "paddle":paddle}
 
 
+def _place_on_bed(shape,x,y):
+    bounds=shape.val().BoundingBox()
+    return shape.translate((x-bounds.xmin,y-bounds.ymin,-bounds.zmin))
+
+
+@lru_cache(None)
+def print_plate_parts():
+    """Three separated print bodies on one 74 x 72 mm slicer plate."""
+    # Put each shell's flat split face on the bed. This avoids balancing the
+    # pebble exterior on a curved face and keeps the snap beams in-plane.
+    shell_left=left().rotate((0,0,0),(0,1,0),90)
+    shell_right=right().rotate((0,0,0),(0,1,0),-90)
+    # Lay the broad paddle panel down; its short axle stubs remain printable.
+    dy=old.GRIP_FREE+(old.PLATE_T+0.5)-old.PIVOT_Y
+    dz=TONGUE_BOT-PIVOT_Z
+    paddle_angle=math.degrees(math.atan2(-dz,dy))
+    pressure_paddle=paddle().rotate((0,0,0),(1,0,0),paddle_angle)
+    return {
+        "shell_left":_place_on_bed(shell_left,0,0),
+        "shell_right":_place_on_bed(shell_right,38,0),
+        "paddle":_place_on_bed(pressure_paddle,20,50),
+    }
+
+
+@lru_cache(None)
+def print_plate():
+    return cq.Compound.makeCompound([part.val() for part in print_plate_parts().values()])
+
+
 def foam():
     # Free-state soft PU foam. It intentionally intersects the resting paddle:
     # that overlap is preload, not a rigid-part clash.
@@ -359,6 +401,8 @@ EXPLODE = {"shell_left":(-28,0,0),"shell_right":(28,0,0),
 
 def inspect():
     shapes = {n:f() for n,f in SHOW.items()}
+    plate_parts=print_plate_parts()
+    plate_bounds=print_plate().BoundingBox()
     report = {"units":"mm", "prototype":True,
         "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
@@ -366,6 +410,10 @@ def inspect():
             "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
         "mirror_mount":{"method":"upper/rear cradle + 0.2 mm transfer tape",
             "mechanical_lower_lip":False},
+        "print_plate":{"file":"tango_pebble_print_plate.stl","bodies":3,
+            "size":[round(plate_bounds.xlen,3),round(plate_bounds.ylen,3),
+                    round(plate_bounds.zlen,3)],
+            "separated_part_interference_mm3":{}},
         "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
@@ -373,6 +421,11 @@ def inspect():
         "available_fov_deg":[round(2*math.degrees(math.atan((old.APER_W/2)/CAM_GAP)),2),
             round(2*math.degrees(math.atan((old.APER_H*math.cos(math.radians(old.MU))/2)/CAM_GAP)),2)],
         "parts":{}, "interference_mm3":{},"assembly_sweep_mm3":{}}
+    plate_names=list(plate_parts)
+    for i,a in enumerate(plate_names):
+        for b in plate_names[i+1:]:
+            report["print_plate"]["separated_part_interference_mm3"][a+" / "+b]=round(
+                volume(plate_parts[a].intersect(plate_parts[b])),5)
     for n,s in shapes.items():
         b=s.val().BoundingBox()
         report["parts"][n]={"valid":s.val().isValid(),"solids":s.solids().size(),
@@ -480,6 +533,8 @@ def inspect():
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
     report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01
+    report["pass"] &= all(v<0.01 for v in
+        report["print_plate"]["separated_part_interference_mm3"].values())
     return report
 
 
@@ -501,6 +556,8 @@ def main():
             raise ValueError("Invalid snap coupon: "+name)
         export_print_stl(piece,OUT/(name+".stl"),tolerance=0.04)
         cq.exporters.export(piece,str(OUT/(name+".step")))
+    print("Export print plate",flush=True)
+    export_multi_body_stl(print_plate(),OUT/"tango_pebble_print_plate.stl",3)
     print("Checking assembly paths",flush=True)
     report=inspect()
     (OUT/"report.json").write_text(json.dumps(report,indent=2),encoding="utf-8")

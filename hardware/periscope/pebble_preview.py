@@ -41,6 +41,8 @@ def render(name, position, exploded=False, cutaway=False, scene=None, scale=None
 def main():
     render("assembled",(90,-120,80))
     render("exploded",(95,-125,80),True)
+    plate={n:(s,(-34,-34,0)) for n,s in p.print_plate_parts().items()}
+    render("print_plate",(120,130,170),scene=plate,scale=55)
     insertion={"shell_left":(p.left(),(0,0,0)),"shell_right":(p.right(),(0,0,0)),
                "paddle":(p.paddle(),(0,0,0)),"phone":(p.phone(drop=-24),(0,0,0))}
     render("insertion",(85,90,-50),scene=insertion,scale=42)
