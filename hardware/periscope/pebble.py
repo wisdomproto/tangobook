@@ -84,6 +84,17 @@ def volume(shape):
     return sum(s.Volume() for s in shape.solids().vals())
 
 
+def bounds_clearance(a,b):
+    """Euclidean gap between disjoint axis-aligned bounding boxes."""
+    aa,bb=a.val().BoundingBox(),b.val().BoundingBox()
+    gaps=[]
+    for amin,amax,bmin,bmax in ((aa.xmin,aa.xmax,bb.xmin,bb.xmax),
+                                (aa.ymin,aa.ymax,bb.ymin,bb.ymax),
+                                (aa.zmin,aa.zmax,bb.zmin,bb.zmax)):
+        gaps.append(max(0.0,bmin-amax,amin-bmax))
+    return math.sqrt(sum(gap*gap for gap in gaps))
+
+
 def latch_z(y):
     """Keep the rear latch above the foam pocket."""
     return 11.0 if y > 0 else LATCH_Z
@@ -386,20 +397,22 @@ def _place_on_bed(shape,x,y):
 
 @lru_cache(None)
 def print_plate_parts():
-    """Three separated print bodies on one 74 x 72 mm slicer plate."""
-    # Put each shell's flat split face on the bed. This avoids balancing the
-    # pebble exterior on a curved face and keeps the snap beams in-plane.
-    shell_left=left().rotate((0,0,0),(0,1,0),90)
-    shell_right=right().rotate((0,0,0),(0,1,0),-90)
-    # Lay the broad paddle panel down; its short axle stubs remain printable.
+    """Three separated, upside-down bodies on one 72 x 76 mm plate."""
+    # Start from the split-face-down layout, then turn every print body upside
+    # down at the user's request and place its new lowest point on the bed.
+    shell_left=(left().rotate((0,0,0),(0,1,0),90)
+                .rotate((0,0,0),(1,0,0),180))
+    shell_right=(right().rotate((0,0,0),(0,1,0),-90)
+                 .rotate((0,0,0),(1,0,0),180))
     dy=old.GRIP_FREE+(old.PLATE_T+0.5)-old.PIVOT_Y
     dz=TONGUE_BOT-PIVOT_Z
     paddle_angle=math.degrees(math.atan2(-dz,dy))
-    pressure_paddle=paddle().rotate((0,0,0),(1,0,0),paddle_angle)
+    pressure_paddle=(paddle().rotate((0,0,0),(1,0,0),paddle_angle)
+                     .rotate((0,0,0),(1,0,0),180))
     return {
         "shell_left":_place_on_bed(shell_left,0,0),
         "shell_right":_place_on_bed(shell_right,38,0),
-        "paddle":_place_on_bed(pressure_paddle,20,50),
+        "paddle":_place_on_bed(pressure_paddle,20,58),
     }
 
 
@@ -453,7 +466,8 @@ def inspect():
         "print_plate":{"file":"tango_pebble_print_plate.stl","bodies":3,
             "size":[round(plate_bounds.xlen,3),round(plate_bounds.ylen,3),
                     round(plate_bounds.zlen,3)],
-            "separated_part_interference_mm3":{}},
+            "separated_part_interference_mm3":{},
+            "separated_part_clearance_mm":{}},
         "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
@@ -466,6 +480,8 @@ def inspect():
         for b in plate_names[i+1:]:
             report["print_plate"]["separated_part_interference_mm3"][a+" / "+b]=round(
                 volume(plate_parts[a].intersect(plate_parts[b])),5)
+            report["print_plate"]["separated_part_clearance_mm"][a+" / "+b]=round(
+                bounds_clearance(plate_parts[a],plate_parts[b]),3)
     for n,s in shapes.items():
         b=s.val().BoundingBox()
         report["parts"][n]={"valid":s.val().isValid(),"solids":s.solids().size(),
@@ -566,6 +582,8 @@ def inspect():
     report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01
     report["pass"] &= all(v<0.01 for v in
         report["print_plate"]["separated_part_interference_mm3"].values())
+    report["pass"] &= all(v>=4.0 for v in
+        report["print_plate"]["separated_part_clearance_mm"].values())
     return report
 
 
