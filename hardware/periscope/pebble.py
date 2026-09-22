@@ -43,6 +43,9 @@ FOAM_POCKET = 0.6
 FOAM_ARM_R = 0.40
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
+PHONE_OPENING_W = 40.0
+PHONE_EDGE_R = 2.2
+MIRROR_FRAME_R = 1.2
 PHONE_TOP = old.ROOF-old.WALL
 Z_SHIFT = PHONE_TOP-old.PHONE_TOP
 _MIR_HALF_Z = (old.MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
@@ -84,15 +87,17 @@ def mirror():
 
 
 def camera_mouth():
-    return box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
-               CAMERA_Z-CAMERA_WINDOW_H/2,
-               CAMERA_Z+CAMERA_WINDOW_H/2)
+    return (box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
+                CAMERA_Z-CAMERA_WINDOW_H/2,
+                CAMERA_Z+CAMERA_WINDOW_H/2)
+            .edges("|Y").fillet(PHONE_EDGE_R))
 
 
 def phone_u_opening():
     """Remove the lower crossbar: phone-side silhouette is a plain inverted U."""
-    return box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.2,1.0,
-               BOTTOM-1,PHONE_TOP+0.1)
+    return (box(-PHONE_OPENING_W/2,PHONE_OPENING_W/2,-2.2,1.0,
+                BOTTOM-1,PHONE_TOP+0.1)
+            .edges("|Y").fillet(PHONE_EDGE_R))
 
 
 @lru_cache(None)
@@ -165,7 +170,8 @@ def housing():
     cavity = box(-WIDTH/2+2.5, WIDTH/2-2.5, FRONT+2.5, -2.4,
                  BOTTOM-1, old.ROOF-2.4).edges("|Z").fillet(3.0)
     shell = shell.cut(cavity)
-    shell = shell.cut(box(-WIDTH, WIDTH, 0, BACK-2.4, BOTTOM-1, PHONE_TOP+0.2))
+    phone_channel=box(-WIDTH,WIDTH,0,BACK-2.4,BOTTOM-1,PHONE_TOP+0.2)
+    shell = shell.cut(phone_channel)
     # The phone now slides deeper into the U-channel. Keep a concealed pocket
     # above it so the pressure paddle can rotate without cutting the roof.
     shell = shell.cut(box(-old.PLATE_W/2-FIT,old.PLATE_W/2+FIT,
@@ -192,7 +198,8 @@ def housing():
                          old.MIR_T+2*FIT,old.MIR_H+2*FIT))
     # Support the perimeter, including the upper/lower edges of the mirror.
     frame = tilt(cq.Workplane("XY").box(old.MIR_W+9,
-                             old.MIR_T+4.5,old.MIR_H+5))
+                             old.MIR_T+4.5,old.MIR_H+5)
+                 .edges().fillet(MIRROR_FRAME_R))
     shell = shell.union(frame.intersect(envelope())).cut(bed)
     # Internal ribs carry the two snap latches, clear of the optical path.
     for y in LATCH_Y:
@@ -335,6 +342,8 @@ def inspect():
     report = {"units":"mm", "prototype":True,
         "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
+        "edge_rounds":{"phone_opening":PHONE_EDGE_R,
+            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
         "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
@@ -424,9 +433,11 @@ def inspect():
     # into a small pinhole or bridge left by the supports.
     gauge=box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-1.0,0.75,
               CAMERA_Z-CAMERA_WINDOW_H/2,CAMERA_Z+CAMERA_WINDOW_H/2)
+    lower_gauge=box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-1.0,0.75,
+                    BOTTOM-1,CAMERA_Z-CAMERA_WINDOW_H/2)
     report["camera_window"]={"width":CAMERA_WINDOW_W,"height":CAMERA_WINDOW_H,
         "phone_face_obstruction_mm3":round(volume(housing().intersect(gauge)),7),
-        "lower_crossbar_mm3":round(volume(housing().intersect(phone_u_opening())),7),
+        "lower_crossbar_mm3":round(volume(housing().intersect(lower_gauge)),7),
         "phone_top":PHONE_TOP}
     # Validate retention independently of the removed light path.
     report["mirror_retention_mm3"]={}
