@@ -254,6 +254,10 @@ def main():
         shell.material.transparent=true; shell.material.opacity=.18; shell.material.depthWrite=false;
       }
     } else if(name==='camera') {
+      // Keep the optical-space view readable from above. Transparent shell
+      // layers can otherwise make the buried foam and paddle look like a
+      // hatched opening in the solid roof.
+      objects.paddle.visible=false; objects.foam.visible=false;
       objects.shellRight.material.transparent=true; objects.shellRight.material.opacity=.10;
       objects.shellRight.material.depthWrite=false;
       objects.cameraSpace.visible=true;
