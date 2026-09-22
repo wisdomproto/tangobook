@@ -1,4 +1,4 @@
-"""Serviceable pebble enclosure, using the measured 35 x 20 mm mirror.
+"""Serviceable pebble enclosure, using a 40 x 30 mm adhesive-back mirror.
 
 Run: python pebble.py -> out/pebble/*.step, *.stl, report.json.
 Coordinates and optical reference come from printable.py; its body is not reused.
@@ -16,13 +16,21 @@ import trimesh
 import printable as old
 
 OUT = Path(__file__).resolve().parent / "out" / "pebble"
+MIR_W = 40.0
+MIR_H = 30.0
+MIR_T = 1.1  # Measure the purchased mirror before the final tolerance pass.
+APER_W = MIR_W - 4.0
+APER_H = MIR_H - 4.0
+MIRROR_ADHESIVE_T = 0.20
+MIRROR_BACKING_T = 2.40
+MIRROR_BACKING_SIDE_MARGIN = 3.5
+MIRROR_BACKING_END_MARGIN = 0.8
 WIDTH = 49.0
-CAM_GAP = 12.0
-_MIR_HALF_Y = (old.MIR_H/2)*math.sin(math.radians(90-old.MU))+old.MIR_T/2
+CAM_GAP = 15.0
+_MIR_HALF_Y = (MIR_H/2)*math.sin(math.radians(90-old.MU))+MIR_T/2
 BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
 FRONT = -BODY_D
 BACK = old.CHANNEL + old.WALL + 2.5
-BOTTOM = -old.BODY_H
 TOP = old.ROOF + 6.5
 SEAM = 0.20
 FIT = 0.30
@@ -37,24 +45,24 @@ DEFLECT = 0.85
 PIN_Y = (-13.0, 5.0)
 PIN_Z = 7.3
 PIN_R = 1.4
-FOAM_W = 14.0
-FOAM_H = 8.0
-FOAM_FREE_T = 5.8
-FOAM_POCKET = 0.6
+FOAM_W = 16.0
+FOAM_H = 10.0
+FOAM_FREE_T = 6.0
+FOAM_POCKET = 1.0
 FOAM_ARM_R = 0.40
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
 PHONE_OPENING_W = 40.0
 PHONE_EDGE_R = 2.2
 MIRROR_FRAME_R = 1.2
-MIRROR_FRAME_W_PAD = 5.0
-MIRROR_FRAME_H_PAD = 3.0
 PHONE_TOP = old.ROOF-old.WALL
 Z_SHIFT = PHONE_TOP-old.PHONE_TOP
-_MIR_HALF_Z = (old.MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
-              (old.MIR_T/2)*math.sin(math.radians(90-old.MU))
+_MIR_HALF_Z = (MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
+              (MIR_T/2)*math.sin(math.radians(90-old.MU))
 MIRROR_Z = -old.CAM_DROP
 MIRROR_TOP = MIRROR_Z+_MIR_HALF_Z
+MIRROR_BOTTOM = MIRROR_Z-_MIR_HALF_Z
+BOTTOM = min(-old.BODY_H, MIRROR_BOTTOM-old.WALL)
 CAMERA_R = 2.2
 # The visible top of the phone camera aligns with the visible top of the mirror.
 CAMERA_Z = MIRROR_TOP-CAMERA_R
@@ -74,6 +82,11 @@ def shaft(x0, length, y, z, radius):
 
 def volume(shape):
     return sum(s.Volume() for s in shape.solids().vals())
+
+
+def latch_z(y):
+    """Keep the rear latch above the foam pocket."""
+    return 11.0 if y > 0 else LATCH_Z
 
 
 def export_print_stl(shape,path,tolerance=0.06,angular_tolerance=0.12):
@@ -109,7 +122,7 @@ def tilt(shape):
 
 
 def mirror():
-    return tilt(cq.Workplane("XY").box(old.MIR_W,old.MIR_T,old.MIR_H,
+    return tilt(cq.Workplane("XY").box(MIR_W,MIR_T,MIR_H,
                                              centered=(True,True,True)))
 
 
@@ -122,8 +135,9 @@ def camera_mouth():
 
 def phone_u_opening():
     """Remove the lower crossbar: phone-side silhouette is a plain inverted U."""
+    opening_top=max(PHONE_TOP+0.1,CAMERA_Z+CAMERA_WINDOW_H/2+0.3)
     return (box(-PHONE_OPENING_W/2,PHONE_OPENING_W/2,-2.2,1.0,
-                BOTTOM-1,PHONE_TOP+0.1)
+                BOTTOM-1,opening_top)
             .edges("|Y").fillet(PHONE_EDGE_R))
 
 
@@ -144,11 +158,11 @@ def optical_path():
     a=math.radians(old.MU)
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
-    center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.02)
+    center=cq.Vector(*mirror_center())+normal*(MIR_T/2+0.02)
     camera=cq.Vector(0,0,CAMERA_Z)
     corners=[center+cq.Vector(x,0,0)+up*z for x,z in
-             [(-old.APER_W/2,-old.APER_H/2),(old.APER_W/2,-old.APER_H/2),
-              (old.APER_W/2,old.APER_H/2),(-old.APER_W/2,old.APER_H/2)]]
+             [(-APER_W/2,-APER_H/2),(APER_W/2,-APER_H/2),
+              (APER_W/2,APER_H/2),(-APER_W/2,APER_H/2)]]
     far=[]
     for point in corners:
         incoming=point-camera
@@ -174,11 +188,11 @@ def camera_clearance():
     a=math.radians(old.MU)
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
-    center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.02)
+    center=cq.Vector(*mirror_center())+normal*(MIR_T/2+0.02)
     camera=cq.Vector(0,0,CAMERA_Z)
     mirror_corners=[center+cq.Vector(x,0,0)+up*z for x,z in
-        [(-old.APER_W/2,-old.APER_H/2),(old.APER_W/2,-old.APER_H/2),
-         (old.APER_W/2,old.APER_H/2),(-old.APER_W/2,old.APER_H/2)]]
+        [(-APER_W/2,-APER_H/2),(APER_W/2,-APER_H/2),
+         (APER_W/2,APER_H/2),(-APER_W/2,APER_H/2)]]
     phone_corners=[camera+cq.Vector(x,0.8,z) for x,z in
         [(-CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
          ( CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
@@ -197,7 +211,7 @@ def housing():
     cavity = box(-WIDTH/2+2.5, WIDTH/2-2.5, FRONT+2.5, -2.4,
                  BOTTOM-1, old.ROOF-2.4).edges("|Z").fillet(3.0)
     shell = shell.cut(cavity)
-    phone_channel=box(-WIDTH,WIDTH,0,BACK-2.4,BOTTOM-1,PHONE_TOP+0.2)
+    phone_channel=box(-WIDTH,WIDTH,-0.5,BACK-2.4,BOTTOM-1,PHONE_TOP+0.2)
     shell = shell.cut(phone_channel)
     # The phone now slides deeper into the U-channel. Keep a concealed pocket
     # above it so the pressure paddle can rotate without cutting the roof.
@@ -206,8 +220,9 @@ def housing():
                           PHONE_TOP+0.15,TOP-old.WALL))
     shell = shell.cut(shaft(-old.PLATE_W/2-FIT,old.PLATE_W+2*FIT,
                             old.PIVOT_Y,PIVOT_Z,2.6))
-    # Shallow registered seat for the adhesive foam pad behind the paddle.
-    # Its back face is deeper than the channel wall, so the pad cannot wander.
+    # Open, visible pocket for a 16 x 10 x 6 mm foam block behind the paddle.
+    # The rear 1.4 mm sits in the wall; the remaining foam projects into the
+    # channel so it can compress instead of being trapped inside solid plastic.
     foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
     shell=shell.cut(box(-FOAM_W/2-0.3,FOAM_W/2+0.3,
                         BACK-2.4,BACK-2.4+FOAM_POCKET+0.1,
@@ -220,14 +235,16 @@ def housing():
         shell = shell.union(bearing)
         shell = shell.cut(shaft(lo-0.1, hi-lo+0.2,old.PIVOT_Y,PIVOT_Z,
                                 old.PIN_D/2+FIT))
-    # Mirror bed is closed at BOTH ends. The parting plane provides assembly access.
-    bed = tilt(cq.Workplane("XY").box(old.MIR_W+2*FIT,
-                         old.MIR_T+2*FIT,old.MIR_H+2*FIT))
-    # Support the perimeter, including the upper/lower edges of the mirror.
-    frame = tilt(cq.Workplane("XY").box(old.MIR_W+MIRROR_FRAME_W_PAD,
-                             old.MIR_T+4.5,old.MIR_H+MIRROR_FRAME_H_PAD)
-                 .edges().fillet(MIRROR_FRAME_R))
-    shell = shell.union(frame.intersect(envelope())).cut(bed)
+    # The purchased mirror has its own adhesive back. Give it one continuous
+    # inclined landing pad across the shell seam; no insertion groove or lip.
+    # The adhesive bridges the two snapped shell halves after final assembly.
+    backing_local_y=-(MIR_T/2+MIRROR_ADHESIVE_T+MIRROR_BACKING_T/2)
+    backing=(cq.Workplane("XY")
+             .box(MIR_W+2*MIRROR_BACKING_SIDE_MARGIN,MIRROR_BACKING_T,
+                  MIR_H+2*MIRROR_BACKING_END_MARGIN)
+             .translate((0,backing_local_y,0))
+             .edges("|Y").fillet(MIRROR_FRAME_R))
+    shell=shell.union(tilt(backing).intersect(envelope()))
     # Keep the whole space in front of and below the mirror open as a true U.
     # This removes the film-thin side lips left by the sloped mirror frame;
     # the upper/rear cradle plus rear transfer tape retain the mirror.
@@ -239,8 +256,16 @@ def housing():
         # Keep the rib high: after moving the mirror closer, the old low rib
         # crossed the mirror's near/top edge around z=-2.7 mm.
         half_depth=3.5 if y<0 else 2.0
-        beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,2.5,TOP)
+        rib_bottom=9.8 if y>0 else 2.5
+        beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,rib_bottom,TOP)
         shell = shell.union(beam.intersect(envelope()))
+    # Cut this after adding ribs and the roof. The former shallow wall recess
+    # was later filled again by those unions, leaving no real foam volume.
+    foam_back=BACK-2.4+FOAM_POCKET
+    foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
+    shell=shell.cut(box(-FOAM_W/2-0.35,FOAM_W/2+0.35,
+                        foam_back-FOAM_FREE_T-0.35,foam_back+0.15,
+                        foam_z-FOAM_H/2-0.35,foam_z+FOAM_H/2+0.35))
     shell = shell.cut(optical_path())
     return shell
 
@@ -255,15 +280,16 @@ def latch(y, deflection=0.0):
         u=max(0.0,min(1.0,(x-LATCH_ROOT)/(LATCH_TIP-LATCH_ROOT)))
         return deflection*u*u*(3-u)/2
     xs=[-12.0]+[LATCH_ROOT+i*(LATCH_TIP-LATCH_ROOT)/24 for i in range(25)]
-    profile=[(x,LATCH_Z+bend(x)) for x in xs]
-    profile += [(x,LATCH_Z+LATCH_THICK+bend(x)) for x in reversed(xs)]
+    z0=latch_z(y)
+    profile=[(x,z0+bend(x)) for x in xs]
+    profile += [(x,z0+LATCH_THICK+bend(x)) for x in reversed(xs)]
     def extrude(points):
         # XZ normal is -Y; translate to the positive edge before extrusion.
         return (cq.Workplane("XZ").polyline(points).close().extrude(LATCH_WIDTH)
                 .translate((0,y+LATCH_WIDTH/2,0)))
     beam=extrude(profile)
-    hook=extrude([(2.9,LATCH_Z+0.1+bend(2.9)),(2.9,LATCH_Z-HOOK+bend(2.9)),
-                  (LATCH_TIP,LATCH_Z+bend(LATCH_TIP)),(LATCH_TIP,LATCH_Z+0.1+bend(LATCH_TIP))])
+    hook=extrude([(2.9,z0+0.1+bend(2.9)),(2.9,z0-HOOK+bend(2.9)),
+                  (LATCH_TIP,z0+bend(LATCH_TIP)),(LATCH_TIP,z0+0.1+bend(LATCH_TIP))])
     return beam.union(hook)
 
 
@@ -271,7 +297,8 @@ def latch(y, deflection=0.0):
 def left_base():
     part=housing().intersect(box(-60,-SEAM/2,-100,100,-100,100))
     for y in LATCH_Y:
-        part=part.cut(box(LATCH_ROOT,0.2,y-2.5,y+2.5,3.3,7.4))
+        z0=latch_z(y)
+        part=part.cut(box(LATCH_ROOT,0.2,y-2.5,y+2.5,z0-1.5,z0+2.6))
     for y in PIN_Y:
         pin=shaft(-2.0,5.5,y,PIN_Z,PIN_R).edges(">X").chamfer(0.35)
         part=part.union(pin)
@@ -289,10 +316,11 @@ def left():
 def right():
     part=housing().intersect(box(SEAM/2,60,-100,100,-100,100))
     for y in LATCH_Y:
-        part=part.cut(box(0,7.2,y-2.5,y+2.5,4.6,7.4))
-        part=part.cut(box(2.7,7.2,y-2.5,y+2.5,3.3,7.4))
+        z0=latch_z(y)
+        part=part.cut(box(0,7.2,y-2.5,y+2.5,z0-0.2,z0+2.6))
+        part=part.cut(box(2.7,7.2,y-2.5,y+2.5,z0-1.5,z0+2.6))
         # Small underside release port, no holes on the visible outer face.
-        part=part.cut(box(3.4,5.8,y-1.2,y+1.2,-3.1,4.8))
+        part=part.cut(box(3.4,5.8,y-1.2,y+1.2,-3.1,z0))
     for y in PIN_Y:part=part.cut(shaft(0,4.0,y,PIN_Z,PIN_R+0.2))
     return part
 
@@ -404,12 +432,13 @@ def inspect():
     plate_parts=print_plate_parts()
     plate_bounds=print_plate().BoundingBox()
     report = {"units":"mm", "prototype":True,
-        "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
+        "mirror":[MIR_W,MIR_H,MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
         "edge_rounds":{"phone_opening":PHONE_EDGE_R,
             "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
-        "mirror_mount":{"method":"upper/rear cradle + 0.2 mm transfer tape",
-            "mechanical_lower_lip":False},
+        "mirror_mount":{"method":"factory adhesive back on continuous inclined pad",
+            "adhesive_gap_mm":MIRROR_ADHESIVE_T,"insertion_groove":False,
+            "mechanical_lips":False},
         "print_plate":{"file":"tango_pebble_print_plate.stl","bodies":3,
             "size":[round(plate_bounds.xlen,3),round(plate_bounds.ylen,3),
                     round(plate_bounds.zlen,3)],
@@ -418,8 +447,8 @@ def inspect():
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
             "phone_above_mirror":round(PHONE_TOP-MIRROR_TOP,3)},
-        "available_fov_deg":[round(2*math.degrees(math.atan((old.APER_W/2)/CAM_GAP)),2),
-            round(2*math.degrees(math.atan((old.APER_H*math.cos(math.radians(old.MU))/2)/CAM_GAP)),2)],
+        "available_fov_deg":[round(2*math.degrees(math.atan((APER_W/2)/CAM_GAP)),2),
+            round(2*math.degrees(math.atan((APER_H*math.cos(math.radians(old.MU))/2)/CAM_GAP)),2)],
         "parts":{}, "interference_mm3":{},"assembly_sweep_mm3":{}}
     plate_names=list(plate_parts)
     for i,a in enumerate(plate_names):
@@ -435,11 +464,11 @@ def inspect():
     for i,a in enumerate(rigid):
         for b in rigid[i+1:]:
             report["interference_mm3"][a+" / "+b]=round(volume(shapes[a].intersect(shapes[b])),5)
-    # Assemble left shell -> mirror -> paddle -> foam -> close right shell.
+    # Assemble shells and paddle first; stick the mirror onto the completed pad.
     # Sample the moving paths, not only the seated positions.
     for n,obstacles,direction in [
-        ("mirror",["shell_left"],1),("paddle",["shell_left","mirror"],1),
-        ("shell_right",["shell_left","mirror","paddle"],1)]:
+        ("paddle",["shell_left"],1),
+        ("shell_right",["shell_left","paddle"],1)]:
         peak=0.0
         for offset in (0,0.25,0.5,1,2,4,8,12,18,24,32,48):
             moved=shapes[n].translate((offset*direction,0,0))
@@ -494,10 +523,10 @@ def inspect():
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
     camera=cq.Vector(0,0,CAMERA_Z)
-    center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.04)
+    center=cq.Vector(*mirror_center())+normal*(MIR_T/2+0.04)
     for ix in (-1,0,1):
         for iz in (-1,0,1):
-            hit=center+cq.Vector(ix*old.APER_W/2*0.98,0,0)+up*(iz*old.APER_H/2*0.98)
+            hit=center+cq.Vector(ix*APER_W/2*0.98,0,0)+up*(iz*APER_H/2*0.98)
             direction=(hit-camera).normalized()
             reflected=direction-normal*(2*direction.dot(normal))
             incoming=cq.Workplane(obj=cq.Solid.makeCylinder(0.01,(hit-camera).Length,camera,direction))
@@ -514,11 +543,6 @@ def inspect():
         "phone_face_obstruction_mm3":round(volume(housing().intersect(gauge)),7),
         "lower_crossbar_mm3":round(volume(housing().intersect(lower_gauge)),7),
         "phone_top":PHONE_TOP}
-    # Validate retention independently of the removed light path.
-    report["mirror_retention_mm3"]={}
-    for axis in [(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)]:
-        moved=shapes["mirror"].translate(tuple(1.0*v for v in axis))
-        report["mirror_retention_mm3"][str(axis)]=round(volume(moved.intersect(housing())),5)
     report["pass"]=all(v["valid"] and v["solids"]==1 for v in report["parts"].values())
     for key in ("interference_mm3","assembly_sweep_mm3","paddle_rotation_mm3","rigid_optical_path_mm3","sampled_ray_obstruction_mm3"):
         report["pass"] &= all(v<0.01 for v in report[key].values())
@@ -526,10 +550,6 @@ def inspect():
         report["pass"] &= all(v<0.01 for k,v in fit.items() if k.endswith("mm3"))
         report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
     report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
-    # The open U intentionally has no lower front lip. Five-direction cradle
-    # checks remain mechanical; the sixth direction is held by rear transfer tape.
-    report["pass"] &= all(v>0.01 for k,v in report["mirror_retention_mm3"].items()
-                          if k!="(0, 0, -1)")
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
     report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01

@@ -61,9 +61,17 @@ def main():
         "_config": {"pivotY": cad.old.PIVOT_Y, "pivotZ": cad.PIVOT_Z,
                     "phoneTop": cad.PHONE_TOP, "tongueBottom": cad.TONGUE_BOT,
                     "cameraZ": cad.CAMERA_Z, "cameraRadius": cad.CAMERA_R,
-                    "mirrorTop": cad.MIRROR_TOP},
+                    "mirrorTop": cad.MIRROR_TOP,
+                    "phoneAboveMirror": cad.PHONE_TOP-cad.MIRROR_TOP},
     }
-    fragment = r'''
+    fragment = r'''<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tango Pebble 스마트폰 반사경</title>
+</head>
+<body>
 <div id="tango-pebble-viewer">
   <h2>스마트폰 반사경 조립</h2>
   <div class="nav nav-pills" role="tablist" aria-label="조립 상태">
@@ -85,13 +93,21 @@ def main():
   <p class="text-small text-muted" id="tango-pebble-status" aria-live="polite">완성 상태 · 누름판과 스펀지는 케이스 안에 있습니다.</p>
 </div>
 <style>
-  #tango-pebble-viewer { width:100%; }
+  * { box-sizing:border-box; }
+  html { color-scheme:light; background:#fff; }
+  body { margin:0; color:#292622; background:#fff; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+  #tango-pebble-viewer { width:100%; max-width:1280px; margin:auto; padding:18px; }
+  #tango-pebble-viewer h2 { margin:0 0 12px; font-size:1.35rem; }
   #tango-pebble-viewer .nav { margin-block:12px; }
+  #tango-pebble-viewer .nav, #tango-pebble-viewer .viz-controls { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  #tango-pebble-viewer button { padding:7px 12px; border:1px solid #bdb4a8; border-radius:999px; color:#37312b; background:#fff; cursor:pointer; font:inherit; }
+  #tango-pebble-viewer button:hover { background:#f4efe6; }
+  #tango-pebble-viewer button.active { border-color:#b75b3c; color:#fff; background:#b75b3c; }
   #tango-pebble-viewer .viz-controls { margin-block:10px; }
   #tango-pebble-viewer .form-range { max-width:260px; }
-  #tango-pebble-viewer .tango-stage { position:relative; width:100%; height:560px; min-height:420px; overflow:hidden; }
+  #tango-pebble-viewer .tango-stage { position:relative; width:100%; height:560px; min-height:420px; overflow:hidden; background:#f4efe6; border:1px solid #d8cfc2; border-radius:18px; }
   #tango-pebble-viewer canvas { display:block; width:100%; height:100%; touch-action:none; }
-  #tango-pebble-viewer .tango-direction { position:absolute; inset:auto 8% 12% auto; color:var(--orange); font-weight:500; opacity:0; transition:opacity .2s ease; pointer-events:none; }
+  #tango-pebble-viewer .tango-direction { position:absolute; inset:auto 8% 12% auto; color:var(--orange,#d99055); font-weight:500; opacity:0; transition:opacity .2s ease; pointer-events:none; }
   #tango-pebble-viewer[data-state="inserting"] .tango-direction { opacity:1; }
   @media (max-width:520px) { #tango-pebble-viewer .tango-stage { height:440px; min-height:360px; } }
   @media (prefers-reduced-motion:reduce) { #tango-pebble-viewer .tango-direction { transition:none; } }
@@ -112,22 +128,15 @@ def main():
   const value=root.querySelector('#tango-thickness-value');
   const encoded=__MESH_DATA__;
 
-  function resolvedColor(token) {
-    const probe=document.createElement('span');
-    probe.style.color=`var(${token})`;
-    root.appendChild(probe);
-    const color=getComputedStyle(probe).color;
-    probe.remove();
-    return color;
-  }
   const colors={
-    shell:resolvedColor('--orange'), paddle:resolvedColor('--red'),
-    foam:resolvedColor('--foreground'), mirror:resolvedColor('--blue'),
-    phone:resolvedColor('--card-foreground'), line:resolvedColor('--border')
+    shell:'#d99055', paddle:'#b75b3c',
+    foam:'#ffd54f', mirror:'#79c8ee',
+    phone:'#465463', line:'#746b61'
   };
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
   renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.setClearColor('#f4efe6',1);
   renderer.shadowMap.enabled=true;
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(32,1,0.1,500);
@@ -136,9 +145,9 @@ def main():
   controls.enableDamping=true;
   controls.target.set(0,-7,-3);
 
-  scene.add(new THREE.HemisphereLight(resolvedColor('--background'),resolvedColor('--muted-foreground'),2.4));
-  const key=new THREE.DirectionalLight(resolvedColor('--foreground'),2.6); key.position.set(50,-70,90); key.castShadow=true; scene.add(key);
-  const fill=new THREE.DirectionalLight(resolvedColor('--blue'),1.2); fill.position.set(-60,30,20); scene.add(fill);
+  scene.add(new THREE.HemisphereLight('#fffaf2','#7d8791',2.4));
+  const key=new THREE.DirectionalLight('#fff8e8',2.6); key.position.set(50,-70,90); key.castShadow=true; scene.add(key);
+  const fill=new THREE.DirectionalLight('#b9e7ff',1.2); fill.position.set(-60,30,20); scene.add(fill);
 
   const loader=new STLLoader();
   function geometryFromBase64(text) {
@@ -195,10 +204,10 @@ def main():
 
   const states={
     closed:{camera:[92,-112,72],text:'완성 상태 · 누름판과 스펀지는 케이스 안에 있습니다.'},
-    exploded:{camera:[108,-130,86],text:'거울 → 스펀지 → 누름판을 넣고 좌우 케이스를 딸깍 닫습니다.'},
-    inserting:{camera:[92,104,-50],text:'40 mm ㄷ자 입구의 모서리를 R2.2로 둥글렸습니다. 휴대폰 윗변은 거울보다 7.1 mm 위로 들어갑니다.'},
-    installed:{camera:[118,66,18],text:'누름판이 휴대폰 뒷면 쪽으로 회전하며 스펀지를 압축해 고정합니다.'}
-    ,camera:{camera:[112,58,18],text:'거울 앞 양쪽의 얇은 고정막까지 제거해 ㄷ자 공간을 완전히 비웠습니다. 거울은 위·뒤쪽 자리와 뒷면 0.2 mm 전사식 양면테이프로 고정합니다.'}
+    exploded:{camera:[108,-130,86],text:'16×10×6 mm 폼과 누름판을 넣고 케이스를 닫은 뒤, 40×30 mm 거울의 스티커 면을 경사판에 붙입니다.'},
+    inserting:{camera:[92,104,-50],text:`40 mm ㄷ자 입구로 휴대폰이 들어갑니다. 휴대폰 윗변은 거울보다 ${encoded._config.phoneAboveMirror.toFixed(1)} mm 위에 있습니다.`},
+    installed:{camera:[118,66,18],text:'누름판이 휴대폰 뒷면 쪽으로 회전하며 전용 포켓의 6 mm 폼을 압축해 고정합니다.'}
+    ,camera:{camera:[112,58,18],text:'40×30 mm 거울은 끼움 턱 없이 연속된 경사판에 직접 접착합니다. 거울과 휴대폰 사이의 ㄷ자 카메라 공간은 열려 있습니다.'}
   };
   let current='camera';
   function resetTransforms() {
@@ -246,6 +255,8 @@ def main():
   function frame() { controls.update(); renderer.render(scene,camera); requestAnimationFrame(frame); }
   frame();
 </script>
+</body>
+</html>
 '''.replace('__MESH_DATA__', json.dumps(meshes, separators=(",", ":")))
     destination.write_text(fragment, encoding="utf-8")
     print(destination)
