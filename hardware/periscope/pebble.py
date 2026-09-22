@@ -22,10 +22,10 @@ BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
 FRONT = -BODY_D
 BACK = old.CHANNEL + old.WALL + 2.5
 BOTTOM = -old.BODY_H
-TOP = old.ROOF + 2.5
+TOP = old.ROOF + 6.5
 SEAM = 0.20
 FIT = 0.30
-LATCH_Y = (-22.0, -5.0)
+LATCH_Y = (-22.0, 16.6)
 LATCH_ROOT = -10.0
 LATCH_TIP = 6.0
 LATCH_THICK = 1.2
@@ -43,6 +43,12 @@ FOAM_POCKET = 0.6
 FOAM_ARM_R = 0.40
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
+PHONE_TOP = old.ROOF-old.WALL
+Z_SHIFT = PHONE_TOP-old.PHONE_TOP
+CAMERA_Z = -old.CAM_DROP+Z_SHIFT
+PIVOT_Z = old.TONGUE_TOP+Z_SHIFT
+TONGUE_BOT = old.TONGUE_BOT+Z_SHIFT
+TONGUE_C = PIVOT_Z-TONGUE_BOT
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -59,7 +65,7 @@ def volume(shape):
 
 
 def mirror_center():
-    return (0.0,-CAM_GAP,-old.CAM_DROP)
+    return (0.0,-CAM_GAP,CAMERA_Z)
 
 
 def tilt(shape):
@@ -73,8 +79,14 @@ def mirror():
 
 def camera_mouth():
     return box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
-               -old.CAM_DROP-CAMERA_WINDOW_H/2,
-               -old.CAM_DROP+CAMERA_WINDOW_H/2)
+               CAMERA_Z-CAMERA_WINDOW_H/2,
+               CAMERA_Z+CAMERA_WINDOW_H/2)
+
+
+def phone_u_opening():
+    """Remove the lower crossbar: phone-side silhouette is a plain inverted U."""
+    return box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.2,1.0,
+               BOTTOM-1,PHONE_TOP+0.1)
 
 
 @lru_cache(None)
@@ -95,7 +107,7 @@ def optical_path():
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
     center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.02)
-    camera=cq.Vector(0,0,-old.CAM_DROP)
+    camera=cq.Vector(0,0,CAMERA_Z)
     corners=[center+cq.Vector(x,0,0)+up*z for x,z in
              [(-old.APER_W/2,-old.APER_H/2),(old.APER_W/2,-old.APER_H/2),
               (old.APER_W/2,old.APER_H/2),(-old.APER_W/2,old.APER_H/2)]]
@@ -115,7 +127,8 @@ def optical_path():
     def loft(first,last):
         return cq.Workplane(obj=cq.Solid.makeLoft([
             cq.Wire.makePolygon(first+[first[0]]),cq.Wire.makePolygon(last+[last[0]])]))
-    return loft(near,corners).union(loft(corners,far)).union(camera_mouth())
+    return (loft(near,corners).union(loft(corners,far))
+            .union(camera_mouth()).union(phone_u_opening()))
 
 
 def camera_clearance():
@@ -124,7 +137,7 @@ def camera_clearance():
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
     center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.02)
-    camera=cq.Vector(0,0,-old.CAM_DROP)
+    camera=cq.Vector(0,0,CAMERA_Z)
     mirror_corners=[center+cq.Vector(x,0,0)+up*z for x,z in
         [(-old.APER_W/2,-old.APER_H/2),(old.APER_W/2,-old.APER_H/2),
          (old.APER_W/2,old.APER_H/2),(-old.APER_W/2,old.APER_H/2)]]
@@ -133,9 +146,10 @@ def camera_clearance():
          ( CAMERA_WINDOW_W/2,-CAMERA_WINDOW_H/2),
          ( CAMERA_WINDOW_W/2, CAMERA_WINDOW_H/2),
          (-CAMERA_WINDOW_W/2, CAMERA_WINDOW_H/2)]]
-    return cq.Workplane(obj=cq.Solid.makeLoft([
+    tunnel=cq.Workplane(obj=cq.Solid.makeLoft([
         cq.Wire.makePolygon(phone_corners+[phone_corners[0]]),
         cq.Wire.makePolygon(mirror_corners+[mirror_corners[0]])]))
+    return tunnel.union(camera_mouth()).union(phone_u_opening())
 
 
 @lru_cache(None)
@@ -145,12 +159,17 @@ def housing():
     cavity = box(-WIDTH/2+2.5, WIDTH/2-2.5, FRONT+2.5, -2.4,
                  BOTTOM-1, old.ROOF-2.4).edges("|Z").fillet(3.0)
     shell = shell.cut(cavity)
-    shell = shell.cut(box(-WIDTH, WIDTH, 0, BACK-2.4, BOTTOM-1, old.ROOF-2.4))
+    shell = shell.cut(box(-WIDTH, WIDTH, 0, BACK-2.4, BOTTOM-1, PHONE_TOP+0.2))
+    # The phone now slides deeper into the U-channel. Keep a concealed pocket
+    # above it so the pressure paddle can rotate without cutting the roof.
+    shell = shell.cut(box(-old.PLATE_W/2-FIT,old.PLATE_W/2+FIT,
+                          old.GRIP_FREE-1,old.PIVOT_Y+2.8,
+                          PHONE_TOP+0.15,TOP-old.WALL))
     shell = shell.cut(shaft(-old.PLATE_W/2-FIT,old.PLATE_W+2*FIT,
-                            old.PIVOT_Y,old.TONGUE_TOP,2.6))
+                            old.PIVOT_Y,PIVOT_Z,2.6))
     # Shallow registered seat for the adhesive foam pad behind the paddle.
     # Its back face is deeper than the channel wall, so the pad cannot wander.
-    foam_z=old.TONGUE_TOP-FOAM_ARM_R*old.TONGUE_C
+    foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
     shell=shell.cut(box(-FOAM_W/2-0.3,FOAM_W/2+0.3,
                         BACK-2.4,BACK-2.4+FOAM_POCKET+0.1,
                         foam_z-FOAM_H/2-0.3,foam_z+FOAM_H/2+0.3))
@@ -158,14 +177,10 @@ def housing():
     for sign in (-1,1):
         lo, hi = sorted((sign*(old.PLATE_W/2+FIT), sign*(old.PLATE_W/2+4.8)))
         bearing = box(lo,hi, old.PIVOT_Y-3.2,old.CHANNEL+1,
-                      old.TONGUE_TOP-2.5,TOP-1)
+                      PIVOT_Z-2.5,TOP-1)
         shell = shell.union(bearing)
-        shell = shell.cut(shaft(lo-0.1, hi-lo+0.2,old.PIVOT_Y,old.TONGUE_TOP,
+        shell = shell.cut(shaft(lo-0.1, hi-lo+0.2,old.PIVOT_Y,PIVOT_Z,
                                 old.PIN_D/2+FIT))
-        # Real insertion stops keep the lens at CAM_DROP instead of letting
-        # the phone slide another 6 mm into the roof space.
-        a,b=sorted((sign*17.0,sign*21.0))
-        shell=shell.union(box(a,b,0,BACK-1,old.PHONE_TOP,TOP-1).intersect(envelope()))
     # Mirror bed is closed at BOTH ends. The parting plane provides assembly access.
     bed = tilt(cq.Workplane("XY").box(old.MIR_W+2*FIT,
                          old.MIR_T+2*FIT,old.MIR_H+2*FIT))
@@ -177,7 +192,8 @@ def housing():
     for y in LATCH_Y:
         # Keep the rib high: after moving the mirror closer, the old low rib
         # crossed the mirror's near/top edge around z=-2.7 mm.
-        beam = box(-WIDTH/2,WIDTH/2,y-3.5,y+3.5,2.5,TOP)
+        half_depth=3.5 if y<0 else 2.0
+        beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,2.5,TOP)
         shell = shell.union(beam.intersect(envelope()))
     shell = shell.cut(optical_path())
     return shell
@@ -240,8 +256,8 @@ def paddle():
     # Straight rigid paddle: the original curved spring profile penetrates a
     # thick phone even when its rolled tip just touches. Foam supplies force.
     lip_r=old.PLATE_T+0.5
-    y0,z0=old.PIVOT_Y,old.TONGUE_TOP
-    y1,z1=old.GRIP_FREE+lip_r,old.TONGUE_BOT
+    y0,z0=old.PIVOT_Y,PIVOT_Z
+    y1,z1=old.GRIP_FREE+lip_r,TONGUE_BOT
     panel=(cq.Workplane("YZ").workplane(offset=-old.PLATE_W/2)
            .polyline([(y0,z0),(y1,z1),(y1+old.PLATE_T,z1),
                       (y0+old.PLATE_T,z0)]).close().extrude(old.PLATE_W))
@@ -256,7 +272,7 @@ def paddle_angle(thickness):
     """Angle where the rolled lower edge first meets the phone back."""
     radius=old.PLATE_T+0.5
     dy=old.GRIP_FREE+radius-old.PIVOT_Y
-    dz=old.TONGUE_BOT-old.TONGUE_TOP
+    dz=TONGUE_BOT-PIVOT_Z
     lo,hi=0.0,math.radians(40)
     for _ in range(40):
         t=(lo+hi)/2
@@ -267,13 +283,13 @@ def paddle_angle(thickness):
 
 
 def installed_paddle(thickness=9.0):
-    return paddle().rotate((0,old.PIVOT_Y,old.TONGUE_TOP),
-                           (1,old.PIVOT_Y,old.TONGUE_TOP),paddle_angle(thickness))
+    return paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
+                           (1,old.PIVOT_Y,PIVOT_Z),paddle_angle(thickness))
 
 
 def phone(thickness=9.0, drop=0.0):
     """Upper 52 mm of a phone, shown only for assembly review."""
-    return (box(-36,36,0,thickness,old.PHONE_TOP-52+drop,old.PHONE_TOP+drop)
+    return (box(-36,36,0,thickness,PHONE_TOP-52+drop,PHONE_TOP+drop)
             .edges("|Y").fillet(5.0))
 
 
@@ -284,7 +300,7 @@ def foam():
     # Free-state soft PU foam. It intentionally intersects the resting paddle:
     # that overlap is preload, not a rigid-part clash.
     back=BACK-2.4+FOAM_POCKET
-    z=old.TONGUE_TOP-FOAM_ARM_R*old.TONGUE_C
+    z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
     return box(-FOAM_W/2,FOAM_W/2,back-FOAM_FREE_T,back,
                z-FOAM_H/2,z+FOAM_H/2)
 
@@ -293,9 +309,9 @@ def foam_compression(thickness):
     """Geometric compression at the pad centre; force needs a real pad test."""
     t=FOAM_ARM_R
     y=old.PIVOT_Y+((old.GRIP_FREE+old.PLATE_T+0.5)-old.PIVOT_Y)*t+old.PLATE_T
-    z=old.TONGUE_TOP+(old.TONGUE_BOT-old.TONGUE_TOP)*t
+    z=PIVOT_Z+(TONGUE_BOT-PIVOT_Z)*t
     angle=math.radians(0 if thickness is None else paddle_angle(thickness))
-    dy,dz=y-old.PIVOT_Y,z-old.TONGUE_TOP
+    dy,dz=y-old.PIVOT_Y,z-PIVOT_Z
     rotated_y=old.PIVOT_Y+dy*math.cos(angle)-dz*math.sin(angle)
     back=BACK-2.4+FOAM_POCKET
     gap=back-rotated_y
@@ -354,17 +370,17 @@ def inspect():
     # Independent rigid paddle rotation: contact point moves towards thicker phones.
     report["paddle_rotation_mm3"]={}
     for deg in (0,5,10,15,20,25,27):
-        rotated=paddle().rotate((0,old.PIVOT_Y,old.TONGUE_TOP),
-                                (1,old.PIVOT_Y,old.TONGUE_TOP),deg)
+        rotated=paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
+                                (1,old.PIVOT_Y,PIVOT_Z),deg)
         report["paddle_rotation_mm3"][str(deg)]=round(volume(rotated.intersect(housing())),5)
     report["phone_fit"]={}
     for thickness in (7,9,11):
         # The rolled contact lip is a circle; solve its front tangent against
         # the phone back, then test the ENTIRE paddle, not only that point.
         deg=paddle_angle(thickness)
-        rotated=paddle().rotate((0,old.PIVOT_Y,old.TONGUE_TOP),
-                                (1,old.PIVOT_Y,old.TONGUE_TOP),deg)
-        phone_shape=box(-36,36,0,thickness,-91,old.PHONE_TOP)
+        rotated=paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
+                                (1,old.PIVOT_Y,PIVOT_Z),deg)
+        phone_shape=box(-36,36,0,thickness,PHONE_TOP-90,PHONE_TOP)
         report["phone_fit"][str(thickness)]={"paddle_angle_deg":round(deg,3),
             "phone_shell_mm3":round(volume(phone_shape.intersect(housing())),5),
             "phone_paddle_mm3":round(volume(phone_shape.intersect(rotated)),5),
@@ -383,7 +399,7 @@ def inspect():
     a=math.radians(old.MU)
     normal=cq.Vector(0,math.sin(a),-math.cos(a))
     up=cq.Vector(0,math.cos(a),math.sin(a))
-    camera=cq.Vector(0,0,-old.CAM_DROP)
+    camera=cq.Vector(0,0,CAMERA_Z)
     center=cq.Vector(*mirror_center())+normal*(old.MIR_T/2+0.04)
     for ix in (-1,0,1):
         for iz in (-1,0,1):
@@ -397,9 +413,11 @@ def inspect():
     # Independent gauge at the phone face proves that the camera is not looking
     # into a small pinhole or bridge left by the supports.
     gauge=box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-1.0,0.75,
-              -old.CAM_DROP-CAMERA_WINDOW_H/2,-old.CAM_DROP+CAMERA_WINDOW_H/2)
+              CAMERA_Z-CAMERA_WINDOW_H/2,CAMERA_Z+CAMERA_WINDOW_H/2)
     report["camera_window"]={"width":CAMERA_WINDOW_W,"height":CAMERA_WINDOW_H,
-        "phone_face_obstruction_mm3":round(volume(housing().intersect(gauge)),7)}
+        "phone_face_obstruction_mm3":round(volume(housing().intersect(gauge)),7),
+        "lower_crossbar_mm3":round(volume(housing().intersect(phone_u_opening())),7),
+        "phone_top":PHONE_TOP}
     # Validate retention independently of the removed light path.
     report["mirror_retention_mm3"]={}
     for axis in [(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)]:
@@ -415,6 +433,7 @@ def inspect():
     report["pass"] &= all(v>0.01 for v in report["mirror_retention_mm3"].values())
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
+    report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01
     return report
 
 

@@ -58,6 +58,8 @@ def main():
         "mirror": encoded_stl("mirror", 12),
         "foam": encoded_stl("foam", 12),
         "cameraSpace": encoded_cad(cad.camera_clearance),
+        "_config": {"pivotY": cad.old.PIVOT_Y, "pivotZ": cad.PIVOT_Z,
+                    "phoneTop": cad.PHONE_TOP, "tongueBottom": cad.TONGUE_BOT},
     }
     fragment = r'''
 <div id="tango-pebble-viewer">
@@ -156,8 +158,8 @@ def main():
 
   const phoneMaterial=material(colors.phone);
   let phone=new THREE.Mesh(); scene.add(phone); objects.phone=phone;
-  const PIVOT_Y=11.6, PIVOT_Z=3.5463903501502707;
-  const PHONE_TOP=-1;
+  const PIVOT_Y=encoded._config.pivotY, PIVOT_Z=encoded._config.pivotZ;
+  const PHONE_TOP=encoded._config.phoneTop, TONGUE_BOTTOM=encoded._config.tongueBottom;
   function rebuildPhone(thickness) {
     phone.geometry?.dispose();
     phone.geometry=new THREE.BoxGeometry(72,thickness,52);
@@ -166,7 +168,7 @@ def main():
     phone.castShadow=true;
   }
   function paddleAngle(thickness) {
-    const radius=2.1, dy=7.1-PIVOT_Y, dz=-9.5-PIVOT_Z;
+    const radius=2.1, dy=7.1-PIVOT_Y, dz=TONGUE_BOTTOM-PIVOT_Z;
     let lo=0,hi=THREE.MathUtils.degToRad(40);
     for(let i=0;i<40;i++) {
       const a=(lo+hi)/2;
@@ -186,9 +188,9 @@ def main():
   const states={
     closed:{camera:[92,-112,72],text:'완성 상태 · 누름판과 스펀지는 케이스 안에 있습니다.'},
     exploded:{camera:[108,-130,86],text:'거울 → 스펀지 → 누름판을 넣고 좌우 케이스를 딸깍 닫습니다.'},
-    inserting:{camera:[92,104,-50],text:'화면과 전면 카메라를 거울 쪽에 두고, 휴대폰 윗변을 아래에서 위로 밀어 넣습니다.'},
+    inserting:{camera:[92,104,-50],text:'양쪽 턱이 없는 ㄷ자 채널입니다. 화면과 전면 카메라를 거울 쪽에 두고 휴대폰 윗변을 안쪽까지 밀어 넣습니다.'},
     installed:{camera:[118,66,18],text:'누름판이 휴대폰 뒷면 쪽으로 회전하며 스펀지를 압축해 고정합니다.'}
-    ,camera:{camera:[112,58,18],text:'휴대폰 전면과 거울 사이를 36 × 14 mm로 파내 카메라가 지지대에 가리지 않습니다.'}
+    ,camera:{camera:[112,58,18],text:'아래 가로대 없이 열린 ㄷ자 개구부와 36 × 14 mm 광학 통로로 카메라 앞을 비웠습니다.'}
   };
   let current='camera';
   function resetTransforms() {
