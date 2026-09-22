@@ -126,6 +126,18 @@ def mirror():
                                              centered=(True,True,True)))
 
 
+@lru_cache(None)
+def mirror_backing():
+    """Printed 2.4 mm plate bonded to the sticker on the mirror back."""
+    local_y=-(MIR_T/2+MIRROR_ADHESIVE_T+MIRROR_BACKING_T/2)
+    plate=(cq.Workplane("XY")
+           .box(MIR_W+2*MIRROR_BACKING_SIDE_MARGIN,MIRROR_BACKING_T,
+                MIR_H+2*MIRROR_BACKING_END_MARGIN)
+           .translate((0,local_y,0))
+           .edges("|Y").fillet(MIRROR_FRAME_R))
+    return tilt(plate).intersect(envelope())
+
+
 def camera_mouth():
     return (box(-CAMERA_WINDOW_W/2,CAMERA_WINDOW_W/2,-2.0,1.0,
                 CAMERA_Z-CAMERA_WINDOW_H/2,
@@ -238,16 +250,9 @@ def housing():
     # The purchased mirror has its own adhesive back. Give it one continuous
     # inclined landing pad across the shell seam; no insertion groove or lip.
     # The adhesive bridges the two snapped shell halves after final assembly.
-    backing_local_y=-(MIR_T/2+MIRROR_ADHESIVE_T+MIRROR_BACKING_T/2)
-    backing=(cq.Workplane("XY")
-             .box(MIR_W+2*MIRROR_BACKING_SIDE_MARGIN,MIRROR_BACKING_T,
-                  MIR_H+2*MIRROR_BACKING_END_MARGIN)
-             .translate((0,backing_local_y,0))
-             .edges("|Y").fillet(MIRROR_FRAME_R))
-    shell=shell.union(tilt(backing).intersect(envelope()))
     # Keep the whole space in front of and below the mirror open as a true U.
-    # This removes the film-thin side lips left by the sloped mirror frame;
-    # the upper/rear cradle plus rear transfer tape retain the mirror.
+    # Cut this before adding the backing plate. The plate sits behind the
+    # adhesive mirror; the U opening is only the camera/phone side in front.
     lower_u=box(-PHONE_OPENING_W/2,PHONE_OPENING_W/2,FRONT+2.4,1.0,
                 BOTTOM-1,MIRROR_TOP-0.5)
     shell=shell.cut(lower_u)
@@ -266,6 +271,10 @@ def housing():
     shell=shell.cut(box(-FOAM_W/2-0.35,FOAM_W/2+0.35,
                         foam_back-FOAM_FREE_T-0.35,foam_back+0.15,
                         foam_z-FOAM_H/2-0.35,foam_z+FOAM_H/2+0.35))
+    # Add the plate after the broad U-channel cut so that cut cannot erase the
+    # adhesive landing surface. The optical cut that follows only shaves its
+    # front numerical boundary and preserves the plate behind the mirror.
+    shell=shell.union(mirror_backing())
     shell = shell.cut(optical_path())
     return shell
 
@@ -438,7 +447,9 @@ def inspect():
             "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
         "mirror_mount":{"method":"factory adhesive back on continuous inclined pad",
             "adhesive_gap_mm":MIRROR_ADHESIVE_T,"insertion_groove":False,
-            "mechanical_lips":False},
+            "mechanical_lips":False,
+            "finished_backing_volume_mm3":round(
+                volume(mirror_backing().cut(optical_path())),3)},
         "print_plate":{"file":"tango_pebble_print_plate.stl","bodies":3,
             "size":[round(plate_bounds.xlen,3),round(plate_bounds.ylen,3),
                     round(plate_bounds.zlen,3)],
