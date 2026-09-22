@@ -12,6 +12,7 @@ import json
 import math
 
 import cadquery as cq
+import trimesh
 import printable as old
 
 OUT = Path(__file__).resolve().parent / "out" / "pebble"
@@ -46,6 +47,9 @@ CAMERA_WINDOW_H = 14.0
 PHONE_OPENING_W = 40.0
 PHONE_EDGE_R = 2.2
 MIRROR_FRAME_R = 1.2
+MIRROR_FRAME_W_PAD = 5.0
+MIRROR_FRAME_H_PAD = 3.0
+OUTLET_EDGE_R = 1.2
 PHONE_TOP = old.ROOF-old.WALL
 Z_SHIFT = PHONE_TOP-old.PHONE_TOP
 _MIR_HALF_Z = (old.MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
@@ -71,6 +75,17 @@ def shaft(x0, length, y, z, radius):
 
 def volume(shape):
     return sum(s.Volume() for s in shape.solids().vals())
+
+
+def export_print_stl(shape,path,tolerance=0.06,angular_tolerance=0.12):
+    """Export and remove duplicate/degenerate tessellation faces."""
+    cq.exporters.export(shape,str(path),tolerance=tolerance,
+                        angularTolerance=angular_tolerance)
+    mesh=trimesh.load(path,force="mesh",process=False)
+    mesh.process(validate=True)
+    if not mesh.is_watertight or mesh.body_count!=1:
+        raise ValueError(f"Non-watertight STL: {path}")
+    mesh.export(path)
 
 
 def mirror_center():
@@ -138,7 +153,25 @@ def optical_path():
     def loft(first,last):
         return cq.Workplane(obj=cq.Solid.makeLoft([
             cq.Wire.makePolygon(first+[first[0]]),cq.Wire.makePolygon(last+[last[0]])]))
-    return (loft(near,corners).union(loft(corners,far))
+    def rounded_wire(points,radius,segments=5):
+        """Circumscribed rounded rectangle in an arbitrary 3D plane."""
+        center=sum(points,cq.Vector())*(1/4)
+        ux=(points[1]-points[0]).normalized()
+        uz=(points[3]-points[0]).normalized()
+        half_x=(points[1]-points[0]).Length/2
+        half_z=(points[3]-points[0]).Length/2
+        rounded=[]
+        for cx,cz,start_angle in ((half_x,-half_z,-90),(half_x,half_z,0),
+                                  (-half_x,half_z,90),(-half_x,-half_z,180)):
+            for i in range(segments+1):
+                angle=math.radians(start_angle+90*i/segments)
+                rounded.append(center+ux*(cx+radius*math.cos(angle))+
+                               uz*(cz+radius*math.sin(angle)))
+        return cq.Wire.makePolygon(rounded+[rounded[0]])
+    outgoing=cq.Workplane(obj=cq.Solid.makeLoft([
+        rounded_wire(corners,OUTLET_EDGE_R),
+        rounded_wire(far,OUTLET_EDGE_R*6)]))
+    return (loft(near,corners).union(outgoing)
             .union(camera_mouth()).union(phone_u_opening()))
 
 
@@ -197,8 +230,8 @@ def housing():
     bed = tilt(cq.Workplane("XY").box(old.MIR_W+2*FIT,
                          old.MIR_T+2*FIT,old.MIR_H+2*FIT))
     # Support the perimeter, including the upper/lower edges of the mirror.
-    frame = tilt(cq.Workplane("XY").box(old.MIR_W+9,
-                             old.MIR_T+4.5,old.MIR_H+5)
+    frame = tilt(cq.Workplane("XY").box(old.MIR_W+MIRROR_FRAME_W_PAD,
+                             old.MIR_T+4.5,old.MIR_H+MIRROR_FRAME_H_PAD)
                  .edges().fillet(MIRROR_FRAME_R))
     shell = shell.union(frame.intersect(envelope())).cut(bed)
     # Internal ribs carry the two snap latches, clear of the optical path.
@@ -343,7 +376,8 @@ def inspect():
         "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
         "edge_rounds":{"phone_opening":PHONE_EDGE_R,
-            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R},
+            "optical_chamber":3.0,"mirror_frame":MIRROR_FRAME_R,
+            "mirror_lower_ledges":OUTLET_EDGE_R},
         "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
             "camera_top":round(CAMERA_Z+CAMERA_R,3),
             "mirror_top":round(MIRROR_TOP,3),
@@ -463,7 +497,7 @@ def main():
     for n,f in SHOW.items():
         print("Export",n,flush=True)
         s=f()
-        cq.exporters.export(s,str(OUT/(n+".stl")),tolerance=0.06,angularTolerance=0.12)
+        export_print_stl(s,OUT/(n+".stl"))
         cq.exporters.export(s,str(OUT/(n+".step")))
     # Crop the actual joint: same hook and receiving pocket as the enclosure.
     # Rotate onto a side so beam bending occurs within printed layers.
@@ -474,7 +508,7 @@ def main():
         piece=piece.translate((-bounds.xmin,-bounds.ymin,-bounds.zmin))
         if piece.solids().size()!=1 or not piece.val().isValid():
             raise ValueError("Invalid snap coupon: "+name)
-        cq.exporters.export(piece,str(OUT/(name+".stl")),tolerance=0.04)
+        export_print_stl(piece,OUT/(name+".stl"),tolerance=0.04)
         cq.exporters.export(piece,str(OUT/(name+".step")))
     print("Checking assembly paths",flush=True)
     report=inspect()
