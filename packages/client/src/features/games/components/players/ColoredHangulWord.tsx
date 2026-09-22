@@ -60,8 +60,8 @@ function SideSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: st
         className={cn(
           'left-0 w-[0.5em]',
           hasCoda
-            ? 'top-[-0.01em] h-[0.62em] text-[0.58em]'
-            : 'top-[0.03em] h-[0.84em] text-[0.74em]'
+            ? 'top-[0.02em] h-[0.66em] text-[0.62em]'
+            : 'top-[0.16em] h-[0.84em] text-[0.74em]'
         )}
       >
         {cho}
@@ -71,10 +71,10 @@ function SideSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: st
         role="medial"
         className={cn(
           'w-[0.52em]',
-          WIDE_SIDE_ONSETS.has(cho) ? 'left-[0.48em]' : 'left-[0.41em]',
+          WIDE_SIDE_ONSETS.has(cho) ? 'left-[0.55em]' : 'left-[0.48em]',
           hasCoda
-            ? 'top-[-0.01em] h-[0.62em] text-[0.58em]'
-            : 'top-[0.03em] h-[0.84em] text-[0.74em]'
+            ? 'top-[0.02em] h-[0.66em] text-[0.62em]'
+            : 'top-[0.16em] h-[0.84em] text-[0.74em]'
         )}
       >
         {jung}
@@ -83,7 +83,7 @@ function SideSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: st
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.14em] top-[0.6em] h-[0.34em] w-[0.66em] text-[0.45em]"
+          className="left-[0.14em] top-[0.74em] h-[0.38em] w-[0.7em] text-[0.44em]"
         >
           {jong}
         </Jamo>
@@ -102,7 +102,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="onset"
         className={cn(
           'left-[0.08em] w-[0.7em]',
-          hasCoda ? 'top-0 h-[0.42em] text-[0.42em]' : 'top-[0.08em] h-[0.5em] text-[0.6em]'
+          hasCoda ? 'top-0 h-[0.48em] text-[0.5em]' : 'top-[0.13em] h-[0.5em] text-[0.6em]'
         )}
       >
         {cho}
@@ -112,7 +112,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="medial"
         className={cn(
           'left-[0.04em] w-[0.78em]',
-          hasCoda ? 'top-[0.43em] h-[0.33em] text-[0.33em]' : 'top-[0.5em] h-[0.53em] text-[0.58em]'
+          hasCoda ? 'top-[0.5em] h-[0.34em] text-[0.36em]' : 'top-[0.64em] h-[0.53em] text-[0.58em]'
         )}
       >
         {jung}
@@ -121,7 +121,7 @@ function BelowSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.14em] top-[0.77em] h-[0.38em] w-[0.66em] text-[0.38em]"
+          className="left-[0.14em] top-[0.86em] h-[0.4em] w-[0.7em] text-[0.44em]"
         >
           {jong}
         </Jamo>
@@ -140,9 +140,7 @@ function MixedSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="onset"
         className={cn(
           'left-[-0.01em] w-[0.51em]',
-          hasCoda
-            ? 'top-[-0.02em] h-[0.48em] text-[0.5em]'
-            : 'top-[-0.01em] h-[0.61em] text-[0.6em]'
+          hasCoda ? 'top-0 h-[0.5em] text-[0.5em]' : 'top-[0.08em] h-[0.61em] text-[0.6em]'
         )}
       >
         {cho}
@@ -152,7 +150,7 @@ function MixedSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         role="medial"
         className={cn(
           'left-[0.3em] w-[0.66em]',
-          hasCoda ? 'top-[0.23em] h-[0.46em] text-[0.47em]' : 'top-[0.29em] h-[0.62em] text-[0.6em]'
+          hasCoda ? 'top-[0.27em] h-[0.46em] text-[0.47em]' : 'top-[0.38em] h-[0.62em] text-[0.6em]'
         )}
       >
         {jung}
@@ -161,7 +159,7 @@ function MixedSyllable({ cho, jung, jong }: { cho: string; jung: string; jong: s
         <Jamo
           kind="consonant"
           role="coda"
-          className="left-[0.14em] top-[0.64em] h-[0.3em] w-[0.66em] text-[0.4em]"
+          className="left-[0.14em] top-[0.75em] h-[0.38em] w-[0.7em] text-[0.42em]"
         >
           {jong}
         </Jamo>
@@ -178,7 +176,7 @@ function ColoredSyllable({ char }: { char: string }) {
     <span
       data-hangul-syllable={char}
       data-syllable-layout={layout}
-      className="relative inline-block h-[0.98em] w-[0.94em] shrink-0 align-middle leading-none"
+      className="relative inline-block h-[1.18em] w-[1.02em] shrink-0 align-middle leading-none"
     >
       {layout.startsWith('side') ? (
         <SideSyllable {...syllable} />
