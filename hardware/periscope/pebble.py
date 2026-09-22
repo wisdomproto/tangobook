@@ -45,7 +45,13 @@ CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
 PHONE_TOP = old.ROOF-old.WALL
 Z_SHIFT = PHONE_TOP-old.PHONE_TOP
-CAMERA_Z = -old.CAM_DROP+Z_SHIFT
+_MIR_HALF_Z = (old.MIR_H/2)*math.cos(math.radians(90-old.MU)) + \
+              (old.MIR_T/2)*math.sin(math.radians(90-old.MU))
+MIRROR_Z = -old.CAM_DROP
+MIRROR_TOP = MIRROR_Z+_MIR_HALF_Z
+CAMERA_R = 2.2
+# The visible top of the phone camera aligns with the visible top of the mirror.
+CAMERA_Z = MIRROR_TOP-CAMERA_R
 PIVOT_Z = old.TONGUE_TOP+Z_SHIFT
 TONGUE_BOT = old.TONGUE_BOT+Z_SHIFT
 TONGUE_C = PIVOT_Z-TONGUE_BOT
@@ -65,7 +71,7 @@ def volume(shape):
 
 
 def mirror_center():
-    return (0.0,-CAM_GAP,CAMERA_Z)
+    return (0.0,-CAM_GAP,MIRROR_Z)
 
 
 def tilt(shape):
@@ -329,6 +335,10 @@ def inspect():
     report = {"units":"mm", "prototype":True,
         "mirror":[old.MIR_W,old.MIR_H,old.MIR_T],
         "angle_deg":old.MU,"camera_gap":CAM_GAP,
+        "vertical_alignment":{"phone_top":round(PHONE_TOP,3),
+            "camera_top":round(CAMERA_Z+CAMERA_R,3),
+            "mirror_top":round(MIRROR_TOP,3),
+            "phone_above_mirror":round(PHONE_TOP-MIRROR_TOP,3)},
         "available_fov_deg":[round(2*math.degrees(math.atan((old.APER_W/2)/CAM_GAP)),2),
             round(2*math.degrees(math.atan((old.APER_H*math.cos(math.radians(old.MU))/2)/CAM_GAP)),2)],
         "parts":{}, "interference_mm3":{},"assembly_sweep_mm3":{}}

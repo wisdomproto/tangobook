@@ -59,7 +59,9 @@ def main():
         "foam": encoded_stl("foam", 12),
         "cameraSpace": encoded_cad(cad.camera_clearance),
         "_config": {"pivotY": cad.old.PIVOT_Y, "pivotZ": cad.PIVOT_Z,
-                    "phoneTop": cad.PHONE_TOP, "tongueBottom": cad.TONGUE_BOT},
+                    "phoneTop": cad.PHONE_TOP, "tongueBottom": cad.TONGUE_BOT,
+                    "cameraZ": cad.CAMERA_Z, "cameraRadius": cad.CAMERA_R,
+                    "mirrorTop": cad.MIRROR_TOP},
     }
     fragment = r'''
 <div id="tango-pebble-viewer">
@@ -158,6 +160,11 @@ def main():
 
   const phoneMaterial=material(colors.phone);
   let phone=new THREE.Mesh(); scene.add(phone); objects.phone=phone;
+  const cameraRing=new THREE.Mesh(
+    new THREE.RingGeometry(encoded._config.cameraRadius*.58,encoded._config.cameraRadius,40),
+    new THREE.MeshBasicMaterial({color:colors.mirror,side:THREE.DoubleSide})
+  );
+  cameraRing.rotation.x=Math.PI/2; scene.add(cameraRing); objects.phoneCamera=cameraRing;
   const PIVOT_Y=encoded._config.pivotY, PIVOT_Z=encoded._config.pivotZ;
   const PHONE_TOP=encoded._config.phoneTop, TONGUE_BOTTOM=encoded._config.tongueBottom;
   function rebuildPhone(thickness) {
@@ -166,6 +173,7 @@ def main():
     phone.material=phoneMaterial;
     phone.position.set(0,thickness/2,PHONE_TOP-26);
     phone.castShadow=true;
+    cameraRing.position.set(0,-.08,encoded._config.cameraZ);
   }
   function paddleAngle(thickness) {
     const radius=2.1, dy=7.1-PIVOT_Y, dz=TONGUE_BOTTOM-PIVOT_Z;
@@ -188,9 +196,9 @@ def main():
   const states={
     closed:{camera:[92,-112,72],text:'완성 상태 · 누름판과 스펀지는 케이스 안에 있습니다.'},
     exploded:{camera:[108,-130,86],text:'거울 → 스펀지 → 누름판을 넣고 좌우 케이스를 딸깍 닫습니다.'},
-    inserting:{camera:[92,104,-50],text:'양쪽 턱이 없는 ㄷ자 채널입니다. 화면과 전면 카메라를 거울 쪽에 두고 휴대폰 윗변을 안쪽까지 밀어 넣습니다.'},
+    inserting:{camera:[92,104,-50],text:'휴대폰 윗변이 거울보다 7.1 mm 위로 들어갑니다. 파란 링은 전면 카메라 위치입니다.'},
     installed:{camera:[118,66,18],text:'누름판이 휴대폰 뒷면 쪽으로 회전하며 스펀지를 압축해 고정합니다.'}
-    ,camera:{camera:[112,58,18],text:'아래 가로대 없이 열린 ㄷ자 개구부와 36 × 14 mm 광학 통로로 카메라 앞을 비웠습니다.'}
+    ,camera:{camera:[112,58,18],text:'파란 카메라 링의 윗선과 거울 윗선을 맞췄고, 휴대폰 윗변은 그보다 7.1 mm 더 안쪽에 있습니다.'}
   };
   let current='camera';
   function resetTransforms() {
@@ -202,12 +210,12 @@ def main():
   function applyState(name,resetCamera=true) {
     current=name; root.dataset.state=name; resetTransforms();
     const thickness=Number(slider.value); rebuildPhone(thickness);
-    if(name==='closed') { objects.phone.visible=false; }
+    if(name==='closed') { objects.phone.visible=false; objects.phoneCamera.visible=false; }
     if(name==='exploded') {
       objects.shellLeft.position.x=-30; objects.shellRight.position.x=30;
-      objects.foam.position.z=22; objects.phone.visible=false;
+      objects.foam.position.z=22; objects.phone.visible=false; objects.phoneCamera.visible=false;
     }
-    if(name==='inserting') { objects.phone.position.z-=24; }
+    if(name==='inserting') { objects.phone.position.z-=24; objects.phoneCamera.position.z-=24; }
     if(name==='installed') {
       objects.shellRight.material.transparent=true; objects.shellRight.material.opacity=.12;
       objects.shellRight.material.depthWrite=false;
