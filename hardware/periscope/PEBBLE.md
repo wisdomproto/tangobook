@@ -38,9 +38,10 @@
 ```powershell
 python hardware/periscope/pebble.py
 python hardware/periscope/pebble_preview.py
+python hardware/periscope/pebble_html.py OUTPUT.html
 ```
 
-출력은 `out/pebble/`. 첫 명령은 STEP/STL, 결합 시험 부품 `coupon_left/right`, `report.json`을 생성한다. 검사 실패 시 종료 코드 2다. 두 번째 명령은 실제 STL에서 정지 미리보기를 만든다. VTK·Pillow가 필요하다.
+출력은 `out/pebble/`. 첫 명령은 STEP/STL, 결합 시험 부품 `coupon_left/right`, `report.json`을 생성한다. 검사 실패 시 종료 코드 2다. 두 번째 명령은 실제 STL에서 정지 미리보기를 만든다. VTK·Pillow가 필요하다. 세 번째 명령은 실제 STL을 표시용으로 단순화해 회전·분해·폰 삽입·장착 단면을 볼 수 있는 인터랙티브 HTML 조각을 만든다.
 
 ## 검증 결과와 한계
 
