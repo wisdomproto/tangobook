@@ -391,7 +391,7 @@ export function TangoBoard({
 
   return (
     <div
-      className="w-full flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1"
+      className="w-full min-w-0 flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1"
       onPointerMove={drag ? handleDragMove : undefined}
       onPointerUp={drag ? handleDragEnd : undefined}
       onPointerCancel={drag ? () => setDrag(null) : undefined}

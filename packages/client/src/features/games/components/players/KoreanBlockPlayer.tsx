@@ -578,7 +578,7 @@ function KoreanBlockPlayerInner({
               'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
               twoCol
                 ? 'flex-1 flex-col gap-[clamp(0.5rem,2vh,1.5rem)]'
-                : 'flex-[2] shrink-0 short:flex-none gap-[clamp(1rem,3vw,3rem)]'
+                : 'flex-[2] shrink-0 short:flex-none short:h-20 short:min-h-20 gap-[clamp(1rem,3vw,3rem)]'
             )}
           >
             {currentItem.imageUrl && (
@@ -594,7 +594,7 @@ function KoreanBlockPlayerInner({
             {/* 🔴 짧은 화면(폰 가로)에서는 20vh 가 75px 이라 이 한 줄이 판을 굶긴다.
                 `min()` 에 세로 상한을 하나 더 끼워 짧을 때만 작아지게 한다. */}
             <h1
-              className="font-display font-black leading-none whitespace-nowrap"
+              className="flex items-center justify-center font-display font-black leading-none whitespace-nowrap"
               style={{
                 fontSize: twoCol
                   ? 'clamp(2rem, min(8vw, 20vh), 9rem)'
@@ -616,6 +616,7 @@ function KoreanBlockPlayerInner({
           <section
             className={cn(
               'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
+              landscape && 'flex-row gap-2',
               twoCol ? 'flex-1' : 'flex-[4]',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
               roundCorrect &&
@@ -638,10 +639,10 @@ function KoreanBlockPlayerInner({
             )}
             <div
               className={cn(
-                'absolute z-20 flex flex-col gap-2 sm:gap-3',
-                twoCol
-                  ? 'right-2 top-2 sm:right-3 sm:top-3'
-                  : 'right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
+                'z-20 flex flex-col gap-2 sm:gap-3',
+                landscape
+                  ? 'relative shrink-0 self-stretch justify-center'
+                  : 'absolute right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
               )}
             >
               <button
@@ -649,7 +650,7 @@ function KoreanBlockPlayerInner({
                 onClick={() => void handleReadBoard()}
                 disabled={!composedText || roundCorrect}
                 className={cn(
-                  'bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0',
+                  'bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0 short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
@@ -661,7 +662,7 @@ function KoreanBlockPlayerInner({
                 type="button"
                 onClick={handleNext}
                 className={cn(
-                  'bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition',
+                  'bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
