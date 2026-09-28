@@ -88,6 +88,9 @@ STOP_Z_LO = PHONE_TOP+0.35
 STOP_Z_HI = PIVOT_Z-2.8
 LID_LAND_Y0 = old.PIVOT_Y-4.0
 LID_LAND_GAP = 0.10
+LID_LAND_THICK = 2.0
+LID_NECK_FRONT = 1.2
+LID_NECK_REAR = 0.5
 LID_INNER_Z = TOP-old.WALL
 
 
@@ -222,7 +225,8 @@ def lid_land():
     """Flat upper tongue face caught by the inside of the closed lid."""
     return box(-old.PLATE_W/2+1,old.PLATE_W/2-1,
                LID_LAND_Y0,old.PIVOT_Y+0.3,
-               LID_INNER_Z-LID_LAND_GAP-0.8,LID_INNER_Z-LID_LAND_GAP)
+               LID_INNER_Z-LID_LAND_GAP-LID_LAND_THICK,
+               LID_INNER_Z-LID_LAND_GAP)
 
 
 @lru_cache(None)
@@ -456,8 +460,8 @@ def paddle():
     # tongue gently into that rest face; rearward rotation pulls it away.
     land=lid_land()
     neck=box(-old.PLATE_W/2+1,old.PLATE_W/2-1,
-             old.PIVOT_Y-0.3,old.PIVOT_Y+0.2,
-             PIVOT_Z-0.2,LID_INNER_Z-LID_LAND_GAP)
+             old.PIVOT_Y-LID_NECK_FRONT,old.PIVOT_Y+LID_NECK_REAR,
+             PIVOT_Z-0.8,LID_INNER_Z-LID_LAND_GAP)
     panel=panel.union(land).union(neck)
     # Only two short axle stubs enter the shell bearings. A full-width round
     # axle looked like an exposed handle across the phone opening.
@@ -673,6 +677,8 @@ def inspect():
                             "blocked_at_minus_3_deg_mm3":stop_overlap(-3),
                             "clear_at_plus_27_deg_mm3":stop_overlap(27)}
     report["lid_land"]={"width_mm":old.PLATE_W-2,
+                        "thickness_mm":LID_LAND_THICK,
+                        "neck_front_to_back_mm":LID_NECK_FRONT+LID_NECK_REAR,
                         "rest_gap_mm":LID_LAND_GAP,
                         "clear_at_rest_mm3":lid_overlap(0),
                         "blocked_at_minus_3_deg_mm3":lid_overlap(-3),
