@@ -33,7 +33,7 @@ CAM_GAP = 15.0
 _MIR_HALF_Y = (MIR_H/2)*math.sin(math.radians(90-old.MU))+MIR_T/2
 BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
 FRONT = -BODY_D
-BACK = old.CHANNEL + old.WALL + 3.5
+BACK = old.CHANNEL + old.WALL + 6.0
 PHONE_INSERT_DEPTH = 8.0
 SEAM = 0.20
 FIT = 0.30
@@ -48,12 +48,12 @@ DEFLECT = 0.85
 PIN_Y = (-13.0, 5.0)
 PIN_R = 1.4
 FOAM_W = 16.0
-FOAM_H = 10.0
+FOAM_H = 6.0
 FOAM_FREE_T = 6.0
 FOAM_BACK_WALL = 2.4
 FOAM_FIT = 0.60
 FOAM_MOUTH = 1.50
-FOAM_ARM_R = 0.40
+FOAM_ARM_R = 0.32
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
 PHONE_OPENING_W = 40.0
@@ -79,6 +79,16 @@ CAMERA_Z = MIRROR_TOP-CAMERA_R
 PIVOT_Z = old.TONGUE_TOP+Z_SHIFT
 TONGUE_BOT = old.TONGUE_BOT+Z_SHIFT
 TONGUE_C = PIVOT_Z-TONGUE_BOT
+FOAM_Z = PIVOT_Z-FOAM_ARM_R*TONGUE_C
+# A flat landing on the paddle carries the bonded foam. At rest its
+# rear face preloads the foam by 0.3 mm against the housing's rear wall.
+FOAM_PAD_Y = BACK-FOAM_BACK_WALL-FOAM_FREE_T+0.3
+STOP_GAP = 0.10
+STOP_Z_LO = PHONE_TOP+0.35
+STOP_Z_HI = PIVOT_Z-2.8
+LID_LAND_Y0 = old.PIVOT_Y-4.0
+LID_LAND_GAP = 0.10
+LID_INNER_Z = TOP-old.WALL
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -173,9 +183,9 @@ def mirror_fit_clearance():
 
 @lru_cache(None)
 def foam_pocket_volume():
-    """Main foam recess plus a wider lead-in mouth, for cutting and preview."""
+    """Open space behind the paddle for foam carried on its flat rear pad."""
     foam_back=BACK-FOAM_BACK_WALL
-    foam_z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
+    foam_z=FOAM_Z
     foam_front=foam_back-FOAM_FREE_T-FOAM_FIT
     pocket=box(-FOAM_W/2-FOAM_FIT,FOAM_W/2+FOAM_FIT,
                foam_front,foam_back+0.2,
@@ -187,6 +197,32 @@ def foam_pocket_volume():
               foam_z-FOAM_H/2-FOAM_FIT-FOAM_MOUTH,
               foam_z+FOAM_H/2+FOAM_FIT+FOAM_MOUTH)
     return pocket.union(mouth)
+
+
+def paddle_front_y(z):
+    """Unrotated phone-facing side of the straight paddle at height z."""
+    y0,z0=old.PIVOT_Y,PIVOT_Z
+    y1,z1=old.GRIP_FREE+old.PLATE_T+0.5,TONGUE_BOT
+    return y1+(y0-y1)*(z-z1)/(z0-z1)
+
+
+def forward_stops():
+    """Side cheeks block forward rotation while leaving the rearward stroke free."""
+    z0,z1=STOP_Z_LO,STOP_Z_HI+0.55
+    side=(cq.Workplane("YZ").workplane(offset=old.PLATE_W/2-1.8)
+          .polyline([(old.PIVOT_Y-3.2,z0),
+                     (paddle_front_y(z0)-STOP_GAP,z0),
+                     (paddle_front_y(z1)-STOP_GAP,z1),
+                     (old.PIVOT_Y-3.2,z1)])
+          .close().extrude(2.8))
+    return side.union(side.mirror("YZ"))
+
+
+def lid_land():
+    """Flat upper tongue face caught by the inside of the closed lid."""
+    return box(-old.PLATE_W/2+1,old.PLATE_W/2-1,
+               LID_LAND_Y0,old.PIVOT_Y+0.3,
+               LID_INNER_Z-LID_LAND_GAP-0.8,LID_INNER_Z-LID_LAND_GAP)
 
 
 @lru_cache(None)
@@ -288,7 +324,7 @@ def housing():
     # The phone now slides deeper into the U-channel. Keep a concealed pocket
     # above it so the pressure paddle can rotate without cutting the roof.
     shell = shell.cut(box(-old.PLATE_W/2-FIT,old.PLATE_W/2+FIT,
-                          old.GRIP_FREE-1,old.PIVOT_Y+2.8,
+                          old.GRIP_FREE-1,old.PIVOT_Y+3.0,
                           PHONE_TOP+0.15,TOP-old.WALL))
     shell = shell.cut(shaft(-old.PLATE_W/2-FIT,old.PLATE_W+2*FIT,
                             old.PIVOT_Y,PIVOT_Z,2.6))
@@ -300,6 +336,7 @@ def housing():
         shell = shell.union(bearing)
         shell = shell.cut(shaft(lo-0.1, hi-lo+0.2,old.PIVOT_Y,PIVOT_Z,
                                 old.PIN_D/2+FIT))
+    shell = shell.union(forward_stops())
     # The purchased mirror has its own adhesive back. Give it one continuous
     # inclined landing pad across the shell seam; no insertion groove or lip.
     # The adhesive bridges the two snapped shell halves after final assembly.
@@ -318,9 +355,8 @@ def housing():
         beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,rib_bottom,TOP)
         shell = shell.union(beam.intersect(envelope()))
     # Cut this after adding ribs and the roof so later unions cannot refill it.
-    # The main rectangular pocket has 0.6 mm clearance around a 16 x 10 x 6 mm
-    # foam block. A wider shallow mouth makes the recess obvious and lets the
-    # foam slide in without catching an edge.
+    # A wide, open recess receives the foam already bonded to the paddle. Cut
+    # it after the ribs and roof so later unions cannot refill the space.
     shell=shell.cut(foam_pocket_volume())
     # Leave 1 mm around all four mirror edges. Cut this before adding the
     # backing plate so the adhesive landing surface remains continuous.
@@ -407,6 +443,22 @@ def paddle():
            .polyline([(y0,z0),(y1,z1),(y1+old.PLATE_T,z1),
                       (y0+old.PLATE_T,z0)]).close().extrude(old.PLATE_W))
     panel=panel.union(shaft(-old.PLATE_W/2,old.PLATE_W,y1,z1,lip_r))
+    # A broad, level back face lets one 16 x 6 mm foam pad be stuck to the
+    # paddle before assembly. The taper joins that face to the sloping tongue.
+    zlo,zhi=FOAM_Z-FOAM_H/2,FOAM_Z+FOAM_H/2
+    pad=(cq.Workplane("YZ").workplane(offset=-FOAM_W/2)
+         .polyline([(paddle_front_y(zlo)+old.PLATE_T-0.1,zlo),
+                    (paddle_front_y(zhi)+old.PLATE_T-0.1,zhi),
+                    (FOAM_PAD_Y,zhi),(FOAM_PAD_Y,zlo)])
+         .close().extrude(FOAM_W))
+    panel=panel.union(pad)
+    # The closed lid bears on this broad, flat upper land. Foam pushes the
+    # tongue gently into that rest face; rearward rotation pulls it away.
+    land=lid_land()
+    neck=box(-old.PLATE_W/2+1,old.PLATE_W/2-1,
+             old.PIVOT_Y-0.3,old.PIVOT_Y+0.2,
+             PIVOT_Z-0.2,LID_INNER_Z-LID_LAND_GAP)
+    panel=panel.union(land).union(neck)
     # Only two short axle stubs enter the shell bearings. A full-width round
     # axle looked like an exposed handle across the phone opening.
     panel=panel.union(shaft(-old.PLATE_W/2-3,3,y0,z0,old.PIN_D/2))
@@ -476,16 +528,14 @@ def foam():
     # Free-state soft PU foam. It intentionally intersects the resting paddle:
     # that overlap is preload, not a rigid-part clash.
     back=BACK-FOAM_BACK_WALL
-    z=PIVOT_Z-FOAM_ARM_R*TONGUE_C
+    z=FOAM_Z
     return box(-FOAM_W/2,FOAM_W/2,back-FOAM_FREE_T,back,
                z-FOAM_H/2,z+FOAM_H/2)
 
 
-def foam_compression(thickness):
-    """Geometric compression at the pad centre; force needs a real pad test."""
-    t=FOAM_ARM_R
-    y=old.PIVOT_Y+((old.GRIP_FREE+old.PLATE_T+0.5)-old.PIVOT_Y)*t+old.PLATE_T
-    z=PIVOT_Z+(TONGUE_BOT-PIVOT_Z)*t
+def foam_compression(thickness,z=FOAM_Z):
+    """Geometric compression at a pad height; force needs a real pad test."""
+    y=FOAM_PAD_Y
     angle=math.radians(0 if thickness is None else paddle_angle(thickness))
     dy,dz=y-old.PIVOT_Y,z-PIVOT_Z
     rotated_y=old.PIVOT_Y+dy*math.cos(angle)-dz*math.sin(angle)
@@ -497,7 +547,7 @@ def foam_compression(thickness):
 SHOW = dict(PARTS, mirror=mirror, foam=foam)
 # Actual straight insertion trajectories, in reverse when exploding the view.
 EXPLODE = {"shell_left":(-28,0,0),"shell_right":(28,0,0),
-           "mirror":(0,0,0),"paddle":(0,0,0),"foam":(0,0,22)}
+           "mirror":(0,0,0),"paddle":(0,0,0),"foam":(0,10,0)}
 
 
 def inspect():
@@ -588,7 +638,10 @@ def inspect():
             "phone_shell_mm3":round(volume(phone_shape.intersect(housing())),5),
             "phone_paddle_mm3":round(volume(phone_shape.intersect(rotated)),5),
             "paddle_shell_mm3":round(volume(rotated.intersect(housing())),5),
-            "foam_compression_percent":round(foam_compression(thickness),2)}
+            "foam_compression_percent":round(foam_compression(thickness),2),
+            "foam_edge_compression_percent":[
+                round(foam_compression(thickness,FOAM_Z+FOAM_H/2),2),
+                round(foam_compression(thickness,FOAM_Z-FOAM_H/2),2)]}
     report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
         "pocket_inner_size":[FOAM_W+2*FOAM_FIT,FOAM_H+2*FOAM_FIT,
                              FOAM_FREE_T+FOAM_FIT+0.2],
@@ -597,7 +650,33 @@ def inspect():
         "rear_wall_thickness":round(FOAM_BACK_WALL-0.2,2),
         "housing_overlap_mm3":round(volume(foam().intersect(housing())),5),
         "rest_preload_percent":round(foam_compression(None),2),
+        "rest_contact_volume_mm3":round(volume(foam().intersect(paddle())),3),
+        "mount":"foam bonded to flat rear face of removable paddle",
         "note":"Compression is geometric. Force, creep and recovery require a physical coupon."}
+    # The stop has a real blocking face at a slight forward turn, and the
+    # paddle must rotate backward freely throughout the phone thickness range.
+    def stop_overlap(deg):
+        swung=paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
+                              (1,old.PIVOT_Y,PIVOT_Z),deg)
+        return round(volume(swung.intersect(forward_stops())),5)
+    lid_roof=housing().intersect(box(-old.PLATE_W/2+1,old.PLATE_W/2-1,
+                                     LID_LAND_Y0-1,old.PIVOT_Y+1,
+                                     LID_INNER_Z,TOP+0.1))
+    def lid_overlap(deg):
+        swung=paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
+                              (1,old.PIVOT_Y,PIVOT_Z),deg)
+        return round(volume(swung.intersect(lid_roof)),5)
+    report["forward_stop"]={"nominal_gap_mm":STOP_GAP,
+                            "approx_tip_forward_play_mm":round(
+                                STOP_GAP*TONGUE_C/(PIVOT_Z-STOP_Z_LO),3),
+                            "clear_at_rest_mm3":stop_overlap(0),
+                            "blocked_at_minus_3_deg_mm3":stop_overlap(-3),
+                            "clear_at_plus_27_deg_mm3":stop_overlap(27)}
+    report["lid_land"]={"width_mm":old.PLATE_W-2,
+                        "rest_gap_mm":LID_LAND_GAP,
+                        "clear_at_rest_mm3":lid_overlap(0),
+                        "blocked_at_minus_3_deg_mm3":lid_overlap(-3),
+                        "clear_at_plus_27_deg_mm3":lid_overlap(27)}
     report["rigid_optical_path_mm3"]={}
     path=optical_path()
     for n in rigid:
@@ -635,8 +714,16 @@ def inspect():
     for fit in report["phone_fit"].values():
         report["pass"] &= all(v<0.01 for k,v in fit.items() if k.endswith("mm3"))
         report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
+        report["pass"] &= all(0 <= v <= 65 for v in fit["foam_edge_compression_percent"])
     report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
     report["pass"] &= report["foam"]["housing_overlap_mm3"]<0.01
+    report["pass"] &= report["foam"]["rest_contact_volume_mm3"]>1
+    report["pass"] &= report["forward_stop"]["clear_at_rest_mm3"]<0.01
+    report["pass"] &= report["forward_stop"]["blocked_at_minus_3_deg_mm3"]>0.01
+    report["pass"] &= report["forward_stop"]["clear_at_plus_27_deg_mm3"]<0.01
+    report["pass"] &= report["lid_land"]["clear_at_rest_mm3"]<0.01
+    report["pass"] &= report["lid_land"]["blocked_at_minus_3_deg_mm3"]>0.01
+    report["pass"] &= report["lid_land"]["clear_at_plus_27_deg_mm3"]<0.01
     report["pass"] &= peak<0.01 and report["snap_fit"]["retaining_overlap_mm3"]>0.01
     report["pass"] &= report["camera_window"]["phone_face_obstruction_mm3"]<0.01
     report["pass"] &= report["camera_window"]["lower_crossbar_mm3"]<0.01
