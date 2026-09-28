@@ -29,7 +29,7 @@ def encoded_stl(name, faces):
             # Keep the generator dependency-light: OCC can tessellate the exact
             # CAD with a coarse display tolerance when fast_simplification is absent.
             factories={"shell_left":cad.left,"shell_right":cad.right,
-                       "paddle":cad.paddle,"mirror":cad.mirror,"spring_insert":cad.spring_insert}
+                       "paddle":cad.paddle,"mirror":cad.mirror,"foam":cad.foam}
             with tempfile.TemporaryDirectory() as temp_dir:
                 temporary=Path(temp_dir)/f"{name}.stl"
                 cq.exporters.export(factories[name](),str(temporary),
@@ -56,10 +56,10 @@ def main():
         "shellRight": encoded_stl("shell_right", 2300),
         "paddle": encoded_stl("paddle", 700),
         "mirror": encoded_stl("mirror", 12),
-        "spring_insert": encoded_stl("spring_insert", 12),
+        "foam": encoded_stl("foam", 12),
         "backing": encoded_cad(cad.mirror_backing),
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
-        "forwardStops": encoded_cad(cad.forward_stops),
+        "snapSockets": encoded_cad(cad.axle_snap_flex_zone),
         "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
         "contactFace": encoded_cad(cad.contact_shoe),
         "cameraSpace": encoded_cad(cad.camera_clearance),
@@ -88,8 +88,8 @@ def main():
     <button class="nav-link" type="button" data-state="inserting" aria-selected="false">폰 끼우기</button>
     <button class="nav-link" type="button" data-state="installed" aria-selected="false">장착 단면</button>
     <button class="nav-link" type="button" data-state="backing" aria-selected="false">거울 접착판</button>
-    <button class="nav-link" type="button" data-state="foamPocket" aria-selected="false">탄성 블록 자리</button>
-    <button class="nav-link" type="button" data-state="forwardStops" aria-selected="false">혀 고정면</button>
+    <button class="nav-link" type="button" data-state="foamPocket" aria-selected="false">스펀지 자리</button>
+    <button class="nav-link" type="button" data-state="snapSockets" aria-selected="false">혀 딸깍 소켓</button>
     <button class="nav-link" type="button" data-state="contactFace" aria-selected="false">폰 접촉면</button>
     <button class="nav-link active" type="button" data-state="camera" aria-selected="true">카메라 공간</button>
   </div>
@@ -142,8 +142,8 @@ def main():
 
   const colors={
     shell:'#d99055', paddle:'#b75b3c',
-    spring_insert:'#ffd54f', mirror:'#79c8ee',
-    phone:'#465463', backing:'#34b879', foamPocket:'#9b7bd3', forwardStops:'#e64b43', lidLand:'#20a488', line:'#746b61'
+    foam:'#ffd54f', mirror:'#79c8ee',
+    phone:'#465463', backing:'#34b879', foamPocket:'#9b7bd3', snapSockets:'#e64b43', lidLand:'#20a488', line:'#746b61'
   };
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
@@ -176,10 +176,10 @@ def main():
     mesh.castShadow=true; mesh.receiveShadow=true; scene.add(mesh); objects[name]=mesh; return mesh;
   }
   addMesh('shellLeft',colors.shell); addMesh('shellRight',colors.shell);
-  addMesh('paddle',colors.paddle); addMesh('mirror',colors.mirror,.82); addMesh('spring_insert',colors.spring_insert);
+  addMesh('paddle',colors.paddle); addMesh('mirror',colors.mirror,.82); addMesh('foam',colors.foam);
   addMesh('backing',colors.backing,.92); objects.backing.material.depthTest=false; objects.backing.renderOrder=10;
   addMesh('foamPocket',colors.foamPocket,.88); objects.foamPocket.material.depthTest=false; objects.foamPocket.renderOrder=11;
-  addMesh('forwardStops',colors.forwardStops,.95); objects.forwardStops.material.depthTest=false; objects.forwardStops.renderOrder=12;
+  addMesh('snapSockets',colors.snapSockets,.95); objects.snapSockets.material.depthTest=false; objects.snapSockets.renderOrder=12;
   addMesh('lidLand',colors.lidLand,.95); objects.lidLand.material.depthTest=false; objects.lidLand.renderOrder=13;
   addMesh('contactFace',colors.lidLand,.95); objects.contactFace.material.depthTest=false; objects.contactFace.renderOrder=14;
   addMesh('cameraSpace',colors.mirror,.24); objects.cameraSpace.material.depthWrite=false;
@@ -222,13 +222,13 @@ def main():
   }
 
   const states={
-    closed:{camera:[92,-112,72],text:'완성 상태 · 접착 없는 탄성 블록은 케이스 아래쪽 걸림턱에 고정됩니다.'},
-    exploded:{camera:[108,-130,86],text:'맨 혀와 케이스를 먼저 체결하고, 노란 탄성 블록을 아래에서 위로 밀어 넣습니다. 마지막에 40×30 mm 거울을 붙입니다.'},
+    closed:{camera:[92,-112,72],text:'완성 상태 · 접착하지 않은 스펀지는 뒤쪽 돌기에 걸리고, 딸깍 체결된 혀가 앞에서 잡아 줍니다.'},
+    exploded:{camera:[108,-130,86],text:'본체 체결 → 뒤쪽 포켓에 16×6×6 mm 스펀지 삽입 → 혀를 아래에서 위로 눌러 양쪽 축을 딸깍 고정 → 40×30 mm 거울 부착 순서입니다.'},
     inserting:{camera:[92,104,-50],text:`40 mm ㄷ자 입구로 휴대폰이 들어갑니다. 휴대폰 윗변은 거울보다 ${encoded._config.phoneAboveMirror.toFixed(1)} mm 위에 있습니다.`},
-    installed:{camera:[118,66,18],text:'혀는 앞쪽 멈춤턱에 걸리고, 휴대폰을 끼우면 뒤로 돌아가며 탄성 블록의 머리를 압축합니다.'},
+    installed:{camera:[118,66,18],text:'혀는 뚜껑 안쪽의 넓은 받침면에 쉬고, 휴대폰을 끼우면 뒤로 돌아가며 스펀지를 압축합니다.'},
     backing:{camera:[105,-125,82],text:'초록색으로 강조한 2.4 mm 경사판은 실제 출력 케이스의 일부입니다. 거울의 뒷면 스티커를 이 판의 앞면에 직접 붙입니다.'}
-    ,foamPocket:{camera:[108,72,24],text:'보라색은 케이스를 닫은 뒤 아래에서 밀어 넣는 탄성 블록의 머리와 안내 통로입니다. 혀에는 접착하지 않습니다.'}
-    ,forwardStops:{camera:[112,72,26],text:'초록색은 뚜껑 안쪽에 받쳐지는 혀의 평평한 윗면, 빨간색은 양옆 보조 멈춤턱입니다. 앞쪽 이동은 막고 뒤쪽은 탄성 블록을 누르며 움직입니다.'}
+    ,foamPocket:{camera:[108,72,24],text:'보라색 포켓에 스펀지를 뒤에서 눌러 넣으면 작은 후방 돌기 두 개가 임시로 잡습니다. 접착제 없이 다음 혀 조립까지 위치를 유지합니다.'}
+    ,snapSockets:{camera:[112,72,26],text:'빨간색은 아래가 열린 C형 축 소켓의 탄성 구간입니다. 3.0 mm 축이 2.5 mm 목을 위로 통과해 딸깍 고정됩니다. 실제 삽입력과 반복 내구성은 작은 시험편으로 확인해야 합니다.'}
     ,contactFace:{camera:[100,105,14],text:'초록색은 작은 원기둥 대신 만든 폭 18 mm의 완만한 곡면입니다. 폰 두께에 따라 닿는 높이가 달라집니다.'}
     ,camera:{camera:[112,58,18],text:'40×30 mm 거울은 끼움 턱 없이 연속된 경사판에 직접 접착합니다. 거울과 휴대폰 사이의 ㄷ자 카메라 공간은 열려 있습니다.'}
   };
@@ -236,7 +236,7 @@ def main():
   function resetTransforms() {
     for(const object of Object.values(objects)) { object.visible=true; object.position.set(0,0,0); object.rotation.set(0,0,0); }
     setPaddleRotation(0);
-    objects.cameraSpace.visible=false; objects.backing.visible=false; objects.foamPocket.visible=false; objects.forwardStops.visible=false; objects.lidLand.visible=false; objects.contactFace.visible=false;
+    objects.cameraSpace.visible=false; objects.backing.visible=false; objects.foamPocket.visible=false; objects.snapSockets.visible=false; objects.lidLand.visible=false; objects.contactFace.visible=false;
     for(const shell of [objects.shellLeft,objects.shellRight]) {
       shell.material.opacity=1; shell.material.transparent=false; shell.material.depthWrite=true;
     }
@@ -248,7 +248,8 @@ def main():
     if(name==='exploded') {
       objects.shellLeft.position.x=-30; objects.shellRight.position.x=30;
       objects.mirror.position.set(0,18,-18);
-      objects.spring_insert.position.set(0,-18,-20); objects.phone.visible=false; objects.phoneCamera.visible=false;
+      objects.foam.position.set(0,8,-7); objects.paddle.position.z=-18;
+      objects.phone.visible=false; objects.phoneCamera.visible=false;
     }
     if(name==='inserting') { objects.phone.position.z-=24; objects.phoneCamera.position.z-=24; }
     if(name==='installed') {
@@ -257,34 +258,35 @@ def main():
       setPaddleRotation(paddleAngle(thickness));
     } else if(name==='backing') {
       objects.mirror.visible=false; objects.phone.visible=false; objects.phoneCamera.visible=false;
-      objects.paddle.visible=false; objects.spring_insert.visible=false;
+      objects.paddle.visible=false; objects.foam.visible=false;
       objects.backing.visible=true;
       for(const shell of [objects.shellLeft,objects.shellRight]) {
         shell.material.transparent=true; shell.material.opacity=.18; shell.material.depthWrite=false;
       }
     } else if(name==='foamPocket') {
-      objects.spring_insert.visible=false; objects.phone.visible=false; objects.phoneCamera.visible=false;
+      objects.foam.visible=false; objects.phone.visible=false; objects.phoneCamera.visible=false;
       objects.mirror.visible=false; objects.foamPocket.visible=true;
       for(const shell of [objects.shellLeft,objects.shellRight]) {
         shell.material.transparent=true; shell.material.opacity=.18; shell.material.depthWrite=false;
       }
-    } else if(name==='forwardStops') {
+    } else if(name==='snapSockets') {
       objects.phone.visible=false; objects.phoneCamera.visible=false;
-      objects.mirror.visible=false; objects.forwardStops.visible=true; objects.lidLand.visible=true;
+      objects.mirror.visible=false; objects.foam.visible=false;
+      objects.paddle.position.z=-12; objects.snapSockets.visible=true;
       for(const shell of [objects.shellLeft,objects.shellRight]) {
         shell.material.transparent=true; shell.material.opacity=.18; shell.material.depthWrite=false;
       }
     } else if(name==='contactFace') {
       objects.phone.visible=false; objects.phoneCamera.visible=false;
-      objects.mirror.visible=false; objects.spring_insert.visible=false; objects.contactFace.visible=true;
+      objects.mirror.visible=false; objects.foam.visible=false; objects.contactFace.visible=true;
       for(const shell of [objects.shellLeft,objects.shellRight]) {
         shell.material.transparent=true; shell.material.opacity=.12; shell.material.depthWrite=false;
       }
     } else if(name==='camera') {
       // Keep the optical-space view readable from above. Transparent shell
-      // layers can otherwise make the buried insert and paddle look like a
+      // layers can otherwise make the buried foam and paddle look like a
       // hatched opening in the solid roof.
-      objects.paddle.visible=false; objects.spring_insert.visible=false;
+      objects.paddle.visible=false; objects.foam.visible=false;
       objects.shellRight.material.transparent=true; objects.shellRight.material.opacity=.10;
       objects.shellRight.material.depthWrite=false;
       objects.cameraSpace.visible=true;

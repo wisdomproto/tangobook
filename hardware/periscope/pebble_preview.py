@@ -7,7 +7,7 @@ import pebble as p
 OUT=p.OUT
 COLORS={"shell_left":(0.96,0.70,0.51),"shell_right":(0.96,0.70,0.51),
         "paddle":(0.80,0.43,0.28),"mirror":(0.66,0.82,0.89),
-        "spring_insert":(0.12,0.14,0.15),"phone":(0.20,0.22,0.24)}
+        "foam":(0.12,0.14,0.15),"phone":(0.20,0.22,0.24)}
 
 
 def render(name, position, exploded=False, cutaway=False, scene=None, scale=None):
@@ -48,13 +48,13 @@ def main():
     render("insertion",(85,90,-50),scene=insertion,scale=42)
     installed={"shell_left":(p.left(),(0,0,0)),"paddle":(p.installed_paddle(),(0,0,0)),
                "phone":(p.phone(),(0,0,0)),"mirror":(p.mirror(),(0,0,0)),
-               "spring_insert":(p.spring_insert(),(0,0,0))}
+               "foam":(p.foam(),(0,0,0))}
     render("installed",(115,55,15),cutaway=True,scene=installed,scale=40)
     font=ImageFont.truetype("C:/Windows/Fonts/malgun.ttf",30)
     small=ImageFont.truetype("C:/Windows/Fonts/malgun.ttf",23)
     board=Image.new("RGB",(1800,1540),(248,244,237));draw=ImageDraw.Draw(board)
     draw.text((55,28),"TANGO / 스마트폰 반사경 — 조약돌형 조립 시안",font=font,fill="#3f2f24")
-    labels=[("assembled","01  완성 상태 — 40×30 거울은 경사판에 접착"),("exploded","02  맨 혀·케이스 체결 → 아래에서 탄성 블록 삽입"),
+    labels=[("assembled","01  완성 상태 — 40×30 거울은 경사판에 접착"),("exploded","02  케이스 체결 → 폼 삽입 → 혀를 위로 딸깍 → 거울 접착"),
             ("insertion","03  휴대폰 윗변을 아래에서 위로 밀어 넣음 ↑"),("installed","04  장착 단면 — 누름판이 뒤로 돌아 폰을 잡음")]
     for i,(n,label) in enumerate(labels):
         x=(i%2)*900;y=90+(i//2)*690
