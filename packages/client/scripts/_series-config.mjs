@@ -680,8 +680,8 @@ export const SERIES = {
   },
   taro: {
     no: '13', title: '타로와 무무', icon: '🐒',
-    awardRef: 'albertine-marta',
-    sub: '아기 원숭이 타로와 아기 사슴 무무 · 인도네시아 섬 마을 · <b>페파형</b>(어른이 아니라 서로에게 틀린다 — 나쁜 마음이 아니라 몰라서) · 그림체 = 바틱 하나(전권)',
+    awardRef: null,
+    sub: '아기 원숭이 타로와 아기 사슴 무무 · 인도네시아 섬 마을 · <b>페파형</b>(어른이 아니라 서로에게 틀린다 — 나쁜 마음이 아니라 몰라서) · 그림체 = 문양을 덜어낸 단순 바틱(전권)',
     form: 'peppa', pen: { author: '서윤슬', illustrator: '민서하' },
     palette: {
       paper: '#EFE3CC', ink1: '#4C6E8C',
