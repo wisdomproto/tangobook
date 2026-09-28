@@ -12,7 +12,7 @@
 ```
 STYLE ANCHOR - bung-woodblock   (Bung's floating market / colour blocks first, the key block last)
 
-Style: folk woodblock printing on cream paper, TWO colour blocks, one small accent block and one
+Style: folk woodblock printing on cream paper, earthy stage blocks, four distinct clothing inks, one small accent block and one
   black key block, 4-6 year old picture book. Each colour block is one flat opaque area cut from a
   plank. The key block carries EVERY outline and prints LAST, on top of the colour.
   🔴 THE PLANK'S GRAIN SHOWS ONLY IN THE STAGE AREAS - water, hulls, decking, cloth, baskets,
@@ -27,18 +27,26 @@ RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR O
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
 PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
+  mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
   the two children are one set, so no adult and no other thing in the book ever carries it. No sky
-  blue, no purple, no pink.
-  🔴 THERE IS NO RED OR YELLOW BLOCK EITHER. Where the script makes ONE thing's colour the point of the
+  blue in the sky or water. The clothing inks below are intentional exceptions to the old limited palette.
+  CLOTHING IDENTITY: Bung buffalo wears a BRICK ORANGE #C85A36 top; Ddori baby buffalo wears a
+  SUNFLOWER YELLOW #F2C94C top; Mom buffalo wears a MULBERRY #984C78 top and matching headcloth;
+  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain RIVER.
+  These large, flat clothing areas distinguish the four at reading size. Keep each colour in front,
+  side and back views and across every episode. Do not swap colours or turn all tops green.
+  Preserve reference faces, bodies, silhouettes and garment shapes; when an older reference shows
+  green clothes, replace ONLY those clothing colours with this updated assignment.
+  Keep these extra inks on the named clothing, not skin, horns, water or background props.
+  STAGE PRODUCE retains its existing two-block convention. Where the script makes ONE thing's colour the point of the
   page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
   cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
   MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
-  BOAT INSIDE - planks RIVER, cloth LEAF, lamplight bare PAPER and the brightest thing on the page; a
+  BOAT INSIDE - planks RIVER, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
     thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
   CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
     a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
@@ -47,7 +55,7 @@ STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
   in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
-  head, Mom with a cloth wrapped between the horns. THAT HEADWEAR IS WHAT TELLS THE TWO ADULTS APART,
+  head, Mom with a cloth wrapped between the horns. DISTINCT CLOTHING COLOURS AND HEADWEAR TELL THE TWO ADULTS APART,
   so the SCENE names it on every page the adult is on. Backs and heads
   OVERLAP, chests and bellies RIVER.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE

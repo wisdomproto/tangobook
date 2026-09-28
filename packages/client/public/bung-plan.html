@@ -79,6 +79,8 @@
 <table><thead><tr><th></th><th>시리즈 02 메이</th><th><b>시리즈 11 붕이</b></th></tr></thead><tbody><tr><td>형</td><td>대발이형</td><td><b>대발이형</b> (같다)</td></tr><tr><td>캐스트</td><td>또래 다섯 + 어른 하나</td><td><b>아이 하나 + 말 못 하는 동생 + 어른 둘</b></td></tr><tr><td>겨루는 상대</td><td>또래끼리 이기고 진다</td><td>🔴 <b>없다</b> — 붕이는 늘 <b>대신 알아내야</b> 한다</td></tr><tr><td>주인공</td><td>다섯이 5권 주기로</td><td><b>붕이 고정 · 결점 다섯 축이 5권 주기로</b></td></tr><tr><td>무대</td><td>알프스 비탈</td><td><b>메콩 강 물 위 시장 (물이 길이다)</b></td></tr><tr><td>그림체</td><td>색연필 하나</td><td><b>민화 목판 하나</b> (한 시리즈 = 한 그림체)</td></tr></tbody></table>
 <details><summary>설계 전문 (_design.md)</summary><pre class="block"># 시리즈 11 — 붕이네 물 위 장터
 
+&gt; 2026-09-28 의상 식별색: 붕이 벽돌빛 주황 `#C85A36`, 또리 밝은 노랑 `#F2C94C`, 엄마 자주 `#984C78`(머릿수건 포함), 할아버지 남색 `#435B91`(모자 포함). 네 명 모두 초록 윗옷이던 기준을 폐기한다. 목판의 평면 색면과 배경 팔레트는 유지하며 의상에만 네 색을 허용한다. 이전 참조의 초록 옷보다 이 색 배정이 우선하고 외형·옷 형태는 참조를 유지한다. 청록 코끈·발목 방울 끈은 그대로다. 아래 과거 팔레트 제한은 배경·소품에 해당한다.
+
 &gt; 2026-09-22 표정 기준: 외형·팔레트·장신구는 유지하고 눈매·입꼬리·귀는 감정에 따라 변한다. 캐릭터 참조의 중립 표정을 복제하지 않는다. 대사 때문에 모든 입을 벌리거나 클로즈업에 얼굴을 추가하지 않는다. 현행 앵커의 FACIAL ACTING과 각 SCENE의 표정 연기/본문 근거가 과거 고정 표정 지시보다 우선한다.
 
 &gt; 창작동화 **시리즈 11** (25권 · 250쪽). 아시아 명단의 첫 권이고, 캐스트 구성이 **돌보는 축**이다.
@@ -395,7 +397,7 @@ NOT:   no letters, no numbers, no signboard text anywhere
   </div>
   <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - bung-woodblock   (Bung's floating market / colour blocks first, the key block last)
 
-Style: folk woodblock printing on cream paper, TWO colour blocks, one small accent block and one
+Style: folk woodblock printing on cream paper, earthy stage blocks, four distinct clothing inks, one small accent block and one
   black key block, 4-6 year old picture book. Each colour block is one flat opaque area cut from a
   plank. The key block carries EVERY outline and prints LAST, on top of the colour.
   🔴 THE PLANK'S GRAIN SHOWS ONLY IN THE STAGE AREAS - water, hulls, decking, cloth, baskets,
@@ -410,18 +412,26 @@ RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR O
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
 PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
+  mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
   the two children are one set, so no adult and no other thing in the book ever carries it. No sky
-  blue, no purple, no pink.
-  🔴 THERE IS NO RED OR YELLOW BLOCK EITHER. Where the script makes ONE thing's colour the point of the
+  blue in the sky or water. The clothing inks below are intentional exceptions to the old limited palette.
+  CLOTHING IDENTITY: Bung buffalo wears a BRICK ORANGE #C85A36 top; Ddori baby buffalo wears a
+  SUNFLOWER YELLOW #F2C94C top; Mom buffalo wears a MULBERRY #984C78 top and matching headcloth;
+  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain RIVER.
+  These large, flat clothing areas distinguish the four at reading size. Keep each colour in front,
+  side and back views and across every episode. Do not swap colours or turn all tops green.
+  Preserve reference faces, bodies, silhouettes and garment shapes; when an older reference shows
+  green clothes, replace ONLY those clothing colours with this updated assignment.
+  Keep these extra inks on the named clothing, not skin, horns, water or background props.
+  STAGE PRODUCE retains its existing two-block convention. Where the script makes ONE thing's colour the point of the
   page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
   cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
   MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
-  BOAT INSIDE - planks RIVER, cloth LEAF, lamplight bare PAPER and the brightest thing on the page; a
+  BOAT INSIDE - planks RIVER, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
     thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
   CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
     a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
@@ -430,7 +440,7 @@ STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
   in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
-  head, Mom with a cloth wrapped between the horns. THAT HEADWEAR IS WHAT TELLS THE TWO ADULTS APART,
+  head, Mom with a cloth wrapped between the horns. DISTINCT CLOTHING COLOURS AND HEADWEAR TELL THE TWO ADULTS APART,
   so the SCENE names it on every page the adult is on. Backs and heads
   OVERLAP, chests and bellies RIVER.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE
@@ -491,7 +501,7 @@ NOT: no airbrush, gradient, glow or 3D render / no soft or feathered edge / no r
 
 STYLE ANCHOR - bung-woodblock   (Bung's floating market / colour blocks first, the key block last)
 
-Style: folk woodblock printing on cream paper, TWO colour blocks, one small accent block and one
+Style: folk woodblock printing on cream paper, earthy stage blocks, four distinct clothing inks, one small accent block and one
   black key block, 4-6 year old picture book. Each colour block is one flat opaque area cut from a
   plank. The key block carries EVERY outline and prints LAST, on top of the colour.
   🔴 THE PLANK'S GRAIN SHOWS ONLY IN THE STAGE AREAS - water, hulls, decking, cloth, baskets,
@@ -506,18 +516,26 @@ RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR O
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
 PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
+  mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
   the two children are one set, so no adult and no other thing in the book ever carries it. No sky
-  blue, no purple, no pink.
-  🔴 THERE IS NO RED OR YELLOW BLOCK EITHER. Where the script makes ONE thing's colour the point of the
+  blue in the sky or water. The clothing inks below are intentional exceptions to the old limited palette.
+  CLOTHING IDENTITY: Bung buffalo wears a BRICK ORANGE #C85A36 top; Ddori baby buffalo wears a
+  SUNFLOWER YELLOW #F2C94C top; Mom buffalo wears a MULBERRY #984C78 top and matching headcloth;
+  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain RIVER.
+  These large, flat clothing areas distinguish the four at reading size. Keep each colour in front,
+  side and back views and across every episode. Do not swap colours or turn all tops green.
+  Preserve reference faces, bodies, silhouettes and garment shapes; when an older reference shows
+  green clothes, replace ONLY those clothing colours with this updated assignment.
+  Keep these extra inks on the named clothing, not skin, horns, water or background props.
+  STAGE PRODUCE retains its existing two-block convention. Where the script makes ONE thing's colour the point of the
   page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
   cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
   MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
-  BOAT INSIDE - planks RIVER, cloth LEAF, lamplight bare PAPER and the brightest thing on the page; a
+  BOAT INSIDE - planks RIVER, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
     thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
   CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
     a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
@@ -526,7 +544,7 @@ STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
   in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
-  head, Mom with a cloth wrapped between the horns. THAT HEADWEAR IS WHAT TELLS THE TWO ADULTS APART,
+  head, Mom with a cloth wrapped between the horns. DISTINCT CLOTHING COLOURS AND HEADWEAR TELL THE TWO ADULTS APART,
   so the SCENE names it on every page the adult is on. Backs and heads
   OVERLAP, chests and bellies RIVER.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE
