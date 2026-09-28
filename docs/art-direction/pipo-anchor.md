@@ -74,19 +74,17 @@
 STYLE ANCHOR - pipo-charcoalwall   (a puppy on an Irish stone-wall farm / charcoal, rubbed, pressed
                                     and lifted - and one yellow)
 
-Style: charcoal on pale cream toothy paper, and ONE yellow, 4-6 year old picture book. 🔴 THERE IS NO
-  SECOND COLOUR IN THIS BOOK. Charcoal is laid and rubbed flat with a finger, so every area is an even
-  grain with the paper's tooth speckling through. The three values are made by the hand, not by
-  pigment: RUBBED is the world, PRESSED is the only dark, and LIGHT IS MADE BY LIFTING - a kneaded
-  eraser takes the charcoal back off; outside Pipo's white coat the bare paper is the brightest value.
-  Except for Pipo's white fur and gentle grey modelling specified below, NOTHING IS DRAWN WHITE
-  and SHADING IS ZERO in the modelling sense - an area is rubbed, pressed or lifted, never graded between.
+Style: textured charcoal and graphite on warm cream paper, matching the approved story pages.
+  Warm white fur, fleece and feathers and a light-grey horse coat have soft grey pencil modelling,
+  lively contours and species-specific short strokes/curls. This applies to ALL five characters.
+  Natural dark ears, muzzles, hooves, mane and tails stay distinct. No flat dark body fill replacing
+  a light coat; no felt-doll, photoreal or muscular human anatomy. Yellow belongs to the puppy scarf.
 
-RENDERING (finish hierarchy): an area is ONE rubbed field, even everywhere, never denser or lighter
-  inside itself, except for Pipo's softly modelled white fur. A thing standing on that field is
-  PRESSED with one continuous line. Charcoal edges are slightly furry, including Pipo's white coat;
-  his long black ears and yellow scarf identify him. FINISHED THINGS PER PAGE = 2, Pipo and the one thing he
-  touches; everything else is a shape with no interior detail. Repeats are capped and the cap is the
+RENDERING (finish hierarchy): retain fine paper grain, lively charcoal contours and soft pencil
+  shadows as in the supplied pages. Character eyes, noses and mouths are clear small dark shapes,
+  not edgeless smudges. Keep important animals readable against the environment. FINISHED THINGS PER PAGE = 2, Pipo and the one thing he
+  touches; backgrounds stay quieter, while every named character keeps its reference face and coat
+  detail. Repeats are capped and the cap is the
   whole design: sheep at most 9 separate animals and a flock further off is ONE rubbed mass with 0
   outlines inside it - 🔴 EXCEPT on a page whose event IS the counting (the script counts them aloud):
   there up to 12 may be told apart, and only as ONE FILE passing a gate gap, the counted ones on one
@@ -124,14 +122,13 @@ RENDERING (finish hierarchy): an area is ONE rubbed field, even everywhere, neve
 
 PALETTE: PAPER PALE CREAM #EFE9DC, sky, mist, snow, fleece, hay, the sun, light, everything lifted or
   never touched · CHARCOAL RUBBED #6B665C, hillside, ground, wet earth, weather, the whole field of
-  the world · CHARCOAL PRESSED #2C2A25, the stone wall, animal backs and heads, iron, the inside of
+  the world · CHARCOAL PRESSED #2C2A25, the stone wall, natural dark animal markings, iron, the inside of
   the byre, night - this is the only dark and it is made by pressure, never by a second pigment ·
   ACCENT GORSE YELLOW #F0B429, 🔴 laid last, touching NOTHING but Pipo's scarf. 🔴 EVERY LANTERN,
   LAMP AND FIRE IN THIS BOOK IS PRESSED CHARCOAL WITH ITS LIGHT LIFTED AND CARRIES NO YELLOW; the
   single exception in fifty books is a far lantern being searched for across the dark (the cart
   lantern, volume 10), where the body is still pressed charcoal and only its glow is yellow.
-  🔴 HAY, FLEECE, MIST, SNOW, THE SUN, YOLK AND BUTTER ARE ALL UNPAINTED PAPER. No white chalk, no
-  white paint outside Pipo's white fur, no earth colour, no roof colour, no second chromatic pigment.
+  🔴 HAY, FLEECE, MIST, SNOW, THE SUN, YOLK AND BUTTER ARE ALL UNPAINTED PAPER. Warm white fur, fleece and feathers follow the approved references; no unrelated bright white objects, no earth colour, no roof colour, no second chromatic pigment.
 
 STAGE CLAUSES (the stage changes what the charcoal does, never how many colours there are):
   WALL - the stone wall runs through this whole series and it is the one thing always PRESSED: each
@@ -170,61 +167,29 @@ STAGE CLAUSES (the stage changes what the charcoal does, never how many colours 
   MUD (any page after rain, or with standing water on the ground) - the puddle is ONE rubbed field with a hard lifted rim. Splashes are LIFTED, at
     most 9 marks, each taken out on its own, never drawn.
 
-CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the world - two or three
-  shapes with limbs laid over, 🔴 BUT THE FIVE ARE NOT THE SAME SHAPES AT DIFFERENT SIZES: each one
-  has its own build and its own way of folding, set out per figure below and in the per-character
-  spec. GRADE: bipedal, standing upright ON TWO LEGS ONLY - no character ever drops onto four,
-  in silhouette or from behind or far off, 🔴 AND NOBODY IN THIS WORLD WEARS CLOTHES. There are no sleeves, no cuffs, no trousers, no boots. The only worn things in 250 pages
-  are Pipo's YELLOW SCARF, Mom's wide-brimmed hat (a prop set on the head, not a garment) and, on any
-  page where the script puts a boot in the story, ONE old boot on Sheep Grandpa's one foot with the
-  other foot bare (this happens on three pages of one book and nowhere else). Except for Pipo's white
-  coat, backs and heads are PRESSED, chests and bellies are RUBBED.
-  🔴 WITH NO CLOTHES ON ANYBODY, THE ONLY THINGS THAT SAY WHO A FIGURE IS ARE HOW ITS BODY IS FOLDED,
-  WHAT ITS HANDS HOLD AND WHERE ITS FEET ARE PUT - and 🔴 THE FOLD COMES FIRST, because props change
-  hands (volume 23) and end up on the ground (13, 25) while a body keeps its own stance. Each figure
-  has its own characteristic movement: Pipo stands or walks upright, bending his knees and bringing
-  his paws forward when reaching low · Mom folds at the waist with her arms hanging and her legs straight · Sheep Grandpa leans
-  back belly-first and steps out ahead · Goose Auntie plants her feet and sends only her neck · Horse
-  Uncle throws his weight forward past a lifting leading foot (a biped's foot - never a forepaw).
-  On every page each figure is holding, carrying, dragging or has just set
-  down ONE nameable thing, and each figure's feet are placed on ONE nameable thing - the top of the
-  wall, wet mud, the doorstep, the lip of the barrow, a bale, another animal's back. 🔴 NOBODY IS
-  EVER DRAWN WITH EMPTY HANDS AND FEET LEFT UNPLACED, not even in the background. Pipo may rest his
-  empty paws at his sides when the scene has him looking or listening; do not invent a prop for him.
-  Except for Pipo's small defined dark oval eyes and black nose, an eye is a RUBBED DARK SMUDGE
-  WITH NO EDGE ANYWHERE - you cannot say where it stops; the same for
-  the nose. 🔴 THE MOUTH IS THE ONE HARD MARK ON A FACE, pressed with the stick's end, and above each
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH MARK IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth mark at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth mark comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouth marks are drawn - one each, not
-  one between them. And never write that a mouth mark is shut on a page where that mouth mark is the one speaking.
-  eye ONE short pressed stroke; feeling is carried by those two alone.
-  🔴 THE FIVE, separable at thumbnail size WITH EVERY PROP TAKEN AWAY: PIPO is the WHITE-FURRED
-  PUPPY WITH LONG DROOPING BLACK EARS from the existing story illustration pipo-02/p1. His face,
-  projecting rounded muzzle, torso, arms and legs are warm white, lighter than the cream paper;
-  the long soft black ears hang beside his cheeks to the jaw and neck. A few white tufts sit on
-  his crown. Small dark oval eyes, short brow marks, a black nose at the muzzle tip. A small
-  upright childlike body with gently rounded belly, short arms and legs, broad white paw feet,
-  and a short dark tail curved upward behind him. A plain golden-YELLOW SCARF with a loose flat
-  fringed end is his only garment. Keep the story-page proportions, not a giant-headed toy.
-  His white fur has gentle grey charcoal/pencil modelling and soft furry edges: this explicitly
-  overrides the generic bare-paper, zero-shading and smudged-eye rules for Pipo alone. Use the
-  story-page puppy as his identity reference, not the older dark-grey short-eared character sheet.
-  · MOM a dog and 🔴 NOT A BIGGER PIPO - six heads tall, small head on a
-  NECK, a NARROW BODY WITH A WAIST, long thin limbs, LONG EARS HANGING PAST THE JAW, a long narrow
-  muzzle, a long thin hanging tail; her wide soft-brimmed hat is a prop and NOT what tells her from
-  Pipo, no yellow · SHEEP GRANDPA a sheep, ONE WOOLLY OVAL with a small head straight on top and NO
-  NECK, short legs out of the bottom, the roundest and the shortest of the three neighbours - and 🔴
-  unlike the flock, who go on four legs with blank faces, he stands on two; a CROOKED STICK in one
-  hand, hands, no yellow · GOOSE AUNTIE a goose, 🔴 WINGS AND NO HANDS - she points, fans and flaps
-  with a wing edge and anything she holds is pinched under a wing edge; A NECK AS LONG AS HER BODY,
-  the smallest body of the three neighbours, the tallest silhouette by the neck alone, no yellow ·
-  HORSE UNCLE a horse, THE WIDEST SHOULDERS IN THE BOOK over a heavy slab of a chest, a long straight
-  muzzle and a mane, blunt hooves for feet, hands - 🔴 and never a four-legged horse body, rump or
-  long horse tail, in any view, no yellow. 🔴 HIS TAIL IS ONE SHORT TASSEL that never leaves the
-  outline of his body - except on a page where the script buries him (in hay, in a heap) and the
-  tassel is the only thing showing: then that one short tassel, and nothing else of him, is drawn. 🔴 THE THREE NEIGHBOURS NEVER CARRY YELLOW and are never drawn standing over Pipo.
+CHARACTER DESIGN LANGUAGE: the approved story illustrations define the five cast members.
+  Preserve their coat colours, species, head/muzzle proportions, ears, limbs and tails across views.
+  PIPO: small warm-white upright puppy, long black floppy ears, projecting rounded dog muzzle,
+  black nose and small dark oval eyes, crown tufts, rounded belly and short sturdy paws, short
+  upward-curved black tail; plain golden-yellow fringed scarf, no other clothing.
+  MOM: white adult dog with long black floppy ears, rounded muzzle and natural adult proportions,
+  soft torso, rounded paw-like hands and sturdy legs; curved visible black tail and soft grey-beige
+  wide-brimmed hat. No tiny head, six-head fashion proportions, pinched waist or stick-like limbs.
+  SHEEP GRANDPA: larger than the puppy, broad warm-white curly wool body, clearly projecting grey
+  sheep face with a rounded long muzzle and dark drooping ears; mobile woolly arms with dark ends,
+  short sturdy dark legs and hooves. His hooked staff is removable; no tiny head buried in an egg.
+  GOOSE AUNTIE: white rounded full body, layered broad feathered wings, long gently curved substantial
+  neck, readable small head, dark tapered beak and webbed feet; wings, not hands. No spindle body.
+  HORSE UNCLE: light-grey upright horse, long rounded muzzle, dark nostrils, shaggy black mane,
+  upright ears, rounded torso and sloping shoulders, simple rounded forelimbs with dark hoof-like
+  mitts, large dark hooves and a visible hanging dark hair tail outside the body silhouette.
+  No bodybuilder shoulders, pectorals, abs, human fingers or hidden short tassel tail.
+  Identity is stable; posture follows the scene. No permanently bent mother, crouching puppy or
+  compulsory unbalanced horse. Hands may be empty when appropriate; never invent a held prop.
+  Expressions use eyelids, brows, mouth and posture. Speech does not force all mouths into the
+  same open shape, or require an extra face in a hand/prop close-up or back view. Match the crop.
+  Scarf and hat are the usual accessories. The sheep's single boot belongs only to scenes that
+  explicitly call for it; do not make it permanent footwear. Props may change hands as scripted.
   THE ANIMALS - sheep, lambs, goslings, the farm cat - are plain shapes with no eyebrows and no
   expression, except a lamb wearing the bell. 🔴 THEIR SIZES ARE A FIXED LADDER: a grown sheep comes
   to PIPO'S SHOULDER, and a LAMB IS THE SIZE PIPO CAN CARRY IN BOTH ARMS AGAINST HIS CHEST - three
@@ -235,9 +200,8 @@ CHARACTER DESIGN LANGUAGE: the animals are built from the same marks as the worl
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere - market stalls, sacks
   and shop fronts stay blank or carry a single scratched shape.
 
-NOT: no airbrush, gradient or 3D render, except Pipo's explicitly allowed gentle pencil modelling / 🔴 no halo, ray, beam, lens flare or lit pool on the ground
-  around any light - a light in this medium is a shape, and shapes do not spread / no white chalk or
-  white paint except for Pipo's white fur / no second chromatic pigment of
+NOT: no airbrush, gradient or 3D render, with soft pencil modelling for all characters / 🔴 no halo, ray, beam, lens flare or lit pool on the ground
+  around any light - a light in this medium is a shape, and shapes do not spread / preserve warm white coats and feathers in all five reference designs / no second chromatic pigment of
   any kind - hay, fleece, mist, snow, the sun, yolk and butter are bare paper, and nothing is ever
   coloured to make it easy to find / no garments on anybody - no sleeves, cuffs, trousers, coats or
   pairs of boots (the scarf, the wide hat and the ONE odd boot named above are the whole wardrobe of
@@ -281,24 +245,16 @@ BLANK:  no lettering, numerals or signs on anything - sacks, bags, bottles, clot
 한 장에 다섯을 다 그린다. 🔴 **시트가 최종 그림을 지배**하므로 시트를 먼저 확정하고 쪽 삽화로 간다.
 
 ```
-CHARACTER SHEET - pipo farm   (five characters, one sheet)
+CHARACTER SHEET - pipo farm (approved story-page cast)
+Use the approved story references and each current pipo-cast.md specification. Same hand-drawn
+charcoal/pencil finish and warm white/light-grey coats for all five. Pipo is the child; Mom is a
+natural adult dog, Sheep Grandpa broad and woolly, Goose Auntie full-bodied with broad wings,
+Horse Uncle a soft-bodied upright horse. Do not exaggerate their silhouettes to distinguish them.
+For each figure show relaxed front, three-quarter step and back at consistent proportions.
+Keep scarf/hat and natural markings consistent; no mandatory posture or silhouette test row.
+No captions, scenery or extra props. For one character's card use pipo-sheet-style.md plus only
+that character's specification, not this entire world anchor.
 
-[여기에 §1 의 Style / PALETTE / CHARACTER DESIGN LANGUAGE 세 문단을 그대로 붙인다]
-
-SHEET LAYOUT: one pale cream sheet, five animals standing in a row on a single ground line, all at
-  their true relative heights - Horse Uncle the biggest and widest, Goose Auntie the tallest by her
-  neck alone, Sheep Grandpa the roundest, Mom a full head over Pipo, Pipo the smallest. Each
-  character is drawn THREE times: front standing, three-quarter walking, and back. 🔴 In every one of
-  the fifteen drawings NOBODY IS WEARING CLOTHES - the only worn things on this sheet are Pipo's
-  yellow scarf and Mom's wide-brimmed hat.
-🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: EXACTLY FIVE FLAT PRESSED SILHOUETTES, the same five
-  characters in the same order as the row above, with 0 interior marks and 🔴 WITHOUT THEIR PROPS -
-  no scarf, no stick, no hat, no cart. 🔴 EACH SILHOUETTE STANDS ON TWO LEGS; a four-legged animal
-  shape in this row means the row is wrong. If the five cannot be told apart by build and stance
-  alone - Pipo crouching, Mom folded at the waist, the egg, the neck, the wide leaning shoulders -
-  the sheet is wrong.
-  Nothing else on the sheet - no props beyond the two named, no scenery, no ground beyond the one line.
-🔴 No lettering, numerals, labels or name tags anywhere on the sheet.
 ```
 
 🔴 **소품 없는 실루엣 줄을 넣은 이유는 23권이다.** 그 권에서 지팡이·모자·수레가 서로에게 넘어가고

@@ -184,6 +184,10 @@ function buildSeries(key) {
   const anchorText = (AMD_LF.match(/```\n(STYLE ANCHOR - [\s\S]*?)\n```/) || [])[1];
   const sheetText = (AMD_LF.match(/```\n(CHARACTER SHEET[\s\S]*?)\n```/) || [])[1] || '';
   if (!anchorText) throw new Error(`${key}: 앵커 블록을 못 찾았다`);
+  const sheetStylePath = path.join(ROOT, 'docs/art-direction', `${key}-sheet-style.md`);
+  const sheetStyle = fs.existsSync(sheetStylePath)
+    ? fs.readFileSync(sheetStylePath, 'utf8').replace(/\r\n/g, '\n').match(/```\n([\s\S]*?)\n```/)?.[1] || ''
+    : '';
   const slug = anchorText.match(/STYLE ANCHOR - ([a-z0-9-]+)/)[1];
   const anchorName = (AMD.match(/^\| \*\*A?\*?\*?[^|]*\|[^|]*\|/m) ? '' : '') ||
     `${cfg.no} · ${slug}`;
@@ -195,6 +199,7 @@ function buildSeries(key) {
     .replace(/__ANCHOR_SLUG__/g, slug)
     .replace(/__ANCHOR_NAME__/g, `앵커 ${slug}`)
     .replace('__ANCHOR_TEXT__', JSON.stringify(anchorText))
+    .replace('__SHEET_STYLE__', JSON.stringify(sheetStyle))
     .replace('__ANCHOR_AWARD__', JSON.stringify(award ? [award.artist, award.work].filter(Boolean).join(' · ') : ''))
     .replace('__CAST__', JSON.stringify(cfg.cast.map(({ key: k, name, aliases }) => ({
       key: k, name, aliases,

@@ -11,6 +11,7 @@
   'use strict';
 
   var KEY = '__KEY__';
+  var SHEET_STYLE = __SHEET_STYLE__;
   var ANCHOR = { slug: '__ANCHOR_SLUG__', name: '__ANCHOR_NAME__', text: __ANCHOR_TEXT__, award: __ANCHOR_AWARD__ };
   var FIXED_CHARS = __CAST__;
   var FACE = __FACE__;
@@ -156,18 +157,19 @@
     if (!g) return '';
     // 🔴 시트는 마젠타 배경에 인물 하나다 — 무대 조항(마을·비·물·밤)이 들어갈 자리가 없고,
     //    개체를 가르라는 지시를 그만큼 묽게 만든다. 컷 프롬프트(composeBatchPrompt)에서는 그대로 쓴다.
-    var world = ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
+    var world = SHEET_STYLE || ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
     return [
       world,
       '',
       // 🔴 매체는 글로 안 전해진다. 유키 시트는 아이가 부드러운 그러데이션 카툰, 할머니가 접힘을 다
       //    그린 사실화로 나왔다 — 앵커에 `SHADING IS ZERO`·`한 획을 두 번 덧긋지 않는다` 가 있는데도.
       //    단권 99권은 화면에 수상작 원본이 떠 있었고 시리즈는 글만 있었다. 그림 한 장이 그 자리를 메운다.
-      ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
+      !SHEET_STYLE && ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
         + ANCHOR.award + '. 획·자국·결·가장자리는 아래 글이 아니라 그 그림이 정한다.' : null,
-      '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
+      SHEET_STYLE ? '[참조] 사용자가 확정한 본문 삽화 중 이 인물이 나온 그림을 실제로 첨부한다. 파일명만 적는 것은 이미지 첨부가 아니다. 그 그림의 해당 인물만 따른다.' : null,
+      SHEET_STYLE ? '[출력] 정사각 1024x1024. 따뜻한 크림색 배경에 세 방향을 간격 있게 배치한다.' : '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
-      '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + (SHEET_STYLE ? '. 아래 개체 규격과 첨부 본문 그림을 따른다.' : '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.'),
       KEY === 'kota' && g.desc ? '[해당 손님의 외형] ' + g.desc : null,
       // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
       //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
