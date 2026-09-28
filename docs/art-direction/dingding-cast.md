@@ -9,7 +9,7 @@
 > 🔴 앵커(`dingding-anchor.md`)는 **그 세계 전체**를 말한다. 여기는 **한 사람이 남과 무엇이 다른가**만 쓴다.
 > 없으면 넷이 이름만 다른 같은 지시를 받는다 — 2026-08-17 에 할머니·엄마가 서로 구별이 안 됐던 자리다.
 >
-> 🔴 갈리는 축은 **오려 낸 윤곽**뿐이다. 검정 한 장이라 무늬·색·명암으로는 못 가른다.
+> 2026-09-28: **오려 낸 윤곽과 인물별 의상 색**으로 구분한다. 검정 바탕에 딩딩 빨강·엄마 청록·할머니 보라·밍 황금빛 노랑의 색종이를 얹는다.
 > 판정 = 넷을 통째로 까맣게 칠해도 넷이 서로 다른 모양인가.
 >
 > ⚠️ 넷 모두 마지막 줄이 같다(머리 뒤 흰 종이). 시트는 배경이 마젠타라 **뚫린 구멍이 마젠타를 그대로
@@ -40,7 +40,7 @@ HEAD - 🔴 HAIR GATHERED IN A BUN AT THE BACK OF THE HEAD, cut as a round black
 BUILD - 🔴 THE SHORTEST ADULT AND THE WIDEST. The back is curved forward so that the line from the
   back of the head down to the hip is ONE CONVEX CURVE with no waist anywhere in it. Sloping
   shoulders, short neck, weight low.
-CLOTHES - a sleeveless vest over a long-sleeved shirt, and 🔴 WIDE TROUSERS DOWN TO THE ANKLE, so her
+CLOTHES - VIOLET #8060A8 upper garment: a sleeveless vest over a matching violet long-sleeved shirt, and 🔴 WIDE TROUSERS DOWN TO THE ANKLE, so her
   legs are two wide black columns. Sleeves stay down to the wrist. Barefoot in the paddy.
 🔴 AGAINST THE MOTHER, and the drawing fails if any of the three is missing: bun against head cloth ·
   one convex curve against a waist · trousers to the ankle against bare calves.
@@ -50,12 +50,14 @@ NOT - no red anywhere on her, no apron, no head cloth.
 ## Mama pig
 
 THE WORKING ADULT, and the tallest thing in the series.
+FACE - exactly TWO eyes, one on each side above the snout. No third eye or forehead dot.
+  Correct an extra middle eye in any old reference rather than copying it.
 HEAD - 🔴 A WORKING HEAD CLOTH TIED OVER THE HEAD, its knot and ONE HANGING CORNER cut into the
   outline - she carries baskets on her head and the cloth is the pad for it. No bun, and no hair
   shows. Ears stand up and point back. A longer, straighter snout than the child's.
 BUILD - 🔴 THE TALLEST OF THE FOUR AND THE NARROWEST, standing straight, long legs, long neck.
   The top nips in at the waist and its hem is a curve that dips lower at the side.
-CLOTHES - 🔴 SLEEVES PUSHED UP ABOVE THE ELBOW so the forearms are bare, and 🔴 TROUSERS ROLLED TO
+CLOTHES - TEAL #258C87 top and matching teal headcloth. 🔴 SLEEVES PUSHED UP ABOVE THE ELBOW so the forearms are bare, and 🔴 BLACK TROUSERS ROLLED TO
   BELOW THE KNEE so the calves are bare and the trouser hem cuts a line across the shin. Barefoot.
 🔴 The rolled sleeves and rolled trousers are permanent - she is drawn mid-work even when she is
   standing still, and that is what says she is not the grandmother.
@@ -66,19 +68,19 @@ NOT - no red anywhere on her, no apron, no bun, no vest.
 
 🔴 THE ONLY BIRD. Everyone else is a pig, and the head must say so before anything else does.
 HEAD - a low round crown with 🔴 NO EARS AT ALL, and a FLAT BILL cut positive, blunt and at least a
-  third of the width of the head. No snout. 🔴 The bill is one solid black piece joined to the head -
-  no nostril hole, no line drawn along it, no white anywhere in it.
-MOUTH - 🔴 HIS MOUTH IS THE BILL OPENING, not a hole in the face: the bill splits into an upper and a
-  lower piece with a white wedge cut between them, and that wedge is the whole mouth. With the bill
-  shut there is no mouth at all, only the two eye holes. A smile is the whole bill tilting up.
-EYES - two holes, round, set high on the crown and close together.
+  third of the width of the head. No snout. Entire head and neck, including the back, are WARM CREAM
+  #F7F4EC paper. Bill is LIGHT OCHRE #D6A15C paper, never black. This overrides old black-head references.
+MOUTH - a short dark mouth line or opening ON THE BILL, never a second hole in the cheek.
+  Expression can change with the scene; the relaxed sheet has a gentle small smile.
+EYES - exactly two small BLACK oval eyes on the cream face; only the near eye visible in full profile.
+  No hollow eye holes, no magenta showing through the face, no third eye or forehead dot.
 BUILD - a grown man, about as tall as the grandmother and heavier through the chest. Flat webbed
   feet, always bare, and wider than any other foot in the series.
-CLOTHES - a sleeveless VEST over a plain shirt and loose trousers; the vest opening is one straight
+CLOTHES - a GOLDEN YELLOW #E5B83B sleeveless VEST over a matching golden yellow plain shirt and loose black trousers; the vest opening is one straight
   cut down the middle of the chest and its hem sits above the hip. He wears it on every page he
   appears in, wet or dry.
-NOT - no red anywhere, no apron, no head cloth, no bun, no hat.
-🔴 Eye and mouth holes show SHEET WHITE #F7F4EC (a sheet hidden behind the head), never the magenta.
+NOT - no red anywhere, no apron, no head cloth, no bun, no hat, no solid-black face.
+🔴 His cream face and black eyes are intentional paper overlays, not cut-through holes.
 
 ## Guest
 

@@ -119,7 +119,11 @@
 &gt; 논에서는 **맨발** · 돼지 코는 얼굴 특징이라 「코를 킁킁」은 되지만 **코로 물건을 밀지 않는다**.
 &gt; 🔴 딩딩 앞치마에는 **배 앞에 주머니가 하나** 달려 있다 — 10 p10 에서 우렁이가 그리로 기어든다.
 
+**인물 식별색 (2026-09-28)** — 딩딩 앞치마 진홍 `#C62828`, 엄마 윗옷·머릿수건 청록 `#258C87`, 할머니 윗옷·조끼 보라 `#8060A8`, 밍 윗옷·조끼 황금빛 노랑 `#E5B83B`. 검정 종이 바탕에 평평한 색종이를 얹어 옷만 구분한다. 바지·몸·배경은 기존 색을 유지하고 앞뒤 모든 방향에서 같은 인물 색을 쓴다.
+
 **시그니처 색** — 딩딩 **앞치마 진홍 `#C62828`**. 화면의 유일한 그 색이다.
+
+**얼굴 보정 (2026-09-28)** — 엄마의 기존 시트 이마 점을 세 번째 눈처럼 복제하지 않는다. 눈은 두 개이며 옆얼굴에서는 가까운 눈만 보인다. 밍 아저씨는 사용자 피드백에 따라 머리·목 전체를 크림색, 부리를 연한 황토색, 눈을 작은 검은 타원으로 바꾼다. 검정 머리·뚫린 눈을 강제하던 규칙의 명시적 예외다.
 🔴 **어른은 절대 이 색을 안 지닌다.** 앞치마가 딩딩 몸을 떠나는 권은 **04·07 둘뿐**이다(설계된 예외) —
 04 는 빨아서 논둑에 널고, 07 은 막대에 묶어 새를 쫓는다. ⚠️ **24 는 앞치마가 아니다** — 막대에 걸리는 것은
 딩딩 **대나무 모자**이고 앞치마는 그대로 딩딩이 입고 있다.
@@ -269,7 +273,7 @@ p10     착지 + 웃음       🔴 아이가 교훈을 읊지 않는다
 
 | 앵커 | 매체 | 종이 | 색 |
 |---|---|---|---|
-| `dingding-papercut` (전권) | 전지 — 검정으로 오려 흰 종이에 붙인다. 자른 선은 가위가 낸 선이고, 이어진 다리(bridge)가 형태를 붙잡는다 | 흰 종이 `#F7F4EC` | 검정 + **진홍 `#C62828` 한 점** |
+| `dingding-papercut` (전권) | 전지 — 검정으로 오려 흰 종이에 붙이고 인물 의상에 평평한 색종이를 얹는다. 자른 선과 연결 다리(bridge)를 유지한다 | 흰 종이 `#F7F4EC` | 검정 + 딩딩 진홍·엄마 청록·할머니 보라·밍 황금빛 노랑 |
 
 🔴 **전지의 관습은 「빨간 종이」지만 우리는 뒤집는다.** 종이를 빨강으로 두면 악센트가 주조가 되어
 「그 아이만 진홍이다」라는 신호가 죽는다. 검정으로 오려 흰 종이에 붙이고, **딩딩 앞치마 한 장만 진홍**이다.
@@ -399,7 +403,7 @@ STEP:  the paddies are stacked terraces - water always falls from an upper cell 
   </div>
   <details><summary>프롬프트 보기</summary><pre id="anchor">STYLE ANCHOR - dingding-papercut   (Dingding's terraced fields / one black sheet, cut with a knife)
 
-Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of black paper with
+Style: cut paper, 4-6 year old picture book. The picture's base is ONE sheet of black paper with
   shapes cut out of it, laid on a white sheet - the white is never painted, it is the sheet beneath.
   Every edge is a knife edge: crisp, faceted where the blade turned, never torn, never soft. 🔴
   NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture
@@ -419,7 +423,7 @@ Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of b
   ON EVERY PAGE. If a figure stands on black and has no hairline, it disappears, and that page is
   wrong no matter how good the field is.
 
-RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
+RENDERING (finish hierarchy, pigs; Ming uses the explicit friendly-face exception below): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
   body and the face is a shape cut clean out of it, so what shows there is the white sheet beneath,
   the same white as the water. It is the brightest thing on the figure and it is what the eye finds
   first. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF THAT CUT-AWAY
@@ -445,7 +449,23 @@ PALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLA
   front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece
   laid on top of the black, Dingding's apron and nothing else. 🔴 ON A PAGE WITHOUT HER THERE IS NO
   RED ANYWHERE - the picture is black and white and that is correct; nothing is reddened to keep the
-  accent alive. No other colour exists.
+  accent alive. Additional flat cut-paper clothing overlays distinguish the adults:
+  MAMA wears a TEAL #258C87 top and matching headcloth; GRANDMA wears a VIOLET #8060A8
+  upper garment/vest; MING wears a GOLDEN YELLOW #E5B83B upper garment/vest.
+  DINGDING keeps the RED #C62828 apron over a black shirt. No other character wears red.
+  Keep sleeves on an adult's coloured upper garment the same identity colour; trousers stay black.
+  Preserve each reference's silhouette and garment shape. Replace old black clothing with
+  the assigned colour; hands, feet and backgrounds stay unchanged. Ming's head uses the exception below. If a headcloth
+  is visible it matches Mama's teal; Grandma's bun stays black. Back views retain the same clothing colour.
+  These are opaque, crisp paper pieces attached to the black base, not gradients or shaded fabric.
+  This clothing assignment overrides old all-black clothing in references. Do not swap colours.
+  The environment remains black, white and far grey; guests retain black clothes.
+  MING FRIENDLY-FACE EXCEPTION: the entire duck head and neck, including the back, are WARM CREAM
+  #F7F4EC paper; his bill is LIGHT OCHRE #D6A15C paper with a simple dark mouth line on the bill.
+  Eyes are small solid BLACK ovals, never hollow holes. This explicitly overrides black-head,
+  black-bill, white-notch-only and no-separate-pieces rules for Ming's face. No second cheek mouth.
+  ALL CHARACTERS have exactly TWO anatomical eyes: two visible from the front, only the near eye
+  in full profile, none in back view. No third eye or forehead dot, even if an old reference has one.
 
 STAGE CLAUSES (the stage changes what is cut away, not the sheets):
   TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands
@@ -464,12 +484,12 @@ STAGE CLAUSES (the stage changes what is cut away, not the sheets):
 CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
   piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs
   are HANDS with no hooves, and everyone is BARE-FOOT in the paddy.
-  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
+  🔴 PIG FACES (Ming follows the friendly-face exception): A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
   WHOLE FACE. The muzzle side of the head is cut clean out, about half the width of the head, so the
   white sheet shows there and the figure can be found on any field. Nothing is laid on top: no white
   plate, no painted eye. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF
   THAT CUT-AWAY SHAPE, each still joined to the black of the head, so no black piece is ever an
-  island inside white. A pig's snout and a duck's bill are the black left standing between two
+  island inside white. A pig's snout is the black left standing between two
   notches, on the outline of the head. Keep the snout proportions while the mouth notch changes
   width and opening with emotion; a lightly pressed closed mouth is allowed.
   EXPRESSION comes from the angle, opening and asymmetry of the eye and mouth notches. Eyelid
@@ -522,7 +542,7 @@ NOT: no airbrush, gradient, glow or 3D render / no torn, soft or feathered edge 
 
 STYLE ANCHOR - dingding-papercut   (Dingding's terraced fields / one black sheet, cut with a knife)
 
-Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of black paper with
+Style: cut paper, 4-6 year old picture book. The picture's base is ONE sheet of black paper with
   shapes cut out of it, laid on a white sheet - the white is never painted, it is the sheet beneath.
   Every edge is a knife edge: crisp, faceted where the blade turned, never torn, never soft. 🔴
   NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture
@@ -542,7 +562,7 @@ Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of b
   ON EVERY PAGE. If a figure stands on black and has no hairline, it disappears, and that page is
   wrong no matter how good the field is.
 
-RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
+RENDERING (finish hierarchy, pigs; Ming uses the explicit friendly-face exception below): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
   body and the face is a shape cut clean out of it, so what shows there is the white sheet beneath,
   the same white as the water. It is the brightest thing on the figure and it is what the eye finds
   first. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF THAT CUT-AWAY
@@ -568,7 +588,23 @@ PALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLA
   front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece
   laid on top of the black, Dingding's apron and nothing else. 🔴 ON A PAGE WITHOUT HER THERE IS NO
   RED ANYWHERE - the picture is black and white and that is correct; nothing is reddened to keep the
-  accent alive. No other colour exists.
+  accent alive. Additional flat cut-paper clothing overlays distinguish the adults:
+  MAMA wears a TEAL #258C87 top and matching headcloth; GRANDMA wears a VIOLET #8060A8
+  upper garment/vest; MING wears a GOLDEN YELLOW #E5B83B upper garment/vest.
+  DINGDING keeps the RED #C62828 apron over a black shirt. No other character wears red.
+  Keep sleeves on an adult's coloured upper garment the same identity colour; trousers stay black.
+  Preserve each reference's silhouette and garment shape. Replace old black clothing with
+  the assigned colour; hands, feet and backgrounds stay unchanged. Ming's head uses the exception below. If a headcloth
+  is visible it matches Mama's teal; Grandma's bun stays black. Back views retain the same clothing colour.
+  These are opaque, crisp paper pieces attached to the black base, not gradients or shaded fabric.
+  This clothing assignment overrides old all-black clothing in references. Do not swap colours.
+  The environment remains black, white and far grey; guests retain black clothes.
+  MING FRIENDLY-FACE EXCEPTION: the entire duck head and neck, including the back, are WARM CREAM
+  #F7F4EC paper; his bill is LIGHT OCHRE #D6A15C paper with a simple dark mouth line on the bill.
+  Eyes are small solid BLACK ovals, never hollow holes. This explicitly overrides black-head,
+  black-bill, white-notch-only and no-separate-pieces rules for Ming's face. No second cheek mouth.
+  ALL CHARACTERS have exactly TWO anatomical eyes: two visible from the front, only the near eye
+  in full profile, none in back view. No third eye or forehead dot, even if an old reference has one.
 
 STAGE CLAUSES (the stage changes what is cut away, not the sheets):
   TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands
@@ -587,12 +623,12 @@ STAGE CLAUSES (the stage changes what is cut away, not the sheets):
 CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
   piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs
   are HANDS with no hooves, and everyone is BARE-FOOT in the paddy.
-  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
+  🔴 PIG FACES (Ming follows the friendly-face exception): A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
   WHOLE FACE. The muzzle side of the head is cut clean out, about half the width of the head, so the
   white sheet shows there and the figure can be found on any field. Nothing is laid on top: no white
   plate, no painted eye. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF
   THAT CUT-AWAY SHAPE, each still joined to the black of the head, so no black piece is ever an
-  island inside white. A pig's snout and a duck's bill are the black left standing between two
+  island inside white. A pig's snout is the black left standing between two
   notches, on the outline of the head. Keep the snout proportions while the mouth notch changes
   width and opening with emotion; a lightly pressed closed mouth is allowed.
   EXPRESSION comes from the angle, opening and asymmetry of the eye and mouth notches. Eyelid
