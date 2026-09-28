@@ -6,7 +6,7 @@
 - updated: 2026-09-28
 - branch: main
 - worktree: C:/projects/tangobook
-- delivery: 로컬 반영. push·이미지 재생성·운영 업로드 없음.
+- delivery: 프롬프트 b21ce060 main push 완료. 후속 사용자 요청으로 5종 시트 생성·운영 카드 등록 완료(아래 기록).
 
 ## 사용자 기준
 
@@ -26,3 +26,11 @@
 - 실제 복사 함수를 VM에서 실행: 5종 시트 모두 해당 규격 전문 포함, 다른 캐릭터 규격/장면용 앵커/마젠타/외부 수상작 참조 문구 없음. 길이 약 13,600~14,800자에서 2,420~2,601자로 감소.
 - `node --test packages/client/scripts/pipo-prompts.test.mjs packages/client/scripts/kota-prompts.test.mjs`: 5개 통과. 빌더/core 구문 검사, `sync-anchor-to-core.mjs pipo --check`, `git diff --check` 통과.
 - 새 그림을 만들지 않았으므로 실제 렌더 일치까지 검증한 것은 아니다. 저장된 시트와 페이지 이미지는 그대로다. 다음 시트 생성 시 대응하는 본문 이미지 파일을 첨부해야 하며 텍스트 복사가 파일을 첨부해 주지는 않는다.
+
+## 후속: 캐릭터 시트 생성·등록
+
+- 사용자가 엄마 시트 결과를 승인한 뒤 `pipo-plan.html` 캐릭터 이미지를 직접 생성·등록하도록 요청했다. 승인된 엄마는 재사용하고 피포·양·거위·말은 실제 `sheetPrompt`와 해당 본문 참조 이미지를 imagegen에 함께 전달하여 생성했다.
+- 육안 확인: 피포 흰 몸·긴 검은 귀·노란 목도리, 엄마 흰 털·모자·자연스러운 성체 비례, 양 흰 곱슬털·회색 얼굴·지팡이, 거위 흰 깃털·풍성한 몸·검은 부리/물갈퀴, 말 밝은 회색 몸·검은 갈기/꼬리·부드러운 동물 체형. 모두 크림 배경의 세 방향 시트이며 본문 동반 인물/풍경은 제외했다.
+- 기존 카드 저장 방식인 `POST /api/comic-assets/pipo-plan`으로 `pipo`, `mom`, `sheep`, `goose`, `horse` 키에 PNG를 등록했다. HTML 하드코딩은 필요 없다. 각 공개 경로는 `comic-assets/pipo-plan/{key}.png`이며 기획서와 회차 캐스트 스트립이 같은 자산을 읽는다.
+- 업로드 전 개인 캐릭터 5키는 비어 있었고 `anchor`, `cast-sheet`만 있었다. 두 기존 자산과 본문 삽화는 변경하지 않았다.
+- 로컬 생성물과 등록 전후 manifest/업로드 영수증은 `output/imagegen/`에 보관했다. 이미지 원본은 Git에 추가하지 않았다. 5개 등록 URL과 HTTP 응답 및 다운로드 SHA256을 생성 원본과 대조했다. 브라우저 실제 화면 검증과는 구분한다.
