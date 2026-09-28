@@ -2,9 +2,11 @@
 
 Run: python pebble.py -> out/pebble/*.step, *.stl, report.json.
 Coordinates and optical reference come from printable.py; its body is not reused.
-Printed parts: left shell, right shell, rigid paddle. Purchased: mirror,
-foam. Two integral snap beams and two locating pins close the shell without
-hardware. Prototype, not print-certified.
+Printed parts: left shell, right shell, rigid paddle. Purchased: mirror and a
+keyed soft spring insert. The paddle is assembled without preload; the spring
+insert is pushed up from the open underside after the two shells are closed.
+Two integral snap beams and two locating pins close the shell without hardware.
+Prototype, not print-certified.
 """
 from functools import lru_cache
 from pathlib import Path
@@ -54,6 +56,14 @@ FOAM_BACK_WALL = 2.4
 FOAM_FIT = 0.60
 FOAM_MOUTH = 1.50
 FOAM_ARM_R = 0.32
+INSERT_STEM_W = 8.0
+INSERT_STEM_Y0 = BACK-FOAM_BACK_WALL-1.1
+INSERT_STEM_Y1 = BACK-FOAM_BACK_WALL+0.4
+INSERT_GUIDE_FIT = 0.30
+INSERT_FLANGE_W = 12.0
+INSERT_FLANGE_H = 1.4
+INSERT_DETENT_H = 1.2
+INSERT_DETENT_Y = INSERT_STEM_Y0+0.8
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
 PHONE_OPENING_W = 40.0
@@ -73,6 +83,7 @@ PIN_Z = 7.3+MECHANISM_Z_DELTA
 # Preserve the original roof/mechanism clearance when the phone stop moves up.
 TOP = PHONE_TOP+old.WALL+6.5
 BOTTOM = min(-old.BODY_H, MIRROR_BOTTOM-old.WALL)
+INSERT_DETENT_Z0 = BOTTOM+4.0
 CAMERA_R = 2.2
 # The visible top of the phone camera aligns with the visible top of the mirror.
 CAMERA_Z = MIRROR_TOP-CAMERA_R
@@ -89,8 +100,8 @@ CONTACT_Z_LO = CONTACT_CENTER_Z-1.0
 CONTACT_Z_HI = TONGUE_BOT+6.5
 CONTACT_BLEND_Z = TONGUE_BOT+8.5
 FOAM_Z = PIVOT_Z-FOAM_ARM_R*TONGUE_C
-# A flat landing on the paddle carries the bonded foam. At rest its
-# rear face preloads the foam by 0.3 mm against the housing's rear wall.
+# The insert head meets this flat paddle face. At rest it provides 0.3 mm
+# preload, but only after the bare paddle and both shell halves are assembled.
 FOAM_PAD_Y = BACK-FOAM_BACK_WALL-FOAM_FREE_T+0.3
 STOP_GAP = 0.10
 STOP_Z_LO = PHONE_TOP+0.35
@@ -194,7 +205,7 @@ def mirror_fit_clearance():
 
 @lru_cache(None)
 def foam_pocket_volume():
-    """Open space behind the paddle for foam carried on its flat rear pad."""
+    """Working space for the soft head of the underside-loaded insert."""
     foam_back=BACK-FOAM_BACK_WALL
     foam_z=FOAM_Z
     foam_front=foam_back-FOAM_FREE_T-FOAM_FIT
@@ -208,6 +219,30 @@ def foam_pocket_volume():
               foam_z-FOAM_H/2-FOAM_FIT-FOAM_MOUTH,
               foam_z+FOAM_H/2+FOAM_FIT+FOAM_MOUTH)
     return pocket.union(mouth)
+
+
+@lru_cache(None)
+def spring_insert_guide_volume():
+    """Open-bottom guide for installing the elastic insert after case closure."""
+    stem=box(-INSERT_STEM_W/2-INSERT_GUIDE_FIT,
+             INSERT_STEM_W/2+INSERT_GUIDE_FIT,
+             INSERT_STEM_Y0-INSERT_GUIDE_FIT,
+             INSERT_STEM_Y1+INSERT_GUIDE_FIT,
+             BOTTOM-0.5,FOAM_Z-FOAM_H/2+0.4)
+    flange=box(-INSERT_FLANGE_W/2-INSERT_GUIDE_FIT,
+               INSERT_FLANGE_W/2+INSERT_GUIDE_FIT,
+               INSERT_STEM_Y0-0.5-INSERT_GUIDE_FIT,
+               INSERT_STEM_Y1+INSERT_GUIDE_FIT,
+               BOTTOM-0.5,BOTTOM+INSERT_FLANGE_H+0.3)
+    return stem.union(flange)
+
+
+@lru_cache(None)
+def spring_insert_retainer():
+    """Rear-wall detent; the soft stem flexes past it and its notch catches."""
+    return box(-INSERT_STEM_W/2+0.4,INSERT_STEM_W/2-0.4,
+               INSERT_DETENT_Y,BACK-FOAM_BACK_WALL+0.8,
+               INSERT_DETENT_Z0,INSERT_DETENT_Z0+INSERT_DETENT_H)
 
 
 def paddle_front_y(z):
@@ -397,9 +432,12 @@ def housing():
         beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,rib_bottom,TOP)
         shell = shell.union(beam.intersect(envelope()))
     # Cut this after adding ribs and the roof so later unions cannot refill it.
-    # A wide, open recess receives the foam already bonded to the paddle. Cut
-    # it after the ribs and roof so later unions cannot refill the space.
+    # The paddle is installed bare. A soft keyed insert is pushed upward from
+    # the open underside afterwards, so the operator never aligns the axle
+    # while fighting foam preload.
     shell=shell.cut(foam_pocket_volume())
+    shell=shell.cut(spring_insert_guide_volume())
+    shell=shell.union(spring_insert_retainer())
     # Leave 1 mm around all four mirror edges. Cut this before adding the
     # backing plate so the adhesive landing surface remains continuous.
     shell=shell.cut(mirror_fit_clearance())
@@ -477,7 +515,7 @@ def right():
 @lru_cache(None)
 def paddle():
     # The straight rigid panel carries a broad bowed shoe at its lower end.
-    # Foam supplies force; the shoe spreads contact over the phone back.
+    # The removable elastic insert supplies force; the shoe spreads contact.
     lip_r=old.PLATE_T+0.5
     y0,z0=old.PIVOT_Y,PIVOT_Z
     y1,z1=old.GRIP_FREE+lip_r,TONGUE_BOT
@@ -485,8 +523,8 @@ def paddle():
            .polyline([(y0,z0),(y1,z1),(y1+old.PLATE_T,z1),
                       (y0+old.PLATE_T,z0)]).close().extrude(old.PLATE_W))
     panel=panel.union(contact_shoe())
-    # A broad, level back face lets one 16 x 6 mm foam pad be stuck to the
-    # paddle before assembly. The taper joins that face to the sloping tongue.
+    # A broad, level back face receives the elastic insert after case closure.
+    # No adhesive is used on the paddle.
     zlo,zhi=FOAM_Z-FOAM_H/2,FOAM_Z+FOAM_H/2
     pad=(cq.Workplane("YZ").workplane(offset=-FOAM_W/2)
          .polyline([(paddle_front_y(zlo)+old.PLATE_T-0.1,zlo),
@@ -563,13 +601,25 @@ def print_plate():
     return cq.Compound.makeCompound([part.val() for part in print_plate_parts().values()])
 
 
-def foam():
-    # Free-state soft PU foam. It intentionally intersects the resting paddle:
-    # that overlap is preload, not a rigid-part clash.
+def spring_insert():
+    """Keyed TPE/TPU prototype inserted from the underside without adhesive."""
     back=BACK-FOAM_BACK_WALL
     z=FOAM_Z
-    return box(-FOAM_W/2,FOAM_W/2,back-FOAM_FREE_T,back,
-               z-FOAM_H/2,z+FOAM_H/2)
+    head=box(-FOAM_W/2,FOAM_W/2,back-FOAM_FREE_T,back,
+             z-FOAM_H/2,z+FOAM_H/2)
+    stem=box(-INSERT_STEM_W/2,INSERT_STEM_W/2,
+             INSERT_STEM_Y0,INSERT_STEM_Y1,
+             BOTTOM+INSERT_FLANGE_H,FOAM_Z-FOAM_H/2+0.1)
+    # The rear notch rests above the case detent. A thin front web remains, so
+    # the soft stem stays one piece and bends while being pushed past the lip.
+    notch=box(-INSERT_STEM_W/2-0.1,INSERT_STEM_W/2+0.1,
+              INSERT_DETENT_Y-0.05,INSERT_STEM_Y1+0.1,
+              INSERT_DETENT_Z0-0.05,
+              INSERT_DETENT_Z0+INSERT_DETENT_H+0.05)
+    flange=box(-INSERT_FLANGE_W/2,INSERT_FLANGE_W/2,
+               INSERT_STEM_Y0-0.5,INSERT_STEM_Y1+0.1,
+               BOTTOM+0.1,BOTTOM+INSERT_FLANGE_H)
+    return head.union(stem.cut(notch)).union(flange)
 
 
 def foam_compression(thickness,z=FOAM_Z):
@@ -583,10 +633,10 @@ def foam_compression(thickness,z=FOAM_Z):
     return 100*(FOAM_FREE_T-gap)/FOAM_FREE_T
 
 
-SHOW = dict(PARTS, mirror=mirror, foam=foam)
+SHOW = dict(PARTS, mirror=mirror, spring_insert=spring_insert)
 # Actual straight insertion trajectories, in reverse when exploding the view.
 EXPLODE = {"shell_left":(-28,0,0),"shell_right":(28,0,0),
-           "mirror":(0,0,0),"paddle":(0,0,0),"foam":(0,10,0)}
+           "mirror":(0,0,0),"paddle":(0,0,0),"spring_insert":(0,-18,-20)}
 
 
 def inspect():
@@ -628,8 +678,8 @@ def inspect():
         b=s.val().BoundingBox()
         report["parts"][n]={"valid":s.val().isValid(),"solids":s.solids().size(),
             "size":[round(b.xlen,3),round(b.ylen,3),round(b.zlen,3)],"volume":round(volume(s),3)}
-    # Foam is compressible and modeled in its free state; do not call it a rigid clash.
-    rigid=[n for n in shapes if n!="foam"]
+    # The insert is compressible and modeled in its free state.
+    rigid=[n for n in shapes if n!="spring_insert"]
     for i,a in enumerate(rigid):
         for b in rigid[i+1:]:
             report["interference_mm3"][a+" / "+b]=round(volume(shapes[a].intersect(shapes[b])),5)
@@ -685,17 +735,20 @@ def inspect():
                              "width_mm":CONTACT_W,
                              "radius_mm":CONTACT_R,
                              "arc_height_mm":round(CONTACT_Z_HI-CONTACT_Z_LO,2)}
-    report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
+    report["spring_insert"]={"material":"soft TPE/TPU prototype","head_size":[FOAM_W,FOAM_H,FOAM_FREE_T],
         "pocket_inner_size":[FOAM_W+2*FOAM_FIT,FOAM_H+2*FOAM_FIT,
                              FOAM_FREE_T+FOAM_FIT+0.2],
         "lead_in_mouth_size":[FOAM_W+2*(FOAM_FIT+FOAM_MOUTH),
                               FOAM_H+2*(FOAM_FIT+FOAM_MOUTH),2.0],
         "rear_wall_thickness":round(FOAM_BACK_WALL-0.2,2),
-        "housing_overlap_mm3":round(volume(foam().intersect(housing())),5),
+        "housing_overlap_mm3":round(volume(spring_insert().intersect(housing())),5),
         "rest_preload_percent":round(foam_compression(None),2),
-        "rest_contact_volume_mm3":round(volume(foam().intersect(paddle())),3),
-        "mount":"foam bonded to flat rear face of removable paddle",
-        "note":"Compression is geometric. Force, creep and recovery require a physical coupon."}
+        "rest_contact_volume_mm3":round(volume(spring_insert().intersect(paddle())),3),
+        "mount":"keyed insert pushed upward after paddle and shell assembly",
+        "adhesive":False,
+        "stem_size":[INSERT_STEM_W,round(INSERT_STEM_Y1-INSERT_STEM_Y0,2),
+                     round(FOAM_Z-FOAM_H/2+0.1-(BOTTOM+INSERT_FLANGE_H),2)],
+        "note":"Compression and detent motion are geometric. Force, creep and recovery require a physical coupon."}
     # The stop has a real blocking face at a slight forward turn, and the
     # paddle must rotate backward freely throughout the phone thickness range.
     def stop_overlap(deg):
@@ -761,9 +814,9 @@ def inspect():
         report["pass"] &= all(v<0.01 for k,v in fit.items() if k.endswith("mm3"))
         report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
         report["pass"] &= all(0 <= v <= 65 for v in fit["foam_edge_compression_percent"])
-    report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
-    report["pass"] &= report["foam"]["housing_overlap_mm3"]<0.01
-    report["pass"] &= report["foam"]["rest_contact_volume_mm3"]>1
+    report["pass"] &= 5 <= report["spring_insert"]["rest_preload_percent"] <= 20
+    report["pass"] &= report["spring_insert"]["housing_overlap_mm3"]<0.01
+    report["pass"] &= report["spring_insert"]["rest_contact_volume_mm3"]>1
     report["pass"] &= report["forward_stop"]["clear_at_rest_mm3"]<0.01
     report["pass"] &= report["forward_stop"]["blocked_at_minus_3_deg_mm3"]>0.01
     report["pass"] &= report["forward_stop"]["clear_at_plus_27_deg_mm3"]<0.01
