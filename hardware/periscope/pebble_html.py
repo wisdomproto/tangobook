@@ -61,9 +61,13 @@ def main():
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
         "forwardStops": encoded_cad(cad.forward_stops),
         "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
+        "contactFace": encoded_cad(cad.contact_shoe),
         "cameraSpace": encoded_cad(cad.camera_clearance),
         "_config": {"pivotY": cad.old.PIVOT_Y, "pivotZ": cad.PIVOT_Z,
                     "phoneTop": cad.PHONE_TOP, "tongueBottom": cad.TONGUE_BOT,
+                    "contactRadius": cad.CONTACT_R,
+                    "contactCenterY": cad.CONTACT_CENTER_Y,
+                    "contactCenterZ": cad.CONTACT_CENTER_Z,
                     "cameraZ": cad.CAMERA_Z, "cameraRadius": cad.CAMERA_R,
                     "mirrorTop": cad.MIRROR_TOP,
                     "phoneAboveMirror": cad.PHONE_TOP-cad.MIRROR_TOP},
@@ -86,6 +90,7 @@ def main():
     <button class="nav-link" type="button" data-state="backing" aria-selected="false">거울 접착판</button>
     <button class="nav-link" type="button" data-state="foamPocket" aria-selected="false">스펀지 자리</button>
     <button class="nav-link" type="button" data-state="forwardStops" aria-selected="false">혀 고정면</button>
+    <button class="nav-link" type="button" data-state="contactFace" aria-selected="false">폰 접촉면</button>
     <button class="nav-link active" type="button" data-state="camera" aria-selected="true">카메라 공간</button>
   </div>
   <div class="viz-controls">
@@ -176,6 +181,7 @@ def main():
   addMesh('foamPocket',colors.foamPocket,.88); objects.foamPocket.material.depthTest=false; objects.foamPocket.renderOrder=11;
   addMesh('forwardStops',colors.forwardStops,.95); objects.forwardStops.material.depthTest=false; objects.forwardStops.renderOrder=12;
   addMesh('lidLand',colors.lidLand,.95); objects.lidLand.material.depthTest=false; objects.lidLand.renderOrder=13;
+  addMesh('contactFace',colors.lidLand,.95); objects.contactFace.material.depthTest=false; objects.contactFace.renderOrder=14;
   addMesh('cameraSpace',colors.mirror,.24); objects.cameraSpace.material.depthWrite=false;
 
   const phoneMaterial=material(colors.phone);
@@ -196,7 +202,9 @@ def main():
     cameraRing.position.set(0,-.08,encoded._config.cameraZ);
   }
   function paddleAngle(thickness) {
-    const radius=2.1, dy=7.1-PIVOT_Y, dz=TONGUE_BOTTOM-PIVOT_Z;
+    const radius=encoded._config.contactRadius;
+    const dy=encoded._config.contactCenterY-PIVOT_Y;
+    const dz=encoded._config.contactCenterZ-PIVOT_Z;
     let lo=0,hi=THREE.MathUtils.degToRad(40);
     for(let i=0;i<40;i++) {
       const a=(lo+hi)/2;
@@ -221,13 +229,14 @@ def main():
     backing:{camera:[105,-125,82],text:'초록색으로 강조한 2.4 mm 경사판은 실제 출력 케이스의 일부입니다. 거울의 뒷면 스티커를 이 판의 앞면에 직접 붙입니다.'}
     ,foamPocket:{camera:[108,72,24],text:'보라색은 누름판에 붙인 16×6×6 mm 스펀지가 뒤로 눌릴 수 있도록 비운 공간입니다. 뒤쪽 벽은 2.2 mm 두께입니다.'}
     ,forwardStops:{camera:[112,72,26],text:'초록색은 뚜껑 안쪽에 받쳐지는 혀의 평평한 윗면, 빨간색은 양옆 보조 멈춤턱입니다. 앞쪽 이동은 막고 뒤쪽은 스펀지를 누르며 움직입니다.'}
+    ,contactFace:{camera:[100,105,14],text:'초록색은 작은 원기둥 대신 만든 폭 18 mm의 완만한 곡면입니다. 폰 두께에 따라 닿는 높이가 달라집니다.'}
     ,camera:{camera:[112,58,18],text:'40×30 mm 거울은 끼움 턱 없이 연속된 경사판에 직접 접착합니다. 거울과 휴대폰 사이의 ㄷ자 카메라 공간은 열려 있습니다.'}
   };
   let current='camera';
   function resetTransforms() {
     for(const object of Object.values(objects)) { object.visible=true; object.position.set(0,0,0); object.rotation.set(0,0,0); }
     setPaddleRotation(0);
-    objects.cameraSpace.visible=false; objects.backing.visible=false; objects.foamPocket.visible=false; objects.forwardStops.visible=false; objects.lidLand.visible=false;
+    objects.cameraSpace.visible=false; objects.backing.visible=false; objects.foamPocket.visible=false; objects.forwardStops.visible=false; objects.lidLand.visible=false; objects.contactFace.visible=false;
     for(const shell of [objects.shellLeft,objects.shellRight]) {
       shell.material.opacity=1; shell.material.transparent=false; shell.material.depthWrite=true;
     }
@@ -264,6 +273,12 @@ def main():
       objects.mirror.visible=false; objects.forwardStops.visible=true; objects.lidLand.visible=true;
       for(const shell of [objects.shellLeft,objects.shellRight]) {
         shell.material.transparent=true; shell.material.opacity=.18; shell.material.depthWrite=false;
+      }
+    } else if(name==='contactFace') {
+      objects.phone.visible=false; objects.phoneCamera.visible=false;
+      objects.mirror.visible=false; objects.foam.visible=false; objects.contactFace.visible=true;
+      for(const shell of [objects.shellLeft,objects.shellRight]) {
+        shell.material.transparent=true; shell.material.opacity=.12; shell.material.depthWrite=false;
       }
     } else if(name==='camera') {
       // Keep the optical-space view readable from above. Transparent shell

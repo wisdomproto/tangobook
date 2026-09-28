@@ -79,6 +79,15 @@ CAMERA_Z = MIRROR_TOP-CAMERA_R
 PIVOT_Z = old.TONGUE_TOP+Z_SHIFT
 TONGUE_BOT = old.TONGUE_BOT+Z_SHIFT
 TONGUE_C = PIVOT_Z-TONGUE_BOT
+# A shallow circular bow presents a broad, smooth contact surface to the
+# phone. Its tangent moves along the face as phone thickness changes.
+CONTACT_R = 11.0
+CONTACT_W = 18.0
+CONTACT_CENTER_Y = old.GRIP_FREE+CONTACT_R
+CONTACT_CENTER_Z = TONGUE_BOT-1.2
+CONTACT_Z_LO = CONTACT_CENTER_Z-1.0
+CONTACT_Z_HI = TONGUE_BOT+6.5
+CONTACT_BLEND_Z = TONGUE_BOT+8.5
 FOAM_Z = PIVOT_Z-FOAM_ARM_R*TONGUE_C
 # A flat landing on the paddle carries the bonded foam. At rest its
 # rear face preloads the foam by 0.3 mm against the housing's rear wall.
@@ -206,6 +215,24 @@ def paddle_front_y(z):
     y0,z0=old.PIVOT_Y,PIVOT_Z
     y1,z1=old.GRIP_FREE+old.PLATE_T+0.5,TONGUE_BOT
     return y1+(y0-y1)*(z-z1)/(z0-z1)
+
+
+def contact_front_y(z):
+    return CONTACT_CENTER_Y-math.sqrt(CONTACT_R**2-(z-CONTACT_CENTER_Z)**2)
+
+
+def contact_shoe():
+    """Broad, gently bowed phone face with the sharp lower cylinder removed."""
+    arc=[(contact_front_y(CONTACT_Z_LO+(CONTACT_Z_HI-CONTACT_Z_LO)*i/32),
+          CONTACT_Z_LO+(CONTACT_Z_HI-CONTACT_Z_LO)*i/32)
+         for i in range(33)]
+    rear=old.GRIP_FREE+old.PLATE_T+2.3
+    profile=arc+[(paddle_front_y(CONTACT_BLEND_Z)-0.1,CONTACT_BLEND_Z),
+                 (paddle_front_y(CONTACT_BLEND_Z)+old.PLATE_T+0.2,
+                  CONTACT_BLEND_Z),
+                 (rear,CONTACT_Z_LO)]
+    return (cq.Workplane("YZ").workplane(offset=-CONTACT_W/2)
+            .polyline(profile).close().extrude(CONTACT_W))
 
 
 def forward_stops():
@@ -449,15 +476,15 @@ def right():
 
 @lru_cache(None)
 def paddle():
-    # Straight rigid paddle: the original curved spring profile penetrates a
-    # thick phone even when its rolled tip just touches. Foam supplies force.
+    # The straight rigid panel carries a broad bowed shoe at its lower end.
+    # Foam supplies force; the shoe spreads contact over the phone back.
     lip_r=old.PLATE_T+0.5
     y0,z0=old.PIVOT_Y,PIVOT_Z
     y1,z1=old.GRIP_FREE+lip_r,TONGUE_BOT
     panel=(cq.Workplane("YZ").workplane(offset=-old.PLATE_W/2)
            .polyline([(y0,z0),(y1,z1),(y1+old.PLATE_T,z1),
                       (y0+old.PLATE_T,z0)]).close().extrude(old.PLATE_W))
-    panel=panel.union(shaft(-old.PLATE_W/2,old.PLATE_W,y1,z1,lip_r))
+    panel=panel.union(contact_shoe())
     # A broad, level back face lets one 16 x 6 mm foam pad be stuck to the
     # paddle before assembly. The taper joins that face to the sloping tongue.
     zlo,zhi=FOAM_Z-FOAM_H/2,FOAM_Z+FOAM_H/2
@@ -479,14 +506,13 @@ def paddle():
 
 
 def paddle_angle(thickness):
-    """Angle where the rolled lower edge first meets the phone back."""
-    radius=old.PLATE_T+0.5
-    dy=old.GRIP_FREE+radius-old.PIVOT_Y
-    dz=TONGUE_BOT-PIVOT_Z
+    """Angle where the broad circular phone face first meets the phone back."""
+    dy=CONTACT_CENTER_Y-old.PIVOT_Y
+    dz=CONTACT_CENTER_Z-PIVOT_Z
     lo,hi=0.0,math.radians(40)
     for _ in range(40):
         t=(lo+hi)/2
-        front=old.PIVOT_Y+dy*math.cos(t)-dz*math.sin(t)-radius
+        front=old.PIVOT_Y+dy*math.cos(t)-dz*math.sin(t)-CONTACT_R
         if front<thickness:lo=t
         else:hi=t
     return math.degrees((lo+hi)/2)
@@ -641,8 +667,8 @@ def inspect():
         report["paddle_rotation_mm3"][str(deg)]=round(volume(rotated.intersect(housing())),5)
     report["phone_fit"]={}
     for thickness in (7,9,11):
-        # The rolled contact lip is a circle; solve its front tangent against
-        # the phone back, then test the ENTIRE paddle, not only that point.
+        # Solve the broad bow's tangent against the phone back, then test the
+        # ENTIRE paddle, not only that point.
         deg=paddle_angle(thickness)
         rotated=paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
                                 (1,old.PIVOT_Y,PIVOT_Z),deg)
@@ -655,6 +681,10 @@ def inspect():
             "foam_edge_compression_percent":[
                 round(foam_compression(thickness,FOAM_Z+FOAM_H/2),2),
                 round(foam_compression(thickness,FOAM_Z-FOAM_H/2),2)]}
+    report["phone_contact"]={"type":"broad bowed face",
+                             "width_mm":CONTACT_W,
+                             "radius_mm":CONTACT_R,
+                             "arc_height_mm":round(CONTACT_Z_HI-CONTACT_Z_LO,2)}
     report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
         "pocket_inner_size":[FOAM_W+2*FOAM_FIT,FOAM_H+2*FOAM_FIT,
                              FOAM_FREE_T+FOAM_FIT+0.2],
