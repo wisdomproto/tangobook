@@ -99,9 +99,14 @@ CONTACT_Z_LO = CONTACT_CENTER_Z-1.0
 CONTACT_Z_HI = TONGUE_BOT+6.5
 CONTACT_BLEND_Z = TONGUE_BOT+8.5
 FOAM_Z = PIVOT_Z-FOAM_ARM_R*TONGUE_C
-# A flat landing on the paddle captures the loose foam. At rest its rear face
-# preloads the foam by 0.3 mm against the housing's rear wall.
+# A smaller rounded boss on the paddle enters the foam face. Its shoulder stays
+# clear of the cartridge so normal X/Z assembly error does not require two
+# 16 x 6 mm faces to align perfectly.
 FOAM_PAD_Y = BACK-FOAM_BACK_WALL-FOAM_FREE_T+0.3
+FOAM_BOSS_W = 12.0
+FOAM_BOSS_H = 4.0
+FOAM_BOSS_DEPTH = 0.8
+FOAM_BOSS_R = 0.65
 STOP_GAP = 0.10
 STOP_Z_LO = PHONE_TOP+0.35
 STOP_Z_HI = PIVOT_Z-2.8
@@ -258,6 +263,15 @@ def paddle_front_y(z):
     y0,z0=old.PIVOT_Y,PIVOT_Z
     y1,z1=old.GRIP_FREE+old.PLATE_T+0.5,TONGUE_BOT
     return y1+(y0-y1)*(z-z1)/(z0-z1)
+
+
+@lru_cache(None)
+def foam_contact_boss():
+    """Tolerance-friendly rounded rectangle that preloads the foam face."""
+    boss=box(-FOAM_BOSS_W/2,FOAM_BOSS_W/2,
+             FOAM_PAD_Y-FOAM_BOSS_DEPTH,FOAM_PAD_Y,
+             FOAM_Z-FOAM_BOSS_H/2,FOAM_Z+FOAM_BOSS_H/2)
+    return boss.edges("|Y").fillet(FOAM_BOSS_R)
 
 
 def contact_front_y(z):
@@ -530,15 +544,17 @@ def paddle():
            .polyline([(y0,z0),(y1,z1),(y1+old.PLATE_T,z1),
                       (y0+old.PLATE_T,z0)]).close().extrude(old.PLATE_W))
     panel=panel.union(contact_shoe())
-    # A broad, level back face compresses the loose 16 x 6 mm foam captured in
-    # the housing. The foam is not bonded to the paddle.
+    # The broad structural shoulder stops before the cartridge. A smaller
+    # rounded boss projects into the foam, leaving 2 mm lateral and 1 mm
+    # vertical alignment margin around the nominal 16 x 6 mm pad.
     zlo,zhi=FOAM_Z-FOAM_H/2,FOAM_Z+FOAM_H/2
     pad=(cq.Workplane("YZ").workplane(offset=-FOAM_W/2)
          .polyline([(paddle_front_y(zlo)+old.PLATE_T-0.1,zlo),
                     (paddle_front_y(zhi)+old.PLATE_T-0.1,zhi),
-                    (FOAM_PAD_Y,zhi),(FOAM_PAD_Y,zlo)])
+                    (FOAM_PAD_Y-FOAM_BOSS_DEPTH,zhi),
+                    (FOAM_PAD_Y-FOAM_BOSS_DEPTH,zlo)])
          .close().extrude(FOAM_W))
-    panel=panel.union(pad)
+    panel=panel.union(pad).union(foam_contact_boss())
     # The closed lid bears on this broad, flat upper land. Its long sloping
     # root spreads bending into the lower paddle rather than a narrow neck.
     # Foam pushes the tongue into its rest face; rotation pulls it away.
@@ -793,6 +809,13 @@ def inspect():
                              "width_mm":CONTACT_W,
                              "radius_mm":CONTACT_R,
                              "arc_height_mm":round(CONTACT_Z_HI-CONTACT_Z_LO,2)}
+    report["foam_contact_boss"]={
+        "size_mm":[FOAM_BOSS_W,FOAM_BOSS_H,FOAM_BOSS_DEPTH],
+        "corner_radius_mm":FOAM_BOSS_R,
+        "alignment_margin_each_side_mm":[
+            round((FOAM_W-FOAM_BOSS_W)/2,2),
+            round((FOAM_H-FOAM_BOSS_H)/2,2)],
+        "cartridge_interference_mm3":round(volume(foam_contact_boss().intersect(cartridge())),5)}
     total_foam_overlap=volume(foam().intersect(housing()))
     carrier_foam_overlap=volume(foam().intersect(cartridge()))
     report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
@@ -867,6 +890,7 @@ def inspect():
     report["pass"] &= report["foam"]["carrier_retaining_lip_overlap_mm3"]>0.01
     report["pass"] &= report["foam"]["housing_overlap_mm3"]<0.01
     report["pass"] &= report["foam"]["rest_contact_volume_mm3"]>1
+    report["pass"] &= report["foam_contact_boss"]["cartridge_interference_mm3"]<0.01
     report["pass"] &= report["cartridge_snap"]["intentional_flex_overlap_peak_mm3"]>0.01
     report["pass"] &= report["lid_land"]["clear_at_rest_mm3"]<0.01
     report["pass"] &= report["lid_land"]["blocked_at_minus_3_deg_mm3"]>0.01

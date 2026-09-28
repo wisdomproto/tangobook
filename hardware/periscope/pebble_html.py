@@ -60,6 +60,7 @@ def main():
         "foam": encoded_stl("foam", 12),
         "backing": encoded_cad(cad.mirror_backing),
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
+        "foamBoss": encoded_cad(cad.foam_contact_boss),
         "cartridgeGuide": encoded_cad(cad.cartridge_guide_volume),
         "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
         "contactFace": encoded_cad(cad.contact_shoe),
@@ -89,7 +90,7 @@ def main():
     <button class="nav-link" type="button" data-state="inserting" aria-selected="false">폰 끼우기</button>
     <button class="nav-link" type="button" data-state="installed" aria-selected="false">장착 단면</button>
     <button class="nav-link" type="button" data-state="backing" aria-selected="false">거울 접착판</button>
-    <button class="nav-link" type="button" data-state="foamPocket" aria-selected="false">스펀지 자리</button>
+    <button class="nav-link" type="button" data-state="foamPocket" aria-selected="false">스펀지·누름면</button>
     <button class="nav-link" type="button" data-state="cartridge" aria-selected="false">카트리지 딸깍</button>
     <button class="nav-link" type="button" data-state="contactFace" aria-selected="false">폰 접촉면</button>
     <button class="nav-link active" type="button" data-state="camera" aria-selected="true">카메라 공간</button>
@@ -144,7 +145,7 @@ def main():
   const colors={
     shell:'#d99055', paddle:'#b75b3c',
     foam:'#ffd54f', mirror:'#79c8ee',
-    phone:'#465463', backing:'#34b879', foamPocket:'#9b7bd3', cartridge:'#e64b43', cartridgeGuide:'#9b7bd3', lidLand:'#20a488', line:'#746b61'
+    phone:'#465463', backing:'#34b879', foamPocket:'#9b7bd3', foamBoss:'#20a488', cartridge:'#e64b43', cartridgeGuide:'#9b7bd3', lidLand:'#20a488', line:'#746b61'
   };
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
@@ -180,6 +181,7 @@ def main():
   addMesh('paddle',colors.paddle); addMesh('cartridge',colors.cartridge); addMesh('mirror',colors.mirror,.82); addMesh('foam',colors.foam);
   addMesh('backing',colors.backing,.92); objects.backing.material.depthTest=false; objects.backing.renderOrder=10;
   addMesh('foamPocket',colors.foamPocket,.88); objects.foamPocket.material.depthTest=false; objects.foamPocket.renderOrder=11;
+  addMesh('foamBoss',colors.foamBoss,.98); objects.foamBoss.material.depthTest=false; objects.foamBoss.renderOrder=12;
   addMesh('cartridgeGuide',colors.cartridgeGuide,.55); objects.cartridgeGuide.material.depthWrite=false; objects.cartridgeGuide.renderOrder=12;
   addMesh('lidLand',colors.lidLand,.95); objects.lidLand.material.depthTest=false; objects.lidLand.renderOrder=13;
   addMesh('contactFace',colors.lidLand,.95); objects.contactFace.material.depthTest=false; objects.contactFace.renderOrder=14;
@@ -228,7 +230,7 @@ def main():
     inserting:{camera:[92,104,-50],text:`40 mm ㄷ자 입구로 휴대폰이 들어갑니다. 휴대폰 윗변은 거울보다 ${encoded._config.phoneAboveMirror.toFixed(1)} mm 위에 있습니다.`},
     installed:{camera:[118,66,18],text:'혀는 뚜껑 안쪽의 넓은 받침면에 쉬고, 휴대폰을 끼우면 뒤로 돌아가며 스펀지를 압축합니다.'},
     backing:{camera:[105,-125,82],text:'초록색으로 강조한 2.4 mm 경사판은 실제 출력 케이스의 일부입니다. 거울의 뒷면 스티커를 이 판의 앞면에 직접 붙입니다.'}
-    ,foamPocket:{camera:[108,72,24],text:'보라색은 카트리지와 스펀지가 들어가는 후방 통로입니다. 스펀지는 카트리지의 위·뒤·아래 면과 얕은 안쪽 돌기에 잡혀 접착제가 필요 없습니다.'}
+    ,foamPocket:{camera:[108,72,24],text:'보라색은 카트리지 통로, 초록색은 혀 뒤의 12×4 mm 둥근 사각 돌출부입니다. 16×6 mm 스펀지보다 좌우 2 mm, 상하 1 mm씩 작아 조립 오차가 있어도 플라스틱끼리 걸리지 않습니다.'}
     ,cartridge:{camera:[112,72,26],text:'빨간 카트리지를 본체 뒤에서 밀면 위쪽 탄성 혀가 내부 홈에 딸깍 잠깁니다. 뒤쪽 홈으로 탄성 혀를 눌러 다시 뺄 수 있습니다.'}
     ,contactFace:{camera:[100,105,14],text:'초록색은 작은 원기둥 대신 만든 폭 18 mm의 완만한 곡면입니다. 폰 두께에 따라 닿는 높이가 달라집니다.'}
     ,camera:{camera:[112,58,18],text:'40×30 mm 거울은 끼움 턱 없이 연속된 경사판에 직접 접착합니다. 거울과 휴대폰 사이의 ㄷ자 카메라 공간은 열려 있습니다.'}
@@ -237,7 +239,7 @@ def main():
   function resetTransforms() {
     for(const object of Object.values(objects)) { object.visible=true; object.position.set(0,0,0); object.rotation.set(0,0,0); }
     setPaddleRotation(0);
-    objects.cameraSpace.visible=false; objects.backing.visible=false; objects.foamPocket.visible=false; objects.cartridgeGuide.visible=false; objects.lidLand.visible=false; objects.contactFace.visible=false;
+    objects.cameraSpace.visible=false; objects.backing.visible=false; objects.foamPocket.visible=false; objects.foamBoss.visible=false; objects.cartridgeGuide.visible=false; objects.lidLand.visible=false; objects.contactFace.visible=false;
     for(const shell of [objects.shellLeft,objects.shellRight]) {
       shell.material.opacity=1; shell.material.transparent=false; shell.material.depthWrite=true;
     }
@@ -267,7 +269,7 @@ def main():
     } else if(name==='foamPocket') {
       objects.foam.visible=false; objects.phone.visible=false; objects.phoneCamera.visible=false;
       objects.mirror.visible=false; objects.cartridge.visible=false;
-      objects.foamPocket.visible=true; objects.cartridgeGuide.visible=true;
+      objects.foamPocket.visible=true; objects.foamBoss.visible=true; objects.cartridgeGuide.visible=true;
       for(const shell of [objects.shellLeft,objects.shellRight]) {
         shell.material.transparent=true; shell.material.opacity=.18; shell.material.depthWrite=false;
       }
