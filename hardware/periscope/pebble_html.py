@@ -60,7 +60,7 @@ def main():
         "backing": encoded_cad(cad.mirror_backing),
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
         "forwardStops": encoded_cad(cad.forward_stops),
-        "lidLand": encoded_cad(cad.lid_land),
+        "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
         "cameraSpace": encoded_cad(cad.camera_clearance),
         "_config": {"pivotY": cad.old.PIVOT_Y, "pivotZ": cad.PIVOT_Z,
                     "phoneTop": cad.PHONE_TOP, "tongueBottom": cad.TONGUE_BOT,

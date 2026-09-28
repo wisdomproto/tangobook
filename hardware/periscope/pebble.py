@@ -89,8 +89,7 @@ STOP_Z_HI = PIVOT_Z-2.8
 LID_LAND_Y0 = old.PIVOT_Y-4.0
 LID_LAND_GAP = 0.10
 LID_LAND_THICK = 2.0
-LID_NECK_FRONT = 1.2
-LID_NECK_REAR = 0.5
+LID_ROOT_DROP = 3.3
 LID_INNER_Z = TOP-old.WALL
 
 
@@ -227,6 +226,18 @@ def lid_land():
                LID_LAND_Y0,old.PIVOT_Y+0.3,
                LID_INNER_Z-LID_LAND_GAP-LID_LAND_THICK,
                LID_INNER_Z-LID_LAND_GAP)
+
+
+def lid_root():
+    """Broad sloping web joining the lid land to the lower paddle face."""
+    z_low=PIVOT_Z-LID_ROOT_DROP
+    z_high=LID_INNER_Z-LID_LAND_GAP-LID_LAND_THICK+0.2
+    return (cq.Workplane("YZ").workplane(offset=-old.PLATE_W/2+2)
+            .polyline([(LID_LAND_Y0+0.8,z_high),
+                       (paddle_front_y(z_low)-0.15,z_low),
+                       (paddle_front_y(z_low)+old.PLATE_T+0.3,z_low),
+                       (old.PIVOT_Y+0.5,z_high)])
+            .close().extrude(old.PLATE_W-4))
 
 
 @lru_cache(None)
@@ -456,13 +467,11 @@ def paddle():
                     (FOAM_PAD_Y,zhi),(FOAM_PAD_Y,zlo)])
          .close().extrude(FOAM_W))
     panel=panel.union(pad)
-    # The closed lid bears on this broad, flat upper land. Foam pushes the
-    # tongue gently into that rest face; rearward rotation pulls it away.
+    # The closed lid bears on this broad, flat upper land. Its long sloping
+    # root spreads bending into the lower paddle rather than a narrow neck.
+    # Foam pushes the tongue into its rest face; rotation pulls it away.
     land=lid_land()
-    neck=box(-old.PLATE_W/2+1,old.PLATE_W/2-1,
-             old.PIVOT_Y-LID_NECK_FRONT,old.PIVOT_Y+LID_NECK_REAR,
-             PIVOT_Z-0.8,LID_INNER_Z-LID_LAND_GAP)
-    panel=panel.union(land).union(neck)
+    panel=panel.union(land).union(lid_root())
     # Only two short axle stubs enter the shell bearings. A full-width round
     # axle looked like an exposed handle across the phone opening.
     panel=panel.union(shaft(-old.PLATE_W/2-3,3,y0,z0,old.PIN_D/2))
@@ -678,7 +687,8 @@ def inspect():
                             "clear_at_plus_27_deg_mm3":stop_overlap(27)}
     report["lid_land"]={"width_mm":old.PLATE_W-2,
                         "thickness_mm":LID_LAND_THICK,
-                        "neck_front_to_back_mm":LID_NECK_FRONT+LID_NECK_REAR,
+                        "root_width_mm":old.PLATE_W-4,
+                        "root_drop_below_pivot_mm":LID_ROOT_DROP,
                         "rest_gap_mm":LID_LAND_GAP,
                         "clear_at_rest_mm3":lid_overlap(0),
                         "blocked_at_minus_3_deg_mm3":lid_overlap(-3),
