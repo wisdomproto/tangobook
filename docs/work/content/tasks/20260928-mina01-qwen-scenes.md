@@ -42,3 +42,9 @@
 - 원본 전체: `D:/ComfyUI-output/qwen21-mermaid-test/mina01/`
 
 운영 `/mina-01.html` 자산 등록·R2 업로드·push는 하지 않았다. 사용자가 후속 등록을 요청하면 `selected-manifest.json`의 선정 10장을 기준으로 등록한다. 저장소는 기록만 변경했으므로 제품 타입체크/전체 테스트 대신 문서 diff와 로컬 갤러리 표시·10개 이미지 로딩을 검증했다.
+
+## 후속 승인·운영 등록 — 2026-09-28
+
+사용자가 선정본을 확인하고 “디비에 올리자”라고 요청하여 운영 등록을 승인했다. 등록 전 `mina-01` 자산이 비어 있고 `changjak-mina-01`에 10쪽이 있는 것을 확인했다. 10개 원본 해시를 선정 manifest와 대조한 뒤 기존 `/api/comic-assets/mina-01` 업로드 API로 PNG 10장을 저장하고, 현재 책을 다시 읽어 해당 쪽 `illustrationUrl`만 연결했다.
+
+등록 후 운영 책·자산 재조회 및 CDN 이미지 10장 SHA-256 대조 성공. 본문/나레이션/기타 필드는 모두 보존(updatedAt 제외). API는 책의 URL을 `assets.tangobook.co.kr` CDN으로 바꾸므로 자산 API의 R2 주소와 문자열 전체가 아닌 경로 및 실제 바이트를 비교했다. 근거는 같은 D 폴더 `registration-before.json`, `registration-uploads.json`, `registration-verified.json`. 등록 완료, Git push 없음.
