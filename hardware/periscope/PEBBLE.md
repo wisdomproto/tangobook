@@ -45,7 +45,7 @@ python hardware/periscope/pebble_preview.py
 python hardware/periscope/pebble_html.py OUTPUT.html
 ```
 
-출력은 `out/pebble/`. 첫 명령은 STEP/STL, 결합 시험 부품 `coupon_left/right`, `report.json`과 **한 번에 출력하는 `tango_pebble_print_plate.stl`**을 생성한다. 이 통합 STL에는 좌측 케이스·우측 케이스·누름판만 서로 떨어진 3개 바디로 들어가며 거울·스펀지는 포함하지 않는다. 검사 실패 시 종료 코드 2다. 두 번째 명령은 실제 STL에서 정지 미리보기를 만든다. VTK·Pillow가 필요하다. 세 번째 명령은 실제 STL을 표시용으로 단순화해 회전·분해·폰 삽입·장착 단면을 볼 수 있는 인터랙티브 HTML 조각을 만든다.
+출력은 `out/pebble/`. 첫 명령은 STEP/STL, 결합 시험 부품 `coupon_left/right`, `report.json`과 **한 번에 출력하는 `tango_pebble_print_plate.stl`**을 생성한다. 이 통합 STL에는 좌측 케이스·우측 케이스·누름판만 서로 떨어진 3개 바디로 들어가며 거울·스펀지는 포함하지 않는다. 혀만 교체 출력하려면 통합판과 같은 방향으로 눕힌 `tango_pebble_tongue_print_ready.stl`을 쓴다. 일반 `paddle.stl`은 조립 좌표계라 출력 방향이 다르다. 검사 실패 시 종료 코드 2다. 두 번째 명령은 실제 STL에서 정지 미리보기를 만든다. VTK·Pillow가 필요하다. 세 번째 명령은 실제 STL을 표시용으로 단순화해 회전·분해·폰 삽입·장착 단면을 볼 수 있는 인터랙티브 HTML 조각을 만든다.
 
 `tango_pebble_print_plate.stl`은 형상만 담은 교환 파일이라 서포트 설정이 없다. 슬라이서에서 내부 공중 시작 면까지 받치도록 서포트를 설정해야 한다. 이전 35×20mm 거울 형상의 `tango_pebble_A1_supported.3mf`는 현재 40×30mm 모델과 맞지 않으므로 출력에 사용하지 않는다.
 

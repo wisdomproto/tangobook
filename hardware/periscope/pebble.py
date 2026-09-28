@@ -770,6 +770,10 @@ def main():
         cq.exporters.export(piece,str(OUT/(name+".step")))
     print("Export print plate",flush=True)
     export_multi_body_stl(print_plate(),OUT/"tango_pebble_print_plate.stl",3)
+    # Same orientation as the tongue on the combined plate, centered near the
+    # origin so a replacement tongue can be printed without the two shells.
+    export_print_stl(print_plate_parts()["paddle"].translate((-20,-58,0)),
+                     OUT/"tango_pebble_tongue_print_ready.stl")
     print("Checking assembly paths",flush=True)
     report=inspect()
     (OUT/"report.json").write_text(json.dumps(report,indent=2),encoding="utf-8")
