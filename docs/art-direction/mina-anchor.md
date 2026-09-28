@@ -1,174 +1,69 @@
-# 가운데 아이 미나 — 앵커
+# 가운데 아이 미나 — 승인 과슈 앵커
 
-> 창작동화 **시리즈 15** (25권). 명단 = `docs/changjak-books/_series-slate-asia.md`
-> 대발이형 · 아기 코끼리 미나 · 삼 남매 나이 계단(주인공은 가운데) · 무대 = 큰 강가 마을
-> 🔴 **이미지 생성은 여기서 하지 않는다.** 프롬프트까지가 이 문서의 일이다.
-> 🔴 **한 시리즈 = 한 앵커.** 25권의 무대 차이는 §1 의 `STAGE CLAUSES` 조항 한 줄로 처리한다.
+2026-09-28 사용자 승인 가족 시안 기준. 기존 mina-dotfolk 점 매체는 폐기한다.
+참조: [승인 가족](references/mina/approved-family-gouache.png). 50권·500쪽 공통.
 
----
-
-## §1. 앵커 — `mina-dotfolk`
+## §1. 앵커 — mina-gouache
 
 ```
-STYLE ANCHOR - mina-dotfolk   (Mina's river village / everything is stamped in dots)
+STYLE ANCHOR - mina-gouache (Mina's river village / approved warm gouache family)
 
-Style: folk painting stamped in dots on an earth-washed ochre ground, TWO dot colours, 4-6 year old
-  picture book. 🔴 NOTHING IS A CONTINUOUS LINE AND NOTHING IS A FILLED AREA - every shape, edge and
-  surface is separate round dots printed with the tip of a cut reed, all the SAME size on every
-  page. An outline is dots set close enough to touch; a surface is dots set apart. Lightness is
-  spacing and nothing else, and the ochre ground shows between every dot. SHADING IS ZERO - no
-  modelling, gradient or glow. 🔴 EXCEPT a shadow LYING ON THE GROUND, which is an INK field dotted
-  CLOSE with a hard edge - and where it lies inside shade it is dotted TOUCHING so that it still
-  reads. Never on a body and never on a face.
+STYLE: warm hand-painted gouache on cream paper, broad opaque calm colour shapes, subtle broad
+brush strokes, soft confident contours, light paper grain and gentle modelling. Rounded animals,
+clear expressions and quiet open areas. No stippling, pointillism, bead-like surface textures, sequins, tiny repeated
+circles, all-over patterns or dotted outlines. No photoreal anatomy, plastic or 3D render.
 
-RENDERING (finish hierarchy): dot spacing has exactly FOUR settings - touching, close, open, wide -
-  and one shape uses ONE setting throughout, so a change of spacing is always an edge between two
-  things. 🔴 WHITE DOTS AND INK DOTS ARE NEVER MIXED INSIDE ONE SHAPE; where a white field meets an
-  ink field their dots interleave along a band at most 3 dots wide, the darkest thing available.
-  Repeats are capped: houses behind at most 4, each an ink outline with 0 fill · trees at most 5 · a
-  crowd at most 7 dot-outlines with 0 faces and 0 hands; no repeat mirrors its neighbour. FINISHED
-  THINGS PER PAGE = 2.
+PALETTE: cream paper #F7F1E5, warm dove-grey elephant skin, soft pink inner ears, muted earth,
+sage vegetation and blue-grey river water. Muddy water is opaque earth-brown; clear water is pale
+blue-grey. Actual story beads and necklaces may appear as scripted props, never as an all-over skin or cloth texture.
+Natural colours distinguish story objects; do not translate coloured objects into dots.
+RAJU: denim-blue #557FA0 pocket shirt, sand-beige rolled shorts above knees.
+MINA: coral #DF806D short top, cream loose trousers ending above ankles, ONE gold #E8A33D band
+on her RIGHT ankle only. No bow, necklace or other gold.
+SONU: soft sunflower #E6BE58 oversized shirt slightly off one shoulder, sage shorts visible below.
+MOTHER: plain sage-green #809783 long one-shoulder wrap dress, feet visible, no jewellery or trim.
+These clothing colours stay identical across scenes and front/side/back views. Only Mina wears
+gold jewellery; Sonu's yellow fabric is matte cloth, not metallic gold. Keep old dotted references out.
 
-PALETTE: GROUND OCHRE #EFE0C4, the earth wash - walls, sky, dust, everything left between the dots.
-  🔴 IT IS NEVER STAMPED. There is no ochre dot and no earth-brown dot: whatever the script calls an
-  earth-brown dot is a DOT INK dot set OPEN, and what looks lighter is only dots set further apart ·
-  DOT WHITE #F4EFE4, water, light, cloth, anything wet or bright · DOT INK #2E2A24, bodies, trees,
-  roofs, tools, shade · 🔴 WHEN THE SCRIPT SPLITS TWO OF THE SAME THING BY COLOUR (two kites, two
-  beads, two doors), THEY ARE SPLIT BY DOT COLOUR - one INK, one WHITE - never by a new pigment, and
-  the WHITE one is the one the book is following · GOLD #E8A33D, 🔴 Mina's ankle band and nothing else, the ONE thing in the
-  book painted as a solid filled shape with 0 dots, so it is the only smooth thing on any page. No
-  red, no blue, no green.
+STAGE CLAUSES:
+  RIVER - broad calm blue-grey water area; preserve the scripted extent and water level. Eight
+    stone steps and their marker stones make rising/falling water readable. Submerged stones may
+    be hidden by turbid water; no mirrored character duplicates. Simple restrained ripples if needed.
+  HOUSE INSIDE - warm earth walls, simple pots and beams, cream light shapes. Show the searched
+    object by shape and contrast, not dot density. Preserve the positions of door, window and bed.
+  BANK AND FIELD - warm sandy ground, muted sage crops, open pale sky. Wet soil is darker and
+    dry soil lighter. Use smooth broad washes and sparse broad strokes, never repeated dots.
+  NIGHT - muted blue-grey and earth shadows, warm cream lamp pools. Show dusk/dawn by light and
+    value, not dot spacing. Avoid frightening solid-black faces; expressions stay readable.
 
-STAGE CLAUSES (the stage changes where the two dot colours go, not which two):
-  RIVER - water is a field of WHITE dots and 🔴 THE HEIGHT OF THE RIVER IS HOW MUCH OF THE PAGE THOSE
-    DOTS COVER, given as a fraction of the page width on every river page. Where the river has
-    dropped, bare GROUND shows and it is walkable. 0 ripples, 0 reflections, 0 glints.
-  HOUSE INSIDE - walls bare GROUND, pots and beams INK outlines with 0 fill, lamplight a WHITE dot
-    field and the brightest thing on the page. A thing being looked for is dotted CLOSE; what hides
-    it is dotted WIDE.
-  BANK AND FIELD AT NOON - the sky is bare GROUND edge to edge with 0 dots; only what stands on the
-    earth is dotted, crops are INK dots in at most 9 rows, the path is a lane with 0 dots, and shade
-    is an INK field dotted CLOSE with a hard edge.
-  NIGHT - INK dotted CLOSE covers the sky, WHITE dots are only lamps and the river, the gold band
-    stays solid and is the only unbroken shape on the page.
+CHARACTER DESIGN LANGUAGE: four rounded upright elephants, simple hands and bare elephant feet.
+Use the approved family illustration, not older dotted sheets. RAJU : MINA : SONU total heights
+are about 5 : 4 : 3. Mother is about 1.5 times Raju's height, with a comfortably sized head and soft
+adult body, never a tiny-headed fashion figure. Raju is the sturdy eldest with a pocket and bare
+shins; Mina is the middle child with coral top and ankle band; Sonu is a big-headed round toddler;
+Mother has the long sage dress. No human musculature. Trunks remain elephant trunks: smell,
+drink, curl, reach high or touch another trunk; objects are handled with hands where scripted.
+Hands, trunk and ears follow the action, not a fixed pose. Do not add necklaces, bows or jewellery.
 
-CHARACTER DESIGN LANGUAGE: animals are dotted like everything else - touching INK dots outline them,
-  OPEN INK dots fill them so the ochre shows through. GRADE: bipedal, upright, a
-  short top and loose trousers, forelimbs are HANDS and everything is carried in them, bare feet -
-  shoes go on ONLY where the ground hurts the feet, the stony field and the stone causeway. 🔴 THE
-  TRUNK STAYS A TRUNK - it drinks, smells, pulls a high thing down, hooks another trunk, curls back
-  over the head or lies along a smaller one's back, and it never picks up or works an object.
-  🔴 A RAISED TRUNK IS ONE LANDING, NOT THE LANDING: a book may land on any of those, or on the
-  FEET both off the ground, the EARS both forward, or THE GOLD BAND brought to the front - never the
-  one the book beside it used, and on any page of the book. 🔴 EXCEPT THE HORI-FORMAT BOOKS (any book
-  whose text ends with Mina's trunk raised to the sky): there the RAISED TRUNK IS THE FIXED SIGNATURE,
-  exactly once per book on p9-p10, and the other landings are not used.
-  🔴 A BODY HAS NO OUTLINE - IT IS WHEREVER THE DOTS GOT CLOSE ENOUGH TOGETHER. The dots crowd at the
-  middle of an elephant and thin out towards its edge, so no edge is ever a decided line. Nothing on
-  a figure is drawn: a shoulder, a knee, the fold of an ear, a wrinkle are only changes in how
-  tightly the dots sit, and the ground and the water are stamped the same way.
-  🔴 THE EYE IS THE ONE MARK PLACED EXACTLY. Each eye is a SINGLE SOLID DOT, larger than any other dot
-  in the book, and the only mark on the page whose position was decided instead of accumulated. Its
-  size never changes; shut, it is replaced by one short lying row. A small dark nose; the mouth is
-  ONE curved row of touching dots; ONE short row above each eye, and the feeling is in row and mouth. 🔴 THE THREE are elephant children
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
-  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
-  in a ladder of heights, ELDEST : MINA : YOUNGEST = 5 : 4 : 3. 🔴 EACH ONE IS TOLD APART FIRST BY
-  OUTLINE - where the dots crowd and where the hems fall, given per figure on that figure's sheet -
-  BECAUSE A PAGE OFTEN HOLDS ONLY ONE OF THEM AND THE LADDER CANNOT BE READ. The small marks only
-  confirm: ELDEST a POCKET on the top · MINA THE GOLD ANKLE BAND · YOUNGEST a round belly and a big
-  head.
+FACIAL ACTING: exactly TWO anatomical eyes; no third eye or forehead dot. Eyelids, gaze, brows,
+mouth and ears convey curiosity, concern, refusal, concentration, sadness, relief or joy as the
+page requires. Preserve face proportions while changing expression. Speaking is not an automatic
+grin or open O mouth. Close-ups of hands/props, back views and empty scenes keep their crop;
+never add a face just because the text includes speech. The approved family smile is not every
+page's emotion. Do not add an expression row to scene illustrations.
 
-CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
-
-NOT: no airbrush, gradient, glow or 3D render / no continuous drawn line and no brushed area.
+COMPOSITION: 16:9 picture-book spread, clear action, readable family silhouettes and ample quiet
+background. Preserve the scene's characters, camera, object counts, water fractions and chronology.
+Finish the characters and story-critical object; keep distant scenery simpler. No letters, labels,
+numerals or signs in the picture. The new gouache medium applies to every visible object.
 ```
 
-🔴 **컷에 붙일 때는 그 쪽 무대의 `STAGE CLAUSES` 한 조항만 붙인다** — 조항 넷 중 셋은 한 쪽에 동시에 쓰이지 않는다.
-
-⚠️ **자수는 재서 적는다 — 여기 적혀 있던 「4,116 / 실효 3,482」는 낡은 값이었다**(2026-09-04 실측 =
-전문 **5,509** · 조항 셋을 뺀 실효 약 **4,760**). 🔴 **재는 법은 손 계산이 아니라 도구다** —
-`node packages/client/scripts/sync-anchor-to-core.mjs mina` 가 갱신할 때 두 자수를 같이 찍는다.
-
-🔴 **「그림 한 장 4,500」을 넘는다.** 이번 수리분(착지 조항)은 +314 이고 나머지는 그 전부터 넘고 있었다.
-🔴 **줄일 자리는 캐릭터 절이 아니라 `STAGE CLAUSES` 다** — `mina-stages.md` 의 자리 시트가 매 컷에
-붙는데 조항 넷과 내용이 겹친다(강 높이 자·맨 바탕 하늘·등불 흰 점밭이 양쪽에 다 있다). 겹치는 만큼
-걷어내는 것은 별건이라 여기서 하지 않았다 — bung 앵커가 같은 자리에 같은 신고를 달고 있다.
-
-🔴 **2026-09-04 수리 둘** (사물 시트 34장을 쓰며 드러났다 · `mina-stages.md` §2 신고).
-①**대본이 색 셋을 쓴다** — 초록 12쪽 · 강청 9쪽 · 붉은 1쪽. 대부분 장식 낱말이라 빼면 되는데
-**05·22권의 「흙갈 연 ↔ 강청 연」만 무겁다**(두 연이 색으로 갈리는 것이 누구 연인지 읽는 유일한 장치).
-색을 늘리지 않고 **점 색으로** 가른다 — 라주 연 = INK · 미나 연 = WHITE(팔레트가 이미 `DOT WHITE = cloth`
-라고 적어 뒀다). 덤으로 밝은 쪽이 주인공에게 붙어 금 발찌 논리와 방향이 같다. 그 판정을 위 PALETTE 에
-**일반 조항으로** 올렸다(12권 구슬·43권 열매도 같은 줄이 덮는다).
-②🔴 **대본이 한 색을 두 이름으로 부른다** — `먹점`과 `흙갈 점`이 같은 `DOT INK` 다(28 p1 이 증거:
-「빵은 **흙갈 점을 벌려** 찍어 밝고 그 위 손자국은 **먹점을 닿게** 찍어 가장 어둡다」= 같은 잉크의 간격
-차이). 그런데 **`흙갈`은 팔레트에서 바탕색 이름**이라, 글자대로 읽으면 **바탕에 바탕색을 찍어**
-16권 흙탕물과 17·23권 밤하늘이 통째로 사라진다. → `GROUND OCHRE IS NEVER STAMPED` 한 줄로 못 박았다.
-
-**관통 줄** (매 쪽)
+## §1-b. 가족 시트
 
 ```
-DOTS:  every edge and every surface is separate dots of one size - no line, and no filled area
-       anywhere except the gold band
-SOLID: the gold ankle band is the only smooth shape in the book, and it is Mina's
-LADDER: the three children are 5 : 4 : 3 and Mina is the middle one - read the ladder by HEIGHT,
-       not by where she stands; the script decides who leads and who is behind
+CHARACTER SHEET - Mina approved gouache family
+[여기에 §1 의 앵커를 붙인다]
+Four family members, one view each, on the same ground line: Raju, Mina, Sonu, Mother.
+Match the approved family reference. Preserve clothing colours and relative heights.
+Plain cream background, no labels, no extra family members. No dotted or bead texture.
 ```
-
----
-
-## §2. 왜 이 공정인가
-
-- **강이 불었다 줄었다 한다**(슬레이트 §무대) → 🔴 **흰 점이 덮은 면적이 강 높이**다. 눈금이 매체
-  자체라 권마다 새 장치를 만들 필요가 없고, 값을 쪽마다 숫자로 주게 조항에 못박았다
-  (`_ANCHOR-SPEC` §첫 렌더 ② — 값이 한 쪽에만 있으면 나머지가 흔들린다).
-- 🔴 **악센트가 색이 아니라 마감이다.** 발찌만 점이 아니라 메운 면이라, 화면에서 **유일하게 매끈한 것**이
-  주인공에게 붙는다. 색 하나 더 얹는 것보다 세고, 흑백 축소에서도 안 죽는다.
-- **셋이라야 가운데가 생긴다**(슬레이트 §축). 키 세 단 + 「셋이 다 있으면 미나가 가운데에 선다」를 관통 줄로
-  두면 「가운데 아이」가 매 쪽 구도로 읽힌다 — 글이 설명하지 않아도 된다.
-- **비울 수 없는 무대를 반복으로 비운다**(CLAUDE.md §배경 밀도). 강가 마을·밭·장은 원래 꽉 차는 무대인데,
-  점 반복은 **꽉 찼는데 정보가 0** 이라 사건 하나가 안 묻힌다.
-- 앞 열의 **리소·실크스크린**(평면 색면)과 갈리는 축 = **면이 있나 없나**. 여기엔 칠한 면이 한 곳도 없다.
-
----
-
-## §3. 🔴 설계·SCENE 과 충돌해 고친 자리 (2026-08-13 · 되돌리지 말 것)
-
-🔴 **SCENE 신고는 0건이었는데 여기서 제일 급한 게 나왔다.** 신고는 작가가 **부딪힐 때만** 올라오고,
-조항대로 그리면 **조용히 틀리는** 것은 안 올라온다. 아래 넷이 전부 그 종류다.
-
-| 무엇 | 옛 앵커 | 지금 | 근거(SCENE 250쪽) |
-|---|---|---|---|
-| **키 계단** | `YOUNGEST half Mina's height` | **`ELDEST : MINA : YOUNGEST = 5 : 4 : 3`** | 🔴 **시리즈를 가르는 축의 수치가 두 문서에서 달랐다.** SCENE 은 「키 5 : 4 : 3」을 **글자 그대로** 적어 두었고(01 p2 「세 키가 한 줄로 서서 5 : 4 : 3 이 한눈에 세어진다」 등 여러 쪽), 앵커대로 절반으로 그리면 막내가 미나의 3/4 이 아니라 절반이 되어 **계단이 계단이 아니게 된다** |
-| **맏이 표식** | `a cloth over one shoulder` | **`a POCKET on the top`(윗옷 주머니)** | SCENE 이 라주를 **「윗옷 주머니」로 86쪽**에서 가리킨다. 어깨 천은 250쪽에 **0회** |
-| **막내 표식** | `white dots banded across the back` | **`a round belly and a big head`** | SCENE 은 소누를 **「동그란 배」82쪽 · 「큰 머리」67쪽**으로 가리킨다. 등의 흰 점띠는 **0회** |
-| **신** | `bare feet`(통짜) | **맨발이 기본, 신은 발이 아픈 데서만**(돌밭·돌다리) | SCENE 은 맨발 60쪽이 기본이고 **신은 18·21 두 권에만** 나온다 — 18 p9 는 「제 신 안에 꼭 들어간 발」이 그 쪽의 전부고, 21 p4 는 **신은 두 발과 맨발 하나**가 문턱에서 갈리는 것이 사건이다. 통짜 `bare feet` 면 그 두 권이 안 그려진다 |
-
-🔴 **「쳐든 코는 그 착지가 아니다」 조항에 호리편 예외를 붙였다**(2026-09-09 이음매 검수) — 01~25 는 쳐든 코
-0회인데 26~50 은 스물다섯 권 전부 권당 정확히 1회 p9~p10 이고, 설계 §H 가 「시그니처 = 코를 하늘로 번쩍」으로
-못박아 두었다. 틀린 것은 25쪽이 아니라 우리가 넣은 조항 한 줄이라, 조건(「본문이 코를 하늘로 든 채 끝나는
-권」)으로 예외를 달았다. 권 번호 목록은 쓰지 않았다(`_SCENE-RULES` ④).
-
-🔴 **그늘 안에 놓인 그림자는 한 단 더 조인다**(`TOUCHING`) — 21 p10 착지가 **나무 그늘 안 바닥에서 셋의
-그림자가 하나로 겹치는** 그림인데, 그늘과 그림자가 둘 다 `CLOSE` 면 겹친 자국이 그늘에 먹혀
-**착지가 안 보인다**. 점 간격 네 단이 이 매체의 값이라, 색을 늘리지 않고 한 단으로 푼다.
-
-**같이 넣은 둘**
-
-- 🔴 **코는 코다** — `THE TRUNK STAYS A TRUNK`(마시고·맡고·높은 것을 감아 내리고·서로 코를 걸 뿐,
-  **물건을 집거나 쓰지 않는다**). 설계 §1 의 줄인데 앵커에 없었다. 코끼리 다섯이 나오는 시리즈에서
-  이 줄이 없으면 모델이 손 대신 코를 쓴다 — SCENE 도 코를 **염소에게 풀을 내미는 손 옆**(09 p8~p10)이나
-  **가까이 내려다보는 얼굴**(10 p4·p10)로만 쓰고, 코로 물건을 집는 쪽이 하나도 없다.
-- **앞다리는 손** · **짧은 윗옷과 헐렁한 바지**(설계 §1 의인화 등급 블록 그대로).
-- **바닥에 놓인 그림자** — `EXCEPT a shadow LYING ON THE GROUND, … INK field dotted CLOSE with a hard
-  edge`. **21 p10 착지가 「셋의 그림자가 하나로 겹쳐 큰 덩어리 하나가 된다」**이고, 13 p6 은 SCENE 이
-  「기우는 해로 **그림자는 없고 대신** 돌들이 물 쪽부터 색이 갈린다」로 피해 갔다. 타로와 같은 처방이다.
-
-**예산** — 3,695 → 4,116(쪽에 실제로 붙는 실효 **3,482**). 걷어낸 것 = `DENSITY RATION = none.` ·
-NOT 의 `no dots of two colours mixed inside one shape`(RENDERING 이 🔴 로 이미 말한다) ·
-NOT 의 `no reflection or ripple on water`(`RIVER` 조항이 `0 ripples, 0 reflections` 로 말한다) ·
-CHARACTER 첫 문장이 Style 의 「닿으면 윤곽 / 벌리면 면」을 다시 풀어 쓰던 부분.

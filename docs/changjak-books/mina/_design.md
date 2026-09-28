@@ -172,42 +172,16 @@ F1(따라 함)은 3권뿐이고, 양보는 결점 목록에 아예 없다 — �
 
 ---
 
-## §6. 앵커 하나 — 점으로 채운 민화
+## §6. 승인 과슈 그림체
 
-🔴 **한 시리즈 = 한 그림체.** 무대(집 안·강가·돌밭·마당·밤)는 앵커 안의 **무대 조항**이
-처리한다 — 매체·색은 안 바꾸고 「어디에 점을 놓고 무엇을 종이로 남기나」만 정한다.
-
-| 앵커 | 매체 | 종이 | 색 |
-|---|---|---|---|
-| `mina-dotfolk` (전권) | 작은 점을 찍어 면을 채우는 민화 — 평면, 그림자 없음, 윤곽은 한 획 | 황토 `#EFE0C4` | 강청 + 흙갈 + 잎초록 + **황금 `#E8A33D`** |
-
-**관통 줄** (매 쪽)
-
-```
-OCHRE:  the paper is warm ochre and it is the light - never paint it
-DOTS:   every filled area is built from small dots, never a flat wash
-ANKLET: only Mina wears GOLD, on one anklet - nothing else in the frame is gold
-RIVER:  every page shows the river's height - high / low / rising / falling
-NOT:    no letters, no numbers, no signs anywhere in the frame
-```
-
-### 🔴 시그니처 색이 무대 기본 소품과 겹친다 — 미리 못박는다
-
-황토 강가는 **모래·마른 흙·해·놋그릇·짚**이 전부 황금 언저리다. 그대로 두면
-「미나만 금색」이라는 신호가 죽는다.
-
-🔴 **누런 강물과 빵이 목록에서 빠져 있었다**(2026-08-13 검수). 04·16 은 통째로 누런 물 권이고,
-강은 관통 줄 `RIVER:` 때문에 **매 쪽 나오는 최대 면적**이다 — 그 면을 금색으로 찍으면 발찌 하나는
-안 보인다. 빵(02)도 같은 이유로 흙갈 쪽으로 민다.
-
-```
-GOLD-ONLY: sand, dry earth, sun, pots, straw are left as BARE PAPER - never dotted in gold
-GOLD-ONLY: muddy river water and bread are dotted in EARTH-BROWN only, never gold
-```
-
-🔴 **본문에서도 노란 사물을 부르지 않는다.** 25권 어디에도 망고·해바라기·놋대야·노란 꽃이 없다.
-구슬(12)은 강청과 잎초록, 조개껍데기(20)는 흰색, 물고기(19)는 은빛이다.
-🔴 **엄마·라주·소누는 금색을 지니지 않는다.**
+2026-09-28 사용자 승인: [가족 참조](../../art-direction/references/mina/approved-family-gouache.png).
+현행 SSOT는 [mina-anchor.md](../../art-direction/mina-anchor.md)와 개체 규격이다.
+점묘·점 간격·유일한 메운 면 규칙은 폐기했다. 넓은 과슈 색면과 부드러운 붓 자국,
+명확한 눈·입, 따뜻한 회색 코끼리 피부로 통일한다. 라주 파랑·미나 산호·소누 노랑·엄마
+세이지 초록으로 구분하고, 미나 오른쪽 발목의 금색 발찌만 장신구로 유지한다.
+아이 키 5:4:3, 엄마는 라주의 약 1.5배. 강 수위는 물의 넓이와 계단/돌이 잠기는 높이로,
+젖음/마름은 색과 명도로, 밤/아침은 조명으로 표현한다. 원고의 사건·소품 수·물 높이는 유지한다.
+사진 같은 피부·3D·전신 점무늬·구슬 질감·임의 목걸이/리본은 사용하지 않는다.
 
 ---
 

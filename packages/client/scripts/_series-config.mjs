@@ -714,14 +714,14 @@ export const SERIES = {
   },
   mina: {
     no: '15', title: '가운데 아이 미나', icon: '🐘',
-    awardRef: 'alcantara-rio',
-    sub: '아기 코끼리 삼 남매 라주·미나·소누 · 인도 강가 마을 · <b>대발이형</b>(위로는 아직 안 되고 아래로는 이미 지난 자리) · 그림체 = 점으로 채운 민화 하나(전권)',
+    awardRef: null,
+    sub: '아기 코끼리 삼 남매 라주·미나·소누 · 인도 강가 마을 · <b>대발이형</b>(위로는 아직 안 되고 아래로는 이미 지난 자리) · 그림체 = 따뜻한 과슈 동화풍(전권)',
     form: 'debari', pen: { author: '정미르', illustrator: '하다온' },
     palette: {
-      paper: '#EFE0C4', ink1: '#2E2A24', ink2: '#F4EFE4',
-      overlap: '(없음 — 점은 겹치지 않고 사이를 둔다)', accent: '#E8A33D',
+      paper: '#F7F1E5', ink1: '#557FA0', ink2: '#DF806D',
+      overlap: '#809783', accent: '#E8A33D',
     },
-    accentWhere: '미나 발찌 (화면에서 유일하게 매끈한 것)',
+    accentWhere: '미나의 오른쪽 발목 금색 발찌 (다른 가족의 장신구 없음)',
     cast: [
       { key: 'mina', name: '미나', face: '🐘', aliases: ['미나', 'Mina elephant'] },
       { key: 'raju', name: '라주', face: '🐘', aliases: ['라주', 'Raju elephant'] },
