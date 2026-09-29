@@ -61,8 +61,7 @@ CARTRIDGE_BACK_T = 0.80
 CARTRIDGE_CAP_W = 20.0
 CARTRIDGE_CAP_H = 9.2
 CARTRIDGE_CAP_T = 0.8
-CARTRIDGE_LIP = 0.35
-CARTRIDGE_FRONT_WALL_TRIM = 1.6
+CARTRIDGE_REAR_CRADLE_DEPTH = 1.5
 CARTRIDGE_LATCH_T = 0.75
 CARTRIDGE_LATCH_H = 0.75
 CARTRIDGE_BEAM_RISE = 0.35
@@ -581,32 +580,25 @@ def paddle():
 
 @lru_cache(None)
 def cartridge():
-    """Rigid rear-loaded cradle that captures the foam without adhesive."""
+    """Rear-loaded latch and short cradle for foam glued to its back plate."""
     foam_back=BACK-FOAM_BACK_WALL
     foam_front=foam_back-FOAM_FREE_T
     outer_w=FOAM_W+2*CARTRIDGE_WALL
     outer_h=FOAM_H+2*CARTRIDGE_WALL
     z0=FOAM_Z-outer_h/2
     z1=FOAM_Z+outer_h/2
-    # The paddle swings back as a phone enters. Keep both rigid front edges
-    # behind that sweep; the soft foam, not the cradle, must take the load.
-    wall_front=foam_front+CARTRIDGE_FRONT_WALL_TRIM
+    # Glue the foam's rear face to the broad back plate. The two short walls
+    # locate it there; no front lips are needed in the paddle's sweep.
+    wall_front=foam_back-CARTRIDGE_REAR_CRADLE_DEPTH
     bottom=box(-outer_w/2,outer_w/2,wall_front,foam_back+CARTRIDGE_BACK_T,
                z0,z0+CARTRIDGE_WALL)
     top=box(-outer_w/2,outer_w/2,wall_front,foam_back+CARTRIDGE_BACK_T,
             z1-CARTRIDGE_WALL,z1)
     back=box(-outer_w/2,outer_w/2,foam_back,foam_back+CARTRIDGE_BACK_T,z0,z1)
-    # Shallow front lips retain the soft pad mechanically during handling.
-    lower_lip=box(-outer_w/2,outer_w/2,foam_front+1.5,foam_front+2.15,
-                  z0,z0+CARTRIDGE_WALL+CARTRIDGE_LIP)
-    upper_lip=box(-outer_w/2,outer_w/2,foam_front+1.5,foam_front+2.15,
-                  z1-CARTRIDGE_WALL-CARTRIDGE_LIP,z1)
-    # Free the middle of the top wall so the long latch can flex toward the
-    # soft foam; the two side strips still retain the foam without adhesive.
-    flex_slot=box(-3.0,3.0,foam_front-0.1,foam_back+0.1,
-                  z1-CARTRIDGE_WALL-CARTRIDGE_LIP-0.1,z1+0.1)
+    # Free the middle of the top wall so the long latch can flex toward foam.
+    flex_slot=box(-3.0,3.0,wall_front-0.1,foam_back+0.1,
+                  z1-CARTRIDGE_WALL-0.1,z1+0.1)
     top=top.cut(flex_slot)
-    upper_lip=upper_lip.cut(flex_slot)
     # A narrow spine reaches the flush rear cap without blocking foam compression.
     spine=box(-4.0,4.0,foam_back+CARTRIDGE_BACK_T,
               BACK-CARTRIDGE_CAP_T,z0,z1)
@@ -631,8 +623,8 @@ def cartridge():
                      (shoulder_y,beam_z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H),
                      (shoulder_y,beam_z+CARTRIDGE_LATCH_T)])
           .close().extrude(5.0))
-    return bottom.union(top).union(back).union(lower_lip).union(upper_lip).union(
-        spine).union(cap).union(beam).union(anchor).union(ramp)
+    return bottom.union(top).union(back).union(spine).union(cap).union(
+        beam).union(anchor).union(ramp)
 
 
 def paddle_angle(thickness):
@@ -855,7 +847,8 @@ def inspect():
     total_foam_overlap=volume(foam().intersect(housing()))
     carrier_foam_overlap=volume(foam().intersect(cartridge()))
     report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
-        "cartridge_front_wall_trim_mm":CARTRIDGE_FRONT_WALL_TRIM,
+        "rear_cradle_depth_mm":CARTRIDGE_REAR_CRADLE_DEPTH,
+        "adhesive_backing_area_mm2":FOAM_W*FOAM_H,
         "pocket_inner_size":[FOAM_W+2*FOAM_FIT,FOAM_H+2*FOAM_FIT,
                              FOAM_FREE_T+FOAM_FIT+0.2],
         "lead_in_mouth_size":[FOAM_W+2*(FOAM_FIT+FOAM_MOUTH),
@@ -863,10 +856,10 @@ def inspect():
         "cartridge_back_thickness_mm":CARTRIDGE_BACK_T,
         "cartridge_cap_thickness_mm":CARTRIDGE_CAP_T,
         "housing_overlap_mm3":round(total_foam_overlap,5),
-        "carrier_retaining_lip_overlap_mm3":round(carrier_foam_overlap,5),
+        "carrier_rigid_foam_overlap_mm3":round(carrier_foam_overlap,5),
         "rest_preload_percent":round(foam_compression(None),2),
         "rest_contact_volume_mm3":round(volume(foam().intersect(paddle())),3),
-        "mount":"foam captured by shallow top and bottom lips in a rear-loaded cartridge",
+        "mount":"foam bonded to the cartridge back plate; short walls only locate it",
         "note":"Compression is geometric. Force, creep and recovery require a physical coupon."}
     # The broad roof land blocks a slight forward turn, while the paddle must
     # rotate backward freely throughout the phone thickness range.
@@ -924,7 +917,7 @@ def inspect():
         report["pass"] &= 10 <= fit["foam_compression_percent"] <= 65
         report["pass"] &= all(0 <= v <= 65 for v in fit["foam_edge_compression_percent"])
     report["pass"] &= 5 <= report["foam"]["rest_preload_percent"] <= 20
-    report["pass"] &= report["foam"]["carrier_retaining_lip_overlap_mm3"]>0.01
+    report["pass"] &= report["foam"]["carrier_rigid_foam_overlap_mm3"]<0.01
     report["pass"] &= report["foam"]["housing_overlap_mm3"]<0.01
     report["pass"] &= report["foam"]["rest_contact_volume_mm3"]>1
     report["pass"] &= report["foam_contact_boss"]["cartridge_interference_mm3"]<0.01
