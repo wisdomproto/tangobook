@@ -2,11 +2,11 @@
 
 - id: 20260929-pongi-rewrite-qwen-redraw
 - domain: content
-- status: complete_local
+- status: operating_registered
 - updated: 2026-09-29
 - branch: main
 - scope: [50권 글 검토](20260929-changjak-all-series-text-review.md)에서 `수정 후보` 또는 `우선 검토`인 23권(02·03·07·09·14·15·17·18·19·20·25·28·29·34·35·36·37·39·40·43·46·49·50). `경미`, `군더더기 후보`, `통과`는 이번 원고 수정 대상이 아니다.
-- delivery: 23권 본문·대응 SCENE 수정, Qwen 2.1로 재작화 후 개별 이미지 검수. 후속 사용자 요청에 따라 main push를 진행하며, 운영 연결은 별도 확인한다.
+- delivery: 23권 본문·대응 SCENE 수정, Qwen 2.1로 재작화 후 개별 이미지 검수. 후속 main push 완료. 02권은 별도 후속 요청으로 새 삽화 10장 운영 교체 완료.
 
 ## 사용자 결정
 
@@ -32,10 +32,16 @@ Qwen 25스텝으로 퐁이 참조와 아빠·엄마·동생 시트를 생성해 
 
 ## 남은 범위
 
-선정 PNG는 로컬 `D:/ComfyUI-output/pongi-qwen-revisions`에 있다. 사용자가 후속으로 main push를 요청했다. 운영 DB/R2 반영은 별도 확인한다. 로컬 원고·SCENE·HTML과 manifest를 관련 변경만 커밋한다.
+선정 PNG는 로컬 `D:/ComfyUI-output/pongi-qwen-revisions`에 있다. 사용자 후속 요청으로 원고·SCENE·HTML과 선정 manifest의 main push를 완료했다(`d2751f9c`). 02권의 운영 DB/R2 반영은 아래 후속 요청으로 처리했다. 다른 퐁이네 권의 운영 반영은 이 요청 범위가 아니다.
 
 ## 02권 승선 인원 연속성 후속 수정
 
 사용자는 02권에서 아빠·퐁이·동생이 한 배에 타야 하는데 중간까지 아빠와 퐁이만 보이고 뒤쪽에서 동생이 갑자기 나온다고 지적했다. 재확인 결과 원고 p1에는 세 사람의 승선이 명시되고 Qwen 선정 p1에도 세 사람이 모두 한 배에 있지만, SCENE p2~p7에서 동생이 빠지고 p8~p10에서는 아빠가 빠졌다. p2~p10을 세 사람이 계속 같은 배에 보이게 수정했다. 동생은 p7까지 조개를 안고 있다가 p8에 처음 두 번째 노를 잡고, 아빠는 뱃머리에 머문다. 본문 10쪽은 새 문장을 덧붙일 필요가 없어 유지했다.
 
 영향받는 p2~p10 **9장**을 로컬 Qwen-Image-2.1로 생성하고 한 장씩 열어 본문·장면과 대조했다. p2 첫 시안은 아빠가 퐁이 노를 함께 잡아 재편집했고, p8 첫 시안은 퐁이가 둘로 복제되어 폐기했다. p9 첫 시안은 두 노가 같은 뱃전에 나와 반대편 노로 편집했다. 수정본도 각각 직접 보고 p2 v2, p8 v3, p9 v2를 선택했다. 최종 10컷은 p1 기존 선정본과 새 9장이며 파일·해시·쪽별 근거는 [선정 manifest](20260929-pongi-qwen-selected.json)와 `D:/ComfyUI-output/pongi-qwen-revisions/pongi-02-continuity/reviews.json`에 있다. p8의 조개는 무릎 위에 있지만 동생이 한 앞발로 만지고 있어 본문의 ‘올려 뒀다’와 자세가 완전히 같지는 않다. 핵심 동작인 동생의 첫 노 잡기와 세 사람 승선은 명확하다.
+
+## 02권 운영 삽화 교체 — 2026-09-29
+
+사용자가 이전 그림 삭제와 새 삽화 연결을 요청했다. 변경 전 운영 `changjak-pongi-02`는 10쪽 모두 기존 `comic-assets/pongi-02/pN.jpg`에 연결되어 있었고, p1 본문은 동생 승선 전 옛 문장이었다. 새 PNG 10장과 선정 manifest의 SHA-256을 먼저 대조하고, 운영 책 JSON과 기존 JPG 10장의 실제 바이트·해시를 `D:/ComfyUI-output/pongi-qwen-revisions/pongi-02-registration/`에 백업했다.
+
+기존 자산 API의 같은 `p1`~`p10` 키로 검수된 PNG를 업로드했다. 업로드 경로가 이전 확장자 JPG 객체를 삭제한다. 현재 책을 다시 읽고 10쪽 `illustrationUrl`을 새 PNG로 연결하면서 p1 본문에 동생 승선 문장을 반영하고 p1~p10 `scene_description`을 현재 SCENE으로 맞췄다. 운영 자산 목록과 시리즈 컷 수 재조회에서 **PNG 10장만 남은 것**을 확인했다. CDN에서 새 10장 전부 내려받아 선정 PNG SHA-256과 대조했고, 책의 10개 링크·장면 설명과 p1 본문, 그 밖의 책 필드 보존을 확인했다. 실행·검증 ledger는 위 D 폴더 `ledger.json`에 있다. 이 운영 교체 후 문서 기록은 관련 파일만 로컬 커밋하며 별도 main push 요청은 없다.

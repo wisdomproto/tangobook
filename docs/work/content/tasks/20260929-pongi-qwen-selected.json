@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created_at_utc": "2026-09-29T08:35:27.632969+00:00",
   "model": "Qwen-Image-2.1 INT8, local ComfyUI, 1280x720",
-  "scope": "Pongi revised scenes and subsequent pongi-02 continuity redraw; no database upload",
+  "scope": "Pongi revised scenes and subsequent pongi-02 continuity redraw; pongi-02 registered in production",
   "source": "D:\\ComfyUI-output\\pongi-qwen-revisions\\source.json",
   "review_log": "D:\\ComfyUI-output\\pongi-qwen-revisions\\reviews.json",
   "total": 69,

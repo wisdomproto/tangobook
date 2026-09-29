@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-09-29 [퐁이네 02권 승선 인원 삽화 교체](../work/content/tasks/20260929-pongi-rewrite-qwen-redraw.md): 세 가족이 한 배에 계속 보이도록 Qwen 10컷을 운영에 등록했다. 이전 JPG 10장 백업 후 PNG로 교체, 책의 p1 본문·10쪽 SCENE·삽화 링크를 동기화하고 CDN 해시를 확인했다. 이 로컬 환경의 그림 생성 기본 모델은 Qwen-Image-2.1([AGENTS.md](../../AGENTS.md)).
+
 2026-09-29 [복사 버튼·회차 목록 수정](../work/content/tasks/20260929-series-copy-sidebar.md): 색상 대신 설명이던 overlap의 UI 폴백을 적용해 딩딩·유키 버튼/페이지 번호 복구. 창작동화 19개 시리즈 회차 목록 기본 닫힘. 로컬 브라우저 복사·열기/닫기 확인. 사용자 main push 요청.
 
 2026-09-29 [붕이 물색 통일](../work/content/tasks/20260929-bung-water-colour.md): 사용자 선택 WATER 청회색 #7FA6B2. 물/나무에 혼용하던 RIVER를 분리하고 종이색·OVERLAP 물 지시도 수정. 황토 OCHRE는 나무·옷·소품에 유지. 500컷 공통 프롬프트 반영, 기존 이미지와 운영 데이터는 변경하지 않았다.
