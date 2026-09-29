@@ -486,7 +486,7 @@ def housing(rear_cartridge_guide=True):
     return shell
 
 
-def latch(y, deflection=0.0):
+def latch(y, deflection=0.0, hook_depth=HOOK, width=LATCH_WIDTH):
     """Prescribed small-deflection beam shape for insertion-envelope checks.
 
     This is geometric clearance analysis, not a material/fatigue simulation.
@@ -501,10 +501,10 @@ def latch(y, deflection=0.0):
     profile += [(x,z0+LATCH_THICK+bend(x)) for x in reversed(xs)]
     def extrude(points):
         # XZ normal is -Y; translate to the positive edge before extrusion.
-        return (cq.Workplane("XZ").polyline(points).close().extrude(LATCH_WIDTH)
-                .translate((0,y+LATCH_WIDTH/2,0)))
+        return (cq.Workplane("XZ").polyline(points).close().extrude(width)
+                .translate((0,y+width/2,0)))
     beam=extrude(profile)
-    hook=extrude([(2.9,z0+0.1+bend(2.9)),(2.9,z0-HOOK+bend(2.9)),
+    hook=extrude([(2.9,z0+0.1+bend(2.9)),(2.9,z0-hook_depth+bend(2.9)),
                   (LATCH_TIP,z0+bend(LATCH_TIP)),(LATCH_TIP,z0+0.1+bend(LATCH_TIP))])
     return beam.union(hook)
 

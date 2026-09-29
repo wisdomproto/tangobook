@@ -16,11 +16,15 @@ import pebble as b
 OUT = Path(__file__).resolve().parent / "out" / "pebble_cover"
 JOIN_Y = 16.0
 TAB_X = 19.6
-TAB_Z0, TAB_Z1 = 10.8, 14.2
-TAB_Y0 = 9.0
-HOOK_Y0, HOOK_Y1 = 9.4, 10.25
-HOOK_PROJECTION = 0.55
+TAB_Z0, TAB_Z1 = 9.6, 15.3
+TAB_Y0 = 6.0
+HOOK_Y0, HOOK_Y1 = 6.4, 7.4
+TAB_T = 1.0
+HOOK_PROJECTION = 0.90
 FOAM_BACK = b.BACK - b.FOAM_BACK_WALL
+CORE_LATCH_SPECS = ((b.LATCH_Y[0],b.latch_z(b.LATCH_Y[0])),(-8.0,12.0))
+CORE_HOOK = 1.05
+CORE_LATCH_WIDTH = 5.0
 
 
 def core_blank():
@@ -28,43 +32,50 @@ def core_blank():
     # The long beams enter from the rear. Their small outward hooks sit in
     # blind lateral pockets; the solid rear shoulder resists cover pull-out.
     for sign in (-1, 1):
-        x0, x1 = sorted((sign*(TAB_X-0.18), sign*(TAB_X+1.19)))
+        x0, x1 = sorted((sign*(TAB_X-0.18), sign*(TAB_X+TAB_T+0.18)))
         core = core.cut(b.box(x0, x1, TAB_Y0-0.2, JOIN_Y+0.1,
                               TAB_Z0-0.18, TAB_Z1+0.18))
-        px0, px1 = sorted((sign*(TAB_X+1.01), sign*(TAB_X+1.72)))
-        core = core.cut(b.box(px0, px1, HOOK_Y0-0.18, HOOK_Y1+0.18,
-                              TAB_Z0+0.45, TAB_Z1-0.45))
+        px0, px1 = sorted((sign*(TAB_X+TAB_T+0.05),
+                            sign*(TAB_X+TAB_T+HOOK_PROJECTION+0.15)))
+        core = core.cut(b.box(px0, px1, HOOK_Y0-0.12, HOOK_Y1+0.12,
+                              TAB_Z0+0.28, TAB_Z1-0.28))
         # A narrow release aperture opens into the pocket. A small flat tool
         # can squeeze each beam inwards for cover removal.
-        rx0, rx1 = sorted((sign*(TAB_X+0.95), sign*25.0))
-        core = core.cut(b.box(rx0, rx1, HOOK_Y0-0.12, HOOK_Y0+0.45,
-                              TAB_Z0+0.85, TAB_Z1-0.85))
+        rx0, rx1 = sorted((sign*(TAB_X+TAB_T+0.05), sign*25.0))
+        core = core.cut(b.box(rx0, rx1, HOOK_Y0-0.12, HOOK_Y0+0.55,
+                              TAB_Z0+1.0, TAB_Z1-1.0))
     return core
 
 
 @lru_cache(None)
 def left():
     part = core_blank().intersect(b.box(-60, -b.SEAM/2, -100, 100, -100, 100))
-    y = b.LATCH_Y[0]
-    z0 = b.latch_z(y)
-    part = part.cut(b.box(b.LATCH_ROOT, 0.2, y-2.5, y+2.5,
-                          z0-b.HOOK-0.15, z0+b.LATCH_THICK+1.0))
+    for y,z0 in CORE_LATCH_SPECS:
+        part = part.cut(b.box(b.LATCH_ROOT, 0.2,
+                              y-CORE_LATCH_WIDTH/2-0.5,
+                              y+CORE_LATCH_WIDTH/2+0.5,
+                              z0-CORE_HOOK-0.15,z0+b.LATCH_THICK+1.5))
     for py in b.PIN_Y:
         pin = b.shaft(-2.0, 5.5, py, b.PIN_Z, b.PIN_R).edges(">X").chamfer(0.35)
         part = part.union(pin)
-    return part.union(b.latch(y))
+    for y,z0 in CORE_LATCH_SPECS:
+        part=part.union(b.latch(y,hook_depth=CORE_HOOK,
+                                width=CORE_LATCH_WIDTH).translate(
+                                    (0,0,z0-b.latch_z(y))))
+    return part
 
 
 @lru_cache(None)
 def right():
     part = core_blank().intersect(b.box(b.SEAM/2, 60, -100, 100, -100, 100))
-    y = b.LATCH_Y[0]
-    z0 = b.latch_z(y)
-    part = part.cut(b.box(0, 7.2, y-2.5, y+2.5,
-                          z0-0.2, z0+b.LATCH_THICK+1.0))
-    part = part.cut(b.box(2.7, 7.2, y-2.5, y+2.5,
-                          z0-b.HOOK-0.15, z0+b.LATCH_THICK+1.0))
-    part = part.cut(b.box(3.4, 5.8, y-1.2, y+1.2, -3.1, z0))
+    for y,z0 in CORE_LATCH_SPECS:
+        half_width=CORE_LATCH_WIDTH/2+0.5
+        part = part.cut(b.box(0, 7.2, y-half_width, y+half_width,
+                              z0-0.2, z0+b.LATCH_THICK+1.5))
+        part = part.cut(b.box(2.7, 7.2, y-half_width, y+half_width,
+                              z0-CORE_HOOK-0.15,z0+b.LATCH_THICK+1.5))
+        if y<0:
+            part=part.cut(b.box(3.4,5.8,y-1.2,y+1.2,-3.1,z0))
     for py in b.PIN_Y:
         part = part.cut(b.shaft(0, 4.0, py, b.PIN_Z, b.PIN_R+0.2))
     return part
@@ -79,14 +90,22 @@ def cover():
     part = part.union(b.box(-9.1, 9.1, FOAM_BACK, b.BACK,
                             b.FOAM_Z-3.7, b.FOAM_Z+3.7))
     for sign in (-1, 1):
-        x0, x1 = sorted((sign*TAB_X, sign*(TAB_X+0.90)))
+        x0, x1 = sorted((sign*TAB_X, sign*(TAB_X+TAB_T)))
         beam = b.box(x0, x1, TAB_Y0, JOIN_Y+1.0, TAB_Z0, TAB_Z1)
-        hx0, hx1 = sorted((sign*(TAB_X+0.90),
-                            sign*(TAB_X+0.90+HOOK_PROJECTION)))
-        hook = b.box(hx0, hx1, HOOK_Y0, HOOK_Y1,
-                     TAB_Z0+0.55, TAB_Z1-0.55)
-        part = part.union(beam).union(hook)
+        part = part.union(beam).union(side_hook(sign))
     return part
+
+
+def side_hook(sign):
+    """Wedge lead-in and square retaining shoulder on a cover side tab."""
+    outer=sign*(TAB_X+TAB_T)
+    return (cq.Workplane("XY")
+            .polyline([(outer,HOOK_Y0),
+                       (outer+sign*HOOK_PROJECTION,HOOK_Y1-0.25),
+                       (outer+sign*HOOK_PROJECTION,HOOK_Y1),
+                       (outer,HOOK_Y1)])
+            .close().extrude(TAB_Z1-TAB_Z0-0.6)
+            .translate((0,0,TAB_Z0+0.3)))
 
 
 PARTS = {"shell_left": left, "shell_right": right,
@@ -123,6 +142,24 @@ def inspect_and_export():
     b.export_print_stl(b.mirror(),OUT/"mirror.stl")
     b.export_print_stl(b.foam(),OUT/"foam.stl")
     hard=shapes["shell_left"].union(shapes["shell_right"])
+    report["checks"]["core_halves_interference_mm3"]=round(
+        b.volume(shapes["shell_left"].intersect(shapes["shell_right"])),5)
+    report["checks"]["core_halves_pullout_overlap_mm3"]={
+        str(d):round(b.volume(shapes["shell_left"].intersect(
+            shapes["shell_right"].translate((d,0,0)))),5)
+        for d in (0.3,0.5,1.0)}
+    report["checks"]["core_snap_individual_pullout_overlap_mm3"]={
+        str(y):round(b.volume(b.latch(
+            y,hook_depth=CORE_HOOK,width=CORE_LATCH_WIDTH).translate(
+                (0,0,z-b.latch_z(y))).intersect(
+                    shapes["shell_right"].translate((0.5,0,0)))),5)
+        for y,z in CORE_LATCH_SPECS}
+    report["checks"]["core_snap_insertion_max_interference_mm3"]=round(max(
+        b.volume(b.latch(y,deflection=1.25,hook_depth=CORE_HOOK,
+                         width=CORE_LATCH_WIDTH).translate(
+                             (0,0,z-b.latch_z(y))).intersect(
+                                 shapes["shell_right"].translate((d,0,0))))
+        for y,z in CORE_LATCH_SPECS for d in (0,0.5,1,2,4,6)),5)
     report["checks"]["core_cover_interference_mm3"]=round(
         b.volume(hard.intersect(shapes["rear_cover"])),5)
     report["checks"]["cover_paddle_interference_mm3"]={
@@ -130,11 +167,27 @@ def inspect_and_export():
             b.paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),
                               (1,b.old.PIVOT_Y,b.PIVOT_Z),angle))),5)
         for angle in (0,8.255,17.126,27.063)}
+    report["checks"]["core_paddle_interference_mm3"]={
+        str(angle):round(b.volume(hard.intersect(
+            b.paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),
+                              (1,b.old.PIVOT_Y,b.PIVOT_Z),angle))),5)
+        for angle in (0,8.255,17.126,27.063)}
     report["checks"]["foam_cover_contact_mm3"]=round(
         b.volume(b.foam().intersect(shapes["rear_cover"])),5)
     report["checks"]["cover_pullout_overlap_mm3"]={
         str(d):round(b.volume(hard.intersect(shapes["rear_cover"].translate((0,d,0)))),5)
-        for d in (0.3,0.5)}
+        for d in (0.3,0.5,1.0)}
+    report["checks"]["cover_hook_insertion_max_interference_mm3"]=round(max(
+        b.volume(side_hook(sign).translate((-sign*0.75,d,0)).intersect(hard))
+        for sign in (-1,1) for d in (0,0.5,1,2,4,6,8)),5)
+    report["checks"]["nominal_hook_engagement_mm"]=round(
+        HOOK_PROJECTION-0.18,3)
+    # A cantilever estimate is useful for comparing iterations, not a fatigue
+    # guarantee: epsilon ~= 1.5 * thickness * required lateral bend / L^2.
+    bend=HOOK_PROJECTION-0.18
+    free_length=JOIN_Y-HOOK_Y1
+    report["checks"]["estimated_tab_surface_strain_percent"]=round(
+        100*1.5*TAB_T*bend/(free_length*free_length),2)
     plate_parts=print_plate_parts()
     names=list(plate_parts)
     report["checks"]["plate_min_gap_mm"]=round(min(
@@ -144,19 +197,42 @@ def inspect_and_export():
     b.export_multi_body_stl(plate,OUT/"tango_pebble_cover_print_plate.stl",4)
     # One-side coupons expose the real receiving pocket and the full-length
     # cover tab, so the fit can be tested before printing the complete body.
-    coupon_crop=b.box(18.2,24.6,8.1,b.BACK+0.1,10.0,15.2)
+    coupon_crop=b.box(18.2,24.6,6.5,b.BACK+0.1,9.0,16.0)
     for name,shape in {"snap_coupon_body":shapes["shell_right"],
                        "snap_coupon_cover":shapes["rear_cover"]}.items():
         piece=shape.intersect(coupon_crop)
         if piece.solids().size()!=1 or not piece.val().isValid():
             raise ValueError(f"Invalid cover snap coupon: {name}")
+        if name=="snap_coupon_body":
+            piece=piece.rotate((0,0,0),(0,1,0),-90).rotate(
+                (0,0,0),(1,0,0),180)
+        else:
+            piece=piece.rotate((0,0,0),(1,0,0),-90)
+        b.export_print_stl(b._place_on_bed(piece,0,0),OUT/f"{name}.stl")
+    # The second central snap is hidden inside the roof, away from the mirror.
+    core_coupon_crop=b.box(-14,9,-11.2,-4.8,9.2,15.0)
+    for name,shape in {"core_snap_coupon_left":shapes["shell_left"],
+                       "core_snap_coupon_right":shapes["shell_right"]}.items():
+        piece=shape.intersect(core_coupon_crop)
+        if piece.solids().size()!=1 or not piece.val().isValid():
+            raise ValueError(f"Invalid core snap coupon: {name}")
+        y_rotation=90 if name.endswith("left") else -90
+        piece=piece.rotate((0,0,0),(0,1,0),y_rotation).rotate(
+            (0,0,0),(1,0,0),180)
         b.export_print_stl(b._place_on_bed(piece,0,0),OUT/f"{name}.stl")
     report["pass"]=(all(v["watertight"] and v["body_count"]==1
                         for v in report["parts"].values())
         and report["checks"]["core_cover_interference_mm3"]<0.01
+        and report["checks"]["core_halves_interference_mm3"]<0.01
+        and report["checks"]["core_snap_insertion_max_interference_mm3"]<0.01
+        and report["checks"]["cover_hook_insertion_max_interference_mm3"]<0.01
         and all(v<0.01 for v in report["checks"]["cover_paddle_interference_mm3"].values())
+        and all(v<0.01 for v in report["checks"]["core_paddle_interference_mm3"].values())
         and report["checks"]["plate_min_gap_mm"]>=4
-        and all(v>0.05 for v in report["checks"]["cover_pullout_overlap_mm3"].values()))
+        and report["checks"]["core_halves_pullout_overlap_mm3"]["0.5"]>1.0
+        and all(v>0.5 for v in report["checks"]["core_snap_individual_pullout_overlap_mm3"].values())
+        and report["checks"]["cover_pullout_overlap_mm3"]["0.5"]>0.5
+        and report["checks"]["estimated_tab_surface_strain_percent"]<2.0)
     (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps(report,ensure_ascii=False,indent=2))
     if not report["pass"]:

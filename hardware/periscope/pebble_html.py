@@ -72,8 +72,8 @@ def main():
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
         "foamBoss": encoded_cad(cad.foam_contact_boss),
         "cartridgeGuide": encoded_cad(
-            (lambda: cad.box(-21.0,-19.2,9,16,10.8,14.2).union(
-                cad.box(19.2,21.0,9,16,10.8,14.2)))
+            (lambda: cad.box(-21.5,-19.2,6,16,9.6,15.3).union(
+                cad.box(19.2,21.5,6,16,9.6,15.3)))
             if IS_COVER else cad.cartridge_guide_volume),
         "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
         "contactFace": encoded_cad(cad.contact_shoe),
@@ -348,8 +348,10 @@ def main():
                                   '넓은 뒤 커버가 양옆 걸쇠로 잠기며 스펀지 뒷면을 받칩니다.')
         fragment=fragment.replace('보라색은 카트리지 통로,',
                                   '보라색은 뒤 커버의 양옆 체결 영역,')
+        fragment=fragment.replace('혀를 넣어 본체 체결 → 뒤 커버 안쪽에',
+                                  '혀를 넣고 본체 앞뒤 걸쇠 2개 체결 → 뒤 커버 안쪽에')
         fragment=fragment.replace('스펀지는 카트리지의 16×6 mm 뒷판에 접착합니다. 짧은 상·하벽은 스펀지 뒤쪽 1.5 mm만 감싸고 앞쪽 고정 립은 없습니다. 누름판은 플라스틱 벽에 닿지 않고 스펀지만 누릅니다.',
-                                  '스펀지는 넓은 뒤 커버의 안쪽 16×6 mm 받침에 접착합니다. 양옆 탄성 탭이 본체의 작은 포켓에 걸립니다. 혀는 커버와 닿지 않고 스펀지만 누릅니다.')
+                                  '스펀지는 넓은 뒤 커버의 안쪽 16×6 mm 받침에 접착합니다. 길고 넓은 양옆 탄성 탭의 직각 어깨가 본체 포켓에 걸립니다. 혀는 커버와 닿지 않고 스펀지만 누릅니다.')
     destination.write_text(fragment, encoding="utf-8")
     print(destination)
     print(destination.stat().st_size)
