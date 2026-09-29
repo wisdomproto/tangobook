@@ -63,7 +63,11 @@ CARTRIDGE_CAP_H = 9.2
 CARTRIDGE_CAP_T = 0.8
 CARTRIDGE_LIP = 0.35
 CARTRIDGE_LATCH_T = 0.75
-CARTRIDGE_LATCH_H = 0.65
+CARTRIDGE_LATCH_H = 0.75
+CARTRIDGE_BEAM_RISE = 0.35
+CARTRIDGE_SNAP_TIP_OFFSET = 0.25
+CARTRIDGE_SNAP_SHOULDER_OFFSET = 1.75
+CARTRIDGE_SNAP_REAR_GAP = 0.20
 CAMERA_WINDOW_W = 36.0
 CAMERA_WINDOW_H = 14.0
 PHONE_OPENING_W = 40.0
@@ -233,6 +237,8 @@ def cartridge_guide_volume():
     outer_h=FOAM_H+2*CARTRIDGE_WALL
     z0=FOAM_Z-outer_h/2
     z1=FOAM_Z+outer_h/2
+    beam_z=z1+CARTRIDGE_BEAM_RISE
+    foam_front=BACK-FOAM_BACK_WALL-FOAM_FREE_T
     guide=box(-outer_w/2-CARTRIDGE_FIT,outer_w/2+CARTRIDGE_FIT,
               BACK-FOAM_BACK_WALL-CARTRIDGE_BACK_T-0.2,BACK+0.2,
               z0-CARTRIDGE_FIT,z1+CARTRIDGE_FIT)
@@ -241,21 +247,27 @@ def cartridge_guide_volume():
             BACK-CARTRIDGE_CAP_T-0.15,BACK+0.4,
             FOAM_Z-CARTRIDGE_CAP_H/2-CARTRIDGE_FIT,
             FOAM_Z+CARTRIDGE_CAP_H/2+CARTRIDGE_FIT)
+    # The beam travels beneath a shallow roof channel. Only its forward tip
+    # has a deeper pocket; the rear edge of that pocket is the pull-out stop.
+    beam_channel=box(-3.2,3.2,foam_front+0.1,BACK+0.3,
+                     beam_z-0.1,beam_z+CARTRIDGE_LATCH_T+0.12)
     latch_pocket=box(-3.2,3.2,
-                     BACK-FOAM_BACK_WALL-CARTRIDGE_BACK_T-0.3,
-                     BACK-CARTRIDGE_CAP_T-0.1,
-                     z1+0.05,
-                     z1+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H+0.45)
-    return guide.union(cap).union(latch_pocket)
+                     foam_front+CARTRIDGE_SNAP_TIP_OFFSET-0.1,
+                     foam_front+CARTRIDGE_SNAP_SHOULDER_OFFSET+
+                     CARTRIDGE_SNAP_REAR_GAP,
+                     beam_z+CARTRIDGE_LATCH_T+0.02,
+                     beam_z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H+0.12)
+    return guide.union(cap).union(beam_channel).union(latch_pocket)
 
 
 @lru_cache(None)
 def cartridge_latch_flex_zone():
     """Housing volume occupied only while the carrier latch bends downward."""
     outer_h=FOAM_H+2*CARTRIDGE_WALL
-    z=FOAM_Z+outer_h/2
-    return box(-3.2,3.2,BACK-2.8,BACK+0.3,
-               z+0.02,z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H+0.5)
+    z=FOAM_Z+outer_h/2+CARTRIDGE_BEAM_RISE
+    foam_front=BACK-FOAM_BACK_WALL-FOAM_FREE_T
+    return box(-3.2,3.2,foam_front,BACK+0.3,
+               z-0.1,z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H+0.15)
 
 
 def paddle_front_y(z):
@@ -586,26 +598,35 @@ def cartridge():
                   z0,z0+CARTRIDGE_WALL+CARTRIDGE_LIP)
     upper_lip=box(-outer_w/2,outer_w/2,foam_front+1.5,foam_front+2.15,
                   z1-CARTRIDGE_WALL-CARTRIDGE_LIP,z1)
+    # Free the middle of the top wall so the long latch can flex toward the
+    # soft foam; the two side strips still retain the foam without adhesive.
+    flex_slot=box(-3.0,3.0,foam_front-0.1,foam_back+0.1,
+                  z1-CARTRIDGE_WALL-CARTRIDGE_LIP-0.1,z1+0.1)
+    top=top.cut(flex_slot)
+    upper_lip=upper_lip.cut(flex_slot)
     # A narrow spine reaches the flush rear cap without blocking foam compression.
     spine=box(-4.0,4.0,foam_back+CARTRIDGE_BACK_T,
               BACK-CARTRIDGE_CAP_T,z0,z1)
     # Top cantilever: its ramp bends down through the guide and springs into
     # the internal pocket. Pressing it through the rear notch releases it.
-    beam_z=z1+0.10
+    beam_z=z1+CARTRIDGE_BEAM_RISE
     cap=box(-CARTRIDGE_CAP_W/2,CARTRIDGE_CAP_W/2,
             BACK-CARTRIDGE_CAP_T,BACK,
             FOAM_Z-CARTRIDGE_CAP_H/2,FOAM_Z+CARTRIDGE_CAP_H/2)
     release_notch=box(-2.8,2.8,BACK-CARTRIDGE_CAP_T-0.05,BACK+0.1,
                       beam_z-0.45,FOAM_Z+CARTRIDGE_CAP_H/2+0.1)
     cap=cap.cut(release_notch)
-    beam=box(-2.5,2.5,foam_back+0.6,BACK-0.15,
+    beam=box(-2.5,2.5,foam_front+CARTRIDGE_SNAP_TIP_OFFSET,BACK-0.15,
              beam_z,beam_z+CARTRIDGE_LATCH_T)
     anchor=box(-3.6,3.6,BACK-CARTRIDGE_CAP_T,BACK-0.15,
                beam_z,beam_z+CARTRIDGE_LATCH_T)
+    tip_y=foam_front+CARTRIDGE_SNAP_TIP_OFFSET
+    shoulder_y=foam_front+CARTRIDGE_SNAP_SHOULDER_OFFSET
     ramp=(cq.Workplane("YZ").workplane(offset=-2.5)
-          .polyline([(foam_back+0.1,beam_z+CARTRIDGE_LATCH_T),
-                     (foam_back+0.7,beam_z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H),
-                     (foam_back+1.25,beam_z+CARTRIDGE_LATCH_T)])
+          .polyline([(tip_y,beam_z+CARTRIDGE_LATCH_T),
+                     (shoulder_y-0.25,beam_z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H),
+                     (shoulder_y,beam_z+CARTRIDGE_LATCH_T+CARTRIDGE_LATCH_H),
+                     (shoulder_y,beam_z+CARTRIDGE_LATCH_T)])
           .close().extrude(5.0))
     return bottom.union(top).union(back).union(lower_lip).union(upper_lip).union(
         spine).union(cap).union(beam).union(anchor).union(ramp)
@@ -766,7 +787,15 @@ def inspect():
     report["cartridge_snap"]={
         "direction":"rear to front (-Y)",
         "cantilever_thickness_mm":CARTRIDGE_LATCH_T,
+        "free_length_mm":round((BACK-CARTRIDGE_CAP_T)-
+                               (BACK-FOAM_BACK_WALL-FOAM_FREE_T+
+                                CARTRIDGE_SNAP_TIP_OFFSET),3),
         "hook_height_mm":CARTRIDGE_LATCH_H,
+        "rear_pocket_gap_mm":CARTRIDGE_SNAP_REAR_GAP,
+        "pullout_overlap_at_0_3_mm3":round(volume(cartridge().translate((0,0.3,0))
+                                                  .intersect(housing())),5),
+        "pullout_overlap_at_0_5_mm3":round(volume(cartridge().translate((0,0.5,0))
+                                                  .intersect(housing())),5),
         "intentional_flex_overlap_peak_mm3":round(latch_peak,5),
         "release":"press the top latch through the rear access notch",
         "note":"Latch overlap is geometric; insertion force and fatigue need a print coupon."}
@@ -892,6 +921,8 @@ def inspect():
     report["pass"] &= report["foam"]["rest_contact_volume_mm3"]>1
     report["pass"] &= report["foam_contact_boss"]["cartridge_interference_mm3"]<0.01
     report["pass"] &= report["cartridge_snap"]["intentional_flex_overlap_peak_mm3"]>0.01
+    report["pass"] &= report["cartridge_snap"]["pullout_overlap_at_0_3_mm3"]>0.1
+    report["pass"] &= report["cartridge_snap"]["pullout_overlap_at_0_5_mm3"]>0.5
     report["pass"] &= report["lid_land"]["clear_at_rest_mm3"]<0.01
     report["pass"] &= report["lid_land"]["blocked_at_minus_3_deg_mm3"]>0.01
     report["pass"] &= report["lid_land"]["clear_at_plus_27_deg_mm3"]<0.01
@@ -925,7 +956,7 @@ def main():
         cq.exporters.export(piece,str(OUT/(name+".step")))
     # Small coupons use the actual rear guide, pocket and cantilever latch so
     # click force can be tested without reprinting both complete shells.
-    cartridge_crop=box(-7,7,18,22.2,12,17.6)
+    cartridge_crop=box(-7,7,13.4,22.2,11.5,17.6)
     cartridge_parts={
         "cartridge_coupon_body":housing().intersect(cartridge_crop),
         "cartridge_coupon_latch":cartridge().intersect(cartridge_crop),
