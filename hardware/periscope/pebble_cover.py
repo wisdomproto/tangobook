@@ -15,12 +15,12 @@ import pebble as b
 
 OUT = Path(__file__).resolve().parent / "out" / "pebble_cover"
 JOIN_Y = 16.0
-TAB_X = 19.6
+TAB_X = 18.6
 TAB_Z0, TAB_Z1 = 9.6, 15.3
-TAB_Y0 = 6.0
-HOOK_Y0, HOOK_Y1 = 6.4, 7.4
-TAB_T = 1.0
-HOOK_PROJECTION = 0.90
+TAB_Y0 = -0.6
+HOOK_Y0, HOOK_Y1 = -0.2, 1.0
+TAB_T = 2.0
+HOOK_PROJECTION = 1.25
 FOAM_BACK = b.BACK - b.FOAM_BACK_WALL
 CORE_LATCH_SPECS = ((b.LATCH_Y[0],b.latch_z(b.LATCH_Y[0])),(-8.0,12.0))
 CORE_HOOK = 1.05
@@ -29,7 +29,7 @@ CORE_LATCH_WIDTH = 5.0
 
 def core_blank():
     core = b.housing(False).intersect(b.box(-60, 60, -100, JOIN_Y, -100, 100))
-    # The long beams enter from the rear. Their small outward hooks sit in
+    # Thick, long beams enter from the rear. Their outward hooks sit in
     # blind lateral pockets; the solid rear shoulder resists cover pull-out.
     for sign in (-1, 1):
         x0, x1 = sorted((sign*(TAB_X-0.18), sign*(TAB_X+TAB_T+0.18)))
@@ -92,7 +92,18 @@ def cover():
     for sign in (-1, 1):
         x0, x1 = sorted((sign*TAB_X, sign*(TAB_X+TAB_T)))
         beam = b.box(x0, x1, TAB_Y0, JOIN_Y+1.0, TAB_Z0, TAB_Z1)
-        part = part.union(beam).union(side_hook(sign))
+        # Flare the fixed end into the cover instead of leaving a sharp
+        # 2 mm neck at the shell interface. The flare starts behind JOIN_Y,
+        # so it cannot jam the receiving channel during assembly.
+        inner=sign*TAB_X
+        outer=sign*(TAB_X+TAB_T)
+        root=(cq.Workplane("XY")
+              .polyline([(inner,JOIN_Y+0.05),(outer,JOIN_Y+0.05),
+                         (outer+sign*0.8,JOIN_Y+2.1),
+                         (inner-sign*0.8,JOIN_Y+2.1)])
+              .close().extrude(TAB_Z1-TAB_Z0)
+              .translate((0,0,TAB_Z0)))
+        part = part.union(beam).union(side_hook(sign)).union(root)
     return part
 
 
@@ -101,7 +112,7 @@ def side_hook(sign):
     outer=sign*(TAB_X+TAB_T)
     return (cq.Workplane("XY")
             .polyline([(outer,HOOK_Y0),
-                       (outer+sign*HOOK_PROJECTION,HOOK_Y1-0.25),
+                       (outer+sign*HOOK_PROJECTION,HOOK_Y1-0.40),
                        (outer+sign*HOOK_PROJECTION,HOOK_Y1),
                        (outer,HOOK_Y1)])
             .close().extrude(TAB_Z1-TAB_Z0-0.6)
@@ -162,6 +173,11 @@ def inspect_and_export():
         for y,z in CORE_LATCH_SPECS for d in (0,0.5,1,2,4,6)),5)
     report["checks"]["core_cover_interference_mm3"]=round(
         b.volume(hard.intersect(shapes["rear_cover"])),5)
+    report["checks"]["cover_camera_interference_mm3"]=round(
+        b.volume(shapes["rear_cover"].intersect(b.camera_clearance())),5)
+    report["checks"]["cover_phone_interference_mm3"]={
+        str(thickness):round(b.volume(shapes["rear_cover"].intersect(
+            b.phone(thickness))),5) for thickness in (7,9,11)}
     report["checks"]["cover_paddle_interference_mm3"]={
         str(angle):round(b.volume(shapes["rear_cover"].intersect(
             b.paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),
@@ -178,8 +194,8 @@ def inspect_and_export():
         str(d):round(b.volume(hard.intersect(shapes["rear_cover"].translate((0,d,0)))),5)
         for d in (0.3,0.5,1.0)}
     report["checks"]["cover_hook_insertion_max_interference_mm3"]=round(max(
-        b.volume(side_hook(sign).translate((-sign*0.75,d,0)).intersect(hard))
-        for sign in (-1,1) for d in (0,0.5,1,2,4,6,8)),5)
+        b.volume(side_hook(sign).translate((-sign*1.12,d,0)).intersect(hard))
+        for sign in (-1,1) for d in (0,0.5,1,2,4,6,8,12)),5)
     report["checks"]["nominal_hook_engagement_mm"]=round(
         HOOK_PROJECTION-0.18,3)
     # A cantilever estimate is useful for comparing iterations, not a fatigue
@@ -197,7 +213,7 @@ def inspect_and_export():
     b.export_multi_body_stl(plate,OUT/"tango_pebble_cover_print_plate.stl",4)
     # One-side coupons expose the real receiving pocket and the full-length
     # cover tab, so the fit can be tested before printing the complete body.
-    coupon_crop=b.box(18.2,24.6,6.5,b.BACK+0.1,9.0,16.0)
+    coupon_crop=b.box(18.0,24.6,-1.2,b.BACK+0.1,9.0,16.0)
     for name,shape in {"snap_coupon_body":shapes["shell_right"],
                        "snap_coupon_cover":shapes["rear_cover"]}.items():
         piece=shape.intersect(coupon_crop)
@@ -223,6 +239,8 @@ def inspect_and_export():
     report["pass"]=(all(v["watertight"] and v["body_count"]==1
                         for v in report["parts"].values())
         and report["checks"]["core_cover_interference_mm3"]<0.01
+        and report["checks"]["cover_camera_interference_mm3"]<0.01
+        and all(v<0.01 for v in report["checks"]["cover_phone_interference_mm3"].values())
         and report["checks"]["core_halves_interference_mm3"]<0.01
         and report["checks"]["core_snap_insertion_max_interference_mm3"]<0.01
         and report["checks"]["cover_hook_insertion_max_interference_mm3"]<0.01
