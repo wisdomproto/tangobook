@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-09-29 사용자는 로컬에서 그림·삽화를 만들 때 Qwen-Image-2.1을 기본 모델로 지정했다. 공통 작업 규칙은 [AGENTS.md](../../../AGENTS.md)에 둔다. 퐁이네 02권에서 동생과 아빠가 중간·후반 삽화에 빠지는 연속성 문제를 지적해 [재작화 기록](tasks/20260929-pongi-rewrite-qwen-redraw.md)에서 추적한다.
+
 2026-09-29 [퐁이네 수정 후보·우선 검토 개작과 Qwen 재작화](tasks/20260929-pongi-rewrite-qwen-redraw.md): 사용자 결정에 따라 23권 원고의 지적 사항을 고치고 **바뀐 장면만** Qwen으로 새로 그렸다. `경미` 등은 유지했다. 본문·SCENE 21권 60쪽 동기화, Qwen PNG 60장 개별 육안·최종 SHA 검수 완료. [선정 manifest](tasks/20260929-pongi-qwen-selected.json). 운영 반영·push는 하지 않았다.
 
 2026-09-29 [복사 버튼·회차 목록 수정](tasks/20260929-series-copy-sidebar.md): 색상 대신 설명이던 overlap의 UI 폴백을 적용해 딩딩·유키 버튼/페이지 번호 복구. 창작동화 19개 시리즈 회차 목록 기본 닫힘. 로컬 브라우저 복사·열기/닫기 확인. 사용자 main push 요청.

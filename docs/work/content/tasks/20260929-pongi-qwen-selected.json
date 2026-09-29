@@ -2,12 +2,12 @@
   "schema_version": 1,
   "created_at_utc": "2026-09-29T08:35:27.632969+00:00",
   "model": "Qwen-Image-2.1 INT8, local ComfyUI, 1280x720",
-  "scope": "Pongi revised scenes only; no database upload",
+  "scope": "Pongi revised scenes and subsequent pongi-02 continuity redraw; no database upload",
   "source": "D:\\ComfyUI-output\\pongi-qwen-revisions\\source.json",
   "review_log": "D:\\ComfyUI-output\\pongi-qwen-revisions\\reviews.json",
-  "total": 60,
+  "total": 69,
   "books": {
-    "pongi-02": 1,
+    "pongi-02": 10,
     "pongi-03": 1,
     "pongi-07": 10,
     "pongi-09": 3,
@@ -37,6 +37,78 @@
       "sha256": "b5e5595237609a83dc260cf7e61fc49c47f45ee5d3bf740c9498171963edee69",
       "variant": "v1",
       "review_note": "All three characters and shell visible; Pongi red cord; baby introduced in boat; rope and moored boat visible. Second oar partly obscured."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p2",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p2.png",
+      "sha256": "7b9c6e13f9575dfc46d5b7188099c31641ffdf7d0b8132852300f0ca8e471ff1",
+      "variant": "p2-v2",
+      "review_note": "Dad, Pongi and Baby all inside one boat; only Pongi grips oar, Baby holds shell."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p3.png",
+      "sha256": "44fd5131d01f2223a3d837df50ba32ff3fc116019981efb172b86b52fbf93a86",
+      "variant": "p3",
+      "review_note": "Three family members visible; Pongi strains with one oar, Baby keeps shell."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p4",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p4.png",
+      "sha256": "03433bb6d2b9d36e21e8fd361f543c8636d2d28cf6c08886128e5b43dece6b11",
+      "variant": "p4",
+      "review_note": "Three in one boat, Pongi rows alone, circular turning wake; Baby waits with shell."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p5",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p5.png",
+      "sha256": "1e90399fb290c1770f0ed3f0bd372aa12da0905cde15b1f7e0a64f6e1600acbe",
+      "variant": "p5",
+      "review_note": "Three in one boat, Pongi rows alone on other side, Baby still holds shell."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p6.png",
+      "sha256": "a7706f67a5607f9bc46e9e69a1e839681e45eb86000f71a6b09e9089876813a2",
+      "variant": "p6",
+      "review_note": "Three in one boat amid circular wake, one duck passing; Baby holds shell."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p7",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p7.png",
+      "sha256": "b3ff5ba7c081a6f603bae86678e1f8c45a161b41ddb6e0855cb9ad333384aed6",
+      "variant": "p7",
+      "review_note": "Three in boat; tired Pongi rests arm, Baby still holds shell beside unused oar."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p8.png",
+      "sha256": "58d4c6aabf3b8c0454e4eba1706d706f0eb8dba8f96b3a97f3f3f7a15676d116",
+      "variant": "p8-v3",
+      "review_note": "Exactly three otters; Baby first reaches second oar, shell at lap, Dad watches."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p9.png",
+      "sha256": "5b809432d50937af9e37a5f279d60921cb874f068fbd60d58b189da2743422cd",
+      "variant": "p9-v2",
+      "review_note": "Three in boat; Pongi and Baby use two oars on opposite sides, Dad sits still."
+    },
+    {
+      "book": "pongi-02",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p10.png",
+      "sha256": "2477df15b54cb3f0fcb634753c00d2810bcd2be7b2539dc0fcb555c988e5cb5b",
+      "variant": "p10",
+      "review_note": "Three in boat; Pongi celebrates, Baby examines one shell, Dad smiles."
     },
     {
       "book": "pongi-03",
@@ -510,5 +582,6 @@
       "variant": "v1",
       "review_note": "Pongi and Baby sit side by side in slowly moving boat with Dad supervising; Baby has one shell and Pongi cord correct."
     }
-  ]
+  ],
+  "continuity_review_log": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02-continuity\\reviews.json"
 }
