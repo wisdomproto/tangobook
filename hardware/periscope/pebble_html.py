@@ -72,8 +72,14 @@ def main():
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
         "foamBoss": encoded_cad(cad.foam_contact_boss),
         "cartridgeGuide": encoded_cad(
-            (lambda: cad.box(-22.0,-18.4,-0.6,16,9.6,15.3).union(
-                cad.box(18.4,22.0,-0.6,16,9.6,15.3)))
+            (lambda: cad.box(-cover_cad.TAB_X-cover_cad.TAB_T-0.18,
+                             -cover_cad.TAB_X+0.18,cover_cad.TAB_Y0-0.2,
+                             cover_cad.JOIN_Y,cover_cad.TAB_Z0-0.18,
+                             cover_cad.TAB_Z1+0.18).union(
+                cad.box(cover_cad.TAB_X-0.18,
+                        cover_cad.TAB_X+cover_cad.TAB_T+0.18,
+                        cover_cad.TAB_Y0-0.2,cover_cad.JOIN_Y,
+                        cover_cad.TAB_Z0-0.18,cover_cad.TAB_Z1+0.18)))
             if IS_COVER else cad.cartridge_guide_volume),
         "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
         "contactFace": encoded_cad(cad.contact_shoe),

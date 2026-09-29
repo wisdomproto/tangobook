@@ -16,11 +16,17 @@ import pebble as b
 OUT = Path(__file__).resolve().parent / "out" / "pebble_cover"
 JOIN_Y = 16.0
 TAB_X = 18.6
-TAB_Z0, TAB_Z1 = 9.6, 15.3
-TAB_Y0 = -0.6
-HOOK_Y0, HOOK_Y1 = -0.2, 1.0
+TAB_Z0, TAB_Z1 = 9.4, 15.8
+TAB_Y0 = -1.6
+HOOK_Y0, HOOK_Y1 = -1.2, 1.8
 TAB_T = 2.0
-HOOK_PROJECTION = 1.25
+HOOK_PROJECTION = 1.4
+# Model-kit-style deep keys carry side loads across the shell/cover seam.
+# The separate snap shoulders retain the cover in the insertion direction.
+KEY_X0, KEY_X1 = 21.65, 22.85
+KEY_Z0, KEY_Z1 = 9.7, 15.5
+KEY_Y0 = 11.2
+KEY_CLEARANCE = 0.18
 FOAM_BACK = b.BACK - b.FOAM_BACK_WALL
 CORE_LATCH_SPECS = ((b.LATCH_Y[0],b.latch_z(b.LATCH_Y[0])),(-8.0,12.0))
 CORE_HOOK = 1.05
@@ -44,6 +50,11 @@ def core_blank():
         rx0, rx1 = sorted((sign*(TAB_X+TAB_T+0.05), sign*25.0))
         core = core.cut(b.box(rx0, rx1, HOOK_Y0-0.12, HOOK_Y0+0.55,
                               TAB_Z0+1.0, TAB_Z1-1.0))
+        kx0, kx1 = sorted((sign*(KEY_X0-KEY_CLEARANCE),
+                          sign*(KEY_X1+KEY_CLEARANCE)))
+        core = core.cut(b.box(kx0, kx1, KEY_Y0-KEY_CLEARANCE,
+                              JOIN_Y+0.1, KEY_Z0-KEY_CLEARANCE,
+                              KEY_Z1+KEY_CLEARANCE))
     return core
 
 
@@ -103,7 +114,9 @@ def cover():
                          (inner-sign*0.8,JOIN_Y+2.1)])
               .close().extrude(TAB_Z1-TAB_Z0)
               .translate((0,0,TAB_Z0)))
-        part = part.union(beam).union(side_hook(sign)).union(root)
+        kx0,kx1=sorted((sign*KEY_X0,sign*KEY_X1))
+        key=b.box(kx0,kx1,KEY_Y0,JOIN_Y+1.0,KEY_Z0,KEY_Z1)
+        part = part.union(beam).union(side_hook(sign)).union(root).union(key)
     return part
 
 
@@ -112,7 +125,7 @@ def side_hook(sign):
     outer=sign*(TAB_X+TAB_T)
     return (cq.Workplane("XY")
             .polyline([(outer,HOOK_Y0),
-                       (outer+sign*HOOK_PROJECTION,HOOK_Y1-0.40),
+                       (outer+sign*HOOK_PROJECTION,HOOK_Y1-0.65),
                        (outer+sign*HOOK_PROJECTION,HOOK_Y1),
                        (outer,HOOK_Y1)])
             .close().extrude(TAB_Z1-TAB_Z0-0.6)
@@ -194,8 +207,16 @@ def inspect_and_export():
         str(d):round(b.volume(hard.intersect(shapes["rear_cover"].translate((0,d,0)))),5)
         for d in (0.3,0.5,1.0)}
     report["checks"]["cover_hook_insertion_max_interference_mm3"]=round(max(
-        b.volume(side_hook(sign).translate((-sign*1.12,d,0)).intersect(hard))
+        b.volume(side_hook(sign).translate((-sign*1.30,d,0)).intersect(hard))
         for sign in (-1,1) for d in (0,0.5,1,2,4,6,8,12)),5)
+    nonlocking_cover=shapes["rear_cover"]
+    for sign in (-1,1):
+        nonlocking_cover=nonlocking_cover.cut(side_hook(sign))
+    report["checks"]["cover_key_insertion_max_interference_mm3"]=round(max(
+        b.volume(nonlocking_cover.translate((0,d,0)).intersect(hard))
+        for d in (0,0.5,1,2,3,4,5,6)),5)
+    report["checks"]["key_engaged_length_mm"]=round(JOIN_Y-KEY_Y0,2)
+    report["checks"]["hook_axial_length_mm"]=round(HOOK_Y1-HOOK_Y0,2)
     report["checks"]["nominal_hook_engagement_mm"]=round(
         HOOK_PROJECTION-0.18,3)
     # A cantilever estimate is useful for comparing iterations, not a fatigue
@@ -213,7 +234,7 @@ def inspect_and_export():
     b.export_multi_body_stl(plate,OUT/"tango_pebble_cover_print_plate.stl",4)
     # One-side coupons expose the real receiving pocket and the full-length
     # cover tab, so the fit can be tested before printing the complete body.
-    coupon_crop=b.box(18.0,24.6,-1.2,b.BACK+0.1,9.0,16.0)
+    coupon_crop=b.box(18.0,24.6,-2.2,b.BACK+0.1,9.0,16.3)
     for name,shape in {"snap_coupon_body":shapes["shell_right"],
                        "snap_coupon_cover":shapes["rear_cover"]}.items():
         piece=shape.intersect(coupon_crop)
@@ -244,6 +265,7 @@ def inspect_and_export():
         and report["checks"]["core_halves_interference_mm3"]<0.01
         and report["checks"]["core_snap_insertion_max_interference_mm3"]<0.01
         and report["checks"]["cover_hook_insertion_max_interference_mm3"]<0.01
+        and report["checks"]["cover_key_insertion_max_interference_mm3"]<0.01
         and all(v<0.01 for v in report["checks"]["cover_paddle_interference_mm3"].values())
         and all(v<0.01 for v in report["checks"]["core_paddle_interference_mm3"].values())
         and report["checks"]["plate_min_gap_mm"]>=4
