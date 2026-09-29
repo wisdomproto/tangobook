@@ -424,7 +424,7 @@ def camera_clearance():
 
 
 @lru_cache(None)
-def housing():
+def housing(rear_cartridge_guide=True):
     shell = envelope()
     # Rounded optical chamber and the open-bottom phone channel.
     cavity = box(-WIDTH/2+2.5, WIDTH/2-2.5, FRONT+2.5, -2.4,
@@ -470,7 +470,8 @@ def housing():
     # Cut these after adding ribs and the roof so later unions cannot refill
     # the working cavity or the rear loading path.
     shell=shell.cut(foam_pocket_volume())
-    shell=shell.cut(cartridge_guide_volume())
+    if rear_cartridge_guide:
+        shell=shell.cut(cartridge_guide_volume())
     # Leave 1 mm around all four mirror edges. Cut this before adding the
     # backing plate so the adhesive landing surface remains continuous.
     shell=shell.cut(mirror_fit_clearance())

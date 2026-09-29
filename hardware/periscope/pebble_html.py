@@ -14,10 +14,12 @@ import tempfile
 import trimesh
 import cadquery as cq
 import pebble as cad
+import pebble_cover as cover_cad
 
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "out" / "pebble"
+IS_COVER = False
 
 
 def encoded_stl(name, faces):
@@ -29,7 +31,10 @@ def encoded_stl(name, faces):
             # Keep the generator dependency-light: OCC can tessellate the exact
             # CAD with a coarse display tolerance when fast_simplification is absent.
             factories={"shell_left":cad.left,"shell_right":cad.right,
-                       "paddle":cad.paddle,"mirror":cad.mirror,"foam":cad.foam}
+                       "paddle":cad.paddle,"mirror":cad.mirror,"foam":cad.foam,
+                       "rear_cover":cover_cad.cover}
+            if IS_COVER:
+                factories.update(shell_left=cover_cad.left,shell_right=cover_cad.right)
             with tempfile.TemporaryDirectory() as temp_dir:
                 temporary=Path(temp_dir)/f"{name}.stl"
                 cq.exporters.export(factories[name](),str(temporary),
@@ -47,21 +52,29 @@ def encoded_cad(factory):
 
 
 def main():
-    if len(sys.argv) != 2:
-        raise SystemExit("Output HTML path required")
+    global SOURCE, IS_COVER
+    if len(sys.argv) not in (2,3):
+        raise SystemExit("Usage: pebble_html.py OUTPUT.html [--cover]")
+    IS_COVER = len(sys.argv)==3 and sys.argv[2]=="--cover"
+    if len(sys.argv)==3 and not IS_COVER:
+        raise SystemExit("Only --cover is supported")
+    SOURCE = HERE / "out" / ("pebble_cover" if IS_COVER else "pebble")
     destination = Path(sys.argv[1]).resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
     meshes = {
         "shellLeft": encoded_stl("shell_left", 2300),
         "shellRight": encoded_stl("shell_right", 2300),
         "paddle": encoded_stl("paddle", 700),
-        "cartridge": encoded_stl("cartridge", 500),
+        "cartridge": encoded_stl("rear_cover" if IS_COVER else "cartridge", 900),
         "mirror": encoded_stl("mirror", 12),
         "foam": encoded_stl("foam", 12),
         "backing": encoded_cad(cad.mirror_backing),
         "foamPocket": encoded_cad(cad.foam_pocket_volume),
         "foamBoss": encoded_cad(cad.foam_contact_boss),
-        "cartridgeGuide": encoded_cad(cad.cartridge_guide_volume),
+        "cartridgeGuide": encoded_cad(
+            (lambda: cad.box(-21.0,-19.2,9,16,10.8,14.2).union(
+                cad.box(19.2,21.0,9,16,10.8,14.2)))
+            if IS_COVER else cad.cartridge_guide_volume),
         "lidLand": encoded_cad(lambda: cad.lid_land().union(cad.lid_root())),
         "contactFace": encoded_cad(cad.contact_shoe),
         "cameraSpace": encoded_cad(cad.camera_clearance),
@@ -319,6 +332,24 @@ def main():
 </body>
 </html>
 '''.replace('__MESH_DATA__', json.dumps(meshes, separators=(",", ":")))
+    if IS_COVER:
+        fragment=fragment.replace("objects.cartridgeGuide.visible=false; objects.lidLand.visible=false;",
+                                  "objects.cartridgeGuide.visible=false; objects.cartridge.material.opacity=1; objects.cartridge.material.transparent=false; objects.cartridge.material.depthWrite=true; objects.lidLand.visible=false;")
+        fragment=fragment.replace("objects.shellRight.material.depthWrite=false;\n      setPaddleRotation",
+                                  "objects.shellRight.material.depthWrite=false;\n      objects.cartridge.material.transparent=true; objects.cartridge.material.opacity=.18; objects.cartridge.material.depthWrite=false;\n      setPaddleRotation")
+        fragment=fragment.replace("objects.cartridge.position.y=12; objects.foam.position.y=12;",
+                                  "objects.cartridge.position.y=12; objects.foam.position.y=12;")
+        fragment=fragment.replace('카트리지 뒷판에 16×6×6 mm 스펀지 접착 → 뒤에서 카트리지 딸깍 삽입',
+                                  '뒤 커버 안쪽에 16×6×6 mm 스펀지 접착 → 커버 양옆 체결')
+        fragment=fragment.replace('카트리지 딸깍','뒤 커버 체결')
+        fragment=fragment.replace('스펀지 카트리지는 본체 뒤에서 잠깁니다.',
+                                  '스펀지를 붙인 뒤 커버가 본체 양옆에 잠깁니다.')
+        fragment=fragment.replace('스펀지를 담은 카트리지가 뒤에서 딸깍 잠깁니다.',
+                                  '넓은 뒤 커버가 양옆 걸쇠로 잠기며 스펀지 뒷면을 받칩니다.')
+        fragment=fragment.replace('보라색은 카트리지 통로,',
+                                  '보라색은 뒤 커버의 양옆 체결 영역,')
+        fragment=fragment.replace('스펀지는 카트리지의 16×6 mm 뒷판에 접착합니다. 짧은 상·하벽은 스펀지 뒤쪽 1.5 mm만 감싸고 앞쪽 고정 립은 없습니다. 누름판은 플라스틱 벽에 닿지 않고 스펀지만 누릅니다.',
+                                  '스펀지는 넓은 뒤 커버의 안쪽 16×6 mm 받침에 접착합니다. 양옆 탄성 탭이 본체의 작은 포켓에 걸립니다. 혀는 커버와 닿지 않고 스펀지만 누릅니다.')
     destination.write_text(fragment, encoding="utf-8")
     print(destination)
     print(destination.stat().st_size)
@@ -326,3 +357,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # Windows OCC teardown may fail after the complete HTML is written.
+    import os
+    sys.stdout.flush()
+    os._exit(0)
