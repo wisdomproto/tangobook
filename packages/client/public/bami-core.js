@@ -409,7 +409,7 @@
       list.appendChild(row);
     });
     updateSummary();
-    if (window.innerWidth >= 1024) open(true);
+    // Keep the episode list closed until the reader opens it.
   })();
 
   // ── 전체 묶음 프롬프트 + 쪽별 복사 + 붙여넣기 ──

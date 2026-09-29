@@ -53,9 +53,11 @@ function mdTable(md, n) {
     '</tbody></table>';
 }
 
+// Some art palettes describe an absent overlap ink in prose. UI colours need a real colour.
+const uiSlope = (p) => [p.overlap, p.ink1].find((value) => /^#[0-9a-f]{6}$/i.test(value)) || '#2b2320';
 const CSS = (p) => `
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:${p.accent}; --slope:${p.overlap}; --peach:#F3E7DA; --cream:#FBF8F3;
+  :root { --accent:${p.accent}; --slope:${uiSlope(p)}; --peach:#F3E7DA; --cream:#FBF8F3;
           --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
