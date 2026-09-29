@@ -62,6 +62,7 @@ CARTRIDGE_CAP_W = 20.0
 CARTRIDGE_CAP_H = 9.2
 CARTRIDGE_CAP_T = 0.8
 CARTRIDGE_LIP = 0.35
+CARTRIDGE_FRONT_WALL_TRIM = 1.6
 CARTRIDGE_LATCH_T = 0.75
 CARTRIDGE_LATCH_H = 0.75
 CARTRIDGE_BEAM_RISE = 0.35
@@ -587,10 +588,12 @@ def cartridge():
     outer_h=FOAM_H+2*CARTRIDGE_WALL
     z0=FOAM_Z-outer_h/2
     z1=FOAM_Z+outer_h/2
-    # Top, bottom and rear wrap half the foam; its paddle-facing side remains open.
-    bottom=box(-outer_w/2,outer_w/2,foam_front,foam_back+CARTRIDGE_BACK_T,
+    # The paddle swings back as a phone enters. Keep both rigid front edges
+    # behind that sweep; the soft foam, not the cradle, must take the load.
+    wall_front=foam_front+CARTRIDGE_FRONT_WALL_TRIM
+    bottom=box(-outer_w/2,outer_w/2,wall_front,foam_back+CARTRIDGE_BACK_T,
                z0,z0+CARTRIDGE_WALL)
-    top=box(-outer_w/2,outer_w/2,foam_front,foam_back+CARTRIDGE_BACK_T,
+    top=box(-outer_w/2,outer_w/2,wall_front,foam_back+CARTRIDGE_BACK_T,
             z1-CARTRIDGE_WALL,z1)
     back=box(-outer_w/2,outer_w/2,foam_back,foam_back+CARTRIDGE_BACK_T,z0,z1)
     # Shallow front lips retain the soft pad mechanically during handling.
@@ -814,10 +817,13 @@ def inspect():
         volume(latch(y).intersect(right().translate((0.8,0,0)))) for y in LATCH_Y),6)
     # Independent rigid paddle rotation: contact point moves towards thicker phones.
     report["paddle_rotation_mm3"]={}
-    for deg in (0,5,10,15,20,25,27):
+    report["paddle_cartridge_rotation_mm3"]={}
+    for deg in (0,5,10,15,17,18,20,22,24,25,26,27,27.1):
         rotated=paddle().rotate((0,old.PIVOT_Y,PIVOT_Z),
                                 (1,old.PIVOT_Y,PIVOT_Z),deg)
         report["paddle_rotation_mm3"][str(deg)]=round(volume(rotated.intersect(housing())),5)
+        report["paddle_cartridge_rotation_mm3"][str(deg)]=round(
+            volume(rotated.intersect(cartridge())),5)
     report["phone_fit"]={}
     for thickness in (7,9,11):
         # Solve the broad bow's tangent against the phone back, then test the
@@ -830,6 +836,7 @@ def inspect():
             "phone_shell_mm3":round(volume(phone_shape.intersect(housing())),5),
             "phone_paddle_mm3":round(volume(phone_shape.intersect(rotated)),5),
             "paddle_shell_mm3":round(volume(rotated.intersect(housing())),5),
+            "paddle_cartridge_mm3":round(volume(rotated.intersect(cartridge())),5),
             "foam_compression_percent":round(foam_compression(thickness),2),
             "foam_edge_compression_percent":[
                 round(foam_compression(thickness,FOAM_Z+FOAM_H/2),2),
@@ -848,6 +855,7 @@ def inspect():
     total_foam_overlap=volume(foam().intersect(housing()))
     carrier_foam_overlap=volume(foam().intersect(cartridge()))
     report["foam"]={"material":"soft PU foam prototype","size":[FOAM_W,FOAM_H,FOAM_FREE_T],
+        "cartridge_front_wall_trim_mm":CARTRIDGE_FRONT_WALL_TRIM,
         "pocket_inner_size":[FOAM_W+2*FOAM_FIT,FOAM_H+2*FOAM_FIT,
                              FOAM_FREE_T+FOAM_FIT+0.2],
         "lead_in_mouth_size":[FOAM_W+2*(FOAM_FIT+FOAM_MOUTH),
@@ -920,6 +928,7 @@ def inspect():
     report["pass"] &= report["foam"]["housing_overlap_mm3"]<0.01
     report["pass"] &= report["foam"]["rest_contact_volume_mm3"]>1
     report["pass"] &= report["foam_contact_boss"]["cartridge_interference_mm3"]<0.01
+    report["pass"] &= all(v<0.01 for v in report["paddle_cartridge_rotation_mm3"].values())
     report["pass"] &= report["cartridge_snap"]["intentional_flex_overlap_peak_mm3"]>0.01
     report["pass"] &= report["cartridge_snap"]["pullout_overlap_at_0_3_mm3"]>0.1
     report["pass"] &= report["cartridge_snap"]["pullout_overlap_at_0_5_mm3"]>0.5
