@@ -36,8 +36,8 @@
 **🔴 시그니처 색** (§6 · §5-b ②)
 > 청록 `#1E8A8A` 은 **붕이의 코에 건 끈**과 **또리의 발목 방울 끈** 두 곳뿐이다(형제 = 한 무리).
 > 🔴 **어른 둘은 청록을 절대 안 지닌다.**
-> 🔴 **무대가 늘 지니는 색과 안 겹치는지** — 이 무대의 기본색은 물의 **황토 회갈색**, 천막의 **노랑·붉은 흙색**,
-> 과일과 잎의 **올리브 초록**이다(🔴 **기본값**이다 — 빨강·노랑 판은 없고, 그 권의 명제인 「제일 빨간·노란 것」 **하나만 RIVER** 로 찍어 LEAF 사이에서 갈리게 하며 SCENE 이 어느 것인지 적는다. 앵커 PALETTE 2026-09-09). 강물을 청록으로 칠하면 화면이 통째로 깨진다 → 앵커에 `WATER:` 로 못박는다.
+> 🔴 **무대가 늘 지니는 색과 안 겹치는지** — 이 무대의 기본색은 물의 **청회색 `#7FA6B2`**, 천막의 **노랑·붉은 흙색**,
+> 과일과 잎의 **올리브 초록**이다(🔴 **기본값**이다 — 빨강·노랑 판은 없고, 그 권의 명제인 「제일 빨간·노란 것」 **하나만 OCHRE** 로 찍어 LEAF 사이에서 갈리게 하며 SCENE 이 어느 것인지 적는다. 앵커 PALETTE 2026-09-09). 물은 시간·날씨·장소와 무관하게 WATER `#7FA6B2`로 고정한다. 황토 OCHRE는 나무·흙·소품용이며 물에 쓰지 않는다.
 
 또리의 **발목 방울**은 장식이 아니다 — 13권에서 붕이가 또리를 찾는 유일한 단서라, **13권 p1 에 소리를 심는다**.
 
@@ -175,17 +175,17 @@ p10    착지 — 원하던 것이 돌아온다
 
 | 앵커 | 매체 | 종이 | 색 |
 |---|---|---|---|
-| `bung-woodblock` (전권) | 민화 목판 — 판을 여러 장 겹쳐 찍는다. 나뭇결이 그대로 남고 색끼리 조금씩 어긋난다 | 조개가루 크림 `#F3ECDC` | 황토 회갈색 + 올리브 초록 + 청록 `#1E8A8A` |
+| `bung-woodblock` (전권) | 민화 목판 — 판을 여러 장 겹쳐 찍는다. 나뭇결이 그대로 남고 색끼리 조금씩 어긋난다 | 조개가루 크림 `#F3ECDC` | 청회색 물 `#7FA6B2` + 황토 나무·흙 + 올리브 초록 + 청록 끈 `#1E8A8A` + 인물별 의상 색 |
 
 무대(배 안 · 나무 길 · 시장 물목 · 비 · 밤)는 앵커 안의 **무대 조항**이 처리한다 — 매체·색은 안 바꾸고
-「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 정한다.
+물은 WATER 단색으로 고정하고 나머지 무대의 색 배치와 종이 여백만 정한다.
 
 **관통 줄** (매 쪽)
 
 ```
 SHELL: the cream paper is the light itself - never print a block over it
 TEAL:  the only teal in the picture is Bung's nose-cord and Ddori's ankle-bell cord
-WATER: the river is ochre grey-brown, never teal, never blue
+WATER: all water is flat muted blue-grey #7FA6B2, in every scene and lighting condition; never ochre, white, dark green or teal
 GRAIN: every colour is a carved block - wood grain shows, registration is a hair off
 NOT:   no letters, no numbers, no signboard text anywhere
 ```

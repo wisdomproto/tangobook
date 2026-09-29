@@ -36,8 +36,8 @@
 ```
 BUNG - the older brother, about six. 3.5 heads tall, up to Mom's waist.
 HORNS: crescent span = ONE head width. Same crescent as the adults, smaller.
-HEAD: dome OVERLAP, muzzle and horns RIVER, one KEY-INK eye disc, one brow bar, one mouth curve.
-CLOTHES: short BRICK ORANGE #C85A36 top ending above the hips, RIVER trousers to the knee, nothing on the head.
+HEAD: dome OVERLAP, muzzle and horns OCHRE, one KEY-INK eye disc, one brow bar, one mouth curve.
+CLOTHES: short BRICK ORANGE #C85A36 top ending above the hips, OCHRE trousers to the knee, nothing on the head.
 🔴 ACCENT: ONE thin TEAL line - tied to a small ring at the front of the muzzle, running back along
   the cheek and HANGING AT THE NECK, where most of its length is seen. Even thickness, never filled,
   never a thick loop, and 🔴 THE MUZZLE IS NOT PIERCED AND HAS NO HOLE IN IT. This is the only teal
@@ -55,10 +55,10 @@ DDORI - the little brother, about two, who barely speaks. 2.5 heads tall, up to 
   proportion: head about 2/5 of his height, where Bung's is about 2/7).
 HORNS: crescent span = 2/3 of a head width. 🔴 Still the full crescent shape, out and back - never
   a bud, never a stub, never a bump. Smallest horns in the book, but they are still horns.
-HEAD: dome OVERLAP, muzzle and horns RIVER, one KEY-INK eye disc, one brow bar, one mouth curve.
+HEAD: dome OVERLAP, muzzle and horns OCHRE, one KEY-INK eye disc, one brow bar, one mouth curve.
   The muzzle is SHORTER front to back than Bung's but just as wide - that is what makes him a baby.
-CLOTHES: short SUNFLOWER YELLOW #F2C94C top, RIVER trousers to the knee, nothing on the head. 🔴 NO NECK CORD.
-🔴 ACCENT: a small bell tied at ONE ankle with a TEAL cord. The bell body is RIVER; only the cord is
+CLOTHES: short SUNFLOWER YELLOW #F2C94C top, OCHRE trousers to the knee, nothing on the head. 🔴 NO NECK CORD.
+🔴 ACCENT: a small bell tied at ONE ankle with a TEAL cord. The bell body is OCHRE; only the cord is
   teal. It is his only teal and it must be visible in every full-figure drawing, including the back
   view - it is the single clue that finds him in book 13.
 🔴 SILHOUETTE: the shortest figure, head-heavy, tiny crescents, and one bell breaking the line at the
@@ -71,9 +71,9 @@ HANDS: same hand as Bung, smaller.
 ```
 MOM - sells noodles from the boat. Fast hands, few words. 5 heads tall, the tallest head in the book.
 HORNS: crescent span = 1.5 head widths, thick at the base. The widest horns Bung sees every day.
-HEAD: dome OVERLAP, muzzle and horns RIVER, one KEY-INK eye disc, one brow bar, one mouth curve. The
+HEAD: dome OVERLAP, muzzle and horns OCHRE, one KEY-INK eye disc, one brow bar, one mouth curve. The
   muzzle is longer front to back than a child's.
-CLOTHES: a loose MULBERRY #984C78 top over RIVER trousers, sleeves pushed up above the elbow (she is always
+CLOTHES: a loose MULBERRY #984C78 top over OCHRE trousers, sleeves pushed up above the elbow (she is always
   working), 🔴 A CLOTH WRAPPED OVER THE CROWN AND BETWEEN THE HORNS, tied at the back - matching MULBERRY #984C78, flat,
   0 folds. The horn crescents come out from under the cloth on both sides.
 🔴 ACCENT: NONE. No teal anywhere on her, ever - the teal belongs to the two children only.
@@ -90,9 +90,9 @@ BUILD: the same 5 heads of total height as Mom, but 🔴 THE NECK PIECE IS SET F
   head sits lower than hers and his back reads as a stoop. He is never drawn standing straight.
 HORNS: crescent span = 1.5 head widths, but the crescents are LONGER, THINNER and their tips DIP
   BELOW the line of the eye - old horns. Same sweep out and back, cut thinner.
-HEAD: dome OVERLAP, muzzle and horns RIVER, one KEY-INK eye disc, one brow bar, one mouth curve. The
+HEAD: dome OVERLAP, muzzle and horns OCHRE, one KEY-INK eye disc, one brow bar, one mouth curve. The
   longest muzzle in the book.
-CLOTHES: a loose INDIGO #435B91 top to mid-thigh with sleeves to the wrist, RIVER trousers, 🔴 A ROUND FLAT-TOPPED
+CLOTHES: a loose INDIGO #435B91 top to mid-thigh with sleeves to the wrist, OCHRE trousers, 🔴 A ROUND FLAT-TOPPED
   HAT SITTING ON TOP OF THE HEAD BETWEEN THE HORNS - matching INDIGO #435B91, flat, 0 folds, 0 brim decoration.
 🔴 ACCENT: NONE. No teal anywhere on him, ever.
 🔴 SILHOUETTE: a stooped figure with long thin down-dipping crescents and a round hat between them.

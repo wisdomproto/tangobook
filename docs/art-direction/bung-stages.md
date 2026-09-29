@@ -10,7 +10,7 @@
 ## §0. 🔴 매체 번역 한 줄 — 가라앉은 것은 윤곽판이 안 닿는다
 
 앵커: `THE KEY BLOCK CARRIES EVERY OUTLINE AND PRINTS LAST` · 🔴 `A SUNKEN THING IS OVERLAP WITH
-RIVER PRINTED OVER IT AND NO OUTLINE AT ALL.`
+WATER PRINTED OVER IT AND NO OUTLINE AT ALL.`
 
 **물 위 장터의 「떨어뜨리면 가라앉는다」가 판 하나를 빼는 것으로 그려진다.** 그러므로 자리 시트가
 정하는 것은 **🔴 「어디까지 윤곽이 있고 어디부터 없나」**다. 물 위에 뜬 것은 제 윤곽을 다 갖고, 잠긴 것은
@@ -93,6 +93,7 @@ Channel 10)는 **토큰 붙은 쪽만** 센 값이다 — 물려받는 쪽까지
 
 ```
 STAGE SHEET - NoodleBoat   (bung-woodblock · SCENE token: NoodleBoat · bake FIRST)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The noodle boat - Bung's home and shop. Nine of the nineteen named places in this series are
 somewhere inside it, so this drawing decides the boat once, and it names its parts.
@@ -107,8 +108,8 @@ somewhere inside it, so this drawing decides the boat once, and it names its par
   5 STERN (고물) - the back, the long oar, the awning post.
   A hooped awning covers parts 2-4; the bow and stern are open to the sky.
 
-BLOCKS: planks RIVER, the awning cloth LEAF, the pot and ironwork OVERLAP, produce LEAF, baskets
-  RIVER. The plank's grain stays visible inside every colour area on this sheet - grain belongs
+BLOCKS: planks OCHRE, the awning cloth LEAF, the pot and ironwork OVERLAP, produce LEAF, baskets
+  OCHRE. The plank's grain stays visible inside every colour area on this sheet - grain belongs
   to the stage; a body carries none. 🔴 LAMPLIGHT IS UNPRINTED PAPER
   and is the brightest thing in the boat.
 
@@ -117,8 +118,8 @@ BLOCKS: planks RIVER, the awning cloth LEAF, the pot and ironwork OVERLAP, produ
   colour creeps past the outline toward the bow and falls short toward the stern). Never correct it.
 
 🔴 WHERE THE OUTLINE STOPS - this is what the sheet is for:
-  A thing ON the water prints WHOLE on top of the RIVER area with its key outline showing.
-  A thing UNDER the water is OVERLAP with RIVER printed over it and 🔴 NO OUTLINE AT ALL - the key
+  A thing ON the water prints WHOLE on top of the WATER area with its key outline showing.
+  A thing UNDER the water is OVERLAP with WATER printed over it and 🔴 NO OUTLINE AT ALL - the key
   block simply does not reach it. That absence is how a child sees a thing has sunk.
   Never a mirrored image, never a flipped reflection, never a distorted shape. There are no
   reflections in this book.
@@ -128,7 +129,7 @@ SPOTS - five, one per part plus the close:
   B THE COOKING PLACE, medium: the pot, the stacked bowls, the awning above.
   C OVER THE GUNWALE, medium high: the rail across the bottom, market water below it.
   D THE FLOOR, close, high: planks, baskets, and whatever is lying on them.
-  E CLOSE ON TWO - where two bodies touch. Background = ONE flat RIVER area of deck plank with its
+  E CLOSE ON TWO - where two bodies touch. Background = ONE flat OCHRE area of deck plank with its
     grain running one way and NOTHING else on it - no pot, no basket, no rail, no water. The key
     block cuts only the two and what they touch; 🔴 on this sheet it is drawn EMPTY, with no body
     in it.
@@ -139,7 +140,7 @@ PLATE: A, B, C, D, E once each, plus 🔴 A PART DIAGRAM naming bow / cooking pl
 
 NOT: no character of any kind, no accent teal anywhere on this sheet (the teal is the cord at Bung's neck
   and the little one's bell cord only), no lettering, numerals or shop signs, no reflection or
-  mirrored image in the water, no ripple or glint, no third colour that is not an overprint, no
+  mirrored image in the water, no ripple or glint, no extra colour except the fixed WATER ink and assigned character clothing, no
   key outline on a submerged thing, no corrected registration, no shading, gradient, glow or soft
   edge.
 ```
@@ -147,9 +148,9 @@ NOT: no character of any kind, no accent teal anywhere on this sheet (the teal i
 ### §2.2 Market — 요약 명세
 
 🔴 **배 여섯**(01 p1 · 앵커 상한 6)이 좌표: 국수 배 · 할아버지 배 · 과일 배 · 나머지 셋(실루엣, 안쪽 표시 0).
-물은 RIVER 한 면(잔물결 0 · 반짝임 0), 하늘은 안 찍은 종이, 🔴 **마른 땅이 한 뼘도 없다**(01 p1).
+물은 WATER #7FA6B2 한 면(잔물결 0 · 반짝임 0), 하늘은 안 찍은 종이, 🔴 **마른 땅이 한 뼘도 없다**(01 p1).
 `SPOTS` = A 장터 전체 / B 두 배 사이 / C 뱃전 너머 물 / D 나무 길에서 / 🔴 **E CLOSE ON TWO**(§0 넷째) —
-배경 한 줄 = **RIVER 물 한 면**이 화면을 가득 채우고 그 위에 아무 배도 안 걸린다(장터에서만 쓸 수 있는
+배경 한 줄 = **WATER #7FA6B2 물 한 면**이 화면을 가득 채우고 그 위에 아무 배도 안 걸린다(장터에서만 쓸 수 있는
 배경이다 · 잔물결 0 · 반짝임 0).
 
 ### §2.3 OtherBoat — 실제 프롬프트 (🔴 **37쪽 · 13권 · 2026-09-05 신설**)
@@ -163,29 +164,30 @@ NOT: no character of any kind, no accent teal anywhere on this sheet (the teal i
 
 ```
 STAGE SHEET - OtherBoat   (bung-woodblock · SCENE token: OtherBoat)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 Any boat in the market that is NOT Bung's noodle boat and not Grandpa's. Thirteen books step onto
 one, so the hull is decided here ONCE and only its load changes. 🔴 A BOAT IS TOLD FROM ANOTHER BY
 WHAT IS ON IT, NEVER BY ITS BUILD.
 
 FIXED PARTS - the hull is one build, drawn once:
-  ONE GUNWALE LINE running the length of the boat, RIVER with the plank's grain along it, low
+  ONE GUNWALE LINE running the length of the boat, OCHRE with the plank's grain along it, low
     enough that a child seated inside shows from the chest up.
   A HOOPED AWNING over the middle third only, LEAF cloth, its two end hoops bare - the bow and the
     stern are open to the sky. 🔴 IT IS ONE HOOP SHORTER THAN THE NOODLE BOAT'S, so the two boats
     side by side are never the same silhouette.
-  A COUNTER PLANK laid across the boat just behind the bow, RIVER: this is where the load sits and
+  A COUNTER PLANK laid across the boat just behind the bow, OCHRE: this is where the load sits and
     where a hand reaches over. 🔴 EVERY TRADING BOAT IN THIS SERIES HAS ONE and it is always at
     the bow end, so a reader knows where the goods will be before seeing them.
   A MOORING POST at the bow with its rope: 🔴 COILED ROUND THE POST = the boat stays · UNCOILED AND
     HANGING = it is going. That is the only way this book draws a boat leaving (see PROP SHEET
     MooringRope).
-  THE HULL SIDE below the gunwale is one flat RIVER area; the part under the water is OVERLAP with
-    RIVER printed over it and 0 outline, like everything submerged.
+  THE HULL SIDE below the gunwale is one flat OCHRE area; the part under the water is OVERLAP with
+    WATER printed over it and 0 outline, like everything submerged.
 
 🔴 TWO BOATS SIDE BY SIDE - four books turn on the gap between two gunwales, so fix it: the gap is
   ONE CHILD'S SHOULDER WIDTH, both rails at the SAME height, and the water between them is one
-  unbroken RIVER area with 0 ripples. When one boat drifts, the gap opens and the rails go OUT OF
+  unbroken WATER area with 0 ripples. When one boat drifts, the gap opens and the rails go OUT OF
   LEVEL - that tilt is the whole signal.
 
 SPOTS - five:
@@ -272,7 +274,7 @@ NOT: no character of any kind, no accent teal anywhere on this sheet, no letteri
 | 접은 것 | 어디로 | 왜 |
 |---|---|---|
 | 「담요」(18·27) + 「이불」(32·41·39) | `Blanket` | 🔴 **대본이 같은 물건을 두 이름으로 부른다** — 27 p1 「천막 아래 담요 둘」과 41 p9 「이불 두 장」은 같은 자리의 같은 것 |
-| 「그릇」 + 「국수」 + 「파」 + 「새우」 | `NoodleBowl` | 색이 서로 묶여 있다. 26권이 「초록·주황·하양 세 색」을 요구하는데 그 셋은 **LEAF · RIVER · 안 찍은 종이**라 판 배정이 한 번에 정해져야 한다 |
+| 「그릇」 + 「국수」 + 「파」 + 「새우」 | `NoodleBowl` | 색이 서로 묶여 있다. 26권이 「초록·주황·하양 세 색」을 요구하는데 그 셋은 **LEAF · OCHRE · 안 찍은 종이**라 판 배정이 한 번에 정해져야 한다 |
 | 「과일」(큰) + 「열매」(작은) + 바나나 | `Fruit` | 24는 두 팔로 안고 38은 손가락으로 누른다 — **두 장으로 나누면 크기가 서로를 안 견제해 둘 다 같은 크기로 나온다**(퐁이 `PaperSheet` 두 크기·`Boots` 세 크기와 같은 처리) |
 | 「자루」(40) + 「짐」(45) | `Sacks` | 같은 화물. 40 은 뿔에 걸고 45 는 쌓는다 |
 | 「봉지」(16 고추·23·30 과자) + 「과자」 | `Packet` | 봉지에서 나온 것이라 크기·색이 봉지에 묶여 있다(퐁이 케이크+크림) |
@@ -326,7 +328,7 @@ NOT: no character of any kind, no accent teal anywhere on this sheet, no letteri
 ```
 SCALE ROW - bung vessels   (bung-woodblock · 이 판은 시트가 아니라 자다. SCENE 토큰 없음)
 
-Six wooden vessels in one row on one ground line, at true relative size, all in RIVER with the
+Six wooden vessels in one row on one ground line, at true relative size, all in OCHRE with the
 plank's grain showing, drawn side on with 0 contents in them. From largest to smallest:
   1 FISH TUB - up to an adult's waist, the widest of all, 3 hoops.
   2 WATER BUTT - up to a child's chest, 2 hoops, standing inside the gunwale.
@@ -343,6 +345,7 @@ One plain key-ink child silhouette standing at the left end of the row, same gro
 
 ```
 PROP SHEET - Watermelon   (bung-woodblock · SCENE token: Watermelon)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 A watermelon on the gunwale of the noodle boat. One book is five pages of it being about to fall
 in, and this sheet exists to make the falling-in drawable.
@@ -351,10 +354,10 @@ FORM: LEAF, one round block, the plank's grain visible inside it, with at most 5
   into the key block - never more, and never shaded round the curve. The key outline goes round it
   and lands one hair off, the same direction as everything else on the page.
 🔴 THREE STATES AND THE THIRD IS THE POINT:
-  1 ON THE GUNWALE - whole, LEAF, key outline all round, sitting on top of the RIVER area beyond.
-  2 IN THE WATER, FLOATING - still whole, still outlined, sitting ON the RIVER pull. Half of it is
+  1 ON THE GUNWALE - whole, LEAF, key outline all round, sitting on top of the WATER area beyond.
+  2 IN THE WATER, FLOATING - still whole, still outlined, sitting ON the WATER pull. Half of it is
     below the waterline but 🔴 IT KEEPS ITS WHOLE OUTLINE, because floating is not sinking.
-  3 SUNK - OVERLAP, with the RIVER area printed OVER it, and 🔴 NO KEY OUTLINE ANYWHERE ON IT. It
+  3 SUNK - OVERLAP, with the WATER area printed OVER it, and 🔴 NO KEY OUTLINE ANYWHERE ON IT. It
     is the same round shape, the same size, in the same place - only the outline is gone and the
     colour has changed. Nothing is blurred, nothing is distorted, nothing is mirrored.
 🔴 STATE 2 AND STATE 3 MUST BE DRAWN SIDE BY SIDE at the same size, because the whole book turns on
@@ -377,13 +380,14 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no reflec
 
 ```
 PROP SHEET - NoodleBowl   (bung-woodblock · SCENE token: NoodleBowl)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The noodle bowl - what this family sells and what these children eat out of. Eleven books put it on
 the page and two are made of it: one where the toppings are picked out, and one where the soup
 swings while the boat moves. The bowl, the noodles in it and the three toppings are ONE drawing,
 because their colours are locked to each other.
 
-FORM: one wide low bowl, RIVER, the plank's grain visible inside it, walls thick enough that the rim
+FORM: one wide low bowl, OCHRE, the plank's grain visible inside it, walls thick enough that the rim
   reads as a band. At most 3 key marks on the outside, 0 pattern, 0 glaze. It is a two-handed bowl
   for a child: held up, it hides the chest from chin to waist.
 🔴 WHAT IS IN IT IS THE OTHER HALF OF THIS SHEET, AND IT IS FOUR PIECES CUT FROM FOUR DIFFERENT
@@ -392,11 +396,11 @@ FORM: one wide low bowl, RIVER, the plank's grain visible inside it, walls thick
   NOODLES - bare PAPER, the brightest thing on the page, at most 7 strands whose ends show at the
     rim. Never a scribbled mass, never green.
   GREEN LEAF - LEAF, at most 5 pieces of one carved shape, no two neighbours mirrored.
-  PRAWN - RIVER, one small comma each, at most 3, key outline round each. 🔴 THERE IS NO ORANGE
-    BLOCK IN THIS BOOK: the prawn is the RIVER block and it is told from the leaf by SHAPE and from
+  PRAWN - OCHRE, one small comma each, at most 3, key outline round each. 🔴 THERE IS NO ORANGE
+    BLOCK IN THIS BOOK: the prawn is the OCHRE block and it is told from the leaf by SHAPE and from
     the bowl by SITTING ON THE DARK BROTH. Never invent a fourth colour for it.
   Together those are the three named colours of volume 26 - green, orange, white - and they are
-  LEAF, RIVER and bare PAPER. Draw one panel with all three in and one with only the noodles.
+  LEAF, OCHRE and bare PAPER. Draw one panel with all three in and one with only the noodles.
 🔴 THE BROTH SURFACE IS A DRAWING RULE, NOT A DETAIL: the top of the OVERLAP area is ONE straight
   edge, level with the bottom of the page, EVEN WHEN THE DECK PLANKS UNDER THE BOWL RUN AT AN ANGLE.
   Draw the tilted deck and the level broth in the SAME frame - two lines out of true with each other
@@ -408,7 +412,7 @@ STATES - all at one size:
   3 STRIPPED - the same bowl, noodles only, the leaf and prawn pushed out onto the plank beside it.
     🔴 2 AND 3 SIDE BY SIDE AT THE SAME SIZE - two books turn on a child seeing that pair.
   4 TIPPED - held at an angle, the broth edge climbing to one side of the rim and NOT over it.
-  5 SPILT - the bowl on its side, the broth now one flat OVERLAP area printed OVER the RIVER planks,
+  5 SPILT - the bowl on its side, the broth now one flat OVERLAP area printed OVER the OCHRE planks,
     with a key outline round the edge of the spill. No droplets, no splash crown, no streaks.
   6 EMPTY - the inside is bare PAPER and nothing else in it.
   7 STACKED - bowls nested in a pile of at most 6. 🔴 A STACK IS ONE MASSED SHAPE: outer contour
@@ -431,6 +435,7 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no orange
 
 ```
 PROP SHEET - Shoe   (bung-woodblock · SCENE token: Shoe)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 One small shoe belonging to the little one. Eight of one book's ten pages have it, and for four of
 them there is only ONE of the pair on the page - that odd number is the book.
@@ -446,7 +451,7 @@ STATES:
     the shod one, both as plain key-ink silhouettes with no fur marks, for size only.
   3 SWINGING FROM A HAND, side on, the open back facing the reader.
   4 🔴 FLOATING - on the water, WHOLE, ITS KEY OUTLINE COMPLETE ALL ROUND, sitting on top of the flat
-    RIVER area. It floats sole-down and rides high. It does NOT sink, it is NOT overlapped, there is
+    WATER area. It floats sole-down and rides high. It does NOT sink, it is NOT overlapped, there is
     no ring, no ripple and no reflection under it. Half the frame around it is empty water.
   5 LIFTED OUT ON THE POLE - hooked over the end of the long pole (its own sheet), water leaving it
     as at most 5 separate key-ink drops. Never a stream, never a spray.
@@ -471,11 +476,12 @@ NOT: no character face, no accent teal, no lettering, numerals or maker's marks,
 
 ```
 PROP SHEET - Net   (bung-woodblock · SCENE token: Net)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 A fishing net. Three books: one about folding it, one about throwing it, one where a kitten hides in
 a heap of it. The same net in all three - what changes is its shape, and the shapes are fixed here.
 
-FORM: RIVER, the plank's grain visible inside it. 🔴 THE MESH IS NEVER DRAWN AS A GRID OF HOLES. The
+FORM: OCHRE, the plank's grain visible inside it. 🔴 THE MESH IS NEVER DRAWN AS A GRID OF HOLES. The
   net is ONE flat area and the key block puts at most 9 short strokes inside it to say "rope", never
   crossing, never evenly spaced. Small key-ink weights at the edge, at most 7, all the same size.
 STATES - the four shapes are the sheet:
@@ -483,7 +489,7 @@ STATES - the four shapes are the sheet:
     only state where the outer contour is not a shape a child could name.
   2 FOLDED - a flat rectangle with the fold lines parallel and evenly spaced, corners square. Draw
     1 and 2 at the SAME size and volume, so a child sees the same net twice.
-  3 🔴 SPREAD ON THE WATER - a full circle lying ON the flat RIVER area, ITS WHOLE OUTLINE SHOWING,
+  3 🔴 SPREAD ON THE WATER - a full circle lying ON the flat WATER area, ITS WHOLE OUTLINE SHOWING,
     at most 9 rope strokes inside it laid out from the centre. No ripple, no ring, no sinking edge.
   4 HALF SPREAD - the same circle open on one side only, like a half moon, the other side still
     balled. This is the middle rung between 1 and 3 and it must read as both at once.
@@ -509,6 +515,7 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no drawn 
 
 ```
 PROP SHEET - Blanket   (bung-woodblock · SCENE token: Blanket)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The family's bedding - the same blanket in five books, called by two different words in the script.
 One book washes it, three sleep under it, one folds it away. There is ONE blanket design and there
@@ -532,7 +539,7 @@ STATES:
   6 HANGING WET on a line - the whole thing OVERLAP instead of LEAF, sagging in one long curve, the
     bottom edge lower in the middle, water leaving it as at most 5 separate key-ink drops.
     🔴 THE LINE IS PART OF THIS SHEET: ONE cord strung across the boat from the gunwale to the awning
-    post, RIVER, drawn as a single line with 0 twist strokes (it is thinner than the mooring rope and
+    post, OCHRE, drawn as a single line with 0 twist strokes (it is thinner than the mooring rope and
     that is how the two are told apart), and 🔴 IT IS NEVER TEAL. Hung with a load it dips; empty it
     is straight. Draw both.
   7 WRUNG - twisted into a rope in the middle, the twist at most 5 key lines running the same way.
@@ -557,6 +564,7 @@ NOT: no character face, no accent teal, no lettering or numerals, no woven patte
 
 ```
 PROP SHEET - Awning   (bung-woodblock · SCENE token: Awning)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The hooped cloth awning over the middle of the noodle boat. The stage sheet places it; this sheet
 fixes what it DOES, because eight books act on it - two children hide behind its hem, rain makes it
@@ -575,7 +583,7 @@ FORM: cloth stretched over 4 hoops, LEAF, the plank's grain visible inside it, h
   4 HELD BACK - the hem gathered in one fist at the edge of the frame, the gathers at most 4 key
     creases running to that point; behind the gap the market is visible as flat shapes.
   5 FROM BEHIND - the reader is under the cloth looking out through the gap, so the cloth is a dark
-    OVERLAP band across the top of the frame and the bright water is bare PAPER below it.
+    OVERLAP band across the top of the frame and the water is flat WATER #7FA6B2 below it.
   6 THE HIDING PLACE - the narrow floor strip between the hem and the boat's side, seen from above:
     two planks wide, dark, with the hem making one long soft edge down the frame.
 🔴 THE INSIDE IS NOT THE OUTSIDE: in daylight, seen from inside, the cloth is the darkest area on
@@ -597,25 +605,26 @@ NOT: no character, no accent teal, no lettering, numerals or shop signs on the c
 
 ```
 PROP SHEET - Ice   (bung-woodblock · SCENE token: Ice)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The ice sold off a boat in the market, and the piece a child ends up holding. Two books, and in both
 the size of the block is the clock.
 
 🔴 ICE IS BARE PAPER. There is no white ink in this series, so ice is an area simply NOT PULLED -
   the same cream as the sky, and the brightest thing on any page it is on. It is read only by what
-  is printed AROUND it: the RIVER wood of the tub, the OVERLAP of the thick cloth, a hand. NEVER
+  is printed AROUND it: the OCHRE wood of the tub, the OVERLAP of the thick cloth, a hand. NEVER
   outline a block of ice with the key block, and never put a mark inside it.
 FORM: rough blocks with flat cut faces and square corners - never rounded, never a lump. At most 3
   key lines INSIDE the paper area to say where two faces meet, and those lines stop before they
   reach the edge.
-THE TUB: one wide wooden tub, RIVER, grain showing, standing on the deck of another boat, with a
+THE TUB: one wide wooden tub, OCHRE, grain showing, standing on the deck of another boat, with a
   thick folded cloth over it in OVERLAP. The cloth is always the darkest thing in the frame, so the
   ice under its lifted corner is the brightest.
 STATES - 🔴 SIZE IS THE STORY, so draw these four at ONE camera distance, in a row:
   1 COVERED - the cloth over the whole tub, one corner of a block showing at the edge, and ONE
     straight key line of meltwater running down the outside of the tub to the deck.
   2 FULL - cloth thrown back, blocks filling the tub to the rim, at most 6 blocks, none mirrored.
-  3 HALF - the pile down to half the tub, the empty wood above it in plain RIVER.
+  3 HALF - the pile down to half the tub, the empty wood above it in plain OCHRE.
   4 🔴 LAST PIECE - one piece the size of a child's palm, alone at the bottom of the tub. Put a plain
     key-ink hand silhouette beside states 2 and 4 at the same size so the shrinking is measurable.
   5 IN THE MOUTH / IN TWO ARMS - one small piece held, and one block big enough to need both arms.
@@ -635,15 +644,16 @@ NOT: no character face, no accent teal, no lettering or numerals, no outline aro
 ### §3.8 Basket — 5권 공유 (🔴 33권은 **바구니 하나가 결말**이다)
 
 > 33권 「바구니에 쏙, 배가 넓어!」는 빈 바구니 → 반쯤 참 → 가득 참이 열 쪽의 시계다. 05·28·38·40 은
-> 나르고 끌고 뿔에 건다. 🔴 **바구니는 앵커가 `baskets RIVER` 로 색까지 배정해 둔 몇 안 되는 사물**이다.
+> 나르고 끌고 뿔에 건다. 🔴 **바구니는 앵커가 `baskets OCHRE` 로 색까지 배정해 둔 몇 안 되는 사물**이다.
 
 ```
 PROP SHEET - Basket   (bung-woodblock · SCENE token: Basket)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The woven baskets of this market - one design in five books: dragged across a deck, carried in two
 arms, filled with shells, hung on a horn, stacked with rice cakes.
 
-FORM: RIVER (the palette names baskets to this block), the plank's grain visible inside it, a wide
+FORM: OCHRE (the palette names baskets to this block), the plank's grain visible inside it, a wide
   round-bottomed basket with a rolled rim and TWO loop handles at the rim. 🔴 THE WEAVE IS NOT DRAWN
   AS A GRID: the key block puts at most 6 short curved strokes on the body, all following the same
   direction round it, and stops. 0 cross-hatching, 0 texture fill.
@@ -651,7 +661,7 @@ FORM: RIVER (the palette names baskets to this block), the plank's grain visible
   BIG - a child sitting beside it comes to its rim. Two arms will not meet round it.
   SMALL - carried in one hand, light enough to hang from a horn.
 STATES:
-  1 EMPTY, seen from above, the inside a flat RIVER area with the far wall showing.
+  1 EMPTY, seen from above, the inside a flat OCHRE area with the far wall showing.
   2 HALF FULL - the contents heaped to half depth.
   3 FULL - heaped above the rim in one mound.
   🔴 IN 2 AND 3 THE CONTENTS ARE ONE MASSED SHAPE: outer contour only, 0 outlines between the things
@@ -679,6 +689,7 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no woven 
 
 ```
 PROP SHEET - Fruit   (bung-woodblock · SCENE token: Fruit)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The produce of the fruit boat - five books. One book lines three of them up on a plank and pushes
 them about; one book presses two of them with a finger to tell fresh from spoiled; one heaps a whole
@@ -688,7 +699,7 @@ boat with them.
   BIG FRUIT - a round melon-sized fruit that a child carries in TWO arms with the chin resting on it.
   SMALL FRUIT - a round fruit that sits in one palm and can be pressed with ONE fingertip.
   Draw them side by side in the first panel. Every other panel keeps those two sizes.
-FORM: LEAF for the green ones, RIVER for the ripe ones, the plank's grain visible inside both. Each
+FORM: LEAF for the green ones, OCHRE for the ripe ones, the plank's grain visible inside both. Each
   is ONE flat round area with a key outline, at most 2 marks inside it (a stem scar, one seam). The
   banana bunch is one massed LEAF shape with at most 5 key lines dividing the fingers, hanging from
   a single stalk.
@@ -702,7 +713,7 @@ STATES:
     and the LEAF area follows it. Nothing is bruised, discoloured or shaded; the dent is a change of
     OUTLINE and nothing else.
   5 🔴 FLOATING - one small fruit on the water, WHOLE, ITS KEY OUTLINE COMPLETE ALL ROUND, sitting on
-    top of the flat RIVER area. It does not sink and there is no ring around it.
+    top of the flat WATER area. It does not sink and there is no ring around it.
   6 A HEAP on a boat - at most 9 of ONE carved shape, no two neighbours mirrored, the heap one
     massed area with 0 outlines inside it.
   7 HELD IN TWO ARMS - the big one, front on, the arms as plain key-ink silhouettes for size.
@@ -717,7 +728,7 @@ STATES:
   11 WIDE - the bottom course laid right across the width of the plank, the courses stepping in as
      they rise, taller than the child and plainly stable. 🔴 9 AND 11 ARE THE SAME NUMBER OF FRUIT.
      Count them; if the wide one has more, the drawing has made the wrong argument.
-  12 THE CRATE they come out of: a plain wooden box, RIVER, grain showing, lid leaning against it,
+  12 THE CRATE they come out of: a plain wooden box, OCHRE, grain showing, lid leaning against it,
      at most 4 key lines, filled to the top in state 1 and half empty by state 9.
 
 PLATE: the two sizes together first, then states 1-8, plus state 4 at large size, plus the 9-10-11
@@ -736,6 +747,7 @@ NOT: no character face, no accent teal, no lettering, numerals or price marks, n
 
 ```
 PROP SHEET - Towel   (bung-woodblock · SCENE token: Towel)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 One small cloth towel. Eight of one book's ten pages, and the same towel is in the hand that scrubs
 too hard and in the hand that wipes gently.
@@ -772,14 +784,15 @@ NOT: no character face, no accent teal, no lettering or numerals, no pattern, st
 
 ```
 PROP SHEET - WaterButt   (bung-woodblock · SCENE token: WaterButt)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The clean-water butt standing inside the gunwale of the noodle boat, and the two dippers that live
 on its rim. Six books wash, drink, rinse and pour from it; one book is about which dipper is whose.
 
-FORM - THE BUTT: a wide wooden butt, RIVER, grain showing, bound with 2 key-line hoops, standing as
-  high as a child's chest. The water in it is one flat OVERLAP area with a straight top edge, level
+FORM - THE BUTT: a wide wooden butt, OCHRE, grain showing, bound with 2 key-line hoops, standing as
+  high as a child's chest. The water in it is one flat WATER area with a straight top edge, level
   with the page, and 🔴 ANYTHING PUT INTO IT LOSES ITS OUTLINE BELOW THAT EDGE.
-FORM - THE DIPPERS: gourd dippers, RIVER, grain showing, each one half-sphere with a straight
+FORM - THE DIPPERS: gourd dippers, OCHRE, grain showing, each one half-sphere with a straight
   handle, 0 marks inside except one seam line.
   🔴 TWO SIZES, PLAINLY DIFFERENT, NOT SLIGHTLY: the big one needs one whole hand round the handle
   and holds enough to pour over a head; the small one is a third of it and fits two small hands.
@@ -793,7 +806,7 @@ STATES:
   4 TIPPED OVER A HEAD - the same column, seen from the side, hitting a plain key-ink silhouette.
   5 THE SMALL DIPPER, empty, held in two small silhouette hands, at the same distance as state 2.
   6 BOTH UPSIDE DOWN side by side on the deck, drying.
-  7 A CUP - one small straight-sided cup, RIVER, standing beside the butt, a third the height of the
+  7 A CUP - one small straight-sided cup, OCHRE, standing beside the butt, a third the height of the
     small dipper; the dipper pours into it.
   8 🔴 WASHING IN IT - a cloth half in the butt: above the rim the cloth keeps its whole outline,
     below the water's edge it is OVERLAP with the water printed over it and NO OUTLINE AT ALL.
@@ -816,12 +829,13 @@ NOT: no character face, no accent teal, no lettering or numerals, no metal bands
 
 ```
 PROP SHEET - FishTub   (bung-woodblock · SCENE token: FishTub)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The fish tub on the fishing boat, and the fish in it. One book, and the level in the tub is the
 clock: full at dawn, one finger-long fish left by the time a slow child arrives.
 
 FORM - THE TUB: a big wooden tub that comes up to an adult's waist - taller and wider than the
-  noodle boat's water butt, and standing on ANOTHER boat's deck. RIVER, grain showing, 3 key-line
+  noodle boat's water butt, and standing on ANOTHER boat's deck. OCHRE, grain showing, 3 key-line
   hoops, staves shown as at most 6 vertical key lines on the outside.
 FORM - THE FISH: OVERLAP, one flat body each with a key outline, a triangular tail, one round key
   dot for the eye and ONE curved key line for the gill. 0 scales, 0 stripes, 0 fins beyond two.
@@ -830,8 +844,8 @@ STATES - draw 1, 2 and 3 at ONE camera distance so the emptying is measurable:
   1 FULL - fish to the rim. 🔴 ONE MASSED AREA: the pile is a single OVERLAP shape whose outer
     contour is a row of backs, with 0 key outlines between the fish inside it. At most 5 backs read
     separately at the top edge.
-  2 HALF - the pile down to half, the bare wood above it in flat RIVER.
-  3 EMPTY BUT FOR ONE - shallow water in the bottom as a flat OVERLAP area, and ONE fish the length
+  2 HALF - the pile down to half, the bare wood above it in flat OCHRE.
+  3 EMPTY BUT FOR ONE - shallow water in the bottom as a flat WATER area, and ONE fish the length
     of a finger lying in it, WITH ITS FULL OUTLINE, alone. This is the smallest thing in the book
     and it is the only outlined fish in the sheet.
   4 ONE FISH JUMPING - clear of the rim, whole, outlined, at the top of its arc. 0 motion lines,
@@ -854,13 +868,14 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no scales
 
 ```
 PROP SHEET - Shells   (bung-woodblock · SCENE token: Shells)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 A child's collection: nine shells and four wood blocks. One book counts them across ten pages, and
 another finds three of them half buried in the sand.
 
-FORM - SHELL: RIVER, grain showing, one fan-shaped half shell with at most 4 key ribs spreading from
+FORM - SHELL: OCHRE, grain showing, one fan-shaped half shell with at most 4 key ribs spreading from
   the hinge, all reaching the same distance. It sits in one small palm.
-FORM - WOOD BLOCK: RIVER, grain showing, a plain rectangular offcut about twice a shell's length,
+FORM - WOOD BLOCK: OCHRE, grain showing, a plain rectangular offcut about twice a shell's length,
   0 marks except the grain and its outline.
 🔴 THE COUNTS ARE THE REGISTER AND THEY ARE FIXED: NINE shells, FOUR blocks. Nine is the anchor's cap
   on repeats, so never draw a tenth. Cut each one separately - no neighbour is a mirrored copy, and
@@ -868,7 +883,7 @@ FORM - WOOD BLOCK: RIVER, grain showing, a plain rectangular offcut about twice 
 STATES:
   1 SPREAD - all nine and all four laid out over a deck floor, seen from directly above, with no
     clear plank left to stand on. Evenly scattered, not in a pattern.
-  2 SWEPT ASIDE - the same pieces pushed to the edges, the middle of the floor bare RIVER planks.
+  2 SWEPT ASIDE - the same pieces pushed to the edges, the middle of the floor bare OCHRE planks.
   3 🔴 IN THE BASKET - the shells inside are ONE MASSED SHAPE, outer contour only, 0 key outlines
     between them; ONE shell held up outside the basket keeps its full outline and is the only
     finished thing in the frame. Draw that frame - the whole ending of one book is this contrast.
@@ -904,6 +919,7 @@ NOT: no character face, no accent teal, no lettering or numerals, no pearlescenc
 
 ```
 PROP SHEET - Lamp   (bung-woodblock · SCENE token: Lamp)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The small lamp that hangs from the awning post. Five books; one is a whole night lit by it, and in
 that book the lamp is carried about and held up to one thing at a time.
@@ -917,7 +933,7 @@ FORM: a small lamp with a round glass belly, a wire handle over the top and a fl
   UNLIT - the belly is printed OVERLAP like the frame, and the whole lamp is one dark shape with its
     key outline all round. Draw LIT and UNLIT side by side at the same size.
 🔴 WHAT THE LAMP DOES TO A PAGE, and it is the reason for this sheet: on a night page the sky is one
-  flat OVERLAP area, the water stays RIVER, and the lamp's belly is the only hole of bare paper in
+  flat OVERLAP area, the water stays WATER, and the lamp's belly is the only hole of bare paper in
   the frame. The lamp NEVER lightens anything around it. A thing is shown to be lit by being drawn
   with its outlines while everything else on the page is one massed dark area with none.
 STATES:
@@ -932,7 +948,7 @@ STATES:
     they never make a path on the water.
 
 PLATE: states 1-6, plus the LIT-and-UNLIT pair at large size, plus one whole night frame showing the
-  flat dark sky, the RIVER water and the single paper hole.
+  flat dark sky, the WATER water and the single paper hole.
 
 NOT: no character face, no accent teal, no lettering or numerals, no rays, halo, glow, sparkle or
   star, no light pool on the deck, no reflection or light path on the water, no flame drawn as a
@@ -948,11 +964,12 @@ NOT: no character face, no accent teal, no lettering or numerals, no rays, halo,
 
 ```
 PROP SHEET - LowTable   (bung-woodblock · SCENE token: LowTable)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The low table the family eats at, set up in the middle of the boat. Five books eat at it, and one
 calls it "the meal plank", which is the same object.
 
-FORM: one plank top on four short legs, RIVER, the plank's grain running the LONG way and visible,
+FORM: one plank top on four short legs, OCHRE, the plank's grain running the LONG way and visible,
   at most 5 key lines in the whole thing (the top's near edge, the leg joints). It is low: seated on
   the deck with legs folded, a child's chin is a hand above the top. Two bowls and two pairs of
   chopsticks fill it; there is no room for a third setting.
@@ -961,7 +978,7 @@ FORM: one plank top on four short legs, RIVER, the plank's grain running the LON
   every time, so draw the standing state from directly above as well.
 STATES:
   1 EMPTY, three-quarter view from a child's seated height.
-  2 EMPTY, straight down from above - the top is one plain RIVER rectangle with the grain running
+  2 EMPTY, straight down from above - the top is one plain OCHRE rectangle with the grain running
     the long way. This is the plan that every meal page is built on.
   3 LAID FOR TWO - two bowls opposite each other, chopsticks beside each, nothing else on it.
   4 SPILT - one flat OVERLAP area of broth spreading from one side, with a key outline round the
@@ -985,15 +1002,16 @@ NOT: no character face, no accent teal, no lettering or numerals, no carving, in
 
 ```
 PROP SHEET - Utensils   (bung-woodblock · SCENE token: Utensils)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The spoon and the chopsticks of this family. One book is about who holds the spoon; one is about how
 much goes on the chopsticks in one bite. They lie on the same table, so they are drawn on one sheet
 and their sizes are fixed against each other and against the bowl.
 
-FORM - SPOON: a deep round-bowled spoon with a flat handle, RIVER, grain showing, ONE key outline and
+FORM - SPOON: a deep round-bowled spoon with a flat handle, OCHRE, grain showing, ONE key outline and
   at most 2 marks inside. 🔴 SIZE: the little one holds the handle with BOTH hands and the bowl of
   the spoon is as wide as that child's mouth. Against the noodle bowl it is a fifth of the rim.
-FORM - CHOPSTICKS: a pair of plain tapered sticks, RIVER, grain showing, no join, no decoration, tips
+FORM - CHOPSTICKS: a pair of plain tapered sticks, OCHRE, grain showing, no join, no decoration, tips
   square not pointed. 🔴 SIZE: as long as a child's forearm, so that lifting them above the head is
   plainly a big gesture.
 STATES:
@@ -1026,13 +1044,14 @@ NOT: no character face, no accent teal, no lettering, numerals or patterns on th
 
 ```
 PROP SHEET - Sacks   (bung-woodblock · SCENE token: Sacks)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The cargo sacks of the grandfather's boat. One book carries them, one book knocks the stack over and
 builds it back. Called "sack" in one script and "load" in the other; one object.
 
 FORM: a coarse cloth sack tied at the neck with a short cord, LEAF, the plank's grain visible inside
   it, filled to a fat round belly with a flat bottom that lets it stand. At most 4 key creases,
-  all radiating from the tied neck and stopping halfway down. The neck cord is RIVER, never teal.
+  all radiating from the tied neck and stopping halfway down. The neck cord is OCHRE, never teal.
   🔴 SIZE: standing on the deck it comes to a child's chest; carried, it hides the carrier's body
   from chin to knee.
 STATES:
@@ -1054,7 +1073,7 @@ STATES:
 PLATE: states 1-7, plus the 2-3-4 row at one distance, plus one close-up of the cord in the horn's
   curve.
 
-NOT: no character face beyond a silhouette, no accent teal (the cord is RIVER - it must never be
+NOT: no character face beyond a silhouette, no accent teal (the cord is OCHRE - it must never be
   mistaken for Bung's nose cord), no lettering, numerals or stencil marks on the sacks, no spilled
   contents, no motion lines, no reflection or mirrored image, no third colour that is not an
   overprint, no corrected registration, no shading, gradient, glow or soft edge.
@@ -1068,11 +1087,12 @@ NOT: no character face beyond a silhouette, no accent teal (the cord is RIVER - 
 
 ```
 PROP SHEET - MooringRope   (bung-woodblock · SCENE token: MooringRope)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The rope from a boat's gunwale to a mooring post. It is written into nearly every page of this series
 because it is how a still boat is drawn, and one whole book is three of them pulling on it.
 
-FORM: one thick twisted rope, RIVER, grain showing, its thickness about a child's wrist. The twist is
+FORM: one thick twisted rope, OCHRE, grain showing, its thickness about a child's wrist. The twist is
   at most 7 short key strokes along its length, ALL leaning the same way, spaced further apart than
   they are long. 0 fraying, 0 knots except where named below.
 🔴 TWO STATES SAY EVERYTHING AND THEY MUST BE UNMISTAKABLE:
@@ -1108,24 +1128,25 @@ NOT: no character face, no accent teal anywhere, no lettering or numerals, no kn
 
 ```
 PROP SHEET - Packet   (bung-woodblock · SCENE token: Packet)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The paper packets bought in this market - chillies in one book, snacks in two others. One packet
 design, one size, three fillings, and in one book it is left on the plank walk and the water comes up
 over it.
 
-FORM: a coarse paper packet the size of a child's chest, folded over twice at the top. RIVER, the
+FORM: a coarse paper packet the size of a child's chest, folded over twice at the top. OCHRE, the
   plank's grain visible inside it. 🔴 THE CREASES ARE THE SURFACE: at most 6 key creases, none of
   them parallel, none running the full height. A packet with no creases is a box, not a packet.
 CONTENTS - all drawn spilling from the open mouth, never through the paper:
   CHILLIES - LEAF, at most 7 of one long carved shape, no two neighbours mirrored.
-  SNACK PIECES - RIVER, at most 5 flat rounds; ONE of them is snapped in half, and the two halves
+  SNACK PIECES - OCHRE, at most 5 flat rounds; ONE of them is snapped in half, and the two halves
     are drawn apart so a child can see they were one thing.
 STATES:
   1 FAT AND CLOSED, carried in two arms, chin resting on the top fold, silhouette arms only.
   2 SET DOWN on the plank walk, upright, alone, nothing else in the frame near it.
   3 MOUTH PULLED OPEN by two hands, seen from directly above, the contents in the bottom as ONE
     massed shape with 0 outlines between the pieces.
-  4 🔴 SUBMERGED - the packet where it stood, now with the flat RIVER water printed OVER it and NO KEY
+  4 🔴 SUBMERGED - the packet where it stood, now with the flat WATER water printed OVER it and NO KEY
     OUTLINE ANYWHERE ON IT. Same place, same size, same shape - only the outline is gone and the
     colour has changed to OVERLAP. Draw 2 and 4 side by side at the same size; that pair is a whole
     book, and it is the only prop in this series that goes under.
@@ -1152,6 +1173,7 @@ NOT: no character face, no accent teal, no lettering, numerals, brand or shop ma
 
 ```
 PROP SHEET - Hearth   (bung-woodblock · SCENE token: Hearth)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The clay hearth and the big pot amidships - where the noodles are cooked and sold. The stage sheet
 places it; this sheet fixes the pot, the lid and the smoke, because one book uses the smoke as its
@@ -1161,7 +1183,7 @@ FORM - HEARTH: a squat clay hearth, OVERLAP, standing on a stone slab so it neve
   One arched mouth at the front, at most 3 key lines in the whole body.
 FORM - FIRE: 🔴 the fire is BARE PAPER inside the mouth - unprinted, no flame shapes, no tongues, no
   sparks. It is the only bright thing at deck level by day.
-FORM - POT: one wide-bellied pot, RIVER, grain showing, with two small ear handles, sitting on the
+FORM - POT: one wide-bellied pot, OCHRE, grain showing, with two small ear handles, sitting on the
   hearth mouth. Its lid is a flat disc with a knob.
 🔴 THE SMOKE IS THE CLOCK AND IT HAS THREE STATES ONLY. It is ONE column, never a cloud and never a
   curl:
@@ -1176,8 +1198,8 @@ STATES:
   2 LID OFF and leaning against the pot's foot, the pot's mouth a flat OVERLAP area of broth with a
     level top edge, and 3 gaps of bare PAPER lifting off it as steam.
   3 THE THREE SMOKE STATES in a row.
-  4 A LADLE resting across the pot's rim, RIVER, handle to the near side.
-  5 THE THREE HEAPS BESIDE THE POT - green leaf (LEAF), prawn (RIVER), noodles (bare PAPER) laid out
+  4 A LADLE resting across the pot's rim, OCHRE, handle to the near side.
+  5 THE THREE HEAPS BESIDE THE POT - green leaf (LEAF), prawn (OCHRE), noodles (bare PAPER) laid out
     in a row on the plank. 🔴 One book stands on those three being three different blocks; the
     NoodleBowl sheet has the same three inside a bowl, and they must match here.
 
@@ -1197,6 +1219,7 @@ NOT: no character, no hands, no accent teal, no lettering or numerals, no flame 
 
 ```
 PROP SHEET - RiceCake   (bung-woodblock · SCENE token: RiceCake)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The white rice cakes sold off the grandfather's boat, and the brown handprint on one of them. One
 book, and two of its pages are the same photograph twice - once marked, once clean.
@@ -1237,16 +1260,17 @@ NOT: no character face, no accent teal, no lettering or numerals, no texture, gr
 
 ```
 PROP SHEET - Brush   (bung-woodblock · SCENE token: Brush)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The little tooth brushes and the cup of water that go with them. One book, four pages, and the second
 brush appearing is how that book ends.
 
-FORM - BRUSH: a small brush with a plain straight wooden handle, RIVER, grain showing, and a short
+FORM - BRUSH: a small brush with a plain straight wooden handle, OCHRE, grain showing, and a short
   block of bristles at one end in OVERLAP drawn as at most 6 short parallel key strokes standing
   straight up. Handle and head are one piece with one outline. 🔴 SIZE: the handle is as long as a
   child's palm is wide - it is a child's brush and it must never read as a scrubbing brush.
-FORM - CUP: one small straight-sided cup, RIVER, grain showing, a third the height of the small
-  dipper on the water butt. The water in it is a flat OVERLAP area with a level top edge.
+FORM - CUP: one small straight-sided cup, OCHRE, grain showing, a third the height of the small
+  dipper on the water butt. The water in it is a flat WATER area with a level top edge.
 STATES:
   1 ONE BRUSH lying alone on a plank, seen from above, bristles to the right.
   2 🔴 TWO BRUSHES side by side, identical, laid parallel with their heads level. Cut the second; do
@@ -1274,16 +1298,17 @@ NOT: no character face, no accent teal, no lettering, numerals or brand marks, n
 
 ```
 PROP SHEET - ReachPole   (bung-woodblock · SCENE token: ReachPole)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The long pole kept along the gunwale, used to hook a floating thing back or to push one away. Five
 books use it, one or two pages each, always in an adult's two hands.
 
-FORM: one straight bamboo pole, RIVER, grain showing, about twice an adult's height, tapering
+FORM: one straight bamboo pole, OCHRE, grain showing, about twice an adult's height, tapering
   slightly. At most 5 key lines across it for the nodes, evenly spaced, and nothing else. It is never
   bent, never flexed, never drawn with motion lines.
 TWO ENDS, and the book decides which:
   BARE END - a plain blunt tip, for pushing.
-  NETTED END - a small hoop of RIVER with a shallow bag of net under it, the net drawn by the same
+  NETTED END - a small hoop of OCHRE with a shallow bag of net under it, the net drawn by the same
     rule as the Net sheet: one flat area, at most 6 short strokes, never a mesh grid.
 STATES:
   1 STOWED - lying along the inside of the gunwale, running the length of the frame, nothing on it.
@@ -1316,16 +1341,17 @@ NOT: no character face, no accent teal, no lettering or numerals, no bending, fl
 
 ```
 PROP SHEET - BigTree   (bung-woodblock · SCENE token: BigTree)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The one huge tree at the far end of the market, standing in the water. One book walks toward it for
 ten pages, so this sheet is mostly about SIZE.
 
 FORM: a broad low-crowned tree with a thick trunk that splits into several trunks near the water, and
   🔴 MANY THICK ROOTS ARCHING DOWN INTO THE RIVER. Crown LEAF, one massed area with 0 outlines
-  between leaves and at most 5 notches in its contour. Trunk and roots RIVER, grain showing, at most
+  between leaves and at most 5 notches in its contour. Trunk and roots OCHRE, grain showing, at most
   7 key lines on the whole trunk.
 🔴 WHERE THE ROOTS ENTER THE WATER IS THIS SHEET'S ONE HARD RULE: above the waterline each root has
-  its full key outline; BELOW IT THE ROOT IS OVERLAP WITH THE RIVER PRINTED OVER IT AND NO OUTLINE AT
+  its full key outline; BELOW IT THE ROOT IS OVERLAP WITH THE WATER PRINTED OVER IT AND NO OUTLINE AT
   ALL, and the outline simply stops at the surface. It does not fade, it does not dot, it stops.
 🔴 THREE SIZES, AND THEY ARE THE BOOK. Draw all three in a row at the SAME frame width:
   FAR - the whole tree is the size of a child's palm held at arm's length, sitting on the far edge of
@@ -1354,12 +1380,13 @@ NOT: no character, no accent teal, no lettering or numerals, no individual leave
 
 ```
 PROP SHEET - Ducks   (bung-woodblock · SCENE token: Ducks)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The line of ducks that crosses the river past the market. One book opens and closes on them, and
 another hears them go by.
 
-FORM: a plain swimming duck seen from the side - one OVERLAP body sitting ON the flat RIVER water, a
-  neck curve, a head, and one small RIVER beak. At most 3 key marks in the whole bird: the beak line,
+FORM: a plain swimming duck seen from the side - one OVERLAP body sitting ON the flat WATER water, a
+  neck curve, a head, and one small OCHRE beak. At most 3 key marks in the whole bird: the beak line,
   one eye dot, one wing line. 0 feathers, 0 tail detail, 0 feet (they are under the water and this
   book does not look under the water).
 🔴 THE COUNT AND THE ORDER ARE FIXED: ONE big duck in front, NINE in the line behind it, all facing
@@ -1392,11 +1419,12 @@ NOT: no character, no accent teal, no lettering or numerals, no feathers or plum
 
 ```
 PROP SHEET - Coin   (bung-woodblock · SCENE token: Coin)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The market coins. Two books: three of them lie open on a palm, and one is held shut in a fist for
 half a book.
 
-FORM: one plain flat disc, RIVER, grain showing, the size of a child's thumbnail, with ONE key
+FORM: one plain flat disc, OCHRE, grain showing, the size of a child's thumbnail, with ONE key
   outline round it and 🔴 ONE mark inside it and no more: a single small square hole at the centre.
   Nothing is stamped, engraved, embossed or written on a coin in this book. That is what the mark is
   for - it gives the disc something to be that is not a number.
@@ -1426,17 +1454,18 @@ NOT: no character face, no accent teal, no lettering, numerals, dates, heads, cr
 
 ```
 PROP SHEET - Oar   (bung-woodblock · SCENE token: Oar)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The long stern oar. Four books; in one of them the grandfather rows for eight pages while the
 children eat, so the oar is on the page more often than most of the props in this series.
 
-FORM: one long shaft, RIVER, grain running the length of it, twice an adult's height, with a wide
+FORM: one long shaft, OCHRE, grain running the length of it, twice an adult's height, with a wide
   flat blade at the lower end and a plain grip at the top. At most 3 key lines on the whole thing:
   where blade meets shaft, and the grip. 0 rowlock, 0 rope, 0 carving.
 🔴 WHERE THE OUTLINE STOPS, and it is the reason this sheet exists:
   OUT OF THE WATER - the whole oar, blade and all, keeps its full key outline.
   IN THE WATER - the shaft keeps its outline down to the surface and THE PART BELOW THE SURFACE IS
-    OVERLAP WITH THE RIVER PRINTED OVER IT AND NO OUTLINE AT ALL. The outline does not fade or dot;
+    OVERLAP WITH THE WATER PRINTED OVER IT AND NO OUTLINE AT ALL. The outline does not fade or dot;
     it stops at the waterline. There is no ring, no swirl, no foam and no wake anywhere.
 STATES - draw 1, 2 and 3 at one camera distance:
   1 SHIPPED - laid along the gunwale, out of the water, whole, the blade over the stern.
@@ -1467,11 +1496,12 @@ NOT: no character face, no accent teal, no lettering or numerals, no rowlock, oa
 
 ```
 PROP SHEET - Gangplank   (bung-woodblock · SCENE token: Gangplank)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The single plank laid from one boat's gunwale to another's. One whole book crosses it, and it is not
 the market's plank walk - it is one loose board with water under all of it.
 
-FORM: ONE board, RIVER, the grain running its length and visible, 🔴 ONE FOOT WIDE - so narrow that
+FORM: ONE board, OCHRE, the grain running its length and visible, 🔴 ONE FOOT WIDE - so narrow that
   two feet cannot stand side by side on it, and that ratio must survive at thumbnail. At most 3 key
   lines on it: the two long edges and one end. 0 rail, 0 rope, 0 cleats, 0 nails.
 🔴 ITS ENDS ARE THE WHOLE POINT: each end rests ON a gunwale and overhangs it a little. Nothing holds
@@ -1504,6 +1534,7 @@ NOT: no character face, no accent teal, no lettering or numerals, no rail, rope,
 
 ```
 PROP SHEET - Shirt   (bung-woodblock · SCENE token: Shirt)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The child's short top, off the body. One book is ten pages of getting into it, and for six of them
 the shirt is a thing rather than clothing. How it looks WORN is the cast sheet's; this sheet is the
@@ -1546,18 +1577,19 @@ NOT: no character face (silhouettes only), no accent teal, no lettering, numeral
 
 ```
 PROP SHEET - WaterBarrels   (bung-woodblock · SCENE token: WaterBarrels)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The water seller's boat load - four covered barrels and the little bell at its bow - and the cup that
 gets filled from it. One book, and the level in the cup is its clock.
 
-FORM - BARREL: a tall wooden barrel, RIVER, grain showing, 3 key-line hoops, with a flat wooden LID
+FORM - BARREL: a tall wooden barrel, OCHRE, grain showing, 3 key-line hoops, with a flat wooden LID
   on top and a short spout low on one side. Standing on a deck it is chest high to a child.
   🔴 FOUR OF THEM, in a row, and no two are mirrored copies.
 FORM - BELL: one small bell hanging from the bow post on a short cord. The bell is OVERLAP, the cord
-  is RIVER. 🔴 NEITHER IS EVER TEAL - the only teal in this book is at the two children's neck and
+  is OCHRE. 🔴 NEITHER IS EVER TEAL - the only teal in this book is at the two children's neck and
   ankle, and a second teal cord would break the one rule the palette exists for.
-FORM - CUP: the same small straight-sided cup as the WaterButt sheet, RIVER, grain showing. Water in
-  it is one flat OVERLAP area with a level top edge.
+FORM - CUP: the same small straight-sided cup as the WaterButt sheet, OCHRE, grain showing. Water in
+  it is one flat WATER area with a level top edge.
 STATES:
   1 THE LOADED BOAT, side on, four lidded barrels in a row, the bell at the bow. Barrels lidded means
     full and moving.
@@ -1566,15 +1598,15 @@ STATES:
     spray, never droplets round it.
   3 A THIN COLUMN - the same pour, half as wide, everything else identical. Draw 2 and 3 side by side;
     the difference between a lot and a little is the width of that one column and nothing else.
-  4 THE LAST DROP - the spout with ONE key-ink drop hanging from it and nothing else.
+  4 THE LAST DROP - the spout with ONE WATER-filled drop with a key outline hanging from it and nothing else.
   5 THE CUP EMPTY - the inside bare PAPER, its bottom showing.
-  6 THE CUP FULL to the rim, one OVERLAP area with a level top edge and ONE drop running down the
+  6 THE CUP FULL to the rim, one WATER area with a level top edge and ONE drop running down the
     outside. Draw 5 and 6 at the same size.
   7 THE BELL, close, at rest hanging plumb.
   8 THE BELL TIPPED to one side - and 🔴 that tilt is the ONLY way sound is drawn. 0 sound lines,
     0 arcs, 0 stars, 0 marks in the air.
   9 THE BOAT GONE - the far water with the boat small at the frame's edge, and 🔴 the water it came
-    across left as ONE unbroken RIVER area with no track, no wake and no mark of any kind.
+    across left as ONE unbroken WATER area with no track, no wake and no mark of any kind.
 
 PLATE: states 1-9, plus the 2-and-3 pair and the 5-and-6 pair at large size.
 
@@ -1705,6 +1737,7 @@ printed around it.`
 
 ```
 PROP SHEET - TealCords   (bung-woodblock · SCENE token: TealCords · 🔴 bake with the cast sheet)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The two teal cords. They are the ONLY use of the accent block in fifty books, the palette names them
 by name, and one whole book turns on a child spotting one of them. How the wearers look is the cast
@@ -1716,11 +1749,11 @@ sheet's; this sheet is the cords, so that they are the same object on every page
     the script calls for on 214 pages. 🔴 THE MUZZLE IS NOT PIERCED: there is no hole, no slot and no
     heavy ring through it. One cord, one thin line, one small ring.
   2 THE LITTLE ONE'S ANKLE BELL - a small round bell tied to ONE ankle by a short ACCENT TEAL cord.
-    The bell itself is RIVER with a key outline and ONE short key line for its slot; 🔴 ONLY THE CORD
+    The bell itself is OCHRE with a key outline and ONE short key line for its slot; 🔴 ONLY THE CORD
     IS TEAL. The bell is the size of a small thumbnail.
-  Everything else in this book that is a cord is RIVER and never teal: the mooring rope, the washing
+  Everything else in this book that is a cord is OCHRE and never teal: the mooring rope, the washing
   line, the sack neck cord, the water boat's bell cord. Draw one panel with all five together, the
-  two teal ones and three RIVER ones, so the difference is fixed once.
+  two teal ones and three OCHRE ones, so the difference is fixed once.
 🔴 THE CORD IS A LINE, NOT AN AREA. It is one stroke wide at every size, it never tapers, it never
   gets a highlight, and 🔴 IT IS NOT PART OF THE KEY BLOCK - it is pulled in the accent block, so it
   slips one hair off like everything else and it is never outlined in black.
@@ -1735,7 +1768,7 @@ STATES:
     is built on: the bell is the only teal and the only outlined thing on the page.
   5 AT DISTANCE - the two children as small silhouettes with the two teal marks still visible.
   6 THE FIVE CORDS SIDE BY SIDE - the two teal ones and the mooring rope, washing line and sack cord
-    in RIVER, at their true thicknesses. 🔴 The teal ones are the THINNEST of the five.
+    in OCHRE, at their true thicknesses. 🔴 The teal ones are the THINNEST of the five.
 
 PLATE: states 1-6, plus state 6 at large size.
 
@@ -1753,6 +1786,7 @@ NOT: no character face beyond a silhouette, no teal on any other object, person 
 
 ```
 PROP SHEET - Flowers   (bung-woodblock · SCENE token: Flowers)
+WATER COLOUR LOCK: any visible water is the single flat muted blue-grey WATER #7FA6B2, including night, rain, tubs and pours. No ochre, white/PAPER, dark OVERLAP or teal water. OCHRE #C08B3E is wood/earth/props, never water. Keep submerged object shapes and water levels.
 
 The white flowers of the flower boat. One book crosses two gunwales to reach them and comes back
 with two of them, so this sheet decides ONE bunch and ONE single bloom.
@@ -1773,7 +1807,7 @@ STATES:
   4 TWO BLOOMS, one in each of two palms, at the same size, side by side.
   5 ONE BLOOM TUCKED BESIDE AN EAR, seen three-quarter: the stem disappears behind the ear and the
     rosette sits flat against the head, not sticking out.
-  6 🔴 ON THE WATER - one bloom fallen on the flat RIVER area, WHOLE, its key outline complete all
+  6 🔴 ON THE WATER - one bloom fallen on the flat WATER area, WHOLE, its key outline complete all
     round. It floats; it does not sink and there is no ring around it.
 
 PLATE: the bunch and one bloom side by side first, at true relative size, then states 1-6.

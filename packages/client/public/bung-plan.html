@@ -115,8 +115,8 @@
 **🔴 시그니처 색** (§6 · §5-b ②)
 &gt; 청록 `#1E8A8A` 은 **붕이의 코에 건 끈**과 **또리의 발목 방울 끈** 두 곳뿐이다(형제 = 한 무리).
 &gt; 🔴 **어른 둘은 청록을 절대 안 지닌다.**
-&gt; 🔴 **무대가 늘 지니는 색과 안 겹치는지** — 이 무대의 기본색은 물의 **황토 회갈색**, 천막의 **노랑·붉은 흙색**,
-&gt; 과일과 잎의 **올리브 초록**이다(🔴 **기본값**이다 — 빨강·노랑 판은 없고, 그 권의 명제인 「제일 빨간·노란 것」 **하나만 RIVER** 로 찍어 LEAF 사이에서 갈리게 하며 SCENE 이 어느 것인지 적는다. 앵커 PALETTE 2026-09-09). 강물을 청록으로 칠하면 화면이 통째로 깨진다 → 앵커에 `WATER:` 로 못박는다.
+&gt; 🔴 **무대가 늘 지니는 색과 안 겹치는지** — 이 무대의 기본색은 물의 **청회색 `#7FA6B2`**, 천막의 **노랑·붉은 흙색**,
+&gt; 과일과 잎의 **올리브 초록**이다(🔴 **기본값**이다 — 빨강·노랑 판은 없고, 그 권의 명제인 「제일 빨간·노란 것」 **하나만 OCHRE** 로 찍어 LEAF 사이에서 갈리게 하며 SCENE 이 어느 것인지 적는다. 앵커 PALETTE 2026-09-09). 물은 시간·날씨·장소와 무관하게 WATER `#7FA6B2`로 고정한다. 황토 OCHRE는 나무·흙·소품용이며 물에 쓰지 않는다.
 
 또리의 **발목 방울**은 장식이 아니다 — 13권에서 붕이가 또리를 찾는 유일한 단서라, **13권 p1 에 소리를 심는다**.
 
@@ -254,17 +254,17 @@ p10    착지 — 원하던 것이 돌아온다
 
 | 앵커 | 매체 | 종이 | 색 |
 |---|---|---|---|
-| `bung-woodblock` (전권) | 민화 목판 — 판을 여러 장 겹쳐 찍는다. 나뭇결이 그대로 남고 색끼리 조금씩 어긋난다 | 조개가루 크림 `#F3ECDC` | 황토 회갈색 + 올리브 초록 + 청록 `#1E8A8A` |
+| `bung-woodblock` (전권) | 민화 목판 — 판을 여러 장 겹쳐 찍는다. 나뭇결이 그대로 남고 색끼리 조금씩 어긋난다 | 조개가루 크림 `#F3ECDC` | 청회색 물 `#7FA6B2` + 황토 나무·흙 + 올리브 초록 + 청록 끈 `#1E8A8A` + 인물별 의상 색 |
 
 무대(배 안 · 나무 길 · 시장 물목 · 비 · 밤)는 앵커 안의 **무대 조항**이 처리한다 — 매체·색은 안 바꾸고
-「두 색을 어디에 쓰고 무엇을 종이로 남기나」만 정한다.
+물은 WATER 단색으로 고정하고 나머지 무대의 색 배치와 종이 여백만 정한다.
 
 **관통 줄** (매 쪽)
 
 ```
 SHELL: the cream paper is the light itself - never print a block over it
 TEAL:  the only teal in the picture is Bung's nose-cord and Ddori's ankle-bell cord
-WATER: the river is ochre grey-brown, never teal, never blue
+WATER: all water is flat muted blue-grey #7FA6B2, in every scene and lighting condition; never ochre, white, dark green or teal
 GRAIN: every colour is a carved block - wood grain shows, registration is a hair off
 NOT:   no letters, no numbers, no signboard text anywhere
 ```
@@ -406,20 +406,26 @@ Style: folk woodblock printing on cream paper, earthy stage blocks, four distinc
 
 RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR ON EVERY PAGE - colour
   creeps past the outline on one side of a shape and falls short on the other, on at least 4 shapes
-  per page, every slip running the SAME direction. Water is ONE unbroken RIVER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
-  IS OVERLAP WITH RIVER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
+  per page, every slip running the SAME direction. Water is ONE unbroken WATER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
+  IS OVERLAP WITH WATER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
   most 6, each ONE silhouette with 0 interior marks · fruit at most 9 of one carved shape; no repeat is a mirrored copy of its neighbour. FINISHED
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
-PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
+PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 OCHRE #C08B3E, mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
-  the two children are one set, so no adult and no other thing in the book ever carries it. No sky
-  blue in the sky or water. The clothing inks below are intentional exceptions to the old limited palette.
+  the two children are one set, so no adult and no other thing in the book ever carries it. No sky blue in the sky. Water uses its own fixed WATER ink defined below. The WATER and clothing inks below are intentional exceptions to the old limited palette.
+  WATER IDENTITY: WATER #7FA6B2 is the ONE fixed muted blue-grey base of all visible water:
+  river, market, channel, puddles, water in tubs/cups and pouring water. Keep this same colour in
+  daylight, rain, shade, sunset and night. Do not turn water ochre/brown, saturated blue, white/PAPER,
+  green/OVERLAP or accessory TEAL. Water is one continuous flat area, no gradient or white highlights.
+  Weather and time change sky, surroundings and lamps, not the water hue. Exposed mud remains SILT,
+  wooden hulls/decks/baskets remain OCHRE, submerged objects remain OVERLAP beneath WATER.
+  Never recolour wood, clothes, horns, skin or food blue-grey. Old reference water colours must be
+  replaced with WATER while preserving the referenced characters, boat shapes and scene geometry.
   CLOTHING IDENTITY: Bung buffalo wears a BRICK ORANGE #C85A36 top; Ddori baby buffalo wears a
   SUNFLOWER YELLOW #F2C94C top; Mom buffalo wears a MULBERRY #984C78 top and matching headcloth;
-  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain RIVER.
+  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain OCHRE.
   These large, flat clothing areas distinguish the four at reading size. Keep each colour in front,
   side and back views and across every episode. Do not swap colours or turn all tops green.
   Preserve reference faces, bodies, silhouettes and garment shapes; when an older reference shows
@@ -427,27 +433,27 @@ PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 R
   Keep these extra inks on the named clothing, not skin, horns, water or background props.
   STAGE PRODUCE retains its existing two-block convention. Where the script makes ONE thing's colour the point of the
   page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
-  cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
+  cut in OCHRE against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
-  MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
-  BOAT INSIDE - planks RIVER, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
+  MARKET - water is one WATER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
+  BOAT INSIDE - planks OCHRE, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
     thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
   CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
-    a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
-  NIGHT - OVERLAP covers the sky as one flat area, the water stays RIVER, lights are unprinted PAPER,
+    a WATER band; where it has dropped it leaves a SILT band with a crisp edge.
+  NIGHT - OVERLAP covers the sky as one flat area, the water stays WATER, lights are unprinted PAPER,
     at most 5.
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
   in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
   head, Mom with a cloth wrapped between the horns. DISTINCT CLOTHING COLOURS AND HEADWEAR TELL THE TWO ADULTS APART,
   so the SCENE names it on every page the adult is on. Backs and heads
-  OVERLAP, chests and bellies RIVER.
+  OVERLAP, chests and bellies OCHRE.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE
   THEY MEET, AND THE ASSEMBLY MUST NAME THE SPECIES. Only TWO pieces say buffalo, so those two are
   cut biggest and both break the head's outline:
   🔴 HORNS - one thick CRESCENT each, wide at the base, sweeping OUT sideways then back and up, cut
-    in RIVER on an OVERLAP head. Tip to tip they are the WIDEST thing on the figure. Never a spike
+    in OCHRE on an OVERLAP head. Tip to tip they are the WIDEST thing on the figure. Never a spike
     off the top of the head, never a bud, never the shape of an ear. HORN SPAN IS THE AGE and the
     crescent shape never changes.
   🔴 MUZZLE - one rounded block hanging BELOW AND FORWARD of the head, a third of the head wide or
@@ -510,20 +516,26 @@ Style: folk woodblock printing on cream paper, earthy stage blocks, four distinc
 
 RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR ON EVERY PAGE - colour
   creeps past the outline on one side of a shape and falls short on the other, on at least 4 shapes
-  per page, every slip running the SAME direction. Water is ONE unbroken RIVER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
-  IS OVERLAP WITH RIVER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
+  per page, every slip running the SAME direction. Water is ONE unbroken WATER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
+  IS OVERLAP WITH WATER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
   most 6, each ONE silhouette with 0 interior marks · fruit at most 9 of one carved shape; no repeat is a mirrored copy of its neighbour. FINISHED
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
-PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
+PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 OCHRE #C08B3E, mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
-  the two children are one set, so no adult and no other thing in the book ever carries it. No sky
-  blue in the sky or water. The clothing inks below are intentional exceptions to the old limited palette.
+  the two children are one set, so no adult and no other thing in the book ever carries it. No sky blue in the sky. Water uses its own fixed WATER ink defined below. The WATER and clothing inks below are intentional exceptions to the old limited palette.
+  WATER IDENTITY: WATER #7FA6B2 is the ONE fixed muted blue-grey base of all visible water:
+  river, market, channel, puddles, water in tubs/cups and pouring water. Keep this same colour in
+  daylight, rain, shade, sunset and night. Do not turn water ochre/brown, saturated blue, white/PAPER,
+  green/OVERLAP or accessory TEAL. Water is one continuous flat area, no gradient or white highlights.
+  Weather and time change sky, surroundings and lamps, not the water hue. Exposed mud remains SILT,
+  wooden hulls/decks/baskets remain OCHRE, submerged objects remain OVERLAP beneath WATER.
+  Never recolour wood, clothes, horns, skin or food blue-grey. Old reference water colours must be
+  replaced with WATER while preserving the referenced characters, boat shapes and scene geometry.
   CLOTHING IDENTITY: Bung buffalo wears a BRICK ORANGE #C85A36 top; Ddori baby buffalo wears a
   SUNFLOWER YELLOW #F2C94C top; Mom buffalo wears a MULBERRY #984C78 top and matching headcloth;
-  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain RIVER.
+  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain OCHRE.
   These large, flat clothing areas distinguish the four at reading size. Keep each colour in front,
   side and back views and across every episode. Do not swap colours or turn all tops green.
   Preserve reference faces, bodies, silhouettes and garment shapes; when an older reference shows
@@ -531,27 +543,27 @@ PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 R
   Keep these extra inks on the named clothing, not skin, horns, water or background props.
   STAGE PRODUCE retains its existing two-block convention. Where the script makes ONE thing's colour the point of the
   page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
-  cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
+  cut in OCHRE against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
-  MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
-  BOAT INSIDE - planks RIVER, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
+  MARKET - water is one WATER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
+  BOAT INSIDE - planks OCHRE, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
     thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
   CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
-    a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
-  NIGHT - OVERLAP covers the sky as one flat area, the water stays RIVER, lights are unprinted PAPER,
+    a WATER band; where it has dropped it leaves a SILT band with a crisp edge.
+  NIGHT - OVERLAP covers the sky as one flat area, the water stays WATER, lights are unprinted PAPER,
     at most 5.
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
   in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
   head, Mom with a cloth wrapped between the horns. DISTINCT CLOTHING COLOURS AND HEADWEAR TELL THE TWO ADULTS APART,
   so the SCENE names it on every page the adult is on. Backs and heads
-  OVERLAP, chests and bellies RIVER.
+  OVERLAP, chests and bellies OCHRE.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE
   THEY MEET, AND THE ASSEMBLY MUST NAME THE SPECIES. Only TWO pieces say buffalo, so those two are
   cut biggest and both break the head's outline:
   🔴 HORNS - one thick CRESCENT each, wide at the base, sweeping OUT sideways then back and up, cut
-    in RIVER on an OVERLAP head. Tip to tip they are the WIDEST thing on the figure. Never a spike
+    in OCHRE on an OVERLAP head. Tip to tip they are the WIDEST thing on the figure. Never a spike
     off the top of the head, never a bud, never the shape of an ear. HORN SPAN IS THE AGE and the
     crescent shape never changes.
   🔴 MUZZLE - one rounded block hanging BELOW AND FORWARD of the head, a third of the head wide or
