@@ -2,12 +2,12 @@
 
 - id: 20260928-content-mina02-50-qwen-scenes
 - domain: content
-- status: active
-- updated: 2026-09-28
+- status: complete
+- updated: 2026-09-29
 - branch: main
 - worktree: C:/projects/tangobook
 - base: f5dc49a9
-- delivery: 49권 490장 생성·검수 진행 중
+- delivery: 49권 490장 생성·개별 검수·운영 등록·CDN 해시 검증 완료
 
 ## 사용자 요청
 
@@ -349,3 +349,10 @@
 - 원문·장면과 열 장을 각각 직접 열어 대조했다. P1·P2 중복 코끼리를 제거하고 계단 아래 소누 물장난/미나 호출/엄마 수건을 재구성했다. P3 두 코를 세게 걸어 당기는 주체와 추가 인물·발찌를 바로잡고, P4 추가 코끼리를 제거했다. P5 사람 손을 엄마·미나의 두 코로, P6 엄마를 소누로, P7 엄마 코 연결을 소누 코 연결로 고쳤다. P9 중복 미나·소누 발찌를 제거하고 맨 위 평지를 표현했다. 각 최종 수정 PNG를 다시 직접 확인하고 실제 해시를 기록했다. P8·P10 원본 통과.
 - P2 엄마는 프레임 가장자리에서 빠졌고, P9 소누는 평지 바로 아래 마지막 칸에 서 있다. 나머지 핵심 코 동작·인원·의상·발찌·계단 순서와 물가에서 올라오는 흐름을 확인했다.
 - **02~50권 49권490장 최종 검수·선정 완료.** `finalize-reviewed.py`에서 490 PNG 디코딩/1280×720/실파일·생성·검수 해시 일치를 통과하고 49권 `selected-manifest.json`과 `reviewed-books.json`을 갱신했다. 별도 전체 실파일 SHA 재검사도 490/490 일치. `reviews.json` accepted 490, 수정 작업 657/657 완료·대기 0, 러너 `generation_complete`. 01권은 이전에 운영 등록됐으나 02~50권은 운영 업로드/Git push 하지 않았다.
+
+## 2026-09-29 운영 등록 요청과 검증
+
+- 사용자가 02~50권 전부 운영 DB에 등록하고 Git push하도록 명시했다. 앞 단락의 미등록/미푸시 상태는 이 요청 전 기록이다.
+- 등록 전 운영 `changjak-mina-02`~`changjak-mina-50` 책 49권의 각 본문 10쪽과 `comic-assets/mina-XX` 자산을 조회했다. 490쪽 모두 삽화 연결과 자산이 비어 있었고, 49개 선정 manifest의 원본 PNG 해시가 전부 일치했다.
+- 01권에서 사용한 운영 `/api/comic-assets/:docId` 업로드 경로로 각 `p1`~`p10` PNG를 R2에 등록하고, 현재 책을 다시 읽어 해당 쪽 `illustrationUrl`만 연결했다. 권마다 저장 후 책의 본문·나레이션·기타 필드가 등록 전과 동일한지(updatedAt·삽화 URL 제외), CDN에서 다시 내려받은 10장의 SHA-256이 선정본과 일치하는지 검사했다. **49권·490장 모두 통과.**
+- 운영 시리즈 자산 목록 재조회는 기존 01권을 포함해 **50권·500장, 권당 10장**이다. 재실행 가능한 업로드 스크립트와 권별 원본 책·업로드/검증 상태는 `D:/ComfyUI-output/mina-series-qwen/register-reviewed.cjs` 및 `registration-ledger.json`에 보관했다. 저장소에는 자격증명·대량 운영 책 JSON을 넣지 않는다.
