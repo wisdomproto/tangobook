@@ -356,3 +356,4 @@
 - 등록 전 운영 `changjak-mina-02`~`changjak-mina-50` 책 49권의 각 본문 10쪽과 `comic-assets/mina-XX` 자산을 조회했다. 490쪽 모두 삽화 연결과 자산이 비어 있었고, 49개 선정 manifest의 원본 PNG 해시가 전부 일치했다.
 - 01권에서 사용한 운영 `/api/comic-assets/:docId` 업로드 경로로 각 `p1`~`p10` PNG를 R2에 등록하고, 현재 책을 다시 읽어 해당 쪽 `illustrationUrl`만 연결했다. 권마다 저장 후 책의 본문·나레이션·기타 필드가 등록 전과 동일한지(updatedAt·삽화 URL 제외), CDN에서 다시 내려받은 10장의 SHA-256이 선정본과 일치하는지 검사했다. **49권·490장 모두 통과.**
 - 운영 시리즈 자산 목록 재조회는 기존 01권을 포함해 **50권·500장, 권당 10장**이다. 재실행 가능한 업로드 스크립트와 권별 원본 책·업로드/검증 상태는 `D:/ComfyUI-output/mina-series-qwen/register-reviewed.cjs` 및 `registration-ledger.json`에 보관했다. 저장소에는 자격증명·대량 운영 책 JSON을 넣지 않는다.
+- `git fetch` 후 `origin/main...HEAD`가 0/45로 직선 이력임을 확인하고 2026-09-29 `main`을 원격 `main`에 push했다. 등록 기록 커밋 `2aaa52df`까지 반영됐다.
