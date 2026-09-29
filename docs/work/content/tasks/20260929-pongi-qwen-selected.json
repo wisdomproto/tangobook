@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-29T08:35:27.632969+00:00",
+  "model": "Qwen-Image-2.1 INT8, local ComfyUI, 1280x720",
+  "scope": "Pongi revised scenes only; no database upload",
+  "source": "D:\\ComfyUI-output\\pongi-qwen-revisions\\source.json",
+  "review_log": "D:\\ComfyUI-output\\pongi-qwen-revisions\\reviews.json",
+  "total": 60,
+  "books": {
+    "pongi-02": 1,
+    "pongi-03": 1,
+    "pongi-07": 10,
+    "pongi-09": 3,
+    "pongi-14": 1,
+    "pongi-15": 1,
+    "pongi-17": 4,
+    "pongi-18": 1,
+    "pongi-20": 2,
+    "pongi-25": 3,
+    "pongi-28": 2,
+    "pongi-29": 7,
+    "pongi-34": 1,
+    "pongi-35": 1,
+    "pongi-36": 3,
+    "pongi-37": 8,
+    "pongi-39": 4,
+    "pongi-40": 1,
+    "pongi-46": 2,
+    "pongi-49": 1,
+    "pongi-50": 3
+  },
+  "images": [
+    {
+      "book": "pongi-02",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-02\\p1.png",
+      "sha256": "b5e5595237609a83dc260cf7e61fc49c47f45ee5d3bf740c9498171963edee69",
+      "variant": "v1",
+      "review_note": "All three characters and shell visible; Pongi red cord; baby introduced in boat; rope and moored boat visible. Second oar partly obscured."
+    },
+    {
+      "book": "pongi-03",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-03\\p10.png",
+      "sha256": "4f144d2c1a4c6fc5fc77dcbe9dcbc34d211b3bd48809c74129959939ff3fe0a8",
+      "variant": "v1",
+      "review_note": "Dad, Pongi and Baby all wet; umbrella drips beside door, matching page."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p1.png",
+      "sha256": "3b2f8cbb4e52103417edb643b1876f8fb5045d3d47ce4fb6a53d19298c7ee90c",
+      "variant": "v3",
+      "review_note": "Frozen canal and separate shallow ice patch with tied boat, no characters."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p2",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p2.png",
+      "sha256": "18e8f32e11089c1e9288fe96a2a09c2c0b15164c075171cc83b745204b8566af",
+      "variant": "v2",
+      "review_note": "Pongi tests tiny inland frozen puddle from dry dirt, separate from distant frozen canal; touches with forepaw rather than toe, minor visual simplification."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p3.png",
+      "sha256": "4c6bf7271365d9aa9fc2ae080f573ffe1210ab363b851b37799961f022112af4",
+      "variant": "v2",
+      "review_note": "Dad tests solid inland frozen puddle with one foot while Pongi watches from dry ground; canal separate in back."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p4",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p4.png",
+      "sha256": "41b36f6f2d315f5fdc37d89f84f35436f7530fa84e2b0daf7742088055f87d2c",
+      "variant": "v1",
+      "review_note": "Dad stands with feet apart on small frozen patch; Pongi watches from snowy bank; correct two characters and red cord."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p5",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p5.png",
+      "sha256": "26d80e841594fa01707bfc9a0c32f1fa418e576d1ed1101daabd0553bac9135e",
+      "variant": "v4",
+      "review_note": "Dad slips on separate shallow ice while red-cord Pongi watches from dry bank."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p6.png",
+      "sha256": "43cb9d22703607f53b6c1110c7ec081023062cc921067d150eebd1f44bb5826b",
+      "variant": "v2",
+      "review_note": "Dad sits safely on tiny opaque ice patch while Pongi stands on surrounding dry dirt; no fall into canal."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p7",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p7.png",
+      "sha256": "7ce29a0ad2ba0b9d6683b909bccaa5252f173930c59c674960e663000da0febf",
+      "variant": "v2",
+      "review_note": "Dad seated slides across tiny inland ice to dry edge, with Pongi staying on dry dirt."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p8.png",
+      "sha256": "49023b0976ec4b4d6f3bcf31fe98d76642a47ac6ea555b2b60ecba6fd84158a2",
+      "variant": "v2",
+      "review_note": "Dad gently pushes Pongi while Pongi sits feet-forward on small shallow inland ice; correct cast and red cord."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p9.png",
+      "sha256": "8bd6c27f2565f41c822fa52d8e18f1a30f7df7bc14eb25c9c53e46523f964503",
+      "variant": "v2",
+      "review_note": "Dad gently starts Baby seated slide while Pongi also sits on shallow inland ice; Baby shell, three characters and cord correct."
+    },
+    {
+      "book": "pongi-07",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-07\\p10.png",
+      "sha256": "48a6fd2e524dd3caed484a2385250d5c4903cbc923c9d634af0add0e2f9d67cc",
+      "variant": "v2",
+      "review_note": "Dad, Pongi and Baby all seated together at tiny inland ice edge, shell and red cord correct; short slide play resolved."
+    },
+    {
+      "book": "pongi-09",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-09\\p1.png",
+      "sha256": "7bec6cd68dde61a6aeeb012703e65b1de2fa6142f0845cdec68bd891db03a4b0",
+      "variant": "v2",
+      "review_note": "Pongi and Baby carry different-sized empty buckets beside visible morning canal; Baby shell and red cord correct."
+    },
+    {
+      "book": "pongi-09",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-09\\p3.png",
+      "sha256": "19462aa84a24aac7b2cb0b0460e9606e777ab9a27bce4053fb09b6245fdf1989",
+      "variant": "v3",
+      "review_note": "Two buckets, shell on bank, Baby collects fish while Pongi watches."
+    },
+    {
+      "book": "pongi-09",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-09\\p9.png",
+      "sha256": "598f1ace76a574243515e66e68f50f2a6f4676d676f3d9ca9086158340642933",
+      "variant": "v2",
+      "review_note": "Baby alone on canal bank carries the same small bucket visibly full of fish and one shell; no red cord."
+    },
+    {
+      "book": "pongi-14",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-14\\p3.png",
+      "sha256": "dbbac59f9be655598446b69c484bbad3cc7aa5d4f0f23d79a29b868ac6fa97ee",
+      "variant": "v2",
+      "review_note": "One white-coated goose dentist stands beside empty reclining white chair and dental lamp; no other character."
+    },
+    {
+      "book": "pongi-15",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-15\\p1.png",
+      "sha256": "9611198e6208a039f9a78b7bca21b6f63b73f7c24ac38c23670ab74b6151efa3",
+      "variant": "v2",
+      "review_note": "Two distinct otter children pull one small ball in opposite directions by neighbor house; Pongi alone has red cord."
+    },
+    {
+      "book": "pongi-17",
+      "page": "p2",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-17\\p2.png",
+      "sha256": "a80f5bb176c996675d0a839da8cf9bde5ebffb6c9d05cf72e61979b653eef1dc",
+      "variant": "v3",
+      "review_note": "Pongi folds one blank sheet on dry bank before boats exist."
+    },
+    {
+      "book": "pongi-17",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-17\\p8.png",
+      "sha256": "9eb960e147f3e9b465cd1d9eee98f98ef65eb88a549d6ff71ad7a59aebed1f61",
+      "variant": "v2",
+      "review_note": "Pongi kneels and places her tiny folded paper boat in canal beside Baby boat; Baby watches with shell, distant wet oversized paper folds suggest Dad craft."
+    },
+    {
+      "book": "pongi-17",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-17\\p9.png",
+      "sha256": "1ece1e3017ccbd50b973ad0172c05302e5add57e2b41bc2a286793413c22f301",
+      "variant": "v4",
+      "review_note": "Exactly two plain paper boats: Pongi near bank, Baby under bridge."
+    },
+    {
+      "book": "pongi-17",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-17\\p10.png",
+      "sha256": "8bc44bf6609555c1ce6e194b15105e4b1c7d0504f606cefee413b1b87b5951fa",
+      "variant": "v2",
+      "review_note": "Pongi points toward Baby tiny folded paper boat beneath distant bridge, Dad holds crumpled wet paper, Pongi own boat near bank; correct three otters."
+    },
+    {
+      "book": "pongi-18",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-18\\p3.png",
+      "sha256": "24a8ed60ef93063532a6637f52c02f791ac96b720ea3c2fe1431b34df8b26b0f",
+      "variant": "v1",
+      "review_note": "Pongi behind low fence looks up at high stopped windmill blades, no reach implied; style and cord correct."
+    },
+    {
+      "book": "pongi-20",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-20\\p9.png",
+      "sha256": "01068bbd3d915fc245e6be566f4f8979245ef562489ebf5f182a5244920f4833",
+      "variant": "v2",
+      "review_note": "Dad walks bicycle at arched bridge crest with feet planted while Pongi waits on child bike; two distinct riders and red cord correct."
+    },
+    {
+      "book": "pongi-20",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-20\\p10.png",
+      "sha256": "e32d5de11209132877d8460c78cd180a153fbafa0957a9756ee2c3dbf03868f4",
+      "variant": "v2",
+      "review_note": "Exactly Dad ahead and Pongi behind on separate bicycles, both hands on handlebars while descending arched bridge."
+    },
+    {
+      "book": "pongi-25",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-25\\p1.png",
+      "sha256": "67d92fe24e5ddd24593469c1370ddc112406a9b2f4dc84fe519bde5b2e3443ec",
+      "variant": "v2",
+      "review_note": "Neighboring otter child clear in foreground, boxes/furniture on moored moving boat and otter family helpers visible; no humans."
+    },
+    {
+      "book": "pongi-25",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-25\\p6.png",
+      "sha256": "3b1ed0204a64c37af076678aa5fce82bca2c8e038ad814d1540819deb5bfa780",
+      "variant": "v3",
+      "review_note": "Dad draws chair ashore as cargo boat tilts slightly and remains safe."
+    },
+    {
+      "book": "pongi-25",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-25\\p10.png",
+      "sha256": "2504dad1ba4db2a86ebf71fe3aeccb8b9faed6bdad27522cda8d2b05ca03d971",
+      "variant": "v2",
+      "review_note": "One neighbor otter waves from departing boat beside child drawing; Pongi waves from dry dock, oversized chair remains ashore."
+    },
+    {
+      "book": "pongi-28",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-28\\p8.png",
+      "sha256": "16f9cfcd2b8f352fa65992549b50536c59fb309c50cf16f1cf625a7eead61820",
+      "variant": "v1",
+      "review_note": "Pongi holds clean bread with washed paws at doorway; booted goose keeper present, no instant cure depicted."
+    },
+    {
+      "book": "pongi-28",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-28\\p10.png",
+      "sha256": "c513a247128a050175c61a554c0515eedad118b867d3c93c582f7f0cc919cba3",
+      "variant": "v1",
+      "review_note": "Mom in green headscarf encloses Pongi clean paws; clean bread on table, two correct characters and red cord."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p1.png",
+      "sha256": "e290aa90cfa448af05e7ec9421e05577aa35a24717b2a3feec9f1f48b56dcf9a",
+      "variant": "v3",
+      "review_note": "Pongi and Dad on tied boat with recognizable cooked whole fish in lunchbox."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p2",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p2.png",
+      "sha256": "d2bc6a8ed08a8e6d2585a8b160258d9a898216013aef75b4362caf1a7cd442f4",
+      "variant": "v3",
+      "review_note": "Pongi tries to bite large cooked fish while Dad pauses her on boat."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p3.png",
+      "sha256": "2a1216a66ef5c113dc73fb0fb5d5376ebbf091d1ac2aa2ad797f6110415b7e88",
+      "variant": "v3",
+      "review_note": "Cooked fish lies on boat floor as Pongi looks at empty paws and Dad watches."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p4",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p4.png",
+      "sha256": "018541ecfa7e94aeaf1b17cb2c4557194fe4fbbc28dda03c64efbc1cdc484132",
+      "variant": "v4",
+      "review_note": "Dad demonstrates a small fish flake from cooked fish on plate to Pongi."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p6.png",
+      "sha256": "654704a89c0b4faa6b21fabef434ea3c197489b16ec8ac140a879230dd149593",
+      "variant": "v1",
+      "review_note": "Dad taps own mouth to demonstrate chewing while Pongi points to teeth; two correct characters and no extra props."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p8.png",
+      "sha256": "7e96950a21365d1fe34e83a81f3340b7e502eb2c73038f9ad1e0ee86a5514861",
+      "variant": "v2",
+      "review_note": "Pongi and Baby in boat, shell and fish bones visible; fish meal completed."
+    },
+    {
+      "book": "pongi-29",
+      "page": "p10",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-29\\p10.png",
+      "sha256": "0f6887f3ad2636687808d5cf1309927543a9c28c9c842479f4be2c8b25603948",
+      "variant": "v1",
+      "review_note": "Dad hugs Pongi on home dock beside tied boat, correct characters and red cord; closing lesson can remain in narration."
+    },
+    {
+      "book": "pongi-34",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-34\\p9.png",
+      "sha256": "1a1870e07a9ea42b8343cae42b5c2a1493d62068a3209e496a3173677d525964",
+      "variant": "v4",
+      "review_note": "Pongi stands at rainy doorway independently wearing both matching boots."
+    },
+    {
+      "book": "pongi-35",
+      "page": "p7",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-35\\p7.png",
+      "sha256": "5ca9e5b7b9ad7b3dabf15ea61677749f853b81de17dffa9d8c3686e18f723723",
+      "variant": "v4",
+      "review_note": "Pongi loads one brown vest beside oar and bread; Dad and shell-holding Baby wait on dock."
+    },
+    {
+      "book": "pongi-36",
+      "page": "p7",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-36\\p7.png",
+      "sha256": "17579209677280b3a138dd3ffe2e560e3c022e879c7b3a25c5a1d0855eb82e86",
+      "variant": "v4",
+      "review_note": "Pongi raises one paw and holds Mom hand while both step across empty bicycle lane."
+    },
+    {
+      "book": "pongi-36",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-36\\p8.png",
+      "sha256": "fa5240b6cd0d1288ca438039df0a77156fb221750793ef9b7c11da6ed949faa0",
+      "variant": "v3",
+      "review_note": "One Mom applauds and Pongi celebrates safely at canal bank."
+    },
+    {
+      "book": "pongi-36",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-36\\p9.png",
+      "sha256": "7588f1144f75c9d0911a348477ce741cd63caaf3050fb79b2a120c5fc44f794e",
+      "variant": "v7",
+      "review_note": "Pongi pauses at the bicycle lane, looks left and holds Mom paw; shell basket nearby."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p1",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p1.png",
+      "sha256": "54ca21181764140cebec8bbacf8174655baee84f8112352bd2b75b8b375d9df3",
+      "variant": "v1",
+      "review_note": "Pongi approaches still-tied boat from bank; Dad carries oar and two life vests, correct cast and red cord."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p2",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p2.png",
+      "sha256": "a3c28d3c7323f2cdffc2880b98ada473a7a989e5530adc64235d61bdcccc024e",
+      "variant": "v5",
+      "review_note": "Pongi refuses one brown vest resting on tied boat; Dad and Pongi stand safely on dock."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p3",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p3.png",
+      "sha256": "68a9d0e8d11cf62f5f22bc644eaeedfd9edb0d7887471f846f77cd738bcb5724",
+      "variant": "v4",
+      "review_note": "Single earth-brown life vest falls from tied boat into canal; passing milk boat, Pongi and Dad safely on dry dock, red cord intact."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p4",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p4.png",
+      "sha256": "6f061ce1b52cf8005ac17a9a62f92b60c4027f42a09bb7bb2d443e1ac791da83",
+      "variant": "v3",
+      "review_note": "One untied brown life vest floats beside tied boat; Dad and Pongi stand dry."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p5",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p5.png",
+      "sha256": "962b0398cd468e0b101158ba27245a85ba804504221c8f5b791ff69becb6f2a0",
+      "variant": "v2",
+      "review_note": "Dad points to one floating brown vest while Pongi watches from bank."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p6.png",
+      "sha256": "17903e9ed8ba74e9cdf643e92e75b59a80ca3df7cd94bb9c2a385429e9c9a313",
+      "variant": "v2",
+      "review_note": "Dad retrieves one brown vest with oar from dry bank; boat remains tied."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p7",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p7.png",
+      "sha256": "94c908a538a97293d8db2779f9912f4afdc756feff3e5832bade58fdcc0323dc",
+      "variant": "v3",
+      "review_note": "Dad counts three steps to Pongi with one brown vest and one tied boat."
+    },
+    {
+      "book": "pongi-37",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-37\\p8.png",
+      "sha256": "f1ba1abe3decfeb58c4316200be1f3c8d62e83f370a6884388521d0f8d1768be",
+      "variant": "v2",
+      "review_note": "Pongi wears fastened brown vest and red neck cord aboard as Dad rows away."
+    },
+    {
+      "book": "pongi-39",
+      "page": "p2",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-39\\p2.png",
+      "sha256": "44e50f89a6518e05772add15ed32788b9330945deb70c6ee2f6a6c43a88a5596",
+      "variant": "v2",
+      "review_note": "Water rises at marked post and Pongi calls Dad from canal bank."
+    },
+    {
+      "book": "pongi-39",
+      "page": "p4",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-39\\p4.png",
+      "sha256": "06bec562eb267de115f15a84cc8daafe1172eebaa700a0b73fb5c532d8ab98da",
+      "variant": "v5",
+      "review_note": "Goose keeper points to plain flood post where water meets dark safety mark; Pongi and Dad dry."
+    },
+    {
+      "book": "pongi-39",
+      "page": "p5",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-39\\p5.png",
+      "sha256": "c135edca133b013ea3dfda0dac54ef888df8c6fb14666f97fb367c20031d0676",
+      "variant": "v1",
+      "review_note": "Pongi and Dad hold paws on high dry bank and watch rising canal water; correct cast and setting."
+    },
+    {
+      "book": "pongi-39",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-39\\p6.png",
+      "sha256": "0165ec89c9b7876a3e2526a5f6d2663d7b9f5d27a346b5f95eeac9f42b969d32",
+      "variant": "v1",
+      "review_note": "Pongi grips Dad paw while both remain on elevated dry bank above water; spoken three-step safety lesson can be in text."
+    },
+    {
+      "book": "pongi-40",
+      "page": "p5",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-40\\p5.png",
+      "sha256": "5b80c5f04b4e41530b548ddec3f22789e53a8ab4b0333289c830e1a710b08b52",
+      "variant": "v1",
+      "review_note": "Dad points to hanging spare overalls beside shelf while Pongi looks, resolving shadow; correct nighttime window and cast."
+    },
+    {
+      "book": "pongi-46",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-46\\p6.png",
+      "sha256": "3031bb91bb3b7e6654efe2065c24c5bb081b7ff12a51c4d21701a87afe94091a",
+      "variant": "v3",
+      "review_note": "Exactly Baby, Pongi, Dad line up at dock; Baby holds shell in front."
+    },
+    {
+      "book": "pongi-46",
+      "page": "p7",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-46\\p7.png",
+      "sha256": "40ac21522bafe69967d6e4f3aa53879825522a02ea97ed38ae7bb91fa6503ab7",
+      "variant": "v3",
+      "review_note": "Baby jumps first; Pongi and Dad wait on dock, one shell set aside."
+    },
+    {
+      "book": "pongi-49",
+      "page": "p4",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-49\\p4.png",
+      "sha256": "54eed033774740c5dd5ecc7cc4c65d1591bb8aa5739f5fc6110cc6eaaf9c5965",
+      "variant": "v2",
+      "review_note": "Mom hugs Pongi while Baby with shell sits safely on sofa."
+    },
+    {
+      "book": "pongi-50",
+      "page": "p6",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-50\\p6.png",
+      "sha256": "84c2f4c4223d0df769df93a229a12800e713c81674d602cb70f21d57fe4522c4",
+      "variant": "v2",
+      "review_note": "Pongi passes found pebble to Dad beside storage box; Baby stays aside."
+    },
+    {
+      "book": "pongi-50",
+      "page": "p8",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-50\\p8.png",
+      "sha256": "989d57d4af9c8bce0551169a8a482b4e6d03963d4c642a313b9cfdaae590e9fb",
+      "variant": "v5",
+      "review_note": "Pongi offers tiny bread piece to shell-holding Baby with Dad nearby in one boat."
+    },
+    {
+      "book": "pongi-50",
+      "page": "p9",
+      "file": "D:\\ComfyUI-output\\pongi-qwen-revisions\\pongi-50\\p9.png",
+      "sha256": "b8ee2b989f11e7bcc8bb067217c3774d9b44b0e813f70bd251b9c3a6f995375d",
+      "variant": "v1",
+      "review_note": "Pongi and Baby sit side by side in slowly moving boat with Dad supervising; Baby has one shell and Pongi cord correct."
+    }
+  ]
+}
