@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-09-30 [피포 01 H3 영상 싱크·배경음악 보정](../work/video/tasks/20260929-pipo01-minimax-h3.md): 약 5초 동작 뒤 나머지가 정지하던 문제와 TTS 끝 무음·낮은 나레이션 음량을 확인했다. 10컷을 실제 발화 길이에 맞춰 재조립하고 피포 1권 뷰어의 `default-1.mp3`을 섞었다. 새 선호 MP4와 쪽별 타이밍 manifest는 `D:/tangobook-video/pipo-01-h3/`에 있다. 외부 게시 없음.
+
 2026-09-29 [피포 01 MiniMax H3 영상](../work/video/tasks/20260929-pipo01-minimax-h3.md): 기존 로컬 ComfyUI 렌더러로 「첫 양몰이」 10컷을 만들고 원본 삽화·원고 대조로 4컷을 재작업했다. 93초 한국어 나레이션 영상은 `D:/tangobook-video/pipo-01-h3/`에 있으며 선택 manifest·컷별 검수 근거도 그곳에 저장했다. 운영 업로드·외부 게시 없음.
 
 2026-09-29 [퐁이네 02권 승선 인원 삽화 교체](../work/content/tasks/20260929-pongi-rewrite-qwen-redraw.md): 세 가족이 한 배에 계속 보이도록 Qwen 10컷을 운영에 등록했다. 이전 JPG 10장 백업 후 PNG로 교체, 책의 p1 본문·10쪽 SCENE·삽화 링크를 동기화하고 CDN 해시를 확인했다. 이 로컬 환경의 그림 생성 기본 모델은 Qwen-Image-2.1([AGENTS.md](../../AGENTS.md)).
