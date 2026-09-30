@@ -22,12 +22,13 @@ PINION_COUNT=12
 PINION_PITCH_R=MODULE*PINION_COUNT/2
 PINION_ROOT_R=4.0
 PINION_OUTER_R=5.6
-SECTOR_PITCH_R=15.0
-SECTOR_ROOT_R=14.2
-SECTOR_OUTER_R=15.8
+SECTOR_PITCH_R=11.5
+SECTOR_ROOT_R=10.7
+SECTOR_OUTER_R=12.3
 HEIGHT_AXIS=(-8.5,-7.0)
 ANGLE_AXIS=(a.PIVOT_Y,a.PIVOT_Z+SECTOR_PITCH_R+PINION_PITCH_R)
 SHROUD_PEGS=((-10.0,1.0),(-7.0,4.0),(-3.0,14.0))
+LEFT_PEGS=((-15.0,0.0),(-10.0,1.0),(-3.0,-10.0))
 
 
 def polar(y,z,r,theta):
@@ -55,6 +56,10 @@ def pinion(y,z):
     # The axle crosses the side shroud; its short outer D-end receives a
     # separate lever after the shroud is installed.
     axle=b.shaft(22.6,15.4,y,z,1.35)
+    # An inner thrust collar bears against the journal; the outer collar
+    # bears against the closed shroud. Together they limit axial escape.
+    axle=axle.union(b.shaft(27.45,1.0,y,z,2.25))
+    axle=axle.union(b.shaft(31.35,1.05,y,z,2.25))
     flat=b.box(35.3,38.1,y+0.95,y+2.0,z-2.0,z+2.0)
     return tooth_disc.union(axle).cut(flat)
 
@@ -79,9 +84,8 @@ def rounded_outline(y0,y1,z0,z1,radius,segments=8):
             for cy,cz,start in corners for j in range(segments+1)]
 
 
-@lru_cache(None)
-def gear_cover():
-    """Small tapered pebble shroud; only lever shafts pass through its face."""
+def cover_skin(rack_clearance):
+    """Tapered pebble shell shared by the working and decorative sides."""
     sections=((27.5,-28.5,9.0,-19.5,24.0,10.0),
               (30.0,-28.0,8.5,-19.0,23.5,10.0),
               (32.5,-26.5,7.0,-17.5,22.0,10.5),
@@ -96,15 +100,43 @@ def gear_cover():
             .polyline(rounded_outline(-24.5,6.0,-15.3,20.8,6.0))
             .close().extrude(5.3))
     cover=outer.cut(hollow)
+    # The side pod must remain outside the phone's full insertion envelope.
+    # This opens its lower rear edge instead of wrapping over the phone.
+    cover=cover.cut(b.box(27.3,35.0,-0.2,11.2,-60.0,a.STOP_TOP+0.3))
     # Clear the U-stop's rear arm and the rack at its deepest 10 mm setting.
     cover=cover.cut(b.box(27.4,28.35,5.9,9.2,-5.0,15.2))
-    cover=cover.cut(b.box(27.4,30.2,-4.5,-0.4,-20.5,-15.0))
-    # Two broad pegs locate the shroud on the right body half. The running
-    # prototype uses clearance; final retention needs a printed fit trial.
+    if rack_clearance:
+        cover=cover.cut(b.box(27.4,30.2,-4.5,-0.4,-20.5,-15.0))
+    return cover
+
+
+def peg(x,y,z,sign):
+    stem=b.shaft(x,8.8,y,z,1.35)
+    # A short bead snaps into the wider blind pocket after passing
+    # through the 1.50 mm throat. Its 0.15 mm radial interference is a print
+    # trial dimension, not a measured insertion-force guarantee.
+    bead=(cq.Workplane("YZ").workplane(offset=x+0.35 if sign>0 else x+7.85)
+          .center(y,z).circle(1.60).extrude(0.6))
+    return stem.union(bead)
+
+
+@lru_cache(None)
+def gear_cover():
+    """Right shroud; only the two lever shafts pass through its face."""
+    cover=cover_skin(True)
     for y,z in SHROUD_PEGS:
-        cover=cover.union(b.shaft(24.4,8.8,y,z,1.35))
+        cover=cover.union(peg(24.4,y,z,1))
     for y,z in (ANGLE_AXIS,HEIGHT_AXIS):
         cover=cover.cut(b.shaft(32.5,2.4,y,z,1.62))
+    return cover
+
+
+@lru_cache(None)
+def left_cover():
+    """Matching smooth pebble shroud on the opposite side, without gears."""
+    cover=cover_skin(False).mirror("YZ")
+    for y,z in LEFT_PEGS:
+        cover=cover.union(peg(-33.2,y,z,-1))
     return cover
 
 
@@ -159,9 +191,9 @@ def mirror_tray():
     return tray.union(sector())
 
 
-def bearing(y,z,y0,y1,z0,z1):
-    block=b.box(23.6,25.5,y0,y1,z0,z1)
-    return block.cut(b.shaft(22.7,2.9,y,z,1.60))
+def bearing(y,z,y0,y1,z0,z1,x1=25.5):
+    block=b.box(23.6,x1,y0,y1,z0,z1)
+    return block.cut(b.shaft(22.7,x1-22.5,y,z,1.60))
 
 
 @lru_cache(None)
@@ -169,13 +201,23 @@ def shell_right():
     body=a.shell_right()
     # Replace the direct-lever sweep with room for the rotating sector.
     angle_bearing=bearing(*ANGLE_AXIS,a.PIVOT_Y-3,-1.0,
-                          ANGLE_AXIS[1]-3.0,ANGLE_AXIS[1]+3.0)
+                          ANGLE_AXIS[1]-3.0,ANGLE_AXIS[1]+3.0,x1=27.2)
     height_bearing=bearing(*HEIGHT_AXIS,-11.5,-1.0,-10.0,10.0)
-    body=body.cut(b.shaft(22.5,3.1,*ANGLE_AXIS,1.60))
+    body=body.cut(b.shaft(22.5,4.9,*ANGLE_AXIS,1.60))
     body=body.cut(b.shaft(22.5,5.6,*HEIGHT_AXIS,1.60))
     body=body.union(angle_bearing).union(height_bearing)
     for y,z in SHROUD_PEGS:
         body=body.cut(b.shaft(24.2,3.4,y,z,1.50))
+        body=body.cut(b.shaft(24.5,1.1,y,z,1.75))
+    return body
+
+
+@lru_cache(None)
+def shell_left():
+    body=a.shell_left()
+    for y,z in LEFT_PEGS:
+        body=body.cut(b.shaft(-27.8,3.6,y,z,1.50))
+        body=body.cut(b.shaft(-25.6,1.0,y,z,1.75))
     return body
 
 
@@ -185,10 +227,10 @@ def move_pinion(shape,axis,degrees):
 
 
 def report():
-    left=a.shell_left();right=shell_right();hard=left.union(right)
+    left=shell_left();right=shell_right();hard=left.union(right)
     tray=mirror_tray();slider=height_slider()
     hgear=pinion(*HEIGHT_AXIS);mgear=pinion(*ANGLE_AXIS)
-    shroud=gear_cover()
+    shroud=gear_cover();left_shroud=left_cover()
     hlever=lever(*HEIGHT_AXIS);mlever=lever(*ANGLE_AXIS)
     result={
         "shell_solids":[left.solids().size(),right.solids().size()],
@@ -198,10 +240,12 @@ def report():
         "height_pinion_solids":hgear.solids().size(),
         "angle_pinion_solids":mgear.solids().size(),
         "side_cover_solids":shroud.solids().size(),
+        "left_cover_solids":left_shroud.solids().size(),
         "lever_solids":[hlever.solids().size(),mlever.solids().size()],
         "pinion_pitch_radius_mm":PINION_PITCH_R,
         "height_turn_degrees":round(math.degrees(10/PINION_PITCH_R),2),
         "mirror_turn_degrees":round(5*SECTOR_PITCH_R/PINION_PITCH_R,2),
+        "pinion_axial_play_mm":0.55,
         "height_mesh_overlap_mm3":{},"angle_mesh_overlap_mm3":{},
         "rigid_overlap_mm3":{},
         "pinion_shell_overlap_mm3":{
@@ -219,11 +263,28 @@ def report():
             "angle_lever":round(b.volume(shroud.intersect(mlever)),4),
             "height_lever":round(b.volume(shroud.intersect(hlever)),4),
         },
+        "left_cover_overlap_mm3":{
+            "shell":round(b.volume(left_shroud.intersect(hard)),4),
+            "rear_cover":round(b.volume(left_shroud.intersect(fixed.cover())),4),
+            "right_cover":round(b.volume(left_shroud.intersect(shroud)),4),
+            "tray":round(b.volume(left_shroud.intersect(tray)),4),
+            "slider":round(b.volume(left_shroud.intersect(slider)),4),
+        },
         "phone_overlap_mm3":{
             f"{thickness}/{drop}":{
                 "height_wheel":round(b.volume(hgear.intersect(b.phone(thickness,-drop))),2),
                 "height_slider":round(b.volume(slider.translate((0,0,-drop)).intersect(b.phone(thickness,-drop))),2)}
             for thickness in (7,9,11) for drop in (0,10)},
+        "phone_cover_overlap_mm3":{
+            f"{thickness}/{drop}":{
+                "left":round(b.volume(left_shroud.intersect(b.phone(thickness,-drop))),4),
+                "right":round(b.volume(shroud.intersect(b.phone(thickness,-drop))),4)}
+            for thickness in (7,9,11) for drop in (0,10)},
+        "camera_tunnel_cover_overlap_mm3":{
+            f"{angle}/{drop}":{
+                "left":round(b.volume(left_shroud.intersect(a.camera_tunnel(angle,-drop))),4),
+                "right":round(b.volume(shroud.intersect(a.camera_tunnel(angle,-drop))),4)}
+            for angle in (-5,0,5) for drop in (0,5,10)},
     }
     for drop in (0,2.5,5,7.5,10):
         moved=slider.translate((0,0,-drop))
@@ -237,6 +298,7 @@ def report():
                 for s in collision.solids().vals()]
         result["rigid_overlap_mm3"][f"slider/{drop}"]=round(b.volume(moved.intersect(hard)),4)
         result["rigid_overlap_mm3"][f"slider/shroud/{drop}"]=round(b.volume(moved.intersect(shroud)),4)
+        result["rigid_overlap_mm3"][f"slider/left_cover/{drop}"]=round(b.volume(moved.intersect(left_shroud)),4)
     for angle in (-5,-2.5,0,2.5,5):
         moved=a.rotate_tray(tray,angle)
         pin=move_pinion(mgear,ANGLE_AXIS,-angle*SECTOR_PITCH_R/PINION_PITCH_R)
@@ -244,6 +306,7 @@ def report():
         collision=moved.intersect(hard)
         result["rigid_overlap_mm3"][f"tray/{angle}"]=round(b.volume(collision),4)
         result["rigid_overlap_mm3"][f"tray/shroud/{angle}"]=round(b.volume(moved.intersect(shroud)),4)
+        result["rigid_overlap_mm3"][f"tray/left_cover/{angle}"]=round(b.volume(moved.intersect(left_shroud)),4)
         if angle==0 and collision.solids().size():
             result["tray_overlap_boxes"]=[[
                 round(getattr(s.BoundingBox(),v),2) for v in
@@ -270,6 +333,21 @@ def report():
             b.volume(a.rotate_tray(tray,i*0.5-5).intersect(
                 move_pinion(mgear,ANGLE_AXIS,-(i*0.5-5)*SECTOR_PITCH_R/PINION_PITCH_R)))
             for i in range(21)),4)}
+    offsets=(0,0.5,1,2,3,5,8)
+    result["assembly_path_mm3"]={
+        "right_snap_interference_peak":round(max(
+            b.volume(shroud.translate((d,0,0)).intersect(right))
+            for d in offsets),4),
+        "left_snap_interference_peak":round(max(
+            b.volume(left_shroud.translate((-d,0,0)).intersect(left))
+            for d in offsets),4),
+        "right_moving_interference_peak":round(max(
+            b.volume(shroud.translate((d,0,0)).intersect(part))
+            for d in offsets for part in (tray,slider,hgear,mgear)),4),
+        "left_moving_interference_peak":round(max(
+            b.volume(left_shroud.translate((-d,0,0)).intersect(part))
+            for d in offsets for part in (tray,slider)),4),
+    }
     return result
 
 
@@ -282,9 +360,18 @@ if __name__=="__main__":
     assert all(value==0 for value in result["pinion_shell_overlap_mm3"].values())
     assert all(value==0 for value in result["pinion_cover_overlap_mm3"].values())
     assert all(value==0 for value in result["side_cover_overlap_mm3"].values())
+    assert all(value==0 for value in result["left_cover_overlap_mm3"].values())
     assert all(value==0 for value in result["cross_overlap_mm3"].values())
     assert all(value==0 for sample in result["phone_overlap_mm3"].values()
                for value in sample.values())
+    assert all(value==0 for sample in result["phone_cover_overlap_mm3"].values()
+               for value in sample.values())
+    assert all(value==0 for sample in result["camera_tunnel_cover_overlap_mm3"].values()
+               for value in sample.values())
+    assert result["assembly_path_mm3"]["right_moving_interference_peak"]==0
+    assert result["assembly_path_mm3"]["left_moving_interference_peak"]==0
+    assert 0<result["assembly_path_mm3"]["right_snap_interference_peak"]<3
+    assert 0<result["assembly_path_mm3"]["left_snap_interference_peak"]<3
     assert result["dense_mesh_overlap_mm3"]["height_max"]==0
     assert result["dense_mesh_overlap_mm3"]["angle_max"]<0.02
     import os,sys

@@ -10,6 +10,7 @@ import cadquery as cq
 import pebble as b
 import pebble_adjustable as a
 import pebble_geared as g
+import pebble_geared_unibody as u
 import pebble_cover as fixed
 
 
@@ -24,13 +25,13 @@ def mesh_data(shape):
 def main():
     g.OUT.mkdir(parents=True, exist_ok=True)
     factories = {
-        "shell_left": a.shell_left, "shell_right": g.shell_right,
-        "mirror_tray": g.mirror_tray, "height_slider": g.height_slider,
+        "shell_left": u.shell_left, "shell_right": u.shell_right,
+        "mirror_tray": g.mirror_tray, "height_slider": u.height_slider,
         "angle_pinion": lambda: g.pinion(*g.ANGLE_AXIS),
         "height_pinion": lambda: g.pinion(*g.HEIGHT_AXIS),
         "angle_lever": lambda: g.lever(*g.ANGLE_AXIS),
         "height_lever": lambda: g.lever(*g.HEIGHT_AXIS),
-        "gear_cover": g.gear_cover,
+        "gear_cover": u.service_lid,
         "rear_cover": fixed.cover, "paddle": a.adjustable_paddle,
         "mirror": b.mirror, "foam": b.foam, "phone": b.phone,
     }
@@ -44,7 +45,7 @@ def main():
         "pinionR": g.PINION_PITCH_R,
     }
     html = r'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tango Pebble · 기어식 조절 구조</title>
+<title>Tango Pebble · 일체형 외피 조절 구조</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;background:#f8f5ef;color:#282d34;font-family:system-ui,"Malgun Gothic",sans-serif}
 main{max-width:1350px;margin:auto;padding:20px}h1{font-size:1.55rem;margin:0 0 7px}p{line-height:1.55}.intro{margin:0 0 18px;color:#48505a}
@@ -61,18 +62,18 @@ canvas{width:100%;height:100%;display:block;touch-action:none}.hint{position:abs
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"}}</script>
 </head><body><main><h1>기어로 움직이는 스마트폰 반사경</h1>
-<p class="intro">오른쪽 바깥에는 두 레버만 보입니다. 톱니는 본체 옆의 작은 둥근 커버 안에 넣었습니다. <b>내부 보기</b>를 누르면 커버를 숨기고 동력 전달을 볼 수 있습니다.</p>
+<p class="intro">좌우 기어 공간을 본체 외피 안으로 넣고, 오른쪽 면에는 작은 정비 뚜껑과 두 레버만 남겼습니다. <b>반대편 보기</b>로 한 덩어리형 외형을, <b>내부 보기</b>로 기어 작동을 확인해 보세요.</p>
 <div class="layout"><div id="stage"><canvas aria-label="기어식 반사경 3D 모델"></canvas><div class="hint">드래그: 회전 · 휠: 확대</div></div>
 <div class="panel">
 <div class="card"><h2>① 위쪽 레버 · 거울 각도</h2><div class="flow"><span>바깥 레버</span> → <span>커버 안 작은 톱니</span> → <span>거울축 부채꼴 톱니</span> → <span>거울 회전</span></div>
-<div class="track"><span>손잡이 회전</span><strong id="angleWheelValue">0°</strong></div><input id="angle" type="range" min="-5" max="5" step="0.5" value="0"><p class="small">거울 <b id="angleValue">33°</b> · 기준에서 ±5° · 손잡이는 반대 방향으로 최대 15.6° 회전</p></div>
+<div class="track"><span>손잡이 회전</span><strong id="angleWheelValue">0°</strong></div><input id="angle" type="range" min="-5" max="5" step="0.5" value="0"><p class="small">거울 <b id="angleValue">33°</b> · 기준에서 ±5° · 손잡이는 반대 방향으로 최대 약 12° 회전</p></div>
 <div class="card red"><h2>② 아래쪽 레버 · 카메라 높이</h2><div class="flow"><span>바깥 레버</span> → <span>커버 안 작은 톱니</span> → <span>세로 톱니줄</span> → <span>폰 윗변 받침 이동</span></div>
 <div class="track"><span>손잡이 회전</span><strong id="heightWheelValue">0°</strong></div><input id="depth" type="range" min="0" max="10" step="0.5" value="0"><p class="small">폰 삽입 깊이 <b id="depthValue">0mm</b> · 총 10mm 이동 · 손잡이는 약 119° 회전</p></div>
-<div class="card"><div class="btns"><button id="inside" type="button" aria-pressed="false">내부 보기</button><button id="explode" type="button" aria-pressed="false">분해 보기</button><button id="phone" type="button" aria-pressed="true">폰 숨기기</button></div>
-<p class="small">조립 보기에서 커버 밖에는 진한 갈색 레버 두 개만 남습니다. 내부 보기에서는 커버를 숨겨 각각의 톱니가 드러납니다.</p>
-<p class="small">조립 순서: 작은 기어 두 개를 본체 축받이에 넣고 → 측면 커버를 세 개의 위치핀에 맞춰 닫고 → 바깥에서 두 레버를 축의 D자 끝에 끼웁니다.</p>
+<div class="card"><div class="btns"><button id="opposite" type="button" aria-pressed="false">반대편 보기</button><button id="inside" type="button" aria-pressed="false">내부 보기</button><button id="explode" type="button" aria-pressed="false">분해 보기</button><button id="phone" type="button" aria-pressed="true">폰 숨기기</button></div>
+<p class="small">바깥에서는 진한 갈색 레버 두 개만 돌출됩니다. 내부 보기에서는 본체와 오른쪽 정비 뚜껑을 숨겨 기어를 보여 줍니다.</p>
+<p class="small">조립 순서: 거울판·폰 받침을 좌우 본체 사이에 놓고 닫기 → 오른쪽 면에서 작은 기어 두 개를 넣기 → 정비 뚜껑을 세 스냅핀으로 끼우기 → 바깥에서 두 레버를 D자 축에 끼우기 → 뒤 커버와 스폰지 장착.</p>
 <div class="legend"><span><i class="swatch" style="background:#279773"></i>거울</span><span><i class="swatch" style="background:#4a78cf"></i>폰 받침</span><span><i class="swatch" style="background:#8661b5"></i>각도 톱니</span><span><i class="swatch" style="background:#cb4e44"></i>높이 톱니</span></div></div>
-<p class="small">기구 작동을 보여주는 CAD 시안입니다. 측면 커버의 체결 구조와 축 방향 고정, 인쇄 후 백래시·내구성은 아직 확정 전입니다.</p>
+<p class="small">CAD에서 부품 삽입 경로·거울 ±5°·폰 깊이 0~10mm·카메라 시야의 형상 간섭을 확인했습니다. 높이 받침의 다섯 고정 위치는 본체 안쪽 딸깍 탭으로 잡습니다. 실제 딸깍 힘·레버 이탈 방지·인쇄 후 톱니 백래시는 출력 시험 전입니다.</p>
 </div></div></main><script type="module">
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
@@ -87,7 +88,7 @@ const camera=new THREE.PerspectiveCamera(33,1,.1,600);camera.up.set(0,0,1);camer
 const orbit=new OrbitControls(camera,canvas);orbit.target.set(0,-5,-5);orbit.enableDamping=true;orbit.update();
 const loader=new STLLoader();
 function geometry(encoded){const raw=atob(encoded),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);const shape=loader.parse(bytes.buffer);shape.computeVertexNormals();return shape}
-const colors={shell_left:'#dc995f',shell_right:'#dc995f',rear_cover:'#ca744d',gear_cover:'#d7975e',mirror_tray:'#279773',mirror:'#8ed4e8',height_slider:'#4a78cf',angle_pinion:'#8661b5',height_pinion:'#cb4e44',angle_lever:'#503a32',height_lever:'#503a32',paddle:'#c05e3e',foam:'#3b4249',phone:'#52616f'};
+const colors={shell_left:'#dc995f',shell_right:'#dc995f',rear_cover:'#dc995f',gear_cover:'#dc995f',mirror_tray:'#279773',mirror:'#8ed4e8',height_slider:'#4a78cf',angle_pinion:'#8661b5',height_pinion:'#cb4e44',angle_lever:'#503a32',height_lever:'#503a32',paddle:'#c05e3e',foam:'#3b4249',phone:'#52616f'};
 const objects={};function make(name,parent=scene){const material=new THREE.MeshStandardMaterial({color:colors[name],roughness:.5,metalness:.04,transparent:name==='mirror'||name==='phone',opacity:name==='mirror'?.86:name==='phone'?.35:1,side:THREE.DoubleSide});const mesh=new THREE.Mesh(geometry(data[name]),material);parent.add(mesh);objects[name]=mesh;return mesh}
 make('shell_left');make('shell_right');make('rear_cover');make('gear_cover');make('foam');make('height_slider');make('phone');
 const trayGroup=new THREE.Group();trayGroup.position.set(0,cfg.pivotY,cfg.pivotZ);scene.add(trayGroup);
@@ -109,13 +110,15 @@ function update(){const angle=Number(document.getElementById('angle').value),dep
 for(const id of ['angle','depth'])document.getElementById(id).addEventListener('input',update);
 function toggle(id,handler){document.getElementById(id).addEventListener('click',e=>{handler();e.currentTarget.setAttribute('aria-pressed',String(id==='inside'?inside:id==='explode'?exploded:phoneVisible));update()})}
 toggle('inside',()=>inside=!inside);toggle('explode',()=>exploded=!exploded);toggle('phone',()=>phoneVisible=!phoneVisible);
+let opposite=false;document.getElementById('opposite').addEventListener('click',e=>{opposite=!opposite;camera.position.set(opposite?-100:100,-115,64);orbit.update();e.currentTarget.setAttribute('aria-pressed',String(opposite))});
 function frame(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();orbit.update();renderer.render(scene,camera);requestAnimationFrame(frame)}
 update();frame();
 </script></body></html>'''
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
-    path = g.OUT / "tango_pebble_geared_pebble_cover_interactive.html"
+    path = g.OUT / "tango_pebble_geared_unibody_interactive.html"
     path.write_text(html, encoding="utf-8")
+    (g.OUT / "tango_pebble_geared_pebble_cover_interactive.html").write_text(html, encoding="utf-8")
     (g.OUT / "tango_pebble_geared_covered_interactive.html").write_text(html, encoding="utf-8")
     (g.OUT / "tango_pebble_geared_interactive.html").write_text(html, encoding="utf-8")
     print(path)

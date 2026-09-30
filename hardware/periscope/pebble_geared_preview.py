@@ -16,24 +16,27 @@ def main():
                     height_pinion=(0.79, 0.29, 0.24),
                     angle_lever=(0.31, 0.23, 0.20),
                     height_lever=(0.31, 0.23, 0.20),
-                    gear_cover=(0.83, 0.54, 0.34))
+                    gear_cover=(0.83, 0.54, 0.34),
+                    left_cover=(0.83, 0.54, 0.34))
     parts = {
-        "shell_left": a.shell_left(), "shell_right": g.shell_right(),
+        "shell_left": g.shell_left(), "shell_right": g.shell_right(),
         "mirror_tray": g.mirror_tray(), "height_slider": g.height_slider(),
         "angle_pinion": g.pinion(*g.ANGLE_AXIS),
         "height_pinion": g.pinion(*g.HEIGHT_AXIS),
         "angle_lever": g.lever(*g.ANGLE_AXIS),
         "height_lever": g.lever(*g.HEIGHT_AXIS),
         "gear_cover": g.gear_cover(),
+        "left_cover": g.left_cover(),
         "mirror": b.mirror(),
     }
     inside = {name: (shape, (0, 0, 0)) for name, shape in parts.items()
-              if name not in ("shell_right", "gear_cover")}
+              if name not in ("shell_right", "gear_cover", "left_cover")}
     v.render("geared_inside", (115, 60, 34), scene=inside, scale=43)
     v.COLORS.update(mirror_tray=(0.78, 0.49, 0.31),
                     height_slider=(0.78, 0.49, 0.31))
     assembled = {name: (shape, (0, 0, 0)) for name, shape in parts.items()}
     v.render("geared_assembled", (115, -115, 55), scene=assembled, scale=42)
+    v.render("geared_left", (-115, -115, 55), scene=assembled, scale=42)
 
 
 if __name__ == "__main__":
