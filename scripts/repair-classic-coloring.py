@@ -1,11 +1,15 @@
 """Queue a selected local Qwen correction without mutating the batch manifest."""
-import importlib.util,json,pathlib,time,urllib.request,urllib.parse,argparse
+import importlib.util,json,pathlib,time,urllib.request,urllib.parse,argparse,shutil
 spec=importlib.util.spec_from_file_location('production',pathlib.Path(__file__).with_name('classic-scene-coloring.py'))
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
-p=argparse.ArgumentParser();p.add_argument('key');p.add_argument('instruction');args=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('key');p.add_argument('instruction');p.add_argument('--lineart',action='store_true');args=p.parse_args()
 j=next(j for j in json.loads((m.ROOT/'manifest.json').read_text(encoding='utf-8')) if j['key']==args.key)
 g=json.loads((m.ROOT/'workflows'/(args.key+'.json')).read_text(encoding='utf-8'))
-g['5']['inputs']['prompt']=args.instruction+'\n'+m.PROMPT
+if args.lineart:
+    name='classic-color-removal-'+args.key+'.png'
+    shutil.copyfile(m.ROOT/j['lineartFile'],pathlib.Path('C:/ComfyUI_windows_portable/ComfyUI/input')/name)
+    g['4']['inputs']['image']=name
+g['5']['inputs']['prompt']=args.instruction if args.lineart else args.instruction+'\n'+m.PROMPT
 g['7']['inputs']['seed']+=1
 g['9']['inputs']['filename_prefix']='classic-scene-coloring-repairs/'+args.key
 m.save(m.ROOT/'repairs'/(args.key+'-workflow.json'),g)

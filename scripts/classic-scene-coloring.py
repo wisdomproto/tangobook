@@ -1,5 +1,7 @@
 """Read-only inventory and resumable local Qwen scene coloring production."""
-import concurrent.futures, json, pathlib, urllib.request, urllib.parse, time, hashlib, argparse, shutil, re, subprocess
+import concurrent.futures, json, pathlib, urllib.request, urllib.parse, time, hashlib, argparse, shutil, re, subprocess, importlib.util
+quality_spec=importlib.util.spec_from_file_location('classic_quality',pathlib.Path(__file__).with_name('classic-coloring-quality.py'))
+quality=importlib.util.module_from_spec(quality_spec);quality_spec.loader.exec_module(quality)
 
 ROOT = pathlib.Path('D:/ComfyUI-output/classic-scene-coloring')
 API = 'https://www.tangobook.co.kr'
@@ -23,10 +25,12 @@ SELECTION = {
  '피터와 늑대':[3,12], '하이디':[4,11], '행복한 왕자':[2,5],
  '헨젤과 그레텔':[6,9], '호두까기 인형':[2,10],
 }
-PROMPT_VERSION = 'v4-simple-exact-action'
-PROMPT = '''Convert the reference scene into a SIMPLE coloring page. Keep the EXACT original main characters, face designs, expressions, proportions, poses and positions. Preserve the same story action. Do not redesign their faces into generic cartoons.
+PROMPT_VERSION = 'v5-white-interiors'
+PROMPT = '''PURE BLACK AND WHITE coloring line art only. Every face, hand, skin area, hair, beard, garment and animal body must be PURE WHITE inside BLACK outlines. No original colors may remain.
+Convert the reference scene into a SIMPLE coloring page. Keep the EXACT original main characters, face designs, expressions, proportions, poses and positions. Preserve the same story action. Do not redesign their faces into generic cartoons.
 Keep only the main characters and essential large objects. Remove all tiny details and secondary background objects. Mostly empty WHITE background. Hair and clothes are large WHITE enclosed shapes. Hair has only three broad locks. No black filled hair, patterns, jewelry, fine folds or texture.
 Use smooth bold BLACK outlines and continuous CLOSED boundaries. About 15 to 25 large coloring areas. No color, gray or shading. Keep the reference composition. The result must show the original story action clearly.'''
+COLOR_PROMPT = '''Convert this exact drawing into PURE BLACK AND WHITE coloring line art. REMOVE ALL COLORS completely. Every face, hand, skin area, hair area, beard, garment, shoe, animal body and background must be PURE WHITE inside BLACK outlines. Replace black filled hair and beard with white enclosed silhouettes. Keep eye pupils black. Preserve the same characters, faces, hands, poses, proportions, positions and every important existing boundary. Do not move or enlarge anything. No extra detail. Do not use gray fills or shading. WHITE INTERIORS AND BLACK CONTOURS ONLY.'''
 
 def request(url, body=None):
     req = urllib.request.Request(url, data=json.dumps(body).encode() if body is not None else None,
@@ -111,6 +115,49 @@ def prepare():
     save(ROOT/'manifest.json',jobs)
     print(f'Prepared {len(jobs)} original scenes',flush=True)
 
+def remove_color(j,jobs):
+    dest=ROOT/j['lineartFile']
+    for attempt in range(j.get('colorRepairAttempts',0),3):
+        if j['status']=='color-repairing':
+            pid=j['promptId']
+        else:
+            archive=ROOT/'revisions'/'color-removal'/j['key']/str(attempt)
+            archive.mkdir(parents=True,exist_ok=True)
+            for folder,extension in [('lineart','.png'),('workflows','.json'),('history','.json')]:
+                old=ROOT/folder/(j['key']+extension)
+                if old.exists():shutil.copyfile(old,archive/(folder+extension))
+            save(archive/'job.json',j)
+            g=json.loads((ROOT/'workflows'/(j['key']+'.json')).read_text(encoding='utf-8'))
+            name=f'classic-monochrome-{j["key"]}-{attempt}.png'
+            shutil.copyfile(dest,pathlib.Path('C:/ComfyUI_windows_portable/ComfyUI/input')/name)
+            g['4']['inputs']['image']=name;g['5']['inputs']['prompt']=COLOR_PROMPT
+            g['7']['inputs']['seed']+=10000+attempt
+            g['9']['inputs']['filename_prefix']='classic-scene-coloring-monochrome/'+j['key']
+            save(ROOT/'workflows'/(j['key']+'.json'),g)
+            pid=request(COMFY+'/prompt',{'prompt':g,'client_id':'classic-color-removal'})['prompt_id']
+            j['promptId']=pid;j['status']='color-repairing';save(ROOT/'manifest.json',jobs)
+        print('REMOVE COLOR',j['title'],j['pageNumber'],attempt+1,pid,flush=True)
+        start=time.monotonic()
+        while True:
+            time.sleep(3);history=request(COMFY+'/history/'+pid)
+            if pid not in history:
+                if time.monotonic()-start>1800:raise TimeoutError(pid)
+                continue
+            h=history[pid]
+            if h['status']['status_str']!='success':raise RuntimeError(h['status'])
+            save(ROOT/'history'/(j['key']+'.json'),h)
+            save(ROOT/'workflows'/(j['key']+'.json'),h['prompt'][2])
+            with urllib.request.urlopen(COMFY+'/view?'+urllib.parse.urlencode(h['outputs']['9']['images'][0]),timeout=120) as r:dest.write_bytes(r.read())
+            j['lineartSha256']=hashlib.sha256(dest.read_bytes()).hexdigest()
+            j['colorRepairAttempts']=attempt+1
+            j['colorCheck']=quality.color_report(dest)
+            j['status']='generated' if j['colorCheck']['monochromePassed'] else 'color-repair-needed'
+            save(ROOT/'manifest.json',jobs)
+            if j['status']=='generated':return
+            break
+    j['status']='needs-monochrome-review';save(ROOT/'manifest.json',jobs)
+    raise RuntimeError('Color remained after three Qwen corrections: '+j['key'])
+
 def generate(limit=None):
     jobs=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
     template=json.loads(pathlib.Path('D:/ComfyUI-output/qwen21-mermaid-test/game-rescue-simple-api.json').read_text(encoding='utf-8'))
@@ -118,9 +165,19 @@ def generate(limit=None):
     finished=0
     for j in jobs:
         j['sourceSha256']=hashlib.sha256((ROOT/j['sourceFile']).read_bytes()).hexdigest()
-    for j in jobs:
+        if j['status']=='generated' and (ROOT/j['lineartFile']).exists():
+            j['colorCheck']=quality.color_report(ROOT/j['lineartFile'])
+            if not j['colorCheck']['monochromePassed']:j['status']='color-repair-needed'
+    save(ROOT/'manifest.json',jobs)
+    ordered=sorted(jobs,key=lambda j:(0 if j['status'] in ['color-repair-needed','color-repairing'] else 1,0 if j.get('colorPriority') else 1))
+    for j in ordered:
         dest=ROOT/j['lineartFile']
         if j['status']=='generated' and dest.exists():continue
+        if j['status']=='needs-monochrome-review':raise RuntimeError('Manual review required: '+j['key'])
+        if j['status'] in ['color-repair-needed','color-repairing']:
+            remove_color(j,jobs)
+            subprocess.run(['node','--import','./packages/server/node_modules/tsx/dist/loader.mjs','scripts/audit-classic-coloring.mts',j['key']],cwd=pathlib.Path(__file__).resolve().parent.parent,check=True)
+            continue
         if limit is not None and finished>=limit:break
         # Submit only one job at a time; never interrupt or free other sessions' models.
         while True:
@@ -162,7 +219,11 @@ def generate(limit=None):
                 with urllib.request.urlopen(url,timeout=120) as r:dest.write_bytes(r.read())
                 j['status']='generated';j['seconds']=round(time.monotonic()-start,2)
                 j['lineartSha256']=hashlib.sha256(dest.read_bytes()).hexdigest()
-                save(ROOT/'manifest.json',jobs);finished+=1
+                j['colorCheck']=quality.color_report(dest)
+                if not j['colorCheck']['monochromePassed']:j['status']='color-repair-needed'
+                save(ROOT/'manifest.json',jobs)
+                if j['status']=='color-repair-needed':remove_color(j,jobs)
+                finished+=1
                 subprocess.run(['node','--import','./packages/server/node_modules/tsx/dist/loader.mjs','scripts/audit-classic-coloring.mts',j['key']],cwd=pathlib.Path(__file__).resolve().parent.parent,check=True)
                 print('DONE',sum(x['status']=='generated' for x in jobs),'/',len(jobs),j['key'],j['seconds'],flush=True)
                 break

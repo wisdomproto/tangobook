@@ -18,6 +18,9 @@ j = next(j for j in jobs if j['key'] == a.key)
 history = json.loads((m.ROOT / 'repairs' / (a.key + '-history.json')).read_text(encoding='utf-8'))
 if history['status']['status_str'] != 'success':
     raise ValueError('Repair did not complete successfully')
+color_check = m.quality.color_report(m.ROOT / 'repairs' / (a.key + '.png'))
+if not color_check['monochromePassed']:
+    raise ValueError('Repair still contains color: ' + str(color_check))
 target = m.ROOT / j['lineartFile']
 backup = m.ROOT / 'revisions' / (a.key + '-before-repair.png')
 if not backup.exists():
@@ -30,6 +33,7 @@ j['lineartSha256'] = hashlib.sha256(target.read_bytes()).hexdigest()
 j['revision'] = j.get('revision', 1) + 1
 j['promptVersion'] = m.PROMPT_VERSION
 j['status'] = 'generated'
+j['colorCheck'] = color_check
 reviews = json.loads((m.ROOT / 'review.json').read_text(encoding='utf-8'))
 reviews[a.key] = {'visualReview': 'compared', 'notes': a.note}
 m.save(m.ROOT / 'review.json', reviews)

@@ -42,6 +42,8 @@ with open(m.ROOT / 'batch.log', 'a', encoding='utf-8') as log:
     for j in jobs:
         if j['status'] != 'generated':
             raise RuntimeError('Incomplete job: ' + j['key'])
+        if not m.quality.color_report(m.ROOT / j['lineartFile'])['monochromePassed']:
+            raise RuntimeError('Residual color: ' + j['key'])
         for file_key, hash_key in [('sourceFile', 'sourceSha256'), ('lineartFile', 'lineartSha256')]:
             actual = hashlib.sha256((m.ROOT / j[file_key]).read_bytes()).hexdigest()
             if actual != j[hash_key]:
