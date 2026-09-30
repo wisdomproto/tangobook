@@ -27,6 +27,7 @@ SECTOR_ROOT_R=14.2
 SECTOR_OUTER_R=15.8
 HEIGHT_AXIS=(-8.5,-7.0)
 ANGLE_AXIS=(a.PIVOT_Y,a.PIVOT_Z+SECTOR_PITCH_R+PINION_PITCH_R)
+SHROUD_PEGS=((-10.0,1.0),(-7.0,4.0),(-3.0,14.0))
 
 
 def polar(y,z,r,theta):
@@ -51,10 +52,46 @@ def spur_outline(y,z,phase=math.radians(15)):
 def pinion(y,z):
     tooth_disc=(cq.Workplane("YZ").workplane(offset=29.0)
                 .polyline(spur_outline(y,z)).close().extrude(2.2))
-    # Wheel and axle are one printed part. The fixed body has a closed journal.
-    axle=b.shaft(22.6,12.3,y,z,1.35)
-    wheel=b.shaft(31.0,3.9,y,z,5.8)
-    return tooth_disc.union(axle).union(wheel)
+    # The axle crosses the side shroud; its short outer D-end receives a
+    # separate lever after the shroud is installed.
+    axle=b.shaft(22.6,15.1,y,z,1.35)
+    flat=b.box(34.8,38.0,y+0.95,y+2.0,z-2.0,z+2.0)
+    return tooth_disc.union(axle).cut(flat)
+
+
+def lever(y,z):
+    hub=b.shaft(35.0,3.1,y,z,2.7)
+    stem=b.box(35.0,38.1,y+1.0,y+9.0,z-1.65,z+1.65)
+    tip=b.shaft(35.0,3.1,y+9.0,z,1.65)
+    shape=hub.union(stem).union(tip)
+    round_bore=b.shaft(34.8,3.5,y,z,1.47)
+    d_bore=round_bore.intersect(b.box(34.7,38.4,y-2.0,y+1.07,z-2.0,z+2.0))
+    return shape.cut(d_bore)
+
+
+@lru_cache(None)
+def gear_cover():
+    """Removable right-side shroud. Only two lever axle holes open outside."""
+    # The broad outside panel hides both pinions, the sector and the rack.
+    outer=(cq.Workplane("YZ").workplane(offset=32.3)
+           .center(-12.0,2.5).rect(42.0,49.0).extrude(2.0)
+           .edges("|X").fillet(4.0))
+    skirt=(cq.Workplane("YZ").workplane(offset=27.5)
+           .center(-12.0,2.5).rect(42.0,49.0).extrude(4.8)
+           .edges("|X").fillet(4.0))
+    hollow=(cq.Workplane("YZ").workplane(offset=27.4)
+            .center(-12.0,2.5).rect(38.0,45.0).extrude(5.1)
+            .edges("|X").fillet(2.0))
+    cover=outer.union(skirt.cut(hollow))
+    # The rear right arm of the phone-depth stop runs beside this rim.
+    cover=cover.cut(b.box(27.4,28.35,6.8,9.2,-3.0,12.0))
+    # Two broad pegs locate the shroud on the right body half. The running
+    # prototype uses clearance; final retention needs a printed fit trial.
+    for y,z in SHROUD_PEGS:
+        cover=cover.union(b.shaft(24.4,8.1,y,z,1.35))
+    for y,z in (ANGLE_AXIS,HEIGHT_AXIS):
+        cover=cover.cut(b.shaft(32.0,2.6,y,z,1.62))
+    return cover
 
 
 def rack():
@@ -122,7 +159,10 @@ def shell_right():
     height_bearing=bearing(*HEIGHT_AXIS,-11.5,-1.0,-10.0,10.0)
     body=body.cut(b.shaft(22.5,3.1,*ANGLE_AXIS,1.60))
     body=body.cut(b.shaft(22.5,5.6,*HEIGHT_AXIS,1.60))
-    return body.union(angle_bearing).union(height_bearing)
+    body=body.union(angle_bearing).union(height_bearing)
+    for y,z in SHROUD_PEGS:
+        body=body.cut(b.shaft(24.2,3.4,y,z,1.50))
+    return body
 
 
 def move_pinion(shape,axis,degrees):
@@ -134,6 +174,8 @@ def report():
     left=a.shell_left();right=shell_right();hard=left.union(right)
     tray=mirror_tray();slider=height_slider()
     hgear=pinion(*HEIGHT_AXIS);mgear=pinion(*ANGLE_AXIS)
+    shroud=gear_cover()
+    hlever=lever(*HEIGHT_AXIS);mlever=lever(*ANGLE_AXIS)
     result={
         "shell_solids":[left.solids().size(),right.solids().size()],
         "right_component_volumes_mm3":[round(s.Volume(),2) for s in right.solids().vals()],
@@ -141,6 +183,8 @@ def report():
         "slider_solids":slider.solids().size(),
         "height_pinion_solids":hgear.solids().size(),
         "angle_pinion_solids":mgear.solids().size(),
+        "side_cover_solids":shroud.solids().size(),
+        "lever_solids":[hlever.solids().size(),mlever.solids().size()],
         "pinion_pitch_radius_mm":PINION_PITCH_R,
         "height_turn_degrees":round(math.degrees(10/PINION_PITCH_R),2),
         "mirror_turn_degrees":round(5*SECTOR_PITCH_R/PINION_PITCH_R,2),
@@ -153,6 +197,14 @@ def report():
             "height":round(b.volume(hgear.intersect(fixed.cover())),4),
             "angle":round(b.volume(mgear.intersect(fixed.cover())),4)},
         "pinion_pinion_overlap_mm3":round(b.volume(hgear.intersect(mgear)),4),
+        "side_cover_overlap_mm3":{
+            "shell":round(b.volume(shroud.intersect(hard)),4),
+            "rear_cover":round(b.volume(shroud.intersect(fixed.cover())),4),
+            "angle_pinion":round(b.volume(shroud.intersect(mgear)),4),
+            "height_pinion":round(b.volume(shroud.intersect(hgear)),4),
+            "angle_lever":round(b.volume(shroud.intersect(mlever)),4),
+            "height_lever":round(b.volume(shroud.intersect(hlever)),4),
+        },
         "phone_overlap_mm3":{
             f"{thickness}/{drop}":{
                 "height_wheel":round(b.volume(hgear.intersect(b.phone(thickness,-drop))),2),
@@ -170,12 +222,14 @@ def report():
                 ("xmin","xmax","ymin","ymax","zmin","zmax")]
                 for s in collision.solids().vals()]
         result["rigid_overlap_mm3"][f"slider/{drop}"]=round(b.volume(moved.intersect(hard)),4)
+        result["rigid_overlap_mm3"][f"slider/shroud/{drop}"]=round(b.volume(moved.intersect(shroud)),4)
     for angle in (-5,-2.5,0,2.5,5):
         moved=a.rotate_tray(tray,angle)
         pin=move_pinion(mgear,ANGLE_AXIS,-angle*SECTOR_PITCH_R/PINION_PITCH_R)
         result["angle_mesh_overlap_mm3"][str(angle)]=round(b.volume(moved.intersect(pin)),4)
         collision=moved.intersect(hard)
         result["rigid_overlap_mm3"][f"tray/{angle}"]=round(b.volume(collision),4)
+        result["rigid_overlap_mm3"][f"tray/shroud/{angle}"]=round(b.volume(moved.intersect(shroud)),4)
         if angle==0 and collision.solids().size():
             result["tray_overlap_boxes"]=[[
                 round(getattr(s.BoundingBox(),v),2) for v in
@@ -213,6 +267,7 @@ if __name__=="__main__":
     assert all(value==0 for value in result["rigid_overlap_mm3"].values())
     assert all(value==0 for value in result["pinion_shell_overlap_mm3"].values())
     assert all(value==0 for value in result["pinion_cover_overlap_mm3"].values())
+    assert all(value==0 for value in result["side_cover_overlap_mm3"].values())
     assert all(value==0 for value in result["cross_overlap_mm3"].values())
     assert all(value==0 for sample in result["phone_overlap_mm3"].values()
                for value in sample.values())
