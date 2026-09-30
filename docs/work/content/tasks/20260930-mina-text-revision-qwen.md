@@ -2,13 +2,13 @@
 
 - id: 20260930-content-mina-text-revision-qwen
 - domain: content
-- status: completed_local
+- status: completed
 - updated: 2026-09-30
 - base: aa0dec1e
 - branch: main
 - worktree: C:/projects/tangobook
-- integration: main 로컬 원고·SCENE·HTML·선정 기록 반영. 운영 DB/R2 미변경.
-- delivery: 이번 작업 push 미요청
+- integration: origin/main 원고·SCENE·HTML·선정 기록 반영(07cc0859). 운영 DB/R2 미변경.
+- delivery: 2026-09-30 사용자 요청으로 origin/main push 완료(07cc0859).
 
 ## 요청과 결정
 
@@ -49,4 +49,4 @@
 
 ## 반영 범위
 
-원고·기획서·HTML과 선정 기록은 로컬 main 커밋 대상이다. 퐁이네 재작화 때와 같이 생성본은 로컬 검토·선정까지 마쳤으며, **운영 DB/R2 삽화 교체와 Git push는 하지 않았다**. 운영 반영 시 현재 책/오버레이/기존 이미지의 백업과 쓰기 직전 충돌 검사를 먼저 수행해야 한다. 특히 02권 p1의 사용자 오버레이가 새 문장을 가리지 않도록 현재 값을 다시 대조한다.
+원고·기획서·HTML과 선정 기록은 사용자 요청으로 2026-09-30 origin/main에 push했다(07cc0859). 생성본은 로컬 검토·선정까지 마쳤으며, **운영 DB/R2 삽화 교체는 하지 않았다**. 운영 반영 시 현재 책/오버레이/기존 이미지의 백업과 쓰기 직전 충돌 검사를 먼저 수행해야 한다. 특히 02권 p1의 사용자 오버레이가 새 문장을 가리지 않도록 현재 값을 다시 대조한다.
