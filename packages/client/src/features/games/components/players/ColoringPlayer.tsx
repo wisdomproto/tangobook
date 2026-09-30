@@ -61,6 +61,14 @@ export interface ColoringItem {
    * 🔴 예전엔 `english` 가 아니면 전부 `ko` 라 베트남 아이가 한국어 칭찬을 들을 뻔했다.
    */
   lang?: Lang;
+  /** 장면 도안은 낱말 검색 대신 제작 때 지정한 원본 쪽을 그대로 재생한다. */
+  scene?: {
+    pageNumber: number;
+    illustrationUrl: string;
+    text: string;
+    ttsUrl?: string;
+    backgroundMusicUrl?: string;
+  };
 }
 
 interface ColoringPlayerProps {
@@ -187,6 +195,7 @@ function readColorSource(
 export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   const [idx, setIdx] = useState(0);
   const [ready, setReady] = useState(false);
+  const [sceneRatio, setSceneRatio] = useState(1);
   const [palette, setPalette] = useState<PaletteEntry[]>([]);
   const [selected, setSelected] = useState(0);
   /** 엉뚱한 칸을 눌렀을 때 통통 튈 물감 — 오답이 아니라 안내다. */
@@ -269,6 +278,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
    */
   const lineartUrl = item?.lineartUrl;
   const colorSourceUrl = item?.colorSourceUrl;
+  const isScene = !!item?.scene;
   useEffect(() => {
     if (!lineartUrl || !colorSourceUrl) return;
     let cancelled = false;
@@ -288,12 +298,15 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
 
       const w = line.naturalWidth;
       const h = line.naturalHeight;
+      setSceneRatio(w / h);
       const walls = buildWalls(readPixels(line, w, h));
       const regions = labelRegions(walls, w, h);
       const required = paintableRegions(regions, w * h, 0.003, borderRegions(regions.labels, w, h));
       // 🔴 색 출처는 도안의 그림 사각형에 맞춰 읽는다 — 크기가 달라도 같은 자리를 보게.
       const ink = boundsOf(w, h, (i) => walls[i] === 1);
-      const source = readColorSource(answer, w, h, ink);
+      const source = isScene
+        ? { pixels: readPixels(answer, w, h), background: undefined }
+        : readColorSource(answer, w, h, ink);
       const { palette: pal, colorOfRegion } = buildPalette(
         regions,
         source.pixels,
@@ -331,7 +344,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     return () => {
       cancelled = true;
     };
-  }, [lineartUrl, colorSourceUrl, render]);
+  }, [lineartUrl, colorSourceUrl, isScene, render]);
 
   // ── 힌트: 고른 색으로 칠할 칸을 반짝이게 ──────────────────────────────────
   useEffect(() => {
@@ -376,13 +389,15 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     const run = ++runRef.current;
     setDone(true);
     revealTimerRef.current = window.setTimeout(() => setRevealed(true), 1400);
-    const ttsUrl = await resolveTtsUrl({
-      text: item.word,
-      language: item.language ?? 'korean',
-      storybookId: item.storybookId,
-      directUrl: item.ttsUrl ?? undefined,
-      identifierPrefix: 'color',
-    });
+    const ttsUrl = item.scene
+      ? undefined
+      : await resolveTtsUrl({
+          text: item.word,
+          language: item.language ?? 'korean',
+          storybookId: item.storybookId,
+          directUrl: item.ttsUrl ?? undefined,
+          identifierPrefix: 'color',
+        });
     const lang: Lang = item.lang ?? (item.language === 'english' ? 'en' : 'ko');
     playCorrectSequence({
       ttsUrl,
@@ -391,7 +406,14 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       //    장면이 있으면 그 장면 나레이션까지 끝난 뒤(SceneReveal onDone)에 부른다.
       onDone: () => {
         if (!doneRef.current || runRef.current !== run) return;
-        const s = resolveSceneFromWord(item.word, lang, sourceStorybook, gameStyle.selectedStyle);
+        const s: WordScene | null = item.scene
+          ? {
+              illustrationUrl: item.scene.illustrationUrl,
+              pageNumber: item.scene.pageNumber,
+              pageText: item.scene.text,
+              pageTtsUrl: item.scene.ttsUrl,
+            }
+          : resolveSceneFromWord(item.word, lang, sourceStorybook, gameStyle.selectedStyle);
         if (s) setScene(s);
         else onDoneRef.current?.();
       },
@@ -587,7 +609,18 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       <div className="flex-1 min-h-0 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-3">
         {/* 🔴 정사각을 **세로에선 폭으로, 가로에선 높이로** 잡는다. `aspect-square h-full` 하나로 두면
             세로 화면에서 `h-full` 이 이겨 그림이 455×864 로 늘어난다(도안이 찌그러져 보인다). */}
-        <div className="relative aspect-square w-full sm:w-auto sm:h-full max-w-full max-h-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop">
+        <div
+          style={
+            isScene
+              ? {
+                  aspectRatio: sceneRatio,
+                  width: `min(100%, calc((100dvh - 200px) * ${sceneRatio}))`,
+                  height: 'auto',
+                }
+              : undefined
+          }
+          className="relative aspect-square w-full sm:w-auto sm:h-full max-w-full max-h-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop"
+        >
           <canvas
             ref={canvasRef}
             className="block w-full h-full"
@@ -679,6 +712,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
           text={scene.pageText}
           highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
+          backgroundMusicUrl={item.scene?.backgroundMusicUrl}
           onDone={() => {
             setScene(null);
             onDoneRef.current?.();

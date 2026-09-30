@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-09-30 [명작동화 장면 색칠 배치](../work/games/tasks/20260930-classic-scene-coloring.md): 144권·288도안 로컬 Qwen 생성 진행. 사용자가 공주/개구리/큰 접시만 남긴 단순화 수준 승인. 원본과 함께 보는 별도 HTML, 실제 ColoringPlayer 시험과 정확한 원본 페이지 읽기+BGM 지원. 출력 D:/ComfyUI-output/classic-scene-coloring, 숨김 배치 상태 batch-status.json. 전수 생성·육안/플레이 검수는 진행 중이며 운영 등록·push 없음.
+
 2026-09-30 [미나 교정·Qwen 재작화 완료](../work/content/tasks/20260930-mina-text-revision-qwen.md): 운영 본문과 기존 삽화를 대조해 43권 135쪽을 고치고 원고·SCENE·HTML 동기화. 바뀐 그림 22장 로컬 생성·개별 검수·최종 해시 기록 완료. 사용자 요청으로 origin/main push 완료(07cc0859). 후속 요청으로 운영 삽화 22장 교체·이전 이미지 정리, 43권 본문 동기화와 CDN 해시 검증을 완료했다. 상세 선정/교정 목록은 영역 작업 기록에서 연결한다.
 
 2026-09-30 [미나 50권 글 검토](../work/content/tasks/20260930-mina-text-review.md): HTML 500쪽 전수 검토, 원고와 123쪽 불일치 확인. 명백한 수위/개수/소유 연결 오류와 후반 반복 설명을 권별 기록했다. 제품 변경·push 없음. 글 수정 시 HTML의 기존 문장을 원고 재빌드로 덮지 않도록 대조가 선행돼야 한다.
