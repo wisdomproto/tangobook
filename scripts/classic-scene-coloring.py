@@ -1,11 +1,11 @@
 """Read-only inventory and resumable local Qwen scene coloring production."""
-import concurrent.futures, json, pathlib, urllib.request, urllib.parse, time, hashlib, argparse, shutil, re, subprocess, importlib.util
+import concurrent.futures, json, pathlib, urllib.request, urllib.parse, time, hashlib, argparse, shutil, re, subprocess, importlib.util, os
 quality_spec=importlib.util.spec_from_file_location('classic_quality',pathlib.Path(__file__).with_name('classic-coloring-quality.py'))
 quality=importlib.util.module_from_spec(quality_spec);quality_spec.loader.exec_module(quality)
 
 ROOT = pathlib.Path('D:/ComfyUI-output/classic-scene-coloring')
 API = 'https://www.tangobook.co.kr'
-COMFY = 'http://127.0.0.1:8189'
+COMFY = os.environ.get('CLASSIC_COLORING_COMFY_URL','http://127.0.0.1:8189').rstrip('/')
 SELECTION = {
  '개구리 왕자':[3,8], '개미와 베짱이':[3,14], '거인의 정원':[4,10],
  '걸리버 여행기':[3,11], '구둣방 할아버지와 꼬마 요정':[10,14],
@@ -135,7 +135,7 @@ def remove_color(j,jobs):
             g['9']['inputs']['filename_prefix']='classic-scene-coloring-monochrome/'+j['key']
             save(ROOT/'workflows'/(j['key']+'.json'),g)
             pid=request(COMFY+'/prompt',{'prompt':g,'client_id':'classic-color-removal'})['prompt_id']
-            j['promptId']=pid;j['status']='color-repairing';save(ROOT/'manifest.json',jobs)
+            j['promptId']=pid;j['promptEndpoint']=COMFY;j['status']='color-repairing';save(ROOT/'manifest.json',jobs)
         print('REMOVE COLOR',j['title'],j['pageNumber'],attempt+1,pid,flush=True)
         start=time.monotonic()
         while True:
@@ -173,6 +173,7 @@ def generate(limit=None):
     for j in ordered:
         dest=ROOT/j['lineartFile']
         if j['status']=='generated' and dest.exists():continue
+        if j['status']=='waiting-original-server':continue
         if j['status']=='needs-monochrome-review':raise RuntimeError('Manual review required: '+j['key'])
         if j['status'] in ['color-repair-needed','color-repairing']:
             remove_color(j,jobs)
@@ -203,7 +204,7 @@ def generate(limit=None):
         pid=j.get('promptId') if j['status']=='generating' else None
         if not pid:
             pid=request(COMFY+'/prompt',{'prompt':g,'client_id':'classic-scene-coloring'})['prompt_id']
-        j['promptId']=pid;j['status']='generating';j['promptVersion']=PROMPT_VERSION;save(ROOT/'manifest.json',jobs)
+        j['promptId']=pid;j['promptEndpoint']=COMFY;j['status']='generating';j['promptVersion']=PROMPT_VERSION;save(ROOT/'manifest.json',jobs)
         print('START',j['title'],j['pageNumber'],pid,flush=True)
         while True:
             time.sleep(3)

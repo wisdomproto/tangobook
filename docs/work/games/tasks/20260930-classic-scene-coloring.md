@@ -2,7 +2,7 @@
 
 - id: 20260930-games-classic-scene-coloring
 - domain: games
-- status: paused
+- status: active
 - updated: 2026-09-30
 - base: a0811a2e0
 - branch: codex/games-classic-scene-coloring
@@ -44,6 +44,8 @@
 - pnpm install --frozen-lockfile, shared build, client typecheck, client build, 관련 resolve-scene/useColoringSheets 23테스트, 수정 TSX eslint 통과. 빌드의 기존 대형 chunk/lottie eval/i18n 동적 import 경고는 남음.
 
 ## 다음 행동
+
+2026-09-30 사용자가 “계속 진행하자”로 재개 요청하여 중단 지시를 해제했다. 8189 queue와 두 저장 promptId history는 여전히 무응답. 같은 설치의 8190 복구 서버는 정상 응답·queue 비어 있음(기존 두 promptId history는 없음). Comfy 출력 PNG의 내장 prompt와 저장 graph가 완전히 일치하는 완료 파일도 없어 기존 두 제출은 waiting-original-server로 보류하고 promptId/이전 상태 보존. 중복 제출 없이 나머지 163장을 8190에서 먼저 이어간다. 기존 통과 123장 보존. 서버 전환은 CLASSIC_COLORING_COMFY_URL 또는 runner --comfy-url 옵션을 사용하며 이번 실행은 `python scripts/run-classic-coloring-batch.py --comfy-url http://127.0.0.1:8190`이다. 원래 서버/다른 작업 프로세스는 종료하지 않았다. 두 보류 항목은 기존 요청 복구 전까지 전체 완료로 보고하지 않는다.
 
 2026-09-30 사용자가 “나중에 다시 하도록 기록 해두자. 지금 일단 멈추고”로 명시 중단. 자체 생성/수정 runner가 실행 중이지 않은 것을 프로세스로 확인했고 출력 batch-status.json도 paused-by-user로 보관했다. 사용자 재개 요청 전에는 생성·재시도·ComfyUI 재시작을 하지 않는다. 기존 출력/원본/HTML/manifest/프롬프트/로그는 보존한다. 공용 ComfyUI와 다른 작업은 종료하지 않았다.
 

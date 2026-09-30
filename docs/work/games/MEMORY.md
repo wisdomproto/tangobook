@@ -1,6 +1,6 @@
 # 게임·독후활동 기억
 
-2026-09-30 [명작동화 장면 색칠](tasks/20260930-classic-scene-coloring.md): **사용자 요청으로 중단(paused)**. 144권 각 2쪽, 288장 중 123장 흑백 검사 통과/165장 남음. ComfyUI 무응답 후 runner 종료, 사용자 재개 요청 전 자동 재시도/서버 재시작 금지. 승인 기준은 단순화 p8처럼 인물+핵심 소품만 남기고 모든 면은 흰색/검은 경계. D:/ComfyUI-output/classic-scene-coloring에 원본/도안/HTML/manifest/로그 보존. 정확한 원본 쪽 읽기+BGM·장면 비율 분기 로컬 확인. 전수 생성/게임 품질 검수와 운영 등록·main 통합·push는 미완료. 재개 명령과 promptId 복구 주의는 task에 기록.
+2026-09-30 [명작동화 장면 색칠](tasks/20260930-classic-scene-coloring.md): **사용자 요청으로 재개(active)**. 144권 각 2쪽, 재개 시점 123장 흑백 검사 통과/165장 남음. 8189 무응답 지속, 정상 응답하는 같은 설치의 8190에서 163장을 먼저 이어간다. 이전 서버에 제출된 2장은 waiting-original-server로 promptId를 보존해 중복 요청 방지. 승인 기준은 단순화 p8처럼 인물+핵심 소품, 흰 면/검은 경계. 출력/HTML/로그 D:/ComfyUI-output/classic-scene-coloring 보존. 전수 생성/게임 품질 검수·운영 등록·main 통합·push 미완료. 실행 명령과 원래 요청 복구 주의는 task 참조.
 
 2026-09-28 [장면 색칠 실제 실행](tasks/20260928-scene-coloring-feasibility.md): Qwen 구출 장면 2회 재생성. 단순화본 13칸/7색 그룹으로 실제 ColoringPlayer 브라우저 붓질·자동 색 이동·완료·리셋 확인. 기존 정사각 표시/낱말용 색 정렬은 장면에 부적합하여 로컬 시험 서버에서만 비율/원본 좌표 분기 비교. 목 장식/옷깃 색 오차와 배경 제외 남음. 제품 파일 미수정, D드라이브 `serve-player.mjs` 및 증거 PNG 보관.
 

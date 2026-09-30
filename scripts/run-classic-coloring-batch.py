@@ -7,8 +7,13 @@ import os
 import subprocess
 import sys
 import time
+import argparse
 from pathlib import Path
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--comfy-url', default=os.environ.get('CLASSIC_COLORING_COMFY_URL','http://127.0.0.1:8189'))
+args = parser.parse_args()
+os.environ['CLASSIC_COLORING_COMFY_URL'] = args.comfy_url
 workspace = Path(__file__).resolve().parent.parent
 spec = importlib.util.spec_from_file_location('production', workspace / 'scripts/classic-scene-coloring.py')
 m = importlib.util.module_from_spec(spec)
@@ -27,7 +32,7 @@ except OSError:
 environment = dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONUNBUFFERED='1')
 with open(m.ROOT / 'batch.log', 'a', encoding='utf-8') as log:
     for attempt in range(1, 4):
-        m.save(m.ROOT / 'batch-status.json', {'state': 'running', 'pid': os.getpid(), 'attempt': attempt, 'promptVersion': m.PROMPT_VERSION})
+        m.save(m.ROOT / 'batch-status.json', {'state': 'running', 'pid': os.getpid(), 'attempt': attempt, 'promptVersion': m.PROMPT_VERSION, 'comfyEndpoint': m.COMFY})
         result = subprocess.run([sys.executable, '-u', str(workspace / 'scripts/classic-scene-coloring.py'), 'generate'], cwd=workspace, env=environment, stdout=log, stderr=log)
         if result.returncode == 0:
             break
@@ -39,6 +44,10 @@ with open(m.ROOT / 'batch.log', 'a', encoding='utf-8') as log:
         m.save(m.ROOT / 'batch-status.json', {'state': 'needs-attention', 'pid': os.getpid(), 'log': 'batch.log'})
         raise SystemExit('Generation failed after three attempts; inspect batch.log')
     jobs = json.loads((m.ROOT / 'manifest.json').read_text(encoding='utf-8'))
+    deferred = [j['key'] for j in jobs if j['status'] == 'waiting-original-server']
+    if deferred and all(j['status'] in ['generated','waiting-original-server'] for j in jobs):
+        m.save(m.ROOT / 'batch-status.json', {'state': 'needs-attention', 'reason': 'Original server submissions remain unconfirmed; no duplicate requests sent', 'generated': sum(j['status']=='generated' for j in jobs), 'deferred': deferred, 'comfyEndpoint': m.COMFY})
+        raise SystemExit('Remaining original-server submissions require recovery')
     for j in jobs:
         if j['status'] != 'generated':
             raise RuntimeError('Incomplete job: ' + j['key'])

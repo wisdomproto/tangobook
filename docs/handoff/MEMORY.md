@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-09-30 [명작동화 장면 색칠 배치](../work/games/tasks/20260930-classic-scene-coloring.md): **사용자 요청으로 중단(paused)**. 144권·288도안 중 123장 흑백 검사 통과/165장 남음. ComfyUI 무응답으로 runner 종료, 사용자 재개 요청 전 자동 재시도/서버 재시작하지 않는다. 단순화 승인 기준·흰 면/검은 경계·재개 순서와 promptId 복구 주의 기록. 출력 D:/ComfyUI-output/classic-scene-coloring에 원본/도안/HTML/manifest/로그 보존. 전체 생성·육안/플레이 검수·운영 등록·main 통합·push는 미완료.
+2026-09-30 [명작동화 장면 색칠 배치](../work/games/tasks/20260930-classic-scene-coloring.md): **사용자 요청으로 재개(active)**. 재개 시점 144권·288도안 중 123장 흑백 검사 통과/165장 남음. 8189 무응답 지속, 정상 복구 서버 8190에서 나머지 163장 재개. 이전 제출 2장은 promptId 보존·waiting-original-server로 중복 방지. 승인 기준·실행 명령·복구 순서 기록. 출력 D:/ComfyUI-output/classic-scene-coloring 보존. 전수 생성/게임 품질 검수·운영 등록·main 통합·push 미완료.
 
 2026-09-30 [미나 교정·Qwen 재작화 완료](../work/content/tasks/20260930-mina-text-revision-qwen.md): 운영 본문과 기존 삽화를 대조해 43권 135쪽을 고치고 원고·SCENE·HTML 동기화. 바뀐 그림 22장 로컬 생성·개별 검수·최종 해시 기록 완료. 사용자 요청으로 origin/main push 완료(07cc0859). 후속 요청으로 운영 삽화 22장 교체·이전 이미지 정리, 43권 본문 동기화와 CDN 해시 검증을 완료했다. 상세 선정/교정 목록은 영역 작업 기록에서 연결한다.
 
