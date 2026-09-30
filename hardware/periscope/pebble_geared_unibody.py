@@ -7,12 +7,12 @@ in; this avoids the visually separate side pods of the earlier prototype.
 from functools import lru_cache
 from pathlib import Path
 import json
+import math
 
 import cadquery as cq
 
-import pebble as b
-import pebble_adjustable as a
 import pebble_geared as g
+from pebble_geared_profile import b, a, MIN_CAMERA_TOP_MARGIN, MAX_CAMERA_TOP_MARGIN
 
 
 OUT=Path(__file__).resolve().parent/"out"/"pebble_geared"
@@ -27,16 +27,16 @@ def extension(right):
            .close().extrude(x1-x0))
     if right:
         # Open on the right: the pinions enter their journals from this side.
-        cavity=b.box(19.9,35.0,-27.6,18.5,-16.8,15.9)
+        cavity=b.box(19.9,35.0,-27.6,18.5,-16.8,b.TOP-1.6)
     else:
         # The left face remains closed, with room for the mirror pivot inside.
-        cavity=b.box(-32.7,-19.9,-27.6,18.5,-16.8,15.9)
+        cavity=b.box(-32.7,-19.9,-27.6,18.5,-16.8,b.TOP-1.6)
     outer=outer.cut(cavity).cut(a.mirror_motion_clearance())
     outer=outer.cut(b.box(x0-0.1,x1+0.1,-0.2,11.2,-60.0,a.STOP_TOP+0.3))
     # Preserve the original rear foam cover's shoulder where it spans both
     # body halves; the new perimeter otherwise overbuilds that seat.
     rear_x=(19.9,23.5) if right else (-23.5,-19.9)
-    outer=outer.cut(b.box(*rear_x,15.8,21.2,-17.6,17.8))
+    outer=outer.cut(b.box(*rear_x,15.8,21.2,-17.6,b.TOP+0.3))
     if right:
         # The rack's lower tooth passes here at the full 10 mm phone depth.
         outer=outer.cut(b.box(27.6,30.2,-4.5,-0.5,-19.2,-16.5))
@@ -86,7 +86,7 @@ def lid_peg(y,z):
 def service_lid():
     # Only the shallow outer face remains visible; the shell supplies all
     # side walls and roof. Its pins reach the existing blind catch pockets.
-    lid=(b.box(32.7,34.7,-27.3,18.2,-16.5,15.6)
+    lid=(b.box(32.7,34.7,-27.3,18.2,-16.5,b.TOP-1.9)
          .edges("|X").fillet(4.5))
     lid=lid.cut(b.box(32.6,34.8,-0.2,11.2,-16.6,a.STOP_TOP+0.3))
     for y,z in (g.ANGLE_AXIS,g.HEIGHT_AXIS):
@@ -133,8 +133,16 @@ def report():
             camera_overlap[f"{angle}/{drop}"]=round(b.volume(
                 a.camera_tunnel(angle,-drop).intersect(hard)),4)
     return {
+        "camera_top_margin_range_mm":[MIN_CAMERA_TOP_MARGIN,MAX_CAMERA_TOP_MARGIN],
+        "phone_above_mirror_mm":{str(drop):round(a.STOP_TOP-drop-b.MIRROR_TOP,3)
+                                  for drop in (0,2.5,5,7.5,10)},
         "solids":{"left":left.solids().size(),"right":right.solids().size(),
-                  "lid":lid.solids().size()},
+                  "lid":lid.solids().size(),"slider":slider.solids().size(),
+                  "paddle":a.adjustable_paddle().solids().size()},
+        "paddle_shell_overlap_mm3":{str(angle):round(b.volume(
+            a.adjustable_paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),
+                (1,b.old.PIVOT_Y,b.PIVOT_Z),angle).intersect(hard)),4)
+            for angle in (0,8.255,17.126,27.063)},
         "lid_final_overlap_mm3":round(b.volume(lid.intersect(hard)),4),
         "lid_vs_moving_mm3":{
             name:round(b.volume(lid.intersect(part)),4)
@@ -142,6 +150,14 @@ def report():
         "moving_vs_shell_mm3":{
             name:round(b.volume(hard.intersect(part)),4)
             for name,part in {"tray":tray,"slider":slider,**pinions}.items()},
+        "gears_moving_overlap_mm3":{
+            "height_shell":round(max(b.volume(g.move_pinion(pinions["height"],
+                g.HEIGHT_AXIS,-math.degrees(drop/g.PINION_PITCH_R)).intersect(hard.union(lid)))
+                for drop in (0,2.5,5,7.5,10)),4),
+            "height_rack":round(max(b.volume(g.move_pinion(pinions["height"],
+                g.HEIGHT_AXIS,-math.degrees(i*.5/g.PINION_PITCH_R)).intersect(
+                    slider.translate((0,0,-i*.5)))) for i in range(21)),4),
+        },
         "rear_cover_vs_shell_mm3":round(b.volume(rear.intersect(hard)),4),
         "rear_overlap_boxes":[[
             round(getattr(s.BoundingBox(),v),2) for v in
@@ -196,7 +212,7 @@ if __name__=="__main__":
         temporary.unlink()
     (OUT/"unibody_report.json").write_text(json.dumps(result,indent=2),encoding="utf-8")
     print(json.dumps(result,indent=2))
-    assert result["solids"]=={"left":1,"right":1,"lid":1}
+    assert all(value==1 for value in result["solids"].values())
     assert all(item["watertight"] and item["components"]==1
                for item in result["mesh_qa"].values())
     assert result["lid_final_overlap_mm3"]==0
@@ -204,9 +220,11 @@ if __name__=="__main__":
     for key in ("lid_vs_moving_mm3","moving_vs_shell_mm3",
                 "slider_range_overlap_mm3","tray_range_overlap_mm3",
                 "camera_tunnel_overlap_mm3","phone_overlap_mm3",
-                "slider_phone_overlap_mm3","pinion_side_entry_mm3"):
+                "slider_phone_overlap_mm3","pinion_side_entry_mm3",
+                "paddle_shell_overlap_mm3"):
         assert all(value==0 for value in result[key].values()),key
     assert result["lid_side_entry_mm3"]==0
+    assert all(value==0 for value in result["gears_moving_overlap_mm3"].values())
     assert all(0<value<1 for value in
                result["detent_between_positions_mm3"].values())
     assert 0<result["lid_snap_interference_peak_mm3"]<2

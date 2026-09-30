@@ -2,9 +2,8 @@
 import os
 import sys
 
-import pebble as b
-import pebble_adjustable as a
 import pebble_geared as g
+from pebble_geared_profile import b, a
 import pebble_preview as v
 
 

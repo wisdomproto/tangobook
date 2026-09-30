@@ -15,6 +15,9 @@ import trimesh
 import pebble as b
 import pebble_cover as fixed
 
+b = globals().get("DESIGN_BASE", b)
+fixed = globals().get("DESIGN_COVER", fixed)
+
 OUT = Path(__file__).resolve().parent / "out" / "pebble_adjustable"
 MIRROR_ANGLE = b.old.MU
 ANGLE_STEPS = (-5, -2.5, 0, 2.5, 5)
@@ -135,7 +138,7 @@ def adjustable_paddle():
     lower = (cq.Workplane("YZ").workplane(offset=-b.CONTACT_W/2)
              .polyline([(4.6,-0.8),(1.8,-11.0),(4.4,-11.0),(7.3,-0.8)])
              .close().extrude(b.CONTACT_W))
-    return b.paddle().union(lower)
+    return b.paddle().union(lower.translate((0,0,b.PHONE_INSERT_DEPTH-8.0)))
 
 
 @lru_cache(None)

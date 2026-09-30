@@ -2,9 +2,9 @@
 import os
 import sys
 
-import pebble as b
 import pebble_geared as g
 import pebble_geared_unibody as u
+from pebble_geared_profile import b
 import pebble_preview as v
 
 

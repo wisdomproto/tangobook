@@ -13,6 +13,8 @@ import trimesh
 
 import pebble as b
 
+b = globals().get("DESIGN_BASE", b)
+
 OUT = Path(__file__).resolve().parent / "out" / "pebble_cover"
 JOIN_Y = 16.0
 TAB_X = 18.6

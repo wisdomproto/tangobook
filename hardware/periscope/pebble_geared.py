@@ -10,9 +10,7 @@ import math
 
 import cadquery as cq
 
-import pebble as b
-import pebble_adjustable as a
-import pebble_cover as fixed
+from pebble_geared_profile import b, a, fixed
 
 
 OUT=Path(__file__).resolve().parent/"out"/"pebble_geared"
@@ -25,9 +23,9 @@ PINION_OUTER_R=5.6
 SECTOR_PITCH_R=11.5
 SECTOR_ROOT_R=10.7
 SECTOR_OUTER_R=12.3
-HEIGHT_AXIS=(-8.5,-7.0)
+HEIGHT_AXIS=(-8.5,-1.0)
 ANGLE_AXIS=(a.PIVOT_Y,a.PIVOT_Z+SECTOR_PITCH_R+PINION_PITCH_R)
-SHROUD_PEGS=((-10.0,1.0),(-7.0,4.0),(-3.0,14.0))
+SHROUD_PEGS=((-23.0,14.0),(-7.0,10.0),(-8.0,20.0))
 LEFT_PEGS=((-15.0,0.0),(-10.0,1.0),(-3.0,-10.0))
 
 
@@ -207,6 +205,7 @@ def shell_right():
     body=body.cut(b.shaft(22.5,5.6,*HEIGHT_AXIS,1.60))
     body=body.union(angle_bearing).union(height_bearing)
     for y,z in SHROUD_PEGS:
+        body=body.union(b.shaft(21.8,5.7,y,z,3.1))
         body=body.cut(b.shaft(24.2,3.4,y,z,1.50))
         body=body.cut(b.shaft(24.5,1.1,y,z,1.75))
     return body

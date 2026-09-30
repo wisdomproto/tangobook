@@ -35,7 +35,7 @@ _MIR_HALF_Y = (MIR_H/2)*math.sin(math.radians(90-old.MU))+MIR_T/2
 BODY_D = CAM_GAP+_MIR_HALF_Y+old.WALL+0.6
 FRONT = -BODY_D
 BACK = old.CHANNEL + old.WALL + 6.0
-PHONE_INSERT_DEPTH = 8.0
+PHONE_INSERT_DEPTH = globals().get("DESIGN_PHONE_INSERT_DEPTH", 8.0)
 SEAM = 0.20
 FIT = 0.30
 LATCH_Y = (-22.0, 16.6)
@@ -464,7 +464,7 @@ def housing(rear_cartridge_guide=True):
         # Keep the rib high: after moving the mirror closer, the old low rib
         # crossed the mirror's near/top edge around z=-2.7 mm.
         half_depth=3.5 if y<0 else 2.0
-        rib_bottom=9.8 if y>0 else 2.5
+        rib_bottom=9.8+(PHONE_INSERT_DEPTH-8.0) if y>0 else 2.5
         beam = box(-WIDTH/2,WIDTH/2,y-half_depth,y+half_depth,rib_bottom,TOP)
         shell = shell.union(beam.intersect(envelope()))
     # Cut these after adding ribs and the roof so later unions cannot refill
