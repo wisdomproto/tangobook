@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-09-30 [미나 50권 글 검토](../work/content/tasks/20260930-mina-text-review.md): HTML 500쪽 전수 검토, 원고와 123쪽 불일치 확인. 명백한 수위/개수/소유 연결 오류와 후반 반복 설명을 권별 기록했다. 제품 변경·push 없음. 글 수정 시 HTML의 기존 문장을 원고 재빌드로 덮지 않도록 대조가 선행돼야 한다.
+
 2026-09-30 [피포 01 H3 영상 원속도 재생성](../work/video/tasks/20260929-pipo01-minimax-h3.md): 10쪽을 나레이션 길이로 H3에서 새로 생성했다. 5쪽 지팡이 오류와 2쪽 엄마의 모자 탈착 동작을 각각 재생성·검수했다. 모자를 계속 쓴 `*-hat-fixed.mp4`가 현재 로컬 최종본이며 선정 해시·타이밍 manifest는 `D:/tangobook-video/pipo-01-h3/native-v2/`에 있다. 책 뷰어 BGM 적용, 외부 게시 없음.
 
 2026-09-29 [피포 01 MiniMax H3 영상](../work/video/tasks/20260929-pipo01-minimax-h3.md): 기존 로컬 ComfyUI 렌더러로 「첫 양몰이」 10컷을 만들고 원본 삽화·원고 대조로 4컷을 재작업했다. 93초 한국어 나레이션 영상은 `D:/tangobook-video/pipo-01-h3/`에 있으며 선택 manifest·컷별 검수 근거도 그곳에 저장했다. 운영 업로드·외부 게시 없음.
