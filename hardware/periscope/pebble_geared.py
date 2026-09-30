@@ -54,43 +54,57 @@ def pinion(y,z):
                 .polyline(spur_outline(y,z)).close().extrude(2.2))
     # The axle crosses the side shroud; its short outer D-end receives a
     # separate lever after the shroud is installed.
-    axle=b.shaft(22.6,15.1,y,z,1.35)
-    flat=b.box(34.8,38.0,y+0.95,y+2.0,z-2.0,z+2.0)
+    axle=b.shaft(22.6,15.4,y,z,1.35)
+    flat=b.box(35.3,38.1,y+0.95,y+2.0,z-2.0,z+2.0)
     return tooth_disc.union(axle).cut(flat)
 
 
 def lever(y,z):
-    hub=b.shaft(35.0,3.1,y,z,2.7)
-    stem=b.box(35.0,38.1,y+1.0,y+9.0,z-1.65,z+1.65)
-    tip=b.shaft(35.0,3.1,y+9.0,z,1.65)
+    hub=b.shaft(35.6,3.1,y,z,2.7)
+    stem=b.box(35.6,38.7,y+1.0,y+9.0,z-1.65,z+1.65)
+    tip=b.shaft(35.6,3.1,y+9.0,z,1.65)
     shape=hub.union(stem).union(tip)
-    round_bore=b.shaft(34.8,3.5,y,z,1.47)
-    d_bore=round_bore.intersect(b.box(34.7,38.4,y-2.0,y+1.07,z-2.0,z+2.0))
+    round_bore=b.shaft(35.4,2.75,y,z,1.47)
+    d_bore=round_bore.intersect(b.box(35.3,39.0,y-2.0,y+1.07,z-2.0,z+2.0))
     return shape.cut(d_bore)
+
+
+def rounded_outline(y0,y1,z0,z1,radius,segments=8):
+    corners=((y1-radius,z1-radius,0),
+             (y0+radius,z1-radius,90),
+             (y0+radius,z0+radius,180),
+             (y1-radius,z0+radius,270))
+    return [(cy+radius*math.cos(math.radians(start+j*90/segments)),
+             cz+radius*math.sin(math.radians(start+j*90/segments)))
+            for cy,cz,start in corners for j in range(segments+1)]
 
 
 @lru_cache(None)
 def gear_cover():
-    """Removable right-side shroud. Only two lever axle holes open outside."""
-    # The broad outside panel hides both pinions, the sector and the rack.
-    outer=(cq.Workplane("YZ").workplane(offset=32.3)
-           .center(-12.0,2.5).rect(42.0,49.0).extrude(2.0)
-           .edges("|X").fillet(4.0))
-    skirt=(cq.Workplane("YZ").workplane(offset=27.5)
-           .center(-12.0,2.5).rect(42.0,49.0).extrude(4.8)
-           .edges("|X").fillet(4.0))
+    """Small tapered pebble shroud; only lever shafts pass through its face."""
+    sections=((27.5,-28.5,9.0,-19.5,24.0,10.0),
+              (30.0,-28.0,8.5,-19.0,23.5,10.0),
+              (32.5,-26.5,7.0,-17.5,22.0,10.5),
+              (34.7,-24.5,5.0,-15.5,20.5,11.0))
+    outer=cq.Workplane("YZ").workplane(offset=sections[0][0])
+    for index,(x,y0,y1,z0,z1,r) in enumerate(sections):
+        if index:
+            outer=outer.workplane(offset=x-sections[index-1][0])
+        outer=outer.polyline(rounded_outline(y0,y1,z0,z1,r)).close()
+    outer=outer.loft(combine=True)
     hollow=(cq.Workplane("YZ").workplane(offset=27.4)
-            .center(-12.0,2.5).rect(38.0,45.0).extrude(5.1)
-            .edges("|X").fillet(2.0))
-    cover=outer.union(skirt.cut(hollow))
-    # The rear right arm of the phone-depth stop runs beside this rim.
-    cover=cover.cut(b.box(27.4,28.35,6.8,9.2,-3.0,12.0))
+            .polyline(rounded_outline(-24.5,6.0,-15.3,20.8,6.0))
+            .close().extrude(5.3))
+    cover=outer.cut(hollow)
+    # Clear the U-stop's rear arm and the rack at its deepest 10 mm setting.
+    cover=cover.cut(b.box(27.4,28.35,5.9,9.2,-5.0,15.2))
+    cover=cover.cut(b.box(27.4,30.2,-4.5,-0.4,-20.5,-15.0))
     # Two broad pegs locate the shroud on the right body half. The running
     # prototype uses clearance; final retention needs a printed fit trial.
     for y,z in SHROUD_PEGS:
-        cover=cover.union(b.shaft(24.4,8.1,y,z,1.35))
+        cover=cover.union(b.shaft(24.4,8.8,y,z,1.35))
     for y,z in (ANGLE_AXIS,HEIGHT_AXIS):
-        cover=cover.cut(b.shaft(32.0,2.6,y,z,1.62))
+        cover=cover.cut(b.shaft(32.5,2.4,y,z,1.62))
     return cover
 
 

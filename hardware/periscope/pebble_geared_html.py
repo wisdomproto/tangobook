@@ -61,7 +61,7 @@ canvas{width:100%;height:100%;display:block;touch-action:none}.hint{position:abs
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"}}</script>
 </head><body><main><h1>기어로 움직이는 스마트폰 반사경</h1>
-<p class="intro">오른쪽 바깥에는 두 레버만 보입니다. 톱니는 넓어진 측면 커버 안에 넣었습니다. <b>내부 보기</b>를 누르면 커버를 숨기고 동력 전달을 볼 수 있습니다.</p>
+<p class="intro">오른쪽 바깥에는 두 레버만 보입니다. 톱니는 본체 옆의 작은 둥근 커버 안에 넣었습니다. <b>내부 보기</b>를 누르면 커버를 숨기고 동력 전달을 볼 수 있습니다.</p>
 <div class="layout"><div id="stage"><canvas aria-label="기어식 반사경 3D 모델"></canvas><div class="hint">드래그: 회전 · 휠: 확대</div></div>
 <div class="panel">
 <div class="card"><h2>① 위쪽 레버 · 거울 각도</h2><div class="flow"><span>바깥 레버</span> → <span>커버 안 작은 톱니</span> → <span>거울축 부채꼴 톱니</span> → <span>거울 회전</span></div>
@@ -69,7 +69,7 @@ canvas{width:100%;height:100%;display:block;touch-action:none}.hint{position:abs
 <div class="card red"><h2>② 아래쪽 레버 · 카메라 높이</h2><div class="flow"><span>바깥 레버</span> → <span>커버 안 작은 톱니</span> → <span>세로 톱니줄</span> → <span>폰 윗변 받침 이동</span></div>
 <div class="track"><span>손잡이 회전</span><strong id="heightWheelValue">0°</strong></div><input id="depth" type="range" min="0" max="10" step="0.5" value="0"><p class="small">폰 삽입 깊이 <b id="depthValue">0mm</b> · 총 10mm 이동 · 손잡이는 약 119° 회전</p></div>
 <div class="card"><div class="btns"><button id="inside" type="button" aria-pressed="false">내부 보기</button><button id="explode" type="button" aria-pressed="false">분해 보기</button><button id="phone" type="button" aria-pressed="true">폰 숨기기</button></div>
-<p class="small">조립 보기에서 커버 밖에는 보라색·빨간색 레버만 남습니다. 내부 보기에서는 커버를 숨겨 각각의 톱니가 드러납니다.</p>
+<p class="small">조립 보기에서 커버 밖에는 진한 갈색 레버 두 개만 남습니다. 내부 보기에서는 커버를 숨겨 각각의 톱니가 드러납니다.</p>
 <p class="small">조립 순서: 작은 기어 두 개를 본체 축받이에 넣고 → 측면 커버를 세 개의 위치핀에 맞춰 닫고 → 바깥에서 두 레버를 축의 D자 끝에 끼웁니다.</p>
 <div class="legend"><span><i class="swatch" style="background:#279773"></i>거울</span><span><i class="swatch" style="background:#4a78cf"></i>폰 받침</span><span><i class="swatch" style="background:#8661b5"></i>각도 톱니</span><span><i class="swatch" style="background:#cb4e44"></i>높이 톱니</span></div></div>
 <p class="small">기구 작동을 보여주는 CAD 시안입니다. 측면 커버의 체결 구조와 축 방향 고정, 인쇄 후 백래시·내구성은 아직 확정 전입니다.</p>
@@ -87,7 +87,7 @@ const camera=new THREE.PerspectiveCamera(33,1,.1,600);camera.up.set(0,0,1);camer
 const orbit=new OrbitControls(camera,canvas);orbit.target.set(0,-5,-5);orbit.enableDamping=true;orbit.update();
 const loader=new STLLoader();
 function geometry(encoded){const raw=atob(encoded),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);const shape=loader.parse(bytes.buffer);shape.computeVertexNormals();return shape}
-const colors={shell_left:'#dc995f',shell_right:'#dc995f',rear_cover:'#ca744d',gear_cover:'#d7975e',mirror_tray:'#279773',mirror:'#8ed4e8',height_slider:'#4a78cf',angle_pinion:'#8661b5',height_pinion:'#cb4e44',angle_lever:'#8661b5',height_lever:'#cb4e44',paddle:'#c05e3e',foam:'#3b4249',phone:'#52616f'};
+const colors={shell_left:'#dc995f',shell_right:'#dc995f',rear_cover:'#ca744d',gear_cover:'#d7975e',mirror_tray:'#279773',mirror:'#8ed4e8',height_slider:'#4a78cf',angle_pinion:'#8661b5',height_pinion:'#cb4e44',angle_lever:'#503a32',height_lever:'#503a32',paddle:'#c05e3e',foam:'#3b4249',phone:'#52616f'};
 const objects={};function make(name,parent=scene){const material=new THREE.MeshStandardMaterial({color:colors[name],roughness:.5,metalness:.04,transparent:name==='mirror'||name==='phone',opacity:name==='mirror'?.86:name==='phone'?.35:1,side:THREE.DoubleSide});const mesh=new THREE.Mesh(geometry(data[name]),material);parent.add(mesh);objects[name]=mesh;return mesh}
 make('shell_left');make('shell_right');make('rear_cover');make('gear_cover');make('foam');make('height_slider');make('phone');
 const trayGroup=new THREE.Group();trayGroup.position.set(0,cfg.pivotY,cfg.pivotZ);scene.add(trayGroup);
@@ -103,6 +103,7 @@ function update(){const angle=Number(document.getElementById('angle').value),dep
  objects.height_slider.position.set(0,exploded?25:0,-depth-(exploded?12:0));objects.phone.position.set(0,0,-depth);objects.phone.visible=phoneVisible&&!exploded;
  objects.shell_left.position.x=exploded?-38:0;objects.shell_right.position.x=exploded?38:0;objects.shell_left.visible=!inside||exploded;objects.shell_right.visible=!inside||exploded;
  objects.rear_cover.position.y=exploded?32:0;objects.rear_cover.visible=!inside||exploded;objects.gear_cover.position.x=exploded?54:0;objects.gear_cover.visible=!inside||exploded;objects.foam.position.y=exploded?32:0;
+ objects.mirror_tray.material.color.set(inside||exploded?'#279773':'#dc995f');objects.height_slider.material.color.set(inside||exploded?'#4a78cf':'#dc995f');
  trayGroup.position.set(0,cfg.pivotY+(exploded?-18:0),cfg.pivotZ);angleGroup.position.set(exploded?22:0,cfg.angleY,cfg.angleZ);heightGroup.position.set(exploded?32:0,cfg.heightY,cfg.heightZ);
  paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ-(exploded?17:0));}
 for(const id of ['angle','depth'])document.getElementById(id).addEventListener('input',update);
@@ -113,8 +114,9 @@ update();frame();
 </script></body></html>'''
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
-    path = g.OUT / "tango_pebble_geared_covered_interactive.html"
+    path = g.OUT / "tango_pebble_geared_pebble_cover_interactive.html"
     path.write_text(html, encoding="utf-8")
+    (g.OUT / "tango_pebble_geared_covered_interactive.html").write_text(html, encoding="utf-8")
     (g.OUT / "tango_pebble_geared_interactive.html").write_text(html, encoding="utf-8")
     print(path)
 
