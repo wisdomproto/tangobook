@@ -2,7 +2,7 @@
   "schema_version": 1,
   "created_at_utc": "2026-09-30T03:52:05.683575+00:00",
   "model": "Qwen-Image-2.1 INT8, local ComfyUI, 25 steps, CFG 1, 1280x720",
-  "scope": "Mina text revision: changed scenes only, local reviewed selection; production not replaced",
+  "scope": "Mina text revision: 22 reviewed images replaced in production; superseded same-key assets removed",
   "source": "D:/ComfyUI-output/mina-text-revisions/source.json",
   "review_log": "D:/ComfyUI-output/mina-text-revisions/reviews.json",
   "total": 22,
@@ -241,5 +241,13 @@
       "repair_id": "49-p9-two-siblings",
       "text": "소누가 미나 손가락을 꼭 잡고 잠들었어요. 미나는 손을 빼지 않고 가만히 기다려요. 방 안에 빗소리만 들려요."
     }
-  ]
+  ],
+  "production": {
+    "verifiedAt": "2026-09-30T04:20:43.075Z",
+    "images": 22,
+    "booksWithTextUpdates": 43,
+    "textPages": 135,
+    "ledger": "D:/ComfyUI-output/mina-text-revisions/registration/ledger.json",
+    "cdnVerification": "D:/ComfyUI-output/mina-text-revisions/registration/cdn-verified.json"
+  }
 }
