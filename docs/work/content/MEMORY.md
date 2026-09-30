@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-09-30 [미나 본문 교정·Qwen 재작화](tasks/20260930-mina-text-revision-qwen.md): 검토 승인 후 운영 본문을 기준으로 43권 135쪽을 교정하고 제목 5개·대응 SCENE·기획/HTML을 동기화했다. 기존 원고/HTML 차이까지 합쳐 HTML은 44권 204쪽 변경. 바뀐 장면 12권 22장을 로컬 Qwen으로 생성·개별 검수했으며 [선정 manifest](tasks/20260930-mina-qwen-selected.json)에 최종 해시를 기록했다. 운영 DB/R2 교체·push 없음. 최종 검토 파일은 `D:/ComfyUI-output/mina-text-revisions/selected.html`.
+
 2026-09-30 [미나 50권 글 검토](tasks/20260930-mina-text-review.md): HTML 500쪽과 원고를 대조하여 123쪽 차이를 확인했다. 실제 HTML 기준 권별 검토 완료. 11권 수위 역전·20권 소유/그릇 연결·24권 개수 오류, 후반 교훈 복창과 49권 돌봄 부담 해석이 주요 후보. 제품 글·그림 수정 및 push 없음. 후속 재빌드 전 원고/HTML 차이 병합 필요.
 
 2026-09-29 사용자는 로컬에서 그림·삽화를 만들 때 Qwen-Image-2.1을 기본 모델로 지정했다. 공통 작업 규칙은 [AGENTS.md](../../../AGENTS.md)에 둔다. 퐁이네 02권에서 동생과 아빠가 중간·후반 삽화에 빠지는 연속성 문제를 지적했고, 후속 요청에 따라 운영의 기존 JPG 10장을 새 Qwen PNG 10장으로 교체·책에 연결했다. p1 본문과 10쪽 SCENE도 운영에 동기화했다. 백업·CDN 해시 검증은 [재작화·등록 기록](tasks/20260929-pongi-rewrite-qwen-redraw.md)을 따른다. 다른 권은 로컬 선정 상태다.
