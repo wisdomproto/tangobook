@@ -2,7 +2,7 @@
 
 - id: 20260930-games-classic-scene-coloring
 - domain: games
-- status: active
+- status: paused
 - updated: 2026-09-30
 - base: a0811a2e0
 - branch: codex/games-classic-scene-coloring
@@ -45,6 +45,13 @@
 
 ## 다음 행동
 
+2026-09-30 사용자가 “나중에 다시 하도록 기록 해두자. 지금 일단 멈추고”로 명시 중단. 자체 생성/수정 runner가 실행 중이지 않은 것을 프로세스로 확인했고 출력 batch-status.json도 paused-by-user로 보관했다. 사용자 재개 요청 전에는 생성·재시도·ComfyUI 재시작을 하지 않는다. 기존 출력/원본/HTML/manifest/프롬프트/로그는 보존한다. 공용 ComfyUI와 다른 작업은 종료하지 않았다.
+
 사용자 완료 여부 질문 시 재확인: 288장 중 123장 흑백 검사 통과, 색 제거 중 1장/대기 43장, 원래 생성 진행 기록 1장/신규 대기 120장. runner는 HTTP 응답 TimeoutError로 3회 종료 후 needs-attention. ComfyUI 8189의 queue/system_stats도 각각 5초 타임아웃이며 포트는 살아 있음. 동시에 GPU 사용률 100% 및 ComfyUI 프로세스 2개가 확인돼 다른 진행 작업을 중단하지 않도록 서버 강제 재시작은 하지 않았다. 현재 자동 배치는 실행 중이 아니며 API 정상화 후 저장된 promptId로 재개해야 한다. 전수 생성/검수 완료 아님.
 
-선정 원본을 내려받고 Qwen INT8 25스텝 참조 변환. 원본·선화 쌍 육안 검수, 칠할 영역 검사, 갤러리 HTML과 원본 장면 재생 흐름 검증. 최종 생성수·실패·재생성·해시를 기록하고 관련 변경만 커밋한다.
+재개 순서:
+
+1. 이 worktree/브랜치와 출력 `D:/ComfyUI-output/classic-scene-coloring/manifest.json`, `batch-status.json`, `batch.log`를 확인한다. 사용자 승인 기준은 단순한 인물/핵심 소품과 흰 면/검은 경계다.
+2. ComfyUI 8189 응답을 확인하고 기존 `color-repairing`/`generating` 항목의 promptId를 history와 queue에서 먼저 찾는다. 이미 제출한 작업의 실제 완료/대기는 현재 미확인이다. 서버 재시작으로 history/queue가 사라진 것이 확인될 때만 해당 항목을 각각 color-repair-needed/pending으로 되돌리고 promptId를 비운다. 확인 없이 중복 제출하지 않는다.
+3. 사용자가 재개를 요청한 뒤 이 worktree에서 `python scripts/run-classic-coloring-batch.py` 실행. 123장 통과본은 유지하고 색 제거 44장, 신규/기존 생성 121장을 이어간다. 288장 모두 색 검사 통과와 해시 확인 후 전수 원본 대조/영역 검사/실제 플레이 검수를 진행한다.
+4. 일부 면 연결·색 추출 오차, 눈의 여왕 p13의 필수 4칸/1색 등 게임 품질은 남아 있다. 생성 또는 흑백 검사 성공을 게임 최종 승인으로 취급하지 않는다. 운영 등록·main 통합·push는 미요청 상태다.
