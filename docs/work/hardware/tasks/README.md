@@ -4,4 +4,6 @@
 
 초기 등록된 작업 없음. 기존 worktree의 미이관 작업은 별도로 확인한다.
 
+- [각도·높이 조절식 스마트폰 반사경](20260930-adjustable-periscope.md) — 별도 CAD 시안, A1 실물 검증 전.
+
 목록은 편의용이다. 실제 목록은 이 폴더의 작업 파일과 node scripts/work-status.mjs로 확인한다.

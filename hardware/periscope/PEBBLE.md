@@ -1,5 +1,19 @@
 # 조약돌형 스마트폰 반사경 — 끼움 조립 시안
 
+## 2026-09-30 각도·높이 조절식 시제품
+
+기존 고정형은 보존하고 `pebble_adjustable.py`에서 별도 시안을 만든다. 스티커형 40×30mm 거울은 회전판에 붙이며, 오른쪽 외부 레버로 기준 33°에서 ±5° 회전한다. 거울 높이를 움직이는 대신 폰 윗변을 받치는 파란 U자 슬라이더를 뒤쪽에서 감아 0~10mm 깊이로 조절한다. 다섯 구멍은 2.5mm 간격이며 오른쪽 탄성 탭을 바깥쪽으로 살짝 젖히면 위치가 바뀐다. 깊이 10mm에서도 폰에 넓게 닿도록 전용 누름혀 접촉면을 아래로 연장했다.
+
+```powershell
+python hardware/periscope/pebble_adjustable.py
+python hardware/periscope/pebble_adjustable_preview.py
+python hardware/periscope/pebble_adjustable_html.py
+```
+
+출력은 `out/pebble_adjustable/`에 생성한다. `tango_pebble_adjustable_print_plate.stl`에는 **좌·우 본체, 누름혀, 뒤 커버, 회전 거울판, 높이 슬라이더 6개만** 분리 배치되어 있다. 개별 `*_print.stl`은 같은 출력 방향이고, 이름에 `_print`가 없는 STL/STEP은 조립 좌표다. 거울·폼은 출력판에 포함하지 않는다. 실제 조립은 회전 거울판 축과 누름혀 축을 좌우 본체로 감싸 닫고, 뒤 커버 안쪽에 16×6×6mm PU 폼을 붙여 끼운 뒤, 높이 U자 슬라이더를 아래에서 올려 딸깍 위치를 잡는다. 40×30mm 거울은 마지막에 회전판에 붙인다. 거울축 오른쪽의 원형 플랜지와 고정 베어링 사이 0.35mm 명목 틈에는 외경 약 9mm·내경 약 3mm·두께 약 0.5mm의 펠트/얇은 폼 와셔를 끼워 각도 마찰을 만든다. 실제 적정 두께와 회전 저항은 출력 후 맞춰야 한다.
+
+`report.json`의 부품별 워터타이트·강체 간섭 검사는 기하 검증이다. 실물 A1 출력 전에는 레버 유지력, 슬라이더 탭 피로, 최대 깊이에서 폰 누름력, 화각과 서포트 제거성을 보증하지 않는다. 기존 고정형 본체/누름혀/거울판과 혼용하지 않는다. 조절식의 뒤 커버는 같은 CAD 공식을 사용한다.
+
 ## 2026-09-29 뒤 커버형 시제품 (현행)
 
 **A1 재료 메모(2026-09-30):** 일반 PLA는 딱딱해서 폰 접촉부나 16×6×6mm 압축 폼의 고무감을 내지 못한다. A1은 TPU 출력이 가능하며, Bambu Lab은 TPU 95A HF를 부드럽고 유연한 소재로 설명한다. 다만 TPU 95A HF는 AMS lite와 호환되지 않으므로 외부 스풀로 공급한다. 꽉 찬 TPU 95A 출력물은 현재의 PU 스펀지와 압축감이 다르므로, 폼을 바꾸려면 빈 공간을 둔 별도 패드 설계와 압축 시험이 필요하다. 현행 구조는 단단한 케이스·혀와 별도 PU 폼을 유지한다. 출처: [A1 사양](https://cdn1.bambulab.com/documentation/quick-start-a75adcb1d5d5e/Quick%20Start%20Guide%20for%20A1.pdf), [A1 Combo 급지 안내](https://cdn1.bambulab.com/documentation/quick-start-f507128172bdf/Quick%20start%20guide%20-%20A1%20combo-EN.pdf), [TPU 95A HF](https://kr.store.bambulab.com/products/tpu-95a-hf).
