@@ -152,3 +152,5 @@
 2026-10-01 20:17 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 전래개와고양이9/까치10 실제쪽native14.003667·16.823917 자연종료/BGM정지/리셋확인,원본무늬색후속미승인. 까치배분리Qwen후보머리·배개선/종반쪽·꼬리미색칠기각,새승인게시0·추가push없음.
 
 2026-10-01 21:18 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 종/꼬리흰면은여백region합침·좁은열림,작은새는면적기준으로분리진단. Qwen좌표수정유색기각,유치원몽글이닫힌몸/마을삭제후보는보라색대응미승인. 전730생성·승인9/대기721유지,새게시/코드수정/추가push없음.
+
+2026-10-01 22:20 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 유치원몽글이6 원본Qwen크기·위치복원/mode연보라1물감·실제붓질/native17.0145 자연종료/BGM/리셋 및공개버전2SHA 검수후개별승인·시험판반영. 최신730생성/승인10·대기720SHA스냅샷,전장승인아님·추가push없음.

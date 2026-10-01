@@ -334,3 +334,16 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 다른분류후속으로유치원12권6쪽1784550871113-p06 원본몽글이구름을직접대조. 원본은마을밤중앙에작고슬픈연보라구름/양손/오른쪽눈물, 본문은걱정을못먹어몸작아짐. 원본기반Qwen4f30b119-ca51-46df-afe2-74213774d3d0(exec55511)으로주변집윤곽과원본없는배타원을빼고원본주인공/표정행동만단순화. hori-kindergarten/candidate-batches/20261001-2118-worry-cloud-no-village에 sourceSHAfc1f469057c481f14a65c714ea027ba5b7e92e530e06c3a32ebbdfacd17adc09/candidateSHAb2edcb9abae2899491f4ff7e41008f2816107930df9d2d768dbbb15c057e9714 및request/worker/PNG/graph/history/status/원본선화filled비교보존. 정상종료·유색0/SHA/history통과·9영역1필수1색10.2%, 기존37.4%주변큰집면삭제와닫힌몸개선. 다만캐릭터위치·크기변화로원본밤색이겹쳐mode몸남색, 후보전용median도연보라보다짙은보라/양손C자열림·눈물흰면후속. comparison-000/mode-filled/median-filled 직접대조후미승인미적용미게시, noVillageCandidateReview2118. 후보전용manifest의median실험만하고활성/공개/전역mode유지,실제브라우저플레이증거아님. 단색개수는실패근거아니며원본핵심색대응실패를구분.
 
 이번새승인게시0·코드수정0·임시브라우저탭생성없음,전730승인계속. 끝queue0/두색칠runner정상종료확인,완료Qwen재시작금지. 문서diff/관련경로확인·관련기록만로컬커밋·추가push/운영등록없음. 다음엔윤곽열림/필수영역크기/원본색위치표본을구분하고실제원본이유지되는개선만검수한다.
+
+
+## 2026-10-01 22:20 UTC — 유치원 몽글이 원본 크기 복원 및 개별 승인
+
+실제root/branch/status/worktree HEAD2c27f21d/codex/games-classic-scene-coloring/기존 scripts/__pycache__ 보존, Comfy8190 실제PID41608/queue0부터확인. 기존모든완료runner재시작/다른client중단없음. 원본색표본에밤배경이과도하게포함되는유치원12권6쪽1784550871113-p06 후속을진행.
+
+원본중앙보라성분의저장픽셀위치진단 sourcebbox[796,349,1254,819]→1376x768투영[535,233,843,546], 이전21:18후보inkbbox[498,175,895,579]로캐릭터가너무커지고위로이동했음을확인. 이는sourceCrop변경이나정답색굽기아니며진단만. 원본Qwen22187885-6d64-4aee-86f1-187484fabb58(exec73134)에는원본x39~61%/y30~71% 크기·위치를지정했고정상완료. hori-kindergarten/candidate-batches/20261001-2220-worry-original-scale에 request/worker/PNG/graph/history/status/이전repairs 및sharedengine실제comparison 보존. sourceSHAfc1f469057c481f14a65c714ea027ba5b7e92e530e06c3a32ebbdfacd17adc09/candidateSHA7486c0addbb17bccdd2684d3f7b863bae01fd0cca0928abdfb724a58867a24c2. 새inkbbox[531,229,847,550]로원본실제크기·위치복원, 유색0/흑백·SHA·successhistory통과·10영역1필수1색6.5%. 이전배경집큰칠하기영역/원본없는배타원삭제, 슬픈구름1명·걱정눈썹/오른쪽눈물/앞손행동유지.
+
+기본mode 원본색을그대로읽어 #afacd4 연보라몸으로복원, median/sourcecrop/런타임변경없음. 별도5202 DISABLE_PUBLISH_SCHEDULER=1검수서버(exec96106,실제PID재조회)에서실제1물감두부분붓질로몸/얼굴동일연보라→정확한6쪽원본리빌. 해당쪽native17.0145초 playing→자연ended, BGM90.044063초playing volume0.16→종료paused, 초기화뒤같은보라부분재색칠을확인. 작은흰눈물/눈반짝임과손내부선의같은몸단색간소화허용, 모든작은면정확색/손각각닫힌칸이라고확대하지않음. 자연종료뒤cleanup error4/reset후harness done유지/부분재색칠을구분. player-worry6-2220 initial/one-brush/two-brush/reveal/native-evidence/reset-repaint를직접검수. 원본에서콩알처럼작아졌다는본문/작은주인공크기보존, 인위적확대없이선정된장면유지.
+
+정확한prompt/source/candidateSHA게이트확인후활성도안한장교체(기존원본·도안·graph/history/job/review는revisions/reviewed-repair에보존), 승인된tests경로만sync. 공개730장·6탭유지, 실제공개1물감두붓질/정확한6쪽원본전환 및실제?v=SHA 버전URLsource/lineart2파일SHA통과. 공개팔레트 #afacd4 동일, public-one-brush/public-two-brush/public-reveal/public-sha 증거와originalScaleCandidateReview2220/개별approved-source-and-play기록. 공개붓질/이미지버전검증과로컬native재생자연종료를구분, 발화전사아님. 기존실패21:18후보기록보존·재시작금지. 새수정도완료후재제출금지.
+
+최신 final-review-status-20261001-2220.json은730생성/명시개별최종승인10(자연9+유치원1)/대기720, 승인10장의현재원본·활성도안SHA가manifest/review와일치함을확인. 기존9장증거는저장자료재대조이며이번새재생아님. 전체730최종승인이아니고기존미승인/previewHold유지. 코드수정없음·sharedaudit/hash/history/원본도안실제비교·native/공개브라우저검수/문서diff 확인,관련기록만로컬커밋·추가push/운영등록없음. 사용자갤러리보존/임시탭닫음/끝queue0,기존서버중단없음. 다음엔원본형태와색위치의작은변화가칠할색을바꾸는장을직접대조하고다른분류후속을계속한다.
