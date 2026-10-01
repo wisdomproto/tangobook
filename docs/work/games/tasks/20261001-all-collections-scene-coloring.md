@@ -183,3 +183,15 @@ production-plan.json 실제 재집계 전730장 준비/595장 생성(자연151·
 Push 전 검증: 장면 영역3개+색상/장면해석26개 총29테스트 통과, 클라이언트 typecheck 통과, 관련4개 TS/TSX eslint 및 TopBar prettier 통과, 클라이언트 production build 통과. 기존 Vite 번들 크기/i18n 동적 import 및 lottie eval/Browserslist 경고는 있으나 빌드 실패 없음. push 대상은 origin HEAD:main이며 fresh fetch 후 fast-forward 가능 여부를 재확인한다.
 
 원격 반영 확인: git push origin HEAD:main 성공(a0811a2e→02f97e63), git ls-remote origin refs/heads/main과 로컬 HEAD SHA가 일치했다. 색칠 기능·자료실6분류 설명·관련 검수 기록의26커밋 fast-forward 반영. Railway 자동 배포의 완료 상태는 별도 확인하지 않았고 Qwen 수정 후보 worker는 계속 실행한다.
+
+## 2026-10-01 11:09 UTC — 후보 서버 종료 복구 및 자연35후보 실제 비교
+
+확인 당시 자연 worker51692/후속50488/23496 및 Comfy8190은 모두 종료, queue 연결 거부. 자연35후보는 candidate-awaiting-review, 판다2 1777615071158-p02는 failed-or-uncertain으로10:48 UTC 중단. worker.log에 실제 prompt0e686dc1-1155-4b8e-a1b4-2a650ab4a82f 제출 후 연결 거부 기록. 기존 공개730장과 완료35후보는 보존했다.
+
+C:/ComfyUI_windows_portable/python_embeded/python.exe로 자체8190 서버 PID41608를 숨김 실행, 기존 별도 comfy-output 및 comfy-recovery-20261001.db 경로 유지. 기존서버/다른작업 실행 없음 확인 후 복구했으며 다른 프로세스를 중단하지 않았다. 새 서버 queue0/0 및 이전 prompt history={} 확인, 저장PNG의 내장 graph와 판다2 저장 workflow가 정확히 일치하는 완료 파일0건 확인. status/worker log/workflow를 nature/candidate-batches/20261001-0704-priority-repairs/server-exit-20261001-1109에 보존하고 reconciliation.json에 증거 기록 후 미완료 판다2만 재제출 가능 상태로 복구했다. 생성/실패 불확실 상태를 확인 없이 재시작하지 않았다.
+
+기존 부모50488/생활후속23496은 종료였으므로 원래54후보 순차 script를 부모35432로 재개. 완료35후보를 해시/지시SHA로 건너뛰고 남은 자연11장→탈것6장→유치원2장을 생성한다. 새 생활후속 continue-life-priority-repairs-1109.ps1 PID1808은 원래50488 대신 새35432를 기다리게 연결, 이후 생활22장 생성. 모두 자동 적용/게시 없음. 새실제 worker PID/current는 status/lock/queue부터 재조회, 서버41608/부모35432/후속1808도 중단/복제 금지. 원래 종료된50488/23496/51692를 계속 실행 중으로 취급하지 않는다. 복구 후 판다2/14 및 표범2 후보 생성 정상 확인.
+
+자연 완료35후보를 audit-scene-coloring-candidates.py로 별도 review-workspace에서 SHA35쌍/흑백35 및 shared engine filled 생성. 첫4의 기존 판단을 보존하고 새31후보를 comparison-004/008/012/016/020/024/028/032 전8시트에서 실제 원본·선화·filled 대조했다. 시트/manifest/audit/checks를 snapshot-20261001-1109에 보존, visual-notes-new31-1109.txt와 review-after.json 및 review.json priorityCandidateReview1109에 장별 판단 기록. 새승인/교체/게시0. 필수0칸7장(걷는곰2/두더지9/바리오9/사자2/소나무2/은하2·11)과 개구리 배경만채움/늑대·독수리·올빼미 몸미색칠/벨로키랍토르 깃털소실/치타 일부새끼미색칠/코뿔소 배경만채움 등 실패 후보를 그대로 적용하지 않는다. 원본 열매 복원된 원숭이8도 열매가 흰 면/몸 초록색이라 미승인. 암사자14·상어15·여우2·코끼리3·잠든다람쥐11·이구아노돈14·스피노2 등 큰 몸통 면 개선은 실제색/붓질/정확한 원본/TTS/BGM 후속이 남는다. 흑백 통과는 몸통 색칠과 종 특징/원본 행동 승인을 대신하지 않는다.
+
+현재 도안 전체 생성/원본 대조 및 기존미디어 검증 범위는 유지한다. 관련 main push는 사용자 요청으로 b8121e3e까지 이미 완료했고 이번 복구/추가 검수 기록은 로컬 커밋. 공개 테스트 갤러리는 실패 후보 자동 게시 없이 기존 도안을 유지한다. 전체 최종 승인 전 완료 알림 금지.
