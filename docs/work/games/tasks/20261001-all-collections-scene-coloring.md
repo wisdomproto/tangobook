@@ -321,3 +321,16 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 까치10 실제원본참조 Qwen-Image-2.1 새수정 prompt5583dde5-e761-46ab-90ab-cb742a0f17a4 정상종료(exec71974), traditional/candidate-batches/20261001-2017-magpie-color-panels에 sourceSHA3f55f6402dd6e3725f1a6f0e88ddfe3b78ec6c31199ef036ec41610a653bb7a5/request/worker/PNG/graph/history/status/이전repairs백업/원본선화filled비교 보존. candidateSHA8318123203b78059610c8a280dc91bc10c1f419e5fa7d6e875965f434d5dceaa. 흑백검사통과(유색276px0.0261%,유색0으로보고하지않음)/SHA/historysuccess/134영역8필수4색21.2%. 새배분리선으로큰까치짙은머리목·크림배/밝은깃분리는개선했지만 안쪽날개/긴꼬리·작은2새검정부분흰면, 종오른쪽큰절반미색칠·깃/장식복잡도 유지. 실제comparison-000/auditfilled 대조후미승인미적용미게시, colorPanelsCandidateReview2017. 후보브라우저재생증거아님, 완료수정재제출금지. 종큰면의열림과꼬리/날개색구획을추가분석해야하며현재공개본보존.
 
 새승인/교체/게시0·코드수정0,전730전체검수계속. 임시검수탭닫고최종queue0/색칠runner종료확인. 문서diff/경로확인 및관련기록만로컬커밋,추가mainpush/운영등록없음. 원본핵심무늬를색구획으로보존하는지닫힌면과함께검수하고다른분류후속도지속한다.
+
+
+## 2026-10-01 21:18 UTC — 종·꼬리 열린 경계 진단과 유치원 구름 단순화
+
+실제root/branch/status/worktree HEAD8e74c19b/codex/games-classic-scene-coloring, 기존 scripts/__pycache__만미추적. 전6분류manifest/review 재조회 288/80/90/40/30/202 총730생성·명시승인9·대기721 유지(review-counts-20261001-2118.json), 기존19:16 승인SHA스냅샷은저장증거이며이번재생아님. Comfy8190 queue0부터확인해기존완료배치/다른client중단없음.
+
+전래까치10의20:17후보를실제shared scene engine/팔레트로seed별재진단. 종오른쪽500,500과긴꼬리900,630은paper1250,600과동일region1(781173px)/required=false여서 미색칠원인은median/최빈색이아니라큰여백에이어진열림. 가중4연결탈출경로에서종발아래x711,y601~603 clearance1px, 꼬리뿌리x744~751,y594~598 clearance2px 확인. 위작은새배region30/1386px는0.003기준3170px보다작아required=false. traditional/candidate-batches/20261001-2017-magpie-color-panels/review-workspace seed-diagnostic.mts/json·gap-diagnostic.py/json·gap-weighted-diagnostic.py/json 보존. 저장픽셀분석이며브라우저검증/전역기준·경계엔진변경근거아님.
+
+확인한좌표를지정해완료20:17선화만참조한 Qwen 새수정 bafdc8f6-6f16-47bd-9cfe-6b109d7d46a8(exec6761) 정상종료. traditional/candidate-batches/20261001-2118-magpie-foot-tail-joins request/worker/PNG/graph/history/status/이전repairs보존. candidateSHA82f8dad93223c0c1547bcd25d639980956587f74d150b24945e584717af455d8. 긴꼬리가한둥근칸으로변경됐지만유색14155px1.3395%/베이지배·유색배경노이즈로흑백실패, 원본긴꼬리형태도후속. 직접PNG대조후기각·미승인미적용미게시, footTailJoinCandidateReview2118. 완료후보재제출금지, 흑백실패후엔진filled를최종검증하지않음.
+
+다른분류후속으로유치원12권6쪽1784550871113-p06 원본몽글이구름을직접대조. 원본은마을밤중앙에작고슬픈연보라구름/양손/오른쪽눈물, 본문은걱정을못먹어몸작아짐. 원본기반Qwen4f30b119-ca51-46df-afe2-74213774d3d0(exec55511)으로주변집윤곽과원본없는배타원을빼고원본주인공/표정행동만단순화. hori-kindergarten/candidate-batches/20261001-2118-worry-cloud-no-village에 sourceSHAfc1f469057c481f14a65c714ea027ba5b7e92e530e06c3a32ebbdfacd17adc09/candidateSHAb2edcb9abae2899491f4ff7e41008f2816107930df9d2d768dbbb15c057e9714 및request/worker/PNG/graph/history/status/원본선화filled비교보존. 정상종료·유색0/SHA/history통과·9영역1필수1색10.2%, 기존37.4%주변큰집면삭제와닫힌몸개선. 다만캐릭터위치·크기변화로원본밤색이겹쳐mode몸남색, 후보전용median도연보라보다짙은보라/양손C자열림·눈물흰면후속. comparison-000/mode-filled/median-filled 직접대조후미승인미적용미게시, noVillageCandidateReview2118. 후보전용manifest의median실험만하고활성/공개/전역mode유지,실제브라우저플레이증거아님. 단색개수는실패근거아니며원본핵심색대응실패를구분.
+
+이번새승인게시0·코드수정0·임시브라우저탭생성없음,전730승인계속. 끝queue0/두색칠runner정상종료확인,완료Qwen재시작금지. 문서diff/관련경로확인·관련기록만로컬커밋·추가push/운영등록없음. 다음엔윤곽열림/필수영역크기/원본색위치표본을구분하고실제원본이유지되는개선만검수한다.
