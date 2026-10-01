@@ -60,3 +60,19 @@ IMAGE_ONLY 모드의 다음 생성은 v6-reference-closed-regions: 실제 원본
 유치원 확장 runner PID32836/exec52035 실행 중, hori-kindergarten/batch-status.json·batch.lock·batch.log와 실제 Comfy8190 queue/history를 먼저 확인. SCENE_COLORING_ROOT=hori-kindergarten 실제 절대 경로, COLLECTION=hori-kindergarten, IMAGE_ONLY=1, SYNC_PREVIEW=1, Comfy8190. 기존 첫2장 해시 보존하고 신규16쪽만 이어 생성. 현재manifest가9권18장으로 확장됐으므로 최초 prepare-additional-coloring-pilots.py 재실행 금지. 다음 대표 selection 확장도 해당 분류 runner 종료/lock/queue부터 확인해야 한다.
 
 validate-scene-coloring-media.mjs를6분류 공통 설정에 연결. 준비된392장 기준 제공 전체 언어+BGM698개 읽기 전용 조회·전체 디코딩/비무음 통과, 실패0. 기존 음원 캐시/ETag/SHA를 재사용하며 이 결과는 실제 플레이/발화 문장 승인을 대신하지 않음. 생성 중 신규16쪽의 원본 대조/실제 플레이 후속, 다른169권 준비, 기존 명작/전래 후속 모두 남음.
+
+## 2026-10-01 14시 이후 추가 검수
+
+유치원 PID32836 배치는18장 generated-review-pending으로 정상 종료, 실제 PID 부재 및 Comfy8190 queue0/0 확인. 새16장 모두 review-contacts/comparison-0.jpg·comparison-6.jpg·comparison-12.jpg에서 원본/선화/실제 엔진 filled를 대조했고 source/lineart SHA와 개별 판단을 review.json에 기록했다. 준비392장 모두 생성됐지만 최종 승인 수와 다르다. 유치원18장 중 새 최종 승인은 없다.
+
+원본과 다른 중요 실패: 09권9쪽은 의자 밑에 웅크려 바닥 노란 크레파스를 찾는 호리가 앉아 그림 그리는 모습으로 바뀌고 의자가 삭제됨; 같은 책4쪽 도깨비에 원본 없는 안경/송곳니 추가; 07권9쪽 손도장 판에서 큰 손도장이 삭제됨. 04권3쪽 음식46필수칸, 05권5/8쪽 다수 작은 블록은 승인 난이도에 맞게 단순화 후속. 나머지는 각 원본 인물·악기·행동 유지 여부와 크림 얼굴/옷/줄무늬 색 대응 문제를 장별 기록했다. 본문06권7쪽 방울과 달리 실제 원본 곰은 마라카스이므로 원본을 따른다.
+
+scripts/diagnose-scene-coloring-gaps.mts는 활성 도안/제품 엔진을 바꾸지 않는 오프라인 실험. 생활2쪽·유치원02권6쪽·자연11쪽에 임계값192와 기존 엔진 기준으로 작은 경계 틈 닫기 반경0/1/2/3의12결과를 gap-diagnostic에 저장. 실제 filled 비교에서 생활/유치원 크림 얼굴의 주황 합침과 자연 머리 흰 면은 해결되지 않았고 굵은 검정 접점이 생겼다. 자연 목줄 한 면만 개선돼 범용 엔진 변경/후보 적용 근거가 아님. 임계값/검수 기대값을 낮추지 않았다.
+
+09권9쪽 실제 원본을 --reference로 지정한 Qwen 수정 후보 promptId=8cb04f0f-4a5a-49f4-ad85-80abffd6e41f, exec29155 제출. candidate-batches/20261001-source-action-repair/status.json에 원본SHA/출력/상태 보관, 자동 적용/게시 없음. 재개 시 history와 exec 상태를 먼저 대조하고 중복 제출하지 않는다. 핵심 행동·의자·크레파스·원본 외형과 filled/붓질을 확인해야 교체 가능하다.
+
+동 후보는 정상 종료/history success 대조 및 흑백·원본/후보SHA 통과. 의자 밑 웅크림/바닥 크레파스/두 동물·도토리/꼬리를 복원하고 안경을 없앴지만 배경 서랍·선반·크레파스 다수 때문에48필수칸11색58.1%, 얼굴 크림 합침/흰 줄무늬 제외/꼬리 단일 색이 남아 미적용·미게시. review-workspace/comparison-000.jpg 원본/후보/filled 실제 비교 및 candidateReview 기록 완료. exec29155를 재시작하지 않는다.
+
+남은 유치원11권 본문 전체를 읽고22개 원본을 selection-contacts/remaining-0·6·12·18.jpg에서 대조. 12권9쪽 몽글이의 작은 떠나는 구도 대신6쪽 큰 단독 구도 선택, 20권9쪽 다수 가족/아이 단체 대신2쪽 선생님·호리 돌봄 큰 구도 선택. 대체 원본2개도 개별 육안 확인했다. 유치원 전체20권40쪽으로 selection/manifest 확장, 기존18개 생성본과 검수 기록 보존. 추가 선택은08[7,9],11[3,9],12[2,6],13[4,9],14[3,9],15[2,6],16[2,8],17[3,10],18[5,8],19[4,8],20[2,3]. 할머니 실제 원본은 호랑이 외형이므로 본문 토끼 할머니만으로 종족을 바꾸지 않는다. 원본 손의 실제 별 스티커/돋보기/아기인형/가위/쓰러진 물통 등 주요 소품 유지 후속 필요.
+
+새 유치원22쪽 runner PID30004/exec76888 실행 시작, 첫08권7쪽 promptId=ed28962a-8182-41ca-aaf2-4d7d597375c8. 기존 v6 IMAGE_ONLY=1/SYNC_PREVIEW=1/Comfy8190 경로로 순차 생성, batch-status/lock/log 및 실제PID/queue/history 확인 후 이어간다. 신규 분류 대표 준비는23권46장, 전체 준비414장(현재 최소392생성), 남은158권316장 대표 선정 필요. 392장698음원 검증 범위를 신규22쪽까지 검증했다고 확대하지 않는다.
