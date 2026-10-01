@@ -8,7 +8,7 @@
 - branch: codex/games-classic-scene-coloring
 - worktree: C:/projects/tangobook/.worktrees/classic-scene-coloring
 - integration: 미통합
-- delivery: 로컬 생성·검수, 운영 등록·push 미요청
+- delivery: 로컬 생성·검수 + 사용자 요청 테스트 HTML 서버 공개, 운영 책 등록·main push 미요청
 
 ## 요청과 완료 조건
 
@@ -44,6 +44,8 @@
 - pnpm install --frozen-lockfile, shared build, client typecheck, client build, 관련 resolve-scene/useColoringSheets 23테스트, 수정 TSX eslint 통과. 빌드의 기존 대형 chunk/lottie eval/i18n 동적 import 경고는 남음.
 
 ## 다음 행동
+
+2026-10-01 사용자가 “서버에 올려줘봐 이거 테스트 파일”로 테스트 공개를 요청했다. publish-classic-coloring-preview.mjs로 R2의 독립 경로 tests/classic-scene-coloring/20261001-review-1에642파일(원본288+도안288+별도 Vite 플레이어/HTML/필요 사운드)을 업로드했다. 기존 책/게임 데이터는 수정하지 않았다. URL: https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/index.html . localhost 링크를 서버 플레이어 play.html로 교체하고 공개 manifest에서 로컬 생성 경로/제출 기록을 제거했다. PNG SHA256을 업로드 전 재확인. 실제 외부 브라우저144권/288장 표시, 6색 개구리왕자p3 붓질→동일 원본/본문 리빌 확인. 증거 hosted-gallery.png, hosted-player-reveal.png. Python urllib는 CDN403이지만 실제 브라우저 정상 표시하므로 CLI403을 파일 업로드 실패로 혼동하지 않는다. 공개는 검수 중 시험판이며16장 우선 품질 점검은 그대로 남는다. 운영 등록/main push 권한으로 확대하지 않는다.
 
 2026-10-01 최신: **144권 288장 생성·흑백 검사·SHA256 확인 완료**, batch-status는 generated-review-pending. 이전 ComfyUI 프로세스가 종료되고 8189/8190 연결 거부를 확인했다. 기존 출력에서 저장 그래프 일치본도 없어 `recover-deferred-classic-coloring.py`로 이전 제출 기록을 revisions/original-server-exited에 보존한 뒤 두 요청을 재제출했다. 별도 출력/SQLite 경로를 쓰는 자체8190 서버를 시작했고 다른 작업은 종료하지 않았다. 백조 왕자 그림체3 p4와 어린 왕자 그림체3 p12도 생성·색 검사 통과.
 
