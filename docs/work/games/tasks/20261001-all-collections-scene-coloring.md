@@ -293,3 +293,18 @@ serve harness는 job.colorSampling 명시값이 있을 때만 선택, 환경시�
 전래 개와고양이13 1785303655950-p13 현재활성본을 별도5200 DISABLE_PUBLISH_SCHEDULER=1 검수서버(exec53032)로실제플레이. 실제3물감 #f6cf8c/#b1b2a9/#f9e4b5의3전체붓질→정확한13쪽원본리빌/native19.275083초자연playingended/BGMplaying뒤paused/초기화부분재색칠 확인. 할머니고양이포옹/할아버지개쓰다듬는행동과2인2동물 유지. 하지만 큰개몸통흰면/꼬리만노랑, 회색할머니머리피부노랑, 할아버지회색옷노랑과할머니회청색옷대응후속으로미승인. traditional/player-cat13-1816의initial/first-brush/second-brush/third-brush/native-evidence/reset-repaint/review-decision 및review.json nativePlayReview1816. 읽기자연종료·BGM정지/cleanup error4/harness done reset뒤유지/공개검증·발화전사를구분. 현재공개본이미지변경없음.
 
 이번새승인/교체/시험판게시0, 전체730최종승인계속. 코드수정없음; 후보mono/SHA/실제비교와기존게임실제붓질·해당쪽native종료/초기화 및 문서diff/경로확인. 관련기록만로컬커밋·추가push/운영등록없음. 임시검수탭닫고사용자갤러리유지. 다음엔옳은원본인물/소품이있는도안의큰몸·얼굴·옷색대응과Qwen윤곽위치·폐곡선을함께수정하고 다른분류미승인후속도진행한다.
+
+
+## 2026-10-01 19:16 UTC — 명작 실제 검수와 Qwen 두 참조 지시 비교
+
+실제root/branch/status/worktree 확인: HEADbc432115/codex/games-classic-scene-coloring, 기존 scripts/__pycache__ 미추적만 보존. 6분류 manifest730장 및 Comfy8190 PID41608/queue0 확인. 기존완료76/명작21후보 및 다른client 작업 중단/복제없음.
+
+잭과콩나무 그림체3 1789350946331-p08 원본PNG/쪽본문을직접확인, 졸린거인/황금암탉·알/뒤작은아치형숨는물체에서내다보는소년/앞탁자나무컵과바닥끝그릇·숟가락 유지가 기준. 뒤숨는물체의명칭을 다른그림체메모의컵/창문으로단정하지않고 실제원본윤곽·소년포즈/앞컵을분리해보존한다. 로컬 TextEncodeQwenImage21 schema/코드에서최대16참조 및 첫참조크기를기준으로한latent확인후 기존선화+원본2참조 Qwen실험. 첫선화/두번째원본 prompt5dfaa3e7-c5f6-45af-846c-f8db2b569198(exec15122), 순서를바꾼첫원본/두번째선화 promptfe59cae1-3bf2-450d-a71f-d212fff495ca(exec10890) 모두정상종료. candidate-batches/20261001-1916-jack-hen-two-reference 및 -jack-original-first request/worker/workflow/PNG/history/status/review-workspace 보존, 각생성status부터확인해중복제출하지않음.
+
+후보SHA bb6b2fd2472a512be9ef5fdba12f2fb836c42636b53f58910645faf616785fab/0d2e35da983bfc5f85b8aa6f9aa3342f90355bfe86d01fabd87769eb468ae1a7, source와목표선화SHA는각request/candidate-checks에고정. 전2유색0/해시·success history통과, 106/116영역·각18필수3색72%. 이전흰암탉몸이닫힌면으로채워지는개선은있지만 mode암탉갈색/볏·턱볏흰면, 거인옷/머리큰배경과연결·소년피부흰면후속. 첫후보mode/median실제sharedengine비교에서median암탉 #cb810d 황토금색개선이나소년얼굴올리브색이라미승인. 비교PNG를직접검수한뒤 전2미적용미게시/완료후재제출금지, review.json twoReferenceCandidateReview1916 및후보별visual-review/candidate-checks. 참조순서변경만으로원본색·폐곡선/단순함해결을주장하지않음.
+
+명작개구리왕자 그림체1 1789350946386-p03 현재활성본을별도5201 DISABLE_PUBLISH_SCHEDULER=1 서버(exec96848)에서실제검수. 6물감/5전체붓질→정확한3쪽원본리빌 및 manifest와동일쪽native10.08초자연playingended/BGM정지확인. 원본공주가물위개구리를향해몸을기울이는행동유지, 초기화뒤녹색개구리부터단독붓질성공. 하지만 공주머리와큰초록배경이함께채워지고 이마머리와피부색이같아졌으며 큰하늘/배경색면이도안을지배해미승인. player-frog1p3-1916/initial/second-brush/four-brushes/five-brushes/native-evidence/reset-frog-first/review-decision 및 review.json nativePlayReview1916. 로컬native·공개재생/전사·cleanup error4/reset뒤harness done유지구분, 임시탭닫음.
+
+완료조건 해석 반증: 실제ColoringPlayer.tsx의 FILL_THRESHOLD=0.9는 각각붓질한영역의가장자리마감을위한값이고 finish는 filled>=total(모든required영역완료)에서만호출된다. 긴연속pointer붓질중팔레트가자동전환되므로5전체붓질/6물감은 마지막물감건너뜀의증거가아님. 이전일부 '90%리빌' 메모는각영역/긴붓질자동전환과구분해야하며 전역90%조기완료로확대/엔진변경하지않음. 초기화개구리단독붓질이미지와실제코드로확인. 코드수정없음.
+
+final-review-status-20261001-1916.json으로전730생성/명시approved=true9장/최종승인대기721장을구분한스냅샷저장. 승인9장의실제원본·활성도안SHA와manifest/review SHA각각일치, 기존playEvidence만연결하며이번에9장을재생한것으로주장하지않음. 기존분류/후보생성완료·음원2158디코딩통과를전장게임승인으로집계하지않음. 이번새승인/교체/시험판게시0,관련기록로컬커밋·추가push/운영등록없음. 다음엔원본핵심색·큰몸/얼굴/옷폐곡선/바깥여백연결실패를장별로고치고검증된장만반영한다.
