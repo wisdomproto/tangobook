@@ -228,3 +228,18 @@ scripts/serve-classic-coloring.mjs에 SCENE_COLORING_TRIAL_ROOT 옵션을 추가
 
 
 13:34 UTC 후속: 걷는곰 원본사진 참조3번째도 정상 종료, 별도 candidate-batches/20261001-1310-bear-original-paws에 PNG/graph/history/status 및 review-workspace 원본·filled 비교 보존. SHA/흑백 통과, 뒷발 바닥 연결/머리 분리 복원으로0→2칸1색5.1%이나 머리/안쪽뒷다리만 칠해지고 큰 몸·앞다리는 여전히 미색칠. 미승인/미적용/미게시, originalPawsCandidateReview1310 기록. gap-diagnostic.json의192벽·4연결 분석에서 몸통seed(550,300)가 테두리와 동일component, 최대탈출clearance1px 확인. 새후보 경계에 좁은 열린 통로가 남음. 진단은 저장픽셀 분석이며 브라우저 플레이/엔진 수정 근거로 확대하지 않는다. 이3개후보 모두 종료, 재시작/자동 적용 금지. 최종조회8190은 다른client 작업1건이므로 중단하지 않으며 현재 색칠 생성runner없음.
+
+
+## 2026-10-01 14:12 UTC — 걷는곰 폐곡선 복원 및 사진 색 추출 선택값 검수
+
+여우2 1777442972423-p02 우선후보 실제3물감2붓질에서 주황 몸/얼굴·갈색 꼬리 색 대응, 정확한2쪽 원본/native4.032초 playing/ended·BGM 종료/초기화 부분 재색칠 확인. 작은 먼쪽 다리 두 면 흰색 및 세번째 크림 물감 전90%완료는 후속으로 남겨 미승인/미적용/미게시. priority batch review-workspace/player-fox2-1412/native-evidence.json 및 실제 붓질 이미지, review.json nativeCandidateReview1412에 구분 기록.
+
+걷는곰2 1777439576248-p02 원본사진 참조3번째의1px 통로를 실제 저장픽셀로 다시 조사: keyword connectivity=4/8 모두 몸통이 테두리와 연결됨. 가중 탈출경로의 좁은 입구는 앞발 발톱 끝 x848,y675~686. gap-weighted-path.json/gap-crop.png에 실제 확대 증거. 오프라인3x3 닫기78픽셀 변화로 몸통234581px가 분리되지만 이는 진단이며 원본/엔진/공개 자산에 적용하지 않음.
+
+원본 사진 기반 Qwen4번째에서 모든 발을 발톱 틈 없는 둥근 닫힌 형태로 단순화: prompt cd346322-5cf0-4e5b-98dd-f6370a20eb88 정상 완료, candidate-batches/20261001-1412-bear-rounded-paws에 request/PNG/graph/history/status 보존. sourceSHA83db015a9e30e613b8ed9af5839b6c28c3f19d6386b22a4549472508a73ad998, candidateSHA382b32dc8b269d20a9fb1604396a223f89aed7dcfac41836bd6ce41733181ce0, 흑백/SHA 통과. 원본 종/걸음/좌표를 유지하고 큰 몸·머리·앞뒤다리가 이제 닫힌 면으로 읽힘:8영역2필수1색27.9%. 기본 최빈색 filled는 거의 검정이어서 이 상태로 승인/게시하지 않음. 기존3후보 및4번째 모두 완료, 재실행 금지.
+
+색 문제 반증: 큰 면의 최빈 버킷 평균RGB16.71/11.09/6.13에 비해 전체 픽셀 중간값72/52/34, 평균86.28/66.19/47.15. 사진의 여러 갈색은 서로 다른 버킷에 흩어지고 그림자 버킷이 단독1등이 됨. photo-color-distribution.json 증거. 원본색을 런타임에서 읽는 buildPalette에 명시적인 'median' 선택값을 추가했다. 기본은 기존 'mode' 그대로이며 운영/시험판 데이터 및 자동추출 방식 변경 없음. ColoringItem.scene.colorSampling='median'일 때만 동작; serve-classic-coloring.mjs의 SCENE_COLORING_TRIAL_PHOTO_MEDIAN=1 검수환경은 photographic 원본만 선택. 정답색 파일을 미리 굽지 않으며 밝기를 임의로 보정하지 않는다.
+
+4번째 후보 원본/선화로 localhost5194 실제 ColoringPlayer 검수: #483322 갈색 몸통·얼굴과 #1b1008 작은 안쪽다리의2물감, 실제 짧은 붓질+전체 붓질→정확한2쪽 원본 리빌/native4.464초 자연 playing/ended/BGM playing 및 정지/초기화 부분 재색칠 확인. player-median-bear2-1412/body-stroke.png, body-before-completion.png, after-sweep.png, native-evidence.json, reset-repaint.png 실제 확인. native cleanup error4는 자연 ended 후 발생한 것으로 구분. 검수 harness done 출력은 reset 뒤에도 유지돼 재색칠 완료 증거로 쓰지 않는다. 사진 대표 회귀·public 게임 확인이 남아 local-median-play-improved-pending-photo-regressions, 미적용/미게시/approved=false. scene별 opt-in 검수 외 전체 게임 승인을 확대하지 않는다.
+
+검증: answer-colors 및 scene-coloring-regions16테스트(새 사진 분산갈색·실제 어두운 남색 회귀2개 포함), client tsc --noEmit, 관련3파일 eslint, prettier, node --check 검수서버, client build, git diff --check 통과. build의 기존 Browserslist/i18n중복import/largechunk 경고 보존. 공개 sync·추가push 없음. 다음은 이미 승인된 강아지/코끼리/암사자/상어/다람쥐와 잠든곰·프테라노돈 사진 후보에서 같은 중간값 선택의 실제 색/붓질 회귀를 검증한 뒤 검증된 장에만 opt-in을 반영하는 것. 잘못 그려진 원본/열린 경계는 색 선택으로 해결됐다고 주장하지 않는다.

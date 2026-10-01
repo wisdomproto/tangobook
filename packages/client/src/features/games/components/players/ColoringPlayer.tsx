@@ -69,6 +69,8 @@ export interface ColoringItem {
     text: string;
     ttsUrl?: string;
     backgroundMusicUrl?: string;
+    /** 사진 장면 검수에서 명시적으로 선택한 원본 색 추출 방식. */
+    colorSampling?: 'median';
   };
 }
 
@@ -316,7 +318,8 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
         regions,
         source.pixels,
         required,
-        source.background
+        source.background,
+        isScene ? item.scene?.colorSampling : undefined
       );
 
       labelsRef.current = regions.labels;
@@ -349,7 +352,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     return () => {
       cancelled = true;
     };
-  }, [lineartUrl, colorSourceUrl, isScene, render]);
+  }, [lineartUrl, colorSourceUrl, isScene, item.scene?.colorSampling, render]);
 
   // ── 힌트: 고른 색으로 칠할 칸을 반짝이게 ──────────────────────────────────
   useEffect(() => {
