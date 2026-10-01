@@ -159,3 +159,19 @@ production-plan.json 실제 재집계 전730장 준비/595장 생성(자연151·
 코끼리10쪽1777434565511-p10은 어미 꼬리를 새끼가 코로 잡고 걷는2마리·실제 종/자세·넓은 닫힌 두 몸통 및 자연스러운 짙은 갈색 단색 유지. 공개 실제1물감 붓질→정확한10쪽 원본 리빌/초기화/재색칠 확인, 동일 로컬 플레이어 native1777434565511-tts-page10-1777521142842.mp3 playing/ended5.16초·BGMplaying/종료 정지 확인. player-elephant-native.json/public.json/initial.png/mother-stroke.png 증거와 해시가 같은 review.json의 approved-source-and-play=true. 작은 상아/발끝 흰 면·기존90%완료 규칙 유지, 발화 전사는 하지 않음. 공개 실제 붓질 증거와 로컬 native 음원 증거를 구분한다. 단색이라는 이유만으로 실패 처리하지 않는다.
 
 09:22 UTC 생활28/90 생성 확인(전체668/730). 자연 전체 생성 후 생활 전체로 정상 연결됐다. 기존 명작/전래 실패/미검수 후보와 previewHold 게이트, 모든 분류 난이도·색 대응·실제 게임 후속은 그대로 남는다. 최종730장 승인 전 완료 알림 금지.
+
+## 2026-10-01 10:08 UTC 후속 — 전730장 생성 완료, 생활90장 대조 및 후보 검수 시작
+
+실제 manifest 재집계 10:23 UTC 전365권730장 모두 generated: 명작288/전래80/생활90/유치원40/탈것30/자연202. production-plan.json의 실제 생성수를 갱신했다. 생활 runner18596/부모38796은 정상 종료, life-full-order-status 및 batch-status=generated-review-pending. 재시작 금지. 마지막 시험판 sync 종료 후 생활90장 원본/선화180파일 실제 공개 SHA180통과/불일치0. review-20261001-1008-final/public-image-validation-all-life.json 증거. 생활90장 흑백90/원본·선화SHA90쌍/Comfy history success 및 prompt 매칭90통과, 필수0칸0; 이 수치가 원본/색 대응/게임 최종 승인을 대신하지 않는다.
+
+생활 새57장+6장+마지막2장 총65장을 원본·선화·shared engine filled로 실제 비교했다. review-20261001-1008의10시트, -last의1시트, -final의1시트 snapshot/visual-notes/review-before 및 장별 review.json 기록. 기존25장과 합쳐 생활90장 전수 원본 대조 기록 완료, 새 승인 없음. 핵심 오류:20p7 책상 아래 대피인데 책상 삭제;22p2/p5 코알라가 개의 늘어진 귀로 변경;27p2 더러워진 토끼 인형의 물웅덩이 삭제;29p2 수영장 삭제;31p2 무너진 블록→서 있는 탑;32p2 미끄럼틀 계단/플랫폼 삭제;42p5 토마토/덩굴 삭제;44p2 도서관 책장 삭제;45p2 아빠가 가리키는 나무/새 삭제. 원본 행동/주요 소품 및 대형 몸통 색 대응을 우선 후보에 기록했다.
+
+**이전 메모 반증:** 생활16p7 1782831060510-p07의 고해상도 실제 source PNG를 다시 확인했더니 아이와 토끼가 각각 자유로운 한 손을 들고 아빠가 아이 손을 잡는다. 이전 '손 번쩍 없음/손 올림 추가 금지' 기록은 실제 원본과 불일치해 폐기한다. 현재 도안은 아이 손 올림을 없애고 원본 밖 아이-토끼 손잡기를 추가한다. 실제 원본 동작·횡단보도/신호등 유지로 수정 지시. 본문이나 과거 메모로 참조 원본 밖 행동을 요구하지 않는다.
+
+생활 우선 후보 plan 기존3+추가19=22장으로 확장, 각 review 폴더 priority-repairs-before.json 보존. 변경 당시 life-priority-repair-order-status=waiting-for-other-priority-candidates로 아직 미제출임을 확인했다. PID23496/exec29647은 기존54후보 순차 종료 후 생활22후보를 생성하며 자동 적용/게시 없음. 전체 우선 계획 자연46+탈것6+유치원2+생활22=76장, 후보 생성/검수/적용 완료가 아니다.
+
+생활 전체 정상 종료 후 대기 부모50488이10:20:28 UTC 자연 후보 worker51692를 시작했다. priority-repair-order-status=running-candidates-no-auto-apply, nature/candidate-batches/20261001-0704-priority-repairs/status.json/worker.lock 확인. 이 worker도 중단/복제 금지, 생성 중/failed-or-uncertain history 대조 전 재제출 금지. 자연→탈것→유치원54후보만 순차 생성하고 이후생활22후보로 이어진다. 생성 중 계획 파일 변경 금지.
+
+첫 자연4후보를 별도 review-workspace에서 흑백4/SHA4/engine filled 및 원본 비교. comparison-first-four-20261001-1024.jpg와 first-four-visual-review.json/candidate-checks.json, 기존 review.json의 priorityCandidateReview1008에 기록. 고래2는0칸→2칸2색23.4%로 등이 칠해지지만 물기둥 베이지/몸 거의 검정 색 대응과 실제 플레이 후속. 잠든 곰10도2칸2색27.4% 몸통 개선이나 원본 갈색/플레이 후속. 고슴도치10은 얼굴이 숨은 원본 웅크림에 눈/코/귀/발을 추가해 기각, 걷는 곰2는 경계 열림/필수0칸0% 그대로라 기각.4후보 모두 미적용/미게시이며 후보 수정 재제출은 현재 worker 종료/history 확인 후에만 한다.
+
+전체730장 생성/생활90 전수 대조를 게임 최종 완료로 보고하지 않는다. 기존 색 대응·난이도·실제 붓질/쪽 TTS/BGM 후속, 명작/전래 실패 후보 및 previewHold 게이트를 유지한다. 기존 제공 전체 언어+BGM2158파일 디코딩/비무음 통과는 실제 발화/전체 게임 승인과 구분한다. 사용자가 승인한 기존 tests 경로의6탭만 갱신, 운영 등록/main push/다른 배포 없음.
