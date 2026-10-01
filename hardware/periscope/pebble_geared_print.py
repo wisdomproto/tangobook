@@ -1,4 +1,4 @@
-"""Export the 4–14 mm geared prototype as eleven separated A1-bed parts.
+"""Export separated A1-bed parts: eleven for two gears, eight for height only.
 
 Support is supplied by the slicer, not included in these meshes.
 """
@@ -14,30 +14,37 @@ import pebble_geared_unibody as u
 from pebble_geared_profile import b, a, fixed
 
 
-def print_parts():
+def print_parts(height_only=False):
+    import pebble_height_only as h
+    design=h if height_only else u
     dy=b.old.GRIP_FREE+(b.old.PLATE_T+0.5)-b.old.PIVOT_Y
     dz=b.TONGUE_BOT-b.PIVOT_Z
     tongue_angle=math.degrees(math.atan2(-dz,dy))
-    return {
-        "shell_left":u.shell_left().rotate((0,0,0),(0,1,0),90)
+    parts = {
+        "shell_left":design.shell_left().rotate((0,0,0),(0,1,0),90)
             .rotate((0,0,0),(1,0,0),180),
-        "shell_right":u.shell_right().rotate((0,0,0),(0,1,0),-90)
+        "shell_right":design.shell_right().rotate((0,0,0),(0,1,0),-90)
             .rotate((0,0,0),(1,0,0),180),
         "rear_cover":fixed.cover().rotate((0,0,0),(1,0,0),-90),
-        "service_lid":u.service_lid().rotate((0,0,0),(0,1,0),90),
-        "mirror_tray":g.mirror_tray().rotate((0,0,0),(1,0,0),-a.MIRROR_ANGLE),
-        "height_slider":u.height_slider().rotate((0,0,0),(1,0,0),180),
+        "service_lid":design.service_lid().rotate((0,0,0),(0,1,0),90),
+        "height_slider":design.height_slider().rotate((0,0,0),(1,0,0),180),
         "paddle":a.adjustable_paddle().rotate((0,0,0),(1,0,0),tongue_angle+180),
-        "angle_pinion":g.pinion(*g.ANGLE_AXIS).rotate((0,0,0),(0,1,0),90),
         "height_pinion":g.pinion(*g.HEIGHT_AXIS).rotate((0,0,0),(0,1,0),90),
-        "angle_lever":g.lever(*g.ANGLE_AXIS).rotate((0,0,0),(0,1,0),90),
         "height_lever":g.lever(*g.HEIGHT_AXIS).rotate((0,0,0),(0,1,0),90),
     }
+    if not height_only:
+        parts.update({
+            "mirror_tray":g.mirror_tray().rotate((0,0,0),(1,0,0),-a.MIRROR_ANGLE),
+            "angle_pinion":g.pinion(*g.ANGLE_AXIS).rotate((0,0,0),(0,1,0),90),
+            "angle_lever":g.lever(*g.ANGLE_AXIS).rotate((0,0,0),(0,1,0),90),
+        })
+    return parts
 
 
-def main():
+def main(height_only=False):
+    prefix="height_only_4-14mm" if height_only else "geared_4-14mm"
     u.OUT.mkdir(parents=True,exist_ok=True)
-    shapes=print_parts()
+    shapes=print_parts(height_only)
     positioned={}
     x=y=row_h=0.0
     gap=8.0
@@ -50,7 +57,7 @@ def main():
             x=0.0
             y+=row_h+gap
             row_h=0.0
-        path=u.OUT/f"geared_4-14mm_{name}_print_ready.stl"
+        path=u.OUT/f"{prefix}_{name}_print_ready.stl"
         b.export_print_stl(b._place_on_bed(shape,0,0),path)
         mesh=trimesh.load_mesh(str(path),force="mesh")
         # Ground the actual tessellation, including curved tangent surfaces.
@@ -70,7 +77,7 @@ def main():
             p.bounds[0,k]-q.bounds[1,k])**2 for k in range(3)))
     clearance=min(bounds_gap(p,q)
         for i,(_,p) in enumerate(entries) for _,q in entries[i+1:])
-    path=u.OUT/"tango_pebble_geared_unibody_4-14mm_print_plate.stl"
+    path=u.OUT/("tango_pebble_height_only_4-14mm_print_plate.stl" if height_only else "tango_pebble_geared_unibody_4-14mm_print_plate.stl")
     trimesh.util.concatenate(list(positioned.values())).export(str(path))
     mesh=trimesh.load_mesh(str(path),force="mesh")
     bodies=mesh.split(only_watertight=False)
@@ -80,18 +87,18 @@ def main():
         "bounds_mm":(bounds[1]-bounds[0]).round(3).tolist(),
         "minimum_part_gap_mm":round(clearance,3),
         "all_parts_on_bed":all(abs(part.bounds[0,2])<.001 for part in bodies)}
-    report["pass"]=(len(bodies)==11 and report["plate"]["all_watertight"]
+    report["pass"]=(len(bodies)==len(shapes) and report["plate"]["all_watertight"]
         and report["plate"]["all_parts_on_bed"] and clearance>=7.99
         and all(item["watertight"] and item["body_count"]==1
                 for item in report["parts"].values())
         and all(size<=230 for size in report["plate"]["bounds_mm"][:2]))
-    (u.OUT/"geared_4-14mm_print_report.json").write_text(
+    (u.OUT/f"{prefix}_print_report.json").write_text(
         json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps(report,ensure_ascii=False,indent=2),flush=True)
     assert report["pass"],"Print plate mesh validation failed"
 
 
 if __name__=="__main__":
-    main()
+    main("--height-only" in sys.argv)
     sys.stdout.flush()
     os._exit(0)

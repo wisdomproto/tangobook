@@ -4,6 +4,9 @@
 
 ## 현재 상태
 
+- 2026-10-01 최신 실물 결정: 각도 기어는 과하다는 피드백으로 **거울 33° 고정 + 높이만 10mm 조절**로 변경했다. `pebble_height_only.py`는 거울 접착판을 좌우 본체에 통합하며 외부 높이 레버 하나만 남긴다. 각도 부품 세 개를 제거한 8부품 STL은 195.162×90.530mm, 간격 8mm, 모두 watertight/베드 접촉 검증 통과. `pebble_geared_print.py --height-only`, `pebble_geared_html.py --height-only`로 재생성한다. 이전 두 기어형은 비교용이며 현행 출력은 `tango_pebble_height_only_4-14mm_print_plate.stl`. 실제 새 본체의 조립·출력 검증은 남아 있다. [작업 기록](tasks/20260930-adjustable-periscope.md).
+
+
 - 2026-09-30 4~14mm 기어식 출력판: `pebble_geared_print.py`가 **11개 부품을 분해 배치한** `out/pebble_geared/tango_pebble_geared_unibody_4-14mm_print_plate.stl`과 개별 출력 STL을 생성한다. 외곽 223.568×92.730mm로 A1에 들어가며 최소 간격 8mm, 전체 11개 watertight 바디와 베드 z=0 검사 통과. 거울·폼·서포트는 포함하지 않는다. 슬라이서 서포트와 실물 조립 시험은 필요하다.
 
 - 2026-09-30 기어식 일체형의 최신 치수: 사용자 실측 카메라 상단 여백 최소 4mm를 반영해 **4/6.5/9/11.5/14mm**의 다섯 받침 위치로 재제작했다. 격리된 `pebble_geared_profile.py`의 14mm 기준을 쓰며 고정형 기본 8mm는 유지한다. 본체/뒤 커버/받침/혀·폼 및 높이 기어 축을 6mm 높이고 정비 뚜껑과 핀 받침을 수정했다. CAD·메시·기어 이동·커버 삽입 검사는 통과했으며 HTML은 4mm 사용자 기기로 시작한다. 실제 출력 조립·체결력·광학 검증은 아직 전이다. 상세는 [작업 기록](tasks/20260930-adjustable-periscope.md).

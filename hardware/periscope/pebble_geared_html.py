@@ -20,24 +20,30 @@ def mesh_data(shape):
     return encoded
 
 
-def main():
+def main(height_only=False):
+    import pebble_height_only as h
+    design=h if height_only else u
     g.OUT.mkdir(parents=True, exist_ok=True)
     factories = {
-        "shell_left": u.shell_left, "shell_right": u.shell_right,
-        "mirror_tray": g.mirror_tray, "height_slider": u.height_slider,
+        "shell_left": design.shell_left, "shell_right": design.shell_right,
+        "mirror_tray": g.mirror_tray, "height_slider": design.height_slider,
         "angle_pinion": lambda: g.pinion(*g.ANGLE_AXIS),
         "height_pinion": lambda: g.pinion(*g.HEIGHT_AXIS),
         "angle_lever": lambda: g.lever(*g.ANGLE_AXIS),
         "height_lever": lambda: g.lever(*g.HEIGHT_AXIS),
-        "gear_cover": u.service_lid,
+        "gear_cover": design.service_lid,
         "rear_cover": fixed.cover, "paddle": a.adjustable_paddle,
         "mirror": b.mirror, "foam": b.foam, "phone": b.phone,
         "camera_lens": lambda: cq.Workplane(obj=cq.Solid.makeCylinder(
             b.CAMERA_R,0.5,cq.Vector(0,-0.5,b.PHONE_TOP-MIN_CAMERA_TOP_MARGIN-b.CAMERA_R),
             cq.Vector(0,1,0))),
     }
+    if height_only:
+        for name in ("mirror_tray", "angle_pinion", "angle_lever"):
+            del factories[name]
     data = {name: mesh_data(factory()) for name, factory in factories.items()}
     config = {
+        "heightOnly": height_only,
         "pivotY": a.PIVOT_Y, "pivotZ": a.PIVOT_Z,
         "angleY": g.ANGLE_AXIS[0], "angleZ": g.ANGLE_AXIS[1],
         "heightY": g.HEIGHT_AXIS[0], "heightZ": g.HEIGHT_AXIS[1],
@@ -97,14 +103,14 @@ const objects={};function make(name,parent=scene){const material=new THREE.MeshS
 make('shell_left');make('shell_right');make('rear_cover');make('gear_cover');make('foam');make('height_slider');make('phone');
 colors.camera_lens='#087fff';make('camera_lens');objects.camera_lens.material.roughness=.2;
 const trayGroup=new THREE.Group();trayGroup.position.set(0,cfg.pivotY,cfg.pivotZ);scene.add(trayGroup);
-for(const name of ['mirror_tray','mirror']){const part=make(name,trayGroup);part.position.set(0,-cfg.pivotY,-cfg.pivotZ)}
+for(const name of (cfg.heightOnly?['mirror']:['mirror_tray','mirror'])){const part=make(name,trayGroup);part.position.set(0,-cfg.pivotY,-cfg.pivotZ)}
 function wheelGroup(names,y,z){const group=new THREE.Group();group.position.set(0,y,z);scene.add(group);for(const name of names){const part=make(name,group);part.position.set(0,-y,-z)}return group}
-const angleGroup=wheelGroup(['angle_pinion','angle_lever'],cfg.angleY,cfg.angleZ),heightGroup=wheelGroup(['height_pinion','height_lever'],cfg.heightY,cfg.heightZ);
+const angleGroup=wheelGroup(cfg.heightOnly?[]:['angle_pinion','angle_lever'],cfg.angleY,cfg.angleZ),heightGroup=wheelGroup(['height_pinion','height_lever'],cfg.heightY,cfg.heightZ);
 const paddleGroup=new THREE.Group();paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ);paddleGroup.rotation.x=17.1256*Math.PI/180;scene.add(paddleGroup);const paddle=make('paddle',paddleGroup);paddle.position.set(0,-cfg.paddleY,-cfg.paddleZ);
 let inside=false,exploded=false,phoneVisible=true;
-function update(){const angle=Number(document.getElementById('angle').value),depth=Number(document.getElementById('depth').value),heightTurn=-depth/cfg.pinionR*180/Math.PI,angleTurn=-angle*cfg.ratio;
- document.getElementById('angleWheelValue').textContent=angleTurn.toFixed(1)+'°';document.getElementById('heightWheelValue').textContent=heightTurn.toFixed(1)+'°';
- document.getElementById('angleValue').textContent=(33+angle).toFixed(1).replace('.0','')+'°';document.getElementById('depthValue').textContent=depth.toFixed(1).replace('.0','')+'mm';
+function update(){const angle=Number(document.getElementById('angle')?.value||0),depth=Number(document.getElementById('depth').value),heightTurn=-depth/cfg.pinionR*180/Math.PI,angleTurn=-angle*cfg.ratio;
+ if(!cfg.heightOnly)document.getElementById('angleWheelValue').textContent=angleTurn.toFixed(1)+'°';document.getElementById('heightWheelValue').textContent=heightTurn.toFixed(1)+'°';
+ if(!cfg.heightOnly)document.getElementById('angleValue').textContent=(33+angle).toFixed(1).replace('.0','')+'°';document.getElementById('depthValue').textContent=depth.toFixed(1).replace('.0','')+'mm';
  const deviceMargin=Math.max(cfg.minMargin,Math.min(cfg.maxMargin,Number(document.getElementById('deviceMargin').value)||cfg.minMargin));
  document.getElementById('marginValue').textContent=(cfg.maxMargin-depth).toFixed(1).replace('.0','')+'mm';document.getElementById('alignmentValue').textContent=(cfg.maxMargin-depth-deviceMargin).toFixed(1).replace('.0','')+'mm';
  objects.camera_lens.position.set(0,0,-depth-deviceMargin+cfg.minMargin);objects.camera_lens.visible=phoneVisible&&!exploded;
@@ -112,27 +118,41 @@ function update(){const angle=Number(document.getElementById('angle').value),dep
  objects.height_slider.position.set(0,exploded?25:0,-depth-(exploded?12:0));objects.phone.position.set(0,0,-depth);objects.phone.visible=phoneVisible&&!exploded;
  objects.shell_left.position.x=exploded?-38:0;objects.shell_right.position.x=exploded?38:0;objects.shell_left.visible=!inside||exploded;objects.shell_right.visible=!inside||exploded;
  objects.rear_cover.position.y=exploded?32:0;objects.rear_cover.visible=!inside||exploded;objects.gear_cover.position.x=exploded?54:0;objects.gear_cover.visible=!inside||exploded;objects.foam.position.y=exploded?32:0;
- objects.mirror_tray.material.color.set(inside||exploded?'#279773':'#dc995f');objects.height_slider.material.color.set(inside||exploded?'#4a78cf':'#dc995f');
+ if(objects.mirror_tray)objects.mirror_tray.material.color.set(inside||exploded?'#279773':'#dc995f');objects.height_slider.material.color.set(inside||exploded?'#4a78cf':'#dc995f');
  trayGroup.position.set(0,cfg.pivotY+(exploded?-18:0),cfg.pivotZ);angleGroup.position.set(exploded?22:0,cfg.angleY,cfg.angleZ);heightGroup.position.set(exploded?32:0,cfg.heightY,cfg.heightZ);
  paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ-(exploded?17:0));}
-for(const id of ['angle','depth','deviceMargin'])document.getElementById(id).addEventListener('input',update);
+for(const id of ['angle','depth','deviceMargin'])document.getElementById(id)?.addEventListener('input',update);
 function toggle(id,handler){document.getElementById(id).addEventListener('click',e=>{handler();e.currentTarget.setAttribute('aria-pressed',String(id==='inside'?inside:id==='explode'?exploded:phoneVisible));update()})}
 toggle('inside',()=>inside=!inside);toggle('explode',()=>exploded=!exploded);toggle('phone',()=>phoneVisible=!phoneVisible);
 let opposite=false;document.getElementById('opposite').addEventListener('click',e=>{opposite=!opposite;camera.position.set(opposite?-100:100,-115,64);orbit.update();e.currentTarget.setAttribute('aria-pressed',String(opposite))});
 function frame(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();orbit.update();renderer.render(scene,camera);requestAnimationFrame(frame)}
 update();frame();
 </script></body></html>'''
+    if height_only:
+        start=html.index('<div class="card"><h2>①')
+        end=html.index('<div class="card red">',start)
+        html=html[:start]+html[end:]
+        html=html.replace('② 아래쪽 레버 · 카메라 높이','높이 조절 레버 · 카메라 높이')
+        html=html.replace('기어로 움직이는 스마트폰 반사경','높이만 조절하는 스마트폰 반사경')
+        html=html.replace('두 레버만 남겼습니다.','높이 레버 하나만 남겼습니다. 거울은 본체의 접착판에 33°로 고정됩니다.')
+        html=html.replace('레버 두 개만','높이 레버 하나만')
+        html=html.replace('거울판·폰 받침을 좌우 본체 사이에 놓고 닫기 → 오른쪽 면에서 작은 기어 두 개를 넣기','혀·폰 받침을 좌우 본체 사이에 놓고 닫기 → 본체의 고정판에 40×30mm 거울 붙이기 → 오른쪽 면에서 높이 기어 하나를 넣기')
+        html=html.replace('두 레버를 D자 축에','높이 레버를 D자 축에')
+        html=html.replace('<span><i class="swatch" style="background:#8661b5"></i>각도 톱니</span>','')
+        html=html.replace('부품 삽입 경로·거울 ±5°·폰 깊이','부품 삽입 경로·고정 거울 33°·폰 깊이')
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
-    path = g.OUT / "tango_pebble_geared_unibody_interactive.html"
+    path = g.OUT / ("tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
     path.write_text(html, encoding="utf-8")
-    (g.OUT / "tango_pebble_geared_pebble_cover_interactive.html").write_text(html, encoding="utf-8")
-    (g.OUT / "tango_pebble_geared_covered_interactive.html").write_text(html, encoding="utf-8")
-    (g.OUT / "tango_pebble_geared_interactive.html").write_text(html, encoding="utf-8")
+    aliases=["tango_pebble_geared_unibody_interactive.html"] if height_only else [
+        "tango_pebble_geared_pebble_cover_interactive.html",
+        "tango_pebble_geared_covered_interactive.html","tango_pebble_geared_interactive.html"]
+    for alias in aliases:
+        (g.OUT / alias).write_text(html, encoding="utf-8")
     print(path)
 
 
 if __name__ == "__main__":
-    main()
+    main("--height-only" in sys.argv)
     sys.stdout.flush()
     os._exit(0)
