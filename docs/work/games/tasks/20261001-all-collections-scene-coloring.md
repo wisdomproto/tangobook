@@ -86,3 +86,15 @@ scripts/diagnose-scene-coloring-gaps.mts는 활성 도안/제품 엔진을 바�
 D:/ComfyUI-output/classic-scene-coloring/continue-additional-collections.ps1 후속 순차 실행 PID28704/exec98482 연결 완료. additional-collections-order-status.json 현재 waiting-for-kindergarten. 기존PID30004 종료 및 generated-review-pending 확인 후 Comfy8190 큐가 비면 생활→탈것→자연을 순차 생성/같은 시험판 sync. 이미 실행 중인 분류 runner/Comfy 작업 발견 시 보존, 실패 시 상태 기록 후 정지하며 임의 중복/재제출 없음. 숨김 창 Start-Process는 자동 승인 검토에 차단돼 실제 실행하지 않았고 별도 창 없는 exec 방식으로 실행 성공했다. 후속 script 재시작 전 PID28704/각분류 runner/queue/history/status를 확인한다. 새12장 생성·육안/filled/실제붓질/정확한 쪽TTS/BGM 검수는 아직 완료 아님.
 
 준비 전체426장, 신규29권58장. 유치원20권40장/생활3권6장/탈것3권6장/자연3권6장 준비, 남은152권304장 대표 선정 필요. 각 전체 범위 생활45권90장·탈것15권30장·자연101권202장·유치원20권40장은 그대로이며 기존 명작/전래368장 품질 후속도 유지한다.
+
+## 사용자가 전체 범위 실행을 다시 명시
+
+사용자: 탈것/자연관찰도 왜3권까지만 하는지, 전체를 해야 한다고 재차 지적. 3권은 제출 준비 분량이지 범위 제한이 아니지만, 이후 전체 선정/제작을 연결하지 않은 일정 문제가 반복됐다. 전 권을 먼저 작업 목록으로 확정하고 원본 선정부터 생성·검수까지 끝까지 이어가며, 일부 책 생성만으로 해당 분류 작업을 끝내지 않는다.
+
+2026-10-01 기존 후속PID28704/exec98482와 유치원PID30004는 정상 종료, 추가 세 분류 각6장 생성 완료. 상태 additional-collections-order-status.json=generated-review-pending. 이 완료 runner를 재시작하지 않는다. 새 생성본12장과 유치원 나머지22장 게임 검수는 아직 남아 있다.
+
+탈것 나머지12권 본문 전체와 실제 원본24장을 selection-contacts/all-remaining-0·6·12·18.jpg에서 육안 확인, scripts/hori-vehicles-scene-selection.json을 전체15권30장으로 확장. source-selection-review.json에 원본SHA/쪽별 핵심 소품·행동·원본에 따른 사람/동물 변경 주의 기록. 05권6쪽 공사장 배경은 복잡해 생성 시 단순화 후속,13권9쪽 실제 로켓은 작아 색칠 면 후속 필요. 기존 첫6장 해시 보존 후 전체30장 prepare, 신규24장 runner PID24124/exec31148 실행 시작. batch-status/lock/log 및 실제PID/Comfy8190 queue/history 확인, 중단/중복 제출 금지. 생성은 게임 최종 승인이 아니다.
+
+D:/ComfyUI-output/classic-scene-coloring/production-plan.json은 명작144/전래40/생활45/유치원20/탈것15/자연101 전권365권730장 목록을 실제 inventory와 대조해 확정했다. preparedScenes와 generatedScenes는 계획 targetScenes와 구분. 탈것15권30장 준비, 자연101권202장 전권 목록 포함. 아직 원본 선정을 안 한 책은 본문 키워드로 만든 provisionalTextCandidates이며 실제 선정/승인이 아니고 자동 생성하지 않는다. 전체 준비450장, 아직 실제 선정 필요한 생활42권84장+자연98권196장=140권280장.
+
+자연 남은98권196장 본문 후보 원본을 prefetch-nature-all-candidates.py/exec16243로 읽기 전용 수집 중. nature/all-candidate-source-status.json, selection-contacts/all-candidates.json·all-candidates-0/12/...jpg 저장 예정. 상태 collecting-original-candidates 또는 original-candidates-awaiting-visual-selection와 실제PID/exec부터 확인, 수집 중 중복 실행 금지. 다음 단계에서 전196후보의 원본과 본문을 실제 대조해 작은 동물/복잡한 군집/잘린 핵심 형태 등 필요한 쪽을 교체하고 nature-scene-selection.json 및 manifest를101권202장으로 확장한다. 후보 수집을 전수 원본 검수/생성 완료로 보고하지 않는다. 자연 종/실제 형태·행동을 유지하고 원본에 없는 의인화 금지. 생활 전체도 동일 범위 유지.
