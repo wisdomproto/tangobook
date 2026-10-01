@@ -42,3 +42,5 @@ prepare-additional-coloring-pilots.py로 각 manifest2장/source SHA/TTS/BGM 준
 5. 기존368장 품질 후속도 완료하고 전체730장 최종 승인 후 사용자 알림. 코드/기록만 이름으로 stage해 로컬 커밋. 운영 책/게임 등록·main push·다른 게시 없음.
 
 새 로컬 인어2 후보는 얼굴/꼬리 대부분 색칠되지 않아 manifest.previewHold=true. sync는 이 항목의 기존 공개 버전/SHA를 보존하므로 미통과 교체본이 자동 게시되지 않음. 최신 굵은 경계 후보도2칸2색8.6%로 실패, 근본 경계/색 대응 수정 필요. 정글북2 유색/노이즈 후보들은 모두 기각·미게시. 상세는 명작 task.
+
+첫 생활2쪽 실제 생성/공개 확인. 원본과 선화 인물2명·팔짱 거부 행동·숟가락 유지 및 흑백 통과. filled 검사22칸6색48.4%지만 입 주변 크림 면이 얼굴 주황과 합쳐지고 꼬리 색 대응 부족: hori-life/review.json에 needs-color-alignment/approved=false 기록. 생성 성공과 최종 승인을 구분하며 실제 붓질/쪽 음원 검수는 남음.
