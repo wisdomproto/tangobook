@@ -12,6 +12,7 @@ const { createServer } = await import(
   new URL('./dist/node/index.js', pathToFileURL(require.resolve('vite/package.json'))).href
 );
 const artifacts = 'D:/ComfyUI-output/classic-scene-coloring';
+const port = Number(process.env.SCENE_COLORING_TRIAL_PORT || 5191);
 process.env.DISABLE_PUBLISH_SCHEDULER = '1';
 const entry = root + '/__classic_trial.tsx';
 const source = `import React from 'react';
@@ -20,6 +21,14 @@ import {QueryClient,QueryClientProvider} from '@tanstack/react-query';
 import {BrowserRouter} from 'react-router-dom';
 import {ColoringPlayer} from '/src/features/games/components/players/ColoringPlayer.tsx';
 import '/src/index.css';import '/src/i18n';
+// Local trial only: expose native media events as DOM evidence for validation.
+if(location.hostname==='127.0.0.1') window.Audio=new Proxy(window.Audio,{construct(Target,args){
+ const audio=Reflect.construct(Target,args);audio.hidden=true;audio.dataset.coloringAudioAudit='true';
+ const events=[];for(const type of ['playing','ended','pause','error']) audio.addEventListener(type,()=>{
+  events.push({type,src:audio.currentSrc||audio.src,time:audio.currentTime,duration:Number.isFinite(audio.duration)?audio.duration:null,volume:audio.volume,loop:audio.loop,error:audio.error?.code??null});
+  audio.dataset.mediaEvents=JSON.stringify(events);
+ });document.body.appendChild(audio);return audio;
+}});
 const query=new QueryClient({defaultOptions:{queries:{retry:false}}});
 function App(){const [job,setJob]=React.useState(null);const [done,setDone]=React.useState(false);
 React.useEffect(()=>{fetch('/local-manifest').then(r=>r.json()).then(js=>setJob(js.find(j=>j.key===new URLSearchParams(location.search).get('key'))))},[]);
@@ -29,7 +38,7 @@ createRoot(document.getElementById('root')).render(<QueryClientProvider client={
 const server = await createServer({
   root,
   configFile: root + '/vite.config.ts',
-  server: { host: '127.0.0.1', port: 5191, strictPort: true },
+  server: { host: '127.0.0.1', port, strictPort: true },
   plugins: [
     {
       name: 'local-classic-coloring',
@@ -49,7 +58,10 @@ const server = await createServer({
           }
           if (req.url === '/local-manifest') {
             res.setHeader('Content-Type', 'application/json');
-            res.end(fs.readFileSync(artifacts + '/manifest.json'));
+            const combined = artifacts + '/gallery-manifest.json';
+            res.end(
+              fs.readFileSync(fs.existsSync(combined) ? combined : artifacts + '/manifest.json')
+            );
             return;
           }
           if (req.url?.startsWith('/local-assets/')) {
@@ -83,4 +95,4 @@ const server = await createServer({
   ],
 });
 await server.listen();
-console.log('Local coloring player http://127.0.0.1:5191/play?key=1789350946386-p03');
+console.log(`Local coloring player http://127.0.0.1:${port}/play?key=1789350946386-p03`);
