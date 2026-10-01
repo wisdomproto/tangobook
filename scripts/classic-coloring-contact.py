@@ -1,7 +1,7 @@
 """Create labeled original/lineart comparison sheets for visual review."""
-import json,pathlib,argparse
+import json,pathlib,argparse,os
 from PIL import Image,ImageDraw,ImageFont,ImageOps
-root=pathlib.Path('D:/ComfyUI-output/classic-scene-coloring')
+root=pathlib.Path(os.environ.get('SCENE_COLORING_ROOT','D:/ComfyUI-output/classic-scene-coloring'))
 jobs=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
 done=[j for j in jobs if j['status']=='generated']
 p=argparse.ArgumentParser();p.add_argument('--start',type=int,default=0);p.add_argument('--count',type=int,default=6);a=p.parse_args()

@@ -1,10 +1,12 @@
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
+import path from 'node:path';
 import { buildPalette } from '../packages/client/src/features/games/lib/answer-colors.ts';
 import { buildSceneColoringRegions } from '../packages/client/src/features/games/lib/scene-coloring-regions.ts';
 const require = createRequire(new URL('../packages/server/package.json', import.meta.url));
 const sharp = require('sharp');
-const root = 'D:/ComfyUI-output/classic-scene-coloring/';
+const root =
+  path.resolve(process.env.SCENE_COLORING_ROOT || 'D:/ComfyUI-output/classic-scene-coloring') + '/';
 const jobs = JSON.parse(fs.readFileSync(root + 'manifest.json', 'utf8'));
 const reports = fs.existsSync(root + 'audit.json')
   ? JSON.parse(fs.readFileSync(root + 'audit.json', 'utf8'))

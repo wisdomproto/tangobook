@@ -3,7 +3,8 @@ import concurrent.futures, json, pathlib, urllib.request, urllib.parse, time, ha
 quality_spec=importlib.util.spec_from_file_location('classic_quality',pathlib.Path(__file__).with_name('classic-coloring-quality.py'))
 quality=importlib.util.module_from_spec(quality_spec);quality_spec.loader.exec_module(quality)
 
-ROOT = pathlib.Path('D:/ComfyUI-output/classic-scene-coloring')
+ROOT = pathlib.Path(os.environ.get('SCENE_COLORING_ROOT','D:/ComfyUI-output/classic-scene-coloring'))
+CATEGORY = os.environ.get('SCENE_COLORING_CATEGORY','세계 명작')
 API = 'https://www.tangobook.co.kr'
 COMFY = os.environ.get('CLASSIC_COLORING_COMFY_URL','http://127.0.0.1:8189').rstrip('/')
 SELECTION = {
@@ -25,6 +26,8 @@ SELECTION = {
  '피터와 늑대':[3,12], '하이디':[4,11], '행복한 왕자':[2,5],
  '헨젤과 그레텔':[6,9], '호두까기 인형':[2,10],
 }
+if os.environ.get('SCENE_COLORING_SELECTION'):
+    SELECTION=json.loads(pathlib.Path(os.environ['SCENE_COLORING_SELECTION']).read_text(encoding='utf-8'))
 PROMPT_VERSION = 'v5-white-interiors'
 PROMPT = '''PURE BLACK AND WHITE coloring line art only. Every face, hand, skin area, hair, beard, garment and animal body must be PURE WHITE inside BLACK outlines. No original colors may remain.
 Convert the reference scene into a SIMPLE coloring page. Keep the EXACT original main characters, face designs, expressions, proportions, poses and positions. Preserve the same story action. Do not redesign their faces into generic cartoons.
@@ -51,7 +54,7 @@ def save(path, value):
 
 def inventory():
     ROOT.mkdir(parents=True, exist_ok=True)
-    books = [b for b in request(API+'/api/storybooks')['data'] if b.get('category') == '세계 명작']
+    books = [b for b in request(API+'/api/storybooks')['data'] if b.get('category') == CATEGORY]
     def get_book(b):
         path = ROOT/'books'/(str(b['id'])+'.json')
         if path.exists(): return json.loads(path.read_text(encoding='utf-8'))
@@ -81,7 +84,7 @@ def prepare():
             p = next(p for p in b['pages'] if p['pageNumber']==number)
             if not p.get('illustrationUrl'): raise ValueError(f'Missing original: {b["title"]} p{number}')
             key=f'{b["id"]}-p{number:02}'
-            jobs.append({'key':key,'bookId':str(b['id']),'title':b['title'],'artStyle':b.get('artStyle'),
+            jobs.append({'key':key,'bookId':str(b['id']),'title':b['title'],'artStyle':b.get('artStyle'),'collection':'traditional' if CATEGORY=='전래 동화' else 'classic',
               'pageNumber':number,'originalUrl':p['illustrationUrl'],'text':p.get('text',''),
               'ttsUrl':p.get('ttsUrl'),'translations':p.get('translations',{}),
               'backgroundMusicUrl':b.get('backgroundMusicUrl') or f'{API}/sounds/bgm/default-1.mp3',
@@ -226,6 +229,8 @@ def generate(limit=None):
                 if j['status']=='color-repair-needed':remove_color(j,jobs)
                 finished+=1
                 subprocess.run(['node','--import','./packages/server/node_modules/tsx/dist/loader.mjs','scripts/audit-classic-coloring.mts',j['key']],cwd=pathlib.Path(__file__).resolve().parent.parent,check=True)
+                if os.environ.get('SCENE_COLORING_SYNC_PREVIEW')=='1':
+                    subprocess.run(['node','scripts/sync-scene-coloring-preview.mjs'],cwd=pathlib.Path(__file__).resolve().parent.parent,check=True)
                 print('DONE',sum(x['status']=='generated' for x in jobs),'/',len(jobs),j['key'],j['seconds'],flush=True)
                 break
             if time.monotonic()-start>1800:raise TimeoutError(pid)

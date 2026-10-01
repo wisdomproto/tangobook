@@ -63,4 +63,6 @@ with open(m.ROOT / 'batch.log', 'a', encoding='utf-8') as log:
     m.save(m.ROOT / 'manifest.json', jobs)
     for start in range(0, len(jobs), 6):
         subprocess.run([sys.executable, str(workspace / 'scripts/classic-coloring-contact.py'), '--start', str(start)], cwd=workspace, env=environment, stdout=log, stderr=log, check=True)
+    if os.environ.get('SCENE_COLORING_SYNC_PREVIEW') == '1':
+        subprocess.run(['node', str(workspace / 'scripts/sync-scene-coloring-preview.mjs')], cwd=workspace, env=environment, stdout=log, stderr=log, check=True)
     m.save(m.ROOT / 'batch-status.json', {'state': 'generated-review-pending', 'books': len({j['bookId'] for j in jobs}), 'images': len(jobs), 'hashesVerified': True, 'gallery': 'index.html', 'visualReview': 'review.json', 'message': '생성 완료는 전체 육안·플레이 검수 승인이 아닙니다.'})
