@@ -29,3 +29,5 @@
 PowerShell에서 SCENE_COLORING_ROOT=D:/ComfyUI-output/classic-scene-coloring/traditional, SCENE_COLORING_CATEGORY=전래 동화, SCENE_COLORING_SELECTION=이 worktree/scripts/traditional-scene-selection.json, SCENE_COLORING_SYNC_PREVIEW=1을 설정하고 `python scripts/run-classic-coloring-batch.py --comfy-url http://127.0.0.1:8190`을 실행한다. batch.lock/batch-status.json의 실행 PID와 저장 promptId/queue/history를 먼저 확인해 중복 runner/제출을 피한다. ComfyUI8190은 이전 작업에서 시작한 자체 서버다. 다른 진행 작업을 종료하지 않는다.
 
 80장 색 검사·해시 확인 후 원본/도안/filled 대조, 실제 색칠·해당 쪽 나레이션/BGM 검수를 마쳐야 최종 완료다. 명작16장 우선 검수와 전수 대조도 이전 작업에서 계속 남아 있다. 갤러리 JS node --check, Python 구문 검사, 첫 서버4색 플레이를 확인했다.
+
+2026-10-01 10:50: 기존 배치가 70/80 생성·시험판 반영까지 진행 중. PID50736/queue prompt 확인, 실행 중인 runner 보존. 명작 여우 수정 요청 두 건은 같은8190 queue에서 순서대로 처리했으며 첫 후보 기각/두 번째 검수 교체. 전래 manifest를 직접 수정하거나 runner를 중단하지 않았다. 전래 우선6장 수정과 나머지 원본/플레이/음원 검수는 남음.
