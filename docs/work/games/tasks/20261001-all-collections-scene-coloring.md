@@ -175,3 +175,9 @@ production-plan.json 실제 재집계 전730장 준비/595장 생성(자연151·
 첫 자연4후보를 별도 review-workspace에서 흑백4/SHA4/engine filled 및 원본 비교. comparison-first-four-20261001-1024.jpg와 first-four-visual-review.json/candidate-checks.json, 기존 review.json의 priorityCandidateReview1008에 기록. 고래2는0칸→2칸2색23.4%로 등이 칠해지지만 물기둥 베이지/몸 거의 검정 색 대응과 실제 플레이 후속. 잠든 곰10도2칸2색27.4% 몸통 개선이나 원본 갈색/플레이 후속. 고슴도치10은 얼굴이 숨은 원본 웅크림에 눈/코/귀/발을 추가해 기각, 걷는 곰2는 경계 열림/필수0칸0% 그대로라 기각.4후보 모두 미적용/미게시이며 후보 수정 재제출은 현재 worker 종료/history 확인 후에만 한다.
 
 전체730장 생성/생활90 전수 대조를 게임 최종 완료로 보고하지 않는다. 기존 색 대응·난이도·실제 붓질/쪽 TTS/BGM 후속, 명작/전래 실패 후보 및 previewHold 게이트를 유지한다. 기존 제공 전체 언어+BGM2158파일 디코딩/비무음 통과는 실제 발화/전체 게임 승인과 구분한다. 사용자가 승인한 기존 tests 경로의6탭만 갱신, 운영 등록/main push/다른 배포 없음.
+
+## 2026-10-01 사용자 push 승인
+
+사용자가 이 채팅에서 '좋아. 푸시하자'로 현재 색칠 작업의 push를 요청했다. 색칠 브랜치의 관련23커밋과 저작도구 자료실 링크2커밋을 통합하고 자료실 설명을 실제6개 분류/365권730장/검수 중으로 갱신한다. 원격 main은 fetch 당시 색칠 브랜치의 조상이며 강제 push 없이 반영한다. 로컬 main의 다른 영상/채널 문서 커밋은 이번 push 범위에 포함하지 않는다. 코드/기록 push는 도안 전체 게임 승인이나 운영 책·게임 데이터 등록을 뜻하지 않는다. 시험판 및 Qwen 후보 worker/후속 자동 검수 흐름은 계속 유지한다.
+
+Push 전 검증: 장면 영역3개+색상/장면해석26개 총29테스트 통과, 클라이언트 typecheck 통과, 관련4개 TS/TSX eslint 및 TopBar prettier 통과, 클라이언트 production build 통과. 기존 Vite 번들 크기/i18n 동적 import 및 lottie eval/Browserslist 경고는 있으나 빌드 실패 없음. push 대상은 origin HEAD:main이며 fresh fetch 후 fast-forward 가능 여부를 재확인한다.

@@ -375,7 +375,7 @@ const RESOURCES: ResourceItem[] = [
     href: 'https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/index.html',
     icon: '🎨',
     label: '동화 장면 색칠 (테스트)',
-    desc: '명작 144권 · 전래 40권 · 원본 비교·색칠 체험',
+    desc: '6개 분류 · 365권 · 730장 · 원본 비교·색칠 체험 · 검수 중',
   },
   {
     href: '/hidden-object-plan.html',
