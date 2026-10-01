@@ -372,6 +372,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '낱말 2,387개 · 파닉스 3언어 + 동화책 13갈래',
   },
   {
+    href: 'https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/index.html',
+    icon: '🎨',
+    label: '명작동화 장면 색칠 (테스트)',
+    desc: '144권 · 288장 · 원본 비교·색칠 체험 · 검수 중',
+  },
+  {
     href: '/hidden-object-plan.html',
     icon: '🔍',
     label: '숨은그림찾기 씬 작업판',
