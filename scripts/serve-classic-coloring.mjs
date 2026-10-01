@@ -11,7 +11,8 @@ const require = createRequire(root + '/package.json');
 const { createServer } = await import(
   new URL('./dist/node/index.js', pathToFileURL(require.resolve('vite/package.json'))).href
 );
-const artifacts = 'D:/ComfyUI-output/classic-scene-coloring';
+const artifacts =
+  process.env.SCENE_COLORING_TRIAL_ROOT || 'D:/ComfyUI-output/classic-scene-coloring';
 const port = Number(process.env.SCENE_COLORING_TRIAL_PORT || 5191);
 process.env.DISABLE_PUBLISH_SCHEDULER = '1';
 const entry = root + '/__classic_trial.tsx';

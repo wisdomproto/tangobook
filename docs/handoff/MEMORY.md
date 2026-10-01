@@ -132,3 +132,5 @@
 - 2026-10-01 [호리·자연관찰 색칠 확장](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사용자 요청으로 기존 명작·전래 포함6탭365권730장 목표. 원본 기반 Qwen 제작/정확한 원본 쪽 읽기·BGM 검수, 첫 신규8장 실행 중. 운영 등록/main push 미요청.
 
 2026-10-01 [6분류 장면 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 전365권730장 생성 및 원본 비교 기록, 자료실 링크6분류 설명을 사용자 승인으로 원격 main 02f97e63에 push 완료. 전체 도안 게임 최종 승인 아님; Qwen 후보76장 후속 검수 계속. 이전 이 작업의 main push 미요청 메모는 새 승인으로 대체.
+
+2026-10-01 12:09 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 우선76후보 생성·실제 대조 완료, 전체 게임 승인 후속은 계속. 암사자14 한 장 실제 붓질/정확한 원본/native 읽기·BGM/공개SHA 승인 반영, 실패 후보 자동 게시 없음. 완료 runner 재시작 금지·Comfy8190 다른 작업 보존.

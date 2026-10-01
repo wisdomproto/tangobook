@@ -195,3 +195,18 @@ C:/ComfyUI_windows_portable/python_embeded/python.exe로 자체8190 서버 PID41
 자연 완료35후보를 audit-scene-coloring-candidates.py로 별도 review-workspace에서 SHA35쌍/흑백35 및 shared engine filled 생성. 첫4의 기존 판단을 보존하고 새31후보를 comparison-004/008/012/016/020/024/028/032 전8시트에서 실제 원본·선화·filled 대조했다. 시트/manifest/audit/checks를 snapshot-20261001-1109에 보존, visual-notes-new31-1109.txt와 review-after.json 및 review.json priorityCandidateReview1109에 장별 판단 기록. 새승인/교체/게시0. 필수0칸7장(걷는곰2/두더지9/바리오9/사자2/소나무2/은하2·11)과 개구리 배경만채움/늑대·독수리·올빼미 몸미색칠/벨로키랍토르 깃털소실/치타 일부새끼미색칠/코뿔소 배경만채움 등 실패 후보를 그대로 적용하지 않는다. 원본 열매 복원된 원숭이8도 열매가 흰 면/몸 초록색이라 미승인. 암사자14·상어15·여우2·코끼리3·잠든다람쥐11·이구아노돈14·스피노2 등 큰 몸통 면 개선은 실제색/붓질/정확한 원본/TTS/BGM 후속이 남는다. 흑백 통과는 몸통 색칠과 종 특징/원본 행동 승인을 대신하지 않는다.
 
 현재 도안 전체 생성/원본 대조 및 기존미디어 검증 범위는 유지한다. 관련 main push는 사용자 요청으로 b8121e3e까지 이미 완료했고 이번 복구/추가 검수 기록은 로컬 커밋. 공개 테스트 갤러리는 실패 후보 자동 게시 없이 기존 도안을 유지한다. 전체 최종 승인 전 완료 알림 금지.
+
+
+## 2026-10-01 12:09 UTC — 우선76후보 생성·대조 완료, 암사자14 개별 승인 반영
+
+실제 status 확인: 자연46/탈것6/유치원2/생활22 총76후보 all-candidates-awaiting-review. 부모35432는11:29:58 UTC, 생활후속1808은11:48:17 UTC 정상 종료했다. 완료 worker/후속 재시작 금지. PID36020은 이제 chrome으로 재사용됐으므로 PID 존재만으로 runner 실행 판단하지 않는다. Comfy8190 PID41608 유지. 현재 다른 snow-watercolor client 작업도8190을 사용하므로 서버/다른 queue 중단 금지.
+
+audit-scene-coloring-candidates.py로76후보 SHA/흑백 전부 통과 확인하고 shared engine filled 대조 자료 갱신. 기존 자연35판단 보존, 새 자연11·탈것6·유치원2·생활22 총41장을 실제 원본/선화/filled 비교해 각 review-workspace/snapshot-20261001-1209/시트·visual-notes.txt·review-after.json 및 review.json priorityCandidateReview1209에 기록했다. 자연 필수0칸7후보 유지. 판다 검정 채움/패턴 색, 표범 다리 초록/배경 합침, 호랑이 얼굴/몸 미색칠, 호수 미색칠 후속. 탈것 로켓/조종석/차량 복원과 유치원 손도장/생활 책상·코알라·웅덩이·블록·토마토·책장 복원은 확인됐지만 크림/줄무늬/무지개꼬리/주요 면 및 원본 행동 문제로 자동 적용하지 않았다. 생활14p10 엄마 서 있음,42p5 뒤쪽 엄마 삭제도 여전히 실패.
+
+원본 반증 추가: 탈것 기차3 1784860651220-p03의 실제 기관사는 곰이다. 이전 사람 기관사 메모는 이 쪽에는 적용하지 않는다. 기차8 1784860651220-p08은 실제 사람 기관사가 맞으며 기존76후보는 곰으로 변경해서 기각. 원본 참조 --reference를 사용해 전역 재생성 지시를 빼고 사람/3동물/조작대/창/핸들을 고정한 새 Qwen 후보 prompt bf05050f-83d6-4bfe-bedf-570379872d36 완료. candidate-batches/20261001-1209-human-engineer에 원본 지시/이전 repairs/새 graph/history/PNG 보존, SHA·흑백·원본/filled 실제 비교 통과. 사람 기관사와 큰 조작대 복원했지만452영역38칸9색 복잡도/얼굴·손·무지개꼬리 색 및 실제 플레이 후속으로 미적용/미게시.
+
+자연 암사자14 1777438039433-p14 후보는 두 몸통과 혀가 닫혀 실제2물감 붓질로 갈색 몸/분홍 혀를 칠하고 정확한14쪽 원본으로 전환했다. 동일 로컬 실제 ColoringPlayer nativeTTS6.264초 playing/ended 및 BGM playing(volume0.16)/종료 정지, 초기화 재색칠 확인. 원본 암사자/새끼2마리 핥는 자세·종/형태·넓은 단순 면 유지, 작은 입/발 흰 면 허용. 오프라인3색과 실제2물감은 구분한다. player-lion14-1209/initial·first-stroke·after-second·reset-repaint·native-evidence.json 증거. TTS/BGM cleanup src 제거 뒤 error4는 재생 실패가 아니며 실제 ended 이벤트 보존, 발화 전사 아님.
+
+검수한 정확한 후보 SHA d2e38d88e162a73c6fd37427fa16e66e2d69c1c0718a54fa3a645a5e091b747a와 교체 후 active SHA 일치 확인, 이전 선화/graph/history/review는 revisions/reviewed-repair에 보존. 개별 approved-source-and-play 기록 후 승인된 tests 갤러리만 sync. 공개 실제2물감2붓질/정확한14쪽 원본 리빌 및 source/lineart2파일 버전URL SHA 통과. public-first-stroke.png/public-reveal.png/public-evidence.json/public-sha.json 증거. 버전 없는 CDN URL은 예전 선화 캐시로 SHA 불일치해 별도 한계 기록하며 실제 플레이가 사용하는 ?v=SHA URL은 일치한다. 전체730장 게임 최종 승인은 여전히 남음. 이번 새 승인/교체/게시1장 이외 후보 자동 적용 없음.
+
+scripts/serve-classic-coloring.mjs에 SCENE_COLORING_TRIAL_ROOT 옵션을 추가해 후보 review-workspace manifest로 실제 플레이어를 별도5193에서 실행할 수 있게 했다. 기본 기존 경로/5191 유지, DISABLE_PUBLISH_SCHEDULER=1. 후보 검수 서버 PID55992, 원본/후보 assets의 별도 manifest로 공개본을 바꾸기 전 검수. node --check 통과. 이번 코드/기록은 관련 파일만 로컬 커밋; 이미 요청된 origin/main push b8121e3e는 완료했으며 이번 추가 push/운영 게임 등록은 하지 않았다.
