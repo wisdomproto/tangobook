@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
+import { buildSceneColoringRegions } from '../../lib/scene-coloring-regions';
 import { useGameStyle } from '../GameStyleChip';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
@@ -299,9 +300,13 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       const w = line.naturalWidth;
       const h = line.naturalHeight;
       setSceneRatio(w / h);
-      const walls = buildWalls(readPixels(line, w, h));
-      const regions = labelRegions(walls, w, h);
-      const required = paintableRegions(regions, w * h, 0.003, borderRegions(regions.labels, w, h));
+      const pixels = readPixels(line, w, h);
+      const sceneRegions = isScene ? buildSceneColoringRegions(pixels, w, h) : undefined;
+      const walls = sceneRegions?.walls ?? buildWalls(pixels);
+      const regions = sceneRegions?.regions ?? labelRegions(walls, w, h);
+      const required =
+        sceneRegions?.required ??
+        paintableRegions(regions, w * h, 0.003, borderRegions(regions.labels, w, h));
       // 🔴 색 출처는 도안의 그림 사각형에 맞춰 읽는다 — 크기가 달라도 같은 자리를 보게.
       const ink = boundsOf(w, h, (i) => walls[i] === 1);
       const source = isScene

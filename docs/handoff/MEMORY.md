@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-09-30 [명작동화 장면 색칠 배치](../work/games/tasks/20260930-classic-scene-coloring.md): **사용자 요청으로 재개(active)**. 재개 시점 144권·288도안 중 123장 흑백 검사 통과/165장 남음. 8189 무응답 지속, 정상 복구 서버 8190에서 나머지 163장 재개. 이전 제출 2장은 promptId 보존·waiting-original-server로 중복 방지. 승인 기준·실행 명령·복구 순서 기록. 출력 D:/ComfyUI-output/classic-scene-coloring 보존. 전수 생성/게임 품질 검수·운영 등록·main 통합·push 미완료.
+2026-10-01 [명작동화 장면 색칠](../work/games/tasks/20260930-classic-scene-coloring.md): 144권288장 생성·흑백 검사·해시 확인 완료. 이전 서버 종료를 확인해 보류2장 복구. 장면 전용 회색 선/잘린 옷 판정 보완 후 전수0칸0장. 1색7장/면적5% 미만11장(합집합16장) 및 나머지 원본·난이도 검수 진행 중. 생성 완료를 전체 게임 승인으로 보고하지 않는다. 출력 D:/ComfyUI-output/classic-scene-coloring, 운영 등록·main push 미요청.
 
 2026-09-30 [미나 교정·Qwen 재작화 완료](../work/content/tasks/20260930-mina-text-revision-qwen.md): 운영 본문과 기존 삽화를 대조해 43권 135쪽을 고치고 원고·SCENE·HTML 동기화. 바뀐 그림 22장 로컬 생성·개별 검수·최종 해시 기록 완료. 사용자 요청으로 origin/main push 완료(07cc0859). 후속 요청으로 운영 삽화 22장 교체·이전 이미지 정리, 43권 본문 동기화와 CDN 해시 검증을 완료했다. 상세 선정/교정 목록은 영역 작업 기록에서 연결한다.
 

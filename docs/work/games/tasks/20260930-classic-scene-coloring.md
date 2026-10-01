@@ -3,7 +3,7 @@
 - id: 20260930-games-classic-scene-coloring
 - domain: games
 - status: active
-- updated: 2026-09-30
+- updated: 2026-10-01
 - base: a0811a2e0
 - branch: codex/games-classic-scene-coloring
 - worktree: C:/projects/tangobook/.worktrees/classic-scene-coloring
@@ -44,6 +44,14 @@
 - pnpm install --frozen-lockfile, shared build, client typecheck, client build, 관련 resolve-scene/useColoringSheets 23테스트, 수정 TSX eslint 통과. 빌드의 기존 대형 chunk/lottie eval/i18n 동적 import 경고는 남음.
 
 ## 다음 행동
+
+2026-10-01 최신: **144권 288장 생성·흑백 검사·SHA256 확인 완료**, batch-status는 generated-review-pending. 이전 ComfyUI 프로세스가 종료되고 8189/8190 연결 거부를 확인했다. 기존 출력에서 저장 그래프 일치본도 없어 `recover-deferred-classic-coloring.py`로 이전 제출 기록을 revisions/original-server-exited에 보존한 뒤 두 요청을 재제출했다. 별도 출력/SQLite 경로를 쓰는 자체8190 서버를 시작했고 다른 작업은 종료하지 않았다. 백조 왕자 그림체3 p4와 어린 왕자 그림체3 p12도 생성·색 검사 통과.
+
+기존 색칠 판정(임계값128/모든 테두리 제외)은 27장이 필수0칸이었다. Qwen 회색 선을192로 읽고 가장 큰 테두리 여백만 제외하는 buildSceneColoringRegions를 장면 모드에 적용했다. 기존 낱말 모드는 유지. 288장 재검사: **0칸0장, 1색7장, 면적5% 미만11장(합집합16장)**. 이16장은 우선 재검수 대상으로 승인하지 않는다. 특히 1789350946327-p08은 탑과 긴 머리 중심으로 인물 얼굴/몸이 지나치게 작아져 원본 대조 후 Qwen 수정 필요. 선 판정 개선은 인물·난이도 승인과 다르다.
+
+회색 폐곡선/잘린 옷/전체 여백 회귀 테스트3건, client typecheck, 수정 파일 eslint 통과. 기존0칸이던 호두까기 인형 그림체3 p2는26칸6색·면적67.5%로 개선. 실제 브라우저6색 붓질→정확한 원본2쪽/본문 리빌→장면 읽기 완료→다시 버튼 팔레트 복구 확인. 증거 player-nutcracker-v2-reveal.png. 음원은 DOM 외부 Audio 객체이므로 DOM audio 목록이 비었다는 사실을 무음으로 해석하지 않는다. 이번 증거는 리빌·완료 흐름이며 실제 청취/BGM 전수 검수는 별도다.
+
+다음: audit.json의1색 또는 면적5% 미만16장을 우선 원본/도안/filled 대조하고 필요한 장만 Qwen 수정. 나머지도 비교 시트로 인물·핵심 소품·난이도를 검수해 review.json에 장별 기록한다. 갤러리 http://127.0.0.1:5190/, 플레이5191. 완료 알림 automation-2는 전체 게임 품질 검수 완료 전 최종 완료를 알리지 않는다. 운영 등록/main push/배포 미요청. 아래는 이전 상태 기록이다.
 
 2026-09-30 사용자가 “계속 진행하자”로 재개 요청하여 중단 지시를 해제했다. 8189 queue와 두 저장 promptId history는 여전히 무응답. 같은 설치의 8190 복구 서버는 정상 응답·queue 비어 있음(기존 두 promptId history는 없음). Comfy 출력 PNG의 내장 prompt와 저장 graph가 완전히 일치하는 완료 파일도 없어 기존 두 제출은 waiting-original-server로 보류하고 promptId/이전 상태 보존. 중복 제출 없이 나머지 163장을 8190에서 먼저 이어간다. 기존 통과 123장 보존. 서버 전환은 CLASSIC_COLORING_COMFY_URL 또는 runner --comfy-url 옵션을 사용하며 이번 실행은 `python scripts/run-classic-coloring-batch.py --comfy-url http://127.0.0.1:8190`이다. 원래 서버/다른 작업 프로세스는 종료하지 않았다. 두 보류 항목은 기존 요청 복구 전까지 전체 완료로 보고하지 않는다.
 

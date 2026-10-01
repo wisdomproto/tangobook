@@ -1,12 +1,7 @@
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
-import {
-  buildWalls,
-  labelRegions,
-  paintableRegions,
-  borderRegions,
-} from '../packages/shared/src/utils/flood-fill.ts';
 import { buildPalette } from '../packages/client/src/features/games/lib/answer-colors.ts';
+import { buildSceneColoringRegions } from '../packages/client/src/features/games/lib/scene-coloring-regions.ts';
 const require = createRequire(new URL('../packages/server/package.json', import.meta.url));
 const sharp = require('sharp');
 const root = 'D:/ComfyUI-output/classic-scene-coloring/';
@@ -26,9 +21,7 @@ for (const j of jobs.filter(
   const w = info.width,
     h = info.height,
     n = w * h;
-  const walls = buildWalls(new Uint8ClampedArray(data));
-  const regions = labelRegions(walls, w, h);
-  const required = paintableRegions(regions, n, 0.003, borderRegions(regions.labels, w, h));
+  const { walls, regions, required } = buildSceneColoringRegions(new Uint8ClampedArray(data), w, h);
   const source = await sharp(root + j.sourceFile)
     .resize(w, h, { fit: 'contain', background: '#fff' })
     .ensureAlpha()
