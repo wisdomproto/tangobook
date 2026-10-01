@@ -308,3 +308,16 @@ serve harness는 job.colorSampling 명시값이 있을 때만 선택, 환경시�
 완료조건 해석 반증: 실제ColoringPlayer.tsx의 FILL_THRESHOLD=0.9는 각각붓질한영역의가장자리마감을위한값이고 finish는 filled>=total(모든required영역완료)에서만호출된다. 긴연속pointer붓질중팔레트가자동전환되므로5전체붓질/6물감은 마지막물감건너뜀의증거가아님. 이전일부 '90%리빌' 메모는각영역/긴붓질자동전환과구분해야하며 전역90%조기완료로확대/엔진변경하지않음. 초기화개구리단독붓질이미지와실제코드로확인. 코드수정없음.
 
 final-review-status-20261001-1916.json으로전730생성/명시approved=true9장/최종승인대기721장을구분한스냅샷저장. 승인9장의실제원본·활성도안SHA와manifest/review SHA각각일치, 기존playEvidence만연결하며이번에9장을재생한것으로주장하지않음. 기존분류/후보생성완료·음원2158디코딩통과를전장게임승인으로집계하지않음. 이번새승인/교체/시험판게시0,관련기록로컬커밋·추가push/운영등록없음. 다음엔원본핵심색·큰몸/얼굴/옷폐곡선/바깥여백연결실패를장별로고치고검증된장만반영한다.
+
+
+## 2026-10-01 20:17 UTC — 전래 핵심 무늬 색 검수 및 분리 경계 Qwen 수정
+
+실제root/branch/status/worktree HEADf00e5cde/codex/games-classic-scene-coloring와 기존 scripts/__pycache__ 미추적만 확인. 전6분류730생성/명시최종승인9·대기721 보존. Comfy8190 실제PID41608/queue0와 기존5193~5201 서버commandline 확인, 완료runner 재시작/다른client 중단없음. 사용자갤러리탭 보존하고 임시탭 모두닫음.
+
+전래 개와고양이9 1785303655950-p09 활성본을5200에서 실제4물감/3전체붓질→정확한9쪽원본리빌/native14.003667초 playing→자연ended/BGMplaying0.16→종료paused 확인. 초기화후구슬녹색부분재색칠 PNG 직접확인. 원본고양이·생쥐·구슬/큰행동·단순함은유지하지만 고양이어두운이마무늬 경계삭제로 얼굴전체황록색, 원본앞발크림면/생쥐귀흰면 후속. traditional/player-cat9-2017 initial/two-brush/reveal/native-evidence/reset-bead-repaint/review-decision 및review.json nativePlayReview2017. 큰구슬단색은자체실패아니지만 원본캐릭터무늬 삭제와핵심색을전체승인으로넘기지않음.
+
+은혜갚은까치10 1784529060634-p10 활성본도5200 실제2물감/2전체붓질·정확한10쪽원본/native16.823917초 자연ended/BGM정지·초기화후회색종부분재색칠확인. 큰종/새3마리/종에부딪히는행동 유지하지만 원본검정머리목·날개밑/꼬리와크림배 분리선삭제로 큰새/위새가전체크림색·아래새흰면. traditional/player-kkachi10-2017 및nativePlayReview2017. 전2활성source/lineartSHA각manifest일치. 로컬native/저장비교·공개재생·발화전사를구분,cleanup error4는자연ended뒤src제거와구분. reset후harness done 유지가 재완료증거아님, 연속붓질중팔레트자동전환유지.
+
+까치10 실제원본참조 Qwen-Image-2.1 새수정 prompt5583dde5-e761-46ab-90ab-cb742a0f17a4 정상종료(exec71974), traditional/candidate-batches/20261001-2017-magpie-color-panels에 sourceSHA3f55f6402dd6e3725f1a6f0e88ddfe3b78ec6c31199ef036ec41610a653bb7a5/request/worker/PNG/graph/history/status/이전repairs백업/원본선화filled비교 보존. candidateSHA8318123203b78059610c8a280dc91bc10c1f419e5fa7d6e875965f434d5dceaa. 흑백검사통과(유색276px0.0261%,유색0으로보고하지않음)/SHA/historysuccess/134영역8필수4색21.2%. 새배분리선으로큰까치짙은머리목·크림배/밝은깃분리는개선했지만 안쪽날개/긴꼬리·작은2새검정부분흰면, 종오른쪽큰절반미색칠·깃/장식복잡도 유지. 실제comparison-000/auditfilled 대조후미승인미적용미게시, colorPanelsCandidateReview2017. 후보브라우저재생증거아님, 완료수정재제출금지. 종큰면의열림과꼬리/날개색구획을추가분석해야하며현재공개본보존.
+
+새승인/교체/게시0·코드수정0,전730전체검수계속. 임시검수탭닫고최종queue0/색칠runner종료확인. 문서diff/경로확인 및관련기록만로컬커밋,추가mainpush/운영등록없음. 원본핵심무늬를색구획으로보존하는지닫힌면과함께검수하고다른분류후속도지속한다.

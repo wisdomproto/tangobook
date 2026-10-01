@@ -148,3 +148,5 @@
 2026-10-01 18:16 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 유치원도깨비4 원본Qwen후보 손발색후속 미승인·4bbox/mode/median 저장픽셀실험도실패. 전래개와고양이13 실제3물감/해당쪽native19.275083자연종료·BGM정지/리셋확인하지만개몸·머리옷색후속 미승인. 새승인게시0·추가push없음.
 
 2026-10-01 19:16 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 명작개구리1p3 실제6물감/쪽native10.08자연종료확인하나머리배경합침미승인. 잭3 두참조2후보암탉닫힘개선/핵심색후속미게시. 실제완료는모든required영역이며90%는영역별마감,붓질수<물감수만으로조기완료단정금지. 명시최종승인9/730SHA일치스냅샷보존·추가push없음.
+
+2026-10-01 20:17 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 전래개와고양이9/까치10 실제쪽native14.003667·16.823917 자연종료/BGM정지/리셋확인,원본무늬색후속미승인. 까치배분리Qwen후보머리·배개선/종반쪽·꼬리미색칠기각,새승인게시0·추가push없음.
