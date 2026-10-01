@@ -5,10 +5,11 @@ m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 p=argparse.ArgumentParser();p.add_argument('key');p.add_argument('instruction');p.add_argument('--lineart',action='store_true');args=p.parse_args()
 j=next(j for j in json.loads((m.ROOT/'manifest.json').read_text(encoding='utf-8')) if j['key']==args.key)
 g=json.loads((m.ROOT/'workflows'/(args.key+'.json')).read_text(encoding='utf-8'))
-if args.lineart:
-    name='classic-color-removal-'+args.key+'.png'
-    shutil.copyfile(m.ROOT/j['lineartFile'],pathlib.Path('C:/ComfyUI_windows_portable/ComfyUI/input')/name)
-    g['4']['inputs']['image']=name
+name=('classic-color-removal-' if args.lineart else 'classic-repair-source-')+args.key+'.png'
+# An applied repair replaces the stored graph, whose LoadImage may point to a
+# previous line drawing. Select the actual manifest asset for every new repair.
+shutil.copyfile(m.ROOT/j['lineartFile' if args.lineart else 'sourceFile'],pathlib.Path('C:/ComfyUI_windows_portable/ComfyUI/input')/name)
+g['4']['inputs']['image']=name
 g['5']['inputs']['prompt']=args.instruction if args.lineart else args.instruction+'\n'+m.PROMPT
 g['7']['inputs']['seed']+=1
 g['9']['inputs']['filename_prefix']='classic-scene-coloring-repairs/'+args.key
