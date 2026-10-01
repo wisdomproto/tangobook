@@ -280,3 +280,16 @@ serve harness는 job.colorSampling 명시값이 있을 때만 선택, 환경시�
 탈것 기차8 1784860651220-p08의 이미완료된 사람기관사 후보bf05050f-83d6-4bfe-bedf-570379872d36은 재생성하지 않고 실제ColoringPlayer 검수. 사람/3동물/큰조작대·핸들·창 복원 유지, 실제9물감7전체붓질로 완료/정확한8쪽 원본리빌. 로컬 해당쪽 nativeTTS25.0215초 playing→자연ended, BGM loop90.044063초 playing volume0.16→리빌종료 paused 확인. cleanup error4는 자연ended 뒤 src제거 과정과구분, 발화전사아님. 초기화/별도새판 크림손 실제붓질 및 초기화후 같은손 재색칠 확인; reset-cream-half-sweep은 목표손까지닿지않아 재색칠근거로세지않고 fresh-run-cream-hand/verified-reset-hand-repaint 실제PNG를사용. harness done은reset후유지돼 새완료근거아님.
 
 실제 four-sweeps.png에서 호리크림 얼굴은 원본과 달리 전체주황, 이마/볼줄무늬 흰면, 꼬리/배 색·계기판복잡도 후속. 정확한쪽 TTS종료만으로 게임승인하지 않아 후보 미승인·미적용·미게시 유지. hori-vehicles/candidate-batches/20261001-1209-human-engineer/review-workspace/player-train8-1715의 initial/four-sweeps/reveal/native-evidence/verified-reset-hand-repaint/review-decision 및 review.json nativeCandidateReview1715 증거. 모든 임시탭닫고 사용자 갤러리탭 유지. 이번 새승인/교체/시험판게시0, 기존개별승인9장 및 전체730 후속 유지. 코드수정없음·문서diff/경로검사 및 관련기록만 로컬커밋, 추가push/운영등록없음. 다음에는 호리크림면·원본좌표 대응과 잘못된종/소품 후보를 원본에 맞춰 개별수정하며 다른분류 후속도 계속한다.
+
+
+## 2026-10-01 18:16 UTC — 유치원 도깨비 원본 위치 후보 및 전래 결말 실제 검수
+
+실제root/branch/status/worktree를 확인했고 HEAD63833f97/기존 scripts/__pycache__만 미추적. 전6분류730생성 확인. 완료76후보 재시작하지 않았으며 Comfy8190 PID41608 실제commandline/queue0부터 확인, 다른client·기존검수서버 중단없음.
+
+유치원09권4쪽 1784550869911-p04 고해상도 원본을 실제 확인: 한도깨비/외뿔/보는사람오른쪽 한작은이빨/큰귀/어깨뒤사선방망이/걷는자세/주황반바지·리본. 안경이 원본에 없다는 기존판정 유지하지만 작은이빨1개는 실제있어 이를 삭제대상으로확대하지 않음. 원본좌표·닫힌손발/속빈줄무늬를 요구한 source-only Qwen promptc0a718ff-67c5-488a-960e-d04d0ea9df10(exec48358) 정상완료. hori-kindergarten/candidate-batches/20261001-1816-goblin-source-position에 request/PNG/workflow/history/status/실제원본·선화·sharedenginefilled 비교 보존. sourceSHA7e86a2c3a2a8e5cf263e235fcb52999a3f731d8699d1772bb5b0ccc2bfe59909/candidateSHA075cca86126e6a3d0a9aeaf793e5e49bc40cdd596e6d82eddb07d619762d477c, mono유색0/SHA통과·49영역6필수3색11.2%. 한뿔/한이빨/방망이/걷는포즈 복원했지만 큰앞발·안쪽팔은갈색, 올린손·먼쪽귀/볼은흰면, 줄무늬검정채움 유지. 원본팔다리색 후속으로 미승인미적용미게시, sourcePositionCandidateReview1816. 새후보완료 재제출금지.
+
+원본사각형→도안ink사각형 정렬이 색을고치는지 후보전용 alignment-diagnostic.mts로2crop(mode/median각각) 총4저장픽셀실험. 실제 diagnostic-890-mode/median 및comparison을대조했지만 큰발갈색/손·귀흰면 그대로. footseed745,658은region48/9187px, club520,185는region3/14827px로서 같은영역이합쳐진오류는아님. 원본contain좌표 발seed는RGB191,151,85의황갈색주변면을읽어 실제발윤곽/원본위치·범위대응을더살펴야함. alignment-diagnostic.json/seed-regions.json 근거. 단일bbox/mode→median만으로해결됐다고확대하지않았고 런타임/공개sourcecrop·sampling변경없음. 오프라인픽셀분석이며실제브라우저검증아님.
+
+전래 개와고양이13 1785303655950-p13 현재활성본을 별도5200 DISABLE_PUBLISH_SCHEDULER=1 검수서버(exec53032)로실제플레이. 실제3물감 #f6cf8c/#b1b2a9/#f9e4b5의3전체붓질→정확한13쪽원본리빌/native19.275083초자연playingended/BGMplaying뒤paused/초기화부분재색칠 확인. 할머니고양이포옹/할아버지개쓰다듬는행동과2인2동물 유지. 하지만 큰개몸통흰면/꼬리만노랑, 회색할머니머리피부노랑, 할아버지회색옷노랑과할머니회청색옷대응후속으로미승인. traditional/player-cat13-1816의initial/first-brush/second-brush/third-brush/native-evidence/reset-repaint/review-decision 및review.json nativePlayReview1816. 읽기자연종료·BGM정지/cleanup error4/harness done reset뒤유지/공개검증·발화전사를구분. 현재공개본이미지변경없음.
+
+이번새승인/교체/시험판게시0, 전체730최종승인계속. 코드수정없음; 후보mono/SHA/실제비교와기존게임실제붓질·해당쪽native종료/초기화 및 문서diff/경로확인. 관련기록만로컬커밋·추가push/운영등록없음. 임시검수탭닫고사용자갤러리유지. 다음엔옳은원본인물/소품이있는도안의큰몸·얼굴·옷색대응과Qwen윤곽위치·폐곡선을함께수정하고 다른분류미승인후속도진행한다.
