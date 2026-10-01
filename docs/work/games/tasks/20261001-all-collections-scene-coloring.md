@@ -113,3 +113,17 @@ D:/ComfyUI-output/classic-scene-coloring/production-plan.json은 명작144/전�
 scripts/hori-life-scene-selection.json 전45권90장, source-selection-review.json 원본SHA/쪽별 선택 기록. 기존 생활6장 상태·원본/선화SHA 보존 후90장 prepare. D:/ComfyUI-output/classic-scene-coloring/continue-life-full-collection.ps1 PID38796/exec70913 실행, life-full-order-status.json=waiting-for-nature-full-batch. 자연PID38904 정상 종료 및 generated-review-pending, 큐 비움 확인 후 생활84신규 순차 생성. 자연 실패/종료 불확실/기존 생활runner 발견 시 기록 후 정지, 중복 제출하지 않는다. 재개 시 이 후속PID/status도 확인하며 실행 복제 금지.
 
 production-plan.json 실제 전365권730장 대표 선정/준비 완료,06:20 UTC 생성455장(자연 진행 중)이며 최종730승인과 다름. 전체 범위를 첫3권으로 축소하지 않는다. 이후 우선 신규 생성본 원본/선화/filled 비교와 실제 색칠·색 대응·해당 쪽TTS/BGM을 검수하고 필요 결과만 원본 기반Qwen 수정. 기존 명작/전래368장 및 유치원40장 후속 실패/미승인 게이트 유지. 자연과 생활 기존12장 해시/상태 보존. 음원392장698개 기존 증거를 새730장 전체 검증으로 확대하지 않는다.
+
+## 2026-10-01 07시 UTC 전수 비교 후속 및 음원 검증 확장
+
+탈것30장·유치원40장·자연 당시 생성61장 총131장을 각 분류의 review-20261001-0704/comparison-*.jpg에서 원본/선화/공유 엔진 filled와 실제 대조했다. snapshot.json에 원본/선화SHA, review-before.json에 기존 검수 기록을 보존하고 review.json에 장별 인물·행동·주요 소품·복잡도·색 대응 판단을 기록했다. 기존 승인/플레이 증거는 해시가 같은 항목만 유지했다. 새 비교를 게임 최종 승인으로 바꾸지 않았다. 자연 이후 생성분은 이131장 범위에 포함하지 않는다.
+
+새 중요 원본 오류: 탈것 기차 1784860651220-p03/p08에서 사람 기관사가 곰으로 바뀌고 기차가 누락, 우주 1784860653245-p03/p09에서 로켓 누락, 비행기 1784860652229-p08에서 조종석·창·계기판 누락, 쓰레기차 1784860653559-p03에서 차 누락. 유치원 1784550869911-p04 도깨비 안경/송곳니 추가, 1784550869240-p09 손도장 삭제도 재확인. 자연은 고래/웅크린 고슴도치/곰/잠든 다람쥐/두더지의 필수 면0칸, 개구리·늑대 두 새끼·먹이 주는 독수리의 주요 몸통 미색칠을 확인했다. 기린 반점·다람쥐 등 줄무늬 삭제와 거미의 만화 얼굴 추가 등 다른 후속도 개별 기록에 남겼다. 자연스러운 단색 몸통은 색 수1만으로 실패 처리하지 않는다.
+
+우선 수정 계획은 각 nature/hori-vehicles/hori-kindergarten의 20261001-0704-priority-repairs.json: 자연9장+탈것6장+유치원2장=17장. 원본 기반 Qwen 후보만 생성하며 자동 적용/게시하지 않는다. D:/ComfyUI-output/classic-scene-coloring/continue-reviewed-priority-repairs.ps1 PID50488/exec2916, priority-repair-order-status.json=waiting-for-full-life-order. 기존 자연PID38904→생활 후속PID38796의 전체 제작을 먼저 보존하고 생활 generated-review-pending/큐 비움 확인 후 자연→탈것→유치원 후보를 순차 제출한다. 후보 생성 중/실패 불확실 상태는 history 확인 전 재제출 금지. 이 후속도 중복 실행하지 않는다.
+
+validate-scene-coloring-media.mjs --all-languages/exec93905 정상 종료. media-validation.json checkedAt=2026-10-01T07:12:22.034Z: 준비된 전730장에 제공된 전체 언어 나레이션+BGM 고유2158파일 전체 조회·디코딩·비무음 통과, 실패0. 이전392장698개에서 실제 검사 범위를 확장한 결과이며, 발화 문장 전사나730장 브라우저 재생/게임 승인은 아니다.
+
+자연 딸기5쪽 1773562222515-p05 로컬 동일 ColoringPlayer 실제6물감 중5색 붓질→90% 완료 및 정확한5쪽 원본 리빌 확인. native 페이지 음원 1773562222515-tts-page5-1783657754330.mp3 playing/ended11.4초, BGM playing/종료 정지, 초기화 후6물감 복구 및 재색칠 확인. player-strawberry-five-strokes.json 및 실제 확인한 player-strawberry-before-reveal.png에 증거 보존. 큰 딸기3개의 초록/크림/빨강 대응은 보이나 잎/배경 미색칠·오프라인7색과 실제6색 차이 후속이 남아 approved=false 유지. 정확한 쪽 연결/재생 확인을 색 대응 전체 승인으로 대신하지 않는다.
+
+마지막 실제 manifest 조회: 명작288/전래80/유치원40/탈것30/생활6/자연80=524장 생성, 전730장 준비. 자연PID38904 정상 실행, 생활PID38796 기다림, 수정후속PID50488 기다림 확인. 생성 수는 진행 중이므로 재개 시 실제 manifest/runner/queue/history를 먼저 확인한다. 기존 명작·전래 후보와 previewHold, 크레파스 후보 미적용 게이트도 그대로 유지한다.
