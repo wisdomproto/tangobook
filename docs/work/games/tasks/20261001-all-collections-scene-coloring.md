@@ -347,3 +347,14 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 정확한prompt/source/candidateSHA게이트확인후활성도안한장교체(기존원본·도안·graph/history/job/review는revisions/reviewed-repair에보존), 승인된tests경로만sync. 공개730장·6탭유지, 실제공개1물감두붓질/정확한6쪽원본전환 및실제?v=SHA 버전URLsource/lineart2파일SHA통과. 공개팔레트 #afacd4 동일, public-one-brush/public-two-brush/public-reveal/public-sha 증거와originalScaleCandidateReview2220/개별approved-source-and-play기록. 공개붓질/이미지버전검증과로컬native재생자연종료를구분, 발화전사아님. 기존실패21:18후보기록보존·재시작금지. 새수정도완료후재제출금지.
 
 최신 final-review-status-20261001-2220.json은730생성/명시개별최종승인10(자연9+유치원1)/대기720, 승인10장의현재원본·활성도안SHA가manifest/review와일치함을확인. 기존9장증거는저장자료재대조이며이번새재생아님. 전체730최종승인이아니고기존미승인/previewHold유지. 코드수정없음·sharedaudit/hash/history/원본도안실제비교·native/공개브라우저검수/문서diff 확인,관련기록만로컬커밋·추가push/운영등록없음. 사용자갤러리보존/임시탭닫음/끝queue0,기존서버중단없음. 다음엔원본형태와색위치의작은변화가칠할색을바꾸는장을직접대조하고다른분류후속을계속한다.
+
+
+## 2026-10-01 23:21 UTC — 생활동화 포옹 장면 원본 위치·색 경계 후속
+
+실제 작업 브랜치 codex/games-classic-scene-coloring/HEAD2f183dc9와 기존 scripts/__pycache__ 보존. Comfy8190 다른 client 작업이 종료된 뒤 queue0을 확인하고, 생활08권10쪽1782824085578-p10에 기존 우선22후보가 없는 것을 status로 대조했다. 완료 배치 재시작/다른 작업 중단 없음. 해당 쪽 본문은 아침에 엄마가 푹 잔 호리를 안아주는 장면이며, 원본은 두 호랑이 포옹/아이가 왼쪽 발 올림/엄마 분홍 앞치마/두 무지개 꼬리이다.
+
+원본 사진 한 장만 참조해 정확한 머리·크림 볼/배/손·앞치마·꼬리 위치와 닫힌 분리 경계, 넓은 줄무늬의 흰 내부를 지정한 Qwen-Image-2.1 새후보6618b7d6-3a35-4502-ae14-6b3700f8caed(exec97581) 정상종료. hori-life/candidate-batches/20261001-2321-hug-source-scale에 request/worker/PNG/graph/history/status/이전repairs 및 review-workspace 보존. sourceSHAcddff32175e3ed6f8a75656187b217104f6b832a4fbe0e569c596792159e5305/candidateSHA8ba1d82cba35e5b5b67ff2493a41b637d76876e1acbfc8682156c2bef96c6045. 흑백 유색0/SHA/history 성공, 실제 shared engine 143영역15필수5색27.8% 및 comparison-000.jpg를 직접 원본·선화·filled 대조.
+
+두 인물의 포옹/올린 발/앞치마/꼬리와 간단 침대 윤곽은 유지했지만 아이 크림 얼굴이 주황, 엄마 앞치마 검정갈색, 줄무늬·아이 배/발·엄마 먼손·두 무지개 꼬리 흰 면으로 색 대응 실패. 큰 침대 회색 면이 추가되어 면적 증가를 인물 색칠 개선으로 보고하지 않는다. hugSourceScaleCandidateReview2321/review-decision.json에 기각·미승인·미적용·미게시 기록. 저장픽셀 대조이며 후보 브라우저/native 검증은 하지 않았고, 반복 지시만으로 해결됐다고 간주하지 않는다. 완료후보 재제출 금지, 다음에는 원본 크림 분리 경계의 위치/영역 표본 및 핵심 소품색을 따로 진단한다.
+
+새 승인0/공개730장 보존/명시승인10·대기720 유지. 코드·런타임 mode/median/sourcecrop 변경 없음, 추가push/운영등록 없음. 끝 queue0/worker 정상종료 확인, 기존 검수서버/사용자 갤러리 보존. 관련 task 기록만 로컬 커밋하며 개별 진척은 조용히 유지한다.
