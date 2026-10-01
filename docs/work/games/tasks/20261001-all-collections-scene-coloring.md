@@ -98,3 +98,18 @@ D:/ComfyUI-output/classic-scene-coloring/continue-additional-collections.ps1 후
 D:/ComfyUI-output/classic-scene-coloring/production-plan.json은 명작144/전래40/생활45/유치원20/탈것15/자연101 전권365권730장 목록을 실제 inventory와 대조해 확정했다. preparedScenes와 generatedScenes는 계획 targetScenes와 구분. 탈것15권30장 준비, 자연101권202장 전권 목록 포함. 아직 원본 선정을 안 한 책은 본문 키워드로 만든 provisionalTextCandidates이며 실제 선정/승인이 아니고 자동 생성하지 않는다. 전체 준비450장, 아직 실제 선정 필요한 생활42권84장+자연98권196장=140권280장.
 
 자연 남은98권196장 본문 후보 원본을 prefetch-nature-all-candidates.py/exec16243로 읽기 전용 수집 중. nature/all-candidate-source-status.json, selection-contacts/all-candidates.json·all-candidates-0/12/...jpg 저장 예정. 상태 collecting-original-candidates 또는 original-candidates-awaiting-visual-selection와 실제PID/exec부터 확인, 수집 중 중복 실행 금지. 다음 단계에서 전196후보의 원본과 본문을 실제 대조해 작은 동물/복잡한 군집/잘린 핵심 형태 등 필요한 쪽을 교체하고 nature-scene-selection.json 및 manifest를101권202장으로 확장한다. 후보 수집을 전수 원본 검수/생성 완료로 보고하지 않는다. 자연 종/실제 형태·행동을 유지하고 원본에 없는 의인화 금지. 생활 전체도 동일 범위 유지.
+
+
+## 전365권730장 실제 대표 선정 및 전체 생성 연결 (2026-10-01 06:20 UTC)
+
+자연 후보196장의 선택 쪽 본문과 실제 원본17개 all-candidates 시트를 전부 대조했다. 작은/빈 배경·과도한 군집·식물 줄기 확대만 있는 후보를 교체해 scripts/nature-scene-selection.json을 전101권202장으로 확장. replacement-proposal의 첫33원본과 round2 원본20장을 실제 시트에서 확인했고, 도마뱀/딱따구리/오리/참새 첫1쪽은 빈 배경이라 재기각 후 각각7/3/7/3쪽으로 대체. 코끼리2쪽8마리 군집을3쪽 큰 단독 전신으로 교체해 개별 원본도 확인. 호랑나비14쪽 원본은 제왕나비 외형이므로8쪽 실제 호랑나비 애벌레로 교체; 극지방 책은 본문이 사막과 극지방 모두 다루므로3쪽 낙타/6쪽 북극곰 선택. 악어6/8, 뱀8/11, 파리지옥2/7은 실제 종·형태 유지 후속. nature/source-selection-review.json에202쪽 원본SHA와 범위를 기록. 전98권 본문 전체 읽기로 확대하지 않는다.
+
+기존 자연6장 상태·원본/선화SHA 보존 확인 후202장 prepare. 탈것 PID24124/exec31148은 생성30장·흑백/해시 검사 후 마지막 시험판 sync의 로컬 index.html 쓰기 UNKNOWN으로 exit1, 실제PID 종료 및Comfy8190 queue0/0 확인. 생성 재시작/재제출 없이 sync만 exec33576으로 재시도 exit0. 이후 탈것30장 흑백·원본/선화SHA·history success 재검증하고 batch-status를 generated-review-pending/previewSyncRecovered로 복구. 이 상태는 최종 게임 승인이 아니다.
+
+자연196신규 runner PID38904/exec63100 실행, v6 IMAGE_ONLY=1/SYNC_PREVIEW=1/Comfy8190; 첫 강아지풀2쪽 prompt00e3e6fd-ac6d-4d65-a9cf-430440dd81bd. 해당batch-status/lock/log·실제PID/queue/history를 확인해 중복 생성하지 않는다.
+
+생활 나머지42권84후보 읽기 전용 수집 exec13557 정상 종료. 후보 쪽 본문과 all-candidates-0/12/24/36/48/60/72.jpg 전7시트를 실제 대조. 배변/소풍준비/주사/횡단/지진대피/낯선어른거절/동생돕기/살살안기8권의 전체 본문을 읽고 실제 행동8원본 action-replacements.jpg 확인: 04[2,7],12[2,7],15[2,7],16[2,7],20[2,7],22[2,5],39[2,6],40[2,7]. 나머지는 문제·변화 구도 선택. 전45권 본문 전체 읽기로 확대하지 않는다. 생활16권7쪽 실제 원본은 손잡고 건너기로 손 번쩍은 없으므로 원본 밖 동작 추가 금지;15권 실제 코끼리 의사,22코알라/사탕/거절손,20책상·머리보호,39딸랑이 유지. 다수 친구5명이 있는26/33/34/35쪽은 생성 후 승인 난이도 검수 대상이다.
+
+scripts/hori-life-scene-selection.json 전45권90장, source-selection-review.json 원본SHA/쪽별 선택 기록. 기존 생활6장 상태·원본/선화SHA 보존 후90장 prepare. D:/ComfyUI-output/classic-scene-coloring/continue-life-full-collection.ps1 PID38796/exec70913 실행, life-full-order-status.json=waiting-for-nature-full-batch. 자연PID38904 정상 종료 및 generated-review-pending, 큐 비움 확인 후 생활84신규 순차 생성. 자연 실패/종료 불확실/기존 생활runner 발견 시 기록 후 정지, 중복 제출하지 않는다. 재개 시 이 후속PID/status도 확인하며 실행 복제 금지.
+
+production-plan.json 실제 전365권730장 대표 선정/준비 완료,06:20 UTC 생성455장(자연 진행 중)이며 최종730승인과 다름. 전체 범위를 첫3권으로 축소하지 않는다. 이후 우선 신규 생성본 원본/선화/filled 비교와 실제 색칠·색 대응·해당 쪽TTS/BGM을 검수하고 필요 결과만 원본 기반Qwen 수정. 기존 명작/전래368장 및 유치원40장 후속 실패/미승인 게이트 유지. 자연과 생활 기존12장 해시/상태 보존. 음원392장698개 기존 증거를 새730장 전체 검증으로 확대하지 않는다.
