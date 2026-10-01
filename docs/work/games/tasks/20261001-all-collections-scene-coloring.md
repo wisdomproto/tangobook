@@ -143,3 +143,19 @@ validate-scene-coloring-media.mjs --all-languages/exec93905 정상 종료. media
 production-plan.json 실제 재집계 전730장 준비/595장 생성(자연151·생활6), 자연101권202장 전체 제작을 유지하며 이후 생활45권90장 전체가 자동 연결돼 있다. 시점 이후 증가분은 재개 시 실제 manifest로 확인한다. 생성 완료와 전체 원본/난이도/색 대응/실제 플레이 최종 승인을 구분한다.
 
 추가74장 공개 원본/선화148파일을 실제 다운로드해 고정 검수 snapshot SHA와 비교:148통과/불일치0, review-20261001-0805/public-image-validation.json. 최초 Python 쿼리 요청은 전부403으로 바이트 검증 불가였고 실패 기록을 public-image-validation-python-403.json에 보존했다. 실제 공개 경로를 Node fetch로 읽어 전부 검증했으며 이 결과는 새74장만의 범위다. 기존736파일 증거와 합쳐 모든730장 게시 검증으로 확대하지 않는다.
+
+## 2026-10-01 18시 이후(KST) 자연202장 생성 종료·생활 전체 생성 시작
+
+자연PID38904는 종료했고 nature/batch-status.json=generated-review-pending/101권202장. 재시작하지 않는다. 후속PID38796이09:03:15 UTC 정상적으로 생활 runner PID18596을 시작, life-full-order-status.json=running-life-full-batch. 생활45권90장 중 신규84장을 기존6장 보존하며 제작한다. Comfy8190실행1/대기0, PID18596/38796/50488 생존 확인. 우선 수정후속PID50488은 여전히 전체 생활 종료를 기다리므로 중복 제출 없음.
+
+남은 자연67장 원본/선화/동일 엔진 filled를 review-20261001-0907/comparison-0/6/.../66 총12시트에서 모두 실제 비교, snapshot SHA와 장별 visual-notes.txt/review.json 저장. 자연202장 전부 원본 대조 기록 완료이며 게임 전부 승인과 다르다.202장 흑백202통과·원본/선화SHA202쌍 일치, 필수0칸15장은 실제 수정 대상이다. 공개 원본/선화404파일 전부 실제 다운로드SHA 일치404/불일치0, public-image-validation-all-nature.json. 이 검증 범위는 자연202장만이며 다른 분류 전수 게시/게임 승인으로 확대하지 않는다.
+
+치타2/12·표범2/11 점 무늬 삭제, 판다 검정/흰 몸·눈 패턴 소실, 코끼리3·코뿔소9·프테라노돈2/11·하마2/13·호랑이2/11 등 큰 몸통 미색칠, 참새3/13·파리지옥7·산/호수13의 주요 면 미색칠을 추가 확인. 파키케팔로사우루스/이구아노돈 주요 몸통 문제도 기록. 자연 우선 plan 기존26+추가20=46장으로 확장, 변경 전 계획 review-20261001-0907/priority-repairs-before.json 보존. 탈것6+유치원2와 합계54장 후보는 자동 적용/게시 없음. 눈/종 특징을 만화화하거나 무늬를 삭제한 결과를 승인하지 않는다.
+
+생활 생성본 첫 미검수9장과 다음14장 총23장도 review-20261001-0907 및 -next의5시트에서 실제 원본/선화/filled 대조. 기존2장 증거 보존, 생활 총25장 원본 대조 기록/새 승인 없음.06권8쪽 밥 먹는 행동 유지하지만 얼굴·줄무늬 색 대응,07권9쪽 욕조/세면대 삭제,05권8쪽 빈 접시/식탁 삭제·몸통 미색칠,09권2쪽 이불 전체 미색칠,11권10쪽 아이 무지개 옷 미색칠 등을 장별 기록했다.
+
+생활 우선3장 원본 기반 후보 plan=hori-life/20261001-life-priority-repairs.json(05p8/07p9/09p2). 새 후속 continue-life-priority-repairs.ps1 PID23496/exec29647, life-priority-repair-order-status.json=waiting-for-other-priority-candidates. 기존PID50488의54후보 정상 종료/all-candidates-awaiting-review와 생활 generated-review-pending 및 큐 비움 확인 후 생활3후보만 제출하며 자동 적용/게시하지 않는다. 해당 후속도 중복 실행 금지. 전체 후보 계획은57장이지만 후보 생성/검수/적용은 아직 완료되지 않았다.
+
+코끼리10쪽1777434565511-p10은 어미 꼬리를 새끼가 코로 잡고 걷는2마리·실제 종/자세·넓은 닫힌 두 몸통 및 자연스러운 짙은 갈색 단색 유지. 공개 실제1물감 붓질→정확한10쪽 원본 리빌/초기화/재색칠 확인, 동일 로컬 플레이어 native1777434565511-tts-page10-1777521142842.mp3 playing/ended5.16초·BGMplaying/종료 정지 확인. player-elephant-native.json/public.json/initial.png/mother-stroke.png 증거와 해시가 같은 review.json의 approved-source-and-play=true. 작은 상아/발끝 흰 면·기존90%완료 규칙 유지, 발화 전사는 하지 않음. 공개 실제 붓질 증거와 로컬 native 음원 증거를 구분한다. 단색이라는 이유만으로 실패 처리하지 않는다.
+
+09:22 UTC 생활28/90 생성 확인(전체668/730). 자연 전체 생성 후 생활 전체로 정상 연결됐다. 기존 명작/전래 실패/미검수 후보와 previewHold 게이트, 모든 분류 난이도·색 대응·실제 게임 후속은 그대로 남는다. 최종730장 승인 전 완료 알림 금지.
