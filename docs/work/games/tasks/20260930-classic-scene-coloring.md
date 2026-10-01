@@ -101,3 +101,5 @@
 apply-classic-coloring-repair.py는 수정 전 image/graph/history/job/review를 revisions/reviewed-repair/{key}/{timestamp}에 보존하고 새 해시/비교 기록을 남기며 이전 playEvidence는 아카이브에만 보존합니다. Python3개 py_compile와 git diff --check 통과. 관련 도구·기록만 로컬 커밋하고 전체 최종 승인과 운영 push는 하지 않습니다.
 
 후속: 인어2 굵은 윤곽 후보도2칸2색8.6%, 다른3명의 얼굴/꼬리가 칠해지지 않아 미승인. manifest.previewHold=true로 기존 공개본을 유지, sync는 미통과 로컬 후보를 게시하지 않습니다. 새6탭 반영 sync에서 정글북3/백조3 현재 도안은 공개됐고 여전히 검수 중입니다. 사용자 추가4분류 전체 요청·730장 목표·실행 중 첫8장·나머지대표선정 계획은 20261001-all-collections-scene-coloring.md 참조.
+
+2026-10-01 13시 이후: 기존21장 후보 worker PID45576은 all-candidates-awaiting-review로 정상 종료, 재시작하지 않음. audit-scene-coloring-candidates.py가 원본/후보 SHA를 확인하고 별도 review-workspace에서 실제 동일 엔진 filled·비교6시트를 생성. 21장 흑백 통과는 확인했지만 모든 후보에 구체적인 원본/면/색 대응 후속이 남아 새로 일괄 적용하지 않음. 잭2·3 컵→창문 오류 유지, 미운오리1 노란 형제 추가, 피터1 가지 삭제/3 새의 파랑 제외, 호두까기1·3 흰 바깥 여백이 옷과 함께 채워짐, 장미 빨강·집/마차·인어 꼬리의 칠하지 못하는 큰 면 등을 기록. 원본/sourceComparison과 현재 활성 도안 기록을 보존하고 review.json의 candidateReview에 별도 후보 SHA/engineAudit/실제 비교근거를 저장. 재검사 때 동일 source/candidate 해시의 육안 기록21개가 보존되는 것도 확인. 개별 수정/플레이가 계속 필요하며 전체 승인 아님.

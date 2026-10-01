@@ -44,3 +44,19 @@ prepare-additional-coloring-pilots.py로 각 manifest2장/source SHA/TTS/BGM 준
 새 로컬 인어2 후보는 얼굴/꼬리 대부분 색칠되지 않아 manifest.previewHold=true. sync는 이 항목의 기존 공개 버전/SHA를 보존하므로 미통과 교체본이 자동 게시되지 않음. 최신 굵은 경계 후보도2칸2색8.6%로 실패, 근본 경계/색 대응 수정 필요. 정글북2 유색/노이즈 후보들은 모두 기각·미게시. 상세는 명작 task.
 
 첫 생활2쪽 실제 생성/공개 확인. 원본과 선화 인물2명·팔짱 거부 행동·숟가락 유지 및 흑백 통과. filled 검사22칸6색48.4%지만 입 주변 크림 면이 얼굴 주황과 합쳐지고 꼬리 색 대응 부족: hori-life/review.json에 needs-color-alignment/approved=false 기록. 생성 성공과 최종 승인을 구분하며 실제 붓질/쪽 음원 검수는 남음.
+
+## 2026-10-01 13시 이후 검수·확장
+
+첫8장 배치는 네 분류 모두 generated-review-pending으로 종료. 이전 PID46736/43656/45664/33320과 exec97806을 재시작하지 않음. 원본/선화/filled8장 대조 및 분류별 review.json 기록: 자연 강아지13쪽은 말린 몸·잠든 머리·발/꼬리와 넓은 갈색 면을 보존, 공개 실제 붓질 후 정확한13쪽 원본 리빌 확인. 로컬 동일 ColoringPlayer의 native TTS5.904초 playing/ended, 해당13쪽 URL·BGM0.16/loop playing 및 종료시 정지, 초기화 후3물감 복구/재색칠 확인. 1색 큰 붓질로 기존90% 완료에 도달하는 자연스러운 단색 동물은 실패 처리하지 않음. 이 장의 approved-source-and-play와 재생/초기화 증거는 nature/review.json 및 player-sleeping-dog-*.json에 저장. 음성을 문장별 전사한 검수는 아님.
+
+생활7쪽은 공개7색 실제 붓질로 정확한7쪽 리빌, 로컬 native TTS16.632초 playing/ended와 BGM종료 확인(player-hori-p07-audio-events.json). 원본 무지개 꼬리/다람쥐 크림 면·줄무늬의 원본 색 대응은 여전히 미승인. 유치원6쪽 버스 삭제/자동차 제외,9쪽 검은 줄무늬·크림 경계/앞치마색, 탈것3쪽 아빠 얼굴/빨간 차체 제외·8쪽 물줄기/차체 축소 등 각 원본 근거 후속을 기록. 나머지7장도 생성 성공을 승인으로 바꾸지 않음.
+
+자연11쪽 머리가 열린 선 때문에 칠해지지 않음. 실제 원본 기반 Qwen6px 후보는 머리를 닫아5칸3색22.7%로 개선했으나 손가락 간식 누락, 목줄 파랑 제외/몸통 분홍 대응이 남아 미적용. 원본/후보/filled/SHA/흑백은 nature/candidate-batches/20261001-dog-head/review-workspace에 보관. 단순 칸 수 증가로 교체하지 않음.
+
+IMAGE_ONLY 모드의 다음 생성은 v6-reference-closed-regions: 실제 원본 위치/비율 유지·6px 연속 경계·호리 크림 얼굴/배 면·넓은 줄무늬/꼬리 폐곡선을 명시. 모델이 지시를 어기는 경우도 실제 확인했으므로 프롬프트 버전만으로 합격 처리하지 않음. 첫 추가 유치원2권6쪽도 입 주변/줄무늬/색 대응 후속이 남음. 원본 수집 완료와 생성/영역 검사, 실제 게임 승인은 별도다.
+
+유치원 추가8권 본문 전체와 원본16쪽을 대조해 scripts/kindergarten-scene-selection.json에 최초 책 포함9권18쪽을 선정. 3권6쪽은 원본 인물이 너무 작아서 준비 단계에서2쪽의 큰 얼굴/가방 장면으로 대체, 미사용 source는 삭제하지 않음. selection-contacts/sources-0.jpg·sources-8.jpg 및 대체2쪽 실제 원본 확인. 두려움→선생님 손, 인사 어려움→친구 악수, 배 아픔→선생님 돌봄, 블록 붕괴→재건, 책 읽기→음악 놀이, 넘어짐→손도장 약속, 도깨비 물건→크레파스 되찾기, 참는 송이→친구 위로를 선택. 신규 준비는12권24장이고 남은169권338장의 대표 선정이 필요하다(전체365권730장 목표 유지).
+
+유치원 확장 runner PID32836/exec52035 실행 중, hori-kindergarten/batch-status.json·batch.lock·batch.log와 실제 Comfy8190 queue/history를 먼저 확인. SCENE_COLORING_ROOT=hori-kindergarten 실제 절대 경로, COLLECTION=hori-kindergarten, IMAGE_ONLY=1, SYNC_PREVIEW=1, Comfy8190. 기존 첫2장 해시 보존하고 신규16쪽만 이어 생성. 현재manifest가9권18장으로 확장됐으므로 최초 prepare-additional-coloring-pilots.py 재실행 금지. 다음 대표 selection 확장도 해당 분류 runner 종료/lock/queue부터 확인해야 한다.
+
+validate-scene-coloring-media.mjs를6분류 공통 설정에 연결. 준비된392장 기준 제공 전체 언어+BGM698개 읽기 전용 조회·전체 디코딩/비무음 통과, 실패0. 기존 음원 캐시/ETag/SHA를 재사용하며 이 결과는 실제 플레이/발화 문장 승인을 대신하지 않음. 생성 중 신규16쪽의 원본 대조/실제 플레이 후속, 다른169권 준비, 기존 명작/전래 후속 모두 남음.

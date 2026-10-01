@@ -29,6 +29,8 @@ SELECTION = {
 if os.environ.get('SCENE_COLORING_SELECTION'):
     SELECTION=json.loads(pathlib.Path(os.environ['SCENE_COLORING_SELECTION']).read_text(encoding='utf-8'))
 PROMPT_VERSION = 'v5-white-interiors'
+if os.environ.get('SCENE_COLORING_IMAGE_ONLY') == '1':
+    PROMPT_VERSION = 'v6-reference-closed-regions'
 PROMPT = '''PURE BLACK AND WHITE coloring line art only. Every face, hand, skin area, hair, beard, garment and animal body must be PURE WHITE inside BLACK outlines. No original colors may remain.
 Convert the reference scene into a SIMPLE coloring page. Keep the EXACT original main characters, face designs, expressions, proportions, poses and positions. Preserve the same story action. Do not redesign their faces into generic cartoons.
 Keep only the main characters and essential large objects. Remove all tiny details and secondary background objects. Mostly empty WHITE background. Hair and clothes are large WHITE enclosed shapes. Hair has only three broad locks. No black filled hair, patterns, jewelry, fine folds or texture.
@@ -200,6 +202,9 @@ def generate(limit=None):
         scene_prompt='EXACT SCENE TO PRESERVE: '+identity+'. '+action+' All main characters described here must appear. Animals and insects must stay the original species.\n'+PROMPT
         if os.environ.get('SCENE_COLORING_IMAGE_ONLY') == '1':
             scene_prompt='Trace only what is visible in the reference image. Keep its EXACT character count, species, faces, poses, essential objects, image positions and proportions. Do not invent other characters from the story title or text.\n'+PROMPT
+            scene_prompt += '\nUse solid uniform BLACK 6-pixel outlines on pure WHITE. Close every large silhouette and every important color boundary without gaps. Do not shrink, move, crop or enlarge any main subject. Natural animal head, ear, collar and body must be separate enclosed shapes. Preserve a tiny essential object such as a treat as one clear outlined shape. No fur texture or broken strokes along the outer silhouette.'
+            if j.get('collection', '').startswith('hori-'):
+                scene_prompt += '\nPreserve the original Hori character designs. Each cream-colored muzzle/cheek patch and belly patch must be a WHITE fully enclosed region separated from orange face/body by a continuous BLACK boundary. Keep the original number and positions of broad tiger stripes as WHITE outlined shapes, never solid black fills. Keep the rainbow tail as a few broad closed bands at its exact original position. Every held story object and its original action must remain visible.'
         if j['title'].startswith('개구리 왕자_') and j['pageNumber']==8:
             scene_prompt += '\nAt this dining scene, keep the princess and frog, two PLAIN chair backs, ONE plain table edge and ONE large plain oval plate containing ONE simple food shape. Remove every other plate, goblet, bowl, fruit, decoration and background object.'
         g['5']['inputs']['prompt']=scene_prompt

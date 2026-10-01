@@ -25,9 +25,20 @@ const exec = promisify(execFile);
 const cache = path.join(root, 'media-validation');
 await fs.mkdir(cache, { recursive: true });
 const jobs = [];
-for (const category of ['', 'traditional']) {
-  const list = JSON.parse(await fs.readFile(path.join(root, category, 'manifest.json'), 'utf8'));
-  jobs.push(...list.map((j) => ({ ...j, collection: category || 'classic' })));
+const collections = JSON.parse(
+  await fs.readFile(path.join(workspace, 'scripts/scene-coloring-collections.json'), 'utf8')
+);
+for (const collection of collections) {
+  let list;
+  try {
+    list = JSON.parse(
+      await fs.readFile(path.join(root, collection.directory, 'manifest.json'), 'utf8')
+    );
+  } catch (error) {
+    if (error.code === 'ENOENT') continue;
+    throw error;
+  }
+  jobs.push(...list.map((j) => ({ ...j, collection: collection.id })));
 }
 const urls = new Map();
 function add(url, j, role) {
