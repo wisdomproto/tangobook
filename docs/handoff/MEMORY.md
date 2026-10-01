@@ -142,3 +142,5 @@
 2026-10-01 15:13 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사진8장 런타임색 실제검수 후 걷는곰2 한 장만 명시median/닫힌몸 도안 개별승인·시험판 반영. 전체승인 후속 계속, 기존mode/운영데이터 보존·추가push 없음.
 
 2026-10-01 16:14 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 코끼리3·이구아노돈14·등돛복원스피노2 개별실제검수/시험판반영. 은하2기각/후속후보미게시, 전체730게임승인아님·추가push없음.
+
+2026-10-01 17:15 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 생활05p8 크림좌표/줄무늬 Qwen후보 기각·미게시, 기차8 사람후보 실제9물감/해당쪽native25.0215자연종료·BGM정지/리셋검수 완료하나 호리얼굴색 후속으로 미승인. 새승인0·전체730검수계속·추가push없음.
