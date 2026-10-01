@@ -10,6 +10,8 @@
 
 ## 요청과 현황
 
+2026-10-01 10:32 이후 스냅샷: runner PID50736 실제 실행 확인, Comfy8190 queue의 저장 promptId 확인 후 중복 제출 없이 진행. 52/80에서 계속 진행해59/80까지 확인. 우선 낮은 면적6장(반쪽이9/서동요4/은혜 갚은 두꺼비3/의좋은 형제4·9/임금님 귀는 당나귀 귀8)을 원본/도안/filled로 대조하고 review.json에 개별 수정 사유를 남겼다. 주요 인물 열린 큰 면과, 이야기 핵심인 뛰어넘는 바위/비밀을 외치는 대나무가 전부 제거된 경우를 구별했다. 생성 성공은 승인으로 처리하지 않았다. priority-0.jpg/priority-1.jpg 증거 보관. 명작 라푼젤 수정을 공용8190 queue에 한 장 추가했으나 실행 중인 전래 runner/다른 요청을 중단하지 않았다.
+
 사용자는 기존 테스트 HTML에 명작동화/전래동화 탭을 넣고 같은 방식으로 전래 콘텐츠도 만들도록 요청했다. 운영 읽기 전용 목록의 category=전래 동화는40권, 삽화513쪽이다. 현재 등록된 책 모델을 그대로 쓰며 과거 styleAssets 사본을 만들지 않는다. 본문을 읽어 책당 대표2쪽/총80쪽을 scripts/traditional-scene-selection.json에 선정했고 실제 원본 URL·본문·다국어 TTS·책 BGM·SHA256을 보관했다.
 
 출력은 D:/ComfyUI-output/classic-scene-coloring/traditional. 명작 manifest와 분리하고 합성 공개 manifest에는 traditional/ 접두어를 붙인다. 명작288장의 기존 해시와 결과는 유지한다. 환경변수 SCENE_COLORING_ROOT/CATEGORY/SELECTION으로 기존 Qwen 생성·흑백 검사·영역 검사·복구 runner를 재사용한다. 기본값은 기존 명작 작업 그대로다.

@@ -45,6 +45,10 @@
 
 ## 다음 행동
 
+2026-10-01 10:32 자동 재개: priority 비교 시트16장의 원본/도안/filled를 검토해 review.json에 개별 판단을 남겼다. 흰 백조/큰 단색 고래는1색이라는 이유만으로 실패 판정하지 않고 실제 플레이 대상, 나머지 주요 열린 얼굴/몸·과도한 군중은 Qwen 수정 대상으로 구별했다. 라푼젤 그림체3p8을 현재 선화 참조로 Qwen 수정: 벽돌 미세무늬 제거, 탑/머리 큰 윤곽 연결과 땋은 머리 복원, 원본 위치·행동 유지. 기존 image/graph/history/job은 revisions/closed-boundaries에 보존했다. 유색 픽셀0, 필수1칸1색1.1%→5칸5색49.2%. 서버 실제5색 붓질→정확한8쪽 원본/본문 리빌 확인(player-rapunzel-boundaries-reveal.png). 색 추출에는 좌표 어긋남으로 탑벽이 원본 주변 녹색을 읽는 등의 오차가 남아 최종 원본 색 일치 승인으로 보고하지 않는다.
+
+수정 PNG를 교체해도 서버 플레이어가24시간 캐시된 옛 그림을 다시 읽는 문제가 있어, 도안/원본 URL에 manifest SHA12를 붙였다. publish-classic-coloring-preview.mjs --player-only로 실행 파일·play.html만 재빌드/공개하여 전래 합성 manifest/탭은 보존한다. 실제 서버5색 팔레트로 새 도안 로딩 확인. 코드 node --check와 Vite 빌드 통과(기존 chunk 경고). 명작 수정 도안은 기존 sync가 tests 경로에 해시 기반 공개했다. 전래 배치는 중단하지 않고 별도 manifest로 계속했다.
+
 2026-10-01 사용자가 “서버에 올려줘봐 이거 테스트 파일”로 테스트 공개를 요청했다. publish-classic-coloring-preview.mjs로 R2의 독립 경로 tests/classic-scene-coloring/20261001-review-1에642파일(원본288+도안288+별도 Vite 플레이어/HTML/필요 사운드)을 업로드했다. 기존 책/게임 데이터는 수정하지 않았다. URL: https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/index.html . localhost 링크를 서버 플레이어 play.html로 교체하고 공개 manifest에서 로컬 생성 경로/제출 기록을 제거했다. PNG SHA256을 업로드 전 재확인. 실제 외부 브라우저144권/288장 표시, 6색 개구리왕자p3 붓질→동일 원본/본문 리빌 확인. 증거 hosted-gallery.png, hosted-player-reveal.png. Python urllib는 CDN403이지만 실제 브라우저 정상 표시하므로 CLI403을 파일 업로드 실패로 혼동하지 않는다. 공개는 검수 중 시험판이며16장 우선 품질 점검은 그대로 남는다. 운영 등록/main push 권한으로 확대하지 않는다.
 
 2026-10-01 최신: **144권 288장 생성·흑백 검사·SHA256 확인 완료**, batch-status는 generated-review-pending. 이전 ComfyUI 프로세스가 종료되고 8189/8190 연결 거부를 확인했다. 기존 출력에서 저장 그래프 일치본도 없어 `recover-deferred-classic-coloring.py`로 이전 제출 기록을 revisions/original-server-exited에 보존한 뒤 두 요청을 재제출했다. 별도 출력/SQLite 경로를 쓰는 자체8190 서버를 시작했고 다른 작업은 종료하지 않았다. 백조 왕자 그림체3 p4와 어린 왕자 그림체3 p12도 생성·색 검사 통과.

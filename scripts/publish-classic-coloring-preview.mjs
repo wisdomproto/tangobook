@@ -24,13 +24,15 @@ const r2 = new S3Client({
   },
 });
 const bucket = process.env.R2_BUCKET_NAME;
+const playerOnly = process.argv.includes('--player-only');
 if (!bucket || !process.env.R2_ACCOUNT_ID) throw new Error('R2 configuration missing');
-try {
-  await r2.send(new HeadObjectCommand({ Bucket: bucket, Key: `${prefix}/index.html` }));
-  throw new Error('Preview already published; choose a new version before replacing it');
-} catch (error) {
-  if (error.$metadata?.httpStatusCode !== 404) throw error;
-}
+if (!playerOnly)
+  try {
+    await r2.send(new HeadObjectCommand({ Bucket: bucket, Key: `${prefix}/index.html` }));
+    throw new Error('Preview already published; choose a new version before replacing it');
+  } catch (error) {
+    if (error.$metadata?.httpStatusCode !== 404) throw error;
+  }
 
 const jobs = JSON.parse(await fs.readFile(path.join(artifacts, 'manifest.json'), 'utf8'));
 const publicFields = [
@@ -61,8 +63,10 @@ html = html.replace(
   (_, start, end) => start + JSON.stringify(manifest).replaceAll('<', '\\u003c') + end
 );
 html = html.replaceAll('http://127.0.0.1:5191/play', './play.html');
-await fs.writeFile(path.join(destination, 'index.html'), html);
-await fs.writeFile(path.join(destination, 'manifest.json'), JSON.stringify(manifest));
+if (!playerOnly) {
+  await fs.writeFile(path.join(destination, 'index.html'), html);
+  await fs.writeFile(path.join(destination, 'manifest.json'), JSON.stringify(manifest));
+}
 
 const localServer = await fs.readFile(
   path.join(workspace, 'scripts/serve-classic-coloring.mjs'),
@@ -131,7 +135,7 @@ async function walk(directory, relative = '') {
   }
 }
 await walk(destination);
-for (const job of jobs)
+for (const job of playerOnly ? [] : jobs)
   for (const kind of ['source', 'lineart']) {
     const file = path.join(artifacts, job[kind + 'File']);
     const bytes = await fs.readFile(file);
@@ -148,8 +152,10 @@ const types = {
   '.mp3': 'audio/mpeg',
 };
 // Entry HTML is uploaded last so the published link never references unfinished uploads.
-const index = files.find((x) => x.key === 'index.html');
-const pending = files.filter((x) => x !== index);
+const index = files.find((x) => x.key === (playerOnly ? 'play.html' : 'index.html'));
+const pending = files.filter(
+  (x) => x !== index && (!playerOnly || x.key.startsWith('assets/') || x.key.startsWith('sounds/'))
+);
 let completed = 0;
 async function upload(item) {
   await r2.send(
@@ -174,7 +180,10 @@ await Promise.all(
 );
 await upload(index);
 await fs.writeFile(
-  path.join(artifacts, 'hosted-preview-deployment.json'),
+  path.join(
+    artifacts,
+    playerOnly ? 'hosted-player-deployment.json' : 'hosted-preview-deployment.json'
+  ),
   JSON.stringify(
     {
       prefix,
