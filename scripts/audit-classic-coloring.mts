@@ -29,7 +29,13 @@ for (const j of jobs.filter(
     .ensureAlpha()
     .raw()
     .toBuffer();
-  const { palette, colorOfRegion } = buildPalette(regions, new Uint8ClampedArray(source), required);
+  const { palette, colorOfRegion } = buildPalette(
+    regions,
+    new Uint8ClampedArray(source),
+    required,
+    undefined,
+    j.colorSampling
+  );
   const out = Buffer.alloc(n * 3, 255);
   for (let i = 0; i < n; i++) {
     let rgb = walls[i] ? [0, 0, 0] : [255, 255, 255];

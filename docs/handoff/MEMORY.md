@@ -138,3 +138,5 @@
 2026-10-01 13:10 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 상어15·잠든다람쥐11 실제붓질/정확한원본/native읽기·BGM/초기화·공개SHA 개별 승인 반영. 전체730장 최종 검수는 계속, 실패후보 자동 게시 없음.
 
 2026-10-01 14:12 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 걷는곰 폐곡선 Qwen수정·사진 런타임 중간값 opt-in 실제 검수 개선, 기본/공개 유지 및 대표회귀 미완료. 새 승인/게시0, 전체730 검수 계속.
+
+2026-10-01 15:13 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사진8장 런타임색 실제검수 후 걷는곰2 한 장만 명시median/닫힌몸 도안 개별승인·시험판 반영. 전체승인 후속 계속, 기존mode/운영데이터 보존·추가push 없음.
