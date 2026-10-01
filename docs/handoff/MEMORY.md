@@ -140,3 +140,5 @@
 2026-10-01 14:12 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 걷는곰 폐곡선 Qwen수정·사진 런타임 중간값 opt-in 실제 검수 개선, 기본/공개 유지 및 대표회귀 미완료. 새 승인/게시0, 전체730 검수 계속.
 
 2026-10-01 15:13 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사진8장 런타임색 실제검수 후 걷는곰2 한 장만 명시median/닫힌몸 도안 개별승인·시험판 반영. 전체승인 후속 계속, 기존mode/운영데이터 보존·추가push 없음.
+
+2026-10-01 16:14 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 코끼리3·이구아노돈14·등돛복원스피노2 개별실제검수/시험판반영. 은하2기각/후속후보미게시, 전체730게임승인아님·추가push없음.
