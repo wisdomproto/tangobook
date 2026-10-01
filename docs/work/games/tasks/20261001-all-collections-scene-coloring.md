@@ -210,3 +210,21 @@ audit-scene-coloring-candidates.py로76후보 SHA/흑백 전부 통과 확인하
 검수한 정확한 후보 SHA d2e38d88e162a73c6fd37427fa16e66e2d69c1c0718a54fa3a645a5e091b747a와 교체 후 active SHA 일치 확인, 이전 선화/graph/history/review는 revisions/reviewed-repair에 보존. 개별 approved-source-and-play 기록 후 승인된 tests 갤러리만 sync. 공개 실제2물감2붓질/정확한14쪽 원본 리빌 및 source/lineart2파일 버전URL SHA 통과. public-first-stroke.png/public-reveal.png/public-evidence.json/public-sha.json 증거. 버전 없는 CDN URL은 예전 선화 캐시로 SHA 불일치해 별도 한계 기록하며 실제 플레이가 사용하는 ?v=SHA URL은 일치한다. 전체730장 게임 최종 승인은 여전히 남음. 이번 새 승인/교체/게시1장 이외 후보 자동 적용 없음.
 
 scripts/serve-classic-coloring.mjs에 SCENE_COLORING_TRIAL_ROOT 옵션을 추가해 후보 review-workspace manifest로 실제 플레이어를 별도5193에서 실행할 수 있게 했다. 기본 기존 경로/5191 유지, DISABLE_PUBLISH_SCHEDULER=1. 후보 검수 서버 PID55992, 원본/후보 assets의 별도 manifest로 공개본을 바꾸기 전 검수. node --check 통과. 이번 코드/기록은 관련 파일만 로컬 커밋; 이미 요청된 origin/main push b8121e3e는 완료했으며 이번 추가 push/운영 게임 등록은 하지 않았다.
+
+
+## 2026-10-01 13:10 UTC — 실제 후보 플레이4장, 상어/다람쥐 개별 승인 반영
+
+기존76후보 worker/부모/후속은 all-candidates-awaiting-review 종료 상태 보존. 서버41608/검수서버55992 정상, 시작 당시8190큐0/0. 완료 배치를 다시 실행하거나 다른 client 작업을 중단하지 않았다.
+
+실제 후보 ColoringPlayer 검수: 잠든곰10 1777439576248-p10은 몸통 #0a0906 거의 검정으로 칠해져 원본 갈색 털과 색 대응 미승인.2물감 중 큰 몸통90%를 첫 붓질에서 넘겨 주둥이 두번째 물감 전에 리빌. 정확한10쪽 native7.272초 playing/ended/BGM정지/초기화는 확인했지만 미적용. 프테라노돈11 1773899014599-p11은 실제2물감2붓질/정확한11쪽 native5.784초 playing/ended/BGM정지/초기화 확인. 몸/날개 거의 검정, 두번째 회색은 머리 뒤 작은 면이고 원본 붉은 갈색 볏 색이 없어 미승인/미적용. player-sleeping-bear-1310 및 player-ptero11-1310/native-evidence.json·실제 first-stroke.png·원본 리빌 증거, review.json nativeCandidateReview1310 기록.
+
+상어15 1777610954811-p15는 원본 깊은 바다의1마리 유영/종/큰 몸·지느러미·꼬리·아가미 유지. 큰 한 면에 실제1물감 #051927 남색 붓질, 정확한15쪽 원본 리빌/native4.944초 playing/ended/BGM정지/초기화 재색칠 확인. 작은 흰 배면 허용. 원본 자연스러운 어두운 단색이며 단색 자체를 실패 처리하지 않는다. 후보SHA3f0f90c37774241f2cdf7b9b11942a950117a3f88efd93de2560431e663be9db 일치 확인 후 개별 approved-source-and-play 및 기존tests 시험판 교체. 공개 실제1물감 붓질/정확한15쪽 원본 전환·버전URL 원본/선화2파일SHA 통과. player-shark15-1310/initial·reset-repaint·reset-repaint-final·native-evidence·public-reveal·public-evidence·public-sha.json 증거.
+
+다람쥐11 1777442353908-p11은 원본 겨울잠1마리의 웅크림/꼬리/등 줄무늬·종 형태 유지. 실제1갈색물감 #502d11로 큰 몸통을 칠하고 정확한11쪽 원본/native7.68초 자연 playing/ended/BGM정지/초기화 재색칠 확인. 첫 재생 중 초기화를 클릭해 ended 없는 기록은 완료 증거로 세지 않고 다시 끝까지 재생한 native-evidence-after-natural-end.json으로 확인. 작은 배면 흰 면과 원본 등 검정 무늬 허용. 후보SHA8035a8ad29c268150e9a2cf7855edacd91e2b8b2fdbbeab34a6b3c9ce8766746 일치 확인 후 개별 승인/시험판 교체. 공개 실제1갈색 붓질/정확한11쪽 원본 전환·버전URL2파일SHA 통과. player-chipmunk11-1310의 initial·reset-repaint·reset-repaint-final·native-evidence-after-natural-end·public-reveal·public-evidence·public-sha.json 증거. 이번 새 승인/교체/게시2장, 전730장 전체 최종 승인은 여전히 남음. 음원 자연 종료·공개 붓질·저장 이미지/해시·발화 전사를 구분한다.
+
+걷는곰2 1777439576248-p02의 이전 원본 형태 유지 후보는 왼쪽 뒷발 외곽 두 끝이 열려 몸통/머리 모두0칸. 기각 후보 참조 Qwen6px 닫힌 경계 지시 prompt dd6ac8dc-9870-4ed1-a28d-0f87c020a915 완료, candidate-batches/20261001-1310-bear-closed-outline. 실제 원본/선화/filled 비교 및SHA·흑백은 통과했지만 뒷발 열린 틈 그대로/필수0칸0%라 기각. 두 끝만 연결하는 후속 prompt858c23ae-141a-45d6-b42f-df6d19118834도 완료, candidate-batches/20261001-1310-bear-foot-join. 유색904340픽셀85.576% 및 전면 컬러 노이즈/뒷발 틈 유지로 흑백·육안 기각, 미적용미게시. 원본 사진을 다시 참조하고 숨은 뒷발 바닥 연결과8px 폐곡선을 요구한 별도3번째 prompt3e093f6a-a540-4ba3-ba1a-e502a0198855/exec37892도 정상 완료; candidate-batches/20261001-1310-bear-original-paws/request.json 및 root repairs workflow/history/8190실제queue/history부터 재조회, 종료/불확실 상태 대조 전 복제 제출 금지. 이 새 후보도 자동 적용/게시 없음. 선화 참조 후보의 노이즈를 원본 사진이나 기존 공개본으로 오인하지 않는다.
+
+이번 관련 검수/결정 기록은 이름으로stage해 로컬커밋, 운영 책/게임 등록 및 추가main push 없음. 기존 사용자 push b8121e3e 완료와 전체2158음원 디코딩/비무음 범위는 유지한다. 이후에는 미검수 후보의 실제 붓질/원본색·핵심 특징·정확한쪽native읽기/BGM을 검수하고 기각 후보만 원본기반Qwen 수정한다.
+
+
+13:34 UTC 후속: 걷는곰 원본사진 참조3번째도 정상 종료, 별도 candidate-batches/20261001-1310-bear-original-paws에 PNG/graph/history/status 및 review-workspace 원본·filled 비교 보존. SHA/흑백 통과, 뒷발 바닥 연결/머리 분리 복원으로0→2칸1색5.1%이나 머리/안쪽뒷다리만 칠해지고 큰 몸·앞다리는 여전히 미색칠. 미승인/미적용/미게시, originalPawsCandidateReview1310 기록. gap-diagnostic.json의192벽·4연결 분석에서 몸통seed(550,300)가 테두리와 동일component, 최대탈출clearance1px 확인. 새후보 경계에 좁은 열린 통로가 남음. 진단은 저장픽셀 분석이며 브라우저 플레이/엔진 수정 근거로 확대하지 않는다. 이3개후보 모두 종료, 재시작/자동 적용 금지. 최종조회8190은 다른client 작업1건이므로 중단하지 않으며 현재 색칠 생성runner없음.
