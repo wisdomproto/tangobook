@@ -130,3 +130,5 @@
 - 2026-10-01 [명작·전래 색칠 검증](../work/games/tasks/20260930-classic-scene-coloring.md):368장 원본 대조 완료, 이미지736개 SHA 및 음원658개 디코딩 통과. 명작 새76장/전래 기존20장 수정·후속 검수 기록; 대표 실제 색칠 후 원본 쪽 TTS 종료/BGM 정지 확인, 전체 게임 승인 아님.
 
 - 2026-10-01 [호리·자연관찰 색칠 확장](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사용자 요청으로 기존 명작·전래 포함6탭365권730장 목표. 원본 기반 Qwen 제작/정확한 원본 쪽 읽기·BGM 검수, 첫 신규8장 실행 중. 운영 등록/main push 미요청.
+
+2026-10-01 [6분류 장면 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 전365권730장 생성 및 원본 비교 기록, 자료실 링크6분류 설명을 사용자 승인으로 원격 main 02f97e63에 push 완료. 전체 도안 게임 최종 승인 아님; Qwen 후보76장 후속 검수 계속. 이전 이 작업의 main push 미요청 메모는 새 승인으로 대체.

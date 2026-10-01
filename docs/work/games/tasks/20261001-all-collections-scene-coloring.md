@@ -181,3 +181,5 @@ production-plan.json 실제 재집계 전730장 준비/595장 생성(자연151·
 사용자가 이 채팅에서 '좋아. 푸시하자'로 현재 색칠 작업의 push를 요청했다. 색칠 브랜치의 관련23커밋과 저작도구 자료실 링크2커밋을 통합하고 자료실 설명을 실제6개 분류/365권730장/검수 중으로 갱신한다. 원격 main은 fetch 당시 색칠 브랜치의 조상이며 강제 push 없이 반영한다. 로컬 main의 다른 영상/채널 문서 커밋은 이번 push 범위에 포함하지 않는다. 코드/기록 push는 도안 전체 게임 승인이나 운영 책·게임 데이터 등록을 뜻하지 않는다. 시험판 및 Qwen 후보 worker/후속 자동 검수 흐름은 계속 유지한다.
 
 Push 전 검증: 장면 영역3개+색상/장면해석26개 총29테스트 통과, 클라이언트 typecheck 통과, 관련4개 TS/TSX eslint 및 TopBar prettier 통과, 클라이언트 production build 통과. 기존 Vite 번들 크기/i18n 동적 import 및 lottie eval/Browserslist 경고는 있으나 빌드 실패 없음. push 대상은 origin HEAD:main이며 fresh fetch 후 fast-forward 가능 여부를 재확인한다.
+
+원격 반영 확인: git push origin HEAD:main 성공(a0811a2e→02f97e63), git ls-remote origin refs/heads/main과 로컬 HEAD SHA가 일치했다. 색칠 기능·자료실6분류 설명·관련 검수 기록의26커밋 fast-forward 반영. Railway 자동 배포의 완료 상태는 별도 확인하지 않았고 Qwen 수정 후보 worker는 계속 실행한다.
