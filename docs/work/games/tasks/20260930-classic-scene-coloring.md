@@ -87,3 +87,17 @@
 로컬 실제 ColoringPlayer에서 명작 개구리왕자 그림체1 p3의6색 실제 붓질→정확한3쪽 원본/본문→쪽 TTS playing/ended(10.08초)→책 BGM 정지 확인. 전래 개와고양이 p9의4색 붓질→정확한9쪽 원본/본문→TTS playing/ended(14.003667초)→BGM 정지 확인. 전래 재색칠과 읽기 중 다음으로 클릭 시 음성과 BGM 정지도 확인. player-frog-audio-events.json / player-cat-audio-events.json / player-cat-audio-skip.json 증거. 로컬 검증 wrapper는 Audio를 DOM에 붙여 실제 네이티브 이벤트를 기록합니다. 종료 시 src를 비우면서 생기는 error4는 이미 성공한 playing/ended 뒤의 자원 정리 이벤트입니다. wrapper 완료 문구는 내부 다시 버튼으로 초기화되지 않는 시험판 한계가 있습니다. 대표 샘플의 브라우저 재생 확인이며 전368장 실제 붓질 승인/전음원 청취가 아닙니다.
 
 검증 통합 보고서 verification-20261001.json. 생성 runner 재시작/ComfyUI 중복 제출/중단 없음. 운영 책 등록/main push/배포 없음. 도구 node --check 및 diff --check 통과. 남은 일은 구체적 수정 대상을 원본 기반 Qwen으로 고치고 원본 색 대응과 실제 색칠을 검수하는 것입니다.
+
+## 2026-10-01 ㄱㄱ 후 장면 오류 수정
+
+사용자 진행 승인 후 원본 기반 Qwen으로 키다리 아저씨3그림체 p8의 추가 소녀/손잡기→소녀1명 편지 쓰기, 엄지아가씨 그림체1·2 p2의 잠든 호두침대→웃으며 팔 펼친 꽃잎 배를 복원했습니다. 5장의 선화·흑백·실제 엔진 filled를 대조하고 시험판 갱신. 키다리 그림체1은 서버2색 실제 붓질·재색칠→정확한8쪽 원본과 본문 확인(player-daddy-writing-reveal.json), 엄지1은3색 실제 붓질→정확한2쪽 원본·완료 확인(player-thumb-petal-reveal.json). 그러나 머리/얼굴/옷의 색 대응과 일부 자동 흰 면 제외는 남아 needs-color-alignment-repair입니다. 키다리3은 들린 종이를 평평하게 후속 수정했으나 얼굴이 짙은 원본 머리색으로 읽히는 문제는 남았습니다.
+
+정글북 그림체3 p4는 추가 곰들을 제거해 원본 곰1마리·등에 탄 모글리1명·손의 과일2개 복원, 엔진6칸4색16.2%; 나뭇가지와 원본 색 대응 추가 검수입니다. 백조3 p13은3마리→원본1마리·펼친 날개 복원,4칸2색23%. 인어2 p1은5명→원본4명·손짓·순서 복원했지만 꼬리/머리 선이 너무 희미해 실제 filled는6칸2색6.4%에 그칩니다. 별도 Qwen 경계 보강 요청 제출, 적용/게시 전 후보 대조가 필요합니다. 이3장은 로컬 수정본이며 이 절 작성 시 새 해시를 아직 공개하지 않았습니다.
+
+정글북2 p4의 첫 원본 후보는 곰1/소년1로 고쳤지만 과일/가지 삭제돼 기각. 후보 기반 후속은 가지/과일 복원했으나 유색16346픽셀, 색 제거 후보는809012픽셀로 악화돼 모두 기각/미게시. repairs/*missing-fruit* 및 *fruit-colored-rejected*와 현재 PNG/history 보존. 원본 기반 재시도가 필요합니다. repair-classic-coloring.py --reference는 검수한 로컬 후보를 실제 Qwen input에 지정할 수 있고 참조를 아티팩트 루트 내부로 제한합니다.
+
+21장 추가 수정 후보를 순차 생성하는 scripts/prepare-scene-coloring-repairs.py 실행 중: PID45576, exec61215, plan D:/ComfyUI-output/classic-scene-coloring/20261001-scene-fidelity-plan.json. 상태/lock은 candidate-batches/20261001-scene-fidelity-plan/status.json 및 worker.lock. 원본 백조/인어/새/호두까기 추가 인물, 침대/집/숨는 소품/장미 덮개, 머리 채움 등 원본 대조한 항목만 선정. 후보 생성은 manifest/도안/공개 서버를 자동 교체하지 않습니다. candidate-awaiting-review만 다음 검수 대상이며 원본/흑백/filled/플레이 검수 후 적용해야 합니다. 동일 plan/key 재제출하지 말고 실제 PID/queue/history부터 확인. 생성 중 또는 failed-or-uncertain 상태는 history 대조 없이 재실행하지 않습니다. 기존 원본 생성 runner는 재시작하지 않았고 다른 Comfy 작업은 중단하지 않았습니다.
+
+apply-classic-coloring-repair.py는 수정 전 image/graph/history/job/review를 revisions/reviewed-repair/{key}/{timestamp}에 보존하고 새 해시/비교 기록을 남기며 이전 playEvidence는 아카이브에만 보존합니다. Python3개 py_compile와 git diff --check 통과. 관련 도구·기록만 로컬 커밋하고 전체 최종 승인과 운영 push는 하지 않습니다.
+
+후속: 인어2 굵은 윤곽 후보도2칸2색8.6%, 다른3명의 얼굴/꼬리가 칠해지지 않아 미승인. manifest.previewHold=true로 기존 공개본을 유지, sync는 미통과 로컬 후보를 게시하지 않습니다. 새6탭 반영 sync에서 정글북3/백조3 현재 도안은 공개됐고 여전히 검수 중입니다. 사용자 추가4분류 전체 요청·730장 목표·실행 중 첫8장·나머지대표선정 계획은 20261001-all-collections-scene-coloring.md 참조.

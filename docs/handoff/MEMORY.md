@@ -128,3 +128,5 @@
 - 2026-09-29 [붕이·딩딩 기존 삽화 초기화](../work/content/tasks/20260929-bung-dingding-illustration-reset.md): 비공개 100권의 삽화 연결과 작업판 쪽 이미지 490개 제거, 두 시리즈의 새 캐릭터 시트 각 4개 유지. 책 JSON·키 목록 D: 보관, Git push 미요청.
 
 - 2026-10-01 [명작·전래 색칠 검증](../work/games/tasks/20260930-classic-scene-coloring.md):368장 원본 대조 완료, 이미지736개 SHA 및 음원658개 디코딩 통과. 명작 새76장/전래 기존20장 수정·후속 검수 기록; 대표 실제 색칠 후 원본 쪽 TTS 종료/BGM 정지 확인, 전체 게임 승인 아님.
+
+- 2026-10-01 [호리·자연관찰 색칠 확장](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사용자 요청으로 기존 명작·전래 포함6탭365권730장 목표. 원본 기반 Qwen 제작/정확한 원본 쪽 읽기·BGM 검수, 첫 신규8장 실행 중. 운영 등록/main push 미요청.

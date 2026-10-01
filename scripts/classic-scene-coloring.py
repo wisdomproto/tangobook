@@ -78,13 +78,15 @@ def prepare():
     jobs=[]
     for b in sorted(books,key=lambda b:b['title']):
         title = re.sub(r'_그림체[123]$', '', b['title'])
+        if title not in SELECTION and os.environ.get('SCENE_COLORING_PARTIAL_SELECTION') == '1':
+            continue
         for number in SELECTION[title]:
             # p6-p8 are absent in this book; p5 retains the dwarf-home context.
             if b['title']=='백설공주_그림체2' and number==7:number=5
             p = next(p for p in b['pages'] if p['pageNumber']==number)
             if not p.get('illustrationUrl'): raise ValueError(f'Missing original: {b["title"]} p{number}')
             key=f'{b["id"]}-p{number:02}'
-            jobs.append({'key':key,'bookId':str(b['id']),'title':b['title'],'artStyle':b.get('artStyle'),'collection':'traditional' if CATEGORY=='전래 동화' else 'classic',
+            jobs.append({'key':key,'bookId':str(b['id']),'title':b['title'],'artStyle':b.get('artStyle'),'collection':os.environ.get('SCENE_COLORING_COLLECTION') or ('traditional' if CATEGORY=='전래 동화' else 'classic'),
               'pageNumber':number,'originalUrl':p['illustrationUrl'],'text':p.get('text',''),
               'ttsUrl':p.get('ttsUrl'),'translations':p.get('translations',{}),
               'backgroundMusicUrl':b.get('backgroundMusicUrl') or f'{API}/sounds/bgm/default-1.mp3',
@@ -196,6 +198,8 @@ def generate(limit=None):
         identity=page.get('scene_structure',{}).get('characters_en') or page.get('scene_description_en','')[:350]
         action=page.get('scene_description_en','')[:500]
         scene_prompt='EXACT SCENE TO PRESERVE: '+identity+'. '+action+' All main characters described here must appear. Animals and insects must stay the original species.\n'+PROMPT
+        if os.environ.get('SCENE_COLORING_IMAGE_ONLY') == '1':
+            scene_prompt='Trace only what is visible in the reference image. Keep its EXACT character count, species, faces, poses, essential objects, image positions and proportions. Do not invent other characters from the story title or text.\n'+PROMPT
         if j['title'].startswith('개구리 왕자_') and j['pageNumber']==8:
             scene_prompt += '\nAt this dining scene, keep the princess and frog, two PLAIN chair backs, ONE plain table edge and ONE large plain oval plate containing ONE simple food shape. Remove every other plate, goblet, bowl, fruit, decoration and background object.'
         g['5']['inputs']['prompt']=scene_prompt

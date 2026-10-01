@@ -19,6 +19,9 @@ const client = new S3Client({
   },
 });
 const classic = JSON.parse(await fs.readFile(path.join(root, 'manifest.json'), 'utf8'));
+const collections = JSON.parse(
+  await fs.readFile(path.join(workspace, 'scripts/scene-coloring-collections.json'), 'utf8')
+);
 let traditional = [];
 try {
   traditional = JSON.parse(await fs.readFile(path.join(root, 'traditional/manifest.json'), 'utf8'));
@@ -53,6 +56,36 @@ const jobs = [
     lineartFile: 'traditional/' + j.lineartFile,
   })),
 ];
+for (const collection of collections.slice(2)) {
+  let extra = [];
+  try {
+    extra = JSON.parse(
+      await fs.readFile(path.join(root, collection.directory, 'manifest.json'), 'utf8')
+    );
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+  jobs.push(
+    ...extra.map((j) => ({
+      ...j,
+      collection: collection.id,
+      sourceFile: collection.directory + '/' + j.sourceFile,
+      lineartFile: collection.directory + '/' + j.lineartFile,
+    }))
+  );
+}
+// Keep the published version while a local replacement fails game validation.
+let previousPublic = [];
+try {
+  previousPublic = JSON.parse(await fs.readFile(path.join(root, 'gallery-manifest.json'), 'utf8'));
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
+for (let i = 0; i < jobs.length; i++) {
+  if (!jobs[i].previewHold) continue;
+  const previous = previousPublic.find((j) => j.key === jobs[i].key);
+  jobs[i] = previous || { ...jobs[i], status: 'review-pending' };
+}
 const publicJobs = jobs.map((j) =>
   Object.fromEntries(fields.filter((k) => j[k] !== undefined).map((k) => [k, j[k]]))
 );

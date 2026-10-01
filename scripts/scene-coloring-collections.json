@@ -1,0 +1,42 @@
+[
+  { "id": "classic", "label": "명작동화", "directory": "", "categories": ["세계 명작"] },
+  {
+    "id": "traditional",
+    "label": "전래동화",
+    "directory": "traditional",
+    "categories": ["전래 동화"]
+  },
+  {
+    "id": "hori-life",
+    "label": "호리 생활동화",
+    "directory": "hori-life",
+    "categories": ["생활동화"]
+  },
+  {
+    "id": "hori-kindergarten",
+    "label": "호리 유치원",
+    "directory": "hori-kindergarten",
+    "categories": ["호리 유치원동화"]
+  },
+  {
+    "id": "hori-vehicles",
+    "label": "호리 탈것",
+    "directory": "hori-vehicles",
+    "categories": ["호리 세상 탐험"]
+  },
+  {
+    "id": "nature",
+    "label": "자연관찰",
+    "directory": "nature",
+    "categories": [
+      "육지 동물 친구들",
+      "공룡 친구들",
+      "식물 친구들",
+      "곤충 친구들",
+      "바다 동물 친구들",
+      "하늘 동물 친구들",
+      "우주와 자연",
+      "우리 몸 이야기"
+    ]
+  }
+]
