@@ -69,3 +69,5 @@ export {
   pct,
 } from './utils/content-status.js';
 export type { Level, Measured, SeamUnit } from './utils/content-status.js';
+export * from './types/book-video.js';
+export * from './utils/video-subtitles.js';

@@ -9,6 +9,8 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [react()],
+  // FFmpeg creates its own module Worker; prebundling breaks the relative worker URL in dev.
+  optimizeDeps: { exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'] },
   /**
    * 🔴 **`manualChunks` 를 쓰지 않는다 — 한 번 넣었다 되돌렸다**(2026-08-21).
    *

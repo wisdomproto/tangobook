@@ -2,6 +2,7 @@
 
 새 작업은 [템플릿](../../TASK-TEMPLATE.md)을 날짜와 작업명이 있는 파일로 복사한다. README는 작업 자체가 아니다.
 
-초기 등록된 작업 없음. 기존 worktree의 미이관 작업은 별도로 확인한다.
+- [2026-10-02 Editor2 영상 자산 관리·마케팅 등록 및 기존 영상 정리](20261002-editor2-video-library.md)
+- [2026-10-01 자료실 동화 색칠 테스트 연결](20261001-classic-coloring-library-link.md)
 
 목록은 편의용이다. 실제 목록은 이 폴더의 작업 파일과 node scripts/work-status.mjs로 확인한다.

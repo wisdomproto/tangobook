@@ -59,7 +59,7 @@ export function buildStorybookSourceSnapshot(storybook: Storybook): StorybookSou
   };
 }
 
-async function resolveMarketingProject(): Promise<MarketingProject | null> {
+export async function resolveMarketingProject(): Promise<MarketingProject | null> {
   const supabase = getSupabaseAdmin();
   if (!supabase) return null;
 

@@ -1,7 +1,13 @@
 import { Router } from 'express';
 import { StorybookController } from '../controllers/storybook.controller.js';
+import { BookVideoController } from '../controllers/book-video.controller.js';
+import { opsAuth } from '../middleware/ops-auth.middleware.js';
 
 const router = Router();
+router.get('/:id/videos', opsAuth, BookVideoController.get);
+router.post('/:id/videos/presign', opsAuth, BookVideoController.presign);
+router.post('/:id/videos', opsAuth, BookVideoController.save);
+router.post('/:id/videos/marketing', opsAuth, BookVideoController.register);
 
 router.get('/', StorybookController.list);
 router.get('/:id', StorybookController.getById);

@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BookVideoTab } from '@/features/book-video/components/BookVideoTab';
 import { useEditorStore } from '@/store/editor.store';
 import { EditorHeader } from './EditorHeader';
 import { TabBar } from './TabBar';
@@ -37,6 +38,7 @@ interface EditorContentProps {
   hideHeader?: boolean;
   /** 숨길 탭 ID 배열. /editor2 에서 quiz/blog/card-news 등 마케팅 관련 탭 가림. /editor 미사용. */
   hiddenTabIds?: string[];
+  videoLibrary?: boolean;
 }
 
 export function EditorContent({
@@ -49,8 +51,17 @@ export function EditorContent({
   compactHeader = false,
   hideHeader = false,
   hiddenTabIds,
+  videoLibrary = false,
 }: EditorContentProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
+  const [videoOpened, setVideoOpened] = useState(false);
+  useEffect(() => {
+    if (videoLibrary && activeTab === 'longform-video') setVideoOpened(true);
+  }, [videoLibrary, activeTab]);
+  useEffect(() => {
+    if (videoLibrary && activeTab === 'audiobook')
+      useEditorStore.getState().setActiveTab('longform-video');
+  }, [videoLibrary, activeTab]);
   const isPhonics = storybook.type === 'phonics';
   const isLetterSounds = storybook.phonicsConfig?.bookType === 'letter-sounds';
 
@@ -132,7 +143,13 @@ export function EditorContent({
     },
     {
       id: 'longform-video',
-      el: <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+      el: videoLibrary ? (
+        videoOpened || activeTab === 'longform-video' ? (
+          <BookVideoTab key={storybook.id} storybook={storybook} />
+        ) : null
+      ) : (
+        <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
+      ),
     },
   ];
 
@@ -159,7 +176,11 @@ export function EditorContent({
           compact={compactHeader}
         />
       )}
-      <TabBar storybookType={storybook.type} hiddenTabIds={hiddenTabIds} />
+      <TabBar
+        storybookType={storybook.type}
+        hiddenTabIds={hiddenTabIds}
+        videoLibrary={videoLibrary}
+      />
       {tabs.map(({ id, el }) => (
         <div key={id} className="p-6" style={{ display: activeTab === id ? 'block' : 'none' }}>
           {el}

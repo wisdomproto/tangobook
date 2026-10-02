@@ -358,7 +358,8 @@ function CardBody({
           saving={saveMutation.isPending}
           onSave={handleSave}
           onUpdate={handleUpdate}
-          hiddenTabIds={['quiz', 'blog', 'card-news']}
+          hiddenTabIds={['quiz', 'blog', 'card-news', 'audiobook']}
+          videoLibrary
           hideHeader
         />
       </EditorLangProvider>

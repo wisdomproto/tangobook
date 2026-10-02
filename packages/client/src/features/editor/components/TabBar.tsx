@@ -36,9 +36,10 @@ interface TabBarProps {
   storybookType?: StorybookType;
   /** 숨길 탭 ID 목록. /editor2 에서 마케팅 관련(quiz/blog/card-news) 등을 가릴 때 사용. /editor 는 미사용. */
   hiddenTabIds?: string[];
+  videoLibrary?: boolean;
 }
 
-export function TabBar({ storybookType, hiddenTabIds }: TabBarProps) {
+export function TabBar({ storybookType, hiddenTabIds, videoLibrary }: TabBarProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
   const setActiveTab = useEditorStore((s) => s.setActiveTab);
 
@@ -60,7 +61,7 @@ export function TabBar({ storybookType, hiddenTabIds }: TabBarProps) {
                 : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
             }`}
           >
-            {tab.label}
+            {videoLibrary && tab.id === 'longform-video' ? '영상' : tab.label}
           </button>
         ))}
       </div>
