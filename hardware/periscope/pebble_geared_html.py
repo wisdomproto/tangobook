@@ -145,8 +145,9 @@ update();frame();
         html=html.replace('부품 삽입 경로·거울 ±5°·폰 깊이','부품 삽입 경로·고정 거울 33°·폰 깊이')
         html=html.replace("let inside=false,exploded=false,phoneVisible=true;", "colors.height_index_pin='#e2b529';make('height_index_pin');let inside=false,exploded=false,phoneVisible=true;")
         html=html.replace('<p class="small">바깥에서는', '<p class="small"><b>오른쪽 구멍 5개 = 높이 고정:</b> 노란 돌기가 구멍에 걸려 높이를 유지합니다. 구멍 간격 2.5mm, 전체 이동 10mm입니다. 왼쪽 톱니는 이동용, 오른쪽 구멍은 고정용입니다.</p><p class="small">바깥에서는')
+        html=html.replace('<div class="card"><div class="btns">','<div class="card"><h2>뒤 커버 탭 확대</h2><button id="coverDetail" type="button" aria-pressed="false">탭 안쪽 보기</button><p class="small">커버의 긴 탭 중간이 1.25mm로 얇아진 구간입니다. 고정된 뿌리에서 시작해 끝의 걸림턱이 중앙 쪽으로 굽도록 의도했습니다. 화면의 CAD는 변형 전 형상입니다.</p></div><div class="card"><div class="btns">')
         html=html.replace('<div class="card"><div class="btns">','<div class="card"><h2>기어 넣는 순서</h2><button id="assembly" type="button" aria-pressed="false">기어 조립 보기</button><div id="assemblyPanel" hidden><div class="track"><strong id="assemblyValue">① 기어 넣기 전</strong></div><input id="assemblyStep" aria-label="기어 조립 단계" type="range" min="0" max="3" step="1" value="0"><p id="assemblyNote" class="small"></p><p class="small">반투명 본체는 위치를 보여 주기 위한 표시입니다. 본체를 닫고 옆 뚜껑을 뺀 상태에서 조립합니다.</p></div></div><div class="card"><div class="btns">')
-        html=html.replace("let inside=false,exploded=false,phoneVisible=true;", """let inside=false,exploded=false,phoneVisible=true,assembling=false,savedDepth=10;
+        html=html.replace("let inside=false,exploded=false,phoneVisible=true;", """let inside=false,exploded=false,phoneVisible=true,assembling=false,savedDepth=10,coverOnly=false;
 const insertionArrow=new THREE.ArrowHelper(new THREE.Vector3(-1,0,0),new THREE.Vector3(55,cfg.heightY,cfg.heightZ),29,0xcb4e44,4,2);scene.add(insertionArrow);insertionArrow.visible=false;
 const assemblyTitles=['① 기어 넣기 전','② 기어를 끝까지 넣기','③ 옆 뚜껑 닫기','④ 바깥 레버 끼우기'];
 const assemblyNotes=['옆 뚜껑과 레버를 먼저 빼세요. 기어의 긴 축 끝을 빨간 화살표 방향으로 본체 안쪽 축 구멍에 넣습니다.','받침을 가장 높은 위치에 놓고 톱니를 맞춥니다. 축이 구멍에 들어가며 기어 원판은 옆 공간 안에 남습니다.','기어축 바깥쪽 끝을 옆 뚜껑의 작은 구멍으로 통과시키며 뚜껑의 세 핀을 끼웁니다. 기어 원판은 이 구멍을 통과하지 않습니다.','뚜껑 밖으로 나온 D자 축에 레버의 D자 구멍을 맞춰 끼웁니다. 레버는 기어·뚜껑 조립 후 끼웁니다.'];
@@ -167,11 +168,18 @@ const assemblyNotes=['옆 뚜껑과 레버를 먼저 빼세요. 기어의 긴 �
   paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ);
   document.getElementById('assemblyValue').textContent=assemblyTitles[step];document.getElementById('assemblyNote').textContent=assemblyNotes[step];
  }else{trayGroup.visible=true;}
+ if(coverOnly){for(const [name,mesh] of Object.entries(objects))mesh.visible=name==='rear_cover';trayGroup.visible=false;insertionArrow.visible=false;objects.rear_cover.position.set(0,0,0);}
 }
-const assemblyButton=document.getElementById('assembly');assemblyButton.addEventListener('click',()=>{assembling=!assembling;assemblyButton.setAttribute('aria-pressed',String(assembling));document.getElementById('assemblyPanel').hidden=!assembling;
+const assemblyButton=document.getElementById('assembly');assemblyButton.addEventListener('click',()=>{coverOnly=false;document.getElementById('coverDetail').setAttribute('aria-pressed','false');assembling=!assembling;assemblyButton.setAttribute('aria-pressed',String(assembling));document.getElementById('assemblyPanel').hidden=!assembling;
  if(assembling){savedDepth=document.getElementById('depth').value;document.getElementById('depth').value='0';inside=false;exploded=false;document.getElementById('inside').setAttribute('aria-pressed','false');document.getElementById('explode').setAttribute('aria-pressed','false');camera.position.set(135,-70,40);orbit.target.set(25,cfg.heightY,2);orbit.update();}
  else{document.getElementById('depth').value=savedDepth;orbit.target.set(0,-5,-5);orbit.update();}update();});
 document.getElementById('assemblyStep').addEventListener('input',update);
+const coverDetail=document.getElementById('coverDetail');
+coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAttribute('aria-pressed',String(coverOnly));assembling=false;document.getElementById('assemblyPanel').hidden=true;assemblyButton.setAttribute('aria-pressed','false');update();
+ if(coverOnly){for(const [name,mesh] of Object.entries(objects))mesh.visible=name==='rear_cover';trayGroup.visible=false;insertionArrow.visible=false;objects.rear_cover.position.set(0,0,0);camera.position.set(0,-10,90);orbit.target.set(0,8,12);orbit.update();}
+ else{camera.position.set(100,-115,64);orbit.target.set(0,-5,-5);orbit.update();}
+});
+
 """)
 
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
