@@ -547,3 +547,14 @@ Producer idle/queue0 및 원본·후보 실제SHA/history success 게이트 뒤8
 8원본후보실제SHA/historysuccess·idle게이트후revisions보존교체/mode유지,15:20:42UTC승인tests sync정상. 현재귀여운공개45장/남은157장·6탭730/다른5분류유지,전체개편미완료. cute-public-review-1515 버전URL16다운로드SHA통과,공개대표연꽃2/코뿔소2 실제전체붓질·정확한2쪽리빌 확인. 공개native새검증과로컬native구분. review cuteBatchGameReview1515/cutePublicBatchReview1515/playEvidence 갱신,임시탭닫음/갤러리보존/새Qwen·코드수정·mainpush·운영등록없음.
 
 진행중사용자“얼마나 남은거야” 질문에45완료/157남음,전체그림생성완료·게임검수반영중이라고응답. 정상도안묶음검수를계속하고심한검정눈/큰몸열림/학습내용변경만자율재작화합니다. 저장증거를새재생으로확대하지않음. 관련task만로컬커밋.
+
+
+## 2026-10-02 16:16 UTC — 正常12장 확대 검수·공개57장, 심한이상8새후보 연결
+
+최신055733e2/실제status·queue0·producer없음을확인,갤러리75와서버/다른분류보존. 남은32후보filled실제재대조(remaining-0/16 contact)후 정상12 강아지11/개구리2/올챙이8/거미2/게2·10/낙타3/새끼기가노9/기린12/나팔꽃2/늑대2/다람쥐2를5205 실제게임전체색칠·친근눈/큰몸·모든물감완료·정확한원본쪽/nativenaturalended·BGM정지 확인했습니다. duration7.944/5.784/7.104/5.712/6.192/5.304/10.44/9.84/7.44/6.84/7.152/3.6초. cute-batch-game-review-1616 first/second/brush/reveal/native-final/keys/sharedfilled contact 실제증거구분. 개구리2 일반serpentine붓질이아래좁은발을놓쳐물감진행중이었으며 y589/598바닥발에실제추가붓질하여모든색/쪽읽기완료,엔진수정/기준완화없음. 사소한흰발/옅은무늬간소화허용. 이번빠른12묶음은장별reset재검증을반복하지않았고playEvidence.resetRepaint=false로명시, 이전reset증거를새것으로확대하지않습니다.
+
+실제원본/후보SHA/historysuccess·idle게이트뒤12장revisions보존 교체·기존명시sampling유지/전체사진median자동적용없음. 승인tests sync16:25:33UTC 정상,현재귀여운공개57장/남은145장·다른5분류6탭730유지. cute-public-review-1616 버전URL24다운로드SHA통과,공개대표거미2/다람쥐2 실제전체붓질·정확한2쪽리빌,공개native새검증으로확대하지않음. review cuteBatchGameReview1616/cutePublicBatchReview1616/playEvidence.
+
+심한검정눈/몸흰면8개는새원본source-only 20261002-cute-nature-1616-visible-eyes-eight.json 계획을작성하고원본8+추가2를실제contact로확인했습니다. 고래2·7/고슴도치2·10/잠든곰10/기가노2/기린2/꿀벌2. 이전generic혹은선화참조지시반복대신 사진boundingbox/자세·종수유지/큰outlined눈+작은pupil흰glint/닫힌얼굴배panel·10pxvector윤곽·배경삭제를개별지시. 고래분수흰폐곡선/고슴도치단순둥근가시·정확한얼굴위치/잠든곰닫힌주둥이/기가노이빨삭제/기린큰coatspot panel/꿀벌닫힌3줄무늬배부위를분리했습니다. 원본사진색보정/정답색굽기없음. workerPID56052/exec74921 실행중,16:26:30고래2생성중. candidate-batches/동명/status.json·worker.lock/실제commandline/queue/history먼저확인해중복실행/중단/계획변경금지,모두후보만자동적용게시없음. producer가active manifest읽으니작동중활성교체보류.
+
+다음은8수정완료분mono/SHA/실제filled/게임검수와정상후보의묶음검수를계속합니다. 전체202범위미완료/심한이상만재작화/개별진척조용히유지. 코드수정/mainpush/운영등록없음,관련task만로컬커밋. 기존갤러리/서버보존·임시검수탭닫기.
