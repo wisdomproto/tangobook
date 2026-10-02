@@ -20,19 +20,21 @@ def mesh_data(shape):
     return encoded
 
 
-def main(height_only=False,modelkit=False):
+def main(height_only=False,modelkit=False,wrap=False):
     import pebble_height_only as h
     if modelkit:
         import pebble_modelkit as h
+    if wrap:
+        import pebble_wrap_cover as h
     design=h if height_only else u
     g.OUT.mkdir(parents=True, exist_ok=True)
     factories = {
         "shell_left": design.shell_left, "shell_right": design.shell_right,
         "mirror_tray": g.mirror_tray, "height_slider": design.height_slider,
         "angle_pinion": lambda: g.pinion(*g.ANGLE_AXIS),
-        "height_pinion": lambda: g.pinion(*g.HEIGHT_AXIS),
+        "height_pinion": lambda: h.pinion() if wrap else g.pinion(*g.HEIGHT_AXIS),
         "angle_lever": lambda: g.lever(*g.ANGLE_AXIS),
-        "height_lever": lambda: g.lever(*g.HEIGHT_AXIS),
+        "height_lever": lambda: h.lever() if wrap else g.lever(*g.HEIGHT_AXIS),
         "gear_cover": design.service_lid,
         "rear_cover": h.rear_cover if height_only else fixed.cover, "paddle": a.adjustable_paddle,
         "mirror": b.mirror, "foam": b.foam, "phone": b.phone,
@@ -191,13 +193,22 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
         html=html.replace('혀·폰 받침을 좌우 본체 사이에 놓고 닫기','혀·폰 받침을 놓고 본체의 짧은 핀 두 개를 소켓에 맞춰 닫기')
         html=html.replace('뒤 커버와 스폰지 장착','뒤 커버 안쪽에 스폰지를 붙이고 핀 네 개를 본체에 압입')
         html=html.replace('높이만 조절하는 스마트폰 반사경','높이 조절 반사경 · 핀·소켓 결합 시안')
+    if wrap:
+        html=html.replace("objects.rear_cover.position.y=exploded?32:0","objects.rear_cover.position.y=exploded?65:0").replace("objects.foam.position.y=exploded?32:0","objects.foam.position.y=exploded?65:0")
+        html=html.replace("높이 조절 반사경 · 핀·소켓 결합 시안","높이 조절 반사경 · 전체 덮개 시안")
+        html=html.replace("본체 핀 2개·뒤 커버 핀 4개의 압입 결합 시안입니다. 양산 ABS, PLA는 형상 확인용입니다.","뒤 덮개가 본체 위·양옆을 깊게 감쌉니다. 양옆 걸림턱은 빠짐 방지용이며 ABS 실물 체결력은 미검증입니다.")
+        html=html.replace("레버는 기어·뚜껑 조립 후 끼웁니다.","레버는 기어·옆 뚜껑·전체 뒤 덮개 조립 후 끼웁니다.")
+        html=html.replace("뒤 커버 핀 보기","전체 덮개 안쪽 보기").replace("짧은 핀 보기","덮개 안쪽 보기")
+        html=html.replace("뒤 커버의 짧은 핀 네 개를 본체 소켓에 맞춰 누릅니다. 긴 탄성 탭은 제거했습니다. 지름 4mm 핀의 얕은 리브로 마찰 유지력을 의도하며 실제 ABS 체결력은 미검증입니다.","넓은 덮개 면이 본체를 감싸 흔들림과 벌어짐을 받습니다. 네 핀은 위치를 맞추고, 양옆 넓은 탄성 혀의 턱이 뒤로 빠지는 것을 막도록 설계했습니다. 덮개를 끼운 뒤 높이 레버를 장착합니다.")
+        html=html.replace("바깥에서 높이 레버를 D자 축에 끼우기 → 뒤 커버 안쪽에 스폰지를 붙이고 핀 네 개를 본체에 압입","뒤 커버 안쪽에 스폰지 붙이기 → 레버를 뺀 상태에서 덮개를 앞쪽으로 밀어 넣기 → 양옆 턱 잠그기 → 높이 레버 끼우기")
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
-    path = g.OUT / ("tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
+    path = g.OUT / ("tango_pebble_wrap_cover_interactive.html" if wrap else "tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
     path.write_text(html, encoding="utf-8")
     aliases=["tango_pebble_geared_unibody_interactive.html"] if height_only else [
         "tango_pebble_geared_pebble_cover_interactive.html",
         "tango_pebble_geared_covered_interactive.html","tango_pebble_geared_interactive.html"]
+    if wrap: aliases.append("tango_pebble_modelkit_interactive.html")
     if modelkit: aliases.append("tango_pebble_height_only_interactive.html")
     for alias in aliases:
         (g.OUT / alias).write_text(html, encoding="utf-8")
@@ -205,6 +216,6 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
 
 
 if __name__ == "__main__":
-    main("--height-only" in sys.argv or "--model-kit" in sys.argv,"--model-kit" in sys.argv)
+    main("--height-only" in sys.argv or "--model-kit" in sys.argv or "--wrap-cover" in sys.argv,"--model-kit" in sys.argv or "--wrap-cover" in sys.argv,"--wrap-cover" in sys.argv)
     sys.stdout.flush()
     os._exit(0)

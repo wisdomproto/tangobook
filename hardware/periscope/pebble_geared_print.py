@@ -14,10 +14,12 @@ import pebble_geared_unibody as u
 from pebble_geared_profile import b, a, fixed
 
 
-def print_parts(height_only=False,modelkit=False):
+def print_parts(height_only=False,modelkit=False,wrap=False):
     import pebble_height_only as h
     if modelkit:
         import pebble_modelkit as h
+    if wrap:
+        import pebble_wrap_cover as h
     design=h if height_only else u
     dy=b.old.GRIP_FREE+(b.old.PLATE_T+0.5)-b.old.PIVOT_Y
     dz=b.TONGUE_BOT-b.PIVOT_Z
@@ -31,8 +33,8 @@ def print_parts(height_only=False,modelkit=False):
         "service_lid":design.service_lid().rotate((0,0,0),(0,1,0),90),
         "height_slider":design.height_slider().rotate((0,0,0),(1,0,0),180),
         "paddle":a.adjustable_paddle().rotate((0,0,0),(1,0,0),tongue_angle+180),
-        "height_pinion":g.pinion(*g.HEIGHT_AXIS).rotate((0,0,0),(0,1,0),90),
-        "height_lever":g.lever(*g.HEIGHT_AXIS).rotate((0,0,0),(0,1,0),90),
+        "height_pinion":(h.pinion() if wrap else g.pinion(*g.HEIGHT_AXIS)).rotate((0,0,0),(0,1,0),90),
+        "height_lever":(h.lever() if wrap else g.lever(*g.HEIGHT_AXIS)).rotate((0,0,0),(0,1,0),90),
     }
     if not height_only:
         parts.update({
@@ -43,11 +45,12 @@ def print_parts(height_only=False,modelkit=False):
     return parts
 
 
-def main(height_only=False,modelkit=False):
+def main(height_only=False,modelkit=False,wrap=False):
     prefix="height_only_4-14mm" if height_only else "geared_4-14mm"
     if modelkit: prefix="modelkit_4-14mm"
+    if wrap: prefix="wrap_cover_4-14mm"
     u.OUT.mkdir(parents=True,exist_ok=True)
-    shapes=print_parts(height_only,modelkit)
+    shapes=print_parts(height_only,modelkit,wrap)
     positioned={}
     x=y=row_h=0.0
     gap=8.0
@@ -80,7 +83,7 @@ def main(height_only=False,modelkit=False):
             p.bounds[0,k]-q.bounds[1,k])**2 for k in range(3)))
     clearance=min(bounds_gap(p,q)
         for i,(_,p) in enumerate(entries) for _,q in entries[i+1:])
-    path=u.OUT/("tango_pebble_modelkit_4-14mm_print_plate.stl" if modelkit else "tango_pebble_height_only_4-14mm_print_plate.stl" if height_only else "tango_pebble_geared_unibody_4-14mm_print_plate.stl")
+    path=u.OUT/("tango_pebble_wrap_cover_4-14mm_print_plate.stl" if wrap else "tango_pebble_modelkit_4-14mm_print_plate.stl" if modelkit else "tango_pebble_height_only_4-14mm_print_plate.stl" if height_only else "tango_pebble_geared_unibody_4-14mm_print_plate.stl")
     trimesh.util.concatenate(list(positioned.values())).export(str(path))
     mesh=trimesh.load_mesh(str(path),force="mesh")
     bodies=mesh.split(only_watertight=False)
@@ -102,6 +105,6 @@ def main(height_only=False,modelkit=False):
 
 
 if __name__=="__main__":
-    main("--height-only" in sys.argv or "--model-kit" in sys.argv,"--model-kit" in sys.argv)
+    main("--height-only" in sys.argv or "--model-kit" in sys.argv or "--wrap-cover" in sys.argv,"--model-kit" in sys.argv or "--wrap-cover" in sys.argv,"--wrap-cover" in sys.argv)
     sys.stdout.flush()
     os._exit(0)
