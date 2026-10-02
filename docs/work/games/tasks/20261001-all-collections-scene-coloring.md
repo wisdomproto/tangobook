@@ -516,3 +516,14 @@ cute-public-review-1112의first/reveal 및 public-image-sha.json에세장버전U
 full-collection/review-workspace/player-seahorse2-1213/player-parasaur1-1213/player-penguin3-1213 first/brush2~6/native-after-end/native-final/body-partial/reset-body증거 및 review cuteNativePlayReview1213. native cleanup error4/유효ended와done reset뒤유지구분. 실제원본후보SHA/history성공/producer없음게이트후세장revisions보존교체: 해마2 e2cf4671c7923e1c2db83098256b7a9826b4f384e8df3c9747bf6e722dc4724b,파라1 ce2f9611880a3d023e81b5651db54f00a6594662e78f478953817a805c0c581b,펭귄3 c6322a099333ae9d688f3153ffc33d1304a617593f77815e395b5ff1e5c5a9b5. mode유지/전사진median자동적용없음. 승인tests sync12:17:39UTC정상,공개실제해마7물감5붓질/파라1붓질/펭귄2물감1긴자동전환붓질·정확한2/1/3쪽리빌확인. cute-public-review-1213 first/reveal/public-image-sha.json 버전URL6다운로드SHA전부일치. 공개붓질과localnative구분/발화전사아님.
 
 현재귀여운공개20장/다른5분류·6탭730보존,자연202전체개편미완료. 이번새Qwen/코드수정/mainpush/운영등록없음. 기존0911게임대기목록은하마한국어native미제공구분외6장실제승인공개완료. 다음양호한full후보8장뱀8/수사자2/상어15/악어6/치타2/케찰2/코끼리3/타르보2의대표실제게임큐20261002-cute-nature-1213-next-game-queue.json작성; 목록선정은승인아님. 우주열림/검정눈/큰몸열림자율수정후속과전체202게임검수지속. 이번임시6탭모두닫음/사용자갤러리·기존서버보존. 관련task만로컬커밋,개별진척조용히유지.
+
+
+## 2026-10-02 13:14 UTC — 사용자 속도 지적 반영, 정상 귀여운 도안 8장 묶음 검수·공개28장
+
+사용자가 “뭐 이렇게 오래 걸려”라고 지적했습니다. 사소한 작은 면/정확한 사실적 색 복원 때문에 정상 도안 공개를 지연시키지 않고, 양호한 도안은 묶음 검수·반영하며 큰몸 색칠불가/눈이 묻히는 검정덩어리/학습내용 변경 같은 심한 이상만 자율 재작화합니다. 다른5분류 보존과 전체 자연202장 범위는 유지합니다.
+
+5205 실제 ColoringPlayer로 뱀8/수사자2/상어15/악어6/치타2/케찰2/코끼리3/타르보2 총8장 전체 붓질·친근 눈/큰몸 색·정확한 원본 쪽 리빌·native 자연ended/BGM 정지/초기화 몸 부분 재색칠을 확인했습니다. 이번 실제 native duration은 순서대로6.144/7.464/4.944/5.832/4.8/8.184/5.904/7.512초이며 cute-batch-game-review-1314/각key/native-final.json을 사용합니다. 일부 첫 native.json은 재생중이므로 종료 증거로 사용하지 않습니다. 실제 first/reveal/reset 이미지와 기존 sharedenginefilled 육안 재대조를 구분합니다. 작은 흰 턱/수염/발톱/배경 장식은 허용하며 모든 면 정확색 복원으로 확대하지 않습니다.
+
+Producer idle/queue0 및 원본·후보 실제SHA/history success 게이트 뒤8장 revisions 보존 교체, 코끼리3의 기존 명시median만 유지/나머지mode 유지했습니다. 13:21:55UTC 승인tests sync 정상. cute-public-review-1314/public-image-sha.json에 실제 플레이 버전URL16파일 SHA 전부 일치. 공개 실제게임은 대표 수사자2 두붓질/치타2 세붓질 및 정확한2쪽 리빌을 확인했고 나머지6장은 이번 로컬 실제게임+공개버전SHA 증거입니다. 공개 native 재검증으로 확대하지 않습니다. review.json cuteBatchGameReview1314/cutePublicBatchReview1314/playEvidence와 batch-decision.json에 검증 범위를 구분했습니다.
+
+현재 귀여운 공개28장/남은174장, 전체 개편 완료는 아닙니다. 다른5분류·6탭730 유지, 새Qwen/코드수정/mainpush/운영등록 없음. 임시 로컬8+공개2 탭을 닫고 사용자갤러리/기존 서버 보존했습니다. 정상 후보 묶음 검수·반영을 계속하고 심한 이상만 후속 수정합니다.
