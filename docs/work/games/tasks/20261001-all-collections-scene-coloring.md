@@ -386,3 +386,8 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 해당새그림의색만제거하는별도Qwen2aa02565-50d3-42f1-a867-d2cacc5ec777(exec70575), candidate-batches/20261002-0123-fox-color-removal 정상종료. candidateSHAca4527251f111b62399847e83081218e0c2364ad9e981cfeb6baf74438c77fc5, 인물컬러삭제/크림경계·발끝윤곽유지했지만배경분홍/민트노이즈4591px0.4344%로흑백실패기각. 발가락형태단순화후속도유지. 두request/worker/PNG/graph/history/status/원본참조SHA/이전repairs 및 review-decision.json/foxColorBoundariesCandidateReview0123/foxColorRemovalCandidateReview0123 보존. 실패후보후속filled/플레이안함, 미승인미적용미게시·재제출금지.
 
 새승인0/공개730장·승인10대기720유지. 게임 MEMORY 첫문단의오래된첫시험8장/생성중상태를전체730장및명시승인10/대기720와task최신절참조로정정. 코드/런타임기준/팔레트/색보정변경없음·추가push/운영등록없음. 마지막queue0/두worker종료, 기존서버/갤러리보존·임시탭없음. 관련문서diff/경로검사 및task/MEMORY만로컬커밋. 다음에도흰면본래색/원본경계누락/최소면적제외를구분하고반복지시의실제준수여부를검수한다.
+
+
+## 2026-10-02 — 사용자 직접 검수 우선
+
+사용자: “내가 먼저 검수할께”. 사용자 검수 동안 현재 공개 시험판730장/6탭을 보존하고 자동 수정·교체를 멈춘다. automation-2를 PAUSED로 변경했다. 책 이름/쪽수 또는 스크린샷 피드백을 받아 해당 장면부터 수정하며 사용자 재개 지시 전 자동화를 다시 활성화하지 않는다. 생성730/명시최종승인10/대기720는 기술 검수 상태이며 사용자 직접 검수 결과와 구분한다. 추가 게시/push 없음.
