@@ -41,6 +41,8 @@ def main(height_only=False):
     if height_only:
         for name in ("mirror_tray", "angle_pinion", "angle_lever"):
             del factories[name]
+    if height_only:
+        factories["height_index_pin"] = lambda: b.shaft(24.6,1.9,15.5,-5.7,0.72)
     data = {name: mesh_data(factory()) for name, factory in factories.items()}
     config = {
         "heightOnly": height_only,
@@ -140,6 +142,37 @@ update();frame();
         html=html.replace('두 레버를 D자 축에','높이 레버를 D자 축에')
         html=html.replace('<span><i class="swatch" style="background:#8661b5"></i>각도 톱니</span>','')
         html=html.replace('부품 삽입 경로·거울 ±5°·폰 깊이','부품 삽입 경로·고정 거울 33°·폰 깊이')
+        html=html.replace("let inside=false,exploded=false,phoneVisible=true;", "colors.height_index_pin='#e2b529';make('height_index_pin');let inside=false,exploded=false,phoneVisible=true;")
+        html=html.replace('<p class="small">바깥에서는', '<p class="small"><b>오른쪽 구멍 5개 = 높이 고정:</b> 노란 돌기가 구멍에 걸려 높이를 유지합니다. 구멍 간격 2.5mm, 전체 이동 10mm입니다. 왼쪽 톱니는 이동용, 오른쪽 구멍은 고정용입니다.</p><p class="small">바깥에서는')
+        html=html.replace('<div class="card"><div class="btns">','<div class="card"><h2>기어 넣는 순서</h2><button id="assembly" type="button" aria-pressed="false">기어 조립 보기</button><div id="assemblyPanel" hidden><div class="track"><strong id="assemblyValue">① 기어 넣기 전</strong></div><input id="assemblyStep" aria-label="기어 조립 단계" type="range" min="0" max="3" step="1" value="0"><p id="assemblyNote" class="small"></p><p class="small">반투명 본체는 위치를 보여 주기 위한 표시입니다. 본체를 닫고 옆 뚜껑을 뺀 상태에서 조립합니다.</p></div></div><div class="card"><div class="btns">')
+        html=html.replace("let inside=false,exploded=false,phoneVisible=true;", """let inside=false,exploded=false,phoneVisible=true,assembling=false,savedDepth=10;
+const insertionArrow=new THREE.ArrowHelper(new THREE.Vector3(-1,0,0),new THREE.Vector3(55,cfg.heightY,cfg.heightZ),29,0xcb4e44,4,2);scene.add(insertionArrow);insertionArrow.visible=false;
+const assemblyTitles=['① 기어 넣기 전','② 기어를 끝까지 넣기','③ 옆 뚜껑 닫기','④ 바깥 레버 끼우기'];
+const assemblyNotes=['옆 뚜껑과 레버를 먼저 빼세요. 기어의 긴 축 끝을 빨간 화살표 방향으로 본체 안쪽 축 구멍에 넣습니다.','받침을 가장 높은 위치에 놓고 톱니를 맞춥니다. 축이 구멍에 들어가며 기어 원판은 옆 공간 안에 남습니다.','기어축 바깥쪽 끝을 옆 뚜껑의 작은 구멍으로 통과시키며 뚜껑의 세 핀을 끼웁니다. 기어 원판은 이 구멍을 통과하지 않습니다.','뚜껑 밖으로 나온 D자 축에 레버의 D자 구멍을 맞춰 끼웁니다. 레버는 기어·뚜껑 조립 후 끼웁니다.'];
+""")
+        html=html.replace(' paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ-(exploded?17:0));}', """ paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ-(exploded?17:0));
+ objects.height_pinion.position.x=0;objects.height_lever.position.x=exploded?20:0;
+ objects.foam.visible=true;objects.height_index_pin.visible=inside||assembling||exploded;objects.height_index_pin.position.x=exploded?38:0;
+ insertionArrow.visible=assembling&&Number(document.getElementById('assemblyStep').value)===0;
+ objects.shell_right.material.transparent=assembling;objects.shell_right.material.opacity=assembling?.22:1;
+ document.getElementById('depth').disabled=assembling;document.getElementById('inside').disabled=assembling;document.getElementById('explode').disabled=assembling;
+ if(assembling){
+  const step=Number(document.getElementById('assemblyStep').value);
+  objects.shell_left.position.x=0;objects.shell_right.position.x=0;objects.shell_left.visible=true;objects.shell_right.visible=true;
+  objects.height_slider.position.set(0,0,0);objects.height_slider.material.color.set('#4a78cf');heightGroup.rotation.x=0;heightGroup.position.set(0,cfg.heightY,cfg.heightZ);
+  objects.height_pinion.position.x=step===0?18:0;objects.height_lever.position.x=step<3?54:0;
+  objects.gear_cover.position.x=step<2?34:0;objects.gear_cover.visible=true;
+  objects.phone.visible=false;objects.camera_lens.visible=false;objects.rear_cover.visible=false;objects.foam.visible=false;trayGroup.visible=false;
+  paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ);
+  document.getElementById('assemblyValue').textContent=assemblyTitles[step];document.getElementById('assemblyNote').textContent=assemblyNotes[step];
+ }else{trayGroup.visible=true;}
+}
+const assemblyButton=document.getElementById('assembly');assemblyButton.addEventListener('click',()=>{assembling=!assembling;assemblyButton.setAttribute('aria-pressed',String(assembling));document.getElementById('assemblyPanel').hidden=!assembling;
+ if(assembling){savedDepth=document.getElementById('depth').value;document.getElementById('depth').value='0';inside=false;exploded=false;document.getElementById('inside').setAttribute('aria-pressed','false');document.getElementById('explode').setAttribute('aria-pressed','false');camera.position.set(135,-70,40);orbit.target.set(25,cfg.heightY,2);orbit.update();}
+ else{document.getElementById('depth').value=savedDepth;orbit.target.set(0,-5,-5);orbit.update();}update();});
+document.getElementById('assemblyStep').addEventListener('input',update);
+""")
+
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
     path = g.OUT / ("tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
