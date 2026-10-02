@@ -527,3 +527,14 @@ full-collection/review-workspace/player-seahorse2-1213/player-parasaur1-1213/pla
 Producer idle/queue0 및 원본·후보 실제SHA/history success 게이트 뒤8장 revisions 보존 교체, 코끼리3의 기존 명시median만 유지/나머지mode 유지했습니다. 13:21:55UTC 승인tests sync 정상. cute-public-review-1314/public-image-sha.json에 실제 플레이 버전URL16파일 SHA 전부 일치. 공개 실제게임은 대표 수사자2 두붓질/치타2 세붓질 및 정확한2쪽 리빌을 확인했고 나머지6장은 이번 로컬 실제게임+공개버전SHA 증거입니다. 공개 native 재검증으로 확대하지 않습니다. review.json cuteBatchGameReview1314/cutePublicBatchReview1314/playEvidence와 batch-decision.json에 검증 범위를 구분했습니다.
 
 현재 귀여운 공개28장/남은174장, 전체 개편 완료는 아닙니다. 다른5분류·6탭730 유지, 새Qwen/코드수정/mainpush/운영등록 없음. 임시 로컬8+공개2 탭을 닫고 사용자갤러리/기존 서버 보존했습니다. 정상 후보 묶음 검수·반영을 계속하고 심한 이상만 후속 수정합니다.
+
+
+## 2026-10-02 14:15 UTC — 귀여운 정상 도안9장 묶음 반영, 공개37장
+
+실제Git root/branch/status/worktree와handoff/games 문서·CLAUDE/최신09476677절을 읽고 실제Comfy8190 commandline/queue0·producer없음을 확인했습니다. 기존완료 full202/후속배치 재시작없음. 정상9장 파키케팔로2/펭귄2/하마2/호랑나비2/흰동가리2/사슴벌레유충9/이구아노7/토끼4/코끼리10을5205 실제ColoringPlayer에서 전체붓질·큰몸/친근눈·정확한쪽리빌·초기화/부분몸붓질 검수했습니다. cute-batch-game-review-1415의first/brush/last/reveal/native/reset/verified-body-partial 및 실제게임 비교contact 증거. 저장sharedfilled next-ten-filled는 별도비교이며 실제붓질증거로 확대하지 않습니다.
+
+이번 native 자연ended8장 duration: 파키8.352/펭귄5.16/나비5.112/흰동가리4.2/유충8.52/이구아노6.84/토끼8.76/코끼리5.16초. 토끼첫native.json은재생중이고native-final을사용합니다. 하마는 한국어native미제공/한국어fallback읽기경로이므로 native자연ended를 주장하지 않으며 정상 큰몸게임을 불필요하게 보류하지 않습니다. 유충/흰동가리 첫reset붓질은목표몸미도달/첫물감이배경이라reset몸재색칠증거로세지않고 새판verified-body-partial의크림몸/주황몸 실제부분붓질로구분합니다. 모피/작은흰부리발톱/작은주변개체간소화 허용, 큰몸/눈확인. 사과5 추가발캐릭터는식물학습후속으로 이번교체에서제외했습니다.
+
+9장 실제원본/후보SHA/historysuccess 게이트후revisions보존 교체·mode/기존명시값유지,14:22:37UTC 승인tests sync 정상. 귀여운공개총37장/남은165장,다른5분류·6탭730보존. cute-public-review-1415/public-image-sha.json 버전URL18파일실제다운로드SHA 전부일치. 공개대표 나비2/코끼리10 실제붓질·정확한원본2/10쪽리빌 확인. 나비첫붓질초기준비중이후두번째정상완료,코끼리first 검정전환화면은큰몸색증거아니며리빌과로컬큰몸검수분리. 공개native새재생검증으로확대하지않음. review cuteBatchGameReview1415/cutePublicBatchReview1415/playEvidence와batch-decision에실제검수범위구분.
+
+정상후보다음8장 북극곰6/달팽이15/디메트로돈11/여우2/연꽃2/원숭이2/치타12/코뿔소2 게임대기큐20261002-cute-nature-1415-next-game-queue.json작성;선정은승인아님. 정상도안은묶음공개,심한검정눈/큰몸열림/학습변경만재작화하며전체202범위유지. 이번새Qwen/코드수정/mainpush/운영등록없음. 새검수탭모두닫고사용자갤러리·기존서버보존. 초기검수9탭이외부에서닫혀stale오류가난후현재갤러리75보존/새3탭씩재연결하여검수완료,다른브라우저로전환없음. 관련task만로컬커밋. 전체개편미완료/개별진척조용히유지.
