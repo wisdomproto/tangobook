@@ -538,3 +538,12 @@ Producer idle/queue0 및 원본·후보 실제SHA/history success 게이트 뒤8
 9장 실제원본/후보SHA/historysuccess 게이트후revisions보존 교체·mode/기존명시값유지,14:22:37UTC 승인tests sync 정상. 귀여운공개총37장/남은165장,다른5분류·6탭730보존. cute-public-review-1415/public-image-sha.json 버전URL18파일실제다운로드SHA 전부일치. 공개대표 나비2/코끼리10 실제붓질·정확한원본2/10쪽리빌 확인. 나비첫붓질초기준비중이후두번째정상완료,코끼리first 검정전환화면은큰몸색증거아니며리빌과로컬큰몸검수분리. 공개native새재생검증으로확대하지않음. review cuteBatchGameReview1415/cutePublicBatchReview1415/playEvidence와batch-decision에실제검수범위구분.
 
 정상후보다음8장 북극곰6/달팽이15/디메트로돈11/여우2/연꽃2/원숭이2/치타12/코뿔소2 게임대기큐20261002-cute-nature-1415-next-game-queue.json작성;선정은승인아님. 정상도안은묶음공개,심한검정눈/큰몸열림/학습변경만재작화하며전체202범위유지. 이번새Qwen/코드수정/mainpush/운영등록없음. 새검수탭모두닫고사용자갤러리·기존서버보존. 초기검수9탭이외부에서닫혀stale오류가난후현재갤러리75보존/새3탭씩재연결하여검수완료,다른브라우저로전환없음. 관련task만로컬커밋. 전체개편미완료/개별진척조용히유지.
+
+
+## 2026-10-02 15:15 UTC — 正常8장 실제 게임 검수·공개45장
+
+최신555422a5/실제status·Comfyqueue0/producer없음/갤러리75보존 확인. 다음8큐의북극곰6/달팽이15/벨로키라프토르11/여우2/연꽃2/원숭이2/치타12/코뿔소2를5205 실제게임전체붓질·큰몸/친근눈·정확한쪽리빌/native자연ended/BGM정지/reset부분붓질 검수했습니다. 이전큐기록의디메트로돈11은잘못된이름이며실제1773720291702-p11은벨로키라프토르로정정합니다. duration순서10.08/8.472/8.664/4.032/9.48/6.672/5.544/6.792초, cute-batch-game-review-1515 native 또는native-final/first/partial/reset/reveal 실제증거보존. 체크무늬부분붓질은미완료표시이며큰몸경계실패아님. 연꽃은분홍꽃잎/줄기/꽃형태학습유지·작은미소만허용,동물몸/발추가없음. 모피/작은흰발·가슴·장식단순화허용/전색정확복원으로확대하지않음.
+
+8원본후보실제SHA/historysuccess·idle게이트후revisions보존교체/mode유지,15:20:42UTC승인tests sync정상. 현재귀여운공개45장/남은157장·6탭730/다른5분류유지,전체개편미완료. cute-public-review-1515 버전URL16다운로드SHA통과,공개대표연꽃2/코뿔소2 실제전체붓질·정확한2쪽리빌 확인. 공개native새검증과로컬native구분. review cuteBatchGameReview1515/cutePublicBatchReview1515/playEvidence 갱신,임시탭닫음/갤러리보존/새Qwen·코드수정·mainpush·운영등록없음.
+
+진행중사용자“얼마나 남은거야” 질문에45완료/157남음,전체그림생성완료·게임검수반영중이라고응답. 정상도안묶음검수를계속하고심한검정눈/큰몸열림/학습내용변경만자율재작화합니다. 저장증거를새재생으로확대하지않음. 관련task만로컬커밋.
