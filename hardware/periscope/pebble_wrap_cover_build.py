@@ -11,6 +11,8 @@ def main():
     assert all(n==1 for n in r["solids"].values()),r["solids"]
     assert all(v==0 for group in r["checks_mm3"].values() for v in group.values()),r["checks_mm3"]
     assert all(v>0 for v in r["front_capture_backward_shift_mm3"].values())
+    assert all(v==0 for group in r["rear_panel_checks_mm3"].values() for v in group.values()),r["rear_panel_checks_mm3"]
+    assert all(v>0 for v in r["rear_panel_backload_contact_mm3"].values())
     rays=w.outgoing_ray_report()
     assert all(v==0 for v in rays.values()),rays
     (w.OUT/"wrap_cover_report.json").write_text(json.dumps(r,indent=2))

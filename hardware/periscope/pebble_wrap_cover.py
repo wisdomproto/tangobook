@@ -89,12 +89,12 @@ def hooks():
 @lru_cache(None)
 def sleeve():
     outer=(cq.Workplane("YZ").workplane(offset=-LEFT_OUTER_X)
-           .polyline(g.rounded_outline(ENTRY_Y,b.BACK+6,b.BOTTOM-2,b.TOP+2,9))
+           .polyline(g.rounded_outline(ENTRY_Y,b.BACK+18,b.BOTTOM-2,b.TOP+2,9))
            .close().extrude(LEFT_OUTER_X+OUTER_X))
     outer=outer.edges(">X or <X").fillet(2.5)
-    inner=b.box(-LEFT_INNER_X,INNER_X,b.FRONT-.35,b.BACK+3.55,b.BOTTOM-.35,b.TOP+.35)
+    inner=b.box(-LEFT_INNER_X,INNER_X,b.FRONT-.35,b.BACK+15.55,b.BOTTOM-.35,b.TOP+.35)
     front_cavity=(cq.Workplane("YZ").workplane(offset=-LEFT_INNER_X)
-                  .polyline(g.rounded_outline(b.FRONT-.35,b.BACK+3.55,b.BOTTOM-.35,b.TOP+.35,4.35))
+                  .polyline(g.rounded_outline(b.FRONT-.35,b.BACK+15.55,b.BOTTOM-.35,b.TOP+.35,4.35))
                   .close().extrude(LEFT_INNER_X+INNER_X))
     front_cavity=front_cavity.intersect(b.box(-60,60,-100,b.FRONT+7,-100,100))
     inner=front_cavity.union(inner.intersect(b.box(-60,60,b.FRONT+7,100,-100,100)))
@@ -119,18 +119,58 @@ def sleeve():
         skin=skin.cut(b.box(x0,x1,-7.7,-.3,7.3,8.0).edges("|X").fillet(.3))
     return skin
 
+# Rear panel is pushed along -Y after the foam-free outer sleeve is seated.
+LATCH_Z=(-5.0,10.0)
+
+def panel_hooks():
+    result=None
+    for sign in (-1,1):
+        for z in LATCH_Z:
+            pts=[(sign*30.7,26.0),(sign*30.7,29.0),
+                 (sign*31.6,29.0),(sign*31.6,28.3)]
+            hook=cq.Workplane("XY").workplane(offset=z-3).polyline(pts).close().extrude(6)
+            result=hook if result is None else result.union(hook)
+    return result
+
 @lru_cache(None)
 def rear_cover():
-    bridge=b.box(-31.0,35.5,b.BACK+3.55,b.BACK+4.8,b.BOTTOM+8,b.TOP-8)
-    lower=b.box(-17,17,b.BACK-.5,b.BACK+4.8,b.BOTTOM+8,a.STOP_TOP-10.35)
-    upper=b.box(-17,17,b.BACK-.5,b.BACK+4.8,a.STOP_TOP+2.75,b.TOP-2)
-    inner_plate=k.rear_cover()
-    for x,z in k.REAR_POS:inner_plate=inner_plate.cut(k.pin((x,16.4,z),(0,-1,0)))
-    return cut_reflected(inner_plate.union(sleeve()).union(bridge).union(lower).union(upper).union(hooks())).cut(b.box(-60,60,-100,-.55,-100,0))
+    skin=sleeve().union(hooks())
+    # The wide rear opening admits both the glued foam and backing without a Z sweep.
+    skin=skin.cut(b.box(-28.85,28.85,16,100,-100,b.TOP+.35))
+    for sign in (-1,1):
+        for z in LATCH_Z:
+            x0,x1=sorted((sign*28.75,sign*(OUTER_X if sign>0 else LEFT_OUTER_X)))
+            pad=b.box(x0,x1,25.6,39.9,z-4.7,z+4.7)
+            skin=skin.union(pad)
+            x0,x1=sorted((sign*28.0,sign*31.15))
+            skin=skin.cut(b.box(x0,x1,25.5,100,z-3.35,z+3.35))
+            x0,x1=sorted((sign*31.0,sign*31.95))
+            skin=skin.cut(b.box(x0,x1,25.7,29.35,z-3.35,z+3.35))
+    return cut_reflected(skin).cut(b.box(-60,60,-100,-.55,-100,0))
+
+@lru_cache(None)
+def rear_panel():
+    # Only the foam backing and upper support enter the body. The old rear
+    # housing wall swept through the slider crossbar during rear insertion.
+    inner=b.box(-9.1,9.1,fixed.FOAM_BACK,b.BACK,b.FOAM_Z-3.7,b.FOAM_Z+3.7)
+    plate=b.box(-28.5,28.5,37.55,40,b.BOTTOM+8,b.TOP+.1).edges("|Y").fillet(1.5)
+    upper=b.box(-17,17,fixed.FOAM_BACK,38,b.FOAM_Z+3.5,b.TOP-2)
+    panel=inner.union(plate).union(upper)
+    for sign in (-1,1):
+        for z in LATCH_Z:
+            x0,x1=sorted((sign*29.0,sign*30.8))
+            beam=b.box(x0,x1,26,39.8,z-3,z+3)
+            x0,x1=sorted((sign*28.0,sign*30.8))
+            root=b.box(x0,x1,38.2,40,z-3,z+3)
+            panel=panel.union(beam).union(root)
+    bounds=(cq.Workplane("YZ").workplane(offset=-40).polyline(g.rounded_outline(ENTRY_Y,b.BACK+18,b.BOTTOM-2,b.TOP+2,9)).close().extrude(80))
+    return cut_reflected(panel.union(panel_hooks()).intersect(bounds))
 
 def report():
     left,right,cover=shell_left(),shell_right(),rear_cover()
     hard=left.union(right).union(service_lid())
+    panel=rear_panel()
+    assembled=hard.union(cover).union(panel)
     smooth=cover.cut(hooks())
 
     front_lip=cover.intersect(b.box(-60,60,-100,b.FRONT+7,-100,100))
@@ -143,19 +183,33 @@ def report():
     checks={
       "hooks_with_ideal_outward_shift":{str(t):v(shifted_hooks.translate((0,0,t)),hard) for t in (0,.5,1,2,3,5,8,12,20,35,50)},
       "top_down_entry_without_hooks":{str(t):v(smooth.translate((0,0,t)),hard.union(pinion())) for t in (0,.25,.5,1,2,3,5,8,12,20,35,50)},
-      "slider":{str(d):v(height_slider().translate((0,0,-d)),hard.union(cover)) for d in (0,2.5,5,7.5,10)},
-      "phone":{f"{w}/{d}":v(b.phone(w,-d),hard.union(cover)) for w in (7,9,11) for d in (0,5,10)},
-      "camera":{str(d):v(a.camera_tunnel(0,-d),hard.union(cover)) for d in (0,2.5,5,7.5,10)},
-      "paddle":{str(t):v(a.adjustable_paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),(1,b.old.PIVOT_Y,b.PIVOT_Z),t),hard.union(cover)) for t in (0,8.255,17.126,27.063)},
-      "gear":{str(d):v(g.move_pinion(pinion(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),hard.union(cover)) for d in (0,2.5,5,7.5,10)},
-      "lever":{str(d):v(g.move_pinion(lever(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),hard.union(cover)) for d in (0,2.5,5,7.5,10)},
+      "slider":{str(d):v(height_slider().translate((0,0,-d)),assembled) for d in (0,2.5,5,7.5,10)},
+      "phone":{f"{w}/{d}":v(b.phone(w,-d),assembled) for w in (7,9,11) for d in (0,5,10)},
+      "camera":{str(d):v(a.camera_tunnel(0,-d),assembled) for d in (0,2.5,5,7.5,10)},
+      "paddle":{str(t):v(a.adjustable_paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),(1,b.old.PIVOT_Y,b.PIVOT_Z),t),assembled) for t in (0,8.255,17.126,27.063)},
+      "gear":{str(d):v(g.move_pinion(pinion(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
+      "lever":{str(d):v(g.move_pinion(lever(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
     }
     return {"material":"ABS candidate / PLA geometry trial","cover_wall_mm":1.9,"nominal_side_clearance_mm":.35,
       "left_unused_gear_space_removed_mm":4.4,
-      "cover_depth_mm":round(b.BACK+6-ENTRY_Y,3),"snap_tongue_width_mm":6,"snap_tongue_length_mm":14.5,
+      "cover_depth_mm":round(b.BACK+18-ENTRY_Y,3),"snap_tongue_width_mm":6,"snap_tongue_length_mm":14.5,
       "hook_overlap_mm":.6,"lever_outward_shift_mm":LEVER_SHIFT,
       "front_capture_backward_shift_mm3":{str(t):v(front_lip.translate((0,t,0)),hard) for t in (.5,1,2)},
-      "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"cover":cover,"lid":service_lid(),"gear":pinion()}.items()},"checks_mm3":checks}
+      "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"cover":cover,"lid":service_lid(),"gear":pinion(),"panel":panel}.items()},"checks_mm3":checks,"rear_panel_checks_mm3":panel_report(hard,cover),"rear_panel_assembly_slider_down_mm":10,"rear_panel_hook_count":4,"rear_panel_backload_contact_mm3":{str(t):v(panel.translate((0,t,0)),cover) for t in (.5,1,2)},"panel_beam_mm":{"length":12.2,"width":6,"thickness":1.8,"hook_projection":.8}}
+
+def panel_report(hard,cover):
+    def v(p,q):return round(b.volume(p.intersect(q)),5)
+    panel=rear_panel();smooth=panel.cut(panel_hooks())
+    fixed=hard.union(cover).union(height_slider().translate((0,0,-10))).union(a.adjustable_paddle())
+    # Exclude hooks for rigid entry; ideal hook translation checks receiving clearance.
+    shifted=None
+    for sign in (-1,1):
+        half=panel_hooks().intersect(b.box(-60,0,-100,100,-100,100) if sign<0 else b.box(0,60,-100,100,-100,100))
+        half=half.translate((-sign*.8,0,0))
+        shifted=half if shifted is None else shifted.union(half)
+    return {"rear_entry_without_hooks":{str(t):v(smooth.translate((0,t,0)),fixed) for t in (0,.25,.5,1,2,3,5,8,12,20,35)},
+            "ideal_inward_hooks":{str(t):v(shifted.translate((0,t,0)),fixed) for t in (0,.25,.5,1,2,3,5,8,12,20,35)},
+            "foam_rear_entry_excluding_tongue":{str(t):v(b.foam().translate((0,t,0)),hard.union(cover).union(height_slider().translate((0,0,-10)))) for t in (0,.5,1,2,3,5,8,12,20,35)}}
 
 def outgoing_ray_report():
     """Independent rays against added cover/left wall; original body limits remain separate."""
@@ -183,6 +237,8 @@ if __name__=="__main__":
     assert all(v>0 for v in r["front_capture_backward_shift_mm3"].values())
     assert all(n==1 for n in r["solids"].values())
     assert all(v==0 for group in r["checks_mm3"].values() for v in group.values())
+    assert all(v==0 for group in r["rear_panel_checks_mm3"].values() for v in group.values())
+    assert all(v>0 for v in r["rear_panel_backload_contact_mm3"].values())
     rays=outgoing_ray_report()
     (OUT/"front_wrap_outgoing_rays.json").write_text(json.dumps(rays,indent=2))
     assert all(v==0 for v in rays.values())

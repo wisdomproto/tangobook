@@ -36,6 +36,8 @@ def print_parts(height_only=False,modelkit=False,wrap=False):
         "height_pinion":(h.pinion() if wrap else g.pinion(*g.HEIGHT_AXIS)).rotate((0,0,0),(0,1,0),90),
         "height_lever":(h.lever() if wrap else g.lever(*g.HEIGHT_AXIS)).rotate((0,0,0),(0,1,0),90),
     }
+    if wrap:
+        parts["rear_panel"]=h.rear_panel().rotate((0,0,0),(1,0,0),-90)
     if not height_only:
         parts.update({
             "mirror_tray":g.mirror_tray().rotate((0,0,0),(1,0,0),-a.MIRROR_ANGLE),

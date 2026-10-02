@@ -47,6 +47,7 @@ def main(height_only=False,modelkit=False,wrap=False):
             del factories[name]
     if height_only:
         factories["height_index_pin"] = lambda: b.shaft(24.6,1.9,15.5,-5.7,0.72)
+    if wrap: factories["rear_panel"]=h.rear_panel
     data = {name: mesh_data(factory()) for name, factory in factories.items()}
     config = {
         "heightOnly": height_only,
@@ -194,13 +195,19 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
         html=html.replace('뒤 커버와 스폰지 장착','뒤 커버 안쪽에 스폰지를 붙이고 핀 네 개를 본체에 압입')
         html=html.replace('높이만 조절하는 스마트폰 반사경','높이 조절 반사경 · 핀·소켓 결합 시안')
     if wrap:
-        html=html.replace("objects.rear_cover.position.y=exploded?32:0","objects.rear_cover.position.y=0;objects.rear_cover.position.z=exploded?65:0").replace("objects.foam.position.y=exploded?32:0","objects.foam.position.y=0;objects.foam.position.z=exploded?65:0")
+        html=html.replace("objects.rear_cover.position.y=exploded?32:0","objects.rear_cover.position.y=0;objects.rear_cover.position.z=exploded?65:0").replace("objects.foam.position.y=exploded?32:0","objects.foam.position.y=exploded?48:0;objects.foam.position.z=0;objects.rear_panel.position.y=exploded?48:0;objects.rear_panel.visible=!inside||exploded")
         html=html.replace("높이 조절 반사경 · 핀·소켓 결합 시안","높이 조절 반사경 · 전체 덮개 시안")
         html=html.replace("본체 핀 2개·뒤 커버 핀 4개의 압입 결합 시안입니다. 양산 ABS, PLA는 형상 확인용입니다.","덮개가 본체 앞·위·양옆·뒤를 감쌉니다. 기어 없는 왼쪽은4.4mm 줄였습니다. 양옆 걸림턱은 빠짐 방지용이며 ABS 실물 체결력은 미검증입니다.")
         html=html.replace("레버는 기어·뚜껑 조립 후 끼웁니다.","레버는 기어·옆 뚜껑·전체 뒤 덮개 조립 후 끼웁니다.")
         html=html.replace("뒤 커버 핀 보기","전체 덮개 안쪽 보기").replace("짧은 핀 보기","덮개 안쪽 보기")
         html=html.replace("뒤 커버의 짧은 핀 네 개를 본체 소켓에 맞춰 누릅니다. 긴 탄성 탭은 제거했습니다. 지름 4mm 핀의 얕은 리브로 마찰 유지력을 의도하며 실제 ABS 체결력은 미검증입니다.","앞쪽 감싸는 면이 본체 앞면을 잡아 덮개가 뒤로 밀리는 것을 받습니다. 아래가 열린 덮개를 위에서 내려 씌웁니다. 양옆 수직 탄성 혀는 위로 들리는 것을 막도록 설계했습니다. 덮개를 씌운 뒤 높이 레버를 장착합니다.")
         html=html.replace("바깥에서 높이 레버를 D자 축에 끼우기 → 뒤 커버 안쪽에 스폰지를 붙이고 핀 네 개를 본체에 압입","뒤 커버 안쪽에 스폰지 붙이기 → 레버를 뺀 상태에서 덮개를 위에서 내려 씌우기 → 양옆 턱 잠그기 → 높이 레버 끼우기")
+    if wrap:
+        html=html.replace("objects.rear_cover.visible=false;", "objects.rear_cover.visible=false;objects.rear_panel.visible=false;")
+        html=html.replace("make('rear_cover');", "make('rear_cover');make('rear_panel');")
+        html=html.replace("rear_cover:'#dc995f'", "rear_panel:'#bd8158',rear_cover:'#dc995f'")
+        html=html.replace("뒤 커버 안쪽에 스폰지 붙이기 → 레버를 뺀 상태에서 덮개를 위에서 내려 씌우기 → 양옆 턱 잠그기 → 높이 레버 끼우기", "스폰지 없이 바깥 덮개를 위에서 씌우기 → 높이 레버 끼우기 → 높이 받침을 4mm 위치로 내리기 → 별도 뒤판에 스폰지 붙이기 → 뒤판을 뒤에서 정면으로 눌러 네 턱 잠그기")
+        html=html.replace("덮개를 씌운 뒤 높이 레버를 장착합니다.", "덮개를 먼저 씌우고 높이 받침을 가장 아래(4mm)로 내린 뒤, 스폰지를 붙인 별도 뒤판을 뒤에서 누릅니다. 네 걸림턱이 양옆 테두리에 걸립니다. 실제 체결력은 출력 시험 전입니다.")
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
     path = g.OUT / ("tango_pebble_wrap_cover_interactive.html" if wrap else "tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
