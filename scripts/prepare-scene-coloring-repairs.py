@@ -67,7 +67,9 @@ try:
         status['state'] = 'running'
         save()
         command = [sys.executable, str(Path(__file__).with_name('repair-classic-coloring.py')), key, item['instruction']]
-        if item.get('lineart'):
+        if item.get('reference'):
+            command.extend(['--reference', item['reference']])
+        elif item.get('lineart'):
             command.append('--lineart')
         with (output / 'worker.log').open('w', encoding='utf-8') as log:
             result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env={**os.environ, 'CLASSIC_COLORING_COMFY_URL': endpoint}, check=False)
