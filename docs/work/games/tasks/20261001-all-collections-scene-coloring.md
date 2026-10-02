@@ -405,3 +405,16 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 자연전체101권202쪽 새귀여운후보 계획 nature/20261002-cute-nature-full-collection.json을실제202manifest로작성. species/basicpose/주요subject 유지하되 둥근형태/친근한표정/이빨거친질감축소, 식물·우주에임의얼굴추가없음. 흰면/닫힌8~10px경계/원본색추출용배치 요청. prepare-scene-coloring-repairs.py에 plan.reference→--reference 지원을추가해 낡은 사실적복사 genericprompt와충돌하지않게 원본참조 전용지시사용. 기존lineart/default 동작유지. Python컴파일통과. 현재순차후보생성 exec66480 실행, nature/candidate-batches/20261002-cute-nature-full-collection/status.json·worker.lock·실제PID/8190queue/history부터확인. 후보만생성/자동교체게시없음, 실행중중복제출금지. 완료한후보부터 실제원본·선화·enginefilled·ColoringPlayer붓질/원본리빌/native읽기/BGM/reset 검수하고 심한실패자율수정. 전202귀여운생성/실제게임은아직완료아님. 다른5분류는사용자대부분괜찮다는판단에따라전면재작화하지않음.
 
 automation-2는새사용자재개지시와자연귀여운개편/실제게임기준으로ACTIVE갱신. 과거엄격사실적복사/전체730승인집착기준은새지시로대체. 공개730장6탭/기존검증된본은검증된새도안교체전까지보존. 추가mainpush/운영등록없음. 관련코드/기록만로컬커밋.
+
+
+## 2026-10-02 03:06 UTC — 귀여운 자연77후보 비교·곰/고양이 실제 게임·닫힌몸9후속
+
+실제root/branch/status/worktree HEADe2abcbc7 및 Comfy8190 PID41608/자연귀여운202후보 worker53580 actualcommandline/queue/history/status 확인. worker정상실행/77완료시점 snapshot audit; 기존서버·다른client/완료배치중단없음. 후보77개 원본/선화SHA/흑백통과, actualsharedenginefilled 및 comparison-000~076 전20시트 직접비교. snapshot manifest77/candidate-checks/audit 및 visual-review-20261002-0306.json 장별판단, active review.json의cuteCandidateReview0306에 추가. 이후생성은이번77검수아님.
+
+많은윤곽은친근해졌으나 큰몸흰면/얼굴검정/배경만채움이남아있어무조건교체없음. 강아지13·고슴도치10·늑대12·잠든다람쥐11·두더지2(0칸)·도마뱀7·두꺼비1/12 큰몸미색칠/고양이5얼굴흰면을우선수정. 갯벌12에원본없는유령추가/람포11날카로운이빨/바리오2발톱에동물머리추가도기각후속. 자연스럽게짙은몸인것과 눈까지묻히는검정덩어리구분, 단순색수만실패판정안함. 식물·과일에모델이추가한표정은새사용자귀여운취지와종식별/학습내용을함께검토하며old사실적복사강요안함.
+
+별도5205검수서버exec65868 ROOT=이번review-workspace DISABLE_PUBLISH_SCHEDULER1/사진강제median0. 걷는곰2 1777439576248-p02 새귀여운후보(이전활성곰의명시median유지)는 실제1갈색물감 전체연속붓질→정확한2쪽원본/native4.464초 naturalplayingended/BGMplaying0.16후cleanup정지/초기화후몸부분갈색재색칠. source83db015a.../candidate793dfb2457e4b93377cc9a96c52887aa729a7af6b3b4a491fe49ecd0f292ecff, player-bear2-0306/before/after-brush/native/reset-body-repaint 실제확인. 친근눈/둥근발/갈색큰몸/미소유지로 local-cute-game-approved-awaiting-safe-activation. 작은풀선/몸색단순화허용, 모든작은면정확이라고확대안함.
+
+누운고양이13 1773713269796-p13 새후보는 실제갈색#6b370f/크림#f7d7ac 2물감2전체붓질→정확한13쪽원본/native5.16초 naturalplayingended/BGMplaying후정지/reset몸부분재색칠. player-cat13-0306/before/first-color/second-brush/native/reset-body-repaint 실제확인. 큰갈색몸/작은크림발/미소로친근, 모피줄무늬단순화허용하여 local-cute-game-approved-awaiting-safe-activation. 두장모두로컬candidate만승인/미적용미게시, 활성manifest를읽는202worker진행동안활성본갱신보류. usergallery보존/임시2탭닫음. cleanup error4와validnativeended/reset후done유지구분. 공개플레이/발화전사증거아님.
+
+심한큰몸/얼굴흰면9장은새 20261002-cute-nature-0306-closed-bodies.json에candidate참조와별도닫힌큰몸/복잡배경삭제/끊긴털윤곽부드러운10px지시작성. 원본새귀여운202계획실행중변경안함. continue-cute-nature-0306.py(exec38442,실제PID는cute-nature-repair-order-0306.json참조)가전체202 all-candidates-awaiting-review 및queue비움뒤만9수정후보순차생성. 후속도중복실행/중단금지·자동적용게시없음, 생성성공만게임승인아님. 전체범위202/다른5분류보존, 아직전체귀여운개편완료아님. 코드수정없음/새게시0/추가push0,기록만로컬커밋. 다음은최신status생성분이어검수→두로컬승인도안안전교체/공개?vSHA와실제게임확인→큰몸9수정검수.
