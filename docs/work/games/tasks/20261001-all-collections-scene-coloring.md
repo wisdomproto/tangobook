@@ -371,3 +371,18 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 생활08p10 직전후보도 원본coordinate-grid/actualshared seed-diagnostic.mts/json으로후속진단. 아이크림주둥이565,405 region17 원본RGB218,166,94에도칸최빈색#cf6c0b주황, 엄마손646,503 region87은#ebb56d 별도색. 두꼬리끝region94/137 면적1525/2108px는3170px 필수최소면적보다작아미색칠. hugSeedDiagnostic0022에 저장픽셀영역/원본표본/필수제외 구분을기록, 이자료로전역기준/sourcecrop/median변경하지않음.
 
 새승인0/기존공개730장·승인10/대기720유지, 코드수정0/추가push·운영등록0. 끝8190queue0/두worker정상종료·재제출금지, 기존검수서버/사용자갤러리보존. task경로/diff확인 후관련기록만로컬커밋. 다음은여섯분류원본경계와실제색표본후속을이어가며개별진척은조용히유지.
+
+
+## 2026-10-02 01:23 UTC — 명작 저색수 장면 재대조·백조 핵심 작은 면 진단
+
+실제root/branch/status/worktree HEADf0825b2a/codex/games-classic-scene-coloring 및 Comfy8190 실제PID41608 commandline/queue0 확인. 기존미추적 scripts/__pycache__·다른작업 보존, 완료배치 재시작없음. 전6manifest730생성/명시승인10·대기720 현재조회(review-counts-20261002-0123.json); 기존 승인 증거는 저장판정이며 이번 브라우저/native 재생은 없었다.
+
+명작 activeaudit에서1~3색/필수10칸이하/칠면적15~50% 10장만 보조후보로 추려 원본과 filled를 실제 시트 대조. 수치로 승인하지 않으며 review-20261002-0123/screening.jpg·screening-review.json 및 장별screeningReview0123에 기록. 눈여왕1의순록큰몸흰면/두아이피부청회색, 라푼젤2탑바깥여백합침, 미운오리1회색아기흰면/형제색, 신밧드3큰고래위주인공흰면/큰새바깥여백합침, 어린왕자1장미꽃빨강소실, 엄지3소녀분홍옷/제비붉은얼굴흰면 등은 미승인 유지.
+
+백조 미운오리3 1789350946374-p13은1마리날개자세/자연스러운회백색 몸 자체가 실패는 아님. actualsharedengine seed-diagnostic.mts/json에서 bodyregion2/170603px/#d3d1cc, 주황부리위region3/881px·아래region5/416px, 발region21/1861px·20/2252px가모두필수3170px미만이어서제외됨을확인. 부리sourceRGB23114142로주황을잘읽을수있는위치이나 requiredfalse. 경계열림/최빈색오류와필수최소면적제외를구분하며 임의기준변경·주인공확대·게임승인근거로사용하지않음. 원본종핵심부리/발색은후속, 저장픽셀진단만.
+
+생강빵3 1789350946364-p11은고해상도원본에서흰주둥이/가슴과검정발끝을현재도안이오렌지큰몸과분리하지못한것을확인. 원본흰꼬리끝이종이흰면으로남는것자체는실패아니라고메모반증수정. 원본사진참조Qwen8cd89a76-9fd9-4865-abde-6b2a9406e1f5(exec18389), candidate-batches/20261002-0123-fox-white-muzzle-black-socks 정상종료/sourceSHA1ccceb58d1c9acfb02a602dc28a8c9bb2ca133d50c457b004e35f1206c8c8e27/candidateSHA9b86789b4d9b05433b2f5ca52c552a09079186a0f9eb62a3d02d36866000fd4a. 크림주둥이/가슴/검정발경계를복원했지만전체컬러페이지222557유색px21.0602%로흑백실패기각. 실제원본/새PNG대조, enginefilled·브라우저미검증.
+
+해당새그림의색만제거하는별도Qwen2aa02565-50d3-42f1-a867-d2cacc5ec777(exec70575), candidate-batches/20261002-0123-fox-color-removal 정상종료. candidateSHAca4527251f111b62399847e83081218e0c2364ad9e981cfeb6baf74438c77fc5, 인물컬러삭제/크림경계·발끝윤곽유지했지만배경분홍/민트노이즈4591px0.4344%로흑백실패기각. 발가락형태단순화후속도유지. 두request/worker/PNG/graph/history/status/원본참조SHA/이전repairs 및 review-decision.json/foxColorBoundariesCandidateReview0123/foxColorRemovalCandidateReview0123 보존. 실패후보후속filled/플레이안함, 미승인미적용미게시·재제출금지.
+
+새승인0/공개730장·승인10대기720유지. 게임 MEMORY 첫문단의오래된첫시험8장/생성중상태를전체730장및명시승인10/대기720와task최신절참조로정정. 코드/런타임기준/팔레트/색보정변경없음·추가push/운영등록없음. 마지막queue0/두worker종료, 기존서버/갤러리보존·임시탭없음. 관련문서diff/경로검사 및task/MEMORY만로컬커밋. 다음에도흰면본래색/원본경계누락/최소면적제외를구분하고반복지시의실제준수여부를검수한다.
