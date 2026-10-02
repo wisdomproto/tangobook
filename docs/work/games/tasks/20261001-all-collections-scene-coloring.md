@@ -507,3 +507,12 @@ Producer종료/queue0/원본후보SHA/history성공게이트후검증된두장�
 하마2/프로토2를새5205탭에서실제재색칠. 하마 한국어ttsUrl=null/영어번역만native있는 실제manifest확인으로 이전native항목없음 원인을규명. 한국어읽기fallback 완료표시는있으나 한국어native 자연ended/발화전사로세지않음, 큰갈색몸/친근얼굴/reset코부분색칠 증거보존·미적용. 프로토2는이번native7.92 자연playing/ended/BGM정지까지기다린후reset몸부분재색칠 실제스크린샷확인; 이전10:11 중단증거는그대로보존. player-proto2-1112/native-after-end/reset-repaint 및cuteNativePlayReview1112. 큰갈색몸/반짝눈·프릴보존/작은흰발톱허용, 이번후보 f992d3903ace1236c020045342a8ae74fec6ffa763b67c413791608635c6208a 원본/SHA/history게이트후교체. 11:18:11UTC승인tests sync정상, 공개3물감3전체붓질/갈색큰몸·정확한2쪽리빌확인.
 
 cute-public-review-1112의first/reveal 및 public-image-sha.json에세장버전URL6다운로드SHA 전부일치보존. review.json cutePublicReview1112/승인playEvidence 갱신, next-game-queue 세장published. 현재귀여운공개총17장, 전체202개편완료아님. 다른5분류/6탭730보존·새Qwen/코드수정/추가push/운영등록없음. 사용자갤러리/기존서버보존·새임시탭닫음. 다음은해마전체색칠/파라1·펭귄3완료전색캡처와 양호한전체후보게임검수, 심한검정얼굴·열린몸/우주후속 자율수정을이어감. 작은면간소화허용을전색정확으로확대금지,done reset뒤유지/cleanup error4와유효ended 구분. 관련task로컬커밋·개별진척조용히유지.
+
+
+## 2026-10-02 12:13 UTC — 해마·수영펭귄·긴볏공룡 실제검수와 공개20장
+
+85e8538a 최신task/status와queue0확인, 기존미추적pycache/서버/다른분류보존. 5205 full202후보에서해마2/파라사우롤로푸스1/펭귄3 실제CUA색칠재검수. 해마는7물감5전체붓질 뒤 주황 큰몸/작은눈/말린꼬리·배경해초색/청회색작은지느러미 및 정확한2쪽리빌/native4.224자연ended/BGM정지/reset 주황몸부분색 확인. 3붓질미완료는 정상물감진행이며 조기완료/엔진실패로단정하지않음. 파라1/펭귄3는새실제한긴붓질자동색전환/정확한1·3쪽/native9.504·6.384자연ended/BGM정지/reset절반몸색칠→나머지몸색칠 및새판재완료의별도자연ended 확인. body-partial.png는첫160점까지만칠한화면이며흰몸실패가아님. 저장sharedfilled도별도육안재대조해파라긴볏·미소·눈반짝임/짙은회녹색큰몸,펭귄눈/두회색큰몸배·수영자세확인. 파라주변숲흰장식/펭귄작은흰부리꼬리간소화허용, 모든배경색/노란부리정확복원으로확대하지않음. actual게임스크린샷과저장filled의증거구분.
+
+full-collection/review-workspace/player-seahorse2-1213/player-parasaur1-1213/player-penguin3-1213 first/brush2~6/native-after-end/native-final/body-partial/reset-body증거 및 review cuteNativePlayReview1213. native cleanup error4/유효ended와done reset뒤유지구분. 실제원본후보SHA/history성공/producer없음게이트후세장revisions보존교체: 해마2 e2cf4671c7923e1c2db83098256b7a9826b4f384e8df3c9747bf6e722dc4724b,파라1 ce2f9611880a3d023e81b5651db54f00a6594662e78f478953817a805c0c581b,펭귄3 c6322a099333ae9d688f3153ffc33d1304a617593f77815e395b5ff1e5c5a9b5. mode유지/전사진median자동적용없음. 승인tests sync12:17:39UTC정상,공개실제해마7물감5붓질/파라1붓질/펭귄2물감1긴자동전환붓질·정확한2/1/3쪽리빌확인. cute-public-review-1213 first/reveal/public-image-sha.json 버전URL6다운로드SHA전부일치. 공개붓질과localnative구분/발화전사아님.
+
+현재귀여운공개20장/다른5분류·6탭730보존,자연202전체개편미완료. 이번새Qwen/코드수정/mainpush/운영등록없음. 기존0911게임대기목록은하마한국어native미제공구분외6장실제승인공개완료. 다음양호한full후보8장뱀8/수사자2/상어15/악어6/치타2/케찰2/코끼리3/타르보2의대표실제게임큐20261002-cute-nature-1213-next-game-queue.json작성; 목록선정은승인아님. 우주열림/검정눈/큰몸열림자율수정후속과전체202게임검수지속. 이번임시6탭모두닫음/사용자갤러리·기존서버보존. 관련task만로컬커밋,개별진척조용히유지.
