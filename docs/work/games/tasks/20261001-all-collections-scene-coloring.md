@@ -498,3 +498,12 @@ Producer종료/queue0/원본후보SHA/history성공게이트후검증된두장�
 하마2는 친근갈색몸/리빌확인하지만 저장native항목없어 자연ended추가필요. 해마2는3붓질에도 진행중/복잡한배경이며 색칠완료·몸목표reset/native검수남음, 조기완료추론없음. 프로토2 native7.92 중5.139초 reset으로중단했으므로 완료로세지않고 reset전환중화면도 재색칠증거아님. 파라사우롤로푸스1 native9.504/펭귄3 native6.384 자연ended/BGM정지/reset부분확인했으나 전체몸색/얼굴·배부리완료전 캡처후 최종판단. harness done reset뒤유지/cleanup error4와유효ended구분. 애벌레와트리케라톱스 외 자동승인없음.
 
 공개귀여운14장/6탭730/다른5분류보존, 새Qwen제출·활성교체·게시·코드수정·push없음. queue0 사전확인/다른client서버보존·이번7임시탭닫음/사용자갤러리보존. 다음은로컬승인2장 source/candidate/history SHA게이트후안전교체·공개실제붓질/버전SHA확인, 나머지5필요한증거재검증을이어감. 관련task만로컬커밋. 자연202전체개편완료아님/개별진척조용히유지.
+
+
+## 2026-10-02 11:12 UTC — 귀여운 애벌레·두공룡 공개17장
+
+실제Git/root/branch/status/worktree·handoff/games문서/CLAUDE 최신5d0e9925절 확인. 실제8190 commandline/queue0와 색칠producer없음 확인. full202 후보상태 all-candidates-awaiting-review와 source/candidate 실제SHA/history success를 대조한후 이전로컬승인 애벌레8 1777603478247-p08(85a1b5f71ffdd47a30d4df99c2d00d6c6fad76584e3e3b9b0c8c137096dd836d)·트리케라톱스2 1773739549787-p02(cc1bbeba671636892e0afe02a0094942069c27f22b7315eb2c98d08efe444009)만 revisions보존 교체. 11:13:57UTC 승인tests sync정상. 공개실제 애벌레3물감2전체붓질·연두몸/주황뿔/정확한8쪽리빌, 트리케라톱스1물감1붓질·큰짙은몸/눈유지/정확한2쪽리빌 확인. local1011 자연native8.28/8.352 증거와 이번공개붓질 구분, 이번public native 재검증은아님. 공개팔레트트리케라톱스 #312916표시/실제짙은올리브몸 확인, 전역sampling변경없음.
+
+하마2/프로토2를새5205탭에서실제재색칠. 하마 한국어ttsUrl=null/영어번역만native있는 실제manifest확인으로 이전native항목없음 원인을규명. 한국어읽기fallback 완료표시는있으나 한국어native 자연ended/발화전사로세지않음, 큰갈색몸/친근얼굴/reset코부분색칠 증거보존·미적용. 프로토2는이번native7.92 자연playing/ended/BGM정지까지기다린후reset몸부분재색칠 실제스크린샷확인; 이전10:11 중단증거는그대로보존. player-proto2-1112/native-after-end/reset-repaint 및cuteNativePlayReview1112. 큰갈색몸/반짝눈·프릴보존/작은흰발톱허용, 이번후보 f992d3903ace1236c020045342a8ae74fec6ffa763b67c413791608635c6208a 원본/SHA/history게이트후교체. 11:18:11UTC승인tests sync정상, 공개3물감3전체붓질/갈색큰몸·정확한2쪽리빌확인.
+
+cute-public-review-1112의first/reveal 및 public-image-sha.json에세장버전URL6다운로드SHA 전부일치보존. review.json cutePublicReview1112/승인playEvidence 갱신, next-game-queue 세장published. 현재귀여운공개총17장, 전체202개편완료아님. 다른5분류/6탭730보존·새Qwen/코드수정/추가push/운영등록없음. 사용자갤러리/기존서버보존·새임시탭닫음. 다음은해마전체색칠/파라1·펭귄3완료전색캡처와 양호한전체후보게임검수, 심한검정얼굴·열린몸/우주후속 자율수정을이어감. 작은면간소화허용을전색정확으로확대금지,done reset뒤유지/cleanup error4와유효ended 구분. 관련task로컬커밋·개별진척조용히유지.
