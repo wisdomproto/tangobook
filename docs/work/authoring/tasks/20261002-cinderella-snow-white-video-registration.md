@@ -49,6 +49,8 @@ handoff README/MEMORY, authoring/video/marketing BRIEF·MEMORY, Editor2 영상 �
 
 ## 운영 DB 호환과 남은 스키마 단계
 
+후속 사용자 지시에 따라 [2026-10-02 DB 마이그레이션](../../marketing/tasks/20261002-content-sources-db-migration.md)을 적용했다. 아래의 테이블 미적용 제한은 해소됐고 두 기획의 정식 원본 연결, 새 등록 서비스 멱등 재시도와 실제 운영 버튼을 검증했다. 다음 문단은 등록 당시의 장애/우회 기록이다.
+
 첫 마케팅 등록 호출에서 `public.mkt_content_sources`가 없다는 PGRST schema cache 오류를 확인했다. 2026-09-22 준비된 마이그레이션은 실제 운영 DB에 미적용이며 현재 환경에는 SQL 연결/management access token이 없다. Supabase 대시보드도 로그인되지 않아 이 작업에서 스키마 변경은 수행하지 않았다.
 
 등록은 기존 마케팅 UI가 지원하는 `memo=storybook:<bookId>` 방식으로 완료했다. 파일/버전 연결과 행 ID는 BookVideoService의 동일 규약을 사용하고 새 행만 멱등 upsert했다. 미래 마이그레이션의 backfill은 이 memo를 정식 content_source_id 관계로 연결할 수 있다. 저작 승인 상태는 변경하지 않았다. **등록된 영상 열람은 정상이나, Editor2의 등록 버튼과 마케팅 책 원본 카탈로그는 해당 마이그레이션 적용 전 계속 원본 테이블 오류가 날 수 있다.** 이번 우회는 운영 등록 스크립트에만 적용했으며 제품 서비스는 수정하지 않았다.

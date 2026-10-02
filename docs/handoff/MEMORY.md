@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-02 [마케팅 책 원본 운영 DB 마이그레이션](../work/marketing/tasks/20261002-content-sources-db-migration.md) 사용자 “db 마이그레이션 니가 해”로 적용 완료(20261002055352). 기존 Supabase 관리 인증 경로를 확인해 접속했고, 원본 267개/기획 268개 정식 연결 및 기존 기획·영상·릴스·발행 해시 보존을 검증했다. 두 영상의 멱등 재등록과 운영 Editor2 버튼/책 원본 카탈로그 정상 동작, 익명 조회 0행 확인. 아래 DB 미적용·접속 경로 미확인 제한은 해소됐다.
+
 2026-10-02 [신데렐라·백설공주 실제 영상 등록](../work/authoring/tasks/20261002-cinderella-snow-white-video-registration.md): 기존 승인 최종본 ko/en 롱폼·숏폼 8개를 Editor2 v1과 마케팅 기획 2개에 연결, 자막/나레이션/표지 및 모든 업로드 무결성 검증 완료. 백설공주는 quality-v2. 운영 mkt_content_sources 마이그레이션 미적용을 확인해 기존 storybook memo 연결로 완료했으며, 새 등록 버튼/책 원본 카탈로그 정상화에는 DB SQL 권한으로 준비된 마이그레이션 적용이 필요하다. 제품 코드 변경·외부 게시·이번 기록 push 없음.
 
 2026-10-02 영상 관리 main push 승인: 사용자 “푸시하자”. 원격 최신 main에서 이번 영상 관리/로컬 합성 변경만 통합(`1e84bd75`)하고 원격 기준 검증 후 일반 push를 사용한다. 색칠 작업과 기존 로컬 미푸시 이력은 보존. [통합 기록](../work/authoring/tasks/20261002-editor2-video-library.md). 아래 영상 관리의 push 미요청 상태는 이 승인으로 갱신한다.
