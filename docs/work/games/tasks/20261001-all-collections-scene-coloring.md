@@ -489,3 +489,12 @@ Producer종료/queue0/원본후보SHA/history성공게이트후검증된두장�
 이번새Qwen제출없음/완료배치중복없음/코드수정·추가push·운영등록없음。次실제게임优先목록20261002-cute-nature-0911-next-game-queue.json에기존full202 양호한하마2/해마2/호랑나비8/프로토케라톱스2/파라사우롤로푸스1/펭귄3/트리케라톱스2를추출。이미전수시트에서친근큰몸확인했던후보의실제검수를먼저이어가며목록선정은승인아님。5205 fullreview서버사용가능,원본·큰몸색·정확한쪽native/BGM/reset검수후안전교체。미승인고슴도치/두꺼비1검정얼굴·늑대겹침·도마뱀꼬리·호랑이11/우주큰면열림도후속유지。個別실패모델재생성에만치우치지않고전체202실제게임검수진척。
 
 사용자갤러리/기존서버/다른Comfyclient보존·임시검수탭닫음、最後queue0/새색칠runner없음。관련task만로컬커밋。개별진척조용히유지、자연전체개편완료/사용자판단필요변화만알림。
+
+
+## 2026-10-02 10:11 UTC — 전체 귀여운후보7장 실제 게임 검수
+
+5205 fullreview에서 하마2/해마2/호랑나비8/프로토2/파라사우롤로푸스1/펭귄3/트리케라톱스2를 실제CUA붓질·쪽리빌·초기화로 검수. candidate-batches/20261002-cute-nature-full-collection/review-workspace/player-*-1011의 first-brush/second-brush/native-evidence/reset-partial/review-decision 및 review.json cuteNativePlayReview1011, next-game-queue 장별판정 보존. 애벌레8은 연두몸·주황뿔/친근눈·native8.28 자연ended/BGM정지/reset 몸 재색칠, 트리케라톱스2는 짙은올리브 몸/보이는눈·작은흰프릴발톱 허용·native8.352 자연ended/BGM정지/reset 이마재색칠 확인해 로컬승인/안전활성화와 공개검증 대기. 두장 모두 이번에 실제재생했으나 아직미적용미게시.
+
+하마2는 친근갈색몸/리빌확인하지만 저장native항목없어 자연ended추가필요. 해마2는3붓질에도 진행중/복잡한배경이며 색칠완료·몸목표reset/native검수남음, 조기완료추론없음. 프로토2 native7.92 중5.139초 reset으로중단했으므로 완료로세지않고 reset전환중화면도 재색칠증거아님. 파라사우롤로푸스1 native9.504/펭귄3 native6.384 자연ended/BGM정지/reset부분확인했으나 전체몸색/얼굴·배부리완료전 캡처후 최종판단. harness done reset뒤유지/cleanup error4와유효ended구분. 애벌레와트리케라톱스 외 자동승인없음.
+
+공개귀여운14장/6탭730/다른5분류보존, 새Qwen제출·활성교체·게시·코드수정·push없음. queue0 사전확인/다른client서버보존·이번7임시탭닫음/사용자갤러리보존. 다음은로컬승인2장 source/candidate/history SHA게이트후안전교체·공개실제붓질/버전SHA확인, 나머지5필요한증거재검증을이어감. 관련task만로컬커밋. 자연202전체개편완료아님/개별진척조용히유지.
