@@ -1,6 +1,7 @@
 """Fixed 33 degree adhesive mirror with the existing 10 mm geared phone stop."""
 from functools import lru_cache
 import json, math, os, sys
+import cadquery as cq
 import pebble_geared as g
 import pebble_geared_unibody as u
 from pebble_geared_profile import b, a, fixed
@@ -8,8 +9,29 @@ OUT=u.OUT
 height_slider=u.height_slider
 
 @lru_cache(None)
+def rear_insertion_clearance():
+    """Continuous entry lanes through the added side case, with flex space."""
+    cuts=[]
+    for sign in (-1,1):
+        x0,x1=sorted((sign*18.2,sign*24.5))
+        cuts.append(b.box(x0,x1,fixed.JOIN_Y-.2,b.BACK+1,b.BOTTOM-1,b.TOP+1))
+        x0,x1=sorted((sign*(fixed.TAB_X-1.5),sign*(fixed.TAB_X+fixed.TAB_T+.35)))
+        cuts.append(b.box(x0,x1,fixed.TAB_Y0-.2,b.BACK+1,fixed.TAB_Z0-.35,fixed.TAB_Z1+.35))
+        x0,x1=sorted((sign*(fixed.KEY_X0-.35),sign*(fixed.KEY_X1+.35)))
+        cuts.append(b.box(x0,x1,fixed.KEY_Y0-.35,b.BACK+1,fixed.KEY_Z0-.35,fixed.KEY_Z1+.35))
+        # Funnel the rear entrance, while keeping the retaining shoulder forward.
+        inner=sign*(fixed.TAB_X-1.5);outer=sign*(fixed.TAB_X+fixed.TAB_T+.35)
+        funnel=(cq.Workplane("XY").polyline([(inner,fixed.JOIN_Y-1.4),(outer,fixed.JOIN_Y-1.4),
+            (outer+sign*.6,fixed.JOIN_Y+.2),(inner-sign*.3,fixed.JOIN_Y+.2)])
+            .close().extrude(fixed.TAB_Z1-fixed.TAB_Z0+.7).translate((0,0,fixed.TAB_Z0-.35)))
+        cuts.append(funnel)
+    result=cuts[0]
+    for cut in cuts[1:]: result=result.union(cut)
+    return result
+
+@lru_cache(None)
 def shell_left():
-    return fixed.left().cut(a.stop_slot(-1)).union(u.extension(False))
+    return fixed.left().cut(a.stop_slot(-1)).union(u.extension(False)).cut(rear_insertion_clearance())
 
 @lru_cache(None)
 def shell_right():
@@ -23,7 +45,7 @@ def shell_right():
     part=part.union(u.extension(True))
     anchor=b.box(23.0,25.0,13.7,17.3,-6.8,-4.6)
     anchor=anchor.union(b.box(23.5,25.0,13.7,15.5,-6.8,16.2))
-    return part.union(anchor).union(b.shaft(24.6,1.9,15.5,-5.7,0.72))
+    return part.union(anchor).union(b.shaft(24.6,1.9,15.5,-5.7,0.72)).cut(rear_insertion_clearance())
 
 @lru_cache(None)
 def service_lid():
@@ -52,10 +74,15 @@ def report():
         "lid_entry":{str(s):max(overlap(lid.translate((s,0,0)),p) for p in (gear,slider)) for s in (0,1,2,3,5,8)},
         "covers":{ "rear":overlap(fixed.cover(),hard), "lid":overlap(lid,hard), "gear_lid":overlap(gear,lid)},
     }
+    nonlocking=fixed.cover()
+    for sign in (-1,1): nonlocking=nonlocking.cut(fixed.side_hook(sign))
+    checks["rear_nonlocking_insertion"]={str(d):overlap(nonlocking.translate((0,d,0)),hard) for d in (0,.5,1,2,3,4,5,6,8,12,16,20)}
+    checks["rear_deflected_hook_insertion"]={f"{sign}/{d}":overlap(fixed.side_hook(sign).translate((-sign*1.3,d,0)),hard) for sign in (-1,1) for d in (0,.5,1,2,3,4,5,6,8,12,16,20)}
     return {"mirror_angle_deg":33,"height_travel_mm":10,"camera_top_margin_range_mm":[4,14],
         "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"slider":slider}.items()},
         "checks_mm3":checks,
         "detent_interference_mm3":{str(d):overlap(slider.translate((0,0,-d)),hard) for d in (1.25,3.75,6.25,8.75)},
+        "rear_hook_pullout_overlap_mm3":{str(d):overlap(fixed.cover().translate((0,d,0)),hard) for d in (.3,.5,1)},
         "lid_snap_interference_peak_mm3":max(overlap(lid.translate((s,0,0)),right) for s in (0,.5,1,2,3,5,8))}
 
 if __name__=="__main__":
@@ -66,4 +93,5 @@ if __name__=="__main__":
     assert all(v==0 for c in result["checks_mm3"].values() for v in c.values()), "Rigid interference"
     assert all(0<v<1 for v in result["detent_interference_mm3"].values())
     assert 0<result["lid_snap_interference_peak_mm3"]<2
+    assert result["rear_hook_pullout_overlap_mm3"]["0.5"]>0.5
     os._exit(0)

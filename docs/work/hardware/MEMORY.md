@@ -4,6 +4,9 @@
 
 ## 현재 상태
 
+- 2026-10-02 실물 반증: 높이 전용 뒤 커버의 긴 탭이 안 들어감. 서포트 문제가 아니라 추가 외피의 후방 벽이 탭/키/커버 삽입 경로를 막았다. `pebble_height_only.py`에서 후방 통로·홈 여유·입구 경사·탭 휨 공간 수정, 전 삽입 표본 CAD 간섭 0 확인. 본체 좌우만 재출력하고 기존 뒤 커버 재사용. 본체만 2바디 STL `tango_pebble_height_only_rear_entry_fix_bodies_print_plate.stl` 제공. 실물 결합력은 재검증 전. [작업 기록](tasks/20260930-adjustable-periscope.md).
+
+
 - 2026-10-01 최신 실물 결정: 각도 기어는 과하다는 피드백으로 **거울 33° 고정 + 높이만 10mm 조절**로 변경했다. `pebble_height_only.py`는 거울 접착판을 좌우 본체에 통합하며 외부 높이 레버 하나만 남긴다. 각도 부품 세 개를 제거한 8부품 STL은 195.162×90.530mm, 간격 8mm, 모두 watertight/베드 접촉 검증 통과. `pebble_geared_print.py --height-only`, `pebble_geared_html.py --height-only`로 재생성한다. 이전 두 기어형은 비교용이며 현행 출력은 `tango_pebble_height_only_4-14mm_print_plate.stl`. 실제 새 본체의 조립·출력 검증은 남아 있다. [작업 기록](tasks/20260930-adjustable-periscope.md).
 
 
