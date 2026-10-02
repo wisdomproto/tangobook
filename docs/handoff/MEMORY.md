@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-02 [신데렐라·백설공주 실제 영상 등록](../work/authoring/tasks/20261002-cinderella-snow-white-video-registration.md): 기존 승인 최종본 ko/en 롱폼·숏폼 8개를 Editor2 v1과 마케팅 기획 2개에 연결, 자막/나레이션/표지 및 모든 업로드 무결성 검증 완료. 백설공주는 quality-v2. 운영 mkt_content_sources 마이그레이션 미적용을 확인해 기존 storybook memo 연결로 완료했으며, 새 등록 버튼/책 원본 카탈로그 정상화에는 DB SQL 권한으로 준비된 마이그레이션 적용이 필요하다. 제품 코드 변경·외부 게시·이번 기록 push 없음.
+
 2026-10-02 영상 관리 main push 승인: 사용자 “푸시하자”. 원격 최신 main에서 이번 영상 관리/로컬 합성 변경만 통합(`1e84bd75`)하고 원격 기준 검증 후 일반 push를 사용한다. 색칠 작업과 기존 로컬 미푸시 이력은 보존. [통합 기록](../work/authoring/tasks/20261002-editor2-video-library.md). 아래 영상 관리의 push 미요청 상태는 이 승인으로 갱신한다.
 
 2026-10-02 영상 관리 후속: 사용자 요청으로 로컬 FFmpeg 합성도 새 영상 탭에 연결했다. 공통 원본 + 언어별 MP3/SRT를 브라우저 Worker에서 합성하고 자막 크기/원본 소리 혼합·교체 선택, 진행률/취소, 미리보기/다운로드/완성본 적용을 제공한다. 실제 3초 한글 자막·음원 합성과 결과 길이/프레임을 검증했다. [동일 작업 기록](../work/authoring/tasks/20261002-editor2-video-library.md).
