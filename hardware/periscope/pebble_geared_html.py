@@ -20,8 +20,10 @@ def mesh_data(shape):
     return encoded
 
 
-def main(height_only=False):
+def main(height_only=False,modelkit=False):
     import pebble_height_only as h
+    if modelkit:
+        import pebble_modelkit as h
     design=h if height_only else u
     g.OUT.mkdir(parents=True, exist_ok=True)
     factories = {
@@ -182,19 +184,27 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
 
 """)
 
+    if modelkit:
+        html=html.replace('커버 탭 안쪽 홈은 출력 시험 전인 시안입니다.','본체 핀 2개·뒤 커버 핀 4개의 압입 결합 시안입니다. 양산 ABS, PLA는 형상 확인용입니다.')
+        html=html.replace('뒤 커버 탭 확대','뒤 커버 핀 보기').replace('탭 안쪽 보기','짧은 핀 보기')
+        html=html.replace('커버의 긴 탭 중간이 1.25mm로 얇아진 구간입니다. 고정된 뿌리에서 시작해 끝의 걸림턱이 중앙 쪽으로 굽도록 의도했습니다. 화면의 CAD는 변형 전 형상입니다.','뒤 커버의 짧은 핀 네 개를 본체 소켓에 맞춰 누릅니다. 긴 탄성 탭은 제거했습니다. 지름 4mm 핀의 얕은 리브로 마찰 유지력을 의도하며 실제 ABS 체결력은 미검증입니다.')
+        html=html.replace('혀·폰 받침을 좌우 본체 사이에 놓고 닫기','혀·폰 받침을 놓고 본체의 짧은 핀 두 개를 소켓에 맞춰 닫기')
+        html=html.replace('뒤 커버와 스폰지 장착','뒤 커버 안쪽에 스폰지를 붙이고 핀 네 개를 본체에 압입')
+        html=html.replace('높이만 조절하는 스마트폰 반사경','높이 조절 반사경 · 핀·소켓 결합 시안')
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
-    path = g.OUT / ("tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
+    path = g.OUT / ("tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
     path.write_text(html, encoding="utf-8")
     aliases=["tango_pebble_geared_unibody_interactive.html"] if height_only else [
         "tango_pebble_geared_pebble_cover_interactive.html",
         "tango_pebble_geared_covered_interactive.html","tango_pebble_geared_interactive.html"]
+    if modelkit: aliases.append("tango_pebble_height_only_interactive.html")
     for alias in aliases:
         (g.OUT / alias).write_text(html, encoding="utf-8")
     print(path)
 
 
 if __name__ == "__main__":
-    main("--height-only" in sys.argv)
+    main("--height-only" in sys.argv or "--model-kit" in sys.argv,"--model-kit" in sys.argv)
     sys.stdout.flush()
     os._exit(0)
