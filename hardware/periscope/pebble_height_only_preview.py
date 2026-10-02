@@ -16,7 +16,7 @@ def main():
                     height_slider=(0.78,0.49,0.31))
     parts={
         "shell_left":u.shell_left(),"shell_right":u.shell_right(),
-        "rear_cover":g.fixed.cover(),
+        "rear_cover":u.rear_cover(),
         "height_slider":u.height_slider(),
         "height_pinion":g.pinion(*g.HEIGHT_AXIS),
         "height_lever":g.lever(*g.HEIGHT_AXIS),

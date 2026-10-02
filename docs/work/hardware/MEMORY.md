@@ -4,6 +4,9 @@
 
 ## 현재 상태
 
+- 2026-10-02 커버 탄성 시안: 사용자 제안으로 탭 안쪽 0.75mm 홈(중간 웹1.25mm·뿌리2mm)을 추가했다. HTML/전체 STL은 현재 **출력 시험 전 시안 커버**를 포함한다. 별도 `height_only_relief_rear_cover_trial_print_ready.stl` 제공. 이상적 빔 비교는 휨을 줄이는 방향이나 PLA 층강도/피로/실제 체결력은 미검증이다. 사용자가 무조건 동의하는 대응을 지적했으므로 제안 채택 이유와 반증·검증 범위를 구분한다. [작업 기록](tasks/20260930-adjustable-periscope.md).
+
+
 - 2026-10-02 실물 반증: 높이 전용 뒤 커버의 긴 탭이 안 들어감. 서포트 문제가 아니라 추가 외피의 후방 벽이 탭/키/커버 삽입 경로를 막았다. `pebble_height_only.py`에서 후방 통로·홈 여유·입구 경사·탭 휨 공간 수정, 전 삽입 표본 CAD 간섭 0 확인. 본체 좌우만 재출력하고 기존 뒤 커버 재사용. 본체만 2바디 STL `tango_pebble_height_only_rear_entry_fix_bodies_print_plate.stl` 제공. 실물 결합력은 재검증 전. [작업 기록](tasks/20260930-adjustable-periscope.md).
 
 

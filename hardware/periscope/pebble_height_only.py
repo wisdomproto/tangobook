@@ -9,6 +9,23 @@ OUT=u.OUT
 height_slider=u.height_slider
 
 @lru_cache(None)
+def rear_cover():
+    """Inside-open reliefs let the long hooks flex without thinning their roots."""
+    part=fixed.cover()
+    for sign in (-1,1):
+        inner=fixed.TAB_X
+        # Keep the leading nose and the last 2 mm at full 2 mm thickness.
+        # Recess .75 mm from the inside, leaving a continuous 1.25 mm web.
+        points=[(inner-.2,fixed.TAB_Y0+.8),(inner+.75,fixed.TAB_Y0+1.6),
+                (inner+.75,fixed.JOIN_Y-3.0),(inner-.2,fixed.JOIN_Y-2.0)]
+        recess=(cq.Workplane("XY").polyline([(sign*x,y) for x,y in points])
+                .close().extrude(fixed.TAB_Z1-fixed.TAB_Z0+.4)
+                .translate((0,0,fixed.TAB_Z0-.2)))
+        recess=recess.edges("|Z").fillet(.45)
+        part=part.cut(recess)
+    return part
+
+@lru_cache(None)
 def rear_insertion_clearance():
     """Continuous entry lanes through the added side case, with flex space."""
     cuts=[]
@@ -72,17 +89,17 @@ def report():
         "gear_rack":{str(i):overlap(g.move_pinion(gear,g.HEIGHT_AXIS,-math.degrees(i*.5/g.PINION_PITCH_R)),slider.translate((0,0,-i*.5))) for i in range(21)},
         "gear_entry":{str(s):overlap(gear.translate((s,0,0)),hard) for s in (0,1,2,3,5,8)},
         "lid_entry":{str(s):max(overlap(lid.translate((s,0,0)),p) for p in (gear,slider)) for s in (0,1,2,3,5,8)},
-        "covers":{ "rear":overlap(fixed.cover(),hard), "lid":overlap(lid,hard), "gear_lid":overlap(gear,lid)},
+        "covers":{ "rear":overlap(rear_cover(),hard), "lid":overlap(lid,hard), "gear_lid":overlap(gear,lid)},
     }
-    nonlocking=fixed.cover()
+    nonlocking=rear_cover()
     for sign in (-1,1): nonlocking=nonlocking.cut(fixed.side_hook(sign))
     checks["rear_nonlocking_insertion"]={str(d):overlap(nonlocking.translate((0,d,0)),hard) for d in (0,.5,1,2,3,4,5,6,8,12,16,20)}
     checks["rear_deflected_hook_insertion"]={f"{sign}/{d}":overlap(fixed.side_hook(sign).translate((-sign*1.3,d,0)),hard) for sign in (-1,1) for d in (0,.5,1,2,3,4,5,6,8,12,16,20)}
     return {"mirror_angle_deg":33,"height_travel_mm":10,"camera_top_margin_range_mm":[4,14],
-        "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"slider":slider}.items()},
+        "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"slider":slider,"rear_cover":rear_cover()}.items()},
         "checks_mm3":checks,
         "detent_interference_mm3":{str(d):overlap(slider.translate((0,0,-d)),hard) for d in (1.25,3.75,6.25,8.75)},
-        "rear_hook_pullout_overlap_mm3":{str(d):overlap(fixed.cover().translate((0,d,0)),hard) for d in (.3,.5,1)},
+        "rear_hook_pullout_overlap_mm3":{str(d):overlap(rear_cover().translate((0,d,0)),hard) for d in (.3,.5,1)},
         "lid_snap_interference_peak_mm3":max(overlap(lid.translate((s,0,0)),right) for s in (0,.5,1,2,3,5,8))}
 
 if __name__=="__main__":

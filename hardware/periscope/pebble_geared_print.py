@@ -25,7 +25,7 @@ def print_parts(height_only=False):
             .rotate((0,0,0),(1,0,0),180),
         "shell_right":design.shell_right().rotate((0,0,0),(0,1,0),-90)
             .rotate((0,0,0),(1,0,0),180),
-        "rear_cover":fixed.cover().rotate((0,0,0),(1,0,0),-90),
+        "rear_cover":(h.rear_cover() if height_only else fixed.cover()).rotate((0,0,0),(1,0,0),-90),
         "service_lid":design.service_lid().rotate((0,0,0),(0,1,0),90),
         "height_slider":design.height_slider().rotate((0,0,0),(1,0,0),180),
         "paddle":a.adjustable_paddle().rotate((0,0,0),(1,0,0),tongue_angle+180),

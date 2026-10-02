@@ -32,7 +32,7 @@ def main(height_only=False):
         "angle_lever": lambda: g.lever(*g.ANGLE_AXIS),
         "height_lever": lambda: g.lever(*g.HEIGHT_AXIS),
         "gear_cover": design.service_lid,
-        "rear_cover": fixed.cover, "paddle": a.adjustable_paddle,
+        "rear_cover": h.rear_cover if height_only else fixed.cover, "paddle": a.adjustable_paddle,
         "mirror": b.mirror, "foam": b.foam, "phone": b.phone,
         "camera_lens": lambda: cq.Workplane(obj=cq.Solid.makeCylinder(
             b.CAMERA_R,0.5,cq.Vector(0,-0.5,b.PHONE_TOP-MIN_CAMERA_TOP_MARGIN-b.CAMERA_R),
@@ -138,6 +138,7 @@ update();frame();
         html=html.replace('기어로 움직이는 스마트폰 반사경','높이만 조절하는 스마트폰 반사경')
         html=html.replace('두 레버만 남겼습니다.','높이 레버 하나만 남겼습니다. 거울은 본체의 접착판에 33°로 고정됩니다.')
         html=html.replace('레버 두 개만','높이 레버 하나만')
+        html=html.replace('거울은 본체의 접착판에 33°로 고정됩니다.', '거울은 본체의 접착판에 33°로 고정됩니다. <b>커버 탭 안쪽 홈은 출력 시험 전인 시안입니다.</b>')
         html=html.replace('거울판·폰 받침을 좌우 본체 사이에 놓고 닫기 → 오른쪽 면에서 작은 기어 두 개를 넣기','혀·폰 받침을 좌우 본체 사이에 놓고 닫기 → 본체의 고정판에 40×30mm 거울 붙이기 → 오른쪽 면에서 높이 기어 하나를 넣기')
         html=html.replace('두 레버를 D자 축에','높이 레버를 D자 축에')
         html=html.replace('<span><i class="swatch" style="background:#8661b5"></i>각도 톱니</span>','')
