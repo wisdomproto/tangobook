@@ -13,6 +13,30 @@ pinion=w.pinion
 lever=w.lever
 
 @lru_cache(None)
+def body_tenons():
+    part=None
+    for y,z in k.CORE_POS:
+        key=b.box(-4.5,4.5,y-5,y+5,z-3,z+3.9).edges("|X").fillet(.65)
+        key=key.edges(">X").chamfer(.35)
+        # Preserve the separate round friction pin and its socket wall.
+        key=key.cut(b.shaft(-.4,5.2,y,z,2.95))
+        key=w.cut_reflected(key)
+        part=key if part is None else part.union(key)
+    return part
+
+def mortise_pads(part):
+    for y,z in k.CORE_POS:
+        pad=w.cut_reflected(b.box(.1,6.5,y-6,y+6,z-4,z+4.9))
+        slot=b.box(-.2,4.9,y-5.25,y+5.25,z-3.25,z+4.15).edges("|X").fillet(.65)
+        slot=slot.cut(b.shaft(-.3,5.4,y,z,2.7))
+        part=part.union(pad).cut(slot)
+        # Restore the original blind pin bore after adding the broad pad.
+        part=part.cut(b.shaft(-.1,4.6,y,z,k.SOCKET_D/2))
+        mouth=cq.Workplane(obj=cq.Solid.makeCone(k.SOCKET_D/2+.35,k.SOCKET_D/2,.5,cq.Vector(.1,y,z),cq.Vector(1,0,0)))
+        part=part.cut(mouth)
+    return part
+
+@lru_cache(None)
 def panel_flanges():
     # Long rigid shoulders are enclosed by the two halves; no flexible hooks.
     part=None
@@ -85,7 +109,7 @@ def shell_left():
     # The lower pad belonged to the retired rear pins and is detached by the
     # lateral arm entry. Remove that specific obsolete pad, not arbitrary solids.
     obsolete=b.box(-23.91,-17.09,11.5,16,-1.41,a.STOP_TOP-.3)
-    return part.cut(obsolete)
+    return part.cut(obsolete).union(body_tenons())
 
 @lru_cache(None)
 def shell_right():
@@ -100,7 +124,7 @@ def shell_right():
     part=part.cut(b.box(22.9,26.6,13.6,17.4,-6.9,a.STOP_TOP-.3))
     anchor=b.box(29,31.3,13.7,19.1,-6.8,a.STOP_TOP-.3)
     gusset=b.box(29,35.2,18.7,20.5,12,a.STOP_TOP-.3)
-    return part.union(anchor).union(gusset).union(b.shaft(27.4,2.0,15.5,-5.7,.72))
+    return mortise_pads(part.union(anchor).union(gusset).union(b.shaft(27.4,2.0,15.5,-5.7,.72)))
 
 @lru_cache(None)
 def service_lid():
@@ -139,6 +163,7 @@ def report():
         "lever":{str(d):v(g.move_pinion(lever(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
     }
     return {"separate_top_cover":False,"material":"ABS candidate; PLA geometry trial",
+        "body_joint":{"type":"two broad mortise-and-tenon collars plus original retention pins","key_depth_mm":4.5,"blank_width_mm":10,"blank_height_mm":6.9,"nominal_slot_clearance_mm":.25},
         "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"panel":panel}.items()},
         "checks_mm3":checks,
         "body_assembly_slider_down_mm":0,

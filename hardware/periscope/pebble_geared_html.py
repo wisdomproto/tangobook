@@ -232,6 +232,8 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
         html=html.replace('objects.foam.position.y=exploded?48:0;objects.foam.position.z=0;', 'objects.foam.position.y=0;objects.foam.position.z=exploded?45:0;')
         html=html.replace("레버는 기어·옆 뚜껑·전체 뒤 덮개 조립 후 끼웁니다.", "레버는 기어와 옆 뚜껑을 조립한 뒤 끼웁니다.")
         html=html.replace('<div class="card"><h2>기어 넣는 순서', '<div class="card"><h2>뒤판을 가두는 조립</h2><button id="bodyAssembly" aria-pressed="false">본체 조립 보기</button><div id="bodyAssemblyPanel" hidden><input id="bodyAssemblyStep" aria-label="본체 조립 단계" type="range" min="0" max="2" step="1" value="0"><p id="bodyAssemblyNote" class="small"></p></div><p class="small">수정: 2026-10-02 · 작은 걸쇠 제거 / 넓은 테두리 포획</p></div><div class="card"><h2>기어 넣는 순서')
+        html=html.replace('작은 걸쇠 제거 / 넓은 테두리 포획', '뒤판 테두리 포획 / 본체 장부·홈 추가')
+        html=html.replace('뒤판 교체는 본체를 열어야 합니다.', '본체는 넓은 장부·홈 두 곳으로 전후 엇갈림을 받치고, 기존 핀 두 개로 벌어짐을 잡습니다. 장부 깊이 4.5mm, 명목 홈 여유 0.25mm입니다. 뒤판 교체는 본체를 열어야 합니다.')
         html=html.replace('const insertionArrow=', 'let bodyAssembly=false,bodySavedDepth=10;\nconst insertionArrow=')
         html=html.replace('\n}\nconst assemblyButton', '''
  objects.height_pinion.visible=true;objects.height_lever.visible=true;
@@ -252,7 +254,7 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
   document.getElementById('bodyAssemblyNote').textContent=[
    '① ス펀지를 붙인 뒤판·혀·높이 받침을 배치합니다. 받침은 가장 위 14mm 위치입니다. 본체는 양옆으로 열려 있습니다.',
    '② 오른쪽 본체를 닫으며 뒤판 오른쪽 테두리를 홈에 가둡니다. 뒤판을 뒤에서 밀어 끼우지 않습니다.',
-   '③ 왼쪽 본체를 닫고 본체 핀을 결합합니다. 양옆의 긴 테두리가 뒤쪽 받침면에 걸려 뒤판이 뒤로 빠지는 것을 막습니다. 다음은 옆 기어 조립입니다.'
+   '③ 왼쪽 본체의 넓은 장부 두 개를 오른쪽 홈에 넣고, 가운데 핀을 결합합니다. 장부가 전후 엇갈림을 받고 핀이 벌어짐을 잡습니다. 뒤판은 양옆의 긴 테두리로 가둡니다. 다음은 옆 기어 조립입니다.'
   ][step];
  }
  for(const id of ['depth','inside','explode','assembly','coverDetail'])document.getElementById(id).disabled=bodyAssembly||(assembling&&['depth','inside','explode'].includes(id));
