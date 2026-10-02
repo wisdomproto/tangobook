@@ -453,3 +453,15 @@ Producer종료/idle 및원본/candidate/historySHA게이트후 두새도안과�
 남은심한실패4장만새원본참조계획20261002-cute-nature-0608-closed-science-and-bodies.json으로후속. 암사자14 열린몸을캔버스좌/하단접합한완전폐곡선,호랑이11 머리/몸을사진좌표로재정렬,은하11 얼굴없는검정2핵+넓은닫힌타원리본,태양2 얼굴없는닫힌큰태양타원+1홍염을지시. 実측실패경계·위치·학습내용에따라새지시이며완료지시반복복제아님. workerPID37644/exec51938 running/첫암사자14生成中、status.json/worker.lock/실제commandline/8190queue/history먼저확인、중단·중복제출·실행중계획변경금지. 후보자동적용게시없음. 기존producer/source-smooth8/202/24모두재시작금지. 생성성공후흑백/SHA/실제비교/게임검수필수.
 
 코드수정/추가push/운영등록없음,관련task만로컬커밋. 사용자갤러리保존/임시검수탭닫음/기존서버중단없음. 다음은4수정완료후실제검수및올빼미/호랑이2등좋은후보게임검수·안전순차반영,나머지귀여운202의심한이상후속계속. 개별진척조용히유지하고자연전체완료/판단필요변화만알림.
+
+## 2026-10-02 07:09 UTC — 올빼미·암사자 실제 게임 검수와 귀여운 공개8장
+
+실제브랜치/status와기존270c6dd1 task최신절확인, 다른작업/미추적__pycache__보존. 0608 네후보는정상종료/all-candidates-awaiting-review, 재시작하지않음. Comfy8190 queue0 확인후audit4 SHA/흑백통과·실제원본/선화/filled 비교시트대조. 암사자14 두큰몸/머리/혀폐곡선복원6필수2색43.4% 개선. 호랑이11은작아진위치·검정얼굴/뒷몸흰면4.2%, 은하11/태양2 얼굴삭제는개선이나열린큰면으로0필수0색0%, 세후보미승인미적용미게시. cuteClosedScienceReview0709 및review-workspace/visual-review-20261002-0709.json. 단색기준실패가아니라실제큰몸색칠불가를구분한다.
+
+올빼미13 1777554948840-p13 source-smooth후보213a3687875931c1dd18acbe83b971f35f7384a516139f43dfa4521285d321b8는5206 실제2갈색물감2전체붓질·정확한13쪽원본/native5.4자연playingended/BGM0.16playing후정지/초기화부분몸재색칠 확인. 두새의동그란큰몸/눈/얼굴경계유지, 작은흰부리/갈색몸단순화허용. 엄마밝은얼굴두번째물감과아기갈색눈분리, 실제first-brush/reveal/native/reset증거. 암사자14 1777438039433-p14 새후보a02cc155bc44cd57eaec5c8c8464c697db8099eeb80ab050277fbe51b6af5016는별도5207(exec85600, DISABLE_PUBLISH_SCHEDULER1/사진강제median0) 실제갈색큰몸/분홍혀2물감2붓질·정확한14쪽/native6.264자연ended/BGM정지/초기화부분몸재색칠. 친근감긴눈/엄마아기핥는동작유지, 작은흰귀/콧구멍허용. player-owl13-0709/player-lion14-0709/native/first-brush/reset 증거, cleanup error4와유효자연ended구분. 실제발화전사아님.
+
+Producer종료/queue0/원본후보SHA/history성공게이트후검증된두장만revisions보존교체·mode유지. cuteNativePlayReview0709/approved-cute-source-and-play. 승인tests sync07:13:35UTC정상, 공개실제각2물감2붓질과정확한13/14쪽리빌·버전URL4SHA통과(cute-public-review-0709/first/reveal/public-image-sha.json/cutePublicReview0709). 공개붓질과로컬native증거분리. 현재귀여운공개총8장, 다른5분류/6탭730유지. 전체자연202개편완료아님.
+
+아직큰몸실패고양이5/늑대12/두더지2/도마뱀7/고슴도치10/두꺼비1·12/여우11은성공한원본참조+매끈닫힌대형윤곽전략으로새8계획20261002-cute-nature-0709-source-smooth-eight.json을연결. 기존선화참조실패원인(털/배경틈보존)을고쳐실제원본을단독reference,복잡배경/털삭제·종/자세/인물수유지·큰폐곡선8~10px·친근표정·색없음지시. 기존완료202/24/0507의8/0608의4배치재제출없음. 기존history성공/idle확인후새후보만생성, 자동적용게시없음. 실행session70739/PID는batchstatus참조, 실제commandline/status/worker.lock/8190queue/history먼저조회해중복실행·실행중변경·중단금지.
+
+코드수정/추가push/운영등록없음, 관련task만로컬커밋. 사용자갤러리/기존검수서버와다른Comfyclient보존, 임시탭닫음. 다음은새8생성후실제비교/게임검수·양호한전체후보의게임검수순차반영, 우주열린큰면·호랑이11문제도미완료로유지. 개별진척조용히유지하고자연전체완료/사용자판단필요변화만알림.
