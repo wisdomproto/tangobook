@@ -1,0 +1,106 @@
+"""Two body halves carry the exterior and rear panel catches directly.
+The side gear lid remains accessible; no separate top cover is printed.
+"""
+from functools import lru_cache
+import math
+import cadquery as cq
+import pebble_wrap_cover as w
+from pebble_geared_profile import b,a
+k,g=w.k,w.g
+OUT=w.OUT
+height_slider=w.height_slider
+rear_panel=w.rear_panel
+pinion=w.pinion
+lever=w.lever
+
+@lru_cache(None)
+def outer_skin():
+    part=w.rear_cover().cut(w.hooks())
+    # Delete the obsolete sleeve latches by filling their cuts in the side walls.
+    for sign,inner,outer in ((-1,w.LEFT_INNER_X,w.LEFT_OUTER_X),(1,w.INNER_X,w.OUTER_X)):
+        x0,x1=sorted((sign*(inner-.05),sign*outer))
+        part=part.union(b.box(x0,x1,-7.8,-.2,7.2,22.6))
+    # A closed axle bore replaces the bottom-open sleeve installation lane.
+    y,z=g.HEIGHT_AXIS
+    part=part.union(b.box(w.INNER_X,w.OUTER_X,y-1.8,y+1.8,b.BOTTOM+7,z+.1))
+    part=part.cut(b.shaft(34.9,2.3,y,z,1.75))
+    opening=(cq.Workplane("YZ").workplane(offset=34.1)
+        .polyline(g.rounded_outline(-27.65,18.55,-16.85,b.TOP-1.55,4.85)).close().extrude(20))
+    return w.cut_reflected(part.cut(opening))
+
+@lru_cache(None)
+def roof_bridge():
+    # Broad continuous overlap joins the previous core roof to its outer skin.
+    bridge=b.box(-29.5,34.0,b.FRONT+8,14,b.TOP-.4,b.TOP+.7).cut(b.box(-60,60,-.55,11.55,-100,100))
+    return w.cut_reflected(bridge)
+
+@lru_cache(None)
+def shell_left():
+    skin=outer_skin().union(roof_bridge()).intersect(b.box(-60,-b.SEAM/2,-100,100,-100,100))
+    # The left stop arm must enter laterally while the body halves close.
+    entry=b.box(-28.4,0,4.7,25.5,a.STOP_TOP-.3,a.STOP_TOP+2.7)
+    part=w.shell_left().union(skin).cut(entry)
+    # The lower pad belonged to the retired rear pins and is detached by the
+    # lateral arm entry. Remove that specific obsolete pad, not arbitrary solids.
+    obsolete=b.box(-23.91,-17.09,11.5,16,-1.41,a.STOP_TOP-.3)
+    return part.cut(obsolete)
+
+@lru_cache(None)
+def shell_right():
+    skin=outer_skin().union(roof_bridge()).intersect(b.box(b.SEAM/2,60,-100,100,-100,100))
+    return w.shell_right().union(skin)
+
+@lru_cache(None)
+def service_lid():
+    face=(cq.Workplane("YZ").workplane(offset=34.4)
+        .polyline(g.rounded_outline(-27.3,18.2,-16.5,b.TOP-1.9,4.5)).close().extrude(2.55))
+    y,z=g.HEIGHT_AXIS
+    face=face.cut(b.box(34.3,37.1,-.2,11.2,-100,a.STOP_TOP+.3))
+    return k.service_lid().union(w.cut_reflected(face)).cut(b.shaft(34.3,2.8,y,z,1.62))
+
+def report():
+    left,right,lid,panel=shell_left(),shell_right(),service_lid(),rear_panel()
+    hard=left.union(right).union(lid);assembled=hard.union(panel)
+    def v(p,q):return round(b.volume(p.intersect(q)),5)
+    smooth_left=left
+    for y,z in k.CORE_POS:smooth_left=smooth_left.cut(k.excess_ribs((-.3,y,z),(1,0,0)))
+    smooth_lid=lid
+    for y,z in g.SHROUD_PEGS:
+        bead=cq.Workplane(obj=cq.Solid.makeCone(1.42,1.70,.6,cq.Vector(24.75,y,z),cq.Vector(1,0,0)))
+        smooth_lid=smooth_lid.cut(bead.cut(b.shaft(24.7,.7,y,z,1.42)))
+    paddle=a.adjustable_paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),(1,b.old.PIVOT_Y,b.PIVOT_Z),17.1256)
+    core_fixed=right.union(height_slider()).union(paddle)
+    ang=math.radians(b.old.MU)
+    normal=(0,math.sin(ang),-math.cos(ang))
+    checks={
+        "mirror_normal_entry":{str(t):v(b.mirror().translate(tuple(t*q for q in normal)),hard) for t in (0,.5,1,2,3,5,8,12,20,35)},
+        "body_closing_without_pin_ribs":{str(t):v(smooth_left.translate((-t,0,0)),core_fixed) for t in (0,.25,.5,1,2,3,4,5,8,12,20,40)},
+        "gear_side_entry":{str(t):v(pinion().translate((t,0,0)),left.union(right).union(height_slider())) for t in (0,.5,1,2,3,5,8,12,18)},
+        "side_lid_entry_without_retaining_beads":{str(t):v(smooth_lid.translate((t,0,0)),left.union(right).union(pinion()).union(height_slider())) for t in (0,.5,1,2,3,5,8,12,18)},
+        "slider":{str(d):v(height_slider().translate((0,0,-d)),assembled) for d in (0,2.5,5,7.5,10)},
+        "phone":{f"{t}/{d}":v(b.phone(t,-d),assembled) for t in (7,9,11) for d in (0,5,10)},
+        "camera":{str(d):v(a.camera_tunnel(0,-d),assembled) for d in (0,2.5,5,7.5,10)},
+        "paddle":{str(t):v(a.adjustable_paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),(1,b.old.PIVOT_Y,b.PIVOT_Z),t),assembled) for t in (0,8.255,17.126,27.063)},
+        "gear":{str(d):v(g.move_pinion(pinion(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
+        "lever":{str(d):v(g.move_pinion(lever(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
+    }
+    return {"separate_top_cover":False,"material":"ABS candidate; PLA geometry trial",
+        "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"panel":panel}.items()},
+        "checks_mm3":checks,"rear_panel_checks_mm3":w.panel_report(hard),
+        "rear_panel_backload_contact_mm3":{str(t):v(panel.translate((0,t,0)),hard) for t in (.5,1,2)}}
+
+def outgoing_ray_report():
+    # Only additional geometry is qualified; the original core optical limit remains.
+    ang=math.radians(b.old.MU);normal=cq.Vector(0,math.sin(ang),-math.cos(ang));up=cq.Vector(0,math.cos(ang),math.sin(ang))
+    center=cq.Vector(*b.mirror_center())+normal*(b.MIR_T/2+.04)
+    added=shell_left().cut(k.shell_left()).union(shell_right().cut(k.shell_right())).union(service_lid().cut(k.service_lid()))
+    rays={}
+    for d in (0,5,10):
+        camera=cq.Vector(0,0,b.CAMERA_Z+10-d)
+        for ix in (-1,0,1):
+            for iz in (-1,0,1):
+                hit=center+cq.Vector(ix*b.APER_W/2*.98,0,0)+up*(iz*b.APER_H/2*.98)
+                direction=(hit-camera).normalized();reflected=direction-normal*(2*direction.dot(normal))
+                ray=cq.Workplane(obj=cq.Solid.makeCylinder(.01,70,hit,reflected))
+                rays[f"{d}/{ix}/{iz}"]=round(b.volume(added.intersect(ray)),7)
+    return rays

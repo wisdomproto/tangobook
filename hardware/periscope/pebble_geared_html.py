@@ -20,12 +20,14 @@ def mesh_data(shape):
     return encoded
 
 
-def main(height_only=False,modelkit=False,wrap=False):
+def main(height_only=False,modelkit=False,wrap=False,integrated=False):
     import pebble_height_only as h
     if modelkit:
         import pebble_modelkit as h
     if wrap:
         import pebble_wrap_cover as h
+    if integrated:
+        import pebble_integrated_body as h
     design=h if height_only else u
     g.OUT.mkdir(parents=True, exist_ok=True)
     factories = {
@@ -36,7 +38,7 @@ def main(height_only=False,modelkit=False,wrap=False):
         "angle_lever": lambda: g.lever(*g.ANGLE_AXIS),
         "height_lever": lambda: h.lever() if wrap else g.lever(*g.HEIGHT_AXIS),
         "gear_cover": design.service_lid,
-        "rear_cover": h.rear_cover if height_only else fixed.cover, "paddle": a.adjustable_paddle,
+        "rear_cover": fixed.cover if integrated else h.rear_cover if height_only else fixed.cover, "paddle": a.adjustable_paddle,
         "mirror": b.mirror, "foam": b.foam, "phone": b.phone,
         "camera_lens": lambda: cq.Workplane(obj=cq.Solid.makeCylinder(
             b.CAMERA_R,0.5,cq.Vector(0,-0.5,b.PHONE_TOP-MIN_CAMERA_TOP_MARGIN-b.CAMERA_R),
@@ -48,6 +50,7 @@ def main(height_only=False,modelkit=False,wrap=False):
     if height_only:
         factories["height_index_pin"] = lambda: b.shaft(24.6,1.9,15.5,-5.7,0.72)
     if wrap: factories["rear_panel"]=h.rear_panel
+    if integrated: del factories["rear_cover"]
     data = {name: mesh_data(factory()) for name, factory in factories.items()}
     config = {
         "heightOnly": height_only,
@@ -208,13 +211,29 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
         html=html.replace("rear_cover:'#dc995f'", "rear_panel:'#bd8158',rear_cover:'#dc995f'")
         html=html.replace("뒤 커버 안쪽에 스폰지 붙이기 → 레버를 뺀 상태에서 덮개를 위에서 내려 씌우기 → 양옆 턱 잠그기 → 높이 레버 끼우기", "스폰지 없이 바깥 덮개를 위에서 씌우기 → 높이 레버 끼우기 → 높이 받침을 4mm 위치로 내리기 → 별도 뒤판에 스폰지 붙이기 → 뒤판을 뒤에서 정면으로 눌러 네 턱 잠그기")
         html=html.replace("덮개를 씌운 뒤 높이 레버를 장착합니다.", "덮개를 먼저 씌우고 높이 받침을 가장 아래(4mm)로 내린 뒤, 스폰지를 붙인 별도 뒤판을 뒤에서 누릅니다. 네 걸림턱이 양옆 테두리에 걸립니다. 실제 체결력은 출력 시험 전입니다.")
+    if integrated:
+        html=html.replace("make('rear_cover');", "")
+        html=html.replace("objects.rear_cover.position.y=0;objects.rear_cover.position.z=exploded?65:0;objects.rear_cover.visible=!inside||exploded;", "")
+        html=html.replace("objects.rear_cover.visible=false;", "")
+        html=html.replace("name==='rear_cover'", "name==='rear_panel'")
+        html=html.replace("objects.rear_cover.position.set(0,0,0)", "objects.rear_panel.position.set(0,0,0)")
+        html=html.replace("높이 조절 반사경 · 전체 덮개 시안", "높이 조절 반사경 · 본체 외피 통합")
+        html=html.replace(" <b>커버 탭 안쪽 홈은 출력 시험 전인 시안입니다.</b>", "")
+        html=html.replace("전체 덮개 안쪽 보기", "스펀지 뒤판 보기").replace("덮개 안쪽 보기", "뒤판 안쪽 보기")
+        html=html.replace("덮개가 본체 앞·위·양옆·뒤를 감쌉니다. 기어 없는 왼쪽은4.4mm 줄였습니다. 양옆 걸림턱은 빠짐 방지용이며 ABS 실물 체결력은 미검증입니다.", "위 커버를 없애고 외피와 뒤판 결합부를 좌우 본체에 통합했습니다. 스펀지 뒤판의 네 턱이 본체에 직접 걸립니다. ABS 실제 체결력은 미검증입니다.")
+        start=html.index("앞쪽 감싸는 면이 본체 앞면을 잡아")
+        end=html.index("</p>",start)
+        html=html[:start]+"스펀지를 붙이는 넓은 뒤판입니다. 조립 시 높이 받침을 가장 아래 4mm 위치로 내린 뒤 뒤에서 누릅니다. 별도 위 커버는 없습니다."+html[end:]
+        html=html.replace("스폰지 없이 바깥 덮개를 위에서 씌우기 → 높이 레버 끼우기 → ", "높이 레버 끼우기 → ")
+        html=html.replace("레버는 기어·옆 뚜껑·전체 뒤 덮개 조립 후 끼웁니다.", "레버는 기어와 옆 뚜껑을 조립한 뒤 끼웁니다.")
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
-    path = g.OUT / ("tango_pebble_wrap_cover_interactive.html" if wrap else "tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
+    path = g.OUT / ("tango_pebble_integrated_body_interactive.html" if integrated else "tango_pebble_wrap_cover_interactive.html" if wrap else "tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
     path.write_text(html, encoding="utf-8")
     aliases=["tango_pebble_geared_unibody_interactive.html"] if height_only else [
         "tango_pebble_geared_pebble_cover_interactive.html",
         "tango_pebble_geared_covered_interactive.html","tango_pebble_geared_interactive.html"]
+    if integrated: aliases.append("tango_pebble_wrap_cover_interactive.html")
     if wrap: aliases.append("tango_pebble_modelkit_interactive.html")
     if modelkit: aliases.append("tango_pebble_height_only_interactive.html")
     for alias in aliases:
@@ -223,6 +242,10 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
 
 
 if __name__ == "__main__":
-    main("--height-only" in sys.argv or "--model-kit" in sys.argv or "--wrap-cover" in sys.argv,"--model-kit" in sys.argv or "--wrap-cover" in sys.argv,"--wrap-cover" in sys.argv)
+    integrated="--integrated-body" in sys.argv
+    wrap="--wrap-cover" in sys.argv or integrated
+    modelkit="--model-kit" in sys.argv or wrap
+    height_only="--height-only" in sys.argv or modelkit
+    main(height_only,modelkit,wrap,integrated)
     sys.stdout.flush()
     os._exit(0)

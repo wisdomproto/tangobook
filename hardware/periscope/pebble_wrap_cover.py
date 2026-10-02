@@ -197,10 +197,11 @@ def report():
       "front_capture_backward_shift_mm3":{str(t):v(front_lip.translate((0,t,0)),hard) for t in (.5,1,2)},
       "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"cover":cover,"lid":service_lid(),"gear":pinion(),"panel":panel}.items()},"checks_mm3":checks,"rear_panel_checks_mm3":panel_report(hard,cover),"rear_panel_assembly_slider_down_mm":10,"rear_panel_hook_count":4,"rear_panel_backload_contact_mm3":{str(t):v(panel.translate((0,t,0)),cover) for t in (.5,1,2)},"panel_beam_mm":{"length":12.2,"width":6,"thickness":1.8,"hook_projection":.8}}
 
-def panel_report(hard,cover):
+def panel_report(hard,cover=None):
     def v(p,q):return round(b.volume(p.intersect(q)),5)
     panel=rear_panel();smooth=panel.cut(panel_hooks())
-    fixed=hard.union(cover).union(height_slider().translate((0,0,-10))).union(a.adjustable_paddle())
+    case=hard if cover is None else hard.union(cover)
+    fixed=case.union(height_slider().translate((0,0,-10))).union(a.adjustable_paddle())
     # Exclude hooks for rigid entry; ideal hook translation checks receiving clearance.
     shifted=None
     for sign in (-1,1):
@@ -209,7 +210,7 @@ def panel_report(hard,cover):
         shifted=half if shifted is None else shifted.union(half)
     return {"rear_entry_without_hooks":{str(t):v(smooth.translate((0,t,0)),fixed) for t in (0,.25,.5,1,2,3,5,8,12,20,35)},
             "ideal_inward_hooks":{str(t):v(shifted.translate((0,t,0)),fixed) for t in (0,.25,.5,1,2,3,5,8,12,20,35)},
-            "foam_rear_entry_excluding_tongue":{str(t):v(b.foam().translate((0,t,0)),hard.union(cover).union(height_slider().translate((0,0,-10)))) for t in (0,.5,1,2,3,5,8,12,20,35)}}
+            "foam_rear_entry_excluding_tongue":{str(t):v(b.foam().translate((0,t,0)),case.union(height_slider().translate((0,0,-10)))) for t in (0,.5,1,2,3,5,8,12,20,35)}}
 
 def outgoing_ray_report():
     """Independent rays against added cover/left wall; original body limits remain separate."""
