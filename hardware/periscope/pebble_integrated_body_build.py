@@ -11,7 +11,6 @@ def main():
     (design.OUT/"integrated_body_report.json").write_text(json.dumps(r,indent=2))
     assert all(n==1 for n in r["solids"].values()),r["solids"]
     assert all(v==0 for group in r["checks_mm3"].values() for v in group.values()),r["checks_mm3"]
-    assert all(v==0 for group in r["rear_panel_checks_mm3"].values() for v in group.values()),r["rear_panel_checks_mm3"]
     assert all(v>0 for v in r["rear_panel_backload_contact_mm3"].values())
     rays=design.outgoing_ray_report()
     (design.OUT/"integrated_body_added_rays.json").write_text(json.dumps(rays,indent=2))

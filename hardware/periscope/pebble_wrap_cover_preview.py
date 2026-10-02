@@ -32,6 +32,8 @@ def main(integrated=False):
     v.render(prefix+"_right",(115,-115,55),scene=scene,scale=51)
     v.render(prefix+"_left",(-115,-115,55),scene=scene,scale=51)
     exploded={name:(shape, (0,0,65) if name=="rear_cover" else ((0,48,0) if name in ("rear_panel","foam") else ((-18,0,0) if name=="shell_left" else (0,0,0)))) for name,shape in parts.items()}
+    if integrated:
+        exploded={name:(shape,(-38,0,0) if name=="shell_left" else (38,0,0) if name=="shell_right" else (0,0,45) if name in ("rear_panel","foam") else (0,0,0)) for name,shape in parts.items()}
     v.render(prefix+"_exploded",(100,115,75),scene=exploded,scale=110)
 
 

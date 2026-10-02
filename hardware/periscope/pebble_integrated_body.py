@@ -1,4 +1,4 @@
-"""Two body halves carry the exterior and rear panel catches directly.
+"""Two body halves enclose broad rigid flanges on the foam backing panel.
 The side gear lid remains accessible; no separate top cover is printed.
 """
 from functools import lru_cache
@@ -9,13 +9,55 @@ from pebble_geared_profile import b,a
 k,g=w.k,w.g
 OUT=w.OUT
 height_slider=w.height_slider
-rear_panel=w.rear_panel
 pinion=w.pinion
 lever=w.lever
 
 @lru_cache(None)
+def panel_flanges():
+    # Long rigid shoulders are enclosed by the two halves; no flexible hooks.
+    part=None
+    for sign in (-1,1):
+        x0,x1=sorted((sign*26.5,sign*31.0))
+        flange=b.box(x0,x1,34,36,-9.5,20.5).edges("|X").fillet(.8)
+        part=flange if part is None else part.union(flange)
+    return part
+
+@lru_cache(None)
+def rear_panel():
+    panel=w.rear_panel()
+    # Retire the four cantilevers and their hooks, preserving the backing plate.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*28.5,sign*34))
+        panel=panel.cut(b.box(x0,x1,25,41,-12,23))
+        x0,x1=sorted((sign*26.5,sign*28.5))
+        panel=panel.union(b.box(x0,x1,34,39,-9.5,20.5))
+    return panel.union(panel_flanges())
+
+@lru_cache(None)
+def capture_rails():
+    part=None
+    for sign,outer in ((-1,w.LEFT_OUTER_X),(1,w.OUTER_X)):
+        x0,x1=sorted((sign*28.85,sign*outer))
+        rail=b.box(x0,x1,31.5,40,-10.7,21.7)
+        x0,x1=sorted((sign*28,sign*31.35))
+        rail=rail.cut(b.box(x0,x1,33.65,36.35,-10.15,21.15))
+        part=rail if part is None else part.union(rail)
+    return part
+
+@lru_cache(None)
 def outer_skin():
     part=w.rear_cover().cut(w.hooks())
+    for sign,outer in ((-1,w.LEFT_OUTER_X),(1,w.OUTER_X)):
+        x0,x1=sorted((sign*28,sign*(outer+.1)))
+        part=part.cut(b.box(x0,x1,25.5,40,-10,14.7))
+        inner=w.LEFT_INNER_X if sign<0 else w.INNER_X
+        x0,x1=sorted((sign*inner,sign*outer))
+        part=part.union(b.box(x0,x1,25.5,40,-10,14.7))
+    part=part.union(capture_rails())
+    # Reopen the left rail groove through the restored wall.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*28,sign*31.35))
+        part=part.cut(b.box(x0,x1,33.65,36.35,-10.15,21.15))
     # Delete the obsolete sleeve latches by filling their cuts in the side walls.
     for sign,inner,outer in ((-1,w.LEFT_INNER_X,w.LEFT_OUTER_X),(1,w.INNER_X,w.OUTER_X)):
         x0,x1=sorted((sign*(inner-.05),sign*outer))
@@ -48,7 +90,17 @@ def shell_left():
 @lru_cache(None)
 def shell_right():
     skin=outer_skin().union(roof_bridge()).intersect(b.box(b.SEAM/2,60,-100,100,-100,100))
-    return w.shell_right().union(skin)
+    part=w.shell_right().union(skin)
+    # Assembly at the highest position leaves the lower indexing pin intact.
+    part=part.cut(b.box(0,28.4,4.7,25.5,a.STOP_TOP-.3,a.STOP_TOP+2.7))
+    part=part.cut(b.box(0,30.35,-4.5,4.7,-2.7,a.STOP_TOP+2.7))
+    part=part.cut(b.box(17.09,23.91,11.5,16,-1.41,a.STOP_TOP-.3))
+    # The old index pin sat inside the slider arm, so its support would have
+    # to pass through that arm during lateral closure. Put it outside instead.
+    part=part.cut(b.box(22.9,26.6,13.6,17.4,-6.9,a.STOP_TOP-.3))
+    anchor=b.box(29,31.3,13.7,19.1,-6.8,a.STOP_TOP-.3)
+    gusset=b.box(29,35.2,18.7,20.5,12,a.STOP_TOP-.3)
+    return part.union(anchor).union(gusset).union(b.shaft(27.4,2.0,15.5,-5.7,.72))
 
 @lru_cache(None)
 def service_lid():
@@ -69,12 +121,14 @@ def report():
         bead=cq.Workplane(obj=cq.Solid.makeCone(1.42,1.70,.6,cq.Vector(24.75,y,z),cq.Vector(1,0,0)))
         smooth_lid=smooth_lid.cut(bead.cut(b.shaft(24.7,.7,y,z,1.42)))
     paddle=a.adjustable_paddle().rotate((0,b.old.PIVOT_Y,b.PIVOT_Z),(1,b.old.PIVOT_Y,b.PIVOT_Z),17.1256)
-    core_fixed=right.union(height_slider()).union(paddle)
+    core_fixed=right.union(height_slider()).union(paddle).union(panel).union(b.foam())
     ang=math.radians(b.old.MU)
     normal=(0,math.sin(ang),-math.cos(ang))
     checks={
         "mirror_normal_entry":{str(t):v(b.mirror().translate(tuple(t*q for q in normal)),hard) for t in (0,.5,1,2,3,5,8,12,20,35)},
         "body_closing_without_pin_ribs":{str(t):v(smooth_left.translate((-t,0,0)),core_fixed) for t in (0,.25,.5,1,2,3,4,5,8,12,20,40)},
+        "right_body_closing_around_panel_foam":{str(t):v(right.translate((t,0,0)),panel.union(b.foam()).union(height_slider()).union(paddle)) for t in (0,.25,.5,1,2,3,4,5,8,12,20,40)},
+        "panel_seated": {"body":v(panel,hard)},
         "gear_side_entry":{str(t):v(pinion().translate((t,0,0)),left.union(right).union(height_slider())) for t in (0,.5,1,2,3,5,8,12,18)},
         "side_lid_entry_without_retaining_beads":{str(t):v(smooth_lid.translate((t,0,0)),left.union(right).union(pinion()).union(height_slider())) for t in (0,.5,1,2,3,5,8,12,18)},
         "slider":{str(d):v(height_slider().translate((0,0,-d)),assembled) for d in (0,2.5,5,7.5,10)},
@@ -86,7 +140,10 @@ def report():
     }
     return {"separate_top_cover":False,"material":"ABS candidate; PLA geometry trial",
         "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"panel":panel}.items()},
-        "checks_mm3":checks,"rear_panel_checks_mm3":w.panel_report(hard),
+        "checks_mm3":checks,
+        "body_assembly_slider_down_mm":0,
+        "rear_panel_retention":"rigid side flanges enclosed during body assembly; no rear insertion",
+        "capture_mm":{"flange_thickness":2,"flange_height":30,"nominal_shoulder_overlap":2.15,"axial_clearance_each_side":.35},
         "rear_panel_backload_contact_mm3":{str(t):v(panel.translate((0,t,0)),hard) for t in (.5,1,2)}}
 
 def outgoing_ray_report():

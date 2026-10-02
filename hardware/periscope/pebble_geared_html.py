@@ -51,6 +51,7 @@ def main(height_only=False,modelkit=False,wrap=False,integrated=False):
         factories["height_index_pin"] = lambda: b.shaft(24.6,1.9,15.5,-5.7,0.72)
     if wrap: factories["rear_panel"]=h.rear_panel
     if integrated: del factories["rear_cover"]
+    if integrated: factories["height_index_pin"] = lambda: b.shaft(27.4,2.0,15.5,-5.7,.72)
     data = {name: mesh_data(factory()) for name, factory in factories.items()}
     config = {
         "heightOnly": height_only,
@@ -220,12 +221,53 @@ coverDetail.addEventListener('click',()=>{coverOnly=!coverOnly;coverDetail.setAt
         html=html.replace("높이 조절 반사경 · 전체 덮개 시안", "높이 조절 반사경 · 본체 외피 통합")
         html=html.replace(" <b>커버 탭 안쪽 홈은 출력 시험 전인 시안입니다.</b>", "")
         html=html.replace("전체 덮개 안쪽 보기", "스펀지 뒤판 보기").replace("덮개 안쪽 보기", "뒤판 안쪽 보기")
-        html=html.replace("덮개가 본체 앞·위·양옆·뒤를 감쌉니다. 기어 없는 왼쪽은4.4mm 줄였습니다. 양옆 걸림턱은 빠짐 방지용이며 ABS 실물 체결력은 미검증입니다.", "위 커버를 없애고 외피와 뒤판 결합부를 좌우 본체에 통합했습니다. 스펀지 뒤판의 네 턱이 본체에 직접 걸립니다. ABS 실제 체결력은 미검증입니다.")
+        html=html.replace("덮개가 본체 앞·위·양옆·뒤를 감쌉니다. 기어 없는 왼쪽은4.4mm 줄였습니다. 양옆 걸림턱은 빠짐 방지용이며 ABS 실물 체결력은 미검증입니다.", "뒤판 걸쇠 네 개를 없앴습니다. 길이 30mm의 양옆 테두리를 본체 홈 안에 가두고 좌우 본체를 닫습니다. 뒤판을 빼려면 본체를 열어야 합니다. ABS 실제 강도는 미검증입니다.")
         start=html.index("앞쪽 감싸는 면이 본체 앞면을 잡아")
         end=html.index("</p>",start)
-        html=html[:start]+"스펀지를 붙이는 넓은 뒤판입니다. 조립 시 높이 받침을 가장 아래 4mm 위치로 내린 뒤 뒤에서 누릅니다. 별도 위 커버는 없습니다."+html[end:]
-        html=html.replace("스폰지 없이 바깥 덮개를 위에서 씌우기 → 높이 레버 끼우기 → ", "높이 레버 끼우기 → ")
+        html=html[:start]+"양옆의 두꺼운 테두리(두께 2mm·길이 30mm)를 본체 홈에 가둡니다. 스펀지를 붙인 뒤판과 혀·받침을 먼저 배치하고 본체를 양옆에서 닫습니다. 스펀지 반력은 넓은 뒤쪽 받침면이 받습니다. 뒤에서 끼우는 부품이 아닙니다."+html[end:]
+        start=html.index('조립 순서:')
+        end=html.index('</p>',start)
+        html=html[:start]+"조립 순서: 뒤판에 16×6×6mm 스펀지 붙이기 → 혀·높이 받침을 가장 위 14mm 위치에 놓고 뒤판 배치 → 뒤판 양옆 테두리를 홈에 가두며 좌우 본체 닫기 → 거울 붙이기 → 옆에서 기어 넣기 → 옆 뚜껑·레버 장착. 뒤판 교체는 본체를 열어야 합니다."+html[end:]
+        html=html.replace('objects.rear_panel.position.y=exploded?48:0;', 'objects.rear_panel.position.y=0;objects.rear_panel.position.z=exploded?45:0;')
+        html=html.replace('objects.foam.position.y=exploded?48:0;objects.foam.position.z=0;', 'objects.foam.position.y=0;objects.foam.position.z=exploded?45:0;')
         html=html.replace("레버는 기어·옆 뚜껑·전체 뒤 덮개 조립 후 끼웁니다.", "레버는 기어와 옆 뚜껑을 조립한 뒤 끼웁니다.")
+        html=html.replace('<div class="card"><h2>기어 넣는 순서', '<div class="card"><h2>뒤판을 가두는 조립</h2><button id="bodyAssembly" aria-pressed="false">본체 조립 보기</button><div id="bodyAssemblyPanel" hidden><input id="bodyAssemblyStep" aria-label="본체 조립 단계" type="range" min="0" max="2" step="1" value="0"><p id="bodyAssemblyNote" class="small"></p></div><p class="small">수정: 2026-10-02 · 작은 걸쇠 제거 / 넓은 테두리 포획</p></div><div class="card"><h2>기어 넣는 순서')
+        html=html.replace('const insertionArrow=', 'let bodyAssembly=false,bodySavedDepth=10;\nconst insertionArrow=')
+        html=html.replace('\n}\nconst assemblyButton', '''
+ objects.height_pinion.visible=true;objects.height_lever.visible=true;
+ document.getElementById('bodyAssembly').disabled=assembling||coverOnly;
+ objects.shell_left.material.transparent=bodyAssembly;objects.shell_left.material.opacity=bodyAssembly?.25:1;
+ if(bodyAssembly){
+  const step=Number(document.getElementById('bodyAssemblyStep').value);
+  objects.shell_left.position.x=step<2?-38:0;objects.shell_right.position.x=step===0?38:0;
+  objects.shell_left.visible=true;objects.shell_right.visible=true;
+  objects.shell_right.material.transparent=true;objects.shell_right.material.opacity=.25;
+  objects.rear_panel.position.set(0,0,0);objects.rear_panel.visible=true;
+  objects.foam.position.set(0,0,0);objects.foam.visible=true;
+  objects.height_slider.position.set(0,0,0);objects.height_slider.material.color.set('#4a78cf');
+  paddleGroup.position.set(0,cfg.paddleY,cfg.paddleZ);
+  heightGroup.position.set(0,cfg.heightY,cfg.heightZ);heightGroup.rotation.x=0;
+  objects.height_pinion.visible=false;objects.height_lever.visible=false;objects.gear_cover.visible=false;
+  objects.height_index_pin.visible=false;objects.phone.visible=false;objects.camera_lens.visible=false;trayGroup.visible=false;
+  document.getElementById('bodyAssemblyNote').textContent=[
+   '① ス펀지를 붙인 뒤판·혀·높이 받침을 배치합니다. 받침은 가장 위 14mm 위치입니다. 본체는 양옆으로 열려 있습니다.',
+   '② 오른쪽 본체를 닫으며 뒤판 오른쪽 테두리를 홈에 가둡니다. 뒤판을 뒤에서 밀어 끼우지 않습니다.',
+   '③ 왼쪽 본체를 닫고 본체 핀을 결합합니다. 양옆의 긴 테두리가 뒤쪽 받침면에 걸려 뒤판이 뒤로 빠지는 것을 막습니다. 다음은 옆 기어 조립입니다.'
+  ][step];
+ }
+ for(const id of ['depth','inside','explode','assembly','coverDetail'])document.getElementById(id).disabled=bodyAssembly||(assembling&&['depth','inside','explode'].includes(id));
+}
+const assemblyButton'''.replace('ス펀지','스펀지'))
+        html=html.replace('update();frame();', '''
+document.getElementById('bodyAssembly').addEventListener('click',e=>{
+ bodyAssembly=!bodyAssembly;e.currentTarget.setAttribute('aria-pressed',String(bodyAssembly));
+ document.getElementById('bodyAssemblyPanel').hidden=!bodyAssembly;
+ if(bodyAssembly){bodySavedDepth=document.getElementById('depth').value;document.getElementById('depth').value='0';inside=false;exploded=false;camera.position.set(95,115,70);orbit.target.set(0,23,5);}
+ else{document.getElementById('depth').value=bodySavedDepth;camera.position.set(100,-115,64);orbit.target.set(0,-5,-5);}
+ orbit.update();update();
+});
+document.getElementById('bodyAssemblyStep').addEventListener('input',update);
+update();frame();''')
     html = html.replace("__DATA__", json.dumps(data, separators=(",", ":")))
     html = html.replace("__CONFIG__", json.dumps(config, separators=(",", ":")))
     path = g.OUT / ("tango_pebble_integrated_body_interactive.html" if integrated else "tango_pebble_wrap_cover_interactive.html" if wrap else "tango_pebble_modelkit_interactive.html" if modelkit else "tango_pebble_height_only_interactive.html" if height_only else "tango_pebble_geared_unibody_interactive.html")
