@@ -358,3 +358,16 @@ final-review-status-20261001-1916.json으로전730생성/명시approved=true9장
 두 인물의 포옹/올린 발/앞치마/꼬리와 간단 침대 윤곽은 유지했지만 아이 크림 얼굴이 주황, 엄마 앞치마 검정갈색, 줄무늬·아이 배/발·엄마 먼손·두 무지개 꼬리 흰 면으로 색 대응 실패. 큰 침대 회색 면이 추가되어 면적 증가를 인물 색칠 개선으로 보고하지 않는다. hugSourceScaleCandidateReview2321/review-decision.json에 기각·미승인·미적용·미게시 기록. 저장픽셀 대조이며 후보 브라우저/native 검증은 하지 않았고, 반복 지시만으로 해결됐다고 간주하지 않는다. 완료후보 재제출 금지, 다음에는 원본 크림 분리 경계의 위치/영역 표본 및 핵심 소품색을 따로 진단한다.
 
 새 승인0/공개730장 보존/명시승인10·대기720 유지. 코드·런타임 mode/median/sourcecrop 변경 없음, 추가push/운영등록 없음. 끝 queue0/worker 정상종료 확인, 기존 검수서버/사용자 갤러리 보존. 관련 task 기록만 로컬 커밋하며 개별 진척은 조용히 유지한다.
+
+
+## 2026-10-02 00:22 UTC — 탈것 청소차 원본 구도·무지개 꼬리 흑백 후속
+
+실제root/branch/status/worktree HEADf600b399/codex/games-classic-scene-coloring 확인, 기존 scripts/__pycache__ 보존. 자체Comfy8190 실제PID41608 commandline/queue0 및 완료우선후보 status를 먼저 대조했고 다른 서버/client/완료runner 중단·재시작 없음. 여섯 manifest/review 현재 재조회는 전730생성/명시승인10·대기720, review-counts-20261002-0022.json에 기존승인 현재원본/활성도안SHA 저장. 이는 저장증거와현재파일재대조이며 이번새브라우저/native재생 아님.
+
+탈것14권청소차3쪽1784860653559-p03 실제원본은 큰후면청소차/사람미화원과엄마·호리·다람쥐, 왼손인사/오른손쓰레기봉투. 원본단독Qwen4cebd572-a24f-46c2-8bbb-13c5aa8bfb85(exec74034)에 실제위치·크기/후면큰패널/크림경계/흰줄무늬/무지개밴드를지정. 정상종료·sourceSHAbbd010da1613809d9a22cbc17f1a532d939ef55b4196260ec8c18970f8b353d3/candidateSHA2a48d152958235b2f9eac8e1e72621480c0a843d444be13e6eff204ed96ea917, candidate-batches/20261002-0022-refuse-truck-source-layout에 request/worker/PNG/graph/history/status/원본증거보존. 원본4명/차/행동은유지했지만꼬리끝두개를실제무지개컬러로생성해유색4903px0.464% 흑백실패·기각. 실패후보 enginefilled/브라우저검증은하지않음.
+
+해당선화의유색꼬리끝만흰면으로바꾸는별도Qwen43fbf520-f70c-473c-8b3c-e71362095602(exec43651) 정상종료·완료후재제출금지. candidate-batches/20261002-0022-refuse-truck-tail-whitening에 실제참조SHA/이전repairs/history/새PNG·검수보존. SHA와흑백검사통과, actualsharedengine308영역30필수8색39.5%, comparison-000.jpg 원본/선화/filled 직접대조. 인물·차복원은유지하지만미화원얼굴올리브/엄마아이크림볼주황/앞치마·아이발·무지개꼬리흰면/다람쥐크림볼갈색으로색대응실패. 트럭내부큰검정은원본에도있지만반사띠/프레임미색칠은후속. sourceLayoutCandidateReview0022/tailWhiteningCandidateReview0022 및 각review-decision.json에 미승인미적용미게시 기록. 선화흑백통과가원본색대응승인은아니며 후보브라우저/native 검증없음.
+
+생활08p10 직전후보도 원본coordinate-grid/actualshared seed-diagnostic.mts/json으로후속진단. 아이크림주둥이565,405 region17 원본RGB218,166,94에도칸최빈색#cf6c0b주황, 엄마손646,503 region87은#ebb56d 별도색. 두꼬리끝region94/137 면적1525/2108px는3170px 필수최소면적보다작아미색칠. hugSeedDiagnostic0022에 저장픽셀영역/원본표본/필수제외 구분을기록, 이자료로전역기준/sourcecrop/median변경하지않음.
+
+새승인0/기존공개730장·승인10/대기720유지, 코드수정0/추가push·운영등록0. 끝8190queue0/두worker정상종료·재제출금지, 기존검수서버/사용자갤러리보존. task경로/diff확인 후관련기록만로컬커밋. 다음은여섯분류원본경계와실제색표본후속을이어가며개별진척은조용히유지.
