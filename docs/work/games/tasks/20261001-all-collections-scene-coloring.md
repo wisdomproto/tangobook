@@ -707,3 +707,13 @@ Produceridle/source-candidate-actualhistorySHA gate후 revisions보존 교체. �
 - producer완료idle/sourcecandidate-local+actualComfyhistorySHA gate/revisions보존6교체/기존sampling유지,승인tests sync04:17:36. cute-public-review-0407 버전URL12실다운로드SHA 통과. 공개대표뱀11 3물감3쓸기/정확한11쪽리빌 실제확인, 나머지5 localgame+publicSHA/공개native새검증아님. review cuteBatchGameReview0407/cuteLearningMainPanelReview0407/final-published-count 귀여운공개181/202·남은21, 다른5분류/6탭730보존.
 - distinct신규20261003-cute-nature-0407-learning-surgical-three.json 기존완료선화reference 정밀교정: 동굴2 귀신눈삭제·광물끝복원/독립닫힌종유석과물, 심장5 눈입삭제·해부심장주먹학습복원, 뇌2 아이턱귀머리폐곡선+닫힌퍼즐3패널. 같은generic원본지시재실행아님/기존완료배치재시작없음. worker exec81695 실행중, 실제status/lock/commandline/8190queuehistory 먼저조회·중단복제계획변경금지. 후보만자동적용게시없음/producer manifest읽는동안active변경보류.
 - 나머지21 범위유지, 식물/동물열린큰면은 필요한generatedlineart binaryexport 개별실험 rawderivedSHA/provenance+실제게임 구분해검수, 실패자동게시없음. 실제원본pixels/runtime/영역기준/median/밝기변경없음. 갤러리75·기존서버보존/임시탭닫음. 코드/mainpush/운영등록/다른배포없음. task만namedstage로컬커밋/자동화10분유지.
+
+
+### 2026-10-03 04:22 UTC — 개별 binary 학습2 반영/귀여운183장·잔여19
+
+- actualgit/task/Comfy8190 commandlinequeuehistory 조회,0407-learning-surgical3 worker29460 04:22:01 정상종료 all-candidates-awaiting-review 확인/재시작없음. raw sourcecandidateSHA3/mono2통과1실패(심장5 유색838px0.0793%); comparison000 실제원본선화filled 대조. 동굴귀신눈/심장장기눈입삭제는복원했으나동굴종유석·뇌큰얼굴흰면후속. raw심장직접적용없음.
+- explicit0422-binary-learning-eight 개별파생8,각normalization.json rawderivedSHA/provenance·neutralstroke maxchannel<192 spread<=32/한번3x3경계확장,원본colorpixels/runtime영역기준/median/밝기변경없음. derivedmono8/SHA comparison000·004 실제대조. 카멜레온2 큰연두몸/닫힌얼굴 개선·심장5 해부학큰장기와주먹복원 개선. 강아지풀12/소나무2/연꽃10/토끼12/동굴2/뇌2 나머지6 큰핵심면흰면후속/브라우저미검증미적용; 파생전체자동승인없음.
+- actual5226 exec42884 카멜레온2/심장5 전체5/3물감 완료/보이는눈·얼굴없는장기학습·정확한2/5쪽리빌/native4.872/9.432 자연ended+BGM정지. cute-batch-game-review-0422 first/brush1~5/native-final. 초기5226coldload navigate timeout은같은탭준비후정상검수/새중복탭없음. resetRepaint=false,partialchecker는도중붓질/옛증거새재생아님. 작은흰발/사소한주먹짙은색허용,심장얼굴학습변경은해결확인.
+- idle/sourcecandidate-actualhistorySHA/rawderivedprovenance gate후2revisions보존교체/기존sampling유지/tests sync04:26:41. cute-public-review-0422 버전URL4실다운로드SHA통과/공개대표심장5 실제3물감3쓸기·정확한5쪽리빌,카멜레온localgame+publicSHA/공개native새검증아님. review cuteBatchGameReview0422/cuteBinaryLearningReview0422/final-published-count 귀여운183/202·남은19,6탭730/다른5분류보존.
+- 신규0422-major-panel-joins-six.json workerPID39976 exec28984 실행중. 완료선화reference·진단별접합교정:강아지풀12 큰폐곡선이삭/소나무2 수관3넓은면·바위삭제·줄기아래캡/연꽃10 다섯넓은근경폐곡선/토끼12 오른쪽아기턱가슴접합·어미내부오른캡/동굴2 중앙종유석윗캡·물양끝/뇌2 얼굴턱귀머리선·닫힌뇌3면. generic원본반복아님/완료batch재시작아님. 후보만자동적용게시없음/실제statuslockcommandlinequeuehistory먼저/중단복제계획변경금지·producer읽는active변경보류. 다음완료분빠른게임검수반영+잔여19범위유지.
+- 임시검수탭닫음/갤러리75·기존서버보존,코드/mainpush/운영등록/다른배포없음. task만namedstage로컬커밋/10분자동화유지.
