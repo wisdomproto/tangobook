@@ -19,6 +19,11 @@ def mirror_support():
 def rear_panel():
     # Foam carrier: no roof or captive side flanges. Insert from the rear.
     panel=b.box(-17.4,17.4,19.6,22,-7,b.TOP-2.9).edges('|Y').fillet(1).intersect(b.envelope())
+    # Engrave outside the exact 16 x 6 mm glue footprint. Keep the original
+    # glue plane so the foam thickness and paddle preload do not change.
+    frame=b.box(-8.45,8.45,19.6,19.95,b.FOAM_Z-3.45,b.FOAM_Z+3.45)
+    frame=frame.cut(b.box(-8,8,19.5,20,b.FOAM_Z-3,b.FOAM_Z+3))
+    panel=panel.cut(frame)
     for x,z in CARRIER_PINS:
         panel=panel.union(kit.pin((x,19.75,z),(0,-1,0)))
     return panel
