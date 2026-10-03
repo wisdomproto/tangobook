@@ -9,6 +9,7 @@ import pebble_modelkit as kit
 b=load_profile('_compact_fixed_base','pebble.py',DESIGN_PHONE_INSERT_DEPTH=4.0,DESIGN_CAM_GAP=13.5)
 OUT=Path(__file__).resolve().parent/'out'/'pebble_compact_fixed'
 JOINTS=((-20.0,b.TOP-5.0),(-8.0,b.TOP-5.0))
+CARRIER_PINS=((-12,5.0),(12,5.0))
 
 @lru_cache(None)
 def mirror_support():
@@ -17,7 +18,10 @@ def mirror_support():
 @lru_cache(None)
 def rear_panel():
     # Foam carrier: no roof or captive side flanges. Insert from the rear.
-    return b.box(-17.4,17.4,19.6,22,-7,b.TOP-2.9).edges('|Y').fillet(1).intersect(b.envelope())
+    panel=b.box(-17.4,17.4,19.6,22,-7,b.TOP-2.9).edges('|Y').fillet(1).intersect(b.envelope())
+    for x,z in CARRIER_PINS:
+        panel=panel.union(kit.pin((x,19.75,z),(0,-1,0)))
+    return panel
 
 @lru_cache(None)
 def keeper_blank():
@@ -80,6 +84,13 @@ def blank():
         core=core.union(b.box(x0,x1,1,11,b.PHONE_TOP,b.PHONE_TOP+1.8).edges('|Z').fillet(.5).intersect(b.envelope()))
     # Rebuild both mirror halves from one continuous adhesive landing pad.
     core=core.cut(b.mirror_backing()).union(mirror_support())
+    # The foam carrier engages the body before the top keeper is fitted.
+    # Wide socket blocks stay beside the foam and behind the phone envelope.
+    for x,z in CARRIER_PINS:
+        core=core.union(b.box(x-3.2,x+3.2,15,19.25,z-3.2,b.TOP-2.5))
+        core=core.cut(kit.axial_cylinder((x,19.4,z),(0,-1,0),4.6,kit.SOCKET_D/2))
+        mouth=cq.Workplane(obj=cq.Solid.makeCone(kit.SOCKET_D/2+.35,kit.SOCKET_D/2,.5,cq.Vector(x,19.25,z),cq.Vector(0,-1,0)))
+        core=core.cut(mouth)
     return core
 
 def tenon(y,z):
@@ -118,9 +129,11 @@ def report():
     smooth=left
     for y,z in JOINTS:smooth=smooth.cut(kit.excess_ribs((-.3,y,z),(1,0,0)))
     smooth_cover=keeper_blank()
+    smooth_panel=panel
+    for x,z in CARRIER_PINS:smooth_panel=smooth_panel.cut(kit.excess_ribs((x,19.75,z),(0,-1,0)))
     checks={
-        'panel_seated':{'body':v(panel,body)},
-        'rear_panel_insertion':{str(t):v(panel.translate((0,t,0)),body.union(b.paddle())) for t in (0,.25,.5,1,2,3,5,8,12,18,25,40)},
+        'panel_seated_without_pin_ribs':{'body':v(smooth_panel,body)},
+        'rear_panel_insertion_without_pin_ribs':{str(t):v(smooth_panel.translate((0,t,0)),body.union(b.paddle())) for t in (0,.25,.5,1,2,3,5,8,12,18,25,40)},
         'foam_rear_insertion_body':{str(t):v(b.foam().translate((0,t,0)),body) for t in (0,.5,1,2,3,5,8,12,18,25,40)},
         'body_closing':{str(t):v(smooth.translate((-t,0,0)),right.union(b.paddle())) for t in (0,.5,1,2,4,8,15,30)},
         'right_closing':{str(t):v(right.translate((t,0,0)),b.paddle()) for t in (0,.5,1,2,4,8,15,30)},
@@ -139,6 +152,7 @@ def report():
         'phone_seating_contact_mm3':{str(th):v(b.phone(th,.2),hard) for th in (7,9,11)},
         'rear_cover_installation':'close body halves; insert foam-bonded roofless carrier from rear; slide separate roof/rear keeper downward Z',
         'retention_rib_nominal_compression_mm':.09,
+        'carrier_body_connection':{'pin_count':2,'pin_diameter_mm':kit.PIN_D,'socket_diameter_mm':kit.SOCKET_D,'pin_length_mm':kit.PIN_LENGTH,'nominal_rib_interference_mm':.06,'intentional_rib_contact_mm3':v(panel,body)},
         'foam_roof_coverage_missing_mm3':top_visibility(hard),
         'keeper_downward_stop_contact_mm3':{str(t):v(smooth_cover.translate((0,0,-t)),body) for t in (.5,1)},
         'rear_retention_contact_mm3':{str(t):v(panel.translate((0,t,0)),cover) for t in (.5,1,2)},

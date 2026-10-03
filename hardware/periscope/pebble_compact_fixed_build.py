@@ -70,6 +70,7 @@ def main():
     assert all(v>0 for v in r['keeper_downward_stop_contact_mm3'].values()),r
     assert all(v>0 for v in r['keeper_rear_load_contact_mm3'].values()),r
     assert all(v>0 for v in r['carrier_seating_contacts_mm3'].values()),r
+    assert r['carrier_body_connection']['intentional_rib_contact_mm3']>0,r
     assert r['camera_top_margin_mm']==4 and all(v>0 for v in r['phone_seating_contact_mm3'].values()),r
     parts={n:f() for n,f in d.PARTS.items()};hard=parts['shell_left'].union(parts['shell_right']).union(parts['rear_panel']).union(parts['keeper'])
     optics=optical_report(hard);(d.OUT/'optical_report.json').write_text(json.dumps(optics,indent=2))
