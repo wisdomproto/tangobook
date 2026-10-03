@@ -2,13 +2,13 @@
 
 - id: 20261003-changjak-word-images
 - domain: content
-- status: completed
+- status: integrated
 - updated: 2026-10-03
 - base: 4fcf3bb0b
 - branch: codex/content-changjak-word-images
 - worktree: C:/projects/tangobook/.worktrees/changjak-word-images
-- integration: 미통합
-- delivery: push 미요청
+- integration: origin/main 기반 fast-forward 통합
+- delivery: 사용자 main push 승인
 
 ## 요청과 완료 조건
 
@@ -51,3 +51,5 @@
 운영 500권 전부 등록 및 저장 전후 보존 검증 완료. 858종 카드와 2,363개 단어 항목 연결 완료. CDN에서 858종 전부 다시 내려받아 SHA-256이 최종 WebP와 일치함을 확인했다. [완료 manifest](20261003-changjak-word-images.json)에 카드 URL·해시·크기·책별 사용처, 147장 원본 검수/참조, 책별 등록 결과를 기록했다. 원본 생성물과 복구용 전체 책 백업은 로컬에 보존하며 Git에는 넣지 않는다.
 
 검증: 실제 작업 폴더에서 `pnpm install --frozen-lockfile` 완료, MJS 4개 `node --check`·Python 2개 `py_compile`·`git diff --check` 통과. 생성된 이미지와 데이터 작업이므로 제품 전체 build/typecheck/test는 실행하지 않았다. 운영 데이터는 이미 반영됐으며 관련 스크립트·문서는 작업 브랜치에 로컬 커밋한다. 이번 작업의 main push는 요청되지 않았다.
+
+2026-10-03 후속 사용자 요청: “메인에 푸시해줘”. fetch 후 origin/main은 4fcf3bb0이며 작업 커밋 c8f14f9b만 1개 앞서 있어 이번 작업과 인계 기록만 일반 fast-forward push로 통합한다. 기본 체크아웃의 영상 관리 브랜치 및 기존 미추적 output, 생성 원본/백업은 보존한다. 운영 DB 등록을 다시 실행하지 않는다.

@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-03 [창작동화 01~10 핵심단어 이미지 등록](../work/content/tasks/20261003-changjak-word-images.md): GPT 이미지 858종을 생성·검수하여 운영 500권의 2,363개 단어 항목에 연결했다. Editor2 표본 3권 표시, 기존 페이지와 다른 필드 보존, CDN 전수 해시 검증 완료. 운영 데이터 반영됨. 코드·기록은 codex/content-changjak-word-images 로컬 브랜치, main push 미요청.
+2026-10-03 [창작동화 01~10 핵심단어 이미지 등록](../work/content/tasks/20261003-changjak-word-images.md): GPT 이미지 858종을 생성·검수하여 운영 500권의 2,363개 단어 항목에 연결했다. Editor2 표본 3권 표시, 기존 페이지와 다른 필드 보존, CDN 전수 해시 검증 완료. 운영 데이터 반영됨. 후속 사용자 main push 승인에 따라 c8f14f9b와 통합 기록을 최신 원격 main에 일반 push한다. 기존 로컬 영상 관리 브랜치와 생성 원본은 보존한다.
 
 2026-10-02 영상 관리 main push 승인: 사용자 “푸시하자”. 원격 최신 main에서 이번 영상 관리/로컬 합성 변경만 통합(`1e84bd75`)하고 원격 기준 검증 후 일반 push를 사용한다. 색칠 작업과 기존 로컬 미푸시 이력은 보존. [통합 기록](../work/authoring/tasks/20261002-editor2-video-library.md). 아래 영상 관리의 push 미요청 상태는 이 승인으로 갱신한다.
 
