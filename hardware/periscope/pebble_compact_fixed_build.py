@@ -44,6 +44,9 @@ def print_plate(parts):
     assert all(abs(p.bounds[0,2])<.001 for p in split) and gap>=7.99
     assert all(v<=230 for v in combined.extents[:2])
     report.update(plate={'file':path.name,'bounds_mm':combined.extents.round(3).tolist(),'minimum_gap_mm':round(gap,3),'body_count':len(split),'supports_included':False})
+    # Refresh the previously shared body-only replacement plate too.
+    body_plate=trimesh.util.concatenate(meshes[:2])
+    body_plate.export(str(d.OUT/'tango_pebble_compact_fixed_bodies_print_plate.stl'))
     (d.OUT/'print_report.json').write_text(json.dumps(report,indent=2))
 
 def html(parts,r):

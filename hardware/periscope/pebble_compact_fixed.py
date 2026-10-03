@@ -12,13 +12,50 @@ JOINTS=((-20.0,b.TOP-5.0),(-8.0,b.TOP-5.0))
 CARRIER_PINS=((-12,5.0),(12,5.0))
 
 @lru_cache(None)
+def reflected_window():
+    # Reflect the camera through the mirror plane. Rays from this virtual
+    # camera define one continuous opening, rather than isolated ray holes.
+    angle=math.radians(b.old.MU)
+    normal=cq.Vector(0,math.sin(angle),-math.cos(angle))
+    up=cq.Vector(0,math.cos(angle),math.sin(angle))
+    center=cq.Vector(*b.mirror_center())+normal*(b.MIR_T/2+.04)
+    camera=cq.Vector(0,0,b.CAMERA_Z)
+    virtual=camera-normal*(2*(camera-center).dot(normal))
+    corners=[center+cq.Vector(x,0,0)+up*z for x,z in
+             [(-b.APER_W/2-.5,-b.APER_H/2-.5),
+              ( b.APER_W/2+.5,-b.APER_H/2-.5),
+              ( b.APER_W/2+.5, b.APER_H/2+.5),
+              (-b.APER_W/2-.5, b.APER_H/2+.5)]]
+    far=[p+(p-virtual)*4 for p in corners]
+    return cq.Workplane(obj=cq.Solid.makeLoft([
+        cq.Wire.makePolygon(corners+[corners[0]]),
+        cq.Wire.makePolygon(far+[far[0]])]))
+
+@lru_cache(None)
+def side_walls():
+    # 4.3 mm side cheeks join the front phone posts to the roof and mirror pad.
+    wall=(b.box(20.2,24.5,b.FRONT,-.5,b.BOTTOM,b.TOP)
+          .edges('|X').fillet(2).edges('not |X').fillet(.6)
+          .intersect(b.envelope()).cut(reflected_window()))
+    normals=[f.normalAt() for f in reflected_window().faces().vals()]
+    rim=[]
+    for face in wall.faces().vals():
+        if face.geomType()=='PLANE' and any(abs(abs(face.normalAt().dot(n))-1)<1e-6 for n in normals):
+            for edge in face.Edges():
+                if not any(edge.isSame(existing) for existing in rim):rim.append(edge)
+    wall=wall.newObject(rim).fillet(.4)
+    return wall.union(wall.mirror('YZ'))
+
+@lru_cache(None)
 def mirror_support():
-    return b.mirror_backing().intersect(b.box(-21.2,21.2,-100,100,-100,100))
+    return b.mirror_backing().intersect(b.box(-21.2,21.2,-100,100,-100,100)).edges().fillet(.4)
 
 @lru_cache(None)
 def rear_panel():
     # Foam carrier: no roof or captive side flanges. Insert from the rear.
     panel=b.box(-17.4,17.4,19.6,22,-7,b.TOP-2.9).edges('|Y').fillet(1).intersect(b.envelope())
+    perimeter=[e for e in panel.edges().vals() if e.geomType()!='LINE' or e.BoundingBox().ylen<.01]
+    panel=panel.newObject(perimeter).fillet(.4)
     # Engrave outside the exact 16 x 6 mm glue footprint. Keep the original
     # glue plane so the foam thickness and paddle preload do not change.
     frame=b.box(-8.45,8.45,19.6,19.95,b.FOAM_Z-3.45,b.FOAM_Z+3.45)
@@ -40,7 +77,11 @@ def keeper_blank():
         # Front shoulders descend into a second pocket and capture the body
         # crossbar. The roof joins these shoulders to the rear retaining wall.
         keeper=keeper.union(b.box(x0,x1,14.95,16.8,-6.5,11.5).edges('|X').fillet(.6))
-    return keeper.intersect(outer)
+    keeper=keeper.intersect(outer)
+    front=[e for e in keeper.edges().vals() if abs(e.Center().y-13.3)<.01]
+    keeper=keeper.newObject(front).fillet(.45)
+    bottom=[e for e in keeper.edges().vals() if abs(e.Center().z+7)<.01]
+    return keeper.newObject(bottom).fillet(.45)
 
 @lru_cache(None)
 def panel_ribs():
@@ -61,6 +102,18 @@ def blank():
     # Remove the old front/bottom lip across the outgoing opening. It blocks
     # the lower corner rays after bringing the glass closer to the camera.
     core=core.cut(b.box(-20,20,b.FRONT-1,1,b.BOTTOM-1,b.MIRROR_TOP-.5).edges('|Y').fillet(.75))
+    # Discard the needle-like remnants of the old front corner walls. The
+    # continuous adhesive pad is restored later, so its edge is not cut away.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*19.8,sign*26))
+        core=core.cut(b.box(x0,x1,b.FRONT-1,-24,b.BOTTOM-1,4.5))
+        # Replace the irregular lower phone posts with rounded cross sections
+        # and rolled ends. Their inner face never enters the phone envelope.
+        core=core.cut(b.box(x0,x1,-4,0,b.BOTTOM-1,-3.5))
+        x0,x1=sorted((sign*20,sign*24.5))
+        post=b.box(x0,x1,-2.4,-.5,b.BOTTOM,-3).edges('|Z').fillet(.7)
+        post=post.edges('<Z').fillet(.8)
+        core=core.union(post)
     # Open the back before adding captive shoulders; no rear-insertion latch.
     core=core.cut(b.box(-18.75,18.75,16.4,23,b.BOTTOM-1,b.TOP+1))
     # A rear cap fills this top-open rebate after vertical installation.
@@ -86,7 +139,8 @@ def blank():
         core=core.union(root.union(stop).union(shelf).intersect(b.envelope()))
         # The phone seats on two rigid side ledges at exactly 4 mm above glass.
         x0,x1=sorted((sign*18.5,sign*24.5))
-        core=core.union(b.box(x0,x1,1,11,b.PHONE_TOP,b.PHONE_TOP+1.8).edges('|Z').fillet(.5).intersect(b.envelope()))
+        ledge=b.box(x0,x1,1,11,b.PHONE_TOP,b.PHONE_TOP+1.8).edges('|Z').fillet(.5)
+        core=core.union(ledge.edges('<Z').fillet(.3).intersect(b.envelope()))
     # Rebuild both mirror halves from one continuous adhesive landing pad.
     core=core.cut(b.mirror_backing()).union(mirror_support())
     # The foam carrier engages the body before the top keeper is fitted.
@@ -102,7 +156,17 @@ def blank():
     rear_region=b.box(-30,30,19.4,25,b.BOTTOM-1,b.TOP+1)
     rounded_end=b.box(-30,30,19.4,25,-7,b.TOP+1).edges('|X').fillet(.8)
     core=core.cut(rear_region).union(core.intersect(rounded_end))
-    return core
+    # Roll the exposed optical mouth, shortened corner tips and roof rim.
+    # Do this before splitting the body so the seam stays flat and fitted.
+    exposed=(
+        lambda e:e.geomType()=='LINE' and e.Center().y<b.FRONT+.01 and e.Center().z<8,
+        lambda e:abs(e.Center().z-4.5)<.01 and e.Center().y<-24,
+        lambda e:e.geomType()=='LINE' and abs(e.Center().z-(b.TOP-7.3))<.01 and e.Center().y<0,
+    )
+    for select in exposed:
+        edges=[e for e in core.edges().vals() if select(e)]
+        core=core.newObject(edges).fillet(.5)
+    return core.union(side_walls())
 
 def tenon(y,z):
     key=b.box(-4.5,4.5,y-5,y+5,z-3,z+3.9).edges('|X').fillet(.65)
@@ -128,7 +192,41 @@ def shell_right():
         part=part.cut(mouth)
     return part
 
-paddle=b.paddle
+def rounded_contact_shoe():
+    # A smooth curve replaces the faceted shoe outline. Roll its side rims;
+    # the center of the broad phone-contact face keeps the original bow.
+    arc=[(b.contact_front_y(b.CONTACT_Z_LO+(b.CONTACT_Z_HI-b.CONTACT_Z_LO)*i/32),
+          b.CONTACT_Z_LO+(b.CONTACT_Z_HI-b.CONTACT_Z_LO)*i/32) for i in range(33)]
+    shoe=(cq.Workplane('YZ').workplane(offset=-b.CONTACT_W/2)
+          .moveTo(*arc[0]).spline(arc[1:],includeCurrent=True)
+          .lineTo(b.paddle_front_y(b.CONTACT_BLEND_Z)-.1,b.CONTACT_BLEND_Z)
+          .lineTo(b.paddle_front_y(b.CONTACT_BLEND_Z)+b.old.PLATE_T+.2,b.CONTACT_BLEND_Z)
+          .lineTo(b.old.GRIP_FREE+b.old.PLATE_T+2.3,b.CONTACT_Z_LO)
+          .close().extrude(b.CONTACT_W))
+    return shoe.edges('<Z').fillet(.6).edges('not |X').fillet(.4)
+
+@lru_cache(None)
+def paddle():
+    y0,z0=b.old.PIVOT_Y,b.PIVOT_Z
+    y1,z1=b.old.GRIP_FREE+b.old.PLATE_T+.5,b.TONGUE_BOT
+    panel=(cq.Workplane('YZ').workplane(offset=-b.old.PLATE_W/2)
+           .polyline([(y0,z0),(y1,z1),(y1+b.old.PLATE_T,z1),
+                      (y0+b.old.PLATE_T,z0)]).close().extrude(b.old.PLATE_W))
+    panel=panel.edges('<Z').fillet(.6).edges('not |X').fillet(.35)
+    panel=panel.union(rounded_contact_shoe())
+    zlo,zhi=b.FOAM_Z-b.FOAM_H/2,b.FOAM_Z+b.FOAM_H/2
+    pad=(cq.Workplane('YZ').workplane(offset=-b.FOAM_W/2)
+         .polyline([(b.paddle_front_y(zlo)+b.old.PLATE_T-.1,zlo),
+                    (b.paddle_front_y(zhi)+b.old.PLATE_T-.1,zhi),
+                    (b.FOAM_PAD_Y-b.FOAM_BOSS_DEPTH,zhi),
+                    (b.FOAM_PAD_Y-b.FOAM_BOSS_DEPTH,zlo)])
+         .close().extrude(b.FOAM_W))
+    panel=panel.union(pad).union(b.foam_contact_boss()).union(b.lid_land()).union(b.lid_root())
+    panel=panel.union(b.shaft(-b.old.PLATE_W/2-3,3,y0,z0,b.old.PIN_D/2))
+    return panel.union(b.shaft(b.old.PLATE_W/2,3,y0,z0,b.old.PIN_D/2))
+
+# Keep the profile's installed-paddle and optical checks on the same geometry.
+b.paddle=paddle
 PARTS={'shell_left':shell_left,'shell_right':shell_right,'paddle':paddle,'rear_panel':rear_panel,'keeper':keeper}
 
 def report():
