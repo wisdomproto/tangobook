@@ -11,6 +11,36 @@ OUT=w.OUT
 height_slider=w.height_slider
 pinion=w.pinion
 lever=w.lever
+REAR_REDUCTION=10.0
+
+def compact_rear(part):
+    # Keep foam backing through Y=22; remove only the empty rear span.
+    front=part.intersect(b.box(-100,100,-100,22,-100,100))
+    rear=part.intersect(b.box(-100,100,22+REAR_REDUCTION,100,-100,100))
+    return front.union(rear.translate((0,-REAR_REDUCTION,0)))
+
+def gear_entry_clearance(part):
+    y,z=g.HEIGHT_AXIS
+    part=part.cut(b.shaft(28.6,22,y,z,6.3))
+    part=part.cut(b.shaft(27.45,23,y,z,2.7))
+    lead=cq.Workplane(obj=cq.Solid.makeCone(2.15,1.6,1.0,cq.Vector(27.45,y,z),cq.Vector(-1,0,0)))
+    return part.cut(lead)
+
+@lru_cache(None)
+def mirror_support():
+    # A shared 42.4 mm landing pad supports the 40 mm mirror with 1.2 mm margins.
+    # The retired 47 mm frame conflicts with the height gear's side axle.
+    part=b.mirror_backing().intersect(b.box(-21.2,21.2,-100,100,-100,100))
+    # Apply optical relief only outside the 40 mm adhesive landing surface.
+    # Cutting the entire pad would sever its upper section at grazing angles.
+    margins=b.box(-100,-20.2,-100,100,-100,100).union(b.box(20.2,100,-100,100,-100,100))
+    for cut in w.reflected_clearance():part=part.cut(cut.intersect(margins))
+    return part
+
+def restore_mirror_support(part,sign):
+    target=mirror_support()
+    half=target.intersect(b.box(-60,-b.SEAM/2,-100,100,-100,100) if sign<0 else b.box(b.SEAM/2,60,-100,100,-100,100))
+    return part.cut(b.mirror_backing().cut(target)).union(half)
 
 @lru_cache(None)
 def body_tenons():
@@ -55,7 +85,12 @@ def rear_panel():
         panel=panel.cut(b.box(x0,x1,25,41,-12,23))
         x0,x1=sorted((sign*26.5,sign*28.5))
         panel=panel.union(b.box(x0,x1,34,39,-9.5,20.5))
-    return panel.union(panel_flanges())
+    panel=compact_rear(panel.union(panel_flanges()))
+    # Inner flange relief for the full 10 mm slider travel, with .3 mm margin.
+    # Keep the outer shoulders in the case rails; only the upper left relief
+    # reaches farther out for the temporary 1 mm assembly offset.
+    panel=panel.cut(b.box(-28.3,28.3,23.7,28.6,4.3,17.4))
+    return panel.cut(b.box(-29.3,-28.3,23.7,28.6,14.3,17.4))
 
 @lru_cache(None)
 def capture_rails():
@@ -109,7 +144,7 @@ def shell_left():
     # The lower pad belonged to the retired rear pins and is detached by the
     # lateral arm entry. Remove that specific obsolete pad, not arbitrary solids.
     obsolete=b.box(-23.91,-17.09,11.5,16,-1.41,a.STOP_TOP-.3)
-    return part.cut(obsolete).union(body_tenons())
+    return compact_rear(restore_mirror_support(part.cut(obsolete).union(body_tenons()),-1))
 
 @lru_cache(None)
 def shell_right():
@@ -122,9 +157,13 @@ def shell_right():
     # The old index pin sat inside the slider arm, so its support would have
     # to pass through that arm during lateral closure. Put it outside instead.
     part=part.cut(b.box(22.9,26.6,13.6,17.4,-6.9,a.STOP_TOP-.3))
+    # Allow a temporary rearward/leftward slider position during right-half
+    # closure, then forward seating before the left half closes. This avoids
+    # sweeping the slider's front column through the preserved mirror pad.
+    part=part.cut(b.box(22.5,28.2,17.8,25.5,-6.9,14.5))
     anchor=b.box(29,31.3,13.7,19.1,-6.8,a.STOP_TOP-.3)
     gusset=b.box(29,35.2,18.7,20.5,12,a.STOP_TOP-.3)
-    return mortise_pads(part.union(anchor).union(gusset).union(b.shaft(27.4,2.0,15.5,-5.7,.72)))
+    return compact_rear(gear_entry_clearance(restore_mirror_support(mortise_pads(part.union(anchor).union(gusset).union(b.shaft(27.4,2.0,15.5,-5.7,.72))),1)))
 
 @lru_cache(None)
 def service_lid():
@@ -151,8 +190,12 @@ def report():
     checks={
         "mirror_normal_entry":{str(t):v(b.mirror().translate(tuple(t*q for q in normal)),hard) for t in (0,.5,1,2,3,5,8,12,20,35)},
         "body_closing_without_pin_ribs":{str(t):v(smooth_left.translate((-t,0,0)),core_fixed) for t in (0,.25,.5,1,2,3,4,5,8,12,20,40)},
-        "right_body_closing_around_panel_foam":{str(t):v(right.translate((t,0,0)),panel.union(b.foam()).union(height_slider()).union(paddle)) for t in (0,.25,.5,1,2,3,4,5,8,12,20,40)},
+        "right_body_closing_with_parked_slider":{str(t):v(right.translate((t,0,0)),panel.union(b.foam()).union(height_slider().translate((-1,3,0))).union(paddle)) for t in (0,.25,.5,1,2,3,4,5,8,12,20,40)},
+        "slider_forward_before_left_closure":{str(t):v(height_slider().translate((-1,t,0)),right.union(panel).union(b.foam()).union(paddle)) for t in (0,.25,.5,1,1.5,2,2.5,3)},
+        "slider_index_pin_seating":{str(t):v(height_slider().translate((-t,0,0)),right.union(panel).union(b.foam()).union(paddle)) for t in (0,.25,.5,.75,1)},
+        "mirror_backing_preserved":{n:round(b.volume(mirror_support().intersect(b.box(-60,-b.SEAM/2,-100,100,-100,100) if n=='left' else b.box(b.SEAM/2,60,-100,100,-100,100)).cut(p)),5) for n,p in (('left',left),('right',right))},
         "panel_seated": {"body":v(panel,hard)},
+        "gear_disk_entry_with_radial_clearance":{str(t):v(b.shaft(28.6+t,3.0,*g.HEIGHT_AXIS,6.3),right) for t in (0,.5,1,2,3,5,8,12,18)},
         "gear_side_entry":{str(t):v(pinion().translate((t,0,0)),left.union(right).union(height_slider())) for t in (0,.5,1,2,3,5,8,12,18)},
         "side_lid_entry_without_retaining_beads":{str(t):v(smooth_lid.translate((t,0,0)),left.union(right).union(pinion()).union(height_slider())) for t in (0,.5,1,2,3,5,8,12,18)},
         "slider":{str(d):v(height_slider().translate((0,0,-d)),assembled) for d in (0,2.5,5,7.5,10)},
@@ -162,7 +205,9 @@ def report():
         "gear":{str(d):v(g.move_pinion(pinion(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
         "lever":{str(d):v(g.move_pinion(lever(),g.HEIGHT_AXIS,-math.degrees(d/g.PINION_PITCH_R)),assembled) for d in (0,2.5,5,7.5,10)},
     }
-    return {"separate_top_cover":False,"material":"ABS candidate; PLA geometry trial",
+    return {"rear_depth_reduction_mm":REAR_REDUCTION,"mirror_support_width_mm":42.4,
+        "body_bounds_mm":[round(x,3) for x in (hard.val().BoundingBox().xlen,hard.val().BoundingBox().ylen,hard.val().BoundingBox().zlen)],
+        "separate_top_cover":False,"material":"ABS candidate; PLA geometry trial",
         "body_joint":{"type":"two broad mortise-and-tenon collars plus original retention pins","key_depth_mm":4.5,"blank_width_mm":10,"blank_height_mm":6.9,"nominal_slot_clearance_mm":.25},
         "solids":{n:p.solids().size() for n,p in {"left":left,"right":right,"lid":lid,"panel":panel}.items()},
         "checks_mm3":checks,
