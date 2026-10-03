@@ -1,4 +1,4 @@
-"""Generate CAD checks, four-part print plate, HTML and CAD renders together."""
+"""Generate CAD checks, five-part print plate, HTML and CAD renders together."""
 import base64,json,math,os,sys,traceback
 import cadquery as cq
 import trimesh
@@ -23,7 +23,7 @@ def print_plate(parts):
     b=d.b
     dy=b.old.GRIP_FREE+b.old.PLATE_T+.5-b.old.PIVOT_Y
     angle=math.degrees(math.atan2(-(b.TONGUE_BOT-b.PIVOT_Z),dy))
-    rotations={'shell_left':((0,1,0),90),'shell_right':((0,1,0),-90),'paddle':((1,0,0),angle+180),'rear_panel':((1,0,0),-90)}
+    rotations={'shell_left':((0,1,0),90),'shell_right':((0,1,0),-90),'paddle':((1,0,0),angle+180),'rear_panel':((1,0,0),-90),'keeper':((1,0,0),180)}
     meshes=[];report={};x=y=height=0
     for name,part in parts.items():
         axis,deg=rotations[name];shape=part.rotate((0,0,0),axis,deg)
@@ -40,7 +40,7 @@ def print_plate(parts):
     combined=trimesh.util.concatenate(meshes);combined.export(str(path))
     split=combined.split(only_watertight=False)
     gap=min(math.sqrt(sum(max(0,q.bounds[0,k]-p.bounds[1,k],p.bounds[0,k]-q.bounds[1,k])**2 for k in range(3))) for i,p in enumerate(meshes) for q in meshes[i+1:])
-    assert len(split)==4 and all(p.is_watertight for p in split)
+    assert len(split)==len(parts) and all(p.is_watertight for p in split)
     assert all(abs(p.bounds[0,2])<.001 for p in split) and gap>=7.99
     assert all(v<=230 for v in combined.extents[:2])
     report.update(plate={'file':path.name,'bounds_mm':combined.extents.round(3).tolist(),'minimum_gap_mm':round(gap,3),'body_count':len(split),'supports_included':False})
@@ -67,20 +67,22 @@ def main():
     assert all(v==0 for group in r['checks_mm3'].values() for v in group.values()),r
     assert all(v>0 for v in r['rear_retention_contact_mm3'].values()),r
     assert r['foam_roof_coverage_missing_mm3']==0,r
-    assert all(v>0 for v in r['rear_cover_downward_stop_contact_mm3'].values()),r
+    assert all(v>0 for v in r['keeper_downward_stop_contact_mm3'].values()),r
+    assert all(v>0 for v in r['keeper_rear_load_contact_mm3'].values()),r
+    assert all(v>0 for v in r['carrier_seating_contacts_mm3'].values()),r
     assert r['camera_top_margin_mm']==4 and all(v>0 for v in r['phone_seating_contact_mm3'].values()),r
-    parts={n:f() for n,f in d.PARTS.items()};hard=parts['shell_left'].union(parts['shell_right']).union(parts['rear_panel'])
+    parts={n:f() for n,f in d.PARTS.items()};hard=parts['shell_left'].union(parts['shell_right']).union(parts['rear_panel']).union(parts['keeper'])
     optics=optical_report(hard);(d.OUT/'optical_report.json').write_text(json.dumps(optics,indent=2))
     assert all(v==0 for v in optics.values()),optics
     print('Fixed 4 mm assembly and incoming/outgoing ray checks passed',flush=True)
     print_plate(parts);html(parts,r)
     import pebble_preview as preview
     preview.OUT=d.OUT
-    preview.COLORS['rear_panel']=(.79,.56,.38)
+    preview.COLORS['rear_panel']=(.70,.40,.26);preview.COLORS['keeper']=(.79,.56,.38)
     scene={n:(p,(0,0,0)) for n,p in dict(parts,mirror=d.b.mirror(),foam=d.b.foam()).items()}
     preview.render('assembled',(95,-115,65),scene=scene,scale=35)
     preview.render('top',(0,-1,130),scene=scene,scale=35)
-    offsets={'shell_left':(-28,0,0),'shell_right':(28,0,0),'paddle':(0,0,28),'rear_panel':(0,0,35),'foam':(0,0,35),'mirror':(0,-8,0)}
+    offsets={'shell_left':(-28,0,0),'shell_right':(28,0,0),'paddle':(0,0,28),'rear_panel':(0,25,0),'foam':(0,25,0),'keeper':(0,0,35),'mirror':(0,-8,0)}
     preview.render('exploded',(90,95,65),scene={n:(p,offsets[n]) for n,(p,_) in scene.items()},scale=65)
     print(json.dumps(r,indent=2),flush=True)
 
