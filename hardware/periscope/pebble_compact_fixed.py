@@ -102,13 +102,9 @@ def blank():
     for sign in (-1,1):
         x0,x1=sorted((sign*19.8,sign*26))
         core=core.cut(b.box(x0,x1,b.FRONT-1,-24,b.BOTTOM-1,4.5))
-        # Replace the irregular lower phone posts with rounded cross sections
-        # and rolled ends. Their inner face never enters the phone envelope.
+        # The thick, continuous cheek now carries this corner. Remove the
+        # former independent post so its cap cannot protrude past the cheek.
         core=core.cut(b.box(x0,x1,-4,0,b.BOTTOM-1,-3.5))
-        x0,x1=sorted((sign*20,sign*24.5))
-        post=b.box(x0,x1,-2.4,-.5,b.BOTTOM,-3).edges('|Z').fillet(.7)
-        post=post.edges('<Z').fillet(.8)
-        core=core.union(post)
     # Open the back before adding captive shoulders; no rear-insertion latch.
     core=core.cut(b.box(-18.75,18.75,16.4,23,b.BOTTOM-1,b.TOP+1))
     # A rear cap fills this top-open rebate after vertical installation.
@@ -161,13 +157,18 @@ def blank():
     for sign in (-1,1):
         x0,x1=sorted((sign*21.4,sign*26))
         core=core.cut(b.box(x0,x1,19.4,25,b.BOTTOM-1,b.TOP+1))
-    # One rounded footing per side replaces the visibly staggered shelf ends.
-    # Its top stays below both the carrier and descending keeper legs.
+    # Continuous side faces join the lower footing to the upper columns.
+    # Keep the keeper's two vertical passages inside the face, and clear the
+    # rear carrier path above its supporting floor.
     for sign in (-1,1):
-        x0,x1=sorted((sign*15,sign*21.4))
-        footing=(b.box(x0,x1,13.3,22.15,-8.6,-7.25)
-                 .edges('|Z').fillet(.55).edges('not |Z').fillet(.2))
-        core=core.union(footing.intersect(b.envelope()))
+        x0,x1=sorted((sign*15,sign*24.5))
+        face=(b.box(x0,x1,13.25,22.2,-8.65,b.TOP-2.55)
+              .edges('|X').fillet(.55).edges('not |X').fillet(.2))
+        x0,x1=sorted((sign*17.5,sign*21.45))
+        face=face.cut(b.box(x0,x1,18.35,24.3,-6.85,b.TOP+2).edges('|X').fillet(.6))
+        face=face.cut(b.box(x0,x1,13.75,17.15,-6.85,b.TOP+2).edges('|X').fillet(.6))
+        face=face.cut(b.box(-17.75,17.75,19.35,25,-7.25,b.TOP+2))
+        core=core.union(face.intersect(b.envelope()))
     # Roll the exposed optical mouth, shortened corner tips and roof rim.
     # Do this before splitting the body so the seam stays flat and fitted.
     exposed=(
@@ -178,7 +179,12 @@ def blank():
     for select in exposed:
         edges=[e for e in core.edges().vals() if select(e)]
         core=core.newObject(edges).fillet(.5)
-    return core.union(side_walls())
+    # Clear the remaining post cap after rolling the original roof edges;
+    # doing this first creates short edges that OCC cannot roll reliably.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*19.8,sign*26))
+        core=core.cut(b.box(x0,x1,-4,0,b.BOTTOM-1,b.TOP-7.3))
+    return core.union(mirror_support()).union(side_walls())
 
 def tenon(y,z):
     key=b.box(-4.5,4.5,y-5,y+5,z-3,z+3.9).edges('|X').fillet(.65)
