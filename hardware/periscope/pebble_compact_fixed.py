@@ -1,0 +1,93 @@
+"""Four-part fixed reflector for a measured 4 mm phone-top / camera-top gap."""
+from functools import lru_cache
+from pathlib import Path
+import math
+import cadquery as cq
+from pebble_geared_profile import load_profile
+import pebble_modelkit as kit
+
+b=load_profile('_compact_fixed_base','pebble.py',DESIGN_PHONE_INSERT_DEPTH=4.0,DESIGN_CAM_GAP=13.5)
+OUT=Path(__file__).resolve().parent/'out'/'pebble_compact_fixed'
+JOINTS=((-20.0,b.TOP-5.0),(-8.0,b.TOP-5.0))
+
+@lru_cache(None)
+def mirror_support():
+    return b.mirror_backing().intersect(b.box(-21.2,21.2,-100,100,-100,100))
+
+@lru_cache(None)
+def rear_panel():
+    panel=b.box(-18.4,18.4,19.6,22,-7,b.TOP-.4).edges('|Y').fillet(1)
+    for sign in (-1,1):
+        x0,x1=sorted((sign*17.8,sign*21.4))
+        panel=panel.union(b.box(x0,x1,17.7,19.7,-6.5,11.5).edges('|X').fillet(.6))
+    return panel.intersect(b.envelope())
+
+@lru_cache(None)
+def blank():
+    core=b.housing(False)
+    # Remove the old front/bottom lip across the outgoing opening. It blocks
+    # the lower corner rays after bringing the glass closer to the camera.
+    core=core.cut(b.box(-20,20,b.FRONT-1,1,b.BOTTOM-1,b.MIRROR_TOP-.5).edges('|Y').fillet(.75))
+    # Open the back before adding captive shoulders; no rear-insertion latch.
+    core=core.cut(b.box(-18.75,18.75,16.4,23,-7.3,b.TOP+1))
+    for sign in (-1,1):
+        x0,x1=sorted((sign*17.5,sign*21.75))
+        core=core.cut(b.box(x0,x1,17.35,20.05,-6.85,11.85).edges('|X').fillet(.6))
+        # The phone seats on two rigid side ledges at exactly 4 mm above glass.
+        x0,x1=sorted((sign*18.5,sign*24.5))
+        core=core.union(b.box(x0,x1,1,11,b.PHONE_TOP,b.PHONE_TOP+1.8).edges('|Z').fillet(.5).intersect(b.envelope()))
+    # Rebuild both mirror halves from one continuous adhesive landing pad.
+    core=core.cut(b.mirror_backing()).union(mirror_support())
+    return core
+
+def tenon(y,z):
+    key=b.box(-4.5,4.5,y-5,y+5,z-3,z+3.9).edges('|X').fillet(.65)
+    return key.edges('>X').chamfer(.35).cut(b.shaft(-.4,5.2,y,z,2.95))
+
+@lru_cache(None)
+def shell_left():
+    part=blank().intersect(b.box(-60,-b.SEAM/2,-100,100,-100,100))
+    for y,z in JOINTS:
+        part=part.union(b.box(-8,-.1,y-5.8,y+5.8,z-3.8,z+4.5).intersect(b.envelope()))
+        part=part.union(b.shaft(-6,5.9,y,z,3.4)).union(kit.pin((-.3,y,z),(1,0,0))).union(tenon(y,z))
+    return part
+
+@lru_cache(None)
+def shell_right():
+    part=blank().intersect(b.box(b.SEAM/2,60,-100,100,-100,100))
+    for y,z in JOINTS:
+        pad=b.box(.1,6.5,y-6,y+6,z-4,z+4.9).intersect(b.envelope())
+        slot=b.box(-.2,4.9,y-5.25,y+5.25,z-3.25,z+4.15).edges('|X').fillet(.65)
+        slot=slot.cut(b.shaft(-.3,5.4,y,z,2.7))
+        part=part.union(pad).cut(slot).cut(b.shaft(-.1,4.6,y,z,kit.SOCKET_D/2))
+        mouth=cq.Workplane(obj=cq.Solid.makeCone(kit.SOCKET_D/2+.35,kit.SOCKET_D/2,.5,cq.Vector(.1,y,z),cq.Vector(1,0,0)))
+        part=part.cut(mouth)
+    return part
+
+paddle=b.paddle
+PARTS={'shell_left':shell_left,'shell_right':shell_right,'paddle':paddle,'rear_panel':rear_panel}
+
+def report():
+    parts={n:f() for n,f in PARTS.items()}
+    left,right,panel=parts['shell_left'],parts['shell_right'],parts['rear_panel']
+    hard=left.union(right).union(panel)
+    def v(p,q):return round(b.volume(p.intersect(q)),6)
+    smooth=left
+    for y,z in JOINTS:smooth=smooth.cut(kit.excess_ribs((-.3,y,z),(1,0,0)))
+    checks={
+        'panel_seated':{'body':v(panel,left.union(right))},
+        'body_closing':{str(t):v(smooth.translate((-t,0,0)),right.union(panel).union(b.paddle())) for t in (0,.5,1,2,4,8,15,30)},
+        'right_closing':{str(t):v(right.translate((t,0,0)),panel.union(b.paddle())) for t in (0,.5,1,2,4,8,15,30)},
+        'phone':{str(th):v(b.phone(th),hard) for th in (7,9,11)},
+        'phone_mirror':{str(th):v(b.phone(th),b.mirror()) for th in (7,9,11)},
+        'foam_shell':{'body':v(b.foam(),left.union(right))},
+        'paddle':{str(th):v(b.installed_paddle(th),hard) for th in (7,9,11)},
+        'mirror_entry':{str(t):v(b.mirror().translate((0,t*math.sin(math.radians(b.old.MU)),-t*math.cos(math.radians(b.old.MU)))),hard) for t in (0,1,3,8,15,30)},
+        'mirror_pad':{name:round(b.volume(mirror_support().intersect(b.box(-60,-b.SEAM/2,-100,100,-100,100) if name=='left' else b.box(b.SEAM/2,60,-100,100,-100,100)).cut(p)),6) for name,p in [('left',left),('right',right)]},
+    }
+    bb=hard.val().BoundingBox()
+    return {'camera_top_margin_mm':round(b.PHONE_TOP-(b.CAMERA_Z+b.CAMERA_R),6),'gears':False,'mirror_mm':[40,30],'foam_mm':[16,6,6],
+        'bounds_mm':[round(v,3) for v in (bb.xlen,bb.ylen,bb.zlen)],
+        'solids':{n:p.solids().size() for n,p in parts.items()},'checks_mm3':checks,
+        'phone_seating_contact_mm3':{str(th):v(b.phone(th,.2),hard) for th in (7,9,11)},
+        'rear_retention_contact_mm3':{str(t):v(panel.translate((0,t,0)),left.union(right)) for t in (.5,1,2)}}

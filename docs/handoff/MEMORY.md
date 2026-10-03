@@ -87,3 +87,5 @@
 - 2026-10-02 본체 장부/홈: 사용자 요청으로 본체 원형 압입핀 둘레에 깊이4.5mm의 넓은 장부2개와 홈을 추가했다. 장부는 전후 엇갈림 하중, 기존핀은 벌어짐 유지 역할. CAD 조립/기구/장부 접촉면·전체8바디STL 검사 통과. 직전 포획 뒤판형에서 본체양쪽만 교체. ABS 실제 강도는 미검증. [상세](../work/hardware/tasks/20260930-adjustable-periscope.md).
 
 - 2026-10-03 반사경 실물 수정: periscope-redesign worktree의 일체형 높이 조절 반사경에서 좌우 거울 받침 차이와 기어 진입 막힘을 수정하고 앞뒤 길이를73.13→63.13mm로 줄였다. 기존 장부/마찰 압입 결합 유지, 본체양쪽+뒤판 교체. CAD/8바디STL 및 HTML mock 검증 통과, 실제 재출력은 미검증. [근거/조립순서](../work/hardware/tasks/20260930-adjustable-periscope.md).
+
+- 2026-10-03 반사경 최신 방향: 높이 기어도 제거하고4mm 카메라상단여백 고정형으로 전환. 별도 `pebble_compact_fixed.py`,49×51.63×32.56mm·4부품;40×30mm접착거울/스펀지혀/장부마찰결합/포획뒤판 유지. CAD·STL·HTML mock 검사통과, 실제 재출력/ABS강도는미확인. 기어형은보존. [상세 기록](../work/hardware/tasks/20260930-adjustable-periscope.md).
