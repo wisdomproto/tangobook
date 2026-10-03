@@ -32,6 +32,10 @@ v1 storybook 데이터 모델 위의 저작도구. /editor 는 안전 백업으�
 
 `HiddenObjectEditorTab`(`features/games/components/`) — 씬은 책의 `hiddenObjectScenes`. 상세 → [features/games/CLAUDE.md](../games/CLAUDE.md).
 
+## 장면 색칠 탭 (2026-10-03)
+
+editor2 동화책만 `showSceneColoring`으로 활성화. `SceneColoringEditorTab`은 책 ID catalog의 원본/도안과 실제 `ColoringPlayer` 미리보기를 제공한다. 탭/책 이동 시 게임을 언마운트해 소리를 정리한다. catalog 갱신은 `scripts/build-editor-scene-coloring-catalog.mjs`; 기존 책 본문 일괄 덮어쓰기 없음. 상세 [작업 기록](../../../../../docs/work/authoring/tasks/20261003-editor2-scene-coloring.md).
+
 ## KeyObject TTS
 
 `KeyObjectTab` 🎙 TTS + 일괄 생성 → `obj.ttsUrl`(ko) / `obj.ttsUrls[lang]`.

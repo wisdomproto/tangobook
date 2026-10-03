@@ -360,6 +360,7 @@ function CardBody({
           onUpdate={handleUpdate}
           hiddenTabIds={['quiz', 'blog', 'card-news']}
           hideHeader
+          showSceneColoring
         />
       </EditorLangProvider>
 

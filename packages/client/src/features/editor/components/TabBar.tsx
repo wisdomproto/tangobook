@@ -10,6 +10,7 @@ const STORYBOOK_TABS = [
   { id: 'pages' as const, label: '페이지' },
   { id: 'quiz' as const, label: '퀴즈' },
   { id: 'games' as const, label: '학습게임' },
+  { id: 'scene-coloring' as const, label: '장면 색칠' },
   { id: 'audiobook' as const, label: '오디오북' },
   { id: 'blog' as const, label: '블로그' },
   { id: 'card-news' as const, label: '카드뉴스' },
@@ -36,16 +37,17 @@ interface TabBarProps {
   storybookType?: StorybookType;
   /** 숨길 탭 ID 목록. /editor2 에서 마케팅 관련(quiz/blog/card-news) 등을 가릴 때 사용. /editor 는 미사용. */
   hiddenTabIds?: string[];
+  showSceneColoring?: boolean;
 }
 
-export function TabBar({ storybookType, hiddenTabIds }: TabBarProps) {
+export function TabBar({ storybookType, hiddenTabIds, showSceneColoring = false }: TabBarProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
   const setActiveTab = useEditorStore((s) => s.setActiveTab);
 
   const baseTabs = storybookType === 'phonics' ? PHONICS_TABS : STORYBOOK_TABS;
-  const tabs = hiddenTabIds?.length
-    ? baseTabs.filter((t) => !hiddenTabIds.includes(t.id))
-    : baseTabs;
+  const tabs = baseTabs.filter(
+    (t) => (t.id !== 'scene-coloring' || showSceneColoring) && !hiddenTabIds?.includes(t.id)
+  );
 
   return (
     <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 overflow-x-auto sticky top-[7.25rem] z-20">
