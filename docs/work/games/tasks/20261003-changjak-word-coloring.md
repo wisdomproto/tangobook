@@ -52,3 +52,11 @@ imagegen 및 GPT 이미지 skill에 따라 subscription-native image_gen으로 �
 ## 전달 상태
 
 콘텐츠 생성·검수·등록·로컬 연결 완료. 관련 코드/기록/카탈로그만 로컬 커밋하며 대량 생성 원본과 다른 작업의 변경을 보존한다. 운영 이미지는 등록됐지만 새 목록과 코드의 main push/배포는 미요청이다.
+
+## 후속: 각 동화책 색칠 게임 연결 검증
+
+사용자 “각 동화책의 색칠공부 게임에 연결하자”에 따라 실제 학습자 경로를 확인했다. 기존 `VocabularyStudyContent`와 Editor2 `StorybookGamesTab`은 `useColoringBookIndex`/`countColoringSheets`로 카드 노출을 판정하고, `useColoringItems`가 manifest를 해당 책 id로 골라 `ColoringPlayer`에 전달한다. 앞서 추가한 목록으로 이 경로가 이미 연결돼 있으므로 중복 `storybook.games` 인스턴스를 만들거나 책 본문/DB를 수정하지 않았다. 학습자는 책의 단어 익히기 → 색칠하기로 진입한다.
+
+850권 백업의 실제 key_objects와 신규 manifest/index를 제품 hook의 매칭 규칙으로 전수 검사했다: 모든 책의 한국어 카드가 1개 이상, 카드 도안 수와 실제 게임 항목 수 일치, 3,957항목 모두 책별 단어·원본/선화 URL 대응. 별도로 운영에서 19시리즈의 첫 책을 GET하여 동일한 카드/라벨 조건을 확인했다. 임시 `book-link-audit.test.ts` 2tests 통과, 결과 `book-game-links.json`/`live-book-game-links.json` 보관.
+
+API_TARGET을 운영 읽기 API로 지정한 로컬 Vite(5247, DISABLE_PUBLISH_SCHEDULER=1)에서 `/vocabulary/book-changjak-pipo-01?lang=ko`, `/vocabulary/book-changjak-mina-01?lang=ko`의 단어 익히기 → 색칠하기 버튼을 실제 클릭해 해당 책의 도안과 물감 표시를 확인했다. 증거 `review/book-pipo-game.png`, `review/book-mina-game.png`. 이는 실제 책 연결 검증이며 운영 배포/전수 게임 완료 검증을 뜻하지 않는다. 새 main push 요청은 없었다.
