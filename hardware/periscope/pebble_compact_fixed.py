@@ -120,17 +120,18 @@ def blank():
         x0,x1=sorted((sign*20.6,sign*24.5))
         core=core.union(b.box(x0,x1,8,22,b.PHONE_TOP+.5,b.TOP-2.5).intersect(b.envelope()))
         x0,x1=sorted((sign*17.5,sign*24.5))
-        core=core.union(b.box(x0,x1,17.15,18.35,-6.85,b.TOP-2.5).intersect(b.envelope()))
+        crossbar=b.box(x0,x1,17.15,18.35,-6.85,b.TOP-2.5).edges('|Y').fillet(.5)
+        core=core.union(crossbar.intersect(b.envelope()))
         x0,x1=sorted((sign*17.5,sign*21.45))
         core=core.cut(b.box(x0,x1,18.35,24.3,-6.85,b.TOP+2).edges('|X').fillet(.6))
         core=core.cut(b.box(x0,x1,13.75,17.15,-6.85,b.TOP+2).edges('|X').fillet(.6))
         # The roofless carrier seats against forward stops and rests on two
         # small shelves. They lie beside the foam, inside the keeper rails.
         x0,x1=sorted((sign*15,sign*20.6))
-        root=b.box(x0,x1,17.3,18.35,-8.5,-3)
+        root=b.box(x0,x1,17.3,18.35,-8.5,-3).edges('|Z').fillet(.25)
         x0,x1=sorted((sign*15,sign*17.5))
-        stop=b.box(x0,x1,18.2,19.35,-8.5,-3)
-        shelf=b.box(x0,x1,18.2,22.1,-8.5,-7.3)
+        stop=b.box(x0,x1,18.2,19.35,-8.5,-3).edges('|Z').fillet(.25)
+        shelf=b.box(x0,x1,18.2,22.1,-8.5,-7.3).edges('|Z').fillet(.4).edges('not |Z').fillet(.2)
         core=core.union(root.union(stop).union(shelf).intersect(b.envelope()))
         # The phone seats on two rigid side ledges at exactly 4 mm above glass.
         x0,x1=sorted((sign*18.5,sign*24.5))
@@ -141,7 +142,8 @@ def blank():
     # The foam carrier engages the body before the top keeper is fitted.
     # Wide socket blocks stay beside the foam and behind the phone envelope.
     for x,z in CARRIER_PINS:
-        core=core.union(b.box(x-3.2,x+3.2,15,19.25,z-3.2,b.TOP-2.5))
+        socket=b.box(x-3.2,x+3.2,15,19.25,z-3.2,b.TOP-2.5).edges('|Y').fillet(.6).edges('>Y').fillet(.3)
+        core=core.union(socket)
         core=core.cut(kit.axial_cylinder((x,19.4,z),(0,-1,0),4.6,kit.SOCKET_D/2))
         mouth=cq.Workplane(obj=cq.Solid.makeCone(kit.SOCKET_D/2+.35,kit.SOCKET_D/2,.5,cq.Vector(x,19.25,z),cq.Vector(0,-1,0)))
         core=core.cut(mouth)
@@ -151,6 +153,14 @@ def blank():
     rear_region=b.box(-30,30,19.4,25,b.BOTTOM-1,b.TOP+1)
     rounded_end=b.box(-30,30,19.4,25,-7,b.TOP+1).edges('|X').fillet(.8)
     core=core.cut(rear_region).union(core.intersect(rounded_end))
+    # Below the pocket floor, rounding leaves two isolated slivers of the
+    # former rear legs. Remove them geometrically rather than exporting chips.
+    core=core.cut(b.box(-30,30,19.4,25,b.BOTTOM-1,-6.85))
+    # Widened keeper pockets leave a paper-thin remnant at the rounded rear
+    # corners. It is outside the keeper shoulder and carries no joint load.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*21.4,sign*26))
+        core=core.cut(b.box(x0,x1,19.4,25,b.BOTTOM-1,b.TOP+1))
     # Roll the exposed optical mouth, shortened corner tips and roof rim.
     # Do this before splitting the body so the seam stays flat and fitted.
     exposed=(
