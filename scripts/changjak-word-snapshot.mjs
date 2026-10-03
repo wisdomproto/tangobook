@@ -1,12 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { SERIES } from '../packages/client/scripts/_series-config.mjs';
-const root = path.resolve('generated-images/changjak-words');
+import { root, targets } from './changjak-word-scope.mjs';
 fs.mkdirSync(root, { recursive: true });
-const targets = Object.entries(SERIES).filter(([k, c]) => Number(c.no) <= 10);
 const list = [];
 for (const [series, cfg] of targets)
-  for (let n = 1; n <= 50; n++) list.push({ series, number: String(n).padStart(2, '0'), cfg });
+  for (let n = 1; n <= (+cfg.no <= 15 ? 50 : 25); n++)
+    list.push({ series, number: String(n).padStart(2, '0'), cfg });
 const books = {};
 let cursor = 0;
 await Promise.all(

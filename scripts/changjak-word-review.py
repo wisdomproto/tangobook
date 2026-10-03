@@ -1,7 +1,7 @@
 import json,pathlib,sys
 sys.stdout.reconfigure(encoding='utf-8')
 from PIL import Image,ImageDraw
-root=pathlib.Path('generated-images/changjak-words')
+root=pathlib.Path('generated-images/changjak-words-11-19' if '--scope=11-19' in sys.argv else 'generated-images/changjak-words')
 jobs=json.loads((root/'jobs.json').read_text(encoding='utf-8'))['jobs']
 cards={c['id']:c for c in json.loads((root/'cards.json').read_text(encoding='utf-8'))}
 reviews=json.loads((root/'reviews.json').read_text(encoding='utf-8')) if (root/'reviews.json').exists() else {}

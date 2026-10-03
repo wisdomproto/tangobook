@@ -3,7 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 
-const root = path.resolve('generated-images/changjak-words');
+import { root, taskId } from './changjak-word-scope.mjs';
 const read = (name) => JSON.parse(fs.readFileSync(path.join(root, name), 'utf8'));
 const hash = (file) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const cards = read('cropped.json'),
@@ -12,7 +12,7 @@ const cards = read('cropped.json'),
   ledger = read('registration.json');
 assert(ledger.completedAt, 'registration incomplete');
 assert.equal(cards.length, read('cards.json').length);
-assert.equal(Object.keys(ledger.books).length, 500);
+assert.equal(Object.keys(ledger.books).length, Object.keys(read('books-before.json')).length);
 assert(Object.values(ledger.books).every((b) => b.verified));
 assert.equal(new Set(ledger.verified).size, cards.length);
 for (const c of cards) assert.equal(hash(c.file), c.sha256, c.id + ' changed after registration');
@@ -20,7 +20,7 @@ const report = {
   version: 1,
   generatedWith: 'ChatGPT subscription-native OpenAI image_gen',
   completedAt: ledger.completedAt,
-  books: 500,
+  books: Object.keys(ledger.books).length,
   uniqueCards: cards.length,
   bookWordLinks: cards.reduce((n, c) => n + c.uses.length, 0),
   pagePolicy:
@@ -57,7 +57,7 @@ const report = {
     existingPagesPreserved: b.verified,
   })),
 };
-const out = path.resolve('docs/work/content/tasks/20261003-changjak-word-images.json');
+const out = path.resolve('docs/work/content/tasks/' + taskId + '.json');
 fs.writeFileSync(out, JSON.stringify(report, null, 2) + '\n');
 console.log(
   JSON.stringify({

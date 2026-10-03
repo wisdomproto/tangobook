@@ -1,8 +1,7 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
-const root = path.resolve('generated-images/changjak-words');
+import { root } from './changjak-word-scope.mjs';
 const read = (p) => JSON.parse(fs.readFileSync(p, 'utf8')),
   save = (p, x) => fs.writeFileSync(p, JSON.stringify(x, null, 2));
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
@@ -38,8 +37,10 @@ async function main() {
   assert.equal(cards.length, read(root + '/cards.json').length, 'unfinished generation');
   assert.equal(new Set(cards.map((c) => c.id)).size, cards.length, 'duplicate card IDs');
   const reviews = read(root + '/reviews.json');
-  for (const j of jobs)
+  for (const j of jobs) {
     assert.equal(reviews[j.id]?.status, 'pass', j.id + ' not visually reviewed');
+    assert.equal(sha(fs.readFileSync(j.out)), reviews[j.id].sha256, j.id + ' changed after review');
+  }
   for (const c of cards) assert.equal(sha(fs.readFileSync(c.file)), c.sha256, c.id + ' changed');
   // Shared cards are byte-preserving WebP uploads; no image-generation API is used here.
   let cursor = 0;

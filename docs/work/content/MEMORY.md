@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-10-03 [창작동화 11~19 핵심단어 삽화](tasks/20261003-changjak-11-19-word-images.md): GPT 이미지 90장과 일부 보정 5장 전수 검수 후 513종 WebP(488px, 중앙값 약 16KB)를 운영 350권의 1,594개 단어 항목에 연결했다. 기존 페이지/다른 필드 보존 및 CDN 513종 해시 검증, Editor2 표본 3권 표시 확인 완료. [완료 manifest](tasks/20261003-changjak-11-19-word-images.json). 별도 `changjak-words-11-19` 폴더와 `--scope=11-19`로 재개하며 이번 main push는 미요청.
+
 2026-10-03 [창작동화 01~10 핵심단어 삽화](tasks/20261003-changjak-word-images.md): 사용자 지정 GPT 이미지로 147장 묶음 생성·육안 검수 후 858종 WebP(최대 500px, 중앙값 약 24KB)를 분할했다. 운영 500권의 핵심단어 2,363개 항목에 등록하고 Editor2 표본 3권 표시를 확인했다. 기존 본문·삽화·음원·번역 등 모든 다른 필드 보존 및 CDN 858종 해시 검증 완료. [완료 manifest](tasks/20261003-changjak-word-images.json). 후속 사용자 main push 승인에 따라 작업 커밋 c8f14f9b와 통합 기록만 최신 origin/main에 일반 push한다.
 
 2026-09-30 [미나 본문 교정·Qwen 재작화](tasks/20260930-mina-text-revision-qwen.md): 검토 승인 후 운영 본문을 기준으로 43권 135쪽을 교정하고 제목 5개·대응 SCENE·기획/HTML을 동기화했다. 기존 원고/HTML 차이까지 합쳐 HTML은 44권 204쪽 변경. 바뀐 장면 12권 22장을 로컬 Qwen으로 생성·개별 검수했으며 [선정 manifest](tasks/20260930-mina-qwen-selected.json)에 최종 해시를 기록했다. 사용자 요청으로 origin/main push 완료(07cc0859), 후속 요청으로 운영 삽화 22장 교체·이전 이미지 정리와 교정 본문 동기화 완료. 최종 검토 파일은 `D:/ComfyUI-output/mina-text-revisions/selected.html`.
