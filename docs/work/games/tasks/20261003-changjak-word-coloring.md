@@ -2,13 +2,15 @@
 
 - id: 20261003-changjak-word-coloring
 - domain: games
-- status: complete
-- updated: 2026-10-03
+- status: integrated
+- updated: 2026-10-04
 - base: 3e950b3f
 - branch: codex/games-changjak-word-coloring
 - worktree: C:/projects/tangobook/.worktrees/changjak-word-images
-- integration: 미통합
-- delivery: 미푸시·미배포
+- integration: origin/main 포함 확인
+- delivery: main push 완료·배포 완료 미확인
+
+2026-10-04 사용자 “메인에 푸시하자”로 승인했다. fetch한 원격 main(4bfefb83)과 작업 HEAD는0/3으로 갈라지지 않았고,11~19 단어 삽화 기록3e950b3f와 색칠 콘텐츠7ff70e0a,실제 연결 검증aea7fac2만 뒤에 있었다. client19/shared11 tests 및 카탈로그 전수 검사(1,371도안·850권·3,957항목,기존2,379항목 보존)를 재실행해 통과했다. 일반 `git push origin HEAD:main`으로 aea7fac2까지 반영됐다. 다른 작업 브랜치/미추적 생성 원본을 보존했다. Railway 배포 완료는 별도로 확인하지 않았다. 이전의 push 미요청 표기는 이 승인과 결과로 갱신한다.
 
 사용자는 완성된 창작동화 핵심단어 삽화의 색칠공부 콘텐츠를 image skill로 요청했다. 범위 질문에 답이 없어서 1~19 전체로 진행한다고 알렸다. 기존 850권의 단어 연결 3,957개에 쓰인 고유 삽화 1,371종/237시트가 대상이다. 새 작업 main push는 미요청이다.
 

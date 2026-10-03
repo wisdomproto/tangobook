@@ -2,13 +2,15 @@
 
 - id: 20261003-changjak-11-19-word-images
 - domain: content
-- status: ready
-- updated: 2026-10-03
+- status: integrated
+- updated: 2026-10-04
 - base: 4bfefb83
 - branch: codex/content-changjak-11-19-word-images
 - worktree: C:/projects/tangobook/.worktrees/changjak-word-images
-- integration: 미통합
-- delivery: push 미요청
+- integration: origin/main 포함 확인
+- delivery: main push 완료·배포 완료 미확인
+
+2026-10-04 사용자 “메인에 푸시하자” 승인으로 색칠공부/게임 연결 후속과 함께 작업 커밋3e950b3f를 origin/main에 일반 push했다(확인된 main aea7fac2). 원격과 갈라진 이력 없음, 생성 원본/백업 및 다른 작업 보존. 아래 과거 push 미요청 상태는 이 결과로 갱신한다. 배포 완료는 별도 미확인.
 
 사용자는 01~10 완료 후 나머지 11~19도 같은 방식으로 요청했다. GPT 이미지 스킬로 실제 그림체·캐릭터·본문 문맥을 참조하여 단어 카드를 생성, 분할·검수하고 운영 책 DB와 Editor2에 연결한다. 6칸 묶음 생성과 최대 500px WebP를 유지한다. 이미 등록된 단어 이미지와 본문 페이지·삽화·음원·번역은 보존한다. 이번 새 작업 main push는 아직 요청되지 않았다.
 

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-04 창작동화 도안·게임 연결 main push 완료: 사용자 승인 후 origin/main과0/3을 확인,11~19 단어 삽화3e950b3f·색칠 도안7ff70e0a·책 게임 검증aea7fac2를 일반 push했다.1,371도안/850권/3,957항목과 기존 목록 보존 전수 검사 및30 tests 재통과. [게임 작업](../work/games/tasks/20261003-changjak-word-coloring.md),[콘텐츠 작업](../work/content/tasks/20261003-changjak-11-19-word-images.md). 생성 원본·다른 작업 유지, Railway 배포 완료는 미확인. 아래 관련 push 미요청 상태를 갱신한다.
+
 2026-10-03 창작동화 색칠 게임 연결 후속:850권/3,957항목을 실제 게임 hook의 책별 단어 규칙으로 전수 확인하고 운영19시리즈 대표 책을 재검증했다. 피포/미나 단어 익히기 → 색칠하기 실제 진입 확인. 기존 manifest/index 경로로 연결되어 DB 게임 중복 생성은 불필요. 상세 [작업 기록](../work/games/tasks/20261003-changjak-word-coloring.md), 로컬 반영·main push 미요청.
 
 2026-10-03 [창작동화 단어 색칠공부](../work/games/tasks/20261003-changjak-word-coloring.md): native GPT로 1~19 단어 도안 1,371종 생성·전수 원본 비교·50종 보정, 운영 이미지 등록/CDN 전수 SHA 검증 완료. 로컬 목록에 850권/3,957항목 연결, 기존 항목·원본·비공개 책 공개 활동 제외 유지. 최종 낱장 0칸 없음과 신발/사과 실제 붓질·초기화 확인. 로컬 커밋 후 새 작업 main push 미요청.

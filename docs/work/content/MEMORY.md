@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-10-04 [창작동화11~19 핵심단어 삽화](tasks/20261003-changjak-11-19-word-images.md) 작업3e950b3f를 색칠 도안/게임 연결 후속과 함께 사용자 승인으로 origin/main에 일반 push했다(확인 main aea7fac2). 운영 등록/원본 보존 상태 유지, 배포 완료는 별도 미확인. 아래 이 작업의 push 미요청 상태는 갱신한다.
+
 2026-10-03 [창작동화 11~19 핵심단어 삽화](tasks/20261003-changjak-11-19-word-images.md): GPT 이미지 90장과 일부 보정 5장 전수 검수 후 513종 WebP(488px, 중앙값 약 16KB)를 운영 350권의 1,594개 단어 항목에 연결했다. 기존 페이지/다른 필드 보존 및 CDN 513종 해시 검증, Editor2 표본 3권 표시 확인 완료. [완료 manifest](tasks/20261003-changjak-11-19-word-images.json). 별도 `changjak-words-11-19` 폴더와 `--scope=11-19`로 재개하며 이번 main push는 미요청.
 
 2026-10-03 [창작동화 01~10 핵심단어 삽화](tasks/20261003-changjak-word-images.md): 사용자 지정 GPT 이미지로 147장 묶음 생성·육안 검수 후 858종 WebP(최대 500px, 중앙값 약 24KB)를 분할했다. 운영 500권의 핵심단어 2,363개 항목에 등록하고 Editor2 표본 3권 표시를 확인했다. 기존 본문·삽화·음원·번역 등 모든 다른 필드 보존 및 CDN 858종 해시 검증 완료. [완료 manifest](tasks/20261003-changjak-word-images.json). 후속 사용자 main push 승인에 따라 작업 커밋 c8f14f9b와 통합 기록만 최신 origin/main에 일반 push한다.
