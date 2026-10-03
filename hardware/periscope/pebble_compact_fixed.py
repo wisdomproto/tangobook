@@ -161,6 +161,13 @@ def blank():
     for sign in (-1,1):
         x0,x1=sorted((sign*21.4,sign*26))
         core=core.cut(b.box(x0,x1,19.4,25,b.BOTTOM-1,b.TOP+1))
+    # One rounded footing per side replaces the visibly staggered shelf ends.
+    # Its top stays below both the carrier and descending keeper legs.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*15,sign*21.4))
+        footing=(b.box(x0,x1,13.3,22.15,-8.6,-7.25)
+                 .edges('|Z').fillet(.55).edges('not |Z').fillet(.2))
+        core=core.union(footing.intersect(b.envelope()))
     # Roll the exposed optical mouth, shortened corner tips and roof rim.
     # Do this before splitting the body so the seam stays flat and fitted.
     exposed=(

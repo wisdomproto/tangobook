@@ -100,6 +100,7 @@ def main():
     scene={n:(p,(0,0,0)) for n,p in dict(parts,mirror=d.b.mirror(),foam=d.b.foam()).items()}
     preview.render('assembled',(95,-115,65),scene=scene,scale=35)
     preview.render('top',(0,-1,130),scene=scene,scale=35)
+    preview.render('bottom_rear',(70,110,-85),scene=scene,scale=35)
     preview.render('foam_guide',(0,-90,30),scene={'rear_panel':(parts['rear_panel'],(0,0,0))},scale=24)
     offsets={'shell_left':(-28,0,0),'shell_right':(28,0,0),'paddle':(0,0,28),'rear_panel':(0,25,0),'foam':(0,25,0),'keeper':(0,0,35),'mirror':(0,-8,0)}
     preview.render('exploded',(90,95,65),scene={n:(p,offsets[n]) for n,(p,_) in scene.items()},scale=65)
