@@ -89,3 +89,5 @@
 - 2026-10-03 반사경 실물 수정: periscope-redesign worktree의 일체형 높이 조절 반사경에서 좌우 거울 받침 차이와 기어 진입 막힘을 수정하고 앞뒤 길이를73.13→63.13mm로 줄였다. 기존 장부/마찰 압입 결합 유지, 본체양쪽+뒤판 교체. CAD/8바디STL 및 HTML mock 검증 통과, 실제 재출력은 미검증. [근거/조립순서](../work/hardware/tasks/20260930-adjustable-periscope.md).
 
 - 2026-10-03 반사경 최신 방향: 높이 기어도 제거하고4mm 카메라상단여백 고정형으로 전환. 별도 `pebble_compact_fixed.py`,49×51.63×32.56mm·4부품;40×30mm접착거울/스펀지혀/장부마찰결합/포획뒤판 유지. CAD·STL·HTML mock 검사통과, 실제 재출력/ABS강도는미확인. 기어형은보존. [상세 기록](../work/hardware/tasks/20260930-adjustable-periscope.md).
+
+- 2026-10-03 고정형 뒤판 조립 변경: 스펀지 상부 가림 캡을 뒤판에 통합하고 양옆 긴 홈을 위로 열어, 본체를 먼저 닫은 뒤 **위→아래로 끼운다**. 둥근 뒤벽 분리/스펀지 진입 충돌을 수정하고 CAD 경로·연속 상부 가림·4바디STL·HTML mock/VTK 검증 통과. 마찰리브 명목0.09mm, 스펀지1mm 압축 진입 가정이며 실제 삽입력/유지력 미검증. 치수와4mm 기준 유지. 본체좌우+뒤판 재출력, 혀 재사용. [상세 검증](../work/hardware/tasks/20260930-adjustable-periscope.md).

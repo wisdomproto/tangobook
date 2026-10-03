@@ -15,12 +15,26 @@ def mirror_support():
     return b.mirror_backing().intersect(b.box(-21.2,21.2,-100,100,-100,100))
 
 @lru_cache(None)
-def rear_panel():
+def rear_panel_blank():
     panel=b.box(-18.4,18.4,19.6,22,-7,b.TOP-.4).edges('|Y').fillet(1)
     for sign in (-1,1):
-        x0,x1=sorted((sign*17.8,sign*21.4))
+        x0,x1=sorted((sign*17.8,sign*20.25))
         panel=panel.union(b.box(x0,x1,17.7,19.7,-6.5,11.5).edges('|X').fillet(.6))
-    return panel.intersect(b.envelope())
+    cap=b.box(-21.4,21.4,13.3,23,b.TOP-2.5,b.TOP+.1)
+    return panel.union(cap).intersect(b.envelope())
+
+@lru_cache(None)
+def panel_ribs():
+    ribs=None
+    for x in (-19,19):
+        rib=(cq.Workplane('XY').workplane(offset=-3).center(x,19.59)
+             .circle(.55).extrude(11.5).edges('<Z').chamfer(.45))
+        ribs=rib if ribs is None else ribs.union(rib)
+    return ribs
+
+@lru_cache(None)
+def rear_panel():
+    return rear_panel_blank().union(panel_ribs())
 
 @lru_cache(None)
 def blank():
@@ -30,9 +44,16 @@ def blank():
     core=core.cut(b.box(-20,20,b.FRONT-1,1,b.BOTTOM-1,b.MIRROR_TOP-.5).edges('|Y').fillet(.75))
     # Open the back before adding captive shoulders; no rear-insertion latch.
     core=core.cut(b.box(-18.75,18.75,16.4,23,-7.3,b.TOP+1))
+    # A rear cap fills this top-open rebate after vertical installation.
+    core=core.cut(b.box(-21.75,21.75,13.05,23,b.TOP-2.5,b.TOP+1))
+    core=core.cut(b.box(-8.5,8.5,13.05,19.8,b.FOAM_Z+3.4,b.TOP+1))
     for sign in (-1,1):
-        x0,x1=sorted((sign*17.5,sign*21.75))
-        core=core.cut(b.box(x0,x1,17.35,20.05,-6.85,11.85).edges('|X').fillet(.6))
+        # Keep a continuous outer wall beside the rail, above the phone.
+        # Narrowing the flange leaves this wall inside the rounded envelope.
+        x0,x1=sorted((sign*20.6,sign*24.5))
+        core=core.union(b.box(x0,x1,8,22,b.PHONE_TOP+.5,b.TOP-2.5).intersect(b.envelope()))
+        x0,x1=sorted((sign*17.5,sign*20.6))
+        core=core.cut(b.box(x0,x1,17.35,20.05,-6.85,b.TOP+2).edges('|X').fillet(.6))
         # The phone seats on two rigid side ledges at exactly 4 mm above glass.
         x0,x1=sorted((sign*18.5,sign*24.5))
         core=core.union(b.box(x0,x1,1,11,b.PHONE_TOP,b.PHONE_TOP+1.8).edges('|Z').fillet(.5).intersect(b.envelope()))
@@ -74,10 +95,16 @@ def report():
     def v(p,q):return round(b.volume(p.intersect(q)),6)
     smooth=left
     for y,z in JOINTS:smooth=smooth.cut(kit.excess_ribs((-.3,y,z),(1,0,0)))
+    smooth_panel=panel.cut(panel_ribs().cut(rear_panel_blank()))
+    # The foam is soft: qualify a 1 mm rearward compression during descent.
+    # This is a clearance assumption, not a measured insertion force.
+    compressed_foam=b.box(-8,8,14.6,19.6,b.FOAM_Z-3,b.FOAM_Z+3)
     checks={
-        'panel_seated':{'body':v(panel,left.union(right))},
-        'body_closing':{str(t):v(smooth.translate((-t,0,0)),right.union(panel).union(b.paddle())) for t in (0,.5,1,2,4,8,15,30)},
-        'right_closing':{str(t):v(right.translate((t,0,0)),panel.union(b.paddle())) for t in (0,.5,1,2,4,8,15,30)},
+        'panel_seated_without_friction_ribs':{'body':v(smooth_panel,left.union(right))},
+        'body_closing':{str(t):v(smooth.translate((-t,0,0)),right.union(b.paddle())) for t in (0,.5,1,2,4,8,15,30)},
+        'right_closing':{str(t):v(right.translate((t,0,0)),b.paddle()) for t in (0,.5,1,2,4,8,15,30)},
+        'rear_cover_top_down_without_friction_ribs':{str(t):v(smooth_panel.translate((0,0,t)),left.union(right).union(b.paddle())) for t in (0,.25,.5,1,2,3,5,8,12,18,25,40)},
+        'compressed_foam_top_down':{str(t):v(compressed_foam.translate((0,0,t)),left.union(right).union(b.paddle())) for t in (0,.5,1,2,3,5,8,12,18,25,40)},
         'phone':{str(th):v(b.phone(th),hard) for th in (7,9,11)},
         'phone_mirror':{str(th):v(b.phone(th),b.mirror()) for th in (7,9,11)},
         'foam_shell':{'body':v(b.foam(),left.union(right))},
@@ -90,4 +117,13 @@ def report():
         'bounds_mm':[round(v,3) for v in (bb.xlen,bb.ylen,bb.zlen)],
         'solids':{n:p.solids().size() for n,p in parts.items()},'checks_mm3':checks,
         'phone_seating_contact_mm3':{str(th):v(b.phone(th,.2),hard) for th in (7,9,11)},
+        'rear_cover_installation':'downward Z; glued foam compressed rearward up to 1 mm during entry',
+        'retention_rib_nominal_compression_mm':.09,
+        'foam_roof_coverage_missing_mm3':top_visibility(hard),
+        'rear_cover_downward_stop_contact_mm3':{str(t):v(smooth_panel.translate((0,0,-t)),left.union(right)) for t in (.5,1)},
         'rear_retention_contact_mm3':{str(t):v(panel.translate((0,t,0)),left.union(right)) for t in (.5,1,2)}}
+
+def top_visibility(hard):
+    # A continuous section above the entire foam footprint must be solid.
+    section=b.box(-8,8,13.6,19.6,b.TOP-2.2,b.TOP-2.1)
+    return round(b.volume(section.cut(hard)),6)

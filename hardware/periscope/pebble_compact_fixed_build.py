@@ -66,6 +66,8 @@ def main():
     assert all(v==1 for v in r['solids'].values()),r
     assert all(v==0 for group in r['checks_mm3'].values() for v in group.values()),r
     assert all(v>0 for v in r['rear_retention_contact_mm3'].values()),r
+    assert r['foam_roof_coverage_missing_mm3']==0,r
+    assert all(v>0 for v in r['rear_cover_downward_stop_contact_mm3'].values()),r
     assert r['camera_top_margin_mm']==4 and all(v>0 for v in r['phone_seating_contact_mm3'].values()),r
     parts={n:f() for n,f in d.PARTS.items()};hard=parts['shell_left'].union(parts['shell_right']).union(parts['rear_panel'])
     optics=optical_report(hard);(d.OUT/'optical_report.json').write_text(json.dumps(optics,indent=2))
@@ -74,9 +76,11 @@ def main():
     print_plate(parts);html(parts,r)
     import pebble_preview as preview
     preview.OUT=d.OUT
+    preview.COLORS['rear_panel']=(.79,.56,.38)
     scene={n:(p,(0,0,0)) for n,p in dict(parts,mirror=d.b.mirror(),foam=d.b.foam()).items()}
     preview.render('assembled',(95,-115,65),scene=scene,scale=35)
-    offsets={'shell_left':(-28,0,0),'shell_right':(28,0,0),'paddle':(0,0,28),'rear_panel':(0,18,28),'foam':(0,18,28),'mirror':(0,-8,0)}
+    preview.render('top',(0,-1,130),scene=scene,scale=35)
+    offsets={'shell_left':(-28,0,0),'shell_right':(28,0,0),'paddle':(0,0,28),'rear_panel':(0,0,35),'foam':(0,0,35),'mirror':(0,-8,0)}
     preview.render('exploded',(90,95,65),scene={n:(p,offsets[n]) for n,(p,_) in scene.items()},scale=65)
     print(json.dumps(r,indent=2),flush=True)
 
