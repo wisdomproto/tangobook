@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-03 [자연관찰 귀여운 색칠 개편 완료](tasks/20261001-all-collections-scene-coloring.md): 사용자 빠른검수기준으로101권202장 실제게임검수·시험판반영 완료(202/202·잔여0), 다른5분류·6탭730유지. 장별저장게임증거202와현재source/lineart SHA202쌍·mono202재대조,공개버전URL404개다운로드SHA일치. 전체730개별게임승인/공개202native새검증으로확대하지않음. 생성선화 개별binary/gap export는rawderivedSHA/provenance보존,원본색pixels/runtime변경없음. preview는승인된tests/20261001-review-1/index.html만,추가mainpush/운영등록없음. automation-2 완료종료.
+
 2026-10-02 사용자 직접 검수 후 대부분괜찮다고 판단했고 **자연관찰101권202장만 귀엽게 개편**, 실제 색칠에서 심한이상결과는 자율재작화하도록 요청했다. 이전 자연 사실적형태 완전복사보다 둥근윤곽/친근한표정 지시가 우선. 다른5분류전면재작화하지않음. 원본색pixels추출/6탭730장보존, 새후보 실제ColoringPlayer 검수 후 교체. automation-2 재개 및전체202후보순차생성 상태는 [작업 최신절](tasks/20261001-all-collections-scene-coloring.md) 참조. 기존개별기술승인수와사용자대부분괜찮다는판단은구분한다.
 
 2026-10-02 [여섯 분류 색칠](tasks/20261001-all-collections-scene-coloring.md): 전체365권730장 원본 선정·Qwen 생성·원본/선화/shared engine filled 비교 기록 완료. 실제 게임 개별 승인10장(자연9+유치원1), 대기720장으로 생성/흑백/해시/음원 디코딩과 최종 승인을 분리한다. 승인된 tests 시험판6탭/730장을 유지하며 미승인 후보는 자동 적용하지 않는다. 기존 생성 runner·우선76후보·명작21후보는 종료했고 재실행하지 않는다. 사용자 요청 자료실/6분류 코드 main push는 완료, 이후 기록/후보는 로컬만. 최신 상태·실제 원본 반증·수정 후보와 재개 지점은 task 최신 절/분류별 review.json을 우선한다.
