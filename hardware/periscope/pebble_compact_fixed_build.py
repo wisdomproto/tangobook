@@ -47,6 +47,12 @@ def print_plate(parts):
     # Refresh the previously shared body-only replacement plate too.
     body_plate=trimesh.util.concatenate(meshes[:2])
     body_plate.export(str(d.OUT/'tango_pebble_compact_fixed_bodies_print_plate.stl'))
+    replacements=[];replacement_x=0
+    for i in (0,1,4):
+        mesh=meshes[i].copy();mesh.apply_translation(-mesh.bounds[0])
+        mesh.apply_translation((replacement_x,0,0));replacement_x+=mesh.extents[0]+8
+        replacements.append(mesh)
+    trimesh.util.concatenate(replacements).export(str(d.OUT/'tango_pebble_compact_fixed_bodies_keeper_print_plate.stl'))
     (d.OUT/'print_report.json').write_text(json.dumps(report,indent=2))
 
 def html(parts,r):
@@ -77,8 +83,16 @@ def main():
     assert r['camera_top_margin_mm']==4 and all(v>0 for v in r['phone_seating_contact_mm3'].values()),r
     parts={n:f() for n,f in d.PARTS.items()};hard=parts['shell_left'].union(parts['shell_right']).union(parts['rear_panel']).union(parts['keeper'])
     optics=optical_report(hard);(d.OUT/'optical_report.json').write_text(json.dumps(optics,indent=2))
-    assert all(v==0 for v in optics.values()),optics
-    print('Fixed 4 mm assembly and incoming/outgoing ray checks passed',flush=True)
+    assert all(v==0 for key,v in optics.items() if key.startswith('incoming/')),optics
+    blocked={key:value for key,value in optics.items() if value!=0}
+    (d.OUT/'side_wall_optical_report.json').write_text(json.dumps({
+        'closed_side_walls':True,'wall_thickness_mm':4.3,
+        'blocked_original_outgoing_rays':blocked},indent=2))
+    # Fully closed cheeks are an explicit user choice. Preserve the original
+    # aperture test and disclose blocked rays rather than silently shrinking it.
+    if blocked:
+        print('Closed side walls: original outgoing aperture is obstructed: '+json.dumps(blocked),flush=True)
+    print('Fixed 4 mm assembly and incoming ray checks passed',flush=True)
     print_plate(parts);html(parts,r)
     import pebble_preview as preview
     preview.OUT=d.OUT

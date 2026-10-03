@@ -10,6 +10,8 @@ b=load_profile('_compact_fixed_base','pebble.py',DESIGN_PHONE_INSERT_DEPTH=4.0,D
 OUT=Path(__file__).resolve().parent/'out'/'pebble_compact_fixed'
 JOINTS=((-20.0,b.TOP-5.0),(-8.0,b.TOP-5.0))
 CARRIER_PINS=((-12,5.0),(12,5.0))
+KEEPER_LEG_X=(17.8,21.1)
+KEEPER_FRONT_Y=(14.1,16.8)
 
 @lru_cache(None)
 def reflected_window():
@@ -36,14 +38,7 @@ def side_walls():
     # 4.3 mm side cheeks join the front phone posts to the roof and mirror pad.
     wall=(b.box(20.2,24.5,b.FRONT,-.5,b.BOTTOM,b.TOP)
           .edges('|X').fillet(2).edges('not |X').fillet(.6)
-          .intersect(b.envelope()).cut(reflected_window()))
-    normals=[f.normalAt() for f in reflected_window().faces().vals()]
-    rim=[]
-    for face in wall.faces().vals():
-        if face.geomType()=='PLANE' and any(abs(abs(face.normalAt().dot(n))-1)<1e-6 for n in normals):
-            for edge in face.Edges():
-                if not any(edge.isSame(existing) for existing in rim):rim.append(edge)
-    wall=wall.newObject(rim).fillet(.4)
+          .intersect(b.envelope()))
     return wall.union(wall.mirror('YZ'))
 
 @lru_cache(None)
@@ -72,11 +67,11 @@ def keeper_blank():
     cap=b.box(-21.4,21.4,13.3,24.3,b.TOP-2.5,b.TOP+.1)
     keeper=cap.union(b.box(-21.4,21.4,22.35,24.3,-7,b.TOP))
     for sign in (-1,1):
-        x0,x1=sorted((sign*17.8,sign*20.25))
+        x0,x1=sorted(sign*x for x in KEEPER_LEG_X)
         keeper=keeper.union(b.box(x0,x1,18.7,22.6,-6.5,11.5).edges('|X').fillet(.6))
         # Front shoulders descend into a second pocket and capture the body
         # crossbar. The roof joins these shoulders to the rear retaining wall.
-        keeper=keeper.union(b.box(x0,x1,14.95,16.8,-6.5,11.5).edges('|X').fillet(.6))
+        keeper=keeper.union(b.box(x0,x1,*KEEPER_FRONT_Y,-6.5,11.5).edges('|X').fillet(.8))
     keeper=keeper.intersect(outer)
     front=[e for e in keeper.edges().vals() if abs(e.Center().y-13.3)<.01]
     keeper=keeper.newObject(front).fillet(.45)
@@ -126,9 +121,9 @@ def blank():
         core=core.union(b.box(x0,x1,8,22,b.PHONE_TOP+.5,b.TOP-2.5).intersect(b.envelope()))
         x0,x1=sorted((sign*17.5,sign*24.5))
         core=core.union(b.box(x0,x1,17.15,18.35,-6.85,b.TOP-2.5).intersect(b.envelope()))
-        x0,x1=sorted((sign*17.5,sign*20.6))
+        x0,x1=sorted((sign*17.5,sign*21.45))
         core=core.cut(b.box(x0,x1,18.35,24.3,-6.85,b.TOP+2).edges('|X').fillet(.6))
-        core=core.cut(b.box(x0,x1,14.6,17.15,-6.85,b.TOP+2).edges('|X').fillet(.6))
+        core=core.cut(b.box(x0,x1,13.75,17.15,-6.85,b.TOP+2).edges('|X').fillet(.6))
         # The roofless carrier seats against forward stops and rests on two
         # small shelves. They lie beside the foam, inside the keeper rails.
         x0,x1=sorted((sign*15,sign*20.6))
