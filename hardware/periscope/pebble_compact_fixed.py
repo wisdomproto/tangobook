@@ -96,6 +96,12 @@ def blank():
         core=core.cut(kit.axial_cylinder((x,19.4,z),(0,-1,0),4.6,kit.SOCKET_D/2))
         mouth=cq.Workplane(obj=cq.Solid.makeCone(kit.SOCKET_D/2+.35,kit.SOCKET_D/2,.5,cq.Vector(x,19.25,z),cq.Vector(0,-1,0)))
         core=core.cut(mouth)
+    # The old phone-channel corners continue below the rear carrier as two
+    # fragile legs. End them at the carrier floor; keep the rail crossbars,
+    # carrier shelves and friction sockets intact.
+    rear_region=b.box(-30,30,19.4,25,b.BOTTOM-1,b.TOP+1)
+    rounded_end=b.box(-30,30,19.4,25,-7,b.TOP+1).edges('|X').fillet(.8)
+    core=core.cut(rear_region).union(core.intersect(rounded_end))
     return core
 
 def tenon(y,z):
