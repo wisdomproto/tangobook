@@ -2,14 +2,28 @@
 
 - id: 20261003-video-little-mermaid-four-videos
 - domain: video
-- status: active
+- status: ready
 - updated: 2026-10-04
 - branch: codex/editor2-video-library-push
 - base: d4002c2c
 - output: D:/tangobook-video/little-mermaid-20261003/
-- delivery: 로컬 제작 중, 외부 게시 없음
+- delivery: 로컬 네 완성본 검수 완료, 외부 등록/게시 없음
+
+## 2026-10-04 최종 결과
+
+한국어 롱폼162.208초/숏폼39.167초, 영어 롱폼149.125초/숏폼34.500초. 롱폼1920×1080/24fps, 숏폼1080×1920/30fps의 H.264/AAC faststart. 기존 승인 Voicebox KO/EN 나레이션과 large overlay 자막88/80px를 합성했다. 사용자가 승인한 움직이는 폭풍 v3/바위 왼쪽 바다 편 뒷모습 은신 v4, 같은 source 자동 미세 확대 분할 제거를 반영했다. 추가 검수에서 KO 숏폼의 단독 ‘있어!’와 EN 숏폼 ‘sea.’를 뜻 단위로 묶고 숏폼만 다시 출력했다.
+
+선정27개 source 촘촘한 표본 전수 육안 승인, RealESRGAN x2 전27개 프레임 수/FPS/2배 해상도/원본·모델 SHA guard 통과, 전27개 첫·중간·끝 비교 sheet 직접 확인. 네 완성본 전체 decode/A-V/codec/faststart/black/loudness 검사 통과. 실제 자막61/62/18/18개와 비트 진입·종료 합279표본의 contact30장, 실제23/23/10/10 shots의 sheet12장 및 phone preview4장 모두 직접 확인했다. 재생 오류/검정 구간 없음, 인원·손·그림체/자막 가독성 표본 이상 없음. 증거는 각 `ko-long`, `en-long`, `ko-short`, `en-short`의 `qc/`, `final-review.json`에 최종 SHA로 연결한다. 자동 전체 검사와 표본 육안 검수이며 모든 프레임 시청/전체 수동 청취를 뜻하지 않는다.
+
+파일: `D:/tangobook-video/little-mermaid-20261003/little-mermaid-{ko,en}-{long,short}.mp4`. 별도 SRT, 동일 언어 타임라인의 narration MP3/clean master, KO/EN YouTube 썸네일·게시 초안 및 해시 ledger는 `package.py`로 준비한다. clean master는 BGM/효과음만 포함하며 나레이션/자막을 다시 합칠 때 같은 언어 파일을 사용한다. `DELIVERY.md`, `delivery-provenance.json`, `delivery-validation.json` 참조. native576p H3를 프레임별 AI 향상한1080p 출력이며 시간 보간/반복/감속은 없다.
+
+패키지 완료: `package.py` exit0, `validate_delivery.py`로 최종4MP4+clean4MP4+narration4MP3의 전체decode/길이 및 영상 해상도 통과, ledger561파일 SHA/크기 전수 일치. KO/EN1280×720 썸네일 두 장 실제 육안 확인으로 제목/부제/얼굴 잘림 없음. 네 최종본 freeze 후보0, 음량 KO-long -18.1LUFS/-4.2dBFS, EN-long -18.1/-2.6, KO-short -18.4/-5.6, EN-short -18.0/-3.0. 음원 생성/등록 상태와 영화 완성을 구분하며 위 파일과 증거가 이 작업의 완료 기준이다.
+
+이 아래는 과거 진행 기록이다. 최종 제작 상태는 위 결과가 우선한다. 앱 코드/운영 책/R2/DB/마케팅 등록/외부 발행은 변경하지 않았다. 저장소 변경은 기억 문서뿐이며 현재 브랜치에서 로컬 커밋, main 통합/푸시 없음. 외부 등록은 별도 요청 범위다.
 
 ## 2026-10-04 사용자 편집·구도 수정
+
+사용자가 수정 초반 시안을 보고 “완벽하다”로 편집/은신 구도를 승인했다. 이 선정본을 네 영상에 유지한다. 27개 RealESRGAN x2 향상 완료 후 프레임 수/FPS/원본 SHA/모델 SHA/2배 해상도 검증 통과, 전27개 실제 before/after 비교 sheet의 첫·중간·끝3표본을 직접 확인해 `enhanced/quality-review.json`에 승인 SHA를 기록했다. 현재 KO/EN 롱폼 최종 렌더 시작; 숏폼 렌더/완성본 QA/패키지는 다음 단계다.
 
 사용자가 초반 한 장면 안에서 조금 확대되는 짧은 컷들이 중복처럼 느껴진다고 지적했다. 실제 원본 offset은 이어졌지만 비슷한 구도의 자동 punch-in이 반복 인상을 만들었다. 최종/시안 renderer에서 롱폼 55%, 세로 53% 위치의 자동 확대 분할을 제거했다. 컷은 실제 장소·행동·시점 변화에만 사용하며 같은 소스의 미세 확대를 편집 변화로 취급하지 않는다.
 
