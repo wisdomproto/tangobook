@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-10-03 [창작동화 01~10 핵심단어 삽화](tasks/20261003-changjak-word-images.md): 사용자 지정 GPT 이미지로 147장 묶음 생성·육안 검수 후 858종 WebP(최대 500px, 중앙값 약 24KB)를 분할했다. 운영 500권의 핵심단어 2,363개 항목에 등록하고 Editor2 표본 3권 표시를 확인했다. 기존 본문·삽화·음원·번역 등 모든 다른 필드 보존 및 CDN 858종 해시 검증 완료. [완료 manifest](tasks/20261003-changjak-word-images.json). 작업 브랜치 codex/content-changjak-word-images, main push 미요청.
+
 2026-09-30 [미나 본문 교정·Qwen 재작화](tasks/20260930-mina-text-revision-qwen.md): 검토 승인 후 운영 본문을 기준으로 43권 135쪽을 교정하고 제목 5개·대응 SCENE·기획/HTML을 동기화했다. 기존 원고/HTML 차이까지 합쳐 HTML은 44권 204쪽 변경. 바뀐 장면 12권 22장을 로컬 Qwen으로 생성·개별 검수했으며 [선정 manifest](tasks/20260930-mina-qwen-selected.json)에 최종 해시를 기록했다. 사용자 요청으로 origin/main push 완료(07cc0859), 후속 요청으로 운영 삽화 22장 교체·이전 이미지 정리와 교정 본문 동기화 완료. 최종 검토 파일은 `D:/ComfyUI-output/mina-text-revisions/selected.html`.
 
 2026-09-30 [미나 50권 글 검토](tasks/20260930-mina-text-review.md): HTML 500쪽과 원고를 대조하여 123쪽 차이를 확인했다. 실제 HTML 기준 권별 검토 완료. 11권 수위 역전·20권 소유/그릇 연결·24권 개수 오류, 후반 교훈 복창과 49권 돌봄 부담 해석이 주요 후보. 제품 글·그림 수정 및 push 없음. 후속 재빌드 전 원고/HTML 차이 병합 필요.
