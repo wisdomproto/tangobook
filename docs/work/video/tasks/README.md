@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 작업 기록
 
+- [2026-10-04 Kaggle H3 무료 GPU·잭과 콩나무 시험](20261004-kaggle-h3-test.md)
+
 - [2026-10-04 전체 영상 제작 순서·작품별 컨펌](20261004-video-production-order.md)
 
 - [2026-10-04 라푼젤 한·영 롱폼·숏폼](20261004-rapunzel-four-videos.md)
