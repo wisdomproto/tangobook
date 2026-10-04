@@ -38,6 +38,22 @@ function setup(lineRows = LINE, answerRows = ANSWER) {
 }
 
 describe('answer-colors', () => {
+  it('작은 꼭지의 색이 큰 과일의 대표색을 덮지 않는다', () => {
+    const line = paint(['.#....', '.#....'], { '.': [255, 255, 255] });
+    const ans = paint(['S#AAAA', 'S#AAAA'], {
+      S: [140, 100, 70],
+      A: [175, 70, 55],
+    });
+    const regions = labelRegions(buildWalls(line.rgba), line.w, line.h);
+    const { palette, colorOfRegion } = buildPalette(regions, ans.rgba, [1, 2]);
+    expect(palette).toHaveLength(1);
+    expect(palette[0].color).toBe('#af4637');
+    expect(colorOfRegion.get(1)).toBe('#af4637');
+    expect(colorOfRegion.get(2)).toBe('#af4637');
+    // 입력 순서를 뒤집어도 같은 큰 면의 색이 대표색이다.
+    expect(buildPalette(regions, ans.rgba, [2, 1]).palette[0].color).toBe('#af4637');
+  });
+
   it('칸마다 정답본의 색을 읽어 물감을 만든다', () => {
     const { palette, colorOfRegion, regions } = setup();
     expect(palette.map((p) => p.color).sort()).toEqual(['#f09030', '#f0d050']);

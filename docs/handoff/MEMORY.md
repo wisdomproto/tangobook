@@ -6,6 +6,16 @@
 
 2026-10-02 [신데렐라·백설공주 실제 영상 등록](../work/authoring/tasks/20261002-cinderella-snow-white-video-registration.md): 기존 승인 최종본 ko/en 롱폼·숏폼 8개를 Editor2 v1과 마케팅 기획 2개에 연결, 자막/나레이션/표지 및 모든 업로드 무결성 검증 완료. 백설공주는 quality-v2. 운영 mkt_content_sources 마이그레이션 미적용을 확인해 기존 storybook memo 연결로 완료했으며, 새 등록 버튼/책 원본 카탈로그 정상화에는 DB SQL 권한으로 준비된 마이그레이션 적용이 필요하다. 제품 코드 변경·외부 게시·이번 기록 push 없음.
 
+2026-10-04 창작동화 도안·게임 연결 main push 완료: 사용자 승인 후 origin/main과0/3을 확인,11~19 단어 삽화3e950b3f·색칠 도안7ff70e0a·책 게임 검증aea7fac2를 일반 push했다.1,371도안/850권/3,957항목과 기존 목록 보존 전수 검사 및30 tests 재통과. [게임 작업](../work/games/tasks/20261003-changjak-word-coloring.md),[콘텐츠 작업](../work/content/tasks/20261003-changjak-11-19-word-images.md). 생성 원본·다른 작업 유지, Railway 배포 완료는 미확인. 아래 관련 push 미요청 상태를 갱신한다.
+
+2026-10-03 창작동화 색칠 게임 연결 후속:850권/3,957항목을 실제 게임 hook의 책별 단어 규칙으로 전수 확인하고 운영19시리즈 대표 책을 재검증했다. 피포/미나 단어 익히기 → 색칠하기 실제 진입 확인. 기존 manifest/index 경로로 연결되어 DB 게임 중복 생성은 불필요. 상세 [작업 기록](../work/games/tasks/20261003-changjak-word-coloring.md), 로컬 반영·main push 미요청.
+
+2026-10-03 [창작동화 단어 색칠공부](../work/games/tasks/20261003-changjak-word-coloring.md): native GPT로 1~19 단어 도안 1,371종 생성·전수 원본 비교·50종 보정, 운영 이미지 등록/CDN 전수 SHA 검증 완료. 로컬 목록에 850권/3,957항목 연결, 기존 항목·원본·비공개 책 공개 활동 제외 유지. 최종 낱장 0칸 없음과 신발/사과 실제 붓질·초기화 확인. 로컬 커밋 후 새 작업 main push 미요청.
+
+2026-10-03 [창작동화 11~19 핵심단어 삽화](../work/content/tasks/20261003-changjak-11-19-word-images.md): 후속 350권의 단어 항목 1,594개에 GPT 이미지 513종을 운영 등록했다. 전수 육안·CDN 해시·기존 페이지 보존 검증과 Editor2 표본 3권 표시 확인 완료. 원본과 백업은 별도 changjak-words-11-19 폴더에 보존. 운영 반영됨, 이번 작업 main push 미요청.
+
+2026-10-03 [창작동화 01~10 핵심단어 이미지 등록](../work/content/tasks/20261003-changjak-word-images.md): GPT 이미지 858종을 생성·검수하여 운영 500권의 2,363개 단어 항목에 연결했다. Editor2 표본 3권 표시, 기존 페이지와 다른 필드 보존, CDN 전수 해시 검증 완료. 운영 데이터 반영됨. 후속 사용자 main push 승인에 따라 c8f14f9b와 통합 기록을 최신 원격 main에 일반 push한다. 기존 로컬 영상 관리 브랜치와 생성 원본은 보존한다.
+
 2026-10-02 영상 관리 main push 승인: 사용자 “푸시하자”. 원격 최신 main에서 이번 영상 관리/로컬 합성 변경만 통합(`1e84bd75`)하고 원격 기준 검증 후 일반 push를 사용한다. 색칠 작업과 기존 로컬 미푸시 이력은 보존. [통합 기록](../work/authoring/tasks/20261002-editor2-video-library.md). 아래 영상 관리의 push 미요청 상태는 이 승인으로 갱신한다.
 
 2026-10-02 영상 관리 후속: 사용자 요청으로 로컬 FFmpeg 합성도 새 영상 탭에 연결했다. 공통 원본 + 언어별 MP3/SRT를 브라우저 Worker에서 합성하고 자막 크기/원본 소리 혼합·교체 선택, 진행률/취소, 미리보기/다운로드/완성본 적용을 제공한다. 실제 3초 한글 자막·음원 합성과 결과 길이/프레임을 검증했다. [동일 작업 기록](../work/authoring/tasks/20261002-editor2-video-library.md).

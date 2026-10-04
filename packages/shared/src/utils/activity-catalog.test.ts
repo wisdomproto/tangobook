@@ -23,6 +23,10 @@ describe('parseActivityKey', () => {
     expect(parseActivityKey('coloring', 'ph-0389-아이')).toBe('ph-0389');
     expect(parseActivityKey('coloring', 'bk-0001')).toBe('bk-0001');
     expect(parseActivityKey('coloring', 'ph-03891')).toBeNull();
+    expect(parseActivityKey('coloring', 'cw-pipo-012345abcd-01-강아지')).toBe(
+      'cw-pipo-012345abcd-01'
+    );
+    expect(parseActivityKey('coloring', 'cw-pipo-012345abcd-0100')).toBeNull();
     expect(parseActivityKey('hidden-object', 'jr-0034-팥죽-할멈')).toBe('jr-0034');
     expect(parseActivityKey('hangul', 'kr-h1-u02')).toBe('kr-h1-u02');
     expect(parseActivityKey('english', 'en-b1-u01')).toBe('en-b1-u01');

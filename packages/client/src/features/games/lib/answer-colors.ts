@@ -155,7 +155,10 @@ export function buildPalette(
 
   // 비슷한 색끼리 한 물감으로 묶기.
   const groups: { rgb: number[]; regionIds: number[]; area: number }[] = [];
-  for (const id of regionIds) {
+  // 작은 꼭지가 위에 있다는 이유로 사과 전체의 대표색이 갈색이 되지 않게 한다.
+  // 큰 면부터 묶으면 대표색이 라벨의 위치 대신 그림에서 차지하는 넓이를 따른다.
+  const byArea = [...regionIds].sort((a, b) => regions.sizes[b] - regions.sizes[a]);
+  for (const id of byArea) {
     const rgb = rgbOfRegion.get(id);
     if (!rgb) continue;
     const hit = groups.find((gr) => near(gr.rgb, rgb));
