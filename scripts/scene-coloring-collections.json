@@ -38,5 +38,11 @@
       "우주와 자연",
       "우리 몸 이야기"
     ]
+  },
+  {
+    "id": "changjak-pongi",
+    "label": "창작동화 1 · 퐁이네",
+    "directory": "changjak-pongi",
+    "categories": ["01. 퐁이네 운하 마을"]
   }
 ]

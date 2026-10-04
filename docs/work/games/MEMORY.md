@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-04 [퐁이네 장면 색칠 완료](tasks/20261004-pongi-scene-coloring.md): 창작동화1번50권100장 imagegen built-in 생성·흑백/SHA/원본선화sharedfilled 전수 비교 완료, 대표4장 실제게임 검증. 일곱 번째 HTML 탭 공개와 원본/선화200버전URL SHA 검증 완료. 기존730장 보존/총415권830장, editor2 책별 catalog 추가·5테스트/typecheck 통과. 33권 신규 원본2장과29권 잘못된 comic-assets 기각 구분. 운영 배포/main push 없음.
+
 2026-10-03 [자연관찰 귀여운 색칠 개편 완료](tasks/20261001-all-collections-scene-coloring.md): 사용자 빠른검수기준으로101권202장 실제게임검수·시험판반영 완료(202/202·잔여0), 다른5분류·6탭730유지. 장별저장게임증거202와현재source/lineart SHA202쌍·mono202재대조,공개버전URL404개다운로드SHA일치. 전체730개별게임승인/공개202native새검증으로확대하지않음. 생성선화 개별binary/gap export는rawderivedSHA/provenance보존,원본색pixels/runtime변경없음. preview는승인된tests/20261001-review-1/index.html만,추가mainpush/운영등록없음. automation-2 완료종료.
 
 2026-10-02 사용자 직접 검수 후 대부분괜찮다고 판단했고 **자연관찰101권202장만 귀엽게 개편**, 실제 색칠에서 심한이상결과는 자율재작화하도록 요청했다. 이전 자연 사실적형태 완전복사보다 둥근윤곽/친근한표정 지시가 우선. 다른5분류전면재작화하지않음. 원본색pixels추출/6탭730장보존, 새후보 실제ColoringPlayer 검수 후 교체. automation-2 재개 및전체202후보순차생성 상태는 [작업 최신절](tasks/20261001-all-collections-scene-coloring.md) 참조. 기존개별기술승인수와사용자대부분괜찮다는판단은구분한다.

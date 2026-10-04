@@ -20,21 +20,31 @@ for (const job of jobs) {
     return base + file + '?v=' + sha.slice(0, 12);
   };
   const scene = {
-    key: job.key, bookId: job.bookId, pageNumber: job.pageNumber,
-    lineartUrl: asset('lineart'), colorSourceUrl: asset('source'),
-    text: job.text || '', ttsUrl: job.ttsUrl || undefined,
-    translations: job.translations || {}, backgroundMusicUrl: job.backgroundMusicUrl,
+    key: job.key,
+    bookId: job.bookId,
+    pageNumber: job.pageNumber,
+    lineartUrl: asset('lineart'),
+    colorSourceUrl: asset('source'),
+    text: job.text || '',
+    ttsUrl: job.ttsUrl || undefined,
+    translations: job.translations || {},
+    backgroundMusicUrl: job.backgroundMusicUrl,
     ...(job.colorSampling ? { colorSampling: job.colorSampling } : {}),
   };
   (books[job.bookId] ??= []).push(scene);
 }
-if (keys.size !== 730 || Object.keys(books).length !== 365)
+if (keys.size !== 830 || Object.keys(books).length !== 415)
   throw new Error(`Unexpected scope: ${Object.keys(books).length} books / ${keys.size} scenes`);
 for (const scenes of Object.values(books)) {
   scenes.sort((a, b) => a.pageNumber - b.pageNumber);
   if (scenes.length !== 2) throw new Error('Each reviewed book must have two scenes');
 }
-const destination = fileURLToPath(new URL('../packages/client/src/features/games/data/scene-coloring-catalog.json', import.meta.url));
-await fs.mkdir(fileURLToPath(new URL('../packages/client/src/features/games/data/', import.meta.url)), { recursive: true });
-await fs.writeFile(destination, JSON.stringify(books) + '\n');
+const destination = fileURLToPath(
+  new URL('../packages/client/src/features/games/data/scene-coloring-catalog.json', import.meta.url)
+);
+await fs.mkdir(
+  fileURLToPath(new URL('../packages/client/src/features/games/data/', import.meta.url)),
+  { recursive: true }
+);
+await fs.writeFile(destination, JSON.stringify(books, null, 2) + '\n');
 console.log(`Imported ${Object.keys(books).length} books / ${keys.size} published scenes`);

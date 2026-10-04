@@ -31,8 +31,8 @@ const book = {
 } as Storybook;
 
 describe('editor2 장면 색칠 연결', () => {
-  it('365권 730장의 공개 도안을 서로 다른 책 ID에 정확히 두 장씩 연결한다', () => {
-    expect(Object.keys(catalog)).toHaveLength(365);
+  it('퐁이네 50권을 포함한 415권 830장의 공개 도안을 서로 다른 책 ID에 정확히 두 장씩 연결한다', () => {
+    expect(Object.keys(catalog)).toHaveLength(415);
     const keys = new Set();
     for (const [id, scenes] of Object.entries(catalog)) {
       expect(scenes).toHaveLength(2);
@@ -43,7 +43,15 @@ describe('editor2 장면 색칠 연결', () => {
         keys.add(s.key);
       }
     }
-    expect(keys.size).toBe(730);
+    expect(keys.size).toBe(830);
+    const pongiBooks = Object.entries(catalog).filter(([id]) => /^changjak-pongi-\d{2}$/.test(id));
+    expect(pongiBooks).toHaveLength(50);
+    for (let number = 1; number <= 50; number++) {
+      const id = `changjak-pongi-${String(number).padStart(2, '0')}`;
+      const scenes = pongiBooks.find(([bookId]) => bookId === id)?.[1];
+      expect(scenes).toHaveLength(2);
+      expect(scenes?.every((s) => s.key.startsWith(id + '-p'))).toBe(true);
+    }
   });
   it('쪽 번호로 현재 본문과 음원을 선택하고 검수된 원본 좌표와 명시 median을 보존한다', () => {
     const item = editorSceneColoringItem(scene, book, 'ko');

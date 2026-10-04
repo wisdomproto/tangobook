@@ -22,6 +22,8 @@
 
 ## 관련 파일
 
+2026-10-04 후속: [퐁이네 장면 색칠](../../games/tasks/20261004-pongi-scene-coloring.md) 50권100장의 공개 도안을 catalog에 추가하여 총415권830장이 됐다. 퐁이네01~50 ID/권당2장/버전 URL 연결 테스트5개와 client typecheck 통과. 기존 컴포넌트/운영 책 데이터 변경 없이 catalog로 연결하며 운영 배포는 하지 않았다.
+
 - `packages/client/src/features/games/components/SceneColoringEditorTab.tsx`
 - `packages/client/src/features/games/lib/editor-scene-coloring.ts`
 - `packages/client/src/features/games/data/scene-coloring-catalog.json`

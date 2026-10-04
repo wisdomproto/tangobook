@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-04 [창작동화 1 퐁이네 색칠 완료](../work/games/tasks/20261004-pongi-scene-coloring.md): 50권100장 imagegen built-in 생성·전수 원본/선화/sharedfilled 비교·대표4장 실제게임 검증 후 일곱 번째 HTML 탭 공개. 원본/선화200버전URL SHA 일치, 기존730 보존/총415권830장. editor2 catalog 추가·5테스트/typecheck 통과. 코드/기록 로컬 커밋만, 운영 배포/main push 없음.
+
 2026-10-03 [editor2 책별 장면 색칠 탭](../work/authoring/tasks/20261003-editor2-scene-coloring.md): 365권730장 공개 최종 도안을 책 ID catalog로 연결하고 원본/도안 비교·게임 미리보기를 구현. 코드 로컬 검증/8테스트 및 실제 목록 표시 확인, 브라우저 연결 지연으로 editor2 내 실제 붓질 추가확인은 남음. 운영 배포 미실시.
 
 2026-10-02 [자연관찰 귀여운 색칠 개편](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사용자 직접 검수 후 다른분류는 대부분괜찮다고 판단, 자연101권202장만 친근한그림체와 실제게임검수/심한실패 자율재작화 요청. 예전 사실적복사 규칙보다 최신요청 우선, 자동화 재개·자연전체후보생성중이며 검증전자동교체없음. 상세는games MEMORY와task 최신절.

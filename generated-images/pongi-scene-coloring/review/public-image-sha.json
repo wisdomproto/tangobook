@@ -1,0 +1,1402 @@
+[
+  {
+    "key": "changjak-pongi-01-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-01-p01.png?v=d984c247a76b",
+    "sha256": "d984c247a76bc147c920a7ccdaeed7caa28d952a11a0ba7fd2c47d6022727965",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-01-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-01-p01.png?v=4ac739b758c1",
+    "sha256": "4ac739b758c1f00eaa6c2b42e6da090172206c3d470a53a6df4593d4bcb9fdee",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-02-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-02-p09.png?v=5b809432d509",
+    "sha256": "5b809432d50937af9e37a5f279d60921cb874f068fbd60d58b189da2743422cd",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-02-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-02-p02.png?v=7b9c6e13f957",
+    "sha256": "7b9c6e13f9575dfc46d5b7188099c31641ffdf7d0b8132852300f0ca8e471ff1",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-01-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-01-p08.png?v=cac102be9c74",
+    "sha256": "cac102be9c74ef286c4c897ab59a8c08df1277c9fd6209c383378def22adc1c0",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-02-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-02-p02.png?v=bd920373bc11",
+    "sha256": "bd920373bc11ca2ff5c031c58e2a96b2cc4b9359adfcac918c89197368a12d72",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-02-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-02-p09.png?v=c18c94c28d7b",
+    "sha256": "c18c94c28d7b23aa08ec063e32f2332faaecf4ae26a53b7d89e84be641860c72",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-01-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-01-p08.png?v=d941ecf3cadc",
+    "sha256": "d941ecf3cadce622bcc26555285069c496530d7bad2da1a252e3c7ecc4bb2cbc",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-03-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-03-p04.png?v=04573d589016",
+    "sha256": "04573d589016534d1d76764e93edd932df2eaaa1e3a1ce837ab9ff21c77d5878",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-04-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-04-p06.png?v=52d1622d573c",
+    "sha256": "52d1622d573c54189d8eaeef5d77348a5523208fa603850ce8ad974cc7c851ff",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-03-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-03-p09.png?v=6f6dc1ae5706",
+    "sha256": "6f6dc1ae5706884e0ff214e672f19b0f30c43c4aef5e49adef518443110eacac",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-03-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-03-p09.png?v=1c0b20496e80",
+    "sha256": "1c0b20496e807502717a8ccd3be65fa8e990ab985ebe880952c3cb846d0bc35d",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-03-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-03-p04.png?v=50c51815ce0f",
+    "sha256": "50c51815ce0fcea9b8f76b17a1cf94b874690a8aef6f21cac773787b29a4efb8",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-05-p03",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-05-p03.png?v=794e61fdefb2",
+    "sha256": "794e61fdefb2b098308ad63f19661a2bbe0afad9291111241f7a91077e1ff1c1",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-04-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-04-p04.png?v=aa4d1fcefe8f",
+    "sha256": "aa4d1fcefe8ff424d01e2d6f708281e49ed74e8f05caaae3cc9bb08e87604afe",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-04-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-04-p04.png?v=1cd8e6f31857",
+    "sha256": "1cd8e6f318572833467ea283f90b900ef912897c9f1dba73dede63969f919683",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-04-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-04-p06.png?v=d7464c9bdf74",
+    "sha256": "d7464c9bdf74a7d7a26a307c24dfcd01c0fdfa4457354032c908f097e8157fd3",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-05-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-05-p09.png?v=9ae40b186684",
+    "sha256": "9ae40b1866840eeda0b1ea804be0ae338c967f249d308dabd22016701d7672a3",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-05-p03",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-05-p03.png?v=09f89af95e20",
+    "sha256": "09f89af95e20cc8184804e83d5613f7346504e154fc92b8cadd7ba6f71bc0ea4",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-06-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-06-p05.png?v=d39b4c11aa56",
+    "sha256": "d39b4c11aa5694d8942637e8a3eb2c641d6836e98fad3f64b61bfb7aec580a68",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-06-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-06-p09.png?v=2070b8832398",
+    "sha256": "2070b88323986b69ded4b7df7a954bf2614f18aa58acf9363c414e825d129f89",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-05-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-05-p09.png?v=253de5822763",
+    "sha256": "253de58227631d7171bf6226574113b3de10ae6ce90f27d9ba902c808c6bf867",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-07-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-07-p06.png?v=43cb9d227036",
+    "sha256": "43cb9d22703607f53b6c1110c7ec081023062cc921067d150eebd1f44bb5826b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-06-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-06-p09.png?v=58744077b48d",
+    "sha256": "58744077b48d229294d2911bb59c1aae412794966588c743ed5b971bb9dc084f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-06-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-06-p05.png?v=980c8b5c9b14",
+    "sha256": "980c8b5c9b14eeca3318cac6fd23e9f4134f9cb45fe207a79ad300d514f4353c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-08-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-08-p04.png?v=ee066f073d6e",
+    "sha256": "ee066f073d6e5b6832e3d81f72f821163f920f64b152077b631206e45a94fadb",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-07-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-07-p09.png?v=cfd5f51b1d8a",
+    "sha256": "cfd5f51b1d8a9461b37170f5fe7c5634d9d343a8d9d889a1c1f6242a4e0d4606",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-07-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-07-p09.png?v=8bd6c27f2565",
+    "sha256": "8bd6c27f2565f41c822fa52d8e18f1a30f7df7bc14eb25c9c53e46523f964503",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-07-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-07-p06.png?v=6e5ba08c0eb6",
+    "sha256": "6e5ba08c0eb6fe4279483df85a46f4b3920f45afa491a26be59b52da5dc9aa08",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-08-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-08-p09.png?v=749b6a80aa0f",
+    "sha256": "749b6a80aa0f4d64e357dfdafaddbe472f8278c4afb2c07034086a394ace39a2",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-08-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-08-p04.png?v=82801f73a1b7",
+    "sha256": "82801f73a1b7dab43887a17f80503fb41905001b7c0215c813ec7fc81b255320",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-09-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-09-p06.png?v=6cfa3d3e2e3c",
+    "sha256": "6cfa3d3e2e3c5885f411a30d69f8165952b8b217c6565d624e89a4a83f601ffd",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-08-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-08-p09.png?v=f558b64884a7",
+    "sha256": "f558b64884a74a11ebdd60c54f4c4df4a865467957a7407749e39a65762a2008",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-10-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-10-p06.png?v=80d75a13f56b",
+    "sha256": "80d75a13f56bf5b54cf6c28a3ce6d1691d77d667800358f26f152b3eddcf7d9f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-09-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-09-p06.png?v=03ea148f8cf0",
+    "sha256": "03ea148f8cf0267495b4ba45a8b9e0b5531427c199ad3863caee17e9ed96c196",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-09-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-09-p09.png?v=25cfbe2a7269",
+    "sha256": "25cfbe2a72691d22879ef7cf4a82b58b0b98fd6b8a072e8f21a4e00705db4c71",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-09-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-09-p09.png?v=1d9c0920f1a1",
+    "sha256": "1d9c0920f1a1afbe55fcc545c0fc2c3e0594c90250c7eeda94f17c2120beb027",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-10-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-10-p06.png?v=4ffd66c75b97",
+    "sha256": "4ffd66c75b970fe0b800421dd72241becf74f5c45f34e1d11efc94608f416b56",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-10-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-10-p09.png?v=13883f311996",
+    "sha256": "13883f3119960351692fc0eed13c59c893bda35e9e408ac3df1993ec2f7cc41e",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-10-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-10-p09.png?v=09913ca89557",
+    "sha256": "09913ca89557a6aa7dfbe2af59a24c4f8157a35f463fc1d1a6e941d932e93622",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-11-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-11-p04.png?v=a601d209ffb5",
+    "sha256": "a601d209ffb5a454ffef33b6b613dc78018145c38925ee677f17804173f19c28",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-11-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-11-p04.png?v=f9dc56427b76",
+    "sha256": "f9dc56427b764542e67f7edf0a7f9251cb3a074a9e040d4118f86902fb286b72",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-11-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-11-p08.png?v=3c514dee5582",
+    "sha256": "3c514dee5582726837d2910380211ab140d7050480982fda3522ec1aef927add",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-12-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-12-p06.png?v=98e1abc569d8",
+    "sha256": "98e1abc569d8e76739129f7280b8f4b058a45b1cf738d0a502123e7cb6d43f5d",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-12-p10",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-12-p10.png?v=47ce5211a6a6",
+    "sha256": "47ce5211a6a64fe03d58dce10e6eb6056aedcf8d7944ce488d028a523eddf2a9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-11-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-11-p08.png?v=03ba6a287b9b",
+    "sha256": "03ba6a287b9bbcddbc45b315170531f3601c3e9f1c30d4c4591daba45bc25a44",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-12-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-12-p06.png?v=e1db848c8ca6",
+    "sha256": "e1db848c8ca630a33169d78bbabc6a36202732869f17d2afbd85d643b952932d",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-13-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-13-p04.png?v=27ea1967147b",
+    "sha256": "27ea1967147b01946a40fc25dcf95f96e34f82f8e0ff5cb7841a399c5cc50f12",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-13-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-13-p08.png?v=50fb61109db6",
+    "sha256": "50fb61109db69bf51b0defae07844b1103f3814f7de97cf4e02121eaf04c089c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-13-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-13-p08.png?v=fcf2d094da53",
+    "sha256": "fcf2d094da53fec875fd2d1543a03b776b94163b25dbb30ada1ca896f1f06656",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-14-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-14-p04.png?v=571baf1c804c",
+    "sha256": "571baf1c804c4f395ebd8998f632584c6f36d3f926f9bc9650a6ec781621a4d9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-13-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-13-p04.png?v=3a6f7c29c0bc",
+    "sha256": "3a6f7c29c0bcde75be42176a4ace9f744fdd0eead90534ebf2daad6309ae9f4b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-14-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-14-p08.png?v=3830fc81e97e",
+    "sha256": "3830fc81e97e85ec32383c44795fa5e579b9c46714e8ff62f2c11b884998adb2",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-12-p10",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-12-p10.png?v=0b7fd2254611",
+    "sha256": "0b7fd2254611f1525dc4a57d99a70b7266a4b82124587daaeea8fac46f15ef69",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-14-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-14-p04.png?v=4ac86dfa054b",
+    "sha256": "4ac86dfa054bb652fb54130055efe28f0953abbd4a17b4525b02352ea0b32c49",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-15-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-15-p01.png?v=b73e71deca61",
+    "sha256": "b73e71deca61d80df1f21cb5942aee011b616283700d9fb09fb67f43ce8b0543",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-14-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-14-p08.png?v=72370a77e0ed",
+    "sha256": "72370a77e0ed4919877ac44eabf8693447c52d8ce3c77c35880698b53b53947a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-15-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-15-p01.png?v=84395c7ed309",
+    "sha256": "84395c7ed309ec60ead1a8396c45c9f6d42127faedf43916ab655f5fa4f5f03c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-15-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-15-p09.png?v=dbe134409a93",
+    "sha256": "dbe134409a93447379ad9cb6edf75c92ae5953dedef1580ceea877da3b75735c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-15-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-15-p09.png?v=54bf87b42072",
+    "sha256": "54bf87b42072bdb04c65477de488f3a660862186a6f43f340731c67a8f7daeb7",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-16-p10",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-16-p10.png?v=17d1a5fb7322",
+    "sha256": "17d1a5fb73225542af8e2c1d4c69c7abc4b6ad415ada5d1523b856dd7266f07c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-16-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-16-p05.png?v=6627c7619de8",
+    "sha256": "6627c7619de844da8f20acea91e52d71bd2b0ede8a2de89c970ad53b4d819f24",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-17-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-17-p05.png?v=998507ff17f0",
+    "sha256": "998507ff17f014dc28607fc4c200cda6407af860197e6c8766995ca41e850ba3",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-16-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-16-p05.png?v=43063c28a729",
+    "sha256": "43063c28a729d379f95827313d62eeb085210bc6a78cbe4a9390aef5ea43fb8b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-17-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-17-p05.png?v=0e489291e5bb",
+    "sha256": "0e489291e5bb0f14adb4fc20b0ee4bf6eccf3b7141fd8341f14e03a4e4912781",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-16-p10",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-16-p10.png?v=90454ed56644",
+    "sha256": "90454ed56644f69694212240c0f7ad2c8938d527efb4fec9f1005dd2a7635e0b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-17-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-17-p08.png?v=64ff3d2fc035",
+    "sha256": "64ff3d2fc03584b9f1a55b8952aa2df96912d0d55e7c078a3160fcc1a869d1f7",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-18-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-18-p05.png?v=53a84745b712",
+    "sha256": "53a84745b712ef4a78342ce7b6697710f6e26a011399c546569f775ab4d163fc",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-18-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-18-p05.png?v=0a7a2e2ff8dd",
+    "sha256": "0a7a2e2ff8ddf1c3b08dc96df13b52c6d4937ad8fdbf3746ec110e8ddbb51ca9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-17-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-17-p08.png?v=3c665a36df5a",
+    "sha256": "3c665a36df5a98387fe4f8db175393b9cff291800b4dd640e28d5e7a8856c27e",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-18-p10",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-18-p10.png?v=c8c9f39f819a",
+    "sha256": "c8c9f39f819a53335f6cad73dce46bf94554258a2a868e59d0d7a47fb45235ea",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-19-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-19-p05.png?v=430c7cdb07f7",
+    "sha256": "430c7cdb07f7d46cd59b55dbd39c8d3bdf23cce750fb62459dc19410ea990393",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-18-p10",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-18-p10.png?v=a43a55eddee4",
+    "sha256": "a43a55eddee40e614f96704fdf7f35d2045e4155278ff6d60d30d614dc64e7c9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-19-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-19-p07.png?v=28794178652a",
+    "sha256": "28794178652abb48c5e5b18e6650a584b6d0ec892efa152f7019a885e408b4d5",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-19-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-19-p05.png?v=5d40fb85a66f",
+    "sha256": "5d40fb85a66fad032871eb24971f9300cfabcd0a77c62926914bdb563c707e91",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-20-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-20-p02.png?v=2fe70ac56f97",
+    "sha256": "2fe70ac56f97f6b827f3ba81b56cf3d5b19f1fd7eefc3c5d39ceb4a00b36c617",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-19-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-19-p07.png?v=35436f8ff303",
+    "sha256": "35436f8ff3038dfc113fc867b304d4c48b8984f7ade4a458b5362ecc17287b83",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-20-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-20-p02.png?v=d3bae62adbaa",
+    "sha256": "d3bae62adbaaa660c2fc745bfa9f48371298b82fc4f140b87c3711665a70e322",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-20-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-20-p07.png?v=a090c8033db6",
+    "sha256": "a090c8033db6fd5f8580a5723ba6f2fb113445769e1867a0eff6a76303eb9af4",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-21-p03",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-21-p03.png?v=dc5a91c8faf9",
+    "sha256": "dc5a91c8faf91650ccb6592c77556428351abc1cfaa9ebe3a31a6572de3bfde0",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-21-p03",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-21-p03.png?v=06515bc0d811",
+    "sha256": "06515bc0d811501ba525a63b91529b5416e2362819638988c2443cb0f78414e2",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-20-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-20-p07.png?v=79255069966e",
+    "sha256": "79255069966ec211a3d5aa0d6504300f5d8541f85c350bdc87ebbb75129a8eb0",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-22-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-22-p07.png?v=e67cec3ae734",
+    "sha256": "e67cec3ae7346071035de8e02593c306da4c35dbc55b3e958602f7b8852bb620",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-21-p10",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-21-p10.png?v=80d563441707",
+    "sha256": "80d56344170799da339796dd24e5bc3dfab18b8d0820810ae133a4d813d08e4b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-22-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-22-p07.png?v=5d3baa9fe6c2",
+    "sha256": "5d3baa9fe6c29b2d420a0b397caf7cd42f7f862a20f5c04ba4629d79c0f26587",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-21-p10",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-21-p10.png?v=ebf77367e6ca",
+    "sha256": "ebf77367e6ca43a3e09b6bf5b90100765043bb411580662a525f87b96195c0a0",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-22-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-22-p09.png?v=5ed7c30c0387",
+    "sha256": "5ed7c30c03876a2ef2960d601e45d6840e573218b3f1076a84f86d76b0acc887",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-24-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-24-p04.png?v=81bb8f71c4b2",
+    "sha256": "81bb8f71c4b23226b09ed3f0568b7682b7737f0d2eca0344764cf2e94b893a8d",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-22-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-22-p09.png?v=54769d398ea9",
+    "sha256": "54769d398ea97631a9f07b7f6f50c5a28f0f38ee9fae6fa34fd762a2e6e0e84e",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-23-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-23-p05.png?v=b9717bb611a8",
+    "sha256": "b9717bb611a84ec13eb13de8dc38cf1088d40e96c20bc301ec0bcfa06677b571",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-23-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-23-p08.png?v=ca7f3f18045e",
+    "sha256": "ca7f3f18045e9d91e40fc3a996c71763fa447070da99685baf95e4183f874653",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-23-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-23-p08.png?v=010727f239dd",
+    "sha256": "010727f239dda5d16c469269585c18889ecfea5a97a104716608ae4fcd9e9bea",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-24-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-24-p04.png?v=1ee811e87e77",
+    "sha256": "1ee811e87e77a14fb650f659f4bc17e03b103f928b687314ad4babf9dcf3992d",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-24-p10",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-24-p10.png?v=9ab422ff1b93",
+    "sha256": "9ab422ff1b9309f978fdbdac7f67f59181c97adf0616b4ebb9c414ea21e29d8a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-25-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-25-p05.png?v=56426e68a18f",
+    "sha256": "56426e68a18fdb2e6c07580008a9f83158a42f81eedddf1aa0d5903d6ed29f9b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-25-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-25-p05.png?v=2a4316fcd2a6",
+    "sha256": "2a4316fcd2a66729bf75d260169b08bfcfc777bdc3a6bd1c86c053220d8e614d",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-24-p10",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-24-p10.png?v=b3712d372322",
+    "sha256": "b3712d37232299a802be3388c04c20b119d8d29ef7ce16f46d1d30edad24892a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-25-p09",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-25-p09.png?v=2a6cab0127f8",
+    "sha256": "2a6cab0127f8c5f4fdc5bd42946703168103a4a29bec49aacd287f1873f207e8",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-25-p09",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-25-p09.png?v=0d944152a50f",
+    "sha256": "0d944152a50f54d745c98198e80ddbc9a7d516c0fe39cb35a5cd28c5210a2378",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-26-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-26-p07.png?v=0c58cfb81d89",
+    "sha256": "0c58cfb81d8985508fab07bef010dea799a64c4b4919cfd876aa6f7ee41d52af",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-26-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-26-p01.png?v=aa60833a68cf",
+    "sha256": "aa60833a68cfb3ae751a97ae4359fefed1cafdea3b4dd84a6fb3e3b345fdd522",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-27-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-27-p06.png?v=ccb7b1f6a572",
+    "sha256": "ccb7b1f6a5729b8531d90ea199697aa1e5e93df6641532ed0d02f8253ef64e9f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-26-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-26-p07.png?v=3b15a84dac2f",
+    "sha256": "3b15a84dac2f06f4b7bdaa928647ed705ddf8580152799c4ea0ff77a15ed1055",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-26-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-26-p01.png?v=8e41693c19dd",
+    "sha256": "8e41693c19dd9a0bf5f43921d73659ee9187f3547ea931310b2146994bfa1759",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-27-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-27-p06.png?v=f2ad1ed5b6ed",
+    "sha256": "f2ad1ed5b6ed40d467c126d6967e48ee4e7307660b0aa77014a83dbb26808280",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-27-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-27-p07.png?v=446e9b561fe7",
+    "sha256": "446e9b561fe7e78191edb9abd48cfef8fb3819789c069005ac4d109da7ee6881",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-27-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-27-p07.png?v=3f7bc78973c4",
+    "sha256": "3f7bc78973c4f283efad68732a331f5be08364dee30517860dedfdf076c05df0",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-28-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-28-p06.png?v=089f437e3770",
+    "sha256": "089f437e37701b208350d4c754bba4fcddc77718962ca3d433ebc8a2d7816781",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-28-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-28-p01.png?v=9f7b5e21d5de",
+    "sha256": "9f7b5e21d5de6c70dac65c7d33f73e5ca13b908b0d89936fe49c02790c645b1b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-28-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-28-p01.png?v=1b076b30ad1b",
+    "sha256": "1b076b30ad1bd402d04650e7de98129bd0b6c18eb0cb28c02b22d45293a3bc7e",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-23-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-23-p05.png?v=5cb0136c2952",
+    "sha256": "5cb0136c29521f13e47ef294108661f6e0321239f4996df502a60206c5cde838",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-29-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-29-p04.png?v=018541ecfa7e",
+    "sha256": "018541ecfa7e94aeaf1b17cb2c4557194fe4fbbc28dda03c64efbc1cdc484132",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-28-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-28-p06.png?v=6a984ef8f582",
+    "sha256": "6a984ef8f5824ba8d7d50e44b53e1835851e7690add212afd208c74e99f6ada9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-29-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-29-p04.png?v=ed01238e063f",
+    "sha256": "ed01238e063f1c3dcf5e7084dac2201d859d2a887c32c9c1bc8326f2635252ea",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-29-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-29-p08.png?v=7e96950a2136",
+    "sha256": "7e96950a21365d1fe34e83a81f3340b7e502eb2c73038f9ad1e0ee86a5514861",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-30-p03",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-30-p03.png?v=c86eddd486ff",
+    "sha256": "c86eddd486ffaa35c2d74ea0a7016c41df9542fb284a0921591534c870849d40",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-30-p03",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-30-p03.png?v=0ba7bbc51c38",
+    "sha256": "0ba7bbc51c3867d8a079431bc7a4bff4f046589f5eef4658d8ca880ec17b0ac9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-29-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-29-p08.png?v=2935b78d371a",
+    "sha256": "2935b78d371a434754496face659280643b3be3ed7b015365dc772660666859b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-31-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-31-p02.png?v=1be60546cbbc",
+    "sha256": "1be60546cbbc7a82c60af85401c441566701180c8fcc4d37fe14448e54699347",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-30-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-30-p08.png?v=ae029c37fc57",
+    "sha256": "ae029c37fc57bbf151542f640caa493d9bae39d55d2d0cbfc06bbb08ce399f14",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-30-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-30-p08.png?v=fed32a92c9d9",
+    "sha256": "fed32a92c9d9514e62ec3643169d145950a34f534f849006a05f65f5eeb8a11f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-31-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-31-p02.png?v=231445099373",
+    "sha256": "2314450993734c25b703b6c199ac5bed9b8ca0797a47b7c21d69a3cc4056a1ef",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-31-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-31-p07.png?v=239b776970d1",
+    "sha256": "239b776970d1839cc76f7eb73d1fe9a2b80637af0020a4a1e233046ed49422dc",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-31-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-31-p07.png?v=e775a8242db7",
+    "sha256": "e775a8242db75df7c7cf93148d9d1bbb97347137ee2614e86b8d0d7d774ee303",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-32-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-32-p01.png?v=4703ba711d29",
+    "sha256": "4703ba711d29b483295473b7e5639828e6b358d7c59ddf0cafdc959186840b61",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-32-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-32-p01.png?v=eddd853fdf3e",
+    "sha256": "eddd853fdf3e981712e2432e3e178ace8aa6444d37c015f0539a3cae412a48cc",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-32-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-32-p05.png?v=72401a7dd308",
+    "sha256": "72401a7dd3080819b6db5ce0b4ab436cdd3a1ce4db5c14346e978cd11edca312",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-32-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-32-p05.png?v=7e3d779a4142",
+    "sha256": "7e3d779a414246e4cbbe99150d91d4115fc753fdab7f5234fb3a4b2e039ef5e3",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-33-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-33-p01.png?v=ee13847d6ff3",
+    "sha256": "ee13847d6ff350f3c54bb2437a27117e1812aa8ff13b3a428443fc15f1defbfa",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-33-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-33-p01.png?v=82a8d5ca5dde",
+    "sha256": "82a8d5ca5dde2812b5df653b7d812f741220fd784101846c3e54aa9fca27fcdb",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-33-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-33-p07.png?v=9847f7eda492",
+    "sha256": "9847f7eda492e3e5fbfa8456859ee4490eed71c2ad3c69e8d50cceb3027b0ccb",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-34-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-34-p02.png?v=61e2d0e12cbd",
+    "sha256": "61e2d0e12cbd4dad741293e35bde7b609365bddf2c81bb50a8ef8da809a655ca",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-34-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-34-p02.png?v=2b14e3b8c150",
+    "sha256": "2b14e3b8c15022114aacdf593ef0eed24532ac0fd776d7f1c53fabe9bbaf41f7",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-35-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-35-p05.png?v=438a64d2a290",
+    "sha256": "438a64d2a2906967bbafb4ed9e10190c268a08b002d1f251ba3b9131636c3246",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-33-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-33-p07.png?v=802404f2e206",
+    "sha256": "802404f2e206b8411d4b1674afea79a5e5bb9451c868b7ad038e95b578a4d227",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-34-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-34-p08.png?v=971da17a99a2",
+    "sha256": "971da17a99a2172aaa89f691eb11d53169c155c7ce17c66e92e339b0542b030c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-34-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-34-p08.png?v=cf2bc97263f9",
+    "sha256": "cf2bc97263f9a2219762d820dc66f288886fcf123c4c4b8ff962bacaff23a5c6",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-35-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-35-p08.png?v=20a22b20458f",
+    "sha256": "20a22b20458f15fb3c2e88cf7ab859c5180b54eb160f85dd168ea78bcb0e5ac9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-35-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-35-p05.png?v=cf1975d2f26d",
+    "sha256": "cf1975d2f26d75308cf60070bcec1065c3489f74b5f3234f0873a3e8341e74dd",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-36-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-36-p07.png?v=519e71c0b52f",
+    "sha256": "519e71c0b52f21ce5ee41fe2e8020a18a43aa1e8cf851e5536713975552edb3b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-36-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-36-p02.png?v=2b295348e924",
+    "sha256": "2b295348e924b86832fe31d357d7b59a4e59659965f9a6f32dd47b65715b0ed6",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-36-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-36-p02.png?v=6a0bccb07830",
+    "sha256": "6a0bccb078305b2c1f36b995e09f874ca6fe9ac7a868531baf17b23cc3813cb3",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-35-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-35-p08.png?v=63cf332edea2",
+    "sha256": "63cf332edea28196bbf75ba6a911e0865123feec45bc147040ae0e4f95a7783c",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-36-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-36-p07.png?v=f1e3c3e6070e",
+    "sha256": "f1e3c3e6070e02cac02d3ccebc181a72678cbfc91364ee7f1430d7ae9ad60a4f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-37-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-37-p04.png?v=db120e88b5d8",
+    "sha256": "db120e88b5d86ed35ed4d8077ccea8341a4cb0ea4dfd6f76652511cb6b088c71",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-37-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-37-p08.png?v=c2355ad05442",
+    "sha256": "c2355ad05442f5f9721b4ec257f0ba2ca6c44a82c75976259adb6bafb638a264",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-38-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-38-p05.png?v=e8d8129388dc",
+    "sha256": "e8d8129388dc4f6110591a25834740f2ea3f8aac58a6d83291de4ce5a830f68f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-37-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-37-p04.png?v=335a85c5f50c",
+    "sha256": "335a85c5f50c13ef096d69c1e23a16e6c5da799159c4f16d798286ce01f739a5",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-38-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-38-p08.png?v=9098cffed926",
+    "sha256": "9098cffed92623e13aaa5cf4c885d3e97984fcc342dda3247af3d42cd4401cfb",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-38-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-38-p05.png?v=f5e3f29d0a06",
+    "sha256": "f5e3f29d0a067575c89f7cbda5636be02c0c4753959681100e0899c0ef59c7f5",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-39-p04",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-39-p04.png?v=f60fe7b05101",
+    "sha256": "f60fe7b05101382161831399e02ef2e4489182cbe7be4cd5eec8e19e76d4f561",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-37-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-37-p08.png?v=ec06868c761a",
+    "sha256": "ec06868c761a141e027e2be591504f26608420c02144ec0f37a4ea533fe00b4b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-39-p04",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-39-p04.png?v=fadf5b6ad797",
+    "sha256": "fadf5b6ad7973eacbff40f7a57102c438d53dba8aa88010da11b2f55fd17bdee",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-39-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-39-p07.png?v=19c8de10f9d5",
+    "sha256": "19c8de10f9d5f7730b15a41b5b6207d3540c11f7344c7d9edd4ef4b090cbf050",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-38-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-38-p08.png?v=1fdbbcb6f8d3",
+    "sha256": "1fdbbcb6f8d301c54b377aa097059d602a829b142288de9db5ef3fedbcc3ea83",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-40-p03",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-40-p03.png?v=9ae1bb401602",
+    "sha256": "9ae1bb401602f6643b7715af9de25de7619b42c1234a373617c2a1f4ec5c8ab4",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-40-p03",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-40-p03.png?v=9fa99e274929",
+    "sha256": "9fa99e274929f6d1742f00df72fc024a3ac997246d7a8b0129e9ca30adb88002",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-40-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-40-p05.png?v=bd5330a8e1e5",
+    "sha256": "bd5330a8e1e5ec91ea0ce2a4f2d707f1a817688f1788104e9f6d97da34e8e022",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-40-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-40-p05.png?v=9961d19bf688",
+    "sha256": "9961d19bf688e47080d654bbd5d14571d08ef45b7499c9659baed90d537f3e47",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-39-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-39-p07.png?v=68546ee4b25f",
+    "sha256": "68546ee4b25f586d0beb87657e8f97b17afb8cb43e627797e0f3d9cac2d002f1",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-41-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-41-p06.png?v=4020e6149bd5",
+    "sha256": "4020e6149bd5b493ce8404d391ccbf0bd722a20c3fe457ab54a84ab1301dcc7a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-41-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-41-p06.png?v=5a08e784fc93",
+    "sha256": "5a08e784fc93596c13ca9c2cd3a9b82b8f65518b87696b0b78e62216fee25fea",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-42-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-42-p02.png?v=e05bb45bda79",
+    "sha256": "e05bb45bda791d5497b3ec042250bb82682ba31e9aeeecdc2a9dc7986f1b9322",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-42-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-42-p02.png?v=8bb5af3cd54f",
+    "sha256": "8bb5af3cd54f13a4fc625c68f6a3f274d742493dcc540a01161ba3a389320326",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-41-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-41-p08.png?v=b4d5f3ce9951",
+    "sha256": "b4d5f3ce995127093ffadd74e7e3474dd86853fffb1063e9bd26361db132d3ab",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-41-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-41-p08.png?v=b7eba46cb9fc",
+    "sha256": "b7eba46cb9fc0a521c4ea685204b1744a4ebd59e137fd9d882d449093bf56935",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-42-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-42-p07.png?v=05e962c9cece",
+    "sha256": "05e962c9cece9e5238841fbeb6542c9935d093d4d539d0c5d429d059a404255b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-42-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-42-p07.png?v=594b90cea793",
+    "sha256": "594b90cea793bbeea3b957b0dc8e9b5060b302f1151c0839dbeca4fefa5c08b5",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-43-p02",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-43-p02.png?v=4b72436838b2",
+    "sha256": "4b72436838b21bc4f6e6ce8568e00e773eef60f69ec7b1a1ca8bd8d126acf22b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-43-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-43-p08.png?v=092b7571be86",
+    "sha256": "092b7571be862840b38b3e61d5bdfb3743253831b6887690a1fa02ceb6fc95e1",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-43-p02",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-43-p02.png?v=1c163fb40009",
+    "sha256": "1c163fb40009517a71a8f506abe1eef095ce723ff365ec8bd30f719beae132cd",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-44-p05",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-44-p05.png?v=e62781b3003f",
+    "sha256": "e62781b3003fa457a8af4049fdb9631fa8392d725ed00f518c37effd150593cd",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-44-p05",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-44-p05.png?v=22b7e40bad78",
+    "sha256": "22b7e40bad789b66c6bf456cb16ed72bbafb6bdf7e5f08f354f89e901dca4da3",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-43-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-43-p08.png?v=9c23886c204f",
+    "sha256": "9c23886c204f0835ce79f9e2c3cc79789b27db6c83e755bc6db824c3e4ac1395",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-45-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-45-p01.png?v=f4ece4ab02d9",
+    "sha256": "f4ece4ab02d95efa7165d82e0f50c80ed0ecf82ac6638fa662f6b7426225b616",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-45-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-45-p01.png?v=49ddd7285560",
+    "sha256": "49ddd7285560c7be17734f216523de27005d52a105e749150b8b5962b16774cb",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-45-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-45-p08.png?v=8f32ce73005f",
+    "sha256": "8f32ce73005f5374dbdcb71a52f4478745c67e7643df504bbdd50486d7eb1871",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-44-p10",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-44-p10.png?v=8473c87af293",
+    "sha256": "8473c87af293c0b1cabe68a5a23fefd9761d9c8f0ced5860527f2881df9e37eb",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-45-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-45-p08.png?v=8d01014820e7",
+    "sha256": "8d01014820e7d4ba261d5ee717be644273c1daa6a36cdfafec0eb32f80b9e1a2",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-44-p10",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-44-p10.png?v=534559a0f268",
+    "sha256": "534559a0f268e7091a15cd056febd8479689ae8b43c9823bc6615650761b80d4",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-46-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-46-p06.png?v=58617f944821",
+    "sha256": "58617f9448211182a02af32e0a4235f2d642574c67b241f8c36b6a3ace194525",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-47-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-47-p08.png?v=2d5ad8470346",
+    "sha256": "2d5ad8470346ed2ed81029d69942ae101031cc016b86d49f691f85ed57d0ec72",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-46-p08",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-46-p08.png?v=0601907915ce",
+    "sha256": "0601907915ce6d2937176d2ce0ea9c13c4d5d74a06e7ef1dc3589ec0596bc8f8",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-47-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-47-p08.png?v=f5e5a192c92b",
+    "sha256": "f5e5a192c92b185734d9b510e7d91961efe7358526642da684981869dc24ecf9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-46-p08",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-46-p08.png?v=dc68ae28ef6a",
+    "sha256": "dc68ae28ef6aa7d35885fcd5ba2902fbc1ead1769682b4d1d168129011a84164",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-47-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-47-p01.png?v=fd0acddcab8e",
+    "sha256": "fd0acddcab8e4115a5cd92a1c57c88911413f05b03b549b52cec1cc7bcb20c6a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-48-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-48-p01.png?v=626a8badb14c",
+    "sha256": "626a8badb14c2cfd2c0971032a962137e0fa82f4740009fad7c28f1a5af0c9a9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-48-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-48-p01.png?v=9e4847d2c81a",
+    "sha256": "9e4847d2c81a94e702215f2988f43de0a2811930a78aea55414b886b4be0658a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-48-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-48-p06.png?v=6a422797a1d3",
+    "sha256": "6a422797a1d36ddd250b35f9579fc44ee043673b325e3a2ddefcede8563252aa",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-49-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-49-p01.png?v=ba040be9180d",
+    "sha256": "ba040be9180db3e25f979b4dc8f9b34fee3d54626bd828959362a77ed02a1d03",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-48-p06",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-48-p06.png?v=98721cc08663",
+    "sha256": "98721cc08663900c64316767479567fc189198566819f78896cf0b52a59146f4",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-49-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-49-p07.png?v=0e0d64cfc81b",
+    "sha256": "0e0d64cfc81b5ea7bacbcf4c09c2bda84d52e7164600037808df99a92ec4951f",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-49-p01",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-49-p01.png?v=d4289eb9a8b0",
+    "sha256": "d4289eb9a8b00e1b8bb9352a8adc2edec8fd459af02ee79cbf46d3d839991327",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-49-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-49-p07.png?v=6cf58810f9ce",
+    "sha256": "6cf58810f9cedbf35de28e3702dbf903901c7706ae01aa72b416e7de21f85a5a",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-50-p03",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-50-p03.png?v=0d3b12c8b966",
+    "sha256": "0d3b12c8b96667ac6366af7ec74c53e3a933f0cdb0cd59e83b1e2cd43cd66622",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-50-p03",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-50-p03.png?v=b226d8b21e36",
+    "sha256": "b226d8b21e362516c258306502b44cda903ffb94ef15fa84530417eb2b8f734b",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-50-p07",
+    "kind": "lineart",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-50-p07.png?v=de654b426c82",
+    "sha256": "de654b426c82501ddb82e87e3ffac8db4d4db0255ead73140a1976328edc6234",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-50-p07",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-50-p07.png?v=4549c26bef31",
+    "sha256": "4549c26bef31dccc9ee2e08646daf7ab1b4debbfff450c123e524768c17459e7",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-46-p06",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-46-p06.png?v=5a5e1af8cdd1",
+    "sha256": "5a5e1af8cdd197b51773d9b7d6e7f80637e5cf383c329e19a5c4c116a011fda9",
+    "matches": true
+  },
+  {
+    "key": "changjak-pongi-47-p01",
+    "kind": "source",
+    "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-47-p01.png?v=ee4c9f2d56cf",
+    "sha256": "ee4c9f2d56cf243aea4076acaed82fd3e081717f60804a5c5432311a26beaf02",
+    "matches": true
+  }
+]
