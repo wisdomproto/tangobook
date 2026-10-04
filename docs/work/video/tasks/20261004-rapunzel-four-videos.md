@@ -46,3 +46,11 @@ Hair source175프레임은16개0.5초 표본/contact2장 전수 실제 확인해
 Witch-call v3은 나이 든 원래 마녀가 회색 머리 어린아이로 변해 rejected/witch-call-v3에 보존. 승인 witch-climb의 얼굴 crop를 추가하고 원래 성숙한 얼굴/긴 코/회색 곱슬/보라 의상을 명시한 v4(e34a6d9a-4a8d-4599-94a4-81b056ae0003)를 실제 확인해 승인: 종이 재질의 단순한 age creases, ground door 없음. 마녀 등반도 기존 두 인물의 제자리 작은 effort+끝 guide로 복제 방지 설정. 검수 앵커 기반 나머지 롱폼10source 배치76419 시작. 세로 Qwen8장 생성 중, 완성 영화0개.
 
 사용자 전체 제작 순서/KOEN만/작품별 완성 컨펌 확정. [제작 큐](../PRODUCTION-QUEUE.md)의 현재 작품으로 계속한다. 라푼젤 네 편을 완성해 보여준 뒤 컨펌 전 다음 책을 시작하지 않는다. Prince-call source141프레임은13개0.5초 표본/contact2장을 실제 검사해 원래 왕자 한 명/분리된 손/얼굴/망토/호출 움직임으로 승인.
+
+Horse source158프레임은28개0.25초 표본/contact4장 실제 검수해 승인:4개 다리 canter/고정 rider 순서/손·고삐/얼굴·braid 일관. 1.5/4.75초 근처 전경 나무가 잠깐 가리지만 재등장한 형태 정상인 자연스러운 parallax임을 review에 명시. KO11.458초 두 비트 native-preview 전체 decode/5캡션 실제 phone-size contact 검사 통과.
+
+이 시안 대사 대조에서 “탑을 돌아보았어요/looked back”가 실제 말 컷의 전방 시선과 맞지 않아 그 마지막 절을 한영 모두 삭제했다. 원래 Voicebox 음원/WAV·JSON은 revisions/horse-narration-v1에 보존하고 ASR 단어 사이 경계로KO3.8/EN3.55초 잘랐다(끝25ms fade). 새 narration-edit-receipt에 원본/새 SHA·텍스트·경계 보존, 모델 재생성/동시 GPU 로드 없음. 최초 fade d=.025는 FFmpeg duration 파싱 실패해 원본에 쓰지 못했고 d=0.025로 실제 성공 후 CPU ASR2개 재검사 진행. 자막/previews 재조립은 새 audit 뒤에 한다. H3 기존 말 source는 더 긴 원속도 source라 새 대사에 충분하며 계획29개 유지.
+
+삭제 절의 새 한영 음원 ASR 각각1.0, 전체64개145캡션 폭/2줄/원고 preflight 재통과. question source158프레임은15개0.5초/contact2장 실제 검사해 한 명의 작은 시선/몸 lean/braid/잎 움직임과 doorless tower로 승인. 한영 첫4비트22.500/22.083초 native-preview 조립, 양쪽 전체decode/A-V/FPS/codec/faststart/black/freeze/음량 자동 QC 통과. 각 언어16개 자막·비트 표본/contact2장 및phone preview 총6장 직접 확인: 글자/띄움/2줄/여백/캐릭터·그림체 정상. native-preview-review.json에 실제 SHA와 범위 기록. 전체 영화/AI향상본으로 보고하지 않는다.
+
+Surprise source158프레임은15개0.5초 표본/contact2장 실제 검수해 승인: 두 인물·얼굴·분리된 손과 작은 surprise→smile/blink/왕자 호출 표현 안정. 새 hair-portrait도 직접 확인해 두 인물 얼굴/부착 braid/분리 grip/벽 지지 발과 기존 의상·종이 질감으로 승인. H3선정8개, Qwen 선정11개; 아직 전체 최종0개.
