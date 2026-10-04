@@ -2,12 +2,12 @@
 
 - id: 20261004-video-rapunzel-four-videos
 - domain: video
-- status: active
+- status: ready
 - updated: 2026-10-04
 - branch: codex/video-rapunzel
 - base: b7ae9dcc
 - output: D:/tangobook-video/rapunzel-20261004/
-- delivery: 제작 착수, 새 작업의 운영 등록/main push 미요청
+- delivery: 네1080p 영상 로컬 검수 완료·사용자 컨펌 대기, 운영 등록/main push 미요청
 
 사용자 “좋아. 다음은 라푼젤 하자”. 승인 MiniMax H3/Qwen-Image-2.1/Voicebox/로컬 FFmpeg로 한·영 가로16:9 2~3분과 세로 숏폼 네 편을 만든다. 큰 overlay 자막·언어별 타임라인·원속도 native-duration·실제 그림/동작 검수를 유지한다. 앞 작업 push 요청은 새 작품에 확대하지 않는다.
 
@@ -69,4 +69,19 @@ ComfyUI를 기존8190/RTX4070으로 hidden 재시작해 system_stats 응답 확�
 
 Song-continuous 원본26표본/contact3장 검수에서1초부터 왕자가 지면의 말에서 높은 창 라푼젤 옆으로 순간 이동하고 말이 사라짐, 라푼젤 ivory sleeves가 pink로 바뀌는 반증을 발견했다. 전체 실패 컷/metadata/graph/prompt/proof를 rejected/song-continuous-spatial-v1에 보존해 사용 제외. 높은 창 라푼젤과 지면 말 위 왕자의 위치·원래 의상을 고정하고 원본 시작/끝 및102/204프레임 guide를 넣는 spatial-v2로 재생성(8ba24664-3734-4cc3-b4a4-31c8d6cda184) 제출, 실제 큐 running1/pending1 확인. 당시 유효 생성/동작 승인27/29개, caller와 수정 song 두 컷이 남고 전체 영화0개였다.
 
-사용자 “다했어?” 후 실제 파일 확인: 수정 song-continuous v2와 prince-call-portrait 생성 완료. 노래26표본/contact3장과 caller12표본/contact2장을 직접 확인해 승인, 최종 유효 원본29/29 및 새 앵커17개. 노래 컷은 왕자가 지면의 말에 머물고 높은 창의 라푼젤과 의상을 유지하며 작은 입/머리/눈/귀/망토 동작이 있다. 생성 이후 단계가 자동으로 이어지지 않았던 사실을 사용자에게 알리고, 큐가 비었음을 확인한 뒤 RealESRGAN x2 프레임별 화질 향상을 실행했다. 원본 SHA와 승인 SHA, 원본/향상 FPS 및 프레임 수 동일, 해상도2배를 자동 대조하고 각 컷 시작/중간/끝 비교 이미지를 직접 검사한 것만 quality-review에 기록한다. 아직 최종 영화0개이며 검수 완료와 단순 렌더 파일 존재를 구분한다. 외부 등록/push 없이 네 최종본 QA 후 사용자 컨펌을 받는다.
+사용자 “다했어?” 후 실제 파일 확인: 수정 song-continuous v2와 prince-call-portrait 생성 완료. 노래26표본/contact3장과 caller12표본/contact2장을 직접 확인해 승인, 최종 유효 원본29/29 및 새 앵커17개. 노래 컷은 왕자가 지면의 말에 머물고 높은 창의 라푼젤과 의상을 유지하며 작은 입/머리/눈/귀/망토 동작이 있다. 생성 이후 단계가 자동으로 이어지지 않았던 사실을 사용자에게 알리고, 큐가 비었음을 확인한 뒤 RealESRGAN x2 프레임별 화질 향상을 실행했다. 원본 SHA와 승인 SHA, 원본/향상 FPS 및 프레임 수 동일, 해상도2배를 자동 대조하고 각 컷 시작/중간/끝 비교 이미지를 직접 검사한 것만 quality-review에 기록했다. 시작 당시 최종 영화0개였으며 아래 최종 완료로 갱신한다.
+
+## 최종 로컬 완료·컨펌 대기
+
+29개 전부 RealESRGAN x2 향상 완료. 각 시작/중간/끝 원본 대조 이미지를 실제 확인해 얼굴/손/옷/색/종이 재질 유지로 승인했고, validate_enhanced.py 전체 재검증 및 audit_enhancement.py로29개 원본·향상·실제 승인/비교 이미지 SHA가 일치함을 확인했다. 검수된 컷부터 조립하고 미검수 컷 앞에서는 대기하는 방식으로 합성 시간을 겹쳤으며 승인 검사 자체는 생략하지 않았다.
+
+| 완성본 | 길이 | 해상도/FPS | 자막 | 전체decode/자동음량/실제표본 |
+|---|---|---|---|---|
+| rapunzel-ko-long.mp4 | 139.167초 | 1920×1080 /24 | 88px,54개 | PASS / -17.9LUFS /102개 |
+| rapunzel-en-long.mp4 | 138.583초 | 1920×1080 /24 | 88px,53개 | PASS / -18.0LUFS /101개 |
+| rapunzel-ko-short.mp4 | 35.333초 | 1080×1920 /30 | 80px,17개 | PASS / -18.2LUFS /33개 |
+| rapunzel-en-short.mp4 | 34.633초 | 1080×1920 /30 | 80px,21개 | PASS / -18.0LUFS /37개 |
+
+네 최종본 전부 H264/yuv420p/AAC48k stereo/faststart 및 A-V길이/프레임 수 통과, blackIntervals/freezeCandidates 없음. 실제 모든 자막145개 중간 시점과64비트 시작/끝의273표본 contact31장, shot64표본 contact12장, phone preview4장을 전부 직접 확인했다. source motion은 별도로0.25~0.5초 표본 검수이며 최종 전 프레임 시청·전체 수동 청취를 주장하지 않는다. 자연스러운 나무 가림과 기존 camera 이동으로 인물 일부가 frame 밖으로 나오는 범위는 source/final review에 사실대로 남겼다. 자동 미세 확대 분할/속도 저하/시간 보간은 적용하지 않았다.
+
+package.py로 SRT4개·나레이션MP3 4개·언어별 음악 포함/자막·나레이션 없는clean master4개, 한영1280×720 YouTube 썸네일과 초안 metadata를 준비했다. 썸네일 두 이미지도 실제 확인해 글자/얼굴 가독성 통과. validate_delivery.py 최종 **12개 미디어 전체decode/길이 및789개 자산 SHA 검증 PASS**, published=false. 증거는 로컬 final-review.json, enhanced/quality-review.json, 네 qc/report.json, delivery-provenance.json, delivery-validation.json, DELIVERY.md 참조. 로컬 생성 스크립트·실패 후보·원본은 보존했으며 제품 코드/R2/DB를 변경하지 않았다. 운영 등록·main push·외부 발행 미요청·미수행. 사용자에게 네 완성본을 보여주고 컨펌 후 다음 책에 착수한다.
