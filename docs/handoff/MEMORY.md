@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-04 [라푼젤 한·영 네 영상 제작](../work/video/tasks/20261004-rapunzel-four-videos.md) 착수: 기존 페이퍼아트 책1777272102062/캐릭터 참조를 확인해 “마녀가 오기 전에!” 탈출 훅으로 각색. 승인 MiniMax H3/Qwen2.1/Voicebox/FFmpeg 흐름과 큰 자막을 유지한다. 원문과 충돌하는 탑 문·다른 느낌의 마녀/말은 새 앵커로 보정, 머리/밧줄 구분과 실제 움직임 검수. 로컬 제작 중이며 새 작업의 운영 등록/push 미요청. 상세 실진행·worker는 작업 기록과 D:/tangobook-video/rapunzel-20261004/ 참조.
+
 2026-10-04 [인어공주 Editor2·마케팅 등록 및 main 통합](../work/authoring/tasks/20261004-little-mermaid-video-registration.md): 승인 KO/EN 롱폼·숏폼 4개와 자막/나레이션/표지를 운영 영상 v1/마케팅 초안에 동일 링크로 등록했다. 14개 R2 업로드와 정식 원본 연결·운영 화면 검증 완료. 재생성 임시 621개/469.5MiB 정리 후 최종 미디어 12개/ledger 561개 검증 재통과. 원본/검수/다른 작업 보존. 사용자 요청으로 최신 origin/main을 정상 merge하고 관련 기억을 일반 push한다. 외부 채널 발행 없음. 아래 인어공주 등록·push 미수행은 제작 당시 기록이다.
 
 2026-10-04 [인어공주 네 영상 로컬 완료](../work/video/tasks/20261003-little-mermaid-four-videos.md): 사용자 승인 폭풍 v3/바위 반대편 뒷모습 은신 v4와 자동 미세 확대 분할 제거를 반영한 KO/EN 롱폼·숏폼1080p 완성. 전체decode/A-V/음량 및 모든 자막·비트·shot/작은 화면 표본 검수 통과. SRT·나레이션MP3·언어별clean master/썸네일·해시 증거는 로컬 제작 폴더에 보관. 외부 등록/게시 및 main 푸시 없음.
