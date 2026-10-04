@@ -1,5 +1,7 @@
 # 마케팅·채널 운영 기억
 
+2026-10-04 [인어공주 영상 v1 등록](../authoring/tasks/20261004-little-mermaid-video-registration.md): 기획 3696ea56-0b4e-542c-a4b5-c6308ed02164에 KO/EN 롱폼 2행·릴스 2트랙을 Editor2와 동일 파일/SRT/MP3/표지 링크로 연결했다. 정식 책 원본 연결, draft/confirmed=false, 외부 발행 없음. 운영 양 언어 롱폼·릴스 표시와 숏폼 플레이어 로딩 확인. 사용자 main push 요청으로 관련 기억을 통합한다.
+
 2026-10-02 사용자 요청으로 [책 원본 운영 DB 마이그레이션](tasks/20261002-content-sources-db-migration.md)을 실제 적용했다(20261002055352). 원본 267개/기존 책 기획 268개 정식 연결, 미연결 0개. 기존 기획·영상·릴스·발행 데이터 전체 해시 보존. 두 영상 기획의 새 등록 서비스 재시도 reused=true와 실제 운영 등록 버튼/책 원본 카탈로그를 확인했고 익명 원본 조회 0행으로 RLS도 검증했다. 아래의 원본 테이블 미적용 제한은 해소됐다.
 
 2026-10-02 [신데렐라·백설공주 완성본 등록](../authoring/tasks/20261002-cinderella-snow-white-video-registration.md): 기획 2개, ko/en YouTube 롱폼 4행과 릴스 4트랙을 초안으로 등록했다. 영상·SRT·나레이션·표지는 Editor2 v1과 동일 자료. 운영 mkt_content_sources 테이블이 아직 없어 UI가 지원하는 memo=storybook:<id>로 연결했고 정식 관계/등록 버튼은 2026-09-22 마이그레이션이 필요하다. 외부 발행 없음. 운영 마케팅 목록·롱폼 표시 확인.

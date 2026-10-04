@@ -1,5 +1,7 @@
 # 동화책 저작도구 기억
 
+2026-10-04 [인어공주 운영 등록](tasks/20261004-little-mermaid-video-registration.md): 승인 KO/EN 롱폼·숏폼 4개를 Editor2 영상 v1과 마케팅 초안에 동일 링크로 등록했다. SRT·MP3·대본·표지 포함, R2 14개 무결성과 정식 원본 연결 및 운영 화면 확인 완료. 재생성 임시 파일 621개/469.5MiB 정리 후 보존 ledger 561개 재검증 통과. 사용자 main push 요청에 따라 최신 원격 변경을 보존해 통합한다.
+
 2026-10-02 [마케팅 책 원본 DB 마이그레이션](../marketing/tasks/20261002-content-sources-db-migration.md)을 사용자 지시로 적용/검증해 아래 신데렐라·백설공주 등록의 DB 제한을 해소했다. 운영 Editor2 등록 버튼 성공 및 기존 기획 재사용, 정식 content_source_id 연결 완료. 영상 v1과 기존 파일은 그대로다.
 
 2026-10-02 [신데렐라·백설공주 실제 영상 등록](tasks/20261002-cinderella-snow-white-video-registration.md): ko/en 롱폼·숏폼 8개 완성본과 SRT·대본·MP3·표지 및 clean 원본 4개를 운영 R2/Editor2 v1에 저장하고 마케팅 기획 2개에 동일 링크로 연결했다. 백설공주는 quality-v2 최신 수정본. 운영 DB에 mkt_content_sources가 없어 기존 storybook memo 연결을 사용했다. 등록 자료는 검증 완료지만 새 등록 버튼/원본 카탈로그는 준비된 2026-09-22 DB 마이그레이션 적용이 필요하다. 상세 ID·해시·검증 경로는 작업 기록 참조.

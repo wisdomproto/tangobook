@@ -2,12 +2,14 @@
 
 - id: 20261003-video-little-mermaid-four-videos
 - domain: video
-- status: ready
+- status: integrated
 - updated: 2026-10-04
 - branch: codex/editor2-video-library-push
 - base: d4002c2c
 - output: D:/tangobook-video/little-mermaid-20261003/
-- delivery: 로컬 네 완성본 검수 완료, 외부 등록/게시 없음
+- delivery: 로컬 네 완성본 검수 완료, 후속 요청으로 Editor2/마케팅 등록 및 main 통합, 외부 채널 게시 없음
+
+후속 사용자 승인에 따른 [2026-10-04 운영 등록·main 통합·임시 파일 정리](../../authoring/tasks/20261004-little-mermaid-video-registration.md)가 아래 제작 시점의 등록/push 미수행 상태를 갱신한다. 최종본·원본·검수 증거를 보존하면서 재생성 중간 파일 621개를 정리했고 12개 미디어/561개 ledger 검증을 다시 통과했다.
 
 ## 2026-10-04 최종 결과
 

@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 기억
 
+2026-10-04 [인어공주 운영 등록·정리](../authoring/tasks/20261004-little-mermaid-video-registration.md): 로컬 승인 네 영상은 Editor2 영상 v1/마케팅 초안 등록 완료. 14개 업로드 무결성과 네 트랙 연결 검증, 임시 파일 621개/469.5MiB 정리 후 12개 미디어/561개 ledger 재검증 통과. 제작 원본·참조·검수 증거는 보존. 사용자 main push 요청에 따라 통합하며 외부 채널 발행은 없다. 아래 제작 시점의 등록/push 미수행 상태를 갱신한다.
+
 2026-10-02 [마케팅 DB 마이그레이션 완료](../marketing/tasks/20261002-content-sources-db-migration.md): 신데렐라·백설공주 v1을 정식 책 원본 관계로 연결했다. 새 등록 서비스와 운영 버튼 재시도가 기존 기획을 재사용하며 영상·릴스·발행 전체 해시가 유지된다. 이전 DB 미적용 제한 해소.
 
 2026-10-02 [신데렐라·백설공주 운영 등록 완료](../authoring/tasks/20261002-cinderella-snow-white-video-registration.md): 한국어/영어 롱폼·숏폼 최종 8개를 Editor2 영상 v1과 마케팅 초안에 연결했다. 백설공주는 해상도/48초 수정이 포함된 quality-v2. 모든 완성본 SHA256 및 R2 28개 파일의 크기/MIME/MD5 일치. SRT·Voicebox 기존 음원 기반 MP3·대본·표지 포함. 공통 clean 원본은 KO 타임라인이므로 길이가 다른 EN 재합성 시 로컬 EN picture 원본을 사용한다. 아래 과거 “업로드/등록 미수행”은 이 결과로 갱신된다.
