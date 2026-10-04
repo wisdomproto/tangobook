@@ -54,3 +54,7 @@ Horse source158프레임은28개0.25초 표본/contact4장 실제 검수해 승�
 삭제 절의 새 한영 음원 ASR 각각1.0, 전체64개145캡션 폭/2줄/원고 preflight 재통과. question source158프레임은15개0.5초/contact2장 실제 검사해 한 명의 작은 시선/몸 lean/braid/잎 움직임과 doorless tower로 승인. 한영 첫4비트22.500/22.083초 native-preview 조립, 양쪽 전체decode/A-V/FPS/codec/faststart/black/freeze/음량 자동 QC 통과. 각 언어16개 자막·비트 표본/contact2장 및phone preview 총6장 직접 확인: 글자/띄움/2줄/여백/캐릭터·그림체 정상. native-preview-review.json에 실제 SHA와 범위 기록. 전체 영화/AI향상본으로 보고하지 않는다.
 
 Surprise source158프레임은15개0.5초 표본/contact2장 실제 검수해 승인: 두 인물·얼굴·분리된 손과 작은 surprise→smile/blink/왕자 호출 표현 안정. 새 hair-portrait도 직접 확인해 두 인물 얼굴/부착 braid/분리 grip/벽 지지 발과 기존 의상·종이 질감으로 승인. H3선정8개, Qwen 선정11개; 아직 전체 최종0개.
+
+Escape-portrait source141프레임은25개0.25초 표본/contact4장 실제 검수 통과. 얼굴 온전히 frame 안/교대 footstep/팔/braid/망토/잎 실제 동작, 중앙 손 가까운 순간도 limbs fusion/새 인물 없음. KO4.900/EN4.600초 숏폼 첫 비트 native-preview 제작 및 전체decode/A-V/FPS/codec/faststart/black/freeze/음량 QC 통과, 실제 자막·비트 sheet와phone2종 총4장 검사로80px/2줄/얼굴 여백 확인. native-preview-review에SHA 기록, 본 숏폼 아님. 나머지 세로 hair source10d9085f-a746-4f7c-84e1-ceab85f37f5f 생성 대기. 현재 source9개 승인.
+
+Witch-call source141프레임은13개0.5초/contact2장 실제 검수해 한 명의 성숙한 회색 곱슬 마녀/보라 의상/호출 손·얼굴과 종이 질감으로 승인. Rope source141프레임은25개0.25초/contact3장 실제 확인: 원래 두 인물의 분리된 갈색 밧줄·grip·벽 지지 발과 금색 braid 구분 유지. 제자리 작은 하강 준비/다리 움직임이며 탑 전체 높이를 내려왔다고 보고하지 않는다. Song-portrait Qwen 원본도 두 인물·왕자 갈색 머리/초록 망토·상부 창 라푼젤과 분리된 손/종이 질감으로 직접 승인. 현재29개 source 중11개 동작 검수, 새 앵커12개 승인, 전체 최종0개. 상태 스크립트는 단순 파일 존재와 실제 최종 SHA 검수 완료를 구분하도록 교정했다.
