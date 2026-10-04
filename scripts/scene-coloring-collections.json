@@ -1,5 +1,10 @@
 [
-  { "id": "classic", "label": "명작동화", "directory": "", "categories": ["세계 명작"] },
+  {
+    "id": "classic",
+    "label": "명작동화",
+    "directory": "",
+    "categories": ["세계 명작"]
+  },
   {
     "id": "traditional",
     "label": "전래동화",
@@ -44,5 +49,59 @@
     "label": "창작동화 1 · 퐁이네",
     "directory": "changjak-pongi",
     "categories": ["01. 퐁이네 운하 마을"]
+  },
+  {
+    "id": "changjak-coco",
+    "label": "창작동화 2 · 코코네 빵집 골목",
+    "directory": "changjak-coco",
+    "categories": ["02. 코코네 빵집 골목"]
+  },
+  {
+    "id": "changjak-mei",
+    "label": "창작동화 3 · 메이네 산마을",
+    "directory": "changjak-mei",
+    "categories": ["03. 메이네 산마을"]
+  },
+  {
+    "id": "changjak-dodo",
+    "label": "창작동화 4 · 도도네 물방앗간",
+    "directory": "changjak-dodo",
+    "categories": ["04. 도도네 물방앗간"]
+  },
+  {
+    "id": "changjak-bruno",
+    "label": "창작동화 5 · 브루노 할아버지네 숲",
+    "directory": "changjak-bruno",
+    "categories": ["05. 브루노 할아버지네 숲"]
+  },
+  {
+    "id": "changjak-twins",
+    "label": "창작동화 6 · 쌍둥이네 바닷가",
+    "directory": "changjak-twins",
+    "categories": ["06. 쌍둥이네 바닷가"]
+  },
+  {
+    "id": "changjak-mio",
+    "label": "창작동화 7 · 미오네 유치원",
+    "directory": "changjak-mio",
+    "categories": ["07. 미오네 유치원"]
+  },
+  {
+    "id": "changjak-pipo",
+    "label": "창작동화 8 · 피포네 돌담 목장",
+    "directory": "changjak-pipo",
+    "categories": ["08. 피포네 돌담 목장"]
+  },
+  {
+    "id": "changjak-nono",
+    "label": "창작동화 9 · 노노네 겨울 골목",
+    "directory": "changjak-nono",
+    "categories": ["09. 노노네 겨울 골목"]
+  },
+  {
+    "id": "changjak-lulu",
+    "label": "창작동화 10 · 룰루네 올리브 언덕",
+    "directory": "changjak-lulu",
+    "categories": ["10. 룰루네 올리브 언덕"]
   }
 ]

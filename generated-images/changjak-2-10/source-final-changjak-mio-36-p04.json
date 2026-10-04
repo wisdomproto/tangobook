@@ -1,0 +1,12 @@
+{
+  "key": "changjak-mio-36-p04",
+  "originalProvided": false,
+  "sourceOrigin": "New built-in imagegen story illustration; original absent",
+  "sourceSha256": "fa6e53e74b59cb24cc1e31bab7deec7fbc234ec715fe3734c60700ce01f66eea",
+  "sourceFile": "generated-images/changjak-2-10/changjak-mio/sources/changjak-mio-36-p04.png",
+  "sourceCorrection": {
+    "prompt": "Edit this NEW full-color story scene only to correct Duri's clothing. Duri is the RACCOON child in front/right of the big dog teacher: remove the raccoon's BLUE APRON; show natural dark raccoon fur, keeping purple neckerchief. The large DOG behind is teacher Bau and must KEEP its BLUE APRON. Preserve all four characters, exact faces, poses, actions and picturebook style, no new characters.",
+    "outputSha256": "fa6e53e74b59cb24cc1e31bab7deec7fbc234ec715fe3734c60700ce01f66eea",
+    "mode": "built-in-imagegen-new-story-source-edit"
+  }
+}

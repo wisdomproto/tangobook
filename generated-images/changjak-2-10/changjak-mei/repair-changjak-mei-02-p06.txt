@@ -1,0 +1,1 @@
+Repair ONLY squirrel's large TAIL: add a smooth BLACK inner cap arc 20pixels ABOVE bottom edge joining its left and right tail outer contours so the ENTIRE tail is CLOSED WHITE INSIDE canvas. Preserve squirrel/body/hands/bread, tail spiral, background/layout, black outlines white interior.

@@ -1,0 +1,1 @@
+Precise black-and-white coloring-page contour repair. Close the large puppy body's LEFT and BOTTOM cropped edges with solid black inner caps 25px inside image borders, so its huge body is a closed white region. Preserve lying straw pose, face and paws. Keep all other composition unchanged. PURE WHITE interiors, only solid BLACK outlines. NO colors/shading/text.

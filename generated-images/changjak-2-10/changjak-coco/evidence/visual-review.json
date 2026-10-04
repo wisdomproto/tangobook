@@ -1,0 +1,663 @@
+{
+  "changjak-coco-01-p02": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "fbd3112f2eb4b7db10dae58ae67c55ec9e0684bcf8e0fe4bb1351b07588d323a",
+    "lineartSha256": "ae03308ac0a64503a140248d6a9d187c4566e60ba9a8a43d2f741d5164bf6b76"
+  },
+  "changjak-coco-01-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-000.jpg",
+    "reason": "Repaired child face colored; small belly/feet simplification accepted.",
+    "sourceSha256": "a9ca1a2a957c3e4777a5c71fb312567223fef655e9849b47319ebfae37a5c396",
+    "lineartSha256": "42a859c031439237af63b7e75cbf3f7fae9edb7feabe009190a9629e6bddec28"
+  },
+  "changjak-coco-02-p05": {
+    "approved": true,
+    "evidence": "review-workspace/compare-000.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "c76679192ce1fdb04ab4b6866c2695f180d378e3b84385dfb5657a3fdda51282",
+    "lineartSha256": "476ba6b76636aadba658fb2f0593d47eb6ba89b19706a2af0afa9ba9e1196a98"
+  },
+  "changjak-coco-02-p08": {
+    "approved": true,
+    "evidence": "review-workspace/compare-000.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "97d5a2dd65607c0e5a16d96d8a05ec60e70946a96a44965436b68cc532390102",
+    "lineartSha256": "eba273a7055a3609ea25b790a1b4afd634487457cb0359fca2328ec3491ffc7d"
+  },
+  "changjak-coco-03-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-000.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "2f2be49eeab38a660553ff3bdb59d46c9ec5cfc3998bae3c0876ed7b2cd7960e",
+    "lineartSha256": "c44117c426b50958e0cd7962f501a58209ef1ca40eb2d21f9daf4c6db2a3d1ba"
+  },
+  "changjak-coco-03-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-005.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "d697f5905d0715a0bc910ca760d6b2c2e61cc06289e03e6779febb864d4df0b3",
+    "lineartSha256": "8316454219d0fae1eecca09e185d1dfba9194b86f1ca8feaa215cc7feb4c2df2"
+  },
+  "changjak-coco-04-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-005.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "5b61af5ca45c5e47746661ca606c84e5ac6e894d2e6ca5d088dbd9c165a6cd10",
+    "lineartSha256": "3438d89827d0bd596c758454ee37674fe11cd9d26e0cc8425fd24cb3bf1b2934"
+  },
+  "changjak-coco-04-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-005.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "e7f9cced9662c58079e2571601bccd004b1b9c84dbb6285e739320b9048d7808",
+    "lineartSha256": "030ccb4c9064e0801fdba8c679cac42cc1e2c821c02cf0b387a649182940d80e"
+  },
+  "changjak-coco-05-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-005.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "51d84a83d237bde02e120cf6effa741d54c65b49799a8be968d9c77c59388fb0",
+    "lineartSha256": "3d612cb995bc886a61c69306b24ec0a3b104f18166b752657694318192fe7a70"
+  },
+  "changjak-coco-05-p06": {
+    "approved": true,
+    "evidence": "review-workspace/compare-005.jpg",
+    "reason": "Characters/action/essential props retained; large regions colored; small white details accepted",
+    "sourceSha256": "871bd29f87e2d8effd494b38055876fbc76af52b18f44597f61111f9d457acc8",
+    "lineartSha256": "0551a48e770618d2b0c560ba69648c5241d0917740420254035702725138a42e"
+  },
+  "changjak-coco-06-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "515201950f7d828a50cf02c3dbf9a3477535a921efd09182e1128668d3200bd9",
+    "lineartSha256": "1e005bdc66ad5c7b27866b2c2a19a2f4bba20f4839e22ffb6f0adff5929107df"
+  },
+  "changjak-coco-06-p06": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "a950fb3913e23a5924d3e18d5e875232e5618b1ff4aaac0bf4253a65edb8cabb",
+    "lineartSha256": "e1a537933f4ba4d2c2b2ea7016d0eb6ec750e917457750adb41a2ac370cb995b"
+  },
+  "changjak-coco-07-p05": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "1f8948a881552f04150a3ef94544597361b6e19f32762e9cc322d8a5cd37eba0",
+    "lineartSha256": "9d02985ac2445c365125f7e2d69591641a960a37fd9c2b4a418dd3ce2b1021d1"
+  },
+  "changjak-coco-07-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "c7a7421d3e2ebc8edf4ac651ab88ab2a3d2dfb66f46901392a4c75d7a893e40e",
+    "lineartSha256": "c5cdc381e20c9ebe543de374b3f04823a3f77d68db03e4a551df29dc663b051a"
+  },
+  "changjak-coco-08-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "07a9fabe4c707edb7ecfef2ca2350c0f45d22ca6572ecf3153ad9c56ba29d4d4",
+    "lineartSha256": "aa072226cc7da32a6c878d6c797327f4932dda4af58dd4bf024786c64e0ea7e4"
+  },
+  "changjak-coco-08-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "d45d7783c8bf69092711ea1a2c596a8be7da15132c5e229f105b18908ebf3ad5",
+    "lineartSha256": "fc9b964bc5f290b863772e8990a155a6eb59af5a8c71c88e6ecab184decb6626"
+  },
+  "changjak-coco-09-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "c49a93353afe267efc204acd65c4eab773515fe5fa7112b7d4b006a675453d37",
+    "lineartSha256": "a0db5c77c783f0b349ad302c94c425277ed2e609583ee325923b47e60d65e2d3"
+  },
+  "changjak-coco-09-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "36ca1fed0c07a1314a3de8d9f1039a586ca21d2a1fe13e6ec3253aef735e5f65",
+    "lineartSha256": "54435173c763fc8733887ce56c31424868ea663b422f267e44bc71562093cdce"
+  },
+  "changjak-coco-10-p04": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "c4bcd09a271b45e8ba3d1482208b63c7ffe53996a6f19634448a562027673b05",
+    "lineartSha256": "ba716fdc6e7b47b9ac1453562b226c536bdaa37cc30838c3fffc970809515829"
+  },
+  "changjak-coco-10-p08": {
+    "approved": true,
+    "evidence": "review-workspace/compare-010.jpg",
+    "reason": "Characters/actions/props retained and main bodies painted; minor white details accepted",
+    "sourceSha256": "d0542a711b72035369cf1e9822a29312903792a56e87956ba067de4daad1fc1b",
+    "lineartSha256": "5dcc8e9acd8773b5d024f152d6d4877242ee0cb7206420050dc32dcaa33884bf"
+  },
+  "changjak-coco-11-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-020.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "7e65d5b0e17442f80e8f6198b8a0f572e42eeebcc9b8f21b4885d380bc2ac32d",
+    "lineartSha256": "efffe9f2e8fcd2d8dae3dda458bcd2493a3bc0c566bc6960c42a81f260b020ae"
+  },
+  "changjak-coco-11-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-020.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "552b51fbb31ccc8fa1012bdac1929766acbbcb9456d72d161d9437197554a499",
+    "lineartSha256": "a4280e8f214f4c0a5e19dbf9540d163658b0455cf46bd09acedda103209b44cc"
+  },
+  "changjak-coco-12-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-020.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "e338965361aeffa930f544678790b6d24c4772f1b3a22dadcb686b1eabe09edb",
+    "lineartSha256": "0f19010975e4f459d12f72f9a2eed1a226fa98f5f7caa3dc14dab40aae1a8c88"
+  },
+  "changjak-coco-12-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-020.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "101471c985d201ece1685bf5fbea6d3907e15247f4a027b589294520407b95d6",
+    "lineartSha256": "abbce1a086e401aa2c20801990d6f10b293c53675612a1977d272fc2f3ac0ff6"
+  },
+  "changjak-coco-13-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-020.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "ead94d92f51304ba599c1093486ec3f51bb8c11688ca2bb10e9b11872776aedd",
+    "lineartSha256": "01235bc1b63cbb1073e109491a672cc74a8dbbedbb2f5a87c5006332f8af7870"
+  },
+  "changjak-coco-13-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-025.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "69b9fa46dbb91672c7e5c7f7507308326e4cf874cf7f7144b99618cd6ccd099a",
+    "lineartSha256": "0f84612c31fda568c85eb43780a5b9008d64b0da156c3ca3b016365318fac6d9"
+  },
+  "changjak-coco-14-p04": {
+    "approved": true,
+    "evidence": "review-workspace/compare-025.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "8b32b27692b7e33ff5e123e130c4eda051a1d162e8beb29679cee9a6d851a57c",
+    "lineartSha256": "ca8ef4f8017659b5dd275de5958891b5f06225c158b091eed3073ab6048f16c6"
+  },
+  "changjak-coco-14-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-025.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "83a185cb606dc6f80b7416e7365d27dde2a8ea5dabf6ff9207e72a75eef1100f",
+    "lineartSha256": "e19264e81ef21f84353477cec5a3d86e43942ca045c77d79580fd15fbe06228f"
+  },
+  "changjak-coco-15-p04": {
+    "approved": true,
+    "evidence": "review-workspace/compare-025.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "648be74e21503b77a6461377c65395b5cfef82b1a9a28555869c225550593055",
+    "lineartSha256": "efc8158bbd5fe0392266199491b8d8706bb874f89689aa1512dfdd5ceddde667"
+  },
+  "changjak-coco-15-p06": {
+    "approved": true,
+    "evidence": "review-workspace/compare-025.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "cb820250e7d7785a1bf5856b66ed67b173eab6bbab35fd1e0d4a667c45d65dbb",
+    "lineartSha256": "23061d61836ed408dba3530c488dde2a68cf0c80c79f5a9882e3249594a59814"
+  },
+  "changjak-coco-16-p04": {
+    "approved": true,
+    "evidence": "review-workspace/compare-030.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "03b0d2b4d5951c6dddeb8c64b3eb4430d15499ebeca94927223baff744548ffb",
+    "lineartSha256": "a7667b932087e5889b4e96837e752e224292da75603b1b804328e1d9c89f1c23"
+  },
+  "changjak-coco-16-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-030.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "a4f428abc0097bceb143f92d8037fe32a7147c6aba31ca15a4695cddfba30661",
+    "lineartSha256": "0a4630baf8fa4aea7d782d23f73bb18d0793f010fed9fc5631c7f2a589b0c31c"
+  },
+  "changjak-coco-17-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-030.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "d18092ed3773f6450b45df93f2845afbafe17653e6f15b83c7004f41c93ada5d",
+    "lineartSha256": "b7467e22366944f514788f90c4cb10d58c9822b05e801c9b06f9931927bdf5c4"
+  },
+  "changjak-coco-17-p07": {
+    "approved": true,
+    "evidence": "review-workspace/compare-030.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "74219f364f0f79d7bef8cd491e59856f2ecfdb97ea77ca12609114c63cec33f0",
+    "lineartSha256": "52503cdd3554c6b90460441838b0cdb28d11599bfde72417ebecedffb09ecc84"
+  },
+  "changjak-coco-18-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-030.jpg",
+    "reason": "Actual source/line/shared-filled comparison; actors/actions/props retained and main figures colored. Minor white details accepted.",
+    "sourceSha256": "26b4b45766449bdbf00d0e9ef1b0f9d735201bae04079a4198f23d3c51890297",
+    "lineartSha256": "97fe40c09db954d7493c47e23d94e984c918acf1d6c277af5117f220ace24e96"
+  },
+  "changjak-coco-18-p08": {
+    "approved": true,
+    "evidence": "review-workspace/compare-035.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "a7bdf1b2ee1b18d8de8a8881bbdeb49f0c7597652ab37d631a4aeec56db61283",
+    "lineartSha256": "3e59ccc9078fd4bee49c7c208b9a73fe6364caf64f86b8045d2bf4fc971903bb"
+  },
+  "changjak-coco-19-p04": {
+    "approved": true,
+    "evidence": "review-workspace/compare-035.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "cda3d22688bf60f7c5c3219f875ea82da3fa0dfa9b7f5a929bef3a93f859de5e",
+    "lineartSha256": "14e90e527863f407897f316ef99314ce5ad66acfa828d9d8b61b08da383e7023"
+  },
+  "changjak-coco-19-p06": {
+    "approved": true,
+    "evidence": "review-workspace/compare-035.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "c8f8f14da9096cfe541f9e603ba8160f42164b11a9a4abb0d642eb951182b6e3",
+    "lineartSha256": "57051651fac33e209ce8e9aec6dfdebf5fe82e29a28bb1a75d067e7cab452322"
+  },
+  "changjak-coco-20-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-035.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "16e7609a9630ec7524d4d5080de2c8f0acbb8b86671c1d7e6ef4d3336c6eb392",
+    "lineartSha256": "078d2a25543236315987fdfd71d1ab1a9a79d531e3df355da6fdb32b6c451bd0"
+  },
+  "changjak-coco-20-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-035.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "4c1aff0ffc809e44d61ebfff080bc3cbbde582260c2c5e0b529b6b1c1e9cc633",
+    "lineartSha256": "5f07c877922b13a3bf2f7c2aa12183ea1244d541530977743cf7a67d65dc5d6b"
+  },
+  "changjak-coco-21-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-040.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "6bf76c7fceb081a05880b662bc961b1ccfac7cf0e6215acfa87ac3d3867642b5",
+    "lineartSha256": "d64adf33b243eade82b76c5f8634d871685a71593598a92f9e064f36401b9b09"
+  },
+  "changjak-coco-21-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-040.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "fcdcaa87a7de5bff10b5cc7f301ce8ee0467b7f8837197edd84198ced5fe03ae",
+    "lineartSha256": "8635c00dc77e54fe713631d7ad68c2639262e44c3059870e73de0b031cb1d060"
+  },
+  "changjak-coco-22-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-040.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "ad0cbbef7834d71b858f7e64e0f36e21f5443618d18382340eedd3159ac07bf8",
+    "lineartSha256": "33833c9bf7aaba694bb182012c99fb44e402b99ea090e56e064b372a60547065"
+  },
+  "changjak-coco-22-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-040.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "799d387372da4cedc11a9bf79c62d018709251d478908aa3b16fb109ea30b1e7",
+    "lineartSha256": "129c86b17ff70ea6560bbee96dee8ff3369cf238c7e7c57225fa9a2540849677"
+  },
+  "changjak-coco-23-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-040.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "c689328624fea29068f87686bf4842e776f8a27e08fb1bf6e0daf9fbfd6f52fe",
+    "lineartSha256": "7727a9766a77cb625cbf50af3d83824b64f7a326a9d725d3ede74dd9e867302e"
+  },
+  "changjak-coco-23-p08": {
+    "approved": true,
+    "evidence": "review-workspace/compare-045.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "fa78e20f49d6aa8e40adc81aac95320efa35e3cddc4a45518b94b7dbd559a36e",
+    "lineartSha256": "b2c9f0e0cc647841de075a2a1b40905aa7040ce0e681bcd21d1a284a9176d979"
+  },
+  "changjak-coco-24-p02": {
+    "approved": true,
+    "evidence": "review-workspace/compare-045.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "dffef3688a5623eb76969a06e87fe5922c974a564f62149af264092aa9db326a",
+    "lineartSha256": "601efd0f07b8b3d4383ca9c175eecd10cb151e736672699c577596b336e94896"
+  },
+  "changjak-coco-24-p08": {
+    "approved": true,
+    "evidence": "review-workspace/compare-045.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "10d587d3578a1c565f9580a8d187e4962ad7400e614126ee2c0d1571c1d9295b",
+    "lineartSha256": "7ea8ea7b592d211fad199141a950defb8f988864891ca09ac38aacfa5ce747a2"
+  },
+  "changjak-coco-25-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-045.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "adf9f5f63a26d5bfddaaf39d5a7cb1e3b1c90665525562ba269e90d732bde3c3",
+    "lineartSha256": "a52dd70d71b85c075701c4b6a6d9ef9d45285645c9b970f786d19cbaffc183cb"
+  },
+  "changjak-coco-25-p09": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "246f822f30931d3c1b60363fca15480aed285094370bdc66584ab2d622efb4e4",
+    "lineartSha256": "443126e735afacbb19380ca18f54216e0a3a359d814a9c5d40d24f18190c3927"
+  },
+  "changjak-coco-26-p05": {
+    "approved": true,
+    "evidence": "review-workspace/compare-050.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "66938bd314de0b3e73a90c9cb4766cfc091ce31fcd363df2f532aa8486440408",
+    "lineartSha256": "ad310ef8b5a67451245f75f69fe5bfffb2b1a5b923afc2c371df0735c5f44077"
+  },
+  "changjak-coco-26-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-050.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "34fc401c2b4e4a86aeef91caa8e74a98bfb517ca90949bc1d723c9c9a7acd656",
+    "lineartSha256": "edbd3f5d1d769d53e6d4949d16896cddb8cee49e1072d0c45647e23de5495bbe"
+  },
+  "changjak-coco-27-p03": {
+    "approved": true,
+    "evidence": "review-workspace/compare-050.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "245e028134fc42a29b81c29be14e1d1087e059bdc6720f91e583a977ed50e28a",
+    "lineartSha256": "7bca78b8b1fb694e5fb79a91090474ff778594f7a28ac724bc2302e4aab34c4c"
+  },
+  "changjak-coco-27-p10": {
+    "approved": true,
+    "evidence": "review-workspace/compare-050.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "5313b60a04b50f35fdb5b657ea9367eca5a2f63f36b720ea5625d6ca6f72858c",
+    "lineartSha256": "1d5e27aff66c2e211f0a2655da864dc1f8a0b8e87526767afff268668dc7c448"
+  },
+  "changjak-coco-28-p04": {
+    "approved": true,
+    "evidence": "review-workspace/compare-050.jpg",
+    "reason": "Actual source/line/shared-filled comparison: main characters/actions retained and large bodies painted; minor small white faces/hands and clothing color simplification accepted.",
+    "sourceSha256": "4f2fdbbd93318fc7b92bfbb4434af5a98b4d962f51293236732cdca117269895",
+    "lineartSha256": "cc2108f69e018fea6d27220c39a48903322f1ce2f3b59ffc1e4b02239d4d7a8e"
+  },
+  "changjak-coco-28-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "e7ba5038824c5aa3441823ce8e8d86173227a13011c3dc99f8a0ca68a9e4519c",
+    "lineartSha256": "04af68ea3a019abe11de2721c88b0738ee0bb457a91ae8a753a97c6bfaca6364"
+  },
+  "changjak-coco-29-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "c47078bc1d413e808c337350e5aa04d3e449e74cc311e2e4d2c0a5a30a33994f",
+    "lineartSha256": "9816f5410f8de7722d4b27d80104b0708d110ee6008d90c1527e85616fba18aa"
+  },
+  "changjak-coco-29-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "8a259ecf81ac6d5ea445048781d4da31be09c5bbcd347ed431541069b608ce5b",
+    "lineartSha256": "7d6340eee9e090ca0cce13cafa3cc7bd38d167dd4c0eb78de8f236e10915dcea"
+  },
+  "changjak-coco-30-p05": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "81f09deb8c8c921687a14498e43d4887917dc0a448140f794119aecc1b43f7aa",
+    "lineartSha256": "9b896255ebd88dd94498d5ed1d878c2ed85120be5b6ece4d088ecfe9a08c7056"
+  },
+  "changjak-coco-30-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "4b7355c9891baed205938fb6a93e0ce5df87d351d4a59484fbd659fd2c26c5b6",
+    "lineartSha256": "fc355487b0b0e0c606c524e482a76d7eb7798ef2a9752141b5fb155735a95fcc"
+  },
+  "changjak-coco-31-p02": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "00d250608ade945497271e4b1a310146f0f90b50a0eec830ee4085a47764a272",
+    "lineartSha256": "d937ae14f81d0a5af2fa714f970b41c23a2417dc9c94b233dc424cb479e1ac09"
+  },
+  "changjak-coco-31-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "e8a167b56e3a000691a995dcbcbfefc79b111cad5c36e7989f3d6193c039cea0",
+    "lineartSha256": "7c9427c4580bf0161b71f0fed92954fab89c6ede151357857fa63e32faf9c9ea"
+  },
+  "changjak-coco-32-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "0113e66fd5454d0d5e11a11399f5cf4e904aa60fe86d4175a1eb84dd0852baea",
+    "lineartSha256": "1f706add925b63900a82dd6232d8ea6cf00e8602606b7a242f3a466c8c884d06"
+  },
+  "changjak-coco-32-p08": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "ad335030e2933dcc1ca55ce31a30e3be9139e84a367329cba68cab8feca0178a",
+    "lineartSha256": "f9c8e696b451a1847ce7018276e35a03b17b48933a04d201329076d7011d2dfe"
+  },
+  "changjak-coco-33-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "d878997caab895b9424ead4cb1fe19db26ef253424407d40b18f2dae994b28e8",
+    "lineartSha256": "578a1a534d48208596b18d45073dc51646b8531ff8a6104315c7ff967e37439a"
+  },
+  "changjak-coco-33-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "f9cf347dc31ab253b51e037014512406b288dacc4c1d2909e6d08288b15663fd",
+    "lineartSha256": "c77abdcdb425f377741f2069204d61e900bfe95f47e41e5f02249e5c0bdcb27c"
+  },
+  "changjak-coco-34-p01": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "3504bebfced8952d9d2ceb6710b9fe8551fd03b39a3fddbfe7ce5bf1e1581f71",
+    "lineartSha256": "444a708f8d0deea90dd24d7cc463202b7bcb24e1afb46034379a658f0011fe1d"
+  },
+  "changjak-coco-34-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "b855ef0eecb744ba48a0a317ddef3d231ed494789810af547ec88389be8521d6",
+    "lineartSha256": "647e7c179323622d3628871c258775bb3ba7422485f3587a0f7a02cf9944a3f7"
+  },
+  "changjak-coco-35-p03": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "90fcdfd131c15416a1c7db81d5b713d3f1f9f371d0fa6dd3215dfad049ec8850",
+    "lineartSha256": "15d94e011fb178dd385ee16c17e86dc606700f18616f70e094988dc5f1556594"
+  },
+  "changjak-coco-35-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "7ea18c5543e60039dfa9235b339a3834bb6065b60077b3bd75d528d5fc46087d",
+    "lineartSha256": "4c6fd9d1077d8651ba6bf8f6c00650fa39fe7b35d8f3eb71004c89abba6cb9bd"
+  },
+  "changjak-coco-36-p05": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "3907b80c5490184162cda26a1f4772cb3a92f910b230e16b78aae3561d872007",
+    "lineartSha256": "720f4c969a9c6b4b1a1affbfe020dbff905578d0e69a55c2000117910ecd21cb"
+  },
+  "changjak-coco-36-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "f0f4826f6bd22c81d2c92ba2a00e6549335e9b36020d8b552f715045a6bbd125",
+    "lineartSha256": "fbd0a0b001099463243c3dabcecc635fc20733e45d1b7d98c6160e864caa5f36"
+  },
+  "changjak-coco-37-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "0dcde14c3d52b080ac889044de791b46baadba9d135d12335bc9ac4979295b8b",
+    "lineartSha256": "4a1af6790b2b264dcda1f853251ccf488f2c3829ccf9fe1601c95aeff1c9ca97"
+  },
+  "changjak-coco-37-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "3ca4329cad1742401d6524b4e9460a0206a5297a1ca60cde5203b2e031a00a77",
+    "lineartSha256": "2d87384a86fe6266992bae8bd58fd4f7854bc6f3789a11aeea3ba5c8f4ab2152"
+  },
+  "changjak-coco-38-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare-055..070; readable faces and main actors/actions; minor white small props allowed",
+    "sourceSha256": "4607a35746fdc1c4e57f1b20b766d36ace246063df56f569ae658cd7b71254f9",
+    "lineartSha256": "12aef97bba586bd27537bf0944f715a51106b99fc774a684073380a72f787843"
+  },
+  "changjak-coco-38-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "f427ba2ab5fdc9b55fa0c64412a5f15d2cf28a5183a85c834321ec3d3a75fd18",
+    "lineartSha256": "c9b6b6b34d25b9798cd9e0465a0e179482dda4cf1ac1fdfb7997a2e917c85e26"
+  },
+  "changjak-coco-39-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "b3002846cf20bfa8ea0854b73c5de8fa540d86a51ecaf5e0adefc75cfe4d668b",
+    "lineartSha256": "75bb3e9521b7385ccc9524a15aa2b3d6e02626bf8d0543ec6fe6e086d917bb86"
+  },
+  "changjak-coco-39-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "d63c367e59455eb5265e46a497001c444d79f87d7b7242ee3f64149345c10877",
+    "lineartSha256": "eb72cba024d7fc7c44aaaeb9fde45d03482de7b9c716ea1e888d21eb6cd74153"
+  },
+  "changjak-coco-40-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "34d27c0b05e40683bff8d5ce0a645867795ed469c10267c7cc06ce4da999bd7d",
+    "lineartSha256": "fc0eb1811904307518a1a01d09eb9ce7e3da03ba31152c6565ee8334dfe759ab"
+  },
+  "changjak-coco-40-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "f21551a64b6b520ec75af305ad89529891d9312bcb690285c572bd97ac4679bf",
+    "lineartSha256": "3ef3ba3e20033d9acddfef02066110d5756dfb211c58153e065e5bc2332e5367"
+  },
+  "changjak-coco-41-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "3792322576c463d0afd3459449194036630dd84346315184db0e70ac0bcb21ec",
+    "lineartSha256": "9baab426d903fb79968ac4a0db8f37e8c2f27c98748e54cad56f11780cee5e70"
+  },
+  "changjak-coco-41-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "725bff0fa8efe11ecd418bd9c997dcaaf7c31ae69a0fc9b18fa221d73eee61a6",
+    "lineartSha256": "57b49a323a691682e95744c688d637ac13541fa45d48a1ae8bcf25136988b3fc"
+  },
+  "changjak-coco-42-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "1f4aa3df173586fe77fb71876b821298ca7e296eb07ed2983e33c2e58be544f9",
+    "lineartSha256": "e96f39471e876eec690bdf99e2412b7d76413a327fcad4bc605fd73b1b9f5b14"
+  },
+  "changjak-coco-42-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "1196c09b5a619835028251488dfd104cd21578062c7bdf1d6bc940fc8fe9b288",
+    "lineartSha256": "4aee3271697be2d938ee3b1036bf042592ebaa532f3b8c914a7b56e27b0287ef"
+  },
+  "changjak-coco-43-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "402d52ecf035c913e3b7a1ee4b694bd5b2483588e2a625b27e4dfbac70bedcd2",
+    "lineartSha256": "3e748f5ad3dbea9797b2445f0059242ca18d31518288252941b990438be406f9"
+  },
+  "changjak-coco-43-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "cd3b2153c9a5c0c0723e4d4d426329a86e66aa3c03ea2fd075a3770211afea4a",
+    "lineartSha256": "f27ea417e04763828edb914a214b7dcaf3933e94ca107353be653cd965db0e09"
+  },
+  "changjak-coco-44-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "a419c95fccd42fc63933a32943990e38fdb422b220e656aef6a91c4a2a9e87c7",
+    "lineartSha256": "ad78197cd99a091ac2554c8474b88691013843caed20c949ce868dd9d32935a7"
+  },
+  "changjak-coco-44-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "0319264c27afe5e1da9f62178f1b5561eb2cfcfb7066458f31232bb316d93105",
+    "lineartSha256": "7c61eb17086587254253e46c1aa4771902699a25d9efafd17bdff59b4a6c7fe4"
+  },
+  "changjak-coco-45-p05": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "30385cda345fd61ebfbd62f2479c4c84ce9a23064791706585382d694175e980",
+    "lineartSha256": "bafe4eac83e0468c9f1b36c491ced540436836339cbd69b0b8ffb350ed98b13e"
+  },
+  "changjak-coco-45-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "c8869d96d133c48b82f793b3c9bb7aa478f3512c4487a5a1dcbdbc51acd2f035",
+    "lineartSha256": "9570751ae9863d2169ea722e1386c939a05fff8995c5bf2187ca7067d114cc95"
+  },
+  "changjak-coco-46-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "4bd152b88a30098475e193c47cb5482365b8e81e3612c4e8102a83bad94d8239",
+    "lineartSha256": "a3dea4fa81b2e9a3ed45bd5a27e40f740fdc8bd72bacd1380fab1456d34c333a"
+  },
+  "changjak-coco-46-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "9821e066d2708c9cb64febc5d4899a04e3243862222ccf0a0dbea25e09008aa4",
+    "lineartSha256": "057678d5594d814a7cb28918e80e9ea4f9d4941c36b54044d7745e63b8f757b5"
+  },
+  "changjak-coco-47-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "71c3e9f36affb9d7fc968470c9b41e54d8ba1beaf07ec8ad0cad1c6d2816b1f4",
+    "lineartSha256": "5265d7f06d41846d720687f7b488ee67ceba3284c50402669bf232db52e2ae6c"
+  },
+  "changjak-coco-47-p08": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "40aeee3c639815c15d1290b41790ff9bc682c14000d03f5863d3dea758271b1f",
+    "lineartSha256": "e1705ab431ed5159353ae04cf2039a065529d071b1754d2ff0dcb5414d668a30"
+  },
+  "changjak-coco-48-p05": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "5c44c3b0f1800da7c25c066dad07146c9d67f947598b2ead62a12b13cb078f72",
+    "lineartSha256": "d318e0c744a8933a79cacb5bde893e2536992cf58684fde00870b3a64d423c04"
+  },
+  "changjak-coco-48-p10": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "62ea05afc0499605020202a683ad6e7a4527a742203ef1ebba184b33d77be280",
+    "lineartSha256": "4b6d4b247aade508dea2eb6ee3955c76d292eb35e5f2501d311009fb134f1bdc"
+  },
+  "changjak-coco-49-p03": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "f949443557f3dbb5f7bcc66f29079511612acf20468a79fda0b0845b161a7e40",
+    "lineartSha256": "b5cd14b778035390f33a4bd87d5cf19c93e46e637b3ac7e3c2d1dc596839f0e8"
+  },
+  "changjak-coco-49-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "68d1d419e37a474be2799373ef93fadce4d7337d2937c6c91bed836237ab1042",
+    "lineartSha256": "2251313952d2fcff9668b43fb528d91daf595155b83f25d61c72cec1a82bc424"
+  },
+  "changjak-coco-50-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "1495994e3d40d35248825ec1ce66e05f00942dc187fc60450530a573cb02be50",
+    "lineartSha256": "68b1dc8b39dddb18c4c080b75306d6f59c0ef8da7477ed62b0926876226cb92d"
+  },
+  "changjak-coco-50-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/shared-engine filled compare075..095; main figures and actions preserved; small white limb/prop details allowed",
+    "sourceSha256": "6b30e7f0bb2747cddd5c71d5d2bf18eb68884348e0072daee272861cccf81a4e",
+    "lineartSha256": "b1df73a9390f4c572c313dbd32fb29ac5bff3c88439fe46b2227798e51be104f"
+  }
+}

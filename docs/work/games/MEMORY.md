@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-04 [창작동화 2~10 제작 완료](tasks/20261004-changjak-2-10-scene-coloring.md): 9시리즈450권900장 builtin imagegen 생성/전수source-line-sharedfilled·mono·SHA 비교와 대표9실제게임 완료, 승인tests 게시·HTML16탭/865권1730장. 기존830장 보존, editor2 책별 게시본 catalog 및 미리보기 연결8테스트/typecheck 통과. 원본미제공25장은 새 캐릭터참조 이야기 삽화로 명시. 전900장 개별native/공개게임 검증으로 확대하지 않음. runtime 원본색/median/영역기준 변경·운영 책 쓰기/main push/운영 editor2 배포 없음. 공개1800버전URL 최종SHA는task 최신절 참조.
+
 2026-10-04 [퐁이네 장면 색칠 완료](tasks/20261004-pongi-scene-coloring.md): 창작동화1번50권100장 imagegen built-in 생성·흑백/SHA/원본선화sharedfilled 전수 비교 완료, 대표4장 실제게임 검증. 일곱 번째 HTML 탭 공개와 원본/선화200버전URL SHA 검증 완료. 기존730장 보존/총415권830장, editor2 책별 catalog 추가·5테스트/typecheck 통과. 33권 신규 원본2장과29권 잘못된 comic-assets 기각 구분. 운영 배포/main push 없음.
 
 2026-10-03 [자연관찰 귀여운 색칠 개편 완료](tasks/20261001-all-collections-scene-coloring.md): 사용자 빠른검수기준으로101권202장 실제게임검수·시험판반영 완료(202/202·잔여0), 다른5분류·6탭730유지. 장별저장게임증거202와현재source/lineart SHA202쌍·mono202재대조,공개버전URL404개다운로드SHA일치. 전체730개별게임승인/공개202native새검증으로확대하지않음. 생성선화 개별binary/gap export는rawderivedSHA/provenance보존,원본색pixels/runtime변경없음. preview는승인된tests/20261001-review-1/index.html만,추가mainpush/운영등록없음. automation-2 완료종료.

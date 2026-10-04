@@ -1,0 +1,817 @@
+{
+  "category": "09. 노노네 겨울 골목",
+  "number": 9,
+  "id": "changjak-nono",
+  "label": "창작동화 9 · 노노네 겨울 골목",
+  "books": 50,
+  "scenes": 100,
+  "missing": [
+    "changjak-nono-05-p07",
+    "changjak-nono-13-p05",
+    "changjak-nono-13-p09",
+    "changjak-nono-26-p01",
+    "changjak-nono-26-p07"
+  ],
+  "selection": [
+    {
+      "key": "changjak-nono-01-p02",
+      "title": "01. 발자국이 끊겼어",
+      "pageNumber": 2,
+      "text": "노노는 골목 끝까지 발자국을 내고 싶어요. \"여기서 저 끝까지, 다 내 발자국!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글. 아래에서 노노를 올려다본다.\n장소·시간 같은 골목 입구.\n인물 Nono sparrow가 한 손을 앞으로 곧게 뻗어 골목 끝을 가리키고 부리를 벌려 외친다 — 턱이 들리고 가슴이 앞으로 나왔다, 초록 목도리 끝이 어깨 뒤로 넘어갔다.\n배경·소품 뒤로 흐려지는 골목과 지붕선.\n톤 뻗은 손끝이 화면 오른쪽 밖을 가리켜 시선이 그리로 끌려 나간다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-01-p08",
+      "title": "01. 발자국이 끊겼어",
+      "pageNumber": 8,
+      "text": "오소리 할아버지가 가게 앞을 쓸다가 말했어요. \"발자국은 걸어야 이어지지.\"",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 가게 앞 정면.\n장소·시간 [Shop] 골목 끝 가게 앞.\n인물 Grandpa Badger가 빗자루를 두 손에 쥔 채 허리를 펴고 Nono 쪽으로 고개를 돌려 말한다 — 앞치마, 소매를 걷었다. Nono sparrow는 화면 앞쪽에서 고개를 들어 올려다본다, 초록 목도리.\n배경·소품 가게 천막, 문 앞에 쓸어 모은 눈 둔덕 하나, 빗자루 자국이 반원으로 남았다.\n톤 쓸어 낸 자리와 안 쓴 자리의 결이 갈려, 어른의 손이 지나간 데가 눈에 먼저 든다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-02-p04",
+      "title": "02. 내가 다 가질래",
+      "pageNumber": 4,
+      "text": "구구가 부스러기를 부리에 잔뜩 물었어요. 볼이 빵빵해요.",
+      "sceneDescription": "컷 클로즈업, 정면 아이레벨. 구구 얼굴.\n장소·시간 같은 탁자 위.\n인물 Gugu pigeon이 부리에 부스러기를 잔뜩 물었다 — 부리가 다물리지 않고 목이 불룩하게 부풀었다, 눈이 위로 치켜졌다, 초록 천 가방 끈이 목 옆에.\n배경·소품 부리 가장자리에 삐져나온 부스러기 몇 알.\n톤 얼굴 하나가 화면을 다 채워 가득 찬 것이 곧 무거워 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-02-p10",
+      "title": "02. 내가 다 가질래",
+      "pageNumber": 10,
+      "text": "셋이 접시에 나란히 서서 쪼아 먹었어요. 하나도 안 흘리고 다 먹었어요.",
+      "sceneDescription": "컷 미디엄, 하이앵글. 접시를 바로 위에서 내려다본다.\n장소·시간 같은 탁자 위.\n인물 Nono sparrow · Gugu pigeon · Kiki cat 셋이 접시 둘레에 나란히 서서 고개를 숙여 쪼아 먹는다 — 세 등이 접시를 향해 둥글게 모였다, 초록 목도리 · 초록 천 가방 · 초록 방울이 각각 보인다.\n배경·소품 접시 안 부스러기, 접시 밖 탁자와 눈에는 떨어진 것이 하나도 없다.\n톤 셋의 등이 만드는 동그라미 안에 먹을 것이 다 들어 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-03-p02",
+      "title": "03. 안 놀아",
+      "pageNumber": 2,
+      "text": "키키는 술래잡기를 하고 싶어요. 그런데 첫 술래가 키키가 됐어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 셋의 상반신.\n장소·시간 같은 자리.\n인물 Nono sparrow와 Gugu pigeon이 동시에 손가락으로 Kiki cat을 가리킨다 — 둘 다 입이 벌어졌다. Kiki cat은 가운데에서 두 귀가 뒤로 눕고 입이 한 일자로 굳었다 — 초록 방울, 두 손이 몸 옆에서 주먹으로 쥐어졌다.\n배경·소품 뒤로 낮은 집 벽과 닫힌 덧문.\n톤 두 손가락이 한 점으로 모여 가운데 인물만 화면에 못 박힌다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-03-p06",
+      "title": "03. 안 놀아",
+      "pageNumber": 6,
+      "text": "키키는 문간에 돌아앉은 그대로예요. 웃음소리가 저쪽에서만 나요.",
+      "sceneDescription": "컷 미디엄, 하이앵글. 문간을 위에서 내려다본다.\n장소·시간 [Alley] 문간, 오후.\n인물 Kiki cat이 문간에 돌아앉은 그대로다 — 등이 화면 앞쪽, 꼬리 끝만 눈 위에서 까딱, 귀 하나가 웃음소리 나는 쪽으로 돌아갔다, 목 옆 초록 방울 끈.\n배경·소품 문턱, 계단 위에 남은 눈, 저쪽 골목은 흐리게.\n톤 몸은 저쪽에 등을 돌렸는데 귀 하나만 반대로 향해 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-04-p03",
+      "title": "04. 바람이 들어와",
+      "pageNumber": 3,
+      "text": "노노가 마른 풀을 물어 왔어요. 틈에 꾹꾹 밀어 넣었어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 벽 정면.\n장소·시간 같은 집 안.\n인물 Nono sparrow가 두 손으로 마른 풀을 뭉쳐 틈에 꾹꾹 밀어 넣는다 — 어깨가 벽에 붙고 몸무게가 손 쪽으로 실렸다, 초록 목도리.\n배경·소품 발치에 남은 마른 풀 한 다발, 틈은 아래쪽 절반만 채워졌고 위쪽 절반은 아직 벌어져 있다.\n톤 채운 데와 안 채운 데가 위아래로 갈려 남은 몫이 그대로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-04-p10",
+      "title": "04. 바람이 들어와",
+      "pageNumber": 10,
+      "text": "밤이 되어도 바람이 안 들어와요. 노노가 포근하게 폭 잠들었어요.",
+      "sceneDescription": "컷 미디엄, 하이앵글. 잠든 몸을 위에서.\n장소·시간 [NonoHome] 노노네 집 안, 밤.\n인물 Nono sparrow가 이불 속에서 몸을 동그랗게 말고 잠들었다 — 부리가 초록 목도리에 폭 묻혔고 어깨가 고르게 내려앉았다.\n배경·소품 매끈한 벽, 이불 끝이 조금도 안 들썩인다.\n톤 화면 안에서 움직이는 것이 하나도 없어 공기가 가만히 가라앉는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-05-p03",
+      "title": "05. 여기 내 자리야",
+      "pageNumber": 3,
+      "text": "구구가 의자에 폴짝 올라앉았어요. 날개를 쫙 펴서 자리를 다 차지했어요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 의자를 아래에서.\n장소·시간 [Shop] 난로 앞.\n인물 Gugu pigeon이 의자에 올라앉아 두 날개를 좌우로 쫙 폈다 — 날개 끝이 의자 양쪽 끝을 넘어가 앉을 데가 한 뼘도 안 남았다, 부리가 위로 들렸다, 초록 천 가방.\n배경·소품 난로, 의자 다리, 바닥.\n톤 좁은 의자 위에서 몸이 가로로 최대한 넓어져 자리 하나가 다 덮인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-05-p07",
+      "title": "05. 여기 내 자리야",
+      "pageNumber": 7,
+      "text": "구구가 몸을 웅크렸어요. 어깨가 오들오들 떨려요.",
+      "sceneDescription": "컷 클로즈업, 측면 아이레벨.\n장소·시간 같은 의자 위.\n인물 Gugu pigeon이 몸을 웅크리고 두 손을 가슴 앞에 꼭 모았다 — 목이 어깨 사이로 들어가고 어깨가 오들오들 떨린다, 날개는 몸에 접혀 붙었다, 초록 천 가방.\n배경·소품 의자 등받이, 난로 가장자리.\n톤 넓게 폈던 몸이 제일 작아져서 앞 쪽과 크기가 뒤집힌다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-06-p02",
+      "title": "06. 혼자 갈 거야",
+      "pageNumber": 2,
+      "text": "키키는 갓 구운 빵을 따뜻할 때 받아 오고 싶어요. 노노가 손을 내밀었어요. \"미끄러우니까 잡고 가자.\"",
+      "sceneDescription": "컷 미디엄, 아이레벨. 두 몸 사이의 손.\n장소·시간 [Alley · 언 바닥] 같은 문간 앞.\n인물 Nono sparrow가 Kiki 쪽으로 한 손을 내민다 — 손바닥이 위로 펴졌고 부리가 벌어져 말한다, 초록 목도리. Kiki cat은 그 손을 내려다보며 아직 제 손을 안 뺐다 — 두 손이 몸 앞에 모였다, 초록 방울.\n배경·소품 저 멀리 골목 끝 가게 천막, 문틈으로 새는 김.\n톤 화면 가운데의 펴진 손바닥 하나가 시선을 잡는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-06-p09",
+      "title": "06. 혼자 갈 거야",
+      "pageNumber": 9,
+      "text": "키키가 할아버지 팔을 잡았어요. 노노 손도 잡았어요.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 맞잡은 손들.\n장소·시간 [Alley · 언 바닥] 같은 자리.\n인물 Kiki cat의 한 손이 Grandpa Badger의 큰 손을, 다른 손이 Nono sparrow의 작은 손을 잡았다 — 세 손이 화면 가운데에서 한 줄로 이어졌다, 손목 위로 키키의 초록 방울 끈과 노노의 초록 목도리 끝이 보인다.\n배경·소품 아래로 재가 뿌려진 바닥.\n톤 큰 손과 작은 손이 나란히 놓여 크기 차이가 그대로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-07-p04",
+      "title": "07. 조금만 보고 올게",
+      "pageNumber": 4,
+      "text": "저쪽에서 둥둥 북소리가 났어요. 노노가 그쪽을 돌아봤어요. \"조금만 보고 올게.\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 측면 아이레벨.\n장소·시간 [Square] 줄 안, 낮.\n인물 Nono sparrow가 줄에 선 채 고개만 오른쪽으로 홱 돌리고 부리를 벌려 말한다 — 두 발은 아직 제자리, 몸은 앞을 향하고 목만 꺾였다, 초록 목도리.\n배경·소품 오른쪽 멀리 북을 든 사람과 구경꾼 무리, 앞쪽에 줄 선 외투 자락.\n톤 몸과 고개가 서로 다른 데를 향해 마음이 갈라진 것이 자세로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-07-p09",
+      "title": "07. 조금만 보고 올게",
+      "pageNumber": 9,
+      "text": "다음 날 노노가 또 줄에 섰어요. 북소리가 또 났지만 발을 딱 붙이고 있었어요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨.\n장소·시간 [Square] 군밤 줄, 다음 날.\n인물 Nono sparrow가 줄 안에 서서 두 발을 딱 붙였다 — 고개만 북소리 쪽으로 조금 돌아갔지만 두 발은 조금도 안 움직였다, 두 손을 앞에 꼭 모았다, 초록 목도리.\n배경·소품 앞뒤로 선 어른들의 다리, 오른쪽 멀리 북 든 사람.\n톤 화면 아래쪽 두 발만 딱 붙어 있어 그 부분이 이 쪽의 사건이 된다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-08-p04",
+      "title": "08. 내가 계속 탈래",
+      "pageNumber": 4,
+      "text": "노노가 손을 내밀었어요. \"이제 나 줘.\" \"싫어. 내가 계속 탈래.\"",
+      "sceneDescription": "컷 미디엄, 아이레벨. 언덕 밑 세 몸.\n장소·시간 [SnowHill] 언덕 밑.\n인물 Nono sparrow가 한 손을 내밀며 말한다 — 손바닥이 위로, 초록 목도리. Gugu pigeon은 썰매 줄을 두 손으로 제 가슴에 끌어안고 고개를 젓는다 — 몸이 뒤로 반쯤 돌아갔다, 초록 천 가방. Kiki cat이 옆에서 꼬리를 세우고 본다 — 초록 방울.\n배경·소품 썰매, 눈 위 자국.\n톤 내민 손과 끌어안은 팔이 한 화면에서 반대 방향으로 향한다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-08-p09",
+      "title": "08. 내가 계속 탈래",
+      "pageNumber": 9,
+      "text": "구구가 노노랑 키키를 불렀어요. 셋이 줄을 잡고 썰매를 쓱쓱 끌어 올렸어요.",
+      "sceneDescription": "컷 와이드, 측면. 비탈을 오르는 세 몸.\n장소·시간 [SnowHill] 눈 언덕 비탈.\n인물 Nono sparrow · Gugu pigeon · Kiki cat 셋이 한 줄로 줄을 잡고 오른쪽 위로 끌어 올린다 — 셋 다 몸이 같은 각도로 앞으로 기울고 발이 눈을 찬다, 초록 목도리 · 초록 천 가방 · 초록 방울.\n배경·소품 뒤따라 매끄럽게 올라오는 썰매, 비탈에 자국 두 줄.\n톤 세 몸의 기울기가 같아서 힘이 한 방향으로 모인 것이 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-09-p03",
+      "title": "09. 안 볼래",
+      "pageNumber": 3,
+      "text": "키키가 발끝을 쭉 들었어요. 인형이 하나도 안 보여요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글. 발끝과 얼굴.\n장소·시간 같은 자리.\n인물 Kiki cat이 발끝을 쭉 들고 목을 길게 뺐다 — 두 손이 앞사람 외투 자락에 살짝 닿았고 두 어깨가 귀까지 올라갔다, 초록 방울이 턱 아래에서 흔들린다.\n배경·소품 바로 앞을 채운 외투 어깨선, 그 위로는 아무것도 안 보인다.\n톤 아무리 늘여도 앞 어깨선이 가로로 화면을 막아 높이가 모자란 것이 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-09-p10",
+      "title": "09. 안 볼래",
+      "pageNumber": 10,
+      "text": "사람들이 조금씩 비켜 줬어요. 키키가 맨 앞에서 인형극을 다 봤어요.",
+      "sceneDescription": "컷 와이드, 아이레벨. 무대 정면.\n장소·시간 [Square] 인형극 무대 앞.\n인물 Kiki cat이 맨 앞에 서서 두 손을 턱 밑에 모으고 무대를 올려다본다 — 눈이 커지고 입이 벌어졌다, 초록 방울. 양옆에 Nono sparrow와 Gugu pigeon, 뒤로 사람들이 반걸음씩 물러서 있다.\n배경·소품 무대 위에서 손인형 둘이 마주 보고 있다.\n톤 앞이 트여 무대와 얼굴 사이에 아무것도 없다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-10-p03",
+      "title": "10. 뒷부분을 몰라",
+      "pageNumber": 3,
+      "text": "노노가 앞부분을 금방 외웠어요. 신나서 폴짝폴짝 뛰어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글. 뛰는 몸을 아래에서.\n장소·시간 [Shop] 창가 앞.\n인물 Nono sparrow가 두 발을 다 떼고 폴짝 뛰며 노래한다 — 부리가 크게 벌어지고 두 손이 위로 벌어졌다, 초록 목도리가 튀어 올랐다.\n배경·소품 뒤로 흐린 난로 불빛과 창틀.\n톤 몸이 화면 위로 솟아 신이 난 정도가 높이로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-10-p10",
+      "title": "10. 뒷부분을 몰라",
+      "pageNumber": 10,
+      "text": "그날 밤 셋이 노래를 처음부터 끝까지 불렀어요. 창에 김이 뽀얗게 서렸어요.",
+      "sceneDescription": "컷 와이드, 로우앵글. 아래에서 넷을 올려다본다.\n장소·시간 [Shop/창턱] 창가, 밤.\n인물 Grandpa Badger · Nono sparrow · Gugu pigeon · Kiki cat 넷이 나란히 서서 끝까지 부른다 — 네 입이 다 크게 벌어졌고 노노는 가슴을 폈다, 앞치마 · 초록 목도리 · 초록 천 가방 · 초록 방울.\n배경·소품 창유리가 아래쪽부터 뿌옇게 흐려져 바깥 눈이 잘 안 보인다.\n톤 유리가 흐려진 만큼 방 안이 따뜻해진 게 창 한 장으로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-11-p04",
+      "title": "11. 손이 모자라",
+      "pageNumber": 4,
+      "text": "구구가 큰 종이를 둥글게 세웠어요. 한쪽을 붙이면 다른 쪽이 툭 벌어져요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 세운 종이 정면.\n장소·시간 [Shop] 탁자 위.\n인물 Gugu pigeon이 큰 종이를 둥글게 세워 한쪽 이음매를 두 손으로 꾹 누른다 — 몸이 종이 쪽으로 기울고 부리를 앙다물었다, 초록 천 가방.\n배경·소품 반대쪽 이음매가 툭 벌어져 안쪽이 들여다보인다, 옆에 풀 그릇.\n톤 두 손이 있는 쪽은 붙고 손이 없는 쪽만 벌어져 손의 개수가 문제로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-11-p08",
+      "title": "11. 손이 모자라",
+      "pageNumber": 8,
+      "text": "오소리 할아버지가 물었어요. \"잡아 줄 손이 몇 개 있어야 할까?\"",
+      "sceneDescription": "컷 미디엄, 아이레벨. 펴 보이는 두 손.\n장소·시간 [Shop] 가게 앞.\n인물 Grandpa Badger가 두 손을 활짝 펴 Gugu 앞으로 내밀어 보이며 묻는다 — 손가락이 다 벌어졌다, 앞치마. Gugu pigeon이 그 손을 올려다본다 — 초록 천 가방.\n배경·소품 가게 문, 문 옆에 세워 둔 가는 막대.\n톤 펼친 손가락들이 화면 가운데에서 세어질 만큼 또렷하다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-12-p04",
+      "title": "12. 말 안 할 거야",
+      "pageNumber": 4,
+      "text": "구구가 물었어요. \"뭐 찾아?\" 키키가 담 밑으로 쏙 들어가 웅크렸어요. \"말 안 할 거야.\"",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨. 담 밑을 옆에서.\n장소·시간 [Alley] 골목 담 밑.\n인물 Gugu pigeon이 몸을 굽혀 묻는다 — 한 손을 앞으로 내밀었다, 초록 천 가방. Kiki cat은 담 밑 낮은 틈으로 쏙 들어가 웅크렸다 — 무릎을 두 팔로 끌어안고 얼굴을 무릎에 묻었다, 등이 담에 붙었다.\n배경·소품 담 밑 그늘, 담벼락 아래 마른 풀.\n톤 묻는 몸은 밝은 데, 웅크린 몸은 담 그늘 안이라 밝기로 갈린다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-12-p10",
+      "title": "12. 말 안 할 거야",
+      "pageNumber": 10,
+      "text": "셋이 등불 아래에서 눈을 헤쳤어요. 구구가 초록 방울을 콕 집어 올렸어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 하이앵글. 눈 위 손들.\n장소·시간 [Alley] 눈밭, 밤.\n인물 Nono sparrow · Gugu pigeon · Kiki cat 셋이 눈을 헤치고 있고, Gugu pigeon이 초록 방울을 두 손가락으로 콕 집어 올렸다 — Kiki cat의 얼굴이 환해지며 두 손을 뻗는다, 초록 목도리 · 초록 천 가방.\n배경·소품 옆에 놓인 등불이 손 둘레를 밝힌다, 헤쳐진 눈.\n톤 화면에서 사라졌던 셋째 표시가 등불빛 한가운데로 돌아온다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-13-p05",
+      "title": "13. 조금밖에 안 넣었어",
+      "pageNumber": 5,
+      "text": "노노가 노래를 부르는 동안 참새들이 통을 싹 쪼아 먹었어요. 모이통이 벌써 텅 비었어요.",
+      "sceneDescription": "컷 와이드, 아이레벨. 나무와 통과 자루가 한 화면.\n장소·시간 같은 나무 아래.\n인물 Nono sparrow가 자루 위에서 부리를 벌린 채 노래하고, 그동안 참새 대여섯 마리가 통에 앉아 고개를 박고 쪼아 먹는다 — 노노는 통 쪽을 안 본다, 초록 목도리.\n배경·소품 통 바닥이 드러나고 알갱이가 몇 개만 남았다.\n톤 한쪽은 위를 보고 한쪽은 아래를 파먹어 두 무리의 방향이 정반대다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-13-p09",
+      "title": "13. 조금밖에 안 넣었어",
+      "pageNumber": 9,
+      "text": "노노가 모이를 퍼 넣고 또 퍼 넣었어요. 통이 넘칠 만큼 가득 찼어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 측면. 붓는 손.\n장소·시간 [Shop] 모이통 앞.\n인물 Nono sparrow가 두 손으로 모이를 그러안아 통에 붓는다 — 팔이 통 위로 높이 올라가고 부리를 앙다물었다, 초록 목도리.\n배경·소품 통이 가장자리까지 차서 알갱이가 넘쳐 밖으로 흘러내린다, 아래 자루는 홀쭉해졌다.\n톤 넘쳐 흐르는 선이 통 밖으로 나가 가득 찬 정도가 한눈에 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-14-p01",
+      "title": "14. 아무도 오지 마",
+      "pageNumber": 1,
+      "text": "밤새 눈이 소복소복 쌓였어요. 가게 앞 계단에만 볕이 들어서 눈이 다 녹았어요.",
+      "sceneDescription": "컷 와이드, 아이레벨. 골목과 가게 앞 계단.\n장소·시간 [Shop] 가게 앞 골목, 밤새 눈이 쌓인 아침.\n인물 없음.\n배경·소품 골목이 온통 눈에 덮였는데 가게 앞 돌계단 세 칸만 눈이 다 녹아 젖은 돌이 드러났다, 계단 위로 지붕 사이 볕이 곧게 내려온다.\n톤 화면에서 그 계단만 밝고 젖어 있어 다른 데와 확연히 갈린다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-14-p08",
+      "title": "14. 아무도 오지 마",
+      "pageNumber": 8,
+      "text": "오소리 할아버지가 물었어요. \"그 넓은 자리에 누구를 부를래?\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 문간에 선 어른.\n장소·시간 [Shop] 계단 위 가게 문간.\n인물 Grandpa Badger가 문간에 서서 계단의 빈자리를 손바닥으로 쓸어 보이며 묻는다 — 몸이 계단 쪽으로 굽었다, 앞치마. Gugu pigeon이 아래에서 올려다본다 — 초록 천 가방.\n배경·소품 가게 문, 계단 세 칸.\n톤 펼친 손바닥이 계단 면을 따라가 넓이가 손짓으로 그려진다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-15-p05",
+      "title": "15. 내 건 작아",
+      "pageNumber": 5,
+      "text": "할아버지가 키키 몫을 접시에 담아 두었어요. 노노랑 구구는 맛있게 먹어요.",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 탁자 옆.\n장소·시간 [Shop] 가게 안, 조금 뒤.\n인물 Nono sparrow와 Gugu pigeon이 열매를 오물오물 먹는다 — 볼이 불룩하고 눈이 감겼다, 초록 목도리 · 초록 천 가방. Kiki cat은 옆에서 두 손을 등 뒤에 둔 채 그쪽을 본다 — 초록 방울.\n배경·소품 탁자 위 작은 접시에 키키 몫이 담겨 있다.\n톤 먹는 둘과 안 먹는 하나가 한 줄에 서서 차이가 볼 모양으로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-15-p10",
+      "title": "15. 내 건 작아",
+      "pageNumber": 10,
+      "text": "노노랑 구구가 자기 것을 하나씩 얹어 줬어요. 키키가 제일 오래 오물오물 먹었어요.",
+      "sceneDescription": "컷 미디엄, 하이앵글. 세 몫을 위에서.\n장소·시간 [Shop] 탁자 앞.\n인물 Kiki cat의 두 손 위 열매 더미가 셋 중 제일 높고, Nono sparrow와 Gugu pigeon의 손가락이 각각 한 알을 막 올려놓고 물러난다 — 키키의 볼이 불룩하고 눈이 감겼다, 초록 방울 · 초록 목도리 · 초록 천 가방.\n배경·소품 두 친구 손에는 이제 한 알씩 적게 남았다.\n톤 가장 늦게 받은 손 위가 제일 수북해져 앞뒤가 뒤집힌다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-16-p04",
+      "title": "16. 반만 치웠어",
+      "pageNumber": 4,
+      "text": "쓸어 놓은 데 옆에 눈이 뽀얗게 남아 있어요. 노노가 빗자루를 놓고 눈 위에 그림을 그리기 시작했어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 하이앵글. 손끝과 눈 위.\n장소·시간 [Alley] 골목 앞쪽 눈 위.\n인물 Nono sparrow가 쪼그려 앉아 손가락으로 눈에 동그라미를 그린다 — 손끝이 눈에 파묻히고 얼굴이 아래로 붙었다, 초록 목도리 끝이 눈에 끌린다.\n배경·소품 빗자루가 눈 위에 옆으로 놓여 있다, 이미 그린 동그라미 셋.\n톤 놓인 빗자루와 파고드는 손끝이 한 화면에서 서로 반대 일을 한다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-16-p09",
+      "title": "16. 반만 치웠어",
+      "pageNumber": 9,
+      "text": "노노가 빗자루를 다시 들었어요. 골목 끝까지 쓱쓱 쓸었어요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면 로우앵글.\n장소·시간 [Alley] 골목 안쪽.\n인물 Nono sparrow가 빗자루를 두 손으로 꽉 쥐고 오른쪽으로 밀어 나간다 — 두 발이 넓게 벌어지고 몸이 앞으로 실렸다, 부리를 앙다물었다, 초록 목도리.\n배경·소품 드러난 돌바닥 띠가 화면 오른쪽 끝까지 길게 이어지고 양옆에 눈 둔덕이 쌓였다.\n톤 바닥 띠가 화면을 관통해 아까 반쪽에서 끊기던 선이 이어진다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-17-p04",
+      "title": "17. 보여 줄 사람이 없어",
+      "pageNumber": 4,
+      "text": "노노가 물었어요. \"나도 봐도 돼?\" 구구가 유리 조각을 손으로 덮었어요. \"안 돼. 만지면 없어져.\"",
+      "sceneDescription": "컷 미디엄, 아이레벨. 방 안쪽에서.\n장소·시간 [GuguRoom] 방 안 창가.\n인물 Nono sparrow가 문틈으로 고개를 들이밀고 묻는다 — 부리가 벌어지고 한 손이 문틀을 잡았다, 초록 목도리. Gugu pigeon이 유리 조각들 위를 한 손으로 덮으며 다른 손을 들어 막는다 — 몸이 창턱 쪽으로 기울었다, 초록 천 가방.\n배경·소품 창턱의 줄, 반쯤 열린 문.\n톤 덮은 손 아래로 반짝임이 가려져 화면에서 빛나던 게 줄어든다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-17-p10",
+      "title": "17. 보여 줄 사람이 없어",
+      "pageNumber": 10,
+      "text": "구구가 하나씩 들어 보여 줬어요. 노노랑 키키가 우와, 하고 눈을 크게 떴어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 세 얼굴이 한 줄로.\n장소·시간 [GuguRoom] 창가, 낮.\n인물 Gugu pigeon이 유리 조각 하나를 손가락으로 집어 들어 보이고, Nono sparrow와 Kiki cat이 그 앞에서 눈을 크게 뜨고 입과 부리를 벌린다 — 세 얼굴이 든 손 쪽으로 모였다, 초록 천 가방 · 초록 목도리 · 초록 방울.\n배경·소품 창턱의 나머지 다섯 개.\n톤 들린 것 하나에 여섯 눈이 모여 빛이 여러 얼굴에 나뉘어 앉는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-18-p04",
+      "title": "18. 부탁하기 싫어",
+      "pageNumber": 4,
+      "text": "노노가 옆에 와서 위를 봤어요. 키키는 눈을 내리깔고 제 발끝만 봤어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 측면 아이레벨.\n장소·시간 [Alley] 처마 밑.\n인물 Nono sparrow가 옆에서 고개를 젖혀 처마를 올려다본다 — 부리가 위를 향했다, 초록 목도리. Kiki cat은 눈꺼풀을 내리깔고 제 발끝만 본다 — 시선이 아래에 딱 붙었고 두 손을 몸 앞에 모았다, 초록 방울.\n배경·소품 발끝 앞의 젖은 돌바닥.\n톤 나란히 선 두 얼굴이 위와 아래로 갈려 한 번도 안 마주친다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-18-p10",
+      "title": "18. 부탁하기 싫어",
+      "pageNumber": 10,
+      "text": "노노가 포르르 날아올랐어요. 모자를 물어다 키키 머리에 폭 씌워 줬어요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 위로 뻗은 몸과 아래 얼굴.\n장소·시간 [Alley] 처마 밑, 저녁.\n인물 Nono sparrow가 날개를 펴고 Kiki 머리 위 공중에 떠서, 부리에 문 모자를 키키 머리에 막 씌우는 참 — 모자 챙이 귀에 닿았다, 두 발이 아래로 접혔다, 초록 목도리. Kiki cat이 두 손을 위로 들고 올려다본다 — 눈이 커졌다, 초록 방울.\n배경·소품 빈 처마.\n톤 위에서 내려오는 몸과 아래에서 받는 얼굴이 한 줄로 만난다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-19-p03",
+      "title": "19. 끝을 못 들었어",
+      "pageNumber": 3,
+      "text": "노노가 할아버지 옆에 바짝 붙어 앉았어요. 이야기가 점점 재미있어져요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 노노 얼굴.\n장소·시간 [Shop] 할아버지 무릎 옆.\n인물 Nono sparrow가 할아버지 무릎에 어깨를 붙이고 앉아 눈을 크게 뜨고 부리를 조금 벌렸다 — 두 손이 무릎 앞에서 꼭 쥐어졌다, 초록 목도리.\n배경·소품 옆으로 난로 가장자리, 뒤로 흐린 방.\n톤 얼굴 하나만 불빛에 또렷해 듣고 있는 정도가 눈으로 읽힌다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-19-p06",
+      "title": "19. 끝을 못 들었어",
+      "pageNumber": 6,
+      "text": "다음 날 셋이 흰 여우 놀이를 해요. 구구랑 키키가 뒷이야기대로 뛰어다녀요.",
+      "sceneDescription": "컷 와이드, 하이앵글. 눈밭을 위에서.\n장소·시간 [Alley] 골목 눈밭, 다음 날 낮.\n인물 Gugu pigeon과 Kiki cat이 서로 반대 방향으로 뛰며 두 손을 앞으로 뻗는다 — 둘 다 발이 뜨고 입과 부리가 벌어졌다, 초록 천 가방 · 초록 방울.\n배경·소품 눈 위에 둘의 발자국이 큰 원을 그린다.\n톤 발자국이 그린 원 안에서 둘만 움직여 규칙이 있는 놀이로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-20-p05",
+      "title": "20. 내가 지킬게",
+      "pageNumber": 5,
+      "text": "키키가 말했어요. \"이제 들어가자!\" 구구가 문을 막고 섰어요. \"안 돼. 여긴 내 오두막이야.\"",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 입구를 사이에 두고.\n장소·시간 [Hut] 오두막 앞.\n인물 Kiki cat이 입구 쪽으로 한 손을 뻗으며 말한다 — 몸이 앞으로 기울었다, 초록 방울. Gugu pigeon이 두 팔을 좌우로 벌려 입구를 막고 섰다 — 부리가 벌어졌다, 초록 천 가방. Nono sparrow가 옆에서 멈춘다 — 초록 목도리.\n배경·소품 오두막 입구.\n톤 벌린 두 팔이 입구 폭을 정확히 덮어 문이 닫힌 것과 같아진다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-20-p08",
+      "title": "20. 내가 지킬게",
+      "pageNumber": 8,
+      "text": "오소리 할아버지가 물었어요. \"그 안은 언제 들어가 볼 거니?\"",
+      "sceneDescription": "컷 미디엄, 아이레벨. 쪼그려 앉은 어른.\n장소·시간 [Hut] 오두막 옆.\n인물 Grandpa Badger가 오두막 옆에 쪼그려 앉아 손끝으로 입구 안쪽을 가리키며 묻는다 — 고개가 구구 쪽으로 기울었다, 앞치마. Gugu pigeon이 그 손끝을 따라 안쪽을 본다 — 초록 천 가방.\n배경·소품 낮은 입구, 안쪽 어둠.\n톤 가리키는 손끝이 어두운 입구 안으로 들어가 시선이 처음으로 안을 향한다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-21-p04",
+      "title": "21. 손이 시린데",
+      "pageNumber": 4,
+      "text": "노노가 물었어요. \"손 안 시려?\" 키키가 고개를 푹 숙였어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 묻는 얼굴과 숙인 고개.\n장소·시간 [NonoHome] 마당.\n인물 Nono sparrow가 몸을 굽혀 묻는다 — 부리가 벌어지고 한 손이 앞으로 나왔다, 초록 목도리. Kiki cat이 고개를 푹 숙였다 — 턱이 가슴에 닿고 귀가 아래로, 두 손은 눈덩이 위에 그대로 얹혀 있다, 초록 방울.\n배경·소품 눈덩이 하나, 벗어 둔 장갑 두 짝.\n톤 얼굴 하나가 아래로 사라져 대답이 안 나오는 것이 각도로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-21-p06",
+      "title": "21. 손이 시린데",
+      "pageNumber": 6,
+      "text": "손가락이 굳어서 힘이 안 들어가요. 눈덩이가 자꾸 부서져요.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 부서지는 눈덩이.\n장소·시간 [NonoHome] 마당.\n인물 Kiki cat의 두 손 안에서 눈덩이가 부서져 조각이 아래로 떨어진다 — 손가락이 굽지 않고 펴진 채 굳었다, 손목이 뻣뻣하다.\n배경·소품 발밑에 떨어진 눈 조각들.\n톤 쥐어야 할 손이 펴진 채라 힘이 안 들어가는 게 손 모양으로 읽힌다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-22-p04",
+      "title": "22. 식어 버렸어",
+      "pageNumber": 4,
+      "text": "골목 가운데에 고양이 발자국이 찍혀 있어요. 노노가 통을 눈 위에 내려놓았어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 하이앵글. 눈 위 발자국과 내려놓은 통.\n장소·시간 [Alley] 골목 가운데.\n인물 Nono sparrow가 통을 눈 위에 막 내려놓고 두 손을 손잡이에서 뗀 참 — 손가락이 아직 펴져 있고 고개는 발자국 쪽으로 돌아갔다, 초록 목도리.\n배경·소품 눈 위에 줄지어 찍힌 고양이 발자국, 옆에 놓인 통에서 김이 오른다.\n톤 손이 물건을 떠나는 순간과 시선이 딴 데로 가는 순간이 한 몸에서 만난다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-22-p09",
+      "title": "22. 식어 버렸어",
+      "pageNumber": 9,
+      "text": "노노가 통 손잡이를 두 손으로 꼭 잡았어요. 한 번도 안 내려놓고 걸었어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 정면 아이레벨.\n장소·시간 [Alley · 자국] 골목, 낮.\n인물 Nono sparrow가 통 손잡이를 두 손으로 꼭 잡고 앞만 보며 걷는다 — 손가락 마디에 힘이 들어갔고 부리가 앞을 향했다, 초록 목도리.\n배경·소품 통에서 김이 곧게 오른다, 발밑을 지나가는 고양이 발자국은 프레임 아래에 흐리게.\n톤 시선과 걸음이 같은 데를 향해 화면이 한 방향으로만 간다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-23-p02",
+      "title": "23. 우리끼리 놀 거야",
+      "pageNumber": 2,
+      "text": "구구는 오늘 눈싸움을 하고 싶어요. 눈싸움은 둘씩 편을 나눠서 해요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 뭉치는 손과 보는 눈.\n장소·시간 [Alley · 녹아 드러난 젖은 돌] 골목 가운데.\n인물 Gugu pigeon이 두 손으로 눈을 뭉치며 고개를 들어 두 친구를 본다 — 부리가 벌어졌다, 초록 천 가방. Nono sparrow와 Kiki cat이 앞에 나란히 선다 — 초록 목도리 · 초록 방울.\n배경·소품 발밑에 남은 눈을 긁어모은 자국.\n톤 셋이 한 줄로 서서 편이 아직 안 갈린 게 배치로 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-23-p06",
+      "title": "23. 우리끼리 놀 거야",
+      "pageNumber": 6,
+      "text": "한 편은 둘인데 한 편은 혼자예요. 둘이 던지면 혼자는 못 당해요. 눈싸움이 자꾸 멈춰요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 낮은 데서 날아오는 것.\n장소·시간 [Alley · 녹아 드러난 젖은 돌] 같은 골목.\n인물 Nono sparrow와 Gugu pigeon이 동시에 눈덩이를 던진다 — 둘 다 팔이 앞으로 뻗었다, 초록 목도리 · 초록 천 가방. Kiki cat은 한 손으로 머리를 가리고 몸을 웅크렸다 — 손에 든 눈덩이를 못 던졌다, 초록 방울.\n배경·소품 공중에 눈덩이 둘, 바닥에 부딪혀 흩어진 자국.\n톤 화면 한쪽에서만 두 개가 날아와 균형이 한쪽으로 쏠린다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-24-p04",
+      "title": "24. 나는 못 해",
+      "pageNumber": 4,
+      "text": "구구가 깔깔 웃었어요. 키키가 두 손을 무릎에 딱 올리고 굳었어요. \"나는 못 해.\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 정면 아이레벨.\n장소·시간 [Alley · 녹아 드러난 젖은 돌] 골목 바닥 옆.\n인물 Gugu pigeon이 부리를 크게 벌리고 몸을 뒤로 젖혀 웃는다 — 어깨가 들썩인다, 초록 천 가방. Kiki cat은 두 손을 무릎 위에 딱 올리고 굳었다 — 손바닥이 무릎에 붙고 어깨가 올라갔다, 시선이 정면 아래에 못 박혔다, 초록 방울.\n배경·소품 발밑 젖은 돌.\n톤 크게 벌어진 몸과 딱 굳은 몸이 나란히 놓여 대비가 그대로 사건이 된다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-24-p06",
+      "title": "24. 나는 못 해",
+      "pageNumber": 6,
+      "text": "둘이 신나게 구슬을 굴려요. 키키는 저만치 떨어져 앉아 두 손을 꼭 쥐고 있어요.",
+      "sceneDescription": "컷 와이드, 하이앵글. 골목 바닥 전체.\n장소·시간 [Alley · 녹아 드러난 젖은 돌] 골목, 오후.\n인물 Nono sparrow와 Gugu pigeon이 바닥에 엎드려 구슬을 굴린다 — 팔이 앞으로 뻗고 볼이 바닥에 가깝다, 초록 목도리 · 초록 천 가방. 화면 왼쪽 저만치에 Kiki cat이 앉아 두 손을 꼭 쥐고 있다 — 초록 방울.\n배경·소품 젖은 돌 위에 구슬이 지나간 자국 여러 줄.\n톤 자국이 한쪽에만 여러 줄이라 논 사람과 안 논 사람이 바닥으로 갈린다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-25-p02",
+      "title": "25. 마지막 눈사람",
+      "pageNumber": 2,
+      "text": "노노는 제일 큰 눈사람을 만들고 싶어요. 마당에서 눈덩이를 굴리기 시작했어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 굴리기 시작하는 손.\n장소·시간 [NonoHome] 마당, 아침.\n인물 Nono sparrow가 허리를 굽혀 두 손으로 작은 눈덩이를 앞으로 민다 — 두 발이 넓게 벌어지고 어깨에 힘이 들어갔다, 초록 목도리.\n배경·소품 눈덩이 뒤로 눈이 벗겨진 좁은 띠 한 줄, 마당 눈은 아직 넓다.\n톤 벗겨진 띠 한 줄이 굴린 만큼만 나 있어 시작 지점이 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-25-p08",
+      "title": "25. 마지막 눈사람",
+      "pageNumber": 8,
+      "text": "오소리 할아버지가 그늘진 담 밑을 손가락으로 가리켰어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 가리키는 팔과 담 밑.\n장소·시간 [NonoHome] 마당 가장자리.\n인물 Grandpa Badger가 그늘진 담 밑을 손가락으로 곧게 가리킨다 — 팔이 어깨 높이로 뻗고 몸이 그쪽으로 돌아갔다, 앞치마. Nono sparrow가 그 손끝이 가리키는 담 밑으로 부리를 돌린다 — 초록 목도리.\n배경·소품 담 밑 그늘에 아직 하얗게 남은 눈 띠.\n톤 볕이 든 데는 다 젖었고 그늘 한 줄만 밝게 남아 손끝이 그리로 간다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-nono-26-p01",
+      "title": "26. 건더기까지, 냠!",
+      "pageNumber": 1,
+      "text": "\"국물만 먹을래!\" 가슴이 넓은 비둘기 구구가 건더기를 그릇 가장자리로 밀어 놔요. 당근도 콩도 감자도 밀어 놓고 국물만 후룩후룩. 난롯가 긴 탁자에 김이 모락모락 나요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 그릇 하나와 구구의 얼굴을 비스듬히 위에서 본다.\n장소·시간 [Shop] 가게 난롯가 긴 탁자, 한파가 든 날 낮.\n인물 Gugu pigeon이 긴 의자에 앉아 그릇에 부리를 대고 국물을 들이켠다 — 한 손이 그릇 가장자리를 누르고 다른 손에 숟가락이 거꾸로 쥐여 있다, 눈 두 조각이 반쯤 감겼다, 어깨에 초록 천 가방.\n배경·소품 그릇 가장자리로 밀려난 건더기가 둘레에 둥근 테를 이뤘고 가운데는 국물만 남았다, 그릇 위로 오르는 김 한 줄, 뒤로 난로.\n톤 밀려난 것이 둘레에 테를 이뤄서, 비어 있는 데가 가운데뿐이다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-26-p07",
+      "title": "26. 건더기까지, 냠!",
+      "pageNumber": 7,
+      "text": "구구가 당근 한 조각을 입에 넣고 오물오물해요. \"…어? 달아!\" 콩도 감자도 오독오독 씹혀요. 국물보다 훨씬 고소해요. \"건더기까지, 냠!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 구구의 얼굴과 두 손.\n장소·시간 같은 자리.\n인물 Gugu pigeon이 숟가락을 부리 안에 넣은 채 눈을 크게 뜬다 — 한쪽 눈 조각이 다른 쪽보다 크게 뜨였고 눈 위 짧은 조각 둘이 위로 올라갔다, 다른 손은 그릇 가장자리를 잡았다, 초록 천 가방.\n배경·소품 그릇 안에 아직 남은 건더기, 뒤쪽 난로.\n톤 벌어진 두 눈 조각이 얼굴에서 가장 밝아 놀란 정도가 얼굴 하나로 읽힌다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-27-p04",
+      "title": "27. 이도 눈처럼 하얗게!",
+      "pageNumber": 4,
+      "text": "가게 문 앞에서 할아버지가 물통에 난로 물을 부어요. 물통에서 김이 모락모락 올라와요. \"얼음장 아니란다. 여기 대 보렴.\" 제일 작고 동그란 참새 노노와 가슴이 넓은 비둘기 구구도 컵을 들고 섰어요.",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 가게 문 앞 전체.\n장소·시간 [Shop] 가게 문 앞 물통, 아침.\n인물 Grandpa Badger가 두 손으로 주전자를 기울여 물통에 물을 붓는다 — 허리를 굽히고 고개는 물통 쪽, 앞치마. Nono sparrow와 Gugu pigeon이 왼쪽에 나란히 서서 컵을 하나씩 들었다 — 초록 목도리 · 초록 천 가방. Kiki cat은 오른쪽 끝에서 두 손을 뒤로 하고 선다 — 초록 방울.\n배경·소품 물통 위로 곧게 오르는 김 한 줄, 턱에 남은 컵 하나, 쓸린 가게 앞바닥과 그 옆 눈 둔덕.\n톤 곧게 오르는 김이 화면을 세로로 갈라 두 아이와 한 아이가 좌우로 나뉜다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-27-p08",
+      "title": "27. 이도 눈처럼 하얗게!",
+      "pageNumber": 8,
+      "text": "\"닦은 이는 아침 눈이랑 똑같구나.\" 할아버지가 껄껄 웃어요. 텁텁하던 자리가 개운해서 자꾸 웃음이 나요. 키키가 목에 걸린 초록 방울을 톡 만졌어요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 큰 몸을 아래에서.\n장소·시간 [Shop] 가게 문 앞, 아침.\n인물 Grandpa Badger가 물통 옆에서 허리를 젖히고 입을 벌려 웃는다 — 두 손이 물통 턱을 짚었다, 앞치마. Kiki cat이 그 앞에서 한 손으로 목의 초록 방울을 톡 만지고 다른 손은 제 입가에 댄다 — 입꼬리가 올라갔다. Nono sparrow와 Gugu pigeon이 뒤에서 컵을 든 채 본다 — 초록 목도리 · 초록 천 가방.\n배경·소품 물통, 턱 위의 눈 한 줌이 반쯤 녹아 작아졌다.\n톤 아래에서 올려다본 큰 몸이 뒤로 젖혀져 화면 위쪽이 활짝 열린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-28-p04",
+      "title": "28. 호호 불고, 꼭꼭 꼭꼭!",
+      "pageNumber": 4,
+      "text": "골목 끝 가게 할아버지가 얼른 와서 노노 등을 살살 쓸어 줘요. 따뜻한 물을 한 모금 건네요. \"천천히, 꿀꺽.\" 들썩이던 어깨가 천천히 내려앉고 딸꾹 소리도 그쳤어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨. 큰 몸과 작은 몸이 나란히.\n장소·시간 [Shop] 긴 탁자 옆.\n인물 Grandpa Badger가 한 손바닥을 Nono sparrow 등에 대고 아래로 쓸어내리며 다른 손으로 컵을 내민다 — 무릎을 굽혀 키를 낮췄다, 앞치마. Nono sparrow가 긴 의자에 앉아 컵 쪽으로 두 손을 뻗는다 — 어깨가 처졌다, 초록 목도리.\n배경·소품 컵에서 오르는 짧은 김, 탁자 끝.\n톤 큰 등이 작은 등을 감싸는 곡선 하나가 화면을 오른쪽에서 왼쪽으로 흐른다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-28-p08",
+      "title": "28. 호호 불고, 꼭꼭 꼭꼭!",
+      "pageNumber": 8,
+      "text": "이제 어깨도 안 들썩이고 배도 편안해요. \"천천히 먹은 빵이 더 맛있지.\" 할아버지가 한 조각 더 놓아 줘요. 노노가 초록 목도리 끝을 톡 만지고 폴짝 뛰었어요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 긴 의자 옆에서 올려다본다.\n장소·시간 [Shop] 긴 탁자 옆.\n인물 Nono sparrow가 긴 의자 위에서 두 발이 살짝 뜬 채 뛰어오르며 한 손으로 초록 목도리 끝을 톡 만진다 — 부리가 벌어졌고 다른 팔이 위로 올라갔다. Grandpa Badger가 뒤에서 조각 하나를 탁자에 내려놓는다 — 앞치마. Gugu pigeon과 Kiki cat이 맞은편에서 올려다본다 — 초록 천 가방 · 초록 방울.\n배경·소품 탁자 위 조각 넷, 난로.\n톤 아래에서 본 작은 몸이 탁자 선 위로 올라와 화면 위쪽이 가벼워진다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-29-p05",
+      "title": "29. 씻은 손으로, 냠!",
+      "pageNumber": 5,
+      "text": "\"재에는 눈에 안 보이는 꼬물이가 붙어 있단다. 씻은 손으로, 냠!\" 귀가 뾰족한 고양이 키키와 제일 작고 동그란 참새 노노도 나란히 섰어요. \"씻은 손으로, 냠!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글. 물통 높이보다 낮게.\n장소·시간 같은 물통 앞.\n인물 Grandpa Badger가 손가락 하나를 세워 들고 고개를 숙여 말한다 — 다른 손은 물통 턱을 짚었다, 앞치마. Gugu pigeon · Kiki cat · Nono sparrow 셋이 물통 앞에 나란히 서서 두 손을 앞으로 내민다 — 초록 천 가방 · 초록 방울 · 초록 목도리.\n배경·소품 물통, 그 옆 비누 한 덩이.\n톤 나란히 내민 여섯 손이 같은 높이에 놓여 가로줄 하나가 생긴다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-29-p10",
+      "title": "29. 씻은 손으로, 냠!",
+      "pageNumber": 10,
+      "text": "할아버지가 구구의 두 손을 제 손으로 감싸 줬어요. 씻은 손으로 집으면 빵에 까만 손자국이 안 남아요. \"이제 손자국 하나도 없지? 씻은 손으로, 냠!\" 구구가 웃어요.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 겹쳐 쥔 네 손이 화면 가운데.\n장소·시간 [Shop] 가게 문 앞 물통 앞.\n인물 Grandpa Badger의 두 손이 Gugu pigeon의 두 손을 위아래로 감싸 쥐었다 — 앞치마 자락이 옆에 보인다. Gugu pigeon은 화면 위쪽에서 부리를 벌려 웃는다 — 눈이 반달로 접혔다, 초록 천 가방 끈.\n배경·소품 물통 턱, 거기 걸린 수건.\n톤 큰 손과 작은 손이 겹쳐 화면 한가운데가 한 덩어리로 두꺼워진다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-30-p05",
+      "title": "30. 따끈한 물에, 풍덩!",
+      "pageNumber": 5,
+      "text": "할아버지가 대야 물을 휘휘 저으니 거품이 산처럼 부풀어요. 김이 뭉게뭉게 올라 뒷방이 온통 하얘져요. \"우와, 진짜 김 나라다!\" 키키 눈이 동그래졌어요.",
+      "sceneDescription": "컷 와이드, 아이레벨. 뒷방이 벽에서 벽까지 든다.\n장소·시간 [Shop/뒷방] 뒷방 안, 곧이어.\n인물 Grandpa Badger가 대야 물을 한 손으로 크게 휘젓는다 — 팔이 대야를 가로질렀고 다른 손은 가장자리를 잡았다, 앞치마. Kiki cat이 대야 앞에서 두 눈을 크게 뜨고 입을 벌린다 — 두 귀가 곧게 섰다, 초록 방울. Nono sparrow와 Gugu pigeon이 문가에서 고개를 들이민다 — 초록 목도리 · 초록 천 가방.\n배경·소품 대야 위로 산처럼 부푼 거품, 방 안을 채우고 올라간 김, 벽의 못 하나.\n톤 방 안을 채운 흰 것이 벽 앞까지 올라와 화면에서 밝은 쪽이 가장 넓다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-30-p09",
+      "title": "30. 따끈한 물에, 풍덩!",
+      "pageNumber": 9,
+      "text": "이튿날 밤, 천막이 내려가자 키키가 먼저 뒷방으로 뛰어가요. \"하나, 발부터 살살! 둘, 거품칠 뽀글뽀글! 셋, 물 부어 헹구기!\" 노노와 구구도 수건을 들고 뒤에 줄을 섰어요.",
+      "sceneDescription": "컷 와이드, 로우앵글. 바닥 가까이에서 가게 안을 가로로.\n장소·시간 [Shop] 가게 안, 이튿날 밤.\n인물 Kiki cat이 화면 왼쪽에서 오른쪽 뒷방 문을 향해 두 팔을 흔들며 달린다 — 한 발이 높이 떴고 입이 크게 벌어졌다, 초록 방울이 목에서 튀어 올랐다. Nono sparrow와 Gugu pigeon이 뒤에서 수건을 하나씩 안고 줄을 선다 — 초록 목도리 · 초록 천 가방.\n배경·소품 열린 뒷방 문과 그 틈으로 나온 김, 난로, 긴 의자.\n톤 바탕이 밤인데 열린 문 쪽만 밝아 달리는 몸이 그리로 빨려 간다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-31-p02",
+      "title": "31. 천막 내리면, 코~!",
+      "pageNumber": 2,
+      "text": "귀가 뾰족한 고양이 키키가 방울을 딸랑 흔들어요. \"노노야, 이제 갈 시간이야.\" \"난 오늘 제일 높이 쌓을 거야!\" 노노는 도리도리 고개를 젓고 눈 탑을 꼭 안아요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 마주 선 두 얼굴.\n장소·시간 같은 가게 앞.\n인물 Kiki cat이 왼쪽에서 한 손으로 목의 초록 방울을 잡고 흔들며 입을 벌려 말한다 — 두 귀가 노노 쪽으로 기울었다. Nono sparrow는 오른쪽에서 눈 탑을 두 손으로 끌어안은 채 고개를 옆으로 세게 돌렸다 — 부리가 다물렸다, 초록 목도리.\n배경·소품 눈 탑 몸통, 뒤로 어둑한 골목 벽.\n톤 말하는 얼굴과 돌린 얼굴이 한 뼘 사이에서 어긋나 서로를 안 본다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-31-p06",
+      "title": "31. 천막 내리면, 코~!",
+      "pageNumber": 6,
+      "text": "구구가 노노 손을 잡아요. \"우리도 가자.\" 노노가 눈 탑에 눈덩이 하나를 톡 얹고 손을 놓아요. 아암— 노노 부리가 저절로 쩍 벌어져요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨.\n장소·시간 같은 가게 앞.\n인물 Gugu pigeon이 Nono의 왼손을 두 손으로 잡고 골목 쪽으로 반 발 끌어당긴다 — 초록 천 가방. Nono sparrow는 오른손으로 눈덩이 하나를 무너진 탑 위에 톡 얹으면서 부리를 크게 벌려 하품한다 — 눈이 감기고 목이 뒤로 젖혀졌다, 초록 목도리.\n배경·소품 반쯤 남은 눈 탑, 골목 등불.\n톤 한 몸이 두 방향으로 늘어나 잡힌 쪽과 놓는 쪽이 좌우로 갈린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-32-p05",
+      "title": "32. 싹싹 소리 나면, 쭉쭉!",
+      "pageNumber": 5,
+      "text": "구구가 두 손을 위로 쭉— 다리도 쭉— 어라? 무겁던 몸이 가벼워지고 눈이 번쩍 떠졌어요. \"쭉쭉 늘리니까 잠이 싹 도망갔어!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글. 뻗은 몸을 아래에서.\n장소·시간 같은 가게 앞.\n인물 Gugu pigeon이 두 손을 머리 위로 곧게 뻗고 한쪽 다리를 뒤로 쭉 민다 — 손가락 셋이 활짝 벌어졌고 가슴이 앞으로 나왔다, 부리가 크게 벌어졌다, 초록 천 가방이 등 뒤로 밀렸다.\n배경·소품 뒤로 가게 문과 벽에 세운 빗자루.\n톤 몸이 위아래로 길게 늘어나 아까 웅크렸던 덩어리와 정반대 모양이 된다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-32-p08",
+      "title": "32. 싹싹 소리 나면, 쭉쭉!",
+      "pageNumber": 8,
+      "text": "이제 마지막, 세수! 할아버지가 물통에 난로 물을 부어 놓아서 김이 폴폴 나요. 구구가 따뜻한 물에 얼굴을 첨벙 담그니 눈이 말똥말똥해졌어요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 물통 위 얼굴.\n장소·시간 [Shop] 가게 문 앞 물통.\n인물 Gugu pigeon이 두 손으로 물통 테를 붙잡고 얼굴을 물에 담갔다 뺀 참이다 — 눈을 꼭 감고 부리 끝에서 물방울이 떨어진다, 목덜미 깃털이 젖어 눕고, 초록 천 가방 끈이 목 옆에.\n배경·소품 나무 물통, 튀어 나간 물방울 다섯, 물 위로 오르는 김 한 줄, 물통 옆에 내려놓은 주전자.\n톤 아래로 떨어지는 물방울과 위로 오르는 김이 한 화면에서 서로 반대로 움직인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-33-p02",
+      "title": "33. 쓰던 건 벽에 기대, 척!",
+      "pageNumber": 2,
+      "text": "\"내일은 이걸로 눈 벽돌 담을 쌓을 거야!\" 키키가 노노에게 말해요. 제일 작고 동그란 참새 노노가 고개를 끄덕끄덕. 눈이 소복소복 내려요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 마주 선 두 얼굴.\n장소·시간 같은 골목.\n인물 Kiki cat이 두 손으로 네모를 그리듯 앞으로 내밀며 입을 벌려 말한다 — 두 귀가 앞으로 섰다, 초록 방울. Nono sparrow는 옆에서 고개를 위아래로 끄덕인다 — 부리가 다물렸다, 초록 목도리.\n배경·소품 어깨와 머리 위에 얹히기 시작한 눈, 뒤로 흐릿하지 않은 같은 무게의 벽.\n톤 두 몸 위에 눈이 얇게 얹히기 시작해 서 있는 동안에도 시간이 쌓인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-33-p10",
+      "title": "33. 쓰던 건 벽에 기대, 척!",
+      "pageNumber": 10,
+      "text": "다음 날 아침, 눈삽이 벽에 그대로 서 있어요. 노노가 키키 손을 꼭 잡아요. 치우고 두면 다음 날 바로 놀 수 있어요. 키키가 초록 방울을 톡 만지고 눈 벽돌 담을 척척 쌓아요. \"쓰던 건 벽에 기대, 척!\"",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 쌓아 올린 담 옆 두 몸.\n장소·시간 [Shop] 가게 앞, 다음 날 아침.\n인물 Kiki cat이 오른손을 목의 초록 방울에 톡 대고 입을 크게 벌려 외친다 — 두 귀가 나란히 섰다. 왼손은 옆에 선 Nono sparrow가 두 손으로 꼭 잡았다 — 손가락 셋이 또렷하게 감겼고 부리가 벌어져 웃는다, 초록 목도리.\n배경·소품 둘 앞에 허리 높이까지 쌓인 눈 벽돌 담, 맨 위 단에 방금 얹은 벽돌 한 장이 아직 자리를 덜 잡아 옆으로 조금 비뚤고 그 옆 바닥에 다음 벽돌 하나가 놓여 있다; 그 뒤 벽에 눈삽이 어제 그대로 기대 서 있고 위에 눈이 없다.\n톤 벽에 선 곧은 자루와 담의 네모난 단이 같은 방향으로 줄을 맞춰 아침이 어제에서 이어진다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-34-p03",
+      "title": "34. 빙 두르고, 끝은 쏙!",
+      "pageNumber": 3,
+      "text": "그런데 목도리가 스르르 풀려요. 한 바퀴 돌리면 끝이 축 늘어져 눈 위에 끌려요. \"아이참, 또 풀렸어!\"",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨.\n장소·시간 [Alley] 골목 모퉁이.\n인물 Nono sparrow가 목도리를 한 바퀴 돌리던 자세 그대로 굳었다 — 한 손이 어깨 뒤에서 멈췄고 고개가 아래로 꺾여 제 발치를 본다, 부리가 벌어졌다.\n배경·소품 초록 목도리가 목에서 스르르 미끄러져 긴 끝이 눈 위에 한 자쯤 끌리고, 그 끌린 자리에 흰 종이가 뜯긴 가는 자국이 남았다.\n톤 목에서 바닥까지 늘어진 한 줄이 화면을 세로로 지나 실패한 길이를 그대로 잰다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-34-p08",
+      "title": "34. 빙 두르고, 끝은 쏙!",
+      "pageNumber": 8,
+      "text": "둘째, 끝은 쏙! 노노가 긴 끝을 틈으로 쑤욱 넣어요. 쏙— 매듭이 딱 잡혀요. 키키가 손뼉을 짝짝 쳐요.",
+      "sceneDescription": "컷 익스트림 클로즈업, 아이레벨. 목 앞의 매듭만.\n장소·시간 같은 자리.\n인물 Nono sparrow의 손가락 셋이 초록 목도리의 긴 끝을 목에 감긴 고리 틈으로 밀어 넣어, 끝이 틈 안으로 반쯤 들어갔다 — 부리 아래 깃털과 목도리 결이 화면을 다 채운다.\n배경·소품 없음 — 목과 목도리와 손가락만.\n톤 화면이 온통 그 하나로 차서 안으로 들어가는 끝의 방향이 크게 읽힌다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-35-p02",
+      "title": "35. 가게 안에선, 소곤소곤!",
+      "pageNumber": 2,
+      "text": "구구가 노노 귀에 얼굴을 바짝 들이대고 또 꽥! \"난 겨울새들 코앞에서 보고 싶단 말이야아아!\" 제일 작고 동그란 참새 노노가 두 손으로 귀를 꼭 막아요. \"귀가 아파…\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 붙어 앉은 두 얼굴.\n장소·시간 [Shop] 난롯가 긴 의자.\n인물 Gugu pigeon이 얼굴을 Nono 귀 바로 옆까지 들이대고 부리를 크게 벌린다 — 목이 부풀고 가슴이 앞으로, 초록 천 가방. Nono sparrow는 두 손으로 제 귀를 꼭 막고 눈을 질끈 감았다 — 어깨가 위로 솟았다, 초록 목도리.\n배경·소품 긴 의자 등받이, 탁자 모서리에 놓인 컵 하나.\n톤 두 얼굴이 한 뼘도 안 되게 붙어 있어 벌어진 부리와 막은 손이 같은 크기로 부딪는다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-35-p09",
+      "title": "35. 가게 안에선, 소곤소곤!",
+      "pageNumber": 9,
+      "text": "구구가 손가락을 하나씩 꼽아 봐요. \"하나, 가게 안에선 소곤소곤! 둘, 골목에선 크게! 셋, 누가 놀라면 줄이기!\" 노노가 엄지를 척 들어 줘요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 두 얼굴과 엄지.\n장소·시간 [Shop] 난롯가 긴 의자.\n인물 Gugu pigeon이 한 손 손가락을 하나씩 꼽아 보이며 부리를 벌려 센다 — 어깨가 편안히 내려앉았다, 초록 천 가방. Nono sparrow는 그 앞에서 엄지를 위로 곧게 세워 내민다 — 부리가 벌어져 웃는다, 초록 목도리.\n배경·소품 긴 의자 등받이, 뒤 창턱에 앉은 작은 겨울새 둘.\n톤 세운 손가락 하나가 화면에서 가장 뾰족해 조용한 자리에서도 신호가 선다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-36-p02",
+      "title": "36. 골목 끝에선, 멈춰서 봐!",
+      "pageNumber": 2,
+      "text": "\"얼른 언덕에 올라가고 싶단 말이야!\" 키키가 모퉁이에서 큰길로 발을 쑥 내밀었어요. 그때 가슴이 넓은 비둘기 구구가 키키 손을 꽉 잡았어요. \"키키야, 잠깐!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 맞잡힌 손이 화면 한가운데.\n장소·시간 [Corner] 골목 끝 모퉁이, 같은 낮.\n인물 Kiki cat이 한 발을 모퉁이 밖으로 쑥 내밀고 몸이 앞으로 쏠렸다 — 입이 벌어지고 시선이 오른쪽 밖을 향한다, 초록 방울. Gugu pigeon이 옆에서 두 손으로 키키 손목을 꽉 잡아 뒤로 당긴다 — 손가락 셋이 또렷하게 감겼다, 초록 천 가방이 어깨에서 앞으로 쏠렸다.\n배경·소품 모퉁이 담이 끊기는 자리, 바닥에 늘어진 썰매 줄.\n톤 잡은 손 하나가 화면 가운데에서 나아가려는 몸을 붙들어 둔다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-36-p09",
+      "title": "36. 골목 끝에선, 멈춰서 봐!",
+      "pageNumber": 9,
+      "text": "이제 키키는 골목 끝에서 발이 저절로 멈춰요. \"하나, 바퀴 자국 앞에서 딱 멈춰! 둘, 손을 번쩍! 셋, 왼쪽 오른쪽 보고 할아버지 손 잡고 건너!\" 언덕에서 돌아올 때도 키키가 맨 앞에서 멈춰 섰어요.",
+      "sceneDescription": "컷 와이드, 로우앵글. 언덕에서 내려오는 길이 화면 왼쪽 위에서 모퉁이로 이어진다.\n장소·시간 [Corner] 모퉁이, 늦은 낮.\n인물 Kiki cat이 맨 앞에서 썰매 줄을 쥐고 바퀴 자국 앞에 두 발을 딱 멈췄다 — 몸이 아직 앞으로 기울었는데 발만 멈춰 있다, 초록 방울. 뒤에서 Nono sparrow와 Gugu pigeon이 걸음을 늦춘다 — 초록 목도리 · 초록 천 가방.\n배경·소품 썰매 한 대와 그것이 눈에 남긴 자국 두 줄, 바닥의 바퀴 자국.\n톤 기운 몸과 멈춘 발이 어긋나서 멈춤이 방금 일어난 일로 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-37-p02",
+      "title": "37. 의자에 콕, 그릇은 앞에!",
+      "pageNumber": 2,
+      "text": "한 입 먹자마자 노노가 그릇을 탁자 끝으로 쓱 밀고 의자에서 콩 내려왔어요. 난로 옆으로 굴러온 밤 한 톨을 주우러 갔거든요. \"노노야, 그릇 아직 안 비었어!\" 구구가 불러도 노노는 뒤도 안 돌아봐요.",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨. 의자와 바닥이 한 화면에.\n장소·시간 같은 탁자 옆.\n인물 Nono sparrow가 긴 의자에서 막 내려와 바닥에 두 발을 붙이고 몸을 난로 쪽으로 돌렸다 — 한 손이 방금 탁자 맨 끝까지 밀어 놓은 제 그릇에 아직 닿아 있고 시선은 바닥의 밤 한 톨에 붙었다, 초록 목도리. Gugu pigeon이 탁자에서 몸을 틀어 부리를 벌리고 부른다 — 한 손을 노노 쪽으로 뻗었다, 초록 천 가방.\n배경·소품 바닥에 굴러온 밤 한 톨, 긴 의자 다리, 탁자 위 김 나는 그릇.\n톤 뻗은 손과 등을 돌린 몸이 반대 방향을 가리킨다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-37-p10",
+      "title": "37. 의자에 콕, 그릇은 앞에!",
+      "pageNumber": 10,
+      "text": "구구와 키키가 노노 양옆에 바짝 붙어 앉았어요. 앉아서 먹으면 수프가 끝까지 따뜻해요. 노노가 빈 그릇을 번쩍 들며 말했어요. \"의자에 콕, 그릇은 앞에!\"",
+      "sceneDescription": "컷 미디엄, 정면 아이레벨. 긴 의자에 붙어 앉은 셋.\n장소·시간 같은 난롯가 긴 탁자, 아침.\n인물 Nono sparrow가 가운데 자리에서 빈 그릇을 두 손으로 머리 위까지 번쩍 들고 부리를 크게 벌려 말한다 — 그릇 바닥이 앞을 향해 훤히 드러났다, 초록 목도리. Gugu pigeon과 Kiki cat이 좌우에서 어깨가 닿도록 바짝 붙어 앉아 노노를 올려다본다 — 초록 천 가방 · 초록 방울.\n배경·소품 탁자 가운데에 김 나는 그릇 둘, 뒤로 난로.\n톤 세 몸이 틈 없이 붙어 한 덩어리가 되고 그 위로 들린 빈 그릇 하나만 솟는다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-38-p01",
+      "title": "38. 놓치면, 그 자리에 딱!",
+      "pageNumber": 1,
+      "text": "\"앞치마 끝, 다 같이 잡아라!\" 오소리 할아버지가 앞치마 자락을 뒤로 내밀어요. 셋이 한 손씩 앞치마 끝을 꼭 잡았어요. 겨울 시장은 사람들로 빽빽해요.",
+      "sceneDescription": "컷 미디엄 와이드, 뒷모습 아이레벨. 앞치마 자락이 화면 가운데로 내려온다.\n장소·시간 [Square] 겨울 시장, 낮.\n인물 Grandpa Badger가 앞서 걸으며 앞치마 자락을 뒤로 내밀었다 — 등만 보이고 한 팔이 뒤로 돌아왔다. Gugu pigeon · Nono sparrow · Kiki cat 셋이 그 뒤에서 각각 한 손으로 앞치마 끝을 잡았다 — 손가락 셋이 천을 쥔 것이 세 번 보인다, 초록 천 가방 · 초록 목도리 · 초록 방울.\n배경·소품 좌우로 늘어선 납작한 가게 천막, 그 사이에 얼굴도 손도 없는 사람 실루엣 일곱.\n톤 셋의 손이 한 자락으로 모여 화면 가운데에 한 점이 생긴다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-38-p10",
+      "title": "38. 놓치면, 그 자리에 딱!",
+      "pageNumber": 10,
+      "text": "가게로 돌아와 노노와 키키가 구구 어깨에 얼굴을 묻었어요. 놓쳤을 때 뛰지 않고 멈추면 금방 다시 만나요. 구구가 두 손을 번쩍 들며 말했어요. \"놓치면, 그 자리에 딱!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 셋의 상반신이 한 덩어리로.\n장소·시간 [Shop] 가게 안 난롯가, 저녁.\n인물 Gugu pigeon이 가운데에서 두 손을 머리 위로 번쩍 들고 부리를 벌려 말한다 — 초록 천 가방이 어깨에 걸렸다. Nono sparrow와 Kiki cat이 좌우에서 구구 어깨에 얼굴을 옆으로 묻었다 — 눈이 감겼다, 초록 목도리 · 초록 방울. 화면 뒤쪽에 Grandpa Badger가 앞치마에 손을 닦으며 본다.\n배경·소품 옆에 난로, 뒤로 긴 탁자 모서리.\n톤 어깨에 묻힌 두 얼굴 위로 두 손만 솟아 아래는 붙어 있고 위는 열려 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-39-p03",
+      "title": "39. 바닥 눈은 안 먹어, 퉤!",
+      "pageNumber": 3,
+      "text": "가슴이 넓은 비둘기 구구가 키키 손을 얼른 잡았어요. \"키키야, 안 돼!\" \"여긴 다들 밟고 지나간 자리야.\" 노노가 발자국을 가리켰어요. 키키가 눈덩이를 든 채 멈췄어요. \"어? 하얀데?\"",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 셋이 한 화면.\n장소·시간 [Alley · 자국] 골목 가운데.\n인물 Gugu pigeon이 두 손으로 Kiki의 손목을 아래에서 붙잡았다 — 부리가 크게 벌어졌다, 초록 천 가방. Kiki cat은 눈덩이를 든 채 팔이 멈췄다 — 귀가 뒤로 눕고 눈이 커졌다, 초록 방울. Nono sparrow가 옆에서 한 손으로 바닥의 발자국을 가리킨다 — 초록 목도리.\n배경·소품 바닥에 겹쳐 찍힌 발자국들, 담 밑에 밀린 눈.\n톤 든 손과 잡은 손이 화면 가운데에서 멈춰 팔 하나가 정지한 축이 된다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-39-p09",
+      "title": "39. 바닥 눈은 안 먹어, 퉤!",
+      "pageNumber": 9,
+      "text": "키키는 먹기 전에 꼭 세 가지를 떠올려요. \"하나, 눈은 어느 눈이든 안 먹기! 둘, 할아버지께 물어보기! 셋, 그릇에 담긴 것만 먹기!\" 노노가 눈을 집으려 하자 키키가 먼저 말렸어요.",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 골목 바닥과 셋.\n장소·시간 [Alley · 자국] 골목, 다음 낮.\n인물 Nono sparrow가 쪼그려 앉아 한 손을 바닥 눈으로 내리는 중이다 — 초록 목도리. Kiki cat이 그 손목 위로 제 손을 뻗어 막는다 — 몸이 앞으로 기울고 입이 벌어졌다, 초록 방울. Gugu pigeon이 뒤에서 두 손을 배 앞에 모으고 본다 — 초록 천 가방.\n배경·소품 밟힌 발자국이 겹친 바닥, 담 밑에 쌓인 눈.\n톤 앞 쪽에서 잡히던 손이 이번엔 잡는 손이 되어 같은 자리가 뒤집힌다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-40-p02",
+      "title": "40. 우르르 하면, 골목 가운데로!",
+      "pageNumber": 2,
+      "text": "가슴이 넓은 비둘기 구구가 골목 가운데에서 손짓해요. \"노노야, 이리 나와!\" 처마 끝 고드름에서 물이 뚝, 뚝 떨어져요. \"조금만 더 있다 갈게!\" 노노는 담에 등을 붙였어요.",
+      "sceneDescription": "컷 와이드, 아이레벨. 골목 가운데와 처마 밑이 좌우로 나뉜다.\n장소·시간 [Alley] 골목, 같은 낮.\n인물 Gugu pigeon이 화면 왼쪽 골목 한가운데에서 한 손을 크게 흔들어 부른다 — 몸이 오른쪽으로 기울고 부리가 벌어졌다, 초록 천 가방. Nono sparrow는 오른쪽 처마 밑에서 담에 등을 붙인 채 한 손만 짧게 든다 — 초록 목도리.\n배경·소품 처마 끝 고드름 다섯, 그 밑 눈 위에 떨어진 물방울 자국 아홉, 골목 가운데는 텅 비었다.\n톤 부르는 몸은 화면 가운데에 나와 있고 불리는 몸은 가장자리에 붙어 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-40-p10",
+      "title": "40. 우르르 하면, 골목 가운데로!",
+      "pageNumber": 10,
+      "text": "할아버지가 노노 이마에 앉은 눈을 손으로 톡톡 털어 줬어요. 우르르 소리가 나면 바로 골목 가운데로 나오면 돼요. 노노가 하늘을 한 번 올려다보고 외쳤어요. \"우르르 하면, 골목 가운데로!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 굽어 들어온 큰 손과 들린 얼굴.\n장소·시간 [Alley] 골목 한가운데, 아침.\n인물 Grandpa Badger가 무릎을 굽혀 키를 낮추고 한 손끝으로 Nono sparrow의 이마에 앉은 눈을 톡톡 털어 준다 — 앞치마, 눈을 가로지르는 어두운 띠. Nono sparrow가 고개를 위로 젖혀 하늘을 한 번 보며 부리를 크게 벌려 외친다 — 두 손이 옆으로 벌어졌다, 초록 목도리.\n배경·소품 이마에서 떨어지는 눈 알갱이 넷, 뒤로 좌우 지붕선과 그 사이 하늘, 담 밑 눈 더미.\n톤 큰 손은 아래로 내려오고 작은 얼굴은 위를 보아 둘이 화면에서 반대로 향한다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-41-p03",
+      "title": "41. 나는 구구, 이대로 좋아!",
+      "pageNumber": 3,
+      "text": "그때 눈발이 사나워졌어요. 바람이 골목을 쌩쌩 밀고 들어와요. 노노가 휘청, 키키가 눈을 찡그렸어요. \"앞이 안 보여!\" 셋은 걸음을 딱 멈췄어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 셋의 얼굴과 어깨.\n장소·시간 [Alley] 골목 가운데, 눈보라가 시작된 낮.\n인물 Nono sparrow가 화면 왼쪽에서 바람에 밀려 옆으로 휘청인다 — 한 발이 들리고 초록 목도리 두 끝이 뒤로 곧게 날린다. Kiki cat은 오른쪽에서 두 눈을 가늘게 찡그리고 두 귀를 뒤로 납작 눕혔다 — 초록 방울. Gugu pigeon은 가운데에서 두 발을 붙이고 버틴다 — 초록 천 가방.\n배경·소품 얼굴 앞을 가로지르는 눈발 흰 조각 열넷, 뒤 벽은 결 없는 한 장.\n톤 가벼운 것이 전부 한쪽으로 누워 바람이 어느 쪽에서 오는지가 화면에 그려진다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-41-p10",
+      "title": "41. 나는 구구, 이대로 좋아!",
+      "pageNumber": 10,
+      "text": "할아버지가 구구 어깨를 폭 감싸 안아 줬어요. 친구랑 달라도 괜찮아요. 나한테만 있는 것이 있으니까요. 구구가 활짝 웃었어요. \"나는 구구, 이대로 좋아!\"",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 어깨 위만.\n장소·시간 [Shop] 가게 문 앞.\n인물 Grandpa Badger가 넓은 한 팔로 Gugu pigeon의 어깨를 감아 제 옆구리로 당긴다 — 소매를 걷은 팔, 흰 얼굴에 곧게 가로지른 어두운 띠, 두 눈이 같은 크기로 나란하다. Gugu pigeon은 그 팔 안에서 가슴을 펴고 부리를 크게 벌려 웃는다 — 초록 천 가방 끈이 화면 아래쪽을 대각으로 지나간다.\n배경·소품 뒤 가게 문틀 한 장.\n톤 큰 팔과 넓은 가슴이 화면을 가로로 채워, 넓은 것이 곧 좋은 것이 된다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-42-p05",
+      "title": "42. 눈 한 줌 꼭 쥐고, 후~!",
+      "pageNumber": 5,
+      "text": "키키가 눈을 꼭, 아주 꼭 쥐었어요. 손이 부들부들 떨려요. \"자, 눈 한 줌 꼭 쥐고, 후~!\" 할아버지가 길게 불어 보였어요. 키키도 따라서 후~ 하고 길게 불었어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 측면 아이레벨. 두 옆얼굴.\n장소·시간 같은 자리.\n인물 Kiki cat과 Grandpa Badger가 마주 앉아 동시에 입을 오므리고 길게 분다 — 키키는 두 손을 가슴 앞에 모아 눈덩이를 꽉 쥐었고 팔이 부들부들 굳었다, 초록 방울. 할아버지도 한 손에 눈 한 줌을 쥔 채 같은 입 모양이다, 나란한 두 눈.\n배경·소품 두 입 앞의 빈 자리, 그 밖에는 벽 한 장.\n톤 같은 입 모양 둘이 옆얼굴로 나란히 놓여 따라 하는 것이 형태로 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-42-p06",
+      "title": "42. 눈 한 줌 꼭 쥐고, 후~!",
+      "pageNumber": 6,
+      "text": "쥔 손을 펴니 눈이 녹아 물이 뚝 떨어졌어요. 어라? 뜨겁던 가슴도 스르르 식었어요. \"화가 손에서 빠져나갔어!\" 키키가 손바닥을 들여다봤어요.",
+      "sceneDescription": "컷 익스트림 클로즈업, 하이앵글. 펼친 손바닥만.\n장소·시간 같은 자리.\n인물 Kiki cat의 두 손이 화면을 가득 채운 채 활짝 펴져 있다 — 손가락 셋이 다 벌어졌고, 손바닥 가운데 남은 눈이 반으로 줄었으며, 손목 아래로 물방울 하나가 떨어지는 중이다.\n배경·소품 손 아래 눈 바닥에 물이 떨어져 생긴 작은 구멍 하나, 화면 위 구석에 초록 방울 끈 끝.\n톤 손바닥 하나가 화면을 다 채워, 쥐었던 것이 줄어든 양이 그대로 크기가 된다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-43-p02",
+      "title": "43. 깜깜해도, 가게 불 보여!",
+      "pageNumber": 2,
+      "text": "골목 등불이 하나둘 켜졌어요. 귀가 뾰족한 고양이 키키와 가슴이 넓은 비둘기 구구가 손을 흔들며 집으로 가요. 그런데 노노네 처마 앞 등불만 꺼져 있어요. 거긴 캄캄해요.",
+      "sceneDescription": "컷 와이드, 하이앵글. 담 위 높이에서 골목을 내려다본다.\n장소·시간 [Alley] 골목, 등불이 켜진 저녁.\n인물 Kiki cat과 Gugu pigeon이 화면 오른쪽에서 각자 제 집 쪽으로 걸으며 한 손을 들어 흔든다 — 초록 방울 · 초록 천 가방. Nono sparrow는 화면 가운데 골목에 혼자 서서 왼쪽 끝을 본다 — 초록 목도리.\n배경·소품 골목을 따라 켜진 등불 흰 조각들, 화면 왼쪽 끝 노노네 처마 앞 등불 자리만 아무 조각 없이 비어 있다.\n톤 밝은 조각들이 한 줄로 이어지다 왼쪽 끝에서 뚝 끊겨, 안 켜진 자리가 가장 먼저 눈에 든다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-43-p10",
+      "title": "43. 깜깜해도, 가게 불 보여!",
+      "pageNumber": 10,
+      "text": "아침에 할아버지가 노노를 두 손으로 폭 안아 올렸어요. 캄캄해도 가게 불빛 하나는 밤새 켜져 있어요. 노노가 폴짝 뛰며 말했어요. \"깜깜해도, 가게 불 보여!\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 아래에서 올려다본다.\n장소·시간 [Shop] 가게 앞, 다음 날 아침.\n인물 Grandpa Badger가 두 손으로 Nono sparrow의 겨드랑이를 잡아 제 얼굴 높이까지 번쩍 들어 올렸다 — 두 팔이 곧게 펴졌다, 앞치마, 나란한 두 눈. Nono sparrow는 들린 채 두 손을 위로 번쩍 뻗고 부리를 크게 벌린다 — 두 발이 공중에서 앞으로 찼고 초록 목도리 두 끝이 아래로 흔들린다.\n배경·소품 올라간 천막, 가게 앞에 쓸어 놓은 돌바닥 반원.\n톤 바탕 종이가 다시 겨울 빛으로 돌아와 어젯밤의 짙은 잿빛이 한 장도 남지 않는다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-44-p05",
+      "title": "44. 무릎 살짝, 스르르!",
+      "pageNumber": 5,
+      "text": "구구가 그 손을 살며시 잡고 얼음에 한 발을 올렸어요. \"끝까지 안 가도 된단다. 요만큼만 스르르—\" 구구가 짧게 한 번 스르르. \"어? 안 넘어졌다!\"",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨.\n장소·시간 [Alley · 언 바닥] 얼음판 가장자리.\n인물 Gugu pigeon이 Grandpa Badger의 손을 한 손으로 잡고 얼음 위를 아주 짧게 미끄러진다 — 두 발이 얼음에 붙은 채 조금 앞으로 나갔고 부리가 벌어졌다, 초록 천 가방이 뒤로 흔들린다. 할아버지는 옆에서 나란히 걸으며 다른 손으로 눈삽을 짚었다 — 앞치마.\n배경·소품 얼음 위에 방금 밀린 짧은 서리 자국 하나, 얼음 가장자리 눈 테.\n톤 맞잡은 두 손이 화면 가운데에서 한 덩어리가 되고 몸이 그 옆에 매달린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-44-p06",
+      "title": "44. 무릎 살짝, 스르르!",
+      "pageNumber": 6,
+      "text": "\"이번엔 무릎을 살짝 굽혀 보렴. 그러면 안 흔들려.\" 구구가 무릎을 살짝 굽히자 몸이 하나도 안 흔들려요. \"무릎 살짝, 스르르!\" 구구가 씩 웃었어요.",
+      "sceneDescription": "컷 미디엄, 측면 로우앵글. 무릎 높이에서.\n장소·시간 같은 자리.\n인물 Gugu pigeon이 무릎을 살짝 굽히고 얼음 위에 혼자 섰다 — 두 다리 사이가 벌어졌고 몸이 아래로 낮아졌다, 입꼬리가 올라가고 부리가 조금 벌어졌다, 초록 천 가방이 흔들리지 않는다. Grandpa Badger는 옆에서 제 무릎도 같이 굽혀 보인다 — 앞치마 자락이 얼음에 닿았다.\n배경·소품 매끈한 얼음 한 장, 두 몸 아래로 아무 무늬도 없다.\n톤 굽은 두 무릎이 같은 각도로 나란히 놓여 자세 하나가 곧 방법이 된다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-45-p01",
+      "title": "45. 울어도 돼, 손 잡아 줄게!",
+      "pageNumber": 1,
+      "text": "\"이것 봐, 얼음 거울이야!\" 귀가 뾰족한 고양이 키키가 물통 위에 언 얼음을 통째로 들어 올렸어요. 시린 날이라 얼음이 손끝에 착 붙어요. \"노노랑 구구한테 보여 줄 거야!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글. 물통 옆에서 살짝 올려다본다.\n장소·시간 [Shop] 가게 문 앞 물통 옆, 시린 날 낮.\n인물 Kiki cat이 두 손으로 물통 위에 통째로 언 둥근 얼음판을 얼굴 높이까지 들어 올린다 — 팔이 위로 곧게 뻗었고 입꼬리가 올라갔다, 두 귀가 위로 섰다, 초록 방울.\n배경·소품 얼음이 빠져나가 물이 훤히 드러난 나무 물통, 얼음판이 얇아 뒤가 비쳐 보인다, 처마에 매달린 고드름 일곱, 문 앞 돌바닥.\n톤 들어 올린 얇은 흰 판 하나가 화면 위쪽에서 가장 밝아 아래가 넓게 빈다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-45-p06",
+      "title": "45. 울어도 돼, 손 잡아 줄게!",
+      "pageNumber": 6,
+      "text": "\"어? 키키 운다!\" 제일 작고 동그란 참새 노노가 달려왔어요. 가슴이 넓은 비둘기 구구도 달려와 키키 손을 잡았어요. \"울어도 돼, 손 잡아 줄게!\" 노노가 반대쪽 손을 잡았어요.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 얼굴과 양쪽 두 손.\n장소·시간 같은 자리.\n인물 Kiki cat의 얼굴이 화면 가운데에 있고 두 볼에 흰 눈물 조각이 하나씩 있다 — 입이 벌어졌고 두 귀가 눕는다, 목에 초록 방울. 화면 왼쪽에서 Gugu pigeon의 손이, 오른쪽에서 Nono sparrow의 손이 각각 키키의 한 손을 잡았다 — 왼쪽 손목 옆에 초록 천 가방 끈, 오른쪽 손목 옆에 초록 목도리 끝.\n배경·소품 뒤 벽 한 장.\n톤 눈물 두 조각과 좌우에서 들어온 두 손이 화면 가운데에서 셋으로 모인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-46-p02",
+      "title": "46. 미안해, 같이 다시 쌓자!",
+      "pageNumber": 2,
+      "text": "귀가 뾰족한 고양이 키키 꼬리가 축 늘어졌어요. \"아침부터 쌓았는데…\" 노노는 볼이 뜨거워졌어요. 미안하다고 말하고 싶은데 부리가 안 벌어져요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 마주 놓인 두 얼굴.\n장소·시간 같은 가게 앞.\n인물 Kiki cat이 화면 왼쪽에서 무릎을 굽히고 앉아 고개를 들었다 — 긴 꼬리가 뒤로 축 늘어져 눈 위에 통째로 놓였고 두 귀가 아래로 눕는다, 입이 아래로 굽었다, 초록 방울. Nono sparrow는 오른쪽에서 부리를 한 일자로 꼭 다문 채 두 손을 배 앞에 모았다 — 목이 어깨 사이로 들어갔다, 초록 목도리.\n배경·소품 둘 사이 바닥에 흩어진 눈덩이 다섯.\n톤 두 몸 사이 바닥만 아무것도 없이 비어, 그 빈 데가 말이 못 건너간 자리가 된다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-46-p09",
+      "title": "46. 미안해, 같이 다시 쌓자!",
+      "pageNumber": 9,
+      "text": "셋이 다시 쌓아요. 노노는 위에, 키키는 옆에, 구구는 아래에. \"하나, 발을 딱 멈추기! 둘, 얼굴 보고 미안해! 셋, 같이 다시 하기!\" 아까보다 탑이 더 높아졌어요.",
+      "sceneDescription": "컷 미디엄 와이드, 하이앵글. 셋을 비스듬히 위에서.\n장소·시간 [Shop] 가게 앞, 아침.\n인물 Nono sparrow · Kiki cat · Gugu pigeon 셋이 새 탑을 둘러싸고 서서 각자 눈덩이를 하나씩 두 손에 들었다 — 노노는 발끝을 세워 팔을 위로, 키키는 옆에서 단을 다지고, 구구는 무릎을 굽혀 바닥의 눈을 뭉친다, 초록 목도리 · 초록 방울 · 초록 천 가방.\n배경·소품 가슴 높이까지 다시 올라간 탑, 그 옆에 아직 흩어진 채인 어제 눈덩이 다섯.\n톤 세 몸이 하나를 둘러싸 화면 가운데가 가장 두껍고, 둘레로 갈수록 아무것도 없다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-47-p05",
+      "title": "47. 말도 빵처럼, 따뜻하게!",
+      "pageNumber": 5,
+      "text": "구구가 두 손으로 빵을 받았어요. 손바닥이 따끈따끈. 빵에서 김이 모락모락 올라와요. 구구는 빵을 든 채 아까 한 말을 떠올렸어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글. 구구를 조금 아래에서.\n장소·시간 같은 자리.\n인물 Gugu pigeon이 두 손으로 빵을 가슴 앞까지 받쳐 들고 고개를 숙여 그것을 본다 — 어깨가 내려가고 부리가 다물렸다, 한쪽 눈이 다른 쪽보다 크다, 초록 천 가방.\n배경·소품 손바닥 위 빵과 김 한 줄, 뒤로 난로 입.\n톤 화면에서 가장 밝은 것이 두 손 안에 들어 있어 온기가 몸 앞쪽에만 모인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-47-p08",
+      "title": "47. 말도 빵처럼, 따뜻하게!",
+      "pageNumber": 8,
+      "text": "할아버지가 행주로 손을 닦으며 물었어요. \"구구야, 두 손으로 받은 빵은 어땠니?\" \"따뜻했어요!\" 구구가 대답했어요.",
+      "sceneDescription": "컷 미디엄, 로우앵글. 큰 몸을 아래에서 올려다본다.\n장소·시간 [Shop] 난로 옆, 낮.\n인물 Grandpa Badger가 행주로 한 손을 닦으며 고개를 Gugu 쪽으로 돌려 묻는다 — 눈썹 자리의 짧은 조각 둘이 위로 올라갔다, 앞치마. Gugu pigeon은 아래에서 부리를 벌려 대답한다 — 두 손이 아직 빵을 받쳐 들었다, 초록 천 가방.\n배경·소품 난로 문, 그 옆 나무 통.\n톤 큰 몸의 얼굴과 작은 몸의 얼굴이 위아래로 곧게 놓여 물음과 답이 한 줄에 선다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-48-p01",
+      "title": "48. 안녕, 내 옆에 앉아!",
+      "pageNumber": 1,
+      "text": "첫눈이 소복소복 내려요. 셋이 난롯가 긴 의자에 앉아 있어요. 가게 문이 열리고 셋보다 작은 아기 다람쥐가 들어왔어요. \"안녕!\" 제일 작고 동그란 참새 노노가 폴짝 뛰며 인사했어요.",
+      "sceneDescription": "컷 와이드, 아이레벨. 문에서 긴 의자까지가 한 화면에 든다.\n장소·시간 [Shop] 가게 안 난롯가, 첫눈이 내리는 낮.\n인물 Baby squirrel이 화면 왼쪽 문간에 두 발을 모으고 서서 두 손을 배 앞에 꼭 쥐었다 — 셋의 허리께에 오는 키, 몸 어디에도 초록이 하나도 없다. Nono sparrow가 오른쪽 긴 의자에서 두 발을 떼고 폴짝 뛰며 한 손을 번쩍 들었다 — 부리가 크게 벌어졌다, 초록 목도리. Gugu pigeon과 Kiki cat은 그 옆에 앉아 문 쪽으로 고개를 돌렸다 — 초록 천 가방 · 초록 방울.\n배경·소품 반쯤 열린 문틈으로 보이는 골목의 흰 바닥과 떨어지는 눈 조각 열둘, 난로 하나, 긴 의자.\n톤 문틈만 바깥 밝기라 들어온 몸 하나가 그 밝은 조각 안에 서 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-48-p06",
+      "title": "48. 안녕, 내 옆에 앉아!",
+      "pageNumber": 6,
+      "text": "키키 옆에도 한 자리가 비어 있어요. 키키는 그 자리를 두드려 보고 싶어요. 그런데 입도 손도 얼어붙은 것 같아요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 의자 판 한 자리를 비스듬히 내려다본다.\n장소·시간 [Shop] 긴 의자 오른쪽 끝, 낮.\n인물 Kiki cat의 한 손이 화면 왼쪽에서 의자 판 위로 반쯤 올라왔다가 멈췄다 — 손가락 셋이 굽지도 펴지도 못했고, 화면 가장자리에 다물린 입과 목의 초록 방울이 잘려 보인다.\n배경·소품 아무도 안 앉은 의자 판 한 자리와 그 나무 결, 판 끝 너머는 아무것도 없다.\n톤 빈 판 한 자리가 화면을 거의 다 차지해, 두드리지 못한 손보다 자리가 더 크게 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-49-p02",
+      "title": "49. 형아가 보여 줄게, 이렇게!",
+      "pageNumber": 2,
+      "text": "노노는 할아버지가 저도 봐 줬으면 좋겠어요. 따끈한 우유도, 폭신한 무릎도 다 다람쥐 거예요. 노노는 부리를 삐죽 내밀고 난로 뒤로 쏙 들어갔어요.",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨. 난로 옆구리와 벽 사이.\n장소·시간 같은 난롯가.\n인물 Nono sparrow가 난로와 벽 사이 좁은 틈으로 몸을 반쯤 밀어 넣는 중 — 등이 화면 앞쪽이고 부리만 옆으로 삐죽 나왔다, 한 손이 벽을 짚었고 초록 목도리 끝이 아직 틈 밖에 늘어졌다.\n배경·소품 난로 옆면, 화면 오른쪽에 의자 다리와 그 위 무릎에 앉은 작은 두 발, 탁자 위에 김 나는 나무 컵 하나.\n톤 몸이 반은 밝은 데에 반은 좁은 그늘에 걸쳐 있어, 들어가는 중이라는 것이 한 몸에서 갈린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-49-p07",
+      "title": "49. 형아가 보여 줄게, 이렇게!",
+      "pageNumber": 7,
+      "text": "다람쥐가 통을 밟고 폴짝, 의자에 올라갔어요. 울음 뚝! 작은 손이 노노 목도리 끝을 꼬옥 잡았어요. \"형아가 보여 줄게, 이렇게!\" 노노 가슴이 두근두근.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 의자 위 작은 몸과 목도리 끝.\n장소·시간 [Shop] 긴 의자 위, 밤.\n인물 Baby squirrel이 의자 판에 올라앉아 한 손으로 Nono의 초록 목도리 끝을 꼬옥 쥐었다 — 손가락 셋이 천을 감아쥐었고 입이 다물려 울음이 그쳤다, 초록이 없다. Nono sparrow의 목과 어깨가 화면 오른쪽에 들어와 있다 — 가슴이 앞으로 나왔다.\n배경·소품 발밑 의자 판 앞에 놓인 작은 나무 통과 그 윗면에 찍힌 작은 발자국 둘.\n톤 쥔 손 하나가 화면 가운데에서 두 몸을 잇고, 그 아래 통 하나가 방금까지의 일을 다 말한다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-50-p01",
+      "title": "50. 썰매는 살살, 아기 타면!",
+      "pageNumber": 1,
+      "text": "\"다람쥐야, 타! 내가 끌어 줄게!\" 가슴이 넓은 비둘기 구구가 썰매 줄을 잡았어요. 마지막 눈이 눈 언덕에 소복해요. 셋보다 작은 아기 다람쥐가 썰매에 폭 앉았어요.",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 언덕 아래 출발 자리.\n장소·시간 [SnowHill] 눈 언덕 아래, 마지막 눈이 덮인 낮.\n인물 Gugu pigeon이 화면 왼쪽에서 썰매 줄을 한 손에 감아쥐고 고개를 뒤로 돌려 부리를 벌린다 — 가슴이 앞으로 나오고 한 발이 앞으로 나갔다, 초록 천 가방. Baby squirrel은 오른쪽 썰매 판 위에 두 발을 모으고 폭 앉았다 — 두 손이 썰매 앞턱을 잡았고 초록이 하나도 없다.\n배경·소품 나무 썰매 하나, 그 뒤로 언덕이 오른쪽 위로 올라간다, 언덕 발치의 흰 바닥 가장자리가 군데군데 벗겨져 돌이 드러났다.\n톤 언덕 비탈이 화면 오른쪽 위로 곧게 올라가고 두 몸은 그 아래 끝에 있어, 갈 데가 어디인지 기울기로 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-nono-50-p09",
+      "title": "50. 썰매는 살살, 아기 타면!",
+      "pageNumber": 9,
+      "text": "구구가 짧은 줄을 다람쥐에게 보여 줬어요. 다람쥐가 다시 썰매에 폭 앉았어요. \"하나, 줄은 짧게! 둘, 앞을 보고 천천히! 셋, 아기가 웃나 돌아보기!\" 구구가 썰매를 스르르, 스르르 끌어요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨. 비탈을 내려오는 둘.\n장소·시간 [SnowHill] 언덕 비탈, 낮.\n인물 Gugu pigeon이 화면 왼쪽에서 오른쪽 아래로 천천히 걷는다 — 짧게 감은 줄을 한 손에 쥐었고 고개를 뒤로 돌려 썰매를 본다, 두 발이 다 바닥에 붙었다, 초록 천 가방. Baby squirrel은 바로 뒤 썰매 위에 곧게 앉아 앞을 본다 — 두 손이 앞턱을 잡았고 초록이 없다.\n배경·소품 줄이 짧아 썰매 앞턱이 구구 발뒤꿈치 가까이 붙어 있다, 뒤로 곧게 난 자국 두 줄.\n톤 앞의 몸과 뒤의 판이 거의 붙어 한 덩이로 내려와, 아까 화면을 다 가로지르던 줄이 이제 안 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    }
+  ]
+}

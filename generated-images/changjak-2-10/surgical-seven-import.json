@@ -1,0 +1,51 @@
+[
+  {
+    "key": "changjak-mei-42-p10",
+    "collection": "changjak-mei",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mei/lineart/changjak-mei-42-p10.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. At the adult bear's LEFT ear base a white gap remains between the end of the ear loop at x38% y5% and the top of the head at x41% y4%. Draw a solid BLACK connecting bridge between these exact points, joining the ear base to the head. This is the ONLY change. The adult head must become a closed flood-fill region.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-08d31f14-930f-424f-b589-17d6fa736aaa.png"
+  },
+  {
+    "key": "changjak-twins-10-p03",
+    "collection": "changjak-twins",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-twins/lineart/changjak-twins-10-p03.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. The RIGHT rabbit's forehead and ears leave the image at the TOP edge. Redraw JUST that right rabbit's head and both ears slightly shorter so the entire CLOSED head outline is visible between y4% and y36%. Both ear tips and forehead must be INSIDE the canvas. Keep its existing hands/body, left rabbit and stones untouched.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-77bcd4b8-e227-46d9-a175-47372e8a47cb.png"
+  },
+  {
+    "key": "changjak-mio-29-p07",
+    "collection": "changjak-mio",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mio/lineart/changjak-mio-29-p07.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. Add a smooth CLOSED oval FACE BOUNDARY inside the curly hair, passing beneath the hairclip at top, along cheeks behind the two fingers, and along the chin. Center x50% y49%, width40% height62%. All facial features stay inside this new closed oval. Curly hair outside it can remain open. This new face boundary must NOT connect to open bottom hair.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-a5e9998b-0e23-4e3c-898c-4ced496af0c5.png"
+  },
+  {
+    "key": "changjak-nono-02-p04",
+    "collection": "changjak-nono",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-02-p04.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. Close the huge white chest/belly below the beak: draw a bold smooth U-shaped bottom contour from x25% y62% down to x50% y95% up to x76% y62%. Join both upper ends into the existing beak/chest outline. The entire chest must be an enclosed large white oval INSIDE the image. Preserve face and suspenders.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-5c3d7c40-a5c1-4346-8bb3-493aa0af8c3b.png"
+  },
+  {
+    "key": "changjak-nono-06-p09",
+    "collection": "changjak-nono",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-06-p09.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. The adult apron is OPEN through the top canvas edge. Add a BOLD horizontal curved apron neckline from x42% y8% to x59% y8%, joining the two apron straps and side edges so the entire apron below that line is completely CLOSED. Existing apron hem is already closed. Do not add a head. Preserve three figures holding hands.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-5cc749fd-5e9e-4567-bf4f-3f056c2eca41.png"
+  },
+  {
+    "key": "changjak-nono-37-p10",
+    "collection": "changjak-nono",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-37-p10.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. The adult's apron leaves the BOTTOM edge. Add a BOLD curved apron bottom hem 40 pixels ABOVE the bottom image edge, joining the existing apron left and right edges. Ensure the entire huge apron is enclosed INSIDE the canvas. Preserve adult petting small bird's head and all faces.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-c2214841-3fa4-4e46-b0ec-0e532ad0e252.png"
+  },
+  {
+    "key": "changjak-nono-48-p06",
+    "collection": "changjak-nono",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-48-p06.png",
+    "prompt": "Edit this exact black-and-white coloring drawing. Make the specific geometric repair below; do not redraw the rest of the scene. Use pure white surfaces and thick pure black 16px unbroken lines, no fill/shading/color/text. Replace the blanket outline with a COMPLETELY CLOSED slightly tilted rectangle whose FOUR CORNERS are all inside the canvas, x7% to92%, y10% to88%. Keep the two existing hands gripping it, but join hand contours into its left/right sides WITHOUT any gap. The blanket is the main coloring island. Its entire bottom/left/top edges must be fully visible. Keep character count and action.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-34c17186-c5d6-489a-9b26-5e99efa62727.png"
+  }
+]
