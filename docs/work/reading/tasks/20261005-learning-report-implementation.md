@@ -71,3 +71,11 @@
 - 실제 로그인·아이 선택 후 직접 URL 새로고침에서 선택 자녀가 초기 빈 profiles 때문에 삭제되는 실결함을 재현했다. 계정별 profiles 조회 완료 ID가 맞을 때만 선택 검증/활동 프로필 노출. 일반 refresh 중엔 기존 정상 자녀를 유지하고 계정 전환 중엔 노출하지 않는다.
 - 실제 부모 화면에서 한글128개·영어359개 분리, 고기24회 상세(쓰기4·블록20), APPLE→apple 검색, 기록 없는 아이0 상태를 확인했다. 조회 대상 변경은 활동 아이를 바꾸지 않는다. 모바일 시안의 이전 검증과 실제 운영 실기기 검증을 혼동하지 않는다.
 - 수정 후 auth/learning/phonics lib 35파일271테스트 통과, 5언어 key 검증 통과. 전체 typecheck·client build 결과와 운영 후속 배포/추천 변화는 전달 완료 때 추가 기록한다.
+
+### QA 전달 결과
+
+후속 수정 726b1deee를 사용자 승인 범위로 main push했다. 운영 index-gvGxWUY7 / ParentReportsPage-PKbO-FwM에서 overview.reviewNote가 포함된 실제 번들 및 /health 200을 확인했다. 실제 로그인 UI를 새로고침해 테스트민준 선택 유지와 고기 복습 제안을 확인. 별도 자녀의 고기 첫 시도 오답2회→고기 복습, 이후 첫 시도 성공2회 추가→미연습 아기 제안으로 전환되는 서버 기록/운영 화면을 확인했다. 해당 자녀의 고기 직접 연습은2회→4회, 기간 고유 연습 낱말은1개 유지. 브라우저 DOM 근거는 ignored scratch의 adaptive-before/after.txt에 보관.
+
+최종 저장 샘플 2,552건(주 계정 2,551 + 격리1), 보류 다국어300건. 71개 파닉스 단원의 운영 phonicsConfig.targetWords와 현재 shared sampleWords 전수 일치. 최초 로컬 감사2건 차이는 오래된 shared/dist 때문으로 shared 재빌드 후71/71 확인했다. source/운영 콘텐츠 불일치로 단정하거나 고치지 않았다.
+
+auth/learning/phonics lib35파일271테스트, 전체 shared/server/client typecheck, client production build, locale parity, 변경 TS ESLint 및 script node --check 통과. 기존 build 경고는 남는다. 계정 두 개의 생성/자녀/학습 기록은 전용 QA 범위에만 수행했고 운영 schema는 아직 수정하지 않았다. Supabase SQL 로그인 요청을 보냈으나 관리자 세션은 아직 없어 migration 미적용, vi/zh/th300건 검증 미완료. 대량 서버집계·단어 지정 출제·난이도 자동 적응·실제 아동 학습효과 검증은 완료 범위가 아니다. 나중 재실행 시 전용 fixture 외에 실제 놀이 기록이 추가되면 QA exact count 기대를 재확인한다.
