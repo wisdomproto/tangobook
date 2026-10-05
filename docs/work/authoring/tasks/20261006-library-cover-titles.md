@@ -48,3 +48,9 @@
 - client typecheck 및 build 통과. 최종 NFC/지역태그 보완 후 관련3파일15tests 재통과. build의 기존 Browserslist/Lottie/chunk 경고 보존. 운영 preferred-font DB/R2 등록 및 main push/코드 배포는 하지 않았다.
 - 표지는 기존365권 전수 재작화 계속 진행: 실제 generated247, failures6, registered-verified71 snapshot. 등록71은 CDN 버전 SHA/가로비율/표지외 데이터 보존 완료이고 생성247을 등록/검수 완료로 확대하지 않는다. 창작850권은 실제 전부 cleanCoverImage가 있어 별도 수정하지 않는다.
 - 남은 실행은 exec680 8동시 표지 생성 하나이다. 중복 생성/불확실 요청 재제출 금지. 다음은 남은 immutable ID/SHA contact sheet 검수와 검증한 표지 순차 등록, 실제 거절6건의 안전한 대표 장면 후속이다. 폰트 지원은 완료했지만365 표지 재작화 전체 작업은 아직 완료하지 않았다.
+
+## 폰트 로컬 커밋 / 다음 표지 묶음
+
+- 폰트·UI·관련 스크립트·기록은500ded7b 로컬 커밋 완료. 실제 hooks eslint/prettier 통과, 마지막 client typecheck 재통과. main push/운영 코드 배포 없음. 검수용 폰트/library 임시2탭만 닫았고 사용자gallery tab1 보존.
+- immutable snapshot d85b842efb27의 다음191개 표지를12시트 전부 실제 원본/표지 대조했다. 작품/캐릭터/그림체/주요 장면·무제목·가로 구도 통과한191개만 PNG 실제 SHA 재확인 후 visually-approved로 기록. 이후 생성은 이번 육안 검수에 포함하지 않는다.
+- approved-d85b842efb27.json의191개 순차 등록을 exec779로 시작했다. 실행중 중복 등록 금지, cell이 shell session ID를 반환하면 해당 session의 종료/ledger를 확인한다. 이미 등록한71개와 이번191 승인/진행중 등록 수를 구분한다. raw 생성 exec680은 계속 진행하고 전체 완료 전 재시작/자동화 종료하지 않는다.
