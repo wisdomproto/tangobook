@@ -1,0 +1,33 @@
+{
+  "checked_date": "2026-10-05",
+  "sources": {
+    "market": "https://www.grandviewresearch.com/horizon/outlook/child-care-services-market/asia-pacific",
+    "enrolment": "https://www.oecd.org/en/publications/society-at-a-glance-asia-pacific-2025_24fa8f05-en/full-report/early-childhood-education-and-care_b45e19ca.html",
+    "korean": "https://www.ksif.or.kr/cop/bbs/selectBoardArticle.do?bbsId=BBSMSTR_000000000071&nttId=9220000008060&pageIndex=1",
+    "education": "https://www.myeyelevel.com/Malaysia/resources/news/view.do?boardSeq=3004"
+  },
+  "market": {
+    "region": "Asia-Pacific (includes Australia)",
+    "scope": "Child care services, not preschool language applications",
+    "revenue_usd_million_2024_estimate": 123004.2,
+    "revenue_usd_million_2030_forecast": 162905.5,
+    "cagr_2025_2030_percent": 4.8,
+    "publisher": "Grand View Research"
+  },
+  "participation": {
+    "publisher": "OECD 2025",
+    "observation_period": "2010–2020",
+    "finding": "Pre-primary net enrolment increased in about three-quarters of Asia-Pacific countries with available data"
+  },
+  "korean_demand": {
+    "publisher": "King Sejong Institute Foundation",
+    "publication_date": "2026-07-03",
+    "2025_global_learners": "over 230,000",
+    "2026_institutes": 273,
+    "2026_countries": 89,
+    "scope": "global, not preschool-only"
+  },
+  "k_edu_definition": "Korean-style education plus Korean language learning; definition specified by user",
+  "korean_education_example": "Daekyo Eye Level Malaysia 2023 official announcement; historical operating example, not proof of preschool-wide popularity",
+  "interpretation": "Broad early learning/care market growth and Korean-language interest provide context for TangoBook opportunity; no direct TAM, preschool willingness-to-pay or competitive superiority claim."
+}
