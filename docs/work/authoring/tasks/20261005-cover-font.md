@@ -61,4 +61,14 @@ TTF/WOFF2 cmap·윤곽·metrics 일치, 모든 베트남어 알파벳의 NFC/NFD
 
 ## 인계·통합
 
+### 2026-10-05 표지 사용 지침·운영 등록·main push 요청
+
+사용자는 AGENTS.md 등에 표지용 기본 폰트 사용을 기록하고 폰트 DB 업로드 및 main push를 요청했다. docs/cover-fonts.md를 공통 원본으로 만들고 AGENTS/CLAUDE/editor CLAUDE에 연결했다. 새 표지는 v0.2 지원 글자 확인 후 책별 색/테두리를 사용하고, 클린 표지 위에 텍스트를 별도로 배치한다. 미지원 문자는 추가 제작/검수 후 사용한다. 기존 표지 일괄 교체/편집기 UI 구현은 이번 범위가 아니다.
+
+두 버전의 TTF/WOFF2/coverage/verification과 버전 등록 목록 총9개를 R2 fonts/tangobook-story-hand에 immutable 업로드하고 CDN SHA256 전수 일치를 확인했다. 등록 스크립트는 기존 다른 내용과 충돌하면 중단하며 덮어쓰지 않는다. 예전 실행을 재사용하면 같은 바이트는 업로드하지 않는다.
+
+운영 Supabase에 cover_font_assets 마이그레이션 **20261005104926** 적용 성공, v0.1.0/v0.2.0 두 행과 지원 글자128/299·다운로드주소·SHA256·coverage/검증 메타데이터 등록/재조회 완료. v0.2 preferred=true, RLS=true·anon/authenticated SELECT 권한 false 확인. 기존 관리 MCP OAuth 경로를 사용했고 자격증명 복사/출력/커밋 없음. SQL은 새 테이블과 두 자산에만 한정했다.
+
+증거: C:/projects/tangobook/output/cover-type-studies-20261005/font-registration (upload registry/DB 전후/migration/등록/조회 결과). publish 스크립트 node --check 및 git diff --check 통과. 앱 동작 코드 변경이 없어 monorepo 전체 검증을 반복하지 않는다. 사용자 승인된 main 통합/push를 진행한다.
+
 관련 폰트/재현 원본·빌드·검증·미리보기와 기억을 함께 로컬 커밋한다. main 통합·push/배포 미요청. 기존 사용자 작업/시안/운영 표지는 보존했다.
