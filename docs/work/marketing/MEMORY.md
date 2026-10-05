@@ -1,5 +1,7 @@
 # 마케팅·채널 운영 기억
 
+2026-10-05 [브랜딩 전략의 내부 팀 HTML](../../marketing/branding-organic-strategy-2026-10-05.html) 추가: 기존 이미지 17종을 25개 위치에 포함, 캠페인·채널·실행안·의사결정 중심 12개 절. 단일 파일로 오프라인 열람, 정적 구조/이미지/JS 검증 통과. 브라우저 file URL 정책으로 화면 확인 불가. 확정·제안·연계 예정과 홍보 비주얼을 구분. docs만 수정, 외부 게시·push 없음.
+
 2026-10-05 [브랜딩·오가닉 전략 갱신](../strategy/tasks/20261005-branding-organic-strategy.md): 부모 학습·아이 재미를 동시에 설명하고 파닉스·동화·색칠·블록·쓰기 및 아날로그를 연결한다. [새 실행 초안](../../marketing/branding-organic-strategy-2026-10-05.md)에 검색 유입→실제 체험→연결 활동→재방문, 채널 역할과 8주 제안을 정리했다. 과거 brand-brief의 그림체 4종·초대 보상·채널 수치를 현재 확정 기준으로 쓰지 않는다. 플레이노트는 연계 예정. 외부 게시·예약 변경·push 없음.
 
 2026-10-04 [인어공주 영상 v1 등록](../authoring/tasks/20261004-little-mermaid-video-registration.md): 기획 3696ea56-0b4e-542c-a4b5-c6308ed02164에 KO/EN 롱폼 2행·릴스 2트랙을 Editor2와 동일 파일/SRT/MP3/표지 링크로 연결했다. 정식 책 원본 연결, draft/confirmed=false, 외부 발행 없음. 운영 양 언어 롱폼·릴스 표시와 숏폼 플레이어 로딩 확인. 사용자 main push 요청으로 관련 기억을 통합한다.
