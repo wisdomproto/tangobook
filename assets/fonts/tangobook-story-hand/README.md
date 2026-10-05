@@ -1,5 +1,20 @@
 # TangoBook Story Hand — Trial 0.1
 
+## 아시아 확장 시험판 0.2
+
+사용자 요청으로 등록된 아시아 언어 전체(ko/ja/zh/vi/th/ms/id)와 영어의 제목 시험판을 추가했습니다. 기존 v0.1 파일은 그대로 보존합니다.
+
+- `dist-asian/TangoBookStoryHand-AsianTrial-Regular.ttf`, `.woff2`: **TangoBook Story Hand Asian Trial**. Unicode 299개. 영문·말레이어·인도네시아어는 기존 라틴 글자, 베트남어는 대소문자 성조/모음 변형, 일본어·중국어·태국어는 인어공주/라푼젤 시험 제목에 필요한 글자만 지원합니다.
+- `preview-asian.html`: 입력·색·테두리 조절 및 실제 cmap 기준 누락 글자 표시.
+- `dist-asian/coverage.json`, `verification.json`: 정확한 지원 범위와 검증. **7개 아시아 언어 전체 글자를 완성한 폰트가 아닙니다.**
+- `build_asian.py`, `verify_asian.py`, `render_asian.py`: 확장·정규화/기호 배치 검증·실제 TTF 표지 렌더. 원본은 `sources/ja-grid.png`, `zh-grid.png`, `th-grid.png`; 생성 프롬프트/도구는 `sources/asian-prompts.json`.
+
+베트남어 기호는 자체 라틴 윤곽 위에 새 벡터로 구성합니다. Thai mark/mkmk를 사용해 샘플에 필요한 3종 기호를 zero advance/anchor로 배치합니다. 다른 폰트 윤곽을 가져오지 않았습니다. 색과 테두리는 계속 외부 표시 설정입니다.
+
+재현: v0.1 빌드 후 `python build_asian.py`, `python verify_asian.py`. 실제 표지는 `python render_asian.py --art-root <기존 cover-type-studies 폴더> --output <출력 폴더>`로 생성합니다(ImageMagick RSVG 필요).
+
+일본어·말레이어·인도네시아어 제목은 디자인 시험용 예시이며 등록된 번역으로 저장하지 않았습니다. 실제 catalog의 제목 번역은 en/zh/vi/th가 확인되었습니다. 시스템 등록 언어 11개(ko/en/ja/zh/es/fr/de/vi/th/ms/id)와 현재 책 번역 언어를 구분합니다. 네이티브 화자의 글자 조형/번역 검수, 전체 문자 확장, 제품 적용은 남아 있습니다. HTML은 정적 구문/지원 범위만 검사했으며 브라우저 UI 실행은 미검증입니다.
+
 탱고북 표지용 손글씨체 B를 바탕으로 만든 첫 **실제 단색 벡터 폰트**입니다. 기존 서체의 윤곽을 복사하지 않고 승인 조형 시안 → 새 글리프 원본 → TrueType 이차 곡선으로 제작했습니다. 전체 한글 서체가 아닌 제한된 시험판입니다.
 
 ## 파일과 사용

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-05 [표지 손글씨체 아시아 v0.2](../work/authoring/tasks/20261005-cover-font.md): 사용자 등록아시아언어전체 선택. ko/ja/zh/vi/th/ms/id와 en의 제목시험판 Unicode299개 TTF/WOFF2·입력미리보기·인어공주/라푼젤8언어 실제윤곽출력 완료. 베트남어 성조 대소문자 지원, 한/일/중/태 전체글자 미완성. Thai기호배치·VI정규화·바이너리·재빌드해시 통과, 네이티브검수/범위확대/제품적용 남음. 시스템등록11언어와 실제catalog 번역en/th/vi/zh 구분. 로컬커밋만, 운영데이터/표지 변경 없음.
+
 2026-10-05 [표지 손글씨체 시험판](../work/authoring/tasks/20261005-cover-font.md): 사용자 B 손글씨/책별 색 맞춤형 선택 후 실제 폰트 제작 요청. assets/fonts/tangobook-story-hand에 단색 벡터 TTF·WOFF2 v0.1(한글24자/Unicode128개)·재현 원본/빌드·색/테두리 미리보기를 만들었다. FreeType/윤곽/WOFF2동일성/HarfBuzz커닝·정규화/여섯표지출력·재빌드해시 검증 완료. 전체 한글·다른 문자권 미지원, 제품/운영 표지 적용·main 통합/push 없음. 상세와 로컬 전달 폴더는 작업 기록 참조.
 
 2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
