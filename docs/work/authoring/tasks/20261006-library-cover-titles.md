@@ -54,3 +54,11 @@
 - 폰트·UI·관련 스크립트·기록은500ded7b 로컬 커밋 완료. 실제 hooks eslint/prettier 통과, 마지막 client typecheck 재통과. main push/운영 코드 배포 없음. 검수용 폰트/library 임시2탭만 닫았고 사용자gallery tab1 보존.
 - immutable snapshot d85b842efb27의 다음191개 표지를12시트 전부 실제 원본/표지 대조했다. 작품/캐릭터/그림체/주요 장면·무제목·가로 구도 통과한191개만 PNG 실제 SHA 재확인 후 visually-approved로 기록. 이후 생성은 이번 육안 검수에 포함하지 않는다.
 - approved-d85b842efb27.json의191개 순차 등록을 exec779로 시작했다. 실행중 중복 등록 금지, cell이 shell session ID를 반환하면 해당 session의 종료/ledger를 확인한다. 이미 등록한71개와 이번191 승인/진행중 등록 수를 구분한다. raw 생성 exec680은 계속 진행하고 전체 완료 전 재시작/자동화 종료하지 않는다.
+
+## 19:27UTC 후속 — 실제 등록262 / 추가49 순차 등록
+
+- 실제root/branch/status/worktree 재조회, HEAD0f424197(폰트500ded7b+문서)와 기존미추적 prototype/생성 PNG를 보존했다. 폰트 재빌드/새push/배포 없음.
+- 앞191 순차 등록 session58774 정상 exit0. 실제 ledger191 전부registered-verified, 프로세스76416 종료 재조회. 기존71과 합계262권 클린표지 CDN/비율/표지외 필드 검증 완료.
+- 다음 snapshot2e6a0f761433의36권3시트와35e17ccee6ab의13권1시트를 실제 원본/선화 아닌 새 표지와 대조했고 작품 주제·그림체·대표 장면·가로 구도·무제목 통과. immutable ID/SHA 및 PNG SHA 재확인한49만 visually-approved 기록. 이미191등록이 끝난 뒤 새 순차등록 session90420 시작, 아직진행중이므로 중복 registrar 금지.
+- 생성 exec680은 계속진행: actual generated322 / failed-or-uncertain9 snapshot. 이후 생성은 이번 육안 검수에 포함하지 않는다. 전체365완료가 아니다. 실패9 중 기존6의 image tool 거절은 앞 기록, 새3(1777266835789 피노키오2/1777272102062 라푼젤2/1778555233699 백설2)는 실패ledger와 옛submitted-or-running request만 현재 확인했다. 오류 종류/출력 확정 전에 같은요청 재제출하지 않는다. functions load cover-failure-ID에 값이 없었으므로 저장 오류를 읽었다고 보고하지 않는다.
+- 다음은90420 종료/ledger 확인, 아직검수하지않은 새 생성 immutable시트 검수·반영, 마지막 producer 정상종료 후 불확실 요청/실제 출력 원본 SHA를 대조하여 안전한 후속. 모든850창작/본문게임은 보존하며 자동화10분 유지.
