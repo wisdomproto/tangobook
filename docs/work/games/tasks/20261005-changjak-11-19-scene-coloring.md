@@ -51,3 +51,5 @@ HTML25탭/새9분류 목록과 editor2 카탈로그 빌더는 실제350권 수�
 후속 사용자 “좋아. 메인에 푸시하자”가 이 작업의 main push 승인이다. origin/main 5d3fdb74와 작업브랜치42/60개 분기 이력을 확인하고 origin/main을 정상 merge했다. 기존 원격 영상관리/창작낱말색칠/학습보고서/브랜딩 변경을 보존하며 editor2 videoLibrary와 showSceneColoring을 함께 연결했다. 공유 기억은 양쪽 새 기록을 보존하고 오래된 여섯분류 진행 문구만 최신완료 기록으로 대체했다. main 이력 재작성이나 다른 worktree 변경 없음.
 
 병합 후 팔레트/책별catalog/장면탭22테스트와 영상·장면색칠 TabBar 통합2테스트, client typecheck/build 및 충돌해결코드 ESLint 통과. 실제 원격 main에 HEAD:main 일반 push하고 원격 SHA 일치를 확인한다. 책 본문/R2운영책 데이터 변경은 없으며 Railway 배포는 원격main 후속 자동화로 별도 상태다. 과거 main push 미요청 문구는 제작 당시 사실이고 이번 명시 승인으로 갱신된다.
+
+main push 완료: 구현·통합 커밋 da801cf8을 일반 push했고 fetch/ls-remote로 원격 main과 동일 SHA를 확인했다. 5d3fdb74부터 정상 fast-forward이며 force push 없음. 최종 인계 기록도 후속 문서 커밋으로 main에 저장한다. Railway 실행/운영 화면 반영 완료는 별도 미검증이며 push 성공과 구분한다.

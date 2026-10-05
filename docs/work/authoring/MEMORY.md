@@ -1,5 +1,7 @@
 # 동화책 저작도구 기억
 
+2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
+
 2026-10-05 사용자 main push 승인: editor2 장면 색칠 탭과 최종1215권2430장 catalog를 최신origin/main과 통합. 기존 영상관리 videoLibrary 및 장면색칠 showSceneColoring을 동시에 유지, TabBar 통합2테스트/장면8테스트/typecheck/build 통과. 운영 책 본문 일괄 쓰기 없음. [기록](../games/tasks/20261005-changjak-11-19-scene-coloring.md).
 
 2026-10-03 [editor2 장면 색칠](tasks/20261003-editor2-scene-coloring.md): 동화책 전용 탭에 책 ID별 최종 도안365권730장 원본/선화와 ColoringPlayer 전체화면 미리보기를 연결. v1/파닉스 보존, 언어별 정확한 쪽 본문/음원·명시sampling 유지. 저장소 catalog 연결이라 운영 책 본문 일괄변경 없음. client 타입/빌드/lint 및8테스트 통과, 실제 editor2 목록표시 확인; 미리보기 이후 브라우저 연결timeout으로 이번 경로 실제붓질은 미확인. 로컬커밋만/운영push 미요청.

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
+
 2026-10-05 사용자 main push 승인: 장면 색칠/editor2 탭/창작1~19 최종 catalog1215권2430장을 origin/main5d3fdb74와 정상 병합. 원격 영상·낱말색칠·학습보고서·브랜딩 기록 보존, 두 editor2 탭 동시 유지·24테스트/typecheck/build 통과. 관련 작업 main 일반push 범위이며 운영책 데이터 덮어쓰기 없음. [기록](../work/games/tasks/20261005-changjak-11-19-scene-coloring.md).
 
 2026-10-05 [창작동화11~19 색칠](../work/games/tasks/20261005-changjak-11-19-scene-coloring.md): 사용자 image skill 지정에 따라 builtin imagegen 350권700장 생성/전장 원본·선화·sharedfilled·mono·SHA 대조 및 대표9실제게임 완료. 승인tests HTML25탭/1215권2430장 게시와 editor2 책별 catalog 갱신. 공개 대표 달이01p5 실제붓질/5쪽전환 추가확인, 전700장 실제게임/native 검증으로 확대하지 않음. 기존1730장 보존/운영 책 변경·mainpush·운영 editor2 배포 없음. 공개1400이미지SHA 최종결과는 task 참조.
