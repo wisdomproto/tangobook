@@ -7,7 +7,7 @@
   "unpublishedStorybookEditions": 853,
   "creativeSeries": 19,
   "creativeCatalogue": 850,
-  "countingNote": "Book edition records; same story in different art styles is counted as separate editions. Catalogue includes unpublished works at different production stages; it does not mean all assets are complete.",
+  "countingNote": "Counts are book editions; same story in different art styles is counted separately. Registry total 1215 is distinct from current lineup 1212. Current lineup includes 850 creative books announced for upcoming release; these are not all public yet.",
   "categories": [
     {
       "category": "세계 명작",
@@ -169,5 +169,11 @@
       "books": 25,
       "public": 0
     }
-  ]
+  ],
+  "currentLineup": 1212,
+  "currentLineupDefinition": "Public storybook editions (362) + creative 19-series catalogue (850), as confirmed by the user on 2026-10-05.",
+  "creativeReleaseStatus": "User confirmed: to be published soon; no exact release date set.",
+  "otherUnpublishedNotInCurrentLineup": 3,
+  "documentDisplay": "+1000권",
+  "documentPresentationBasis": "User instructed the team strategy document to assume all 1212 current-lineup books have been released. This is the document scenario, not a live publishing action or observation."
 }
