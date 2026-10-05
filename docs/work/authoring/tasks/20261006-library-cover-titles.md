@@ -62,3 +62,13 @@
 - 다음 snapshot2e6a0f761433의36권3시트와35e17ccee6ab의13권1시트를 실제 원본/선화 아닌 새 표지와 대조했고 작품 주제·그림체·대표 장면·가로 구도·무제목 통과. immutable ID/SHA 및 PNG SHA 재확인한49만 visually-approved 기록. 이미191등록이 끝난 뒤 새 순차등록 session90420 시작, 아직진행중이므로 중복 registrar 금지.
 - 생성 exec680은 계속진행: actual generated322 / failed-or-uncertain9 snapshot. 이후 생성은 이번 육안 검수에 포함하지 않는다. 전체365완료가 아니다. 실패9 중 기존6의 image tool 거절은 앞 기록, 새3(1777266835789 피노키오2/1777272102062 라푼젤2/1778555233699 백설2)는 실패ledger와 옛submitted-or-running request만 현재 확인했다. 오류 종류/출력 확정 전에 같은요청 재제출하지 않는다. functions load cover-failure-ID에 값이 없었으므로 저장 오류를 읽었다고 보고하지 않는다.
 - 다음은90420 종료/ledger 확인, 아직검수하지않은 새 생성 immutable시트 검수·반영, 마지막 producer 정상종료 후 불확실 요청/실제 출력 원본 SHA를 대조하여 안전한 후속. 모든850창작/본문게임은 보존하며 자동화10분 유지.
+
+## 19:58UTC 후속 — 클린 표지359 등록 / 도구 거절6 판단 대기
+
+- exec680 정상종료: 첫 별도1+묶음353=354 저장, failed-or-uncertain11. 원래365 계획/실패/request 기록을 보존하며 완료 producer 재시작하지 않는다. 폰트0.4.0 및 UI 로컬 완료 상태는 유지하고 재빌드·main push·운영 코드 배포 없음.
+- 앞49 session90420 exit0 →19 session17918 exit0 →17 session19394 exit0 →마지막7 session79979 exit0 순차 실행. snapshot f888b3d25c4f/21fafcf86f0d/70b063ff5893의 실제 원본·새 표지 전시트 대조/SHA 승인 후 등록했고 정상 원래354권 전부 registered-verified.
+- 실패11 원본 cover/본문 paired contact 00·08 실제 육안 대조. 기존6의 실제거절/새5의 불확실 원래 오류 종류는 구분했다. 완료 producer에 saved output 없는11에 새 alternate-scenes-plan/alternate-requests를 먼저 고정하고, 이전 실패 요청과 다른 평화로운 대표 장면을 새 builtin 호출로 생성했다. 생성 reference=[]인 텍스트 기반 새 구도이며 원본 사진을 도구에 넣었다고 보고하지 않는다. 원래 references SHA는 보존했다.
+- 새 알라딘2(램프/시장), 정글북2·3(동물 숲), 라푼젤2·1(탑/긴머리 환경)5개는 실제 paired sheet8c5dc9e41c8d 대조로 작품주제·매체·무제목·가로 통과. 새로운 실제 prompt/reference 출처를 saver followupRequest로 저장하고 session46651 정상exit0 등록.5 PNG/실제 CDN WebP 버전SHA·16:9·표지외 전체필드 deepcompare 통과. 큰 generated-images 디렉터리의 alternate-requests.json에 실제 재시안 요청·상태도 저장.
+- **남은6**: 피노키오2 1777266835789/백설2 1778555233699/백설3 1789350946295/피노키오3 1789350946328/피노키오1 1789350946329/앨리스3 1789350946347. 새 평화로운 시안도 HTTP400 moderation_blocked(output/other) 거절, 실제 error/requestID를 alternate-requests에 보존했다. 같은 요청 반복/필터우회/자동 모델 전환 금지. 사용자에게 별도 API 키가 필요한 imagegen CLI/API 방식 전환 또는6기존표지 보존 선택을 비동기로 요청했다. 답변 전 종속 생성은 진행하지 않는다.6권을 등록 완료로 확대하지 않는다.
+- registration-audit-final-pending-six.json: 실제359 registered ledger의 protected before/after 전체필드 재대조 및 저장CDN SHA/가로비율 재확인. CDN 버전URL 다운로드는 각등록 시 실제 수행한 증거이며 이번359 새브라우저검증으로 보고하지 않는다. 현재1310 목록 재조회 preservation-audit.json:850창작+95파닉스 cover/cleanCover/coversByLang/title/titleTranslations/pageCount 불변. 이 목록감사를850본문 새deepcompare라고 확대하지 않는다. frozen365 외 registrar 수정 불가.
+- saver alternate metadata guard 및 immutable original source 비교시트 보완, JS node --check2/py_compile 통과. 기존 서버·gallery1 보존, 임시탭 추가없음. 자동화10분은 판단 대기·거절 재제출 금지로 갱신한다. 전체365완료 알림/자동화 비활성화 조건은 아직 충족하지 않았다.

@@ -285,3 +285,5 @@
 2026-10-05 [학습 리포트 QA 전달](../work/reading/tasks/20261005-learning-report-implementation.md):726b1deee 원격 main·운영 번들 확인,샘플2,552건·271tests 및 실제 추천 변화 검수 완료. 오답 복습/최근 성공 후 미연습 낱말로 제안 변화/선택 자녀 reload 유지.5언어 DB constraint migration은 Supabase 관리자 로그인 대기,300건 미검증. 인증 자료는 ignored scratch에만 보관.
 
 2026-10-05 [학습 리포트 다국어 운영 완료](../work/reading/tasks/20261005-learning-report-implementation.md): 사용자 Supabase 연결 후 제약5언어로 확장,보류300건 저장 및 실제 부모 화면 검증 완료.전체샘플2,852건/API20검사 통과.이전 DB 관리자 대기 메모를 대체한다.
+
+2026-10-06 [라이브러리 전체 전용폰트·클린 표지](../work/authoring/tasks/20261006-library-cover-titles.md): 폰트0.4.0/11언어 로컬검증 완료, 기존365 클린표지359 실제등록/CDN SHA·16:9·표지외필드 보존. 남은6 새 builtin 요청도 거절하여 API 전환/기존표지 보존 선택 대기, 자동 재제출 금지.850창작/95파닉스 cover·title·pageCount 목록 불변.이번UI main push/운영배포 없음.

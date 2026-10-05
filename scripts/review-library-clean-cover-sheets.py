@@ -8,6 +8,8 @@ from PIL import Image, ImageOps, ImageDraw, ImageFont
 
 root=Path(os.environ.get('COVER_WORK_ROOT','D:/ComfyUI-output/missing-storybook-covers-20261005'))
 books=json.loads((root/'books-before.json').read_text(encoding='utf-8'))
+plan_file=root/'generation-plan.json'
+original_refs={r['id']:r.get('references',[]) for r in json.loads(plan_file.read_text(encoding='utf-8'))} if plan_file.exists() else {}
 records=[json.loads(p.read_text(encoding='utf-8')) for p in sorted((root/'generated').glob('*.json'))]
 requested=set(sys.argv[1:])
 records=[r for r in records if r['id'] in requested] if requested else [r for r in records if r['status']=='generated-awaiting-visual-review']
@@ -23,7 +25,10 @@ for start in range(0,len(records),16):
         x=(i%4)*500
         y=(i//4)*360
         draw.text((x+6,y+3),r['id']+' '+books[r['id']]['title'],font=font,fill='black')
-        source=ImageOps.contain(Image.open(r['references'][-1]['path']).convert('RGB'),(220,220))
+        # Alternate scenes may have no generation reference. Compare to the frozen
+        # interior artwork, without claiming it was passed to the generation tool.
+        refs=r['references'] or original_refs[r['id']]
+        source=ImageOps.contain(Image.open(refs[-1]['path']).convert('RGB'),(220,220))
         cover=ImageOps.contain(Image.open(r['output']).convert('RGB'),(250,325))
         sheet.paste(source,(x+4,y+65))
         sheet.paste(cover,(x+235,y+30))
