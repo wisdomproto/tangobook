@@ -21,3 +21,5 @@
 - `activity-coloring-source.json`: 영어 단원 cat과 같은 낱말의 실제 색칠 도안 출처.
 - `multilingual-cover-sources.json`: 거인의 정원 한국어/영어/베트남어/중국어/태국어 실제 표지 출처.
 - `tree-record-diagram.svg`: 나무 콘텐츠와 기록 설명 연결. 오리 예시는 7절 연결·리포트에서만 사용.
+
+- 실제 리포트: `report-storybook-sample.webp`는 주간 읽기·책·복습어휘, `report-phonics-sample.webp`는 한글 학습표 설명에 대응. 운영 제품 화면/샘플 데이터이며 `report-capture-sources.json` 참조. 7절 가상 텍스트 기록 목업을 대체.
