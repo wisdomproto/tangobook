@@ -2,12 +2,12 @@
 
 - id: 20261005-learning-report-implementation
 - domain: reading
-- status: ready
+- status: integrated
 - updated: 2026-10-05
 - base: ea4c48852
-- branch: codex/learning-report
-- worktree: C:/Users/kil21/.codex/worktrees/learning-report/tangobook
-- integration: 구현·기억 로컬 커밋 후 main 통합 대상.
+- branch: main
+- worktree: C:/project/tangobook
+- integration: codex/learning-report의 5f098bd23을 main 1b6a6ca77로 cherry-pick. 기획 세션의 변경 보존.
 - delivery: 로컬 구현·검증. 제품 코드 push/배포 미요청.
 
 ## 요청
@@ -20,7 +20,7 @@
 
 ## 진행과 검증
 
-핵심 수집·어휘 근거·모바일 리포트 구현 및 로컬 검증 완료. main 로컬 통합 대상이며 운영 schema/실데이터 검증과 배포를 완료한 것은 아니다.
+핵심 수집·어휘 근거·모바일 리포트 구현 및 로컬 검증 완료. main에 로컬 통합했으며 운영 schema/실데이터 검증과 배포를 완료한 것은 아니다.
 
 ### 구현한 동작
 
@@ -51,3 +51,8 @@
 3. 현재 연결은 커리큘럼 sampleWords 기반이다. 실제 발행 단원 targetWords 인덱스/운영 데이터와의 전수 일치, 짧은 낱말 지정 놀이, 진행 중 게임 라운드 복귀를 확장할 수 있다.
 4. 게스트 기간/알림과 리포트 상태 판정 기준은 사용자와 별도 확정한다. 기존 누락/공용 기기 진척의 자녀 귀속을 추정 backfill하지 않는다.
 5. 전체 게임이 낱말별 계측을 마쳤다고 보고하지 않는다. 색칠 등 기록이 없는 활동의 참여를 읽기/음가 성취로 생성하지 않는다. 다음 계측 범위는 실제 표시/행동을 확인하여 추가한다.
+
+
+## 로컬 통합
+
+구현·기억 커밋 5f098bd23을 main 1b6a6ca77에 통합했다. 기획 세션에서 수정 중인 marketing HTML/원문/새 자산/strategy task는 stage하거나 변경하지 않았다. 구현 코드 Git push/배포는 하지 않았다. 검수 서버는 codex/learning-report worktree의 8771 포트에서 실행 중이며 해당 폴더를 정리하지 않았다.
