@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-05 사용자 제품명 확정: **탱고 블록**(탱고 한글 블록·탱고 영어 블록), **탱고 노트**. 플랫폼 이름 탱고북 유지. 전략 원문·HTML·STRATEGY·brand-brief에 반영. 플레이노트는 과거 이력·공식 출처 명칭으로만 보존, 연동 예정 상태 유지.
+
 2026-10-05 사용자 핵심 정정: 재미 → 아이의 **자기주도 학습**이 놀면서 학습하는 경험의 중심 가치다. 아이가 스스로 시작·선택·지속하는 배움으로 설명하고 반복 이용은 관찰 지표로 구분한다. 전략 원문·내부 HTML·STRATEGY·brand-brief에 반영. [작업 기록](../work/strategy/tasks/20261005-branding-organic-strategy.md).
 
 2026-10-05 [브랜딩·오가닉 전략 내부 팀 HTML](../marketing/branding-organic-strategy-2026-10-05.html) 제작: 이미지 17종/25배치를 파일 안에 포함한 약 4.94MiB 단일 HTML. 12개 절·목차·확대·인쇄 지원 코드 포함, 구조·이미지·JS 검증 통과. 브라우저 file URL 정책으로 육안·반응형 동작 검증 미수행. 문서 폴더에만 보관, 공개 서비스·외부 발행·push 없음. [기록](../work/strategy/tasks/20261005-branding-organic-strategy.md).
