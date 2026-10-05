@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { canReadBook } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -19,11 +20,16 @@ import { EntryGate } from './EntryGate';
  *    `unitId` 가 없는 경로면 그냥 통과시킨다.
  * 🔴 로딩 중엔 게이트를 띄우지 않는다 — 무료 단원인데 잠깐 벽이 번쩍이면 그게 더 나쁘다.
  */
-export const PhonicsUnitGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { unitId } = useParams();
+export const PhonicsUnitGate: React.FC<{ children: React.ReactNode; unitId?: string }> = ({
+  children,
+  unitId: embeddedUnitId,
+}) => {
+  const params = useParams();
+  const unitId = embeddedUnitId ?? params.unitId;
+  const { t } = useTranslation('learning');
   const { session, isConfigured } = useAuth();
   const access = useAccess();
-  const { data: unit, isLoading } = useStorybook(unitId);
+  const { data: unit, isLoading, isError } = useStorybook(unitId);
 
   // 🔴 베타 기간엔 단원 단위 잠금도 없다. 여기도 `!session` 을 직접 보므로
   //    `useAccess()` 만으로는 안 열린다.
@@ -36,9 +42,17 @@ export const PhonicsUnitGate: React.FC<{ children: React.ReactNode }> = ({ child
     !!unit &&
     !canReadBook(unit, access);
 
+  if (embeddedUnitId && isLoading)
+    return <div aria-busy="true" className="h-48 animate-pulse rounded-3xl bg-peach-100" />;
+  if (embeddedUnitId && (isError || !unit))
+    return (
+      <p role="alert" className="p-6">
+        {t('overview.error')}
+      </p>
+    );
   return (
     <>
-      {children}
+      {(!embeddedUnitId || !locked) && children}
       {locked && <EntryGate />}
     </>
   );

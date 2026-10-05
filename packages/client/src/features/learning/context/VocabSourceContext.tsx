@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
 
 /**
  * 학습 게임이 동화책 wrapping 인지 어휘 단원 wrapping 인지 알리는 컨텍스트.
@@ -8,18 +8,23 @@ import { createContext, useContext, type ReactNode } from 'react';
  * default = null (= storybook 모드).
  */
 interface VocabSourceValue {
-  source: 'vocabulary';
+  source: 'vocabulary' | 'phonics' | 'storybook';
   unitId: string;
 }
 
 const VocabSourceContext = createContext<VocabSourceValue | null>(null);
 
-export function VocabSourceProvider({ unitId, children }: { unitId: string; children: ReactNode }) {
-  return (
-    <VocabSourceContext.Provider value={{ source: 'vocabulary', unitId }}>
-      {children}
-    </VocabSourceContext.Provider>
-  );
+export function VocabSourceProvider({
+  unitId,
+  source = 'vocabulary',
+  children,
+}: {
+  unitId: string;
+  source?: VocabSourceValue['source'];
+  children: ReactNode;
+}) {
+  const value = useMemo(() => ({ source, unitId }), [source, unitId]);
+  return <VocabSourceContext.Provider value={value}>{children}</VocabSourceContext.Provider>;
 }
 
 export function useVocabSource(): VocabSourceValue | null {

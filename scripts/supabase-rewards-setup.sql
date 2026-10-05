@@ -81,7 +81,7 @@ create trigger star_ledger_sync_total
 create table if not exists word_mastery (
   profile_id uuid not null references child_profiles(id) on delete cascade,
   word text not null,
-  language text not null check (language in ('ko', 'en')),
+  language text not null check (language in ('ko', 'en', 'vi', 'zh', 'th')),
 
   -- 누적 카운트
   exposed int not null default 0,

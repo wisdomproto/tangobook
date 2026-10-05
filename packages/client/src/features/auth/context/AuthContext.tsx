@@ -26,8 +26,19 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { session, loading: sessionLoading } = useSession();
-  const { account, profiles, loading: accLoading, refresh } = useCurrentAccount(session);
-  const { activeProfile, setActiveProfile } = useActiveProfile(profiles);
+  const {
+    account,
+    profiles,
+    profilesAccountId,
+    loading: accLoading,
+    refresh,
+  } = useCurrentAccount(session);
+  const profilesReady =
+    !sessionLoading &&
+    !!session &&
+    account?.id === session.user.id &&
+    profilesAccountId === session.user.id;
+  const { activeProfile, setActiveProfile } = useActiveProfile(profiles, profilesReady);
   const migratedForProfile = useRef<string | null>(null);
   const referralRedeemed = useRef(false);
   const queryClient = useQueryClient();

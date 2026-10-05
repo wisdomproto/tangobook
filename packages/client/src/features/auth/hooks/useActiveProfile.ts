@@ -4,7 +4,7 @@ import { profilesApi } from '../api/profiles.api';
 
 const KEY = 'tangobook:activeProfileId';
 
-export function useActiveProfile(profiles: ChildProfile[]) {
+export function useActiveProfile(profiles: ChildProfile[], profilesReady = true) {
   const [activeId, setActiveId] = useState<string | null>(() => {
     try {
       return localStorage.getItem(KEY);
@@ -14,6 +14,7 @@ export function useActiveProfile(profiles: ChildProfile[]) {
   });
 
   useEffect(() => {
+    if (!profilesReady) return;
     if (activeId && !profiles.some((p) => p.id === activeId)) {
       setActiveId(null);
       try {
@@ -22,10 +23,11 @@ export function useActiveProfile(profiles: ChildProfile[]) {
         // no-op
       }
     }
-  }, [profiles, activeId]);
+  }, [profiles, activeId, profilesReady]);
 
   // 자녀가 1명이면 자동 선택 (선택 화면 건너뛰기)
   useEffect(() => {
+    if (!profilesReady) return;
     if (!activeId && profiles.length === 1) {
       const only = profiles[0];
       setActiveId(only.id);
@@ -35,7 +37,7 @@ export function useActiveProfile(profiles: ChildProfile[]) {
         // no-op
       }
     }
-  }, [profiles, activeId]);
+  }, [profiles, activeId, profilesReady]);
 
   const setActive = useCallback((p: ChildProfile | null) => {
     if (p) {
@@ -56,7 +58,8 @@ export function useActiveProfile(profiles: ChildProfile[]) {
     }
   }, []);
 
-  const activeProfile = activeId ? (profiles.find((p) => p.id === activeId) ?? null) : null;
+  const activeProfile =
+    profilesReady && activeId ? (profiles.find((p) => p.id === activeId) ?? null) : null;
 
   return { activeProfile, setActiveProfile: setActive };
 }

@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BookVideoTab } from '@/features/book-video/components/BookVideoTab';
 import { useEditorStore } from '@/store/editor.store';
 import { EditorHeader } from './EditorHeader';
 import { TabBar } from './TabBar';
@@ -44,6 +45,7 @@ interface EditorContentProps {
   hiddenTabIds?: string[];
   /** editor2 책별 장면 도안과 게임 미리보기. v1은 그대로 유지한다. */
   showSceneColoring?: boolean;
+  videoLibrary?: boolean;
 }
 
 export function EditorContent({
@@ -57,8 +59,17 @@ export function EditorContent({
   hideHeader = false,
   hiddenTabIds,
   showSceneColoring = false,
+  videoLibrary = false,
 }: EditorContentProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
+  const [videoOpened, setVideoOpened] = useState(false);
+  useEffect(() => {
+    if (videoLibrary && activeTab === 'longform-video') setVideoOpened(true);
+  }, [videoLibrary, activeTab]);
+  useEffect(() => {
+    if (videoLibrary && activeTab === 'audiobook')
+      useEditorStore.getState().setActiveTab('longform-video');
+  }, [videoLibrary, activeTab]);
   const isPhonics = storybook.type === 'phonics';
   const isLetterSounds = storybook.phonicsConfig?.bookType === 'letter-sounds';
 
@@ -140,7 +151,13 @@ export function EditorContent({
     },
     {
       id: 'longform-video',
-      el: <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+      el: videoLibrary ? (
+        videoOpened || activeTab === 'longform-video' ? (
+          <BookVideoTab key={storybook.id} storybook={storybook} />
+        ) : null
+      ) : (
+        <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
+      ),
     },
   ];
 
@@ -185,6 +202,7 @@ export function EditorContent({
         storybookType={storybook.type}
         hiddenTabIds={hiddenTabIds}
         showSceneColoring={showSceneColoring}
+        videoLibrary={videoLibrary}
       />
       {tabs.map(({ id, el }) => (
         <div key={id} className="p-6" style={{ display: activeTab === id ? 'block' : 'none' }}>

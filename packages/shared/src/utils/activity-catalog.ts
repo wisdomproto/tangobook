@@ -58,7 +58,7 @@ export interface ActivityItem {
 }
 
 const KEY_RE: Record<ActivityKind, RegExp> = {
-  coloring: /^(ph|bk)-\d{4}(?=$|-)/,
+  coloring: /^(?:(ph|bk)-\d{4}|cw-[a-z]+-[a-f0-9]{10}-\d{2,3})(?=$|-)/,
   'hidden-object': /^(ho|jr|nt)-\d{4}(?=$|-)/,
   hangul: /^kr-h\d+-u\d+$/,
   english: /^en-b\d+-u\d+$/,
@@ -152,7 +152,7 @@ export function hiddenObjectItems(entries: HiddenObjectCatalogEntry[]): Activity
 export function activityPageTitle(item: ActivityItem): string {
   switch (item.kind) {
     case 'coloring':
-      return item.key.startsWith('bk-')
+      return item.key.startsWith('bk-') || item.key.startsWith('cw-')
         ? `${item.title} 색칠도안 — ${item.section} | 탱고북`
         : `${item.title} 색칠도안 무료 인쇄 · 온라인 색칠공부 | 탱고북`;
     case 'hidden-object':

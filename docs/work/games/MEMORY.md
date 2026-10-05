@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-05 사용자 main push 승인: 장면색칠/창작1~19 및 editor2 catalog1215권2430장 작업을 최신origin/main5d3fdb74와 정상 병합. 원격 큰면 우선 팔레트 대표색과 명시median 양쪽 보존·관련24테스트/client typecheck/build/충돌코드lint 통과. [기록](tasks/20261005-changjak-11-19-scene-coloring.md).
+
 2026-10-05 [창작동화11~19 완료](tasks/20261005-changjak-11-19-scene-coloring.md): builtin imagegen 350권700장 생성·전수 원본선화sharedfilled/mono/SHA와 대표9실제게임 완료. 승인tests HTML25탭/1215권2430장 및 editor2 책별 catalog 반영·8테스트/typecheck/build 통과. 기존1730장 보존, 공개 달이01p5 실제붓질/5쪽전환 추가확인. 운영 책 변경/mainpush/editor2 운영배포 없음. 공개1400버전이미지SHA 검증결과는task 참조.
 
 2026-10-04 [창작동화 2~10 제작 완료](tasks/20261004-changjak-2-10-scene-coloring.md): 9시리즈450권900장 builtin imagegen 생성/전수source-line-sharedfilled·mono·SHA 비교와 대표9실제게임 완료, 승인tests 게시·HTML16탭/865권1730장. 기존830장 보존, editor2 책별 게시본 catalog 및 미리보기 연결8테스트/typecheck 통과. 원본미제공25장은 새 캐릭터참조 이야기 삽화로 명시. 전900장 개별native/공개게임 검증으로 확대하지 않음. runtime 원본색/median/영역기준 변경·운영 책 쓰기/main push/운영 editor2 배포 없음. 공개1800버전URL 최종SHA는task 최신절 참조.
@@ -11,6 +13,13 @@
 2026-10-02 사용자 직접 검수 후 대부분괜찮다고 판단했고 **자연관찰101권202장만 귀엽게 개편**, 실제 색칠에서 심한이상결과는 자율재작화하도록 요청했다. 이전 자연 사실적형태 완전복사보다 둥근윤곽/친근한표정 지시가 우선. 다른5분류전면재작화하지않음. 원본색pixels추출/6탭730장보존, 새후보 실제ColoringPlayer 검수 후 교체. automation-2 재개 및전체202후보순차생성 상태는 [작업 최신절](tasks/20261001-all-collections-scene-coloring.md) 참조. 기존개별기술승인수와사용자대부분괜찮다는판단은구분한다.
 
 2026-10-02 [여섯 분류 색칠](tasks/20261001-all-collections-scene-coloring.md): 전체365권730장 원본 선정·Qwen 생성·원본/선화/shared engine filled 비교 기록 완료. 실제 게임 개별 승인10장(자연9+유치원1), 대기720장으로 생성/흑백/해시/음원 디코딩과 최종 승인을 분리한다. 승인된 tests 시험판6탭/730장을 유지하며 미승인 후보는 자동 적용하지 않는다. 기존 생성 runner·우선76후보·명작21후보는 종료했고 재실행하지 않는다. 사용자 요청 자료실/6분류 코드 main push는 완료, 이후 기록/후보는 로컬만. 최신 상태·실제 원본 반증·수정 후보와 재개 지점은 task 최신 절/분류별 review.json을 우선한다.
+
+2026-10-04 [창작동화 색칠·게임 연결](tasks/20261003-changjak-word-coloring.md) main push 완료: 사용자 승인 후 origin/main과 갈라짐 없이 관련3커밋을 일반 push(aea7fac2)했다.1,371도안/850권/3,957항목 전수 카탈로그 검사와30 tests 재통과. 코드·목록이 원격 main에 포함됐으며, 배포 완료는 별도 미확인. 아래 push 미요청 상태는 갱신한다.
+
+2026-10-03 각 창작동화 색칠 게임 연결 후속: [같은 작업](tasks/20261003-changjak-word-coloring.md)의 manifest/index를 기존 게임 hook이 이미 사용함을 확인했다.850권/3,957항목 제품 규칙 전수 매칭 및 운영19시리즈 첫 책 조건 통과. 실제 피포/미나 학습자 화면에서 단어 익히기 → 색칠하기 진입 확인. 중복 DB 게임 인스턴스 없이 기존 경로 재사용, 새 main push 미요청.
+
+2026-10-03 [창작동화 단어 색칠공부](tasks/20261003-changjak-word-coloring.md): image skill로 1~19 단어 도안 1,371종/237시트 생성·전수 원본 비교, 50종 native 보정 및 운영 이미지 등록/CDN SHA 검증 완료. 최종 낱장 크기의 shared 분석에서도 0칸 도안 없음. 로컬 색칠 목록에 850권/3,957항목 연결, 기존 목록·원본 및 비공개 책의 공개 활동 제외 유지. 신발/사과 실제 붓질·초기화 확인, 대표색 회귀/카탈로그 등30 tests·client/shared typecheck·build 통과. 전체 플레이/음원 전수 승인과 구분한다. 로컬 커밋 후 main push 미요청.
+
 
 2026-10-01 [전래동화 장면 색칠](tasks/20261001-traditional-scene-coloring.md): 같은 시험판에 명작/전래 탭. 전래40권80장 생성·흑백·해시 검사와80장 원본 비교 완료,20장 후속 수정/검수 및 전수 플레이·음원 검수 남음. 사용자는 원본의 단순한 구도를 선호. 임금님귀8쪽 대나무 복원 후에도 종이색 위주로 읽히는 문제 미승인. 수정 도구는 매 요청의 원본/선화를 명시적으로 선택하도록 보완. 생성 runner 정상 종료, 재시작 불필요. 출력 classic-scene-coloring/traditional, 상세 증거/재개 지점은 task 참조.
 

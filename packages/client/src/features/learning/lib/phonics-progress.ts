@@ -1,3 +1,5 @@
+import { getRequiredActivities } from '@/features/phonics-learner/lib/korean-phonics-units';
+import { getEnglishRequiredActivities } from '@/features/phonics-learner/lib/english-phonics-units';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 
@@ -45,4 +47,30 @@ export function countPhonicsBooksByLanguage(
   language: 'korean' | 'english'
 ): number {
   return storybooks.filter((s) => s.type === 'phonics' && s.phonicsLanguage === language).length;
+}
+
+/** A visit is not completion. Only recorded completion of every required activity qualifies. */
+export function completedPhonicsUnitIds(events: LearningEvent[], lang: 'ko' | 'en'): Set<string> {
+  const activities = new Map<string, Set<string>>();
+  for (const event of events) {
+    const meta = event.metadata;
+    if (
+      meta?.source !== 'phonics' ||
+      meta.lang !== lang ||
+      !meta.activityCompleted ||
+      !meta.activityId ||
+      !meta.unitId
+    )
+      continue;
+    const done = activities.get(meta.unitId) ?? new Set<string>();
+    done.add(meta.activityId);
+    activities.set(meta.unitId, done);
+  }
+  const completed = new Set<string>();
+  for (const [unitId, done] of activities) {
+    const required =
+      lang === 'ko' ? getRequiredActivities(unitId) : getEnglishRequiredActivities(unitId);
+    if (required.length && required.every((activity) => done.has(activity))) completed.add(unitId);
+  }
+  return completed;
 }

@@ -38,6 +38,14 @@ export interface LearningEventMetadata {
   /** 동화책 viewer 에서 page_read 시 로깅 — ART_STYLES.id (예: 'paper-craft', 'pixar-3d') */
   style?: string;
   migratedFrom?: string;
+  schemaVersion?: 2;
+  activityId?: string;
+  activityRunId?: string;
+  activityCompleted?: boolean;
+  requiredActivityIds?: string[];
+  skill?: 'meaning' | 'building' | 'tracing' | 'drawing' | 'sound' | 'participation';
+  firstAttempt?: boolean;
+  evidence?: 'first-attempt' | 'completion' | 'participation';
 }
 
 export interface LearningEvent {
@@ -52,6 +60,7 @@ export interface LearningEvent {
 }
 
 export type LearningEventInsert = {
+  id?: string;
   profile_id: string;
   event_type: LearningEventType;
   storybook_id?: string | null;

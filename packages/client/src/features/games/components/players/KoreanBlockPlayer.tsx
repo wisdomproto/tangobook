@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
 import { JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
-import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { useGameLogger } from '@/features/learning';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
@@ -73,7 +73,6 @@ function KoreanBlockPlayerInner({
   const [hasTriedThisRound, setHasTriedThisRound] = useState(false);
   const [finished, setFinished] = useState(false);
   const logGame = useGameLogger();
-  const wordResultsRef = useRef<{ word: string; correct: boolean }[]>([]);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [typedChars, setTypedChars] = useState(0);
@@ -339,7 +338,20 @@ function KoreanBlockPlayerInner({
       // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
       // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
       setScore((s) => s + 1);
-      wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
+      logGame({
+        gameType: 'korean-block',
+        storybookId,
+        lang: 'ko',
+        results: [
+          { word: currentItem.word, correct: isFirstTry },
+          ...decomposeWord(currentItem.word).map((syllable) => ({
+            correct: isFirstTry,
+            consonant: syllable.cho,
+            vowel: syllable.jung,
+            coda: syllable.jong ?? undefined,
+          })),
+        ],
+      });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 0.5s → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 기반으로 표시.
@@ -419,6 +431,8 @@ function KoreanBlockPlayerInner({
   }, [
     composedSyllables,
     hasTriedThisRound,
+    logGame,
+    storybookId,
     currentItem.ttsUrl,
     currentItem.word,
     currentIndex,
@@ -467,26 +481,11 @@ function KoreanBlockPlayerInner({
   }, [composedText, playAudio, sceneStorybookId]);
 
   // 게임 완료 시 학습 이벤트
-  useEffect(() => {
-    if (!finished) return;
-    const collected = wordResultsRef.current;
-    if (collected.length === 0) return;
-    const results: GameWordResult[] = [];
-    for (const r of collected) {
-      results.push({ word: r.word, correct: r.correct });
-      for (const syl of decomposeWord(r.word)) {
-        results.push({ correct: r.correct, consonant: syl.cho, vowel: syl.jung });
-      }
-    }
-    logGame({ gameType: 'korean-block', storybookId, lang: 'ko', results });
-    wordResultsRef.current = [];
-  }, [finished, logGame, storybookId]);
 
   const handleRestart = useCallback(() => {
     setCurrentIndex(0);
     setScore(0);
     setFinished(false);
-    wordResultsRef.current = [];
     setHasTriedThisRound(false);
     setRoundCorrect(false);
     setIsWrong(false);

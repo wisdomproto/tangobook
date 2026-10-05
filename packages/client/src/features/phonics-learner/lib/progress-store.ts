@@ -15,15 +15,20 @@ import { useCallback, useEffect, useState } from 'react';
 const STORAGE_KEY = 'phonics-progress';
 const RECENT_UNIT_KEY = 'phonics-recent-unit';
 
+function scopedKey(key: string): string {
+  const profileId = localStorage.getItem('tangobook:activeProfileId');
+  return profileId ? `${key}:profile:${profileId}` : key;
+}
+
 export type PhonicsLang = 'korean' | 'english' | 'chinese';
 
 /** 마지막 학습한 unit ID 저장/조회 — 사이드바 진입 시 default 단원으로 사용. */
 export function markRecentUnit(lang: PhonicsLang, unitId: string): void {
   try {
-    const raw = localStorage.getItem(RECENT_UNIT_KEY);
+    const raw = localStorage.getItem(scopedKey(RECENT_UNIT_KEY));
     const parsed = raw ? (JSON.parse(raw) as Record<string, string>) : {};
     parsed[lang] = unitId;
-    localStorage.setItem(RECENT_UNIT_KEY, JSON.stringify(parsed));
+    localStorage.setItem(scopedKey(RECENT_UNIT_KEY), JSON.stringify(parsed));
   } catch {
     /* ignore */
   }
@@ -31,7 +36,7 @@ export function markRecentUnit(lang: PhonicsLang, unitId: string): void {
 
 export function getRecentUnit(lang: PhonicsLang): string | null {
   try {
-    const raw = localStorage.getItem(RECENT_UNIT_KEY);
+    const raw = localStorage.getItem(scopedKey(RECENT_UNIT_KEY));
     if (!raw) return null;
     const parsed = JSON.parse(raw) as Record<string, string>;
     return parsed[lang] ?? null;
@@ -48,7 +53,7 @@ type ProgressShape = Partial<Record<PhonicsLang, Record<string, UnitProgress>>>;
 
 function read(): ProgressShape {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(scopedKey(STORAGE_KEY));
     if (!raw) return {};
     const parsed = JSON.parse(raw);
     if (parsed && typeof parsed === 'object') return parsed as ProgressShape;
@@ -60,7 +65,7 @@ function read(): ProgressShape {
 
 function write(p: ProgressShape): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+    localStorage.setItem(scopedKey(STORAGE_KEY), JSON.stringify(p));
     // 다른 탭/페이지 동기화용 커스텀 이벤트
     window.dispatchEvent(new CustomEvent('phonics-progress:change'));
   } catch {

@@ -1,0 +1,25 @@
+# 이미지와 설명 대응 기록
+
+실제 파닉스 오리 낱말 그림과 ph-0408 대응 도안은 activity-data/coloring.json에서 연결 확인.
+자연관찰 오리 책 1777602265786의 실제 표지·본문2쪽은 공개 GET 조회로 확인.
+낱말과 자연관찰 책은 같은 소재로 연결하는 기획 예시이며 같은 삽화·동일 그림체로 주장하지 않음.
+블록 도해는 ㅇ+ㅗ → 오, ㄹ+ㅣ → 리를 설명. 제품 외형이나 실제 앱 캡처 아님.
+써보기와 노트 연계도 같은 오리 낱말을 사용. 탱고 노트 외형·자동 인식·연동 완료로 주장하지 않음.
+자료 확보는 읽기 전용, 기존 콘텐츠 수정 없음.
+
+2026-10-05 팀 공유 문서 보강: 오가닉 성장 3카드는 일반 랜딩 홍보 사진 대신 실제 오리 책 장면 → 대응 낱말 도안 → organic-record-diagram.svg로 교체. 각 카드 본문은 무료 콘텐츠 입구·아이의 선택 놀이·부모의 기록 확인을 직접 설명한다. 기록 도해에는 수치·가상 성과를 넣지 않았으며 실제 제품 캡처/아이 기록이 아님을 표시했다.
+
+2026-10-05 콘텐츠 소개 확장: 한글 대표 챕터는 ㅂ 배우기의 바다·비누·나비·두부, 영어는 Book2 Unit01의 can/fan/man/pan/bat/cat/hat/mat. 동화는 명작·전래·호리·공룡·동물·식물 실제 표지 각6개와 창작6시리즈의 실제 본문 미리보기. 거인의정원 본문1/3쪽·담장/나무 그림·부모 질문을 직접 연결. 창작은 공개 체험으로 주장하지 않으며 비공개 제작 콘텐츠로 표시. 모든 새 자산 출처는 content-showcase-sources.json.
+
+2026-10-05 첫 화면 홍보 비주얼을 기존 packages/client/public/logo/logo-kr-520.webp의 탱고북 로고로 교체(문서용 복사 tangobook-logo-kr.webp). duck-block-activity.svg의 모음에 위쪽 세로획을 추가하여 ㅡ가 아닌 ㅗ를 표시. HTML의 해당 도해 3배치도 동일 수정.
+
+## 플랫폼 개요 및 대표 단원 활동 보강 (2026-10-05)
+
+- `platform-overview.svg`: 2절 전체 플랫폼 설명과 연결. 파닉스·동화·활동·기록·다음 놀이 및 아날로그/다국어 연결을 설명하는 도해.
+- `chapter-activity-visuals.json`: 한글 ㅂ 단원 9활동과 영어 Book 2 Unit 1의 6활동 도해 및 원본 대응. 실제 화면 사진이 아닌 활동 설명 도해.
+- `activity-writing-bada.svg`, `activity-note-bada.svg`: 같은 바다 낱말의 화면 활동과 탱고 노트 연결.
+- `activity-coloring-source.json`: 영어 단원 cat과 같은 낱말의 실제 색칠 도안 출처.
+- `multilingual-cover-sources.json`: 거인의 정원 한국어/영어/베트남어/중국어/태국어 실제 표지 출처.
+- `tree-record-diagram.svg`: 나무 콘텐츠와 기록 설명 연결. 오리 예시는 7절 연결·리포트에서만 사용.
+
+- 실제 리포트: `report-storybook-sample.webp`는 주간 읽기·책·복습어휘, `report-phonics-sample.webp`는 한글 학습표 설명에 대응. 운영 제품 화면/샘플 데이터이며 `report-capture-sources.json` 참조. 7절 가상 텍스트 기록 목업을 대체.

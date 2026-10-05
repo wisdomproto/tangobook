@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import type { GameTypeId, Lang, Storybook } from '@tangobook/shared';
 import { usePhonicsMap } from '@/features/games/hooks/usePhonicsMap';
 import { useGameAssetPreload } from '@/features/games/hooks/useGameAssetPreload';
+import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
 import { GameLoadingGate } from '@/features/games/components/GameLoadingGate';
 import { extractItemWords } from '@/features/games/lib/collect-game-assets';
 import { preloadWordScenes } from '@/features/games/lib/phonics-word-scene';
@@ -71,5 +72,9 @@ export function PhonicsGameGate({ game, gameData, storybook, storybookId, lang, 
       </div>
     );
   }
-  return <>{children}</>;
+  return (
+    <VocabSourceProvider source="phonics" unitId={storybookId}>
+      {children}
+    </VocabSourceProvider>
+  );
 }

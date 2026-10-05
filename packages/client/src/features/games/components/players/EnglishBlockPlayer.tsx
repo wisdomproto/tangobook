@@ -167,7 +167,6 @@ function EnglishBlockPlayerInner({
   const [hasTriedThisRound, setHasTriedThisRound] = useState(false);
   const [finished, setFinished] = useState(false);
   const logGame = useGameLogger();
-  const wordResultsRef = useRef<{ word: string; correct: boolean }[]>([]);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongSlots, setWrongSlots] = useState<Set<number>>(new Set());
   const [typedChars, setTypedChars] = useState(0);
@@ -465,7 +464,12 @@ function EnglishBlockPlayerInner({
       // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
       // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
       setScore((s) => s + 1);
-      wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
+      logGame({
+        gameType: 'english-block',
+        storybookId,
+        lang: 'en',
+        results: [{ word: currentItem.word, correct: isFirstTry }],
+      });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 로 표시.
@@ -525,6 +529,8 @@ function EnglishBlockPlayerInner({
     currentItem.word,
     currentItem.ttsUrl,
     hasTriedThisRound,
+    logGame,
+    storybookId,
     currentIndex,
     items,
     initGrid,
@@ -547,13 +553,6 @@ function EnglishBlockPlayerInner({
   }, [currentIndex, goToNext]);
 
   // 게임 완료 시 학습 이벤트 emit (영어: 단어만)
-  useEffect(() => {
-    if (!finished) return;
-    const collected = wordResultsRef.current;
-    if (collected.length === 0) return;
-    logGame({ gameType: 'english-block', storybookId, lang: 'en', results: collected });
-    wordResultsRef.current = [];
-  }, [finished, logGame, storybookId]);
 
   const handleRestart = useCallback(() => {
     setCurrentIndex(0);
@@ -563,7 +562,6 @@ function EnglishBlockPlayerInner({
     setRoundCorrect(false);
     setWrongSlots(new Set());
     setGrid(initGrid(items[0].letters));
-    wordResultsRef.current = [];
   }, [items, initGrid]);
 
   /** 🔴 실물 모드에선 가로 강제 벽을 안 세운다 — 「가로로 돌려주세요」가 곧 적응형의 반대다. */

@@ -1,0 +1,30 @@
+{
+  "bookId": "1789350946382",
+  "koFile": "cover-1789350946382.webp",
+  "assets": [
+    {
+      "lang": "en",
+      "url": "https://assets.tangobook.co.kr/1772084667220-거인의정원-cover-misc-1779442081831.webp",
+      "file": "giant-cover-en.webp",
+      "title": "The Selfish Giant"
+    },
+    {
+      "lang": "vi",
+      "url": "https://assets.tangobook.co.kr/covers/lang/1772084667220-style-1778405374347-vi-1783864916980.webp",
+      "file": "giant-cover-vi.webp",
+      "title": "Khu Vườn Của Người Khổng Lồ"
+    },
+    {
+      "lang": "zh",
+      "url": "https://assets.tangobook.co.kr/covers/lang/1772084667220-style-1778405374347-zh-1783864917911.webp",
+      "file": "giant-cover-zh.webp",
+      "title": "巨人的花园"
+    },
+    {
+      "lang": "th",
+      "url": "https://assets.tangobook.co.kr/covers/lang/1772084667220-style-1778405374347-th-1783864917430.webp",
+      "file": "giant-cover-th.webp",
+      "title": "สวนของยักษ์"
+    }
+  ]
+}

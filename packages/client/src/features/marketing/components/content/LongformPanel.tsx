@@ -191,8 +191,8 @@ export function LongformPanel({ content }: LongformPanelProps) {
             <Film size={28} />
             <p className="mt-2 text-sm font-semibold">아직 영상이 없어요</p>
             <p className="mt-1 max-w-xs text-xs">
-              롱폼 오디오북 영상은 서버 렌더 파이프라인이 그림체·언어 조합마다 자동으로 생성합니다.
-              생성되면 여기에 표시됩니다.
+              Editor2의 영상 탭에서 언어별 롱폼 완성 영상을 저장하고 ‘마케팅 콘텐츠로 등록’을 누르면
+              여기에 표시됩니다.
             </p>
           </div>
         ) : (
@@ -218,7 +218,7 @@ export function LongformPanel({ content }: LongformPanelProps) {
                     <Film size={28} />
                     <p className="mt-2 text-sm font-semibold">아직 영상이 없어요</p>
                     <p className="mt-1 max-w-xs text-xs">
-                      이 그림체·언어 조합의 영상은 렌더 파이프라인이 완료되면 표시됩니다.
+                      Editor2의 영상 탭에서 이 언어의 완성 영상을 등록해 주세요.
                     </p>
                   </div>
                 )}
