@@ -3,8 +3,8 @@
   "sources": {
     "market": "https://www.grandviewresearch.com/horizon/outlook/child-care-services-market/asia-pacific",
     "enrolment": "https://www.oecd.org/en/publications/society-at-a-glance-asia-pacific-2025_24fa8f05-en/full-report/early-childhood-education-and-care_b45e19ca.html",
-    "korean": "https://www.ksif.or.kr/cop/bbs/selectBoardArticle.do?bbsId=BBSMSTR_000000000071&nttId=9220000008060&pageIndex=1",
-    "education": "https://www.myeyelevel.com/Malaysia/resources/news/view.do?boardSeq=3004"
+    "education": "https://www.myeyelevel.com/Malaysia/resources/news/view.do?boardSeq=3004",
+    "thailand_korean": "https://okep.moe.go.kr/board/view.do?board_manager_seq=38&board_seq=31511&menu_seq=118"
   },
   "market": {
     "region": "Asia-Pacific (includes Australia)",
@@ -19,15 +19,30 @@
     "observation_period": "2010–2020",
     "finding": "Pre-primary net enrolment increased in about three-quarters of Asia-Pacific countries with available data"
   },
-  "korean_demand": {
-    "publisher": "King Sejong Institute Foundation",
-    "publication_date": "2026-07-03",
-    "2025_global_learners": "over 230,000",
-    "2026_institutes": 273,
-    "2026_countries": 89,
-    "scope": "global, not preschool-only"
-  },
   "k_edu_definition": "Korean-style education plus Korean language learning; definition specified by user",
   "korean_education_example": "Daekyo Eye Level Malaysia 2023 official announcement; historical operating example, not proof of preschool-wide popularity",
-  "interpretation": "Broad early learning/care market growth and Korean-language interest provide context for TangoBook opportunity; no direct TAM, preschool willingness-to-pay or competitive superiority claim."
+  "interpretation": "Broad early learning/care market growth and Korean-language interest provide context for TangoBook opportunity; no direct TAM, preschool willingness-to-pay or competitive superiority claim.",
+  "thailand_korean": {
+    "reference_year": 2025,
+    "publication_date": "2026-08-19",
+    "schools": 227,
+    "students": "over 46,000",
+    "scope": "regular secondary schools; not preschool"
+  },
+  "editorial_instruction": "Do not define K-edu in public prose. Connect Southeast Asian interest with entry timing as strategic interpretation. Remove adult-oriented Sejong Institute metrics. Overall target Asia.",
+  "visual": {
+    "svg": "asia-childcare-market-growth.svg",
+    "preview": "asia-childcare-market-growth.png",
+    "zero_baseline": true,
+    "data_points": [
+      1230,
+      1629
+    ],
+    "unit": "USD 100 million",
+    "years": [
+      "2024 estimate",
+      "2030 forecast"
+    ],
+    "cagr_period": "2025–2030"
+  }
 }

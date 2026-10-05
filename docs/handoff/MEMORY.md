@@ -1,5 +1,8 @@
 # TangoBook 공유 메모리
 
+2026-10-05 [K-edu 메시지 정정](../work/strategy/tasks/20261005-branding-organic-strategy.md): K-edu 정의 설명은 본문에서 삭제. 동남아의 K-edu 관심과 탱고북 진출 기회를 연결하고 아시아 목표 유지. 말레이시아·태국 사례와 출처 반영. 시장 숫자카드는 그래프로 교체하고 성인용 세종학당 수치는 삭제.
+
+
 2026-10-05 [목표 시장 표현 통일](../work/strategy/tasks/20261005-branding-organic-strategy.md): 사용자 정정으로 “동남아와 몽골” 대신 **아시아**. 한국에서 시작해 아시아로 확장, 개별 국가는 사례로 유지. HTML/원문/플랫폼SVG 및 전략 원본 반영.
 
 
