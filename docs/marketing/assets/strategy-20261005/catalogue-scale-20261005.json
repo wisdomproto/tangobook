@@ -1,0 +1,173 @@
+{
+  "checkedAt": "2026-10-05T09:41:57.169Z",
+  "sourceApi": "https://www.tangobook.co.kr",
+  "method": "packages/server/scripts/build-content-status.mjs / shared buildContentStatus; storybook public = sum(categories.public), excluding phonics",
+  "storybookCatalogue": 1215,
+  "publicStorybookEditions": 362,
+  "unpublishedStorybookEditions": 853,
+  "creativeSeries": 19,
+  "creativeCatalogue": 850,
+  "countingNote": "Book edition records; same story in different art styles is counted as separate editions. Catalogue includes unpublished works at different production stages; it does not mean all assets are complete.",
+  "categories": [
+    {
+      "category": "세계 명작",
+      "books": 144,
+      "public": 144
+    },
+    {
+      "category": "생활동화",
+      "books": 45,
+      "public": 43
+    },
+    {
+      "category": "전래 동화",
+      "books": 40,
+      "public": 40
+    },
+    {
+      "category": "육지 동물 친구들",
+      "books": 26,
+      "public": 26
+    },
+    {
+      "category": "공룡 친구들",
+      "books": 21,
+      "public": 21
+    },
+    {
+      "category": "호리 유치원동화",
+      "books": 20,
+      "public": 20
+    },
+    {
+      "category": "식물 친구들",
+      "books": 18,
+      "public": 18
+    },
+    {
+      "category": "호리 세상 탐험",
+      "books": 15,
+      "public": 15
+    },
+    {
+      "category": "바다 동물 친구들",
+      "books": 9,
+      "public": 9
+    },
+    {
+      "category": "곤충 친구들",
+      "books": 9,
+      "public": 9
+    },
+    {
+      "category": "하늘 동물 친구들",
+      "books": 8,
+      "public": 8
+    },
+    {
+      "category": "우주와 자연",
+      "books": 6,
+      "public": 6
+    },
+    {
+      "category": "우리 몸 이야기",
+      "books": 4,
+      "public": 3
+    },
+    {
+      "category": "05. 브루노 할아버지네 숲",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "11. 붕이네 물 위 장터",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "02. 코코네 빵집 골목",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "12. 딩딩네 계단 논",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "04. 도도네 물방앗간",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "10. 룰루네 올리브 언덕",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "03. 메이네 산마을",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "15. 가운데 아이 미나",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "07. 미오네 유치원",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "09. 노노네 겨울 골목",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "08. 피포네 돌담 목장",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "01. 퐁이네 운하 마을",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "13. 타로와 무무",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "06. 쌍둥이네 바닷가",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "14. 유키네 산골",
+      "books": 50,
+      "public": 0
+    },
+    {
+      "category": "18. 밤이네 기차",
+      "books": 25,
+      "public": 0
+    },
+    {
+      "category": "19. 달이네 등대",
+      "books": 25,
+      "public": 0
+    },
+    {
+      "category": "16. 코타와 오늘의 손님",
+      "books": 25,
+      "public": 0
+    },
+    {
+      "category": "17. 모야네 물웅덩이",
+      "books": 25,
+      "public": 0
+    }
+  ]
+}

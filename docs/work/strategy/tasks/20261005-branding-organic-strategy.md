@@ -204,3 +204,12 @@ HTML 17절, 삽입 이미지 111개 전체 Base64 및 이미지/SVG 파싱, 내�
 - 새 보강 레퍼런스:UNICEF Thailand, Investment Case Analysis of Child Protection Funding in Thailand (April2024),인쇄p45/PDF index44 Box4. 동일2017추정 교육32%를 재인용함.2024년 새 조사값으로 사용하지 않음. https://www.unicef.org/thailand/media/13291/file/Thailand%20CP%20Investment%20Analysis%20Technical%20Report%20%28FINAL%29.pdf.pdf
 - USDA 공식2017발표:2015가격·미국 중간소득 부부가구0~17세 양육비 보육/교육16%,대학비용제외. 교육 단독 수치와 구분. https://content.govdelivery.com/accounts/USDAOC/bulletins/17f19c9
 - 전 세계 교육비 비율이나 미취학 가계지출 비율로 일반화하지 않고,교육이 양육비의 주요 항목임을 설명하는 국가별 근거로 둠. 제품/DB/구현worktree 변경 없음.
+
+
+## 2026-10-05 동화책 규모·표지 퀄리티를 전면에
+
+사용자: 전체 동화책 양을 대놓고 자랑하고, 퀄리티는 표지만 보여줘도 강점이 드러난다고 정정.5장을 공개362권/전체라인업1,215권/창작19시리즈850권의 큰 수치와 실제 대표표지4장 확대 쇼케이스로 개편. 대표표지는 기존 목록에서 이동하여 중복배치·새 생성 없이 전체 이미지107개를 보존했다. 1/2장에도 공개동화362권 명시. HTML/원문 동기화.
+
+- 기존 정적 content-status는2026-09-07로 낡았으므로 지정 스크립트 `node packages/server/scripts/build-content-status.mjs --out=C:/Users/kil21/AppData/Local/Temp/tangobook-strategy-content-status-20261005.html`로 운영을 읽기 전용 재집계. shared 공통 집계 사용. 제품 public 현황 파일은 변경하지 않음.
+- 최신집계2026-10-05T09:41:57Z:동화책1,215,파닉스95,총공개457. 동화 공개는 categories.public합계362(파닉스 제외). 창작19분류850권,현재 모두 비공개. 전체라인업은 제작단계가 다른 비공개 책을 포함하며 완성도서/공개도서로 확대하지 않음. 같은작품 다른그림체는 별도판본으로 집계. 세계명작144판본 등 분류별 내역은 전략자산 `catalogue-scale-20261005.json`에 보관.
+- 검증:HTML중첩/고유ID/내부앵커/로컬링크/원문수치대응,집계스냅샷 합계,HEAD대비107개 이미지payload multiset 동일,diff 공백검사. 새 진녹색 숫자 패널은 기존 검증색상 조합 재사용. 전체 브라우저 육안 검수는 기존 file URL 정책 제한으로 미수행. 제품/DB/리포트worktree 변경 및 push 없음.
