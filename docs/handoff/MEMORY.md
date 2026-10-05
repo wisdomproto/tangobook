@@ -206,3 +206,5 @@
 2026-10-05 [학습 리포트](../work/reading/tasks/20261005-learning-report-implementation.md) 원격 main push와 운영 새 부모 리포트 번들 확인. 사용자 전용 테스트 계정/대량 샘플 검증 요청으로 DB 5언어 제약·선택 자녀 새로고침·오답 복습 추천 문제를 찾아 후속 수정 중. DB migration은 관리자 로그인 대기, 적용 완료로 간주하지 않는다. 과거 push 미요청 상태를 대체한다.
 
 2026-10-05 [학습 리포트 QA 전달](../work/reading/tasks/20261005-learning-report-implementation.md):726b1deee 원격 main·운영 번들 확인,샘플2,552건·271tests 및 실제 추천 변화 검수 완료. 오답 복습/최근 성공 후 미연습 낱말로 제안 변화/선택 자녀 reload 유지.5언어 DB constraint migration은 Supabase 관리자 로그인 대기,300건 미검증. 인증 자료는 ignored scratch에만 보관.
+
+2026-10-05 [학습 리포트 다국어 운영 완료](../work/reading/tasks/20261005-learning-report-implementation.md): 사용자 Supabase 연결 후 제약5언어로 확장,보류300건 저장 및 실제 부모 화면 검증 완료.전체샘플2,852건/API20검사 통과.이전 DB 관리자 대기 메모를 대체한다.

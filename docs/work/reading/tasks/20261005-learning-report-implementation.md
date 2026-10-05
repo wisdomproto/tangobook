@@ -79,3 +79,9 @@
 최종 저장 샘플 2,552건(주 계정 2,551 + 격리1), 보류 다국어300건. 71개 파닉스 단원의 운영 phonicsConfig.targetWords와 현재 shared sampleWords 전수 일치. 최초 로컬 감사2건 차이는 오래된 shared/dist 때문으로 shared 재빌드 후71/71 확인했다. source/운영 콘텐츠 불일치로 단정하거나 고치지 않았다.
 
 auth/learning/phonics lib35파일271테스트, 전체 shared/server/client typecheck, client production build, locale parity, 변경 TS ESLint 및 script node --check 통과. 기존 build 경고는 남는다. 계정 두 개의 생성/자녀/학습 기록은 전용 QA 범위에만 수행했고 운영 schema는 아직 수정하지 않았다. Supabase SQL 로그인 요청을 보냈으나 관리자 세션은 아직 없어 migration 미적용, vi/zh/th300건 검증 미완료. 대량 서버집계·단어 지정 출제·난이도 자동 적응·실제 아동 학습효과 검증은 완료 범위가 아니다. 나중 재실행 시 전용 fixture 외에 실제 놀이 기록이 추가되면 QA exact count 기대를 재확인한다.
+
+### 운영 다국어 제약·보류 QA 완료 — 2026-10-05
+
+사용자가 Supabase 로그인 연결 완료를 알렸다. fxzwigjkbsptvsjraqwa/main Production SQL Editor에서 기존 word_mastery_language_check가 ko/en만 허용하는 것을 조회했다. 저장소 migration의 트랜잭션 ALTER만 실행하여 ko/en/vi/zh/th로 확장하고 pg_get_constraintdef 결과5언어를 확인했다. 테이블·사용자 기록 삭제나 기존 학습 이벤트 변경 없이 제약만 확장했다. SQL 편집기 첫 교체 시 이전 텍스트가 남아 구문 오류로 실행되지 않았으며, 전체 선택/삭제 후 정확한 migration을 재입력하여 적용 완료했다.
+
+보류 vi/zh/th300건 저장 성공. 전체 샘플2,852건, 보류0건. verify-learning-report-live.mjs에 각 언어별 원장100건·word_mastery80노출/20correct/0wrong·동일 이벤트 재전송 후 집계불변 검증을 추가했고 전체20개 API 검사 통과. 로그인 부모 화면에서도 cá/鱼/ปลา가 각각 한 낱말·노출80회·직접연습20회로 표시되고 언어 전환 시 섞이지 않음을 확인했다. 한국어/영어용 파닉스 타깃을 외국어에 임의 추천하지 않는 기본 이야기 안내도 확인. 이전 DB 관리자 로그인 대기·300건 미검증 메모는 이번 완료로 대체한다. 학습효과/자동난이도/서버대량집계 미완료 범위는 그대로이다.

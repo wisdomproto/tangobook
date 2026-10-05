@@ -154,6 +154,18 @@ const ledgerBefore = await ledgerCount(); const masteryBefore = await mastery();
 checked(await primary.from('learning_events').upsert([replay], { onConflict: 'id', ignoreDuplicates: true }));
 check('event replay reward idempotency', await ledgerCount() === ledgerBefore, ledgerBefore);
 check('event replay mastery idempotency', JSON.stringify(await mastery()) === JSON.stringify(masteryBefore));
+if (!skipUnsupported) {
+  for (const [lang, word] of [['vi', 'cá'], ['zh', '鱼'], ['th', 'ปลา']]) {
+    const rows = checked(await primary.from('learning_events').select('*').eq('profile_id', multilingual.id).eq('metadata->>lang', lang));
+    check(`multilingual events ${lang}`, rows.length === 100 && rows.every(row => row.word === word), rows.length);
+    const wordRow = checked(await primary.from('word_mastery').select('*').eq('profile_id', multilingual.id).eq('language', lang).eq('word', word).single());
+    check(`multilingual mastery ${lang}`, wordRow.exposed === 80 && wordRow.correct === 20 && wordRow.wrong === 0,
+      { exposed: wordRow.exposed, correct: wordRow.correct, wrong: wordRow.wrong });
+    checked(await primary.from('learning_events').upsert(rows.filter(row => row.event_type === 'word_correct'), { onConflict: 'id', ignoreDuplicates: true }));
+    const afterReplay = checked(await primary.from('word_mastery').select('*').eq('profile_id', multilingual.id).eq('language', lang).eq('word', word).single());
+    check(`multilingual replay idempotency ${lang}`, JSON.stringify(afterReplay) === JSON.stringify(wordRow));
+  }
+}
 check('cross-account select RLS', checked(await primary.from('learning_events').select('id').eq('profile_id', isolated.id)).length === 0);
 const denied = await primary.from('learning_events').insert({ id: randomUUID(), profile_id: isolated.id, event_type: 'word_exposed', word: '침범금지', metadata: { qaRun: credentials.run } });
 check('cross-account insert RLS', !!denied.error, denied.error?.code);
