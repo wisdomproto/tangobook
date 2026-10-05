@@ -194,3 +194,13 @@ HTML 17절, 삽입 이미지 111개 전체 Base64 및 이미지/SVG 파싱, 내�
 - 제품 구현 파일·리포트 worktree·DB 수정 및 외부 게시/push 없음.
 
 - 마지막 구현 상태 대조에서 리포트 task의 최신 완료 기록을 확인.7/12장 관련 파닉스 제안·목록 복귀의 구현 상태로 갱신하고,진행 중 게임 라운드 복귀와 구분했다. 실제 캡처는 유지하며 신규 화면 캡처/제품 변경은 하지 않음. 근거: `docs/work/reading/tasks/20261005-learning-report-implementation.md`의 구현/운영 QA 기록.
+
+
+## 2026-10-05 교육 지출 문장 단순화와 근거 재확인
+
+사용자가 “글로벌 육아 지출 안의 교육·책·놀이 예산을 바라봅니다”의 어색함과 항목 나열을 지적. 첫 문장은 “아이를 키우는 비용에서 교육은 큰 비중을 차지합니다”로 수정, 모식도 중간은 교육으로 단순화하고 참고자료 링크 연결. 부록 설명도 동일하게 정리.
+
+- 마히돌대 연구자2019논문:2017NTA·태국0~14세 양육소비 중 교육32%,공공·민간 합계. 원문 초록 재확인: https://so01.tci-thaijo.org/index.php/CMJE/article/view/175904
+- 새 보강 레퍼런스:UNICEF Thailand, Investment Case Analysis of Child Protection Funding in Thailand (April2024),인쇄p45/PDF index44 Box4. 동일2017추정 교육32%를 재인용함.2024년 새 조사값으로 사용하지 않음. https://www.unicef.org/thailand/media/13291/file/Thailand%20CP%20Investment%20Analysis%20Technical%20Report%20%28FINAL%29.pdf.pdf
+- USDA 공식2017발표:2015가격·미국 중간소득 부부가구0~17세 양육비 보육/교육16%,대학비용제외. 교육 단독 수치와 구분. https://content.govdelivery.com/accounts/USDAOC/bulletins/17f19c9
+- 전 세계 교육비 비율이나 미취학 가계지출 비율로 일반화하지 않고,교육이 양육비의 주요 항목임을 설명하는 국가별 근거로 둠. 제품/DB/구현worktree 변경 없음.
