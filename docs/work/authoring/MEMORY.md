@@ -1,5 +1,7 @@
 # 동화책 저작도구 기억
 
+2026-10-05 표지 폰트 main push 완료: v0.1/v0.2 실제 폰트·원형/재현코드·사용 지침·DB테이블/등록스크립트 a470b44c까지 원격 main에 일반push하고 SHA일치를 확인했다. 운영 R2/DB 등록 완료와 main 통합을 구분해 검증했으며 Railway 배포/편집기 UI 적용 완료로 확대하지 않는다. [기록](tasks/20261005-cover-font.md).
+
 2026-10-05 [표지 기본 폰트/운영 등록](tasks/20261005-cover-font.md): 사용자 지침 기록·DB업로드·mainpush 요청. [공통 표지 규칙](../../cover-fonts.md)을 AGENTS/CLAUDE/editor에 연결, v0.2 지원범위 확인 후 책별 색/테두리 사용. R2 폰트2버전/메타데이터9개 CDN SHA 검증, Supabase cover_font_assets 두행·preferred v0.2·RLS관리자전용 확인(마이그레이션20261005104926). 기존 표지/편집기 UI는 미변경. 승인 mainpush 진행.
 
 2026-10-05 [표지 손글씨체 아시아 확장 v0.2](tasks/20261005-cover-font.md): 사용자 선택은 등록된 아시아 언어 전체(ko/ja/zh/vi/th/ms/id), 영어 포함8언어. 독립 Asian Trial TTF/WOFF2 Unicode299개·정확한 누락 표시 미리보기·두 실제 클린표지×8언어 제작. 베트남어 대소문자 성조/모음 변형, 일본어/중국어/태국어 두 제목 subset이며 전체 문자권 완성 아님. 자체 원형/native 기호, Thai mark/mkmk·모든VI NFC/NFD·TTF/WOFF2·재빌드해시 통과. 네이티브 조형검수/범위 확대/제품 적용 남음, 로컬커밋만.

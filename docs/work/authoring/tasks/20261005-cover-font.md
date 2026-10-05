@@ -2,13 +2,13 @@
 
 - id: 20261005-authoring-cover-font
 - domain: authoring
-- status: ready
+- status: integrated
 - updated: 2026-10-05
 - base: 4a710657
 - branch: codex/authoring-cover-font
 - worktree: C:/Users/101024/.codex/worktrees/storybook-cover-font/tangobook
-- integration: 미통합
-- delivery: 미푸시·미배포
+- integration: origin/main 포함 확인
+- delivery: main 푸시·운영 R2/DB 등록 완료, Railway 배포 미검증
 
 ## 요청과 완료 조건
 
@@ -71,4 +71,6 @@ TTF/WOFF2 cmap·윤곽·metrics 일치, 모든 베트남어 알파벳의 NFC/NFD
 
 증거: C:/projects/tangobook/output/cover-type-studies-20261005/font-registration (upload registry/DB 전후/migration/등록/조회 결과). publish 스크립트 node --check 및 git diff --check 통과. 앱 동작 코드 변경이 없어 monorepo 전체 검증을 반복하지 않는다. 사용자 승인된 main 통합/push를 진행한다.
 
-관련 폰트/재현 원본·빌드·검증·미리보기와 기억을 함께 로컬 커밋한다. main 통합·push/배포 미요청. 기존 사용자 작업/시안/운영 표지는 보존했다.
+푸시 완료: origin/main...HEAD가0/3인 것을 확인한 뒤 a470b44c(두 기존폰트커밋 포함)를 HEAD:main으로 일반push했다. fetch 후0/0 및 HEAD/origin/main SHA동일 확인. 지침/실제 폰트/등록 코드가 main에 포함되었다. 이번 문서는 완료 기록 후속 커밋으로 함께 푸시한다. Railway 실행/운영 편집기 UI 적용 검증은 별도이다.
+
+관련 폰트/재현 원본·빌드·검증·미리보기와 기억을 함께 커밋했고 후속 사용자 승인으로 main에 푸시했다. 운영 R2/DB에는 두 버전을 등록했다. 기존 사용자 작업/시안/운영 표지는 보존했다.

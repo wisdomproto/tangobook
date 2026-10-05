@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-05 표지 폰트 main push 완료: a470b44c(기존 두 폰트 커밋 포함)까지 원격 main에 일반push·SHA일치 확인. R2/DB등록과 AGENTS/CLAUDE 공통 표지 지침 통합 완료. Railway 배포/편집기 UI 자동적용은 미검증/미구현. [작업](../work/authoring/tasks/20261005-cover-font.md).
+
 2026-10-05 [표지 폰트 사용/운영 DB등록](../work/authoring/tasks/20261005-cover-font.md): 사용자 AGENTS지침·DB업로드·mainpush 요청. docs/cover-fonts.md 공통규칙 연결, R2두버전/9개파일 CDN해시확인, Supabase cover_font_assets 등록128/299글자·v0.2권장·RLS관리자전용 검증완료. 전체 한/일/중/태 글자 확장은 남음, 기존 운영표지 일괄교체/편집기 UI적용 없음. 승인 mainpush 진행.
 
 2026-10-05 [표지 손글씨체 아시아 v0.2](../work/authoring/tasks/20261005-cover-font.md): 사용자 등록아시아언어전체 선택. ko/ja/zh/vi/th/ms/id와 en의 제목시험판 Unicode299개 TTF/WOFF2·입력미리보기·인어공주/라푼젤8언어 실제윤곽출력 완료. 베트남어 성조 대소문자 지원, 한/일/중/태 전체글자 미완성. Thai기호배치·VI정규화·바이너리·재빌드해시 통과, 네이티브검수/범위확대/제품적용 남음. 시스템등록11언어와 실제catalog 번역en/th/vi/zh 구분. 로컬커밋만, 운영데이터/표지 변경 없음.
