@@ -12,3 +12,12 @@
 2026-10-05 콘텐츠 소개 확장: 한글 대표 챕터는 ㅂ 배우기의 바다·비누·나비·두부, 영어는 Book2 Unit01의 can/fan/man/pan/bat/cat/hat/mat. 동화는 명작·전래·호리·공룡·동물·식물 실제 표지 각6개와 창작6시리즈의 실제 본문 미리보기. 거인의정원 본문1/3쪽·담장/나무 그림·부모 질문을 직접 연결. 창작은 공개 체험으로 주장하지 않으며 비공개 제작 콘텐츠로 표시. 모든 새 자산 출처는 content-showcase-sources.json.
 
 2026-10-05 첫 화면 홍보 비주얼을 기존 packages/client/public/logo/logo-kr-520.webp의 탱고북 로고로 교체(문서용 복사 tangobook-logo-kr.webp). duck-block-activity.svg의 모음에 위쪽 세로획을 추가하여 ㅡ가 아닌 ㅗ를 표시. HTML의 해당 도해 3배치도 동일 수정.
+
+## 플랫폼 개요 및 대표 단원 활동 보강 (2026-10-05)
+
+- `platform-overview.svg`: 2절 전체 플랫폼 설명과 연결. 파닉스·동화·활동·기록·다음 놀이 및 아날로그/다국어 연결을 설명하는 도해.
+- `chapter-activity-visuals.json`: 한글 ㅂ 단원 9활동과 영어 Book 2 Unit 1의 6활동 도해 및 원본 대응. 실제 화면 사진이 아닌 활동 설명 도해.
+- `activity-writing-bada.svg`, `activity-note-bada.svg`: 같은 바다 낱말의 화면 활동과 탱고 노트 연결.
+- `activity-coloring-source.json`: 영어 단원 cat과 같은 낱말의 실제 색칠 도안 출처.
+- `multilingual-cover-sources.json`: 거인의 정원 한국어/영어/베트남어/중국어/태국어 실제 표지 출처.
+- `tree-record-diagram.svg`: 나무 콘텐츠와 기록 설명 연결. 오리 예시는 7절 연결·리포트에서만 사용.
