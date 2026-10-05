@@ -10,6 +10,8 @@
 
 일반 부모 탭 = 학습 한눈에·동화책·파닉스, dev 추가 = 활동 현황·기존 어휘. `VITE_LEARNING_REPORT_V2=false`는 새 요약/추천 진입 롤백. 상세 구현 범위·검증·후속은 [작업 기록](../../../../../docs/work/reading/tasks/20261005-learning-report-implementation.md).
 
+실데이터 QA 후 `phonics-recommendation.ts` 공통 규칙으로 최근 같은 skill의 첫 시도 오답을 복습 후보로 우선한다. 최근 성공2회는 이전 오답 우선을 해제한다. 파닉스 미연습 낱말도 후보이며 쓰기 완료/노출/발화/legacy를 읽기 성취로 해석하지 않는다. 관련 단원 추천이며 타깃 낱말 지정·난이도 자동조절은 아니다. 운영 `word_mastery` 언어 제약은 5언어 migration 적용이 필요하고 코드 push만으로 SQL이 실행되지 않는다.
+
 동화책 + 파닉스 + 어휘 + 활동 학습 리포팅 (부모용). `/parent/reports`.
 
 ## 기존 상세 탭 구조

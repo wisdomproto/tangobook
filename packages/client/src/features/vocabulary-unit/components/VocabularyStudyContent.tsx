@@ -1,10 +1,7 @@
 import { LEARNING_REPORT_V2 } from '@/features/learning/config';
 import { PostActivityPhonics } from '@/features/learning/components/PostActivityPhonics';
-import {
-  phonicsTargets,
-  summarizeWords,
-  type PhonicsTarget,
-} from '@/features/learning/lib/word-learning';
+import { recommendPhonics } from '@/features/learning/lib/phonics-recommendation';
+import { summarizeWords, type PhonicsTarget } from '@/features/learning/lib/word-learning';
 import { readLocalReportEvents } from '@/features/learning/lib/event-outbox';
 import { readGuestEvents } from '@/features/learning/lib/guest-events';
 import { useLearningEvents } from '@/features/learning/hooks/useLearningEvents';
@@ -137,6 +134,7 @@ export function VocabularyStudyContent({
   const [phonicsSuggestion, setPhonicsSuggestion] = useState<{
     word: string;
     target: PhonicsTarget;
+    reason: 'needs-review' | 'not-practiced';
   } | null>(null);
   /**
    * 어느 묶음을 펼쳤나. `null` = 묶음 고르는 화면.
@@ -171,10 +169,8 @@ export function VocabularyStudyContent({
         ? readLocalReportEvents().filter((event) => event.profile_id === activeProfile.id)
         : readGuestEvents().filter((event) => !event.profile_id);
       const records = [...(history.data ?? []), ...local] as LearningEvent[];
-      const candidate = summarizeWords(records, lang).find(
-        (word) =>
-          !word.phonicsPractices &&
-          phonicsTargets(word.word, lang).length &&
+      const suggestion = recommendPhonics(
+        summarizeWords(records, lang).filter((word) =>
           word.events.some(
             (event) =>
               event.game_type === _gameType &&
@@ -182,11 +178,13 @@ export function VocabularyStudyContent({
               Date.parse(event.created_at) >= Date.parse(activityStart.current!) &&
               (event.event_type === 'word_correct' || event.event_type === 'word_wrong')
           )
+        )
       );
-      if (candidate)
+      if (suggestion)
         setPhonicsSuggestion({
-          word: candidate.word,
-          target: phonicsTargets(candidate.word, lang)[0],
+          word: suggestion.word.word,
+          target: suggestion.target,
+          reason: suggestion.reason,
         });
     }
     void refetchBalance();
@@ -286,6 +284,7 @@ export function VocabularyStudyContent({
         <PostActivityPhonics
           word={phonicsSuggestion.word}
           target={phonicsSuggestion.target}
+          reason={phonicsSuggestion.reason}
           onClose={() => setPhonicsSuggestion(null)}
         />
       )}

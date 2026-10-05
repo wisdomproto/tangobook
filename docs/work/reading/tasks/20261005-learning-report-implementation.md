@@ -8,7 +8,7 @@
 - branch: main
 - worktree: C:/project/tangobook
 - integration: codex/learning-report의 5f098bd23을 main 1b6a6ca77로 cherry-pick. 기획 세션의 변경 보존.
-- delivery: 로컬 구현·검증. 제품 코드 push/배포 미요청.
+- delivery: 사용자 main push·실제 적용 요청으로 04b3bc432까지 origin/main push 완료. 운영 부모 리포트 새 번들 확인. 후속 실데이터 QA 수정 전달 중.
 
 ## 요청
 
@@ -20,7 +20,7 @@
 
 ## 진행과 검증
 
-핵심 수집·어휘 근거·모바일 리포트 구현 및 로컬 검증 완료. main에 로컬 통합했으며 운영 schema/실데이터 검증과 배포를 완료한 것은 아니다.
+핵심 수집·어휘 근거·모바일 리포트 구현 및 로컬 검증 완료. main에 통합하고 사용자 요청으로 원격 main에 푸시했다. 운영 schema/실데이터 검증은 별도이며 운영 배포 결과는 아래 전달 기록을 따른다.
 
 ### 구현한 동작
 
@@ -55,4 +55,19 @@
 
 ## 로컬 통합
 
-구현·기억 커밋 5f098bd23을 main 1b6a6ca77에 통합했다. 기획 세션에서 수정 중인 marketing HTML/원문/새 자산/strategy task는 stage하거나 변경하지 않았다. 구현 코드 Git push/배포는 하지 않았다. 검수 서버는 codex/learning-report worktree의 8771 포트에서 실행 중이며 해당 폴더를 정리하지 않았다.
+구현·기억 커밋 5f098bd23을 main 1b6a6ca77에 통합했다. 기획 세션에서 수정 중인 marketing HTML/원문/새 자산/strategy task는 stage하거나 변경하지 않았다. 검수 서버는 codex/learning-report worktree의 8771 포트에서 실행 중이며 해당 폴더를 정리하지 않았다.
+
+## 운영 전달 — 2026-10-05
+
+사용자가 main push와 실제 적용을 요청했다. 구현 1b6a6ca77을 포함한 main 04b3bc432를 일반 push했고 원격 SHA 일치를 확인했다. 실제 `/parent/reports` 라우트는 LearningOverview를 기본 렌더하며 일반 부모에게도 공개된다. 새 리포트 플래그는 기본 활성화, 최상위 GuestEventAdopter를 통해 실제 기록 재시도/이관이 연결되어 있다. Railway `tangobook / production` 자동 배포가 GitHub 상태에서 진행 중임을 확인했다. 운영 HTTP 200만으로 새 버전 적용을 판단하지 않고 실제 부모 리포트 JS의 새 UI 문구를 확인한다. DB 변경·게스트 TTL·잔여 확장 범위를 이번 전달로 완료했다고 간주하지 않는다.
+
+## 실제 계정·샘플 기록 QA — 2026-10-05
+
+사용자가 테스트 아이디와 다량 샘플 기록으로 맞춤 학습을 검증하도록 요청했다. 확인된 메인 운영 번들은 index-D3z8McIM / ParentReportsPage-CTf8Zn7X이며 overview.tab·overview.temporary를 포함한다. 운영 계정 2개, 주 계정 자녀 4개와 격리 계정 자녀 1개를 명시적 QA 이름으로 만들었다. 계정 비밀번호/PIN/manifest는 gitignore scratch/learning-report-live-qa에만 보관한다. 기존 회원/학습 기록은 조회·변경하지 않는다.
+
+- 한글 1,446건·영어 1,100건·격리 계정 1건 저장. 추가 전/후 적응형 시나리오를 별도 자녀에 단계별 기록한다. 서버 ACK·정확한 건수·500행 cursor 페이지 전수 ID·중복 재전송 보상/word_mastery 멱등성·다른 계정 select/insert RLS·익명 접근 차단 11개 API 검사 통과.
+- 운영 DB word_mastery_language_check가 ko/en만 허용해 vi/zh/th 학습 원장 insert까지 롤백하는 실결함을 확인했다. 데이터 보존형 5언어 제약 migration과 신규 setup을 수정했다. 관리자 SQL 접근이 없어 사용자의 Supabase 로그인 대기 중이며 운영 migration 적용 완료로 보고하지 않는다. 300개 다국어 샘플은 보류, 스크립트 --skip-unsupported로 나머지 검증을 계속한다.
+- 기존 추천은 파닉스 연습이 있었던 오답 낱말을 제외했다. 공통 recommendPhonics를 도입: 최근 14일 동일 skill의 첫 시도 5건 중 오답 최소2회·비율50% 이상이면 복습, 최근2회 성공이면 복습 우선 해제. 노출/쓰기 완료/legacy/단순 발화/미래 기록으로 읽기 부진을 판단하지 않는다. 부모 리포트와 현재 독후활동에서 실제 연습한 낱말의 제안이 같은 규칙·이유를 쓴다. 규칙 기반 관련 단원 추천이며 능력 진단/난이도 자동 조절/단원 내 타깃 낱말 지정은 구현 범위가 아니다.
+- 실제 로그인·아이 선택 후 직접 URL 새로고침에서 선택 자녀가 초기 빈 profiles 때문에 삭제되는 실결함을 재현했다. 계정별 profiles 조회 완료 ID가 맞을 때만 선택 검증/활동 프로필 노출. 일반 refresh 중엔 기존 정상 자녀를 유지하고 계정 전환 중엔 노출하지 않는다.
+- 실제 부모 화면에서 한글128개·영어359개 분리, 고기24회 상세(쓰기4·블록20), APPLE→apple 검색, 기록 없는 아이0 상태를 확인했다. 조회 대상 변경은 활동 아이를 바꾸지 않는다. 모바일 시안의 이전 검증과 실제 운영 실기기 검증을 혼동하지 않는다.
+- 수정 후 auth/learning/phonics lib 35파일271테스트 통과, 5언어 key 검증 통과. 전체 typecheck·client build 결과와 운영 후속 배포/추천 변화는 전달 완료 때 추가 기록한다.

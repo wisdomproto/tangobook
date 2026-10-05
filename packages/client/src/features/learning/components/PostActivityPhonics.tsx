@@ -25,10 +25,12 @@ const EnglishActivity = lazy(() =>
 export function PostActivityPhonics({
   word,
   target,
+  reason = 'not-practiced',
   onClose,
 }: {
   word: string;
   target: PhonicsTarget;
+  reason?: 'needs-review' | 'not-practiced';
   onClose: () => void;
 }) {
   const { t } = useTranslation('learning');
@@ -96,7 +98,9 @@ export function PostActivityPhonics({
           <h2 id="related-phonics-title" className="mt-2 break-words text-xl font-black">
             {t('overview.targetTitle', { word })}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-ink-600">{t('overview.targetNote')}</p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-600">
+            {t(reason === 'needs-review' ? 'overview.reviewNote' : 'overview.targetNote')}
+          </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <button
               disabled={!activity}

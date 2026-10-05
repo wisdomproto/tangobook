@@ -133,6 +133,7 @@
     "tryPhonics": "Try letter play",
     "continueActivity": "Continue story activities",
     "returnActivity": "Return to story activities",
-    "unknownLanguage": "Some earlier records have no identifiable learning language and are excluded from the word list."
+    "unknownLanguage": "Some earlier records have no identifiable learning language and are excluded from the word list.",
+    "reviewNote": "Recent first attempts in the same skill include repeated misses. Try the related letter play again at a comfortable pace. Writing completion and word encounters do not establish reading ability."
   }
 }

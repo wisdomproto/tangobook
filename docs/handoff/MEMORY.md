@@ -202,3 +202,5 @@
 ## 2026-10-05 학습 리포트 핵심 구현
 
 [20261005-learning-report-implementation](../work/reading/tasks/20261005-learning-report-implementation.md)에 수집 outbox/ACK·게스트 이관·형제별 진척·어휘 근거·모바일 기본 화면·독후활동 후 관련 파닉스 복귀 구현과 검증을 기록했다. 새 부모 요약/어휘 상세는 실제 컴포넌트이며 개발 미리보기는 가상 데이터다. 게스트 7일 TTL 미적용. 서버 lifetime projection·전 활동 계측·운영 DB 멱등성/실데이터·실기기 검증은 후속이다. 제품 코드 push/배포 미요청. 기획 문서 작업은 다른 세션에서 계속한다.
+
+2026-10-05 [학습 리포트](../work/reading/tasks/20261005-learning-report-implementation.md) 원격 main push와 운영 새 부모 리포트 번들 확인. 사용자 전용 테스트 계정/대량 샘플 검증 요청으로 DB 5언어 제약·선택 자녀 새로고침·오답 복습 추천 문제를 찾아 후속 수정 중. DB migration은 관리자 로그인 대기, 적용 완료로 간주하지 않는다. 과거 push 미요청 상태를 대체한다.

@@ -133,6 +133,7 @@
       "vocabulary": "Chơi từ vựng",
       "unknown": "Hoạt động cũ"
     },
-    "unknownLanguage": "Một số bản ghi cũ không xác định được ngôn ngữ học nên không được đưa vào danh sách từ."
+    "unknownLanguage": "Một số bản ghi cũ không xác định được ngôn ngữ học nên không được đưa vào danh sách từ.",
+    "reviewNote": "Các lần thử đầu tiên gần đây trong cùng một kỹ năng có nhiều lần chưa đúng. Hãy thử lại trò chơi chữ liên quan một cách thong thả. Hoàn thành viết và tiếp xúc với từ không chứng minh khả năng đọc."
   }
 }

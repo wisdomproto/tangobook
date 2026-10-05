@@ -13,6 +13,7 @@ import {
   type WordLearning,
 } from '../lib/word-learning';
 import { completedPhonicsUnitIds } from '../lib/phonics-progress';
+import { recommendPhonics } from '../lib/phonics-recommendation';
 
 interface Props {
   events: LearningEvent[];
@@ -64,10 +65,9 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
         (filter === 'target' && phonicsTargets(word.word, lang).length > 0))
   );
   const selectedWord = words.find((word) => word.key === selected);
-  const recommended = words.find(
-    (word) => !word.phonicsPractices && phonicsTargets(word.word, lang).length > 0
-  );
-  const target = recommended ? phonicsTargets(recommended.word, lang)[0] : null;
+  const recommendation = recommendPhonics(words);
+  const recommended = recommendation?.word;
+  const target = recommendation?.target;
   const completed =
     lang === 'ko' || lang === 'en' ? completedPhonicsUnitIds(events, lang) : new Set<string>();
   const label = (word: WordLearning) => t(word.practices ? 'overview.practiced' : 'overview.seen');
@@ -165,7 +165,13 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
               : t('overview.nextTitle')}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-ink-600">
-            {t(target ? 'overview.targetNote' : 'overview.nextNote')}
+            {t(
+              recommendation?.reason === 'needs-review'
+                ? 'overview.reviewNote'
+                : target
+                  ? 'overview.targetNote'
+                  : 'overview.nextNote'
+            )}
           </p>
           <Link
             to={
