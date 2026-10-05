@@ -4,7 +4,10 @@
   "verification": [
     "읽기 전용 라우트·플레이어 확인",
     "운영 색칠 manifest ph-0081 / en-b2-u01 / cat 일치",
-    "HTTP 200: 게임 플레이 완료의 검증과 구분"
+    "HTTP 200: 게임 플레이 완료의 검증과 구분",
+    "나무 bk-0017과 숨은그림 ho-0007의 동일 bookId 확인",
+    "실제 나무 도안 1024x1024 육안 확인",
+    "책 상세의 공개/접근 조건 확인; 캠페인 무료 범위 변경 없음"
   ],
   "examples": [
     {
@@ -23,6 +26,29 @@
       "content": "영어 Book2 Unit01 cat",
       "catalogueKey": "ph-0081",
       "url": "https://www.tangobook.co.kr/activity/coloring/ph-0081-cat"
+    },
+    {
+      "activity": "대표 체험 · 이야기 읽기",
+      "content": "거인의 정원 실제 책",
+      "url": "https://www.tangobook.co.kr/library/1772084667220",
+      "access": "기존 계정·이용권 조건 유지"
+    },
+    {
+      "activity": "대표 체험 · 나무 색칠",
+      "content": "거인의 정원 나무",
+      "catalogueKey": "bk-0017",
+      "bookId": "1772084667220",
+      "url": "https://www.tangobook.co.kr/activity/coloring/bk-0017-%EB%82%98%EB%AC%B4-%EA%B1%B0%EC%9D%B8%EC%9D%98-%EC%A0%95%EC%9B%90",
+      "asset": "giant-tree-coloring-actual.jpg",
+      "access": "공개 온라인 활동"
+    },
+    {
+      "activity": "대표 체험 · 정원 숨은그림",
+      "content": "나무·담장·표지판 등을 찾는 같은 이야기의 활동",
+      "catalogueKey": "ho-0007",
+      "bookId": "1772084667220",
+      "url": "https://www.tangobook.co.kr/activity/hidden-object/ho-0007-%EA%B1%B0%EC%9D%B8%EC%9D%98-%EC%A0%95%EC%9B%90",
+      "access": "공개 온라인 활동"
     }
   ]
 }
