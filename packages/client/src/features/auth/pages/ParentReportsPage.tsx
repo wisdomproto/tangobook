@@ -1,3 +1,6 @@
+import { LEARNING_REPORT_V2 } from '@/features/learning/config';
+import { LearningOverview } from '@/features/learning/components/LearningOverview';
+import { GuestRecordImport } from '@/features/learning/components/GuestRecordImport';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Lang } from '@tangobook/shared';
@@ -16,7 +19,7 @@ import {
 } from '@/features/learning';
 import { isDevEmail } from '@/config/dev';
 
-type MainTab = 'activity' | 'storybook' | 'phonics' | 'vocab';
+type MainTab = 'overview' | 'activity' | 'storybook' | 'phonics' | 'vocab';
 
 const TAB_DEFS: { id: MainTab; iconSrc: string; labelKey: string }[] = [
   { id: 'activity', iconSrc: 'tab/activity.svg', labelKey: 'reports.tab.activity' },
@@ -27,6 +30,7 @@ const TAB_DEFS: { id: MainTab; iconSrc: string; labelKey: string }[] = [
 
 export default function ParentReportsPage() {
   const { t } = useTranslation('auth');
+  const { t: tl } = useTranslation('learning');
   const { account, activeProfile, profiles, isConfigured } = useAuth();
   const isDev = isDevEmail(account?.email);
   /**
@@ -37,9 +41,17 @@ export default function ParentReportsPage() {
    */
   const [viewProfileId, setViewProfileId] = useState<string | null>(null);
   const viewProfile = profiles.find((p) => p.id === viewProfileId) ?? activeProfile;
-  const { data: events = [], isLoading, capped } = useLearningEvents(viewProfile?.id);
+  const {
+    data: events = [],
+    isLoading,
+    isError,
+    refetch,
+    capped,
+    pendingCount,
+    temporaryStorage,
+  } = useLearningEvents(viewProfile?.id);
   const { data: storybooks = [] } = useStorybooks();
-  const [tab, setTab] = useState<MainTab>('storybook');
+  const [tab, setTab] = useState<MainTab>(LEARNING_REPORT_V2 ? 'overview' : 'storybook');
   const [storybookLang, setStorybookLang] = useState<Lang>('ko');
 
   // 파닉스는 부모가 보는 탭이다(2026-07-26 재공개) — 어휘·활동 현황만 아직 dev 전용.
@@ -74,7 +86,7 @@ export default function ParentReportsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
+    <div className="mx-auto max-w-5xl space-y-6 px-0 py-4 md:p-6">
       {/* 헤더는 제목 한 줄 — 숫자·호리는 아래 WeeklyHeroCard 가 담당 (헤더/본문 수치 불일치 방지) */}
       <header>
         <h1 className="font-display text-2xl font-black text-ink-900 break-keep">
@@ -90,7 +102,7 @@ export default function ParentReportsPage() {
                   key={p.id}
                   onClick={() => setViewProfileId(p.id)}
                   className={
-                    'rounded-full px-4 py-1.5 text-sm font-black transition ' +
+                    'min-h-11 rounded-full px-4 py-1.5 text-sm font-black transition ' +
                     (on
                       ? 'bg-coral-500 text-white shadow-pop'
                       : 'bg-white text-ink-600 shadow-soft hover:bg-peach-50')
@@ -107,6 +119,11 @@ export default function ParentReportsPage() {
       {/* 메인 탭바 — 부모 화면은 동화책만. 개발자 계정은 전체 탭 노출 */}
       {visibleTabs.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1">
+          {LEARNING_REPORT_V2 && (
+            <Chip active={tab === 'overview'} variant="coral" onClick={() => setTab('overview')}>
+              {tl('overview.tab')}
+            </Chip>
+          )}
           {visibleTabs.map((tabDef) => (
             <Chip
               key={tabDef.id}
@@ -121,73 +138,119 @@ export default function ParentReportsPage() {
         </div>
       )}
 
-      {tab === 'activity' && isDev && (
-        <div className="space-y-6">
-          <section>
-            <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
-              <AppIcon src="section/reward.webp" size={28} alt={t('reports.section.rewards')} />
-              <span>{t('reports.section.rewards')}</span>
-            </h2>
-            <RewardsOverviewCard />
-          </section>
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <HoriInventoryCard />
-          </section>
-          <section>
-            <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
-              <AppIcon
-                src="section/playground.webp"
-                size={28}
-                alt={t('reports.section.playground')}
-              />
-              <span>{t('reports.section.playground')}</span>
-            </h2>
-            <PlaygroundStatsCard events={events} />
-          </section>
-        </div>
+      {viewProfile && (
+        <GuestRecordImport
+          key={viewProfile.id}
+          profileId={viewProfile.id}
+          name={viewProfile.name}
+          onImported={() => void refetch()}
+        />
       )}
-
-      {tab === 'storybook' && (
-        <section>
-          <div className="mb-3 flex items-center justify-end">
-            <LanguageTabs value={storybookLang} onChange={setStorybookLang} />
-          </div>
-          {isLoading ? (
-            // 로딩 스켈레톤 — 데이터 오기 전 "0" 이 번쩍이는 것 방지
-            <div className="animate-pulse space-y-5">
-              <div className="h-48 rounded-3xl bg-peach-100/70" />
-              <div className="h-44 rounded-2xl bg-white/70" />
-              <div className="h-16 rounded-2xl bg-white/70" />
-            </div>
-          ) : (
-            <StorybookReportSection
+      {temporaryStorage && (
+        <p role="alert" className="rounded-2xl bg-amber-50 p-4 text-sm">
+          {tl('overview.temporary')}
+        </p>
+      )}
+      {!!pendingCount && (
+        <p role="status" className="rounded-2xl bg-mint-50 p-4 text-sm text-ink-600">
+          {tl('overview.pending', { count: pendingCount })}
+        </p>
+      )}
+      {isError ? (
+        <section role="alert" className="rounded-3xl bg-white p-6 shadow-soft">
+          <h2 className="font-black text-ink-900">{tl('overview.error')}</h2>
+          <p className="mt-2 text-sm text-ink-600">{tl('overview.errorNote')}</p>
+          <button
+            onClick={() => void refetch()}
+            className="mt-4 min-h-11 rounded-full bg-coral-500 px-5 py-3 font-bold text-white"
+          >
+            {tl('overview.retry')}
+          </button>
+        </section>
+      ) : isLoading ? (
+        <div aria-busy="true" className="animate-pulse space-y-4">
+          <div className="h-56 rounded-3xl bg-peach-100" />
+          <div className="h-64 rounded-3xl bg-white" />
+        </div>
+      ) : (
+        <>
+          {tab === 'overview' && (
+            <LearningOverview
+              key={viewProfile?.id}
               events={events}
               storybooks={storybooks}
-              lang={storybookLang}
               capped={capped}
             />
           )}
-        </section>
-      )}
+          {tab === 'activity' && isDev && (
+            <div className="space-y-6">
+              <section>
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+                  <AppIcon src="section/reward.webp" size={28} alt={t('reports.section.rewards')} />
+                  <span>{t('reports.section.rewards')}</span>
+                </h2>
+                <RewardsOverviewCard />
+              </section>
+              <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <HoriInventoryCard />
+              </section>
+              <section>
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+                  <AppIcon
+                    src="section/playground.webp"
+                    size={28}
+                    alt={t('reports.section.playground')}
+                  />
+                  <span>{t('reports.section.playground')}</span>
+                </h2>
+                <PlaygroundStatsCard events={events} />
+              </section>
+            </div>
+          )}
 
-      {tab === 'phonics' && (
-        <section>
-          <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
-            <AppIcon src="tab/phonics.svg" size={28} alt={t('reports.section.phonics')} />
-            <span>{t('reports.section.phonics')}</span>
-          </h2>
-          <PhonicsReportSection events={events} storybooks={storybooks} />
-        </section>
-      )}
+          {tab === 'storybook' && (
+            <section>
+              <div className="mb-3 flex items-center justify-end">
+                <LanguageTabs value={storybookLang} onChange={setStorybookLang} />
+              </div>
+              {isLoading ? (
+                // 로딩 스켈레톤 — 데이터 오기 전 "0" 이 번쩍이는 것 방지
+                <div className="animate-pulse space-y-5">
+                  <div className="h-48 rounded-3xl bg-peach-100/70" />
+                  <div className="h-44 rounded-2xl bg-white/70" />
+                  <div className="h-16 rounded-2xl bg-white/70" />
+                </div>
+              ) : (
+                <StorybookReportSection
+                  events={events}
+                  storybooks={storybooks}
+                  lang={storybookLang}
+                  capped={capped}
+                />
+              )}
+            </section>
+          )}
 
-      {tab === 'vocab' && isDev && (
-        <section>
-          <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
-            <AppIcon src="tab/vocab.svg" size={28} alt={t('reports.section.vocab')} />
-            <span>{t('reports.section.vocab')}</span>
-          </h2>
-          <VocabularyTabContent events={events} storybooks={storybooks} />
-        </section>
+          {tab === 'phonics' && (
+            <section>
+              <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+                <AppIcon src="tab/phonics.svg" size={28} alt={t('reports.section.phonics')} />
+                <span>{t('reports.section.phonics')}</span>
+              </h2>
+              <PhonicsReportSection events={events} storybooks={storybooks} />
+            </section>
+          )}
+
+          {tab === 'vocab' && isDev && (
+            <section>
+              <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+                <AppIcon src="tab/vocab.svg" size={28} alt={t('reports.section.vocab')} />
+                <span>{t('reports.section.vocab')}</span>
+              </h2>
+              <VocabularyTabContent events={events} storybooks={storybooks} />
+            </section>
+          )}
+        </>
       )}
     </div>
   );

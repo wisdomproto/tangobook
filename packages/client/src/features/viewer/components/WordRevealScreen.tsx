@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Mascot } from '@/design-system';
 import { cn } from '@/lib/cn';
-import type { Storybook, KeyObject, KeyObjectImage } from '@tangobook/shared';
+import type { Storybook, KeyObject, KeyObjectImage, Lang } from '@tangobook/shared';
 import { stripStyleSuffix } from '@tangobook/shared';
 import { useLogEvent } from '@/features/learning';
 
@@ -129,8 +129,11 @@ export function WordRevealScreen({
       logEvent({
         type: 'word_exposed',
         storybookId: storybook.id,
-        word: word.name,
+        word: word.display,
         metadata: {
+          lang: (['ko', 'en', 'vi', 'zh', 'th'].includes(uiLang) ? uiLang : undefined) as
+            | Lang
+            | undefined,
           source: 'storybook',
           storybookId: storybook.id,
           korean: word.korean,

@@ -2,6 +2,7 @@
 
 새 작업은 [템플릿](../../TASK-TEMPLATE.md)을 날짜와 작업명이 있는 파일로 복사한다. README는 작업 자체가 아니다.
 
+- [20261005-learning-report-implementation](20261005-learning-report-implementation.md): 수집 정확성·어휘 근거·모바일 부모 리포트 핵심 구현과 검증.
 - [20261005-learning-data-reporting-plan](20261005-learning-data-reporting-plan.md): 학습 데이터와 리포트 구현 기획·모바일 시안. 제품 구현은 후속.
 
 기존 worktree의 미이관 작업은 별도로 확인한다.

@@ -1,3 +1,5 @@
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { getRequiredActivities } from '../lib/korean-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
@@ -141,14 +143,26 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
    * (음절·음소 정오답은 활동이 실제로 그걸 판정할 때 따로 남긴다 — 없는 정답을 지어내지 않는다.)
    */
   const logEvent = useLogEvent();
+  const { activeProfile } = useAuth();
+  const completionId = useMemo(() => crypto.randomUUID(), [unitId, activityKey, activeProfile?.id]);
   const logUnitProgress = useCallback(() => {
     if (!unitId) return;
     logEvent({
+      id: completionId,
       type: 'page_read',
       storybookId: unitId,
-      metadata: { source: 'phonics', unitId, lang: 'ko' },
+      metadata: {
+        schemaVersion: 2,
+        activityRunId: completionId,
+        source: 'phonics',
+        unitId,
+        lang: 'ko',
+        activityId: activityKey,
+        activityCompleted: true,
+        requiredActivityIds: [...getRequiredActivities(unitId)],
+      },
     });
-  }, [logEvent, unitId]);
+  }, [logEvent, unitId, activityKey, completionId]);
 
   const handleComplete = useCallback(() => {
     markActivityCompleted('korean', unitId, activityKey);
@@ -164,10 +178,17 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         type: correct ? 'word_correct' : 'word_wrong',
         storybookId: unitId,
         word: item.sound || item.label,
-        metadata: { source: 'phonics', unitId, lang: 'ko' },
+        metadata: {
+          schemaVersion: 2,
+          source: 'phonics',
+          unitId,
+          lang: 'ko',
+          activityId: activityKey,
+          skill: 'sound',
+        },
       });
     },
-    [logEvent, unitId]
+    [logEvent, unitId, activityKey]
   );
 
   const handleMarkComplete = useCallback(() => {

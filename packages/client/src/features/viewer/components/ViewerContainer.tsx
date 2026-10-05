@@ -1,3 +1,4 @@
+import { useAuth } from '@/features/auth/context/AuthContext';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { bookDisplayTitle } from '@tangobook/shared';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -474,18 +475,21 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   // 학습 이벤트 emit — 페이지가 바뀔 때 이전 페이지에 대해 page_read + word_exposed 배치
   const logEvent = useLogEvent();
   const logBatch = useLogEventsBatch();
-  const lastEmittedPageRef = useRef<number | null>(null);
+  const { activeProfile: learningProfile } = useAuth();
+  const lastEmittedPageRef = useRef<string | null>(null);
   useEffect(() => {
     if (!storybook || !storybookId) return;
     if (mode === 'video' || mode === 'games') return;
     if (storybook.type === 'phonics' && mode !== 'story') return;
-    if (lastEmittedPageRef.current === pageIndex) return;
-    lastEmittedPageRef.current = pageIndex;
+    const pageKey = `${learningProfile?.id ?? 'guest'}:${storybookId}:${lang}:${pageIndex}`;
+    if (lastEmittedPageRef.current === pageKey) return;
 
     const page = pages[pageIndex];
     if (!page) return;
+    lastEmittedPageRef.current = pageKey;
     const pageNumber = page.pageNumber ?? pageIndex + 1;
-    const narrowLang: Lang = lang === 'en' ? 'en' : 'ko';
+    const narrowLang: Lang =
+      lang === 'en' || lang === 'vi' || lang === 'zh' || lang === 'th' ? (lang as Lang) : 'ko';
     const totalPages = pages.length;
     const isLast = pageNumber >= totalPages;
     logEvent({
@@ -518,7 +522,18 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
         }))
       );
     }
-  }, [pageIndex, storybook, storybookId, mode, lang, pages, logEvent, logBatch, urlStyle]);
+  }, [
+    learningProfile?.id,
+    pageIndex,
+    storybook,
+    storybookId,
+    mode,
+    lang,
+    pages,
+    logEvent,
+    logBatch,
+    urlStyle,
+  ]);
 
   // 이미지: 다음 페이지 미리 로드 / TTS: 현재 페이지부터 미리 버퍼링 (첫 음성 지연 제거)
   const PRELOAD_AHEAD = 5;

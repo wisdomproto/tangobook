@@ -11,7 +11,7 @@ import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
-import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { useGameLogger } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
@@ -86,23 +86,13 @@ export function EnglishWordWritingPlayer({
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
   useGameEntryGuide(voiceUrl(ENTRY_GUIDE.writeTrace), playAudio);
 
-  const emitFinalResults = useCallback(
-    (finalPassed: boolean[]) => {
-      const results: GameWordResult[] = items.map((it, i) => ({
-        word: it.word,
-        correct: !!finalPassed[i],
-      }));
-      logGame({ gameType: 'english-word-writing', storybookId, lang: 'en', results });
-    },
-    [items, logGame, storybookId]
-  );
-
   const advanceToNext = useCallback(
     (newPassed: boolean[]) => {
       setScene(null);
+      const result = { word: items[currentIndex].word, correct: !!newPassed[currentIndex] };
+      logGame({ gameType: 'english-word-writing', storybookId, lang: 'en', results: [result] });
       if (currentIndex + 1 >= items.length) {
         const score = newPassed.reduce((a, b) => a + (b ? 100 : 0), 0);
-        emitFinalResults(newPassed);
         onComplete(score, items.length * 100);
       } else {
         completedRef.current = false;
@@ -110,7 +100,7 @@ export function EnglishWordWritingPlayer({
         setCurrentIndex((i) => i + 1);
       }
     },
-    [currentIndex, items.length, onComplete, emitFinalResults]
+    [currentIndex, items, onComplete, logGame, storybookId]
   );
 
   // 한 글자 완성 → 그 글자 소리. 단, 단어를 완성하는 마지막 글자면 여기서 재생하지 않고

@@ -20,7 +20,7 @@ vi.mock('@/features/auth/context/AuthContext', () => ({
   useAuth: () => mockAuth,
 }));
 
-const mockEvents = { data: [] as any[], isLoading: false };
+const mockEvents = { data: [] as any[], isLoading: false, isError: false, refetch: vi.fn() };
 vi.mock('@/features/learning', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/features/learning')>();
   return {
@@ -36,6 +36,10 @@ vi.mock('@/features/learning', async (importOriginal) => {
     LanguageTabs: () => <div />,
   };
 });
+
+vi.mock('@/features/learning/components/GuestRecordImport', () => ({
+  GuestRecordImport: () => null,
+}));
 
 vi.mock('@/features/storybook/hooks/useStorybooks', () => ({
   useStorybooks: () => ({ data: [] }),
@@ -90,18 +94,18 @@ describe('ParentReportsPage — non-dev parent', () => {
     expect(screen.queryByText('활동 현황')).toBeNull();
   });
 
-  it('shows 동화책 content by default', () => {
+  it('shows unified learning overview by default', () => {
     renderPage();
-    expect(screen.getByTestId('storybook-section')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-overview')).toBeInTheDocument();
   });
 
-  it('shows exactly the two parent tabs (동화책·파닉스)', () => {
+  it('shows three parent tabs including the unified overview', () => {
     renderPage();
     const tabs = screen
       .getAllByRole('button')
       .map((b) => b.textContent ?? '')
-      .filter((x) => /동화책|파닉스|어휘|활동 현황/.test(x));
-    expect(tabs).toHaveLength(2);
+      .filter((x) => /^(학습 한눈에|동화책|파닉스|어휘|활동 현황)$/.test(x));
+    expect(tabs).toHaveLength(3);
   });
 });
 
@@ -156,5 +160,30 @@ describe('ParentReportsPage — early returns', () => {
     renderPage();
     expect(screen.getByText('프로필을 먼저 선택해주세요')).toBeInTheDocument();
     mockAuth.activeProfile = orig;
+  });
+});
+
+describe('ParentReportsPage — history failures and child isolation', () => {
+  it('does not render an empty report when the history query fails', () => {
+    mockEvents.isError = true;
+    renderPage();
+    expect(screen.getByRole('alert')).toHaveTextContent('학습 기록을 확인하지 못했어요.');
+    expect(screen.queryByTestId('learning-overview')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '다시 확인' }));
+    expect(mockEvents.refetch).toHaveBeenCalled();
+    mockEvents.isError = false;
+  });
+  it('changes the report child without changing the child who is playing', () => {
+    const before = mockAuth.activeProfile;
+    mockAuth.profiles = [
+      { id: 'p1', name: '첫째' },
+      { id: 'p2', name: '둘째' },
+    ] as any;
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: '둘째' }));
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('둘째');
+    expect(mockAuth.activeProfile).toBe(before);
+    expect(mockAuth.setActiveProfile).not.toHaveBeenCalled();
+    mockAuth.profiles = [];
   });
 });

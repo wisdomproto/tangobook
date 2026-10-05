@@ -18,7 +18,9 @@ export const eventsApi = {
   async insert(events: LearningEventInsert[]): Promise<boolean> {
     if (events.length === 0) return true;
     if (!isSupabaseConfigured) return false;
-    const { error } = await supabase.from('learning_events').insert(events);
+    const { error } = await supabase
+      .from('learning_events')
+      .upsert(events, { onConflict: 'id', ignoreDuplicates: true });
     if (error) {
       console.warn('[learning-events] insert failed', error);
       return false;
@@ -26,26 +28,42 @@ export const eventsApi = {
     return true;
   },
 
-  /**
-   * 🔴 `limit` 은 계산된 값이 아니라 **첫 구현부터 들어온 상한**이다(PostgREST 기본 1000행을 넉넉히
-   * 올려둔 것). 넘으면 **오래된 것부터 잘린다** — 예전엔 그걸 아무도 몰라서 몇 달 쓴 계정의
-   * 「모두 N개」 가 실제보다 적은데도 정확한 총계처럼 보였다.
-   * 이제 상한에 닿았는지(`capped`)와 **서버가 센 실제 건수**(`total`)를 같이 돌려준다 —
-   * 화면은 잘렸다는 사실을 말할 수 있고, 총계는 받아온 행 수가 아니라 서버 숫자를 쓴다.
-   */
-  async fetchByProfile(profileId: string, limit = 5000): Promise<LearningEventPage> {
-    if (!isSupabaseConfigured) return { events: [], total: 0, capped: false };
-    const { data, error, count } = await supabase
-      .from('learning_events')
-      .select('*', { count: 'estimated' })
-      .eq('profile_id', profileId)
-      .order('created_at', { ascending: false })
-      .limit(limit);
-    if (error) {
-      console.warn('[learning-events] fetch failed', error);
-      return { events: [], total: 0, capped: false };
+  /** Read in stable timestamp/ID order. Failures remain errors, not an empty report. */
+  async fetchByProfile(profileId: string, limit = 50000): Promise<LearningEventPage> {
+    if (!isSupabaseConfigured) throw new Error('Learning storage unavailable');
+    const events: LearningEvent[] = [];
+    const snapshot = new Date().toISOString();
+    const pageSize = 500;
+    let total = 0;
+    let cursor: LearningEvent | undefined;
+    while (events.length < limit) {
+      const size = Math.min(pageSize, limit - events.length);
+      let request = supabase
+        .from('learning_events')
+        .select('*', cursor ? undefined : { count: 'exact' })
+        .eq('profile_id', profileId)
+        .lte('created_at', snapshot)
+        .order('created_at', { ascending: false })
+        .order('id', { ascending: false });
+      if (cursor)
+        request = request.or(
+          `created_at.lt.${cursor.created_at},and(created_at.eq.${cursor.created_at},id.lt.${cursor.id})`
+        );
+      const { data, error, count } = await request.range(0, size - 1);
+      if (error) throw error;
+      if (!cursor) {
+        if (count === null) throw new Error('Learning record count unavailable');
+        total = count;
+      }
+      const page = (data ?? []) as LearningEvent[];
+      events.push(...page);
+      cursor = page.at(-1);
+      if (page.length < size) break;
     }
-    const events = (data ?? []) as LearningEvent[];
-    return { events, total: count ?? events.length, capped: events.length >= limit };
+    return {
+      events,
+      total: Math.max(total, events.length),
+      capped: events.length >= limit || total > events.length,
+    };
   },
 };

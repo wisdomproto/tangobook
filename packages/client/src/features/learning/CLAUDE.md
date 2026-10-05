@@ -1,10 +1,20 @@
 # Learning Reports 모듈
 
+## 2026-10-05 어휘 근거와 모바일 기본 리포트
+
+기본 화면은 `LearningOverview`: 최근 기간의 고유 낱말/직접 연습/활동일 → 다음 놀이 → 누적 낱말 검색·필터 → native dialog 상세. 노출/시도/능력 근거/관련 파닉스 이력 분리, V1은 legacy evidence. `word-learning.ts`가 새 화면의 단일 집계 원본이며 기존 mastery %를 새 리포트의 읽기 습득 판정으로 사용하지 않는다. UI 언어와 학습 언어를 구분한다.
+
+`event-outbox.ts`·`storage-lock.ts`: 안정 ID, 전송 전 기기 보관, 지원 브라우저 탭 간 쓰기 조정, ACK ID만 삭제, 실패 유지. `useLearningSync`가 계정의 자녀 기록을 재시도하고 조회를 갱신한다. 게스트도 batch 보관, `guest-transfer.ts`에서 ID/대상을 먼저 고정하고 부분 ACK한다. 복수 자녀는 `GuestRecordImport`에서 실제 이용자를 선택. 공용 기기 진척을 아이에게 임의 배분하지 않는다.
+
+`completedPhonicsUnitIds`는 실제 필수 활동 완료로 계산한다. 방문/과거 page_read를 완료로 backfill하지 않는다. 현재 조회는 cursor 500행씩, 안전 상한 50,000행과 부분 이력 표시. 서버 lifetime projection은 아직 아니다. `PostActivityPhonics`는 게임 완료 후 관련 단원을 접근 게이트 안에서 실행하고 원래 독후활동 목록으로 돌아온다. 기록 조회가 안 끝났으면 미연습을 추정하지 않는다.
+
+일반 부모 탭 = 학습 한눈에·동화책·파닉스, dev 추가 = 활동 현황·기존 어휘. `VITE_LEARNING_REPORT_V2=false`는 새 요약/추천 진입 롤백. 상세 구현 범위·검증·후속은 [작업 기록](../../../../../docs/work/reading/tasks/20261005-learning-report-implementation.md).
+
 동화책 + 파닉스 + 어휘 + 활동 학습 리포팅 (부모용). `/parent/reports`.
 
-## 페이지 구조 (4탭)
+## 기존 상세 탭 구조
 
-`/parent/reports` 진입 시 메인 탭 = `Chip` (variant=coral) 4개:
+`/parent/reports` 진입 시 메인 탭 = `Chip` (variant=coral), 기본 요약 외 기존 상세:
 
 | 탭           | 컴포넌트                                                            | 내용                                                                         |
 | ------------ | ------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -91,7 +101,7 @@
 
 `mastery.test.ts` · `aggregate.test.ts` · `korean-phonics-grid.test.ts` 24 tests PASS.
 
-상세: [memory/learning-reports-complete.md](../../../../../memory/learning-reports-complete.md)
+현재 구현·검증: [학습 리포트 작업 기록](../../../../../docs/work/reading/tasks/20261005-learning-report-implementation.md). 이전 메모리 검색: [공유 인수인계](../../../../../docs/handoff/legacy-memory-index.md).
 스펙: [docs/superpowers/specs/2026-04-23-learning-reports-design.md](../../../../../docs/superpowers/specs/2026-04-23-learning-reports-design.md)
 
 ## 부모 리포트 리디자인 (2026-07-27) — 학부모 리뷰 반영
