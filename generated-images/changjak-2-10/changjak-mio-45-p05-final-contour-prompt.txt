@@ -1,0 +1,1 @@
+Repair this black-and-white coloring-page lineart. Lower both raccoon ears so tips are INSIDE canvas with 35px clear margin; close forehead and ears as a single shape. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.

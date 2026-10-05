@@ -1,0 +1,32 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-twins-26-p10",
+    "actualPointerBrushes": 10,
+    "paletteColors": 11,
+    "mainCharacterColored": true,
+    "page": 10,
+    "correctSourceRevealUrl": true,
+    "readingFallbackCompletionObserved": false,
+    "nativeSpeechVerified": false,
+    "resetRepaint": false,
+    "bgmStopped": false,
+    "audioNote": "BGM still playing at immediate reveal; no native speech claim",
+    "sourceRevealObserved": true,
+    "readingNote": "Correct page source reveal observed; no native speech or final reading completion claim"
+  },
+  "sourceExceptions": [
+    "changjak-twins-26-p02",
+    "changjak-twins-26-p10",
+    "changjak-twins-41-p01",
+    "changjak-twins-41-p09"
+  ],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

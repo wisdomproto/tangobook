@@ -45,6 +45,7 @@ const fields = [
   'sourceSha256',
   'lineartSha256',
   'colorCheck',
+  'colorSampling',
   'collection',
 ];
 const jobs = [

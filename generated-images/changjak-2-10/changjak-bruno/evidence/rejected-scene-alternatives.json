@@ -1,0 +1,33 @@
+[
+  {
+    "rejectedKey": "changjak-bruno-06-p02",
+    "rejectedScene": {
+      "key": "changjak-bruno-06-p02",
+      "bookId": "changjak-bruno-06",
+      "title": "06. 내가 길 알아요",
+      "artStyle": "bruno",
+      "collection": "changjak-bruno",
+      "pageNumber": 2,
+      "originalUrl": "https://assets.tangobook.co.kr/comic-assets/bruno-06/p2.jpg",
+      "text": "닐스는 호수에서 물수제비를 뜨고 싶어요. 납작한 돌이 물 위를 통통 튀는 놀이예요. \"길은 내가 알아요! 따라오세요!\"",
+      "translations": {},
+      "backgroundMusicUrl": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3",
+      "sourceFile": "sources/changjak-bruno-06-p02.png",
+      "lineartFile": "lineart/changjak-bruno-06-p02.png",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 [CabinOutside] 오두막 앞길.\n인물 Nils bear cub이 두 앞발을 앞으로 뻗어 길 앞을 가리키며 입을 크게 벌려 말한다 — 몸이 절반쯤 돌아가 뒤를 본다. 파란 장화. Bruno grandfather bear는 반걸음 뒤에서 고개를 끄덕인다.\n배경·소품 길, 길가 새 풀.\n톤 가리키는 손과 돌아본 얼굴이 서로 다른 쪽을 향한다.",
+      "selectionReason": "Distinct main-action scenes from the first and second halves of the current book",
+      "status": "pending",
+      "previewHold": true,
+      "sourceOrigin": "Current book illustration",
+      "generation": {
+        "skill": "imagegen",
+        "mode": "built-in-reference-edit"
+      },
+      "sourceSha256": "613449e36b560b9abe39db953f6c485f4b83763afb3ad56b6535017d74bd162c"
+    },
+    "selectedKey": "changjak-bruno-06-p03",
+    "originalUrl": "https://assets.tangobook.co.kr/comic-assets/bruno-06/p3.jpg",
+    "text": "닐스가 샛길로 쑥 들어갔어요. \"이쪽이 빨라요!\" 할아버지가 뒤에서 따라왔어요.",
+    "sceneDescription": "컷 미디엄 와이드, 하이앵글. 좁은 샛길 입구를 내려다본다.\n장소·시간 [Path] 큰길에서 갈라진 샛길 입구.\n인물 Nils bear cub이 풀 사이 좁은 틈으로 쏙 들어간다 — 몸이 이미 반쯤 풀에 가렸고 파란 장화만 또렷하다. Bruno grandfather bear가 그 뒤에서 큰 몸을 굽혀 따라 들어간다 — 초록 뜨개 조끼.\n배경·소품 다져진 큰길이 화면 오른쪽으로 그대로 이어져 있다, 풀에 덮인 샛길.\n톤 넓은 길을 두고 좁은 틈으로 들어간다."
+  }
+]

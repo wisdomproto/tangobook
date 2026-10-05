@@ -30,6 +30,8 @@ Claude Code와 Codex가 같은 프로젝트 지식으로 작업하기 위한 진
 
 ## 코드와 실행
 
+- 새 동화책 표지 제목은 [전용 폰트 지침](docs/cover-fonts.md)의 TangoBook Story Hand를 우선 사용한다. 지원 글자 확인·책별 색/테두리·클린 표지 배치 규칙을 따른다. 시험판을 전체 언어 지원으로 간주하지 않는다.
+
 - 이 로컬 환경에서 사용자가 그림·삽화 생성을 요청하면 기본으로 로컬 ComfyUI의 Qwen-Image-2.1을 사용한다. 사용자가 다른 모델을 지정하면 그 지시가 우선한다. 작품의 기존 캐릭터 참조·그림체와 쪽별 육안 검수는 그대로 따른다.
 - pnpm monorepo: `packages/client`(React), `server`(Express), `shared`(타입/순수 로직), `remotion`(영상).
 - 서버: routes → controllers → services → repositories/providers. 공통 응답·`AppError`·`asyncHandler`를 재사용한다.

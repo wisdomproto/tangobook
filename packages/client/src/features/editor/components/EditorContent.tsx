@@ -14,6 +14,11 @@ import { QuizTab } from '@/features/quiz/components/QuizTab';
 const AudiobookTab = lazy(() =>
   import('@/features/audiobook').then((m) => ({ default: m.AudiobookTab }))
 );
+const SceneColoringEditorTab = lazy(() =>
+  import('@/features/games/components/SceneColoringEditorTab').then((m) => ({
+    default: m.SceneColoringEditorTab,
+  }))
+);
 import { SettingsTab } from '@/features/settings';
 import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/features/phonics';
 import { GamesTab, StorybookGamesTab } from '@/features/games';
@@ -38,6 +43,8 @@ interface EditorContentProps {
   hideHeader?: boolean;
   /** 숨길 탭 ID 배열. /editor2 에서 quiz/blog/card-news 등 마케팅 관련 탭 가림. /editor 미사용. */
   hiddenTabIds?: string[];
+  /** editor2 책별 장면 도안과 게임 미리보기. v1은 그대로 유지한다. */
+  showSceneColoring?: boolean;
   videoLibrary?: boolean;
 }
 
@@ -51,6 +58,7 @@ export function EditorContent({
   compactHeader = false,
   hideHeader = false,
   hiddenTabIds,
+  showSceneColoring = false,
   videoLibrary = false,
 }: EditorContentProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
@@ -158,6 +166,20 @@ export function EditorContent({
     ...(isPhonics ? phonicsAfterCharTabs : []),
     ...commonEndTabs,
     ...(isPhonics ? phonicsAfterCoverTabs : [...storybookOnlyTabs, ...storybookEndTabs]),
+    ...(showSceneColoring && !isPhonics
+      ? [
+          {
+            id: 'scene-coloring',
+            // Hidden tabs stay mounted elsewhere; this game must unmount on tab/book changes to stop audio.
+            el:
+              activeTab === 'scene-coloring' ? (
+                <Suspense fallback={<p>도안을 불러오는 중…</p>}>
+                  <SceneColoringEditorTab key={storybook.id} storybook={storybook} />
+                </Suspense>
+              ) : null,
+          },
+        ]
+      : []),
     ...sharedEndTabs,
   ];
   // hiddenTabIds 적용 — /editor2 에서 quiz/blog/card-news 등 마케팅 관련 가림
@@ -179,6 +201,7 @@ export function EditorContent({
       <TabBar
         storybookType={storybook.type}
         hiddenTabIds={hiddenTabIds}
+        showSceneColoring={showSceneColoring}
         videoLibrary={videoLibrary}
       />
       {tabs.map(({ id, el }) => (

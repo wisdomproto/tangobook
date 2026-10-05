@@ -1,0 +1,13 @@
+{
+  "key": "changjak-mei-42-p10",
+  "url": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/play.html?key=changjak-mei-42-p10",
+  "actualPointerBrushes": 4,
+  "paletteColors": 5,
+  "allPaletteCompleted": true,
+  "correctSourceRevealUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-mei/sources/changjak-mei-42-p10.png?v=1f017ef79291",
+  "sourcePage": 10,
+  "nativeSpeechVerified": false,
+  "readingCompletionObserved": false,
+  "resetRepaint": false,
+  "note": "Public shared ColoringPlayer actual CUA brushes and exact source reveal. Partial screenshot after two brushes has intentional checkerboard in the not-yet-painted cream faces; it is not a completed-color failure. Whole 900-scene inspection remains static source/lineart/shared-filled comparison, with nine separate local representative games."
+}

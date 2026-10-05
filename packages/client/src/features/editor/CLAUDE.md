@@ -1,5 +1,7 @@
 # /editor2 단일 구조 저작도구
 
+표지 제목의 기본 서체 선택/색/지원 글자 확인은 [표지 전용 폰트 지침](../../../../../docs/cover-fonts.md)을 따른다. 운영 자산 등록과 편집기 UI 적용은 별도 상태로 관리한다.
+
 v1 storybook 데이터 모델 위의 저작도구. /editor 는 안전 백업으로 유지.
 🔴 **한 책 = 한 그림체 · 한 레벨**(2026-09-14) — 예전의 3축 variation(레벨 사본 `__L2` · `styleAssets` 그림체 swap · `defaultStyle`)은 걷어냈다. 같은 이야기의 다른 그림체는 다른 책이고 **책 그룹**이 잇는다(`/library-master`). 남은 축은 **언어** 하나.
 
@@ -41,6 +43,10 @@ R2 `book-videos/{bookId}/index.json`에 제작 버전, `files/{uuid}.{ext}`에 �
 ## 숨은그림 탭
 
 `HiddenObjectEditorTab`(`features/games/components/`) — 씬은 책의 `hiddenObjectScenes`. 상세 → [features/games/CLAUDE.md](../games/CLAUDE.md).
+
+## 장면 색칠 탭 (2026-10-03)
+
+editor2 동화책만 `showSceneColoring`으로 활성화. `SceneColoringEditorTab`은 책 ID catalog의 원본/도안과 실제 `ColoringPlayer` 미리보기를 제공한다. 탭/책 이동 시 게임을 언마운트해 소리를 정리한다. catalog 갱신은 `scripts/build-editor-scene-coloring-catalog.mjs`; 기존 책 본문 일괄 덮어쓰기 없음. 상세 [작업 기록](../../../../../docs/work/authoring/tasks/20261003-editor2-scene-coloring.md).
 
 ## KeyObject TTS
 

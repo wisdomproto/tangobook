@@ -1,0 +1,911 @@
+[
+  {
+    "key": "changjak-mei-01-p01",
+    "sourceSha256": "1a24b07c8e8f8affd14de03512c8f5239af4bf062772bef655fed05f689b778a",
+    "lineartSha256": "e24e6d3267f4cefb6aeb7ad26d673e7ee5153e2ffc3b10b92ca546789ca7dc83",
+    "regions": 209,
+    "required": 10,
+    "colors": 3,
+    "paintablePercent": 39.8
+  },
+  {
+    "key": "changjak-mei-01-p08",
+    "sourceSha256": "dcc6c6bcb08514aa21d159bd78fc71051631413b1003dca31549d3b4d76c4684",
+    "lineartSha256": "b3b26c9e4f5bcd9b322efde96cb0c4be92966ec9669d597dbd0af87671abcc71",
+    "regions": 73,
+    "required": 25,
+    "colors": 4,
+    "paintablePercent": 31.9
+  },
+  {
+    "key": "changjak-mei-02-p01",
+    "sourceSha256": "78dfb26529a2ae38b23685e86bf94aed4637789bf22e6f2b91947b9e556dd55d",
+    "lineartSha256": "05ee3921817c99406ad2cd10f17def2a4eb203bbc525c006a7719710b2561f17",
+    "regions": 137,
+    "required": 68,
+    "colors": 4,
+    "paintablePercent": 79.3
+  },
+  {
+    "key": "changjak-mei-02-p06",
+    "sourceSha256": "c4db27faa220183b503178c41d1e1f9c7878968774abf3055e7dcb7dcc999081",
+    "lineartSha256": "3ef4c0a1bf47f88159130575ff98f7b0b910432ae3eabbc7da5f7bb2ade2916c",
+    "regions": 69,
+    "required": 35,
+    "colors": 4,
+    "paintablePercent": 84.1
+  },
+  {
+    "key": "changjak-mei-03-p04",
+    "sourceSha256": "0b1803c0c1f30fa201e9ed8f9f1702a5af32f187799afac079775b3d9c129197",
+    "lineartSha256": "328c55edbdf71d87fab54546307b2046fd903ffbc695f0b7fc206c0912d1698e",
+    "regions": 26,
+    "required": 12,
+    "colors": 5,
+    "paintablePercent": 32.7
+  },
+  {
+    "key": "changjak-mei-03-p06",
+    "sourceSha256": "9a85407447907cfe5624eb7f7eaae6b175b373e834f32d79058ab108bf7e07a5",
+    "lineartSha256": "3234a1a5fcf73d95065dc7a03fd72e197e1082eb366025c958a8c4b0cec8e850",
+    "regions": 333,
+    "required": 50,
+    "colors": 3,
+    "paintablePercent": 65.8
+  },
+  {
+    "key": "changjak-mei-04-p04",
+    "sourceSha256": "ca66040182e366b3dc1d1ea7f0948873d550ca921252c021c616ae8297440521",
+    "lineartSha256": "ae16bee9ed0f0160426344e12a370214b8293834378b7fd6d07817241d6080a2",
+    "regions": 68,
+    "required": 24,
+    "colors": 2,
+    "paintablePercent": 57.5
+  },
+  {
+    "key": "changjak-mei-04-p10",
+    "sourceSha256": "07a545b3542a8bd77ff41237bae25564ed7f16cb9638e539e18b79a78f76c75a",
+    "lineartSha256": "1fd89d4b4449e459b613990356059435945fc687d4b6c79fe8fed3d64522c384",
+    "regions": 399,
+    "required": 39,
+    "colors": 3,
+    "paintablePercent": 49.2
+  },
+  {
+    "key": "changjak-mei-05-p03",
+    "sourceSha256": "eaa4247cf405861e888512100b2af4e6bb0cede17e95be7be9c771f2b805fb86",
+    "lineartSha256": "7db6123e76d56604f4e6af74c27726721911d9fb8c84d14875572ce8eabda960",
+    "regions": 22,
+    "required": 13,
+    "colors": 2,
+    "paintablePercent": 77.6
+  },
+  {
+    "key": "changjak-mei-05-p09",
+    "sourceSha256": "9a63643e35d19fb27266f6fd72a9d98cca44d422c54ca6dc0d0b72be97048015",
+    "lineartSha256": "03bf5bb60b637482b12118348ade22a2b910059b3c232ba341fadb6310135d09",
+    "regions": 216,
+    "required": 18,
+    "colors": 2,
+    "paintablePercent": 28.7
+  },
+  {
+    "key": "changjak-mei-06-p04",
+    "sourceSha256": "eb94e8c0240a578154aeaf5a1396bb0728e41b9516fa130cf434c2d0d36ff210",
+    "lineartSha256": "22ca726d97acc39a284b94a571ad788806452dcaa64bf224e76973f8bff3d327",
+    "regions": 152,
+    "required": 27,
+    "colors": 3,
+    "paintablePercent": 43
+  },
+  {
+    "key": "changjak-mei-06-p08",
+    "sourceSha256": "82137d1aa3638078db8e0c0b2aca860e43cb3a9f7ac2509de69294b4ac4780b2",
+    "lineartSha256": "550cc532ddd7a062b8462b3458868612322d1f4dc9d61303cbf9cb6d6aa90c57",
+    "regions": 115,
+    "required": 53,
+    "colors": 4,
+    "paintablePercent": 72
+  },
+  {
+    "key": "changjak-mei-07-p05",
+    "sourceSha256": "4d0b99dd05491a27674991ec1f5710afb95cd91d9afabf7983ac6546e19b2992",
+    "lineartSha256": "9f920404afb241cc4bb622b361b050e5bb5271484f290c78395f293696f0d0e7",
+    "regions": 170,
+    "required": 18,
+    "colors": 4,
+    "paintablePercent": 24
+  },
+  {
+    "key": "changjak-mei-07-p06",
+    "sourceSha256": "b22d08fe38b3ba200d54ef83aa413df611239115b2a8c3482a9a0d6fab40ab23",
+    "lineartSha256": "5db1f40c0566f8a53d70455171e37b6f3d1e135422307f17313e3bb8448c4890",
+    "regions": 75,
+    "required": 35,
+    "colors": 4,
+    "paintablePercent": 64.1
+  },
+  {
+    "key": "changjak-mei-08-p03",
+    "sourceSha256": "043d3e1b2d3295e208eedca5108f6ef1f48832de1538772d6535a79ffc8757fe",
+    "lineartSha256": "9938f8448dc8aed1c7952da032492edcc786c26c11dab565bedfc8f8eaa05f13",
+    "regions": 111,
+    "required": 23,
+    "colors": 4,
+    "paintablePercent": 52.2
+  },
+  {
+    "key": "changjak-mei-08-p08",
+    "sourceSha256": "b9eed51f8433ba821d85e8a9ed11776b76477c767e3f1bf4f7f368ae440c04c5",
+    "lineartSha256": "c2ec42cf0b1210f2057cea76d827ba4bfbe6eac1183a20cbde5e2cb97684b89a",
+    "regions": 67,
+    "required": 24,
+    "colors": 4,
+    "paintablePercent": 72.1
+  },
+  {
+    "key": "changjak-mei-09-p02",
+    "sourceSha256": "06ce1bc8da2fe0d5d639ca320b4334b173490e8f8c8b30c2c46efc8ebf7497c0",
+    "lineartSha256": "4c6f972f69010aa786e5d390c0cf97069c951ffa4e7e5df0a43b1a891f3b3a8e",
+    "regions": 66,
+    "required": 11,
+    "colors": 3,
+    "paintablePercent": 12.8
+  },
+  {
+    "key": "changjak-mei-09-p10",
+    "sourceSha256": "86dd9f7b8d5d088d6c72957fc7f85d9c62f9722feafff81333978ff5a857cedc",
+    "lineartSha256": "d5e1c893b4dee26b6fc4b93068a572ea2bfa24900ba963a0c2703c10936f1f0c",
+    "regions": 145,
+    "required": 21,
+    "colors": 5,
+    "paintablePercent": 23.9
+  },
+  {
+    "key": "changjak-mei-10-p04",
+    "sourceSha256": "874f83a0a3e14bd9661f4545ad387d554791ebfc6f4c3a55fd45f190d8666cec",
+    "lineartSha256": "274bb7735aa1d29b76df85314168d7482665504381416b0fafbfe15865a5a504",
+    "regions": 87,
+    "required": 46,
+    "colors": 3,
+    "paintablePercent": 57.4
+  },
+  {
+    "key": "changjak-mei-10-p09",
+    "sourceSha256": "b6be09ea1c25361d797026b0e45fbf11304bcf5608f6afa2f0dd58d3c4c6d4e3",
+    "lineartSha256": "5e8ce3e10fa7e8f911f2bb47a446730e86921b9b469ed6fb45dc526031cc011c",
+    "regions": 71,
+    "required": 24,
+    "colors": 3,
+    "paintablePercent": 75.4
+  },
+  {
+    "key": "changjak-mei-11-p05",
+    "sourceSha256": "6b976bc252101e2e071ac943a82ac0ee9f6a5ea195bccb745cf501188caa5872",
+    "lineartSha256": "723b2e59a21b4860a154887f7a9c86179a667c7019f61d98c2f237abf5914d05",
+    "regions": 133,
+    "required": 29,
+    "colors": 5,
+    "paintablePercent": 63.4
+  },
+  {
+    "key": "changjak-mei-11-p10",
+    "sourceSha256": "04bafba06063a23daadd6935a6a0581457ab4486c1b3a84ff06a24429fc3140f",
+    "lineartSha256": "4eef223d8324d920ecfb1cb3d9c49684f535387a2eca1e3d3b6fed81373fa0c3",
+    "regions": 356,
+    "required": 35,
+    "colors": 3,
+    "paintablePercent": 37.4
+  },
+  {
+    "key": "changjak-mei-12-p04",
+    "sourceSha256": "1aec870866895a795c3a0fb6fb31ac41de532503fd2897cf68ba31ca4e5d0ef8",
+    "lineartSha256": "75c6725dd70f12df882c770dd7beffe6f49e5b0fc7baf015601fd4ff89f66eb4",
+    "regions": 66,
+    "required": 10,
+    "colors": 3,
+    "paintablePercent": 17.3
+  },
+  {
+    "key": "changjak-mei-12-p08",
+    "sourceSha256": "30c6bb43df852e984967229ee4fdd4f433ad715d53f05b299c624feffa834845",
+    "lineartSha256": "aa4da47818298ff9f059c05219ccf47f9a5fca5048e62c30788f112abec8e94a",
+    "regions": 118,
+    "required": 24,
+    "colors": 5,
+    "paintablePercent": 58.4
+  },
+  {
+    "key": "changjak-mei-13-p04",
+    "sourceSha256": "62bb22bb1e997ac4d702e6a8c56860672e0cc3f803d54e727843ad95fc15f3a0",
+    "lineartSha256": "2b842d3a4b4e8dadba3a2c9f38268277401c76419f217fe3e0bdcf21639a0c7d",
+    "regions": 29,
+    "required": 6,
+    "colors": 2,
+    "paintablePercent": 22.8
+  },
+  {
+    "key": "changjak-mei-13-p10",
+    "sourceSha256": "145a2153e2365cbbbcbf0ab864050e9729fb35beebe6b7136c4e8962c356c2a1",
+    "lineartSha256": "2c653334bbcfaaa4bb102a87de47855a2be80b03069158edfa1cbf59429b2280",
+    "regions": 41,
+    "required": 11,
+    "colors": 3,
+    "paintablePercent": 13.6
+  },
+  {
+    "key": "changjak-mei-14-p05",
+    "sourceSha256": "d0b78f1620f6b2a0e6af4d7631d2d8aef8d4dda630e6897beae651f67ce3e0c4",
+    "lineartSha256": "b23261800f9e12d75bb5a45cc3bf5471935ecf3698504a71a9165a7747f20946",
+    "regions": 41,
+    "required": 12,
+    "colors": 3,
+    "paintablePercent": 24.5
+  },
+  {
+    "key": "changjak-mei-14-p07",
+    "sourceSha256": "b154c1495850e91d2b2b363ec27d0504982b393f5e961983e48c87e8d9e77d64",
+    "lineartSha256": "5203956a2f9415b3b46ecf2d977711e4708fe4968427330e634b451e84043a7f",
+    "regions": 125,
+    "required": 30,
+    "colors": 3,
+    "paintablePercent": 77
+  },
+  {
+    "key": "changjak-mei-15-p04",
+    "sourceSha256": "86a53e57289d4343fa8de10db0bebe12bf9e088429f4d3a6fcbdb2ffdde16366",
+    "lineartSha256": "b0ff1bde0920c77bfddc05b1f0e4f8340946419ecca8985e513e0a964c998d21",
+    "regions": 59,
+    "required": 26,
+    "colors": 4,
+    "paintablePercent": 38.8
+  },
+  {
+    "key": "changjak-mei-15-p07",
+    "sourceSha256": "9edac1c113cb53e9183cd640569e11d80c9e387f800573292730b255eefd90f7",
+    "lineartSha256": "1c2cf0fff3ee5ff97291f4563e1ae3cb3d381960d804505fb31922e8824a03a6",
+    "regions": 61,
+    "required": 7,
+    "colors": 2,
+    "paintablePercent": 26.6
+  },
+  {
+    "key": "changjak-mei-16-p02",
+    "sourceSha256": "a124594eabcb90e2119b5f7ca37f998024d8e9766a7d0548551d21cf8457d041",
+    "lineartSha256": "4a985f9523342332bfb247bbc4d9ab76e23bed5d1914bcdd47fa77c1a2e912d6",
+    "regions": 97,
+    "required": 13,
+    "colors": 2,
+    "paintablePercent": 11.2
+  },
+  {
+    "key": "changjak-mei-16-p08",
+    "sourceSha256": "bc739345bfaa1ecd43008c2d7ba258e7f7e35a957cdc7749e62f0939d73eb781",
+    "lineartSha256": "b4df037593af38a47083bf101ad8adb6b2385ef7fa5592c04a5b3ab1b04d7743",
+    "regions": 64,
+    "required": 29,
+    "colors": 3,
+    "paintablePercent": 71.4
+  },
+  {
+    "key": "changjak-mei-17-p04",
+    "sourceSha256": "1e2b5f4b32ad922711d4c05c3b2b5918d508eb2eebe744a41f23966d5fd9f67d",
+    "lineartSha256": "5d5be0fec4d06d7cf1d22cf4e4f0c0ec487949f3bfe2e90b339c449f7db65982",
+    "regions": 119,
+    "required": 39,
+    "colors": 3,
+    "paintablePercent": 70.6
+  },
+  {
+    "key": "changjak-mei-17-p10",
+    "sourceSha256": "a7d89812d499eeb7c9bc2e4545870afb73995c8562aae5dce9121282462a01ad",
+    "lineartSha256": "d42b5d68ecc9f0a3e71035c9832a2210306df15ed8b58a2855d65ca1db829ef7",
+    "regions": 909,
+    "required": 47,
+    "colors": 5,
+    "paintablePercent": 40.4
+  },
+  {
+    "key": "changjak-mei-18-p04",
+    "sourceSha256": "7d3230601da291ba0d1342c47166e524843d43aea7494327ad11fd390ea7be80",
+    "lineartSha256": "3b6c42d857763f49e7d5d41d5d42726febfffdf7ede14bc1a01a584136da4a14",
+    "regions": 120,
+    "required": 26,
+    "colors": 2,
+    "paintablePercent": 63.4
+  },
+  {
+    "key": "changjak-mei-18-p07",
+    "sourceSha256": "37370e2e8c57e7831efa5196850faa54d3b7acbbf0a8629de02cfa74ad73f964",
+    "lineartSha256": "bc9469917295933ed98c001b1c9d517d343513668c2c15ff24d0c6acdfeef7ff",
+    "regions": 35,
+    "required": 16,
+    "colors": 3,
+    "paintablePercent": 79.3
+  },
+  {
+    "key": "changjak-mei-19-p05",
+    "sourceSha256": "06906fe59623413f7638c2c52db4ce1f5c08f7a78bc9c3f255d03a47682d11e6",
+    "lineartSha256": "10f6451795eda3b6a43249f473920a25c8eeb485fe6f68bade75fbdf9c1a474a",
+    "regions": 62,
+    "required": 15,
+    "colors": 2,
+    "paintablePercent": 50.4
+  },
+  {
+    "key": "changjak-mei-19-p10",
+    "sourceSha256": "79671112a1881c74bb78a8f99df18b36c69bd09eecbffec1041280b2aa54c899",
+    "lineartSha256": "93d47d1c7c399008c24b7faa847324d292947789f2fb6e541b82744f7a9b01f2",
+    "regions": 181,
+    "required": 23,
+    "colors": 3,
+    "paintablePercent": 66.5
+  },
+  {
+    "key": "changjak-mei-20-p04",
+    "sourceSha256": "ed0f923d7d26edde8b9ffdbb577ae383029931e79683430529416560bc8fef4b",
+    "lineartSha256": "ea08b1759f1855bc04dc5921933e9b607e69a832d2cad9df8cc2240c1eb17171",
+    "regions": 79,
+    "required": 12,
+    "colors": 2,
+    "paintablePercent": 43.5
+  },
+  {
+    "key": "changjak-mei-20-p10",
+    "sourceSha256": "4212b2cf6b3ae1af4450a9cb9b438a03f7f5b9e3ab19bf43c6788a04c74b9633",
+    "lineartSha256": "83e43fa2bd2891a177911510c8333d3958232914a941af94c597946023bb6ea8",
+    "regions": 279,
+    "required": 34,
+    "colors": 4,
+    "paintablePercent": 50
+  },
+  {
+    "key": "changjak-mei-21-p04",
+    "sourceSha256": "a752d5b01572a2e57d89ad96cfb017a92cc59ec137087d9981675f3164b2bdd4",
+    "lineartSha256": "65e8df6b8ad1baf0f518529b2ce2dd8b2ad1bd3a33e71d840145226547e0f5aa",
+    "regions": 250,
+    "required": 39,
+    "colors": 3,
+    "paintablePercent": 51.1
+  },
+  {
+    "key": "changjak-mei-21-p09",
+    "sourceSha256": "7d743513c896012c89754440e4008dadffec962282a245818013187654a8afbe",
+    "lineartSha256": "0b461905f2aa33e2f6d7cb89d636e96b57989a006805d32cac1c35a8c18f5663",
+    "regions": 474,
+    "required": 58,
+    "colors": 4,
+    "paintablePercent": 46
+  },
+  {
+    "key": "changjak-mei-22-p03",
+    "sourceSha256": "fa2ca0a24bb7bf69684c8690b041e84bb637a196bbddce510776df6de6d7a939",
+    "lineartSha256": "f3552fafee6265a06d19c10b9022592a0a463c37f555204a77d1c97b4fa9029c",
+    "regions": 199,
+    "required": 46,
+    "colors": 3,
+    "paintablePercent": 55.1
+  },
+  {
+    "key": "changjak-mei-23-p05",
+    "sourceSha256": "7a48e23f4cb6c9263bc5fd2d4fa802023a0a1f755346f4adf9a2950f3d8c0f75",
+    "lineartSha256": "3de4921dd29d093c5cd3615ea5fae505b6971ca38f312ee355ac4d7ae85fb89b",
+    "regions": 79,
+    "required": 23,
+    "colors": 4,
+    "paintablePercent": 35.2
+  },
+  {
+    "key": "changjak-mei-23-p08",
+    "sourceSha256": "9ac1511741de59cc7657daf6e26e797cd2a2d6b742a4346fb80422158bc20436",
+    "lineartSha256": "4377718081d3ab6157ee91c8c71fd4a88d97be50410a0646280440e9a2b51e89",
+    "regions": 54,
+    "required": 25,
+    "colors": 4,
+    "paintablePercent": 41.4
+  },
+  {
+    "key": "changjak-mei-24-p03",
+    "sourceSha256": "8b95b382f21117a009ff617bff372289878a13c8fc58d961fef8fbde689928cc",
+    "lineartSha256": "0a7554144d6ec0756add035951332920e93e15f6c83024d824d2d1a98b428d29",
+    "regions": 60,
+    "required": 19,
+    "colors": 4,
+    "paintablePercent": 36.7
+  },
+  {
+    "key": "changjak-mei-24-p06",
+    "sourceSha256": "4be7919397fbde6d0ebd0f4af83540c08702726fe0cccf0c44a06be4d7216380",
+    "lineartSha256": "581c5106ad4a20550a1bd9b9a3b51328698d50186e2285aadf2b53d26bd5f165",
+    "regions": 110,
+    "required": 41,
+    "colors": 4,
+    "paintablePercent": 65.4
+  },
+  {
+    "key": "changjak-mei-25-p08",
+    "sourceSha256": "8c49d3add99cc2cf0fad043d0ff5b37cfb7afe7fd24d3014cda0a240e98da52f",
+    "lineartSha256": "a7eae140336a94c73e304cc97ddae385efb398179c7ab0c308cd7514e4e941a4",
+    "regions": 173,
+    "required": 61,
+    "colors": 4,
+    "paintablePercent": 81.2
+  },
+  {
+    "key": "changjak-mei-26-p05",
+    "sourceSha256": "25f3f2bdc00f51467b949c1e1ac5a8eae7eb3092511db927b8cefcb9da9adf33",
+    "lineartSha256": "a948b7dd2f13acf260800008f222c80fbce254675fd4c7931b89832e37db9631",
+    "regions": 96,
+    "required": 37,
+    "colors": 5,
+    "paintablePercent": 70
+  },
+  {
+    "key": "changjak-mei-26-p07",
+    "sourceSha256": "9fc57a67aa7377def86577b7e9c91f7a68bef9e69af717fc0d9f5026858bac00",
+    "lineartSha256": "7d06d266d8068e68592b15ce36abbd04c0971b4d4c4187ab21c28b455eaa707c",
+    "regions": 65,
+    "required": 24,
+    "colors": 4,
+    "paintablePercent": 62.7
+  },
+  {
+    "key": "changjak-mei-27-p05",
+    "sourceSha256": "eb36349ed537ae35b94dbd004f9d1f93dd5498868e008ed57d6cc37870904e36",
+    "lineartSha256": "f7da911ceb046fc326599d89968a7d16a0fd3d997088413caed7fd7b1bcc04d3",
+    "regions": 226,
+    "required": 43,
+    "colors": 4,
+    "paintablePercent": 64.1
+  },
+  {
+    "key": "changjak-mei-27-p09",
+    "sourceSha256": "69481eaa1f381c703534ead696e647a4054ecd3ba7765daafc037bd431476d01",
+    "lineartSha256": "161893aefd3a5ca12e6907ab0bdedd3c90a5bdab017f2825cb2405bc97cee87a",
+    "regions": 211,
+    "required": 46,
+    "colors": 6,
+    "paintablePercent": 72.1
+  },
+  {
+    "key": "changjak-mei-28-p01",
+    "sourceSha256": "8551ffae05f2009d64154ed860342feda737427487512d57b306921bae124054",
+    "lineartSha256": "51cd37fe3ad9fb478c39fe15669b29142e415fa8fd002dbeeba4439e4d4e4a5c",
+    "regions": 110,
+    "required": 34,
+    "colors": 3,
+    "paintablePercent": 58.3
+  },
+  {
+    "key": "changjak-mei-28-p10",
+    "sourceSha256": "9541d46a65a2d66e85fc7f6cc31637a971d3ca21c36c8a1a04b34d010215d791",
+    "lineartSha256": "6ad2fd41f2609d3155651e14c538cc38c6afcc4af671d31cfb4bde7f79196945",
+    "regions": 77,
+    "required": 30,
+    "colors": 3,
+    "paintablePercent": 63
+  },
+  {
+    "key": "changjak-mei-29-p02",
+    "sourceSha256": "97f8af026c71b06075bd1d75efd25a982b5f3fd3a027ee583574b001e9f1cde4",
+    "lineartSha256": "d74908527330b95b248a12ddf1a8b43e21f57db9f27346db6ad1a958c3bb6897",
+    "regions": 259,
+    "required": 58,
+    "colors": 3,
+    "paintablePercent": 65.8
+  },
+  {
+    "key": "changjak-mei-29-p09",
+    "sourceSha256": "855472ba6ae61fbdd856a3fc4c54c32567d2fec864fece10e72a42de756e8388",
+    "lineartSha256": "2ee3813e7619e9bd2a53c8f74f3dc46ece5e396c61914e50cfdb52eb82925596",
+    "regions": 36,
+    "required": 18,
+    "colors": 4,
+    "paintablePercent": 67
+  },
+  {
+    "key": "changjak-mei-30-p03",
+    "sourceSha256": "407a4547c2dcc7d69beb119b25103a1c4b0bdec6d0729758f300efb04c16de23",
+    "lineartSha256": "2c798c1a88b82df604d77023e21034f393210700a866b46f689935d7029818c9",
+    "regions": 116,
+    "required": 10,
+    "colors": 3,
+    "paintablePercent": 33.3
+  },
+  {
+    "key": "changjak-mei-30-p09",
+    "sourceSha256": "778d84d686825f0359a3aa05678e865562df4849aeed6166d384b3ff572da9ec",
+    "lineartSha256": "2bd5c8f086b634cecc0c1ea608e26a6ca63bfa646e054a381383cde439fa7a9b",
+    "regions": 262,
+    "required": 25,
+    "colors": 5,
+    "paintablePercent": 50.7
+  },
+  {
+    "key": "changjak-mei-31-p05",
+    "sourceSha256": "19acde7c7844f0dc67b02928f7bc0f93102aab7948012507d091bcedccee5244",
+    "lineartSha256": "39872a130108e7c5a97b30078a59b0909dd6f60c546031f641a943fdafa5e946",
+    "regions": 163,
+    "required": 14,
+    "colors": 2,
+    "paintablePercent": 56.4
+  },
+  {
+    "key": "changjak-mei-31-p10",
+    "sourceSha256": "f2eb3cac4b57d30b538ba235cb5c556612f05ab3631e479292b868fd41ac1e4f",
+    "lineartSha256": "e6a9ef51472c4b0b0bf1f0e6e280bafed5939d8965d94154794c4f318d79492e",
+    "regions": 333,
+    "required": 57,
+    "colors": 4,
+    "paintablePercent": 77.9
+  },
+  {
+    "key": "changjak-mei-32-p06",
+    "sourceSha256": "f24f647a83667190209e5a6f8bacbb6d581aa64bb34fe7117551b49a3b14319d",
+    "lineartSha256": "d9f0e2bc57a2d5ccbb19988b9f18febd512783e7b42d79ac225548f0590bbd05",
+    "regions": 32,
+    "required": 20,
+    "colors": 4,
+    "paintablePercent": 81.5
+  },
+  {
+    "key": "changjak-mei-33-p03",
+    "sourceSha256": "6fae0bfb7d8ea1a3425c58255a73ceda2d10a2b61f40b3e59552852ae88a4630",
+    "lineartSha256": "90790e6902cb8bf216b406db23067ab4a1a47718c8cc59580353dbd2d3315135",
+    "regions": 43,
+    "required": 9,
+    "colors": 3,
+    "paintablePercent": 38.9
+  },
+  {
+    "key": "changjak-mei-34-p01",
+    "sourceSha256": "c8369749ff4cf9a89e4961d391c110ee65ec6a0f7cb90faa77cf008bc4a075fd",
+    "lineartSha256": "f32364fe8dc22bb8e4d4a55adc294db6e84e4cc25a675b02c940b5f38e94b3ea",
+    "regions": 32,
+    "required": 11,
+    "colors": 4,
+    "paintablePercent": 34.3
+  },
+  {
+    "key": "changjak-mei-34-p06",
+    "sourceSha256": "2043e88788a62ec227eac335f22597728a8f47b42a3edf73b8f9e16f704efacd",
+    "lineartSha256": "ead3f5aa477eb6cb4c2ff3c819ecf11743ba5804a0b4796965d14e0e79d279e7",
+    "regions": 67,
+    "required": 15,
+    "colors": 3,
+    "paintablePercent": 38.5
+  },
+  {
+    "key": "changjak-mei-35-p02",
+    "sourceSha256": "e7e7b94ebb0d06b546cb0fbaad3b76d98804f5a1c56109f09d6c071bb7fe0812",
+    "lineartSha256": "edc71a9970886d144890db8511f600655855c2edc1b07bc6706a74a5cf00e402",
+    "regions": 40,
+    "required": 13,
+    "colors": 3,
+    "paintablePercent": 53
+  },
+  {
+    "key": "changjak-mei-35-p10",
+    "sourceSha256": "5d6aeae64e985a2bbc99d49f763498651c05e1028d42103526a1dcfb4d2174f3",
+    "lineartSha256": "ee2b29ddd8ffcdc77211c4400d5406cba015e04c4b53e2065fa463756b10ab9f",
+    "regions": 98,
+    "required": 25,
+    "colors": 5,
+    "paintablePercent": 58.6
+  },
+  {
+    "key": "changjak-mei-36-p03",
+    "sourceSha256": "5f4ba777b23a5d46b35829de80d1521674c4345adb084cdfdd92135f54809bab",
+    "lineartSha256": "c04a6c615af16c4eb8029763704a2509759afe0188e230be0f8df02153bf2b9d",
+    "regions": 56,
+    "required": 10,
+    "colors": 3,
+    "paintablePercent": 65.8
+  },
+  {
+    "key": "changjak-mei-36-p08",
+    "sourceSha256": "ea2ec9d9964e8b8d53da8b8f5a325d02b526e7cbf08b0f10de3e7f171c7b2a0b",
+    "lineartSha256": "96c51f01565378070f8b4b299c228c87aef84ea89bd2a9ac8a69eda15f268644",
+    "regions": 62,
+    "required": 47,
+    "colors": 5,
+    "paintablePercent": 82.7
+  },
+  {
+    "key": "changjak-mei-37-p02",
+    "sourceSha256": "35ace3cd17e66002928bd273d48c044f935dc3f25b3f63fbb9e477ca3f61c27a",
+    "lineartSha256": "3523904f07f6a5cc015ae31473f5e201dc9b859757f50cfb8ba2295edf671dba",
+    "regions": 93,
+    "required": 31,
+    "colors": 5,
+    "paintablePercent": 50.8
+  },
+  {
+    "key": "changjak-mei-37-p10",
+    "sourceSha256": "06ac1b73af6fd77abb406370de77334e16f6a894e4825830baf8413c1d70b984",
+    "lineartSha256": "8e53e40ac52a2259b343751ffa5f49c01abe0f35057aaa4432294072c849bcb9",
+    "regions": 85,
+    "required": 27,
+    "colors": 6,
+    "paintablePercent": 60.8
+  },
+  {
+    "key": "changjak-mei-38-p05",
+    "sourceSha256": "8cb5fa981d237a0c824a4c44904d64a1e29f2e788859c40513af333744db60d1",
+    "lineartSha256": "061657bef69fa22f44a22ba4a22da75fd30836c6a731372b061ce9a5aa6156eb",
+    "regions": 116,
+    "required": 11,
+    "colors": 5,
+    "paintablePercent": 50.6
+  },
+  {
+    "key": "changjak-mei-38-p08",
+    "sourceSha256": "eb1878b6c8cb6769fd79d231e41d29436a7edf5a1f2b472aa545290bc603e41a",
+    "lineartSha256": "0feea82df9c13b9379f451988d616afbd5989bbf7d4dd6d4ce0fc19892892807",
+    "regions": 181,
+    "required": 16,
+    "colors": 4,
+    "paintablePercent": 58.6
+  },
+  {
+    "key": "changjak-mei-39-p03",
+    "sourceSha256": "8d3f6b4e298fe05d1163b6889acda58951c4017fe34302c0c926b2fd60bb9b22",
+    "lineartSha256": "f80973415ee594f89b0490b3be4afe2807a5fd6d02754a6d392837b19a68b0bc",
+    "regions": 270,
+    "required": 68,
+    "colors": 5,
+    "paintablePercent": 67.6
+  },
+  {
+    "key": "changjak-mei-39-p08",
+    "sourceSha256": "047d26243e42223de43c04af83ab7e20985d9262b623ec80439670831189eb61",
+    "lineartSha256": "cc8be05f939999a56b9dd0a07a86917c0c517309aab367f2551a1f5b52dee640",
+    "regions": 322,
+    "required": 70,
+    "colors": 6,
+    "paintablePercent": 65.5
+  },
+  {
+    "key": "changjak-mei-40-p03",
+    "sourceSha256": "662312d79535fffa3173080e8988b14ca6a2f5499e3e75b54a1063ffc258c220",
+    "lineartSha256": "424ebc303713d9e4b226bc69bc96978e0ff137de7f0eafb4b144af8d13fcbbf0",
+    "regions": 72,
+    "required": 37,
+    "colors": 5,
+    "paintablePercent": 73.1
+  },
+  {
+    "key": "changjak-mei-40-p09",
+    "sourceSha256": "07c144f60f28a9f3b848e739bc814b87f6cf973ea23a89d3d6b7f42916dd50b4",
+    "lineartSha256": "774c27f5ec45c6dc9528ac79b753819330ebf8b586f6626c2acd11482d29a91c",
+    "regions": 479,
+    "required": 76,
+    "colors": 5,
+    "paintablePercent": 53.2
+  },
+  {
+    "key": "changjak-mei-41-p03",
+    "sourceSha256": "ea89c55bc4ea3fbbe49dd6ab2ca8ab2c14afbba7957de4c68e0bbd36783cf07a",
+    "lineartSha256": "7beb643eee1d05dc6f31f3e58b288c91d86285ade0b9dac8b43b88c97758be89",
+    "regions": 528,
+    "required": 38,
+    "colors": 7,
+    "paintablePercent": 46.3
+  },
+  {
+    "key": "changjak-mei-41-p07",
+    "sourceSha256": "24b056dfa3c9f83ca2da2f3a107131cc93b718159a3618f45b88ca5c391c2a09",
+    "lineartSha256": "ab768f830afc2dfff6f9636a64f391ef983f6da4934faacfc6abec3ac213fbe2",
+    "regions": 172,
+    "required": 50,
+    "colors": 8,
+    "paintablePercent": 69.5
+  },
+  {
+    "key": "changjak-mei-42-p04",
+    "sourceSha256": "e462dc902cedd067dfc1993bcd09e7349d42f3ce89ce13cffc90842d7b92bc2f",
+    "lineartSha256": "b5b42f9020d4e8bc18fe037eb03c69513a19cb154e688bd3075621279485adef",
+    "regions": 256,
+    "required": 60,
+    "colors": 4,
+    "paintablePercent": 71.5
+  },
+  {
+    "key": "changjak-mei-42-p10",
+    "sourceSha256": "1f017ef792912e313ae9d36bb7c1e4a5ec6536b8d5978f37491c1e53753aecbe",
+    "lineartSha256": "6ff711a01dcf21e2ed7159920d3e90807c4c203fe42a300f6361f4ba23011705",
+    "regions": 265,
+    "required": 64,
+    "colors": 5,
+    "paintablePercent": 62.9
+  },
+  {
+    "key": "changjak-mei-43-p03",
+    "sourceSha256": "27216d4b972d3a59b26458e983c01dbead80b9f35b87a4fb9b78a6510795e923",
+    "lineartSha256": "9e1bf322d56afbfce1885a94a0f11b9307fb37f55088371b924c3d3c72906b99",
+    "regions": 272,
+    "required": 40,
+    "colors": 7,
+    "paintablePercent": 52.8
+  },
+  {
+    "key": "changjak-mei-43-p08",
+    "sourceSha256": "e3f2dc804375d69ea3537d2fc92c4940700d55355944141e54825c85216c2187",
+    "lineartSha256": "80a975e0423bf5de0d4386e941dd2614073b45f891ce5250a324c2a8ad95bcbf",
+    "regions": 41,
+    "required": 16,
+    "colors": 5,
+    "paintablePercent": 67.5
+  },
+  {
+    "key": "changjak-mei-44-p05",
+    "sourceSha256": "46abb1866e12c08907d4ea52926574340246d35ac4ef62704f4d8716d00176e4",
+    "lineartSha256": "72291495e913339121cec87b74cfefe50e29c1d7c5ca41b46a0477d195f73c6b",
+    "regions": 111,
+    "required": 25,
+    "colors": 5,
+    "paintablePercent": 61.3
+  },
+  {
+    "key": "changjak-mei-44-p10",
+    "sourceSha256": "7837fb097ef847f67c39ab448b10d3041a6dcb5990ef76fc99a544dff61637bd",
+    "lineartSha256": "5f95179413b82ea78f261ea119295a8b84539ee38e97d8cba24423c698c3ef8a",
+    "regions": 219,
+    "required": 29,
+    "colors": 6,
+    "paintablePercent": 63
+  },
+  {
+    "key": "changjak-mei-45-p05",
+    "sourceSha256": "e03f0b317b5f0748fdb8e5207383394926b27243176ca832b770fac26a077a0d",
+    "lineartSha256": "49f977effdc8d7af8f8a8af89f537045f71dad1865066a2c10d350e21eee7852",
+    "regions": 238,
+    "required": 34,
+    "colors": 4,
+    "paintablePercent": 35.3
+  },
+  {
+    "key": "changjak-mei-45-p08",
+    "sourceSha256": "ba10531870c84d8432938537b84438f4e6c5c6f141deb2cc501b89e3513c10d4",
+    "lineartSha256": "ff53ebf7f86c65442772c846e9f796a630fdb622301b17d525c2c57c72929609",
+    "regions": 99,
+    "required": 27,
+    "colors": 4,
+    "paintablePercent": 53.7
+  },
+  {
+    "key": "changjak-mei-46-p02",
+    "sourceSha256": "a996ced09db77da1757ea1a3869329c2f2c78f8d3d33e88b3fc278989f02cb15",
+    "lineartSha256": "61bc5692c54eb4e9ffa42fb9cad3730b4568a79ee1a1e4fa2ad97f308ef6ada0",
+    "regions": 268,
+    "required": 27,
+    "colors": 5,
+    "paintablePercent": 70.6
+  },
+  {
+    "key": "changjak-mei-46-p09",
+    "sourceSha256": "3db69a508e09a7dc53831ca5b5f426a9947d8a2af7352d4e458b9318f5d5f23f",
+    "lineartSha256": "37f6932104bf81ad7a6a98e5c3bc3081cfb87ddf302de8ce0ee43139c0cd15e9",
+    "regions": 240,
+    "required": 33,
+    "colors": 4,
+    "paintablePercent": 66
+  },
+  {
+    "key": "changjak-mei-47-p02",
+    "sourceSha256": "82dea5cae1e58b4d0396b1a0b6a869991781be5f582663a5b3469acfff1fb177",
+    "lineartSha256": "1c714a3767dfe1ed815cd6781496dbc91a8a01bade87ebd7c8da7220ecde70b9",
+    "regions": 149,
+    "required": 30,
+    "colors": 5,
+    "paintablePercent": 61
+  },
+  {
+    "key": "changjak-mei-47-p10",
+    "sourceSha256": "8d82f896ae9502ec88e59498971f0f2384e06b0ddde175027b94f57836269e22",
+    "lineartSha256": "9173bb5e24ccc0703ab3e62f9facb98ab15c7c9356a287dda33c17fd5307149d",
+    "regions": 187,
+    "required": 49,
+    "colors": 5,
+    "paintablePercent": 61.9
+  },
+  {
+    "key": "changjak-mei-48-p09",
+    "sourceSha256": "0142e5b7124b2cc13a3d9d29fc8c539296fbfab73ff9346ce42d6a417b7f8177",
+    "lineartSha256": "fac2de99f0bbe87594fa69b9f6bbda0006b873e7195137c1b6374013bcae81b7",
+    "regions": 75,
+    "required": 39,
+    "colors": 3,
+    "paintablePercent": 75.7
+  },
+  {
+    "key": "changjak-mei-49-p02",
+    "sourceSha256": "af835df3929fbb5ab46053d830b636b949b818d2b22ff67e04c65cfd708f66f8",
+    "lineartSha256": "c9fc3132055bf0a778b8fe081f20d503aa3655124a42aa91297d8b558cd20c07",
+    "regions": 55,
+    "required": 12,
+    "colors": 3,
+    "paintablePercent": 52.1
+  },
+  {
+    "key": "changjak-mei-49-p07",
+    "sourceSha256": "7697066a1e2baeabf576fde2485ae2e7b7d1fa179bb2ecc96fe73524dad0375d",
+    "lineartSha256": "c8ae270313569baf13d894ca26496879b5dc0ad463ac7d864fa48d950c5d1727",
+    "regions": 38,
+    "required": 16,
+    "colors": 5,
+    "paintablePercent": 51.9
+  },
+  {
+    "key": "changjak-mei-50-p01",
+    "sourceSha256": "f9935d062ad2bb2b29aa005d4f35b3aa6f2be17beed55285f2b5bfa69519af43",
+    "lineartSha256": "d482dd89edf72e98321b624520f0a9c8f6d7424ce0dc96f1979946d4c2dfe9e9",
+    "regions": 35,
+    "required": 29,
+    "colors": 3,
+    "paintablePercent": 52
+  },
+  {
+    "key": "changjak-mei-50-p07",
+    "sourceSha256": "49ff99fd3e924ed9d54cf33cf1f9c2da7c2499de8dc7d64c9e91fbe348e753e7",
+    "lineartSha256": "fe9598bc7615e58596220e0690594def0bbd1a42761fa37fcad31da33c8518b3",
+    "regions": 75,
+    "required": 24,
+    "colors": 5,
+    "paintablePercent": 78
+  },
+  {
+    "key": "changjak-mei-22-p06",
+    "sourceSha256": "cf59d16699695ed3ac92db4ab8a03b768f7a14ce06205e52b8e82b3a57839824",
+    "lineartSha256": "a9b624e32338a79584edbef827ed8992fc6835c29f3bb0cbf628dceb5ace5151",
+    "regions": 11,
+    "required": 6,
+    "colors": 2,
+    "paintablePercent": 31.1
+  },
+  {
+    "key": "changjak-mei-25-p05",
+    "sourceSha256": "995ed69d07914f3cd835e47f49219650299ec95db3db59db7844fccd529104e5",
+    "lineartSha256": "a99b15fa54e491f237443bae44e5564d5f30cc98baa254dc9ced89569234131b",
+    "regions": 58,
+    "required": 45,
+    "colors": 2,
+    "paintablePercent": 82.9
+  },
+  {
+    "key": "changjak-mei-32-p05",
+    "sourceSha256": "ccaaf80b0586afd76da2c2abf6f626bc88dc12e7b1cfac7f470c40db13a7482f",
+    "lineartSha256": "303782e53bf4979a4e4800d1f18ffe4719047cefa14b3cb6a2dbbe85144ceb6c",
+    "regions": 319,
+    "required": 63,
+    "colors": 4,
+    "paintablePercent": 51.7
+  },
+  {
+    "key": "changjak-mei-33-p07",
+    "sourceSha256": "2e4c6ef7e4360bdb718fefda1be9c3cbbb48eee956ea169e90f06408d1d7afec",
+    "lineartSha256": "f299699606779b3af8515760f0997c3578e61aa13d091d8bcf52442429d19c7a",
+    "regions": 50,
+    "required": 21,
+    "colors": 3,
+    "paintablePercent": 40.5
+  },
+  {
+    "key": "changjak-mei-48-p01",
+    "sourceSha256": "995a76d7c04034e355011c7cef68e6df248aef9ca42567838c385827aad62b4c",
+    "lineartSha256": "b4488b9c6d96ac777c2798288171925e502b0ce1e10879f593a0853923781fb5",
+    "regions": 216,
+    "required": 55,
+    "colors": 4,
+    "paintablePercent": 65.6
+  },
+  {
+    "key": "changjak-mei-23-p01",
+    "sourceSha256": "5ece61329e556d011938369e99e5013ea76387c7a26f5980ab8ff2ae9113e972",
+    "lineartSha256": "a31bdb86859a9710cb11be5a741c54c4a33888f17518aa533b7f61293cbee783",
+    "regions": 223,
+    "required": 16,
+    "colors": 4,
+    "paintablePercent": 25.4
+  }
+]

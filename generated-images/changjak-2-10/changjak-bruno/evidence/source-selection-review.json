@@ -1,0 +1,816 @@
+{
+  "category": "05. 브루노 할아버지네 숲",
+  "number": 5,
+  "id": "changjak-bruno",
+  "label": "창작동화 5 · 브루노 할아버지네 숲",
+  "books": 50,
+  "scenes": 100,
+  "missing": [
+    "changjak-bruno-30-p04",
+    "changjak-bruno-30-p10",
+    "changjak-bruno-50-p02",
+    "changjak-bruno-50-p09"
+  ],
+  "selection": [
+    {
+      "key": "changjak-bruno-01-p02",
+      "title": "01. 왜 이렇게 조금씩 와",
+      "pageNumber": 2,
+      "text": "똑. 똑. 맑은 물이 통에 떨어져요. 살짝 단내가 나요. 닐스는 나무 물을 한 컵 가득 마시고 싶어요.",
+      "sceneDescription": "컷 익스트림 클로즈업, 아이레벨. 꼭지 끝과 통 아가리만.\n장소·시간 같은 나무 밑동.\n인물 Nils bear cub이 화면 오른쪽에서 빈 나무 컵을 두 앞발로 받쳐 들고 입을 살짝 벌린 채 턱을 방울 쪽으로 조금 들었다 — 화면 아래 귀퉁이에 파란 장화 앞코.\n배경·소품 꼭지 끝에 맺혀 막 떨어지려는 방울 하나, 아래 통 아가리.\n톤 화면 전체가 방울 하나에 걸려 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-01-p07",
+      "title": "01. 왜 이렇게 조금씩 와",
+      "pageNumber": 7,
+      "text": "모아 둔 물이 땅에 스르르 스며들었어요. 통은 도로 텅 비었어요. 닐스 눈에 눈물이 그렁그렁.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 얼굴 정면.\n장소·시간 같은 나무 밑동.\n인물 Nils bear cub의 눈에 눈물이 그렁그렁 맺히고 입꼬리가 내려갔다 — 턱을 당기고 두 앞발을 배 앞에 모았다.\n배경·소품 화면 아래 넘어진 빈 통, 그 옆 땅에 짙게 젖은 자국 하나.\n톤 젖은 자국은 남았는데 담긴 것이 없다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-02-p02",
+      "title": "02. 씨앗은 빨리 심으면 돼",
+      "pageNumber": 2,
+      "text": "닐스는 씨앗을 제 손으로 다 심고 싶어요. \"내가 심을래요!\" 손바닥에 씨앗을 잔뜩 받았어요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 두 손이 만나는 자리.\n장소·시간 같은 텃밭.\n인물 Bruno grandfather bear의 큰 앞발이 주머니를 기울여 Nils bear cub이 모아 든 두 앞발에 씨앗을 잔뜩 쏟아 준다. 닐스는 턱을 들고 입을 크게 벌려 말한다 — 파란 장화.\n배경·소품 손바닥에 수북한 완두콩 씨앗 여남은 알, 기울어진 주머니 아가리.\n톤 작은 손바닥에 넘칠 만큼 담긴다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-02-p10",
+      "title": "02. 씨앗은 빨리 심으면 돼",
+      "pageNumber": 10,
+      "text": "마지막 씨앗까지 다 심었어요. 텃밭에 줄이 가지런해요. \"새들아, 이제 못 찾지!\"",
+      "sceneDescription": "컷 와이드, 하이앵글. p1과 같은 텃밭을 같은 각도에서.\n장소·시간 같은 텃밭, 해가 기운 뒤.\n인물 Nils bear cub이 이랑 끝에 서서 두 앞발을 허리에 얹고 입을 벌려 말한다 — 파란 장화. 뒤쪽 텃밭 가장자리에서 Bruno grandfather bear가 두 앞발을 등 뒤로 하고 본다 — 초록 뜨개 조끼.\n배경·소품 흙을 덮어 도톰해진 자리가 가지런한 줄로 이어진다, 나뭇가지에 앉은 새 두 마리.\n톤 p1에서 아무것도 없던 흙에 이제 줄이 남았다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-03-p03",
+      "title": "03. 돌이 흔들리면 어떡해",
+      "pageNumber": 3,
+      "text": "닐스가 첫 돌 앞에 섰어요. 물이 돌 옆에서 콸콸 소리쳐요. \"돌이 흔들리면 어떡해…\" 발이 안 나가요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글. 첫 돌과 발치.\n장소·시간 [Wood] 첫 돌 앞.\n인물 Nils bear cub이 파란 장화 한 짝을 반쯤 들었다 멈췄다 — 어깨가 귀까지 올라가고 두 앞발이 몸 옆에서 굳었다, 시선이 물에 붙어 있다.\n배경·소품 첫 돌, 돌 옆을 세게 지나가는 물살.\n톤 발이 돌에 안 닿고 공중에서 멈춰 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-03-p07",
+      "title": "03. 돌이 흔들리면 어떡해",
+      "pageNumber": 7,
+      "text": "건너편 버들강아지가 바람에 살랑살랑 흔들려요. 닐스는 발끝만 꼼지락꼼지락. 아직 한 발도 못 뗐어요.",
+      "sceneDescription": "컷 미디엄, 오버숄더. 닐스 어깨 너머로 건너편 둑.\n장소·시간 같은 자리.\n인물 Nils bear cub이 등을 보이고 서서 파란 장화 앞코를 안쪽으로 꼼지락거린다 — 두 앞발이 등 뒤에서 서로를 쥐었다.\n배경·소품 건너편 버들강아지가 바람에 한쪽으로 기울었다, 발밑 마른 둑에는 발자국이 하나도 물 쪽으로 안 났다.\n톤 하루가 다 갔는데 땅에 남은 자국이 그대로다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-04-p02",
+      "title": "04. 물은 내가 줄래요",
+      "pageNumber": 2,
+      "text": "닐스는 제 손으로 물을 주고 싶어요. \"물은 내가 줄래요!\" 물뿌리개를 번쩍 들었어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 텃밭 가장자리.\n인물 Nils bear cub이 물뿌리개를 머리 위로 번쩍 들고 입을 크게 벌려 말한다 — 두 앞발이 손잡이를 감싸 쥐었고 팔꿈치가 펴졌다. 파란 장화.\n배경·소품 빈 물뿌리개 하나.\n톤 뿌리개가 얼굴보다 높이 올라가 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-04-p09",
+      "title": "04. 물은 내가 줄래요",
+      "pageNumber": 9,
+      "text": "이번엔 물을 반만 담은 뿌리개예요. 닐스가 한 발, 한 발 천천히 걸어요. 출렁 소리가 안 나요.",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨.\n장소·시간 같은 길.\n인물 Nils bear cub이 왼쪽에서 오른쪽으로 한 발 한 발 천천히 걷는다 — 파란 장화 한 짝이 땅에 붙어 있고 상체가 곧다, 두 앞발로 뿌리개를 몸 앞에 똑바로 들었다.\n배경·소품 반만 담긴 뿌리개 — 물이 흔들리지 않는다. 길바닥에 새 물자국이 없다.\n톤 걸음이 느려지자 흔들림이 사라졌다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-05-p02",
+      "title": "05. 손이 모자라",
+      "pageNumber": 2,
+      "text": "닐스는 꽃다발을 만들고 싶어요. 오두막 식탁에 놓을 거예요. \"예쁜 꽃, 다 가져갈래!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 빈터.\n인물 Nils bear cub이 두 앞발을 활짝 벌리고 입을 크게 벌려 말한다 — 턱이 들리고 몸이 뒤로 젖혀졌다. 파란 장화.\n배경·소품 벌린 두 팔 사이로 꽃밭이 끝까지 이어진다.\n톤 팔을 다 벌려도 꽃밭이 팔 밖으로 넘친다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-05-p09",
+      "title": "05. 손이 모자라",
+      "pageNumber": 9,
+      "text": "닐스가 꽃을 다섯 송이만 골랐어요. 한 손에 쏙 들어와요. 꽃들이 쌩쌩해요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 빈터.\n인물 Nils bear cub이 한 앞발에 꽃 다섯 송이를 모아 쥐고 제 얼굴 앞까지 들어 올렸다 — 작은 앞발 하나가 꽃대 다섯을 한 번에 감쌌고 입꼬리가 올라갔다. 파란 장화.\n배경·소품 꽃대가 곧고 꽃송이가 위를 보고 있다.\n톤 한 손 안에 다 들어와 꽃이 눌리지 않았다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-06-p02",
+      "title": "06. 내가 길 알아요",
+      "pageNumber": 2,
+      "text": "닐스는 호수에서 물수제비를 뜨고 싶어요. 납작한 돌이 물 위를 통통 튀는 놀이예요. \"길은 내가 알아요! 따라오세요!\"",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 [CabinOutside] 오두막 앞길.\n인물 Nils bear cub이 두 앞발을 앞으로 뻗어 길 앞을 가리키며 입을 크게 벌려 말한다 — 몸이 절반쯤 돌아가 뒤를 본다. 파란 장화. Bruno grandfather bear는 반걸음 뒤에서 고개를 끄덕인다.\n배경·소품 길, 길가 새 풀.\n톤 가리키는 손과 돌아본 얼굴이 서로 다른 쪽을 향한다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-06-p10",
+      "title": "06. 내가 길 알아요",
+      "pageNumber": 10,
+      "text": "호수에 닿았어요! 닐스가 납작 돌을 던졌어요. 통, 통, 통! 물 위에 동그라미가 세 개 떴어요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 수면 높이에서.\n장소·시간 [Lake] 호숫가, 늦은 오후.\n인물 Nils bear cub이 던진 팔을 앞으로 뻗은 자세로 물가에 섰다 — 몸이 옆으로 낮게 기울고 파란 장화 한 짝이 발끝만 땅에 닿았다. Bruno grandfather bear가 뒤에서 두 앞발을 무릎에 짚고 물을 본다.\n배경·소품 수면 위에 동그란 물결 자국이 세 개, 그 앞에 납작한 돌 하나가 막 물을 스친다.\n톤 물결 셋이 화면을 가로질러 나란히 남는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-07-p02",
+      "title": "07. 큰 통에 딸래요",
+      "pageNumber": 2,
+      "text": "닐스는 큰 통 가득 블루베리를 따고 싶어요. 저녁에 우유를 부어 먹을 거예요. 할아버지가 제 작은 통을 챙겨 들었어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 같은 덤불 앞.\n인물 Nils bear cub이 두 앞발을 크게 벌려 통 크기를 그려 보이며 입을 벌려 말한다 — 파란 장화. Bruno grandfather bear는 옆에서 제 작은 나무 통 손잡이를 한 앞발에 꿰어 든다 — 초록 뜨개 조끼, 둥근 안경.\n배경·소품 할아버지의 작은 통 하나, 덤불.\n톤 벌린 팔과 손에 든 통의 크기가 어긋난다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-07-p07",
+      "title": "07. 큰 통에 딸래요",
+      "pageNumber": 7,
+      "text": "쏟아진 블루베리가 이끼 틈으로 데굴데굴 숨었어요. 통에는 몇 알만 남았어요. 닐스 손만 온통 보랏빛이에요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 이끼 바닥과 손.\n장소·시간 같은 자리.\n인물 Nils bear cub의 두 앞발이 이끼 위에 펴져 있다 — 둥근 앞발 바닥이 온통 겹침색(블루베리 물)으로 물들었다. 얼굴은 화면 위쪽에서 아래를 내려다본다.\n배경·소품 이끼 틈으로 굴러 들어가 반쯤 숨은 열매들, 넘어진 통 안에 남은 몇 알.\n톤 흩어진 것이 이끼 사이로 사라져 셀 수가 없다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-08-p02",
+      "title": "08. 물고기가 없나 봐",
+      "pageNumber": 2,
+      "text": "닐스는 물고기를 한 마리 잡고 싶어요. \"저녁엔 생선구이다!\" 동그란 찌가 물 위에 동동 — 물고기가 물면 쏙 들어가요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 같은 물가.\n인물 Nils bear cub이 낚싯대를 어깨에 걸치고 턱을 들어 입을 크게 벌려 말한다 — 한 앞발이 주먹을 쥐고 위로 올라갔다. 파란 장화.\n배경·소품 물 위에 뜬 동그란 찌 하나가 화면 아래쪽에 또렷하다, 줄이 대 끝에서 물까지 이어진다.\n톤 찌가 수면에서 유일하게 튀어나온 것이다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-08-p10",
+      "title": "08. 물고기가 없나 봐",
+      "pageNumber": 10,
+      "text": "쏙! 찌가 물속으로 들어갔어요. \"잡았다!\" 은빛 물고기가 팔딱팔딱 뛰어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 물가.\n인물 Nils bear cub이 낚싯대를 번쩍 들어 올리며 입을 크게 벌려 외친다 — 두 앞발이 대를 꽉 쥐었고 몸이 뒤로 젖혀졌다. 파란 장화.\n배경·소품 줄 끝에서 물고기 한 마리가 팔딱인다 — BARK 윤곽 안은 맨 종이, 물방울이 흩어진다.\n톤 잠잠하던 화면에서 한 곳만 세게 움직인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-09-p01",
+      "title": "09. 빨리 띄우고 싶어",
+      "pageNumber": 1,
+      "text": "여름 볕에 개울물이 미지근해졌어요. 할아버지가 헛간에서 나무껍질을 찾아냈어요. 배 만들기에 딱 좋은 크기예요.",
+      "sceneDescription": "컷 미디엄, 하이앵글. 헛간 안에서 열린 문 쪽을 본다.\n장소·시간 [Shed] 헛간 안, 여름 오전.\n인물 Bruno grandfather bear가 선반 앞에서 넓적한 나무껍질 한 장을 두 앞발로 들어 제 가슴 앞에 세운다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 그 옆에서 발끝을 세우고 두 앞발을 위로 뻗지만 껍질 아래 테까지 한 뼘이 모자란다 — 파란 장화.\n배경·소품 열린 헛간 문틀 밖으로 개울과 짙푸른 여름 잎이 보인다, 선반의 나무 조각과 연장, 바닥의 대팻밥.\n톤 헛간 안은 그늘지고 문틀 안쪽만 환하다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-09-p10",
+      "title": "09. 빨리 띄우고 싶어",
+      "pageNumber": 10,
+      "text": "개울에 배를 다시 띄웠어요. 스르르 — 배가 물살을 타고 미끄러져요. 닐스가 폴짝폴짝 뛰며 따라갔어요.",
+      "sceneDescription": "컷 와이드, 로우앵글. 수면 높이에서 물길을 따라.\n장소·시간 [Wood] 개울, 늦은 오후.\n인물 Nils bear cub이 개울가를 따라 왼쪽에서 오른쪽으로 폴짝폴짝 뛰며 배를 따라간다 — 두 앞발을 위로 들고 파란 장화가 둘 다 땅에서 떴다.\n배경·소품 배가 곧게 서서 물살을 타고 미끄러진다, 뒤로 길게 갈라지는 잔물결.\n톤 물과 배와 아이가 다 같은 쪽으로 간다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-10-p02",
+      "title": "10. 천 뒤에서 사각사각",
+      "pageNumber": 2,
+      "text": "\"닐스 줄 선물이란다. 다 되면 보여 주마.\" 닐스는 선물을 빨리 받고 싶어요. 궁금해서 엉덩이가 들썩들썩해요.",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 [Cabin] 천 앞.\n인물 Bruno grandfather bear가 천 앞에서 몸을 돌려 닐스를 보며 입을 벌려 말한다 — 한 앞발로 천 자락을 잡았다, 둥근 안경. Nils bear cub은 두 앞발을 배 앞에 모으고 무릎을 굽혔다 폈다 하며 몸을 들썩인다 — 파란 장화.\n배경·소품 문을 다 덮은 천, 아래로 조금 보이는 헛간 바닥.\n톤 천 한 장이 안과 밖을 가른다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-10-p08",
+      "title": "10. 천 뒤에서 사각사각",
+      "pageNumber": 8,
+      "text": "할아버지가 조각을 다시 붙이며 말했어요. \"풀은 밤새 자면서 붙는단다. 선물도 하룻밤 자야겠네.\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨.\n장소·시간 [Cabin] 탁자 앞.\n인물 Bruno grandfather bear가 두 앞발로 나무 조각 둘을 맞대어 꾹 누르며 입을 벌려 말한다 — 고개를 손끝 위로 깊이 숙였다. Nils bear cub은 탁자에 턱을 얹어 그 큰 손과 얼굴이 나란한 높이에 있다 — 파란 장화.\n배경·소품 맞댄 조각 사이의 이음매, 옆에 놓인 풀 그릇과 나머지 조각.\n톤 두 조각이 손 안에서 하나로 눌린다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-11-p04",
+      "title": "11. 불 끄면 안 돼요",
+      "pageNumber": 4,
+      "text": "\"여기서부터는 불을 꺼야 보인단다.\" 닐스가 고개를 도리도리. \"불 끄면 안 돼요! 깜깜하잖아요.\"",
+      "sceneDescription": "컷 미디엄, 아이레벨. 둘의 상반신.\n장소·시간 [Wood] 밤 숲 풀숲 앞.\n인물 Bruno grandfather bear가 제 손전등을 아래로 내리며 입을 벌려 말한다 — 둥근 안경에 빛이 걸린다. Nils bear cub은 고개를 좌우로 도리도리 저으며 손전등을 가슴에 더 붙인다 — 두 앞발이 겹쳐 쥐었다, 파란 장화.\n배경·소품 앞쪽의 낮은 풀숲, 어둠.\n톤 한쪽 빛은 내려가고 한쪽 빛은 가슴에 붙었다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-11-p09",
+      "title": "11. 불 끄면 안 돼요",
+      "pageNumber": 9,
+      "text": "닐스도 딸깍, 불을 껐어요. 처음엔 깜깜, 그다음엔 조금씩 보여요. 할아버지 손이 닐스 손을 꼭 잡고 있어요.",
+      "sceneDescription": "컷 클로즈업, 아이레벨. 겹친 두 손.\n장소·시간 같은 자리.\n인물 Nils bear cub의 앞발이 스위치를 막 눌러 손전등이 꺼졌고, Bruno grandfather bear의 큰 앞발이 그 손을 위에서 감싸 쥐었다. 닐스 얼굴이 화면 위쪽에서 어둠 쪽으로 눈을 뜬다.\n배경·소품 꺼진 손전등 두 개, 사방의 어둠, 아직 눈이 덜 익어 형체만 어렴풋한 풀숲.\n톤 빛이 다 꺼지고 손의 온기만 남는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-12-p03",
+      "title": "12. 공은 넣었지 뭐",
+      "pageNumber": 3,
+      "text": "닐스가 컵과 수건만 바구니에 넣었어요. 그리고 안을 보지도 않고 뚜껑을 탁 덮었어요. \"공은 넣었지 뭐.\"",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨.\n장소·시간 같은 마루.\n인물 Nils bear cub이 한 앞발로 바구니 뚜껑을 탁 덮는다 — 얼굴은 문 밖 쪽으로 돌아가 있고 입을 벌려 말한다. 파란 장화.\n배경·소품 닫히는 뚜껑 아래로 컵과 수건이 보인다, 마루에 그대로 남은 공.\n톤 손은 바구니에 있는데 눈은 밖에 가 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-12-p08",
+      "title": "12. 공은 넣었지 뭐",
+      "pageNumber": 8,
+      "text": "할아버지가 물었어요. \"바구니에 공 넣는 걸 봤니?\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 풀밭.\n인물 Bruno grandfather bear가 무릎을 굽혀 닐스와 머리 높이를 맞추고 입을 벌려 묻는다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 턱을 들어 고개를 뒤로 젖혔다 — 입이 반쯤 벌어졌다, 파란 장화.\n배경·소품 옆으로 넘어진 빈 바구니.\n톤 묻는 말 하나에 큰 몸이 작은 몸 높이까지 내려온다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-13-p02",
+      "title": "13. 흔들면 우수수",
+      "pageNumber": 2,
+      "text": "닐스는 바구니 가득 사과를 따고 싶어요. 오두막 옆 광은 먹을 걸 넣어 두는 방이에요. 겨우내 광에서 꺼내 먹을 거예요.",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 [CabinOutside] 사과나무 아래.\n인물 Nils bear cub이 빈 바구니를 한 앞발에 끼고 고개를 젖혀 가지를 올려다본다 — 다른 앞발이 나무 기둥에 얹혔다, 파란 장화.\n배경·소품 빈 바구니, 뒤쪽에 열린 광 문과 그 안 빈 선반.\n톤 빈 바구니와 빈 선반이 한 화면에 함께 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-13-p06",
+      "title": "13. 흔들면 우수수",
+      "pageNumber": 6,
+      "text": "할아버지가 사과 하나를 살짝 눌렀어요. 눌린 자리가 거뭇하고 물렁물렁해요. 닐스가 그 자리를 들여다봤어요.",
+      "sceneDescription": "컷 익스트림 클로즈업, 아이레벨. 사과 한 알과 손가락.\n장소·시간 [Wood] 나무 아래.\n인물 Bruno grandfather bear의 손가락이 사과 옆구리를 살짝 누른다. Nils bear cub의 두 눈이 화면 가장자리에서 그 자리를 본다.\n배경·소품 눌린 자리가 거뭇하게 움푹 들어가 껍질이 주름졌다.\n톤 손가락 하나가 닿은 자리만 색이 죽어 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-14-p02",
+      "title": "14. 버섯은 내가 알아요",
+      "pageNumber": 2,
+      "text": "오늘 저녁은 버섯 수프예요. 닐스는 수프에 넣을 버섯을 제 손으로 따고 싶어요. \"버섯은 내가 알아요! 동그란 거잖아요.\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 숲 바닥.\n인물 Nils bear cub이 두 앞발로 동그라미를 만들어 얼굴 앞에 들어 보이며 입을 크게 벌려 말한다 — 턱이 들리고 가슴이 폈다. 파란 장화.\n배경·소품 손이 만든 동그라미 너머로 버섯 갓 하나가 겹쳐 보인다.\n톤 손 모양과 버섯 모양이 겹쳐 놓인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-14-p07",
+      "title": "14. 버섯은 내가 알아요",
+      "pageNumber": 7,
+      "text": "\"이쪽은 먹는 버섯, 이쪽은 못 먹는 버섯이란다. 먹으면 배가 아파진단다.\" 못 먹는 쪽이 산더미예요. 먹는 쪽엔 겨우 세 개.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 두 무더기를 나란히.\n장소·시간 같은 그루터기 옆.\n인물 Nils bear cub의 얼굴이 화면 위쪽에서 두 무더기를 내려다본다 — 입이 벌어지고 귀가 뒤로 눕는다.\n배경·소품 왼쪽에 산더미처럼 쌓인 무더기, 오른쪽에 버섯 세 개. 두 무더기가 같은 깊이에 나란히 놓였다.\n톤 크기 차이가 한눈에 들어온다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-15-p02",
+      "title": "15. 내 방식대로 쌓을래",
+      "pageNumber": 2,
+      "text": "닐스는 벽 한쪽을 제 손으로 쌓고 싶어요. \"이쪽은 내 방식대로 쌓을래요!\" 닐스가 팔을 걷어붙였어요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 같은 마당.\n인물 Nils bear cub이 두 둥근 앞발을 가슴 앞에서 탁 맞부딪치며 입을 크게 벌려 말한다 — 턱이 들리고 한 발이 앞으로 나갔다. 파란 장화.\n배경·소품 발 앞에 장작 토막 몇 개, 뒤로 빈 벽 한쪽.\n톤 아직 아무것도 안 쌓인 벽 한쪽이 화면 옆에 비어 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-15-p08",
+      "title": "15. 내 방식대로 쌓을래",
+      "pageNumber": 8,
+      "text": "할아버지가 장작 두 개를 눕혀 나란히 놓았어요. 그 위에 또 두 개를 가로로 얹었어요. 손바닥으로 툭툭 눌러 보였어요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 손과 장작.\n장소·시간 [Cabin] 벽 앞 바닥.\n인물 Bruno grandfather bear의 두 앞발이 장작 두 개를 눕혀 나란히 놓고, 그 위에 두 개를 가로로 얹은 뒤 손바닥으로 툭툭 눌러 보인다 — 입은 다물었고 시선은 닐스 쪽을 향한다. Nils bear cub의 얼굴이 화면 가장자리에서 그 손을 본다.\n배경·소품 아래위로 엇갈려 놓인 장작 넷.\n톤 눌러도 아무 데도 안 움직인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-16-p03",
+      "title": "16. 연이 자꾸 떨어져",
+      "pageNumber": 3,
+      "text": "닐스가 연을 끌고 달렸어요. 바람이 뒤에서 닐스 등을 밀어 줘요. 연은 등 뒤에서 파닥파닥해요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면. 들판이 화면을 가로지른다.\n장소·시간 같은 들판.\n인물 Nils bear cub이 왼쪽에서 오른쪽으로 달린다 — 몸이 앞으로 기울고 파란 장화가 둘 다 떴다, 한 앞발이 실을 쥐고 뒤로 뻗었다.\n배경·소품 연이 등 뒤 낮은 데서 옆으로 파닥인다, 풀이 닐스와 같은 쪽으로 눕는다.\n톤 아이도 풀도 바람도 다 같은 쪽으로 간다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-16-p09",
+      "title": "16. 연이 자꾸 떨어져",
+      "pageNumber": 9,
+      "text": "닐스가 바람이 오는 쪽을 마주 보고 섰어요. 연을 머리 위로 번쩍 들었어요. 바람이 연을 훅 밀어 올렸어요!",
+      "sceneDescription": "컷 미디엄 와이드, 정면 아이레벨.\n장소·시간 같은 들판.\n인물 Nils bear cub이 카메라 쪽을 정면으로 보고 서서 연을 머리 위로 번쩍 들었다 — 볼과 귀털이 얼굴 뒤로 밀리고 두 앞발이 연을 받쳤다, 파란 장화가 땅을 단단히 딛는다.\n배경·소품 풀이 닐스 쪽으로 누워 온다, 연 아래쪽이 위로 들리기 시작한다.\n톤 앞 쪽들과 풀이 눕는 방향이 반대다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-17-p02",
+      "title": "17. 문은 이따 닫을래",
+      "pageNumber": 2,
+      "text": "닐스는 사과 파이가 먹고 싶어요. \"식으면 바로 먹을래요!\" 할아버지가 사과를 두 알만 더 가져오라고 했어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 [Cabin] 식탁 옆.\n인물 Nils bear cub이 식탁 가장자리에 턱을 얹고 파이를 코앞에서 본다 — 두 앞발이 식탁 모서리를 잡았고 입을 벌려 말한다. 파란 장화가 발끝으로 바닥을 딛는다.\n배경·소품 식탁 위 파이, 오르는 김.\n톤 얼굴이 파이와 같은 높이에 놓인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-17-p08",
+      "title": "17. 문은 이따 닫을래",
+      "pageNumber": 8,
+      "text": "할아버지가 광 문을 손으로 잡고 물었어요. \"이 문, 어떻게 해 둘까?\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨.\n장소·시간 [Shed] 광 문 앞.\n인물 Bruno grandfather bear가 한 앞발로 광 문을 잡고 몸을 굽혀 입을 벌려 묻는다 — 둥근 안경, 회색 주둥이. Nils bear cub이 사과를 안은 채 문과 할아버지를 번갈아 본다 — 파란 장화.\n배경·소품 반쯤 열린 문, 문에 달린 쇠고리.\n톤 문 하나가 두 얼굴 사이에 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-18-p02",
+      "title": "18. 더 크게 만들 거야",
+      "pageNumber": 2,
+      "text": "닐스는 낙엽 더미에 풍덩 뛰어들고 싶어요. 폭신폭신할 거예요. 닐스도 두 팔로 낙엽을 긁어모았어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 같은 마당.\n인물 Nils bear cub이 두 앞발을 벌려 낙엽을 제 앞으로 긁어모은다 — 무릎을 굽히고 엉덩이를 뒤로 뺐다, 파란 장화가 잎에 파묻혔다.\n배경·소품 앞으로 밀려 오는 잎, 발밑에 모이기 시작한 작은 더미.\n톤 두 팔이 만든 자리만 잎이 두껍다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-18-p07",
+      "title": "18. 더 크게 만들 거야",
+      "pageNumber": 7,
+      "text": "마당이 도로 훤해졌어요. 더미가 있던 자리엔 낙엽 몇 장뿐이에요. 닐스는 한 번도 못 뛰어들었어요.",
+      "sceneDescription": "컷 익스트림 와이드, 하이앵글. 마당을 통째로.\n장소·시간 같은 마당, 조금 뒤.\n인물 Nils bear cub이 마당 한가운데 혼자 서 있다 — 두 앞발이 아래로 늘어지고 어깨가 처졌다, 파란 장화.\n배경·소품 훤해진 흙바닥, 더미가 있던 자리에 잎 몇 장, 담 밑에 몰린 잎들.\n톤 마당이 처음보다 더 비어 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-19-p05",
+      "title": "19. 다락은 너무 깜깜해",
+      "pageNumber": 5,
+      "text": "닐스가 장화를 벗었다 도로 신었어요. 사다리 앞에 발자국만 뱅뱅 돌아요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 마룻바닥과 발.\n장소·시간 [Cabin] 사다리 앞 마루.\n인물 Nils bear cub이 파란 장화 한 짝을 다시 신는 중이다 — 한 앞발이 장화 목을 잡아당기고 다른 발은 이미 신었다.\n배경·소품 마룻바닥에 앞뒤로 오간 발자국이 사다리 앞을 뱅 돌아 여러 겹, 사다리 밑동.\n톤 자국은 많은데 사다리 쪽으로 간 것이 없다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-19-p08",
+      "title": "19. 다락은 너무 깜깜해",
+      "pageNumber": 8,
+      "text": "할아버지가 등불을 들고 사다리를 올라갔어요. 다락에 불빛이 환하게 퍼졌어요. \"올라와 보렴. 같이 보자.\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 사다리를 따라 위를 본다.\n장소·시간 [Attic] 다락 입구.\n인물 Bruno grandfather bear가 사다리를 올라 다락 입구에 서서 한 앞발로 등불을 높이 들고 아래를 내려다보며 입을 벌려 말한다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 사다리 아래에서 올려다본다 — 파란 장화.\n배경·소품 등불에서 퍼져 다락 안을 채우는 빛, 사다리 가로대.\n톤 검던 네모가 안에서부터 밝아진다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-20-p02",
+      "title": "20. 눈은 뭉치면 돼",
+      "pageNumber": 2,
+      "text": "닐스는 저보다 큰 눈사람을 세우고 싶어요. \"눈사람은 내가 제일 잘 만들어요!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 [CabinOutside] 마당 한가운데.\n인물 Nils bear cub이 두 앞발을 제 키보다 높이 들어 올리며 입을 크게 벌려 말한다 — 발끝을 세우고 턱을 들었다. 파란 장화가 눈에 반쯤 잠겼다.\n배경·소품 무릎까지 오는 눈, 방금 걸어 들어온 발자국 두 줄.\n톤 손을 뻗은 높이가 제 키보다 훨씬 위에 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-20-p06",
+      "title": "20. 눈은 뭉치면 돼",
+      "pageNumber": 6,
+      "text": "눈더미가 스르르 옆으로 기울었어요. 닐스가 두 손으로 받쳤어요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면.\n장소·시간 같은 마당.\n인물 Nils bear cub이 두 앞발을 뻗어 기우는 눈더미를 옆에서 받친다 — 어깨가 눈더미에 붙고 파란 장화가 뒤로 미끄러진다.\n배경·소품 옆으로 스르르 기운 눈더미, 갈라진 눈 틈.\n톤 미는 힘과 받치는 힘이 서로 반대다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-21-p02",
+      "title": "21. 난 여기서 잡을래",
+      "pageNumber": 2,
+      "text": "닐스는 얼음낚시로 물고기를 잡고 싶어요. 여름에 잡던 그 자리가 좋아요. \"저기서 잡을래요!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 [Lake] 물가 가까운 얼음 위.\n인물 Nils bear cub이 한 앞발을 곧게 뻗어 물가 쪽 한 자리를 가리키며 입을 벌려 말한다 — 몸이 그쪽으로 기울었다, 파란 장화.\n배경·소품 가리키는 끝의 물가 얼음, 저 멀리 호수 한가운데.\n톤 손끝이 넓은 호수가 아니라 발밑 가까운 데를 가리킨다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-21-p07",
+      "title": "21. 난 여기서 잡을래",
+      "pageNumber": 7,
+      "text": "손이 꽁꽁 시려요. 닐스가 제 구멍을 들여다봤어요. 물이 얕아서 바닥 돌까지 훤히 보여요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 하이앵글.\n장소·시간 [Lake] 물가 구멍 앞.\n인물 Nils bear cub이 두 앞발을 겨드랑이에 끼우고 몸을 웅크린 채 구멍 안을 들여다본다 — 눈썹 획이 모이고 어깨가 올라갔다, 파란 장화.\n배경·소품 구멍 아래로 바닥 돌과 잔모래가 훤히 보인다.\n톤 물이 얕아서 밑바닥까지 다 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-22-p02",
+      "title": "22. 아직 뜨거운데",
+      "pageNumber": 2,
+      "text": "닐스는 과자가 먹고 싶어요. 한 입 베어 물면 와삭 소리가 나는 과자예요. \"따뜻할 때 먹을래요!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 [Cabin] 식탁 옆.\n인물 Nils bear cub이 두 앞발을 식탁에 올리고 턱을 들어 입을 크게 벌려 말한다 — 발끝을 세웠다, 파란 장화.\n배경·소품 눈앞에 놓인 과자판, 오르는 김.\n톤 얼굴이 김이 오르는 자리로 바짝 붙는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-22-p07",
+      "title": "22. 아직 뜨거운데",
+      "pageNumber": 7,
+      "text": "나무판에 안 부서진 과자가 몇 개 안 남았어요. 바닥에는 부스러기가 흩어졌어요. 닐스는 아직 와삭 소리를 못 들었어요.",
+      "sceneDescription": "컷 와이드, 하이앵글.\n장소·시간 [Cabin] 부엌 식탁과 바닥.\n인물 Nils bear cub이 식탁 앞에 서서 두 앞발을 몸 옆에 내렸다 — 어깨가 처지고 입이 다물렸다, 파란 장화.\n배경·소품 넓은 나무판에 안 부서진 과자 넷만 남았다, 그 둘레와 바닥에 부스러기가 흩어져 있다.\n톤 판 위가 비어 가는 만큼 바닥이 어질러졌다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-23-p01",
+      "title": "23. 몽땅 부었더니",
+      "pageNumber": 1,
+      "text": "겨울 숲에는 새들이 먹을 게 없어요. 할아버지가 창가에 작은 나무 상자를 걸었어요. 새들이 와서 먹는 모이대예요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글. 창밖에서 창턱을 올려다본다.\n장소·시간 [Cabin] 오두막 창밖, 겨울 낮.\n인물 Bruno grandfather bear가 창턱 아래 벽에 작은 나무 상자를 두 앞발로 대고 건다 — 팔이 위로 뻗고 초록 뜨개 조끼, 둥근 안경.\n배경·소품 벽에 걸리는 작은 나무 상자, 눈 덮인 마당, 잎 없는 가지, 창유리에 서린 김.\n톤 눈이 온통 밝고 상자만 나무 색으로 어둡다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-23-p09",
+      "title": "23. 몽땅 부었더니",
+      "pageNumber": 9,
+      "text": "다음 날 아침에도 닐스가 한 줌만 올렸어요. 모이대에 눈이 쌓일 새가 없어요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 모이대 바닥.\n장소·시간 [CabinOutside] 다음 날 아침, 모이대.\n인물 Nils bear cub의 앞발이 씨앗 한 줌을 모이대에 내려놓는다 — 둥근 앞발이 조심스럽게 펴진다.\n배경·소품 모이대 나무 바닥이 다 드러났고 눈이 하나도 안 쌓였다, 씨앗 한 줌.\n톤 바닥이 보이는 것이 어제와 다른 점이다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-24-p02",
+      "title": "24. 눈이 너무 많아",
+      "pageNumber": 2,
+      "text": "닐스는 우물까지 눈길을 내고 싶어요. 길이 나야 물을 길어 오죠. 물통이 텅 비었거든요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 [CabinOutside] 오두막 문 앞.\n인물 Nils bear cub이 제 키만 한 나무 삽을 두 앞발로 세워 잡고 고개를 우물 쪽으로 곧게 두었다 — 어깨를 폈고 입이 앙다물렸다, 파란 장화가 눈에 잠겼다.\n배경·소품 발 옆에 놓인 텅 빈 물통, 저 멀리 우물 지붕.\n톤 물통에서 우물까지 눈밖에 없다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-24-p10",
+      "title": "24. 눈이 너무 많아",
+      "pageNumber": 10,
+      "text": "할아버지가 우물물을 길어 올렸어요. 닐스가 물통을 안고 눈길을 되돌아봤어요. 우물까지 길이 쭉 나 있어요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면.\n장소·시간 [CabinOutside] 우물 앞.\n인물 Bruno grandfather bear가 두 앞발로 우물 줄을 당겨 물통을 끌어 올린다 — 팔에 힘이 들어가고 등이 굽었다, 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 물통을 가슴에 안은 채 고개를 돌려 지나온 눈길을 본다 — 파란 장화.\n배경·소품 우물, 물이 찬 통, 뒤로 문까지 곧게 이어진 눈길.\n톤 물을 든 아이의 얼굴이 물이 아니라 길 쪽으로 가 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-25-p04",
+      "title": "25. 밤에 나는 소리들",
+      "pageNumber": 4,
+      "text": "우지끈! 어디선가 나무 우는 소리가 났어요. 닐스가 이불 속으로 쏙 들어갔어요.",
+      "sceneDescription": "컷 미디엄, 로우앵글. 서까래가 화면 위를 가로지른다.\n장소·시간 같은 침대.\n인물 Nils bear cub이 이불 속으로 쏙 들어가 이불이 봉긋하다 — 발끝만 이불 밖으로 나왔고 이불깃 틈으로 두 눈이 보인다.\n배경·소품 머리 위 서까래와 그 이음매, 침대 밑 파란 장화.\n톤 몸이 있는 자리가 이불 모양으로만 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-25-p08",
+      "title": "25. 밤에 나는 소리들",
+      "pageNumber": 8,
+      "text": "할아버지가 등불을 들고 올라왔어요. \"밤 소리에는 다 이름이 있단다. 우지끈은 나무, 후우우는 바람, 쿠웅은 지붕에서 미끄러진 눈이야.\"",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨.\n장소·시간 [Attic] 다락, 밤.\n인물 Bruno grandfather bear가 침대 옆에 서서 한 앞발로 등불을 들고 다른 앞발로 지붕 쪽을 가리키며 입을 벌려 말한다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 이불 위로 몸을 일으켜 그 손끝을 따라 본다 — 두 앞발이 이불을 짚었다.\n배경·소품 등불이 밝힌 서까래와 창과 지붕 밑, 침대 밑 파란 장화.\n톤 빛이 들어오자 소리 나던 자리들이 하나씩 보인다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-26-p04",
+      "title": "26. 똑똑똑 하면, 벌떡!",
+      "pageNumber": 4,
+      "text": "할아버지가 닐스 옆 바닥에 털썩 앉았어요. \"자다 깬 몸은 접혀 있단다. 이렇게 길게 펴 주면 돼.\" 할아버지가 넓은 손바닥으로 닐스 앞발을 받쳐 위로 쭉— 같이 뻗어요.",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨.\n장소·시간 [Cabin] 난로 앞 바닥.\n인물 Bruno grandfather bear와 Nils bear cub이 바닥에 나란히 앉아 같은 자세로 한 앞발씩 위로 곧게 뻗는다 — 둘 다 등이 펴지고 턱이 들렸다. 할아버지는 넓은 손바닥을 활짝 폈고 초록 뜨개 조끼·둥근 안경, 닐스는 작은 둥근 앞발을 그 밑에서 맞잡았고 파란 장화.\n배경·소품 난로, 바닥 널.\n톤 같은 동작이 두 크기로 나란히 서 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-26-p08",
+      "title": "26. 똑똑똑 하면, 벌떡!",
+      "pageNumber": 8,
+      "text": "닐스가 우물 옆 물통 앞에 섰어요. 두 앞발로 찬물을 떠서 볼에 착 붙이자 어깨가 저절로 올라가요. 젖은 털이 반들반들 누웠어요. \"혼자 아침을 열었다!\"",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 물통 위 얼굴.\n장소·시간 [CabinOutside] 우물 옆 물통, 아침.\n인물 Nils bear cub이 두 앞발로 물을 떠 볼에 붙인다 — 눈을 꼭 감고 어깨를 잔뜩 올렸다, 파란 장화.\n배경·소품 뚜껑이 덮인 우물과 그 옆의 낮은 물통, 볼에서 튀는 물방울.\n톤 물통 안이 화면에서 가장 밝고 털만 젖어 눕는다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-27-p02",
+      "title": "27. 부엉 하면, 코~!",
+      "pageNumber": 2,
+      "text": "숲 오두막의 브루노 할아버지가 등불을 들고 와요. \"부엉이가 울면 잘 시간이야.\" \"아니야, 안 졸려! 탑을 지붕까지 쌓을 거야!\" 닐스는 도리도리, 솔방울 탑을 꼭 끌어안아요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 같은 난로 앞.\n인물 Bruno grandfather bear가 한 앞발로 등불을 들고 다가와 아래를 내려다보며 입을 벌려 말한다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub은 솔방울 탑을 두 앞발로 끌어안고 고개를 옆으로 돌렸다 — 눈을 질끈 감았다, 파란 장화.\n배경·소품 등불, 솔방울 탑.\n톤 등불 빛이 위에서 내려오고 탑을 안은 쪽은 등을 돌리고 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-27-p10",
+      "title": "27. 부엉 하면, 코~!",
+      "pageNumber": 10,
+      "text": "똑똑똑! 닐스가 눈을 뜨고 두 앞발을 머리 위로 번쩍! \"어젯밤엔 등불 하나였는데, 지금은 창이 밝지?\" 할아버지가 닐스를 안아 올려요. 부엉이가 울 때 자야 아침을 다 쓸 수 있어요. 닐스가 웃어요. \"부엉 하면, 코~!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 [Attic] 다락, 아침.\n인물 Bruno grandfather bear가 두 앞발로 Nils bear cub을 안아 올렸다 — 고개를 숙이고 입꼬리가 올라갔다, 초록 뜨개 조끼, 둥근 안경. 닐스는 그 품에서 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌린다 — 눈이 활짝 열렸다, 파란 장화가 공중에 떴다.\n배경·소품 창으로 든 아침 볕, 개어 둔 이불. 창밖에는 나뭇가지만 있고 새는 없다.\n톤 밤에 등불 하나가 있던 자리에 이번엔 창이 통째로 밝다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-28-p05",
+      "title": "28. 뽀득뽀득, 흙 안녕!",
+      "pageNumber": 5,
+      "text": "\"씻기는 셋! 하나— 물에 첨벙 담그기!\" 할아버지가 우물 옆 물통 앞에서 말해요. 닐스가 두 앞발을 물통에 쏙 담가요. 흙이 풀려서 물이 갈색이 돼요. \"우와, 흙이 물로 갔다!\"",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 물통 속을 곧장 내려다본다.\n장소·시간 [CabinOutside] 우물 옆 물통, 봄 낮.\n인물 Nils bear cub이 두 앞발을 물통 속에 담그고 손가락 없는 둥근 앞발을 활짝 벌렸다 — 화면 위 가장자리에 얼굴이 반쯤 들어와 입이 크게 벌어지고 눈이 커졌다.\n배경·소품 앞발에서 풀려 나온 흙이 통 속에 퍼져 물이 온통 흐린 갈색이다, 옆에 뚜껑이 덮인 우물.\n톤 앞발은 씻겨 밝아지고 통 속은 흐려졌다 — 흙이 옮겨 간 자리가 한 화면에 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-28-p07",
+      "title": "28. 뽀득뽀득, 흙 안녕!",
+      "pageNumber": 7,
+      "text": "\"셋— 새 물로 헹구기!\" 할아버지가 우물 뚜껑을 열고 새 물을 떠 부어 줘요. 갈색 물이 주르륵 흘러내려요. \"뽀득뽀득, 흙 안녕! 꼬물이야, 안녕!\" 닐스가 앞발을 탈탈 털어요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨.\n장소·시간 같은 우물 옆.\n인물 Bruno grandfather bear가 두 앞발로 나무 통을 기울여 Nils bear cub의 앞발 위로 새 물을 부어 준다 — 허리를 굽히고 입은 다물었다, 초록 뜨개 조끼, 둥근 안경. 닐스는 두 앞발을 앞으로 벌려 내밀고 턱을 들었다 — 파란 장화.\n배경·소품 뚜껑이 옆으로 젖혀진 우물, 앞발을 타고 땅으로 흘러내리는 흐린 물줄기.\n톤 흐린 것이 아래로 내려가고 앞발 쪽이 밝아진다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-29-p02",
+      "title": "29. 발 쏙, 장화 쑥!",
+      "pageNumber": 2,
+      "text": "닐스가 선 채로 장화에 발을 쑤셔 넣어요. 뒤꿈치가 걸려서 반만 들어가요. 한 발로 콩콩 뛰다가 철퍼덕, 진창에 주저앉았어요. 한 짝은 발에 반만 걸려 있어요. \"첨벙첨벙 할 건데, 으으!\"",
+      "sceneDescription": "컷 미디엄, 하이앵글.\n장소·시간 같은 마당 진창.\n인물 Nils bear cub이 진창에 철퍼덕 주저앉았다 — 한 발에 장화가 뒤꿈치까지 안 들어가 반쯤 걸렸고 다른 발은 맨발로 앞으로 뻗었다, 두 앞발이 뒤로 짚였고 입이 벌어졌다.\n배경·소품 사방으로 튄 진흙 방울, 옆에 나뒹구는 다른 장화 한 짝, 주저앉은 자리에 눌린 자국.\n톤 서 있던 자국과 앉은 자국이 한 화면에 나란히 남았다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-29-p06",
+      "title": "29. 발 쏙, 장화 쑥!",
+      "pageNumber": 6,
+      "text": "첫 번째! 그루터기에 앉은 닐스가 장화를 두 앞발로 잡고 발끝을 쏙 넣어요. \"발 쏙!\" 발끝이 굴 속으로 쏙 들어가요. 이제 어렵지 않아요, 그냥 굴일 뿐이니까.",
+      "sceneDescription": "컷 클로즈업, 로우앵글. 장화 아가리와 발끝.\n장소·시간 같은 그루터기 앞.\n인물 Nils bear cub이 두 앞발로 장화를 세워 잡고 발끝을 아가리 안으로 밀어 넣는다 — 화면 위쪽에 벌어진 입과 크게 뜬 두 눈이 함께 들어온다.\n배경·소품 벌어진 장화 아가리, 그루터기 모서리.\n톤 아가리 안쪽이 굴처럼 깊게 뚫려 있다.",
+      "sourceOrigin": "Current book illustration"
+    },
+    {
+      "key": "changjak-bruno-30-p04",
+      "title": "30. 나는 형아, 도와줄게!",
+      "pageNumber": 4,
+      "text": "그때 할아버지가 사다리를 올라와 이불을 스윽 걷어요. \"우리 닐스, 이제 형아잖니. 형아 앞발이 있어야 하는 일이 있는데?\" 할아버지가 닐스 앞발을 꼬옥 감싸요. \"같이 해 볼까?\"",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨.\n장소·시간 [Attic] 다락 사다리 입구.\n인물 Bruno grandfather bear가 사다리 입구에서 상체를 다락 안으로 들이밀고 한 앞발로 이불을 걷어 올리며 다른 넓은 손바닥으로 Nils bear cub의 작은 앞발을 감싼다 — 고개를 숙이고 입을 벌려 말한다, 초록 뜨개 조끼, 둥근 안경. 닐스는 젖은 눈으로 그 얼굴을 올려다본다.\n배경·소품 걷힌 이불 자락, 사다리 가로대.\n톤 덮여 있던 자리가 열리고 두 얼굴이 마주 본다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-30-p10",
+      "title": "30. 나는 형아, 도와줄게!",
+      "pageNumber": 10,
+      "text": "할아버지가 닐스를 폭 안아요. \"네 방석 덕분에 새근새근 자겠구나!\" 작은 것이 오면 내 앞발이 할 일도 같이 생겨요. 닐스가 상자에 대고 속삭여요. \"나는 형아, 도와줄게! 잘 자.\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 난로 앞.\n인물 Bruno grandfather bear가 두 앞발로 Nils bear cub을 폭 안았다 — 고개를 숙이고 입꼬리가 올라갔다, 초록 뜨개 조끼, 둥근 안경. 닐스는 그 어깨 너머로 고개를 돌려 상자 쪽으로 입을 오므려 속삭인다 — 한 앞발이 어깨에 얹혔고 파란 장화가 떴다.\n배경·소품 화면 아래 귀퉁이에 상자 테두리와 이끼 방석에 앉은 Guest chick.\n톤 안긴 쪽이 보는 데가 처음으로 상자 쪽이다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-31-p02",
+      "title": "31. 부리 앞에, 살살!",
+      "pageNumber": 2,
+      "text": "\"형아가 먹여 줄게. 가만있어!\" 닐스가 주먹을 꽉 쥐어요. 말랑한 빵 조각을 부리에 쑥 밀어 넣어요. 새끼 새가 파닥파닥, 고개를 홱 돌려요.",
+      "sceneDescription": "컷 클로즈업, 측면. 주먹과 부리만.\n장소·시간 [Cabin] 같은 상자 안.\n인물 Nils bear cub의 한 앞발이 Guest chick의 몸을 감싸 쥐어 주먹이 둥글게 부풀었고, 다른 앞발이 물에 불린 빵 조각을 부리 쪽으로 민다 — 화면 위 가장자리에 닐스의 이마와 두 눈이 걸린다. Guest chick은 고개를 반대쪽으로 홱 꺾고 날개를 벌려 파닥인다.\n배경·소품 상자 가장자리, 마른 풀.\n톤 미는 방향과 고개가 돌아간 방향이 정반대다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-31-p09",
+      "title": "31. 부리 앞에, 살살!",
+      "pageNumber": 9,
+      "text": "닐스가 앞발을 펴 보이며 세어요. \"하나, 앞발 활짝! 둘, 부리 앞에 살살! 셋, 물 때까지 기다리기!\" 닐스가 두 앞발을 머리 위로 번쩍! \"부리 앞에, 살살!\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글.\n장소·시간 [Cabin] 난로 옆, 저녁.\n인물 Nils bear cub이 상자 옆에서 두 앞발을 머리 위로 번쩍 든다 — 발끝을 세우고 턱이 들렸다, 입이 크게 벌어졌다, 파란 장화. 상자 안에서 Guest chick이 고개를 들어 그쪽을 본다.\n배경·소품 난로 불, 나무 상자, 낮은 서까래.\n톤 방에서 가장 높이 올라간 것이 두 앞발이다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-32-p03",
+      "title": "32. 눈물 나면, 그냥 울어!",
+      "pageNumber": 3,
+      "text": "닐스가 쪼그려 앉아 솔방울을 굴려 봐도 하나도 재미없어요. 어깨가 자꾸 들썩들썩 올라가요. 콧등에 주름이 잡히고 목구멍이 꽉 막혀요.",
+      "sceneDescription": "컷 미디엄, 하이앵글.\n장소·시간 [CabinOutside] 진창 옆 마른 땅.\n인물 Nils bear cub이 쪼그려 앉아 한 앞발로 솔방울을 굴린다 — 어깨가 위로 들썩 올라갔고 콧등에 주름이 잡혔다, 입꼬리가 아래로 처졌다, 파란 장화.\n배경·소품 굴러가다 멈춘 솔방울, 그 뒤에 남은 굴린 자국.\n톤 손은 놀고 있는데 어깨가 놀고 있지 않다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-32-p09",
+      "title": "32. 눈물 나면, 그냥 울어!",
+      "pageNumber": 9,
+      "text": "이제 닐스는 눈물이 날 때 어떻게 하는지 알아요. \"하나, 아프다고 말하기! 둘, 눈물은 참지 않기! 셋, 할아버지한테 안기기!\" 닐스가 두 앞발을 머리 위로 번쩍!",
+      "sceneDescription": "컷 와이드, 로우앵글.\n장소·시간 [CabinOutside] 오두막 앞, 해가 기운 뒤.\n인물 Nils bear cub이 마른 땅에 서서 두 앞발을 머리 위로 번쩍 든다 — 발끝이 들리고 입이 크게 벌어졌다, 무릎에 감은 천, 파란 장화. 화면 왼쪽 문간에 Bruno grandfather bear가 서서 본다 — 초록 뜨개 조끼.\n배경·소품 오두막 문, 진창에 그대로 남은 미끄러진 자국.\n톤 낮에 넘어진 자국 위로 두 앞발이 솟아 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-33-p02",
+      "title": "33. 내가 심은 콩, 냠!",
+      "pageNumber": 2,
+      "text": "숲 오두막의 브루노 할아버지가 접시를 보고 물어요. \"콩은?\" \"콩은 안 먹을래요. 맛없게 생겼어요.\" 닐스가 텃밭으로 쌩— 뛰어나가요. 여름 볕이 쨍쨍 내리쬐어요.",
+      "sceneDescription": "컷 미디엄, 측면. 문간이 화면 오른쪽에 열린다.\n장소·시간 [Cabin] 오두막 문간.\n인물 Nils bear cub이 문턱을 넘어 나가며 고개만 뒤로 돌려 입을 크게 벌린다 — 파란 장화 한 짝이 문턱 밖 땅을 딛고 다른 짝이 아직 안쪽에 있다. 화면 왼쪽 식탁 앞에서 Bruno grandfather bear가 접시를 내려다본다 — 초록 뜨개 조끼, 둥근 안경.\n배경·소품 활짝 열린 문, 식탁 위 접시.\n톤 몸은 밖으로 나가는데 얼굴만 안쪽을 향해 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-33-p10",
+      "title": "33. 내가 심은 콩, 냠!",
+      "pageNumber": 10,
+      "text": "할아버지가 두 손바닥으로 닐스 볼을 감싸 줘요. 싫어 보이던 것도 한 입 먹어 보면 맛을 알게 돼요. \"내가 심은 콩, 냠! 내일은 당근 심을래요!\" 닐스가 빈 접시를 들어 보여요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨.\n장소·시간 [Cabin] 같은 식탁.\n인물 Bruno grandfather bear가 두 손바닥으로 닐스의 두 볼을 감싼다 — 발가락 다섯이 볼 옆으로 벌어졌다, 둥근 안경, 입꼬리가 올라갔다. Nils bear cub은 그 사이에서 한 앞발로 빈 접시를 얼굴 옆까지 들어 보인다 — 입이 크게 벌어졌다.\n배경·소품 알 하나 없이 비워진 접시, 등불.\n톤 p1에서 한쪽이 남아 있던 접시에 이번엔 아무것도 없다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-34-p01",
+      "title": "34. 호수가 커다란 욕조!",
+      "pageNumber": 1,
+      "text": "\"안 씻을래요!\" 아기 곰 닐스가 호숫가 풀밭으로 도망가요. 숲 오두막의 브루노 할아버지가 마른 수건을 들고 서 있어요. 닐스가 외쳐요. \"물에 들어가면 머리에 물 들어가잖아요!\"",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨. 물가가 화면 아래를 가로지른다.\n장소·시간 [Lake] 호숫가, 여름 늦은 오후.\n인물 화면 왼쪽 물가에서 Bruno grandfather bear가 두 앞발로 마른 수건을 펼쳐 든다 — 초록 뜨개 조끼, 둥근 안경. 화면 오른쪽 풀밭으로 Nils bear cub이 달아나며 고개만 뒤로 돌려 입을 크게 벌린다 — 파란 장화가 풀을 밟고 뒤꿈치가 들렸다.\n배경·소품 칠하지 않은 호수, 물가 풀, 머리 위를 덮은 여름 우듬지.\n톤 펼쳐 든 것과 달아나는 것이 화면 양 끝에 하나씩 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-34-p07",
+      "title": "34. 호수가 커다란 욕조!",
+      "pageNumber": 7,
+      "text": "할아버지가 앞발로 물을 떠서 닐스 등에 주르륵 부어요. 등을 쓱쓱 문지르니 풀씨랑 솔가루가 물 위로 동동 떠올라요. \"호수가 커다란 욕조!\" 닐스가 깔깔 웃어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 측면.\n장소·시간 [Lake] 같은 물속.\n인물 Bruno grandfather bear가 한 손바닥을 닐스 등에 대고 위아래로 문지른다 — 다른 앞발이 물을 떠 등 위에 기울였다, 초록 뜨개 조끼 아랫자락이 물에 닿았다, 둥근 안경. Nils bear cub은 등을 내밀고 목을 앞으로 늘여 눈을 감았다 — 입꼬리가 올라갔다.\n배경·소품 등을 타고 흘러내리는 물, 물 위에 동동 뜬 풀씨 예닐곱.\n톤 등에서 떨어져 나온 것이 물 위에 그대로 남는다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-35-p02",
+      "title": "35. 치카치카, 보라 안녕!",
+      "pageNumber": 2,
+      "text": "부엉이가 부엉— 하고 울어요. 잘 시간이에요. 숲 오두막의 브루노 할아버지가 작은 나무 칫솔을 내밀어요. 닐스는 못 본 척 다락 사다리로 쪼르르 올라가요.",
+      "sceneDescription": "컷 미디엄 와이드, 측면. 사다리가 화면 오른쪽에 선다.\n장소·시간 [Cabin] 오두막 안 사다리 밑, 밤.\n인물 화면 왼쪽에서 Bruno grandfather bear가 한 앞발로 작은 나무 칫솔을 내밀어 든다 — 팔이 앞으로 곧게 뻗고 입을 벌려 말한다, 초록 뜨개 조끼, 둥근 안경. 화면 오른쪽에서 Nils bear cub이 사다리 두 칸째에 발을 올리고 등을 보인 채 올라간다 — 고개를 반대쪽으로 돌렸다, 파란 장화.\n배경·소품 다락으로 오르는 사다리, 식탁 위 등불.\n톤 내민 손과 올라가는 등이 서로 반대쪽을 향한다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-35-p10",
+      "title": "35. 치카치카, 보라 안녕!",
+      "pageNumber": 10,
+      "text": "그날 밤, 할아버지가 닐스 이마에 코를 콩 부비고 이불을 덮어 줘요. 자기 전에 닦으면 근질거리지 않고 푹 잠들 수 있어요. \"치카치카, 보라 안녕! 코~\" 닐스가 눈을 감아요.",
+      "sceneDescription": "컷 클로즈업, 측면.\n장소·시간 [Attic] 다락 침대, 밤.\n인물 Bruno grandfather bear가 몸을 굽혀 회색 주둥이 끝을 닐스 이마에 대고, 다른 앞발로 이불깃을 어깨까지 끌어 덮는다 — 둥근 안경, 눈이 감겼다. Nils bear cub은 눈을 감고 입꼬리를 올린다 — 두 앞발이 이불 밖에 나란히 놓였다.\n배경·소품 침대 옆 등불, 침대 밑 파란 장화.\n톤 두 얼굴이 닿은 자리가 화면에서 가장 가깝다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-36-p04",
+      "title": "36. 예쁘게 부르면, 예쁘게 와요!",
+      "pageNumber": 4,
+      "text": "그때 숲 오두막의 브루노 할아버지가 나무 사이로 내려왔어요. \"닐스야, 무슨 소리니?\" 닐스가 홱 돌아서서 외쳤어요. \"할아버지도 저리 가요!\" 할아버지는 아무 말 없이 물가 통나무에 앉았어요.",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨.\n장소·시간 같은 물가.\n인물 Nils bear cub이 화면 왼쪽 앞에서 몸을 홱 틀어 뒤쪽을 향해 입을 크게 벌린다 — 한 앞발을 앞으로 뻗었고 파란 장화가 서로 엇갈렸다. 화면 오른쪽에서 Bruno grandfather bear가 물가 통나무에 걸터앉는다 — 두 앞발을 무릎에 얹고 입을 다물었다, 초록 뜨개 조끼, 둥근 안경.\n배경·소품 물가에 가로놓인 통나무 하나, 그 뒤 줄기 셋.\n톤 하나는 소리를 지르고 하나는 소리를 안 낸다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-36-p08",
+      "title": "36. 예쁘게 부르면, 예쁘게 와요!",
+      "pageNumber": 8,
+      "text": "닐스가 통나무 쪽으로 돌아섰어요. \"아까 저리 가라고 해서 미안해요.\" 할아버지가 넓은 손바닥을 쫙 폈어요. 닐스가 그 위에 앞발을 올렸어요. 둘이 나란히 호수 건너로 외쳤어요. \"고마워요—!\"",
+      "sceneDescription": "컷 미디엄 와이드, 측면 아이레벨.\n장소·시간 같은 물가.\n인물 Bruno grandfather bear와 Nils bear cub이 나란히 서서 물 건너로 함께 입을 벌려 외친다 — 할아버지가 넓은 손바닥을 앞으로 폈고 닐스가 그 위에 둥근 앞발을 얹은 채 둘 다 얼굴을 같은 쪽으로 돌렸다. 초록 뜨개 조끼, 파란 장화.\n배경·소품 뒤쪽 통나무, 물, 건너편 숲.\n톤 두 입이 같은 쪽을 향해 같이 열린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-37-p03",
+      "title": "37. 잼은 한 숟갈만!",
+      "pageNumber": 3,
+      "text": "저녁이에요. 김이 폴폴 나는 빵이 접시에 놓였어요. 그런데 닐스는 배가 불룩해서 한 입도 안 들어가요. \"먹고 싶은데 안 들어가요…\" 닐스가 고개를 폭 숙였어요.",
+      "sceneDescription": "컷 미디엄, 아이레벨.\n장소·시간 같은 식탁, 저녁.\n인물 Nils bear cub이 걸상에 앉아 고개를 폭 숙였다 — 두 앞발을 불룩한 배 위에 얹었고 파란 장화가 걸상 아래에서 달랑거린다.\n배경·소품 앞 접시에 김이 오르는 빵 한 덩이, 잼 병, 숟가락 하나.\n톤 김은 오르는데 아무도 손을 안 뻗는다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-37-p08",
+      "title": "37. 잼은 한 숟갈만!",
+      "pageNumber": 8,
+      "text": "갓 구운 빵이 나왔어요. 닐스가 빵부터 크게 한 입 냠! 그다음 잼을 딱 한 숟갈 발라서 또 한 입. \"빵에서 이런 맛이 났었나요?\" 닐스가 잼 병을 도로 밀어 놓았어요.",
+      "sceneDescription": "컷 클로즈업, 아이레벨.\n장소·시간 같은 식탁, 저녁.\n인물 Nils bear cub이 두 앞발로 빵을 받쳐 들고 크게 한 입 문다 — 눈을 감고 볼이 부풀었다.\n배경·소품 옆에 뚜껑 덮인 잼 병과 숟가락 하나, 접시.\n톤 이번엔 병이 아니라 빵이 입에 닿아 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-38-p03",
+      "title": "38. 우르릉 하면, 오두막으로!",
+      "pageNumber": 3,
+      "text": "\"닐스야, 큰 나무 밑은 안 돼!\" 숲 오두막의 브루노 할아버지가 아래에서 앞발을 뻗었어요. 저 아래 오두막 문이 활짝 열려 있어요. 불빛이 새어 나와요. 닐스는 나무 둥치를 붙잡고 꼼짝을 못 했어요.",
+      "sceneDescription": "컷 와이드, 측면 아이레벨. 비탈이 왼쪽 위에서 오른쪽 아래로 내려간다.\n장소·시간 같은 비탈.\n인물 Nils bear cub이 왼쪽 위 큰 둥치에 몸을 붙이고 꼼짝 않는다 — 파란 장화가 비탈에 박혔다. 화면 가운데 아래에서 Bruno grandfather bear가 비탈을 올려다보며 한 앞발을 위로 뻗고 입을 크게 벌린다 — 초록 뜨개 조끼, 둥근 안경.\n배경·소품 오른쪽 아래 오두막, 활짝 열린 문에서 나오는 빛, 비탈에 흩어진 잔가지.\n톤 열린 문이 화면에서 가장 밝고, 붙어 있는 몸에서 그 문까지가 한 줄로 이어진다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-38-p09",
+      "title": "38. 우르릉 하면, 오두막으로!",
+      "pageNumber": 9,
+      "text": "닐스가 창밖을 보며 셋을 꼽아요. \"하나, 우르릉 하면 나무 밑에서 나오기! 둘, 손 잡고 오두막으로! 셋, 안에서 기다리기!\" 닐스가 두 앞발을 머리 위로 번쩍 들었어요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 [Cabin] 오두막 안 창가, 밤.\n인물 Nils bear cub이 창 앞에서 두 앞발을 머리 위로 번쩍 든다 — 얼굴이 창 쪽으로 반쯤 돌아갔고 입을 크게 벌렸다, 파란 장화.\n배경·소품 창 하나, 난로 옆에 세워 말리는 잔가지 다발, 마룻바닥.\n톤 창밖이 조용해진 뒤에야 팔이 위로 올라간다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-39-p05",
+      "title": "39. 초록 조끼 보이는 데까지!",
+      "pageNumber": 5,
+      "text": "닐스는 달려가려다 딱 멈췄어요. 아까 조끼를 가리키며 한 약속이 있거든요. 안 보이면 그 자리에 딱 멈추기. 후우— 크게 숨을 한 번 쉬었어요. \"안 뛴다. 여기서 부를 거야.\"",
+      "sceneDescription": "컷 미디엄, 측면 아이레벨.\n장소·시간 같은 자리.\n인물 Nils bear cub이 앞으로 내딛던 파란 장화 한 짝을 공중에 멈춘 채 굳었다 — 몸은 앞으로 기울었는데 두 앞발이 가슴 앞에 모였고, 입을 동그랗게 오므려 숨을 길게 뱉는다.\n배경·소품 발밑 낙엽, 아직 안고 있는 바구니.\n톤 몸은 가려는 쪽으로 기울었는데 발이 안 내려온다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-39-p08",
+      "title": "39. 초록 조끼 보이는 데까지!",
+      "pageNumber": 8,
+      "text": "할아버지가 성큼 다가와 넓은 손바닥으로 닐스 앞발을 감쌌어요. \"안 뛰고 그 자리에서 불렀구나. 아주 잘했다.\" 콩닥콩닥하던 가슴이 콩, 콩, 천천히 뛰어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨.\n장소·시간 같은 자리.\n인물 Bruno grandfather bear가 한쪽 무릎을 굽혀 몸을 낮추고 넓은 손바닥으로 Nils bear cub의 둥근 앞발을 통째로 감쌌다 — 발가락 다섯을 벌린 손이 작은 앞발을 덮었고 입을 벌려 말한다, 둥근 안경. 닐스는 턱을 들어 그 얼굴을 본다.\n배경·소품 두 몸 사이 낙엽 바닥, 옆에 놓인 바구니.\n톤 두 앞발의 크기 차이가 나란히 붙어서 보인다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-40-p05",
+      "title": "40. 따면 먼저 할아버지한테!",
+      "pageNumber": 5,
+      "text": "할아버지가 넓은 손바닥에 열매 둘을 나란히 올렸어요. \"이건 먹는 것, 이건 아닌 것. 나도 눈으로만 보면 헷갈린단다.\" 닐스가 눈을 바싹 대고 봐도 둘이 비슷비슷해요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 손바닥 위.\n장소·시간 같은 숲길.\n인물 Bruno grandfather bear의 넓은 손바닥이 화면을 채우고 그 위에 열매 둘이 나란히 놓였다 — 발가락 다섯을 벌린 손이 활짝 펴졌다. 화면 왼쪽에서 Nils bear cub이 코를 바짝 대고 두 눈을 크게 뜬다 — 두 앞발이 그 손목 가장자리를 붙잡았다.\n배경·소품 손바닥과 열매 둘, 아래로 마른 잎 한 겹.\n톤 나란히 놓인 둘이 서로 얼마나 닮았는지가 이 쪽의 전부다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-40-p09",
+      "title": "40. 따면 먼저 할아버지한테!",
+      "pageNumber": 9,
+      "text": "닐스가 바구니를 들여다보며 셋을 말해요. \"하나, 모르는 건 입에 안 넣기! 둘, 따면 먼저 보여 주기! 셋, 이상하면 퉤!\" 그러곤 두 앞발을 머리 위로 번쩍 들었어요. \"따면 먼저 할아버지한테!\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글.\n장소·시간 같은 숲길.\n인물 Nils bear cub이 발치의 바구니 옆에 서서 두 앞발을 머리 위로 번쩍 들고 입을 벌려 말한다 — 시선만 아래 바구니로 내려가 있다, 파란 장화.\n배경·소품 가득 찬 바구니, 숲길, 우듬지 한 덩어리.\n톤 아래를 보면서 팔은 위로 올라가 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-41-p03",
+      "title": "41. 반으로 쪼개면, 김이 둘!",
+      "pageNumber": 3,
+      "text": "닐스는 혼자 앉아 감자를 한 입 베어 물었어요. 오물오물 씹는 소리만 나고 오두막이 너무 조용해요. \"…혼자 먹으니까 심심하네.\" 닐스가 씹다가 멈췄어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 얼굴과 감자.\n장소·시간 같은 난로 앞.\n인물 Nils bear cub이 두 앞발로 감자를 든 채 씹기를 멈췄다 — 볼이 한쪽만 볼록하고 눈이 옆으로 돌아가 있다, 입꼬리가 아래로 내려갔다.\n배경·소품 한 입 베어 문 자국이 남은 감자, 뒤로 난로.\n톤 입은 가득한데 얼굴이 비어 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-41-p10",
+      "title": "41. 반으로 쪼개면, 김이 둘!",
+      "pageNumber": 10,
+      "text": "\"할아버지 거예요!\" 닐스가 반쪽을 내밀었어요. 할아버지가 닐스를 무릎에 앉히자 닐스가 앞발을 번쩍 들었어요. 나누면 반이 아니라 둘이 돼요. 닐스가 외쳤어요. \"반으로 쪼개면, 김이 둘!\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글.\n장소·시간 같은 식탁 옆.\n인물 Nils bear cub이 Bruno grandfather bear의 무릎에 앉아 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌려 외친다 — 파란 장화가 허공에서 흔들린다. 할아버지는 한 앞발로 닐스 허리를 받치고 다른 넓은 손바닥에 빵 반쪽을 얹었다 — 초록 뜨개 조끼, 둥근 안경.\n배경·소품 손바닥 위 빵 반쪽, 식탁 위 나머지 반쪽.\n톤 반쪽이 각자 하나씩 놓여 둘이 됐다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-42-p03",
+      "title": "42. 못 하나, 물건 하나!",
+      "pageNumber": 3,
+      "text": "닐스는 제일 아끼는 솔방울을 찾아요. 제일 크고 통통한 거예요. 빗자루 밑도 보고 끈 뭉치도 들춰 봐요. \"내 큰 솔방울 어디 갔지?\" 닐스가 울먹울먹해요.",
+      "sceneDescription": "컷 클로즈업, 하이앵글. 바닥에 붙은 얼굴.\n장소·시간 같은 헛간 바닥.\n인물 Nils bear cub이 바닥에 배를 대고 엎드려 빗자루 밑을 들여다본다 — 한 앞발로 빗자루 자루를 들어 올렸고 눈에 눈물이 그렁그렁하다.\n배경·소품 들린 빗자루, 뒤집혀 아가리가 이쪽을 향한 자루, 굴러다니는 솔방울 몇.\n톤 찾는 눈이 바닥에 바짝 붙어 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-42-p08",
+      "title": "42. 못 하나, 물건 하나!",
+      "pageNumber": 8,
+      "text": "벽에는 물건들이 나란히 걸렸어요. 바닥엔 바구니 하나만 남았어요. 맨 끝 못 하나도 아직 비었어요. \"할아버지, 여기만 비었어요!\" 닐스가 빈 못을 올려다봐요.",
+      "sceneDescription": "컷 와이드, 정면 아이레벨. 벽 전체를 마주 본다.\n장소·시간 같은 헛간 안쪽 벽.\n인물 Nils bear cub이 화면 아래에서 등을 보이고 서서 한 앞발로 맨 끝 못을 가리키며 턱을 들었다 — 파란 장화.\n배경·소품 못 여섯 중 다섯에 빗자루·양동이·끈·자루·톱이 걸렸고 맨 끝 하나만 비었다. 바닥에는 바구니 하나만 남았다.\n톤 꽉 찬 줄 끝에 빈 못 하나가 눈에 걸린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-43-p04",
+      "title": "43. 둘이면, 영차!",
+      "pageNumber": 4,
+      "text": "닐스가 낙엽 위에 털썩 주저앉았어요. 숨이 헉헉, 앞발이 후들후들 떨려요. \"헛간까지 아직 이만큼이나 남았는데…\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 아이레벨. 얼굴과 앞발.\n장소·시간 같은 통나무 옆.\n인물 Nils bear cub이 낙엽 위에 주저앉아 두 앞발을 무릎 위에 늘어뜨렸다 — 입을 벌리고 숨을 몰아쉬며 어깨가 위아래로 들썩인다, 귀가 뒤로 눕는다.\n배경·소품 뒤로 뿌리에 걸린 통나무 끝, 흩어진 낙엽.\n톤 힘이 다 빠진 몸이 통나무보다 낮게 내려앉았다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-43-p09",
+      "title": "43. 둘이면, 영차!",
+      "pageNumber": 9,
+      "text": "저녁에는 감자 자루를 옮겨요. 자루가 불룩해서 혼자서는 못 들어요. \"하나, 힘들면 말해요! 둘, 끝을 하나씩 잡아요! 셋, 소리를 맞춰요!\" 닐스가 먼저 한쪽 끝을 꽉 잡았어요.",
+      "sceneDescription": "컷 클로즈업, 로우앵글. 자루 끝과 그것을 쥔 앞발.\n장소·시간 [Shed] 헛간 앞, 저녁.\n인물 Nils bear cub의 작은 둥근 앞발 둘이 감자 자루 한쪽 귀퉁이를 꽉 쥐었다 — 그 위로 턱과 앙다문 입이 보인다.\n배경·소품 불룩한 감자 자루, 화면 건너편에 아직 아무도 안 잡은 반대쪽 귀퉁이.\n톤 잡힌 쪽과 안 잡힌 쪽이 한 화면에 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-44-p02",
+      "title": "44. 장화 신고, 바구니 들고, 출발!",
+      "pageNumber": 2,
+      "text": "숲 오두막의 브루노 할아버지가 문간에서 물었어요. \"챙길 건 다 챙겼니?\" \"응! 다 됐어요!\" 닐스가 폴짝폴짝 뛰어요. 할아버지가 닐스 발을 가만히 내려다봐요.",
+      "sceneDescription": "컷 미디엄, 로우앵글. 문간을 아래에서 올려다본다.\n장소·시간 같은 오두막 앞, 문간.\n인물 Bruno grandfather bear가 문지방에 서서 고개를 숙이고 닐스 발을 내려다보며 입을 벌려 묻는다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub은 그 앞에서 두 발을 모아 폴짝 뛰어 두 발이 다 땅에서 떴다 — 앞발을 위로 흔든다.\n배경·소품 문지방, 문 안쪽 어둑한 방.\n톤 위로 뛰는 몸과 아래로 내려간 눈이 엇갈린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-44-p10",
+      "title": "44. 장화 신고, 바구니 들고, 출발!",
+      "pageNumber": 10,
+      "text": "\"장화 신고, 바구니 들고, 출발!\" 닐스가 앞발을 번쩍 들었어요. 할아버지가 닐스 앞발을 꼭 감쌌어요. 문 앞에 나란히 놓고 세면 빠뜨릴 게 없어요. \"오늘은 제가 앞장설래요!\" 닐스가 말했어요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 같은 문 앞.\n인물 Nils bear cub이 파란 장화를 신고 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌려 외친다 — 가슴을 활짝 폈다. Bruno grandfather bear가 옆에 무릎을 굽히고 앉아 넓은 손바닥 둘을 닐스 쪽으로 폈다 — 초록 뜨개 조끼, 둥근 안경.\n배경·소품 발치에 물통을 담은 바구니, 열린 문.\n톤 앞발이 비어 있는데 이번엔 발밑에 다 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-45-p03",
+      "title": "45. 가시 쏙, 끝!",
+      "pageNumber": 3,
+      "text": "난로에 장작을 넣을 때도 따끔, 빵을 집을 때도 따끔. 닐스는 다친 앞발을 배에 꼭 붙이고 다른 앞발로만 움직여요. \"빼면 더 아플 텐데…\" 생각만 해도 몸이 움츠러들어요.",
+      "sceneDescription": "컷 미디엄 클로즈업, 하이앵글.\n장소·시간 같은 난로 앞.\n인물 Nils bear cub이 한 앞발로만 장작 한 토막을 난로 아가리에 밀어 넣는다 — 다친 앞발은 배에 꼭 붙였고 어깨가 한쪽만 올라갔다, 눈이 그렁그렁하다.\n배경·소품 난로 아가리와 그 안의 불, 장작 한 토막.\n톤 한쪽 몸만 일을 하고 다른 쪽은 숨어 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-45-p07",
+      "title": "45. 가시 쏙, 끝!",
+      "pageNumber": 7,
+      "text": "닐스가 할아버지 손바닥 위에 앞발을 올리고 셋을 따라 해요. \"하나, 앞발을 쫙 펴요! 둘, 후~ 크게 숨을 쉬어요!\" \"셋, 난로 불을 봐요!\" 닐스가 눈을 난로 쪽으로 돌렸어요.",
+      "sceneDescription": "컷 익스트림 클로즈업, 하이앵글. 두 앞발만.\n장소·시간 같은 의자 앞.\n인물 Bruno grandfather bear의 넓은 손바닥이 화면을 채우고 발가락 다섯이 벌어져 있다 — 그 위에 Nils bear cub의 작고 둥근 앞발이 활짝 펴져 얹혔다. 화면 위 가장자리에 닐스 얼굴이 걸리고 두 눈이 난로 쪽으로 돌아가 있다.\n배경·소품 펴진 앞발 바닥 가운데 까만 가시 한 점, 화면 밖으로 흐르는 난로 불빛.\n톤 앞발 한가운데 점 하나에 화면이 걸려 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-46-p04",
+      "title": "46. 후~ 하면, 하얀 김!",
+      "pageNumber": 4,
+      "text": "나뭇가지에 앉아 있던 새들이 푸드덕 날아가 버렸어요. 닐스는 눈밭에 주저앉아 발을 쿵쿵 굴러요. 가슴속이 뜨겁고 목이 뻐근해요.",
+      "sceneDescription": "컷 와이드, 하이앵글.\n장소·시간 같은 언덕 꼭대기.\n인물 Nils bear cub이 눈밭에 주저앉아 두 뒷발을 번갈아 쿵쿵 구른다 — 두 앞발이 주먹을 쥐고 어깨가 위로 올라갔다, 파란 장화가 눈을 파낸다.\n배경·소품 방금 가지를 떠나 위로 흩어지는 새 셋, 비어 남은 가지, 뒤집힌 썰매.\n톤 언덕에 있던 것들이 죄다 위로 흩어지고 하나만 바닥에 남는다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-46-p09",
+      "title": "46. 후~ 하면, 하얀 김!",
+      "pageNumber": 9,
+      "text": "\"풀렸다!\" 닐스가 두 앞발을 머리 위로 번쩍 들었어요. \"하나, 후~ 하고 크게 숨! 둘, 어깨 툭 내리기! 셋, 살살 다시 하기!\" 닐스가 줄을 앞발에 척 걸고 썰매에 올라앉아요.",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글.\n장소·시간 같은 언덕 꼭대기, 조금 뒤.\n인물 Nils bear cub이 썰매에 올라앉은 채 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌린다 — 파란 장화가 썰매 앞턱을 딛는다. Bruno grandfather bear가 썰매 뒤에 서서 그 등을 본다 — 초록 뜨개 조끼.\n배경·소품 앞으로 곧게 걸린 줄, 썰매 코앞에서 아래로 꺾이는 비탈.\n톤 손과 줄이 처음으로 같은 방향으로 뻗었다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-47-p05",
+      "title": "47. 무릎 굽히면, 스르르!",
+      "pageNumber": 5,
+      "text": "할아버지가 비탈을 걸어 올라와 닐스 옆에 나란히 섰어요. \"오늘은 꼭대기까지 안 가도 돼. 여기 낮은 데서부터 하자.\" 할아버지가 넓은 손바닥을 닐스 앞으로 쑥 내밀었어요.",
+      "sceneDescription": "컷 미디엄 와이드, 아이레벨.\n장소·시간 [SnowSlope] 비탈이 완만해지는 낮은 자리.\n인물 Bruno grandfather bear가 닐스 옆에 나란히 서서 발가락 다섯을 벌린 넓은 손바닥을 앞으로 내민다 — 몸을 조금 굽혔다, 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 눈밭에 앉은 채 그 손바닥을 올려다본다 — 파란 장화.\n배경·소품 눈에 꽂아 세워 둔 할아버지 판 두 짝, 완만하게 내려가는 낮은 비탈.\n톤 가파른 데를 등지고 낮은 데를 마주 보고 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-47-p10",
+      "title": "47. 무릎 굽히면, 스르르!",
+      "pageNumber": 10,
+      "text": "할아버지 품에 폭 안긴 닐스가 두 앞발을 머리 위로 번쩍 들었어요. 무서워도 낮은 데부터 하면 어느새 할 수 있어요. \"내일은 저 위에서 내려올래요! 무릎 굽히면, 스르르!\"",
+      "sceneDescription": "컷 미디엄 클로즈업, 로우앵글.\n장소·시간 같은 비탈 끝, 낮.\n인물 Bruno grandfather bear가 두 앞발로 Nils bear cub을 가슴에 폭 감싸 안았다 — 초록 뜨개 조끼, 둥근 안경. 닐스가 그 품에서 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌린다 — 파란 장화가 공중에 떴다.\n배경·소품 뒤로 올려다보이는 위쪽 비탈, 눈에 꽂힌 판 두 짝.\n톤 아침에 굳어 있던 몸이 지금은 한 덩어리로 말려 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-48-p02",
+      "title": "48. 제가 그랬어요, 미안해요!",
+      "pageNumber": 2,
+      "text": "\"내일은 눈밭에서 실컷 뛸 거예요!\" 닐스가 장화를 꼭 안았어요. \"기워 주마.\" 할아버지가 안경을 식탁에 벗어 놓고 실을 찾아요. 닐스는 신이 나서 방을 뱅뱅 돌아요.",
+      "sceneDescription": "컷 미디엄, 측면.\n장소·시간 같은 방, 식탁 옆.\n인물 Bruno grandfather bear가 둥근 안경을 벗어 식탁에 놓아 둔 채 나무 상자 뚜껑을 열고 안을 뒤진다 — 회색 주둥이가 상자 쪽으로 숙었다, 초록 뜨개 조끼. Nils bear cub이 그 뒤에서 장화를 가슴에 안고 한 발을 든 채 빙그르 도는 중이다 — 파란 장화 한 짝.\n배경·소품 상자 안의 실뭉치, 식탁 가장자리에 놓인 안경.\n톤 뒤지는 손 쪽은 바쁘고 식탁 위는 가만히 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-48-p07",
+      "title": "48. 제가 그랬어요, 미안해요!",
+      "pageNumber": 7,
+      "text": "닐스는 이불을 꼭 쥐었다가 천천히 걷었어요. 부러진 안경을 두 앞발에 올려 할아버지 앞으로 내밀었어요. \"할아버지, 제가 그랬어요, 미안해요!\"",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 같은 방, 걸상 앞.\n인물 Nils bear cub이 두 앞발을 모아 부러진 안경을 받쳐 들고 할아버지 앞으로 쭉 내민다 — 턱을 들고 입을 크게 벌려 말하며 눈에 물기가 그렁그렁하다, 파란 장화. Bruno grandfather bear가 걸상에서 몸을 돌려 그 손을 내려다본다 — 초록 뜨개 조끼, 회색 주둥이.\n배경·소품 뒤쪽에 걷어 놓아 흐트러진 이불, 안경의 부러진 다리 한쪽.\n톤 감췄던 것이 두 손 위에 올라와 있다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-49-p05",
+      "title": "49. 심심하면, 그림자 놀이!",
+      "pageNumber": 5,
+      "text": "할아버지가 등불을 들고 와 벽 앞에 놓았어요. 그러고는 넓은 손바닥을 등불 앞에 쫙 세웠어요. 벽에 커다랗고 시커먼 것이 쑥— 나타났어요.",
+      "sceneDescription": "컷 미디엄, 로우앵글.\n장소·시간 같은 방, 벽 앞.\n인물 Bruno grandfather bear가 바닥에 내려놓은 등불 앞에 발가락 다섯을 벌린 넓은 손바닥을 세운다 — 초록 뜨개 조끼, 둥근 안경. Nils bear cub이 마루에 누운 채 고개만 그쪽으로 돌린다 — 파란 장화.\n배경·소품 바닥의 등불과 그 빛(맨 종이), 벽에 쑥 나타난 커다랗고 시커먼 형체.\n톤 바닥 등불 하나가 벽을 통째로 무대로 만든다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-49-p10",
+      "title": "49. 심심하면, 그림자 놀이!",
+      "pageNumber": 10,
+      "text": "할아버지가 닐스 등을 토닥이며 문을 활짝 열어 줘요. 닐스가 두 앞발을 머리 위로 번쩍 들었어요. 심심한 시간도 놀이로 바꾸면 금방 지나가요. \"나가서 뛰고 와서 또 해요! 심심하면, 그림자 놀이!\"",
+      "sceneDescription": "컷 미디엄 와이드, 로우앵글.\n장소·시간 [Cabin] 오두막 문 안쪽, 해가 기운 뒤.\n인물 Bruno grandfather bear가 한 앞발로 문을 밀어 열고 다른 앞발로 Nils bear cub의 등을 토닥인다 — 초록 뜨개 조끼, 둥근 안경. 닐스가 열린 문 쪽을 보며 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌린다 — 파란 장화.\n배경·소품 문 밖으로 보이는 눈이 그친 마당, 방 안쪽 벽 앞에 그대로 놓인 등불.\n톤 벽 놀이가 끝나는 자리에서 밖이 열린다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-50-p02",
+      "title": "50. 작은 발자국은 내 발자국!",
+      "pageNumber": 2,
+      "text": "닐스가 그다음 발자국으로 폴짝 뛰다가 눈에 푹 처박혔어요. 파란 장화만 눈 밖으로 삐죽 나왔어요. \"괜찮아요! 저도 큰 발자국 만들 거예요.\"",
+      "sceneDescription": "컷 미디엄, 측면.\n장소·시간 같은 눈밭.\n인물 Nils bear cub이 눈에 얼굴부터 처박혔다가 고개를 든 자세다 — 주둥이와 두 귀에 눈이 얹혔고 두 앞발이 눈을 짚었으며 파란 장화 두 짝이 뒤로 들렸다. 입은 크게 벌려 말한다.\n배경·소품 몸이 박혀 파인 자리, 그 뒤로 뛰어온 자국 하나.\n톤 넘어진 자세인데 입은 아직 씩씩하다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    },
+    {
+      "key": "changjak-bruno-50-p09",
+      "title": "50. 작은 발자국은 내 발자국!",
+      "pageNumber": 9,
+      "text": "닐스가 두 앞발을 머리 위로 번쩍 들었어요. \"작은 발자국은 내 발자국!\" \"하나, 내 걸음으로 걷기! 둘, 뽀득뽀득 나란히! 셋, 돌아보기!\" 두 줄 발자국이 오두막에서 헛간까지 쭉 이어졌어요.",
+      "sceneDescription": "컷 와이드, 아이레벨.\n장소·시간 [Shed] 헛간 앞마당, 낮.\n인물 Nils bear cub이 헛간 문 앞에 서서 두 앞발을 머리 위로 번쩍 들고 입을 크게 벌린다 — 파란 장화. Bruno grandfather bear가 반걸음 뒤에서 그 등을 본다 — 초록 뜨개 조끼, 둥근 안경.\n배경·소품 저 뒤 오두막에서 발밑까지 나란히 이어진 두 줄 자국, 헛간 벽과 문.\n톤 짧은 걸음으로도 줄이 끝까지 닿았다.",
+      "sourceOrigin": "Existing comic-assets; source/character visual check required"
+    }
+  ]
+}

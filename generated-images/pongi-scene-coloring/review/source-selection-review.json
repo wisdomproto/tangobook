@@ -1,0 +1,413 @@
+{
+  "series": "01. 퐁이네 운하 마을",
+  "books": 50,
+  "scenes": 100,
+  "selection": [
+    {
+      "bookId": "changjak-pongi-01",
+      "title": "01. 새 신발",
+      "pages": [
+        1,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-02",
+      "title": "02. 처음 타 보는 배",
+      "pages": [
+        2,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-03",
+      "title": "03. 비 오는 날",
+      "pages": [
+        4,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-04",
+      "title": "04. 그림 그리는 날",
+      "pages": [
+        4,
+        6
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-05",
+      "title": "05. 조개가 없어졌어요",
+      "pages": [
+        3,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-06",
+      "title": "06. 혼자 가는 심부름",
+      "pages": [
+        5,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-07",
+      "title": "07. 운하가 얼었어요",
+      "pages": [
+        6,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-08",
+      "title": "08. 손님이 오는 날",
+      "pages": [
+        4,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-09",
+      "title": "09. 제일 큰 물고기",
+      "pages": [
+        6,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-10",
+      "title": "10. 빨래 너는 날",
+      "pages": [
+        6,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-11",
+      "title": "11. 할아버지 집에서 자는 밤",
+      "pages": [
+        4,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-12",
+      "title": "12. 별을 세는 밤",
+      "pages": [
+        6,
+        10
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-13",
+      "title": "13. 시장 가는 날",
+      "pages": [
+        4,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-14",
+      "title": "14. 치과 가는 날",
+      "pages": [
+        4,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-15",
+      "title": "15. 친구와 싸운 날",
+      "pages": [
+        1,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-16",
+      "title": "16. 감기 걸린 날",
+      "pages": [
+        5,
+        10
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-17",
+      "title": "17. 종이배 띄우기",
+      "pages": [
+        5,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-18",
+      "title": "18. 풍차 보러 간 날",
+      "pages": [
+        5,
+        10
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-19",
+      "title": "19. 책 고르는 날",
+      "pages": [
+        5,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-20",
+      "title": "20. 자전거로 다리 넘기",
+      "pages": [
+        2,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-21",
+      "title": "21. 안개 낀 날",
+      "pages": [
+        3,
+        10
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-22",
+      "title": "22. 머리 자르는 날",
+      "pages": [
+        7,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-23",
+      "title": "23. 퐁이 생일",
+      "pages": [
+        5,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-24",
+      "title": "24. 처음 신는 스케이트",
+      "pages": [
+        4,
+        10
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-25",
+      "title": "25. 이사 가는 날",
+      "pages": [
+        5,
+        9
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-26",
+      "title": "26. 접시 한 바퀴, 냠냠!",
+      "pages": [
+        1,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-27",
+      "title": "27. 치카치카, 물고기 냄새 안녕!",
+      "pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-28",
+      "title": "28. 진흙은 씻고, 빵은 잡고!",
+      "pages": [
+        1,
+        6
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-29",
+      "title": "29. 작은 입엔, 작은 한 입!",
+      "pages": [
+        4,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-30",
+      "title": "30. 치즈는 한 조각만!",
+      "pages": [
+        3,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-31",
+      "title": "31. 다리 등불 켜지면, 코~",
+      "pages": [
+        2,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-32",
+      "title": "32. 첫 배 지나면, 일어나!",
+      "pages": [
+        1,
+        5
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-33",
+      "title": "33. 신발 자리에 신발, 척!",
+      "pages": [
+        1,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-34",
+      "title": "34. 장화는 발부터, 쏙!",
+      "pages": [
+        2,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-35",
+      "title": "35. 하나 노, 둘 조끼, 셋 빵!",
+      "pages": [
+        5,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-36",
+      "title": "36. 따르릉 오나, 보고 건너!",
+      "pages": [
+        2,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-37",
+      "title": "37. 배 타면, 조끼 먼저!",
+      "pages": [
+        4,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-38",
+      "title": "38. 멈춰 서서, 엄마 불러!",
+      "pages": [
+        5,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-39",
+      "title": "39. 물이 차면, 둑 위로!",
+      "pages": [
+        4,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-40",
+      "title": "40. 깜깜해도, 아빠 소리 들려!",
+      "pages": [
+        3,
+        5
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-41",
+      "title": "41. 후~ 하면, 갈대 흔들!",
+      "pages": [
+        6,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-42",
+      "title": "42. 문 뒤에서, 한 걸음!",
+      "pages": [
+        2,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-43",
+      "title": "43. 풍덩 하고, 또 풍덩!",
+      "pages": [
+        2,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-44",
+      "title": "44. 지나가는 배, 하나 둘!",
+      "pages": [
+        5,
+        10
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-45",
+      "title": "45. 빠뜨렸어, 미안해!",
+      "pages": [
+        1,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-46",
+      "title": "46. 뛰어들기는, 한 명씩!",
+      "pages": [
+        6,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-47",
+      "title": "47. 쪼개면, 둘이 냠냠!",
+      "pages": [
+        1,
+        8
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-48",
+      "title": "48. 다리 밑은, 소곤소곤!",
+      "pages": [
+        1,
+        6
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-49",
+      "title": "49. 누나니까, 안아 줄게!",
+      "pages": [
+        1,
+        7
+      ]
+    },
+    {
+      "bookId": "changjak-pongi-50",
+      "title": "50. 동생은 조개처럼, 살살!",
+      "pages": [
+        3,
+        7
+      ]
+    }
+  ],
+  "method": "Current published book text/scene description; two distinct main-action pages per book. Visual reference check required before generation.",
+  "sourceExceptions": {
+    "07": "Selected local Pongi references",
+    "29": "Unrelated comic-assets rejected; selected Pongi p4/p8 used",
+    "33": "New imagegen originals p1/p7"
+  }
+}

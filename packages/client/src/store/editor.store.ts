@@ -17,6 +17,7 @@ type EditorTab =
   | 'pages'
   | 'key-objects'
   | 'hidden-object'
+  | 'scene-coloring'
   | 'quiz'
   | 'audiobook'
   | 'blog'

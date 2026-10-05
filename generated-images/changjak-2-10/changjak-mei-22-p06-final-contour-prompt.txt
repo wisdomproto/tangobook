@@ -1,0 +1,1 @@
+Repair this black-and-white coloring-page lineart. Reduce the close-up dog face to 92% scale, entirely within a 35px WHITE margin on ALL sides; close its whole head, neck and cropped paw outline. Do not add a rectangular frame. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.

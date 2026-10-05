@@ -1,0 +1,616 @@
+{
+  "changjak-dodo-01-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "c5eb814477a1a214512739efbec8bdd828db5b1ef4d7e4159fb07d7429a44e57",
+    "lineartSha256": "4cd5d7d855600c6bc600c669b22665c15620ac5a2bffbb11d15ca2beacce8ab8"
+  },
+  "changjak-dodo-01-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "62bfdc14a1a5337673281a0c94cb4545c3e3a5ba7d3ac402b08e9ea97598e323",
+    "lineartSha256": "5ff0292c73e0ac434ff11b9f6b4e80738a4da6c77f62ec22a226379b7d692f3a"
+  },
+  "changjak-dodo-02-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "2887fa6a2ee03ca048dbc07725691d51cae507f528bdc654d993ed8baea7348a",
+    "lineartSha256": "9efa84ed1b02ff429a6fa4326413f787dacc6d02662908e4c729c74551fd6e17"
+  },
+  "changjak-dodo-02-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "8d8a2f8ce3db7950511cd614b104fd632b1e663ef8a728991035fc1e493ddb7d",
+    "lineartSha256": "ef1f17595fbe63b2a3d6dd6c9d06a8a940153d388137e140c3d08bcb9788b0d5"
+  },
+  "changjak-dodo-03-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "fc448217235800c5deed975af8ab8f010d5d4621d79ddc861d325cd39ba1e371",
+    "lineartSha256": "6a2c6cf4b1afa0256840433b6ef1cbf694852cc9759d6c04e098203af93ee270"
+  },
+  "changjak-dodo-03-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "352e9e5f5ae5b36cff0363f14d6c252d7e5792fb21d1810888db9843c07932e4",
+    "lineartSha256": "c6367ce0895011f1b141591438d5232fcd4d83a83e09bf18c116662fcb4b7a75"
+  },
+  "changjak-dodo-04-p03": {
+    "approved": true,
+    "sourceSha256": "1dbaaf50af1116ecd879c01e210378d1dfd5a90d69c08d612aeb8f68bea0477c",
+    "lineartSha256": "f48646bfc3b84103eeaa7e9a720ad34c7bd948ecdc2688057f213909bda7c050",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-dodo-04-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "e99691eaeec044fabfc91798076c16d77146bb37e3341b6c305493a9ab19776d",
+    "lineartSha256": "87a8c672d314202f8e69722408ee802241a5437c02a46b94c1bbcf94f5f902a9"
+  },
+  "changjak-dodo-05-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "1213a576078a1923bfff988a53b08b71de839f72e53f4a5fe753b2b70533a5c3",
+    "lineartSha256": "5efc33e4e501439a1807a46168ac42839f61c005ae1a88392b5ac2600238c72c"
+  },
+  "changjak-dodo-05-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "72f2351cb83804abc1e4b25d76380ff865f9056f659ed5a04e48000d471d689c",
+    "lineartSha256": "efa8c62c0c596e71691ed1d5e0d7dcddc6e20d191bcab57b6add206045736c9a"
+  },
+  "changjak-dodo-06-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "2721101a526c340a44cc2c10c7ca0f1a594d34bb6df902645fe8bcdb60017ed1",
+    "lineartSha256": "b686e6a7350ff325731ded2c2bf1e80fed61b6abf0ec640f98c0d075bbf11a16"
+  },
+  "changjak-dodo-06-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "414207cdf59cc516e45436c50fc77393fe6d99e2f7f2720801b50742ed4a7734",
+    "lineartSha256": "30d3e19ca25b5e0ebf6dbbf3cfc77e917bec333b2c211577643708f346f0db15"
+  },
+  "changjak-dodo-07-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "c8c6a424f9866db22d3118cbb84a2e013d7e720b92c4f7531de062055e8584f3",
+    "lineartSha256": "afa7146e4d9c851f727f0830cefa33290ae7155d163ae6c84bab668ab9ce9813"
+  },
+  "changjak-dodo-07-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "1d7162a36a3fa359a495b0957190115edb417106555ed19c31197b0ddd4cf7a3",
+    "lineartSha256": "7c8e162dc428f6b7805f86e411d87350fc6db5258b52e9bc380211621b16f492"
+  },
+  "changjak-dodo-08-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "5c1e1dc6607ee0fd58237b7db052099ebf1118c798113c95444d4a134b4ef43b",
+    "lineartSha256": "56cfd087dfae338f89af69e320e5f95d506b78355b4b7c7eb996aea528bcce2e"
+  },
+  "changjak-dodo-08-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "56850170f41ca8a39a6056b7f788ded5b1594e59f342dfa958d0330cf6e5a57a",
+    "lineartSha256": "337098dd227348d206f95f22235def7fc06c8426bff1bdcf0fda7278ca0a4b2a"
+  },
+  "changjak-dodo-09-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "7812b73b3291cffbc00ec6bcc4d9c0fb1cd4ed8ebefec306a5722385293613ab",
+    "lineartSha256": "245bc6d8e8453afcdb1cec12774fd7e415ac8fe4da5493f793b1b95f826be409"
+  },
+  "changjak-dodo-09-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "c2b5025efef79b9b3c5e8c4c423d863ea84ff70b96b1527054498213ecd4fe6a",
+    "lineartSha256": "9fd4286cca06b3dd021461be53f486e3c77cc4475366561eb06857f9ba6dab1c"
+  },
+  "changjak-dodo-10-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "c43ca292887cf51349fd76a48504ed5987e74e36f8bb9433892fd86bed900806",
+    "lineartSha256": "db70651e35511a4eed30372c1d2caa3f172983ae7bec0f78f5dab740ef44ba86"
+  },
+  "changjak-dodo-10-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare000/005/010/015; main actors/actions preserved, readable eyes; small white ribbons/feet/background simplified",
+    "sourceSha256": "4017f9905fea965d248d5a877afe900f52cc3f16da5a41aec4bdd0dc38bd1a9d",
+    "lineartSha256": "c4b38a27e057bef783332c6992bc085848ebbfd667fa71559f554bb26487e892"
+  },
+  "changjak-dodo-11-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "f9974a5074685b1190657307f60a1bd6150f5075128fbbee209e070e9a6e8b73",
+    "lineartSha256": "082dd813d33d928572a4cb5ff4772b9b5ce44333f095d9e0ac76f65a3ed11d4f"
+  },
+  "changjak-dodo-11-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "a5160f39ca30998ab3bbea0138bc82201beb20067d8752eaa8b46625a73de172",
+    "lineartSha256": "58fb7761845cbc1b78a4dec10abf82bf2ba482c22e34b189065a11a1538cce23"
+  },
+  "changjak-dodo-12-p05": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "5206500a303c6133f0fcf86980583161e74d4e7d7c4bb43b2bd2e38909db80db",
+    "lineartSha256": "2c916116fdbcbc211a28f2fb2fdaa0754e4549ba02f922b3b8fe499f5eb54d49"
+  },
+  "changjak-dodo-12-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "999d93956299e00e3a6b2d324bfce25fa51277045e2f740196f6c3e0125eb112",
+    "lineartSha256": "ee05869f3bf701a8d82a48db7d3c558d7da670112254c72b45d149f84c254441"
+  },
+  "changjak-dodo-13-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "a60f7ab161cabf7f748d4d5b41dc079c6e4bbb848ad66875cf9224a096ab85d9",
+    "lineartSha256": "404e9e38193ad63d889561211c7d43103043c0521be6b620814367f5a70a37a9"
+  },
+  "changjak-dodo-13-p10": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "2dd5888bd3f00696d02528a4fd5668a17eecfe8201d637eeabdf5649d5fe6439",
+    "lineartSha256": "d44d5b7b9f3521d89022af87d362223126a9c6a95db6e95d60dcde909a2af909"
+  },
+  "changjak-dodo-14-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "e4bedfbe70308809f7fbdc3c1119ca68427873df84945f43c1ab719f8464c595",
+    "lineartSha256": "978186138f96f3724a9b1b03dd22dd3877a4300bf2fa8e4aed22491ff7294e93"
+  },
+  "changjak-dodo-14-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "85ae600920aa7f02645d2f67fd5082265233cb9c7b4f5e336a5e92426fab87e0",
+    "lineartSha256": "3fe6668b2be2c5fb9bd8209ff78ab83cc6911ec655878454749c22f74158b14c"
+  },
+  "changjak-dodo-15-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "2657857b5358d46e9e1bfe75f4d70c03b0b5b6c031379a59ff96f476d3b62a69",
+    "lineartSha256": "3b1fbf9a5b70b59eb602b737a0221fafa6f7b680b6511f61f42309d215b32277"
+  },
+  "changjak-dodo-15-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "860a5987481fbf639a44596451ad62545168ae15c1663f7d09c67845755c7396",
+    "lineartSha256": "88630f8c6cff0ccddcb530e76141ccdff8c4799026d64d14da7e00494bd97a4a"
+  },
+  "changjak-dodo-16-p05": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "edc503dae3a930f8e01f707d58206532f2cc8bd2da3c0d126b74b98a577ef537",
+    "lineartSha256": "8b04440fd66f5d5090239896661bbcc618b4d41e1dbc2c03b6c8e3379600d50a"
+  },
+  "changjak-dodo-16-p08": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "2c9f7c920c96a1a94e9c604d62ef9ba196da6d8a893276bd50ce5565140ed28a",
+    "lineartSha256": "0b44677e0340e130e518f2da8c72c066877cea75aa61dacdd19bafb852c5f08d"
+  },
+  "changjak-dodo-17-p02": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "04fb83c79cdfab52157c62e7a7abf758c113cd112afeb4231d31e7a09a06d19e",
+    "lineartSha256": "ba8d6b7ce888a44ff6b0af79251a6a974c0c5aa83158649f694c14008beaebc5"
+  },
+  "changjak-dodo-17-p07": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "4bfbc2f878b1b9cf2d0659b4ea4038567b803917c2a9f496ad6c3d1f9168f176",
+    "lineartSha256": "9250a45f14997406b14812d568006bc1fe807183293cebf5d0110cf85e5e565b"
+  },
+  "changjak-dodo-18-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "28b0030b11daaff565c4ef8a04bb654eb2ed9d76d77c05f6daa39cfdfdc1405e",
+    "lineartSha256": "cc7adb5811ce821f21ae15cf58bf20d14b88c369516348858e9dbb18718a6e35"
+  },
+  "changjak-dodo-18-p09": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "2917bbb40764e232e51dcc9595d3f7af8716c4fcd3db77f519003d798567118a",
+    "lineartSha256": "4c433e3a6219074e48380e3daedd82ef1b510b7110088312059cc9aa8bbdcc40"
+  },
+  "changjak-dodo-19-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "1322674f58d5ce74cfae1338c0f3fca9e785bfb2179fd1d59a19621ce82906dc",
+    "lineartSha256": "b0a5a5fac37532afffbd46b5d67975c7d8f2abaf915931a58e93e1620090c592"
+  },
+  "changjak-dodo-19-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "90ca1627d12d15468425ae1ff0bc210daf2c2c5c6858ffb5273f8134a73290e1",
+    "lineartSha256": "9b67b7a15a2a4bc04284d468f57afa0bf1b70f69513336920aa6942878750beb"
+  },
+  "changjak-dodo-20-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "4faf9f6389c645ffcb2c447ac99f3a298c9fcddc7982c8bbb7e69cd522094a1e",
+    "lineartSha256": "254307c72bfae9582788aa69fcef13010f513378fac7c4455cf7ffab0817bbdd"
+  },
+  "changjak-dodo-20-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare020/025/030/035; main figures/action retained; minor white small props allowed",
+    "sourceSha256": "649807f6acbd822b0d30b641147d6fecdfa4eaa7d9a4763cbbe4264028bd53e1",
+    "lineartSha256": "c8d27bb9b75ce3a2926a998b3ca4313a8d3abde5a6bc51bb9a666068e07d0938"
+  },
+  "changjak-dodo-21-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "b7b6f6a885b48bf833a158b2c331c083e4eede1a087f471bc3740cf03e155733",
+    "lineartSha256": "67b51c37a3f565724b1c32805fdf27086ff86b900dda21694b850d010e5ce1d0"
+  },
+  "changjak-dodo-21-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "776f499254810f719a71a09802679d37c38596c7a075a31b93fa19c4dc2ab89a",
+    "lineartSha256": "77045b16721c2c3e6b5321b0606840e0981f5492b3c19e200661d75b5d60c874"
+  },
+  "changjak-dodo-22-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "dd15df53977f76c8a12f92e16aee3cb00268db2bbabfbb001f69cae82e997c41",
+    "lineartSha256": "722c900091b217c9d559ddcf59cdc5022f60ec9896b5047a2db92b0e7c37431a"
+  },
+  "changjak-dodo-22-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "3e0e51bbc27001ce1a7c35d812d466b8299f518ebcae5d08b9ef6b5864738f82",
+    "lineartSha256": "37e495847b1704c39386228aa9f80d88f65ef45676713a19f789c70fd07f75bb"
+  },
+  "changjak-dodo-23-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "9ea36c6e761f51bf4be3d300884b41dea8775aa1d1640fb36d205076792fa2e8",
+    "lineartSha256": "f87c114ba972eaab730337a25e92ebbe8e990f4697c8dcb1aa82cf5c89878c1a"
+  },
+  "changjak-dodo-23-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "892cd4a79573906bb5b8a3e2eeec5d6c5516fad32c9b0b36e68f11a875bb9df0",
+    "lineartSha256": "5cf07ab8838847009a11d15e568dfb42dadddc001ce2567097ba3764a41c49bb"
+  },
+  "changjak-dodo-24-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "3d9d55ea06f4a1f190e24836fc6dd7d245f812e6f4c260c891b3761fce4e9cc1",
+    "lineartSha256": "580b27a1683da483ceb0dcbd46557353044bce1f4f97b448fd153965e9d16505"
+  },
+  "changjak-dodo-24-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "110f3142926e7c5e2364529a9eb188328ceb1b4a92059c96aab2090745ec59d4",
+    "lineartSha256": "cfa3d2b8bb927147ee595a10fb4ce3ca4c80e00415b155db618140d09fb870d4"
+  },
+  "changjak-dodo-25-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "53d82f04eb33beb093dffcbcd323020c93e0616f2acbd01b86a32d9ac72deb23",
+    "lineartSha256": "6ff70101c6c62cbee3314818eb58e1a9195df4b34e0b9fbded11db7c07afe051"
+  },
+  "changjak-dodo-25-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "299f91375e494652086d9cfa1694b751653f7c154d3dbdc1426b1fdeeb331c00",
+    "lineartSha256": "b893bc10cb504fc896313ae3bf413db31a1a718b843edc0086e95e4c3647f2fa"
+  },
+  "changjak-dodo-26-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "d4a2dcfd3cf7a8f5d2fdf77b4a3ae95d0335dfc28a0d51f336a80adc2bf256cd",
+    "lineartSha256": "aca8420c770ac87db544f32100d88005d383743ad5a9c10c61d870408a3e2f68"
+  },
+  "changjak-dodo-26-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "217909b63ef7b99a2c8d8e91017556ee1d405a0f7eff42415092004634de216e",
+    "lineartSha256": "f775b00b47a03c941ff457d61809a8d8aa156bb282fc54aff120a77b4878171c"
+  },
+  "changjak-dodo-27-p05": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "c25de1b51f2761be69f7d20e922bd922d08811a5ceff8060508d0dc87bd39900",
+    "lineartSha256": "612db579ba1d32da46898c9a0ddd11895e76732b2de4066480129674a8787b6f"
+  },
+  "changjak-dodo-27-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "3247b7a435b74c3ccaca98cac1784fd98a3ba8c6594709c3d124fb647130350b",
+    "lineartSha256": "d6be64f8d19f702c885aa59b56717c7b6cdcc73a86a2bbd3ec0ccff8e331507d"
+  },
+  "changjak-dodo-28-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "e2a5c544577d696962955d2e82c298e8dd113fe5d4d575f8efeda40a3fb801cf",
+    "lineartSha256": "30761b44bdd2c5d7989e84ef0c1f5901c5613cb85a796c071b020640676f99af"
+  },
+  "changjak-dodo-28-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "83f5a306ecd6f7ea5bd3f30df6ef02eb88a4c7760fb64bfa2a566f85028d8cb0",
+    "lineartSha256": "d78778a37b313340af36d96709962cdee301dafb8bda1ad557ad939f9da8adb5"
+  },
+  "changjak-dodo-29-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "1466cc8a1ca7dc1a7d410835b084ead4bd0d6a42475d9238914df1421d842898",
+    "lineartSha256": "3c2c441fe8e5d03c825d998b158111057895eb3c109110e0e8118a66dce1aad5"
+  },
+  "changjak-dodo-29-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "dc2b89b7c06dccd8ab60c848a2c78c472d1e9c9767227c58e4727c35e37fe144",
+    "lineartSha256": "580bf2d1f50f3ac20471f0fcfc3bd3037263f7c2e5c387b86625cb376babcede"
+  },
+  "changjak-dodo-30-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "f1d6bc1d95a6f7706eff54b0dc884bc24a63621ceade542f023123bec9d5d3b9",
+    "lineartSha256": "a918304c05c697d98b13b85393c3250193fc22cc3da645659eaa1fa1f6713494"
+  },
+  "changjak-dodo-30-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare040/045/050/055; actors/action/color regions readable; small white food/ribbon/feet allowed",
+    "sourceSha256": "826c65b06de534bda30fafe6e0e75d0a3e6d24ba924848ab4f64770456db6b44",
+    "lineartSha256": "c8428956e35684c8ccb78e7e1ff290bcde29508ad1f84f42fecada9c322aeda7"
+  },
+  "changjak-dodo-31-p04": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "257949e5c2704e5be29b051be6254a6d0b2f40d04ac305b9d0d9b6fc7d7ec301",
+    "lineartSha256": "e5e4db53ebc6b81ac28118a29961c516a15e9800b73ea8624e48755e10993a7c"
+  },
+  "changjak-dodo-31-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "dbcb9797219fb34ac0c23e86c55a33bc6d7278b767804fd261d36a5c70b760c8",
+    "lineartSha256": "e64c23bef982cbf23eb0636d006e31b951a86353198a39eeaffcc6155c4e78cd"
+  },
+  "changjak-dodo-32-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "8926c96cd7129f25671a90ac26ee2ab23bc3255443b3dd4d1e6d4fc29aebba29",
+    "lineartSha256": "a61ab251aa1c59859e0f005b8d176788ebd7d32f6a049f6ae45d02d9505464b6"
+  },
+  "changjak-dodo-32-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "7bd6dd404eb9a510cccc1c65ad4cbfafc86a3bef55173462781ab695ba61a44b",
+    "lineartSha256": "ebdfd6be53035c25627a59f663233ddf9c8206ffd52fcdf5edf3ea2fe394b7e4"
+  },
+  "changjak-dodo-33-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "5d4ef229101ee210c1351c974ed2ef1cb80024d3e30cdd6fc293185b9b0c112d",
+    "lineartSha256": "084e9f591526f30be2f69a51b2ffaacbdca9cab03f8c9933562a3fa6d89662b3"
+  },
+  "changjak-dodo-33-p08": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "3ee784c016b9a7ce300eadb1a736f5c43f73cdceec1274ca100924c8e658710d",
+    "lineartSha256": "0b36ae4c94855ee98b7048ffd024ffd28b99ebce5fa1717706d4447173a8519a"
+  },
+  "changjak-dodo-34-p04": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "2c3a54e2c2fed6ff501106070ae6213857392d2f8f0ba25ee4b532c94ae6e639",
+    "lineartSha256": "2ce4bc83c29721641d49a6791bf82b2ac24a012065e75384ecaa978d501b590e"
+  },
+  "changjak-dodo-34-p10": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "06532df568ff2bbb41a9d775046e1775301663c059097537718e41ac78caeb21",
+    "lineartSha256": "6061510e81b370313ca44f5cc222b4bd97169809ca1fffd57453d33d48bb1aee"
+  },
+  "changjak-dodo-35-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "0cb6b6cb4025a313678e7cea279567e43d87b3ea38becf3e1f08df667ca9f1d8",
+    "lineartSha256": "6dcd5c4827c99afdfa83ef5a873ba0b5f3de75e369d446ae07872a3204f394ca"
+  },
+  "changjak-dodo-35-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "da28d78364f8a31cc042991369c4a91a1fdef033cd6cb55ca08616b19a65e89c",
+    "lineartSha256": "f00482192a889311bb1d84ec82534a94286df1df4fb8afaef64de877a9623a3e"
+  },
+  "changjak-dodo-36-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "ab9fea93ac84fe4ab48995e0e9acdd6f6fbb3bbe9bbfb04e776812702759c1cb",
+    "lineartSha256": "f9777983040b55ba05fb0ca5c4f238015cd85ad82cd07395e24411bfc6be455e"
+  },
+  "changjak-dodo-36-p08": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "a178e5ab6609f7efabeab8dfcdc86e70343876bf64e8873a02b5e0dc2d039f19",
+    "lineartSha256": "19ec336f53fe789e34052b2aa669b93b836021b1f731a443364f815f21c53111"
+  },
+  "changjak-dodo-37-p03": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "ee1246a4ce8ee87bac72df25724e63c30455ae46191c100cf2547b701e5339ce",
+    "lineartSha256": "275b0d3ddc01efb9bb099e635fdb3282cfb5f37c7412b5ad3d3221c440322858"
+  },
+  "changjak-dodo-37-p09": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "b6d95eb8921d89288c76fb9468f3607a95a6331d71b5bf853e5d784a1dd9f484",
+    "lineartSha256": "b2ec6bd6396c8310c39a090a5cb7f0e7d60028ba4b5b3a5f51c7ee966997e660"
+  },
+  "changjak-dodo-38-p01": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "d5f971483cbf0af819ed89391317e2ea013fabb4c4920f0d3b5ace8ef25032b2",
+    "lineartSha256": "faefeeb3e635629b16353d475eac31b4e8b4d303352689a3bd59fdb96be53cd8"
+  },
+  "changjak-dodo-38-p06": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "d45cf4adb8588275c7aa2c29dc483e3037bd90073e884c2770a56f65775ecc77",
+    "lineartSha256": "9f21e6ef4d8d681d9941cb542a78690853b598191a19b6bd2e8e66a7ca4af207"
+  },
+  "changjak-dodo-39-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "982fa6f069e322a027118ec454f2fa7ee09a0d58fc425fae92b2669810ee7822",
+    "lineartSha256": "f3c6998222b272814233e9bc9d018ef1f83aab96bef1723ef2e1da1f0d7fc8d4"
+  },
+  "changjak-dodo-39-p08": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "b305429b4fa2413c8dde14e524233bafec139bf48280faad5ce70117271dd830",
+    "lineartSha256": "d1fb8cbace115bc979ee657f49c95f4878f491b21d5f5c731efffc0df08c52d0"
+  },
+  "changjak-dodo-40-p02": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "7f15f802a97e8d41629374263824465ae7c2f08b0e1f22e11d7a930902ee44ad",
+    "lineartSha256": "67b592aae4848dfb7d90c567e3bb1d2fe244ab0dc6ce07a8ee8f6f07454e9c28"
+  },
+  "changjak-dodo-40-p07": {
+    "approved": true,
+    "evidence": "Actual source/lineart/sharedfilled compare060/065/070/075; main actors/action/large bodies preserved and colored; small grains/feet simplified",
+    "sourceSha256": "dfdad187d9445f3a9c3bf7fe5aa4f7c7d63b5dedc90f211593b3a3074495b230",
+    "lineartSha256": "c83d2550aac7403f7ce7f3ef20de044980fa0bb34a7f2aada90fef018d1f5bfb"
+  },
+  "changjak-dodo-41-p03": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "77b388c3869b635890adc609f04ad09680a27638fb0446f1160f300c432fad34",
+    "lineartSha256": "d682fb9b53b751104972c8e6a6570a23671e475724b417ace1fa44555cdb1fa7"
+  },
+  "changjak-dodo-41-p06": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "722604bcdf89d002667eafe99316cd393764a7c1f51d4530bd765ee7418cd59a",
+    "lineartSha256": "c2932af9599b0096190c69c5361bff51ec9268c032efc0260e89348409f4b7b1"
+  },
+  "changjak-dodo-42-p05": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "035ce3723703b53cf9fe4d5d23c99364f4a8898b1bb3221ded54fa4c8e7080c6",
+    "lineartSha256": "0bccbd1d030ce2794389acbb7afbbddd09b89b81f47ce5bafdec367fba903828"
+  },
+  "changjak-dodo-42-p06": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "b2bbf2d7f5fb46bb600cfbaca2479e8e80436e22447391e425f81d18680558db",
+    "lineartSha256": "6248bea40c79909c64c7fb043b6d44c8a951f3f2d496abcb689f56bb20a98e0c"
+  },
+  "changjak-dodo-43-p03": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "e82132b144726c7299750bae2bb4275a3ed900398437d75922a1578c2029431d",
+    "lineartSha256": "5c7bb37467e1835a550e48f24619b5907578e9699615e14ab164e2def0c494b8"
+  },
+  "changjak-dodo-43-p06": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "79b0e30b3a0d216b1b79b1dd7af339d934f9e905a7245dca27e3bad0702a2fa4",
+    "lineartSha256": "1d9197e75861f8c7a3d1e2a5cfec6351ee74e2aa4047055e49266e81be871610"
+  },
+  "changjak-dodo-44-p03": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "1429e44f3e62a8fb2574fc486d8670014987fcb8d3a9eee24249fc8e8aeaaa26",
+    "lineartSha256": "1b529327eaede855c4ead3fd2f58c3d228e684bef86f7edea67b4b3d08556af4"
+  },
+  "changjak-dodo-44-p10": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "a85ec6db34120397e2b3f8e16af7321682e462552e8e647977b6c23b63d9b9d7",
+    "lineartSha256": "7386e1ffbb3f448551b7f8367f662c51b414c0f01bcfd656f82da8e078229137"
+  },
+  "changjak-dodo-45-p04": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "d81a90de287c1ba7fb002d51342f690de946ff6b99a54d40141083e2db9fe786",
+    "lineartSha256": "286682bb7dd66325532317e3724bfc63ef9e28434cd286d20802c37c47bbb6d0"
+  },
+  "changjak-dodo-45-p09": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "75e5f242881ed569ce90f76f73986c930e78381abc8f885a79aa4906a5129962",
+    "lineartSha256": "049fbf796f3a13c09cc961944df081a655c3dde6dc8c83a10dfae83e9d870078"
+  },
+  "changjak-dodo-46-p02": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "eaa104dd9b68c5346b9b4dc1be789fccd9b51464a1f4bc9c8d4e5a77cb903bb0",
+    "lineartSha256": "9bb627d24ef64d216a0b45187b610f19b28ad5289a19b68c4a890d067af9d8a3"
+  },
+  "changjak-dodo-46-p06": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "76fe5226826b70789291a23ae5893719d6aa133f0ec145847936a1dd20fc2836",
+    "lineartSha256": "fd69a5c4af7f3563c7fe00d20c36bb3c4bcc1c892ad3cb1d0ec524e4af5c849e"
+  },
+  "changjak-dodo-47-p04": {
+    "approved": true,
+    "evidence": "Actual compare080/085/090/095 source/line/sharedfilled: actors/actions/large colored bodies/eyes maintained; small white webfeet/beaks allowed",
+    "sourceSha256": "62f860b556bd4f2cf60b63bd8b07cbe9850fbb638bad305c3715ff5d20038aba",
+    "lineartSha256": "c78a27ad2d82a0f4f3d389bc1316c2e7b8cb518f2fe62e6e25262fec6af1819c"
+  },
+  "changjak-dodo-47-p09": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "17a05642a549cb3ddc6ce30f2006802a4ab18a48f20ba99ac12488e3d58b448e",
+    "lineartSha256": "6aef7285528a849f66a809491ff218cc64a96e0e07bded0b3e8149cb45374232"
+  },
+  "changjak-dodo-48-p04": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "22a3e635d0ac702407fc7d622560ded0f4ac6975626adac658656dcfaa33eabe",
+    "lineartSha256": "02ba0ab5a9fb6c034f6465ae34441583a5dc337f978c2d5900c75316e66dfa27"
+  },
+  "changjak-dodo-48-p09": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "ea62b99e9cc40152020d5e3c374e0d873165a1ae8b7d48618d667893ed28439a",
+    "lineartSha256": "7f198739eb7286e38212d2358f736255fd95db9e2ad35ef2f6787d7b7e730e72"
+  },
+  "changjak-dodo-49-p01": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "138c3a57679e4a91a0a7ee6b3880b9e355302c636e4e88772f95f94949f3f450",
+    "lineartSha256": "75003cbc9c58c21e9d8a0f9a3c443f3bcf55cdd93093ce5ed4e29a326a56a219"
+  },
+  "changjak-dodo-49-p10": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "8fdef39f71af4acc5760bebe88b639f15f7cbe6f60af74f18bfd90beb7a4bec0",
+    "lineartSha256": "797308563a06e167466ec65d595d7f1dafd009e2eaa3e01ccf2c2e2b48891df0"
+  },
+  "changjak-dodo-50-p04": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "ba1860d245baff1e12d26f196510c832cb5eae541ab962e770f386aca7cbdf3b",
+    "lineartSha256": "b8d9e1a50507397e30c0d4b1f8f02f15b1b3528d35d6042d19472911f18fa2eb"
+  },
+  "changjak-dodo-50-p07": {
+    "approved": true,
+    "evidence": "Actual revised filled full image or updated source/line/sharedfilled contact, current SHA audit",
+    "reason": "Main figure/action retained and major regions painted; minor white areas/color simplification allowed",
+    "sourceSha256": "7e05bf20e80e9b9a5e80bd35cccc5b3c3bfc00e9c78dc2e2ddf5911ed2f0b2df",
+    "lineartSha256": "821189d4b2cf87b2f08f7336f77808637f0e5a14d39b56918eb82ff0c3f452b1"
+  }
+}

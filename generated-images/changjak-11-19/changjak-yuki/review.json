@@ -1,0 +1,28 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-yuki-01-p09",
+    "actualBrushStrokes": 2,
+    "paletteColors": 2,
+    "pageNumber": 9,
+    "faceBodyAndActionPassed": true,
+    "allPaintsCompleted": true,
+    "sourceReveal": true,
+    "resetRepaint": false,
+    "nativeTtsProvided": false,
+    "audioEvidence": "Correct effect ended; BGM playing then cleanup error4/paused, not narration ended",
+    "evidenceFiles": [
+      "player-yuki1p9/brush2.png",
+      "player-yuki1p9/reveal.png"
+    ]
+  },
+  "sourceExceptions": [],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

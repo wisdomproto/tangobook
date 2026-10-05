@@ -1,0 +1,6 @@
+__pycache__/
+.venv/
+!dist/
+!dist/**
+!dist-asian/
+!dist-asian/**

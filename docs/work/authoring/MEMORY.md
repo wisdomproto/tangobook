@@ -1,5 +1,19 @@
 # 동화책 저작도구 기억
 
+2026-10-05 표지 폰트 main push 완료: v0.1/v0.2 실제 폰트·원형/재현코드·사용 지침·DB테이블/등록스크립트 a470b44c까지 원격 main에 일반push하고 SHA일치를 확인했다. 운영 R2/DB 등록 완료와 main 통합을 구분해 검증했으며 Railway 배포/편집기 UI 적용 완료로 확대하지 않는다. [기록](tasks/20261005-cover-font.md).
+
+2026-10-05 [표지 기본 폰트/운영 등록](tasks/20261005-cover-font.md): 사용자 지침 기록·DB업로드·mainpush 요청. [공통 표지 규칙](../../cover-fonts.md)을 AGENTS/CLAUDE/editor에 연결, v0.2 지원범위 확인 후 책별 색/테두리 사용. R2 폰트2버전/메타데이터9개 CDN SHA 검증, Supabase cover_font_assets 두행·preferred v0.2·RLS관리자전용 확인(마이그레이션20261005104926). 기존 표지/편집기 UI는 미변경. 승인 mainpush 진행.
+
+2026-10-05 [표지 손글씨체 아시아 확장 v0.2](tasks/20261005-cover-font.md): 사용자 선택은 등록된 아시아 언어 전체(ko/ja/zh/vi/th/ms/id), 영어 포함8언어. 독립 Asian Trial TTF/WOFF2 Unicode299개·정확한 누락 표시 미리보기·두 실제 클린표지×8언어 제작. 베트남어 대소문자 성조/모음 변형, 일본어/중국어/태국어 두 제목 subset이며 전체 문자권 완성 아님. 자체 원형/native 기호, Thai mark/mkmk·모든VI NFC/NFD·TTF/WOFF2·재빌드해시 통과. 네이티브 조형검수/범위 확대/제품 적용 남음, 로컬커밋만.
+
+2026-10-05 [표지 손글씨체 v0.1](tasks/20261005-cover-font.md): B 손글씨체 하나를 대표로 두고 책별 색/테두리를 바꾸는 방향을 사용자와 검토한 뒤 실제 파일 제작 요청. TTF/WOFF2·지원 글자/원본/빌드/검증·입력형 미리보기 로컬 완료(한글24자/Unicode128개, 전체 한글 아님). 실제 폰트 표지6개 출력과 바이너리/커닝 검증 완료. 기본 UI/학습용 서체·제품 코드·운영 표지 미변경, main 통합/push 미요청.
+
+2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
+
+2026-10-05 사용자 main push 승인: editor2 장면 색칠 탭과 최종1215권2430장 catalog를 최신origin/main과 통합. 기존 영상관리 videoLibrary 및 장면색칠 showSceneColoring을 동시에 유지, TabBar 통합2테스트/장면8테스트/typecheck/build 통과. 운영 책 본문 일괄 쓰기 없음. [기록](../games/tasks/20261005-changjak-11-19-scene-coloring.md).
+
+2026-10-03 [editor2 장면 색칠](tasks/20261003-editor2-scene-coloring.md): 동화책 전용 탭에 책 ID별 최종 도안365권730장 원본/선화와 ColoringPlayer 전체화면 미리보기를 연결. v1/파닉스 보존, 언어별 정확한 쪽 본문/음원·명시sampling 유지. 저장소 catalog 연결이라 운영 책 본문 일괄변경 없음. client 타입/빌드/lint 및8테스트 통과, 실제 editor2 목록표시 확인; 미리보기 이후 브라우저 연결timeout으로 이번 경로 실제붓질은 미확인. 로컬커밋만/운영push 미요청.
+
 2026-10-04 [인어공주 운영 등록](tasks/20261004-little-mermaid-video-registration.md): 승인 KO/EN 롱폼·숏폼 4개를 Editor2 영상 v1과 마케팅 초안에 동일 링크로 등록했다. SRT·MP3·대본·표지 포함, R2 14개 무결성과 정식 원본 연결 및 운영 화면 확인 완료. 재생성 임시 파일 621개/469.5MiB 정리 후 보존 ledger 561개 재검증 통과. 사용자 main push 요청에 따라 최신 원격 변경을 보존해 통합한다.
 
 2026-10-02 [마케팅 책 원본 DB 마이그레이션](../marketing/tasks/20261002-content-sources-db-migration.md)을 사용자 지시로 적용/검증해 아래 신데렐라·백설공주 등록의 DB 제한을 해소했다. 운영 Editor2 등록 버튼 성공 및 기존 기획 재사용, 정식 content_source_id 연결 완료. 영상 v1과 기존 파일은 그대로다.

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>탱고북 손글씨체 시험판</title>
+  <style>
+    @font-face {
+      font-family: TangoBookTrial;
+      src: url('./dist-asian/TangoBookStoryHand-AsianTrial-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #fff9f3;
+      color: #3f2f24;
+      font:
+        16px system-ui,
+        sans-serif;
+    }
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 32px;
+    }
+    h1 {
+      font-size: 27px;
+    }
+    p {
+      line-height: 1.7;
+    }
+    a {
+      color: #28586b;
+    }
+    textarea {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid #d1c3ad;
+      border-radius: 12px;
+      font: 20px system-ui;
+      resize: vertical;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin: 20px 0;
+    }
+    .controls label {
+      display: grid;
+      gap: 8px;
+    }
+    .sample {
+      padding: 38px 22px;
+      border-radius: 18px;
+      background: #245363;
+      overflow-wrap: anywhere;
+      color: #fff4da;
+      font: 400 80px/1.45 TangoBookTrial;
+      -webkit-text-stroke: 1px #075564;
+      paint-order: stroke fill;
+    }
+    .notice {
+      min-height: 26px;
+      margin-top: 15px;
+    }
+    .missing {
+      color: #a53324;
+    }
+    .examples {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .examples div {
+      padding: 24px;
+      background: #fff0e0;
+      border-radius: 12px;
+      font: 400 45px/1.3 TangoBookTrial;
+    }
+    small {
+      font-family: system-ui;
+      font-size: 14px;
+      display: block;
+      margin-top: 8px;
+    }
+    .legend {
+      font: 400 32px/1.4 TangoBookTrial;
+    }
+  </style>
+  <main>
+    <h1>탱고북 손글씨체 · Asian Trial 0.2</h1>
+    <p>
+      등록된 아시아 7개 언어와 영어의 제목 샘플 시험판입니다. 베트남어 성조 글자를 추가했습니다. 한글·일본어·중국어·태국어 전체 글자는 지원하지 않습니다. 글자색·테두리·배경색은 폰트에 고정되어 있지 않습니다.
+    </p>
+    <p>
+      <a href="./dist-asian/TangoBookStoryHand-AsianTrial-Regular.ttf" download>설치용 TTF</a> ·
+      <a href="./dist-asian/TangoBookStoryHand-AsianTrial-Regular.woff2" download>웹용 WOFF2</a> ·
+      <a href="./dist-asian/coverage.json">정확한 지원 글자</a>
+    </p>
+    <label for="text">시험할 제목</label
+    ><textarea id="text" rows="2">
+小美人鱼
+Nàng Tiên Cá
+เงือกน้อย</textarea
+    >
+    <div class="controls">
+      <label>글자색<input id="fill" type="color" value="#fff4da" /></label>
+      <label>테두리색<input id="stroke" type="color" value="#075564" /></label>
+      <label>배경색<input id="background" type="color" value="#245363" /></label>
+      <label>글자 크기<input id="size" type="range" min="24" max="140" value="80" /></label>
+      <label
+        >테두리 두께<input id="width" type="range" min="0" max="4" step="0.25" value="1"
+      /></label>
+    </div>
+    <div class="sample" id="sample" style="white-space: pre-wrap"></div>
+    <div class="notice" id="notice" role="status">지원 글자 목록을 확인하는 중입니다.</div>
+    <p>지원 한글: <span class="legend">인어공주라푼젤흥부와놀호랑나비코끼리는니까탱고북</span></p>
+    <div class="examples">
+      <div>인어공주<br>라푼젤<small>ko: 24 syllables only</small></div>
+      <div>The Little Mermaid<br>Rapunzel<small>en: ASCII alphabet</small></div>
+      <div>人魚姫<br>ラプンツェル<small>ja: reviewed sample titles only</small></div>
+      <div>小美人鱼<br>长发公主<small>zh: reviewed sample titles only</small></div>
+      <div>Nàng Tiên Cá<br>Công Chúa Tóc Mây<small>vi: Vietnamese alphabet upper/lower with precomposed accents</small></div>
+      <div>เงือกน้อย<br>ราพันเซล<small>th: reviewed sample titles and three positioned marks only</small></div>
+      <div>Puteri Duyung<br>Rapunzel<small>ms: Latin alphabet</small></div>
+      <div>Putri Duyung<br>Rapunzel<small>id: Latin alphabet</small></div>
+    </div>
+    <p>
+      이 시험판에서 지원하지 않는 글자는 빈 사각형으로 표시될 수 있습니다. 생산용 폰트로 적용하기 전
+      문자 지원 범위·자간·네이티브 글자 검수를 완료해야 합니다. 일본어·말레이어·인도네시아어 제목은 디자인용 예시입니다.
+    </p>
+  </main>
+  <script>
+    const ids = ['text', 'fill', 'stroke', 'background', 'size', 'width'];
+    const controls = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
+    const sample = document.getElementById('sample'),
+      notice = document.getElementById('notice');
+    const supported = new Set([32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 160, 183, 192, 193, 194, 195, 200, 201, 202, 204, 205, 210, 211, 212, 213, 217, 218, 221, 224, 225, 226, 227, 232, 233, 234, 236, 237, 242, 243, 244, 245, 249, 250, 253, 258, 259, 272, 273, 296, 297, 360, 361, 416, 417, 431, 432, 3585, 3591, 3595, 3609, 3614, 3618, 3619, 3621, 3626, 3629, 3633, 3634, 3639, 3648, 3657, 7840, 7841, 7842, 7843, 7844, 7845, 7846, 7847, 7848, 7849, 7850, 7851, 7852, 7853, 7854, 7855, 7856, 7857, 7858, 7859, 7860, 7861, 7862, 7863, 7864, 7865, 7866, 7867, 7868, 7869, 7870, 7871, 7872, 7873, 7874, 7875, 7876, 7877, 7878, 7879, 7880, 7881, 7882, 7883, 7884, 7885, 7886, 7887, 7888, 7889, 7890, 7891, 7892, 7893, 7894, 7895, 7896, 7897, 7898, 7899, 7900, 7901, 7902, 7903, 7904, 7905, 7906, 7907, 7908, 7909, 7910, 7911, 7912, 7913, 7914, 7915, 7916, 7917, 7918, 7919, 7920, 7921, 7922, 7923, 7924, 7925, 7926, 7927, 7928, 7929, 8211, 8212, 8216, 8217, 8220, 8221, 8230, 12366, 12395, 12402, 12417, 12423, 12435, 12455, 12484, 12503, 12521, 12523, 12531, 20027, 20154, 20844, 21457, 23019, 23567, 32654, 38271, 39770, 40060, 44256, 44277, 44620, 45180, 45208, 45440, 45716, 45768, 46972, 46993, 47532, 48512, 48513, 48708, 50612, 50752, 51064, 51236, 51452, 53076, 53489, 54396, 54840, 55141]);
+    function update() {
+      const text = controls.text.value.normalize('NFC');
+      sample.textContent = text;
+      sample.style.color = controls.fill.value;
+      sample.style.background = controls.background.value;
+      sample.style.fontSize = controls.size.value + 'px';
+      sample.style.webkitTextStroke = controls.width.value + 'px ' + controls.stroke.value;
+      const missing = [
+        ...new Set(
+          Array.from(text).filter(
+            (c) => c !== '\n' && c !== '\r' && c !== '\t' && !supported.has(c.codePointAt(0))
+          )
+        ),
+      ];
+      notice.classList.toggle('missing', missing.length > 0);
+      notice.textContent = missing.length
+        ? '아직 없는 글자: ' + missing.join(' ')
+        : '이 제목의 모든 글자가 지원됩니다.';
+    }
+    ids.forEach((id) => controls[id].addEventListener('input', update));
+    update();
+    document.fonts
+      .load('40px TangoBookTrial')
+      .then((loaded) => {
+        if (!loaded.length)
+          notice.textContent = '폰트 파일을 불러오지 못했습니다. 파일 폴더 구조를 확인해 주세요.';
+      })
+      .catch(() => {
+        notice.textContent = '폰트 파일을 불러오지 못했습니다.';
+      });
+  </script>
+</html>

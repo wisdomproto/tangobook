@@ -1,0 +1,17 @@
+[
+  {
+    "key": "changjak-pongi-02-p09",
+    "scope": "local actual pointer brush; matching page reveal; native TTS not provided",
+    "snapshot": "- button \"← 돌아가기\"\n- paragraph: 02. 처음 타 보는 배 · 9쪽\n- button \"다시\"\n- img \"02. 처음 타 보는 배 · 9쪽\"\n- status: 색칠과 장면 읽기 완료"
+  },
+  {
+    "key": "changjak-pongi-11-p04",
+    "scope": "Actual pointer strokes; closed blanket filled; completed UI; reset not retested",
+    "snapshot": "- button \"← 돌아가기\"\n- paragraph: 11. 할아버지 집에서 자는 밤 · 4쪽\n- button \"다시\"\n- img \"11. 할아버지 집에서 자는 밤 · 4쪽\"\n- status: 색칠과 장면 읽기 완료"
+  },
+  {
+    "key": "changjak-pongi-33-p07",
+    "scope": "Actual four-color pointer strokes; completion transition interrupted final pointer with shadow-root error; matching page UI",
+    "snapshot": "- button \"← 돌아가기\"\n- paragraph: 33. 신발 자리에 신발, 척! · 7쪽\n- button \"다시\"\n- img \"33. 신발 자리에 신발, 척! · 7쪽\"\n- status: 색칠과 장면 읽기 완료"
+  }
+]

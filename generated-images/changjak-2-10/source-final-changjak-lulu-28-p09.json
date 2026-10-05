@@ -1,0 +1,12 @@
+{
+  "key": "changjak-lulu-28-p09",
+  "originalProvided": false,
+  "sourceOrigin": "New built-in imagegen story illustration; original absent",
+  "sourceSha256": "196f667dff51c652b4c76bb07e93967b4a5153e864c931f9132e8acc89873606",
+  "sourceFile": "generated-images/changjak-2-10/changjak-lulu/sources/changjak-lulu-28-p09.png",
+  "sourceCorrection": {
+    "prompt": "Correct the children count in this NEW full-color story illustration. Keep Lulu the front donkey with orange clothes, blue bell cord and raised three fingers, mother at doorway, well and bread. Behind Lulu must be THREE walking cousin donkey children, plus ONE baby cousin riding on one cousin's back. Currently only two walking cousins are behind Lulu; add ONE more friendly donkey cousin behind them, same picturebook style with muted green/yellow clothing. Total FIVE child donkeys = Lulu + three walking cousins + one carried baby. Preserve all existing actors, directions, environment and style; no text.",
+    "outputSha256": "196f667dff51c652b4c76bb07e93967b4a5153e864c931f9132e8acc89873606",
+    "mode": "built-in-imagegen-new-story-source-edit"
+  }
+}

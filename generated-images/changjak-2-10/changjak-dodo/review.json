@@ -1,0 +1,30 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-dodo-04-p03",
+    "actualPointerBrushes": 4,
+    "paletteColors": 4,
+    "mainCharacterColored": true,
+    "pageNumber": 3,
+    "correctSourceRevealUrl": true,
+    "readingFallbackCompletionObserved": true,
+    "nativeSpeechVerified": false,
+    "resetObserved": true,
+    "resetRepaint": false,
+    "bgmStopped": true,
+    "screenshotNote": "Reveal screenshot captured during blue overlay; source URL and page verified through visible DOM."
+  },
+  "sourceExceptions": [
+    "changjak-dodo-41-p06",
+    "changjak-dodo-45-p04",
+    "changjak-dodo-45-p09"
+  ],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

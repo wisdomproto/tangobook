@@ -1,0 +1,1761 @@
+{
+  "version": "0.1.0",
+  "family": "TangoBook Story Hand Trial",
+  "hangulCount": 24,
+  "hangul": "인어공주라푼젤흥부와놀호랑나비코끼리는니까탱고북",
+  "latinLetters": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  "digits": "0123456789",
+  "supportedCount": 128,
+  "characters": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ·–—‘’“”…고공까끼나놀는니라랑리부북비어와인젤주코탱푼호흥",
+  "codepoints": [
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    160,
+    183,
+    8211,
+    8212,
+    8216,
+    8217,
+    8220,
+    8221,
+    8230,
+    44256,
+    44277,
+    44620,
+    45180,
+    45208,
+    45440,
+    45716,
+    45768,
+    46972,
+    46993,
+    47532,
+    48512,
+    48513,
+    48708,
+    50612,
+    50752,
+    51064,
+    51236,
+    51452,
+    53076,
+    53489,
+    54396,
+    54840,
+    55141
+  ],
+  "fullKoreanCoverage": false,
+  "limitations": [
+    "Only 24 explicitly reviewed Hangul syllables.",
+    "No CJK ideographs, Thai or Vietnamese accented letters.",
+    "Trial outlines and spacing require further review before production use."
+  ],
+  "sources": {
+    "approved-concept.png": "3a2204eba8f2589fdfc17038c34d3e347738cf983185c05ec25330e3e6f60b71",
+    "latin-grid.png": "3e21c7dd250d8abe784aafbc103ac4be5ea7c1ff5b3e2563dc9cdc68e5315f20",
+    "hangul-grid.png": "eaf8476300c47607b8f73e05b0e59848156c2d249278bb5129f807f8b7f59312"
+  },
+  "glyphs": {
+    "A": {
+      "sourceBox": [
+        60,
+        63,
+        95,
+        100
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 46,
+          "hole": false
+        },
+        {
+          "points": 14,
+          "hole": true
+        }
+      ]
+    },
+    "B": {
+      "sourceBox": [
+        219,
+        62,
+        84,
+        107
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 49,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        },
+        {
+          "points": 15,
+          "hole": true
+        }
+      ]
+    },
+    "C": {
+      "sourceBox": [
+        368,
+        67,
+        83,
+        95
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 52,
+          "hole": false
+        }
+      ]
+    },
+    "D": {
+      "sourceBox": [
+        513,
+        68,
+        85,
+        95
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 37,
+          "hole": false
+        },
+        {
+          "points": 17,
+          "hole": true
+        }
+      ]
+    },
+    "E": {
+      "sourceBox": [
+        664,
+        62,
+        75,
+        102
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 74,
+          "hole": false
+        }
+      ]
+    },
+    "F": {
+      "sourceBox": [
+        807,
+        62,
+        82,
+        104
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 60,
+          "hole": false
+        }
+      ]
+    },
+    "G": {
+      "sourceBox": [
+        952,
+        67,
+        99,
+        97
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 76,
+          "hole": false
+        }
+      ]
+    },
+    "H": {
+      "sourceBox": [
+        1106,
+        66,
+        90,
+        96
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 69,
+          "hole": false
+        }
+      ]
+    },
+    "I": {
+      "sourceBox": [
+        82,
+        212,
+        48,
+        96
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 36,
+          "hole": false
+        }
+      ]
+    },
+    "J": {
+      "sourceBox": [
+        214,
+        209,
+        87,
+        102
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 58,
+          "hole": false
+        }
+      ]
+    },
+    "K": {
+      "sourceBox": [
+        366,
+        209,
+        86,
+        101
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 47,
+          "hole": false
+        }
+      ]
+    },
+    "L": {
+      "sourceBox": [
+        519,
+        210,
+        72,
+        102
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 49,
+          "hole": false
+        }
+      ]
+    },
+    "M": {
+      "sourceBox": [
+        649,
+        213,
+        106,
+        102
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 84,
+          "hole": false
+        }
+      ]
+    },
+    "N": {
+      "sourceBox": [
+        807,
+        212,
+        90,
+        101
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 54,
+          "hole": false
+        }
+      ]
+    },
+    "O": {
+      "sourceBox": [
+        956,
+        215,
+        83,
+        91
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 36,
+          "hole": false
+        },
+        {
+          "points": 15,
+          "hole": true
+        }
+      ]
+    },
+    "P": {
+      "sourceBox": [
+        1106,
+        212,
+        87,
+        100
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 34,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        }
+      ]
+    },
+    "Q": {
+      "sourceBox": [
+        58,
+        363,
+        96,
+        102
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 45,
+          "hole": false
+        },
+        {
+          "points": 24,
+          "hole": true
+        }
+      ]
+    },
+    "R": {
+      "sourceBox": [
+        210,
+        363,
+        99,
+        98
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 56,
+          "hole": false
+        },
+        {
+          "points": 11,
+          "hole": true
+        }
+      ]
+    },
+    "S": {
+      "sourceBox": [
+        367,
+        360,
+        75,
+        103
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 68,
+          "hole": false
+        }
+      ]
+    },
+    "T": {
+      "sourceBox": [
+        505,
+        359,
+        93,
+        101
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 45,
+          "hole": false
+        }
+      ]
+    },
+    "U": {
+      "sourceBox": [
+        656,
+        365,
+        89,
+        94
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 53,
+          "hole": false
+        }
+      ]
+    },
+    "V": {
+      "sourceBox": [
+        802,
+        364,
+        95,
+        97
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 38,
+          "hole": false
+        }
+      ]
+    },
+    "W": {
+      "sourceBox": [
+        940,
+        370,
+        118,
+        86
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 74,
+          "hole": false
+        }
+      ]
+    },
+    "X": {
+      "sourceBox": [
+        1102,
+        360,
+        93,
+        98
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 42,
+          "hole": false
+        }
+      ]
+    },
+    "Y": {
+      "sourceBox": [
+        57,
+        508,
+        97,
+        104
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 35,
+          "hole": false
+        }
+      ]
+    },
+    "Z": {
+      "sourceBox": [
+        208,
+        514,
+        94,
+        95
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 61,
+          "hole": false
+        }
+      ]
+    },
+    "a": {
+      "sourceBox": [
+        366,
+        533,
+        81,
+        71
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 30,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        }
+      ]
+    },
+    "b": {
+      "sourceBox": [
+        518,
+        497,
+        76,
+        113
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 38,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        }
+      ]
+    },
+    "c": {
+      "sourceBox": [
+        663,
+        533,
+        71,
+        74
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 44,
+          "hole": false
+        }
+      ]
+    },
+    "d": {
+      "sourceBox": [
+        810,
+        499,
+        78,
+        108
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 39,
+          "hole": false
+        },
+        {
+          "points": 13,
+          "hole": true
+        }
+      ]
+    },
+    "e": {
+      "sourceBox": [
+        965,
+        534,
+        74,
+        73
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 43,
+          "hole": false
+        },
+        {
+          "points": 8,
+          "hole": true
+        }
+      ]
+    },
+    "f": {
+      "sourceBox": [
+        1109,
+        498,
+        75,
+        116
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 58,
+          "hole": false
+        }
+      ]
+    },
+    "g": {
+      "sourceBox": [
+        67,
+        676,
+        74,
+        114
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 58,
+          "hole": false
+        },
+        {
+          "points": 11,
+          "hole": true
+        }
+      ]
+    },
+    "h": {
+      "sourceBox": [
+        222,
+        647,
+        76,
+        115
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 58,
+          "hole": false
+        }
+      ]
+    },
+    "i": {
+      "sourceBox": [
+        390,
+        661,
+        28,
+        98
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 19,
+          "hole": false
+        },
+        {
+          "points": 16,
+          "hole": false
+        }
+      ]
+    },
+    "j": {
+      "sourceBox": [
+        510,
+        649,
+        62,
+        136
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 39,
+          "hole": false
+        },
+        {
+          "points": 16,
+          "hole": false
+        }
+      ]
+    },
+    "k": {
+      "sourceBox": [
+        664,
+        655,
+        79,
+        110
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 52,
+          "hole": false
+        }
+      ]
+    },
+    "l": {
+      "sourceBox": [
+        823,
+        655,
+        35,
+        108
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 27,
+          "hole": false
+        }
+      ]
+    },
+    "m": {
+      "sourceBox": [
+        946,
+        693,
+        104,
+        69
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 65,
+          "hole": false
+        }
+      ]
+    },
+    "n": {
+      "sourceBox": [
+        1109,
+        690,
+        76,
+        69
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 46,
+          "hole": false
+        }
+      ]
+    },
+    "o": {
+      "sourceBox": [
+        71,
+        837,
+        73,
+        66
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 26,
+          "hole": false
+        },
+        {
+          "points": 11,
+          "hole": true
+        }
+      ]
+    },
+    "p": {
+      "sourceBox": [
+        219,
+        823,
+        78,
+        105
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 33,
+          "hole": false
+        },
+        {
+          "points": 11,
+          "hole": true
+        }
+      ]
+    },
+    "q": {
+      "sourceBox": [
+        365,
+        822,
+        78,
+        105
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 47,
+          "hole": false
+        },
+        {
+          "points": 10,
+          "hole": true
+        }
+      ]
+    },
+    "r": {
+      "sourceBox": [
+        523,
+        834,
+        67,
+        76
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 29,
+          "hole": false
+        }
+      ]
+    },
+    "s": {
+      "sourceBox": [
+        668,
+        830,
+        65,
+        79
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 45,
+          "hole": false
+        }
+      ]
+    },
+    "t": {
+      "sourceBox": [
+        809,
+        809,
+        67,
+        104
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 55,
+          "hole": false
+        }
+      ]
+    },
+    "u": {
+      "sourceBox": [
+        956,
+        839,
+        80,
+        66
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 50,
+          "hole": false
+        }
+      ]
+    },
+    "v": {
+      "sourceBox": [
+        1105,
+        834,
+        87,
+        77
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 34,
+          "hole": false
+        }
+      ]
+    },
+    "w": {
+      "sourceBox": [
+        51,
+        978,
+        108,
+        73
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 63,
+          "hole": false
+        }
+      ]
+    },
+    "x": {
+      "sourceBox": [
+        218,
+        975,
+        77,
+        79
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 37,
+          "hole": false
+        }
+      ]
+    },
+    "y": {
+      "sourceBox": [
+        366,
+        970,
+        74,
+        108
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 72,
+          "hole": false
+        }
+      ]
+    },
+    "z": {
+      "sourceBox": [
+        510,
+        974,
+        79,
+        78
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 59,
+          "hole": false
+        }
+      ]
+    },
+    "0": {
+      "sourceBox": [
+        665,
+        970,
+        68,
+        85
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 33,
+          "hole": false
+        },
+        {
+          "points": 17,
+          "hole": true
+        }
+      ]
+    },
+    "1": {
+      "sourceBox": [
+        821,
+        963,
+        41,
+        95
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 30,
+          "hole": false
+        }
+      ]
+    },
+    "2": {
+      "sourceBox": [
+        956,
+        963,
+        84,
+        97
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 68,
+          "hole": false
+        }
+      ]
+    },
+    "3": {
+      "sourceBox": [
+        1105,
+        963,
+        84,
+        101
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 67,
+          "hole": false
+        }
+      ]
+    },
+    "4": {
+      "sourceBox": [
+        64,
+        1102,
+        87,
+        97
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 57,
+          "hole": false
+        }
+      ]
+    },
+    "5": {
+      "sourceBox": [
+        217,
+        1101,
+        76,
+        100
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 75,
+          "hole": false
+        }
+      ]
+    },
+    "6": {
+      "sourceBox": [
+        364,
+        1103,
+        79,
+        96
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 33,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        }
+      ]
+    },
+    "7": {
+      "sourceBox": [
+        508,
+        1104,
+        80,
+        99
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 55,
+          "hole": false
+        }
+      ]
+    },
+    "8": {
+      "sourceBox": [
+        663,
+        1102,
+        74,
+        101
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 44,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        },
+        {
+          "points": 9,
+          "hole": true
+        }
+      ]
+    },
+    "9": {
+      "sourceBox": [
+        809,
+        1101,
+        68,
+        102
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 45,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        }
+      ]
+    },
+    "&": {
+      "sourceBox": [
+        949,
+        1109,
+        96,
+        94
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 50,
+          "hole": false
+        },
+        {
+          "points": 7,
+          "hole": true
+        },
+        {
+          "points": 8,
+          "hole": true
+        }
+      ]
+    },
+    "?": {
+      "sourceBox": [
+        1112,
+        1102,
+        70,
+        98
+      ],
+      "source": "latin-grid.png",
+      "contours": [
+        {
+          "points": 14,
+          "hole": false
+        },
+        {
+          "points": 35,
+          "hole": false
+        }
+      ]
+    },
+    "인": {
+      "sourceBox": [
+        71,
+        90,
+        145,
+        178
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 43,
+          "hole": false
+        },
+        {
+          "points": 38,
+          "hole": false
+        },
+        {
+          "points": 16,
+          "hole": true
+        },
+        {
+          "points": 34,
+          "hole": false
+        }
+      ]
+    },
+    "어": {
+      "sourceBox": [
+        318,
+        97,
+        157,
+        157
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 81,
+          "hole": false
+        },
+        {
+          "points": 14,
+          "hole": true
+        }
+      ]
+    },
+    "공": {
+      "sourceBox": [
+        567,
+        92,
+        150,
+        183
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 34,
+          "hole": false
+        },
+        {
+          "points": 14,
+          "hole": true
+        },
+        {
+          "points": 60,
+          "hole": false
+        },
+        {
+          "points": 58,
+          "hole": false
+        }
+      ]
+    },
+    "주": {
+      "sourceBox": [
+        804,
+        100,
+        158,
+        175
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 85,
+          "hole": false
+        },
+        {
+          "points": 68,
+          "hole": false
+        }
+      ]
+    },
+    "라": {
+      "sourceBox": [
+        1049,
+        94,
+        183,
+        171
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 82,
+          "hole": false
+        },
+        {
+          "points": 43,
+          "hole": false
+        }
+      ]
+    },
+    "푼": {
+      "sourceBox": [
+        1308,
+        91,
+        160,
+        181
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 58,
+          "hole": false
+        },
+        {
+          "points": 72,
+          "hole": false
+        },
+        {
+          "points": 65,
+          "hole": false
+        },
+        {
+          "points": 13,
+          "hole": true
+        }
+      ]
+    },
+    "젤": {
+      "sourceBox": [
+        67,
+        320,
+        163,
+        193
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 88,
+          "hole": false
+        },
+        {
+          "points": 56,
+          "hole": false
+        },
+        {
+          "points": 36,
+          "hole": false
+        },
+        {
+          "points": 25,
+          "hole": false
+        }
+      ]
+    },
+    "흥": {
+      "sourceBox": [
+        313,
+        324,
+        167,
+        194
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 37,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        },
+        {
+          "points": 74,
+          "hole": false
+        },
+        {
+          "points": 29,
+          "hole": false
+        },
+        {
+          "points": 10,
+          "hole": true
+        },
+        {
+          "points": 42,
+          "hole": false
+        }
+      ]
+    },
+    "부": {
+      "sourceBox": [
+        556,
+        330,
+        166,
+        180
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 80,
+          "hole": false
+        },
+        {
+          "points": 64,
+          "hole": false
+        },
+        {
+          "points": 17,
+          "hole": true
+        }
+      ]
+    },
+    "와": {
+      "sourceBox": [
+        798,
+        346,
+        194,
+        161
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 71,
+          "hole": false
+        },
+        {
+          "points": 14,
+          "hole": true
+        },
+        {
+          "points": 40,
+          "hole": false
+        }
+      ]
+    },
+    "놀": {
+      "sourceBox": [
+        1057,
+        327,
+        159,
+        193
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 81,
+          "hole": false
+        },
+        {
+          "points": 116,
+          "hole": false
+        }
+      ]
+    },
+    "호": {
+      "sourceBox": [
+        1307,
+        334,
+        164,
+        170
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 87,
+          "hole": false
+        },
+        {
+          "points": 13,
+          "hole": true
+        },
+        {
+          "points": 59,
+          "hole": false
+        }
+      ]
+    },
+    "랑": {
+      "sourceBox": [
+        67,
+        572,
+        170,
+        179
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 34,
+          "hole": false
+        },
+        {
+          "points": 13,
+          "hole": true
+        },
+        {
+          "points": 77,
+          "hole": false
+        },
+        {
+          "points": 39,
+          "hole": false
+        }
+      ]
+    },
+    "나": {
+      "sourceBox": [
+        316,
+        576,
+        172,
+        164
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 45,
+          "hole": false
+        },
+        {
+          "points": 48,
+          "hole": false
+        }
+      ]
+    },
+    "비": {
+      "sourceBox": [
+        562,
+        580,
+        148,
+        158
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 58,
+          "hole": false
+        },
+        {
+          "points": 12,
+          "hole": true
+        },
+        {
+          "points": 35,
+          "hole": false
+        }
+      ]
+    },
+    "코": {
+      "sourceBox": [
+        803,
+        590,
+        162,
+        146
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 68,
+          "hole": false
+        },
+        {
+          "points": 75,
+          "hole": false
+        }
+      ]
+    },
+    "끼": {
+      "sourceBox": [
+        1050,
+        576,
+        169,
+        167
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 75,
+          "hole": false
+        },
+        {
+          "points": 38,
+          "hole": false
+        }
+      ]
+    },
+    "리": {
+      "sourceBox": [
+        1310,
+        578,
+        150,
+        163
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 77,
+          "hole": false
+        },
+        {
+          "points": 43,
+          "hole": false
+        }
+      ]
+    },
+    "는": {
+      "sourceBox": [
+        65,
+        795,
+        156,
+        174
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 43,
+          "hole": false
+        },
+        {
+          "points": 66,
+          "hole": false
+        },
+        {
+          "points": 45,
+          "hole": false
+        }
+      ]
+    },
+    "니": {
+      "sourceBox": [
+        324,
+        798,
+        138,
+        162
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 41,
+          "hole": false
+        },
+        {
+          "points": 35,
+          "hole": false
+        }
+      ]
+    },
+    "까": {
+      "sourceBox": [
+        546,
+        809,
+        188,
+        148
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 71,
+          "hole": false
+        },
+        {
+          "points": 40,
+          "hole": false
+        }
+      ]
+    },
+    "탱": {
+      "sourceBox": [
+        802,
+        794,
+        167,
+        171
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 33,
+          "hole": false
+        },
+        {
+          "points": 10,
+          "hole": true
+        },
+        {
+          "points": 69,
+          "hole": false
+        },
+        {
+          "points": 56,
+          "hole": false
+        }
+      ]
+    },
+    "고": {
+      "sourceBox": [
+        1053,
+        814,
+        157,
+        136
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 74,
+          "hole": false
+        },
+        {
+          "points": 56,
+          "hole": false
+        }
+      ]
+    },
+    "북": {
+      "sourceBox": [
+        1304,
+        791,
+        159,
+        181
+      ],
+      "source": "hangul-grid.png",
+      "contours": [
+        {
+          "points": 107,
+          "hole": false
+        },
+        {
+          "points": 60,
+          "hole": false
+        },
+        {
+          "points": 16,
+          "hole": true
+        }
+      ]
+    }
+  }
+}

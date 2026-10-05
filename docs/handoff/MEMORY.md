@@ -28,6 +28,27 @@
 2026-10-05 [플랫폼 전략 최종 보강](../work/strategy/tasks/20261005-branding-organic-strategy.md): 가족이 선택할 이유, 미나50권/삽화500장 실제 제작 근거, 이야기→낱말놀이→다음선택→리포트 대표 체험을 보강. 오가닉 유입경로와 팀확인항목 구체화·반복 정리. HTML/원문 동기화, 제품구현·리포트worktree 보존.
 
 2026-10-05 [플랫폼 사업 전략 전체 개편](../work/strategy/tasks/20261005-branding-organic-strategy.md): 사용자 승인으로 본문을 이미 갖춘 기반/아이와 부모의 지속 이용 이유/성장·확장 구조/팀 과제 중심13장으로 재구성. 실제 커리큘럼·책·활동·리포트 유지, 구현 세부·캠페인·가격·8주 계획은 마지막 부록8개로 이동. HTML과 원문/이미지 대응 동기화. 제품 구현 파일 보존.
+2026-10-05 표지 폰트 main push 완료: a470b44c(기존 두 폰트 커밋 포함)까지 원격 main에 일반push·SHA일치 확인. R2/DB등록과 AGENTS/CLAUDE 공통 표지 지침 통합 완료. Railway 배포/편집기 UI 자동적용은 미검증/미구현. [작업](../work/authoring/tasks/20261005-cover-font.md).
+
+2026-10-05 [표지 폰트 사용/운영 DB등록](../work/authoring/tasks/20261005-cover-font.md): 사용자 AGENTS지침·DB업로드·mainpush 요청. docs/cover-fonts.md 공통규칙 연결, R2두버전/9개파일 CDN해시확인, Supabase cover_font_assets 등록128/299글자·v0.2권장·RLS관리자전용 검증완료. 전체 한/일/중/태 글자 확장은 남음, 기존 운영표지 일괄교체/편집기 UI적용 없음. 승인 mainpush 진행.
+
+2026-10-05 [표지 손글씨체 아시아 v0.2](../work/authoring/tasks/20261005-cover-font.md): 사용자 등록아시아언어전체 선택. ko/ja/zh/vi/th/ms/id와 en의 제목시험판 Unicode299개 TTF/WOFF2·입력미리보기·인어공주/라푼젤8언어 실제윤곽출력 완료. 베트남어 성조 대소문자 지원, 한/일/중/태 전체글자 미완성. Thai기호배치·VI정규화·바이너리·재빌드해시 통과, 네이티브검수/범위확대/제품적용 남음. 시스템등록11언어와 실제catalog 번역en/th/vi/zh 구분. 로컬커밋만, 운영데이터/표지 변경 없음.
+
+2026-10-05 [표지 손글씨체 시험판](../work/authoring/tasks/20261005-cover-font.md): 사용자 B 손글씨/책별 색 맞춤형 선택 후 실제 폰트 제작 요청. assets/fonts/tangobook-story-hand에 단색 벡터 TTF·WOFF2 v0.1(한글24자/Unicode128개)·재현 원본/빌드·색/테두리 미리보기를 만들었다. FreeType/윤곽/WOFF2동일성/HarfBuzz커닝·정규화/여섯표지출력·재빌드해시 검증 완료. 전체 한글·다른 문자권 미지원, 제품/운영 표지 적용·main 통합/push 없음. 상세와 로컬 전달 폴더는 작업 기록 참조.
+
+2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
+
+2026-10-05 사용자 main push 승인: 장면 색칠/editor2 탭/창작1~19 최종 catalog1215권2430장을 origin/main5d3fdb74와 정상 병합. 원격 영상·낱말색칠·학습보고서·브랜딩 기록 보존, 두 editor2 탭 동시 유지·24테스트/typecheck/build 통과. 관련 작업 main 일반push 범위이며 운영책 데이터 덮어쓰기 없음. [기록](../work/games/tasks/20261005-changjak-11-19-scene-coloring.md).
+
+2026-10-05 [창작동화11~19 색칠](../work/games/tasks/20261005-changjak-11-19-scene-coloring.md): 사용자 image skill 지정에 따라 builtin imagegen 350권700장 생성/전장 원본·선화·sharedfilled·mono·SHA 대조 및 대표9실제게임 완료. 승인tests HTML25탭/1215권2430장 게시와 editor2 책별 catalog 갱신. 공개 대표 달이01p5 실제붓질/5쪽전환 추가확인, 전700장 실제게임/native 검증으로 확대하지 않음. 기존1730장 보존/운영 책 변경·mainpush·운영 editor2 배포 없음. 공개1400이미지SHA 최종결과는 task 참조.
+
+2026-10-04 [창작동화 2~10 장면 색칠 완료](../work/games/tasks/20261004-changjak-2-10-scene-coloring.md): 9시리즈450권900장 builtin imagegen 생성·전수 원본/선화/sharedfilled 비교·시리즈별 대표9실제게임 검수 후 승인tests 게시. HTML16탭/865권1730장, 기존830장 보존. editor2 책별 게시본 catalog 갱신·8테스트/typecheck 통과. 신규원본25장은 원본미제공에 따른 새 이야기 삽화로 구분. 운영 책 변경/main push/운영 editor2 배포 없음. 공개1800버전이미지 최종SHA 결과는task 최신절 참조.
+
+2026-10-04 [창작동화 1 퐁이네 색칠 완료](../work/games/tasks/20261004-pongi-scene-coloring.md): 50권100장 imagegen built-in 생성·전수 원본/선화/sharedfilled 비교·대표4장 실제게임 검증 후 일곱 번째 HTML 탭 공개. 원본/선화200버전URL SHA 일치, 기존730 보존/총415권830장. editor2 catalog 추가·5테스트/typecheck 통과. 코드/기록 로컬 커밋만, 운영 배포/main push 없음.
+
+2026-10-03 [editor2 책별 장면 색칠 탭](../work/authoring/tasks/20261003-editor2-scene-coloring.md): 365권730장 공개 최종 도안을 책 ID catalog로 연결하고 원본/도안 비교·게임 미리보기를 구현. 코드 로컬 검증/8테스트 및 실제 목록 표시 확인, 브라우저 연결 지연으로 editor2 내 실제 붓질 추가확인은 남음. 운영 배포 미실시.
+
+2026-10-02 [자연관찰 귀여운 색칠 개편](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사용자 직접 검수 후 다른분류는 대부분괜찮다고 판단, 자연101권202장만 친근한그림체와 실제게임검수/심한실패 자율재작화 요청. 예전 사실적복사 규칙보다 최신요청 우선, 자동화 재개·자연전체후보생성중이며 검증전자동교체없음. 상세는games MEMORY와task 최신절.
 
 2026-10-05 [실제 리포트 캡처](../work/strategy/tasks/20261005-branding-organic-strategy.md): 사용자 승인으로 신규 테스트 계정/프로필과 샘플 이벤트130건만 생성. 운영 제품 동화책·파닉스 리포트를 실제 캡처해 전략 문서 가상 기록 목업 교체. 실제 제품 화면/샘플 데이터 표기, 실사용자 데이터·제품 파일 변경 없음.
 
@@ -226,6 +247,31 @@
 - 2026-10-01 [호리·자연관찰 색칠 확장](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사용자 요청으로 기존 명작·전래 포함6탭365권730장 목표. 원본 기반 Qwen 제작/정확한 원본 쪽 읽기·BGM 검수, 첫 신규8장 실행 중. 운영 등록/main push 미요청.
 
 2026-10-01 [6분류 장면 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 전365권730장 생성 및 원본 비교 기록, 자료실 링크6분류 설명을 사용자 승인으로 원격 main 02f97e63에 push 완료. 전체 도안 게임 최종 승인 아님; Qwen 후보76장 후속 검수 계속. 이전 이 작업의 main push 미요청 메모는 새 승인으로 대체.
+
+2026-10-01 12:09 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 우선76후보 생성·실제 대조 완료, 전체 게임 승인 후속은 계속. 암사자14 한 장 실제 붓질/정확한 원본/native 읽기·BGM/공개SHA 승인 반영, 실패 후보 자동 게시 없음. 완료 runner 재시작 금지·Comfy8190 다른 작업 보존.
+
+2026-10-01 13:10 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 상어15·잠든다람쥐11 실제붓질/정확한원본/native읽기·BGM/초기화·공개SHA 개별 승인 반영. 전체730장 최종 검수는 계속, 실패후보 자동 게시 없음.
+
+2026-10-01 14:12 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 걷는곰 폐곡선 Qwen수정·사진 런타임 중간값 opt-in 실제 검수 개선, 기본/공개 유지 및 대표회귀 미완료. 새 승인/게시0, 전체730 검수 계속.
+
+2026-10-01 15:13 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 사진8장 런타임색 실제검수 후 걷는곰2 한 장만 명시median/닫힌몸 도안 개별승인·시험판 반영. 전체승인 후속 계속, 기존mode/운영데이터 보존·추가push 없음.
+
+2026-10-01 16:14 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 코끼리3·이구아노돈14·등돛복원스피노2 개별실제검수/시험판반영. 은하2기각/후속후보미게시, 전체730게임승인아님·추가push없음.
+
+2026-10-01 17:15 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 생활05p8 크림좌표/줄무늬 Qwen후보 기각·미게시, 기차8 사람후보 실제9물감/해당쪽native25.0215자연종료·BGM정지/리셋검수 완료하나 호리얼굴색 후속으로 미승인. 새승인0·전체730검수계속·추가push없음.
+
+2026-10-01 18:16 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 유치원도깨비4 원본Qwen후보 손발색후속 미승인·4bbox/mode/median 저장픽셀실험도실패. 전래개와고양이13 실제3물감/해당쪽native19.275083자연종료·BGM정지/리셋확인하지만개몸·머리옷색후속 미승인. 새승인게시0·추가push없음.
+
+2026-10-01 19:16 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 명작개구리1p3 실제6물감/쪽native10.08자연종료확인하나머리배경합침미승인. 잭3 두참조2후보암탉닫힘개선/핵심색후속미게시. 실제완료는모든required영역이며90%는영역별마감,붓질수<물감수만으로조기완료단정금지. 명시최종승인9/730SHA일치스냅샷보존·추가push없음.
+
+2026-10-01 20:17 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 전래개와고양이9/까치10 실제쪽native14.003667·16.823917 자연종료/BGM정지/리셋확인,원본무늬색후속미승인. 까치배분리Qwen후보머리·배개선/종반쪽·꼬리미색칠기각,새승인게시0·추가push없음.
+
+2026-10-01 21:18 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 종/꼬리흰면은여백region합침·좁은열림,작은새는면적기준으로분리진단. Qwen좌표수정유색기각,유치원몽글이닫힌몸/마을삭제후보는보라색대응미승인. 전730생성·승인9/대기721유지,새게시/코드수정/추가push없음.
+
+2026-10-01 22:20 UTC [6분류 색칠](../work/games/tasks/20261001-all-collections-scene-coloring.md): 유치원몽글이6 원본Qwen크기·위치복원/mode연보라1물감·실제붓질/native17.0145 자연종료/BGM/리셋 및공개버전2SHA 검수후개별승인·시험판반영. 최신730생성/승인10·대기720SHA스냅샷,전장승인아님·추가push없음.
+
+
+2026-10-03 [자연관찰 색칠 개편 완료](../work/games/tasks/20261001-all-collections-scene-coloring.md): 최신 사용자 빠른검수기준으로자연101권202장 귀여운실제게임·승인시험판반영 완료/잔여0,다른5분류6탭730보존. 저장장별게임증거202와현재로컬SHA/mono·공개버전404SHA검증,전체730개별승인이나공개202native새재생이라고확대하지않음. automation-2 완료종료/추가mainpush·운영등록없음.
 
 
 ## 2026-10-05 학습 리포트 핵심 구현

@@ -9,4 +9,6 @@
 
 목록은 편의용이다. 실제 목록은 이 폴더의 작업 파일과 node scripts/work-status.mjs로 확인한다.
 
+- [20261005 창작동화11~19 장면 색칠](20261005-changjak-11-19-scene-coloring.md) — imagegen skill로350권700장 제작, HTML25탭/editor2 책별 카탈로그와 대표 실제게임 검수.
+
 - [20261001 여섯 분류 장면 색칠](20261001-all-collections-scene-coloring.md) — 명작·전래와 호리 생활/유치원/탈것·자연관찰 탭, 전체365권730장 목표. 첫 신규8장 및 기존 수정 후보 실행 중.

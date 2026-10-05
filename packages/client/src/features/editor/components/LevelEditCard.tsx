@@ -361,6 +361,7 @@ function CardBody({
           hiddenTabIds={['quiz', 'blog', 'card-news', 'audiobook']}
           videoLibrary
           hideHeader
+          showSceneColoring
         />
       </EditorLangProvider>
 

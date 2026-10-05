@@ -25,6 +25,7 @@ const r2 = new S3Client({
 });
 const bucket = process.env.R2_BUCKET_NAME;
 const playerOnly = process.argv.includes('--player-only');
+const buildOnly = process.argv.includes('--build-only');
 if (!bucket || !process.env.R2_ACCOUNT_ID) throw new Error('R2 configuration missing');
 if (!playerOnly)
   try {
@@ -52,6 +53,7 @@ const publicFields = [
   'sourceSha256',
   'lineartSha256',
   'colorCheck',
+  'colorSampling',
 ];
 const manifest = jobs.map((job) =>
   Object.fromEntries(publicFields.filter((k) => job[k] !== undefined).map((k) => [k, job[k]]))
@@ -74,6 +76,8 @@ const localServer = await fs.readFile(
 );
 let entrySource = localServer.match(/const source = `([\s\S]*?)`;\s*const server/)[1];
 entrySource = entrySource
+  // Local environment interpolation must not become literal syntax in the hosted entry.
+  .replaceAll('${photoMedian}', 'false')
   .replace('const query=', `const galleryBase=${JSON.stringify(base)};const query=`)
   .replace("fetch('/local-manifest')", "fetch(galleryBase+'manifest.json')")
   .replaceAll("'/local-assets/'+", 'galleryBase+')
@@ -122,6 +126,10 @@ try {
   await fs.unlink(path.join(temp, 'entry.tsx'));
   await fs.unlink(path.join(temp, 'play.html'));
   await fs.rmdir(temp);
+}
+if (buildOnly) {
+  console.log(JSON.stringify({ built: true, published: false, destination }));
+  process.exit(0);
 }
 await fs.cp(path.join(client, 'public/sounds/game'), path.join(destination, 'sounds/game'), {
   recursive: true,

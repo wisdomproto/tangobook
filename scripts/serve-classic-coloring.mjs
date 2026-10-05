@@ -11,8 +11,10 @@ const require = createRequire(root + '/package.json');
 const { createServer } = await import(
   new URL('./dist/node/index.js', pathToFileURL(require.resolve('vite/package.json'))).href
 );
-const artifacts = 'D:/ComfyUI-output/classic-scene-coloring';
+const artifacts =
+  process.env.SCENE_COLORING_TRIAL_ROOT || 'D:/ComfyUI-output/classic-scene-coloring';
 const port = Number(process.env.SCENE_COLORING_TRIAL_PORT || 5191);
+const photoMedian = process.env.SCENE_COLORING_TRIAL_PHOTO_MEDIAN === '1';
 process.env.DISABLE_PUBLISH_SCHEDULER = '1';
 const entry = root + '/__classic_trial.tsx';
 const source = `import React from 'react';
@@ -32,7 +34,7 @@ if(location.hostname==='127.0.0.1') window.Audio=new Proxy(window.Audio,{constru
 const query=new QueryClient({defaultOptions:{queries:{retry:false}}});
 function App(){const [job,setJob]=React.useState(null);const [done,setDone]=React.useState(false);
 React.useEffect(()=>{fetch('/local-manifest').then(r=>r.json()).then(js=>setJob(js.find(j=>j.key===new URLSearchParams(location.search).get('key'))))},[]);
-const items=React.useMemo(()=>job?[{word:job.title.replace(/_그림체[123]$/,'')+' · '+job.pageNumber+'쪽',lineartUrl:'/local-assets/'+job.lineartFile+'?v='+(job.lineartSha256||'').slice(0,12),colorSourceUrl:'/local-assets/'+job.sourceFile+'?v='+(job.sourceSha256||'').slice(0,12),originalUrl:'/local-assets/'+job.sourceFile+'?v='+(job.sourceSha256||'').slice(0,12),lang:'ko',language:'korean',scene:{pageNumber:job.pageNumber,illustrationUrl:'/local-assets/'+job.sourceFile+'?v='+(job.sourceSha256||'').slice(0,12),text:job.text,ttsUrl:job.ttsUrl,backgroundMusicUrl:job.backgroundMusicUrl}}]:[],[job]);
+const items=React.useMemo(()=>job?[{word:job.title.replace(/_그림체[123]$/,'')+' · '+job.pageNumber+'쪽',lineartUrl:'/local-assets/'+job.lineartFile+'?v='+(job.lineartSha256||'').slice(0,12),colorSourceUrl:'/local-assets/'+job.sourceFile+'?v='+(job.sourceSha256||'').slice(0,12),originalUrl:'/local-assets/'+job.sourceFile+'?v='+(job.sourceSha256||'').slice(0,12),lang:'ko',language:'korean',scene:{colorSampling:job.colorSampling||(${photoMedian}&&job.artStyle==='photographic'?'median':undefined),pageNumber:job.pageNumber,illustrationUrl:'/local-assets/'+job.sourceFile+'?v='+(job.sourceSha256||'').slice(0,12),text:job.text,ttsUrl:job.ttsUrl,backgroundMusicUrl:job.backgroundMusicUrl}}]:[],[job]);
 return job?<><ColoringPlayer items={items} onDone={()=>setDone(true)} onBack={()=>location.href='http://127.0.0.1:5190/'}/><output style={{position:'fixed',bottom:2,left:8,zIndex:100,fontSize:12}}>{done?'색칠과 장면 읽기 완료':'장면 색칠 시험'}</output></>:<p>장면을 불러오는 중…</p>}
 createRoot(document.getElementById('root')).render(<QueryClientProvider client={query}><BrowserRouter><App/></BrowserRouter></QueryClientProvider>);`;
 const server = await createServer({

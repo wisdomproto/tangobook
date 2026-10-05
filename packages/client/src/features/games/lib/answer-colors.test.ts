@@ -38,6 +38,30 @@ function setup(lineRows = LINE, answerRows = ANSWER) {
 }
 
 describe('answer-colors', () => {
+  it('사진 선택값은 여러 갈색에 흩어진 털을 작은 검정 그림자 버킷보다 우선한다', () => {
+    const line = paint(['..........'], { '.': [255, 255, 255] });
+    const answer = paint(['SSSSBBCCDD'], {
+      S: [16, 11, 6],
+      B: [72, 52, 34],
+      C: [110, 80, 48],
+      D: [145, 110, 75],
+    });
+    const regions = labelRegions(buildWalls(line.rgba), line.w, line.h);
+    expect(buildPalette(regions, answer.rgba, [1]).palette[0].color).toBe('#100b06');
+    expect(buildPalette(regions, answer.rgba, [1], undefined, 'median').palette[0].color).toBe(
+      '#483422'
+    );
+  });
+
+  it('사진 중간값은 자연스러운 어두운 남색을 임의로 밝게 만들지 않는다', () => {
+    const line = paint(['....'], { '.': [255, 255, 255] });
+    const answer = paint(['AAAB'], { A: [5, 25, 39], B: [20, 40, 55] });
+    const regions = labelRegions(buildWalls(line.rgba), line.w, line.h);
+    expect(buildPalette(regions, answer.rgba, [1], undefined, 'median').palette[0].color).toBe(
+      '#051927'
+    );
+  });
+
   it('작은 꼭지의 색이 큰 과일의 대표색을 덮지 않는다', () => {
     const line = paint(['.#....', '.#....'], { '.': [255, 255, 255] });
     const ans = paint(['S#AAAA', 'S#AAAA'], {

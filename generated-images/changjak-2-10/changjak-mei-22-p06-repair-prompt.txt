@@ -1,0 +1,1 @@
+Precise monochrome coloring-page edit. Make the large cropped bear FACE a CLOSED white coloring region by adding black inner caps 30pixels inside TOP and LEFT canvas: connect the top two face outline exits with a top cap and left exits with a left cap. Keep eye/nose/hand and face position unchanged. BLACK contours PURE WHITE interiors, no colors or shading.

@@ -1,0 +1,24 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "key": "changjak-mina-01-p05",
+    "paletteCount": 6,
+    "actualBrushCount": 6,
+    "pageNumber": 5,
+    "faceBodyActionPassed": true,
+    "allPaintsCompleted": true,
+    "originalReveal": true,
+    "resetRepaint": false,
+    "nativeTtsProvided": false,
+    "evidenceDirectory": "player-mina1p5",
+    "representativeGamePassed": true
+  },
+  "sourceExceptions": [],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

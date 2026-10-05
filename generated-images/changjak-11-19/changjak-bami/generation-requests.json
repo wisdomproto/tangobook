@@ -1,0 +1,452 @@
+[
+  {
+    "key": "changjak-bami-01-p04",
+    "sourceSha256": "2005437db7930677597eac5daeb25696c752f3224201005f47707ceeef172feb",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "8019259065e60a3d1e0b20e1c4118d054d7f84e353fef4ab89b7fe84dc8c397a",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-01-p04.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-01-p04"
+  },
+  {
+    "key": "changjak-bami-01-p10",
+    "sourceSha256": "148e0f32cc6c347df2dbf6306e45e18717c193e512379e3a6bb1de372fcbffd1",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "1c1686b988761afdff6f8a6790a651586477287414efe36038b2e913987e9179",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-01-p10.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-01-p10"
+  },
+  {
+    "key": "changjak-bami-02-p05",
+    "sourceSha256": "0bd0a1938df226bdad54810ff1f5a1a75462258b0bed696b120cc3aa1dbf28a2",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "63388c77cbae0eec81c2059a5df4f39313041df3aecd96fc9a9cb332432fc091",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-02-p05.png",
+    "prompt": "Edit this existing coloring page: repair open contours. Preserve exactly the characters, pose, framing, sizes and actions. IMPORTANT: ADD A CONTINUOUS THICK BLACK RECTANGULAR FRAME on all FOUR image edges, 16 pixels inside the image. Connect EVERY cropped character, face, garment, arm, foot, trunk and prop contour to this frame so that each cut-off shape is CLOSED WITHIN the frame. Strengthen ALL existing outlines to smooth solid 20-pixel BLACK ink, explicitly BRIDGE EVERY tiny gap where two lines meet, including head/ear/neck joins. The frame must CLOSE cropped shapes, not just decorate the picture. Completely white interiors; no colored fills, no gray, no hatching, no shading. Do not add or remove characters. Distinct face/body panels must be fully closed. Preserve original eyes, friendly expressions and all unrelated details. The source is an edit target; do not draw a different scene. Scene changjak-bami-02-p05."
+  },
+  {
+    "key": "changjak-bami-02-p07",
+    "sourceSha256": "141df65a621aa6e71a31f4eb1f407944ef3afd48455a916b02da98795b2a029c",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "c65315a88ed26e5ad08f630557c1d8e65e5f0781414f1d13910946c3a1fa2252",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-02-p07.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-02-p07"
+  },
+  {
+    "key": "changjak-bami-03-p05",
+    "sourceSha256": "4b90c06f7af0bc0b79af0e7f09a7854c7ebefb263f2bfa69936596684deb7239",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "f18044c55fb8c512ea7eb7178faefb35073d5717da50a20962dbf6b6806d7c61",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-03-p05.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-03-p05"
+  },
+  {
+    "key": "changjak-bami-03-p10",
+    "sourceSha256": "ab13c81d5cf12857aec7c1ddf17c20482d7a4750934f81413e547c1e0852fce8",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "55442165ce3f4faff8b0ffe992595ec0949ff1421efedcc6ab2c600d972c83c5",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-03-p10.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-03-p10"
+  },
+  {
+    "key": "changjak-bami-04-p02",
+    "sourceSha256": "4311eb6585d9749380ea887ba3d444e7611f36d33113004e17b2dd7997b76957",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "2c829ad21dc1a617e912c7a8cc8ff79316abfef4559e0031530963607a579a80",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-04-p02.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-04-p02"
+  },
+  {
+    "key": "changjak-bami-04-p08",
+    "sourceSha256": "b99f972cd97c73eed4145059a06f4de4bb8c0232febca4b223df54431e41a5f6",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "c30f472227e7f4727a421aacabe1767fa0ada8ae34a11b5fd61701071940217f",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-04-p08.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-04-p08"
+  },
+  {
+    "key": "changjak-bami-05-p01",
+    "sourceSha256": "5fbb222ddbcb8b350278e66ea270ed03f8d9821af959e53b4fb426a4976b5c9c",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "1995895a8f79a543cecfde2d767dc84ee1dc1ccfc755933956db3bba9fa1cd93",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-05-p01.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-05-p01"
+  },
+  {
+    "key": "changjak-bami-05-p07",
+    "sourceSha256": "01890c29ca222dfa0649637217a86cba7b8210b0fe9dc441dd6495e5a0f35be2",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "c77b4b0e504c6ece2dc1e182a5f0e0852b380254577c7688d7b2c3854745c9dc",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-05-p07.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-05-p07"
+  },
+  {
+    "key": "changjak-bami-06-p01",
+    "sourceSha256": "6f105c708f4db0dad924423e6cb829d102fee3411359c066525ac604dba6440d",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "39ba9906aca116995c007bea4deea8ca588575e7c0275b3230de06edb8cd79cc",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-06-p01.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-06-p01"
+  },
+  {
+    "key": "changjak-bami-06-p10",
+    "sourceSha256": "3537ca0ef06886eaff364d807d109e25243e7e833a757692d6e8766bdb7f90b0",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "df81fc15873b8919171a4c5fa2f47a72d795adfcfe6013ae2f2243e7b9ffc486",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-06-p10.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-06-p10"
+  },
+  {
+    "key": "changjak-bami-07-p01",
+    "sourceSha256": "df52e6b36582f30cc211b8881515572f78afad0d1d225fbcc840f56eb7465113",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "0ead68a5030f5f1babaa9dae140799580373c4cb614572e5f202536c8c7a25c3",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-07-p01.png",
+    "prompt": "Precise preschool coloring-page reference edit. Reference 1 is existing lineart to edit, reference 2 original scene is geometry support. Keep exact framing, aspect ratio, scale, positions, count, species, pose, action and props. Repair ONLY whole large cropped blanket: add inner left and bottom cap 2% inside canvas; preserve owl head above blanket. Use a continuous 12px black CLOSED perimeter around one broad PURE WHITE area. Where cropped ADD INNER CAP 2% inside canvas connecting both side edges. Join all seams with no gaps; target MUST NOT connect to outside paper. Remove target hatching/feather or fur texture and tiny internal partitions; keep friendly readable eyes and tiny pupils. Everything strictly black outlines on white, no color/gray/shading, no solid black bodies. All unrelated objects unchanged. Identity changjak-bami-07-p01."
+  },
+  {
+    "key": "changjak-bami-07-p10",
+    "sourceSha256": "66e8bc583a29ca8b004d8c9d4c38cbb23823ba647bc16d536b5748462496f9f0",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "fbdc9cc009e2297e32d7b42a5c003d284f2386a6caf47fc644f961e6b81fcbe5",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-07-p10.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-07-p10"
+  },
+  {
+    "key": "changjak-bami-08-p05",
+    "sourceSha256": "a0e21cc9bb929b983666b176941d1b7a102afbbb11d9a263096c14a45b1fb6f1",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "fb464b143ff53f337032e75cd5bd4bb8cbd1c2da9d01018b4dfa0e23935de1f7",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-08-p05.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-08-p05"
+  },
+  {
+    "key": "changjak-bami-08-p06",
+    "sourceSha256": "77d2e73917e2a9834b6cf47c76c476dc83e229bde46361e223f235bf835f0df9",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "175ed710e52f2531194c2903a7cf0c1140e9bc91be826c2adee5730170ff607c",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-08-p06.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-08-p06"
+  },
+  {
+    "key": "changjak-bami-09-p01",
+    "sourceSha256": "d2b7821b9f87b7abd705b76c9ace64e32a583c981ad1a083a5865590b582e51c",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "05d517b8eb25425a6c678723747bf919ebd1e961c5125e240183c7cb84401fc2",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-09-p01.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-09-p01"
+  },
+  {
+    "key": "changjak-bami-09-p06",
+    "sourceSha256": "c302267c7c4fffe2afbd531f19e421f940306473fa32adc92013f54e74c89f7a",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "c4928259c5ee103a8a011e9efb614a72febf530f9efba8cdb3b8d0bbda53f361",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-09-p06.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-09-p06"
+  },
+  {
+    "key": "changjak-bami-10-p02",
+    "sourceSha256": "74642b9214c64db7f0180846e9ef4623b5202158975b61628e4d0d4409f3c451",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "777d3412b3fe45c97a476dcf9a167d4954fea088f2b89caa774c240b0805a379",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-10-p02.png",
+    "prompt": "Precise preschool coloring-page reference edit. Reference 1 is existing lineart to edit, reference 2 original scene is geometry support. Keep exact framing, aspect ratio, scale, positions, count, species, pose, action and props. Repair ONLY large left mother's face and whole torso; close feather gaps and belly seam. Use a continuous 12px black CLOSED perimeter around one broad PURE WHITE area. Where cropped ADD INNER CAP 2% inside canvas connecting both side edges. Join all seams with no gaps; target MUST NOT connect to outside paper. Remove target hatching/feather or fur texture and tiny internal partitions; keep friendly readable eyes and tiny pupils. Everything strictly black outlines on white, no color/gray/shading, no solid black bodies. All unrelated objects unchanged. Identity changjak-bami-10-p02."
+  },
+  {
+    "key": "changjak-bami-10-p09",
+    "sourceSha256": "dd987bb648cd9969391197570cded1967de7c95d8c0fa7a295b74e21b8c85000",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "ced6bff54e66b9ff9f01363b3a0f0851cbddb2159a7691914aa473755b85ebdc",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-10-p09.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-10-p09"
+  },
+  {
+    "key": "changjak-bami-11-p01",
+    "sourceSha256": "6f23d1d889dde1bb93d1b1980ece61ed127b9ccb5c5d1b639fc8e74deb6287cc",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "0676764406567e70156777b7a765d676c49d99bcce0d93ec3b8fa299a8468150",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-11-p01.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-11-p01"
+  },
+  {
+    "key": "changjak-bami-11-p07",
+    "sourceSha256": "c43d586019201ed90d90ab2b95e546838ebc90b071679bfb94b8544e594035ad",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "7c92d4ba92c89d5f6cdbc51a3e5f9d3d2c63ebf189d84f2b37ac512070fdb300",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-11-p07.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-11-p07"
+  },
+  {
+    "key": "changjak-bami-12-p05",
+    "sourceSha256": "b9507a598b09ea5fc4bd2e675fbf9d9f86e1933ccc7a49161be29f52935cd730",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "7c5984b10bb08a760c780bc5b87eff4bc8adf34b30b7ce721b3d83b98cef4596",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-12-p05.png",
+    "prompt": "Edit this existing coloring page: repair open contours. Preserve exactly the characters, pose, framing, sizes and actions. IMPORTANT: ADD A CONTINUOUS THICK BLACK RECTANGULAR FRAME on all FOUR image edges, 16 pixels inside the image. Connect EVERY cropped character, face, garment, arm, foot, trunk and prop contour to this frame so that each cut-off shape is CLOSED WITHIN the frame. Strengthen ALL existing outlines to smooth solid 20-pixel BLACK ink, explicitly BRIDGE EVERY tiny gap where two lines meet, including head/ear/neck joins. The frame must CLOSE cropped shapes, not just decorate the picture. Completely white interiors; no colored fills, no gray, no hatching, no shading. Do not add or remove characters. Distinct face/body panels must be fully closed. Preserve original eyes, friendly expressions and all unrelated details. The source is an edit target; do not draw a different scene. Scene changjak-bami-12-p05."
+  },
+  {
+    "key": "changjak-bami-12-p06",
+    "sourceSha256": "be149936f4812e15b8bece05ac54e3f8968be6e32e7736a1699abb88043d89fa",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "d7cb6adce695095ffde8be1190b6e7af7c356d85b18122d2b4520e7f1f7bacdf",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-12-p06.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-12-p06"
+  },
+  {
+    "key": "changjak-bami-13-p04",
+    "sourceSha256": "f91b6f547fb0531bd417fab469d1720c6468efd2ba21b74805112ab2bb6d3159",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "a0f9657823b02e330045b36eca88a0bfa13a576cdd6e0dc7212917517dae0d62",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-13-p04.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-13-p04"
+  },
+  {
+    "key": "changjak-bami-13-p09",
+    "sourceSha256": "40f7b022dec0c4308b5967f48c734ea4fe8cf6176ab5ba15c47e884176148592",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "35f9ffa3d1039c8ab364a8b1cac7bcea983122ba92bc0ac588e25d08c91d4eeb",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-13-p09.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-13-p09"
+  },
+  {
+    "key": "changjak-bami-14-p05",
+    "sourceSha256": "a301eeb5d4f6d3cbcbf009e1dab15d11d329eb95661356fa2dc39a0135a4667a",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "b83c7321050b07c49c2cde2b8745c8da9713194ab9c2ccd178814c658057853d",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-14-p05.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-14-p05"
+  },
+  {
+    "key": "changjak-bami-14-p08",
+    "sourceSha256": "4df890647f47506862702f7e70a2831528f324db460bf7233bad7d3c5eeebddb",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "453a1405a849c8d2c4d3b3236dc09b7b7068c07e0f3c8b8f8ee547c5796a70f1",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-14-p08.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-14-p08"
+  },
+  {
+    "key": "changjak-bami-15-p02",
+    "sourceSha256": "6792f452167bd51b34e2e46f3d842541edc5a887b148b364f7d1da365a31f1e2",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "5db33c441726171a2adbc6c65f331d81d1f2b72d3e9fa497018526866600b22b",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-15-p02.png",
+    "prompt": "Precise preschool coloring-page reference edit. Reference 1 is existing lineart to edit, reference 2 original scene is geometry support. Keep exact framing, aspect ratio, scale, positions, count, species, pose, action and props. Repair ONLY child owl's cream face under table: one smooth closed face with white eye surrounds. Use a continuous 12px black CLOSED perimeter around one broad PURE WHITE area. Where cropped ADD INNER CAP 2% inside canvas connecting both side edges. Join all seams with no gaps; target MUST NOT connect to outside paper. Remove target hatching/feather or fur texture and tiny internal partitions; keep friendly readable eyes and tiny pupils. Everything strictly black outlines on white, no color/gray/shading, no solid black bodies. All unrelated objects unchanged. Identity changjak-bami-15-p02."
+  },
+  {
+    "key": "changjak-bami-15-p10",
+    "sourceSha256": "5c1b84c997e6d4d6fcf0b22f59c5509b66853b5f73fb8b39b92d3c117805652b",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "220352cc72ee67403d691665204abcd5171e4fed45ab8c5782a13698e4e22fa2",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-15-p10.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-15-p10"
+  },
+  {
+    "key": "changjak-bami-16-p03",
+    "sourceSha256": "80846a964ee8708cad5ea744af80348e3d9be8530d58267e0c26be3f68ff0ead",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "b48fe3379787b3077697e57446a851b1ce56988e2d072ac3deedeee950184731",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-16-p03.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-16-p03"
+  },
+  {
+    "key": "changjak-bami-16-p09",
+    "sourceSha256": "27af94abde842794d91dd4488b471d520b0152f718e430132370e4f8982cf5dd",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "1d05fdabe126d486610c444564e0b654ca699f48bbf3eee45f92cd4ae8eb21df",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-16-p09.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-16-p09"
+  },
+  {
+    "key": "changjak-bami-17-p03",
+    "sourceSha256": "f35b15783d68205327c3cf2ec574804f350fbf5a23a6c1294799349c2a06814d",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "354ab2ab6979df36531c21c08e8bee4cdb33892f7320cbdb6b8b422d2c0be1ee",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-17-p03.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-17-p03"
+  },
+  {
+    "key": "changjak-bami-17-p06",
+    "sourceSha256": "8cf67075de59081967b82201b811df02a83cadf4ff340bba95d0dd6045d44dfd",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "5779742c1931a5a0bd7f5e9692573fcc64c73d1f58f2195306855d1316db644c",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-17-p06.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-17-p06"
+  },
+  {
+    "key": "changjak-bami-18-p01",
+    "sourceSha256": "03b62a51e6f1bf4484b772c4eb016fd85bf032257d93fad180e7dfbf7666f16d",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "af724f01c3ae73cf40bc84a8dfc66d88ebe89fb6826aa8129589dc8380e7bcf2",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-18-p01.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-18-p01"
+  },
+  {
+    "key": "changjak-bami-18-p08",
+    "sourceSha256": "186c02acc4b81eeb92d05ab3b6f795aed1c05a6a2c89ddbe6614cbbc65a4160c",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "051a5491ec427df81417b708175306e00e0d3f1ed871bad20ccfd3e073b0c9a0",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-18-p08.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-18-p08"
+  },
+  {
+    "key": "changjak-bami-19-p04",
+    "sourceSha256": "51bd18775f506c65970fc4b55824906e49c9d51a1ef0c2058e22f88177aa4e7e",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "ad0b019d90cfee36d748feee39b2b68487a3bc0d5922e08fa511611039f4daab",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-19-p04.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-19-p04"
+  },
+  {
+    "key": "changjak-bami-19-p06",
+    "sourceSha256": "45c4c00e80fd2e5d69441d083e01fccc6f1d3435bd680a91cbb5b193ba2146cb",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "eec1efd7e4be53815d8bf3d4656354ef14212ade01cefd24667b16e593b2635e",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-19-p06.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-19-p06"
+  },
+  {
+    "key": "changjak-bami-20-p02",
+    "sourceSha256": "fc64797d1305f31ed6ed488354ac10b3855917c935e81c4612c7256446cf4e09",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "1909d206273833c446fd7e005588dd51cf59717a14ffbe5e21d1faefea51c9ed",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-20-p02.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-20-p02"
+  },
+  {
+    "key": "changjak-bami-20-p08",
+    "sourceSha256": "e06bebda9b6861658acce3ad35079a5b9498b2559ed99aba5f41f12272274a18",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "507af520a958d870e38b800f0e29c097b61d692cfc4d1935f6fbeb8dbc1497ec",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-20-p08.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-20-p08"
+  },
+  {
+    "key": "changjak-bami-21-p02",
+    "sourceSha256": "09012433b783ae39f7f23fbe9da95e1c88913f2173e98743030518a0c243e786",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "dda27a1809b0772b06a02d2038750509f4464f538d447bce59b2343722bf963b",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-21-p02.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-21-p02"
+  },
+  {
+    "key": "changjak-bami-21-p07",
+    "sourceSha256": "1996076497de3b40edb8d9c313baa6f54cf962fbf8ab7ca09b0c35775c386f69",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "9697709b379487c4223f2572aa50dba83ac00663995beafd0eb6a41634f42994",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-21-p07.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-21-p07"
+  },
+  {
+    "key": "changjak-bami-22-p02",
+    "sourceSha256": "e29995ab9f74028e34fafdee4664a8193f56fb8fd2eb47fac12eb17ddda19f14",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "22b7df97f09bcb43cc84bf07eedc726243e7bfeb02801cee0c0defa533ca93ce",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-22-p02.png",
+    "prompt": "Edit this existing coloring page: repair open contours. Preserve exactly the characters, pose, framing, sizes and actions. IMPORTANT: ADD A CONTINUOUS THICK BLACK RECTANGULAR FRAME on all FOUR image edges, 16 pixels inside the image. Connect EVERY cropped character, face, garment, arm, foot, trunk and prop contour to this frame so that each cut-off shape is CLOSED WITHIN the frame. Strengthen ALL existing outlines to smooth solid 20-pixel BLACK ink, explicitly BRIDGE EVERY tiny gap where two lines meet, including head/ear/neck joins. The frame must CLOSE cropped shapes, not just decorate the picture. Completely white interiors; no colored fills, no gray, no hatching, no shading. Do not add or remove characters. Distinct face/body panels must be fully closed. Preserve original eyes, friendly expressions and all unrelated details. The source is an edit target; do not draw a different scene. Scene changjak-bami-22-p02."
+  },
+  {
+    "key": "changjak-bami-22-p08",
+    "sourceSha256": "1b9d241ec5df59433eadaf002c0cab0b07163382d9f9025d84554e53e647ebfe",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "e611e4da7bb47409f9339ac5693ab5deb898f6d13efd800938e45df5b5cf2779",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-22-p08.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-22-p08"
+  },
+  {
+    "key": "changjak-bami-23-p03",
+    "sourceSha256": "82a50052072b0bbf2dd0c28c546ef9f5901798b62bc3115310b2077fc95c3d95",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "e3cafb00b260ba9a7baf5554f550f97a3cc749785774857418c08d0fcf508fb1",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-23-p03.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-23-p03"
+  },
+  {
+    "key": "changjak-bami-23-p06",
+    "sourceSha256": "99296acea4eaf67324209ed5362846f7ab10c58b2411fe01bf023ccc0f948f13",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "d3fffd78da0afdc98f429b64298a29d9b648daf391002e2373311cea176e97e0",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-23-p06.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-23-p06"
+  },
+  {
+    "key": "changjak-bami-24-p02",
+    "sourceSha256": "d18087f58be8cde86b69230fc2ad915ae1f80fc786453c72c267e9f9b8d6055b",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "7acec1414bcdc08357aab365b50e1df0a36bc7680ae378e83a906ef175a98c9c",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-24-p02.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-24-p02"
+  },
+  {
+    "key": "changjak-bami-24-p07",
+    "sourceSha256": "c43e2a466665e9193dea49ae45a50b8b07c73c5c3fb2935993dd276673bec2b3",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "9a73d6b7e227d62e187e5c0380bd564edcd54df760849d90d00e50013f2468c3",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-24-p07.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-24-p07"
+  },
+  {
+    "key": "changjak-bami-25-p04",
+    "sourceSha256": "3c2ec2c701fde34e0d80446f9847c37c88f19ca1a4d55b2afc6a58157c9f36cb",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "84f09a65ef70ace051f5bb3605ef1eebeedd911fcedb4c6dd8119140822b5c28",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-25-p04.png",
+    "prompt": "Precise preschool coloring-page reference edit. Reference 1 is existing lineart to edit, reference 2 original scene is geometry support. Keep exact framing, aspect ratio, scale, positions, count, species, pose, action and props. Repair ONLY right owl's whole torso and wing: close chest and wing seams. Use a continuous 12px black CLOSED perimeter around one broad PURE WHITE area. Where cropped ADD INNER CAP 2% inside canvas connecting both side edges. Join all seams with no gaps; target MUST NOT connect to outside paper. Remove target hatching/feather or fur texture and tiny internal partitions; keep friendly readable eyes and tiny pupils. Everything strictly black outlines on white, no color/gray/shading, no solid black bodies. All unrelated objects unchanged. Identity changjak-bami-25-p04."
+  },
+  {
+    "key": "changjak-bami-25-p09",
+    "sourceSha256": "be6e21d0525c69a516c7375e5edf7573c1126706e60c695a6f284c31a4149c8e",
+    "skill": "imagegen",
+    "mode": "built-in-reference-edit",
+    "outputSha256": "a77d589b5347932168d47abeb692edae51c6e16ee057c245f6ba990849b047ad",
+    "outputFile": "generated-images/changjak-11-19/changjak-bami/lineart/changjak-bami-25-p09.png",
+    "prompt": "Use case: illustration-story, precise reference edit. Target: a preschool coloring-game page. Trace the reference's MAIN SILHOUETTES in exactly the SAME aspect ratio, framing, scale and positions. Do NOT enlarge heads, zoom, recompose, add characters or change species, number, pose or action. Keep the essential props. Convert EVERY large face/body/garment/prop into a FULLY CLOSED broad PURE WHITE area with smooth continuous 10-12px black outlines. Outline distinct muzzle, belly and garment color patches as closed white regions in their original positions. Close cropped shapes just INSIDE the canvas with an inner cap; NO large region may leak into the outside paper. Preserve friendly readable eyes with white surround and tiny black pupils. Only pupils, nostrils and tiny nose may be solid black. DELETE all texture, hatching, grain, shading, gradients, spots and tiny background clutter; use only a few large background shapes. Entire image STRICT BLACK AND WHITE; no colored or gray interiors, no solid black bodies, no lettering/border/watermark. This is an edit of the attached actual scene, not a new scene; exact source geometry is essential because the game samples source colors at matching positions. Scene identity: changjak-bami-25-p09"
+  }
+]

@@ -13,8 +13,18 @@ const reports = fs.existsSync(root + 'audit.json')
   : [];
 fs.mkdirSync(root + 'audit', { recursive: true });
 for (const j of jobs.filter(
-  (j) => j.status === 'generated' && (!process.argv[2] || j.key === process.argv[2])
+  (j) =>
+    j.status === 'generated' &&
+    (!process.argv[2] || process.argv[2] === '--missing' || j.key === process.argv[2])
 )) {
+  const previousReport = reports.find((r) => r.key === j.key);
+  if (
+    process.argv[2] === '--missing' &&
+    previousReport?.sourceSha256 === j.sourceSha256 &&
+    previousReport?.lineartSha256 === j.lineartSha256 &&
+    fs.existsSync(root + 'audit/' + j.key + '-filled.png')
+  )
+    continue;
   const { data, info } = await sharp(root + j.lineartFile)
     .flatten({ background: '#fff' })
     .ensureAlpha()
@@ -29,7 +39,13 @@ for (const j of jobs.filter(
     .ensureAlpha()
     .raw()
     .toBuffer();
-  const { palette, colorOfRegion } = buildPalette(regions, new Uint8ClampedArray(source), required);
+  const { palette, colorOfRegion } = buildPalette(
+    regions,
+    new Uint8ClampedArray(source),
+    required,
+    undefined,
+    j.colorSampling
+  );
   const out = Buffer.alloc(n * 3, 255);
   for (let i = 0; i < n; i++) {
     let rgb = walls[i] ? [0, 0, 0] : [255, 255, 255];
@@ -43,6 +59,8 @@ for (const j of jobs.filter(
     .toFile(root + 'audit/' + j.key + '-filled.png');
   const report = {
     key: j.key,
+    sourceSha256: j.sourceSha256,
+    lineartSha256: j.lineartSha256,
     regions: regions.sizes.length - 1,
     required: palette.flatMap((p) => p.regionIds).length,
     colors: palette.length,
