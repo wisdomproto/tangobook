@@ -1,0 +1,23 @@
+{
+  "bookId": "1777602265786",
+  "bookTitle": "오리",
+  "isPublic": true,
+  "assets": [
+    {
+      "file": "duck-book-cover.webp",
+      "source": "https://www.tangobook.co.kr/api/r2-proxy?key=1777602265786-%EC%98%A4%EB%A6%AC-cover-misc-1780025999544.webp"
+    },
+    {
+      "file": "duck-book-page.webp",
+      "source": "https://www.tangobook.co.kr/api/r2-proxy?key=1777602265786-%EB%92%A4%EB%9A%B1%EB%92%A4%EB%9A%B1%EA%B7%80%EC%97%AC%EC%9A%B4%EC%88%98%EC%98%81%EC%84%A0%EC%88%98%EC%98%A4%EB%A6%AC-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page2-1777602365688.webp"
+    },
+    {
+      "file": "duck-phonics-word.webp",
+      "source": "https://www.tangobook.co.kr/api/r2-proxy?key=phonics-word-cards%2Fkr-h1-u05-ori-32d6900a-w800.webp"
+    },
+    {
+      "file": "duck-phonics-coloring.jpg",
+      "source": "https://www.tangobook.co.kr/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fph-0408.jpg"
+    }
+  ]
+}
