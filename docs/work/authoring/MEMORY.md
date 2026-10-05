@@ -1,5 +1,7 @@
 # 동화책 저작도구 기억
 
+2026-10-05 [표지 손글씨체 v0.1](tasks/20261005-cover-font.md): B 손글씨체 하나를 대표로 두고 책별 색/테두리를 바꾸는 방향을 사용자와 검토한 뒤 실제 파일 제작 요청. TTF/WOFF2·지원 글자/원본/빌드/검증·입력형 미리보기 로컬 완료(한글24자/Unicode128개, 전체 한글 아님). 실제 폰트 표지6개 출력과 바이너리/커닝 검증 완료. 기본 UI/학습용 서체·제품 코드·운영 표지 미변경, main 통합/push 미요청.
+
 2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
 
 2026-10-05 사용자 main push 승인: editor2 장면 색칠 탭과 최종1215권2430장 catalog를 최신origin/main과 통합. 기존 영상관리 videoLibrary 및 장면색칠 showSceneColoring을 동시에 유지, TabBar 통합2테스트/장면8테스트/typecheck/build 통과. 운영 책 본문 일괄 쓰기 없음. [기록](../games/tasks/20261005-changjak-11-19-scene-coloring.md).

@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "supportedCodepoints": 128,
+  "glyphs": 129,
+  "hangulSyllables": 24,
+  "sampleTitles": [
+    [
+      "인어공주",
+      "The Little Mermaid"
+    ],
+    [
+      "라푼젤",
+      "Rapunzel"
+    ],
+    [
+      "흥부와 놀부",
+      "Heungbu and Nolbu"
+    ],
+    [
+      "호랑나비",
+      "Swallowtail Butterfly"
+    ],
+    [
+      "코끼리",
+      "Elephant"
+    ],
+    [
+      "호리는 호리니까!",
+      "Because Hori Is Hori!"
+    ],
+    [
+      "탱고북",
+      "TangoBook"
+    ]
+  ],
+  "woff2MatchesTTF": true,
+  "allGlyphsHaveValidBounds": true,
+  "counterHoles": {
+    "O": 1,
+    "8": 2,
+    "B": 2,
+    "공": 1
+  },
+  "raqm": false,
+  "ToKerningPixelsAt100px": 0.0,
+  "harfbuzzToKerningUnits": 40,
+  "harfbuzzSampleTitlesHaveNoMissingGlyph": true,
+  "NFDHangulMatchesNFC": true,
+  "maximumPointsPerGlyph": 416,
+  "files": {
+    "TangoBookStoryHand-Trial-Regular.ttf": {
+      "bytes": 54844,
+      "sha256": "8ff1b113d6a5a3d9f7b0dc06b1885ac03c3e16d90b3fcdfc0bddbed2cd11cb8a"
+    },
+    "TangoBookStoryHand-Trial-Regular.woff2": {
+      "bytes": 19724,
+      "sha256": "28de06c8c80cdf4fbc0f78a371a10eae4b3fd2f5d9df72e69349b7653bfa98b7"
+    },
+    "font-proof.png": {
+      "bytes": 258636,
+      "sha256": "c43d6c612fa6524e0b864bb5809bc575b20bf904bf6983cd6a8fcb27fcd8983d"
+    }
+  }
+}

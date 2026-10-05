@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-05 [표지 손글씨체 시험판](../work/authoring/tasks/20261005-cover-font.md): 사용자 B 손글씨/책별 색 맞춤형 선택 후 실제 폰트 제작 요청. assets/fonts/tangobook-story-hand에 단색 벡터 TTF·WOFF2 v0.1(한글24자/Unicode128개)·재현 원본/빌드·색/테두리 미리보기를 만들었다. FreeType/윤곽/WOFF2동일성/HarfBuzz커닝·정규화/여섯표지출력·재빌드해시 검증 완료. 전체 한글·다른 문자권 미지원, 제품/운영 표지 적용·main 통합/push 없음. 상세와 로컬 전달 폴더는 작업 기록 참조.
+
 2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
 
 2026-10-05 사용자 main push 승인: 장면 색칠/editor2 탭/창작1~19 최종 catalog1215권2430장을 origin/main5d3fdb74와 정상 병합. 원격 영상·낱말색칠·학습보고서·브랜딩 기록 보존, 두 editor2 탭 동시 유지·24테스트/typecheck/build 통과. 관련 작업 main 일반push 범위이며 운영책 데이터 덮어쓰기 없음. [기록](../work/games/tasks/20261005-changjak-11-19-scene-coloring.md).
