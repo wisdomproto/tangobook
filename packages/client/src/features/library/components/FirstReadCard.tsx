@@ -23,7 +23,7 @@ const FIRST_BOOK_ID = '1778555233699'; // 백설공주 — 무료 공개 + 나�
 const SEEN_KEY = 'tb-first-read-seen';
 
 export function FirstReadCard() {
-  const { t } = useTranslation('library');
+  const { t, i18n } = useTranslation('library');
   const navigate = useNavigate();
   const [hidden, setHidden] = useState(() => {
     try {
@@ -57,7 +57,13 @@ export function FirstReadCard() {
           className="w-32 shrink-0 sm:w-48"
           aria-label={t('firstRead.cta')}
         >
-          <BookCover book={book} lang="ko" loading="eager" className="rounded-xl" />
+          <BookCover
+            book={book}
+            lang={i18n.language}
+            overlayTitle
+            loading="eager"
+            className="rounded-xl aspect-video"
+          />
         </button>
 
         <div className="min-w-0 flex-1">

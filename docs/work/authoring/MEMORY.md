@@ -1,5 +1,7 @@
 # 동화책 저작도구 기억
 
+2026-10-06 [라이브러리 전체 폰트/클린 표지](tasks/20261006-library-cover-titles.md): 사용자 시험판 반증에 따라 전체 현대 한글11172자/등록11언어 글꼴 범위를 확장. 원형+자체 한글 조합 및 출처/OFL를 명시한 다국어 호환 글리프, 실제2415제목 누락/notdef0. 웹93개 shard/라이브러리 clean 이미지 위 언어별 제목 연결,15테스트/typecheck/client build 통과. 로컬 실제11언어 큰/작은 글꼴 화면과 언어 전환 검수. main push/배포 아직 없음. 기존365 글자 없는 표지는 exec680 생성중/검증71개clean필드 등록 완료; 기존850그림/본문/게임 보존. 최신 task/session 실제 상태부터 이어간다.
+
 2026-10-05 표지 폰트 main push 완료: v0.1/v0.2 실제 폰트·원형/재현코드·사용 지침·DB테이블/등록스크립트 a470b44c까지 원격 main에 일반push하고 SHA일치를 확인했다. 운영 R2/DB 등록 완료와 main 통합을 구분해 검증했으며 Railway 배포/편집기 UI 적용 완료로 확대하지 않는다. [기록](tasks/20261005-cover-font.md).
 
 2026-10-05 [표지 기본 폰트/운영 등록](tasks/20261005-cover-font.md): 사용자 지침 기록·DB업로드·mainpush 요청. [공통 표지 규칙](../../cover-fonts.md)을 AGENTS/CLAUDE/editor에 연결, v0.2 지원범위 확인 후 책별 색/테두리 사용. R2 폰트2버전/메타데이터9개 CDN SHA 검증, Supabase cover_font_assets 두행·preferred v0.2·RLS관리자전용 확인(마이그레이션20261005104926). 기존 표지/편집기 UI는 미변경. 승인 mainpush 진행.

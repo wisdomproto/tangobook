@@ -35,7 +35,7 @@ export interface BookCoverProps {
   book: CoverInput;
   lang: string;
   style?: string;
-  /** true = standalone surface (render glass title pill); false = caption surface. */
+  /** Show a separate multilingual title on clean artwork; never double-title legacy art. */
   overlayTitle?: boolean;
   className?: string;
   imgClassName?: string;
@@ -48,7 +48,7 @@ export interface BookCoverProps {
   priority?: boolean;
 }
 
-/** 표지 단일 진입점 — 클린 표지 + (옵션) 글래스 제목 오버레이. 클린 없으면 레거시 표지(오버레이 X). */
+/** 클린 그림과 언어별 제목을 분리한다. 레거시 글자 포함 표지는 중복 제목을 그리지 않는다. */
 export function BookCover({
   book,
   lang,
@@ -59,8 +59,9 @@ export function BookCover({
   loading = 'lazy',
   priority = false,
 }: BookCoverProps) {
-  const { img, hasClean, title } = resolveCover(book, { style, lang });
+  const { img, hasClean, title } = resolveCover(book, { style, lang, preferClean: overlayTitle });
   const showOverlay = overlayTitle && hasClean;
+  const normalizedTitle = title.normalize('NFC');
 
   // 이미지 로드 실패 시 재시도 카운터. img 가 바뀌면 리셋.
   const [retry, setRetry] = useState(0);
@@ -160,24 +161,26 @@ export function BookCover({
       {showOverlay && (
         <div
           aria-hidden="true"
-          className="absolute top-[6%] left-1/2 -translate-x-1/2 w-max max-w-[88%] z-[3]"
+          className="absolute top-[5%] left-[5%] right-[5%] z-[3] pointer-events-none"
         >
-          <div
-            className="rounded-[22px] px-6 py-2 border border-white/30 backdrop-blur-md"
-            style={{
-              background: 'rgba(22,16,11,0.46)',
-              boxShadow: '0 6px 18px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.28)',
-            }}
-          >
+          <div className="px-1 py-1">
             <span
-              className="block text-center text-white leading-[1.12] break-keep"
+              lang={lang.toLowerCase().split('-')[0]}
+              className="block text-center text-[#fff7de] leading-[1.22]"
               style={{
-                fontFamily: `"${coverTitleFont(lang).family}", "Baloo 2", sans-serif`,
-                textShadow: '0 2px 6px rgba(0,0,0,.35)',
-                fontSize: 'clamp(13px, 4.2cqw, 34px)',
+                fontFamily: `"${coverTitleFont(lang).family}", "TangoBook Story Hand Global", sans-serif`,
+                fontWeight: 400,
+                textShadow: '0 2px 3px rgba(0,0,0,.45)',
+                WebkitTextStroke: '0.035em #493528',
+                paintOrder: 'stroke fill',
+                overflowWrap: 'anywhere',
+                fontSize:
+                  normalizedTitle.length > 38
+                    ? 'clamp(12px, 5cqw, 30px)'
+                    : 'clamp(14px, 6.8cqw, 38px)',
               }}
             >
-              {title}
+              {normalizedTitle}
             </span>
           </div>
         </div>
