@@ -3,7 +3,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 const root = 'D:/ComfyUI-output/classic-scene-coloring';
-const inventory = JSON.parse(await fs.readFile(root + '/changjak-2-10/book-list.json', 'utf8'));
+const range = process.argv.includes('--range=11-19') ? '11-19' : '2-10';
+const inventory = JSON.parse(await fs.readFile(root + '/changjak-' + range + '/book-list.json', 'utf8'));
 const series = [...new Set(inventory.map((b) => b.category))].sort().map((category) => ({
   category, number: Number(category.slice(0, 2)),
   id: 'changjak-' + inventory.find((b) => b.category === category).id.split('-')[1],
@@ -49,13 +50,14 @@ for (const collection of series) {
   }));
   const byKey = new Map(prior.map((j) => [j.key, j]));
   const books = inventory.filter((b) => b.category === collection.category).sort((a, b) => a.id.localeCompare(b.id));
-  if (books.length !== 50) throw new Error(`Scope changed: ${collection.category}`);
-  if (prior.length === 100) {
+  const expectedBooks = range === '11-19' && collection.number >= 16 ? 25 : 50;
+  if (books.length !== expectedBooks) throw new Error(`Scope changed: ${collection.category}`);
+  if (prior.length === expectedBooks * 2) {
     const counts = new Map();
     for (const job of prior) counts.set(job.bookId, (counts.get(job.bookId) || 0) + 1);
-    if (counts.size !== 50 || [...counts.values()].some((count) => count !== 2))
+    if (counts.size !== expectedBooks || [...counts.values()].some((count) => count !== 2))
       throw new Error(`Invalid saved scope: ${collection.id}`);
-    output.push({ ...collection, directory: collection.id, books: 50, scenes: 100,
+    output.push({ ...collection, directory: collection.id, books: expectedBooks, scenes: expectedBooks * 2,
       missing: prior.filter((job) => job.status === 'source-needed').map((job) => job.key) });
     console.log(JSON.stringify({ ...output.at(-1), resumed: 'preserved complete manifest' }));
     continue;
@@ -104,13 +106,13 @@ for (const collection of series) {
     }
   }));
   jobs.sort((a, b) => a.key.localeCompare(b.key));
-  if (jobs.length !== 100) throw new Error('Expected 100 distinct scenes');
+  if (jobs.length !== expectedBooks * 2) throw new Error('Selected scene count mismatch');
   await fs.writeFile(path.join(directory, 'manifest.json'), JSON.stringify(jobs, null, 2));
   await fs.writeFile(path.join(directory, 'source-selection-review.json'), JSON.stringify({
-    ...collection, books: 50, scenes: 100, missing,
+    ...collection, books: expectedBooks, scenes: expectedBooks * 2, missing,
     selection: jobs.map(({ key, title, pageNumber, text, sceneDescription, sourceOrigin }) => ({ key, title, pageNumber, text, sceneDescription, sourceOrigin })),
   }, null, 2));
-  output.push({ ...collection, directory: collection.id, books: 50, scenes: 100, missing });
+  output.push({ ...collection, directory: collection.id, books: expectedBooks, scenes: expectedBooks * 2, missing });
   console.log(JSON.stringify(output.at(-1)));
 }
-await fs.writeFile(root + '/changjak-2-10/production-plan.json', JSON.stringify(output, null, 2));
+await fs.writeFile(root + '/changjak-' + range + '/production-plan.json', JSON.stringify(output, null, 2));

@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-05 [창작동화11~19 완료](tasks/20261005-changjak-11-19-scene-coloring.md): builtin imagegen 350권700장 생성·전수 원본선화sharedfilled/mono/SHA와 대표9실제게임 완료. 승인tests HTML25탭/1215권2430장 및 editor2 책별 catalog 반영·8테스트/typecheck/build 통과. 기존1730장 보존, 공개 달이01p5 실제붓질/5쪽전환 추가확인. 운영 책 변경/mainpush/editor2 운영배포 없음. 공개1400버전이미지SHA 검증결과는task 참조.
+
 2026-10-04 [창작동화 2~10 제작 완료](tasks/20261004-changjak-2-10-scene-coloring.md): 9시리즈450권900장 builtin imagegen 생성/전수source-line-sharedfilled·mono·SHA 비교와 대표9실제게임 완료, 승인tests 게시·HTML16탭/865권1730장. 기존830장 보존, editor2 책별 게시본 catalog 및 미리보기 연결8테스트/typecheck 통과. 원본미제공25장은 새 캐릭터참조 이야기 삽화로 명시. 전900장 개별native/공개게임 검증으로 확대하지 않음. runtime 원본색/median/영역기준 변경·운영 책 쓰기/main push/운영 editor2 배포 없음. 공개1800버전URL 최종SHA는task 최신절 참조.
 
 2026-10-04 [퐁이네 장면 색칠 완료](tasks/20261004-pongi-scene-coloring.md): 창작동화1번50권100장 imagegen built-in 생성·흑백/SHA/원본선화sharedfilled 전수 비교 완료, 대표4장 실제게임 검증. 일곱 번째 HTML 탭 공개와 원본/선화200버전URL SHA 검증 완료. 기존730장 보존/총415권830장, editor2 책별 catalog 추가·5테스트/typecheck 통과. 33권 신규 원본2장과29권 잘못된 comic-assets 기각 구분. 운영 배포/main push 없음.
@@ -45,6 +47,7 @@
 블록 놀이를 재개할 때는 위 task와 `/blocks` 경로를 먼저 확인한다. 카메라 인식 자체를 바꾸는 요청은 [카메라 MEMORY](../camera/MEMORY.md)를 함께 읽는다.
 
 ## 작업·과거 기록
+
 
 - [작업 목록](tasks/README.md)
 - [분야별 과거 메모리 검색](../LEGACY-MEMORY.md) — 파일명 기반 분류이며 본문 검토 여부와 구분한다.

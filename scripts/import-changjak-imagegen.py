@@ -16,7 +16,10 @@ parser.add_argument('generated_path')
 parser.add_argument('--source', action='store_true')
 parser.add_argument('--prompt-file')
 args = parser.parse_args()
-assert args.collection in {'changjak-coco', 'changjak-mei', 'changjak-dodo', 'changjak-bruno', 'changjak-twins', 'changjak-mio', 'changjak-pipo', 'changjak-nono', 'changjak-lulu'}
+old_series = {'changjak-coco', 'changjak-mei', 'changjak-dodo', 'changjak-bruno', 'changjak-twins', 'changjak-mio', 'changjak-pipo', 'changjak-nono', 'changjak-lulu'}
+new_series = {'changjak-bung', 'changjak-dingding', 'changjak-taro', 'changjak-yuki', 'changjak-mina', 'changjak-kota', 'changjak-moya', 'changjak-bami', 'changjak-dari'}
+assert args.collection in old_series | new_series
+range_name = 'changjak-11-19' if args.collection in new_series else 'changjak-2-10'
 root = Path('D:/ComfyUI-output/classic-scene-coloring') / args.collection
 workspace = Path(__file__).resolve().parents[1]
 
@@ -41,7 +44,7 @@ with manifest_lock():
     jobs = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
     job = next(j for j in jobs if j['key'] == args.key)
     kind = 'source' if args.source else 'lineart'
-    final = workspace / 'generated-images/changjak-2-10' / args.collection / kind / (args.key + '.png')
+    final = workspace / 'generated-images' / range_name / args.collection / kind / (args.key + '.png')
     final.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(args.generated_path, final)
     target = root / job[kind + 'File']
@@ -58,7 +61,7 @@ with manifest_lock():
             colored = sum(max(p) - min(p) > 10 for p in pixels.get_flattened_data())
             total = pixels.width * pixels.height
         job['colorCheck'] = {'monochromePassed': colored / total <= .001, 'coloredPixels': colored, 'totalPixels': total}
-        prompt = Path(args.prompt_file).read_text(encoding='utf-8').strip() if args.prompt_file else (workspace / 'generated-images/changjak-2-10/generation-prompt.txt').read_text(encoding='utf-8').strip() + ' Scene identity: ' + args.key
+        prompt = Path(args.prompt_file).read_text(encoding='utf-8').strip() if args.prompt_file else (workspace / 'generated-images' / range_name / 'generation-prompt.txt').read_text(encoding='utf-8').strip() + ' Scene identity: ' + args.key
         job.setdefault('generation', {'skill': 'imagegen', 'mode': 'built-in-reference-edit'}).update(outputSha256=sha, outputFile=final.relative_to(workspace).as_posix(), prompt=prompt)
         job['status'] = 'generated' if job['colorCheck']['monochromePassed'] else 'needs-monochrome-review'
     job['previewHold'] = True

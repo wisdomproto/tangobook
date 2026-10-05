@@ -1,0 +1,24 @@
+{
+  "books": 25,
+  "scenes": 50,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "key": "changjak-dari-01-p05",
+    "representativeGamePassed": true,
+    "paletteCount": 5,
+    "actualBrushCount": 5,
+    "pageNumber": 5,
+    "faceBodyActionPassed": true,
+    "allPaintsCompleted": true,
+    "originalReveal": true,
+    "resetRepaint": false,
+    "nativeTtsProvided": false,
+    "evidenceDirectory": "player-dari1p5"
+  },
+  "sourceExceptions": [],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

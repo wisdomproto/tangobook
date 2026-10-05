@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-05 [창작동화11~19 색칠](../work/games/tasks/20261005-changjak-11-19-scene-coloring.md): 사용자 image skill 지정에 따라 builtin imagegen 350권700장 생성/전장 원본·선화·sharedfilled·mono·SHA 대조 및 대표9실제게임 완료. 승인tests HTML25탭/1215권2430장 게시와 editor2 책별 catalog 갱신. 공개 대표 달이01p5 실제붓질/5쪽전환 추가확인, 전700장 실제게임/native 검증으로 확대하지 않음. 기존1730장 보존/운영 책 변경·mainpush·운영 editor2 배포 없음. 공개1400이미지SHA 최종결과는 task 참조.
+
 2026-10-04 [창작동화 2~10 장면 색칠 완료](../work/games/tasks/20261004-changjak-2-10-scene-coloring.md): 9시리즈450권900장 builtin imagegen 생성·전수 원본/선화/sharedfilled 비교·시리즈별 대표9실제게임 검수 후 승인tests 게시. HTML16탭/865권1730장, 기존830장 보존. editor2 책별 게시본 catalog 갱신·8테스트/typecheck 통과. 신규원본25장은 원본미제공에 따른 새 이야기 삽화로 구분. 운영 책 변경/main push/운영 editor2 배포 없음. 공개1800버전이미지 최종SHA 결과는task 최신절 참조.
 
 2026-10-04 [창작동화 1 퐁이네 색칠 완료](../work/games/tasks/20261004-pongi-scene-coloring.md): 50권100장 imagegen built-in 생성·전수 원본/선화/sharedfilled 비교·대표4장 실제게임 검증 후 일곱 번째 HTML 탭 공개. 원본/선화200버전URL SHA 일치, 기존730 보존/총415권830장. editor2 catalog 추가·5테스트/typecheck 통과. 코드/기록 로컬 커밋만, 운영 배포/main push 없음.

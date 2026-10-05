@@ -2,16 +2,23 @@
 import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 const base = 'https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/';
-const root = 'D:/ComfyUI-output/classic-scene-coloring/changjak-2-10';
+const range = process.argv.find((arg) => arg.startsWith('--range='))?.split('=')[1] ?? '2-10';
+if (!['2-10', '11-19'].includes(range)) throw new Error('Unsupported range: ' + range);
+const extended = range === '11-19';
+const root = 'D:/ComfyUI-output/classic-scene-coloring/changjak-' + range;
+const expectedBooks = extended ? 1215 : 865;
+const expectedScenes = expectedBooks * 2;
+const newBooks = extended ? 350 : 450;
+const series = extended
+  ? /^changjak-(bung|dingding|taro|yuki|mina|kota|moya|bami|dari)-/
+  : /^changjak-(coco|mei|dodo|bruno|twins|mio|pipo|nono|lulu)-/;
 const response = await fetch(base + 'manifest.json', { cache: 'no-store' });
 if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
 const jobs = await response.json();
-if (jobs.length !== 1730 || new Set(jobs.map((j) => j.bookId)).size !== 865)
+if (jobs.length !== expectedScenes || new Set(jobs.map((j) => j.bookId)).size !== expectedBooks)
   throw new Error('Scope mismatch');
-const added = jobs.filter((j) =>
-  /^changjak-(coco|mei|dodo|bruno|twins|mio|pipo|nono|lulu)-/.test(j.key)
-);
-if (added.length !== 900 || added.some((j) => j.status !== 'generated'))
+const added = jobs.filter((j) => series.test(j.key));
+if (added.length !== newBooks * 2 || added.some((j) => j.status !== 'generated'))
   throw new Error('New scenes missing');
 const previous = JSON.parse(await fs.readFile(root + '/previous-public-manifest.json', 'utf8'));
 for (const old of previous) {
@@ -28,6 +35,7 @@ const pending = added.flatMap((j) =>
   }))
 );
 const verified = [];
+const assetCount = pending.length;
 await Promise.all(
   Array.from({ length: 8 }, async () => {
     while (pending.length) {
@@ -53,7 +61,7 @@ await Promise.all(
       }
       if (error) throw new Error(asset.key + '/' + asset.kind + ': ' + error.message);
       if (verified.length % 100 === 0)
-        console.log('Verified ' + verified.length + '/1800 versioned images');
+        console.log('Verified ' + verified.length + '/' + assetCount + ' versioned images');
     }
   })
 );
@@ -62,10 +70,10 @@ await fs.writeFile(
   JSON.stringify(
     {
       verifiedAt: new Date().toISOString(),
-      books: 865,
-      scenes: 1730,
-      newBooks: 450,
-      newScenes: 900,
+      books: expectedBooks,
+      scenes: expectedScenes,
+      newBooks,
+      newScenes: newBooks * 2,
       existingScenesPreserved: previous.length,
       assets: verified,
     },
@@ -73,4 +81,6 @@ await fs.writeFile(
     2
   )
 );
-console.log('PASS: 1800 versioned images; 900 new scenes; previous scenes preserved');
+console.log(
+  `PASS: ${assetCount} versioned images; ${newBooks * 2} new scenes; previous scenes preserved`
+);

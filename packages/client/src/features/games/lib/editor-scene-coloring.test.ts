@@ -31,8 +31,8 @@ const book = {
 } as Storybook;
 
 describe('editor2 장면 색칠 연결', () => {
-  it('창작동화 1~10을 포함한 865권 1730장의 공개 도안을 책 ID에 두 장씩 연결한다', () => {
-    expect(Object.keys(catalog)).toHaveLength(865);
+  it('창작동화 1~19를 포함한 1215권 2430장의 공개 도안을 책 ID에 두 장씩 연결한다', () => {
+    expect(Object.keys(catalog)).toHaveLength(1215);
     const keys = new Set();
     for (const [id, scenes] of Object.entries(catalog)) {
       expect(scenes).toHaveLength(2);
@@ -43,7 +43,7 @@ describe('editor2 장면 색칠 연결', () => {
         keys.add(s.key);
       }
     }
-    expect(keys.size).toBe(1730);
+    expect(keys.size).toBe(2430);
     const pongiBooks = Object.entries(catalog).filter(([id]) => /^changjak-pongi-\d{2}$/.test(id));
     expect(pongiBooks).toHaveLength(50);
     for (let number = 1; number <= 50; number++) {
@@ -52,8 +52,29 @@ describe('editor2 장면 색칠 연결', () => {
       expect(scenes).toHaveLength(2);
       expect(scenes?.every((s) => s.key.startsWith(id + '-p'))).toBe(true);
     }
-    for (const series of ['coco', 'mei', 'dodo', 'bruno', 'twins', 'mio', 'pipo', 'nono', 'lulu']) {
-      for (let number = 1; number <= 50; number++) {
+    for (const [series, count] of [
+      ['coco', 50],
+      ['mei', 50],
+      ['dodo', 50],
+      ['bruno', 50],
+      ['twins', 50],
+      ['mio', 50],
+      ['pipo', 50],
+      ['nono', 50],
+      ['lulu', 50],
+      ['bung', 50],
+      ['dingding', 50],
+      ['taro', 50],
+      ['yuki', 50],
+      ['mina', 50],
+      ['kota', 25],
+      ['moya', 25],
+      ['bami', 25],
+      ['dari', 25],
+    ] as const) {
+      const seriesBooks = Object.keys(catalog).filter((id) => id.startsWith(`changjak-${series}-`));
+      expect(seriesBooks).toHaveLength(count);
+      for (let number = 1; number <= count; number++) {
         const id = `changjak-${series}-${String(number).padStart(2, '0')}`;
         const scenes = Object.entries(catalog).find(([bookId]) => bookId === id)?.[1];
         expect(scenes).toHaveLength(2);

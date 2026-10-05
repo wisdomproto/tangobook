@@ -1,0 +1,24 @@
+{
+  "books": 25,
+  "scenes": 50,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "key": "changjak-moya-01-p08",
+    "representativeGamePassed": true,
+    "paletteCount": 3,
+    "actualBrushCount": 3,
+    "pageNumber": 8,
+    "faceBodyActionPassed": true,
+    "allPaintsCompleted": true,
+    "originalReveal": true,
+    "resetRepaint": false,
+    "nativeTtsProvided": false,
+    "evidenceDirectory": "player-moya1p8"
+  },
+  "sourceExceptions": [],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

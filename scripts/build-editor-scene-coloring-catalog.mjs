@@ -58,7 +58,8 @@ for (const job of jobs) {
   (books[job.bookId] ??= []).push(scene);
 }
 const creativeSeries = collections.filter((collection) => collection.id.startsWith('changjak-'));
-const expectedBooks = 365 + creativeSeries.length * 50;
+const expectedBooks =
+  365 + creativeSeries.reduce((sum, collection) => sum + (collection.books ?? 50), 0);
 const expectedScenes = expectedBooks * 2;
 if (keys.size !== expectedScenes || Object.keys(books).length !== expectedBooks)
   throw new Error(`Unexpected scope: ${Object.keys(books).length} books / ${keys.size} scenes`);

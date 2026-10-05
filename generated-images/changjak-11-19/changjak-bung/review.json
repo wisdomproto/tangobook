@@ -1,0 +1,29 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-bung-01-p02",
+    "actualBrushStrokes": 5,
+    "paletteColors": 8,
+    "pageNumber": 2,
+    "faceBodyAndActionPassed": true,
+    "allPaintsCompleted": true,
+    "sourceReveal": true,
+    "resetRepaint": false,
+    "evidenceFiles": [
+      "game-before.png",
+      "game-brush1.png",
+      "game-brush4.png",
+      "game-reveal.png",
+      "game-native.json"
+    ]
+  },
+  "sourceExceptions": [],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}
