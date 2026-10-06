@@ -53,6 +53,12 @@ def print_plate(parts):
         mesh.apply_translation((replacement_x,0,0));replacement_x+=mesh.extents[0]+8
         replacements.append(mesh)
     trimesh.util.concatenate(replacements).export(str(d.OUT/'tango_pebble_compact_fixed_bodies_keeper_print_plate.stl'))
+    replacements=[];replacement_x=0
+    for i in (2,3):
+        mesh=meshes[i].copy();mesh.apply_translation(-mesh.bounds[0])
+        mesh.apply_translation((replacement_x,0,0));replacement_x+=mesh.extents[0]+8
+        replacements.append(mesh)
+    trimesh.util.concatenate(replacements).export(str(d.OUT/'tango_pebble_compact_fixed_paddle_carrier_print_plate.stl'))
     (d.OUT/'print_report.json').write_text(json.dumps(report,indent=2))
 
 def html(parts,r):
@@ -76,6 +82,7 @@ def main():
     assert all(v==0 for group in r['checks_mm3'].values() for v in group.values()),r
     assert all(v>0 for v in r['rear_retention_contact_mm3'].values()),r
     assert r['foam_roof_coverage_missing_mm3']==0,r
+    assert r['foam_bottom_coverage_missing_mm3']==0,r
     assert all(v>0 for v in r['keeper_downward_stop_contact_mm3'].values()),r
     assert all(v>0 for v in r['keeper_rear_load_contact_mm3'].values()),r
     assert all(v>0 for v in r['carrier_seating_contacts_mm3'].values()),r
@@ -101,6 +108,7 @@ def main():
     preview.render('assembled',(95,-115,65),scene=scene,scale=35)
     preview.render('top',(0,-1,130),scene=scene,scale=35)
     preview.render('bottom_rear',(70,110,-85),scene=scene,scale=35)
+    preview.render('tongue_side',(100,0,10),scene={n:item for n,item in scene.items() if n!='shell_right'},scale=35)
     preview.render('foam_guide',(0,-90,30),scene={'rear_panel':(parts['rear_panel'],(0,0,0))},scale=24)
     offsets={'shell_left':(-28,0,0),'shell_right':(28,0,0),'paddle':(0,0,28),'rear_panel':(0,25,0),'foam':(0,25,0),'keeper':(0,0,35),'mirror':(0,-8,0)}
     preview.render('exploded',(90,95,65),scene={n:(p,offsets[n]) for n,(p,_) in scene.items()},scale=65)
