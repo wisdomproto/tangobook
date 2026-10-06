@@ -154,6 +154,12 @@ const CHANGJAK: ResourceItem[] = [
  */
 const BM: ResourceItem[] = [
   {
+    href: '/organic-marketing/organic-execution-plan-2026-10-05.html',
+    icon: '🌱',
+    label: '오가닉 마케팅 실행 기획',
+    desc: '채널 역할 · 키워드 30개와 콘텐츠·체험 연결 · 6주 발행 순서 · 국내·해외 검증 과제',
+  },
+  {
     href: '/master.html',
     icon: '🧭',
     label: '탱고북 마스터',
