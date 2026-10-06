@@ -6,8 +6,6 @@ ROOT=Path(__file__).resolve().parents[2]
 OUT=Path(__file__).parent/'out'
 PITCH,CELLS,GRID=15.,14,210.
 WIDTH,HEIGHT,LEAN=240.,20.,15.
-TAB_W,TAB_H,TAB_L,CLEAR,RIB=18.,6.,18.,.08,.12
-CENTERS=(50.,160.)
 
 def encode(points,center=(105.,135.,10.)):
     raw=b''.join(struct.pack('<hhh',*(round((v[k]-center[k])*100) for k in range(3))) for v in points)
@@ -41,9 +39,10 @@ def main():
            .faces('>Z').edges().fillet(1).translate((105,105,0)))
     pocket=(cq.Workplane('XY').box(GRID,GRID,10,centered=(True,True,False)).edges('|Z').fillet(1).translate((105,105,12.6)))
     board=board.cut(pocket)
-    for x in CENTERS:
-        hole=cq.Workplane('XY').box(TAB_W+2*CLEAR,TAB_L+.3,TAB_H+2*CLEAR).translate((x,225-(TAB_L+.3)/2+.1,7))
-        board=board.cut(hole)
+    # 판 뒤쪽의 긴 수평 도브테일: 바깥 머리가 목보다 두꺼워 들림을 잡는다.
+    profile=[(224.5,5),(235,3),(235,15),(224.5,13)]
+    rail=cq.Workplane('YZ').polyline(profile).close().extrude(210)
+    board=board.union(rail)
     shell=board.val()
     body=(cq.Workplane('XY').box(WIDTH,60,HEIGHT,centered=(True,True,False)).edges('|Z').fillet(8)
           .faces('>Z').edges().fillet(1).translate((105,255,0)))
@@ -52,18 +51,26 @@ def main():
     # 앞면 모서리 사이 접합면을 평평하게 연결한다.
     bridge=cq.Workplane('XY').box(220,2,HEIGHT,centered=(True,True,False)).translate((105,226,0))
     holder=holder.union(bridge)
-    nominal=holder
-    for x in CENTERS:
-        tab=(cq.Workplane('XY').box(TAB_W,TAB_L+1,TAB_H).faces('<Y').edges().chamfer(.6).translate((x,225-(TAB_L-1)/2,7)))
-        holder=holder.union(tab);nominal=nominal.union(tab)
-        for side in (-1,1):
-            rib=cq.Workplane('XY').box(RIB+.02,10,5).translate((x+side*(TAB_W/2+RIB/2-.01),216,7))
-            holder=holder.union(rib)
-    cradle=holder.val();nominal=nominal.val()
+    # 왼쪽이 열린 암레일. 오른쪽 끝 벽이 밀어 넣는 위치를 제한한다.
+    groove=(cq.Workplane('YZ').polyline(profile).close().offset2D(.10).extrude(226.1).translate((-16,0,0)))
+    holder=holder.cut(groove)
+    nominal=board
+    # 긴 레일 중 두 구간의 낮은 마찰 리브만 암레일에 살짝 닿는다.
+    for x in (62.5,147.5):
+        for z in (6.,12.):
+            rib=cq.Workplane('XY').box(45,.14,1.2).translate((x,235.06,z))
+            board=board.union(rib)
+    shell=board.val();cradle=holder.val();nominal=nominal.val()
     assert shell.isValid() and cradle.isValid() and len(shell.Solids())==len(cradle.Solids())==1
-    bulk_collision=shell.intersect(nominal).Volume();press_volume=shell.intersect(cradle).Volume()
+    bulk_collision=cradle.intersect(nominal).Volume();press_volume=cradle.intersect(shell).Volume()
     assert bulk_collision<1e-6,bulk_collision
     assert 0<press_volume<20,press_volume
+    # 도브테일의 들림/뒤로 당김은 맞물림에 막혀야 한다.
+    assert nominal.intersect(cradle.translate((0,0,1))).Volume()>1
+    assert nominal.intersect(cradle.translate((0,3,0))).Volume()>1
+    # 분리 동작 중 리브 외에 본체가 충돌하지 않아야 한다.
+    for shift in (20.,100.,230.):
+        assert nominal.intersect(cradle.translate((shift,0,0))).Volume()<1e-6
     tablet=(cq.Workplane('XY').box(240,8,170,centered=(True,True,False)).edges('|Z').fillet(2)
             .rotate((0,0,0),(1,0,0),-LEAN).translate((105,250,5))).val()
     assert cradle.intersect(tablet).Volume()<1e-6
@@ -75,5 +82,5 @@ def main():
     data['grid']=encode(grid);data['cradle']=part(cradle);data['tablet']=part(tablet)
     data['block']['centre']=[105,105,17.]
     h=h[:match.start(1)]+json.dumps(data,separators=(',',':'))+h[match.end(1):];f.write_text(h,encoding='utf8')
-    print(f'14x14 cells; board 240x240x20; two tabs18x6x18; nominal collision {bulk_collision:.6f}; friction ribs intentional overlap {press_volume:.3f} mm3; tablet collision0')
+    print(f'14x14 cells; board 240x240x20; horizontal dovetail210mm, neck8mm/head12mm; nominal collision {bulk_collision:.6f}; friction ribs intentional overlap {press_volume:.3f} mm3; tablet collision0')
 if __name__=='__main__':main()
