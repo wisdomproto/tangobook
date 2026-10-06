@@ -34,3 +34,7 @@ HTML 새로고침 후 블록 위/아래 버튼으로 확인. 실물 출력 시 �
 
 Python312에 CadQuery/trimesh 설치. 이 환경 CadQuery2.8의 선택적 VTK 전체 모듈 import가 멈춰 진단 프로세스만 종료했다. CAD/STL 생성은 실행 래퍼에서 vtk를 빈 모듈로 등록하고 runpy로 생성 스크립트를 호출해 선택적 시각화 import를 우회했다(저장소 훅 우회 아님). STEP/STL/형상 검사와 HTML 메시는 실제 생성 완료. 결과는 hardware/studboard/out/sticker-block-2x2.step 및 .stl. 스크립트 재실행은 HTML의 block 데이터만 갱신하며 보기 UI는 유지한다. 베젤과 격자 메시 보존. 기존 HTML에 판위조립/블록단독위/아래 보기 추가. 검수이미지는 Codex visualizations의 tango-block-top.png, tango-block-bottom.png. 소켓은 원통형 회피홈이며 중앙은 blind, 경계는 열린 홈이다. 실제 끼움시험/출력은 하지 않았다. 원격 push/배포 없음.
 
+
+## 후속: 닫힌 옆면·낮은 높이
+
+사용자 지시로 옆면 열린 홈 제거·높이8→5.5mm. 블록을 판에서 반칸(7.5mm) 이동하여 내부2×2돌기 위 배치, 바닥 blind 소켓4개(±7.5mm)로 변경. 29.6mm 발자국 유지, 홈깊이3.2/스티커턱0.8/홈위살1.5mm. 사방옆면하단 재료검사·CAD단일유효솔리드·4돌기간섭부피0·STLwatertight/winding 통과. Chrome 아래보기 육안검수(tango-block-closed-bottom.png), 표시높이 갱신. 기존9홈경계배치 결정을 대체. 실제 출력 미검증/원격push 없음.

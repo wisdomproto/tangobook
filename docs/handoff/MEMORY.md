@@ -315,3 +315,5 @@
 - 2026-10-06 [인식판 베젤 높이·라운딩](../work/hardware/tasks/20261006-board-only.md): 베젤10mm, 상단/안쪽R2·하단R1, Chrome 표시 확인.
 
 - 2026-10-06 [격자판 2×2 스티커 블록](../work/hardware/tasks/20261006-sticker-block-2x2.md): HTML 판위/단독위아래 보기, STEP/STL 및 생성스크립트 추가. CAD간섭0/닫힌STL 확인, 실출력·push 없음.
+
+- 2026-10-06 [2×2블록 닫힌옆면](../work/hardware/tasks/20261006-sticker-block-2x2.md): 5.5mm높이/내부홈4개/반칸이동 배치. 기존9개열린홈 대체, CAD간섭0·닫힌STL 확인.
