@@ -49,14 +49,14 @@ def main():
     cq.exporters.export(block,str(OUT/'sticker-block-2x2.stl'),tolerance=0.025,angularTolerance=0.1)
     vertices,triangles=block.tessellate(0.025,0.1)
     coords=[tuple(vertices[i].toTuple()) for t in triangles for i in t]
-    # 블록 바닥을 원본 놀이면 높이 4.9mm에 놓는다.
+    # 블록 바닥을 원본 높인 놀이면 높이 13.0mm에 놓는다.
     encoded=b''.join(struct.pack('<hhh',*(round((v[k]-(0,0,4)[k])*100) for k in range(3))) for v in coords)
     htmlfile=ROOT/'packages/client/public/tango-board-only.standalone.html'
     html=htmlfile.read_text(encoding='utf8')
     pattern=r'(<script id="meshData" type="application/json">)(.*?)(</script>)'
     match=re.search(pattern,html,re.S)
     data=json.loads(match[2])
-    data['block']={'b64':base64.b64encode(encoded).decode(),'centre':[120,120,8.9],'scale':100,'size':[WIDTH,WIDTH,HEIGHT],
+    data['block']={'b64':base64.b64encode(encoded).decode(),'centre':[120,120,17.0],'scale':100,'size':[WIDTH,WIDTH,HEIGHT],
                    'grid':[2,2],'socketRadius':SOCKET_R,'socketDepth':SOCKET_DEPTH,'rimHeight':RIM_HEIGHT}
     html=html[:match.start(2)]+json.dumps(data,separators=(',',':'))+html[match.end(2):]
     htmlfile.write_text(html,encoding='utf8')
