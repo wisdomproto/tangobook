@@ -74,6 +74,28 @@ export function BookCover({
   const [loaded, setLoaded] = useState(false);
   // 썸네일이 없는(아직 안 구운) 표지는 404 → 한 번만 원본으로 내려간다.
   const [thumbFailed, setThumbFailed] = useState(false);
+  // Native lazy가 가로 행에서 발화하지 않던 이력을 보완한다.
+  // 모든 행을 eager로 받는 대신 화면 근처에 들어온 카드만 eager로 요청한다.
+  const [active, setActive] = useState(
+    () => priority || typeof IntersectionObserver === 'undefined'
+  );
+  const holderRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (active) return;
+    const el = holderRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setActive(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '250px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [active]);
   const errorTimer = useRef<number>();
   useEffect(() => () => window.clearTimeout(errorTimer.current), [img, retry, thumbFailed]);
   useEffect(() => {
@@ -90,9 +112,8 @@ export function BookCover({
 
   // 스톨 감시 — 카드가 화면에 들어오면 타이머를 걸고, 그 안에 로드가 끝나지 않으면 재요청.
   // 이미 캐시된 이미지는 즉시 onLoad 가 떠서 타이머가 곧바로 해제되므로 낭비가 없다.
-  const holderRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!img || loaded || retry >= MAX_COVER_RETRIES) return;
+    if (!active || !img || loaded || retry >= MAX_COVER_RETRIES) return;
     const el = holderRef.current;
     if (!el) return;
     let timer: number | undefined;
@@ -120,7 +141,7 @@ export function BookCover({
       io.disconnect();
       if (timer != null) window.clearTimeout(timer);
     };
-  }, [img, loaded, retry, thumb]);
+  }, [active, img, loaded, retry, thumb]);
 
   return (
     <div
@@ -133,14 +154,14 @@ export function BookCover({
       )}
       style={{ containerType: 'inline-size' }}
     >
-      {img ? (
+      {img && active ? (
         <img
           src={src}
           alt={title}
           className={cn('w-full h-full object-cover', imgClassName)}
           // 🔴 재시도 = "화면에 있는데 안 떴다" 는 뜻이므로 lazy 를 풀고 즉시 받는다.
           // lazy 인 채로 다시 그리면 안 터지던 조건이 그대로라 또 안 뜬다(가로 스크롤 행에서 관찰됨).
-          loading={thumbFailed || retry > 0 || priority ? 'eager' : loading}
+          loading={active ? 'eager' : loading}
           {...(priority ? { fetchPriority: 'high' as const } : null)}
           decoding="async"
           key={`${src}:${retry}`}
@@ -166,7 +187,7 @@ export function BookCover({
             );
           }}
         />
-      ) : (
+      ) : !img ? (
         <div
           role="img"
           aria-label={title}
@@ -174,6 +195,8 @@ export function BookCover({
         >
           📖
         </div>
+      ) : (
+        <div role="img" aria-label={title} className="w-full h-full" />
       )}
       {showOverlay && (
         <div

@@ -93,3 +93,29 @@ describe('BookCover — 스톨 복구', () => {
     expect(n).toBeLessThanOrEqual(4);
   });
 });
+
+describe('BookCover — 화면 근처에서 요청', () => {
+  it('화면 밖 eager 카드도 기다렸다가 실제 진입 시 native lazy 없이 로드한다', () => {
+    const callbacks: Array<(entries: Array<{ isIntersecting: boolean }>) => void> = [];
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(callback: (entries: Array<{ isIntersecting: boolean }>) => void) {
+          callbacks.push(callback);
+        }
+        observe() {}
+        disconnect() {}
+      }
+    );
+    try {
+      render(<BookCover book={BOOK} lang="ko" loading="eager" />);
+      expect(document.querySelector('img')).not.toBeInTheDocument();
+      expect(screen.getByRole('img')).toHaveAttribute('aria-label', BOOK.title);
+      act(() => callbacks[0]([{ isIntersecting: true }]));
+      expect(screen.getByRole('img')).toHaveAttribute('loading', 'eager');
+      expect(srcOf()).toContain('/thumbs/512/');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+});

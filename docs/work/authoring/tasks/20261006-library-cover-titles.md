@@ -140,3 +140,21 @@ TangoBook 제안 수치는 플랫폼 공식 규격 또는 평균 계측값이 �
 사용자 스크린샷 곤충 행 무당벌레/개미/호랑나비 빈 표지 반증. 별도 headlessEdge 실제 현재 원본 URL 세 장 모두1536px 정상응답으로 확인되어 사용자 세션의 정확한 요청 실패 원인을 재현했다고 단정하지 않는다. 코드상2.5초 watchdog이 느린 원본 요청을 재마운트하며 4회 한도 후 복구 선택이 없었다. 감시를12초로 늘리고 썸네일 스톨에도 원본으로 폴백·eager 로드한다. onError 지연타이머는 소스/재시도 변경·로드 성공·unmount 때 정리한다. 재시도 한도 뒤 직접 다시 불러오기 버튼 추가(카드 링크 전파/이동 방지).
 
 회귀17개 통과, client typecheck 통과. 실제 headlessEdge 네트워크실패1회 주입 뒤 세 곤충표지 모두naturalWidth1536 및 Pretendard Bold 확인. 증거 D:/ComfyUI-output/library-clean-covers-20261006/default-font-cover-recovery.json 및 png. 1차 브라우저검증은 재마운트 중 detached locator로 실패; 안정된 부모를 스크롤한 재실행만 성공증거. 사용자 탭/서버/기존365표지/850창작/파닉스 데이터 변경 없음. 이번 코드는 로컬5240 적용, mainpush/운영배포 없음.
+
+## 이전 표지 로딩 해결책 대조 및 신규 썸네일 누락 복구 — 2026-10-06
+
+사용자 추가 스크린샷에서 호리 유치원 행 전체/공룡·곤충 일부 빈표지가 재발. '기존에 어떻게 해결했었는지도 찾아봐' 요청에 실제 Git와 과거 메모를 대조했다. 5a7b45c4는 native lazy가 가로 행에서 발화하지 않던 문제를 첫3장 eager+회복요청 eager로 교정. c746b88d는 1536px 원본으로81카드 약11MB를 받던 문제를512px WebP 썸네일로 줄였고1239/1243생성/당시81카드 전부512px를 검증했다. cover-thumbnails-2026-07-25.md와 루트CLAUDE는 새 표지 등록 후 썸네일 생성 필수라고 명시했다. 새0.4/0.5 제목코드가 이 로딩코드를 삭제한 것은 아니다.
+
+이번 실제 HTTP 무당벌레 신규 clean원본200/191650byte와 유도thumb404를 확인했다. scroll-load-before.json의 실제14행 페이지는 원본1536px를 받고 있었다. 신규365+창작850 표지 등록 뒤 썸네일을 생성하지 않은 릴리스 단계 누락이 확인된 문제다. 앞선3장 실패주입 검증/12초재시도 보강으로 전체 해결이라고 확대할 수 없다.
+
+기존멱등 generate-cover-thumbs.mjs --apply를 현행 live목록2663개 coverURL에 실행(기존thumbnail skip, 원본/본문/게임/책JSON 불변). 무당벌레 새thumb는 실제CDN200/33256byte. BookCover는 priority외 카드의 src를 화면250px근처 IntersectionObserver 진입 전 부착하지 않고 진입시 eager로 요청: native lazy의 가로행 미발화와 모든행첫3장 eager 요청폭주를 함께 피한다. observer미지원 환경은 eager 안전폴백. 과거priority첫2장 프리렌더 처리는 유지. 실제화면밖 eagercard가 요청하지 않다가 진입시thumb요청하는 회귀추가. 18테스트/clienttypecheck 통과.
+
+중간 실제 headlessEdge14행 좌우28확인에서 노출표지 모두로드/97고유제목 확인, 초기image25. 생성 진행 중이므로 일부thumb404→원본폴백23이 있어 전부thumbnail완료 증거로 취급하지 않는다. 최종생성/검수 수치는 아래에 추가한다. 사용자2탭/서버/다른worktree보존, mainpush/운영코드배포 없음.
+
+### 최종 생성·실제 페이지 확인
+
+동일프로세스 정상종료: 대상2663, 신규1612, 기존1051skip, 실패0, 다운로드절감합378.1MB. thumbnail-backfill-result.json에 실행결과/명령/검증수 보존. 전체1215 책 원본표지/본문/게임JSON을 수정한 것이 아니라 목록에 참조되는 표지의 파생thumbnail만 생성했다.
+
+생성완료 후 새 headlessEdge 세션으로14행 전부 좌우28위치 재검수. 고유표지97개 모두실제naturalWidth512, blank0, 요청실패0, thumbnail응답97. 초기화면근처요청25로제한. cover-scroll-after.json 및 png에 실제결과저장/스크린샷육안확인. 사용자스크린샷에 빈칸이었던호리유치원/공룡/곤충행 포함. 테스트18통과/clienttypecheck통과/clientbuild통과(기존Browserslist/lottieeval/큰chunk경고). 접근성placeholder에도제목이름유지/최종18테스트재실행. 사용자탭을새로고침하거나닫지않았고 로컬5240코드만적용, mainpush/운영코드배포없음.
+
+재발방지: 앞으로 cleanCoverImage/대표표지를교체할때 기존7월릴리스절차대로 generate-cover-thumbs.mjs --apply를 수행하고 실제library naturalWidth512를 확인해야한다. 이번작업에서 기존등록producer/폰트build를재시작하지않았다.
