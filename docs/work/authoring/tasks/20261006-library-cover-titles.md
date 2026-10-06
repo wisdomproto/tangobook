@@ -108,3 +108,27 @@ exec844 정상종료: 피노키오3 1789350946328만 새PNG 1672×941/SHA5ec9011
 실제frozen책자료에서전래40권은영어만/호리탐험15권·유치원20권은titleTranslations미제공이었다. legacy-library-titles.ts에75작품의en/vi/zh/th표시번역보충, shared bookDisplayTitle가저장번역우선→보충목록→한국어원제순으로해결하고그림체접미사/시리즈번호유지. 새로운본문번역이나R2책데이터일괄쓰기아님. 한글원제와기존번역/표지본문게임보존. client관련14테스트통과(3분류zh-CN fallback/저장번역우선포함), shared/client typecheck 및shared build후실제Node ESM300제목검사(75권×4언어,한글fallback0)통과. eslint0error/기존test any경고2개.
 
 별도headlessEdge실제local5240 한국어·중국어1877px,중국어·태국어·영어·베트남어390px 각98카드텍스트검수/가로overflow0/4색실제표시. 초기베트남어locale전환중0카드snapshot은증거로채택하지않고별도안정상태98카드재확인. 작은영어화면태양계긴제목높이진단후중간제목크기별도보완. 스크린샷/JSON은D:/ComfyUI-output/library-clean-covers-20261006/title-*에보존. 사용자gallery/기존tabs보존·headless브라우저종료. 현재로컬Vite즉시반영·운영push/배포없음.
+
+
+## 사용자 글자 조형 혼합 반증 및 썸네일 조사 — 2026-10-06
+
+사용자 첨부 신데렐라/전래 화면에서 같은 제목 내 서로 다른 조형을 발견. 브라우저 fallback이 아니라 full_hangul이 초기24개 한글을 건너뛰고 보존해 확장11148자와 다른 제작법이 들어간 원인이 실제 cmap/원본과 일치한다. 신·데·렐은 확장, 라는 초기 glyph. 기존 notdef0/전수 cmap은 글자 존재 검증이며 디자인 통일 검증이 아니었다. 초기 글자는 역사판에 보존하고 현대11172자와 자모를 한 조형/획굵기로 통일하는 0.5.0 로컬 교정 중이다. 다른 문자권도 부분 trial 글자와 Noto 혼합 대신 각 문자권의 출처 명시 Noto 전체 face를 선택해 내부 혼합을 없앤다. 전 문자권 독점 새디자인으로 보고하지 않는다. 완료/실제브라우저 여부는 아래 후속 검증절에만 기록한다.
+
+사용자 넷플릭스/유튜브 제목 크기·위치·색 조사 요청. agent-reach 경로 확인: Exa backend 미설정, builtin web검색과 실제 headlessEdge 공개페이지/예시 이미지 확인을 사용했다. 사용자 로그인/갤러리 탭 변경 없음. agent-reach check-update v1.5.0 최신.
+
+- YouTube 공식 https://support.google.com/youtube/answer/12340300?hl=en : 읽기 쉬운 서체, 복잡성 줄임, 기기별 표시 확인, 내용과 제목 정합성을 권장. 실제 craft before/after는 사진 위 작은 텍스트 대신 단순 띠의 큰 검정 제목 사용; HERE’S WHY 예시는 어두운 배경 위 흰 큰 제목. 모든 영상에 텍스트가 있는 것은 아님.
+- Netflix 공식 https://netflixtechblog.com/artwork-personalization-c589f074ad76 : 같은 작품 artwork 여러종/구도 다양성. 이 글의 Stranger Things 9종 예시를 공개 재현 이미지로 실제 확인했으며 빨강/흰색 타이틀과 좌측/우측상단/하단 등 다른 배치가 보인다. 공식 한국/미국 genre 브라우저 URL은 현재 랜딩으로 전환돼 실제 로그인 카탈로그를 검증했다고 보고하지 않는다.
+- Netflix 공식 https://netflixtechblog.com/discovering-creative-insights-in-promotional-artwork-295e4d788db5 : TV/모바일 UI별 크기와 종횡비에 따른 실제 검증 필요; 단일 보편 규칙/px 지정 자료가 아님.
+
+TangoBook 제안 수치는 플랫폼 공식 규격 또는 평균 계측값이 아니다: 280px 폭/약158px 높이 카드에서 짧은 제목28~34px, 긴 제목22~28px/최대2줄, 좌우 안전여백6~8%, 얼굴·핵심행동 피한 상/좌/우/하 여백. 제목 bbox가 실제 들어갈 영역의 밝기/복잡도를 기준으로 크림색과 진한 숲색·자주색 선택, 필요할 때 얇은 대비 외곽선/부분 그라데이션. 전체이미지 평균색만으로 대비 보장 불가. 축소된 실제 카드에서 5언어 긴 제목과 얼굴겹침을 점검해야 한다. 이번 조사만으로 대량 cover 재생성/운영UI 배포 승인으로 확대하지 않음. 증거 D:/ComfyUI-output/library-clean-covers-20261006/youtube-thumbnail-research.png 및 netflix-artwork-grid-research.png.
+
+
+### 0.5.0 로컬 적용 검증 및 제목 굵기 보정
+
+초기24개 skip 제거·자모 모두 재구성/같은 획폭64 적용. 중간125폭 샘플에서 압축된 획이 합쳐지는 문제를 육안으로 보고 제품 적용 전 교정했다. 실제11172개 glyph의 좌표·flags·contour·자폭을 생성 규칙과 전수 대조(11172/11172); 초기 예외0. 공개폰트0.5.0은 완전11언어 범위 유지/93파일. Latin/Chinese/Japanese/Thai의 ownGlyphCount0으로 초기부분trial 혼합 제거, 각 출처 명시 Noto face 사용. 한국어 자체 조형과 Noto 글자 출처를 분리하며 독점 전체서체라고 보고하지 않는다. 실제2415제목/11언어 HarfBuzz notdef0.
+
+브라우저 1차에서 transformed Korean WOFF2가 OTS Failed to convert WOFF2 to SFNT로 거부되어 맑은고딕 fallback으로 나타났다. HTTP SHA/cmap만으로 성공 처리하지 않았다. 생성기의 Korean만 표준 untransformed WOFF2로 내보내는 옵션을 적용; 잘못된 중간파일은 D:/ComfyUI-output/library-clean-covers-20261006/uniform-korean-transformed-rejected.woff2에 별도 보존하고 제품 파일을 교체했다. 다른93전체manifest SHA를 실제localhostHTTP전수 다운로드 재검증. 실제 headlessEdge 신데렐라 glyph4가 전용font/customFont=true/fallback0이며 11언어38/18px proof에서 한국어 FontFace check true/error faces0. proof와 실제library screenshot은 verification-uniform; 시스템fallback 1차는 성공증거 아님.
+
+사용자 추가 '우리 폰트 두께가 너무 작은가 글씨가 잘 안보이네' 반증에 BookCover 제목 렌더weight400→700, textstroke0.055em→0.035em로 조정. 소스Regular를 title rendering에서 Chromium synthetic bold로 표시하며 실제Bold 원본 제작으로 보고하지 않는다. 본문/UI 기본폰트는 유지. 실제KO library 새스크린샷은 변경후 기록/신데렐라 customfont4 확인. 썸네일 위치별 디자인 제안은 조사 기록이며 이 변경에서 전체 표지 위치를 자동재배치하지 않았다.
+
+관련 BookCover 테스트10개/클라이언트 build 통과(기존 Browserslist·큰chunk·lottie eval 경고). Python 검증 환경에서 uharfbuzz가 없었던1차는 실패로 구분하고 동일 Python환경에 설치 후 실제shaping 재실행 통과. 사용자 브라우저 2탭/기존서버·다른작업·공개이미지 보존; local5240 즉시 적용, main push/운영코드배포 없음.

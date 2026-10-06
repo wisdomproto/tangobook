@@ -176,10 +176,10 @@ export function BookCover({
               className="block text-center leading-[1.12]"
               style={{
                 fontFamily: `"${coverTitleFont(lang).family}", "TangoBook Story Hand Global", sans-serif`,
-                fontWeight: 400,
+                fontWeight: 700,
                 color: appearance.color,
                 textShadow: `0 1px 3px ${appearance.stroke}`,
-                WebkitTextStroke: `0.055em ${appearance.stroke}`,
+                WebkitTextStroke: `0.035em ${appearance.stroke}`,
                 paintOrder: 'stroke fill',
                 overflowWrap: 'anywhere',
                 fontSize:

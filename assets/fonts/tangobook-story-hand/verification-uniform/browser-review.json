@@ -1,0 +1,567 @@
+{
+  "version": "0.5.0",
+  "shaChecks": [
+    {
+      "file": "korean-all.woff2",
+      "sha256": "ac23ad93c372f6cf422bbd01c9c2d99a4a6266ddb9a3354061d046a57f27d2c4",
+      "status": 200
+    },
+    {
+      "file": "latin-all.woff2",
+      "sha256": "2e4a2bfcafeb1da3bb8b1b04c78a4505d605d1edda1e862239507f9b155f6b00",
+      "status": 200
+    },
+    {
+      "file": "thai-all.woff2",
+      "sha256": "03a8f02bf4bb94fdcc218c272796f2c33f0e96f817fbd7f495572894a79a6d94",
+      "status": 200
+    },
+    {
+      "file": "chinese-common.woff2",
+      "sha256": "a3037b67b49587617aea3f11ce287b79fca13db6f19a6b714ba3322c937147f9",
+      "status": 200
+    },
+    {
+      "file": "chinese-006.woff2",
+      "sha256": "81916e2eefaea7209729609b3a3b5efea992cfcf2bcea44c5391ed37778bc7e7",
+      "status": 200
+    },
+    {
+      "file": "chinese-007.woff2",
+      "sha256": "ab797bfb38dd70aa643f90b14cb05b44d32fea10a54f4311c9ff0509eccab6f0",
+      "status": 200
+    },
+    {
+      "file": "chinese-008.woff2",
+      "sha256": "f49d21cafdef436a7aa8a7cffa49dd8f8e5de6bafbe051bacd4e0327d3fe35c6",
+      "status": 200
+    },
+    {
+      "file": "chinese-009.woff2",
+      "sha256": "eebad84683ca535b13eaad2756a25e0f5bfb4aa0e6b8515b6151a22c0ecf9a57",
+      "status": 200
+    },
+    {
+      "file": "chinese-010.woff2",
+      "sha256": "e071a9c89125e3c777781fdf2d566417d78e8d14c1d1d698297e674dd1c68e1f",
+      "status": 200
+    },
+    {
+      "file": "chinese-011.woff2",
+      "sha256": "0bb636d5815b5790e52597e6defdb60434096d23520394b0e1b47d74da2ba634",
+      "status": 200
+    },
+    {
+      "file": "chinese-012.woff2",
+      "sha256": "6455761c1d49d532dc6c2632a922c28f6902a3f0a5414b6a59eac6c535bdbcf6",
+      "status": 200
+    },
+    {
+      "file": "chinese-013.woff2",
+      "sha256": "b80a7280db67f8f0cb7fd0c933565d92ad7fb399654eac9826f65915630dd375",
+      "status": 200
+    },
+    {
+      "file": "chinese-014.woff2",
+      "sha256": "d394edbd8857bcf5bd1ab37be4614440f7c50e0dad6e1827fd2f408eb513b611",
+      "status": 200
+    },
+    {
+      "file": "chinese-015.woff2",
+      "sha256": "d9ca5beb7a79c262cbb01b89d1848833185e0187d19744bca293f282596c8d3f",
+      "status": 200
+    },
+    {
+      "file": "chinese-016.woff2",
+      "sha256": "ae12d49054599600b4017de5cc6f64ea008a70532751024a2d9808ad14ff27f7",
+      "status": 200
+    },
+    {
+      "file": "chinese-017.woff2",
+      "sha256": "afc1ee2ec840b03e19df2c888bca980990053908b2e807e2dbe438bd2c77b9cd",
+      "status": 200
+    },
+    {
+      "file": "chinese-018.woff2",
+      "sha256": "1c3b6b6ffa88f8e96b309d93498f1ab2994a2124baf5d5b65dc6af01c5c93c53",
+      "status": 200
+    },
+    {
+      "file": "chinese-019.woff2",
+      "sha256": "86f01e1e28b12c0a852b6d38f54f8f825e9dc5fcdc69297320252975580a6f9a",
+      "status": 200
+    },
+    {
+      "file": "chinese-031.woff2",
+      "sha256": "511c25f78422dd5e52f9b00853752c553821f56bfcbbb6981f135db7604e7041",
+      "status": 200
+    },
+    {
+      "file": "chinese-062.woff2",
+      "sha256": "0c2519c8a5a32fe496b6b823538ab772b1334e4a4f8b94b8f97f208e790b400d",
+      "status": 200
+    },
+    {
+      "file": "chinese-064.woff2",
+      "sha256": "dddd126d2a2d1e5e33c50b092b36d1af5876a4bb5dbf81414ffd8980f3584119",
+      "status": 200
+    },
+    {
+      "file": "chinese-065.woff2",
+      "sha256": "7d80476aece0673dae79cf8bdda9139434caeba2dc869dc58e7fd9b0b455b902",
+      "status": 200
+    },
+    {
+      "file": "chinese-066.woff2",
+      "sha256": "a65937d4abdee537e8133d3ed3353501318c255f55dba8b75cbec3c7efc3283f",
+      "status": 200
+    },
+    {
+      "file": "chinese-069.woff2",
+      "sha256": "aa9d978267030aed771902c0901f0697c2928b643256254b8771b73047be8b10",
+      "status": 200
+    },
+    {
+      "file": "chinese-070.woff2",
+      "sha256": "cb238f7d838801b6c66275fd4fcfeb02226df607501d1f6cd9f74155181d5355",
+      "status": 200
+    },
+    {
+      "file": "chinese-071.woff2",
+      "sha256": "d0ad1de832f6aa57db7cdd561332d03377fdbaeb7d1ce7626e6b2920b87387d1",
+      "status": 200
+    },
+    {
+      "file": "chinese-072.woff2",
+      "sha256": "43f16fe04bd6dae4660d331edb33929be0d5e8fc72f2039170dbceaba3bee869",
+      "status": 200
+    },
+    {
+      "file": "chinese-073.woff2",
+      "sha256": "a151181dd31a243d54a8da2289fbb361e6e9449f33c0d89bc54f82bcb52c4655",
+      "status": 200
+    },
+    {
+      "file": "chinese-074.woff2",
+      "sha256": "7c4b8cf3e8496151f4db3ec949711fc8020c31ae325257018a9f962e6c680b39",
+      "status": 200
+    },
+    {
+      "file": "chinese-075.woff2",
+      "sha256": "32f00173d57fffe87b483c81ca3802a106aabe3a2a68457215c496a2ea6379ce",
+      "status": 200
+    },
+    {
+      "file": "chinese-076.woff2",
+      "sha256": "4d2075a496acb00b6ca53376523f1f14f23ef6c609673f3a18ae70d7b759a780",
+      "status": 200
+    },
+    {
+      "file": "chinese-077.woff2",
+      "sha256": "169f95f242b7f5acdbfa9cb6daef943f9c805cc589b25ff384ab394f53dc18ae",
+      "status": 200
+    },
+    {
+      "file": "chinese-079.woff2",
+      "sha256": "615ddcb24160eb1f459a71f689a05c72fc2e4f195cd36fbe460b2a48b212cdf8",
+      "status": 200
+    },
+    {
+      "file": "chinese-080.woff2",
+      "sha256": "d3adc1551342742c989a66c01820d6b8ff2dafbdab1009d8790de5c8fb1c3a66",
+      "status": 200
+    },
+    {
+      "file": "chinese-081.woff2",
+      "sha256": "95f118a79dbed7a2200c4339388cb2803b5a402bdb4b78d7eab0ddf30ddb39be",
+      "status": 200
+    },
+    {
+      "file": "chinese-082.woff2",
+      "sha256": "8fa8e7b7f525cccd3783f87b3dd660a6e272a7c07fdfd3cf5d6c8cf015de54bb",
+      "status": 200
+    },
+    {
+      "file": "chinese-083.woff2",
+      "sha256": "ffe893fda51f75b8676e74ceb1c6658b80e10d9b3c8bb032b53baa970b38a36e",
+      "status": 200
+    },
+    {
+      "file": "chinese-084.woff2",
+      "sha256": "09a47bfea5ad20d1ab76714f67e6fc7c4f99535e51a19179dfb89595a1454dff",
+      "status": 200
+    },
+    {
+      "file": "chinese-085.woff2",
+      "sha256": "0efd3d8005f84f24d1c6a58beaf4d01ea7a6b078f3a5b5ec83aa1e864e2d6d8f",
+      "status": 200
+    },
+    {
+      "file": "chinese-086.woff2",
+      "sha256": "c599f2226c60f6144e70796bec764417e4327c0a7f615fb8c03759f65cfb8423",
+      "status": 200
+    },
+    {
+      "file": "chinese-087.woff2",
+      "sha256": "25003e19f4bc0c8470d70ded89c6364a15dfa6af6e26e972e826f0526097ba87",
+      "status": 200
+    },
+    {
+      "file": "chinese-088.woff2",
+      "sha256": "37e273861b50a46f2ab58c9a08261ff6d784aa1aff98e12fd643162344be757e",
+      "status": 200
+    },
+    {
+      "file": "chinese-089.woff2",
+      "sha256": "716e641f3c45296d384316f31ca7d56bb509753853fc5eebbcbf7b1f0064e0c7",
+      "status": 200
+    },
+    {
+      "file": "chinese-090.woff2",
+      "sha256": "06ccdbaf836f90e997f654df0e8bf43391629cd164b333ef78c006b63df90df0",
+      "status": 200
+    },
+    {
+      "file": "chinese-095.woff2",
+      "sha256": "d4cbb23581553184bfff33ace12968ac40137fad76e2ee551705381d8d0763af",
+      "status": 200
+    },
+    {
+      "file": "chinese-097.woff2",
+      "sha256": "ff069ac674cc8f3dcdbaf4cbf657f58b9b9e62a89a5277f563fa7d73c7ace1b7",
+      "status": 200
+    },
+    {
+      "file": "chinese-098.woff2",
+      "sha256": "c5cbc6db49f645110b3b9e67ace573a0039da9c82f241d0ad4e84f34e23c7f47",
+      "status": 200
+    },
+    {
+      "file": "japanese-common.woff2",
+      "sha256": "c9c0d4f3a1e45e80789c4e763f88482e6caa43e07e548eac391bcaea7db56970",
+      "status": 200
+    },
+    {
+      "file": "japanese-006.woff2",
+      "sha256": "957a71bf8cd05bf4f118e2e0b59a5faea661a5f100f643f834bd3b75b14e84ee",
+      "status": 200
+    },
+    {
+      "file": "japanese-007.woff2",
+      "sha256": "e8b5cedb50f73aa4ab25a53a155e887772920b9a7e92980db47da44a83f1adee",
+      "status": 200
+    },
+    {
+      "file": "japanese-008.woff2",
+      "sha256": "a6496aad8dfd82e93ceb51726069dd140e1355b306fc09a60147d78f5b20d570",
+      "status": 200
+    },
+    {
+      "file": "japanese-009.woff2",
+      "sha256": "5cc429b69031298690d777f55d4d2d9145252f9b0cea7a6d894d651e89c805b2",
+      "status": 200
+    },
+    {
+      "file": "japanese-010.woff2",
+      "sha256": "f6a91a1ba235fe8076606584c4c25ad04d710a394467759f0fae1a222df2bfc9",
+      "status": 200
+    },
+    {
+      "file": "japanese-011.woff2",
+      "sha256": "9706560a988aa82166e439f5220107556d854210a68b2a34a1294a89a22b4085",
+      "status": 200
+    },
+    {
+      "file": "japanese-012.woff2",
+      "sha256": "73a1e80b1c403e16aa72d8b90baa8f6b5fbc78fa786588ebdada5801e87b0fe7",
+      "status": 200
+    },
+    {
+      "file": "japanese-013.woff2",
+      "sha256": "3dee569cd041a869d82d3996a4bf9e1167bb6ebe0c74ad268e7dae249fecd939",
+      "status": 200
+    },
+    {
+      "file": "japanese-014.woff2",
+      "sha256": "4f6da977e64e316607883d4dae5756f04e5db3605fc8e41a5c046c73233aa54a",
+      "status": 200
+    },
+    {
+      "file": "japanese-015.woff2",
+      "sha256": "93835afb689fc48d9877a87665f5ce48ea2327d3850561e83f44ecdf9d17fd23",
+      "status": 200
+    },
+    {
+      "file": "japanese-016.woff2",
+      "sha256": "418211a5cff7a4d2f1fb0795a31df567fdd1586e04069a91e9af8926caf2b263",
+      "status": 200
+    },
+    {
+      "file": "japanese-017.woff2",
+      "sha256": "f89e427341c0b9a93f4e83b408613dc9139edec0a54afe3be9eee21359e90dd2",
+      "status": 200
+    },
+    {
+      "file": "japanese-018.woff2",
+      "sha256": "c9852217a235b48dc88fff391a7c2c6fee6ca701d954ab0284b52b9cd2ca81be",
+      "status": 200
+    },
+    {
+      "file": "japanese-019.woff2",
+      "sha256": "cb3cb677662197a3c6ec60454686aa291b4b97878181bcd51aaac1d0d02f277f",
+      "status": 200
+    },
+    {
+      "file": "japanese-031.woff2",
+      "sha256": "10e3ab31efe59d2e2e53b5f363ac0b631d80f0a7d3eece459dfc845a5d663777",
+      "status": 200
+    },
+    {
+      "file": "japanese-062.woff2",
+      "sha256": "882aeee1d198d69b51dd543800e8551d7bacf7311decd704f038b34288618c54",
+      "status": 200
+    },
+    {
+      "file": "japanese-064.woff2",
+      "sha256": "5beb59a788196dffe87712bb6e747e1a9768cf9a4094de7439d6578df133bc5d",
+      "status": 200
+    },
+    {
+      "file": "japanese-065.woff2",
+      "sha256": "c86c7db515f16ec0414e2a24aadcdeba64166e5ce6ce1a3d7aab2f7fff1b534f",
+      "status": 200
+    },
+    {
+      "file": "japanese-066.woff2",
+      "sha256": "4f648cb0a405cb59eab1e5834c4cbcf097e41074f48c17c988910e62dfe9d6c0",
+      "status": 200
+    },
+    {
+      "file": "japanese-067.woff2",
+      "sha256": "7fc9f8041f797a3d37a9a843f3e19d3f8e3c2d645d9521e3c1c0c59c9b485779",
+      "status": 200
+    },
+    {
+      "file": "japanese-068.woff2",
+      "sha256": "5f587d9bd60edc926402b546e6282b94112cbeede38ccc604dfce646de36c251",
+      "status": 200
+    },
+    {
+      "file": "japanese-069.woff2",
+      "sha256": "3ebed08ef4339194ade21726f6761eaaca45bd5bfd4f94d909b81823f2c67353",
+      "status": 200
+    },
+    {
+      "file": "japanese-070.woff2",
+      "sha256": "1aef12d09030fe07fe87da19e055d085029b6977dcaa529655bdfb71a7e9f78c",
+      "status": 200
+    },
+    {
+      "file": "japanese-071.woff2",
+      "sha256": "05952d21f4d1b422325bab09d28ca91b1442c0e494e72534687b82f5c8ad2736",
+      "status": 200
+    },
+    {
+      "file": "japanese-072.woff2",
+      "sha256": "d76d1ac3bd1e3cdc74479ba1737a5b3022d8ad06ab7650ca7d309d14af179697",
+      "status": 200
+    },
+    {
+      "file": "japanese-073.woff2",
+      "sha256": "669e0624ed566f5babfb1e6f5d83f44c33d2ce70ef6fdb338c1dd87654d44839",
+      "status": 200
+    },
+    {
+      "file": "japanese-074.woff2",
+      "sha256": "551229ad6590e8d3aff2455b7d128f0c41f3d986344985a452eb03eb3634e9a7",
+      "status": 200
+    },
+    {
+      "file": "japanese-075.woff2",
+      "sha256": "4110f6bf42ef19b327a675fc6a2c90cf0d9f102cf5cd3f020f45686684bba889",
+      "status": 200
+    },
+    {
+      "file": "japanese-076.woff2",
+      "sha256": "5d4377d4c979a8df32fbd4c7a6efcd85e8afc6074fb2064792e1b8f6d331b4fd",
+      "status": 200
+    },
+    {
+      "file": "japanese-077.woff2",
+      "sha256": "9ee5633c07fcf30c1ca864326c8892b1e65d92441cb32812707cda5869008319",
+      "status": 200
+    },
+    {
+      "file": "japanese-078.woff2",
+      "sha256": "68b43fefd0a4f8eff52ce88671cb9ac0a79bd600ba851603b34bcba8469daf2a",
+      "status": 200
+    },
+    {
+      "file": "japanese-079.woff2",
+      "sha256": "38fe950eb489723dc11af82ce1ca723e664e03dc45fdde09f017e9158a32389e",
+      "status": 200
+    },
+    {
+      "file": "japanese-080.woff2",
+      "sha256": "b14511d9b34d362c9b884932bdd2d03cda4daef031b0ba7afde6cf2e171070da",
+      "status": 200
+    },
+    {
+      "file": "japanese-081.woff2",
+      "sha256": "6c1be2143d027d162f2a2ce265c36c61d9efe84a4483e397504079bf642aa9d9",
+      "status": 200
+    },
+    {
+      "file": "japanese-082.woff2",
+      "sha256": "d871ad9f77dc54d38033c4a54dc8a1cba5ffde1469bd61616198feb369b27094",
+      "status": 200
+    },
+    {
+      "file": "japanese-083.woff2",
+      "sha256": "f6abc4916f373134ce9ab3dea0021b408ccf6d63aa314af274226e1cd93bd5ec",
+      "status": 200
+    },
+    {
+      "file": "japanese-084.woff2",
+      "sha256": "110c78f0b8c6d6189d6f0f43e43e1fe53bdb0f669e76ccac0d8920b538817c1a",
+      "status": 200
+    },
+    {
+      "file": "japanese-085.woff2",
+      "sha256": "08c5cf3001135093aaf0f06e9ef6805070be7abaafcc73470ed0b1a1eba95f2c",
+      "status": 200
+    },
+    {
+      "file": "japanese-086.woff2",
+      "sha256": "4aeed734b9a5c220ac5b82547bf9b943ff91260832833d5f78970eab2b71f146",
+      "status": 200
+    },
+    {
+      "file": "japanese-087.woff2",
+      "sha256": "9aadc8861a09a2e8f79bfb14e09ef709330ceae175e6f649e83663df2dc9e91a",
+      "status": 200
+    },
+    {
+      "file": "japanese-090.woff2",
+      "sha256": "e24d02b33265694486c12817787c5fecf6f45134494be9804d3b67d0247abade",
+      "status": 200
+    },
+    {
+      "file": "japanese-092.woff2",
+      "sha256": "c8862fc8f9bbc1e73114685b82c6700b6bd5a4cfd6084548305d3981562a50c6",
+      "status": 200
+    },
+    {
+      "file": "japanese-095.woff2",
+      "sha256": "2da9ccdb02bba22bbe28015f26868a0bc0b72472984761dc8f1e4bfeac8c8fd5",
+      "status": 200
+    },
+    {
+      "file": "japanese-097.woff2",
+      "sha256": "6b96a812e2aa49f1f2a2d6b4d46466e29f5e1042e729e4a58ac3d3e52cc3dca3",
+      "status": 200
+    },
+    {
+      "file": "japanese-098.woff2",
+      "sha256": "ed84f4917ab7cfd7edf2f54d65bb5cc1c652c74c31f13c43a0fe652e39cbe6b9",
+      "status": 200
+    }
+  ],
+  "titles": [
+    {
+      "text": "백설공주",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "18.816px"
+    },
+    {
+      "text": "신데렐라",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "인어 공주",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "백설공주",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "잠자는 숲속의 공주",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "잭과 콩나무",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "토끼와 거북이",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "정글북",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "라푼젤",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "반쪽이",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "두더지의 혼인",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "구렁덩덩 새선비",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "복 타러 간 총각",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "좁쌀 한 톨로 장가든 총각",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "호랑이 형님",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    },
+    {
+      "text": "은혜 갚은 두꺼비",
+      "font": "\"TangoBook Story Hand Global\", \"TangoBook Story Hand Global\", sans-serif",
+      "size": "25.088px"
+    }
+  ],
+  "platformFonts": [
+    {
+      "familyName": "TangoBook Story Hand Global",
+      "postScriptName": "TangoBookStoryHandGlobal-Regular",
+      "isCustomFont": true,
+      "glyphCount": 4
+    }
+  ],
+  "proofLanguageCount": 11,
+  "proofFontStatus": {
+    "ko": true,
+    "errors": []
+  },
+  "headlessEdge": true,
+  "userTabsUntouched": true
+}

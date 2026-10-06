@@ -1,6 +1,12 @@
 # TangoBook Story Hand
 
-## 전체 지원0.4.0
+## 조형 통일0.5.0
+
+사용자 실제 화면 반증으로 0.4.0의 초기24개 한글과 확장 음절이 서로 다른 조형이었다는 점을 확인했습니다. 글자 누락0은 조형 통일의 증거가 아닙니다. 0.5.0은 현대 한글11,172음절/자모를 동일한 둥근 획 구성으로 다시 만들고, 압축된 자모에서 획이 합쳐지지 않도록 획폭을 통일합니다. 라틴/중국어/일본어/태국어는 초기 일부 글자만 섞지 않고 출처를 명시한 Noto 전체 face를 사용합니다. 모든 언어가 독점 자체 디자인이라는 뜻은 아닙니다. 역사판0.4.0/초기원본을 보존합니다.
+
+재현: `build_full_hangul.py --output dist-uniform-korean` → `proof_full_hangul.py --directory dist-uniform-korean` → `build_global_preview.py --custom-font dist-uniform-korean/TangoBookStoryHand-Expanded-Regular.ttf --output dist-global-uniform --uniform-scripts` → `verify_global.py --directory dist-global-uniform` → `build_web_global.py --source dist-global-uniform --version 0.5.0`. uniform proof는11172개 실제 glyph 좌표/contour/획구성과 자폭을 생성 규칙과 전수 비교하며, 신데렐라·인어공주·라푼젤·전래 제목을 실제 TTF로 렌더합니다. HTTP/브라우저 결과는 verification-uniform에 별도 보존합니다.
+
+## 이전 전체 지원0.4.0 (조형 혼합 문제 확인)
 
 최신 라이브러리는 **TangoBook Story Hand Global**을 사용합니다. 현대 한글11,172음절과 자모를 자체 조형으로 확장했고, 기존 전용 글자를 보존했습니다. 부족한 라틴/중국어/일본어/태국어 글리프는 출처가 명시된 Noto OFL 글리프를 통합했습니다. 모든 문자권을 독점 새 디자인한 서체라는 뜻은 아닙니다.
 

@@ -24,7 +24,7 @@ def rename(font,family):
   if rec.nameID in names:rec.string=names[rec.nameID].encode(rec.getEncoding())
  font.recalcTimestamp=False;font['head'].created=3786912000;font['head'].modified=3786912000
 
-def main(custom_path, output, reuse_existing=False):
+def main(custom_path, output, reuse_existing=False, uniform_scripts=False):
  global OUTPUT
  OUTPUT=output
  OUTPUT.mkdir(exist_ok=True);(OUTPUT/'work').mkdir(exist_ok=True)
@@ -36,10 +36,10 @@ def main(custom_path, output, reuse_existing=False):
   ('Chinese','NotoSansSC-VF.ttf',lambda cp:cp>=0x3000 and not(0xAC00<=cp<=0xD7A3) and not(0x3130<=cp<=0x318F)),
   ('Japanese','NotoSansJP-VF.ttf',lambda cp:cp>=0x3000 and not(0xAC00<=cp<=0xD7A3) and not(0x3130<=cp<=0x318F)),
  ]
- report={'status':'local-method-review-prototype','version':'0.4-preview','sources':sources,'originalFontSha256':digest(custom_path),'originalOutlinesOnly':['Korean'],'licensedCompatibilityScripts':['Latin additions','Chinese','Japanese','Thai'],'groups':{},'fullExclusiveOriginalDesign':False}
+ report={'status':'local-method-review-prototype','version':'0.5.0' if uniform_scripts else '0.4-preview','sources':sources,'originalFontSha256':digest(custom_path),'originalOutlinesOnly':['Korean'],'licensedCompatibilityScripts':['Latin' if uniform_scripts else 'Latin additions','Chinese','Japanese','Thai'],'groups':{},'fullExclusiveOriginalDesign':False}
  for key,source,allowed in groups:
   own=[cp for cp in cmap if allowed(cp)];family='TangoBook Story Hand Global'+(' Japanese' if key=='Japanese' else '')
-  if key=='Thai':own=[] # Preserve Thai as one shaping system, never mix the trial's partial mark anchors.
+  if key=='Thai' or (uniform_scripts and source):own=[] # One complete shaping/design system per script.
   own_file=OUTPUT/'work'/('own-'+key+'.ttf');slice_font(TTFont(custom_path),own,own_file)
   if reuse_existing and source and (OUTPUT/(key+'.ttf')).exists():
    font=TTFont(OUTPUT/(key+'.ttf'))
@@ -71,6 +71,8 @@ def main(custom_path, output, reuse_existing=False):
    titles+=1
    missing_cps={ord(c) for c in unicodedata.normalize('NFC',title)}-union
    if missing_cps:missing.append({'id':b['id'],'lang':lang,'missing':''.join(map(chr,sorted(missing_cps)))})
+ report['uniformScripts']=uniform_scripts
+ report['glyphDesignPolicy']='Uniform original Hangul; complete attributed Noto face per other script, no traced trial overrides' if uniform_scripts else 'Historical preserved trial outlines with compatible additions'
  report['validation']={'hangul11172':True,'thaiAssignedCharacters':True,'latinRegisteredLanguages':True,'actualTitleCount':titles,'missingTitles':missing,'unionCodepoints':len(union)}
  (OUTPUT/'coverage.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8');print(json.dumps(report['validation'],ensure_ascii=False))
 
@@ -79,4 +81,7 @@ if __name__=='__main__':
  parser.add_argument('--custom-font',type=Path,default=ROOT/'dist-expanded-bold/TangoBookStoryHand-Expanded-Regular.ttf')
  parser.add_argument('--output',type=Path,default=ROOT/'dist-global-bold-preview')
  parser.add_argument('--reuse-compatible',action='store_true')
- args=parser.parse_args();main(args.custom_font,args.output,args.reuse_compatible)
+ parser.add_argument('--uniform-scripts',action='store_true')
+ args=parser.parse_args()
+ assert not(args.uniform_scripts and args.reuse_compatible),'Uniform scripts require a fresh source build, not mixed historical fonts'
+ main(args.custom_font,args.output,args.reuse_compatible,args.uniform_scripts)

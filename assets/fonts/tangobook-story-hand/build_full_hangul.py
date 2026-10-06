@@ -1,6 +1,7 @@
 """Original rounded stroke construction for ALL 11,172 modern Hangul syllables.
 
-No installed/donor font outlines. Preserve the approved 24 original syllables.
+No installed/donor font outlines. All syllables use the same construction;
+the earlier 24 traced trial syllables stay in the historical trial font only.
 This step expands Korean; it does not claim complete Japanese/Chinese/Thai support.
 """
 from pathlib import Path
@@ -27,13 +28,13 @@ PATHS={
 }
 
 def strokes(pen, paths, box):
- x,y,w,h=box; thickness=min(125,w*.48,h*.48)
+ x,y,w,h=box; thickness=64
  for points in paths:
   points=[(x+a*w,y+b*h) for a,b in points]
   for a,b in zip(points,points[1:]): line(pen,a,b,thickness)
 
 def oval(pen,box):
- x,y,w,h=box;t=min(105,w*.32,h*.32);cx=x+w/2;cy=y+h/2
+ x,y,w,h=box;t=64;cx=x+w/2;cy=y+h/2
  # Nested Bezier ellipse with a counter; no filled black disk.
  for rx,ry,reverse in [(w/2+t/2,h/2+t/2,False),(w/2-t/2,h/2-t/2,True)]:
   pts=[(cx+rx*math.cos(i*math.pi/8),cy+ry*math.sin(i*math.pi/8)) for i in range(16)]
@@ -88,27 +89,31 @@ def syllable(l,v,t):
 def main(output):
  output.mkdir(exist_ok=True)
  font=TTFont(ROOT/'dist-asian/TangoBookStoryHand-AsianTrial-Regular.ttf');font.recalcTimestamp=False
- cmap=font.getBestCmap();order=list(font.getGlyphOrder());original=set(cmap)
+ cmap=font.getBestCmap();order=list(font.getGlyphOrder())
  for cp in range(0xAC00,0xD7A4):
-  if cp in cmap:continue
   n=cp-0xAC00;l=INITIAL[n//588];v=VOWEL[(n%588)//28];t=FINAL[n%28];name=f'uni{cp:04X}'
-  font['glyf'][name]=syllable(l,v,t);font['hmtx'][name]=(900,40);order.append(name);cmap[cp]=name
+  name=cmap.get(cp,name)
+  font['glyf'][name]=syllable(l,v,t);font['hmtx'][name]=(900,40)
+  if name not in order:order.append(name)
+  cmap[cp]=name
  # Compatibility jamo and modern conjoining jamo also have actual outlines.
  jamos={**{0x1100+i:c for i,c in enumerate(INITIAL)},**{0x1161+i:c for i,c in enumerate(VOWEL)},**{0x11A8+i:c for i,c in enumerate(FINAL[1:])}}
  jamos.update({ord(c):c for c in set(INITIAL+VOWEL+FINAL[1:])})
  for cp,c in jamos.items():
-  if cp in cmap:continue
   pen=TTGlyphPen(None);(vowel if c in VOWEL else consonant)(pen,c,(140,100,620,650));name=f'uni{cp:04X}'
-  font['glyf'][name]=pen.glyph();font['hmtx'][name]=(900,40);order.append(name);cmap[cp]=name
+  name=cmap.get(cp,name)
+  font['glyf'][name]=pen.glyph();font['hmtx'][name]=(900,40)
+  if name not in order:order.append(name)
+  cmap[cp]=name
  font.setGlyphOrder(order)
  for table in font['cmap'].tables:
   if table.isUnicode():table.cmap=dict(cmap)
- names={1:'TangoBook Story Hand Expanded',3:'TangoBookStoryHand-Expanded-0.3.1',4:'TangoBook Story Hand Expanded Regular',5:'Version 0.301',6:'TangoBookStoryHand-Expanded-Regular',10:'Original complete modern Korean construction; non-Korean trial subsets retained, not yet global production.'}
+ names={1:'TangoBook Story Hand Expanded',3:'TangoBookStoryHand-Expanded-0.5.0',4:'TangoBook Story Hand Expanded Regular',5:'Version 0.500',6:'TangoBookStoryHand-Expanded-Regular',10:'Uniform original complete modern Korean construction; historical non-Korean trial subsets excluded by uniform global build.'}
  for rec in font['name'].names:
   if rec.nameID in names:rec.string=names[rec.nameID].encode(rec.getEncoding())
  font['head'].fontRevision=.301;font['OS/2'].recalcUnicodeRanges(font)
  stem='TangoBookStoryHand-Expanded-Regular';font.save(output/(stem+'.ttf'));font.flavor='woff2';font.save(output/(stem+'.woff2'))
- report={'version':'0.3.1','family':'TangoBook Story Hand Expanded','supportedCount':len(cmap),'codepoints':sorted(cmap),'hangulSyllables':sum(cp in cmap for cp in range(0xAC00,0xD7A4)),'originalTrialGlyphsPreserved':len(original),'source':'original mathematical rounded-stroke jamo composition + preserved trial outlines','fullGlobalCoverage':False,'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in output.glob(stem+'.*')}}
+ report={'version':'0.5.0','family':'TangoBook Story Hand Expanded','supportedCount':len(cmap),'codepoints':sorted(cmap),'hangulSyllables':sum(cp in cmap for cp in range(0xAC00,0xD7A4)),'legacyHangulOverrides':0,'uniformHangulConstruction':True,'source':'one original rounded-stroke jamo construction for every modern Korean syllable; historical non-Korean trial glyphs excluded by the uniform global build','fullGlobalCoverage':False,'sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in output.glob(stem+'.*')}}
  (output/'coverage.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8');print(json.dumps({k:v for k,v in report.items() if k!='codepoints'},ensure_ascii=False))
 
 if __name__=='__main__':

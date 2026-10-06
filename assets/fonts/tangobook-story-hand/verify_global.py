@@ -29,6 +29,7 @@ count=0
 for book in json.loads((DATA/'all-list.json').read_text(encoding='utf8'))['data']:
  if '파닉스' in book.get('category',''):continue
  for lang,title in {'ko':book['title'],**(book.get('titleTranslations') or {})}.items():check(title,lang);count+=1
-report={'actualFontSha256':{k:v['sha256'] for k,v in fonts.items()},'harfBuzzSamples':samples,'languages':list(samples),'actualTitlesShaped':count,'notdefGlyphs':0,'visualReview':'awaiting actual browser screenshots','sourceAuthorship':'original Korean and preserved TangoBook lettering + explicitly attributed OFL Noto compatible glyphs'}
+coverage=json.loads((args.directory/'coverage.json').read_text(encoding='utf8'))
+report={'actualFontSha256':{k:v['sha256'] for k,v in fonts.items()},'harfBuzzSamples':samples,'languages':list(samples),'actualTitlesShaped':count,'notdefGlyphs':0,'visualReview':'awaiting actual browser screenshots','sourceAuthorship':coverage.get('glyphDesignPolicy','original Korean and preserved TangoBook lettering + explicitly attributed OFL Noto compatible glyphs')}
 (args.directory/'shaping-verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
 print(json.dumps({'languages':len(samples),'actualTitlesShaped':count,'notdefGlyphs':0}))
