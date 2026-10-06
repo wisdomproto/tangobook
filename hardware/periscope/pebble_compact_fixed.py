@@ -7,8 +7,8 @@ from pebble_geared_profile import load_profile
 import pebble_modelkit as kit
 
 b=load_profile('_compact_fixed_base','pebble.py',DESIGN_PHONE_INSERT_DEPTH=4.0,DESIGN_CAM_GAP=13.5)
-# Leave 0.3 mm beside each carrier socket during the full rearward shoe sweep.
-b.CONTACT_W=17.0
+# The relocated carrier sockets allow a wider phone-facing contact shoe.
+b.CONTACT_W=19.0
 _circular_contact_angle=b.paddle_angle
 # The new spline approximates the retained circular face. Give the rigid
 # display/contact probe 0.03 mm separation instead of treating a spline's
@@ -246,53 +246,46 @@ def shell_right():
     return part
 
 def rounded_contact_shoe():
-    # Return the toe toward the rear: a phone rising from below meets a cam,
-    # not a horizontal underside. Keep the upper circular gripping face so
-    # the existing axle, phone angles and body interfaces remain compatible.
-    # A 1.2 mm return radius replaces the tiny 0.3 mm nose. Move its center
-    # upward so the lowest point and rear envelope do not grow into the tray.
-    toe_r=1.2
-    toe_z=b.CONTACT_Z_LO-.7+(toe_r-.3)
-    toe_y=11.8-toe_r
-    join_z=b.CONTACT_CENTER_Z+1.2
-    end_y=b.contact_front_y(join_z)
-    end_tangent=1.2/math.sqrt(b.CONTACT_R**2-1.2**2)*(join_z-toe_z)
-    arc=[(toe_y+toe_r*math.cos(-math.pi*i/32),toe_z+toe_r*math.sin(-math.pi*i/32)) for i in range(33)]
-    for i in range(25):
-        u=i/24
-        if not i:continue
-        controls=[(toe_y-toe_r,toe_z),(toe_y-toe_r,toe_z+.8),
-                  (end_y-end_tangent/(join_z-toe_z)*.4,join_z-.4),(end_y,join_z)]
-        weights=[(1-u)**3,3*(1-u)**2*u,3*(1-u)*u*u,u**3]
-        arc.append(tuple(sum(p[j]*w for p,w in zip(controls,weights)) for j in (0,1)))
-    arc += [(b.contact_front_y(join_z+(b.CONTACT_Z_HI-join_z)*i/32),
-             join_z+(b.CONTACT_Z_HI-join_z)*i/32) for i in range(1,33)]
+    # Phone-facing lower edge: tangent quarter circle into the retained grip
+    # arc. The former return curve left a projecting corner on this front.
+    front_r=1.8
+    front_y=b.contact_front_y(b.CONTACT_CENTER_Z)
+    center_y=front_y+front_r
+    bottom=b.CONTACT_CENTER_Z-front_r
+    heel_r=.6
+    upper=[(b.contact_front_y(b.CONTACT_CENTER_Z+(b.CONTACT_Z_HI-b.CONTACT_CENTER_Z)*i/48),
+            b.CONTACT_CENTER_Z+(b.CONTACT_Z_HI-b.CONTACT_CENTER_Z)*i/48) for i in range(1,49)]
     shoe=(cq.Workplane('YZ').workplane(offset=-b.CONTACT_W/2)
-          .moveTo(*arc[0]).spline(arc[1:],includeCurrent=True)
+          .moveTo(11.8,bottom+heel_r)
+          .threePointArc((11.8-heel_r+heel_r/math.sqrt(2),bottom+heel_r-heel_r/math.sqrt(2)),
+                         (11.8-heel_r,bottom))
+          .lineTo(center_y,bottom)
+          .threePointArc((center_y-front_r/math.sqrt(2),b.CONTACT_CENTER_Z-front_r/math.sqrt(2)),
+                         (front_y,b.CONTACT_CENTER_Z))
+          .spline(upper,includeCurrent=True)
           .lineTo(b.paddle_front_y(b.CONTACT_BLEND_Z)-.1,b.CONTACT_BLEND_Z)
           .lineTo(b.paddle_front_y(b.CONTACT_BLEND_Z)+b.old.PLATE_T+.2,b.CONTACT_BLEND_Z)
-          .lineTo(11.8,toe_z)
+          .lineTo(11.8,bottom+heel_r)
           .close().extrude(b.CONTACT_W))
-    # Round the toe's width corners with a section mask. OCC cannot roll the
-    # nearly tangent return-spline seam reliably with a whole-rim fillet.
-    mask=b.box(-b.CONTACT_W/2,b.CONTACT_W/2,0,25,toe_z-toe_r,b.CONTACT_BLEND_Z+.2).edges('|Y').fillet(.8)
+    mask=b.box(-b.CONTACT_W/2,b.CONTACT_W/2,0,25,bottom,b.CONTACT_BLEND_Z+.2).edges('|Y').fillet(.8)
     return shoe.intersect(mask)
 
 FOAM_FACE_ANGLE=5.0
 FOAM_PRELOAD=.3
+FOAM_PRESS_W,FOAM_PRESS_H=16.0,8.0
 
 def foam_face_y(z):
     # Positive local slope becomes flatter as the tongue rotates rearward.
     return b.FOAM_PAD_Y+FOAM_PRELOAD-.3+math.tan(math.radians(FOAM_FACE_ANGLE))*(z-b.FOAM_Z)
 
 def preloaded_foam_boss():
-    lo,hi=b.FOAM_Z-b.FOAM_BOSS_H/2,b.FOAM_Z+b.FOAM_BOSS_H/2
-    face=(cq.Workplane('YZ').workplane(offset=-b.FOAM_BOSS_W/2)
+    lo,hi=b.FOAM_Z-FOAM_PRESS_H/2,b.FOAM_Z+FOAM_PRESS_H/2
+    face=(cq.Workplane('YZ').workplane(offset=-FOAM_PRESS_W/2)
           .polyline([(b.FOAM_PAD_Y-b.FOAM_BOSS_DEPTH-.1,lo),
                      (foam_face_y(lo),lo),(foam_face_y(hi),hi),
                      (b.FOAM_PAD_Y-b.FOAM_BOSS_DEPTH-.1,hi)])
-          .close().extrude(b.FOAM_BOSS_W))
-    return face.edges('|X').fillet(.25)
+          .close().extrude(FOAM_PRESS_W))
+    return face.edges('|X').fillet(.2)
 
 @lru_cache(None)
 def paddle():
@@ -303,7 +296,7 @@ def paddle():
                       (y0+b.old.PLATE_T,z0)]).close().extrude(b.old.PLATE_W))
     panel=panel.edges('<Z').fillet(.6).edges('not |X').fillet(.35)
     panel=panel.union(rounded_contact_shoe())
-    zlo,zhi=b.FOAM_Z-b.FOAM_H/2,b.FOAM_Z+b.FOAM_H/2
+    zlo,zhi=b.FOAM_Z-FOAM_PRESS_H/2,b.FOAM_Z+FOAM_PRESS_H/2
     pad=(cq.Workplane('YZ').workplane(offset=-b.FOAM_W/2)
          .polyline([(b.paddle_front_y(zlo)+b.old.PLATE_T-.1,zlo),
                     (b.paddle_front_y(zhi)+b.old.PLATE_T-.1,zhi),
@@ -356,6 +349,7 @@ def report():
         'foam_roof_coverage_missing_mm3':top_visibility(hard),
         'foam_bottom_coverage_missing_mm3':round(b.volume(b.box(-FOAM_W/2,FOAM_W/2,13.6,19.6,-10.6,-10.5).cut(hard)),6),
         'foam_face_angle_deg':FOAM_FACE_ANGLE,
+        'foam_pressure_face_mm':[FOAM_PRESS_W,FOAM_PRESS_H],
         'foam_nominal_compression_mm':{str(a):[round(6-(19.6-(b.old.PIVOT_Y+(foam_face_y(z)-b.old.PIVOT_Y)*math.cos(math.radians(a))-(z-b.PIVOT_Z)*math.sin(math.radians(a)))),3) for z in (b.FOAM_Z-2,b.FOAM_Z,b.FOAM_Z+2)] for a in (0,b.paddle_angle(7),b.paddle_angle(9),b.paddle_angle(11))},
         'keeper_downward_stop_contact_mm3':{str(t):v(smooth_cover.translate((0,0,-t)),body) for t in (.5,1)},
         'rear_retention_contact_mm3':{str(t):v(panel.translate((0,t,0)),cover) for t in (.5,1,2)},
