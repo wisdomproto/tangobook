@@ -51,3 +51,9 @@ http://127.0.0.1:5191/comparison.html : 왼쪽 사진/3D원본 겹침 슬라이�
 
 
 사용자 후속 요청으로 동일 가상 아이의 독서/퍼즐/책 고르기3장을 추가했다. `*-child-v1.png`, `child-image-prompts.json`을 같은 출력폴더에 보존한다. 해당3시점의 기본 variant는 아이 버전이고, 빈 집 Image skill판도 선택 가능하다. 아이는2D 생성으로 추가했으며3D 모델/리깅이 아니다. 퍼즐 의자 위치와 작은 소품 변화는 검수 메모에 기록했다.
+
+## 유아 활동 공간 샘플
+
+`education-samples.html`은 기존 집/아이와 낮은 책상으로 만든3장의 시각 샘플과 교육 공간 배치 초안을 보여준다. 출력은 `education-samples/` 안에 저장한다.2번 기본판은 테이블 뒤 하체 가림 수정본 `02-geometry-close-v3.png`. `education-sample-prompts.json`, `education-anatomy-fix.json`에 요청과 검수 기록이 있다. 실제 교구의 판 인쇄·조각 구성·비율은 정확히 복제되지 않았으며 새 유아 가구는 아직 기존3D에 포함되지 않는다. 샘플 검토 후 상세3D 가구/배치를 다시 구성하는 순서다.
+
+`build_layout_v2.py`는 기존 거실 옆에 별도 아이방을 붙인 초기3D 탐색본을 생성한다. `family-home-layout-v2.blend/.glb`, `layout-v2-assets.json`으로 저장하며 v1을 덮어쓰지 않는다. 실제 아파트84㎡ 평면을 재현한 모델이 아니고 원래 거실이 과하게 넓으므로 정식 집 구조로 채택하기 전 실제 평면 기반 재설계가 필요하다. 현재 기존 비교 뷰어의 선택 모델은 v1이다.
