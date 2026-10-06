@@ -11,6 +11,7 @@ ROOT=Path(__file__).resolve().parents[2]
 OUT=Path(__file__).parent/'out'
 FLOOR=10.4
 PINS=[(-3.,5.),(213.,5.),(-3.,205.),(213.,205.)]
+PIN_D,SOCKET_D,PIN_LENGTH=4.8,4.92,6.0
 
 def mesh(shape):
     v,f=shape.val().tessellate(.04,.12)
@@ -21,11 +22,11 @@ def mesh(shape):
 
 def foot(x,y,ribs=True):
     base=cq.Workplane('XY').center(x,y).circle(5).extrude(FLOOR).edges().fillet(.7)
-    pin=cq.Workplane('XY').center(x,y).circle(2.4).extrude(4.15).translate((0,0,FLOOR-.15)).edges('>Z').chamfer(.4)
+    pin=cq.Workplane('XY').center(x,y).circle(PIN_D/2).extrude(PIN_LENGTH+.15).translate((0,0,FLOOR-.15)).edges('>Z').fillet(.4)
     if ribs:
         for a in (0,120,240):
             rad=np.deg2rad(a)
-            rib=cq.Workplane('XY').center(x+2.33*np.cos(rad),y+2.33*np.sin(rad)).circle(.20).extrude(2.8).translate((0,0,FLOOR+.2)).edges('>Z').chamfer(.15)
+            rib=cq.Workplane('XY').center(x+2.39*np.cos(rad),y+2.39*np.sin(rad)).circle(.13).extrude(PIN_LENGTH-.9).translate((0,0,FLOOR+.25)).edges('>Z').fillet(.10)
             pin=pin.union(rib)
     return base.union(pin)
 
@@ -50,27 +51,48 @@ def stud():
     return result
 
 def main():
-    shell=cq.importers.importStep(str(OUT/'recognition-board-14x14.step'))
-    slab=cq.Workplane('XY').box(300,247.35,20,centered=(True,False,False)).translate((105,-30,FLOOR))
-    plate=shell.intersect(slab)
+    # A fresh rounded plate avoids the sharp edges left by cutting an old shell.
+    plate=(cq.Workplane('XY').box(226,225.35,9.6,centered=(True,True,False))
+           .edges('|Z').fillet(15).faces('>Z').edges().fillet(1)
+           .faces('<Z').edges().fillet(.8).translate((105,104.675,FLOOR)))
+    pocket=cq.Workplane('XY').box(210,210,20,centered=(True,True,False)).edges('|Z').fillet(1).translate((105,105,12.6))
+    plate=plate.cut(pocket)
     holes=None
     for x,y in PINS:
-        hole=cq.Workplane('XY').center(x,y).circle(2.45).extrude(4.4).translate((0,0,FLOOR-.1))
+        hole=cq.Workplane('XY').center(x,y).circle(SOCKET_D/2).extrude(PIN_LENGTH+.4).translate((0,0,FLOOR-.1))
+        mouth=cq.Workplane(obj=cq.Solid.makeCone(SOCKET_D/2+.35,SOCKET_D/2,.5,cq.Vector(x,y,FLOOR),cq.Vector(0,0,1)))
+        hole=hole.union(mouth)
         plate=plate.cut(hole)
         holes=hole if holes is None else holes.union(hole)
     front=[foot(*p) for p in PINS[:2]]
-    rail=shell.intersect(cq.Workplane('XY').box(300,30,30,centered=(True,False,False)).translate((105,BACK-.5,0)))
+    # Build the rail alone: slicing the old shell also kept a sharp, full-height strip.
+    profile=[(BACK-.5,5),(BACK+10,3),(BACK+10,15),(BACK-.5,13)]
+    rail=cq.Workplane('YZ').polyline(profile).close().extrude(210).edges().fillet(1.2)
+    nominal_rail=rail
+    for x in (62.5,147.5):
+        for z in (6.,12.):
+            rib=cq.Workplane('XY').box(45,.14,1.2).edges().fillet(.06).translate((x,BACK+10.06,z))
+            rail=rail.union(rib)
     bridge=(cq.Workplane('XY').box(216,15.5,2.9,centered=(True,False,False)).edges().fillet(.6).translate((105,202.5,7.5)))
     rear=rail.union(bridge).union(foot(*PINS[2])).union(foot(*PINS[3]))
     smooth=rail.union(bridge).union(foot(*PINS[2],ribs=False)).union(foot(*PINS[3],ribs=False))
     assert rear.val().isValid() and rear.solids().size()==1
     nominal=[foot(*p,ribs=False) for p in PINS[:2]]+[smooth]
+    rib_contact=[plate.intersect(foot(*p)).val().Volume() for p in PINS]
+    assert all(.01<v<10 for v in rib_contact)
     for f in nominal:
         for shift in (0,.5,2,5,12):
             assert plate.intersect(f.translate((0,0,-shift))).val().Volume()<1e-6
     cradle=cq.importers.importStep(str(OUT/'tablet-cradle.step'))
     assert plate.intersect(cradle).val().Volume()<1e-6
     assert rear.intersect(cradle).val().Volume()<20
+    nominal_rear=nominal_rail.union(bridge).union(foot(*PINS[2],ribs=False)).union(foot(*PINS[3],ribs=False))
+    assert nominal_rear.intersect(cradle).val().Volume()<1e-6
+    for shift in (20.,100.,230.):
+        assert nominal_rear.intersect(cradle.translate((shift,0,0))).val().Volume()<1e-6
+    assert nominal_rear.intersect(cradle.translate((0,0,1))).val().Volume()>1
+    assert nominal_rear.intersect(cradle.translate((0,3,0))).val().Volume()>1
+    assert rail.val().BoundingBox().zmax<15.01
     base_mesh=mesh(plate)
     solid=md.Manifold(md.Mesh64(base_mesh.vertices,base_mesh.faces.astype(np.uint64)))
     dome=stud(); heads=[]
@@ -127,13 +149,14 @@ def main():
     data['grid']=encode(head_mesh.vertices[head_mesh.faces].reshape(-1,3))
     data['frontFootLeft']=part(front[0].val());data['frontFootRight']=part(front[1].val());data['rearFeetRail']=part(rear.val())
     h=h[:match.start(1)]+json.dumps(data,separators=(',',':'))+h[match.end(1):]
+    h=h.replace('tango-camera-flat-board.stl','tango-camera-flat-board-rounded-fit.stl').replace('tango-camera-board-feet.stl','tango-camera-board-feet-modelkit.stl')
     h=h.replace('tango-camera-board-only-print.stl','tango-camera-flat-board-print.stl').replace('tango-camera-board-bezel8-open-bottom.stl','tango-camera-flat-board.stl')
     h=h.replace('베젤 8mm · 판 하부 개방형 · 놀이면 2.2mm · 하부 보강 리브','베젤 8mm · 평평한 판 바닥 · 모서리 조립 다리 4개 · 뒤 다리와 레일 일체형')
     if 'id="downloadFeet"' not in h:
         h=re.sub(r'(<a id="downloadBoard".*?</a>)',r'\1 <a id="downloadFeet" href="../../../hardware/studboard/out/tango-camera-feet-print-plate.stl" download="tango-camera-board-feet.stl">다리·레일 STL 다운로드</a>',h,count=1)
     h=h.replace('?240:0,0,0);gl.uniform3fv', '?240:0,0,exploded&&[\'frontFootLeft\',\'frontFootRight\',\'rearFeetRail\'].includes(p.name)?-25:0);gl.uniform3fv')
     htmlfile.write_text(h,encoding='utf8')
-    report={'triangle_count':len(full.faces),'bounds_mm':ready.extents.tolist(),'feet_plate_bounds_mm':feet_plate.extents.tolist(),'feet_triangle_count':len(feet_plate.faces),'feet_simplification_mm':.01,'flat_bottom':True,'watertight':full.is_volume,'foot_count':4,'printed_parts':4,'plate_floor_mm':2.2,'stud_radius_mm':2.5,'stud_height_mm':2.9,'stud_sides':12,'stud_bands':3,'simplification_tolerance_mm':.025,'pin_diameter_mm':4.8,'socket_diameter_mm':4.9,'pin_depth_mm':4,'rib_peak_diameter_mm':5.06,'assembly_nominal_interference_mm3':0,'block_collision_mm3':block_collision,'physical_test':False,'support_note':'plate flat-bottom down; rear foot/rail bridge may need local support'}
+    report={'triangle_count':len(full.faces),'bounds_mm':ready.extents.tolist(),'feet_plate_bounds_mm':feet_plate.extents.tolist(),'feet_triangle_count':len(feet_plate.faces),'feet_simplification_mm':.01,'flat_bottom':True,'watertight':full.is_volume,'foot_count':4,'printed_parts':4,'plate_floor_mm':2.2,'stud_radius_mm':2.5,'stud_height_mm':2.9,'stud_sides':12,'stud_bands':3,'simplification_tolerance_mm':.025,'pin_diameter_mm':PIN_D,'socket_diameter_mm':SOCKET_D,'pin_depth_mm':PIN_LENGTH,'rib_peak_diameter_mm':5.04,'rib_radial_interference_mm':.06,'rib_contact_mm3_per_pin':rib_contact,'socket_lead_depth_mm':.5,'plate_bottom_round_mm':.8,'rail_round_mm':1.2,'old_rear_strip_removed':True,'assembly_nominal_interference_mm3':0,'block_collision_mm3':block_collision,'physical_test':False,'support_note':'plate flat-bottom down; rear foot/rail bridge may need local support'}
     (OUT/'flat_board_report.json').write_text(json.dumps(report,indent=2),encoding='utf8');print(json.dumps(report,indent=2),flush=True)
 
 if __name__=='__main__':

@@ -1,16 +1,16 @@
 {
-  "triangle_count": 18804,
+  "triangle_count": 22472,
   "bounds_mm": [
-    226.0,
-    225.35,
+    225.9696155060244,
+    225.3196155060244,
     9.6
   ],
   "feet_plate_bounds_mm": [
     225.99151155212894,
-    37.847569931298494,
-    28.12470817565918
+    34.37860529078171,
+    28.1156909968704
   ],
-  "feet_triangle_count": 20736,
+  "feet_triangle_count": 26984,
   "feet_simplification_mm": 0.01,
   "flat_bottom": true,
   "watertight": true,
@@ -23,9 +23,20 @@
   "stud_bands": 3,
   "simplification_tolerance_mm": 0.025,
   "pin_diameter_mm": 4.8,
-  "socket_diameter_mm": 4.9,
-  "pin_depth_mm": 4,
-  "rib_peak_diameter_mm": 5.06,
+  "socket_diameter_mm": 4.92,
+  "pin_depth_mm": 6.0,
+  "rib_peak_diameter_mm": 5.04,
+  "rib_radial_interference_mm": 0.06,
+  "rib_contact_mm3_per_pin": [
+    0.13730658472915347,
+    0.13730658512389649,
+    0.13730658423750763,
+    0.13730658370327942
+  ],
+  "socket_lead_depth_mm": 0.5,
+  "plate_bottom_round_mm": 0.8,
+  "rail_round_mm": 1.2,
+  "old_rear_strip_removed": true,
   "assembly_nominal_interference_mm3": 0,
   "block_collision_mm3": 0.0,
   "physical_test": false,
