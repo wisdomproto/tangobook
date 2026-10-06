@@ -168,3 +168,9 @@ BookCover에서 CoverTitle을 분리하고 하단5%/좌우6% 배치, 권장 크�
 실제 API1310책 한국어 제목의 한글 cmap 누락0. headlessEdge 신데렐라 실제 Cafe24 Ssurround/customFont=true/glyph4 확인. 데스크톱1854px·모바일390px ×KO/EN/ZH/VI/TH 총10화면, 화면별 약98제목의 최대2줄·가로 넘침 없음 확인. surround-bottom-review.json/1854·390 PNG를 D:/ComfyUI-output/library-clean-covers-20261006에 보존하고 실제 화면 육안 확인. 이 제목 검증을 새 전체 표지 로딩 검증으로 확대하지 않는다(이전14행97표지512px 로딩 증거 보존). 사용자 탭과 기존5240서버 유지, 원본/본문/게임/R2 변경 및 mainpush/운영배포 없음.
 
 최종 검증: BookCover·stall 16회귀와 줄바꿈6회귀 통과, client typecheck 및 build 통과(기존 Browserslist/lottie eval/큰 chunk 경고). 의미 구절 수정 후 실제10화면 재검증도 통과.
+
+## 사용자 main 통합 승인 — 2026-10-07 KST
+
+사용자 '메인에 푸시 하자' 요청으로 이 작업의 라이브러리 표지·다국어 제목·써라운드 하단 배치·표지 로딩 복구 코드 main 통합을 승인했다. 새 헤라클레스6컷 이미지는 대화용 생성 결과이며 제품 등록 지시가 없어 Git/라이브러리에는 넣지 않는다. fetch 후 origin/main...HEAD=0/11로 확인해 이력 재작성 없이 fast-forward push 가능. 기존 미추적 폰트 실험/생성표지 파일과 다른worktree/서버/사용자탭 보존.
+
+푸시 전 실제 client 관련4파일28tests, shared book-groups12tests 통과. shared 테스트는 shared 자체 vitest 의존성이 없어 서버의 설치된 vitest 실행경로로 수행했다. shared build 통과, 직전 제목변경 client build/10브라우저화면 검증 보존. 운영 반영은 push 이후 원격과 실제 배포결과를 구분해 확인한다.

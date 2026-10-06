@@ -299,3 +299,5 @@
 - 2026-10-06 library 표지재발은 새표지썸네일생성누락. 기존해결코드보존을Git확인한뒤1612파생썸네일생성/실제14행97표지512px로드확인. [최신작업절](../work/authoring/tasks/20261006-library-cover-titles.md). 이후표지교체시썸네일생성필수.
 
 - 2026-10-06 library 제목 최신선택은 Cafe24 써라운드(한국어): 더 크게·아래쪽·의미별2줄. 자체제작서체로 보고하지 않으며 다국어 기존서체 보존. [원본 기록](../work/authoring/tasks/20261006-library-cover-titles.md). 로컬 적용/운영배포 없음.
+
+- 2026-10-07 library 작업 mainpush 사용자 승인. 써라운드/하단제목/다국어fallback/표지로딩복구를 통합한다. [최신 기록](../work/authoring/tasks/20261006-library-cover-titles.md). 원격push와 운영배포확인은 구분.
