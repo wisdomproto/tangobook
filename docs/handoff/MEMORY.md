@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-06 [가상 육아 인플루언서 집·가구 샘플](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md): 정확한 레퍼런스는 Instagram @__siu.mom. 집/가구17그룹·개별가구13GLB·4실제카메라·좌이미지/우3D 비교HTML 완료. Qwen 실사화는 렌더감/가구혼입 반증; 사용자 지정 imagegen built-in으로4시점 생성, “훨씬 나은데” 확인. 주요 배치 유지, 소파 좌석 분할/조명/일부 소품 차이는 검수메모 공개. 후속 아이 독서/퍼즐/책 고르기3장도 같은 캐릭터·실사배경 참조로 추가하고 기본 variant 반영(퍼즐 의자 약간 이동). localhost5191/comparison.html 기본판 갱신, worktree output/과 D드라이브 보존. 별도 codex/marketing-virtual-parenting, main 미통합·미푸시. 아이3D/영상 없음.
+2026-10-06 [가상 육아 인플루언서 집·가구 샘플](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md): 정확한 레퍼런스는 Instagram @__siu.mom. 집/가구17그룹·개별가구13GLB·4실제카메라·좌이미지/우3D 비교HTML 완료. Qwen 실사화는 렌더감/가구혼입 반증; 사용자 지정 imagegen built-in으로4시점 생성, “훨씬 나은데” 확인. 주요 배치 유지, 소파 좌석 분할/조명/일부 소품 차이는 검수메모 공개. 후속 아이 독서/퍼즐/책 고르기3장도 같은 캐릭터·실사배경 참조로 추가하고 기본 variant 반영(퍼즐 의자 약간 이동). localhost5191/comparison.html 기본판 갱신, worktree output/과 D드라이브 보존. 별도 codex/marketing-virtual-parenting, main 미통합·미푸시. 아이3D/영상 없음. 후속 교육맘 레퍼런스5개(완콩맘/별주니맘/쭈니놀이터/모과쌤/소시네) 실제 프로필·공개 피드 설명 확인, 대표게시물/분석/한계는 task 마지막절.
 
 2026-10-06 [표지 제목 글자 혼합 반증·썸네일 조사](../work/authoring/tasks/20261006-library-cover-titles.md): 초기24개 한글 보존과 확장음절의 조형 혼합이 실제 원인. 기존 notdef0은 통일 검증 아님. 0.5.0 동일 획 규칙 전수비교/11언어 출처별 통일 교정, Netflix·YouTube 공식 가이드/실제예시 조사. 365클린 표지 완료·본문게임/850창작/95파닉스 보존. UI는 로컬, main push/배포 없음. 검증 상세는 task 최신절.
 

@@ -81,3 +81,19 @@ image_gen built-in으로 기존 실사 배경에 가상 아이를 추가해 독�
 배경과 주요 가구는 기존 실사판을 직접 edit target으로 사용해 유지됐다. 퍼즐에서는 착석을 위해 먼쪽 의자가 좌측으로 이동했고, 책을 퍼즐판으로 교체했다. 책 고르기는 요청한 중간단 대신 위쪽 책을 만지는 동작으로 생성됐다. 이 정도의 손/동작/세부 배치 차이는 향후 시리즈 검수 대상이다. 아이의 3D 모델/포즈 리깅을 추가한 것은 아니다.
 
 파일은 output/virtual-parenting/*-child-v1.png와 D드라이브 shots/에 이중 보존. child-image-prompts.json에 원문 요청3개 저장. shots.json 해당3장 variants 첫 항목을 아이 버전으로 설정하고 빈 집 실사판/기존Qwen판 선택을 보존했다. 실제 브라우저에서 독서/퍼즐 선택·1122px 로딩·검수 메모/다운로드 경로 확인, console error0. 완료 비교 화면 comparison-child-proof.png 저장.
+
+
+## 후속 조사: 교육 중심 육아 엄마 계정 (2026-10-06)
+
+사용자가 이미지 제작 가능성을 확인했으므로 다른 교육 중심 엄마 인플루언서 피드를 참고하도록 요청했다. agent-reach doctor의 Instagram backend OpenCLI 확인 후 search를 시도했지만 HTML 응답/JSON parsing 오류. 설치/로그인 변경 없이 공개 웹검색으로 후보를 찾고 기존 로그인된 IAB에서 각 Instagram 프로필과 피드의 공개 게시물 설명을 직접 확인했다. 최신 전체 피드/영상 전부를 분석한 것은 아니다. 개인 알림/메시지/상호 팔로워는 조사/기록 대상에서 제외.
+
+후보와 직접 확인한 사례:
+- 완콩맘 @wankong_mom: 프로필에 전직 초등교사/AMI 몬테소리, 25평 현실 몬테소리. https://www.instagram.com/wankong_mom/reel/Dd6KB0wTICV/ 집 환경 소개; https://www.instagram.com/wankong_mom/reel/DdQ7csmp656/ 오늘의 배움 Day4 매주 단어 교체/하루10분; https://www.instagram.com/wankong_mom/reel/DdTgdUNzDKM/ 동음이의어 카드/도안나눔. 공간→학습루틴→자료공유 연결이 현재 가상집 콘셉트에 가까움(작업자 판단).
+- 별주니맘 @byul.junimom: 유아수학/책육아, 프로필에 약사 엄마의 학습 로드맵. https://www.instagram.com/byul.junimom/reel/DeHSNo7Kuzk/ 수카드 활용 가이드; https://www.instagram.com/byul.junimom/reel/DeE27FfqUK-/ 도형 교구 경험. 연령/단계별 교구 활용을 보여주고 스터디/공구로 연결.
+- 쭈니놀이터 @bianca_boyoung: 엄마표 홈스쿨링/책육아, 프로필에 초등아들/아동학/TESOL/보육교사. https://www.instagram.com/bianca_boyoung/reel/DdPyTsvS3IC/ 종이접기 급수/성취경험; https://www.instagram.com/bianca_boyoung/reel/Dd-Gx8iSZLc/ 일상물건 활용 STEAM 클래스 협찬 소개; 독서/글쓰기/체험학습 게시물 함께 확인.
+- 몬테맘 모과쌤 @monte.mom_guide: 프로필에 AMS 국제교사/몬테육아8년차. https://www.instagram.com/monte.mom_guide/p/DVOKLKkE1pU/ 하루루틴 도안; https://www.instagram.com/monte.mom_guide/p/DeHI2G2E9DC/ 아이가 도움 요청할 때 관찰하기; https://www.instagram.com/monte.mom_guide/reel/Dd82tE7z8-J/ 소근육/운필력 놀이 교구. 교육효과 수치/영재 인과 주장은 검증하지 않았으며 사실로 재사용하지 않는다.
+- 소시네 @sosine._: 프로필에 엄마표영어8년 실제경험, 시작/책고르기/막힐때루틴. https://www.instagram.com/sosine._/p/DeEonYKlGIr/ 영어 읽기 정체 고민과 체크 항목; https://www.instagram.com/sosine._/reel/Dd_dVd1vs9N/ 비교/반복/단계 올리기에 대한 엄마 경험담. 질문→공감→실행 팁의 포맷 참고.
+
+벨라하우스 @bella_haus_도 프로필/상단5개 게시물을 확인했으나 해당 표본은 생활제품 공구/이벤트가 많이 섞여 교육 포맷 우선5개에서는 제외했다. 전체 계정이 교육 중심이 아니라고 단정하지 않는다. 후보발견에 흥플 교육 목록 https://heungple.com/ranking/education 을 사용했으나 순위/매출/성과를 검증하거나 추천 기준으로 쓰지 않았다. Agent Reach check-update 최신1.5.0 확인.
+
+다음 기획 제안(사용자 확정 아님): 시우맘의 공간 분위기 + 완콩맘의 집 안 학습환경/루틴 + 소시네의 초보 엄마 대상 설명 포맷을 조합. 엄마 얼굴 없이 아이 활동사진/놀이 단계/자료도안/부모 체크리스트를 시리즈화할 수 있음. 이번 요청 범위는 공개 레퍼런스 조사이며 추가 이미지/게시/영상 제작은 실행하지 않았다.
