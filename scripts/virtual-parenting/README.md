@@ -57,3 +57,15 @@ http://127.0.0.1:5191/comparison.html : 왼쪽 사진/3D원본 겹침 슬라이�
 `education-samples.html`은 기존 집/아이와 낮은 책상으로 만든3장의 시각 샘플과 교육 공간 배치 초안을 보여준다. 출력은 `education-samples/` 안에 저장한다.2번 기본판은 테이블 뒤 하체 가림 수정본 `02-geometry-close-v3.png`. `education-sample-prompts.json`, `education-anatomy-fix.json`에 요청과 검수 기록이 있다. 실제 교구의 판 인쇄·조각 구성·비율은 정확히 복제되지 않았으며 새 유아 가구는 아직 기존3D에 포함되지 않는다. 샘플 검토 후 상세3D 가구/배치를 다시 구성하는 순서다.
 
 `build_layout_v2.py`는 기존 거실 옆에 별도 아이방을 붙인 초기3D 탐색본을 생성한다. `family-home-layout-v2.blend/.glb`, `layout-v2-assets.json`으로 저장하며 v1을 덮어쓰지 않는다. 실제 아파트84㎡ 평면을 재현한 모델이 아니고 원래 거실이 과하게 넓으므로 정식 집 구조로 채택하기 전 실제 평면 기반 재설계가 필요하다. 현재 기존 비교 뷰어의 선택 모델은 v1이다.
+
+
+## 새 집 구조 v3 · 넓은 거실
+
+`build_layout_v3.py`는 기존 v1 가구를 옮기고 거실/주방·가족식탁/아이방/현관과 화면 밖 방 외형을 다시 만든다. 초기 4.1×4.1m 거실은 사용자 반증으로 5.8×4.8m로 확대했다. 5.3m 창, 확대 러그, 소파 앞 여백을 확보했다. 아파트 평면의 연결 관계를 참고한 독자 촬영용 설계이며 정확한84㎡ 평면 재현이 아니다. 아이방에는83×58×48cm 책상·좌면28cm 의자·낮은 교구장·2단 전면 책장이 실제3D로 포함된다.
+
+```powershell
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/build_layout_v3.py -- D:/ComfyUI-output/virtual-parenting-20261006
+& scripts/virtual-parenting/prepare-viewer.ps1
+```
+
+출력 `family-home-layout-v3.blend/.glb`, `layout-v3-assets.json`은 별도 파일이다. http://127.0.0.1:5191/layout-v3.html 에서 전체/평면/거실/아이방/주방/현관 시점, 벽 높이, 방 이름,16가구 치수 선택을 제공한다. 방 이름은3D 텍스처 대신 화면 좌표로 투영한14–16px 흰 바탕 DOM 글자로 표시해 거리/조명에 따른 흐림을 제거했다. 촬영 POV는 구도 확인용이며 기존 비교 뷰어처럼 Blender 센서/렌즈와 정확히 동기화한 카메라 프레임은 아니다. 기존 실사 샘플은 이전 집 기반이며 새 구조의 실사 생성은 별도 후속 작업이다.

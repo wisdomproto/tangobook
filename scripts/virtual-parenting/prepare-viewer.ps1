@@ -5,6 +5,7 @@ $taskVendor=Join-Path $taskRoot 'vendor'
 New-Item -ItemType Directory -Force -Path $taskRoot,$taskVendor,"$taskVendor/addons/controls","$taskVendor/addons/loaders","$taskVendor/addons/utils" | Out-Null
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'index.html') -Destination (Join-Path $taskRoot 'index.html')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'comparison.html') -Destination (Join-Path $taskRoot 'comparison.html')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'layout-v3.html') -Destination (Join-Path $taskRoot 'layout-v3.html')
 $taskFiles=@('build/three.module.js','build/three.core.js','examples/jsm/controls/OrbitControls.js','examples/jsm/loaders/GLTFLoader.js','examples/jsm/utils/BufferGeometryUtils.js','LICENSE')
 foreach($taskFile in $taskFiles){
     $taskRelative=if($taskFile.StartsWith('build/')){$taskFile.Substring(6)}elseif($taskFile.StartsWith('examples/jsm/')){'addons/'+$taskFile.Substring(13)}else{'THREE-LICENSE.txt'}

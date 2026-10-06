@@ -2,7 +2,7 @@
 
 - id: 20261006-marketing-virtual-parenting-home-sample
 - domain: marketing
-- status: completed
+- status: ready
 - updated: 2026-10-06
 - base: c73189d95
 - branch: codex/marketing-virtual-parenting
@@ -123,3 +123,18 @@ education-samples.html은3장 확대보기와 교육 공간 재배치 초안/교
 추가 참조: 래미안 원베일리59A 견본주택 사진 https://www.raemian.co.kr/community/times/style/view.do?seq=83 는 거실/주방/아이방 등 실제 촬영 마감자료. Poly Haven https://polyhaven.com/license 는 모델/재질/HDRI 자산 CC0 명시; 자산과 웹사이트 예시사진은 다른 범위. 3D-FRONT 논문 https://arxiv.org/abs/2011.09127 의 실내3D방 데이터는 연구자료이며 공식 데이터 약관 https://kaldir.vc.in.tum.de/panoptic_reconstruction/front3d-tos.pdf 에 연구 목적/상업화 제한이 있어 계정 운영 자산으로 무조건 채택하지 않는다. 현재 Tianchi 원 프로젝트 주소는404 확인, 미러의 Apache 표기만으로 원본 데이터 권한을 판단하지 않는다. 외부 데이터 다운로드·구매·게시 없음.
 
 완성 실내3D 장면의 추가 후보는 BlenderKit(현재 Blendkit) 공식 Integrated living room https://www.blenderkit.com/asset-gallery-detail/593927cd-60b7-40f5-8eba-2e07fb30bac7/ 이다. compact apartment의 거실/다이닝 통합 장면이라는 제작자 설명 확인. 무료/유료 및 실제 모델 품질은 아직 다운로드 검증하지 않았고 구매하지 않았다. 라이선스 범위는 공식 FAQ https://www.blendkit.com/docs/licenses/licensing-faq/ 와 사용자 조건을 참고한다.
+
+## 재구성 착수 (2026-10-06)
+
+사용자가 '니가 제안한대로 집 구조 다시 만들어봐'로 실제 재구성을 요청했다. 기존9×7m 전체공간에 아이방만 붙인 v2를 정식판으로 올리지 않고, 공식84㎡A 평면의 공간 관계를 참고해 거실/후면주방·식탁/옆아이방/현관·복도/화면 밖 안방·욕실을 새 좌표로 재구성한다. 치수는 촬영용 변형 설계로 공식 도면 그대로의 실측 재현이라고 표시하지 않는다. 기존 가구 자산은 가능한 그대로 옮겨 쓰고, 주방과 건축은 공간 규모에 맞춰 다시 만든다. 기존 v1 비교뷰어/이미지는 보존한다.
+
+
+## 재구성 완료 · 넓은 거실 / 방 이름 가독성 (2026-10-06)
+
+v3 별도 집 모델53그룹,10구역,16가구/조명 목록과3촬영 시점을 생성했다. 중앙 거실/후면주방·가족식탁/오른쪽 아이방/현관, 화면 밖 안방·욕실·추가방 외형으로 연결. 기존 v1 원본/비교뷰어/이미지 보존. 새3D 뷰어 layout-v3.html을 comparison.html에서 연결하고 BLEND/GLB 다운로드도 제공한다.
+
+사용자 최신 반증: 방 위 이름이 희미해 읽히지 않음. Three Sprite 크기/색 보정만으로 부족하여14–16px 굵은 DOM 글자를 방 중심의 화면 좌표로 투영했다. 흰 바탕/진한 글씨/테두리로 평면 및 거실 화면에서 읽힘을 확인, POV에서는 숨김. 이어 '거실이 너무 작다, 넓게 뽀대나게' 요청으로 초기4.1×4.1m를5.8×4.8m(약65.6% 확대)로 재설계했다. 왼쪽 화면 밖 방 외형을 이동하고 전면을70cm 늘림,5.3m 거실 창/확대 러그/소파 위치를 조정. 정확한84㎡ 실측 재현 표기를 하지 않는다.
+
+검수 중 좌표 일괄 치환이 의자 뒷다리의 -1.60까지 바꿔 다리가 분리되는 오류를 발견했다. 해당 좌표/아이방 카메라 타깃을 개별 복원하고 모델 재생성·아이방 POV에서 연결을 확인했다. 구역 경계 변경과 가구 내부 좌표를 함께 치환하지 않는 것이 후속 수정 원칙이다.
+
+검증: Blender 생성/export53그룹 성공; Python AST, HTML module node --check, JSON 구역 양수/자산ID 고유성, GLB magic/version/전체 길이 확인. 브라우저에서 평면/거실/아이방/주방3POV, 방 이름 가독성·POV 숨김, 책상83×58×48cm 선택/outline 확인. 최종 평면 및 거실 화면 증거는 D드라이브 layout-v3-wide-top.png / layout-v3-wide-living.png. 작업은 구조 모델/뷰어 완료이며 새 구조의 실사 이미지·아이3D·영상은 아직 없음. 로컬 별도 브랜치, 외부 게시/DB/배포/푸시 없음.
