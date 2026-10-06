@@ -19,7 +19,7 @@
         "D:/ComfyUI-output/virtual-parenting-20261006/education-samples/02-geometry-close-v3.png"
       ],
       "generated_path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-acb35e02-9a83-48e9-b4e4-df7f9a69d7a2.png",
-      "selected_image": "feed-v5/study-puzzle-photo-v2.png"
+      "selected_image": "feed-v5/study-puzzle-photo-v3.png"
     },
     {
       "id": "sofa-reading",
@@ -39,5 +39,15 @@
       "D:/ComfyUI-output/virtual-parenting-20261006/materials-v5/study-puzzle-render-v1.png"
     ],
     "generated_path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-89852ddd-23a1-49f6-96bf-4047f79e87b6.png"
+  },
+  "study_anatomy_correction": {
+    "mode": "built-in image_gen",
+    "prompt": "Use case: precise-object-edit / anatomy correction. Edit this photo locally. The child currently has NO lower body beneath the tabletop; this is anatomically wrong for this wide elevated camera angle. Restore a believable seated lower body for this SAME 4-year-old boy. His pelvis is seated on the small wooden chair directly behind the far edge of the low child desk. His thighs extend forward underneath the tabletop, knees bend naturally over the chair front, TWO cream-trouser lower legs descend naturally, and TWO small light beige sock-covered feet rest on the wooden floor under the BACK HALF of the desk. Show the visible portions of BOTH shins and feet through the open space below the tabletop; the tabletop should occlude only pelvis/thighs/upper knees where physically appropriate. The feet must stay underneath and close to the seated child's body, not protrude toward the camera/front edge, not be adult-sized, not attach to table legs. Correct depth: feet are farther from camera than the FRONT desk legs, with natural floor contact shadows; parts may be occluded by existing rear desk/chair legs. Add only any necessary visible chair seat/slats immediately beneath him. Preserve ALL other pixels and composition as closely as possible: child's face/hair/top/arms/hands, geometry pieces, desk height/shape/position/FOUR wooden legs, books and illustrated covers, shelves, doorway, floor, blank wall, sunlight. Do not enlarge the child or move the desk. No extra or disconnected limbs, no floating feet. This is a realistic candid photograph, not a render.",
+    "referenced_image_paths": [
+      "D:/ComfyUI-output/virtual-parenting-20261006/feed-v5/study-puzzle-photo-v2.png"
+    ],
+    "generated_path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-47dc9f0f-6a15-4028-92fd-ec752ef8d029.png",
+    "selected_image": "feed-v5/study-puzzle-photo-v3.png",
+    "review": "넓은 CAM2에서는 하체가 보여야 한다는 사용자 반증. 두 정강이/양말 발을 책상 아래, 몸과 이어지는 의자 자세로 복원."
   }
 }

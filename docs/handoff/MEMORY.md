@@ -315,3 +315,5 @@
 - 2026-10-06 가상 육아 집: 소파 상세화/벽 액자2개 및 실제4K PBR 재질 원본 v5. Blender 내부 텍스처 pack/GLB UV·재질 내장, AI 보정 없는2각도 원본과 카메라 비교 materials-v5.html. [작업 기록](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md). 로컬만 적용.
 
 - 2026-10-07 가상 육아 PBR 집 기준 피드3장 생성: 러그/소파 독서·아이방 도형놀이. 공부방 창 조명 보완·잘못 추가된 액자 제거·하체 가림 유지. feed-v5.html 사진/원본/실제3D 카메라 비교. [작업 기록](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md). 로컬만 적용.
+
+- 2026-10-07 가상 육아 사용자 반증: 넓은 공부방 CAM2는 다리/발이 보여야 자연스러움. 근접컷 전체 가림 규칙의 일괄 적용 철회, 사진 v3 두 정강이/양말 발 복원. [작업 기록](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md).

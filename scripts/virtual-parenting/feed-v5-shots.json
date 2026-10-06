@@ -97,13 +97,13 @@
     ],
     "focus": "낮은 책상·유아 의자·교구장·전면 책장",
     "guide": "materials-v5/study-puzzle-render-v1.png",
-    "image": "feed-v5/study-puzzle-photo-v2.png",
-    "review": "공부방 낮은 책상·교구장·책장 배치 유지. 상판 뒤 하체/발 가림. 잘못 추가된 액자 제거, 책 표지는 가상 삽화로 보완. 실제 교구/책 복제 아님.",
+    "image": "feed-v5/study-puzzle-photo-v3.png",
+    "review": "넓은 CAM2 구도: 책상 아래 두 다리/양말 발이 보이도록 수정. 몸-의자-무릎-바닥 연결과 가림 확인. 책 표지는 가상 삽화, 실제 교구/책 복제 아님.",
     "variants": [
       {
         "title": "PBR 기반 실사 피드",
-        "image": "feed-v5/study-puzzle-photo-v2.png",
-        "review": "공부방 낮은 책상·교구장·책장 배치 유지. 상판 뒤 하체/발 가림. 잘못 추가된 액자 제거, 책 표지는 가상 삽화로 보완. 실제 교구/책 복제 아님."
+        "image": "feed-v5/study-puzzle-photo-v3.png",
+        "review": "넓은 CAM2 구도: 책상 아래 두 다리/양말 발이 보이도록 수정. 몸-의자-무릎-바닥 연결과 가림 확인. 책 표지는 가상 삽화, 실제 교구/책 복제 아님."
       },
       {
         "title": "텍스처 Blender 원본",
