@@ -77,7 +77,16 @@ def rear_panel():
     # behind an 11 mm phone; the tongue toe sweeps above the tray floor.
     floor=b.box(-14.7,14.7,12,22,-11.4,-9.6).edges('|Z').fillet(.6).edges('not |Z').fillet(.3)
     heel=b.box(-14.7,14.7,19.6,22,-11.4,-6.6).edges('|Y').fillet(.5)
-    return panel.union(floor).union(heel)
+    # A U-shaped shelf catches foam squeezing downward, while the center-front
+    # remains open for the tongue's rearward sweep. Nominal foam clearance .4.
+    foam_bottom=b.FOAM_Z-FOAM_H/2
+    shelf_top=foam_bottom-.4
+    support=b.box(-10.6,10.6,17.6,22,shelf_top-1.4,shelf_top).edges('|Z').fillet(.35).edges('not |Z').fillet(.2)
+    for sign in (-1,1):
+        x0,x1=sorted((sign*8.7,sign*10.6))
+        wing=b.box(x0,x1,15.7,22,shelf_top-1.4,shelf_top).edges('|Z').fillet(.35).edges('not |Z').fillet(.2)
+        support=support.union(wing)
+    return panel.union(floor).union(heel).union(support)
 
 @lru_cache(None)
 def keeper_blank():
@@ -281,20 +290,22 @@ def rounded_contact_shoe():
 
 FOAM_FACE_ANGLE=5.0
 FOAM_PRELOAD=.3
-FOAM_PRESS_W,FOAM_PRESS_H=16.0,8.0
+FOAM_PRESS_W,FOAM_PRESS_H=16.0,10.0
+# Keep the former upper edge; extend only the lower edge by 2 mm.
+FOAM_PRESS_Z=b.FOAM_Z-1.0
 
 def foam_face_y(z):
     # Positive local slope becomes flatter as the tongue rotates rearward.
     return b.FOAM_PAD_Y+FOAM_PRELOAD-.3+math.tan(math.radians(FOAM_FACE_ANGLE))*(z-b.FOAM_Z)
 
 def preloaded_foam_boss():
-    lo,hi=b.FOAM_Z-FOAM_PRESS_H/2,b.FOAM_Z+FOAM_PRESS_H/2
+    lo,hi=FOAM_PRESS_Z-FOAM_PRESS_H/2,FOAM_PRESS_Z+FOAM_PRESS_H/2
     face=(cq.Workplane('YZ').workplane(offset=-FOAM_PRESS_W/2)
           .polyline([(b.FOAM_PAD_Y-b.FOAM_BOSS_DEPTH-.1,lo),
                      (foam_face_y(lo),lo),(foam_face_y(hi),hi),
                      (b.FOAM_PAD_Y-b.FOAM_BOSS_DEPTH-.1,hi)])
           .close().extrude(FOAM_PRESS_W))
-    return face.edges('|X').fillet(.2)
+    return face.edges('|X').fillet(.15)
 
 @lru_cache(None)
 def paddle():
@@ -305,7 +316,7 @@ def paddle():
                       (y0+b.old.PLATE_T,z0)]).close().extrude(b.old.PLATE_W))
     panel=panel.edges('<Z').fillet(.6).edges('not |X').fillet(.35)
     panel=panel.union(rounded_contact_shoe())
-    zlo,zhi=b.FOAM_Z-FOAM_PRESS_H/2,b.FOAM_Z+FOAM_PRESS_H/2
+    zlo,zhi=FOAM_PRESS_Z-FOAM_PRESS_H/2,FOAM_PRESS_Z+FOAM_PRESS_H/2
     pad=(cq.Workplane('YZ').workplane(offset=-b.FOAM_W/2)
          .polyline([(b.paddle_front_y(zlo)+b.old.PLATE_T-.1,zlo),
                     (b.paddle_front_y(zhi)+b.old.PLATE_T-.1,zhi),
@@ -359,6 +370,8 @@ def report():
         'foam_bottom_coverage_missing_mm3':round(b.volume(b.box(-FOAM_W/2,FOAM_W/2,13.6,19.6,-10.6,-10.5).cut(hard)),6),
         'foam_face_angle_deg':FOAM_FACE_ANGLE,
         'foam_pressure_face_mm':[FOAM_PRESS_W,FOAM_PRESS_H],
+        'foam_pressure_center_offset_z_mm':FOAM_PRESS_Z-b.FOAM_Z,
+        'foam_lower_support':{'clearance_mm':.4,'thickness_mm':1.4,'shape':'rear shelf with side wings; center-front tongue passage open','rest_overlap_mm3':v(b.foam(),panel),'downward_0_6mm_contact_mm3':v(b.foam().translate((0,0,-.6)),panel)},
         'foam_nominal_compression_mm':{str(a):[round(6-(19.6-(b.old.PIVOT_Y+(foam_face_y(z)-b.old.PIVOT_Y)*math.cos(math.radians(a))-(z-b.PIVOT_Z)*math.sin(math.radians(a)))),3) for z in (b.FOAM_Z-2,b.FOAM_Z,b.FOAM_Z+2)] for a in (0,b.paddle_angle(7),b.paddle_angle(9),b.paddle_angle(11))},
         'keeper_downward_stop_contact_mm3':{str(t):v(smooth_cover.translate((0,0,-t)),body) for t in (.5,1)},
         'rear_retention_contact_mm3':{str(t):v(panel.translate((0,t,0)),cover) for t in (.5,1,2)},

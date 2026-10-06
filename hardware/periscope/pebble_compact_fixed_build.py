@@ -83,6 +83,8 @@ def main():
     assert all(v>0 for v in r['rear_retention_contact_mm3'].values()),r
     assert r['foam_roof_coverage_missing_mm3']==0,r
     assert r['foam_bottom_coverage_missing_mm3']==0,r
+    assert r['foam_lower_support']['rest_overlap_mm3']==0,r
+    assert r['foam_lower_support']['downward_0_6mm_contact_mm3']>0,r
     assert all(v>0 for v in r['keeper_downward_stop_contact_mm3'].values()),r
     assert all(v>0 for v in r['keeper_rear_load_contact_mm3'].values()),r
     assert all(v>0 for v in r['carrier_seating_contacts_mm3'].values()),r
