@@ -158,3 +158,13 @@ v3 별도 집 모델53그룹,10구역,16가구/조명 목록과3촬영 시점을
 family-home-materials-v5.blend는 모든 사용 이미지 내부 pack, GLB에도 이미지/UV/normal/roughness 포함. materials-v5.html은 좌 AI 보정 없는 Blender160샘플 원본2각도, 우 같은 텍스처3D/카메라, 이전 원본 비교를 제공한다. 이전AI 사진을 새로운 Blender 원본으로 오표기하지 않는다. 아직 단순 가구 형상/미세 원단 주름은 실사와 차이가 있으며 브라우저 조명은 Cycles와 다르다. 아이3D 모델은 없음.
 
 검증: Python AST/3뷰어 module node --check/JSON 참조 이미지 존재,7원본 맵 SHA256 일치,391 textured meshes/7packed images, GLB 내부 이미지/normal/roughness/UV 확인. 웹3D 첫 export에서 modifier 미적용으로 소파가 각지게 보이는 반증을 발견해 export_apply=True로 둥근 팔걸이/쿠션의 세분 형상을 포함했다. 브라우저 최종 CAM1/3·POV·버전 비교 확인. 제품코드/운영DB/외부게시/푸시 없음.
+
+## PBR 원본 기반 피드3장 (2026-10-07)
+
+사용자가 새 텍스처 원본을 좋다고 확인하고 피드 이미지를 여러 장 다시 요청. 같은 가상 아이/새 PBR 집으로 러그 독서·소파 독서·별도 아이방 도형놀이3장 생성. built-in image_gen 유지. 소파 사진에는 새 CAM1 생성사진도 추가 재질 참조로 넣어 같은 원단/좌석 형상 일관성을 강화했다. 두 좌방석/등쿠션·액자2개·원형테이블/러그 주요 배치 유지, 쿠션 두께·광원·창밖은 AI 재해석으로 기록.
+
+공부방 원본 첫 렌더가 어두워 기존 공부방 창 밖에450W area light 추가. 다른 GPU 작업 경합으로 자기 Blender 프로세스만 중단하고 CPU768×960/32샘플로 최종 가이드 생성. family-home-feed-v5.blend 별도 저장, 기존 v5 형상/재질/카메라 보존. 생성 공부방 v1에 거실 액자가 잘못 추가되어 targeted edit v2로 제거, 책장6권 빈 표지는 가상 삽화로 채움. 손/상판 뒤 하체 가림 자연스러움, 발 조각 없음. v1도 보존하며 기본은 v2.
+
+feed-v5.html은 좌 최종사진/원본 겹침·버전, 우 실제 PBR GLB 카메라/POV3장면. materials-v5에서 새 피드 링크 추가. PNG/정확한 프롬프트/참조/생성원본 경로 worktree output 및 D드라이브 저장. Python AST/HTML module node --check/JSON·참조 이미지 존재 확인. 운영DB·외부게시·푸시 없음.
+
+브라우저 최종 검수: 세 선택 이미지 로딩, CAM2/3 POV, 공부방 원본/사진 dropdown 전환, CAM1 카메라 위치를 확인. 최종 공부방/거실 화면 증거 feed-v5-study-proof.png/feed-v5-proof.png 저장. 공부방 아이 의자는 AI가 사용 자세에 맞춰 소폭 재해석했으며 가구 치수/픽셀 동일성이 검증됐다는 뜻이 아니다.

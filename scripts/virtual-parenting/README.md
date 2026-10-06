@@ -96,3 +96,11 @@ python scripts/virtual-parenting/download_materials_v5.py D:/ComfyUI-output/virt
 ```
 
 v5의 `family-home-materials-v5.blend`는 사용 맵을 내부 pack하고 `.glb`에도 UV·이미지 재질을 내장한다. `materials-v5-textures.json`은 다운로드 원본/출처/CC0/SHA256 기록이다. `materials-v5.html`의 기본 왼쪽 사진은 **AI 보정 없는 Cycles160샘플 원본**, 오른쪽은 같은 텍스처 모델/카메라다. 이전 절차적 원본 비교 선택을 제공한다. 브라우저 조명은 Cycles와 달라 웹3D 화면 자체를 사진급 최종 렌더로 취급하지 않는다. 소파 형태는 동일 자산이고 아이는3D로 추가되지 않았다. 아직 일부 단순 가구 형태와 미세 원단 주름은 실사와 차이가 있다.
+
+## PBR 원본 기반 육아 피드 v5 (2026-10-07)
+
+`feed-v5.html`은 새 텍스처 집의 러그 독서/아이방 도형놀이/소파 독서3장을 왼쪽, 같은3D 모델/카메라를 오른쪽에 표시한다. built-in image_gen 사용. 소파 장면에는 CAM1의 새 생성사진을 추가 재질 참조로 넣었다. 공부방 v1에 잘못 추가된 거실 액자는 편집으로 제거하고 가상 그림책 표지를 채웠다. 기본 공부방 선택본은 v2, 하체/발은 상판 뒤 가림. 실제 책/교구 복제는 아님.
+
+`render_feed_v5.py`는 packed v5 모델에서 기존 공부방 카메라를 렌더한다. 공부방 창 밖 area daylight를 추가한 `family-home-feed-v5.blend`를 별도 저장하고 원래 v5 모델은 보존한다. GPU 경합 시 `--cpu`로768×960/32샘플 가이드를 만들 수 있다(이번 최종 공부방 원본). 거실 원본은 이전1280×1600/160샘플. 웹3D는 동일 형상/재질의 `family-home-materials-v5.glb`를 재사용한다.
+
+선택 PNG3장은 `output/virtual-parenting/feed-v5/` 및 D드라이브 `feed-v5/`, 정확한 요청/참조/원본 경로는 `feed-v5-prompts.json`. 사진 내 광원/창밖/쿠션 두께는 AI 재해석으로 남아 있으며 정확한 가구 치수 보존을 보장하지 않는다.
