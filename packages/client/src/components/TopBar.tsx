@@ -154,6 +154,12 @@ const CHANGJAK: ResourceItem[] = [
  */
 const BM: ResourceItem[] = [
   {
+    href: '/subscription-strategy.html',
+    icon: '💳',
+    label: '구독 전략 · 검토 중',
+    desc: '무료/유료 구분 3안 · 일일 책 수 제한 vs 독후활동 유료화 · 가격/범위 미확정',
+  },
+  {
     href: '/organic-marketing/organic-execution-plan-2026-10-05.html',
     icon: '🌱',
     label: '오가닉 마케팅 실행 기획',
@@ -574,7 +580,7 @@ export function TopBar() {
         </a>
         <ResourceMenu
           items={BM}
-          label="💼 BM"
+          label="📁 BM 자료실"
           tone="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30"
         />
         <ResourceMenu

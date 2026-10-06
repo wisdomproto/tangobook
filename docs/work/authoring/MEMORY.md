@@ -1,5 +1,7 @@
 # 동화책 저작도구 기억
 
+2026-10-06 [구독 전략 검토와 BM 자료실](../strategy/tasks/20261006-subscription-strategy.md): 사용자 계속검토 지시. 일일권수/독후활동유료/학습관리유료 3안 HTML, 3권·가격·범위 미확정 표시. editor2 기존 BM 메뉴를 BM 자료실로 명확히 하고 정적 HTML 연결, 기존 자료 보존. 제품 접근정책·DB·리포트 구현·push 변경 없음.
+
 2026-10-05 표지 폰트 main push 완료: v0.1/v0.2 실제 폰트·원형/재현코드·사용 지침·DB테이블/등록스크립트 a470b44c까지 원격 main에 일반push하고 SHA일치를 확인했다. 운영 R2/DB 등록 완료와 main 통합을 구분해 검증했으며 Railway 배포/편집기 UI 적용 완료로 확대하지 않는다. [기록](tasks/20261005-cover-font.md).
 
 2026-10-05 [표지 기본 폰트/운영 등록](tasks/20261005-cover-font.md): 사용자 지침 기록·DB업로드·mainpush 요청. [공통 표지 규칙](../../cover-fonts.md)을 AGENTS/CLAUDE/editor에 연결, v0.2 지원범위 확인 후 책별 색/테두리 사용. R2 폰트2버전/메타데이터9개 CDN SHA 검증, Supabase cover_font_assets 두행·preferred v0.2·RLS관리자전용 확인(마이그레이션20261005104926). 기존 표지/편집기 UI는 미변경. 승인 mainpush 진행.
