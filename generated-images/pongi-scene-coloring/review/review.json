@@ -1,0 +1,22 @@
+{
+  "scope": {
+    "books": 50,
+    "scenes": 100
+  },
+  "generation": "built-in imagegen, one reference-based request per scene",
+  "allScenes": [
+    "source/lineart/shared engine filled visual comparison",
+    "monochrome pixel validation",
+    "source and selected lineart SHA256"
+  ],
+  "actualGame": "Representative pointer brushing and matching page reveal only; see local-game-evidence.json",
+  "nativeAudio": "No native TTS URL supplied; fallback reading is not native audio or transcript evidence",
+  "sourceExceptions": {
+    "existingSources": 98,
+    "newStoryIllustrations": [
+      "changjak-pongi-33-p01",
+      "changjak-pongi-33-p07"
+    ]
+  },
+  "runtime": "Existing source-pixel palette; no answer colors, brightness adjustment or global median changes"
+}

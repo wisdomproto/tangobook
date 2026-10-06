@@ -1,0 +1,73 @@
+[
+  {
+    "key": "changjak-coco-34-p01",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-acf7af74-711b-463f-bc24-414ab88a67a6.png",
+    "collection": "changjak-coco"
+  },
+  {
+    "key": "changjak-mei-22-p06",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-6fd813e1-5a81-4953-9d92-cecca5478457.png",
+    "collection": "changjak-mei"
+  },
+  {
+    "key": "changjak-mei-33-p07",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-3506019d-4691-423f-8191-9e39df330220.png",
+    "collection": "changjak-mei"
+  },
+  {
+    "key": "changjak-mei-48-p01",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-e5f2d738-53b7-46aa-9b89-af0cca6c76dc.png",
+    "collection": "changjak-mei"
+  },
+  {
+    "key": "changjak-mei-23-p08",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-a325c238-9972-4a34-a70e-1bb152d64422.png",
+    "prompt": "Precisely edit ONLY the hedgehog's back/spine outline in this black-and-white coloring page: replace all tiny jagged spines with ONE broad, smooth continuous closed black outer arc joining belly/face/feet. Make the white back region wider by 12 pixels into the outer whitespace, maintaining face, pose and location. This needs a wide closed fillable back, not texture. Keep all other characters, teacher, hands, action, props and layout unchanged. Strict white interiors, black outlines.",
+    "collection": "changjak-mei"
+  },
+  {
+    "key": "changjak-mei-25-p08",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-114e0f9e-b7e9-42d8-84d5-252439e99339.png",
+    "prompt": "Precisely edit ONLY the large bear's OUTER HEAD in this black-and-white page. The top cropped head/ear opens to canvas. Add a smooth continuous 12px BLACK upper cap arc about 18 pixels INSIDE the top edge connecting both existing outer side contours, so its whole face is a CLOSED WHITE region. CLOSE the small gap between neck contour and muzzle. Do not cap inner ears or add black bars inside ears. Keep exact eyes, nose, mouth, posture, garments, other character and props. Strict black outline white interiors.",
+    "collection": "changjak-mei"
+  },
+  {
+    "key": "changjak-mei-26-p05",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-9351eb4b-cbae-4265-b667-a7b0f8153fb4.png",
+    "prompt": "Precisely edit ONLY the large bear's OUTER HEAD in this black-and-white page. The top cropped head/ear opens to canvas. Add a smooth continuous 12px BLACK upper cap arc about 18 pixels INSIDE the top edge connecting both existing outer side contours, so its whole face is a CLOSED WHITE region. CLOSE the small gap between neck contour and muzzle. Do not cap inner ears or add black bars inside ears. Keep exact eyes, nose, mouth, posture, garments, other character and props. Strict black outline white interiors.",
+    "collection": "changjak-mei"
+  },
+  {
+    "key": "changjak-coco-25-p09",
+    "prompt": "Edit ONLY the mother's outer ear top in this coloring page. The large ear runs off the top edge, opening the entire head. Lower the outer ear tip by 40 pixels so the WHOLE outer ear closes inside the canvas with a white margin. Join smoothly to head; remove tiny fur junction gaps. Keep exact face, nose, eyelids, mouth, neck, apron, child and props positions unchanged; black outline white interior only.",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-c068b20c-0e2a-410b-957f-b951c2532663.png",
+    "collection": "changjak-coco"
+  },
+  {
+    "key": "changjak-coco-31-p02",
+    "prompt": "Edit ONLY the mother's apron in this coloring page. Close its full outside contour at bottom-left behind the counter and connect its right edge, strap and upper bib at the armpit so the ENTIRE apron is one large closed WHITE garment region. Add a thin inside-canvas cap wherever garment exits bottom edge. Keep exact mother/child face, hands, dough, pose and geometry. Black outlines white interiors only.",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-d9d98ddd-6691-4d8e-adac-6e13c1ff4a01.png",
+    "collection": "changjak-coco"
+  },
+  {
+    "key": "changjak-coco-49-p03",
+    "prompt": "Edit ONLY the bird's cropped neck and body in this black-white coloring page. Add a curved inner cap 20 pixels ABOVE bottom canvas connecting its left neck/chest edge to right outer body edge, to close its whole head-and-body region INSIDE canvas. Its large head must be white fillable region, no black silhouette. Keep friendly eye, beak, bread, mouse and all geometry exactly unchanged.",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-d5b289e9-3d46-4d66-b6b6-d8e6b1dbc4b8.png",
+    "collection": "changjak-coco"
+  },
+  {
+    "key": "changjak-mio-31-p05",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-d219e35c-70f7-42f6-ac12-d8d358ed2dc0.png",
+    "collection": "changjak-mio"
+  },
+  {
+    "key": "changjak-mio-36-p04",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-06e56b9b-6ea8-4982-90dc-01fda35cc4e8.png",
+    "collection": "changjak-mio"
+  },
+  {
+    "key": "changjak-lulu-28-p09",
+    "path": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-50973b84-fe23-415a-99ac-b299e14087ee.png",
+    "collection": "changjak-lulu"
+  }
+]

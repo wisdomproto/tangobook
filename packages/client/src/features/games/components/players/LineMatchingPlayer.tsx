@@ -234,8 +234,14 @@ function LineMatchingPlayerInner({
   ]);
 
   const logGame = useGameLogger();
+  const emittedRef = useRef(false);
   useEffect(() => {
-    if (!finished) return;
+    if (!finished) {
+      emittedRef.current = false;
+      return;
+    }
+    if (emittedRef.current) return;
+    emittedRef.current = true;
     // onComplete 는 GameResultScreen 의 onBack 에서 호출 — finished 되자마자 부르면
     // 부모가 overlay 를 unmount 해서 결과 화면이 안 보임 (ConnectTheDots 와 동일 패턴).
     // 🔴 음절은 쏘지 않는다 — 그림과 `고기` 를 이었다고 아이가 `고` 를 읽은 건 아니다(게다가

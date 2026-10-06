@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
-import { readPhonicsUnitIds } from '../lib/phonics-progress';
+import { readPhonicsUnitIds, completedPhonicsUnitIds } from '../lib/phonics-progress';
 
 interface Props {
   events: LearningEvent[];
@@ -18,17 +18,20 @@ interface Props {
  *    격자는 아래 접이식으로 내려간다(지우지 않는다 — 궁금한 부모는 열어본다).
  */
 export function PhonicsSummaryCard({ events, storybooks, lang }: Props) {
-  const read = readPhonicsUnitIds(events, storybooks);
+  const visited = readPhonicsUnitIds(events, storybooks);
+  const read = completedPhonicsUnitIds(events, lang === 'ko' ? 'ko' : 'en');
   /**
    * 🔴 **"아직 시작하지 않았어요" 를 단원 방문만으로 판단하면 거짓말이 된다** — 음절·낱말 기록은
    *    쌓여 있는데(아래 표에 색이 있는데) 위에서는 시작 안 했다고 말하는 화면이 실제로 나왔다.
    *    파닉스에서 나온 기록이 **하나라도** 있으면 시작한 것으로 본다.
    */
-  const hasAnyPhonics = read.size > 0 || events.some((e) => e.metadata?.source === 'phonics');
   const isKo = lang === 'ko';
   const levels = isKo ? KOREAN_PHONICS_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
 
   const units = levels.flatMap((l) => l.units.map((u) => ({ ...u, levelName: l.name })));
+  const hasAnyPhonics =
+    units.some((unit) => visited.has(unit.id)) ||
+    events.some((event) => event.metadata?.source === 'phonics' && event.metadata.lang === lang);
   const doneCount = units.filter((u) => read.has(u.id)).length;
   // 지금 하고 있는 자리 = 아직 안 한 첫 단원(커리큘럼 순서가 곧 학습 순서다).
   const next = units.find((u) => !read.has(u.id));

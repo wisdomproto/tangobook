@@ -49,15 +49,39 @@ export interface MarketingTarget {
   igRow: any | null;
 }
 
-/** bookId → 마케팅 콘텐츠(mkt_contents.memo='storybook:<id>') + 인스타 캐러셀 행. 없으면 null. */
+/** bookId → 연결된 첫 마케팅 기획 + 인스타 캐러셀 행. memo는 이전 데이터 폴백이다. */
 export async function resolveMarketingTarget(bookId: string): Promise<MarketingTarget | null> {
   const sb = requireAdmin();
-  const { data: content, error: cErr } = await sb
-    .from('mkt_contents')
-    .select('id, project_id')
-    .eq('memo', `storybook:${bookId}`)
+  const { data: source, error: sourceErr } = await sb
+    .from('mkt_content_sources')
+    .select('id')
+    .eq('source_type', 'storybook')
+    .eq('source_id', bookId)
     .maybeSingle();
-  if (cErr) throw new Error(`mkt_contents 조회 실패(${bookId}): ${cErr.message}`);
+  if (sourceErr) throw new Error(`mkt_content_sources 조회 실패(${bookId}): ${sourceErr.message}`);
+
+  let content: { id: string; project_id: string } | null = null;
+  if (source) {
+    const { data: linked, error: linkedErr } = await sb
+      .from('mkt_contents')
+      .select('id, project_id')
+      .eq('content_source_id', source.id)
+      .order('created_at', { ascending: true })
+      .limit(1);
+    if (linkedErr) throw new Error(`mkt_contents 연결 조회 실패(${bookId}): ${linkedErr.message}`);
+    content = linked?.[0] ?? null;
+  }
+  if (!content) {
+    const { data: legacy, error: legacyErr } = await sb
+      .from('mkt_contents')
+      .select('id, project_id')
+      .eq('memo', `storybook:${bookId}`)
+      .order('created_at', { ascending: true })
+      .limit(1);
+    if (legacyErr)
+      throw new Error(`mkt_contents 레거시 조회 실패(${bookId}): ${legacyErr.message}`);
+    content = legacy?.[0] ?? null;
+  }
   if (!content) return null;
 
   const { data: igRows, error: igErr } = await sb

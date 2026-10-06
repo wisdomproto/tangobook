@@ -1,6 +1,6 @@
 # 타로와 무무 — 무대·사물 시트 (견본)
 
-> art-director 산출물 (2026-08-16 · 2026-09-05 뒤 25권 반영). 시리즈 13 `taro-batik` · **50권 500쪽**
+> art-director 산출물 (2026-08-16 · 2026-09-05 뒤 25권 반영). 시리즈 13 `taro-simple-batik` · **50권 500쪽**
 > (§0·§2 표의 「25권」은 늘기 전 숫자다 — 🔴 시트 제목의 「N권 공유」류 숫자도 **그때 센 값이지 조건이 아니다**.
 > 뒤 25권이 같은 물건을 쓰면 그 시트를 쓴다. 숫자를 문지기로 읽지 마라).
 > 🔴 **앵커는 `taro-anchor.md` 가 SSOT다. 이 문서는 그 그림체로 그릴 대상을 확정한다** — 앵커를 고치지 않는다.
@@ -36,7 +36,8 @@
 매번 달라지고, 01 은 착지를 잃는다.
 
 ```
-STAGE SHEET - VillageMap   (taro-batik · bake FIRST, before every other sheet · SCENE token: VillageMap)
+STAGE SHEET - VillageMap   (taro-simple-batik · bake FIRST, before every other sheet · SCENE token: VillageMap)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 One island village seen from above and slightly tilted, as a child would draw a map. This single
 drawing fixes left and right for all 25 books - nothing may flip afterwards.
@@ -115,17 +116,15 @@ letter 를 이으면 같은 자리가 시트마다 딴 글자가 된다). 경로
     with 0 marks in it, and the sheet's own background value is named on its SPOTS list.
 ```
 
-🔴 **한 물건이 화면을 다 채울 때 이 매체에서 올라가는 것은 하나뿐이다 — 크랙(crackle)이다.**
-값은 셋 그대로고 마크 수도 그대로다(가까이 갔다고 잎이 늘지 않는다). 늘어나는 것은 **크랙의 굵기와 간격**
-이라, `T` 와 익스트림 클로즈업에서는 크랙을 **그 크기에 맞춰** 굵게 성기게 그린다. 그게 「가까이 왔다」를
-이 그림체가 말하는 유일한 방법이고, 안 그러면 클로즈업이 와이드를 확대한 것으로만 보인다.
+클로즈업도 장식 크랙을 추가하지 않는다. 물체의 윤곽·크기·접촉 지점으로 거리를 보여주며 얼굴과 배경을 단순하게 유지한다.
 
 ---
 
 ### §2.1 WellTree — 실제 프롬프트
 
 ```
-STAGE SHEET - WellTree   (taro-batik · use the anchor's VILLAGE clause · SCENE token: WellTree)
+STAGE SHEET - WellTree   (taro-simple-batik · use the anchor's VILLAGE clause · SCENE token: WellTree)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The right-hand end of the village road: one huge tree with a round well beside it. Ten of the
 twenty-five books sit here, so this drawing decides the place once and nothing about it changes
@@ -138,7 +137,7 @@ be able to tell the two trees apart from the tree alone.
 FIXED PARTS:
   TRUNK - one DEEP mass several times an adult's width, going straight up and out of frame. Three
     roots break the ground on the road side, the middle one thickest. No bark drawn: the mass is
-    one flat DEEP area and the only marks inside it are at most 4 crack hairlines, never in a row.
+    one broad plain DEEP area with no decorative cracks or motifs.
   CROWN - one DEEP mass, reaching further over the road than over the back, so its shade falls on
     the road. Its leaves are one stamped shape, at most 9 of them showing along the mass edge.
   🔴 THE BRANCHES - THREE and no more, all on the road side, and their shape is fixed here because
@@ -184,7 +183,8 @@ NOT: no character of any kind, no orange anywhere on this sheet, no lettering or
 ### §2.2 CreekTree — 쌍둥이
 
 ```
-STAGE SHEET - CreekTree   (taro-batik · VILLAGE clause · bake AFTER WellTree · SCENE token: CreekTree)
+STAGE SHEET - CreekTree   (taro-simple-batik · VILLAGE clause · bake AFTER WellTree · SCENE token: CreekTree)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The left-hand end of the same road. THIS IS THE SAME TREE AS WellTree: copy the trunk mass, the
 crown mass, the outline, the lean, the height and the three roots exactly. Two things differ and
@@ -323,13 +323,14 @@ NOT: no character, no orange, no lettering or numerals, no gradient, no glow, no
 ### §3.1 CoconutHalf — 실제 프롬프트 (🔴 두 권이 공유)
 
 ```
-PROP SHEET - CoconutHalf   (taro-batik · SCENE token: CoconutHalf)
+PROP SHEET - CoconutHalf   (taro-simple-batik · SCENE token: CoconutHalf)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 Half a coconut shell, the size of two cupped child hands. The SAME object appears in two books -
 as a pair of look-alike halves in one, and as a boat floating down the stream in the other - so it
 is drawn once here and never redesigned.
 
-FORM: a deep rounded bowl, outside MID with the weave of the cloth showing through, the cut rim one
+FORM: a deep rounded bowl, outside MID with only subtle quiet textile grain, the cut rim one
   clean hard CLOTH line all the way round, inside DEEP. Three small dark eyes sit in a triangle on
   the closed end. NO shading, no sheen, no highlight anywhere on the curve - the curve is read from
   the rim line alone.
@@ -352,7 +353,8 @@ NOT: no character, no hands, no orange anywhere on this sheet, no lettering or n
 ### §3.2 Shells — 실제 프롬프트
 
 ```
-PROP SHEET - Shells   (taro-batik · use the anchor's WATER clause · SCENE token: Shells)
+PROP SHEET - Shells   (taro-simple-batik · use the anchor's WATER clause · SCENE token: Shells)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The shells of the sand flat, from a thumb to a palm across. One book lays them out for ten pages
 straight - as scattered, as an armful, as a line, and finally as a ring - so their single shape is
@@ -421,7 +423,8 @@ STATES (added - for any page where a shell is NOT on sand, or is rolled, or is b
 > 차고 비는 것이 통째로 이야기이고, 49·50권은 그 잎이 아기를 감싼다. 모양은 하나여야 한다.
 
 ```
-PROP SHEET - BroadLeaf   (taro-batik · SCENE token: BroadLeaf)
+PROP SHEET - BroadLeaf   (taro-simple-batik · SCENE token: BroadLeaf)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 One broad leaf, about as wide as a child is tall when laid flat. Twelve books use it - as the
 dinner plate, as the mat a pile of fruit sits on, as the wrap around a baby, as a thing hung on a
@@ -464,7 +467,8 @@ cast shadow of the leaf on anything, no airbrush, gradient, glow or soft edge.
 ### §3.4 Stones — 돌 하나가 세 가지로 놓인다
 
 ```
-PROP SHEET - Stones   (taro-batik · SCENE token: Stones)
+PROP SHEET - Stones   (taro-simple-batik · SCENE token: Stones)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The stones of the village ground - one kind of stone, a child's palm across. Five books use them:
 laid in a line, stood on end and knocked down, stacked into a tower, and thrown short.
@@ -504,7 +508,8 @@ grain inside a stone, no motion line, arc or dust puff, no airbrush, gradient, g
 > 돌멩이와 같은 시트에 두면 구멍이 없어지고, 없어지면 그 권에 아무 일도 안 일어난다.
 
 ```
-PROP SHEET - HoleStone   (taro-batik · SCENE token: HoleStone)
+PROP SHEET - HoleStone   (taro-simple-batik · SCENE token: HoleStone)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 One flat stone with a hole worn right through the middle of it. One book, and four of its ten pages
 are this object.
@@ -536,7 +541,8 @@ glow or soft edge.
 ### §3.6 SandMark — 🔴 14권은 이것이 뒤집혀야 한다
 
 ```
-PROP SHEET - SandMark   (taro-batik · use the anchor's WATER clause for the sand · SCENE token: SandMark)
+PROP SHEET - SandMark   (taro-simple-batik · use the anchor's WATER clause for the sand · SCENE token: SandMark)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 Marks scratched into wet sand with a fingertip or a stick. Three books use them - a map, an arrow,
 and a row of counting lines.
@@ -578,7 +584,8 @@ groove, no airbrush, gradient, glow or soft edge.
 > 길이를 시트가 안 정하면 화가가 매번 새로 정한다.
 
 ```
-PROP SHEET - Shadow   (taro-batik · SCENE token: Shadow)
+PROP SHEET - Shadow   (taro-simple-batik · SCENE token: Shadow)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The flat shadow a body lays on the ground. The anchor already says what it is made of - ONE flat
 DEEP silhouette, hard edge, nothing shaded inside it, never on a body and never on a face. This
@@ -618,7 +625,8 @@ shadow edge, no second shadow from a second light, no airbrush, gradient or glow
 > 없으면 그 권은 열 쪽 내내 그냥 어두운 방이 된다.
 
 ```
-PROP SHEET - LightBand   (taro-batik · SCENE token: LightBand)
+PROP SHEET - LightBand   (taro-simple-batik · SCENE token: LightBand)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The band of daylight that comes in through a gap and lies on a dark floor. Four books use it and one
 book counts it.
@@ -654,7 +662,8 @@ band, no second band from a second gap, no airbrush or soft edge.
 ### §3.9 Lamp — 밤에는 이 규칙이 다시 나온다
 
 ```
-PROP SHEET - Lamp   (taro-batik · use the anchor's NIGHT clause · SCENE token: Lamp)
+PROP SHEET - Lamp   (taro-simple-batik · use the anchor's NIGHT clause · SCENE token: Lamp)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The oil lamp hung on a post under the eaves. Four books light it.
 
@@ -689,7 +698,8 @@ halo, ray or beam, no gradient at the circle's edge, no lens flare, no airbrush 
 ### §3.10 StormSky — 38·41권의 상대역
 
 ```
-PROP SHEET - StormSky   (taro-batik · SCENE token: StormSky)
+PROP SHEET - StormSky   (taro-simple-batik · SCENE token: StormSky)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The low sky of a storm and the crack of light that opens in it. Two books are afraid of it.
 
@@ -727,7 +737,8 @@ on the ground from the crack, no airbrush, gradient or soft edge.
 > 정한 것과 같은 자리다. 이 갈림을 시트가 못 박지 않으면 권마다 물 색이 바뀐다.
 
 ```
-PROP SHEET - WaterStream   (taro-batik · SCENE token: WaterStream)
+PROP SHEET - WaterStream   (taro-simple-batik · SCENE token: WaterStream)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 Water in the air: the rope of water that runs off an eave, and water poured from a vessel. Six books
 use it and one book is entirely about standing under it.
@@ -767,7 +778,8 @@ no airbrush, gradient, glow or soft edge.
 ### §3.13 WaterPails — 🔴 46권은 물 높이가 사건이다
 
 ```
-PROP SHEET - WaterPails   (taro-batik · SCENE token: WaterPails)
+PROP SHEET - WaterPails   (taro-simple-batik · SCENE token: WaterPails)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 Bamboo water pails. Three books use them and one book is ten pages of comparing how full two of them
 are.
@@ -803,7 +815,8 @@ state asks, no airbrush, gradient, glow or soft edge.
 ### §3.14 SteppingStones — 다섯이고, 젖은 자국이 세어진다
 
 ```
-PROP SHEET - SteppingStones   (taro-batik · use the anchor's WATER clause · SCENE token: SteppingStones)
+PROP SHEET - SteppingStones   (taro-simple-batik · use the anchor's WATER clause · SCENE token: SteppingStones)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The stepping stones across the creek. Three books cross them and one book counts them.
 
@@ -846,7 +859,8 @@ no more or fewer than five stones, no airbrush, gradient, glow or soft edge.
 > 맞잡은 두 손바닥 위에서 팔찌 둘이 **화면에서 가장 밝아야** 「꼭 같다」가 읽힌다.
 
 ```
-PROP SHEET - GrassBracelet   (taro-batik · SCENE token: GrassBracelet)
+PROP SHEET - GrassBracelet   (taro-simple-batik · SCENE token: GrassBracelet)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 A bracelet plaited from three blades of grass. One book, three pages, and it is that book's ending.
 
@@ -879,7 +893,8 @@ no airbrush, gradient, glow or soft edge.
 ### §3.16 BerryBush — 먹는 것과 못 먹는 것이 한 장에서 갈린다
 
 ```
-PROP SHEET - BerryBush   (taro-batik · SCENE token: BerryBush)
+PROP SHEET - BerryBush   (taro-simple-batik · SCENE token: BerryBush)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The berry bush at the roadside, and the mushroom that comes up beside the road on the way home. One
 book, and the two things are on ONE sheet because that book asks which of them you may eat.
@@ -916,7 +931,8 @@ sheen or wet highlight on a berry, no airbrush, gradient, glow or soft edge.
 ### §3.17 Banana — 🔴 껍질에 찍힌 자국 넷이 28권 전부다
 
 ```
-PROP SHEET - Banana   (taro-batik · SCENE token: Banana)
+PROP SHEET - Banana   (taro-simple-batik · SCENE token: Banana)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 Bananas, and their skins. Four books use them: gathered by the armful, marked with dirty handprints,
 peeled and stacked, and counted out on a leaf.
@@ -994,7 +1010,8 @@ falling fruit, no airbrush, gradient, glow or soft edge.
 | §3.8 `LightBand` | 07권 추가(p5·p6·p8 「마루 널 틈으로 든 빛 몇 줄」). 🔴 07 은 그 빛줄기 사이로 **밖의 다리가 오가는** 것이 사건이라, 띠 위를 무엇이 지나갈 때의 상태를 하나 더 넣는다 |
 
 ```
-PROP SHEET - Stick   (taro-batik · SCENE token: Stick)
+PROP SHEET - Stick   (taro-simple-batik · SCENE token: Stick)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 A single dry stick, about as long as a child's forearm. Nine books have one in a hand - it knocks on
 a trunk, it draws in sand, it pokes at a shell, it points.
@@ -1022,7 +1039,8 @@ grain or leaves, no motion line, arc, swoosh or impact mark, no airbrush, gradie
 ```
 
 ```
-PROP SHEET - BigRock   (taro-batik · SCENE token: BigRock)
+PROP SHEET - BigRock   (taro-simple-batik · SCENE token: BigRock)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The big rock beside the wet ground. One book, seven of its ten pages, and the whole book is pushing
 it. 🔴 This is NOT the palm-sized stone of the Stones sheet - draw the two side by side once here so
@@ -1054,7 +1072,8 @@ or dust puff, no airbrush, gradient, glow or soft edge.
 ```
 
 ```
-PROP SHEET - RiceCake   (taro-batik · SCENE token: RiceCake)
+PROP SHEET - RiceCake   (taro-simple-batik · SCENE token: RiceCake)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 Five round rice cakes on a broad leaf. One book, eight of its ten pages, and the count going down is
 the book.
@@ -1088,7 +1107,8 @@ dusting or sheen on a cake, no bite mark, no steam, no airbrush, gradient, glow 
 ```
 
 ```
-PROP SHEET - MudTracks   (taro-batik · use the anchor's RAIN AND AFTER clause · SCENE token: MudTracks)
+PROP SHEET - MudTracks   (taro-simple-batik · use the anchor's RAIN AND AFTER clause · SCENE token: MudTracks)
+STYLE: taro-simple-batik. Broad calm cream/blue/indigo shapes, subtle textile grain; no body or scenery motifs, ornamental dots, diamonds, filigree or crackle. Natural rounded character proportions if a scale figure is required. Keep the following story geometry and counts.
 
 The marks bodies leave in the wet ground after the rain has passed. One book is ten pages of them.
 
@@ -1175,8 +1195,7 @@ DESIGN LANGUAGE` 는 타로(아이)·무무(아이)·어른 둘까지만 규격�
 1. **판 한 장을 그린다** — 카메라·거리·프레임·바닥선·붙박이 배치가 전부 그 한 장에서 나온다.
 2. **바꾸는 것은 정확히 하나다.** 그 하나는 SCENE 이 이미 이름을 대 준다(누운 몸 ↔ 일어선 몸 · 떼는 손 ↔
    덮은 손 · 구른 자국 ↔ 눌린 자국 · 들썩이는 널 ↔ 조용한 널 · 끊긴 줄 ↔ 이어진 줄 · 빈 옆자리 ↔ 찬 옆자리).
-3. **나머지는 한 획도 안 옮긴다.** 잎 개수·크랙 자리·그림자 각도까지 같다. 🔴 크랙은 특히 눈에 띄는데,
-   같은 판에서 크랙이 다르면 아이가 **그 차이를 「달라진 하나」로 읽는다** — 정답이 두 개가 된다.
+3. **나머지는 한 획도 안 옮긴다.** 소품 위치와 그림자 각도는 같게 유지한다. 새 기준에서는 장식 크랙을 넣지 않으며 사건에서 달라진 한 가지만 다르게 그린다.
 4. 시트의 `PLATE` 규약과 같은 일이다(`states 1 and 6 at one size (the reset pair)`). 🔴 짝인 줄 모르고
    굽지 않도록, 경로표의 「이어짐」 칸에 그 짝을 적어 둔다.
 

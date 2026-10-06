@@ -1,4 +1,6 @@
+import { withLearningStorageLock } from './storage-lock';
 import type { LearningEventInsert } from '@tangobook/shared';
+import { prepareEvent, LEARNING_CHANGE } from './event-outbox';
 
 /**
  * 게스트(계정 없이 노는 30일) 동안의 학습 기록을 **로컬에 쌓는다**.
@@ -17,8 +19,22 @@ const KEY = 'tangobook-guest-learning-events';
  * 최근 기록이 리포트에서 더 쓸모 있다.
  */
 const MAX = 2000;
+let memoryFallback: LearningEventInsert[] | null = null;
+export function guestStorageIsTemporary(): boolean {
+  return memoryFallback !== null;
+}
+function write(events: LearningEventInsert[]) {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(events));
+    memoryFallback = null;
+  } catch {
+    memoryFallback = events;
+  }
+  window.dispatchEvent(new Event(LEARNING_CHANGE));
+}
 
 function read(): LearningEventInsert[] {
+  if (memoryFallback) return memoryFallback;
   try {
     const raw = localStorage.getItem(KEY);
     const parsed = raw ? JSON.parse(raw) : [];
@@ -29,14 +45,14 @@ function read(): LearningEventInsert[] {
 }
 
 /** 이벤트 하나를 로컬에 append. 저장 실패(용량 초과 등)는 조용히 넘긴다 — 놀이를 막을 이유가 없다. */
+export function appendGuestEvents(events: LearningEventInsert[]): Promise<void> {
+  const prepared = events.map(prepareEvent);
+  return withLearningStorageLock(() =>
+    write([...read().map(prepareEvent), ...prepared].slice(-MAX))
+  );
+}
 export function appendGuestEvent(event: LearningEventInsert): void {
-  try {
-    const next = read();
-    next.push(event);
-    localStorage.setItem(KEY, JSON.stringify(next.slice(-MAX)));
-  } catch {
-    /* 기록은 부가 기능이다 */
-  }
+  void appendGuestEvents([event]).catch(() => {});
 }
 
 export function readGuestEvents(): LearningEventInsert[] {
@@ -55,5 +71,20 @@ export function drainGuestEvents(profileId: string): LearningEventInsert[] {
   const events = read();
   if (events.length === 0) return [];
   localStorage.removeItem(KEY);
+  memoryFallback = null;
   return events.map((e) => ({ ...e, profile_id: profileId }));
+}
+
+/** Bind IDs and destination before upload. A retry cannot reassign a sibling's records. */
+export function prepareGuestTransfer(profileId: string): LearningEventInsert[] {
+  const events = read().map((event) => ({
+    ...prepareEvent(event),
+    profile_id: event.profile_id || profileId,
+  }));
+  write(events);
+  return events.filter((event) => event.profile_id === profileId);
+}
+export function acknowledgeGuestEvents(ids: string[]): void {
+  const acknowledged = new Set(ids);
+  write(read().filter((e) => !e.id || !acknowledged.has(e.id)));
 }

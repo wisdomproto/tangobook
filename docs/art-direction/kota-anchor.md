@@ -46,8 +46,8 @@ PALETTE (mineral, and there are only these): GROUND #C9BEA8, a warm clay tone th
   FINEST GRIND IN ONE PASS IS THE ONLY YELLOW THIS BOOK HAS - a lamp's round patch on a floor or a
   pillow is that, and no new colour is ever mixed for it · BURNT EARTH
   #8A4E3C for roof tile and hot stone · INK #2A2622 for every contour and every marking · 🔴 PEACH
-  PINK #E9A6A0, the one accent in twenty-five books, on Kota's neck towel and nowhere else ever -
-  not on a flower, not on a lantern, not on a guest. 🔴 A BLUSH IS NOT A COLOUR: when the script says a
+  PINK #E9A6A0, the one accent in twenty-five books, on Kota's own towel only, even when he lends that same towel to a guest in book 07 -
+  not on flowers, lanterns or another robe. Reference outfit colours take precedence over defaults. 🔴 A BLUSH IS NOT A COLOUR: when the script says a
   cheek goes red (발그레), lay BURNT EARTH AT THE FINEST GRIND IN ONE PASS on that cheek only, so the cheek
   reads one step warmer than the face round it - no pink, no new mix, and it never spreads past the
   cheek. AT MOST FOUR OF THE MINERAL COLOURS ON ONE
@@ -89,36 +89,35 @@ STAGE CLAUSES (one inn and its yard; the place sets the grind and the number of 
     is azure at the coarsest grind over everything except the lamp's reach, and that reach is a
     hard-edged shape, never a glow.
 
-CHARACTER DESIGN LANGUAGE: 🔴 A MARKING IS WHO SOMEBODY IS - NOT THE EYES. Every face carries flat
-  ink shapes laid down last, on top of a coat that is already finished, and those shapes do all the
-  work of feeling. For the raccoon dogs who keep this inn it is THE BAND ACROSS BOTH EYES: its
-  angle, its thickness and where its two ends stop are the whole expression of that page - it tilts
-  down at the outer ends and thickens when he is downcast, thins and lifts at the outer ends when he
-  is pleased, and breaks into two short pieces when he is startled. THE EYE INSIDE THE BAND IS FIXED
-  FOREVER - one small round opening of shell white with an ink centre, the same size on every page
-  of twenty-five books, open or shut. THERE ARE ONLY THREE INK MARKINGS ON A RACCOON DOG AND NEVER A
-  FOURTH: the eye band, the dark forehands, the ringed tail.
-  THE MOUTH IS ONE SHORT INK MARK BELOW THE SNOUT, and it is not one of the three markings - it is
-  the coat's own edge opening. Shut it is a single short line; open it is a small dark opening that
-  widens with how loud the voice is, and nothing else about it changes.
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult
-  taller than the child crouches, sits or turns so that the mouth comes round; a back view is not used
-  on a page where that figure speaks. If a page's text has two speakers, two open mouths are drawn -
-  one each, not one between them. And never write that a mouth is shut on a page where that mouth is
-  the one speaking.
-  A COAT IS A BUILT FIELD AND NOT HAIR - no hair strokes, no whisker lines, no drawn fur edge, no
-  drawn folds in cloth. The coat ends where the field ends.
-  GRADE: everyone here stands upright, wears cloth and has hands, guests included whatever animal a
-  guest happens to be. 🔴 A GUEST HAS NO EYE BAND: each guest species is given ONE flat ink shape of
-  its own on the face instead, in ink and never in colour.
-  🔴 HOUSE OR ROAD, READ OFF THE OUTLINE: the two who live here WEAR cloth that is not clothing -
-  the child a towel at the neck, the father a folded towel at the waist - and carry nothing. A guest
-  wears no cloth at neck or waist and instead has ONE travelling thing on the outline: a bundle on
-  the back, a wide hat, a stick, a basket. A house towel in a guest's hands is carried, not worn.
-  🔴 AN ADULT IS NOT A BIGGER CHILD: an adult's robe closes at mid-calf so no shin is ever seen and
-  the sleeves hang past the hands, a child's stops above the knee with both shins bare. Height never
-  tells two figures apart.
+CHARACTER DESIGN LANGUAGE: REFERENCE IDENTITY COMES FIRST. Match each attached character's species,
+  face and muzzle shape, natural markings, body proportions, robe colour and cut, towel and footwear.
+  Do not redesign the cast to fit the palette. The mineral-pigment process describes the rendering,
+  not new facial markings. Never add an ink stripe, eye patch or mask absent from that character's
+  reference. Never transfer Kota's or Dad's eye band, dark hands or ringed tail to a guest.
+  In particular, a hippo keeps its reference face: no invented panda patches or raccoon eye mask.
+  Existing markings remain intact, at the same placement and extent. Never split, thicken, thin,
+  stretch or curl markings to communicate feeling. A returning guest retains its own established
+  outfit and markings; a child guest keeps the specified child proportions, not an adult's build.
+  FACIAL ACTING: eyes and mouth may change expression while head proportions stay recognizable.
+  Curiosity uses attentive eyes and a slightly parted mouth; concentration uses a directed gaze and
+  gently narrowed lids. Worry uses raised inner lids and lowered mouth corners. Surprise uses wider
+  eyes and a briefly open mouth, not two broken facial marks. Irritation or refusal uses tense lids
+  and a firm or downturned mouth. Sadness uses lowered gaze and a trembling downturned mouth.
+  Relief softens the eyes and jaw; joy lifts the cheeks and mouth corners. Match each character's
+  own reaction in the scene; do not give everyone the same smile. Short eyelid/brow marks are allowed
+  in the same mineral medium. No glossy eyes or realistic facial shading.
+  Speaking changes the mouth only as much as the captured emotion and syllable need. Preserve the
+  shot: no added speaker's head in a prop/hand close-up, empty view or back view just to show a mouth.
+  CLOTHING CONTINUITY: Kota's default is a short plain OCHRE robe, peach-pink neck towel and raised
+  wooden sandals; Dad's is a plain deep AZURE robe to mid-calf, shell-white waist towel and flat straw
+  sandals. Match the actual attached character reference when its approved outfit differs from these
+  defaults. Each guest's robe has the SAME colour, hem and sleeves as its own reference, never a fresh
+  choice from the palette per page. Keep borrowed objects distinct from the character's own outfit.
+  Bare feet, bathing, removed clothes and transferred towels follow explicit scene actions only;
+  those actions do not recolour the remaining clothing. Book 07 transfers Kota's SAME pink towel to
+  the child guest: do not duplicate it, turn it white or recolour the guest's robe.
+  GRADE: everyone stands upright, wears cloth and has hands. Preserve species-specific anatomy.
+  No drawn fur strokes or fabric-fold hatching; keep the flat mineral-pigment treatment.
 
 CANVAS: 16:9 double-page spread. 🔴 NOT ONE WRITTEN MARK ANYWHERE - the door curtains, lanterns,
   towels, wooden tags and paper doors of this inn are all blank: no writing, no numerals, no crest.
@@ -136,7 +135,7 @@ NOT: no airbrush, no soft gradient, no glow, no 3D render / 🔴 NO FIRE ANYWHER
 ## §1-b. 캐릭터 시트 — `CHARACTER SHEET`
 
 🔴 **개체 규격은 `kota-cast.md` 가 SSOT** — 빌더가 인물별 시트 프롬프트에 그 절을 덧쓴다.
-아래는 셋을 한 장에 굽는 단체 시트이고, **읽히는가를 검사하는 두 줄**(실루엣 줄 · 눈 지운 얼굴 줄)이 여기 있다.
+아래는 셋을 한 장에 굽는 단체 시트이고, **읽히는가를 검사하는 두 줄**(실루엣 줄 · 같은 외형의 표정 줄)이 여기 있다.
 
 ```
 CHARACTER SHEET - kota inn   (three figures, one sheet)
@@ -147,18 +146,18 @@ SHEET LAYOUT: one sheet painted ground colour edge to edge - 🔴 THE SHEET HAS 
   EITHER. Three figures stand in a row on a single ground line at their true relative heights: the
   father, the child reaching the father's hip, and one guest of middling size between them. Each is
   drawn THREE times - front standing, three-quarter walking, and the face alone large enough that
-  both ends of the eye band are clear. Hands are visible and empty in every drawing, so the hand
+  the reference facial features are clear. Hands are visible and empty in every drawing, so the hand
   shape is fixed before any prop exists.
-🔴 TEST ON THE THREE LARGE FACES: paint the eyes out entirely and the feeling must still be readable
-  from the band alone. If it is not, the band was not doing the work and the sheet is wrong.
+TEST ON THE THREE LARGE FACES: the same individual remains recognizable with curious, worried and
+  joyful eyes and mouth. Facial markings remain identical across all three expressions.
 🔴 ONE EXTRA ROW AT THE FOOT OF THE SHEET: the same three again, side by side, filled solid in flat
   ink with 0 interior marks and no pink at all. THREE THINGS ARE READ OFF THAT ROW AND THE SHEET IS
   WRONG IF ANY ONE FAILS: the child is told from the father by his two bare shins, his two hanging
   towel ends and the gap under each raised sandal - NOT by being smaller; the father is told by his
   unbroken mid-calf hem, his sleeves hanging past the hands, and his widest point sitting at the
   hip; and the guest is told from both by carrying one thing and wearing no cloth at neck or waist.
-🔴 A SECOND SMALL ROW: the child's face three times at thumbnail size - downcast, pleased, startled
-  - WITH THE EYES PAINTED OUT. The three must still be told apart from the band alone.
+A SECOND SMALL ROW: the child's face three times at thumbnail size - downcast, pleased, startled.
+  Keep the eyes visible and expressive, the reference markings unchanged.
   Nothing else on the sheet: no props beyond the guest's one travelling thing, no scenery, no ground
   beyond the single line, and no lettering, numerals, labels or name tags anywhere.
 ```

@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BookVideoTab } from '@/features/book-video/components/BookVideoTab';
 import { useEditorStore } from '@/store/editor.store';
 import { EditorHeader } from './EditorHeader';
 import { TabBar } from './TabBar';
@@ -12,6 +13,11 @@ import { QuizTab } from '@/features/quiz/components/QuizTab';
 // 실제 사용은 /editor(2) 의 audiobook 탭 한 곳뿐 → lazy 로 분리.
 const AudiobookTab = lazy(() =>
   import('@/features/audiobook').then((m) => ({ default: m.AudiobookTab }))
+);
+const SceneColoringEditorTab = lazy(() =>
+  import('@/features/games/components/SceneColoringEditorTab').then((m) => ({
+    default: m.SceneColoringEditorTab,
+  }))
 );
 import { SettingsTab } from '@/features/settings';
 import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/features/phonics';
@@ -37,6 +43,9 @@ interface EditorContentProps {
   hideHeader?: boolean;
   /** 숨길 탭 ID 배열. /editor2 에서 quiz/blog/card-news 등 마케팅 관련 탭 가림. /editor 미사용. */
   hiddenTabIds?: string[];
+  /** editor2 책별 장면 도안과 게임 미리보기. v1은 그대로 유지한다. */
+  showSceneColoring?: boolean;
+  videoLibrary?: boolean;
 }
 
 export function EditorContent({
@@ -49,8 +58,18 @@ export function EditorContent({
   compactHeader = false,
   hideHeader = false,
   hiddenTabIds,
+  showSceneColoring = false,
+  videoLibrary = false,
 }: EditorContentProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
+  const [videoOpened, setVideoOpened] = useState(false);
+  useEffect(() => {
+    if (videoLibrary && activeTab === 'longform-video') setVideoOpened(true);
+  }, [videoLibrary, activeTab]);
+  useEffect(() => {
+    if (videoLibrary && activeTab === 'audiobook')
+      useEditorStore.getState().setActiveTab('longform-video');
+  }, [videoLibrary, activeTab]);
   const isPhonics = storybook.type === 'phonics';
   const isLetterSounds = storybook.phonicsConfig?.bookType === 'letter-sounds';
 
@@ -132,7 +151,13 @@ export function EditorContent({
     },
     {
       id: 'longform-video',
-      el: <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+      el: videoLibrary ? (
+        videoOpened || activeTab === 'longform-video' ? (
+          <BookVideoTab key={storybook.id} storybook={storybook} />
+        ) : null
+      ) : (
+        <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
+      ),
     },
   ];
 
@@ -141,6 +166,20 @@ export function EditorContent({
     ...(isPhonics ? phonicsAfterCharTabs : []),
     ...commonEndTabs,
     ...(isPhonics ? phonicsAfterCoverTabs : [...storybookOnlyTabs, ...storybookEndTabs]),
+    ...(showSceneColoring && !isPhonics
+      ? [
+          {
+            id: 'scene-coloring',
+            // Hidden tabs stay mounted elsewhere; this game must unmount on tab/book changes to stop audio.
+            el:
+              activeTab === 'scene-coloring' ? (
+                <Suspense fallback={<p>도안을 불러오는 중…</p>}>
+                  <SceneColoringEditorTab key={storybook.id} storybook={storybook} />
+                </Suspense>
+              ) : null,
+          },
+        ]
+      : []),
     ...sharedEndTabs,
   ];
   // hiddenTabIds 적용 — /editor2 에서 quiz/blog/card-news 등 마케팅 관련 가림
@@ -159,7 +198,12 @@ export function EditorContent({
           compact={compactHeader}
         />
       )}
-      <TabBar storybookType={storybook.type} hiddenTabIds={hiddenTabIds} />
+      <TabBar
+        storybookType={storybook.type}
+        hiddenTabIds={hiddenTabIds}
+        showSceneColoring={showSceneColoring}
+        videoLibrary={videoLibrary}
+      />
       {tabs.map(({ id, el }) => (
         <div key={id} className="p-6" style={{ display: activeTab === id ? 'block' : 'none' }}>
           {el}

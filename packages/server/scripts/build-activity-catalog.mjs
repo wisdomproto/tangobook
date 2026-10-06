@@ -70,7 +70,7 @@ for (const it of manifest) {
     originalUrl: it.originalUrl ?? null,
     answerUrl: it.answerUrl ?? null,
   };
-  if (it.key.startsWith('bk-')) {
+  if (it.key.startsWith('bk-') || it.key.startsWith('cw-')) {
     const book = publicBooks.get(String(it.unitId));
     if (!book) {
       dropped.privateOrMissingBook++;

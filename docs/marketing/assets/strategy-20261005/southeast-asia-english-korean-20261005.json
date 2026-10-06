@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-05",
+  "question": "동남아에서 영어와 한국어의 위상이 비슷한가",
+  "conclusion": "베트남 제1외국어 선택 자격은 유사하지만 동남아 전체의 필수 지위·학습자 수·보급률 동등성은 확인되지 않았다. 영어 교육 확대와 한국어 정규교육·미취학 친숙화 정책을 사업 기회로 해석한다.",
+  "countries": [
+    {
+      "country": "베트남",
+      "english": "영어를 학교의 제2언어로 확대하는 2025–2035 국가 프로젝트.",
+      "korean": "한국어는 2021년부터 제1외국어 선택 과정(시범). 2026년 3월 제1외국어 채택교 21곳. 미취학 한국어 친숙화 지원도 새 정책에 포함.",
+      "sources": [
+        "https://en.baochinhphu.vn/project-on-strengthening-teaching-learning-of-foreign-languages-for-20252035-approved-111251218092825922.htm",
+        "https://ngoainguquocgia.moet.gov.vn/ban-hanh-chuong-trinh-giao-duc-pho-thong-mon-ngoai-ngu-1-tieng-nga-nhat-phap-trung-quoc-2258705.html",
+        "https://www.moe.go.kr/mnstrBoardView.do?boardID=72729&boardSeq=105496&lev=0"
+      ]
+    },
+    {
+      "country": "태국",
+      "english": "교육부의 기초교육 영어 강화 정책(2014): 수업·교사·디지털 콘텐츠 개선.",
+      "korean": "2025년 정규 중등학교 227곳, 4만 6천 명 이상이 한국어 학습. 중등교육의 확산 사례.",
+      "sources": [
+        "https://www.moe.go.th/ปฏิรูปการสอนอังกฤษ-2/",
+        "https://okep.moe.go.kr/board/view.do?board_manager_seq=38&board_seq=31511&menu_seq=118"
+      ]
+    },
+    {
+      "country": "인도네시아",
+      "english": "2027/28학년도부터 초등학교 영어 필수화 예정.",
+      "korean": "이번 조사에서 영어와 같은 전국 초등 필수 지위를 뒷받침하는 한국어 근거는 확인하지 못함.",
+      "sources": [
+        "https://www.kemendikdasmen.go.id/en/press-release/13897-strengthening-global-competence-english-will-be-compulsory-in-elementary-schools-starting-in-the-20272028-academic-year"
+      ]
+    },
+    {
+      "country": "말레이시아",
+      "english": "국립 초등학교 KSSR 교육과정에 영어 포함.",
+      "korean": "이번 조사에서 영어와 동등한 전국 초등 필수 지위·보급 규모를 뒷받침하는 한국어 근거는 확인하지 못함.",
+      "sources": [
+        "https://www.malaysia.gov.my/en/categories/sekolah--pendidikan/sekolah-rendah/sekolah-kebangsaan"
+      ]
+    }
+  ],
+  "scope": "베트남의 미취학 한국어 친숙화는 승인된 정책 방향이며 전국 시행 완료·필수 과목을 뜻하지 않습니다. 인도네시아 영어 필수화도 2027/28학년도 예정입니다. 학교 정책과 중등 학습자 수는 진출 기회를 살펴보는 근거이며, 미취학 가정의 유료 이용 수요는 실제 체험으로 확인합니다.",
+  "retrievalNotes": {
+    "my_english": "정부 검색 결과 본문에서 KSSR 영어 포함 확인. 직접 열기 403.",
+    "th_korean": "기존 공식자료 확인 기록 유지. 이번 재조회 timeout.",
+    "th_english": "2014년 기초교육 영어 강화 정책으로 현행 보급률 수치가 아님.",
+    "vn_first": "베트남 교육훈련부 국가외국어사업의 712/QĐ-BGDĐT 설명으로 선택 시범 과정 확인."
+  }
+}

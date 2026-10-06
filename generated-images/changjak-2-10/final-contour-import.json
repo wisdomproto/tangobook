@@ -1,0 +1,128 @@
+[
+  {
+    "collection": "changjak-mei",
+    "key": "changjak-mei-22-p06",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mei/lineart/changjak-mei-22-p06.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Reduce the close-up dog face to 92% scale, entirely within a 35px WHITE margin on ALL sides; close its whole head, neck and cropped paw outline. Do not add a rectangular frame. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-f5772ace-fa34-4456-b7c4-6beca81fcdd1.png"
+  },
+  {
+    "collection": "changjak-mei",
+    "key": "changjak-mei-26-p05",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mei/lineart/changjak-mei-26-p05.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shorten BOTH rabbit ears so their rounded tips are INSIDE the canvas at y5%. Entire rabbit head and ears must be one completely CLOSED silhouette. Keep bear and handshake unchanged. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-d5a3d59d-0958-4c41-a588-419f1161fd17.png"
+  },
+  {
+    "collection": "changjak-mei",
+    "key": "changjak-mei-42-p10",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mei/lineart/changjak-mei-42-p10.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Bridge the tiny gap at the adult bear LEFT ear base (x33%,y12%) so adult head outer line is fully closed; use an obvious 16px continuous join. Keep baby unchanged. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-137badac-cf6f-4a89-a20b-f26893cf05ed.png"
+  },
+  {
+    "collection": "changjak-twins",
+    "key": "changjak-twins-10-p03",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-twins/lineart/changjak-twins-10-p03.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shorten both giant rabbit ears so tips sit below y5%; head must be fully enclosed including both ears. Preserve pebble scene. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-3f784c52-fb56-435a-9dc0-99de760beb7e.png"
+  },
+  {
+    "collection": "changjak-mio",
+    "key": "changjak-mio-29-p07",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mio/lineart/changjak-mio-29-p07.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shrink entire fluffy central head slightly so top hair never touches TOP canvas. Draw one smooth CLOSED outer hair silhouette, sparse internal curls. Keep pointing fingers. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-043f4797-cd84-4d87-97e7-d910c3287775.png"
+  },
+  {
+    "collection": "changjak-mio",
+    "key": "changjak-mio-45-p05",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-mio/lineart/changjak-mio-45-p05.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Lower both raccoon ears so tips are INSIDE canvas with 35px clear margin; close forehead and ears as a single shape. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-37014bb1-cbf5-44bd-b1fe-1ba73a4b2659.png"
+  },
+  {
+    "collection": "changjak-pipo",
+    "key": "changjak-pipo-11-p08",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-pipo/lineart/changjak-pipo-11-p08.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Close horse LEFT ear-base gap x46%y7% using continuous 16px join to mane. Smooth and fully close horse outer silhouette, retaining painting gate pose. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-cfa7eb33-bf66-4754-a638-943f110bd57d.png"
+  },
+  {
+    "collection": "changjak-pipo",
+    "key": "changjak-pipo-24-p10",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-pipo/lineart/changjak-pipo-24-p10.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Close the tiny junction between horse bottom LEFT hoof and its leg x34%y78%, with solid 16px bridge. Hoof/body enclosed, splash independent. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-6f5fd5b9-333a-4af6-a4d8-ad4dc4ab6087.png"
+  },
+  {
+    "collection": "changjak-pipo",
+    "key": "changjak-pipo-44-p04",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-pipo/lineart/changjak-pipo-44-p04.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Close puppy head outer contour at left temple/ear x58%y33% using solid 16px connection. Smooth entire outer head line into fully enclosed shape. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-a2fb242e-4659-4a8b-8ffb-5fda2ef0bc2e.png"
+  },
+  {
+    "collection": "changjak-pipo",
+    "key": "changjak-pipo-47-p05",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-pipo/lineart/changjak-pipo-47-p05.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shorten/cap BOTH right adult wrists 35px inside right canvas and close bottom hanging hand before y96%. Every hand one completely enclosed independent shape. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-5c140b9b-b2b4-40bb-a920-2dae901a7009.png"
+  },
+  {
+    "collection": "changjak-nono",
+    "key": "changjak-nono-02-p04",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-02-p04.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shrink entire close-up bird to92% so head/chin never touches any canvas border; close complete outer face/chin outline with solid 14px line. No frame. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-faa5c020-69f2-4275-8d00-8734a339ae7d.png"
+  },
+  {
+    "collection": "changjak-nono",
+    "key": "changjak-nono-06-p09",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-06-p09.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Cap adult apron TOP at y4%, connecting its left/right shoulder contour; cap pants and feet 35px inside BOTTOM. All cropped bodies fully closed. Preserve2kids. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-05b18b42-3d00-47d1-9a68-6c306b289d59.png"
+  },
+  {
+    "collection": "changjak-nono",
+    "key": "changjak-nono-34-p08",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-34-p08.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shrink entire close-up face/scarf/finger to92% so ALL outer lines stay35px inside ALL canvas sides; close full head and neck, preserveexpression. No rectangular frame. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-b4935564-7aa3-4251-83ee-cfe0a38720da.png"
+  },
+  {
+    "collection": "changjak-nono",
+    "key": "changjak-nono-37-p10",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-37-p10.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Cap adult head at y3% and giant apron bottom at y96%, joining BOTH shoulder and torso boundaries; fully closed face/clothing independently. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-5691245e-a611-4d6c-8231-0ed194cfe3c1.png"
+  },
+  {
+    "collection": "changjak-nono",
+    "key": "changjak-nono-42-p05",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-42-p05.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Cap adult RIGHT forearm inside right canvas x96%, linking both wrist edges. Keep giving ball pose unchanged, no otheredit. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-dccd5026-8b86-4403-9d83-2cc8dc84e861.png"
+  },
+  {
+    "collection": "changjak-nono",
+    "key": "changjak-nono-48-p06",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-nono/lineart/changjak-nono-48-p06.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Close huge blanket with INNER left/right cap x3%/97% joining top/bottom fabric edges; continuousclosedperimeter, preserve smallhand and face. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-f6e6b3c6-4f23-4d0a-bd95-49459cb7ba99.png"
+  },
+  {
+    "collection": "changjak-lulu",
+    "key": "changjak-lulu-21-p10",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-lulu/lineart/changjak-lulu-21-p10.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Replace dense olive pile grid with ONE large closed mound silhouette at sameposition, only8sparse OPEN interior olive ovals (not closed tiny compartments). Keep6donkeys and carryingcloth. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-a8c36d8e-de5d-49f9-99f5-9b2ec92a85ec.png"
+  },
+  {
+    "collection": "changjak-lulu",
+    "key": "changjak-lulu-31-p03",
+    "path": "D:/ComfyUI-output/classic-scene-coloring/changjak-lulu/lineart/changjak-lulu-31-p03.png",
+    "prompt": "Repair this black-and-white coloring-page lineart. Shorten BOTH donkey ears rounded tips below y5%; fullyclose ears/head into one silhouette. Preserve coin and surprisedexpression. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.",
+    "generatedPath": "C:\\Users\\101024\\.codex\\generated_images\\01a0f0b8-0844-7990-847c-34582b0b2e0e\\exec-18cd6fcc-cace-41c9-a9bf-3804e2ee34cd.png"
+  }
+]

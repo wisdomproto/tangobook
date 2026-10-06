@@ -50,7 +50,7 @@ export function resolveLongformCoverUrl(
 
 /**
  * 렌더된 롱폼 오디오북 영상을 마케팅 롱폼 탭(mkt_youtube_contents)에 등록.
- * - mkt_contents(memo='storybook:<bookId>') 없으면 'skipped'
+ * - 연결된 마케팅 기획이 없으면 'skipped' (`memo`는 이전 데이터 폴백)
  * - 같은 (artStyle, language) 행 있으면 update, 없으면 insert (조합당 1행)
  */
 export async function connectLongformToMarketing(input: {

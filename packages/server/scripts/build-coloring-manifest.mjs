@@ -29,10 +29,13 @@ const ORIGIN = arg('origin', 'https://www.tangobook.co.kr');
  * 🔴 **칠할 칸이 없는 도안은 카드로 두면 안 된다.** 팔레트가 비어 아이가 아무것도 못 하고
  *    끝나지도 않는다(하늘·강처럼 사물이 아닌 낱말이거나 선이 테두리로 열린 것들).
  */
-const SKIP = JSON.parse(fs.readFileSync(path.join(__dirname, '_data', 'coloring-skip.json'), 'utf8'));
+const SKIP = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '_data', 'coloring-skip.json'), 'utf8')
+);
 
 /** 공개 URL → R2 키. 호스트가 둘(직접·CDN)이라 경로만 본다. */
-const proxy = (url) => `/api/r2-proxy?key=${encodeURIComponent(decodeURIComponent(new URL(url).pathname).slice(1))}`;
+const proxy = (url) =>
+  `/api/r2-proxy?key=${encodeURIComponent(decodeURIComponent(new URL(url).pathname).slice(1))}`;
 
 /** 낱말 음원을 어느 언어로 만들지 — 파닉스 그룹 id 가 곧 언어다. */
 const LANG_BY_GROUP = { 'phonics-en': 'english', 'phonics-zh': 'zh' };
@@ -56,7 +59,10 @@ for (const g of plan.groups) {
         continue;
       }
       sheets.push({
-        key: it.key,
+        key:
+          it.key.startsWith('cw-') && it.bookId
+            ? `${it.key}-${it.bookId.split('-').at(-1)}`
+            : it.key,
         group: g.label,
         section: s.label,
         // 음원 캐시 키 — 파닉스는 단원 id, 동화책은 책 id
@@ -80,7 +86,7 @@ fs.writeFileSync(OUT, JSON.stringify(sheets));
 //    (도안 목록 자체는 색칠 화면을 열 때 manifest 에서 걸러 쓴다 — 그때는 받아도 된다.)
 const bookIndex = {};
 for (const s2 of sheets) {
-  if (!/^\d{10,}$/.test(String(s2.unitId))) continue; // 파닉스 단원 id 는 책이 아니다
+  if (!/^(?:\d{10,}|changjak-[a-z]+-\d{2,3})$/.test(String(s2.unitId))) continue; // 파닉스 단원 제외
   (bookIndex[s2.unitId] ??= []).push(s2.word);
 }
 const INDEX_OUT = path.join(path.dirname(OUT), 'book-index.json');

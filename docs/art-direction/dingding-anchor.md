@@ -12,7 +12,7 @@
 ```
 STYLE ANCHOR - dingding-papercut   (Dingding's terraced fields / one black sheet, cut with a knife)
 
-Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of black paper with
+Style: cut paper, 4-6 year old picture book. The picture's base is ONE sheet of black paper with
   shapes cut out of it, laid on a white sheet - the white is never painted, it is the sheet beneath.
   Every edge is a knife edge: crisp, faceted where the blade turned, never torn, never soft. 🔴
   NOTHING FLOATS - every black shape stays joined to the rest of the black somewhere, so the picture
@@ -32,15 +32,10 @@ Style: cut paper, 4-6 year old picture book. The whole picture is ONE sheet of b
   ON EVERY PAGE. If a figure stands on black and has no hairline, it disappears, and that page is
   wrong no matter how good the field is.
 
-RENDERING (finish hierarchy): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
+RENDERING (finish hierarchy, pigs; Ming uses the explicit friendly-face exception below): 🔴 THE FACE IS CUT AWAY, NOT PAINTED ON - the head is black like the
   body and the face is a shape cut clean out of it, so what shows there is the white sheet beneath,
   the same white as the water. It is the brightest thing on the figure and it is what the eye finds
   first. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF THAT CUT-AWAY
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH NOTCH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth notch at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth notch comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouth notchs are drawn - one each, not
-  one between them. And never write that a mouth notch is shut on a page where that mouth notch is the one speaking.
   SHAPE, each one still joined to the black around the head, so NO BLACK PIECE IS EVER LEFT AS AN
   ISLAND INSIDE WHITE and nothing floats. A snout or a bill is the black that remains between two
   notches. 🔴 NEVER A WHITE PLATE LAID ON TOP OF A BLACK HEAD, and never eyes painted onto white.
@@ -63,7 +58,23 @@ PALETTE: SHEET WHITE #F7F4EC, water, sky, light, every cut-away place · CUT BLA
   front, at most ONE shape per page, far ridge only, 0 holes in it · RED #C62828, 🔴 one small piece
   laid on top of the black, Dingding's apron and nothing else. 🔴 ON A PAGE WITHOUT HER THERE IS NO
   RED ANYWHERE - the picture is black and white and that is correct; nothing is reddened to keep the
-  accent alive. No other colour exists.
+  accent alive. Additional flat cut-paper clothing overlays distinguish the adults:
+  MAMA wears a TEAL #258C87 top and matching headcloth; GRANDMA wears a VIOLET #8060A8
+  upper garment/vest; MING wears a GOLDEN YELLOW #E5B83B upper garment/vest.
+  DINGDING keeps the RED #C62828 apron over a black shirt. No other character wears red.
+  Keep sleeves on an adult's coloured upper garment the same identity colour; trousers stay black.
+  Preserve each reference's silhouette and garment shape. Replace old black clothing with
+  the assigned colour; hands, feet and backgrounds stay unchanged. Ming's head uses the exception below. If a headcloth
+  is visible it matches Mama's teal; Grandma's bun stays black. Back views retain the same clothing colour.
+  These are opaque, crisp paper pieces attached to the black base, not gradients or shaded fabric.
+  This clothing assignment overrides old all-black clothing in references. Do not swap colours.
+  The environment remains black, white and far grey; guests retain black clothes.
+  MING FRIENDLY-FACE EXCEPTION: the entire duck head and neck, including the back, are WARM CREAM
+  #F7F4EC paper; his bill is LIGHT OCHRE #D6A15C paper with a simple dark mouth line on the bill.
+  Eyes are small solid BLACK ovals, never hollow holes. This explicitly overrides black-head,
+  black-bill, white-notch-only and no-separate-pieces rules for Ming's face. No second cheek mouth.
+  ALL CHARACTERS have exactly TWO anatomical eyes: two visible from the front, only the near eye
+  in full profile, none in back view. No third eye or forehead dot, even if an old reference has one.
 
 STAGE CLAUSES (the stage changes what is cut away, not the sheets):
   TERRACES - black banks and white water in alternating bands narrowing upward; depth is bands
@@ -82,28 +93,48 @@ STAGE CLAUSES (the stage changes what is cut away, not the sheets):
 CHARACTER DESIGN LANGUAGE: animals are cut from the same black sheet, limbs cut as part of the same
   piece, never as separate floating parts. GRADE: bipedal, upright, wearing loose cloth, forelimbs
   are HANDS with no hooves, and everyone is BARE-FOOT in the paddy.
-  🔴 A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
+  🔴 PIG FACES (Ming follows the friendly-face exception): A FACE IS MADE BY WHAT WAS TAKEN AWAY, NOT BY WHAT WAS ADDED, AND WHAT IS TAKEN AWAY IS THE
   WHOLE FACE. The muzzle side of the head is cut clean out, about half the width of the head, so the
   white sheet shows there and the figure can be found on any field. Nothing is laid on top: no white
   plate, no painted eye. 🔴 THE EYES, THE NOSTRIL AND THE MOUTH ARE NOTCHES BITTEN INTO THE EDGE OF
   THAT CUT-AWAY SHAPE, each still joined to the black of the head, so no black piece is ever an
-  island inside white. A pig's snout and a duck's bill are the black left standing between two
-  notches, on the outline of the head. The mouth notch is never wider than the two eye notches
-  together and never a hairline slit.
-  🔴 EXPRESSION IS THE SHAPE OF THE NOTCH, and the knife may cut it any shape: a round one is looking,
-  a wide oval is startled, a thin lifted crescent is laughing, a crescent bent down is squinting or
-  cross, a hairline slit is shut. There are no eyebrows and no pupils - the notch is the whole eye.
+  island inside white. A pig's snout is the black left standing between two
+  notches, on the outline of the head. Keep the snout proportions while the mouth notch changes
+  width and opening with emotion; a lightly pressed closed mouth is allowed.
+  EXPRESSION comes from the angle, opening and asymmetry of the eye and mouth notches. Eyelid
+  cuts and the upper eye edge may lift, narrow, soften or press inward. Shape the inner edge toward
+  what is being watched, with head direction supporting the gaze. Keep the connected-paper medium;
+  no floating pupils or separate painted eyebrows. A crescent alone does not mean every mood is joy.
   🔴 TEETH (any page where the mouth notch is open wide enough to show inside): teeth are a comb of
   short black tines hanging DOWN from the black of the upper jaw into the mouth notch, joined to the
   head at their roots - never separate pieces, never an island; a gap in the comb is one tine missing.
-  🔴 TEARS ARE NEVER CUT - no drop and no streak on a face, because the face is cut-away white and a
-  black drop in it would be an island. Crying is the body: the face buried in a lap or behind an arm,
-  fists clenched in cloth, shoulders pushed up; afterwards a sleeve wiping the snout is enough.
+  CRYING must be readable on a visible face: tense sloping eye cuts and a trembling downturned
+  mouth notch, supported by shoulders and hands. A tear cut may join the eye cut; no floating black
+  drops. Do not hide the face solely because the character is crying.
   THE FOUR: DINGDING a piglet, smallest,
   the RED apron - 🔴 it has ONE pocket across the front of the belly, cut as a red piece with a slot
   a small animal can crawl into · MOTHER tallest and narrowest, a head cloth, trousers rolled below
   the knee so the calves are bare · GRANDMOTHER widest and shortest, back curved forward, hair in a
   bun, wide trousers to the ankle · MING a grown duck in a sleeveless VEST, the only bird.
+
+FACIAL ACTING: reference images fix species, head and muzzle proportions, body silhouette, palette,
+  markings, clothing and accessories; they do NOT fix a neutral expression. Keep the same character
+  while changing eyelid opening, eye angle, mouth corners, jaw tension and ear angle for this moment.
+  Curiosity: attentive eyes aimed toward the object, mouth slightly parted. Concern: tense lower lids,
+  inward-raised eye region, mouth corners lowered. Refusal or discomfort: narrowed tense eyes, firm
+  or downturned mouth, ears back; never a cheerful grin. Concentration: eyes directed at the task,
+  steady lids and a relaxed or lightly pressed mouth, not laughing. Sadness: lowered gaze, lifted
+  inner eye region and downturned trembling mouth. Relief: tension releases in lids and jaw, a small
+  soft smile. Joy: lifted cheeks, smiling eyes and raised mouth corners. Surprise: lifted lids and a
+  briefly open mouth, not the default face. Use only the emotion supported by this page's action/text;
+  two characters may feel differently. Preserve a scripted deliberate smile, joke or laugh.
+  SPEECH: an on-screen speaker's mouth may open only as much as the emotion and captured syllable
+  need; speaking never automatically means a grin or a round O. A listening face may stay closed.
+  Keep the specified crop: never add a face or speaker to a hand/prop close-up, back view, landscape
+  or empty scene solely to show a mouth. Facial detail uses the same flat medium, never glossy eyes,
+  realistic shading or a redesigned muzzle. When making a character sheet, include a small acting
+  row of the SAME character: curious, refusing, worried, sad, relieved and joyful; retain all identity
+  features across the row. Page prompts draw one moment, not a sheet of expressions.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 

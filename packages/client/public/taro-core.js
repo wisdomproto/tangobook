@@ -11,7 +11,8 @@
   'use strict';
 
   var KEY = 'taro';
-  var ANCHOR = { slug: 'taro-batik', name: '앵커 taro-batik', text: "STYLE ANCHOR - taro-batik   (Taro and Mumu's island village / wax resist, dipped twice)\n\nStyle: wax-resist dyeing on woven cotton, ONE indigo dye bath used twice and one small second dye,\n  4-6 year old picture book. 🔴 THE CLOTH STARTS PALE AND ONLY GETS DARKER - nothing is ever painted\n  light. Wax, dip, more wax, dip again - exactly THREE values and no fourth. Every value shows the\n  weave running through it. SHADING IS ZERO - no modelling, gradient or glow. 🔴 EXCEPT a shadow\n  LYING ON THE GROUND: ONE flat DEEP silhouette, hard edge, nothing shaded inside it, never on a\n  body and never on a face.\n\nRENDERING (finish hierarchy): wet leaves and the shine on water are CLOTH areas with a hard edge,\n  never a soft halo. 🔴 RAIN IS DRAWN WITH THE WAX PEN, at most 13 hairline CLOTH lines all leaning\n  one way, and it is the only thing allowed to cross another shape. Cracked wax lets dye in as\n  hairline DEEP lines: at most 9 per page, only inside CLOTH areas, never across a face, never in a\n  row. Repeats are capped: leaves at most 9 of one stamped shape · houses behind at most 4 flat DEEP\n  silhouettes with 0 windows; no repeat mirrors its neighbour. 🔴 A RUN OR A BAND (stones in a line,\n  a ring of shells, a bed of leaves) IS EXEMPT FROM THESE CAPS - the nearest six or seven are\n  separate stamps, the rest carries on as one joined line. FINISHED THINGS PER PAGE = 2.\n\nPALETTE: CLOTH #EFE3CC, waxed before any dip - faces, light, rain, steam, ripe fruit, bare earth,\n  anything woven from grass, the brightest thing anywhere · MID #4C6E8C, one dip - sky, water, walls,\n  most of the world · DEEP INDIGO #22406B, two dips - animal backs, shade, tree masses, night,\n  the ground of the whole book · ACCENT ORANGE #E2711D, 🔴 a separate small dye on nothing but Taro's\n  waist cord and Mumu's head band. No white, no black, no green, no pink.\n\nSTAGE CLAUSES (the stage changes where the wax goes, not the dyes):\n  VILLAGE - walls and ground MID, roofs and tree masses DEEP, the yard left as one broad CLOTH area\n    the two of them stand on.\n  RAIN AND AFTER - MID covers the whole page including the ground, everything under a roof stays MID\n    and everything out in it is DEEP, the rain lines are CLOTH. Once it has passed the ground stays\n    DEEP because it is soaked and CLOTH steam rises off it, at most 5 hard-edged shapes; puddles are\n    flat CLOTH areas with 0 reflections.\n  WATER - one unbroken MID area, 0 ripples, 0 glints; a thing floating on it keeps its whole\n    outline, a thing under it is DEEP with no edge of its own. Sand is CLOTH.\n  NIGHT - DEEP covers everything, MID exists only where a light reaches and the light itself is\n    CLOTH. A thing being looked for is the one CLOTH shape in the page's DEEP field.\n\nCHARACTER DESIGN LANGUAGE: animals are built from the same dipped areas as the world. GRADE:\n  bipedal, upright, forelimbs are HANDS with no hooves, bare feet, 🔴 NO CLOTHING - ONE cord each is\n  all either of them wears, so no sleeve, pocket, hem or collar anywhere.\n  🔴 SOMETHING ON EVERY ANIMAL IS DRAWN LONGER THAN IT COULD BE, AND THE STRETCH IS THE JOKE. What\n  runs long goes at least half again past what the build allows, holds the same narrow width the\n  whole way with no taper and no elbow or knee showing, and bends in smooth arcs instead of at joints.\n  🔴 IT IS NOT THE SAME PART ON EVERY ANIMAL, AND WHICH PART IT IS IS HOW ONE IS TOLD FROM ANOTHER\n  ACROSS A ROOM. A YOUNG ONE RUNS LONG IN THE LIMBS AND KEEPS A SMALL ROUND BODY; A GROWN ONE RUNS\n  LONG IN THE BODY OR THE NECK AND KEEPS ITS ARMS AND LEGS SHORT AND FOLDED IN, so a grown one is\n  never a bigger child - the two are apart as OUTLINES, with no grey hair, no glasses and nothing\n  worn to say which is which. 🔴 THE STRETCH FOLLOWS THE PAGE - a reaching limb is longer than a\n  resting one, and the longest thing in any picture belongs to whoever is doing the thing the page\n  is about.\n  🔴 THE WHOLE FACE IS WAXED CLOTH, so a face is the palest thing on any page and\n  the eyes, nose and mouth are small DEEP marks left inside it. An eye is a NARROW UPRIGHT OVAL, not\n  a round dot: it stretches taller when the eyes go wide and squashes to a flat lying oval when they\n  narrow or shut, but covers the same area of face either way. 🔴 THERE ARE NO EYEBROWS - the deep\n  marks inside a waxed face are exactly three, two eyes and one mouth, and a fourth is never added.\n  🔴 AN EYE CANNOT POINT - an oval has no pupil and no direction, so where a character is looking is\n  said by the head, the neck and the stretched limb, never by the eye. The mouth is ONE curve and\n  carries the feeling; nothing crosses a face, not even rain.\n  TARO is a monkey child, small and round-bodied, the stretch in his thin arms and one long tail\n  that ends in a closed curl; MUMU is a deer child, a head taller, the stretch in long straight legs\n  and two tall ears that turn, a stub tail. The two grown animals sit or are seen from behind, run\n  long in the back and the neck instead, and carry no accent colour anywhere.\n  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME - a grown\n  one turns its long neck to bring the open mouth round even when it sits or is seen from behind, and\n  a hand close-up hangs the speaker's open mouth at the top edge. 🔴 ONE EXCEPTION to the three-marks\n  rule: on a page whose whole point is a thing caught INSIDE the mouth (a leaf scrap between the\n  teeth), that thing is a fourth small DEEP mark - on that page only, never elsewhere.\n\nCANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.\n\nNOT: no airbrush, gradient, glow or 3D render / no soft, feathered or blurred edge anywhere.", award: "Albertine · Marta and the Bicycle" };
+  var SHEET_STYLE = "TARO SIMPLE BATIK STORYBOOK — new cast reference, replacing all old patterned cast sheets.\nFlat calm indigo/blue and warm cream shapes, gently handmade contours, subtle quiet textile grain.\nLarge uninterrupted colour areas; no ornamental spots, diamonds, flowers, filigree, repeating motifs,\ncrackle lines or dotted outlines on bodies or scenery. No photoreal anatomy, glossy plastic or 3D.\nReadable cream faces, cream inner ears and one broad plain cream chest/belly patch. Exactly two eyes;\nno forehead marks. Natural soft rounded animal bodies, flexible elbows/knees, sturdy limbs.\nMatch the attached NEW cast reference for face, species, colour blocks, proportions and accessories.\nEyes, brows, mouths and ears may act naturally; do not copy the reference smile into every scene.\nExtract only the named character. Three separated full-body views: relaxed front, easy three-quarter\nstep, relaxed back. Plain warm cream background, no scenery, captions, swatches or extra characters.\nNo expression-test row. Keep the same individual and markings in every view.";
+  var ANCHOR = { slug: 'taro-simple-batik', name: '앵커 taro-simple-batik', text: "STYLE ANCHOR - taro-simple-batik (Taro and Mumu's island village / simplified batik)\nTARO SIMPLE BATIK STORYBOOK — new cast reference, replacing all old patterned cast sheets.\nFlat calm indigo/blue and warm cream shapes, gently handmade contours, subtle quiet textile grain.\nLarge uninterrupted colour areas; no ornamental spots, diamonds, flowers, filigree, repeating motifs,\ncrackle lines or dotted outlines on bodies or scenery. No photoreal anatomy, glossy plastic or 3D.\nReadable cream faces, cream inner ears and one broad plain cream chest/belly patch. Exactly two eyes;\nno forehead marks. Natural soft rounded animal bodies, flexible elbows/knees, sturdy limbs.\nMatch the attached NEW cast reference for face, species, colour blocks, proportions and accessories.\nEyes, brows, mouths and ears may act naturally; do not copy the reference smile into every scene.\n\nPALETTE: CLOTH = warm cream #EFE3CC; MID = muted blue #4C6E8C; DEEP = indigo #22406B.\nThese names describe broad colour shapes, not mandatory dye passes or hard limits on eye readability.\nACCENT = burnt orange #E2711D, only Taro's waist cord and Mumu's headband. Adults carry no orange.\nFaces and chest/belly patches are broad cream shapes; dark eyes/noses remain readable. No all-over\npatterning on skin, fur, ears, tails, trees or buildings. Shadows are simple flat blue shapes.\nGrass bracelets, fruit, sand and lamps may use cream; keep story-relevant shapes and object counts.\n\nCHARACTER DESIGN LANGUAGE: two upright child friends and two naturally proportioned adults.\nTaro is a small indigo monkey, round ears, soft arms and short legs, one curled tail, orange waist cord.\nMumu is a taller medium-blue deer, long leaf ears, naturally longer legs, tiny tail, orange headband.\nTaro's mother is a medium-blue adult monkey with a gently curving tail without a closed loop.\nMumu's grandmother is an indigo adult deer with a normal short neck and gently stocky body.\nAdults have appropriately sized heads and natural joints; no endlessly long necks, tiny heads,\nnoodle limbs or forced crouches. Hands can hold objects; never replace working hands with hooves.\nNo clothing or jewellery beyond the children's signature cords unless a story explicitly requires\nan object. Both adults may stand, sit or walk as scripted; a reference pose never fixes their action.\n\nSTAGE CLAUSES:\n  VILLAGE - open cream yards, blue walls, indigo roofs/tree masses. Broad calm areas with a few\n    structural details. WellTree and CreekTree have the same silhouette; preserve village geography.\n  RAIN AND AFTER - blue wet ground, sparse slanted cream rain strokes, simple puddles without\n    duplicate faces. Shelter and wetness remain readable. No bright magenta or missing background.\n  WATER - calm broad blue surface, cream sand, few readable ripples only where action needs them.\n    Preserve submerged/visible objects, stepping-stone counts, water levels and current direction.\n  NIGHT - indigo surroundings, blue planes and cream lamp pools; keep faces readable where lit.\n    Simplify distant scenery. Do not turn faces into dark featureless masks.\n\nFACIAL ACTING: eyes/lids, brows, mouth tension and ear angle convey the page's actual feeling.\nConcern: attentive tense eyes and lowered mouth corners. Refusal: firm mouth, no cheerful grin.\nConcentration: gaze toward the task, a lightly pressed mouth. Sadness: lowered gaze and soft\ninner-raised brows. Relief/joy: relaxed or smiling eyes and mouth appropriate to the moment.\nSpeech is not automatically a grin or round O mouth. Change expression without redesigning faces.\nExactly two anatomical eyes, no third eye/forehead spots. Respect hand/prop close-ups, rear views\nand empty scenes; never add faces to show speech. One captured moment, no expression row.\n\nCOMPOSITION: 16:9 picture-book spread, generous quiet areas, characters and the story object read\nfirst. Keep camera, characters, object counts, positions and chronology. No text, numerals, labels,\npatterns as filler, magenta background, 3D, airbrush glow or excessive texture. A ground shadow needed\nby the story keeps its exact length and direction. Natural shadow length is not a stretched body.", award: "" };
   var FIXED_CHARS = [
   {
     "key": "taro",
@@ -20,7 +21,7 @@
       "타로",
       "Taro monkey"
     ],
-    "spec": "THE STRETCH IS IN HIS ARMS AND HIS TAIL. Body a small round ball, legs short under it, both arms\nrun down past his feet at the same narrow width, and ONE tail runs longer than his whole body and\nENDS IN A CLOSED CURL - the curl is his mark and no one else in the book has a closed loop anywhere.\nFingers are thin and held APART, never bunched: his hands are the fast thing about him.\nHe is the SHORTEST of the four. Eyes are the upright oval, wide open.\nHe wears ONE cord at the waist and it is the accent dye."
+    "spec": "TARO: smallest monkey child, round ears and small crown tuft, broad warm cream monkey face.\nIndigo #22406B plain body, one cream chest/belly patch, soft slightly long arms with natural joints,\nshort sturdy legs and broad bare feet. ONE long tail ending in a relaxed closed curl.\nONE burnt-orange #E2711D waist cord; no other clothes or accessories. Never noodle arms or claw fingers.\nKeep child proportions and the new cast reference's face. No decorative fur patterns."
   },
   {
     "key": "mumu",
@@ -29,7 +30,7 @@
       "무무",
       "Mumu deer"
     ],
-    "spec": "THE STRETCH IS IN HER LEGS AND HER EARS. Two legs, long and straight and the same narrow\nwidth from hip to foot, carrying a small round body HIGH OFF THE GROUND, so there is open\npage between her belly and her feet where Taro has none. TWO EARS STAND UP TALLER THAN HER HEAD IS\nHIGH and turn to point where a sound came from; the tail is a stub. Arms are ordinary and short.\nShe stands A HEAD TALLER than Taro. Eyes are the upright oval, wide open.\nShe wears ONE cord on her head and it is the accent dye."
+    "spec": "MUMU: deer girl child, about a head taller than Taro. Two upright leaf-shaped ears, short deer\nmuzzle, cream cheeks/inner ears and a broad plain cream chest/belly patch. Medium blue #4C6E8C body.\nNaturally longer sturdy legs, rounded hands with fingers, normal short neck and a tiny tail.\nONE burnt-orange #E2711D narrow headband. No antlers, spots, clothing or extra jewellery.\nEars turn with feeling and sound; legs bend naturally. Never stilt legs, giraffe neck or ribbon limbs."
   },
   {
     "key": "taromom",
@@ -38,7 +39,7 @@
       "타로 엄마",
       "Taro mother monkey"
     ],
-    "spec": "SHE IS NOT A BIGGER TARO. THE STRETCH HAS LEFT THE LIMBS AND GONE INTO THE BODY: one long straight\nback runs the whole height of her, and her arms and legs stay SHORT and FOLDED IN against it, so\nher outline is a long low mass and not a ball with whips. Draw her SEATED or FROM BEHIND by default\n- the long back IS the way she is recognised, and it is what the page shows.\nHER TAIL DOES NOT CURL. It lies out straight along the floor as one line and stops - no loop, no\nhook, nothing closed. That single difference tells her from Taro at any size.\nFingers are held TOGETHER in a flat broad palm, the opposite of his splayed ones.\nEyes are the LYING oval, narrowed and calm, and the mouth is one short flat curve.\nSHE WEARS NO CORD AND CARRIES NO ACCENT COLOUR AT ALL. No apron, no bundle, no tool of her own."
+    "spec": "TARO'S MOTHER: adult monkey from the new cast lineup, larger than both children, with a\ncomfortably sized head, round ears, small crown tuft, broad warm cream monkey face and chest/belly.\nMedium-blue #4C6E8C plain fur, soft rounded torso, natural flexible arms and sturdy legs, bare feet.\nONE tail bends gently but has NO closed curl. No orange cord, clothes, jewellery or decorative motifs.\nShe can stand, sit, walk, reach, hug or bend naturally as scripted; never permanently folded limbs or\nan elongated low back. Her TWO eyes open normally and her face shows the scene's feeling, not a fixed\nsleepy squint or flat mouth. Keep species clear and match the new reference."
   },
   {
     "key": "mumugran",
@@ -47,7 +48,7 @@
       "무무 할머니",
       "Mumu grandmother deer"
     ],
-    "spec": "SHE IS NOT A BIGGER MUMU. THE STRETCH HAS LEFT THE LEGS AND GONE INTO THE NECK: her legs fold\nunder her and do not show, so she sits as a low mound with no open page under her body, and out of\nthat mound ONE NECK RUNS LONG AND CURVES DOWNWARD toward whatever she is setting down. Where Mumu\nis a body up on stilts, she is a mound with a long bent neck - the two outlines share no line.\nHER EARS LIE BACK FLAT ALONG THE NECK AND DO NOT TURN, so her head reads as one smooth teardrop\ninstead of Mumu's two standing spikes. Arms are short.\nDraw her SEATED or FROM BEHIND by default; standing, the folded legs stay short and the long neck\nstill carries the height.\nEyes are the LYING oval, narrowed and calm, and the mouth is one short flat curve.\nSHE WEARS NO CORD AND CARRIES NO ACCENT COLOUR AT ALL."
+    "spec": "MUMU'S GRANDMOTHER: friendly older female deer from the new cast lineup, broad cream deer face,\ncream inner ears and one broad cream chest/belly patch on a plain indigo #22406B body. Normal SHORT\ndeer neck, head close to shoulders, gently stocky adult torso and sturdy flexible legs. Broad leaf ears\nangle outward and move naturally. Tiny deer tail. No antlers, giraffe neck, spots, cane, bag or orange.\nSimple hands with fingers. She can stand, sit, bend and walk naturally, with a comfortably sized head\nand attentive open eyes; never a tiny head on a long neck or permanently crouching mound.\nKeep her face proportions distinct from Mumu while allowing warm, worried or concentrated expressions."
   }
 ];
   var FACE = {"taro":"🐒","mumu":"🦌","taromom":"🐒","mumugran":"🦌"};
@@ -124,7 +125,8 @@
   //    「타로 엄마」에는 어차피 「타로」가 들어 있다. 빌더의 별칭 충돌 가드는 그대로 두되(설계 경고),
   //    감지는 여기서 정확해진다.
   function detectChars(sceneText) {
-    var rest = String(sceneText || '').toLowerCase();
+    // 표정 참고 본문에는 화면 밖 인물도 언급된다. 등장 판정은 원래 컷 설명만 사용한다.
+    var rest = String(sceneText || '').split(/(?:<b>)?표정 연기/)[0].toLowerCase();
     var pairs = [];
     ALL.forEach(function (c) {
       (c.aliases || [c.name]).forEach(function (n) { pairs.push({ key: c.key, n: String(n).toLowerCase() }); });
@@ -155,6 +157,8 @@
     return ALL.map(function (c) {
       var on = !pages || pages.some(function (p) { return sceneHasChar(p.scene, c); });
       var gist = String(c.spec || c.desc || '').replace(/^[-•\s]+/, '').split('\n')[0].slice(0, 110);
+      // 코타는 시트의 의상·무늬 규격도 페이지 프롬프트로 전달한다.
+      if (KEY === 'kota') gist = [c.desc, c.spec].filter(Boolean).join('\n');
       return '@image' + c.img + ' = ' + c.name + (c.aliases[1] ? ' (' + c.aliases[1] + ')' : '') +
         (gist ? ': ' + gist : '') + (on ? '' : '  (이 화 미등장 — 첨부 불필요)');
     }).join('\n');
@@ -168,6 +172,7 @@
       '아래 @imageN 순서대로 시트를 첨부하고,',
       '얼굴·비율·색은 시트와 100% 동일하게 유지한다. @image1~' + NF + ' = 고정 캐스트(항상 이 순서), @image9~ = 이 화 단역.',
       castLegend(pages),
+      KEY === 'kota' ? '참조 우선: 위 문자 규격은 기본값이다. 첨부한 각 인물의 실제 얼굴 무늬·옷색·옷 형태를 우선한다. 참조에 없는 무늬를 추가하거나 다른 인물의 무늬·의상을 옮기지 않는다. 명시된 장면 행동에 따른 수건 전달·탈의·맨발만 예외로 한다.' : '',
       '※ 각 쪽 [등장]에 적힌 @imageN 만 그 컷에 그린다. 나머지는 넣지 않는다.',
       '',
       '[출력 규칙]',
@@ -189,18 +194,20 @@
     if (!g) return '';
     // 🔴 시트는 마젠타 배경에 인물 하나다 — 무대 조항(마을·비·물·밤)이 들어갈 자리가 없고,
     //    개체를 가르라는 지시를 그만큼 묽게 만든다. 컷 프롬프트(composeBatchPrompt)에서는 그대로 쓴다.
-    var world = ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
+    var world = SHEET_STYLE || ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
     return [
       world,
       '',
       // 🔴 매체는 글로 안 전해진다. 유키 시트는 아이가 부드러운 그러데이션 카툰, 할머니가 접힘을 다
       //    그린 사실화로 나왔다 — 앵커에 `SHADING IS ZERO`·`한 획을 두 번 덧긋지 않는다` 가 있는데도.
       //    단권 99권은 화면에 수상작 원본이 떠 있었고 시리즈는 글만 있었다. 그림 한 장이 그 자리를 메운다.
-      ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
+      !SHEET_STYLE && ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
         + ANCHOR.award + '. 획·자국·결·가장자리는 아래 글이 아니라 그 그림이 정한다.' : null,
-      '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
+      SHEET_STYLE ? '[참조] 사용자가 확정한 본문 삽화 중 이 인물이 나온 그림을 실제로 첨부한다. 파일명만 적는 것은 이미지 첨부가 아니다. 그 그림의 해당 인물만 따른다.' : null,
+      SHEET_STYLE ? '[출력] 정사각 1024x1024. 따뜻한 크림색 배경에 세 방향을 간격 있게 배치한다.' : '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
-      '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + (SHEET_STYLE ? '. 아래 개체 규격과 첨부 본문 그림을 따른다.' : '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.'),
+      KEY === 'kota' && g.desc ? '[해당 손님의 외형] ' + g.desc : null,
       // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
       //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
       g.spec ? '[이 인물만의 규격 — 위 규격에 덧쓴다]\n' + g.spec : null,
@@ -394,7 +401,7 @@
       list.appendChild(row);
     });
     updateSummary();
-    if (window.innerWidth >= 1024) open(true);
+    // Keep the episode list closed until the reader opens it.
   })();
 
   // ── 전체 묶음 프롬프트 + 쪽별 복사 + 붙여넣기 ──

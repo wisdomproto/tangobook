@@ -12,7 +12,7 @@ import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
-import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { useGameLogger } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntryGuide';
@@ -56,34 +56,33 @@ export function KoreanWordWritingPlayer({
   // 🔴 진입 안내 음성 — 파닉스 쓰기 활동과 통일(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네").
   useGameEntryGuide(voiceUrl(ENTRY_GUIDE.writeTrace), playAudio);
 
-  const emitFinalResults = useCallback(
-    (finalPassed: boolean[]) => {
-      const results: GameWordResult[] = [];
-      for (let i = 0; i < items.length; i++) {
-        const correct = !!finalPassed[i];
-        results.push({ word: items[i].word, correct });
-        for (const syl of decomposeWord(items[i].word)) {
-          results.push({ correct, consonant: syl.cho, vowel: syl.jung });
-        }
-      }
-      logGame({ gameType: 'korean-word-writing', storybookId, lang: 'ko', results });
-    },
-    [items, logGame, storybookId]
-  );
-
   const advanceToNext = useCallback(
     (newPassed: boolean[]) => {
       setScene(null);
+      const result = { word: items[currentIndex].word, correct: !!newPassed[currentIndex] };
+      logGame({
+        gameType: 'korean-word-writing',
+        storybookId,
+        lang: 'ko',
+        results: [
+          result,
+          ...decomposeWord(result.word).map((syllable) => ({
+            correct: result.correct,
+            consonant: syllable.cho,
+            vowel: syllable.jung,
+            coda: syllable.jong ?? undefined,
+          })),
+        ],
+      });
       if (currentIndex + 1 >= items.length) {
         const score = newPassed.reduce((a, b) => a + (b ? 100 : 0), 0);
-        emitFinalResults(newPassed);
         onComplete(score, items.length * 100);
       } else {
         completedRef.current = false;
         setCurrentIndex((i) => i + 1);
       }
     },
-    [currentIndex, items.length, onComplete, emitFinalResults]
+    [currentIndex, items, onComplete, logGame, storybookId]
   );
 
   // 한 음절 완성 → 그 음절 읽어주기. 단, 이 음절이 단어를 완성하는 마지막 음절이면 여기서 재생하지 않고

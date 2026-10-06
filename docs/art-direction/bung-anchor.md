@@ -12,7 +12,7 @@
 ```
 STYLE ANCHOR - bung-woodblock   (Bung's floating market / colour blocks first, the key block last)
 
-Style: folk woodblock printing on cream paper, TWO colour blocks, one small accent block and one
+Style: folk woodblock printing on cream paper, earthy stage blocks, four distinct clothing inks, one small accent block and one
   black key block, 4-6 year old picture book. Each colour block is one flat opaque area cut from a
   plank. The key block carries EVERY outline and prints LAST, on top of the colour.
   🔴 THE PLANK'S GRAIN SHOWS ONLY IN THE STAGE AREAS - water, hulls, decking, cloth, baskets,
@@ -21,40 +21,54 @@ Style: folk woodblock printing on cream paper, TWO colour blocks, one small acce
 
 RENDERING (finish hierarchy): 🔴 THE KEY BLOCK LANDS ONE HAIR OFF THE COLOUR ON EVERY PAGE - colour
   creeps past the outline on one side of a shape and falls short on the other, on at least 4 shapes
-  per page, every slip running the SAME direction. Water is ONE unbroken RIVER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
-  IS OVERLAP WITH RIVER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
+  per page, every slip running the SAME direction. Water is ONE unbroken WATER area, never lighter or darker inside itself, 0 ripples, 0 glints; a floating thing prints whole on top with its outline showing, and 🔴 A SUNKEN THING
+  IS OVERLAP WITH WATER PRINTED OVER IT AND NO OUTLINE AT ALL. Repeats are capped: boats behind at
   most 6, each ONE silhouette with 0 interior marks · fruit at most 9 of one carved shape; no repeat is a mirrored copy of its neighbour. FINISHED
   THINGS PER PAGE = 2, Bung and the one thing Bung touches.
 
-PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 RIVER #C08B3E, water,
-  mud, wood, baskets · BLOCK2 LEAF #4A7247, cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
+PALETTE: PAPER SHELL CREAM #F3ECDC, sky, light, everything unprinted · BLOCK1 OCHRE #C08B3E, mud, wood, baskets · BLOCK2 LEAF #4A7247, stage cloth, palm, hulls, and produce BY DEFAULT · OVERLAP SILT #3A4A2A,
   animal backs, leaf shade, night, anything submerged - never mixed, only overprinted · KEY INK #241F1A, outlines only, it never fills an area · ACCENT TEAL #1E8A8A, 🔴 TWO
   places and no third: the cord hanging at Bung's neck and the cord of the bell on the little one's ankle -
-  the two children are one set, so no adult and no other thing in the book ever carries it. No sky
-  blue, no purple, no pink.
-  🔴 THERE IS NO RED OR YELLOW BLOCK EITHER. Where the script makes ONE thing's colour the point of the
+  the two children are one set, so no adult and no other thing in the book ever carries it. No sky blue in the sky. Water uses its own fixed WATER ink defined below. The WATER and clothing inks below are intentional exceptions to the old limited palette.
+  WATER IDENTITY: WATER #7FA6B2 is the ONE fixed muted blue-grey base of all visible water:
+  river, market, channel, puddles, water in tubs/cups and pouring water. Keep this same colour in
+  daylight, rain, shade, sunset and night. Do not turn water ochre/brown, saturated blue, white/PAPER,
+  green/OVERLAP or accessory TEAL. Water is one continuous flat area, no gradient or white highlights.
+  Weather and time change sky, surroundings and lamps, not the water hue. Exposed mud remains SILT,
+  wooden hulls/decks/baskets remain OCHRE, submerged objects remain OVERLAP beneath WATER.
+  Never recolour wood, clothes, horns, skin or food blue-grey. Old reference water colours must be
+  replaced with WATER while preserving the referenced characters, boat shapes and scene geometry.
+  CLOTHING IDENTITY: Bung buffalo wears a BRICK ORANGE #C85A36 top; Ddori baby buffalo wears a
+  SUNFLOWER YELLOW #F2C94C top; Mom buffalo wears a MULBERRY #984C78 top and matching headcloth;
+  Grandpa buffalo wears an INDIGO #435B91 top and matching round hat. Trousers remain OCHRE.
+  These large, flat clothing areas distinguish the four at reading size. Keep each colour in front,
+  side and back views and across every episode. Do not swap colours or turn all tops green.
+  Preserve reference faces, bodies, silhouettes and garment shapes; when an older reference shows
+  green clothes, replace ONLY those clothing colours with this updated assignment.
+  Keep these extra inks on the named clothing, not skin, horns, water or background props.
+  STAGE PRODUCE retains its existing two-block convention. Where the script makes ONE thing's colour the point of the
   page - the reddest fruit, the yellow one, the ripe one, the red inside of a melon - that one thing is
-  cut in RIVER against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
+  cut in OCHRE against LEAF neighbours and the SCENE names which thing; all other produce stays LEAF.
 
 STAGE CLAUSES (the stage changes what the blocks do, not which blocks):
-  MARKET - water is one RIVER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
-  BOAT INSIDE - planks RIVER, cloth LEAF, lamplight bare PAPER and the brightest thing on the page; a
+  MARKET - water is one WATER area, every hull sits on top of it, sky bare PAPER, 0 clouds.
+  BOAT INSIDE - planks OCHRE, background cloth LEAF (character clothing keeps its identity ink), lamplight bare PAPER and the brightest thing on the page; a
     thing being looked for keeps its key outline while everything it hides among prints with 0 outline.
   CHANNEL AND LOW WATER - leaf shade is ONE flat OVERLAP area across the top and the water narrows to
-    a RIVER band; where it has dropped it leaves a SILT band with a crisp edge.
-  NIGHT - OVERLAP covers the sky as one flat area, the water stays RIVER, lights are unprinted PAPER,
+    a WATER band; where it has dropped it leaves a SILT band with a crisp edge.
+  NIGHT - OVERLAP covers the sky as one flat area, the water stays WATER, lights are unprinted PAPER,
     at most 5.
 
 CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no hooves; the children
   in a short top and trousers, the two adults in a loose top - Grandpa with a round hat on top of the
-  head, Mom with a cloth wrapped between the horns. THAT HEADWEAR IS WHAT TELLS THE TWO ADULTS APART,
+  head, Mom with a cloth wrapped between the horns. DISTINCT CLOTHING COLOURS AND HEADWEAR TELL THE TWO ADULTS APART,
   so the SCENE names it on every page the adult is on. Backs and heads
-  OVERLAP, chests and bellies RIVER.
+  OVERLAP, chests and bellies OCHRE.
   🔴 A BODY IS HALF-CIRCLES, TRIANGLES, RECTANGLES AND DISCS BUTTED TOGETHER, NOTHING SOFTENED WHERE
   THEY MEET, AND THE ASSEMBLY MUST NAME THE SPECIES. Only TWO pieces say buffalo, so those two are
   cut biggest and both break the head's outline:
   🔴 HORNS - one thick CRESCENT each, wide at the base, sweeping OUT sideways then back and up, cut
-    in RIVER on an OVERLAP head. Tip to tip they are the WIDEST thing on the figure. Never a spike
+    in OCHRE on an OVERLAP head. Tip to tip they are the WIDEST thing on the figure. Never a spike
     off the top of the head, never a bud, never the shape of an ear. HORN SPAN IS THE AGE and the
     crescent shape never changes.
   🔴 MUZZLE - one rounded block hanging BELOW AND FORWARD of the head, a third of the head wide or
@@ -69,19 +83,29 @@ CHARACTER DESIGN LANGUAGE: GRADE: bipedal, upright, forelimbs are HANDS with no 
   the shoulder, a fold of the top held, a knee sat across, both ends of one carried thing, a back
   slept against, or a gap no wider than a hand. Where the little one is off the page - the event of
   some books - the page keeps the empty place at Bung's side, or the hand that has let go.
-  A FACE CARRIES DOME, MUZZLE, 2 HORNS, 2 EARS, EYE DISC, BROW BAR, MOUTH CURVE AND NOTHING ELSE.
-  Nothing is added for feeling - a full mouth is the SAME dome cut wider for that page. The eye is a
-  solid KEY-INK DISC on the dome and in three-quarter or profile ONLY ONE is cut, on the near side;
-  above it ONE short brow bar. Feeling is the mouth curve and the tilt of the brow bar; the disc
-  🔴 ON ANY PAGE WHERE A CHARACTER SPEAKS, THAT CHARACTER'S OPEN MOUTH IS INSIDE THE FRAME.
-  A close-up of hands or of a prop hangs the speaker's open mouth at an edge of the frame; an adult taller
-  than the child crouches, sits or turns so that the mouth comes round; a back view is not used on a page
-  where that figure speaks. If a page's text has two speakers, two open mouths are drawn - one each, not
-  one between them. And never write that a mouth is shut on a page where that mouth is the one speaking.
-  never changes size. 🔴 A CLOSED EYE is ONE short key-ink bar in the disc's place, exactly the disc's
-  width; a smiling eye is that same bar bent upward; a shut-tight eye is the same bar with the brow bar
-  pressed onto it. Neither is ever wider or narrower than the disc, and the disc is never cut larger for
-  surprise - surprise is the brow bar lifted high.
+  Keep the buffalo dome, muzzle, horn span, ears and brow-bar design. Eyes are KEY-INK marks;
+  profile shows the near eye, a frontal face shows both. Eye opening, width and tilt may change with
+  emotion; closed eyes are expressive carved arcs, not fixed-width bars. Brow bars and mouth curves
+  work together with the eyes and ears. Preserve head proportions when the jaw opens.
+
+FACIAL ACTING: reference images fix species, head and muzzle proportions, body silhouette, palette,
+  markings, clothing and accessories; they do NOT fix a neutral expression. Keep the same character
+  while changing eyelid opening, eye angle, mouth corners, jaw tension and ear angle for this moment.
+  Curiosity: attentive eyes aimed toward the object, mouth slightly parted. Concern: tense lower lids,
+  inward-raised eye region, mouth corners lowered. Refusal or discomfort: narrowed tense eyes, firm
+  or downturned mouth, ears back; never a cheerful grin. Concentration: eyes directed at the task,
+  steady lids and a relaxed or lightly pressed mouth, not laughing. Sadness: lowered gaze, lifted
+  inner eye region and downturned trembling mouth. Relief: tension releases in lids and jaw, a small
+  soft smile. Joy: lifted cheeks, smiling eyes and raised mouth corners. Surprise: lifted lids and a
+  briefly open mouth, not the default face. Use only the emotion supported by this page's action/text;
+  two characters may feel differently. Preserve a scripted deliberate smile, joke or laugh.
+  SPEECH: an on-screen speaker's mouth may open only as much as the emotion and captured syllable
+  need; speaking never automatically means a grin or a round O. A listening face may stay closed.
+  Keep the specified crop: never add a face or speaker to a hand/prop close-up, back view, landscape
+  or empty scene solely to show a mouth. Facial detail uses the same flat medium, never glossy eyes,
+  realistic shading or a redesigned muzzle. When making a character sheet, include a small acting
+  row of the SAME character: curious, refusing, worried, sad, relieved and joyful; retain all identity
+  features across the row. Page prompts draw one moment, not a sheet of expressions.
 
 CANVAS: 16:9 double-page spread. 🔴 No lettering, numerals or signs anywhere.
 
@@ -109,7 +133,7 @@ SHEET LAYOUT: one cream sheet, four buffaloes standing in a row on a single grou
   ROW AND THE SHEET IS WRONG IF EITHER FAILS: every one of the four is a buffalo at a glance, from
   the horn crescents and the muzzle alone; and the four are told apart from each other by horn span,
   height and headwear alone.
-  Nothing else on the sheet - no props, no scenery, no ground beyond the one line.
+  Include the facial acting row described above. No props or scenery beyond the ground line.
 🔴 No lettering, numerals, labels or name tags anywhere on the sheet.
 ```
 
@@ -195,8 +219,8 @@ shapes; … the face is stiff because it was cut into a block."*
 - **뿔 상한을 다시 정했다** — `two tiny buds` 폐기. 모양(초승달)은 넷이 같고 **폭이 나이**다
   (어른 1.5 · 붕이 1 · 또리 2/3 머리 폭). 숫자는 `bung-cast.md`.
 - 🔴 **엄마 한 장이 반증이자 증거다** — 넷 중 그 장만 주둥이와 옆으로 뻗은 뿔이 있었고, 넷 중 유일하게
-  물소로 읽혔다. 게다가 뿔이 **어두운 머리 위의 밝은 RIVER** 라 멀리서도 떨어져 나온다. 그 우연을
-  규칙으로 올렸다(`cut in RIVER on an OVERLAP head`).
+  물소로 읽혔다. 게다가 뿔이 **어두운 머리 위의 밝은 OCHRE** 라 멀리서도 떨어져 나온다. 그 우연을
+  규칙으로 올렸다(`cut in OCHRE on an OVERLAP head`).
 
 ### ③ 넷이 **이름만 다른 같은 지시**를 받고 있었다 (신고에 없던 것)
 

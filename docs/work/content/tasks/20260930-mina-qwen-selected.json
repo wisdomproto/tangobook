@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-30T03:52:05.683575+00:00",
+  "model": "Qwen-Image-2.1 INT8, local ComfyUI, 25 steps, CFG 1, 1280x720",
+  "scope": "Mina text revision: 22 reviewed images replaced in production; superseded same-key assets removed",
+  "source": "D:/ComfyUI-output/mina-text-revisions/source.json",
+  "review_log": "D:/ComfyUI-output/mina-text-revisions/reviews.json",
+  "total": 22,
+  "books": {
+    "mina-11": 1,
+    "mina-20": 1,
+    "mina-23": 1,
+    "mina-24": 1,
+    "mina-26": 1,
+    "mina-28": 3,
+    "mina-29": 4,
+    "mina-31": 1,
+    "mina-38": 2,
+    "mina-39": 2,
+    "mina-44": 3,
+    "mina-49": 2
+  },
+  "images": [
+    {
+      "book": "mina-11",
+      "page": "p10",
+      "title": "따라오기만 해",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-11/p10.png",
+      "sha256": "2af97ca9577d9d6eda39813760e675b2a5b009b8393d05ad9430f416533ccc20",
+      "review_note": "여분 바구니 제거 후 정확히 세 바구니. 네 가족이 마른 모래밭에 있고 라주가 바구니를 내려놓는 동작 확인.",
+      "repair_id": "11-p10-three-baskets",
+      "text": "셋이 조개 바구니를 들고 마른 모래밭으로 올라왔어요. \"다음엔 처음부터 알려 줄게.\" 라주가 동생들 곁에 바구니를 내려놓아요."
+    },
+    {
+      "book": "mina-20",
+      "page": "p9",
+      "title": "밤에 옮겼어",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-20/p9.png",
+      "sha256": "bcebb4018ca66fda26a7807714b6a6a361440929c89020e9eeb299d6f9ebf1ed",
+      "review_note": "미나와 소누 두 명, 조개껍데기를 담은 그릇 정확히 세 개. 나누는 손동작과 미안한 소누 표정 확인. 배경은 집 내부 묘사가 간소함.",
+      "repair_id": null,
+      "text": "\"내가 옮기다가 쏟았어. 미안해.\" 소누가 말했어요. 미나가 껍데기를 셋이 똑같이 나눠 담아요."
+    },
+    {
+      "book": "mina-23",
+      "page": "p10",
+      "title": "안 무섭다고 했어",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-23/p10.png",
+      "sha256": "203b363e8bf9222f867d4b16cd5139c8725adbe7241bec4eca25c2fe77f3ed63",
+      "review_note": "중복 소누 제거 후 엄마와 세 남매 네 명. 라주가 미나보다 크고 소누가 가장 작음. 강에서 떨어진 높은 마른 길 확인.",
+      "repair_id": "23-p10-four-family",
+      "text": "다음 날 아침, 비가 그쳤어요. 미나가 제일 먼저 일어났어요. 엄마와 셋이 마른 길을 걸으며 저 아래 물가를 바라봐요."
+    },
+    {
+      "book": "mina-24",
+      "page": "p9",
+      "title": "두 손이 꽉 찼어",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-24/p9.png",
+      "sha256": "5ccd60ef6b381c60acbaac10664571fa33eb90dccf0d067dda656ca4101f6086",
+      "review_note": "노란 옷 소누 한 명, 땅 위 나무 조각 정확히 세 개와 빈 두 손 확인.",
+      "repair_id": null,
+      "text": "소누가 나뭇조각 세 개를 모두 모래에 내려놓았어요. 두 손이 텅 비었어요."
+    },
+    {
+      "book": "mina-26",
+      "page": "p3",
+      "title": "초록 잎도 한 입!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-26/p3.png",
+      "sha256": "08951623e1d0e725df376f5583754d4e8eb479c5ba07ffd7060b81c2382941db",
+      "review_note": "엄마가 초록 잎을 다듬고 미나가 호기심 있게 바라본다. 두 인물·의상·오른쪽 발찌, 아픈 표정 없는 흐름 확인.",
+      "repair_id": null,
+      "text": "다음 날 아침, 엄마가 남은 초록 잎을 다듬어요. 미나가 코끝을 가까이 대요. \"이건 어떤 맛이지?\""
+    },
+    {
+      "book": "mina-28",
+      "page": "p3",
+      "title": "씻은 손으로, 냠!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-28/p3.png",
+      "sha256": "36d6f646f005b072a1a1ff472255c4ca07405bc18d7ed4ddc8cd04251785e588",
+      "review_note": "평상에 앉은 미나, 진흙 묻은 손과 온전한 빵의 흙 손자국, 걱정 표정. 복통이나 먹는 동작 없음.",
+      "repair_id": null,
+      "text": "미나가 평상에 앉아 빵을 내려다봐요. 손을 대는 곳마다 흙자국이 늘어요. \"닦으려는데 자꾸 더 묻어.\""
+    },
+    {
+      "book": "mina-28",
+      "page": "p6",
+      "title": "씻은 손으로, 냠!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-28/p6.png",
+      "sha256": "b66ab6eb467b7fc1284a2b87ba367b8e9be2b44a2759afd831823a9b9313a6e2",
+      "review_note": "중앙 여분 아이를 제거해 엄마·미나·소누 세 명. 두 아이의 손 거품과 엄마의 비누, 물통 확인.",
+      "repair_id": "28-p6-three-only",
+      "text": "엄마가 비누를 건네요. 미나가 거품을 내어 손바닥과 손등, 손가락 사이를 문질러요. 소누도 옆에서 작은 손을 싹싹 비벼요."
+    },
+    {
+      "book": "mina-28",
+      "page": "p8",
+      "title": "씻은 손으로, 냠!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-28/p8.png",
+      "sha256": "ca507b454a1a2dcc0a56f7d981dfa5dcc66ba61f282a9c26ef00a5daae5f4261",
+      "review_note": "추가 어른 제거. 엄마가 소누 손에 수건을 대고, 미나는 깨끗한 손으로 흙자국 없는 새 빵을 든다. 세 인물 확인.",
+      "repair_id": "28-p8-mother-dries",
+      "text": "엄마가 수건으로 두 아이 손을 닦아 줘요. 미나가 새 빵을 집었어요. 이번엔 하얀 빵에 흙자국이 안 남아요."
+    },
+    {
+      "book": "mina-29",
+      "page": "p3",
+      "title": "조금씩, 꼭꼭!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-29/p3.png",
+      "sha256": "629105056f71213118a97721fc4a350781b79948ab8fe513f6ae02b798aa564a",
+      "review_note": "식탁 없는 방의 멍석 위 두 아이. 미나는 입을 다물고 씹고 소누는 작은 빵을 떼며 팽이는 옆에 둔다. 아프거나 물을 마시는 동작 없음.",
+      "repair_id": null,
+      "text": "미나는 입 안의 빵을 한참 씹어요. 팽이는 손도 못 대고 옆에 놓여 있어요. 소누가 제 빵을 조금씩 떼어 먹는 게 보여요."
+    },
+    {
+      "book": "mina-29",
+      "page": "p4",
+      "title": "조금씩, 꼭꼭!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-29/p4.png",
+      "sha256": "beb5e063be1d1f8165c24268cba56ce949195c66941e1b04541558cc817ce2cf",
+      "review_note": "엄마가 작은 빵 조각을 떼어 보이고 미나가 바라봄. 두 인물, 물병·억지 삼킴·통증 장면 없음. 작은 한 입이라는 새 내용과 일치.",
+      "repair_id": null,
+      "text": "빵을 다 삼킨 미나가 말해요. \"너무 크게 베어 물었어.\" 엄마가 빵을 작은 조각으로 떼어 보여 줘요. \"이번엔 이만큼 먹어 보자.\""
+    },
+    {
+      "book": "mina-29",
+      "page": "p6",
+      "title": "조금씩, 꼭꼭!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-29/p6.png",
+      "sha256": "16319eba525c0a7c43082fa05914f136317667b5069d12a43413a1ddbf5600ca",
+      "review_note": "엄마 손바닥의 작은 빵, 이를 바라보는 미나, 팽이를 옆으로 미는 소누. 세 인물과 의상·소품 확인. 무대에 없는 식탁 언급은 본문에서 덜어 바닥 식사와 맞춤.",
+      "repair_id": null,
+      "text": "엄마가 작은 빵 조각을 손바닥에 올려 보여 줘요. \"서두르지 않아도 돼. 팽이는 여기 있잖아.\" 소누가 팽이를 옆으로 밀어 놓아요."
+    },
+    {
+      "book": "mina-29",
+      "page": "p9",
+      "title": "조금씩, 꼭꼭!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-29/p9.png",
+      "sha256": "b251b5a3afee836e3197da7e099e9f37151037ff04a0849bc793f4f5dc702221",
+      "review_note": "팽이 아래 불필요한 접시 제거. 미나는 멍석 위에 팽이를 놓고 소누는 빵을 마저 먹는다. 두 아이와 식사 접시 둘 확인.",
+      "repair_id": "29-p9-top-on-mat",
+      "text": "미나가 팽이를 집었다가 소누 앞에 놓아요. \"소누야, 다 먹고 같이 돌리자.\" 소누가 고개를 끄덕여요."
+    },
+    {
+      "book": "mina-31",
+      "page": "p9",
+      "title": "건너 불 꺼지면, 잘 시간!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-31/p9.png",
+      "sha256": "5b51facaf6599c9ade7dc6b05b0158248254e771adf6717b115d7b8fdf4f6d6a",
+      "review_note": "침대 머리판 제거 후 방바닥 이불로 변경. 미나가 이불을 끌어당기고 엄마만 등불을 든다. 밤 창과 두 인물 확인.",
+      "repair_id": "31-p9-floor-bedding",
+      "text": "다음 날 밤, 미나가 창을 봐요. 건너 불이 하나씩 꺼져요. \"엄마, 나도 이제 잘래.\" 미나가 이불을 끌어당겨요."
+    },
+    {
+      "book": "mina-38",
+      "page": "p5",
+      "title": "먹기 전에 물어볼게!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-38/p5.png",
+      "sha256": "95625a6506d66e66fac4dfadfe56847d1bcde7a4164b7c65581cb548f486b639",
+      "review_note": "열매를 아이와 먼 바닥으로 옮기고 두 코를 아래로 내림. 미나가 엄마에게 묻는 구도이며 냄새 맡거나 먹는 동작 없음.",
+      "repair_id": "38-p5-fruit-away",
+      "text": "\"그럼 먹는 건지 어떻게 알아?\" 미나가 물었어요. \"모르는 건 먼저 엄마한테 물어봐.\" 엄마가 열매를 아이들 손에서 멀리 내려놓아요."
+    },
+    {
+      "book": "mina-38",
+      "page": "p6",
+      "title": "먹기 전에 물어볼게!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-38/p6.png",
+      "sha256": "5d4cf0d4a883e567d70d6a98cbbec1e822d432866b13c42cdffcc2449ba39781",
+      "review_note": "미나가 빈 두 손을 등 뒤에 모으고 라주를 올려다봄. 두 인물만 있고 열매·냄새 맡기 없음. 의상과 발찌 유지.",
+      "repair_id": null,
+      "text": "미나가 두 손을 등 뒤로 모아요. \"먹기 전에 물어볼게.\" 라주가 옆에서 고개를 끄덕여요."
+    },
+    {
+      "book": "mina-39",
+      "page": "p6",
+      "title": "물이 오르면, 집으로!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-39/p6.png",
+      "sha256": "e73f6cb2e5b31118d2bc9d8a0f01d438d362f73184f6186351044b2fb99e28db",
+      "review_note": "낮은 젖은 계단에 남겨 둔 나무 인형, 엄마 손을 잡고 올라가는 미나, 앞서 오르는 소누 확인. 발찌는 뒤쪽 오른발 하나만 남음.",
+      "repair_id": "39-p6-one-anklet",
+      "text": "미나가 인형 쪽을 한 번 돌아봐요. 엄마가 손을 내밀어요. \"남은 것도 두고 오렴.\" 미나가 빈손으로 엄마 손을 잡아요."
+    },
+    {
+      "book": "mina-39",
+      "page": "p7",
+      "title": "물이 오르면, 집으로!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-39/p7.png",
+      "sha256": "5c849421aa084bd1f2515b156c447a77efa342ad2bd76d095f803b546c4aca4f",
+      "review_note": "엄마가 뒤에서 지켜보며 두 아이가 손잡고 마른 계단을 오른다. 앞발이 높은 칸, 물은 아래 뒤쪽. 세 인물·의상·오른쪽 발찌 확인.",
+      "repair_id": null,
+      "text": "셋이 계단을 올라가요. 소누가 한 칸 오를 때마다 미나도 옆에서 발을 맞춰요. 엄마가 두 아이 곁을 지켜요."
+    },
+    {
+      "book": "mina-44",
+      "page": "p8",
+      "title": "기다릴 땐, 흙 그림!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-44/p8.png",
+      "sha256": "4c2e85dc29bd3b7ccc09ad439e8c9332fb5d99317d19c947503f3a2f0338123a",
+      "review_note": "미나의 살색 손발을 둥근 회색 코끼리 손발로 복구하고 오른쪽 발찌 하나 추가. 손 흔들기·흙 그림·하선한 엄마 구도 유지.",
+      "repair_id": "44-p8-grey-paws",
+      "text": "그때 노 젓는 소리가 들렸어요. 나루터에 배가 닿고 엄마가 내렸어요. 미나가 흙 그림 옆에서 손을 흔들어요. \"엄마, 여기 봐!\""
+    },
+    {
+      "book": "mina-44",
+      "page": "p9",
+      "title": "기다릴 땐, 흙 그림!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-44/p9.png",
+      "sha256": "7da45c36e4396a79d24586f19602e91a14bc16535cea12a88e0784d639264ee7",
+      "review_note": "라주 크기를 줄여 미나보다 조금 큰 맏이 비례로 보정. 엄마가 마른 땅의 평면 배·사공 그림을 보고, 두 아이가 나뭇가지를 든 장면 확인.",
+      "repair_id": "44-p9-smaller-raju",
+      "text": "엄마가 그림 앞에 쪼그려 앉아요. \"여기 노 젓는 사람도 있네?\" 미나가 나뭇가지로 배 그림을 가리켜요. \"엄마가 탄 배야!\""
+    },
+    {
+      "book": "mina-44",
+      "page": "p10",
+      "title": "기다릴 땐, 흙 그림!",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-44/p10.png",
+      "sha256": "b5fde959be7dbc884e89c7df8c449eb3e274b1d8f33d6fe22fb93494bbcb09b2",
+      "review_note": "세 인물, 엄마 품에 기댄 미나, 보따리를 든 라주. 바닥 배 그림과 멀리 떨어진 실제 배·강의 위치 확인. 코를 치켜드는 부수 묘사는 자연스러운 포옹 문장으로 정리.",
+      "repair_id": null,
+      "text": "엄마가 미나를 꼭 껴안았어요. 미나도 엄마 품으로 쏙 파고들어요. \"기다리면서 라주랑 그렸어.\""
+    },
+    {
+      "book": "mina-49",
+      "page": "p5",
+      "title": "엄마 옆에 앉을래",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-49/p5.png",
+      "sha256": "097d822e1e6f2035b7585ef15ee9bd162a973daa8ed285fada880dd05675d271",
+      "review_note": "소누를 작은 막내 비례로 줄여 엄마 곁에 기대 쉬게 함. 엄마가 다른 팔로 미나 어깨를 먼저 안고 위로한다. 세 인물·수건/집안일 없는 순서 확인.",
+      "repair_id": "49-p5-sonu-on-lap",
+      "text": "엄마가 미나를 불러 한 팔을 벌렸어요. \"미나도 안기고 싶었지? 엄마 옆으로 와.\" 미나가 다가와 엄마 팔에 기대요."
+    },
+    {
+      "book": "mina-49",
+      "page": "p9",
+      "title": "엄마 옆에 앉을래",
+      "file": "D:/ComfyUI-output/mina-text-revisions/mina-49/p9.png",
+      "sha256": "732b94b1fb07d6fdaeb39658010a8aff3a5f038566da0820d8c304fa813712f9",
+      "review_note": "무릎의 추가 아기 제거 후 두 남매만 남음. 노란 옷 소누는 이불 속에서 미나 손을 잡고 잠들고, 미나는 이마 수건을 만지지 않는다.",
+      "repair_id": "49-p9-two-siblings",
+      "text": "소누가 미나 손가락을 꼭 잡고 잠들었어요. 미나는 손을 빼지 않고 가만히 기다려요. 방 안에 빗소리만 들려요."
+    }
+  ],
+  "production": {
+    "verifiedAt": "2026-09-30T04:20:43.075Z",
+    "images": 22,
+    "booksWithTextUpdates": 43,
+    "textPages": 135,
+    "ledger": "D:/ComfyUI-output/mina-text-revisions/registration/ledger.json",
+    "cdnVerification": "D:/ComfyUI-output/mina-text-revisions/registration/cdn-verified.json"
+  }
+}

@@ -81,17 +81,17 @@ export function CreateContentDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{isAd ? '📣 새 광고' : '새 콘텐츠'}</DialogTitle>
+          <DialogTitle>{isAd ? '📣 새 광고' : '새 마케팅 기획'}</DialogTitle>
           <DialogDescription>
             {isAd
               ? '광고 릴스(영상)를 업로드해 인스타그램·페이스북·쇼츠로 발행할 수 있습니다.'
-              : '콘텐츠를 생성하면 기본 글과 채널별 콘텐츠를 작성할 수 있습니다.'}
+              : '기획을 생성하면 기본 글과 블로그·쇼츠 등 채널별 산출물을 작성할 수 있습니다.'}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="content-title">{isAd ? '광고 이름 *' : '콘텐츠 제목 *'}</Label>
+            <Label htmlFor="content-title">{isAd ? '광고 이름 *' : '기획 이름 *'}</Label>
             <Input
               id="content-title"
               value={title}

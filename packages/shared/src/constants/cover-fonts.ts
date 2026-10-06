@@ -1,17 +1,12 @@
-// Canonical lang→font-family map for cover-title overlays. Unknown languages fall
-// back to the Latin font. Adding a language font is a TWO-PLACE change (the font
-// string can't be loaded by CSS from TS):
-//   1) add a row here,
-//   2) add the family to the webfont `@import` in packages/client/src/index.css.
-// BookCover consumes coverTitleFont(lang).family directly as an inline font-family,
-// so no Tailwind token is needed. Plan #2 (server OG) also bundles the TTFs listed
-// in COVER_FONT_FAMILIES.
+// Complete cover-title webfonts are declared in client/lib/cover-title-fonts.css.
+// Original TangoBook lettering and Korean + attributed OFL compatibility glyphs.
+// Japanese uses regional outlines, followed by the same complete global family.
 export interface CoverFont {
   family: string;
 }
-const LATIN = 'Baloo 2';
+const LATIN = 'TangoBook Story Hand Global';
 const BY_LANG: Record<string, string> = {
-  ko: 'Jua',
+  ko: LATIN,
   en: LATIN,
   es: LATIN,
   fr: LATIN,
@@ -19,12 +14,12 @@ const BY_LANG: Record<string, string> = {
   ms: LATIN,
   id: LATIN,
   vi: LATIN,
-  zh: 'ZCOOL KuaiLe',
-  ja: 'Noto Sans JP',
-  th: 'Noto Sans Thai',
+  zh: LATIN,
+  ja: 'TangoBook Story Hand Global Japanese',
+  th: LATIN,
 };
 export function coverTitleFont(lang: string): CoverFont {
-  return { family: BY_LANG[lang] ?? LATIN };
+  return { family: BY_LANG[lang.toLowerCase().split('-')[0]] ?? LATIN };
 }
 /** All distinct families — used to build the webfont @import / server TTF bundle. */
 export const COVER_FONT_FAMILIES: string[] = [...new Set(Object.values(BY_LANG))];

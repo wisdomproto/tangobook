@@ -1,0 +1,1 @@
+Repair this black-and-white coloring-page lineart. Shrink entire close-up bird to92% so head/chin never touches any canvas border; close complete outer face/chin outline with solid 14px line. No frame. Pure WHITE interiors, BLACK outlines only. Preserve character count/species/pose/action and composition; NOcolor/shading/texture/text.

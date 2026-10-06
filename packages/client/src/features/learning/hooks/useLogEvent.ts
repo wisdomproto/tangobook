@@ -6,9 +6,11 @@ import type {
 } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { eventsApi } from '../api/events.api';
-import { appendGuestEvent } from '../lib/guest-events';
+import { appendGuestEvents } from '../lib/guest-events';
+import { enqueueEvents, flushPendingEvents } from '../lib/event-outbox';
 
 export interface LogEventArgs {
+  id?: string;
   type: LearningEventType;
   word?: string;
   storybookId?: string;
@@ -28,8 +30,9 @@ export function useLogEvent() {
   const profileId = activeProfile?.id ?? null;
 
   return useCallback(
-    (args: LogEventArgs) => {
+    async (args: LogEventArgs) => {
       const insert: LearningEventInsert = {
+        id: args.id,
         profile_id: profileId ?? '',
         event_type: args.type,
         storybook_id: args.storybookId ?? null,
@@ -39,10 +42,11 @@ export function useLogEvent() {
         created_at: new Date().toISOString(),
       };
       if (!profileId) {
-        appendGuestEvent(insert);
+        await appendGuestEvents([insert]);
         return;
       }
-      void eventsApi.insert([insert]);
+      await enqueueEvents([insert]);
+      void flushPendingEvents(profileId, eventsApi.insert);
     },
     [profileId]
   );
@@ -56,15 +60,20 @@ export function useLogEventsBatch() {
   const profileId = activeProfile?.id ?? null;
 
   return useCallback(
-    (items: LogEventBatchItem[]) => {
-      if (!profileId || items.length === 0) return;
+    async (items: LogEventBatchItem[]) => {
+      if (items.length === 0) return;
       const now = new Date().toISOString();
       const inserts: LearningEventInsert[] = items.map((it) => ({
         ...it,
-        profile_id: profileId,
+        profile_id: profileId ?? '',
         created_at: now,
       }));
-      void eventsApi.insert(inserts);
+      if (!profileId) {
+        await appendGuestEvents(inserts);
+        return;
+      }
+      await enqueueEvents(inserts);
+      void flushPendingEvents(profileId, eventsApi.insert);
     },
     [profileId]
   );

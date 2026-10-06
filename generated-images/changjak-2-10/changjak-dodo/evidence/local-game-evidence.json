@@ -1,0 +1,15 @@
+{
+  "representativeGamePassed": true,
+  "key": "changjak-dodo-04-p03",
+  "actualPointerBrushes": 4,
+  "paletteColors": 4,
+  "mainCharacterColored": true,
+  "pageNumber": 3,
+  "correctSourceRevealUrl": true,
+  "readingFallbackCompletionObserved": true,
+  "nativeSpeechVerified": false,
+  "resetObserved": true,
+  "resetRepaint": false,
+  "bgmStopped": true,
+  "screenshotNote": "Reveal screenshot captured during blue overlay; source URL and page verified through visible DOM."
+}

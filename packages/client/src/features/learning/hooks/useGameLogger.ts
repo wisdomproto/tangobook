@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import type { GameTypeId, Lang, LearningEventMetadata, LearningEventType } from '@tangobook/shared';
 import { useLogEventsBatch, type LogEventBatchItem } from './useLogEvent';
 import { useVocabSource } from '../context/VocabSourceContext';
@@ -10,6 +10,7 @@ export interface GameWordResult {
   /** 한글 파닉스 음절 이벤트(consonant+vowel 분해)를 추가로 쏠 때 세트 */
   consonant?: string;
   vowel?: string;
+  coda?: string;
   /** 영어 파닉스 음소 이벤트를 추가로 쏠 때 */
   phoneme?: string;
   attempts?: number;
@@ -22,7 +23,7 @@ export interface LogGameArgs {
   lang: Lang;
   results: GameWordResult[];
   /** emit 시 metadata.source — 어휘 단원 학습 시 'vocabulary' (default 'storybook') */
-  source?: 'storybook' | 'vocabulary';
+  source?: 'storybook' | 'vocabulary' | 'phonics';
   /** 어휘 단원 학습 시 metadata.unitId */
   unitId?: string;
 }
@@ -34,7 +35,7 @@ export interface LogGameArgs {
  * `consonant`+`vowel` 세트 시: 추가로 `syllable_correct`/`syllable_wrong` 도 쏨.
  * `phoneme` 있을 시: 추가로 `phoneme_correct`/`phoneme_wrong` 도 쏨.
  *
- * 게스트 모드(활성 프로필 없음)에선 자동 no-op (useLogEventsBatch 내부).
+ * 게스트 결과도 로컬에 보관한다.
  *
  * 🔴 **한글 블록·낱말 쓰기·그림 짝은 플레이어가 직접 `decomposeWord` 로 음절 결과까지 만들어 넘긴다**
  *  (그 게임들은 아이가 음절을 실제로 조작하므로 정식 1점이 맞다). 그래서 `groupBySyllable` 은
@@ -43,6 +44,7 @@ export interface LogGameArgs {
  */
 export function useGameLogger() {
   const batch = useLogEventsBatch();
+  const runId = useRef(crypto.randomUUID());
   const vocabCtx = useVocabSource();
 
   return useCallback(
@@ -53,6 +55,21 @@ export function useGameLogger() {
       const effectiveSource = source ?? vocabCtx?.source ?? 'storybook';
       const effectiveUnitId = unitId ?? vocabCtx?.unitId;
       const baseMeta = (extra?: Partial<LearningEventMetadata>): LearningEventMetadata => ({
+        schemaVersion: 2,
+        activityRunId: runId.current,
+        skill: gameType.includes('writing')
+          ? 'tracing'
+          : gameType.includes('block')
+            ? 'building'
+            : gameType === 'connect-the-dots'
+              ? 'drawing'
+              : gameType.includes('line-matching')
+                ? 'meaning'
+                : undefined,
+        evidence:
+          gameType === 'korean-block' || gameType === 'english-block'
+            ? 'first-attempt'
+            : 'completion',
         lang,
         source: effectiveSource,
         ...(effectiveSource === 'storybook' ? { storybookId } : { unitId: effectiveUnitId }),
@@ -67,7 +84,12 @@ export function useGameLogger() {
             storybook_id: storybookId ?? null,
             game_type: gameType,
             word: r.word,
-            metadata: baseMeta({ attempts: r.attempts, responseMs: r.responseMs }),
+            metadata: baseMeta({
+              attempts: r.attempts,
+              responseMs: r.responseMs,
+              firstAttempt:
+                gameType === 'korean-block' || gameType === 'english-block' ? r.correct : undefined,
+            }),
           });
         }
 
@@ -77,8 +99,8 @@ export function useGameLogger() {
             event_type: sylType,
             storybook_id: storybookId ?? null,
             game_type: gameType,
-            word: `${r.consonant}${r.vowel}`,
-            metadata: baseMeta({ consonant: r.consonant, vowel: r.vowel }),
+            word: `${r.consonant}${r.vowel}${r.coda ?? ''}`,
+            metadata: baseMeta({ consonant: r.consonant, vowel: r.vowel, coda: r.coda }),
           });
         }
 

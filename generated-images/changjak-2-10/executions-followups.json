@@ -1,0 +1,66 @@
+[
+  {
+    "cell": "187",
+    "kind": "mei-large-regions-repair",
+    "status": "completed",
+    "keys": [
+      "changjak-mei-02-p06",
+      "changjak-mei-13-p04",
+      "changjak-mei-13-p10"
+    ]
+  },
+  {
+    "cell": "201",
+    "kind": "coco-mother-top-caps",
+    "status": "running",
+    "keys": [
+      "changjak-coco-01-p02"
+    ]
+  },
+  {
+    "cell": "210",
+    "kind": "new-source-lineart",
+    "status": "running",
+    "keys": [
+      "changjak-dodo-41-p06",
+      "changjak-dodo-45-p04",
+      "changjak-dodo-45-p09",
+      "changjak-bruno-30-p04",
+      "changjak-bruno-30-p10",
+      "changjak-bruno-50-p02",
+      "changjak-bruno-50-p09",
+      "changjak-twins-26-p02",
+      "changjak-twins-26-p10",
+      "changjak-twins-41-p01",
+      "changjak-twins-41-p09",
+      "changjak-mio-31-p09",
+      "changjak-mio-36-p10",
+      "changjak-nono-05-p07",
+      "changjak-nono-13-p09",
+      "changjak-nono-26-p01",
+      "changjak-nono-26-p07",
+      "changjak-lulu-28-p02",
+      "changjak-lulu-50-p02",
+      "changjak-lulu-50-p09"
+    ]
+  },
+  {
+    "cell": "213",
+    "kind": "new-source-character-count-corrections",
+    "status": "running",
+    "keys": [
+      "changjak-mio-31-p05",
+      "changjak-mio-36-p04",
+      "changjak-lulu-28-p09"
+    ]
+  },
+  {
+    "cell": "221",
+    "kind": "coco-large-cropped-region-caps",
+    "status": "running",
+    "keys": [
+      "changjak-coco-25-p09",
+      "changjak-coco-48-p10"
+    ]
+  }
+]

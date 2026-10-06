@@ -11,6 +11,7 @@
   'use strict';
 
   var KEY = '__KEY__';
+  var SHEET_STYLE = __SHEET_STYLE__;
   var ANCHOR = { slug: '__ANCHOR_SLUG__', name: '__ANCHOR_NAME__', text: __ANCHOR_TEXT__, award: __ANCHOR_AWARD__ };
   var FIXED_CHARS = __CAST__;
   var FACE = __FACE__;
@@ -87,7 +88,8 @@
   //    「타로 엄마」에는 어차피 「타로」가 들어 있다. 빌더의 별칭 충돌 가드는 그대로 두되(설계 경고),
   //    감지는 여기서 정확해진다.
   function detectChars(sceneText) {
-    var rest = String(sceneText || '').toLowerCase();
+    // 표정 참고 본문에는 화면 밖 인물도 언급된다. 등장 판정은 원래 컷 설명만 사용한다.
+    var rest = String(sceneText || '').split(/(?:<b>)?표정 연기/)[0].toLowerCase();
     var pairs = [];
     ALL.forEach(function (c) {
       (c.aliases || [c.name]).forEach(function (n) { pairs.push({ key: c.key, n: String(n).toLowerCase() }); });
@@ -118,6 +120,8 @@
     return ALL.map(function (c) {
       var on = !pages || pages.some(function (p) { return sceneHasChar(p.scene, c); });
       var gist = String(c.spec || c.desc || '').replace(/^[-•\s]+/, '').split('\n')[0].slice(0, 110);
+      // 코타는 시트의 의상·무늬 규격도 페이지 프롬프트로 전달한다.
+      if (KEY === 'kota') gist = [c.desc, c.spec].filter(Boolean).join('\n');
       return '@image' + c.img + ' = ' + c.name + (c.aliases[1] ? ' (' + c.aliases[1] + ')' : '') +
         (gist ? ': ' + gist : '') + (on ? '' : '  (이 화 미등장 — 첨부 불필요)');
     }).join('\n');
@@ -131,6 +135,7 @@
       '아래 @imageN 순서대로 시트를 첨부하고,',
       '얼굴·비율·색은 시트와 100% 동일하게 유지한다. @image1~' + NF + ' = 고정 캐스트(항상 이 순서), @image9~ = 이 화 단역.',
       castLegend(pages),
+      KEY === 'kota' ? '참조 우선: 위 문자 규격은 기본값이다. 첨부한 각 인물의 실제 얼굴 무늬·옷색·옷 형태를 우선한다. 참조에 없는 무늬를 추가하거나 다른 인물의 무늬·의상을 옮기지 않는다. 명시된 장면 행동에 따른 수건 전달·탈의·맨발만 예외로 한다.' : '',
       '※ 각 쪽 [등장]에 적힌 @imageN 만 그 컷에 그린다. 나머지는 넣지 않는다.',
       '',
       '[출력 규칙]',
@@ -152,18 +157,20 @@
     if (!g) return '';
     // 🔴 시트는 마젠타 배경에 인물 하나다 — 무대 조항(마을·비·물·밤)이 들어갈 자리가 없고,
     //    개체를 가르라는 지시를 그만큼 묽게 만든다. 컷 프롬프트(composeBatchPrompt)에서는 그대로 쓴다.
-    var world = ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
+    var world = SHEET_STYLE || ANCHOR.text.replace(/\nSTAGE CLAUSES[\s\S]*?(?=\n[A-Z])/, '');
     return [
       world,
       '',
       // 🔴 매체는 글로 안 전해진다. 유키 시트는 아이가 부드러운 그러데이션 카툰, 할머니가 접힘을 다
       //    그린 사실화로 나왔다 — 앵커에 `SHADING IS ZERO`·`한 획을 두 번 덧긋지 않는다` 가 있는데도.
       //    단권 99권은 화면에 수상작 원본이 떠 있었고 시리즈는 글만 있었다. 그림 한 장이 그 자리를 메운다.
-      ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
+      !SHEET_STYLE && ANCHOR.award ? '[매체 참조] 🔴 이 프롬프트와 함께 **앵커 원본 그림 한 장을 반드시 첨부**한다 — '
         + ANCHOR.award + '. 획·자국·결·가장자리는 아래 글이 아니라 그 그림이 정한다.' : null,
-      '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
+      SHEET_STYLE ? '[참조] 사용자가 확정한 본문 삽화 중 이 인물이 나온 그림을 실제로 첨부한다. 파일명만 적는 것은 이미지 첨부가 아니다. 그 그림의 해당 인물만 따른다.' : null,
+      SHEET_STYLE ? '[출력] 정사각 1024x1024. 따뜻한 크림색 배경에 세 방향을 간격 있게 배치한다.' : '[출력] 정사각 1024x1024. 배경은 순수 마젠타 #FF00FF 단색, 인물을 가운데 두고 여백 8%.',
       '바닥 그림자 없음, 글자·라벨 없음, 다른 인물 없음.',
-      '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.',
+      '[인물] ' + g.name + (g.aliases[1] ? ' — ' + g.aliases[1] : '') + (SHEET_STYLE ? '. 아래 개체 규격과 첨부 본문 그림을 따른다.' : '. 위 CHARACTER DESIGN LANGUAGE 의 규격을 그대로 따른다.'),
+      KEY === 'kota' && g.desc ? '[해당 손님의 외형] ' + g.desc : null,
       // 🔴 이 줄이 없으면 한 시리즈의 넷이 **이름만 다른 같은 지시**를 받는다. 앵커는 그 세계 전체를
       //    말하지 한 사람을 말하지 않으므로, 개체를 가르는 것은 여기서 들어와야 한다.
       g.spec ? '[이 인물만의 규격 — 위 규격에 덧쓴다]\n' + g.spec : null,
@@ -357,7 +364,7 @@
       list.appendChild(row);
     });
     updateSummary();
-    if (window.innerWidth >= 1024) open(true);
+    // Keep the episode list closed until the reader opens it.
   })();
 
   // ── 전체 묶음 프롬프트 + 쪽별 복사 + 붙여넣기 ──

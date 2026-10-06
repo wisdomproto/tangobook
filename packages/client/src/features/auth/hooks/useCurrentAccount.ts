@@ -48,6 +48,7 @@ async function fetchAccount(uid: string, email: string | null): Promise<Account>
 export function useCurrentAccount(session: Session | null) {
   const [account, setAccount] = useState<Account | null>(null);
   const [profiles, setProfiles] = useState<ChildProfile[]>([]);
+  const [profilesAccountId, setProfilesAccountId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -55,6 +56,7 @@ export function useCurrentAccount(session: Session | null) {
     if (!session) {
       setAccount(null);
       setProfiles([]);
+      setProfilesAccountId(null);
       return;
     }
     setLoading(true);
@@ -63,6 +65,7 @@ export function useCurrentAccount(session: Session | null) {
       setAccount(acc);
       const list = await profilesApi.list(acc.id);
       setProfiles(list);
+      setProfilesAccountId(acc.id);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err : new Error(String(err)));
@@ -75,5 +78,5 @@ export function useCurrentAccount(session: Session | null) {
     void refresh();
   }, [refresh]);
 
-  return { account, profiles, loading, error, refresh, setProfiles };
+  return { account, profiles, profilesAccountId, loading, error, refresh, setProfiles };
 }

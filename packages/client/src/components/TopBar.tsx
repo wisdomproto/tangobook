@@ -154,6 +154,18 @@ const CHANGJAK: ResourceItem[] = [
  */
 const BM: ResourceItem[] = [
   {
+    href: '/subscription-strategy.html',
+    icon: '💳',
+    label: '구독 전략 · 검토 중',
+    desc: '무료/유료 구분 3안 · 일일 책 수 제한 vs 독후활동 유료화 · 가격/범위 미확정',
+  },
+  {
+    href: '/organic-marketing/organic-execution-plan-2026-10-05.html',
+    icon: '🌱',
+    label: '오가닉 마케팅 실행 기획',
+    desc: '채널 역할 · 키워드 30개와 콘텐츠·체험 연결 · 6주 발행 순서 · 국내·해외 검증 과제',
+  },
+  {
     href: '/master.html',
     icon: '🧭',
     label: '탱고북 마스터',
@@ -372,6 +384,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '낱말 2,387개 · 파닉스 3언어 + 동화책 13갈래',
   },
   {
+    href: 'https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/index.html',
+    icon: '🎨',
+    label: '동화 장면 색칠 (테스트)',
+    desc: '6개 분류 · 365권 · 730장 · 원본 비교·색칠 체험 · 검수 중',
+  },
+  {
     href: '/hidden-object-plan.html',
     icon: '🔍',
     label: '숨은그림찾기 씬 작업판',
@@ -562,7 +580,7 @@ export function TopBar() {
         </a>
         <ResourceMenu
           items={BM}
-          label="💼 BM"
+          label="📁 BM 자료실"
           tone="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30"
         />
         <ResourceMenu

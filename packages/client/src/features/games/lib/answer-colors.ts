@@ -92,12 +92,21 @@ export function buildPalette(
    *    많은 색 — 주황 털 — 이 올라온다. 하얀 백조처럼 진짜 배경색인 것은 대신 쓸 색이
    *    `ALT_SHARE` 를 못 넘어 그대로 남는다.
    */
-  background?: readonly number[]
+  background?: readonly number[],
+  /** 사진 장면 검수용 선택값. 그림 카드의 기본 최빈색 계산은 유지한다. */
+  sampling: 'mode' | 'median' = 'mode'
 ): { palette: PaletteEntry[]; colorOfRegion: Map<number, string> } {
   const wanted = new Set(regionIds);
   // regionId → bucket → [n, sumR, sumG, sumB]
   const hist = new Map<number, Map<number, number[]>>();
+  const channels = new Map<number, Uint32Array[]>();
   for (const id of regionIds) hist.set(id, new Map());
+  if (sampling === 'median')
+    for (const id of regionIds)
+      channels.set(
+        id,
+        Array.from({ length: 3 }, () => new Uint32Array(256))
+      );
 
   const { labels } = regions;
   for (let i = 0; i < labels.length; i++) {
@@ -107,6 +116,12 @@ export function buildPalette(
     const r = answerRgba[o];
     const g = answerRgba[o + 1];
     const b = answerRgba[o + 2];
+    const counts = channels.get(id);
+    if (counts) {
+      counts[0][r]++;
+      counts[1][g]++;
+      counts[2][b]++;
+    }
     const key = ((r >> BUCKET) << 10) | ((g >> BUCKET) << 5) | (b >> BUCKET);
     const bins = hist.get(id) as Map<number, number[]>;
     const acc = bins.get(key);
@@ -134,6 +149,19 @@ export function buildPalette(
     const bins = [...(hist.get(id) as Map<number, number[]>).values()].sort((a, b) => b[0] - a[0]);
     const total = bins.reduce((n, acc) => n + acc[0], 0);
     let best = bins[0];
+    // 사진의 그림자는 한 버킷에 몰리고 갈색 털은 여러 버킷에 흩어질 수 있다.
+    // 중간값은 실제 원본 픽셀에서 읽으며 밝기를 임의로 보정하지 않는다.
+    if (sampling === 'median' && total > 0) {
+      const rgb = channels.get(id)!.map((counts) => {
+        let n = 0;
+        for (let value = 0; value < counts.length; value++) {
+          n += counts[value];
+          if (n >= Math.ceil(total / 2)) return value;
+        }
+        return 0;
+      });
+      best = [1, ...rgb];
+    }
     if (best && isBg(best)) {
       const alt = bins.find((acc) => !isBg(acc) && acc[0] / total >= ALT_SHARE);
       if (alt) best = alt;
@@ -155,7 +183,10 @@ export function buildPalette(
 
   // 비슷한 색끼리 한 물감으로 묶기.
   const groups: { rgb: number[]; regionIds: number[]; area: number }[] = [];
-  for (const id of regionIds) {
+  // 작은 꼭지가 위에 있다는 이유로 사과 전체의 대표색이 갈색이 되지 않게 한다.
+  // 큰 면부터 묶으면 대표색이 라벨의 위치 대신 그림에서 차지하는 넓이를 따른다.
+  const byArea = [...regionIds].sort((a, b) => regions.sizes[b] - regions.sizes[a]);
+  for (const id of byArea) {
     const rgb = rgbOfRegion.get(id);
     if (!rgb) continue;
     const hit = groups.find((gr) => near(gr.rgb, rgb));

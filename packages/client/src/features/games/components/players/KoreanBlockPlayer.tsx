@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
 import { JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
-import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { useGameLogger } from '@/features/learning';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
@@ -73,7 +73,6 @@ function KoreanBlockPlayerInner({
   const [hasTriedThisRound, setHasTriedThisRound] = useState(false);
   const [finished, setFinished] = useState(false);
   const logGame = useGameLogger();
-  const wordResultsRef = useRef<{ word: string; correct: boolean }[]>([]);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [typedChars, setTypedChars] = useState(0);
@@ -339,7 +338,20 @@ function KoreanBlockPlayerInner({
       // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
       // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
       setScore((s) => s + 1);
-      wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
+      logGame({
+        gameType: 'korean-block',
+        storybookId,
+        lang: 'ko',
+        results: [
+          { word: currentItem.word, correct: isFirstTry },
+          ...decomposeWord(currentItem.word).map((syllable) => ({
+            correct: isFirstTry,
+            consonant: syllable.cho,
+            vowel: syllable.jung,
+            coda: syllable.jong ?? undefined,
+          })),
+        ],
+      });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 0.5s → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 기반으로 표시.
@@ -419,6 +431,8 @@ function KoreanBlockPlayerInner({
   }, [
     composedSyllables,
     hasTriedThisRound,
+    logGame,
+    storybookId,
     currentItem.ttsUrl,
     currentItem.word,
     currentIndex,
@@ -467,26 +481,11 @@ function KoreanBlockPlayerInner({
   }, [composedText, playAudio, sceneStorybookId]);
 
   // 게임 완료 시 학습 이벤트
-  useEffect(() => {
-    if (!finished) return;
-    const collected = wordResultsRef.current;
-    if (collected.length === 0) return;
-    const results: GameWordResult[] = [];
-    for (const r of collected) {
-      results.push({ word: r.word, correct: r.correct });
-      for (const syl of decomposeWord(r.word)) {
-        results.push({ correct: r.correct, consonant: syl.cho, vowel: syl.jung });
-      }
-    }
-    logGame({ gameType: 'korean-block', storybookId, lang: 'ko', results });
-    wordResultsRef.current = [];
-  }, [finished, logGame, storybookId]);
 
   const handleRestart = useCallback(() => {
     setCurrentIndex(0);
     setScore(0);
     setFinished(false);
-    wordResultsRef.current = [];
     setHasTriedThisRound(false);
     setRoundCorrect(false);
     setIsWrong(false);
@@ -578,7 +577,7 @@ function KoreanBlockPlayerInner({
               'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
               twoCol
                 ? 'flex-1 flex-col gap-[clamp(0.5rem,2vh,1.5rem)]'
-                : 'flex-[2] shrink-0 short:flex-none gap-[clamp(1rem,3vw,3rem)]'
+                : 'flex-[2] shrink-0 short:flex-none short:h-20 short:min-h-20 gap-[clamp(1rem,3vw,3rem)]'
             )}
           >
             {currentItem.imageUrl && (
@@ -594,7 +593,7 @@ function KoreanBlockPlayerInner({
             {/* 🔴 짧은 화면(폰 가로)에서는 20vh 가 75px 이라 이 한 줄이 판을 굶긴다.
                 `min()` 에 세로 상한을 하나 더 끼워 짧을 때만 작아지게 한다. */}
             <h1
-              className="font-display font-black leading-none whitespace-nowrap"
+              className="flex items-center justify-center font-display font-black leading-none whitespace-nowrap"
               style={{
                 fontSize: twoCol
                   ? 'clamp(2rem, min(8vw, 20vh), 9rem)'
@@ -616,6 +615,7 @@ function KoreanBlockPlayerInner({
           <section
             className={cn(
               'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
+              landscape && 'flex-row gap-2',
               twoCol ? 'flex-1' : 'flex-[4]',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
               roundCorrect &&
@@ -638,10 +638,10 @@ function KoreanBlockPlayerInner({
             )}
             <div
               className={cn(
-                'absolute z-20 flex flex-col gap-2 sm:gap-3',
-                twoCol
-                  ? 'right-2 top-2 sm:right-3 sm:top-3'
-                  : 'right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
+                'z-20 flex flex-col gap-2 sm:gap-3',
+                landscape
+                  ? 'relative shrink-0 self-stretch justify-center'
+                  : 'absolute right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
               )}
             >
               <button
@@ -649,7 +649,7 @@ function KoreanBlockPlayerInner({
                 onClick={() => void handleReadBoard()}
                 disabled={!composedText || roundCorrect}
                 className={cn(
-                  'bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0',
+                  'bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0 short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
@@ -661,7 +661,7 @@ function KoreanBlockPlayerInner({
                 type="button"
                 onClick={handleNext}
                 className={cn(
-                  'bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition',
+                  'bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'

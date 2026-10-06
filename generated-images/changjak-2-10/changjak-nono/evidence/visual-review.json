@@ -1,0 +1,702 @@
+{
+  "changjak-nono-01-p02": {
+    "approved": true,
+    "sourceSha256": "e9ebd5b2a0cde5102bc8afdd6caeda6687a313c3d6df760f73aa036757363d42",
+    "lineartSha256": "a33ffc317cdbc89f7636c643263a114f28e8c7b7cfd9b01e2fd141b170b1abbb",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-01-p08": {
+    "approved": true,
+    "sourceSha256": "63297d6bdaab31bd21dd9051b04b54a140d5df7d6180372626511af78fcf1c89",
+    "lineartSha256": "25cd11a61012711cc92dc5de13f755b78c1338df7ddf4f13d3854d213e9ac605",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-02-p04": {
+    "approved": true,
+    "sourceSha256": "710c3df760ce4bd6c50c28083f46bf64988a017e40d567e026ede7152fea7101",
+    "lineartSha256": "966cb55d4da03718785e04bb785590f852a2041a5808788ef1357ee4c42c560f",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-02-p10": {
+    "approved": true,
+    "sourceSha256": "68cdae8b7e1ef177428414700c11446fba450248c3b2083a4214effcecf32041",
+    "lineartSha256": "9719911b8e32a57d7f921445545a21be8714c81c0b61da4c645ff014d201c0ce",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-03-p02": {
+    "approved": true,
+    "sourceSha256": "427d1e58c68bbda33b1aa95a79a367130baa342ed4f6199ee8b869baf91bbba9",
+    "lineartSha256": "900e5ca8e5741d7899e7a6bf59dc911fb7245eb463c808777a791e024a0fc3d7",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-03-p06": {
+    "approved": true,
+    "sourceSha256": "bbc8bdd962a5930ae4f40d5d714111bfb115698296dce4f640dd18f611b7893a",
+    "lineartSha256": "84e90bc29000a1a20e82a7daf5150220434d34b1c83a5b27daa84ef0f7b039ce",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-04-p03": {
+    "approved": true,
+    "sourceSha256": "9ea859aa86208a1c701aa9bd988d2e200866aecd576fe3f21f56a9e4a0f5b90e",
+    "lineartSha256": "07f04f4cc9d23e5a9ff58aa8b28188ec3cf5a63615b4c896c5e146931358b052",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-04-p10": {
+    "approved": true,
+    "sourceSha256": "fbcd95d1330cad54cfd10bd304ce2de54fca3824048d2216756811d3504df7a8",
+    "lineartSha256": "8cf5d21c17ba35fefd52ae7cc8ec7fa09f4ca7f3d5e606b96c877909fae23872",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-05-p03": {
+    "approved": true,
+    "sourceSha256": "9902ed7f782076a536454cd615f4c6e822bb85f8c6f7e6863f5f3089bb377302",
+    "lineartSha256": "32c6d393172c8a2c3111b2952b1b670668a532ff0c2e18b273d9869ee0910293",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-05-p07": {
+    "approved": true,
+    "sourceSha256": "c8a67529e87faa359cb2f05423cb9398c4b079a9a02d3d55ebc8592e81eba470",
+    "lineartSha256": "059609779818eb4f46f26d5a4db20ef03ed61c86ec889ecaf20c295f1a37a1a6",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-06-p02": {
+    "approved": true,
+    "sourceSha256": "6e7871b5343e6221a2df28aeaf91c98c8776389a60570f7e54d9fcac72227d34",
+    "lineartSha256": "4e8feeb6d16cc0877d7da5b5fb8e438adf5ebacb73e6ee280228fbe3bc648b77",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-06-p09": {
+    "approved": true,
+    "sourceSha256": "619630d96b44f033ad7cf64d09418814e7a9ab6f176c52536c3ff1b661a7d876",
+    "lineartSha256": "9a35f9e6f4fa3e95ad5fc22c4315afdf8b6f19adda69f137d23bd3ef726c16f3",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-07-p04": {
+    "approved": true,
+    "sourceSha256": "ce38950e0920a45eaf4cee83307d582cd17caf71d63d442c4d53e640b90ad804",
+    "lineartSha256": "51d6ad5b62516bdb2aa86d6f4894940446f55ad17ec9e413fb89650d5be7e98d",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-07-p09": {
+    "approved": true,
+    "sourceSha256": "e819be887006a040ea9052c5486294f8f6dbd49cad93ab05765029a4651a25cd",
+    "lineartSha256": "2299fa420e8bda4f7db593899627c63cfdc8be50402e4440887e1b587d5763fc",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-08-p04": {
+    "approved": true,
+    "sourceSha256": "3ae362b33f4ea61fa04a9c2841dfe7154522544e520904b259049afefdca28cb",
+    "lineartSha256": "397a4608404ea54bd21c71c69bd69c451a75078caf04481307f3e6750af7a4ce",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-08-p09": {
+    "approved": true,
+    "sourceSha256": "35680c6bb896b2ca44030a7113ae5e73b0f83ef4a00ffbeca92d77015d14ce7d",
+    "lineartSha256": "e7f0b0c4145ce31d5b6eface5f207c75e66e7b60ccec60ea7d549834246b798f",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-09-p03": {
+    "approved": true,
+    "sourceSha256": "96d52551964e860c47fa1eff5f6c7986bcdd373063954cdec0f3262a723d38f1",
+    "lineartSha256": "989066c03ef039d0963248ac4048382b320defb9101b526abec82cf9bb668fec",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-09-p10": {
+    "approved": true,
+    "sourceSha256": "65d01c1c9c5dfcbfe7f9c5395d04575e7d7722e7f4e497e40b6ea7ed50946175",
+    "lineartSha256": "9ce72624c25a7c553d41b2dc0c8ee5a9936603173ce03aeb747598b966a0098b",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-10-p03": {
+    "approved": true,
+    "sourceSha256": "c2157c34860f9bd72d29188d2e434be5dde03792112c613d22408609009678e9",
+    "lineartSha256": "61e16f3a1a55b393e2edf3273e051bbff893180c79c8400c38df140727fa8ca4",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-10-p10": {
+    "approved": true,
+    "sourceSha256": "6502083600bc319ddc2aadad95d946fdd44cab62ca43dd8f730a901e96c49f46",
+    "lineartSha256": "9ccc633ec2a63cc5f36b2d67f139093835e175886b3f0c7059b1326a43eb122c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-11-p04": {
+    "approved": true,
+    "sourceSha256": "cb65d899101888d7d979a36bb42aec9e5b3101253cc2b19b8c57c81b632a3c7c",
+    "lineartSha256": "e1343d9ea43cd0574bc3b1ef8b4a0783e71722c6c48c3b7265f850108d53a062",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-11-p08": {
+    "approved": true,
+    "sourceSha256": "4969c3e84de7a0d815c3735df041a7700d8f3faf2505473d7ccff5f06dd220cc",
+    "lineartSha256": "03bb4d10e967910c6b37b47f482357542f1cb11c7e19547a948f7b471ac09143",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-12-p04": {
+    "approved": true,
+    "sourceSha256": "9e2e4150ed1c4603e8e559bcea62e33aa725f474dac3071719885aa214fab0cb",
+    "lineartSha256": "796b45a741c20e2acab60a258abdaec37c136ca7cf16fd8ef308d761ccb7147c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-12-p10": {
+    "approved": true,
+    "sourceSha256": "61c69f80d5d1a4d886b61f3f44b4e38b6d926b815265d6855cc98bf7c25b52a7",
+    "lineartSha256": "04c70af1b7426dc63f888bb526a77c2afc65cbe2f156d6a91fc53f03372ab660",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-13-p01": {
+    "approved": true,
+    "sourceSha256": "3f4ecd067bcb445cf00b275d21d7d496f3cf4d9b0069dcf6192cee00c27b1573",
+    "lineartSha256": "bfa4af4b9f2fea11cecbc20b104fd1dd19e92157de894858fdb8b173a9b84eed",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-13-p09": {
+    "approved": true,
+    "sourceSha256": "556619aa80592dfa4f0e76e96866bf6c58db15bdb87cb67788c0d8d992ebc191",
+    "lineartSha256": "03924fbcc1b862d455f99b3908758e07a69a67268fd88b38b30bab82cd676747",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-14-p01": {
+    "approved": true,
+    "sourceSha256": "8afd537cd717112685bc1ea85f998c5a3a28a8f2c8f8f145ff629840bcca6438",
+    "lineartSha256": "d8ca25bcb1a76b2eff37b101b993b367b9ab1ca73a7926b32cc6b2c9fb8263b6",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-14-p08": {
+    "approved": true,
+    "sourceSha256": "6f95b121f1519a15d828dd11a0b31d6706b03086fe7b73d995749d75ed7ef29c",
+    "lineartSha256": "bd73d1f0ed815abef3fa71400d76c027c9ca85009e32cb4a00d4a39617e8d12d",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-15-p05": {
+    "approved": true,
+    "sourceSha256": "75b8b191d564e26fe38e8af70648bb344d472a81379acbca37d63261598bd42d",
+    "lineartSha256": "c5d87fe9832a7ed6544fae148ce73c8b54f9446d84f873397b2d36775b78d102",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-15-p10": {
+    "approved": true,
+    "sourceSha256": "45699ba1f00d81460eaf203a18629f2ddaf1811993354e564b90100d8dcceb2c",
+    "lineartSha256": "32acbee411a2bc0657bc26859aaa249a977b87eb974fcc7392d1419d3e6f6449",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-16-p04": {
+    "approved": true,
+    "sourceSha256": "5351146282d2255c3bc8c385378d6dc22b20c7b54c0075ffe966b50c2afe0809",
+    "lineartSha256": "b776c67947b46e086ad9ac81be47c5b5332add2dcb886f91ba27ccaddbf511a4",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-16-p09": {
+    "approved": true,
+    "sourceSha256": "32b92c4a80946d51a00b8686730cb3b14f594b3e76ea10ba9407ab9d603cf879",
+    "lineartSha256": "f4ffac9ff30728ef7f886b2cd240fc014b6093f56d6d326a8983cc201719e5a2",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-17-p04": {
+    "approved": true,
+    "sourceSha256": "da0c57a95d991c76bc427f43832a4a263b1158b423efa62a3e7ba0e15d06ab49",
+    "lineartSha256": "61e324083e2a1a16e3237d6666ea2433df0cf3b72e34bf468b39af04bba1300d",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-17-p10": {
+    "approved": true,
+    "sourceSha256": "d6b897e32be50f2fb825f5c8d2166ef2a83b3d480e84bf84206a50b3cbb6ff2d",
+    "lineartSha256": "262051e1dc9b94c95c61fafc64805eb51a4ffdab09287450b4c44b8133206e95",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-18-p04": {
+    "approved": true,
+    "sourceSha256": "f6da60fdc1fb01ef65b07c75f50de1ed4737cfaf0a4572cffc5e177f314c5a71",
+    "lineartSha256": "20c27993ffa0dd56643ce000d3bd687972a4e6a47d188fbe7d6ec1313ac4f803",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-18-p10": {
+    "approved": true,
+    "sourceSha256": "ec92ba6f6c977c8361f4a9e484f2f371b19238c98a13b9fdc036cc34f135ef1d",
+    "lineartSha256": "87250d48a6804e094371d7082e8431d77d5eff7a7b5931d374e0ed36c8ba9114",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-19-p03": {
+    "approved": true,
+    "sourceSha256": "4c1275a3eda7beb161d04ec9d0cae7c429ba20408b0e3efd1a2f92dbc8137afe",
+    "lineartSha256": "fbb6455fff55b5a5dff8a4ab3372fd075a5a316ecea35ef1acd3beda7916ca07",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-19-p06": {
+    "approved": true,
+    "sourceSha256": "182d562ad690b77cef25f81a2ec2b5e7a7a34baf3298bf20bfee8eb94d8d4db3",
+    "lineartSha256": "fae94ec31102495b1190d2b9c080ee865d0ea8490a54c8550df7a97f06c2eb18",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-20-p05": {
+    "approved": true,
+    "sourceSha256": "4e45bef15b02f90faab33b517383a458931169f425c918e8be2500460bb9c1a1",
+    "lineartSha256": "cf17a5d3025feb0f1f810a098cf1b62e3ab836d3ab82136d100134cdda4761ec",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-20-p08": {
+    "approved": true,
+    "sourceSha256": "f480f86d4a61fd70aff3623a21f5632b169914d7873763205eb05f0b642ebe57",
+    "lineartSha256": "b98a31ef51e2b9e6195dced18dd0703d4908edd5ca4fcf8fcaa6bbc04d67886c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-21-p04": {
+    "approved": true,
+    "sourceSha256": "7f7c54582961df04e6d7c1fac128557ad31198275a832d6513ece378de1a7543",
+    "lineartSha256": "6fb4c9bbcd8650bbdcc48cbb2d283687d1eaa9b340821e3967807c86f4b7d687",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-21-p06": {
+    "approved": true,
+    "sourceSha256": "764573257fb48d05c36f7cc0511aecd0362b077a988c1e975c2d80307622bff9",
+    "lineartSha256": "c309e8a69610e0944d6df5cfd8e7ed2c364b600ab0eaa996f2255ee8c0304031",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-22-p04": {
+    "approved": true,
+    "sourceSha256": "1a2bff692063bce8c854eecce52614a484436159aa86aa3143ac2b13ead6d133",
+    "lineartSha256": "90f86d0e25739071fb5b844455f05ae1af3a5ed99d26c1a5a8af1cc3906e08e0",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-22-p09": {
+    "approved": true,
+    "sourceSha256": "9e4aaa3bdf5a0a9c6e1e39fe627dd36ab77ceaf3d8eda84083ca3a73c3b01481",
+    "lineartSha256": "990371d95a1321f381611a548a8892a1a1ec321b4b57dab39bedb63f5667c07c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-23-p02": {
+    "approved": true,
+    "sourceSha256": "cec97749363de8cf9a11cffb7086d9ce261c79ecfeea6e852f57850509fda32a",
+    "lineartSha256": "189b55cc29b405356fb81dc33654be7ec7bd4bd4fe93cac7577bf5799a333478",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-23-p06": {
+    "approved": true,
+    "sourceSha256": "7c9922525c89b534468e14c01c617db11eba7d6edcd22819eb9946a26a0ae63d",
+    "lineartSha256": "50e4d75a09571587984bbb78f39eac8fa15f272365082d110fef76755c43336b",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-24-p04": {
+    "approved": true,
+    "sourceSha256": "16df3f06813e27b630db0b2b3a5b621c814e5ae5059f3f651dcbf004c1f59fc6",
+    "lineartSha256": "336584f897ba060d80274ed6bb1b7e272d2da641a8874c36b6bc8b0e9d69f98a",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-24-p06": {
+    "approved": true,
+    "sourceSha256": "67037300c3b005398f9d68a79c7783eaf064e796271125617aa676b55b7744d2",
+    "lineartSha256": "c2c34e658715ce096524b9c005f51d8c79daaa441530f05e4c735915a26e2776",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-25-p02": {
+    "approved": true,
+    "sourceSha256": "e14ccdec048d678c543f9db1d1ccfd47eef5cc4ed114fa21fd042224c0660cc3",
+    "lineartSha256": "ce828f587fd0c0b941b5828118cbd091c73e768e6e28cef4c49b0a40428bc0c6",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-25-p08": {
+    "approved": true,
+    "sourceSha256": "6c3182c8a0e7b728cc031e976d57ce4d7ad69c0363fdb1d2caebecf5ed9e6afa",
+    "lineartSha256": "49f8e043d807daf107dcad456a28936d7416c9aaa100737f583237c14aaa21fb",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-26-p01": {
+    "approved": true,
+    "sourceSha256": "67a0f45021cfa659476ee923455358ba2726f5e88803db0ee29a5ed5da9ce610",
+    "lineartSha256": "25129e6ae8423090b48897ee78e2cf90ab1e58ad020d947af385141bf29a18cf",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-26-p07": {
+    "approved": true,
+    "sourceSha256": "af4e95fd03787b2e9ce471afadb8ad28c0bb8a2c84fa3459ed18ff627024f432",
+    "lineartSha256": "d481f98c5d68ee75c163a30790e92f470c96456a66f74878166055f542516d8c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-27-p04": {
+    "approved": true,
+    "sourceSha256": "6e9f7acaa07abb065bc5b2a0372c724494e03cde3c5946dd999b214d8ddb3092",
+    "lineartSha256": "c263fd96daf364d1e27fc0c4e234a7746268652eb401871682f99e8194ddfbb4",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-27-p08": {
+    "approved": true,
+    "sourceSha256": "dd8f4c27c5091ccf1554f9a478c6e7b5a854ec4fcc3c84186b741d41c25a5877",
+    "lineartSha256": "7f1848e6aaab3fd442c1801c339cbb9ebd3a574287e8d324ead8275ba290add9",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-28-p04": {
+    "approved": true,
+    "sourceSha256": "285b5ab0259ab5665a091d0f568d0b8f50b55660c3e8624efd9e0c46b756bd71",
+    "lineartSha256": "4ebd3ad6f4779d7a85b9c6141946da8bf660fabefb69b1243e80813ae57306b5",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-28-p08": {
+    "approved": true,
+    "sourceSha256": "b84b10ab55b11207f670376be29f70921d08588ff86aeb8ebc21ef3a90afbf1c",
+    "lineartSha256": "49831ebcec7406960d5a4170bf13e0c17d445b0e36ee81d7cecaddf6c32bc480",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-29-p05": {
+    "approved": true,
+    "sourceSha256": "ad89de291efecb62c8833a99b8ca19fa81f7884b0e2d3ecf452460d775f93487",
+    "lineartSha256": "330cb0dfa37c9d2db38c16b798973e3a187b9d9ef74aab7c776f978147fca147",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-29-p10": {
+    "approved": true,
+    "sourceSha256": "6625c312a3cc28f78df0d31cf59d7e0d2891351e4550ae4611ef420e7fa26e7b",
+    "lineartSha256": "38f240761b019a40cb7fb669d7f6a7af03efc20b84c60a424313264b4c3ef2ab",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-30-p05": {
+    "approved": true,
+    "sourceSha256": "a1bb18c1411436c67fe4ed24173213b772813e5e1a7db18e6ef522d2128b893b",
+    "lineartSha256": "6b35a99c7d7200dcffe2685d14a2a37676d4bc015d32c33970547f44f9fa692e",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-30-p09": {
+    "approved": true,
+    "sourceSha256": "7dec251a51bce85adb481f5688314ee02ea1d3251a2ed87c93476084d7665815",
+    "lineartSha256": "26d398e2d2e8ac18bf62e3bc4ea0bf017c0289152ee3ac1fdb7f18a869425b72",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-31-p02": {
+    "approved": true,
+    "sourceSha256": "ccfe3ce6f878930eaf7b57d8bfa3339d0150a914e8a4a309948cd4bdc4123b13",
+    "lineartSha256": "1692ffc94c7afff78de4cd51368501c160d140e7e4d7b3f1ac05b71cf96a43b3",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-31-p06": {
+    "approved": true,
+    "sourceSha256": "530a3e9343e7f7b683f55589f52381ed625e184cf55dfc3d9f475b9712b75eb3",
+    "lineartSha256": "7067b6523527e1a09e450ab900288d2f72c883d26599566b05294424020c9f72",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-32-p05": {
+    "approved": true,
+    "sourceSha256": "1233283afd0d2914d9151c02066ddc3516a73b6ab0503980205c5462b776ef4a",
+    "lineartSha256": "dd866f7c900d806418ed0574b59b66a81ab4fa028e570f9d78847c65a6cd5584",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-32-p08": {
+    "approved": true,
+    "sourceSha256": "3e3dd67398e7c6a2a899caa2dee7f9b640ceb6c8741a74ab5364c020e3143e5a",
+    "lineartSha256": "843880fc34a29ba84079dc295ee77a195df4f7184c1e606462c2b374959aaeb0",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-33-p02": {
+    "approved": true,
+    "sourceSha256": "84b55bae7bcc3612316c9875f17691dd4452b6fc87b90cabbef47425654ab5f6",
+    "lineartSha256": "1de2936cfd15bb0b806a39137f4c4dd82020862ea1d6d46cb0e83db16b127b35",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-33-p10": {
+    "approved": true,
+    "sourceSha256": "2f9b79e8c9259f90111ca5ec59a96a6f5b9945482c64d0fc44af0d3e147f236a",
+    "lineartSha256": "c9876cddc747793a32fe69365574ca1d97c188b7a4df0c2c84d9798fa8edabf6",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-34-p03": {
+    "approved": true,
+    "sourceSha256": "f75b267131836b23246dc7a2ab517b601d7e09c5520ed5cda905f5a74ae9cd3f",
+    "lineartSha256": "722d04af3e57a654361de5c789dd00c6af5e02c661055c465d01084919326a89",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-34-p08": {
+    "approved": true,
+    "sourceSha256": "9e1f6973631645b1c688ca77389fd53c81179edf419f3c2dbb4639993d5673df",
+    "lineartSha256": "efa0e5dddee76021d743d36ebd3e4aba1ae86906e0af867fd29247e6e100f3a3",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-35-p02": {
+    "approved": true,
+    "sourceSha256": "8b42bb80df9b3152f28a67900a55aa443ca4e6e5ab7cbe797dd014e41994bcb4",
+    "lineartSha256": "fc3cb01ada3de68c7b78c7725d0e6c2d3322c9be7c8c68dcd38230ebd2038914",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-35-p09": {
+    "approved": true,
+    "sourceSha256": "5397d7715519db7e624cc0fd19d8d03a1c5f05145cd0e179a20a35f3348a7902",
+    "lineartSha256": "e0b24be0b4098706ed4a1de1ea6a4e200a0dad9212e0fb29e5533aad8085f0c5",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-36-p02": {
+    "approved": true,
+    "sourceSha256": "23618e8cdfa80e7d77e9f88ef3619d7fb2668ca39e4cd710d61307eb90521332",
+    "lineartSha256": "27e060470f8fc06bfa074fa9ede590e2bdb178883b3001ab619d4417dd9470f8",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-36-p09": {
+    "approved": true,
+    "sourceSha256": "4ccc369737beabca73c1a27353b2ead79ff399ab4793ea518a34e48d3c9dd003",
+    "lineartSha256": "4852ea5e3e051082886adb690b1382aa6f0e54a828be1f7dd9fabdbfdfd666b4",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-37-p02": {
+    "approved": true,
+    "sourceSha256": "8f267ab4450169bc74504c189cc761eebbebb7e6c3ec408eca59ca87f5a512f4",
+    "lineartSha256": "11e48f54900eec0325023a5588bd8e65717039e5e3cf15be4ccaf7d111582fc5",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-37-p10": {
+    "approved": true,
+    "sourceSha256": "eed44927c1eceb96d783741386569f6a17bd94bcb14c5d283ed2e1555426deff",
+    "lineartSha256": "fea0a3eda6143366ac5548a2faea8155cc81cde236c53276f36e2940b174523b",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-38-p01": {
+    "approved": true,
+    "sourceSha256": "fe9ecc105e33714db079c5bc065a5a820905dff6ac442b3afad0ae465ab550f7",
+    "lineartSha256": "593887273521fb922fa59a4c5f2dff7dbbc8520349213c78c8a7413d9e64667c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-38-p10": {
+    "approved": true,
+    "sourceSha256": "bd446ec70b991bbf0ac3432ce868b80ea3c0b87550c39c4a323b94ccccb4c173",
+    "lineartSha256": "2d1717703398e10731318171e035d64035b8df1a4fddba0bb6d067ace6aacb84",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-39-p03": {
+    "approved": true,
+    "sourceSha256": "4f89e64982d1124281c5ea077b089f64d7ae099283b03b8c6929feaf2bdb0472",
+    "lineartSha256": "09f2943f86d31bc36cab44253b1aafc6827b0f6169cfdad590e3f4b7f3e0700e",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-39-p09": {
+    "approved": true,
+    "sourceSha256": "cddb38f76b3e27db2312b5ba338df42bd7c6ac524bde343c8bbc9728892455bf",
+    "lineartSha256": "f819917078e6fb7a1d1ad87782f67df2754734ba5c3f02ceb1c0ccbd5e9ab5f7",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-40-p02": {
+    "approved": true,
+    "sourceSha256": "05eda8e3133df6b5af94f4d64bb512fd8e2bb803ba8aea9d67db926a81893b1d",
+    "lineartSha256": "ace13be00066a01fa847fed5579182728bd84e8cfa3f835bd61b485f752c4356",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-40-p10": {
+    "approved": true,
+    "sourceSha256": "1ecfb488a9eadbe3ff5276df8c42c26e9d4934cf7718de6e9306e130f813764a",
+    "lineartSha256": "eeceba3fe5ac7bd76c237a4e22ded2149ac78553a0354d2591403946de5d2fe7",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-41-p03": {
+    "approved": true,
+    "sourceSha256": "79fb6c8d29d205a72400151e6afdc57d87d88112e373109b6622c172c09c8bd6",
+    "lineartSha256": "27e62b502b19b16cf3b7d63b58d11c3ff0271d055655dd41edb4af36f5f14f99",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-41-p10": {
+    "approved": true,
+    "sourceSha256": "38ef8032f42612b2900213dc085ea4d9eb1029c779a70d4105c8aa7ccf02c433",
+    "lineartSha256": "9fdbc46f58b23068180215cdcc2a53e1de33462312e2ad6bc9a7e1acf6d0e7d9",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-42-p05": {
+    "approved": true,
+    "sourceSha256": "9c335130459939e590ca29b54602478748c0ea143585cb8b50c5c864be19fcea",
+    "lineartSha256": "f479d9ec70bb97140ad25b8c692abf54f4009e6e8f3e3831b16eaf6a991ed7df",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-42-p06": {
+    "approved": true,
+    "sourceSha256": "3e45c0a36a988afbb8b555d72a38e424a6b283c65a64f097f12472c3ad5dd35f",
+    "lineartSha256": "8db15a08b6184f3bcd2338a1fcc8e75ca3016fe54237de94b101d8dfc9fc0211",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-43-p02": {
+    "approved": true,
+    "sourceSha256": "61fbda70f6020f316e875c5da7bccfbe7291fd4dfa49481625cc2261fba0748c",
+    "lineartSha256": "e0de1f9e226b8e39c93b9c2f0ecb551807f0c8cb96f74740044c179aecad057d",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-43-p10": {
+    "approved": true,
+    "sourceSha256": "659b0121b4b45e3f9bf48bf123e8633021e10c7edc63c441fe7b3d47f3877ced",
+    "lineartSha256": "142545283f6b45c7abedb812b7f2af062bd36e4d696ec0894f64506f175ab60d",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-44-p05": {
+    "approved": true,
+    "sourceSha256": "37b68193b442ff399d474f3fa7fc75977bb19c360cf1795bc5425484b5e62325",
+    "lineartSha256": "3062d40bc188a76e2199183c682a143268c39a97a61b41b866d292d16b6336b9",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-44-p06": {
+    "approved": true,
+    "sourceSha256": "0e0ed89bb43102c2937f061df98b4f6e55433d543b9d6b226268a7dfb2a98bfc",
+    "lineartSha256": "39e09043b9d54a0b833b256ad37e50c1fa319a30ba292f9967fb68533348db9c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-45-p01": {
+    "approved": true,
+    "sourceSha256": "76a6509ba8cee26c8c9389b0ecacd30c64ba6e5f82689c2cc38ad15aac27534c",
+    "lineartSha256": "74803c58b655cece43a54c5750d4ef32094d964a64db5fbf6d2ac6409eac6e52",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-45-p06": {
+    "approved": true,
+    "sourceSha256": "2d78f07480f75a88b162e8ac895e74dfe4fedcf0ab8d37dfabe23b2d6648ac76",
+    "lineartSha256": "31794a854f921df0e397df9794aa940ae6d2272d9a4af53b1787b5da3d870f77",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-46-p02": {
+    "approved": true,
+    "sourceSha256": "c8bfe675666a8380cc57df5f3a0c9ee44d9c4714de26bf651751948b19f8740d",
+    "lineartSha256": "365a6d1ee5cba0949e330cac69c7517cf9ce70eddd79c51fd2e3bb7c95e8baf2",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-46-p09": {
+    "approved": true,
+    "sourceSha256": "9db6d7e129b1c4b3cb90cdda2f8fba69658b0291c735b5db5c9e118ed7123add",
+    "lineartSha256": "e0393aa60e91de28753ca7ee5fa8b4fa7da0ff0695f1fb943e32b71e28f0b182",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-47-p05": {
+    "approved": true,
+    "sourceSha256": "50127ab6eb9d29810e3f993a1c9996d1acf140d4f78977b1c41a3bf186cd868d",
+    "lineartSha256": "8de2e9cdf68208c0d81d97d2693a20e60584f6e606ef1afb10bafa2b2e4af74a",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-47-p08": {
+    "approved": true,
+    "sourceSha256": "9e163815bc63d5c59253eafb62c976feeaf14e8fc39fc5ec5c4c739010f2148e",
+    "lineartSha256": "dbdd2c9c7d9e4912b7ad5ef095e8fb0d70feb3a181d4db67ba436de3ce1db900",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-48-p01": {
+    "approved": true,
+    "sourceSha256": "8f3618b70dd88064cca36888f968492557b8cdc1a9dea02160518b3e3b8c8d2b",
+    "lineartSha256": "fa635d6e6b127fb2920c17658581d13f376a8a9990bec7675700234a8494de6e",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-48-p06": {
+    "approved": true,
+    "sourceSha256": "ce4d873d94ad4545ceae97b50473b6200a6ecd527c9f23fcf4cb6ea7245d732d",
+    "lineartSha256": "dc8210abbf416df49fccfe6b52b276ed5174e38d90e67bea9ab77eafdbbc22c7",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-49-p02": {
+    "approved": true,
+    "sourceSha256": "d769fcb2516c4041bbf031e52216905fd2a00a9ef69fbf15642f6d37f7a24826",
+    "lineartSha256": "ef93526a0ff1622453512a539abb09f9de9b1fb3eb63692a4b10f82d78059035",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-49-p07": {
+    "approved": true,
+    "sourceSha256": "9db1c6e446c3f25a6f751ea6802ffec8b702df0f00f86a581455e8656f59cfc0",
+    "lineartSha256": "c3a1aeccf9fcffe514f6996cb00d48898686ba09f3e82ed35cdd109be5f64e25",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-50-p01": {
+    "approved": true,
+    "sourceSha256": "ba82349e69d1bde5ecac4812aef0181d408d69822e1db9d453a421bc3ce036aa",
+    "lineartSha256": "369e41ea88808094b1adcad6bbdde596efb622912ac9b11dd0015ccee3dead2c",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  },
+  "changjak-nono-50-p09": {
+    "approved": true,
+    "sourceSha256": "c1f9588dbde4f1618d36329c6371f6d2941675ad1aba831a3f7901834f2fa0a3",
+    "lineartSha256": "7c73887d5898b4c543cd8f0a4977646cd668d1632c890c71432f9eb1e82b5d79",
+    "evidence": "Actual source / lineart / shared-engine-filled visual comparison",
+    "criteria": "Large characters, faces, action and essential props; minor white details allowed"
+  }
+}

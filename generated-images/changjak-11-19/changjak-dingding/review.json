@@ -1,0 +1,24 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-dingding-01-p03",
+    "paletteCount": 3,
+    "actualBrushCount": 3,
+    "pageNumber": 3,
+    "faceBodyActionPassed": true,
+    "allPaintsCompleted": true,
+    "originalReveal": true,
+    "resetRepaint": false,
+    "nativeTtsProvided": false,
+    "evidenceDirectory": "D:/ComfyUI-output/classic-scene-coloring/changjak-dingding/review-workspace/player-ding1p3"
+  },
+  "sourceExceptions": [],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

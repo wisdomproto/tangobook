@@ -1,0 +1,30 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-nono-05-p07",
+    "actualPointerBrushes": 4,
+    "paletteColors": 6,
+    "mainCharacterColored": true,
+    "page": 7,
+    "correctSourceRevealUrl": true,
+    "readingFallbackCompletionObserved": false,
+    "nativeSpeechVerified": false,
+    "resetRepaint": false,
+    "sourceRevealObserved": true,
+    "readingNote": "Correct page source reveal observed; no native speech or final reading completion claim"
+  },
+  "sourceExceptions": [
+    "changjak-nono-05-p07",
+    "changjak-nono-13-p09",
+    "changjak-nono-26-p01",
+    "changjak-nono-26-p07"
+  ],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

@@ -1,0 +1,679 @@
+{
+  "date": "2026-10-05",
+  "source": "public read-only storybooks API; curriculum and activity plans in repository",
+  "groups": [
+    {
+      "name": "세계 명작",
+      "books": [
+        {
+          "id": "1789350946382",
+          "title": "거인의 정원",
+          "public": true,
+          "file": "cover-1789350946382.webp"
+        },
+        {
+          "id": "1789350946381",
+          "title": "걸리버 여행기",
+          "public": true,
+          "file": "cover-1789350946381.webp"
+        },
+        {
+          "id": "1789350946379",
+          "title": "구둣방 할아버지와 꼬마 요정",
+          "public": true,
+          "file": "cover-1789350946379.webp"
+        },
+        {
+          "id": "1789350946377",
+          "title": "금발 머리 소녀와 곰 세 마리",
+          "public": true,
+          "file": "cover-1789350946377.webp"
+        },
+        {
+          "id": "1789350946375",
+          "title": "미운 아기 오리",
+          "public": true,
+          "file": "cover-1789350946375.webp"
+        },
+        {
+          "id": "1789350946373",
+          "title": "백조 왕자",
+          "public": true,
+          "file": "cover-1789350946373.webp"
+        }
+      ]
+    },
+    {
+      "name": "전래 동화",
+      "books": [
+        {
+          "id": "1785303658036",
+          "title": "반쪽이",
+          "public": true,
+          "file": "cover-1785303658036.webp"
+        },
+        {
+          "id": "1785303657748",
+          "title": "두더지의 혼인",
+          "public": true,
+          "file": "cover-1785303657748.webp"
+        },
+        {
+          "id": "1785303657451",
+          "title": "구렁덩덩 새선비",
+          "public": true,
+          "file": "cover-1785303657451.webp"
+        },
+        {
+          "id": "1785303657174",
+          "title": "복 타러 간 총각",
+          "public": true,
+          "file": "cover-1785303657174.webp"
+        },
+        {
+          "id": "1785303656827",
+          "title": "좁쌀 한 톨로 장가든 총각",
+          "public": true,
+          "file": "cover-1785303656827.webp"
+        },
+        {
+          "id": "1785303656554",
+          "title": "호랑이 형님",
+          "public": true,
+          "file": "cover-1785303656554.webp"
+        }
+      ]
+    },
+    {
+      "name": "호리 유치원동화",
+      "books": [
+        {
+          "id": "1784550873799",
+          "title": "20. 내일 또 만나요",
+          "public": true,
+          "file": "cover-1784550873799.webp"
+        },
+        {
+          "id": "1784550873435",
+          "title": "19. 안 돼, 위험해!",
+          "public": true,
+          "file": "cover-1784550873435.webp"
+        },
+        {
+          "id": "1784550873130",
+          "title": "18. 이거 무슨 냄새?",
+          "public": true,
+          "file": "cover-1784550873130.webp"
+        },
+        {
+          "id": "1784550872838",
+          "title": "17. 나도 미안해",
+          "public": true,
+          "file": "cover-1784550872838.webp"
+        },
+        {
+          "id": "1784550872504",
+          "title": "16. 범인은 누구?",
+          "public": true,
+          "file": "cover-1784550872504.webp"
+        },
+        {
+          "id": "1784550872203",
+          "title": "15. 나만 미워하는 것 같아",
+          "public": true,
+          "file": "cover-1784550872203.webp"
+        }
+      ]
+    },
+    {
+      "name": "공룡 친구들",
+      "books": [
+        {
+          "id": "1773912904434",
+          "title": "람포린쿠스",
+          "public": true,
+          "file": "cover-1773912904434.webp"
+        },
+        {
+          "id": "1773899653860",
+          "title": "케찰코아틀루스",
+          "public": true,
+          "file": "cover-1773899653860.webp"
+        },
+        {
+          "id": "1773899014599",
+          "title": "프테라노돈",
+          "public": true,
+          "file": "cover-1773899014599.webp"
+        },
+        {
+          "id": "1773898487865",
+          "title": "이구아노돈",
+          "public": true,
+          "file": "cover-1773898487865.webp"
+        },
+        {
+          "id": "1773896866516",
+          "title": "마이아사우라",
+          "public": true,
+          "file": "cover-1773896866516.webp"
+        },
+        {
+          "id": "1773895602678",
+          "title": "파키케팔로사우루스",
+          "public": true,
+          "file": "cover-1773895602678.webp"
+        }
+      ]
+    },
+    {
+      "name": "육지 동물 친구들",
+      "books": [
+        {
+          "id": "1777615082301",
+          "title": "캥거루",
+          "public": true,
+          "file": "cover-1777615082301.webp"
+        },
+        {
+          "id": "1777615071158",
+          "title": "판다",
+          "public": true,
+          "file": "cover-1777615071158.webp"
+        },
+        {
+          "id": "1777615068642",
+          "title": "코뿔소",
+          "public": true,
+          "file": "cover-1777615068642.webp"
+        },
+        {
+          "id": "1777615067098",
+          "title": "하마",
+          "public": true,
+          "file": "cover-1777615067098.webp"
+        },
+        {
+          "id": "1777615065220",
+          "title": "원숭이",
+          "public": true,
+          "file": "cover-1777615065220.webp"
+        },
+        {
+          "id": "1777595882281",
+          "title": "두꺼비",
+          "public": true,
+          "file": "cover-1777595882281.webp"
+        }
+      ]
+    },
+    {
+      "name": "식물 친구들",
+      "books": [
+        {
+          "id": "1773576314846",
+          "title": "버섯",
+          "public": true,
+          "file": "cover-1773576314846.webp"
+        },
+        {
+          "id": "1773573591972",
+          "title": "파리지옥",
+          "public": true,
+          "file": "cover-1773573591972.webp"
+        },
+        {
+          "id": "1773564979337",
+          "title": "은행나무",
+          "public": true,
+          "file": "cover-1773564979337.webp"
+        },
+        {
+          "id": "1773564252115",
+          "title": "수박",
+          "public": true,
+          "file": "cover-1773564252115.webp"
+        },
+        {
+          "id": "1773562222515",
+          "title": "딸기",
+          "public": true,
+          "file": "cover-1773562222515.webp"
+        },
+        {
+          "id": "1773561705472",
+          "title": "포도나무",
+          "public": true,
+          "file": "cover-1773561705472.webp"
+        }
+      ]
+    },
+    {
+      "name": "창작동화 · 캐릭터와 무대가 이어지는 시리즈",
+      "books": [
+        {
+          "id": "changjak-pongi-01",
+          "title": "01. 새 신발",
+          "series": "퐁이네 운하 마을",
+          "public": false,
+          "file": "series-changjak-pongi-01.webp",
+          "role": "page-preview"
+        },
+        {
+          "id": "changjak-coco-01",
+          "title": "01. 첫 배달",
+          "series": "코코네 빵집 골목",
+          "public": false,
+          "file": "series-changjak-coco-01.webp",
+          "role": "page-preview"
+        },
+        {
+          "id": "changjak-mei-01",
+          "title": "01. 나부터 탈래",
+          "series": "메이네 산마을",
+          "public": false,
+          "file": "series-changjak-mei-01.webp",
+          "role": "page-preview"
+        },
+        {
+          "id": "changjak-pipo-01",
+          "title": "01. 첫 양몰이",
+          "series": "피포네 돌담 목장",
+          "public": false,
+          "file": "series-changjak-pipo-01.webp",
+          "role": "page-preview"
+        },
+        {
+          "id": "changjak-mina-01",
+          "title": "01. 나도 이고 갈래",
+          "series": "가운데 아이 미나",
+          "public": false,
+          "file": "series-changjak-mina-01.webp",
+          "role": "page-preview"
+        },
+        {
+          "id": "changjak-twins-01",
+          "title": "01. 무너지지 않는 모래성",
+          "series": "쌍둥이네 바닷가",
+          "public": false,
+          "file": "series-changjak-twins-01.webp",
+          "role": "page-preview"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "file": "cover-1789350946382.webp",
+      "url": "https://assets.tangobook.co.kr/1772084667220-거인의정원-cover-misc-1779435853597.webp",
+      "bookId": "1789350946382",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1789350946381.webp",
+      "url": "https://assets.tangobook.co.kr/1772085655331-걸리버여행기-cover-misc-1779602952637.webp",
+      "bookId": "1789350946381",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1789350946379.webp",
+      "url": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-cover-misc-1779585827227.webp",
+      "bookId": "1789350946379",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1789350946377.webp",
+      "url": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-cover-misc-1779608421263.webp",
+      "bookId": "1789350946377",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1789350946375.webp",
+      "url": "https://assets.tangobook.co.kr/1772093674655-미운아기오리-cover-misc-1779616332103.webp",
+      "bookId": "1789350946375",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1789350946373.webp",
+      "url": "https://assets.tangobook.co.kr/1772094228783-백조왕자-cover-misc-1781832826101.webp",
+      "bookId": "1789350946373",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1785303658036.webp",
+      "url": "https://assets.tangobook.co.kr/1785303658036-반쪽이-cover-misc-1785373418524.webp",
+      "bookId": "1785303658036",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1785303657748.webp",
+      "url": "https://assets.tangobook.co.kr/1785303657748-두더지의혼인-cover-misc-1785373164014.webp",
+      "bookId": "1785303657748",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1785303657451.webp",
+      "url": "https://assets.tangobook.co.kr/1785303657451-구렁덩덩새선비-cover-misc-1785372322308.webp",
+      "bookId": "1785303657451",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1785303657174.webp",
+      "url": "https://assets.tangobook.co.kr/1785303657174-복타러간총각-cover-misc-1785372066895.webp",
+      "bookId": "1785303657174",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1785303656827.webp",
+      "url": "https://assets.tangobook.co.kr/1785303656827-좁쌀한톨로장가든총각-cover-misc-1785369704174.webp",
+      "bookId": "1785303656827",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1785303656554.webp",
+      "url": "https://assets.tangobook.co.kr/1785303656554-호랑이형님-cover-misc-1785324439447.webp",
+      "bookId": "1785303656554",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1784550873799.webp",
+      "url": "https://assets.tangobook.co.kr/1784550873799-20내일또만나요-cover-misc-1784857557433.webp",
+      "bookId": "1784550873799",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1784550873435.webp",
+      "url": "https://assets.tangobook.co.kr/1784550873435-19안돼위험해-cover-misc-1784858040071.webp",
+      "bookId": "1784550873435",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1784550873130.webp",
+      "url": "https://assets.tangobook.co.kr/1784550873130-18이거무슨냄새-cover-misc-1784861355468.webp",
+      "bookId": "1784550873130",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1784550872838.webp",
+      "url": "https://assets.tangobook.co.kr/1784550872838-17나도미안해-cover-misc-1784861367918.webp",
+      "bookId": "1784550872838",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1784550872504.webp",
+      "url": "https://assets.tangobook.co.kr/1784550872504-16범인은누구-cover-misc-1784861515771.webp",
+      "bookId": "1784550872504",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1784550872203.webp",
+      "url": "https://assets.tangobook.co.kr/1784550872203-15나만미워하는것같아-cover-misc-1784861528103.webp",
+      "bookId": "1784550872203",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773912904434.webp",
+      "url": "https://assets.tangobook.co.kr/1773912904434-람포린쿠스-cover-misc-1780273979322.webp",
+      "bookId": "1773912904434",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773899653860.webp",
+      "url": "https://assets.tangobook.co.kr/1773899653860-케찰코아틀루스-cover-misc-1780037679719.webp",
+      "bookId": "1773899653860",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773899014599.webp",
+      "url": "https://assets.tangobook.co.kr/1773899014599-프테라노돈-cover-misc-1780037609061.webp",
+      "bookId": "1773899014599",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773898487865.webp",
+      "url": "https://assets.tangobook.co.kr/1773898487865-이구아노돈-cover-misc-1780038088176.webp",
+      "bookId": "1773898487865",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773896866516.webp",
+      "url": "https://assets.tangobook.co.kr/1773896866516-마이아사우라-cover-misc-1780038184507.webp",
+      "bookId": "1773896866516",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773895602678.webp",
+      "url": "https://assets.tangobook.co.kr/1773895602678-파키케팔로사우루스-cover-misc-1780038213492.webp",
+      "bookId": "1773895602678",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1777615082301.webp",
+      "url": "https://assets.tangobook.co.kr/1777615082301-캥거루-cover-misc-1780033772059.webp",
+      "bookId": "1777615082301",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1777615071158.webp",
+      "url": "https://assets.tangobook.co.kr/1777615071158-판다-cover-misc-1780033784696.webp",
+      "bookId": "1777615071158",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1777615068642.webp",
+      "url": "https://assets.tangobook.co.kr/1777615068642-코뿔소-cover-misc-1780033808129.webp",
+      "bookId": "1777615068642",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1777615067098.webp",
+      "url": "https://assets.tangobook.co.kr/1777615067098-하마-cover-misc-1780033825576.webp",
+      "bookId": "1777615067098",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1777615065220.webp",
+      "url": "https://assets.tangobook.co.kr/1777615065220-원숭이-cover-misc-1780033841905.webp",
+      "bookId": "1777615065220",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1777595882281.webp",
+      "url": "https://assets.tangobook.co.kr/1777595882281-두꺼비-cover-misc-1780026584316.webp",
+      "bookId": "1777595882281",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773576314846.webp",
+      "url": "https://assets.tangobook.co.kr/1773576314846-버섯-cover-misc-1780274370065.webp",
+      "bookId": "1773576314846",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773573591972.webp",
+      "url": "https://assets.tangobook.co.kr/1773573591972-파리지옥-cover-misc-1780274757579.webp",
+      "bookId": "1773573591972",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773564979337.webp",
+      "url": "https://assets.tangobook.co.kr/1773564979337-은행나무-cover-misc-1780046766819.webp",
+      "bookId": "1773564979337",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773564252115.webp",
+      "url": "https://assets.tangobook.co.kr/1773564252115-수박-cover-misc-1780098794038.webp",
+      "bookId": "1773564252115",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773562222515.webp",
+      "url": "https://assets.tangobook.co.kr/1773562222515-딸기-cover-misc-1780098831032.webp",
+      "bookId": "1773562222515",
+      "role": "cover"
+    },
+    {
+      "file": "cover-1773561705472.webp",
+      "url": "https://assets.tangobook.co.kr/1773561705472-포도나무-cover-misc-1780098914763.webp",
+      "bookId": "1773561705472",
+      "role": "cover"
+    },
+    {
+      "file": "series-changjak-pongi-01.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-01/p1.jpg",
+      "bookId": "changjak-pongi-01",
+      "role": "page-preview"
+    },
+    {
+      "file": "series-changjak-coco-01.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/coco-01/p1.jpg",
+      "bookId": "changjak-coco-01",
+      "role": "page-preview"
+    },
+    {
+      "file": "series-changjak-mei-01.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/mei-01/p1.jpg",
+      "bookId": "changjak-mei-01",
+      "role": "page-preview"
+    },
+    {
+      "file": "series-changjak-pipo-01.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/pipo-01/p1.webp",
+      "bookId": "changjak-pipo-01",
+      "role": "page-preview"
+    },
+    {
+      "file": "series-changjak-mina-01.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/mina-01/p1.png",
+      "bookId": "changjak-mina-01",
+      "role": "page-preview"
+    },
+    {
+      "file": "series-changjak-twins-01.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/twins-01/p1.jpg",
+      "bookId": "changjak-twins-01",
+      "role": "page-preview"
+    },
+    {
+      "file": "word-kr-h1-u07-0.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/kr-h1-u07-bada-ed570a20-w800.webp",
+      "bookId": "kr-h1-u07",
+      "role": "word",
+      "word": "바다"
+    },
+    {
+      "file": "word-kr-h1-u07-1.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/kr-h1-u07-binu-393adbe9-w800.webp",
+      "bookId": "kr-h1-u07",
+      "role": "word",
+      "word": "비누"
+    },
+    {
+      "file": "word-kr-h1-u07-2.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/kr-h1-u07-nabi-af7e0a59-w800.webp",
+      "bookId": "kr-h1-u07",
+      "role": "word",
+      "word": "나비"
+    },
+    {
+      "file": "word-kr-h1-u07-3.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/kr-h1-u07-dubu-86f0abbb-w800.webp",
+      "bookId": "kr-h1-u07",
+      "role": "word",
+      "word": "두부"
+    },
+    {
+      "file": "chapter-kr-h1-u07-1.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/hangeul-tree-kr-h1-u07/p1.jpg",
+      "bookId": "kr-h1-u07",
+      "role": "page"
+    },
+    {
+      "file": "chapter-kr-h1-u07-3.webp",
+      "url": "https://assets.tangobook.co.kr/comic-assets/hangeul-tree-kr-h1-u07/p3.jpg",
+      "bookId": "kr-h1-u07",
+      "role": "page"
+    },
+    {
+      "file": "word-en-b2-u01-0.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-can-d398dab7-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "can"
+    },
+    {
+      "file": "word-en-b2-u01-1.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-fan-66052b1c-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "fan"
+    },
+    {
+      "file": "word-en-b2-u01-2.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-man-c82f3835-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "man"
+    },
+    {
+      "file": "word-en-b2-u01-3.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-pan-7a252f40-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "pan"
+    },
+    {
+      "file": "word-en-b2-u01-4.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-bat-b797f891-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "bat"
+    },
+    {
+      "file": "word-en-b2-u01-5.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-cat-b9a6e2a8-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "cat"
+    },
+    {
+      "file": "word-en-b2-u01-6.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-hat-f67b8a55-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "hat"
+    },
+    {
+      "file": "word-en-b2-u01-7.webp",
+      "url": "https://assets.tangobook.co.kr/phonics-word-cards/en-b2-u01-mat-eef56a1a-w800.webp",
+      "bookId": "en-b2-u01",
+      "role": "word",
+      "word": "mat"
+    },
+    {
+      "file": "giant-page-1.webp",
+      "url": "https://assets.tangobook.co.kr/1772084667220-거인의정원-illustration-page1-1779432689547.webp",
+      "bookId": "1789350946382",
+      "role": "page"
+    },
+    {
+      "file": "giant-page-3.webp",
+      "url": "https://assets.tangobook.co.kr/1772084667220-거인의정원-illustration-page3-1779850310908.webp",
+      "bookId": "1789350946382",
+      "role": "page"
+    },
+    {
+      "file": "giant-word-Tree.webp",
+      "url": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Tree-1779863195300-w800.webp",
+      "bookId": "1789350946382",
+      "role": "word"
+    },
+    {
+      "file": "giant-word-Wall.webp",
+      "url": "https://assets.tangobook.co.kr/1772084667220-거인의정원-keyobj-Wall-1779863202697-w800.webp",
+      "bookId": "1789350946382",
+      "role": "word"
+    }
+  ]
+}

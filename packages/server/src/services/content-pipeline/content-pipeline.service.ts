@@ -129,20 +129,36 @@ export async function loadMarketingSources(failures: string[] = []): Promise<Mar
     return src;
   }
 
-  // bookId 매핑의 근간: mkt_contents.memo = 'storybook:<bookId>' (register/seed 스크립트 규약)
-  const contents = await selectAll<{ id: string; memo: string | null }>(
+  // 명시적 원본 관계가 정본. memo 규약은 마이그레이션 전 레거시 행의 폴백으로만 읽는다.
+  const sources = await selectAll<{ id: string; source_id: string }>(
+    (from, to) =>
+      sb
+        .from('mkt_content_sources')
+        .select('id, source_id')
+        .eq('source_type', 'storybook')
+        .order('id', { ascending: true })
+        .range(from, to),
+    'mkt_content_sources'
+  );
+  const bookIdBySourceId = new Map(sources.map((source) => [source.id, source.source_id]));
+  const contents = await selectAll<{
+    id: string;
+    memo: string | null;
+    content_source_id: string | null;
+  }>(
     (from, to) =>
       sb
         .from('mkt_contents')
-        .select('id, memo')
-        .like('memo', 'storybook:%')
+        .select('id, memo, content_source_id')
         .order('id', { ascending: true })
         .range(from, to),
     'mkt_contents'
   );
   const bookIdByContentId = new Map<string, string>();
   for (const c of contents) {
-    const bookId = c.memo?.slice('storybook:'.length);
+    const bookId =
+      (c.content_source_id ? bookIdBySourceId.get(c.content_source_id) : undefined) ??
+      (c.memo?.startsWith('storybook:') ? c.memo.slice('storybook:'.length) : undefined);
     if (bookId) bookIdByContentId.set(c.id, bookId);
   }
 

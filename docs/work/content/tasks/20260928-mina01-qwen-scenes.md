@@ -1,0 +1,50 @@
+# 미나 01 Qwen 삽화 생성·검수
+
+- id: 20260928-content-mina01-qwen-scenes
+- domain: content
+- status: completed
+- updated: 2026-09-28
+- branch: main
+- worktree: C:/projects/tangobook
+- delivery: 로컬 생성·검수, 운영 등록 미실시
+
+## 요청
+
+사용자가 `/mina-01.html`의 삽화를 캐릭터 레퍼런스를 넣어 생성하도록 요청했다. 이어 10장을 모두 만든 뒤 한 장씩 검수하고 문제가 있으면 Qwen으로 재생성하도록 명시했다. 승인된 과슈 캐릭터를 사용하며 예전 점무늬 스타일을 되살리지 않는다.
+
+## 입력·실행
+
+현재 HTML 본문/장면과 mina-core.js의 과슈 앵커·개체 규격을 읽었다. 운영 `mina-plan`을 읽기 전용 조회해 미나·라주·소누·엄마 시트 4장을 내려받아 육안 확인. `mina-01` 자산과 본문 텍스트 오버라이드는 비어 있음을 확인했다. 각 쪽 등장 캐릭터만 실제 이미지로 첨부한다.
+
+출력 폴더 `D:/ComfyUI-output/mina-01-qwen/`: `source.json`, `reference-manifest.json`, 4개 시트, `generate.py`, 페이지별 API/history 및 PNG. Qwen INT8 25스텝, Euler/CFG1, 참조 해상도768, 새 장면 출력1280×720(EmptyFlux2LatentImage 64채널). 참고 시트와 출력 비율은 다르므로 기존 편집 이미지의 픽셀 위치 보존 실험과는 구분한다.
+
+로컬 갤러리는 `http://127.0.0.1:5188/`, 모든 출력은 생성이 끝날 때 갱신한다. 운영 R2/책 본문을 수정하지 않는다. 검수는 인물 수·옷·오른쪽 발찌·항아리 크기와 개수·행동·표정·수위·연속성을 기준으로 하며 판정과 재생성 내역을 후속 기록한다.
+
+## 검수에서 확인한 모델 특성과 대응
+
+- 전체 시리즈 앵커와 4명 설명을 모두 길게 넣으면 P1에 가족 5명이 나오는 실패가 발생했다. 영어 장면 지시를 먼저 쓰고 해당 컷 등장인물 시트만 첨부하는 짧은 프롬프트로 변경했다.
+- 턴어라운드 시트는 한 인물의 여러 시점임을 명시해도 P8에서 엄마가 2명으로 복제되었다. LEFT mother / RIGHT Mina / total two bodies처럼 배치와 총수를 명시한 재생성으로 해소했다.
+- P4는 물 담기 대신 쏟기로 생성되었다. 입구를 수면 아래에 잠기게 구체화하여 수정했다.
+- P5/P9는 올라간다는 단어만으로 발 방향을 보장하지 않는다. 오른쪽을 향한 옆모습, 앞발은 오른쪽 높은 단·뒷발은 왼쪽 낮은 단을 지정했다. P9 수정본의 팔 3개는 별도 Qwen 참조 편집 대상으로 분리했다.
+- P7의 남은 물은 항아리 앞벽을 투시한 회색 타원으로 반복 생성되었다. 높은 시점만 바꾸면 항아리가 거대해지거나 오류가 반복되어, 실제 생성본을 참조해 앞벽 타원을 제거하고 입구 내부만 수정했다.
+- 결과가 좋아 보이더라도 재생성으로 다른 오류가 생길 수 있다. P1 높은 시점 재생성은 내려가는 동작이어서 버리고, 이전의 올라가는 장면을 선정했다. `versions/`에 이전 PNG/API/history를 보존했다.
+
+검수는 전 페이지 원본 PNG를 한 장씩 열어 육안 확인했다. `review.json`에 초기 오류·수정 결과·기획 세부 미충족을 분리하며, `selected-manifest.json`에 선정 파일/해시/Comfy 원본 파일/검수 결과를 남긴다. 기획의 정확한 계단 수·카메라 각도·항아리 크기 비율까지 모두 일치했다는 의미는 아니다.
+
+## 완료 결과
+
+총 25장(초기 실패/재생성/참조 편집 포함)을 생성하여 10장을 선정했다. 모두 1280×720 PNG이며, 최종 선정본 10장 각각 육안 검수와 PNG 디코딩·크기·SHA-256 기록을 완료했다. P7은 5번째 결과에서 불투명 항아리 내부의 낮은 수위, P9는 3번째 결과에서 팔 2개와 둥근 발자국을 확인했다. 세부 기획 차이는 `review.json`과 갤러리 각 쪽의 접힌 검수 기록에 명시했다.
+
+- 갤러리: `http://127.0.0.1:5188/` (D 폴더 정적 서버, Express 부팅 없음)
+- 선정 PNG: `D:/ComfyUI-output/mina-01-qwen/p1.png` ~ `p10.png`
+- 갤러리/재생성: 같은 폴더의 `index.html`, `finalize.py`, `generate.py`, `edit-p7.py`, `edit-p7-water.py`, `edit-p9.py`
+- 재현 근거: `pN-api.json`, `pN-result.json`, `selected-manifest.json`, `review.json`, `versions/`
+- 원본 전체: `D:/ComfyUI-output/qwen21-mermaid-test/mina01/`
+
+운영 `/mina-01.html` 자산 등록·R2 업로드·push는 하지 않았다. 사용자가 후속 등록을 요청하면 `selected-manifest.json`의 선정 10장을 기준으로 등록한다. 저장소는 기록만 변경했으므로 제품 타입체크/전체 테스트 대신 문서 diff와 로컬 갤러리 표시·10개 이미지 로딩을 검증했다.
+
+## 후속 승인·운영 등록 — 2026-09-28
+
+사용자가 선정본을 확인하고 “디비에 올리자”라고 요청하여 운영 등록을 승인했다. 등록 전 `mina-01` 자산이 비어 있고 `changjak-mina-01`에 10쪽이 있는 것을 확인했다. 10개 원본 해시를 선정 manifest와 대조한 뒤 기존 `/api/comic-assets/mina-01` 업로드 API로 PNG 10장을 저장하고, 현재 책을 다시 읽어 해당 쪽 `illustrationUrl`만 연결했다.
+
+등록 후 운영 책·자산 재조회 및 CDN 이미지 10장 SHA-256 대조 성공. 본문/나레이션/기타 필드는 모두 보존(updatedAt 제외). API는 책의 URL을 `assets.tangobook.co.kr` CDN으로 바꾸므로 자산 API의 R2 주소와 문자열 전체가 아닌 경로 및 실제 바이트를 비교했다. 근거는 같은 D 폴더 `registration-before.json`, `registration-uploads.json`, `registration-verified.json`. 등록 완료, Git push 없음.

@@ -1,21 +1,55 @@
+import { guestStorageIsTemporary } from '../lib/guest-events';
+import { useMemo, useSyncExternalStore } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import type { LearningEvent } from '@tangobook/shared';
 import { eventsApi } from '../api/events.api';
+import {
+  LEARNING_CHANGE,
+  learningStorageIsTemporary,
+  readPendingEvents,
+  readLocalReportEvents,
+} from '../lib/event-outbox';
 
-/**
- * 학습 이벤트 — `data` 는 **이벤트 배열 그대로**(기존 호출부 무변경), 잘림 정보는 따로 준다.
- * 🔴 `capped` 가 true 면 오래된 기록이 빠진 목록이다. 총계를 그리는 화면은 `total` 을 쓸 것.
- */
-export function useLearningEvents(profileId: string | null | undefined) {
+function subscribe(callback: () => void) {
+  window.addEventListener(LEARNING_CHANGE, callback);
+  window.addEventListener('storage', callback);
+  return () => {
+    window.removeEventListener(LEARNING_CHANGE, callback);
+    window.removeEventListener('storage', callback);
+  };
+}
+
+export function useLearningEvents(profileId: string | null | undefined, enabled = true) {
+  const pendingJson = useSyncExternalStore(
+    subscribe,
+    () => JSON.stringify(readLocalReportEvents()),
+    () => '[]'
+  );
   const query = useQuery({
     queryKey: ['learning-events', profileId],
     queryFn: () => eventsApi.fetchByProfile(profileId!),
-    enabled: !!profileId,
+    enabled: !!profileId && enabled,
     staleTime: 30_000,
   });
+  const pending = useMemo(
+    () =>
+      (JSON.parse(pendingJson) as LearningEvent[]).filter(
+        (event) => event.profile_id === profileId
+      ),
+    [pendingJson, profileId]
+  );
+  const data = useMemo(() => {
+    if (!query.data && !pending.length) return undefined;
+    const byId = new Map<string, LearningEvent>();
+    for (const event of [...pending, ...(query.data?.events ?? [])]) byId.set(event.id, event);
+    return [...byId.values()].sort((a, b) => b.created_at.localeCompare(a.created_at));
+  }, [pending, query.data]);
   return {
     ...query,
-    data: query.data?.events,
+    data,
     total: query.data?.total ?? 0,
     capped: query.data?.capped ?? false,
+    pendingCount: readPendingEvents().filter((event) => event.profile_id === profileId).length,
+    temporaryStorage: learningStorageIsTemporary() || guestStorageIsTemporary(),
   };
 }

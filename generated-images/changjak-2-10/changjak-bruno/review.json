@@ -1,0 +1,31 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-bruno-13-p06",
+    "actualPointerBrushes": 3,
+    "paletteColors": 3,
+    "mainCharacterColored": true,
+    "page": 6,
+    "correctSourceRevealUrl": true,
+    "readingFallbackCompletionObserved": false,
+    "nativeSpeechVerified": false,
+    "resetRepaint": false,
+    "bgmStopped": true,
+    "sourceRevealObserved": true,
+    "readingNote": "Correct page source reveal observed; no native speech or final reading completion claim"
+  },
+  "sourceExceptions": [
+    "changjak-bruno-30-p04",
+    "changjak-bruno-30-p10",
+    "changjak-bruno-50-p02",
+    "changjak-bruno-50-p09"
+  ],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

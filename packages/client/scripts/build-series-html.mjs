@@ -53,9 +53,11 @@ function mdTable(md, n) {
     '</tbody></table>';
 }
 
+// Some art palettes describe an absent overlap ink in prose. UI colours need a real colour.
+const uiSlope = (p) => [p.overlap, p.ink1].find((value) => /^#[0-9a-f]{6}$/i.test(value)) || '#2b2320';
 const CSS = (p) => `
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-  :root { --accent:${p.accent}; --slope:${p.overlap}; --peach:#F3E7DA; --cream:#FBF8F3;
+  :root { --accent:${p.accent}; --slope:${uiSlope(p)}; --peach:#F3E7DA; --cream:#FBF8F3;
           --ink:#2b2320; --ink-soft:#6b5d55; --line:#E6DED2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
@@ -184,6 +186,10 @@ function buildSeries(key) {
   const anchorText = (AMD_LF.match(/```\n(STYLE ANCHOR - [\s\S]*?)\n```/) || [])[1];
   const sheetText = (AMD_LF.match(/```\n(CHARACTER SHEET[\s\S]*?)\n```/) || [])[1] || '';
   if (!anchorText) throw new Error(`${key}: 앵커 블록을 못 찾았다`);
+  const sheetStylePath = path.join(ROOT, 'docs/art-direction', `${key}-sheet-style.md`);
+  const sheetStyle = fs.existsSync(sheetStylePath)
+    ? fs.readFileSync(sheetStylePath, 'utf8').replace(/\r\n/g, '\n').match(/```\n([\s\S]*?)\n```/)?.[1] || ''
+    : '';
   const slug = anchorText.match(/STYLE ANCHOR - ([a-z0-9-]+)/)[1];
   const anchorName = (AMD.match(/^\| \*\*A?\*?\*?[^|]*\|[^|]*\|/m) ? '' : '') ||
     `${cfg.no} · ${slug}`;
@@ -195,6 +201,7 @@ function buildSeries(key) {
     .replace(/__ANCHOR_SLUG__/g, slug)
     .replace(/__ANCHOR_NAME__/g, `앵커 ${slug}`)
     .replace('__ANCHOR_TEXT__', JSON.stringify(anchorText))
+    .replace('__SHEET_STYLE__', JSON.stringify(sheetStyle))
     .replace('__ANCHOR_AWARD__', JSON.stringify(award ? [award.artist, award.work].filter(Boolean).join(' · ') : ''))
     .replace('__CAST__', JSON.stringify(cfg.cast.map(({ key: k, name, aliases }) => ({
       key: k, name, aliases,
@@ -223,7 +230,9 @@ function buildSeries(key) {
     // 🔴 손님은 회차별 단역이다 — 그 권 SCENE 의 `Guest xxx` 토큰을 등록부에 대고 @image9~ 시트를 만든다.
     //    (호리 라인의 window.SH_GUESTS 와 같은 장치. 안 뿌리면 25권 손님이 한 시트로 뭉개진다.)
     const gTok = [...new Set(Object.values(sc).join(' ').match(/Guest [a-z]+/g) || [])];
-    const gList = gTok.map((t) => (cfg.guests || {})[t]).filter(Boolean);
+    const gList = gTok.map((t) => (cfg.guests || {})[t]).filter(Boolean).map((guest) =>
+      key === 'kota' ? { ...guest, spec: CAST_SPEC.get('Guest') || '' } : guest
+    );
     const guestTag = gList.length
       ? `<script>window.SH_GUESTS=${JSON.stringify(gList)}</script>
 `
@@ -340,14 +349,19 @@ ${awardBlock}
   //    두 판정은 여기서 갈리지 않는다 — naive 가 찾은 것들 중 **가장 긴 별칭은 엄격 판정에서도 살아남으므로**
   //    「하나도 없다」의 답이 같다. 🔴 감지를 고칠 일이 생기면 template 쪽을 고쳐라(여기는 개수만 센다).
   const empty = [];
-  for (const [v, pp] of Object.entries(SCENES)) for (const [p, t] of Object.entries(pp))
-    if (!cfg.cast.some((c) => c.aliases.some((al) => t.toLowerCase().includes(al.toLowerCase())))) empty.push(`${v} ${p}`);
+  for (const [v, pp] of Object.entries(SCENES)) for (const [p, t] of Object.entries(pp)) {
+    const visibleScene = t.split(/(?:<b>)?표정 연기/)[0];
+    if (!cfg.cast.some((c) => c.aliases.some((al) => visibleScene.toLowerCase().includes(al.toLowerCase())))) empty.push(`${v} ${p}`);
+  }
   // ③ 쪽수
   const badPages = [...books.values()].filter((b) => b.pages.length !== 10).map((b) => `${b.id}:${b.pages.length}`);
   // ④ 🔴 캐스트 규격이 조용히 안 붙는 것 — 시트가 이름만 다르고 지시가 같아지는 그 병이다.
   //    `\Z` 오타로 마지막 인물이 통째로 빠졌던 적이 있다(2026-08-17). 제목 오타·미작성 둘 다 여기서 걸린다.
   if (CAST_SPEC.size) {
     const got = new Set();
+    if (key === 'kota' && CAST_SPEC.has('Guest') && Object.values(SCENES).some((pages) =>
+      Object.values(pages).some((scene) => (scene.match(/Guest [a-z]+/g) || []).some((token) => cfg.guests?.[token]))
+    )) got.add('Guest');
     for (const c of cfg.cast) {
       // 🔴 위 주입과 **같은 순서**로 찾는다 — 한쪽만 고치면 붙었는데 경고가 나거나 그 반대가 된다
       const hit = [c.aliases[1], c.name, ...c.aliases].find((a) => CAST_SPEC.has(a)) ?? null;

@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-05",
+  "sourceUrl": "https://www.tangobook.co.kr/parent/reports",
+  "method": "Browser screenshot of authenticated production product UI",
+  "dataset": "branding-report-capture-20261005",
+  "dataKind": "synthetic sample records in newly created test account only",
+  "sampleEventCount": 130,
+  "files": [
+    {
+      "file": "report-storybook-sample.webp",
+      "screen": "storybook ko report",
+      "capture": "full page"
+    },
+    {
+      "file": "report-phonics-sample.webp",
+      "screen": "korean phonics heatmap",
+      "capture": "viewport with actual table visible"
+    }
+  ],
+  "note": "No product UI modified; no real child data used. PNG captures converted to WebP for the document."
+}

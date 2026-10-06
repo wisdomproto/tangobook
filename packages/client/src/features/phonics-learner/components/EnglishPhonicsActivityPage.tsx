@@ -1,3 +1,5 @@
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { getEnglishRequiredActivities } from '../lib/english-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
@@ -152,14 +154,26 @@ export function EnglishPhonicsActivity({
    * (음절·음소 정오답은 활동이 실제로 그걸 판정할 때 따로 남긴다 — 없는 정답을 지어내지 않는다.)
    */
   const logEvent = useLogEvent();
+  const { activeProfile } = useAuth();
+  const completionId = useMemo(() => crypto.randomUUID(), [unitId, activityKey, activeProfile?.id]);
   const logUnitProgress = useCallback(() => {
     if (!unitId) return;
     logEvent({
+      id: completionId,
       type: 'page_read',
       storybookId: unitId,
-      metadata: { source: 'phonics', unitId, lang: 'en' },
+      metadata: {
+        schemaVersion: 2,
+        activityRunId: completionId,
+        source: 'phonics',
+        unitId,
+        lang: 'en',
+        activityId: activityKey,
+        activityCompleted: true,
+        requiredActivityIds: [...getEnglishRequiredActivities(unitId)],
+      },
     });
-  }, [logEvent, unitId]);
+  }, [logEvent, unitId, activityKey, completionId]);
 
   const handleComplete = useCallback(() => {
     markActivityCompleted('english', unitId, activityKey);

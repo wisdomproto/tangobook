@@ -2,6 +2,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { CategoryChipDropdown } from './CategoryChipDropdown';
 import type { StorybookSummary } from '@tangobook/shared';
+import { BookCover } from '@/design-system';
 
 interface Props {
   book: StorybookSummary;
@@ -51,8 +52,8 @@ export function BookCardEditable({
   };
   const langCover = book.coversByLang?.[selectedLang];
   // ko 의 fallback 은 top-level coverImage
-  const cover = langCover ?? (selectedLang === 'ko' ? book.coverImage : undefined);
-  const hasLangCover = !!langCover || (selectedLang === 'ko' && !!book.coverImage);
+  const hasLangCover =
+    !!book.cleanCoverImage || !!langCover || (selectedLang === 'ko' && !!book.coverImage);
   const langLabel = LANG_LABEL[selectedLang] ?? selectedLang;
   const isPublic = book.isPublic !== false;
   const currentCat = book.category || '기타';
@@ -110,13 +111,13 @@ export function BookCardEditable({
           {isPublic ? '👁' : '🚫'}
         </button>
       </div>
-      <div className="aspect-[3/4] bg-peach-100 overflow-hidden">
-        {hasLangCover && cover ? (
-          <img
-            src={cover}
-            alt={book.title}
-            className="w-full h-full object-cover pointer-events-none"
-            draggable={false}
+      <div className="aspect-video bg-peach-100 overflow-hidden">
+        {hasLangCover ? (
+          <BookCover
+            book={book}
+            lang={selectedLang}
+            overlayTitle
+            imgClassName="pointer-events-none"
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-ink-100 text-ink-500">

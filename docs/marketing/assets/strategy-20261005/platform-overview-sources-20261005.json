@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-10-05",
+  "type": "SVG diagram with real local product assets",
+  "size": {
+    "width": 1800,
+    "height": 1640
+  },
+  "assets": [
+    "tangobook-logo-kr.webp",
+    "cover-1789350946382.webp",
+    "cover-1785303658036.webp",
+    "cover-1773912904434.webp",
+    "cover-1784550873799.webp",
+    "cover-1773576314846.webp",
+    "cover-1777615071158.webp",
+    "word-kr-h1-u07-0.webp",
+    "word-en-b2-u01-5.webp",
+    "giant-page-1.webp",
+    "giant-word-Tree.webp",
+    "giant-tree-coloring-actual.jpg",
+    "report-storybook-sample.webp",
+    "activity-kr-block.svg",
+    "activity-note-bada.svg"
+  ],
+  "scope": "시각적 연결 모식도. 실제 제품 UI 전체 화면 캡처가 아님. 보고서는 실제 제품의 테스트 샘플 화면 일부. 블록·노트는 활동 설명 도해, 노트 및 아시아 언어 파닉스는 확장 계획."
+}

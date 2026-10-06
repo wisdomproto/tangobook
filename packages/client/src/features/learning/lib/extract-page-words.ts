@@ -18,7 +18,7 @@ export function extractPageWords(storybook: Storybook, pageNumber: number, lang:
     if (!ko.pages?.includes(pageNumber)) continue;
     const en = ko.nameEn ?? ko.name;
     const kr = ko.korean;
-    const word = lang === 'en' ? en : (kr ?? en);
+    const word = lang === 'ko' ? (kr ?? en) : lang === 'en' ? en : ko.nameTranslations?.[lang];
     if (!word || seen.has(word)) continue;
     seen.add(word);
     result.push({ word, korean: kr });

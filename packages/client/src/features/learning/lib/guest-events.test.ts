@@ -2,9 +2,12 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import type { LearningEventInsert } from '@tangobook/shared';
 import {
   appendGuestEvent,
+  appendGuestEvents,
   readGuestEvents,
   countGuestEvents,
   drainGuestEvents,
+  prepareGuestTransfer,
+  acknowledgeGuestEvents,
 } from './guest-events';
 
 const ev = (n: number): LearningEventInsert =>
@@ -26,8 +29,10 @@ describe('게스트 학습 기록 (로컬)', () => {
   });
 
   // 🔴 상한을 넘으면 **오래된 것부터** 버린다 — 최근 기록이 리포트에서 더 쓸모 있다.
-  it('상한을 넘으면 오래된 것부터 버린다', () => {
-    for (let i = 0; i < 2100; i++) appendGuestEvent(ev(i));
+  it('상한을 넘으면 오래된 것부터 버린다', async () => {
+    await appendGuestEvents(Array.from({ length: 2090 }, (_, index) => ev(index)));
+    expect(readGuestEvents()[0].storybook_id).toBe('b90');
+    for (let i = 2090; i < 2100; i++) await appendGuestEvents([ev(i)]);
     const kept = readGuestEvents();
     expect(kept.length).toBe(2000);
     expect(kept[0].storybook_id).toBe('b100');
@@ -42,5 +47,22 @@ describe('게스트 학습 기록 (로컬)', () => {
 
   it('쌓인 게 없으면 빈 배열', () => {
     expect(drainGuestEvents('p1')).toEqual([]);
+  });
+});
+
+describe('guest transfer acknowledgements', () => {
+  it('keeps IDs and destination across a failed transfer and sibling switch', () => {
+    appendGuestEvent(ev(1));
+    const first = prepareGuestTransfer('p1');
+    expect(countGuestEvents()).toBe(1);
+    expect(prepareGuestTransfer('p2')).toEqual([]);
+    expect(prepareGuestTransfer('p1')[0].id).toBe(first[0].id);
+  });
+  it('preserves guest records appended while uploading', () => {
+    appendGuestEvent(ev(1));
+    const pending = prepareGuestTransfer('p1');
+    appendGuestEvent(ev(2));
+    acknowledgeGuestEvents(pending.map((e) => e.id!));
+    expect(readGuestEvents().map((e) => e.storybook_id)).toEqual(['b2']);
   });
 });

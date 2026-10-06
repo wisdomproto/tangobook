@@ -2,6 +2,9 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { SpeakingPlayer } from './SpeakingPlayer';
 
+// jsdom has no drawing context; keep the animation separate from speech behavior.
+vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
+
 // 훅 모킹
 vi.mock('../../hooks/useSpeechRecognizer', () => ({
   useSpeechRecognizer: () => ({

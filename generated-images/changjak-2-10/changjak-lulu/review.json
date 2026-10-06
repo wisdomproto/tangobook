@@ -1,0 +1,28 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "representativeGamePassed": true,
+    "key": "changjak-lulu-28-p09",
+    "actualPointerBrushes": 5,
+    "paletteColors": 7,
+    "mainCharacterColored": true,
+    "page": 9,
+    "correctSourceRevealUrl": true,
+    "readingFallbackCompletionObserved": true,
+    "nativeSpeechVerified": false,
+    "resetRepaint": false
+  },
+  "sourceExceptions": [
+    "changjak-lulu-28-p02",
+    "changjak-lulu-28-p09",
+    "changjak-lulu-50-p02",
+    "changjak-lulu-50-p09"
+  ],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

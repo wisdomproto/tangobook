@@ -1,0 +1,111 @@
+{
+  "source": "korean-phonics-units.ts makeConsonantPlan + withGames; english-phonics-units.ts makeBook2UnitPlan",
+  "kind": "활동 설명 도해, 실제 앱 캡처 아님",
+  "activities": [
+    {
+      "lang": "kr",
+      "key": "learn",
+      "title": "ㅂ 배우기",
+      "desc": "글자를 누르고 소리와 모양을 만납니다.",
+      "file": "activity-kr-learn.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "blend",
+      "title": "ㅂ + 모음",
+      "desc": "자음과 모음을 조합하고 만들어진 음절을 듣습니다.",
+      "file": "activity-kr-blend.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "write",
+      "title": "ㅂ 써보기",
+      "desc": "획을 따라 쓰고 모음과 함께 음절을 만듭니다.",
+      "file": "activity-kr-write.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "hunt",
+      "title": "글자 사냥",
+      "desc": "ㅂ으로 만든 음절을 듣고 여러 글자 중에서 찾습니다.",
+      "file": "activity-kr-hunt.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "listen",
+      "title": "낱말 연습",
+      "desc": "소리를 먼저 듣고 그림과 글자가 있는 낱말을 고릅니다.",
+      "file": "activity-kr-listen.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "dots",
+      "title": "낱말 그리기",
+      "desc": "순서대로 점을 이으며 사물의 모양을 그립니다.",
+      "file": "activity-kr-dots.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "block",
+      "title": "한글 블록 게임",
+      "desc": "자모 조각을 골라 판 위의 빈 자리에 놓고 낱말을 완성합니다.",
+      "file": "activity-kr-block.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "wordwrite",
+      "title": "낱말 쓰기",
+      "desc": "그림의 낱말을 따라 쓰며 글자 모양을 표현합니다.",
+      "file": "activity-kr-wordwrite.svg"
+    },
+    {
+      "lang": "kr",
+      "key": "match",
+      "title": "그림 짝 찾기",
+      "desc": "그림과 알맞은 낱말을 선으로 연결합니다.",
+      "file": "activity-kr-match.svg"
+    },
+    {
+      "lang": "en",
+      "key": "an",
+      "title": "an 배우기",
+      "desc": "소리 조합 → 낱말 가족 → 써보기를 한 활동 안에서 경험합니다.",
+      "file": "activity-en-an.svg"
+    },
+    {
+      "lang": "en",
+      "key": "at",
+      "title": "at 배우기",
+      "desc": "소리 조합 → 낱말 가족 → 써보기를 한 활동 안에서 경험합니다.",
+      "file": "activity-en-at.svg"
+    },
+    {
+      "lang": "en",
+      "key": "wordwrite",
+      "title": "낱말 쓰기",
+      "desc": "그림과 낱말을 연결하고 철자를 따라 씁니다.",
+      "file": "activity-en-wordwrite.svg"
+    },
+    {
+      "lang": "en",
+      "key": "dots",
+      "title": "낱말 그리기",
+      "desc": "점을 연결하며 낱말 그림의 모양을 완성합니다.",
+      "file": "activity-en-dots.svg"
+    },
+    {
+      "lang": "en",
+      "key": "block",
+      "title": "영어 블록 게임",
+      "desc": "c·a·t 블록을 판 위에 놓고 소리와 철자를 연결합니다.",
+      "file": "activity-en-block.svg"
+    },
+    {
+      "lang": "en",
+      "key": "match",
+      "title": "그림 짝 찾기",
+      "desc": "그림과 뜻이 맞는 낱말을 선으로 연결합니다.",
+      "file": "activity-en-match.svg"
+    }
+  ]
+}

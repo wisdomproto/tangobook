@@ -6,6 +6,8 @@ AI 기반 유아동 동화책 + 파닉스 + 어휘 저작도구. Gemini로 스�
 
 > 이 파일은 **인덱스**다. 상세는 모듈별 `features/*/CLAUDE.md`, `docs/*`, memory 를 가리킨다. 완료된 마이그레이션·스크립트 나열은 `git log` / 코드 / memory 에서 확인.
 
+**표지 제목 서체:** 새 표지에는 TangoBook Story Hand를 우선 사용한다. 지원 범위·책별 색/테두리·클린 표지와 운영 자산 위치는 [docs/cover-fonts.md](docs/cover-fonts.md)를 따른다.
+
 ## 🧭 전략 — 여기부터 (2026-09-04)
 
 🔴 **정체성·포지셔닝·브랜딩·대상·BM·경쟁 이야기는 [docs/STRATEGY.md](docs/STRATEGY.md) 가 유일한 원본이고, 판단은 `strategy-director` 에이전트로 한다**(`.claude/agents/`). 🔴 **사용자가 「전략 짜자」·「전략 이어하자」·「브랜딩 하자」·「사업계획」이라고 하면 무조건 그 에이전트부터 부른다**(2026-09-04 지시 — 다른 컴퓨터에서도 같아야 해서 에이전트·STRATEGY·ROADMAP 은 전부 git 안에 있다). 이어하기는 STRATEGY.md **§5** 와 마스터 메모(`/api/saenghwal-memo` 의 `master-*`)에서. 이 파일(CLAUDE.md)은 **코드와 기능**만 다룬다.

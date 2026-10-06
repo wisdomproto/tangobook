@@ -1,0 +1,5 @@
+fonttools[woff]==4.66.1
+opencv-python-headless==5.0.0.93
+numpy==2.5.3
+Pillow==12.3.0
+uharfbuzz==0.56.2

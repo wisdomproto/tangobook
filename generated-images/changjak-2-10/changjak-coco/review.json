@@ -1,0 +1,50 @@
+{
+  "books": 50,
+  "scenes": 100,
+  "allScenes": [
+    "source/lineart/shared-engine-filled visual comparison",
+    "monochrome pixels",
+    "source and lineart SHA256"
+  ],
+  "actualGame": {
+    "key": "changjak-coco-02-p08",
+    "representativeGamePassed": true,
+    "actualPointerBrushes": 8,
+    "mainCharacterColored": true,
+    "correctOriginalPage": 8,
+    "resetRepaint": false,
+    "nativeSpeechVerified": false,
+    "reading": "Completion/fallback path observed; no native speech element",
+    "audio": [
+      {
+        "events": [
+          {
+            "duration": 90.044063,
+            "error": null,
+            "loop": true,
+            "src": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3",
+            "time": 0,
+            "type": "playing",
+            "volume": 0.16
+          },
+          {
+            "duration": null,
+            "error": 4,
+            "loop": true,
+            "src": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3",
+            "time": 0,
+            "type": "error",
+            "volume": 0.16
+          }
+        ],
+        "paused": true,
+        "src": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3"
+      }
+    ]
+  },
+  "sourceExceptions": [
+    "changjak-coco-48-p05",
+    "changjak-coco-48-p10"
+  ],
+  "runtime": "Source-pixel palette unchanged; no answer colors, brightness adjustment or global median"
+}

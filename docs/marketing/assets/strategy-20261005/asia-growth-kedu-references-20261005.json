@@ -1,0 +1,48 @@
+{
+  "checked_date": "2026-10-05",
+  "sources": {
+    "market": "https://www.grandviewresearch.com/horizon/outlook/child-care-services-market/asia-pacific",
+    "enrolment": "https://www.oecd.org/en/publications/society-at-a-glance-asia-pacific-2025_24fa8f05-en/full-report/early-childhood-education-and-care_b45e19ca.html",
+    "education": "https://www.myeyelevel.com/Malaysia/resources/news/view.do?boardSeq=3004",
+    "thailand_korean": "https://okep.moe.go.kr/board/view.do?board_manager_seq=38&board_seq=31511&menu_seq=118"
+  },
+  "market": {
+    "region": "Asia-Pacific (includes Australia)",
+    "scope": "Child care services, not preschool language applications",
+    "revenue_usd_million_2024_estimate": 123004.2,
+    "revenue_usd_million_2030_forecast": 162905.5,
+    "cagr_2025_2030_percent": 4.8,
+    "publisher": "Grand View Research"
+  },
+  "participation": {
+    "publisher": "OECD 2025",
+    "observation_period": "2010–2020",
+    "finding": "Pre-primary net enrolment increased in about three-quarters of Asia-Pacific countries with available data"
+  },
+  "k_edu_definition": "Korean-style education plus Korean language learning; definition specified by user",
+  "korean_education_example": "Daekyo Eye Level Malaysia 2023 official announcement; historical operating example, not proof of preschool-wide popularity",
+  "interpretation": "Broad early learning/care market growth and Korean-language interest provide context for TangoBook opportunity; no direct TAM, preschool willingness-to-pay or competitive superiority claim.",
+  "thailand_korean": {
+    "reference_year": 2025,
+    "publication_date": "2026-08-19",
+    "schools": 227,
+    "students": "over 46,000",
+    "scope": "regular secondary schools; not preschool"
+  },
+  "editorial_instruction": "Do not define K-edu in public prose. Connect Southeast Asian interest with entry timing as strategic interpretation. Remove adult-oriented Sejong Institute metrics. Overall target Asia.",
+  "visual": {
+    "svg": "asia-childcare-market-growth.svg",
+    "preview": "asia-childcare-market-growth.png",
+    "zero_baseline": true,
+    "data_points": [
+      1230,
+      1629
+    ],
+    "unit": "USD 100 million",
+    "years": [
+      "2024 estimate",
+      "2030 forecast"
+    ],
+    "cagr_period": "2025–2030"
+  }
+}

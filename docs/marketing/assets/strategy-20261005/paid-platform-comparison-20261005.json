@@ -1,0 +1,76 @@
+{
+  "checked_date": "2026-10-05",
+  "scope": "Selected paid preschool/global platforms plus a Vietnamese native-language counterexample; not an exhaustive market survey",
+  "sources": {
+    "abc_price": "https://support.abcmouse.com/hc/en-gb/articles/360048176173-What-are-the-subscription-plans-and-how-much-do-they-cost",
+    "abc_language": "https://support.abcmouse.com/hc/en-us/articles/1500005418921-ABCmouse-Classic-Language-Options",
+    "abc_age": "https://shop.abcmouse.com/products/abcmouse-com-1-year-subscription-gift-card",
+    "abc_origin": "https://www.ageoflearning.com/contact",
+    "abc_international": "https://support.abcmouse.com/hc/en-ca/articles/1500008859402-Can-ABCmouse-be-used-internationally",
+    "abc_japan": "https://www.ageoflearning.com/case_studies/ABCmE_Japan_Study_Research_Brief_06.pdf",
+    "lingo_price": "https://help.lingokids.com/hc/en-us/articles/115005120505-What-is-the-Price-and-currency-for-Lingokids-Plus",
+    "lingo_language": "https://help.lingokids.com/hc/en-us/articles/205125451-Is-Lingokids-available-in-another-language",
+    "lingo_age": "https://lingokids.com/promo-playlearning-games",
+    "lingo_origin": "https://lingokids.com/es/prensa/lingokids-crece-un-54-en-2021-y-llega-a-40-millones-de-familias-en-todo-el-mundo",
+    "eggs_price": "https://international.readingeggs.com/pricing/",
+    "eggs_language": "https://readingeggs.com.au/about/",
+    "eggs_origin": "https://readingeggs.com/about-blake/",
+    "vmonkey": "https://monkey.edu.vn/san-pham/vmonkey"
+  },
+  "platforms": [
+    {
+      "name": "ABCmouse Classic",
+      "origin": "미국",
+      "age": "2–8세",
+      "language": "영어 중심 · 스페인어 활동 일부",
+      "detail": "읽기·파닉스와 수학·과학을 함께 제공",
+      "prices": "US$14.99 / 월<br>US$45 / 년",
+      "price_note": "공식 웹 구독 · 별도 6개월 US$29.99",
+      "price_source": "abc_price",
+      "language_source": "abc_language"
+    },
+    {
+      "name": "Lingokids Plus",
+      "origin": "스페인",
+      "age": "2–8세",
+      "language": "영어 · 스페인어 · 브라질 포르투갈어",
+      "detail": "놀이형 학습 · 일부 활동은 영어로 제공",
+      "prices": "US$13.49 / 월<br>US$161.88 / 년",
+      "price_note": "공식 안내의 웹 가격 예시",
+      "price_source": "lingo_price",
+      "language_source": "lingo_language"
+    },
+    {
+      "name": "Reading Eggs",
+      "origin": "호주",
+      "age": "Junior 2–4세<br>본 과정 3–7세",
+      "language": "영어 읽기 · 파닉스",
+      "detail": "영국·미국·호주 영어 선택 · 상위 과정은 13세까지",
+      "prices": "US$9.99 / 월<br>US$69.99 / 년",
+      "price_note": "국제 사이트 · Reading 구독",
+      "price_source": "eggs_price",
+      "language_source": "eggs_language"
+    },
+    {
+      "name": "VMonkey",
+      "origin": "베트남 · 현지 자국어 사례",
+      "age": "미취학 3–5세<br>초등까지 확장",
+      "language": "베트남어 읽기 · 파닉스 · 이야기",
+      "detail": "아시아 자국어 학습 수요를 공략하는 현지 서비스",
+      "prices": "VND 599,000 / 년<br>VND 899,000 / 평생",
+      "price_note": "공식 사이트 표시 할인가 · 정가 1,199,000 / 년, 1,799,000 / 평생",
+      "price_source": "vmonkey",
+      "language_source": "vmonkey"
+    }
+  ],
+  "notes": [
+    "Prices depend on geography/store/promotions/tax; do not imply equal offers or payment conversion.",
+    "Lingokids language help updated 2026-09-23 supersedes old English-only descriptions.",
+    "ABCmouse Japanese English example is historical 2022 evidence.",
+    "Asian native-language content is not absent: VMonkey is a counterexample.",
+    "TangoBook organic free-content strategy is unchanged; paid-only exclusion concerns this competitor comparison.",
+    "Do not claim competitors are outdated, fail to update content, or that TangoBook wins through superior content.",
+    "VMonkey official product description focuses on Vietnamese; Korean coursework was not verified."
+  ],
+  "positioning": "Asia preschool language platform; Korea launch, Asia expansion (country examples: Indonesia, Malaysia, Thailand, Mongolia, Vietnam); native language + English + Korean/Chinese."
+}

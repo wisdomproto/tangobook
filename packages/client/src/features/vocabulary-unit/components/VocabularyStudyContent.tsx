@@ -1,4 +1,13 @@
-import { useMemo, useState } from 'react';
+import { LEARNING_REPORT_V2 } from '@/features/learning/config';
+import { PostActivityPhonics } from '@/features/learning/components/PostActivityPhonics';
+import { recommendPhonics } from '@/features/learning/lib/phonics-recommendation';
+import { summarizeWords, type PhonicsTarget } from '@/features/learning/lib/word-learning';
+import { readLocalReportEvents } from '@/features/learning/lib/event-outbox';
+import { readGuestEvents } from '@/features/learning/lib/guest-events';
+import { useLearningEvents } from '@/features/learning/hooks/useLearningEvents';
+import { useAuth } from '@/features/auth/context/AuthContext';
+import type { LearningEvent } from '@tangobook/shared';
+import { useMemo, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -119,6 +128,14 @@ export function VocabularyStudyContent({
 }: VocabularyStudyContentProps) {
   const { t } = useTranslation('games');
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
+  const { activeProfile } = useAuth();
+  const history = useLearningEvents(activeProfile?.id, activeGame !== null);
+  const activityStart = useRef<string | null>(null);
+  const [phonicsSuggestion, setPhonicsSuggestion] = useState<{
+    word: string;
+    target: PhonicsTarget;
+    reason: 'needs-review' | 'not-practiced';
+  } | null>(null);
   /**
    * 어느 묶음을 펼쳤나. `null` = 묶음 고르는 화면.
    * 🔴 게임 일곱 장을 한 화면에 늘어놓으니 무엇을 고르는 화면인지 안 읽혔다(사용자 2026-09-01).
@@ -141,6 +158,35 @@ export function VocabularyStudyContent({
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
   const handleGameComplete = (_gameType: GameTypeId) => {
     setActiveGame(null);
+    if (
+      LEARNING_REPORT_V2 &&
+      storybook &&
+      activityStart.current &&
+      !history.isError &&
+      (!activeProfile || history.isSuccess)
+    ) {
+      const local = activeProfile
+        ? readLocalReportEvents().filter((event) => event.profile_id === activeProfile.id)
+        : readGuestEvents().filter((event) => !event.profile_id);
+      const records = [...(history.data ?? []), ...local] as LearningEvent[];
+      const suggestion = recommendPhonics(
+        summarizeWords(records, lang).filter((word) =>
+          word.events.some(
+            (event) =>
+              event.game_type === _gameType &&
+              event.storybook_id === storybook.id &&
+              Date.parse(event.created_at) >= Date.parse(activityStart.current!) &&
+              (event.event_type === 'word_correct' || event.event_type === 'word_wrong')
+          )
+        )
+      );
+      if (suggestion)
+        setPhonicsSuggestion({
+          word: suggestion.word.word,
+          target: suggestion.target,
+          reason: suggestion.reason,
+        });
+    }
     void refetchBalance();
     confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
   };
@@ -207,7 +253,12 @@ export function VocabularyStudyContent({
                     game={g}
                     index={i}
                     tone={group.tone}
-                    onPlay={() => g.available && setActiveGame(g.id)}
+                    onPlay={() => {
+                      if (g.available) {
+                        activityStart.current = new Date().toISOString();
+                        setActiveGame(g.id);
+                      }
+                    }}
                   />
                 ))}
               </div>
@@ -228,6 +279,15 @@ export function VocabularyStudyContent({
             </section>
           );
         })()}
+
+      {phonicsSuggestion && (
+        <PostActivityPhonics
+          word={phonicsSuggestion.word}
+          target={phonicsSuggestion.target}
+          reason={phonicsSuggestion.reason}
+          onClose={() => setPhonicsSuggestion(null)}
+        />
+      )}
 
       {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
       <AnimatePresence>
@@ -621,7 +681,7 @@ export function GameOverlay({
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 bg-cream-50 overflow-auto"
     >
-      <VocabSourceProvider unitId={unit.id}>
+      <VocabSourceProvider unitId={unit.id} source={storybook ? 'storybook' : 'vocabulary'}>
         {(game === 'korean-line-matching' || game === 'english-line-matching') && (
           <LineMatchingPlayer
             storybookId={effectiveStorybookId}
