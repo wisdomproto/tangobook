@@ -68,12 +68,15 @@ export function stripStyleSuffix(title: string): string {
   return title.replace(SUFFIX, '');
 }
 
+import { legacyLibraryTitle } from './legacy-library-titles.js';
+
 export function bookDisplayTitle(
   book: { title: string; titleTranslations?: Record<string, string> },
   lang = 'ko'
 ): string {
   const tr = lang !== 'ko' ? book.titleTranslations?.[lang]?.trim() : undefined;
-  return tr || stripStyleSuffix(book.title);
+  const base = stripStyleSuffix(book.title);
+  return tr || (lang !== 'ko' ? legacyLibraryTitle(base, lang) : undefined) || base;
 }
 
 /** 그룹의 대표 책 id. */

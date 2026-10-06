@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { coverTitleFont } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 import { resolveCover, type CoverInput } from './bookCover.util';
+import titleColors from './cover-title-colors.json';
 
 // 표지 R2 도메인(pub-*.r2.dev)이 레이트리밋을 걸어, 라이브러리에서 수십 장을 동시에
 // 요청하면 일부가 드롭(429/네트워크 실패)되고 <img>는 자동 재시도를 안 해 카드가 계속 빈다.
@@ -62,6 +63,12 @@ export function BookCover({
   const { img, hasClean, title } = resolveCover(book, { style, lang, preferClean: overlayTitle });
   const showOverlay = overlayTitle && hasClean;
   const normalizedTitle = title.normalize('NFC');
+  const appearance = (titleColors as Record<string, { color: string; stroke: string }>)[
+    img ?? ''
+  ] ?? {
+    color: '#fff4d5',
+    stroke: '#38291c',
+  };
 
   // 이미지 로드 실패 시 재시도 카운터. img 가 바뀌면 리셋.
   const [retry, setRetry] = useState(0);
@@ -166,18 +173,21 @@ export function BookCover({
           <div className="px-1 py-1">
             <span
               lang={lang.toLowerCase().split('-')[0]}
-              className="block text-center text-[#fff7de] leading-[1.22]"
+              className="block text-center leading-[1.12]"
               style={{
                 fontFamily: `"${coverTitleFont(lang).family}", "TangoBook Story Hand Global", sans-serif`,
                 fontWeight: 400,
-                textShadow: '0 2px 3px rgba(0,0,0,.45)',
-                WebkitTextStroke: '0.035em #493528',
+                color: appearance.color,
+                textShadow: `0 1px 3px ${appearance.stroke}`,
+                WebkitTextStroke: `0.055em ${appearance.stroke}`,
                 paintOrder: 'stroke fill',
                 overflowWrap: 'anywhere',
                 fontSize:
                   normalizedTitle.length > 38
-                    ? 'clamp(12px, 5cqw, 30px)'
-                    : 'clamp(14px, 6.8cqw, 38px)',
+                    ? 'clamp(14px, 7.6cqw, 44px)'
+                    : normalizedTitle.length > 22
+                      ? 'clamp(16px, 8.4cqw, 48px)'
+                      : 'clamp(18px, 9.8cqw, 54px)',
               }}
             >
               {normalizedTitle}

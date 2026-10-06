@@ -34,6 +34,31 @@ describe('BookCover', () => {
     render(<BookCover book={book} lang="en-US" overlayTitle />);
     expect(screen.getByText('The Frog Prince')).toBeInTheDocument();
   });
+  it.each([
+    ['반쪽이', '半边儿'],
+    ['15. 편지 배달 왔어요', '15. 来送信啦'],
+    ['20. 내일 또 만나요', '20. 明天再见'],
+  ])('supplies missing Chinese library titles for %s', (title, translated) => {
+    render(
+      <BookCover
+        book={{ ...book, title, titleTranslations: undefined }}
+        lang="zh-CN"
+        overlayTitle
+      />
+    );
+    expect(screen.getByText(translated)).toBeInTheDocument();
+    expect(screen.getByRole('img')).toHaveAttribute('alt', translated);
+  });
+  it('keeps an editor-provided translation ahead of the legacy title catalog', () => {
+    render(
+      <BookCover
+        book={{ ...book, title: '반쪽이', titleTranslations: { zh: '编辑的书名' } }}
+        lang="zh"
+        overlayTitle
+      />
+    );
+    expect(screen.getByText('编辑的书名')).toBeInTheDocument();
+  });
   it('renders placeholder with accessible name when no cover at all', () => {
     const noCover = { title: '개구리 왕자' } as any;
     render(<BookCover book={noCover} lang="ko" overlayTitle />);

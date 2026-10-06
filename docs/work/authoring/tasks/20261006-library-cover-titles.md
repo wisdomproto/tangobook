@@ -100,3 +100,11 @@ exec844 정상종료: 피노키오3 1789350946328만 새PNG 1672×941/SHA5ec9011
 새요청/workflow/history/approvedrecord를 workspace generated-images/library-clean-covers/qwen-final-provenance와실제PNG로 보존. 원래builtin실패 및이전요청은 덮어쓰지 않았다. audit-library-clean-covers.mjs 실제실행: registration-audit-complete.json 365registered ledger의보호필드before/after·저장CDNSHA·비율 전수재확인, 현재1310목록 재조회하여 frozen365밖 창작850+파닉스95의cover/title/pageCount등945목록 불변 확인. 목록감사를945본문 새deepcompare나365브라우저 새검수로 확대하지 않는다.
 
 **무제목표지365/365 완료.** 전용폰트0.4.0/라이브러리언어별titleoverlay코드는앞서로컬완료, 이번에도main push/운영UI코드배포는 하지않았다. 운영라이브러리는UI배포전legacy제목표지fallback을보존한다. 관련JS node --check/worker py_compile/diff확인 통과, 새UI수정없어앞테스트/브라우저증거를새실행으로보고하지않는다. 사용자gallery1/기존서버보존·임시탭추가없음. 전체표지완료조건충족으로후속16-9 비활성화.
+
+## 사용자 표지 제목 크기·색·누락 번역 수정 — 2026-10-06
+
+사용자 실제library 화면에서 제목이작음/표지마다색조정필요/중국어선택에도전래·호리탐험·유치원한글제목남음을 반증했다. BookCover 짧은제목6.8cqw→9.8cqw(약44%확대), 중간제목8.4cqw/긴제목7.6cqw로줄바꿈공간유지. 1215검증된CDN표지의상단제목영역픽셀을분석해밝은표지는진한숲색/자주색,어두운표지는밝은크림/금색과대비테두리를선택. build-library-title-colors.py는등록ledgerCDNSHA를검증한로컬WebP만읽어URL별색JSON을생성하며원본이미지/런타임색칠/폰트원본을변경하지않는다. 새표지URL은기본크림테두리로안전fallback, 기존색manifest는해당URL에만적용.
+
+실제frozen책자료에서전래40권은영어만/호리탐험15권·유치원20권은titleTranslations미제공이었다. legacy-library-titles.ts에75작품의en/vi/zh/th표시번역보충, shared bookDisplayTitle가저장번역우선→보충목록→한국어원제순으로해결하고그림체접미사/시리즈번호유지. 새로운본문번역이나R2책데이터일괄쓰기아님. 한글원제와기존번역/표지본문게임보존. client관련14테스트통과(3분류zh-CN fallback/저장번역우선포함), shared/client typecheck 및shared build후실제Node ESM300제목검사(75권×4언어,한글fallback0)통과. eslint0error/기존test any경고2개.
+
+별도headlessEdge실제local5240 한국어·중국어1877px,중국어·태국어·영어·베트남어390px 각98카드텍스트검수/가로overflow0/4색실제표시. 초기베트남어locale전환중0카드snapshot은증거로채택하지않고별도안정상태98카드재확인. 작은영어화면태양계긴제목높이진단후중간제목크기별도보완. 스크린샷/JSON은D:/ComfyUI-output/library-clean-covers-20261006/title-*에보존. 사용자gallery/기존tabs보존·headless브라우저종료. 현재로컬Vite즉시반영·운영push/배포없음.
