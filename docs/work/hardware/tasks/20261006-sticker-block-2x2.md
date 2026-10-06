@@ -38,3 +38,7 @@ Python312에 CadQuery/trimesh 설치. 이 환경 CadQuery2.8의 선택적 VTK �
 ## 후속: 닫힌 옆면·낮은 높이
 
 사용자 지시로 옆면 열린 홈 제거·높이8→5.5mm. 블록을 판에서 반칸(7.5mm) 이동하여 내부2×2돌기 위 배치, 바닥 blind 소켓4개(±7.5mm)로 변경. 29.6mm 발자국 유지, 홈깊이3.2/스티커턱0.8/홈위살1.5mm. 사방옆면하단 재료검사·CAD단일유효솔리드·4돌기간섭부피0·STLwatertight/winding 통과. Chrome 아래보기 육안검수(tango-block-closed-bottom.png), 표시높이 갱신. 기존9홈경계배치 결정을 대체. 실제 출력 미검증/원격push 없음.
+
+## 후속: 바닥 원복·5.5mm 유지
+
+사용자 정정으로 내부4소켓/반칸이동 배치를 폐기하고 원래 중앙·변·귀퉁이9돌기 회피홈 및 중심120mm 배치로 복원. 높이는5.5mm 유지. CAD단일유효솔리드/치수/홈위살1.5mm/9돌기간섭0/STLwatertight·winding/HTML구문/Chrome아래보기 육안확인(tango-block-restored-bottom.png) 통과. 기존 닫힌옆면 요구는 이번 바닥원복 요청으로 대체. 실출력·push 없음.
