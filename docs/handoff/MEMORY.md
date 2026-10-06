@@ -309,3 +309,5 @@
 - 2026-10-06 [플레이탱고 인식판 전용 HTML](../work/hardware/tasks/20261006-board-only.md): 기존 판/프레임만 포함한 tango-board-only.standalone.html 추가·Chrome 실제 렌더 확인. 로컬만 적용.
 
 - 2026-10-06 [인식판 후속](../work/hardware/tasks/20261006-board-only.md): 동일 HTML을 16×16 격자·사방15mm 베젤로 변경(전체270×270mm), Chrome 렌더 확인.
+
+- 2026-10-06 [인식판 라운드](../work/hardware/tasks/20261006-board-only.md): 외곽 네 모서리 R15mm, 기존 격자·베젤 치수 유지.
