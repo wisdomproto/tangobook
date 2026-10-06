@@ -1,4 +1,21 @@
-# TangoBook Story Hand — Trial 0.1
+# TangoBook Story Hand
+
+## 조형 통일0.5.0
+
+사용자 실제 화면 반증으로 0.4.0의 초기24개 한글과 확장 음절이 서로 다른 조형이었다는 점을 확인했습니다. 글자 누락0은 조형 통일의 증거가 아닙니다. 0.5.0은 현대 한글11,172음절/자모를 동일한 둥근 획 구성으로 다시 만들고, 압축된 자모에서 획이 합쳐지지 않도록 획폭을 통일합니다. 라틴/중국어/일본어/태국어는 초기 일부 글자만 섞지 않고 출처를 명시한 Noto 전체 face를 사용합니다. 모든 언어가 독점 자체 디자인이라는 뜻은 아닙니다. 역사판0.4.0/초기원본을 보존합니다.
+
+재현: `build_full_hangul.py --output dist-uniform-korean` → `proof_full_hangul.py --directory dist-uniform-korean` → `build_global_preview.py --custom-font dist-uniform-korean/TangoBookStoryHand-Expanded-Regular.ttf --output dist-global-uniform --uniform-scripts` → `verify_global.py --directory dist-global-uniform` → `build_web_global.py --source dist-global-uniform --version 0.5.0`. uniform proof는11172개 실제 glyph 좌표/contour/획구성과 자폭을 생성 규칙과 전수 비교하며, 신데렐라·인어공주·라푼젤·전래 제목을 실제 TTF로 렌더합니다. HTTP/브라우저 결과는 verification-uniform에 별도 보존합니다.
+
+## 이전 전체 지원0.4.0 (조형 혼합 문제 확인)
+
+최신 라이브러리는 **TangoBook Story Hand Global**을 사용합니다. 현대 한글11,172음절과 자모를 자체 조형으로 확장했고, 기존 전용 글자를 보존했습니다. 부족한 라틴/중국어/일본어/태국어 글리프는 출처가 명시된 Noto OFL 글리프를 통합했습니다. 모든 문자권을 독점 새 디자인한 서체라는 뜻은 아닙니다.
+
+- 제품 웹자산: `packages/client/public/fonts/tangobook-story-hand/0.4.0/`. 정확한 전체 codepoints,93개 WOFF2 SHA,라이선스와 출처는 manifest와 OFL 파일에 있습니다. 제목에 쓰이는 글자만 지원하는 subset이 아닙니다.
+- 자체 한글 빌드: `build_full_hangul.py --output dist-expanded-balanced`, `build_global_preview.py --custom-font dist-expanded-balanced/TangoBookStoryHand-Expanded-Regular.ttf`, `build_web_global.py` 순서로 글로벌 소스와 웹 묶음을 만듭니다. 이미 만들어 둔 호환 그룹을 재사용할 때만 글로벌 빌드에 `--reuse-compatible`을 지정합니다. 소스 준비는 `scripts/prepare-global-font-sources.mjs`이며 Noto 원본 SHA/라이선스를 보존합니다. Python fontTools/brotli와 검증용 uharfbuzz/Pillow가 필요하며 정확한 파일명/CLI는 각 스크립트 기준입니다.
+- 검증: `proof_full_hangul.py`, `verify_global.py`. [실제 shaping 결과](verification-global/shaping-verification.json)에서11언어 표본과 현재 제목2,415개 notdef0. [브라우저 검증](verification-global/browser-review.json)은11언어38px/18px,현재 라이브러리 제공5언어 전환/긴 제목,HTTP93파일 SHA 일치를 기록합니다.
+- 현재는 로컬 코드/브라우저 검증 완료이며 main push/운영 코드 배포 전입니다. 등록11언어 글꼴 범위와 앱이 실제 제공하는 제목 번역을 구분하며 없는 번역은 한국어로 돌아갑니다.
+
+아래0.1/0.2는 이전 제작 과정을 보존한 기록입니다.
 
 ## 아시아 확장 시험판 0.2
 

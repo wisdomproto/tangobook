@@ -1,0 +1,75 @@
+{
+  "status": "local-font-support-and-library-reviewed",
+  "version": "0.4.0",
+  "languages": [
+    "ko",
+    "en",
+    "ja",
+    "zh",
+    "es",
+    "fr",
+    "de",
+    "vi",
+    "th",
+    "ms",
+    "id"
+  ],
+  "modernHangulSyllables": 11172,
+  "actualTitlesShaped": 2415,
+  "notdefGlyphs": 0,
+  "servedFontFiles": 93,
+  "servedFontShaMatches": 93,
+  "browserProofSizes": [
+    38,
+    18
+  ],
+  "actualLibraryPickerLocales": [
+    "ko",
+    "en",
+    "th",
+    "vi",
+    "zh"
+  ],
+  "snapshots": [
+    {
+      "file": "eleven-languages.png",
+      "sha256": "9dfb99f3088b5949cf369ab3571464fca11988a1e7c1c51abd1e0b8c653bfeae",
+      "evidencePath": "D:/ComfyUI-output/library-clean-covers-20261006/font-browser-review/eleven-languages.png"
+    },
+    {
+      "file": "library-ko.png",
+      "sha256": "0f58bb921c3472022f7a0fdfdb50d509bd7164d082883c581404729146962747",
+      "evidencePath": "D:/ComfyUI-output/library-clean-covers-20261006/font-browser-review/library-ko.png"
+    },
+    {
+      "file": "library-en.png",
+      "sha256": "7007002e4cd1d10b7035a794c46ab3baf9c1fe4fbaf8be409744401835b21a6b",
+      "evidencePath": "D:/ComfyUI-output/library-clean-covers-20261006/font-browser-review/library-en.png"
+    },
+    {
+      "file": "library-th.png",
+      "sha256": "236f17d09a4145cc6349198b023dd77c6e96eb2f6d05b12de4383774f3832e1b",
+      "evidencePath": "D:/ComfyUI-output/library-clean-covers-20261006/font-browser-review/library-th.png"
+    },
+    {
+      "file": "library-vi.png",
+      "sha256": "2350f4746a81f2f45a73636a238ade6ff2798a86109cc5f52f29ccdd5c1404ee",
+      "evidencePath": "D:/ComfyUI-output/library-clean-covers-20261006/font-browser-review/library-vi.png"
+    },
+    {
+      "file": "library-zh.png",
+      "sha256": "f655498a3ebcb8364b9ffb466b64fc82f28fa296a17ec4771c2afa63e72f554b",
+      "evidencePath": "D:/ComfyUI-output/library-clean-covers-20261006/font-browser-review/library-zh.png"
+    }
+  ],
+  "sourceAuthorship": "original Korean and preserved TangoBook lettering + explicitly attributed OFL Noto compatible glyphs",
+  "allGlyphsExclusiveOriginalDesign": false,
+  "productionCodeDeployed": false,
+  "tests": {
+    "files": 3,
+    "passed": 15,
+    "typecheck": "passed",
+    "build": "passed-before-final-locale-normalization"
+  },
+  "coversComplete": false
+}

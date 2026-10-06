@@ -14,7 +14,7 @@ interface BookCardProps {
 }
 
 /** 책 카드 — 표지 한 장만. 카드 배경/패딩 X (reference 디자인).
- *  제목 캡션은 없앴다(2026-07-25) — 표지 이미지에 제목이 이미 그려져 있어 두 번 읽힌다.
+ *  클린 표지 위에 현재 언어 제목을 별도 레이어로 표시한다. 아래 중복 캡션은 없다.
  *  🔴 접근성 이름은 `BookCover` 의 `alt`(언어별 제목)가 유지하므로 sr-only 제목을 덧붙이지 않는다
  *  (덧붙이면 버튼 이름이 "제목 제목"으로 중복된다).
  *  표지는 책의 대표 그림체(defaultStyle)만 노출 — 그림체 선택은 BookDetailPage 에서. */
@@ -42,7 +42,7 @@ export function BookCard({ book, eager = false, priority = false }: BookCardProp
         <BookCover
           book={book}
           lang={i18n.language}
-          overlayTitle={false}
+          overlayTitle
           loading={eager ? 'eager' : 'lazy'}
           priority={priority}
           imgClassName="group-hover:scale-[1.02] transition-transform"

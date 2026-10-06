@@ -1,0 +1,2544 @@
+{
+  "actualFontSha256": {
+    "Korean": "c942f9c5785e713167cc053c1d776fa1007cc285ffc51692b4774b05add3302e",
+    "Latin": "2ab7d585f9a6ee800229898fe3d07f770ceddd68c18cb43ac77b7ef7cb19dab5",
+    "Thai": "880059dcf1944a740aef1281a8ab5f49e25fbc6c0cb62877b64dfc0b815e0335",
+    "Chinese": "70e8c9e9313cb83f4c0527b64ff6caad13818f7303cc3966683e756edd7471ba",
+    "Japanese": "a9bcdffbfc1ad6cdcd1eb9c6de19dcd7aa40ce55ea7706851eebd8a5524026d8"
+  },
+  "harfBuzzSamples": {
+    "ko": [
+      {
+        "font": "Korean",
+        "text": "호리와",
+        "glyphs": [
+          12,
+          18,
+          10
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Latin",
+        "text": " ",
+        "glyphs": [
+          1
+        ],
+        "positions": [
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Korean",
+        "text": "엄마의",
+        "glyphs": [
+          6606,
+          3542,
+          7009
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Latin",
+        "text": " ",
+        "glyphs": [
+          1
+        ],
+        "positions": [
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Korean",
+        "text": "무지개",
+        "glyphs": [
+          3906,
+          7622,
+          53
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Latin",
+        "text": " ",
+        "glyphs": [
+          1
+        ],
+        "positions": [
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Korean",
+        "text": "꼬리",
+        "glyphs": [
+          834,
+          18
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Latin",
+        "text": " · ",
+        "glyphs": [
+          1,
+          97,
+          1
+        ],
+        "positions": [
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Korean",
+        "text": "잠자는",
+        "glyphs": [
+          7080,
+          7064,
+          19
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Latin",
+        "text": " ",
+        "glyphs": [
+          1
+        ],
+        "positions": [
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Korean",
+        "text": "숲속의",
+        "glyphs": [
+          5693,
+          5528,
+          7009
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Latin",
+        "text": " ",
+        "glyphs": [
+          1
+        ],
+        "positions": [
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      },
+      {
+        "font": "Korean",
+        "text": "공주",
+        "glyphs": [
+          3,
+          4
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "en": [
+      {
+        "font": "Latin",
+        "text": "The Little Mermaid & The Wonderful Wizard of Oz",
+        "glyphs": [
+          22,
+          36,
+          33,
+          1,
+          14,
+          37,
+          48,
+          48,
+          40,
+          33,
+          1,
+          15,
+          33,
+          46,
+          41,
+          29,
+          37,
+          32,
+          1,
+          65,
+          1,
+          22,
+          36,
+          33,
+          1,
+          25,
+          43,
+          42,
+          32,
+          33,
+          46,
+          34,
+          49,
+          40,
+          1,
+          25,
+          37,
+          54,
+          29,
+          46,
+          32,
+          1,
+          43,
+          34,
+          1,
+          17,
+          54
+        ],
+        "positions": [
+          {
+            "advance": 806,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 645,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 894,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 943,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 881,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 806,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1144,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 601,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1144,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 601,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 799,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "ja": [
+      {
+        "font": "Japanese",
+        "text": "赤ずきん・眠れる森の美女・かわいい動物たち",
+        "glyphs": [
+          11293,
+          114,
+          102,
+          18,
+          262,
+          7890,
+          160,
+          159,
+          5695,
+          133,
+          2,
+          3146,
+          262,
+          100,
+          163,
+          93,
+          93,
+          2052,
+          7115,
+          119,
+          121
+        ],
+        "positions": [
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "zh": [
+      {
+        "font": "Chinese",
+        "text": "小红帽与大灰狼・海底动物的奇妙世界",
+        "glyphs": [
+          1,
+          19924,
+          29172,
+          7555,
+          10370,
+          16301,
+          16951,
+          262,
+          15548,
+          11752,
+          8725,
+          16804,
+          17852,
+          10402,
+          10483,
+          7563,
+          17540
+        ],
+        "positions": [
+          {
+            "advance": 900,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 1000,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "es": [
+      {
+        "font": "Latin",
+        "text": "El pequeño príncipe y el árbol mágico",
+        "glyphs": [
+          7,
+          40,
+          1,
+          44,
+          33,
+          45,
+          49,
+          33,
+          363,
+          43,
+          1,
+          44,
+          46,
+          129,
+          42,
+          31,
+          37,
+          44,
+          33,
+          1,
+          53,
+          1,
+          33,
+          40,
+          1,
+          122,
+          46,
+          30,
+          43,
+          40,
+          1,
+          41,
+          122,
+          35,
+          37,
+          31,
+          43
+        ],
+        "positions": [
+          {
+            "advance": 667,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 618,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 616,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 621,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 943,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "fr": [
+      {
+        "font": "Latin",
+        "text": "La forêt enchantée et le petit garçon",
+        "glyphs": [
+          14,
+          29,
+          1,
+          34,
+          43,
+          46,
+          127,
+          48,
+          1,
+          33,
+          42,
+          31,
+          36,
+          29,
+          42,
+          48,
+          126,
+          33,
+          1,
+          33,
+          48,
+          1,
+          40,
+          33,
+          1,
+          44,
+          33,
+          48,
+          37,
+          48,
+          1,
+          35,
+          29,
+          46,
+          358,
+          43,
+          42
+        ],
+        "positions": [
+          {
+            "advance": 645,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 601,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 480,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "de": [
+      {
+        "font": "Latin",
+        "text": "Das süße Häschen und die große Überraschung",
+        "glyphs": [
+          6,
+          29,
+          47,
+          1,
+          47,
+          368,
+          354,
+          33,
+          1,
+          10,
+          355,
+          47,
+          31,
+          36,
+          33,
+          42,
+          1,
+          49,
+          42,
+          32,
+          1,
+          32,
+          37,
+          33,
+          1,
+          35,
+          46,
+          43,
+          354,
+          33,
+          1,
+          352,
+          30,
+          33,
+          46,
+          46,
+          29,
+          47,
+          31,
+          36,
+          49,
+          42,
+          35
+        ],
+        "positions": [
+          {
+            "advance": 786,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 568,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 568,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 618,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 631,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 818,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 561,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 568,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 631,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 731,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 621,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 568,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "vi": [
+      {
+        "font": "Latin",
+        "text": "Cô bé quàng khăn đỏ và những người bạn",
+        "glyphs": [
+          5,
+          132,
+          1,
+          30,
+          126,
+          1,
+          45,
+          49,
+          121,
+          42,
+          35,
+          1,
+          39,
+          36,
+          138,
+          42,
+          1,
+          140,
+          196,
+          1,
+          50,
+          121,
+          1,
+          42,
+          36,
+          228,
+          42,
+          35,
+          1,
+          42,
+          35,
+          148,
+          210,
+          37,
+          1,
+          30,
+          150,
+          42
+        ],
+        "positions": [
+          {
+            "advance": 771,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 621,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 655,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 736,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 723,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 621,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "th": [
+      {
+        "font": "Thai",
+        "text": "เจ้าหญิงน้อยกับเพื่อนในป่าแสนมหัศจรรย์",
+        "glyphs": [
+          84,
+          4,
+          41,
+          79,
+          17,
+          122,
+          85,
+          51,
+          64,
+          41,
+          65,
+          121,
+          25,
+          39,
+          3,
+          84,
+          70,
+          94,
+          38,
+          65,
+          64,
+          82,
+          64,
+          73,
+          37,
+          79,
+          80,
+          103,
+          64,
+          50,
+          17,
+          39,
+          101,
+          4,
+          74,
+          74,
+          121,
+          104
+        ],
+        "positions": [
+          {
+            "advance": 266,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 532,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 9,
+            "yOffset": 0
+          },
+          {
+            "advance": 406,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 587,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 909,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 537,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 613,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 574,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 594,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": -2,
+            "yOffset": 0
+          },
+          {
+            "advance": 604,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 276,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 695,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 6,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": -59,
+            "yOffset": 0
+          },
+          {
+            "advance": 574,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 613,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 283,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 613,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 605,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 1,
+            "yOffset": 0
+          },
+          {
+            "advance": 406,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 558,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 572,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 613,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 614,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 587,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 23,
+            "yOffset": 0
+          },
+          {
+            "advance": 628,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 532,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 488,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 488,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 594,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 0,
+            "xOffset": 8,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "ms": [
+      {
+        "font": "Latin",
+        "text": "Pengembaraan si kecil di dalam hutan",
+        "glyphs": [
+          18,
+          33,
+          42,
+          35,
+          33,
+          41,
+          30,
+          29,
+          46,
+          29,
+          29,
+          42,
+          1,
+          47,
+          37,
+          1,
+          39,
+          33,
+          31,
+          37,
+          40,
+          1,
+          32,
+          37,
+          1,
+          32,
+          29,
+          40,
+          29,
+          41,
+          1,
+          36,
+          49,
+          48,
+          29,
+          42
+        ],
+        "positions": [
+          {
+            "advance": 768,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 943,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 621,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 600,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 568,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 655,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 943,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 612,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ],
+    "id": [
+      {
+        "font": "Latin",
+        "text": "Petualangan kelinci kecil dan teman-temannya",
+        "glyphs": [
+          18,
+          33,
+          48,
+          49,
+          29,
+          40,
+          29,
+          42,
+          35,
+          29,
+          42,
+          1,
+          39,
+          33,
+          40,
+          37,
+          42,
+          31,
+          37,
+          1,
+          39,
+          33,
+          31,
+          37,
+          40,
+          1,
+          32,
+          29,
+          42,
+          1,
+          48,
+          33,
+          41,
+          29,
+          42,
+          78,
+          48,
+          33,
+          41,
+          29,
+          42,
+          42,
+          53,
+          29
+        ],
+        "positions": [
+          {
+            "advance": 768,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 781,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 590,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 655,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 655,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 643,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 331,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 360,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 658,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 300,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 943,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 450,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 542,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 672,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 943,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 721,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 616,
+            "xOffset": 0,
+            "yOffset": 0
+          },
+          {
+            "advance": 742,
+            "xOffset": 0,
+            "yOffset": 0
+          }
+        ]
+      }
+    ]
+  },
+  "languages": [
+    "ko",
+    "en",
+    "ja",
+    "zh",
+    "es",
+    "fr",
+    "de",
+    "vi",
+    "th",
+    "ms",
+    "id"
+  ],
+  "actualTitlesShaped": 2415,
+  "notdefGlyphs": 0,
+  "visualReview": "Actual Chromium 11-language 38px/18px proof and library 5 available locales reviewed; see browser-review.json",
+  "sourceAuthorship": "original Korean and preserved TangoBook lettering + explicitly attributed OFL Noto compatible glyphs"
+}

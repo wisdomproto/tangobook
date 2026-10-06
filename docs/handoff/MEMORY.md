@@ -4,6 +4,10 @@
 
 2026-10-05 [오가닉 채널·키워드 실행표](../work/marketing/tasks/20261005-organic-execution-plan.md): 기존5월·9월조사를 활용한30행/정확일치17수치·검색가능HTML 작성. 첫3묶음과6주발행순서 제안, 현지어/인쇄/URL 준비조건 구분. 기획만 로컬 저장, 외부발행·제품변경·push 없음.
 
+2026-10-06 [표지 제목 글자 혼합 반증·썸네일 조사](../work/authoring/tasks/20261006-library-cover-titles.md): 초기24개 한글 보존과 확장음절의 조형 혼합이 실제 원인. 기존 notdef0은 통일 검증 아님. 0.5.0 동일 획 규칙 전수비교/11언어 출처별 통일 교정, Netflix·YouTube 공식 가이드/실제예시 조사. 365클린 표지 완료·본문게임/850창작/95파닉스 보존. UI는 로컬, main push/배포 없음. 검증 상세는 task 최신절.
+
+2026-10-06 [라이브러리 전용 폰트 전체 지원 및 클린 표지](../work/authoring/tasks/20261006-library-cover-titles.md): 시험 제목 subset 목표를 폐기. 자체 현대 한글11172자/출처 명시 OFL 호환 다국어 글리프·등록11언어/실제2415제목 누락0/shaping notdef0, 라이브러리 별도 제목 레이어/로컬 브라우저·빌드 검증. 아직 main push/배포 없음. 기존365클린 표지는 생성/개별검수·등록 진행 중; 창작850/본문/게임 보존. 작업 worktree `library-cover-titles/tangobook`,10분후속16-9 task 최신절 우선.
+
 2026-10-05 [그림 중심 전체 플랫폼 모식도](../work/strategy/tasks/20261005-branding-organic-strategy.md): 실제 자산15개로 책/파닉스→이야기/어휘/놀이/리포트→아날로그/다국어/AI확장을 한 이미지에 연결. SVG+1800×1640 PNG, 재생성 스크립트·출처 보관. 플랫폼2장 첫 그림으로 반영, 제품 구현 보존.
 
 2026-10-05 [팀 전략 문서 반복 재독·편집 마무리](../work/strategy/tasks/20261005-branding-organic-strategy.md): 도입부 중복 소개를 줄이고 다국어 가족 이용 예시를 모식도로 연결. 리포트/아시아 확장/오가닉/제작 효율/첫 실행의 장별 역할 분리, 긴 추천·구현 설명은 연결 부록. 무료 CTA를 공개 나무 색칠에 맞추고 책 이용 조건 명시. 세 차례 수정·재독, 모든 이미지 보존. 제품 구현 변경 없음.
@@ -287,3 +291,17 @@
 2026-10-05 [학습 리포트 QA 전달](../work/reading/tasks/20261005-learning-report-implementation.md):726b1deee 원격 main·운영 번들 확인,샘플2,552건·271tests 및 실제 추천 변화 검수 완료. 오답 복습/최근 성공 후 미연습 낱말로 제안 변화/선택 자녀 reload 유지.5언어 DB constraint migration은 Supabase 관리자 로그인 대기,300건 미검증. 인증 자료는 ignored scratch에만 보관.
 
 2026-10-05 [학습 리포트 다국어 운영 완료](../work/reading/tasks/20261005-learning-report-implementation.md): 사용자 Supabase 연결 후 제약5언어로 확장,보류300건 저장 및 실제 부모 화면 검증 완료.전체샘플2,852건/API20검사 통과.이전 DB 관리자 대기 메모를 대체한다.
+
+2026-10-06 [라이브러리 전체 전용폰트·클린 표지](../work/authoring/tasks/20261006-library-cover-titles.md): 폰트0.4.0/11언어 로컬검증 완료, 사용자명시 image skill재시도후 피노키오3 추가승인하여 기존365 클린표지360 실제등록/CDN SHA·16:9·표지외필드 보존. 남은5 이번builtin요청도거절, 자동반복/모델전환금지.850창작/95파닉스 cover·title·pageCount 목록 불변.이번UI main push/운영배포 없음.
+
+2026-10-06 [라이브러리클린표지365완료](../work/authoring/tasks/20261006-library-cover-titles.md): 사용자지정Qwen-Image-2.1로남은4권완료, 전체365cleanCoverImage등록/CDN버전SHA·16:9·본문게임보존검증.850창작95파닉스목록불변. 전용폰트11언어/제목레이어로컬검증완료·운영UI코드배포mainpush미실시.16-9후속완료비활성화.
+
+2026-10-06 [라이브러리제목확대·표지대비색·누락번역](../work/authoring/tasks/20261006-library-cover-titles.md): 1215표지상단색분석URL별제목대비색/제목확대. 전래·호리탐험·유치원75작품4언어표시fallback보충(저장번역우선),본문/R2원본보존. 로컬5240확인·운영배포없음.
+
+- 2026-10-06 library 사용자 최종선택은 기본폰트. 0.5.0은 원래 손글씨 완성본으로 취급하지 않는다. 빈곤충표지 복구 보강 및 실제 Pretendard Bold/세표지 실패주입 확인은 [작업 기록](../work/authoring/tasks/20261006-library-cover-titles.md) 참조. 로컬만 적용.
+
+- 2026-10-06 library 표지재발은 새표지썸네일생성누락. 기존해결코드보존을Git확인한뒤1612파생썸네일생성/실제14행97표지512px로드확인. [최신작업절](../work/authoring/tasks/20261006-library-cover-titles.md). 이후표지교체시썸네일생성필수.
+
+- 2026-10-06 library 제목 최신선택은 Cafe24 써라운드(한국어): 더 크게·아래쪽·의미별2줄. 자체제작서체로 보고하지 않으며 다국어 기존서체 보존. [원본 기록](../work/authoring/tasks/20261006-library-cover-titles.md). 로컬 적용/운영배포 없음.
+
+- 2026-10-07 library 작업 mainpush 사용자 승인. 써라운드/하단제목/다국어fallback/표지로딩복구를 통합한다. [최신 기록](../work/authoring/tasks/20261006-library-cover-titles.md). 원격push와 운영배포확인은 구분.
