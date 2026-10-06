@@ -331,3 +331,5 @@
 - 2026-10-06 [도브테일 거치결합](../work/hardware/tasks/20261006-14x14-friction-cradle.md): 사용자선택으로단순탭→210mm도브테일옆슬라이드, HTML옆분리보기/CAD/STL갱신. 실물강도미검증.
 
 - 2026-10-06 [레일·태블릿홈 라운딩](../work/hardware/tasks/20261006-14x14-friction-cradle.md): 노출레일R1.2/진입R0.5·홈안팎R0.8, CAD맞물림·닫힌STL확인.
+
+- 2026-10-06 **탱고 카메라 버전** 최종명명·사용자mainpush요청. [다른세션 재개 문서](../../hardware/studboard/TANGO-CAMERA.md)에최종설계·파일·검증한계정리. 제조판CAD돌기통합/실물끼움·하중·카메라화각은후속.

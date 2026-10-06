@@ -1,4 +1,4 @@
-"""14×14 격자판과 마찰 탭 결합 태블릿 거치부 시안. CadQuery/trimesh 필요."""
+"""탱고 카메라 버전: 14×14 격자판과 도브테일 태블릿 거치부. CadQuery/trimesh 필요."""
 import base64,json,re,struct
 from pathlib import Path
 import cadquery as cq
