@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-06 [가상 육아 인플루언서 집·가구 샘플](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md): 레퍼런스는 Instagram `@__siu.mom`(앞서 찾은 xoxo.siwoo는 다른 분). 사용자 핵심은 부러울 만큼 깔끔한 집·엄마 미등장 가능·집과 가구 실제3D. 로컬 Qwen 독서 이미지1장 및 Blender 집/가구17그룹·GLB·localhost5191 뷰어 제작/브라우저 표본 확인. 별도 codex/marketing-virtual-parenting worktree, main 미통합·미푸시. 상세/소스/산출물 경로는 작업 기록 참조. AI 이미지는 3D 렌더와 다른 분위기 시안이며 아이3D/영상은 아직 없음.
+
 2026-10-06 [표지 제목 글자 혼합 반증·썸네일 조사](../work/authoring/tasks/20261006-library-cover-titles.md): 초기24개 한글 보존과 확장음절의 조형 혼합이 실제 원인. 기존 notdef0은 통일 검증 아님. 0.5.0 동일 획 규칙 전수비교/11언어 출처별 통일 교정, Netflix·YouTube 공식 가이드/실제예시 조사. 365클린 표지 완료·본문게임/850창작/95파닉스 보존. UI는 로컬, main push/배포 없음. 검증 상세는 task 최신절.
 
 2026-10-06 [라이브러리 전용 폰트 전체 지원 및 클린 표지](../work/authoring/tasks/20261006-library-cover-titles.md): 시험 제목 subset 목표를 폐기. 자체 현대 한글11172자/출처 명시 OFL 호환 다국어 글리프·등록11언어/실제2415제목 누락0/shaping notdef0, 라이브러리 별도 제목 레이어/로컬 브라우저·빌드 검증. 아직 main push/배포 없음. 기존365클린 표지는 생성/개별검수·등록 진행 중; 창작850/본문/게임 보존. 작업 worktree `library-cover-titles/tangobook`,10분후속16-9 task 최신절 우선.

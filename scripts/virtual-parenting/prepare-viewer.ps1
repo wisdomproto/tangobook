@@ -1,0 +1,12 @@
+param([string]$OutputDirectory='D:/ComfyUI-output/virtual-parenting-20261006')
+$ErrorActionPreference='Stop'
+$taskRoot=[System.IO.Path]::GetFullPath($OutputDirectory)
+$taskVendor=Join-Path $taskRoot 'vendor'
+New-Item -ItemType Directory -Force -Path $taskRoot,$taskVendor,"$taskVendor/addons/controls","$taskVendor/addons/loaders","$taskVendor/addons/utils" | Out-Null
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'index.html') -Destination (Join-Path $taskRoot 'index.html')
+$taskFiles=@('build/three.module.js','build/three.core.js','examples/jsm/controls/OrbitControls.js','examples/jsm/loaders/GLTFLoader.js','examples/jsm/utils/BufferGeometryUtils.js','LICENSE')
+foreach($taskFile in $taskFiles){
+    $taskRelative=if($taskFile.StartsWith('build/')){$taskFile.Substring(6)}elseif($taskFile.StartsWith('examples/jsm/')){'addons/'+$taskFile.Substring(13)}else{'THREE-LICENSE.txt'}
+    Invoke-WebRequest -Uri "https://cdn.jsdelivr.net/npm/three@0.180.0/$taskFile" -OutFile (Join-Path $taskVendor $taskRelative)
+}
+Write-Output "Viewer prepared: $taskRoot"
