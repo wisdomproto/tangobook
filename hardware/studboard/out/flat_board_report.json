@@ -1,0 +1,33 @@
+{
+  "triangle_count": 18804,
+  "bounds_mm": [
+    226.0,
+    225.35,
+    9.6
+  ],
+  "feet_plate_bounds_mm": [
+    225.99151155212894,
+    37.847569931298494,
+    28.12470817565918
+  ],
+  "feet_triangle_count": 20736,
+  "feet_simplification_mm": 0.01,
+  "flat_bottom": true,
+  "watertight": true,
+  "foot_count": 4,
+  "printed_parts": 4,
+  "plate_floor_mm": 2.2,
+  "stud_radius_mm": 2.5,
+  "stud_height_mm": 2.9,
+  "stud_sides": 12,
+  "stud_bands": 3,
+  "simplification_tolerance_mm": 0.025,
+  "pin_diameter_mm": 4.8,
+  "socket_diameter_mm": 4.9,
+  "pin_depth_mm": 4,
+  "rib_peak_diameter_mm": 5.06,
+  "assembly_nominal_interference_mm3": 0,
+  "block_collision_mm3": 0.0,
+  "physical_test": false,
+  "support_note": "plate flat-bottom down; rear foot/rail bridge may need local support"
+}
