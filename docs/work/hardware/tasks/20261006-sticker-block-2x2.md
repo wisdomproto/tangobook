@@ -8,7 +8,7 @@
 - branch: main
 - worktree: C:/project/tangobook
 - integration: main 로컬 커밋
-- delivery: 미푸시·미배포
+- delivery: main push 완료·배포 미확인
 
 ## 요청과 완료 조건
 

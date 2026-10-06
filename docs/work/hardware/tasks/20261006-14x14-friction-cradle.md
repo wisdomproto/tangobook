@@ -8,7 +8,7 @@
 - branch: main
 - worktree: C:/project/tangobook
 - integration: main 로컬 커밋
-- delivery: 미푸시·미배포
+- delivery: main push 완료·배포 미확인
 
 ## 요청과 완료 조건
 
@@ -53,3 +53,7 @@ HTML새로고침·조립분리보기로형상확인. 실제출력에는리브끼
 ## 명명·인수인계·main push 요청
 
 사용자최종명명은 탱고 카메라 버전. 다른세션재개를위해 hardware/studboard/TANGO-CAMERA.md 에최종치수/도브테일/블록/재생성법/원본캐시/판쉘돌기CAD미통합/카메라화각·실물하중미검증을정리하고공통·hardware·camera메모리연결. HTML표제도탱고카메라버전으로변경. 사용자이번작업mainpush명시승인. fetch후origin/main...HEAD=0/13이며미푸시13커밋모두이번교구작업임을확인, 강제push없이일반push진행. Railway배포완료는별도미확인.
+
+## 전달 완료
+
+2026-10-06 일반push로교구코드·설계인수인계0d76a15a1까지origin/main반영. git ls-remote의원격main SHA와로컬HEAD일치·ahead/behind0/0확인. 뒤따르는전달상태기록도동일main에push한다. Railway배포·실물검증완료아님.
