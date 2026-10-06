@@ -56,7 +56,7 @@ def main():
     pattern=r'(<script id="meshData" type="application/json">)(.*?)(</script>)'
     match=re.search(pattern,html,re.S)
     data=json.loads(match[2])
-    data['block']={'b64':base64.b64encode(encoded).decode(),'centre':[120,120,17.0],'scale':100,'size':[WIDTH,WIDTH,HEIGHT],
+    data['block']={'b64':base64.b64encode(encoded).decode(),'centre':[105,105,17.0],'scale':100,'size':[WIDTH,WIDTH,HEIGHT],
                    'grid':[2,2],'socketRadius':SOCKET_R,'socketDepth':SOCKET_DEPTH,'rimHeight':RIM_HEIGHT}
     html=html[:match.start(2)]+json.dumps(data,separators=(',',':'))+html[match.end(2):]
     htmlfile.write_text(html,encoding='utf8')
