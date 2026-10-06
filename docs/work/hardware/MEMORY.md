@@ -24,3 +24,5 @@
 
 - [작업 목록](tasks/README.md)
 - [분야별 과거 메모리 검색](../LEGACY-MEMORY.md) — 파일명 기반 분류이며 본문 검토 여부와 구분한다.
+
+- 2026-10-06 [플레이탱고 인식판 전용 HTML](tasks/20261006-board-only.md): 기존 NX 추출 board/frame을 인라인으로 담은 단독 3D 뷰어. file:// Chrome 렌더 확인, 원격 push 없음.
