@@ -11,6 +11,8 @@ import re
 import numpy as np
 import trimesh
 import cadquery as cq
+import manifold3d as md
+from tablet_cradle import WIDTH, BEZEL
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).parent / 'out'
@@ -21,14 +23,14 @@ PITCH = 15.
 
 def underside_cavity():
     # Open below: 3 mm outer wall, 3 mm bezel roof and 2.2 mm grid floor.
-    cavity = (cq.Workplane('XY').box(234, 234, 18, centered=(True, True, False))
+    cavity = (cq.Workplane('XY').box(WIDTH-6, WIDTH-6, 18, centered=(True, True, False))
               .edges('|Z').fillet(12).translate((105, 105, -1)))
     grid_roof = cq.Workplane('XY').box(210, 210, 8, centered=(True, True, False)).translate((105, 105, 10.4))
     cavity = cavity.cut(grid_roof)
     # Thin crossed ribs support the broad playing surface while keeping the
     # underside open. Their lower edge stays 4.4 mm above the perimeter foot.
     for position in range(30, 210, 30):
-        for sx, sy, x, y in ((2, 236, position, 105), (236, 2, 105, position)):
+        for sx, sy, x, y in ((2, WIDTH-4, position, 105), (WIDTH-4, 2, 105, position)):
             rib = (cq.Workplane('XY').box(sx, sy, 7, centered=(True, True, False))
                    .edges('|Z').fillet(.6).translate((x, y, 4.4)))
             cavity = cavity.cut(rib)
@@ -101,6 +103,15 @@ def main():
     board.update_faces(board.nondegenerate_faces())
     board.remove_unreferenced_vertices()
     assert board.is_watertight and board.is_volume and board.body_count == 1
+    old_bounds = board.bounds.copy()
+    old_count = len(board.faces)
+    # Collapse redundant planar triangles, bounding the surface movement to
+    # 0.01 mm, rather than asking the slicer to simplify without our checks.
+    reduced = md.Manifold(md.Mesh(np.asarray(board.vertices, dtype=np.float32),
+                                 np.asarray(board.faces, dtype=np.uint32))).simplify(.01).to_mesh()
+    board = trimesh.Trimesh(vertices=reduced.vert_properties[:, :3], faces=reduced.tri_verts, process=True)
+    assert board.is_volume and board.body_count == 1 and len(board.faces) < 300000
+    assert np.max(np.abs(board.bounds - old_bounds)) < .03
     assert not board.contains([[15., 15., 1.]])[0], 'underside must remain open'
     assert board.contains([[15., 15., 10.8]])[0], 'grid floor must remain'
     board.apply_transform(trimesh.transformations.rotation_matrix(np.pi, [1, 0, 0]))
@@ -114,6 +125,8 @@ def main():
               'triangle_count': len(board.faces), 'cradle_included': False,
               'supports_included': False, 'bottom_z_mm': float(board.bounds[0, 2])}
     report.update(underside_open=True, grid_floor_nominal_thickness_mm=2.2,
+                  bezel_width_mm=BEZEL, triangles_before_simplification=old_count,
+                  simplification_surface_tolerance_mm=.01,
                   outer_wall_mm=3, bezel_roof_mm=3, rib_width_mm=2,
                   rib_pitch_mm=30, physical_print_test=False,
                   print_orientation='playing face down; support beneath grid required')

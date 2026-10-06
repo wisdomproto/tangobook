@@ -1,8 +1,8 @@
 {
   "file": "tango-camera-board-only-print.stl",
   "bounds_mm": [
-    240.0,
-    250.1300048828125,
+    226.0,
+    236.1300048828125,
     20.00000000000003
   ],
   "watertight": true,
@@ -16,12 +16,15 @@
     12.600999999999999,
     15.489996332583079
   ],
-  "triangle_count": 1429708,
+  "triangle_count": 153360,
   "cradle_included": false,
   "supports_included": false,
   "bottom_z_mm": 0.0,
   "underside_open": true,
   "grid_floor_nominal_thickness_mm": 2.2,
+  "bezel_width_mm": 8.0,
+  "triangles_before_simplification": 1431228,
+  "simplification_surface_tolerance_mm": 0.01,
   "outer_wall_mm": 3,
   "bezel_roof_mm": 3,
   "rib_width_mm": 2,

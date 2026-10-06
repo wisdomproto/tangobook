@@ -6,7 +6,9 @@ import trimesh
 ROOT=Path(__file__).resolve().parents[2]
 OUT=Path(__file__).parent/'out'
 PITCH,CELLS,GRID=15.,14,210.
-WIDTH,HEIGHT,LEAN=240.,20.,15.
+BEZEL=8.
+WIDTH,HEIGHT,LEAN=GRID+2*BEZEL,20.,15.
+BACK=GRID+BEZEL
 
 def encode(points,center=(105.,135.,10.)):
     raw=b''.join(struct.pack('<hhh',*(round((v[k]-center[k])*100) for k in range(3))) for v in points)
@@ -41,18 +43,18 @@ def main():
     pocket=(cq.Workplane('XY').box(GRID,GRID,10,centered=(True,True,False)).edges('|Z').fillet(1).translate((105,105,12.6)))
     board=board.cut(pocket)
     # 판 뒤쪽의 긴 수평 도브테일: 바깥 머리가 목보다 두꺼워 들림을 잡는다.
-    profile=[(224.5,5),(235,3),(235,15),(224.5,13)]
+    profile=[(BACK-.5,5),(BACK+10,3),(BACK+10,15),(BACK-.5,13)]
     rail=(cq.Workplane('YZ').polyline(profile).close().extrude(210)
           .edges().fillet(1.2))
     board=board.union(rail)
     shell=board.val()
     body=(cq.Workplane('XY').box(WIDTH,60,HEIGHT,centered=(True,True,False)).edges('|Z').fillet(8)
-          .faces('>Z').edges().fillet(1).translate((105,255,0)))
-    cutter=(cq.Workplane('XY').box(260,13,40,centered=(True,True,False)).edges().fillet(.8).rotate((0,0,0),(1,0,0),-LEAN).translate((105,250,5)))
+          .faces('>Z').edges().fillet(1).translate((105,BACK+30,0)))
+    cutter=(cq.Workplane('XY').box(260,13,40,centered=(True,True,False)).edges().fillet(.8).rotate((0,0,0),(1,0,0),-LEAN).translate((105,BACK+25,5)))
     holder=body.cut(cutter)
-    holder=holder.edges(cq.selectors.BoxSelector((-16,240,19.8),(226,264,20.2))).fillet(.8)
+    holder=holder.edges(cq.selectors.BoxSelector((-BEZEL-1,BACK+15,19.8),(BACK+1,BACK+39,20.2))).fillet(.8)
     # 앞면 모서리 사이 접합면을 평평하게 연결한다.
-    bridge=cq.Workplane('XY').box(220,2,HEIGHT,centered=(True,True,False)).translate((105,226,0))
+    bridge=cq.Workplane('XY').box(WIDTH-20,2,HEIGHT,centered=(True,True,False)).translate((105,BACK+1,0))
     holder=holder.union(bridge)
     # 왼쪽이 열린 암레일. 오른쪽 끝 벽이 밀어 넣는 위치를 제한한다.
     groove=(cq.Workplane('YZ').polyline(profile).close().offset2D(.10).extrude(226.1).translate((-16,0,0)))
@@ -62,7 +64,7 @@ def main():
     # 긴 레일 중 두 구간의 낮은 마찰 리브만 암레일에 살짝 닿는다.
     for x in (62.5,147.5):
         for z in (6.,12.):
-            rib=cq.Workplane('XY').box(45,.14,1.2).translate((x,235.06,z))
+            rib=cq.Workplane('XY').box(45,.14,1.2).translate((x,BACK+10.06,z))
             board=board.union(rib)
     shell=board.val();cradle=holder.val();nominal=nominal.val()
     assert shell.isValid() and cradle.isValid() and len(shell.Solids())==len(cradle.Solids())==1
@@ -76,7 +78,7 @@ def main():
     for shift in (20.,100.,230.):
         assert nominal.intersect(cradle.translate((shift,0,0))).Volume()<1e-6
     tablet=(cq.Workplane('XY').box(240,8,170,centered=(True,True,False)).edges('|Z').fillet(2)
-            .rotate((0,0,0),(1,0,0),-LEAN).translate((105,250,5))).val()
+            .rotate((0,0,0),(1,0,0),-LEAN).translate((105,BACK+25,5))).val()
     assert cradle.intersect(tablet).Volume()<1e-6
     OUT.mkdir(exist_ok=True)
     for name,shape in (('recognition-board-14x14',shell),('tablet-cradle',cradle)):
@@ -87,9 +89,9 @@ def main():
         mesh.update_faces(mesh.nondegenerate_faces());mesh.update_faces(mesh.unique_faces());mesh.remove_unreferenced_vertices()
         assert mesh.is_watertight and mesh.is_winding_consistent
         mesh.export(OUT/(name+'.stl'))
-    data['board']=part(shell);data['board'].update(size=[240,240,20],cols=14,rows=14,pitch=15)
+    data['board']=part(shell);data['board'].update(size=[WIDTH,WIDTH,20],cols=14,rows=14,pitch=15,bezel=BEZEL)
     data['grid']=encode(grid);data['cradle']=part(cradle);data['tablet']=part(tablet)
     data['block']['centre']=[105,105,17.]
     h=h[:match.start(1)]+json.dumps(data,separators=(',',':'))+h[match.end(1):];f.write_text(h,encoding='utf8')
-    print(f'14x14 cells; board 240x240x20; horizontal dovetail210mm, neck8mm/head12mm; nominal collision {bulk_collision:.6f}; friction ribs intentional overlap {press_volume:.3f} mm3; tablet collision0')
+    print(f'14x14 cells; board {WIDTH}x{WIDTH}x20; bezel {BEZEL}; horizontal dovetail210mm, neck8mm/head12mm; nominal collision {bulk_collision:.6f}; friction ribs intentional overlap {press_volume:.3f} mm3; tablet collision0',flush=True)
 if __name__=='__main__':main()
