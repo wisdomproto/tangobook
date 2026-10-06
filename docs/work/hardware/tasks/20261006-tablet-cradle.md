@@ -38,3 +38,9 @@ hardware/studboard/tablet_cradle.py가 거치부STEP/STL 및 HTML cradle/tablet 
 ## 다음 행동
 
 태블릿 모델/케이스두께 답변이 오면 슬롯 폭·길이 조정, 사용각도 검토. 실제 제작 전 거치부와 판의 접합/하중/전도 안정성 확인.
+
+## 후속: 인터넷 규격 조사·깊이 증가·기울기 감소
+
+사용자: 기종재질문하지말고인터넷조사/딱맞출필요없음/살짝뒤기울임/쓰러짐감안해깊이증가. 이후15도과한지K480비교질문. K480공식각도수치없으므로 수직15=수평75를명확히설명하고 정확한K480각도는확인못했다고보고. 비공식50도리뷰는기술설계의확정근거로채택하지않음. Apple공식iPad10세대7mm(https://support.apple.com/en-asia/111840), Samsung공식A9 8mm(https://www.samsung.com/za/tablets/galaxy-tab-a/galaxy-tab-a9-wifi-gray-64gb-sm-x110nzaaafa/) 조사.
+
+초안 홈길이260/폭13 유지여유·수직에서뒤로10도·수평80도, 삽입깊이약36mm(이전20)로변경. 거치부270×62×42mm, y253~315/전체270×330mm. 가상태블릿CAD간섭0/단일유효솔리드/STLwatertight·winding/HTML구문/Chrome예시렌더육안검수(tango-cradle-deep.png)통과. 넓은홈에서얇은태블릿실제각도는접촉위치따라달라짐. 깊이증가는하단지지개선안이며 실제하중/전도안정성/실물착탈검증완료 아님. 실기종맞춤요구는폐기, 실제출력검증후속.
