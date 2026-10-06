@@ -135,3 +135,9 @@ docs/changjak-books/*/_scene-drafts/
 
 # 창작동화 삽화 로컬 산출물 — 검수 전 단계라 저장소에 안 넣는다(진실은 R2).
 .draw/
+
+# Large board print mesh; regenerate with hardware/studboard/board_print.py.
+hardware/studboard/out/tango-camera-board-only-print.stl
+hardware/studboard/out/board_viewer_check.js
+hardware/studboard/out/board_open_bottom.png
+hardware/studboard/__pycache__/

@@ -36,6 +36,8 @@ HTML의 `boardBase`는 반복 재생성을 위한 기존16×16 메시 원본, `m
 
 ## 검증과 아직 해야 할 일
 
+2026-10-07 출력판 후속: [하부 개방 판 단독 기록](../../docs/work/hardware/tasks/20261007-open-bottom-board-print.md). `python hardware/studboard/board_print.py`로 격자 돌기까지 포함한 `out/tango-camera-board-only-print.stl` 생성. 기존 CAD쉘 STL과는 다른 출력용 메시이며 열린 NX표면을0.25mm높이샘플로 닫아 합친 근사이다. 아래는2mm교차리브/30mm피치로 개방, 놀이면2.2mm·외벽3mm 유지. 놀이면아래 방향·서포트 필요, 실출력/전도검증은미실시. HTML도하부개방쉘로갱신되며 원본 grid는보존. tablet_cradle.py를재실행하면원래쉘로돌아가므로 그후 board_print.py를실행한다. 거치대치수는변경하지않았다.
+
 CAD 판쉘·거치부는 각 유효한 단일 솔리드. 리브를 제외한 조립 본체 간섭0; 들림1mm/뒤로 당김3mm는 도브테일에 막히고, 옆 슬라이드20/100/230mm는 본체 간섭0. 마찰 리브의 의도적 교차부피6.48mm³는 압입 시안이며 실제 조립력을 증명하지 않는다. 가상240×8×170mm 태블릿 CAD 간섭0. STEP/STL 생성 및 STL watertight/winding, HTML JS구문, Chrome file:// 렌더를 확인했다. 라운드 경계의 면적0 STL삼각형은 생성 스크립트에서 제거하고 다시 검증한다.
 
 **판쉘 STEP/STL에는 NX 돌기·미세 격자 표면이 아직 통합되지 않았다.** HTML은 별도 `grid` 메시로 원래 형상을 표시한다. 판쉘 STL을 돌기까지 완성된 출력판으로 취급하지 않는다. 다음 제작 작업은 이 표면을 제조용 CAD에 통합하고, 도브테일 공차 쿠폰/실물 조립력/태블릿 하중·넘어짐/아이 손에 닿는 촉감을 검증하는 것이다.
