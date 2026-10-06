@@ -20,3 +20,34 @@ $env:DISABLE_PUBLISH_SCHEDULER='1'
 http://127.0.0.1:5191/ 에서 회전/확대/이동, 집 전체/평면/독서/거실 시점, 거실 옆벽 표시, 가구만 보기, 가구 목록/직접 선택과 설계 치수를 확인한다. 앞쪽·천장 없는 cutaway로 구성하며 옆벽은 기본 숨김이다. 표시 치수는 자산 설명용 설계값이며 glTF mesh bounds 실측이 아니다.
 
 Qwen-Image-2.1의 아이 독서 이미지(`reading-home-v1.png`)는 분위기 확인용 별도 시안이다. 3D 모델로부터 렌더링한 이미지가 아니며 배치가 완전히 일치하지 않는다. 3D 집에는 아직 아이 모델/리깅/영상이 없다.
+
+## 네 시점의 이미지와 카메라 비교
+
+```powershell
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/render_shots.py -- D:/ComfyUI-output/virtual-parenting-20261006
+& C:/ComfyUI_windows_portable/python_embeded/python.exe scripts/virtual-parenting/generate_shots.py D:/ComfyUI-output/virtual-parenting-20261006
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/export_furniture.py -- D:/ComfyUI-output/virtual-parenting-20261006
+& scripts/virtual-parenting/prepare-viewer.ps1
+```
+
+생성기는 기존 로컬 Qwen2.1 워크플로(`reading-home-v1-api.json`)와 Comfy8190/input 경로를 사용한다. 실행 전 큐를 확인하며, `/interrupt`나 전역 큐 삭제는 하지 않는다. 생성 결과는 육안 확인 전 자동 승인하지 않는다. 재실행 시 Comfy 원본 파일 번호/history는 보존되지만 뷰어가 쓰는 photo.png는 최신 결과로 갱신되므로 선택본 변경 전 별도 보관한다.
+
+http://127.0.0.1:5191/comparison.html : 왼쪽 사진/3D원본 겹침 슬라이더, 오른쪽 실제 촬영 카메라의 위치·방향·시야와 동일 POV. 장면4개는 독서 정면/창가 측면/거실/주방. Blender의 카메라 frame을 glTF 좌표로 변환해 시야를 표시한다. AI 이미지는 이 렌더를 참조한 재해석이며 정확한 기하 보존을 보장하지 않는다. `shots.json`의 검수 메모와 원본 비교로 실제 차이를 확인한다.
+
+`family-home-cameras-v1.blend/.glb`는 같은 가구에 실내 촬영용 천장과4카메라를 추가한 버전이다. 원래 cutaway 파일을 덮어쓰지 않는다. `furniture/`에는 원본과 같은13그룹을 바닥 기준 원점으로 옮겨 별도 GLB로 저장한다. `furniture.json`은 파일과 원래 집 배치를 연결한다.
+
+## 사진 질감 시험
+
+`generate_shots.py <출력폴더> --real reading-front`는 카메라 원본을 첫 번째 참조, `reading-home-v1.png`의 창가·빛 부분을 크롭해 사진 질감용 두 번째 참조로 사용한다. 새 파일은 `*-real-v5-photo.png`로 구분해 기존 결과를 보존한다. 두 번째 참조의 인물·집 배치를 복사하지 않도록 프롬프트에서 역할을 구분한다. 이 참조 역시 생성 이미지이며 실제 촬영 사진은 아니다.
+
+`--faithful`은 원본을 VAE 인코딩하고 denoise0.45로 구조를 강하게 보존하는 비교 시험이다. 형태 유지에는 유리하지만 단순 모델의 렌더 느낌이 남아 사용자가 요구한 실사감에는 부족했다. 두 모드는 동시에 사용하지 않는다. 모든 시점이 검수된 후 `shots.json`의 image/variants/review를 갱신하며, 재생성 직후 자동으로 선택본을 바꾸지 않는다.
+
+
+## 선택된 실사 이미지
+
+사용자 요청으로 Qwen 시험 후 imagegen 스킬의 built-in image_gen으로 전환했다. 네 시점 `*-image-skill-v1.png`를 worktree의 `output/virtual-parenting/` 및 D드라이브 `shots/`에 보존한다. `image-skill-prompts.json`에 네 요청 원문이 있다. 사진을 만든 실행 도구는 built-in이며 Qwen 생성 스크립트로 이 결과를 재현할 수 없다. 별도 CLI/API fallback은 사용하지 않았다.
+
+비교 뷰어는 shots.json의 variants 첫 항목인 Image skill을 기본 선택한다. 기존Qwen판도 고를 수 있다. 주요 가구/배치는 유지됐으나 AI가 소파 좌석 분할, 조명, 일부 소품을 재해석했다. 이 차이는 버전별 검수메모에 표시한다. 같은 카메라는3D 원본/오른쪽 POV의 불변 기준이며 생성 사진의 정확한 기하 보존을 보장하는 표시가 아니다.
+
+
+사용자 후속 요청으로 동일 가상 아이의 독서/퍼즐/책 고르기3장을 추가했다. `*-child-v1.png`, `child-image-prompts.json`을 같은 출력폴더에 보존한다. 해당3시점의 기본 variant는 아이 버전이고, 빈 집 Image skill판도 선택 가능하다. 아이는2D 생성으로 추가했으며3D 모델/리깅이 아니다. 퍼즐 의자 위치와 작은 소품 변화는 검수 메모에 기록했다.
