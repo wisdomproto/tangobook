@@ -249,15 +249,19 @@ def rounded_contact_shoe():
     # Return the toe toward the rear: a phone rising from below meets a cam,
     # not a horizontal underside. Keep the upper circular gripping face so
     # the existing axle, phone angles and body interfaces remain compatible.
-    toe_z=b.CONTACT_Z_LO-.7
+    # A 1.2 mm return radius replaces the tiny 0.3 mm nose. Move its center
+    # upward so the lowest point and rear envelope do not grow into the tray.
+    toe_r=1.2
+    toe_z=b.CONTACT_Z_LO-.7+(toe_r-.3)
+    toe_y=11.8-toe_r
     join_z=b.CONTACT_CENTER_Z+1.2
     end_y=b.contact_front_y(join_z)
     end_tangent=1.2/math.sqrt(b.CONTACT_R**2-1.2**2)*(join_z-toe_z)
-    arc=[(11.5+.3*math.cos(-math.pi*i/16),toe_z+.3*math.sin(-math.pi*i/16)) for i in range(17)]
+    arc=[(toe_y+toe_r*math.cos(-math.pi*i/32),toe_z+toe_r*math.sin(-math.pi*i/32)) for i in range(33)]
     for i in range(25):
         u=i/24
         if not i:continue
-        controls=[(11.2,toe_z),(11.2,toe_z+1),
+        controls=[(toe_y-toe_r,toe_z),(toe_y-toe_r,toe_z+.8),
                   (end_y-end_tangent/(join_z-toe_z)*.4,join_z-.4),(end_y,join_z)]
         weights=[(1-u)**3,3*(1-u)**2*u,3*(1-u)*u*u,u**3]
         arc.append(tuple(sum(p[j]*w for p,w in zip(controls,weights)) for j in (0,1)))
@@ -271,7 +275,7 @@ def rounded_contact_shoe():
           .close().extrude(b.CONTACT_W))
     # Round the toe's width corners with a section mask. OCC cannot roll the
     # nearly tangent return-spline seam reliably with a whole-rim fillet.
-    mask=b.box(-b.CONTACT_W/2,b.CONTACT_W/2,0,25,toe_z-.3,b.CONTACT_BLEND_Z+.2).edges('|Y').fillet(.8)
+    mask=b.box(-b.CONTACT_W/2,b.CONTACT_W/2,0,25,toe_z-toe_r,b.CONTACT_BLEND_Z+.2).edges('|Y').fillet(.8)
     return shoe.intersect(mask)
 
 FOAM_FACE_ANGLE=5.0
