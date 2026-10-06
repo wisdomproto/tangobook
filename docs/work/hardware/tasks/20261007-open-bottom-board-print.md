@@ -28,6 +28,8 @@
 
 ## 전도 검토
 
+2026-10-07 후속 HTML 명시갱신 요청: 하부개방/놀이면2.2mm/리브표시와 판단독STL 다운로드링크를 헤더에 추가, `#bottom` 초기뷰 지원. 링크대상실제파일과JS구문 확인. STLgeometry 추가변경 없음. 다운로드요청으로 사용자Downloads에도 `tango-camera-board-only-open-bottom.stl` 복사했다.
+
 현재 거치부는 뒤끝Y285mm, 예시태블릿 중심Y약272mm(높이170mm/수직뒤15°). 가정높이300mm에서는 슬롯기준 단순중심Y약288.8mm가 되어 거치대뒤끝 밖이다. 전체 전도는 판·거치대·태블릿의 합성무게중심 및 손누름힘으로 판단해야 한다. 판만 가벼워졌다고 곧바로 들린다고 단정하지 않는다. 범용안은 거치대뒤쪽바닥확장이 효율적이나 사용자 치수변경 승인/구현은 이번에 없었다.
 
 사용자 인터넷조사 요청: 2026-10-07 제조사 공식 Wi-Fi 사양 [iPad mini](https://www.apple.com/ipad-mini/specs/)293g, [iPad A16](https://www.apple.com/ie/ipad-11/specs/)477g, [iPad Air](https://www.apple.com/ipad-air/specs/)11인치464g/13인치616g, [Galaxy Tab S11/Ultra](https://news.samsung.com/uk/meet-samsung-galaxy-tab-s11-series-packing-everything-you-expect-from-a-premium-tablet)469g/692g를 확인. 11인치급약460~480g·대형약620~700g 표본이며 시장전체 통계가 아니다. 케이스 포함1kg은 검토용 가정으로 제안했고 실제허용하중/시험통과라고 주장하지 않는다. agent-reach 검색지침을읽었으나mcporter부재로기본웹검색을사용했다.
