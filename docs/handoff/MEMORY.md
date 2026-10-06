@@ -319,3 +319,5 @@
 - 2026-10-06 [2×2블록 닫힌옆면](../work/hardware/tasks/20261006-sticker-block-2x2.md): 5.5mm높이/내부홈4개/반칸이동 배치. 기존9개열린홈 대체, CAD간섭0·닫힌STL 확인.
 
 - 2026-10-06 [2×2블록 바닥원복](../work/hardware/tasks/20261006-sticker-block-2x2.md): 원래9홈 복원·5.5mm높이 유지, 기존4홈안 폐기.
+
+- 2026-10-06 [인식판 태블릿거치홈](../work/hardware/tasks/20261006-tablet-cradle.md): 공식K480형긴홈 참고, 250×13mm·뒤로15도 초안 및HTML예시추가. 태블릿기종/실물안정성 미확정.
