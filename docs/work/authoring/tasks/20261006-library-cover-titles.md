@@ -132,3 +132,11 @@ TangoBook 제안 수치는 플랫폼 공식 규격 또는 평균 계측값이 �
 사용자 추가 '우리 폰트 두께가 너무 작은가 글씨가 잘 안보이네' 반증에 BookCover 제목 렌더weight400→700, textstroke0.055em→0.035em로 조정. 소스Regular를 title rendering에서 Chromium synthetic bold로 표시하며 실제Bold 원본 제작으로 보고하지 않는다. 본문/UI 기본폰트는 유지. 실제KO library 새스크린샷은 변경후 기록/신데렐라 customfont4 확인. 썸네일 위치별 디자인 제안은 조사 기록이며 이 변경에서 전체 표지 위치를 자동재배치하지 않았다.
 
 관련 BookCover 테스트10개/클라이언트 build 통과(기존 Browserslist·큰chunk·lottie eval 경고). Python 검증 환경에서 uharfbuzz가 없었던1차는 실패로 구분하고 동일 Python환경에 설치 후 실제shaping 재실행 통과. 사용자 브라우저 2탭/기존서버·다른작업·공개이미지 보존; local5240 즉시 적용, main push/운영코드배포 없음.
+
+## 사용자 기본 폰트 선택 및 빈 표지 후속 — 2026-10-06
+
+사용자는 0.5.0이 원래 손글씨 전용 디자인이 아니라는 반증 뒤 '그럼 일단 기본 폰트로 하자'를 선택했다. 0.5.0은 한글 규칙 기반 재구성+타 문자권 Noto이며 원래 B 손글씨 디자인을 보존한 완성본으로 취급하지 않는다. BookCover 전용 family override를 제거하고 앱 기본 body 서체를 상속한다. 실제 headlessEdge 무당벌레 제목 CDP Pretendard Variable / PretendardVariable-Bold / glyph4 확인. 중국어·태국어는 기존 body의 Noto Sans SC/Thai 설정을 상속하며 제목 번역·색·크기는 보존. 전용 폰트 파일/원본 소스는 삭제하지 않았다.
+
+사용자 스크린샷 곤충 행 무당벌레/개미/호랑나비 빈 표지 반증. 별도 headlessEdge 실제 현재 원본 URL 세 장 모두1536px 정상응답으로 확인되어 사용자 세션의 정확한 요청 실패 원인을 재현했다고 단정하지 않는다. 코드상2.5초 watchdog이 느린 원본 요청을 재마운트하며 4회 한도 후 복구 선택이 없었다. 감시를12초로 늘리고 썸네일 스톨에도 원본으로 폴백·eager 로드한다. onError 지연타이머는 소스/재시도 변경·로드 성공·unmount 때 정리한다. 재시도 한도 뒤 직접 다시 불러오기 버튼 추가(카드 링크 전파/이동 방지).
+
+회귀17개 통과, client typecheck 통과. 실제 headlessEdge 네트워크실패1회 주입 뒤 세 곤충표지 모두naturalWidth1536 및 Pretendard Bold 확인. 증거 D:/ComfyUI-output/library-clean-covers-20261006/default-font-cover-recovery.json 및 png. 1차 브라우저검증은 재마운트 중 detached locator로 실패; 안정된 부모를 스크롤한 재실행만 성공증거. 사용자 탭/서버/기존365표지/850창작/파닉스 데이터 변경 없음. 이번 코드는 로컬5240 적용, mainpush/운영배포 없음.

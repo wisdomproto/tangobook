@@ -48,10 +48,32 @@ describe('BookCover — 스톨 복구', () => {
     expect(srcOf()).not.toContain('cb=');
 
     // 스톨 시간 경과 → 재요청(캐시버스트 쿼리 부착)
-    act(() => vi.advanceTimersByTime(3000));
+    act(() => vi.advanceTimersByTime(12_000));
+    // 응답 없는 썸네일을 먼저 원본으로 폴백하고 즉시 로드한다.
+    expect(srcOf()).toBe(BOOK.coverImage);
+    expect(screen.getByRole('img').getAttribute('loading')).toBe('eager');
+    act(() => vi.advanceTimersByTime(12_000));
     expect(srcOf()).toContain('cb=1');
     // 🔴 재요청은 lazy 를 풀고 즉시 받아야 한다 — lazy 인 채면 안 뜨던 조건이 그대로다.
     expect(screen.getByRole('img').getAttribute('loading')).toBe('eager');
+  });
+
+  it('느린 원본을 2.5초마다 중단하지 않는다', () => {
+    render(<BookCover book={BOOK} lang="ko" />);
+    act(() => screen.getByRole('img').dispatchEvent(new Event('error')));
+    act(() => vi.advanceTimersByTime(10_000));
+    expect(srcOf()).toBe(BOOK.coverImage);
+    act(() => screen.getByRole('img').dispatchEvent(new Event('load')));
+    act(() => vi.advanceTimersByTime(20_000));
+    expect(srcOf()).toBe(BOOK.coverImage);
+  });
+
+  it('재시도 한도 뒤에도 사용자가 빈 표지를 다시 불러올 수 있다', () => {
+    render(<BookCover book={BOOK} lang="ko" />);
+    for (let i = 0; i < 5; i++) act(() => vi.advanceTimersByTime(12_000));
+    act(() => screen.getByRole('button').click());
+    expect(srcOf()).not.toContain('cb=');
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
   it('로드가 끝나면 감시가 풀려 재요청하지 않는다', () => {

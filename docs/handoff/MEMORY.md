@@ -293,3 +293,5 @@
 2026-10-06 [라이브러리클린표지365완료](../work/authoring/tasks/20261006-library-cover-titles.md): 사용자지정Qwen-Image-2.1로남은4권완료, 전체365cleanCoverImage등록/CDN버전SHA·16:9·본문게임보존검증.850창작95파닉스목록불변. 전용폰트11언어/제목레이어로컬검증완료·운영UI코드배포mainpush미실시.16-9후속완료비활성화.
 
 2026-10-06 [라이브러리제목확대·표지대비색·누락번역](../work/authoring/tasks/20261006-library-cover-titles.md): 1215표지상단색분석URL별제목대비색/제목확대. 전래·호리탐험·유치원75작품4언어표시fallback보충(저장번역우선),본문/R2원본보존. 로컬5240확인·운영배포없음.
+
+- 2026-10-06 library 사용자 최종선택은 기본폰트. 0.5.0은 원래 손글씨 완성본으로 취급하지 않는다. 빈곤충표지 복구 보강 및 실제 Pretendard Bold/세표지 실패주입 확인은 [작업 기록](../work/authoring/tasks/20261006-library-cover-titles.md) 참조. 로컬만 적용.

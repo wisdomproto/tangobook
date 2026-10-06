@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { coverTitleFont } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 import { resolveCover, type CoverInput } from './bookCover.util';
 import titleColors from './cover-title-colors.json';
@@ -14,7 +13,7 @@ const MAX_COVER_RETRIES = 4;
 // peach 플레이스홀더인 채 멈춘다 = "한번 안 뜨면 계속 안 뜸"의 남은 절반.
 // → 카드가 화면에 들어온 뒤 이 시간 안에 로드가 안 끝나면 강제로 remount 해 재요청한다.
 //   (화면에 들어왔을 때만 재기 때문에 lazy 의 이점은 유지된다.)
-const COVER_STALL_MS = 2500;
+const COVER_STALL_MS = 12_000;
 
 // 🔴 표지 원본은 1536px(~125KB)인데 카드는 160~256px 로 그린다 — 라이브러리 한 화면이
 // 표지만 ~11MB. 그래서 512px webp 썸네일(~27KB)을 먼저 쓴다.
@@ -75,6 +74,8 @@ export function BookCover({
   const [loaded, setLoaded] = useState(false);
   // 썸네일이 없는(아직 안 구운) 표지는 404 → 한 번만 원본으로 내려간다.
   const [thumbFailed, setThumbFailed] = useState(false);
+  const errorTimer = useRef<number>();
+  useEffect(() => () => window.clearTimeout(errorTimer.current), [img, retry, thumbFailed]);
   useEffect(() => {
     setRetry(0);
     setLoaded(false);
@@ -97,10 +98,11 @@ export function BookCover({
     let timer: number | undefined;
     const arm = () => {
       if (timer != null) return;
-      timer = window.setTimeout(
-        () => setRetry((r) => (r >= MAX_COVER_RETRIES ? r : r + 1)),
-        COVER_STALL_MS
-      );
+      timer = window.setTimeout(() => {
+        // 썸네일이 응답 없이 멈춘 경우에도 원본을 먼저 시도한다.
+        if (thumb) setThumbFailed(true);
+        else setRetry((r) => (r >= MAX_COVER_RETRIES ? r : r + 1));
+      }, COVER_STALL_MS);
     };
     // IntersectionObserver 미지원(구형·jsdom)이면 그냥 바로 건다 — 없느니 낫다.
     if (typeof IntersectionObserver === 'undefined') {
@@ -118,7 +120,7 @@ export function BookCover({
       io.disconnect();
       if (timer != null) window.clearTimeout(timer);
     };
-  }, [img, loaded, retry]);
+  }, [img, loaded, retry, thumb]);
 
   return (
     <div
@@ -138,12 +140,16 @@ export function BookCover({
           className={cn('w-full h-full object-cover', imgClassName)}
           // 🔴 재시도 = "화면에 있는데 안 떴다" 는 뜻이므로 lazy 를 풀고 즉시 받는다.
           // lazy 인 채로 다시 그리면 안 터지던 조건이 그대로라 또 안 뜬다(가로 스크롤 행에서 관찰됨).
-          loading={retry > 0 || priority ? 'eager' : loading}
+          loading={thumbFailed || retry > 0 || priority ? 'eager' : loading}
           {...(priority ? { fetchPriority: 'high' as const } : null)}
           decoding="async"
           key={`${src}:${retry}`}
-          onLoad={() => setLoaded(true)}
+          onLoad={() => {
+            window.clearTimeout(errorTimer.current);
+            setLoaded(true);
+          }}
           onError={() => {
+            setLoaded(false);
             // 썸네일이 아직 없는 표지 → 재시도가 아니라 원본으로 즉시 폴백(1회).
             if (thumb) {
               setThumbFailed(true);
@@ -153,7 +159,11 @@ export function BookCover({
             if (retry >= MAX_COVER_RETRIES) return;
             // 400ms·800ms·1.2s·1.6s + jitter — 재요청이 동시에 몰리지 않게 분산.
             const delay = 400 * (retry + 1) + Math.random() * 350;
-            window.setTimeout(() => setRetry(retry + 1), delay);
+            window.clearTimeout(errorTimer.current);
+            errorTimer.current = window.setTimeout(
+              () => setRetry((r) => Math.min(r + 1, MAX_COVER_RETRIES)),
+              delay
+            );
           }}
         />
       ) : (
@@ -175,7 +185,7 @@ export function BookCover({
               lang={lang.toLowerCase().split('-')[0]}
               className="block text-center leading-[1.12]"
               style={{
-                fontFamily: `"${coverTitleFont(lang).family}", "TangoBook Story Hand Global", sans-serif`,
+                fontFamily: 'inherit',
                 fontWeight: 700,
                 color: appearance.color,
                 textShadow: `0 1px 3px ${appearance.stroke}`,
@@ -194,6 +204,20 @@ export function BookCover({
             </span>
           </div>
         </div>
+      )}
+      {img && !loaded && retry >= MAX_COVER_RETRIES && (
+        <button
+          type="button"
+          aria-label={`${title} 표지 다시 불러오기`}
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs text-ink-900 shadow"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setRetry(0);
+          }}
+        >
+          ↻
+        </button>
       )}
     </div>
   );
