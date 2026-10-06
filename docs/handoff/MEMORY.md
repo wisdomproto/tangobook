@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-06 [새 집 실사 피드3장·카메라 비교](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md): 넓은 v3 집의3정확한 카메라 가이드+imagegen built-in 러그독서/아이방도형놀이/소파독서 완료. feed-v3.html 좌사진/우3D카메라·평면·동일POV/원본겹침. 최종3PNG와프롬프트 worktree output 및 D드라이브 보존. 사용자 CAM1/3 소파크기 질문:3D는250×96×80cm 동일모델이나 CAM3 사진의 팔걸이/좌방석이 더두껍게 재해석, 정확한 사진간크기일치 미확인. 검수메모 공개; 가구일관성완전보장 아님. 로컬 미통합·미푸시.
+
 2026-10-06 [새 촬영집3D v3 · 넓은 거실](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md): 거실/후면주방·식탁/별도아이방/현관 연결, 안방·욕실 외형만 모델링한53그룹 집과 layout-v3.html 완료. 사용자 작은 거실 반증으로5.8×4.8m 확대,5.3m창·넓은 러그·소파 여백 확보. 희미한 방 이름은 흰 바탕 굵은 DOM 글자로 교체. 초기 의자 다리 좌표 오류는 복원·재생성 후 POV 검수. 기존 v1/실사샘플 보존; 새 집 실사 생성·아이3D/영상은 후속. 정확한84㎡ 실측 재현 아님. Blender/GLB/구문/브라우저 검수, 로컬 미통합·미푸시.
 
 2026-10-06 [집 구조·실제 평면 자료 조사](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md): 사용자는 거실/아이 공부·놀이방 위주의 촬영집 재구성 진행 요청, 이어 참고할 집 데이터 질문. 래미안 센터피스84㎡A 공식 확장형 평면을 브라우저 확대 확인. 기존9×7m 거실+아이방 추가 v2는 임의3D 탐색본으로 생성했으나 너무 넓어 실제 아파트 재현으로 채택하지 않음. 실제 평면·육아집 배치·상업사용 가능한3D자산을 나눠 참고하는 방향 제안, 구조 확정/상세3D 재설계 남음.
@@ -309,3 +311,5 @@
 - 2026-10-06 library 제목 최신선택은 Cafe24 써라운드(한국어): 더 크게·아래쪽·의미별2줄. 자체제작서체로 보고하지 않으며 다국어 기존서체 보존. [원본 기록](../work/authoring/tasks/20261006-library-cover-titles.md). 로컬 적용/운영배포 없음.
 
 - 2026-10-07 library 작업 mainpush 사용자 승인. 써라운드/하단제목/다국어fallback/표지로딩복구를 통합한다. [최신 기록](../work/authoring/tasks/20261006-library-cover-titles.md). 원격push와 운영배포확인은 구분.
+
+- 2026-10-06 가상 육아 집: 소파 상세화/벽 액자2개 및 실제4K PBR 재질 원본 v5. Blender 내부 텍스처 pack/GLB UV·재질 내장, AI 보정 없는2각도 원본과 카메라 비교 materials-v5.html. [작업 기록](../work/marketing/tasks/20261006-virtual-parenting-home-sample.md). 로컬만 적용.

@@ -69,3 +69,30 @@ http://127.0.0.1:5191/comparison.html : 왼쪽 사진/3D원본 겹침 슬라이�
 ```
 
 출력 `family-home-layout-v3.blend/.glb`, `layout-v3-assets.json`은 별도 파일이다. http://127.0.0.1:5191/layout-v3.html 에서 전체/평면/거실/아이방/주방/현관 시점, 벽 높이, 방 이름,16가구 치수 선택을 제공한다. 방 이름은3D 텍스처 대신 화면 좌표로 투영한14–16px 흰 바탕 DOM 글자로 표시해 거리/조명에 따른 흐림을 제거했다. 촬영 POV는 구도 확인용이며 기존 비교 뷰어처럼 Blender 센서/렌즈와 정확히 동기화한 카메라 프레임은 아니다. 기존 실사 샘플은 이전 집 기반이며 새 구조의 실사 생성은 별도 후속 작업이다.
+
+
+## 새 집의 세 장면 · 사진/카메라 비교
+
+`render_feed_v3.py`는 승인된 넓은 v3 집에서 러그 독서/아이방 도형놀이/소파 독서의4:5 원본 가이드3장을 렌더하고, Blender 카메라 frame에서3D 위치·수직화각·시야 모서리를 추출한다. `family-home-feed-v3.blend/.glb`, `feed-v3-shots.json`, `feed-v3/*-guide.png`를 D드라이브 출력 루트에 보존한다. v1 비교뷰어와 v3 구조모델을 덮어쓰지 않는다.
+
+```powershell
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/render_feed_v3.py -- D:/ComfyUI-output/virtual-parenting-20261006
+```
+
+http://127.0.0.1:5191/feed-v3.html 은 왼쪽 실사 생성사진/원본 겹침, 오른쪽 실제 새 집 모델의 카메라 위치/평면/동일POV를 제공한다. imagegen built-in으로 원본 가이드와 기존 가상 아이 참조를 넣어 각 장면을 생성했다. 정확한 요청/참조/생성원본 경로는 `feed-v3-prompts.json`, 선택판/검수는 `feed-v3-shots.json`에 있다. 최종3PNG는 worktree `output/virtual-parenting/feed-v3/`와 D드라이브 `feed-v3/`에 복사했다.
+
+사용자 반증: CAM 1과 CAM 3의 소파 크기가 달라 보임.3D는250×96×80cm 동일 자산 한 개, 카메라 거리/렌즈만 다르다. 생성사진은 CAM 3 팔걸이/좌방석이 더 두꺼워 사진간 정확한 형상/크기 일치를 보장하지 않는다. 이 차이를 검수 메모로 공개한다. 사진 내부 픽셀만으로 실물 치수가 같다고 판정하지 않는다. 아이는2D 합성이며3D 아이 모델은 없음.
+
+## 상세 렌더 v4 / 실제 PBR 원본 v5
+
+`render_photoreal_v4.py`는 고정 소파를 두 좌방석/두 등쿠션/둥근 팔걸이/봉제선/목재 다리로 상세화하고 벽 액자 두 개를 실제3D로 추가한다. CAM1/3의 기존 위치와 렌즈를 유지한다. 절차적 재질의 Cycles 원본을 참조해 만든 빈 집 AI 사진은 `photoreal-v4.html`에서 비교하며, 요청 원문은 `photoreal-v4-prompts.json`에 보존한다. 아이를 추가하지 않은 배경 일관성 시험이다.
+
+사용자가 이후 Blender 자체 실사화를 요청하여 `render_materials_v5.py`를 추가했다. Poly Haven의 CC0 원본4K 원단/오크/벽 요철·거칠기 맵7개를 사용한다. 원단은 체크무늬 색상을 사용하지 않고 아이보리/세이지 단색에 실제 직조 normal/roughness만 사용한다. 벽도 낡은 색상 대신 밝은 단색에 미세 normal/roughness만 사용한다. 목재는 실제 diffuse/normal/roughness를 적용한다. 물리 단위 UV, 판재 이음새, 걸레받이, 창밖 절차적 하늘과 창가 조명을 포함한다.
+
+```powershell
+python scripts/virtual-parenting/download_materials_v5.py D:/ComfyUI-output/virtual-parenting-20261006
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/render_photoreal_v4.py -- D:/ComfyUI-output/virtual-parenting-20261006
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/render_materials_v5.py -- D:/ComfyUI-output/virtual-parenting-20261006
+```
+
+v5의 `family-home-materials-v5.blend`는 사용 맵을 내부 pack하고 `.glb`에도 UV·이미지 재질을 내장한다. `materials-v5-textures.json`은 다운로드 원본/출처/CC0/SHA256 기록이다. `materials-v5.html`의 기본 왼쪽 사진은 **AI 보정 없는 Cycles160샘플 원본**, 오른쪽은 같은 텍스처 모델/카메라다. 이전 절차적 원본 비교 선택을 제공한다. 브라우저 조명은 Cycles와 달라 웹3D 화면 자체를 사진급 최종 렌더로 취급하지 않는다. 소파 형태는 동일 자산이고 아이는3D로 추가되지 않았다. 아직 일부 단순 가구 형태와 미세 원단 주름은 실사와 차이가 있다.

@@ -138,3 +138,23 @@ v3 별도 집 모델53그룹,10구역,16가구/조명 목록과3촬영 시점을
 검수 중 좌표 일괄 치환이 의자 뒷다리의 -1.60까지 바꿔 다리가 분리되는 오류를 발견했다. 해당 좌표/아이방 카메라 타깃을 개별 복원하고 모델 재생성·아이방 POV에서 연결을 확인했다. 구역 경계 변경과 가구 내부 좌표를 함께 치환하지 않는 것이 후속 수정 원칙이다.
 
 검증: Blender 생성/export53그룹 성공; Python AST, HTML module node --check, JSON 구역 양수/자산ID 고유성, GLB magic/version/전체 길이 확인. 브라우저에서 평면/거실/아이방/주방3POV, 방 이름 가독성·POV 숨김, 책상83×58×48cm 선택/outline 확인. 최종 평면 및 거실 화면 증거는 D드라이브 layout-v3-wide-top.png / layout-v3-wide-living.png. 작업은 구조 모델/뷰어 완료이며 새 구조의 실사 이미지·아이3D·영상은 아직 없음. 로컬 별도 브랜치, 외부 게시/DB/배포/푸시 없음.
+
+
+## 새 집 실사 피드3장 + 카메라 비교 (2026-10-06)
+
+사용자가 '아까처럼 실제 피드 느낌 이미지 몇장, 왼쪽 사진/오른쪽3D카메라'로 요청했다. 승인된 넓은 v3 모델에서24/25/28mm 세 카메라를 만들고4:5 가이드 렌더, frame기반 위치/수직화각/시야모서리를 추출했다. 같은 가상 아이를 참조해 imagegen built-in으로 러그에서 책 읽기/별도아이방 도형놀이/소파에서 그림책 보기3장을 각각 생성. imagegen은 사용자 지정 도구를 유지, 기본 로컬Qwen으로 되돌리지 않음. 생성원본을 보존하고 최종PNG3장을 worktree output/virtual-parenting/feed-v3 및 D드라이브 feed-v3로 복사. 소파·원형테이블·러그·아이방 교구장 등 주요 배치 대체로 유지; 책 표지/교구/마감 디테일은 AI 재해석, 아이방 발은 상판뒤 가림.
+
+카메라 포함 family-home-feed-v3.blend/.glb, feed-v3-shots.json 및 feed-v3.html 추가. 좌사진/가이드겹침, 우카메라 위치·평면·동일렌즈POV를 지원하며 구조뷰어에서 새집피드 링크 제공. 기존comparison/v1 사진 보존. 검수:3PNG 육안·손/하체 가림 확인, Python AST/HTML module node --check/메타데이터 및 참조파일 존재/GLB헤더 검증; 브라우저3장면과2POV 육안 확인, 슬라이더0/100 및 평면 카메라 표시 확인. 제품코드/DB/외부게시/배포/푸시 없음.
+
+추가 사용자 질문 'CAM1과CAM3 소파크기가 같은가': 원본3D는 소파 한 모델250×96×80cm이며 다른 카메라로 본다. 생성사진은 CAM3 팔걸이·좌방석이 더 두껍게 재해석되어 정확한 형상/크기 동일성은 실패/미확인. 거리·렌즈 차이와 생성변형을 구분해 설명, CAM3 검수메모에 반영. 세 출력은 같은공간의 분위기·활동 샘플이며 정확한 가구유지를 검증한 결과로 표시하지 않는다. 후속에는 CAM1 생성 소파 자체를 다른각도 생성의 추가 참조로 고정하거나 소파형상을 고도화한3D 렌더와 비교해야 한다.
+
+
+## 상세 Blender 원본 / 실제 PBR 재질 (2026-10-06)
+
+사용자가 소파 일관성 개선을 위해 실사에 가까운3D 렌더를 먼저 만들고 그것을 imagegen 참조로 쓰자고 요청했다. v4에서 동일 소파를 두 좌방석/등쿠션, 둥근 팔걸이, 봉제선, 나무 다리로 상세화하고 CAM1/3 렌즈/좌표를 유지한 Cycles96샘플 원본2장을 생성했다. 벽이 횡하다는 사용자 추가 요청으로 오크 액자2개(식물/해와 곡선)를 고정3D에 추가했다. 그 원본을 참조한 imagegen 빈 집2장은 photoreal-v4.html에서 비교한다. AI 사진은 재질/빛을 보완하지만 정확한 기하 보존을 보장하지 않는다. 이전 아이 포함 사진도 별도 선택 가능.
+
+최신 요청은 'Blender에서 텍스처도 입히고 최대한 실사 느낌의3D 원본'. v5는 실제 Poly Haven CC0 4K 텍스처7개를 다운로드해 SHA256과 공식 출처를 materials-v5-textures.json에 남겼다. 원단은 fabric_pattern_07의 normal/roughness만 사용하여 체크무늬 없이 아이보리/세이지 유지. 오크는 white_oak_veneer diffuse/normal/roughness, 벽은 plastered_wall_03 normal/roughness만 약하게 적용해 낡은 얼룩 색상을 제외. metric UV, 바닥 판재 분할/엇갈린 이음새, 걸레받이, 창밖 Nishita 하늘, 창가 그림자 조정. 소파/액자/집 크기/카메라 고정.
+
+family-home-materials-v5.blend는 모든 사용 이미지 내부 pack, GLB에도 이미지/UV/normal/roughness 포함. materials-v5.html은 좌 AI 보정 없는 Blender160샘플 원본2각도, 우 같은 텍스처3D/카메라, 이전 원본 비교를 제공한다. 이전AI 사진을 새로운 Blender 원본으로 오표기하지 않는다. 아직 단순 가구 형상/미세 원단 주름은 실사와 차이가 있으며 브라우저 조명은 Cycles와 다르다. 아이3D 모델은 없음.
+
+검증: Python AST/3뷰어 module node --check/JSON 참조 이미지 존재,7원본 맵 SHA256 일치,391 textured meshes/7packed images, GLB 내부 이미지/normal/roughness/UV 확인. 웹3D 첫 export에서 modifier 미적용으로 소파가 각지게 보이는 반증을 발견해 export_apply=True로 둥근 팔걸이/쿠션의 세분 형상을 포함했다. 브라우저 최종 CAM1/3·POV·버전 비교 확인. 제품코드/운영DB/외부게시/푸시 없음.
