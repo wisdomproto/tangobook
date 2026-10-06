@@ -12,6 +12,7 @@ import './lib/audio-unlock'; // 첫 탭에 오디오 해금 (iOS Safari 는 요�
 import './i18n'; // UI 다국어 초기화 (localStorage 언어 감지 + lazy 로케일 로드)
 import './index.css';
 import './lib/cover-title-fonts.css';
+import './lib/cover-ssurround.css';
 import './store/theme.store';
 
 // 자산 캐시 서비스워커 (prod 전용) — R2 이미지·음원·효과음 로컬 durable 캐시.

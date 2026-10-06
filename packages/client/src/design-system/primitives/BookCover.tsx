@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/cn';
 import { resolveCover, type CoverInput } from './bookCover.util';
 import titleColors from './cover-title-colors.json';
+import { CoverTitle } from './CoverTitle';
 
 // 표지 R2 도메인(pub-*.r2.dev)이 레이트리밋을 걸어, 라이브러리에서 수십 장을 동시에
 // 요청하면 일부가 드롭(429/네트워크 실패)되고 <img>는 자동 재시도를 안 해 카드가 계속 빈다.
@@ -198,36 +199,7 @@ export function BookCover({
       ) : (
         <div role="img" aria-label={title} className="w-full h-full" />
       )}
-      {showOverlay && (
-        <div
-          aria-hidden="true"
-          className="absolute top-[5%] left-[5%] right-[5%] z-[3] pointer-events-none"
-        >
-          <div className="px-1 py-1">
-            <span
-              lang={lang.toLowerCase().split('-')[0]}
-              className="block text-center leading-[1.12]"
-              style={{
-                fontFamily: 'inherit',
-                fontWeight: 700,
-                color: appearance.color,
-                textShadow: `0 1px 3px ${appearance.stroke}`,
-                WebkitTextStroke: `0.035em ${appearance.stroke}`,
-                paintOrder: 'stroke fill',
-                overflowWrap: 'anywhere',
-                fontSize:
-                  normalizedTitle.length > 38
-                    ? 'clamp(14px, 7.6cqw, 44px)'
-                    : normalizedTitle.length > 22
-                      ? 'clamp(16px, 8.4cqw, 48px)'
-                      : 'clamp(18px, 9.8cqw, 54px)',
-              }}
-            >
-              {normalizedTitle}
-            </span>
-          </div>
-        </div>
-      )}
+      {showOverlay && <CoverTitle title={normalizedTitle} lang={lang} {...appearance} />}
       {img && !loaded && retry >= MAX_COVER_RETRIES && (
         <button
           type="button"

@@ -158,3 +158,13 @@ TangoBook 제안 수치는 플랫폼 공식 규격 또는 평균 계측값이 �
 생성완료 후 새 headlessEdge 세션으로14행 전부 좌우28위치 재검수. 고유표지97개 모두실제naturalWidth512, blank0, 요청실패0, thumbnail응답97. 초기화면근처요청25로제한. cover-scroll-after.json 및 png에 실제결과저장/스크린샷육안확인. 사용자스크린샷에 빈칸이었던호리유치원/공룡/곤충행 포함. 테스트18통과/clienttypecheck통과/clientbuild통과(기존Browserslist/lottieeval/큰chunk경고). 접근성placeholder에도제목이름유지/최종18테스트재실행. 사용자탭을새로고침하거나닫지않았고 로컬5240코드만적용, mainpush/운영코드배포없음.
 
 재발방지: 앞으로 cleanCoverImage/대표표지를교체할때 기존7월릴리스절차대로 generate-cover-thumbs.mjs --apply를 수행하고 실제library naturalWidth512를 확인해야한다. 이번작업에서 기존등록producer/폰트build를재시작하지않았다.
+
+## 사용자 써라운드 선택·확대·하단 배치 — 2026-10-06
+
+사용자는 써라운드를 선택하고 더 큰 크기/아래쪽 배치/의미 있는 두 줄 줄바꿈을 요청했다. 한국어 제목에 원본 Cafe24 Ssurround WOFF를 변경 없이 로컬 제공한다(공식 Cafe24 라이선스·출처·SHA README 보존). TangoBook 자체 제작 폰트라고 보고하지 않는다. 다른 문자권은 기존 앱 언어별 서체를 유지한다.
+
+BookCover에서 CoverTitle을 분리하고 하단5%/좌우6% 배치, 권장 크기를 카드폭9.8%→12%(256px 카드 약25→30.6px)로 확대했다. 기존 표지별 대비색과 어울리는 부드러운 하단 그라데이션을 추가했다. 실제 font 측정/로드 완료/resize에 맞춰 최대2줄로 표시하며 단어 중간은 자르지 않는다. 긴 한 단어 공룡 이름은 한 줄 크기를 조정한다. 한국어 일부 제목은 조건·결과/문장부호·의미 구절별 예외를 지정하고, 띄어쓰기 없는 중국어·일본어·태국어는 Intl.Segmenter 단어 경계를 사용한다. 저장 제목·번역·원본 표지 데이터는 변경하지 않았다.
+
+실제 API1310책 한국어 제목의 한글 cmap 누락0. headlessEdge 신데렐라 실제 Cafe24 Ssurround/customFont=true/glyph4 확인. 데스크톱1854px·모바일390px ×KO/EN/ZH/VI/TH 총10화면, 화면별 약98제목의 최대2줄·가로 넘침 없음 확인. surround-bottom-review.json/1854·390 PNG를 D:/ComfyUI-output/library-clean-covers-20261006에 보존하고 실제 화면 육안 확인. 이 제목 검증을 새 전체 표지 로딩 검증으로 확대하지 않는다(이전14행97표지512px 로딩 증거 보존). 사용자 탭과 기존5240서버 유지, 원본/본문/게임/R2 변경 및 mainpush/운영배포 없음.
+
+최종 검증: BookCover·stall 16회귀와 줄바꿈6회귀 통과, client typecheck 및 build 통과(기존 Browserslist/lottie eval/큰 chunk 경고). 의미 구절 수정 후 실제10화면 재검증도 통과.
