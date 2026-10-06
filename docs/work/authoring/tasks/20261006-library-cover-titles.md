@@ -78,3 +78,25 @@
 사용자 "뭐냐 image skill 다시 써서 만들어봐"는 남은6권 builtin imagegen 재시도를 명시 승인했다. 이전 API 선택 대기를 대체하며 API/다른모델 전환 승인은 아니다. user-requested-imagegen-retry-20261006에 이전실패/request와 별개 실제6요청·사용자승인·prompt·reference=[]를 먼저 고정했다. 평화로운 원래 alternate prompt를 유지한6개 개별 builtin 호출 exec844 진행. 요청별 submitted/실제출력path/오류를 즉시저장하며 중복실행·기존failure덮어쓰기·필터우회 금지. 기존359등록/850창작/95파닉스/폰트와운영배포 상태는 보존한다. 새 결과만 실제16:9/SHA/무제목·작품 검수 후 순차등록한다.
 
 exec844 정상종료: 피노키오3 1789350946328만 새PNG 1672×941/SHA5ec9011333dd6398f77ce7fd122267a845c1f2a937941b7e24bba4b1ad352241 생성. paired snapshot aca9caf79c04 실제원본·새결과 대조로 수공콜라주·노인목공/옷입은긴코나무인형·작업실·무제목/가로 구도 통과 후 실제PNG SHA 재확인하고 승인. 단독 registrar 정상exit0/registered-verified, 실제CDN WebP ?vSHA·가로비율/최신책동시변경/표지외전체필드deepcompare 통과. **현재360/365 등록/남은5** 피노키오1·2/백설2·3/앨리스3은 이번도 HTTP400 moderation_blocked(output/other), 실제5오류/requestID를 개별retry에 보존. 원래실패/이전alternate는 덮어쓰지않음. 6개재시도 요청과결과를 workspace generated-images/library-clean-covers/user-requested-retry-20261006.json에 저장, 최신 registration-audit-after-user-retry.json 참조. 사용자의 builtin 재시도1회는 완료했으며 자동반복/다른모델 전환하지 않는다. 기존 API/보존 선택 답변은 여전히없다. 전체완료로보고금지/운영UI배포mainpush없음/서버gallery보존.
+
+## 두 번째 사용자 재시도 — 앨리스 추가 / 현재361
+
+사용자 "허허 왜 안되지.. 다시 해봐"로 남은5권 builtin 개별재시도1회 실행완료. latest-user-retry.json에 별도시각이름 요청폴더/auditFile 포인터를 기록하고 모든이전실패·실제prompt/reference=[]·error/requestID 보존. 앨리스3 1789350946347 새PNG1672×941 SHA695bbd8e9b87d04d8087f7b5a27d4d651774b368f93c3287bccc8ac3b68fe012 생성, actualpaired시트d56b23d56a57에서 금발/보라드레스흰앞치마·흰토끼·콜라주차정원·무제목가로구도 확인/SHA승인. 단독registrar 정상exit0/registered-verified, actualCDN WebP ?vSHA·16:9·표지외전체필드deepcompare 통과. **현재361/365 등록·남은4** 피노키오1 1789350946329/피노키오2 1777266835789/백설2 1778555233699/백설3 1789350946295는 이번도 HTTP400 moderation_blocked(output/other). 구체적거절이유를 도구가제공하지않았으므로 원인을추정하지 않는다. registration-audit-after-user-retry2.json 및workspace user-requested-retry2-20261006.json이 최신이고 앞360/5기록을대체. 사용자의1회재시도완료/자동반복·모델전환금지,운영UI mainpush/배포없음·기존서버갤러리보존.
+## 사용자 지정 Qwen-Image-2.1 후속 — 남은4권
+
+사용자 "그럼 나머지는 qwen2.1 로 만들자."가 남은4권의 로컬 모델 변경을 명시 승인했다. 이전 builtin 재시도/선택 대기를 대체하며, 기존 실패 요청은 보존한다. 실제 Comfy8190이 꺼져 있어 다른 프로세스를 중단하지 않고 설치된 Qwen-Image-2.1 모델을 확인한 뒤 새 서버 PID83504를 lowvram/localhost8190으로 시작했다. worker PID76072/session91135가 qwen-local/status.json·worker.lock·요청별 promptId/workflow/history를 보존하면서4권 순차 후보 생성 중이다. 첫 요청 b4ee9f83-df05-4a42-9113-2c69a09bbc21. 기존 본문 삽화 각각1개를 실제 육안 확인/SHA 검증한 참조로 사용하고, Comfy ImageScale1024×576/resolution0으로 정확한16:9를 지정했다. 생성과 등록을 구분하며 자동승인/등록하지 않는다. saver는 실제 Qwen 모델·history success·실행graph·참조SHA·출력SHA를 검사하고 tool을 local-qwen-image-2.1로 별도 기록한다. 기존builtin 기록은 변경하지 않는다. 공개361/365이며4개 후보 검수/등록은 아직 미완료. 운영mainpush/코드배포 승인 없음.
+
+## Qwen 후속 완료 — 365/365 등록·검증
+
+첫 후보는 Comfy autogrow 참조 연결 키를 잘못 지정해 기존1280×720 참조가32배수로 반올림된1280×704로 생성됐고 saver가 등록 전 거부했다. actual success history/원본PNG/workflow/request를 qwen-local/attempt1-wrong-reference-size에 보존했으며 미등록이다. images.image_1을 ImageScale1024×576에 연결한 수정 workerPID7056/session19112는4개 전부 정상종료(all-candidates-awaiting-review), 끝8190 queue0/lock없음 확인. 모델은 실제 Qwen-Image-2.1 int8/25step이며 builtin 결과로 보고하지 않는다.
+
+4개 PNG모두1024×576. 실제4원본/개별결과/immutable paired시트 snapshot176724a37fce 대조: 피노키오2 목공과옷입은관절인형·입체종이그림체/백설2 입체종이꽃드레스·새·성/백설3 질감콜라주꽃드레스·정원/피노키오1 수채풍목공·나무인형·작업실 유지, 글자없음/가로구도 승인. 각 actualhistory success/graph/source/candidateSHA 확인후 순차registrar session94151 정상exit0. cleanCoverImage/coverImages revision만등록, 기존legacy bakedcover/primarylangs/본문게임보존 protected전체필드deepcompare, CDN WebP ?vSHA·16:9 실제다운로드 통과.
+
+- 피노키오2 1777266835789: PNG SHA71be1800c77c5bd6db0f4aae65473ce1782d93fa8b43402acf76353e5693d49e.
+- 백설2 1778555233699: PNG SHA8d1c6fb282d8368d0a84bac4d9ab97915fab82f6246148e385be9cea347d1f5a.
+- 백설3 1789350946295: PNG SHA06474fb26ab8317023ed3284551d1bc5641dbd8583f039f7b8eef634d0484556.
+- 피노키오1 1789350946329: PNG SHA3159d03adec4a16c6287a0fd8cd4986079986c67e26ee4e6fe933b728ed86d0b.
+
+새요청/workflow/history/approvedrecord를 workspace generated-images/library-clean-covers/qwen-final-provenance와실제PNG로 보존. 원래builtin실패 및이전요청은 덮어쓰지 않았다. audit-library-clean-covers.mjs 실제실행: registration-audit-complete.json 365registered ledger의보호필드before/after·저장CDNSHA·비율 전수재확인, 현재1310목록 재조회하여 frozen365밖 창작850+파닉스95의cover/title/pageCount등945목록 불변 확인. 목록감사를945본문 새deepcompare나365브라우저 새검수로 확대하지 않는다.
+
+**무제목표지365/365 완료.** 전용폰트0.4.0/라이브러리언어별titleoverlay코드는앞서로컬완료, 이번에도main push/운영UI코드배포는 하지않았다. 운영라이브러리는UI배포전legacy제목표지fallback을보존한다. 관련JS node --check/worker py_compile/diff확인 통과, 새UI수정없어앞테스트/브라우저증거를새실행으로보고하지않는다. 사용자gallery1/기존서버보존·임시탭추가없음. 전체표지완료조건충족으로후속16-9 비활성화.

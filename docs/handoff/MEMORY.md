@@ -287,3 +287,5 @@
 2026-10-05 [학습 리포트 다국어 운영 완료](../work/reading/tasks/20261005-learning-report-implementation.md): 사용자 Supabase 연결 후 제약5언어로 확장,보류300건 저장 및 실제 부모 화면 검증 완료.전체샘플2,852건/API20검사 통과.이전 DB 관리자 대기 메모를 대체한다.
 
 2026-10-06 [라이브러리 전체 전용폰트·클린 표지](../work/authoring/tasks/20261006-library-cover-titles.md): 폰트0.4.0/11언어 로컬검증 완료, 사용자명시 image skill재시도후 피노키오3 추가승인하여 기존365 클린표지360 실제등록/CDN SHA·16:9·표지외필드 보존. 남은5 이번builtin요청도거절, 자동반복/모델전환금지.850창작/95파닉스 cover·title·pageCount 목록 불변.이번UI main push/운영배포 없음.
+
+2026-10-06 [라이브러리클린표지365완료](../work/authoring/tasks/20261006-library-cover-titles.md): 사용자지정Qwen-Image-2.1로남은4권완료, 전체365cleanCoverImage등록/CDN버전SHA·16:9·본문게임보존검증.850창작95파닉스목록불변. 전용폰트11언어/제목레이어로컬검증완료·운영UI코드배포mainpush미실시.16-9후속완료비활성화.
