@@ -246,28 +246,30 @@ def shell_right():
     return part
 
 def rounded_contact_shoe():
-    # Phone-facing lower edge: tangent quarter circle into the retained grip
-    # arc. The former return curve left a projecting corner on this front.
-    front_r=1.8
-    front_y=b.contact_front_y(b.CONTACT_CENTER_Z)
-    center_y=front_y+front_r
-    bottom=b.CONTACT_CENTER_Z-front_r
-    heel_r=.6
-    upper=[(b.contact_front_y(b.CONTACT_CENTER_Z+(b.CONTACT_Z_HI-b.CONTACT_CENTER_Z)*i/48),
-            b.CONTACT_CENTER_Z+(b.CONTACT_Z_HI-b.CONTACT_CENTER_Z)*i/48) for i in range(1,49)]
+    # Osmo reference: an extended smooth entry face with a thin returned end,
+    # rather than a thick flat-bottomed block. Preserve the actual upper grip.
+    join_z=b.CONTACT_CENTER_Z-.2
+    join_y=b.contact_front_y(join_z)
+    tangent=-.2/math.sqrt(b.CONTACT_R**2-.2**2)
+    toe_y,toe_z,toe_r=8.6,-7.8,.8
+    arc=[(toe_y+toe_r*math.cos(-math.pi*i/32),
+          toe_z+toe_r*math.sin(-math.pi*i/32)) for i in range(33)]
+    controls=[(toe_y-toe_r,toe_z),(toe_y-toe_r,toe_z+1.0),
+              (join_y-tangent*.8,join_z-.8),(join_y,join_z)]
+    for i in range(1,33):
+        u=i/32
+        weights=[(1-u)**3,3*(1-u)**2*u,3*(1-u)*u*u,u**3]
+        arc.append(tuple(sum(p[j]*w for p,w in zip(controls,weights)) for j in (0,1)))
+    arc += [(b.contact_front_y(join_z+(b.CONTACT_Z_HI-join_z)*i/48),
+             join_z+(b.CONTACT_Z_HI-join_z)*i/48) for i in range(1,49)]
     shoe=(cq.Workplane('YZ').workplane(offset=-b.CONTACT_W/2)
-          .moveTo(11.8,bottom+heel_r)
-          .threePointArc((11.8-heel_r+heel_r/math.sqrt(2),bottom+heel_r-heel_r/math.sqrt(2)),
-                         (11.8-heel_r,bottom))
-          .lineTo(center_y,bottom)
-          .threePointArc((center_y-front_r/math.sqrt(2),b.CONTACT_CENTER_Z-front_r/math.sqrt(2)),
-                         (front_y,b.CONTACT_CENTER_Z))
-          .spline(upper,includeCurrent=True)
+          .moveTo(*arc[0]).spline(arc[1:],includeCurrent=True)
           .lineTo(b.paddle_front_y(b.CONTACT_BLEND_Z)-.1,b.CONTACT_BLEND_Z)
           .lineTo(b.paddle_front_y(b.CONTACT_BLEND_Z)+b.old.PLATE_T+.2,b.CONTACT_BLEND_Z)
-          .lineTo(11.8,bottom+heel_r)
+          .lineTo(join_y+2.3,join_z)
+          .lineTo(toe_y+toe_r,toe_z)
           .close().extrude(b.CONTACT_W))
-    mask=b.box(-b.CONTACT_W/2,b.CONTACT_W/2,0,25,bottom,b.CONTACT_BLEND_Z+.2).edges('|Y').fillet(.8)
+    mask=b.box(-b.CONTACT_W/2,b.CONTACT_W/2,0,25,toe_z-toe_r,b.CONTACT_BLEND_Z+.2).edges('|Y').fillet(.8)
     return shoe.intersect(mask)
 
 FOAM_FACE_ANGLE=5.0
