@@ -1,7 +1,8 @@
-"""14×14 격자판과 마찰 탭 결합 태블릿 거치부 시안. CadQuery 필요."""
+"""14×14 격자판과 마찰 탭 결합 태블릿 거치부 시안. CadQuery/trimesh 필요."""
 import base64,json,re,struct
 from pathlib import Path
 import cadquery as cq
+import trimesh
 ROOT=Path(__file__).resolve().parents[2]
 OUT=Path(__file__).parent/'out'
 PITCH,CELLS,GRID=15.,14,210.
@@ -41,19 +42,22 @@ def main():
     board=board.cut(pocket)
     # 판 뒤쪽의 긴 수평 도브테일: 바깥 머리가 목보다 두꺼워 들림을 잡는다.
     profile=[(224.5,5),(235,3),(235,15),(224.5,13)]
-    rail=cq.Workplane('YZ').polyline(profile).close().extrude(210)
+    rail=(cq.Workplane('YZ').polyline(profile).close().extrude(210)
+          .edges().fillet(1.2))
     board=board.union(rail)
     shell=board.val()
     body=(cq.Workplane('XY').box(WIDTH,60,HEIGHT,centered=(True,True,False)).edges('|Z').fillet(8)
           .faces('>Z').edges().fillet(1).translate((105,255,0)))
-    cutter=(cq.Workplane('XY').box(260,13,40,centered=(True,True,False)).rotate((0,0,0),(1,0,0),-LEAN).translate((105,250,5)))
+    cutter=(cq.Workplane('XY').box(260,13,40,centered=(True,True,False)).edges().fillet(.8).rotate((0,0,0),(1,0,0),-LEAN).translate((105,250,5)))
     holder=body.cut(cutter)
+    holder=holder.edges(cq.selectors.BoxSelector((-16,240,19.8),(226,264,20.2))).fillet(.8)
     # 앞면 모서리 사이 접합면을 평평하게 연결한다.
     bridge=cq.Workplane('XY').box(220,2,HEIGHT,centered=(True,True,False)).translate((105,226,0))
     holder=holder.union(bridge)
     # 왼쪽이 열린 암레일. 오른쪽 끝 벽이 밀어 넣는 위치를 제한한다.
     groove=(cq.Workplane('YZ').polyline(profile).close().offset2D(.10).extrude(226.1).translate((-16,0,0)))
     holder=holder.cut(groove)
+    holder=holder.faces('<X').edges().fillet(.5)
     nominal=board
     # 긴 레일 중 두 구간의 낮은 마찰 리브만 암레일에 살짝 닿는다.
     for x in (62.5,147.5):
@@ -78,6 +82,11 @@ def main():
     for name,shape in (('recognition-board-14x14',shell),('tablet-cradle',cradle)):
         cq.exporters.export(shape,str(OUT/(name+'.step')))
         cq.exporters.export(shape,str(OUT/(name+'.stl')),tolerance=.035,angularTolerance=.1)
+        # 곡면 경계에서 OCC가 만든 면적0 삼각형만 제거한다.
+        mesh=trimesh.load(OUT/(name+'.stl'))
+        mesh.update_faces(mesh.nondegenerate_faces());mesh.update_faces(mesh.unique_faces());mesh.remove_unreferenced_vertices()
+        assert mesh.is_watertight and mesh.is_winding_consistent
+        mesh.export(OUT/(name+'.stl'))
     data['board']=part(shell);data['board'].update(size=[240,240,20],cols=14,rows=14,pitch=15)
     data['grid']=encode(grid);data['cradle']=part(cradle);data['tablet']=part(tablet)
     data['block']['centre']=[105,105,17.]

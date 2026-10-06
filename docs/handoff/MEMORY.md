@@ -329,3 +329,5 @@
 - 2026-10-06 [인식판14×14·거치부마찰조립](../work/hardware/tasks/20261006-14x14-friction-cradle.md): 최신선택은14×14/두탭분리조립. 높이20/뒤15도유지, 이전일체형대체. HTML조립분리보기추가.
 
 - 2026-10-06 [도브테일 거치결합](../work/hardware/tasks/20261006-14x14-friction-cradle.md): 사용자선택으로단순탭→210mm도브테일옆슬라이드, HTML옆분리보기/CAD/STL갱신. 실물강도미검증.
+
+- 2026-10-06 [레일·태블릿홈 라운딩](../work/hardware/tasks/20261006-14x14-friction-cradle.md): 노출레일R1.2/진입R0.5·홈안팎R0.8, CAD맞물림·닫힌STL확인.
