@@ -16,9 +16,17 @@ _circular_contact_angle=b.paddle_angle
 b.paddle_angle=lambda thickness:_circular_contact_angle(thickness+.03)
 OUT=Path(__file__).resolve().parent/'out'/'pebble_compact_fixed'
 JOINTS=((-20.0,b.TOP-5.0),(-8.0,b.TOP-5.0))
-CARRIER_PINS=((-12,5.0),(12,5.0))
+FOAM_W,FOAM_H=20.0,13.0
+CARRIER_PINS=((-13.6,5.0),(13.6,5.0))
 KEEPER_LEG_X=(17.8,21.1)
 KEEPER_FRONT_Y=(14.1,16.8)
+
+def stock_foam():
+    # Keep thickness, center, and the tongue's loaded area unchanged.
+    return b.box(-FOAM_W/2,FOAM_W/2,13.6,19.6,
+                 b.FOAM_Z-FOAM_H/2,b.FOAM_Z+FOAM_H/2)
+
+b.foam=stock_foam
 
 @lru_cache(None)
 def reflected_window():
@@ -55,13 +63,13 @@ def mirror_support():
 @lru_cache(None)
 def rear_panel():
     # Foam carrier: no roof or captive side flanges. Insert from the rear.
-    panel=b.box(-17.4,17.4,19.6,22,-7,b.TOP-2.9).edges('|Y').fillet(1).intersect(b.envelope())
+    panel=b.box(-17.4,17.4,19.6,22,-7,b.FOAM_Z+FOAM_H/2+.45).edges('|Y').fillet(1).intersect(b.envelope())
     perimeter=[e for e in panel.edges().vals() if e.geomType()!='LINE' or e.BoundingBox().ylen<.01]
     panel=panel.newObject(perimeter).fillet(.4)
-    # Engrave outside the exact 16 x 6 mm glue footprint. Keep the original
+    # Engrave outside the exact 20 x 13 mm glue footprint. Keep the original
     # glue plane so the foam thickness and paddle preload do not change.
-    frame=b.box(-8.45,8.45,19.6,19.95,b.FOAM_Z-3.45,b.FOAM_Z+3.45)
-    frame=frame.cut(b.box(-8,8,19.5,20,b.FOAM_Z-3,b.FOAM_Z+3))
+    frame=b.box(-10.45,10.45,19.6,19.95,b.FOAM_Z-6.95,b.FOAM_Z+6.95)
+    frame=frame.cut(b.box(-10,10,19.5,20,b.FOAM_Z-6.5,b.FOAM_Z+6.5))
     panel=panel.cut(frame)
     for x,z in CARRIER_PINS:
         panel=panel.union(kit.pin((x,19.75,z),(0,-1,0)))
@@ -84,6 +92,10 @@ def keeper_blank():
         # crossbar. The roof joins these shoulders to the rear retaining wall.
         keeper=keeper.union(b.box(x0,x1,*KEEPER_FRONT_Y,-6.5,11.5).edges('|X').fillet(.8))
     keeper=keeper.intersect(outer)
+    keeper=keeper.cut(b.box(-10.6,10.6,13.05,22.05,
+                            b.FOAM_Z-6.9,b.FOAM_Z+7.0))
+    keeper=keeper.cut(b.box(-17.5,17.5,19.4,22.05,
+                            b.TOP-2.9,b.FOAM_Z+7.0))
     front=[e for e in keeper.edges().vals() if abs(e.Center().y-13.3)<.01]
     keeper=keeper.newObject(front).fillet(.45)
     bottom=[e for e in keeper.edges().vals() if abs(e.Center().z+7)<.01]
@@ -146,9 +158,10 @@ def blank():
         core=core.union(ledge.edges('<Z').fillet(.3).intersect(b.envelope()))
     # Rebuild both mirror halves from one continuous adhesive landing pad.
     core=core.cut(b.mirror_backing()).union(mirror_support())
-    # The foam carrier engages the body before the top keeper is fitted.
-    # Wide socket blocks stay beside the foam and behind the phone envelope.
-    for x,z in CARRIER_PINS:
+    # Retain the former socket stock through the exposed-rim fillet operation;
+    # relocating it earlier makes OCC's front-rim fillet fail. The final socket
+    # stock and foam corridor below replace these temporary bores.
+    for x,z in ((-12,5.0),(12,5.0)):
         socket=b.box(x-3.2,x+3.2,15,19.25,z-3.2,b.TOP-2.5).edges('|Y').fillet(.6).edges('>Y').fillet(.3)
         core=core.union(socket)
         core=core.cut(kit.axial_cylinder((x,19.4,z),(0,-1,0),4.6,kit.SOCKET_D/2))
@@ -195,7 +208,18 @@ def blank():
     for sign in (-1,1):
         x0,x1=sorted((sign*19.8,sign*26))
         core=core.cut(b.box(x0,x1,-4,0,b.BOTTOM-1,b.TOP-7.3))
-    return core.union(mirror_support()).union(side_walls())
+    core=core.union(mirror_support()).union(side_walls())
+    # Rebuild sockets farther apart to clear the 20 mm stock foam. These
+    # blocks refill the temporary bores outside the central foam corridor.
+    for x,z in CARRIER_PINS:
+        socket=b.box(x-3.2,x+3.2,15,19.25,z-3.2,b.TOP-2.5).edges('|Y').fillet(.6).edges('>Y').fillet(.3)
+        core=core.union(socket)
+        core=core.cut(kit.axial_cylinder((x,19.4,z),(0,-1,0),4.6,kit.SOCKET_D/2))
+        mouth=cq.Workplane(obj=cq.Solid.makeCone(kit.SOCKET_D/2+.35,kit.SOCKET_D/2,.5,cq.Vector(x,19.25,z),cq.Vector(0,-1,0)))
+        core=core.cut(mouth)
+    # Clear the entire stock foam's rearward installation corridor.
+    return core.cut(b.box(-10.5,10.5,13.05,22.05,
+                          b.FOAM_Z-6.9,b.FOAM_Z+7.0))
 
 def tenon(y,z):
     key=b.box(-4.5,4.5,y-5,y+5,z-3,z+3.9).edges('|X').fillet(.65)
@@ -318,7 +342,7 @@ def report():
         'mirror_pad':{name:round(b.volume(mirror_support().intersect(b.box(-60,-b.SEAM/2,-100,100,-100,100) if name=='left' else b.box(b.SEAM/2,60,-100,100,-100,100)).cut(p)),6) for name,p in [('left',left),('right',right)]},
     }
     bb=hard.val().BoundingBox()
-    return {'camera_top_margin_mm':round(b.PHONE_TOP-(b.CAMERA_Z+b.CAMERA_R),6),'gears':False,'mirror_mm':[40,30],'foam_mm':[16,6,6],
+    return {'camera_top_margin_mm':round(b.PHONE_TOP-(b.CAMERA_Z+b.CAMERA_R),6),'gears':False,'mirror_mm':[40,30],'foam_mm':[FOAM_W,FOAM_H,b.FOAM_FREE_T],
         'bounds_mm':[round(v,3) for v in (bb.xlen,bb.ylen,bb.zlen)],
         'solids':{n:p.solids().size() for n,p in parts.items()},'checks_mm3':checks,
         'phone_seating_contact_mm3':{str(th):v(b.phone(th,.2),hard) for th in (7,9,11)},
@@ -326,7 +350,7 @@ def report():
         'retention_rib_nominal_compression_mm':.09,
         'carrier_body_connection':{'pin_count':2,'pin_diameter_mm':kit.PIN_D,'socket_diameter_mm':kit.SOCKET_D,'pin_length_mm':kit.PIN_LENGTH,'nominal_rib_interference_mm':.06,'intentional_rib_contact_mm3':v(panel,body)},
         'foam_roof_coverage_missing_mm3':top_visibility(hard),
-        'foam_bottom_coverage_missing_mm3':round(b.volume(b.box(-8,8,13.6,19.6,-10.6,-10.5).cut(hard)),6),
+        'foam_bottom_coverage_missing_mm3':round(b.volume(b.box(-FOAM_W/2,FOAM_W/2,13.6,19.6,-10.6,-10.5).cut(hard)),6),
         'foam_face_angle_deg':FOAM_FACE_ANGLE,
         'foam_nominal_compression_mm':{str(a):[round(6-(19.6-(b.old.PIVOT_Y+(foam_face_y(z)-b.old.PIVOT_Y)*math.cos(math.radians(a))-(z-b.PIVOT_Z)*math.sin(math.radians(a)))),3) for z in (b.FOAM_Z-2,b.FOAM_Z,b.FOAM_Z+2)] for a in (0,b.paddle_angle(7),b.paddle_angle(9),b.paddle_angle(11))},
         'keeper_downward_stop_contact_mm3':{str(t):v(smooth_cover.translate((0,0,-t)),body) for t in (.5,1)},
@@ -337,5 +361,5 @@ def report():
 
 def top_visibility(hard):
     # A continuous section above the entire foam footprint must be solid.
-    section=b.box(-8,8,13.6,19.6,b.TOP-2.2,b.TOP-2.1)
+    section=b.box(-FOAM_W/2,FOAM_W/2,13.6,19.6,b.TOP-.8,b.TOP-.7)
     return round(b.volume(section.cut(hard)),6)
