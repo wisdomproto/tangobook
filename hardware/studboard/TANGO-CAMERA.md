@@ -88,3 +88,5 @@ python -u -c "import sys,types,runpy;sys.modules['vtk']=types.ModuleType('vtk');
 - 2026-10-07 [실물눕힘반증·높은등받이](../../docs/work/hardware/tasks/20261007-open-bottom-board-print.md): 오스모사진참고/사용자승인으로15°등받이높이85mm·뒤보강2개추가. 기존판/다리/레일재사용·U패드사용안함/거치대만교체. CAD삽입·뒤회전방지표본/닫힌STL/JS검사,실물각도·전도·유지력미검증. 최신생성기tablet_backrest.py/새보고서backrest_report.json.
 
 - 2026-10-07 [최신 거치 연결](../../docs/work/hardware/tasks/20261007-open-bottom-board-print.md): 사용자선택은사다리꼴폐기·거치대일체기둥2개Ø4.5×4/기존뒤소켓Ø4.9에반경0.2여유끼움. 판·앞다리재사용/뒤다리레일사용안함. 넓은받침면으로판지지/15°등받이유지. CAD삽입0·닫힌STL·JS검사,실물끼움/전도미검증. Downloads tango-camera-two-pin-cradle.stl.
+
+- 2026-10-07 [거치대 라운딩](../../docs/work/hardware/tasks/20261007-open-bottom-board-print.md): 앞턱/홈입구/등받이/보강대양측/받침팔/뒤바닥R추가·확대. 기둥Ø4.5×4·반경여유0.2·15°기댐면유지. CAD/STL/JS검사통과·실물촉감미검증, 새다운로드two-pin-rounded-cradle.stl.

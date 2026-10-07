@@ -145,54 +145,66 @@
     },
     {
       "angle_deg": 17,
-      "collision_mm3": 21858.01544488343
+      "collision_mm3": 21782.406613162784
     },
     {
       "angle_deg": 20,
-      "collision_mm3": 45120.57803749196
+      "collision_mm3": 45007.907823090114
     },
     {
       "angle_deg": 25,
-      "collision_mm3": 33303.51026816071
+      "collision_mm3": 33296.061980646904
     },
     {
       "angle_deg": 30,
-      "collision_mm3": 25357.431493758828
+      "collision_mm3": 25352.739133260795
     }
   ],
   "tablet_bottom_local_z_mm": 1,
   "tablet_center_local_y_mm": 2.95,
   "rear_support_y_mm": 322.4,
   "print_bounds_mm": [
-    227.9905366897583,
-    122.98849487304688,
-    85.14634704589844
+    227.99492931365967,
+    122.9920654296875,
+    85.01190185546875
   ],
-  "triangle_count": 13740,
+  "triangle_count": 21466,
   "physical_test": false,
   "standalone_static_iPad_477g_cases": [
     {
       "solid_mass_fraction": 0.25,
-      "assumed_cradle_mass_g": 106.94989538208338,
-      "rear_margin_mm": 47.52246554741782,
-      "backward_top_push_tipping_N": 1.109660478726409
+      "assumed_cradle_mass_g": 106.64268902813062,
+      "rear_margin_mm": 47.51102910458167,
+      "backward_top_push_tipping_N": 1.1088098016764198
     },
     {
       "solid_mass_fraction": 0.5,
-      "assumed_cradle_mass_g": 213.89979076416677,
-      "rear_margin_mm": 49.871201476803606,
-      "backward_top_push_tipping_N": 1.3777818568865652
+      "assumed_cradle_mass_g": 213.28537805626124,
+      "rear_margin_mm": 49.85395281461905,
+      "backward_top_push_tipping_N": 1.3760805027865897
     },
     {
       "solid_mass_fraction": 1,
-      "assumed_cradle_mass_g": 427.79958152833353,
-      "rear_margin_mm": 52.90290955502405,
-      "backward_top_push_tipping_N": 1.9140246132068772
+      "assumed_cradle_mass_g": 426.5707561125225,
+      "rear_margin_mm": 52.88067824826874,
+      "backward_top_push_tipping_N": 1.910621905006924
     }
   ],
   "static_assumptions": [
     "fully seated on rear face at 15 degrees",
     "uniform effective material density 1.2 g/cm3 times fraction; NOT slicer infill",
     "level rigid surface; no case, impact, sliding or strength validation"
-  ]
+  ],
+  "rounding_radii_mm": {
+    "body_top": 2,
+    "body_bottom": 1,
+    "slot_mouth": 1.2,
+    "backrest_edges": 1.8,
+    "brace_profile": 2,
+    "brace_side": 0.8,
+    "board_support_edges": 1.5,
+    "heel_top": 1.3,
+    "heel_bottom": 0.8,
+    "pin_tip": 0.3
+  }
 }

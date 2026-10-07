@@ -17,20 +17,23 @@ def tablet(thickness=7.,angle=15.,rise=0):
 def main():
     # No dovetail: cradle supports the board directly at its rear sockets.
     base=(cq.Workplane('XY').box(226,60,20,centered=(True,True,False))
-          .edges('|Z').fillet(8).faces('>Z').edges().fillet(1).translate((105,248,0)))
+          .edges('|Z').fillet(8).faces('>Z').edges().fillet(2)
+          .faces('<Z').edges().fillet(1).translate((105,248,0)))
     heel=(cq.Workplane('XY').box(226,51,4,centered=(True,False,False))
-          .edges('|Z').fillet(8).faces('>Z').edges().fillet(1)
-          .faces('<Z').edges().fillet(.6).translate((105,272,0)))
+          .edges('|Z').fillet(8).faces('>Z').edges().fillet(1.3)
+          .faces('<Z').edges().fillet(.8).translate((105,272,0)))
     slot=(cq.Workplane('XY').box(260,13,40,centered=(True,True,False))
           .edges().fillet(.8).rotate((0,0,0),(1,0,0),-15).translate((105,243,5)))
     base=base.union(heel).cut(slot)
+    base=base.edges(cq.selectors.BoxSelector((-9,231,19.8),(219,262,20.2))).fillet(1.2)
     rest=posed(cq.Workplane('XY').box(190,4,HEIGHT-8,centered=(True,False,False))
-                .edges().fillet(1.2).translate((0,6.5,8)))
+                .edges().fillet(1.8).translate((0,6.5,8)))
     holder=base.union(rest)
     # Two wide triangular braces carry the backrest load to the rear heel.
     for x in (43,161):
         brace=(cq.Workplane('YZ').polyline([(252,2.8),(273,82),(279,82),(316,2.8)])
-               .close().extrude(8).edges('|X').fillet(1.2).translate((x,0,0)))
+               .close().extrude(8).edges('|X').fillet(2)
+               .faces('|X').edges().fillet(.8).translate((x,0,0)))
         holder=holder.union(brace)
     assert holder.val().isValid() and len(holder.val().Solids())==1
     collisions=[]
@@ -46,7 +49,7 @@ def main():
     assert lean[0]['collision_mm3']<1e-6 and all(c['collision_mm3']>1 for c in lean[1:])
     for x in (-3,213):
         arm=(cq.Workplane('XY').box(12,38,10.4,centered=(True,False,False))
-             .edges().fillet(.7).translate((x,200,0)))
+             .edges().fillet(1.5).translate((x,200,0)))
         holder=holder.union(arm)
     for x in (-3,213):
         pin=(cq.Workplane('XY').center(x,205).circle(2.25).extrude(4.15)
@@ -93,6 +96,7 @@ def main():
     h=h.replace('판과 다리·레일은 재사용합니다.','판과 앞 다리는 재사용하고, 뒤 다리·사다리꼴 레일은 사용하지 않습니다.')
     h=h.replace('거치대 일체형 4mm 마찰핀 2개','거치대 일체형 Ø4.5×4mm 여유 끼움 기둥 2개')
     h=h.replace('tango-camera-backrest15-cradle.stl','tango-camera-two-pin-cradle.stl')
+    h=h.replace('download="tango-camera-two-pin-cradle.stl"','download="tango-camera-two-pin-rounded-cradle.stl"')
     h=h.replace('15° 등받이 거치대 STL 다운로드','기둥 2개·15° 등받이 거치대 STL 다운로드')
     h=h.replace('조립 전체 226 × 331 mm','조립 전체 약 228 × 331 mm')
     h=h.replace('옆으로 분리 보기','위아래 분리 보기')
@@ -103,6 +107,7 @@ def main():
     report=dict(connection='two loose vertical pins; no dovetail or friction ribs',pin_centers_mm=[[-3,205],[213,205]],pin_diameter_mm=4.5,pin_length_mm=4,pin_radial_clearance_mm=.2,arm_width_mm=12,arm_height_mm=10.4,original_socket_diameter_mm=4.9,original_socket_depth_mm=4.3,board_insertion_collision_mm3=insertion,backrest_angle_from_vertical_deg=15,backrest_contact_local_y_mm=6.5,backrest_height_local_mm=HEIGHT,backrest_width_mm=190,backrest_thickness_mm=4,brace_width_mm=8,tablet_thickness_checks_mm=[5,7,9,11],insertion_checks=collisions,backward_lean_checks=lean,tablet_bottom_local_z_mm=1,tablet_center_local_y_mm=2.95,rear_support_y_mm=322.4,print_bounds_mm=m.extents.tolist(),triangle_count=len(m.faces),physical_test=False)
     report['standalone_static_iPad_477g_cases']=cases
     report['static_assumptions']=['fully seated on rear face at 15 degrees','uniform effective material density 1.2 g/cm3 times fraction; NOT slicer infill','level rigid surface; no case, impact, sliding or strength validation']
+    report['rounding_radii_mm']=dict(body_top=2,body_bottom=1,slot_mouth=1.2,backrest_edges=1.8,brace_profile=2,brace_side=.8,board_support_edges=1.5,heel_top=1.3,heel_bottom=.8,pin_tip=.3)
     (OUT/'backrest_report.json').write_text(json.dumps(report,indent=2),encoding='utf8')
     print(json.dumps(report,indent=2),flush=True)
 
