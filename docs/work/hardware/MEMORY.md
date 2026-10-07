@@ -126,3 +126,5 @@
 - 2026-10-07 [최신 거치 연결](tasks/20261007-open-bottom-board-print.md): 사용자선택은사다리꼴폐기·거치대일체기둥2개Ø4.5×4/기존뒤소켓Ø4.9에반경0.2여유끼움. 판·앞다리재사용/뒤다리레일사용안함. 넓은받침면으로판지지/15°등받이유지. CAD삽입0·닫힌STL·JS검사,실물끼움/전도미검증. Downloads tango-camera-two-pin-cradle.stl.
 
 - 2026-10-07 [거치대 라운딩](tasks/20261007-open-bottom-board-print.md): 앞턱/홈입구/등받이/보강대양측/받침팔/뒤바닥R추가·확대. 기둥Ø4.5×4·반경여유0.2·15°기댐면유지. CAD/STL/JS검사통과·실물촉감미검증, 새다운로드two-pin-rounded-cradle.stl.
+
+- 2026-10-07 [블록 밑면 라운딩](tasks/20261006-sticker-block-2x2.md): 사용자실출력맞춤좋음확인후바닥외곽/소켓입구R0.5추가. 홈윗규격/높이/스티커자리유지, CAD교차0·닫힌STL/JS검사통과. 새파일tango-camera-block-2x2-rounded-bottom.stl; 라운딩촉감실검증미실시.

@@ -42,3 +42,8 @@ Python312에 CadQuery/trimesh 설치. 이 환경 CadQuery2.8의 선택적 VTK �
 ## 후속: 바닥 원복·5.5mm 유지
 
 사용자 정정으로 내부4소켓/반칸이동 배치를 폐기하고 원래 중앙·변·귀퉁이9돌기 회피홈 및 중심120mm 배치로 복원. 높이는5.5mm 유지. CAD단일유효솔리드/치수/홈위살1.5mm/9돌기간섭0/STLwatertight·winding/HTML구문/Chrome아래보기 육안확인(tango-block-restored-bottom.png) 통과. 기존 닫힌옆면 요구는 이번 바닥원복 요청으로 대체. 실출력·push 없음.
+
+
+## 2026-10-07 블록 밑면 라운딩
+
+사용자가블록실물은딱좋다고확인후밑부분둥글게요청. 바닥외곽R0.5/9개홈입구R0.5. 홈입구아래0.5mm만넓어지고그위반경2.85/깊이3.2·발자국29.6·높이5.5·윗스티커포켓은유지. 겹친홈절단후일괄fillet은CAD실패또는STL열림발생해폐기; 최종은바닥라운딩후XZ원호회전커터로각소켓둥근입구를직접생성. 단일유효CAD/닫힌단일STL·기존9돌기교차0·JS/Python구문확인. 출력메시0.01mm단순화, 최종6948삼각형; CAD원본STEP보존. Downloads tango-camera-block-2x2-rounded-bottom.stl, HTML블록메시/최종HTML갱신. 기존판/거치대변경없음. 라운딩후실물촉감은재출력미확인.
