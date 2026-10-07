@@ -1,4 +1,19 @@
 {
+  "rail_clearance_per_face_mm": 0.35,
+  "rail_entry_clearance_mm": 0.65,
+  "rail_insertion_collision_mm3": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rail_capture_overlap_mm3": [
+    1255.1763881118934,
+    537.2458936582253
+  ],
   "heel_extension_mm": 45,
   "rear_support_y_mm": 322.4000001000001,
   "slot_width_mm": 13,
@@ -6,15 +21,15 @@
   "liner_outer_width_mm": 12.7,
   "liner_nominal_insertion_collision_mm3": 0,
   "liner_rib_overlap_mm3": [
-    0.741447984351181,
-    0.7414479843416066
+    0.7414479843511951,
+    0.7414479843416126
   ],
   "tablet_collision_mm3": 0,
   "print_plate_bounds_mm": [
-    225.99739170074463,
+    225.9989013671875,
     128.1182271266988,
     19.992403876502067
   ],
-  "triangle_count": 13922,
+  "triangle_count": 12850,
   "physical_test": false
 }

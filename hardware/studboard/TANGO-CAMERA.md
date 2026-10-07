@@ -82,3 +82,5 @@ python -u -c "import sys,types,runpy;sys.modules['vtk']=types.ModuleType('vtk');
 ## 전도 검토 — 2026-10-07
 
 [계산기](board_stability.py), [결과](out/board_stability_report.json). iPad A16 Wi-Fi477g를기준으로15도정적평형은가로/세로통과. 그러나7mm두께/13mm홈은각도고정이아니며30도간섭없는자세표본에서가벼운출력가정의전도가능성이확인됨. 실제출력무게/안착각/핀유지력은미측정. 뒤지지확장·홈패드검토필요, 현설계의안전통과선언을하지않는다. 상세가정은task최신절.
+
+- 2026-10-07 [거치 홈 실출력 수정](../../docs/work/hardware/tasks/20261007-open-bottom-board-print.md): 기존판재출력부담으로원래4mm다리복사제공. 사다리꼴끼움실패반증에거치대암홈만면당0.10→0.35mm/입구0.65mm확대. 기존판·다리·패드재사용/거치대만교체, CAD진입0·포획유지·닫힌STL/JS검사통과. 실제끼움/옆방향유지력미검증.
