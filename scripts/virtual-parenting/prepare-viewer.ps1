@@ -14,6 +14,11 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'materials-v5.html') -Destinatio
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'materials-v5-shots.json') -Destination (Join-Path $taskRoot 'materials-v5-shots.json')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'feed-v5.html') -Destination (Join-Path $taskRoot 'feed-v5.html')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'feed-v5-shots.json') -Destination (Join-Path $taskRoot 'feed-v5-shots.json')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'carousel-v6.html') -Destination (Join-Path $taskRoot 'carousel-v6.html')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'carousel-v6-shots.json') -Destination (Join-Path $taskRoot 'carousel-v6-shots.json')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7.html') -Destination (Join-Path $taskRoot 'study-v7.html')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7-shots.json') -Destination (Join-Path $taskRoot 'study-v7-shots.json')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7-assets.json') -Destination (Join-Path $taskRoot 'study-v7-assets.json')
 $taskFiles=@('build/three.module.js','build/three.core.js','examples/jsm/controls/OrbitControls.js','examples/jsm/loaders/GLTFLoader.js','examples/jsm/utils/BufferGeometryUtils.js','LICENSE')
 foreach($taskFile in $taskFiles){
     $taskRelative=if($taskFile.StartsWith('build/')){$taskFile.Substring(6)}elseif($taskFile.StartsWith('examples/jsm/')){'addons/'+$taskFile.Substring(13)}else{'THREE-LICENSE.txt'}

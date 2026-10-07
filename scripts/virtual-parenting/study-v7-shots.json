@@ -1,0 +1,314 @@
+[
+  {
+    "id": "tiles-front",
+    "title": "자석 타일 · 전체 · 정면",
+    "number": 1,
+    "activity": "tiles",
+    "angle": "front",
+    "position": [
+      3.03,
+      1.29,
+      3.9
+    ],
+    "target": [
+      4.0,
+      0.64,
+      2.18
+    ],
+    "up": [
+      0.176337,
+      0.949538,
+      -0.259391
+    ],
+    "roll_degrees": -1.5,
+    "lens_mm": 26,
+    "fov_vertical": 81.74481763488696,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        4.493073,
+        1.880202,
+        3.051672
+      ],
+      [
+        4.126834,
+        -0.091914,
+        3.590407
+      ],
+      [
+        2.686754,
+        -0.050601,
+        2.762656
+      ],
+      [
+        3.052992,
+        1.921515,
+        2.223922
+      ]
+    ],
+    "guide": "study-v7/tiles-front-cycles.png",
+    "image": "study-v7/tiles-front-cycles.png",
+    "review": "실제 Blender Cycles 원본 · AI 보정 없음. 고정된 가구/교구/카메라.",
+    "validation_status": "native-render"
+  },
+  {
+    "id": "tiles-back",
+    "title": "자석 타일 · 책상 뒤 · 창가",
+    "number": 2,
+    "activity": "tiles",
+    "angle": "back",
+    "position": [
+      4.8,
+      1.3,
+      1.35
+    ],
+    "target": [
+      3.8,
+      0.73,
+      3.06
+    ],
+    "up": [
+      -0.109381,
+      0.960422,
+      0.256175
+    ],
+    "roll_degrees": 2.0,
+    "lens_mm": 24,
+    "fov_vertical": 86.30477776401354,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        3.313975,
+        2.078831,
+        2.187124
+      ],
+      [
+        3.560082,
+        -0.082118,
+        1.610729
+      ],
+      [
+        5.121717,
+        -0.142487,
+        2.503843
+      ],
+      [
+        4.87561,
+        2.018462,
+        3.080237
+      ]
+    ],
+    "guide": "study-v7/tiles-back-cycles.png",
+    "image": "study-v7/tiles-back-cycles.png",
+    "review": "실제 Blender Cycles 원본 · AI 보정 없음. 고정된 가구/교구/카메라.",
+    "validation_status": "native-render"
+  },
+  {
+    "id": "tiles-detail",
+    "title": "자석 타일 · 교구 디테일",
+    "number": 3,
+    "activity": "tiles",
+    "angle": "detail",
+    "position": [
+      4.34,
+      1.01,
+      2.81
+    ],
+    "target": [
+      3.85,
+      0.54,
+      2.28
+    ],
+    "up": [
+      -0.426895,
+      0.835421,
+      -0.346168
+    ],
+    "roll_degrees": 4.5,
+    "lens_mm": 42,
+    "fov_vertical": 56.357181844542175,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        3.744421,
+        0.926074,
+        1.484859
+      ],
+      [
+        4.293287,
+        -0.148039,
+        1.929932
+      ],
+      [
+        3.570258,
+        -0.215667,
+        2.658365
+      ],
+      [
+        3.021392,
+        0.858446,
+        2.213292
+      ]
+    ],
+    "guide": "study-v7/tiles-detail-cycles.png",
+    "image": "study-v7/tiles-detail-cycles.png",
+    "review": "실제 Blender Cycles 원본 · AI 보정 없음. 고정된 가구/교구/카메라.",
+    "validation_status": "native-render"
+  },
+  {
+    "id": "cubes-front",
+    "title": "수 세기 큐브 · 전체 · 정면",
+    "number": 4,
+    "activity": "cubes",
+    "angle": "front",
+    "position": [
+      3.03,
+      1.29,
+      3.9
+    ],
+    "target": [
+      4.0,
+      0.64,
+      2.18
+    ],
+    "up": [
+      0.176337,
+      0.949538,
+      -0.259391
+    ],
+    "roll_degrees": -1.5,
+    "lens_mm": 26,
+    "fov_vertical": 81.74481763488696,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        4.493073,
+        1.880202,
+        3.051672
+      ],
+      [
+        4.126834,
+        -0.091914,
+        3.590407
+      ],
+      [
+        2.686754,
+        -0.050601,
+        2.762656
+      ],
+      [
+        3.052992,
+        1.921515,
+        2.223922
+      ]
+    ],
+    "guide": "study-v7/cubes-front-cycles.png",
+    "image": "study-v7/cubes-front-cycles.png",
+    "review": "실제 Blender Cycles 원본 · AI 보정 없음. 고정된 가구/교구/카메라.",
+    "validation_status": "native-render"
+  },
+  {
+    "id": "cubes-back",
+    "title": "수 세기 큐브 · 책상 뒤 · 창가",
+    "number": 5,
+    "activity": "cubes",
+    "angle": "back",
+    "position": [
+      4.8,
+      1.3,
+      1.35
+    ],
+    "target": [
+      3.8,
+      0.73,
+      3.06
+    ],
+    "up": [
+      -0.109381,
+      0.960422,
+      0.256175
+    ],
+    "roll_degrees": 2.0,
+    "lens_mm": 24,
+    "fov_vertical": 86.30477776401354,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        3.313975,
+        2.078831,
+        2.187124
+      ],
+      [
+        3.560082,
+        -0.082118,
+        1.610729
+      ],
+      [
+        5.121717,
+        -0.142487,
+        2.503843
+      ],
+      [
+        4.87561,
+        2.018462,
+        3.080237
+      ]
+    ],
+    "guide": "study-v7/cubes-back-cycles.png",
+    "image": "study-v7/cubes-back-cycles.png",
+    "review": "실제 Blender Cycles 원본 · AI 보정 없음. 고정된 가구/교구/카메라.",
+    "validation_status": "native-render"
+  },
+  {
+    "id": "cubes-detail",
+    "title": "수 세기 큐브 · 교구 디테일",
+    "number": 6,
+    "activity": "cubes",
+    "angle": "detail",
+    "position": [
+      4.34,
+      1.01,
+      2.81
+    ],
+    "target": [
+      3.85,
+      0.54,
+      2.28
+    ],
+    "up": [
+      -0.426895,
+      0.835421,
+      -0.346168
+    ],
+    "roll_degrees": 4.5,
+    "lens_mm": 42,
+    "fov_vertical": 56.357181844542175,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        3.744421,
+        0.926074,
+        1.484859
+      ],
+      [
+        4.293287,
+        -0.148039,
+        1.929932
+      ],
+      [
+        3.570258,
+        -0.215667,
+        2.658365
+      ],
+      [
+        3.021392,
+        0.858446,
+        2.213292
+      ]
+    ],
+    "guide": "study-v7/cubes-detail-cycles.png",
+    "image": "study-v7/cubes-detail-cycles.png",
+    "review": "실제 Blender Cycles 원본 · AI 보정 없음. 고정된 가구/교구/카메라.",
+    "validation_status": "native-render"
+  }
+]

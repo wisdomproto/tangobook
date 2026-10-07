@@ -1,0 +1,96 @@
+{
+  "room_dimensions_m": [
+    2.9,
+    4.0,
+    2.6
+  ],
+  "table_height_m": 0.48,
+  "chair_seat_height_m": 0.28,
+  "assets": [
+    {
+      "id": "study-opposite-cabinet-v7",
+      "title": "반대편 낮은 교구장",
+      "dimensions_m": [
+        0.32,
+        1.65,
+        0.7
+      ],
+      "position": [
+        2.7,
+        0.35,
+        3.28
+      ]
+    },
+    {
+      "id": "study-bound-books-v7",
+      "title": "전집·그림책과 실제 책등",
+      "dimensions_m": [
+        0.32,
+        1.65,
+        0.65
+      ],
+      "position": [
+        2.7,
+        0.35,
+        3.28
+      ]
+    },
+    {
+      "id": "study-artwork-v7",
+      "title": "아이 그림 4장 · 코르크 보드",
+      "dimensions_m": [
+        0.03,
+        1.1,
+        0.78
+      ],
+      "position": [
+        2.56,
+        1.38,
+        3.22
+      ]
+    },
+    {
+      "id": "study-picture-book-covers-v7",
+      "title": "표지가 보이는 가상 그림책 8권",
+      "dimensions_m": [
+        0.36,
+        1.25,
+        0.8
+      ],
+      "position": [
+        5.12,
+        0.4,
+        2.68
+      ]
+    },
+    {
+      "id": "study-learning-clock-v7",
+      "title": "유아 시계",
+      "dimensions_m": [
+        0.28,
+        0.03,
+        0.28
+      ],
+      "position": [
+        3.93,
+        1.94,
+        0.76
+      ]
+    },
+    {
+      "id": "study-activity-resources-v7",
+      "title": "활동 쟁반·색연필·카드·작업 매트",
+      "dimensions_m": [
+        0.32,
+        1.65,
+        0.65
+      ],
+      "position": [
+        2.7,
+        0.4,
+        3.28
+      ]
+    }
+  ],
+  "scope": "Same house; native study geometry and resources; no child mesh"
+}

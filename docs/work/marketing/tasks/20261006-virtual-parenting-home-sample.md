@@ -3,7 +3,7 @@
 - id: 20261006-marketing-virtual-parenting-home-sample
 - domain: marketing
 - status: ready
-- updated: 2026-10-06
+- updated: 2026-10-07
 - base: c73189d95
 - branch: codex/marketing-virtual-parenting
 - worktree: C:/projects/tangobook/.worktrees/virtual-parenting
@@ -174,3 +174,22 @@ feed-v5.html은 좌 최종사진/원본 겹침·버전, 우 실제 PBR GLB 카�
 사용자가 이 넓은 각도에서 다리가 안 보이는 것이 이상하다고 정정했다. 이전 근접 컷의 전체 발 가림 조건을 CAM2 넓은 컷에 그대로 적용한 판단 오류다. v2의 하체 가림 자연스러움 판정을 철회하며, 이후 검수는 카메라와 상판/의자/몸의 실제 가림 관계를 따로 평가한다.
 
 built-in image_gen targeted edit v3로 두 크림 바지 정강이/양말 발을 책상 아래 보이는 공간에 복원. 앞쪽 책상 다리보다 뒤에 놓인 작은 발, 바닥 접촉 그림자, 몸에서 이어지는 앉은 자세를 육안 확인했다. 상체/교구/책장/문/빈벽/광원 구성 유지. 기본 CAM2 이미지 v3로 교체, 이전 v1/v2는 보존. 정확한 요청/원본 경로 feed-v5-leg-fix.json 및 전체 prompts.json에 기록.
+
+
+## 여러 각도 교구 시험의 구조 실패 / 3D 우선 전환 (2026-10-07)
+
+사용자가 자석 타일·연결 큐브 등 다른 교구로 앞/뒤/손 근접컷을 요청했다. built-in image_gen으로 두 활동×세 시점 시험, 이후 빈 공부방/반듯한 촬영/좁아 보이는 뒷모습 반증을 받아 3D 반대벽 교구장·책·그림 보드·활동 쟁반과 카메라 roll을 추가했다. 방 원본은2.9×4m, 높이2.6m이며 실제 방 확대를 하지 않았다. 뒤쪽 카메라는24mm로 바꿨다.
+
+중요한 반증: 3D 렌더를 넣었다는 사실과 최종 사진의 구조 일치는 다르다. 생성된 앞 사진을 추가 참조로 넣은 뒤 원본에 없는 코르크 보드 위치·창 아래 중복 수납장·문틀·캐비넷 길이/칸 변형이 다른 각도에 이어졌다. 중복 수납장은 편집 제거했지만 최종 큐브 뒤 컷은 연결 큐브가 일반 블록처럼 바뀌고 색 순서도 원본과 다르다. 구조 검수 실패이며 '같은 3D 공부방'이라는 단정적 설명을 철회했다. carousel-v6 시험본은 미승인 표시로 보존한다. 정확한 생성/추가 참조/수정 요청은 scripts/virtual-parenting/carousel-v6-prompts.json. 최종6장과 초기6장을 output/virtual-parenting/carousel-v6, D드라이브에 보존한다.
+
+실제 피드 조사 범위: Agent Reach doctor/OpenCLI 경로 시도 후401 실패, 로그인된 인앱 브라우저에서 _hyunee_mom/p/DeIjbvZkmps 의 공구 캐러셀 두 매체를 육안 확인했다. 첫 매체는 교구/포스터가 많은 배경, 다음은 얼굴·팔 일부가 잘린 사선 교구 근접컷. my__chaechae/p/Ddh57ydkxKq 첫 두 매체는 책 묶음/이벤트라 방 구성 근거로 쓰지 않았다. __ririmom 조회는 브라우저 timeout. 여러 계정의 일상 피드/공부방을 상세 분석했다고 보고하지 않는다. 공식 MAGNA-TILES/MathLink 자료는 교구 유형 참고이며 제품 정밀 복제 아님.
+
+사용자 최신 결정: '3D 모델링을 먼저 잘 만들어봐'. 이미지 생성을 중단하고 고정 Blender 원본 세부 모델링을 우선한다. 다음 납품은 왼쪽 실제 Cycles 원본/오른쪽 같은3D와 카메라. 아이는 아직2D 생성 캐릭터이며3D에 존재하지 않는다.
+### 실제 3D 원본 보강 완료 · 2026-10-07
+
+- 사용자 우선순위에 따라 추가 생성 사진을 중단하고 `build_study_v7.py`로 기존 집 안의 공부방 모델을 보강했다. 방 치수 2.9 × 4.0 × 2.6 m와 책상/의자 높이는 유지했다.
+- 수납장 측판·받침, 책의 표지/종이/책등, 책상 나사, 의자 가로대, 게시판 그림과 압정, 활동 카드·연필·매트, 시계, 큐브의 실제 연결 구멍을 추가했다. 교구는 자체 일반형 모델이며 실제 브랜드 제품의 정밀 복제품이 아니다.
+- `D:/ComfyUI-output/virtual-parenting-20261006/family-home-study-v7.blend`에 4K PBR 텍스처를 포함해 저장했다. 웹 미리보기는 동일한 형상에 1024px 텍스처를 사용한다. 원본/웹 GLB의 nodes, meshes, cameras JSON이 동일함을 확인했다: 1083 nodes, 1007 meshes, 7 texture images.
+- 교구 두 종류 × 정면/책상 뒤/근접의 실제 Cycles 렌더 6장(800 × 1000, CPU 32 samples)을 육안 검수했다. 아이 3D 모델은 포함하지 않았다. 사진급 실사 완성 상태는 아니며, 외부 풍경·소품 표면·학습 포스터의 디테일은 추가 개선 대상이다.
+- `http://127.0.0.1:5191/study-v7.html`에서 왼쪽은 AI 보정 없는 Cycles 원본, 오른쪽은 같은 모델의 카메라 위치/위에서 보기/촬영 시점이다. 실제 브라우저에서 교구·장면 전환, 세 보기 모드와 원본 구도 일치를 확인했다. 카메라 정보 배경을 추가해 가독성을 개선했다.
+- 검증: Python AST, HTML module `node --check`, 6개 이미지와 카메라 up/frustum 메타데이터 검사, 원본/웹 형상 대조, `git diff --check`. 화면 증거: `D:/ComfyUI-output/virtual-parenting-20261006/study-v7-proof.png`. 정적 시각화 범위이므로 제품 서버·DB·외부 게시 및 monorepo 전체 테스트는 실행하지 않았다.

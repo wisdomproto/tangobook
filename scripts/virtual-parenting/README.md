@@ -104,3 +104,22 @@ v5의 `family-home-materials-v5.blend`는 사용 맵을 내부 pack하고 `.glb`
 `render_feed_v5.py`는 packed v5 모델에서 기존 공부방 카메라를 렌더한다. 공부방 창 밖 area daylight를 추가한 `family-home-feed-v5.blend`를 별도 저장하고 원래 v5 모델은 보존한다. GPU 경합 시 `--cpu`로768×960/32샘플 가이드를 만들 수 있다(이번 최종 공부방 원본). 거실 원본은 이전1280×1600/160샘플. 웹3D는 동일 형상/재질의 `family-home-materials-v5.glb`를 재사용한다.
 
 선택 PNG3장은 `output/virtual-parenting/feed-v5/` 및 D드라이브 `feed-v5/`, 정확한 요청/참조/원본 경로는 `feed-v5-prompts.json`. 사진 내 광원/창밖/쿠션 두께는 AI 재해석으로 남아 있으며 정확한 가구 치수 보존을 보장하지 않는다.
+
+## 교구 캐러셀 시험 v6 / 3D 모델링 우선 v7
+
+`render_carousel_v6.py`는 두 가지 자체 교구 모델(투명 자석 타일, 연결 큐브)과 앞/뒤/근접 세 카메라, 반대벽 교구장·책·활동 쟁반·작품 보드를 고정한 원본을 만든다. 각 활동은 `activity_id`로 전환한다. 기본 공부방은2.9×4m이며 넓혀진 모델이 아니다. 교구 유형은 [MAGNA-TILES](https://magnatiles.com/products/magna-tiles-classic-32-piece-set)와 [MathLink](https://www.learningresources.com/item-mathlinkr-cubes-set-of-100) 공식 자료 참고, 제품 스캔/정밀 복제가 아니다.
+
+`carousel-v6.html`의 생성 사진은 **구조 검수 미통과 시험본**이다. 같은 3D 렌더를 넣어도 생성 사진의 문틀·보드 위치·캐비넷 칸·큐브 연결부/색 순서가 변형됐다. 생활감 프롬프트만으로 고정 기하를 보장하지 못했고 앞 사진을 추가 참조로 쓴 변형이 다른 각도에 이어졌다. `carousel-v6-prompts.json`에 초기/수정 요청과 참조/원본 경로를 남겼다. `finalize_carousel_v6.py`는 미승인 메모와 선택본을 저장한다. 사용자 반증 후 사진 생성을 중단했다.
+
+`build_study_v7.py`는 같은집 Blender 원본을 먼저 상세화한다. 교구장 옆판·받침, 표지/책등/속지 구분, 실제 표지 도형, 코르크 보드 낙서 곡선·압정, 카드·말린 매트·색연필, 의자 보강대·책상 나사, 시계, 연결 큐브의 실제 Boolean 결합 홈을 포함한다. 추가 목재에는 물리 UV를 적용하고 기존4K PBR7맵을 내부 pack한다. GLB에는 곡선도 mesh로 변환해 내장한다. 두 교구×세 카메라의800×1000 Cycles32샘플/CPU 원본은 AI 보정이 전혀 없다.
+
+```powershell
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/render_carousel_v6.py -- D:/ComfyUI-output/virtual-parenting-20261006
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/build_study_v7.py -- D:/ComfyUI-output/virtual-parenting-20261006
+& D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/export_study_v7_web.py -- D:/ComfyUI-output/virtual-parenting-20261006
+python scripts/virtual-parenting/prepare_study_v7.py
+```
+
+`study-v7.html`은 좌 실제 Cycles 원본, 우 같은 GLB 카메라/평면/POV. 카메라 roll은 Blender의up벡터로 맞춘다. `family-home-study-v7.blend/.glb` 및 `study-v7-assets.json`은 고정 자산 원본이다. 아이3D/리깅, 실제 상품표지/텍스트, 사진급 실사 완성은 아직 아니다. 앞뒤 배치 검증을 우선하며 기존 AI 사진의 정확한 구조가 맞다고 취급하지 않는다.
+
+브라우저는 동일 형상과 카메라의 `family-home-study-v7-web.glb`(1024px 재질 미리보기)를 사용한다. 원본 Blender/GLB의4K 텍스처는 보존하며, 웹 미리보기와 Cycles의 조명·텍스처 해상도가 같은 것으로 보고하지 않는다.

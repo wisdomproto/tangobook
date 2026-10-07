@@ -22,6 +22,8 @@
 
 ## 현재 상태
 
+2026-10-07 [가상 육아 고정 집/교구](tasks/20261006-virtual-parenting-home-sample.md): 여러 각도 AI 사진은 문틀·수납장·교구 연결부 변형으로 구조 검수 실패. 사용자 최신 선택은 사진 생성을 멈추고 Blender 3D 모델링 우선. study-v7은 실제 Cycles 원본과 동일 GLB 카메라 비교이며 아이3D는 아직 없음. 실제 피드 조사 범위는 현이맘 공구 캐러셀 두 매체 등 제한적이며 다수 일상 피드를 상세 분석한 것으로 보고하지 않는다.
+
 [BRIEF](BRIEF.md)에 기존 코드·전문 지침을 연결했다. 네이버 블로그는 [2026-09-21 재개 기록](tasks/20260921-naver-blog-resume.md)을 확인한다. DB 이력은 8월 21일까지 갱신되어 개인 메모리보다 최신이며, 실제 네이버 예약 잔량과는 구분한다. 발행기는 `.worktrees/naver-blog`의 작업을 먼저 확인한다. 나머지 진행 작업은 재개 시 worktree의 task 기록과 변경 내용을 확인한다.
 
 자체 블로그 활동 글은 [2026-09-21 한글·영문 작성·발행 기록](tasks/20260921-activity-blog-ko-en.md)에 있다. 색칠공부·숨은그림찾기·한글/영어 블록 놀이 3주제의 ko/en 6편을 2026-09-21 동시에 공개했다. 소스는 `scripts/_data/marketing/activity-blogs`, 시더는 `seed-marketing-activity-blogs.mjs`다. 활동 콘텐츠는 `activity:*` 메모를 써서 동화책 CTA로 잘못 해석되지 않게 유지한다.
