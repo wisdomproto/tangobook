@@ -26,6 +26,12 @@ for s in shots:
     assert s['validation_status']=='native-render' and s['image']==s['guide']
     with Image.open(root/s['image']) as im:assert im.size==(800,1000)
     assert len(s['up'])==3 and len(s['frustum_corners'])==4
+photos=json.loads((root/'study-v7-photo-shots.json').read_text(encoding='utf-8'))
+assert {s['id'] for s in photos}=={s['id'] for s in shots}
+for photo in photos:
+    native=next(s for s in shots if s['id']==photo['id'])
+    assert photo['source_model']=='v7' and photo['reference']==native['guide']
+    with Image.open(root/photo['image']) as im:assert abs(im.width/im.height-native['aspect'])<.003
 blob=(root/'family-home-study-v7.glb').read_bytes();magic,version,length=struct.unpack_from('<4sII',blob);assert magic==b'glTF' and version==2 and length==len(blob)
 size,kind=struct.unpack_from('<II',blob,12);gltf=json.loads(blob[20:20+size]);ids=[n.get('extras',{}).get('asset_id') for n in gltf['nodes']]
 for key in ['study-opposite-cabinet-v7','study-bound-books-v7','study-artwork-v7','study-activity-resources-v7']:assert key in ids

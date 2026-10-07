@@ -1,0 +1,62 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-07",
+  "composition_source": "Exact matching study-v7 Cycles render per shot",
+  "identity_reference": "New v7 tiles-front photo only; no v6 photos attached",
+  "validation": "visual comparison; approximate fidelity, not pixel-locked; material, toy and illumination differences remain",
+  "jobs": [
+    {
+      "id": "tiles-front",
+      "prompt": "Edit the attached image as the sole authoritative composition and geometry target. This is an exact-camera photorealistic conversion, not an interior redesign. Preserve the 4:5 portrait frame, the slight camera roll, all vanishing points, all room boundaries, door opening at left, round clock upper left, three paper posters above the low cabinet, the cabinet dimensions and exact divisions, yellow bins, cup tray, the six-book display at right, the table position, white split tabletop, four table legs and chair position. Keep the same amount of floor foreground and the exact framing; do not zoom in, straighten the camera, change lens, move furniture, add wall art, add plants, add rugs, duplicate cupboards, or widen the door. Convert the materials and illumination into a real casual phone photograph: natural oak grain at the existing UV scale, matte painted walls, realistic paper and plastic, soft daylight, mild sensor grain, restrained contrast, no cinematic bokeh or showroom gloss. Add one fictional Korean four-year-old boy seated in the existing chair on the far side of the table, dark bowl-cut hair, sage sweatshirt, cream trousers, beige socks, looking down and playing with the existing magnetic tile house. The child is small enough for this child desk, and must not require moving, scaling or rebuilding any furniture. He may naturally occlude the chair, a small part of the cabinet and tiles, but no other structural alteration is allowed. Anatomically coherent seated legs with feet underneath him, visible only where the original table/chair occlusion permits. The magnetic tile house and loose tiles retain their locations on the tabletop. Highest priority is pixel-aligned camera and room/furniture silhouettes from the supplied render; photorealism and child are secondary. Output one finished photo, not a collage or comparison.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/study-v7/tiles-front-cycles.png"
+      ],
+      "path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-b0c844c6-9c63-4d98-960b-f75aefcb15a8.png"
+    },
+    {
+      "id": "tiles-back",
+      "prompt": "Edit IMAGE 1 as the authoritative exact composition target: same 4:5 portrait camera, lens, roll, perspective, framing and room/furniture silhouettes. Do not redesign, zoom, crop, shift the camera, straighten roll, add furniture/art/plants/rugs, or import the room from IMAGE 2. IMAGE 2 is ONLY the fictional child's identity and outfit reference; its background and camera must be completely ignored. Transform IMAGE 1's materials into a genuine casual phone photograph with oak grain, matte walls, tactile paper, translucent toy plastic, soft daylight, subtle grain, restrained contrast. Preserve all wall openings, shelf dimensions/divisions, book positions, tabletop split seam, table legs and chair location. Show the child from behind seated in the existing chair at the bottom right facing the table, same sage sweater, cream pants, beige socks; head and shoulders naturally occlude only the nearby tabletop. Preserve the two-pane window shape and corner and the exact opposite cabinet with three columns/two rows and the four-sheet art board ABOVE that cabinet. Natural outdoor sky/tree color can replace only the blue-dark placeholder within the existing glass panes. Keep the magnetic tile house and loose tiles in their original locations. Output one finished photo, not a collage. Composition fidelity is the highest priority.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/study-v7/tiles-back-cycles.png",
+        "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-b0c844c6-9c63-4d98-960b-f75aefcb15a8.png"
+      ],
+      "path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-e6f0b46f-0eae-4426-8bfc-3ce19c9e0d80.png"
+    },
+    {
+      "id": "tiles-detail",
+      "prompt": "Edit IMAGE 1 as the authoritative exact composition target: same 4:5 portrait camera, lens, roll, perspective, framing and room/furniture silhouettes. Do not redesign, zoom, crop, shift the camera, straighten roll, add furniture/art/plants/rugs, or import the room from IMAGE 2. IMAGE 2 is ONLY the fictional child's identity and outfit reference; its background and camera must be completely ignored. Transform IMAGE 1's materials into a genuine casual phone photograph with oak grain, matte walls, tactile paper, translucent toy plastic, soft daylight, subtle grain, restrained contrast. Preserve all wall openings, shelf dimensions/divisions, book positions, tabletop split seam, table legs and chair location. This is a close view of the existing tabletop and magnetic tile house, not a portrait. Add only the child's small hands entering naturally from the right, sage sleeves, gently holding the existing tile roof; no face or full body. Retain the cropped chair at upper right, doorway at upper center-right, white split tabletop edge and toy positions exactly. Do not insert feet. The child's hands may occlude parts of the roof but may not rearrange the loose tiles. Output one finished photo, not a collage. Composition fidelity is the highest priority.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/study-v7/tiles-detail-cycles.png",
+        "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-b0c844c6-9c63-4d98-960b-f75aefcb15a8.png"
+      ],
+      "path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-d89b1042-c77c-4053-84df-cf261c6c507e.png"
+    },
+    {
+      "id": "cubes-front",
+      "prompt": "Edit IMAGE 1 as the authoritative exact composition target: same 4:5 portrait camera, lens, roll, perspective, framing and room/furniture silhouettes. Do not redesign, zoom, crop, shift the camera, straighten roll, add furniture/art/plants/rugs, or import the room from IMAGE 2. IMAGE 2 is ONLY the fictional child's identity and outfit reference; its background and camera must be completely ignored. Transform IMAGE 1's materials into a genuine casual phone photograph with oak grain, matte walls, tactile paper, translucent toy plastic, soft daylight, subtle grain, restrained contrast. Preserve all wall openings, shelf dimensions/divisions, book positions, tabletop split seam, table legs and chair location. Show the fictional Korean four-year-old boy seated in the existing far-side chair at the original desk, dark bowlcut, sage sweater, cream pants, beige socks, looking down and gently touching the tallest GREEN tower. Preserve circular connector recesses on the cubes, the FOUR ascending blue/red/yellow/green towers and all loose pieces, not plain wooden blocks. Keep the doorway, clock, THREE posters, cabinet with yellow bins and six-book display exactly as IMAGE 1. Preserve empty floor foreground, no closer crop. Output one finished photo, not a collage. Exact composition fidelity outranks photoreal styling.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/study-v7/cubes-front-cycles.png",
+        "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-b0c844c6-9c63-4d98-960b-f75aefcb15a8.png"
+      ],
+      "path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-ce9bf8f8-bd90-4559-9f8b-cbd256006a55.png"
+    },
+    {
+      "id": "cubes-back",
+      "prompt": "Edit IMAGE 1 as the authoritative exact composition target: same 4:5 portrait camera, lens, roll, perspective, framing and room/furniture silhouettes. Do not redesign, zoom, crop, shift the camera, straighten roll, add furniture/art/plants/rugs, or import the room from IMAGE 2. IMAGE 2 is ONLY the fictional child's identity and outfit reference; its background and camera must be completely ignored. Transform IMAGE 1's materials into a genuine casual phone photograph with oak grain, matte walls, tactile paper, translucent toy plastic, soft daylight, subtle grain, restrained contrast. Preserve all wall openings, shelf dimensions/divisions, book positions, tabletop split seam, table legs and chair location. Show the child FROM BEHIND in the existing bottom-right chair facing the original desk, sage sweater cream pants beige socks. Preserve IMAGE 1's two-pane window/corner, the opposite three-column/two-row cabinet with rolled mint mat and color cup trays, four-sheet art board above that cabinet. Replace only the placeholder within glass with plausible distant outdoor trees. Keep four linking-cube towers with real circular recesses and their colors, positions and count. No new furniture/window/doorway. Output one finished photo, not a collage. Exact composition fidelity outranks photoreal styling.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/study-v7/cubes-back-cycles.png",
+        "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-b0c844c6-9c63-4d98-960b-f75aefcb15a8.png"
+      ],
+      "path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-6bd7d22f-10ea-4afa-b28a-1ebd1cbd1b6c.png"
+    },
+    {
+      "id": "cubes-detail",
+      "prompt": "Edit IMAGE 1 as the authoritative exact composition target: same 4:5 portrait camera, lens, roll, perspective, framing and room/furniture silhouettes. Do not redesign, zoom, crop, shift the camera, straighten roll, add furniture/art/plants/rugs, or import the room from IMAGE 2. IMAGE 2 is ONLY the fictional child's identity and outfit reference; its background and camera must be completely ignored. Transform IMAGE 1's materials into a genuine casual phone photograph with oak grain, matte walls, tactile paper, translucent toy plastic, soft daylight, subtle grain, restrained contrast. Preserve all wall openings, shelf dimensions/divisions, book positions, tabletop split seam, table legs and chair location. Close view of linking cubes on existing desk. Add only two small child hands from the right with sage sleeves, gently steadying the tallest GREEN tower, no head/body/feet. Preserve FOUR ascending towers exactly: blue TWO cubes, red THREE cubes with the top detached just above, yellow FOUR cubes, green FIVE cubes. Preserve SIX loose cube locations and real circular recesses. Do not add/delete cubes or convert to plain blocks. Preserve cropped chair upper right, doorway upper right and the white tabletop seam/framing. Output one photo; exact source geometry is highest priority.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/study-v7/cubes-detail-cycles.png",
+        "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-b0c844c6-9c63-4d98-960b-f75aefcb15a8.png"
+      ],
+      "path": "C:/Users/101024/.codex/generated_images/01a110d5-935b-7ff1-b313-4fb9a025ea65/exec-ab127bf9-2a54-4314-b67a-e594f6d9afe0.png"
+    }
+  ]
+}

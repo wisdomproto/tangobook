@@ -125,4 +125,4 @@ python scripts/virtual-parenting/prepare_study_v7.py
 브라우저는 동일 형상과 카메라의 `family-home-study-v7-web.glb`(1024px 재질 미리보기)를 사용한다. 원본 Blender/GLB의4K 텍스처는 보존하며, 웹 미리보기와 Cycles의 조명·텍스처 해상도가 같은 것으로 보고하지 않는다.
 ### study-v7의 세 칸 비교 화면
 
-`python scripts/virtual-parenting/prepare_study_v7.py`는 `three_panel_study.py`를 통해 왼쪽 v7 Cycles 원본, 가운데 기존 v6 AI 시험 사진, 오른쪽 현재 v7 3D 카메라를 함께 표시한다. 아래 장면 선택으로 세 칸을 함께 전환한다. AI 사진은 현재 v7 모델에서 새로 생성한 결과가 아니므로 버전과 구조 미승인 표시를 유지한다. 기존 `carousel-v6-shots.json` 및 해당 PNG가 정적 폴더에 있어야 한다.
+`python scripts/virtual-parenting/prepare_study_v7.py`는 `three_panel_study.py`를 통해 왼쪽 v7 Cycles 원본, 가운데 해당 v7 렌더를 직접 참조해 새로 생성한 사진, 오른쪽 v7 3D 카메라를 표시한다. `study-v7-photo-shots.json`과 `study-v7-photo/*-photo-v1.png`가 정적 폴더에 있어야 한다. 두 교구 × 정면/뒤/근접 6장을 built-in image_gen으로 다시 만들었다. 정확한 프롬프트·실제 첨부 파일·생성 경로는 `study-v7-photo-prompts.json`에 있다. v6 사진은 참조하지 않았다. 주요 구도는 육안상 근접하지만 픽셀 고정 결과는 아니며 조명, 바닥 결, 교구의 부품 수/배치는 여전히 검수 대상이다. 큐브 원본의 떠 있는 빨강 조각은 원본 모델의 연출 상태이므로 후속 손 포즈/교구 모델 수정 대상이다.

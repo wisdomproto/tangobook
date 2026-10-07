@@ -19,6 +19,7 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'carousel-v6-shots.json') -Desti
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7.html') -Destination (Join-Path $taskRoot 'study-v7.html')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7-shots.json') -Destination (Join-Path $taskRoot 'study-v7-shots.json')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7-assets.json') -Destination (Join-Path $taskRoot 'study-v7-assets.json')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'study-v7-photo-shots.json') -Destination (Join-Path $taskRoot 'study-v7-photo-shots.json')
 $taskFiles=@('build/three.module.js','build/three.core.js','examples/jsm/controls/OrbitControls.js','examples/jsm/loaders/GLTFLoader.js','examples/jsm/utils/BufferGeometryUtils.js','LICENSE')
 foreach($taskFile in $taskFiles){
     $taskRelative=if($taskFile.StartsWith('build/')){$taskFile.Substring(6)}elseif($taskFile.StartsWith('examples/jsm/')){'addons/'+$taskFile.Substring(13)}else{'THREE-LICENSE.txt'}

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tiles-front",
+    "image": "study-v7-photo/tiles-front-photo-v1.png",
+    "reference": "study-v7/tiles-front-cycles.png",
+    "source_model": "v7",
+    "validation_status": "visual-approximate",
+    "review": "Same v7 render reference; approximate composition, remaining toy/material/lighting reinterpretation."
+  },
+  {
+    "id": "tiles-back",
+    "image": "study-v7-photo/tiles-back-photo-v1.png",
+    "reference": "study-v7/tiles-back-cycles.png",
+    "source_model": "v7",
+    "validation_status": "visual-approximate",
+    "review": "Same v7 render reference; approximate composition, remaining toy/material/lighting reinterpretation."
+  },
+  {
+    "id": "tiles-detail",
+    "image": "study-v7-photo/tiles-detail-photo-v1.png",
+    "reference": "study-v7/tiles-detail-cycles.png",
+    "source_model": "v7",
+    "validation_status": "visual-approximate",
+    "review": "Same v7 render reference; approximate composition, remaining toy/material/lighting reinterpretation."
+  },
+  {
+    "id": "cubes-front",
+    "image": "study-v7-photo/cubes-front-photo-v1.png",
+    "reference": "study-v7/cubes-front-cycles.png",
+    "source_model": "v7",
+    "validation_status": "visual-approximate",
+    "review": "Same v7 render reference; approximate composition, remaining toy/material/lighting reinterpretation."
+  },
+  {
+    "id": "cubes-back",
+    "image": "study-v7-photo/cubes-back-photo-v1.png",
+    "reference": "study-v7/cubes-back-cycles.png",
+    "source_model": "v7",
+    "validation_status": "visual-approximate",
+    "review": "Same v7 render reference; approximate composition, remaining toy/material/lighting reinterpretation."
+  },
+  {
+    "id": "cubes-detail",
+    "image": "study-v7-photo/cubes-detail-photo-v1.png",
+    "reference": "study-v7/cubes-detail-cycles.png",
+    "source_model": "v7",
+    "validation_status": "visual-approximate",
+    "review": "Same v7 render reference; approximate composition, remaining toy/material/lighting reinterpretation."
+  }
+]
