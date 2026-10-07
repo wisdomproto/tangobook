@@ -47,3 +47,10 @@ Python312에 CadQuery/trimesh 설치. 이 환경 CadQuery2.8의 선택적 VTK �
 ## 2026-10-07 블록 밑면 라운딩
 
 사용자가블록실물은딱좋다고확인후밑부분둥글게요청. 바닥외곽R0.5/9개홈입구R0.5. 홈입구아래0.5mm만넓어지고그위반경2.85/깊이3.2·발자국29.6·높이5.5·윗스티커포켓은유지. 겹친홈절단후일괄fillet은CAD실패또는STL열림발생해폐기; 최종은바닥라운딩후XZ원호회전커터로각소켓둥근입구를직접생성. 단일유효CAD/닫힌단일STL·기존9돌기교차0·JS/Python구문확인. 출력메시0.01mm단순화, 최종6948삼각형; CAD원본STEP보존. Downloads tango-camera-block-2x2-rounded-bottom.stl, HTML블록메시/최종HTML갱신. 기존판/거치대변경없음. 라운딩후실물촉감은재출력미확인.
+
+
+## 2026-10-07 1×2 블록 추가
+
+사용자1by2요청. make_block(cols=2,rows=2) 파라미터화·기존2×2기본보존, sticker_block_1x2.py추가. 14.6×29.6×5.5mm/15mm피치,홈6개(X±7.5,Y−15/0/15), 반경2.85/깊이3.2·외곽R3/하단외곽및입구R0.5·윗턱폭1/높이0.8, 스티커자리12.6×27.6. CAD단일유효/치수검사, 현판돌기를감싸는반경2.5/높이2.9원통6개와교차0. 출력STL0.01mm단순화4,368삼각형/닫힌단일바디·바닥Z0, JS/Python구문검사. 실제프린트끼움은아직미검증.
+
+HTML판위중심67.5,105/바닥13mm에추가표시, 1×2위/아래단독버튼추가·기존2×2표시보존. Downloads tango-camera-block-1x2-rounded-bottom.stl, 최종HTML갱신. 1×2재생성은python hardware/studboard/sticker_block_1x2.py(현재환경vtk선택적모듈래퍼)이고2×2도공통make_block사용.

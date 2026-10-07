@@ -1,0 +1,26 @@
+{
+  "size_mm": [
+    14.6,
+    29.6,
+    5.5
+  ],
+  "socket_count": 6,
+  "socket_radius_mm": 2.85,
+  "socket_depth_mm": 3.2,
+  "sticker_area_mm": [
+    12.6,
+    27.6
+  ],
+  "bottom_round_mm": 0.5,
+  "stud_envelope_collision_mm3": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "triangles": 4368,
+  "closed_single_body": true,
+  "physical_test": false
+}

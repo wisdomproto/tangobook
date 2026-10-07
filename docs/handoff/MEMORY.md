@@ -379,3 +379,5 @@
 - 2026-10-07 [거치대 라운딩](../work/hardware/tasks/20261007-open-bottom-board-print.md): 앞턱/홈입구/등받이/보강대양측/받침팔/뒤바닥R추가·확대. 기둥Ø4.5×4·반경여유0.2·15°기댐면유지. CAD/STL/JS검사통과·실물촉감미검증, 새다운로드two-pin-rounded-cradle.stl.
 
 - 2026-10-07 [블록 밑면 라운딩](../work/hardware/tasks/20261006-sticker-block-2x2.md): 사용자실출력맞춤좋음확인후바닥외곽/소켓입구R0.5추가. 홈윗규격/높이/스티커자리유지, CAD교차0·닫힌STL/JS검사통과. 새파일tango-camera-block-2x2-rounded-bottom.stl; 라운딩촉감실검증미실시.
+
+- 2026-10-07 [1×2 둥근 블록](../work/hardware/tasks/20261006-sticker-block-2x2.md): 14.6×29.6×5.5/6홈/밑R0.5·스티커자리12.6×27.6. CAD간섭0·단일닫힌STL4,368면·JS검사. HTML1×2위/아래추가·실끼움미검증, 생성기sticker_block_1x2.py.

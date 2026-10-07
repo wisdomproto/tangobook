@@ -15,13 +15,14 @@ PITCH, WIDTH, HEIGHT = 15.0, 29.6, 5.5
 SOCKET_R, SOCKET_DEPTH = 2.85, 3.2
 RIM_WIDTH, RIM_HEIGHT, CORNER_R = 1.0, 0.8, 3.0
 
-def make_block():
-    body = (cq.Workplane('XY').box(WIDTH, WIDTH, HEIGHT, centered=(True, True, False))
+def make_block(cols=2,rows=2):
+    width_x,width_y=cols*PITCH-.4,rows*PITCH-.4
+    body = (cq.Workplane('XY').box(width_x, width_y, HEIGHT, centered=(True, True, False))
             .edges('|Z').fillet(CORNER_R).faces('>Z').edges().fillet(0.35)
             .faces('<Z').edges().fillet(.5))
     # 원래 2×2칸 교점 배치: 중앙1·변4·귀퉁이4 돌기 회피 홈.
-    for x in (-PITCH, 0, PITCH):
-        for y in (-PITCH, 0, PITCH):
+    for x in [i*PITCH-cols*PITCH/2 for i in range(cols+1)]:
+        for y in [i*PITCH-rows*PITCH/2 for i in range(rows+1)]:
             # Rounded cutter mouth, rather than a fragile fillet across the
             # intersecting partial sockets. Radius/depth above Z=.5 unchanged.
             socket = (cq.Workplane('XZ').moveTo(0,-.1).lineTo(SOCKET_R+.5,-.1)
@@ -30,7 +31,7 @@ def make_block():
                       .lineTo(SOCKET_R,SOCKET_DEPTH).lineTo(0,SOCKET_DEPTH).close()
                       .revolve(360,(0,0),(0,1)).translate((x,y,0)))
             body = body.cut(socket)
-    pocket = (cq.Workplane('XY').box(WIDTH-2*RIM_WIDTH, WIDTH-2*RIM_WIDTH, RIM_HEIGHT+1, centered=(True,True,False))
+    pocket = (cq.Workplane('XY').box(width_x-2*RIM_WIDTH, width_y-2*RIM_WIDTH, RIM_HEIGHT+1, centered=(True,True,False))
               .edges('|Z').fillet(CORNER_R-RIM_WIDTH).translate((0,0,HEIGHT-RIM_HEIGHT)))
     return body.cut(pocket).val()
 
