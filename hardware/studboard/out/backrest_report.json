@@ -1,0 +1,180 @@
+{
+  "backrest_angle_from_vertical_deg": 15,
+  "backrest_contact_local_y_mm": 6.5,
+  "backrest_height_local_mm": 85.0,
+  "backrest_width_mm": 190,
+  "backrest_thickness_mm": 4,
+  "brace_width_mm": 8,
+  "tablet_thickness_checks_mm": [
+    5,
+    7,
+    9,
+    11
+  ],
+  "insertion_checks": [
+    {
+      "thickness_mm": 5,
+      "rise_mm": 0,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 5,
+      "rise_mm": 5,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 5,
+      "rise_mm": 20,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 5,
+      "rise_mm": 100,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 5,
+      "rise_mm": 260,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 7,
+      "rise_mm": 0,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 7,
+      "rise_mm": 5,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 7,
+      "rise_mm": 20,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 7,
+      "rise_mm": 100,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 7,
+      "rise_mm": 260,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 9,
+      "rise_mm": 0,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 9,
+      "rise_mm": 5,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 9,
+      "rise_mm": 20,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 9,
+      "rise_mm": 100,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 9,
+      "rise_mm": 260,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 11,
+      "rise_mm": 0,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 11,
+      "rise_mm": 5,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 11,
+      "rise_mm": 20,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 11,
+      "rise_mm": 100,
+      "collision_mm3": 0.0
+    },
+    {
+      "thickness_mm": 11,
+      "rise_mm": 260,
+      "collision_mm3": 0.0
+    }
+  ],
+  "backward_lean_checks": [
+    {
+      "angle_deg": 15,
+      "collision_mm3": 0.0
+    },
+    {
+      "angle_deg": 17,
+      "collision_mm3": 21858.01544484663
+    },
+    {
+      "angle_deg": 20,
+      "collision_mm3": 45120.57806531319
+    },
+    {
+      "angle_deg": 25,
+      "collision_mm3": 33303.5102644845
+    },
+    {
+      "angle_deg": 30,
+      "collision_mm3": 25357.431485868834
+    }
+  ],
+  "rail_insertion_collision_mm3": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "tablet_bottom_local_z_mm": 1,
+  "tablet_center_local_y_mm": 2.95,
+  "rear_support_y_mm": 322.4,
+  "print_bounds_mm": [
+    225.9989013671875,
+    104.99322509765625,
+    85.1387509224005
+  ],
+  "triangle_count": 11462,
+  "physical_test": false,
+  "standalone_static_iPad_477g_cases": [
+    {
+      "solid_mass_fraction": 0.25,
+      "assumed_cradle_mass_g": 97.99133001550213,
+      "rear_margin_mm": 46.68966299762786,
+      "backward_top_push_tipping_N": 1.0734890149525271
+    },
+    {
+      "solid_mass_fraction": 0.5,
+      "assumed_cradle_mass_g": 195.98266003100426,
+      "rear_margin_mm": 48.510652480279134,
+      "backward_top_push_tipping_N": 1.3054389293388027
+    },
+    {
+      "solid_mass_fraction": 1,
+      "assumed_cradle_mass_g": 391.9653200620085,
+      "rear_margin_mm": 50.92053729478283,
+      "backward_top_push_tipping_N": 1.769338758111353
+    }
+  ],
+  "static_assumptions": [
+    "fully seated on rear face at 15 degrees",
+    "uniform effective material density 1.2 g/cm3 times fraction; NOT slicer infill",
+    "level rigid surface; no case, impact, sliding or strength validation"
+  ]
+}
