@@ -123,3 +123,6 @@ python scripts/virtual-parenting/prepare_study_v7.py
 `study-v7.html`은 좌 실제 Cycles 원본, 우 같은 GLB 카메라/평면/POV. 카메라 roll은 Blender의up벡터로 맞춘다. `family-home-study-v7.blend/.glb` 및 `study-v7-assets.json`은 고정 자산 원본이다. 아이3D/리깅, 실제 상품표지/텍스트, 사진급 실사 완성은 아직 아니다. 앞뒤 배치 검증을 우선하며 기존 AI 사진의 정확한 구조가 맞다고 취급하지 않는다.
 
 브라우저는 동일 형상과 카메라의 `family-home-study-v7-web.glb`(1024px 재질 미리보기)를 사용한다. 원본 Blender/GLB의4K 텍스처는 보존하며, 웹 미리보기와 Cycles의 조명·텍스처 해상도가 같은 것으로 보고하지 않는다.
+### study-v7의 세 칸 비교 화면
+
+`python scripts/virtual-parenting/prepare_study_v7.py`는 `three_panel_study.py`를 통해 왼쪽 v7 Cycles 원본, 가운데 기존 v6 AI 시험 사진, 오른쪽 현재 v7 3D 카메라를 함께 표시한다. 아래 장면 선택으로 세 칸을 함께 전환한다. AI 사진은 현재 v7 모델에서 새로 생성한 결과가 아니므로 버전과 구조 미승인 표시를 유지한다. 기존 `carousel-v6-shots.json` 및 해당 PNG가 정적 폴더에 있어야 한다.

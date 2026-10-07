@@ -1,5 +1,6 @@
 """Prepare the native-only comparison viewer and check its actual exported data."""
 import pathlib,json,re,struct,subprocess,shutil
+from three_panel_study import compose
 from PIL import Image
 base=pathlib.Path(__file__).parent;root=pathlib.Path('D:/ComfyUI-output/virtual-parenting-20261006')
 html=(base/'carousel-v6.html').read_text(encoding='utf-8')
@@ -15,6 +16,7 @@ html=html.replace(" · 높이 ${s.position[1].toFixed(2)} m`", " · 높이 ${s.p
 html=re.sub(r'<div class="left-tools">.*?</div></section>', '<div class="left-tools"><input id="blend" type="range" min="0" max="100" value="100" hidden><span>실제 Cycles 렌더 · 아이 모델 없음</span><a id="image-link" class="download" download>렌더 원본 ↓</a></div></section>',html,count=1)
 html=html.replace('</style>', '.right .head{background:#f8f7f0ee;padding:8px 10px;border-radius:7px;top:12px;left:15px;right:15px}.camera-info,.view-hint{background:#f8f7f0e8;color:#414b38;padding:4px 7px;border-radius:5px;top:60px}.right .head span{color:#65714f}</style>')
 html=html.replace('이미지 생성 중입니다.<br>원본 3D 렌더는 아래 슬라이더로 볼 수 있습니다.','원본 렌더를 불러오지 못했습니다.')
+html=compose(html)
 (base/'study-v7.html').write_text(html,encoding='utf-8');(root/'study-v7.html').write_text(html,encoding='utf-8')
 shots=json.loads((root/'study-v7-shots.json').read_text(encoding='utf-8'));assert len(shots)==6
 for s in shots:s['title']=s['title'].replace('아이 뒤 · 어깨 너머','책상 뒤 · 창가').replace('손·교구 근접','교구 디테일')
