@@ -1,0 +1,20 @@
+{
+  "heel_extension_mm": 45,
+  "rear_support_y_mm": 322.4000001000001,
+  "slot_width_mm": 13,
+  "liner_inner_width_mm": 7.4,
+  "liner_outer_width_mm": 12.7,
+  "liner_nominal_insertion_collision_mm3": 0,
+  "liner_rib_overlap_mm3": [
+    0.741447984351181,
+    0.7414479843416066
+  ],
+  "tablet_collision_mm3": 0,
+  "print_plate_bounds_mm": [
+    225.99739170074463,
+    128.1182271266988,
+    19.992403876502067
+  ],
+  "triangle_count": 13922,
+  "physical_test": false
+}

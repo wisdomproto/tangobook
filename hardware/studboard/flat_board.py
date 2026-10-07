@@ -83,7 +83,8 @@ def main():
     for f in nominal:
         for shift in (0,.5,2,5,12):
             assert plate.intersect(f.translate((0,0,-shift))).val().Volume()<1e-6
-    cradle=cq.importers.importStep(str(OUT/'tablet-cradle.step'))
+    cradle_path=OUT/'tablet-cradle-stable.step'
+    cradle=cq.importers.importStep(str(cradle_path if cradle_path.exists() else OUT/'tablet-cradle.step'))
     assert plate.intersect(cradle).val().Volume()<1e-6
     assert rear.intersect(cradle).val().Volume()<20
     nominal_rear=nominal_rail.union(bridge).union(foot(*PINS[2],ribs=False)).union(foot(*PINS[3],ribs=False))

@@ -3,192 +3,32 @@
     {
       "angle_deg": 15,
       "pose": {
-        "y_shift_mm": 2,
-        "z_shift_mm": 0,
+        "y_shift_mm": 0.5,
+        "z_shift_mm": 1.8,
         "collision_mm3": 0
       },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 18.6064601127041
+      "assumed_printed_mass_g": 134.31956886382852,
+      "rear_margin_mm": 63.503095748313115
     },
     {
       "angle_deg": 15,
       "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 0.5,
+        "y_shift_mm": 0.5,
+        "z_shift_mm": 2,
         "collision_mm3": 0
       },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 20.202310886768032
+      "assumed_printed_mass_g": 134.31956886382852,
+      "rear_margin_mm": 63.503095748313115
     },
     {
       "angle_deg": 15,
       "pose": {
-        "y_shift_mm": 2,
-        "z_shift_mm": 0.5,
+        "y_shift_mm": 0.5,
+        "z_shift_mm": 2.5,
         "collision_mm3": 0
       },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 18.6064601127041
-    },
-    {
-      "angle_deg": 15,
-      "pose": {
-        "y_shift_mm": -2,
-        "z_shift_mm": 1,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 21.798161660831937
-    },
-    {
-      "angle_deg": 15,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 1,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 20.202310886768032
-    },
-    {
-      "angle_deg": 15,
-      "pose": {
-        "y_shift_mm": 2,
-        "z_shift_mm": 1,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 18.6064601127041
-    },
-    {
-      "angle_deg": 15,
-      "pose": {
-        "y_shift_mm": -2,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 21.798161660831937
-    },
-    {
-      "angle_deg": 15,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 20.202310886768032
-    },
-    {
-      "angle_deg": 15,
-      "pose": {
-        "y_shift_mm": 2,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 18.6064601127041
-    },
-    {
-      "angle_deg": 20,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 0.5,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 11.950249112070253
-    },
-    {
-      "angle_deg": 20,
-      "pose": {
-        "y_shift_mm": -2,
-        "z_shift_mm": 1,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 13.546099886134186
-    },
-    {
-      "angle_deg": 20,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 1,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 11.950249112070253
-    },
-    {
-      "angle_deg": 20,
-      "pose": {
-        "y_shift_mm": -2,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 13.546099886134186
-    },
-    {
-      "angle_deg": 20,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 11.950249112070253
-    },
-    {
-      "angle_deg": 20,
-      "pose": {
-        "y_shift_mm": 2,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 10.35439833800632
-    },
-    {
-      "angle_deg": 25,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 1,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 3.956356407656415
-    },
-    {
-      "angle_deg": 25,
-      "pose": {
-        "y_shift_mm": -2,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 5.552207181720348
-    },
-    {
-      "angle_deg": 25,
-      "pose": {
-        "y_shift_mm": 0,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": 3.956356407656415
-    },
-    {
-      "angle_deg": 30,
-      "pose": {
-        "y_shift_mm": -2,
-        "z_shift_mm": 2,
-        "collision_mm3": 0
-      },
-      "assumed_printed_mass_g": 120.80025520217902,
-      "rear_margin_mm": -2.122678102084535
+      "assumed_printed_mass_g": 134.31956886382852,
+      "rear_margin_mm": 63.503095748313115
     }
   ],
   "model": "Apple iPad A16 Wi-Fi",
@@ -199,12 +39,13 @@
     179.5,
     7
   ],
-  "rear_support_y_mm": 277.5,
+  "rear_support_y_mm": 322.4000001000001,
   "slot_bottom_center_mm": [
     105,
     243,
     5
   ],
+  "liner_tablet_bottom_local_z_mm": 1.9,
   "printed_density_assumption_g_cm3": 1.2,
   "parts": [
     {
@@ -245,11 +86,29 @@
     },
     {
       "name": "cradle",
-      "volume_cm3": 201.71423885017995,
+      "volume_cm3": 241.90111895876933,
       "cg_mm": [
-        105.37762560373764,
-        251.37902121294658,
-        9.546990004358642
+        105.31805329590232,
+        259.5657850773323,
+        8.286735778867072
+      ]
+    },
+    {
+      "name": "tablet-liner-left",
+      "volume_cm3": 2.438765553955573,
+      "cg_mm": [
+        45.000685623064406,
+        244.86205641532385,
+        11.948364445295965
+      ]
+    },
+    {
+      "name": "tablet-liner-right",
+      "volume_cm3": 2.438733209620041,
+      "cg_mm": [
+        165.0005824906693,
+        244.8619768773333,
+        11.948369427482474
       ]
     }
   ],
@@ -258,451 +117,721 @@
       "orientation": "portrait",
       "angle_deg": 15,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        257.29768911323197,
-        101.9933860225088
+        105.03788252258647,
+        258.50676470599683,
+        101.23709335639546
       ],
-      "rear_margin_mm": 20.202310886768032,
-      "restoring_moment_Nm": 0.118474846183118,
-      "backward_top_push_tipping_N": 0.4833160036215944,
-      "tablet_alone_rear_margin_mm": 2.328792693756668
+      "rear_margin_mm": 63.893235394003284,
+      "restoring_moment_Nm": 0.3831706059720402,
+      "backward_top_push_tipping_N": 1.5515214975923866,
+      "tablet_alone_rear_margin_mm": 46.737036608062
     },
     {
       "orientation": "portrait",
       "angle_deg": 15,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        245.433422313214,
-        86.67895266626397
+        105.0621167162593,
+        247.5316074123047,
+        84.82013080027495
       ],
-      "rear_margin_mm": 32.06657768678599,
-      "restoring_moment_Nm": 0.2260524096988515,
-      "backward_top_push_tipping_N": 0.9221767386455441,
-      "tablet_alone_rear_margin_mm": 2.328792693756668
+      "rear_margin_mm": 74.8683926876954,
+      "restoring_moment_Nm": 0.5476413249514136,
+      "backward_top_push_tipping_N": 2.2174907871041043,
+      "tablet_alone_rear_margin_mm": 46.737036608062
     },
     {
       "orientation": "portrait",
       "angle_deg": 15,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        230.66055378436377,
-        67.61008693869104
+        105.09132928481439,
+        234.30184870140118,
+        65.03066923982497
       ],
-      "rear_margin_mm": 46.83944621563623,
-      "restoring_moment_Nm": 0.44120753673031854,
-      "backward_top_push_tipping_N": 1.7998982086934439,
-      "tablet_alone_rear_margin_mm": 2.328792693756668
+      "rear_margin_mm": 88.09815139859893,
+      "restoring_moment_Nm": 0.8765827629101602,
+      "backward_top_push_tipping_N": 3.5494293661275393,
+      "tablet_alone_rear_margin_mm": 46.737036608062
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 17,
+      "solid_mass_fraction": 0.25,
+      "printed_mass_g": 134.31956886382852,
+      "total_cg_mm": [
+        105.03788252258647,
+        261.8107369246121,
+        100.28969456803222
+      ],
+      "rear_margin_mm": 60.589263175388,
+      "restoring_moment_Nm": 0.3633565359955428,
+      "backward_top_push_tipping_N": 1.485790577103973,
+      "tablet_alone_rear_margin_mm": 42.502690963990744
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 17,
+      "solid_mass_fraction": 0.5,
+      "printed_mass_g": 268.63913772765704,
+      "total_cg_mm": [
+        105.0621167162593,
+        250.2404014790664,
+        84.04339660066019
+      ],
+      "rear_margin_mm": 72.1595986209337,
+      "restoring_moment_Nm": 0.5278272549749159,
+      "backward_top_push_tipping_N": 2.1583229805724655,
+      "tablet_alone_rear_margin_mm": 42.502690963990744
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 17,
+      "solid_mass_fraction": 1.0,
+      "printed_mass_g": 537.2782754553141,
+      "total_cg_mm": [
+        105.09132928481439,
+        236.29319853221097,
+        64.45965886440868
+      ],
+      "rear_margin_mm": 86.10680156778915,
+      "restoring_moment_Nm": 0.8567686929336625,
+      "backward_top_push_tipping_N": 3.503387787509452,
+      "tablet_alone_rear_margin_mm": 42.502690963990744
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 18,
+      "solid_mass_fraction": 0.25,
+      "printed_mass_g": 134.31956886382852,
+      "total_cg_mm": [
+        105.03788252258647,
+        263.44981934622064,
+        99.77289386562623
+      ],
+      "rear_margin_mm": 58.95018075377948,
+      "restoring_moment_Nm": 0.3535268850027117,
+      "backward_top_push_tipping_N": 1.453409731293416,
+      "tablet_alone_rear_margin_mm": 40.40205540988177
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 18,
+      "solid_mass_fraction": 0.5,
+      "printed_mass_g": 268.63913772765704,
+      "total_cg_mm": [
+        105.0621167162593,
+        251.58421929737943,
+        83.6196924700721
+      ],
+      "rear_margin_mm": 70.81578080262068,
+      "restoring_moment_Nm": 0.5179976039820849,
+      "backward_top_push_tipping_N": 2.1295770996552656,
+      "tablet_alone_rear_margin_mm": 40.40205540988177
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 18,
+      "solid_mass_fraction": 1.0,
+      "printed_mass_g": 537.2782754553141,
+      "total_cg_mm": [
+        105.09132928481439,
+        237.28109621626635,
+        64.14817592108966
+      ],
+      "rear_margin_mm": 85.11890388373376,
+      "restoring_moment_Nm": 0.8469390419408316,
+      "backward_top_push_tipping_N": 3.481911836378966,
+      "tablet_alone_rear_margin_mm": 40.40205540988177
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 19,
+      "solid_mass_fraction": 0.25,
+      "printed_mass_g": 134.31956886382852,
+      "total_cg_mm": [
+        105.03788252258647,
+        265.07963271173185,
+        99.2275659418643
+      ],
+      "rear_margin_mm": 57.32036738826827,
+      "restoring_moment_Nm": 0.34375282095613074,
+      "backward_top_push_tipping_N": 1.4213330792890555,
+      "tablet_alone_rear_margin_mm": 38.31329900750694
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 19,
+      "solid_mass_fraction": 0.5,
+      "printed_mass_g": 268.63913772765704,
+      "total_cg_mm": [
+        105.0621167162593,
+        252.92043778903366,
+        83.17260001693249
+      ],
+      "rear_margin_mm": 69.47956231096646,
+      "restoring_moment_Nm": 0.5082235399355041,
+      "backward_top_push_tipping_N": 2.101378912250149,
+      "tablet_alone_rear_margin_mm": 38.31329900750694
+    },
+    {
+      "orientation": "portrait",
+      "angle_deg": 19,
+      "solid_mass_fraction": 1.0,
+      "printed_mass_g": 537.2782754553141,
+      "total_cg_mm": [
+        105.09132928481439,
+        238.2634073117944,
+        63.81949922623104
+      ],
+      "rear_margin_mm": 84.13659278820572,
+      "restoring_moment_Nm": 0.8371649778942508,
+      "backward_top_push_tipping_N": 3.4614705781723365,
+      "tablet_alone_rear_margin_mm": 38.31329900750694
     },
     {
       "orientation": "portrait",
       "angle_deg": 20,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        265.54975088792975,
-        99.39152093919205
+        105.03788252258647,
+        266.6996805642061,
+        98.65387690891465
       ],
-      "rear_margin_mm": 11.950249112070253,
-      "restoring_moment_Nm": 0.07008128591515632,
-      "backward_top_push_tipping_N": 0.29370937960861887,
-      "tablet_alone_rear_margin_mm": -8.013103815380646
+      "rear_margin_mm": 55.700319535793994,
+      "restoring_moment_Nm": 0.3340373211303928,
+      "backward_top_push_tipping_N": 1.38954677980027,
+      "tablet_alone_rear_margin_mm": 36.237058012300736
     },
     {
       "orientation": "portrait",
       "angle_deg": 20,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        252.29827220329085,
-        84.51447381008674
+        105.0621167162593,
+        254.2486499289322,
+        82.70225542993366
       ],
-      "rear_margin_mm": 25.20172779670915,
-      "restoring_moment_Nm": 0.17765884943088942,
-      "backward_top_push_tipping_N": 0.7445649686208554,
-      "tablet_alone_rear_margin_mm": -8.013103815380646
+      "rear_margin_mm": 68.15135017106792,
+      "restoring_moment_Nm": 0.4985080401097661,
+      "backward_top_push_tipping_N": 2.0737211024652877,
+      "tablet_alone_rear_margin_mm": 36.237058012300736
     },
     {
       "orientation": "portrait",
       "angle_deg": 20,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        235.79810782560364,
-        65.99022237168779
+        105.09132928481439,
+        239.23983259731946,
+        63.47372889793801
       ],
-      "rear_margin_mm": 41.70189217439636,
-      "restoring_moment_Nm": 0.392813976462357,
-      "backward_top_push_tipping_N": 1.6462761466453344,
-      "tablet_alone_rear_margin_mm": -8.013103815380646
+      "rear_margin_mm": 83.16016750268065,
+      "restoring_moment_Nm": 0.827449478068513,
+      "backward_top_push_tipping_N": 3.4420697477953235,
+      "tablet_alone_rear_margin_mm": 36.237058012300736
     },
     {
       "orientation": "portrait",
       "angle_deg": 25,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        273.5436435923436,
-        96.08034216486848
+        105.03788252258647,
+        274.6362777559078,
+        95.36643071301958
       ],
-      "rear_margin_mm": 3.956356407656415,
-      "restoring_moment_Nm": 0.023201737636345934,
-      "backward_top_push_tipping_N": 0.10074216251554381,
-      "tablet_alone_rear_margin_mm": -18.031449934368936
+      "rear_margin_mm": 47.76372234409229,
+      "restoring_moment_Nm": 0.2864411908585839,
+      "backward_top_push_tipping_N": 1.2345001362015071,
+      "tablet_alone_rear_margin_mm": 26.065575468323857
     },
     {
       "orientation": "portrait",
       "angle_deg": 25,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        258.9483525046093,
-        81.75992035841045
+        105.0621167162593,
+        260.75554706990425,
+        80.00701038517632
       ],
-      "rear_margin_mm": 18.551647495390682,
-      "restoring_moment_Nm": 0.13077930115207914,
-      "backward_top_push_tipping_N": 0.5678449526854897,
-      "tablet_alone_rear_margin_mm": -18.031449934368936
+      "rear_margin_mm": 61.64445303009586,
+      "restoring_moment_Nm": 0.45091190983795715,
+      "backward_top_push_tipping_N": 1.9433336820075522,
+      "tablet_alone_rear_margin_mm": 26.065575468323857
     },
     {
       "orientation": "portrait",
       "angle_deg": 25,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        240.77493142315888,
-        63.92875454004196
+        105.09132928481439,
+        244.02332968178476,
+        61.49233952998033
       ],
-      "rear_margin_mm": 36.725068576841124,
-      "restoring_moment_Nm": 0.34593442818354647,
-      "backward_top_push_tipping_N": 1.5020505330253853,
-      "tablet_alone_rear_margin_mm": -18.031449934368936
+      "rear_margin_mm": 78.37667041821535,
+      "restoring_moment_Nm": 0.7798533477967038,
+      "backward_top_push_tipping_N": 3.3610007736196432,
+      "tablet_alone_rear_margin_mm": 26.065575468323857
     },
     {
       "orientation": "portrait",
       "angle_deg": 30,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        281.21852887614847,
-        92.08504976935518
+        105.03788252258647,
+        282.2561539842248,
+        91.3997742192753
       ],
-      "rear_margin_mm": -3.7185288761484685,
-      "restoring_moment_Nm": -0.021807016984266004,
-      "backward_top_push_tipping_N": -0.0989905551706649,
-      "tablet_alone_rear_margin_mm": -27.649999999999977
+      "rear_margin_mm": 40.14384611577532,
+      "restoring_moment_Nm": 0.24074445044731038,
+      "backward_top_push_tipping_N": 1.0847307412718978,
+      "tablet_alone_rear_margin_mm": 16.30000010000009
     },
     {
       "orientation": "portrait",
       "angle_deg": 30,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        265.33305209064815,
-        78.43625612624726
+        105.0621167162593,
+        267.00277741900624,
+        76.75490810822697
       ],
-      "rear_margin_mm": 12.166947909351848,
-      "restoring_moment_Nm": 0.08577054653146729,
-      "backward_top_push_tipping_N": 0.389345962566419,
-      "tablet_alone_rear_margin_mm": -27.649999999999977
+      "rear_margin_mm": 55.39722268099388,
+      "restoring_moment_Nm": 0.40521516942668384,
+      "backward_top_push_tipping_N": 1.8257922468830687,
+      "tablet_alone_rear_margin_mm": 16.30000010000009
     },
     {
       "orientation": "portrait",
       "angle_deg": 30,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        245.55314794436376,
-        61.4413724587007
+        105.09132928481439,
+        248.61593465362975,
+        59.10158070543771
       ],
-      "rear_margin_mm": 31.946852055636242,
-      "restoring_moment_Nm": 0.3009256735629346,
-      "backward_top_push_tipping_N": 1.3660189980405901,
-      "tablet_alone_rear_margin_mm": -27.649999999999977
+      "rear_margin_mm": 73.78406544637036,
+      "restoring_moment_Nm": 0.7341566073854305,
+      "backward_top_push_tipping_N": 3.30791525810541,
+      "tablet_alone_rear_margin_mm": 16.30000010000009
     },
     {
       "orientation": "portrait",
       "angle_deg": 35,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        288.5159962281123,
-        87.43605034020544
+        105.03788252258647,
+        289.5013173900523,
+        86.78409607873186
       ],
-      "rear_margin_mm": -11.015996228112272,
-      "restoring_moment_Nm": -0.06460243414698795,
-      "backward_top_push_tipping_N": -0.30963412164595333,
-      "tablet_alone_rear_margin_mm": -36.79555103843501
+      "rear_margin_mm": 32.89868270994782,
+      "restoring_moment_Nm": 0.19729487968354956,
+      "backward_top_push_tipping_N": 0.9386162915131432,
+      "tablet_alone_rear_margin_mm": 7.014653832498084
     },
     {
       "orientation": "portrait",
       "angle_deg": 35,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        271.4037795423706,
-        74.56877620528722
+        105.0621167162593,
+        272.94279578110053,
+        72.97069906108624
       ],
-      "rear_margin_mm": 6.096220457629386,
-      "restoring_moment_Nm": 0.04297512936874556,
-      "backward_top_push_tipping_N": 0.20597623929210965,
-      "tablet_alone_rear_margin_mm": -36.79555103843501
+      "rear_margin_mm": 49.457204318899585,
+      "restoring_moment_Nm": 0.3617655986629231,
+      "backward_top_push_tipping_N": 1.721073984072266,
+      "tablet_alone_rear_margin_mm": 7.014653832498084
     },
     {
       "orientation": "portrait",
       "angle_deg": 35,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        250.09639227632596,
-        58.54700660722538
+        105.09132928481439,
+        252.982695015928,
+        56.31964754254456
       ],
-      "rear_margin_mm": 27.403607723674043,
-      "restoring_moment_Nm": 0.25813025640021275,
-      "backward_top_push_tipping_N": 1.2371969611682365,
-      "tablet_alone_rear_margin_mm": -36.79555103843501
+      "rear_margin_mm": 69.41730508407213,
+      "restoring_moment_Nm": 0.6907070366216695,
+      "backward_top_push_tipping_N": 3.285989369190508,
+      "tablet_alone_rear_margin_mm": 7.014653832498084
     },
     {
       "orientation": "landscape",
       "angle_deg": 15,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        250.16248230654915,
-        75.36443169745715
+        105.03788252258647,
+        251.52935278070404,
+        75.19703754586577
       ],
-      "rear_margin_mm": 27.33751769345085,
-      "restoring_moment_Nm": 0.16031869927717962,
-      "backward_top_push_tipping_N": 0.8987296037819881,
-      "tablet_alone_rear_margin_mm": 11.270990702048778
+      "rear_margin_mm": 70.87064731929607,
+      "restoring_moment_Nm": 0.42501445906610197,
+      "backward_top_push_tipping_N": 2.358322868487884,
+      "tablet_alone_rear_margin_mm": 55.67923461635411
     },
     {
       "orientation": "landscape",
       "angle_deg": 15,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        239.49767861668482,
-        64.52645561011032
+        105.0621167162593,
+        241.81110773071035,
+        63.47093534388335
       ],
-      "rear_margin_mm": 38.00232138331518,
-      "restoring_moment_Nm": 0.26789626279291323,
-      "backward_top_push_tipping_N": 1.5017980011070475,
-      "tablet_alone_rear_margin_mm": 11.270990702048778
+      "rear_margin_mm": 80.58889236928977,
+      "restoring_moment_Nm": 0.5894851780454756,
+      "backward_top_push_tipping_N": 3.270939014813804,
+      "tablet_alone_rear_margin_mm": 55.67923461635411
     },
     {
       "orientation": "landscape",
       "angle_deg": 15,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        226.218329336026,
-        51.03147959887
+        105.09132928481439,
+        230.09646586596526,
+        49.33596683270004
       ],
-      "rear_margin_mm": 51.28167066397401,
-      "restoring_moment_Nm": 0.4830513898243808,
-      "backward_top_push_tipping_N": 2.707934795757169,
-      "tablet_alone_rear_margin_mm": 11.270990702048778
+      "rear_margin_mm": 92.30353423403486,
+      "restoring_moment_Nm": 0.9184266160042219,
+      "backward_top_push_tipping_N": 5.096171307465637,
+      "tablet_alone_rear_margin_mm": 55.67923461635411
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 17,
+      "solid_mass_fraction": 0.25,
+      "printed_mass_g": 134.31956886382852,
+      "total_cg_mm": [
+        105.03788252258647,
+        253.92879060824845,
+        74.50900982040228
+      ],
+      "rear_margin_mm": 68.47120949175167,
+      "restoring_moment_Nm": 0.41062492251026933,
+      "backward_top_push_tipping_N": 2.3007589479036827,
+      "tablet_alone_rear_margin_mm": 52.60413336216129
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 17,
+      "solid_mass_fraction": 0.5,
+      "printed_mass_g": 268.63913772765704,
+      "total_cg_mm": [
+        105.0621167162593,
+        243.77831039488404,
+        62.90684905707912
+      ],
+      "rear_margin_mm": 78.62168970511607,
+      "restoring_moment_Nm": 0.5750956414896429,
+      "backward_top_push_tipping_N": 3.222299403964242,
+      "tablet_alone_rear_margin_mm": 52.60413336216129
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 17,
+      "solid_mass_fraction": 1.0,
+      "printed_mass_g": 537.2782754553141,
+      "total_cg_mm": [
+        105.09132928481439,
+        231.5426402874686,
+        48.92128299033155
+      ],
+      "rear_margin_mm": 90.85735981253151,
+      "restoring_moment_Nm": 0.9040370794483895,
+      "backward_top_push_tipping_N": 5.06538031608536,
+      "tablet_alone_rear_margin_mm": 52.60413336216129
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 18,
+      "solid_mass_fraction": 0.25,
+      "printed_mass_g": 134.31956886382852,
+      "total_cg_mm": [
+        105.03788252258647,
+        255.11913850001082,
+        74.13369457178494
+      ],
+      "rear_margin_mm": 67.2808615999893,
+      "restoring_moment_Nm": 0.4034863526727661,
+      "backward_top_push_tipping_N": 2.2728852959616384,
+      "tablet_alone_rear_margin_mm": 51.07859256553621
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 18,
+      "solid_mass_fraction": 0.5,
+      "printed_mass_g": 268.63913772765704,
+      "total_cg_mm": [
+        105.0621167162593,
+        244.75422880255744,
+        62.599143165094986
+      ],
+      "rear_margin_mm": 77.64577129744268,
+      "restoring_moment_Nm": 0.5679570716521397,
+      "backward_top_push_tipping_N": 3.19936788033701,
+      "tablet_alone_rear_margin_mm": 51.07859256553621
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 18,
+      "solid_mass_fraction": 1.0,
+      "printed_mass_g": 537.2782754553141,
+      "total_cg_mm": [
+        105.09132928481439,
+        232.2600794534248,
+        48.69507529021121
+      ],
+      "rear_margin_mm": 90.13992064657532,
+      "restoring_moment_Nm": 0.8968985096108862,
+      "backward_top_push_tipping_N": 5.05233304908775,
+      "tablet_alone_rear_margin_mm": 51.07859256553621
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 19,
+      "solid_mass_fraction": 0.25,
+      "printed_mass_g": 134.31956886382852,
+      "total_cg_mm": [
+        105.03788252258647,
+        256.30275494176277,
+        73.73766205028905
+      ],
+      "rear_margin_mm": 66.09724515823734,
+      "restoring_moment_Nm": 0.39638815164369234,
+      "backward_top_push_tipping_N": 2.2456080452226783,
+      "tablet_alone_rear_margin_mm": 49.56167874400171
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 19,
+      "solid_mass_fraction": 0.5,
+      "printed_mass_g": 268.63913772765704,
+      "total_cg_mm": [
+        105.0621167162593,
+        245.72462836484038,
+        62.27445201350825
+      ],
+      "rear_margin_mm": 76.67537173515973,
+      "restoring_moment_Nm": 0.5608588706230658,
+      "backward_top_push_tipping_N": 3.1773633668994745,
+      "tablet_alone_rear_margin_mm": 49.56167874400171
+    },
+    {
+      "orientation": "landscape",
+      "angle_deg": 19,
+      "solid_mass_fraction": 1.0,
+      "printed_mass_g": 537.2782754553141,
+      "total_cg_mm": [
+        105.09132928481439,
+        232.9734614811993,
+        48.45638100270095
+      ],
+      "rear_margin_mm": 89.4265386188008,
+      "restoring_moment_Nm": 0.8898003085818124,
+      "backward_top_push_tipping_N": 5.040874010253065,
+      "tablet_alone_rear_margin_mm": 49.56167874400171
     },
     {
       "orientation": "landscape",
       "angle_deg": 20,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        256.1208294045308,
-        73.48577207374292
+        105.03788252258647,
+        257.4792793924702,
+        73.32103289125709
       ],
-      "rear_margin_mm": 21.37917059546919,
-      "restoring_moment_Nm": 0.1253764463886074,
-      "backward_top_push_tipping_N": 0.7219033966345789,
-      "tablet_alone_rear_margin_mm": 3.8036921365212493
+      "rear_margin_mm": 64.92072070752994,
+      "restoring_moment_Nm": 0.38933248160384354,
+      "backward_top_push_tipping_N": 2.218921383408078,
+      "tablet_alone_rear_margin_mm": 48.053853964202574
     },
     {
       "orientation": "landscape",
       "angle_deg": 20,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        244.4543984689325,
-        62.963607843884205
+        105.0621167162593,
+        246.68921348862568,
+        61.93287450638906
       ],
-      "rear_margin_mm": 33.04560153106749,
-      "restoring_moment_Nm": 0.23295400990434095,
-      "backward_top_push_tipping_N": 1.341322838967226,
-      "tablet_alone_rear_margin_mm": 3.8036921365212493
+      "rear_margin_mm": 75.71078661137443,
+      "restoring_moment_Nm": 0.5538032005832171,
+      "backward_top_push_tipping_N": 3.156288832906363,
+      "tablet_alone_rear_margin_mm": 48.053853964202574
     },
     {
       "orientation": "landscape",
       "angle_deg": 20,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        229.92786654601218,
-        49.86186700925984
+        105.09132928481439,
+        233.68256906771575,
+        48.205272836393064
       ],
-      "rear_margin_mm": 47.57213345398782,
-      "restoring_moment_Nm": 0.44810913693580795,
-      "backward_top_push_tipping_N": 2.5801617236325196,
-      "tablet_alone_rear_margin_mm": 3.8036921365212493
+      "rear_margin_mm": 88.71743103228437,
+      "restoring_moment_Nm": 0.8827446385419638,
+      "backward_top_push_tipping_N": 5.031023731902931,
+      "tablet_alone_rear_margin_mm": 48.053853964202574
     },
     {
       "orientation": "landscape",
       "angle_deg": 25,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        261.8927672180557,
-        71.09495715020681
+        105.03788252258647,
+        263.24306015807605,
+        70.93359672759793
       ],
-      "rear_margin_mm": 15.607232781944276,
-      "restoring_moment_Nm": 0.09152737592985229,
-      "backward_top_push_tipping_N": 0.5458381978139667,
-      "tablet_alone_rear_margin_mm": -3.4299889912277877
+      "rear_margin_mm": 59.156939941924065,
+      "restoring_moment_Nm": 0.35476682915209007,
+      "backward_top_push_tipping_N": 2.094202864788195,
+      "tablet_alone_rear_margin_mm": 40.667036411465006
     },
     {
       "orientation": "landscape",
       "angle_deg": 25,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        249.25604534780095,
-        60.974700584930495
+        105.0621167162593,
+        251.41470574670882,
+        59.97551152420196
       ],
-      "rear_margin_mm": 28.24395465219905,
-      "restoring_moment_Nm": 0.19910493944558533,
-      "backward_top_push_tipping_N": 1.1873942655815923,
-      "tablet_alone_rear_margin_mm": -3.4299889912277877
+      "rear_margin_mm": 70.9852943532913,
+      "restoring_moment_Nm": 0.5192375481314633,
+      "backward_top_push_tipping_N": 3.0650801355961623,
+      "tablet_alone_rear_margin_mm": 40.667036411465006
     },
     {
       "orientation": "landscape",
       "angle_deg": 25,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        233.52134939299998,
-        48.373397677882416
+        105.09132928481439,
+        237.15647958904097,
+        46.76633198398956
       ],
-      "rear_margin_mm": 43.97865060700002,
-      "restoring_moment_Nm": 0.4142600664770529,
-      "backward_top_push_tipping_N": 2.470506401116852,
-      "tablet_alone_rear_margin_mm": -3.4299889912277877
+      "rear_margin_mm": 85.24352051095914,
+      "restoring_moment_Nm": 0.8481789860902103,
+      "backward_top_push_tipping_N": 5.0068346772121,
+      "tablet_alone_rear_margin_mm": 40.667036411465006
     },
     {
       "orientation": "landscape",
       "angle_deg": 30,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        267.43436781517147,
-        68.21018247203047
+        105.03788252258647,
+        268.77682922562946,
+        68.05289888566716
       ],
-      "rear_margin_mm": 10.06563218482853,
-      "restoring_moment_Nm": 0.05902909976573389,
-      "backward_top_push_tipping_N": 0.36789358591058136,
-      "tablet_alone_rear_margin_mm": -10.375
+      "rear_margin_mm": 53.62317087437066,
+      "restoring_moment_Nm": 0.3215805671973107,
+      "backward_top_push_tipping_N": 1.9838772515054106,
+      "tablet_alone_rear_margin_mm": 33.575000100000125
     },
     {
       "orientation": "landscape",
       "angle_deg": 30,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        253.86607582122795,
-        58.574870618424896
+        105.0621167162593,
+        255.9516206555455,
+        57.61374311150459
       ],
-      "rear_margin_mm": 23.633924178772048,
-      "restoring_moment_Nm": 0.16660666328146745,
-      "backward_top_push_tipping_N": 1.0383611309416656,
-      "tablet_alone_rear_margin_mm": -10.375
+      "rear_margin_mm": 66.44837944445462,
+      "restoring_moment_Nm": 0.4860512861766841,
+      "backward_top_push_tipping_N": 2.9985210179669517,
+      "tablet_alone_rear_margin_mm": 33.575000100000125
     },
     {
       "orientation": "landscape",
       "angle_deg": 30,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        236.9714293027195,
-        46.577399755111884
+        105.09132928481439,
+        240.4917588732691,
+        45.030095484232575
       ],
-      "rear_margin_mm": 40.528570697280486,
-      "restoring_moment_Nm": 0.3817617903129345,
-      "backward_top_push_tipping_N": 2.3792962210038335,
-      "tablet_alone_rear_margin_mm": -10.375
+      "rear_margin_mm": 81.90824122673101,
+      "restoring_moment_Nm": 0.8149927241354309,
+      "backward_top_push_tipping_N": 5.027808550890034,
+      "tablet_alone_rear_margin_mm": 33.575000100000125
     },
     {
       "orientation": "landscape",
       "angle_deg": 35,
       "solid_mass_fraction": 0.25,
-      "printed_mass_g": 120.80025520217902,
+      "printed_mass_g": 134.31956886382852,
       "total_cg_mm": [
-        105.03835476065434,
-        272.70345626922415,
-        64.85340291638936
+        105.03788252258647,
+        274.0384712711453,
+        64.70086321545475
       ],
-      "rear_margin_mm": 4.796543730775852,
-      "restoring_moment_Nm": 0.028128949400856387,
-      "backward_top_push_tipping_N": 0.1850128776543291,
-      "tablet_alone_rear_margin_mm": -16.978485162506388
+      "rear_margin_mm": 48.36152882885483,
+      "restoring_moment_Nm": 0.29002626323139374,
+      "backward_top_push_tipping_N": 1.8882633551384462,
+      "tablet_alone_rear_margin_mm": 26.83171970842676
     },
     {
       "orientation": "landscape",
       "angle_deg": 35,
       "solid_mass_fraction": 0.5,
-      "printed_mass_g": 241.60051040435803,
+      "printed_mass_g": 268.63913772765704,
       "total_cg_mm": [
-        105.06381427615321,
-        258.2494047736986,
-        55.78238209946943
+        105.0621167162593,
+        260.2654295532154,
+        54.86554375199233
       ],
-      "rear_margin_mm": 19.250595226301414,
-      "restoring_moment_Nm": 0.13570651291658944,
-      "backward_top_push_tipping_N": 0.8925840817349616,
-      "tablet_alone_rear_margin_mm": -16.978485162506388
+      "rear_margin_mm": 62.13457054678469,
+      "restoring_moment_Nm": 0.4544969822107674,
+      "backward_top_push_tipping_N": 2.959076833138006,
+      "tablet_alone_rear_margin_mm": 26.83171970842676
     },
     {
       "orientation": "landscape",
       "angle_deg": 35,
       "solid_mass_fraction": 1.0,
-      "printed_mass_g": 483.20102080871607,
+      "printed_mass_g": 537.2782754553141,
       "total_cg_mm": [
-        105.09551535651597,
-        240.25184908384267,
-        44.4875418695937
+        105.09132928481439,
+        243.66302343115052,
+        43.009777145253516
       ],
-      "rear_margin_mm": 37.24815091615733,
-      "restoring_moment_Nm": 0.35086163994805686,
-      "backward_top_push_tipping_N": 2.3077264898962353,
-      "tablet_alone_rear_margin_mm": -16.978485162506388
+      "rear_margin_mm": 78.7369766688496,
+      "restoring_moment_Nm": 0.7834384201695139,
+      "backward_top_push_tipping_N": 5.100703789137121,
+      "tablet_alone_rear_margin_mm": 26.83171970842676
     }
   ],
   "slot_clearance_checks": [
@@ -710,116 +839,45 @@
       "angle_deg": 15,
       "feasible_poses": [
         {
-          "y_shift_mm": 2,
-          "z_shift_mm": 0,
+          "y_shift_mm": 0.5,
+          "z_shift_mm": 1.8,
           "collision_mm3": 0
         },
         {
-          "y_shift_mm": 0,
-          "z_shift_mm": 0.5,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 2,
-          "z_shift_mm": 0.5,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": -2,
-          "z_shift_mm": 1,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 0,
-          "z_shift_mm": 1,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 2,
-          "z_shift_mm": 1,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": -2,
+          "y_shift_mm": 0.5,
           "z_shift_mm": 2,
           "collision_mm3": 0
         },
         {
-          "y_shift_mm": 0,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 2,
-          "z_shift_mm": 2,
+          "y_shift_mm": 0.5,
+          "z_shift_mm": 2.5,
           "collision_mm3": 0
         }
       ]
+    },
+    {
+      "angle_deg": 17,
+      "feasible_poses": []
+    },
+    {
+      "angle_deg": 18,
+      "feasible_poses": []
+    },
+    {
+      "angle_deg": 19,
+      "feasible_poses": []
     },
     {
       "angle_deg": 20,
-      "feasible_poses": [
-        {
-          "y_shift_mm": 0,
-          "z_shift_mm": 0.5,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": -2,
-          "z_shift_mm": 1,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 0,
-          "z_shift_mm": 1,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": -2,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 0,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 2,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        }
-      ]
+      "feasible_poses": []
     },
     {
       "angle_deg": 25,
-      "feasible_poses": [
-        {
-          "y_shift_mm": 0,
-          "z_shift_mm": 1,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": -2,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        },
-        {
-          "y_shift_mm": 0,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        }
-      ]
+      "feasible_poses": []
     },
     {
       "angle_deg": 30,
-      "feasible_poses": [
-        {
-          "y_shift_mm": -2,
-          "z_shift_mm": 2,
-          "collision_mm3": 0
-        }
-      ]
+      "feasible_poses": []
     },
     {
       "angle_deg": 35,
