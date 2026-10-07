@@ -373,3 +373,5 @@
 - 2026-10-07 [거치 홈 실출력 수정](../work/hardware/tasks/20261007-open-bottom-board-print.md): 기존판재출력부담으로원래4mm다리복사제공. 사다리꼴끼움실패반증에거치대암홈만면당0.10→0.35mm/입구0.65mm확대. 기존판·다리·패드재사용/거치대만교체, CAD진입0·포획유지·닫힌STL/JS검사통과. 실제끼움/옆방향유지력미검증.
 
 - 2026-10-07 [실물눕힘반증·높은등받이](../work/hardware/tasks/20261007-open-bottom-board-print.md): 오스모사진참고/사용자승인으로15°등받이높이85mm·뒤보강2개추가. 기존판/다리/레일재사용·U패드사용안함/거치대만교체. CAD삽입·뒤회전방지표본/닫힌STL/JS검사,실물각도·전도·유지력미검증. 최신생성기tablet_backrest.py/새보고서backrest_report.json.
+
+- 2026-10-07 [최신 거치 연결](../work/hardware/tasks/20261007-open-bottom-board-print.md): 사용자선택은사다리꼴폐기·거치대일체기둥2개Ø4.5×4/기존뒤소켓Ø4.9에반경0.2여유끼움. 판·앞다리재사용/뒤다리레일사용안함. 넓은받침면으로판지지/15°등받이유지. CAD삽입0·닫힌STL·JS검사,실물끼움/전도미검증. Downloads tango-camera-two-pin-cradle.stl.

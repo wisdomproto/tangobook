@@ -1,4 +1,29 @@
 {
+  "connection": "two loose vertical pins; no dovetail or friction ribs",
+  "pin_centers_mm": [
+    [
+      -3,
+      205
+    ],
+    [
+      213,
+      205
+    ]
+  ],
+  "pin_diameter_mm": 4.5,
+  "pin_length_mm": 4,
+  "pin_radial_clearance_mm": 0.2,
+  "arm_width_mm": 12,
+  "arm_height_mm": 10.4,
+  "original_socket_diameter_mm": 4.9,
+  "original_socket_depth_mm": 4.3,
+  "board_insertion_collision_mm3": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
   "backrest_angle_from_vertical_deg": 15,
   "backrest_contact_local_y_mm": 6.5,
   "backrest_height_local_mm": 85.0,
@@ -120,56 +145,49 @@
     },
     {
       "angle_deg": 17,
-      "collision_mm3": 21858.01544484663
+      "collision_mm3": 21858.01544488343
     },
     {
       "angle_deg": 20,
-      "collision_mm3": 45120.57806531319
+      "collision_mm3": 45120.57803749196
     },
     {
       "angle_deg": 25,
-      "collision_mm3": 33303.5102644845
+      "collision_mm3": 33303.51026816071
     },
     {
       "angle_deg": 30,
-      "collision_mm3": 25357.431485868834
+      "collision_mm3": 25357.431493758828
     }
-  ],
-  "rail_insertion_collision_mm3": [
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0
   ],
   "tablet_bottom_local_z_mm": 1,
   "tablet_center_local_y_mm": 2.95,
   "rear_support_y_mm": 322.4,
   "print_bounds_mm": [
-    225.9989013671875,
-    104.99322509765625,
-    85.1387509224005
+    227.9905366897583,
+    122.98849487304688,
+    85.14634704589844
   ],
-  "triangle_count": 11462,
+  "triangle_count": 13740,
   "physical_test": false,
   "standalone_static_iPad_477g_cases": [
     {
       "solid_mass_fraction": 0.25,
-      "assumed_cradle_mass_g": 97.99133001550213,
-      "rear_margin_mm": 46.68966299762786,
-      "backward_top_push_tipping_N": 1.0734890149525271
+      "assumed_cradle_mass_g": 106.94989538208338,
+      "rear_margin_mm": 47.52246554741782,
+      "backward_top_push_tipping_N": 1.109660478726409
     },
     {
       "solid_mass_fraction": 0.5,
-      "assumed_cradle_mass_g": 195.98266003100426,
-      "rear_margin_mm": 48.510652480279134,
-      "backward_top_push_tipping_N": 1.3054389293388027
+      "assumed_cradle_mass_g": 213.89979076416677,
+      "rear_margin_mm": 49.871201476803606,
+      "backward_top_push_tipping_N": 1.3777818568865652
     },
     {
       "solid_mass_fraction": 1,
-      "assumed_cradle_mass_g": 391.9653200620085,
-      "rear_margin_mm": 50.92053729478283,
-      "backward_top_push_tipping_N": 1.769338758111353
+      "assumed_cradle_mass_g": 427.79958152833353,
+      "rear_margin_mm": 52.90290955502405,
+      "backward_top_push_tipping_N": 1.9140246132068772
     }
   ],
   "static_assumptions": [
