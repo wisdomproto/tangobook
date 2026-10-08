@@ -381,3 +381,5 @@
 - 2026-10-07 [블록 밑면 라운딩](../work/hardware/tasks/20261006-sticker-block-2x2.md): 사용자실출력맞춤좋음확인후바닥외곽/소켓입구R0.5추가. 홈윗규격/높이/스티커자리유지, CAD교차0·닫힌STL/JS검사통과. 새파일tango-camera-block-2x2-rounded-bottom.stl; 라운딩촉감실검증미실시.
 
 - 2026-10-07 [1×2 둥근 블록](../work/hardware/tasks/20261006-sticker-block-2x2.md): 14.6×29.6×5.5/6홈/밑R0.5·스티커자리12.6×27.6. CAD간섭0·단일닫힌STL4,368면·JS검사. HTML1×2위/아래추가·실끼움미검증, 생성기sticker_block_1x2.py.
+
+- 2026-10-08 [한글 블록 종이 PDF](../work/hardware/tasks/20261006-sticker-block-2x2.md): 흰바탕/검정글자·회색R1.8절단선, 자음19=27.2mm/모음21=12.2mm A4한장. 글꼴임베드/Poppler전페이지육안/40자추출·치수검수. 100%인쇄/50mm기준선, 1×1블록규격은공통턱치수에서추론·실물미검증.

@@ -54,3 +54,10 @@ Python312에 CadQuery/trimesh 설치. 이 환경 CadQuery2.8의 선택적 VTK �
 사용자1by2요청. make_block(cols=2,rows=2) 파라미터화·기존2×2기본보존, sticker_block_1x2.py추가. 14.6×29.6×5.5mm/15mm피치,홈6개(X±7.5,Y−15/0/15), 반경2.85/깊이3.2·외곽R3/하단외곽및입구R0.5·윗턱폭1/높이0.8, 스티커자리12.6×27.6. CAD단일유효/치수검사, 현판돌기를감싸는반경2.5/높이2.9원통6개와교차0. 출력STL0.01mm단순화4,368삼각형/닫힌단일바디·바닥Z0, JS/Python구문검사. 실제프린트끼움은아직미검증.
 
 HTML판위중심67.5,105/바닥13mm에추가표시, 1×2위/아래단독버튼추가·기존2×2표시보존. Downloads tango-camera-block-1x2-rounded-bottom.stl, 최종HTML갱신. 1×2재생성은python hardware/studboard/sticker_block_1x2.py(현재환경vtk선택적모듈래퍼)이고2×2도공통make_block사용.
+
+
+## 2026-10-08 한글 종이 스티커 A4 PDF
+
+사용자가자음2×2/모음1×1블록용종이출력요청·흰바탕/검정모음/오리기경계선지정. 자음19(쌍자음포함)/모음21(복합모음포함)을모두검정으로A4한장배치. 2×2스티커턱안쪽27.6에종이27.2, 1×1은공통블록규칙14.6전체/턱안쪽12.6으로추론해종이12.2. 각변0.2여유/R1.8절단선·흰바탕·회색실선. 1×1실물/STL은아직생성하지않음.
+
+생성기hardware/studboard/paper_hangul.py, 출력output/pdf/tango-hangul-block-stickers-a4.pdf·40칸좌표JSON. Windows맑은고딕보통/굵게글꼴임베드, 실제글리프윤곽중심맞춤. PDF스킬사용/operation marker성공, bundledPython에fontTools없어설치된로컬Python사용, bundledPoppler PNG전페이지렌더·육안검수. pypdf1페이지/A4치수/40글자추출/40칸치수·여백검사통과. A4/100%실제크기/맞춤해제안내와50mm검사용선추가. Downloads동일PDF복사. 실제프린터배율/종이끼움은미검증.
