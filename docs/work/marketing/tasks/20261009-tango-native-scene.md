@@ -27,6 +27,10 @@ python scripts/virtual-parenting/prepare_tango_v8.py
 
 ## 완료 · 2026-10-10
 
+후속 요청: 책상 위에 다른 자음·모음 여분 블록을 놓는다. 기존 노랑/흰 스티커/검정 글씨를 유지하여 판 옆 빈 책상에 9개를 흩어 배치. 조작 손과 판 위 가구 배치는 보존한다. 최신 3D와 두 사진을 함께 갱신한다.
+
+후속 완료: 첫 배치는 팔에 가려져 반대편(world X4.075~4.210, Y-2.455~-2.293)으로 옮겼다. 바닥 Z.484는 흰 상판 높이와 일치. 전체 GLB의 조합용4개+여분9개=13 블록을 확인하고 웹 GLB nodes/meshes/cameras 동일성 확인. 최신 Cycles 두 각도 육안 검수, 내장 imagegen 국소 편집 두 장의 기존 두 손 유지 확인. 선택 사진은 `over-shoulder-photo-v4.png`, `detail-photo-v5.png`, 프롬프트는 `tango-v8-spare-block-prompts.json`. AI 뒤쪽 사진의 여분 개수/배치에는 재해석이 있어 3D9개와 사진의 정확한 일치로 보고하지 않는다. 기존 사진과 생성 원본 보존. Python AST/JSON/HTML module 검사 및 diff 검증 통과.
+
 - 저장된 Blender 장면의 ㄱ/ㅜ 같은 X, 오른쪽 어깨 위치를 export 스크립트에서 확인. 최신 Cycles 두 장과 웹 GLB에 반영.
 - 내장 imagegen 사용. 뒤쪽 사진은 최신 원본만 참조한 `over-shoulder-photo-v3.png` 선택. 근접 재생성은 세 번째 손이 생겼고 사용자가 반증했다. 해당 실패본의 아래 오른쪽 추가 손/소매만 국소 편집하여 `detail-photo-v4.png` 선택. 작동 오른손 및 왼쪽 가장자리의 쉬는 손만 남은 것을 육안 확인했다.
 - 원본만 참조한 다른 근접 생성도 새 머리/가구를 발명하여 탈락. 실패본은 `detail-failed-three-hands.png`, `detail-failed-room-drift.png`로 보존하고 페이지에서 제외했다. 원본 참조는 형상 고정 보장이 아니므로 국소 편집 후 검수가 필요하다.

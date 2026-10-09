@@ -109,8 +109,18 @@ block('ㅏ','1x2',3.9225,-2.315)
 block('ㄱ','2x2',3.855,-2.330)
 # Rotate a physical ㅏ sticker block clockwise to make ㅜ, as in the print set.
 block('ㅏ','1x2',3.855,-2.2925,math.pi/2)
-block('ㅇ','2x2',4.075,-2.15,math.pi+.08,.482)
-block('ㄷ','2x2',4.11,-2.15,math.pi-.08,.482)
+# Spare pieces on the bare tabletop; loose angles, separate from the active word.
+for char,key,x,y,angle in [
+    ('ㄴ','2x2',4.092,-2.455,math.pi+.24),
+    ('ㄷ','2x2',4.153,-2.421,math.pi-.31),
+    ('ㅁ','2x2',4.202,-2.465,math.pi+.10),
+    ('ㅅ','2x2',4.111,-2.348,math.pi+.47),
+    ('ㅇ','2x2',4.197,-2.310,math.pi-.22),
+    ('ㅏ','1x2',4.158,-2.352,math.pi+.35),
+    ('ㅓ','1x2',4.210,-2.389,math.pi-.16),
+    ('ㅏ','1x2',4.084,-2.391,-math.pi/2+.18),
+    ('ㅣ','1x2',4.075,-2.293,math.pi-.43)]:
+    block(char,key,x,y,angle,.484)
 
 # Tablet and stand are scene models, their dimensions are explicit assumptions.
 tilt=math.radians(15)
