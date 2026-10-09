@@ -1,0 +1,10 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Edit image 1 with one small correction only. Image 1 is the photorealistic Tango play close-up. Preserve its camera, child hands, sleeve folds, tablet, screen, real furniture picture, word 가구, board and all other blocks exactly. Correct ONLY the last vowel block at the lower right of the four-letter word, immediately in front of the child's reaching fingertips. It must be the SAME 14.6-by-29.6-mm yellow rounded rectangular 1x2 block, now lying HORIZONTALLY along the board's horizontal stud rows, with its long side parallel to the board front edge and its short side front-to-back. This is a physical ㅏ-sticker block rotated clockwise 90 degrees, so the black glyph reads ㅜ (horizontal bar with a short stem DOWN toward the seated child) on a WHITE paper sticker. Do not leave that rectangular body vertical as it is in image 1. Keep the second square ㄱ above/behind it and the first ㄱ+ㅏ pair unchanged. Image 2 shows the precise original CAD scene, with the horizontal last block partially occluded by fingers. Keep natural fingertip occlusion and shadows. No other changes.",
+  "references": [
+    "tango-v8/detail-photo-v1.png",
+    "tango-v8/detail.png"
+  ],
+  "selected": "tango-v8/detail-photo-v2.png",
+  "review": "Last 1x2 block corrected to horizontal orientation; stud grid and exact dimensions remain AI reinterpretations."
+}
