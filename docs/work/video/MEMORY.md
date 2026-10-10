@@ -1,6 +1,6 @@
 # 영상·오디오북 제작 기억
 
-2026-10-10 사용자 main push 승인: 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
+2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
 
 2026-10-10 [탱고 오른팔 수정](tasks/20261010-tango-gagu-minimax.md): 사용자 오른손/왼팔 같은 팔꿈치 반증. 어깨 좌우 오판은 실제 투영으로 정정. 일정 팔 길이/오른쪽 elbow native124frame + imagegen 팔 수정5장으로 MiniMax 새5.17초 생성. 41표본에서 오른쪽 소매/손목 방향·ㄱㅏ 유지. 실제 elbow/shoulder는 crop 밖, 전체 인체 관절 검증 아님. localhost5191/tango-right-arm.html, 로컬만 보존.
 

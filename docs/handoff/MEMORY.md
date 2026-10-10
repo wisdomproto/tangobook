@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-10 사용자 main push 승인: 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
+2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
 
 2026-10-06 [구독 전략 검토와 BM 자료실](../work/strategy/tasks/20261006-subscription-strategy.md): 사용자 계속검토 지시. 일일권수/독후활동유료/학습관리유료 3안 HTML, 3권·가격·범위 미확정 표시. editor2 기존 BM 메뉴를 BM 자료실로 명확히 하고 정적 HTML 연결, 기존 자료 보존. 제품 접근정책·DB·리포트 구현·push 변경 없음.
 

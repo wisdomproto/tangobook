@@ -8,7 +8,7 @@
 - branch: codex/marketing-virtual-parenting
 - worktree: C:/projects/tangobook/.worktrees/virtual-parenting
 - integration: 최신 origin/main 통합
-- delivery: 로컬 샘플·뷰어, 미푸시·미배포
+- delivery: 소스/문서 원격 main push 완료, 샘플 미디어 로컬 보존·배포 미검증
 
 ## 요청과 완료 조건
 
@@ -197,5 +197,5 @@ built-in image_gen targeted edit v3로 두 크림 바지 정강이/양말 발을
 - 2026-10-07 사용자가 v7 렌더/v6 사진의 구도 차이를 지적하고 다시 생성하도록 요청했다. built-in imagegen skill로 해당 v7 렌더를 첫 번째 실제 첨부 파일로 넣어 6장을 새로 생성했다. 첫 tiles-front는 해당 렌더만 참조했고, 이후 다섯 장은 새 tiles-front 사진을 아이 정체성/옷 참고용 두 번째 파일로만 추가했다. v6 사진은 입력에서 제외했다. 6장 모두 육안 대조했으며 문/창/수납장/상판 및 바닥 여백이 이전 사진보다 원본에 근접하다. 픽셀/치수 동일 검증은 아니며 조명/바닥 결/교구 세부와 부품 수는 재해석되어 남아 있다. 특히 원본 큐브에도 떠 있는 빨강 조각이 있어 향후 모델/손 포즈 정리가 필요하다. 3열 비교의 가운데를 새 v7 사진으로 교체했다. 프롬프트/실제 참조/생성경로: scripts/virtual-parenting/study-v7-photo-prompts.json, PNG: output/virtual-parenting/study-v7-photo 및 D드라이브 study-v7-photo. 각 사진과 원본의 ID/파일/화면비, HTML 모듈 문법을 검증했다.
 
 ## main 통합 — 2026-10-10
-2026-10-10 사용자 main push 승인: 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
-- Git 코드/문서 통합과 로컬 미디어의 원격 업로드는 별개다. 원본 보존 경로는 위 기록을 따른다. 원격 push 결과는 통합 후 기록한다.
+2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
+- Git 코드/문서 통합과 로컬 미디어의 원격 업로드는 별개다. 원본 보존 경로는 위 기록을 따른다. 원격 main 11260d118과 로컬 통합 HEAD 일치를 확인했다.

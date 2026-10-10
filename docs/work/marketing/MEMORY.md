@@ -1,6 +1,6 @@
 # 마케팅·채널 운영 기억
 
-2026-10-10 사용자 main push 승인: 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
+2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
 
 2026-10-06 사용자 요청으로 [오가닉 실행 기획](tasks/20261005-organic-execution-plan.md)을 Editor2 BM 메뉴에 등록. public/organic-marketing에 HTML·JSON·근거4개와 상대링크 반영. client typecheck·경로/JS 검증, 로컬 변경이며 운영 push/배포 없음.
 

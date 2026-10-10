@@ -8,7 +8,7 @@
 - branch: codex/marketing-virtual-parenting
 - worktree: C:/projects/tangobook/.worktrees/virtual-parenting
 - integration: 최신 origin/main 통합
-- delivery: 미푸시·미배포, 로컬 조사 화면
+- delivery: 조사 문서 원격 main push 완료, 원문/미디어·조사 화면은 로컬 보존
 
 ## 요청과 완료 조건
 
@@ -65,5 +65,5 @@ AGENTS, 인수인계 README/MEMORY, work README, marketing BRIEF/MEMORY, 기존 
 로컬 조사 데이터는 raw JSON 및 JPEG, `summary.json`, `analysis.json`, `comments-deduplicated.json`, `index.html`로 보존. preview HTML/JPEG는 기존 정적 서버의 D드라이브 research 폴더에 복사했다. 저장소에는 이 작업 기록과 연결만 커밋하며 전체 수집 목표는 진행 중이다.
 
 ## main 통합 — 2026-10-10
-2026-10-10 사용자 main push 승인: 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
-- Git 코드/문서 통합과 로컬 미디어의 원격 업로드는 별개다. 원본 보존 경로는 위 기록을 따른다. 원격 push 결과는 통합 후 기록한다.
+2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
+- Git 코드/문서 통합과 로컬 미디어의 원격 업로드는 별개다. 원본 보존 경로는 위 기록을 따른다. 원격 main 11260d118과 로컬 통합 HEAD 일치를 확인했다.

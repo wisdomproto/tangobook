@@ -39,5 +39,5 @@ python scripts/virtual-parenting/prepare_tango_v8.py
 - 검증: Python AST 세 파일, fetch 스크립트/HTML module `node --check`, 모든 프롬프트 JSON, 원본 자산 SHA256, full/web GLB의 nodes/meshes/cameras 동일, `git diff --check` 통과. 제품 코드 변경이 없어 monorepo 테스트는 실행하지 않았다. AI 사진의 치수·돌기·픽셀 구도가 완전히 동일하다는 검증은 아니다.
 
 ## main 통합 — 2026-10-10
-2026-10-10 사용자 main push 승인: 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
-- Git 코드/문서 통합과 로컬 미디어의 원격 업로드는 별개다. 원본 보존 경로는 위 기록을 따른다. 원격 push 결과는 통합 후 기록한다.
+2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
+- Git 코드/문서 통합과 로컬 미디어의 원격 업로드는 별개다. 원본 보존 경로는 위 기록을 따른다. 원격 main 11260d118과 로컬 통합 HEAD 일치를 확인했다.
