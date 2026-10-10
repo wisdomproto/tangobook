@@ -134,3 +134,7 @@ python scripts/virtual-parenting/prepare_study_v7.py
 `build_tango_minimax_sequence.py`는 원본 기반 imagegen 시작/끝 사진에서 구간별 MiniMax FL2VA 그래프를 만들며, `prepare_tango_minimax_sequence.py --release 2.5 3 3.75 3.3`이 기존 게임 음원을 넣은 19초 다섯 컷 시험본을 만든다. 보존 페이지는 `tango-minimax-sequence-cuts.html`. 손은 처음부터 해당 블록을 잡고 있으므로 책상에서 집는 전체 한 테이크가 아니다. 컷 사이 테이블/소품 차이는 남는다.
 
 `render_tango_turnaround.py --render --export`는 같은 집에서 뒤 사선37mm 카메라를 고정하고 마지막 블록부터 엄마를 돌아보는 원본을 별도로 저장한다. 기존 mesh의 손 이름보다 사용자가 지정한 **화면 오른쪽 조작손**을 기준으로 한다. `build_tango_turnaround.py`는 국소 편집한 시작/끝 사진을 MiniMax 한 구간으로 생성하도록 그래프를 만든다. `prepare_tango_turnaround.py CLIP --release SECONDS --turn SECONDS`는 실제 관측 시각에 맞춰 기존 음원과 첫 세 컷을 연결한다. `tango-minimax-sequence.html`은 수정본·원본 렌더·3D 단계 비교. 마지막 블록과 반응 사이에는 컷이 없지만 앞의 세 컷은 이전 시안이며 전체 공간 일관성 해결본이 아니다. 산출물/참조/프롬프트/검수는 `output/virtual-parenting/tango-turnaround`와 D드라이브 동일 폴더에 보존한다.
+
+## 두 블록 영상 참조 시험
+
+`render_tango_two_block_test.py`는 기존 집 원본을 보존한 별도124frame 고정 뒤 카메라·ㄱ/ㅏ 순차 배치 원본을 만든다. `build_tango_two_block_test.py`는 `LoadVideo → GetVideoComponents → MiniMaxH3ReferenceToVideo.ref_videos`로 원본 영상 전체와 기존 실사 외형 사진을 입력한다. 이전 FL2VA 첫/끝 사진 방식과 다르지만 영상 참조도 soft conditioning이며 공간/동작을 강제 고정하는 방식이 아니다. `prepare_tango_two_block_test.py CLIP --summary TEXT [--passed]`는 검수한 결과만 로컬 5191/tango-two-block-test.html에 보존한다. 왼쪽 원본 렌더·가운데 AI 영상·오른쪽 동일 native GLB 카메라. 모델 원본은 stylized rig이며 사진급 인물 리그가 아니다. 기존 전체 영상 교체/외부 게시 없음.

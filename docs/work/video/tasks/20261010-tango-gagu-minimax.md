@@ -64,3 +64,29 @@
 - Blender 원본은14초 단계 비교 `native-comparison.mp4`, 뒤 카메라 고정·테이블 위치 유지·엄마 방향 head 회전. 원본 mesh 이름의 left가 이 카메라에서 화면 오른쪽에 보이므로 해당 손을 움직이는 것으로 수정; legacy 명칭을 사용자 손 지시로 재해석하지 않음. packed blend의4K 재질 보존, GLB는1024px 웹 재질·36.6MB. 원본은 단순화된 인물 조형이며 사진급 인간 리그가 아님.
 - localhost5191/tango-minimax-sequence.html: 수정 영상·원본 렌더·같은 GLB 카메라 세 칸, ‘ㅜ·구 완성’/‘아이 반응’/‘끝 모습’, 이전 다섯 컷 별도 페이지 보존. 실제 재생/음소거 해제,끝 모습19.033초/원본13.893초 동기화·3D·다운로드 확인. 기존 Python 기본 정적 서버의 seek 실패는 loopback byte-range 서버206 응답으로 수정, prefix/suffix range·브라우저 seekable 전체 구간 검증.
 - 수정본 전체decode 성공,0.25초 간격76표본 추출·새 구간/경계 contact4..7 육안 검수; 처음 세 컷은 앞선 선정본 그대로. native14초 decode 성공. Python AST·HTML module `node --check`, 브라우저 재생 검수. 제품 코드 변경 없음으로 monorepo 테스트 생략. 검수 status/스크린샷/사진·영상·원본은 worktree `output/virtual-parenting/tango-turnaround`와 D드라이브 보존. 운영/R2 변경·외부 게시·push 없음.
+
+## 두 블록 한 컷 · 원본 영상 참조 실험 시작
+
+- 사용자 재반증: 수정본도 컷 사이가 이상함. 전체 공간 연속성 미해결. 사용자가 5초 두 블록 한 컷 시험을 승인(해봐).
+- 설치 소스/object_info 확인: MiniMaxH3ReferenceToVideo는 ref_videos IMAGE batch와 VAE latent를 입력받음. 기존 FL2VA 첫/끝 사진 방식과 다름. FunControlNetApply 노드는 있으나 model_patches 가중치 없음. 원본 영상 참조는 soft conditioning이며 구조/동작 hard lock으로 보고하지 않음.
+- 고정 뒤 사선 카메라·화면 오른쪽 손으로 ㄱ/ㅏ 놓기124frame 원본을 별도 Blender 파일로 생성. 기존 완성 사진을 외형 참조로 함께 사용하여 ref2va 시험 예정. 기존 전체 영상/원본 보존. 실제 결과 검수 전 성공 판단하지 않음.
+- 원본 첫 렌더 검수에서 legacy 손 이름의 화면 방향 설명이 실제 투영과 달랐음을 확인. image-right는 native right mesh였으며 기존 요약의 반대 설명은 폐기. 첫 native 후보를 rejected-native-hand.png로 보존하고, 화면 오른쪽 팔을 실제 투영 확인 후 수정하여 다시 렌더. 생성 영상에 잘못된 원본을 사용하지 않음.
+- 고정 원본124frame/5.166667초·512×640·24fps 생성/전체decode 및21표본 검수. 블록0→1→2, 같은 화면 오른쪽 손, 카메라/가구 고정. ref2va int8·20step·seed202610610 실행100df03c-3f89-4a48-9dab-bfd436e486ec 제출. MiniMax 출력은 아직 검수 전.
+- 사용자 질문: MiniMax 시작/끝 이미지 지원 여부, 그리고 왜 다음 컷 시작을 앞 컷 마지막으로 이어도 튀는가. 실제 build_tango_minimax_sequence.py 확인 결과 첫 컷끝 right-state-1, 둘째컷시작 grip-state-1로 서로 다른 생성 사진이었다. 실제 출력 마지막 프레임을 다음 첫 프레임으로 재사용하지 않은 제작 누락을 사용자에게 명확히 인정. 컷경계 공간 변화의 직접 원인 중 하나. 향후 chaining은 실제 출력 끝 프레임 추출→다음 시작 동일 픽셀로 연결, 손 속도/방향 연속성은 별도 검수. 현재 승인된 한 컷 영상참조 시험은 계속 진행.
+
+## 두 블록 한 컷 시험 결과
+
+- MiniMax ref2va int8·20step·124frame·512×640·24fps, 약8분 생성. 실제 출력5.166667초/124frame. 원본 영상 전체가 ref_videos에서 VAE latent로 인코딩됐고 기존 완성 사진은 외형 참조. FL2VA 첫/끝 이미지 방식으로 바꿔치기하지 않음.
+- 선정 시험 `tango-two-block-test/ai.mp4`, raw `tango-v8/video/tango_two_block_test/video-reference_00001_.mp4`, SHA256 `7bd1b7772b74982102e4d36a6bf5adcdf97dc4e02d31a0b51ba9a4040f97424c`. 원본/AI 전체decode 및 각각0.25초 간격21표본/2contact sheet, AI1.5/3.5/5초 full frame 검수. 빈 판→첫 블록→두 블록, 화면 오른쪽 같은 손 두 번 집기/놓기, 왼손 휴식, 컷 없음, 카메라/책상 안정성 확인. 원본의1.5/3.4초 배치에 가까운 두 번 조작이 반영됨.
+- **부분 개선, 전체 정확도 미통과**: AI의 ㄱ/ㅏ 자모 획이 원본과 다르고 좁은 모음 블록도 정사각형에 가까워짐. 글자/교구의 정확한 CAD 재현이 아니며 native 재질/치수까지 동일하다고 보고하지 않음. 무음 동작 검증용. 이전19초 전체본 대체/최종 승인으로 취급하지 않음.
+- 새5191/tango-two-block-test.html: 왼쪽 native 렌더/가운데 AI/오른쪽 같은 native GLB, 동시 재생·끝 상태 비교. GLB 원본37mm camera/124frame, script에서 고정 카메라를 자유시점 controls.update가 덮던 문제 수정. 원본/blend/GLB/graph/prompts/ledger/verdict/QA는 D드라이브와worktree output 보존.
+- Python3개 AST, HTML module node--check, GLB36.5MB/카메라/20animation metadata 확인, 원본/AI ffmpeg전체decode 통과. 브라우저 두 영상5.166667초 seekable/동시 재생/끝 비교 검수. 기존 운영 제품/음원/R2 변경·외부 게시·main push 없음.
+- 다음 판단: 한 컷 영상 참조로 연속 동작 개선 가능성이 확인됐으나 문자/하드웨어 정확성은 별도 해결 필요. 컷 제작 시 실제 출력 끝 프레임을 다음 시작에 재사용해야 함. 원본 전체 hard lock을 지원하는 모델/제어가 확인된 것은 아님.
+- 브라우저 최종 비교에서 원본셋째블록이4.42초 이후 이전 전체조립 애니메이션을 따라 공중 이동하는 잔존동작 발견. native21표본 최초검수에서 놓친 문제. 5초내 두블록만 움직여야 하므로 셋째/넷째블록의 animation_data를frame1위치에서 제거하고124frame전수불변 assertion 추가. 최초시험 전체자산은 tango-two-block-test/v1 보존, 마지막28frame 재렌더/새native GLB·video 및 변경된파일명으로 ref2va 재생성. 이전부분개선 관찰은 최초후보이며 최종판은 재검수 전.
+
+## 최종 선정 · 수정 원본 v2
+
+- 셋째/넷째블록의 불필요한 애니메이션을 제거하고 원본 마지막28frame을 재렌더. 그 이전96frame은 해당 블록들이 움직이지 않는 구간이라 그대로 보존. 124frame전수 stationary assertion 통과. 원본native.mp4 SHA256 `6ac8d8d500a53d28ee4f58f3a09aa093b79f34ef29f2a6107340e0f8ca8b1d10`, native.glb36,516,136bytes/18animation. 첫시험과원본은 `tango-two-block-test/v1`에 보존.
+- 수정 video input `tango_two_blocks_native_v2.mp4`로 실제새파일명을 사용하여 Comfy 캐시 오인 방지. 같은seed202610610/설정, 실행396f44f5-86ae-4dd1-92b9-6d553f883d3d,20step약6:51/전체약8분. 최종raw `tango-v8/video/tango_two_block_test/video-reference-v2_00001_.mp4`, 선정 `tango-two-block-test/ai.mp4`, SHA256 `e996fb0c65ffa713992a41277a6aa3a3c5da952aa040867d8261dd1523011e64`.
+- 실제5.166667초/124frame/512×640/24fps. 전체decode와0.25초21표본/2contact sheet·끝5초full frame 검수. 첫시험과같이같은오른손으로두번조작·0→1→2블록·카메라/책상안정 확인. **자모획/모음블록형태 변형은남아정확한교구재현미통과**. 무음동작시험. 이전19초영상대체아님.
+- 최종선정/수정원본/GLB/graph/ledger/verdict/검수/브라우저proof는worktree output과D드라이브. 두영상전체5.167초재생/끝비교·같은3D카메라 표시, Python AST3개/HTML module문법·diff검수. 로컬커밋만, 운영/외부게시/push없음.
