@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-10 [탱고 근접 두 블록 시험](../work/video/tasks/20261010-tango-gagu-minimax.md): 같은 원본 동작·시드·설정으로 카메라를 가까이 이동, MiniMax 5.17초 생성·원본/AI/3D 비교 검수 완료. 오른손 두 번 배치와 고정 구도 유지, 첫 ㄱ을 가처럼 바꾸는 자모 오류 남음. 거리만으로 정확도 해결 안 됨. localhost5191/tango-two-block-close.html, 로컬만 보존.
+
 2026-10-10 [탱고 가구 MiniMax 영상](../work/video/tasks/20261010-tango-gagu-minimax.md): 전체 조립 다섯 컷19초·실제 음원 시안 완료. 컷/테이블 변화 사용자 반증, 마지막 블록부터 엄마 카메라를 돌아보며 웃기까지 고정 뒤 사선 한 구간8.708초로 교체 완료. 전체19.083초·실제 음원·원본/GLB 비교 검수. 화면 오른쪽 손 조작으로 사용자 확정; 반대손 설명/후보 폐기. localhost5191/tango-minimax-sequence.html, 작업브랜치만. 정확한 공간 보존 보장 아님.
 
 2026-10-09 [탱고 교구 가상 아이 Blender 장면](../work/marketing/tasks/20261009-tango-native-scene.md): 기존 공부방에 최신 카메라 버전14×14 판·스티커 블록을 배치. 사용자는 노랑 몸체/흰 스티커·검정 글씨, 실제 파닉스 ‘가구’ 그림, ㅜ를 ㄱ 아래, 오른손 조작, 화면의 단어·그림만 유지하도록 확정. 예전 큰 판을 잘못 가져온 최초 시안은 제외. 작업 브랜치 codex/marketing-virtual-parenting, 원본/AI/3D 비교와 상세 근거는 task.

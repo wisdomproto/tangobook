@@ -90,3 +90,16 @@
 - 수정 video input `tango_two_blocks_native_v2.mp4`로 실제새파일명을 사용하여 Comfy 캐시 오인 방지. 같은seed202610610/설정, 실행396f44f5-86ae-4dd1-92b9-6d553f883d3d,20step약6:51/전체약8분. 최종raw `tango-v8/video/tango_two_block_test/video-reference-v2_00001_.mp4`, 선정 `tango-two-block-test/ai.mp4`, SHA256 `e996fb0c65ffa713992a41277a6aa3a3c5da952aa040867d8261dd1523011e64`.
 - 실제5.166667초/124frame/512×640/24fps. 전체decode와0.25초21표본/2contact sheet·끝5초full frame 검수. 첫시험과같이같은오른손으로두번조작·0→1→2블록·카메라/책상안정 확인. **자모획/모음블록형태 변형은남아정확한교구재현미통과**. 무음동작시험. 이전19초영상대체아님.
 - 최종선정/수정원본/GLB/graph/ledger/verdict/검수/브라우저proof는worktree output과D드라이브. 두영상전체5.167초재생/끝비교·같은3D카메라 표시, Python AST3개/HTML module문법·diff검수. 로컬커밋만, 운영/외부게시/push없음.
+
+## 근접 카메라 동일 동작 비교 시작
+
+- 사용자 가설: 카메라가 멀어 블록/자모가 작은 탓일 수 있음. 근접구도 시험 승인(해봐). 원본의 동일124frame동작/두블록/512×640/seed202610610/모델20step 유지, 카메라만(4.10,-1.92,1.01)→target(3.94,-2.38,.58),37mm로 이동.
+- 검증된 two-block-native.blend를 로드하여 별도 tango-two-block-close 산출물로 저장, 기존 wide/v1/v2 보존. preview1/37/83 확인: 태블릿과인식판 크게, 작동손lower-right/휴식손lower-left, 두자모와여분블록. 거리 가설은 AI출력검수 전 미확인.
+
+## 근접 카메라 시험 완료 — 2026-10-10
+- `render_tango_two_block_close.py`로 검증된 wide v2 원본의 카메라만 이동. 124프레임/24fps/512×640/5.166667초, 모델·블록·손동작·시드202610610·20단계 유지. close prompt는 crop 지시만 추가했다.
+- MiniMax ref2va 실제 VIDEO 입력 prompt `9c85b587-f8fa-4843-9edd-507c8577e617`, 487.7초 성공. raw `D:/ComfyUI-output/virtual-parenting-20261006/tango-v8/video/tango_two_block_close/video-reference_00001_.mp4`, SHA256 `e911095a7539986f3acc90b0af7bf377bec051e16ca71fcf686b7b93d13c1095`.
+- 원본/AI 전체 decode 통과, 각각21개4fps 표본·2 contact sheet 육안검수. 가까운 고정 구도·오른쪽 손 두 번 배치·빈 판→한 개→두 개 흐름 유지. AI 첫 ㄱ은 가처럼 바뀌고 두 번째 모음 획도 원본과 다르다. 태블릿 가구/그림은 유지. 글자 면적은 커졌으나 정확한 자모 조립 실패(`passed:false`). 카메라 거리만으로 제품 글자 정확도를 해결할 수 있다는 가설은 지지되지 않는다.
+- 로컬 `http://127.0.0.1:5191/tango-two-block-close.html`에 원본/AI/같은GLB카메라3열. 두 영상 끝까지5.166667초 재생·오류없음, 끝 상태 비교에서3D 두 블록 일치. 3D 시간을 영상 종료 직전으로 clamp해 자연 종료시 시작 상태로 되돌아가지 않게 했다.
+- 증거 `output/virtual-parenting/tango-two-block-close/browser-proof.png`와 동일 D:/assets 아래 보관. 원본 .blend/GLB/영상/graph/ledger/verdict/QA를 함께 보존. Python3개AST·HTML JS node --check·git diff --check 통과. 무음 시험, 운영/게시/push 없음.
+- 다음 선택: 원본 블록/스티커를 추적·합성하여 정확한 획을 보존하거나 별도 강한 동작/형상 제어를 검토. 설치된 ref2va는 soft reference이며 hard lock이라고 설명하지 않는다.

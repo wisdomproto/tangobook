@@ -5,11 +5,12 @@ ap=argparse.ArgumentParser()
 ap.add_argument('clip',type=pathlib.Path)
 ap.add_argument('--summary',required=True)
 ap.add_argument('--passed',action='store_true')
+ap.add_argument('--experiment',choices=['test','close'],default='test')
 args=ap.parse_args()
 repo=pathlib.Path(__file__).resolve().parents[2]
 root=pathlib.Path('D:/ComfyUI-output/virtual-parenting-20261006')
-out=root/'tango-two-block-test'
-local=repo/'output/virtual-parenting/tango-two-block-test'
+out=root/f'tango-two-block-{args.experiment}'
+local=repo/f'output/virtual-parenting/tango-two-block-{args.experiment}'
 local.mkdir(parents=True,exist_ok=True)
 shutil.copy2(args.clip,out/'ai.mp4')
 probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(out/'ai.mp4')]))
@@ -22,5 +23,6 @@ for folder in ['review-native','review-ai']:
     target.mkdir(exist_ok=True)
     for path in (out/folder).glob('*'):
         if path.name.startswith('contact-') or path.name=='probe.json': shutil.copy2(path,target/path.name)
-shutil.copy2(repo/'scripts/virtual-parenting/tango-two-block-test.html',root/'tango-two-block-test.html')
+page=f'tango-two-block-{args.experiment}.html'
+shutil.copy2(repo/'scripts/virtual-parenting'/page,root/page)
 print(json.dumps(verdict,ensure_ascii=False))
