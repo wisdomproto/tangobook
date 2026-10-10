@@ -1,0 +1,8 @@
+{
+  "mode": "built-in imagegen edit",
+  "prompt": "Use case: precise-object-edit. Make exactly ONE local correction to this photograph. REMOVE the EXTRA third hand AND its sage sleeve/forearm at the BOTTOM RIGHT corner, and reconstruct the same uninterrupted white tabletop in that area. The bottom-right hand is an AI anatomy mistake. Preserve the operating RIGHT hand and its sleeve entering from lower-left/center and touching the ㅜ block. Preserve the small barely-cropped unused LEFT fingertips at the FAR LEFT edge. Those are the only two hands of this child. Do not add any head, face, hand, arm, plant, rug, artwork or furnishing. Keep every other pixel/area as unchanged as possible: camera framing, yellow block positions, second ㄱ ABOVE the horizontal ㅜ in the same board column, white stud board, tablet and orange mirror clip, large Korean word 가구 and actual chair-and-drawer furniture illustration only, bookshelf/tree/bear designs, existing daylight shadows. The correction area is only bottom-right forearm/hand; no other pose or composition changes.",
+  "reference": "exec-cbc3f3a1-1c0b-45e4-a8f0-4cbddb5837a6.png",
+  "selected": "detail-photo-v4.png",
+  "wide": "over-shoulder-photo-v3.png",
+  "review": "Removed extra bottom-right hand and sleeve; operating right hand and far-left resting fingertips retained."
+}

@@ -1,0 +1,24 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>두 블록 · 근접 개선 2차</title>
+<style>body{margin:0;background:#eeeae3;color:#25382f;font-family:system-ui}header{padding:24px 28px}h1{font-size:25px;margin:0 0 12px}p{line-height:1.6;margin:7px 0}main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0 28px 28px;max-width:1800px;margin:auto}figure{margin:0;background:white;border-radius:14px;overflow:hidden}video,#view{display:block;width:100%;aspect-ratio:4/5;background:#151515}#view{position:relative}figcaption{padding:16px}button{border:1px solid #bdc7ba;border-radius:7px;padding:9px;background:white;margin:3px}a{color:#236448}#status{position:absolute;top:12px;left:12px;padding:7px;background:#ffffffe8;border-radius:6px;font-size:13px}.links{display:flex;gap:18px;flex-wrap:wrap}@media(max-width:750px){main{grid-template-columns:1fr}}</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+<header><h1>ㄱ → ㅏ · 근접 개선 2차</h1><p>같은 근접 원본 동작에 빈 판 사진과 정확한 두 블록 렌더를 참조했습니다. 글자 획을 따로 유지하도록 지시한 2차 시험입니다.</p><p id="verdict">검수 결과 불러오는 중…</p><button id="play">동시에 재생</button><button id="end">끝 상태 비교</button><div class="links"><a href="tango-two-block-close.html">이전 근접 시험</a><a href="tango-two-block-test.html">이전 먼 카메라 시험</a><a href="tango-minimax-sequence.html">이전 전체 영상</a><a href="tango-two-block-close-v2/two-block-native.blend">Blender 원본</a><a href="tango-two-block-close-v2/native.mp4">원본 영상</a><a href="tango-two-block-close-v2/ai.mp4">AI 시험 영상</a></div></header>
+<main><figure><video id="native" controls muted playsinline preload="metadata" src="tango-two-block-close-v2/native.mp4"></video><figcaption>원본 렌더 · 고정 카메라 · 두 블록 순차 배치</figcaption></figure><figure><video id="ai" controls muted playsinline preload="metadata" src="tango-two-block-close-v2/ai.mp4"></video><figcaption>MiniMax · 원본 영상 + 빈 판 사진 + 정확한 블록 참조 · 무음 동작 시험<br>영상 참조는 구조를 강제 고정하지 않습니다.</figcaption></figure><figure><div id="view"><span id="status">3D 불러오는 중…</span></div><figcaption>같은 3D 카메라와 애니메이션<br><button id="pov">촬영 카메라</button><button id="orbit">둘러보기</button></figcaption></figure></main>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+const native=document.getElementById('native'),ai=document.getElementById('ai'),el=document.getElementById('view'),status=document.getElementById('status');
+fetch('tango-two-block-close-v2/verdict.json').then(r=>r.json()).then(v=>document.getElementById('verdict').textContent=v.summary).catch(()=>document.getElementById('verdict').textContent='시험 영상 검수 중입니다.');
+document.getElementById('play').onclick=()=>{native.currentTime=0;ai.currentTime=0;void native.play();void ai.play()};
+document.getElementById('end').onclick=()=>{native.pause();ai.pause();native.currentTime=native.duration-.05;ai.currentTime=ai.duration-.05};
+const scene=new T.Scene();scene.background=new T.Color('#ece7dd');
+const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(renderer.domElement);renderer.toneMapping=T.ACESFilmicToneMapping;
+scene.add(new T.HemisphereLight(0xffffff,0x817669,2));const light=new T.DirectionalLight(0xffffff,3);light.position.set(3,5,4);scene.add(light);
+const cam=new T.PerspectiveCamera(45,.8,.01,100),controls=new OrbitControls(cam,renderer.domElement);controls.enableDamping=true;controls.enabled=false;
+let mixer,pov,follow=true;
+new GLTFLoader().load('tango-two-block-close-v2/native.glb',g=>{scene.add(g.scene);mixer=new T.AnimationMixer(g.scene);for(const clip of g.animations)mixer.clipAction(clip).play();pov=g.cameras.find(c=>c.name.includes('Tango')&&c.name.includes('over-shoulder'));status.textContent='촬영 카메라 · 원본 영상과 같은 시각'},undefined,()=>status.textContent='3D 로드 실패');
+document.getElementById('pov').onclick=()=>{follow=true;controls.enabled=false;status.textContent='촬영 카메라'};
+document.getElementById('orbit').onclick=()=>{follow=false;controls.enabled=true;controls.target.set(3.9,.65,2.05);status.textContent='드래그로 둘러보기'};
+new ResizeObserver(()=>{const w=el.clientWidth,h=w*1.25;renderer.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix()}).observe(el);
+renderer.setAnimationLoop(()=>{if(mixer)mixer.setTime(Math.min(native.currentTime,(native.duration||5.166667)-.001));if(pov&&follow){pov.updateWorldMatrix(true,false);pov.getWorldPosition(cam.position);pov.getWorldQuaternion(cam.quaternion);cam.fov=pov.fov;cam.updateProjectionMatrix()}if(!follow)controls.update();renderer.render(scene,cam)});
+</script></html>

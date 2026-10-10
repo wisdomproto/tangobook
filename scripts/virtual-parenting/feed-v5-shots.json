@@ -1,0 +1,173 @@
+[
+  {
+    "id": "rug-reading",
+    "title": "거실 · 러그에서 책 읽기",
+    "number": 1,
+    "position": [
+      1.85,
+      1.45,
+      4.15
+    ],
+    "target": [
+      -1.05,
+      0.72,
+      2.05
+    ],
+    "lens_mm": 24,
+    "fov_vertical": 86.30477776401354,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        0.687524,
+        3.103309,
+        1.178425
+      ],
+      [
+        1.385303,
+        -1.122261,
+        1.683714
+      ],
+      [
+        -0.638156,
+        -1.122261,
+        4.478014
+      ],
+      [
+        -1.335935,
+        3.103309,
+        3.972725
+      ]
+    ],
+    "focus": "소파·러그·원형 테이블·뒤쪽 주방",
+    "guide": "materials-v5/rug-reading-render-v1.png",
+    "image": "feed-v5/rug-reading-photo-v1.png",
+    "review": "두 좌방석·두 액자·원형 테이블·러그 배치 유지. 가상 아이 독서/손·접힌 하체 자연스러움. 원단·햇빛은 AI 보완; 가구의 정확한 치수 동일성은 미보장.",
+    "variants": [
+      {
+        "title": "PBR 기반 실사 피드",
+        "image": "feed-v5/rug-reading-photo-v1.png",
+        "review": "두 좌방석·두 액자·원형 테이블·러그 배치 유지. 가상 아이 독서/손·접힌 하체 자연스러움. 원단·햇빛은 AI 보완; 가구의 정확한 치수 동일성은 미보장."
+      },
+      {
+        "title": "텍스처 Blender 원본",
+        "kind": "render",
+        "image": "materials-v5/rug-reading-render-v1.png",
+        "review": "동일 카메라의 AI 보정 없는 PBR Blender 원본"
+      }
+    ]
+  },
+  {
+    "id": "study-puzzle",
+    "title": "아이방 · 낮은 책상 도형 놀이",
+    "number": 2,
+    "position": [
+      2.95,
+      1.22,
+      3.7
+    ],
+    "target": [
+      4.12,
+      0.65,
+      1.75
+    ],
+    "lens_mm": 25,
+    "fov_vertical": 83.97442716521843,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        5.776776,
+        2.668686,
+        2.207391
+      ],
+      [
+        5.258905,
+        -1.347087,
+        3.07051
+      ],
+      [
+        2.418888,
+        -1.347088,
+        1.366501
+      ],
+      [
+        2.936759,
+        2.668686,
+        0.503381
+      ]
+    ],
+    "focus": "낮은 책상·유아 의자·교구장·전면 책장",
+    "guide": "materials-v5/study-puzzle-render-v1.png",
+    "image": "feed-v5/study-puzzle-photo-v3.png",
+    "review": "넓은 CAM2 구도: 책상 아래 두 다리/양말 발이 보이도록 수정. 몸-의자-무릎-바닥 연결과 가림 확인. 책 표지는 가상 삽화, 실제 교구/책 복제 아님.",
+    "variants": [
+      {
+        "title": "PBR 기반 실사 피드",
+        "image": "feed-v5/study-puzzle-photo-v3.png",
+        "review": "넓은 CAM2 구도: 책상 아래 두 다리/양말 발이 보이도록 수정. 몸-의자-무릎-바닥 연결과 가림 확인. 책 표지는 가상 삽화, 실제 교구/책 복제 아님."
+      },
+      {
+        "title": "텍스처 Blender 원본",
+        "kind": "render",
+        "image": "materials-v5/study-puzzle-render-v1.png",
+        "review": "동일 카메라의 AI 보정 없는 PBR Blender 원본"
+      }
+    ]
+  },
+  {
+    "id": "sofa-reading",
+    "title": "거실 · 소파에서 그림책",
+    "number": 3,
+    "position": [
+      0.95,
+      1.4,
+      1.25
+    ],
+    "target": [
+      -2.5,
+      0.9,
+      2.5
+    ],
+    "lens_mm": 28,
+    "fov_vertical": 77.56872724772971,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        -1.930919,
+        2.920765,
+        0.721182
+      ],
+      [
+        -1.461706,
+        -0.741819,
+        0.551177
+      ],
+      [
+        -0.454359,
+        -0.741819,
+        3.331455
+      ],
+      [
+        -0.923572,
+        2.920765,
+        3.50146
+      ]
+    ],
+    "focus": "동일 소파·연두 쿠션·앞쪽 큰 창·러그",
+    "guide": "materials-v5/sofa-reading-render-v1.png",
+    "image": "feed-v5/sofa-reading-photo-v1.png",
+    "review": "두 좌방석·두 액자·세이지 쿠션 유지. CAM1 생성사진을 재질 추가 참조. 아이 독서 자세 자연스러움. 쿠션/팔걸이 두께·창밖/빛은 AI 재해석.",
+    "variants": [
+      {
+        "title": "PBR 기반 실사 피드",
+        "image": "feed-v5/sofa-reading-photo-v1.png",
+        "review": "두 좌방석·두 액자·세이지 쿠션 유지. CAM1 생성사진을 재질 추가 참조. 아이 독서 자세 자연스러움. 쿠션/팔걸이 두께·창밖/빛은 AI 재해석."
+      },
+      {
+        "title": "텍스처 Blender 원본",
+        "kind": "render",
+        "image": "materials-v5/sofa-reading-render-v1.png",
+        "review": "동일 카메라의 AI 보정 없는 PBR Blender 원본"
+      }
+    ]
+  }
+]

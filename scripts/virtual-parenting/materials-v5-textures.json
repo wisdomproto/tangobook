@@ -1,0 +1,72 @@
+[
+  {
+    "asset": "fabric_pattern_07",
+    "map": "nor_gl",
+    "file": "fabric_pattern_07_nor_gl_4k.jpg",
+    "source": "https://polyhaven.com/a/fabric_pattern_07",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fabric_pattern_07/fabric_pattern_07_nor_gl_4k.jpg",
+    "license": "CC0",
+    "sha256": "7f6b2eb24d31fa6d5106196562d5274a2f427f5480010b88b00fbdfecb9780b4",
+    "bytes": 6950285
+  },
+  {
+    "asset": "fabric_pattern_07",
+    "map": "rough",
+    "file": "fabric_pattern_07_rough_4k.jpg",
+    "source": "https://polyhaven.com/a/fabric_pattern_07",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/fabric_pattern_07/fabric_pattern_07_rough_4k.jpg",
+    "license": "CC0",
+    "sha256": "50344efa7f6e783a2a42ccae3ea5c0ec2ca6323860cdf92c6d1ce21b2be3028c",
+    "bytes": 4678448
+  },
+  {
+    "asset": "white_oak_veneer",
+    "map": "diff",
+    "file": "white_oak_veneer_diff_4k.jpg",
+    "source": "https://polyhaven.com/a/white_oak_veneer",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/white_oak_veneer/white_oak_veneer_diff_4k.jpg",
+    "license": "CC0",
+    "sha256": "3d37444db4293941ef1a9794d6a52457e26d7729ccab6434e5136c093168ed8e",
+    "bytes": 9759576
+  },
+  {
+    "asset": "white_oak_veneer",
+    "map": "nor_gl",
+    "file": "white_oak_veneer_nor_gl_4k.jpg",
+    "source": "https://polyhaven.com/a/white_oak_veneer",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/white_oak_veneer/white_oak_veneer_nor_gl_4k.jpg",
+    "license": "CC0",
+    "sha256": "6fa75cd8f2aff2a13ee67fa5257d1c6b535aeccc13de92f0c59903f530af77aa",
+    "bytes": 11725297
+  },
+  {
+    "asset": "white_oak_veneer",
+    "map": "rough",
+    "file": "white_oak_veneer_rough_4k.jpg",
+    "source": "https://polyhaven.com/a/white_oak_veneer",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/white_oak_veneer/white_oak_veneer_rough_4k.jpg",
+    "license": "CC0",
+    "sha256": "3330235fbdbd061073040f25f27cc76b74ccd8489d8ec5aeb06a4fe2f20b83d3",
+    "bytes": 8834547
+  },
+  {
+    "asset": "plastered_wall_03",
+    "map": "nor_gl",
+    "file": "plastered_wall_03_nor_gl_4k.jpg",
+    "source": "https://polyhaven.com/a/plastered_wall_03",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/plastered_wall_03/plastered_wall_03_nor_gl_4k.jpg",
+    "license": "CC0",
+    "sha256": "c490b6c163be22e8cde200752659d47c231fadc7f4349927ac0068ea7fb60182",
+    "bytes": 9026035
+  },
+  {
+    "asset": "plastered_wall_03",
+    "map": "rough",
+    "file": "plastered_wall_03_rough_4k.jpg",
+    "source": "https://polyhaven.com/a/plastered_wall_03",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/plastered_wall_03/plastered_wall_03_rough_4k.jpg",
+    "license": "CC0",
+    "sha256": "c401be6d5c6b4c737c3bb4925cc949f46c79d4bb3f9fb2ead3af7cca538f0cdc",
+    "bytes": 5636912
+  }
+]

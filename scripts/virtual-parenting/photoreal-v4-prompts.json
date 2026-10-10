@@ -1,0 +1,24 @@
+{
+  "tool": "built-in image_gen",
+  "intent": "edit",
+  "shots": [
+    {
+      "id": "rug-reading",
+      "prompt": "Use case: photorealistic-natural. Asset: vertical 4:5 interior photograph for a parenting Instagram feed, empty house consistency test. Image 1 is the EDIT TARGET: a refined physically rendered room. Image 2 is the SAME sofa and SAME house seen from another camera, geometry verification reference only. Preserve Image 1's exact camera perspective, crop, all silhouettes, sizes, furniture positions, openings and room relationships. Make a restrained photographic finish, NOT a furniture redesign. Keep the sofa's EXACT TWO separate seat cushions and EXACT TWO separate rectangular back cushions, rounded narrow arms, low upholstered base, four tapered oak feet and one pale sage round cushion on the right. Keep every cushion edge/seam and sofa proportions precisely aligned with Image 1. The sofa must be the same piece in both views. Add only convincing fine cream woven-fabric surface detail, subtle oak pores/grain, natural plaster wall microtexture and realistic daylight tonal response, gentle natural camera grain. Keep round low oak table/rug dimensions and placement. No child or person in this test. Preserve exactly the TWO existing wall art frames above the sofa, their spacing, sizes, oak frame profiles and their artwork: one sage botanical stem, one terracotta sun with sandy landscape curves. They are permanent physical fixtures. No additional furniture, decor, books, plants, wall art, curtain, text or logo. Don't inflate arms, increase sofa height, replace the couch, join back cushions into one backrest, shift table or invent sofa shapes. Window may show a subtle bright out-of-focus exterior when visible, but do not change window framing. Preserve the quiet understated warm-neutral room colors; avoid CGI sheen, glossy surfaces, orange color grading, oversharpening and heavy stylization. Output the whole Image 1 composition as a believable real photograph with the smallest possible geometric change.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/photoreal-v4/rug-reading-render-v1.png",
+        "D:/ComfyUI-output/virtual-parenting-20261006/photoreal-v4/sofa-reading-render-v1.png"
+      ],
+      "generated_path": "C:\\Users\\101024\\.codex\\generated_images\\01a110d5-935b-7ff1-b313-4fb9a025ea65\\exec-6633dcfb-3a83-4993-81d6-27e2e2cb186e.png"
+    },
+    {
+      "id": "sofa-reading",
+      "prompt": "Use case: photorealistic-natural. Asset: vertical 4:5 interior photograph for a parenting Instagram feed, empty house consistency test. Image 1 is the EDIT TARGET: a refined physically rendered room. Image 2 is the SAME sofa and SAME house seen from another camera, geometry verification reference only. Preserve Image 1's exact camera perspective, crop, all silhouettes, sizes, furniture positions, openings and room relationships. Make a restrained photographic finish, NOT a furniture redesign. Keep the sofa's EXACT TWO separate seat cushions and EXACT TWO separate rectangular back cushions, rounded narrow arms, low upholstered base, four tapered oak feet and one pale sage round cushion on the right. Keep every cushion edge/seam and sofa proportions precisely aligned with Image 1. The sofa must be the same piece in both views. Add only convincing fine cream woven-fabric surface detail, subtle oak pores/grain, natural plaster wall microtexture and realistic daylight tonal response, gentle natural camera grain. Keep round low oak table/rug dimensions and placement. No child or person in this test. Preserve exactly the TWO existing wall art frames above the sofa, their spacing, sizes, oak frame profiles and their artwork: one sage botanical stem, one terracotta sun with sandy landscape curves. They are permanent physical fixtures. No additional furniture, decor, books, plants, wall art, curtain, text or logo. Don't inflate arms, increase sofa height, replace the couch, join back cushions into one backrest, shift table or invent sofa shapes. Window may show a subtle bright out-of-focus exterior when visible, but do not change window framing. Preserve the quiet understated warm-neutral room colors; avoid CGI sheen, glossy surfaces, orange color grading, oversharpening and heavy stylization. Output the whole Image 1 composition as a believable real photograph with the smallest possible geometric change.",
+      "refs": [
+        "D:/ComfyUI-output/virtual-parenting-20261006/photoreal-v4/sofa-reading-render-v1.png",
+        "D:/ComfyUI-output/virtual-parenting-20261006/photoreal-v4/rug-reading-render-v1.png"
+      ],
+      "generated_path": "C:\\Users\\101024\\.codex\\generated_images\\01a110d5-935b-7ff1-b313-4fb9a025ea65\\exec-88ea330f-111b-413e-b7a5-b797ef6078c0.png"
+    }
+  ]
+}

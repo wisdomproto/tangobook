@@ -1,0 +1,126 @@
+[
+  {
+    "id": "rug-reading",
+    "title": "CAM 1 · 거실 넓은 각도",
+    "number": 1,
+    "position": [
+      1.85,
+      1.45,
+      4.15
+    ],
+    "target": [
+      -1.05,
+      0.72,
+      2.05
+    ],
+    "lens_mm": 24,
+    "fov_vertical": 86.30477776401354,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        0.687524,
+        3.103309,
+        1.178425
+      ],
+      [
+        1.385303,
+        -1.122261,
+        1.683714
+      ],
+      [
+        -0.638156,
+        -1.122261,
+        4.478014
+      ],
+      [
+        -1.335935,
+        3.103309,
+        3.972725
+      ]
+    ],
+    "focus": "소파·러그·원형 테이블·뒤쪽 주방",
+    "guide": "photoreal-v4/rug-reading-render-v1.png",
+    "image": "photoreal-v4/rug-reading-photo-v1.png",
+    "review": "빈 집 실사화 시험 · 좌방석2/등쿠션2·둥근 팔걸이·액자2개 유지. 원단·빛·러그 질감은 AI 보완. 정확한 치수/픽셀 동일성은 보장하지 않습니다.",
+    "variants": [
+      {
+        "title": "새 렌더 → 실사",
+        "image": "photoreal-v4/rug-reading-photo-v1.png",
+        "review": "빈 집 실사화 시험 · 좌방석2/등쿠션2·둥근 팔걸이·액자2개 유지. 원단·빛·러그 질감은 AI 보완. 정확한 치수/픽셀 동일성은 보장하지 않습니다."
+      },
+      {
+        "title": "Cycles 렌더 원본",
+        "image": "photoreal-v4/rug-reading-render-v1.png",
+        "kind": "render",
+        "review": "같은 상세3D 소파/액자·같은카메라의 Cycles96샘플 렌더. AI 보정 전 이미지이며 아직 최종 실사 수준의 재질은 아닙니다."
+      },
+      {
+        "title": "이전 실사 · 아이 포함",
+        "image": "feed-v3/rug-reading-photo-v1.png",
+        "review": "이전 단순3D 기반 생성본 · 아이 포함. 소파 형태/쿠션 비율이 달라 비교용으로 보존했습니다."
+      }
+    ]
+  },
+  {
+    "id": "sofa-reading",
+    "title": "CAM 3 · 소파와 창가",
+    "number": 3,
+    "position": [
+      0.95,
+      1.4,
+      1.25
+    ],
+    "target": [
+      -2.5,
+      0.9,
+      2.5
+    ],
+    "lens_mm": 28,
+    "fov_vertical": 77.56872724772971,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        -1.930919,
+        2.920765,
+        0.721182
+      ],
+      [
+        -1.461706,
+        -0.741819,
+        0.551177
+      ],
+      [
+        -0.454359,
+        -0.741819,
+        3.331455
+      ],
+      [
+        -0.923572,
+        2.920765,
+        3.50146
+      ]
+    ],
+    "focus": "동일 소파·연두 쿠션·앞쪽 큰 창·러그",
+    "guide": "photoreal-v4/sofa-reading-render-v1.png",
+    "image": "photoreal-v4/sofa-reading-photo-v1.png",
+    "review": "빈 집 실사화 시험 · 좌방석2/등쿠션2·둥근 팔걸이·액자2개 유지. 원단·빛·러그 질감은 AI 보완. 정확한 치수/픽셀 동일성은 보장하지 않습니다.",
+    "variants": [
+      {
+        "title": "새 렌더 → 실사",
+        "image": "photoreal-v4/sofa-reading-photo-v1.png",
+        "review": "빈 집 실사화 시험 · 좌방석2/등쿠션2·둥근 팔걸이·액자2개 유지. 원단·빛·러그 질감은 AI 보완. 정확한 치수/픽셀 동일성은 보장하지 않습니다."
+      },
+      {
+        "title": "Cycles 렌더 원본",
+        "image": "photoreal-v4/sofa-reading-render-v1.png",
+        "kind": "render",
+        "review": "같은 상세3D 소파/액자·같은카메라의 Cycles96샘플 렌더. AI 보정 전 이미지이며 아직 최종 실사 수준의 재질은 아닙니다."
+      },
+      {
+        "title": "이전 실사 · 아이 포함",
+        "image": "feed-v3/sofa-reading-photo-v1.png",
+        "review": "이전 단순3D 기반 생성본 · 아이 포함. 소파 형태/쿠션 비율이 달라 비교용으로 보존했습니다."
+      }
+    ]
+  }
+]

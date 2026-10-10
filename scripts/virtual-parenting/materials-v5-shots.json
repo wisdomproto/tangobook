@@ -1,0 +1,118 @@
+[
+  {
+    "id": "rug-reading",
+    "title": "CAM 1 · 거실 넓은 각도",
+    "number": 1,
+    "position": [
+      1.85,
+      1.45,
+      4.15
+    ],
+    "target": [
+      -1.05,
+      0.72,
+      2.05
+    ],
+    "lens_mm": 24,
+    "fov_vertical": 86.30477776401354,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        0.687524,
+        3.103309,
+        1.178425
+      ],
+      [
+        1.385303,
+        -1.122261,
+        1.683714
+      ],
+      [
+        -0.638156,
+        -1.122261,
+        4.478014
+      ],
+      [
+        -1.335935,
+        3.103309,
+        3.972725
+      ]
+    ],
+    "focus": "소파·러그·원형 테이블·뒤쪽 주방",
+    "guide": "materials-v5/rug-reading-render-v1.png",
+    "image": "materials-v5/rug-reading-render-v1.png",
+    "review": "AI 보정 없는 Blender 원본 · 실제 PBR 원단/오크/벽 요철 · 소파와 액자 위치·치수 고정",
+    "variants": [
+      {
+        "title": "PBR · Blender 원본",
+        "kind": "render",
+        "image": "materials-v5/rug-reading-render-v1.png",
+        "review": "AI 보정 없는 Blender 원본 · 실제 PBR 원단/오크/벽 요철 · 소파와 액자 위치·치수 고정"
+      },
+      {
+        "title": "이전 원본 · 재질 비교",
+        "kind": "render",
+        "image": "photoreal-v4/rug-reading-render-v1.png",
+        "review": "이전 절차적 재질 원본 · 같은 가구·같은 카메라"
+      }
+    ]
+  },
+  {
+    "id": "sofa-reading",
+    "title": "CAM 3 · 소파와 창가",
+    "number": 3,
+    "position": [
+      0.95,
+      1.4,
+      1.25
+    ],
+    "target": [
+      -2.5,
+      0.9,
+      2.5
+    ],
+    "lens_mm": 28,
+    "fov_vertical": 77.56872724772971,
+    "aspect": 0.8,
+    "frustum_corners": [
+      [
+        -1.930919,
+        2.920765,
+        0.721182
+      ],
+      [
+        -1.461706,
+        -0.741819,
+        0.551177
+      ],
+      [
+        -0.454359,
+        -0.741819,
+        3.331455
+      ],
+      [
+        -0.923572,
+        2.920765,
+        3.50146
+      ]
+    ],
+    "focus": "동일 소파·연두 쿠션·앞쪽 큰 창·러그",
+    "guide": "materials-v5/sofa-reading-render-v1.png",
+    "image": "materials-v5/sofa-reading-render-v1.png",
+    "review": "AI 보정 없는 Blender 원본 · 실제 PBR 원단/오크/벽 요철 · 소파와 액자 위치·치수 고정",
+    "variants": [
+      {
+        "title": "PBR · Blender 원본",
+        "kind": "render",
+        "image": "materials-v5/sofa-reading-render-v1.png",
+        "review": "AI 보정 없는 Blender 원본 · 실제 PBR 원단/오크/벽 요철 · 소파와 액자 위치·치수 고정"
+      },
+      {
+        "title": "이전 원본 · 재질 비교",
+        "kind": "render",
+        "image": "photoreal-v4/sofa-reading-render-v1.png",
+        "review": "이전 절차적 재질 원본 · 같은 가구·같은 카메라"
+      }
+    ]
+  }
+]
