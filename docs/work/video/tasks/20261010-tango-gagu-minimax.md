@@ -128,3 +128,15 @@
 - 산출물/6최종사진/2수정전draft/실제참조경로/프롬프트/graph/ledger/이미지 해시/QA는 worktree output/virtual-parenting/tango-dense-guides와 D드라이브에 보존. 무음 ㄱㅏ 두블록 시험이며 전체 ㄱㅏㄱㅜ·완성반응·실제음원 영상으로 확대하지 않았다. 기존전체시안/근접v1/v2 보존, 운영/게시/mainpush 없음.
 
 - 최종 브라우저 검수: MiniMax duration5.166667/640×800/error없음·끝까지 재생, 마지막 이미지 자동선택·GLB 공간 카메라 로드. 사진컷 모드 duration4.5/error없음, gallery ㄱ들기 선택이 해당사진/컷1.50초로 seek. 완료 스크린샷 `output/virtual-parenting/tango-dense-guides/browser-proof.png` 및 D:/assets에 보존. Python5개AST/HTML module node --check/링크실제브라우저/git diff --check 통과. pnpm 제품 테스트 대상 변경 없음.
+
+## 오른팔 팔꿈치 사용자 반증 — 2026-10-10
+- 사용자는 근접 v1 페이지를 보며 오른손인데 팔꿈치가 왼팔처럼 보인다고 지적하고 재제작 요청. 이미지6장 후보의 소매 개선만으로 팔 해부학 검수가 완료됐다고 확대하지 않는다.
+- 원본 right shoulder x3.80/left4.00을 카메라에 실제 투영하면 right가 화면 오른쪽이다. 초기 "어깨가 반대쪽" 설명은 오판이며 즉시 정정. 기존 arm()은 elbow 중간값+offset, sleeve scale.z 변경으로 팔 길이 고정이 없음.
+- 별도 tango-right-arm에 고정 길이 두 관절/바깥쪽 pole 동작을 제작한다. 기존 모든 후보 보존. 생성사진 5장은 imagegen으로 오른쪽 프레임 가장자리 팔꿈치와 실제 소매/손목 연결을 국소 수정, 6상태 한 MiniMax shot 재생성 예정. 결과검수 전 완료판정하지 않는다.
+- fixed-length native124frame/24fps 렌더·GLB 완료. 좌우248pose에서 상완/전완0.33m 각각 ±0.0000003m, 오른팔 elbow.x<torso3.9/왼팔>3.9 체크. 실제 사람 신체 비율/의복 리그를 완성했다는 의미 아님. 원본은 stylized pose guide이며 변경된 팔 길이는 이전 변동 길이 대신 일정한 값.
+- imagegen built-in으로 기존 실사 action5장의 팔만 국소 수정 완료, 모든5개 육안확인. 원본 빈판1장 재사용. 수정 사진/프롬프트/원본경로/생성경로는 tango-right-arm/image-generation.json. 책상/자모 배치 유지, 팔꿈치 오른쪽 edge 및 면소매 주름 변경.
+- FL2VA seed202610630/20steps/124frame640×800, 시작/끝+중간4 image guide, job836369a5-0208-47a5-b7da-ca4139b6989b 제출. 수정된3D는 화면/자세검증용이며 native VIDEO 조건으로 입력하지 않았음을 명시. 생성 완료 후 팔 방향/자모/전체decode 검수 필요.
+- 새 후보 MiniMax job836369a5-0208-47a5-b7da-ca4139b6989b 6.5분 성공. raw tango-v8/video/tango_right_arm/fixed-elbow-six-guides_00001_.mp4, 640×800/124frames/24fps/5.166667초, SHA256 a5ac78145c696ac415bf40d2f89ad9b3deba560a9f5034d105582548dd601883.
+- 전체decode·8fps41표본/4contactsheet·full-size3장 검수. 오른쪽 edge에서 이어지는 실제 면소매/손목, 오른손ㄱ pickup→placement→ㅏ placement, 두 글자 유지. 실제 elbow/shoulder는 근접 crop 밖이므로 전체 anatomical chain을 검증한 것으로 확대하지 않는다. source3D와 사진의 동작시점/인물리그는 동일하지 않음을 페이지에 공개.
+- 새 tango-right-arm.html: 좌 수정native 렌더 / 가운데 새MiniMax / 우 native동기화3D, 아래 수정5장+빈판. 팔뻗기 비교는 native1.25초와AI1.83초로 각각 해당동작 비교. 두블록 무음 시안. 산출물/원본/guide5장/프롬프트/graph/ledger/QA는 D드라이브 및 worktree output/virtual-parenting/tango-right-arm 보존. 운영게시/mainpush 없음.
+- 브라우저 원본/AI 모두640×800/5.166667초/끝까지 재생/error없음, GLB로드·팔뻗기 비교1.25/1.83초 확인. browser-proof.png 저장. Python3개AST/HTML module구문/git diff검수. 제품 pnpm테스트 대상 변경 없음.

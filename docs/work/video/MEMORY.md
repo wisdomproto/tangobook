@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 기억
 
+2026-10-10 [탱고 오른팔 수정](tasks/20261010-tango-gagu-minimax.md): 사용자 오른손/왼팔 같은 팔꿈치 반증. 어깨 좌우 오판은 실제 투영으로 정정. 일정 팔 길이/오른쪽 elbow native124frame + imagegen 팔 수정5장으로 MiniMax 새5.17초 생성. 41표본에서 오른쪽 소매/손목 방향·ㄱㅏ 유지. 실제 elbow/shoulder는 crop 밖, 전체 인체 관절 검증 아님. localhost5191/tango-right-arm.html, 로컬만 보존.
+
 2026-10-10 [탱고 이미지6장 짧은 영상](tasks/20261010-tango-gagu-minimax.md): 근접v2 자모 개선 뒤 원통 팔 사용자 반증. imagegen 새5장+빈판1장, 중복ㅏ 수정2장. FL2VA 첫/끝+중간4guide 단일5.17초640×800 생성·표본검수 완료, 오른손·ㄱㅏ·자연스러운 소매 개선. 사진컷4.5초와 localhost5191/tango-dense-guides.html 비교. 두블록 무음시험이며 전체 가구 조립/정확한CAD 보장 아님. 로컬만 보존.
 
 2026-10-10 [탱고 근접 두 블록 시험](tasks/20261010-tango-gagu-minimax.md): 같은 원본 동작·시드·설정으로 카메라를 가까이 이동, MiniMax 5.17초 생성·원본/AI/3D 비교 검수 완료. 오른손 두 번 배치와 고정 구도 유지, 첫 ㄱ을 가처럼 바꾸는 자모 오류 남음. 거리만으로 정확도 해결 안 됨. localhost5191/tango-two-block-close.html, 로컬만 보존.
