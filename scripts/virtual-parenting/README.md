@@ -8,10 +8,12 @@ Blender 4.5.9로 만든 독자적인 거실·주방·독서 공간이다. 가구
 & D:/blender/blender-4.5.9-windows-x64/blender.exe --background --python scripts/virtual-parenting/build_home.py -- D:/ComfyUI-output/virtual-parenting-20261006
 & scripts/virtual-parenting/prepare-viewer.ps1
 $env:DISABLE_PUBLISH_SCHEDULER='1'
-& C:/ComfyUI_windows_portable/python_embeded/python.exe -m http.server 5191 --bind 127.0.0.1 --directory D:/ComfyUI-output/virtual-parenting-20261006
+& C:/ComfyUI_windows_portable/python_embeded/python.exe scripts/virtual-parenting/serve_virtual_parenting.py --root D:/ComfyUI-output/virtual-parenting-20261006 --port 5191
 ```
 
 마지막 명령은 정적 파일 서버다. TangoBook 앱 서버/운영 자격증명/발행 스케줄러를 로드하지 않는다. Three.js 0.180.0과 MIT 라이선스를 준비 단계에서 내려받고, 실제 뷰어는 로컬 파일만 읽는다. 의존성 설치나 lockfile 수정 없음.
+
+미디어 탐색에는 `serve_virtual_parenting.py`의 HTTP byte-range 응답을 사용한다. 기본 `python -m http.server`는 영상 seek가 제대로 작동하지 않아 원본/AI 비교가 멈출 수 있다.
 
 생성 산출물: `family-home-v1.blend`, `family-home-v1.glb`, `assets.json`, `home-preview.png`. Git에는 생성 코드/뷰어를 저장하고 바이너리와 생성 로그는 D드라이브에 보존한다.
 
@@ -126,3 +128,9 @@ python scripts/virtual-parenting/prepare_study_v7.py
 ### study-v7의 세 칸 비교 화면
 
 `python scripts/virtual-parenting/prepare_study_v7.py`는 `three_panel_study.py`를 통해 왼쪽 v7 Cycles 원본, 가운데 해당 v7 렌더를 직접 참조해 새로 생성한 사진, 오른쪽 v7 3D 카메라를 표시한다. `study-v7-photo-shots.json`과 `study-v7-photo/*-photo-v1.png`가 정적 폴더에 있어야 한다. 두 교구 × 정면/뒤/근접 6장을 built-in image_gen으로 다시 만들었다. 정확한 프롬프트·실제 첨부 파일·생성 경로는 `study-v7-photo-prompts.json`에 있다. v6 사진은 참조하지 않았다. 주요 구도는 육안상 근접하지만 픽셀 고정 결과는 아니며 조명, 바닥 결, 교구의 부품 수/배치는 여전히 검수 대상이다. 큐브 원본의 떠 있는 빨강 조각은 원본 모델의 연출 상태이므로 후속 손 포즈/교구 모델 수정 대상이다.
+
+## 탱고 가구 MiniMax 시퀀스와 고정 카메라 반응
+
+`build_tango_minimax_sequence.py`는 원본 기반 imagegen 시작/끝 사진에서 구간별 MiniMax FL2VA 그래프를 만들며, `prepare_tango_minimax_sequence.py --release 2.5 3 3.75 3.3`이 기존 게임 음원을 넣은 19초 다섯 컷 시험본을 만든다. 보존 페이지는 `tango-minimax-sequence-cuts.html`. 손은 처음부터 해당 블록을 잡고 있으므로 책상에서 집는 전체 한 테이크가 아니다. 컷 사이 테이블/소품 차이는 남는다.
+
+`render_tango_turnaround.py --render --export`는 같은 집에서 뒤 사선37mm 카메라를 고정하고 마지막 블록부터 엄마를 돌아보는 원본을 별도로 저장한다. 기존 mesh의 손 이름보다 사용자가 지정한 **화면 오른쪽 조작손**을 기준으로 한다. `build_tango_turnaround.py`는 국소 편집한 시작/끝 사진을 MiniMax 한 구간으로 생성하도록 그래프를 만든다. `prepare_tango_turnaround.py CLIP --release SECONDS --turn SECONDS`는 실제 관측 시각에 맞춰 기존 음원과 첫 세 컷을 연결한다. `tango-minimax-sequence.html`은 수정본·원본 렌더·3D 단계 비교. 마지막 블록과 반응 사이에는 컷이 없지만 앞의 세 컷은 이전 시안이며 전체 공간 일관성 해결본이 아니다. 산출물/참조/프롬프트/검수는 `output/virtual-parenting/tango-turnaround`와 D드라이브 동일 폴더에 보존한다.
