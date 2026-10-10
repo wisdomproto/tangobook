@@ -5,7 +5,7 @@ ap=argparse.ArgumentParser()
 ap.add_argument('clip',type=pathlib.Path)
 ap.add_argument('--summary',required=True)
 ap.add_argument('--passed',action='store_true')
-ap.add_argument('--experiment',choices=['test','close'],default='test')
+ap.add_argument('--experiment',choices=['test','close','close-v2'],default='test')
 args=ap.parse_args()
 repo=pathlib.Path(__file__).resolve().parents[2]
 root=pathlib.Path('D:/ComfyUI-output/virtual-parenting-20261006')
@@ -18,6 +18,8 @@ verdict=dict(summary=args.summary,passed=args.passed,conditioning='video referen
 (out/'verdict.json').write_text(json.dumps(verdict,ensure_ascii=False,indent=2),encoding='utf-8')
 for name in ['ai.mp4','native.mp4','native.glb','two-block-native.blend','workflow.json','prompt.txt','source-ledger.json','native-manifest.json','verdict.json']:
     shutil.copy2(out/name,local/name)
+for path in out.glob('tango_close_v2_*.png'):
+    shutil.copy2(path,local/path.name)
 for folder in ['review-native','review-ai']:
     target=local/folder
     target.mkdir(exist_ok=True)

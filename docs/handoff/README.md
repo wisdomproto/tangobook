@@ -1,5 +1,7 @@
 # Claude → Codex 인수인계
 
+2026-10-10 [탱고 이미지6장 짧은 영상](../work/video/tasks/20261010-tango-gagu-minimax.md): 근접v2 자모 개선 뒤 원통 팔 사용자 반증. imagegen 새5장+빈판1장, 중복ㅏ 수정2장. FL2VA 첫/끝+중간4guide 단일5.17초640×800 생성·표본검수 완료, 오른손·ㄱㅏ·자연스러운 소매 개선. 사진컷4.5초와 localhost5191/tango-dense-guides.html 비교. 두블록 무음시험이며 전체 가구 조립/정확한CAD 보장 아님. 로컬만 보존.
+
 2026-10-10 [탱고 근접 두 블록 시험](../work/video/tasks/20261010-tango-gagu-minimax.md): 같은 원본 동작·시드·설정으로 카메라를 가까이 이동, MiniMax 5.17초 생성·원본/AI/3D 비교 검수 완료. 오른손 두 번 배치와 고정 구도 유지, 첫 ㄱ을 가처럼 바꾸는 자모 오류 남음. 거리만으로 정확도 해결 안 됨. localhost5191/tango-two-block-close.html, 로컬만 보존.
 
 작성: 2026-09-21. 기능 코드 변경 없이 지침과 작업 기억의 진입점을 추가했다.

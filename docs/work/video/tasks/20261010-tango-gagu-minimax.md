@@ -103,3 +103,28 @@
 - 로컬 `http://127.0.0.1:5191/tango-two-block-close.html`에 원본/AI/같은GLB카메라3열. 두 영상 끝까지5.166667초 재생·오류없음, 끝 상태 비교에서3D 두 블록 일치. 3D 시간을 영상 종료 직전으로 clamp해 자연 종료시 시작 상태로 되돌아가지 않게 했다.
 - 증거 `output/virtual-parenting/tango-two-block-close/browser-proof.png`와 동일 D:/assets 아래 보관. 원본 .blend/GLB/영상/graph/ledger/verdict/QA를 함께 보존. Python3개AST·HTML JS node --check·git diff --check 통과. 무음 시험, 운영/게시/push 없음.
 - 다음 선택: 원본 블록/스티커를 추적·합성하여 정확한 획을 보존하거나 별도 강한 동작/형상 제어를 검토. 설치된 ref2va는 soft reference이며 hard lock이라고 설명하지 않는다.
+
+## 근접 개선 2차 시작 — 2026-10-10
+- 사용자가 근접컷 개선을 긍정하고 추가 개선을 요청. 같은 124프레임 근접 원본/3D 카메라를 유지한다. 이전 결과는 보존한다.
+- 기존 완성 가구 판/넓은 인물 참조 대신, 이전 근접 AI의 빈 판 첫 프레임(실사 질감용)과 정확한 native 마지막 ㄱ/ㅏ 프레임(스티커/블록 형상용)을 두 이미지 참조로 투입. 각 블록의 검은 획을 기하 형태로 설명하고 한 블록에 완성 음절을 그리지 않도록 명시. seed202610611/24steps/512×640으로 새 후보1개 생성. 변경이 여러 가지라 어느 한 요인의 효과라고 결론내리지 않는다.
+- 생성/검수 완료 전 성공으로 취급하지 않는다. soft reference 한계는 유지한다.
+
+## 근접 v2 결과와 사용자 팔 반증 / 촘촘한 이미지 컷으로 변경
+- ref2va prompt8a1702dd-cfd6-4faa-822d-134af332c854 성공583.46초. v2 5.166667초 SHA25649c428a7997e394ba60930796fb3c76abf6f08d1dd7d8f0d69da2f9b15185e3d. 전체decode·21표본 확인: 첫 ㄱ/마지막 ㄱㅏ는 v1보다 원본과 가까워졌지만 소매가 원통처럼 CG형태. 사용자도 팔을 반증, 완성 판정하지 않는다.
+- 원본 `build_tango_v8.py` limb는 tapered cone+구 관절, `render_tango_two_block_test.py` arm은 연결점 중간값으로 팔꿈치를 잡고 길이를 scale.z로 늘린다. 실제 피부/의복 리그 아님. shape 참조가 이 단순조형까지 따랐다는 원인은 추론이며 확인한 코드 구조와 구분한다.
+- 사용자 “이미지 컷을 더 많이 만들어서 짧게 영상”으로 방법 변경. 원통 팔 원본 VIDEO 강제 대신 같은 근접 배경의 실사 상태6장(빈 판 + 새5장)을 image skill로 만들고, FL2VA 시작/끝 이미지로 짧은 이동 구간을 생성한다. 앞 출력 실제 마지막 프레임을 다음 시작으로 사용한다. 새 모델/게시/운영 변경 없음.
+
+- 로컬 `nodes_minimax_h3.py`의 MiniMaxH3AddGuide는 이미지→VAE latent→resolved frame conditioning을 지원하며 별도 control weights 불필요. 첫/끝+중간4장(0/22/44/66/88/123프레임)을 한5.17초 FL2VA 생성에 연결하는 방식으로 변경. 별도 컷 연결을 제거하므로 이 후보에는 앞 컷의 실제 lastframe chaining 자체가 없다. 처음 계획했던 다섯 짧은 클립 연결과 구분한다.
+
+- imagegen built-in으로5개 새 상태를 공통 빈 판/자연스러운 소매/정확한 두블록 참조에서 병렬 생성. ㅏ pickup 뒤 waiting row에 같은 블록이 남는 오류를2개 이미지에서 검수했고 localized removal2회로 수정. 원본 draft 보존. 빈 판은 이전 근접 AI 첫 프레임을 재사용, 최종6 PNG 이진검수·모든 상태 육안확인. workspace output/virtual-parenting/tango-dense-guides/keyframes와 D드라이브 보관, 프롬프트/원본 경로/수정 프롬프트/해시를 JSON 기록.
+- 4.5초640×800/24fps 정지 사진 컷 미리보기 별도 생성·전체decode·브라우저 재생 검수. MiniMax 실제 움직임과 구분하는 페이지 모드 제공.
+- FL2VA640×800/124frames/20steps/seed202610620, prompt6158b83e-8627-4a29-a82c-54b0b681000b 생성 시작. 원통 팔 3D VIDEO 입력은 없음. 현재 사진6개 frame0/22/44/66/88/123이 실제VAE guide socket에 연결. 모델결과 완료/검수 전 성공으로 취급하지 않는다.
+
+## 여섯 이미지 단일 영상 완료 — 2026-10-10
+- MiniMax FL2VA 실제 첫/끝+AddGuide4장 prompt6158b83e-8627-4a29-a82c-54b0b681000b 성공402.30초. raw `D:/ComfyUI-output/virtual-parenting-20261006/tango-v8/video/tango_dense_guides/six-state-shot_00001_.mp4`, 640×800/124frame24fps/5.166667초, SHA256 `cfe4daa37fe5ca95338d709d75719ce93c88ce20009da2eb1530d9c5fc392960`.
+- 전체decode·21개4fps 표본·두 contact sheet·최종 full frame 검수: 원통 CG 소매 대신 자연스러운 면 주름/손목, 화면 오른손으로 ㄱ pickup→placement→ㅏ pickup→placement. 빈 판→한 개→두 개, 읽히는 ㄱ/ㅏ 유지. 단일 구도, 테이블/태블릿/배경 유지. 이번 동작/글자 표본 검수 통과이며 exact CAD/모든 픽셀 보장과 구분한다.
+- `render_tango_photo_cuts.py`는 각 입력을 먼저640×800으로 정규화하고18frame씩 concat, 정확히108frame4.5초. 최초 concat-demuxer 시안은 입력 해상도 변경으로0.75초가 줄어3.75초가 된 것을 QA에서 발견하여 교체. 최종18표본/2contact/전체decode 통과. 단순 사진 컷이며 AI 움직임이라고 설명하지 않는다.
+- 로컬 `http://127.0.0.1:5191/tango-dense-guides.html`: 왼쪽 선택/재생시점 참조사진, 가운데 MiniMax/사진컷 모드, 오른쪽 공간·카메라참고3D, 아래6사진 선택. native는 공간참고이며 AI사진 손동작과 동일한 리그라고 설명하지 않는다.
+- 산출물/6최종사진/2수정전draft/실제참조경로/프롬프트/graph/ledger/이미지 해시/QA는 worktree output/virtual-parenting/tango-dense-guides와 D드라이브에 보존. 무음 ㄱㅏ 두블록 시험이며 전체 ㄱㅏㄱㅜ·완성반응·실제음원 영상으로 확대하지 않았다. 기존전체시안/근접v1/v2 보존, 운영/게시/mainpush 없음.
+
+- 최종 브라우저 검수: MiniMax duration5.166667/640×800/error없음·끝까지 재생, 마지막 이미지 자동선택·GLB 공간 카메라 로드. 사진컷 모드 duration4.5/error없음, gallery ㄱ들기 선택이 해당사진/컷1.50초로 seek. 완료 스크린샷 `output/virtual-parenting/tango-dense-guides/browser-proof.png` 및 D:/assets에 보존. Python5개AST/HTML module node --check/링크실제브라우저/git diff --check 통과. pnpm 제품 테스트 대상 변경 없음.
