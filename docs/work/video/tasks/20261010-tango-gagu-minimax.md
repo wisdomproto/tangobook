@@ -19,3 +19,16 @@
 - 재생 페이지 `http://127.0.0.1:5191/tango-video.html` 생성. 브라우저 controls 재생·영상5초·다운로드 링크 확인. 기존 사진/3D 페이지 보존.
 - 생성 재현: ComfyUI input에 `tango_gagu_detail_v5.png`와 `tango_gagu_end.png`를 넣고 `python scripts/virtual-parenting/run_tango_video.py scripts/virtual-parenting/tango-gagu-fixed-workflow.json`. 모델FL2VA int8·20step·LoRA없음. 검수는 `inspect_tango_video.py`, 선택본 반영은 `prepare_tango_video.py`.
 - Python AST/실제 ComfyUI schema 검증, FFprobe/FFmpeg 전체decode, 사진 표본/브라우저 검수. 제품 코드 변경이 없어 monorepo 테스트는 실행하지 않았다. 외부 업로드/운영 데이터/게시/push 없음.
+
+## 후속 · 처음부터 조립하는 Blender 동작 원본
+
+- 사용자 반증: 기존 영상의 스티커 글자가 흐림. 글자 굵게, 빈 판에서 ㄱ→ㅏ→ㄱ→ㅜ를 하나씩 오른손으로 놓기, 실제 게임 음원, 완성 후 아이의 기쁜 반응 요청. 이전 눌러 완성 시안을 이 요청의 완료본으로 사용하지 않는다.
+- 기존 `family-home-tango-v8.blend`를 읽어 별도 `family-home-tango-sequence.blend` 제작. 노란 몸체/흰 스티커/검정 Malgun Bold 유지, 벡터 획 offset 0.45mm·글자 크기21→26mm 설정 후 스티커 범위에 맞춤. 기존 집·CAD·가구 단어/그림 유지. 마지막ㅜ는 기존ㅏ 스티커 블록을90도 돌려 둘째ㄱ 아래 같은 열에 놓음.
+- `build_tango_sequence.py`의 build/preview/render/export/validate 모드. 각 블록1.5/3.4/5.3/7.2초에 안착, 테이블에서 들어 이동해 내려놓음. 기존 손/손가락을 각각 한 root에 묶어 두 손 유지. 조작은 실제 오른쪽 어깨(world-X)에 연결. 쉬는 왼손은 집는 영역에서 이동. 근접 카메라38mm,8.208초에 정면 사선42mm 카메라 전환,9.35초부터 웃음 곡선·양팔 들기·작은 손 흔들기. 인물은 기존 단순화된 네이티브 조형이며 실사 인물 모델이 아니다.
+- 실제 코드 확인: `KoreanBlockPlayer.tsx`는 새 음절을 읽고 마지막 음절을 정답 처리로 넘김. `useGameAudio.ts`는 마지막 음절 종료→정답 효과음→500ms→단어 발음 종료→한국어 칭찬 종료. `phonics-library.service.ts`의 한국어 단어는 음절 사이 무간격 연결.
+- `fetch_tango_game_audio.mjs`는 기존 R2 음원만 읽음(GetObject/ListObjects). 가/구는 `phonics-library/mod_korean/가.mp3`, `구.mp3`; 칭찬은 기존 한국어 정답 pool의 `cm_positive_correct1.mp3`; 효과음은 repo `packages/client/public/sounds/game/correct.mp3`. 로컬에서 가+구를 무간격 WAV 연결, 새 TTS/원격 데이터 생성 없음. 음원 출처·SHA256은 로컬 `tango-sequence/audio/sources.json`.
+- 음원 시작: 가3.4초,구7.2초,효과음7.748571초,가구8.248571초,칭찬9.319591초. FFprobe로 읽은 실제 길이에 따라 계산. 영상은800×1000,H.264,24fps,336프레임,14초,AAC음성. `prepare_tango_sequence.py`로 FFmpeg delay/mix/mux. SHA256 `24a0875d0a0217b2048cc5727a3760f1925738c49d88824d7ebbfdc702470069`.
+- 결과 `D:/ComfyUI-output/virtual-parenting-20261006/tango-sequence/tango-gagu-3d.mp4`, 원본 blend는 상위 폴더. workspace `output/virtual-parenting/tango-sequence/`에도 영상/manifest/시작·반응 샷 복사. 이전 MiniMax 영상 보존.
+- `http://127.0.0.1:5191/tango-sequence.html`: 왼쪽 음원 포함 원본 영상/오른쪽 동일 애니메이션 GLB, 재생 시간에 맞춰 동기화, 같은 촬영 카메라와 Orbit·카메라 프러스텀 보기. 카메라 검색은 기존 Carousel detail을 제외해 Tango 이름까지 대조. LoopOnce 종료 후 재시작이 멈추는 문제를 피하려고 시간 고정·마지막 프레임 clamp 사용.
+- 검증: Blender 원본의13개 블록/두 손/각 안착 프레임 좌표/세로 구/스티커 글자 범위/최종 웃음·양팔 검사 통과. FFmpeg 전체 영상decode,0.25초 간격56프레임/5contact sheet 육안 검사. Python AST·Node 문법 검사. 제품 코드 변경 없음, monorepo 테스트 생략. 다음 실사화는 이 동작 원본의 시작/끝 프레임을 사용해 구간별로 검수해야 함. 아직 전체 동작 MiniMax 실사 영상이 완성된 것은 아님.
+- 브라우저 검수: 실제14초 재생, 시작/완성 후 반응에서 좌영상·우GLB 동일 구도와 자세 확인. 종료 후 ‘처음부터 재생’ 시 영상/3D 모두 빈 판·원래 손 자세로 복귀. 사용자 출력 탭 보존.

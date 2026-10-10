@@ -1,0 +1,33 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>가구 · 블록을 하나씩 놓기</title>
+<style>body{margin:0;background:#eeeae3;color:#25382f;font-family:system-ui}header{padding:24px 28px}h1{font-size:25px;margin:0 0 12px}p{line-height:1.6;margin:7px 0}main{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 28px 28px;max-width:1400px;margin:auto}figure{margin:0;background:white;border-radius:14px;overflow:hidden;min-width:0}video{display:block;width:100%;aspect-ratio:4/5;background:#151515}#view{aspect-ratio:4/5;position:relative}canvas{display:block}figcaption{padding:16px}button{border:1px solid #bdc7ba;border-radius:7px;padding:9px;background:white;margin:3px}a{color:#236448}#status{position:absolute;top:12px;left:12px;padding:7px;background:#ffffffeb;border-radius:6px;font-size:13px}.links{display:flex;gap:18px;flex-wrap:wrap}#step{font-weight:600}@media(max-width:750px){main{grid-template-columns:1fr}}</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+<header><h1>ㄱ → ㅏ → ㄱ → ㅜ · 가구!</h1><p>오른손으로 블록을 하나씩 놓고, 다 맞추면 웃으며 두 손을 들어 기뻐합니다.<br>기존 게임의 ‘가 · 구 · 가구’ 음원과 정답 효과음, 칭찬 음성을 넣었습니다.</p><p>실사 영상 제작 전 동작을 확인하는 Blender 3D 시안입니다.</p><div class="links"><a href="family-home-tango-sequence.blend">Blender 애니메이션 원본</a><a href="tango-sequence/tango-gagu-3d.mp4" download>영상 다운로드</a><a href="tango-v8.html">사진·원본 비교</a><a href="tango-video.html">앞선 MiniMax 시안</a></div></header>
+<main><figure><video id="film" controls playsinline preload="metadata" poster="tango-sequence/frame-001.png" src="tango-sequence/tango-gagu-3d.mp4"></video><figcaption>원본 3D 영상 · 800×1000 · 14초<br><span id="step">빈 인식판에서 시작</span></figcaption></figure><figure><div id="view"><span id="status">같은 3D 애니메이션 불러오는 중…</span></div><figcaption>영상 시간에 맞춰 같은 모델과 카메라 재생<br><button id="pov">촬영 카메라</button><button id="orbit">둘러보기</button><button id="restart">처음부터 재생</button></figcaption></figure></main>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+const el=document.getElementById('view'),film=document.getElementById('film'),status=document.getElementById('status');
+const scene=new T.Scene();scene.background=new T.Color('#ece7dd');
+const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(renderer.domElement);renderer.toneMapping=T.ACESFilmicToneMapping;
+scene.add(new T.HemisphereLight(0xffffff,0x817669,2));const light=new T.DirectionalLight(0xffffff,3);light.position.set(3,5,4);scene.add(light);
+const cam=new T.PerspectiveCamera(45,.8,.01,100),controls=new OrbitControls(cam,renderer.domElement);controls.enabled=false;controls.enableDamping=true;
+let mixer,cameras=[],follow=true;const markers=new T.Group();scene.add(markers);markers.visible=false;
+cam.position.set(3.48,1.05,1.94);cam.lookAt(3.89,.6,2.37);
+new GLTFLoader().load('tango-sequence/sequence.glb',g=>{
+ scene.add(g.scene);mixer=new T.AnimationMixer(g.scene);for(const clip of g.animations)mixer.clipAction(clip).play();
+ cameras=[g.cameras.find(c=>c.name.includes('Tango')&&c.name.includes('detail')),g.cameras.find(c=>c.name.includes('Tango')&&c.name.includes('happy'))];
+ scene.updateMatrixWorld(true);for(const c of cameras){if(!c)continue;const copy=c.clone();copy.position.copy(c.getWorldPosition(new T.Vector3()));copy.quaternion.copy(c.getWorldQuaternion(new T.Quaternion()));copy.near=.04;copy.far=.4;copy.updateProjectionMatrix();copy.updateMatrixWorld();markers.add(new T.CameraHelper(copy))}
+ status.textContent='같은 Blender 모델 · 영상과 동기화';
+},undefined,e=>{status.textContent='3D 로딩 실패';console.error(e)});
+document.getElementById('orbit').onclick=()=>{follow=false;controls.enabled=true;markers.visible=true;cam.position.set(4.8,1.9,3.2);controls.target.set(3.9,.6,2.1);cam.fov=45;cam.updateProjectionMatrix();controls.update()};
+document.getElementById('pov').onclick=()=>{follow=true;controls.enabled=false;markers.visible=false};
+document.getElementById('restart').onclick=()=>{film.currentTime=0;void film.play().catch(()=>{status.textContent='영상의 재생 버튼을 눌러주세요'})};
+new ResizeObserver(()=>{renderer.setSize(el.clientWidth,el.clientHeight);cam.aspect=el.clientWidth/el.clientHeight;cam.updateProjectionMatrix()}).observe(el);
+renderer.setAnimationLoop(()=>{
+ const t=film.currentTime;if(mixer)mixer.setTime(Math.min(t,335/24));
+ if(follow&&cameras.length){const source=cameras[t<197/24?0:1];if(source){source.updateWorldMatrix(true,false);cam.position.copy(source.getWorldPosition(new T.Vector3()));cam.quaternion.copy(source.getWorldQuaternion(new T.Quaternion()));cam.fov=source.fov;cam.updateProjectionMatrix()}}
+ if(controls.enabled)controls.update();renderer.render(scene,cam);
+ document.getElementById('step').textContent=t<1.5?'ㄱ 블록을 놓는 중':t<3.4?'ㅏ 블록을 놓는 중':t<5.3?'가! · 두 번째 ㄱ':t<7.2?'ㅜ를 ㄱ 아래에 놓기':t<9.35?'구! → 정답 효과음 → 가구':'완성! · 웃으며 두 손 들어 기뻐하기';
+});
+</script></html>
