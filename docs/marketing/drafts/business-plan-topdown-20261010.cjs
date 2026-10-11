@@ -35,14 +35,14 @@ module.exports=({slides,img})=>{
  ['ai-authoring','','콘텐츠 제작','AI 콘텐츠 저작도구','원고·삽화·음성 제작과 번역을 자동화하고, 편집자의 검수로 품질을 관리합니다.',refinement.authoring],
  ['growth','','상품','상품 구성','주력 상품은 블록 세트와 프리미엄 12개월 이용권입니다. 종이 쓰기 교구인 탱고노트는 별도 구매 상품입니다.',products.products],
  ['revenue-model','','비즈니스·수익 모델','수익 구조','교구의 유통 공급 매출과 디지털 프리미엄 구독으로 수익을 만듭니다.',products.economics],
- ['sales-strategy','','판매 전략','유통사 중심 판매 전략','기존 공동구매 전문 유통사를 통해 공급하고, 브랜드 마케팅으로 판매와 재주문을 지원합니다.',salesSummary.html],
+ ['sales-strategy','','판매 전략','유통사 중심 판매 전략','기존 공동구매 전문 유통사에 제품을 공급하고, 브랜드 마케팅으로 유통사의 판매와 재주문을 지원합니다.',salesSummary.html],
  ['expansion-platform','','확장 계획','언어·교구 확장','한글·영어에서 아시아 언어로, 글자 블록에서 수·창의·논리 놀이로 확장합니다.',expansion.platform],
  ['validation','','마일스톤','판매 계획 및 마일스톤','한국 유통사 공급을 시작으로 태국·베트남·인도네시아로 확대합니다. 예상 판매량은 유통사 공급 기준입니다.',sales.validation],
  ['team','','투자 유치','투자 유치 계획','확보한 교구 개발 경험과 디지털 콘텐츠를 판매와 반복 사용으로 연결합니다.',
   `<div class="td-investment"><article><span class="v-label">확보한 기반</span><h3>교구 개발 경험<br>＋ 디지털 콘텐츠 기반</h3><ul><li>과거 플레이탱고의 한글·영어 교구 경험</li><li>교원 협업 제품 이력</li><li>현재 언어 학습·동화책·독후활동과 제작 도구</li></ul></article><article><span class="v-label">투자로 완성할 사업</span><h3>판매 가능한 교구<br>＋ 지속 활용할 학습 경험</h3><ul><li>제품 사양·실물 연동·사용성 완성</li><li>양산·인증·품질·공급·AS 준비</li><li>첫 구매·반복 사용·판매 수익성 검증</li></ul></article></div>${takeaway('<b>투자금 활용 방향</b> · 제품 완성, 양산 준비, 초기 판매 검증')}${note('투자 금액·집행 비율·팀 구성은 추가 정보 확인 후 확정합니다. 2027년 판매 계획은 목표이며 실제 계약·실적과 구분합니다.')}`]
  ];
  next.push(['learning-range','','학습 범위','글자에서 이야기까지','첫 글자부터 동화 읽기와 복습까지, 하나의 앱에서 이용하는 학습 콘텐츠입니다.',ecosystem.scope]);
- next.push(['learning-value','','이용 방식 · 구매 가치','앱 학습과 교구의 결합','앱으로 시작하고, 블록 조합과 종이 쓰기로 학습 경험을 넓히는 구성입니다.',ecosystem.choice]);
+ next.push(['learning-value','','이용 방식 · 구매 가치','교구를 함께 쓰는 이유','앱으로 시작하고, 블록 조합과 종이 쓰기로 학습 경험을 넓히는 구성입니다.',ecosystem.choice]);
  next.push(['marketing-tools','','마케팅 도구','AI 마케팅 도구','보유 콘텐츠로 홍보물을 만들고, 검수 후 각 채널에 자동 발행합니다.',refinement.marketing]);
  const order=['education-market','media','vision','learning-range','business','reading-report','learning-value','platform-overview','ai-authoring','foundation','advantage','marketing-tools','growth','sales-strategy','revenue-model','expansion-platform','validation','team'];
  slides.splice(0,slides.length,...order.map(id=>next.find(s=>s[0]===id)));
