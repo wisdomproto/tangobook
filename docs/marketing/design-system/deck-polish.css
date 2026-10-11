@@ -1,9 +1,10 @@
-/* Presentation finish: existing content, imagery and reading order are unchanged. */
+/* Presentation finish: retain the deck's imagery and reading order. */
 #investor-panel {
  --deck-edge:#d8e3dc;
  --deck-soft:#f2f5ef;
  --deck-radius:8px;
 }
+
 #investor-panel .section-h2 {letter-spacing:-.045em;font-weight:800}
 #investor-panel .section-badge {color:#60756d}
 #investor-panel .badge-num {font-variant-numeric:tabular-nums;font-weight:700}
@@ -96,4 +97,118 @@
  #revenue-model .td-unit-economics-profit b {font-size:19px}
  #validation .td-milestone-totals strong {font-size:30px}
  #growth .td-offer-price strong {font-size:30px}
+}
+
+/* Readable at presentation scale: fewer nested frames, larger visual evidence. */
+#vision .rf-ecosystem {grid-template-columns:1fr 64px 1.85fr 64px 1.2fr;gap:12px}
+#vision .rf-app {padding:20px 12px}
+#vision .rf-app>img {height:auto!important;aspect-ratio:1.6;object-fit:contain}
+#vision .rf-app-functions {gap:8px;margin-top:16px}
+#vision .rf-app-functions b {font-size:18px;padding:10px}
+#vision .rf-digital article {padding:12px;gap:12px}
+#vision .rf-digital b {font-size:21px}
+#vision .rf-digital span,#vision .rf-analog span {font-size:16px}
+#vision .rf-link span {font-size:15px;white-space:normal}
+#investor-panel .rf-eyebrow {font-size:16px}
+#investor-panel .rf-process {gap:12px;grid-template-columns:.85fr 28px 1.65fr 28px 1.35fr}
+#investor-panel .rf-process>article {padding:20px 18px}
+#investor-panel .rf-process h3 {font-size:30px}
+#investor-panel .rf-process p {font-size:19px}
+#ai-authoring .rf-editor img {height:235px!important}
+#ai-authoring .rf-editor>div {font-size:16px}
+#ai-authoring .rf-editor p {font-size:22px}
+#ai-authoring .rf-result-book {display:flex;gap:16px;align-items:center}
+#ai-authoring .rf-result-book img {width:44%;height:120px!important;object-fit:contain}
+#ai-authoring .rf-result-book b {font-size:21px}
+#ai-authoring .rf-result-game img {height:220px!important}
+#ai-authoring .rf-result-game b {font-size:21px}
+#ai-authoring .rf-brief dl {font-size:20px;grid-template-columns:44px 1fr;gap:22px 10px}
+#foundation .rf-assets {grid-template-columns:1.3fr 1fr;gap:24px}
+#foundation .rf-library,#foundation .rf-asset-side>article {padding:20px}
+#foundation .rf-books {gap:16px 12px}
+#foundation .rf-books img {height:145px!important;object-fit:contain}
+#foundation .rf-counts {font-size:17px;gap:12px 18px}
+#foundation .rf-counts span {font-size:17px}
+#foundation .rf-asset-side {grid-template-rows:auto 1fr;gap:16px}
+#foundation .rf-asset-side h3 {font-size:28px;margin-bottom:12px}
+#foundation .rf-course p {font-size:19px}
+#foundation .rf-games {grid-template-columns:1.8fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+#foundation .rf-games figure:first-child {grid-row:1/3}
+#foundation .rf-games figure:first-child img {height:190px!important}
+#foundation .rf-games figure:not(:first-child) img {height:84px!important}
+#foundation .rf-games figcaption {font-size:16px;margin-top:4px}
+#marketing-tools .rf-process {grid-template-columns:.75fr 28px 2fr 28px 1.05fr}
+#marketing-tools .rf-promo-examples {grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto}
+#marketing-tools .rf-blog {grid-row:1/3}
+#marketing-tools .rf-blog img {height:250px!important}
+#marketing-tools .rf-social img {height:115px!important}
+#marketing-tools .rf-reel {grid-column:2;grid-template-columns:65px 1fr}
+#marketing-tools .rf-reel img {height:95px!important}
+#marketing-tools .rf-promo-examples b {font-size:21px;padding:12px;line-height:1.45}
+#marketing-tools .rf-promo-examples>div>span {font-size:17px;padding:8px 12px}
+#marketing-tools .rf-reel b {font-size:18px;padding:8px}
+#marketing-tools .rf-channels {gap:30px}
+#marketing-tools .rf-channels b {font-size:20px}
+#growth .td-offer-grid {grid-template-columns:1.25fr 1fr}
+#growth .td-offer-contents {gap:16px}
+#growth .td-offer-contents>div {border:0;background:transparent;padding:0}
+#growth .td-offer-contents img {height:220px!important;object-fit:contain}
+#growth .td-offer-contents b {font-size:20px}
+#sales-strategy .td-sales-summary-flow {align-items:start}
+#sales-strategy .td-sales-summary-flow article {padding:20px;border-top:4px solid #bfd2c5}
+#sales-strategy .td-sales-summary-flow article:not(.td-sales-summary-brand) {align-self:start;padding-top:20px!important}
+#sales-strategy .td-sales-summary-flow h3 {font-size:30px;margin:12px 0 20px}
+#sales-strategy .td-sales-summary-flow article>img,
+#sales-strategy .td-sales-summary-channel {margin-top:64px;height:190px}
+#sales-strategy .td-brand-supply img {height:165px;object-fit:contain;background:#f7f3eb}
+#sales-strategy .td-sales-summary-arrow {align-self:start;margin-top:220px}
+#sales-strategy .td-sales-summary-flow article>p {font-size:20px}
+#sales-strategy .td-brand-role-heading h4 {font-size:24px}
+#sales-strategy .td-brand-publish,#sales-strategy .td-sales-summary-support p {font-size:16px}
+#sales-strategy .td-sales-summary-support strong {font-size:18px}
+
+/* Only the tab strip scrolls; the edge control makes hidden tabs discoverable. */
+.audience-tab-next {display:none}
+@media screen {
+ body:not(.present) .audience-tab-next.has-more {display:block;position:fixed;z-index:110;top:calc(var(--audience-height,56px)/2 - 20px);right:0;width:36px;height:40px;border:0;border-radius:0;background:linear-gradient(90deg,#173e3600,#173e36 25%);color:white;font-size:26px;cursor:pointer}
+ .audience-tab-next:focus-visible {outline:2px solid #f2a17a;outline-offset:-3px}
+ body.present[data-audience="investor"] #investor-panel>main>section.active:not([id^="part-"]):not(#proposal-cover) {padding:28px 36px}
+ .present #investor-panel>main>section.active>.section-h2 {font-size:40px;margin:16px 0 10px}
+ .present #investor-panel>main>section.active>.section-sub {font-size:20px;margin-bottom:22px}
+ .present #investor-panel .td-note {font-size:15px;line-height:1.5}
+ .present #vision .rf-app>img {height:auto!important}
+ .present #business .td-story-step>p {font-size:20px}
+ .present #business .td-app-feedback b {font-size:23px}
+}
+@media(max-width:1000px) {
+ body:not(.present) #vision .rf-ecosystem {grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+ body:not(.present) #vision .rf-app {grid-column:1/-1;grid-row:1;max-width:650px;width:100%;justify-self:center}
+ body:not(.present) #vision .rf-app>img {max-height:330px}
+ body:not(.present) #vision .rf-link {display:none}
+ body:not(.present) #vision :is(.rf-analog,.rf-digital) {border-top:2px solid #8eb6a6;padding-top:20px}
+ #investor-panel .rf-process {grid-template-columns:1fr}
+ #foundation .rf-assets {grid-template-columns:1fr}
+ #foundation .rf-asset-side {grid-template-columns:1fr;grid-template-rows:auto}
+ #growth .td-offer-grid {grid-template-columns:1fr}
+ #sales-strategy .td-sales-summary-flow {grid-template-columns:1fr}
+ #sales-strategy .td-sales-summary-arrow {margin:0;justify-self:center;transform:rotate(90deg)}
+ #sales-strategy .td-sales-summary-flow article>img,#sales-strategy .td-sales-summary-channel {margin-top:0}
+}
+@media(max-width:699px) {
+ body:not(.present) #vision .rf-ecosystem {grid-template-columns:1fr;gap:20px}
+ #vision .rf-app {padding:16px 10px}
+ #vision .rf-app-functions b {font-size:15px;padding:8px}
+ #vision .rf-digital b {font-size:20px}
+ #foundation .rf-library-heading h3 {font-size:44px}
+ #foundation .rf-games {grid-template-columns:1fr 1fr;grid-template-rows:auto}
+ #foundation .rf-games figure:first-child {grid-column:1/-1;grid-row:auto}
+ #foundation .rf-games figure:not(:first-child) img {height:105px!important}
+ #marketing-tools .rf-promo-examples {grid-template-columns:1fr 1fr}
+ #marketing-tools .rf-blog {grid-column:1/-1;grid-row:auto}
+ #marketing-tools .rf-reel {grid-column:auto;grid-template-columns:1fr}
+ #marketing-tools .rf-blog img {height:250px!important}
+ #marketing-tools .rf-social img,#marketing-tools .rf-reel img {height:130px!important}
+ #marketing-tools .rf-reel b {font-size:18px}
+ #growth .td-offer-contents {grid-template-columns:1fr}
+ #growth .td-offer-contents img {height:220px!important}
 }

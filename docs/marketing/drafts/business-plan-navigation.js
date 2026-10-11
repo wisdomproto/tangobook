@@ -8,6 +8,16 @@ const chapter=document.querySelector('#chapter-select');
 const mode=document.querySelector('#mode');
 const audience=document.querySelector('.audience');
 const reader=document.querySelector('#investor-panel>header');
+const tabNext=document.createElement('button');
+tabNext.type='button';tabNext.className='audience-tab-next';
+tabNext.setAttribute('aria-label','다음 탭 보기');tabNext.textContent='›';
+audience.after(tabNext);
+function updateTabHint(){tabNext.classList.toggle('has-more',audience.scrollWidth-audience.clientWidth-audience.scrollLeft>8);}
+tabNext.onclick=()=>audience.scrollBy({left:240,behavior:'smooth'});
+audience.addEventListener('scroll',updateTabHint,{passive:true});
+new ResizeObserver(updateTabHint).observe(audience);
+window.addEventListener('load',updateTabHint);
+
 let index=Math.max(0,slides.findIndex(s=>'#'+s.id===location.hash));
 let frame=0;
 // Resolve width breakpoints against the slide canvas, not the browser window.

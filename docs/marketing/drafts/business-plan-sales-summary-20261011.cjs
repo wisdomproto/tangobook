@@ -1,12 +1,12 @@
 module.exports=({img})=>({
 html:`<div class="td-sales-summary-flow">
-<article class="td-sales-summary-brand"><span class="v-label">당사 역할</span><h3>탱고북</h3><div class="td-brand-role td-brand-supply"><div class="td-brand-role-heading"><span>1</span><h4>제품·콘텐츠 공급</h4></div>${img('../investor-20261010/hardware-kit-studio-v3.png','탱고 블록과 학습 앱 제품 구성')}<p>교구 + 프리미엄 콘텐츠를 유통사에 공급</p></div><div class="td-brand-role td-sales-summary-support"><div class="td-brand-role-heading"><span>2</span><h4>오가닉 마케팅</h4></div><strong>브랜드 인지도 · 유통사 판매 지원</strong><p>네이버 · Google · YouTube · Instagram</p><div class="td-brand-publish">AI 홍보물 생성 → 검수 → 자동 발행</div></div></article>
+<article class="td-sales-summary-brand"><span class="v-label">당사 역할</span><h3>탱고북</h3><div class="td-brand-role td-brand-supply"><div class="td-brand-role-heading"><span>1</span><h4>제품·콘텐츠 공급</h4></div>${img('../investor-20261010/hardware-kit-studio-v3.png','탱고 블록과 학습 앱 제품 구성')}</div><div class="td-brand-role td-sales-summary-support"><div class="td-brand-role-heading"><span>2</span><h4>오가닉 마케팅</h4></div><strong>브랜드 인지도 · 유통사 판매 지원</strong><p>네이버 · Google · YouTube · Instagram</p><div class="td-brand-publish">AI 홍보물 생성 → 검수 → 자동 발행</div></div></article>
 <span class="td-sales-summary-arrow" aria-hidden="true">→</span>
 <article class="td-sales-summary-dealer"><span class="v-label">주력 판매 채널</span><h3>유통사</h3><div class="td-sales-summary-channel"><b>인플루언서<br>공동구매</b><span>기존 전문 거래처 보유</span></div><p>초도 공급 · 재주문</p></article>
 <span class="td-sales-summary-arrow" aria-hidden="true">→</span>
 <article><span class="v-label">소비자 판매</span><h3>구매 고객</h3>${img('../investor-20261010/hardware-feedback-use-v3.png','블록과 앱을 함께 사용하는 학습 장면 예시')}<p>학습 경험 · 후기 · 추천</p></article>
 </div>
-<div class="td-sales-summary-footer"><p><b>예상 판매량 = 유통사 공급량</b><br><span>거래처별 초도 공급 + 재주문</span></p><a class="td-sales-detail" href="#marketing" data-open-tab="marketing">자세히 보기 <span aria-hidden="true">↗</span></a></div>`,
+<div class="td-sales-summary-footer"><p><b>예상 판매량 = 유통사 공급량</b></p><a class="td-sales-detail" href="#marketing" data-open-tab="marketing">자세히 보기 <span aria-hidden="true">↗</span></a></div>`,
 css:`
 .td-sales-summary-flow{display:grid;grid-template-columns:minmax(0,1.3fr) 28px minmax(0,1fr) 28px minmax(0,1fr);gap:12px;align-items:stretch;margin:26px 0}
 .td-sales-summary-flow article{border:1px solid var(--doc-color-line);border-radius:12px;background:white;padding:20px;min-width:0}
