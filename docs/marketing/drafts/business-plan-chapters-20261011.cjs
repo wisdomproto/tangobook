@@ -3,12 +3,12 @@ module.exports=({slides,img})=>{
  const cover=['proposal-cover','표지','TANGOBOOK','탱고북 사업계획서','',`<div class="td-title-cover"><div class="td-title-copy"><span>아날로그 × 디지털</span><h1>탱고북</h1><h2>유아 언어 학습 플랫폼</h2><p>앱의 안내와 실물 교구,<br>글자 학습부터 동화 읽기까지.</p><div class="td-title-meta">사업계획서 · 2026.10</div></div><figure>${img(asset('hardware-kit-studio-v3.png'),'앱과 실물 한글 블록이 연결된 탱고북 제품 구성')}</figure><div class="td-cover-index"><span>01 시장 배경</span><span>02 탱고북 플랫폼 생태계</span><span>03 탱고북 플랫폼 구성</span><span>04 사업화 전략</span></div></div>`];
  const divider=(id,num,title,sub,visual)=>[id,'PART '+num,'',title,'',`<div class="td-part"><div class="td-part-copy"><span class="td-part-number">PART ${num}</span><h2>${title}</h2><p>${sub}</p><div class="td-part-rule"></div></div><div class="td-part-visual">${visual}</div></div>`];
  const parts={
-  vision:divider('part-product','02','탱고북 플랫폼 생태계','탱고북 개요 · 교구 학습 · 동화 연결',img(asset('hardware-feedback-use-v3.png'),'화면 안내를 보며 한글 블록을 조합하는 아이의 학습 장면')),
-  'platform-overview':divider('part-content','03','탱고북 플랫폼 구성','저작도구 · 보유 콘텐츠 · 디지털 · 아날로그 · 마케팅 도구',`<div class="td-part-books">${img('series-changjak-coco-01.webp','코코 창작동화 삽화')}${img('series-changjak-pongi-01.webp','퐁이 창작동화')}${img('series-changjak-mina-01.webp','미나 창작동화')}</div>`),
+  vision:divider('part-product','02','탱고북 플랫폼 생태계','학습 앱 · 실물 교구 · 동화로 이어지는 아이의 학습 경험',img(asset('hardware-feedback-use-v3.png'),'화면 안내를 보며 한글 블록을 조합하는 아이의 학습 장면')),
+  'platform-overview':divider('part-content','03','탱고북 플랫폼 구성','학습 경험을 뒷받침하는 콘텐츠·교구와 제작·운영 도구',`<div class="td-part-books">${img('series-changjak-coco-01.webp','코코 창작동화 삽화')}${img('series-changjak-pongi-01.webp','퐁이 창작동화')}${img('series-changjak-mina-01.webp','미나 창작동화')}</div>`),
   growth:divider('part-business','04','사업화 전략','상품 · 수익 구조 · 확장 · 출시 계획',`<div class="td-part-years"><span>2027</span><b>한국 출시</b><i>→</i><span>2028</span><b>아시아 3개국</b></div>`)
  };
  const original=slides.slice();
- const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,5],['03','탱고북 플랫폼 구성',5,13],['04','사업화 전략',13,20]];
+ const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,7],['03','탱고북 플랫폼 구성',7,15],['04','사업화 전략',15,22]];
  const contents=['contents','차례','CONTENTS','차례','',`<div class="td-contents-grid">${groups.map(([n,title,start,end])=>`<article><div class="td-contents-heading"><span>${n}</span><h3>${title}</h3></div><div class="td-contents-links">${original.slice(start,end).map(([id,num,,heading])=>`<a href="#${id}"><span>${num}</span>${heading}<i aria-hidden="true">↗</i></a>`).join('')}</div></article>`).join('')}</div>`];
  slides.splice(0,slides.length,cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));
  return `

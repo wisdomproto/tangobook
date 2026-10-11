@@ -9,11 +9,12 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(await page.locator('#chapter-select').inputValue(),'5');
   assert.equal(await page.locator('#mode').textContent(),'전체 보기');
   const ids=await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.map(e=>e.id));
-  assert.equal(ids.length,25);
-  assert.deepEqual(ids.slice(8,17),['part-content','platform-overview','ai-authoring','phonics-content','foundation','reading-activities','reading-sequence','advantage','marketing-tools']);
+  assert.equal(ids.length,27);
+  assert.deepEqual(ids.slice(5,10),['vision','learning-range','business','reading-report','learning-value']);
+  assert.deepEqual(ids.slice(10,19),['part-content','platform-overview','ai-authoring','phonics-content','foundation','reading-activities','reading-sequence','advantage','marketing-tools']);
   await page.locator('#mode').click();
   await page.locator('#chapter-select').selectOption('1');
-  assert.equal(await page.locator('#contents .td-contents-links a').count(),20);
+  assert.equal(await page.locator('#contents .td-contents-links a').count(),22);
   await page.locator('#contents a[href="#vision"]').click();
   await page.waitForTimeout(80);
   assert.equal(await page.locator('section.active').getAttribute('id'),'vision');
@@ -45,7 +46,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(await page.locator('#mode').textContent(),'전체 보기');
   assert.equal(await page.locator('.audience').isVisible(),true);
   await page.locator('#mode').click();await page.emulateMedia({media:'print'});
-  assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.filter(e=>getComputedStyle(e).display!=='none').length),25);
-  assert.deepEqual(errors,[]);console.log('PASS: 25 slides × 4 viewports; full-bleed dividers, chapter order, deep links, detail navigation, Escape and print visibility.');
+  assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.filter(e=>getComputedStyle(e).display!=='none').length),27);
+  assert.deepEqual(errors,[]);console.log('PASS: 27 slides × 4 viewports; full-bleed dividers, chapter order, deep links, detail navigation, Escape and print visibility.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});
