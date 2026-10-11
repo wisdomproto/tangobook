@@ -12,6 +12,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(ids.length,24);
   assert.deepEqual(ids.slice(5,10),['vision','learning-range','business','reading-report','learning-value']);
   assert.deepEqual(ids.slice(10,16),['part-content','platform-overview','ai-authoring','foundation','advantage','marketing-tools']);
+  assert.deepEqual(ids.slice(17,20),['growth','sales-strategy','revenue-model']);
   await page.locator('#mode').click();
   await page.locator('#chapter-select').selectOption('1');
   assert.equal(await page.locator('#contents .td-contents-links a').count(),19);

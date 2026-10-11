@@ -32,6 +32,7 @@ module.exports=({img})=>{
  .td-system-main article>b{font-size:14px}
  .td-system-channels{display:flex;align-items:center;gap:18px;height:56px}
  .td-system-channels img{width:34px;height:34px!important;object-fit:contain}
+ .td-offer-hardware small,.td-offer-app small{display:block;font-size:12px;line-height:1.5;margin-top:6px}.td-offer-access.td-offer-app{background:var(--doc-color-wash);color:var(--doc-color-ink);justify-content:flex-start}.td-offer-app img{height:130px!important;width:100%;object-fit:contain}.td-offer-app b{font-size:18px;line-height:1.5;margin-top:10px}
  @media(max-width:699px){.td-platform-system{padding:16px}.td-system-main{grid-template-columns:1fr;grid-template-rows:auto}.td-system-main>article:nth-child(n),.td-system-main>.td-system-arrow:nth-child(n){grid-column:auto;grid-row:auto}.td-system-main>.td-system-arrow:nth-child(4){display:none}.td-system-main>.td-system-learning{margin-top:12px}}
  #investor-panel .td-activity-pair figure img{height:365px!important;max-height:none;aspect-ratio:auto;object-fit:contain}.td-activity-pair article{padding:18px}.td-activity-pair .td-activity-heading h3{font-size:25px}.td-activity-pair article>p{font-size:17px}
  .td-product-status{display:inline-block;font-size:13px;color:var(--doc-color-teal);background:var(--doc-color-wash);padding:5px 10px;margin-bottom:12px;border-radius:5px}.td-product-status.planned{color:#9d5038;background:#f9ede6}.td-status-line{font-size:14px;color:var(--doc-color-muted);border-top:1px solid var(--doc-color-line);padding-top:12px;margin-top:18px}
