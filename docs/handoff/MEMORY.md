@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-11 [소개서 main 전달 완료](../work/strategy/tasks/20261010-unified-business-plan.md): 2fce1784b 원격main 푸시. Editor2 BM 자료실의 탱고북 소개서→/tangobook-business-plan.html. 로컬 원본74커밋 이력의100MiB초과 중간HTML 때문에 최종트리 스냅샷으로 전달; 원본은archive/introduction-history-20261011 보존. 로컬main도원격에맞춤. 운영 배포 완료 미확인.
+
 2026-10-11 [소개서 탭 정리·백설공주 마케팅 예시](../work/strategy/tasks/20261010-unified-business-plan.md): 내부 팀 탭/내장자료 제거, 투자자용 명칭을 탱고북 소개서로 변경.3탭·소개서22화면.판매 전략 상세에 블로그·카드뉴스 편집 예시와 기존 숏폼 썸네일 추가(원본영상 URL404로 재생기 없음).
 
 2026-10-11 [플랫폼 전체 구성 본편 반영](../work/strategy/tasks/20261010-unified-business-plan.md): 플랫폼 설명 첫 장에 전체 구성 이미지 배치. 전체 구성→학습 앱·교구·콘텐츠→학습 과정 순서,22화면. 판매 전략은 AI 홍보 콘텐츠 생성·검수 후 자동 발행을 간결하게 표시.

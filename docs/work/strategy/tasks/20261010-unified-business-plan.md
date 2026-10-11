@@ -8,7 +8,7 @@
 - branch: main
 - worktree: C:/project/tangobook
 - integration: 문서·메뉴·기억 로컬 main 반영
-- delivery: 2026-10-11 사용자 main push 승인 · 원격 변경 통합 후 푸시 진행
+- delivery: 2026-10-11 origin/main 2fce1784b 푸시 완료 · 운영 배포 완료는 별도 확인
 
 ## 요청과 완료 조건
 
@@ -625,3 +625,4 @@ Browser 스킬로 로컬 정적 서버에서 실제 탭 전환·발표 모드·�
 - 사용자 main push 요청 및 Editor2 BM 위치 확인. TopBar의 BM 배열에서 /tangobook-business-plan.html 연결 확인. 메뉴명 탱고북 소개서, 설명은 소개·매출 시뮬레이션·판매전략으로 최신화.
 - fetch origin/main89952943c 기준 원격24/로컬74커밋 분기 확인. 로컬74개는 이 소개서·교구 시각화·수익/판매 전략 작업이며 원격의 가상 육아/영상 변경을 merge로 보존. 충돌은 공유 MEMORY 두 곳의 독립 기록 추가라 양쪽 내용 유지. 강제 푸시/다른 worktree 변경 없음.
 - 푸시 사전 객체 검사에서 중간 HTML2개가100MiB 초과(110,024,132·108,840,986bytes). 최종 HTML은약57MiB. 원래 로컬 이력은 보존하고 origin/main 위에 최종 차이만 스냅샷 커밋해 GitHub 용량 제한을 피한다. TopBar ESLint,소개서/시뮬레이션·3탭 회귀 통과.
+- 2fce1784b를origin/main에 정상 fast-forward push 완료(89952943c→2fce1784b). 스냅샷 트리는 통합 로컬ba95e22bb와 동일. 원본 작업 이력은archive/introduction-history-20261011 브랜치에 보존하고 로컬main을원격main에 맞춤. force-push 없음. HTML56.90MB 권장크기 경고는 있으나 push 성공. 운영 배포 완료는 확인하지 않음.
