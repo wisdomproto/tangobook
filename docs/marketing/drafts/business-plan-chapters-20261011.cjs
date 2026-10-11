@@ -8,7 +8,7 @@ module.exports=({slides,img})=>{
   growth:divider('part-business','04','사업화 전략','상품 · 수익 구조 · 확장 · 출시 계획',`<div class="td-part-years"><span>2027</span><b>한국 출시</b><i>→</i><span>2028</span><b>아시아 3개국</b></div>`)
  };
  const original=slides.slice();
- const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,7],['03','탱고북 플랫폼 구성',7,15],['04','사업화 전략',15,22]];
+ const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,7],['03','탱고북 플랫폼 구성',7,12],['04','사업화 전략',12,19]];
  const contents=['contents','차례','CONTENTS','차례','',`<div class="td-contents-grid">${groups.map(([n,title,start,end])=>`<article><div class="td-contents-heading"><span>${n}</span><h3>${title}</h3></div><div class="td-contents-links">${original.slice(start,end).map(([id,num,,heading])=>`<a href="#${id}"><span>${num}</span>${heading}<i aria-hidden="true">↗</i></a>`).join('')}</div></article>`).join('')}</div>`];
  slides.splice(0,slides.length,cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));
  return `

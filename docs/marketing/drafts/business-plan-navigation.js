@@ -1,3 +1,7 @@
+// 통합된 콘텐츠 상세 장의 기존 링크를 보유 콘텐츠 요약으로 연결.
+const chapterAliases={'#phonics-content':'#foundation','#reading-activities':'#foundation','#reading-sequence':'#foundation'};
+function resolveChapterHash(){if(chapterAliases[location.hash])history.replaceState(null,'',chapterAliases[location.hash]);}
+resolveChapterHash();
 const slides=[...document.querySelectorAll('#investor-panel main>section:not(.appendix)')];
 const panel=document.querySelector('#investor-panel');
 const chapter=document.querySelector('#chapter-select');
@@ -62,7 +66,7 @@ window.addEventListener('resize',queueFit);
 document.fonts.ready.then(queueFit);
 panel.querySelectorAll('img').forEach(img=>img.addEventListener('load',queueFit));
 new MutationObserver(()=>{if(panel.hidden&&document.body.classList.contains('present'))setFullView(false);}).observe(panel,{attributes:true,attributeFilter:['hidden']});
-window.addEventListener('hashchange',()=>{const found=slides.findIndex(s=>'#'+s.id===location.hash);if(found>=0){index=found;render();}});
+window.addEventListener('hashchange',()=>{resolveChapterHash();const found=slides.findIndex(s=>'#'+s.id===location.hash);if(found>=0){index=found;render();}});
 let ticking=false;
 window.addEventListener('scroll',()=>{
  if(ticking||isFullView()||panel.hidden)return;ticking=true;
