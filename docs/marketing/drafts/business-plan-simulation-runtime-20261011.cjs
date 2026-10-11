@@ -38,10 +38,12 @@ module.exports=function runtime(plan){
  }
  const sum=rows=>rows.reduce((a,r)=>{for(const k of ['kr','krNote','world','worldNote','blocks','notes','blockKnown','noteKnown','noteAvailable','krSupply','worldSupply','supply','cost','platform','grossProfit','service','extra','balance'])a[k]=(a[k]||0)+Number(r[k]);return a;},{});
  function chart(all){
+ // 본편 매출 전망은 블록 패키지만 반영한다. 시뮬레이션의 두 상품 합계는 유지한다.
+ all=all.map(r=>{const supply=(r.kr*state.krRate+r.world*state.worldRate)*state.price/100,cost=r.blocks*state.cost,platform=r.blocks*state.platform;return {...r,supply,cost,platform,grossProfit:supply-cost-platform};});
  const quarters=Array.from({length:8},(_,q)=>sum(all.slice(q*3,q*3+3))),shown=quarters.slice(0,4),annual=[sum(all.slice(0,12)),sum(all.slice(12))];
  const max=Math.max(...shown.flatMap(q=>[q.supply,q.grossProfit]),1e8),min=Math.min(0,...shown.map(q=>q.grossProfit));
  const step=10**Math.floor(Math.log10((max-min)/4)),tick=Math.ceil((max-min)/4/step)*step,ceiling=Math.ceil(max/tick)*tick,floor=Math.floor(min/tick)*tick;
- const W=850,H=480,L=112,R=18,T=38,B=215,slot=(W-L-R)/4,center=i=>L+(i+.5)*slot,y=v=>B-(v-floor)/(ceiling-floor)*(B-T);
+ const W=850,H=450,L=112,R=18,T=38,B=215,slot=(W-L-R)/4,center=i=>L+(i+.5)*slot,y=v=>B-(v-floor)/(ceiling-floor)*(B-T);
  const tx=(x,y,text,size=17,color='#173e36',weight=400,anchor='middle')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'" font-size="'+size+'" font-weight="'+weight+'" fill="'+color+'">'+text+'</text>';
  let svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="2027년 분기별 예상 매출 및 매출총이익">'+tx(12,22,'억원',13,'#637770',400,'start');
  for(let v=floor;v<=ceiling+1;v+=tick){const yy=y(v);svg+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" stroke="#dbe5df"/>'+tx(L-14,yy+5,fmt(v/1e8),14,'#637770',400,'end');}
@@ -49,19 +51,19 @@ module.exports=function runtime(plan){
  shown.forEach((q,i)=>{const x=center(i);svg+='<g><title>2027년 '+(i+1)+'분기 매출 '+fmt(q.supply)+'원, 매출총이익 '+fmt(q.grossProfit)+'원</title>';[['supply','#238f88'],['grossProfit','#d77349']].forEach(([key,color])=>{const yy=y(q[key]);svg+='<circle data-metric="'+key+'" data-quarter="'+(i+1)+'" cx="'+x+'" cy="'+yy+'" r="5" fill="white" stroke="'+color+'" stroke-width="3"/>'+tx(x,key==='supply'?yy-13:yy+24,fmt(q[key]/1e8),18,color,700);});svg+=tx(x,263,(i+1)+'분기',18,'#173e36',700)+'</g>';});
  svg+='<line x1="'+center(0)+'" x2="'+center(3)+'" y1="285" y2="285" stroke="#bbd3c9" stroke-width="2"/>';
  [[0,'한국 런칭','탱고북 v1.0','한글·영어 블록'],[2,'탱고노트 출시','종이 쓰기','학습 연동']].forEach(([i,title,line1,line2])=>{const x=center(i);svg+='<circle cx="'+x+'" cy="285" r="5" fill="#238f88"/>'+tx(x,319,title,20,'#173e36',700)+tx(x,345,line1,15,'#637770')+tx(x,367,line2,15,'#637770');});
- svg+='<line x1="12" x2="'+(W-R)+'" y1="393" y2="393" stroke="#dbe5df"/>'+tx(12,425,'블록(세트)',14,'#173e36',700,'start')+tx(12,458,'탱고노트(대)',14,'#637770',400,'start');
- shown.forEach((q,i)=>{svg+=tx(center(i),425,q.blockKnown?fmt(q.blocks):'미정',18,'#173e36',700)+tx(center(i),458,!q.noteAvailable?'출시 전':q.noteKnown?fmt(q.notes):'미정',16,'#637770');});
+ svg+='<line x1="12" x2="'+(W-R)+'" y1="393" y2="393" stroke="#dbe5df"/>'+tx(12,425,'블록(세트)',14,'#173e36',700,'start');
+ shown.forEach((q,i)=>{svg+=tx(center(i),425,q.blockKnown?fmt(q.blocks):'미정',18,'#173e36',700);});
  document.getElementById('milestone-chart').innerHTML=svg+'</svg>';
  const a=annual[0],future=annual[1];
  document.getElementById('milestone-totals').innerHTML='<div><span>2027 예상 매출</span><strong>'+money(a.supply)+'</strong><small>유통사 공급액 기준</small></div><div><span>2027 예상 매출총이익</span><strong>'+money(a.grossProfit)+'</strong><small>교구 원가 · 플랫폼 비용 차감</small></div>';
- document.getElementById('milestone-future-totals').innerHTML=future.blockKnown||future.noteKnown?'<span>시뮬레이션 입력 기준</span><span>예상 매출</span><b>'+money(future.supply)+'</b><span>예상 매출총이익</span><b>'+money(future.grossProfit)+'</b>':'<b>판매 계획 수립 중</b><span>출시 분기 · 공급량 미정</span>';
- document.getElementById('milestone-status').textContent='유통사 공급 계획 · 블록 '+fmt(a.blocks)+'세트 · 탱고노트 '+(a.noteKnown?fmt(a.notes)+'대':'공급량 미정')+' / 시뮬레이션 연동 · 매출총이익은 순이익과 구분';
+ document.getElementById('milestone-future-totals').innerHTML=future.blockKnown?'<span>블록 공급 시뮬레이션 기준</span><span>예상 매출</span><b>'+money(future.supply)+'</b><span>예상 매출총이익</span><b>'+money(future.grossProfit)+'</b>':'<b>판매 계획 수립 중</b><span>출시 분기 · 공급량 미정</span>';
+ document.getElementById('milestone-status').textContent='블록 '+fmt(a.blocks)+'세트 유통사 공급 기준 · 탱고노트 판매는 매출·매출총이익 전망에서 제외 · 매출총이익은 순이익과 구분';
  document.getElementById('milestone-chart').dataset.calculation=JSON.stringify({quarters,annual});
  }
  function render(persist=false){
  if(!read()){get('error').hidden=false;get('error').textContent='대수·금액은 0 이상의 정수, 공급률은 0~100%로 입력해 주세요. 결과는 마지막 유효 입력 기준입니다.';return false;}
  get('error').hidden=true;const all=calculate(),rows=all.filter(r=>r.year===year),totals=sum(rows);
- get('plan-status').textContent=year+'년 유통사 공급량 기준 · 투자자용 마일스톤 자동 반영';
+ get('plan-status').textContent=year+'년 블록·탱고노트 합산 시뮬레이션 · 소개서 매출 전망에는 블록만 반영';
  rows.forEach((r,i)=>{for(const k of ['supply','cost','platform','grossProfit'])get('months').children[i].querySelector('[data-out="'+k+'"]').textContent=fmt(r[k]/1e4);});
  get('unit-prices').textContent='공급가: 한국 블록 '+fmt(state.price*state.krRate/100)+'원 · 노트 '+fmt(state.notePrice*state.krRate/100)+'원 / 해외 블록 '+fmt(state.price*state.worldRate/100)+'원 · 노트 '+fmt(state.notePrice*state.worldRate/100)+'원';
  get('annual-supply').textContent=money(totals.supply);get('annual-cost').textContent=money(totals.cost+totals.platform);get('cost-detail').textContent='교구 '+money(totals.cost)+' + 플랫폼 '+money(totals.platform);get('annual-balance').textContent=money(totals.grossProfit);get('margin').textContent='매출총이익률 '+(totals.supply?fmt(totals.grossProfit/totals.supply*100)+'%':'—');

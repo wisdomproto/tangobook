@@ -8,7 +8,7 @@ const css=require('./business-plan-simulation-style-20261011.cjs')+`
 const input=(id,label,value,max=10000000,step=1,optional=false)=>`<label>${label}<input id="sim-${id}" type="number" min="0" max="${max}" step="${step}" ${optional?'placeholder="미반영"':'required'} value="${value}"></label>`;
 const html=`<div id="simulation-panel" role="tabpanel" aria-labelledby="simulation-tab" hidden>
 <span class="v-label">SALES SIMULATION · 2027–2028</span><h1>유통사 공급·매출 시뮬레이션</h1>
-<p class="sim-intro">월별 유통사 공급량과 공급 조건을 입력하면 투자자용 마일스톤의 분기 매출·연간 합계가 함께 바뀝니다.</p>
+<p class="sim-intro">블록·탱고노트의 유통사 공급량과 공급 조건을 계산합니다. 소개서 마일스톤의 매출 전망에는 블록 패키지만 반영하며, 탱고노트 판매는 제외합니다.</p>
 <div class="sim-toolbar"><label>계산 연도<select id="sim-year"><option value="2027">2027년</option><option value="2028">2028년</option></select></label><button id="sim-reset" type="button">전체 초기값 복원</button></div>
 <p class="sim-unit" id="sim-plan-status" aria-live="polite"></p>
 <div class="sim-product-fields"><h3>블록 + 프리미엄 12개월</h3><div class="sim-fields">${input('price','세트 정가 (원)',139000)}${input('cost','교구 원가 / 세트 (원)',10000)}${input('platform','12개월 플랫폼 비용 / 세트 (원)',10000)}</div></div>
