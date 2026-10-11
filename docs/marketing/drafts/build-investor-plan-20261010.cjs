@@ -64,7 +64,7 @@ tabs.forEach((t,i)=>{t.onclick=()=>switchTab(t.dataset.tab);t.onkeydown=e=>{let 
 document.querySelectorAll('[data-open-tab]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();switchTab(link.dataset.openTab);if(link.dataset.targetAnchor){history.replaceState(null,'','#'+link.dataset.targetAnchor);document.getElementById(link.dataset.targetAnchor)?.scrollIntoView({behavior:'instant'});}document.getElementById(link.dataset.openTab+'-tab').focus({preventScroll:true});}));
 function selectHashTab(){switchTab(location.hash==='#simulation'?'simulation':(/^#marketing(?:-|$)/.test(location.hash)&&location.hash!=='#marketing-tools')?'marketing':'investor',false);}
 selectHashTab();window.addEventListener('hashchange',selectHashTab);
-document.querySelector('#marketing-print').onclick=()=>window.print();
+document.querySelector('#marketing-print').onclick=()=>window.printDeck();
 `;
 
 const combined = html.replace('<title>탱고북 투자자용 사업계획서</title>','<title>탱고북 사업계획서</title>')
@@ -78,9 +78,11 @@ const combined = html.replace('<title>탱고북 투자자용 사업계획서</ti
 // 완성된 임시 파일을 교체해 읽는 쪽에 중간 생성물을 노출하지 않는다.
 const outputPath=path.join(root,'packages/client/public/tangobook-business-plan.html');
 const temporaryPath=outputPath+'.build-'+process.pid;
-fs.writeFileSync(temporaryPath,combined);
+require('./business-plan-web-assets.cjs')(combined,path.dirname(outputPath)).then(optimized=>{
+fs.writeFileSync(temporaryPath,optimized);
 for(let attempt=0;;attempt++){
  try{fs.renameSync(temporaryPath,outputPath);break;}
  catch(error){if(attempt>=40||!['EPERM','EBUSY','UNKNOWN'].includes(error.code))throw error;Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,100);}
 }
-console.log(`Built one canonical business plan: investor ${slides.length} sections; introduction, simulation and marketing tabs; embedded assets.`);
+console.log(`Built one canonical business plan: investor ${slides.length} sections; introduction, simulation and marketing tabs; optimized external assets.`);
+}).catch(error=>{console.error(error);process.exitCode=1;});

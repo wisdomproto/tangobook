@@ -100,7 +100,15 @@ chapter.onchange=()=>move(Number(chapter.value)-index);
 mode.onclick=()=>setFullView(!isFullView());
 document.querySelector('#prev').onclick=()=>move(-1);
 document.querySelector('#next').onclick=()=>move(1);
-document.querySelector('#print').onclick=()=>window.print();
+function preparePrintImages(){
+ const visiblePanel=document.querySelector('[role="tabpanel"]:not([hidden])');
+ const images=[...(visiblePanel||document).querySelectorAll('img')];
+ images.forEach(image=>image.loading='eager');
+ return Promise.all(images.map(image=>image.decode().catch(()=>{})));
+}
+window.printDeck=async()=>{await preparePrintImages();await document.fonts.ready;window.print();};
+window.addEventListener('beforeprint',preparePrintImages);
+document.querySelector('#print').onclick=()=>window.printDeck();
 document.addEventListener('keydown',e=>{
  if(panel.hidden||e.target.closest('[role=tab]')||['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName))return;
  if(e.key==='Escape'&&isFullView()){e.preventDefault();setFullView(false);return;}

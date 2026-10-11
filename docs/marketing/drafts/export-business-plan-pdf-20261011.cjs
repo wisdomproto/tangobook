@@ -32,6 +32,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'C:/Users/kil21/.c
   const parts=[];
   for(let i=0;i<count;i++){
    await page.locator('#chapter-select').selectOption(String(i),{force:true});
+   await page.locator('section.active img').evaluateAll(images=>Promise.all(images.map(image=>{image.loading='eager';return image.decode();})));
    await page.waitForTimeout(80);
    const slide=await page.locator('section.active').evaluate(e=>({id:e.id,width:e.offsetWidth,height:e.offsetHeight,scroll:e.scrollHeight}));
    if(slide.width!==1440||slide.height!==900||slide.scroll>901)throw Error(JSON.stringify(slide));

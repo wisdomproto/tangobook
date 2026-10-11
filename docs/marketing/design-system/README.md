@@ -10,7 +10,7 @@
 - `styles.css`: 문서 컴포넌트와 8가지 레이아웃. 장별 추가 색/그림자/임의 글자 크기를 넣기 전에 이 파일의 규칙을 확장한다.
 - `system.cjs`: 토큰을 CSS 변수로 만들고 로컬 Pretendard Regular를 내장한다. 원본 폰트 라이선스는 public/fonts/Pretendard-LICENSE.txt. 굵은 글자는 브라우저 합성 굵기이며 별도 Bold 파일을 탑재했다고 주장하지 않는다.
 - `build-guide.cjs`: 같은 토큰·CSS로 시각 가이드를 생성한다.
-- `../drafts/build-investor-plan-20261010.cjs`: 실제 사업계획서 두 탭에 같은 시스템을 내장. HTML 하나로 전달 가능하며 외부 폰트 요청이 없다.
+- `../drafts/build-investor-plan-20261010.cjs`: 소개서와 상세 탭에 같은 시스템을 적용. 최종 배포 단계에서 business-plan-web-assets.cjs가 이미지·폰트를 public/business-plan-assets의 해시 파일로 분리하고 그림을 압축한다. HTML과 이 자산 폴더를 함께 배포해야 하며, 단일 파일 전달은 PDF를 사용한다.
 
 기존 dated editorial CSS는 이전 버전 참고로 보존하고 새 생성기에서 읽지 않는다. 기존 콘텐츠 모듈의 구조 스타일 위에 새 시스템을 적용한다. 단계적인 호환 구조이며 기존 스타일을 모두 제거한 상태는 아니다.
 
