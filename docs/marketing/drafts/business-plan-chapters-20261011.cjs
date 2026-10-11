@@ -9,6 +9,7 @@ module.exports=({slides,img})=>{
  };
  const original=slides.slice();
  const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,6],['03','탱고북 플랫폼 구성',6,11],['04','사업화 전략',11,17]];
+ for(const [,title,start,end] of groups) original.slice(start,end).forEach(slide=>{slide[6]=title;});
  const contents=['contents','','CONTENTS','차례','',''];
  const pages=[cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s])];
  // Page numbers include the cover, contents and part dividers.

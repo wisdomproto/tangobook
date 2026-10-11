@@ -273,3 +273,35 @@
  #education-market .td-market-visual img {object-position:57% 55%}
  #education-market .td-market-snapshot:nth-child(2) .td-market-visual img {object-fit:contain}
 }
+
+/* Phonics first, followed by the storybook library. */
+#foundation .rf-assets-pair {grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+#foundation .rf-assets-pair>article {min-width:0;padding:24px;border:0;border-top:3px solid #238f88;border-radius:0;background:#fffdf9;align-self:stretch}
+#foundation .rf-assets-pair .rf-library-heading {min-height:100px;margin-bottom:24px;gap:16px}
+#foundation .rf-phonics-library h3 {font-size:36px;line-height:1.4;margin:0;color:var(--doc-color-teal)}
+#foundation .rf-phonics-courses {display:grid;grid-template-columns:1fr 1fr;gap:20px}
+#foundation .rf-phonics-courses figure {min-width:0;margin:0}
+#foundation .rf-phonics-courses img {width:100%;height:220px!important;object-fit:contain;background:#edf5f0;border-radius:6px}
+#foundation .rf-phonics-courses figcaption {text-align:left;margin-top:20px}
+#foundation .rf-phonics-courses h4 {font-size:25px;color:var(--doc-color-ink);margin:0 0 12px}
+#foundation .rf-phonics-courses p {font-size:18px;line-height:1.7;margin:0;color:var(--doc-color-muted)}
+#foundation .rf-assets-pair .rf-books {grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 12px}
+#foundation .rf-assets-pair .rf-books img {height:auto!important;aspect-ratio:16/9;object-fit:contain}
+#foundation .rf-assets-pair .rf-counts {font-size:15px;gap:8px 18px;margin-top:18px;padding-top:14px}
+#foundation .rf-assets-pair .rf-counts span {font-size:15px}
+@media(max-width:1000px){
+ body:not(.present) #foundation .rf-assets-pair {grid-template-columns:1fr}
+ body:not(.present) #foundation .rf-assets-pair .rf-books img {height:auto!important;aspect-ratio:16/9}
+}
+@media(max-width:699px){
+ body:not(.present) #foundation .rf-assets-pair>article {padding:18px}
+ body:not(.present) #foundation .rf-phonics-library h3 {font-size:28px}
+ body:not(.present) #foundation .rf-phonics-courses {gap:14px}
+ body:not(.present) #foundation .rf-assets-pair .rf-books {grid-template-columns:repeat(2,minmax(0,1fr))}
+ body:not(.present) #foundation .rf-phonics-courses img {height:150px!important}
+ body:not(.present) #foundation .rf-phonics-courses p {font-size:15px}
+}
+
+/* Keep the part context visible without competing with the page topic. */
+#investor-panel .section-h2 .td-title-part {font-size:.58em;font-weight:500;color:var(--doc-color-muted);letter-spacing:-.025em}
+@media(max-width:699px){body:not(.present) #investor-panel .section-h2 .td-title-part {display:block;margin-bottom:8px}}
