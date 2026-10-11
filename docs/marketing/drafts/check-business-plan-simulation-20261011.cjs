@@ -59,8 +59,8 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
  assert.match(await page.locator('#milestone-status').textContent(),/탱고노트 0대/);
  await page.locator('#sim-reset').click();
  await page.locator('#investor-tab').click();
- assert.equal(await page.locator('#vision .td-app-hub img').count(),1);
- assert.deepEqual(await page.locator('#vision .td-ecosystem-group>h3').allTextContents(),['아날로그 콘텐츠','디지털 콘텐츠']);
+ assert.equal(await page.locator('#vision .rf-app img').count(),1);
+ assert.deepEqual(await page.locator('#vision .rf-analog>h3,#vision .rf-digital>h3').allTextContents(),['아날로그 콘텐츠','디지털 콘텐츠']);
  assert.equal(await page.locator('#reading-report .td-report-rows>div').count(),5);
  assert.equal(await page.locator('#reading-report .td-story-reader img').count(),1);
  assert.match(await page.locator('#foundation').innerText(),/1,000\+권/);
