@@ -56,7 +56,7 @@ const tileFont = (tile: string) => `calc(${tile} * 0.85)`;
  *    쓸 칸(캔버스)은 회색이라 아무 표시가 없었고, 문구가 약속한 반짝임은 화면에 없었다.
  */
 const IDLE_TILE_CLASS =
-  'shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
+  'shrink-0 aspect-square rounded-3xl border-2 border-ink-100 bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
 /** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
 const CLOSE_MS = 500;
 /** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
@@ -316,8 +316,8 @@ export function ConsonantWriteActivity({
                 done
                   ? 'bg-mint-500 text-white'
                   : i === idx
-                    ? 'bg-coral-500 text-white ring-4 ring-coral-200'
-                    : 'bg-white/80 text-ink-500 hover:shadow-pop active:scale-[0.97]',
+                    ? 'bg-coral-700 text-white ring-4 ring-coral-200'
+                    : 'bg-white/80 text-ink-500 hover:shadow-soft active:scale-[0.97]',
               ].join(' ')}
             >
               {done ? '✓' : p.syllable}
@@ -364,7 +364,7 @@ export function ConsonantWriteActivity({
           >
             {/* 🔴 대기 칸에 `shrink-0` 필수 — 없으면 캔버스가 자리를 차지하며 눌려 정사각이 깨진다(375px 에서 65×98). */}
             {merging ? (
-              <div className="w-[60vw] h-[30vw] max-w-96 max-h-48 sm:w-96 sm:h-48 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">
+              <div className="w-[60vw] h-[30vw] max-w-96 max-h-48 sm:w-96 sm:h-48 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft">
                 {pair.syllable}
               </div>
             ) : closing ? (
@@ -375,7 +375,7 @@ export function ConsonantWriteActivity({
                   {pair.first}
                 </div>
                 <div
-                  className="shrink-0 aspect-square rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-pop leading-none"
+                  className="shrink-0 aspect-square rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-soft leading-none"
                   style={{ width: tile, fontSize: tileFont(tile) }}
                 >
                   {pair.second}

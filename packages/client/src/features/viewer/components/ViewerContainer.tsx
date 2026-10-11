@@ -719,9 +719,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
            상자를 줄 수 있다. 앱 경로(`embed` 없음)는 그대로. */
         embed ? 'min-h-full h-full' : 'min-h-screen',
         'relative overflow-hidden',
-        settings.darkMode
-          ? 'bg-darkbg text-darktext'
-          : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
+        settings.darkMode ? 'bg-darkbg text-darktext' : 'bg-cream-50 text-ink-900'
       )}
       onClick={
         canTapForControls

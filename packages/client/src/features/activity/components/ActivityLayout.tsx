@@ -38,8 +38,10 @@ export function ActivityLayout({
       to={activityKindPath(k)}
       aria-current={k === kind ? 'page' : undefined}
       className={cn(
-        'inline-flex min-h-[40px] shrink-0 items-center rounded-full px-4 text-sm font-bold transition',
-        k === kind ? 'bg-coral-600 text-white' : 'text-ink-700 hover:bg-peach-100'
+        'inline-flex min-h-[44px] shrink-0 items-center rounded-full px-4 text-sm font-bold transition',
+        k === kind
+          ? 'bg-coral-100 text-ink-900 ring-1 ring-coral-700'
+          : 'text-ink-700 hover:bg-peach-100'
       )}
     >
       {ACTIVITY_KIND_LABEL[k]}
@@ -67,7 +69,7 @@ export function ActivityLayout({
             onClick={() =>
               trackActivity('activity_cta', { kind, key: currentKey ?? '', target: 'home' })
             }
-            className="inline-flex min-h-[36px] shrink-0 items-center rounded-full border-2 border-coral-300 px-3 text-xs font-bold text-coral-700 hover:bg-coral-50 sm:min-h-[40px] sm:px-4 sm:text-sm"
+            className="inline-flex min-h-[44px] shrink-0 items-center rounded-full border-2 border-coral-300 px-3 text-xs font-bold text-coral-700 hover:bg-coral-50 sm:min-h-[44px] sm:px-4 sm:text-sm"
           >
             탱고북 둘러보기
           </Link>

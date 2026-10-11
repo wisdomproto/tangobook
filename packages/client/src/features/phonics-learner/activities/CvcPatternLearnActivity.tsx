@@ -403,7 +403,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={restart}
-              className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+              className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
@@ -412,7 +412,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 clearQueue(); // 🔴 큐에 쌓인 소리 비우고 다음 장은 처음부터
                 setPhase('B');
               }}
-              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
+              className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.next')}
             </button>
@@ -471,7 +471,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                             transition={{ type: 'spring', stiffness: 400, damping: 18 }}
                             src={cw.imageUrl}
                             alt={cw.word}
-                            className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-pop"
+                            className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-soft"
                           />
                         )}
                     </div>
@@ -500,7 +500,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                       wDone
                         ? 'bg-success/15 border-success text-success-700'
                         : active
-                          ? 'bg-gradient-to-b from-coral-400 to-coral-600 border-coral-700 text-white shadow-pop scale-105'
+                          ? 'bg-coral-700 border-coral-700 text-white shadow-soft scale-105'
                           : 'bg-white border-white text-ink-700',
                     ].join(' ')}
                   >
@@ -518,7 +518,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                   src={currentWriteWord.imageUrl}
                   alt={currentWriteWord.word}
                   draggable={false}
-                  className="w-[clamp(3.5rem,14vh,8rem)] h-[clamp(3.5rem,14vh,8rem)] object-cover rounded-3xl border-[6px] border-white shadow-pop shrink-0"
+                  className="w-[clamp(3.5rem,14vh,8rem)] h-[clamp(3.5rem,14vh,8rem)] object-cover rounded-3xl border-[6px] border-white shadow-soft shrink-0"
                 />
               )}
               <div className="w-full max-w-2xl">
@@ -550,13 +550,13 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={restart}
-              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
+              className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
               onClick={onBack}
-              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.back')}
             </button>
@@ -598,11 +598,11 @@ function Cell({
   tone: CellTone;
   wide?: boolean;
 }) {
-  // 시안 매칭: 행 단위 색 (left=coral / middle=butter / right=mint). 흰 글자 + 흰 outline.
+  // 음소 위치별 옅은 색은 유지하고 학습할 글자는 높은 대비로 표시한다.
   const bgByTone: Record<CellTone, string> = {
-    left: 'bg-gradient-to-b from-coral-400 to-coral-500 border-coral-600',
-    middle: 'bg-gradient-to-b from-warn to-amber-400 border-amber-500',
-    right: 'bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500',
+    left: 'bg-coral-100 border-coral-300',
+    middle: 'bg-peach-100 border-peach-300',
+    right: 'bg-mint-100 border-mint-400',
   };
   return (
     <motion.button
@@ -610,7 +610,7 @@ function Cell({
       animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
       transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
       className={[
-        'relative h-[clamp(4rem,14vh,7.5rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-[0_8px_0_rgba(0,0,0,0.08),0_14px_28px_-8px_rgba(0,0,0,0.25)] text-white active:scale-[0.95] transition-shadow font-black',
+        'relative h-[clamp(4rem,14vh,7.5rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
         wide ? 'min-w-[clamp(6rem,18vh,11rem)] px-4' : 'w-[clamp(4.5rem,14vh,8rem)]',
         bgByTone[tone],
         pressed
@@ -620,8 +620,8 @@ function Cell({
             : '',
       ].join(' ')}
       style={{
-        textShadow: '0 3px 0 rgba(0,0,0,0.18)',
-        WebkitTextStroke: '1.5px rgba(255,255,255,0.5)',
+        textShadow: 'none',
+        WebkitTextStroke: '0',
         paintOrder: 'stroke fill',
       }}
     >
@@ -629,7 +629,7 @@ function Cell({
         {label}
       </span>
       {pressed && (
-        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-success text-white text-sm font-black shadow-pop ring-2 ring-white">
+        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-success text-white text-sm font-black shadow-soft ring-2 ring-white">
           ✓
         </span>
       )}

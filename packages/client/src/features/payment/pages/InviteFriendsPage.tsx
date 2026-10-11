@@ -74,7 +74,7 @@ export default function InviteFriendsPage() {
               type="button"
               onClick={copyMessage}
               disabled={!code}
-              className="rounded-full bg-coral-500 px-8 py-3 font-black text-white shadow-soft hover:bg-coral-600 disabled:opacity-40"
+              className="rounded-full bg-coral-700 px-8 py-3 font-black text-white shadow-soft hover:bg-coral-800 disabled:opacity-40"
             >
               {copied ? t('inviteFriends.copied') : t('inviteFriends.copyMessage')}
             </button>
@@ -86,7 +86,7 @@ export default function InviteFriendsPage() {
       <ol className="mt-6 space-y-2.5">
         {steps.map((s) => (
           <li key={s.n} className="flex items-center gap-3 rounded-2xl bg-white/70 px-4 py-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-coral-500 text-white font-black">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-coral-700 text-white font-black">
               {s.n}
             </span>
             <span className="font-bold text-ink-800 break-keep">{s.t}</span>

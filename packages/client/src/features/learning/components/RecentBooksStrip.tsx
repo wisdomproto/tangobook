@@ -53,7 +53,7 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
               <span
                 className={
                   'absolute left-1 top-1 rounded-full px-2 py-0.5 text-[10px] font-black shadow-soft ' +
-                  (done ? 'bg-coral-500 text-white' : 'bg-white/90 text-amber-600')
+                  (done ? 'bg-coral-700 text-white' : 'bg-white/90 text-amber-600')
                 }
               >
                 {done ? t('recentBooks.completed') : t('recentBooks.reading')}

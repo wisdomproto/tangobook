@@ -44,12 +44,12 @@ export default function GamesHubPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
+    <div className="min-h-screen bg-cream-50">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-10">
         <div className="flex items-center gap-3 mb-6 md:mb-8">
           <button
             onClick={() => navigate('/library')}
-            className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white shadow-soft hover:shadow-pop text-ink-700 flex items-center justify-center text-xl font-black transition"
+            className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white shadow-soft hover:shadow-soft text-ink-700 flex items-center justify-center text-xl font-black transition"
             aria-label="라이브러리로"
           >
             ←
@@ -62,9 +62,9 @@ export default function GamesHubPage() {
             <Link
               key={g.id}
               to={g.path}
-              className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${g.gradient} aspect-[4/3] md:aspect-[3/2] shadow-pop hover:shadow-[0_12px_28px_rgba(0,0,0,0.2)] hover:-translate-y-1 active:scale-95 transition-all duration-150 p-6 md:p-8 flex flex-col justify-between text-white`}
+              className={`group relative overflow-hidden rounded-3xl bg-white border border-ink-100 aspect-[4/3] md:aspect-[3/2] shadow-soft hover:shadow-[0_12px_28px_rgba(0,0,0,0.2)] hover:-translate-y-1 active:scale-95 transition-all duration-150 p-6 md:p-8 flex flex-col justify-between text-ink-900`}
             >
-              <div className="self-start px-3 py-1 rounded-full bg-white/30 backdrop-blur-sm text-xs md:text-sm font-black tracking-wide">
+              <div className="self-start px-3 py-1 rounded-full bg-cream-100 text-ink-700 text-xs md:text-sm font-black tracking-wide">
                 {g.badge}
               </div>
 
@@ -81,11 +81,11 @@ export default function GamesHubPage() {
                   <h2 className="text-xl md:text-3xl font-black font-display leading-tight">
                     {g.title}
                   </h2>
-                  <p className="text-xs md:text-sm font-bold mt-1 md:mt-2 text-white/90 leading-snug">
+                  <p className="text-xs md:text-sm font-bold mt-1 md:mt-2 text-ink-600 leading-snug">
                     {g.subtitle}
                   </p>
                 </div>
-                <span className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-white/25 text-2xl md:text-3xl font-black flex items-center justify-center group-hover:translate-x-1 transition">
+                <span className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-cream-100 text-coral-700 text-2xl md:text-3xl font-black flex items-center justify-center group-hover:translate-x-1 transition">
                   →
                 </span>
               </div>

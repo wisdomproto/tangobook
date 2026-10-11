@@ -286,7 +286,7 @@ export function VowelListenActivity({
                     : active
                       ? 'bg-coral-100 border-coral-500 animate-pulse'
                       : isUnlockedListen || phase === 'quiz'
-                        ? 'bg-white border-white hover:shadow-pop active:scale-[0.97]'
+                        ? 'bg-white border-white hover:shadow-soft active:scale-[0.97]'
                         : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
                   isWrongTarget && phase === 'quiz' ? 'animate-shake' : '',
                 ].join(' ')}
@@ -321,13 +321,13 @@ export function VowelListenActivity({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={resetListen}
-              className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+              className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
               onClick={startQuiz}
-              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
+              className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.quizStart')}
             </button>
@@ -347,13 +347,13 @@ export function VowelListenActivity({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={restartAll}
-              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
+              className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
               onClick={onBack}
-              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.back')}
             </button>

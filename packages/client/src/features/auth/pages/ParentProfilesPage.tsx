@@ -95,7 +95,7 @@ export default function ParentProfilesPage() {
           <button
             onClick={handleCreate}
             aria-label={t('profiles.addNew')}
-            className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-pop flex flex-col items-center justify-center text-5xl text-coral-500 font-black min-h-[160px]"
+            className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-soft flex flex-col items-center justify-center text-5xl text-coral-500 font-black min-h-[160px]"
           >
             +<span className="text-sm text-ink-700 mt-2">{t('profiles.addNew')}</span>
           </button>

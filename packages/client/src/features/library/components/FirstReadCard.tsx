@@ -79,7 +79,7 @@ export function FirstReadCard() {
                 close();
                 navigate(`/viewer/${FIRST_BOOK_ID}`);
               }}
-              className="inline-flex min-h-[44px] items-center rounded-full bg-coral-500 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-600"
+              className="inline-flex min-h-[44px] items-center rounded-full bg-coral-700 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-coral-800"
             >
               {t('firstRead.cta')}
             </button>

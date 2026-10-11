@@ -19,7 +19,7 @@ export function AvatarPicker({ value, onChange }: Props) {
           onClick={() => onChange(id)}
           className={cn(
             'rounded-2xl p-2 transition-all bg-white shadow-soft',
-            value === id ? 'ring-4 ring-coral-500 scale-105' : 'hover:scale-105 hover:shadow-pop'
+            value === id ? 'ring-4 ring-coral-500 scale-105' : 'hover:scale-105 hover:shadow-soft'
           )}
           aria-label={t('avatar.ariaLabel', { id })}
         >

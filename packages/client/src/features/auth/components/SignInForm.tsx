@@ -73,7 +73,7 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
   return (
     <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
       {/* short(모바일 가로) = 세로 공간 부족 → 소셜 | 이메일 2단으로 눕혀 로그인 버튼이 접힘 위로. */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 short:p-5 max-w-sm short:max-w-2xl w-full shadow-pop flex flex-col gap-4 short:gap-3">
+      <div className="bg-white rounded-2xl p-6 sm:p-8 short:p-5 max-w-sm short:max-w-2xl w-full shadow-soft flex flex-col gap-4 short:gap-3">
         <div className="text-center">
           <h1 className="text-3xl short:text-2xl font-black text-ink-900">{t('signIn.title')}</h1>
           <p className="text-sm text-ink-500 mt-1 break-keep short:hidden">
@@ -126,7 +126,7 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
             <button
               onClick={handleSignIn}
               disabled={busy || !email || !password}
-              className="h-14 short:h-12 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
+              className="h-14 short:h-12 rounded-xl bg-coral-700 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
             >
               {busy ? t('signIn.submitting') : t('signIn.submit')}
             </button>

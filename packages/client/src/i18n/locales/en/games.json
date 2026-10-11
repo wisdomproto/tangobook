@@ -26,7 +26,9 @@
     "goodSub": "You'll do even better next time 💪",
     "restart": "🔄 Play Again",
     "confirm": "OK",
-    "metBooks": "📖 Books you just met"
+    "metBooks": "📖 Books you just met",
+    "summaryLabel": "Activity results",
+    "scoreSummary": "{{score}} of {{total}} completed"
   },
   "feedback": {
     "correct1": "Nice work!",
@@ -177,5 +179,9 @@
   "guide": {
     "lineMatch": "Match the picture with the word!",
     "blockMake": "Build the word with blocks!"
+  },
+  "progress": {
+    "question": "Question {{current}} of {{total}}",
+    "completed": "{{score}} completed"
   }
 }

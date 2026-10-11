@@ -37,8 +37,8 @@ export function ProfileCreateStep() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 p-4">
-      <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-pop flex flex-col gap-4 items-center">
+    <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
+      <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-soft flex flex-col gap-4 items-center">
         <Mascot state="waving" size="md" character="hori" />
         <span className="text-xs font-black text-mint-600 bg-mint-50 rounded-full px-3 py-1">
           {t('profileCreate.accountReady')}
@@ -71,7 +71,7 @@ export function ProfileCreateStep() {
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className="w-full h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
+          className="w-full h-14 rounded-xl bg-coral-700 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
         >
           {t('profileCreate.start')}
         </button>

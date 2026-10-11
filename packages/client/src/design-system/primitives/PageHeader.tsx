@@ -27,7 +27,7 @@ export function PageHeader({ onBack, backLabel, onHome, children, right }: PageH
   const { t } = useTranslation('shell');
   const resolvedBackLabel = backLabel ?? t('pageHeader.back');
   return (
-    <header className="h-16 md:h-20 lg:h-24 flex items-center justify-between gap-2 md:gap-4 shrink-0 bg-white/60 backdrop-blur-sm shadow-soft rounded-2xl md:rounded-3xl px-3 md:px-6 mx-2 mt-2">
+    <header className="min-h-16 flex items-center justify-between gap-2 md:gap-4 shrink-0 border-b border-ink-100 bg-white px-3 py-2 md:px-6">
       <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
         <button
           type="button"
@@ -41,6 +41,7 @@ export function PageHeader({ onBack, backLabel, onHome, children, right }: PageH
         </button>
         {onHome && (
           <button
+            type="button"
             onClick={onHome}
             aria-label={t('pageHeader.home')}
             title={t('pageHeader.home')}
@@ -51,7 +52,7 @@ export function PageHeader({ onBack, backLabel, onHome, children, right }: PageH
         )}
       </div>
 
-      <div className="flex-1 flex items-center justify-center min-w-0 text-lg md:text-2xl lg:text-4xl font-black font-display text-ink-900 truncate">
+      <div className="flex-1 flex items-center justify-center min-w-0 text-lg md:text-2xl font-bold font-display text-ink-900 truncate">
         {children}
       </div>
 

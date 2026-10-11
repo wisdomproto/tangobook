@@ -15,7 +15,7 @@ export function LanguageTabs({ value, onChange, className = '' }: Props) {
           type="button"
           onClick={() => onChange(l)}
           className={`px-4 py-1.5 rounded-full text-sm font-semibold transition ${
-            value === l ? 'bg-coral-500 text-white shadow' : 'text-ink-700 hover:bg-peach-200'
+            value === l ? 'bg-coral-700 text-white shadow' : 'text-ink-700 hover:bg-peach-200'
           }`}
         >
           {l === 'ko' ? '한글' : '영어'}

@@ -28,7 +28,7 @@ export function VocabLangSelect({ langs, value, onChange, className }: VocabLang
         value={value}
         onChange={(e) => onChange(e.target.value as Lang)}
         aria-label={t('study.langSelectAria', { defaultValue: '언어 선택' })}
-        className="h-11 appearance-none rounded-full bg-white pl-10 pr-9 shadow-soft text-sm sm:text-base font-black text-ink-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-300"
+        className="h-11 appearance-none rounded-full border border-ink-100 bg-white pl-10 pr-9 shadow-soft text-sm sm:text-base font-semibold text-ink-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-700"
       >
         {langs.map((l) => (
           <option key={l.code} value={l.code}>

@@ -23,38 +23,26 @@ interface GamePlayerLayoutProps {
   children: ReactNode;
   onBack?: () => void;
   maxWidth?: MaxWidth;
-  /** 배경 일러스트 URL (선택). 없으면 cream→peach 그라디언트. */
+  /** 기존 호출부 호환용. v2 공통 학습 바탕을 쓰며 장식 배경은 적용하지 않는다. */
   bgImageUrl?: string;
 }
 
 /** 전체 게임 플레이어 공통 래퍼 — 센터링 + 반응형 max-width + 좌상단 돌아가기 버튼 (단원 목록 back 과 통일).
  *  vocab launch (`VocabularyStudyContent`) 의 `motion.div` wrapper 가 viewport 0 부터 안 시작하는 케이스가 있어
  *  플레이어 root 를 `fixed inset-0 z-[60]` 으로 viewport 직접 덮음 → 뒷페이지 노출 차단. */
-export function GamePlayerLayout({
-  children,
-  onBack,
-  maxWidth = '2xl',
-  bgImageUrl,
-}: GamePlayerLayoutProps) {
+export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePlayerLayoutProps) {
   const { t } = useTranslation('games');
   // 좌우 시스템 UI(안드 내비바·노치·인앱 컨트롤) 회피 + 동적 뷰포트 높이 캡 → gameSafeAreaStyle.
   // 세로 여백은 className py-clamp 로 유지(헬퍼는 세로 미관여).
-  const bgStyle = bgImageUrl
-    ? {
-        backgroundImage: `url(${bgImageUrl})`,
-        backgroundSize: 'cover' as const,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }
-    : undefined;
   return (
     <MobileLandscapeGate>
       <div
-        className="fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-cream-50 overflow-hidden"
-        style={{ ...bgStyle, ...gameSafeAreaStyle() }}
+        className="learning-stage fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-cream-50 overflow-hidden"
+        style={gameSafeAreaStyle()}
       >
         {onBack && (
           <button
+            type="button"
             onClick={onBack}
             className="self-start min-h-11 mb-2 inline-flex items-center gap-2 px-4 text-base rounded-full bg-white shadow-soft text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 shrink-0 break-keep"
           >

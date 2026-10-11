@@ -47,7 +47,6 @@ function isVowel(char: string) {
 // 보통/어려움 만 BlockPanel 사용. (이전 EASY_CONSONANTS/EASY_VOWELS slice 는 strip 도입으로 삭제)
 
 // 배경 일러스트 — public/images/games/korean-block-bg.png (없으면 gradient fallback).
-const BG_IMAGE_URL = '/images/games/korean-block-bg.webp';
 
 function KoreanBlockPlayerInner({
   storybookId,
@@ -521,11 +520,8 @@ function KoreanBlockPlayerInner({
       {/* VocabularyStudyContent 의 motion.div(fixed inset-0) 가 어떤 이유로 viewport top 으로부터 ~32px 떨어진 위치에 렌더되어
         위쪽으로 뒷 페이지(헤더·표지)가 새어나옴. player 를 자체적으로 fixed inset-0 + z-[60] 로 바꿔서 viewport 0,0 부터 완전 덮음. */}
       <div
-        className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden"
+        className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
         style={{
-          backgroundImage: `url(${BG_IMAGE_URL})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           ...gameSafeAreaStyle(),
         }}
@@ -543,7 +539,7 @@ function KoreanBlockPlayerInner({
             인터랙션 차단해서 첫 정답에 발음이 늦게 나오는(무음/Web Speech 폴백) 문제 방지. */}
         {!audioReady && (
           <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
-            <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+            <div className="rounded-3xl bg-white shadow-soft px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
               <div
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
                 aria-hidden
@@ -574,7 +570,7 @@ function KoreanBlockPlayerInner({
               (실측 1024x768: 「아기」가 잘렸다). 글자도 칸 폭에 맞춰 줄인다. */}
           <section
             className={cn(
-              'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
+              'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
               twoCol
                 ? 'flex-1 flex-col gap-[clamp(0.5rem,2vh,1.5rem)]'
                 : 'flex-[2] shrink-0 short:flex-none short:h-20 short:min-h-20 gap-[clamp(1rem,3vw,3rem)]'
@@ -585,7 +581,7 @@ function KoreanBlockPlayerInner({
                 <img
                   src={currentItem.imageUrl}
                   alt={currentItem.word}
-                  className="h-[clamp(4.5rem,24vh,18rem)] w-[clamp(4.5rem,24vh,18rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-[5px] border-white"
+                  className="h-[clamp(4.5rem,24vh,18rem)] w-[clamp(4.5rem,24vh,18rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-2 border-ink-100"
                 />
                 <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
               </div>
@@ -614,7 +610,7 @@ function KoreanBlockPlayerInner({
           {/* 섹션 2 — 드롭존 화면 가운데. 전체 읽기와 다음은 판 오른쪽에 세로 배치. */}
           <section
             className={cn(
-              'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
+              'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
               landscape && 'flex-row gap-2',
               twoCol ? 'flex-1' : 'flex-[4]',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
@@ -649,7 +645,7 @@ function KoreanBlockPlayerInner({
                 onClick={() => void handleReadBoard()}
                 disabled={!composedText || roundCorrect}
                 className={cn(
-                  'bg-white text-peach-500 font-black shadow-pop border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0 short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
+                  'bg-white text-peach-500 font-black shadow-soft border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0 short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
@@ -661,7 +657,7 @@ function KoreanBlockPlayerInner({
                 type="button"
                 onClick={handleNext}
                 className={cn(
-                  'bg-peach-500 text-white font-black shadow-pop hover:-translate-y-0.5 hover:bg-peach-300 transition short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
+                  'bg-coral-700 text-white font-black shadow-soft hover:-translate-y-0.5 hover:bg-coral-800 transition short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
@@ -688,14 +684,14 @@ function KoreanBlockPlayerInner({
                   <button
                     onClick={handleUndo}
                     disabled={roundCorrect || placed.length === 0}
-                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
+                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
                   >
                     ↩ 되돌리기
                   </button>
                   <button
                     onClick={handleResetGrid}
                     disabled={roundCorrect || placed.length === 0}
-                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition disabled:opacity-40"
+                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
                   >
                     ↺ {t('blockGame.reset')}
                   </button>
@@ -706,7 +702,7 @@ function KoreanBlockPlayerInner({
                   setCamera((v) => !v);
                   clearBoard();
                 }}
-                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition"
+                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition"
               >
                 {camera ? '🧩 화면 블록' : '📷 실물 블록'}
               </button>

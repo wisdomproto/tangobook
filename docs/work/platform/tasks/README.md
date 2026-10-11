@@ -6,3 +6,6 @@
 - [전체 플랫폼 UI/UX·디자인 시스템 재정의](20261012-platform-ui-ux-audit.md) — completed. 대표 실행·전체 게임 등록/배선 검토, v2 기준안 작성. 제품 개편은 후속 작업.
 
 목록은 편의용이다. 실제 목록은 이 폴더의 작업 파일과 node scripts/work-status.mjs로 확인한다.
+
+- [학습 UI v2 1차 구현](20261012-platform-ui-v2-implementation.md) — integrated, 로컬 main.
+- [학습 UI v2 후속 통일](20261012-platform-ui-v2-continuation.md) — 검증 완료, 로컬 main 통합 기록은 task 참조.

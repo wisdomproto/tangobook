@@ -26,7 +26,9 @@
     "goodSub": "ครั้งหน้าจะทำได้ดีกว่านี้แน่ 💪",
     "restart": "🔄 เล่นอีกครั้ง",
     "confirm": "ตกลง",
-    "metBooks": "📖 หนังสือที่เพิ่งเจอ"
+    "metBooks": "📖 หนังสือที่เพิ่งเจอ",
+    "summaryLabel": "ผลกิจกรรม",
+    "scoreSummary": "ทำสำเร็จ {{score}} จาก {{total}}"
   },
   "feedback": {
     "correct1": "เก่งมาก!",
@@ -177,5 +179,9 @@
   "guide": {
     "lineMatch": "จับคู่ภาพกับคำกัน!",
     "blockMake": "ต่อบล็อกเป็นคำกัน!"
+  },
+  "progress": {
+    "question": "ข้อ {{current}} จาก {{total}}",
+    "completed": "สำเร็จ {{score}} ข้อ"
   }
 }

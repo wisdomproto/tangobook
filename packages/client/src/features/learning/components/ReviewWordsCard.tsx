@@ -49,7 +49,7 @@ export function ReviewWordsCard({ words, storybooks }: Props) {
           <li key={word.word}>
             <Link
               to={`/library/${book.id}`}
-              className="flex items-center gap-3 rounded-2xl bg-white p-2 shadow-soft transition hover:-translate-y-0.5 hover:shadow-pop"
+              className="flex items-center gap-3 rounded-2xl bg-white p-2 shadow-soft transition hover:-translate-y-0.5 hover:shadow-soft"
             >
               <span className="h-[52px] w-10 shrink-0 overflow-hidden rounded-lg bg-peach-100">
                 <BookCover book={book} lang={i18n.language} overlayTitle={false} />
@@ -60,7 +60,7 @@ export function ReviewWordsCard({ words, storybooks }: Props) {
                   {bookDisplayTitle(book, i18n.language)}
                 </span>
               </span>
-              <span className="shrink-0 rounded-full bg-coral-500 px-3 py-1.5 text-xs font-black text-white">
+              <span className="shrink-0 rounded-full bg-coral-700 px-3 py-1.5 text-xs font-black text-white">
                 {t('reviewWords.open')}
               </span>
             </Link>

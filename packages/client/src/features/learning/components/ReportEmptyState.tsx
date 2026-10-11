@@ -35,7 +35,7 @@ export function ReportEmptyState({
       {ctaLabel && ctaTo && (
         <Link
           to={ctaTo}
-          className="mt-4 rounded-xl bg-coral-500 px-6 py-3 font-black text-white shadow-soft hover:brightness-110"
+          className="mt-4 rounded-xl bg-coral-700 px-6 py-3 font-black text-white shadow-soft hover:brightness-110"
         >
           {ctaLabel}
         </Link>

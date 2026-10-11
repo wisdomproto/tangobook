@@ -69,7 +69,8 @@
     "koreanLead": "한글",
     "englishLead": "영어",
     "chineseLead": "병음",
-    "englishComingSoonNote": "곧 영어 파닉스 활동이 추가될 거에요! ✨"
+    "englishComingSoonNote": "곧 영어 파닉스 활동이 추가될 거에요! ✨",
+    "activityDone": "완료"
   },
   "hub": {
     "title": "한글 파닉스",

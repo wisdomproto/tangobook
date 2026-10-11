@@ -33,19 +33,6 @@ interface Props {
   children: ReactNode;
 }
 
-const BACKGROUND_CLASS: Record<NonNullable<Props['background']>, string> = {
-  // 🔴 크림 바탕을 깔고 그 위에 사진을 얹는다 — 사진이 뜨기 전 한 프레임이 투명(검정 배경)으로
-  //    번쩍이던 자리다. 예전엔 화면마다 `bg-cream-50` 을 붙였다 말았다 했다.
-  study: 'bg-cream-50 bg-cover bg-center',
-  'peach-gradient': 'bg-gradient-to-b from-cream-50 to-peach-100',
-};
-
-const STUDY_BG = {
-  backgroundImage: "url('/images/phonics/study-bg.webp')",
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-} as const;
-
 /**
  * 파닉스 활동의 공용 껍데기 — 전체화면 + 배경 + 「← 돌아가기」.
  *
@@ -61,13 +48,7 @@ const STUDY_BG = {
  *    vw 만 보면 세로가 짧은 화면(1024×768·모바일 가로)에서 아래가 잘리고, vh 만 보면
  *    넓은 화면에서 좁쌀만 해진다.
  */
-export function ActivityShell({
-  onBack,
-  headerRight,
-  scroll = false,
-  background = 'study',
-  children,
-}: Props) {
+export function ActivityShell({ onBack, headerRight, scroll = false, children }: Props) {
   const { t } = useTranslation('phonics');
   const embedded = useContext(EmbeddedContext);
   const back = (
@@ -78,8 +59,9 @@ export function ActivityShell({
      * 🔴 `min-h-[44px]` — 아이 손가락 기준. 예전엔 13화면 전부 40px 이었고, 이제 한 곳이라 같이 낫는다.
      */
     <button
+      type="button"
       onClick={onBack}
-      className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold"
+      className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full border border-ink-100 bg-white text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
     >
       {t('common.back')}
     </button>
@@ -93,11 +75,10 @@ export function ActivityShell({
           ? 'relative h-full w-full flex flex-col px-3 sm:px-4 py-3 rounded-[22px]'
           : 'fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4',
         scroll ? 'overflow-y-auto' : 'overflow-hidden',
-        BACKGROUND_CLASS[background],
+        'learning-stage bg-cream-50',
       ]
         .filter(Boolean)
         .join(' ')}
-      style={background === 'study' ? STUDY_BG : undefined}
     >
       {/* 🔴 embedded 엔 「← 돌아가기」를 두지 않는다 — 돌아갈 데가 없고(블로그 글 안이다),
           그 자리는 아래 CTA 가 맡는다. 활동이 넘긴 `onBack` 은 그대로 무시된다. */}

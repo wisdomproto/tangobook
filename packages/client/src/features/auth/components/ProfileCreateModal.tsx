@@ -80,7 +80,7 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
       onClick={onCancel}
     >
       <div
-        className="bg-white rounded-2xl p-6 max-w-md w-full shadow-pop"
+        className="bg-white rounded-2xl p-6 max-w-md w-full shadow-soft"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl font-black text-ink-900 mb-4">
@@ -115,7 +115,7 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
             disabled={!canSubmit}
             className={cn(
               'flex-1 py-3 rounded-xl font-black text-white',
-              canSubmit ? 'bg-coral-500 hover:brightness-110' : 'bg-ink-300 cursor-not-allowed'
+              canSubmit ? 'bg-coral-700 hover:bg-coral-800' : 'bg-ink-300 cursor-not-allowed'
             )}
           >
             {mode === 'create' ? t('profileModal.create') : t('profileModal.save')}

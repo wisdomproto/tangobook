@@ -190,7 +190,7 @@ function StoryImagePlayerInner({
     // 튜토리얼 wait — expected 외 dim
     if (expected !== null && expected.url !== url)
       return cn(base, 'border-peach-200 opacity-30 cursor-not-allowed');
-    return cn(base, 'border-peach-200 hover:scale-[1.02] hover:shadow-pop hover:border-coral-300');
+    return cn(base, 'border-peach-200 hover:scale-[1.02] hover:shadow-soft hover:border-coral-300');
   };
 
   return (
@@ -238,7 +238,7 @@ function StoryImagePlayerInner({
               >
                 <img src={url} alt="" className="w-full h-full object-cover" />
                 {isCorrectOpt && (
-                  <span className="absolute top-3 right-3 bg-success text-white rounded-full w-10 h-10 flex items-center justify-center font-black text-xl shadow-pop">
+                  <span className="absolute top-3 right-3 bg-success text-white rounded-full w-10 h-10 flex items-center justify-center font-black text-xl shadow-soft">
                     ✓
                   </span>
                 )}
@@ -263,7 +263,7 @@ function StoryImagePlayerInner({
       {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
           필요 시 아래 블록 풀기:
           <button onClick={handleHintStart} disabled={hintActive || isTutorialPlaying || !!feedback}
-            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop">
+            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-black text-lg shadow-soft">
             🪄 도와줘
           </button> */}
 

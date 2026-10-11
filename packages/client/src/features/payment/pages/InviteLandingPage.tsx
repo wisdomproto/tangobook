@@ -41,8 +41,8 @@ export default function InviteLandingPage() {
   }, [code]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 p-4">
-      <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-pop flex flex-col items-center gap-4 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
+      <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-soft flex flex-col items-center gap-4 text-center">
         <Mascot state="waving" size="lg" character="hori" />
         <span className="text-xs font-black text-coral-600 bg-coral-50 rounded-full px-3 py-1">
           {t('inviteLanding.giftBadge')}
@@ -61,7 +61,7 @@ export default function InviteLandingPage() {
         {session ? (
           <button
             onClick={() => navigate('/library')}
-            className="mt-2 w-full h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 transition"
+            className="mt-2 w-full h-14 rounded-xl bg-coral-700 text-white font-black text-lg hover:brightness-110 transition"
           >
             {t('inviteLanding.goLibrary')}
           </button>
@@ -69,7 +69,7 @@ export default function InviteLandingPage() {
           <>
             <button
               onClick={() => navigate('/login?mode=signup')}
-              className="mt-2 w-full h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 transition"
+              className="mt-2 w-full h-14 rounded-xl bg-coral-700 text-white font-black text-lg hover:brightness-110 transition"
             >
               {t('inviteLanding.signup')}
             </button>

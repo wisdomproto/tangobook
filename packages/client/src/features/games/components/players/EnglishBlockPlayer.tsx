@@ -117,8 +117,8 @@ function DraggableLetterTile({
         'english-letter-tile w-12 h-14 touch-none rounded-2xl flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700',
         interactable ? 'cursor-grab active:cursor-grabbing' : 'cursor-not-allowed',
         interactable &&
-          'transition-transform hover:scale-105 hover:shadow-pop active:scale-95 active:shadow-pop',
-        popping && 'ring-4 ring-coral-300 shadow-pop',
+          'transition-transform hover:scale-105 hover:shadow-soft active:scale-95 active:shadow-soft',
+        popping && 'ring-4 ring-coral-300 shadow-soft',
         isDragging && 'opacity-30'
       )}
     >
@@ -650,7 +650,7 @@ function EnglishBlockPlayerInner({
             ? isWrong
               ? 'bg-white shadow-card ring-2 ring-danger'
               : roundCorrect
-                ? 'bg-success/20 shadow-pop ring-4 ring-success/70 shadow-[0_0_30px_rgba(34,197,94,0.4)]'
+                ? 'bg-success/20 shadow-soft ring-4 ring-success/70 shadow-[0_0_30px_rgba(34,197,94,0.4)]'
                 : 'bg-white shadow-card'
             : 'border-2 border-dashed border-coral-300 bg-white/40',
           interactable &&
@@ -691,7 +691,7 @@ function EnglishBlockPlayerInner({
       <Gate>
         {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
         <div
-          className="english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
+          className="learning-stage english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
           style={gameSafeAreaStyle()}
         >
           <div className="px-2 pt-2 shrink-0">
@@ -706,7 +706,7 @@ function EnglishBlockPlayerInner({
           {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}
           {!audioReady && (
             <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
-              <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+              <div className="rounded-3xl bg-white shadow-soft px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
                 <div
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
                   aria-hidden
@@ -739,7 +739,7 @@ function EnglishBlockPlayerInner({
               <div className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-coral-100/45 blur-3xl" />
               {/* 완성된 단어 타이핑 패널 */}
               {roundCorrect && (
-                <div className="absolute left-1/2 top-5 z-10 min-w-[220px] -translate-x-1/2 rounded-2xl bg-success/15 px-6 py-3 text-center text-3xl font-black text-success shadow-pop ring-4 ring-success/40 backdrop-blur-sm sm:text-4xl">
+                <div className="absolute left-1/2 top-5 z-10 min-w-[220px] -translate-x-1/2 rounded-2xl bg-success/15 px-6 py-3 text-center text-3xl font-black text-success shadow-soft ring-4 ring-success/40 backdrop-blur-sm sm:text-4xl">
                   {currentItem.word.slice(0, typedChars)}
                   {typedChars < currentItem.word.length && (
                     <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
@@ -828,7 +828,7 @@ function EnglishBlockPlayerInner({
                 setCamera((v) => !v);
                 setGrid(initGrid(currentItem.letters));
               }}
-              className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition"
+              className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition"
             >
               {camera ? '🧩 화면 블록' : '📷 실물 블록'}
             </button>
@@ -847,7 +847,7 @@ function EnglishBlockPlayerInner({
       </Gate>
       <DragOverlay dropAnimation={null}>
         {draggedBlock && (
-          <div className="flex h-24 w-20 rotate-3 flex-col items-center justify-center overflow-hidden rounded-2xl bg-white shadow-pop ring-4 ring-coral-300">
+          <div className="flex h-24 w-20 rotate-3 flex-col items-center justify-center overflow-hidden rounded-2xl bg-white shadow-soft ring-4 ring-coral-300">
             <span className="flex-1 flex items-center justify-center text-4xl font-black text-ink-900">
               {draggedBlock.char}
             </span>

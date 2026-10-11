@@ -57,20 +57,21 @@ export function MobileLandscapeGate({ children }: { children: ReactNode }) {
     <>
       {children}
       <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-ink-900/95 backdrop-blur-sm p-6">
-        <div className="rounded-3xl bg-white shadow-pop px-8 py-10 max-w-sm w-full flex flex-col items-center gap-5 text-center">
+        <div className="rounded-3xl bg-white shadow-soft px-8 py-10 max-w-sm w-full flex flex-col items-center gap-5 text-center">
           <div className="text-7xl" aria-hidden>
             📱
           </div>
-          <div className="text-5xl text-coral-500 animate-pulse" aria-hidden>
+          <div className="text-5xl text-coral-500 motion-safe:animate-pulse" aria-hidden>
             ↻
           </div>
           <h2 className="text-2xl font-black font-display text-ink-900">
             {t('landscapeGate.title')}
           </h2>
-          <p className="text-base text-ink-500">{t('landscapeGate.sub')}</p>
+          <p className="text-base text-ink-600">{t('landscapeGate.sub')}</p>
           <button
+            type="button"
             onClick={handleConfirm}
-            className="mt-2 px-8 py-3 rounded-full bg-gradient-to-b from-coral-400 to-coral-600 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition"
+            className="mt-2 min-h-12 px-8 py-3 rounded-full bg-coral-700 text-white font-black text-lg shadow-soft hover:scale-105 active:scale-95 transition"
           >
             {t('result.confirm')}
           </button>

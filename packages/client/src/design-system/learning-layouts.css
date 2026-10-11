@@ -170,3 +170,115 @@
     width: min(680px, 65vw, calc((100dvh - 104px) * 2)) !important;
   }
 }
+/* v2 반복 UI 계약. 판별/입력 크기는 활동별 레이아웃에서 결정한다. */
+.page-order-tray {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+.page-order-option {
+  height: 100%;
+}
+.page-order-option img {
+  object-fit: contain;
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .page-order-stage {
+    gap: 8px;
+  }
+  .page-order-slots > div {
+    height: 64px;
+    aspect-ratio: auto;
+  }
+  .page-order-tray {
+    gap: 8px;
+  }
+}
+.course-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+  gap: 16px;
+}
+.course-activity-card {
+  display: flex;
+  min-width: 0;
+  min-height: 172px;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #ede1d4;
+  border-radius: 16px;
+  background: #fff;
+  padding: 16px;
+  transition:
+    border-color 150ms,
+    box-shadow 150ms;
+}
+.course-activity-card:hover {
+  border-color: #c43a1c;
+}
+.course-activity-card[data-completed] {
+  border-color: #2e7959;
+  background: #f0fbf5;
+}
+.course-activity-art {
+  display: grid;
+  height: 72px;
+  place-items: center;
+}
+.course-activity-card h3 {
+  margin-top: auto;
+}
+.course-activity-card:focus-visible,
+.learning-stage button:focus-visible,
+.learning-stage a:focus-visible {
+  outline: 2px solid #c43a1c;
+  outline-offset: 3px;
+}
+.learning-stage {
+  color: #0b0805;
+}
+.game-result-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  background: #fff9f3;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  text-align: center;
+}
+.game-result-card {
+  width: min(100%, 560px);
+  margin: auto;
+  padding: 24px;
+  border: 1px solid #ede1d4;
+  border-radius: 24px;
+  background: white;
+}
+.game-result-hero {
+  width: 136px;
+  height: 136px;
+  margin: 0 auto 16px;
+}
+.game-result-books:empty {
+  display: none;
+}
+@media (min-width: 640px) and (max-height: 480px) {
+  .game-result-card {
+    display: grid;
+    grid-template-columns: 144px 1fr;
+    gap: 20px;
+    width: min(100%, 740px);
+    padding: 20px;
+  }
+  .game-result-hero {
+    margin: auto;
+  }
+  .game-result-content {
+    min-width: 0;
+  }
+  .game-result-books {
+    grid-column: 1 / -1;
+  }
+}

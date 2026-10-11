@@ -217,7 +217,7 @@ export function ReviewFlipMatchActivity({
                         ? 'bg-danger/10 border-danger animate-shake'
                         : isOpen
                           ? 'bg-white border-coral-400'
-                          : 'bg-gradient-to-br from-coral-400 to-coral-600 border-white',
+                          : 'bg-coral-700 border-white',
                   ].join(' ')}
                 >
                   {isOpen ? (

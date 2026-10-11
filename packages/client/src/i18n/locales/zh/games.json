@@ -26,7 +26,9 @@
     "goodSub": "下次可以做得更好 💪",
     "restart": "🔄 再玩一次",
     "confirm": "确定",
-    "metBooks": "📖 刚刚遇到的绘本"
+    "metBooks": "📖 刚刚遇到的绘本",
+    "summaryLabel": "活动结果",
+    "scoreSummary": "完成 {{score}} / {{total}}"
   },
   "feedback": {
     "correct1": "做得好！",
@@ -177,5 +179,9 @@
   "guide": {
     "lineMatch": "把图片和词语配对吧！",
     "blockMake": "用积木拼出单词吧！"
+  },
+  "progress": {
+    "question": "第 {{current}} 题，共 {{total}} 题",
+    "completed": "完成 {{score}} 题"
   }
 }

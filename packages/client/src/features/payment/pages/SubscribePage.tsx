@@ -31,7 +31,7 @@ export default function SubscribePage() {
         <button
           type="button"
           onClick={() => navigate('/library')}
-          className="mt-8 rounded-xl bg-coral-500 px-6 py-3 font-black text-white hover:brightness-110"
+          className="mt-8 rounded-xl bg-coral-700 px-6 py-3 font-black text-white hover:brightness-110"
         >
           {t('subscribe.goLibrary')}
         </button>
@@ -65,7 +65,7 @@ export default function SubscribePage() {
         {t('subscribe.title')}
       </h1>
       <p className="mb-3 text-center text-ink-500 break-keep">{t('subscribe.subtitle')}</p>
-      <p className="mb-8 rounded-full bg-coral-500 px-5 py-2 text-center text-sm font-black text-white shadow-soft break-keep">
+      <p className="mb-8 rounded-full bg-coral-700 px-5 py-2 text-center text-sm font-black text-white shadow-soft break-keep">
         {t('subscribe.promoBadge', { label: t('launchPromo') })}
       </p>
 

@@ -48,7 +48,7 @@ export default function ActivityHubPage() {
   return (
     <>
       <PublicNav />
-      <main className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100 px-4 py-10 sm:px-6">
+      <main className="min-h-screen bg-cream-50 px-4 py-10 sm:px-6">
         <div className="mx-auto max-w-5xl">
           <h1 className="text-center font-display text-3xl font-extrabold text-ink-900 sm:text-4xl">
             활동 모음
@@ -63,7 +63,7 @@ export default function ActivityHubPage() {
           </div>
           <Link
             to="/blocks"
-            className="mt-5 block rounded-3xl border-2 border-coral-200 bg-gradient-to-r from-coral-50 to-amber-50 p-6 shadow-sm transition hover:shadow-md"
+            className="mt-5 block rounded-3xl border-2 border-coral-200 bg-white p-6 shadow-sm transition hover:shadow-md"
           >
             <span className="text-sm font-extrabold text-coral-700">
               화면에서 시작하고 · 손으로 이어서
@@ -77,9 +77,9 @@ export default function ActivityHubPage() {
           </Link>
           <div className="mt-8 flex flex-wrap justify-center gap-2">
             <Link
-              to="/library"
+              to="/library/books"
               onClick={() => trackActivity('activity_cta', { kind: 'hub', key: 'library' })}
-              className="inline-flex min-h-[48px] items-center rounded-full bg-coral-600 px-6 font-extrabold text-white"
+              className="inline-flex min-h-[48px] items-center rounded-full bg-coral-700 px-6 font-extrabold text-white"
             >
               📖 동화책 보러 가기
             </Link>

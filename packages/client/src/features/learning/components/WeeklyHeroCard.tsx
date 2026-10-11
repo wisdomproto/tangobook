@@ -66,7 +66,7 @@ export function WeeklyHeroCard({
   if (streak >= 2) meta.push(t('weeklyHero.metaStreak', { streak }));
 
   return (
-    <div className="rounded-3xl bg-gradient-to-br from-peach-100 to-coral-100 p-5 sm:p-6 shadow-soft">
+    <div className="rounded-3xl border border-ink-100 bg-white p-5 sm:p-6 shadow-soft">
       <div className="flex items-center gap-4">
         <div className="shrink-0">
           <Mascot state={didToday ? 'celebrating' : 'waving'} size="lg" character="hori" />
@@ -92,7 +92,7 @@ export function WeeklyHeroCard({
                 className={
                   'flex h-7 w-7 items-center justify-center rounded-full text-xs ' +
                   (d.active
-                    ? 'bg-coral-500 text-white font-black shadow-soft'
+                    ? 'bg-coral-700 text-white font-black shadow-soft'
                     : 'bg-ink-100 text-transparent')
                 }
                 aria-label={

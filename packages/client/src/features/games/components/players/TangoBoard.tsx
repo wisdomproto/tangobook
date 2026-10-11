@@ -155,8 +155,8 @@ function TrayPiece({
       className={cn(
         'relative rounded-2xl bg-white transition-all min-h-[56px] min-w-[56px] p-1.5 short:min-h-[40px] short:min-w-[40px] short:p-0.5 flex items-center justify-center',
         selected
-          ? 'ring-4 ring-coral-400 shadow-pop -translate-y-0.5'
-          : 'shadow-soft hover:shadow-pop hover:-translate-y-0.5'
+          ? 'ring-4 ring-coral-400 shadow-soft -translate-y-0.5'
+          : 'shadow-soft hover:shadow-soft hover:-translate-y-0.5'
       )}
     >
       <svg
@@ -173,7 +173,7 @@ function TrayPiece({
         <span
           className={cn(
             'absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-[0.7rem] font-black flex items-center justify-center shadow-soft',
-            selected ? 'bg-coral-500 text-white' : 'bg-peach-200 text-ink-700'
+            selected ? 'bg-coral-700 text-white' : 'bg-peach-200 text-ink-700'
           )}
         >
           ↻
@@ -377,7 +377,7 @@ export function TangoBoard({
       ? createPortal(
           <div
             data-tango-delete-hint
-            className="pointer-events-none fixed z-[95] -translate-x-1/2 translate-y-3 whitespace-nowrap rounded-full bg-danger px-3 py-1 text-xs font-black text-white shadow-pop"
+            className="pointer-events-none fixed z-[95] -translate-x-1/2 translate-y-3 whitespace-nowrap rounded-full bg-danger px-3 py-1 text-xs font-black text-white shadow-soft"
             style={{
               left: drag.x,
               top: drag.y,

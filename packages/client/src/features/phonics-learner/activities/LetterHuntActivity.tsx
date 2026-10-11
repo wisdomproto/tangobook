@@ -285,7 +285,7 @@ export function LetterHuntActivity({
         </h2>
         <button
           onClick={() => say(card.sound)}
-          className="px-6 py-2 rounded-3xl bg-coral-500 text-white shadow-pop font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
+          className="px-6 py-2 rounded-3xl bg-coral-700 text-white shadow-soft font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
           aria-label={t('hunt.letterSound', { letter: card.letter })}
         >
           {card.letter}

@@ -31,18 +31,18 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
   const navigate = useNavigate();
   const embedded = usePhonicsEmbedded();
   return (
-    <header className="h-[clamp(2.75rem,9vh,6rem)] flex items-center justify-between gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] bg-white/60 backdrop-blur-sm shadow-soft rounded-3xl px-2 sm:px-[clamp(0.75rem,1.5vw,1.5rem)] mx-0 sm:mx-2 mt-1.5">
+    <header className="h-[clamp(3rem,8vh,4.5rem)] flex items-center justify-between gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] border border-ink-100 bg-white rounded-card px-2 sm:px-[clamp(0.75rem,1.5vw,1.5rem)] mx-0 sm:mx-2 mt-1.5">
       <button
         type="button"
         onClick={onBack}
         aria-label={t('header.back')}
-        className="min-w-[44px] min-h-[44px] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center justify-center gap-2"
+        className="min-w-[44px] min-h-[44px] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-white text-ink-900 font-bold text-[clamp(0.875rem,2vh,1.25rem)] hover:bg-cream-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 flex items-center justify-center gap-2"
       >
         <span>←</span>
         <span className="hidden sm:inline">{t('header.back')}</span>
       </button>
 
-      <div className="flex min-w-0 flex-1 items-center justify-center gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] text-base sm:text-[clamp(1.25rem,3.5vh,2.25rem)] font-black font-display text-ink-900">
+      <div className="flex min-w-0 flex-1 items-center justify-center gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] text-base sm:text-[clamp(1.25rem,3.5vh,2.25rem)] font-bold font-display text-ink-900">
         <span className="truncate whitespace-nowrap">{title}</span>
         <span className="text-coral-700 shrink-0">
           {current}/{total}
@@ -56,6 +56,7 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
             아닌 유일한 이탈구였다. 미로그인 방문자는 /library 에서 진입 게이트를 만나 문맥을 잃는다. */}
         {!embedded && (
           <button
+            type="button"
             onClick={() => navigate('/library')}
             aria-label={t('header.homeAria')}
             title={t('header.homeAria')}

@@ -109,7 +109,7 @@ export function SpeakingPlayer({
   if (phase === 'done') {
     return (
       <MobileLandscapeGate>
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-gradient-to-br from-cream-50 to-peach-100 p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-cream-50 p-4 overflow-y-auto">
           <GameResultScreen
             storybookId={storybookId}
             score={rounds.length}
@@ -133,7 +133,7 @@ export function SpeakingPlayer({
 
   return (
     <MobileLandscapeGate>
-      <div className="fixed inset-0 z-[60] flex flex-col items-center bg-gradient-to-br from-cream-50 to-peach-100 p-4 overflow-y-auto">
+      <div className="fixed inset-0 z-[60] flex flex-col items-center bg-cream-50 p-4 overflow-y-auto">
         <div className="w-full max-w-4xl">
           <div className="flex items-center justify-between">
             <GameProgressBar current={roundIdx} total={rounds.length} score={roundIdx + 1} />
@@ -174,7 +174,7 @@ export function SpeakingPlayer({
             {!preset.autoPlayTts && (
               <button
                 onClick={() => playAudio(current.ttsUrl)}
-                className="w-12 h-12 rounded-full bg-coral-500 text-white shadow-pop hover:brightness-110"
+                className="w-12 h-12 rounded-full bg-coral-700 text-white shadow-soft hover:brightness-110"
                 aria-label="단어 듣기"
               >
                 🔊
@@ -188,7 +188,7 @@ export function SpeakingPlayer({
               aria-label="탭해서 말하기"
               aria-live={phase === 'listening' ? 'polite' : undefined}
               className={cn(
-                'mt-4 px-8 py-4 rounded-full text-white font-black shadow-pop transition-all',
+                'mt-4 px-8 py-4 rounded-full text-white font-black shadow-soft transition-all',
                 phase === 'idle' && 'bg-coral-500 hover:brightness-110',
                 phase === 'listening' && 'bg-coral-600 animate-pulse',
                 phase !== 'idle' && 'cursor-not-allowed'

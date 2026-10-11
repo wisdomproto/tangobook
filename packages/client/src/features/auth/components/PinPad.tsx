@@ -52,7 +52,7 @@ export function PinPad({ onComplete, error, disabled }: Props) {
             type="button"
             onClick={() => push(n)}
             disabled={disabled}
-            className="h-16 rounded-2xl bg-white shadow-soft text-3xl font-black text-ink-900 hover:shadow-pop active:scale-95 disabled:opacity-40"
+            className="h-16 rounded-2xl bg-white shadow-soft text-3xl font-black text-ink-900 hover:shadow-soft active:scale-95 disabled:opacity-40"
           >
             {n}
           </button>
@@ -70,7 +70,7 @@ export function PinPad({ onComplete, error, disabled }: Props) {
           type="button"
           onClick={() => push('0')}
           disabled={disabled}
-          className="h-16 rounded-2xl bg-white shadow-soft text-3xl font-black text-ink-900 hover:shadow-pop active:scale-95 disabled:opacity-40"
+          className="h-16 rounded-2xl bg-white shadow-soft text-3xl font-black text-ink-900 hover:shadow-soft active:scale-95 disabled:opacity-40"
         >
           0
         </button>

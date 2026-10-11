@@ -406,7 +406,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
               style={{
                 fontSize: 'clamp(3rem, 8vw, 7rem)',
                 color: '#FF7A3C',
-                WebkitTextStroke: '5px white',
+                WebkitTextStroke: '0',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(0 5px 0 rgba(0,0,0,0.08))',
               }}
@@ -424,10 +424,10 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
             조합은 aspect-ratio 충돌로 1920×1080 등에서 아래 버튼이 잘리는 문제 있었음. */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
           <div
-            className={`relative aspect-[2/1] h-full max-w-full border-[5px] rounded-3xl overflow-hidden bg-white shadow-pop transition-all ${
+            className={`relative aspect-[2/1] h-full max-w-full border-2 rounded-card overflow-hidden bg-white shadow-soft transition-all ${
               tutorialPulse
-                ? 'border-coral-400 ring-[6px] ring-coral-300 animate-pulse shadow-[0_0_30px_rgba(255,122,60,0.5)]'
-                : 'border-peach-200'
+                ? 'border-coral-700 ring-[3px] ring-coral-200 animate-pulse'
+                : 'border-ink-100'
             }`}
           >
             <canvas
@@ -497,7 +497,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
       {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
           필요 시 아래 블록 풀고 !showResult 가드 추가:
           <button onClick={handleHintStart} disabled={hintActive || isTutorialPlaying}
-            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop">
+            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-black text-lg shadow-soft">
             🪄 도와줘
           </button> */}
 

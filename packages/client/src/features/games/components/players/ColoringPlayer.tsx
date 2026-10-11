@@ -586,7 +586,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
+    <div className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden">
       <div className="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3">
         {onBack ? (
           <button
@@ -627,7 +627,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
                 }
               : undefined
           }
-          className="relative aspect-square w-full sm:w-auto sm:h-full max-w-full max-h-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop"
+          className="relative aspect-square w-full sm:w-auto sm:h-full max-w-full max-h-full rounded-3xl overflow-hidden border-2 border-ink-100 bg-white shadow-soft"
         >
           <canvas
             ref={canvasRef}
@@ -676,7 +676,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
           onDone || items.length === 1 ? null : (
             <button
               onClick={() => setIdx((i) => (i + 1) % items.length)}
-              className="w-full max-w-md mx-auto block min-h-[56px] rounded-full bg-coral-500 text-white text-2xl font-black shadow-pop break-keep"
+              className="w-full max-w-md mx-auto block min-h-[56px] rounded-full bg-coral-700 text-white text-2xl font-black shadow-soft break-keep"
             >
               다음 그림
             </button>

@@ -72,11 +72,12 @@ function UnitCard({ unit, onClick }: UnitCardProps) {
   const isStorybook = unit.source === 'storybook';
   return (
     <button
+      type="button"
       onClick={onClick}
-      className="aspect-[3/4] rounded-2xl bg-white shadow-soft border-2 border-amber-200 overflow-hidden hover:shadow-pop hover:-translate-y-1 transition-all flex flex-col items-center"
+      className="aspect-[3/4] rounded-2xl bg-white shadow-soft border border-ink-100 overflow-hidden hover:shadow-soft hover:border-coral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 transition-all flex flex-col items-center"
     >
       {/* 아이콘 영역 */}
-      <div className="flex-1 w-full flex items-center justify-center p-3 bg-gradient-to-b from-amber-50 to-white">
+      <div className="flex-1 w-full flex items-center justify-center p-3 bg-cream-50">
         {isStorybook && unit.coverImage ? (
           <img
             src={unit.coverImage}
@@ -93,7 +94,7 @@ function UnitCard({ unit, onClick }: UnitCardProps) {
         <div className="text-sm sm:text-base font-black text-ink-900 font-display text-center line-clamp-2 leading-tight">
           {unit.nameKo}
         </div>
-        {unit.nameEn && <div className="text-xs text-ink-500 font-bold">{unit.nameEn}</div>}
+        {unit.nameEn && <div className="text-xs text-ink-600 font-bold">{unit.nameEn}</div>}
         <div className="flex items-center gap-1">
           {isStorybook ? (
             <span className="px-2 py-0.5 rounded-full bg-coral-100 text-coral-700 text-xs font-black">
@@ -202,7 +203,7 @@ export function VocabularyHubPage() {
   const totalCount = allUnits.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-yellow-50 to-cream-50">
+    <div className="min-h-screen bg-cream-50">
       {/* 헤더 — 한 줄 압축 */}
       <header className="px-4 sm:px-6 pt-3 pb-2 max-w-5xl mx-auto">
         <div className="flex items-center justify-between gap-2">
@@ -212,7 +213,7 @@ export function VocabularyHubPage() {
               어휘 마스터
             </h1>
             {totalCount > 0 && (
-              <span className="text-xs text-ink-500 font-bold whitespace-nowrap hidden sm:inline">
+              <span className="text-xs text-ink-600 font-bold whitespace-nowrap hidden sm:inline">
                 {totalCount} 단원
               </span>
             )}
@@ -226,10 +227,11 @@ export function VocabularyHubPage() {
           <span className="text-2xl">🔍</span>
           <input
             type="text"
+            aria-label="단원 검색"
             placeholder="어떤 단원 찾을까?"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
+            className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-600 font-bold"
           />
           <select
             value={sortBy}
@@ -274,7 +276,7 @@ export function VocabularyHubPage() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-16 text-ink-500">
+          <div className="text-center py-16 text-ink-600">
             <p className="text-lg font-bold">
               {search ? '찾는 단원이 없네' : '아직 공개된 어휘 단원이 없어요'}
             </p>

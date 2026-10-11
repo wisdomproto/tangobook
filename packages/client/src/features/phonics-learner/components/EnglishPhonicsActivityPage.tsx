@@ -765,10 +765,10 @@ export function EnglishPhonicsActivity({
 function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
   const { t } = useTranslation('phonics');
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
+    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 overflow-hidden">
       <button
         onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
+        className="self-start min-h-11 mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
         {t('common.back')}
       </button>
@@ -777,7 +777,7 @@ function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: 
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
           {activityTitle(t, activity)}
         </h2>
-        <p className="text-base font-bold text-ink-500">{t('common.loading')}</p>
+        <p className="text-base font-semibold text-ink-600">{t('common.loading')}</p>
       </div>
     </div>
   );
@@ -795,10 +795,10 @@ function ActivityUnavailable({
 }) {
   const { t } = useTranslation('phonics');
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
+    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 overflow-hidden">
       <button
         onClick={onBack}
-        className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
+        className="self-start min-h-11 mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
       >
         {t('common.back')}
       </button>

@@ -549,7 +549,7 @@ function ConnectTheDotsPlayer({
 
         {/* 게임 영역 */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-          <div className="relative select-none rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop max-h-full">
+          <div className="relative select-none rounded-3xl overflow-hidden border-2 border-ink-100 bg-white shadow-soft max-h-full">
             <img
               src={currentItem.originalImageUrl}
               alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}

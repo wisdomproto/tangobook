@@ -85,7 +85,7 @@ export function RewardScreen({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center text-center overflow-y-auto p-6 sm:p-8 md:p-10 bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200"
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center text-center overflow-y-auto p-6 sm:p-8 md:p-10 bg-cream-50"
         >
           <motion.div
             initial={reduce ? { opacity: 0 } : { scale: 0.5, y: 40 }}
@@ -145,8 +145,8 @@ export function RewardScreen({
                     window.open(directVideoUrl, '_blank', 'noopener,noreferrer');
                 }}
                 className={cn(
-                  'flex items-center gap-2.5 px-8 py-4 rounded-xl font-black text-white shadow-pop',
-                  'bg-gradient-to-br from-coral-400 to-coral-500 hover:brightness-105 active:brightness-95',
+                  'flex items-center gap-2.5 px-8 py-4 rounded-xl font-black text-white shadow-soft',
+                  'bg-coral-700 hover:brightness-105 active:brightness-95',
                   caseType === 'B' && 'text-lg px-10 py-5'
                 )}
               >
@@ -158,7 +158,7 @@ export function RewardScreen({
                 onClick={onPlayGame}
                 className={cn(
                   'flex items-center gap-2.5 px-8 py-4 rounded-xl font-black text-white',
-                  'bg-gradient-to-br from-fun to-[#7C3AED] shadow-[0_4px_16px_rgba(124,58,237,0.35)] hover:brightness-105',
+                  'bg-white text-ink-900 border border-ink-200 hover:brightness-105',
                   caseType === 'C' && 'text-lg px-10 py-5'
                 )}
               >
@@ -168,7 +168,7 @@ export function RewardScreen({
             {caseType === 'D' && (
               <button
                 onClick={onGoHome}
-                className="flex items-center gap-2.5 px-10 py-5 rounded-xl font-black text-white shadow-pop bg-gradient-to-br from-coral-400 to-coral-500 hover:brightness-105 text-lg"
+                className="flex items-center gap-2.5 px-10 py-5 rounded-xl font-black text-white shadow-soft bg-coral-700 hover:brightness-105 text-lg"
               >
                 {t('reward.goOtherBooksBig')}
               </button>
@@ -186,14 +186,14 @@ export function RewardScreen({
             {caseType !== 'D' && (
               <button
                 onClick={onGoHome}
-                className="px-5 py-2.5 bg-white rounded-lg shadow-soft font-bold text-sm text-ink-900 flex items-center gap-1.5"
+                className="min-h-11 px-5 py-2.5 bg-white rounded-lg shadow-soft font-bold text-sm text-ink-900 flex items-center gap-1.5"
               >
                 {t('reward.otherBooks')}
               </button>
             )}
             <button
               onClick={onRereadFromStart}
-              className="px-5 py-2.5 bg-white rounded-lg shadow-soft font-bold text-sm text-ink-900 flex items-center gap-1.5"
+              className="min-h-11 px-5 py-2.5 bg-white rounded-lg shadow-soft font-bold text-sm text-ink-900 flex items-center gap-1.5"
             >
               {t('reward.reread')}
             </button>

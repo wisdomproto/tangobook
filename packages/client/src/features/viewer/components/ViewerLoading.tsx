@@ -26,7 +26,7 @@ export function ViewerLoading({ label }: ViewerLoadingProps) {
       <div className="w-full max-w-[280px]">
         <div className="h-5 w-full overflow-hidden rounded-full bg-peach-100 shadow-inner">
           <div
-            className="relative h-full rounded-full bg-gradient-to-r from-coral-400 to-coral-500"
+            className="relative h-full rounded-full bg-coral-700"
             style={{ width: `${progress}%`, transition: 'width 2200ms ease-out' }}
           >
             {/* 윗면 광택 하이라이트 */}

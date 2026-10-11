@@ -129,8 +129,8 @@ export function VowelWriteActivity({
                 done
                   ? 'bg-success/15 border-success text-success-700'
                   : active
-                    ? 'bg-coral-500 border-coral-600 text-white shadow-pop scale-105'
-                    : 'bg-white border-white text-ink-700 hover:shadow-pop',
+                    ? 'bg-coral-500 border-coral-600 text-white shadow-soft scale-105'
+                    : 'bg-white border-white text-ink-700 hover:shadow-soft',
               ].join(' ')}
             >
               {done && <span className="text-base">✓</span>}

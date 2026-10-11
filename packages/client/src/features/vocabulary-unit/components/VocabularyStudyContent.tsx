@@ -56,17 +56,17 @@ import { WordDetailModal } from './WordDetailModal';
  */
 const TONE = {
   coral: {
-    fill: 'bg-gradient-to-b from-coral-400 to-coral-500 text-white',
-    shadow: 'shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)]',
-    textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)',
-    chip: 'bg-white/90 text-coral-600',
+    fill: 'bg-white text-ink-900 border border-ink-100',
+    shadow: 'shadow-soft',
+    textShadow: 'none',
+    chip: 'bg-cream-50 text-ink-700',
     arrow: 'bg-white/95 text-coral-600',
   },
   mint: {
-    fill: 'bg-gradient-to-b from-mint-400 to-mint-500 text-white',
-    shadow: 'shadow-[0_6px_0_#1F6749,0_8px_20px_rgba(58,168,126,0.35)]',
-    textShadow: '0 2px 0 rgba(31, 103, 73, 0.4)',
-    chip: 'bg-white/90 text-mint-600',
+    fill: 'bg-white text-ink-900 border border-ink-100',
+    shadow: 'shadow-soft',
+    textShadow: 'none',
+    chip: 'bg-cream-50 text-ink-700',
     arrow: 'bg-white/95 text-mint-600',
   },
 } as const;
@@ -239,9 +239,7 @@ export function VocabularyStudyContent({
                   ← {t('study.otherPlay')}
                 </button>
                 <h2
-                  className={`text-2xl lg:text-3xl font-black font-display flex items-center gap-2 break-keep ${
-                    group.tone === 'mint' ? 'text-mint-700' : 'text-coral-600'
-                  }`}
+                  className={`text-section-title font-display flex items-center gap-2 break-keep ${'text-ink-900'}`}
                 >
                   <span>{group.emoji}</span>
                   <span>{t(group.headingKey)}</span>
@@ -269,7 +267,7 @@ export function VocabularyStudyContent({
               {openGroup === 'word' && (
                 <div className="mt-6">
                   <div className="flex items-baseline gap-3 mb-2 px-1">
-                    <h3 className="text-xl lg:text-2xl font-black font-display text-ink-900 flex items-center gap-2">
+                    <h3 className="text-lg lg:text-xl font-bold font-display text-ink-900 flex items-center gap-2">
                       <span>📚</span>
                       <span>{t('study.wordsHeading')}</span>
                     </h3>
@@ -424,13 +422,13 @@ function GroupCard({
   return (
     <button
       onClick={onOpen}
-      className={`relative rounded-3xl p-5 lg:p-6 pb-16 min-h-[clamp(13rem,36vh,22rem)] flex flex-col items-center justify-center text-center gap-2 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out ${c.fill} ${c.shadow}`}
+      className={`relative rounded-3xl p-5 lg:p-6 pb-16 min-h-[clamp(13rem,36vh,22rem)] flex flex-col items-center justify-center text-center gap-2 transition-shadow hover:shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 ${c.fill} ${c.shadow}`}
     >
       <span className="text-[clamp(2.5rem,8vh,4rem)] leading-none" aria-hidden>
         {emoji}
       </span>
       <span
-        className="text-2xl lg:text-3xl font-black font-display break-keep"
+        className="text-section-title font-display break-keep"
         style={{ textShadow: c.textShadow }}
       >
         {label}
@@ -451,7 +449,7 @@ function GroupCard({
                 {g.emoji}
               </span>
             )}
-            <span className="text-[0.65rem] lg:text-xs font-black leading-tight break-keep">
+            <span className="text-xs lg:text-sm font-black leading-tight break-keep">
               {g.label}
             </span>
           </li>
@@ -497,7 +495,7 @@ function GameCard({
 
   // 좌측 큰 일러스트 — 카드 일러스트 그대로 (배경 X). emoji 는 fallback.
   const leftIllustration = (extraClass = '') => (
-    <div className="w-24 h-24 lg:w-28 lg:h-28 flex-shrink-0 flex items-center justify-center">
+    <div className="w-16 h-16 lg:w-20 lg:h-20 flex-shrink-0 flex items-center justify-center">
       {game.iconSrc ? (
         <img
           src={game.iconSrc}
@@ -533,7 +531,7 @@ function GameCard({
         {numberBadge}
         {leftIllustration('opacity-40 grayscale')}
         <div className="flex-1 flex flex-col items-start gap-1 pr-2">
-          <span className="text-2xl lg:text-3xl font-black">{game.label}</span>
+          <span className="text-section-title">{game.label}</span>
           {game.unavailableReason && (
             <span className="text-sm font-bold text-left">{game.unavailableReason}</span>
           )}
@@ -551,15 +549,13 @@ function GameCard({
   return (
     <button
       onClick={onPlay}
-      className="relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 hover:-translate-y-0.5 active:translate-y-1 transition-all duration-100 ease-out text-left bg-white text-ink-900 shadow-[0_5px_0_#EDE1D4,0_6px_14px_rgba(63,47,36,0.10)] hover:shadow-[0_7px_0_#EDE1D4,0_10px_18px_rgba(63,47,36,0.14)] active:shadow-[0_2px_0_#EDE1D4,0_3px_6px_rgba(63,47,36,0.10)]"
+      className="relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 transition-shadow hover:shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 text-left bg-white text-ink-900 border border-ink-100 shadow-soft"
     >
       {numberBadge}
       {leftIllustration()}
       <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
-        <span className="text-xl lg:text-2xl font-black font-display">{game.label}</span>
-        {game.subtitle && (
-          <span className="text-xs lg:text-sm font-bold text-ink-600">{game.subtitle}</span>
-        )}
+        <span className="text-lg lg:text-xl font-bold font-display">{game.label}</span>
+        {game.subtitle && <span className="text-sm font-medium text-ink-600">{game.subtitle}</span>}
       </div>
       {arrowCircle}
     </button>

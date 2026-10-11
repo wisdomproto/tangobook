@@ -14,20 +14,34 @@ const paddingClass = {
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { interactive, padding = 'md', className, children, ...rest },
+  { interactive, padding = 'md', className, children, onKeyDown, ...rest },
   ref
 ) {
   return (
     <div
       ref={ref}
       className={cn(
-        'bg-white rounded-lg shadow-soft',
+        'bg-white rounded-card border border-ink-100 shadow-soft',
         interactive &&
-          'transition-all hover:-translate-y-0.5 hover:shadow-card cursor-pointer active:translate-y-0',
+          'transition-shadow hover:shadow-card cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700',
         paddingClass[padding],
         className
       )}
       {...rest}
+      role={interactive ? (rest.role ?? 'button') : rest.role}
+      tabIndex={interactive ? (rest.tabIndex ?? 0) : rest.tabIndex}
+      onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (
+          interactive &&
+          !event.defaultPrevented &&
+          event.target === event.currentTarget &&
+          (event.key === 'Enter' || event.key === ' ')
+        ) {
+          event.preventDefault();
+          event.currentTarget.click();
+        }
+      }}
     >
       {children}
     </div>

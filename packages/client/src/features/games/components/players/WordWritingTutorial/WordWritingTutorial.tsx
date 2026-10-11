@@ -121,7 +121,7 @@ export function WordWritingTutorial({ active, onEnd }: WordWritingTutorialProps)
           {bubbleText && (
             <motion.div
               key="bubble"
-              className="relative bg-white/95 rounded-3xl shadow-pop px-5 py-3 max-w-[260px]"
+              className="relative bg-white/95 rounded-3xl shadow-soft px-5 py-3 max-w-[260px]"
               initial={{ opacity: 0, scale: 0.8, x: 10 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.2 }}

@@ -333,7 +333,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
                 src={writeWord.imageUrl}
                 alt={writeWord.word}
                 draggable={false}
-                className="w-[clamp(3.5rem,14vh,8rem)] h-[clamp(3.5rem,14vh,8rem)] object-cover rounded-3xl border-[6px] border-white shadow-pop shrink-0"
+                className="w-[clamp(3.5rem,14vh,8rem)] h-[clamp(3.5rem,14vh,8rem)] object-cover rounded-3xl border-[6px] border-white shadow-soft shrink-0"
               />
             )}
             <div className="w-full max-w-2xl">
@@ -479,7 +479,7 @@ function WordImage({ row, show }: { row: Row; show: boolean }) {
           src={row.imageUrl}
           alt={row.word}
           draggable={false}
-          className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-pop"
+          className="w-full h-full object-cover rounded-2xl border-[4px] border-white shadow-soft"
         />
       )}
     </div>
@@ -517,9 +517,9 @@ function Cell({
   wide?: boolean;
 }) {
   const bgByTone: Record<CellTone, string> = {
-    left: 'bg-gradient-to-b from-coral-400 to-coral-500 border-coral-600',
-    middle: 'bg-gradient-to-b from-warn to-amber-400 border-amber-500',
-    right: 'bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500',
+    left: 'bg-coral-100 border-coral-300',
+    middle: 'bg-peach-100 border-peach-300',
+    right: 'bg-mint-100 border-mint-400',
   };
   return (
     <motion.button
@@ -527,7 +527,7 @@ function Cell({
       animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
       transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
       className={[
-        'relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-[0_8px_0_rgba(0,0,0,0.08),0_14px_28px_-8px_rgba(0,0,0,0.25)] text-white active:scale-[0.95] transition-shadow font-black',
+        'relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
         wide ? 'min-w-[clamp(6rem,20vh,12rem)] px-4' : 'px-[clamp(0.75rem,2vh,1.5rem)]',
         bgByTone[tone],
         pressed
@@ -537,8 +537,8 @@ function Cell({
             : '',
       ].join(' ')}
       style={{
-        textShadow: '0 3px 0 rgba(0,0,0,0.18)',
-        WebkitTextStroke: '1.5px rgba(255,255,255,0.5)',
+        textShadow: 'none',
+        WebkitTextStroke: '0',
         paintOrder: 'stroke fill',
       }}
     >
@@ -546,7 +546,7 @@ function Cell({
         {label}
       </span>
       {pressed && (
-        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-success text-white text-sm font-black shadow-pop ring-2 ring-white">
+        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-success text-white text-sm font-black shadow-soft ring-2 ring-white">
           ✓
         </span>
       )}

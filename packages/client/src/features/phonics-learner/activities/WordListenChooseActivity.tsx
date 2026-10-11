@@ -546,7 +546,7 @@ export function WordListenChooseActivity({
                 <button
                   onClick={() => say(current.answer)}
                   aria-label={t('common.listenAgain')}
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-500 text-white text-4xl sm:text-5xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-700 text-white text-4xl sm:text-5xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
                 >
                   🔊
                 </button>
@@ -595,11 +595,11 @@ export function WordListenChooseActivity({
                   ? 'border-mint-500 bg-mint-100 ring-4 ring-mint-300 scale-[1.03]'
                   : wrong === idOf(c)
                     ? 'border-coral-500 bg-white animate-shake'
-                    : 'border-white bg-white hover:shadow-pop active:scale-[0.97]',
+                    : 'border-white bg-white hover:shadow-soft active:scale-[0.97]',
               ].join(' ')}
             >
               {(correct === idOf(c) || solved.has(idOf(c))) && (
-                <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center justify-center w-8 h-8 rounded-full bg-mint-500 text-white text-lg font-black shadow-pop ring-2 ring-white">
+                <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center justify-center w-8 h-8 rounded-full bg-mint-500 text-white text-lg font-black shadow-soft ring-2 ring-white">
                   ✓
                 </span>
               )}
@@ -648,7 +648,7 @@ export function WordListenChooseActivity({
           // 🔴 "퀴즈" 만으론 무엇을 하는 버튼인지 알 수 없다 — 무슨 퀴즈인지 한 줄로 붙인다.
           <button
             onClick={startQuiz}
-            className="px-10 py-4 rounded-full bg-coral-500 text-white shadow-pop active:scale-[0.98] transition flex flex-col items-center leading-tight"
+            className="px-10 py-4 rounded-full bg-coral-700 text-white shadow-soft active:scale-[0.98] transition flex flex-col items-center leading-tight"
           >
             <span className="font-black text-2xl sm:text-3xl">{t('wordListen.quizBtn')}</span>
             <span className="font-bold text-sm sm:text-base text-white/90 break-keep">
@@ -663,13 +663,13 @@ export function WordListenChooseActivity({
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={restart}
-                className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl shadow-pop active:scale-[0.98] transition"
+                className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl shadow-soft active:scale-[0.98] transition"
               >
                 {t('common.retry')}
               </button>
               <button
                 onClick={onBack}
-                className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+                className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
               >
                 {t('common.back')}
               </button>

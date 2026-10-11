@@ -19,7 +19,7 @@ export default function PaymentFailPage() {
       {code && <p className="text-xs text-slate-400">{t('paymentFail.errorCode', { code })}</p>}
       <Link
         to="/subscribe"
-        className="mt-4 inline-block rounded-full bg-coral-500 px-6 py-3 font-black text-white shadow-pop hover:bg-coral-600"
+        className="mt-4 inline-block rounded-full bg-coral-700 px-6 py-3 font-black text-white shadow-soft hover:bg-coral-800"
       >
         {t('paymentFail.retry')}
       </Link>

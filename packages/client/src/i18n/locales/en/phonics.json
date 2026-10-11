@@ -69,7 +69,8 @@
     "koreanLead": "Hangul",
     "englishLead": "English",
     "chineseLead": "Pinyin",
-    "englishComingSoonNote": "English phonics activities are coming soon! ✨"
+    "englishComingSoonNote": "English phonics activities are coming soon! ✨",
+    "activityDone": "Done"
   },
   "hub": {
     "title": "Hangul Phonics",

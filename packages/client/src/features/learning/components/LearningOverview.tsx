@@ -107,7 +107,7 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
               key={value}
               aria-pressed={period === value}
               onClick={() => setPeriod(value)}
-              className={`min-h-11 rounded-full px-4 text-sm font-bold ${period === value ? 'bg-coral-500 text-white' : 'text-ink-600'}`}
+              className={`min-h-11 rounded-full px-4 text-sm font-bold ${period === value ? 'bg-coral-700 text-white' : 'text-ink-600'}`}
             >
               {t(`overview.${value}`)}
             </button>
@@ -128,7 +128,7 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
         </p>
       )}
       <div className="grid gap-4 md:grid-cols-[1.4fr_1fr]">
-        <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-peach-100 via-cream-50 to-coral-100 p-5 sm:p-6 shadow-soft">
+        <section className="overflow-hidden rounded-3xl border border-ink-100 bg-white p-5 sm:p-6 shadow-soft">
           <div className="flex items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="text-sm font-bold text-coral-600">{t(`overview.${period}`)}</p>

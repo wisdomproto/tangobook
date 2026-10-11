@@ -136,10 +136,10 @@ export function ConsonantTapActivity({
                 onClick={() => handleTap(i)}
                 disabled={done}
                 className={[
-                  'relative rounded-3xl border-[5px] aspect-square overflow-hidden flex flex-col items-center justify-center shadow-soft transition',
+                  'relative rounded-3xl border-2 aspect-square overflow-hidden flex flex-col items-center justify-center shadow-soft transition',
                   done
                     ? 'bg-success/15 border-success'
-                    : 'bg-white border-coral-300 hover:shadow-pop active:scale-[0.96]',
+                    : 'bg-white border-coral-300 hover:shadow-soft active:scale-[0.96]',
                 ].join(' ')}
                 aria-label={
                   done && word

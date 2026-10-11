@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader } from '@/design-system';
+import { CurriculumNavigation } from './CurriculumNavigation';
 import {
   getAllEnglishUnits,
   getEnglishActivityPlan,
@@ -91,13 +92,14 @@ export default function EnglishPhonicsStudyPage() {
   };
 
   return (
-    <div className="relative flex h-[calc(100dvh-148px-env(safe-area-inset-bottom))] flex-col bg-cream-50 lg:h-[calc(100dvh-72px)]">
+    <div className="relative flex h-[calc(100dvh-149px-env(safe-area-inset-bottom))] flex-col bg-cream-50 lg:h-[calc(100dvh-73px)]">
       <PageHeader
         onBack={() => navigate('/library')}
         backLabel={t('common.home')}
         right={
           <button
             type="button"
+            aria-expanded={navOpen}
             onClick={() => setNavOpen(true)}
             className="md:hidden px-4 py-2.5 rounded-full bg-white/90 text-ink-800 font-black text-sm shadow-soft flex items-center gap-1.5 min-h-[44px]"
           >
@@ -112,31 +114,7 @@ export default function EnglishPhonicsStudyPage() {
       </PageHeader>
 
       <div className="flex-1 min-h-0 flex mt-2">
-        {/* 모바일: 드로어 백드롭 */}
-        {navOpen && (
-          <div
-            className="md:hidden fixed inset-0 bg-black/40 z-30"
-            onClick={() => setNavOpen(false)}
-            aria-hidden
-          />
-        )}
-        {/* 좌측 — 커리큘럼. 데스크톱=인라인 사이드바 / 모바일=슬라이드 드로어 */}
-        <aside
-          className={`overflow-y-auto py-4 px-2.5 sm:px-3 bg-white/95 backdrop-blur fixed left-0 top-0 bottom-0 z-40 w-72 max-w-[85vw] shadow-xl ${navOpen ? 'block' : 'hidden'} md:block md:static md:z-auto md:w-64 md:h-full md:max-w-none md:shadow-none md:border-r md:border-cream-200/80 md:bg-white/85`}
-        >
-          {/* 모바일 닫기 헤더 */}
-          <div className="md:hidden flex items-center justify-between mb-3 px-1">
-            <span className="font-black font-display text-ink-900 text-lg">
-              {t('common.unitPicker')}
-            </span>
-            <button
-              onClick={() => setNavOpen(false)}
-              aria-label={t('common.close')}
-              className="w-9 h-9 rounded-full bg-cream-100 text-ink-700 font-black"
-            >
-              ✕
-            </button>
-          </div>
+        <CurriculumNavigation open={navOpen} onClose={() => setNavOpen(false)}>
           <div className="flex flex-col gap-5">
             {byLevel.map(([levelKey, level]) => {
               const isExpanded = expandedLevels.has(levelKey);
@@ -171,10 +149,10 @@ export default function EnglishPhonicsStudyPage() {
                       className={[
                         'text-xs font-black shrink-0 px-2 py-0.5 rounded-full',
                         levelPct === 100
-                          ? 'bg-success text-white'
+                          ? 'bg-mint-100 text-mint-700'
                           : levelPct > 0
                             ? 'bg-coral-100 text-coral-600'
-                            : 'text-ink-400',
+                            : 'text-ink-600',
                       ].join(' ')}
                     >
                       {levelPct === 100 ? '✓ 100%' : `${levelPct}%`}
@@ -199,7 +177,7 @@ export default function EnglishPhonicsStudyPage() {
               );
             })}
           </div>
-        </aside>
+        </CurriculumNavigation>
 
         <div className="flex-1 min-h-0 overflow-y-auto">
           <EnglishPhonicsUnitPage embedded />
@@ -227,15 +205,17 @@ function CurriculumItem({
   // 영어 unit title 예: "Unit 01: Aa Bb Cc" → 앞 "Unit 01: " 제거
   const { t } = useTranslation('phonics');
   const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
-  const baseClass = 'flex items-center gap-2.5 px-2.5 py-2.5 rounded-2xl text-left transition-all';
+  const baseClass =
+    'flex min-h-12 items-center gap-2.5 px-2.5 py-2.5 rounded-card text-left border-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700';
   // 모든 unit 클릭 가능 (계획 없어도 진입 — UnitPage 에서 "준비 중" 메시지). 사이드바 상의 시각만 옅게.
   return (
     <Link
       to={`/library/phonics/english/${unit.id}`}
+      aria-current={active ? 'page' : undefined}
       className={[
         baseClass,
         active
-          ? 'bg-gradient-to-br from-coral-400 to-coral-600 text-white shadow-pop ring-2 ring-white scale-[1.02]'
+          ? 'bg-coral-100 text-ink-900 border-coral-700'
           : done
             ? 'bg-success/10 text-success-700 hover:bg-success/20 border-2 border-success/20'
             : hasPlan
@@ -249,10 +229,10 @@ function CurriculumItem({
           active
             ? 'bg-white text-coral-600 ring-coral-200'
             : done
-              ? 'bg-success text-white ring-white'
+              ? 'bg-mint-100 text-mint-700 ring-white'
               : hasPlan
                 ? 'bg-coral-100 text-coral-600 ring-white'
-                : 'bg-ink-100 text-ink-400 ring-white',
+                : 'bg-ink-100 text-ink-600 ring-white',
         ].join(' ')}
       >
         {/* 🔴 복습은 앞 단원과 번호가 같아 숫자를 쓰면 "4, 4" 로 보인다 — 트로피로 구분. */}
@@ -260,7 +240,7 @@ function CurriculumItem({
       </span>
       <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
       {!hasPlan && !active ? (
-        <span className="ml-auto text-[10px] font-bold text-ink-300 shrink-0">
+        <span className="ml-auto text-xs font-bold text-ink-600 shrink-0">
           {t('common.comingSoon')}
         </span>
       ) : (
@@ -268,7 +248,7 @@ function CurriculumItem({
         !done &&
         doneCount > 0 && (
           <span
-            className={`ml-auto shrink-0 text-[11px] font-black tabular-nums ${active ? 'text-white/90' : 'text-coral-500'}`}
+            className={`ml-auto shrink-0 text-xs font-black tabular-nums ${active ? 'text-coral-800' : 'text-coral-700'}`}
           >
             {doneCount}/{totalCount}
           </span>

@@ -455,7 +455,7 @@ function LineMatchingPlayerInner({
         {/* 오디오 로딩 overlay — 이번 판 음절/단어 mp3 프리페치 대기(짝 맞춘 순간 발음 지연 방지). */}
         {!audioReady && (
           <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
-            <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+            <div className="rounded-3xl bg-white shadow-soft px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
               <div
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
                 aria-hidden
@@ -616,7 +616,7 @@ function LineMatchingPlayerInner({
             <button
               onClick={handleHintStart}
               disabled={hintActive || isTutorialPlaying}
-              className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-black text-lg shadow-soft hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >🪄 도와줘</button> */}
 
         <LineMatchingTutorial

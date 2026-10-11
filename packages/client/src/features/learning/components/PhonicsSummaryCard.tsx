@@ -42,7 +42,7 @@ export function PhonicsSummaryCard({ events, storybooks, lang }: Props) {
   if (!hasAnyPhonics) return null;
 
   return (
-    <div className="rounded-3xl bg-gradient-to-br from-mint-100 to-cream-50 p-5 shadow-soft">
+    <div className="rounded-3xl border border-ink-100 bg-white p-5 shadow-soft">
       <p className="text-lg font-black text-ink-900 break-keep">
         {doneCount > 0
           ? `${units.length}단원 중 ${doneCount}단원을 마쳤어요.`
@@ -57,7 +57,7 @@ export function PhonicsSummaryCard({ events, storybooks, lang }: Props) {
       )}
       <Link
         to={to}
-        className="mt-3 inline-flex rounded-full bg-coral-500 px-5 py-2.5 text-sm font-black text-white shadow-pop transition hover:-translate-y-0.5"
+        className="mt-3 inline-flex rounded-full bg-coral-700 px-5 py-2.5 text-sm font-black text-white shadow-soft transition hover:-translate-y-0.5"
       >
         {doneCount > 0 ? '이어서 하기' : '하러 가기'}
       </Link>
