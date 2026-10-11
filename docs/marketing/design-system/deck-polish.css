@@ -1,0 +1,99 @@
+/* Presentation finish: existing content, imagery and reading order are unchanged. */
+#investor-panel {
+ --deck-edge:#d8e3dc;
+ --deck-soft:#f2f5ef;
+ --deck-radius:8px;
+}
+#investor-panel .section-h2 {letter-spacing:-.045em;font-weight:800}
+#investor-panel .section-badge {color:#60756d}
+#investor-panel .badge-num {font-variant-numeric:tabular-nums;font-weight:700}
+#investor-panel .section-sub {color:#526a60}
+#investor-panel :is(.eco-kicker,.rf-eyebrow,.v-label) {letter-spacing:.01em}
+#investor-panel :is(.rf-process>article,.rf-library,.rf-asset-side>article,.td-offer-grid>article,.td-sales-summary-flow article,.td-compact-report) {border-radius:var(--deck-radius);border-color:var(--deck-edge);box-shadow:none}
+#investor-panel :is(.rf-benefit,.eco-path,.td-connection-result) {border-radius:4px}
+
+/* The app is the visual centre, with quiet satellite cards. */
+#vision .rf-app {background:linear-gradient(145deg,#e8f2e9,#f4f8f2);border:1px solid #8eb6a6;border-radius:12px;box-shadow:0 10px 24px #173e3609}
+#vision .rf-app>img {height:290px!important}
+#vision .rf-app h3 {font-size:30px;letter-spacing:-.04em}
+#vision .rf-app-functions b {border:1px solid #d6e4d9;border-radius:4px;background:#fffdf9}
+#vision .rf-analog article {background:transparent;border:0;border-bottom:1px solid var(--deck-edge);border-radius:0}
+#vision .rf-digital article {background:#fffdf9;border:1px solid var(--deck-edge);border-radius:8px}
+#vision .rf-link {color:#2d8274}
+#vision .rf-benefit {background:#eaf2eb;border-left:3px solid #238f88}
+
+/* Scope and usage read as image-led columns, rather than identical boxes. */
+#learning-range .eco-scope>article {background:transparent;border:0;border-top:3px solid #93b6a5;border-radius:0;padding:22px 20px}
+#learning-range .eco-scope>article+article {border-left:1px solid var(--deck-edge)}
+#learning-range .eco-scope h3 {font-size:29px;letter-spacing:-.035em}
+#learning-range .eco-scale {font-size:38px;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+#learning-range .eco-scale small {font-size:17px;letter-spacing:0}
+#learning-range .eco-path {border-top:1px solid #cadcd0;background:transparent;padding:18px 24px;margin-top:18px}
+#learning-value .eco-choice>article {border:1px solid var(--deck-edge);border-top:3px solid #c6d7ca;border-radius:8px;background:#fffdf9}
+#learning-value .eco-choice>.eco-choice-main {background:#edf5ee;border:1px solid #a3c2b0;border-top:3px solid #238f88}
+#learning-value .eco-choice h3 {letter-spacing:-.035em}
+#learning-value .eco-choice article>img {border-radius:5px}
+#learning-value .eco-value>div+div {border-left:1px solid var(--deck-edge);padding-left:24px}
+
+/* Keep learning scenes equal; reserve the soft surface for digital feedback. */
+#business .td-story-step-scene {border-radius:8px;border-color:#ccddd2}
+#business .td-app-feedback {background:#eaf3ec}
+#business .td-story-step-meta b {font-variant-numeric:tabular-nums}
+#reading-report .td-reading-bridge {border-radius:8px;border-color:var(--deck-edge)}
+#reading-report .td-compact-report {border-top:3px solid #238f88;background:#fffdf9}
+#reading-report .td-report-next {border-radius:5px}
+
+/* Process pages: production sits in the middle; inputs and outputs recede. */
+#investor-panel .rf-process>article {border-top:3px solid #a9c7b7}
+#investor-panel .rf-process>.rf-input {background:#f0f4ed}
+#investor-panel .rf-process>article:nth-of-type(2) {border-top-color:#238f88}
+#investor-panel .rf-process>article:last-of-type {background:#fffdf9}
+#investor-panel .rf-process h3 {letter-spacing:-.035em}
+#investor-panel .rf-arrow {font-size:28px;color:#6f9d8b}
+#foundation .rf-library {border:0;border-top:3px solid #238f88;background:#fffdf9;border-radius:0;padding-top:20px}
+#foundation .rf-library-heading h3 {font-size:58px;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+#foundation .rf-counts {gap:12px 18px}
+#foundation .rf-counts b {color:#238f88}
+#foundation .rf-asset-side>article {background:#f1f5ef;border:0;border-top:3px solid #b5cdbd;border-radius:0}
+#marketing-tools .rf-promo-examples>div {border-radius:5px}
+#marketing-tools .rf-channels img {opacity:.8}
+
+/* Commercial pages: product and money share a stronger typographic hierarchy. */
+#growth .td-offer-grid>article:first-child {background:#f1f6f0}
+#growth .td-offer-contents>div {background:#fffdf9;border:1px solid #dbe7dc;border-radius:6px}
+#growth .td-offer-grid h3 {letter-spacing:-.035em}
+#growth .td-offer-price strong {font-size:38px;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+#sales-strategy .td-brand-role {border-radius:5px}
+#sales-strategy .td-sales-summary-channel {border-radius:5px}
+#sales-strategy .td-sales-summary-footer {padding-top:16px;border-top:1px solid var(--deck-edge)}
+#revenue-model .td-unit-economics>div {font-variant-numeric:tabular-nums}
+#revenue-model .td-unit-economics>div:not(.td-unit-economics-head):not(.td-unit-economics-profit) b {font-size:21px;line-height:1.3}
+#revenue-model .td-unit-economics-head {background:#e5efe7}
+#revenue-model .td-unit-economics-profit b {font-size:32px;letter-spacing:-.025em}
+#revenue-model .td-access-pair article {background:transparent;border:0;border-top:2px solid #b5cdbd;border-radius:0;padding:16px 0}
+#validation .td-milestone-totals strong {font-size:46px;letter-spacing:-.045em;line-height:1.4;font-variant-numeric:tabular-nums}
+#validation .td-milestone-totals>div {border-radius:0 0 6px 6px}
+#validation .td-milestone-future {border-radius:6px;background:#f0f2eb}
+
+/* Dividers keep the edge-to-edge canvas, with one restrained graphic accent. */
+#investor-panel .td-part {position:relative;overflow:hidden;background:linear-gradient(120deg,#173e36 65%,#214b40)}
+#investor-panel .td-part::after {content:'';position:absolute;right:-12vw;bottom:-24vw;width:60vw;height:60vw;border:1px solid #ffffff0b;border-radius:50%;pointer-events:none}
+#investor-panel .td-part-copy,#investor-panel .td-part-visual {position:relative;z-index:1}
+#investor-panel .td-title-cover {background:#eaf2e9}
+#investor-panel .td-cover-index {background:#e2ece2}
+
+@media screen {
+ .present #investor-panel>main>section.active>.section-h2 {font-weight:800;line-height:1.2}
+ .present #investor-panel>main>section.active>.section-badge {border-bottom-color:#cddbd1}
+ .present #vision .rf-app>img {height:290px!important}
+}
+@media(max-width:699px) {
+ #learning-range .eco-scope>article+article {border-left:0}
+ #learning-range .eco-scope>article {padding:20px 0}
+ #learning-value .eco-value>div+div {border-left:0;padding-left:0}
+ #vision .rf-app h3 {font-size:26px}
+ #revenue-model .td-unit-economics>div:not(.td-unit-economics-head):not(.td-unit-economics-profit) b {font-size:14px}
+ #revenue-model .td-unit-economics-profit b {font-size:19px}
+ #validation .td-milestone-totals strong {font-size:30px}
+ #growth .td-offer-price strong {font-size:30px}
+}
