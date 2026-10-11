@@ -19,8 +19,8 @@ export function LearnerNavigation({ mobile = false }: { mobile?: boolean }) {
       aria-label={t(mobile ? 'nav.mobile' : 'nav.main')}
       className={
         mobile
-          ? 'fixed inset-x-0 bottom-0 z-30 flex border-t border-ink-100 bg-white pb-[env(safe-area-inset-bottom)] lg:hidden'
-          : 'hidden items-center gap-1 lg:flex'
+          ? 'fixed inset-x-0 bottom-0 z-30 flex border-t border-ink-100 bg-white pb-[env(safe-area-inset-bottom)] md:hidden'
+          : 'hidden min-w-0 items-center gap-1 md:flex'
       }
     >
       {destinations.map(({ to, key, symbol, end }) => {
@@ -38,7 +38,7 @@ export function LearnerNavigation({ mobile = false }: { mobile?: boolean }) {
               'rounded-xl font-bold text-ink-600 transition-colors hover:bg-cream-100 focus-visible:outline-2 focus-visible:outline-coral-700',
               mobile
                 ? 'flex min-h-[72px] min-w-0 flex-1 flex-col items-center justify-center gap-1 text-sm'
-                : 'flex min-h-12 items-center justify-center px-4 text-base lg:px-5 lg:text-lg',
+                : 'flex min-h-12 min-w-0 items-center justify-center px-3 text-center text-base lg:px-5 lg:text-lg',
               active && 'bg-coral-100 text-coral-700'
             )}
           >

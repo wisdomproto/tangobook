@@ -35,7 +35,7 @@ function LearningHomeContent() {
   const focus =
     'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-700';
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-10 pt-8 sm:px-6 md:pt-10">
+    <div className="mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6 md:pt-8">
       <div className="mb-7">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('home.title')}</h1>
         <p className="mt-3 text-base text-ink-600 md:text-lg">{t('home.subtitle')}</p>
@@ -45,7 +45,7 @@ function LearningHomeContent() {
           <Link
             key={lang}
             to={`/library/phonics/${lang}`}
-            className={`group relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-[24px] border border-ink-100 bg-white p-6 transition-colors hover:border-coral-300 md:min-h-[220px] md:p-8 ${focus}`}
+            className={`group relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-[24px] border-2 p-6 transition-colors md:min-h-[220px] md:p-8 ${lang === 'korean' ? 'border-peach-300 bg-peach-200 hover:border-coral-700' : 'border-mint-300 bg-mint-200 hover:border-mint-700'} ${focus}`}
           >
             <div className="relative z-10 max-w-[calc(100%_-_112px)] md:max-w-[calc(100%_-_136px)]">
               <h2 className="text-2xl font-bold md:text-3xl">{t(`nav.${lang}`)}</h2>
@@ -55,7 +55,7 @@ function LearningHomeContent() {
             </div>
             <span
               aria-hidden="true"
-              className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${lang === 'korean' ? 'bg-peach-100 text-coral-700' : 'bg-mint-100 text-mint-700'}`}
+              className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/70 text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${lang === 'korean' ? 'text-coral-700' : 'text-mint-700'}`}
             >
               {lang === 'korean' ? '가' : 'Aa'}
             </span>

@@ -31,7 +31,7 @@ export function AppShell() {
   return (
     <div className="min-h-dvh bg-cream-50 text-ink-900">
       <header className="sticky top-0 z-30 border-b border-ink-100 bg-cream-50/95 backdrop-blur-sm">
-        <div className="mx-auto flex min-h-[72px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+        <div className="mx-auto flex min-h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 md:min-h-[72px]">
           <Link
             to="/library"
             aria-label={t('logo.home')}
@@ -46,7 +46,9 @@ export function AppShell() {
           <LearnerNavigation />
           <div className="flex shrink-0 items-center gap-2">
             {session && activeProfile && (
-              <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
+              <div className="max-w-[120px] lg:max-w-none">
+                <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
+              </div>
             )}
             <button
               type="button"
@@ -70,7 +72,7 @@ export function AppShell() {
           </div>
         </div>
       </header>
-      <main className="pb-[calc(76px+env(safe-area-inset-bottom))] lg:pb-0">
+      <main className="pb-[calc(76px+env(safe-area-inset-bottom))] md:pb-0">
         <Outlet />
       </main>
       <LearnerNavigation mobile />

@@ -92,7 +92,7 @@ export default function EnglishPhonicsStudyPage() {
   };
 
   return (
-    <div className="relative flex h-[calc(100dvh-149px-env(safe-area-inset-bottom))] flex-col bg-cream-50 lg:h-[calc(100dvh-73px)]">
+    <div className="relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]">
       <PageHeader
         onBack={() => navigate('/library')}
         backLabel={t('common.home')}
