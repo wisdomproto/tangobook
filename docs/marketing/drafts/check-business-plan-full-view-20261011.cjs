@@ -9,8 +9,8 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(await page.locator('#chapter-select').inputValue(),'4');
   assert.equal(await page.locator('#mode').textContent(),'전체 보기');
   const ids=await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.map(e=>e.id));
-  assert.equal(ids.length,23);
-  assert.deepEqual(ids.slice(7,15),['part-content','platform-overview','ai-authoring','phonics-content','foundation','reading-activities','advantage','marketing-tools']);
+  assert.equal(ids.length,24);
+  assert.deepEqual(ids.slice(7,16),['part-content','platform-overview','ai-authoring','phonics-content','foundation','reading-activities','reading-sequence','advantage','marketing-tools']);
   await page.locator('#mode').click();
   for(const [width,height] of [[1440,900],[1280,720],[888,871],[390,844]]){
    await page.setViewportSize({width,height});
@@ -34,7 +34,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(await page.locator('#mode').textContent(),'전체 보기');
   assert.equal(await page.locator('.audience').isVisible(),true);
   await page.locator('#mode').click();await page.emulateMedia({media:'print'});
-  assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.filter(e=>getComputedStyle(e).display!=='none').length),23);
-  assert.deepEqual(errors,[]);console.log('PASS: 23 slides × 4 viewports; full-bleed dividers, chapter order, deep links, detail navigation, Escape and print visibility.');
+  assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.filter(e=>getComputedStyle(e).display!=='none').length),24);
+  assert.deepEqual(errors,[]);console.log('PASS: 24 slides × 4 viewports; full-bleed dividers, chapter order, deep links, detail navigation, Escape and print visibility.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

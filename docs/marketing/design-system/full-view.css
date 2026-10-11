@@ -36,8 +36,6 @@
  .present #vision .td-ecosystem-node p{font-size:12px;line-height:1.5;margin:0}
  .present #vision .td-ecosystem-caption{grid-column:1/-1;margin:0;padding-top:8px;font-size:18px}
  .present #vision .td-ecosystem-caption small{font-size:13px}
- .present #platform-overview .td-platform-map{margin:0}
- .present #platform-overview .td-platform-map img{height:640px!important;width:100%;object-fit:contain}
  .present #platform-overview>.section-sub{display:none}
  .present #platform-overview>.section-h2{margin-bottom:8px!important}
  .present #phonics-content .td-phonics-library{gap:24px}
@@ -62,7 +60,6 @@
  .present #education-market .td-market-source{margin-top:16px}
  .present #reading-report .td-reading-report{margin-top:0;padding-top:0;border-top:0}
  .present #reading-report .td-story-reader>img{height:280px}
- .present #growth .td-product-pair img{height:230px!important;object-fit:contain}
  .present #advantage .td-device-connections figure img{height:260px!important;object-fit:contain}
  .present #validation .td-milestone-dashboard{margin-top:12px}
  /* Dividers are edge-to-edge, independent of the content canvas aspect ratio. */

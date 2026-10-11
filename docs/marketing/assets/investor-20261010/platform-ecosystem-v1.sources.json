@@ -11,5 +11,5 @@
   "authoringImage": "Captured existing business-plan #ai-authoring .td-editor-mock at 1400px viewport; document UI concept using owned content, not an actual editor screenshot",
   "appImage": "app-overview-v3.png (design concept; see platform-image-provenance.json)",
   "channelLogos": "channel-logos/source.json",
-  "scope": "Part 3 opening overview, followed by authoring tools, owned content, digital activities, analog hardware and marketing tools. Reordered by user request on 2026-10-11."
+  "scope": "Retained original detailed platform diagram. The deck Part 3 overview now uses an enlarged editable HTML diagram from business-plan-readability-20261011.cjs, reusing the source assets (2026-10-11 readability review)."
 }
