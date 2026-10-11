@@ -17,8 +17,9 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
  assert.match(await page.locator('#milestone-chart').textContent(),/출시 전/);
  assert.match(await page.locator('#milestone-chart').textContent(),/미정/);
  assert.equal((await chart()).annual[0].supply,729750000);
- assert.equal(await page.locator('#milestone-chart rect[data-metric="supply"]').count(),4);
- assert.equal(await page.locator('#milestone-chart rect[data-metric="grossProfit"]').count(),4);
+ assert.equal(await page.locator('#milestone-chart polyline[data-series]').count(),2);
+ assert.equal(await page.locator('#milestone-chart circle[data-metric="supply"]').count(),4);
+ assert.equal(await page.locator('#milestone-chart circle[data-metric="grossProfit"]').count(),4);
  assert.match(await page.locator('#milestone-totals').textContent(),/2027 예상 매출총이익/);
  assert.deepEqual((await chart()).quarters.slice(0,4).map(q=>q.blocks),[1500,3000,3000,3000]);
  assert.equal(await page.locator('[data-month="5"][data-region="krNote"]').isDisabled(),true);

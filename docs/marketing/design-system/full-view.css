@@ -94,7 +94,7 @@
  .present #expansion-platform .v-takeaway{margin-top:20px;padding:16px}
  .present #expansion-content .td-comic-expansion{margin-top:20px;padding-top:20px}
  .present #expansion-content .td-comic-expansion img{height:285px!important;aspect-ratio:auto}
- .present #validation #milestone-chart svg{height:320px;width:100%;min-width:0}
+ .present #validation #milestone-chart svg{height:440px;width:100%;min-width:0}
  .present #validation .td-milestone-totals{margin:0 0 20px}
  .present #revenue-model .td-note{margin-top:8px}
  /* Dividers are edge-to-edge, independent of the content canvas aspect ratio. */

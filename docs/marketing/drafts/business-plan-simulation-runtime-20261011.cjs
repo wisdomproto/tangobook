@@ -41,13 +41,16 @@ module.exports=function runtime(plan){
  const quarters=Array.from({length:8},(_,q)=>sum(all.slice(q*3,q*3+3))),shown=quarters.slice(0,4),annual=[sum(all.slice(0,12)),sum(all.slice(12))];
  const max=Math.max(...shown.flatMap(q=>[q.supply,q.grossProfit]),1e8),min=Math.min(0,...shown.map(q=>q.grossProfit));
  const step=10**Math.floor(Math.log10((max-min)/4)),tick=Math.ceil((max-min)/4/step)*step,ceiling=Math.ceil(max/tick)*tick,floor=Math.floor(min/tick)*tick;
- const W=850,H=370,L=112,R=18,T=38,B=235,slot=(W-L-R)/4,bw=40,center=i=>L+(i+.5)*slot,y=v=>B-(v-floor)/(ceiling-floor)*(B-T),zero=y(0);
+ const W=850,H=480,L=112,R=18,T=38,B=215,slot=(W-L-R)/4,center=i=>L+(i+.5)*slot,y=v=>B-(v-floor)/(ceiling-floor)*(B-T);
  const tx=(x,y,text,size=17,color='#173e36',weight=400,anchor='middle')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'" font-size="'+size+'" font-weight="'+weight+'" fill="'+color+'">'+text+'</text>';
  let svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="2027년 분기별 예상 매출 및 매출총이익">'+tx(12,22,'억원',13,'#637770',400,'start');
  for(let v=floor;v<=ceiling+1;v+=tick){const yy=y(v);svg+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" stroke="#dbe5df"/>'+tx(L-14,yy+5,fmt(v/1e8),14,'#637770',400,'end');}
- shown.forEach((q,i)=>{const x=center(i);svg+='<g><title>2027년 '+(i+1)+'분기 매출 '+fmt(q.supply)+'원, 매출총이익 '+fmt(q.grossProfit)+'원</title>';[['supply',-24,'#238f88'],['grossProfit',24,'#d77349']].forEach(([key,dx,color])=>{const yy=y(q[key]);svg+='<rect data-metric="'+key+'" data-quarter="'+(i+1)+'" x="'+(x+dx-bw/2)+'" y="'+Math.min(yy,zero)+'" width="'+bw+'" height="'+Math.abs(zero-yy)+'" rx="2" fill="'+color+'"/>'+tx(x+dx,q[key]<0?yy+19:yy-9,fmt(q[key]/1e8),17,color,700);});svg+=tx(x,267,(i+1)+'분기',18,'#173e36',700)+'</g>';});
- svg+='<line x1="12" x2="'+(W-R)+'" y1="288" y2="288" stroke="#dbe5df"/>'+tx(12,320,'블록(세트)',14,'#173e36',700,'start')+tx(12,352,'탱고노트(대)',14,'#637770',400,'start');
- shown.forEach((q,i)=>{svg+=tx(center(i),320,q.blockKnown?fmt(q.blocks):'미정',18,'#173e36',700)+tx(center(i),352,!q.noteAvailable?'출시 전':q.noteKnown?fmt(q.notes):'미정',16,'#637770');});
+ [['supply','#238f88'],['grossProfit','#d77349']].forEach(([key,color])=>{svg+='<polyline data-series="'+key+'" points="'+shown.map((q,i)=>center(i)+','+y(q[key])).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="3.5" stroke-linejoin="round"/>';});
+ shown.forEach((q,i)=>{const x=center(i);svg+='<g><title>2027년 '+(i+1)+'분기 매출 '+fmt(q.supply)+'원, 매출총이익 '+fmt(q.grossProfit)+'원</title>';[['supply','#238f88'],['grossProfit','#d77349']].forEach(([key,color])=>{const yy=y(q[key]);svg+='<circle data-metric="'+key+'" data-quarter="'+(i+1)+'" cx="'+x+'" cy="'+yy+'" r="5" fill="white" stroke="'+color+'" stroke-width="3"/>'+tx(x,key==='supply'?yy-13:yy+24,fmt(q[key]/1e8),18,color,700);});svg+=tx(x,263,(i+1)+'분기',18,'#173e36',700)+'</g>';});
+ svg+='<line x1="'+center(0)+'" x2="'+center(3)+'" y1="285" y2="285" stroke="#bbd3c9" stroke-width="2"/>';
+ [[0,'한국 런칭','탱고북 v1.0','한글·영어 블록'],[2,'탱고노트 출시','종이 쓰기','학습 연동']].forEach(([i,title,line1,line2])=>{const x=center(i);svg+='<circle cx="'+x+'" cy="285" r="5" fill="#238f88"/>'+tx(x,319,title,20,'#173e36',700)+tx(x,345,line1,15,'#637770')+tx(x,367,line2,15,'#637770');});
+ svg+='<line x1="12" x2="'+(W-R)+'" y1="393" y2="393" stroke="#dbe5df"/>'+tx(12,425,'블록(세트)',14,'#173e36',700,'start')+tx(12,458,'탱고노트(대)',14,'#637770',400,'start');
+ shown.forEach((q,i)=>{svg+=tx(center(i),425,q.blockKnown?fmt(q.blocks):'미정',18,'#173e36',700)+tx(center(i),458,!q.noteAvailable?'출시 전':q.noteKnown?fmt(q.notes):'미정',16,'#637770');});
  document.getElementById('milestone-chart').innerHTML=svg+'</svg>';
  const a=annual[0],future=annual[1];
  document.getElementById('milestone-totals').innerHTML='<div><span>2027 예상 매출</span><strong>'+money(a.supply)+'</strong><small>유통사 공급액 기준</small></div><div><span>2027 예상 매출총이익</span><strong>'+money(a.grossProfit)+'</strong><small>교구 원가 · 플랫폼 비용 차감</small></div>';
