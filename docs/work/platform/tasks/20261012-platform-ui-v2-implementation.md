@@ -2,12 +2,12 @@
 
 - id: 20261012-platform-ui-v2-implementation
 - domain: platform
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: ae07cbe0d
 - branch: codex/platform-ui-v2
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 로컬 검증 완료, main 통합 대기
+- integration: 97f3212cc를 로컬 main에 fast-forward 통합 완료
 - delivery: 미푸시·미배포
 
 ## 요청·기준
@@ -49,4 +49,4 @@
 
 ## 마감 확인
 
-최종 client typecheck·관련 16테스트 통과. 수정 TS/TSX 30파일 ESLint 0오류/기존 StoryImage 힌트 경고 1개(주석 처리된 힌트 버튼의 기존 함수). 최종 production build 통과. 코드·기억만 이름으로 stage하며 임시 game fixture/검증 로그는 제외한다. 실제 시안 캡처는 루트 output/ui-v2-20261012에 보관한다. 원격 push·배포는 요청받지 않았다.
+최종 client typecheck·관련 16테스트 통과. 수정 TS/TSX 30파일 ESLint 0오류/기존 StoryImage 힌트 경고 1개(주석 처리된 힌트 버튼의 기존 함수). 최종 production build 통과. 부모 메뉴를 Escape로 닫으면 원래 버튼으로 초점이 돌아오는 것을 실제 브라우저에서 확인했다. 코드·기억만 이름으로 stage하고 임시 game fixture는 제거했으며 검증 로그는 제외했다. 최종 홈 캡처는 루트 output/ui-v2-20261012/home-tablet.jpg에 보관한다. 97f3212cc를 로컬 main에 통합했으며 원격 push·배포는 요청받지 않았다.
