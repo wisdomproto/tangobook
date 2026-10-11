@@ -7,7 +7,7 @@
 - base: 8d906d7fb
 - branch: main
 - worktree: C:/project/tangobook
-- delivery: 사용자 최적화 승인, main 푸시 및 배포 확인 예정
+- delivery: fb73dfe87 main 푸시 및 Railway 배포 성공·운영 검증 완료
 
 ## 문제와 원인
 
@@ -26,3 +26,8 @@
 - 전체보기22장×4뷰포트·탐색/인쇄, 매출 시뮬레이션, 모바일 전체보기API mock 회귀 통과. 실기기 검증 아님.
 - 전후22장 캡처 비교: 평균 채널차 최대0.359/255, 30이상 차이는 최대0.042%로 압축에 따른 미세 차이. 대표 개요/상품 장 육안 확인, 본문·레이아웃 유지.
 - 기존 전달 PDF는 변경하지 않음. 출력 PDF와 기존 tmp는 미추적 보존.
+
+## 원격 전달 확인
+
+- GitHub 커밋 상태: tangobook - tangobook, Success - tangobook.co.kr (2026-10-11T15:02:56Z). 별도 courageous-caring 서버는 watched paths 대상 아님으로 스킵; 본 사이트 배포 성공과 구분.
+- 운영 HEAD: Content-Length 289,202바이트(배포 과정 줄바꿈 정규화), HTTP200/no-cache. https://www.tangobook.co.kr/tangobook-business-plan.html 실제 브라우저에서 신규 자산/22장 디코딩/인쇄/마케팅 탭 검사 통과. 최초 자산 요청4개.
