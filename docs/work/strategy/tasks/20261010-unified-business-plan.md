@@ -8,7 +8,7 @@
 - branch: main
 - worktree: C:/project/tangobook
 - integration: 문서·메뉴·기억 로컬 main 반영
-- delivery: 2026-10-11 origin/main 2fce1784b 푸시 완료 · 운영 배포 완료는 별도 확인
+- delivery: 2026-10-11 소개서 1차 버전 origin/main eedc4c1ca 푸시 완료 · 운영 배포 완료는 별도 확인
 
 ## 2026-10-11 1차 버전 승인·PDF 전달
 
@@ -16,7 +16,7 @@
 - 최종 검증: 전체 보기 22장×4뷰포트·탐색·인쇄 가시성, 매출 시뮬레이션, 모바일 전체 화면/방향 API mock 통과. 시뮬레이션 테스트의 낡은 23장 기대값만 실제 22장에 맞춤. 실기기 방향 잠금/운영 배포는 별도 확인 대상.
 - PDF 생성기: docs/marketing/drafts/export-business-plan-pdf-20261011.cjs. 웹 전체 보기의 1440×900 비율을 사용해 한 장씩 출력 후 결합, 이미지만 압축하여 검색 가능한 텍스트 유지.
 - 결과: output/pdf/TangoBook-Introduction-v1-20261011.pdf, 22장, 1080×675.12pt 가로형, 7,397,235바이트. 전체 페이지 PNG 육안 검수 및 동일 크기·검색 텍스트 검증 통과. PDF는 로컬 전달 산출물, 생성기는 저장소에 보존.
-- 원격 확인: origin/main은 현재 main의 조상, 기존 승인 소개서 작업 43커밋 앞섬/0커밋 뒤짐. 강제 푸시 없이 전달 예정.
+- 원격 확인: origin/main은 현재 main의 조상, 기존 승인 소개서 작업 43커밋 앞섬/0커밋 뒤짐. 강제 푸시 없이 eedc4c1ca까지 origin/main 푸시 성공. GitHub가 과거 HTML 이미지 내장 파일의 50MB 권장 크기 경고를 냈으나 푸시는 정상 수락.
 
 ## 요청과 완료 조건
 

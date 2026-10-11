@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-11 [소개서 1차 버전 확정·PDF](../work/strategy/tasks/20261010-unified-business-plan.md): 최종 22장 사용자 승인·main 푸시 요청. 전체 보기/매출/모바일 mock 검증 통과. 가로형 22장 PDF 생성·전체 검수, output/pdf/TangoBook-Introduction-v1-20261011.pdf(약7.4MB). 이전 항목의 23/24장 표기는 당시 이력이며 현재는22장.
+2026-10-11 [소개서 1차 버전 확정·PDF](../work/strategy/tasks/20261010-unified-business-plan.md): 최종 22장 사용자 승인·eedc4c1ca main 푸시 완료(운영 배포 미확인). 전체 보기/매출/모바일 mock 검증 통과. 가로형 22장 PDF 생성·전체 검수, output/pdf/TangoBook-Introduction-v1-20261011.pdf(약7.4MB). 이전 항목의 23/24장 표기는 당시 이력이며 현재는22장.
 
 2026-10-11 [소개서 가독성 마감](../work/strategy/tasks/20261010-unified-business-plan.md): 사용자 불필요한 소문구 제거 승인. 대표 이미지 확대·개요 반응형 재배치·판매 구조 정렬·모바일 탭 넘김 표시. 핵심 내용·전제/가격 유지,23장/4폭·시뮬레이션 회귀 통과. 로컬만.
 
