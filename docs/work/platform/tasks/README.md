@@ -8,4 +8,4 @@
 목록은 편의용이다. 실제 목록은 이 폴더의 작업 파일과 node scripts/work-status.mjs로 확인한다.
 
 - [학습 UI v2 1차 구현](20261012-platform-ui-v2-implementation.md) — integrated, 로컬 main.
-- [학습 UI v2 후속 통일](20261012-platform-ui-v2-continuation.md) — 검증 완료, 로컬 main 통합 기록은 task 참조.
+- [학습 UI v2 후속 통일](20261012-platform-ui-v2-continuation.md) — integrated, 로컬 main. 검증·남은 실기기 범위는 task 참조.

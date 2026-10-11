@@ -2,12 +2,12 @@
 
 - id: 20261012-platform-ui-v2-continuation
 - domain: platform
-- status: completed
+- status: integrated
 - updated: 2026-10-12
 - base: e4bcf03ec
 - branch: codex/platform-ui-v2
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 검증 완료, 로컬 main fast-forward 통합 예정
+- integration: 4e7de123c를 로컬 main에 fast-forward 통합 완료
 - delivery: 미푸시·미배포
 
 ## 요청과 기준
@@ -53,4 +53,4 @@
 
 최종 client typecheck·production build 통과. 전체 client는 187파일/1331테스트 중 기존 마케팅1파일/5실패만 동일하며 186파일/1326테스트 통과(73.45초). 마지막 부모/리더/게임/공용 계약6파일/30테스트도 통과했다. 변경 TS/TSX113파일 ESLint0오류/기존7경고, Prettier와 로컬 문서 링크·git diff --check 통과. 빌드의 기존 chunk size/i18n import/Lottie eval/Browserslist 경고는 유지한다.
 
-최종 production preview(5185)의 실제 영어 Book1 카드6개를 확인하고 루트 output/ui-v2-20261012/course-tablet.jpg(1024×768)를 저장했다. 게임 fixture 결과 캡처는 game-result-landscape.jpg다. 화면 캡처·임시 fixture·검증 로그는 커밋에서 제외하고, fixture 소스는 제거했다. UI v2 코드와 해당 영역 메모리를 함께 로컬 커밋하고 main으로 fast-forward 통합한다. 원격 push·배포는 요청받지 않았다.
+최종 production preview(5185)의 실제 영어 Book1 카드6개를 확인하고 루트 output/ui-v2-20261012/course-tablet.jpg(1024×768)를 저장했다. 게임 fixture 결과 캡처는 game-result-landscape.jpg다. 화면 캡처·임시 fixture·검증 로그는 커밋에서 제외하고, fixture 소스는 제거했다. UI v2 코드와 해당 영역 메모리를 4e7de123c로 함께 로컬 커밋하고 main으로 fast-forward 통합했다. 원격 push·배포는 요청받지 않았다.
