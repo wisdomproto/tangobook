@@ -3,6 +3,10 @@
 Claude Code와 Codex가 같은 프로젝트 지식으로 작업하기 위한 진입점이다.
 사용자에게는 한국어 존댓말로 답한다. 현재 사용자 지시와 실제 코드/검증 결과가 오래된 메모보다 우선한다.
 
+## 플랫폼 기준 문서
+
+[탱고북 플랫폼 기준 문서](docs/PLATFORM.md)는 현재 합의된 플랫폼 생태계·구성·상품·유통·마케팅·확장 방향의 메인 문서다. 플랫폼을 설명하거나 제품·사업 방향에 영향을 주는 작업은 이 문서를 먼저 읽는다. 과거 결정과 조사 근거는 [STRATEGY.md](docs/STRATEGY.md), 구현 상태는 기능별 작업 기록에서 확인한다. 방향 변경 시 PLATFORM.md를 갱신하고 결정 이유를 STRATEGY.md와 관련 task에 남긴다.
+
 ## 시작 순서
 
 1. `git rev-parse --show-toplevel`, `git branch --show-current`, `git status --short`, `git worktree list`로 실제 작업 위치와 기존 변경을 확인한다. 폴더 이름이 main이라는 보장은 없다.
@@ -38,7 +42,7 @@ Claude Code와 Codex가 같은 프로젝트 지식으로 작업하기 위한 진
 - 프런트: TanStack Query는 서버 데이터, Zustand는 UI 상태. `api/* → hooks/* → components/*` 흐름을 따른다.
 - 기존 R2 데이터와 호환되게 변경한다. 현재 책 모델은 한 책 = 한 그림체·한 레벨이다. 과거 `styleAssets`/레벨 사본 설계를 다시 도입하지 않는다.
 - `shared`의 런타임 상대 import는 `.js` 확장자를 유지한다. tsc 성공만으로 Node ESM 실행 성공을 단정하지 않는다.
-- 스타일 작업은 [디자인 시스템](docs/design-system.md), 제품/사업 판단은 [전략](docs/STRATEGY.md)을 참조한다. 기존 자산·공유 컴포넌트·현황 집계부터 찾는다.
+- 스타일 작업은 [디자인 시스템](docs/design-system.md), 제품/사업 판단은 [플랫폼 기준](docs/PLATFORM.md)과 [전략 결정 기록](docs/STRATEGY.md)을 참조한다. 기존 자산·공유 컴포넌트·현황 집계부터 찾는다.
 - `.claude/agents/*.md`는 도메인 지침으로 읽을 수 있다. Claude 전용 도구명·자동 에이전트 호출을 Codex에서 실행된 것으로 간주하지 않는다. 실제 사용 가능한 도구와 현재 세션의 위임 규칙을 따른다.
 
 ## 검증

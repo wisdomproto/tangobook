@@ -9,8 +9,9 @@
 ## 코드·자료 진입점
 
 
-- [docs/STRATEGY.md](../../../docs/STRATEGY.md)
-- [docs/ROADMAP.md](../../../docs/ROADMAP.md)
+- [플랫폼 기준 문서](../../PLATFORM.md): 현재 구조·상품·사업 방향을 먼저 읽는다.
+- [전략 결정과 조사 기록](../../STRATEGY.md)
+- [docs/ROADMAP.md](../../ROADMAP.md)
 
 서버 관련 route → controller → service → repository/provider와 shared 타입을 따라 영향 범위를 확인한다. 위 목록은 독점 수정 허가가 아니며 공통 파일 변경은 다른 진행 작업과 조율한다.
 
@@ -22,7 +23,7 @@
 
 ## 작업 원칙
 
-STRATEGY.md가 정체성·포지셔닝·사업 판단 원본이다. 뒤집힌 결정은 이유와 근거를 남긴다.
+PLATFORM.md가 현재 합의된 플랫폼 구조·상품·사업 방향의 메인 문서다. STRATEGY.md는 과거 결정과 조사 근거를 보존한다. 방향 변경 시 PLATFORM.md를 갱신하고 이유와 근거를 STRATEGY.md 및 관련 작업 기록에 남긴다.
 
 ## 검증·인계
 

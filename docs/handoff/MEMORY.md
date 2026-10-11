@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [플랫폼 메인 문서](../work/strategy/tasks/20261012-platform-main-document.md): [PLATFORM.md](../PLATFORM.md)가 현재 합의된 플랫폼 구조·사업 방향의 기준. 사용자 승인 소개서1차 버전을 정리하고 AGENTS.md·CLAUDE.md에 연결. STRATEGY.md는 과거 결정/조사 이력, 구현 상태는 기능별 코드·task에서 확인. 로컬 커밋.
+
 2026-10-11 [소개서 로딩 최적화](../work/strategy/tasks/20261011-introduction-loading.md): HTML55.7MB→290KB, 이미지/폰트를 business-plan-assets(5.6MB)로 분리·압축. HTML만 복사하면 그림이 누락되므로 폴더 함께 배포. PDF는 기존 전달물 사용. 검증 통과, fb73dfe87 main 푸시·Railway 배포 완료. 운영 HTML289KB 및22장 자산/인쇄 검사 통과.
 
 2026-10-11 [소개서 1차 버전 확정·PDF](../work/strategy/tasks/20261010-unified-business-plan.md): 최종 22장 사용자 승인·eedc4c1ca main 푸시 완료(운영 배포 미확인). 전체 보기/매출/모바일 mock 검증 통과. 가로형 22장 PDF 생성·전체 검수, output/pdf/TangoBook-Introduction-v1-20261011.pdf(약7.4MB). 이전 항목의 23/24장 표기는 당시 이력이며 현재는22장.
