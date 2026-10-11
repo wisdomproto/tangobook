@@ -1,6 +1,6 @@
 # 탱고북 제품 디자인 시스템 v2
 
-갱신: 2026-10-12. [플랫폼 기준](PLATFORM.md)과 [전체 UI/UX 점검](work/platform/tasks/20261012-platform-ui-ux-audit.md)을 바탕으로 다시 정의한 **구현 기준안**이다. 이번 변경은 문서 재설계이며, 아래 규칙이 현재 제품 코드에 모두 적용된 상태는 아니다. 실제 토큰·컴포넌트는 [구현 안내](../packages/client/src/design-system/README.md)에서 구분한다.
+갱신: 2026-10-12. [플랫폼 기준](PLATFORM.md)과 [전체 UI/UX 점검](work/platform/tasks/20261012-platform-ui-ux-audit.md)을 바탕으로 다시 정의한 **구현 기준안**이다. 학습 홈·탐색·공용 버튼/칩·책 찾기/상세·일부 게임판에 1차 적용했다. 모든 화면이 이전된 상태는 아니다. 실제 토큰·컴포넌트는 [구현 안내](../packages/client/src/design-system/README.md)에서 구분한다.
 
 사업계획서·제안서·팀 전략 HTML은 별도의 [문서 디자인 시스템](marketing/design-system/README.md)을 따른다. 상품·사업 방향은 PLATFORM.md가 원본이다.
 
@@ -31,15 +31,15 @@
 
 ## 3. 색과 의미 토큰
 
-[colors.ts](../packages/client/src/design-system/tokens/colors.ts)는 **현재 색상 값**의 원본이다. 아래 의미 이름은 v2 구현 시 추가할 매핑 제안이며, 아직 export된 토큰 이름이 아니다.
+[colors.ts](../packages/client/src/design-system/tokens/colors.ts)는 **현재 색상 값**의 원본이다. surface.page/raised/subtle, content.primary/secondary, action.primary/hover는 실제 export에 추가했다. 아래 표의 다른 의미 이름은 후속 매핑 제안이다.
 
 | 제안 의미 | 현재 값/토큰 | 역할 |
 |---|---|---|
 | surface.page | cream-50 #FFF9F3 | 학습 화면 바탕 |
 | surface.raised | white #FFFFFF | 카드·선택지·작업 영역 |
 | surface.subtle | peach-100 #FFF0E0 | 도움·보조 영역 |
-| text.primary | ink-900 #0B0805 | 제목·학습 대상·본문 |
-| text.secondary | ink-600 #6D5A4C | 읽어야 하는 보조 문장 |
+| content.primary | ink-900 #0B0805 | 제목·학습 대상·본문 |
+| content.secondary | ink-600 #6D5A4C | 읽어야 하는 보조 문장 |
 | border.subtle | ink-100 #EDE1D4 | 영역 구분; 유일한 선택 표시로 사용하지 않음 |
 | action.primary | coral-700 #C43A1C + white | 일반 크기의 흰 글자 CTA |
 | brand.accent | coral-500 #FF5E3A | 브랜드·장식·큰 강조 면 |
@@ -182,3 +182,14 @@ UI 본문은 Pretendard, 학습자 제목은 NanumSquareRound를 기본으로 �
 - [AppShell](../packages/client/src/components/AppShell.tsx), [LibraryPage](../packages/client/src/pages/LibraryPage.tsx), [BookDetailPage](../packages/client/src/pages/BookDetailPage.tsx)
 - [독후활동 호스트](../packages/client/src/features/vocabulary-unit/components/VocabularyStudyContent.tsx), [게임 영역 지침](../packages/client/src/features/games/CLAUDE.md)
 - [파닉스 공용 셸](../packages/client/src/features/phonics-learner/components/ActivityShell.tsx), [게임 점검 지침](../.claude/agents/game-reviewer.md)
+
+
+## 1차 적용 상태 (2026-10-12)
+
+학습 홈(`/library`)·책 찾기(`/library/books`)·활동 허브(`/library/activities`)를 분리하고, 한글/영어 단원 화면도 공용 탐색 안에 둔다. 읽기·게임 활동은 풀화면이다. 부모 메뉴는 native dialog로 초점·Escape·복귀를 처리하며 UI 언어는 콘텐츠 언어와 구분한다. 1024px 이상은 상단, 그보다 좁은 화면은 5개 하단 메뉴를 사용한다.
+
+Button은 coral-700/white, 최소 44px, focus-visible·aria-busy와 기본 type=button을 적용했다. Chip은 선택 배경·윤곽·aria-pressed, PageHeader/GameHeader는 이름 있는 최소 44px 이탈 버튼을 적용했다. radius.control/card/course/feature=8/16/24/32px를 추가하고 이전 별칭은 유지한다.
+
+장면 고르기·숨은그림·영어 블록·영어 낱말 쓰기의 짧은 가로 레이아웃은 `learning-layouts.css`로 분리했다. 이 CSS는 main.tsx에서 Tailwind CSS 다음에 import한다. `@font-face` 뒤의 CSS @import는 브라우저에서 무시되므로 사용하지 않는다. 기존 글자 마스크·99% 쓰기 기준·색칠 기준·카메라 인식은 변경하지 않았다. 완료 시 결과가 나타나는 독후게임은 호스트에서 결과를 유지하고 확인/돌아가기 때 닫는다.
+
+후속: 역할별 typography·Card 키보드 계약, 나머지 게임/과정 카드 표현, 빈 상태·로딩의 공용화, 추가 실기기 검증. [구현 기록](work/platform/tasks/20261012-platform-ui-v2-implementation.md)에 실행 증거와 한계를 남긴다.

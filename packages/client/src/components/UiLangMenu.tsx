@@ -29,7 +29,7 @@ export function UiLangMenu() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-sm font-black text-ink-800 shadow-soft transition-all hover:shadow-pop"
+        className="flex min-h-11 items-center gap-1.5 rounded-full bg-white px-3 py-2 text-sm font-bold text-ink-800 shadow-soft transition-colors hover:bg-cream-100 focus-visible:outline-coral-700"
         aria-label="언어 선택 / Select language"
         aria-haspopup="listbox"
         aria-expanded={open}

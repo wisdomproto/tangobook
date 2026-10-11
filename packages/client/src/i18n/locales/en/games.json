@@ -152,7 +152,8 @@
     "seeResult": "See Results",
     "help": "🪄 Help",
     "pickFirstLetter": "Look at the picture and add its first letter!",
-    "listenFirstLetter": "Listen and add the first letter!"
+    "listenFirstLetter": "Listen and add the first letter!",
+    "slot": "Letter slot {{count}}"
   },
   "writingGame": {
     "paintPrompt": "Color in the letters!",

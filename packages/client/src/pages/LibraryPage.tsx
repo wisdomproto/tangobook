@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useStorybooks } from '@/features/storybook';
+import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 // 🔴 **배럴(`@/features/...`)로 가져오지 않는다**(2026-08-21 실측). 한 심볼만 꺼내 써도
 //    배럴이 재수출하는 **모든 모듈의 그래프**가 딸려온다. 이 페이지는 라우터가 정적으로 부르는
 //    도착지라, 그 그래프가 곧 첫 화면 번들이 된다 — `@/features/library` 는 죽은 `LibraryBanner`
@@ -15,7 +15,6 @@ import { useLibraryConfig } from '@/features/library/hooks/useLibraryConfig';
 import { makeCategoryComparator } from '@/features/library/lib/category-order';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { PlaylistLibrarySection } from '@/features/continuous/components/PlaylistLibrarySection';
-import { FirstReadCard } from '@/features/library/components/FirstReadCard';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useSeo } from '@/lib/useSeo';
@@ -178,7 +177,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           title: '동화책 라이브러리 — 탱고북',
           description:
             '세계 명작·전래 동화·자연 동화 (공룡·곤충·동물·식물·우주). 그림체와 글밥을 아이에게 맞추고, 한국어·영어 동시 학습. 4-7세 아이를 위한 동화 라이브러리.',
-          path: '/library',
+          path: '/library/books',
           keywords:
             '유아 동화책, 명작 동화, 자연 동화, 공룡 동화, 곤충 동화, 4세 동화, 5세 동화, 6세 동화, 한글 영어 동화, 탱고북',
           jsonLd: {
@@ -186,7 +185,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             '@type': 'CollectionPage',
             name: '탱고북 동화책 라이브러리',
             description: '명작·전래·자연 동화 라이브러리. 그림체·글밥 맞춤, 한·영 동시.',
-            url: 'https://www.tangobook.co.kr/library',
+            url: 'https://www.tangobook.co.kr/library/books',
             breadcrumb: {
               '@type': 'BreadcrumbList',
               itemListElement: [
@@ -308,7 +307,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     const q = search.trim().toLowerCase();
     const searched = q
       ? result.filter(
-          (b) => b.title.toLowerCase().includes(q) || (b.category ?? '').toLowerCase().includes(q)
+          (b) =>
+            [b.title, ...Object.values(b.titleTranslations ?? {})].some((title) =>
+              title.toLowerCase().includes(q)
+            ) || (b.category ?? '').toLowerCase().includes(q)
         )
       : result;
     const byCat = activeCategory
@@ -379,7 +381,11 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       .filter(matchesType)
       .filter(
         (b) =>
-          !q || b.title.toLowerCase().includes(q) || (b.category ?? '').toLowerCase().includes(q)
+          !q ||
+          [b.title, ...Object.values(b.titleTranslations ?? {})].some((title) =>
+            title.toLowerCase().includes(q)
+          ) ||
+          (b.category ?? '').toLowerCase().includes(q)
       );
     const counts = new Map<string, number>();
     base.forEach((b) => {
@@ -470,15 +476,22 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     ) : undefined;
 
   return (
-    <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
+    <div className="bg-cream-50 min-h-full">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
         {/* 🔴 첫 방문자용 「한 권 들어보기」 — 라이브러리까지 오고도 아무것도 안 누르고 나가는
             사람이 많았다. 표지가 424px 아래에 있고 위쪽 강조 버튼은 전부 계정/설치라, 누를 것
             하나를 맨 위에 둔다. 한 번 열면 다시 안 뜬다. 필터·검색 중에는 방해가 되므로 뺀다. */}
-        {type === 'storybook' && !activeCategory && !search && <FirstReadCard />}
+        <h1 className="mb-6 text-3xl font-bold text-ink-900">{t('shell:nav.books')}</h1>
 
         {/* 묶어 보기 — 검색/필터보다 위 (2026-07-24 사용자 요청). 게스트·로그인 동일 노출, 기본 펼침. */}
-        {type === 'storybook' && <PlaylistLibrarySection />}
+        {type === 'storybook' && (
+          <details className="mb-5 rounded-2xl border border-ink-100 bg-white p-4">
+            <summary className="min-h-11 cursor-pointer text-base font-bold text-ink-600">
+              {t('playlist.title')}
+            </summary>
+            <PlaylistLibrarySection />
+          </details>
+        )}
 
         {/* 검색바 (좌) + 카테고리 chip (우). 모바일 stack, md+ 가로. 검색바 적정 폭으로 줄여 chip 영역 확보. */}
         <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
@@ -487,6 +500,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             <span className="text-xl">🔍</span>
             <input
               type="text"
+              aria-label={t(
+                type === 'storybook' ? 'search.placeholderStorybook' : 'search.placeholderPhonics'
+              )}
               placeholder={t(
                 type === 'storybook' ? 'search.placeholderStorybook' : 'search.placeholderPhonics'
               )}

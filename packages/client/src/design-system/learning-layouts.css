@@ -1,0 +1,172 @@
+/* Learning stages reserve space for the task before decorative chrome. */
+.story-image-stage {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  justify-items: center;
+  gap: 12px;
+}
+.story-image-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.story-image-target {
+  width: 80px;
+  height: 80px;
+}
+.story-image-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 900px);
+  min-height: 0;
+}
+.story-image-option {
+  aspect-ratio: auto;
+  min-height: 48px;
+  height: 100%;
+}
+.story-image-option img {
+  object-fit: contain;
+}
+.story-image-caption {
+  max-width: 900px;
+  max-height: 5em;
+  overflow-y: auto;
+}
+.story-image-short-caption {
+  display: none;
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .story-image-stage {
+    grid-template-columns: minmax(160px, 27%) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 8px 16px;
+  }
+  .story-image-stage > .game-progress {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .story-image-prompt {
+    grid-column: 1;
+    grid-row: 2;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .story-image-prompt > p {
+    font-size: 16px;
+  }
+  .story-image-target {
+    width: 64px;
+    height: 64px;
+  }
+  .story-image-options {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    gap: 8px;
+  }
+  .story-image-caption {
+    display: none;
+  }
+  .story-image-short-caption {
+    display: block;
+    max-height: 3em;
+    overflow-y: auto;
+  }
+  .english-block-question {
+    gap: 16px !important;
+    padding: 8px 16px;
+  }
+  .english-block-image {
+    height: 100px !important;
+    max-width: 22vw;
+  }
+  .english-block-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .english-block-word {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .english-block-slot {
+    width: 48px;
+    height: 52px;
+  }
+  .english-block-next {
+    min-height: 44px;
+    padding: 4px 20px;
+  }
+  .english-alphabet-tray {
+    padding: 8px;
+  }
+  .english-alphabet-label {
+    display: none;
+  }
+  .english-alphabet-letters {
+    display: grid;
+    grid-template-columns: repeat(13, minmax(48px, 1fr));
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .english-letter-tile {
+    width: 100%;
+    min-width: 48px;
+    height: 48px;
+  }
+  .hidden-object-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 8px 12px;
+  }
+  .hidden-object-stage > .game-progress {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .hidden-object-scene {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    height: 100%;
+  }
+  .hidden-object-targets {
+    grid-column: 2;
+    grid-row: 2;
+    overflow-y: auto;
+    height: 100%;
+  }
+  .hidden-object-targets > div {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 0;
+  }
+  .hidden-object-target {
+    min-width: 80px;
+    padding: 4px;
+  }
+  .hidden-object-target img {
+    width: 36px;
+    height: 36px;
+  }
+  .hidden-object-stage > p {
+    grid-column: 2;
+    grid-row: 3;
+    font-size: 14px;
+  }
+  .word-writing-stage {
+    flex-direction: row;
+  }
+  .word-writing-prompt {
+    max-width: 25%;
+  }
+  .word-writing-prompt p {
+    font-size: 20px;
+    text-align: center;
+  }
+  .word-writing-canvas {
+    width: min(680px, 65vw, calc((100dvh - 104px) * 2)) !important;
+  }
+}

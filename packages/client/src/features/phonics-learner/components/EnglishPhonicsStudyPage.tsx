@@ -91,15 +91,7 @@ export default function EnglishPhonicsStudyPage() {
   };
 
   return (
-    <div
-      className="fixed inset-0 flex flex-col"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <div className="relative flex h-[calc(100dvh-148px-env(safe-area-inset-bottom))] flex-col bg-cream-50 lg:h-[calc(100dvh-72px)]">
       <PageHeader
         onBack={() => navigate('/library')}
         backLabel={t('common.home')}

@@ -152,7 +152,8 @@
     "seeResult": "Xem kết quả",
     "help": "🪄 Giúp với",
     "pickFirstLetter": "Nhìn tranh và đặt chữ cái đầu tiên nhé!",
-    "listenFirstLetter": "Hãy nghe và đặt chữ cái đầu tiên nhé!"
+    "listenFirstLetter": "Hãy nghe và đặt chữ cái đầu tiên nhé!",
+    "slot": "Ô chữ thứ {{count}}"
   },
   "writingGame": {
     "paintPrompt": "Tô màu chữ nào!",

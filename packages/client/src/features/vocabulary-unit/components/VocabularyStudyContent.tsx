@@ -29,6 +29,7 @@ import { LineMatchingPlayer } from '@/features/games/components/players/LineMatc
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
 import { OrderBlockPlayer } from '@/features/games/components/players/OrderBlockPlayer';
+import { useGameExit } from '@/features/games/hooks/useGameExit';
 import { LangWordWritingPlayer } from '@/features/games/components/players/LangWordWritingPlayer';
 // paint 모드(LetterFillCanvas) 통일 플레이어 — 레거시 WordWritingPlayer(자유 획 픽셀 채점) 대체 (2026-07-02)
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
@@ -188,7 +189,8 @@ export function VocabularyStudyContent({
         });
     }
     void refetchBalance();
-    confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
   };
 
   const handleGameBack = () => {
@@ -580,8 +582,8 @@ export function GameOverlay({
   lang,
   storybook,
   currentStyle,
-  onComplete,
-  onBack,
+  onComplete: reportComplete,
+  onBack: exitGame,
 }: {
   unit: VocabularyUnit;
   game: GameTypeId;
@@ -592,6 +594,17 @@ export function GameOverlay({
   onBack: () => void;
 }) {
   const { t } = useTranslation('games');
+  const { onComplete, onBack } = useGameExit({
+    keepsResult: [
+      'korean-page-order',
+      'hidden-object',
+      'korean-object-scene',
+      'korean-story-image',
+      'english-story-image',
+    ].includes(game),
+    onComplete: reportComplete,
+    onBack: exitGame,
+  });
   // 🔴 getGameData 는 내부에서 shuffleInPlace 로 매 호출마다 items 순서를 바꾼다(비결정적).
   //    memo 없이 매 렌더 호출하면 프리로드 게이트의 coreKey 가 매 렌더 바뀌어 effect 가 무한 재시작
   //    (게이트가 0% 에서 안 넘어감) → unit/lang/game 별로 한 번만 생성해 안정화.

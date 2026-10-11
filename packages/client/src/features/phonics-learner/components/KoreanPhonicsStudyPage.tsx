@@ -123,15 +123,7 @@ export default function KoreanPhonicsStudyPage() {
   };
 
   return (
-    <div
-      className="fixed inset-0 flex flex-col"
-      style={{
-        backgroundImage: "url('/images/phonics/study-bg.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <div className="relative flex h-[calc(100dvh-148px-env(safe-area-inset-bottom))] flex-col bg-cream-50 lg:h-[calc(100dvh-72px)]">
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
       <PageHeader
         onBack={() => navigate('/library')}

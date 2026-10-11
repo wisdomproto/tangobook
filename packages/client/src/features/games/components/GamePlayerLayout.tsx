@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MobileLandscapeGate } from './MobileLandscapeGate';
 import { gameSafeAreaStyle } from '../lib/game-safe-area';
 
@@ -35,6 +36,7 @@ export function GamePlayerLayout({
   maxWidth = '2xl',
   bgImageUrl,
 }: GamePlayerLayoutProps) {
+  const { t } = useTranslation('games');
   // 좌우 시스템 UI(안드 내비바·노치·인앱 컨트롤) 회피 + 동적 뷰포트 높이 캡 → gameSafeAreaStyle.
   // 세로 여백은 className py-clamp 로 유지(헬퍼는 세로 미관여).
   const bgStyle = bgImageUrl
@@ -48,15 +50,15 @@ export function GamePlayerLayout({
   return (
     <MobileLandscapeGate>
       <div
-        className="fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden"
+        className="fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-cream-50 overflow-hidden"
         style={{ ...bgStyle, ...gameSafeAreaStyle() }}
       >
         {onBack && (
           <button
             onClick={onBack}
-            className="self-start mb-[clamp(0.25rem,1vh,0.75rem)] inline-flex items-center gap-2 px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] text-[clamp(0.875rem,2vh,1.125rem)] rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0 break-keep"
+            className="self-start min-h-11 mb-2 inline-flex items-center gap-2 px-4 text-base rounded-full bg-white shadow-soft text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 shrink-0 break-keep"
           >
-            ← 돌아가기
+            ← {t('header.back')}
           </button>
         )}
         <div className={`w-full mx-auto flex-1 min-h-0 flex flex-col ${MAX_W[maxWidth]}`}>

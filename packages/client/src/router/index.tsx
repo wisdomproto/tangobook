@@ -48,6 +48,8 @@ const PipelinePage = lazy(() => M().then((m) => ({ default: m.PipelinePage })));
  *    즉시 import 면 그 둘이 통째로 첫 화면 번들에 실린다.
  */
 import LibraryPage from '../pages/LibraryPage';
+import LearningHomePage from '../pages/LearningHomePage';
+const LearnerActivitiesPage = lazy(() => import('../pages/LearnerActivitiesPage'));
 const GamesHubPage = lazy(() => import('../pages/GamesHubPage'));
 const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
 const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
@@ -322,7 +324,7 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
-      // 학습자 진입점 hub 페이지들 — AppShell (좌측 nav + 상단 헤더) 안에서 렌더
+      // 학습 홈·책장·한글/영어 단원 — 공통 상단/하단 탐색, 활동은 풀화면
       {
         element: (
           <ErrorBoundary>
@@ -330,8 +332,53 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
         children: [
-          { path: 'library', element: <LibraryPage type="storybook" /> },
+          { path: 'library', element: <LearningHomePage /> },
+          { path: 'library/books', element: <LibraryPage type="storybook" /> },
+          { path: 'library/activities', element: <LearnerActivitiesPage /> },
           { path: 'library/phonics', element: <PhonicsLandingPage /> },
+          {
+            // 한글 학습 — 공통 탐색 + 단원 커리큘럼
+            path: 'library/phonics/korean',
+            element: (
+              <PhonicsUnitGate>
+                <ErrorBoundary>
+                  <KoreanPhonicsStudyPage />
+                </ErrorBoundary>
+              </PhonicsUnitGate>
+            ),
+          },
+          {
+            // 한글 파닉스 학습 모드 — unit 선택 상태
+            path: 'library/phonics/korean/:unitId',
+            element: (
+              <PhonicsUnitGate>
+                <ErrorBoundary>
+                  <KoreanPhonicsStudyPage />
+                </ErrorBoundary>
+              </PhonicsUnitGate>
+            ),
+          },
+          {
+            // 영어 학습 — 공통 탐색 + 단원 커리큘럼
+            path: 'library/phonics/english',
+            element: (
+              <PhonicsUnitGate>
+                <ErrorBoundary>
+                  <EnglishPhonicsStudyPage />
+                </ErrorBoundary>
+              </PhonicsUnitGate>
+            ),
+          },
+          {
+            path: 'library/phonics/english/:unitId',
+            element: (
+              <PhonicsUnitGate>
+                <ErrorBoundary>
+                  <EnglishPhonicsStudyPage />
+                </ErrorBoundary>
+              </PhonicsUnitGate>
+            ),
+          },
           { path: 'collection', element: <Navigate to="/library" replace /> },
           { path: 'collection/book/:bookId', element: <Navigate to="/library" replace /> },
           { path: 'collection/:categoryId', element: <Navigate to="/library" replace /> },
@@ -389,28 +436,7 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
-      {
-        // 한글 파닉스 학습 모드 — AppShell 밖 풀화면 (좌 커리큘럼 + 우 unit body)
-        path: 'library/phonics/korean',
-        element: (
-          <PhonicsUnitGate>
-            <ErrorBoundary>
-              <KoreanPhonicsStudyPage />
-            </ErrorBoundary>
-          </PhonicsUnitGate>
-        ),
-      },
-      {
-        // 한글 파닉스 학습 모드 — unit 선택 상태
-        path: 'library/phonics/korean/:unitId',
-        element: (
-          <PhonicsUnitGate>
-            <ErrorBoundary>
-              <KoreanPhonicsStudyPage />
-            </ErrorBoundary>
-          </PhonicsUnitGate>
-        ),
-      },
+
       {
         // 한글 파닉스 액티비티 — 풀화면 (모음 듣기/쓰기, 게임). AppShell 밖.
         path: 'library/phonics/korean/:unitId/:activityKey',
@@ -422,27 +448,7 @@ export const router = createBrowserRouter([
           </PhonicsUnitGate>
         ),
       },
-      {
-        // 영어 파닉스 학습 모드 — AppShell 밖 풀화면 (좌 Book1~5 + 우 unit body)
-        path: 'library/phonics/english',
-        element: (
-          <PhonicsUnitGate>
-            <ErrorBoundary>
-              <EnglishPhonicsStudyPage />
-            </ErrorBoundary>
-          </PhonicsUnitGate>
-        ),
-      },
-      {
-        path: 'library/phonics/english/:unitId',
-        element: (
-          <PhonicsUnitGate>
-            <ErrorBoundary>
-              <EnglishPhonicsStudyPage />
-            </ErrorBoundary>
-          </PhonicsUnitGate>
-        ),
-      },
+
       {
         // 영어 파닉스 액티비티 — 풀화면. AppShell 밖.
         path: 'library/phonics/english/:unitId/:activityKey',

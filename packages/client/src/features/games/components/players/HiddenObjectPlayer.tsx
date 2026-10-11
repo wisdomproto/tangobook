@@ -151,11 +151,11 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
-      <div className="flex flex-col items-center gap-3 w-full h-full min-h-0">
+      <div className="hidden-object-stage flex flex-col items-center gap-3 w-full h-full min-h-0">
         <GameProgressBar current={found.size} total={words.length} score={score} />
 
         <div
-          className="relative flex-1 min-h-0 w-full max-w-5xl flex items-center justify-center cursor-pointer select-none"
+          className="hidden-object-scene relative flex-1 min-h-0 w-full max-w-5xl flex items-center justify-center cursor-pointer select-none"
           onClick={handleTap}
         >
           <img
@@ -186,7 +186,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
           </AnimatePresence>
         </div>
 
-        <div className="shrink-0 w-full overflow-x-auto">
+        <div className="hidden-object-targets shrink-0 w-full overflow-x-auto">
           <div className="flex gap-3 justify-center px-2 pb-1">
             {words.map((t) => {
               const done = found.has(t.objectName);
@@ -194,7 +194,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
                 <div
                   key={t.objectName}
                   className={cn(
-                    'flex flex-col items-center gap-1 rounded-2xl border-4 p-2 min-w-[5rem] transition-all',
+                    'hidden-object-target flex flex-col items-center gap-1 rounded-2xl border-2 p-2 min-w-[5rem] transition-all',
                     done ? 'border-success bg-success/10 opacity-60' : 'border-peach-200 bg-white'
                   )}
                 >

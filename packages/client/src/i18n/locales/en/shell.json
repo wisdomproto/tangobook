@@ -71,5 +71,38 @@
     "aosStep1": "Open the ⋮ menu at the top right of Chrome",
     "aosStep2": "Tap Cast and pick your TV",
     "note": "Sound and text come through on the TV, and reading progress is still saved."
+  },
+  "nav": {
+    "home": "Home",
+    "korean": "Korean",
+    "english": "English",
+    "books": "Books",
+    "activities": "Activities",
+    "main": "Learning navigation",
+    "mobile": "Bottom learning navigation"
+  },
+  "home": {
+    "title": "What shall we learn today?",
+    "subtitle": "From letters to stories, let’s read together.",
+    "courses": "Learn Korean and English",
+    "koreanDescription": "Explore Korean sounds and letters, step by step.",
+    "englishDescription": "Discover the alphabet and your first words.",
+    "start": "Start",
+    "continue": "Continue learning",
+    "recommended": "Today’s book picks",
+    "allBooks": "All books",
+    "loading": "Loading book picks",
+    "loadError": "We couldn’t load the books.",
+    "retry": "Try again",
+    "noBooks": "New stories are on their way."
+  },
+  "activities": {
+    "subtitle": "Practice what you have read and learned.",
+    "games": "Book games",
+    "gamesDescription": "Revisit words and scenes from stories through play.",
+    "paper": "Worksheets",
+    "paperDescription": "Learn by writing and coloring on paper.",
+    "blocks": "Block play",
+    "blocksDescription": "Build words with letter blocks."
   }
 }
