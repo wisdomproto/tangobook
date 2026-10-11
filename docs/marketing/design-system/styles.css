@@ -335,5 +335,4 @@ section{padding-top:36px;padding-bottom:36px}
 .td-market-equation{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
 .td-market-equation>div{display:flex;flex-direction:column;gap:6px}.td-market-equation b{font-size:30px;line-height:1.2}.td-market-equation b span{font-size:16px;margin-left:5px}.td-market-equation small{font-size:12px;color:var(--doc-color-muted)}.td-market-equation>strong{font-size:24px;color:var(--doc-color-teal)}
 .td-market-estimate>p{font-size:15px;margin:16px 0 0;padding-top:14px;border-top:1px solid var(--doc-color-sage)}
-.td-market-monthly{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--doc-color-line);margin-bottom:16px}.td-market-monthly>span{font-size:15px}.td-market-monthly>b{font-size:32px;white-space:nowrap}.td-market-monthly small{font-size:16px;margin-left:5px}
 @media(max-width:699px){.td-market-estimate{padding:16px}.td-market-equation b{font-size:27px}}
