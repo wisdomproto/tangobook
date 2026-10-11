@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [학습 앱 첫 화면 논의](../work/strategy/tasks/20261012-learner-home-direction.md): 플랫폼 정체성에 맞춘 개편 검토 요청. 사용자 지정 범위는 공식 소개 화면이 아닌 학습하기 뒤 앱 첫 화면이며, 지금은 고민만. 현재 동화책 서재 구조 확인, 새 홈·이어 하기·활동 선택 방향은 미확정 제안.
+
 2026-10-12 [플랫폼 메인 문서](../work/strategy/tasks/20261012-platform-main-document.md): [PLATFORM.md](../PLATFORM.md)가 현재 합의된 플랫폼 구조·사업 방향의 기준. 사용자 승인 소개서1차 버전을 정리하고 AGENTS.md·CLAUDE.md에 연결. STRATEGY.md는 과거 결정/조사 이력, 구현 상태는 기능별 코드·task에서 확인. 로컬 커밋.
 
 2026-10-11 [소개서 로딩 최적화](../work/strategy/tasks/20261011-introduction-loading.md): HTML55.7MB→290KB, 이미지/폰트를 business-plan-assets(5.6MB)로 분리·압축. HTML만 복사하면 그림이 누락되므로 폴더 함께 배포. PDF는 기존 전달물 사용. 검증 통과, fb73dfe87 main 푸시·Railway 배포 완료. 운영 HTML289KB 및22장 자산/인쇄 검사 통과.
