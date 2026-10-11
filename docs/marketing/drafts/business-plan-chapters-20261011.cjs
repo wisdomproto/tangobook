@@ -1,6 +1,6 @@
 module.exports=({slides,img})=>{
  const asset=f=>'../investor-20261010/'+f;
- const cover=['proposal-cover','표지','TANGOBOOK','탱고북 사업계획서','',`<div class="td-title-cover"><div class="td-title-copy"><span>아날로그 × 디지털</span><h1>탱고북</h1><h2>유아 언어 학습 플랫폼</h2><p>앱의 안내와 실물 교구,<br>글자 학습부터 동화 읽기까지.</p><div class="td-title-meta">사업계획서 · 2026.10</div></div><figure>${img(asset('hardware-kit-studio-v3.png'),'앱과 실물 한글 블록이 연결된 탱고북 제품 구성')}</figure><div class="td-cover-index"><span>01 시장 배경</span><span>02 탱고북 플랫폼 생태계</span><span>03 탱고북 플랫폼 구성</span><span>04 사업화 전략</span></div></div>`];
+ const cover=['proposal-cover','표지','TANGOBOOK','탱고북 사업계획서','',`<div class="td-title-cover"><div class="td-title-copy"><span>아날로그 × 디지털</span><h1>탱고북</h1><h2>유아 언어 학습 플랫폼</h2><p>앱의 안내와 실물 교구,<br>글자 학습부터 동화 읽기까지.</p><div class="td-title-meta">사업계획서 · 2026.10</div></div><figure>${img(asset('hardware-kit-studio-v3.png'),'앱과 실물 한글 블록이 연결된 탱고북 제품 구성')}</figure><div class="td-cover-index"><span>PART 01 · 시장 배경</span><span>PART 02 · 탱고북 플랫폼 생태계</span><span>PART 03 · 탱고북 플랫폼 구성</span><span>PART 04 · 사업화 전략</span></div></div>`];
  const divider=(id,num,title,sub,visual)=>[id,'PART '+num,'',title,'',`<div class="td-part"><div class="td-part-copy"><span class="td-part-number">PART ${num}</span><h2>${title}</h2><p>${sub}</p><div class="td-part-rule"></div></div><div class="td-part-visual">${visual}</div></div>`];
  const parts={
   vision:divider('part-product','02','탱고북 플랫폼 생태계','학습 앱 · 실물 교구 · 동화로 이어지는 아이의 학습 경험',img(asset('hardware-feedback-use-v3.png'),'화면 안내를 보며 한글 블록을 조합하는 아이의 학습 장면')),
@@ -9,14 +9,18 @@ module.exports=({slides,img})=>{
  };
  const original=slides.slice();
  const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,7],['03','탱고북 플랫폼 구성',7,12],['04','사업화 전략',12,19]];
- const contents=['contents','차례','CONTENTS','차례','',`<div class="td-contents-grid">${groups.map(([n,title,start,end])=>`<article><div class="td-contents-heading"><span>${n}</span><h3>${title}</h3></div><div class="td-contents-links">${original.slice(start,end).map(([id,num,,heading])=>`<a href="#${id}"><span>${num}</span>${heading}<i aria-hidden="true">↗</i></a>`).join('')}</div></article>`).join('')}</div>`];
- slides.splice(0,slides.length,cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));
+ const contents=['contents','','CONTENTS','차례','',''];
+ const pages=[cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s])];
+ // Page numbers include the cover, contents and part dividers.
+ pages.forEach((slide,index)=>{slide[1]=String(index+1).padStart(2,'0');});
+ contents[5]=`<div class="td-contents-grid">${groups.map(([n,title,start,end])=>`<article><div class="td-contents-heading"><span>PART ${n}</span><h3>${title}</h3></div><div class="td-contents-links">${original.slice(start,end).map(([id,num,,heading])=>`<a href="#${id}"><span>${num}</span>${heading}<i aria-hidden="true">↗</i></a>`).join('')}</div></article>`).join('')}</div>`;
+ slides.splice(0,slides.length,...pages);
  return `
  #investor-panel #proposal-cover,#investor-panel [id^="part-"]{padding:24px 0 36px}
  .td-contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
  .td-contents-grid>article{padding:24px;border:1px solid var(--doc-color-line);border-radius:8px;background:white}
  .td-contents-heading{display:flex;align-items:center;gap:18px;margin-bottom:18px}
- .td-contents-heading>span{font-size:30px;color:var(--doc-color-teal)}
+ .td-contents-heading>span{font-size:14px;white-space:nowrap;color:var(--doc-color-teal)}
  .td-contents-heading h3{font-size:24px;margin:0}
  .td-contents-links{display:grid;grid-template-columns:1fr;gap:8px}
  .td-contents-grid>article:nth-child(n+3) .td-contents-links{grid-template-columns:1fr 1fr;column-gap:22px}

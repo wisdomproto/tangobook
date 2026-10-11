@@ -10,6 +10,12 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(await page.locator('#mode').textContent(),'전체 보기');
   const ids=await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.map(e=>e.id));
   assert.equal(ids.length,23);
+  const expectedNumbers=ids.map((_,i)=>String(i+1).padStart(2,'0'));
+  assert.deepEqual(await page.locator('#investor-panel main>section:not(.appendix) .section-badge>.badge-num').allTextContents(),expectedNumbers);
+  assert.deepEqual(await page.locator('#chapter-select option').evaluateAll(es=>es.map(e=>e.textContent.split(' · ')[0])),expectedNumbers);
+  const contentsNumbers=await page.locator('#contents .td-contents-links a').evaluateAll(es=>es.map(e=>({id:e.hash.slice(1),number:e.querySelector('span').textContent})));
+  for(const entry of contentsNumbers)assert.equal(entry.number,expectedNumbers[ids.indexOf(entry.id)],entry.id);
+
   assert.deepEqual(ids.slice(5,10),['vision','learning-range','business','reading-report','learning-value']);
   assert.deepEqual(ids.slice(10,16),['part-content','platform-overview','ai-authoring','foundation','advantage','marketing-tools']);
   assert.deepEqual(ids.slice(17,20),['growth','sales-strategy','revenue-model']);
