@@ -212,7 +212,7 @@
     box-shadow 150ms;
 }
 .course-activity-card:hover {
-  border-color: #c43a1c;
+  border-color: var(--course-accent, #c43a1c);
 }
 .course-activity-card[data-completed] {
   border-color: #2e7959;
@@ -226,7 +226,11 @@
 .course-activity-card h3 {
   margin-top: auto;
 }
-.course-activity-card:focus-visible,
+.course-activity-card:focus-visible {
+  outline: 2px solid var(--course-accent, #c43a1c);
+  outline-offset: 3px;
+}
+
 .learning-stage button:focus-visible,
 .learning-stage a:focus-visible {
   outline: 2px solid #c43a1c;

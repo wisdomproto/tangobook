@@ -11,3 +11,5 @@
 - [학습 UI v2 후속 통일](20261012-platform-ui-v2-continuation.md) — integrated, 로컬 main. 검증·남은 실기기 범위는 task 참조.
 
 - [홈 상단·과정 카드 구분](20261012-home-header-course-contrast.md) — integrated, 로컬 main.
+
+- [한글·영어 과정 색 통일](20261012-course-language-colors.md) — completed, 로컬 통합 대기.

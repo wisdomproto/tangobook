@@ -1,3 +1,4 @@
+import { getCourseTheme } from '@/design-system';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -45,7 +46,7 @@ function LearningHomeContent() {
           <Link
             key={lang}
             to={`/library/phonics/${lang}`}
-            className={`group relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-[24px] border-2 p-6 transition-colors md:min-h-[220px] md:p-8 ${lang === 'korean' ? 'border-peach-300 bg-peach-200 hover:border-coral-700' : 'border-mint-300 bg-mint-200 hover:border-mint-700'} ${focus}`}
+            className={`group relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-[24px] border-2 p-6 transition-colors md:min-h-[220px] md:p-8 ${getCourseTheme(lang)!.surface} ${getCourseTheme(lang)!.focus}`}
           >
             <div className="relative z-10 max-w-[calc(100%_-_112px)] md:max-w-[calc(100%_-_136px)]">
               <h2 className="text-2xl font-bold md:text-3xl">{t(`nav.${lang}`)}</h2>
@@ -55,11 +56,13 @@ function LearningHomeContent() {
             </div>
             <span
               aria-hidden="true"
-              className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/70 text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${lang === 'korean' ? 'text-coral-700' : 'text-mint-700'}`}
+              className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/70 text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${getCourseTheme(lang)!.text}`}
             >
               {lang === 'korean' ? '가' : 'Aa'}
             </span>
-            <span className="mt-6 inline-flex min-h-12 w-fit items-center gap-8 rounded-xl bg-coral-700 px-5 text-base font-bold text-white">
+            <span
+              className={`mt-6 inline-flex min-h-12 w-fit items-center gap-8 rounded-xl px-5 text-base font-bold ${getCourseTheme(lang)!.action}`}
+            >
               {t('home.start')}
               <span aria-hidden="true">→</span>
             </span>
@@ -79,13 +82,13 @@ function LearningHomeContent() {
               <Link
                 key={lang}
                 to={`/library/phonics/${lang}/${unit!.id}`}
-                className={`flex min-h-12 min-w-36 flex-1 items-center justify-between gap-4 rounded-xl bg-cream-50 px-4 py-2 ${focus}`}
+                className={`flex min-h-12 min-w-36 flex-1 items-center justify-between gap-4 rounded-xl px-4 py-2 ${getCourseTheme(lang)!.badge} ${getCourseTheme(lang)!.focus}`}
               >
                 <div>
                   <p className="text-sm font-bold text-ink-600">{t(`nav.${lang}`)}</p>
                   <p className="mt-1 text-lg font-bold">{unitTitle(tp, unit!)}</p>
                 </div>
-                <span aria-hidden="true" className="text-coral-700">
+                <span aria-hidden="true" className={getCourseTheme(lang)!.text}>
                   →
                 </span>
               </Link>

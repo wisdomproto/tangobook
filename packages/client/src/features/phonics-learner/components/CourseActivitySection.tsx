@@ -1,3 +1,4 @@
+import { courseThemes, type CourseLanguage } from '@/design-system';
 import { useId, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,21 +15,24 @@ export interface CourseActivityItem {
 
 /** 한글/영어 과정의 같은 선택·완료 계약. 활동별 데이터와 학습 순서는 호출부가 정한다. */
 export function CourseActivitySection({
+  language,
   title,
   subtitle,
   items,
 }: {
+  language: CourseLanguage;
   title: string;
   subtitle: string;
   items: CourseActivityItem[];
 }) {
+  const theme = courseThemes[language];
   const id = useId();
   const { t } = useTranslation('phonics');
   if (!items.length) return null;
   return (
-    <section aria-labelledby={id} className="course-activity-section">
+    <section aria-labelledby={id} className="course-activity-section" style={theme.style}>
       <div className="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h2 id={id} className="text-section-title font-display">
+        <h2 id={id} className={`text-section-title font-display ${theme.text}`}>
           {title}
         </h2>
         <p className="text-base leading-relaxed text-ink-600 break-keep">{subtitle}</p>
@@ -42,7 +46,7 @@ export function CourseActivitySection({
             data-completed={item.done || undefined}
           >
             <div className="flex items-center justify-between gap-2 text-sm font-semibold text-ink-600">
-              <span className="grid size-7 place-items-center rounded-full bg-cream-100 text-ink-700">
+              <span className={`grid size-7 place-items-center rounded-full ${theme.badge}`}>
                 {item.order}
               </span>
               {item.done && (

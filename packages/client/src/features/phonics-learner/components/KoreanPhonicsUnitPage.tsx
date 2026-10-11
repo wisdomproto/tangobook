@@ -1,3 +1,4 @@
+import { courseThemes } from '@/design-system';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
@@ -24,7 +25,7 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
         <p>{t('common.unknownUnit')}</p>
         <Link
           to="/library/phonics/korean"
-          className="inline-flex min-h-11 items-center text-coral-700 underline"
+          className={`inline-flex min-h-11 items-center underline ${courseThemes.korean.text} ${courseThemes.korean.focus}`}
         >
           {t('common.backToKorean')}
         </Link>
@@ -66,11 +67,13 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
       ) : (
         <div className="space-y-8">
           <CourseActivitySection
+            language="korean"
             title={t('section.learn')}
             subtitle={t('section.learnSubtitleWrite')}
             items={items('learn')}
           />
           <CourseActivitySection
+            language="korean"
             title={unit.isReview ? unitTitle(t, unit) : t('section.wordPlay')}
             subtitle={t('section.wordPlaySubtitle')}
             items={items('play')}

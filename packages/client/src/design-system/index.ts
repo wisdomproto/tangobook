@@ -3,3 +3,4 @@
 // - 프리미티브: `import { Button, Card, Mascot } from '@/design-system'`
 export * from './primitives';
 export * as tokens from './tokens';
+export { courseThemes, getCourseTheme, type CourseLanguage } from './courseTheme';

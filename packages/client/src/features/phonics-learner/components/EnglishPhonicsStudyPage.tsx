@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import { PageHeader } from '@/design-system';
+import { PageHeader, courseThemes } from '@/design-system';
 import { CurriculumNavigation } from './CurriculumNavigation';
 import {
   getAllEnglishUnits,
@@ -20,6 +20,8 @@ import EnglishPhonicsUnitPage from './EnglishPhonicsUnitPage';
  * 한글 (`KoreanPhonicsStudyPage`) 평행 구조. 좌측 커리큘럼 (Book 1~5) + 우측 unit body.
  * 활동 plan 은 아직 미구성 — 모든 unit "활동 준비 중" 표시.
  */
+const theme = courseThemes.english;
+
 export default function EnglishPhonicsStudyPage() {
   const { t } = useTranslation('phonics');
   const { unitId } = useParams<{ unitId?: string }>();
@@ -64,7 +66,7 @@ export default function EnglishPhonicsStudyPage() {
           <p className="text-base font-bold text-ink-700">{t('common.noUnitsYet')}</p>
           <Link
             to="/library/phonics"
-            className="inline-block mt-3 text-coral-600 font-black underline"
+            className={`inline-block mt-3 font-black underline ${theme.text} ${theme.focus}`}
           >
             {t('common.backToPickerLong')}
           </Link>
@@ -108,13 +110,13 @@ export default function EnglishPhonicsStudyPage() {
         }
       >
         <span className="inline-flex items-center gap-2">
-          <span className="text-coral-600">{t('study.englishLead')}</span>
+          <span className={theme.text}>{t('study.englishLead')}</span>
           <span>{t('common.phonics')}</span>
         </span>
       </PageHeader>
 
       <div className="flex-1 min-h-0 flex mt-2">
-        <CurriculumNavigation open={navOpen} onClose={() => setNavOpen(false)}>
+        <CurriculumNavigation language="english" open={navOpen} onClose={() => setNavOpen(false)}>
           <div className="flex flex-col gap-5">
             {byLevel.map(([levelKey, level]) => {
               const isExpanded = expandedLevels.has(levelKey);
@@ -151,7 +153,7 @@ export default function EnglishPhonicsStudyPage() {
                         levelPct === 100
                           ? 'bg-mint-100 text-mint-700'
                           : levelPct > 0
-                            ? 'bg-coral-100 text-coral-600'
+                            ? theme.badge
                             : 'text-ink-600',
                       ].join(' ')}
                     >
@@ -205,8 +207,7 @@ function CurriculumItem({
   // 영어 unit title 예: "Unit 01: Aa Bb Cc" → 앞 "Unit 01: " 제거
   const { t } = useTranslation('phonics');
   const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
-  const baseClass =
-    'flex min-h-12 items-center gap-2.5 px-2.5 py-2.5 rounded-card text-left border-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700';
+  const baseClass = `flex min-h-12 items-center gap-2.5 px-2.5 py-2.5 rounded-card text-left border-2 transition-colors ${theme.focus}`;
   // 모든 unit 클릭 가능 (계획 없어도 진입 — UnitPage 에서 "준비 중" 메시지). 사이드바 상의 시각만 옅게.
   return (
     <Link
@@ -215,7 +216,7 @@ function CurriculumItem({
       className={[
         baseClass,
         active
-          ? 'bg-coral-100 text-ink-900 border-coral-700'
+          ? theme.selected
           : done
             ? 'bg-success/10 text-success-700 hover:bg-success/20 border-2 border-success/20'
             : hasPlan
@@ -227,11 +228,11 @@ function CurriculumItem({
         className={[
           'inline-flex w-8 h-8 rounded-full items-center justify-center text-sm font-black shrink-0 ring-2',
           active
-            ? 'bg-white text-coral-600 ring-coral-200'
+            ? `bg-white ${theme.text} ${theme.ring}`
             : done
               ? 'bg-mint-100 text-mint-700 ring-white'
               : hasPlan
-                ? 'bg-coral-100 text-coral-600 ring-white'
+                ? `${theme.badge} ring-white`
                 : 'bg-ink-100 text-ink-600 ring-white',
         ].join(' ')}
       >
@@ -247,9 +248,7 @@ function CurriculumItem({
         // 하다 만 단원만 n/N — 0 이면 아직 안 연 것이라 모든 줄에 '0/4' 를 달면 소음이다.
         !done &&
         doneCount > 0 && (
-          <span
-            className={`ml-auto shrink-0 text-xs font-black tabular-nums ${active ? 'text-coral-800' : 'text-coral-700'}`}
-          >
+          <span className={`ml-auto shrink-0 text-xs font-black tabular-nums ${theme.text}`}>
             {doneCount}/{totalCount}
           </span>
         )

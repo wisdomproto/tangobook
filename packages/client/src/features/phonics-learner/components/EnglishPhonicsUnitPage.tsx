@@ -1,3 +1,4 @@
+import { courseThemes } from '@/design-system';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
@@ -24,7 +25,7 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
         <p>{t('common.unknownUnit')}</p>
         <Link
           to="/library/phonics/english"
-          className="inline-flex min-h-11 items-center text-coral-700 underline"
+          className={`inline-flex min-h-11 items-center underline ${courseThemes.english.text} ${courseThemes.english.focus}`}
         >
           {t('common.backToEnglish')}
         </Link>
@@ -46,7 +47,9 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
         done: completed.includes(activity.key),
         iconUrl: activity.letters ? undefined : KIND_ICON_URL[activity.kind],
         illustration: activity.letters ? (
-          <span className="font-display text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight text-coral-700">
+          <span
+            className={`font-display text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight ${courseThemes.english.text}`}
+          >
             {activity.letters.map((letter) => letter.toUpperCase()).join('')}
           </span>
         ) : (
@@ -72,11 +75,13 @@ export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?
       ) : (
         <div className="space-y-8">
           <CourseActivitySection
+            language="english"
             title={t('section.learn')}
             subtitle={t('section.learnSubtitleListen')}
             items={items('learn')}
           />
           <CourseActivitySection
+            language="english"
             title={unit.isReview ? unitTitle(t, unit) : t('section.games')}
             subtitle={t('section.gamesSubtitle')}
             items={items('play')}

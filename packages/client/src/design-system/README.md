@@ -8,6 +8,8 @@ tokens/에는 colors, radius, shadows, typography, motion과 barrel이 있다. p
 
 일반 스타일은 Tailwind 클래스로 사용한다. Canvas/SVG 등 런타임 값이 필요한 경우 tokens를 import한다. 비즈니스 데이터·판정·외부 API 호출은 feature에 둔다.
 
+`courseTheme.ts`의 `courseThemes`/`getCourseTheme`는 한글 살구색·코랄 강조, 영어 민트색·짙은 민트 강조의 공통 표현이다. 콘텐츠 언어(ko/korean·en/english)를 넘긴다. `surface/selected/badge/hover/text/action/ring/focus`는 실제 Tailwind 클래스, `style`은 활동 카드의 hover/초점에 쓰는 색 토큰 기반 CSS 변수다. 다른 언어는 undefined를 반환하므로 호출 화면의 중립 표현을 유지한다.
+
 ## 실제 토큰과 Tailwind
 
 tailwind.config.ts가 토큰을 import한다. src/index.css의 CSS 변수는 별도 정의이므로 참조·동기 여부를 확인한다. typography.ts에는 폰트 패밀리와 역할별 fontSize가 있다. `text-page-title/section-title/learning-body/learning-label/learning-meta`는 크기·줄간격·굵기를 함께 적용한다.

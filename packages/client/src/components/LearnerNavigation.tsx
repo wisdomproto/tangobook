@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getCourseTheme } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { Home, BookOpen, Grid2X2 } from 'lucide-react';
 
@@ -29,6 +30,7 @@ export function LearnerNavigation({ mobile = false }: { mobile?: boolean }) {
           (key === 'activities' &&
             (pathname.startsWith('/games') || pathname.startsWith('/vocabulary'))) ||
           (key === 'books' && pathname.startsWith('/continuous'));
+        const theme = getCourseTheme(key);
         return (
           <Link
             key={key}
@@ -39,7 +41,8 @@ export function LearnerNavigation({ mobile = false }: { mobile?: boolean }) {
               mobile
                 ? 'flex min-h-[72px] min-w-0 flex-1 flex-col items-center justify-center gap-1 text-sm'
                 : 'flex min-h-12 min-w-0 items-center justify-center px-3 text-center text-base lg:px-5 lg:text-lg',
-              active && 'bg-coral-100 text-coral-700'
+              theme?.focus,
+              active && (theme ? `${theme.badge} ${theme.hover}` : 'bg-coral-100 text-coral-700')
             )}
           >
             {mobile && (

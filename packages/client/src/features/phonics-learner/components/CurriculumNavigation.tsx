@@ -1,16 +1,20 @@
+import { courseThemes, type CourseLanguage } from '@/design-system';
 import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /** 같은 단원 목록을 데스크톱 패널/모바일 대화상자로 제공한다. */
 export function CurriculumNavigation({
+  language,
   open,
   onClose,
   children,
 }: {
+  language: CourseLanguage;
   open: boolean;
   onClose: () => void;
   children: ReactNode;
 }) {
+  const theme = courseThemes[language];
   const { t } = useTranslation('phonics');
   const id = useId();
   const dialog = useRef<HTMLDialogElement>(null);
@@ -59,7 +63,7 @@ export function CurriculumNavigation({
             autoFocus
             onClick={onClose}
             aria-label={t('common.close')}
-            className="grid size-11 place-items-center rounded-full border border-ink-100 text-ink-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
+            className={`grid size-11 place-items-center rounded-full border border-ink-100 text-ink-700 ${theme.focus}`}
           >
             ✕
           </button>

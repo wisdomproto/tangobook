@@ -1,3 +1,4 @@
+import { getCourseTheme } from '@/design-system';
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -309,7 +310,13 @@ export default function BookDetailPage() {
                           value={lang}
                           onChange={(e) => setLang(e.target.value)}
                           aria-label={t('lang.selectAria')}
-                          className="h-full min-h-[2.75rem] appearance-none bg-white rounded-full pl-3.5 pr-9 shadow-soft text-base font-black text-ink-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-300"
+                          className={cn(
+                            'h-full min-h-[2.75rem] appearance-none rounded-full border-2 pl-3.5 pr-9 shadow-soft text-base font-black',
+                            getCourseTheme(lang)?.selected ??
+                              'border-ink-100 bg-white text-ink-900',
+                            getCourseTheme(lang)?.focus ??
+                              'focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700'
+                          )}
                         >
                           {languages.map((code) => {
                             const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
@@ -338,9 +345,10 @@ export default function BookDetailPage() {
                               aria-label={t('lang.toggleAria', { name: label.name })}
                               className={cn(
                                 'w-11 h-11 rounded-full text-xl flex items-center justify-center transition',
+                                getCourseTheme(code)?.focus,
                                 active
-                                  ? 'bg-coral-100 text-ink-900 ring-2 ring-coral-700'
-                                  : 'bg-peach-100 hover:bg-peach-200 text-ink-900'
+                                  ? `${getCourseTheme(code)?.badge ?? 'bg-coral-100 text-ink-900'} ring-2 ${getCourseTheme(code)?.ring ?? 'ring-coral-700'}`
+                                  : 'bg-cream-50 hover:bg-cream-100 text-ink-900'
                               )}
                             >
                               {label.flag}

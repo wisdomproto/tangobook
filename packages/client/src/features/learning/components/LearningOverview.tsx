@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
-import { Mascot } from '@/design-system';
+import { Mascot, getCourseTheme } from '@/design-system';
 import {
   eventLanguage,
   localDateKey,
@@ -89,7 +89,7 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
               setSearch('');
               setLimit(12);
             }}
-            className="min-h-11 max-w-[180px] rounded-xl border border-peach-200 bg-white px-3 text-base text-ink-900"
+            className={`min-h-11 max-w-[180px] rounded-xl border-2 px-3 text-base ${getCourseTheme(lang)?.selected ?? 'border-ink-100 bg-white text-ink-900'} ${getCourseTheme(lang)?.focus ?? 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700'}`}
           >
             {LANGUAGES.map((language) => (
               <option key={language.id} value={language.id}>
