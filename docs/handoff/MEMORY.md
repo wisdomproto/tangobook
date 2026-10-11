@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-12 [학습 앱 첫 화면 논의·시안](../work/strategy/tasks/20261012-learner-home-direction.md): 공식 소개가 아닌 학습 앱 메인에 집중. 첫 imagegen 시안의 복잡함 반증과 추천 도서 필요를 반영해 사이드바 없는 간결한 상단 탭·이어 하기·오늘 추천3권·한글/영어 입구의 두 번째 시안 제공. 사용자 미승인, 제품 코드 변경 없음. 상세 서재 탐색은 후속 범위.
+2026-10-12 [학습 앱 첫 화면 논의·시안](../work/strategy/tasks/20261012-learner-home-direction.md): 학습 앱 메인에 집중. 첫 imagegen 시안은 복잡함, 두 번째 추천 중심 시안은 '짬뽕'이라는 사용자 반증으로 모두 거부. 추천 필요/사이드바 질문을 확정 디자인으로 확대하지 않음. 메인의 역할·학습/추천 관계·시각적 통일 정리부터 재개. 제품 코드 변경 없음.
 
 2026-10-12 [플랫폼 메인 문서](../work/strategy/tasks/20261012-platform-main-document.md): [PLATFORM.md](../PLATFORM.md)가 현재 합의된 플랫폼 구조·사업 방향의 기준. 사용자 승인 소개서1차 버전을 정리하고 AGENTS.md·CLAUDE.md에 연결. STRATEGY.md는 과거 결정/조사 이력, 구현 상태는 기능별 코드·task에서 확인. 로컬 커밋.
 
