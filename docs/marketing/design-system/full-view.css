@@ -36,6 +36,27 @@
  .present #vision .td-ecosystem-node p{font-size:12px;line-height:1.5;margin:0}
  .present #vision .td-ecosystem-caption{grid-column:1/-1;margin:0;padding-top:8px;font-size:18px}
  .present #vision .td-ecosystem-caption small{font-size:13px}
+ .present #vision .td-overview-value{margin:0 0 20px;padding:16px 22px}
+ .present #vision .td-ecosystem{margin-top:0}
+ .present #business .td-story-step-scene{height:420px}
+ .present #business .td-story-step:not(:last-child)::after{top:280px;font-size:28px}
+ .present #business .td-story-step>p{font-size:17px;line-height:1.6;margin-top:16px}
+ .present #business .td-story-step h3{font-size:27px}
+ .present #business .td-lesson-screen{padding:18px}
+ .present #business .td-lesson-screenbar{font-size:13px}
+ .present #business .td-lesson-screenbar b{font-size:16px}
+ .present #business .td-learn-word{flex-direction:column;justify-content:center;gap:18px}
+ .present #business .td-learn-word>img{width:85%;height:210px;aspect-ratio:auto}
+ .present #business .td-learn-word>div{flex:none;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px}
+ .present #business .td-letter-focus{font-size:56px}
+ .present #business .td-learn-word strong{font-size:35px}
+ .present #business .td-sound-label{font-size:12px}
+ .present #business .td-app-feedback{padding:16px}
+ .present #business .td-app-feedback span{font-size:12px}
+ .present #business .td-app-feedback b{font-size:19px}
+ .present #business .td-game-prompt{font-size:18px;margin-top:20px}
+ .present #business .td-word-choices>span{font-size:29px;padding:5px 16px}
+ .present #business .td-game-result{font-size:14px;margin-top:14px}
  .present #platform-overview>.section-sub{display:none}
  .present #platform-overview>.section-h2{margin-bottom:8px!important}
  .present #phonics-content .td-phonics-library{gap:24px}

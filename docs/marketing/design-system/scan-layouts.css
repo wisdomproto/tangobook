@@ -297,3 +297,9 @@ html:has(#investor-panel){scroll-padding-top:0}
  .td-story-step:not(:last-child)::after{display:none}
  .td-story-step h3{font-size:18px}
 }
+
+/* The overview names the parent benefit before showing the product composition. */
+.td-overview-value{display:flex;align-items:center;justify-content:space-between;gap:20px;border-left:4px solid var(--doc-color-teal);background:var(--doc-color-wash);padding:18px 22px;margin:0 0 26px}
+.td-overview-value b{font-size:25px;color:var(--doc-color-ink)}.td-overview-value span{font-size:16px;color:var(--doc-color-muted)}
+@media(min-width:1101px){#business .td-story-step-scene{height:360px}#business .td-story-step:not(:last-child)::after{top:245px}#business .td-story-step>p{font-size:16px}}
+@media(max-width:699px){.td-overview-value{display:block;padding:16px}.td-overview-value b{font-size:22px}.td-overview-value span{display:block;font-size:14px;margin-top:8px}}

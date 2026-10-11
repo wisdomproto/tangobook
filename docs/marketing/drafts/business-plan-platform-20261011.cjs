@@ -2,7 +2,7 @@
 module.exports = ({ img }) => {
  const asset = f => '../investor-20261010/' + f;
  const node = (title, desc, file, alt, extra = '') => `<article class="td-ecosystem-node">${img(file, alt)}<h4>${title}</h4><p>${desc}</p>${extra}</article>`;
- const overview = `<div class="td-ecosystem">
+ const overview = `<div class="td-overview-value"><b>부모의 설명·준비 부담 감소</b><span>학습 순서와 피드백을 앱이 안내하는 구조</span></div><div class="td-ecosystem">
    <div class="td-ecosystem-hub td-app-hub"><h3>탱고북 학습 앱</h3><figure>${img(asset('app-overview-v3.webp'),'한글·영어 학습, 동화책 라이브러리, 학습 게임과 교구 연결을 보여주는 탱고북 앱 디자인 시안')}<figcaption>학습 안내 · 콘텐츠 이용 · 학습 현황 관리 <small> / 앱 디자인 시안</small></figcaption></figure></div>
    <div class="td-ecosystem-branches">
      <div class="td-ecosystem-group"><h3>아날로그 콘텐츠</h3><div class="td-ecosystem-items analog">
@@ -15,7 +15,6 @@ module.exports = ({ img }) => {
        ${node('독후활동', '듣기 · 찾기 · 순서 맞추기', asset('giant-reading-activity-actual.png'), '거인의 정원 디지털 독후활동 화면')}
      </div></div>
    </div>
-   <p class="td-ecosystem-caption">손으로 만드는 학습 + 앱의 안내·반응<br> <small>부모가 매번 설명하고 다음 활동을 준비하는 부담을 줄이는 설계</small></p>
  </div>`;
  const speaker = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 8q5 4 0 8M19 4q9 8 0 16"/></svg>';
  const wordPicture = () => img(asset('phonics-gagu-word.webp'), '가구: 의자와 서랍장 그림');
@@ -26,7 +25,7 @@ module.exports = ({ img }) => {
  const experience = `<span id="background" class="td-anchor-alias" aria-hidden="true"></span>
  <div class="td-lesson-storyboard">
  ${step(1,'앱','보고 듣기',learnScreen,'‘ㄱ’과 ‘가구’의 모양·소리 익히기')}
- ${step(2,'실물 블록 + 앱','블록으로 만들기',guidedPhoto('hardware-feedback-use-v3.png','앱 안내에 따라 가구를 실물 블록으로 만드는 장면','✓ 가구 완성!<br>이제 써 볼까요?'),'‘가구’를 조합하고 앱의 반응에 따라 다시 시도하거나 다음 활동으로 이동')}
+ ${step(2,'실물 블록 + 앱','블록으로 만들기',guidedPhoto('hardware-feedback-use-v3.png','앱 안내에 따라 가구를 실물 블록으로 만드는 장면','✓ 가구 완성!<br>이제 써 볼까요?'),'‘가구’를 조합하고 앱의 안내에 따라 연습')}
  ${step(3,'탱고노트 + 앱','종이에 쓰기',guidedPhoto('tangonote-product-v5.webp','노트판 위 종이에 가구를 쓰고 앱에서 확인하는 제품 구성 예시','쓴 내용 확인<br>다음은 복습 게임 →'),'같은 낱말을 종이에 쓰고 앱에서 확인')}
  ${step(4,'앱 게임','게임으로 복습',gameScreen,'소리를 듣고 배운 낱말 고르기')}
  </div>
