@@ -13,7 +13,7 @@ const canvasStyle=document.createElement('style');
 canvasStyle.id='full-view-style';
 canvasStyle.media='not all';
 canvasStyle.textContent=readingStyle.textContent.replace(/\((min|max)-width:\s*(\d+)px\)/g,(_,kind,value)=>{
- const matches=kind==='min'?1280>=Number(value):1280<=Number(value);
+ const matches=kind==='min'?1440>=Number(value):1440<=Number(value);
  return matches?'(min-width:0px)':'(min-width:100000px)';
 });
 document.head.append(canvasStyle);
@@ -22,7 +22,7 @@ function fitSlide(){
  frame=0;if(!isFullView())return;
  const slide=slides[index],stage=panel.querySelector('main');
  if(slide.id.startsWith('part-')||slide.id==='proposal-cover')return;
- const scale=Math.min(stage.clientWidth/1280,(stage.clientHeight-2)/Math.max(slide.offsetHeight,slide.scrollHeight));
+ const scale=Math.min(stage.clientWidth/1440,(stage.clientHeight-2)/900);
  slide.style.setProperty('--slide-scale',String(Math.max(.01,scale)));
 }
 function queueFit(){if(!frame)frame=requestAnimationFrame(fitSlide);}

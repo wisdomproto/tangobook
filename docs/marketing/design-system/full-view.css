@@ -1,4 +1,4 @@
-/* Full view uses a fixed 1280px editorial canvas, fitted by navigation.js. */
+/* Every content slide shares a fixed 1440 × 900 canvas. */
 @media screen {
  /* Keep the document title and tab navigation on a single row. */
  body>.audience{display:flex;flex-wrap:nowrap;gap:24px;overflow-x:auto;overscroll-behavior-x:contain}
@@ -12,14 +12,14 @@
  body.present[data-audience="investor"] #investor-panel>header #chapter-select{max-width:55vw}
  body.present[data-audience="investor"] #investor-panel>main{position:fixed;inset:56px 0 0;max-width:none;width:100%;height:calc(100dvh - 56px);padding:0;margin:0;overflow:hidden}
  body.present[data-audience="investor"] #investor-panel>main>section{display:none}
- body.present[data-audience="investor"] #investor-panel>main>section.active{display:block;position:absolute;left:50%;top:50%;width:1280px;min-height:720px;height:auto;padding:32px 48px;margin:0;border:0;border-radius:0;transform:translate(-50%,-50%) scale(var(--slide-scale,1));transform-origin:center;background:var(--doc-color-paper);box-shadow:0 12px 64px #173e3614}
+ body.present[data-audience="investor"] #investor-panel>main>section.active{display:block;position:absolute;left:50%;top:50%;width:1440px;min-height:900px;height:900px;padding:32px 48px;margin:0;border:0;border-radius:0;transform:translate(-50%,-50%) scale(var(--slide-scale,1));transform-origin:center;background:var(--doc-color-paper);box-shadow:0 12px 64px #173e3614}
  .present #investor-panel>main>section.active>.section-badge{padding:0 0 12px;margin:0;border-bottom:1px solid var(--doc-color-line);font-size:13px}
  .present #investor-panel>main>section.active>.section-h2{font-size:36px;line-height:1.25;margin:18px 0 10px}
  .present #investor-panel>main>section.active>.section-sub{font-size:17px;line-height:1.6;margin:0 0 24px}
  .present #investor-panel>main>section.active>.section-sub:empty{display:none}
  .present #investor-panel .v-evidence{display:none}
  .present #investor-panel .td-note{font-size:12px;line-height:1.6;margin:14px 0 0;padding:0;background:none}
- .present #investor-panel #vision{background:var(--doc-color-ink);color:var(--doc-color-paper)}
+ .present #investor-panel #vision{background:var(--doc-color-paper);color:var(--doc-color-ink)}
  .present #vision .td-ecosystem{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:center;margin-top:20px}
  .present #vision .td-app-hub{max-width:none;padding:20px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
  .present #vision .td-app-hub h3{font-size:24px}
@@ -50,7 +50,7 @@
  .present #ai-authoring .td-editor-manuscript{padding:14px}
  .present #ai-authoring .td-editor-manuscript p{font-size:16px;margin:8px 0}
  .present #ai-authoring .td-ai-values{margin-top:16px;gap:24px}
- .present #ai-authoring .td-ai-values article{padding:16px}
+ .present #ai-authoring .td-ai-values article{padding:12px}
  .present #ai-authoring .td-ai-values p{font-size:14px;margin:6px 0 0}
  .present #education-market .td-market-card{padding:24px!important}
  .present #education-market .td-market-heading{margin-bottom:12px}
@@ -62,6 +62,20 @@
  .present #reading-report .td-story-reader>img{height:280px}
  .present #advantage .td-device-connections figure img{height:260px!important;object-fit:contain}
  .present #validation .td-milestone-dashboard{margin-top:12px}
+ .present #ai-authoring .td-editor-ai{padding:14px 18px}
+ .present #ai-authoring .td-editor-tool{padding:8px 0}
+ .present #ai-authoring .td-editor-ai h3{margin:8px 0 12px}
+ .present #ai-authoring .td-editor-canvas{padding:14px 22px}
+ .present #ai-authoring .td-editor-canvas>img{height:190px!important}
+ .present #ai-authoring .td-editor-flow{padding:10px}
+ .present #expansion-platform .td-language-expansion{padding:16px}
+ .present #expansion-platform .td-block-expansion img{height:170px!important;aspect-ratio:auto}
+ .present #expansion-platform .v-takeaway{margin-top:20px;padding:16px}
+ .present #expansion-content .td-comic-expansion{margin-top:20px;padding-top:20px}
+ .present #expansion-content .td-comic-expansion img{height:285px!important;aspect-ratio:auto}
+ .present #validation #milestone-chart svg{height:445px;width:100%;min-width:0}
+ .present #validation .td-milestone-totals{margin:12px 0}
+ .present #revenue-model .td-note{margin-top:8px}
  /* Dividers are edge-to-edge, independent of the content canvas aspect ratio. */
  body.present[data-audience="investor"] #investor-panel>main>section.active:is([id^="part-"],#proposal-cover){width:100%;height:100%;min-height:0;padding:0;left:0;top:0;transform:none;box-shadow:none}
  .present #investor-panel .active .td-part{width:100%;height:100%;min-height:0;border-radius:0;padding:clamp(24px,6vw,100px);gap:5vw;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}

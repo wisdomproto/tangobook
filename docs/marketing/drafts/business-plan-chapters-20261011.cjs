@@ -7,9 +7,23 @@ module.exports=({slides,img})=>{
   'platform-overview':divider('part-content','03','플랫폼 구성과 운영','저작도구 · 보유 콘텐츠 · 디지털 · 아날로그 · 마케팅 도구',`<div class="td-part-books">${img('series-changjak-coco-01.webp','코코 창작동화 삽화')}${img('series-changjak-pongi-01.webp','퐁이 창작동화')}${img('series-changjak-mina-01.webp','미나 창작동화')}</div>`),
   growth:divider('part-business','04','사업과 성장 계획','상품 · 수익 구조 · 확장 · 출시 계획',`<div class="td-part-years"><span>2027</span><b>한국 출시</b><i>→</i><span>2028</span><b>아시아 3개국</b></div>`)
  };
- const original=slides.slice();slides.splice(0,slides.length,cover,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));
+ const original=slides.slice();
+ const groups=[['01','시장 배경',0,2],['02','제품과 학습 경험',2,5],['03','플랫폼 구성과 운영',5,13],['04','사업과 성장 계획',13,20]];
+ const contents=['contents','차례','CONTENTS','차례','',`<div class="td-contents-grid">${groups.map(([n,title,start,end])=>`<article><div class="td-contents-heading"><span>${n}</span><h3>${title}</h3></div><div class="td-contents-links">${original.slice(start,end).map(([id,num,,heading])=>`<a href="#${id}"><span>${num}</span>${heading}<i aria-hidden="true">↗</i></a>`).join('')}</div></article>`).join('')}</div>`];
+ slides.splice(0,slides.length,cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));
  return `
  #investor-panel #proposal-cover,#investor-panel [id^="part-"]{padding:24px 0 36px}
+ .td-contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+ .td-contents-grid>article{padding:24px;border:1px solid var(--doc-color-line);border-radius:8px;background:white}
+ .td-contents-heading{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+ .td-contents-heading>span{font-size:30px;color:var(--doc-color-teal)}
+ .td-contents-heading h3{font-size:24px;margin:0}
+ .td-contents-links{display:grid;grid-template-columns:1fr;gap:8px}
+ .td-contents-grid>article:nth-child(n+3) .td-contents-links{grid-template-columns:1fr 1fr;column-gap:22px}
+ .td-contents-links a{display:flex;align-items:baseline;gap:10px;color:var(--doc-color-ink);font-size:15px;text-decoration:none;padding:6px 0;border-bottom:1px solid var(--doc-color-line)}
+ .td-contents-links a>span{color:var(--doc-color-teal);font-size:13px;flex:none}.td-contents-links i{font-style:normal;margin-left:auto;color:var(--doc-color-teal)}
+ .td-contents-links a:hover,.td-contents-links a:focus-visible{background:var(--doc-color-wash)}
+ @media(max-width:699px){.td-contents-grid{grid-template-columns:1fr}.td-contents-grid>article:nth-child(n+3) .td-contents-links{grid-template-columns:1fr}}
  #proposal-cover>.section-badge,#proposal-cover>.section-h2,#proposal-cover>.section-sub,[id^="part-"]>.section-badge,[id^="part-"]>.section-h2,[id^="part-"]>.section-sub{display:none}
  .td-title-cover{display:grid;grid-template-columns:1fr 1.15fr;background:var(--doc-color-wash);border-radius:12px;overflow:hidden;align-items:center;min-height:540px}
  .td-title-copy{padding:48px 0 40px 40px}.td-title-copy>span{font-size:18px;color:var(--doc-color-teal)}.td-title-copy h1{font-size:76px;letter-spacing:-.065em;line-height:1.1;margin:22px 0}.td-title-copy h2{font-size:26px;line-height:1.4;margin:0}.td-title-copy p{font-size:17px;color:var(--doc-color-muted);margin:24px 0}.td-title-meta{font-size:13px;margin-top:40px;color:var(--doc-color-muted)}

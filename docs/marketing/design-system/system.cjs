@@ -2,7 +2,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const tokens=require('./tokens.json');
 const layouts={
- cover:{name:'서비스 개요',rule:'서비스 정의 + 상단 앱과 연결된 교구·콘텐츠',ids:['vision']},
+ overview:{name:'서비스 개요',rule:'밝은 본문 배경 + 앱과 연결된 교구·콘텐츠',ids:['vision']},
  market:{name:'시장',rule:'국내/해외 범위·기간을 구분한 숫자와 그래프',ids:['education-market']},
  comparison:{name:'비교',rule:'같은 크기의 사진과 같은 순서의 장점·한계',ids:['media']},
  experience:{name:'학습 경험',rule:'앱→블록→쓰기→게임의 네 장면 + 통합 학습 기록',ids:['business','background','experience']},
