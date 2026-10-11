@@ -10,12 +10,12 @@ module.exports = ({ img }) => {
        ${node('탱고노트', '종이 필기 · 학습지 인식', asset('tangonote-product-v5.webp'), '종이를 올려 쓰고 태블릿으로 데이터를 보내는 탱고노트')}
      </div></div>
      <div class="td-ecosystem-group"><h3>디지털 콘텐츠</h3><div class="td-ecosystem-items digital">
-       ${node('파닉스', '글자·소리 학습<br> 한글 4권 · 영어 5권', asset('phonics-covers/ko-1-chapter-v3.webp'), '한글 자음·모음 학습 예시')}
-       ${node('동화책', '어휘 · 문장 · 이야기', 'cover-1789350946382.webp', '보유 동화책 거인의 정원 표지')}
-       ${node('독후활동', '듣기 · 찾기 · 순서 맞추기', asset('giant-reading-activity-actual.png'), '거인의 정원 디지털 독후활동 화면')}
+       ${node('파닉스', '한글·영어 전 과정', asset('phonics-covers/ko-1-chapter-v3.webp'), '한글 자음·모음 학습 예시')}
+       ${node('동화책', '1,000+권 · 매달 신간', 'cover-1789350946382.webp', '보유 동화책 거인의 정원 표지')}
+       ${node('독후활동', '10+가지 학습 게임', asset('giant-reading-activity-actual.png'), '거인의 정원 디지털 독후활동 화면')}
      </div></div>
    </div>
- </div>`;
+ </div><div class="td-overview-loop" aria-label="앱 안내에서 활동과 통합 학습 기록으로 이어지는 흐름"><div><span>01 · 앱 안내</span><b>보고 듣고 시작</b></div><i aria-hidden="true">→</i><div><span>02 · 학습 활동</span><b>블록 · 쓰기 · 읽기 · 게임</b></div><i aria-hidden="true">→</i><div><span>03 · 앱 기록</span><b>학습 현황 · 다음 학습</b></div></div>`;
  const speaker = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 8q5 4 0 8M19 4q9 8 0 16"/></svg>';
  const wordPicture = () => img(asset('phonics-gagu-word.webp'), '가구: 의자와 서랍장 그림');
  const learnScreen = `<div class="td-lesson-screen"><div class="td-lesson-screenbar"><b>TangoBook</b><span>한글 · ㄱ</span></div><div class="td-learn-word">${wordPicture()}<div><span class="td-letter-focus">ㄱ</span><strong>가구</strong><span class="td-sound-label">${speaker} 발음 듣기</span></div></div><div class="td-screen-progress"><i></i><i></i><i></i><i></i></div></div>`;

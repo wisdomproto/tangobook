@@ -118,3 +118,9 @@
  .present #investor-panel .active .td-title-cover figure img{max-height:65vh!important}
  .present #investor-panel .active .td-cover-index{font-size:clamp(10px,1vw,16px);padding:20px 5vw}
 }
+
+@media screen{
+ .present #vision .td-overview-loop{grid-template-columns:1fr auto 1.4fr auto 1fr;gap:16px;margin-top:18px;padding:12px 22px}
+ .present #vision .td-overview-loop i{transform:none}
+ .present #vision .td-ecosystem-node img{height:95px!important}
+}
