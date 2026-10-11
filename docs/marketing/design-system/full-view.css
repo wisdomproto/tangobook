@@ -89,13 +89,13 @@
  .present #ai-authoring .td-editor-canvas{padding:14px 22px}
  .present #ai-authoring .td-editor-canvas>img{height:190px!important}
  .present #ai-authoring .td-editor-flow{padding:10px}
- .present #expansion-platform .td-language-expansion{padding:16px}
+ .present #expansion-platform .td-language-expansion{padding:16px;grid-template-columns:1fr 1.8fr}.present #expansion-platform .td-language-current{padding-bottom:10px;margin-bottom:10px}.present #expansion-platform .td-language-next b{padding:9px 12px}.present #expansion-platform .td-language-next>div{gap:8px}
  .present #expansion-platform .td-block-expansion img{height:170px!important;aspect-ratio:auto}
  .present #expansion-platform .v-takeaway{margin-top:20px;padding:16px}
  .present #expansion-content .td-comic-expansion{margin-top:20px;padding-top:20px}
  .present #expansion-content .td-comic-expansion img{height:285px!important;aspect-ratio:auto}
- .present #validation #milestone-chart svg{height:445px;width:100%;min-width:0}
- .present #validation .td-milestone-totals{margin:12px 0}
+ .present #validation #milestone-chart svg{height:320px;width:100%;min-width:0}
+ .present #validation .td-milestone-totals{margin:0 0 20px}
  .present #revenue-model .td-note{margin-top:8px}
  /* Dividers are edge-to-edge, independent of the content canvas aspect ratio. */
  body.present[data-audience="investor"] #investor-panel>main>section.active:is([id^="part-"],#proposal-cover){width:100%;height:100%;min-height:0;padding:0;left:0;top:0;transform:none;box-shadow:none}

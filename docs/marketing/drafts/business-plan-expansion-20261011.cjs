@@ -1,6 +1,8 @@
 module.exports=({img})=>{
  const asset=f=>'../investor-20261010/'+f;
- const platform=`<div class="td-language-expansion"><div><h3>아시아 언어</h3><p>글자·소리·낱말을 배우는 과정을<br>언어별 특성에 맞춰 확장합니다.</p></div><div class="td-language-road"><div class="td-language-current"><span>현재 기반</span><b>한글 · 영어</b></div><div class="td-language-next"><span>추가 개발 언어</span><div><b>베트남어 <small>VI</small></b><b>태국어 <small>TH</small></b><b>말레이어 <small>MS</small></b></div></div></div></div>
+ const languages=[['vn','베트남','베트남어'],['th','태국','태국어'],['my','말레이시아','말레이어'],['mn','몽골','몽골어'],['cn','중국','중국어'],['jp','일본','일본어']];
+ const languageCards=languages.map(([code,country,label])=>`<b>${img(asset('flags/'+code+'.svg'),country+' 국기')}<span>${label}</span></b>`).join('');
+ const platform=`<div class="td-language-expansion"><div><h3>아시아 언어</h3><p>글자·소리·낱말을 배우는 과정을<br>언어별 특성에 맞춰 확장합니다.</p></div><div class="td-language-road"><div class="td-language-current"><span>현재 기반</span><b>한글 · 영어</b></div><div class="td-language-next"><span>추가 개발 언어</span><div>${languageCards}</div></div></div></div>
 <div class="td-expansion-heading"><h3>추가 블록</h3></div>
 <div class="td-block-expansion">${[
  ['숫자·연산 블록','수를 세고, 조합하고, 계산하기','expansion-numbers-blocks.webp'],

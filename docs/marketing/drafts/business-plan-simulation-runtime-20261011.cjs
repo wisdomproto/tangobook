@@ -38,23 +38,21 @@ module.exports=function runtime(plan){
  }
  const sum=rows=>rows.reduce((a,r)=>{for(const k of ['kr','krNote','world','worldNote','blocks','notes','blockKnown','noteKnown','noteAvailable','krSupply','worldSupply','supply','cost','platform','grossProfit','service','extra','balance'])a[k]=(a[k]||0)+Number(r[k]);return a;},{});
  function chart(all){
- const quarters=Array.from({length:8},(_,q)=>sum(all.slice(q*3,q*3+3))),max=Math.max(...quarters.map(q=>q.supply),1e8);
- const step=10**Math.floor(Math.log10(max/4)),tick=Math.ceil(max/4/step)*step,ceiling=tick*4;
- const W=1120,H=500,L=90,R=20,T=190,B=354,slot=(W-L-R)/8,bw=54,center=i=>L+(i+.5)*slot;
+ const quarters=Array.from({length:8},(_,q)=>sum(all.slice(q*3,q*3+3))),shown=quarters.slice(0,4),annual=[sum(all.slice(0,12)),sum(all.slice(12))];
+ const max=Math.max(...shown.flatMap(q=>[q.supply,q.grossProfit]),1e8),min=Math.min(0,...shown.map(q=>q.grossProfit));
+ const step=10**Math.floor(Math.log10((max-min)/4)),tick=Math.ceil((max-min)/4/step)*step,ceiling=Math.ceil(max/tick)*tick,floor=Math.floor(min/tick)*tick;
+ const W=850,H=370,L=112,R=18,T=38,B=235,slot=(W-L-R)/4,bw=40,center=i=>L+(i+.5)*slot,y=v=>B-(v-floor)/(ceiling-floor)*(B-T),zero=y(0);
  const tx=(x,y,text,size=17,color='#173e36',weight=400,anchor='middle')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'" font-size="'+size+'" font-weight="'+weight+'" fill="'+color+'">'+text+'</text>';
- let svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="출시 일정과 분기별 예상 매출"><rect x="'+(L+4*slot)+'" y="130" width="'+4*slot+'" height="364" rx="10" fill="#fff8f3"/>';
- svg+='<line x1="'+center(0)+'" x2="'+center(3)+'" y1="102" y2="102" stroke="#aecdc3" stroke-width="3"/>';
- [['2027 · 1분기','한국 런칭','v1.0 · 한글·영어 블록',0],['2027 · 3분기','탱고노트 출시','종이 쓰기 학습 연동',2]].forEach(([date,title,desc,i])=>{const x=center(i);svg+=tx(x,23,date,16,'#238f88',700)+tx(x,52,title,22,'#173e36',700)+tx(x,77,desc,14)+ '<circle cx="'+x+'" cy="102" r="6" fill="#238f88"/><line x1="'+x+'" x2="'+x+'" y1="111" y2="126" stroke="#aecdc3"/>';});
- const wx=L+6*slot;svg+=tx(wx,23,'2028 · 아시아 3개국',16,'#cd6940',700)+tx(wx,52,'태국 · 베트남 · 인도네시아',22,'#173e36',700)+tx(wx,77,'v2.0 · 다양한 블록 / 출시 분기 미정',14)+'<line x1="'+(L+4*slot+20)+'" x2="'+(W-R-20)+'" y1="102" y2="102" stroke="#ef8756" stroke-width="3"/>';
- svg+=tx(L+2*slot,151,'2027',22,'#173e36',700)+tx(wx,151,'2028',22,'#173e36',700)+tx(5,177,'매출 · 억원',13,'#637770',400,'start');
- for(let n=0;n<=4;n++){const y=B-(B-T)*n/4;svg+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#dbe5df"/>'+tx(L-12,y+5,fmt(n*tick/1e8),15,'#637770',400,'end');}
- quarters.forEach((q,i)=>{const x=center(i),kh=q.krSupply/ceiling*(B-T),wh=q.worldSupply/ceiling*(B-T);svg+='<g><title>'+(2027+Math.floor(i/4))+'년 '+(i%4+1)+'분기 공급액 '+fmt(q.supply)+'원</title><rect x="'+(x-bw/2)+'" y="'+(B-kh)+'" width="'+bw+'" height="'+kh+'" fill="#238f88"/><rect x="'+(x-bw/2)+'" y="'+(B-kh-wh)+'" width="'+bw+'" height="'+wh+'" fill="#ef8756"/>'+tx(x,B-kh-wh-10,q.blockKnown||q.noteKnown?fmt(q.supply/1e8):'미정',17)+tx(x,385,(i%4+1)+'Q',17,'#637770')+'</g>';});
- svg+='<line x1="'+L+'" x2="'+(W-R)+'" y1="408" y2="408" stroke="#dbe5df"/>'+tx(5,441,'블록(대)',15,'#173e36',700,'start')+tx(5,477,'노트(대)',15,'#637770',400,'start');
- quarters.forEach((q,i)=>{svg+=tx(center(i),441,q.blockKnown?fmt(q.blocks):'미정',18,'#173e36',700)+tx(center(i),477,!q.noteAvailable?'출시 전':q.noteKnown?fmt(q.notes):'미정',17,'#637770');});
+ let svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="2027년 분기별 예상 매출 및 매출총이익">'+tx(12,22,'억원',13,'#637770',400,'start');
+ for(let v=floor;v<=ceiling+1;v+=tick){const yy=y(v);svg+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" stroke="#dbe5df"/>'+tx(L-14,yy+5,fmt(v/1e8),14,'#637770',400,'end');}
+ shown.forEach((q,i)=>{const x=center(i);svg+='<g><title>2027년 '+(i+1)+'분기 매출 '+fmt(q.supply)+'원, 매출총이익 '+fmt(q.grossProfit)+'원</title>';[['supply',-24,'#238f88'],['grossProfit',24,'#d77349']].forEach(([key,dx,color])=>{const yy=y(q[key]);svg+='<rect data-metric="'+key+'" data-quarter="'+(i+1)+'" x="'+(x+dx-bw/2)+'" y="'+Math.min(yy,zero)+'" width="'+bw+'" height="'+Math.abs(zero-yy)+'" rx="2" fill="'+color+'"/>'+tx(x+dx,q[key]<0?yy+19:yy-9,fmt(q[key]/1e8),17,color,700);});svg+=tx(x,267,(i+1)+'분기',18,'#173e36',700)+'</g>';});
+ svg+='<line x1="12" x2="'+(W-R)+'" y1="288" y2="288" stroke="#dbe5df"/>'+tx(12,320,'블록(세트)',14,'#173e36',700,'start')+tx(12,352,'탱고노트(대)',14,'#637770',400,'start');
+ shown.forEach((q,i)=>{svg+=tx(center(i),320,q.blockKnown?fmt(q.blocks):'미정',18,'#173e36',700)+tx(center(i),352,!q.noteAvailable?'출시 전':q.noteKnown?fmt(q.notes):'미정',16,'#637770');});
  document.getElementById('milestone-chart').innerHTML=svg+'</svg>';
- const annual=[sum(all.slice(0,12)),sum(all.slice(12))];
- document.getElementById('milestone-totals').innerHTML=annual.map((a,i)=>'<div><span>'+(2027+i)+'년 예상 매출 · 공급액 기준</span><strong>'+(!a.blockKnown&&!a.noteKnown?'계획 수립 중':money(a.supply))+'</strong><small>블록 '+(a.blockKnown?fmt(a.blocks)+'세트':'계획 수립 중')+' · 탱고노트 '+(a.noteKnown?fmt(a.notes)+'대':'계획 수립 중')+(a.blockKnown||a.noteKnown?' · 예상 매출총이익 '+money(a.grossProfit):'')+'</small></div>').join('');
- document.getElementById('milestone-status').textContent='가로축: 시간 · 세로축: 공급 매출 / 그래프 하단: 분기별 유통사 공급량 · 미정 물량 미반영';
+ const a=annual[0],future=annual[1];
+ document.getElementById('milestone-totals').innerHTML='<div><span>2027 예상 매출</span><strong>'+money(a.supply)+'</strong><small>유통사 공급액 기준</small></div><div><span>2027 예상 매출총이익</span><strong>'+money(a.grossProfit)+'</strong><small>교구 원가 · 플랫폼 비용 차감</small></div>';
+ document.getElementById('milestone-future-totals').innerHTML=future.blockKnown||future.noteKnown?'<span>시뮬레이션 입력 기준</span><span>예상 매출</span><b>'+money(future.supply)+'</b><span>예상 매출총이익</span><b>'+money(future.grossProfit)+'</b>':'<b>판매 계획 수립 중</b><span>출시 분기 · 공급량 미정</span>';
+ document.getElementById('milestone-status').textContent='유통사 공급 계획 · 블록 '+fmt(a.blocks)+'세트 · 탱고노트 '+(a.noteKnown?fmt(a.notes)+'대':'공급량 미정')+' / 시뮬레이션 연동 · 매출총이익은 순이익과 구분';
  document.getElementById('milestone-chart').dataset.calculation=JSON.stringify({quarters,annual});
  }
  function render(persist=false){
