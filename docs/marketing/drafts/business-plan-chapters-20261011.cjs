@@ -8,7 +8,7 @@ module.exports=({slides,img})=>{
   growth:divider('part-business','04','사업화 전략','상품 · 수익 구조 · 확장 · 출시 계획',`<div class="td-part-years"><span>2027</span><b>한국 출시</b><i>→</i><span>2028</span><b>아시아 3개국</b></div>`)
  };
  const original=slides.slice();
- const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,7],['03','탱고북 플랫폼 구성',7,12],['04','사업화 전략',12,19]];
+ const groups=[['01','시장 배경',0,2],['02','탱고북 플랫폼 생태계',2,6],['03','탱고북 플랫폼 구성',6,11],['04','사업화 전략',11,17]];
  const contents=['contents','','CONTENTS','차례','',''];
  const pages=[cover,contents,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s])];
  // Page numbers include the cover, contents and part dividers.

@@ -9,19 +9,19 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.equal(await page.locator('#chapter-select').inputValue(),'5');
   assert.equal(await page.locator('#mode').textContent(),'전체 보기');
   const ids=await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.map(e=>e.id));
-  assert.equal(ids.length,23);
+  assert.equal(ids.length,22);
   const expectedNumbers=ids.map((_,i)=>String(i+1).padStart(2,'0'));
   assert.deepEqual(await page.locator('#investor-panel main>section:not(.appendix) .section-badge>.badge-num').allTextContents(),expectedNumbers);
   assert.deepEqual(await page.locator('#chapter-select option').evaluateAll(es=>es.map(e=>e.textContent.split(' · ')[0])),expectedNumbers);
   const contentsNumbers=await page.locator('#contents .td-contents-links a').evaluateAll(es=>es.map(e=>({id:e.hash.slice(1),number:e.querySelector('span').textContent})));
   for(const entry of contentsNumbers)assert.equal(entry.number,expectedNumbers[ids.indexOf(entry.id)],entry.id);
 
-  assert.deepEqual(ids.slice(5,10),['vision','learning-range','business','reading-report','learning-value']);
-  assert.deepEqual(ids.slice(10,16),['part-content','platform-overview','ai-authoring','foundation','advantage','marketing-tools']);
-  assert.deepEqual(ids.slice(17,20),['growth','sales-strategy','revenue-model']);
+  assert.deepEqual(ids.slice(5,9),['vision','learning-range','business','reading-report']);
+  assert.deepEqual(ids.slice(9,15),['part-content','platform-overview','ai-authoring','foundation','advantage','marketing-tools']);
+  assert.deepEqual(ids.slice(16,19),['growth','sales-strategy','revenue-model']);
   await page.locator('#mode').click();
   await page.locator('#chapter-select').selectOption('1');
-  assert.equal(await page.locator('#contents .td-contents-links a').count(),18);
+  assert.equal(await page.locator('#contents .td-contents-links a').count(),17);
   await page.locator('#contents a[href="#vision"]').click();
   await page.waitForTimeout(80);
   assert.equal(await page.locator('section.active').getAttribute('id'),'vision');
@@ -57,7 +57,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
   assert.match(page.url(),/#foundation$/);
   assert.equal(await page.locator('#chapter-select').inputValue(),String(ids.indexOf('foundation')));
   await page.locator('#mode').click();await page.emulateMedia({media:'print'});
-  assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.filter(e=>getComputedStyle(e).display!=='none').length),23);
-  assert.deepEqual(errors,[]);console.log('PASS: 23 slides × 4 viewports; full-bleed dividers, chapter order, deep links, detail navigation, Escape and print visibility.');
+  assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').evaluateAll(es=>es.filter(e=>getComputedStyle(e).display!=='none').length),22);
+  assert.deepEqual(errors,[]);console.log('PASS: 22 slides × 4 viewports; full-bleed dividers, chapter order, deep links, detail navigation, Escape and print visibility.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});
