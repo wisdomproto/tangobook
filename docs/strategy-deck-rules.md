@@ -1,5 +1,7 @@
 # strategy.html (Pitch Deck) — 작업 규칙
 
+> 2026-10-10 사용자 지시로 배포 원본은 `tangobook-business-plan.html` 투자자/내부팀 탭으로 통일했다. 생성기는 `docs/marketing/drafts/build-investor-plan-20261010.cjs`. 아래 마켓플레이스·3축변형·권수 자랑 금지·라운드 전제 등은 과거판의 기록이며 현재 지시와 STRATEGY 최신 결정이 우선한다. 헤더 통일/가독성 원칙은 새 투자자 탭에도 유지한다. 과거 문서를 새 원본으로 복원하지 않는다.
+
 `packages/client/public/strategy.html` 슬라이드 작업할 때 매번 참조.
 반복 지적된 사항을 모은 single source of truth. 새 슬라이드 만들거나 기존 슬라이드 수정 전에 이 파일 한 번 훑어보고 시작.
 

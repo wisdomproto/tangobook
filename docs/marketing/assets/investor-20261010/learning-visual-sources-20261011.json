@@ -1,0 +1,20 @@
+{
+  "book": {
+    "id": "1789350946377",
+    "title": "금발 머리 소녀와 곰 세 마리_그림체3",
+    "page": 5,
+    "text": "거실에는 의자가 세 개 있었어요. \"다리가 아픈데 잠시 앉아 쉬어야지.\"\n\n",
+    "source": "https://assets.tangobook.co.kr/1772088321757-금발머리소녀와곰세마리-illustration-page5-1779607483369.webp",
+    "relationship": "가구라는 상위 개념과 동화 속 의자의 주제 연결 예시. 본문에 가구라는 낱말이 직접 등장한다거나 자동 매칭이 완료됐다는 뜻은 아님."
+  },
+  "appOverview": "Native SVG proposal UI with existing artwork, not a product screenshot",
+  "report": "Illustrative activity log, no learner performance data",
+  "digitalPhoto": {
+    "model": "built-in imagegen",
+    "original": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-17288bdc-4e70-4abe-9b0f-cf174860e924.png",
+    "localQwenUnavailable": true,
+    "mode": "new image generation, built-in imagegen",
+    "saved": "digital-tablet-child-v1.webp",
+    "prompt": "Create a premium photorealistic editorial lifestyle photograph for a Korean early-childhood education investor presentation. Landscape 4:3 composition. A Korean preschool child aged about 5 in a soft sage-green sweater is seated at a light oak table, viewed from over the shoulder at a three-quarter angle, genuinely touching a landscape tablet screen with one index finger. The tablet lies at a comfortable shallow incline. The display is clearly visible: a beautifully simple early literacy learning activity on a warm ivory background, a friendly illustrated cat in the center, three large colorful alphabet choices beneath, one highlighted teal option and a small success check. Minimal interface and no long sentences. Emphasize the natural fingertip touching a large on-screen learning choice. Warm calm daylight, tasteful cream and light wood home learning space, subtle books softly out of focus, accurate natural child hands, realistic tablet proportions, high-end commercial education photography. No physical blocks, no paper, no pen, no external recognition board, no mirror camera device, no logos or watermarks. The point of the image is immediately recognizable: a child learning by touching an ordinary tablet. Tight enough crop that both hand and tablet are clearly readable at half-slide width; include the back/side of child's head and shoulder but the touchscreen remains unobscured. Do not create a collage, diagram, advertising poster, or decorative text."
+  }
+}

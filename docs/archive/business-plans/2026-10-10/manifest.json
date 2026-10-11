@@ -1,0 +1,14 @@
+{
+  "archivedAt": "2026-10-10",
+  "sourceCommit": "6a85f95255fafe07c1255f519423c7fa517d8209",
+  "reason": "사업계획서 하나와 투자자/내부팀 탭으로 통일; 기존판 백업 및 editor2 메뉴 숨김",
+  "files": [
+    "pitch.html",
+    "strategy.html",
+    "business-overview.html",
+    "strategy-detail.html",
+    "business-plan.html",
+    "master.html",
+    "team-strategy-2026-10-05.html"
+  ]
+}

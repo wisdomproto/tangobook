@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-11",
+  "type": "Editable SVG diagram composed from existing project assets; PNG export",
+  "generator": "docs/marketing/drafts/build-platform-ecosystem-20261011.cjs",
+  "sections": [
+    "AI 저작도구",
+    "콘텐츠 라이브러리",
+    "학습 앱 + 실물 교구",
+    "마케팅 도구"
+  ],
+  "authoringImage": "Captured existing business-plan #ai-authoring .td-editor-mock at 1400px viewport; document UI concept using owned content, not an actual editor screenshot",
+  "appImage": "app-overview-v3.png (design concept; see platform-image-provenance.json)",
+  "channelLogos": "channel-logos/source.json",
+  "scope": "Investor deck platform overview: after learning-method comparison and product divider, before learning app/hardware/content detail. Inserted by user request on 2026-10-11."
+}

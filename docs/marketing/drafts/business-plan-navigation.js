@@ -1,0 +1,11 @@
+const slides=[...document.querySelectorAll('#investor-panel main>section:not(.appendix)')];
+let index=Math.max(0,slides.findIndex(s=>'#'+s.id===location.hash));
+const chapter=document.querySelector('#chapter-select');
+function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===index));document.querySelector('#count').textContent=(index+1)+' / '+slides.length;chapter.value=String(index);}
+function move(n){index=Math.max(0,Math.min(slides.length-1,index+n));render();history.replaceState(null,'','#'+slides[index].id);if(document.body.classList.contains('present'))window.scrollTo(0,0);else slides[index].scrollIntoView({behavior:'instant'});}
+chapter.onchange=()=>move(Number(chapter.value)-index);
+document.querySelector('#mode').onclick=()=>{document.body.classList.toggle('present');render();if(document.body.classList.contains('present'))window.scrollTo(0,0);else slides[index].scrollIntoView({behavior:'instant'});document.querySelector('#mode').textContent=document.body.classList.contains('present')?'전체 보기':'발표 모드';};
+document.querySelector('#prev').onclick=()=>move(-1);document.querySelector('#next').onclick=()=>move(1);document.querySelector('#print').onclick=()=>window.print();
+document.addEventListener('keydown',e=>{if(document.querySelector('#investor-panel').hidden||e.target.closest('[role=tab]')||['INPUT','TEXTAREA','SELECT','BUTTON'].includes(e.target.tagName))return;if(e.key==='ArrowRight')move(1);if(e.key==='ArrowLeft')move(-1);});
+const audience=document.querySelector('.audience');new ResizeObserver(()=>{document.documentElement.style.setProperty('--audience-height',audience.offsetHeight+'px');}).observe(audience);const reader=document.querySelector('#investor-panel>header');new ResizeObserver(()=>{document.documentElement.style.setProperty('--reader-height',reader.offsetHeight+'px');}).observe(reader);
+let ticking=false;window.addEventListener('scroll',()=>{if(ticking||document.body.classList.contains('present')||document.querySelector('#investor-panel').hidden)return;ticking=true;requestAnimationFrame(()=>{const line=audience.offsetHeight+document.querySelector('#investor-panel>header').offsetHeight+48;let visible=0;slides.forEach((s,i)=>{if(s.getBoundingClientRect().top<=line)visible=i;});if(index!==visible){index=visible;render();}ticking=false;});},{passive:true});render();

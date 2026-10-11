@@ -1,0 +1,36 @@
+const fs=require('fs'),path=require('path');
+const sharp=require('C:/Users/kil21/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+const dir=path.resolve(__dirname,'../assets/investor-20261010');
+const txt=(x,y,t,size=28,color='#173e36',weight=400)=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-weight="${weight}">${t}</text>`;
+const rect=(x,y,w,h,fill='#fff',stroke='#d9e5df',r=22)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}"/>`;
+const arrow=d=>`<path d="${d}" fill="none" stroke="#238f88" stroke-width="5" marker-end="url(#arrow)"/>`;
+(async()=>{
+ let serial=0;const picture=async(file,x,y,w,h,fit='meet')=>{const data=await sharp(path.join(dir,file)).resize({width:1000,withoutEnlargement:true}).png().toBuffer(),id='pic'+serial++;return `<defs><clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12"/></clipPath></defs><image href="data:image/png;base64,${data.toString('base64')}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid ${fit}" clip-path="url(#${id})"/>`;};
+ let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1500" viewBox="0 0 2000 1500"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#238f88"/></marker></defs><rect width="2000" height="1500" fill="#fcfaf6"/><g font-family="Malgun Gothic, sans-serif">`;
+ svg+=txt(60,83,'TangoBook',52,'#173e36',700)+txt(60,150,'탱고북 플랫폼 전체 구성',42,'#173e36',700)+txt(1250,143,'콘텐츠 제작 · 학습 서비스 · 마케팅 운영',28,'#637770');
+ for(const x of [60,730,1400])svg+=rect(x,200,540,700);
+ svg+=txt(92,255,'01  콘텐츠 제작',22,'#238f88',700)+txt(92,310,'AI 저작도구',42,'#173e36',700);
+ svg+=await picture('authoring-overview-concept.png',90,342,480,240);
+ const features=[['이야기·삽화','원고와 장면 제작'],['음성·다국어','나레이션·번역'],['어휘·학습 활동','원본 글·그림으로 확장']];
+ features.forEach(([title,desc],i)=>{const y=610+i*72;svg+=rect(90,y,480,58,'#eff5f0','#eff5f0',10)+txt(109,y+37,title,26,'#173e36',700)+txt(315,y+37,desc,22,'#637770');});
+ svg+=txt(93,864,'AI 제작 → 편집·검수 → 콘텐츠 등록',25,'#238f88',700);
+ svg+=txt(762,255,'02  공통 콘텐츠 자산',22,'#238f88',700)+txt(762,310,'콘텐츠 라이브러리',42,'#173e36',700);
+ const tiles=[['한글·영어 파닉스','phonics-covers/ko-1-chapter-v3.webp',762,344],['동화책','../strategy-20261005/cover-1789350946382.webp',1009,344],['독후활동','giant-reading-activity-actual.png',762,573],['어휘·학습 자료','phonics-gagu-word.webp',1009,573]];
+ for(const [label,file,x,y]of tiles){svg+=rect(x,y,229,207,'#f6f7f2','#f6f7f2',12)+await picture(file,x+10,y+10,209,147)+txt(x+14,y+188,label,25,'#173e36',700);}
+ svg+=txt(762,853,'이야기 · 그림 · 음성 · 어휘 · 학습 활동',24,'#637770');
+ svg+=txt(1432,255,'03  아이의 학습 경험',22,'#238f88',700)+txt(1432,310,'학습 앱 + 실물 교구',40,'#173e36',700)+await picture('app-overview-v3.png',1430,344,480,276);
+ svg+=await picture('hardware-kit-studio-v3.png',1430,635,232,145,'slice')+await picture('tangonote-product-v5.png',1678,635,232,145,'slice')+txt(1495,817,'탱고 블록',26,'#173e36',700)+txt(1740,817,'탱고노트',26,'#173e36',700)+txt(1432,865,'글자 학습 · 읽기 · 게임 · 학습 기록',25,'#637770');
+ svg+=arrow('M614 530H714')+txt(632,495,'제작',26,'#238f88',700)+arrow('M1284 530H1384')+txt(1303,495,'제공',26,'#238f88',700);
+ svg+=arrow('M1000 913V994')+txt(1026,961,'같은 콘텐츠를 마케팅 자료로 재활용',27,'#238f88',700);
+ svg+=rect(60,1010,1880,370,'#eaf3ed','#d4e3da')+txt(92,1060,'04  유통사 판매 지원',22,'#238f88',700)+txt(92,1114,'마케팅 도구',42,'#173e36',700);
+ svg+=rect(92,1147,535,138)+txt(114,1190,'홍보물 자동 생성',28,'#173e36',700)+txt(114,1234,'블로그 글 · 카드뉴스 · 영상 대본',25)+txt(114,1267,'롱폼 · 숏폼 제작',25);
+ svg+=arrow('M641 1215H708')+rect(725,1147,335,138)+txt(749,1190,'검수·예약',28,'#173e36',700)+txt(749,1234,'내용 확인 · 채널 선택',24)+txt(749,1267,'게시 일정 설정',24);
+ svg+=arrow('M1074 1215H1141')+rect(1160,1147,748,138)+txt(1183,1190,'자동 발행 · 이력 관리',28,'#173e36',700);
+ const channels=[['naver','네이버','#03c75a'],['google','자체 블로그','#4285f4'],['youtube','YouTube','#ff0000'],['instagram','Instagram','#e4405f']];
+ channels.forEach(([id,label,color],i)=>{const x=1187+i*176,icon=fs.readFileSync(path.join(dir,'channel-logos',id+'.svg'),'utf8').match(/<path[^>]*\sd="([^"]+)"/)[1];svg+=`<g transform="translate(${x} 1224) scale(1.35)" fill="${color}"><path d="${icon}"/></g>`+txt(x+42,1249,label,20);});
+ svg+=txt(92,1337,'새 콘텐츠의 추가 → 검색·소개 자료 확대 → 브랜드 신뢰 → 유통사 판매 지원',30,'#173e36',700);
+ svg+=txt(60,1443,'제품·화면은 구성 예시. 학습 앱·교구와 제작·마케팅 도구의 연결 구조를 설명합니다.',21,'#637770')+txt(60,1475,'Google은 자체 블로그의 검색 유입 채널이며, 네이버는 별도 발행 도구를 사용합니다.',19,'#637770')+'</g></svg>';
+ fs.writeFileSync(path.join(dir,'platform-ecosystem-v1.svg'),svg);
+ await sharp(Buffer.from(svg)).png().toFile(path.join(dir,'platform-ecosystem-v1.png'));
+ console.log('Platform ecosystem SVG and PNG created');
+})();

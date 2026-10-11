@@ -1,0 +1,26 @@
+module.exports=({slides,img})=>{
+ const asset=f=>'../investor-20261010/'+f;
+ const cover=['proposal-cover','표지','TANGOBOOK','탱고북 사업계획서','',`<div class="td-title-cover"><div class="td-title-copy"><span>아날로그 × 디지털</span><h1>탱고북</h1><h2>유아 언어 학습 플랫폼</h2><p>앱의 안내와 실물 교구,<br>글자 학습부터 동화 읽기까지.</p><div class="td-title-meta">사업계획서 · 2026.10</div></div><figure>${img(asset('hardware-kit-studio-v3.png'),'앱과 실물 한글 블록이 연결된 탱고북 제품 구성')}</figure><div class="td-cover-index"><span>01 시장 배경</span><span>02 제품·학습 경험</span><span>03 콘텐츠·기술</span><span>04 사업·성장 계획</span></div></div>`];
+ const divider=(id,num,title,sub,visual)=>[id,'PART '+num,'',title,'',`<div class="td-part"><div class="td-part-copy"><span class="td-part-number">PART ${num}</span><h2>${title}</h2><p>${sub}</p><div class="td-part-rule"></div></div><div class="td-part-visual">${visual}</div></div>`];
+ const parts={
+  'platform-overview':divider('part-product','02','제품과 학습 경험','탱고북 개요 · 교구 학습 · 동화 연결',img(asset('hardware-feedback-use-v3.png'),'화면 안내를 보며 한글 블록을 조합하는 아이의 학습 장면')),
+  'phonics-content':divider('part-content','03','콘텐츠와 기술','한글·영어 · 동화책 · 독후활동 · 저작도구',`<div class="td-part-books">${img('cover-1789350946382.webp','거인의 정원 보유 동화책')}${img('series-changjak-pongi-01.webp','퐁이 창작동화')}${img('series-changjak-mina-01.webp','미나 창작동화')}</div>`),
+  growth:divider('part-business','04','사업과 성장 계획','상품 · 수익 구조 · 확장 · 출시 계획',`<div class="td-part-years"><span>2027</span><b>한국 출시</b><i>→</i><span>2028</span><b>아시아 3개국</b></div>`)
+ };
+ const original=slides.slice();slides.splice(0,slides.length,cover,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));
+ return `
+ #investor-panel #proposal-cover,#investor-panel [id^="part-"]{padding:24px 0 36px}
+ #proposal-cover>.section-badge,#proposal-cover>.section-h2,#proposal-cover>.section-sub,[id^="part-"]>.section-badge,[id^="part-"]>.section-h2,[id^="part-"]>.section-sub{display:none}
+ .td-title-cover{display:grid;grid-template-columns:1fr 1.15fr;background:var(--doc-color-wash);border-radius:12px;overflow:hidden;align-items:center;min-height:540px}
+ .td-title-copy{padding:48px 0 40px 40px}.td-title-copy>span{font-size:18px;color:var(--doc-color-teal)}.td-title-copy h1{font-size:76px;letter-spacing:-.065em;line-height:1.1;margin:22px 0}.td-title-copy h2{font-size:26px;line-height:1.4;margin:0}.td-title-copy p{font-size:17px;color:var(--doc-color-muted);margin:24px 0}.td-title-meta{font-size:13px;margin-top:40px;color:var(--doc-color-muted)}
+ .td-title-cover figure{margin:0;padding:32px}.td-title-cover figure img{width:100%;height:auto!important;max-height:470px;object-fit:contain;border-radius:10px;mix-blend-mode:multiply}.td-cover-index{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid var(--doc-color-sage);padding:20px 40px;font-size:13px}
+ .td-part{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:470px;background:var(--doc-color-ink);border-radius:12px;padding:40px;color:var(--doc-color-paper)}
+ .td-part-number{font-size:15px;letter-spacing:.14em;color:var(--doc-color-brightMint)}.td-part h2{font-size:40px;line-height:1.3;color:var(--doc-color-paper);margin:24px 0 18px}.td-part p{font-size:16px;color:var(--doc-color-onDark)}.td-part-rule{height:3px;width:56px;background:var(--doc-color-brightMint);margin-top:36px}.td-part-visual>img{width:100%;height:330px!important;object-fit:cover;border-radius:8px}
+ .td-part-books{display:flex;gap:12px;align-items:center}.td-part-books img{width:31%;height:220px!important;object-fit:cover;border-radius:5px}.td-part-books img:nth-child(2){transform:translateY(-25px)}.td-part-books img:nth-child(3){transform:translateY(15px)}
+ .td-part-years{display:grid;grid-template-columns:1fr;gap:4px;border-left:1px solid var(--doc-color-darkLine);padding-left:48px}.td-part-years span{font-size:54px;line-height:1.2;color:var(--doc-color-brightMint)}.td-part-years b{font-size:23px}.td-part-years i{font-style:normal;font-size:28px;transform:rotate(90deg);width:30px;margin:16px 0}
+ #vision .td-app-hub figure img{max-height:540px!important;object-fit:contain}
+ @media(max-width:900px){.td-title-copy{padding:30px 0 25px 28px}.td-title-copy h1{font-size:60px}.td-title-copy h2{font-size:22px}.td-title-cover{min-height:450px}.td-title-cover figure{padding:20px}.td-part{gap:24px;padding:32px;min-height:400px}.td-part h2{font-size:32px}.td-part-visual>img{height:280px!important}.td-part-books img{height:180px!important}}
+ @media(max-width:650px){.td-title-cover,.td-part{grid-template-columns:1fr}.td-title-copy{padding:28px 24px 0}.td-title-copy h1{font-size:58px}.td-title-copy p{margin:18px 0}.td-title-meta{margin-top:24px}.td-title-cover figure{padding:0 20px 20px}.td-title-cover figure img{max-height:280px}.td-cover-index{padding:18px 24px;display:grid;grid-template-columns:1fr 1fr;font-size:11px}.td-part{padding:30px 24px;gap:24px}.td-part h2{font-size:30px}.td-part-rule{margin-top:20px}.td-part-visual>img{height:240px!important}.td-part-years{padding-left:20px}.td-part-books{padding:20px 0}.td-part-books img{height:150px!important}}
+ @media print{.td-title-cover,.td-part{min-height:600px;break-inside:avoid}.td-part{print-color-adjust:exact}.td-title-cover figure img{height:auto!important}}
+`;
+};

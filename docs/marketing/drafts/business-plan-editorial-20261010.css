@@ -1,0 +1,79 @@
+/* IR 전체: 사진을 크게, 위계를 선명하게, 반복 카드 장식을 절제한다. */
+:root{--paper:#fffaf5;--ink:#183e38;--muted:#5c7068;--teal:#268f87;--accent:#e97854}
+body{background:var(--paper);color:var(--ink)}
+main,.present main{max-width:1280px;padding-left:48px;padding-right:48px}
+section{padding-top:36px;padding-bottom:36px}
+.section-badge{font-size:12px;letter-spacing:.12em;border-color:#d7e1da}
+.badge-num{font-size:19px;letter-spacing:0}
+.section-h2{font-size:42px;line-height:1.3;letter-spacing:-.045em;font-weight:800;margin-top:17px;word-break:keep-all}
+.section-sub{max-width:1050px;font-size:17px;line-height:1.7;color:var(--muted);margin-bottom:30px}
+.v-label{font-size:11px;font-weight:800;letter-spacing:.14em;color:#668079}
+.v-comparison{gap:34px}
+.v-comparison>article{padding:25px 26px 20px;background:#fff;border:0;border-top:4px solid var(--teal);border-radius:0}
+.v-comparison>article:nth-child(2){border-color:var(--accent)}
+.viz h3{font-size:23px;font-weight:750;letter-spacing:-.025em;line-height:1.45}
+.v-photo{margin:0}.v-photo img{border-radius:10px}
+.v-photo figcaption,.v-linked-scene figcaption{font-size:12px;line-height:1.5;color:#74847d;margin-top:10px}
+.v-pro,.v-con{padding:14px 0;font-size:14px;align-items:flex-start;line-height:1.7}
+.v-takeaway{padding:19px 24px;margin:24px 0 12px;background:#edf5ee;border:0;border-left:4px solid var(--teal);font-size:19px;line-height:1.65}
+.v-takeaway b{color:#173f38}
+.v-sequence{gap:18px;margin-top:28px;margin-bottom:28px}
+.v-node{padding:22px 18px;background:transparent;border:0;border-top:2px solid #b9d2c7;border-radius:0}
+.v-node p{font-size:15px;line-height:1.8}.v-node h3{margin-top:18px}
+.v-node .v-photo{margin-top:12px}.v-node .v-photo img{background:white}
+.v-arrow{font-size:24px}
+.v-market-panel{border:0;border-radius:0;padding:25px 28px;background:white;border-top:4px solid var(--teal)}
+.v-market-panel:nth-child(2){border-color:var(--accent)}
+.v-stat strong{font-size:54px}.v-global-number{font-size:39px}
+.v-content-panel{border:0;border-radius:0;background:white;padding:24px}
+.v-covers{gap:13px}.v-covers img{height:180px;border-radius:5px}
+.v-sales-duo>article{border:0;border-radius:0;background:white;border-top:4px solid var(--teal);padding:24px}
+.v-sales-duo>article:nth-child(2){border-color:var(--accent)}
+.v-growth>div{padding:27px 24px}.v-growth h3{font-size:21px}
+.v-milestones{gap:0}.v-milestones article{border:0;border-left:1px solid #d1e0d6;border-radius:0;background:transparent}
+.v-milestones article:first-child{border-left:0}
+.v-evidence{margin-top:24px;padding-top:12px;font-size:12px}.v-caption{font-size:12px!important}
+.v-service-strip{border-radius:0;background:#edf5ee}
+.v-hero-lead{font-size:39px!important;line-height:1.5;letter-spacing:-.045em}
+.v-word-chain span{border-radius:6px;font-size:15px;padding:16px 18px}
+.ir-media-window{overflow:hidden;border-radius:10px;margin:20px 0 0;aspect-ratio:1.42;background:#efe6d9}
+.ir-media-window img{display:block;width:200%!important;max-width:none!important;height:auto!important;object-fit:contain!important;border-radius:0!important;transform:translateY(-17%)}
+.ir-media-window.right img{transform:translate(-50%,-17%)}
+/* 장별 역할에 맞춘 표지·시장 숫자·학습 흐름·실제 근거의 배치. */
+.audience{padding-top:8px;padding-bottom:8px}.audience button{font-size:13px;padding:6px 12px}
+#investor-panel>header{top:54px;padding-top:10px;padding-bottom:10px}
+.present section{padding-top:24px;min-height:calc(100vh - 110px)}
+.present .section-h2{font-size:36px;margin-top:14px}.present .section-sub{font-size:16px;margin-bottom:22px}
+.present .v-takeaway{font-size:17px;padding:16px 22px;margin-top:20px}
+.present .v-node p{font-size:14px}.present .v-sequence{margin-top:22px;margin-bottom:22px}
+.present .ir-media-window{aspect-ratio:1.55}
+.present #background .v-photo img{height:235px!important}
+.present #advantage .v-photo img{height:200px!important}
+#vision .v-hero-layout{grid-template-columns:.9fr 1.5fr;gap:34px;padding:12px 0}
+#vision .v-hero-lead{font-size:43px!important}
+#vision .v-coverage{margin-top:24px}
+#education-market .v-market{gap:34px}
+#background .v-pair{gap:30px;padding:22px;background:#fff}
+#background .v-sequence{margin-top:32px}
+#advantage .v-sequence{gap:28px}
+#advantage .v-node{padding:0 0 22px;border:0;background:#fff}
+#advantage .v-node>.v-label,#advantage .v-node>h3,#advantage .v-node>p{margin-left:18px;margin-right:18px}
+#advantage .v-node>.v-label{display:block;margin-top:18px}
+#advantage .v-node>h3{font-size:21px}
+#experience .v-node:nth-child(1){border-color:var(--teal)}
+#experience .v-node:nth-child(3){border-color:#8fb5a1}
+#experience .v-node:nth-child(5){border-color:var(--accent)}
+#foundation .v-foundation{gap:35px}
+#growth .v-growth{margin-top:35px}
+#team .v-sequence{padding:22px 0}
+@media(max-width:900px){main,.present main{padding-left:22px;padding-right:22px}.section-h2{font-size:31px}.v-comparison{gap:24px}.v-takeaway{font-size:17px}.v-sequence{gap:14px}.v-hero-lead{font-size:32px!important}.v-node{padding:20px 10px}.v-milestones article{border-left:0;border-top:1px solid #d1e0d6}.v-service-strip{flex-wrap:wrap}.v-pro,.v-con{font-size:13px}.v-foundation{gap:24px}.v-course-panel{gap:8px}.v-curriculum{width:185px}#vision .v-hero-layout{grid-template-columns:1fr;padding:5px 0}#vision .v-hero-lead{font-size:33px!important}#background .v-pair{padding:12px;grid-template-columns:1fr}.ir-media-window{aspect-ratio:1.15}.ir-media-window img{transform:translateY(-10%)}.ir-media-window.right img{transform:translate(-50%,-10%)}}
+@media print{body{background:white}.section-h2{font-size:28pt}.v-takeaway{font-size:13pt}.v-node p{font-size:11pt}.v-comparison>article,.v-market-panel,.v-sales-duo>article{border-top-width:2px}.v-evidence{font-size:10pt}section{padding:20px 0}}
+
+@media(min-width:901px){.present #media .v-comparison>article{padding:16px 20px 12px}.present #media .ir-media-window{aspect-ratio:auto;height:205px;margin-top:12px}.present #media .v-pro,.present #media .v-con{padding:8px 0;font-size:13px}.present #media .v-photo figcaption{margin-top:6px;font-size:10px}.present #media .v-takeaway{margin-top:14px;padding:12px 20px}.present #media .section-sub{margin-bottom:16px}}
+
+@media(min-width:901px){.present #media .ir-media-window img{transform:translateY(-48%)}.present #media .ir-media-window.right img{transform:translate(-50%,-48%)}}
+
+.ir-product-window{overflow:hidden;height:265px;border-radius:8px;background:#efe6d9}.ir-product-window img{display:block;width:200%!important;max-width:none!important;height:auto!important;border-radius:0!important;transform:translateY(-21%)}.ir-product-window.right img{transform:translate(-50%,-21%)}
+@media(max-width:900px){.ir-product-window{height:235px}.ir-product-window img{transform:translateY(-10%)}.ir-product-window.right img{transform:translate(-50%,-10%)}}
+
+.team-intro{padding:14px 24px;background:#edf5ee;color:#183e38;font-size:13px;line-height:1.8;position:relative;z-index:20}.team-intro summary{cursor:pointer;font-weight:700}.team-intro p{max-width:1100px;margin:12px auto 0}

@@ -1,0 +1,5 @@
+# Rebuild from the committed CAD extraction and Blender scene scripts.
+*-geometry.json
+reflector-placement.json
+*.blend
+*.blend1

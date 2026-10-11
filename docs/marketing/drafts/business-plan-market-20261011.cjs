@@ -1,0 +1,14 @@
+// 국내는 같은 조사의 비용 비중, 해외는 세계 성장과 아시아 수요 요인을 구분한다.
+const source=(url,label)=>`<a class="v-source" href="${url}" target="_blank" rel="noopener">${label} ↗</a>`;
+const kicce='https://repo.kicce.re.kr/bitstream/2019.oak/5923/2/GR2502_2.pdf#page=77';
+const technavio='https://www.technavio.com/report/early-childhood-education-market-industry-analysis';
+const asia='https://www.emergenresearch.com/industry-report/early-childhood-education-market';
+const rows=(items,max)=>items.map(([label,value,display,forecast])=>`<div class="td-chart-row"><span>${label}</span><div class="td-chart-track"><i style="width:${value/max*100}%" class="${forecast?'forecast':''}"></i><b>${display}</b></div></div>`).join('');
+module.exports=`<div class="td-market-overview td-market-revised">
+<article class="td-market-card"><div class="td-market-heading"><span class="v-label">KOREA</span><h3>국내 교육 지출</h3></div><p class="td-market-measure">영유아 1인당 월평균 교육·보육비</p><div class="td-market-number"><strong>18.2</strong><span>만원</span></div><p class="td-market-period">2024년 · 월평균 양육비 78.5만원 중</p>
+<div class="td-cost-share" role="img" aria-label="월평균 양육비 78.5만원 중 교육·보육비 18.2만원, 23.2%. 나머지 비용 60.3만원, 76.8%."><div class="td-cost-donut"><div><strong>23.2<span>%</span></strong><small>교육·보육비 비중</small></div></div><div class="td-cost-legend"><p><i></i><b>교육·보육비</b><span>18.2만원</span></p><p><i></i><b>그 외 양육비</b><span>60.3만원</span></p></div></div>
+<p class="td-market-insight">식비 다음으로 큰 지출 항목</p><p class="td-market-definition">어린이집·유치원, 사교육·돌봄 등이 포함된 조사 항목</p>${source(kicce,'육아정책연구소 · KICCE 소비실태조사')}</article>
+<article class="td-market-card"><div class="td-market-heading"><span class="v-label">GLOBAL · ASIA-PACIFIC</span><h3>세계·아시아 유아교육 시장</h3></div><p class="td-market-measure">세계 시장 규모 · 2025년 추정</p><div class="td-market-number"><strong>3,027.6</strong><span>억 달러</span></div>
+<div class="td-market-chart global" role="img" aria-label="세계 시장 2025년 3027.6억 달러, 2030년 5217.1억 달러 전망 계산값. 세계 연평균 성장률 11.5%. 축 0부터 6000억 달러."><h4>세계 연평균 성장률 <em>11.5%</em></h4><p>2025–2030년 · 억 달러</p>${rows([['2025',3027.6,'3,027.6'],['2030',5217.1,'5,217.1',true]],6000)}<div class="td-chart-axis"><span>0</span><span>3,000</span><span>6,000</span></div></div>${source(technavio,'Technavio · 세계 시장 전망')}
+<div class="td-asia-focus"><span class="v-label">아시아·태평양 성장 배경</span><h4>도시화 · 중산층 확대 · 유아교육 수요</h4><p>중국·인도·동남아의 취학 전 교육 확대와 이중언어·디지털 학습 수요</p>${source(asia,'Emergen Research · 아시아·태평양 분석')}</div></article></div>
+<details class="v-evidence"><summary>통계 범위와 산출 기준</summary><p>국내: KICCE 소비실태조사 2025 하권 55쪽 표Ⅱ-2-8의 2024년 자료, 영유아 2,434명 기준. 교육·보육비 18.2만원 ÷ 양육비 78.5만원 = 23.2%(계산값). 순수 교육비와 돌봄비가 분리된 수치는 아닙니다. 그 외 양육비는 총액에서 해당 항목을 뺀 60.3만원입니다. 세계: 교육기관·가정 프로그램을 포함한 시장 추정이며 2030년 값은 2025년 3,027.6억 달러 + 보고서 증가분 2,189.5억 달러입니다. 아시아는 별도 보고서의 지역 성장 요인 분석이며 세계 성장률을 아시아 성장률로 적용하지 않습니다. 가계 지출과 세계 시장 규모는 직접 비교하거나 합산하지 않습니다.</p></details>`;

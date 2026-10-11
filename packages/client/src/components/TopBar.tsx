@@ -154,6 +154,12 @@ const CHANGJAK: ResourceItem[] = [
  */
 const BM: ResourceItem[] = [
   {
+    href: '/tangobook-business-plan.html',
+    icon: '🧭',
+    label: '탱고북 소개서',
+    desc: '탱고북 소개 · 매출 시뮬레이션 · 판매·마케팅 전략',
+  },
+  {
     href: '/subscription-strategy.html',
     icon: '💳',
     label: '구독 전략 · 검토 중',
@@ -164,12 +170,6 @@ const BM: ResourceItem[] = [
     icon: '🌱',
     label: '오가닉 마케팅 실행 기획',
     desc: '채널 역할 · 키워드 30개와 콘텐츠·체험 연결 · 6주 발행 순서 · 국내·해외 검증 과제',
-  },
-  {
-    href: '/master.html',
-    icon: '🧭',
-    label: '탱고북 마스터',
-    desc: '사업계획 전부 — 정체성·시장·브랜딩·콘텐츠·활동·BM·로드맵·숫자·이력·미결. 절마다 메모(R2)',
   },
   {
     href: '/content-status.html',
@@ -281,31 +281,6 @@ const RESOURCES: ResourceItem[] = [
     icon: '🏝️',
     label: '타임 티코 · 극한생존 기획서',
     desc: '무인도 6부작 · 조상 생존술+현대과학+건강+부모감사 + 회차별 콘티(탭)',
-  },
-  { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
-  {
-    href: '/business-overview.html',
-    icon: '📖',
-    label: '사업 개요 (대외용)',
-    desc: '문제 · 만든 것 · 연결 · 제작 · 수익 구조 — 6절',
-  },
-  {
-    href: '/strategy.html',
-    icon: '📋',
-    label: '사업 전략서 (요약)',
-    desc: '투자자 narrative · 19 슬라이드',
-  },
-  {
-    href: '/strategy-detail.html',
-    icon: '📚',
-    label: '사업 전략서 (상세)',
-    desc: 'Deep-dive · 모든 시각화·표·mockup',
-  },
-  {
-    href: '/business-plan.html',
-    icon: '🧭',
-    label: '사업계획서 (AI 무투자 모델)',
-    desc: '다국어 글로벌 · 자연관찰 · 무투자 고마진 70%',
   },
   {
     href: '/seo-strategy.html',

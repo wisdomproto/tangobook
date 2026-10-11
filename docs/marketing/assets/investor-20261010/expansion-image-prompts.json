@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-11",
+  "workflow": "original CAD meshes → Blender scene → imagegen product concept → user-requested board removal and loose block assortment. WebP encoding only; geometry/glyph edits performed by imagegen.",
+  "images": [
+    {
+      "name": "numbers",
+      "prompt": "Edit this product concept photograph for a premium investor presentation. REMOVE THE ENTIRE RECOGNITION BOARD AND ALL STUDDED BASE SURFACES. ONLY the physical square block pieces remain, arranged in a tactile attractive loose pile on a seamless warm ivory studio surface. Preserve the reference's square rounded tile design, matte molded ABS material, existing teal/ochre/coral palette, and molded edge details. Show a generous loose cluster of about 14 square number and arithmetic tiles, with clear varied digits 0,1,2,3,4,5,6,7,8,9 and symbols +, minus, equals. Ivory inset faces, golden-ochre and teal rims, deep dark-green legible glyphs. NOT arranged as an equation; show an assortment ready to pick up. One compact central cluster filling about 75 percent of the frame, gently irregular placement and rotations, a few small stacks of 2 or 3 tiles to show thickness, most decorated faces unobscured. Professional tabletop product photography at a three-quarter overhead angle, warm soft directional light, precise soft shadows, highly readable shapes, crisp product details. No recognition board, no pegboard, no grid, no box, no tablet, no people, no hands, no marketing text, no logos. Landscape 4:3 composition. It must look like a cohesive premium product family.",
+      "tool": "builtin imagegen",
+      "source": "C:\\Users\\kil21\\.codex\\generated_images\\01a10c55-0eea-74a0-8ec1-8b77c99093ad\\exec-adcd0678-354b-403d-9853-5c936f691752.png",
+      "reference": "docs/marketing/assets/investor-20261010/expansion-numbers-concept.png",
+      "output": "docs/marketing/assets/investor-20261010/expansion-numbers-blocks.webp"
+    },
+    {
+      "name": "creative",
+      "prompt": "Edit this product concept photograph for a premium investor presentation. REMOVE THE ENTIRE RECOGNITION BOARD AND ALL STUDDED BASE SURFACES. ONLY the physical square block pieces remain, arranged in a tactile attractive loose pile on a seamless warm ivory studio surface. Preserve the reference's square rounded tile design, matte molded ABS material, existing teal/ochre/coral palette, and molded edge details. Show a generous loose cluster of about 14 square creative pattern tiles, colored teal, golden ochre, coral, with contrasting ivory triangles, semicircles, quarter-circles and circles. The varied geometric motifs are clear. NOT aligned into a board grid; show an assortment ready to combine. One compact central cluster filling about 75 percent of the frame, gently irregular placement and rotations, a few small stacks of 2 or 3 tiles to show thickness, most decorated faces unobscured. Professional tabletop product photography at a three-quarter overhead angle, warm soft directional light, precise soft shadows, highly readable shapes, crisp product details. No recognition board, no pegboard, no grid, no box, no tablet, no people, no hands, no marketing text, no logos. Landscape 4:3 composition. It must look like a cohesive premium product family.",
+      "tool": "builtin imagegen",
+      "source": "C:\\Users\\kil21\\.codex\\generated_images\\01a10c55-0eea-74a0-8ec1-8b77c99093ad\\exec-475d14b9-77c6-4e5d-a8bc-66a8ff2a5670.png",
+      "reference": "docs/marketing/assets/investor-20261010/expansion-creative-concept.png",
+      "output": "docs/marketing/assets/investor-20261010/expansion-creative-blocks.webp"
+    },
+    {
+      "name": "puzzle",
+      "prompt": "Edit this product concept photograph for a premium investor presentation. REMOVE THE ENTIRE RECOGNITION BOARD AND ALL STUDDED BASE SURFACES. ONLY the physical square block pieces remain, arranged in a tactile attractive loose pile on a seamless warm ivory studio surface. Preserve the reference's square rounded tile design, matte molded ABS material, existing teal/ochre/coral palette, and molded edge details. Show a generous loose cluster of about 14 square teal logic-puzzle tiles, with golden-ochre path markings: straight routes, L-shaped elbows, T junctions, plus two small coral endpoint pieces. NOT arranged into a completed route; show a varied assortment of puzzle pieces ready to combine. One compact central cluster filling about 75 percent of the frame, gently irregular placement and rotations, a few small stacks of 2 or 3 tiles to show thickness, most decorated faces unobscured. Professional tabletop product photography at a three-quarter overhead angle, warm soft directional light, precise soft shadows, highly readable shapes, crisp product details. No recognition board, no pegboard, no grid, no box, no tablet, no people, no hands, no marketing text, no logos. Landscape 4:3 composition. It must look like a cohesive premium product family.",
+      "tool": "builtin imagegen",
+      "source": "C:\\Users\\kil21\\.codex\\generated_images\\01a10c55-0eea-74a0-8ec1-8b77c99093ad\\exec-66856823-888f-4d5c-9fc3-a8dc83b0e8e8.png",
+      "reference": "docs/marketing/assets/investor-20261010/expansion-puzzle-concept.png",
+      "output": "docs/marketing/assets/investor-20261010/expansion-puzzle-blocks.webp"
+    }
+  ]
+}

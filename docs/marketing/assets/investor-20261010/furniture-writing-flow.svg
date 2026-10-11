@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="540" viewBox="0 0 720 540">
+<rect width="720" height="540" rx="12" fill="#f3f1eb"/>
+<rect x="91" y="80" width="532" height="365" rx="20" fill="#d5d7cd"/>
+<rect x="84" y="72" width="532" height="365" rx="20" fill="#fffdf8" stroke="#d5d7cd" stroke-width="2"/>
+<path d="M126 170h446M126 337h446M349 151v203" stroke="#dce5df" stroke-width="2"/>
+<path d="M126 253h446" stroke="#dce5df" stroke-width="2" stroke-dasharray="5 7"/>
+<text x="350" y="312" text-anchor="middle" font-family="Malgun Gothic,sans-serif" font-size="155" fill="#ccd7cf">가구</text>
+<text x="350" y="312" text-anchor="middle" font-family="Malgun Gothic,sans-serif" font-size="155" fill="none" stroke="#859b8d" stroke-width="1.2" stroke-dasharray="3 5">가구</text>
+<path d="M541 415l70-139" stroke="#c9c4b7" stroke-width="19" stroke-linecap="round"/>
+<path d="M535 408l70-139" stroke="#38655b" stroke-width="17" stroke-linecap="round"/>
+<path d="M526 425l5-25 15 8z" fill="#c8ac83"/><path d="M526 425l3-9 5 3z" fill="#213e36"/>
+<text x="350" y="120" text-anchor="middle" font-family="Malgun Gothic,sans-serif" font-size="18" letter-spacing="2" fill="#789083">보고 익힌 낱말을 손으로</text>
+</svg>

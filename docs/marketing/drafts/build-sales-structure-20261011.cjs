@@ -1,0 +1,27 @@
+const fs=require('fs'),path=require('path');
+const dir=path.resolve(__dirname,'../assets/investor-20261010');
+const image=(file,x,y,w,h)=>`<image href="data:image/${file.endsWith('webp')?'webp':'png'};base64,${fs.readFileSync(path.join(dir,file)).toString('base64')}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid slice"/>`;
+const text=(x,y,t,size=26,color='#173e36',weight=400)=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-weight="${weight}">${t}</text>`;
+const box=(x,y,w,h,fill='#ffffff')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${fill}" stroke="#d7e3dc"/>`;
+const arrow=(d,color='#173e36',dash=false)=>`<path d="${d}" fill="none" stroke="${color}" stroke-width="4" ${dash?'stroke-dasharray="10 9"':''} marker-end="url(#${color==='#173e36'?'dark':'teal'})"/>`;
+let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000"><defs><marker id="dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#173e36"/></marker><marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#238f88"/></marker></defs><rect width="1800" height="1000" rx="20" fill="#f8faf7"/><g font-family="Malgun Gothic, sans-serif">`;
+svg+=text(40,65,'탱고북의 두 가지 역할',36,'#173e36',700);
+// Single company origin, two visibly separated responsibilities.
+svg+=box(40,340,250,270,'#173e36')+text(69,430,'TangoBook',36,'#ffffff',700)+text(72,487,'탱고북',48,'#ffffff',700)+text(73,552,'제품 · 콘텐츠 · 브랜드',20,'#d4e4da');
+svg+=arrow('M300 452H340V285H389')+arrow('M300 500H340V710H389','#238f88');
+svg+=box(400,120,430,330)+text(427,167,'01  제품·콘텐츠 공급',30,'#173e36',700)+image('hardware-kit-studio-v3.png',426,193,188,141)+image('app-overview-v3.png',628,193,176,141)+text(427,383,'교구 + 프리미엄 콘텐츠',27,'#173e36',700)+text(427,421,'유통사 공급량이 예상 매출의 기준',21);
+svg+=box(960,120,350,330)+text(985,167,'유통사',32,'#173e36',700)+text(985,207,'기존 공동구매 전문 거래처',23)+box(985,234,300,122,'#edf4ef')+text(1007,279,'인플루언서 공동구매',25,'#173e36',700)+text(1007,320,'행사 기획 · 소비자 판매',22)+text(985,404,'판매 결과에 따른 재주문',24,'#173e36',700);
+svg+=box(1390,120,350,330)+text(1415,167,'소비자',32,'#173e36',700)+image('hardware-feedback-use-v3.png',1415,190,300,157)+text(1415,404,'구매 · 앱 등록 · 첫 학습',24,'#173e36',700);
+svg+=arrow('M839 285H949')+text(846,245,'정가 50%',22,'#173e36',700)+text(859,326,'공급',21)+arrow('M1319 285H1379')+text(1323,248,'판매',21);
+svg+=box(400,560,430,300,'#edf7f3')+text(427,608,'02  오가닉 마케팅',30,'#238f88',700);
+const brands=[['naver','네이버','블로그','#03c75a'],['google','Google','SEO','#4285f4'],['youtube','YouTube','영상','#ff0000'],['instagram','Instagram','릴스','#e4405f']];
+brands.forEach(([id,label,sub,color],i)=>{const x=429+i*98;const icon=fs.readFileSync(path.join(dir,'channel-logos',id+'.svg'),'utf8').match(/<path[^>]*\sd="([^"]+)"/)[1];svg+=`<g transform="translate(${x+15} 653) scale(1.9)" fill="${color}"><path d="${icon}"/></g>`+text(x,739,label,18,'#173e36',700)+text(x+9,773,sub,20);});
+svg+=text(427,830,'제품 시연 · 학습 정보 · 무료 체험',23,'#238f88',700);
+svg+=box(960,560,350,300)+text(985,608,'검색·브랜드 확인',29,'#173e36',700)+text(985,662,'학습 방식·제품 구성 이해',23)+text(985,707,'공식 콘텐츠로 구매 판단',23)+text(985,773,'자사몰: 공식 정가 기준점',23,'#238f88',700)+text(985,816,'유통사의 판매를 돕는 역할',22,'#238f88');
+svg+=arrow('M839 710H949','#238f88')+text(866,674,'유입',22,'#238f88',700)+arrow('M1135 549V462','#238f88',true)+text(1155,505,'판매 지원',23,'#238f88',700);
+svg+=box(1390,560,350,300)+text(1415,608,'사용 후기·추천',29,'#173e36',700)+image('hardware-feedback-use-v3.png',1415,635,115,152)+text(1550,677,'실제 학습',23)+text(1550,718,'사용 후기',23)+text(1550,759,'지인 추천',23)+text(1415,829,'다음 고객의 구매 확인 자료',23);
+svg+=arrow('M1565 461V549','#238f88')+text(1584,505,'사용 경험',23,'#238f88')+arrow('M1565 871V911H1135V871','#238f88',true)+text(1150,955,'후기·추천 → 검색·구매 확인',24,'#238f88',700);
+svg+=text(40,928,'실선: 공급·판매·이용 / 점선: 판매 지원·입소문',20,'#637770')+text(40,967,'제품·앱·사용 장면은 구성 예시. 채널 로고는 마케팅 접점 표시.',18,'#637770')+'</g></svg>';
+fs.writeFileSync(path.join(dir,'sales-structure-v1.svg'),svg);
+const sharp=require('C:/Users/kil21/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+sharp(Buffer.from(svg)).png().toFile(path.join(dir,'sales-structure-v1.png')).then(()=>console.log('Sales structure SVG + PNG written'));

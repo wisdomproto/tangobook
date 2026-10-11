@@ -1,0 +1,11 @@
+{
+  "bookId": "1778555233699",
+  "cover": "packages/remotion/public/reels/sw-scene-intro.webp",
+  "apple": "packages/remotion/public/reels/sw-scene-apple.webp",
+  "blog": "packages/server/scripts/_data/marketing/blogs/1778555233699.json",
+  "cardnews": "packages/server/scripts/_data/marketing/cardnews/1778555233699.json",
+  "poster": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/mkt/41560119-7751-46f0-9015-d24eaf4cc62e/reels/1778555233699-thumb-1783829983623.png",
+  "video": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/mkt/41560119-7751-46f0-9015-d24eaf4cc62e/reels/1778555233699-1784166750533.mp4",
+  "usage": "Blog/cardnews layouts reconstructed from existing drafts and assets; short video shown as existing thumbnail. No external publishing performed.",
+  "videoStatus": "Original catalog MP4 returns HTTP 404 on 2026-10-11; only existing thumbnail is displayed, no player or dead link."
+}

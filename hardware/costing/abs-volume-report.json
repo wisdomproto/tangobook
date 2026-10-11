@@ -1,0 +1,182 @@
+{
+  "density_g_cm3": 1.04,
+  "mirror_won_user_supplied": 100,
+  "note": "Custom cradle is measured for reference but excluded from kit totals; bought-in stand costs KRW 1500. Solid polymer equivalent; excludes mirror/foam/labels/packaging, runners/supports/infill. English full kit assumes same board and mirror; two existing front feet retained.",
+  "parts": {
+    "board_with_studs": {
+      "volume_mm3": 166552.2084716176,
+      "abs_solid_g": 173.21429681048232,
+      "method": "closed display meshes, Boolean union",
+      "source": "packages\\client\\public\\tango-board-only.standalone.html",
+      "source_sha256": "8c86a74246f0254c8f883ce88cf04401292a783191e7ebbbd53ea4682ed3cd41"
+    },
+    "square_block": {
+      "volume_mm3": 3885.8117416833766,
+      "abs_solid_g": 4.041244211350712,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware\\studboard\\out\\sticker-block-2x2.step",
+      "source_sha256": "2ca09606ef6a9354a8532a026b198af793b16a5806443bf6cfe4539eaf7a58d1"
+    },
+    "vowel_block": {
+      "volume_mm3": 1934.730381844593,
+      "abs_solid_g": 2.0121195971183767,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware\\studboard\\out\\sticker-block-1x2.step",
+      "source_sha256": "ec94f831c9333c9c115a647e89073939aecba66605f021d3a2c7e9fdb8c20809"
+    },
+    "cradle": {
+      "volume_mm3": 355832.13797451946,
+      "abs_solid_g": 370.06542349350025,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware\\studboard\\out\\tablet-cradle-backrest.step",
+      "source_sha256": "36d75655c1455efd6127670fdaf4fc2e1ec3f5d9ddd9eaaa1a40926981ac98bc"
+    },
+    "front_foot": {
+      "volume_mm3": 918.8575475071023,
+      "abs_solid_g": 0.9556118494073864,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/studboard/flat_board.py:foot"
+    },
+    "fixed_shell_left": {
+      "volume_mm3": 13914.953903009111,
+      "abs_solid_g": 14.471552059129477,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_compact_fixed.py:shell_left"
+    },
+    "fixed_shell_right": {
+      "volume_mm3": 12818.430007832114,
+      "abs_solid_g": 13.3311672081454,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_compact_fixed.py:shell_right"
+    },
+    "fixed_paddle": {
+      "volume_mm3": 1671.9932705624708,
+      "abs_solid_g": 1.7388730013849696,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_compact_fixed.py:paddle"
+    },
+    "fixed_rear_panel": {
+      "volume_mm3": 2416.2179509952116,
+      "abs_solid_g": 2.51286666903502,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_compact_fixed.py:rear_panel"
+    },
+    "fixed_keeper": {
+      "volume_mm3": 2792.7102492443637,
+      "abs_solid_g": 2.9044186592141386,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_compact_fixed.py:keeper"
+    },
+    "adjustable_shell_left": {
+      "volume_mm3": 24537.894627351332,
+      "abs_solid_g": 25.519410412445385,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_shell_right": {
+      "volume_mm3": 24500.92464838119,
+      "abs_solid_g": 25.48096163431644,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_service_lid": {
+      "volume_mm3": 2849.942177926002,
+      "abs_solid_g": 2.963939865043042,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_height_slider": {
+      "volume_mm3": 808.318859449755,
+      "abs_solid_g": 0.8406516138277452,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_paddle": {
+      "volume_mm3": 1863.4526110725587,
+      "abs_solid_g": 1.937990715515461,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_height_pinion": {
+      "volume_mm3": 261.0222102040562,
+      "abs_solid_g": 0.27146309861221846,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_height_lever": {
+      "volume_mm3": 134.63631874291193,
+      "abs_solid_g": 0.1400217714926284,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_rear_cover": {
+      "volume_mm3": 18064.12184589376,
+      "abs_solid_g": 18.78668671972951,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    },
+    "adjustable_rear_panel": {
+      "volume_mm3": 7249.782381051728,
+      "abs_solid_g": 7.539773676293798,
+      "method": "OCCT all solids",
+      "solid_count": 1,
+      "source": "hardware/periscope/pebble_geared_print.py:print_parts(wrap=True)"
+    }
+  },
+  "totals": {
+    "ko": {
+      "block_quantities": {
+        "square_block": 28,
+        "vowel_block": 10
+      },
+      "blocks_g": 133.2760338890037,
+      "board_assembly_g": 175.12552050929708,
+      "reflector_fixed_g": 34.958877596909005,
+      "total_fixed_g": 343.36043199520975,
+      "reflector_adjustable_g": 83.48089950727623,
+      "total_adjustable_g": 391.882453905577
+    },
+    "en": {
+      "block_quantities": {
+        "square_block": 52
+      },
+      "blocks_g": 210.14469899023703,
+      "board_assembly_g": 175.12552050929708,
+      "reflector_fixed_g": 34.958877596909005,
+      "total_fixed_g": 420.22909709644307,
+      "reflector_adjustable_g": 83.48089950727623,
+      "total_adjustable_g": 468.7511190068103
+    },
+    "ko_en": {
+      "block_quantities": {
+        "square_block": 80,
+        "vowel_block": 10
+      },
+      "blocks_g": 343.42073287924075,
+      "board_assembly_g": 175.12552050929708,
+      "reflector_fixed_g": 34.958877596909005,
+      "total_fixed_g": 553.5051309854468,
+      "reflector_adjustable_g": 83.48089950727623,
+      "total_adjustable_g": 602.027152895814
+    }
+  },
+  "purchased_stand_won_user_supplied": 1500,
+  "primary_kit": "ko_en"
+}

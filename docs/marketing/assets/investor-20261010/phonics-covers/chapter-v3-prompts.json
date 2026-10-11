@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-11",
+  "mode": "built-in imagegen",
+  "purpose": "제안서 권별 구성 보조 이미지. 제목·권 번호는 HTML로 별도 조판.",
+  "reference": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-69a67189-2ec1-4086-b257-286ef819f4e4.png",
+  "images": [
+    {
+      "id": "ko-1",
+      "subject": "Two Korean letters ONLY: ㄱ and ㅏ. Deep teal ㄱ and warm coral ㅏ. Side by side with generous spacing.",
+      "color": "pale mint",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Two Korean letters ONLY: ㄱ and ㅏ. Deep teal ㄱ and warm coral ㅏ. Side by side with generous spacing. Background: pale mint.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-69a67189-2ec1-4086-b257-286ef819f4e4.png",
+      "file": "ko-1-chapter-v3.webp"
+    },
+    {
+      "id": "ko-2",
+      "subject": "Exactly ONE Korean syllable 각. Standard correctly composed Hangul: ㄱ upper left, ㅏ upper right, final ㄱ centered below. Upper ㄱ and ㅏ deep teal, lower final ㄱ warm coral. It must read 각, never 강 or two syllables.",
+      "color": "pale peach",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Exactly ONE Korean syllable 각. Standard correctly composed Hangul: ㄱ upper left, ㅏ upper right, final ㄱ centered below. Upper ㄱ and ㅏ deep teal, lower final ㄱ warm coral. It must read 각, never 강 or two syllables. Background: pale peach. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-81c0cacc-eb87-44ce-9c6c-a774773f8557.png",
+      "file": "ko-2-chapter-v3.webp"
+    },
+    {
+      "id": "ko-3",
+      "subject": "Exactly ONE Korean double consonant ㄲ, two identical ㄱ side by side in one glyph. Left stroke teal and right coral. Keep shapes clean and fully legible.",
+      "color": "pale lavender",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Exactly ONE Korean double consonant ㄲ, two identical ㄱ side by side in one glyph. Left stroke teal and right coral. Keep shapes clean and fully legible. Background: pale lavender. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-767c6a5c-19ff-4b12-b8ee-23612278d04b.png",
+      "file": "ko-3-chapter-v3.webp"
+    },
+    {
+      "id": "ko-4",
+      "subject": "Exactly ONE Korean compound vowel ㅘ, correctly composed ㅗ on the left/below and ㅏ on the right. It must be standard legible ㅘ. Deep teal glyph.",
+      "color": "pale butter yellow",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Exactly ONE Korean compound vowel ㅘ, correctly composed ㅗ on the left/below and ㅏ on the right. It must be standard legible ㅘ. Deep teal glyph. Background: pale butter yellow. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-90869adb-c999-44fd-8af2-3b76e879291e.png",
+      "file": "ko-4-chapter-v3.webp"
+    },
+    {
+      "id": "en-1",
+      "subject": "Only the alphabet pair Aa, uppercase A next to lowercase a. Deep teal uppercase, coral lowercase.",
+      "color": "pale mint",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Only the alphabet pair Aa, uppercase A next to lowercase a. Deep teal uppercase, coral lowercase. Background: pale mint. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-926660ec-37b7-42f7-b43e-2a530ea882cc.png",
+      "file": "en-1-chapter-v3.webp"
+    },
+    {
+      "id": "en-2",
+      "subject": "Five lowercase vowels a e i on the top row, o u on the bottom row. Deep teal letters with one coral letter. Clear generous spacing.",
+      "color": "pale peach",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Five lowercase vowels a e i on the top row, o u on the bottom row. Deep teal letters with one coral letter. Clear generous spacing. Background: pale peach. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-541c7071-cf1b-4d4e-b4f7-3e20a2cd55c4.png",
+      "file": "en-2-chapter-v3.webp"
+    },
+    {
+      "id": "en-3",
+      "subject": "Only the lowercase phonics pattern a_e, in one horizontal line. Underscore is visible as a short coral line. Letters deep teal.",
+      "color": "pale butter yellow",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Only the lowercase phonics pattern a_e, in one horizontal line. Underscore is visible as a short coral line. Letters deep teal. Background: pale butter yellow. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-b5c5b4bc-d644-4289-9375-a02dfa9165fa.png",
+      "file": "en-3-chapter-v3.webp"
+    },
+    {
+      "id": "en-4",
+      "subject": "Only the two lowercase consonant digraphs ch and sh, two separate lines. Deep teal c and s; coral h.",
+      "color": "pale sky blue",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Only the two lowercase consonant digraphs ch and sh, two separate lines. Deep teal c and s; coral h. Background: pale sky blue. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-5db6a74a-6be5-42e3-a444-65d7b068d575.png",
+      "file": "en-4-chapter-v3.webp"
+    },
+    {
+      "id": "en-5",
+      "subject": "Only the two lowercase vowel teams ee and oa, two separate lines. Deep teal with one coral vowel per row.",
+      "color": "pale lavender",
+      "prompt": "Use case: illustration-story. Asset: small supporting illustration for a chapter card in a premium children's language learning investor presentation. NOT a book cover, not a lesson page, not a poster. Square composition. Beautiful editorial cut-paper collage of the requested letterforms, matte colored paper with very subtle tactile grain and thin layered edges, front view flat and crisp, NOT glossy 3D or inflated letters. Broad rounded readable strokes, generous negative space, glyphs centered and occupying about 55% of the canvas. Solid pale backdrop as specified, very subtle paper grain. Add just two tiny simple paper confetti marks near outer corners; no objects or illustrations of words, no mascots, no book, no hardware, no icons, no title, no brand, no numeral, no other text, no frame or drop shadow. Warm tasteful restrained color. The native HTML above this image will provide the large chapter title so illustration stays secondary. Only the two lowercase vowel teams ee and oa, two separate lines. Deep teal with one coral vowel per row. Background: pale lavender. Match style of reference.",
+      "source": "C:/Users/kil21/.codex/generated_images/01a10c55-0eea-74a0-8ec1-8b77c99093ad/exec-ed0dcb6f-dd12-4e0b-ba64-516951188f66.png",
+      "file": "en-5-chapter-v3.webp"
+    }
+  ]
+}
