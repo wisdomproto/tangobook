@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-12 [전체 UI/UX·게임 점검](../platform/tasks/20261012-platform-ui-ux-audit.md): 독후활동 호스트에서 쪽 순서/숨은그림 완료 뒤 결과가 닫힘을 실행 확인; StoryImage도 같은 상위 콜백을 소스로 확인. 짧은 가로 보기0~10px·영어 블록 판 잘림이 P1. 공개 activity 숨은그림은 다른 완료 배선이므로 같은 버그로 일반화하지 않는다. 유형별 조작/완료 범위·후속·미검증은 task 참조. 제품 코드 수정 없음, 기존 채점·콘텐츠 작업 유지.
+
 2026-10-05 장면 색칠 main push 완료: 구현·최신원격 병합 da801cf8을 main에 일반 push하고 원격 SHA 일치 확인. editor2 영상/장면 탭 동시 보존,1215권2430장 catalog 포함. 자동배포/운영화면 반영 완료는 별도 미검증.
 
 2026-10-05 사용자 main push 승인: 장면색칠/창작1~19 및 editor2 catalog1215권2430장 작업을 최신origin/main5d3fdb74와 정상 병합. 원격 큰면 우선 팔레트 대표색과 명시median 양쪽 보존·관련24테스트/client typecheck/build/충돌코드lint 통과. [기록](tasks/20261005-changjak-11-19-scene-coloring.md).

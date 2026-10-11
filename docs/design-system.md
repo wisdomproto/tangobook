@@ -1,252 +1,184 @@
-# 탱고북 디자인 시스템 (Single Source of Truth)
+# 탱고북 제품 디자인 시스템 v2
 
-사업계획서·제안서·팀 전략 HTML은 [문서 디자인 시스템](marketing/design-system/README.md)을 따른다. 이 문서의 학습자 제품 화면 규칙과 적용 범위를 구분한다. 문서 색·타이포·간격·8가지 장 템플릿은 별도 토큰과 공통 CSS로 관리한다.
+갱신: 2026-10-12. [플랫폼 기준](PLATFORM.md)과 [전체 UI/UX 점검](work/platform/tasks/20261012-platform-ui-ux-audit.md)을 바탕으로 다시 정의한 **구현 기준안**이다. 이번 변경은 문서 재설계이며, 아래 규칙이 현재 제품 코드에 모두 적용된 상태는 아니다. 실제 토큰·컴포넌트는 [구현 안내](../packages/client/src/design-system/README.md)에서 구분한다.
 
-> **목적**: 새 화면 시안을 코드로 옮길 때 통일감 유지. GPT 등으로 시안 만들 때 이 문서 reference 로 전달, Claude 가 시안 받을 때 매번 이 문서 참조.
+사업계획서·제안서·팀 전략 HTML은 별도의 [문서 디자인 시스템](marketing/design-system/README.md)을 따른다. 상품·사업 방향은 PLATFORM.md가 원본이다.
 
-## 1. 톤 & 정체성
+## 1. 제품 경험과 적용 범위
 
-- **공식**: Khan Academy Kids × 곰돌이푸 × Duolingo
-- **타겟**: 4-5세 아동 (직접 사용) + 부모 (관리)
-- **디바이스**: 태블릿 1024-1366 우선, 모바일 보조
-- **느낌**: Warm & Cozy 메인 + Clean & Modern 여백 + Playful 비비드 포인트
-- **금기**: 다크모드 (학습자 화면), 너무 작은 글자/터치, 광고 톤, 별/포인트 transactional UI
+앱은 첫 글자와 소리에서 낱말·동화 읽기까지 안내하는 학습의 중심이다. 블록·종이 쓰기·게임은 학습을 경험하는 방식이며 모든 화면에서 대표 기능처럼 반복하지 않는다. 교구 없이도 디지털 학습을 이용한다.
 
-## 2. 색 팔레트
+아이에게는 지금 할 일과 다음 행동이 분명해야 한다. 부모에게는 무엇을 배우고 연습했는지가 읽혀야 한다. 제작자에게는 많은 콘텐츠를 정확하게 검수하고 운영할 수 있는 밀도가 필요하다.
 
-`packages/client/src/design-system/tokens/colors.ts` 가 single source. Tailwind 클래스로 `bg-coral-500`, `text-ink-900` 등 사용.
-
-### Warm Base (배경/카드)
-| 토큰 | HEX | 사용처 |
+| 화면군 | 주 사용 목적 | 기본 표현 |
 |---|---|---|
-| `cream-50` | `#FFF9F3` | 메인 배경 (학습자 화면) |
-| `peach-100` | `#FFF0E0` | 부드러운 카드 배경, 그라디언트 끝점 |
-| `peach-200` | `#FFDDBF` | hover/active 상태 |
-| `peach-300` | `#FFC19B` | 일러스트 fill |
-| `peach-500` | `#FF9A5A` | 강조 배경 |
+| 학습 홈·과정·동화책 | 아이의 선택과 이어 하기 | 밝은 바탕, 큰 선택 대상, 짧은 설명 |
+| 읽기·게임·쓰기 | 콘텐츠와 조작에 집중 | 본문·그림·학습판 우선, 최소한의 도구 |
+| 부모·계정·상품 | 기록 확인과 관리 | 분명한 문장·표·상태, 보통 밀도 |
+| 저작·마케팅·운영 | 제작·검수·발행 관리 | 넓은 작업 영역, 조밀한 목록, 명시적 상태 |
+| 공개 소개·활동지·블록 허브 | 첫 방문과 체험 | 제품 설명과 체험 진입, 인쇄/온라인 구분 |
 
-### Accent CTA (행동 유도)
-| 토큰 | HEX | 사용처 |
+공유할 것은 브랜드·행동 의미·접근성·상태 표현이다. 운영 도구에 아이용 큰 카드와 마스코트를 일괄 적용하지 않는다. 마케팅 도구의 범위가 제한된 별도 테마는 유지한다.
+
+## 2. 시각 언어
+
+- 바탕은 cream, 주요 내용은 white, 글자는 ink를 쓴다. 큰 그라디언트·컬러 카드·팝 그림자를 동시에 쌓지 않는다.
+- 색은 주요 행동·선택·정답/오답을 설명한다. 모든 섹션을 서로 다른 진한 색으로 구분하지 않는다.
+- 한 화면에는 중심 행동 하나를 둔다. 보조 행동은 외곽선·텍스트·중립 바탕으로 표현한다.
+- 호리는 환영·도움·완료처럼 역할이 있을 때 사용한다. 구름·별·보상 장식보다 학습 대상의 시인성을 우선한다.
+- 한글 과정 카드는 '가' 하나처럼 단순한 상징도 충분하다. 동화책 표지와 삽화는 작품의 그림체·색감을 보존한다.
+- 읽기 화면의 몰입 배경과 기존 사용자 테마 선택은 별도다. 홈의 밝은 기본 바탕을 이유로 독서용 어두운 배경을 금지하지 않는다.
+
+## 3. 색과 의미 토큰
+
+[colors.ts](../packages/client/src/design-system/tokens/colors.ts)는 **현재 색상 값**의 원본이다. 아래 의미 이름은 v2 구현 시 추가할 매핑 제안이며, 아직 export된 토큰 이름이 아니다.
+
+| 제안 의미 | 현재 값/토큰 | 역할 |
 |---|---|---|
-| `coral-100` | `#FFE4DC` | 부드러운 coral 배경 (chip pastel) |
-| `coral-200` | `#FFBFA8` | hover, ring |
-| `coral-400` | `#FF7A59` | 그라디언트 끝점 |
-| `coral-500` | `#FF5E3A` | **메인 CTA** (button, active chip, 동화책 axis) |
-| `coral-600` | `#E84B2A` | text on coral-100 배경, 강한 강조 |
+| surface.page | cream-50 #FFF9F3 | 학습 화면 바탕 |
+| surface.raised | white #FFFFFF | 카드·선택지·작업 영역 |
+| surface.subtle | peach-100 #FFF0E0 | 도움·보조 영역 |
+| text.primary | ink-900 #0B0805 | 제목·학습 대상·본문 |
+| text.secondary | ink-600 #6D5A4C | 읽어야 하는 보조 문장 |
+| border.subtle | ink-100 #EDE1D4 | 영역 구분; 유일한 선택 표시로 사용하지 않음 |
+| action.primary | coral-700 #C43A1C + white | 일반 크기의 흰 글자 CTA |
+| brand.accent | coral-500 #FF5E3A | 브랜드·장식·큰 강조 면 |
+| selection.surface | coral-100 #FFE4DC + ink-900 | 선택된 필터·탭 |
+| status.correct | mint 계열 + 어두운 글자·체크 | 성공 |
+| status.incorrect | danger + 오답 표시·문장 | 실패와 재시도 |
 
-### Ink (텍스트)
-| 토큰 | HEX | 사용처 |
+coral-500 브랜드 색은 유지하고 흰 글자 버튼의 대비를 보완한다. 기존 success/info/warn/fun은 상태 배경·아이콘용이며 그 위의 글자색은 별도로 검증한다.
+
+현재 HEX로 계산한 흰 글자 대비는 coral-400 **2.57:1**, coral-500 **3.04:1**, coral-600 **3.84:1**, coral-700 **5.29:1**, success **2.04:1**이다. ink-600/cream-50은 **6.25:1**, ink-500/cream-50은 **3.39:1**이다. 작은 보조 글자를 ink-300/500만으로 표현하지 않는다.
+
+일반 텍스트 4.5:1, 큰 텍스트 3:1을 확인한다. 크기·굵기·배경의 실제 조합으로 판단하고 그라디언트의 가장 대비가 낮은 구간도 검사한다. [W3C Contrast Minimum](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
+
+삽화·표지·색칠 팔레트는 UI 색 제한의 대상이 아니다. 소셜 로그인은 제공사의 브랜드 규칙을 따른다. 운영용 테마도 대비 검사를 통과해야 한다.
+
+## 4. 글자·터치·간격
+
+UI 본문은 Pretendard, 학습자 제목은 NanumSquareRound를 기본으로 한다. 제목 700~800, 본문 400~600, 버튼 700을 기준으로 위계를 만든다. 모든 라벨을 900으로 통일하지 않는다.
+
+| 역할 | 학습자 | 부모 | 제작·운영 |
+|---|---|---|---|
+| 페이지 제목 | 28~32px | 24~28px | 20~24px |
+| 섹션 제목 | 22~24px | 20px | 16~20px |
+| 본문·핵심 안내 | 18px | 16px | 14~16px |
+| 버튼·선택 라벨 | 18px, 짧은 필터 16px | 16px | 14~16px |
+| 보조 메타 | 14~16px | 14px | 12~14px |
+
+본문 줄간격은 약 1.5, 짧은 제목은 약 1.25를 기준으로 한다. 핵심 지시를 작은 메타 글자로 낮추지 않는다. 학습할 글자·병음·단어는 활동 목적에 따라 더 크게 정한다.
+
+**쓰기 채점용 폰트·마스크는 UI 제목과 분리한다.** 기존 획 두께·채점용 weight·99% 완료 기준은 시각 개편으로 바꾸지 않는다. 새 표지 제목은 [전용 폰트 지침](cover-fonts.md)을 따른다.
+
+아이의 주요 입력은 최소 **48×48px**, 시작/다음 버튼은 높이 **56px**를 목표로 한다. 공용 아이콘·뒤로가기·관리 버튼은 최소 **44×44px**로 설계한다. 투명 패딩을 포함한 실제 클릭 영역을 측정한다. 인접 선택 대상은 보통 8px 이상 띄운다.
+
+이는 탱고북 제품 기준이다. WCAG 2.2 AA의 목표 크기 최소 기준은 24px과 예외 조건이며 44px는 강화 기준이다. [Minimum](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html), [Enhanced](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html).
+
+간격은 4px 단위로 관리한다. 내부 8~16px, 카드 안 20~24px, 섹션 사이 32~48px를 기본으로 화면 높이에 맞춘다. 짧은 화면에서 장식 간격을 유지하려고 학습판을 줄이지 않는다.
+
+라운드는 작은 요소 8px, 일반 카드 16px, 큰 과정 카드 24px, 강조 영역 32px, pill은 full을 기준으로 한다. 현재 Tailwind는 **xs=8, md=16, lg=24, xl=32px**로 재정의되어 있고 기본 **2xl=16, 3xl=24px**는 남아 있다. 이름 순서가 크기 순서와 다르다. 의미 별칭을 먼저 만들고 전역 변경의 영향을 확인한다.
+
+그림자는 soft를 기본으로 하고 card는 모달·떠 있는 내용에 사용한다. pop은 핵심 조작 대상에 제한한다. 초점 표시는 그림자와 별도로 제공한다.
+
+## 5. 학습 앱의 정보 구조
+
+사용자가 긍정한 [홈 V5](work/strategy/tasks/20261012-learner-home-direction.md)의 **홈·한글·영어·동화책·활동**을 상위 구조로 삼는다. 학습자 데스크톱/태블릿은 상단 탐색을 기준으로 재설계한다. 왼쪽 고정 앱 사이드바는 이 안의 기본 구성에 포함하지 않는다. 제작·운영 사이드바와 과정 안의 단원 탐색은 목적에 따라 유지할 수 있다.
+
+모바일은 같은 다섯 목적지의 하단 탐색을 우선 검토한다. 이는 구현 제안이며 홈 이미지에서 모바일 배치까지 확정된 것은 아니다. 부모 메뉴·프로필·UI 언어는 보조 영역에 둔다. 활동 중 전체 탐색은 접고 의미가 분명한 돌아가기를 남긴다.
+
+**한글/영어 과정**, **책의 읽기 언어**, **앱 UI 언어**는 서로 다른 설정이다. 같은 '언어 선택' 이름으로 중복 표시하지 않는다. 학습 언어·책·그림체·진행 경로를 URL/복귀 흐름에 보존한다.
+
+홈 순서는 한글/영어 과정 선택 → 진행 중인 학습 이어 하기 → 오늘의 추천 도서 3권이다. 블록·종이 쓰기를 별도 대형 홍보 카드로 반복하지 않는다. 기록이 없으면 빈 이어 하기 카드 대신 시작 경로를 보여준다.
+
+추천은 처음에는 운영자가 고른 오늘의 3권으로도 충분하다. 제공하지 않는 개인화 알고리즘을 문구로 약속하지 않는다. 실제 제공 언어·콘텐츠 상태를 기준으로 선택하고 추천 근거·반복 노출은 구현 단계에서 정한다.
+
+## 6. 동화책 탐색·상세·읽기
+
+1,000+권의 탐색은 홈과 분리한다. 동화책 화면은 제목 검색·읽기 언어·난이도/단계·주제/종류를 중심으로 한다. 조건은 읽기 쉬운 이름으로 보이고 초기화할 수 있어야 한다. 없는 난이도 정보를 임의로 채우지 않는다.
+
+검색 결과에는 결과 수·빈 결과·필터 초기화·로딩·오류를 제공한다. 추가 로드·가상화는 실제 성능 측정 후 결정한다. 그림체 선택은 보조 조건으로 두고 매 섹션에서 책보다 먼저 크게 노출하지 않는다.
+
+책 카드는 실제 표지와 현재 언어 제목을 보존한다. 제목 오버레이는 작품마다 대비를 검사한다. 모바일은 처음부터 읽기 가능한 표지가 보이도록 긴 첫 사용 안내·필터 줄 수를 줄인다.
+
+상세는 제목·표지 → **읽기 시작** → 놀며 익히기·지원되는 다른 모드 → 부모 도움 순으로 위계를 둔다. 안내 패널 세 개가 주요 행동을 밀어내지 않도록 짧은 도움말과 펼쳐 보기를 사용한다. 없는 영상·게임은 실제 제공 여부로 처리한다.
+
+리더는 페이지와 그림이 중심이다. 이전/다음·다시 듣기·설정은 접근성 이름과 충분한 클릭 영역을 가진다. 자동 재생이 막혔을 때 직접 시작할 수 있어야 한다. 마지막 쪽·복귀·독후활동 진입을 같은 문맥으로 연결한다.
+
+## 7. 게임·쓰기·블록의 공통 경험
+
+기존 GameHeader, GameProgressBar, GamePlayerLayout, GameResultScreen, ActivityShell을 먼저 사용한다. **GameStage 같은 새 이름은 설계 역할이며 현재 컴포넌트라고 가정하지 않는다.** 다른 게임의 판정 로직을 하나로 묶지 않는다.
+
+공통 화면은 돌아가기/짧은 진행 → 문제 → 학습판/보기 → 필요한 도구로 구성한다. 학습판이 가장 큰 영역을 차지한다. 문제 번호와 정답 수는 '2번째 문제'와 '1개 완성'처럼 구분한다. 점수가 없는 활동에 정답률을 만들지 않는다.
+
+**812×375처럼 높이가 짧은 가로 화면에서도 선택지·슬롯·글자·다음 버튼을 사용할 수 있어야 한다.** 큰 재생 버튼·문제 그림·전체 자모/알파벳 트레이·긴 자막을 수직으로 쌓아 학습판을 0px까지 줄이지 않는다. 짧은 화면은 문제/도구를 옆으로 배치하거나 보조 내용을 접는다. overflow-hidden으로 넘침을 숨기지 않는다.
+
+| 게임군 | 배치의 우선순위 |
+|---|---|
+| 이야기/사물 장면 고르기·쪽 순서 | 문제와 전체 보기의 식별 가능성, 선택 표시 |
+| 그림짝·복습 짝 | 짝 대상과 연결/뒤집기 상태, 안정적인 격자 |
+| 숨은그림 | 장면과 실제 사물 클릭 영역, 간결한 찾을 것 목록 |
+| 한글/영어/다국어 조합 | 목표 글자/단어와 슬롯, 충분한 블록 입력 영역 |
+| 따라쓰기·색칠·글자 채우기 | 캔버스와 손/펜 입력, 간결한 진행·초기화 |
+| 소리·성조·찬트 | 현재 학습 대상, 재생/다시 듣기/직접 진행 |
+
+한 단어의 슬롯은 순서를 쉽게 따라갈 수 있어야 한다. 긴 단어 줄바꿈은 읽기 순서를 명확하게 한다. 숨은그림은 장면을 확보하고 확대·이동 또는 다른 도움 방식을 검토한다.
+
+일반 게임 완료는 **완료 기록 → 남아 있는 결과 → 다시 하기/명시적 복귀**로 설계한다. 기록 콜백과 닫기를 분리한다. 호스트가 결과가 뜨는 순간 unmount하지 않는다. 다시 하기는 문제·점수·선택·타이머·음성을 초기화하고 빠른 연속 입력에도 완료가 중복 기록되지 않아야 한다.
+
+짧은 과정 활동은 칭찬 후 다음 학습으로 이어갈 수 있다. 완료 표시와 이동 목적지를 분명히 하고 재연습 경로를 제공한다. 과정의 자동 진행과 독후게임 결과를 동일하게 강제하지 않는다.
+
+정답/오답은 색과 함께 체크·테두리·짧은 안내를 쓴다. 오답으로 장시간 입력을 잠그거나 아이를 탓하지 않는다. 칭찬·발음·나레이션의 순서와 퇴장 시 정지를 검증한다. 재생 실패는 화면의 복구·다시 듣기·진행 경로로 처리한다.
+
+쓰기 99%·색칠 영역 90% 같은 판정은 유지한다. 아이에게는 완성 수·단계 등 이해하기 쉬운 진행을 우선한다. UI 재설계와 채점 변경은 별도 작업이다.
+
+카메라 블록·Bluetooth 종이 쓰기는 화면 입력과 구분한다. 연결/권한/장치 없음/재연결/해제 상태와 화면으로 연습하기를 제공한다. 사진 재생·브라우저 드래그를 실물 인식·필기 검증으로 보고하지 않는다.
+
+## 8. 공용 컴포넌트 계약
+
+| 구성 요소 | v2에서 보장할 동작 | 현재 적용 여부 |
 |---|---|---|
-| `ink-100` | `#EDE1D4` | border, divider, disabled fill |
-| `ink-300` | `#C9B8A8` | 약한 보조 텍스트, "준비 중" 라벨 |
-| `ink-500` | `#9A8474` | placeholder, 약한 본문 |
-| `ink-700` | `#3F2F24` | 본문 강조 |
-| `ink-900` | `#0B0805` | **메인 텍스트** (제목/본문) — 4-5세 가독성 우선 실질 검정 |
+| Button | 행동 위계, 크기·대비·focus-visible, 명시적 type, loading/aria-busy | 일부 보완 필요 |
+| Chip·탭 | 충분한 클릭 영역, aria-pressed 또는 의미에 맞는 tab semantics | 사용처별 보완 필요 |
+| Card | 표시 컨테이너와 button/link 구분, interactive의 키보드 조작 | div interactive API 보완 필요 |
+| PageHeader·게임 헤더 | 짧은 화면에서도 돌아가기 이름·44px 영역 | 모바일 라벨 보완 필요 |
+| Dialog·드로어 | 제목, 초점 이동/복귀, 닫기, 배경 조작 차단 | 사용처별 점검 필요 |
+| StateScreen·로딩 | 실제 구조의 스켈레톤, 실패/빈 결과 구분, 재시도 | 화면별 적용 확인 필요 |
+| 캔버스·팔레트 | 목적 안내, 색 이름·선택 상태, 가능한 대체 조작 | 보완 필요 |
 
-### Semantic
-| 토큰 | HEX | 사용처 |
-|---|---|---|
-| `success` | `#5CC99F` | 성공 / 완료 / 파닉스 axis |
-| `info` | `#6BAEE8` | 정보 / 영상 카드 |
-| `warn` | `#FFC857` | 주의 / "읽는 중" 배지 / 어휘 axis (amber) |
-| `danger` | `#E75757` | 위험 / 로그아웃 hover |
-| `fun` | `#A78BFA` | 재미 / 영상 카드 violet |
+프리미티브는 비즈니스 로직·외부 API 없는 반복 UI를 맡는다. 로딩·판정·교구 상태는 feature에 둔다. 기존 컴포넌트가 규칙을 충족하지 않으면 공통 계약부터 보완한다.
 
-## 3. 타이포그래피
+아이콘 버튼에는 aria-label을 둔다. 모바일에서 텍스트를 숨겨도 이름은 유지한다. HEX만으로 색을 읽거나 빈 슬롯을 이름 없는 버튼으로 만들지 않는다. focus·disabled·selected·loading을 구분한다. progress/live 의미를 제공하고 reduced-motion을 confetti에도 적용한다. 소리만으로 완료/오류를 전달하지 않는다.
 
-`packages/client/src/design-system/tokens/typography.ts`. Tailwind 클래스로 `font-sans` (default), `font-display` (heading).
+## 9. 부모·제작·운영
 
-### 폰트 패밀리
-- **`font-sans`** (Body / UI): **Pretendard Variable** — 한국 모던 앱 표준, 한글+Latin 조형 통일, 가변 38KB
-- **`font-display`** (Heading): **NanumSquareRound** — 둥근 모서리 한글체, 4-5세 친화 가독성. `<h1>` `<h2>` 등 큰 제목, 페이지 타이틀, 카테고리 헤딩에 사용
+부모 리포트는 오늘/최근 활동 → 과정 진행 → 연습한 낱말 → 다음 도움 순으로 제안한다. 노출·정답·쓰기 연습·완료를 실제 습득으로 표현하지 않는다. 시험 중인 리포트는 [계정·학습 기록 영역](work/account/MEMORY.md)에서 구현 상태를 확인한다.
 
-### Weight
-- `font-bold` (700) — 부제, 본문 강조
-- `font-black` (900) — **모든 제목 / 라벨 / 버튼** (4-5세 가독성, 굵게 통일)
+계정·프로필·구독은 부모 흐름으로 둔다. 관리 행동을 아이의 주요 탐색과 섞지 않는다. 부모 게이트를 시각 작업으로 우회하거나 제거하지 않는다.
 
-### 사이즈 스케일 (학습자 화면 기준 — 4-5세 + 태블릿)
-| Tailwind | px | 사용처 |
-|---|---|---|
-| `text-xs` | 12 | "준비 중" 라벨, 보조 메타 |
-| `text-sm` | 14 | 부제, 작은 본문 (지양 — 너무 작음) |
-| `text-base` | 16 | 본문 기본, chip 라벨 |
-| `text-lg` | 18 | 사이드바 axis 라벨, "더 보기" 버튼 |
-| `text-xl` | 20 | 책 제목, 검색바 input |
-| `text-2xl` | 24 | 보조 제목 |
-| `text-3xl` | 30 | **카테고리 헤딩** (LibraryPage 섹션) |
-| `text-4xl`+ | 36+ | 큰 hero 제목 (필요 시) |
+제작·운영은 표·목록·검색·필터·편집 패널을 사용할 수 있다. Editor2 고정 사이드바와 마케팅 셸의 데스크톱 구조는 작업 요구와 대조한다. 모바일에서 보이는 것과 편집 가능한 것을 구분해 지원 범위를 명시한다.
 
-**원칙**: 학습자 화면에서 `text-sm` 이하 지양. 메타/배지 외 본문/제목은 `text-base` 이상.
+생성 중/검수 필요/완료/예약/발행/실패를 구분하고 비용·외부 전송·되돌릴 수 없는 행동에는 판단할 정보를 제공한다. 이 문서 변경으로 운영 데이터·발행 설정은 바꾸지 않는다.
 
-## 4. Spacing & Layout
+## 10. 적용 순서와 검증
 
-Tailwind 기본 스케일 사용. 자주 쓰는 패턴:
+1. 게임 선택지 소실·영어 블록 판 잘림·완료 결과 소실을 먼저 수정한다.
+2. 토큰 의미·버튼 대비·터치·초점·돌아가기·결과 계약을 공용 구성 요소에 반영한다.
+3. 학습 홈·상위 탐색을 개편하고 한글/영어 과정과 연결한다.
+4. 동화책 탐색·상세·활동 선택·리더의 위계를 정리한다.
+5. 부모·공개 체험·저작/운영을 용도에 맞게 확장한다.
 
-| 클래스 | px | 사용처 |
-|---|---|---|
-| `gap-2` / `p-2` | 8 | 작은 chip 내부 |
-| `gap-3` / `p-3` | 12 | 카드 내부 element |
-| `gap-4` / `p-4` | 16 | 카드 padding |
-| `gap-5` | 20 | chip row gap |
-| `gap-6` | 24 | 큰 element 사이, 그리드 gap |
-| `p-6` / `p-8` | 24 / 32 | section padding |
-| `mb-14` | 56 | 카테고리 섹션 사이 vertical breath |
+대표 검증 크기는 375×812, 812×375, 1024×768, 1280×800이다. 문서 전체 너비뿐 아니라 실제 선택지·캔버스의 rect와 clipping을 확인한다. 이미지·음성 지연/실패, 긴 제목·단어·다국어, 오답→정답, 마지막 문제, 완료→다시 하기, 중간 퇴장·빠른 입력을 검증한다.
 
-### Border Radius (`borderRadius` token)
-| 토큰 / Tailwind | px | 사용처 |
-|---|---|---|
-| `rounded-xl` | 12 | 작은 button, 부모 nav 항목 |
-| `rounded-2xl` | 16 | **표준 카드 / 검색바 / 책 카드 일러스트** |
-| `rounded-3xl` | 24 | 큰 정사각 axis 박스 |
-| `rounded-full` | 9999 | chip, 사용자 chip, icon button |
+화면 확인·실제 오디오 청취·iOS Safari/안드로이드 태블릿·카메라/탱고노트 실기기는 다른 증거다. 시안·소스·화면 크기 에뮬레이션을 실기기 통과로 적지 않는다.
 
-### Shadow (`boxShadow` token)
-| 토큰 | 값 | 사용처 |
-|---|---|---|
-| `shadow-soft` | `0 2px 8px rgba(0,0,0,0.06)` | 카드 기본 |
-| `shadow-card` | `0 4px 16px rgba(0,0,0,0.08)` | 떠 있는 카드 |
-| `shadow-pop` | `0 6px 20px rgba(255,94,58,0.35)` | **활성 CTA**, hover, floating element (검색바 등) |
+새 자산은 기존 것을 먼저 확인한다. 생성은 현재 도구·사용자 지정 모델을 따른다. 이미지 시안의 토큰을 매핑하되 실제 접근성·배치를 재검사한다. 구현 요청 범위에서 공용 요소를 추가할 수 있으며 매번 별도 승인을 요구하지 않는다.
 
-## 5. 디자인 시스템 컴포넌트
+토큰 변경은 Tailwind import·CSS 변수의 실제 참조를 대조한다. 폰트 변경은 typography.ts·Tailwind·index.css의 @font-face·index.html 로딩 선언을 확인한다. 과거 CDN @import 설명을 그대로 적용하지 않는다.
 
-`packages/client/src/design-system/primitives/` — 새 컴포넌트 만들기 전에 **여기 있는 것 먼저 확인**.
+## 관련 원본
 
-| 컴포넌트 | 용도 | Props 핵심 |
-|---|---|---|
-| `<AppIcon>` | PNG/SVG 아이콘 (designed asset) | `src` (`category/animal.png` 등), `size` |
-| `<Mascot>` | 호리 마스코트 | `character="hori"`, `state="waving"`, `size` |
-| `<Chip>` | pill 토글 (필터/카테고리) | `variant: coral/warn/success/ink`, `active`, `icon`, `trailing` |
-| `<Card>` | 일반 컨테이너 카드 | `interactive`, `padding`, `onClick` |
-| `<Button>` | CTA 버튼 | (확인 — 현재 거의 안 씀, custom 가 더 흔함) |
-| `<StateScreen>` | empty / error / loading 풀화면 | `mascotState`, `title`, `description`, `action` |
-| `<SkeletonBookCard>` | 로딩 placeholder | (no props) |
-| `<ErrorBoundary>` | 에러 catch | (children) |
-
-**기본 원칙**: 새 화면 시안에 button/chip/card 등이 보이면 → 위 컴포넌트로 바로 매핑. 매핑 안 되면 → 진짜 신규 컴포넌트인지 사용자 확인 후 design-system/primitives 에 추가.
-
-## 6. 자주 쓰는 패턴
-
-### 사이드바 ([AppShell](../packages/client/src/components/AppShell.tsx))
-- `w-44` (176px) sticky left, `h-screen`, `bg-cream-50`, 우측 `border-r border-ink-100/60`
-- 좌상단 로고 (`logo-kr.png` h-16 64px)
-- 3 axis 박스 (동화책 active / 파닉스·어휘 disabled "준비 중") — 정사각 `w-28 h-28` (112px) `rounded-3xl`
-- 좌하단 호리 + 말풍선 + 부모 버튼
-
-### 라이브러리 헤더 (`/library` 만)
-- AppShell 헤더 = `position: absolute` transparent overlay (hero 일러스트가 헤더 영역까지 풀폭)
-- 사용자 chip + 로그아웃 = `pointer-events-auto` floating
-
-### Hero 배너 (LibraryPage)
-- `aspect-[5/2] md:aspect-[4/1]` (모바일 5:2 / 데스크톱 4:1)
-- `bg-[url(...)] bg-cover bg-center` watercolor 일러스트
-- 검색바 floating: `absolute inset-x-0 bottom-6 max-w-2xl bg-white shadow-pop`
-
-### 책 카드 ([BookCard](../packages/client/src/features/library/components/BookCard.tsx))
-- 카드 배경 X — 일러스트 풀 (`aspect-video rounded-2xl shadow-soft`)
-- 제목은 일러스트 아래 (`mt-2 px-1 text-lg md:text-xl font-black font-display`)
-
-### 카테고리 섹션 ([CategorySection](../packages/client/src/features/library/components/CategorySection.tsx))
-- 헤딩 `text-3xl font-black font-display` + 권수 배지 (흰 pill `text-base`)
-- 그리드 `grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 sm:gap-6`
-- 카테고리당 9권 (3행), 초과 시 "더 보기 (N권)" 버튼 (coral pastel)
-
-### Chip Row
-- 가로 스크롤 `overflow-x-auto`
-- 4-5세 가독성: `<Chip>` 에 `className="!text-base !px-5 !py-2"` 추가 (default 14px → 16px)
-- "전체" = `variant="ink"` (검정), 카테고리 = `variant="coral"`, "읽는 중" = `variant="warn"` (amber)
-
-### 모드 카드 (BookDetailPage 책읽기/영상/단어 익히기)
-- 가로 긴 형태 — 좌 제목+부제 / 우 흰 동그라미 워시 (`bg-white/85 ring-2 ring-white`) 안 PNG / 우끝 → 화살표
-- tone:
-  - **coral** (책읽기) — `bg-gradient-to-br from-coral-400 to-coral-500`
-  - **violet-blue** (영상) — disabled 음영 (영상 없는 책)
-  - **yellow→amber** (단어) — `bg-gradient-to-br from-yellow-400 to-warn`
-- 일러스트: `public/icons/mode/{book,video,word}.png` (soft 3D rendered, 그림체 독립)
-
-## 7. 화면별 reference
-
-| 화면 | 파일 | 노트 |
-|---|---|---|
-| LibraryPage | [pages/LibraryPage.tsx](../packages/client/src/pages/LibraryPage.tsx) | 메인 진입. hero 배너 + 카테고리 섹션 |
-| BookDetailPage | [pages/BookDetailPage.tsx](../packages/client/src/pages/BookDetailPage.tsx) | AppShell **밖**. 풀폭 정방형 표지 + 모드 카드 3 |
-| VocabularyStudyPage | [features/vocabulary-unit/components/VocabularyStudyPage.tsx](../packages/client/src/features/vocabulary-unit/components/VocabularyStudyPage.tsx) | AppShell **밖**. 단어 미리보기 + 게임 카드 4 |
-
-## 8. GPT 등으로 시안 그릴 때 — 사용자 측 prompt 템플릿
-
-GPT/Midjourney 등에 시안 요청할 때 함께 보내면 톤 매칭 잘 됨:
-
-```
-탱고북 (4-5세 한국 동화책 학습 앱) 의 [화면 이름] 디자인 시안.
-
-디자인 시스템:
-- 톤: Khan Academy Kids × 곰돌이푸 × Duolingo. Warm & Cozy + Playful.
-- 타겟: 4-5세 + 태블릿 1024-1366 (큰 글자, 큰 터치)
-- 메인 색: coral #FF5E3A (CTA), cream #FFF9F3 (배경), peach #FFF0E0, ink-900 #0B0805 (텍스트)
-- 보조: success #5CC99F, warn #FFC857, fun (violet) #A78BFA, info #6BAEE8
-- 폰트: NanumSquareRound (제목, 둥근 한글체), Pretendard (본문)
-- 카드 라운드: 16px (rounded-2xl), 큰 박스: 24px (rounded-3xl), pill: full
-- shadow: soft 부드러운 그림자
-- 일러스트: watercolor 톤 또는 paper-craft, soft 3D rendered
-
-화면 의도: [예: 부모가 책 상세 보고 어떤 모드로 학습 시작할지 고르는 화면]
-강조: [예: 모드 카드 3개를 한 눈에]
-변경: [기존 화면과 다른 점]
-
-포함:
-- 사이드바 (없으면 명시)
-- 헤더 (있으면 어떤 요소)
-- 메인 컨텐츠
-```
-
-## 9. Claude 가 시안 받을 때 — 매번 도는 protocol
-
-새 시안 받으면 **Step 1 부터 순서대로**:
-
-### Step 1 — 시안 분석 보고서 (사용자 확인)
-- 화면 이름 + 의도 파악
-- 시안에서 보이는 색 → 디자인 시스템 토큰 매핑 (예: 시안의 주황 → `coral-500`)
-- 시안에서 보이는 폰트 사이즈 → Tailwind 클래스 매핑
-- 시안에서 보이는 컴포넌트 → 기존 primitive 매핑 (예: pill 버튼 → `<Chip>`)
-- **신규 토큰/컴포넌트 필요한 것 별도 표시**
-- 사용자에게 매핑 보고 + 확인
-
-### Step 2 — 세부 이미지 자산 prompt 전달 (사용자에게 위임)
-
-Claude 는 이미지 generation 못 함 → 시안에 새 이미지 자산이 필요하면 **사용자에게 prompt 를 전달**해서 GPT/Midjourney 등으로 만들어 받음.
-
-자산 list-up:
-- 아이콘 (PNG/SVG, 사이즈, 톤)
-- 배경 일러스트 (hero 등)
-- 캐릭터 일러스트
-- 책 표지 placeholder
-
-각 자산별 prompt 에 명시:
-- 파일 명 + 저장 경로 권장 (예: `public/images/library-hero-spring-morning.png`)
-- 사이즈 / aspect ratio
-- 톤 / 색감 (디자인 시스템 토큰 참조)
-- 배경 처리 (투명 vs fill)
-- 필요한 후처리 (예: PNG baked checkerboard 제거 → `strip-checkerboard-bg.mjs`)
-
-흐름: Claude 가 prompt 작성 → 사용자가 GPT 로 자산 생성 → 사용자가 chat 에 첨부 또는 경로 알려줌 → Claude 가 코드 반영 (필요 시 후처리 스크립트 실행).
-
-### Step 3 — 신규 토큰/컴포넌트 분리 (필요 시)
-- 신규 색 토큰 → `tokens/colors.ts` + Tailwind config + 이 문서 반영
-- 신규 컴포넌트 → `primitives/` 에 추가
-- 분리 PR 또는 별도 commit
-
-### Step 4 — 화면 구현
-- **100% 토큰 + 기존 컴포넌트** 사용
-- 하드코딩 금지: 색은 항상 토큰 (`bg-coral-500`), 폰트는 Tailwind 클래스 (`text-xl`)
-- 자산은 Step 2 에서 받은 PNG/SVG 활용 (`<AppIcon src="..." />` 또는 `<img src="..." />`)
-- pull request 시 이 문서 reference 명시
-
-### 위반 시 자동 검출
-- 하드코딩 색 (`bg-[#FF5E3A]` 같은 임의 값) → 토큰으로 교체
-- 새 button/chip 컴포넌트 → primitive 사용 또는 추가
-- 4-5세 화면 `text-sm` 이하 → 키우기
-
-## 10. 문서 갱신 규칙
-
-- 새 토큰/컴포넌트 추가 시 이 문서도 반영 (PR 에 같이)
-- 색 팔레트 변경 시 — `colors.ts` + `tailwind.config.ts` + `index.css` (CSS 변수) + 이 문서 4곳 동기
-- 폰트 변경 시 — `typography.ts` + `tailwind.config.ts` (inline 정의) + `index.css` (jsdelivr CDN @import) + 이 문서 4곳 동기
+- [공용 토큰·프리미티브](../packages/client/src/design-system/README.md)
+- [AppShell](../packages/client/src/components/AppShell.tsx), [LibraryPage](../packages/client/src/pages/LibraryPage.tsx), [BookDetailPage](../packages/client/src/pages/BookDetailPage.tsx)
+- [독후활동 호스트](../packages/client/src/features/vocabulary-unit/components/VocabularyStudyContent.tsx), [게임 영역 지침](../packages/client/src/features/games/CLAUDE.md)
+- [파닉스 공용 셸](../packages/client/src/features/phonics-learner/components/ActivityShell.tsx), [게임 점검 지침](../.claude/agents/game-reviewer.md)
