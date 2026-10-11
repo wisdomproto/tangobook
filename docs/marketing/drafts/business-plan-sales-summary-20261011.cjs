@@ -1,6 +1,6 @@
 module.exports=({img})=>({
 html:`<div class="td-sales-summary-flow">
-<article class="td-sales-summary-brand"><span class="v-label">당사 역할</span><h3>탱고북</h3><div class="td-brand-role td-brand-supply"><div class="td-brand-role-heading"><span>1</span><h4>제품·콘텐츠 공급</h4></div>${img('../investor-20261010/hardware-kit-studio-v3.png','탱고 블록과 학습 앱 제품 구성')}</div><div class="td-brand-role td-sales-summary-support"><div class="td-brand-role-heading"><span>2</span><h4>오가닉 마케팅</h4></div><strong>브랜드 인지도 · 유통사 판매 지원</strong><p>네이버 · Google · YouTube · Instagram</p><div class="td-brand-publish">AI 홍보물 생성 → 검수 → 자동 발행</div></div></article>
+<article class="td-sales-summary-brand"><span class="v-label">당사 역할</span><h3>탱고북</h3><div class="td-brand-role td-brand-supply"><div class="td-brand-role-heading"><span>1</span><h4>제품·콘텐츠 공급</h4></div>${img('../investor-20261010/hardware-kit-studio-v3.png','탱고 블록과 학습 앱 제품 구성')}<p class="td-supply-terms">정가의 50%로 유통사에 공급</p></div><div class="td-brand-role td-sales-summary-support"><div class="td-brand-role-heading"><span>2</span><h4>오가닉 마케팅</h4></div><strong>검색·SNS 콘텐츠로 판매 지원</strong><p>네이버 · Google · YouTube · Instagram</p><div class="td-brand-publish">AI 홍보물 생성 → 검수 → 자동 발행</div></div></article>
 <span class="td-sales-summary-arrow" aria-hidden="true">→</span>
 <article class="td-sales-summary-dealer"><span class="v-label">주력 판매 채널</span><h3>유통사</h3><div class="td-sales-summary-channel"><b>인플루언서<br>공동구매</b><span>기존 전문 거래처 보유</span></div><p>초도 공급 · 재주문</p></article>
 <span class="td-sales-summary-arrow" aria-hidden="true">→</span>

@@ -7,7 +7,7 @@ module.exports=({img})=>{
  <article><span class="v-label">02 · 콘텐츠</span><h3>학습 콘텐츠</h3><div class="td-system-library"><figure>${img(asset('phonics-covers/ko-1-chapter-v3.webp'),'한글 파닉스 문자 예시')}<figcaption>한글·영어 파닉스</figcaption></figure><figure>${img('cover-1789350946382.webp','거인의 정원 동화책 표지')}<figcaption>동화책 · 독후활동</figcaption></figure></div><b>글자 학습부터 이야기 이해까지</b></article>
  <span class="td-system-arrow td-system-branch" aria-hidden="true"><i>›</i><i>›</i></span>
  <article class="td-system-learning"><span class="v-label">03 · 학습 제공</span><h3>학습 앱 + 실물 교구</h3><div class="td-system-picture">${img(asset('app-overview-v3.webp'),'탱고북 학습 앱 디자인 예시')}</div><b>탱고 블록·탱고노트 연동</b></article>
- <article class="td-system-promotion"><span class="v-label">04 · 판매 지원</span><h3>AI 마케팅 도구</h3><div class="td-system-channels">${['naver','google','youtube','instagram'].map(name=>img(asset('channel-logos/'+name+'.svg'),name)).join('')}</div><p>콘텐츠로 홍보물 생성 · 검수 · 자동 발행</p><b>오가닉 마케팅 → 유통사 판매 지원</b></article>
+ <article class="td-system-promotion"><span class="v-label">04 · 판매 지원</span><h3>AI 마케팅 도구</h3><div class="td-system-channels">${['naver','google','youtube','instagram'].map(name=>img(asset('channel-logos/'+name+'.svg'),name)).join('')}</div><p>콘텐츠로 홍보물 생성 · 검수 · 자동 발행</p><b>검색·SNS 마케팅 → 유통사 판매 지원</b></article>
  </div>
  </div><p class="td-note">제작한 콘텐츠를 학습 서비스와 홍보에 함께 활용하는 구조입니다. 화면은 구성 예시입니다.</p>`;
  const css=`

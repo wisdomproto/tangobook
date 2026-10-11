@@ -18,7 +18,7 @@ module.exports=function runtime(plan){
  function normalizeEntered(){const saved=state.entered;state.entered=Object.fromEntries([2027,2028].map(y=>[y,Array.from({length:12},(_,i)=>Object.fromEntries(['kr','krNote','world','worldNote'].map(k=>[k,saved?.[y]?.[i]?.[k]===true])))]));}
  normalizeEntered();
  function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch{}}
- function populate(){fields.forEach(k=>get(k).value=state[k]);get('months').innerHTML=state.years[year].map((m,i)=>'<tr><th scope="row">'+year+'.'+String(i+1).padStart(2,'0')+'</th>'+['kr','krNote','world','worldNote'].map(k=>'<td><input data-month="'+i+'" data-region="'+k+'" type="number" min="0" max="1000000" step="1" required '+(allowed(year,i,k)?'':'disabled')+' aria-label="'+year+'년 '+(i+1)+'월 '+({kr:'한국 블록',krNote:'한국 탱고노트',world:'해외 블록',worldNote:'해외 탱고노트'}[k])+' 유통사 공급 대수" value="'+Number(m[k])+'"></td>').join('')+['supply','cost','platform','grossProfit'].map(k=>'<td data-out="'+k+'"></td>').join('')+'</tr>').join('');}
+ function populate(){fields.forEach(k=>get(k).value=state[k]);get('months').innerHTML=state.years[year].map((m,i)=>'<tr><th scope="row">'+year+'.'+String(i+1).padStart(2,'0')+'</th>'+['kr','krNote','world','worldNote'].map(k=>'<td><input data-month="'+i+'" data-region="'+k+'" type="number" min="0" max="1000000" step="1" required '+(allowed(year,i,k)?'':'disabled')+' aria-label="'+year+'년 '+(i+1)+'월 '+({kr:'한국 블록(세트)',krNote:'한국 탱고노트(대)',world:'해외 블록(세트)',worldNote:'해외 탱고노트(대)'}[k])+' 유통사 공급 수량" value="'+Number(m[k])+'"></td>').join('')+['supply','cost','platform','grossProfit'].map(k=>'<td data-out="'+k+'"></td>').join('')+'</tr>').join('');}
  function read(){
  if([...root.querySelectorAll('input')].filter(e=>!e.id.startsWith('sim-fill-')).some(e=>!e.checkValidity()))return false;
  fields.forEach(k=>state[k]=get(k).value===''?'':Number(get(k).value));
@@ -61,7 +61,7 @@ module.exports=function runtime(plan){
  document.getElementById('milestone-chart').dataset.calculation=JSON.stringify({quarters,annual});
  }
  function render(persist=false){
- if(!read()){get('error').hidden=false;get('error').textContent='대수·금액은 0 이상의 정수, 공급률은 0~100%로 입력해 주세요. 결과는 마지막 유효 입력 기준입니다.';return false;}
+ if(!read()){get('error').hidden=false;get('error').textContent='수량·금액은 0 이상의 정수, 공급률은 0~100%로 입력해 주세요. 결과는 마지막 유효 입력 기준입니다.';return false;}
  get('error').hidden=true;const all=calculate(),rows=all.filter(r=>r.year===year),totals=sum(rows);
  get('plan-status').textContent=year+'년 블록·탱고노트 합산 시뮬레이션 · 소개서 매출 전망에는 블록만 반영';
  rows.forEach((r,i)=>{for(const k of ['supply','cost','platform','grossProfit'])get('months').children[i].querySelector('[data-out="'+k+'"]').textContent=fmt(r[k]/1e4);});

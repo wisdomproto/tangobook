@@ -9,7 +9,7 @@ module.exports = ({ img }) => {
  <nav class="mk-index" aria-label="판매·마케팅 전략 목차"><a href="#marketing-sales">판매 구조</a><a href="#marketing-brand">브랜드</a><a href="#marketing-journey">고객 흐름</a><a href="#marketing-channels">채널·키워드</a><a href="#marketing-execution">실행·지표</a><a href="#marketing-automation">제작·발행 자동화</a><a href="#marketing-examples">콘텐츠 예시</a></nav>
  ${section('sales','01','판매 구조','탱고북은 유통사에 제품을 공급하고, 유통사는 인플루언서 공동구매로 소비자에게 판매합니다.',`
  <figure class="mk-sales-map"><div class="mk-sales-scroll">${img('../investor-20261010/sales-structure-v1.svg','왼쪽 탱고북에서 제품·콘텐츠 공급과 오가닉 마케팅으로 나뉘는 두 역할. 제품은 유통사를 통해 판매하고 마케팅은 검색·브랜드 확인으로 유통 판매를 지원')}</div><figcaption>탱고북의 판매 목표·매출은 유통사 공급 기준입니다. 브랜드 활동은 유통사의 소비자 판매와 재주문을 지원합니다.</figcaption></figure>
- <div class="mk-price-strip"><div><span>메인 상품</span><b>한글·영어 블록 + 프리미엄 12개월</b></div><div><span>소비자 정가</span><b>139,000원</b></div><div><span>유통 공급가</span><b>69,500원</b></div></div>
+ <div class="mk-price-strip"><div><span>메인 상품</span><b>블록 세트 + 프리미엄 12개월 이용권</b></div><div><span>소비자 정가</span><b>139,000원</b></div><div><span>유통 공급가</span><b>69,500원</b></div></div>
  <p class="mk-note">확정 판매 조건 기준. 매출 시뮬레이션의 수정 시나리오와 별개입니다. 기존 거래처 보유는 확정 발주·판매 실적을 뜻하지 않습니다.</p>
  <details><summary>채널 운영 원칙</summary><ul><li>탱고북의 오가닉 마케팅은 유통사가 잘 팔 수 있도록 검색 정보·브랜드 신뢰·체험 자료를 제공합니다. 유통업체는 자체 판매가와 행사를 판단합니다.</li><li>자사몰은 공식 정가와 제품 정보를 보여주는 보조 채널입니다. 공식 정가는 소비자가 유통사의 판매 조건을 비교하는 기준점 역할을 합니다. 정가 판매를 유지하며 유통사와 할인 경쟁을 하지 않습니다. 자사몰 주문은 현재 유통 공급량·예상 매출에 합산하지 않습니다.</li><li>구매처와 관계없이 공식 앱 등록·설명서·제품 이용 지원을 연결합니다.</li></ul></details>`)}
  ${section('brand','02','한글 중심 브랜딩','첫 관심은 한글 학습, 구매 이유는 앱과 실물 교구의 연결 경험.',`
@@ -21,7 +21,7 @@ module.exports = ({ img }) => {
  <div class="mk-loop"><span aria-hidden="true">↳</span><b>실제 사용 경험</b><span>후기·시연 자료 축적</span><span aria-hidden="true">→</span><b>다음 공동구매·브랜드 검색</b></div>
  <div class="mk-two"><article><h3>구매 전</h3><p>제품 구성, 아이의 사용 과정, 호환 기기와 이용 범위를 검색에서 확인.</p></article><article><h3>구매 후</h3><p>개봉부터 첫 학습까지 안내하고, 같은 낱말의 게임·동화로 다음 사용을 연결.</p></article></div>
  <p class="mk-note">입소문은 초기 구매자의 실제 사용을 통해 검증할 성장 가설입니다. 자동 확산이나 모든 공동구매 구매자의 얼리어답터 성향을 전제하지 않습니다.</p>`)}
- ${section('channels','04','오가닉 채널·검색 전략','브랜드 검색과 학습 체험을 축적하고, 유통업체의 판매를 함께 지원.',`
+ ${section('channels','04','오가닉 채널·검색 전략','검색·SNS 콘텐츠로 제품을 알리는 오가닉 마케팅으로, 유통사의 판매를 지원합니다.',`
  ${table(['채널','역할','대표 콘텐츠'],[
  ['네이버 블로그','부모의 질문·구매 전 확인','한글 시작 순서 · 블록 학습 방법 · 사용 과정'],
  ['공식 사이트 · Google SEO','검색 자료·무료 체험 축적','학습 가이드 · 상품 구성 · 사용법 · 기본 과정'],
@@ -31,14 +31,14 @@ module.exports = ({ img }) => {
  <div class="mk-subheading"><h3>검색 주제 우선순위</h3><span>검색량 순위가 아닌 고객 질문별 구성</span></div>
  <div class="mk-keywords"><article><span>시작 방법</span><b>한글공부 · 한글떼기</b><p>한글 가르치는 순서</p></article><article><span>제품 비교</span><b>한글교구 · 한글블록</b><p>한글쓰기 · 유아 한글 앱</p></article><article><span>브랜드 확인</span><b>탱고북 · 탱고 한글 블록</b><p>구성 · 가격 · 사용법 · 후기</p></article><article><span>다음 학습</span><b>동화책 · 어휘력</b><p>독후활동 · 문해력</p></article></div>
  <div class="mk-production"><div><span class="mk-tag">공통 제작 원본</span><h3>한 단원의 실제 시연</h3><p>‘ㄱ → 가구’의 학습 과정</p></div><span aria-hidden="true">→</span><div><b>짧은 영상 · 전체 시연 · 블로그</b><p>공식 사용 가이드 · 유통사 소개 자료로 재구성</p></div></div>
- <details><summary>콘텐츠·검색 운영 기준</summary><p>공식 도메인 안에 Google 검색용 콘텐츠를 축적합니다. 한글 학습 방법과 직접 확인한 제품 경험을 중심으로 제작하며, 작동·사용 후기의 증거를 생성 이미지로 대신하지 않습니다. 키워드는 기존 2026년 9월 조사와 확장 제안이며 최신 검색량을 뜻하지 않습니다.</p><p>무료 체험 범위: 한글 1권, 영어 1·2권, 동화책 읽기 전체. 나머지 파닉스와 독후활동은 프리미엄 범위입니다.</p><p>운영 참고: <a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener">Google 유용한 콘텐츠 가이드 ↗</a> · <a href="https://searchadvisor.naver.com/guide/" target="_blank" rel="noopener">네이버 공식 사이트 검색 가이드 ↗</a></p></details>`)}
+ <details><summary>콘텐츠·검색 운영 기준</summary><p>공식 도메인 안에 Google 검색용 콘텐츠를 축적합니다. 한글 학습 방법과 직접 확인한 제품 경험을 중심으로 제작하며, 작동·사용 후기의 증거를 생성 이미지로 대신하지 않습니다. 키워드는 기존 2026년 9월 조사와 확장 제안이며 최신 검색량을 뜻하지 않습니다.</p><p>무료 체험 범위: 한글 1권, 영어 1·2권, 동화책 읽기 전체. 전체 파닉스 과정과 독후활동은 프리미엄으로 이용합니다.</p><p>운영 참고: <a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener">Google 유용한 콘텐츠 가이드 ↗</a> · <a href="https://searchadvisor.naver.com/guide/" target="_blank" rel="noopener">네이버 공식 사이트 검색 가이드 ↗</a></p></details>`)}
  ${section('execution','05','출시 실행·성과 관리','거래처 판매와 구매자의 첫 사용을 함께 준비하는 실행안.',`
  <div class="mk-roadmap"><article><span>출시 준비</span><h3>설명·시연 기반</h3><p>브랜드 설명과 제품 페이지<br>대표 시연·무료 체험·검색 문서<br>거래처 시연·FAQ·첫 사용 안내</p></article><article><span>2027 · 1분기</span><h3>한국 출시·초기 사용</h3><p>기존 거래처 공동구매<br>구매 후 앱 등록·첫 학습 지원<br>판매 결과·사용 질문 수집</p></article><article><span>2027 · 2~3분기</span><h3>재주문·상품 확장</h3><p>성과가 확인된 채널 운영 확대<br>실제 후기·시연 자료 보강<br>3분기 탱고노트 소개</p></article></div>
  <details><summary>유통업체 공통 제공 자료</summary><ul><li>대표 시연 영상과 한 단원 전체 사용 과정</li><li>구성품·구독 기간·무료/유료 이용 범위</li><li>사용 대상·설치·호환 기기·자주 묻는 질문</li><li>구매 후 앱 등록부터 첫 학습까지의 안내</li></ul></details>
  <div class="mk-subheading"><h3>핵심 지표</h3><span>공급·재주문이 주 지표, 소비자 판매·사용은 재주문 가능성의 보조 지표</span></div>
  <div class="mk-metrics"><article><span>판매</span><b>유통사 공급·재주문</b><p>거래처별 공급량·공급 매출<br>발주·재주문·반품</p></article><article><span>관심</span><b>브랜드 검색·체험</b><p>제품 페이지 방문<br>무료 체험 시작</p></article><article><span>사용</span><b>첫 학습·재사용</b><p>구매 후 앱 등록<br>첫 학습 완료·7일 재사용</p></article><article><span>확산</span><b>실제 후기·추천</b><p>자발적 사용 후기<br>확인 가능한 추천 유입</p></article></div>
  <div class="mk-callout"><b>월 공급 목표</b><span>거래처별 초도 공급량 + 재주문 공급량의 합계</span></div>
- <p class="mk-note">월 500대·1,000대는 유통사에 공급할 물량 목표입니다. 소비자 판매량과 유통사 재고는 재주문을 예측하는 보조 자료로 따로 확인합니다. 오가닉 제작·촬영·운영 인건비는 별도 관리하며, 해외 실행안은 국가별 유통·언어 조건에 맞춰 수립합니다.</p>`)}
+ <p class="mk-note">월 500세트·1,000세트는 유통사에 공급할 물량 목표입니다. 소비자 판매량과 유통사 재고는 재주문을 예측하는 보조 자료로 따로 확인합니다. 오가닉 제작·촬영·운영 인건비는 별도 관리하며, 해외 실행안은 국가별 유통·언어 조건에 맞춰 수립합니다.</p>`)}
  ${section('automation','06','오가닉 콘텐츠 제작·발행 자동화','보유 콘텐츠를 채널별 홍보물로 만들고, 예약한 일정에 발행하는 기능을 자체 구축했습니다.',`
  <div class="mk-auto-flow"><article><span>01 · 원본</span><h3>학습 콘텐츠</h3><p>동화책 · 한글·영어 학습<br>어휘 · 독후활동</p></article><article><span>02 · 자동 생성</span><h3>채널별 홍보물</h3><p>블로그 글 · 카드뉴스<br>영상 대본 · 롱폼·숏폼</p></article><article><span>03 · 운영</span><h3>검수·일정 설정</h3><p>내용 확인 · 채널 선택<br>게시 일정 예약</p></article><article><span>04 · 자동 발행</span><h3>채널 게시</h3><p>예약 발행 · 결과 기록<br>발행 상태 관리</p></article></div>
  <div class="mk-two"><article><h3>하나의 콘텐츠, 여러 채널</h3><p>책과 학습 콘텐츠의 원본을 활용해 네이버 블로그, Google 검색용 자체 블로그, YouTube, Instagram용 콘텐츠를 제작합니다.</p></article><article><h3>콘텐츠 축적 → 판매 지원 확대</h3><p>새로운 학습 콘텐츠를 추가할 때마다 검색 자료와 소개 영상을 함께 확장해, 유통사가 활용할 브랜드·제품 정보를 꾸준히 공급합니다.</p></article></div>

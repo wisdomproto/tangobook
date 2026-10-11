@@ -160,7 +160,11 @@
 #sales-strategy .td-sales-summary-flow h3 {font-size:30px;margin:12px 0 20px}
 #sales-strategy .td-sales-summary-flow article>img,
 #sales-strategy .td-sales-summary-channel {margin-top:64px;height:190px}
-#sales-strategy .td-brand-supply img {height:165px;object-fit:contain;background:#f7f3eb}
+#sales-strategy .td-brand-supply img {height:140px;object-fit:contain;background:#f7f3eb}
+#sales-strategy .td-brand-supply .td-supply-terms {font-size:17px;font-weight:700}
+#sales-strategy .td-sales-summary-footer {margin-top:12px;padding-top:12px}
+#learning-value .eco-choice .eco-kicker {display:block;min-height:48px}
+#revenue-model .td-unit-economics>div {padding-top:13px;padding-bottom:13px}
 #sales-strategy .td-sales-summary-arrow {align-self:start;margin-top:220px}
 #sales-strategy .td-sales-summary-flow article>p {font-size:20px}
 #sales-strategy .td-brand-role-heading h4 {font-size:24px}
