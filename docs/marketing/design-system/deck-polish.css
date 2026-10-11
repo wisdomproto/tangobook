@@ -302,9 +302,6 @@
  body:not(.present) #foundation .rf-phonics-courses p {font-size:15px}
 }
 
-/* Keep the part context visible without competing with the page topic. */
-#investor-panel .section-h2 .td-title-part {font-size:.58em;font-weight:500;color:var(--doc-color-muted);letter-spacing:-.025em}
-@media(max-width:699px){body:not(.present) #investor-panel .section-h2 .td-title-part {display:block;margin-bottom:8px}}
 
 #ai-authoring .rf-chips {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px;margin-top:18px}
 #ai-authoring .rf-chips span {font-size:17px;line-height:1.5;padding:6px 0;border-bottom:1px solid var(--doc-color-line)}
