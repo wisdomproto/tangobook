@@ -2,12 +2,12 @@
 
 - id: 20261012-home-header-course-contrast
 - domain: platform
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: dd91aff29
 - branch: codex/platform-ui-v2
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 검증 완료, 로컬 main 통합 예정
+- integration: a89ab90a9를 로컬 main에 fast-forward 통합 완료
 - delivery: 미푸시·미배포
 
 ## 사용자 피드백
