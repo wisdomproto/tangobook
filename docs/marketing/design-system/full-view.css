@@ -124,3 +124,12 @@
  .present #vision .td-overview-loop i{transform:none}
  .present #vision .td-ecosystem-node img{height:95px!important}
 }
+/* Mobile presentation uses native landscape where available; portrait has a clear fallback. */
+.deck-rotate-hint{display:none}
+@media screen{
+ body.present.deck-mobile-view #investor-panel>header{padding:6px 12px!important;gap:8px}
+ body.present.deck-mobile-view #investor-panel>header #print{display:none}
+ body.present.deck-mobile-view #chapter-select{max-width:42vw!important;min-width:0}
+ body.present.deck-portrait .deck-rotate-hint{position:fixed;inset:56px 0 0;z-index:80;display:grid;place-items:center;background:var(--doc-color-ink);color:var(--doc-color-paper);padding:24px;text-align:center}
+ .deck-rotate-hint>div{max-width:320px}.deck-rotate-hint span{display:block;font-size:76px;line-height:1.2;margin-bottom:24px;color:#9ed4bd}.deck-rotate-hint b{display:block;font-size:24px}.deck-rotate-hint p{font-size:16px;line-height:1.7;color:#d4e4da;margin:16px 0 26px}.deck-rotate-hint button{border:1px solid #9ed4bd;border-radius:8px;background:transparent;color:inherit;padding:12px 18px;font:inherit}
+}

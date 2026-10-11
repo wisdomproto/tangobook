@@ -22,6 +22,35 @@ canvasStyle.textContent=readingStyle.textContent.replace(/\((min|max)-width:\s*(
 });
 document.head.append(canvasStyle);
 function isFullView(){return document.body.classList.contains('present')&&!panel.hidden;}
+const rotateHint=document.createElement('div');
+rotateHint.className='deck-rotate-hint';
+rotateHint.setAttribute('role','status');
+rotateHint.innerHTML='<div><span aria-hidden="true">↻</span><b>기기를 가로로 돌려주세요</b><p>가로 화면에서 슬라이드를 크게 볼 수 있습니다.</p><button type="button">스크롤 보기로 돌아가기</button></div>';
+document.body.append(rotateHint);
+rotateHint.querySelector('button').onclick=()=>setFullView(false);
+let mobileView=false,viewRequest=0,ownsFullscreen=false,ownsOrientation=false;
+function updateOrientationHint(){
+ document.body.classList.toggle('deck-mobile-view',isFullView()&&mobileView);
+ document.body.classList.toggle('deck-portrait',isFullView()&&mobileView&&innerHeight>innerWidth);
+}
+function releaseOrientation(){
+ if(ownsOrientation){try{screen.orientation.unlock();}catch{}ownsOrientation=false;}
+}
+async function enterMobileLandscape(request){
+ try{
+  if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
+   await document.documentElement.requestFullscreen();ownsFullscreen=true;
+  }
+  if(request!==viewRequest||!isFullView()){
+   if(ownsFullscreen){ownsFullscreen=false;await document.exitFullscreen().catch(()=>{});}return;
+  }
+  if(screen.orientation?.lock){
+   await screen.orientation.lock('landscape');ownsOrientation=true;
+   if(request!==viewRequest||!isFullView())releaseOrientation();
+  }
+ }catch{/* Unsupported or denied: keep the manual rotation guidance. */}
+ updateOrientationHint();queueFit();
+}
 function fitSlide(){
  frame=0;if(!isFullView())return;
  const slide=slides[index],stage=panel.querySelector('main');
@@ -42,10 +71,18 @@ function move(n){
  else slides[index].scrollIntoView({behavior:'instant'});
 }
 function setFullView(active){
+ const request=++viewRequest;
+ mobileView=active&&matchMedia('(any-pointer: coarse)').matches&&Math.min(innerWidth,innerHeight)<=1024;
  document.body.classList.toggle('present',active);
  readingStyle.sheet.disabled=active;canvasStyle.media=active?'all':'not all';
  mode.textContent=active?'스크롤 보기':'전체 보기';mode.setAttribute('aria-pressed',String(active));
  render();
+ updateOrientationHint();
+ if(active&&mobileView)void enterMobileLandscape(request);
+ if(!active){
+  releaseOrientation();
+  if(ownsFullscreen){ownsFullscreen=false;if(document.fullscreenElement)void document.exitFullscreen().catch(()=>{});}
+ }
  if(active)window.scrollTo({top:0,behavior:'instant'});
  else if(!panel.hidden)slides[index].scrollIntoView({behavior:'instant'});
 }
@@ -62,7 +99,12 @@ document.addEventListener('keydown',e=>{
 new ResizeObserver(()=>{document.documentElement.style.setProperty('--audience-height',audience.offsetHeight+'px');queueFit();}).observe(audience);
 new ResizeObserver(()=>{document.documentElement.style.setProperty('--reader-height',reader.offsetHeight+'px');queueFit();}).observe(reader);
 const observer=new ResizeObserver(queueFit);slides.forEach(s=>observer.observe(s));
-window.addEventListener('resize',queueFit);
+window.addEventListener('resize',()=>{updateOrientationHint();queueFit();});
+screen.orientation?.addEventListener('change',()=>{updateOrientationHint();queueFit();});
+document.addEventListener('fullscreenchange',()=>{
+ if(ownsFullscreen&&!document.fullscreenElement){ownsFullscreen=false;if(isFullView())setFullView(false);}
+ updateOrientationHint();queueFit();
+});
 document.fonts.ready.then(queueFit);
 panel.querySelectorAll('img').forEach(img=>img.addEventListener('load',queueFit));
 new MutationObserver(()=>{if(panel.hidden&&document.body.classList.contains('present'))setFullView(false);}).observe(panel,{attributes:true,attributeFilter:['hidden']});
