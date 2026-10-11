@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-11 [소개서 헤더 한 줄 정리](../work/strategy/tasks/20261010-unified-business-plan.md): 문서 제목과 3탭을 한 줄로 배치. 전체 보기에서 상단 헤더 숨김, 복귀 시 복원. 4개 폭·3탭 검증.
+
 2026-10-11 [전체 보기·Part 3 재구성](../work/strategy/tasks/20261010-unified-business-plan.md): 발표 모드→전체 보기, 모든 장을 화면에 자동 맞춤. 표지·간지는 화면 전체, 나머지는 1280px 캔버스. Part 3 전체 구성→저작도구→보유 콘텐츠→디지털 활동→아날로그 교구→마케팅 도구. 총23화면. 4개 창 크기·상세 이동·인쇄 가시성·매출 회귀 통과. 로컬 커밋, 이번 변경 push 없음.
 
 2026-10-11 [소개서 main 전달 완료](../work/strategy/tasks/20261010-unified-business-plan.md): 2fce1784b 원격main 푸시. Editor2 BM 자료실의 탱고북 소개서→/tangobook-business-plan.html. 로컬 원본74커밋 이력의100MiB초과 중간HTML 때문에 최종트리 스냅샷으로 전달; 원본은archive/introduction-history-20261011 보존. 로컬main도원격에맞춤. 운영 배포 완료 미확인.

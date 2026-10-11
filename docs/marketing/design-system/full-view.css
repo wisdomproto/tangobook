@@ -1,5 +1,11 @@
 /* Full view uses a fixed 1280px editorial canvas, fitted by navigation.js. */
 @media screen {
+ /* Keep the document title and tab navigation on a single row. */
+ body>.audience{display:flex;flex-wrap:nowrap;gap:24px;overflow-x:auto;overscroll-behavior-x:contain}
+ body>.audience>b{width:auto;flex:0 0 auto;margin-right:auto;white-space:nowrap;font-size:18px}
+ body>.audience [role=tablist]{display:flex;flex-wrap:nowrap;width:auto;flex:0 0 auto;gap:6px}
+ body>.audience button{flex:0 0 auto;white-space:nowrap;font-size:13px;padding:7px 12px}
+
  body.present[data-audience="investor"]{overflow:hidden;background:#dfe7e2}
  body.present[data-audience="investor"]>.audience{display:none}
  body.present[data-audience="investor"] #investor-panel>header{position:fixed;inset:0 0 auto;top:0!important;height:56px;padding:8px 24px;z-index:50;background:var(--doc-color-paper);border-bottom:1px solid var(--doc-color-line)}
