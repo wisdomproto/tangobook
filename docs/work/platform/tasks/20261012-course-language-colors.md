@@ -2,11 +2,12 @@
 
 - id: 20261012-course-language-colors
 - domain: platform
-- status: completed
+- status: integrated
 - updated: 2026-10-12
 - base: 1144423ab
 - branch: codex/platform-ui-v2
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
+- integration: 0e1a475a0를 로컬 main에 fast-forward 통합 완료
 - delivery: 미푸시·미배포
 
 ## 사용자 결정과 범위

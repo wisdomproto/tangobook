@@ -12,4 +12,4 @@
 
 - [홈 상단·과정 카드 구분](20261012-home-header-course-contrast.md) — integrated, 로컬 main.
 
-- [한글·영어 과정 색 통일](20261012-course-language-colors.md) — completed, 로컬 통합 대기.
+- [한글·영어 과정 색 통일](20261012-course-language-colors.md) — integrated, 로컬 main.
