@@ -214,18 +214,20 @@
 }
 
 /* Final scan pass: the market size, integrated record and covers lead. */
-#education-market .td-market-domestic {display:flex;flex-direction:column;justify-content:space-between}
-#education-market .td-domestic-scale {padding:20px 0 28px}
-#education-market .td-domestic-scale>span {font-size:18px;color:var(--doc-color-muted)}
-#education-market .td-domestic-scale>div {display:flex;align-items:baseline;gap:14px;line-height:1.2;margin-top:12px}
-#education-market .td-domestic-scale strong {font-size:132px;letter-spacing:-.055em;font-weight:800}
-#education-market .td-domestic-scale small {font-size:30px}
-#education-market .td-domestic-scale b {font-size:40px}
-#education-market .td-domestic-message {border-top:2px solid #bdd4c6;padding:26px 0;margin-bottom:24px}
-#education-market .td-domestic-message h4 {font-size:32px;line-height:1.45;margin:0;letter-spacing:-.035em}
-#education-market .td-domestic-source {margin-top:auto}
-#education-market .td-domestic-source p {font-size:14px;line-height:1.6;color:var(--doc-color-muted);margin:0 0 10px}
-#education-market .td-domestic-source a {display:inline-block;margin:0 20px 0 0;font-size:13px}
+#education-market .td-market-snapshot {display:grid;grid-template-rows:auto 210px 160px auto;gap:20px;border-top:4px solid var(--doc-color-teal)}
+#education-market .td-market-snapshot:nth-child(2) {border-color:var(--doc-color-teal)}
+#education-market .td-market-scale {padding:20px 0 28px}
+#education-market .td-market-scale>span {font-size:18px;color:var(--doc-color-muted)}
+#education-market .td-market-scale>div {display:flex;align-items:baseline;gap:14px;line-height:1.2;margin-top:12px}
+#education-market .td-market-scale strong {font-size:100px;letter-spacing:-.055em;font-weight:800}
+#education-market .td-market-scale small {font-size:30px}
+#education-market .td-market-scale b {font-size:32px;white-space:nowrap}
+#education-market .td-market-message {border-top:2px solid #bdd4c6;padding:26px 0;margin-bottom:24px}
+#education-market .td-market-message h4 {font-size:32px;line-height:1.45;margin:0;letter-spacing:-.035em}
+#education-market .td-market-sources {margin-top:0}
+#education-market .td-market-message em {font-style:normal;color:var(--doc-color-teal)}
+#education-market .td-market-sources p {font-size:14px;line-height:1.6;color:var(--doc-color-muted);margin:0 0 10px}
+#education-market .td-market-sources a {display:inline-block;margin:0 20px 0 0;font-size:13px}
 #reading-report .td-compact-report {padding:28px;align-self:start}
 #reading-report .td-report-bar b {font-size:28px}
 #reading-report .td-report-summary {font-size:23px;line-height:1.4;margin:20px 0 12px;color:var(--doc-color-ink);font-weight:700}
@@ -243,11 +245,20 @@
 #foundation .rf-books img {height:auto!important;aspect-ratio:16/9;object-fit:contain;background:transparent;border-radius:4px}
 #foundation .rf-library {align-self:start}
 @media(max-width:699px) {
- #education-market .td-domestic-scale strong {font-size:88px}
- #education-market .td-domestic-scale b {font-size:28px}
- #education-market .td-domestic-scale small {font-size:24px}
- #education-market .td-domestic-message h4 {font-size:27px}
+ #education-market .td-market-scale strong {font-size:64px}
+ #education-market .td-market-scale b {font-size:28px}
+ #education-market .td-market-scale small {font-size:24px}
+ #education-market .td-market-message h4 {font-size:27px}
  #reading-report .td-compact-report {padding:20px}
  #reading-report .td-report-rows>div {padding:14px;font-size:18px}
  #reading-report .td-report-summary {font-size:21px}
+}
+
+@media(max-width:1000px) {
+ #education-market .td-market-snapshot {grid-template-rows:100px 150px 140px auto;gap:16px}
+ #education-market .td-market-scale strong {font-size:64px}
+ #education-market .td-market-scale b {font-size:25px}
+ #education-market .td-market-scale small {font-size:22px}
+ #education-market .td-market-scale>div {gap:8px}
+ #education-market .td-market-message h4 {font-size:26px}
 }
