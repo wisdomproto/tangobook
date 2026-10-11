@@ -3,12 +3,16 @@ const source=(url,label)=>`<a class="v-source" href="${url}" target="_blank" rel
 const domestic='https://www.kostat.go.kr/boardDownload.es?bid=12306&list_no=443103&seq=1#page=3';
 const technavio='https://www.technavio.com/report/early-childhood-education-market-industry-analysis';
 const asia='https://www.emergenresearch.com/industry-report/early-childhood-education-market';
+const fs=require('node:fs'),path=require('node:path');
+const marketImage=(file,mime,alt)=>`<figure class="td-market-visual"><img src="data:${mime};base64,${fs.readFileSync(path.join(__dirname,'../assets/investor-20261010',file)).toString('base64')}" alt="${alt}"></figure>`;
 module.exports=`<div class="td-market-overview td-market-revised">
 <article class="td-market-card td-market-snapshot"><div class="td-market-heading"><span class="v-label">KOREA</span><h3>국내 유아 사교육 시장</h3></div>
+${marketImage('digital-tablet-child-v1.webp','image/webp','태블릿으로 배우는 아이의 학습 장면 예시')}
 <div class="td-market-scale"><span>연간 환산 추정</span><div><small>약</small><strong>3.3</strong><b>조원</b></div></div>
 <div class="td-market-message"><h4>저출생 속,<br>한 아이에 집중되는 소비</h4></div>
 <footer class="td-market-sources"><p>6세 미만 · 2024년 7–9월 시험조사의 연간 환산 추정<br>계절 변동 미반영</p>${source(domestic,'시장 규모 · 국가데이터처')}${source('https://repo.kicce.re.kr/bitstream/2019.oak/5923/2/GR2502_2.pdf#page=77','소비 특성 · 육아정책연구소')}</footer></article>
 <article class="td-market-card td-market-snapshot"><div class="td-market-heading"><span class="v-label">GLOBAL</span><h3>세계 유아교육 시장</h3></div>
+${marketImage('market-global-learning.svg','image/svg+xml','세계 교육 시장을 상징하는 지구본과 책 일러스트')}
 <div class="td-market-scale"><span>2025년 시장 규모 추정</span><div><strong>3,027.6</strong><b>억 달러</b></div></div>
 <div class="td-market-message"><h4>연평균 <em>11.5%</em> 성장<br>아시아 교육 수요 확대</h4></div>
 <footer class="td-market-sources"><p>세계 성장률 · 2025–2030년 전망<br>아시아·태평양 · 도시화와 중산층 확대</p>${source(technavio,'시장 규모 · Technavio')}${source(asia,'아시아 동향 · Emergen Research')}</footer></article></div>

@@ -23,8 +23,8 @@ module.exports=({slides,img})=>{
  const market=require('./business-plan-market-20261011.cjs');
  const next=[
  ['education-market','','시장 배경','유아 교육 시장','',market],
- ['media','','학습 방식','아날로그·디지털 유아교육','실물 교구로 배우는 경험과 화면의 안내·반응을 활용하는 학습 방식입니다.',
-  `<div class="td-media-comparison"><article><h3>아날로그 학습</h3><div class="td-media-visual td-mini-duo">${analogBlock}${writing}</div><div class="td-media-point benefit"><b>장점</b><p>손으로 글자를 조합하고<br>종이에 직접 쓰는 경험</p></div><div class="td-media-point limitation"><b>단점</b><p>교구 자체의 안내·피드백 부족<br>부모·교사의 설명과 진행에 의존</p></div></article><article><h3>디지털 학습</h3><div class="td-media-visual">${actual}</div><div class="td-media-point benefit"><b>장점</b><p>게임의 안내·피드백·보상으로<br>스스로 다음 활동에 도전</p></div><div class="td-media-point limitation"><b>단점</b><p>화면 터치 중심의 활동<br>실물 조합·종이 쓰기 경험 부족</p></div></article></div>${takeaway('<b>결합 방향</b> · 실물 조작과 쓰기 + 디지털 안내·피드백·게임')}`],
+ ['media','','교육 콘텐츠','아날로그·디지털 유아교육','유아 교육은 크게 아날로그 콘텐츠와 디지털 콘텐츠로 나뉩니다.',
+  `<div class="td-media-comparison"><article><h3>아날로그 콘텐츠</h3><div class="td-media-visual td-mini-duo">${analogBlock}${writing}</div><div class="td-media-point benefit"><b>장점</b><p>손으로 글자를 조합하고<br>종이에 직접 쓰는 경험</p></div><div class="td-media-point limitation"><b>단점</b><p>교구 자체의 안내·피드백 부족<br>부모·교사의 설명과 진행에 의존</p></div></article><article><h3>디지털 콘텐츠</h3><div class="td-media-visual">${actual}</div><div class="td-media-point benefit"><b>장점</b><p>게임의 안내·피드백·보상으로<br>스스로 다음 활동에 도전</p></div><div class="td-media-point limitation"><b>단점</b><p>화면 터치 중심의 활동<br>실물 조합·종이 쓰기 경험 부족</p></div></article></div>${takeaway('<b>결합 방향</b> · 실물 조작과 쓰기 + 디지털 안내·피드백·게임')}`],
  ['platform-overview','','제작·운영 기반','플랫폼 운영 구조','AI로 제작한 콘텐츠를 축적하고, 학습 서비스와 마케팅에 함께 활용합니다.',readability.map],
  ['vision','','서비스 구성','탱고북 개요','한글·영어 파닉스와 동화·독후활동을 제공하고, 실물 블록과 종이 쓰기를 앱에 연결하는 유아 언어 학습 플랫폼입니다.',refinement.overview],
  ['business','','학습 과정 · 교구 연동','아날로그·디지털 통합 학습','한글 ‘ㄱ’ 단원 · 같은 낱말 ‘가구’로 이어지는 학습 과정',platform.experience],
