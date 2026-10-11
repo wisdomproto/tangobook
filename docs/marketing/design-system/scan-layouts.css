@@ -303,3 +303,23 @@ html:has(#investor-panel){scroll-padding-top:0}
 .td-overview-value b{font-size:25px;color:var(--doc-color-ink)}.td-overview-value span{font-size:16px;color:var(--doc-color-muted)}
 @media(min-width:1101px){#business .td-story-step-scene{height:360px}#business .td-story-step:not(:last-child)::after{top:245px}#business .td-story-step>p{font-size:16px}}
 @media(max-width:699px){.td-overview-value{display:block;padding:16px}.td-overview-value b{font-size:22px}.td-overview-value span{display:block;font-size:14px;margin-top:8px}}
+
+/* 아날로그/디지털 비교: 두 열이 제목·사진·장점·단점의 행 높이를 공유한다. */
+#media .td-media-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto 240px auto auto;gap:16px 28px;margin-top:28px}
+#investor-panel #media .td-media-comparison>article{display:grid;grid-template-rows:subgrid;grid-row:span 4;gap:16px;padding:0;border:0;border-radius:0;background:transparent;min-width:0}
+#media .td-media-comparison h3{font-size:26px;margin:0;padding-top:14px;border-top:2px solid var(--doc-color-sage)}
+#media .td-media-visual{min-height:0;height:100%;overflow:hidden;border-radius:10px}
+#media .td-media-visual figure{height:100%;min-height:0;margin:0}
+#investor-panel #media .td-media-visual img{height:100%!important;width:100%;max-height:none;object-fit:cover;border-radius:10px}
+#media .td-media-visual figcaption{display:none}
+#media .td-media-point{display:grid;grid-template-columns:62px 1fr;align-items:start;gap:16px;padding:18px 20px;border-radius:8px;border-left:4px solid var(--doc-color-teal);background:var(--doc-color-wash)}
+#media .td-media-point>b{font-size:17px;line-height:1.65;color:var(--doc-color-teal)}
+#media .td-media-point p{font-size:17px;line-height:1.65;margin:0;word-break:keep-all}
+#media .td-media-point.limitation{background:#fff0e9;border-left-color:var(--doc-color-coral)}
+#media .td-media-point.limitation>b{color:#ad482d}
+@media(max-width:699px){
+ #media .td-media-comparison{grid-template-columns:1fr;grid-template-rows:none;gap:28px}
+ #investor-panel #media .td-media-comparison>article{grid-row:auto;grid-template-rows:auto 210px auto auto;gap:12px}
+ #media .td-media-point{padding:16px 14px;gap:10px;grid-template-columns:46px 1fr}
+ #media .td-media-point p,#media .td-media-point>b{font-size:15px}
+}
