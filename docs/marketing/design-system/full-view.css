@@ -1,0 +1,82 @@
+/* Full view uses a fixed 1280px editorial canvas, fitted by navigation.js. */
+@media screen {
+ body.present[data-audience="investor"]{overflow:hidden;background:#dfe7e2}
+ body.present[data-audience="investor"]>.audience{display:none}
+ body.present[data-audience="investor"] #investor-panel>header{position:fixed;inset:0 0 auto;top:0!important;height:56px;padding:8px 24px;z-index:50;background:var(--doc-color-paper);border-bottom:1px solid var(--doc-color-line)}
+ body.present[data-audience="investor"] #investor-panel>header #chapter-select{max-width:55vw}
+ body.present[data-audience="investor"] #investor-panel>main{position:fixed;inset:56px 0 0;max-width:none;width:100%;height:calc(100dvh - 56px);padding:0;margin:0;overflow:hidden}
+ body.present[data-audience="investor"] #investor-panel>main>section{display:none}
+ body.present[data-audience="investor"] #investor-panel>main>section.active{display:block;position:absolute;left:50%;top:50%;width:1280px;min-height:720px;height:auto;padding:32px 48px;margin:0;border:0;border-radius:0;transform:translate(-50%,-50%) scale(var(--slide-scale,1));transform-origin:center;background:var(--doc-color-paper);box-shadow:0 12px 64px #173e3614}
+ .present #investor-panel>main>section.active>.section-badge{padding:0 0 12px;margin:0;border-bottom:1px solid var(--doc-color-line);font-size:13px}
+ .present #investor-panel>main>section.active>.section-h2{font-size:36px;line-height:1.25;margin:18px 0 10px}
+ .present #investor-panel>main>section.active>.section-sub{font-size:17px;line-height:1.6;margin:0 0 24px}
+ .present #investor-panel>main>section.active>.section-sub:empty{display:none}
+ .present #investor-panel .v-evidence{display:none}
+ .present #investor-panel .td-note{font-size:12px;line-height:1.6;margin:14px 0 0;padding:0;background:none}
+ .present #investor-panel #vision{background:var(--doc-color-ink);color:var(--doc-color-paper)}
+ .present #vision .td-ecosystem{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:center;margin-top:20px}
+ .present #vision .td-app-hub{max-width:none;padding:20px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+ .present #vision .td-app-hub h3{font-size:24px}
+ .present #vision .td-ecosystem-branches{display:grid;grid-template-columns:1fr;padding-top:0;gap:22px}
+ .present #vision .td-ecosystem-branches:before,.present #vision .td-ecosystem-branches:after,.present #vision .td-ecosystem-group:before{display:none}
+ .present #vision .td-ecosystem-group{gap:12px}
+ .present #vision .td-ecosystem-group>h3{font-size:18px;margin:0 0 10px}
+ .present #vision .td-ecosystem-items.analog{grid-template-columns:1fr 1fr}
+ .present #vision .td-ecosystem-items.digital{grid-template-columns:repeat(3,1fr)}
+ .present #vision .td-ecosystem-node{padding:8px;min-height:0}
+ .present #vision .td-ecosystem-node img{height:105px!important;aspect-ratio:auto;object-fit:cover}
+ .present #vision .td-ecosystem-items.analog img{object-fit:contain;background:var(--doc-color-paper)}
+ .present #vision .td-ecosystem-node h4{font-size:19px;margin:10px 0 6px}
+ .present #vision .td-ecosystem-node p{font-size:12px;line-height:1.5;margin:0}
+ .present #vision .td-ecosystem-caption{grid-column:1/-1;margin:0;padding-top:8px;font-size:18px}
+ .present #vision .td-ecosystem-caption small{font-size:13px}
+ .present #platform-overview .td-platform-map{margin:0}
+ .present #platform-overview .td-platform-map img{height:640px!important;width:100%;object-fit:contain}
+ .present #platform-overview>.section-sub{display:none}
+ .present #platform-overview>.section-h2{margin-bottom:8px!important}
+ .present #phonics-content .td-phonics-library{gap:24px}
+ .present #phonics-content .td-phonics-shelf-heading{margin-bottom:12px}
+ .present #phonics-content .td-phonics-books img{height:140px!important;object-fit:contain}
+ .present #foundation .td-library-total{margin:0 0 16px;padding:0 0 14px}
+ .present #foundation .td-library-gallery figure img{height:155px!important;aspect-ratio:auto}
+ .present #foundation .td-original-gallery{margin-top:18px;padding-top:16px}
+ .present #foundation .td-original-gallery img{height:140px!important;aspect-ratio:auto;object-fit:cover}
+ .present #ai-authoring .td-editor-workspace{min-height:0}
+ .present #ai-authoring .td-editor-canvas>img{height:220px!important;object-fit:cover}
+ .present #ai-authoring .td-editor-manuscript{padding:14px}
+ .present #ai-authoring .td-editor-manuscript p{font-size:16px;margin:8px 0}
+ .present #ai-authoring .td-ai-values{margin-top:16px;gap:24px}
+ .present #ai-authoring .td-ai-values article{padding:16px}
+ .present #ai-authoring .td-ai-values p{font-size:14px;margin:6px 0 0}
+ .present #education-market .td-market-card{padding:24px!important}
+ .present #education-market .td-market-heading{margin-bottom:12px}
+ .present #education-market .td-market-number{font-size:44px;margin:14px 0}
+ .present #education-market .td-market-chart{margin-top:18px;padding-top:18px}
+ .present #education-market .td-cost-donut{width:170px;height:170px}
+ .present #education-market .td-market-source{margin-top:16px}
+ .present #reading-report .td-reading-report{margin-top:0;padding-top:0;border-top:0}
+ .present #reading-report .td-story-reader>img{height:280px}
+ .present #growth .td-product-pair img{height:230px!important;object-fit:contain}
+ .present #advantage .td-device-connections figure img{height:260px!important;object-fit:contain}
+ .present #validation .td-milestone-dashboard{margin-top:12px}
+ /* Dividers are edge-to-edge, independent of the content canvas aspect ratio. */
+ body.present[data-audience="investor"] #investor-panel>main>section.active:is([id^="part-"],#proposal-cover){width:100%;height:100%;min-height:0;padding:0;left:0;top:0;transform:none;box-shadow:none}
+ .present #investor-panel .active .td-part{width:100%;height:100%;min-height:0;border-radius:0;padding:clamp(24px,6vw,100px);gap:5vw;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+ .present #investor-panel .active .td-part h2{font-size:clamp(28px,4.5vw,82px);line-height:1.18;max-width:8em;margin:28px 0}
+ .present #investor-panel .active .td-part p{font-size:clamp(12px,1.4vw,22px);max-width:24em;line-height:1.8}
+ .present #investor-panel .active .td-part-number{font-size:clamp(13px,1.2vw,20px);letter-spacing:.18em}
+ .present #investor-panel .active .td-part-rule{width:80px;background:var(--doc-color-coral);margin-top:38px}
+ .present #investor-panel .active .td-part-visual{height:100%;display:flex;align-items:center;justify-content:center;min-width:0}
+ .present #investor-panel .active .td-part-visual>img{width:100%;height:70%!important;max-height:650px;object-fit:cover;border-radius:0}
+ .present #investor-panel .active .td-part-books{height:100%;gap:16px}
+ .present #investor-panel .active .td-part-books img{height:45%!important;max-height:400px;object-fit:cover;border-radius:0}
+ .present #investor-panel .active .td-part-years{padding-left:36px}
+ .present #investor-panel .active .td-part-years span{font-size:clamp(40px,5vw,88px)}
+ .present #investor-panel .active .td-part-years b{font-size:clamp(18px,2vw,32px)}
+ .present #investor-panel .active .td-title-cover{height:100%;min-height:0;border-radius:0;grid-template-columns:1fr 1.15fr;grid-template-rows:1fr auto}
+ .present #investor-panel .active .td-title-copy{padding:5vw}
+ .present #investor-panel .active .td-title-copy h1{font-size:clamp(48px,7vw,116px)}
+ .present #investor-panel .active .td-title-cover figure{padding:4vw;min-height:0}
+ .present #investor-panel .active .td-title-cover figure img{max-height:65vh!important}
+ .present #investor-panel .active .td-cover-index{font-size:clamp(10px,1vw,16px);padding:20px 5vw}
+}

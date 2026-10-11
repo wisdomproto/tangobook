@@ -1,10 +1,10 @@
 module.exports=({slides,img})=>{
  const asset=f=>'../investor-20261010/'+f;
- const cover=['proposal-cover','표지','TANGOBOOK','탱고북 사업계획서','',`<div class="td-title-cover"><div class="td-title-copy"><span>아날로그 × 디지털</span><h1>탱고북</h1><h2>유아 언어 학습 플랫폼</h2><p>앱의 안내와 실물 교구,<br>글자 학습부터 동화 읽기까지.</p><div class="td-title-meta">사업계획서 · 2026.10</div></div><figure>${img(asset('hardware-kit-studio-v3.png'),'앱과 실물 한글 블록이 연결된 탱고북 제품 구성')}</figure><div class="td-cover-index"><span>01 시장 배경</span><span>02 제품·학습 경험</span><span>03 콘텐츠·기술</span><span>04 사업·성장 계획</span></div></div>`];
+ const cover=['proposal-cover','표지','TANGOBOOK','탱고북 사업계획서','',`<div class="td-title-cover"><div class="td-title-copy"><span>아날로그 × 디지털</span><h1>탱고북</h1><h2>유아 언어 학습 플랫폼</h2><p>앱의 안내와 실물 교구,<br>글자 학습부터 동화 읽기까지.</p><div class="td-title-meta">사업계획서 · 2026.10</div></div><figure>${img(asset('hardware-kit-studio-v3.png'),'앱과 실물 한글 블록이 연결된 탱고북 제품 구성')}</figure><div class="td-cover-index"><span>01 시장 배경</span><span>02 제품·학습 경험</span><span>03 플랫폼 구성·운영</span><span>04 사업·성장 계획</span></div></div>`];
  const divider=(id,num,title,sub,visual)=>[id,'PART '+num,'',title,'',`<div class="td-part"><div class="td-part-copy"><span class="td-part-number">PART ${num}</span><h2>${title}</h2><p>${sub}</p><div class="td-part-rule"></div></div><div class="td-part-visual">${visual}</div></div>`];
  const parts={
-  'platform-overview':divider('part-product','02','제품과 학습 경험','탱고북 개요 · 교구 학습 · 동화 연결',img(asset('hardware-feedback-use-v3.png'),'화면 안내를 보며 한글 블록을 조합하는 아이의 학습 장면')),
-  'phonics-content':divider('part-content','03','콘텐츠와 기술','한글·영어 · 동화책 · 독후활동 · 저작도구',`<div class="td-part-books">${img('cover-1789350946382.webp','거인의 정원 보유 동화책')}${img('series-changjak-pongi-01.webp','퐁이 창작동화')}${img('series-changjak-mina-01.webp','미나 창작동화')}</div>`),
+  vision:divider('part-product','02','제품과 학습 경험','탱고북 개요 · 교구 학습 · 동화 연결',img(asset('hardware-feedback-use-v3.png'),'화면 안내를 보며 한글 블록을 조합하는 아이의 학습 장면')),
+  'platform-overview':divider('part-content','03','플랫폼 구성과 운영','저작도구 · 보유 콘텐츠 · 디지털 · 아날로그 · 마케팅 도구',`<div class="td-part-books">${img('series-changjak-coco-01.webp','코코 창작동화 삽화')}${img('series-changjak-pongi-01.webp','퐁이 창작동화')}${img('series-changjak-mina-01.webp','미나 창작동화')}</div>`),
   growth:divider('part-business','04','사업과 성장 계획','상품 · 수익 구조 · 확장 · 출시 계획',`<div class="td-part-years"><span>2027</span><b>한국 출시</b><i>→</i><span>2028</span><b>아시아 3개국</b></div>`)
  };
  const original=slides.slice();slides.splice(0,slides.length,cover,...original.flatMap(s=>parts[s[0]]?[parts[s[0]],s]:[s]));

@@ -10,7 +10,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'C:/Users/kil21/.cache/c
  const chart=()=>page.locator('#milestone-chart').evaluate(e=>JSON.parse(e.dataset.calculation));
  await page.locator('#simulation-tab').click();
  assert.equal((await totals()).grossProfit,519750000);
- assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').count(),22);
+ assert.equal(await page.locator('#investor-panel main>section:not(.appendix)').count(),23);
  assert.equal(await page.locator("#proposal-cover").count(),1);
  assert.equal(await page.locator("#investor-panel main>section[id^=part-]").count(),3);
  assert.match(await page.locator('#milestone-totals').textContent(),/계획 수립 중/);
