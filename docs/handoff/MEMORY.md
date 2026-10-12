@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [학습 애니메이션·그림 자모](../work/phonics/tasks/20261012-learning-game-effects.md): 한영 학습에 14장면·4효과음과 살구 자음/민트 모음 그림 적용, 쓰기 폰트·판정 유지. ‘가’ 전체 그림과 자모 비율 수정, 157회귀·타입/빌드·모바일 표본 검수. 별도 Rive 작업을 보존해 30072b4b3 로컬 main 통합·미푸시. 후속 모음 전용 Book 1 요청을 진행한다.
+
 2026-10-12 [한글 ㄱ 캐릭터 Rive 시안](../work/video/tasks/20261012-rive-hangul-character.md): 사용자 Rive·image skill 지정으로 생성 투명ㄱ몸통+native 얼굴/관절 6초무음춤 실제.riv 제작. 공식CLI1.5.1 로그인없이컴파일·180고유프레임/12표본/루프·MP4전체decode 검수,원본/소스/프롬프트 로컬main보존. output/rive-hangul-20261012 및 review에MP4/GIF. .rev/게임/운영앱통합/외부업로드/푸시없음.
 
 2026-10-12 [전용 인쇄 학습지 시안](../work/strategy/tasks/20261012-print-worksheet-design.md): 사용자 **오리기제외·올드삽화·가학습/토끼텃밭불일치** 반증으로 재제작. 가→가방/c→cat 직접연계, 현대그래픽/매끈한입체2종×한영4쪽 PDF·갤러리 검수. Qwen 환경부재로 내장 imagegen 사용. output/worksheet-design-20261012/v2, localhost5196/v2. 그림체선택·판매구성·실물인쇄 미정, 제품/운영 미변경·미푸시.
