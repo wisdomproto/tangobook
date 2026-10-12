@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-coco-01",
+  "sourceSha256": "894e385ee439543d26303b3e361dd5fb30b121896c7f1f8e889eafbd7dbcabd8",
+  "titleEn": "The First Delivery",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "Bread came out of the oven. Its lovely smell filled the alley."
+    },
+    {
+      "pageNumber": 2,
+      "text": "\"Could you take this to Grandma at the end of the alley?\" Coco took the basket. \"I can go by myself.\" Grandma's house smelled of soup every morning."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Grandpa Mole stood outside the shop. \"I know that house well. Follow me.\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "Grandpa led the way. Coco followed, holding the basket."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Grandpa turned right. They reached a wall at a dead end."
+    },
+    {
+      "pageNumber": 6,
+      "text": "\"Huh? When did this wall get here?\" Grandpa went back the way they had come."
+    },
+    {
+      "pageNumber": 7,
+      "text": "This time he turned left. There was the same round gate they had passed before."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Coco sniffed the air. Somewhere, warm soup was cooking."
+    },
+    {
+      "pageNumber": 9,
+      "text": "Coco followed the smell of soup. The door of the house at the end of the alley was open."
+    },
+    {
+      "pageNumber": 10,
+      "text": "Grandma took the bread in her arms. Just then, Grandpa came rushing from the end of the alley. \"Found it! This is the house!\""
+    }
+  ]
+}

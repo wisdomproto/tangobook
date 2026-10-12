@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pipo-16",
+  "sourceSha256": "c0f78846a797a5fac0008b46a0cc1a1023c7969d040a466a0a248dafae1587dc",
+  "titleEn": "Counting the Sheep",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "In the evening, the sheep returned to their pen. Pipo's farm had twelve sheep. He had to count to make sure none were missing."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Today, Pipo wanted to count by himself. He stood before the pen with his toes together."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Mrs. Goose landed on the wall. \"Counting? I am good at that too! One, two...\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "\"But say, have you heard about the mill family?\" Her chatter began."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Pipo forgot how far he had counted. Back to the start. One, two..."
+    },
+    {
+      "pageNumber": 6,
+      "text": "\"And you know, the house across the stream!\" More chatter interrupted."
+    },
+    {
+      "pageNumber": 7,
+      "text": "The sheep mingled around inside the pen. He could not tell which ones he had counted."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Pipo opened the gate just a little, so only one sheep could pass at a time."
+    },
+    {
+      "pageNumber": 9,
+      "text": "Sheep passed through the gap one by one. \"One! Two! Three!\" Pipo counted loudly."
+    },
+    {
+      "pageNumber": 10,
+      "text": "\"...Twelve! All here!\" The last sheep entered, and the gate closed. Mrs. Goose opened her beak. \"Counted them already? Then I will finish the mill story!\""
+    }
+  ]
+}

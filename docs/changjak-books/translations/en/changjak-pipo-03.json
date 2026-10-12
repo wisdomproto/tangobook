@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pipo-03",
+  "sourceSha256": "82fe742a10e0f58e0108a85565eb6bf3dbcef108ff23606059f375a90c4046d9",
+  "titleEn": "The Jingly Little Lamb",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "The little lamb at Pipo's farm wore a tiny bell. It jingled with every step."
+    },
+    {
+      "pageNumber": 2,
+      "text": "But today the lamb was not in the pen. \"I will find you for sure.\" Pipo set off toward the hill."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Mrs. Goose stretched her long neck. \"I saw it by the stream earlier! Definitely.\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "Only running water sounded by the stream. She tilted her head. \"Oh? It was surely here.\""
+    },
+    {
+      "pageNumber": 5,
+      "text": "\"Then under the big tree! I saw it there too.\" She waddled ahead."
+    },
+    {
+      "pageNumber": 6,
+      "text": "Only two crows were beneath the tree. Mrs. Goose flapped her wings. \"Oh, not here either?\""
+    },
+    {
+      "pageNumber": 7,
+      "text": "Her story grew longer. \"So, in the morning... no, perhaps at lunchtime...\""
+    },
+    {
+      "pageNumber": 8,
+      "text": "Pipo pricked his ears. Somewhere, jingle, jingle."
+    },
+    {
+      "pageNumber": 9,
+      "text": "He looked behind the bush where the sound came from. The lamb was grazing, its bell jingling."
+    },
+    {
+      "pageNumber": 10,
+      "text": "Pipo brought the lamb home. Mrs. Goose was already far away, spreading the news. \"Pipo found it, you know!\""
+    }
+  ]
+}

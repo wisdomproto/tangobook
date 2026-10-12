@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-mei-04",
+  "sourceSha256": "d29af1c36a30d3d3d4b0ce704898338444438cc7c3837f90b6feefbbb877fd28",
+  "titleEn": "I Know Everything",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "The five friends went to gather chestnuts in the forest. The path split in two."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Leo stepped forward. \"I know everything. This way.\""
+    },
+    {
+      "pageNumber": 3,
+      "text": "The other four followed him. The trees grew thicker and thicker."
+    },
+    {
+      "pageNumber": 4,
+      "text": "Mei asked, \"Is this right?\" \"Of course.\""
+    },
+    {
+      "pageNumber": 5,
+      "text": "Another fork appeared. Leo paused, then went right."
+    },
+    {
+      "pageNumber": 6,
+      "text": "It grew dark between the trees. There wasn't a chestnut tree in sight."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Ahead was that same big rock again. They had gone in a circle."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Grandma Bear came from behind a tree with a chestnut sack. \"Leo, have you been here before?\""
+    },
+    {
+      "pageNumber": 9,
+      "text": "Leo said softly, \"No. I don't know the way.\" Grandma pointed to the left path."
+    },
+    {
+      "pageNumber": 10,
+      "text": "Leo was first to stand beneath the chestnut tree. The ground was full of fallen chestnuts."
+    }
+  ]
+}

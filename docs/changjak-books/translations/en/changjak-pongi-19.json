@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pongi-19",
+  "sourceSha256": "8aa7a1ba14d0f8f3ebb24fc5ade317bfa9bdc51a3b85df3be3b52b731b6fc0c6",
+  "titleEn": "Choosing a Book",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "The room was full of books. Books filled the shelves right up to the ceiling."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Dad held up one finger. \"Just one book today.\""
+    },
+    {
+      "pageNumber": 3,
+      "text": "Pongi ran a finger along the books. Dad had already pulled one out. \"This one is fun. It has boats in it.\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "Dad pulled out another. \"This one is fun too. It has boats in it too.\""
+    },
+    {
+      "pageNumber": 5,
+      "text": "Five books were piled in Dad's arms. Every one was about boats."
+    },
+    {
+      "pageNumber": 6,
+      "text": "Pongi was looking at the bottom shelf. One book had big pictures."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Pongi pulled that book out. \"I want this one.\""
+    },
+    {
+      "pageNumber": 8,
+      "text": "Dad put all five books back. He looked disappointed."
+    },
+    {
+      "pageNumber": 9,
+      "text": "That night, Pongi came out for a drink of water."
+    },
+    {
+      "pageNumber": 10,
+      "text": "Dad was sitting under the light. He was reading the book Pongi had borrowed."
+    }
+  ]
+}

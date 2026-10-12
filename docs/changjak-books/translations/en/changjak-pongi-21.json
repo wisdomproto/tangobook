@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pongi-21",
+  "sourceSha256": "11e16e58c740db8beb4466d4a432bd4c7879a0590fb3cbc8a42617b7007c4e66",
+  "titleEn": "A Foggy Day",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "When they opened the window that morning, everything was white. They couldn't see the canal or the bridge."
+    },
+    {
+      "pageNumber": 2,
+      "text": "\"We said we'd go to Grandpa Goose's today.\" Pongi put on her shoes."
+    },
+    {
+      "pageNumber": 3,
+      "text": "They walked into the fog. They stepped on a cracked stone along the way."
+    },
+    {
+      "pageNumber": 4,
+      "text": "\"I know this path with my eyes closed.\" Dad led the way."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Dad turned left. Pongi followed behind."
+    },
+    {
+      "pageNumber": 6,
+      "text": "Pongi asked, \"Dad, didn't we pass this way already?\""
+    },
+    {
+      "pageNumber": 7,
+      "text": "\"No. This is somewhere else.\" Dad turned left again."
+    },
+    {
+      "pageNumber": 8,
+      "text": "The cracked stone was beneath their feet again."
+    },
+    {
+      "pageNumber": 9,
+      "text": "The fog lifted a little. A door appeared in front of them."
+    },
+    {
+      "pageNumber": 10,
+      "text": "It was the door to Pongi's house. \"Dad, this is our house.\""
+    }
+  ]
+}

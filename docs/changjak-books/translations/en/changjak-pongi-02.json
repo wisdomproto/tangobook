@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pongi-02",
+  "sourceSha256": "a9e598a7bbd96815b0db4057b832f803ecc8446ba00137e425fb9b119721ebc4",
+  "titleEn": "My First Boat Ride",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "A little boat was tied up in the canal. Pongi climbed aboard with her little brother, who was holding a shell. Dad untied the rope."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Pongi held an oar in both paws. \"I want to row today.\""
+    },
+    {
+      "pageNumber": 3,
+      "text": "The oar was heavier than Pongi expected. Pongi tensed her shoulders."
+    },
+    {
+      "pageNumber": 4,
+      "text": "Splash! The boat turned to the right."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Pongi rowed the other way. The boat turned to the left."
+    },
+    {
+      "pageNumber": 6,
+      "text": "The boat spun round and round in one spot. A duck swam past."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Pongi's arms hurt. Dad sat at the bow without saying a word."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Pongi's little brother took the oar on the other side. He put the shell on his lap."
+    },
+    {
+      "pageNumber": 9,
+      "text": "Splash, splash. The boat moved straight ahead."
+    },
+    {
+      "pageNumber": 10,
+      "text": "\"We did it!\" Pongi's little brother had already let go of the oar and was looking at the shell."
+    }
+  ]
+}

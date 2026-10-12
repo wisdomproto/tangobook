@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-coco-07",
+  "sourceSha256": "8c683bbae454ec2d6161dbab0c7ed977b426e274e5a0c033925c02c322e8a9bd",
+  "titleEn": "A Birthday Cake",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "Tomorrow is Mom's birthday. Coco has a secret plan."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Coco will make a little cake without Mom knowing, with strawberries on top."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Coco whispered the secret only to Grandpa Mole. \"I'll keep watch,\" he said, patting his chest. His eyesight was poor, so he couldn't tell when Mom was looking. He shouted at just any time."
+    },
+    {
+      "pageNumber": 4,
+      "text": "While Mom measured flour, Coco stirred the batter. Grandpa stood firmly by the door."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Mom looked their way. Grandpa shouted, \"Nothing is happening!\""
+    },
+    {
+      "pageNumber": 6,
+      "text": "The corners of Mom's mouth twitched. Then she turned away again."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Coco put strawberries on the cake. Grandpa shouted again. \"There is no cake here!\""
+    },
+    {
+      "pageNumber": 8,
+      "text": "Evening came. Coco brought out the cake with its candles lit."
+    },
+    {
+      "pageNumber": 9,
+      "text": "\"Happy birthday!\" Mom put both hands to her cheeks. \"Oh my! What a surprise!\""
+    },
+    {
+      "pageNumber": 10,
+      "text": "Mom blew out the candles. Grandpa clapped the loudest of all. \"A perfect plan!\""
+    }
+  ]
+}

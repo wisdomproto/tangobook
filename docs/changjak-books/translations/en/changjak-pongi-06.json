@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pongi-06",
+  "sourceSha256": "9c28a3d1603dd434872915908e389d660e64fd4dc0b5ec782ab14ada58e0be8e",
+  "titleEn": "An Errand on My Own",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "Mom put a coin in Pongi's paw. \"Could you buy one loaf of bread from the bakery?\""
+    },
+    {
+      "pageNumber": 2,
+      "text": "\"I'll go by myself.\" Pongi went out the door."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Pongi crossed the bridge. She could hear the water beneath her feet."
+    },
+    {
+      "pageNumber": 4,
+      "text": "Something rustled behind her. Pongi looked back. Nobody was there."
+    },
+    {
+      "pageNumber": 5,
+      "text": "She bought bread at the bakery. It was warm, so she held it close."
+    },
+    {
+      "pageNumber": 6,
+      "text": "Another rustle. This time, a tail poked out from behind a tree."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Pongi went behind the tree. Dad was crouching there."
+    },
+    {
+      "pageNumber": 8,
+      "text": "\"Dad, what are you doing here?\" \"Uh... taking a walk.\""
+    },
+    {
+      "pageNumber": 9,
+      "text": "Pongi took Dad's hand. \"Let's go together.\""
+    },
+    {
+      "pageNumber": 10,
+      "text": "Pongi walked home carrying the bread. Dad walked home empty-handed."
+    }
+  ]
+}

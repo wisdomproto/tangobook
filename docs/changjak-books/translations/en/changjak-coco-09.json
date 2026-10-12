@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-coco-09",
+  "sourceSha256": "02d8f1da25682fc8cbe3632734e65f5e4234517337a6196cb2bdc04b825a4e05",
+  "titleEn": "A Delicious Smell",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "A moving cart passed through the alley. A new neighbor had arrived."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Mom wrapped a little bundle of bread. \"I'll go and say hello.\" Coco raised a hand."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Mrs. Magpie called from the roof. \"The new neighbor? The house with the round door!\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "Coco knocked on the round door. It creaked open. The house was empty."
+    },
+    {
+      "pageNumber": 5,
+      "text": "\"Then the low door!\" Grandpa Mole came out of the low door. \"I'm not the new neighbor.\""
+    },
+    {
+      "pageNumber": 6,
+      "text": "Mrs. Magpie tilted her head this way and that. \"I'm sure it was this alley...\""
+    },
+    {
+      "pageNumber": 7,
+      "text": "Coco shifted the bundle in their arms. The smell of warm bread drifted out."
+    },
+    {
+      "pageNumber": 8,
+      "text": "A door opened a crack. A tiny nose poked out and sniffed."
+    },
+    {
+      "pageNumber": 9,
+      "text": "\"I smelled something delicious.\" The new neighbor's child peeped out."
+    },
+    {
+      "pageNumber": 10,
+      "text": "Coco handed over the bundle. The new neighbor lived right below Mrs. Magpie. Her beak fell open."
+    }
+  ]
+}

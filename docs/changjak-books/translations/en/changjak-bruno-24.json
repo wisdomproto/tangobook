@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-bruno-24",
+  "sourceSha256": "f8d0ad698c2e768a1fd34620b394789c1dda42f960d0dc5604b283b64d49e20a",
+  "titleEn": "Too Much Snow",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "All night, snow piled up to the door. The cabin was buried in it."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Nils wanted to clear a path to the well. They needed a path to fetch water; the water tub was empty."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Nils shoveled. Scoop, toss! Scoop, toss! Snow piled beside the path."
+    },
+    {
+      "pageNumber": 4,
+      "text": "The path barely reached the steps. The well was still far away."
+    },
+    {
+      "pageNumber": 5,
+      "text": "His arms ached. He threw down the shovel and flopped into the snow. \"Too much snow. I can't.\""
+    },
+    {
+      "pageNumber": 6,
+      "text": "Snow crept under his back. His neck was damp. Still, he didn't want to get up."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Evening came. Time for soup, but the water tub was empty. No path to the well."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Grandpa shoveled ten times, then straightened and rested once. \"Resting is part of doing it too.\""
+    },
+    {
+      "pageNumber": 9,
+      "text": "Nils shoveled ten times and rested once. A few rounds of that, and the path reached the well!"
+    },
+    {
+      "pageNumber": 10,
+      "text": "Grandpa drew water. Holding the tub, Nils looked back at the snowy path. It ran all the way to the well."
+    }
+  ]
+}
