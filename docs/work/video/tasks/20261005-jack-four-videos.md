@@ -2,7 +2,7 @@
 
 - id: 20261005-video-jack-four-videos
 - domain: video
-- status: active
+- status: paused
 - updated: 2026-10-12
 - base: d1af5ef2
 - branch: codex/video-rapunzel
@@ -39,6 +39,12 @@ script.json/STORYBOARD.md/BRIEF.md 생성, 기존 제작/검수 runtime·fonts�
 alarm-portrait/descend-portrait 실제 전체 이미지까지 승인하여 신규14장. descend는 원래 웃는 표정에서 긴박한 표정·아래 발판 시선으로 H3 동작을 지정했다. chop-portrait 첫 후보의 비스듬한 아래 날·둔한 부분 접촉을 제외, 승인된 가로 chop-v4 도끼 모양을 추가 참조로 Qwen chop-portrait-v2(worker3984)를 생성 중. 마지막 ending-portrait도 생성 중이며 모든 Qwen 완료/큐 비움/선택 앵커 SHA 승인 뒤 H3 시작한다.
 
 선택한 신규16앵커 전부 실제 전체 이미지 검수·SHA 승인 완료(전체 책 원본 포함 선택29앵커). chop-portrait-v2에서 오른쪽 은색 절단날·한 손잡이/두 손 그립·발 접지 확인. Comfy8189/8190 두 큐 running/pending0 및 Voicebox Qwen TTS unload 확인, 비어 있는8190 Qwen 모델 메모리 해제 후 로컬 H3 worker22888와 CPU source-QC watcher27864 시작. 최초 axe-call prompt32f765c8-6466-4acb-b39c-8ac623fabbae, 192frames/1024x576/24fps. h3-resume-20261012.log/.err 및 h3-qc-20261012.log/.err 보존. 현재 최종본0개, 새 H3 생성 시작이며 source 동작 검수·해상도 보강·최종 편집 아직 남음.
+
+최초 axe-call native 영상과33표본/밀집 contact4장을 실제 전부 봤다. 첫4초 손짓/입 움직임·캐릭터는 안정적이나 뒤 약3.5초가 정지하고 실제 발걸음이 없어서 승인하지 않았다. history/opening-v1에 clip/메타/정확한 graph·receipt/history/판정 보존 후 해당 컷만 끝 이미지 guide를 제거하고 지속 대사·실제 한 걸음을 지시하는 jack-opening-v2로 재생성(worker27024, prompt79837ed8-9609-4bc9-bfce-0171442d8cd6). 기존 main H3 worker22888는 현재 giant-chase를 생성하며 다른 source 생산을 이어간다. Comfy 하나의 직렬 큐에서 수정 컷이 순서대로 생성되므로 GPU 병렬 경합이 아니다. source-QC는 자동decode/표본 생성만 통과, 실제 움직임 승인0 및 최종본0 유지.
+
+## 사용자 일시 중단 (2026-10-12)
+
+“잠깐 스탑”에 따라 H3 main22888/도입 수정27024/QC27864만 종료했다. 실제8190큐에서 자기 running giant-chase72091a63-ed4e-4f6c-91c0-e92d23c5c483을 interrupt하고 pending 도입수정79837ed8-9609-4bc9-bfce-0171442d8cd6을 삭제했다. running/pending0 확인. 공유 Comfy/Voicebox 서버 유지.64음원/ASR·171자막 검사/선택 신규16앵커와 검수 증거 보존, 최초 H3 도입은 정지 꼬리로 제외하여 history/opening-v1에 보존. 승인 H3 source0/최종본0. production-status.json/PAUSED.md 중단·자동재개없음 기록. 재개 시 interrupted/deleted prompt receipt를 그대로 기다리지 말고 실제 history/queue 확인 후 이전 receipt를 보존하고 명시적 재개 요청 범위에서 새 제출해야 한다.
 
 ## 남은 단계
 
