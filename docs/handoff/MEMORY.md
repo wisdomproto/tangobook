@@ -4,6 +4,10 @@
 
 2026-10-12 [학습 애니메이션·그림 자모](../work/phonics/tasks/20261012-learning-game-effects.md): 한영 학습에 14장면·4효과음과 살구 자음/민트 모음 그림 적용, 쓰기 폰트·판정 유지. ‘가’ 전체 그림과 자모 비율 수정, 157회귀·타입/빌드·모바일 표본 검수. 별도 Rive 작업을 보존해 30072b4b3 로컬 main 통합·미푸시. 후속 모음 전용 Book 1 요청을 진행한다.
 
+2026-10-12 [Rive ㄱ과 ㅏ의 만남](../work/video/tasks/20261012-rive-hangul-meeting.md) 완료: 기존ㄱ춤 귀엽다고 승인 뒤 두글자만남 요청. imagegen 민트ㅏ/native 관절로9초 하이파이브→손잡고가→함께뛰기 실제Rive1.04MB·MP4/GIF 제작.180프레임/12표본·루프/관절/전체decode 통과. output/rive-hangul-meet-20261012 원본과-review 프리뷰,코드/기억 로컬main보존. 이전ㄱ/운영/게임/푸시 변경 없음.
+
+2026-10-12 [탱고 블록 KC 실행 가이드](../work/hardware/block-kc-guide.md): 사용자 요청으로 생산·시험·신고·표시/출고 단계와 기관/공장 문의문 정리. 모음 작은부품/거울재질 우선상담. 실제 신청·견적 없음, 로컬 문서.
+
 2026-10-12 [탱고 블록 판매 전 안전확인](../work/hardware/tasks/20261012-block-safety-confirmation.md): 사용자 비전기 블록 확인. 완구 안전확인 제도·화학/물리적 안전 검토 방향 조사. 탱고 세트의 기관 분류·시험범위·비용/기간은 미확정, 외부 신청 없음.
 
 2026-10-12 [한글 ㄱ 캐릭터 Rive 시안](../work/video/tasks/20261012-rive-hangul-character.md): 사용자 Rive·image skill 지정으로 생성 투명ㄱ몸통+native 얼굴/관절 6초무음춤 실제.riv 제작. 공식CLI1.5.1 로그인없이컴파일·180고유프레임/12표본/루프·MP4전체decode 검수,원본/소스/프롬프트 로컬main보존. output/rive-hangul-20261012 및 review에MP4/GIF. .rev/게임/운영앱통합/외부업로드/푸시없음.
