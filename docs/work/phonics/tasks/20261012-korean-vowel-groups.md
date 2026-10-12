@@ -31,4 +31,11 @@
 - client/server typecheck, 수정 코드 scoped ESLint, client production build 통과. 기존 Browserslist/Lottie eval/locale static+dynamic/large chunk 경고는 남아 있다.
 - 브라우저1280×720·375×812·812×375 표본 검수: ㅑ3회 ended→ㅑ쓰기 연결, 익힌2모음만 나오는 놀이, 모음 찾기 빠른 연속탭→다음 라운드→완료 표시, 한글 그림 기억 카드와 영어 찾기 다음 라운드/기억 낱말 카드 확인. 짧은 가로에서는 세로 스크롤로 하단 진행 표시 접근 가능하다. 물리 기기 청취/FPS 수치는 미측정이다.
 - 대표 캡처: `C:/project/tangobook/output/korean-vowel-groups-20261012/vowel-hunt-desktop.png`(검수 출력, Git에 추가하지 않음).
-- 다른 세션의 Rive 인계 push 기록 cf46b8a33를 fast-forward로 보존했다. 기존 `ReviewWriteActivity.test.tsx` 줄바꿈 상태와 출력물은 stage하지 않는다. 코드와 기록을 로컬 커밋하며 이번 작업의 main push 요청은 없다.
+- 다른 세션의 Rive 인계 push 기록 cf46b8a33를 fast-forward로 보존했다. 기존 `ReviewWriteActivity.test.tsx` 줄바꿈 상태와 출력물은 stage하지 않았다. 코드와 기록은 bc1a8c63b로 로컬 main에 통합했다. 당시에는 이번 작업의 main push 요청이 없었다.
+
+## 후속 main push — 2026-10-13
+
+- 사용자 명시 요청: “메인 푸시하자”.
+- fetch 후 `origin/main...HEAD`는0 behind/1 ahead. 원격 cf46b8a33와 이번 기능 커밋 bc1a8c63b만의 차이를 확인했다.
+- `git push origin main`으로 bc1a8c63b를 일반 push했고, `git ls-remote origin refs/heads/main`과 로컬 HEAD가 `bc1a8c63b0abd4502698b4f9151c0b32cc9ca90b`로 일치함을 확인했다.
+- 코드 변경 없이 위 검증 결과를 유지한다. 출력물과 다른 worktree 변경은 제외했다. Railway 배포 완료는 미확인이다.
