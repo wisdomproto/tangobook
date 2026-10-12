@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 Rive+Remotion 다른 세션 인계: 사용자 명칭 Rive 정정·기록 요청을 [재개 절](../work/video/tasks/20261012-rive-remotion-learning-sample.md#다른-세션에서-바로-이어가기)에 반영. “Rive+Remotion 한글 학습 샘플 이어서”는 이 기록과 output/rive-remotion-learning-20261012/README.md부터 읽는다. 24초 ㄱ+ㅏ→가쓰기→가방 최종본/코드/자산은 Git 보존, 실행/검수/다음 작업 연결. 후속 main push로 제작28dfad736의 원격 추적 이력 포함 확인; 이번 기록만 로컬 커밋.
+
 2026-10-12 [파닉스 UI·연출·반응 개선 main 푸시](../work/platform/tasks/20261012-phonics-ui-effects-main-push.md): 사용자 요청으로 로컬 한영 효과/모음 Book1/전체 활동 UI/합성·쓰기·소리 반응 개선과 원격 Library Master 작업을 보존 merge. 통합34파일230회귀·타입/build 통과, f534ca313를 origin/main에 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태. Railway 배포 완료는 미확인.
 
 2026-10-12 [한영16활동·연결 게임 반응 점검](../work/phonics/tasks/20261012-phonics-all-performance.md): 프레임당 쓰기 채점·첫 획 위치 고정, 한글 쓰기 translate380/220ms·영어 CVC 즉시 다음 칸/ended 체인, 늦은 음성·이탈 취소, 칭찬1개 사전 준비·StrictMode 게임 안내·복습 중복 조회 수정.223회귀·타입/빌드·대표 모바일/한영 플레이 통과. 외부 구 음원10초 지연1회/동일 자산 재현·실기기FPS는 미확인. 통합은 task 참조·미푸시.

@@ -2,6 +2,8 @@
 
 사용자 요청으로 만든24초·1920×1080·30fps 학습 영상 샘플입니다. [최종 영상](hangul-ga-learning.mp4), [16장 표본](contact-sheet.png), [검수 결과](verification.json)를 보존합니다.
 
+다른 세션에서는 [인계 기록의 이어가기 절](../../docs/work/video/tasks/20261012-rive-remotion-learning-sample.md#다른-세션에서-바로-이어가기)부터 읽습니다. 영상·코드·입력 자산은 Git에 보존되어 있으며, 별도 작업 폴더나 이전 대화 없이 재개할 수 있습니다.
+
 | 시간 | 장면 |
 |---|---|
 | 0~9초 | Rive ㄱ·ㅏ가 인사하고 만나서 가가 됩니다. |
