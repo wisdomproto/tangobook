@@ -2,12 +2,12 @@
 
 - id: 20261012-phonics-all-activities-ui
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: 0d6e849b1
 - branch: codex/phonics-all-activities-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: b74287b60 코드/기억을 로컬 main에 정상 fast-forward 통합
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -53,3 +53,5 @@ API3500/Vite5186의 기존 세션을 유지해 원본 콘텐츠로 확인했다.
 현재 같은 Vite5186에서 바로 볼 수 있다. 운영 데이터 일괄 수정/신규 음원·이미지 업로드/메인 push는 수행하지 않았다. 추가 실기기/음원 내용 검수는 별도 작업이다.
 
 최종 짧은 가로/격자/진행 점 대비 수정 뒤 client typecheck와 build48.59초 통과, 변경 ESLint0오류/기존3경고 유지. 사냥375px18칸 모두 x26.67~348.67px/폭47.83px, 실제 ‘기’ 정답→선택 잠금과 낱말 ‘고기’ 다시 듣기 확인. Magic e812×375 마지막행350px 안쪽, 씨앗카드/사냥/소리 조각 모두 입력을 가리는 장식 없음. 최종 브라우저 탭은 ㄱ3카드로 유지하며 `korean-consonant-final.png` 보관. 뷰포트 강제 설정을 해제했다.
+
+최종 합성 결과 카드의 기존 max-height 제한도 해제해 큰 그림이 카드 밖으로 넘치지 않게 조정했다. 포함한 최종 코드 build26.00초 통과. b74287b60을 로컬 main에 통합했고 기존 영상/Rive/Remotion/lockfile 경로의 diff가 없음을 확인했다. 영역/공유 기억도 포함하며 원격 push/배포는 요청되지 않았다.
