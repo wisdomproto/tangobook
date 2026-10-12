@@ -7,7 +7,7 @@
 - base: 48e2add33
 - branch: codex/platform-ui-v2
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- delivery: 로컬 작업, 이번 요청에 push/배포 없음
+- delivery: 후속 사용자 요청으로 origin/main push 완료(7faeed9b8); Railway 배포 완료 미확인
 
 ## 사용자 피드백과 결정
 
@@ -44,3 +44,10 @@
 ## 전달
 
 코드·디자인 계약·기록을 31fb42ba4로 로컬 커밋하고 main에 fast-forward 통합했다. root의 기존 비추적 PDF/output/tmp를 보존했다. preview 5185는 갱신된 빌드를 제공한다. 이번 요청의 push/배포 없음.
+
+
+## 후속 main 푸시 (2026-10-12)
+
+사용자가 이 변경의 main push를 명시적으로 요청했다. C:/project/tangobook의 실제 main과 기존 비추적 파일을 확인하고 origin을 fetch했다. origin/main 대비 0 behind / 2 ahead였으며 과정 UI 31fb42ba4와 통합 기록 7faeed9b8만 추가됐다. 기존 검증 후 코드 변경이 없어 테스트를 반복하지 않았다.
+
+`git push origin main`으로 48e2add33 → 7faeed9b8 전송 성공. `git ls-remote origin refs/heads/main`과 로컬 HEAD가 7faeed9b8e73bb79594fe1658a6eaa702c9f36d0로 일치함을 확인했다. 이 전달 기록도 함께 커밋·전송한다. Railway의 실제 배포 완료는 별도 미확인이다. 기존 PDF/output/tmp와 다른 worktree는 보존했다.

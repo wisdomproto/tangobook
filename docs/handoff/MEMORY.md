@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-12 [한글·영어 과정 시각 보완](../work/platform/tasks/20261012-course-page-visual-design.md): 실제 단원 글자/패턴·필수 진행·이어 할 활동, 역할별 SVG/기존 삽화 카드와 레벨 설명 위계를 적용했다. 교육 순서·제공 게임·권한·채점 유지. 52회귀·타입/빌드/lint·대표 모바일/태블릿 검수 통과, 31fb42ba4 로컬 main 통합. 이번 작업 미푸시·미배포.
+2026-10-12 [한글·영어 과정 시각 보완](../work/platform/tasks/20261012-course-page-visual-design.md): 실제 단원 글자/패턴·필수 진행·이어 할 활동, 역할별 SVG/기존 삽화 카드와 레벨 설명 위계를 적용했다. 교육 순서·제공 게임·권한·채점 유지. 52회귀·타입/빌드/lint·대표 모바일/태블릿 검수 통과, 31fb42ba4 로컬 main 통합 후 사용자 후속 요청으로 7faeed9b8을 origin/main에 push 완료·원격 SHA 확인. Railway 배포 완료 미확인.
 
 2026-10-12 [플랫폼 UI v2 main 푸시](../work/platform/tasks/20261012-platform-ui-v2-main-push.md): 사용자 요청으로 플랫폼 기준·시안·UI 개편·홈/과정 테마17커밋과 원격 나레이션 작업을 보존 통합해5530dc82f를 origin/main에 일반 push 완료, 원격 SHA 일치 확인. 이전 UI task의 미푸시는 당시 상태이며 현재는 전송 완료다. Railway 배포 완료는 미확인.
 
