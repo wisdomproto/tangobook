@@ -81,6 +81,17 @@ def resolve_text(root, job):
     return page['text']
 
 
+def validate_audio_duration(job, text, duration):
+    # Native phonics pages can be complete two-word utterances (e.g. A kid!).
+    # This is a format sanity check; independent ASR still checks every word.
+    short_native_phonics = (job.get('sourceLanguage') == 'en'
+        and job.get('language') == 'en' and job.get('targetField') == 'ttsUrl'
+        and job['bookId'].startswith('en-')
+        and 1 <= len(re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", text)) <= 3)
+    minimum = 0.5 if short_native_phonics else 1
+    assert minimum <= duration <= 180, 'Unexpected audio duration'
+
+
 def finalize_translation_batch(args):
     assert args.batch, 'A reviewed translation batch is required'
     batch = tts.read(args.batch)
@@ -108,6 +119,7 @@ def finalize_translation_batch(args):
 
 def generate(args):
     plan = tts.read(args.root / 'plan.json')
+    assert not plan.get('retired'), 'This content plan was retired by the user; do not resume it'
     state_path = args.root / 'generate-job.json'
     state = {'status': 'running', 'startedAt': time.time(), 'pid': os.getpid(), 'expected': plan['expected'], 'generated': 0}
     tts.save(state_path, state)
@@ -159,7 +171,7 @@ def generate(args):
                                 '-ar', '24000', '-ac', '1', '-b:a', '96k', str(partial)], check=True)
                 duration = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration',
                                                           '-of', 'default=nw=1:nk=1', str(partial)], text=True).strip())
-                assert 1 <= duration <= 180, 'Unexpected audio duration'
+                validate_audio_duration(job, text, duration)
                 subprocess.run(['ffmpeg', '-v', 'error', '-i', str(partial), '-f', 'null', '-'], check=True)
                 if mp3.exists():
                     assert tts.digest(mp3.read_bytes()) == tts.digest(partial.read_bytes()), 'Unknown existing MP3'

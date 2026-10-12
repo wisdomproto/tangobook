@@ -184,7 +184,7 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
 === 한글 숲 세계관 ===
 배경: "한글 숲"은 마법의 글자들이 자연 속에 숨어 있는 신비로운 숲입니다.
 나무껍질, 꽃잎, 돌멩이, 시냇물, 바람 소리 속에 글자들이 살아 숨쉬고 있어요.
-12지신 동물 캐릭터들이 숲을 탐험하며 숨겨진 글자를 발견하고, 그 글자로 새로운 단어를 만들어냅니다.
+승인된 호리와 친구들 캐릭터가 한글 나무의 글자와 낱말을 발견합니다. 영어는 요청에 지정된 캐릭터와 참고 내용만 따르며, 폐기된 캐릭터를 다시 사용하지 않습니다.
 
 주요 장소:
 - 글자 초원(Letter Meadow): 봄꽃이 가득, 꽃잎에 글자가 새겨져 있음. 바람이 불면 꽃잎 글자가 날아다님.
@@ -210,7 +210,7 @@ ${
     ? `
 **중요 (영어 파닉스)**:
 - 스토리 본문(text)은 반드시 영어로 작성하세요.
-- 캐릭터 이름은 동화 테마에 명시된 영어 이름을 사용하세요 (예: Stripes, Hoppy, Squeak, Moomoo, Drako, Slither, Gallop, Fluffy, Chimp, Kokko, Woof, Oink).
+- 캐릭터 이름은 사용자가 제공한 동화 테마와 승인 레퍼런스의 영어 이름을 사용하세요.
 - 장소 이름은 영어 표기를 사용하세요 (Letter Meadow, Echo Cave, Starlight Pond, Wind Hill, Cloud Hill, Honey Waterfall, Letter Bridge, Sunshine Hill, Whispering Tree).
 - **장면 묘사(scene_description)에서 숲속에 보이는 글자는 반드시 영어 알파벳/영어 단어여야 합니다. 한글(ㄱ,ㄴ,ㄷ 등)이 절대 나오면 안 됩니다.** 예: 꽃잎에 'c', 'a', 't' 알파벳이 새겨져 있다 (O), 꽃잎에 'ㅁ', 'ㅂ' 한글이 새겨져 있다 (X).
 `
@@ -242,7 +242,7 @@ ${
       ? `반드시 다음 캐릭터만 사용하세요. 다른 캐릭터를 만들지 마세요.
    - ${characterGuide}
    **중요**: 각 캐릭터의 동물 종류를 절대 혼동하지 마세요. scene_description, scene_structure.characters에 캐릭터 이름과 동물을 정확히 명시하세요.
-   예: "토끼 Hoppy가 깡충깡충 뛰어다닌다" (O), "호랑이 Hoppy" (X — Hoppy는 토끼입니다).`
+   예: "토끼 Toto가 깡충깡충 뛰어다닌다" (O), "호랑이 Toto" (X — Toto는 토끼입니다).`
       : '스토리에 2페이지 이상 등장하는 캐릭터 설정.'
   } (외모 구체적으로).
 ${lessonInstructions}

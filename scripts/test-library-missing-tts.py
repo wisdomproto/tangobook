@@ -11,6 +11,17 @@ spec.loader.exec_module(batch)
 
 
 class SourceGuards(unittest.TestCase):
+    def test_short_native_phonics_and_duration_safety(self):
+        native = {'bookId': 'en-b2-u04', 'language': 'en',
+                  'sourceLanguage': 'en', 'targetField': 'ttsUrl'}
+        batch.validate_audio_duration(native, 'A kid!', 0.847042)
+        for job, text, duration in [(native, 'A kid!', 0.1),
+                (native, 'Look at the wonderful forest!', 0.847042),
+                ({'bookId': '123', 'language': 'en'}, 'A kid!', 0.847042),
+                (native, 'A kid!', 181)]:
+            with self.assertRaises(AssertionError):
+                batch.validate_audio_duration(job, text, duration)
+
     def test_media_updates_do_not_change_source_but_text_changes_do(self):
         book = {'title': 'Book', 'pages': [{'pageNumber': 1, 'text': 'Original', 'scene_description': 'Scene'}]}
         before = batch.source_hash(book)

@@ -1,0 +1,411 @@
+{
+  "expected": 11,
+  "registered": 11,
+  "images": [
+    {
+      "id": "kr-h4-u01-p07",
+      "bookId": "kr-h4-u01",
+      "pageNumber": 7,
+      "title": "한글4: 복잡한 모음 · unit 01: ㅐ, ㅔ 배우기",
+      "file": "final/kr-h4-u01-p07.webp",
+      "sha256": "f7809664cd60fb038e25cf2c6926ed8f496371935aad106302735e891b64d3ea",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u01-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit01%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page7-1791800027935.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u01-p07",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v4\\kr-h4-u01-p07.png",
+        "candidateSha256": "d148e9195af4195587324c6c421934793e7821e0c53298e7ff94c6f262536e10",
+        "glyphs": [
+          {
+            "text": "ㅐ",
+            "x": 500,
+            "y": 122,
+            "size": 112
+          },
+          {
+            "text": "ㅔ",
+            "x": 621,
+            "y": 130,
+            "size": 112
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u01-p07.webp",
+        "sha256": "f7809664cd60fb038e25cf2c6926ed8f496371935aad106302735e891b64d3ea",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u01-p08",
+      "bookId": "kr-h4-u01",
+      "pageNumber": 8,
+      "title": "한글4: 복잡한 모음 · unit 01: ㅐ, ㅔ 배우기",
+      "file": "final/kr-h4-u01-p08.webp",
+      "sha256": "775125058a79ac3bb00bd70e26e0b129156ed9deab7f0f8066ff3a1c6943601d",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u01-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit01%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page8-1791800575289.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u01-p08",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v5\\kr-h4-u01-p08.png",
+        "candidateSha256": "a5e29f1d18ffd70430597e9b4768fa998086b7e3fdbe10f808944a267f60130d",
+        "glyphs": [
+          {
+            "text": "ㅐ",
+            "x": 438,
+            "y": 204,
+            "size": 130,
+            "glow": false
+          },
+          {
+            "text": "ㅔ",
+            "x": 594,
+            "y": 182,
+            "size": 130,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u01-p08.webp",
+        "sha256": "775125058a79ac3bb00bd70e26e0b129156ed9deab7f0f8066ff3a1c6943601d",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u02-p08",
+      "bookId": "kr-h4-u02",
+      "pageNumber": 8,
+      "title": "한글4: 복잡한 모음 · unit 02: ㅖ, ㅚ 배우기",
+      "file": "final/kr-h4-u02-p08.webp",
+      "sha256": "b39106fe89476a11865c7dfad660139125f77cbf4ffca836d004371d0efa3d60",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u02-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit02%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page8-1791800579687.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u02-p08",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v6\\kr-h4-u02-p08.png",
+        "candidateSha256": "7dabcd4abf79c443262c32f5c11a10a5f32056ca4fdf34b7199f91bf2439fb86",
+        "glyphs": [
+          {
+            "text": "ㅖ",
+            "x": 413,
+            "y": 120,
+            "size": 100,
+            "glow": false
+          },
+          {
+            "text": "ㅚ",
+            "x": 504,
+            "y": 196,
+            "size": 95,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u02-p08.webp",
+        "sha256": "b39106fe89476a11865c7dfad660139125f77cbf4ffca836d004371d0efa3d60",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u03-p02",
+      "bookId": "kr-h4-u03",
+      "pageNumber": 2,
+      "title": "한글4: 복잡한 모음 · unit 03: ㅟ, ㅢ 배우기",
+      "file": "final/kr-h4-u03-p02.webp",
+      "sha256": "157224176ff3c36f2f0a249cab3d0e46280f453a6a08ffd53062c81d65f33ae1",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u03-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit03%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page2-1791800583503.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u03-p02",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v5\\kr-h4-u03-p02.png",
+        "candidateSha256": "236f67877d31d590683d6886337e8e4e34d1bc7c0041061308c4b4c571107f2a",
+        "glyphs": [
+          {
+            "text": "ㅟ",
+            "x": 426,
+            "y": 382,
+            "size": 120,
+            "glow": false
+          },
+          {
+            "text": "ㅢ",
+            "x": 598,
+            "y": 405,
+            "size": 120,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u03-p02.webp",
+        "sha256": "157224176ff3c36f2f0a249cab3d0e46280f453a6a08ffd53062c81d65f33ae1",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u04-p02",
+      "bookId": "kr-h4-u04",
+      "pageNumber": 2,
+      "title": "한글4: 복잡한 모음 · unit 04: ㅘ, ㅙ 배우기",
+      "file": "final/kr-h4-u04-p02.webp",
+      "sha256": "f668ae614a939834892ff5bcdf6f00e19af55395749d3ae9ef3853a937327b07",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u04-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit04%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page2-1791800586193.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u04-p02",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v6\\kr-h4-u04-p02.png",
+        "candidateSha256": "49ce8f4b90b600f80fa6f6120d8de45978b04435a4186c147a959abd4fe4222f",
+        "glyphs": [
+          {
+            "text": "ㅘ",
+            "x": 444,
+            "y": 393,
+            "size": 100,
+            "glow": false
+          },
+          {
+            "text": "ㅙ",
+            "x": 572,
+            "y": 385,
+            "size": 100,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u04-p02.webp",
+        "sha256": "f668ae614a939834892ff5bcdf6f00e19af55395749d3ae9ef3853a937327b07",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u04-p07",
+      "bookId": "kr-h4-u04",
+      "pageNumber": 7,
+      "title": "한글4: 복잡한 모음 · unit 04: ㅘ, ㅙ 배우기",
+      "file": "final/kr-h4-u04-p07.webp",
+      "sha256": "1351fcaaf3069e936670e76ab644786535067535f105d5f0796d1257bd9ba461",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u04-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit04%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page7-1791800587423.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u04-p07",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v6\\kr-h4-u04-p07.png",
+        "candidateSha256": "af3a418dcb1a525369443daaf8c9b56c17ea301292032fb6d9c8d77cc6e133dc",
+        "glyphs": [
+          {
+            "text": "ㅘ",
+            "x": 470,
+            "y": 182,
+            "size": 94,
+            "glow": true
+          },
+          {
+            "text": "ㅙ",
+            "x": 578,
+            "y": 182,
+            "size": 94,
+            "glow": true
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u04-p07.webp",
+        "sha256": "1351fcaaf3069e936670e76ab644786535067535f105d5f0796d1257bd9ba461",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u04-p08",
+      "bookId": "kr-h4-u04",
+      "pageNumber": 8,
+      "title": "한글4: 복잡한 모음 · unit 04: ㅘ, ㅙ 배우기",
+      "file": "final/kr-h4-u04-p08.webp",
+      "sha256": "b0e3fd643ec42f4db65abd2646d91982ba4e73a944404af34e1a32041ab6311a",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u04-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit04%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page8-1791800589067.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u04-p08",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v6\\kr-h4-u04-p08.png",
+        "candidateSha256": "dd3a63ad6139a931b4e3ea09fc09a6cf2def8e3374c411fe43cbf34cf7ae3de9",
+        "glyphs": [
+          {
+            "text": "ㅘ",
+            "x": 447,
+            "y": 181,
+            "size": 105,
+            "glow": false
+          },
+          {
+            "text": "ㅙ",
+            "x": 600,
+            "y": 165,
+            "size": 105,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u04-p08.webp",
+        "sha256": "b0e3fd643ec42f4db65abd2646d91982ba4e73a944404af34e1a32041ab6311a",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u05-p01",
+      "bookId": "kr-h4-u05",
+      "pageNumber": 1,
+      "title": "한글4: 복잡한 모음 · unit 05: ㅝ, ㅞ, ㅢ 배우기",
+      "file": "final/kr-h4-u05-p01.webp",
+      "sha256": "dd1d83d8c0d118d7e0388ecf5d56ed18c1690114b0f186e5ccbaea3ed0151fd6",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u05-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit05%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page1-1791800591820.webp",
+      "glyphComposition": null
+    },
+    {
+      "id": "kr-h4-u05-p02",
+      "bookId": "kr-h4-u05",
+      "pageNumber": 2,
+      "title": "한글4: 복잡한 모음 · unit 05: ㅝ, ㅞ, ㅢ 배우기",
+      "file": "final/kr-h4-u05-p02.webp",
+      "sha256": "e0b04c06e12daec3af557d245e4d36f6011815c22a7a234d824c5a65ce80e456",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u05-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit05%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page2-1791800593230.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u05-p02",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v5\\kr-h4-u05-p02.png",
+        "candidateSha256": "bc09c25ea752cf18c7dc5866f26c5b0f23fa52bdcaeaae78855db4be5f6d7f35",
+        "glyphs": [
+          {
+            "text": "ㅝ",
+            "x": 337,
+            "y": 438,
+            "size": 95,
+            "glow": false
+          },
+          {
+            "text": "ㅞ",
+            "x": 541,
+            "y": 376,
+            "size": 94,
+            "glow": false
+          },
+          {
+            "text": "ㅢ",
+            "x": 657,
+            "y": 427,
+            "size": 87,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u05-p02.webp",
+        "sha256": "e0b04c06e12daec3af557d245e4d36f6011815c22a7a234d824c5a65ce80e456",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u05-p08",
+      "bookId": "kr-h4-u05",
+      "pageNumber": 8,
+      "title": "한글4: 복잡한 모음 · unit 05: ㅝ, ㅞ, ㅢ 배우기",
+      "file": "final/kr-h4-u05-p08.webp",
+      "sha256": "4d68bd021743b5903c0ea5d1c7c59a5d860f50874c64bba23f5e704d8af40c04",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u05-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit05%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page8-1791800594428.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u05-p08",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v5\\kr-h4-u05-p08.png",
+        "candidateSha256": "43209e3470ca5c2ced44b58d49f309fa01e8fc6f1345e1ac2d830ed0b851cb85",
+        "glyphs": [
+          {
+            "text": "ㅝ",
+            "x": 395,
+            "y": 155,
+            "size": 90,
+            "glow": false
+          },
+          {
+            "text": "ㅞ",
+            "x": 510,
+            "y": 161,
+            "size": 90,
+            "glow": false
+          },
+          {
+            "text": "ㅢ",
+            "x": 630,
+            "y": 153,
+            "size": 90,
+            "glow": false
+          },
+          {
+            "text": "ㄱ",
+            "x": 190,
+            "y": 91,
+            "size": 36,
+            "glow": false
+          },
+          {
+            "text": "ㅏ",
+            "x": 239,
+            "y": 233,
+            "size": 30,
+            "glow": false
+          },
+          {
+            "text": "ㅓ",
+            "x": 749,
+            "y": 207,
+            "size": 28,
+            "glow": false
+          },
+          {
+            "text": "ㅗ",
+            "x": 867,
+            "y": 90,
+            "size": 33,
+            "glow": false
+          },
+          {
+            "text": "ㅜ",
+            "x": 777,
+            "y": 75,
+            "size": 27,
+            "glow": false
+          },
+          {
+            "text": "ㄴ",
+            "x": 929,
+            "y": 247,
+            "size": 22,
+            "glow": false
+          },
+          {
+            "text": "ㅣ",
+            "x": 119,
+            "y": 236,
+            "size": 22,
+            "glow": false
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u05-p08.webp",
+        "sha256": "4d68bd021743b5903c0ea5d1c7c59a5d860f50874c64bba23f5e704d8af40c04",
+        "status": "awaiting-visual-review"
+      }
+    },
+    {
+      "id": "kr-h4-u05-p07",
+      "bookId": "kr-h4-u05",
+      "pageNumber": 7,
+      "title": "한글4: 복잡한 모음 · unit 05: ㅝ, ㅞ, ㅢ 배우기",
+      "file": "final/kr-h4-u05-p07.webp",
+      "sha256": "bb3e15566c71634050cb975836968b4a43a108ebfa722381bfdbe525a7865928",
+      "url": "https://assets.tangobook.co.kr/kr-h4-u05-%ED%95%9C%EA%B8%804%EB%B3%B5%EC%9E%A1%ED%95%9C%EB%AA%A8%EC%9D%8Cunit05%EB%B0%B0%EC%9A%B0%EA%B8%B0-illustration-page7-1791800809497.webp",
+      "glyphComposition": {
+        "id": "kr-h4-u05-p07",
+        "candidate": "generated-images\\phonics-missing-20261012\\candidates-v7\\kr-h4-u05-p07.png",
+        "candidateSha256": "a1921a9878b95c6f8aead18060d5d924ba95ed69f69e876cf21445e710a80cf5",
+        "glyphs": [
+          {
+            "text": "ㅝ",
+            "x": 220,
+            "y": 175,
+            "size": 80
+          },
+          {
+            "text": "ㅞ",
+            "x": 350,
+            "y": 175,
+            "size": 80
+          },
+          {
+            "text": "ㅢ",
+            "x": 480,
+            "y": 175,
+            "size": 80
+          }
+        ],
+        "file": "generated-images\\phonics-missing-20261012\\final\\kr-h4-u05-p07.webp",
+        "sha256": "bb3e15566c71634050cb975836968b4a43a108ebfa722381bfdbe525a7865928",
+        "status": "awaiting-visual-review"
+      }
+    }
+  ]
+}

@@ -6,10 +6,17 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { createRequire } from 'node:module';
+import {
+  assertNativeEnglishTarget,
+  assignNativeEnglishAudio,
+  narrationComparison,
+} from './tts-registration-fields.mjs';
 const require = createRequire(new URL('../packages/server/package.json', import.meta.url));
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const dotenv = require('dotenv');
-const root = 'D:/tangobook-audio/library-missing-20261012';
+const rootArg = process.argv.find((a) => a.startsWith('--root='));
+const root = rootArg?.slice('--root='.length) || 'D:/tangobook-audio/library-missing-20261012';
+const nativeEnglish = process.argv.includes('--native-english');
 const out = path.join(root, 'registration');
 const stage = process.argv[2];
 assert(['audit', 'apply', 'verify'].includes(stage), 'Use audit/apply/verify');
@@ -22,6 +29,7 @@ const save = (p, x) => {
 };
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const plan = read(path.join(root, 'plan.json'));
+assert(!plan.retired, 'This content plan was retired by the user; do not register it');
 const num = (p) => p.pageNumber ?? p.page_number;
 const normalize = (b) => {
   const x = structuredClone(b);
@@ -139,21 +147,25 @@ async function apply(bookId, jobs) {
   if (!row) {
     const fresh = await api('/storybooks/' + bookId);
     const baseline = read(path.join(root, 'books-before', bookId + '.json'));
+    if (nativeEnglish)
+      assert(fresh.type === 'phonics' && bookId.startsWith('en-'), 'Native English scope');
     assert.deepEqual(source(fresh), source(baseline), bookId + ' narration source changed');
     const desired = structuredClone(fresh),
       used = [],
       skipped = [];
     for (const j of jobs) {
       const p = desired.pages.find((p) => num(p) === j.pageNumber);
-      const oldUrl = j.language === 'ko' ? p.ttsUrl : p.translations?.en?.ttsUrl;
+      const oldUrl = j.language === 'ko' || nativeEnglish ? p.ttsUrl : p.translations?.en?.ttsUrl;
       if (oldUrl) {
         skipped.push(stem(j));
         continue;
       }
+      if (nativeEnglish) assertNativeEnglishTarget(p, j.text);
       if (j.language === 'en' && p.translations?.en?.text)
         assert.equal(p.translations.en.text, j.text, 'New English source conflict');
       const url = await upload(j);
-      if (j.language === 'ko') p.ttsUrl = url;
+      if (nativeEnglish) assignNativeEnglishAudio(p, j.text, url);
+      else if (j.language === 'ko') p.ttsUrl = url;
       else
         p.translations = {
           ...p.translations,
@@ -161,7 +173,7 @@ async function apply(bookId, jobs) {
         };
       used.push({ pageNumber: j.pageNumber, language: j.language, url, sha256: j.sha256 });
     }
-    if (used.some((j) => j.language === 'en')) {
+    if (!nativeEnglish && used.some((j) => j.language === 'en')) {
       const tr = read(path.join(root, 'translations', bookId + '.json'));
       if (!desired.titleTranslations?.en)
         desired.titleTranslations = { ...desired.titleTranslations, en: tr.title };
@@ -194,11 +206,14 @@ async function verify() {
     assert(fs.existsSync(p), b.id + ' not registered');
     const row = read(p),
       got = await api('/storybooks/' + b.id);
-    assert.deepEqual(normalize(got), normalize(row.after), b.id + ' changed after registration');
+    const currentProtected = narrationComparison(got, row.before, nativeEnglish);
+    const registeredProtected = narrationComparison(row.after, row.before, nativeEnglish);
+    assert.deepEqual(currentProtected, registeredProtected, b.id + ' changed after registration');
     for (const j of row.used) {
       const p = got.pages.find((p) => num(p) === j.pageNumber),
         url = j.language === 'ko' ? p.ttsUrl : p.translations.en.ttsUrl;
       assert.equal(url, j.url);
+      if (nativeEnglish) assert.equal(p.ttsUrl, j.url, 'Native English Editor2 audio differs');
       const r = await fetch(url, { signal: AbortSignal.timeout(60000) });
       assert(r.ok);
       assert.equal(sha(Buffer.from(await r.arrayBuffer())), j.sha256);
