@@ -1,7 +1,7 @@
 import { ToyHangul } from '../components/ToyHangul';
 import { BlendMeetEffect } from '../components/BlendMeetEffect';
 import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -34,14 +34,15 @@ interface Props {
  * 🔴 Tailwind 클래스가 아니라 **인라인 스타일**로 준다. `gap-[18vw] sm:gap-56` 처럼 두 겹으로 쓰면
  *    어느 쪽이 이겼는지 브레이크포인트마다 확인해야 하고(실제로 375px 에서 값이 어긋나 보였다),
  *    `min()` 한 줄이면 화면 크기와 무관하게 같은 규칙이 된다.
+ *    고정 공간 안에서 타일의 translate에 사용한다. gap을 보간해 매 프레임 레이아웃하지 않는다.
  */
 const GAPS = ['min(18vw, 14rem)', 'min(6vw, 4rem)', '0px'] as const;
 /** 받침은 위·아래로 모이므로 **높이**가 기준이다 — 가로 값(18vw)을 그대로 쓰면 화면 밖으로 나간다. */
 const CODA_GAPS = ['min(10vh, 5rem)', 'min(4vh, 2rem)', '0px'] as const;
-/** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
-const CLOSE_MS = 500;
+/** CSS 이동과 마지막 낱글자 발음은 함께 진행하며, 둘 다 끝나야 완성 글자를 보여준다. */
+const CLOSE_MS = 380;
 /** 합쳐진 글자가 뜬 뒤 이어읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
-const MERGE_REST_MS = 550;
+const MERGE_REST_MS = 220;
 const TAP_ROUNDS = 2; // 탭으로 진행하는 라운드 수(멀리·가까이). 마지막 붙는 건 자동.
 
 /**
@@ -107,13 +108,15 @@ export function ConsonantBlendListenActivity({
   // 붙는 애니메이션·쉼 타이머 — 도중에 나가면 이어읽기가 빈 화면에서 울린다.
   const closeTimerRef = useRef<number | null>(null);
   const restTimerRef = useRef<number | null>(null);
-  useEffect(
-    () => () => {
+  const aliveRef = useRef(true);
+  useEffect(() => {
+    aliveRef.current = true;
+    return () => {
+      aliveRef.current = false;
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
       if (restTimerRef.current) clearTimeout(restTimerRef.current);
-    },
-    []
-  );
+    };
+  }, []);
 
   /** 위 음절 목록에서 아무거나 골라 그것부터 할 수 있다 — 순서를 강제하지 않는다. */
   const goTo = useCallback((i: number) => {
@@ -199,19 +202,24 @@ export function ConsonantBlendListenActivity({
           playAudio(LEARNING_SOUNDS.correct, advance)
         );
 
-      /**
-       * 마지막 탭 뒤 순서 = [누른 글자 소리] → **붙는 애니메이션** → [합쳐진 글자] → 쉼 → [이어읽기].
-       *
-       * 🔴 붙는 도중엔 소리를 내지 않는다 — 눈으로 붙는 걸 보고 나서 그 소리를 들어야 이어진다.
-       * 🔴 **마지막 라운드에서도 누른 글자를 읽는다.** 예전엔 곧장 이어읽기로 넘어가, 1라운드에선
-       *    나던 `으` 가 2라운드에선 아예 안 났다(누르고 아무 반응이 없었다).
-       * 쉼은 **소리가 끝난 뒤** 넣는 것이라 길이를 가정하는 게 아니다(낱말쓰기 REST_MS 와 같은 패턴).
-       */
+      // 이동은 마지막 탭부터 이미 시작된다. 발음 뒤 CLOSE_MS를 다시 기다리지 않는다.
+      // 발음 길이를 가정하지 않고 이동과 실제 ended 둘 다 기다린다.
+      let movementDone = false;
+      let soundDone = false;
+      let revealed = false;
+      const reveal = () => {
+        if (!aliveRef.current || revealed || !movementDone || !soundDone) return;
+        revealed = true;
+        setRound(TAP_ROUNDS + 1);
+        restTimerRef.current = window.setTimeout(readBlend, MERGE_REST_MS);
+      };
+      closeTimerRef.current = window.setTimeout(() => {
+        movementDone = true;
+        reveal();
+      }, CLOSE_MS);
       say(text, () => {
-        closeTimerRef.current = window.setTimeout(() => {
-          setRound(TAP_ROUNDS + 1); // 합쳐진 글자 등장
-          restTimerRef.current = window.setTimeout(readBlend, MERGE_REST_MS);
-        }, CLOSE_MS);
+        soundDone = true;
+        reveal();
       });
     },
     [
@@ -291,13 +299,17 @@ export function ConsonantBlendListenActivity({
             🔴 **모이는 방향은 글자가 정한다** — 받침(아+ㅇ=앙)과 **수직 모음**(ㄲ+ㅛ=꼬)은 아래로,
                그 밖의 모음(ㄱ+ㅏ=가)은 오른쪽으로. 방향이 틀리면 합쳐지는 규칙을 거꾸로 가르친다. */}
         <div
-          className={`phonics-blend-stage flex items-center justify-center transition-all duration-500 ease-out ${
+          data-vertical={vertical || undefined}
+          data-merging={merging || undefined}
+          className={`phonics-blend-stage flex items-center justify-center ${
             vertical ? 'flex-col' : ''
           }`}
           style={
-            vertical
-              ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
-              : { columnGap: GAPS[Math.min(round, GAPS.length - 1)] }
+            {
+              '--blend-gap': (vertical ? CODA_GAPS : GAPS)[Math.min(round, GAPS.length - 1)],
+              '--blend-space': (vertical ? CODA_GAPS : GAPS)[0],
+              '--blend-close-ms': `${CLOSE_MS}ms`,
+            } as CSSProperties
           }
         >
           {merging ? (

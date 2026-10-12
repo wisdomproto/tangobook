@@ -113,6 +113,28 @@
 .phonics-blend-stage {
   position: relative;
   isolation: isolate;
+  column-gap: 0;
+  row-gap: 0;
+  padding-inline: calc(var(--blend-space) / 2);
+}
+.phonics-blend-stage[data-vertical] {
+  padding-inline: 0;
+  padding-block: calc(var(--blend-space) / 2);
+}
+.phonics-blend-stage[data-merging] {
+  padding: 0;
+}
+.phonics-blend-stage > .phonics-blend-tile:first-of-type {
+  translate: calc(var(--blend-gap) / -2) 0;
+}
+.phonics-blend-stage > .phonics-blend-tile:last-of-type {
+  translate: calc(var(--blend-gap) / 2) 0;
+}
+.phonics-blend-stage[data-vertical] > .phonics-blend-tile:first-of-type {
+  translate: 0 calc(var(--blend-gap) / -2);
+}
+.phonics-blend-stage[data-vertical] > .phonics-blend-tile:last-of-type {
+  translate: 0 calc(var(--blend-gap) / 2);
 }
 .phonics-blend-stage::before {
   content: '';
@@ -139,6 +161,7 @@
     0 8px 0 #e6c6ad,
     0 14px 24px #86604910;
   animation: none;
+  transition: translate var(--blend-close-ms) ease-out;
 }
 .phonics-blend-tile--vowel {
   border-color: #93c6a9;
@@ -226,11 +249,11 @@
   box-shadow:
     0 10px 0 #c5e1cc,
     0 20px 40px #56746112;
-  animation: phonics-blend-arrive 760ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: phonics-blend-arrive 480ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
 .phonics-blend-result-art {
   display: inline-flex;
-  animation: phonics-blend-born 900ms ease-out both;
+  animation: phonics-blend-born 580ms ease-out both;
 }
 .phonics-blend-meet {
   position: absolute;
@@ -634,6 +657,7 @@
     animation: none;
   }
   .phonics-blend-stage,
+  .phonics-blend-tile,
   .phonics-tap-card {
     transition-duration: 0ms;
   }
