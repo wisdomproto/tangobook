@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T04:24:47.071Z",
-  "assetCheckedAt": "2026-10-12T04:24:47.071Z",
+  "generatedAt": "2026-10-12T12:48:10.260Z",
+  "assetCheckedAt": "2026-10-12T12:48:10.260Z",
   "rows": [
     {
       "id": "1772085655331",
@@ -5546,30 +5546,7 @@
       "public": true,
       "cover": true,
       "illustrations": { "have": 18, "total": 18, "missing": [], "broken": [] },
-      "ko": {
-        "have": 1,
-        "total": 18,
-        "missing": [
-          "2쪽",
-          "3쪽",
-          "4쪽",
-          "5쪽",
-          "6쪽",
-          "7쪽",
-          "8쪽",
-          "9쪽",
-          "10쪽",
-          "11쪽",
-          "12쪽",
-          "13쪽",
-          "14쪽",
-          "15쪽",
-          "16쪽",
-          "17쪽",
-          "18쪽"
-        ],
-        "broken": []
-      },
+      "ko": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "en": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "english": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "words": { "have": 6, "total": 6, "missing": [], "broken": [] },
@@ -5580,6 +5557,7 @@
           "korean-block",
           "coloring",
           "korean-word-writing",
+          "korean-story-image",
           "korean-object-scene",
           "hidden-object",
           "korean-page-order"
@@ -5642,81 +5620,9 @@
       "public": true,
       "cover": true,
       "illustrations": { "have": 18, "total": 18, "missing": [], "broken": [] },
-      "ko": {
-        "have": 0,
-        "total": 18,
-        "missing": [
-          "1쪽",
-          "2쪽",
-          "3쪽",
-          "4쪽",
-          "5쪽",
-          "6쪽",
-          "7쪽",
-          "8쪽",
-          "9쪽",
-          "10쪽",
-          "11쪽",
-          "12쪽",
-          "13쪽",
-          "14쪽",
-          "15쪽",
-          "16쪽",
-          "17쪽",
-          "18쪽"
-        ],
-        "broken": []
-      },
-      "en": {
-        "have": 0,
-        "total": 18,
-        "missing": [
-          "1쪽",
-          "2쪽",
-          "3쪽",
-          "4쪽",
-          "5쪽",
-          "6쪽",
-          "7쪽",
-          "8쪽",
-          "9쪽",
-          "10쪽",
-          "11쪽",
-          "12쪽",
-          "13쪽",
-          "14쪽",
-          "15쪽",
-          "16쪽",
-          "17쪽",
-          "18쪽"
-        ],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 18,
-        "missing": [
-          "1쪽",
-          "2쪽",
-          "3쪽",
-          "4쪽",
-          "5쪽",
-          "6쪽",
-          "7쪽",
-          "8쪽",
-          "9쪽",
-          "10쪽",
-          "11쪽",
-          "12쪽",
-          "13쪽",
-          "14쪽",
-          "15쪽",
-          "16쪽",
-          "17쪽",
-          "18쪽"
-        ],
-        "broken": []
-      },
+      "ko": { "have": 18, "total": 18, "missing": [], "broken": [] },
+      "en": { "have": 18, "total": 18, "missing": [], "broken": [] },
+      "english": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "words": { "have": 6, "total": 6, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -5725,11 +5631,18 @@
           "korean-block",
           "coloring",
           "korean-word-writing",
+          "korean-story-image",
           "korean-object-scene",
           "hidden-object",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "english-block", "coloring", "english-word-writing"],
+        "en": [
+          "english-line-matching",
+          "english-block",
+          "coloring",
+          "english-word-writing",
+          "english-story-image"
+        ],
         "stored": []
       },
       "coloring": { "ko": 6, "en": 6, "total": 6, "broken": [] },
@@ -7670,18 +7583,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 4, "total": 4, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7694,7 +7597,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 4, "en": 4, "total": 4, "broken": [] },
@@ -7710,18 +7613,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 4, "total": 4, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7734,7 +7627,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 4, "en": 4, "total": 4, "broken": [] },
@@ -7750,18 +7643,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7772,7 +7655,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -7788,18 +7671,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 3, "total": 3, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7812,7 +7685,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 3, "en": 3, "total": 3, "broken": [] },
@@ -7828,18 +7701,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7850,7 +7713,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -7866,18 +7729,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 7, "total": 7, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7890,7 +7743,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 7, "en": 7, "total": 7, "broken": [] },
@@ -7906,18 +7759,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 7, "total": 7, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7930,7 +7773,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 7, "en": 7, "total": 7, "broken": [] },
@@ -7946,18 +7789,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 5, "total": 5, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -7970,7 +7803,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 5, "en": 5, "total": 5, "broken": [] },
@@ -7986,18 +7819,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8008,7 +7831,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -8024,18 +7847,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8046,7 +7859,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["coloring", "english-word-writing"],
+        "en": ["coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8062,18 +7875,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8084,7 +7887,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8100,18 +7903,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8122,7 +7915,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8138,18 +7931,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8160,7 +7943,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -8176,18 +7959,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8198,7 +7971,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8214,18 +7987,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8236,7 +7999,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -8252,18 +8015,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8274,7 +8027,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["coloring", "english-word-writing"],
+        "en": ["coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8290,18 +8043,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8312,7 +8055,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8328,18 +8071,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 6, "total": 6, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8352,7 +8085,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 6, "en": 6, "total": 6, "broken": [] },
@@ -8368,18 +8101,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 5, "total": 5, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8392,7 +8115,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 5, "en": 5, "total": 5, "broken": [] },
@@ -8408,18 +8131,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8430,7 +8143,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -8446,18 +8159,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8468,7 +8171,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["coloring", "english-word-writing"],
+        "en": ["coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8484,18 +8187,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 5, "total": 5, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8508,7 +8201,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 5, "en": 5, "total": 5, "broken": [] },
@@ -8524,18 +8217,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8546,7 +8229,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -8562,18 +8245,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 5, "total": 5, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8586,7 +8259,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 5, "en": 5, "total": 5, "broken": [] },
@@ -8602,18 +8275,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 5, "total": 5, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8626,7 +8289,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 5, "en": 5, "total": 5, "broken": [] },
@@ -8642,18 +8305,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 4, "total": 4, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8666,7 +8319,7 @@
           "korean-object-scene",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "coloring", "english-word-writing"],
+        "en": ["english-line-matching", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 4, "en": 4, "total": 4, "broken": [] },
@@ -8682,18 +8335,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 3, "total": 3, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8705,7 +8348,13 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "english-block", "coloring", "english-word-writing"],
+        "en": [
+          "english-line-matching",
+          "english-block",
+          "coloring",
+          "english-word-writing",
+          "english-story-image"
+        ],
         "stored": []
       },
       "coloring": { "ko": 3, "en": 3, "total": 3, "broken": [] },
@@ -8721,18 +8370,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8743,7 +8382,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8759,18 +8398,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8781,7 +8410,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8797,18 +8426,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8819,7 +8438,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8835,18 +8454,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 2, "total": 2, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8857,7 +8466,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 2, "en": 2, "total": 2, "broken": [] },
@@ -8873,18 +8482,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8895,7 +8494,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8911,18 +8510,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 3, "total": 3, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8934,7 +8523,13 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-line-matching", "english-block", "coloring", "english-word-writing"],
+        "en": [
+          "english-line-matching",
+          "english-block",
+          "coloring",
+          "english-word-writing",
+          "english-story-image"
+        ],
         "stored": []
       },
       "coloring": { "ko": 3, "en": 3, "total": 3, "broken": [] },
@@ -8950,18 +8545,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -8972,7 +8557,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },
@@ -8988,18 +8573,8 @@
       "cover": true,
       "illustrations": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "ko": { "have": 10, "total": 10, "missing": [], "broken": [] },
-      "en": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
-      "english": {
-        "have": 0,
-        "total": 10,
-        "missing": ["1쪽", "2쪽", "3쪽", "4쪽", "5쪽", "6쪽", "7쪽", "8쪽", "9쪽", "10쪽"],
-        "broken": []
-      },
+      "en": { "have": 10, "total": 10, "missing": [], "broken": [] },
+      "english": { "have": 10, "total": 10, "missing": [], "broken": [] },
       "words": { "have": 1, "total": 1, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
@@ -9010,7 +8585,7 @@
           "korean-story-image",
           "korean-page-order"
         ],
-        "en": ["english-block", "coloring", "english-word-writing"],
+        "en": ["english-block", "coloring", "english-word-writing", "english-story-image"],
         "stored": []
       },
       "coloring": { "ko": 1, "en": 1, "total": 1, "broken": [] },

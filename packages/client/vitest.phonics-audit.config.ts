@@ -5,6 +5,6 @@ export default {
     ...client.test,
     environment: 'node',
     setupFiles: [],
-    include: ['scripts/phonics-scene-audit.test.ts'],
+    include: ['scripts/phonics-scene-audit.test.ts', 'scripts/phonics-asset-audit.test.ts'],
   },
 };

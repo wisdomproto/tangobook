@@ -2,12 +2,12 @@
 
 - id: 20261012-library-missing-tts
 - domain: content
-- status: active
+- status: complete
 - updated: 2026-10-12
 - branch: codex/library-content-audit
 - worktree: C:/Users/101024/.codex/worktrees/changjak-narration-main/tangobook
 - integration: local work in progress
-- delivery: 생성·검증·운영 연결 진행, 이 후속 작업 main push 미요청
+- delivery: 37권403개 생성·검사·운영 등록·CDN 검증 완료, 이 후속 작업 main push 미요청
 
 사용자가 삽화 작업 main push에 이어 `그리고 tts 누락된거 다시 만들고`라고 요청했다. 직전 전체 조사에서 확인한 KO/EN 누락을 대상으로 준비했다. 기존 승인 Qwen Voicebox 한글/영어 프로필,1.7B·언어별0.85속도·24kHz mono96kbps MP3를 사용하며 기존 음원은 보존한다.
 
@@ -18,6 +18,8 @@
 이 작업의 완료 여부는403개 receipt·검사·운영 등록 후 검증으로 판단한다. 낮은 ASR 점수는 발음 오류 또는 철자 후보이므로 실제 내용을 대조하며 자동 청취 완료로 보고하지 않는다. 일반 오디오 업로드는 BGM 등록을 수반하므로 사용하지 않고 이전 나레이션 작업의 R2 content-addressed 업로드/최신 책 필드 보존 패턴을 사용한다.
 
 ## 생성·검사 진행 기록
+
+2026-10-12 18:46 KST 완료: `registration/complete.json`의 books37/planned403/registered403, completedAt `2026-10-12T09:46:39.853Z`, sourcesAndUnrelatedFieldsPreserved true를 확인했다. 35개 한글과368개 영어 모두 운영 연결 및 CDN MP3 SHA 검증을 마쳤다. 아래 초기 등록/진행 문구는 당시 이력이다. 새 파닉스505개는 미사용12지신으로 확인되어 [후속 삭제](../../phonics/tasks/20261012-unused-zodiac-removal.md)했으며 이403개를 다시 생성하지 않는다.
 
 영어36권·368쪽 번역을 모두 원문과 대조하고 [번역 파일](../../../library-books/translations/README.md)에 source SHA와 함께 보관했다. 운영 원문은 그대로다. 유치원13권 p3의 원문 짝꿍 관계가 앞뒤로 달라 보이는 부분은 번역에 원문대로 유지했으며, 본문 수정은 이번 TTS 범위에 넣지 않았다.
 
@@ -41,3 +43,5 @@ node scripts/library-missing-tts-register.mjs apply --follow
 ```
 
 Hidden 백그라운드 실행을 유지하고 `generate-job.json`, `registration/status.json` 및 각 stdout/stderr로 현재 상태를 확인한다. `stop-after-current.request`가 있으면 생성기가 현재 음원까지 완료하고 정지한다. 새 seed 보정 전에 이 정지를 사용하며, 기존 실패 파일을 다른 폴더로 보존한 후 flag를 제거하고 재개한다. ASR worker가 생성기 정지 시 끝났는지 확인해 필요하면 재시작한다. 원본·음원·로그·개인 세션/자격증명은 커밋하지 않는다.
+
+2026-10-12 후속 재조사: fresh1215일반책의 한영TTS 누락/깨진 객체0을 재확인했다. [12지신 제외 재조사](../../phonics/tasks/20261012-active-content-reaudit.md)의 Library Master snapshot을 로컬 갱신했다.
