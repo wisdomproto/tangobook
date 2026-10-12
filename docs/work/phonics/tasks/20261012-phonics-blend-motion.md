@@ -2,12 +2,13 @@
 
 - id: 20261012-phonics-blend-motion
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: 6d1bb58f0
 - branch: codex/phonics-blend-motion
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - delivery: 미푸시·미배포
+- integration: 4f51452a4 코드/기억을 로컬 main에 fast-forward 통합
 
 ## 요청·반증
 
@@ -26,3 +27,5 @@
 - client typecheck/변경 ESLint0오류/client build45.54초 통과. 기존 Lottie eval/locale 동적·정적 import/큰 chunk 경고 유지.
 - 실제 ㄱ+ㅏ→가·ㄱ+ㅗ→고·가+ㅇ 합성을 브라우저 조작. CSS DOM 확인으로 현재 차례 하나만 invite 애니메이션을 가지며 탭 뒤 자음 none/모음 invite로 이동함을 확인. 합성 잠금·완성→다음 짝 정상. 375×812 가로 넘침0, 812×375 받침 두 타일/목록 표시 확인.
 - `C:/project/tangobook/output/phonics-blend-motion-20261012/`에 실제 화면 PNG 보관. 정지 PNG는 완성/배치 증거이고 전체 애니메이션/FPS를 보증하지 않는다. 실물 기기/FPS 측정은 별도. 임시 뷰포트는 해제.
+
+최종 자연 크기에서 합성 직후 연속8프레임을 캡처해 글자 탄성·빛·주변 꽃잎/방울이 실제 나타나며 글자 얼굴을 덮지 않는지 확인했다(`frame-3.png`, `frame-6.png`). Vite5186/API3500 기존 서버를 유지하고 사용자 기본 합성 주소를 열어두었다. 다른 Rive/Remotion·서버·lockfile 변경 없음. 원격 push는 요청되지 않았다.
