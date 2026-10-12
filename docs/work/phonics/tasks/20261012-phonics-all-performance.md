@@ -55,4 +55,4 @@
 
 ## 통합
 
-코드와 기록을 함께 로컬 커밋한 뒤 로컬 main에 fast-forward한다. 커밋 SHA는 Git 기록으로 확인한다.
+코드·회귀·기록을 함께 e77ba39bc로 커밋하고 로컬 main에 fast-forward 통합 완료. 원격 push/배포 없음. API3500(scheduler off)·Vite5186 유지.
