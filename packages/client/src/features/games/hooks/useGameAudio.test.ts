@@ -1,3 +1,4 @@
+import * as effects from '../effects/learning-effects';
 import { describe, it, expect, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useGameAudio } from './useGameAudio';
@@ -68,5 +69,32 @@ describe('useGameAudio.playAudio', () => {
     const next = vi.fn();
     act(() => result.current.playAudio(undefined, next));
     expect(next).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('learning success response', () => {
+  it('uses a richer response on the third success, resets after a retry and when leaving', () => {
+    const spy = vi.spyOn(effects, 'emitLearningEffect').mockImplementation(() => {});
+    const { result } = renderHook(() => useGameAudio());
+    act(() => {
+      result.current.playFeedbackSound(true);
+      result.current.playFeedbackSound(true);
+      result.current.playFeedbackSound(true);
+      result.current.playFeedbackSound(false);
+      result.current.playFeedbackSound(true);
+    });
+    expect(spy.mock.calls.map(([kind]) => kind)).toEqual([
+      'correct',
+      'correct',
+      'streak',
+      'retry',
+      'correct',
+    ]);
+    act(() => {
+      result.current.stopAll();
+      result.current.playFeedbackSound(true);
+    });
+    expect(spy.mock.calls.at(-1)).toEqual(['correct']);
+    spy.mockRestore();
   });
 });

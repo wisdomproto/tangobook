@@ -1,3 +1,4 @@
+import { ToyHangul } from '../components/ToyHangul';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -84,6 +85,7 @@ export function VowelSyllablePickerActivity({
             const done = made.has(v.vowel);
             return (
               <button
+                data-learning-fx="tap"
                 key={v.vowel}
                 onClick={() => setPicked(v.vowel)}
                 className={[
@@ -105,7 +107,7 @@ export function VowelSyllablePickerActivity({
                 <span
                   className={`text-8xl sm:text-9xl font-black leading-none ${done ? 'text-mint-600' : 'text-coral-600'}`}
                 >
-                  {v.vowel}
+                  {mode === 'listen' ? <ToyHangul text={v.vowel} /> : v.vowel}
                 </span>
               </button>
             );

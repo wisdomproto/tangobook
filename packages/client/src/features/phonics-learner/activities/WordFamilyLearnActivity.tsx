@@ -523,6 +523,7 @@ function Cell({
   };
   return (
     <motion.button
+      data-learning-fx="tap"
       onClick={onClick}
       animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
       transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}

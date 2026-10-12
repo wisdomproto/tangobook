@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -218,7 +219,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
          *    (마지막 칸은 칭찬까지 끝나고 덮개가 걷힌다.)
          */
         say(current.w.ttsUrl, () =>
-          playAudio('/sounds/game/correct.mp3', () => {
+          playAudio(LEARNING_SOUNDS.correct, () => {
             if (!isLast) {
               scheduleTimer(() => setTapped((t) => t + 1), REST_MS);
               return;
@@ -235,7 +236,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       const found = spots.find((s) => hit(s.h));
       if (!found) return;
       playUi('tap');
-      say(found.w.ttsUrl, () => playAudio('/sounds/game/correct.mp3'));
+      say(found.w.ttsUrl, () => playAudio(LEARNING_SOUNDS.correct));
     },
     [spots, allDone, current, tapped, say, playAudio, playCorrectSequence, scheduleTimer, goNext]
   );
@@ -295,6 +296,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             const hasTts = !!sb.phonicsLesson?.blending?.[i]?.blendingSequenceTtsUrl;
             return (
               <button
+                data-learning-fx="tap"
                 key={i}
                 onClick={() => handleLetterTabClick(i)}
                 className={`inline-flex items-baseline gap-0.5 sm:gap-1 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-soft transition-all ${

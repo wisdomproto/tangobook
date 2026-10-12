@@ -1,3 +1,5 @@
+import { ToyHangul } from '../components/ToyHangul';
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -191,7 +193,7 @@ export function VowelListenActivity({
           //    맞췄다는 느낌도 없이 문제가 지나갔다(콜백으로 끝을 확인하므로 길이 가정 아님).
           const [next, ...rest] = quizQueue;
           setQuizQueue(rest);
-          playAudio('/sounds/game/correct.mp3', () => {
+          playAudio(LEARNING_SOUNDS.correct, () => {
             if (advanceRef.current) clearTimeout(advanceRef.current);
             advanceRef.current = window.setTimeout(() => setQuizCurrent(next), REST_MS);
           });
@@ -270,6 +272,7 @@ export function VowelListenActivity({
             const isSolved = !isListenPhase && solved.has(i);
             return (
               <button
+                data-learning-fx={isListenPhase ? 'listen' : 'tap'}
                 key={v.vowel}
                 onClick={() =>
                   isListenPhase
@@ -305,7 +308,7 @@ export function VowelListenActivity({
                 <div
                   className={`text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`}
                 >
-                  {v.vowel}
+                  <ToyHangul text={v.vowel} />
                 </div>
                 <div
                   className={`text-lg sm:text-xl font-black mt-3 ${isSolved ? 'text-mint-600' : 'text-ink-500'}`}
@@ -320,12 +323,14 @@ export function VowelListenActivity({
         {isListenPhase && listenedAll && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              data-learning-fx="tap"
               onClick={resetListen}
               className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
+              data-learning-fx="tap"
               onClick={startQuiz}
               className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
@@ -336,6 +341,7 @@ export function VowelListenActivity({
 
         {phase === 'quiz' && !starting && quizCurrent !== null && (
           <button
+            data-learning-fx="tap"
             onClick={() => playVowel(vowels[quizCurrent].sound ?? vowels[quizCurrent].vowel)}
             className="px-6 py-3 rounded-full bg-white shadow-soft text-ink-700 font-black text-lg"
           >
@@ -346,12 +352,14 @@ export function VowelListenActivity({
         {phase === 'done' && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              data-learning-fx="tap"
               onClick={restartAll}
               className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
+              data-learning-fx="tap"
               onClick={onBack}
               className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >

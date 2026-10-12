@@ -212,6 +212,7 @@ function StoryImagePlayerInner({
             />
           )}
           <button
+            data-learning-fx="tap"
             onClick={replayAudio}
             className="min-h-12 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-peach-100 text-ink-900 font-bold hover:bg-peach-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
           >
@@ -228,6 +229,7 @@ function StoryImagePlayerInner({
               feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);
             return (
               <button
+                data-learning-fx="tap"
                 key={url}
                 onClick={() => handleSelect(url)}
                 disabled={!!feedback}
@@ -262,7 +264,7 @@ function StoryImagePlayerInner({
 
       {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
           필요 시 아래 블록 풀기:
-          <button onClick={handleHintStart} disabled={hintActive || isTutorialPlaying || !!feedback}
+          <button data-learning-fx="tap" onClick={handleHintStart} disabled={hintActive || isTutorialPlaying || !!feedback}
             className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-black text-lg shadow-soft">
             🪄 도와줘
           </button> */}

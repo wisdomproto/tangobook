@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { composeHangul } from '@tangobook/shared';
@@ -211,7 +212,7 @@ export function LetterHuntActivity({
        *    소리를 다 들을 때까지 맞았는지 모른다(낱말 쓰기가 이미 이 순서다).
        *    한 칸마다 울리므로 라운드 끝에서 따로 울리지 않는다 — 그러면 띵동이 두 번이다.
        */
-      playAudio('/sounds/game/correct.mp3', () =>
+      playAudio(LEARNING_SOUNDS.correct, () =>
         scheduleTimer(() => {
           if (!isRoundDone) {
             say(card.sound);
@@ -284,6 +285,7 @@ export function LetterHuntActivity({
           {done ? t('hunt.done') : t('hunt.prompt')}
         </h2>
         <button
+          data-learning-fx="tap"
           onClick={() => say(card.sound)}
           className="px-6 py-2 rounded-3xl bg-coral-700 text-white shadow-soft font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
           aria-label={t('hunt.letterSound', { letter: card.letter })}
@@ -297,6 +299,7 @@ export function LetterHuntActivity({
             const got = found.includes(idx);
             return (
               <button
+                data-learning-fx="tap"
                 key={idx}
                 onClick={() => handleTap(idx)}
                 disabled={got || done}

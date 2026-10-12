@@ -40,7 +40,7 @@ describe('useActivitySound', () => {
   it('소리와 띵동 사이에 쉼을 넣는다', async () => {
     const { result } = renderHook(() => useActivitySound({ unitId: 'u1', prefix: 'test' }));
     await act(() => result.current.sayThenChime('고기'));
-    expect(played.map((p) => p.url)).toEqual(['blob:word', '/sounds/game/correct.mp3']);
+    expect(played.map((p) => p.url)).toEqual(['blob:word', '/sounds/learning/correct.mp3']);
     expect(played[1].at - played[0].at).toBeGreaterThanOrEqual(REST_MS);
   });
 

@@ -243,6 +243,7 @@ export function ReviewWriteActivity({
               </div>
             ) : (
               <button
+                data-learning-fx="tap"
                 onClick={() => say(current)}
                 aria-label={t('common.listenAgain')}
                 className="w-full h-full flex items-center justify-center bg-coral-700 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"

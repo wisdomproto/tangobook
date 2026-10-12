@@ -68,6 +68,7 @@ export function ActivityShell({ onBack, headerRight, scroll = false, children }:
   );
   return (
     <div
+      data-effects-embedded={embedded || undefined}
       className={[
         // 🔴 embedded 는 **자기 상자 안에만** 그린다 — `fixed inset-0` 이면 블로그 글 위를 덮는다.
         //    높이를 정해 주는 건 감싸는 쪽(`PhonicsTryIt`)이고, 여기선 그 높이를 채우기만 한다.

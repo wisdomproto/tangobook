@@ -92,6 +92,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
             <span className="ml-2 text-ink-700">{t('alphabetWrite.titleShort')}</span>
           </h2>
           <button
+            data-learning-fx="tap"
             onClick={onClose}
             className="w-10 h-10 rounded-full bg-white/90 shadow-soft text-xl font-black text-ink-500 hover:text-ink-900 transition-colors"
             title={t('common.close')}

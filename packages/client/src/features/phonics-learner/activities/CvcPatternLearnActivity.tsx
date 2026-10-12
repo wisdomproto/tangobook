@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -160,7 +161,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         // 줄을 완성하면 띵동만 — `an` 을 순수하게 배운다(타겟 단어는 안 붙인다, 2026-08-09 사용자).
         // 🔴 글자 소리 끝 → **쉼** → 띵동. 실측 간격이 0ms 라 한 덩어리로 들렸다.
         rest(() =>
-          playAudio('/sounds/game/correct.mp3', () => {
+          playAudio(LEARNING_SOUNDS.correct, () => {
             if (willAllComplete) rest(() => playCorrectSequence({ language: praiseLang() }));
           })
         );
@@ -201,7 +202,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           // 🔴 예문은 여기서 안 읽는다(2026-08-06 사용자) — 써보기에서 낱말을 완성하면 그때 예문
           //    (텍스트+소리)을 준다. 여기선 소리 끝 → 쉼 → 띵동 → (마지막 행이면) Phase C 로 자동 진입.
           rest(() =>
-            playAudio('/sounds/game/correct.mp3', () => {
+            playAudio(LEARNING_SOUNDS.correct, () => {
               if (willAllComplete) {
                 setTimeout(() => setPhase('C'), 600);
               }
@@ -254,7 +255,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           identifierPrefix: 'en-cvc',
         });
         // 띵동 먼저, 끝나면 이어읽기(단일 채널이라 동시에 내면 앞소리가 잘린다).
-        playAudio('/sounds/game/correct.mp3', () => {
+        playAudio(LEARNING_SOUNDS.correct, () => {
           if (url) playAudio(url);
         });
       })();
@@ -303,7 +304,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       // 🔴 낱말 → **띵동(완성 축하)** → 쉼 → (예문 텍스트+소리) → 다음. 예문 없으면 띵동 → 다음.
       //    2026-08-06 사용자: 예문 넣으면서 완성 효과음이 빠졌다("사이에 효과음이 없어").
       const afterWord = () => {
-        playAudio('/sounds/game/correct.mp3', () => {
+        playAudio(LEARNING_SOUNDS.correct, () => {
           if (cw.sentence && sentenceUrl) {
             setShownSentence(cw.sentence);
             rest(() => playAudio(sentenceUrl, advance));
@@ -402,12 +403,14 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         {phase === 'A' && phaseADone && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              data-learning-fx="tap"
               onClick={restart}
               className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
+              data-learning-fx="tap"
               onClick={() => {
                 clearQueue(); // 🔴 큐에 쌓인 소리 비우고 다음 장은 처음부터
                 setPhase('B');
@@ -492,6 +495,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 const active = writeCurrentWordIdx === w;
                 return (
                   <button
+                    data-learning-fx="tap"
                     key={cw.word}
                     onClick={() => !wDone && setWriteCurrentWordIdx(w)}
                     disabled={wDone}
@@ -549,12 +553,14 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         {phase === 'done' && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              data-learning-fx="tap"
               onClick={restart}
               className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
+              data-learning-fx="tap"
               onClick={onBack}
               className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
@@ -606,6 +612,7 @@ function Cell({
   };
   return (
     <motion.button
+      data-learning-fx="tap"
       onClick={onClick}
       animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
       transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}

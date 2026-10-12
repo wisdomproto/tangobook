@@ -1,3 +1,5 @@
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
+import { ToyHangul } from '../components/ToyHangul';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -88,6 +90,7 @@ export function ConsonantTapActivity({
       if (completed) return;
       const cur = tapCounts[idx] ?? 0;
       if (cur >= TAPS_PER_CARD) return;
+      if (cur + 1 === TAPS_PER_CARD) emitLearningEffect('reveal');
       const next = cur + 1;
       const nextTaps = tapCounts.map((c, i) => (i === idx ? next : c));
       setTapCounts(nextTaps);
@@ -132,6 +135,7 @@ export function ConsonantTapActivity({
             const word = cardWords[i];
             return (
               <button
+                data-learning-fx="tap"
                 key={i}
                 onClick={() => handleTap(i)}
                 disabled={done}
@@ -159,7 +163,7 @@ export function ConsonantTapActivity({
                 ) : (
                   <>
                     <div className="text-6xl sm:text-7xl md:text-8xl font-black text-coral-600 leading-none">
-                      {consonant}
+                      <ToyHangul text={consonant} className="!w-[1.35em] !h-[1.35em]" />
                     </div>
                     {/* 진행 dots */}
                     <div className="absolute bottom-3 flex gap-1.5">

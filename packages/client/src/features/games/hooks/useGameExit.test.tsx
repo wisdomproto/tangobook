@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { useGameExit } from './useGameExit';
@@ -83,7 +83,7 @@ describe('game completion and host dismissal', () => {
       </MemoryRouter>
     );
     await user.click(screen.getByLabelText('그림 고르기'));
-    expect(screen.getByRole('button', { name: /다시 하기/ })).toBeVisible();
+    await waitFor(() => expect(screen.getByRole('button', { name: /다시 하기/ })).toBeVisible());
     await user.click(screen.getByRole('button', { name: /다시 하기/ }));
     await user.click(screen.getByLabelText('그림 고르기'));
     await user.click(screen.getByRole('button', { name: '확인' }));

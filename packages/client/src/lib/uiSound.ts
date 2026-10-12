@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 /**
  * 전역 UI 효과음 — 버튼 탭, 모달 열고닫기, 별/보상, 책 펼침·페이지 넘김, 재생 등.
  *
@@ -20,7 +21,9 @@ export type UiSoundName =
   | 'reward'
   | 'success'
   | 'play'
-  | 'draw';
+  | 'draw'
+  | 'learning-tap'
+  | 'learning-complete';
 
 const ALL_SOUNDS: UiSoundName[] = [
   'tap',
@@ -54,6 +57,8 @@ const pools = new Map<UiSoundName, HTMLAudioElement[]>();
 const cursor = new Map<UiSoundName, number>();
 
 function url(name: UiSoundName): string {
+  if (name === 'learning-tap') return LEARNING_SOUNDS.tap;
+  if (name === 'learning-complete') return LEARNING_SOUNDS.complete;
   return `/sounds/ui/${name}.mp3`;
 }
 
@@ -121,6 +126,13 @@ export function subscribeUiMuted(listener: () => void): () => void {
  */
 export function playUi(name: UiSoundName, rate = 1): void {
   if (muted || typeof window === 'undefined') return;
+  if (name.startsWith('learning-')) {
+    try {
+      if (localStorage.getItem('tangobook-game-muted') === 'true') return;
+    } catch {
+      /* unavailable storage */
+    }
+  }
   const pool = ensurePool(name);
   const i = cursor.get(name) ?? 0;
   cursor.set(name, (i + 1) % pool.length);

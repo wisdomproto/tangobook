@@ -1,3 +1,9 @@
+import {
+  emitLearningEffect,
+  prepareLearningEffects,
+  clearLearningEffects,
+  type LearningEffectKind,
+} from '../effects/learning-effects';
 import { useRef, useCallback, useEffect, useState } from 'react';
 import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
 import { settingsApi } from '@/features/settings/api/settings.api';
@@ -18,6 +24,10 @@ let currentFinish: (() => void) | null = null;
 /** 게임 공통 오디오 훅 — TTS 재생 + 정답/오답 효과음 + 칭찬 시퀀스 */
 export function useGameAudio() {
   const { playCorrect, playIncorrect } = useGameSound();
+  useEffect(() => {
+    prepareLearningEffects();
+    return clearLearningEffects;
+  }, []);
 
   // playCorrectSequence 내부 setTimeout 들을 모아 언마운트 시 clearTimeout
   const pendingTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
@@ -26,6 +36,7 @@ export function useGameAudio() {
   // 🔴 세대 토큰 — `stopAll()` 이 올리면 진행 중이던 재생 체인의 onEnded 가 다음 걸 트리거하지 않는다.
   //    (오디오를 pause/src='' 하면 'error'→finish 가 도는데, 그때 세대가 어긋나면 콜백을 안 부른다.)
   const genRef = useRef(0);
+  const successRef = useRef(0);
 
   // 시스템 칭찬 음원 라이브러리 자동 로드
   useEffect(() => {
@@ -77,7 +88,15 @@ export function useGameAudio() {
 
   // 기존 WebAudio 톤 합성 제거 → useGameSound에 위임
   const playFeedbackSound = useCallback(
-    (correct: boolean) => {
+    (correct: boolean, effect: LearningEffectKind = 'correct') => {
+      successRef.current = correct ? successRef.current + 1 : 0;
+      emitLearningEffect(
+        correct
+          ? effect === 'correct' && successRef.current % 3 === 0
+            ? 'streak'
+            : effect
+          : 'retry'
+      );
       if (correct) playCorrect();
       else playIncorrect();
     },
@@ -93,6 +112,8 @@ export function useGameAudio() {
    *    (오디오 pause 시 'error'→finish 가 다음 걸 트리거하는 함정 회피), 예약 타이머·오디오를 다 지운다.
    */
   const stopAll = useCallback(() => {
+    clearLearningEffects();
+    successRef.current = 0;
     genRef.current++;
     pendingTimersRef.current.forEach((id) => clearTimeout(id));
     pendingTimersRef.current.clear();
@@ -116,11 +137,11 @@ export function useGameAudio() {
 
   /**
    * 단어 한 개 정답 — 효과음 → TTS(선택, 끝까지 재생) → onDone. 호리/칭찬음원 X (4-5세 부담 ↓).
-   * 사용자 정책 (2026-05-10): 단어 1개 맞출 때는 호리/칭찬 X, 모든 단어 맞으면 GameResultScreen 호리.
+   * 사용자 정책 (2026-05-10): 단어 1개 맞출 때는 호리/칭찬 X, 모든 단어를 맞히면 GameResultScreen 완성 연출(2026-10-12 호리 제거).
    */
   const playWordCorrect = useCallback(
     (opts?: { ttsUrl?: string; onDone?: () => void }) => {
-      playFeedbackSound(true);
+      playFeedbackSound(true, 'word');
       scheduleTimer(() => {
         if (opts?.ttsUrl) {
           playAudio(opts.ttsUrl, () => opts.onDone?.());

@@ -121,6 +121,7 @@ export function VowelWriteActivity({
           const active = i === currentIdx;
           return (
             <button
+              data-learning-fx="tap"
               key={v.vowel}
               onClick={() => !done && setCurrentIdx(i)}
               disabled={done}

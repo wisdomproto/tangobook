@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -199,7 +200,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
           })
         : undefined;
       // 🔴 띵동 → **쉼** → 이어읽기. 붙여 내면 한 덩어리로 들린다(공용 규칙, `useActivitySound`).
-      playAudio('/sounds/game/correct.mp3', () => {
+      playAudio(LEARNING_SOUNDS.correct, () => {
         if (blendUrl) scheduleTimer(() => playAudio(blendUrl), REST_MS);
       });
 
@@ -234,6 +235,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
               const active = currentWordIdx === w;
               return (
                 <button
+                  data-learning-fx="tap"
                   key={cw.word}
                   onClick={() => !wordDone && setCurrentWordIdx(w)}
                   disabled={wordDone}

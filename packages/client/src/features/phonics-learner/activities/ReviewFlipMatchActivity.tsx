@@ -153,7 +153,7 @@ export function ReviewFlipMatchActivity({
                 onDone: onComplete,
               });
             } else {
-              playFeedbackSound(true);
+              playFeedbackSound(true, 'match');
             }
           })
         );
@@ -205,6 +205,7 @@ export function ReviewFlipMatchActivity({
               // 낱말 줄은 **항상 자리를 차지한다** — 뒤집을 때만 생기면 격자가 통째로 흔들린다.
               <div key={tile.id} className="flex flex-col items-center">
                 <button
+                  data-learning-fx="tap"
                   onClick={() => handleTap(tile)}
                   aria-label={isOpen ? tile.card.word || tile.card.letter : t('flip.flip')}
                   className={[

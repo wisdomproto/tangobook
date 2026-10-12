@@ -641,6 +641,7 @@ function KoreanBlockPlayerInner({
               )}
             >
               <button
+                data-learning-fx="tap"
                 type="button"
                 onClick={() => void handleReadBoard()}
                 disabled={!composedText || roundCorrect}
@@ -654,6 +655,7 @@ function KoreanBlockPlayerInner({
                 🔊 확인
               </button>
               <button
+                data-learning-fx="tap"
                 type="button"
                 onClick={handleNext}
                 className={cn(
@@ -682,6 +684,7 @@ function KoreanBlockPlayerInner({
               {!camera && (
                 <>
                   <button
+                    data-learning-fx="tap"
                     onClick={handleUndo}
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
@@ -689,6 +692,7 @@ function KoreanBlockPlayerInner({
                     ↩ 되돌리기
                   </button>
                   <button
+                    data-learning-fx="tap"
                     onClick={handleResetGrid}
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
@@ -698,6 +702,7 @@ function KoreanBlockPlayerInner({
                 </>
               )}
               <button
+                data-learning-fx="tap"
                 onClick={() => {
                   setCamera((v) => !v);
                   clearBoard();

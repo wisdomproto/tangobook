@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
@@ -239,7 +240,7 @@ export function ConsonantWriteActivity({
           const after = pairs.findIndex((_, i) => i > idx && !made.has(i));
           goTo(after >= 0 ? after : pairs.findIndex((_, i) => !made.has(i)));
         };
-        speak(read, () => playAudio('/sounds/game/correct.mp3', advance));
+        speak(read, () => playAudio(LEARNING_SOUNDS.correct, advance));
       };
 
       /**
@@ -307,6 +308,7 @@ export function ConsonantWriteActivity({
           const done = madeSet.has(i);
           return (
             <button
+              data-learning-fx="tap"
               key={p.syllable}
               onClick={() => !done && goTo(i)}
               disabled={done}
@@ -346,7 +348,7 @@ export function ConsonantWriteActivity({
               const done = next >= 3;
               if (done) setCompleted(true);
               speak(say, () =>
-                playAudio('/sounds/game/correct.mp3', () => {
+                playAudio(LEARNING_SOUNDS.correct, () => {
                   if (done) playCorrectSequence({ language: praiseLang(), onDone: onComplete });
                 })
               );

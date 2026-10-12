@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -442,7 +443,7 @@ export function WordListenChooseActivity({
             playCorrectSequence({ language: praiseLang() });
             return;
           }
-          playAudio('/sounds/game/correct.mp3', () =>
+          playAudio(LEARNING_SOUNDS.correct, () =>
             rest(() => {
               setCorrect(null);
               setQIdx((i) => i + 1);
@@ -544,6 +545,7 @@ export function WordListenChooseActivity({
                   </span>
                 )}
                 <button
+                  data-learning-fx="tap"
                   onClick={() => say(current.answer)}
                   aria-label={t('common.listenAgain')}
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-700 text-white text-4xl sm:text-5xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
@@ -568,6 +570,7 @@ export function WordListenChooseActivity({
         >
           {shownBoard.map((c) => (
             <button
+              data-learning-fx="tap"
               key={idOf(c)}
               // 🔴 카드 크기는 **폭과 높이 둘 다** 본다(`min(vw, vh)`). `aspect-square` + `w-full` 만
               //    두면 세로가 얼마든 정사각이 넓이를 따라가서, 1024×768 에서 제목이 위로 잘리고
@@ -647,6 +650,7 @@ export function WordListenChooseActivity({
         {exploring && (
           // 🔴 "퀴즈" 만으론 무엇을 하는 버튼인지 알 수 없다 — 무슨 퀴즈인지 한 줄로 붙인다.
           <button
+            data-learning-fx="tap"
             onClick={startQuiz}
             className="px-10 py-4 rounded-full bg-coral-700 text-white shadow-soft active:scale-[0.98] transition flex flex-col items-center leading-tight"
           >
@@ -662,12 +666,14 @@ export function WordListenChooseActivity({
             <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
+                data-learning-fx="tap"
                 onClick={restart}
                 className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl shadow-soft active:scale-[0.98] transition"
               >
                 {t('common.retry')}
               </button>
               <button
+                data-learning-fx="tap"
                 onClick={onBack}
                 className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
               >

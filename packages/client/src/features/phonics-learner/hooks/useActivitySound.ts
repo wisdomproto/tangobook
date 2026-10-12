@@ -1,3 +1,5 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { useCallback, useMemo } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -56,7 +58,10 @@ export function useActivitySound({ unitId, language = 'korean', prefix }: Option
   );
 
   const chime = useCallback(
-    (onEnded?: () => void) => playAudio('/sounds/game/correct.mp3', onEnded),
+    (onEnded?: () => void) => {
+      emitLearningEffect('correct');
+      playAudio(LEARNING_SOUNDS.correct, onEnded);
+    },
     [playAudio]
   );
 

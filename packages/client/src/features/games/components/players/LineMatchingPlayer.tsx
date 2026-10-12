@@ -480,6 +480,7 @@ function LineMatchingPlayerInner({
               return (
                 <div key={`img-${imageItemIdx}`} className="relative">
                   <button
+                    data-learning-fx="tap"
                     ref={(el) => {
                       if (el) imageRefs.current.set(imageItemIdx, el);
                       else imageRefs.current.delete(imageItemIdx);
@@ -539,6 +540,7 @@ function LineMatchingPlayerInner({
               return (
                 <div key={`word-${wordItemIdx}`} className="relative">
                   <button
+                    data-learning-fx="tap"
                     ref={(el) => {
                       if (el) wordRefs.current.set(wordItemIdx, el);
                       else wordRefs.current.delete(wordItemIdx);
@@ -613,7 +615,7 @@ function LineMatchingPlayerInner({
 
         {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
             필요 시 아래 블록 풀고 firstUnmatchedIdx 가드 추가:
-            <button
+            <button data-learning-fx="tap"
               onClick={handleHintStart}
               disabled={hintActive || isTutorialPlaying}
               className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-black text-lg shadow-soft hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"

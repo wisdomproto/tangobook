@@ -1,3 +1,5 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -76,6 +78,15 @@ export function LetterFillCanvas({
   /** 글자 mask 픽셀 수 — coverage 분모. drawGuide 시점에 계산. */
   const guidePixelsRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  useEffect(
+    () => () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+    },
+    []
+  );
 
   const calcFont = useCallback((ctx: CanvasRenderingContext2D, text: string) => {
     const fontFamily = pickFontFamily(text);
@@ -232,38 +243,13 @@ export function LetterFillCanvas({
     drawGuide(ctx, letter);
   };
 
-  const playDefaultSound = (correct: boolean) => {
-    try {
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      gain.gain.setValueAtTime(0.3, ctx.currentTime);
-      if (correct) {
-        osc.frequency.setValueAtTime(523, ctx.currentTime);
-        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
-        osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.4);
-      } else {
-        osc.frequency.setValueAtTime(330, ctx.currentTime);
-        osc.frequency.setValueAtTime(262, ctx.currentTime + 0.15);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.35);
-      }
-    } catch {
-      /* no-op */
-    }
-  };
-
   const playSound = useCallback((url: string | undefined, correct: boolean) => {
-    if (!url) {
-      playDefaultSound(correct);
-      return;
+    try {
+      if (localStorage.getItem('tangobook-game-muted') === 'true') return;
+    } catch {
+      /* unavailable storage */
     }
+    url ??= correct ? LEARNING_SOUNDS.correct : LEARNING_SOUNDS.retry;
     if (!audioRef.current) audioRef.current = new Audio(url);
     else audioRef.current.src = url;
     audioRef.current.currentTime = 0;
@@ -284,6 +270,7 @@ export function LetterFillCanvas({
       const passed = cov >= threshold;
       if (silent && !passed) return;
       setResult({ passed, coverage: cov });
+      emitLearningEffect(passed ? 'letter' : 'retry', canvasRef.current);
       playSound(passed ? pickCorrectSound() : incorrectSoundUrl, passed);
       onResult?.(passed, cov);
     },
@@ -298,6 +285,7 @@ export function LetterFillCanvas({
     <div className="flex flex-col items-center gap-3">
       <div className="relative w-full max-w-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
         <canvas
+          data-learning-fx={result ? undefined : 'trace'}
           ref={canvasRef}
           width={CANVAS_W}
           height={CANVAS_H}

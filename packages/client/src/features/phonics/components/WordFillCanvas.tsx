@@ -1,3 +1,4 @@
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -196,7 +197,10 @@ export function WordFillCanvas({
         newlyDone.push(i);
       }
     }
-    if (newlyDone.length) setDoneCount(doneRef.current.filter(Boolean).length);
+    if (newlyDone.length) {
+      setDoneCount(doneRef.current.filter(Boolean).length);
+      emitLearningEffect(doneRef.current.every(Boolean) ? 'word' : 'letter', canvas);
+    }
     const allDone = doneRef.current.every(Boolean);
     // 🔴 이 evaluate 에서 낱말이 **완성되면** 이번에 새로 끝난 글자의 개별 이어읽기(onSyllableDone)는
     //    내지 않는다 — onComplete 가 낱말 전체를 읽으므로 같은 채널에서 겹친다(한 획으로 마지막 두
@@ -329,6 +333,7 @@ export function WordFillCanvas({
           </>
         )}
         <canvas
+          data-learning-fx={doneCount < syllables.length ? 'trace' : undefined}
           ref={canvasRef}
           width={CANVAS_W}
           height={CANVAS_H}
