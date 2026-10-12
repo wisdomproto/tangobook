@@ -2,7 +2,7 @@
 
 - id: 20261012-course-page-visual-design
 - domain: platform
-- status: in_progress
+- status: complete
 - updated: 2026-10-12
 - base: 48e2add33
 - branch: codex/platform-ui-v2
@@ -43,4 +43,4 @@
 
 ## 전달
 
-코드와 디자인 계약·이 기록을 함께 로컬 커밋한 뒤 main에 fast-forward 통합한다. 이번 요청의 push/배포는 하지 않는다. 최종 SHA는 통합 후 기록한다.
+코드·디자인 계약·기록을 31fb42ba4로 로컬 커밋하고 main에 fast-forward 통합했다. root의 기존 비추적 PDF/output/tmp를 보존했다. preview 5185는 갱신된 빌드를 제공한다. 이번 요청의 push/배포 없음.
