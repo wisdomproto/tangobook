@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [Library Master·삽화 main 푸시](../work/content/tasks/20261012-missing-page-illustrations.md): 사용자 승인 후 최신 원격 작업22커밋을 보존 merge하여90c6dc15f를 origin/main에 일반 push·원격 확인. Library Master 개선과10권34장 삽화 등록 기록/누락0 snapshot 포함. 타입/현황5회귀/build 통과, 배포 완료 미확인. 아래 미푸시는 당시 기록이다. TTS 누락 보완은 별도 진행.
+
 2026-10-12 [누락 삽화 보완·실사 교체](../work/content/tasks/20261012-missing-page-illustrations.md): 뼈와 근육의 기존 수채화/영어문구가 photographic 설정과 불일치하여 사용자 승인 후 본문18쪽 실사 교체, 다른9권16쪽 보완. GPT image34장 운영 등록·CDN/다른 필드 보존 검증, Editor2실사18쪽 로딩 확인. 전체 동화1,215권 페이지 삽화 URL 누락0·깨진 객체0으로 Library Master 갱신. 다른 콘텐츠·표지·캐릭터 시트 변경 없음. 로컬 완료, main push 미요청.
 
 2026-10-12 [전체 동화책 조사·Library Master](../work/content/tasks/20261012-library-content-audit.md): 운영 1,310건 읽기 실패0, 동화책1,215권/파닉스95권 구분. 삽화완비1,205·한글TTS1,213·영어TTS/번역1,179. 기본 현황 탭과 누락/카테고리/게임·언어 집계, 상세·CSV·읽기 전용 갱신 제공. 창작850권 본문 삽화/한영TTS 완비이나 영어 어휘 게임/색칠과 숨은그림 없음. 운영 콘텐츠 수정·이번 main push 없음.

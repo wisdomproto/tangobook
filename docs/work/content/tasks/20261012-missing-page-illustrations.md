@@ -2,13 +2,13 @@
 
 - id: 20261012-missing-page-illustrations
 - domain: content
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: 7ee4935b7
 - branch: codex/library-content-audit
 - worktree: C:/Users/101024/.codex/worktrees/changjak-narration-main/tangobook
-- integration: local only
-- delivery: main push 미요청
+- integration: origin/main 포함 확인
+- delivery: 사용자 main push 승인·일반 push 완료
 
 사용자가 전체 조사에서 확인한 10권 21쪽의 삽화를 image skill로 채워 달라고 요청했다. 후속 승인으로 뼈와 근육 이야기는 기존 13장도 교체하여 본문 전체 18쪽을 실사로 재작화했다. 최종 10권 34장을 GPT image 스킬과 포함된 image_gen 도구로 만들고, 실제 참조를 첨부해 각 책의 그림체/인물을 유지했다. WebP 전수 육안 검수 후 운영 등록을 완료했고 본문/번역/음원/게임 등 다른 필드를 보존했다. 등록 전 백업과 충돌 대조, 등록 후 운영/CDN 검증과 library-master 현황 갱신을 수행했다.
 
@@ -49,3 +49,7 @@
 - 생성·참조·등록 전후 백업·CDN 검증·검토 gallery: `D:/tangobook-illustrations/20261012/missing-pages-20261012/`. 초기 프롬프트 작성 스크립트는 같은 백업의 `../script-archives/`에 격리했다. 운영 자격증명 없음.
 - 관련 도구: `scripts/prepare-missing-illustrations.py`(기존 백업 덮어쓰기 차단), `scripts/review-missing-illustrations.py`(변환·gallery, 자동 승인 없음), `scripts/register-missing-illustrations.mjs`(기본 읽기만, 승인 해시34개 검증 후 `--write`일 때 운영 등록, 재개 ledger·충돌/보존 검증).
 - Python 구문·node --check·승인 해시 dry run·등록 실행·snapshot 빌더 실행 및 브라우저 확인 통과. 제품 런타임 코드 변경 없음. 로컬 커밋하며 main push/배포 미요청.
+
+## main 전달
+
+후속 사용자 `메인에 푸시해` 승인으로 Library Master 개선7ee4935b7과 삽화 등록409cc0e5f를 최신 origin/main28a1ad62c에 보존 통합했다. 원격의22커밋을 merge90c6dc15f로 포함했고 공유 메모리 충돌은 두 작업 기록을 모두 유지하여 해결했다. frozen-lockfile 설치·client 타입 검사·현황 회귀5개·client build 통과(기존 번들/locale/lottie 경고 유지). push 직전 origin/main...HEAD=0/3 확인 후 일반 push, 원격main90c6dc15f 확인. 운영 데이터는 이미 등록된 것을 유지하며 다시 덮어쓰지 않았다. Railway 배포 완료는 별도 미확인. 이어 받은 TTS 누락 제작은 별도 작업 기록으로 진행한다.

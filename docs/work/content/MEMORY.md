@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-10-12 후속 [Library Master·삽화 main 전달](tasks/20261012-missing-page-illustrations.md): 사용자 main push 승인으로7ee4935b7/409cc0e5f와 최신 원격22커밋을 보존 merge90c6dc15f, 타입/현황5회귀/build 검증 후 일반 push·원격SHA 확인. 아래 미푸시는 당시 상태다. TTS 누락35KO/368EN 제작은 별도 작업으로 이어간다.
+
 2026-10-12 [누락 삽화 보완·실사 교체](tasks/20261012-missing-page-illustrations.md): 사용자 반증으로 뼈와 근육의 설정(photographic)과 기존13장 수채화/영어문구 불일치 확인. 승인 후18쪽 전체 실사·무문자 재작화, 다른9권16쪽 보완으로34장 GPT image 생성·운영 등록 완료. 다른 필드 보존/CDN34장 및 Editor2실사18쪽 확인. 재수집1,215권 페이지 삽화 URL 누락0·깨진 객체0, Library Master snapshot 갱신. 저장된 그림체 원문과 실제 참조를 먼저 확인하며 초기 잘못 생성한 후보는 제외했다. 백설 일부는 난쟁이/사과 중심 구도로 변경했다. 로컬 완료, main push 미요청.
 
 2026-10-12 [전체 동화책 조사·Library Master](tasks/20261012-library-content-audit.md): 운영 1,310건 읽기 실패0, 동화책1,215권/파닉스95권 구분. 삽화완비1,205·한글TTS1,213·영어TTS/번역1,179. 기본 현황 탭과 누락/카테고리/게임·언어 집계, 상세·CSV·읽기 전용 갱신 제공. 창작850권 본문 삽화/한영TTS 완비이나 영어 어휘 게임/색칠과 숨은그림 없음. 운영 콘텐츠 수정·이번 main push 없음.
