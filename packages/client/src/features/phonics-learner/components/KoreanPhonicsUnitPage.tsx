@@ -19,7 +19,11 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
   const plan = getActivityPlan(unitId);
   const { unitCompletedActivities } = usePhonicsProgress('korean');
   const completed = unitCompletedActivities(unitId);
-  const storybook = useStorybook(unitId).data as Storybook | undefined;
+  const storybook = useStorybook(
+    unit?.isReview || unit?.levelKey === 'hangul-vowels'
+      ? undefined
+      : (unit?.sourceUnitId ?? unitId)
+  ).data as Storybook | undefined;
 
   if (!unit)
     return (

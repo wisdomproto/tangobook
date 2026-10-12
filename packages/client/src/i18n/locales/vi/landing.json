@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Phonics tiếng Hàn {{ko}} bài · Phonics tiếng Anh {{en}} bài + truyện tranh — Tangobook",
-    "description": "Phonics tiếng Hàn 32 bài, từ phụ âm và nguyên âm đến patchim và phụ âm căng, cùng phonics tiếng Anh 39 bài. Rồi những cuốn truyện đọc được ngay bằng chữ vừa học — truyện kinh điển, cổ tích, quan sát thiên nhiên, mỗi tháng lại thêm sách mới. Dùng thử miễn phí một tháng rồi hãy quyết định."
+    "description": "Phonics tiếng Hàn 41 bài, từ phụ âm và nguyên âm đến patchim và phụ âm căng, cùng phonics tiếng Anh 39 bài. Rồi những cuốn truyện đọc được ngay bằng chữ vừa học — truyện kinh điển, cổ tích, quan sát thiên nhiên, mỗi tháng lại thêm sách mới. Dùng thử miễn phí một tháng rồi hãy quyết định."
   },
   "nav": {
     "learn": "Học",
@@ -30,7 +30,7 @@
   "chain": {
     "phonics": {
       "t": "Phonics tiếng Hàn · tiếng Anh",
-      "ko": "Tiếng Hàn 32 bài — ㄹ · patchim ㄴ · patchim ㅂ …",
+      "ko": "Tiếng Hàn 41 bài — ㄹ · patchim ㄴ · patchim ㅂ …",
       "en": "Tiếng Anh 39 bài — Aa Bb Cc · short a · magic e …",
       "alt": "Màn hình ghép âm tiết tiếng Hàn — ㄹ và ㅣ ghép lại thành 리"
     },
@@ -183,7 +183,7 @@
     "kinds": {
       "hangul": {
         "name": "Phiếu học tiếng Hàn",
-        "desc": "32 bài, từ nguyên âm, phụ âm đến phụ âm cuối"
+        "desc": "41 bài, từ nguyên âm, phụ âm đến phụ âm cuối"
       },
       "english": {
         "name": "Phiếu học phonics tiếng Anh",

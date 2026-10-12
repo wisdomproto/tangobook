@@ -142,7 +142,7 @@ function englishParts(u: FlatPhonicsUnit): WorksheetPart[] {
 
 /** 단원의 조각 목록 — 한글은 단원이 곧 한 조각이라 빈 배열. */
 export function worksheetParts(track: 'korean' | 'english', unitId: string): WorksheetPart[] {
-  const u = flattenPhonicsUnits(track).find((x) => x.id === unitId);
+  const u = flattenPhonicsUnits(track, 'authoring').find((x) => x.id === unitId);
   return u && track === 'english' ? englishParts(u) : [];
 }
 
@@ -152,7 +152,7 @@ export function worksheetCells(
   unitId: string,
   part?: string
 ): WorksheetCell[] {
-  const u = flattenPhonicsUnits(track).find((x) => x.id === unitId);
+  const u = flattenPhonicsUnits(track, 'authoring').find((x) => x.id === unitId);
   if (!u) return [];
   if (track === 'korean') return koreanCells(u);
   const parts = englishParts(u);

@@ -1,4 +1,8 @@
-import { KOREAN_PHONICS_CURRICULUM, decomposeHangul, isHangulSyllable } from '@tangobook/shared';
+import {
+  KOREAN_PHONICS_LEARNING_CURRICULUM,
+  decomposeHangul,
+  isHangulSyllable,
+} from '@tangobook/shared';
 
 export interface KoreanPhonicsCell {
   /** 행 헤더 값 — 기본 레벨은 자음, 받침 레벨은 받침. */
@@ -47,7 +51,7 @@ const empty = (levelId: string, levelName: string): KoreanPhonicsGrid => ({
  *    **없을 때** 하는 일이다.
  */
 export function buildKoreanPhonicsGrid(levelId: string): KoreanPhonicsGrid {
-  const level = KOREAN_PHONICS_CURRICULUM.find((l) => l.level === levelId);
+  const level = KOREAN_PHONICS_LEARNING_CURRICULUM.find((l) => l.level === levelId);
   if (!level) return empty(levelId, levelId);
 
   const rows: string[] = [];
@@ -87,7 +91,7 @@ export function buildKoreanPhonicsGrid(levelId: string): KoreanPhonicsGrid {
   };
 }
 
-export const KOREAN_PHONICS_LEVELS = KOREAN_PHONICS_CURRICULUM.map((l) => ({
+export const KOREAN_PHONICS_LEVELS = KOREAN_PHONICS_LEARNING_CURRICULUM.map((l) => ({
   id: l.level,
   name: l.name,
   description: l.description,

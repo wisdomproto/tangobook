@@ -1,13 +1,18 @@
 /**
  * 한글 파닉스 학습자 메타 — 사이드 진입용 unit 목록 + 단원별 활동 구성.
  *
- * 데이터 source: 저작도구의 `KOREAN_PHONICS_CURRICULUM` (`@tangobook/shared`).
+ * 학습 순서: `KOREAN_PHONICS_LEARNING_CURRICULUM` (`@tangobook/shared`), 저작 책 ID 보존.
  * R2 storybook ID 는 `kr-hN-uMM` 형식 (zero-pad).
  *
  * 활동 구성은 unit 마다 다를 수 있어 `KOREAN_UNIT_ACTIVITY_PLAN` 으로 분리.
- * 32 단원 전부 작성됨 — 한글1 은 명시 매핑, 한글2~4 는 `derivedPlans()` 가 커리큘럼에서 파생.
+ * 학습 41단원: Book 1 모음10개 분리, 뒤 권의 기존 활동·복습 ID 보존.
  */
-import { KOREAN_PHONICS_CURRICULUM, composeHangul } from '@tangobook/shared';
+import {
+  KOREAN_PHONICS_CURRICULUM,
+  KOREAN_PHONICS_LEARNING_CURRICULUM,
+  KOREAN_BASIC_VOWEL_LESSONS,
+  composeHangul,
+} from '@tangobook/shared';
 
 export interface KoreanUnitSummary {
   id: string; // 'kr-h1-u01'
@@ -15,7 +20,7 @@ export interface KoreanUnitSummary {
   levelName: string; // '한글1: 기본음절' — 한국어 폴백
   /** `phonics` ns 키(`level.hangul1`). 🔴 레벨명은 UI 어휘라 번역한다(콘텐츠 아님). */
   levelNameKey?: string;
-  levelIndex: number; // 1
+  levelIndex: number; // 화면의 Book 번호(1~5). 저장된 hangulN의 N과 다르다.
   unitIndexInLevel: number; // 1 (1-based)
   unitTitle: string; // 'unit 01: 모음 배우기' — 한국어 폴백
   /** 🔴 「받침」·「모음」 같은 **틀**만 키로 옮기고 글자(ㄱ·ㅐ)는 보간 변수로 남긴다. */
@@ -23,6 +28,8 @@ export interface KoreanUnitSummary {
   unitTitleVars?: Record<string, string | number>;
   phonemes: string[];
   targetWords: string[];
+  /** 저장된 책/음원 source. 모음별 학습 ID와 R2 책 ID는 다르다. */
+  sourceUnitId?: string;
   /** 복습 단원인가 (커리큘럼에 없는 파생 단원). */
   isReview?: boolean;
   /** 복습 단원이 되짚는 학습 단원 ID 들. */
@@ -38,6 +45,8 @@ function unitTitleI18n(
   phonemes: readonly string[]
 ): { unitTitleKey: string; unitTitleVars?: Record<string, string> } {
   const first = phonemes[0] ?? '';
+  if (levelKey === 'hangul-vowels')
+    return { unitTitleKey: 'activity.consonantLearn', unitTitleVars: { letter: first } };
   // 받침 단원 phoneme 은 '받침ㅇ' — 「받침」은 UI 어휘라 떼어내고 글자만 넘긴다.
   if (levelKey === 'hangul2')
     return { unitTitleKey: 'unit.codaLearn', unitTitleVars: { letter: first.replace('받침', '') } };
@@ -51,12 +60,13 @@ function unitTitleI18n(
 /** 커리큘럼 단원만 (복습 제외) — 복습 묶음을 만드는 원본. */
 function getCurriculumUnits(): KoreanUnitSummary[] {
   const out: KoreanUnitSummary[] = [];
-  for (const level of KOREAN_PHONICS_CURRICULUM) {
-    const levelIndex = Number(String(level.level).replace(/\D/g, '')) || 0;
+  for (const level of KOREAN_PHONICS_LEARNING_CURRICULUM) {
+    const levelIndex = level.bookIndex;
     for (let i = 0; i < level.units.length; i++) {
       const u = level.units[i];
       out.push({
         id: u.id,
+        sourceUnitId: 'sourceUnitId' in u ? u.sourceUnitId : u.id,
         levelKey: String(level.level),
         levelName: level.name,
         levelNameKey: `level.${level.level}`,
@@ -136,10 +146,11 @@ export function getAllKoreanUnits(): KoreanUnitSummary[] {
   const curriculum = getCurriculumUnits();
   const out: KoreanUnitSummary[] = [];
 
-  for (const level of KOREAN_PHONICS_CURRICULUM) {
+  for (const level of KOREAN_PHONICS_LEARNING_CURRICULUM) {
     const levelKey = String(level.level);
     const levelUnits = curriculum.filter((u) => u.levelKey === levelKey);
-    const groups = chunkForReview(levelUnits);
+    // Book 1은 한 글자씩 끝낸다. 묶음 복습을 끼워 넣지 않는다.
+    const groups = levelKey === 'hangul-vowels' ? [] : chunkForReview(levelUnits);
     // 묶음의 마지막 단원 id → 그 뒤에 붙일 복습 단원
     const reviewAfter = new Map<string, KoreanUnitSummary>();
     groups.forEach((group, gi) => {
@@ -147,7 +158,8 @@ export function getAllKoreanUnits(): KoreanUnitSummary[] {
       const levelIndex = last.levelIndex;
       const letters = group.map((u) => u.phonemes[0]).filter(Boolean);
       reviewAfter.set(last.id, {
-        id: `kr-h${levelIndex}-r${gi + 1}`,
+        // 권번호가 바뀌어도 기존 복습의 진척 ID는 유지한다.
+        id: `kr-h${levelKey.replace(/\D/g, '')}-r${gi + 1}`,
         levelKey,
         levelName: level.name,
         levelNameKey: `level.${levelKey}`,
@@ -171,7 +183,23 @@ export function getAllKoreanUnits(): KoreanUnitSummary[] {
 }
 
 export function getKoreanUnit(unitId: string): KoreanUnitSummary | undefined {
-  return getAllKoreanUnits().find((u) => u.id === unitId);
+  const current = getAllKoreanUnits().find((u) => u.id === unitId);
+  if (current || unitId !== 'kr-h1-u01') return current;
+  const legacy = KOREAN_PHONICS_CURRICULUM[0].units[0];
+  // 구형 활동 주소는 지원하되 새 과정 목록에는 모음10개 개요를 다시 넣지 않는다.
+  return {
+    id: legacy.id,
+    sourceUnitId: legacy.id,
+    levelKey: 'hangul-vowels',
+    levelName: 'Book 1: 모음',
+    levelNameKey: 'level.hangul-vowels',
+    levelIndex: 1,
+    unitIndexInLevel: 1,
+    unitTitle: legacy.title,
+    unitTitleKey: 'unit.vowelsLearn',
+    phonemes: [...legacy.phonemes],
+    targetWords: [],
+  };
 }
 
 /**
@@ -310,7 +338,7 @@ export interface ActivityDef {
   /** 이 액티비티 unit 완료 판정에 포함? 모음 단원은 vowels 4개만 required, 게임은 단어 없으면 optional */
   required: boolean;
   /** vowel-listen/vowel-write 활동용 — 보여줄 모음 + 음절 쌍 */
-  vowels?: ReadonlyArray<{ vowel: string; syllable: string }>;
+  vowels?: ReadonlyArray<{ vowel: string; syllable: string; writeLetter?: string }>;
   /** consonant-* 활동용 — 학습 대상 자음 (예: 'ㄱ'). */
   consonant?: string;
   /**
@@ -745,12 +773,12 @@ function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityP
 function toReviewCard(u: KoreanUnitSummary): ReviewCard | null {
   const first = u.phonemes[0];
   if (!first) return null;
-  if (u.levelIndex === 2) {
+  if (u.levelKey === 'hangul2') {
     const coda = first.replace('받침', '');
     const syllable = composeHangul('ㅇ', 'ㅏ', coda) || `아${coda}`;
     return { unitId: u.id, letter: coda, syllable, sound: syllable, matchPosition: 'jong' };
   }
-  if (u.levelIndex === 4) {
+  if (u.levelKey === 'hangul4') {
     const syllable = composeHangul('ㅇ', first, null) || first;
     return { unitId: u.id, letter: first, syllable, sound: first, matchPosition: 'jung' };
   }
@@ -867,11 +895,11 @@ function derivedPlans(): Record<string, ActivityPlan> {
     }
     const first = u.phonemes[0];
     if (!first) continue;
-    if (u.levelIndex === 2) {
+    if (u.levelKey === 'hangul2') {
       out[u.id] = makeCodaPlan(first.replace('받침', '')); // '받침ㅇ' → 'ㅇ'
-    } else if (u.levelIndex === 3) {
+    } else if (u.levelKey === 'hangul3') {
       out[u.id] = makeConsonantPlan(first, u.id); // 쌍자음 — 데이터 모양이 한글1 자음과 동일
-    } else if (u.levelIndex === 4) {
+    } else if (u.levelKey === 'hangul4') {
       out[u.id] = makeComplexVowelPlan(u.phonemes, u.id);
     }
   }
@@ -881,6 +909,39 @@ function derivedPlans(): Record<string, ActivityPlan> {
 /** unit ID → 활동 구성. 미정의 unit 은 빈 활동 (잠금 표시). */
 export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   'kr-h1-u01': UNIT_01_PLAN,
+  ...Object.fromEntries(
+    KOREAN_BASIC_VOWEL_LESSONS.map((lesson) => [
+      lesson.id,
+      {
+        activities: [
+          {
+            key: 'listen-1',
+            order: 1,
+            kind: 'vowel-listen',
+            section: 'learn',
+            title: `${lesson.vowel} 익히기`,
+            titleKey: 'activity.consonantLearn',
+            titleVars: { letter: lesson.vowel },
+            emoji: '👂',
+            required: true,
+            vowels: [{ vowel: lesson.vowel, syllable: lesson.sound }],
+          },
+          {
+            key: 'write-1',
+            order: 2,
+            kind: 'vowel-write',
+            section: 'learn',
+            title: `${lesson.vowel} 써보기`,
+            titleKey: 'activity.consonantWrite',
+            titleVars: { letter: lesson.vowel },
+            emoji: '✏️',
+            required: true,
+            vowels: [{ vowel: lesson.vowel, syllable: lesson.sound, writeLetter: lesson.vowel }],
+          },
+        ],
+      } as ActivityPlan,
+    ])
+  ),
   ...Object.fromEntries(
     Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c, unitId)])
   ),

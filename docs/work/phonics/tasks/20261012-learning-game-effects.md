@@ -2,7 +2,7 @@
 
 - id: 20261012-learning-game-effects
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: e12a07a6a (origin/main 28a1ad62c, 기존 인쇄 시안 2커밋 보존)
 - branch: codex/platform-ui-v2
@@ -59,4 +59,4 @@ Vite5186 `/learning-effects-preview.html`은 production route가 없는 local en
 
 ## 인계
 
-코드·그림·효과음·생성 기록을 같은 로컬 커밋으로 보존한다. main 통합 후 상태/MEMORY를 갱신한다. 이번 작업 원격 push/배포는 요청받지 않았다.
+코드·그림·효과음·생성 기록은 10a5f5e4c에 보존했다. 별도 Rive 작업 0737d233e를 보존한 병합 30072b4b3을 로컬 main에 fast-forward 통합하고 영역/공유 MEMORY를 갱신했다. origin/main에는 별도 콘텐츠 감사 작업이 있으며 이번 작업 원격 push/배포는 요청받지 않았다.

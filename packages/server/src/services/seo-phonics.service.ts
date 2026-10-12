@@ -21,6 +21,7 @@ import {
   isPhonicsTrack,
   type PhonicsTrack,
   type FlatPhonicsUnit,
+  koreanLearningUnitId,
 } from '@tangobook/shared';
 import { SITE_URL, escapeHtml, summarize, type AboutSeo } from './seo-ssr.service.js';
 
@@ -34,7 +35,8 @@ const trackAboutUrl = (track: PhonicsTrack) => `${SITE_URL}/library/phonics/${tr
 
 export function renderPhonicsUnitSeo(track: PhonicsTrack, unitId: string): AboutSeo | null {
   const units = flattenPhonicsUnits(track);
-  const i = units.findIndex((u) => u.id === unitId);
+  const resolvedId = track === 'korean' ? koreanLearningUnitId(unitId) : unitId;
+  const i = units.findIndex((u) => u.id === resolvedId);
   if (i < 0) return null;
   const u = units[i];
   const t = PHONICS_TRACK_META[track];
@@ -44,6 +46,7 @@ export function renderPhonicsUnitSeo(track: PhonicsTrack, unitId: string): About
   // 한글은 만들어진 음절이, 영어는 낱말 패턴이 「무엇을 조합하는지」를 보여준다.
   const combos = u.syllables.length ? u.syllables : u.patterns;
   const words = u.sampleWords;
+  const isBasicVowel = track === 'korean' && u.id.startsWith('kr-v1-');
 
   const intro =
     `${t.label} ${u.position}단원 「${u.name}」입니다. ` +
@@ -104,10 +107,15 @@ export function renderPhonicsUnitSeo(track: PhonicsTrack, unitId: string): About
         : '') +
     (words.length ? `<h2>읽는 낱말 (${words.length})</h2><ul>${li(words)}</ul>` : '') +
     '<h2>이 단원에서 하는 것</h2>' +
-    '<p>소리를 듣고 고르기, 글자를 손가락으로 따라 쓰기, 낱말과 그림 짝 맞추기를 합니다. ' +
-    '맞힌 낱말은 그 낱말이 나오는 동화책 한 쪽으로 이어집니다.</p>' +
+    (isBasicVowel
+      ? `<p>이 단원에서는 모음 ${escapeHtml(sounds)} 하나만 배웁니다. 그림 모음을 눌러 소리를 듣고, 모음 모양을 손가락으로 따라 씁니다. 다른 모음과 묶거나 아직 배우지 않은 자음을 섞지 않습니다.</p>`
+      : '<p>소리를 듣고 고르기, 글자를 손가락으로 따라 쓰기, 낱말과 그림 짝 맞추기를 합니다. ' +
+        '맞힌 낱말은 그 낱말이 나오는 동화책 한 쪽으로 이어집니다.</p>') +
     `<p><a href="${t.learnBase}/${u.id}">이 단원 학습하기</a> · ` +
-    `<a href="/activity/${track === 'korean' ? 'hangul' : 'english'}/${u.id}">인쇄용 활동지</a> · <a href="/library">동화책 보기</a></p>` +
+    (isBasicVowel
+      ? ''
+      : `<a href="/activity/${track === 'korean' ? 'hangul' : 'english'}/${u.id}">인쇄용 활동지</a> · `) +
+    '<a href="/library">동화책 보기</a></p>' +
     navHtml +
     '</article>';
 

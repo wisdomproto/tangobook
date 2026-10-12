@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_LEARNING_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { AppIcon } from '@/design-system';
 import { computeMastery, masteryState, masteryLabel, type MasteryState } from '../lib/mastery';
@@ -9,13 +9,13 @@ import {
   KOREAN_PHONICS_LEVELS,
   type KoreanPhonicsCell,
 } from '../lib/korean-phonics-grid';
-import { readPhonicsUnitIds, koreanLevelProgress } from '../lib/phonics-progress';
+import { completedPhonicsUnitIds, koreanLevelProgress } from '../lib/phonics-progress';
 import { MasteryBadge } from './MasteryBadge';
 import { MasteryDistributionBar } from './MasteryDistributionBar';
 
 /** 한 레벨의 모든 unit.sampleWords 를 평탄화. unique 처리. */
 function getKoreanLevelTargetWords(levelId: string): string[] {
-  const level = KOREAN_PHONICS_CURRICULUM.find((l) => l.level === levelId);
+  const level = KOREAN_PHONICS_LEARNING_CURRICULUM.find((l) => l.level === levelId);
   if (!level) return [];
   const set = new Set<string>();
   for (const u of level.units) {
@@ -38,13 +38,13 @@ const CELL_COLOR: Record<MasteryState, string> = {
   mastered: 'bg-success text-white',
 };
 
-export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
+export function KoreanPhonicsHeatmap({ events }: Props) {
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
   // 자음×모음 표가 없는 레벨용 — 모음 하나 단위 집계.
   const vowelStats = useMemo(() => groupByVowel(events), [events]);
   const wordStats = useMemo(() => groupByWord(events, 'ko'), [events]);
-  const readUnits = useMemo(() => readPhonicsUnitIds(events, storybooks), [events, storybooks]);
-  const [openLevel, setOpenLevel] = useState<string | null>('hangul1');
+  const completedUnits = useMemo(() => completedPhonicsUnitIds(events, 'ko'), [events]);
+  const [openLevel, setOpenLevel] = useState<string | null>('hangul-vowels');
   const now = Date.now();
 
   return (
@@ -52,7 +52,7 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
       {KOREAN_PHONICS_LEVELS.map((lv) => {
         const grid = buildKoreanPhonicsGrid(lv.id);
         const open = openLevel === lv.id;
-        const prog = koreanLevelProgress(lv.id, readUnits);
+        const prog = koreanLevelProgress(lv.id, completedUnits);
 
         const counts: Record<MasteryState, number> = {
           unknown: 0,
@@ -84,7 +84,7 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
               </div>
               <div className="flex shrink-0 flex-col items-end gap-0.5 text-xs">
                 <span className="font-semibold text-coral-500">
-                  📖 {prog.readUnits}/{prog.totalUnits} unit
+                  {prog.readUnits}/{prog.totalUnits} 단원 완료
                 </span>
                 {grid.cells.length > 0 && (
                   // 🔴 `text-success`(#5CC99F)는 흰 배경 대비 2:1 이라 작은 글씨로 못 쓴다 →

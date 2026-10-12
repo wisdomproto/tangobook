@@ -24,7 +24,9 @@ export function courseActivityPreview(activity: ActivityDef): string[] {
   if (activity.letters) return activity.letters.map(letterPair);
   if (activity.vowels) {
     return activity.vowels.map((item) =>
-      courseActivityMode(activity.kind) === 'write' ? item.syllable : item.vowel
+      courseActivityMode(activity.kind) === 'write'
+        ? (item.writeLetter ?? item.syllable)
+        : item.vowel
     );
   }
   if (activity.cvcPattern) return [activity.cvcPattern.vc];
