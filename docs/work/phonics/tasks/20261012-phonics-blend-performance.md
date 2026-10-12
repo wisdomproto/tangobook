@@ -2,12 +2,13 @@
 
 - id: 20261012-phonics-blend-performance
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: 84c773b48
 - branch: codex/phonics-blend-performance
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - delivery: 미푸시·미배포
+- integration: ff28cdc25 코드/회귀/기억을 로컬 main에 fast-forward 통합
 
 ## 요청·측정
 
@@ -26,4 +27,4 @@
 
 4파일26회귀 통과. 신규 테스트는 음원이 이동보다 늦으면 ended까지 잠금, 먼저 끝나면380ms까지 기다림, 완성220ms 뒤 이어읽기 및 이탈 후 늦은 ended가 타이머/완료를 재생하지 않음을 검증한다. 임시 계측 코드는 제거했고 output JSON만 로컬 보존. client typecheck/변경 ESLint0오류/build36.30초 통과, 기존 경고 유지.
 
-最終 브라우저375×812는 가로 넘침0, 두 타일 x63.81/221.45px·90.07px와 실제 가 완성 확인. 812×375 받침 두 타일 bottom245.41/358.01px, 실제 가+ㅇ→강과 완성 카드 확인. 같은 데이터/그림·방향 유지, 모바일/받침 PNG를 보관하고 뷰포트 override·진단 쿼리를 제거했다. 기본 학습 주소/Vite5186/API3500 서버 유지. 실기기 FPS 향상은 미확인, 대기 단축만 실측 결과로 보고한다.
+최종 브라우저375×812는 가로 넘침0, 두 타일 x63.81/221.45px·90.07px와 실제 가 완성 확인. 812×375 받침 두 타일 bottom245.41/358.01px, 실제 가+ㅇ→강과 완성 카드 확인. 같은 데이터/그림·방향 유지, 모바일/받침 PNG를 보관하고 뷰포트 override·진단 쿼리를 제거했다. 기본 학습 주소/Vite5186/API3500 서버 유지. 실기기 FPS 향상은 미확인, 대기 단축만 실측 결과로 보고한다.
