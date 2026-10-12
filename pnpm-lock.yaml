@@ -216,6 +216,12 @@ importers:
       '@remotion/google-fonts':
         specifier: ^4.0.0
         version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@remotion/paths':
+        specifier: 4.0.440
+        version: 4.0.440
+      '@remotion/rive':
+        specifier: 4.0.440
+        version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@remotion/transitions':
         specifier: ^4.0.0
         version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -358,6 +364,16 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@remotion/rive@4.0.440':
+    resolution: {integrity: sha512-v1XcGivfutuCqCer2sf9EtlMrJ7u2U+tB/RASxGIRGP3TioW6HW0QQ1PvdZqUT1LZgC3EMHH9glqw82K1QFxwA==}
+    peerDependencies:
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
+
+  '@rive-app/canvas-advanced@2.31.5':
+    resolution: {integrity: sha512-zwqLIc5wRF+zFKgDSTJn21+r4N4KWqAe6iVrjDGFzfxxeKDoESrwK7GQ9qVyS6UH2W4SsDRzO6q6jrlw33+yIg==}
+
 
   '@adobe/css-tools@4.4.4':
     resolution: {integrity: sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg==}
@@ -5820,6 +5836,16 @@ packages:
         optional: true
 
 snapshots:
+
+  '@remotion/rive@4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@rive-app/canvas-advanced': 2.31.5
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      remotion: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@rive-app/canvas-advanced@2.31.5': {}
+
 
   '@adobe/css-tools@4.4.4': {}
 

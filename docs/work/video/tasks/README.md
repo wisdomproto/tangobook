@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 작업 기록
 
+- [2026-10-12 Rive+Remotion 한글 학습 샘플](20261012-rive-remotion-learning-sample.md) — 실제.riv 직접 재생·3획쓰기·가방그림/발음24초1080p 시안
+
 - [2026-10-12 Rive ㄱ과 ㅏ의 만남](20261012-rive-hangul-meeting.md) — 승인한 ㄱ에ㅏ 추가, 하이파이브·가 결합9초 시안
 
 - [2026-10-12 한글 ㄱ 캐릭터 Rive 춤 시안](20261012-rive-hangul-character.md) — 생성 몸통+native 관절의 6초 실제 Rive·MP4/GIF, 로컬 검수 완료
