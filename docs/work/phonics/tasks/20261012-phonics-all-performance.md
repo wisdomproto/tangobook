@@ -56,3 +56,7 @@
 ## 통합
 
 코드·회귀·기록을 함께 e77ba39bc로 커밋하고 로컬 main에 fast-forward 통합 완료. 원격 push/배포 없음. API3500(scheduler off)·Vite5186 유지.
+
+## 후속 main 푸시 — 2026-10-12
+
+사용자 “좋아. 메인에 푸시하자” 요청으로 원격 Library Master 변경을 보존 병합했다. 통합230회귀·타입/빌드 통과, f534ca313 일반 push 및 원격 SHA 확인 완료. [전송 상세](../../platform/tasks/20261012-phonics-ui-effects-main-push.md). 위 미푸시는 최초 로컬 완료 시점의 기록이며 Railway 배포 완료는 미확인.

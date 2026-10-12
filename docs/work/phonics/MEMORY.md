@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-12 [파닉스 UI·연출·반응 개선 main 푸시](../platform/tasks/20261012-phonics-ui-effects-main-push.md): 사용자 요청으로 로컬 한영 효과/모음 Book1/전체 활동 UI/합성·쓰기·소리 반응 개선과 원격 Library Master 작업을 보존 merge. 통합34파일230회귀·타입/build 통과, f534ca313를 origin/main에 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태. Railway 배포 완료는 미확인.
+
 2026-10-12 [한영16활동·연결 게임 반응 점검](tasks/20261012-phonics-all-performance.md): 프레임당 쓰기 채점·첫 획 위치 고정, 한글 쓰기 translate380/220ms·영어 CVC 즉시 다음 칸/ended 체인, 늦은 음성·이탈 취소, 칭찬1개 사전 준비·StrictMode 게임 안내·복습 중복 조회 수정.223회귀·타입/빌드·대표 모바일/한영 플레이 통과. 외부 구 음원10초 지연1회/동일 자산 재현·실기기FPS는 미확인. 통합은 task 참조·미푸시.
 
 2026-10-12 [합성 화면 체감 속도](tasks/20261012-phonics-blend-performance.md): 사용자 느리다는 반증을 실제 pointer/DOM/audio 시간으로 재현. 발음 뒤 중복500ms 대기 제거·이동380ms와 ended 동시 조건/쉼220ms, gap 대신translate. 마지막 탭→완성1199→725ms/이어읽기1783→1104ms.26회귀·타입/빌드·모바일/받침 검수, 실기기 FPS 향상은 미확인. 통합은 task 참조·미푸시.

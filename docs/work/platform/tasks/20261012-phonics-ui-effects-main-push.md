@@ -2,11 +2,11 @@
 
 - id: 20261012-phonics-ui-effects-main-push
 - domain: platform
-- status: active
+- status: completed
 - updated: 2026-10-12
 - branch: main
 - worktree: C:/project/tangobook
-- delivery: 통합 검증 통과, 일반 push 진행 중
+- delivery: origin/main 일반 push·원격 SHA 확인 완료; Railway 배포 완료 미확인
 
 ## 요청과 이력 보존
 
@@ -22,4 +22,4 @@ fetch 후 origin/main=5ccddfbbc, origin/main...HEAD=4/28. 원격4커밋은 Libra
 
 ## 전송 기록
 
-진행 중. push 직전 분기 수·push 반환·원격 refs/heads/main SHA를 확인한다.
+통합 커밋 f534ca313. push 직전 origin/main...HEAD=0/29, `git push origin main` 성공(5ccddfbbc→f534ca313). `git ls-remote origin refs/heads/main`=f534ca31317a752b3c2b695e7bc1f1a87041a576으로 로컬 HEAD와 일치, push 후0/0 확인. 전송 결과 기록은 후속 문서 커밋으로 함께 전송한다. 이전 task의 미푸시는 당시 상태이며 현재 전송됨. Railway 배포 완료는 미확인.
