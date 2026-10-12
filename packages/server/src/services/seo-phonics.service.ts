@@ -52,10 +52,12 @@ export function renderPhonicsUnitSeo(track: PhonicsTrack, unitId: string): About
     `${t.label} ${u.position}단원 「${u.name}」입니다. ` +
     `${u.levelName} 과정(${u.levelDescription})에 속합니다. ` +
     (sounds ? `${sounds} 소리를 배우고, ` : '') +
-    (combos.length ? `${combos.slice(0, 12).join(' ')} 를 만들어 보고, ` : '') +
-    (words.length
-      ? `${words.slice(0, 8).join(' · ')} 같은 낱말을 읽습니다.`
-      : '읽기 활동으로 익힙니다.');
+    (isBasicVowel
+      ? '각 모음을 눌러 소리를 듣고 모양을 따라 씁니다. 익힌 모음은 놀이로 다시 만납니다.'
+      : (combos.length ? `${combos.slice(0, 12).join(' ')} 를 만들어 보고, ` : '') +
+        (words.length
+          ? `${words.slice(0, 8).join(' · ')} 같은 낱말을 읽습니다.`
+          : '읽기 활동으로 익힙니다.'));
 
   const prev = units[i - 1];
   const next = units[i + 1];
@@ -108,7 +110,7 @@ export function renderPhonicsUnitSeo(track: PhonicsTrack, unitId: string): About
     (words.length ? `<h2>읽는 낱말 (${words.length})</h2><ul>${li(words)}</ul>` : '') +
     '<h2>이 단원에서 하는 것</h2>' +
     (isBasicVowel
-      ? `<p>이 단원에서는 모음 ${escapeHtml(sounds)} 하나만 배웁니다. 그림 모음을 눌러 소리를 듣고, 모음 모양을 손가락으로 따라 씁니다. 다른 모음과 묶거나 아직 배우지 않은 자음을 섞지 않습니다.</p>`
+      ? `<p>이 단원에서는 모음 ${escapeHtml(sounds)}을 하나씩 배웁니다. 각 모음을 그림 카드로 눌러 소리를 듣고, 모음 모양을 손가락으로 따라 씁니다. 두 모음 이상 익히면 배운 모음만으로 듣고 고르기, 모음 찾기, 같은 모음 짝 맞추기를 합니다. 마지막 묶음은 이전에 배운 모음도 복습합니다. 자음과 음절 조합은 Book 2부터 다룹니다.</p>`
       : '<p>소리를 듣고 고르기, 글자를 손가락으로 따라 쓰기, 낱말과 그림 짝 맞추기를 합니다. ' +
         '맞힌 낱말은 그 낱말이 나오는 동화책 한 쪽으로 이어집니다.</p>') +
     `<p><a href="${t.learnBase}/${u.id}">이 단원 학습하기</a> · ` +

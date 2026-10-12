@@ -86,7 +86,7 @@
 }
 .phonics-vowel-unit-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   padding: 6px 0 0;
 }
@@ -106,6 +106,132 @@
 .phonics-vowel-unit[aria-current='page'] {
   border-color: var(--course-accent, #c43a1c);
   background: #fff2df;
+}
+.phonics-vowel-unit--group {
+  flex-direction: column;
+  padding: 14px 8px;
+  gap: 6px;
+}
+.phonics-vowel-group-letters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.phonics-vowel-unit--group .toy-hangul {
+  font-size: 34px;
+}
+.vowel-group-learning {
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 32px;
+  border: 1px solid #ffffff;
+  background: #ffffffb8;
+  box-shadow: 0 8px 32px #816a4506;
+}
+.vowel-group-step-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+}
+.vowel-group-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 2vw, 16px);
+  margin-block: 20px 28px;
+}
+.vowel-group-step {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: 20px 8px 12px;
+  border-radius: 24px;
+  border: 2px solid #e8eddf;
+  background: #f5f9ee;
+  box-shadow: 0 4px 0 #e2e8d8;
+  transition:
+    background 120ms,
+    transform 120ms;
+}
+.vowel-group-step:hover {
+  transform: translateY(-2px);
+}
+.vowel-group-step:active {
+  transform: translateY(2px);
+}
+.vowel-group-step:focus-visible {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 4px;
+}
+.vowel-group-step[aria-pressed='true'] {
+  background: #fff5e2;
+  border-color: var(--course-accent);
+  box-shadow: 0 4px 0 #eccaa7;
+}
+.vowel-group-step .toy-hangul {
+  font-size: clamp(38px, 5vw, 64px);
+}
+.vowel-group-step-number {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  border-radius: 50%;
+  font-size: 11px;
+  color: #717969;
+}
+.vowel-group-step[data-completed] .vowel-group-step-number {
+  background: #d2eada;
+  color: #286748;
+}
+.vowel-group-step-caption {
+  margin-top: 6px;
+  color: #665b4b;
+  font-size: 12px;
+  font-weight: 600;
+}
+.vowel-group-play-intro {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid #dbe7d3;
+  background: #f4f9ed;
+}
+.vowel-group-seed {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: white;
+  font-size: 36px;
+}
+@media (max-width: 639px) {
+  .course-unit-content[data-vowel-group] .course-unit-letter-list {
+    flex-wrap: nowrap;
+  }
+  .course-unit-content[data-vowel-group] .course-unit-letter {
+    min-width: 0;
+    min-height: 72px;
+    flex: 0 1 64px;
+    padding: 4px 6px;
+    font-size: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vowel-group-step {
+    transition: none;
+  }
+  .vowel-group-step:hover,
+  .vowel-group-step:active {
+    transform: none;
+  }
 }
 .vowel-explore-stage {
   flex: 1;

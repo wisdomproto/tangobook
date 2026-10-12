@@ -253,5 +253,18 @@
     "done": "Vậy là xong. Trong ứng dụng, bé còn được nghe âm thanh khi làm hoạt động này.",
     "note": "Trong ứng dụng, mỗi bài học có chín hoạt động như thế này nối tiếp nhau.",
     "cta": "Học tiếp trong ứng dụng →"
+  },
+  "vowelGroup": {
+    "oneAtATime": "Học từng nguyên âm",
+    "stepSubtitle": "Nghe, viết rồi học nguyên âm tiếp theo",
+    "chooseLetter": "Chọn nguyên âm",
+    "currentLetter": "Học {{letter}}",
+    "play": "Sân chơi nguyên âm",
+    "learnFirst": "Nghe hai nguyên âm trước để mở trò chơi.",
+    "playSubtitle": "Nghe, tìm và ghép các nguyên âm đã học",
+    "reviewSubtitle": "Ôn lại tất cả nguyên âm đã học",
+    "listen-game": "Nghe và chọn",
+    "hunt-game": "Tìm nguyên âm",
+    "match-game": "Ghép nguyên âm giống nhau"
   }
 }

@@ -5,12 +5,13 @@
  * R2 storybook ID 는 `kr-hN-uMM` 형식 (zero-pad).
  *
  * 활동 구성은 unit 마다 다를 수 있어 `KOREAN_UNIT_ACTIVITY_PLAN` 으로 분리.
- * 학습 41단원: Book 1 모음10개 분리, 뒤 권의 기존 활동·복습 ID 보존.
+ * 학습 34단원: Book 1 모음4·4·2 묶음 안에서 하나씩 학습, 뒤 권의 기존 활동·복습 ID 보존.
  */
 import {
   KOREAN_PHONICS_CURRICULUM,
   KOREAN_PHONICS_LEARNING_CURRICULUM,
   KOREAN_BASIC_VOWEL_LESSONS,
+  KOREAN_BASIC_VOWEL_GROUPS,
   composeHangul,
 } from '@tangobook/shared';
 
@@ -46,7 +47,7 @@ function unitTitleI18n(
 ): { unitTitleKey: string; unitTitleVars?: Record<string, string> } {
   const first = phonemes[0] ?? '';
   if (levelKey === 'hangul-vowels')
-    return { unitTitleKey: 'activity.consonantLearn', unitTitleVars: { letter: first } };
+    return { unitTitleKey: 'unit.lettersLearn', unitTitleVars: { letters: phonemes.join(' · ') } };
   // 받침 단원 phoneme 은 '받침ㅇ' — 「받침」은 UI 어휘라 떼어내고 글자만 넘긴다.
   if (levelKey === 'hangul2')
     return { unitTitleKey: 'unit.codaLearn', unitTitleVars: { letter: first.replace('받침', '') } };
@@ -184,6 +185,22 @@ export function getAllKoreanUnits(): KoreanUnitSummary[] {
 
 export function getKoreanUnit(unitId: string): KoreanUnitSummary | undefined {
   const current = getAllKoreanUnits().find((u) => u.id === unitId);
+  const lesson = KOREAN_BASIC_VOWEL_LESSONS.find((item) => item.id === unitId);
+  if (lesson)
+    return {
+      id: lesson.id,
+      sourceUnitId: lesson.sourceUnitId,
+      levelKey: 'hangul-vowels',
+      levelName: 'Book 1: 모음',
+      levelNameKey: 'level.hangul-vowels',
+      levelIndex: 1,
+      unitIndexInLevel: KOREAN_BASIC_VOWEL_LESSONS.indexOf(lesson) + 1,
+      unitTitle: lesson.title,
+      unitTitleKey: 'activity.consonantLearn',
+      unitTitleVars: { letter: lesson.vowel },
+      phonemes: [lesson.vowel],
+      targetWords: [],
+    };
   if (current || unitId !== 'kr-h1-u01') return current;
   const legacy = KOREAN_PHONICS_CURRICULUM[0].units[0];
   // 구형 활동 주소는 지원하되 새 과정 목록에는 모음10개 개요를 다시 넣지 않는다.
@@ -210,6 +227,9 @@ export function getKoreanUnit(unitId: string): KoreanUnitSummary | undefined {
  */
 export type ActivityKind =
   | 'vowel-listen'
+  | 'vowel-listen-game'
+  | 'vowel-hunt'
+  | 'vowel-match'
   | 'vowel-write'
   | 'consonant-tap'
   | 'consonant-blend-listen'
@@ -944,6 +964,60 @@ export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   ),
   ...Object.fromEntries(
     Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c, unitId)])
+  ),
+  ...Object.fromEntries(
+    KOREAN_BASIC_VOWEL_GROUPS.map((group) => [
+      group.id,
+      {
+        activities: [
+          ...group.lessons.flatMap((lesson, index): ActivityDef[] => [
+            {
+              key: `listen-${index + 1}`,
+              order: index * 2 + 1,
+              kind: 'vowel-listen',
+              section: 'learn',
+              title: `${lesson.vowel} 익히기`,
+              titleKey: 'activity.consonantLearn',
+              titleVars: { letter: lesson.vowel },
+              emoji: '👂',
+              required: true,
+              vowels: [{ vowel: lesson.vowel, syllable: lesson.sound }],
+            },
+            {
+              key: `write-${index + 1}`,
+              order: index * 2 + 2,
+              kind: 'vowel-write',
+              section: 'learn',
+              title: `${lesson.vowel} 써보기`,
+              titleKey: 'activity.consonantWrite',
+              titleVars: { letter: lesson.vowel },
+              emoji: '✏️',
+              required: true,
+              vowels: [{ vowel: lesson.vowel, syllable: lesson.sound, writeLetter: lesson.vowel }],
+            },
+          ]),
+          ...(
+            [
+              ['vowel-listen-game', 'listen-game', '듣고 고르기', '👂'],
+              ['vowel-hunt', 'hunt-game', '모음 찾기', '🌼'],
+              ['vowel-match', 'match-game', '같은 모음 짝 맞추기', '🌱'],
+            ] as const
+          ).map(
+            ([kind, key, title, emoji], index): ActivityDef => ({
+              kind,
+              key,
+              title,
+              emoji,
+              order: group.lessons.length * 2 + index + 1,
+              titleKey: `vowelGroup.${key}`,
+              section: 'play',
+              required: false,
+              letters: [...group.phonemes],
+            })
+          ),
+        ],
+      } satisfies ActivityPlan,
+    ])
   ),
   ...derivedPlans(),
 };

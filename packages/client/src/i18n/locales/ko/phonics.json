@@ -253,5 +253,18 @@
     "done": "다 하셨네요. 아이와 함께면 소리까지 들으며 할 수 있어요.",
     "note": "앱에서는 이 활동이 단원마다 아홉 가지씩 이어집니다.",
     "cta": "앱에서 이어서 하기 →"
+  },
+  "vowelGroup": {
+    "oneAtATime": "하나씩 차근차근",
+    "stepSubtitle": "듣고, 써보고, 다음 모음으로 가요",
+    "chooseLetter": "배울 모음 고르기",
+    "currentLetter": "{{letter}} 익히기",
+    "play": "모음 놀이터",
+    "learnFirst": "모음 두 개를 먼저 들어보면 놀이가 열려요.",
+    "playSubtitle": "익힌 모음으로 듣고, 찾고, 짝을 지어요",
+    "reviewSubtitle": "지금까지 익힌 모음들을 다시 만나요",
+    "listen-game": "듣고 고르기",
+    "hunt-game": "모음 찾기",
+    "match-game": "같은 모음 짝 맞추기"
   }
 }

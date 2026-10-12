@@ -253,5 +253,18 @@
     "done": "体验完成了。在应用里，孩子还能一边听声音一边完成这个活动。",
     "note": "在应用里，每个单元都有九个这样的活动接连出现。",
     "cta": "在应用中继续学习 →"
+  },
+  "vowelGroup": {
+    "oneAtATime": "一个一个学元音",
+    "stepSubtitle": "听一听、写一写，再学下一个元音",
+    "chooseLetter": "选择元音",
+    "currentLetter": "学习 {{letter}}",
+    "play": "元音游乐场",
+    "learnFirst": "先听完两个元音，就可以玩游戏啦。",
+    "playSubtitle": "听、找、配对学过的元音",
+    "reviewSubtitle": "一起复习已经学过的元音",
+    "listen-game": "听音选择",
+    "hunt-game": "找元音",
+    "match-game": "相同元音配对"
   }
 }

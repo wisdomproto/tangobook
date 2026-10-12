@@ -87,7 +87,9 @@ export default function KoreanPhonicsStudyPage() {
     const recent = getRecentUnit('korean');
     const recentValid =
       recent &&
-      allUnits.some((u) => u.id === recent && getActivityPlan(u.id).activities.length > 0);
+      allUnits.some(
+        (u) => u.id === koreanLearningUnitId(recent) && getActivityPlan(u.id).activities.length > 0
+      );
     const target =
       (recentValid ? koreanLearningUnitId(recent) : null) ??
       allUnits.find((u) => getActivityPlan(u.id).activities.length > 0)?.id;
@@ -109,7 +111,7 @@ export default function KoreanPhonicsStudyPage() {
     );
   }
 
-  if (unitId === 'kr-h1-u01')
+  if (koreanLearningUnitId(unitId) !== unitId)
     return <Navigate to={`/library/phonics/korean/${koreanLearningUnitId(unitId)}`} replace />;
 
   // 레벨별 그룹 (사이드바)
@@ -266,10 +268,16 @@ function CurriculumItem({
         to={`/library/phonics/korean/${unit.id}`}
         aria-label={titleShort}
         aria-current={active ? 'page' : undefined}
-        className={`phonics-vowel-unit ${active ? theme.selected : 'bg-white/80 border-transparent'} ${theme.focus}`}
+        className={`phonics-vowel-unit phonics-vowel-unit--group ${active ? theme.selected : 'bg-white/80 border-transparent'} ${theme.focus}`}
       >
-        <ToyHangul text={unit.phonemes[0]} decorative />
-        <span>{unit.phonemes[0]}</span>
+        <span className="phonics-vowel-group-letters">
+          {unit.phonemes.map((letter) => (
+            <ToyHangul key={letter} text={letter} decorative />
+          ))}
+        </span>
+        <span className="text-xs font-semibold text-ink-600">
+          {doneCount} / {totalCount}
+        </span>
         {done && (
           <span className="text-mint-700" aria-label={t('study.activityDone')}>
             ✓

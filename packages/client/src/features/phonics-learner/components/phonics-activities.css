@@ -460,10 +460,32 @@
 }
 .phonics-listen-card {
   border-width: 3px;
-  border-radius: 26px;
+  border-radius: 34px 34px 28px 28px;
+  background-image: radial-gradient(ellipse at 50% 112%, #f0f7e6 0 22%, transparent 23%);
   box-shadow:
     0 7px 0 #ded8c9,
     0 14px 20px #7055370a;
+}
+.phonics-listen-card::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  width: 18px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffffb8;
+  pointer-events: none;
+}
+.phonics-listen-card:not(:disabled):active {
+  transform: translateY(4px) scale(0.98);
+  box-shadow: 0 3px 0 #ded8c9;
+}
+.phonics-listen-card[data-solved] {
+  animation: phonics-petal-pop 300ms ease-out;
+}
+.phonics-listen-card .toy-hangul {
+  font-size: clamp(54px, 9vw, 110px);
 }
 .phonics-memory-grid {
   width: min(100%, calc(72vh + 110px));
@@ -479,7 +501,7 @@
   height: auto;
   aspect-ratio: 1;
   border-width: 3px;
-  border-radius: 22px;
+  border-radius: 28px 28px 32px 32px;
   box-shadow: 0 5px 0 #d8c7ad;
 }
 .phonics-memory-card:not([data-open]) {
@@ -506,6 +528,18 @@
 }
 .phonics-memory-card[data-matched] {
   box-shadow: 0 5px 0 #9ac7ad;
+  animation: phonics-petal-pop 300ms ease-out;
+}
+.phonics-memory-card .toy-hangul {
+  font-size: clamp(32px, 6vw, 80px);
+}
+.phonics-memory-grid[data-pairs='2'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 42vh);
+}
+.phonics-memory-grid[data-pairs='3'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 62vh);
 }
 .phonics-hunt-grid {
   width: min(100%, calc(78vh + 100px));
@@ -517,12 +551,84 @@
   gap: clamp(7px, 1vw, 12px);
 }
 .phonics-hunt-tile {
+  position: relative;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   border-width: 2px;
   border-color: #e9e0d0;
   box-shadow: 0 4px 0 #ded4c1;
+  border-radius: 28% 28% 32% 32%;
+  background-image: radial-gradient(ellipse at 50% 115%, #f3f7e9 0 28%, transparent 29%);
+}
+.phonics-hunt-tile::after {
+  content: '';
+  position: absolute;
+  bottom: 7%;
+  right: 8%;
+  width: 9px;
+  height: 5px;
+  border-radius: 80% 10% 80% 10%;
+  background: #b8cf9a;
+  pointer-events: none;
+}
+.phonics-hunt-tile[data-found] {
+  background: #dcf2dc;
+  border-color: #91bb8b;
+  color: #296c46;
+  box-shadow: 0 3px 0 #a6c69a;
+  animation: phonics-petal-pop 300ms ease-out;
+}
+.phonics-hunt-tile[data-found]::after {
+  background: #f4b38f;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.phonics-hunt-target {
+  border: 3px solid white;
+  border-radius: 34px 34px 28px 28px;
+  box-shadow: 0 5px 0 var(--activity-edge);
+}
+.phonics-hunt-grid[data-beginner] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, 62vh);
+}
+.phonics-hunt-grid[data-beginner] .toy-hangul {
+  font-size: clamp(30px, 6.5vw, 72px);
+}
+.phonics-activity[data-phonics-language='en'] .phonics-listen-card,
+.phonics-activity[data-phonics-language='en'] .phonics-memory-card {
+  border-radius: 32px 26px 32px 26px;
+}
+.phonics-memory-card[data-open]:not([data-matched]):not(.animate-shake) {
+  border-color: var(--activity-edge);
+}
+.phonics-activity[data-phonics-language='en']
+  .phonics-listen-card:not(.animate-shake)
+  .text-coral-600,
+.phonics-activity[data-phonics-language='en']
+  .phonics-memory-card:not(.animate-shake)
+  .text-coral-600 {
+  color: var(--activity-accent);
+}
+@keyframes phonics-petal-pop {
+  0% {
+    transform: scale(0.94);
+  }
+  55% {
+    transform: translateY(-3px) rotate(-2deg) scale(1.045);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phonics-listen-card[data-solved],
+  .phonics-memory-card[data-matched],
+  .phonics-hunt-tile[data-found] {
+    animation: none;
+  }
 }
 .phonics-complete-mark {
   display: grid;

@@ -11,7 +11,7 @@
  * 첫 unit 은 항상 unlocked. 그 외는 이전 unit completed 일 때만.
  */
 import { useCallback, useEffect, useState } from 'react';
-import { legacyVowelActivityKeys } from '@tangobook/shared';
+import { legacyVowelActivityKeys, koreanVowelGroupActivityKeys } from '@tangobook/shared';
 
 const STORAGE_KEY = 'phonics-progress';
 const RECENT_UNIT_KEY = 'phonics-recent-unit';
@@ -76,7 +76,9 @@ function write(p: ProgressShape): void {
 
 export function getUnitProgress(lang: PhonicsLang, unitId: string): UnitProgress {
   const map = read()[lang];
-  const done = map?.[unitId]?.completedActivities ?? [];
+  const readDone = (id: string) => map?.[id]?.completedActivities ?? [];
+  const done =
+    lang === 'korean' ? koreanVowelGroupActivityKeys(unitId, readDone) : readDone(unitId);
   const legacy =
     lang === 'korean'
       ? legacyVowelActivityKeys(unitId, map?.['kr-h1-u01']?.completedActivities ?? [])

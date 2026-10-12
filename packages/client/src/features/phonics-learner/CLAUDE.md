@@ -4,9 +4,9 @@
 
 후속 사용자 반증으로 단원 선택/학습판/파닉스 게임에 공통 정적 풍경을 적용하고 익히기 그림과 쓰기 폰트칸을 구분했다. 한 모음 듣기는 같은 모음3카드 순차 재생이며 마지막 ended 뒤 완료·써보기 진입, 재생 오류는 별도로 안내한다. `PhonicsBackdrop`은 입력/마스크를 갖지 않는다. [시각·음원 연결 검증](../../../../../docs/work/phonics/tasks/20261012-phonics-playful-ui.md).
 
-학습 순서 원본은 shared `KOREAN_PHONICS_LEARNING_CURRICULUM`: 모음 / 자음·기본 음절 / 받침 / 쌍자음 / 복잡한 모음, 총5권·학습41단원. Book 1의 `kr-v1-u01~10`은 한 개씩 듣기·모음 모양 쓰기이며 묶음 복습/한 선택지 퀴즈/자음·낱말 활동 없음. `sourceUnitId=kr-h1-u01`로 기존 음원 캐시를 재사용하고 운영 R2 책을 복제하지 않는다.
+학습 순서 원본은 shared `KOREAN_PHONICS_LEARNING_CURRICULUM`: 모음 / 자음·기본 음절 / 받침 / 쌍자음 / 복잡한 모음, 총5권·학습34단원. Book 1은 `kr-v1-g01~03`의 4·4·2 묶음이며 안에서 한 모음씩 듣기·모음 모양 쓰기를 진행한다. 듣기를 실제로 마친 모음 두 개부터 모음 놀이3종을 제공한다. 마지막 묶음은 이전에 익힌 모음까지 복습하며 놀이가 필수 진도를 대체하지 않는다. 구형 `kr-v1-u01~10`과 legacy 활동 기록은 shared 호환 함수로 읽을 때만 이관한다. [후속 결정](../../../../../docs/work/phonics/tasks/20261012-korean-vowel-groups.md). `sourceUnitId=kr-h1-u01`로 기존 음원 캐시를 재사용하고 운영 R2 책을 복제하지 않는다.
 
-`levelIndex`는 화면 권번호, `levelKey`와 기존 `kr-hN-*`는 저장/교육 의미다. 받침/쌍자음/복합모음 판정·복습 ID를 화면 권번호로 만들지 않는다. 구형 모음 개요는 첫 모음으로 이동하고 구형 활동 링크는 지원한다. 이전 실제 듣기6/4·쓰기 완료만 자녀별/리포트별로 이어받으며 방문만으로 완료를 만들지 않는다. shared flatten의 기본은 새 학습 과정, 인쇄/저작은 `authoring` source로 기존 구성을 보존한다. [결정·검증](../../../../../docs/work/phonics/tasks/20261012-korean-vowel-book1.md).
+`levelIndex`는 화면 권번호, `levelKey`와 기존 `kr-hN-*`는 저장/교육 의미다. 받침/쌍자음/복합모음 판정·복습 ID를 화면 권번호로 만들지 않는다. 구형 모음 개요는 첫 묶음으로 이동하고 구형 활동 링크는 지원한다. 이전 실제 듣기6/4·쓰기 완료만 자녀별/리포트별로 이어받으며 방문만으로 완료를 만들지 않는다. shared flatten의 기본은 새 학습 과정, 인쇄/저작은 `authoring` source로 기존 구성을 보존한다. [결정·검증](../../../../../docs/work/phonics/tasks/20261012-korean-vowel-book1.md).
 
 `/library/phonics` 진입점. 한글/영어 선택 → unit 그리드 → 활동 그리드 → 활동/게임 실행.
 

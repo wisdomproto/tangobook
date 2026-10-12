@@ -31,13 +31,13 @@ describe('flattenPhonicsUnits', () => {
   it('트랙별 단원 수가 홈에서 광고하는 숫자와 같다', () => {
     // 🔴 홈 <title> 이 「한글 파닉스 41단원 · 영어 파닉스 39단원」이다. 여기가 어긋나면
     //    간판과 사이트맵이 서로 다른 말을 하게 된다.
-    expect(flattenPhonicsUnits('korean')).toHaveLength(41);
+    expect(flattenPhonicsUnits('korean')).toHaveLength(34);
     expect(flattenPhonicsUnits('english')).toHaveLength(39);
   });
 
   it('position 은 트랙 전체에서 1부터 이어진다 (레벨이 바뀌어도 안 끊긴다)', () => {
     const ko = flattenPhonicsUnits('korean');
-    expect(ko.map((u) => u.position)).toEqual([...Array(41)].map((_, i) => i + 1));
+    expect(ko.map((u) => u.position)).toEqual([...Array(34)].map((_, i) => i + 1));
     // 레벨 경계를 실제로 넘는지 — 한글1 다음에 한글2 가 온다
     expect(new Set(ko.map((u) => u.levelName)).size).toBeGreaterThan(1);
   });
@@ -71,12 +71,16 @@ describe('flattenPhonicsUnits', () => {
 });
 
 describe('renderPhonicsUnitSeo', () => {
-  it('모음 하나 단원은 학습과 같은 내용이며 옛 모음 주소를 첫 단원으로 연결한다', () => {
+  it('모음 묶음은 하나씩 학습과 배운 글자 놀이를 설명하고 옛 주소를 연결한다', () => {
     const seo = renderPhonicsUnitSeo('korean', 'kr-v1-u01')!;
-    expect(seo.bodyHtml).toContain('모음 ㅏ 하나만');
+    expect(seo.bodyHtml).toContain('하나씩 배웁니다');
+    expect(seo.bodyHtml).toContain('배운 모음만으로 듣고 고르기');
+    expect(seo.bodyHtml).toContain('ㅏ · ㅑ · ㅓ · ㅕ');
     expect(seo.bodyHtml).not.toContain('낱말과 그림 짝');
     expect(seo.bodyHtml).not.toContain('/activity/hangul/kr-v1-u01');
     expect(renderPhonicsUnitSeo('korean', 'kr-h1-u01')?.canonical).toBe(seo.canonical);
+    expect(renderPhonicsUnitSeo('korean', 'kr-v1-u02')?.canonical).toBe(seo.canonical);
+    expect(renderPhonicsUnitSeo('korean', 'kr-v1-u05')?.canonical).toContain('kr-v1-g02');
     expect(flattenPhonicsUnits('korean', 'authoring')).toHaveLength(32);
   });
   it('없는 단원은 null — 라우트가 404/SPA 로 흘린다', () => {
@@ -140,7 +144,7 @@ describe('renderPhonicsUnitSeo', () => {
     expect(html).not.toContain('rel="alternate" hreflang=');
   });
 
-  it('41 + 39 단원 전부 렌더되고, 제목이 서로 겹치지 않는다', () => {
+  it('34 + 39 단원 전부 렌더되고, 제목이 서로 겹치지 않는다', () => {
     const titles = new Set<string>();
     for (const track of ['korean', 'english'] as const) {
       for (const u of flattenPhonicsUnits(track)) {
@@ -150,8 +154,8 @@ describe('renderPhonicsUnitSeo', () => {
         titles.add(seo!.title);
       }
     }
-    // 🔴 제목이 겹치면 구글이 중복으로 본다 — 80개가 전부 달라야 한다
-    expect(titles.size).toBe(80);
+    // 제목이 겹치면 구글이 중복으로 본다 — 34 + 39개가 전부 달라야 한다.
+    expect(titles.size).toBe(73);
   });
 });
 
@@ -172,7 +176,7 @@ describe('renderPhonicsTrackSeo', () => {
   });
 
   it('제목에 단원 수가 들어간다', () => {
-    expect(renderPhonicsTrackSeo('korean').title).toContain('41단원');
+    expect(renderPhonicsTrackSeo('korean').title).toContain('34단원');
     expect(renderPhonicsTrackSeo('english').title).toContain('39단원');
   });
 });

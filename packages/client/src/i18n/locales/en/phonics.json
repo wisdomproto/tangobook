@@ -253,5 +253,18 @@
     "done": "That's it. In the app your child does this with sound as well.",
     "note": "In the app, nine activities like this follow in every unit.",
     "cta": "Keep going in the app →"
+  },
+  "vowelGroup": {
+    "oneAtATime": "One vowel at a time",
+    "stepSubtitle": "Listen, write, then meet the next vowel",
+    "chooseLetter": "Choose a vowel",
+    "currentLetter": "Learn {{letter}}",
+    "play": "Vowel playground",
+    "learnFirst": "Listen to two vowels first to open the games.",
+    "playSubtitle": "Listen, find and match the vowels you have learned",
+    "reviewSubtitle": "Play again with all the vowels you have learned",
+    "listen-game": "Listen and choose",
+    "hunt-game": "Find the vowel",
+    "match-game": "Match the same vowels"
   }
 }

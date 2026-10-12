@@ -45,4 +45,21 @@ describe('child-scoped phonics progress', () => {
     localStorage.setItem('tangobook:activeProfileId', 'sibling');
     expect(getUnitProgress('korean', 'kr-v1-u01').completedActivities).toEqual([]);
   });
+  it('개별/구형/새 묶음의 진도를 합치되 놀이 완료를 지어내지 않는다', () => {
+    markActivityCompleted('korean', 'kr-v1-u02', 'listen-1');
+    markActivityCompleted('korean', 'kr-v1-g01', 'write-2');
+    markActivityCompleted('korean', 'kr-h1-u01', 'listen-1');
+    expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual(
+      expect.arrayContaining(['listen-1', 'listen-2', 'listen-3', 'listen-4', 'write-2'])
+    );
+    expect(getUnitProgress('korean', 'kr-v1-g02').completedActivities).toEqual([
+      'listen-1',
+      'listen-2',
+    ]);
+    expect(getUnitProgress('korean', 'kr-v1-g03').completedActivities).toEqual([]);
+    expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).not.toContain('listen-game');
+    expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual(['listen-1']);
+    localStorage.setItem('tangobook:activeProfileId', 'sibling');
+    expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([]);
+  });
 });

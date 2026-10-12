@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [모음 묶음·귀여운 한영 놀이](../work/phonics/tasks/20261012-korean-vowel-groups.md): Book1 모음10개 독립 단원 정책은 사용자 후속 승인으로4·4·2 묶음의 개별 듣기·쓰기 + 익힌 모음만 쓰는 놀이3종으로 대체한다. 구형 링크/실제 진도·부모 리포트·source 책 호환, 한영 공통 게임 카드·짧은 반응 통일. 고유190+19회귀·타입/빌드·대표 모바일/한영 브라우저 검수 통과, 실제 기기 청취/FPS는 미측정. 이번 변경 미푸시, 상세는 task와 영역 MEMORY 참조.
+
 2026-10-12 [Rive+Remotion 인계 main push](../work/video/tasks/20261012-rive-remotion-learning-sample.md#후속-main-push--2026-10-12): 사용자 요청으로 인계481c17a79를 origin/main에 일반 push·원격 SHA 일치 확인. 다른 세션에서 원격 main의 기록/샘플/코드/자산으로 재개 가능. 배포 완료 미확인, 아래 로컬 전용은 당시 상태.
 
 2026-10-12 Rive+Remotion 다른 세션 인계: 사용자 명칭 Rive 정정·기록 요청을 [재개 절](../work/video/tasks/20261012-rive-remotion-learning-sample.md#다른-세션에서-바로-이어가기)에 반영. “Rive+Remotion 한글 학습 샘플 이어서”는 이 기록과 output/rive-remotion-learning-20261012/README.md부터 읽는다. 24초 ㄱ+ㅏ→가쓰기→가방 최종본/코드/자산은 Git 보존, 실행/검수/다음 작업 연결. 후속 main push로 제작28dfad736의 원격 추적 이력 포함 확인; 이번 기록만 로컬 커밋.

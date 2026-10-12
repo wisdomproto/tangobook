@@ -6,6 +6,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 import { ActivityShell } from '../components/ActivityShell';
+import { ToyHangul } from '../components/ToyHangul';
 
 interface Props {
   unitId: string;
@@ -19,6 +20,8 @@ interface Props {
    *    맞히면 낱말을 읽어준다(보상은 낱말, 과제는 글자).
    */
   letterFace?: boolean;
+  /** 모음 입문은 그림/낱말 없이 같은 모음 두 장을 기억한다. */
+  identicalLetters?: boolean;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -68,6 +71,7 @@ export function ReviewFlipMatchActivity({
   sources,
   language = 'korean',
   letterFace = false,
+  identicalLetters = false,
   onComplete,
   onBack,
 }: Props) {
@@ -196,11 +200,15 @@ export function ReviewFlipMatchActivity({
           {matched.size >= picked.length ? t('flip.allMatched') : t('flip.prompt')}
         </h2>
 
-        <div className="phonics-memory-grid grid grid-cols-4 gap-2 sm:gap-3">
+        <div
+          className="phonics-memory-grid grid grid-cols-4 gap-2 sm:gap-3"
+          data-pairs={picked.length}
+        >
           {tiles.map((tile) => {
             const isMatched = matched.has(tile.card.letter);
             const isOpen = open.includes(tile.id) || isMatched;
-            const showWord = isOpen && tile.face === 'image' && !!tile.card.imageUrl;
+            const showWord =
+              !identicalLetters && isOpen && tile.face === 'image' && !!tile.card.imageUrl;
             return (
               // 낱말 줄은 **항상 자리를 차지한다** — 뒤집을 때만 생기면 격자가 통째로 흔들린다.
               <div key={tile.id} className="flex flex-col items-center">
@@ -209,6 +217,7 @@ export function ReviewFlipMatchActivity({
                   onClick={() => handleTap(tile)}
                   data-open={isOpen || undefined}
                   data-matched={isMatched || undefined}
+                  disabled={locked || isOpen}
                   aria-label={isOpen ? tile.card.word || tile.card.letter : t('flip.flip')}
                   className={[
                     // 🔴 칸 크기는 vw 만 보면 안 된다 — 전체화면 활동이라 **높이가 먼저 남는다/모자란다**.
@@ -224,7 +233,9 @@ export function ReviewFlipMatchActivity({
                   ].join(' ')}
                 >
                   {isOpen ? (
-                    tile.face === 'image' && tile.card.imageUrl ? (
+                    identicalLetters ? (
+                      <ToyHangul text={tile.card.letter} decorative />
+                    ) : tile.face === 'image' && tile.card.imageUrl ? (
                       <img src={tile.card.imageUrl} alt="" className="w-full h-full object-cover" />
                     ) : (
                       // 🔴 글자 면은 **음소(ㄱ)가 아니라 낱말(고기)** — 음소만 덜렁 있으면 무엇의 짝인지

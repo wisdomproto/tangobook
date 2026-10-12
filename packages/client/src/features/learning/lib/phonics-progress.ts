@@ -4,8 +4,11 @@ import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import {
   KOREAN_PHONICS_LEARNING_CURRICULUM,
   KOREAN_BASIC_VOWEL_LESSONS,
+  KOREAN_BASIC_VOWEL_GROUPS,
   ENGLISH_PHONICS_CURRICULUM,
   legacyVowelActivityKeys,
+  koreanVowelGroupActivityKeys,
+  koreanLearningUnitId,
 } from '@tangobook/shared';
 
 /**
@@ -21,13 +24,15 @@ export function readPhonicsUnitIds(
   for (const e of events) {
     if (e.event_type !== 'page_read') continue;
     if (!e.storybook_id) continue;
-    if (phonicsIds.has(e.storybook_id)) read.add(e.storybook_id);
+    if (phonicsIds.has(e.storybook_id)) read.add(koreanLearningUnitId(e.storybook_id));
     else if (
       e.metadata?.source === 'phonics' &&
       e.metadata.lang === 'ko' &&
-      KOREAN_BASIC_VOWEL_LESSONS.some((lesson) => lesson.id === e.metadata?.unitId)
+      [...KOREAN_BASIC_VOWEL_LESSONS, ...KOREAN_BASIC_VOWEL_GROUPS].some(
+        (lesson) => lesson.id === e.metadata?.unitId
+      )
     )
-      read.add(e.metadata.unitId!);
+      read.add(koreanLearningUnitId(e.metadata.unitId!));
   }
   return read;
 }
@@ -84,6 +89,12 @@ export function completedPhonicsUnitIds(events: LearningEvent[], lang: 'ko' | 'e
       const done = activities.get(lesson.id) ?? new Set<string>();
       legacyVowelActivityKeys(lesson.id, legacy).forEach((key) => done.add(key));
       if (done.size) activities.set(lesson.id, done);
+    }
+    for (const group of KOREAN_BASIC_VOWEL_GROUPS) {
+      activities.set(
+        group.id,
+        new Set(koreanVowelGroupActivityKeys(group.id, (id) => [...(activities.get(id) ?? [])]))
+      );
     }
   }
   for (const [unitId, done] of activities) {
