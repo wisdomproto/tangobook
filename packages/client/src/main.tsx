@@ -48,9 +48,11 @@ const mount = () => {
         <Suspense fallback={null}>
           <RouterProvider router={router} />
         </Suspense>
-        {/* devtools 는 좌하단 (dev 전용, 배포엔 없음) */}
+        {/* 로컬 검수 화면에 디버그 버튼을 노출하지 않는다. 필요할 때만 명시적으로 켠다. */}
         <LearningEffectsHost />
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+        {import.meta.env.DEV && import.meta.env.VITE_QUERY_DEVTOOLS === 'true' && (
+          <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+        )}
       </QueryClientProvider>
     </StrictMode>
   );

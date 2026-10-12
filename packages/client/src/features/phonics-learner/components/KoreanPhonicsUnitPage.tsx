@@ -54,6 +54,8 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
         mode: courseActivityMode(activity.kind),
         preview: courseActivityPreview(activity),
         iconUrl: KIND_ICON_URL[activity.kind],
+        repetitions:
+          activity.kind === 'vowel-listen' && unit.levelKey === 'hangul-vowels' ? 3 : undefined,
       }));
 
   const learnItems = items('learn');

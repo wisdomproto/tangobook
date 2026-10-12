@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import type { CourseActivityMode } from '../lib/course-presentation';
+import { ToyHangul } from './ToyHangul';
 
 export const courseActivityIcons = {
   learn: Volume2,
@@ -24,17 +25,29 @@ export function CourseActivityVisual({
   mode,
   preview,
   iconUrl,
+  illustrated = false,
+  repetitions = 1,
 }: {
   mode: CourseActivityMode;
   preview: string[];
   iconUrl?: string;
+  illustrated?: boolean;
+  repetitions?: number;
 }) {
   const Icon = courseActivityIcons[mode];
-  const letters = preview.slice(0, preview.some((letter) => letter.length > 2) ? 1 : 3);
+  const letters =
+    repetitions > 1 && preview.length === 1
+      ? Array.from({ length: repetitions }, () => preview[0])
+      : preview.slice(0, preview.some((letter) => letter.length > 2) ? 1 : 3);
   const longest = Math.max(1, ...letters.map((letter) => letter.length));
   const letterStyle = { '--course-preview-length': longest } as CSSProperties;
   return (
-    <div className="course-activity-art" aria-hidden="true" data-mode={mode}>
+    <div
+      className="course-activity-art"
+      aria-hidden="true"
+      data-mode={mode}
+      data-illustrated={illustrated || undefined}
+    >
       {preview.length ? (
         <div
           className="course-activity-letters"
@@ -43,7 +56,9 @@ export function CourseActivityVisual({
           data-writing={mode === 'write' || undefined}
         >
           {letters.map((letter, index) => (
-            <span key={`${letter}-${index}`}>{letter}</span>
+            <span key={`${letter}-${index}`}>
+              {illustrated ? <ToyHangul text={letter} decorative /> : letter}
+            </span>
           ))}
         </div>
       ) : iconUrl ? (

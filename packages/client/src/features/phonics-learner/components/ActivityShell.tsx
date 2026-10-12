@@ -1,5 +1,6 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PhonicsBackdrop } from './PhonicsBackdrop';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -81,6 +82,7 @@ export function ActivityShell({ onBack, headerRight, scroll = false, children }:
         .filter(Boolean)
         .join(' ')}
     >
+      <PhonicsBackdrop />
       {/* 🔴 embedded 엔 「← 돌아가기」를 두지 않는다 — 돌아갈 데가 없고(블로그 글 안이다),
           그 자리는 아래 CTA 가 맡는다. 활동이 넘긴 `onBack` 은 그대로 무시된다. */}
       {embedded ? (

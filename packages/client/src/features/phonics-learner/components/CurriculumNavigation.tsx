@@ -34,7 +34,7 @@ export function CurriculumNavigation({
   }, []);
   return (
     <>
-      <aside className="hidden h-full w-64 shrink-0 overflow-y-auto border-r border-ink-100 bg-white px-3 py-4 md:block">
+      <aside className="phonics-curriculum-panel hidden h-full w-56 shrink-0 overflow-y-auto border-r border-ink-100 bg-white px-3 py-4 md:block">
         {children}
       </aside>
       <dialog

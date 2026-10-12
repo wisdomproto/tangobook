@@ -15,6 +15,8 @@ import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progre
 import { sumProgress } from '../lib/unit-progress';
 import { levelName, unitTitle } from '../lib/activity-title';
 import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
+import { PhonicsBackdrop } from './PhonicsBackdrop';
+import { ToyHangul } from './ToyHangul';
 
 /**
  * /library/phonics/korean(/:unitId)? — 한글 파닉스 학습 모드.
@@ -130,7 +132,11 @@ export default function KoreanPhonicsStudyPage() {
   };
 
   return (
-    <div className="relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]">
+    <div
+      style={theme.style}
+      className="phonics-course-page relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]"
+    >
+      <PhonicsBackdrop />
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
       <PageHeader
         onBack={() => navigate('/library')}
@@ -201,7 +207,13 @@ export default function KoreanPhonicsStudyPage() {
                     </span>
                   </button>
                   {isExpanded && (
-                    <div className="flex flex-col gap-1 mt-1">
+                    <div
+                      className={
+                        levelKey === 'hangul-vowels'
+                          ? 'phonics-vowel-unit-grid'
+                          : 'flex flex-col gap-1 mt-1'
+                      }
+                    >
                       {unitStats.map(({ unit: u, done, total }) => (
                         <CurriculumItem
                           key={u.id}
@@ -248,6 +260,23 @@ function CurriculumItem({
   const { t } = useTranslation('phonics');
   const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
   const baseClass = `flex min-h-12 items-center gap-2.5 px-2.5 py-2.5 rounded-card text-left border-2 transition-colors ${theme.focus}`;
+  if (unit.levelKey === 'hangul-vowels')
+    return (
+      <Link
+        to={`/library/phonics/korean/${unit.id}`}
+        aria-label={titleShort}
+        aria-current={active ? 'page' : undefined}
+        className={`phonics-vowel-unit ${active ? theme.selected : 'bg-white/80 border-transparent'} ${theme.focus}`}
+      >
+        <ToyHangul text={unit.phonemes[0]} decorative />
+        <span>{unit.phonemes[0]}</span>
+        {done && (
+          <span className="text-mint-700" aria-label={t('study.activityDone')}>
+            ✓
+          </span>
+        )}
+      </Link>
+    );
   if (!hasPlan) {
     return (
       <div

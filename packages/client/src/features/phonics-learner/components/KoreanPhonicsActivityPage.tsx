@@ -74,9 +74,15 @@ export interface KoreanPhonicsActivityProps {
   activityKey: string;
   /** 「← 돌아가기」와 활동 완료 후 이동. 임베드는 갈 데가 없으므로 아무것도 안 한다. */
   onExit: () => void;
+  onNext?: () => void;
 }
 
-export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPhonicsActivityProps) {
+export function KoreanPhonicsActivity({
+  unitId,
+  activityKey,
+  onExit,
+  onNext,
+}: KoreanPhonicsActivityProps) {
   const { t } = useTranslation('phonics');
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
@@ -224,6 +230,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         vowels={activity.vowels}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
+        onNext={unit.levelKey === 'hangul-vowels' ? onNext : undefined}
       />
     );
   }
@@ -678,5 +685,16 @@ export default function KoreanPhonicsActivityPage() {
     () => navigate(`/library/phonics/korean/${unitId}`),
     [navigate, unitId]
   );
-  return <KoreanPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
+  const onNext = useCallback(
+    () => navigate(`/library/phonics/korean/${unitId}/write-1`),
+    [navigate, unitId]
+  );
+  return (
+    <KoreanPhonicsActivity
+      unitId={unitId}
+      activityKey={activityKey}
+      onExit={onExit}
+      onNext={onNext}
+    />
+  );
 }

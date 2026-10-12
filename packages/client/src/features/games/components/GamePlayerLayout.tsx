@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MobileLandscapeGate } from './MobileLandscapeGate';
 import { gameSafeAreaStyle } from '../lib/game-safe-area';
+import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 
 type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full';
 
@@ -32,6 +34,7 @@ interface GamePlayerLayoutProps {
  *  플레이어 root 를 `fixed inset-0 z-[60]` 으로 viewport 직접 덮음 → 뒷페이지 노출 차단. */
 export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePlayerLayoutProps) {
   const { t } = useTranslation('games');
+  const phonics = useVocabSource()?.source === 'phonics';
   // 좌우 시스템 UI(안드 내비바·노치·인앱 컨트롤) 회피 + 동적 뷰포트 높이 캡 → gameSafeAreaStyle.
   // 세로 여백은 className py-clamp 로 유지(헬퍼는 세로 미관여).
   return (
@@ -40,6 +43,7 @@ export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePla
         className="learning-stage fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-cream-50 overflow-hidden"
         style={gameSafeAreaStyle()}
       >
+        {phonics && <PhonicsBackdrop />}
         {onBack && (
           <button
             type="button"

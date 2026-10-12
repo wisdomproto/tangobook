@@ -229,9 +229,12 @@
     "inOrder": "按顺序点一点！",
     "readyForQuiz": "做得好！现在来玩小测验吧？",
     "pickSound": "🔊 选出你听到的声音！",
-    "singlePrompt": "点击元音，听一听！",
+    "singlePrompt": "一个一个点，听一听！",
     "singleDone": "真棒！再听一次吧？",
-    "audioRetry": "声音加载失败，请再点一次！"
+    "audioRetry": "声音加载失败，请再点一次！",
+    "cardLabel": "{{letter}} 第{{n}}张卡片",
+    "repeatProgress": "已听元音卡片",
+    "writeNext": "来写一写 →"
   },
   "vowelPicker": {
     "makePrompt": "要用哪个元音来拼呢？",
