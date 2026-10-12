@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [Rive ㄱ과 ㅏ의 만남](../work/video/tasks/20261012-rive-hangul-meeting.md) 완료: 기존ㄱ춤 귀엽다고 승인 뒤 두글자만남 요청. imagegen 민트ㅏ/native 관절로9초 하이파이브→손잡고가→함께뛰기 실제Rive1.04MB·MP4/GIF 제작.180프레임/12표본·루프/관절/전체decode 통과. output/rive-hangul-meet-20261012 원본과-review 프리뷰,코드/기억 로컬main보존. 이전ㄱ/운영/게임/푸시 변경 없음.
+
 2026-10-12 [탱고 블록 KC 실행 가이드](../work/hardware/block-kc-guide.md): 사용자 요청으로 생산·시험·신고·표시/출고 단계와 기관/공장 문의문 정리. 모음 작은부품/거울재질 우선상담. 실제 신청·견적 없음, 로컬 문서.
 
 2026-10-12 [탱고 블록 판매 전 안전확인](../work/hardware/tasks/20261012-block-safety-confirmation.md): 사용자 비전기 블록 확인. 완구 안전확인 제도·화학/물리적 안전 검토 방향 조사. 탱고 세트의 기관 분류·시험범위·비용/기간은 미확정, 외부 신청 없음.
