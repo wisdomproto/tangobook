@@ -2,7 +2,7 @@
 
 - id: 20261005-video-jack-four-videos
 - domain: video
-- status: paused
+- status: active
 - updated: 2026-10-12
 - base: d1af5ef2
 - branch: codex/video-rapunzel
@@ -45,6 +45,12 @@ alarm-portrait/descend-portrait 실제 전체 이미지까지 승인하여 신�
 ## 사용자 일시 중단 (2026-10-12)
 
 “잠깐 스탑”에 따라 H3 main22888/도입 수정27024/QC27864만 종료했다. 실제8190큐에서 자기 running giant-chase72091a63-ed4e-4f6c-91c0-e92d23c5c483을 interrupt하고 pending 도입수정79837ed8-9609-4bc9-bfce-0171442d8cd6을 삭제했다. running/pending0 확인. 공유 Comfy/Voicebox 서버 유지.64음원/ASR·171자막 검사/선택 신규16앵커와 검수 증거 보존, 최초 H3 도입은 정지 꼬리로 제외하여 history/opening-v1에 보존. 승인 H3 source0/최종본0. production-status.json/PAUSED.md 중단·자동재개없음 기록. 재개 시 interrupted/deleted prompt receipt를 그대로 기다리지 말고 실제 history/queue 확인 후 이전 receipt를 보존하고 명시적 재개 요청 범위에서 새 제출해야 한다.
+
+## 같은 날 재개
+
+사용자 “ㄱㄱ”로 중단 해제.8190/8189 두 큐0과 previous giant-chase 실행 중단 history, 삭제된 도입 수정 history 없음 확인. 해당 old receipt/graph/history를 history/paused-20261012로 보존한 뒤 새 H3 worker26628/QC10588로 재개. 첫 opening-v2 prompt265a5dbd-4230-4e96-804b-ab9a10055644. 기존64음원/16삽화 재사용. 최종본0, 실제 동작 검수 후 네 편 완성까지 진행.
+
+재개 opening-v2 실제33표본/contact4장을 전부 봤다. 잭 한 걸음·대사/손짓은 개선되고 꼬리 정지는 줄었지만4.5초부터 거인이 없는 금속 도구를 새로 만들어 제외했다. history/opening-v2에 clip/정확한 graph/receipt/history/판정 보존. 전경 잭·엄마 두 명에 집중하고 거인은 다음 실제 추격 컷으로 넘기는 가로/세로 axe-call-v3 Qwen 제거 수정(worker35844). 두 새 앵커는 직접 확인 전 승인 금지. H3 main26628 client만 종료했고 backend giant-chase는 그대로 이어간다. 같은 prompt36d3ce92-2cd4-4e78-8f15-9f98c915c6af를 collector38144가 다시 기다려 저장하며 중복 제출 없음. QC10588 유지. 선택 도입 두 앵커/action/guideVersion을v3로 바꿨지만 다른 기존 참조 보존. 현재 승인 H3/최종본0.
 
 ## 남은 단계
 
