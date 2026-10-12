@@ -38,7 +38,7 @@ Editor2의 책 모델은 한 책=한 그림체·한 레벨을 유지한다. 그�
 | 백설공주 | 네 편 완성·운영 등록 완료 | 그림체1 수채화, quality-v2; [동일 등록 기록](../authoring/tasks/20261002-cinderella-snow-white-video-registration.md) |
 | 인어공주 | 네 편 완성·운영 등록 완료 | 페이퍼아트; [완료 기록](tasks/20261003-little-mermaid-four-videos.md)과 [운영 등록](../authoring/tasks/20261004-little-mermaid-video-registration.md) |
 | 라푼젤 | 네 편 로컬 완성·검수 완료, 사용자 컨펌 대기 | 그림체2 페이퍼아트1777272102062; [제작 기록](tasks/20261004-rapunzel-four-videos.md) |
-| 잭과 콩나무 | 사용자 후속 지정, Kaggle 포기 후 로컬 제작 준비·사용자 요청으로 일시중단 | 그림체2 페이퍼아트1772510956605; [제작 기록](tasks/20261005-jack-four-videos.md), [시험 기록](tasks/20261004-kaggle-h3-test.md). 네 영상 완성 또는 승인으로 취급하지 않는다. |
+| 잭과 콩나무 | 2026-10-12 사용자 명시적 재개, 로컬 네 영상 제작 중 | 그림체2 페이퍼아트1772510956605; [제작 기록](tasks/20261005-jack-four-videos.md), [시험 기록](tasks/20261004-kaggle-h3-test.md). 네 영상 완성 또는 승인으로 취급하지 않는다. |
 | 나머지 명작 | 대기 | 각 책의 실제 목록·기존 완료를 대조하고 대표 그림체를 하나 선정해 순서대로 기록 |
 | 명작 그림체 추가 / 전래 / 자연 / 호리 세 묶음 | 앞 단계 완료 후 대기 | 위 순서 유지 |
 

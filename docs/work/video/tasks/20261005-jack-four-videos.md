@@ -2,15 +2,17 @@
 
 - id: 20261005-video-jack-four-videos
 - domain: video
-- status: paused
-- updated: 2026-10-05
+- status: active
+- updated: 2026-10-12
 - base: d1af5ef2
 - branch: codex/video-rapunzel
 - output: D:/tangobook-video/jack-beanstalk-20261005/
 - integration: 미통합
-- delivery: 사용자 중단, 저장 음원9개·최종본0개
+- delivery: 사용자 명시적 재개, 저장 음원9개 재사용·최종본0개
 
 ## 사용자 결정
+
+2026-10-12 “로컬로 잭과 콩나무 제대로 만들자”로 중단을 해제하고 같은 네 편 제작을 재개했다. 기존 9개 음원 해시를 대조해 재사용한다. Kaggle 재개·운영 등록·main push는 요청되지 않았다. 다른 Comfy8189 서버는 유지하며 비어 있는 큐를 확인한 뒤 모델 메모리를 해제하고 Voicebox 누락 구간 생성부터 이어간다. 기존8190 제작 서버는 현재 없으므로 음성 단계 후 별도 실행한다. 생성 전 descend 롱폼 앵커를 실제 콩나무 추격12쪽으로 바로잡는다.
 
 “KAGGLE 은 포기하고, 로컬로 잭과 콩나무 제대로 만들자.” Kaggle 시험 종료 상태를 유지하고 로컬 H3/BF16 제작으로 전환한다. 앞서 합의한 한국어/영어16:9 롱폼 약2~3분 +9:16 숏폼 네 편, 큰 영상 자막/Voicebox 기존 승인 프로필/기존 캐릭터 참조/필요한 신규 Qwen2.1 삽화/RealESRGAN 검수 파이프라인을 적용한다. 이번 제작은 이전 라푼젤 완성본 승인이나 삭제가 아니다. 완성본을 사용자에게 보여 컨펌 후 다음 책. 운영 등록/main push/외부 발행 요청은 이번에 없음.
 
