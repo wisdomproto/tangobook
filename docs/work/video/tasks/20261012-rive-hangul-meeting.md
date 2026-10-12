@@ -67,3 +67,11 @@ $riveSampleCli = Join-Path $env:USERPROFILE '.codex/tools/rive-cli/rive.exe'
 보존할 모양은 ㄱ의 오른쪽 끝이 아래로 내려가는 획, ㅏ의 중앙에서 오른쪽으로 나오는 단 하나의 가로획, 가 결합 때 자음 왼쪽·모음 오른쪽 배치다. 음원·클릭 입력·State Machine 상호작용·앱 연결은 아직 구현하지 않았다. 샘플 승인만으로 후속 기능이나 외부 업로드까지 승인받았다고 해석하지 않는다.
 
 다른 세션에 전달할 문장: **“docs/work/video/tasks/20261012-rive-hangul-meeting.md를 읽고, 승인한 Rive ㄱ+ㅏ→가 샘플을 이어서 작업해 주세요.”**
+
+## 후속 논의: Rive와 Remotion으로 학습 영상
+
+2026-10-12 사용자는 [토도한글 모음ㅡ 영상](https://www.youtube.com/watch?v=KHnjMPMT0GA)과 [ㅇ쓰기 쇼츠](https://www.youtube.com/shorts/x8hKK6g8Www)를 제시하고, Rive를 Remotion과 합쳐 이 정도 영상을 제작할 수 있는지 물었다. 두 영상의 브라우저 재생 표본을 확인했다. 첫 영상에는 textured 배경/손전등 소품/글자와 눈 등의2D 연출, 쇼츠에는 글자틀·손가락 이동·과일 순차 등장·제목 표시가 보였다. 전체 영상·음원의 전수 검수나 제작 도구 판별은 하지 않았다.
+
+이 정도의2D 화면 구성은 Rive 캐릭터 동작과 Remotion 장면·쓰기 경로·자막·오디오·영상 합성으로 구현 가능하다는 기술적 판단이다. [공식 @remotion/rive](https://www.remotion.dev/docs/rive)와 [RemotionRiveCanvas](https://www.remotion.dev/docs/rive/remotionrivecanvas)는 Rive 애니메이션을 Remotion 시간에 맞춰 재생하며, [evolvePath](https://www.remotion.dev/docs/paths/evolve-path)는 SVG 획을 순차 표시한다. 단순 쓰기 장면은 Remotion/SVG로도 구성할 수 있고, Rive 캐릭터는 앱에서 재사용할 수 있다.
+
+현재 packages/remotion에 Remotion 기반은 있지만 @remotion/rive 의존성·통합 컴포지션은 없다. 이 샘플의.riv 실제 브라우저 런타임 호환·Remotion 렌더·오디오 동기화는 아직 시험하지 않았다. 다음 구현 요청 시 짧은 연동 컷으로 먼저 검증하고, 글자별 쓰기 경로/표정·행동/낱말 삽화/명료한 발음과 박자를 제작한다. 이번 대화는 가능성·구성 검토이며 후속 영상 구현이나 플랫폼 방향 변경을 확정한 것이 아니다.

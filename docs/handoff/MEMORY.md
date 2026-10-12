@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [Rive+Remotion 학습영상 검토](../work/video/tasks/20261012-rive-hangul-meeting.md#후속-논의-rive와-remotion으로-학습-영상): 사용자 토도ㅡ/ㅇ쓰기 수준 질문·Remotion 조합 제안.2D 표본과 공식 연동/쓰기경로 API 확인, 캐릭터Rive·편집/쓰기/음원Remotion 구성 가능 판단. 실제 연동 제작·런타임 검증은 아직 없음.
+
 2026-10-12 Rive ㄱ+ㅏ→가 최종 사용자승인·다른세션 재개: [인계 기록](../work/video/tasks/20261012-rive-hangul-meeting.md#다른-세션에서-재개)에 샘플/원본/코드 위치와 실행·검수·후속 범위 정리. 승인 sample.mp4/sample.riv/12표본/검수JSON은 output/rive-hangul-meet-20261012에 Git 보존. “Rive 한글 샘플 이어서” 요청은 이 기록부터 읽는다. 제작커밋0737d233e/91ead3bea 로컬main, 미푸시.
 
 2026-10-12 [모음 전용 Book 1](../work/phonics/tasks/20261012-korean-vowel-book1.md): ㅏ~ㅣ를 한 단원에 한 개씩 듣고 모음 자체를 쓴다. 두 개씩 묶음 복습 없이 Book 1 모음/2 자음과 기본음절/3 받침/4 쌍자음/5 복잡모음. 기존 ID·음원·실제 활동 완료 이력 유지, 방문을 완료로 만들지 않음. 리포트/5언어/과정 소개도 연결, 원격 push 미요청. 검증·통합은 task 참조.
