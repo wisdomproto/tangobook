@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-13 [잭과 콩나무 네 영상 로컬 완성](../work/video/tasks/20261005-jack-four-videos.md): 페이퍼아트1772510956605, KO/EN 롱폼177.958/179.250초·숏폼37.100/38.033초1080p/큰 자막.30native 동작(29전체+ending부분)·RealESRGANx2 전후·171자막/299자막·비트 표본/68편집 구간/phone 실제검수 및 최종 전체AV검사 완료. SRT/나레이션MP3/언어별clean원본·썸네일·해시 증거 D:/tangobook-video/jack-beanstalk-20261005/. 사용자 컨펌 대기, 운영 등록/push 미요청·미수행.
+
 2026-10-12 사용자 “ㄱㄱ”로 잭 영상 재개. 중단 요청의 history/큐0 확인 후 old receipt 보존, 로컬 H3 도입 수정본부터 생성.64음원·16삽화 재사용, 최종본0. [현재 작업](../work/video/tasks/20261005-jack-four-videos.md).
 
 2026-10-12 잭 영상은 사용자 “잠깐 스탑”으로 일시 중단. 자기 생성 worker/큐만 중단·큐0 확인,64음원/신규16삽화 보존, 최종본0. 자동 재개 없음. [작업 기록](../work/video/tasks/20261005-jack-four-videos.md).
