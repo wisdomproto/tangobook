@@ -91,6 +91,13 @@ export function ReviewWriteActivity({
   sourcesRef.current = sources;
   // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 카드 바뀌면 리셋(handleWordDone).
   const writtenRef = useRef<number[]>([]);
+  const writeSequenceRef = useRef(0);
+  useEffect(
+    () => () => {
+      writeSequenceRef.current++;
+    },
+    []
+  );
 
   // 🔴 쓰는 글자(`word`)와 읽는 소리가 다를 수 있다 — Book 1 은 C 를 쓰고 "c c cat" 을 듣는다.
   const say = useCallback(
@@ -129,6 +136,7 @@ export function ReviewWriteActivity({
   const handleSyllableDone = useCallback(
     (syllable: string, index: number) => {
       if (!current) return;
+      const sequence = ++writeSequenceRef.current;
       // 낱말을 완성하는 마지막 칸은 WordFillCanvas 가 생략(handleWordDone 이 낱말을 읽음).
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       // 🔴 영어 패턴 단원은 익히기·게임과 **같은 규칙**(writeStepRead): Book3 `ak→ake` · Book4/5 `cl`·`ee`.
@@ -149,7 +157,12 @@ export function ReviewWriteActivity({
             storybookId: unitId,
             identifierPrefix: 'review-write',
           });
-          chime(() => rest(() => void speak(readText, undefined, url)));
+          if (sequence !== writeSequenceRef.current) return;
+          chime(() =>
+            rest(() => {
+              if (sequence === writeSequenceRef.current) void speak(readText, undefined, url);
+            })
+          );
         })();
         return;
       }
@@ -173,7 +186,12 @@ export function ReviewWriteActivity({
             identifierPrefix: 'review-write',
           }));
         // 🔴 띵동 **먼저**, 쉬고, 읽기 — 한 채널이라 붙여 내면 앞소리가 잘리고 한 덩어리로 들린다.
-        chime(() => rest(() => void speak(blend, undefined, url)));
+        if (sequence !== writeSequenceRef.current) return;
+        chime(() =>
+          rest(() => {
+            if (sequence === writeSequenceRef.current) void speak(blend, undefined, url);
+          })
+        );
       })();
     },
     [current, language, unitId, chime, rest, speak]
@@ -182,6 +200,7 @@ export function ReviewWriteActivity({
   /** 낱말을 다 쓰면 — 그 낱말을 읽어주고 띵동, 다음 그림으로. */
   const handleWordDone = useCallback(() => {
     if (done || !current) return;
+    writeSequenceRef.current++;
     const isLast = idx + 1 >= sources.length;
     if (isLast) setDone(true);
     // 🔴 다 쓰는 **즉시 이 카드를 잠근다** — 캔버스를 완성 글자로 바꿔 소리 나는 동안 **다시 못 쓰게**

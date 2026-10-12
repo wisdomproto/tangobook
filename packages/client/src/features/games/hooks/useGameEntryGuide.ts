@@ -21,17 +21,22 @@ export function useGameEntryGuide(
   onDone?: () => void
 ) {
   const embedded = usePhonicsEmbedded();
-  const started = useRef(false);
+  const generationRef = useRef(0);
   const doneRef = useRef(onDone);
   doneRef.current = onDone;
 
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
+    const generation = ++generationRef.current;
     if (embedded || !src) {
       doneRef.current?.();
       return;
     }
-    playAudio(src, () => doneRef.current?.());
+    playAudio(src, () => {
+      if (generation === generationRef.current) doneRef.current?.();
+    });
+    // StrictMode는 정리 후 다시 입장한다. 옛 안내는 무효화하고 새 입장에서 재생한다.
+    return () => {
+      generationRef.current++;
+    };
   }, [embedded, src, playAudio]);
 }

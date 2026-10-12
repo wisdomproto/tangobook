@@ -52,15 +52,18 @@ export function VowelWriteActivity({
   onBack,
 }: Props) {
   const { t } = useTranslation('phonics');
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
   // 🔴 진입 안내 — 단일 캔버스라 "반짝이는 칸" 이 없다(화면 문구도 "따라써봐") → "글자를 따라 써 봐!".
   useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
   // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.
   const restRef = useRef<number | null>(null);
+  const sequenceRef = useRef(0);
+  const doneRef = useRef(new Set<number>());
   useEffect(
     () => () => {
+      sequenceRef.current++;
       if (restRef.current) clearTimeout(restRef.current);
     },
     []
@@ -75,8 +78,12 @@ export function VowelWriteActivity({
 
   const handleResult = useCallback(
     async (passed: boolean) => {
-      if (!passed) return;
+      if (!passed || doneRef.current.has(currentIdx)) return;
       const idx = currentIdx;
+      const sequence = ++sequenceRef.current;
+      const nextDone = new Set(doneRef.current).add(idx);
+      doneRef.current = nextDone;
+      setDoneSet(nextDone);
       // 단어 발음 — 호출부가 준 URL(병음 원어민 녹음) 우선, 없으면 한글 phonics concat.
       const url =
         vowels[idx].ttsUrl ||
@@ -86,9 +93,7 @@ export function VowelWriteActivity({
           storybookId: ttsUnitId,
           identifierPrefix: 'phonics-write',
         }));
-      const nextDone = new Set(doneSet);
-      nextDone.add(idx);
-      setDoneSet(nextDone);
+      if (sequence !== sequenceRef.current) return;
 
       const remaining = vowels.map((_, i) => i).filter((i) => !nextDone.has(i));
 
@@ -98,7 +103,9 @@ export function VowelWriteActivity({
        *    한 덩어리로 지나간다. 소리가 **끝난 걸 확인한 뒤** 넣는 쉼이라 길이 가정이 아니다.
        */
       const onTtsEnded = () => {
+        if (sequence !== sequenceRef.current) return;
         restRef.current = window.setTimeout(() => {
+          if (sequence !== sequenceRef.current) return;
           if (remaining.length === 0) {
             playCorrectSequence({ language: praiseLang(), onDone: onComplete });
           } else {
@@ -127,7 +134,13 @@ export function VowelWriteActivity({
             <button
               data-learning-fx="tap"
               key={v.vowel}
-              onClick={() => !done && setCurrentIdx(i)}
+              onClick={() => {
+                if (done) return;
+                sequenceRef.current++;
+                if (restRef.current) clearTimeout(restRef.current);
+                stopAll();
+                setCurrentIdx(i);
+              }}
               disabled={done}
               className={[
                 'inline-flex items-center gap-1.5 px-5 py-3 rounded-full font-black border-[3px] transition shadow-soft',

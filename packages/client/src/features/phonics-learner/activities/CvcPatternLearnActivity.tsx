@@ -44,23 +44,29 @@ interface CvcWord {
 export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
-  const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, stopAll, scheduleTimer } = useGameAudio();
 
   // ── Phase A: VC 학습 ──
   const [phaseAPressed, setPhaseAPressed] = useState<Set<string>>(new Set());
   const [phase, setPhase] = useState<'A' | 'B' | 'C' | 'done'>('A');
   const PHASE_A_ROWS = 3;
   const totalPhaseA = PHASE_A_ROWS * 3;
+  const sequenceRef = useRef(0);
 
   const playEnglish = useCallback(
     async (text: string, onEnded?: () => void) => {
+      const sequence = ++sequenceRef.current;
       const url = await resolveTtsUrl({
         text,
         language: 'english',
         storybookId: unitId,
         identifierPrefix: 'en-cvc',
       });
-      if (url) playAudio(url, onEnded);
+      if (sequence !== sequenceRef.current) return;
+      if (url)
+        playAudio(url, () => {
+          if (sequence === sequenceRef.current) onEnded?.();
+        });
       else onEnded?.();
     },
     [playAudio, unitId]
@@ -117,15 +123,22 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
    */
   const REST_MS = 420;
   const restRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(
-    () => () => {
+  const aliveRef = useRef(true);
+  useEffect(() => {
+    aliveRef.current = true;
+    return () => {
+      aliveRef.current = false;
+      sequenceRef.current++;
       if (restRef.current) clearTimeout(restRef.current);
-    },
-    []
-  );
+    };
+  }, []);
   const rest = useCallback((fn: () => void) => {
+    if (!aliveRef.current) return;
     if (restRef.current) clearTimeout(restRef.current);
-    restRef.current = setTimeout(fn, REST_MS);
+    const sequence = sequenceRef.current;
+    restRef.current = setTimeout(() => {
+      if (sequence === sequenceRef.current) fn();
+    }, REST_MS);
   }, []);
 
   /**
@@ -133,6 +146,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
    *    장은 처음부터). useGameAudio 의 재생·예약 + 로컬 `rest` 타이머까지 지운다.
    */
   const clearQueue = useCallback(() => {
+    sequenceRef.current++;
     stopAll();
     if (restRef.current) clearTimeout(restRef.current);
   }, [stopAll]);
@@ -204,7 +218,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           rest(() =>
             playAudio(LEARNING_SOUNDS.correct, () => {
               if (willAllComplete) {
-                setTimeout(() => setPhase('C'), 600);
+                scheduleTimer(() => setPhase('C'), 220);
               }
             })
           );
@@ -212,7 +226,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       };
       playEnglish(text, afterTts);
     },
-    [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio]
+    [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio, rest, scheduleTimer]
   );
 
   // ── Phase C: 낱말 써보기 — **패턴(라임) 먼저** 한 글자씩(WordFillCanvas, Book 3/4/5 와 통일) ──
@@ -242,6 +256,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const handleWriteAccum = useCallback(
     (_letter: string, index: number) => {
       if (wordDoneRef.current) return;
+      const sequence = ++sequenceRef.current;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       const soFar = [...writtenRef.current]
         .sort((a, b) => a - b)
@@ -255,8 +270,9 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           identifierPrefix: 'en-cvc',
         });
         // 띵동 먼저, 끝나면 이어읽기(단일 채널이라 동시에 내면 앞소리가 잘린다).
+        if (sequence !== sequenceRef.current) return;
         playAudio(LEARNING_SOUNDS.correct, () => {
-          if (url) playAudio(url);
+          if (sequence === sequenceRef.current && url) playAudio(url);
         });
       })();
     },
@@ -267,6 +283,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const handleWriteWordDone = useCallback(() => {
     if (wordDoneRef.current) return;
     wordDoneRef.current = true;
+    const sequence = ++sequenceRef.current;
     const cw = cvcWords[writeCurrentWordIdx];
     if (!cw) return;
     const isLast = writeCurrentWordIdx + 1 >= cvcWords.length;
@@ -278,45 +295,59 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         identifierPrefix: 'en-cvc',
       });
       // 🔴 예문은 **자연 음원(sentenceTtsUrl) 우선** — concat 은 "이 해브 애 캔" 처럼 음소로 이어붙인다.
-      const sentenceUrl = cw.sentence
-        ? await resolveTtsUrl({
+      const sentenceUrlPromise = cw.sentence
+        ? resolveTtsUrl({
             text: cw.sentence,
             language: 'english',
             storybookId: unitId,
             directUrl: cw.sentenceTtsUrl,
             identifierPrefix: 'en-cvc',
           })
-        : undefined;
+        : Promise.resolve(undefined);
       const advance = () => {
+        if (sequence !== sequenceRef.current) return;
         if (isLast) {
           setPhase('done');
           onMarkComplete();
-          setTimeout(() => playCorrectSequence({ language: praiseLang() }), 400);
+          playCorrectSequence({ language: praiseLang() });
         } else {
-          setTimeout(() => {
+          scheduleTimer(() => {
             wordDoneRef.current = false;
             writtenRef.current = [];
             setShownSentence(null);
             setWriteCurrentWordIdx((i) => i + 1);
-          }, 500);
+          }, 220);
         }
       };
       // 🔴 낱말 → **띵동(완성 축하)** → 쉼 → (예문 텍스트+소리) → 다음. 예문 없으면 띵동 → 다음.
       //    2026-08-06 사용자: 예문 넣으면서 완성 효과음이 빠졌다("사이에 효과음이 없어").
       const afterWord = () => {
         playAudio(LEARNING_SOUNDS.correct, () => {
-          if (cw.sentence && sentenceUrl) {
-            setShownSentence(cw.sentence);
-            rest(() => playAudio(sentenceUrl, advance));
-          } else {
-            advance();
-          }
+          void sentenceUrlPromise.then((sentenceUrl) => {
+            if (!aliveRef.current || sequence !== sequenceRef.current) return;
+            if (cw.sentence && sentenceUrl) {
+              setShownSentence(cw.sentence);
+              rest(() => playAudio(sentenceUrl, advance));
+            } else {
+              advance();
+            }
+          });
         });
       };
+      if (sequence !== sequenceRef.current) return;
       if (wordUrl) playAudio(wordUrl, afterWord);
       else afterWord();
     })();
-  }, [cvcWords, writeCurrentWordIdx, unitId, playAudio, playCorrectSequence, onMarkComplete, rest]);
+  }, [
+    cvcWords,
+    writeCurrentWordIdx,
+    unitId,
+    playAudio,
+    playCorrectSequence,
+    onMarkComplete,
+    rest,
+    scheduleTimer,
+  ]);
 
   // 행별 다음 누를 칸 highlight (Phase B 용)
   const phaseBNextKey = useMemo(() => {

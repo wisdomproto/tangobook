@@ -124,16 +124,34 @@
 .phonics-blend-stage[data-merging] {
   padding: 0;
 }
-.phonics-blend-stage > .phonics-blend-tile:first-of-type {
+.phonics-write-blend-stage {
+  gap: 0;
+  padding-inline: calc(var(--blend-space) / 2);
+}
+.phonics-write-blend-stage[data-vertical] {
+  padding-inline: 0;
+  padding-block: calc(var(--blend-space) / 2);
+}
+.phonics-write-blend-stage[data-merging] {
+  padding: 0;
+}
+.phonics-write-blend-piece {
+  transition: translate var(--blend-close-ms) ease-out;
+}
+.phonics-blend-stage > .phonics-blend-tile:first-of-type,
+.phonics-write-blend-piece:first-child {
   translate: calc(var(--blend-gap) / -2) 0;
 }
-.phonics-blend-stage > .phonics-blend-tile:last-of-type {
+.phonics-blend-stage > .phonics-blend-tile:last-of-type,
+.phonics-write-blend-piece:last-child {
   translate: calc(var(--blend-gap) / 2) 0;
 }
-.phonics-blend-stage[data-vertical] > .phonics-blend-tile:first-of-type {
+.phonics-blend-stage[data-vertical] > .phonics-blend-tile:first-of-type,
+.phonics-write-blend-stage[data-vertical] > .phonics-write-blend-piece:first-child {
   translate: 0 calc(var(--blend-gap) / -2);
 }
-.phonics-blend-stage[data-vertical] > .phonics-blend-tile:last-of-type {
+.phonics-blend-stage[data-vertical] > .phonics-blend-tile:last-of-type,
+.phonics-write-blend-stage[data-vertical] > .phonics-write-blend-piece:last-child {
   translate: 0 calc(var(--blend-gap) / 2);
 }
 .phonics-blend-stage::before {
@@ -570,6 +588,11 @@
   }
 }
 @media (max-height: 500px) {
+  .phonics-activity[data-activity-kind='write'] > .flex-1 {
+    min-height: min-content;
+    flex-shrink: 0;
+    padding-block: 12px;
+  }
   .phonics-activity[data-activity-kind='hunt'] > .flex-1 {
     min-height: min-content;
     padding-block: 6px;
@@ -658,6 +681,7 @@
   }
   .phonics-blend-stage,
   .phonics-blend-tile,
+  .phonics-write-blend-piece,
   .phonics-tap-card {
     transition-duration: 0ms;
   }

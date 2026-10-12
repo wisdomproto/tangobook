@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useActivitySound, REST_MS } from './useActivitySound';
+import { resolveTtsUrl } from '@/features/tts';
 
 const played: Array<{ url?: string; at: number }> = [];
 let now = 0;
@@ -31,6 +32,38 @@ describe('useActivitySound', () => {
   beforeEach(() => {
     played.length = 0;
     now = 0;
+  });
+
+  it('늦게 도착한 옛 URL 응답은 최신 탭 소리를 덮지 않고 이탈 후에도 재생하지 않는다', async () => {
+    let firstResolve!: (url: string) => void;
+    vi.mocked(resolveTtsUrl).mockImplementationOnce(
+      () =>
+        new Promise<string>((r) => {
+          firstResolve = r;
+        })
+    );
+    const hook = renderHook(() => useActivitySound({ unitId: 'u1', prefix: 'test' }));
+    const stale = hook.result.current.say('old');
+    await act(() => hook.result.current.say('new', undefined, 'blob:new'));
+    await act(async () => {
+      firstResolve('blob:old');
+      await stale;
+    });
+    expect(played.map((p) => p.url)).toEqual(['blob:new']);
+    let lateResolve!: (url: string) => void;
+    vi.mocked(resolveTtsUrl).mockImplementationOnce(
+      () =>
+        new Promise<string>((r) => {
+          lateResolve = r;
+        })
+    );
+    const late = hook.result.current.say('late');
+    hook.unmount();
+    await act(async () => {
+      lateResolve('blob:late');
+      await late;
+    });
+    expect(played.map((p) => p.url)).toEqual(['blob:new']);
   });
 
   /**

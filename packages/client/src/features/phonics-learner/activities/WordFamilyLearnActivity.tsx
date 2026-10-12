@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -17,6 +17,7 @@ import {
   patternHighlightRanges,
   isMagicEPattern,
   writeStepRead,
+  patternWriteOrder,
 } from '../lib/english-phonics-units';
 
 export interface FamilyWord {
@@ -133,10 +134,19 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   //    에이크 베이크라고 읽어 어색"). 매직-e 소리는 앞 조각([b][ake])이 이미 가르쳤다. wordFamilies 의
   //    저작 ttsUrl("A bake")은 **게임 성공음 전용**이라 이 화면에선 안 쓴다.
   //    → 조각 소리(concat)와 낱말(plain)을 텍스트로 데운다.
-  const warmTexts = useMemo(
-    () => [...new Set([...rows.flatMap((r) => r.segs), ...words.map((w) => w.word)])],
-    [rows, words]
-  );
+  const warmTexts = useMemo(() => {
+    const texts = new Set([...rows.flatMap((r) => r.segs), ...words.map((w) => w.word)]);
+    for (const w of words) {
+      const order = patternWriteOrder(w.word, [pattern]) ?? [...w.word].map((_, i) => i);
+      const written: number[] = [];
+      for (const index of order) {
+        written.push(index);
+        const read = writeStepRead(w.word, pattern, written, index, unitId);
+        if (read) texts.add(read);
+      }
+    }
+    return [...texts];
+  }, [rows, words, pattern, unitId]);
   usePhonicsTtsWarm(unitId, warmTexts, 'en-family', 'english');
   // 낱말 그림(있는 것만) — 음원처럼 진입 시 데운다(게임과 동일 프리미티브).
   usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
@@ -153,6 +163,15 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const writeDoneRef = useRef(false);
   // 🔴 낱말을 다 쓰면 보여줄 예문 텍스트(Book 2 써보기와 통일, 2026-08-06).
   const [shownSentence, setShownSentence] = useState<string | null>(null);
+  const aliveRef = useRef(true);
+  const writeSequenceRef = useRef(0);
+  useEffect(() => {
+    aliveRef.current = true;
+    return () => {
+      aliveRef.current = false;
+      writeSequenceRef.current++;
+    };
+  }, []);
 
   const wordDone = useCallback(
     (wi: number) => rows[wi]?.cells.every((_, ci) => pressed.has(`${wi}-${ci}`)) ?? false,
@@ -228,6 +247,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const handleWriteLetter = useCallback(
     (_letter: string, index: number) => {
       if (writeDoneRef.current || !writeWord) return;
+      const sequence = ++writeSequenceRef.current;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       const readText = writeStepRead(writeWord.word, pattern, writtenRef.current, index, unitId);
       void (async () => {
@@ -240,7 +260,11 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
             })
           : undefined;
         // 띵동 먼저, 끝나면 이어읽기(한 채널이라 동시에 내면 앞소리가 잘린다).
-        if (url) chime(() => playAudio(url));
+        if (sequence !== writeSequenceRef.current) return;
+        if (url)
+          chime(() => {
+            if (sequence === writeSequenceRef.current) playAudio(url);
+          });
         else playUi('tap'); // 읽을 조각이 없으면 뾱(확인음)만
       })();
     },
@@ -250,20 +274,21 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const handleWriteComplete = useCallback(() => {
     if (writeDoneRef.current) return;
     writeDoneRef.current = true;
+    writeSequenceRef.current++;
     const w = words[writeIdx];
     if (!w) return;
     const isLast = writeIdx + 1 >= words.length;
     void (async () => {
       // 🔴 예문은 **자연 음원(sentenceTtsUrl) 우선** — 없으면 concat 폴백(음소 이어붙이기라 어색).
-      const sentenceUrl = w.sentence
-        ? await resolveTtsUrl({
+      const sentenceUrlPromise = w.sentence
+        ? resolveTtsUrl({
             text: w.sentence,
             language: 'english',
             storybookId: unitId,
             directUrl: w.sentenceTtsUrl,
             identifierPrefix: 'en-family',
           })
-        : undefined;
+        : Promise.resolve(undefined);
       // 🔴 낱말 읽기 → (예문 텍스트 띄우고 + 예문 읽기) → (마지막이면 칭찬+완료 / 아니면 다음 낱말).
       //    Book 2 써보기와 통일 — 예문은 여기(써보기 완성)에서만 준다. onEnded 체인이라 안 잘린다.
       const afterSentence = () => {
@@ -280,12 +305,15 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       //    빠졌던 완성 효과음 복구("사이에 효과음이 없어").
       say(w.word, () =>
         chime(() => {
-          if (w.sentence && sentenceUrl) {
-            setShownSentence(w.sentence);
-            rest(() => playAudio(sentenceUrl, afterSentence));
-          } else {
-            afterSentence();
-          }
+          void sentenceUrlPromise.then((sentenceUrl) => {
+            if (!aliveRef.current) return;
+            if (w.sentence && sentenceUrl) {
+              setShownSentence(w.sentence);
+              rest(() => playAudio(sentenceUrl, afterSentence));
+            } else {
+              afterSentence();
+            }
+          });
         })
       );
     })();

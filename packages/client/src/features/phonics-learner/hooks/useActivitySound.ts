@@ -1,6 +1,6 @@
 import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { emitLearningEffect } from '@/features/games/effects/learning-effects';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { praiseLang } from './useEntryGuide';
@@ -36,11 +36,21 @@ interface Options {
 export function useActivitySound({ unitId, language = 'korean', prefix }: Options) {
   const audio = useGameAudio();
   const { playAudio, playCorrectSequence, scheduleTimer } = audio;
+  const sequenceRef = useRef(0);
+  useEffect(
+    () => () => {
+      sequenceRef.current++;
+    },
+    []
+  );
 
   /** 소리가 **끝난 뒤** 잠깐 쉬고 다음으로. 언마운트 시 자동 정리된다. */
   const rest = useCallback(
     (fn: () => void) => {
-      scheduleTimer(fn, REST_MS);
+      const sequence = sequenceRef.current;
+      scheduleTimer(() => {
+        if (sequence === sequenceRef.current) fn();
+      }, REST_MS);
     },
     [scheduleTimer]
   );
@@ -48,11 +58,15 @@ export function useActivitySound({ unitId, language = 'korean', prefix }: Option
   /** 텍스트 한 조각 읽기. `directUrl` 이 있으면 그걸 우선(단어 카드 녹음 등). */
   const say = useCallback(
     async (text: string, onEnded?: () => void, directUrl?: string) => {
+      const sequence = ++sequenceRef.current;
       const url =
         directUrl ||
         (await resolveTtsUrl({ text, language, storybookId: unitId, identifierPrefix: prefix }));
       // 🔴 URL 이 없어도 `onEnded` 는 부른다 — 안 그러면 음원 하나 없는 것 때문에 활동이 멈춘다.
-      playAudio(url, onEnded);
+      if (sequence !== sequenceRef.current) return;
+      playAudio(url, () => {
+        if (sequence === sequenceRef.current) onEnded?.();
+      });
     },
     [language, unitId, prefix, playAudio]
   );

@@ -98,11 +98,12 @@ export function useReviewCardSources(cards: ReadonlyArray<ReviewCard>): {
   sources: ReviewCardSource[];
   isLoading: boolean;
 } {
+  const unitIds = useMemo(() => [...new Set(cards.map((c) => c.unitId))], [cards]);
   const results = useQueries({
-    queries: cards.map((c) => ({
+    queries: unitIds.map((unitId) => ({
       // 학습 단원과 같은 캐시 키 — 단원을 이미 다녀왔으면 네트워크 왕복 0.
-      queryKey: ['storybook', c.unitId],
-      queryFn: () => storybookApi.getById(c.unitId),
+      queryKey: ['storybook', unitId],
+      queryFn: () => storybookApi.getById(unitId),
     })),
   });
 
@@ -111,8 +112,8 @@ export function useReviewCardSources(cards: ReadonlyArray<ReviewCard>): {
 
   const sources = useMemo(
     () =>
-      cards.map((c, i) => {
-        const sb = results[i]?.data as Storybook | undefined;
+      cards.map((c) => {
+        const sb = results[unitIds.indexOf(c.unitId)]?.data as Storybook | undefined;
         const otherLetters = cards.filter((o) => o.unitId !== c.unitId).map((o) => o.letter);
         const picked = pickWord(sb, c, otherLetters);
         // 🔴 대표 낱말의 저작 녹음("c c cat") — 복습 성공음을 Book 1 「a a apple」 형식으로 통일한다.
@@ -122,7 +123,7 @@ export function useReviewCardSources(cards: ReadonlyArray<ReviewCard>): {
     // 🔴 `results` 를 의존성에 넣으면 안 된다 — 매 렌더 새 배열이라 sources 가 계속 새로 만들어지고,
     //    이 배열을 prop 으로 받는 활동의 프리워밍 effect 가 끝없이 다시 돈다.
     //    대신 "몇 번째가 로드됐나"를 문자열로 압축한 dataKey 로 본다 (내용이 바뀌는 순간이 곧 이 값이 바뀌는 순간).
-    [cards, dataKey]
+    [cards, dataKey, unitIds]
   );
 
   /**

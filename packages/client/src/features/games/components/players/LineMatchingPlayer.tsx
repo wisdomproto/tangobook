@@ -78,14 +78,14 @@ function LineMatchingPlayerInner({
     if (phonicsLoading) return;
     const map = phonicsMapRef.current;
     for (const it of items) {
-      if (it.ttsUrl) {
+      if (it.ttsUrl && !/[가-힣]/.test(it.word)) {
         void warmAudioUrl(it.ttsUrl);
         continue;
       }
       // 🔴 **재생과 같은 키를 데운다.** 한글은 음절(글자)별로 읽으므로 글자별, 영어는 낱말 전체를
       //    한 키로 읽으므로(`playWordTts`: `map.get(word)`) 낱말 전체다. 예전엔 영어도 글자별로 데워
       //    영어 그림짝(복습)에서 정작 재생하는 낱말 키가 안 데워졌다.
-      const keys = lang === 'ko' ? [...it.word] : [it.word.toLowerCase()];
+      const keys = /[가-힣]/.test(it.word) ? [...it.word] : [it.word.toLowerCase()];
       for (const k of keys) {
         const url = map.get(k) ?? map.get(k.toLowerCase());
         if (url) void warmAudioUrl(url);
@@ -110,7 +110,15 @@ function LineMatchingPlayerInner({
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);
 
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible, scheduleTimer } =
+    useGameAudio();
+  const feedbackGen = useRef(0);
+  useEffect(
+    () => () => {
+      feedbackGen.current++;
+    },
+    []
+  );
   // 🔴 진입 안내 음성 — "그림과 짝을 찾아봐!"(`games:guide.lineMatch`). 언어는 **UI 언어**이지
   //    콘텐츠 언어가 아니다(`voiceUrl`) — vi/zh/th 어휘 게임도 이 플레이어를 쓴다.
   useGameEntryGuide(voiceUrl(ENTRY_GUIDE.lineMatch), playAudio);
@@ -137,22 +145,17 @@ function LineMatchingPlayerInner({
   // 단어 음원 — 한글은 음절 단위 mp3 순차 재생 (서버 concat / ffmpeg 의존성 X).
   // 영어는 ttsUrl 우선 → 없으면 phonics 단일 mp3 lookup.
   const playWordTts = useCallback(
-    async (item: LineMatchingItem) => {
+    async (item: LineMatchingItem, gen: number) => {
       const hasHangul = /[가-힣]/.test(item.word);
       const map = phonicsMapRef.current;
       if (hasHangul) {
         // 한글 음절 순차 재생
         const syllables = [...item.word].filter((c) => /[가-힣]/.test(c));
         for (const syl of syllables) {
+          if (gen !== feedbackGen.current) return;
           const url = map.get(syl);
           if (!url) continue;
-          await new Promise<void>((resolve) => {
-            const audio = new Audio(url);
-            const done = () => resolve();
-            audio.addEventListener('ended', done, { once: true });
-            audio.addEventListener('error', done, { once: true });
-            audio.play().catch(done);
-          });
+          await new Promise<void>((resolve) => playAudio(url, resolve));
         }
       } else {
         // 영어: ttsUrl 우선 → phonics 단일 lookup. 재생 완료까지 대기 (마지막 짝 chain 용 —
@@ -168,6 +171,7 @@ function LineMatchingPlayerInner({
   // 양쪽 다 선택되면 매칭 체크
   useEffect(() => {
     if (selectedImageIdx === null || selectedWordIdx === null) return;
+    const gen = ++feedbackGen.current;
 
     const isMatch = selectedImageIdx === selectedWordIdx;
     if (isMatch) {
@@ -187,11 +191,14 @@ function LineMatchingPlayerInner({
        *    단일 채널이라 띵동 꼬리가 단어/글자 소리에 먹힌다. 이 프로젝트의 이음매 값은 400~450ms 다.
        *    영어 파닉스 짝 찾기에선 그 글자 소리가 **유일한 음성 보상**이라 머리가 잘리면 남는 게 없다.
        */
-      setTimeout(() => {
+      scheduleTimer(() => {
+        if (gen !== feedbackGen.current) return;
         // 🔴 chain 규칙: 발음이 "끝난 뒤" 칭찬음 → 장면 리빌 — 고정 타이머는 다음절 단어 발음이
         // 잘린 채 다음 단계가 겹치는 원인.
-        void playWordTts(matchedItem).then(() => {
+        void playWordTts(matchedItem, gen).then(() => {
+          if (gen !== feedbackGen.current) return;
           const showScene = () => {
+            if (gen !== feedbackGen.current) return;
             // 맞춘 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음/결과로.
             const s = resolveSceneFromWord(
               matchedItem.word,
@@ -203,7 +210,7 @@ function LineMatchingPlayerInner({
               sceneWasLastRef.current = isLast;
               setScene(s);
             } else if (isLast) {
-              setTimeout(() => setFinished(true), 400);
+              scheduleTimer(() => setFinished(true), 220);
             }
           };
           // 단어 발음 후 칭찬음(+호리 오버레이) → 장면 리빌. (2026-07 그림짝 칭찬음 누락 수정)
@@ -213,7 +220,8 @@ function LineMatchingPlayerInner({
     } else {
       setWrongPair({ image: selectedImageIdx, word: selectedWordIdx });
       playFeedbackSound(false);
-      setTimeout(() => {
+      scheduleTimer(() => {
+        if (gen !== feedbackGen.current) return;
         setSelectedImageIdx(null);
         setSelectedWordIdx(null);
         setWrongPair(null);
@@ -231,6 +239,7 @@ function LineMatchingPlayerInner({
     sourceStorybook,
     lang,
     gameStyle.selectedStyle,
+    scheduleTimer,
   ]);
 
   const logGame = useGameLogger();
@@ -636,7 +645,7 @@ function LineMatchingPlayerInner({
           ttsUrl={scene.pageTtsUrl}
           onDone={() => {
             setScene(null);
-            if (sceneWasLastRef.current) setTimeout(() => setFinished(true), 200);
+            if (sceneWasLastRef.current) scheduleTimer(() => setFinished(true), 200);
           }}
         />
       )}

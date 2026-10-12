@@ -317,9 +317,12 @@ export function LetterFillCanvas({
         </AnimatePresence>
       </div>
 
-      {/* 진척 바 — 채움 % 시각화 */}
-      {hasDrawn && !result && (
-        <div className="w-full max-w-sm">
+      {/* 첫 pointerdown에 높이가 늘면 중앙 정렬된 캔버스가 손가락 밑에서 움직인다. 공간은 먼저 확보. */}
+      {!result && (
+        <div
+          className={`letter-fill-progress w-full max-w-sm ${hasDrawn ? '' : 'invisible'}`}
+          aria-hidden={!hasDrawn}
+        >
           <div className="flex items-center justify-between text-sm font-bold mb-1">
             <span className={passedNow ? 'text-emerald-600' : 'text-slate-500'}>
               {pctText} {passedNow && '✓'}

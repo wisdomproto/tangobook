@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-12 [공용 게임 오디오·쓰기 반응 점검](../phonics/tasks/20261012-phonics-all-performance.md): 프레임당 쓰기 채점·첫 획 위치 고정, 한글 쓰기 translate380/220ms·영어 CVC 즉시 다음 칸/ended 체인, 늦은 음성·이탈 취소, 칭찬1개 사전 준비·StrictMode 게임 안내·복습 중복 조회 수정.223회귀·타입/빌드·대표 모바일/한영 플레이 통과. 외부 구 음원10초 지연1회/동일 자산 재현·실기기FPS는 미확인. 통합은 task 참조·미푸시.
+
 2026-10-12 [한글·영어 전체 활동 시각 통일](../phonics/tasks/20261012-phonics-all-activities-ui.md): 승인한 모음 화면을 한글5권/영어5권의16활동 템플릿과 파닉스 게임·로딩/결과까지 확장. 자음/합성/종이/듣기/씨앗카드/사냥 역할별 표현,375px 영어 조각/812×375 마지막행 잘림 수정. 합성 중 선택 잠금과 복습 그림짝 source 연결,152회귀·타입/빌드 및 대표 브라우저 검수. 통합은 task 참조·미푸시.
 
 2026-10-12 [파닉스 시각·소리 복구](../phonics/tasks/20261012-phonics-playful-ui.md): source=phonics GamePlayerLayout에 공통 SVG 풍경 연결, 독후게임 기존배경 보존. usePhonicsMap 연결실패 빈map을 캐시하지 않으며 한/영/중 재시도 회귀 추가. playAudio 선택 onError로 모음 재생실패를 완료로 처리하지 않되 기존 caller fallback 유지. 관련55검증·타입/빌드, 통합은 task 참조·미푸시.

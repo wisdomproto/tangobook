@@ -70,6 +70,13 @@ export function WordFillCanvas({
    *    move + up 으로 두 번 확정됐다. 호출부가 "다음 카드로" 를 걸어두면 카드가 한 장씩 건너뛴다.
    */
   const completedRef = useRef(false);
+  const evaluationFrameRef = useRef<number | null>(null);
+  const cancelEvaluation = useCallback(() => {
+    if (evaluationFrameRef.current !== null) {
+      cancelAnimationFrame(evaluationFrameRef.current);
+      evaluationFrameRef.current = null;
+    }
+  }, []);
   const [doneCount, setDoneCount] = useState(0);
   // 하이라이트를 그리려면 렌더가 범위를 알아야 한다 — ref 와 같은 값을 state 로도 둔다.
   const [ranges, setRanges] = useState<Array<{ start: number; end: number }>>([]);
@@ -130,11 +137,14 @@ export function WordFillCanvas({
     }
     rangesRef.current = ranges;
     doneRef.current = ranges.map(() => false);
+    completedRef.current = false;
     setDoneCount(0);
     setRanges(ranges.map((r) => ({ start: r.start, end: r.end })));
   }, [word, syllables, fontFamily]);
 
   useEffect(() => {
+    cancelEvaluation();
+    isDrawingRef.current = false;
     let alive = true;
     let drew = false;
     const fam = fontFamily ?? fontFamilyFor(word);
@@ -154,14 +164,16 @@ export function WordFillCanvas({
       const t = setTimeout(draw, 400); // 로드가 늦어도 일단 그림
       return () => {
         alive = false;
+        cancelEvaluation();
         clearTimeout(t);
       };
     }
     draw();
     return () => {
       alive = false;
+      cancelEvaluation();
     };
-  }, [drawGuide, word, fontFamily]);
+  }, [drawGuide, word, fontFamily, cancelEvaluation]);
 
   /** 칠한 뒤 음절별 coverage 측정 → 새로 완료된 음절 처리. */
   const evaluate = useCallback(() => {
@@ -219,6 +231,17 @@ export function WordFillCanvas({
       onComplete?.();
     }
   }, [syllables, threshold, onSyllableDone, onComplete]);
+  const evaluateRef = useRef(evaluate);
+  evaluateRef.current = evaluate;
+
+  // 획은 입력마다 즉시 그린다. 무거운 전체 픽셀 채점만 한 프레임에 한 번으로 묶는다.
+  const queueEvaluation = () => {
+    if (evaluationFrameRef.current !== null) return;
+    evaluationFrameRef.current = requestAnimationFrame(() => {
+      evaluationFrameRef.current = null;
+      evaluateRef.current();
+    });
+  };
 
   const toCanvas = (e: ReactPointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
@@ -287,11 +310,12 @@ export function WordFillCanvas({
     const pt = toCanvas(e);
     paintTo(pt.x, pt.y);
     feedDrawLoop();
-    evaluate();
+    queueEvaluation();
   };
   const onUp = () => {
     isDrawingRef.current = false;
     lastPointRef.current = null;
+    cancelEvaluation();
     evaluate();
   };
 

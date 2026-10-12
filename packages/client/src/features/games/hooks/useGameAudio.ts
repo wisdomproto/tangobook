@@ -9,6 +9,8 @@ import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { getSharedAudio } from '@/lib/audio-unlock';
 import { useGameSound } from './useGameSound';
+import { warmAudioUrl } from './useGamePrefetch';
+import i18n from '@/i18n';
 
 export interface CorrectSequenceOpts {
   ttsUrl?: string;
@@ -37,6 +39,9 @@ export function useGameAudio() {
   //    (오디오를 pause/src='' 하면 'error'→finish 가 도는데, 그때 세대가 어긋나면 콜백을 안 부른다.)
   const genRef = useRef(0);
   const successRef = useRef(0);
+  const aliveRef = useRef(true);
+  const ownedFinishRef = useRef<(() => void) | null>(null);
+  const preparedPraiseRef = useRef<Record<string, string>>({});
 
   // 시스템 칭찬 음원 라이브러리 자동 로드
   useEffect(() => {
@@ -47,12 +52,24 @@ export function useGameAudio() {
         for (const [lang, group] of Object.entries(data)) {
           pools[lang] = (group?.correct ?? []).map((s) => s.url);
         }
+        if (!aliveRef.current) return;
         setCorrectPools(pools);
+        // 화면 진입을 막지 않고 실제 다음 칭찬만 준비한다. 전체 라이브러리는 받지 않는다.
+        const uiLanguage = LANG_TO_SYSTEM_SOUND[i18n.language.slice(0, 2) as Lang] ?? 'korean';
+        for (const language of new Set([uiLanguage, 'english'])) {
+          const pool = pools[language] ?? [];
+          const url = pool[Math.floor(Math.random() * pool.length)];
+          if (url) {
+            preparedPraiseRef.current[language] = url;
+            void warmAudioUrl(url);
+          }
+        }
       })
       .catch(() => {});
   }, []);
 
   const playAudio = useCallback((url?: string, onEnded?: () => void, onError?: () => void) => {
+    if (!aliveRef.current) return;
     if (!url) {
       onEnded?.();
       return;
@@ -67,8 +84,9 @@ export function useGameAudio() {
       if (done) return;
       done = true;
       if (currentFinish === finish) currentFinish = null;
+      if (ownedFinishRef.current === finish) ownedFinishRef.current = null;
       // 🔴 stopAll() 이후 취소된 재생이면 onEnded(체인의 다음 소리)를 부르지 않는다.
-      if (gen !== genRef.current) return;
+      if (!aliveRef.current || gen !== genRef.current) return;
       if (failed && onError) onError();
       else onEnded?.();
     };
@@ -77,6 +95,7 @@ export function useGameAudio() {
     // 걸리도록 마이크로태스크로 미룬다.
     const prev = currentFinish;
     currentFinish = finish;
+    ownedFinishRef.current = finish;
     if (prev) queueMicrotask(prev);
 
     audio.pause();
@@ -90,6 +109,7 @@ export function useGameAudio() {
   // 기존 WebAudio 톤 합성 제거 → useGameSound에 위임
   const playFeedbackSound = useCallback(
     (correct: boolean, effect: LearningEffectKind = 'correct') => {
+      if (!aliveRef.current) return;
       successRef.current = correct ? successRef.current + 1 : 0;
       emitLearningEffect(
         correct
@@ -118,21 +138,21 @@ export function useGameAudio() {
     genRef.current++;
     pendingTimersRef.current.forEach((id) => clearTimeout(id));
     pendingTimersRef.current.clear();
-    currentFinish = null;
-    try {
+    if (currentFinish && currentFinish === ownedFinishRef.current) {
+      currentFinish = null;
       getSharedAudio().pause();
-    } catch {
-      /* ignore */
     }
+    ownedFinishRef.current = null;
     setPraiseVisible(false);
   }, []);
 
   const scheduleTimer = useCallback((fn: () => void, ms: number) => {
     const id = setTimeout(() => {
       pendingTimersRef.current.delete(id);
-      fn();
+      if (aliveRef.current) fn();
     }, ms);
-    pendingTimersRef.current.add(id);
+    if (aliveRef.current) pendingTimersRef.current.add(id);
+    else clearTimeout(id);
     return id;
   }, []);
 
@@ -158,6 +178,7 @@ export function useGameAudio() {
    * 단어/칭찬 TTS 의 실제 'ended' 이벤트를 기다려 chain — 단어 길이에 관계없이 잘리지 않음. */
   const playCorrectSequence = useCallback(
     (opts?: CorrectSequenceOpts) => {
+      if (!aliveRef.current) return;
       playFeedbackSound(true);
       setPraiseVisible(true);
 
@@ -169,10 +190,19 @@ export function useGameAudio() {
       const pool = langPool.length > 0 ? langPool : allUrls;
       const correctUrl =
         opts?.systemSounds?.correctUrl ||
+        (ssLang && preparedPraiseRef.current[ssLang]) ||
         (pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : undefined);
 
       const finishSequence = () => {
         setPraiseVisible(false);
+        if (ssLang && !opts?.systemSounds?.correctUrl) {
+          const nextPool = pool.filter((url) => url !== correctUrl);
+          const next = nextPool[Math.floor(Math.random() * nextPool.length)] ?? correctUrl;
+          if (next) {
+            preparedPraiseRef.current[ssLang] = next;
+            void warmAudioUrl(next);
+          }
+        }
         opts?.onDone?.();
       };
       const playPraise = () => {
@@ -198,15 +228,17 @@ export function useGameAudio() {
 
   // 언마운트 시 재생 중 소리 + 예약 타이머 정리.
   useEffect(() => {
+    aliveRef.current = true;
     return () => {
+      aliveRef.current = false;
+      genRef.current++;
       pendingTimersRef.current.forEach((id) => clearTimeout(id));
       pendingTimersRef.current.clear();
-      currentFinish = null;
-      try {
+      if (currentFinish && currentFinish === ownedFinishRef.current) {
+        currentFinish = null;
         getSharedAudio().pause();
-      } catch {
-        /* ignore */
       }
+      ownedFinishRef.current = null;
     };
   }, []);
 

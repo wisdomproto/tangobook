@@ -1,8 +1,9 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { VowelWriteActivity } from './VowelWriteActivity';
 
 const tts = vi.hoisted(() => vi.fn(async () => 'blob:vowel-sound'));
+const audio = vi.hoisted(() => vi.fn((_url: string, ended?: () => void) => ended?.()));
 vi.mock('@/features/tts', () => ({ resolveTtsUrl: tts }));
 vi.mock('../hooks/usePhonicsTtsWarm', () => ({ usePhonicsTtsWarm: vi.fn() }));
 vi.mock('../hooks/useEntryGuide', () => ({
@@ -12,11 +13,13 @@ vi.mock('../hooks/useEntryGuide', () => ({
 }));
 vi.mock('@/features/games/hooks/useGameAudio', () => ({
   useGameAudio: () => ({
-    playAudio: (_url: string, ended?: () => void) => ended?.(),
+    playAudio: audio,
     playCorrectSequence: ({ onDone }: { onDone?: () => void }) => onDone?.(),
     praiseVisible: false,
+    stopAll: vi.fn(),
   }),
 }));
+afterEach(() => vi.clearAllMocks());
 vi.mock('@/features/phonics/components/LetterFillCanvas', () => ({
   LetterFillCanvas: ({
     letter,
@@ -32,6 +35,32 @@ vi.mock('@/features/phonics/components/LetterFillCanvas', () => ({
 }));
 
 describe('모음 모양 쓰기와 발음 분리', () => {
+  it('완료 표시는 음원 응답 전 갱신하고 다른 모음 선택 후 늦은 응답은 무시한다', async () => {
+    let resolve!: (url: string) => void;
+    tts.mockImplementationOnce(
+      () =>
+        new Promise<string>((r) => {
+          resolve = r;
+        })
+    );
+    render(
+      <VowelWriteActivity
+        unitId="kr-test"
+        vowels={[
+          { vowel: 'ㅏ', syllable: '아', writeLetter: 'ㅏ' },
+          { vowel: 'ㅓ', syllable: '어', writeLetter: 'ㅓ' },
+        ]}
+        onComplete={vi.fn()}
+        onBack={vi.fn()}
+      />
+    );
+    fireEvent.click(screen.getByRole('button', { name: '쓰기 ㅏ' }));
+    expect(screen.getAllByRole('button').find((b) => b.textContent?.includes('✓'))).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'ㅓ' }));
+    await act(async () => resolve('blob:old'));
+    expect(screen.getByRole('button', { name: '쓰기 ㅓ' })).toBeVisible();
+    expect(audio).not.toHaveBeenCalled();
+  });
   it('ㅏ 모양을 쓰고 아 소리를 읽으며 source 음원/현재 단원 완료를 연결한다', async () => {
     const complete = vi.fn();
     render(
