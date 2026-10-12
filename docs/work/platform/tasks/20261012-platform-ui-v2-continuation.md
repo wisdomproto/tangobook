@@ -8,7 +8,7 @@
 - branch: codex/platform-ui-v2
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 4e7de123c를 로컬 main에 fast-forward 통합 완료
-- delivery: 미푸시·미배포
+- delivery: 2026-10-12 origin/main 푸시 완료, Railway 배포 완료 여부는 미확인
 
 ## 요청과 기준
 

@@ -13,3 +13,5 @@
 - [홈 상단·과정 카드 구분](20261012-home-header-course-contrast.md) — integrated, 로컬 main.
 
 - [한글·영어 과정 색 통일](20261012-course-language-colors.md) — integrated, 로컬 main.
+
+- [플랫폼 UI v2 main 푸시](20261012-platform-ui-v2-main-push.md) — completed, origin/main 전송·원격 SHA 확인.

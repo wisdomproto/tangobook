@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-12 [플랫폼 UI v2 main 푸시](tasks/20261012-platform-ui-v2-main-push.md): 사용자 요청으로 플랫폼 기준·시안·UI 개편·홈/과정 테마17커밋과 원격 나레이션 작업을 보존 통합해5530dc82f를 origin/main에 일반 push 완료, 원격 SHA 일치 확인. 이전 UI task의 미푸시는 당시 상태이며 현재는 전송 완료다. Railway 배포 완료는 미확인.
+
 2026-10-12 [한글·영어 과정 색 통일](tasks/20261012-course-language-colors.md): 공용 courseTheme로 홈·탐색·과정/단원/활동·책/어휘 언어 선택·부모 리포트 색을 통일했다. 한글 peach200/코랄, 영어 mint200/mint700. 작은 한글 배지 coral800 대비 보완, 상태/학습 팔레트 유지. 0e1a475a0 로컬 main 통합, 검증은 task 참조. 미푸시·미배포.
 
 2026-10-12 [홈 상단·과정 카드 구분](tasks/20261012-home-header-course-contrast.md): 사용자의 공간 낭비·색 유사 지적 반영. 768px부터 상단5탭, 모바일 헤더56px, 홈 한글 peach/영어 mint 면·2px 테두리. 과정 높이도 동기화. a89ab90a9 로컬 main 통합 완료; 검증은 task 참조. 미푸시·미배포.

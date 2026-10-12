@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [플랫폼 UI v2 main 푸시](../work/platform/tasks/20261012-platform-ui-v2-main-push.md): 사용자 요청으로 플랫폼 기준·시안·UI 개편·홈/과정 테마17커밋과 원격 나레이션 작업을 보존 통합해5530dc82f를 origin/main에 일반 push 완료, 원격 SHA 일치 확인. 이전 UI task의 미푸시는 당시 상태이며 현재는 전송 완료다. Railway 배포 완료는 미확인.
+
 2026-10-12 [한글·영어 과정 색 통일](../work/platform/tasks/20261012-course-language-colors.md): 홈의 한글 살구·영어 민트 테마를 탐색·과정/단원/활동 선택·책/어휘 언어 선택·부모 리포트까지 연결했다. 대비·모바일/태블릿·27회귀 검증, 0e1a475a0 로컬 main 통합. 미푸시·미배포.
 
 2026-10-12 [홈 상단·과정 카드 구분](../work/platform/tasks/20261012-home-header-course-contrast.md): 태블릿 로고만 있던 줄을 상단5탭으로 활용(768px 이상), 모바일 헤더56px. 한글 살구색·영어 민트색 카드와2px 테두리로 밝은 바탕과 구분. 타입/빌드·탐색3테스트·375/768/887/1024px 검수 완료. 로컬 통합은 task 참조, 미푸시·미배포.
