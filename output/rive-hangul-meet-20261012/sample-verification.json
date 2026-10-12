@@ -1,0 +1,70 @@
+{
+  "native_rive_frames_rendered": 180,
+  "distinct_frame_sha256_count": 179,
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 960,
+        "height": 720,
+        "r_frame_rate": "20/1",
+        "nb_frames": "180"
+      }
+    ],
+    "format": {
+      "duration": "9.000000"
+    }
+  },
+  "full_video_decode": "passed",
+  "loop_keyed_properties": 46,
+  "max_keyframe_palm_separation_pixels": 0.00017196588281369804,
+  "loop_seam_rgb_mean_absolute_difference_0_255": [
+    6.799768518518518e-05,
+    7.378472222222222e-05,
+    9.693287037037037e-05
+  ],
+  "assets": {
+    "giyok-body.png": {
+      "sha256": "ddc6723edcdb0ab722bd02113f81304dd927906b1e5f17a0c30db12a8dfb22a0",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    "a-body.png": {
+      "sha256": "5150a0d493004b8c3414e64cf20588b6cae6b5cbfaaa418761b279b3fc384904",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  },
+  "files": {
+    "scene.rml": {
+      "sha256": "baa917cec1c6c436de45c6b38e5f2d0809555755a91d72f057410ec3caab7fd3",
+      "bytes": 356438
+    },
+    "rive-hangul-meet-20261012.riv": {
+      "sha256": "22c95b1b1eebc4a4fed07ae4315e46b45edf239092939adcf6cfb63fe2fa5de3",
+      "bytes": 1043773
+    },
+    "giyok-meets-a.mp4": {
+      "sha256": "fd275ea1da92c1375d4dd0e6e05bcbbc0beb97662856b33c9366ea8cb7cdd1bf",
+      "bytes": 346666
+    },
+    "giyok-meets-a.gif": {
+      "sha256": "2706d4a10b3c2dd77e132f66f9a09cc95fc3de937202e73a86af5de54686dbb5",
+      "bytes": 2745204
+    }
+  },
+  "limits": "Silent local prototype. Joint metric checks keyed poses; visual review covers sampled rendered frames."
+}

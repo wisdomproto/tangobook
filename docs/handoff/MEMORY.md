@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 Rive ㄱ+ㅏ→가 최종 사용자승인·다른세션 재개: [인계 기록](../work/video/tasks/20261012-rive-hangul-meeting.md#다른-세션에서-재개)에 샘플/원본/코드 위치와 실행·검수·후속 범위 정리. 승인 sample.mp4/sample.riv/12표본/검수JSON은 output/rive-hangul-meet-20261012에 Git 보존. “Rive 한글 샘플 이어서” 요청은 이 기록부터 읽는다. 제작커밋0737d233e/91ead3bea 로컬main, 미푸시.
+
 2026-10-12 [Rive ㄱ과 ㅏ의 만남](../work/video/tasks/20261012-rive-hangul-meeting.md) 완료: 기존ㄱ춤 귀엽다고 승인 뒤 두글자만남 요청. imagegen 민트ㅏ/native 관절로9초 하이파이브→손잡고가→함께뛰기 실제Rive1.04MB·MP4/GIF 제작.180프레임/12표본·루프/관절/전체decode 통과. output/rive-hangul-meet-20261012 원본과-review 프리뷰,코드/기억 로컬main보존. 이전ㄱ/운영/게임/푸시 변경 없음.
 
 2026-10-12 [탱고 블록 KC 실행 가이드](../work/hardware/block-kc-guide.md): 사용자 요청으로 생산·시험·신고·표시/출고 단계와 기관/공장 문의문 정리. 모음 작은부품/거울재질 우선상담. 실제 신청·견적 없음, 로컬 문서.

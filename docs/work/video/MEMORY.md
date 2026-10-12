@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 기억
 
+2026-10-12 Rive 만남 최종 사용자승인·다른세션 인계: [재개 기록](tasks/20261012-rive-hangul-meeting.md#다른-세션에서-재개)에 승인본 경로·원본/코드·CLI 명령·검수 기준·미구현 범위·이어가기 문장 정리. output/rive-hangul-meet-20261012의 sample.mp4/sample.riv/표본PNG/검수JSON도 Git 보존. 제작0737d233e/91ead3bea는 로컬main, 미푸시. 새세션은 해당커밋 포함 여부 확인 후 샘플을 읽는다.
+
 2026-10-12 [Rive ㄱ과 ㅏ의 만남](tasks/20261012-rive-hangul-meeting.md) 완료: 이전ㄱ귀여움 사용자승인 뒤 두글자만남 요청. imagegen 민트ㅏ·native 얼굴/관절/ㄱ+ㅏ=가 식으로9초 반복 하이파이브→손잡고가→함께뛰기 시안. 실제Rive180프레임/12표본·46속성루프·손관절35키·MP4전체decode 검수 통과. output/rive-hangul-meet-20261012 원본과-review MP4/GIF,코드/기억 로컬main보존. 기존ㄱ/제품/운영/게임/푸시 변경 없음.
 
 2026-10-12 [한글 ㄱ 캐릭터 Rive 시안](tasks/20261012-rive-hangul-character.md): 사용자 한글떼 느낌·Rive·image skill 지정. 내장 imagegen 투명 ㄱ 몸통+native 얼굴/관절로6초 무음 춤 제작. 공식 CLI1.5.1/RML로 로그인 없이 실제.riv559,518bytes·960×720/30fps MP4·반복GIF 완성,180고유렌더·12표본·루프/전체decode 검수. output/rive-hangul-20261012 원본·코드 로컬main보존, review에미디어. .rev미생성(로그인필요), 실제3D/게임/운영앱통합/푸시없음. 사용자 게임가능성 논의는 후속구현승인으로 확대하지 않는다.
