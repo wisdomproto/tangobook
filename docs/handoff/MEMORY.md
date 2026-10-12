@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [탱고 블록 KC 실행 가이드](../work/hardware/block-kc-guide.md): 사용자 요청으로 생산·시험·신고·표시/출고 단계와 기관/공장 문의문 정리. 모음 작은부품/거울재질 우선상담. 실제 신청·견적 없음, 로컬 문서.
+
 2026-10-12 [탱고 블록 판매 전 안전확인](../work/hardware/tasks/20261012-block-safety-confirmation.md): 사용자 비전기 블록 확인. 완구 안전확인 제도·화학/물리적 안전 검토 방향 조사. 탱고 세트의 기관 분류·시험범위·비용/기간은 미확정, 외부 신청 없음.
 
 2026-10-12 [한글 ㄱ 캐릭터 Rive 시안](../work/video/tasks/20261012-rive-hangul-character.md): 사용자 Rive·image skill 지정으로 생성 투명ㄱ몸통+native 얼굴/관절 6초무음춤 실제.riv 제작. 공식CLI1.5.1 로그인없이컴파일·180고유프레임/12표본/루프·MP4전체decode 검수,원본/소스/프롬프트 로컬main보존. output/rive-hangul-20261012 및 review에MP4/GIF. .rev/게임/운영앱통합/외부업로드/푸시없음.
