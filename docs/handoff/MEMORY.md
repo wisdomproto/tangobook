@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [전용 인쇄 학습지 시안](../work/strategy/tasks/20261012-print-worksheet-design.md): 예쁨을 우선해 그림책/오려붙이기/노트3방향×한영6쪽·비교갤러리·A4 PDF 제작 및 전수 렌더/배치 검수. Qwen 환경부재를 알리고 imagegen 내장 도구 사용. output/worksheet-design-20261012, localhost5196. 실제 과정·캐릭터 연결과 판매구성은 선택 후 진행, 제품/운영 미변경·미푸시.
+
 2026-10-12 [한글·영어 과정 시각 보완](../work/platform/tasks/20261012-course-page-visual-design.md): 실제 단원 글자/패턴·필수 진행·이어 할 활동, 역할별 SVG/기존 삽화 카드와 레벨 설명 위계를 적용했다. 교육 순서·제공 게임·권한·채점 유지. 52회귀·타입/빌드/lint·대표 모바일/태블릿 검수 통과, 31fb42ba4 로컬 main 통합 후 사용자 후속 요청으로 7faeed9b8을 origin/main에 push 완료·원격 SHA 확인. Railway 배포 완료 미확인.
 
 2026-10-12 [플랫폼 UI v2 main 푸시](../work/platform/tasks/20261012-platform-ui-v2-main-push.md): 사용자 요청으로 플랫폼 기준·시안·UI 개편·홈/과정 테마17커밋과 원격 나레이션 작업을 보존 통합해5530dc82f를 origin/main에 일반 push 완료, 원격 SHA 일치 확인. 이전 UI task의 미푸시는 당시 상태이며 현재는 전송 완료다. Railway 배포 완료는 미확인.

@@ -4,6 +4,7 @@
 
 - [2026-10-12 플랫폼 메인 문서 정리](20261012-platform-main-document.md)
 - [2026-10-12 학습 앱 첫 화면 방향 논의](20261012-learner-home-direction.md)
+- [2026-10-12 인쇄 판매용 학습지 디자인 탐색](20261012-print-worksheet-design.md)
 - [2026-10-05 학습과 재미 브랜딩 및 오가닉 전략](20261005-branding-organic-strategy.md)
 
 기존 worktree의 미이관 작업은 별도로 확인한다.
