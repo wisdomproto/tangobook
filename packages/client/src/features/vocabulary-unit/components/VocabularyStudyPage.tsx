@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Mascot, PageHeader } from '@/design-system';
@@ -32,13 +31,22 @@ function getDisplayUnitName(unit: VocabularyUnit, lang: Lang, storybook?: Storyb
 export function VocabularyStudyPage() {
   const { t } = useTranslation('games');
   const { unitId } = useParams<{ unitId: string }>();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   // 책 상세에서 넘어온 선택 그림체/언어 (?style=&lang=). 그림체는 여기서 바꾸지 않으므로 URL 값만 읽음
   // (게임 화면에선 그림체 수정 불가 — 책 상세에서 정한 그림체를 그대로 사용).
   const selectedStyle = searchParams.get('style') ?? undefined;
-  const [lang, setLang] = useState<Lang | null>((searchParams.get('lang') as Lang) || null);
+  const lang = searchParams.get('lang') as Lang | null;
+  const setLang = (value: Lang) =>
+    setSearchParams(
+      (previous) => {
+        const next = new URLSearchParams(previous);
+        next.set('lang', value);
+        return next;
+      },
+      { replace: true }
+    );
 
   // storybook 을 unitId 에서 직접 파싱해 먼저 fetch — activeStyle 을 derive 전에 계산하기 위함
   // (unit→storybook→style→unit 순환 회피). book 단원이 아니면 undefined.
@@ -54,7 +62,7 @@ export function VocabularyStudyPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-amber-100 via-yellow-50 to-cream-50">
+      <div className="min-h-screen flex items-center justify-center bg-cream-50">
         <Skeleton className="w-80 h-96 rounded-3xl" />
       </div>
     );
@@ -62,14 +70,14 @@ export function VocabularyStudyPage() {
 
   if (!unit) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-amber-100 via-yellow-50 to-cream-50 text-center">
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-cream-50 text-center">
         <Mascot state="thinking" size="lg" />
         <h2 className="mt-4 text-2xl font-black text-ink-900 font-display">
           {t('study.unitNotFound')}
         </h2>
         <button
           onClick={() => navigate('/library')}
-          className="mt-6 px-5 py-3 rounded-full bg-amber-500 text-white font-black shadow-pop"
+          className="mt-6 px-5 py-3 rounded-full bg-coral-700 text-white font-black shadow-soft"
         >
           {t('study.toLibrary')}
         </button>
@@ -88,14 +96,16 @@ export function VocabularyStudyPage() {
   const displayName = getDisplayUnitName(unit, effectiveLang, storybook);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-cream-50 to-peach-100">
+    <div className="min-h-screen flex flex-col bg-cream-50">
       {/* 🔴 `pt-*` 가 없으면 PageHeader 의 `mt-2` 가 **body 밖으로 새어**(마진 병합) 페이지 전체를
           8px 밀어내고, 그 8px 에는 이 컨테이너의 cream 그라데이션이 안 칠해져 위쪽에 띠가 생긴다.
           (실측: `#root` 에 padding 을 0.02px 만 줘도 body top 이 8 → 0 이 됐다.)
           패딩이 병합을 막고, 그대로 위쪽 숨 쉴 자리가 된다. */}
-      <div className="px-6 pt-2 sm:pt-4 w-full max-w-[1600px] mx-auto shrink-0">
+      <div className="px-3 sm:px-6 pt-2 sm:pt-4 w-full max-w-[1600px] mx-auto shrink-0">
         <PageHeader
-          onBack={() => navigate(bookId ? `/library/${bookId}` : '/library')}
+          onBack={() =>
+            navigate(bookId ? `/library/${bookId}?${searchParams.toString()}` : '/library/books')
+          }
           onHome={() => navigate('/library')}
           right={
             availableLangs.length > 1 ? (

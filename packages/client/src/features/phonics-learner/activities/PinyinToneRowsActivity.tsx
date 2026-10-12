@@ -199,12 +199,12 @@ export function PinyinToneRowsActivity({
                     ? 'bg-coral-500 border-coral-600 text-white scale-105'
                     : done
                       ? 'bg-mint-100 border-mint-400 text-mint-600'
-                      : 'bg-white border-white text-ink-500 hover:shadow-pop active:scale-[0.97]',
+                      : 'bg-white border-white text-ink-500 hover:shadow-soft active:scale-[0.97]',
                 ].join(' ')}
               >
                 {g.c}
                 {done && !active && (
-                  <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-mint-500 text-white text-xs font-black shadow-pop ring-2 ring-white">
+                  <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-mint-500 text-white text-xs font-black shadow-soft ring-2 ring-white">
                     ✓
                   </span>
                 )}
@@ -242,16 +242,16 @@ export function PinyinToneRowsActivity({
                       whileTap={{ scale: 0.94 }}
                       aria-label={syl}
                       className={[
-                        'relative rounded-2xl border-[5px] font-black shadow-soft transition flex items-center justify-center px-1 leading-none overflow-hidden',
+                        'relative rounded-2xl border-2 font-black shadow-soft transition flex items-center justify-center px-1 leading-none overflow-hidden',
                         pressed.has(syl)
                           ? 'bg-mint-100 border-mint-500 text-mint-600'
-                          : 'bg-white border-white text-ink-800 hover:shadow-pop',
+                          : 'bg-white border-white text-ink-800 hover:shadow-soft',
                       ].join(' ')}
                       style={{ width: cell, height: cell, fontSize: fontFor(syl) }}
                     >
                       {syl}
                       {pressed.has(syl) && (
-                        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-mint-500 text-white text-xs font-black shadow-pop ring-2 ring-white">
+                        <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-mint-500 text-white text-xs font-black shadow-soft ring-2 ring-white">
                           ✓
                         </span>
                       )}

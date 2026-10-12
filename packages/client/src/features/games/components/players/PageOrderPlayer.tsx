@@ -116,33 +116,33 @@ export function PageOrderPlayer({ storybookId, gameData, onComplete, onBack }: G
         onBack={onBack}
       />
 
-      <div className="flex flex-col items-center gap-[clamp(0.5rem,2vh,1.5rem)] w-full flex-1 min-h-0">
+      <div className="page-order-stage flex flex-col items-center gap-[clamp(0.5rem,2vh,1.5rem)] w-full flex-1 min-h-0">
         <p className="text-lg sm:text-xl font-black text-ink-900 break-keep text-center">
           {t('pageOrder.prompt')}
         </p>
 
         {/* 위 — 순서 슬롯. 번호가 곧 이야기 차례다. */}
-        <div className="grid grid-cols-4 gap-2 sm:gap-3 w-full max-w-3xl">
+        <div className="page-order-slots grid grid-cols-4 gap-2 sm:gap-3 w-full max-w-3xl">
           {items.map((_, slot) => {
             const filledIdx = placed[slot];
             return (
               <div
                 key={slot}
                 className={cn(
-                  'relative aspect-video rounded-2xl overflow-hidden border-4 bg-white/70',
+                  'relative aspect-video rounded-card overflow-hidden border-2 bg-white',
                   filledIdx === undefined
-                    ? 'border-dashed border-peach-300'
-                    : 'border-success shadow-card'
+                    ? 'border-dashed border-ink-200'
+                    : 'border-mint-700 shadow-soft'
                 )}
               >
                 {filledIdx === undefined ? (
-                  <span className="absolute inset-0 flex items-center justify-center text-xl sm:text-3xl font-black text-peach-400">
+                  <span className="absolute inset-0 flex items-center justify-center text-xl sm:text-3xl font-bold text-ink-600">
                     {slot + 1}
                   </span>
                 ) : (
                   <>
                     {thumb(items[filledIdx])}
-                    <span className="absolute top-0.5 left-0.5 w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-success text-white text-[0.65rem] sm:text-sm font-black flex items-center justify-center shadow-soft">
+                    <span className="absolute top-0.5 left-0.5 w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-mint-700 text-white text-xs sm:text-sm font-bold flex items-center justify-center">
                       {slot + 1}
                     </span>
                   </>
@@ -153,25 +153,24 @@ export function PageOrderPlayer({ storybookId, gameData, onComplete, onBack }: G
         </div>
 
         {/* 아래 — 아직 안 놓은 그림. 놓인 것은 자리를 비우지 않고 흐리게 남겨 위치를 기억하게 둔다. */}
-        {/* 🔴 `auto-rows-min content-center` — 없으면 grid 행이 flex-1 높이만큼 늘어나 375px 에서
-            두 줄 사이가 308px 벌어진다(카드는 75px 인데). 넷을 한눈에 비교하는 게 이 게임이라
-            2열을 유지하고, 남는 세로는 위아래로 나눈다. */}
-        <div className="grid grid-cols-2 auto-rows-min content-center gap-3 sm:gap-4 w-full max-w-3xl flex-1 min-h-0 overflow-y-auto">
+        {/* 네 보기를 남은 높이 안에 함께 표시한다. 그림 비율은 카드 안에서 보존한다. */}
+        <div className="page-order-tray grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-3xl flex-1 min-h-0">
           {tray.map((idx) => {
             const done = placed.includes(idx);
             return (
               <button
                 key={idx}
+                type="button"
                 onClick={() => handlePick(idx)}
                 disabled={done}
                 aria-label={t('pageOrder.pickAria')}
                 className={cn(
-                  'relative aspect-video rounded-2xl overflow-hidden border-4 transition-all bg-white shadow-card min-h-[44px]',
-                  done && 'opacity-25 border-peach-200 cursor-default',
+                  'page-order-option relative rounded-card overflow-hidden border-2 transition-all bg-white shadow-soft min-h-[44px]',
+                  done && 'opacity-25 border-ink-100 cursor-default',
                   !done && wrongIdx === idx && 'border-danger ring-4 ring-danger animate-shake',
                   !done &&
                     wrongIdx !== idx &&
-                    'border-peach-200 hover:scale-[1.02] hover:border-coral-300 hover:shadow-pop'
+                    'border-ink-100 hover:border-coral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700'
                 )}
               >
                 {thumb(items[idx])}

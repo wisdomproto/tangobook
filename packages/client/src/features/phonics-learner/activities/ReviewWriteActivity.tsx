@@ -217,7 +217,7 @@ export function ReviewWriteActivity({
                 i < idx
                   ? 'bg-mint-500 text-white'
                   : i === idx
-                    ? 'bg-coral-500 text-white ring-4 ring-coral-200 animate-pulse'
+                    ? 'bg-coral-700 text-white ring-4 ring-coral-200 animate-pulse'
                     : 'bg-white text-ink-400',
               ].join(' ')}
             >
@@ -229,7 +229,7 @@ export function ReviewWriteActivity({
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
           {/* 문제 칸 — ①reveal 모드: 다 쓰기 전엔 ❓, 완성하면 그림(정답 그림 보상).
               ②그림 상시(한글): 그림. ③그림 없음(영어 Book2~5): 🔊 소리가 문제. */}
-          <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-pop overflow-hidden shrink-0">
+          <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-soft overflow-hidden shrink-0">
             {current.imageUrl && (!revealImageOnComplete || writtenIdx.has(idx)) ? (
               <img
                 src={current.imageUrl}
@@ -238,14 +238,14 @@ export function ReviewWriteActivity({
               />
             ) : revealImageOnComplete ? (
               // 🔴 쓰는 동안엔 ❓ — 소리 프롬프트 없이 캔버스 글자를 보고 쓴다. 다 쓰면 그림이 열린다.
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-peach-100 to-cream-50 text-6xl sm:text-7xl">
+              <div className="w-full h-full flex items-center justify-center bg-cream-100 text-6xl sm:text-7xl">
                 ❓
               </div>
             ) : (
               <button
                 onClick={() => say(current)}
                 aria-label={t('common.listenAgain')}
-                className="w-full h-full flex items-center justify-center bg-coral-500 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"
+                className="w-full h-full flex items-center justify-center bg-coral-700 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"
               >
                 🔊
               </button>
@@ -255,7 +255,7 @@ export function ReviewWriteActivity({
           <div className="w-full max-w-2xl">
             {writtenIdx.has(idx) ? (
               // 🔴 다 썼으면 캔버스를 **완성 글자(민트)로 잠근다** — 소리 나는 동안 다시 못 쓴다(정답처리).
-              <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 sm:py-10 shadow-pop">
+              <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 sm:py-10 shadow-soft">
                 {/* 🔴 다 쓰면 낱말 전체를 보여준다 — 쓴 글자는 코랄, 나머지는 민트(Book 1: `a` 쓰면 `apple`). */}
                 <span className="font-display font-black leading-none text-[clamp(4rem,18vh,10rem)]">
                   {current.revealWord && current.revealWord !== current.word ? (
@@ -271,7 +271,7 @@ export function ReviewWriteActivity({
                     <span className="text-mint-600">{current.word}</span>
                   )}
                 </span>
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-mint-500 text-white text-2xl font-black shadow-pop ring-4 ring-white">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-mint-500 text-white text-2xl font-black shadow-soft ring-4 ring-white">
                   ✓
                 </span>
               </div>

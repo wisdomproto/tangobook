@@ -26,7 +26,7 @@ export function ProfilePicker({ profiles, onSelect, onAddNew, onClose }: Props) 
   }, [profiles.length, onAddNew]);
 
   return (
-    <div className="fixed inset-0 z-40 bg-gradient-to-b from-cream-50 to-peach-100 overflow-auto p-5 sm:p-8">
+    <div className="fixed inset-0 z-40 bg-cream-50 overflow-auto p-5 sm:p-8">
       {onClose && (
         <button
           type="button"
@@ -57,7 +57,7 @@ export function ProfilePicker({ profiles, onSelect, onAddNew, onClose }: Props) 
             <button
               key={p.id}
               onClick={() => onSelect(p)}
-              className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-pop transition-all flex flex-col items-center gap-2"
+              className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-soft transition-all flex flex-col items-center gap-2"
             >
               <AvatarRender id={p.avatarId} size="lg" />
               <div className="text-xl font-black text-ink-900">{p.name}</div>
@@ -72,7 +72,7 @@ export function ProfilePicker({ profiles, onSelect, onAddNew, onClose }: Props) 
             <button
               onClick={onAddNew}
               aria-label={t('profilePicker.addNew')}
-              className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-pop transition-all flex flex-col items-center justify-center text-5xl text-coral-500 font-black min-h-[160px]"
+              className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-soft transition-all flex flex-col items-center justify-center text-5xl text-coral-500 font-black min-h-[160px]"
             >
               +<span className="text-sm text-ink-700 mt-2">{t('profilePicker.addNew')}</span>
             </button>

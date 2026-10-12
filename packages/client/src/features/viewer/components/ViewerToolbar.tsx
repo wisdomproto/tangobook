@@ -44,16 +44,18 @@ interface PillIconBtnProps {
 function PillIconBtn({ children, onClick, active, disabled, label }: PillIconBtnProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
+      aria-pressed={active}
       title={label}
       className={cn(
-        'w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center text-base sm:text-lg transition-all',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
+        'w-11 h-11 shrink-0 rounded-md flex items-center justify-center text-base sm:text-lg transition-all',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-700',
         disabled && 'opacity-40 cursor-not-allowed',
         active
-          ? 'bg-coral-500 text-white shadow-pop'
+          ? 'bg-coral-100 text-ink-900 ring-1 ring-coral-700'
           : 'bg-peach-100 hover:bg-peach-200 text-ink-700'
       )}
     >
@@ -82,7 +84,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           onClick={props.onBack}
           aria-label={t('toolbar.back')}
           title={t('toolbar.back')}
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-peach-100 hover:bg-peach-200 text-ink-700 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400"
+          className="w-11 h-11 shrink-0 rounded-md bg-peach-100 hover:bg-peach-200 text-ink-700 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-700"
         >
           ←
         </button>
@@ -90,7 +92,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           onClick={props.onHome}
           aria-label={t('toolbar.home')}
           title={t('toolbar.home')}
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-peach-100 hover:bg-peach-200 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400"
+          className="w-11 h-11 shrink-0 rounded-md bg-peach-100 hover:bg-peach-200 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-700"
         >
           🏠
         </button>
@@ -100,7 +102,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
       </div>
 
       {/* 우: 재생 컨트롤 + 설정 */}
-      <div className="flex gap-1 sm:gap-2 bg-white/90 backdrop-blur-sm rounded-md p-1.5 sm:p-2 shadow-soft pointer-events-auto">
+      <div className="flex max-w-full gap-1 sm:gap-2 overflow-x-auto bg-white/90 backdrop-blur-sm rounded-md p-1.5 sm:p-2 shadow-soft pointer-events-auto">
         {/* 자동재생 — 단일 토글 (TTS + 자동 페이지 넘김) */}
         <PillIconBtn
           onClick={props.onTogglePlayback}

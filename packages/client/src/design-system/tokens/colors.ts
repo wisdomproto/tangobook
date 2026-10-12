@@ -1,6 +1,9 @@
 // 색 토큰 — Tailwind config + CSS 변수(index.css)와 동기 유지
 // 변경 시 src/index.css의 :root --color-* 도 함께 업데이트
 export const colors = {
+  surface: { page: '#FFF9F3', raised: '#FFFFFF', subtle: '#FFF0E0' },
+  content: { primary: '#0B0805', secondary: '#6D5A4C' },
+  action: { primary: '#C43A1C', hover: '#9C2C13' },
   // Warm base
   // 🔴 램프에 구멍이 있으면 그 클래스는 조용히 아무것도 안 한다(Tailwind 가 클래스를 안 만듦).
   // `text-coral-700` 이 없어서 파닉스 음절 글자가 상속색으로 흐리게 나온 적이 있다(2026-07-25).

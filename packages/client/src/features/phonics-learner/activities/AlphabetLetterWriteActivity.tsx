@@ -186,7 +186,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
                 done
                   ? 'bg-mint-400 text-white border-white'
                   : current
-                    ? 'bg-coral-400 text-white border-white scale-110 shadow-pop'
+                    ? 'bg-coral-700 text-white border-white scale-110 shadow-soft'
                     : 'bg-white text-ink-400 border-ink-100'
               }`}
             >
@@ -207,7 +207,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
 
         <div className="w-full max-w-[920px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* 대문자 */}
-          <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-coral-100">
+          <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-soft ring-4 ring-white border-2 border-coral-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-100 text-coral-700 text-sm sm:text-base font-black">
                 <span>🅰️</span> {t('alphabetWrite.upper', { letter: currentUpper })}
@@ -221,7 +221,7 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
             {renderCell('upper', currentUpper, 'text-coral-600')}
           </div>
           {/* 소문자 */}
-          <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-sky-100">
+          <div className="bg-white rounded-[24px] p-3 sm:p-4 shadow-soft ring-4 ring-white border-2 border-sky-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-sm sm:text-base font-black">
                 <span>🔤</span> {t('alphabetWrite.lower', { letter: currentLower })}

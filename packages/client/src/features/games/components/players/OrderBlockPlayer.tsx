@@ -256,7 +256,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
   return (
     <MobileLandscapeGate>
       <div
-        className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden"
+        className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
         style={gameSafeAreaStyle()}
       >
         <div className="px-2 pt-2 shrink-0">
@@ -270,13 +270,13 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
 
         <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.5vh,1.25rem)] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vh,1rem)] min-h-0">
           {/* 그림 + 정답 미리보기(연한) */}
-          <section className="flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-6 py-3 flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
+          <section className="flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-6 py-3 flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
             {currentItem.imageUrl && (
               <img
                 src={currentItem.imageUrl}
                 alt=""
                 aria-hidden
-                className="h-[clamp(5rem,22vh,13rem)] w-[clamp(5rem,22vh,13rem)] object-cover rounded-3xl border-[5px] border-white drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)]"
+                className="h-[clamp(5rem,22vh,13rem)] w-[clamp(5rem,22vh,13rem)] object-cover rounded-3xl border-2 border-ink-100 drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)]"
               />
             )}
             <div
@@ -301,7 +301,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
           {/* 슬롯 */}
           <section
             className={cn(
-              'flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-6 py-3 flex flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] transition-all',
+              'flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-6 py-3 flex flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] transition-all',
               roundCorrect && 'ring-[6px] ring-success/70 bg-success/20'
             )}
           >
@@ -331,7 +331,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
           </section>
 
           {/* 트레이 + 초기화 */}
-          <section className="flex-[2] min-h-0 rounded-3xl bg-cream-50/95 shadow-pop border-2 border-dashed border-cream-50 px-6 py-3 flex flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] relative">
+          <section className="flex-[2] min-h-0 rounded-3xl bg-cream-50/95 shadow-soft border-2 border-dashed border-cream-50 px-6 py-3 flex flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] relative">
             {tiles.map((tl) => (
               <motion.button
                 key={tl.id}
@@ -342,7 +342,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
                 className={cn(
                   tileSizeClass,
                   'rounded-2xl flex items-center justify-center font-black text-white select-none whitespace-nowrap',
-                  'bg-gradient-to-b from-coral-400 to-coral-600 shadow-pop',
+                  'bg-coral-700 shadow-soft',
                   !tl.used && 'hover:scale-105 active:scale-95',
                   tl.used && 'pointer-events-none'
                 )}

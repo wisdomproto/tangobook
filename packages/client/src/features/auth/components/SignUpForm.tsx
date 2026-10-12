@@ -76,7 +76,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
   if (sentTo) {
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4 text-center">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-soft flex flex-col gap-4 text-center">
           <div className="text-5xl" aria-hidden>
             📬
           </div>
@@ -115,7 +115,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
   return (
     <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
       {/* short(모바일 가로) = 세로 부족 → (언어+소셜) | (이메일) 2단으로 눕혀 가입 버튼이 접힘 위로. */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 short:p-5 max-w-sm short:max-w-2xl w-full shadow-pop flex flex-col gap-4 short:gap-3">
+      <div className="bg-white rounded-2xl p-6 sm:p-8 short:p-5 max-w-sm short:max-w-2xl w-full shadow-soft flex flex-col gap-4 short:gap-3">
         <div className="text-center">
           <h1 className="text-3xl short:text-2xl font-black text-ink-900">{t('signUp.title')}</h1>
           <p className="text-sm text-ink-500 mt-1 break-keep short:hidden">
@@ -186,7 +186,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
             <button
               onClick={handleSignUp}
               disabled={!canSubmit}
-              className="h-14 short:h-12 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
+              className="h-14 short:h-12 rounded-xl bg-coral-700 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
             >
               {busy ? t('signUp.submitting') : t('signUp.submit')}
             </button>

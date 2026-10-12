@@ -33,11 +33,11 @@ export function PlanCard({
 
   return (
     <div
-      className="relative flex flex-col items-center gap-3 rounded-3xl bg-white p-6 text-center shadow-pop"
+      className="relative flex flex-col items-center gap-3 rounded-3xl bg-white p-6 text-center shadow-soft"
       data-plan-id={id}
     >
       {isYear && (
-        <span className="absolute right-4 top-4 rounded-full bg-coral-500 px-3 py-1 text-xs font-black text-white">
+        <span className="absolute right-4 top-4 rounded-full bg-coral-700 px-3 py-1 text-xs font-black text-white">
           BEST
         </span>
       )}
@@ -63,7 +63,7 @@ export function PlanCard({
         type="button"
         onClick={onSelect}
         disabled={disabled}
-        className="mt-2 w-full rounded-full bg-coral-500 py-3 font-black text-white shadow-pop transition hover:bg-coral-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="mt-2 w-full rounded-full bg-coral-700 py-3 font-black text-white shadow-soft transition hover:bg-coral-600 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {t('planCard.select')}
       </button>

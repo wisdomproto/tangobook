@@ -69,7 +69,25 @@
     "koreanLead": "韩文",
     "englishLead": "英语",
     "chineseLead": "拼音",
-    "englishComingSoonNote": "英语拼读活动马上就来啦！✨"
+    "englishComingSoonNote": "英语拼读活动马上就来啦！✨",
+    "activityDone": "已完成",
+    "startActivity": "开始学习",
+    "resumeActivity": "继续学习",
+    "repeatActivity": "再试一次",
+    "unitProgress": "必修活动 {{done}} / {{total}}",
+    "progressLabel": "单元进度",
+    "unitLetters": "本次学习的字母",
+    "reviewLetters": "复习字母",
+    "nextActivity": "下一个活动",
+    "mode": {
+      "learn": "学习",
+      "listen": "听一听",
+      "write": "写一写",
+      "find": "找一找",
+      "match": "配对",
+      "draw": "画一画",
+      "build": "拼一拼"
+    }
   },
   "hub": {
     "title": "韩语拼读",

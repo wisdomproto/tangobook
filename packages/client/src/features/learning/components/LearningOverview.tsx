@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
-import { Mascot } from '@/design-system';
+import { Mascot, getCourseTheme } from '@/design-system';
 import {
   eventLanguage,
   localDateKey,
@@ -89,7 +89,7 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
               setSearch('');
               setLimit(12);
             }}
-            className="min-h-11 max-w-[180px] rounded-xl border border-peach-200 bg-white px-3 text-base text-ink-900"
+            className={`min-h-11 max-w-[180px] rounded-xl border-2 px-3 text-base ${getCourseTheme(lang)?.selected ?? 'border-ink-100 bg-white text-ink-900'} ${getCourseTheme(lang)?.focus ?? 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700'}`}
           >
             {LANGUAGES.map((language) => (
               <option key={language.id} value={language.id}>
@@ -107,7 +107,7 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
               key={value}
               aria-pressed={period === value}
               onClick={() => setPeriod(value)}
-              className={`min-h-11 rounded-full px-4 text-sm font-bold ${period === value ? 'bg-coral-500 text-white' : 'text-ink-600'}`}
+              className={`min-h-11 rounded-full px-4 text-sm font-bold ${period === value ? 'bg-coral-700 text-white' : 'text-ink-600'}`}
             >
               {t(`overview.${value}`)}
             </button>
@@ -128,7 +128,7 @@ export function LearningOverview({ events, storybooks, capped = false }: Props) 
         </p>
       )}
       <div className="grid gap-4 md:grid-cols-[1.4fr_1fr]">
-        <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-peach-100 via-cream-50 to-coral-100 p-5 sm:p-6 shadow-soft">
+        <section className="overflow-hidden rounded-3xl border border-ink-100 bg-white p-5 sm:p-6 shadow-soft">
           <div className="flex items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="text-sm font-bold text-coral-600">{t(`overview.${period}`)}</p>

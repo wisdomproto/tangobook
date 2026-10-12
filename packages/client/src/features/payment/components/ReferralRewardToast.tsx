@@ -62,7 +62,7 @@ export function ReferralRewardToast() {
       <button
         type="button"
         onClick={() => setGained(null)}
-        className="w-full flex items-center gap-3 rounded-2xl bg-coral-500 text-white px-5 py-4 shadow-pop active:scale-[0.98] transition"
+        className="w-full flex items-center gap-3 rounded-2xl bg-coral-700 text-white px-5 py-4 shadow-soft active:scale-[0.98] transition"
       >
         <span className="text-2xl" aria-hidden>
           🎉

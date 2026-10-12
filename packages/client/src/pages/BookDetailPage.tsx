@@ -1,24 +1,20 @@
+import { getCourseTheme } from '@/design-system';
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import i18n from '@/i18n';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { bookDisplayTitle, styleGroupIndex } from '@tangobook/shared';
 import { getYoutubeVideoIds, getDirectVideoUrls } from '@/lib/storybook-accessors';
-import { StateScreen, Skeleton, Chip, PageHeader, BookCover } from '@/design-system';
+import { StateScreen, Skeleton, PageHeader, BookCover } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
 import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import {
-  SUPPORTED_LANGUAGES,
-  canReadBook,
-  type ReadingLevel,
-  type StorybookSummary,
-} from '@tangobook/shared';
+import { SUPPORTED_LANGUAGES, type ReadingLevel, type StorybookSummary } from '@tangobook/shared';
 import { useAccess, PaywallNotice, LockBadge } from '@/features/access';
 import { BETA_OPEN } from '@/features/access/config';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -109,7 +105,7 @@ export default function BookDetailPage() {
         mascotState="sad"
         title={t('notFound.title')}
         description={t('notFound.description')}
-        action={{ label: t('notFound.toLibrary'), onClick: () => navigate('/library') }}
+        action={{ label: t('notFound.toLibrary'), onClick: () => navigate('/library/books') }}
       />
     );
   }
@@ -214,10 +210,10 @@ export default function BookDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100 flex flex-col">
+    <div className="min-h-screen bg-cream-50 flex flex-col">
       <div className="max-w-[1200px] mx-auto px-4 md:px-5 w-full flex flex-col flex-1">
         <PageHeader
-          onBack={() => navigate('/library')}
+          onBack={() => navigate('/library/books')}
           right={
             <div className="flex items-center gap-2 flex-wrap justify-end">
               {/* 기본 정보 — 카테고리 / 타입 / 페이지 / 단어 / 타겟 연령 (있을 때만) */}
@@ -269,68 +265,7 @@ export default function BookDetailPage() {
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}
         <div className="flex-1 flex flex-col justify-center">
           {/* 상단 3단계 안내 — 아이와 함께 읽는 흐름. 전용 일러스트 아이콘 + 2줄 제목 + 부제 + 점선 커넥터. */}
-          <ol
-            className={`mt-4 sm:mt-5 mb-5 grid grid-cols-1 gap-3 sm:gap-4 ${
-              hideVocab ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
-            }`}
-          >
-            {[
-              {
-                icon: '/icons/guide/step-choose.webp',
-                title: canPickStyle ? t('steps.chooseStyleLangTitle') : t('steps.chooseLangTitle'),
-                sub: t('steps.chooseSub'),
-              },
-              // "읽고 단어 익히기" 단계 — 단어 익히기 숨김 책에선 제외.
-              ...(hideVocab
-                ? []
-                : [
-                    {
-                      icon: '/icons/guide/step-learn.webp',
-                      title: t('steps.learnTitle'),
-                      sub: t('steps.learnSub'),
-                    },
-                  ]),
-              {
-                icon: '/icons/guide/step-guide.webp',
-                title: t('steps.guideTitle'),
-                sub: t('steps.guideSub'),
-              },
-            ].map((s, i) => (
-              <li
-                key={i}
-                className="relative flex items-center gap-3.5 rounded-3xl bg-white/90 px-4 py-4 shadow-soft"
-              >
-                <div className="relative shrink-0">
-                  <img
-                    src={s.icon}
-                    alt=""
-                    aria-hidden
-                    className="h-14 w-14 object-contain sm:h-16 sm:w-16"
-                  />
-                  <span className="absolute -left-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-coral-500 text-xs font-black text-white ring-2 ring-white">
-                    {i + 1}
-                  </span>
-                </div>
-                <div className="min-w-0">
-                  <p className="break-keep text-[15px] font-black leading-tight text-ink-900 sm:text-base">
-                    {s.title}
-                  </p>
-                  <p className="mt-1 break-keep text-xs font-bold leading-snug text-ink-500 sm:text-[13px]">
-                    {s.sub}
-                  </p>
-                </div>
-                {/* 점선 커넥터 — sm+ 에서 카드 사이 (마지막 카드 제외) */}
-                {i < 2 && (
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 text-lg font-black tracking-widest text-peach-300 sm:block"
-                  >
-                    ···
-                  </span>
-                )}
-              </li>
-            ))}
-          </ol>
+
           {/* hero — 좌: 정방형 표지 / 우: chip row + 모드 카드 3개 (세로 stack). reference 디자인. */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
             {/* 좌: 그림체 선택 바 + 언어 토글 + 정방형 표지. 표지 일러스트에 책 제목이 박혀있어 우측엔 별도 h1 미노출. */}
@@ -342,7 +277,7 @@ export default function BookDetailPage() {
                       <button
                         type="button"
                         onClick={() => stepStyle(-1)}
-                        className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
+                        className="w-11 h-11 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
                         aria-label={t('style.prev')}
                       >
                         ←
@@ -360,7 +295,7 @@ export default function BookDetailPage() {
                       <button
                         type="button"
                         onClick={() => stepStyle(1)}
-                        className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
+                        className="w-11 h-11 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
                         aria-label={t('style.next')}
                       >
                         →
@@ -375,7 +310,13 @@ export default function BookDetailPage() {
                           value={lang}
                           onChange={(e) => setLang(e.target.value)}
                           aria-label={t('lang.selectAria')}
-                          className="h-full min-h-[2.75rem] appearance-none bg-white rounded-full pl-3.5 pr-9 shadow-soft text-base font-black text-ink-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-300"
+                          className={cn(
+                            'h-full min-h-[2.75rem] appearance-none rounded-full border-2 pl-3.5 pr-9 shadow-soft text-base font-black',
+                            getCourseTheme(lang)?.selected ??
+                              'border-ink-100 bg-white text-ink-900',
+                            getCourseTheme(lang)?.focus ??
+                              'focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700'
+                          )}
                         >
                           {languages.map((code) => {
                             const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
@@ -403,10 +344,11 @@ export default function BookDetailPage() {
                               aria-pressed={active}
                               aria-label={t('lang.toggleAria', { name: label.name })}
                               className={cn(
-                                'w-10 h-10 rounded-full text-xl flex items-center justify-center transition',
+                                'w-11 h-11 rounded-full text-xl flex items-center justify-center transition',
+                                getCourseTheme(code)?.focus,
                                 active
-                                  ? 'bg-coral-500 text-white shadow-soft'
-                                  : 'bg-peach-100 hover:bg-peach-200 text-ink-900'
+                                  ? `${getCourseTheme(code)?.badge ?? 'bg-coral-100 text-ink-900'} ring-2 ${getCourseTheme(code)?.ring ?? 'ring-coral-700'}`
+                                  : 'bg-cream-50 hover:bg-cream-100 text-ink-900'
                               )}
                             >
                               {label.flag}
@@ -483,6 +425,75 @@ export default function BookDetailPage() {
             </div>
           </div>
 
+          <details className="rounded-2xl border border-ink-100 bg-white px-5 py-3">
+            <summary className="flex min-h-11 cursor-pointer items-center text-base font-bold text-ink-600">
+              {t('steps.flowTitle')}
+            </summary>
+            <ol
+              className={`mt-4 sm:mt-5 mb-5 grid grid-cols-1 gap-3 sm:gap-4 ${
+                hideVocab ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
+              }`}
+            >
+              {[
+                {
+                  icon: '/icons/guide/step-choose.webp',
+                  title: canPickStyle
+                    ? t('steps.chooseStyleLangTitle')
+                    : t('steps.chooseLangTitle'),
+                  sub: t('steps.chooseSub'),
+                },
+                // "읽고 단어 익히기" 단계 — 단어 익히기 숨김 책에선 제외.
+                ...(hideVocab
+                  ? []
+                  : [
+                      {
+                        icon: '/icons/guide/step-learn.webp',
+                        title: t('steps.learnTitle'),
+                        sub: t('steps.learnSub'),
+                      },
+                    ]),
+                {
+                  icon: '/icons/guide/step-guide.webp',
+                  title: t('steps.guideTitle'),
+                  sub: t('steps.guideSub'),
+                },
+              ].map((s, i) => (
+                <li
+                  key={i}
+                  className="relative flex items-center gap-3.5 rounded-3xl bg-white/90 px-4 py-4 shadow-soft"
+                >
+                  <div className="relative shrink-0">
+                    <img
+                      src={s.icon}
+                      alt=""
+                      aria-hidden
+                      className="h-14 w-14 object-contain sm:h-16 sm:w-16"
+                    />
+                    <span className="absolute -left-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-coral-500 text-xs font-black text-white ring-2 ring-white">
+                      {i + 1}
+                    </span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="break-keep text-[15px] font-black leading-tight text-ink-900 sm:text-base">
+                      {s.title}
+                    </p>
+                    <p className="mt-1 break-keep text-xs font-bold leading-snug text-ink-500 sm:text-[13px]">
+                      {s.sub}
+                    </p>
+                  </div>
+                  {/* 점선 커넥터 — sm+ 에서 카드 사이 (마지막 카드 제외) */}
+                  {i < 2 && (
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 text-lg font-black tracking-widest text-peach-300 sm:block"
+                    >
+                      ···
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </details>
           {/* 부모님 가이드 (선택 언어 번역 우선, 없으면 한국어 폴백) */}
           {guide && (
             <div className="mt-6">
@@ -602,7 +613,7 @@ export default function BookDetailPage() {
               onClose={() => setShowPaywall(false)}
               onBrowseFree={() => {
                 setShowPaywall(false);
-                navigate('/library');
+                navigate('/library/books');
               }}
             />
           </div>
@@ -654,28 +665,28 @@ function ModeCard({
   const { t } = useTranslation('bookDetail');
   const TONE = {
     coral: {
-      bg: 'bg-gradient-to-br from-coral-400 to-coral-500',
+      bg: 'bg-coral-700',
       text: 'text-white',
       sub: 'text-white/85',
       arrow: 'bg-white/20 text-white',
     },
     violet: {
-      bg: 'bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500',
-      text: 'text-white',
-      sub: 'text-white/85',
-      arrow: 'bg-white/20 text-white',
+      bg: 'bg-white border border-ink-200',
+      text: 'text-ink-900',
+      sub: 'text-ink-600',
+      arrow: 'bg-cream-100 text-ink-900',
     },
     amber: {
-      bg: 'bg-gradient-to-br from-yellow-400 to-amber-500',
+      bg: 'bg-white border border-ink-200',
       text: 'text-ink-900',
       sub: 'text-ink-900/75',
       arrow: 'bg-ink-900/15 text-ink-900',
     },
     mint: {
-      bg: 'bg-gradient-to-br from-mint-400 to-mint-500',
-      text: 'text-white',
-      sub: 'text-white/85',
-      arrow: 'bg-white/20 text-white',
+      bg: 'bg-white border border-ink-200',
+      text: 'text-ink-900',
+      sub: 'text-ink-600',
+      arrow: 'bg-cream-100 text-ink-900',
     },
   }[tone];
 
@@ -683,27 +694,27 @@ function ModeCard({
     return (
       <button
         disabled
-        className="flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-5 sm:py-7 bg-ink-100/40 cursor-not-allowed select-none"
+        className="flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-4 sm:py-4 bg-ink-100/40 cursor-not-allowed select-none"
         aria-disabled="true"
         title={t('modes.preparing')}
       >
         <div className="flex-1 text-left">
-          <h3 className="font-black text-2xl sm:text-3xl text-ink-700">{title}</h3>
-          <p className="text-base sm:text-lg font-black text-ink-700 mt-1.5 opacity-80">{sub}</p>
+          <h3 className="font-black text-2xl sm:text-2xl text-ink-700">{title}</h3>
+          <p className="text-base sm:text-lg font-bold text-ink-700 mt-1.5 opacity-80">{sub}</p>
         </div>
-        <div className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
           {iconSrc ? (
             <img
               src={iconSrc}
               alt=""
               aria-hidden
-              className="w-14 h-14 sm:w-[72px] sm:h-[72px] object-contain opacity-50"
+              className="w-12 h-12 sm:w-14 sm:h-14 object-contain opacity-50"
             />
           ) : (
             <span className="text-5xl opacity-40">{icon ?? emoji}</span>
           )}
         </div>
-        <span className="w-10 h-10 rounded-full bg-ink-100/60 text-ink-500 text-2xl font-black flex items-center justify-center shrink-0">
+        <span className="w-11 h-11 rounded-full bg-ink-100/60 text-ink-500 text-2xl font-black flex items-center justify-center shrink-0">
           ›
         </span>
       </button>
@@ -715,7 +726,7 @@ function ModeCard({
       onClick={onClick}
       data-sound={sound}
       className={cn(
-        'group relative flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-5 sm:py-7 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
+        'group relative flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-4 sm:py-4 shadow-soft hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
         TONE.bg,
         TONE.text
       )}
@@ -726,17 +737,17 @@ function ModeCard({
         </span>
       )}
       <div className="flex-1 text-left">
-        <h3 className="font-black text-2xl sm:text-3xl md:text-[2rem] leading-tight">{title}</h3>
+        <h3 className="font-black text-2xl sm:text-2xl md:text-[2rem] leading-tight">{title}</h3>
         <p className={cn('text-base sm:text-lg font-bold mt-1.5', TONE.sub)}>{sub}</p>
       </div>
       {/* 워시 — 흰색 85% (거의 흰 동그라미) + 안에 일러스트 (여백 있게) */}
-      <div className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
+      <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
         {iconSrc ? (
           <img
             src={iconSrc}
             alt=""
             aria-hidden
-            className="w-14 h-14 sm:w-[72px] sm:h-[72px] object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           />
         ) : (
           <span className="text-5xl">{icon ?? emoji}</span>
@@ -744,33 +755,12 @@ function ModeCard({
       </div>
       <span
         className={cn(
-          'w-10 h-10 rounded-full text-2xl font-black flex items-center justify-center shrink-0 transition-transform group-hover:translate-x-0.5',
+          'w-11 h-11 rounded-full text-2xl font-black flex items-center justify-center shrink-0 transition-transform group-hover:translate-x-0.5',
           TONE.arrow
         )}
       >
         ›
       </span>
     </button>
-  );
-}
-
-/** 책 메타 정보 chip — 페이지/단어/추천 연령. inline row 로 모드 카드 grid 와 정렬 충돌 없음. */
-function MetaChip({ icon, label, value }: { icon: string; label: string; value: ReactNode }) {
-  return (
-    <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 py-1.5 shadow-soft">
-      <span className="text-base leading-none">{icon}</span>
-      <span className="text-xs font-bold text-ink-500">{label}</span>
-      <span className="text-sm font-black text-ink-900">{value}</span>
-    </div>
-  );
-}
-
-/** YouTube 로고 — 빨강 박스 + 흰 ▶ */
-function YouTubeIcon() {
-  return (
-    <svg className="w-12 h-9" viewBox="0 0 24 17" fill="none" aria-hidden>
-      <rect width="24" height="17" rx="4" fill="#FF0000" />
-      <path d="M9.5 12V5l6 3.5-6 3.5z" fill="#fff" />
-    </svg>
   );
 }

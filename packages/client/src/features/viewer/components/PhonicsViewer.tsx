@@ -88,11 +88,13 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
   }, [storybook.id, storybook.phonicsConfig, logEvent]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-emerald-50 to-white dark:from-slate-900 dark:to-slate-900">
+    <div className="learning-stage min-h-screen flex flex-col bg-cream-50 dark:bg-slate-900">
       {/* 헤더 */}
-      <header className="sticky top-0 z-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700">
+      <header className="sticky top-0 z-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-ink-100 dark:border-slate-700">
         <div className="px-4 py-3 flex items-center gap-3">
           <button
+            type="button"
+            aria-label="뒤로 가기"
             onClick={() => {
               if (mode) {
                 navigate(`/viewer/${storybook.id}`);
@@ -100,7 +102,7 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
                 navigate('/library');
               }
             }}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
+            className="w-11 h-11 shrink-0 flex items-center justify-center rounded-full hover:bg-cream-100 dark:hover:bg-slate-800 text-ink-600 dark:text-slate-300"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
@@ -112,10 +114,8 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
             </svg>
           </button>
           <div className="truncate">
-            <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100 truncate">
-              {title}
-            </h1>
-            {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400">{subtitle}</p>}
+            <h1 className="text-lg font-bold text-ink-900 dark:text-slate-100 truncate">{title}</h1>
+            {subtitle && <p className="text-xs text-ink-600 dark:text-slate-400">{subtitle}</p>}
           </div>
         </div>
       </header>
@@ -249,7 +249,6 @@ function PhonicsMenu({
       icon: '📖',
       desc: '음가 블렌딩 학습',
       enabled: hasLesson,
-      gradient: 'from-emerald-400 to-teal-500',
     },
     {
       mode: 'flashcard',
@@ -257,7 +256,6 @@ function PhonicsMenu({
       icon: '🔤',
       desc: '핵심단어 카드 연습',
       enabled: hasFlashcards,
-      gradient: 'from-amber-400 to-orange-500',
     },
     {
       mode: 'games',
@@ -265,7 +263,6 @@ function PhonicsMenu({
       icon: '🎮',
       desc: '재미있는 학습 게임',
       enabled: hasLesson,
-      gradient: 'from-violet-400 to-purple-500',
     },
     {
       mode: 'story',
@@ -273,15 +270,16 @@ function PhonicsMenu({
       icon: '📚',
       desc: '파닉스 동화 읽기',
       enabled: hasStory,
-      gradient: 'from-sky-400 to-blue-500',
     },
   ];
 
   return (
     <div className="relative flex flex-col items-center justify-center flex-1 px-4">
       <button
+        type="button"
+        aria-label="닫기"
         onClick={onClose}
-        className="absolute top-2 right-2 w-9 h-9 flex items-center justify-center rounded-full bg-white/40 hover:bg-white/60 text-emerald-800 transition-colors text-xl leading-none"
+        className="absolute top-2 right-2 w-11 h-11 shrink-0 flex items-center justify-center rounded-full bg-white/40 hover:bg-white/60 text-emerald-800 transition-colors text-xl leading-none"
       >
         &times;
       </button>
@@ -295,17 +293,16 @@ function PhonicsMenu({
       )}
       <div className="mb-8" />
       <div className="grid grid-cols-2 gap-5 sm:gap-6 w-full max-w-lg">
-        {menuItems.map(({ mode, label, icon, desc, enabled, gradient }) => (
+        {menuItems.map(({ mode, label, icon, desc, enabled }) => (
           <button
             key={mode}
             onClick={() => enabled && onSelectMode(mode)}
             disabled={!enabled}
-            className={`relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-left text-white transition-transform hover:scale-[1.03] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed bg-gradient-to-br ${gradient}`}
-            style={{ boxShadow: enabled ? '0 8px 24px rgba(0,0,0,0.15)' : undefined }}
+            className="relative overflow-hidden rounded-card border border-ink-100 bg-white p-6 sm:p-8 text-left text-ink-900 shadow-soft hover:border-coral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <span className="text-4xl sm:text-5xl mb-3 block">{icon}</span>
             <span className="text-base sm:text-lg font-bold block">{label}</span>
-            <span className="text-xs sm:text-sm opacity-80 block mt-1">{desc}</span>
+            <span className="text-sm text-ink-600 block mt-1">{desc}</span>
           </button>
         ))}
       </div>
@@ -433,30 +430,15 @@ function GamesSection({
         {games.map((game) => {
           const entry = getGameEntry(game.gameType);
           // 게임 타입별 그라데이션
-          const gradients: Record<string, string> = {
-            'connect-the-dots': 'from-lime-400 to-green-500',
-            'korean-block': 'from-yellow-400 to-amber-500',
-            'english-block': 'from-yellow-400 to-amber-500',
-            'korean-word-writing': 'from-amber-400 to-orange-500',
-            'english-word-writing': 'from-amber-400 to-orange-500',
-            'korean-line-matching': 'from-pink-400 to-rose-500',
-            'english-line-matching': 'from-pink-400 to-rose-500',
-            'korean-story-image': 'from-rose-400 to-pink-500',
-            'english-story-image': 'from-rose-400 to-pink-500',
-            'korean-speaking': 'from-cyan-400 to-blue-500',
-            'english-speaking': 'from-cyan-400 to-blue-500',
-          };
-          const gradient = gradients[game.gameType] ?? 'from-emerald-400 to-teal-500';
           return (
             <button
               key={game.id}
               onClick={() => setPlayingGame(game)}
-              className={`relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-left text-white transition-transform hover:scale-[1.03] active:scale-[0.98] bg-gradient-to-br ${gradient}`}
-              style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.15)' }}
+              className="relative overflow-hidden rounded-card border border-ink-100 bg-white p-6 sm:p-8 text-left text-ink-900 shadow-soft hover:border-coral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <span className="text-4xl sm:text-5xl mb-3 block">{entry?.icon ?? '🎮'}</span>
               <span className="text-base sm:text-lg font-bold block">{game.title}</span>
-              <span className="text-xs sm:text-sm opacity-80 block mt-1">
+              <span className="text-sm text-ink-600 block mt-1">
                 {entry?.descriptionKo ?? game.gameType}
               </span>
             </button>
@@ -728,18 +710,18 @@ function LetterCard({
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-ink-100 dark:border-slate-700">
       {isAlphabetCard ? (
         /* ===== Level 1: 삽화 + 핫스팟 ===== */
         <>
-          <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3">
+          <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-ink-100 dark:border-slate-700 flex items-center gap-3">
             <span className="text-3xl font-black text-amber-600 dark:text-amber-400">
               {item.vowel}
             </span>
             <span className="text-3xl font-black text-sky-600 dark:text-sky-400">
               {item.consonant}
             </span>
-            <span className="text-lg text-slate-400 dark:text-slate-500 font-mono ml-1">
+            <span className="text-lg text-ink-600 dark:text-slate-400 font-mono ml-1">
               {item.blend}
             </span>
           </div>
@@ -833,7 +815,7 @@ function LetterCard({
                       setWritingLetter(writingLetter === displayUpper ? null : displayUpper);
                       setWritingPopup(false);
                     }}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${writingLetter === displayUpper && !writingPopup ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-300' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}
+                    className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${writingLetter === displayUpper && !writingPopup ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-300' : 'bg-white dark:bg-slate-900 border-ink-100 dark:border-slate-700 text-ink-600 dark:text-slate-300'}`}
                   >
                     {displayUpper} 쓰기
                   </button>
@@ -842,7 +824,7 @@ function LetterCard({
                       setWritingLetter(writingLetter === displayLower ? null : displayLower);
                       setWritingPopup(false);
                     }}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${writingLetter === displayLower && !writingPopup ? 'bg-sky-50 border-sky-300 text-sky-700 dark:bg-sky-900/30 dark:border-sky-600 dark:text-sky-300' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}
+                    className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${writingLetter === displayLower && !writingPopup ? 'bg-sky-50 border-sky-300 text-sky-700 dark:bg-sky-900/30 dark:border-sky-600 dark:text-sky-300' : 'bg-white dark:bg-slate-900 border-ink-100 dark:border-slate-700 text-ink-600 dark:text-slate-300'}`}
                   >
                     {displayLower} 쓰기
                   </button>
@@ -1102,9 +1084,9 @@ function LetterCard({
             onClick={() => !autoWritingPopup && setWritingPopup(false)}
           />
           <div className="relative bg-white dark:bg-slate-800 rounded-xl shadow-xl max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-ink-100 dark:border-slate-700">
               <div className="flex items-center gap-3">
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
+                <h3 className="text-lg font-bold text-ink-900 dark:text-slate-100">
                   {writingLetter} 쓰기
                 </h3>
                 {/* Level 1: 대/소문자 전환 (자동 모드가 아닐 때만) */}
@@ -1112,13 +1094,13 @@ function LetterCard({
                   <div className="flex gap-1.5">
                     <button
                       onClick={() => setWritingLetter(displayUpper)}
-                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${writingLetter === displayUpper ? 'bg-amber-500 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${writingLetter === displayUpper ? 'bg-coral-700 text-white' : 'bg-slate-100 dark:bg-slate-700 text-ink-600 dark:text-slate-400'}`}
                     >
                       {displayUpper}
                     </button>
                     <button
                       onClick={() => setWritingLetter(displayLower)}
-                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${writingLetter === displayLower ? 'bg-sky-500 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${writingLetter === displayLower ? 'bg-sky-500 text-white' : 'bg-slate-100 dark:bg-slate-700 text-ink-600 dark:text-slate-400'}`}
                     >
                       {displayLower}
                     </button>
@@ -1128,7 +1110,7 @@ function LetterCard({
               {!autoWritingPopup && (
                 <button
                   onClick={() => setWritingPopup(false)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xl leading-none"
+                  className="text-ink-600 hover:text-ink-600 dark:hover:text-slate-300 text-xl leading-none"
                 >
                   &times;
                 </button>
@@ -1188,7 +1170,7 @@ function WritingSection({
             const colorCls =
               color === 'amber'
                 ? isActive
-                  ? 'bg-amber-500 text-white border-amber-500'
+                  ? 'bg-coral-700 text-white border-amber-500'
                   : 'bg-white dark:bg-slate-800 border-amber-300 text-amber-700 dark:text-amber-300'
                 : isActive
                   ? 'bg-sky-500 text-white border-sky-500'
@@ -1207,8 +1189,8 @@ function WritingSection({
       )}
 
       {activeLetter && (
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
-          <p className="text-center text-sm font-bold text-slate-600 dark:text-slate-300 mb-3">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-ink-100 dark:border-slate-700 p-5">
+          <p className="text-center text-sm font-bold text-ink-600 dark:text-slate-300 mb-3">
             {activeLetter} 쓰기
           </p>
           <LetterWritingCanvas
@@ -1251,7 +1233,7 @@ function TtsButton({
       className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border transition-colors ${
         url
           ? colorMap[color] + ' hover:opacity-80'
-          : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+          : 'bg-slate-100 text-ink-600 border-ink-100 cursor-not-allowed'
       }`}
     >
       <span>{url ? '▶' : '—'}</span>

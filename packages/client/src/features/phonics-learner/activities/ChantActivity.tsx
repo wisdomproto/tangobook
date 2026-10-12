@@ -98,7 +98,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
           <button
             onClick={toggle}
             aria-label={playing ? t('chant.pause') : t('chant.play')}
-            className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-coral-500 text-white text-6xl sm:text-7xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition flex items-center justify-center"
+            className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-coral-700 text-white text-6xl sm:text-7xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition flex items-center justify-center"
           >
             {playing ? '⏸' : '▶'}
           </button>
@@ -131,7 +131,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
 
         <button
           onClick={onMarkComplete}
-          className="mt-2 px-8 py-4 rounded-full bg-white border-2 border-mint-300 text-mint-700 font-black text-xl sm:text-2xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+          className="mt-2 px-8 py-4 rounded-full bg-white border-2 border-mint-300 text-mint-700 font-black text-xl sm:text-2xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
         >
           {heard ? t('chant.heardDone') : t('chant.heard')}
         </button>

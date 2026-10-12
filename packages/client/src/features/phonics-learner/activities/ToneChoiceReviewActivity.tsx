@@ -174,7 +174,7 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
               <button
                 onClick={() => sayWord(current)}
                 aria-label={t('common.listenAgain')}
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-500 text-white text-4xl sm:text-5xl shadow-pop hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-700 text-white text-4xl sm:text-5xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
               >
                 🔊
               </button>
@@ -200,7 +200,7 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
                   ? 'border-mint-500 bg-mint-100 text-mint-700 ring-4 ring-mint-300 scale-[1.03]'
                   : wrong === label
                     ? 'border-coral-500 bg-white text-coral-600 animate-shake'
-                    : 'border-white bg-white text-ink-900 hover:shadow-pop active:scale-[0.97]',
+                    : 'border-white bg-white text-ink-900 hover:shadow-soft active:scale-[0.97]',
               ].join(' ')}
             >
               {label}
@@ -212,13 +212,13 @@ export function ToneChoiceReviewActivity({ unitId, words, onMarkComplete, onBack
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={restart}
-              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl shadow-pop active:scale-[0.98] transition"
+              className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl shadow-soft active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
               onClick={onBack}
-              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.back')}
             </button>

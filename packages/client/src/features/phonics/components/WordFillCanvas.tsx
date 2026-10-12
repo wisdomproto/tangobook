@@ -293,7 +293,7 @@ export function WordFillCanvas({
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
-      <div className="relative w-full rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop">
+      <div className="relative w-full rounded-card overflow-hidden border-2 border-ink-100 bg-white shadow-soft">
         {/* 🔴 지금 쓸 칸만 남기고 덮는 스포트라이트. 캔버스 픽셀을 건드리면 이미 칠한 획이 지워지므로
          **DOM 오버레이**로 얹는다. 차단 자체는 paintTo 의 clip 이 담당한다. */}
         {activeRange && (
@@ -312,7 +312,7 @@ export function WordFillCanvas({
             {/* 지금 칸 = 코랄 테두리 + 아래 굵은 밑줄. 깜빡임까지 더해 눈이 바로 여기로 온다. */}
             <div
               aria-hidden
-              className="absolute inset-y-1 z-20 pointer-events-none rounded-2xl ring-[5px] ring-coral-400 animate-pulse transition-all duration-300"
+              className="absolute inset-y-1 z-20 pointer-events-none rounded-control ring-[3px] ring-coral-700 transition-all duration-300"
               style={{
                 left: `${(activeRange.start / CANVAS_W) * 100}%`,
                 width: `${((activeRange.end - activeRange.start) / CANVAS_W) * 100}%`,
@@ -341,7 +341,7 @@ export function WordFillCanvas({
         />
       </div>
       {syllables.length > 1 && (
-        <p className="text-base sm:text-lg font-black text-ink-500">
+        <p className="text-base sm:text-lg font-semibold text-ink-600">
           {t('writingGame.progress', { done: doneCount, total: syllables.length })}
         </p>
       )}

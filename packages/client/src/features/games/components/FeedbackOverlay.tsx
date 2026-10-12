@@ -73,7 +73,7 @@ export function FeedbackOverlay({
 
   const mascotState = kind === 'correct' ? 'cheering' : 'sad';
   const bgTint = kind === 'correct' ? 'bg-success/10' : 'bg-coral-100/40';
-  const shakeClass = kind === 'incorrect' ? 'animate-shake' : '';
+  const shakeClass = kind === 'incorrect' ? 'motion-safe:animate-shake' : '';
 
   return (
     <div
@@ -87,7 +87,7 @@ export function FeedbackOverlay({
       <Mascot state={mascotState} size="lg" />
       <div
         data-testid="feedback-text"
-        className="bg-white rounded-lg px-6 py-3 shadow-pop font-black text-2xl text-ink-900"
+        className="bg-white rounded-lg px-6 py-3 border border-ink-100 shadow-soft font-bold text-2xl text-ink-900"
       >
         {text}
       </div>

@@ -38,7 +38,7 @@ export default function ActivityKindPage({ kind }: { kind: ActivityKind }) {
                   >
                     <span className="min-w-0">{l.title}</span>
                     {l.count > 1 && (
-                      <span className="shrink-0 text-xs font-medium text-ink-500">{l.count}</span>
+                      <span className="shrink-0 text-xs font-medium text-ink-600">{l.count}</span>
                     )}
                   </Link>
                 </li>

@@ -190,15 +190,16 @@ function StoryImagePlayerInner({
     // 튜토리얼 wait — expected 외 dim
     if (expected !== null && expected.url !== url)
       return cn(base, 'border-peach-200 opacity-30 cursor-not-allowed');
-    return cn(base, 'border-peach-200 hover:scale-[1.02] hover:shadow-pop hover:border-coral-300');
+    return cn(base, 'border-peach-200 hover:scale-[1.02] hover:shadow-soft hover:border-coral-300');
   };
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
-      <div className="flex flex-col items-center gap-4 sm:gap-6 w-full flex-1 min-h-0">
+      <div className="story-image-stage w-full flex-1 min-h-0">
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
-        <div className="text-center space-y-3">
+        <div className="story-image-prompt text-center">
+          <p className="story-image-short-caption font-bold text-ink-900">{current.text}</p>
           <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200 break-keep">
             {t(variant === 'object' ? 'objectScene.prompt' : 'storyImage.prompt')}
           </p>
@@ -207,12 +208,12 @@ function StoryImagePlayerInner({
             <img
               src={current.promptImageUrl}
               alt={current.text}
-              className="w-[clamp(5rem,18vh,9rem)] h-[clamp(5rem,18vh,9rem)] object-contain mx-auto rounded-3xl bg-white shadow-card border-4 border-peach-200 p-1"
+              className="story-image-target object-contain mx-auto rounded-2xl bg-white border-2 border-peach-200 p-1"
             />
           )}
           <button
             onClick={replayAudio}
-            className="inline-flex items-center gap-3 px-6 py-4 sm:px-8 sm:py-5 rounded-md bg-peach-100 border-2 border-peach-300 text-ink-900 font-bold hover:bg-peach-200 transition-all hover:scale-105"
+            className="min-h-12 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-peach-100 text-ink-900 font-bold hover:bg-peach-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
           >
             <span className="text-2xl sm:text-3xl">🔊</span>
             <span className="text-base sm:text-lg">{t('storyImage.replay')}</span>
@@ -221,7 +222,7 @@ function StoryImagePlayerInner({
 
         {/* 2×2 — 넷을 한눈에 비교한다. `auto-rows-min content-center` 가 없으면 그리드 행이
             flex-1 높이만큼 늘어나 줄 사이가 벌어진다. */}
-        <div className="flex-1 min-h-0 overflow-y-auto grid grid-cols-2 auto-rows-min content-center gap-3 sm:gap-4 w-full max-w-3xl mx-auto">
+        <div className="story-image-options">
           {shuffledOptions.map((url) => {
             const isCorrectOpt =
               feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);
@@ -230,14 +231,14 @@ function StoryImagePlayerInner({
                 key={url}
                 onClick={() => handleSelect(url)}
                 disabled={!!feedback}
-                className={getOptionClass(url)}
+                className={cn(getOptionClass(url), 'story-image-option')}
                 aria-label={t(
                   variant === 'object' ? 'objectScene.pickAria' : 'storyImage.pickAria'
                 )}
               >
                 <img src={url} alt="" className="w-full h-full object-cover" />
                 {isCorrectOpt && (
-                  <span className="absolute top-3 right-3 bg-success text-white rounded-full w-10 h-10 flex items-center justify-center font-black text-xl shadow-pop">
+                  <span className="absolute top-3 right-3 bg-success text-white rounded-full w-10 h-10 flex items-center justify-center font-black text-xl shadow-soft">
                     ✓
                   </span>
                 )}
@@ -249,7 +250,7 @@ function StoryImagePlayerInner({
         {/* 이야기 = 참고용 자막(작게) / 낱말 = 문제 그 자체(굵게) */}
         <p
           className={cn(
-            'text-center max-w-xl',
+            'story-image-caption text-center',
             variant === 'object'
               ? 'text-2xl sm:text-3xl font-black font-display text-ink-900 dark:text-peach-200'
               : 'text-base sm:text-lg text-ink-900 dark:text-peach-200/60 italic'
@@ -262,7 +263,7 @@ function StoryImagePlayerInner({
       {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
           필요 시 아래 블록 풀기:
           <button onClick={handleHintStart} disabled={hintActive || isTutorialPlaying || !!feedback}
-            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop">
+            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-black text-lg shadow-soft">
             🪄 도와줘
           </button> */}
 

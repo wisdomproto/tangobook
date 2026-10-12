@@ -1,4 +1,5 @@
 import { cn } from '@/lib/cn';
+import { useTranslation } from 'react-i18next';
 
 interface GameProgressBarProps {
   current: number; // 0-based
@@ -15,35 +16,42 @@ interface GameProgressBarProps {
  * ⭐ 아이콘 → ✓ 정답 표시.
  */
 export function GameProgressBar({ current, total, score }: GameProgressBarProps) {
+  const { t } = useTranslation('games');
   if (total <= 0) return null;
   const compact = total > 11;
 
   return (
-    <div className="flex items-center gap-5 sm:gap-7 bg-white/95 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-pop">
+    <div className="game-progress flex shrink-0 flex-wrap items-center justify-center gap-3 bg-white px-4 py-2 rounded-full border border-ink-100">
+      <span className="sr-only">
+        {t('progress.question', { current: Math.min(current + 1, total), total })}
+      </span>
       {compact ? (
-        <span className="font-black text-ink-900 text-2xl sm:text-3xl">
+        <span aria-hidden="true" className="font-bold text-ink-900 text-lg">
           {current + 1} / {total}
         </span>
       ) : (
-        <div className="flex gap-1.5 sm:gap-2">
+        <div aria-hidden="true" className="flex gap-1.5 sm:gap-2">
           {Array.from({ length: total }).map((_, i) => (
             <span
               key={i}
               className={cn(
                 'h-2.5 sm:h-3 rounded-md transition-all',
                 i === current
-                  ? 'w-10 sm:w-12 bg-coral-500'
+                  ? 'w-8 sm:w-10 bg-coral-700'
                   : i < current
-                    ? 'w-5 sm:w-6 bg-ink-300'
-                    : 'w-5 sm:w-6 bg-ink-100'
+                    ? 'w-3 sm:w-4 bg-mint-600'
+                    : 'w-3 sm:w-4 bg-ink-100'
               )}
             />
           ))}
         </div>
       )}
-      <span className="font-black text-success text-2xl sm:text-3xl flex items-center gap-1.5">
-        <span>✓</span>
-        <span>{score}</span>
+      <span
+        className="font-semibold text-mint-700 text-base flex items-center gap-1.5"
+        aria-label={t('progress.completed', { score })}
+      >
+        <span aria-hidden="true">✓</span>
+        <span aria-hidden="true">{score}</span>
       </span>
     </div>
   );

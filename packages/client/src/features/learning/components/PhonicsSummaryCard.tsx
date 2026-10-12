@@ -1,3 +1,4 @@
+import { getCourseTheme } from '@/design-system';
 import { Link } from 'react-router-dom';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
@@ -42,7 +43,7 @@ export function PhonicsSummaryCard({ events, storybooks, lang }: Props) {
   if (!hasAnyPhonics) return null;
 
   return (
-    <div className="rounded-3xl bg-gradient-to-br from-mint-100 to-cream-50 p-5 shadow-soft">
+    <div className="rounded-3xl border border-ink-100 bg-white p-5 shadow-soft">
       <p className="text-lg font-black text-ink-900 break-keep">
         {doneCount > 0
           ? `${units.length}단원 중 ${doneCount}단원을 마쳤어요.`
@@ -51,13 +52,13 @@ export function PhonicsSummaryCard({ events, storybooks, lang }: Props) {
       {next && (
         <p className="mt-1 text-sm font-bold text-ink-600 break-keep">
           {doneCount > 0 ? '지금은 ' : '다음은 '}
-          <span className="text-coral-600">「{next.title}」</span>
+          <span className={getCourseTheme(lang)?.text}>「{next.title}」</span>
           {doneCount > 0 ? ' 를 하고 있어요.' : ' 예요.'}
         </p>
       )}
       <Link
         to={to}
-        className="mt-3 inline-flex rounded-full bg-coral-500 px-5 py-2.5 text-sm font-black text-white shadow-pop transition hover:-translate-y-0.5"
+        className={`mt-3 inline-flex min-h-11 items-center rounded-full px-5 py-2.5 text-sm font-black shadow-soft transition ${getCourseTheme(lang)?.action} ${getCourseTheme(lang)?.focus}`}
       >
         {doneCount > 0 ? '이어서 하기' : '하러 가기'}
       </Link>

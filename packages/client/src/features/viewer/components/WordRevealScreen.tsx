@@ -173,7 +173,7 @@ export function WordRevealScreen({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="fixed inset-0 z-50 bg-gradient-to-b from-cream-50 to-peach-100 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-cream-50 overflow-y-auto"
           role="dialog"
           aria-label={t('wordReveal.dialogLabel')}
         >
@@ -291,7 +291,7 @@ export function WordRevealScreen({
                           initial={{ scale: 0, rotate: -45 }}
                           animate={{ scale: 1, rotate: 0 }}
                           transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-                          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-coral-500 text-white flex items-center justify-center text-sm font-black shadow-pop"
+                          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-coral-700 text-white flex items-center justify-center text-sm font-black shadow-soft"
                           aria-hidden
                         >
                           ✓
@@ -340,7 +340,7 @@ export function WordRevealScreen({
                   'px-4 sm:px-6 py-3 font-bold rounded-full shadow-lg flex items-center gap-2 text-sm sm:text-base transition-all',
                   allTapped
                     ? 'bg-success text-white shadow-success/40 ring-2 ring-success/30'
-                    : 'bg-coral-500 hover:bg-coral-600 text-white'
+                    : 'bg-coral-700 hover:bg-coral-800 text-white'
                 )}
               >
                 {t('wordReveal.moreVocab')}

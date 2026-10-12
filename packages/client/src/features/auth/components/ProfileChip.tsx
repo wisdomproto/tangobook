@@ -16,7 +16,7 @@ export function ProfileChip({ profile, onClick }: Props) {
   return (
     <button
       onClick={onClick}
-      className="flex max-w-full items-center gap-1.5 rounded-full bg-white py-1 pl-1 pr-2.5 shadow-soft transition-all hover:shadow-pop"
+      className="flex max-w-full items-center gap-1.5 rounded-full bg-white py-1 pl-1 pr-2.5 shadow-soft transition-all hover:shadow-soft"
       aria-label={t('header.profileMenu', { name: profile.name })}
     >
       <AvatarRender id={profile.avatarId} size="sm" />

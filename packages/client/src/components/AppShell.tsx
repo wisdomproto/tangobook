@@ -1,411 +1,171 @@
-import { useEffect, useState } from 'react';
-import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import i18n from '@/i18n';
-import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
-import { PromoBanner } from '@/features/library/components/PromoBanner';
+import { ProfileChip } from '@/features/auth/components/ProfileChip';
+import { FeedbackDialog } from '@/features/feedback';
+import { LearnerNavigation } from './LearnerNavigation';
 import { UiLangMenu } from './UiLangMenu';
 import { InstallPwaButton } from './InstallPwaButton';
-import { ProfileChip } from '@/features/auth/components/ProfileChip';
-import { cn } from '@/lib/cn';
-import { isDevEmail } from '@/config/dev';
-import { FeedbackDialog } from '@/features/feedback';
 
-/**
- * 학습자 화면 공통 frame — 좌측 nav (3축 + More Fun) + 상단 헤더 (페이지 타이틀 + 별).
- * 진입점 페이지에만 적용 (deep view 인 viewer/editor/게임 플레이어는 제외).
- *
- * 디자인 타겟: 태블릿 1024-1366 + 4-5세 사용자 → 큰 글자, 큰 터치 타겟, 빈 공간 최소화.
- * 모바일 (<md / <768px): 사이드바 hide → 헤더 좌상단 햄버거 → 슬라이드 드로어. 320px 부터 지원.
- */
-/**
- * 사이드바 메인 axis — 모두 동일 정사각 박스 디자인 (정렬 통일).
- * 일반 노출 = 동화책(어디서든 alwaysActive) · 어휘 게임 · 파닉스.
- * 어휘/학습게임은 devOnly (코드·라우트는 보존, DEV_EMAILS 에게만 노출).
- */
-const PRIMARY_AXES = [
-  {
-    to: '/library',
-    iconSrc: 'tab/storybook.svg',
-    labelKey: 'sidebar.storybooks',
-    color: 'coral' as const,
-    end: true,
-    comingSoon: false,
-    // 파닉스 사이드바 부활(2026-07-23) 후 alwaysActive 는 이중 활성 버그 — 라우트 기반으로만.
-    alwaysActive: false,
-    devOnly: false,
-    authOnly: false,
-  },
-  // 연속재생의 1차 진입점은 사이드바가 아니라 메인화면(라이브러리 「묶어 보기」) —
-  // PlaylistLibrarySection 이 카테고리 묶음을 게스트·로그인 동일하게 항상 표시. 2026-07-07 → 07-24 개편.
-  {
-    // 어휘 게임 — 세계명작 낱말 랜덤 풀 블록 게임. 허브에서 한글/영어 선택. 2026-07-08 부활.
-    to: '/games/vocab',
-    iconSrc: 'game/korean-block.webp',
-    labelKey: 'sidebar.vocabGames',
-    color: 'mint' as const,
-    end: false,
-    comingSoon: false,
-    alwaysActive: false,
-    devOnly: false,
-    authOnly: false,
-  },
-  {
-    // 파닉스 — 한글 32 + 영어 39 유닛 전부 공개 상태라 일반 노출로 복귀(2026-07-23).
-    // 랜딩(/library/phonics)에서 한글/영어를 고른다.
-    to: '/library/phonics',
-    iconSrc: 'tab/phonics.svg',
-    labelKey: 'sidebar.phonics',
-    color: 'mint' as const,
-    end: false,
-    comingSoon: false,
-    alwaysActive: false,
-    devOnly: false,
-    authOnly: false,
-  },
-  // 🔴 어휘(`/vocabulary` 준비 중)·학습 게임(`/games`) 사이드바 축 제거(2026-08-09 사용자) —
-  //    라우트·페이지·게임 코드는 보존(직접 URL 로 도달 가능), 사이드바/탭바 버튼만 뺀다.
-];
-
-/**
- * 페이지 path → 큰 타이틀 (SVG 아이콘 path + 텍스트) 매핑.
- * 이모지 대신 디자인 시스템 SVG 사용 — 가독성 + 톤 일관성.
- * 매칭되는 SVG 가 없으면 emoji 폴백.
- */
-function getPageTitle(
-  pathname: string
-): { iconSrc?: string; emoji?: string; titleKey: string } | null {
-  // /library 는 LibraryPage 자체가 hero 배너에 큰 제목 노출 → AppShell 헤더 중복 hide
-  if (pathname === '/library') return null;
-  if (pathname.startsWith('/library/phonics'))
-    return { iconSrc: 'tab/phonics.svg', titleKey: 'pageTitle.phonics' };
-  // 어휘 게임 — 사이드바 라벨 재사용(전용 키를 5개 로케일에 새로 넣을 이유 없음).
-  if (pathname.startsWith('/games/vocab'))
-    return { iconSrc: 'game/korean-block.webp', titleKey: 'sidebar.vocabGames' };
-  if (pathname.startsWith('/vocabulary/book-'))
-    return { iconSrc: 'tab/vocab.svg', titleKey: 'pageTitle.wordStudy' };
-  if (pathname.startsWith('/vocabulary'))
-    return { iconSrc: 'tab/vocab.svg', titleKey: 'pageTitle.vocabMaster' };
-  if (pathname.startsWith('/parent')) return { emoji: '👨‍👩‍👧', titleKey: 'pageTitle.parentMode' };
-  return null;
-}
-
+/** Learning entry points share navigation; readers and games keep their full screen. */
 export function AppShell() {
-  const { t } = useTranslation('shell');
-  const { activeProfile, setActiveProfile, profiles, session, signOut, isConfigured, account } =
-    useAuth();
-  const location = useLocation();
+  const { t, i18n } = useTranslation('shell');
+  const { activeProfile, setActiveProfile, profiles, session, signOut, isConfigured } = useAuth();
   const navigate = useNavigate();
-  // 아이 2명 이상인데 아직 아무도 선택 안 됨 → 학습자 화면 진입 전 "누가 놀고 있어요?" 게이트.
-  // (1명이면 useActiveProfile 이 자동 선택하므로 이 게이트는 뜨지 않음.)
-  const needsProfilePick = !!session && profiles.length > 1 && !activeProfile;
-  const pageTitle = getPageTitle(location.pathname);
-  // /library 는 배너가 viewport top 까지 차지 — 헤더 absolute overlay (transparent) 로
-  // main 이 0부터 시작. 우상단 chip 만 pointer-events-auto 로 클릭 가능.
-  const isLibraryRoot = location.pathname === '/library';
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
-  // 헤더 프로필 칩 → 프로필 시트(선택/전환/관리) 수동 오픈.
   const [pickerOpen, setPickerOpen] = useState(false);
-  // 하단 부모 메뉴(리포팅·초대·설정·건의) 접기/펴기 — 기본 접힘(사이드바 정리).
-  const [parentMenuOpen, setParentMenuOpen] = useState(false);
-
-  // 학습자 화면은 라이트 모드 고정
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [parentOpen, setParentOpen] = useState(false);
+  const parentDialog = useRef<HTMLDialogElement>(null);
+  const needsProfilePick = !!session && profiles.length > 1 && !activeProfile;
   useEffect(() => {
     document.documentElement.classList.remove('dark');
   }, []);
-
-  // 라우트 변경 시 드로어 자동 close
   useEffect(() => {
-    setDrawerOpen(false);
-  }, [location.pathname]);
-
-  const handleSignOut = async () => {
-    if (!window.confirm(t('sidebar.logoutConfirm'))) return;
-    await signOut();
-  };
-
-  // 사이드바(데스크탑)와 하단 탭바(모바일)가 같은 축 목록을 본다 — 한쪽만 늘어나는 일 방지.
-  const shownAxes = PRIMARY_AXES.filter(
-    (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
-  );
-  // 탭바엔 '준비 중'(링크 아님)은 넣지 않는다.
-  const visibleAxes = shownAxes.filter((a) => !a.comingSoon);
-
-  const sidebarContent = (
-    <>
-      {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
-      <div className="h-20 shrink-0 flex items-center justify-center px-2 border-b border-ink-100/40">
-        <Link to="/library" aria-label={t('logo.home')}>
-          <img
-            /* 🔴 520px 판 — 여기선 56px 높이로 그린다(원본 1774px·81KB). */
-            src={i18n.language === 'ko' ? '/logo/logo-kr-520.webp' : '/logo/logo-en-520.webp'}
-            alt={t('logo.alt')}
-            className="h-14 w-auto object-contain"
-          />
-        </Link>
-      </div>
-
-      {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
-          부모 작업(리포팅·초대·연속재생·설정)은 위계를 정직하게 하려고 하단 부모 영역으로 분리. 2026-07-07. */}
-      <nav className="flex-1 min-h-0 overflow-y-auto w-full flex flex-col gap-2.5 items-center pt-5 pb-5">
-        {shownAxes.map((axis) => (
-          <PrimaryNavButton key={axis.to} {...axis} label={t(axis.labelKey)} />
-        ))}
-      </nav>
-
-      {/* 부모 영역 — 부모 메뉴만. 하단 고정(nav flex-1 이 위 공간을 채워 밀어냄).
-          로그아웃/로그인이 헤더로 빠져서(2026-07-25) 비로그인 땐 내용이 없다 → 블록째 숨긴다
-          (안 그러면 빈 구분선 바만 남는다). */}
-      {session && isConfigured && (
-        <div className="shrink-0 px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
-          {/* 🔴 학습 리포팅은 접이식 밖 — 부모가 가장 자주 여는 화면이라 한 번에 닿게 한다
-              (2026-07-25). 나머지 부모 작업(초대·설정·건의·로그아웃)만 접이식 안. */}
+    if (parentOpen) parentDialog.current?.showModal();
+    else parentDialog.current?.close();
+  }, [parentOpen]);
+  const parentLink =
+    'flex min-h-12 items-center rounded-xl px-4 text-base font-bold text-ink-900 hover:bg-cream-100 focus-visible:outline-coral-700';
+  return (
+    <div className="min-h-dvh bg-cream-50 text-ink-900">
+      <header className="sticky top-0 z-30 border-b border-ink-100 bg-cream-50/95 backdrop-blur-sm">
+        <div className="mx-auto flex min-h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 md:min-h-[72px]">
           <Link
-            to="/parent/reports"
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-700 bg-white/70 hover:bg-white hover:text-ink-900 shadow-soft transition-all"
+            to="/library"
+            aria-label={t('logo.home')}
+            className="flex min-h-11 shrink-0 items-center rounded-lg focus-visible:outline-coral-700"
           >
-            <span aria-hidden>📊</span>
-            <span>{t('sidebar.reports')}</span>
+            <img
+              src={i18n.language === 'ko' ? '/logo/logo-kr-520.webp' : '/logo/logo-en-520.webp'}
+              alt={t('logo.alt')}
+              className="h-9 w-auto"
+            />
           </Link>
-          <>
-            <button
-              type="button"
-              onClick={() => setParentMenuOpen((o) => !o)}
-              aria-expanded={parentMenuOpen}
-              className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-            >
-              <span className="flex items-center gap-2">
-                <span aria-hidden>👨‍👩‍👧</span>
-                <span>{t('sidebar.parentMenu')}</span>
-              </span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={cn(
-                  'text-ink-400 shrink-0 transition-transform',
-                  parentMenuOpen && 'rotate-180'
-                )}
-                aria-hidden
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-            {parentMenuOpen && (
-              <div className="flex flex-col gap-1.5">
-                <Link
-                  to="/invite-friends"
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-                >
-                  <span aria-hidden>🎁</span>
-                  <span>{t('sidebar.inviteFriends')}</span>
-                </Link>
-                <Link
-                  to="/parent/settings"
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-                >
-                  <span aria-hidden>⚙️</span>
-                  <span>{t('sidebar.parentSettings')}</span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => setFeedbackOpen(true)}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-                >
-                  <span aria-hidden>💬</span>
-                  <span>{t('sidebar.feedback')}</span>
-                </button>
-                {/* 로그아웃 — 헤더 자리를 프로필 칩에 내주고 부모 메뉴로 복귀(2026-07-25).
-                    부모 작업이라 여기가 제자리다. */}
-                <button
-                  type="button"
-                  onClick={handleSignOut}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
-                >
-                  <span aria-hidden>🚪</span>
-                  <span>{t('sidebar.logout')}</span>
-                </button>
+          <LearnerNavigation />
+          <div className="flex shrink-0 items-center gap-2">
+            {session && activeProfile && (
+              <div className="max-w-[120px] lg:max-w-none">
+                <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
               </div>
             )}
-          </>
-        </div>
-      )}
-    </>
-  );
-
-  return (
-    <div className="flex min-h-screen bg-cream-50">
-      {/* 데스크탑 좌측 nav — 태블릿 기준 w-44 (176px). 모바일 hide. */}
-      <aside className="hidden md:flex w-44 flex-shrink-0 sticky top-0 h-[100dvh] flex-col bg-cream-50 border-r border-ink-100/60">
-        {sidebarContent}
-      </aside>
-
-      {/* 모바일 슬라이드 드로어 + 오버레이 */}
-      {drawerOpen && (
-        <>
-          <div
-            className="md:hidden fixed inset-0 z-40 bg-ink-900/40 backdrop-blur-sm"
-            onClick={() => setDrawerOpen(false)}
-            aria-hidden
-          />
-          <aside
-            className="md:hidden fixed top-0 left-0 z-50 w-44 h-[100dvh] flex flex-col bg-cream-50 border-r border-ink-100/60 shadow-2xl"
-            style={{ animation: 'slide-in 180ms ease-out' }}
-          >
             <button
-              onClick={() => setDrawerOpen(false)}
-              className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 shadow-soft text-ink-700 flex items-center justify-center"
-              aria-label={t('header.closeMenu')}
+              type="button"
+              aria-label={t('sidebar.parentMenu')}
+              onClick={() => setParentOpen(true)}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-200 bg-white text-ink-600 hover:bg-cream-100 focus-visible:outline-coral-700"
             >
               <svg
-                width="18"
-                height="18"
+                width="22"
+                height="22"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
+                strokeWidth="1.8"
+                aria-hidden="true"
               >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
+                <circle cx="12" cy="8" r="3.5" />
+                <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
               </svg>
             </button>
-            {sidebarContent}
-          </aside>
-        </>
-      )}
-
-      {/* 우측 영역.
-          🔴 /library 헤더는 예전에 **배너 위 투명 absolute 오버레이**였다(배너가 viewport top 까지 닿게).
-          헤더가 비어 있을 땐 괜찮았지만, 「홈에 설치」·로그인/로그아웃이 들어오면서 버튼이 배너
-          일러스트를 깔고 앉아 붙어 보였다 → 오버레이를 걷고 **제 높이를 차지하는 sticky 헤더**로
-          통일(2026-07-25). 배경은 페이지 그라데이션 상단과 같은 cream-50 이라 이음매가 안 보이고,
-          배너는 헤더 아래에서 시작한다. 좌우 정렬만 배너와 같은 max-w wrapper 로 맞춘다. */}
-      <div className="flex-1 flex flex-col min-w-0 relative">
-        <header
-          className={cn(
-            'h-16 md:h-20 z-30 flex items-center sticky top-0 bg-cream-50',
-            !isLibraryRoot && 'border-b border-ink-100/60'
-          )}
-        >
-          {/* isLibraryRoot 면 배너와 동일한 max-w wrapper 안 양쪽 정렬 — 버튼이 배너 우측 끝과 정렬. 그 외 페이지는 풀폭 padding. */}
-          <div
-            className={cn(
-              'w-full h-full flex items-center justify-between',
-              isLibraryRoot ? 'max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8' : 'px-3 sm:px-7'
-            )}
-          >
-            {/* 왼쪽: ⚙️ 부모 메뉴(모바일) + 페이지 타이틀 */}
-            <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              {/* 🔴 톱니바퀴 = 드로어(부모 작업) 진입. 축 3개는 하단 탭바가 맡으므로 이 버튼은
-                  더 이상 "메뉴 전부"가 아니라 **부모 영역**만 뜻한다 — 아이 엄지가 닿는 아래가
-                  아니라 위 모서리에 두는 이유도 같다(2026-08-01, 예전 ☰ 자리). */}
-              <button
-                onClick={() => setDrawerOpen(true)}
-                className="md:hidden w-10 h-10 rounded-full bg-white/90 shadow-soft text-ink-700 flex items-center justify-center flex-shrink-0"
-                aria-label={t('header.openMenu')}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008.6 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 8.6a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
-                </svg>
-              </button>
-              {/* 🔴 모바일 헤더엔 로고를 두지 않는다(2026-07-25) — 375px 에서 설치·프로필
-                  칩과 함께 놓기엔 좁다. 로고와 홈 이동은 드로어 상단에 그대로 있다. */}
-              {/* 라이브러리 루트는 페이지 타이틀이 없다 → 그 자리에 프로모를 얹어
-                  헤더 버튼들과 같은 한 줄로 만든다(별도 배너 밴드 제거, 2026-07-25). */}
-              {isLibraryRoot && <PromoBanner />}
-              {pageTitle && (
-                <h1 className="hidden sm:flex text-xl md:text-3xl font-black font-display text-ink-900 truncate items-center gap-2">
-                  {pageTitle.iconSrc ? (
-                    <AppIcon
-                      src={pageTitle.iconSrc}
-                      size={28}
-                      alt={t(pageTitle.titleKey)}
-                      className="md:[width:36px] md:[height:36px]"
-                    />
-                  ) : pageTitle.emoji ? (
-                    <span>{pageTitle.emoji}</span>
-                  ) : null}
-                  <span>{t(pageTitle.titleKey)}</span>
-                </h1>
-              )}
-            </div>
-
-            {/* 우측 — 홈에 설치 + 아이 프로필 칩(로그인) / 로그인 버튼.
-                🔴 여기가 chrome 의 유일한 자리다(2026-07-25) — 사이드바 칩·배너 버튼은 제거해
-                한 화면에 같은 버튼이 두 번 나오지 않게 했다. 로그아웃은 부모 메뉴(부모 작업). */}
-            <div className="flex-shrink-0 flex items-center gap-2">
-              <UiLangMenu />
-              <InstallPwaButton className="flex items-center gap-1.5 rounded-full bg-coral-500 px-3 py-2 text-sm font-black text-white shadow-soft transition hover:brightness-110 hover:shadow-pop sm:px-4" />
-              {session && activeProfile ? (
-                <ProfileChip profile={activeProfile} onClick={() => setPickerOpen(true)} />
-              ) : session ? null : isConfigured ? (
-                <Link
-                  to="/login"
-                  className="flex items-center gap-2 rounded-full bg-coral-500 px-4 py-2 shadow-soft text-sm font-black text-white hover:bg-coral-600 hover:shadow-pop transition-all"
-                >
-                  {/* 375px + 설치 버튼까지 있으면 한 줄이 13px 모자란다 — 아이콘만 접는다. */}
-                  <span aria-hidden className="hidden sm:inline">
-                    🔑
-                  </span>
-                  <span>{t('sidebar.login')}</span>
-                </Link>
-              ) : null}
-            </div>
           </div>
-        </header>
-
-        {/* 하단 탭바(모바일) 높이만큼 아래 여백 — 마지막 줄이 탭바에 가리지 않게. */}
-        <main className="flex-1 overflow-auto pb-[calc(56px+env(safe-area-inset-bottom))] md:pb-0">
-          <Outlet />
-        </main>
-      </div>
-
-      {/* 드로어가 열리면 탭바는 숨긴다 — 드로어 안에도 같은 축 3개가 있어 한 화면에 두 번
-          나오고, 오버레이(z-40)와 같은 층이라 탭바만 안 어두워져 떠 보인다. */}
-      {!drawerOpen && (
-        <BottomTabBar
-          axes={visibleAxes.map((a) => ({
-            to: a.to,
-            iconSrc: a.iconSrc,
-            label: t(a.labelKey),
-            end: a.end,
-          }))}
-        />
-      )}
-
-      {/* 건의하기 모달 — 부모 영역 "건의하기" 버튼에서 호출 */}
+        </div>
+      </header>
+      <main className="pb-[calc(76px+env(safe-area-inset-bottom))] md:pb-0">
+        <Outlet />
+      </main>
+      <LearnerNavigation mobile />
+      <dialog
+        ref={parentDialog}
+        aria-labelledby="parent-menu-heading"
+        onClose={() => setParentOpen(false)}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setParentOpen(false);
+        }}
+        className="m-auto w-[min(420px,calc(100%-32px))] overflow-visible rounded-3xl bg-white p-5 text-ink-900 shadow-pop backdrop:bg-ink-900/30"
+      >
+        <div className="mb-3 flex items-center justify-between">
+          <h2 id="parent-menu-heading" className="flex-1 text-xl font-bold">
+            {t('sidebar.parentMenu')}
+          </h2>
+          <UiLangMenu />
+          <button
+            type="button"
+            aria-label={t('header.closeMenu')}
+            onClick={() => setParentOpen(false)}
+            className="h-11 w-11 rounded-full bg-cream-100 text-2xl"
+          >
+            ×
+          </button>
+        </div>
+        <div className="flex flex-col gap-1">
+          {session && isConfigured ? (
+            <>
+              <Link
+                className={parentLink}
+                to="/parent/reports"
+                onClick={() => setParentOpen(false)}
+              >
+                {t('sidebar.reports')}
+              </Link>
+              <Link
+                className={parentLink}
+                to="/parent/profiles"
+                onClick={() => setParentOpen(false)}
+              >
+                {t('header.switch')}
+              </Link>
+              <Link
+                className={parentLink}
+                to="/parent/settings"
+                onClick={() => setParentOpen(false)}
+              >
+                {t('sidebar.parentSettings')}
+              </Link>
+              <Link
+                className={parentLink}
+                to="/invite-friends"
+                onClick={() => setParentOpen(false)}
+              >
+                {t('sidebar.inviteFriends')}
+              </Link>
+              <button
+                type="button"
+                className={parentLink}
+                onClick={() => {
+                  setParentOpen(false);
+                  setFeedbackOpen(true);
+                }}
+              >
+                {t('sidebar.feedback')}
+              </button>
+              <button
+                type="button"
+                className={parentLink}
+                onClick={async () => {
+                  if (window.confirm(t('sidebar.logoutConfirm'))) {
+                    await signOut();
+                    setParentOpen(false);
+                  }
+                }}
+              >
+                {t('sidebar.logout')}
+              </button>
+            </>
+          ) : (
+            isConfigured && (
+              <Link to="/login" className={parentLink} onClick={() => setParentOpen(false)}>
+                {t('sidebar.login')}
+              </Link>
+            )
+          )}
+          <div className="mt-3 flex min-h-12 items-center justify-between gap-3 border-t border-ink-100 pt-3">
+            <InstallPwaButton className="min-h-11 rounded-xl bg-coral-700 px-4 font-bold text-white" />
+          </div>
+        </div>
+      </dialog>
       <FeedbackDialog open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
-
-      {/* 🔴 메인(브라우즈) 화면 배경음악 폐지(2026-08-11 사용자) — 라이브러리를 보는 동안 음악이
-          계속 깔리는 게 시끄러웠다. 우하단 🎵 토글도 함께 사라졌다(`AppBgm` 삭제).
-          ⚠️ **뷰어 BGM 은 이것과 다른 물건이다** — 책 읽는 동안의 배경음은 그대로 있다. */}
-
-      {/* 🔴 첫 진입 벽 폐지(2026-08-11) — 미로그인 방문자는 라이브러리에 그냥 들어와 **무료 책
-          11권**을 본다. 그게 "일부 공개"고, 잠긴 책의 🔒 배지와 헤더 프로모가 가입을 판다.
-          파닉스도 같은 방식이다 — 무료 단원(한글 모음·ㄱ / 영어 첫 단원·짧은모음 a)만 열고
-          나머지는 `PhonicsUnitGate` 가 단원 단위로 잠근다. */}
-
-      {/* 프로필 시트 "누가 놀고 있어요?" — ①아이 2명+ 미선택 시 필수 진입 게이트(닫기 없음)
-          ②헤더 프로필 칩 탭 시 수동 오픈(전환/추가·관리, activeProfile 있으면 ✕ 닫기). */}
       {(needsProfilePick || pickerOpen) && (
         <ProfilePicker
           profiles={profiles}
@@ -421,115 +181,5 @@ export function AppShell() {
         />
       )}
     </div>
-  );
-}
-
-type AxisColor = 'coral' | 'mint' | 'amber' | 'violet';
-
-const COLOR_ACTIVE: Record<AxisColor, string> = {
-  coral: 'bg-coral-500 text-white shadow-pop ring-4 ring-coral-200',
-  mint: 'bg-success text-white shadow-pop ring-4 ring-success/30',
-  amber: 'bg-warn text-ink-900 shadow-pop ring-4 ring-warn/40',
-  violet: 'bg-violet-500 text-white shadow-pop ring-4 ring-violet-200',
-};
-
-const COLOR_IDLE: Record<AxisColor, string> = {
-  coral: 'bg-coral-100 text-coral-600 hover:bg-coral-200',
-  mint: 'bg-success/15 text-success hover:bg-success/25',
-  amber: 'bg-warn/20 text-ink-900 hover:bg-warn/30',
-  violet: 'bg-violet-100 text-violet-600 hover:bg-violet-200',
-};
-
-/**
- * 모바일 하단 탭바 — 축 전환을 한 번에 (2026-08-01).
- * 🔴 예전엔 축을 바꾸려면 ☰ 를 열어 드로어에서 골라야 했다(두 번). 축이 3개뿐이라 탭바가 맞다.
- * 🔴 **아래엔 아이 축만 둔다** — 부모 작업(리포팅·초대·설정·건의·로그아웃) 진입은 헤더 좌상단
- *    ⚙️(`md:hidden`). 아이 엄지가 닿는 자리에 부모 메뉴를 두지 않고, 톱니바퀴 자체가 "여긴 설정"
- *    이라는 신호라 예전 햄버거보다 뜻이 분명하다.
- */
-function BottomTabBar({
-  axes,
-}: {
-  axes: { to: string; iconSrc: string; label: string; end: boolean }[];
-}) {
-  const { t } = useTranslation('shell');
-  return (
-    <nav
-      className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-stretch border-t border-ink-100 bg-cream-50/95 backdrop-blur-sm pb-[env(safe-area-inset-bottom)]"
-      aria-label={t('header.menu')}
-    >
-      {axes.map((a) => (
-        <NavLink
-          key={a.to}
-          to={a.to}
-          end={a.end}
-          className={({ isActive }) =>
-            cn(
-              'flex-1 min-h-[56px] flex flex-col items-center justify-center gap-0.5 py-1.5 font-black transition-colors',
-              isActive ? 'text-coral-600' : 'text-ink-500'
-            )
-          }
-        >
-          <AppIcon src={a.iconSrc} size={26} alt="" />
-          <span className="text-[11px] leading-none break-keep text-center">{a.label}</span>
-        </NavLink>
-      ))}
-    </nav>
-  );
-}
-
-function PrimaryNavButton({
-  to,
-  iconSrc,
-  label,
-  color,
-  end,
-  comingSoon,
-  alwaysActive,
-}: {
-  to: string;
-  iconSrc: string;
-  label: string;
-  color: AxisColor;
-  end: boolean;
-  comingSoon?: boolean;
-  alwaysActive?: boolean;
-}) {
-  const { t } = useTranslation('shell');
-  if (comingSoon) {
-    // 차분한 disabled 톤 — 카드 음영 + sub-label "준비 중" (배지 대신)
-    return (
-      <div
-        role="button"
-        aria-disabled="true"
-        title={t('sidebar.comingSoonTitle')}
-        className="w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1 bg-ink-100/40 cursor-not-allowed select-none"
-      >
-        <AppIcon src={iconSrc} size={44} alt={label} className="opacity-35" />
-        <span className="text-sm leading-tight text-center break-keep font-black text-ink-500">
-          {label}
-        </span>
-        <span className="text-xs font-black text-ink-400 tracking-wide">
-          {t('sidebar.comingSoon')}
-        </span>
-      </div>
-    );
-  }
-  return (
-    <NavLink
-      to={to}
-      end={end}
-      className={({ isActive }) => {
-        const showActive = alwaysActive || isActive;
-        return cn(
-          'w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1.5 transition-all font-black',
-          showActive ? COLOR_ACTIVE[color] : COLOR_IDLE[color],
-          !showActive && 'hover:scale-105'
-        );
-      }}
-    >
-      <AppIcon src={iconSrc} size={48} alt={label} />
-      <span className="text-sm leading-tight text-center break-keep">{label}</span>
-    </NavLink>
   );
 }

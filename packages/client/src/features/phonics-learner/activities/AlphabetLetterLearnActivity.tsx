@@ -297,7 +297,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
               <button
                 key={i}
                 onClick={() => handleLetterTabClick(i)}
-                className={`inline-flex items-baseline gap-0.5 sm:gap-1 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-pop transition-all ${
+                className={`inline-flex items-baseline gap-0.5 sm:gap-1 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-soft transition-all ${
                   active
                     ? 'bg-coral-50 ring-4 ring-coral-300 scale-[1.06]'
                     : 'bg-white hover:bg-peach-50 opacity-70 hover:opacity-100'

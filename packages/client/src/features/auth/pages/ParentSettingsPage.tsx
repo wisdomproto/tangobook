@@ -72,7 +72,7 @@ export default function ParentSettingsPage() {
         {PAYWALL_ENABLED && access.status !== 'subscribed' && (
           <button
             onClick={() => navigate('/subscribe')}
-            className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110"
+            className="px-6 py-3 rounded-xl bg-coral-700 text-white font-black hover:brightness-110"
           >
             {t('settings.membership.purchase')}
           </button>
@@ -85,7 +85,7 @@ export default function ParentSettingsPage() {
         <p className="text-ink-600 text-sm mb-3 break-keep">
           <Trans t={t} i18nKey="settings.invite.description" components={{ b: <b /> }} />
         </p>
-        <InviteButton className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110" />
+        <InviteButton className="px-6 py-3 rounded-xl bg-coral-700 text-white font-black hover:brightness-110" />
 
         <div className="mt-5 border-t border-ink-100 pt-4">
           <p className="text-sm font-black text-ink-900 mb-2">{t('settings.invite.haveCode')}</p>
@@ -145,7 +145,7 @@ export default function ParentSettingsPage() {
         <h3 className="text-xl font-black text-ink-900 mb-4">{t('settings.signOut.title')}</h3>
         <button
           onClick={handleSignOut}
-          className="px-6 py-3 rounded-xl bg-coral-500 text-white font-bold"
+          className="px-6 py-3 rounded-xl bg-coral-700 text-white font-bold"
         >
           {t('settings.signOut.button')}
         </button>

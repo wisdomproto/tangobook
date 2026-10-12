@@ -105,7 +105,7 @@ export function PostActivityPhonics({
             <button
               disabled={!activity}
               onClick={() => setPlaying(true)}
-              className="min-h-11 rounded-full bg-coral-500 px-5 py-3 font-bold text-white"
+              className="min-h-11 rounded-full bg-coral-700 px-5 py-3 font-bold text-white"
             >
               {t('overview.tryPhonics')}
             </button>

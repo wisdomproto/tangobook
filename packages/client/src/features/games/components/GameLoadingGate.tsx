@@ -27,16 +27,24 @@ export function GameLoadingGate({
       <p className="text-2xl font-black text-ink-900 font-display break-keep text-center">
         {t('loadingGate.preparing')}
       </p>
-      <div className="w-full max-w-sm h-5 rounded-full bg-peach-200 overflow-hidden">
+      <div
+        className="w-full max-w-sm h-3 rounded-full bg-ink-100 overflow-hidden"
+        role="progressbar"
+        aria-label={t('loadingGate.preparing')}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={pct}
+      >
         <div
-          className="h-full bg-coral-500 transition-[width] duration-200 ease-out"
+          className="h-full bg-coral-700 motion-safe:transition-[width] duration-200 ease-out"
           style={{ width: `${pct}%` }}
         />
       </div>
-      <p className="text-lg font-black text-ink-500 tabular-nums">{pct}%</p>
+      <p className="text-lg font-semibold text-ink-600 tabular-nums">{pct}%</p>
       <button
+        type="button"
         onClick={onSkip}
-        className="mt-2 px-8 py-3 rounded-full bg-amber-500 text-white font-black shadow-pop text-lg"
+        className="mt-2 min-h-12 px-6 py-3 rounded-full border border-ink-200 bg-white text-ink-900 font-bold text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
       >
         {t('loadingGate.skip')}
       </button>

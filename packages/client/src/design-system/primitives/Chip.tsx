@@ -15,9 +15,9 @@ export interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const ACTIVE_CLASS: Record<ChipVariant, string> = {
-  coral: 'bg-coral-500 text-white',
+  coral: 'bg-coral-100 text-ink-900 ring-2 ring-coral-700',
   warn: 'bg-warn text-ink-900',
-  success: 'bg-success text-white',
+  success: 'bg-mint-100 text-mint-700 ring-2 ring-mint-600',
   ink: 'bg-ink-900 text-white',
 };
 
@@ -35,7 +35,7 @@ const IDLE_HOVER_CLASS: Record<ChipVariant, string> = {
  * - 파닉스 한/영 (variant="success")
  * - "전체" (variant="ink")
  *
- * Button 컴포넌트보다 작은 크기 (px-4 py-1.5, min-h 없음) — 작은 chip 전용.
+ * 필터는 최소 44px 클릭 영역과 선택 의미를 제공한다.
  */
 export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
   { active = false, variant = 'coral', icon, trailing, className, children, ...rest },
@@ -45,8 +45,9 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
     <button
       ref={ref}
       type="button"
+      aria-pressed={active}
       className={cn(
-        'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap shrink-0 transition-all inline-flex items-center gap-1.5',
+        'min-h-11 px-4 py-2 rounded-full font-bold text-base whitespace-nowrap shrink-0 transition-colors inline-flex items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 disabled:opacity-50 disabled:cursor-not-allowed',
         active
           ? `${ACTIVE_CLASS[variant]} shadow-soft`
           : `bg-white text-ink-700 ${IDLE_HOVER_CLASS[variant]}`,
@@ -57,7 +58,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
       {icon && <span className="leading-none">{icon}</span>}
       <span>{children}</span>
       {trailing != null && (
-        <span className={active ? 'opacity-80' : 'text-ink-500'}>{trailing}</span>
+        <span className={active ? 'opacity-80' : 'text-ink-600'}>{trailing}</span>
       )}
     </button>
   );

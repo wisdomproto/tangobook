@@ -77,7 +77,7 @@ export default function ParentReportsPage() {
         </p>
         <a
           href="/parent/profiles"
-          className="px-6 py-3 rounded-xl bg-coral-500 text-white font-bold hover:brightness-110"
+          className="px-6 py-3 rounded-xl bg-coral-700 text-white font-bold hover:brightness-110"
         >
           {t('reports.goToProfiles')}
         </a>
@@ -104,7 +104,7 @@ export default function ParentReportsPage() {
                   className={
                     'min-h-11 rounded-full px-4 py-1.5 text-sm font-black transition ' +
                     (on
-                      ? 'bg-coral-500 text-white shadow-pop'
+                      ? 'bg-coral-700 text-white shadow-soft'
                       : 'bg-white text-ink-600 shadow-soft hover:bg-peach-50')
                   }
                 >
@@ -162,7 +162,7 @@ export default function ParentReportsPage() {
           <p className="mt-2 text-sm text-ink-600">{tl('overview.errorNote')}</p>
           <button
             onClick={() => void refetch()}
-            className="mt-4 min-h-11 rounded-full bg-coral-500 px-5 py-3 font-bold text-white"
+            className="mt-4 min-h-11 rounded-full bg-coral-700 px-5 py-3 font-bold text-white"
           >
             {tl('overview.retry')}
           </button>

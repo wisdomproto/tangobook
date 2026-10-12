@@ -234,7 +234,7 @@ export function ConsonantBlendListenActivity({
 
   const tileClass = (which: 0 | 1) =>
     [
-      'w-[26vw] h-[26vw] max-w-40 max-h-40 sm:w-40 sm:h-40 rounded-3xl border-[5px] flex items-center justify-center font-black text-coral-600 text-5xl sm:text-7xl shadow-soft transition',
+      'w-[26vw] h-[26vw] max-w-40 max-h-40 sm:w-40 sm:h-40 rounded-3xl border-2 flex items-center justify-center font-black text-coral-600 text-5xl sm:text-7xl shadow-soft transition',
       merging
         ? 'bg-mint-100 border-mint-500'
         : step === which
@@ -258,7 +258,7 @@ export function ConsonantBlendListenActivity({
               className={[
                 'relative w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] font-black text-xl sm:text-2xl shadow-soft transition active:scale-[0.95]',
                 i === idx
-                  ? 'bg-coral-500 text-white border-white ring-4 ring-coral-200'
+                  ? 'bg-coral-700 text-white border-white ring-4 ring-coral-200'
                   : made
                     ? 'bg-mint-500 text-white border-white'
                     : 'bg-white/80 text-ink-500 border-white',
@@ -295,7 +295,7 @@ export function ConsonantBlendListenActivity({
           }
         >
           {merging ? (
-            <div className="w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-[5px] border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-pop">
+            <div className="w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft">
               {pair.syllable}
             </div>
           ) : (

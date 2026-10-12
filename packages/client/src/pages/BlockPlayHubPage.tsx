@@ -67,15 +67,15 @@ export default function BlockPlayHubPage() {
               className="mx-auto mt-9 flex max-w-xl items-center justify-center gap-3"
               aria-hidden
             >
-              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-white text-4xl font-black text-coral-700 shadow-pop ring-2 ring-coral-100 sm:h-24 sm:w-24 sm:text-5xl">
+              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-white text-4xl font-black text-coral-700 shadow-soft ring-2 ring-coral-100 sm:h-24 sm:w-24 sm:text-5xl">
                 ㄱ
               </div>
               <span className="text-3xl font-black text-ink-300">+</span>
-              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-white text-4xl font-black text-amber-600 shadow-pop ring-2 ring-amber-100 sm:h-24 sm:w-24 sm:text-5xl">
+              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-white text-4xl font-black text-amber-600 shadow-soft ring-2 ring-amber-100 sm:h-24 sm:w-24 sm:text-5xl">
                 ㅏ
               </div>
               <span className="text-3xl font-black text-ink-300">→</span>
-              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-coral-600 text-4xl font-black text-white shadow-pop sm:h-24 sm:w-24 sm:text-5xl">
+              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-coral-700 text-4xl font-black text-white shadow-soft sm:h-24 sm:w-24 sm:text-5xl">
                 가
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function BlockPlayHubPage() {
               {TRACKS.map((track) => (
                 <article
                   key={track.lang}
-                  className={`rounded-[2rem] border bg-gradient-to-br ${track.tone} p-6 shadow-sm sm:p-8`}
+                  className={`rounded-[2rem] border bg-white border-ink-100 p-6 shadow-sm sm:p-8`}
                 >
                   <span className="inline-flex rounded-full bg-white/80 px-3 py-1 text-xs font-black text-ink-600">
                     {track.badge}
@@ -116,7 +116,7 @@ export default function BlockPlayHubPage() {
                   <div className="mt-7 grid gap-3 sm:grid-cols-2">
                     <Link
                       to={track.screenPath}
-                      className="flex min-h-[56px] items-center justify-center rounded-2xl bg-ink-900 px-4 text-center font-extrabold text-white transition hover:bg-ink-800"
+                      className="flex min-h-[56px] items-center justify-center rounded-2xl bg-coral-700 px-4 text-center font-extrabold text-white transition hover:bg-coral-800"
                     >
                       🧩 화면 블록으로 시작
                     </Link>
@@ -155,7 +155,7 @@ export default function BlockPlayHubPage() {
                 ['3', '파닉스로 이어서', '게임에서 만난 소리를 단원 학습과 낱말 읽기로 이어가요.'],
               ].map(([n, title, body]) => (
                 <li key={n} className="rounded-3xl bg-cream-50 p-6">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-coral-600 font-black text-white">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-coral-700 font-black text-white">
                     {n}
                   </span>
                   <h3 className="mt-4 font-display text-xl font-black text-ink-900">{title}</h3>

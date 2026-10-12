@@ -30,7 +30,7 @@ const TILE = 'min(32vw,28vh,18rem)';
 const TILE_FONT = `calc(${TILE} * 0.85)`;
 /** 대기 칸 = 캔버스와 똑같이 생긴 판(흰 바탕 + 회색 글자). 차이는 색이 아니라 **반짝임**이다. */
 const IDLE_TILE_CLASS =
-  'shrink-0 aspect-square rounded-3xl border-[5px] border-white bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
+  'shrink-0 aspect-square rounded-3xl border-2 border-ink-100 bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
 
 /** 지금 쓸 칸 — 캔버스를 감싸고 **반짝이는 테두리**를 얹는다(정사각 영역에만). */
 function WriteCell({ children }: { children: ReactNode }) {
@@ -242,8 +242,8 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
                     wordDone
                       ? 'bg-success/15 border-success text-success-700'
                       : active
-                        ? 'bg-gradient-to-b from-coral-400 to-coral-600 border-coral-700 text-white shadow-pop scale-105'
-                        : 'bg-white border-white text-ink-700 hover:shadow-pop',
+                        ? 'bg-coral-700 border-coral-700 text-white shadow-soft scale-105'
+                        : 'bg-white border-white text-ink-700 hover:shadow-soft',
                   ].join(' ')}
                   style={
                     wordDone || !active ? undefined : { textShadow: '0 2px 0 rgba(0,0,0,0.15)' }
@@ -268,7 +268,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
                 <img
                   src={currentWord.imageUrl}
                   alt={currentWord.word}
-                  className="w-[min(22vw,16vh,9rem)] h-[min(22vw,16vh,9rem)] object-cover rounded-3xl border-[5px] border-white shadow-pop"
+                  className="w-[min(22vw,16vh,9rem)] h-[min(22vw,16vh,9rem)] object-cover rounded-3xl border-2 border-ink-100 shadow-soft"
                 />
               )}
 
@@ -319,13 +319,13 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
 function DoneCell({ label }: { label: string }) {
   return (
     <div
-      className="w-[min(32vw,28vh,18rem)] h-[min(32vw,28vh,18rem)] shrink-0 rounded-[28px] border-[4px] flex items-center justify-center shadow-pop bg-gradient-to-b from-mint-300 to-mint-400 border-mint-500 text-white relative"
-      style={{ textShadow: '0 3px 0 rgba(0,0,0,0.18)' }}
+      className="w-[min(32vw,28vh,18rem)] h-[min(32vw,28vh,18rem)] shrink-0 rounded-[28px] border-[4px] flex items-center justify-center shadow-soft bg-mint-100 border-mint-400 text-mint-700 relative"
+      style={{ textShadow: 'none' }}
     >
       <span className="text-[clamp(4rem,18vh,11rem)] font-black leading-none whitespace-nowrap">
         {label}
       </span>
-      <span className="absolute -top-3 -right-3 inline-flex items-center justify-center w-10 h-10 rounded-full bg-success text-white text-2xl font-black shadow-pop ring-4 ring-white">
+      <span className="absolute -top-3 -right-3 inline-flex items-center justify-center w-10 h-10 rounded-full bg-success text-white text-2xl font-black shadow-soft ring-4 ring-white">
         ✓
       </span>
     </div>

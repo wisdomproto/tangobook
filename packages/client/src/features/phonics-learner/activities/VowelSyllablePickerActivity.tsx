@@ -90,7 +90,7 @@ export function VowelSyllablePickerActivity({
                   'relative w-[30%] max-w-[11rem] lg:w-44 rounded-3xl border-[6px] aspect-square flex flex-col items-center justify-center gap-1 transition shadow-soft',
                   done
                     ? 'bg-mint-100 border-mint-500'
-                    : 'bg-white border-white hover:shadow-pop active:scale-[0.97]',
+                    : 'bg-white border-white hover:shadow-soft active:scale-[0.97]',
                 ].join(' ')}
                 aria-label={v.syllable}
               >

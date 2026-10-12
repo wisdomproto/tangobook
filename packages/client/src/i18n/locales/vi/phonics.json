@@ -69,7 +69,25 @@
     "koreanLead": "Tiếng Hàn",
     "englishLead": "Tiếng Anh",
     "chineseLead": "Pinyin",
-    "englishComingSoonNote": "Các hoạt động phonics tiếng Anh sắp ra mắt rồi! ✨"
+    "englishComingSoonNote": "Các hoạt động phonics tiếng Anh sắp ra mắt rồi! ✨",
+    "activityDone": "Hoàn thành",
+    "startActivity": "Bắt đầu học",
+    "resumeActivity": "Học tiếp",
+    "repeatActivity": "Thử lại",
+    "unitProgress": "Hoạt động bắt buộc {{done}} / {{total}}",
+    "progressLabel": "Tiến độ bài học",
+    "unitLetters": "Chữ sẽ học",
+    "reviewLetters": "Chữ cần ôn tập",
+    "nextActivity": "Hoạt động tiếp theo",
+    "mode": {
+      "learn": "Học",
+      "listen": "Nghe",
+      "write": "Viết",
+      "find": "Tìm",
+      "match": "Ghép đôi",
+      "draw": "Vẽ",
+      "build": "Ghép chữ"
+    }
   },
   "hub": {
     "title": "Phonics tiếng Hàn",

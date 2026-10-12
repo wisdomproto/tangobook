@@ -40,7 +40,7 @@ export default function ActivityPage({ kind }: { kind: ActivityKind }) {
   if (loading)
     return (
       <ActivityLayout kind={kind} items={items}>
-        <p className="p-8 text-ink-500">불러오는 중…</p>
+        <p className="p-8 text-ink-600">불러오는 중…</p>
       </ActivityLayout>
     );
   if (!found) {

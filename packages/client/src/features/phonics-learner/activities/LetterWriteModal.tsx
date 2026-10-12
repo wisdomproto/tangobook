@@ -79,7 +79,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-2 sm:p-4">
       <div
-        className="relative bg-gradient-to-b from-cream-50 to-peach-100 rounded-[28px] shadow-2xl overflow-y-auto p-4 sm:p-6"
+        className="relative bg-cream-50 rounded-[28px] shadow-2xl overflow-y-auto p-4 sm:p-6"
         style={{
           width: 'min(95vw, 900px)',
           maxHeight: 'min(95vh, 800px)',
@@ -102,7 +102,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {/* 대문자 */}
-          <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-coral-100">
+          <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-soft ring-4 ring-white border-2 border-coral-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-100 text-coral-700 text-sm sm:text-base font-black">
                 <span>🅰️</span> {t('alphabetWrite.upper', { letter: upper })}
@@ -121,7 +121,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
             />
           </div>
           {/* 소문자 */}
-          <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-pop ring-4 ring-white border-2 border-sky-100">
+          <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-soft ring-4 ring-white border-2 border-sky-100">
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-sm sm:text-base font-black">
                 <span>🔤</span> {t('alphabetWrite.lower', { letter: lower })}

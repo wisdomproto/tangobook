@@ -71,5 +71,38 @@
     "aosStep1": "Mở menu ⋮ ở góc trên bên phải của Chrome",
     "aosStep2": "Chạm Truyền (Cast) rồi chọn TV của bạn",
     "note": "Âm thanh và chữ vẫn hiện trên TV, và tiến độ đọc vẫn được lưu."
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "korean": "Tiếng Hàn",
+    "english": "Tiếng Anh",
+    "books": "Sách",
+    "activities": "Hoạt động",
+    "main": "Điều hướng học tập",
+    "mobile": "Điều hướng học tập phía dưới"
+  },
+  "home": {
+    "title": "Hôm nay mình học gì nhỉ?",
+    "subtitle": "Từ chữ cái đến câu chuyện, cùng nhau đọc nhé.",
+    "courses": "Học tiếng Hàn và tiếng Anh",
+    "koreanDescription": "Từng bước khám phá âm thanh và chữ cái tiếng Hàn.",
+    "englishDescription": "Khám phá bảng chữ cái và những từ đầu tiên.",
+    "start": "Bắt đầu",
+    "continue": "Tiếp tục học",
+    "recommended": "Sách gợi ý hôm nay",
+    "allBooks": "Tất cả sách",
+    "loading": "Đang tải sách gợi ý",
+    "loadError": "Không thể tải sách.",
+    "retry": "Thử lại",
+    "noBooks": "Những câu chuyện mới đang được chuẩn bị."
+  },
+  "activities": {
+    "subtitle": "Vui vẻ luyện tập những gì đã đọc và học.",
+    "games": "Trò chơi về sách",
+    "gamesDescription": "Gặp lại từ và cảnh trong truyện qua trò chơi.",
+    "paper": "Phiếu bài tập",
+    "paperDescription": "Học bằng cách viết và tô màu trên giấy.",
+    "blocks": "Chơi khối chữ",
+    "blocksDescription": "Ghép từ bằng các khối chữ cái."
   }
 }

@@ -71,5 +71,38 @@
     "aosStep1": "크롬 오른쪽 위 ⋮ 메뉴를 열어요",
     "aosStep2": "「전송」(캐스트)을 누르고 TV를 골라요",
     "note": "TV에서도 소리와 글씨가 그대로 나오고, 읽은 기록도 남아요."
+  },
+  "nav": {
+    "home": "홈",
+    "korean": "한글",
+    "english": "영어",
+    "books": "동화책",
+    "activities": "활동",
+    "main": "학습 메뉴",
+    "mobile": "하단 학습 메뉴"
+  },
+  "home": {
+    "title": "오늘은 무엇을 배워볼까요?",
+    "subtitle": "글자에서 시작해, 이야기까지 함께 읽어요.",
+    "courses": "한글과 영어 배우기",
+    "koreanDescription": "소리와 글자를 차근차근 익혀요.",
+    "englishDescription": "알파벳부터 낱말까지 만나봐요.",
+    "start": "시작하기",
+    "continue": "이어서 학습하기",
+    "recommended": "오늘의 추천 도서",
+    "allBooks": "모두 보기",
+    "loading": "추천 도서 불러오는 중",
+    "loadError": "도서를 불러오지 못했어요.",
+    "retry": "다시 시도",
+    "noBooks": "새로운 동화책을 준비하고 있어요."
+  },
+  "activities": {
+    "subtitle": "읽고 배운 것을 즐겁게 연습해요.",
+    "games": "독후 게임",
+    "gamesDescription": "책 속 낱말과 장면을 게임으로 다시 만나요.",
+    "paper": "워크지",
+    "paperDescription": "종이에 쓰고 색칠하며 익혀요.",
+    "blocks": "블록 놀이",
+    "blocksDescription": "글자 블록으로 낱말을 만들어요."
   }
 }

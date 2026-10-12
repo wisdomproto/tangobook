@@ -26,7 +26,9 @@
     "goodSub": "Lần sau con sẽ làm tốt hơn nữa 💪",
     "restart": "🔄 Chơi lại",
     "confirm": "Xác nhận",
-    "metBooks": "📖 Sách bé vừa gặp"
+    "metBooks": "📖 Sách bé vừa gặp",
+    "summaryLabel": "Kết quả hoạt động",
+    "scoreSummary": "Hoàn thành {{score}} trên {{total}}"
   },
   "feedback": {
     "correct1": "Giỏi lắm!",
@@ -152,7 +154,8 @@
     "seeResult": "Xem kết quả",
     "help": "🪄 Giúp với",
     "pickFirstLetter": "Nhìn tranh và đặt chữ cái đầu tiên nhé!",
-    "listenFirstLetter": "Hãy nghe và đặt chữ cái đầu tiên nhé!"
+    "listenFirstLetter": "Hãy nghe và đặt chữ cái đầu tiên nhé!",
+    "slot": "Ô chữ thứ {{count}}"
   },
   "writingGame": {
     "paintPrompt": "Tô màu chữ nào!",
@@ -176,5 +179,9 @@
   "guide": {
     "lineMatch": "Ghép hình với từ nhé!",
     "blockMake": "Ghép các khối thành từ nhé!"
+  },
+  "progress": {
+    "question": "Câu {{current}} trên {{total}}",
+    "completed": "Hoàn thành {{score}}"
   }
 }

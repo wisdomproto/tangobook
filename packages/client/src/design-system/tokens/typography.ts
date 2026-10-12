@@ -16,3 +16,12 @@ export const fontFamily = {
 } as const;
 
 export type FontFamilyTokens = typeof fontFamily;
+
+/** UI 역할만 정의한다. 쓰기 캔버스의 B/EB 폰트·채점 마스크는 별도 계약이다. */
+export const fontSize: Record<string, [string, { lineHeight: string; fontWeight: string }]> = {
+  'page-title': ['clamp(1.75rem, 3vw, 2rem)', { lineHeight: '1.25', fontWeight: '800' }],
+  'section-title': ['clamp(1.375rem, 2vw, 1.5rem)', { lineHeight: '1.3', fontWeight: '700' }],
+  'learning-body': ['1.125rem', { lineHeight: '1.5', fontWeight: '500' }],
+  'learning-label': ['1.125rem', { lineHeight: '1.4', fontWeight: '700' }],
+  'learning-meta': ['0.875rem', { lineHeight: '1.5', fontWeight: '500' }],
+};

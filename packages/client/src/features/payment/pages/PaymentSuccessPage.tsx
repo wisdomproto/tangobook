@@ -78,7 +78,7 @@ export default function PaymentSuccessPage() {
         <button
           type="button"
           onClick={() => navigate('/subscribe')}
-          className="mt-4 rounded-full bg-coral-500 px-6 py-3 font-black text-white shadow-pop hover:bg-coral-600"
+          className="mt-4 rounded-full bg-coral-700 px-6 py-3 font-black text-white shadow-soft hover:bg-coral-800"
         >
           {t('paymentSuccess.retry')}
         </button>

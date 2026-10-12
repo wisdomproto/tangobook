@@ -2,6 +2,8 @@
 
 새 작업은 [템플릿](../../TASK-TEMPLATE.md)을 날짜와 작업명이 있는 파일로 복사한다. README는 작업 자체가 아니다.
 
+- [2026-10-12 플랫폼 메인 문서 정리](20261012-platform-main-document.md)
+- [2026-10-12 학습 앱 첫 화면 방향 논의](20261012-learner-home-direction.md)
 - [2026-10-05 학습과 재미 브랜딩 및 오가닉 전략](20261005-branding-organic-strategy.md)
 
 기존 worktree의 미이관 작업은 별도로 확인한다.

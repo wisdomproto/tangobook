@@ -71,5 +71,38 @@
     "aosStep1": "打开 Chrome 右上角的 ⋮ 菜单",
     "aosStep2": "点按「投放」并选择你的电视",
     "note": "电视上同样有声音和文字，阅读记录也会保存。"
+  },
+  "nav": {
+    "home": "首页",
+    "korean": "韩语",
+    "english": "英语",
+    "books": "绘本",
+    "activities": "活动",
+    "main": "学习导航",
+    "mobile": "底部学习导航"
+  },
+  "home": {
+    "title": "今天想学什么呢？",
+    "subtitle": "从字母到故事，一起阅读吧。",
+    "courses": "学习韩语和英语",
+    "koreanDescription": "一步步认识韩语的发音和文字。",
+    "englishDescription": "从字母开始，认识更多单词。",
+    "start": "开始学习",
+    "continue": "继续学习",
+    "recommended": "今日推荐绘本",
+    "allBooks": "查看全部",
+    "loading": "正在加载推荐绘本",
+    "loadError": "暂时无法加载绘本。",
+    "retry": "重试",
+    "noBooks": "新的故事正在准备中。"
+  },
+  "activities": {
+    "subtitle": "快乐练习读过和学过的内容。",
+    "games": "绘本游戏",
+    "gamesDescription": "在游戏中重温故事里的词语和场景。",
+    "paper": "练习纸",
+    "paperDescription": "在纸上书写和涂色，快乐学习。",
+    "blocks": "字母积木",
+    "blocksDescription": "用字母积木拼出单词。"
   }
 }

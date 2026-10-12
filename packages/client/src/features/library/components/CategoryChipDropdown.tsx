@@ -41,7 +41,7 @@ export function CategoryChipDropdown({ current, categories, emojiOf, onPick, dis
       {open && (
         <div
           onPointerDown={(e) => e.stopPropagation()}
-          className="absolute top-full left-0 mt-1 z-20 bg-white rounded-2xl shadow-pop border border-ink-100 py-1 min-w-[180px] max-h-[260px] overflow-y-auto"
+          className="absolute top-full left-0 mt-1 z-20 bg-white rounded-2xl shadow-soft border border-ink-100 py-1 min-w-[180px] max-h-[260px] overflow-y-auto"
         >
           {categories.map((c) => {
             const isCurrent = c === current;

@@ -18,9 +18,12 @@ export function StateScreen({
   children,
 }: StateScreenProps) {
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center text-center p-8 gap-4">
+    <div
+      className="min-h-[min(60vh,480px)] flex flex-col items-center justify-center text-center px-4 py-6 gap-4"
+      role="status"
+    >
       <Mascot state={mascotState} size="lg" />
-      <h2 className="text-2xl font-black text-ink-900 font-display">{title}</h2>
+      <h2 className="text-section-title text-ink-900 font-display">{title}</h2>
       {description && <p className="text-ink-700 text-base max-w-md">{description}</p>}
       {action && (
         <Button variant="primary" size="lg" onClick={action.onClick}>

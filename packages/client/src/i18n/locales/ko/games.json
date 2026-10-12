@@ -26,7 +26,9 @@
     "goodSub": "다음엔 더 잘할 수 있어요 💪",
     "restart": "🔄 다시 하기",
     "confirm": "확인",
-    "metBooks": "📖 방금 만난 책"
+    "metBooks": "📖 방금 만난 책",
+    "summaryLabel": "활동 결과",
+    "scoreSummary": "{{total}}개 중 {{score}}개 완성"
   },
   "feedback": {
     "correct1": "잘했어!",
@@ -152,7 +154,8 @@
     "seeResult": "결과 보기",
     "help": "🪄 도와줘",
     "pickFirstLetter": "그림을 보고 첫 글자를 넣어봐!",
-    "listenFirstLetter": "잘 듣고 첫 글자를 넣어봐!"
+    "listenFirstLetter": "잘 듣고 첫 글자를 넣어봐!",
+    "slot": "{{count}}번째 글자 칸"
   },
   "writingGame": {
     "paintPrompt": "글자를 색칠해봐",
@@ -176,5 +179,9 @@
   "guide": {
     "lineMatch": "그림과 짝을 찾아봐!",
     "blockMake": "블록으로 단어를 만들어봐!"
+  },
+  "progress": {
+    "question": "{{total}}개 중 {{current}}번째 문제",
+    "completed": "{{score}}개 완성"
   }
 }
