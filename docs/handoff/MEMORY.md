@@ -30,6 +30,11 @@
 
 2026-10-12 [전용 인쇄 학습지 시안](../work/strategy/tasks/20261012-print-worksheet-design.md): 사용자 **오리기제외·올드삽화·가학습/토끼텃밭불일치** 반증으로 재제작. 가→가방/c→cat 직접연계, 현대그래픽/매끈한입체2종×한영4쪽 PDF·갤러리 검수. Qwen 환경부재로 내장 imagegen 사용. output/worksheet-design-20261012/v2, localhost5196/v2. 그림체선택·판매구성·실물인쇄 미정, 제품/운영 미변경·미푸시.
 
+2026-10-12 [Library Master·삽화 main 푸시](../work/content/tasks/20261012-missing-page-illustrations.md): 사용자 승인 후 최신 원격 작업22커밋을 보존 merge하여90c6dc15f를 origin/main에 일반 push·원격 확인. Library Master 개선과10권34장 삽화 등록 기록/누락0 snapshot 포함. 타입/현황5회귀/build 통과, 배포 완료 미확인. 아래 미푸시는 당시 기록이다. TTS 누락 보완은 별도 진행.
+
+2026-10-12 [누락 삽화 보완·실사 교체](../work/content/tasks/20261012-missing-page-illustrations.md): 뼈와 근육의 기존 수채화/영어문구가 photographic 설정과 불일치하여 사용자 승인 후 본문18쪽 실사 교체, 다른9권16쪽 보완. GPT image34장 운영 등록·CDN/다른 필드 보존 검증, Editor2실사18쪽 로딩 확인. 전체 동화1,215권 페이지 삽화 URL 누락0·깨진 객체0으로 Library Master 갱신. 다른 콘텐츠·표지·캐릭터 시트 변경 없음. 로컬 완료, main push 미요청.
+
+2026-10-12 [전체 동화책 조사·Library Master](../work/content/tasks/20261012-library-content-audit.md): 운영 1,310건 읽기 실패0, 동화책1,215권/파닉스95권 구분. 삽화완비1,205·한글TTS1,213·영어TTS/번역1,179. 기본 현황 탭과 누락/카테고리/게임·언어 집계, 상세·CSV·읽기 전용 갱신 제공. 창작850권 본문 삽화/한영TTS 완비이나 영어 어휘 게임/색칠과 숨은그림 없음. 운영 콘텐츠 수정·이번 main push 없음.
 2026-10-12 [한글·영어 과정 시각 보완](../work/platform/tasks/20261012-course-page-visual-design.md): 실제 단원 글자/패턴·필수 진행·이어 할 활동, 역할별 SVG/기존 삽화 카드와 레벨 설명 위계를 적용했다. 교육 순서·제공 게임·권한·채점 유지. 52회귀·타입/빌드/lint·대표 모바일/태블릿 검수 통과, 31fb42ba4 로컬 main 통합 후 사용자 후속 요청으로 7faeed9b8을 origin/main에 push 완료·원격 SHA 확인. Railway 배포 완료 미확인.
 
 2026-10-12 [플랫폼 UI v2 main 푸시](../work/platform/tasks/20261012-platform-ui-v2-main-push.md): 사용자 요청으로 플랫폼 기준·시안·UI 개편·홈/과정 테마17커밋과 원격 나레이션 작업을 보존 통합해5530dc82f를 origin/main에 일반 push 완료, 원격 SHA 일치 확인. 이전 UI task의 미푸시는 당시 상태이며 현재는 전송 완료다. Railway 배포 완료는 미확인.

@@ -24,6 +24,7 @@ import { MoveBooksModal } from '@/features/library/components/MoveBooksModal';
 import { BookMatrixModal } from '@/features/library/components/BookMatrixModal';
 import { useBookGroups, useSaveBookGroups } from '@/features/library/hooks/useBookGroups';
 import type { BookGroup } from '@tangobook/shared';
+import { LibraryContentOverview } from '@/features/library/components/LibraryContentOverview';
 
 const DEFAULT_CATEGORY_ORDER = [
   '세계 명작',
@@ -115,6 +116,7 @@ function orderBooksInCategory(
 
 export default function LibraryMasterPage() {
   const navigate = useNavigate();
+  const [view, setView] = useState<'overview' | 'manage'>('overview');
   const { data: storybooks, isLoading } = useStorybooks();
   const { data: config } = useLibraryConfig();
   const update = useUpdateLibraryConfig();
@@ -279,166 +281,195 @@ export default function LibraryMasterPage() {
             {update.isPending && <span className="text-ink-500">저장 중...</span>}
           </div>
         </div>
-        <div className="max-w-[1480px] mx-auto px-6 pb-3 flex items-center justify-between gap-4">
-          <span className="text-sm text-ink-600">
-            좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) 편집. 책 카드
-            드래그는 같은 카테고리 안에서 순서 바꾸기만 — 카테고리 이동은 카드 좌상단 카테고리 chip
-            으로 하세요.
-          </span>
-          <div className="flex items-center gap-2 shrink-0">
+        <div
+          className="max-w-[1480px] mx-auto px-6 pb-3 flex gap-2"
+          role="tablist"
+          aria-label="라이브러리 화면"
+        >
+          {(
+            [
+              ['overview', '콘텐츠 현황'],
+              ['manage', '라이브러리 관리'],
+            ] as const
+          ).map(([value, label]) => (
             <button
+              key={value}
               type="button"
-              onClick={() => setMatrixOpen(true)}
-              disabled={!storybooks || storybooks.length === 0}
-              className="px-4 py-1.5 rounded-full bg-coral-500 text-white font-black text-sm shadow-soft hover:bg-coral-600 disabled:opacity-40 disabled:cursor-not-allowed"
-              title="전체 카테고리의 그림체 × 언어 표"
+              role="tab"
+              aria-selected={view === value}
+              onClick={() => setView(value)}
+              className={`px-4 py-2 rounded-full text-sm font-bold ${view === value ? 'bg-coral-500 text-white' : 'bg-peach-100 text-ink-600'}`}
             >
-              📊 표 보기
+              {label}
             </button>
-            <span className="text-sm font-black text-ink-700">표지 언어:</span>
-            <div className="flex items-center gap-1 bg-ink-100 rounded-full p-1">
-              {(['ko', 'en'] as const).map((lang) => (
-                <button
-                  key={lang}
-                  type="button"
-                  onClick={() => setSelectedLang(lang)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-black transition ${
-                    selectedLang === lang
-                      ? 'bg-white text-ink-900 shadow-soft'
-                      : 'text-ink-500 hover:text-ink-700'
-                  }`}
-                  aria-pressed={selectedLang === lang}
-                >
-                  {lang === 'ko' ? '🇰🇷 한글' : '🇺🇸 영어'}
-                </button>
-              ))}
+          ))}
+        </div>
+        {view === 'manage' && (
+          <div className="max-w-[1480px] mx-auto px-6 pb-3 flex items-center justify-between gap-4">
+            <span className="text-sm text-ink-600">
+              좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) 편집. 책
+              카드 드래그는 같은 카테고리 안에서 순서 바꾸기만 — 카테고리 이동은 카드 좌상단
+              카테고리 chip 으로 하세요.
+            </span>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setMatrixOpen(true)}
+                disabled={!storybooks || storybooks.length === 0}
+                className="px-4 py-1.5 rounded-full bg-coral-500 text-white font-black text-sm shadow-soft hover:bg-coral-600 disabled:opacity-40 disabled:cursor-not-allowed"
+                title="전체 카테고리의 그림체 × 언어 표"
+              >
+                📊 표 보기
+              </button>
+              <span className="text-sm font-black text-ink-700">표지 언어:</span>
+              <div className="flex items-center gap-1 bg-ink-100 rounded-full p-1">
+                {(['ko', 'en'] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => setSelectedLang(lang)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-black transition ${
+                      selectedLang === lang
+                        ? 'bg-white text-ink-900 shadow-soft'
+                        : 'text-ink-500 hover:text-ink-700'
+                    }`}
+                    aria-pressed={selectedLang === lang}
+                  >
+                    {lang === 'ko' ? '🇰🇷 한글' : '🇺🇸 영어'}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </header>
 
-      <div className="max-w-[1480px] mx-auto px-6 py-6">
-        {isLoading ? (
-          <div className="text-center py-20 text-ink-500">불러오는 중...</div>
-        ) : (
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6">
-              <CategoryPanel
-                categories={categoryOrder}
-                countOf={countOf}
-                emojiOf={emojiOf}
-                activeCat={activeCat}
-                onSelect={setActiveCat}
-                onAdd={actions.addCategory}
-                onRename={actions.renameCategory}
-                onDelete={actions.deleteCategory}
-                onRequestMove={setMoveFromCat}
-              />
+      {view === 'overview' ? (
+        <LibraryContentOverview />
+      ) : (
+        <div className="max-w-[1480px] mx-auto px-6 py-6">
+          {isLoading ? (
+            <div className="text-center py-20 text-ink-500">불러오는 중...</div>
+          ) : (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6">
+                <CategoryPanel
+                  categories={categoryOrder}
+                  countOf={countOf}
+                  emojiOf={emojiOf}
+                  activeCat={activeCat}
+                  onSelect={setActiveCat}
+                  onAdd={actions.addCategory}
+                  onRename={actions.renameCategory}
+                  onDelete={actions.deleteCategory}
+                  onRequestMove={setMoveFromCat}
+                />
 
-              <section className="bg-white rounded-3xl shadow-soft p-5">
-                {activeCat ? (
-                  <>
-                    <header className="flex items-center justify-between mb-4 px-1">
-                      <h2 className="text-2xl font-black text-ink-900 font-display flex items-center gap-2">
-                        <span>{emojiOf(activeCat)}</span>
-                        <span>{activeCat}</span>
-                        <span className="text-base text-ink-500 font-bold">
-                          ({activeBooks.length}권)
-                        </span>
-                      </h2>
-                      <div className="flex items-center gap-2">
-                        {selectMode && (
-                          <>
-                            <span className="text-sm font-bold text-ink-600">
-                              {selected.length}권 선택
-                            </span>
-                            <button
-                              type="button"
-                              onClick={groupSelected}
-                              disabled={selected.length < 2 || saveGroups.isPending}
-                              className="px-4 py-1.5 rounded-full bg-mint-500 text-white font-black text-sm disabled:opacity-40"
-                            >
-                              선택한 책 한 그룹으로
-                            </button>
-                          </>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectMode((v) => !v);
-                            setSelected([]);
-                          }}
-                          className={`px-4 py-1.5 rounded-full font-black text-sm ${
-                            selectMode
-                              ? 'bg-ink-200 text-ink-700'
-                              : 'bg-mint-100 text-mint-700 hover:bg-mint-200'
-                          }`}
-                        >
-                          {selectMode ? '묶기 취소' : '🗂️ 그룹 묶기'}
-                        </button>
-                      </div>
-                    </header>
-                    {activeBooks.length === 0 ? (
-                      <div className="text-center py-20 text-ink-500 text-sm">
-                        이 카테고리에 책이 없어요. 다른 카테고리에서 책을 열고 카드 좌상단의
-                        카테고리 chip 으로 이곳으로 옮겨주세요.
-                      </div>
-                    ) : (
-                      <SortableContext
-                        items={activeBooks.map((b) => b.id)}
-                        strategy={rectSortingStrategy}
-                      >
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-                          {activeBooks.map((book, idx) => (
-                            <BookCardEditable
-                              key={book.id}
-                              book={book}
-                              index={idx}
-                              categories={categoryOrder}
-                              emojiOf={emojiOf}
-                              selectedLang={selectedLang}
-                              onChangeCategory={(next) =>
-                                actions.setBookCategory(book.id, activeCat, next).then(flashSaved)
-                              }
-                              onTogglePublic={() =>
-                                actions
-                                  .setBookPublic(book.id, !(book.isPublic !== false))
-                                  .then(flashSaved)
-                              }
-                              group={(() => {
-                                const g = styleGroupOf.get(book.id);
-                                return g ? { title: g.title, size: g.bookIds.length } : undefined;
-                              })()}
-                              selectMode={selectMode}
-                              selected={selected.includes(book.id)}
-                              onToggleSelect={() =>
-                                setSelected((cur) =>
-                                  cur.includes(book.id)
-                                    ? cur.filter((x) => x !== book.id)
-                                    : [...cur, book.id]
-                                )
-                              }
-                              onOpenGroup={() =>
-                                setOpenGroupId(styleGroupOf.get(book.id)?.id ?? null)
-                              }
-                            />
-                          ))}
+                <section className="bg-white rounded-3xl shadow-soft p-5">
+                  {activeCat ? (
+                    <>
+                      <header className="flex items-center justify-between mb-4 px-1">
+                        <h2 className="text-2xl font-black text-ink-900 font-display flex items-center gap-2">
+                          <span>{emojiOf(activeCat)}</span>
+                          <span>{activeCat}</span>
+                          <span className="text-base text-ink-500 font-bold">
+                            ({activeBooks.length}권)
+                          </span>
+                        </h2>
+                        <div className="flex items-center gap-2">
+                          {selectMode && (
+                            <>
+                              <span className="text-sm font-bold text-ink-600">
+                                {selected.length}권 선택
+                              </span>
+                              <button
+                                type="button"
+                                onClick={groupSelected}
+                                disabled={selected.length < 2 || saveGroups.isPending}
+                                className="px-4 py-1.5 rounded-full bg-mint-500 text-white font-black text-sm disabled:opacity-40"
+                              >
+                                선택한 책 한 그룹으로
+                              </button>
+                            </>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectMode((v) => !v);
+                              setSelected([]);
+                            }}
+                            className={`px-4 py-1.5 rounded-full font-black text-sm ${
+                              selectMode
+                                ? 'bg-ink-200 text-ink-700'
+                                : 'bg-mint-100 text-mint-700 hover:bg-mint-200'
+                            }`}
+                          >
+                            {selectMode ? '묶기 취소' : '🗂️ 그룹 묶기'}
+                          </button>
                         </div>
-                      </SortableContext>
-                    )}
-                  </>
-                ) : (
-                  <div className="text-center py-20 text-ink-500">카테고리를 선택해주세요</div>
-                )}
-              </section>
-            </div>
-          </DndContext>
-        )}
-      </div>
+                      </header>
+                      {activeBooks.length === 0 ? (
+                        <div className="text-center py-20 text-ink-500 text-sm">
+                          이 카테고리에 책이 없어요. 다른 카테고리에서 책을 열고 카드 좌상단의
+                          카테고리 chip 으로 이곳으로 옮겨주세요.
+                        </div>
+                      ) : (
+                        <SortableContext
+                          items={activeBooks.map((b) => b.id)}
+                          strategy={rectSortingStrategy}
+                        >
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+                            {activeBooks.map((book, idx) => (
+                              <BookCardEditable
+                                key={book.id}
+                                book={book}
+                                index={idx}
+                                categories={categoryOrder}
+                                emojiOf={emojiOf}
+                                selectedLang={selectedLang}
+                                onChangeCategory={(next) =>
+                                  actions.setBookCategory(book.id, activeCat, next).then(flashSaved)
+                                }
+                                onTogglePublic={() =>
+                                  actions
+                                    .setBookPublic(book.id, !(book.isPublic !== false))
+                                    .then(flashSaved)
+                                }
+                                group={(() => {
+                                  const g = styleGroupOf.get(book.id);
+                                  return g ? { title: g.title, size: g.bookIds.length } : undefined;
+                                })()}
+                                selectMode={selectMode}
+                                selected={selected.includes(book.id)}
+                                onToggleSelect={() =>
+                                  setSelected((cur) =>
+                                    cur.includes(book.id)
+                                      ? cur.filter((x) => x !== book.id)
+                                      : [...cur, book.id]
+                                  )
+                                }
+                                onOpenGroup={() =>
+                                  setOpenGroupId(styleGroupOf.get(book.id)?.id ?? null)
+                                }
+                              />
+                            ))}
+                          </div>
+                        </SortableContext>
+                      )}
+                    </>
+                  ) : (
+                    <div className="text-center py-20 text-ink-500">카테고리를 선택해주세요</div>
+                  )}
+                </section>
+              </div>
+            </DndContext>
+          )}
+        </div>
+      )}
 
       {moveFromCat && (
         <MoveBooksModal
