@@ -125,6 +125,8 @@
   pointer-events: none;
 }
 .phonics-blend-tile {
+  position: relative;
+  isolation: isolate;
   width: min(24vw, 20vh, 160px);
   height: min(24vw, 20vh, 160px);
   min-width: 68px;
@@ -149,10 +151,70 @@
   outline: 4px solid #ffffff;
   outline-offset: 5px;
 }
+.phonics-blend-invite-art {
+  display: inline-flex;
+  transform-origin: 50% 85%;
+}
+.phonics-blend-tile[data-next]:not(:disabled) .phonics-blend-invite-art {
+  animation: phonics-blend-invite 2.6s ease-in-out infinite;
+}
+.phonics-blend-tile[data-next]:not(:disabled)::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border: 3px solid #ecb79a;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: phonics-blend-invite-ring 2.6s ease-out infinite;
+}
+.phonics-blend-tile--vowel[data-next]:not(:disabled)::before {
+  border-color: #91cbaa;
+}
+.phonics-blend-tile:active:not(:disabled) .phonics-blend-invite-art {
+  animation: none;
+  transform: translateY(4px) scale(1.08, 0.9);
+}
+@keyframes phonics-blend-invite {
+  0%,
+  46%,
+  100% {
+    transform: translateY(0) rotate(0) scale(1);
+  }
+  7% {
+    transform: translateY(3px) scale(1.06, 0.93);
+  }
+  16% {
+    transform: translateY(-12px) rotate(-6deg) scale(0.98, 1.04);
+  }
+  24% {
+    transform: translateY(2px) rotate(2deg) scale(1.05, 0.95);
+  }
+  34% {
+    transform: translateY(-6px) rotate(4deg);
+  }
+}
+@keyframes phonics-blend-invite-ring {
+  0%,
+  6% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  16% {
+    opacity: 0.7;
+  }
+  46%,
+  100% {
+    opacity: 0;
+    transform: scale(1.16);
+  }
+}
 .phonics-blend-tile:disabled {
   cursor: default;
 }
 .phonics-blend-result {
+  position: relative;
+  isolation: isolate;
   max-height: none;
   width: min(60vw, 320px);
   height: min(33vh, 245px);
@@ -164,6 +226,106 @@
   box-shadow:
     0 10px 0 #c5e1cc,
     0 20px 40px #56746112;
+  animation: phonics-blend-arrive 760ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+.phonics-blend-result-art {
+  display: inline-flex;
+  animation: phonics-blend-born 900ms ease-out both;
+}
+.phonics-blend-meet {
+  position: absolute;
+  inset: -22% -18%;
+  z-index: -1;
+  pointer-events: none;
+}
+.phonics-blend-meet-halo {
+  position: absolute;
+  inset: -4%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    #fff9deaa 25%,
+    #ffe4c69e 45%,
+    #c5ebd594 60%,
+    transparent 73%
+  );
+  animation: phonics-blend-halo 1300ms ease-out both;
+}
+.phonics-blend-meet-petals {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.phonics-blend-meet-petals > g {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: phonics-blend-petals 1100ms ease-out both;
+}
+.phonics-blend-meet-petals > .phonics-blend-meet-mint {
+  animation-delay: 90ms;
+}
+.phonics-blend-meet-petals > .phonics-blend-meet-sparkles {
+  animation-delay: 180ms;
+}
+.phonics-blend-meet-petals > .phonics-blend-meet-bubbles {
+  animation-delay: 40ms;
+}
+@keyframes phonics-blend-arrive {
+  0% {
+    transform: scale(0.78, 0.88);
+  }
+  35% {
+    transform: scale(1.045, 0.965);
+  }
+  65% {
+    transform: scale(0.985, 1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes phonics-blend-born {
+  0% {
+    transform: translateY(12px) scale(0.85);
+  }
+  35% {
+    transform: translateY(-12px) scale(1.04);
+  }
+  62% {
+    transform: translateY(3px) scale(1.02, 0.98);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes phonics-blend-halo {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+@keyframes phonics-blend-petals {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-12deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.06) rotate(5deg);
+  }
 }
 .phonics-picker-grid {
   width: 100%;
@@ -456,6 +618,17 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .phonics-blend-invite-art,
+  .phonics-blend-tile[data-next]:not(:disabled) .phonics-blend-invite-art,
+  .phonics-blend-tile[data-next]:not(:disabled)::before,
+  .phonics-blend-result,
+  .phonics-blend-result-art {
+    animation: none;
+  }
+  .phonics-blend-meet,
+  .phonics-blend-tile[data-next]:not(:disabled)::before {
+    display: none;
+  }
   .phonics-activity[data-phonics-language] .animate-pulse,
   .phonics-activity[data-phonics-language] .animate-bounce {
     animation: none;

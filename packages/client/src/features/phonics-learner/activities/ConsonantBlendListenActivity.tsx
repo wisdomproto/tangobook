@@ -1,5 +1,5 @@
 import { ToyHangul } from '../components/ToyHangul';
-import { emitLearningEffect } from '@/features/games/effects/learning-effects';
+import { BlendMeetEffect } from '../components/BlendMeetEffect';
 import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -105,7 +105,6 @@ export function ConsonantBlendListenActivity({
   const [madeSet, setMade] = useState<ReadonlySet<number>>(() => new Set()); // 만들어 본 음절
   const [completed, setCompleted] = useState(false);
   // 붙는 애니메이션·쉼 타이머 — 도중에 나가면 이어읽기가 빈 화면에서 울린다.
-  const blendRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<number | null>(null);
   const restTimerRef = useRef<number | null>(null);
   useEffect(
@@ -210,7 +209,6 @@ export function ConsonantBlendListenActivity({
        */
       say(text, () => {
         closeTimerRef.current = window.setTimeout(() => {
-          emitLearningEffect('blend', blendRef.current);
           setRound(TAP_ROUNDS + 1); // 합쳐진 글자 등장
           restTimerRef.current = window.setTimeout(readBlend, MERGE_REST_MS);
         }, CLOSE_MS);
@@ -243,7 +241,7 @@ export function ConsonantBlendListenActivity({
       merging
         ? 'bg-mint-100 border-mint-500'
         : step === which
-          ? 'bg-white border-coral-500 ring-4 ring-coral-200 animate-pulse'
+          ? 'bg-white border-coral-500 ring-4 ring-coral-200'
           : 'bg-white/70 border-white',
     ].join(' ');
 
@@ -293,7 +291,6 @@ export function ConsonantBlendListenActivity({
             🔴 **모이는 방향은 글자가 정한다** — 받침(아+ㅇ=앙)과 **수직 모음**(ㄲ+ㅛ=꼬)은 아래로,
                그 밖의 모음(ㄱ+ㅏ=가)은 오른쪽으로. 방향이 틀리면 합쳐지는 규칙을 거꾸로 가르친다. */}
         <div
-          ref={blendRef}
           className={`phonics-blend-stage flex items-center justify-center transition-all duration-500 ease-out ${
             vertical ? 'flex-col' : ''
           }`}
@@ -304,8 +301,14 @@ export function ConsonantBlendListenActivity({
           }
         >
           {merging ? (
-            <div className="phonics-blend-result w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft">
-              <ToyHangul text={pair.syllable} className="!w-[1.35em] !h-[1.35em]" />
+            <div
+              key={pair.syllable}
+              className="phonics-blend-result w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft"
+            >
+              <BlendMeetEffect />
+              <span className="phonics-blend-result-art">
+                <ToyHangul text={pair.syllable} className="!w-[1.35em] !h-[1.35em]" />
+              </span>
             </div>
           ) : (
             <>
@@ -317,7 +320,9 @@ export function ConsonantBlendListenActivity({
                 className={tileClass(0)}
                 aria-label={pair.first}
               >
-                <ToyHangul text={pair.first} className="!w-[1.35em] !h-[1.35em]" />
+                <span className="phonics-blend-invite-art">
+                  <ToyHangul text={pair.first} className="!w-[1.35em] !h-[1.35em]" />
+                </span>
               </button>
               <button
                 data-learning-fx="tap"
@@ -327,7 +332,9 @@ export function ConsonantBlendListenActivity({
                 className={tileClass(1)}
                 aria-label={pair.second}
               >
-                <ToyHangul text={pair.second} className="!w-[1.35em] !h-[1.35em]" />
+                <span className="phonics-blend-invite-art">
+                  <ToyHangul text={pair.second} className="!w-[1.35em] !h-[1.35em]" />
+                </span>
               </button>
             </>
           )}
