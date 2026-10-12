@@ -37,7 +37,7 @@ interface Props {
  */
 const GAPS = ['min(18vw, 14rem)', 'min(6vw, 4rem)', '0px'] as const;
 /** 받침은 위·아래로 모이므로 **높이**가 기준이다 — 가로 값(18vw)을 그대로 쓰면 화면 밖으로 나간다. */
-const CODA_GAPS = ['min(22vh, 11rem)', 'min(7vh, 3.5rem)', '0px'] as const;
+const CODA_GAPS = ['min(10vh, 5rem)', 'min(4vh, 2rem)', '0px'] as const;
 /** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
 const CLOSE_MS = 500;
 /** 합쳐진 글자가 뜬 뒤 이어읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
@@ -239,7 +239,7 @@ export function ConsonantBlendListenActivity({
 
   const tileClass = (which: 0 | 1) =>
     [
-      'w-[26vw] h-[26vw] max-w-40 max-h-40 sm:w-40 sm:h-40 rounded-3xl border-2 flex items-center justify-center font-black text-coral-600 text-5xl sm:text-7xl shadow-soft transition',
+      `phonics-blend-tile ${which === 1 && !isCoda ? 'phonics-blend-tile--vowel' : ''} w-[26vw] h-[26vw] max-w-40 max-h-40 sm:w-40 sm:h-40 rounded-3xl border-2 flex items-center justify-center font-black text-coral-600 text-5xl sm:text-7xl shadow-soft transition`,
       merging
         ? 'bg-mint-100 border-mint-500'
         : step === which
@@ -248,9 +248,9 @@ export function ConsonantBlendListenActivity({
     ].join(' ');
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="blend" onBack={onBack}>
       {/* 만들 음절 목록 — 완료 표시 + 아무거나 눌러 그것부터. 진행 점을 대신한다(같은 정보를 두 번 두지 않는다). */}
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
+      <div className="phonics-syllable-nav flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
         {pairs.map((p, i) => {
           const made = madeSet.has(i);
           return (
@@ -258,6 +258,8 @@ export function ConsonantBlendListenActivity({
               data-learning-fx="tap"
               key={p.syllable}
               onClick={() => goTo(i)}
+              disabled={closing || merging}
+              aria-current={i === idx ? 'step' : undefined}
               aria-label={t(made ? 'blend.makeSyllableDone' : 'blend.makeSyllable', {
                 syllable: p.syllable,
               })}
@@ -292,7 +294,7 @@ export function ConsonantBlendListenActivity({
                그 밖의 모음(ㄱ+ㅏ=가)은 오른쪽으로. 방향이 틀리면 합쳐지는 규칙을 거꾸로 가르친다. */}
         <div
           ref={blendRef}
-          className={`flex items-center justify-center transition-all duration-500 ease-out ${
+          className={`phonics-blend-stage flex items-center justify-center transition-all duration-500 ease-out ${
             vertical ? 'flex-col' : ''
           }`}
           style={
@@ -302,7 +304,7 @@ export function ConsonantBlendListenActivity({
           }
         >
           {merging ? (
-            <div className="w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft">
+            <div className="phonics-blend-result w-[52vw] h-[26vw] max-w-80 max-h-40 sm:w-80 sm:h-40 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft">
               <ToyHangul text={pair.syllable} className="!w-[1.35em] !h-[1.35em]" />
             </div>
           ) : (
@@ -310,6 +312,8 @@ export function ConsonantBlendListenActivity({
               <button
                 data-learning-fx="tap"
                 onClick={() => handleTap(0)}
+                disabled={completed || closing || merging || step !== 0}
+                data-next={(step === 0 && !closing) || undefined}
                 className={tileClass(0)}
                 aria-label={pair.first}
               >
@@ -318,6 +322,8 @@ export function ConsonantBlendListenActivity({
               <button
                 data-learning-fx="tap"
                 onClick={() => handleTap(1)}
+                disabled={completed || closing || merging || step !== 1}
+                data-next={(step === 1 && !closing) || undefined}
                 className={tileClass(1)}
                 aria-label={pair.second}
               >

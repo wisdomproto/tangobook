@@ -1,3 +1,6 @@
+import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
+import '@/features/phonics-learner/components/phonics-activities.css';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -146,6 +149,7 @@ function EnglishBlockPlayerInner({
   initialInputMode = 'screen',
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
+  const phonics = useVocabSource()?.source === 'phonics';
   const data = gameData as EnglishBlockData;
   const items = data.items;
   /**
@@ -692,9 +696,12 @@ function EnglishBlockPlayerInner({
       <Gate>
         {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
         <div
+          data-phonics-game={phonics || undefined}
+          data-phonics-language={phonics ? 'en' : undefined}
           className="learning-stage english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
           style={gameSafeAreaStyle()}
         >
+          {phonics && <PhonicsBackdrop />}
           <div className="px-2 pt-2 shrink-0">
             <GameHeader
               title={t('cards.block.labelEn')}

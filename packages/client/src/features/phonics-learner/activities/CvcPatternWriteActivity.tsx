@@ -217,7 +217,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
   const currentWord = cvcWords[currentWordIdx];
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       {storybookQuery.isLoading ? (
         <div className="flex-1 flex items-center justify-center text-lg font-bold text-ink-500">
           {t('common.loading')}
@@ -260,7 +260,9 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
 
           {allComplete ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-4">
-              <div className="text-7xl">🎉</div>
+              <div className="phonics-complete-mark" aria-hidden>
+                ✓
+              </div>
               <p className="text-4xl sm:text-5xl font-black text-ink-900">{t('common.wellDone')}</p>
             </div>
           ) : currentWord ? (

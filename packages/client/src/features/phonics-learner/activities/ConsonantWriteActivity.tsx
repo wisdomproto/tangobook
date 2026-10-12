@@ -299,11 +299,11 @@ export function ConsonantWriteActivity({
   );
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓. 아무거나 눌러 그것부터 할 수 있다(음절 만들기와 같다).
           🔴 진척은 `idx` 가 아니라 `madeSet` 으로 판단한다 — 건너뛰며 골랐을 때 앞의 안 한 것이
              '완료'로 보이면 안 된다. */}
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+      <div className="phonics-syllable-nav flex flex-wrap justify-center gap-2 sm:gap-3">
         {pairs.map((p, i) => {
           const done = madeSet.has(i);
           return (

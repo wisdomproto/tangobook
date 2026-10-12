@@ -314,6 +314,8 @@ export function VowelListenActivity({
 
   return (
     <ActivityShell
+      unitId={unitId}
+      kind="listen"
       onBack={onBack}
       scroll
       headerRight={

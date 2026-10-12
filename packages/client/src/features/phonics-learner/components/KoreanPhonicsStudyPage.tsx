@@ -315,7 +315,13 @@ function CurriculumItem({
         ].join(' ')}
       >
         {/* 🔴 복습은 번호를 쓰지 않는다 — 앞 단원과 같은 번호가 되어 "5, 5" 로 보인다. 트로피로 구분. */}
-        {done ? '✓' : unit.isReview ? '🏅' : unit.unitIndexInLevel}
+        {done ? (
+          '✓'
+        ) : unit.isReview ? (
+          '🏅'
+        ) : (
+          <ToyHangul text={unit.phonemes[0]} decorative className="!w-7 !h-7" />
+        )}
       </span>
       <span className="min-w-0 flex-1 text-sm sm:text-base font-bold leading-snug break-keep">
         {titleShort}

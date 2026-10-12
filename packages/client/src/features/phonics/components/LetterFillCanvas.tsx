@@ -282,8 +282,8 @@ export function LetterFillCanvas({
   const passedNow = liveCoverage >= threshold;
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      <div className="relative w-full max-w-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
+    <div className="letter-fill-canvas flex flex-col items-center gap-3">
+      <div className="letter-fill-paper relative w-full max-w-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
         <canvas
           data-learning-fx={result ? undefined : 'trace'}
           ref={canvasRef}

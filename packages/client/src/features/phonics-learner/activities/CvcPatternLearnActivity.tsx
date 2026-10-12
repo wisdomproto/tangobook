@@ -349,7 +349,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   }, [clearQueue]);
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="blend" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-10">
         <h2
           className="text-5xl sm:text-6xl md:text-7xl font-black font-display text-center"
@@ -368,9 +368,12 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
         {/* Phase A: VC 학습 3행 */}
         {phase === 'A' && (
-          <div className="flex flex-col gap-5 sm:gap-7 w-full max-w-3xl">
+          <div className="phonics-cvc-rows flex flex-col gap-5 sm:gap-7 w-full max-w-3xl">
             {Array.from({ length: PHASE_A_ROWS }).map((_, r) => (
-              <div key={r} className="flex flex-row items-center justify-center gap-4 sm:gap-6">
+              <div
+                key={r}
+                className="phonics-cvc-row flex flex-row items-center justify-center gap-4 sm:gap-6"
+              >
                 <Cell
                   label={pattern.vowel}
                   pressed={phaseAPressed.has(`${r}-0`)}
@@ -424,7 +427,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
         {/* Phase B: 4 CVC 단어 */}
         {phase === 'B' && (
-          <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
+          <div className="phonics-cvc-rows flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
             {storybookQuery.isLoading ? (
               <p className="text-lg font-bold text-ink-500 text-center">{t('common.loading')}</p>
             ) : cvcWords.length === 0 ? (
@@ -435,7 +438,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
               cvcWords.map((cw, r) => (
                 <div
                   key={cw.word}
-                  className="flex flex-row items-center justify-center gap-3 sm:gap-4"
+                  className="phonics-cvc-row phonics-cvc-row--word flex flex-row items-center justify-center gap-3 sm:gap-4"
                 >
                   <Cell
                     label={cw.consonantBefore}
@@ -614,10 +617,12 @@ function Cell({
     <motion.button
       data-learning-fx="tap"
       onClick={onClick}
-      animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-      transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
+      whileTap={{ scale: 0.96 }}
+      data-next={isNext || undefined}
+      data-pressed={pressed || undefined}
+      transition={{ duration: 0.18 }}
       className={[
-        'relative h-[clamp(4rem,14vh,7.5rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
+        'phonics-sound-cell relative h-[clamp(4rem,14vh,7.5rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
         wide ? 'min-w-[clamp(6rem,18vh,11rem)] px-4' : 'w-[clamp(4.5rem,14vh,8rem)]',
         bgByTone[tone],
         pressed
@@ -643,7 +648,7 @@ function Cell({
       {isNext && !pressed && (
         <span
           aria-hidden
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl animate-bounce"
+          className="phonics-next-mark absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl"
         >
           👆
         </span>

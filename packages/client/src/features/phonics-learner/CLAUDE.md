@@ -766,3 +766,7 @@ Book 1 데이터 정리 (2026-05-21):
 `ToyHangul`은 자음 누르기·모음 듣기·자모 합성과 모음 음절 듣기 모드에만 적용한다. 자음14는 살구색, 모음10은 민트색 투명 WebP이며, 원본 종횡비를 유지해 표정이 눌리지 않게 배치한다. 복합 자모·받침은 shared 분해 규칙으로 조합한다. 완성 ‘가’만 별도 음절 삽화이고 다른 음절을 전부 재작화한 것은 아니다. 그림 실패 시 접근 가능한 글자/자모 폴백을 제공한다. 쓰기 선택·쓰기 폰트·채움 마스크와99% 기준은 유지한다. 작은 진행 목록의 폰트도 유지한다.
 
 학습 대상은 data-learning-fx와 공통 `games/effects`로 연결한다. 듣기는 음표·소리파동, 자모 합성은 두 색 리본, 짝찾기는 하트 만남, 완성은 글자/낱말별 다른 장면이다. 발음→쉼→칭찬의 실제 ended 체인을 바꾸지 않는다. [자산·생성 기록](../../../public/images/phonics/jamo-toys-v1/README.md), [작업](../../../../../docs/work/phonics/tasks/20261012-learning-game-effects.md).
+
+## 한영 전체 활동 시각 통일 (2026-10-12)
+
+`ActivityShell`의 unitId/kind와 `components/phonics-activities.css`는 역할별 표면/언어 테마를 소유한다. 내부 대상·음원·마스크·완료 판단은 활동 컴포넌트가 소유한다. 영어 WordFamily의 `phonics-word-family-grid` 가변 열은 앞/뒤 조각 존재 여부와 그림 슬롯을 보존해야 한다. 카드 padding까지 포함해 컨테이너 너비로 사냥6열/기억4열을 계산한다. 큰 화면만 보지 말고375px·812×375를 검수한다. 합성 closing/merging 동안 음절 선택을 잠그고 현재 차례만 누르게 한다. 복습 그림짝에도 source=phonics provider가 필요하다. [진행·검증](../../../../../docs/work/phonics/tasks/20261012-phonics-all-activities-ui.md).

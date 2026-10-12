@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [한글·영어 전체 활동 시각 통일](../work/phonics/tasks/20261012-phonics-all-activities-ui.md): 승인한 모음 화면을 한글5권/영어5권의16활동 템플릿과 파닉스 게임·로딩/결과까지 확장. 자음/합성/종이/듣기/씨앗카드/사냥 역할별 표현,375px 영어 조각/812×375 마지막행 잘림 수정. 합성 중 선택 잠금과 복습 그림짝 source 연결,152회귀·타입/빌드 및 대표 브라우저 검수. 통합은 task 참조·미푸시.
+
 2026-10-12 [Rive+Remotion 학습 샘플 완료](../work/video/tasks/20261012-rive-remotion-learning-sample.md): 실제Rive ㄱ+ㅏ→가·3획쓰기·가방그림/발음24초1080p/30fps,720frame/표본/음원배치·피크/전체decode 검수 통과. 공식연동첫로딩·음량/발음중복 보완, 원본/자산/MP4/재개방법 로컬main28dfad736 보존. output/rive-remotion-learning-20261012/README.md부터 재개. 이전 가능성검토의 연동미검증 해소, 제품/운영/게임/외부게시/푸시 없음.
 
 2026-10-12 [Rive+Remotion 학습영상 검토](../work/video/tasks/20261012-rive-hangul-meeting.md#후속-논의-rive와-remotion으로-학습-영상): 사용자 토도ㅡ/ㅇ쓰기 수준 질문·Remotion 조합 제안.2D 표본과 공식 연동/쓰기경로 API 확인, 캐릭터Rive·편집/쓰기/음원Remotion 구성 가능 판단. 실제 연동 제작·런타임 검증은 아직 없음.

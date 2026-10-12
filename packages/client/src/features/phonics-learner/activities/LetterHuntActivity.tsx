@@ -263,10 +263,12 @@ export function LetterHuntActivity({
 
   return (
     <ActivityShell
+      unitId={unitId}
+      kind="hunt"
       onBack={onBack}
       // 몇 개 남았는지 = 이 게임의 유일한 진행 표시. 뒤로가기와 한 줄에 양끝으로 선다.
       headerRight={
-        <div className="flex gap-1.5">
+        <div className="phonics-progress-dots flex gap-1.5">
           {Array.from({ length: TARGETS }).map((_, i) => (
             <span
               key={i}
@@ -294,7 +296,7 @@ export function LetterHuntActivity({
           <span className="text-[0.5em]">🔊</span>
         </button>
 
-        <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
+        <div className="phonics-hunt-grid grid grid-cols-6 gap-1.5 sm:gap-2">
           {board.map((ch, idx) => {
             const got = found.includes(idx);
             return (
@@ -306,7 +308,7 @@ export function LetterHuntActivity({
                 aria-label={ch}
                 className={[
                   // 🔴 칸은 vw 만 보면 안 된다 — 전체화면이라 높이가 먼저 모자란다.
-                  'w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition leading-none overflow-hidden',
+                  'phonics-hunt-tile w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition leading-none overflow-hidden',
                   got
                     ? 'bg-mint-500 border-mint-500 text-white scale-95'
                     : 'bg-white border-white text-ink-900 active:scale-95',

@@ -297,7 +297,7 @@ export function WordFillCanvas({
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
-      <div className="relative w-full rounded-card overflow-hidden border-2 border-ink-100 bg-white shadow-soft">
+      <div className="word-fill-paper relative w-full rounded-card overflow-hidden border-2 border-ink-100 bg-white shadow-soft">
         {/* 🔴 지금 쓸 칸만 남기고 덮는 스포트라이트. 캔버스 픽셀을 건드리면 이미 칠한 획이 지워지므로
          **DOM 오버레이**로 얹는다. 차단 자체는 paintTo 의 clip 이 담당한다. */}
         {activeRange && (

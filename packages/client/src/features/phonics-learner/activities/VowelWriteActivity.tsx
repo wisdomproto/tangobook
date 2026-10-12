@@ -117,7 +117,7 @@ export function VowelWriteActivity({
   );
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       {/* chip 줄 — 진행 + 클릭으로 임의 선택 */}
       <div className="flex flex-wrap justify-center gap-3 mb-4">
         {vowels.map((v, i) => {
@@ -134,7 +134,7 @@ export function VowelWriteActivity({
                 done
                   ? 'bg-success/15 border-success text-success-700'
                   : active
-                    ? 'bg-coral-500 border-coral-600 text-white shadow-soft scale-105'
+                    ? 'bg-coral-700 border-coral-700 text-white shadow-soft scale-105'
                     : 'bg-white border-white text-ink-700 hover:shadow-soft',
               ].join(' ')}
             >

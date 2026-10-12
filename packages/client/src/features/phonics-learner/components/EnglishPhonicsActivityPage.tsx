@@ -1,3 +1,5 @@
+import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
+import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { getEnglishRequiredActivities } from '../lib/english-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
@@ -472,25 +474,27 @@ export function EnglishPhonicsActivity({
       );
     }
     return (
-      <LineMatchingPlayer
-        storybookId={unitId}
-        difficulty="easy"
-        onComplete={handleComplete}
-        onBack={backToUnit}
-        lang="en"
-        // Book 1 = 글자가 목표 — 낱말은 첫 글자만 크게.
-        emphasizeFirstLabel={isBook1}
-        gameData={{
-          type: 'english-line-matching',
-          items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
-            word: s.letter,
-            imageUrl: s.imageUrl,
-            imageLabel: s.word,
-            // 🔴 맞히면 "b b bag" 저작 녹음을 읽는다 — 없으면 LineMatchingPlayer 가 글자 소리로 폴백.
-            ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
-          })),
-        }}
-      />
+      <VocabSourceProvider source="phonics" unitId={unitId}>
+        <LineMatchingPlayer
+          storybookId={unitId}
+          difficulty="easy"
+          onComplete={handleComplete}
+          onBack={backToUnit}
+          lang="en"
+          // Book 1 = 글자가 목표 — 낱말은 첫 글자만 크게.
+          emphasizeFirstLabel={isBook1}
+          gameData={{
+            type: 'english-line-matching',
+            items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
+              word: s.letter,
+              imageUrl: s.imageUrl,
+              imageLabel: s.word,
+              // 🔴 맞히면 "b b bag" 저작 녹음을 읽는다 — 없으면 LineMatchingPlayer 가 글자 소리로 폴백.
+              ...(s.ttsUrl ? { ttsUrl: s.ttsUrl } : {}),
+            })),
+          }}
+        />
+      </VocabSourceProvider>
     );
   }
   if (activity.kind === 'review-listen' && reviewCards.length) {
@@ -765,13 +769,7 @@ export function EnglishPhonicsActivity({
 function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
   const { t } = useTranslation('phonics');
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 overflow-hidden">
-      <button
-        onClick={onBack}
-        className="self-start min-h-11 mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        {t('common.back')}
-      </button>
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
         <div className="text-6xl">{activity.emoji}</div>
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
@@ -779,7 +777,7 @@ function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: 
         </h2>
         <p className="text-base font-semibold text-ink-600">{t('common.loading')}</p>
       </div>
-    </div>
+    </ActivityShell>
   );
 }
 

@@ -507,7 +507,7 @@ export function WordListenChooseActivity({
   if (!current) return null;
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
@@ -565,7 +565,7 @@ export function WordListenChooseActivity({
         {/* 🔴 `flex-wrap` 은 **폭이 남으면 안 접힌다** — 계산한 열 수(`cols`)가 무시돼 여섯 장이
             한 줄로 늘어섰다. grid 로 두면 줄 수가 화면 폭과 무관하게 의도대로 선다. */}
         <div
-          className="grid justify-center gap-4 sm:gap-6 px-2"
+          className="phonics-listen-grid grid justify-center gap-4 sm:gap-6 px-2"
           style={{ gridTemplateColumns: `repeat(${cols}, max-content)` }}
         >
           {shownBoard.map((c) => (
@@ -590,7 +590,7 @@ export function WordListenChooseActivity({
               // 안내 음성 중엔 못 누른다 · 이미 맞힌 카드도 못 누른다(민트로 남는다).
               disabled={done || starting || solved.has(idOf(c))}
               className={[
-                'relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
+                'phonics-listen-card relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
                 // 🔴 맞힌 칸 = **민트 채움으로 남는다**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라
                 //    흰 카드에서 거의 안 보였고, `correct` 하나뿐이라 소리가 끝나면 색이 사라졌다
                 //    (사용자: "정답 맞추면 색깔 그냥 칠한채로 냅둬야지"). `solved` 로 계속 민트.

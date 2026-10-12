@@ -14,6 +14,8 @@ import { settingsApi } from '@/features/settings/api/settings.api';
 import { isUiMuted } from '@/lib/uiSound';
 import { getSharedAudio } from '@/lib/audio-unlock';
 import { LEARNING_SOUNDS } from '../effects/learning-sounds';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
+import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 
 interface GameResultScreenProps {
   score: number;
@@ -41,6 +43,8 @@ function praiseFor(score: number, total: number): { titleKey: string; subKey: st
  */
 export function GameResultScreen({ score, total, onRestart, onBack, lang }: GameResultScreenProps) {
   const { t } = useTranslation('games');
+  const source = useVocabSource();
+  const phonics = source?.source === 'phonics';
   const reduce = useReducedMotion();
   const resultRef = useRef<HTMLDivElement>(null);
   const { titleKey, subKey } = praiseFor(score, total);
@@ -128,10 +132,13 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
   return (
     <div
       data-learning-effects
-      className="game-result-screen"
+      className={`game-result-screen ${phonics ? 'learning-stage' : ''}`}
+      data-phonics-game={phonics || undefined}
+      data-phonics-language={phonics ? (source?.unitId.startsWith('en-') ? 'en' : 'ko') : undefined}
       role="region"
       aria-label={t('result.summaryLabel')}
     >
+      {phonics && <PhonicsBackdrop />}
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}

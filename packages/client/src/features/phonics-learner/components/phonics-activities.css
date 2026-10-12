@@ -1,0 +1,467 @@
+/* Activity-specific surfaces. Glyph masks, canvas coordinates and sound order remain in their owners. */
+.phonics-activity,
+[data-phonics-game] {
+  --activity-accent: #c43a1c;
+  --activity-soft: #fff0e0;
+  --activity-edge: #efbea2;
+}
+.phonics-activity[data-phonics-language='en'],
+[data-phonics-game][data-phonics-language='en'] {
+  --activity-accent: #22694f;
+  --activity-soft: #e7f5ec;
+  --activity-edge: #9dceb5;
+}
+.phonics-activity[data-phonics-language] h2 {
+  font-size: clamp(22px, 4vh, 40px);
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+.phonics-activity[data-phonics-language] .text-ink-300,
+.phonics-activity[data-phonics-language] .text-ink-400 {
+  color: #6d5a4c;
+}
+.phonics-progress-dots > span {
+  box-shadow: 0 0 0 2px #ffffff;
+}
+.phonics-progress-dots > [class~='bg-white/70'] {
+  background-color: #aa9b82;
+}
+.phonics-activity[data-phonics-language] button:focus-visible {
+  outline: 3px solid var(--activity-accent);
+  outline-offset: 5px;
+}
+.phonics-activity[data-phonics-language] button.bg-coral-700 {
+  background-color: var(--activity-accent);
+}
+.phonics-activity[data-phonics-language='en'] .ring-coral-200,
+.phonics-activity[data-phonics-language='en'] .ring-coral-300 {
+  --tw-ring-color: var(--activity-edge);
+}
+.phonics-tap-grid {
+  max-width: 850px;
+  gap: clamp(10px, 2.5vw, 24px);
+}
+.phonics-tap-card {
+  aspect-ratio: 0.85;
+  border-radius: 32px;
+  border-color: #efbea2;
+  background: linear-gradient(150deg, white 35%, #fff2e8);
+  box-shadow:
+    0 9px 0 #edd6c5,
+    0 15px 24px #65503d0b;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+.phonics-tap-card:active:not(:disabled) {
+  transform: translateY(5px) scale(0.98);
+  box-shadow: 0 4px 0 #edd6c5;
+}
+.phonics-tap-card > div:first-of-type {
+  font-size: clamp(52px, min(12vw, 15vh), 130px);
+}
+.phonics-card-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  color: #a44725;
+  font-weight: 900;
+  box-shadow: 0 2px 0 #efbea2;
+}
+.phonics-tap-beads {
+  bottom: 16px;
+  padding: 7px 10px;
+  gap: 7px;
+  border-radius: 24px;
+  background: #fff9f3;
+}
+.phonics-tap-beads > span {
+  width: 10px;
+  height: 10px;
+}
+.phonics-tap-beads > .bg-cream-200 {
+  background-color: #dfd0bf;
+}
+.phonics-tap-card[data-done] {
+  border-color: #76bc96;
+  box-shadow: 0 9px 0 #afd3bd;
+}
+.phonics-syllable-nav {
+  flex-shrink: 0;
+  align-self: center;
+  max-width: 850px;
+  padding: 9px 12px;
+  border: 1px solid #ffffff;
+  border-radius: 24px;
+  background: #ffffff9e;
+}
+.phonics-syllable-nav button {
+  border-width: 2px;
+  border-radius: 14px;
+  box-shadow: 0 3px 0 #dfd4c5;
+}
+.phonics-syllable-nav button[aria-current='step'] {
+  box-shadow: 0 3px 0 #a42f17;
+}
+.phonics-blend-stage {
+  position: relative;
+  isolation: isolate;
+}
+.phonics-blend-stage::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: min(78vw, 660px);
+  height: min(40vh, 330px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #ffffffc4 15%, #fff3db6e 58%, transparent 72%);
+  pointer-events: none;
+}
+.phonics-blend-tile {
+  width: min(24vw, 20vh, 160px);
+  height: min(24vw, 20vh, 160px);
+  min-width: 68px;
+  min-height: 68px;
+  border: 2px solid #e9bea5;
+  border-radius: 29%;
+  background: linear-gradient(145deg, #ffffff 25%, #ffead9);
+  font-size: min(15vw, 12vh, 95px);
+  box-shadow:
+    0 8px 0 #e6c6ad,
+    0 14px 24px #86604910;
+  animation: none;
+}
+.phonics-blend-tile--vowel {
+  border-color: #93c6a9;
+  background: linear-gradient(145deg, #ffffff 25%, #e0f3e8);
+  box-shadow:
+    0 8px 0 #badac7,
+    0 14px 24px #52765c10;
+}
+.phonics-blend-tile[data-next] {
+  outline: 4px solid #ffffff;
+  outline-offset: 5px;
+}
+.phonics-blend-tile:disabled {
+  cursor: default;
+}
+.phonics-blend-result {
+  max-height: none;
+  width: min(60vw, 320px);
+  height: min(33vh, 245px);
+  min-height: 125px;
+  border: 2px solid #a5d1b8;
+  border-radius: 34px;
+  background: linear-gradient(150deg, #ffffff 30%, #e4f5e8);
+  font-size: min(29vw, 23vh, 160px);
+  box-shadow:
+    0 10px 0 #c5e1cc,
+    0 20px 40px #56746112;
+}
+.phonics-picker-grid {
+  width: 100%;
+  max-width: 760px;
+}
+.phonics-picker-card {
+  width: min(27vw, 22vh, 170px);
+  min-width: 80px;
+  border: 2px solid #9bcbb0;
+  border-radius: 30px;
+  background: linear-gradient(150deg, #ffffff 25%, #e3f4e9);
+  box-shadow: 0 8px 0 #bfdcca;
+}
+.phonics-picker-card > span:last-child {
+  font-size: min(18vw, 15vh, 115px);
+}
+.phonics-alphabet-tabs button {
+  border: 2px solid #c4dacc;
+  min-height: 48px;
+  box-shadow: 0 4px 0 #d0e0d3;
+  opacity: 1;
+}
+.phonics-alphabet-tabs button[aria-pressed='true'] {
+  background: #e7f5ec;
+  border-color: #70ac8b;
+  --tw-ring-color: #ffffff;
+}
+.phonics-alphabet-tabs button span:first-child {
+  color: #245e49;
+}
+.phonics-paper-panel {
+  box-shadow:
+    0 7px 0 #e8ded0,
+    0 14px 30px #7861440c;
+  background: linear-gradient(135deg, #ffffff 75%, #fffcf5);
+}
+.phonics-activity .letter-fill-paper,
+[data-phonics-game] .letter-fill-paper,
+.phonics-activity .word-fill-paper,
+[data-phonics-game] .word-fill-paper {
+  border-color: #d8cbb8;
+  box-shadow:
+    0 7px 0 #e4d9c8,
+    0 14px 24px #7963460c;
+}
+.phonics-activity .letter-fill-paper,
+[data-phonics-game] .letter-fill-paper {
+  border-radius: 18px;
+}
+.phonics-activity .letter-fill-canvas .text-slate-400,
+.phonics-activity .letter-fill-canvas .text-slate-500 {
+  color: #6d5a4c;
+}
+[data-phonics-game] header {
+  background: #ffffffd9;
+  border-color: #ffffff;
+  box-shadow: 0 4px 0 #e1d8c8;
+}
+[data-phonics-game] .game-progress {
+  border-color: var(--activity-edge);
+  background: #ffffffeb;
+  box-shadow: 0 3px 0 #d9d4c3;
+}
+[data-phonics-game][data-phonics-language='en'] header .text-coral-700,
+[data-phonics-game][data-phonics-language='en'] .game-progress .bg-coral-700 {
+  color: var(--activity-accent);
+}
+[data-phonics-game][data-phonics-language='en'] .game-progress .bg-coral-700 {
+  background-color: var(--activity-accent);
+}
+.phonics-sound-cell {
+  border-width: 2px;
+  border-radius: 22px;
+  box-shadow:
+    0 6px 0 #dacebb,
+    0 12px 18px #80604408;
+}
+.phonics-sound-cell[data-next] {
+  --tw-ring-color: #ffffff;
+  outline: 3px solid var(--activity-accent);
+  outline-offset: 4px;
+}
+.phonics-sound-cell[data-pressed] {
+  --tw-ring-color: #93c6a97a;
+}
+.phonics-next-mark {
+  display: none;
+}
+.phonics-listen-grid {
+  gap: clamp(12px, 2vw, 22px);
+}
+.phonics-listen-card {
+  border-width: 3px;
+  border-radius: 26px;
+  box-shadow:
+    0 7px 0 #ded8c9,
+    0 14px 20px #7055370a;
+}
+.phonics-memory-grid {
+  width: min(100%, calc(72vh + 110px));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: clamp(12px, 2vw, 22px);
+  border-radius: 32px;
+  background: #ffffff82;
+  gap: clamp(10px, 1.7vw, 18px);
+  border: 1px solid white;
+}
+.phonics-memory-card {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-width: 3px;
+  border-radius: 22px;
+  box-shadow: 0 5px 0 #d8c7ad;
+}
+.phonics-memory-card:not([data-open]) {
+  background:
+    radial-gradient(circle at 20% 20%, #ffffff29 0 4px, transparent 5px),
+    linear-gradient(145deg, #fff0cc, #f9ddb4);
+  background-size:
+    20px 20px,
+    auto;
+  border-color: #ffffff;
+}
+.phonics-memory-back {
+  display: grid;
+  place-items: center;
+  width: 62%;
+  aspect-ratio: 1;
+  border: 2px solid #ffffffbd;
+  border-radius: 50%;
+  background: #fff7e3;
+  color: #7d9b69;
+}
+.phonics-memory-back svg {
+  width: 70%;
+}
+.phonics-memory-card[data-matched] {
+  box-shadow: 0 5px 0 #9ac7ad;
+}
+.phonics-hunt-grid {
+  width: min(100%, calc(78vh + 100px));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  padding: clamp(10px, 2vw, 20px);
+  border: 1px solid white;
+  border-radius: 28px;
+  background: #ffffff82;
+  gap: clamp(7px, 1vw, 12px);
+}
+.phonics-hunt-tile {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-width: 2px;
+  border-color: #e9e0d0;
+  box-shadow: 0 4px 0 #ded4c1;
+}
+.phonics-complete-mark {
+  display: grid;
+  place-items: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #e2f2e7;
+  color: #276747;
+  font-size: 48px;
+  border: 6px solid white;
+  box-shadow: 0 7px 0 #bdd9c6;
+}
+@media (max-width: 639px) {
+  .phonics-word-family-grid {
+    --family-before: 0px;
+    --family-after: 0px;
+    --family-plus-before: 0px;
+    --family-plus-after: 0px;
+    --family-columns: var(--family-before) var(--family-plus-before) minmax(0, 1fr)
+      var(--family-plus-after) var(--family-after) 18px minmax(0, 1.8fr) 40px;
+    width: 100%;
+    column-gap: 4px;
+  }
+  .phonics-word-family-grid[data-has-before] {
+    --family-before: minmax(0, 1fr);
+    --family-plus-before: 14px;
+  }
+  .phonics-word-family-grid[data-has-after] {
+    --family-after: minmax(0, 1.1fr);
+    --family-plus-after: 14px;
+  }
+  .phonics-cvc-row,
+  .phonics-magic-row {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) 14px minmax(0, 1.1fr) 18px minmax(0, 1.6fr);
+    column-gap: 5px;
+  }
+  .phonics-cvc-row--word,
+  .phonics-magic-row {
+    grid-template-columns: minmax(0, 1fr) 14px minmax(0, 1.1fr) 18px minmax(0, 1.6fr) 40px;
+  }
+  .phonics-word-family-grid .phonics-sound-cell,
+  .phonics-cvc-row .phonics-sound-cell,
+  .phonics-magic-row .phonics-sound-cell {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 4px;
+    border-radius: 18px;
+  }
+  .phonics-word-family-grid .phonics-sound-cell > span:first-child,
+  .phonics-cvc-row .phonics-sound-cell > span:first-child,
+  .phonics-magic-row .phonics-sound-cell > span:first-child {
+    font-size: clamp(17px, 5.2vw, 28px);
+    letter-spacing: -0.03em;
+  }
+  .phonics-word-family-grid > div,
+  .phonics-cvc-row--word > div:last-child,
+  .phonics-magic-row > div:last-child {
+    width: 40px;
+    height: 48px;
+  }
+}
+@media (max-height: 500px) {
+  .phonics-activity[data-activity-kind='hunt'] > .flex-1 {
+    min-height: min-content;
+    padding-block: 6px;
+  }
+  .phonics-activity[data-phonics-language='en'][data-activity-kind='blend'] > .flex-1 {
+    min-height: min-content;
+    padding-block: 6px;
+  }
+  .phonics-family-title > div {
+    font-size: 28px;
+  }
+  .phonics-family-title > p {
+    font-size: 16px;
+  }
+  .phonics-cvc-rows,
+  .phonics-family-rows,
+  .phonics-word-family-grid {
+    row-gap: 8px;
+    gap: 8px;
+  }
+  .phonics-sound-cell {
+    height: 44px;
+  }
+  .phonics-sound-cell > span:first-child {
+    font-size: 26px;
+  }
+  .phonics-word-family-grid > div,
+  .phonics-magic-row > div:last-child,
+  .phonics-cvc-row--word > div:last-child {
+    width: 42px;
+    height: 42px;
+  }
+  .phonics-activity[data-phonics-language] {
+    overflow-y: auto;
+  }
+  .phonics-activity[data-phonics-language] > .flex-1 {
+    gap: 12px;
+  }
+  .phonics-tap-grid {
+    max-width: 530px;
+  }
+  .phonics-tap-card {
+    aspect-ratio: 1.25;
+  }
+  .phonics-tap-card > div:first-of-type {
+    font-size: 58px;
+  }
+  .phonics-card-number {
+    top: 7px;
+    left: 7px;
+    width: 24px;
+    height: 24px;
+  }
+  .phonics-tap-beads {
+    bottom: 8px;
+    padding: 4px 7px;
+  }
+  .phonics-syllable-nav {
+    padding: 5px 8px;
+    gap: 6px;
+  }
+  .phonics-syllable-nav button {
+    width: 44px;
+    height: 44px;
+  }
+  .phonics-memory-grid,
+  .phonics-hunt-grid {
+    padding: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phonics-activity[data-phonics-language] .animate-pulse,
+  .phonics-activity[data-phonics-language] .animate-bounce {
+    animation: none;
+  }
+  .phonics-blend-stage,
+  .phonics-tap-card {
+    transition-duration: 0ms;
+  }
+}

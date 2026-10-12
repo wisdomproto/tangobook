@@ -292,7 +292,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   }, [words, writeIdx, unitId, say, chime, rest, playAudio, playCorrectSequence, onMarkComplete]);
 
   const dots = (
-    <div className="flex items-center gap-1.5">
+    <div className="phonics-progress-dots flex items-center gap-1.5">
       {rows.map((r, wi) => (
         <span
           key={r.word}
@@ -305,7 +305,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   // ── 써보기 화면 — 낱말 전체를 한 글자씩 쓴다(매직 e 는 모음·끝 e 가 코랄로 남는다) ──
   if (phase === 'write' && writeWord) {
     const writeDots = (
-      <div className="flex items-center gap-1.5">
+      <div className="phonics-progress-dots flex items-center gap-1.5">
         {words.map((w, i) => (
           <span
             key={w.word}
@@ -315,7 +315,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       </div>
     );
     return (
-      <ActivityShell onBack={onBack} headerRight={writeDots}>
+      <ActivityShell unitId={unitId} kind="blend" onBack={onBack} headerRight={writeDots}>
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3 sm:gap-4">
           <div
             className="text-3xl sm:text-4xl font-black font-display"
@@ -364,9 +364,9 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   }
 
   return (
-    <ActivityShell onBack={onBack} headerRight={dots}>
+    <ActivityShell unitId={unitId} kind="blend" onBack={onBack} headerRight={dots}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6">
-        <div className="text-center">
+        <div className="phonics-family-title text-center">
           <div
             className="text-5xl sm:text-6xl md:text-7xl font-black font-display"
             style={{
@@ -383,11 +383,11 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
 
         {rows[0]?.magicE ? (
           // 매직-e: [짧은 rime][긴 rime] → [낱말] — 행마다 조각 수가 같아 flex 로도 열이 맞는다.
-          <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
+          <div className="phonics-family-rows flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
             {rows.map((row, wi) => (
               <div
                 key={row.word}
-                className="flex flex-row items-center justify-center gap-2 sm:gap-3"
+                className="phonics-magic-row flex flex-row items-center justify-center gap-2 sm:gap-3"
               >
                 {row.cells.map((cell, ci) => {
                   const isWordCell = ci === row.cells.length - 1;
@@ -418,8 +418,10 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           // 🔴 Book 4/5: [앞][패턴][뒤] → [낱말] — 조각 수가 달라도 **하나의 grid** 로 열을 맞춘다
           //    (2026-08-09 사용자 "ee 기준으로 줄 맞춰"). 빈 앞/뒤 조각은 빈 칸으로 두어 열이 안 밀린다.
           <div
-            className="grid items-center justify-center gap-x-2 sm:gap-x-3 gap-y-3 sm:gap-y-4"
-            style={{ gridTemplateColumns: 'repeat(7, auto) auto' }}
+            className="phonics-word-family-grid grid items-center justify-center gap-x-2 sm:gap-x-3 gap-y-3 sm:gap-y-4"
+            data-has-before={rows.some((row) => row.patCellIdx === 1) || undefined}
+            data-has-after={rows.some((row) => row.patCellIdx + 1 < row.segs.length) || undefined}
+            style={{ gridTemplateColumns: 'var(--family-columns, repeat(7, auto) auto)' }}
           >
             {rows.map((row, wi) => {
               const beforeIdx = row.patCellIdx === 1 ? 0 : -1;
@@ -525,10 +527,12 @@ function Cell({
     <motion.button
       data-learning-fx="tap"
       onClick={onClick}
-      animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-      transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
+      whileTap={{ scale: 0.96 }}
+      data-next={isNext || undefined}
+      data-pressed={pressed || undefined}
+      transition={{ duration: 0.18 }}
       className={[
-        'relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
+        'phonics-sound-cell relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
         wide ? 'min-w-[clamp(6rem,20vh,12rem)] px-4' : 'px-[clamp(0.75rem,2vh,1.5rem)]',
         bgByTone[tone],
         pressed
@@ -554,7 +558,7 @@ function Cell({
       {isNext && !pressed && (
         <span
           aria-hidden
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl animate-bounce"
+          className="phonics-next-mark absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl"
         >
           👆
         </span>

@@ -65,7 +65,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
   if (!urls.length) return null;
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
       <audio
         ref={audioRef}
         src={urls[idx]}

@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-12 [한글·영어 전체 활동 시각 통일](../phonics/tasks/20261012-phonics-all-activities-ui.md): 승인한 모음 화면을 한글5권/영어5권의16활동 템플릿과 파닉스 게임·로딩/결과까지 확장. 자음/합성/종이/듣기/씨앗카드/사냥 역할별 표현,375px 영어 조각/812×375 마지막행 잘림 수정. 합성 중 선택 잠금과 복습 그림짝 source 연결,152회귀·타입/빌드 및 대표 브라우저 검수. 통합은 task 참조·미푸시.
+
 2026-10-12 [파닉스 시각·소리 복구](../phonics/tasks/20261012-phonics-playful-ui.md): source=phonics GamePlayerLayout에 공통 SVG 풍경 연결, 독후게임 기존배경 보존. usePhonicsMap 연결실패 빈map을 캐시하지 않으며 한/영/중 재시도 회귀 추가. playAudio 선택 onError로 모음 재생실패를 완료로 처리하지 않되 기존 caller fallback 유지. 관련55검증·타입/빌드, 통합은 task 참조·미푸시.
 
 2026-10-12 [학습 애니메이션·효과음](../phonics/tasks/20261012-learning-game-effects.md): 지연 Phaser canvas 하나·14장면, 꽃/음표/하트/리본의 서로 다른 움직임과 MP3 4종. 호리/콘페티 반복 제외, 결과/점수/재시작·override/mute 보존. 157회귀·타입/빌드·대표 브라우저 검수, 30072b4b3 로컬 main 통합. 실기기 미검증·미푸시.

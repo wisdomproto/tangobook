@@ -190,13 +190,13 @@ export function ReviewFlipMatchActivity({
   );
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="memory" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl sm:text-4xl font-black text-ink-900 text-center break-keep">
           {matched.size >= picked.length ? t('flip.allMatched') : t('flip.prompt')}
         </h2>
 
-        <div className="grid grid-cols-4 gap-2 sm:gap-3">
+        <div className="phonics-memory-grid grid grid-cols-4 gap-2 sm:gap-3">
           {tiles.map((tile) => {
             const isMatched = matched.has(tile.card.letter);
             const isOpen = open.includes(tile.id) || isMatched;
@@ -207,11 +207,13 @@ export function ReviewFlipMatchActivity({
                 <button
                   data-learning-fx="tap"
                   onClick={() => handleTap(tile)}
+                  data-open={isOpen || undefined}
+                  data-matched={isMatched || undefined}
                   aria-label={isOpen ? tile.card.word || tile.card.letter : t('flip.flip')}
                   className={[
                     // 🔴 칸 크기는 vw 만 보면 안 된다 — 전체화면 활동이라 **높이가 먼저 남는다/모자란다**.
                     //    `min(vw, vh)` 로 잡아야 큰 화면에서 카드가 좁쌀만 해지지 않는다(1370px 에서 112px 였다).
-                    'relative w-[min(20vw,18vh)] h-[min(20vw,18vh)] rounded-2xl border-[4px] overflow-hidden shadow-soft transition active:scale-[0.97] flex items-center justify-center',
+                    'phonics-memory-card relative w-[min(20vw,18vh)] h-[min(20vw,18vh)] rounded-2xl border-[4px] overflow-hidden shadow-soft transition active:scale-[0.97] flex items-center justify-center',
                     isMatched
                       ? 'bg-mint-100 border-mint-500'
                       : wrong.includes(tile.id)
@@ -245,7 +247,17 @@ export function ReviewFlipMatchActivity({
                     )
                   ) : (
                     // 뒷면 — 아이가 "누르면 뒤집힌다"를 그림으로 알게
-                    <span className="text-3xl sm:text-4xl">❓</span>
+                    <span className="phonics-memory-back" aria-hidden>
+                      <svg viewBox="0 0 64 64" fill="none">
+                        <path
+                          d="M32 49V30M32 39C10 39 9 18 16 15C28 15 32 29 32 39ZM32 32C49 33 56 20 50 12C38 12 32 21 32 32Z"
+                          stroke="currentColor"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
                   )}
                 </button>
                 {/* 그림이 애매하면 무엇인지 알 수가 없어 짝을 못 짓는다 — 낱말을 칸 아래에 */}

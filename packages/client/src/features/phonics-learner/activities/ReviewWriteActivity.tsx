@@ -204,7 +204,7 @@ export function ReviewWriteActivity({
   if (!current) return null;
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         {/* 진행 dots — 몇 장 남았는지 그림으로 */}
         <div className="flex gap-2 sm:gap-3">

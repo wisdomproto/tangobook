@@ -1,3 +1,5 @@
+import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
+import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { getRequiredActivities } from '../lib/korean-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
@@ -492,28 +494,30 @@ export function KoreanPhonicsActivity({
         />
       );
     return (
-      <LineMatchingPlayer
-        storybookId={unitId}
-        difficulty="easy"
-        onComplete={handleComplete}
-        onBack={backToUnit}
-        lang="ko"
-        gameData={{
-          type: 'korean-line-matching',
-          /**
-           * 🔴 카드는 **음소가 아니라 낱말**이다(2026-07-30 사용자: "여기도 그냥 단어로 넣어줘.
-           *    음소 말고"). 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고,
-           *    낱말↔그림이 실제로 하는 일과 맞는다. 예전엔 카드가 `ㄷ` 이고 낱말은 그 아래
-           *    작은 글씨였는데, 정작 그림과 짝지어지는 건 낱말이라 큰 글자가 겉돌았다.
-           * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
-           *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
-           */
-          items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
-            word: s.word,
-            imageUrl: s.imageUrl,
-          })),
-        }}
-      />
+      <VocabSourceProvider source="phonics" unitId={unitId}>
+        <LineMatchingPlayer
+          storybookId={unitId}
+          difficulty="easy"
+          onComplete={handleComplete}
+          onBack={backToUnit}
+          lang="ko"
+          gameData={{
+            type: 'korean-line-matching',
+            /**
+             * 🔴 카드는 **음소가 아니라 낱말**이다(2026-07-30 사용자: "여기도 그냥 단어로 넣어줘.
+             *    음소 말고"). 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고,
+             *    낱말↔그림이 실제로 하는 일과 맞는다. 예전엔 카드가 `ㄷ` 이고 낱말은 그 아래
+             *    작은 글씨였는데, 정작 그림과 짝지어지는 건 낱말이라 큰 글자가 겉돌았다.
+             * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
+             *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
+             */
+            items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
+              word: s.word,
+              imageUrl: s.imageUrl,
+            })),
+          }}
+        />
+      </VocabSourceProvider>
     );
   }
 
@@ -626,13 +630,7 @@ export function KoreanPhonicsActivity({
 function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
   const { t } = useTranslation('phonics');
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 overflow-hidden">
-      <button
-        onClick={onBack}
-        className="self-start min-h-11 mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        {t('common.back')}
-      </button>
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
         <div className="text-6xl">{activity.emoji}</div>
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
@@ -640,7 +638,7 @@ function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: 
         </h2>
         <p className="text-base font-semibold text-ink-600">{t('common.loading')}</p>
       </div>
-    </div>
+    </ActivityShell>
   );
 }
 
