@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-12 [전용 인쇄 학습지 시안](../work/strategy/tasks/20261012-print-worksheet-design.md): 예쁨을 우선해 그림책/오려붙이기/노트3방향×한영6쪽·비교갤러리·A4 PDF 제작 및 전수 렌더/배치 검수. Qwen 환경부재를 알리고 imagegen 내장 도구 사용. output/worksheet-design-20261012, localhost5196. 실제 과정·캐릭터 연결과 판매구성은 선택 후 진행, 제품/운영 미변경·미푸시.
+2026-10-12 [전용 인쇄 학습지 시안](../work/strategy/tasks/20261012-print-worksheet-design.md): 사용자 **오리기제외·올드삽화·가학습/토끼텃밭불일치** 반증으로 재제작. 가→가방/c→cat 직접연계, 현대그래픽/매끈한입체2종×한영4쪽 PDF·갤러리 검수. Qwen 환경부재로 내장 imagegen 사용. output/worksheet-design-20261012/v2, localhost5196/v2. 그림체선택·판매구성·실물인쇄 미정, 제품/운영 미변경·미푸시.
 
 2026-10-12 [한글·영어 과정 시각 보완](../work/platform/tasks/20261012-course-page-visual-design.md): 실제 단원 글자/패턴·필수 진행·이어 할 활동, 역할별 SVG/기존 삽화 카드와 레벨 설명 위계를 적용했다. 교육 순서·제공 게임·권한·채점 유지. 52회귀·타입/빌드/lint·대표 모바일/태블릿 검수 통과, 31fb42ba4 로컬 main 통합 후 사용자 후속 요청으로 7faeed9b8을 origin/main에 push 완료·원격 SHA 확인. Railway 배포 완료 미확인.
 
