@@ -104,10 +104,10 @@
     "educationalUse": "한글 읽기, 파닉스, 어휘 학습"
   },
   "level": {
-    "hangul1": "한글1: 기본음절",
-    "hangul2": "한글2: 받침",
-    "hangul3": "한글3: 쌍자음",
-    "hangul4": "한글4: 복잡한 모음",
+    "hangul1": "Book 2: 자음과 기본 음절",
+    "hangul2": "Book 3: 받침",
+    "hangul3": "Book 4: 쌍자음",
+    "hangul4": "Book 5: 복잡한 모음",
     "zhL1": "Level 1: 성조 + 단운모",
     "zhL2": "Level 2: 성모",
     "zhL3": "Level 3: 병음조합",
@@ -115,7 +115,8 @@
     "zhL5": "Level 5: 복운모",
     "zhL6": "Level 6: 비운모",
     "zhL7": "Level 7: 통독 음절",
-    "zhL8": "Level 8: 2음절 낱말"
+    "zhL8": "Level 8: 2음절 낱말",
+    "hangul-vowels": "Book 1: 모음"
   },
   "unit": {
     "review": "복습",
@@ -227,7 +228,10 @@
   "vowelListen": {
     "inOrder": "순서대로 눌러봐!",
     "readyForQuiz": "잘했어! 이제 퀴즈를 풀어볼까?",
-    "pickSound": "🔊 들리는 소리를 골라봐!"
+    "pickSound": "🔊 들리는 소리를 골라봐!",
+    "singlePrompt": "모음을 눌러 들어봐!",
+    "singleDone": "잘했어! 한 번 더 들어볼까?",
+    "audioRetry": "소리를 불러오지 못했어. 다시 눌러봐!"
   },
   "vowelPicker": {
     "makePrompt": "어떤 모음으로 만들까?",

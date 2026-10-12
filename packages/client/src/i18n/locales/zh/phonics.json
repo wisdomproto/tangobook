@@ -104,10 +104,10 @@
     "educationalUse": "韩语阅读、拼读、词汇学习"
   },
   "level": {
-    "hangul1": "韩文 1：基本音节",
-    "hangul2": "韩文 2：收音",
-    "hangul3": "韩文 3：双辅音",
-    "hangul4": "韩文 4：复合元音",
+    "hangul1": "Book 2: 辅音与基本音节",
+    "hangul2": "Book 3: 收音",
+    "hangul3": "Book 4: 双辅音",
+    "hangul4": "Book 5: 复合元音",
     "zhL1": "第1级：声调 + 单韵母",
     "zhL2": "第2级：声母",
     "zhL3": "第3级：拼音拼读",
@@ -115,7 +115,8 @@
     "zhL5": "第5级：复韵母",
     "zhL6": "第6级：鼻韵母",
     "zhL7": "第7级：整体认读音节",
-    "zhL8": "第8级：双音节词"
+    "zhL8": "第8级：双音节词",
+    "hangul-vowels": "Book 1: 元音"
   },
   "unit": {
     "review": "复习",
@@ -227,7 +228,10 @@
   "vowelListen": {
     "inOrder": "按顺序点一点！",
     "readyForQuiz": "做得好！现在来玩小测验吧？",
-    "pickSound": "🔊 选出你听到的声音！"
+    "pickSound": "🔊 选出你听到的声音！",
+    "singlePrompt": "点击元音，听一听！",
+    "singleDone": "真棒！再听一次吧？",
+    "audioRetry": "声音加载失败，请再点一次！"
   },
   "vowelPicker": {
     "makePrompt": "要用哪个元音来拼呢？",

@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Korean phonics in {{ko}} units · English phonics in {{en}} units + storybooks — Tangobook",
-    "description": "Korean phonics in 32 units, from consonants and vowels to final consonants and tense consonants, plus English phonics in 39 units. Then storybooks your child can read with the letters they just learned — classics, folk tales, nature, and more, growing every month. Try everything free for a month."
+    "description": "Korean phonics in 41 units, from consonants and vowels to final consonants and tense consonants, plus English phonics in 39 units. Then storybooks your child can read with the letters they just learned — classics, folk tales, nature, and more, growing every month. Try everything free for a month."
   },
   "nav": {
     "learn": "Learn",
@@ -30,7 +30,7 @@
   "chain": {
     "phonics": {
       "t": "Korean & English phonics",
-      "ko": "Korean, 32 units — ㄹ · final ㄴ · final ㅂ …",
+      "ko": "Korean, 41 units — ㄹ · final ㄴ · final ㅂ …",
       "en": "English, 39 units — Aa Bb Cc · short a · magic e …",
       "alt": "Korean phonics syllable-building screen — ㄹ and ㅣ join to make 리"
     },
@@ -183,7 +183,7 @@
     "kinds": {
       "hangul": {
         "name": "Korean worksheets",
-        "desc": "32 units, from vowels and consonants to final consonants"
+        "desc": "41 units, from vowels and consonants to final consonants"
       },
       "english": {
         "name": "English phonics worksheets",

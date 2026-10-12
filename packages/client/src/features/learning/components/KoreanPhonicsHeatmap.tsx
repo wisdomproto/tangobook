@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_LEARNING_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { AppIcon } from '@/design-system';
 import { computeMastery, masteryState, masteryLabel, type MasteryState } from '../lib/mastery';
@@ -15,7 +15,7 @@ import { MasteryDistributionBar } from './MasteryDistributionBar';
 
 /** 한 레벨의 모든 unit.sampleWords 를 평탄화. unique 처리. */
 function getKoreanLevelTargetWords(levelId: string): string[] {
-  const level = KOREAN_PHONICS_CURRICULUM.find((l) => l.level === levelId);
+  const level = KOREAN_PHONICS_LEARNING_CURRICULUM.find((l) => l.level === levelId);
   if (!level) return [];
   const set = new Set<string>();
   for (const u of level.units) {
@@ -44,7 +44,7 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
   const vowelStats = useMemo(() => groupByVowel(events), [events]);
   const wordStats = useMemo(() => groupByWord(events, 'ko'), [events]);
   const readUnits = useMemo(() => readPhonicsUnitIds(events, storybooks), [events, storybooks]);
-  const [openLevel, setOpenLevel] = useState<string | null>('hangul1');
+  const [openLevel, setOpenLevel] = useState<string | null>('hangul-vowels');
   const now = Date.now();
 
   return (

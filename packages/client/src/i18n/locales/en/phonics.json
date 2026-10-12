@@ -104,10 +104,10 @@
     "educationalUse": "Korean reading, phonics, vocabulary"
   },
   "level": {
-    "hangul1": "Hangul 1: Basic Syllables",
-    "hangul2": "Hangul 2: Final Consonants",
-    "hangul3": "Hangul 3: Double Consonants",
-    "hangul4": "Hangul 4: Complex Vowels",
+    "hangul1": "Book 2: Consonants and Basic Syllables",
+    "hangul2": "Book 3: Final Consonants",
+    "hangul3": "Book 4: Double Consonants",
+    "hangul4": "Book 5: Complex Vowels",
     "zhL1": "Level 1: Tones + Simple Finals",
     "zhL2": "Level 2: Initials",
     "zhL3": "Level 3: Pinyin Blending",
@@ -115,7 +115,8 @@
     "zhL5": "Level 5: Compound Finals",
     "zhL6": "Level 6: Nasal Finals",
     "zhL7": "Level 7: Whole Syllables",
-    "zhL8": "Level 8: Two-Syllable Words"
+    "zhL8": "Level 8: Two-Syllable Words",
+    "hangul-vowels": "Book 1: Vowels"
   },
   "unit": {
     "review": "Review",
@@ -227,7 +228,10 @@
   "vowelListen": {
     "inOrder": "Tap them in order!",
     "readyForQuiz": "Well done! Shall we try the quiz now?",
-    "pickSound": "🔊 Pick the sound you hear!"
+    "pickSound": "🔊 Pick the sound you hear!",
+    "singlePrompt": "Tap the vowel and listen!",
+    "singleDone": "Great! Listen again?",
+    "audioRetry": "The sound could not load. Tap again!"
   },
   "vowelPicker": {
     "makePrompt": "Which vowel shall we use?",

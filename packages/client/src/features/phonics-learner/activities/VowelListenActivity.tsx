@@ -25,6 +25,7 @@ interface VowelItem {
 
 interface Props {
   unitId: string;
+  ttsUnitId?: string;
   vowels: ReadonlyArray<VowelItem>;
   /** 발음·칭찬 언어. 복습에서 영어 알파벳을 읽힐 때 'english'. */
   language?: 'korean' | 'english';
@@ -44,15 +45,27 @@ interface Props {
  */
 export function VowelListenActivity({
   unitId,
+  ttsUnitId = unitId,
   vowels,
   language = 'korean',
   onMarkComplete,
   onBack,
 }: Props) {
   const { t } = useTranslation('phonics');
+  const single = vowels.length === 1;
+  const singleMarked = useRef(false);
+  const singleBusy = useRef(false);
+  const alive = useRef(true);
+  const [audioFailed, setAudioFailed] = useState(false);
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+    };
+  }, []);
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 진입 안내 — 첫 단계 화면 문구 "순서대로 눌러봐!" 에 맞는 음성.
-  useEntryGuide(ENTRY_GUIDE.orderListen, playAudio);
+  useEntryGuide(single ? ENTRY_GUIDE.listenExplore : ENTRY_GUIDE.orderListen, playAudio);
   const logEvent = useLogEvent();
   /**
    * 🔴 모음 퀴즈 판정을 남긴다 — 복잡한 모음 레벨(한글4)은 자음×모음 표가 없어서
@@ -78,7 +91,7 @@ export function VowelListenActivity({
 
   // 진입하자마자 6개 모음 발음을 백그라운드로 준비 — 첫 탭이 기다리지 않게.
   usePhonicsTtsWarm(
-    unitId,
+    ttsUnitId,
     vowels.map((v) => v.sound ?? v.vowel),
     'phonics-vowel',
     language
@@ -105,17 +118,41 @@ export function VowelListenActivity({
       const url = await resolveTtsUrl({
         text: vowel,
         language,
-        storybookId: unitId,
+        storybookId: ttsUnitId,
         identifierPrefix: 'phonics-vowel',
       });
-      if (url) playAudio(url, onEnded);
-      else onEnded?.();
+      if (!alive.current) return;
+      if (url)
+        playAudio(url, () => {
+          if (alive.current) onEnded?.();
+        });
+      else if (!single) onEnded?.();
+      else {
+        singleBusy.current = false;
+        setAudioFailed(true);
+      }
     },
-    [playAudio, unitId, language]
+    [playAudio, ttsUnitId, language, single]
   );
 
   const handleListenTap = useCallback(
     (idx: number) => {
+      // 모음 한 개를 익히는 탐색이다. 보기 하나짜리 퀴즈/정오답 이벤트를 만들지 않는다.
+      if (single) {
+        if (singleBusy.current) return;
+        singleBusy.current = true;
+        setAudioFailed(false);
+        void playVowel(vowels[0].sound ?? vowels[0].vowel, () => {
+          singleBusy.current = false;
+          setListenedAll(true);
+          if (!singleMarked.current) {
+            singleMarked.current = true;
+            onMarkComplete();
+            playCorrectSequence({ language: praiseLang() });
+          }
+        });
+        return;
+      }
       /**
        * 🔴 한 바퀴 돌고 나면 **자유놀이** — 아무 카드나 눌러 다시 듣는다(순서도 칭찬도 없다).
        *    예전엔 `nextIdx` 가 마지막에 멈춰 있어서, 다른 카드는 순서 검사에 걸려 **무음**이고
@@ -138,7 +175,7 @@ export function VowelListenActivity({
         setNextIdx(idx + 1);
       }
     },
-    [listenedAll, nextIdx, vowels, playVowel, playCorrectSequence, language]
+    [single, onMarkComplete, listenedAll, nextIdx, vowels, playVowel, playCorrectSequence]
   );
 
   // 듣기 단계 다시 시작 — 진행 초기화 (퀴즈 들어가기 전 한 번 더 들어보기용)
@@ -244,12 +281,13 @@ export function VowelListenActivity({
 
   const isListenPhase = phase === 'listen';
   const promptText = useMemo(() => {
+    if (single) return t(listenedAll ? 'vowelListen.singleDone' : 'vowelListen.singlePrompt');
     if (isListenPhase && !listenedAll) return t('vowelListen.inOrder');
     if (isListenPhase && listenedAll) return t('vowelListen.readyForQuiz');
     if (phase === 'quiz')
       return starting ? t('common.listenCarefully') : t('vowelListen.pickSound');
     return t('common.allCorrect');
-  }, [isListenPhase, listenedAll, phase, starting, t]);
+  }, [single, isListenPhase, listenedAll, phase, starting, t]);
 
   return (
     <ActivityShell onBack={onBack} scroll>
@@ -283,17 +321,20 @@ export function VowelListenActivity({
                 }
                 disabled={!isClickable}
                 className={[
-                  'relative w-[28%] lg:w-36 rounded-3xl border-[6px] aspect-[3/4] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
+                  'relative rounded-3xl border-[6px] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
+                  single ? 'w-[min(280px,85vw)] aspect-square' : 'w-[28%] lg:w-36 aspect-[3/4]',
                   isSolved
                     ? 'bg-mint-100 border-mint-500'
                     : active
-                      ? 'bg-coral-100 border-coral-500 animate-pulse'
+                      ? single
+                        ? 'bg-mint-50 border-mint-400'
+                        : 'bg-coral-100 border-coral-500 animate-pulse'
                       : isUnlockedListen || phase === 'quiz'
                         ? 'bg-white border-white hover:shadow-soft active:scale-[0.97]'
                         : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
                   isWrongTarget && phase === 'quiz' ? 'animate-shake' : '',
                 ].join(' ')}
-                aria-label={v.syllable}
+                aria-label={single ? v.vowel : v.syllable}
                 aria-pressed={isSolved || undefined}
               >
                 {isSolved && (
@@ -310,17 +351,32 @@ export function VowelListenActivity({
                 >
                   <ToyHangul text={v.vowel} />
                 </div>
-                <div
-                  className={`text-lg sm:text-xl font-black mt-3 ${isSolved ? 'text-mint-600' : 'text-ink-500'}`}
-                >
-                  {v.syllable}
-                </div>
+                {!single && (
+                  <div
+                    className={`text-lg sm:text-xl font-black mt-3 ${isSolved ? 'text-mint-600' : 'text-ink-500'}`}
+                  >
+                    {v.syllable}
+                  </div>
+                )}
               </button>
             );
           })}
         </div>
 
-        {isListenPhase && listenedAll && (
+        {audioFailed && (
+          <p role="status" className="text-base font-bold text-ink-700">
+            {t('vowelListen.audioRetry')}
+          </p>
+        )}
+        {single && listenedAll && (
+          <button
+            onClick={onBack}
+            className="min-h-12 rounded-full bg-coral-700 px-8 py-3 text-lg font-black text-white"
+          >
+            {t('common.back')}
+          </button>
+        )}
+        {!single && isListenPhase && listenedAll && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               data-learning-fx="tap"

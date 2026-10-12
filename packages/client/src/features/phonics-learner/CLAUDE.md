@@ -1,5 +1,11 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+## 2026-10-12 모음 전용 Book 1
+
+학습 순서 원본은 shared `KOREAN_PHONICS_LEARNING_CURRICULUM`: 모음 / 자음·기본 음절 / 받침 / 쌍자음 / 복잡한 모음, 총5권·학습41단원. Book 1의 `kr-v1-u01~10`은 한 개씩 듣기·모음 모양 쓰기이며 묶음 복습/한 선택지 퀴즈/자음·낱말 활동 없음. `sourceUnitId=kr-h1-u01`로 기존 음원 캐시를 재사용하고 운영 R2 책을 복제하지 않는다.
+
+`levelIndex`는 화면 권번호, `levelKey`와 기존 `kr-hN-*`는 저장/교육 의미다. 받침/쌍자음/복합모음 판정·복습 ID를 화면 권번호로 만들지 않는다. 구형 모음 개요는 첫 모음으로 이동하고 구형 활동 링크는 지원한다. 이전 실제 듣기6/4·쓰기 완료만 자녀별/리포트별로 이어받으며 방문만으로 완료를 만들지 않는다. shared flatten의 기본은 새 학습 과정, 인쇄/저작은 `authoring` source로 기존 구성을 보존한다. [결정·검증](../../../../../docs/work/phonics/tasks/20261012-korean-vowel-book1.md).
+
 `/library/phonics` 진입점. 한글/영어 선택 → unit 그리드 → 활동 그리드 → 활동/게임 실행.
 
 저작도구의 `features/phonics/` (=AlphabetCardTab 등 편집기) 와 **별개** 모듈. 이쪽은 학습자 학습 흐름.

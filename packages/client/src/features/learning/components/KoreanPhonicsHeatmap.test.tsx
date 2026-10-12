@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { KoreanPhonicsHeatmap } from './KoreanPhonicsHeatmap';
 
@@ -13,6 +13,7 @@ describe('KoreanPhonicsHeatmap', () => {
     // hangul1 격자는 기본 펼침(openLevel="hangul1"). '갸'(ㄱ+ㅑ)는 격자에만 있는 음절이라
     // 타겟 단어와 겹치지 않는다 — cellByKey.get 이 실패하면 이 글자가 안 뜬다.
     render(<KoreanPhonicsHeatmap events={[]} storybooks={[]} />);
+    fireEvent.click(screen.getByRole('button', { name: /Book 2: 자음과 기본 음절/ }));
     expect(screen.getAllByText('갸').length).toBeGreaterThan(0);
   });
 });

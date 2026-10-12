@@ -1,7 +1,12 @@
 import { getRequiredActivities } from '@/features/phonics-learner/lib/korean-phonics-units';
 import { getEnglishRequiredActivities } from '@/features/phonics-learner/lib/english-phonics-units';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
-import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
+import {
+  KOREAN_PHONICS_LEARNING_CURRICULUM,
+  KOREAN_BASIC_VOWEL_LESSONS,
+  ENGLISH_PHONICS_CURRICULUM,
+  legacyVowelActivityKeys,
+} from '@tangobook/shared';
 
 /**
  * 파닉스 unit 진행률: 활성 프로필이 읽은(page_read emit된) phonics storybook의 id 집합.
@@ -17,6 +22,12 @@ export function readPhonicsUnitIds(
     if (e.event_type !== 'page_read') continue;
     if (!e.storybook_id) continue;
     if (phonicsIds.has(e.storybook_id)) read.add(e.storybook_id);
+    else if (
+      e.metadata?.source === 'phonics' &&
+      e.metadata.lang === 'ko' &&
+      KOREAN_BASIC_VOWEL_LESSONS.some((lesson) => lesson.id === e.metadata?.unitId)
+    )
+      read.add(e.metadata.unitId!);
   }
   return read;
 }
@@ -28,7 +39,7 @@ export interface LevelProgress {
 }
 
 export function koreanLevelProgress(levelId: string, readUnitIds: Set<string>): LevelProgress {
-  const level = KOREAN_PHONICS_CURRICULUM.find((l) => l.level === levelId);
+  const level = KOREAN_PHONICS_LEARNING_CURRICULUM.find((l) => l.level === levelId);
   const units = level?.units ?? [];
   const readList = units.filter((u) => readUnitIds.has(u.id)).map((u) => u.id);
   return { totalUnits: units.length, readUnits: readList.length, readUnitIds: readList };
@@ -67,6 +78,14 @@ export function completedPhonicsUnitIds(events: LearningEvent[], lang: 'ko' | 'e
     activities.set(meta.unitId, done);
   }
   const completed = new Set<string>();
+  if (lang === 'ko') {
+    const legacy = [...(activities.get('kr-h1-u01') ?? [])];
+    for (const lesson of KOREAN_BASIC_VOWEL_LESSONS) {
+      const done = activities.get(lesson.id) ?? new Set<string>();
+      legacyVowelActivityKeys(lesson.id, legacy).forEach((key) => done.add(key));
+      if (done.size) activities.set(lesson.id, done);
+    }
+  }
   for (const [unitId, done] of activities) {
     const required =
       lang === 'ko' ? getRequiredActivities(unitId) : getEnglishRequiredActivities(unitId);

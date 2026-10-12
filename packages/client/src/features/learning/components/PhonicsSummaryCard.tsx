@@ -1,7 +1,7 @@
 import { getCourseTheme } from '@/design-system';
 import { Link } from 'react-router-dom';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
-import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_LEARNING_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 import { readPhonicsUnitIds, completedPhonicsUnitIds } from '../lib/phonics-progress';
 
 interface Props {
@@ -27,7 +27,7 @@ export function PhonicsSummaryCard({ events, storybooks, lang }: Props) {
    *    파닉스에서 나온 기록이 **하나라도** 있으면 시작한 것으로 본다.
    */
   const isKo = lang === 'ko';
-  const levels = isKo ? KOREAN_PHONICS_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
+  const levels = isKo ? KOREAN_PHONICS_LEARNING_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
 
   const units = levels.flatMap((l) => l.units.map((u) => ({ ...u, levelName: l.name })));
   const hasAnyPhonics =

@@ -3,12 +3,11 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
-import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_LEARNING_CURRICULUM } from '@tangobook/shared';
 import { PhonicsSummaryCard } from './PhonicsSummaryCard';
 
-const units: ReadonlyArray<{ id: string; title: string }> = KOREAN_PHONICS_CURRICULUM.flatMap(
-  (l) => [...l.units]
-);
+const units: ReadonlyArray<{ id: string; title: string }> =
+  KOREAN_PHONICS_LEARNING_CURRICULUM.flatMap((l) => [...l.units]);
 const total = units.length;
 
 const book = (id: string): StorybookSummary =>

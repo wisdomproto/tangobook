@@ -14,6 +14,8 @@ const REST_MS = 450;
 interface VowelItem {
   vowel: string;
   syllable: string; // 따라쓸 글자 (e.g. '아', 병음 'a')
+  /** 모음 입문에서는 소리(아)와 쓰는 모양(ㅏ)을 분리한다. */
+  writeLetter?: string;
   /**
    * 통과 시 읽어줄 소리 URL. 미지정이면 한글 `syllable` 을 `resolveTtsUrl(korean)` 로 읽는다.
    * 🔴 병음은 쓰는 글자('a')와 읽는 소리('ā' 원어민 녹음)가 달라 호출부가 URL 을 미리 준다.
@@ -23,6 +25,7 @@ interface VowelItem {
 
 interface Props {
   unitId: string;
+  ttsUnitId?: string;
   vowels: ReadonlyArray<VowelItem>;
   /**
    * **콘텐츠 소리**의 언어(warm·resolve 폴백). 기본 한글. 병음은 `'zh'` — 안 넘기면 korean 으로 데워
@@ -42,6 +45,7 @@ interface Props {
  */
 export function VowelWriteActivity({
   unitId,
+  ttsUnitId = unitId,
   vowels,
   language = 'korean',
   onComplete,
@@ -63,7 +67,7 @@ export function VowelWriteActivity({
   );
 
   usePhonicsTtsWarm(
-    unitId,
+    ttsUnitId,
     vowels.map((v) => v.syllable),
     'phonics-write',
     language
@@ -79,7 +83,7 @@ export function VowelWriteActivity({
         (await resolveTtsUrl({
           text: vowels[idx].syllable,
           language,
-          storybookId: unitId,
+          storybookId: ttsUnitId,
           identifierPrefix: 'phonics-write',
         }));
       const nextDone = new Set(doneSet);
@@ -109,7 +113,7 @@ export function VowelWriteActivity({
         onTtsEnded();
       }
     },
-    [currentIdx, vowels, doneSet, playAudio, playCorrectSequence, onComplete, unitId]
+    [currentIdx, vowels, doneSet, playAudio, playCorrectSequence, onComplete, ttsUnitId, language]
   );
 
   return (
@@ -135,7 +139,7 @@ export function VowelWriteActivity({
               ].join(' ')}
             >
               {done && <span className="text-base">✓</span>}
-              <span className="text-2xl sm:text-3xl">{v.syllable}</span>
+              <span className="text-2xl sm:text-3xl">{v.writeLetter ?? v.syllable}</span>
             </button>
           );
         })}
@@ -148,7 +152,7 @@ export function VowelWriteActivity({
         </h2>
         <LetterFillCanvas
           key={`${currentIdx}-${vowels[currentIdx].syllable}`}
-          letter={vowels[currentIdx].syllable}
+          letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck
         />

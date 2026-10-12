@@ -6,6 +6,7 @@ import {
   getRequiredActivities,
   randomReviewSyllable,
   shuffleReviewCards,
+  getKoreanUnit,
 } from './korean-phonics-units';
 
 /**
@@ -18,10 +19,40 @@ describe('korean phonics activity plans', () => {
   const lessons = units.filter((u) => !u.isReview);
   const reviews = units.filter((u) => u.isReview);
 
-  it('커리큘럼 32 단원이 모두 활동을 갖는다', () => {
-    expect(lessons).toHaveLength(32);
+  it('모음10개를 분리한 41 학습 단원이 모두 활동을 갖는다', () => {
+    expect(lessons).toHaveLength(41);
     const empty = units.filter((u) => getActivityPlan(u.id).activities.length === 0);
     expect(empty.map((u) => u.id)).toEqual([]);
+  });
+
+  it('Book 1은 모음 한 개씩 열 단원이며 묶음 복습/낱말/자음 조합을 넣지 않는다', () => {
+    const vowels = units.filter((u) => u.levelIndex === 1);
+    expect(vowels.map((u) => u.phonemes.join(''))).toEqual([
+      'ㅏ',
+      'ㅑ',
+      'ㅓ',
+      'ㅕ',
+      'ㅗ',
+      'ㅛ',
+      'ㅜ',
+      'ㅠ',
+      'ㅡ',
+      'ㅣ',
+    ]);
+    for (const u of vowels) {
+      expect(u.isReview).toBeUndefined();
+      expect(u.sourceUnitId).toBe('kr-h1-u01');
+      const acts = getActivityPlan(u.id).activities;
+      expect(acts.map((a) => a.kind)).toEqual(['vowel-listen', 'vowel-write']);
+      expect(acts[0].vowels).toHaveLength(1);
+      expect(acts[1].vowels![0].writeLetter).toBe(u.phonemes[0]);
+      expect(getRequiredActivities(u.id)).toEqual(['listen-1', 'write-1']);
+    }
+    expect([...new Set(units.map((u) => u.levelIndex))]).toEqual([1, 2, 3, 4, 5]);
+    expect(getKoreanUnit('kr-h1-u02')).toMatchObject({ levelIndex: 2, unitIndexInLevel: 1 });
+    expect(getKoreanUnit('kr-h2-u01')).toMatchObject({ levelIndex: 3 });
+    expect(getKoreanUnit('kr-h1-u01')).toBeDefined();
+    expect(units.some((u) => u.id === 'kr-h1-u01')).toBe(false);
   });
 
   /**
@@ -38,7 +69,7 @@ describe('korean phonics activity plans', () => {
   ];
 
   it('모든 학습 단원의 「낱말 놀이」가 같은 5장·같은 순서다', () => {
-    for (const u of lessons) {
+    for (const u of lessons.filter((unit) => unit.levelKey !== 'hangul-vowels')) {
       const acts = getActivityPlan(u.id).activities;
       expect(acts.filter((a) => a.section === 'play').map((a) => a.key)).toEqual(PLAY_ORDER);
       expect(acts.filter((a) => a.section === 'learn').length).toBeGreaterThan(0);
@@ -94,13 +125,13 @@ describe('korean phonics activity plans', () => {
 
   it('모든 학습 단원이 낱말 연습을 갖는다', () => {
     // 🔴 다른 활동은 누르면 소리가 나는 탐색형이라, 소리 변별을 확인하는 활동은 이것뿐이다.
-    for (const u of lessons) {
+    for (const u of lessons.filter((unit) => unit.levelKey !== 'hangul-vowels')) {
       expect(getActivityPlan(u.id).activities.map((a) => a.kind)).toContain('word-listen-choose');
     }
     // 🔴 모음 단원(kr-h1-u01)도 포함한다(2026-07-29). 커리큘럼 메타의 `targetWords` 는 비어 있지만
     //    **활동이 읽는 건 단원 storybook** 이고 거기엔 그림 있는 낱말 4개(아이·오이·우유·여우)가 있다.
     //    예전엔 커리큘럼만 보고 "모음 단원은 단어가 없다"고 빼 놨었다.
-    expect(units.find((u) => u.id === 'kr-h1-u01')!.targetWords.length).toBe(0);
+    expect(getKoreanUnit('kr-h1-u01')!.targetWords.length).toBe(0);
   });
 
   it('모음·자음 단원도 글자 사냥을 갖는다 — 목표는 그 단원이 가르치는 글자다', () => {
@@ -176,7 +207,7 @@ describe('korean phonics activity plans', () => {
     const coda = units.find((u) => u.id === 'kr-h2-u01')!;
     expect(coda.unitTitleKey).toBe('unit.codaLearn');
     expect(coda.unitTitleVars).toEqual({ letter: 'ㅇ' }); // '받침ㅇ' 아님
-    expect(units.find((u) => u.id === 'kr-h1-u01')!.unitTitleKey).toBe('unit.vowelsLearn');
+    expect(getKoreanUnit('kr-h1-u01')!.unitTitleKey).toBe('unit.vowelsLearn');
     expect(units.find((u) => u.id === 'kr-h1-u02')!.unitTitleVars).toEqual({ letter: 'ㄱ' });
   });
 

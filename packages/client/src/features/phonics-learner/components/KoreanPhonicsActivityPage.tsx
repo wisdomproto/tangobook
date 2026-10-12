@@ -85,7 +85,11 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     [plan, activityKey]
   );
 
-  const storybookQuery = useStorybook(unit?.isReview ? undefined : unitId);
+  const storybookQuery = useStorybook(
+    unit?.isReview || unit?.levelKey === 'hangul-vowels'
+      ? undefined
+      : (unit?.sourceUnitId ?? unitId)
+  );
   const storybook = storybookQuery.data as Storybook | undefined;
 
   // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
@@ -214,7 +218,9 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   if (activity.kind === 'vowel-listen' && activity.vowels) {
     return (
       <VowelListenActivity
+        key={`${unitId}:${activityKey}`}
         unitId={unitId}
+        ttsUnitId={unit.sourceUnitId}
         vowels={activity.vowels}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
@@ -242,7 +248,9 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   if (activity.kind === 'vowel-write' && activity.vowels) {
     return (
       <VowelWriteActivity
+        key={`${unitId}:${activityKey}`}
         unitId={unitId}
+        ttsUnitId={unit.sourceUnitId}
         vowels={activity.vowels}
         onComplete={handleComplete}
         onBack={backToUnit}
@@ -515,7 +523,8 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   // - 한글3 (쌍자음 까/뱀 등) → medium: 쌍자음 picker 필요 (ㄲㄸㅃㅆㅉ).
   // - 한글4 (복잡 모음 ㅐㅔㅒㅖㅘㅝ 등) → medium: 복잡 모음 picker 필요.
   // (다른 게임은 difficulty 사용 안 함 → 영향 없음)
-  const blockDifficulty: 'easy' | 'medium' | 'hard' = unit.levelIndex >= 2 ? 'medium' : 'easy';
+  const blockDifficulty: 'easy' | 'medium' | 'hard' =
+    unit.levelKey === 'hangul1' || unit.levelKey === 'hangul-vowels' ? 'easy' : 'medium';
   const commonProps = {
     storybookId: unitId,
     difficulty: blockDifficulty,

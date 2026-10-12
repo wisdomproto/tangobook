@@ -106,7 +106,7 @@ function introOf(
     };
   }
   const track = item.kind === 'hangul' ? 'korean' : 'english';
-  const u = flattenPhonicsUnits(track).find((x) => x.id === item.key);
+  const u = flattenPhonicsUnits(track, 'authoring').find((x) => x.id === item.key);
   const combos = u ? (u.syllables.length ? u.syllables : u.patterns) : [];
   return {
     intro: `${ACTIVITY_KIND_LABEL[item.kind]} 「${item.title}」(${item.group})입니다. 집에서 A4 로 뽑아 연필로 쓰고, 같은 단원을 온라인에서 소리와 함께 해볼 수 있어요.`,

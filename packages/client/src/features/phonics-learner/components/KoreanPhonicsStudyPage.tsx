@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { koreanLearningUnitId } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader, courseThemes } from '@/design-system';
@@ -86,7 +87,7 @@ export default function KoreanPhonicsStudyPage() {
       recent &&
       allUnits.some((u) => u.id === recent && getActivityPlan(u.id).activities.length > 0);
     const target =
-      (recentValid ? recent : null) ??
+      (recentValid ? koreanLearningUnitId(recent) : null) ??
       allUnits.find((u) => getActivityPlan(u.id).activities.length > 0)?.id;
     if (target) {
       return <Navigate to={`/library/phonics/korean/${target}`} replace />;
@@ -105,6 +106,9 @@ export default function KoreanPhonicsStudyPage() {
       </div>
     );
   }
+
+  if (unitId === 'kr-h1-u01')
+    return <Navigate to={`/library/phonics/korean/${koreanLearningUnitId(unitId)}`} replace />;
 
   // 레벨별 그룹 (사이드바)
   const byLevel = (() => {
