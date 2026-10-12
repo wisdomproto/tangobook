@@ -49,9 +49,10 @@ afterEach(() => {
 });
 
 describe('모음 하나씩 익히기', () => {
-  it('소리가 끝난 뒤 완료하며 보기 하나 퀴즈/정오답을 만들지 않는다', async () => {
+  it('같은 모음3개를 순서대로 듣고 마지막 소리 뒤 완료하며 퀴즈/정오답을 만들지 않는다', async () => {
     spies.holdSound = true;
     const complete = vi.fn();
+    const next = vi.fn();
     render(
       <VowelListenActivity
         unitId="kr-v1-u01"
@@ -59,9 +60,13 @@ describe('모음 하나씩 익히기', () => {
         vowels={[VOWELS[0]]}
         onMarkComplete={complete}
         onBack={vi.fn()}
+        onNext={next}
       />
     );
-    const card = screen.getByRole('button', { name: 'ㅏ' });
+    const cards = [1, 2, 3].map((n) => screen.getByRole('button', { name: `ㅏ ${n}번 카드` }));
+    const card = cards[0];
+    expect(cards[1]).toBeDisabled();
+    expect(cards[2]).toBeDisabled();
     fireEvent.click(card);
     await waitFor(() => expect(spies.soundEnded).toBeDefined());
     expect(complete).not.toHaveBeenCalled();
@@ -69,13 +74,24 @@ describe('모음 하나씩 익히기', () => {
       expect.objectContaining({ text: 'ㅏ', storybookId: 'kr-h1-u01' })
     );
     act(() => spies.soundEnded?.());
+    expect(complete).not.toHaveBeenCalled();
+    expect(cards[1]).toBeEnabled();
+    fireEvent.click(cards[1]);
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(2));
+    act(() => spies.soundEnded?.());
+    expect(complete).not.toHaveBeenCalled();
+    fireEvent.click(cards[2]);
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(3));
+    act(() => spies.soundEnded?.());
     expect(complete).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole('button', { name: /퀴즈/ })).toBeNull();
     expect(spies.log).not.toHaveBeenCalled();
     fireEvent.click(card);
-    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(4));
     act(() => spies.soundEnded?.());
     expect(complete).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByRole('button', { name: '써보기 →' }));
+    expect(next).toHaveBeenCalledTimes(1);
   });
   it('발음 로드 실패를 완료로 표시하지 않고 재시도할 수 있다', async () => {
     spies.tts.mockResolvedValueOnce(undefined);
@@ -88,10 +104,15 @@ describe('모음 하나씩 익히기', () => {
         onBack={vi.fn()}
       />
     );
-    fireEvent.click(screen.getByRole('button', { name: 'ㅏ' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 1번 카드' }));
     await screen.findByRole('status');
     expect(complete).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button', { name: 'ㅏ' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 1번 카드' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'ㅏ 2번 카드' })).toBeEnabled());
+    expect(complete).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 2번 카드' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'ㅏ 3번 카드' })).toBeEnabled());
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 3번 카드' }));
     await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
   });
 });

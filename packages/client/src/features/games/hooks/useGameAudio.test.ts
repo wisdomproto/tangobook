@@ -22,6 +22,15 @@ function end() {
 }
 
 describe('useGameAudio.playAudio', () => {
+  it('실패 처리 콜백이 있으면 재생 오류를 소리 완료로 알리지 않는다', () => {
+    const { result } = renderHook(() => useGameAudio());
+    const next = vi.fn(),
+      fail = vi.fn();
+    act(() => result.current.playAudio('https://x/missing.mp3', next, fail));
+    act(() => getSharedAudio().dispatchEvent(new Event('error')));
+    expect(fail).toHaveBeenCalledTimes(1);
+    expect(next).not.toHaveBeenCalled();
+  });
   it('소리가 끝나면 다음 링크를 부른다', async () => {
     const { result } = renderHook(() => useGameAudio());
     const next = vi.fn();

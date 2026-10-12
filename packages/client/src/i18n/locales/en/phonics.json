@@ -229,9 +229,12 @@
     "inOrder": "Tap them in order!",
     "readyForQuiz": "Well done! Shall we try the quiz now?",
     "pickSound": "🔊 Pick the sound you hear!",
-    "singlePrompt": "Tap the vowel and listen!",
+    "singlePrompt": "Tap each card and listen!",
     "singleDone": "Great! Listen again?",
-    "audioRetry": "The sound could not load. Tap again!"
+    "audioRetry": "The sound could not load. Tap again!",
+    "cardLabel": "{{letter}} card {{n}}",
+    "repeatProgress": "Vowel cards heard",
+    "writeNext": "Try writing →"
   },
   "vowelPicker": {
     "makePrompt": "Which vowel shall we use?",

@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-12 [파닉스 시각·소리 복구](../phonics/tasks/20261012-phonics-playful-ui.md): source=phonics GamePlayerLayout에 공통 SVG 풍경 연결, 독후게임 기존배경 보존. usePhonicsMap 연결실패 빈map을 캐시하지 않으며 한/영/중 재시도 회귀 추가. playAudio 선택 onError로 모음 재생실패를 완료로 처리하지 않되 기존 caller fallback 유지. 관련55검증·타입/빌드, 통합은 task 참조·미푸시.
+
 2026-10-12 [학습 애니메이션·효과음](../phonics/tasks/20261012-learning-game-effects.md): 지연 Phaser canvas 하나·14장면, 꽃/음표/하트/리본의 서로 다른 움직임과 MP3 4종. 호리/콘페티 반복 제외, 결과/점수/재시작·override/mute 보존. 157회귀·타입/빌드·대표 브라우저 검수, 30072b4b3 로컬 main 통합. 실기기 미검증·미푸시.
 
 2026-10-12 [학습 UI v2 후속 통일](../platform/tasks/20261012-platform-ui-v2-continuation.md): cream/white 공통 게임판·진행/결과/로딩, 한글/다국어 쓰기·쪽 순서 가로 배치·튜토리얼 카드 통일. 로컬 fixture로 쪽 순서 4/4 결과 유지→다시 하기 0/4 확인. 채점·교구·오디오 로직 보존; 실물·음성 검증과 구분. 미푸시·미배포.

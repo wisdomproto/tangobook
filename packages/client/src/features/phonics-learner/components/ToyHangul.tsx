@@ -99,10 +99,23 @@ function Art({ glyph }: { glyph: string }) {
 }
 
 /** 그림 익히기 전용. 쓰기 캔버스/마스크에는 적용하지 않는다. */
-export function ToyHangul({ text, className = '' }: { text: string; className?: string }) {
+export function ToyHangul({
+  text,
+  className = '',
+  decorative = false,
+}: {
+  text: string;
+  className?: string;
+  decorative?: boolean;
+}) {
   return (
-    <span className={`toy-hangul ${className}`} role="img" aria-label={text}>
-      <span className="sr-only">{text}</span>
+    <span
+      className={`toy-hangul ${className}`}
+      role={decorative ? undefined : 'img'}
+      aria-label={decorative ? undefined : text}
+      aria-hidden={decorative || undefined}
+    >
+      {!decorative && <span className="sr-only">{text}</span>}
       <span className="toy-hangul-art" aria-hidden="true">
         {Array.from(text).map((glyph, i) => (
           <span className="toy-hangul-cell" key={`${glyph}-${i}`}>

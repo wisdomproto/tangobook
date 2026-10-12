@@ -32,6 +32,7 @@ interface Props {
   /** 진척만 마킹 — 자동 back 없음. activity 가 다시하기 / 돌아가기 UI 직접 노출. */
   onMarkComplete: () => void;
   onBack: () => void;
+  onNext?: () => void;
 }
 
 /**
@@ -50,11 +51,13 @@ export function VowelListenActivity({
   language = 'korean',
   onMarkComplete,
   onBack,
+  onNext,
 }: Props) {
   const { t } = useTranslation('phonics');
   const single = vowels.length === 1;
   const singleMarked = useRef(false);
   const singleBusy = useRef(false);
+  const [singlePlaying, setSinglePlaying] = useState(false);
   const alive = useRef(true);
   const [audioFailed, setAudioFailed] = useState(false);
   useEffect(() => {
@@ -65,7 +68,7 @@ export function VowelListenActivity({
   }, []);
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 진입 안내 — 첫 단계 화면 문구 "순서대로 눌러봐!" 에 맞는 음성.
-  useEntryGuide(single ? ENTRY_GUIDE.listenExplore : ENTRY_GUIDE.orderListen, playAudio);
+  useEntryGuide(ENTRY_GUIDE.orderListen, playAudio);
   const logEvent = useLogEvent();
   /**
    * 🔴 모음 퀴즈 판정을 남긴다 — 복잡한 모음 레벨(한글4)은 자음×모음 표가 없어서
@@ -123,12 +126,24 @@ export function VowelListenActivity({
       });
       if (!alive.current) return;
       if (url)
-        playAudio(url, () => {
-          if (alive.current) onEnded?.();
-        });
+        playAudio(
+          url,
+          () => {
+            if (alive.current) onEnded?.();
+          },
+          single
+            ? () => {
+                if (!alive.current) return;
+                singleBusy.current = false;
+                setSinglePlaying(false);
+                setAudioFailed(true);
+              }
+            : undefined
+        );
       else if (!single) onEnded?.();
       else {
         singleBusy.current = false;
+        setSinglePlaying(false);
         setAudioFailed(true);
       }
     },
@@ -140,10 +155,18 @@ export function VowelListenActivity({
       // 모음 한 개를 익히는 탐색이다. 보기 하나짜리 퀴즈/정오답 이벤트를 만들지 않는다.
       if (single) {
         if (singleBusy.current) return;
+        if (!listenedAll && idx > nextIdx) return;
         singleBusy.current = true;
+        setSinglePlaying(true);
         setAudioFailed(false);
         void playVowel(vowels[0].sound ?? vowels[0].vowel, () => {
           singleBusy.current = false;
+          setSinglePlaying(false);
+          if (idx < nextIdx || listenedAll) return; // 이전 카드는 다시 듣기만.
+          if (idx < 2) {
+            setNextIdx(idx + 1);
+            return;
+          }
           setListenedAll(true);
           if (!singleMarked.current) {
             singleMarked.current = true;
@@ -290,28 +313,63 @@ export function VowelListenActivity({
   }, [single, isListenPhase, listenedAll, phase, starting, t]);
 
   return (
-    <ActivityShell onBack={onBack} scroll>
+    <ActivityShell
+      onBack={onBack}
+      scroll
+      headerRight={
+        single ? (
+          <span
+            className="vowel-repeat-progress"
+            role="progressbar"
+            aria-label={t('vowelListen.repeatProgress')}
+            aria-valuemin={0}
+            aria-valuemax={3}
+            aria-valuenow={listenedAll ? 3 : nextIdx}
+          >
+            {Array.from({ length: 3 }, (_, i) => (
+              <span key={i} data-done={listenedAll || i < nextIdx || undefined}>
+                {listenedAll || i < nextIdx ? '✓' : i + 1}
+              </span>
+            ))}
+          </span>
+        ) : undefined
+      }
+    >
       {/* 🔴 `gap-8` 고정 + `overflow-hidden` 이면 '모두 맞췄어!' 단계에서 버튼 줄이 늘면서 잘렸다. */}
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 lg:gap-8">
+      <div
+        className={
+          single
+            ? 'vowel-explore-stage'
+            : 'flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6 lg:gap-8'
+        }
+      >
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-ink-900 text-center">
           {promptText}
         </h2>
 
         {/* 🔴 grid 는 칸 수가 고정이라 모음이 6개보다 적은 단원(ㅜㅠㅡㅣ 4개)에서 왼쪽으로 쏠렸다.
             개수와 무관하게 가운데 오도록 flex + justify-center. */}
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-5xl px-2">
-          {vowels.map((v, i) => {
+        <div
+          className={
+            single
+              ? 'vowel-repeat-grid'
+              : 'flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-5xl px-2'
+          }
+        >
+          {(single ? Array.from({ length: 3 }, () => vowels[0]) : vowels).map((v, i) => {
             // 듣기 단계: 다음 모음까지 활성. 다 들은 뒤 (listenedAll) 에는 6개 모두 다시 들을 수 있게 활성.
             const isUnlockedListen = isListenPhase && (listenedAll || i <= nextIdx);
             const active = isListenPhase && i === nextIdx && !listenedAll;
-            const isClickable = (isListenPhase && isUnlockedListen) || phase === 'quiz';
+            const isClickable =
+              ((isListenPhase && isUnlockedListen) || phase === 'quiz') &&
+              !(single && singlePlaying);
             const isWrongTarget = phase === 'quiz' && wrongIdx === i;
             // 퀴즈에서 이미 맞춘 카드 = 민트. 마지막엔 6장이 다 민트가 되어 "다 맞췄다"가 보인다.
-            const isSolved = !isListenPhase && solved.has(i);
+            const isSolved = single ? listenedAll || i < nextIdx : !isListenPhase && solved.has(i);
             return (
               <button
                 data-learning-fx={isListenPhase ? 'listen' : 'tap'}
-                key={v.vowel}
+                key={`${v.vowel}-${i}`}
                 onClick={() =>
                   isListenPhase
                     ? handleListenTap(i)
@@ -320,24 +378,35 @@ export function VowelListenActivity({
                       : undefined
                 }
                 disabled={!isClickable}
-                className={[
-                  'relative rounded-3xl border-[6px] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
-                  single ? 'w-[min(280px,85vw)] aspect-square' : 'w-[28%] lg:w-36 aspect-[3/4]',
-                  isSolved
-                    ? 'bg-mint-100 border-mint-500'
-                    : active
-                      ? single
-                        ? 'bg-mint-50 border-mint-400'
-                        : 'bg-coral-100 border-coral-500 animate-pulse'
-                      : isUnlockedListen || phase === 'quiz'
-                        ? 'bg-white border-white hover:shadow-soft active:scale-[0.97]'
-                        : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
-                  isWrongTarget && phase === 'quiz' ? 'animate-shake' : '',
-                ].join(' ')}
-                aria-label={single ? v.vowel : v.syllable}
+                className={
+                  single
+                    ? 'vowel-repeat-card'
+                    : [
+                        'relative rounded-3xl border-[6px] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
+                        single
+                          ? 'w-[min(280px,85vw)] aspect-square'
+                          : 'w-[28%] lg:w-36 aspect-[3/4]',
+                        isSolved
+                          ? 'bg-mint-100 border-mint-500'
+                          : active
+                            ? single
+                              ? 'bg-mint-50 border-mint-400'
+                              : 'bg-coral-100 border-coral-500 animate-pulse'
+                            : isUnlockedListen || phase === 'quiz'
+                              ? 'bg-white border-white hover:shadow-soft active:scale-[0.97]'
+                              : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
+                        isWrongTarget && phase === 'quiz' ? 'animate-shake' : '',
+                      ].join(' ')
+                }
+                data-active={(single && active) || undefined}
+                data-done={(single && isSolved) || undefined}
+                data-playing={(single && active && singlePlaying) || undefined}
+                aria-label={
+                  single ? t('vowelListen.cardLabel', { letter: v.vowel, n: i + 1 }) : v.syllable
+                }
                 aria-pressed={isSolved || undefined}
               >
-                {isSolved && (
+                {!single && isSolved && (
                   <span
                     aria-hidden
                     className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-mint-500 text-lg font-black text-white shadow-soft"
@@ -346,11 +415,25 @@ export function VowelListenActivity({
                   </span>
                 )}
                 {/* 모음 — 빨강, 맞춘 뒤엔 민트 (음절 앞 묵음 ㅇ 은 표기 안 함) */}
+                {single && (
+                  <span className="vowel-repeat-number" aria-hidden="true">
+                    {isSolved ? '✓' : i + 1}
+                  </span>
+                )}
                 <div
-                  className={`text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`}
+                  className={
+                    single
+                      ? 'vowel-repeat-glyph'
+                      : `text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`
+                  }
                 >
                   <ToyHangul text={v.vowel} />
                 </div>
+                {single && (
+                  <span className="vowel-repeat-foot" aria-hidden="true">
+                    {isSolved ? '✓' : '♪'}
+                  </span>
+                )}
                 {!single && (
                   <div
                     className={`text-lg sm:text-xl font-black mt-3 ${isSolved ? 'text-mint-600' : 'text-ink-500'}`}
@@ -370,10 +453,10 @@ export function VowelListenActivity({
         )}
         {single && listenedAll && (
           <button
-            onClick={onBack}
+            onClick={onNext ?? onBack}
             className="min-h-12 rounded-full bg-coral-700 px-8 py-3 text-lg font-black text-white"
           >
-            {t('common.back')}
+            {t(onNext ? 'vowelListen.writeNext' : 'common.back')}
           </button>
         )}
         {!single && isListenPhase && listenedAll && (

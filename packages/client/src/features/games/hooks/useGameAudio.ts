@@ -52,7 +52,7 @@ export function useGameAudio() {
       .catch(() => {});
   }, []);
 
-  const playAudio = useCallback((url?: string, onEnded?: () => void) => {
+  const playAudio = useCallback((url?: string, onEnded?: () => void, onError?: () => void) => {
     if (!url) {
       onEnded?.();
       return;
@@ -63,13 +63,14 @@ export function useGameAudio() {
     const audio = getSharedAudio();
     const gen = genRef.current;
     let done = false;
-    const finish = () => {
+    const finish = (failed = false) => {
       if (done) return;
       done = true;
       if (currentFinish === finish) currentFinish = null;
       // 🔴 stopAll() 이후 취소된 재생이면 onEnded(체인의 다음 소리)를 부르지 않는다.
       if (gen !== genRef.current) return;
-      onEnded?.();
+      if (failed && onError) onError();
+      else onEnded?.();
     };
     // 끼어들기로 끝난 옛 재생의 체인을 닫아 준다 — 요소가 따로였을 땐 `src=''` 가 띄우는 'error'
     // 가 대신 해 줬다(안 닫으면 그 화면의 onEnded 를 기다리던 진행이 멈춘다). 새 재생이 먼저
@@ -80,10 +81,10 @@ export function useGameAudio() {
 
     audio.pause();
     // 🔴 addEventListener 가 아니라 **대입** — 재사용 요소라 리스너가 쌓이면 옛 체인이 같이 운다.
-    audio.onended = finish;
-    audio.onerror = finish;
+    audio.onended = () => finish();
+    audio.onerror = () => finish(true);
     audio.src = url;
-    audio.play().catch(finish);
+    audio.play().catch(() => finish(true));
   }, []);
 
   // 기존 WebAudio 톤 합성 제거 → useGameSound에 위임

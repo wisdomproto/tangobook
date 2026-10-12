@@ -229,9 +229,12 @@
     "inOrder": "순서대로 눌러봐!",
     "readyForQuiz": "잘했어! 이제 퀴즈를 풀어볼까?",
     "pickSound": "🔊 들리는 소리를 골라봐!",
-    "singlePrompt": "모음을 눌러 들어봐!",
+    "singlePrompt": "하나씩 눌러 들어봐!",
     "singleDone": "잘했어! 한 번 더 들어볼까?",
-    "audioRetry": "소리를 불러오지 못했어. 다시 눌러봐!"
+    "audioRetry": "소리를 불러오지 못했어. 다시 눌러봐!",
+    "cardLabel": "{{letter}} {{n}}번 카드",
+    "repeatProgress": "누른 모음",
+    "writeNext": "써보기 →"
   },
   "vowelPicker": {
     "makePrompt": "어떤 모음으로 만들까?",

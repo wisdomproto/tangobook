@@ -229,9 +229,12 @@
     "inOrder": "Bấm theo thứ tự nhé!",
     "readyForQuiz": "Giỏi lắm! Giờ mình thử đố vui nhé?",
     "pickSound": "🔊 Chọn âm bé vừa nghe nhé!",
-    "singlePrompt": "Chạm vào nguyên âm và nghe nhé!",
+    "singlePrompt": "Chạm từng thẻ và nghe nhé!",
     "singleDone": "Giỏi lắm! Nghe lại nhé?",
-    "audioRetry": "Không tải được âm thanh. Chạm lại nhé!"
+    "audioRetry": "Không tải được âm thanh. Chạm lại nhé!",
+    "cardLabel": "Thẻ {{letter}} số {{n}}",
+    "repeatProgress": "Thẻ nguyên âm đã nghe",
+    "writeNext": "Thử viết →"
   },
   "vowelPicker": {
     "makePrompt": "Mình ghép với nguyên âm nào nhỉ?",
