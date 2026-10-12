@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pipo-04",
+  "sourceSha256": "cf9f175c4d4e8cfdadfee5e23b8157c0e5947ccd95a1ab2f6eae040fa43d4e9f",
+  "titleEn": "A Foggy Morning",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "White fog covered the morning. Only the stone wall stretched from the hill to their yard."
+    },
+    {
+      "pageNumber": 2,
+      "text": "The sheep huddled on the hill. \"I will bring them home before the fog thickens.\" Pipo climbed up."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Grandpa Sheep appeared in the fog. \"The old path is best on a day like this. Follow me.\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "Grandpa led the way down. The sound of water underfoot grew closer."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Splash! Grandpa's foot went into the stream. \"Oh dear, was the stream here?\""
+    },
+    {
+      "pageNumber": 6,
+      "text": "White fog filled both sides. Grandpa turned around and around on the spot."
+    },
+    {
+      "pageNumber": 7,
+      "text": "\"I used to walk here with my eyes closed.\" Fog beaded on his beard."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Pipo put a hand on the stone wall. \"This wall goes all the way to our yard!\""
+    },
+    {
+      "pageNumber": 9,
+      "text": "Touching the wall, he walked one step at a time. The sheep followed it in a line."
+    },
+    {
+      "pageNumber": 10,
+      "text": "Their yard emerged from the fog. Mom waved at the door. Grandpa followed, tapping the wall. Drops fell from the end of his beard."
+    }
+  ]
+}

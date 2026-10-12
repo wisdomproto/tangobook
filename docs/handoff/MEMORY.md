@@ -14,6 +14,8 @@
 
 2026-10-12 [플랫폼 메인 문서](../work/strategy/tasks/20261012-platform-main-document.md): [PLATFORM.md](../PLATFORM.md)가 현재 합의된 플랫폼 구조·사업 방향의 기준. 사용자 승인 소개서1차 버전을 정리하고 AGENTS.md·CLAUDE.md에 연결. STRATEGY.md는 과거 결정/조사 이력, 구현 상태는 기능별 코드·task에서 확인. 로컬 커밋.
 
+2026-10-12 [창작동화 한영 나레이션 등록 완료·main 통합](../work/content/tasks/20261012-changjak-narration-registration.md): 사용자 요청으로850권17,000개 Qwen MP3 R2 업로드·한영TTS/검토영어 번역 운영 연결 완료. CDN 해시 및 운영850권 전수 GET 검증 통과,기존 삽화·게임·공개 상태 보존,Editor2 한영음원 확인. 청취후보4,054는 남는다. 후속 main push 승인에 따라 최신 origin/main 기준으로 번역850권·TTS 도구·기록을 통합해 일반 push로 전달한다. 다른 기능/삽화 작업 브랜치는 합치지 않는다.
+
 2026-10-11 [소개서 로딩 최적화](../work/strategy/tasks/20261011-introduction-loading.md): HTML55.7MB→290KB, 이미지/폰트를 business-plan-assets(5.6MB)로 분리·압축. HTML만 복사하면 그림이 누락되므로 폴더 함께 배포. PDF는 기존 전달물 사용. 검증 통과, fb73dfe87 main 푸시·Railway 배포 완료. 운영 HTML289KB 및22장 자산/인쇄 검사 통과.
 
 2026-10-11 [소개서 1차 버전 확정·PDF](../work/strategy/tasks/20261010-unified-business-plan.md): 최종 22장 사용자 승인·eedc4c1ca main 푸시 완료(운영 배포 미확인). 전체 보기/매출/모바일 mock 검증 통과. 가로형 22장 PDF 생성·전체 검수, output/pdf/TangoBook-Introduction-v1-20261011.pdf(약7.4MB). 이전 항목의 23/24장 표기는 당시 이력이며 현재는22장.

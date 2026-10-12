@@ -1,5 +1,10 @@
 # 동화·만화 콘텐츠 제작 작업 기록
 
+- [창작동화 한영 나레이션 등록](20261012-changjak-narration-registration.md) — 850권/17,000개 운영 등록 및 검증 완료,사용자 main push 승인으로 번역·TTS 도구 통합.
+- [창작동화01~19 Voicebox TTS](20261004-changjak-01-19-voicebox-tts.md) — 생성·CPU 검사 완료,청취 후보4,054 별도.
+- [창작동화11~19 영어 번역](20261004-changjak-11-19-english.md) — 후속350권 영어 원문 검토 완료.
+- [창작동화01~10 영어 번역·TTS](20261004-changjak-01-10-voicebox-tts.md) — 500권 영어 원고 검토 완료,01~19 통합 작업으로 확장.
+
 새 작업은 [템플릿](../../TASK-TEMPLATE.md)을 날짜와 작업명이 있는 파일로 복사한다. README는 작업 자체가 아니다.
 
 - [창작동화 제작 재개](20260921-changjak-resume.md) — paused. 현황 확인 완료, 삽화 연결 누락 대조가 다음 단계.

@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-coco-10",
+  "sourceSha256": "3245efd391d673ceaa11b9a9b408a9464c10fcea96774585a45337b3d611340a",
+  "titleEn": "The Sparkling Display",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "The morning bread was all baked. The display shelf was still empty."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Today Coco would fill the shelf. Round bread below, long bread above."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Mrs. Magpie looked through the window. \"The shiny ones belong in front!\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "She put all the sugared bread in the front row. Sparkle, sparkle."
+    },
+    {
+      "pageNumber": 5,
+      "text": "Then she put buttered bread in front of that. Shine, shine."
+    },
+    {
+      "pageNumber": 6,
+      "text": "The display became a jumble. Long bread lay on round bread, with more bread on top."
+    },
+    {
+      "pageNumber": 7,
+      "text": "Jingle! The door opened, then closed again. A customer shook their head and left."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Coco started all over. Round bread with round bread, long bread with long bread."
+    },
+    {
+      "pageNumber": 9,
+      "text": "Jingle! The door opened again. \"Wow! It's easy to choose!\""
+    },
+    {
+      "pageNumber": 10,
+      "text": "The customer chose one round loaf. Mrs. Magpie couldn't take her eyes off the sugared bread. Sparkle, sparkle."
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-dodo-05",
+  "sourceSha256": "fa0a65174405ff3d51a1d14193c9bfcf9be62a7889aa2af8eada2a6531ffd9d2",
+  "titleEn": "Hello, Fish",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "It was midday. The stream was clear as glass. Silver fish sparkled below."
+    },
+    {
+      "pageNumber": 2,
+      "text": "\"I want to see the fish up close.\" Mumu lay on his tummy by the water."
+    },
+    {
+      "pageNumber": 3,
+      "text": "Dodo splashed in. \"Splashing calls the fish. I know! Like this!\""
+    },
+    {
+      "pageNumber": 4,
+      "text": "She splashed and splashed. Water droplets scattered."
+    },
+    {
+      "pageNumber": 5,
+      "text": "The fish hid away. The stream looked empty."
+    },
+    {
+      "pageNumber": 6,
+      "text": "\"They've gone to change clothes before saying hello. They'll be back soon, right?\" Dodo looked around."
+    },
+    {
+      "pageNumber": 7,
+      "text": "They waited, but no fish appeared. Only water plants swayed."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Mumu slipped gently into the water and floated still, drifting like a cloud."
+    },
+    {
+      "pageNumber": 9,
+      "text": "Nibble, nibble. Fish tickled Mumu's toes. \"Hee hee! Tickly!\""
+    },
+    {
+      "pageNumber": 10,
+      "text": "Dodo floated quietly beside him too. The fish nibbled both their toes. Nibble, nibble! Even when they burst into giggles, the fish stayed."
+    }
+  ]
+}

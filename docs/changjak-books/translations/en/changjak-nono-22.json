@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-nono-22",
+  "sourceSha256": "08c0f60e797c5db5cede210767f00f80936f23ed4e519e7cfeb4f026a627caa1",
+  "titleEn": "It Has Gone Cold",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "Grandpa Badger made soup. He gave Nono a little covered container."
+    },
+    {
+      "pageNumber": 2,
+      "text": "Nono wanted to eat it warm at home. He had to cross the whole alley."
+    },
+    {
+      "pageNumber": 3,
+      "text": "It was too heavy to fly with. He waddled along."
+    },
+    {
+      "pageNumber": 4,
+      "text": "Cat paw prints crossed the middle of the alley. Nono set the container in the snow."
+    },
+    {
+      "pageNumber": 5,
+      "text": "He followed the prints one by one. The container stayed behind."
+    },
+    {
+      "pageNumber": 6,
+      "text": "When he returned and opened the lid, there was no steam."
+    },
+    {
+      "pageNumber": 7,
+      "text": "The soup was cold. Nono trudged back to the shop."
+    },
+    {
+      "pageNumber": 8,
+      "text": "Grandpa gave him a steaming container and pointed to Nono's feet."
+    },
+    {
+      "pageNumber": 9,
+      "text": "Nono gripped the handle with both hands and walked home without putting it down."
+    },
+    {
+      "pageNumber": 10,
+      "text": "At home, steam still rose from the soup. He blew on it and ate."
+    }
+  ]
+}

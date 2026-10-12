@@ -1,0 +1,50 @@
+{
+  "bookId": "changjak-pongi-12",
+  "sourceSha256": "dc4670b7eb7d2a151a353b1dadc35f4cdcbbe6dbddc2a79b0052c3d0eaffbb85",
+  "titleEn": "A Night of Counting Stars",
+  "language": "en",
+  "reviewed": true,
+  "translator": "Codex direct source comparison",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "text": "The canal looked black at night. Lots of stars seemed to float on the water."
+    },
+    {
+      "pageNumber": 2,
+      "text": "\"I want to count them all.\" Pongi looked up at the sky."
+    },
+    {
+      "pageNumber": 3,
+      "text": "One, two, three... Pongi kept losing count."
+    },
+    {
+      "pageNumber": 4,
+      "text": "Dad brought a telescope. \"You can see them clearly with this.\""
+    },
+    {
+      "pageNumber": 5,
+      "text": "Dad held the telescope to his eye. \"Huh? Why are they so far away?\""
+    },
+    {
+      "pageNumber": 6,
+      "text": "Dad was holding the telescope the wrong way around. Pongi turned it around for him."
+    },
+    {
+      "pageNumber": 7,
+      "text": "\"Now I can see them clearly. Five!\""
+    },
+    {
+      "pageNumber": 8,
+      "text": "A little later, Dad said, \"No, ten.\""
+    },
+    {
+      "pageNumber": 9,
+      "text": "A little later still, he said, \"There must be a hundred!\""
+    },
+    {
+      "pageNumber": 10,
+      "text": "Pongi looked into the water. There were lots of stars there too. \"Dad, we have to count those too.\""
+    }
+  ]
+}
