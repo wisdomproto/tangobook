@@ -1,0 +1,1017 @@
+{
+  "task": "20261012-missing-page-illustrations",
+  "completedAt": "2026-10-12T04:22:30.827Z",
+  "books": 10,
+  "images": 34,
+  "originalMissingPages": 21,
+  "replacedExistingPages": 13,
+  "format": "1280x720 WebP",
+  "backup": "D:/tangobook-illustrations/20261012/missing-pages-20261012",
+  "policy": "Exact saved art-style prompt; actual character/page references; NO TEXT. Body book replaced in full with user approval.",
+  "imageGenerator": "native ChatGPT subscription image_gen tool (GPT image skill); no image API key or Qwen fallback",
+  "visualReview": "34/34 passed; CDN upload re-encodes, source and CDN hashes recorded separately.",
+  "imagesDetail": [
+    {
+      "id": "1773618909980-real-p01",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 1,
+      "replace": true,
+      "file": "1773618909980/real-p01.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 89216,
+      "sha256": "b5da20b5d17ecbe55d7eacc857b505b28394b874773fd74e0c4a37112ac30e84",
+      "sourceSha256": "5f6d4bd080a661e769ca61a9167f835a8d95b11af950bed97f1aa18fc3bf88a9",
+      "prompt": "Create a landscape 16:9 illustration for the children's nonfiction book 'Bones and Muscles'. *** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) *** Photographic realistic illustration *** END ART STYLE ***. A natural, high quality educational photograph, not watercolor, cartoon, anime, felt, collage, 3D toy or painted art. A friendly Korean boy about 4 years old, short slightly tousled dark brown hair, dark brown eyes, naturally proportioned, wearing a bright plain yellow T-shirt, blue shorts and simple white sneakers, stands confidently upright in a sunlit clean home learning room. Next to him is a clean white small anatomical skeleton teaching model on a discreet stand, roughly his height, with anatomically credible skull, ribs, spine, pelvis and limbs. His arms rest naturally at his sides. Show how bones support the body, using the external model rather than exposing or cutting his body. Gentle daylight, realistic skin, fabric and room details, calm uncluttered composition. The child stays fully clothed. CRITICAL - NO TEXT: No letters, numbers, labels, captions, speech bubbles or writing anywhere in the image.",
+      "promptRecord": "native generation prompt",
+      "references": [],
+      "review": {
+        "status": "pass",
+        "sha256": "b5da20b5d17ecbe55d7eacc857b505b28394b874773fd74e0c4a37112ac30e84",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page1-1791778892754.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page1-1791778892754.webp",
+        "sourceSha256": "b5da20b5d17ecbe55d7eacc857b505b28394b874773fd74e0c4a37112ac30e84",
+        "cdnSha256": "47c0fba12bdfe7548120257fb2b97085ba892360e85a4b503950e248e08f4ded",
+        "bytes": 84272
+      }
+    },
+    {
+      "id": "1773618909980-real-p02",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 2,
+      "replace": true,
+      "file": "1773618909980/real-p02.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 84964,
+      "sha256": "337c2a0ebd46eb1656e19f78a92ffc9d3120a467e44ab5013db7acacde970f0c",
+      "sourceSha256": "419648ee041dee0b398a6ba42331ef21166b81d95466b5aeefd5a316280cf55f",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 머리에는 바가지 모양의 단단한 해골이 있어요. 이 뼈는 우리 몸에서 가장 중요한 뇌를 안전하게 지켜줘요.\nScene: The same fully clothed boy sits at a low table and looks with curiosity at a clean white plastic skull teaching model with its top lifted. A pale pink brain teaching model fits safely inside it. Parent hand points gently to the protective skull. Natural close educational photograph, no skull imposed on his face, no injury.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "337c2a0ebd46eb1656e19f78a92ffc9d3120a467e44ab5013db7acacde970f0c",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page2-1791778894286.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page2-1791778894286.webp",
+        "sourceSha256": "337c2a0ebd46eb1656e19f78a92ffc9d3120a467e44ab5013db7acacde970f0c",
+        "cdnSha256": "b59c468f2f9650bf1455b0e40be832cd9fb661af42be91442ee125cd9bde7035",
+        "bytes": 80398
+      }
+    },
+    {
+      "id": "1773618909980-real-p03",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 3,
+      "replace": true,
+      "file": "1773618909980/real-p03.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 97676,
+      "sha256": "69a54a2b11e06a10a689c2e1ee7c1797583441d3721827be1e4e681b898ea710",
+      "sourceSha256": "e48efc28edbf1e5f7d471c34bed8dde786ef97dfa5042cfaf3c08868e0c01923",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 가슴에는 울타리 같은 갈비뼈가 있어요. 이 뼈들은 숨을 쉬는 허파와 콩닥콩닥 뛰는 심장을 보호한답니다.\nScene: The same fully clothed boy examines a physical clean anatomical chest teaching model on a table. White rib bones surround a simple red heart and pale pink lungs; the ribcage visibly protects them. Carefully arranged tangible classroom models, realistic daylight photograph, no exposed anatomy of a person.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "69a54a2b11e06a10a689c2e1ee7c1797583441d3721827be1e4e681b898ea710",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page3-1791778895390.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page3-1791778895390.webp",
+        "sourceSha256": "69a54a2b11e06a10a689c2e1ee7c1797583441d3721827be1e4e681b898ea710",
+        "cdnSha256": "a43b339453b23777d211a0a64a9ccdfd1497075deec59e392b3109ccb7c38bd4",
+        "bytes": 92566
+      }
+    },
+    {
+      "id": "1773618909980-real-p04",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 4,
+      "replace": true,
+      "file": "1773618909980/real-p04.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 159332,
+      "sha256": "f969ad6c15bb5a2a62fdcc8520fb0ce0c18521b45744d9abbcace951d088b7f1",
+      "sourceSha256": "0b5c8fdfa00a8e5c4c727b7741800c5fd89928a59e3319f6c93895060fe6be7e",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 뼈와 뼈가 만나는 부분은 '관절'이라고 해요. 관절 덕분에 우리는 팔꿈치를 굽히거나 무릎을 구부릴 수 있어요.\nScene: The same boy in yellow T-shirt and blue shorts crouches slightly, bends one knee and his elbow naturally while playing on a soft lawn. Both bendable joints clearly visible, natural smile, all limbs anatomically correct. Real photograph with no arrows or diagrams.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "f969ad6c15bb5a2a62fdcc8520fb0ce0c18521b45744d9abbcace951d088b7f1",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page4-1791778896402.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page4-1791778896402.webp",
+        "sourceSha256": "f969ad6c15bb5a2a62fdcc8520fb0ce0c18521b45744d9abbcace951d088b7f1",
+        "cdnSha256": "135fb747ca1dc656aab12e4eb7b94737c3e4aae318f1d52b10c8208189b17f30",
+        "bytes": 154704
+      }
+    },
+    {
+      "id": "1773618909980-real-p05",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 5,
+      "replace": true,
+      "file": "1773618909980/real-p05.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 85530,
+      "sha256": "c95cb202da8f0c879cee69a1704f43f3e4ac35d625ee2293d62ce271d20343e4",
+      "sourceSha256": "38921f73e03be90f8852fef7ef97bd38e516c36336b7502163dd02878149f327",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 뼈 위에는 쫄깃쫄깃한 근육이 덮여있어요. 근육은 고무줄처럼 늘어났다 줄어들며 우리 몸을 움직이게 해요.\nScene: The same boy bends his clothed arm while a parent at a learning table shows a physical simplified elbow/bone teaching model with two clean red elastic straps representing the muscles pulling the elbow. Focus on bending and stretching, realistic materials and natural photography, no flesh or wounds.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "c95cb202da8f0c879cee69a1704f43f3e4ac35d625ee2293d62ce271d20343e4",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page5-1791778897893.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page5-1791778897893.webp",
+        "sourceSha256": "c95cb202da8f0c879cee69a1704f43f3e4ac35d625ee2293d62ce271d20343e4",
+        "cdnSha256": "77ae196fa60a75ebf0bdad1d71079c65f9ff74aaa649f5cb15e097205bc67f5d",
+        "bytes": 79692
+      }
+    },
+    {
+      "id": "1773618909980-real-p06",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 6,
+      "replace": true,
+      "file": "1773618909980/real-p06.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 145416,
+      "sha256": "8e2d9e3ac162f0631b9c6c3e57ef695e5b18fc11727d15e2e7a2ff907417438c",
+      "sourceSha256": "04ad7fbe70fc00ccb48a9114698f28f5159f14937f0b8492e369147cb87418b0",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 우리가 달리고, 뛰고, 던질 수 있는 건 근육이 뼈를 힘차게 당겨주기 때문이에요. 정말 힘이 세죠?\nScene: The same boy in yellow and blue energetically jumps a small distance on grass after tossing a soft blue ball. One moment of active movement, both arms and legs naturally positioned, visible ball and open park, cheerful natural photograph.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "8e2d9e3ac162f0631b9c6c3e57ef695e5b18fc11727d15e2e7a2ff907417438c",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page6-1791778898815.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page6-1791778898815.webp",
+        "sourceSha256": "8e2d9e3ac162f0631b9c6c3e57ef695e5b18fc11727d15e2e7a2ff907417438c",
+        "cdnSha256": "dfb79ad2a261b0005bd0402f0b674e482ddf37867cb97d1f6ee8455373574705",
+        "bytes": 141740
+      }
+    },
+    {
+      "id": "1773618909980-real-p07",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 7,
+      "replace": true,
+      "file": "1773618909980/real-p07.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 81604,
+      "sha256": "e65a1174d87ad380e11a7b3ad71bdef6d90a8c2059c3b47b4a6a7f7170f07f52",
+      "sourceSha256": "46e123fef211a811098ac60362dc178d7e5edbc6730549201134b5d81b396864",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 얼굴에도 많은 근육이 있어요. 이 근육들이 움직여서 웃기도 하고, 울기도 하는 다양한 표정을 만들어요.\nScene: A clean photographic triptych of three close portraits of the same boy: a happy laugh, a surprised expression, and a small sad pout. Exactly three portraits with the same hair, yellow shirt and face, each expression natural and readable, no text or icons.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "e65a1174d87ad380e11a7b3ad71bdef6d90a8c2059c3b47b4a6a7f7170f07f52",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page7-1791778900554.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page7-1791778900554.webp",
+        "sourceSha256": "e65a1174d87ad380e11a7b3ad71bdef6d90a8c2059c3b47b4a6a7f7170f07f52",
+        "cdnSha256": "65ee4ef5a5270e52b9edfae2fdd6a5d89ec4b4e0e9541bfe422f4c25e2b412f3",
+        "bytes": 77328
+      }
+    },
+    {
+      "id": "1773618909980-real-p08",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 8,
+      "replace": true,
+      "file": "1773618909980/real-p08.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 61656,
+      "sha256": "b1b475e27e9a727ba6f23a18732438c92342d578c4034c904954eb265b2dc895",
+      "sourceSha256": "a12286c95f8fe06a0a19c76d2daf7ab6feb30da3f8c84865ad861dcf1db3ddae",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 우리가 잠잘 때도 쉬지 않는 근육이 있어요. 바로 심장이에요! 심장 근육은 온몸으로 피를 보내주기 위해 매일 일해요.\nScene: The same boy sleeping peacefully on his side under a cream blanket in the same bedroom at night, yellow pajama top visible above blanket. Beside the bed sits a small realistic red anatomical heart teaching model in soft focus, linking the picture to the heart working during sleep. Gentle bedside light and moonlight, no scary anatomy.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "b1b475e27e9a727ba6f23a18732438c92342d578c4034c904954eb265b2dc895",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page8-1791778901674.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page8-1791778901674.webp",
+        "sourceSha256": "b1b475e27e9a727ba6f23a18732438c92342d578c4034c904954eb265b2dc895",
+        "cdnSha256": "606d7e8b17781bc1befcc39509456bb7ae95fc934ee6abc523e7b902368dbdec",
+        "bytes": 57584
+      }
+    },
+    {
+      "id": "1773618909980-real-p09",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 9,
+      "replace": true,
+      "file": "1773618909980/real-p09.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 111482,
+      "sha256": "cbe9633fb4306ccabc95dc11db94fce10ed2770dca1689d18d39a0b17b06082b",
+      "sourceSha256": "2246c79ac9a9ba703931721b8955f32a5d0d517eba0f045de1dba8063abd01b3",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 어린아이의 뼈는 어른보다 개수가 더 많아요. 자라면서 작은 뼈들이 서로 합쳐져서 더 크고 튼튼한 뼈가 된답니다.\nScene: A Korean parent and the same boy stand next to a toddler safely seated in a high chair, all fully clothed. Beside them on a low table are two clean bone teaching models, a small infant skeleton and a larger adult skeleton, naturally photographed. Warm intergenerational growth illustration, no exposed human bodies.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "cbe9633fb4306ccabc95dc11db94fce10ed2770dca1689d18d39a0b17b06082b",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page9-1791778903025.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page9-1791778903025.webp",
+        "sourceSha256": "cbe9633fb4306ccabc95dc11db94fce10ed2770dca1689d18d39a0b17b06082b",
+        "cdnSha256": "4441ec66c4fd0841f9e469d809274cb5f70c4bc6d4f2b43c34bb9acba69f6a90",
+        "bytes": 106230
+      }
+    },
+    {
+      "id": "1773618909980-real-p10",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 10,
+      "replace": true,
+      "file": "1773618909980/real-p10.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 151486,
+      "sha256": "321095a42b16407730cc84142771c213b86162ae705f669be3a0e45806f855fb",
+      "sourceSha256": "f01e7ecd49ffe41ad43ab117e97472a159f1defed295350af4378d7f8d92cd69",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 뼈가 쑥쑥 자라려면 맛있는 음식을 골고루 먹고 뛰어놀아야 해요. 그럼 키도 커지고 몸도 튼튼해지죠!\nScene: The same boy in yellow shirt and blue shorts at a sunny garden picnic table eats a balanced meal with vegetables, egg, beans, fruit and a glass of milk. A football lies beside the table and open grass beyond suggests active play. Natural photo, uncluttered and appetizing, no printed packaging.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "321095a42b16407730cc84142771c213b86162ae705f669be3a0e45806f855fb",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page10-1791778904206.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page10-1791778904206.webp",
+        "sourceSha256": "321095a42b16407730cc84142771c213b86162ae705f669be3a0e45806f855fb",
+        "cdnSha256": "421b5ee27adb180fb0743faeefe1fca61df44fa9e04e3d4993168ee0548a21a9",
+        "bytes": 147718
+      }
+    },
+    {
+      "id": "1773618909980-real-p11",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 11,
+      "replace": true,
+      "file": "1773618909980/real-p11.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 109188,
+      "sha256": "65d13a38f73e6cdabedce90b2fa867948fc557ef9757e851b4e3ce61efd1ad07",
+      "sourceSha256": "aac60f8ec2db7a4a4103d4afab0c65b97961b07565cf72c14b6ae70ff264d557",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 이렇게 멋진 몸은 어떻게 시작되었을까요? 아주 작은 '아기 씨앗'이 엄마의 배 속에서 자라나기 시작했어요.\nScene: A fully clothed Korean expectant mother with brown hair gently looks at a small plain grayscale early-pregnancy ultrasound print beside a window. A close inset of the tiny early developing embryo within a softly lit ultrasound scan links her pregnancy to the beginning of life. Photographic documentary style; no cartoon seed character, no medical text or letters on the scan.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "65d13a38f73e6cdabedce90b2fa867948fc557ef9757e851b4e3ce61efd1ad07",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page11-1791778905225.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page11-1791778905225.webp",
+        "sourceSha256": "65d13a38f73e6cdabedce90b2fa867948fc557ef9757e851b4e3ce61efd1ad07",
+        "cdnSha256": "570338cbe2f25ec3170e615116cf797f10fe05a913cc67d1c5e8ed0370ddd346",
+        "bytes": 102500
+      }
+    },
+    {
+      "id": "1773618909980-real-p12",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 12,
+      "replace": true,
+      "file": "1773618909980/real-p12.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 120080,
+      "sha256": "cfb2bae9cea3af5015c5debc16c49eb22b563fc18538a05478d51d48ad3e5f03",
+      "sourceSha256": "c13974e528b0a91271d6868d88c778778670a051119eefa5ce946a5bab19dde7",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 엄마 배 속은 아기에게 세상에서 가장 안전하고 따뜻한 집이에요. 이곳에서 아기는 뼈와 근육을 만들며 자라나요.\nScene: A fully clothed Korean pregnant mother resting comfortably in a bright home, hands protectively on her belly. A clear borderless grayscale ultrasound-style inset shows a developing baby curled safely within a dark protected space. Non-graphic educational pregnancy photograph, no cut-open body, no painted fantasy flowers or cartoon baby.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "cfb2bae9cea3af5015c5debc16c49eb22b563fc18538a05478d51d48ad3e5f03",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page12-1791778906305.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page12-1791778906305.webp",
+        "sourceSha256": "cfb2bae9cea3af5015c5debc16c49eb22b563fc18538a05478d51d48ad3e5f03",
+        "cdnSha256": "9d7b0ff08671960a2c98026b87f77f577a7fb67aae008ff497e77e904922f851",
+        "bytes": 115184
+      }
+    },
+    {
+      "id": "1773618909980-real-p13",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 13,
+      "replace": true,
+      "file": "1773618909980/real-p13.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 91534,
+      "sha256": "ae336371f102004992d2cdcb3f81262a806ee35e8ab00da7c9fa20aaa4b4936e",
+      "sourceSha256": "1f6c62d486b9d70044db18b30798c5ca02d3d58c4989ad0f325c71efe4a5870c",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 아기는 엄마와 연결된 '탯줄'을 통해 맛있는 영양분과 숨 쉴 공기를 전달받아요.\nScene: A photographic close view of a clean physical medical teaching model showing a simplified uterus as a smooth neutral enclosure, a curled developing baby figure inside with the lower body completely obscured by its pose, and an unmistakable single umbilical cord connecting the abdominal navel to a flat placenta on the inner wall. No genital details, no nudity focus, no blood, no surgery, no birth procedure. Place model on a clean teaching table in natural daylight, surrounding room softly blurred. Clinical educational object photography, not a whimsical illustration. No lettering or labels.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "ae336371f102004992d2cdcb3f81262a806ee35e8ab00da7c9fa20aaa4b4936e",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page13-1791778907407.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page13-1791778907407.webp",
+        "sourceSha256": "ae336371f102004992d2cdcb3f81262a806ee35e8ab00da7c9fa20aaa4b4936e",
+        "cdnSha256": "151832afc13afcfd8ba0204d9e470a3bf36c329d8841d3de9789802ae48dba74",
+        "bytes": 85516
+      }
+    },
+    {
+      "id": "1773618909980-real-p14",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 14,
+      "replace": true,
+      "file": "1773618909980/real-p14.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 121582,
+      "sha256": "3e0ae1ebf3e535604d008ec733b1f6a1532b398f775049c732be982a0f77c0a5",
+      "sourceSha256": "29f22e99e722a8e97e574aa8a46f11a3d19bc85ffd2e4a44eb179e7844f645ee",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 열 달 동안 쑥쑥 자란 아기는 드디어 세상 밖으로 나올 준비를 마쳐요. 심장도 튼튼, 뼈도 튼튼해졌죠!\nScene: A fully clothed Korean expectant mother close to her due date sits with her supportive partner in a bright calm home, hands on her rounded belly and a folded cream baby blanket beside them. A small unobtrusive grayscale ultrasound inset shows a developed baby curled peacefully. Warm natural photograph of readiness for birth, no childbirth procedure or exposed bodies.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "3e0ae1ebf3e535604d008ec733b1f6a1532b398f775049c732be982a0f77c0a5",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page14-1791778908520.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page14-1791778908520.webp",
+        "sourceSha256": "3e0ae1ebf3e535604d008ec733b1f6a1532b398f775049c732be982a0f77c0a5",
+        "cdnSha256": "722b6d4281edd59a71902e673bf71550a5301943949fc81289102917096321ca",
+        "bytes": 112828
+      }
+    },
+    {
+      "id": "1773618909980-real-p15",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 15,
+      "replace": true,
+      "file": "1773618909980/real-p15.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 99794,
+      "sha256": "71a06a45328cec0299bce5678cb95e547437cd8a97b5f5bf6d211d42a82ea6b2",
+      "sourceSha256": "a813d03a721ca04826ec914e57dcc7921a1b4bcaeb68d8cefdbe5185aab914db",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): \"응애!\" 힘찬 울음소리와 함께 아기가 태어났어요. 세상에 단 하나뿐인 소중한 생명이 탄생한 순간이에요.\nScene: The Korean parents welcome their newborn in a calm sunlit room, mother holding the infant fully swaddled in a cream blanket. Only tiny face and hair show, mouth open in a first cry, father leans close with a loving smile. Realistic human skin and fabric, documentary family photography, no birth procedure or medical equipment.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "71a06a45328cec0299bce5678cb95e547437cd8a97b5f5bf6d211d42a82ea6b2",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page15-1791778909543.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page15-1791778909543.webp",
+        "sourceSha256": "71a06a45328cec0299bce5678cb95e547437cd8a97b5f5bf6d211d42a82ea6b2",
+        "cdnSha256": "62094bd97e720fbc7d3821b4ea4111ca325f4bd30337244308a56168ddc872d6",
+        "bytes": 93478
+      }
+    },
+    {
+      "id": "1773618909980-real-p16",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 16,
+      "replace": true,
+      "file": "1773618909980/real-p16.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 99778,
+      "sha256": "a2fbd0119cf7ec2b4179a1ffab69749164b5f37cbb2d7fbb9e3becdaec4ee59c",
+      "sourceSha256": "b118f462493630b1a31990898b9638c361949e61e19a2889a38c05cbc3216314",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 아기는 자라면서 스스로 고개를 들고, 앉고, 마침내 튼튼한 다리 근육으로 첫걸음을 떼게 돼요.\nScene: A photographic three-stage horizontal montage of the SAME growing Korean baby in a soft mint romper: lying on tummy lifting the head, sitting independently, and taking a first step towards mothers waiting hands. Same warm home and soft rug, realistic proportions, all babies fully clothed, showing growth through time rather than three siblings.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "a2fbd0119cf7ec2b4179a1ffab69749164b5f37cbb2d7fbb9e3becdaec4ee59c",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page16-1791778910446.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page16-1791778910446.webp",
+        "sourceSha256": "a2fbd0119cf7ec2b4179a1ffab69749164b5f37cbb2d7fbb9e3becdaec4ee59c",
+        "cdnSha256": "f4d689cac0c77272d9b22f69ce44b14504d147a686dde9bdf05b1bf87629f691",
+        "bytes": 92954
+      }
+    },
+    {
+      "id": "1773618909980-real-p17",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 17,
+      "replace": true,
+      "file": "1773618909980/real-p17.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 124112,
+      "sha256": "73cf25e91c2aef9bf3d8fd3e29c05613b53257216b0a51898c0945736ef19d21",
+      "sourceSha256": "e481a4fbbf329c6ebdfc2a67aaa0b87c9803ac7ec4a470bbb7d14c5aef041eb6",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 우리 몸속의 단단한 뼈, 힘센 근육, 그리고 신비로운 탄생의 과정을 다시 한번 생각해보세요!\nScene: The same boy in yellow shirt and blue shorts with his Korean parents and fully swaddled infant sibling at a sunny home learning table. On the table a small clean white skeleton model and simple red muscle teaching model, helping them reflect on bones, muscles and how life grows. Real photographic family moment, gentle and natural.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "73cf25e91c2aef9bf3d8fd3e29c05613b53257216b0a51898c0945736ef19d21",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page17-1791778911390.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page17-1791778911390.webp",
+        "sourceSha256": "73cf25e91c2aef9bf3d8fd3e29c05613b53257216b0a51898c0945736ef19d21",
+        "cdnSha256": "69c0d1d75a68497b16456289de577f733f2306776bbb0ea0c7955c4d4d8b003f",
+        "bytes": 119806
+      }
+    },
+    {
+      "id": "1773618909980-real-p18",
+      "bookId": "1773618909980",
+      "title": "뼈와 근육 이야기",
+      "pageNumber": 18,
+      "replace": true,
+      "file": "1773618909980/real-p18.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 194016,
+      "sha256": "3d02f10bfe32a26e53999962e7f1ab5f2b13797fc44507b27533afce5805d4bf",
+      "sourceSha256": "61d1d1c9f05b91be22be6847516bdb934b502c7bd499ff81b80542b5dbeb26b9",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 내 몸은 정말 신비롭고 소중해요! 다음엔 또 어떤 신비한 세계를 탐험해 볼까요?\nScene: The same boy in yellow shirt and blue shorts stands outdoors in a sunny green park, smiling proudly and naturally stretching his arms out in delight at his healthy body. His face, hair and body proportions match the first image exactly. Real natural photograph, joyful quiet ending, no diagrams or writing.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.\nThe supplied reference establishes natural photographic rendering and the main boy: Korean, age 4, short dark brown tousled hair, bright plain yellow T-shirt, blue shorts. Do not turn faces or scenery into drawings. All children are appropriately clothed or swaddled; anatomy is shown only as separate physical teaching models or non-graphic grayscale scans.",
+      "promptRecord": "native generation prompt",
+      "references": ["1773618909980/real-p01.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "3d02f10bfe32a26e53999962e7f1ab5f2b13797fc44507b27533afce5805d4bf",
+        "notes": "Photographic rendering, same yellow-shirt boy/family, no captions; external teaching models and non-graphic scans for anatomy."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1773618909980-%EB%BC%88%EC%99%80%EA%B7%BC%EC%9C%A1%EC%9D%B4%EC%95%BC%EA%B8%B0-illustration-page18-1791778912359.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1773618909980-뼈와근육이야기-illustration-page18-1791778912359.webp",
+        "sourceSha256": "3d02f10bfe32a26e53999962e7f1ab5f2b13797fc44507b27533afce5805d4bf",
+        "cdnSha256": "aa6b87706217fbe0f62fb872cd7e6cc443d529d1dcc45b3417beb6739a5a7bff",
+        "bytes": 190240
+      }
+    },
+    {
+      "id": "1772181399388-p11",
+      "bookId": "1772181399388",
+      "title": "인어 공주_그림체2",
+      "pageNumber": 11,
+      "replace": false,
+      "file": "1772181399388/p11.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 177550,
+      "sha256": "e5093c23a4558bdf90dcbb58446e7f226a848e5d39dcc6fac9e72c4b52d644bb",
+      "sourceSha256": "ab4a1949ec319e2af9ff43c692bb3515247d7b47dbf1ffa8b82629892e09d79e",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPaper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 언니들이 물 위로 올라와 마법의 칼을 건네주었어요.\n\"이 칼로 왕자님을 해치면 넌 다시 인어가 될 수 있어! 어서!\"\n\n\nScene: 고요한 밤, 배의 열린 창문 안에 서 있는 인간이 된 공주에게 바다 수면의 금발/남색머리/주황머리 인어 언니 세 명이 작은 빛나는 마법의 칼을 손잡이부터 건네려 한다. 언니들은 절박하고 공주는 망설인다. 칼을 던지거나 공격하는 장면이 아니다.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "reconstructed template (earlier native call)",
+      "references": [
+        "1772181399388/ref-p12.webp",
+        "1772181399388/ref-p10.webp",
+        "1772181399388/ref-char2.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "e5093c23a4558bdf90dcbb58446e7f226a848e5d39dcc6fac9e72c4b52d644bb",
+        "notes": "Layered cut paper; same pink-haired princess and three sisters at the ship window; no text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1772181399388-%EC%9D%B8%EC%96%B4%EA%B3%B5%EC%A3%BC_%EA%B7%B8%EB%A6%BC%EC%B2%B42-illustration-page11-1791778914847.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772181399388-인어공주_그림체2-illustration-page11-1791778914847.webp",
+        "sourceSha256": "e5093c23a4558bdf90dcbb58446e7f226a848e5d39dcc6fac9e72c4b52d644bb",
+        "cdnSha256": "19f5c272e79916fce5d2b8fbff4158a6150b240adbd05a7f310c8b45c13880c0",
+        "bytes": 171592
+      }
+    },
+    {
+      "id": "1777605651238-p01",
+      "bookId": "1777605651238",
+      "title": "개미",
+      "pageNumber": 1,
+      "replace": false,
+      "file": "1777605651238/p01.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 165238,
+      "sha256": "f843943a47dd04b566cc513e8f7c8976908ee60c8e07b50a4e0b9c85b3cb0eb2",
+      "sourceSha256": "3c361f1a6ed78d5d0ee50d3ef44edff2df03dfcc885894adbb260c39fcd943c6",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 발밑을 조심해! 작은 친구들이 줄을 지어 바쁘게 가고 있어. 바로 개미야!\nScene: 낮은 지면 시점, 실제 흙과 나뭇잎 바닥 위를 여러 작은 개미가 한 줄로 분주하게 걸어간다. 줄의 앞부분은 또렷하고 뒤는 자연스러운 얕은 심도, 초록 풀과 햇빛. 발밑을 살펴 작은 개미 행렬을 발견하는 도입 장면. 사람 얼굴/의인화/과장된 괴물 눈은 없다.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1777605651238/ref-p02.webp",
+        "1777605651238/ref-p03.webp",
+        "1777605651238/ref-p04.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "f843943a47dd04b566cc513e8f7c8976908ee60c8e07b50a4e0b9c85b3cb0eb2",
+        "notes": "Macro photographic ants on forest floor; credible six-leg anatomy, no cartoon faces or text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1777605651238-%EA%B0%9C%EB%AF%B8-illustration-page1-1791778916866.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777605651238-개미-illustration-page1-1791778916866.webp",
+        "sourceSha256": "f843943a47dd04b566cc513e8f7c8976908ee60c8e07b50a4e0b9c85b3cb0eb2",
+        "cdnSha256": "c4ca342e83154e028f395b42ae142be14f7107535bd3e7081cc2233ddf4d574a",
+        "bytes": 160964
+      }
+    },
+    {
+      "id": "1777615068642-p12",
+      "bookId": "1777615068642",
+      "title": "코뿔소",
+      "pageNumber": 12,
+      "replace": false,
+      "file": "1777615068642/p12.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 163704,
+      "sha256": "d04bf6c78d7ff2eafdcd917ed493b77f6f1325f98053dba167a3f3612849469a",
+      "sourceSha256": "c19b9c36ce6214b3cb8b0fb1d136610758a883f6dd05e8a3ca507832ef6e9135",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPhotographic realistic illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 코뿔소 엄마 옆에는 작은 친구가 꼭 붙어 다녀. 저 친구는 누굴까?\nScene: 건조한 풀밭 위 어미 코뿔소 바로 옆에 작은 새끼 코뿔소가 바싹 붙어 따라다닌다. 두 마리의 몸 전체가 보이는 옆면/삼사분면 구도. 어미 두 뿔, 새끼는 아직 작은 뿔싹, 다리와 귀 비례가 자연스럽다. 따뜻한 오후 햇살, 부드러운 원경 나무. 새끼가 누구인지 찾아보는 다정한 소개 장면. 다른 동물 없음.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1777615068642/ref-p13.webp",
+        "1777615068642/ref-p14.webp",
+        "1777615068642/ref-p11.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "d04bf6c78d7ff2eafdcd917ed493b77f6f1325f98053dba167a3f3612849469a",
+        "notes": "Photographic grey rhino mother and calf on savanna; follows neighboring-page appearance."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1777615068642-%EC%BD%94%EB%BF%94%EC%86%8C-illustration-page12-1791778918809.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1777615068642-코뿔소-illustration-page12-1791778918809.webp",
+        "sourceSha256": "d04bf6c78d7ff2eafdcd917ed493b77f6f1325f98053dba167a3f3612849469a",
+        "cdnSha256": "c9dc182b31f23ebfb3fcf354b42ed830ed1966804f06f49319f0ae868207fa5a",
+        "bytes": 160792
+      }
+    },
+    {
+      "id": "1778555233699-p06",
+      "bookId": "1778555233699",
+      "title": "백설공주_그림체2",
+      "pageNumber": 6,
+      "replace": false,
+      "file": "1778555233699/p06.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 187214,
+      "sha256": "a90d5b3e509d03c4ab910a03b03d4f09dcd15be4a22903198188338c6a6f756a",
+      "sourceSha256": "42f5a09cfbc99999492bb948b9503b7ab8d2781c9981af4924d2f35e57245e1f",
+      "prompt": "Create a landscape 16:9 illustration for a children's fairy tale.\nMANDATORY ART STYLE: Paper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth\nMatch the seven cheerful paper-craft dwarf miners in the supplied character reference exactly, preserving their faces, beards, tools, caps and clothes. Exactly SEVEN dwarf miners, with red, blue, green, yellow, orange, purple and brown clothes. Show all seven distinctly.\nScene: After a day at work, the seven miners return to their cozy woodland cottage at dusk. The foreground shows the miners gathered at the OPEN front door, looking into the warmly lit home with wide surprised eyes and curious open mouths because an unexpected guest has arrived. Some miners gesture towards the door; others hold their mining tools at rest. Behind them, a winding woodland path and trees. Warm amber lantern and round cottage window. The interior and the unseen guest are outside the picture's crop; do not depict a bedroom or bed or any other person. This is the moment of discovering the guest, shown through the returning miners' expressions.\nMake everything layered kraft cut-paper, visibly tactile, with dimensional edges and soft crafted shadows.\nCRITICAL - NO TEXT: no letters, dialogue, labels, numbers, captions or watermarks anywhere. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": ["1778555233699/ref-char2.webp"],
+      "review": {
+        "status": "pass",
+        "sha256": "a90d5b3e509d03c4ab910a03b03d4f09dcd15be4a22903198188338c6a6f756a",
+        "notes": "Cut-paper craft and seven distinct dwarf outfit colors; matches approved princess/queen designs, no text. Composition revised: miners discovering the guest at the doorway; princess is outside crop."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1778555233699-%EB%B0%B1%EC%84%A4%EA%B3%B5%EC%A3%BC_%EA%B7%B8%EB%A6%BC%EC%B2%B42-illustration-page6-1791778920753.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1778555233699-백설공주_그림체2-illustration-page6-1791778920753.webp",
+        "sourceSha256": "a90d5b3e509d03c4ab910a03b03d4f09dcd15be4a22903198188338c6a6f756a",
+        "cdnSha256": "20515b96aded3fe825d1aca2bc30af04b5a9854f4efc1de2f54e8843942b0123",
+        "bytes": 181352
+      }
+    },
+    {
+      "id": "1778555233699-p07",
+      "bookId": "1778555233699",
+      "title": "백설공주_그림체2",
+      "pageNumber": 7,
+      "replace": false,
+      "file": "1778555233699/p07.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 194560,
+      "sha256": "a206ce157f4846d1d24efca05c8a9d977caed9de20e8c7c2003684c7fb4acfa1",
+      "sourceSha256": "3d56c784e95b8ebc41d4ffe8d8e48d1a4eacb2bafedc7d6d78922bd5d8631339",
+      "prompt": "Landscape 16:9 warm fairy-tale friendship scene. ART STYLE: Paper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth.\nExactly the seven friendly dwarf miners in the reference sit together at a cozy wooden dining table inside their woodland cottage in morning light. Their red, blue, green, yellow, orange, purple and brown outfits and beards match the reference exactly. All seven have warm smiles and welcoming gestures, happy to invite their new friend to live with them. Their mining tools have been put away. A freshly set eighth place at the near end of the table represents their princess guest, who is outside this picture's crop. A vase of red flowers, bread, fruit and plain mugs create a feeling of friendship and belonging. The scene focuses on the seven hosts' invitation. Exactly seven characters, each face separately visible. Round cottage window, timber walls, layered-paper plants, warm dimensional cut-paper textures. No printed text, letters, captions, speech bubbles, numbers, signs or watermarks.",
+      "promptRecord": "native generation prompt",
+      "references": ["1778555233699/ref-char2.webp", "1778555233699/p06.png"],
+      "review": {
+        "status": "pass",
+        "sha256": "a206ce157f4846d1d24efca05c8a9d977caed9de20e8c7c2003684c7fb4acfa1",
+        "notes": "Cut-paper craft and seven distinct dwarf outfit colors; matches approved princess/queen designs, no text. Composition revised: seven hosts warmly welcome a new friend; eighth place prepared, guest outside crop."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1778555233699-%EB%B0%B1%EC%84%A4%EA%B3%B5%EC%A3%BC_%EA%B7%B8%EB%A6%BC%EC%B2%B42-illustration-page7-1791778922078.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1778555233699-백설공주_그림체2-illustration-page7-1791778922078.webp",
+        "sourceSha256": "a206ce157f4846d1d24efca05c8a9d977caed9de20e8c7c2003684c7fb4acfa1",
+        "cdnSha256": "39351637b1c7ea89c9f65b43ea65ccf88435d475d8c92f1c1bba1a7daf2f4ba8",
+        "bytes": 189638
+      }
+    },
+    {
+      "id": "1778555233699-p08",
+      "bookId": "1778555233699",
+      "title": "백설공주_그림체2",
+      "pageNumber": 8,
+      "replace": false,
+      "file": "1778555233699/p08.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 210106,
+      "sha256": "9e8156f205fe136a41a540c40e90778acd6f54fb18b490090d1c7c4bc3d4ccbe",
+      "sourceSha256": "e535fdc4b66538f7b9b18f21a428460907b5a84d05595924855319665961b01c",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nPaper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 하지만 거울을 본 왕비는 백설공주가 살아있다는 걸 알게 됐죠.\n왕비는 할머니로 변장하고 백설공주를 찾아갔답니다.\nScene: 왼쪽에는 성의 마법 거울 앞에서 백설공주가 살아 있음을 보고 화가 난 왕비, 오른쪽에는 그 왕비가 굽은 할머니로 변장해 사과 바구니를 들고 숲길로 떠나는 모습. 두 장면을 한 책 삽화 안에서 종이 나무/곡선으로 부드럽게 연결해 변장 전후임을 명확히 한다. 왕비는 보라·검정 드레스와 뾰족한 금관, 변장 모습은 첨부 p9의 검정 회색 누더기 후드와 휜 코의 노파. 거울 속에는 p1과 같은 공주, 아직 사과를 먹지 않았다.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": ["1778555233699/ref-p03.webp", "1778555233699/ref-p09.webp"],
+      "review": {
+        "status": "pass",
+        "sha256": "9e8156f205fe136a41a540c40e90778acd6f54fb18b490090d1c7c4bc3d4ccbe",
+        "notes": "Cut-paper craft and seven distinct dwarf outfit colors; matches approved princess/queen designs, no text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1778555233699-%EB%B0%B1%EC%84%A4%EA%B3%B5%EC%A3%BC_%EA%B7%B8%EB%A6%BC%EC%B2%B42-illustration-page8-1791778923286.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1778555233699-백설공주_그림체2-illustration-page8-1791778923286.webp",
+        "sourceSha256": "9e8156f205fe136a41a540c40e90778acd6f54fb18b490090d1c7c4bc3d4ccbe",
+        "cdnSha256": "48f49149be8a4b60767b94f06597850140dee3f015d164560745aca190e9d829",
+        "bytes": 206492
+      }
+    },
+    {
+      "id": "1778555233699-p10",
+      "bookId": "1778555233699",
+      "title": "백설공주_그림체2",
+      "pageNumber": 10,
+      "replace": false,
+      "file": "1778555233699/p10.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 142490,
+      "sha256": "cb251559be462ce1656324b117d5a5d7a0fa209920fb506a0c6d19728ca2bbb5",
+      "sourceSha256": "a9f1e6e17c13b2676bfd39b040e88f03921aea7dd893114695ec4894553d1d8f",
+      "prompt": "Landscape 16:9 detailed fairy-tale story scene. ART STYLE: Paper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth.\nAn object-focused close view in the cottage garden of the supplied paper-craft reference. In the foreground, a princess's hand in the exact blue puff sleeve with yellow cuff gently holds a bright red apple with ONE crisp bite visibly missing. Most of the frame shows the apple, the sleeve and the tactile dimensional cut-paper garden. A woven apple basket with unbitten red apples sits on a small wooden garden table nearby, and the old seller's grey-black layered paper cape is partially visible at the far edge. The princess and the seller's faces and bodies are outside the close crop. A cottage round window, green trees and warm sunlight blur softly in the background. Depict the instant after the first bite through the apple itself. No injury or body depiction. Realistic crafted paper edges, kraft textures and soft miniature shadows; match the scene colors exactly. No text, letters, labels, captions, speech bubbles, numbers or watermarks.",
+      "promptRecord": "native generation prompt",
+      "references": ["1778555233699/ref-p09.webp"],
+      "review": {
+        "status": "pass",
+        "sha256": "cb251559be462ce1656324b117d5a5d7a0fa209920fb506a0c6d19728ca2bbb5",
+        "notes": "Cut-paper craft and seven distinct dwarf outfit colors; matches approved princess/queen designs, no text. Composition revised: close crop of the first bitten apple, princess blue sleeve and seller basket; no collapse depiction."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1778555233699-%EB%B0%B1%EC%84%A4%EA%B3%B5%EC%A3%BC_%EA%B7%B8%EB%A6%BC%EC%B2%B42-illustration-page10-1791778924253.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1778555233699-백설공주_그림체2-illustration-page10-1791778924253.webp",
+        "sourceSha256": "cb251559be462ce1656324b117d5a5d7a0fa209920fb506a0c6d19728ca2bbb5",
+        "cdnSha256": "83b0b24db62290b325e58352b20445f40b6066eecfae6bb97a8efb5580dca8c4",
+        "bytes": 137238
+      }
+    },
+    {
+      "id": "1782831061108-p06",
+      "bookId": "1782831061108",
+      "title": "19. 이상하면 안 먹어, 퉤!",
+      "pageNumber": 6,
+      "replace": false,
+      "file": "1782831061108/p06.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 183436,
+      "sha256": "a5f948c30b586e553c87f33656f3863c84252a206aa4b8cb2f3d3ede35a90d31",
+      "sourceSha256": "b1e0d8f2d832262f1282c0d7399c2153ea9ff8ce945c448e7f431ad94168f3bd",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 아빠와 친구들이 세 가지 약속을 알려 줬어요. \"하나, 모르는 건 손으로 안 만져! 둘, 절대 입에 안 넣어! 셋, 궁금하면 어른께 물어봐!\" 콩이는 두 손을 불끈 쥐었어요. \"나도 약속 지킬 수 있어!\"\nScene: 컷 중형, 아이레벨 정면. 아빠가 세 동작을 하나씩 시범 보이는 컷.\n장소·시간 공원 잔디밭, 오전. 밝고 환한 햇살.\n인물 Dad tiger는 화면 왼쪽에서 한 손을 저어 \"안 만져\" 하고, 다른 손으로 입을 가리며 \"안 넣어\" 시범을 보이는 다정하게 가르치는 표정, 주 조력자. Kongi는 중앙에서 아빠를 따라 두 손을 뒤로 살짝 감추고(안 만져), 입을 앙 다무는 자세로 야무진 결의의 표정. Hori는 오른쪽에서 손을 번쩍 들어 \"물어봐!\" 하듯 어른을 가리키며 방긋. Toto는 뒤에서 함께 손을 저으며 웃음.\n배경·소품 잔디밭, 벤치, 나무, 인물들 둘레에 살짝 강조된 빛무리, 파란 하늘.\n톤 밝고 활기찬 오전 조명, 약속을 배우고 다짐하는 씩씩하고 두근거리는 정서.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1782831061108/ref-p04.webp",
+        "1782831061108/ref-p07.webp",
+        "1782831061108/ref-p03.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "a5f948c30b586e553c87f33656f3863c84252a206aa4b8cb2f3d3ede35a90d31",
+        "notes": "Needle-felt tiger father, rainbow-tail Hori, squirrel and white red-bow rabbit; caution gesture, no text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1782831061108-19%EC%9D%B4%EC%83%81%ED%95%98%EB%A9%B4%EC%95%88%EB%A8%B9%EC%96%B4%ED%89%A4-illustration-page6-1791778926347.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1782831061108-19이상하면안먹어퉤-illustration-page6-1791778926347.webp",
+        "sourceSha256": "a5f948c30b586e553c87f33656f3863c84252a206aa4b8cb2f3d3ede35a90d31",
+        "cdnSha256": "fc4afc04cf53c1043df7baaa9d5b0411d23375a724c33a6ec40d4e9c3e98e6f3",
+        "bytes": 180766
+      }
+    },
+    {
+      "id": "1783949746731-p03",
+      "bookId": "1783949746731",
+      "title": "30. 심심할 땐, 상상 놀이!",
+      "pageNumber": 3,
+      "replace": false,
+      "file": "1783949746731/p03.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 159018,
+      "sha256": "37eefbe7158d8a19e2e7a60156f54ed7f2ec2113a588b589f58d01cddaac8fa8",
+      "sourceSha256": "14f1f11d116491657565be2a511bf2b3d2b72be4bfdbe1dae5ab192e55556526",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 기다림은 자꾸만 길어져요. \"심심해— 아직도 멀었어?\" 호리가 발을 동동 굴러요. 창밖은 여전히 똑같은 풍경, 시계 바늘은 느릿느릿. 호리 입이 삐죽삐죽 나왔어요.\nScene: 컷 클로즈업, 아이레벨. 발을 동동 구르며 칭얼거리는 호리.\n장소·시간 멈춰선 차 안, 낮. 여전히 정체된 도로.\n인물 Hori는 카시트에서 두 발을 동동 구르며 두 손으로 안전벨트를 만지작, 입을 삐죽 내밀고 눈썹이 처진 칭얼대는 표정, 볼이 살짝 부어오름.\n배경·소품 창밖 여전히 똑같은 차 행렬, 앞유리 너머 멈춘 도로, 대시보드 위 작은 시계, 매달린 인형.\n톤 낮 조명 속 살짝 지루하게 늘어진 톤, 좀이 쑤시고 답답한 정서(귀엽고 밉지 않은 작은 칭얼거림).\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1783949746731/ref-p02.webp",
+        "1783949746731/ref-p01.webp",
+        "1783949746731/ref-p09.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "37eefbe7158d8a19e2e7a60156f54ed7f2ec2113a588b589f58d01cddaac8fa8",
+        "notes": "Needle-felt tiger family in car; boredom, imagination, traffic signal, animal clouds and joyful ending; peach-apron mother and rainbow-tail children, no captions."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1783949746731-30%EC%8B%AC%EC%8B%AC%ED%95%A0%EB%95%90%EC%83%81%EC%83%81%EB%86%80%EC%9D%B4-illustration-page3-1791778928341.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783949746731-30심심할땐상상놀이-illustration-page3-1791778928341.webp",
+        "sourceSha256": "37eefbe7158d8a19e2e7a60156f54ed7f2ec2113a588b589f58d01cddaac8fa8",
+        "cdnSha256": "989a48520626a0025b719d544298488d64f1be184e4972158752c79d8d533851",
+        "bytes": 155434
+      }
+    },
+    {
+      "id": "1783949746731-p04",
+      "bookId": "1783949746731",
+      "title": "30. 심심할 땐, 상상 놀이!",
+      "pageNumber": 4,
+      "replace": false,
+      "file": "1783949746731/p04.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 148674,
+      "sha256": "a5eeb5d8e2b098628e5a1f710643f2bb859ce53a735b4e656d3cd56eb50b4d8a",
+      "sourceSha256": "4e7c09b3782efc07feafdbfaf16ff8c2b11ae3007d10477cf9b378db3c9d785a",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 그때 엄마가 눈을 찡긋했어요. \"호리야, 우리 상상 놀이 할까? 심심할 땐, 상상 놀이!\" \"상상 놀이가 뭐야?\" 호리가 귀를 쫑긋 세웠어요.\nScene: 컷 중형, 어깨너머 앵글. 엄마가 뒤를 돌아보며 놀이를 제안하는 컷.\n장소·시간 멈춰선 차 안, 낮. 정체된 도로.\n인물 Mom tiger는 앞좌석에서 몸을 돌려 호리를 바라보며 한쪽 눈을 찡긋, 장난기 어린 환한 미소로 손가락을 세워 무언가 제안하는 몸짓. Hori는 뒷좌석에서 칭얼대던 얼굴을 살짝 들고 귀를 쫑긋 세우며 눈에 호기심이 반짝 도는 표정.\n배경·소품 차 실내, 창밖 도로, 엄마 손짓 주변에 상상을 암시하는 작은 반짝임 몇 개, 매달린 인형.\n톤 낮 조명에 살짝 밝아진 톤, 지루함이 호기심으로 바뀌는 설레는 정서, 뭔가 재밌는 일이 시작될 것 같은 분위기.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1783949746731/ref-p02.webp",
+        "1783949746731/ref-p01.webp",
+        "1783949746731/ref-p09.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "a5eeb5d8e2b098628e5a1f710643f2bb859ce53a735b4e656d3cd56eb50b4d8a",
+        "notes": "Needle-felt tiger family in car; boredom, imagination, traffic signal, animal clouds and joyful ending; peach-apron mother and rainbow-tail children, no captions."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1783949746731-30%EC%8B%AC%EC%8B%AC%ED%95%A0%EB%95%90%EC%83%81%EC%83%81%EB%86%80%EC%9D%B4-illustration-page4-1791778929450.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783949746731-30심심할땐상상놀이-illustration-page4-1791778929450.webp",
+        "sourceSha256": "a5eeb5d8e2b098628e5a1f710643f2bb859ce53a735b4e656d3cd56eb50b4d8a",
+        "cdnSha256": "6302afa7fe0c485df9d5e26c77f5aab5548b9932cb9c7bb73dfa4f125c91da1c",
+        "bytes": 143764
+      }
+    },
+    {
+      "id": "1783949746731-p06",
+      "bookId": "1783949746731",
+      "title": "30. 심심할 땐, 상상 놀이!",
+      "pageNumber": 6,
+      "replace": false,
+      "file": "1783949746731/p06.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 136874,
+      "sha256": "6d9d96793b5bcd0e2130cb721a78aae9329a92a1404893f0e9a8811198f54149",
+      "sourceSha256": "5c64c1ae594bdc0de60c4f92b483aa59c9cab69460e128497ed8557b5b151e9c",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 이번엔 호리 차례예요. \"저 빨간 신호등은— 하늘에서 내려온 마법 별!\" 호리가 창밖을 가리키며 깔깔 웃어요. 심심하던 창밖이 온통 신기한 것투성이가 됐어요.\nScene: 컷 중형, 어깨너머 앵글. 호리가 창밖을 가리키며 상상하는 컷.\n장소·시간 멈춰선 차 안, 낮. 창밖에 신호등과 도로.\n인물 Hori는 뒷좌석에서 창문에 바짝 붙어 한 손으로 창밖을 가리키며 깔깔 웃는 신난 표정, 눈이 반짝. 앞좌석 Mom tiger가 뒤를 돌아보며 함께 즐겁게 웃음.\n배경·소품 창밖 신호등의 빨간 불이 상상 속에서 반짝이는 노란 마법 별로 살짝 변해 빛나는 오버레이, 별 둘레에 반짝임 입자, 차 실내.\n톤 낮 자연광에 상상 반짝임이 더해진 즐겁고 신나는 정서, 창밖이 놀이터가 된 활기찬 분위기.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1783949746731/ref-p05.webp",
+        "1783949746731/ref-p09.webp",
+        "1783949746731/ref-p01.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "6d9d96793b5bcd0e2130cb721a78aae9329a92a1404893f0e9a8811198f54149",
+        "notes": "Needle-felt tiger family in car; boredom, imagination, traffic signal, animal clouds and joyful ending; peach-apron mother and rainbow-tail children, no captions."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1783949746731-30%EC%8B%AC%EC%8B%AC%ED%95%A0%EB%95%90%EC%83%81%EC%83%81%EB%86%80%EC%9D%B4-illustration-page6-1791778930479.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783949746731-30심심할땐상상놀이-illustration-page6-1791778930479.webp",
+        "sourceSha256": "6d9d96793b5bcd0e2130cb721a78aae9329a92a1404893f0e9a8811198f54149",
+        "cdnSha256": "90100ad311ee2d42a664af794f636b545e535462376419d796728b76b74d7537",
+        "bytes": 134220
+      }
+    },
+    {
+      "id": "1783949746731-p07",
+      "bookId": "1783949746731",
+      "title": "30. 심심할 땐, 상상 놀이!",
+      "pageNumber": 7,
+      "replace": false,
+      "file": "1783949746731/p07.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 157416,
+      "sha256": "59d4b3d25feb1dfafccde763932cf1ecee59bc0c125c17be45a3e43e3bfb6a22",
+      "sourceSha256": "7b151fe3c0f21acbb9b9ac690be552ac53165756785492a53747e87abdff5412",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): \"저 뭉게구름은 폭신폭신 양 같아!\" \"이건 코가 긴 코끼리야!\" 호리와 엄마가 번갈아 구름을 동물로 바꿔요. 심심할 땐, 상상 놀이! 어느새 기다림이 하나도 지루하지 않아요.\nScene: 컷 중형, 아이레벨. 창밖 구름을 올려다보며 동물로 상상하는 컷.\n장소·시간 멈춰선 차 안, 낮. 창밖 파란 하늘에 뭉게구름.\n인물 Hori는 창문에 얼굴을 대고 하늘의 구름을 올려다보며 두 손으로 창틀을 잡고 신나게 웃는 표정. 앞좌석 Mom tiger가 함께 창밖을 가리키며 다정하게 웃음. 옆의 Hoya도 고개를 들어 구름을 봄.\n배경·소품 창밖 뭉게구름이 상상 속에서 폭신한 양과 코 긴 코끼리 모양으로 살짝 변한 부드러운 오버레이, 파란 하늘, 차 실내.\n톤 밝은 낮 자연광, 함께 상상하며 웃는 다정하고 즐거운 정서, 기다림이 놀이가 된 화사한 분위기.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1783949746731/ref-p05.webp",
+        "1783949746731/ref-p09.webp",
+        "1783949746731/ref-p01.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "59d4b3d25feb1dfafccde763932cf1ecee59bc0c125c17be45a3e43e3bfb6a22",
+        "notes": "Needle-felt tiger family in car; boredom, imagination, traffic signal, animal clouds and joyful ending; peach-apron mother and rainbow-tail children, no captions."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1783949746731-30%EC%8B%AC%EC%8B%AC%ED%95%A0%EB%95%90%EC%83%81%EC%83%81%EB%86%80%EC%9D%B4-illustration-page7-1791778931437.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783949746731-30심심할땐상상놀이-illustration-page7-1791778931437.webp",
+        "sourceSha256": "59d4b3d25feb1dfafccde763932cf1ecee59bc0c125c17be45a3e43e3bfb6a22",
+        "cdnSha256": "ec3e35605e4cf7c1cabe6b1b131ed28c89efff92493ba034cc582b94b88e1c41",
+        "bytes": 151900
+      }
+    },
+    {
+      "id": "1783949746731-p08",
+      "bookId": "1783949746731",
+      "title": "30. 심심할 땐, 상상 놀이!",
+      "pageNumber": 8,
+      "replace": false,
+      "file": "1783949746731/p08.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 173450,
+      "sha256": "a350db843b8bea4e661d00be42b645501d9de36646216d02474738e72a4be03d",
+      "sourceSha256": "d52e1a9487be834600f3c457288b1a7d970735b86223bfe243a2306ca29b409b",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 깔깔깔! 온 가족이 상상 놀이로 신났어요. 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 심심함을 즐거움으로 바꿔낸 거예요! 호리가 스스로 해냈어요.\nScene: 컷 대형, 살짝 넓은 앵글. 온 가족이 상상 놀이로 함께 웃는 절정 컷.\n장소·시간 멈춰선 차 안, 낮. 밝은 창가.\n인물 Hori는 뒷좌석에서 두 팔을 번쩍 들고 활짝 웃으며 신난 표정, 특히 꼬리 줄무늬가 무지개빛으로 화사하게 반짝이는 시그니처 순간. 앞좌석 Mom tiger가 뒤를 돌아보며 함께 크게 웃고, 옆의 Hoya도 손뼉 치며 방긋.\n배경·소품 차 실내에 가득한 작은 무지개빛 반짝임과 별표, 창밖의 밝은 하늘, 매달린 인형.\n톤 밝은 낮 자연광에 무지개 반짝임이 어우러진 벅차고 신나는 정서, 심심함을 즐거움으로 바꾼 화사한 성취의 분위기.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1783949746731/ref-p05.webp",
+        "1783949746731/ref-p09.webp",
+        "1783949746731/ref-p01.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "a350db843b8bea4e661d00be42b645501d9de36646216d02474738e72a4be03d",
+        "notes": "Needle-felt tiger family in car; boredom, imagination, traffic signal, animal clouds and joyful ending; peach-apron mother and rainbow-tail children, no captions."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1783949746731-30%EC%8B%AC%EC%8B%AC%ED%95%A0%EB%95%90%EC%83%81%EC%83%81%EB%86%80%EC%9D%B4-illustration-page8-1791778935622.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783949746731-30심심할땐상상놀이-illustration-page8-1791778935622.webp",
+        "sourceSha256": "a350db843b8bea4e661d00be42b645501d9de36646216d02474738e72a4be03d",
+        "cdnSha256": "e127e34acd87d1131dd3caa37e5119891a859002ab625a5669d585eebd15bb29",
+        "bytes": 168912
+      }
+    },
+    {
+      "id": "1783990215278-p02",
+      "bookId": "1783990215278",
+      "title": "28. 안 되면 또! 될 때까지!",
+      "pageNumber": 2,
+      "replace": false,
+      "file": "1783990215278/p02.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 118756,
+      "sha256": "eb803176f8eaa35e276c5bb57439698a94ae31e079f0b54202db7d5ca9465a8f",
+      "sourceSha256": "77f76f21bd46faee318e18a06bd99ceec225047dc977ac3f8b8c368b42e0e9a0",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nNeedle-felted wool figures on a felt set, soft fibres, handmade miniature\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): \"이얍!\" 콩이가 줄을 넘겼는데— 발에 탁! 걸렸어요. 다시 이얍! 또 탁! 줄이 자꾸만 발에 감겨요. \"어? 왜 안 되지?\" 콩이 얼굴이 발그레해졌어요.\nScene: 컷 중형, 살짝 로우앵글. 줄에 발이 걸려 비틀거리는 순간을 담음.\n장소·시간 같은 놀이터, 아침. 고무매트 위.\n인물 Kongi는 화면 중앙에서 줄넘기를 넘으려다 줄이 두 발목에 탁 감겨 몸이 앞으로 휘청, 두 팔을 허우적, 눈을 동그랗게 뜨고 입을 벌린 당황한 표정, 볼이 발그레.\n배경·소품 발목에 배배 꼬여 감긴 연두색 줄넘기, 발밑에 작은 먼지 구름 이펙트, 뒤쪽 놀이터 기구는 부드럽게 아웃포커스.\n톤 밝은 아침 조명, 살짝 당황스럽지만 밉지 않고 귀여운 정서, 아차 하는 코믹한 분위기.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1783990215278/ref-p01.webp",
+        "1783990215278/ref-p03.webp",
+        "1783990215278/ref-p05.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "eb803176f8eaa35e276c5bb57439698a94ae31e079f0b54202db7d5ca9465a8f",
+        "notes": "Needle-felt squirrel trips on green jump rope, tiger/rabbit companions; expressive face, no text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1783990215278-28%EC%95%88%EB%90%98%EB%A9%B4%EB%98%90%EB%90%A0%EB%95%8C%EA%B9%8C%EC%A7%80-illustration-page2-1791778938516.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1783990215278-28안되면또될때까지-illustration-page2-1791778938516.webp",
+        "sourceSha256": "eb803176f8eaa35e276c5bb57439698a94ae31e079f0b54202db7d5ca9465a8f",
+        "cdnSha256": "41ba025ea8ef92189c095f469ec765e99a47224643ec193177b5ed05c63b85e8",
+        "bytes": 114838
+      }
+    },
+    {
+      "id": "1789350946317-p09",
+      "bookId": "1789350946317",
+      "title": "눈의 여왕_그림체1",
+      "pageNumber": 9,
+      "replace": false,
+      "file": "1789350946317/p09.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 188266,
+      "sha256": "4197804272b5c396d1a8e7e1b4dcb1af71df3936dd1c385b53e823426f93eaaa",
+      "sourceSha256": "18172b5cdbd991b8d6b933316e94b141c9c07887a1bcd6eadf116a0fec051565",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nSoft watercolor storybook illustration\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 마차를 타고 가다 숲속에서 멈췄어요.\n터프한 꼬마 산적 소녀가 나타났지요.\n\"너, 내 친구 할래?\"\nScene: 어둡고 깊은 숲속 길에서 털모자를 쓴 장난기 가득한 꼬마 산적 소녀가 길을 막아서고 있다. 소녀는 호기심 많은 표정으로 쳐다보고, 겔다는 화려한 마차 문을 열고 깜짝 놀란 표정으로 내다본다.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1789350946317/ref-p08.webp",
+        "1789350946317/ref-p10.webp",
+        "1789350946317/ref-char3.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "4197804272b5c396d1a8e7e1b4dcb1af71df3936dd1c385b53e823426f93eaaa",
+        "notes": "Painterly watercolor finish matching neighbors; blonde-braid Gerda in carriage with winter cloak, dark-haired robber girl at door; no text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1789350946317-%EB%88%88%EC%9D%98%EC%97%AC%EC%99%95_%EA%B7%B8%EB%A6%BC%EC%B2%B41-illustration-page9-1791778941328.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1789350946317-눈의여왕_그림체1-illustration-page9-1791778941328.webp",
+        "sourceSha256": "4197804272b5c396d1a8e7e1b4dcb1af71df3936dd1c385b53e823426f93eaaa",
+        "cdnSha256": "6d0c7a6f4560324fff0e255d79ed9303116e4df05c7f535681f9d3dc419b5e4e",
+        "bytes": 180110
+      }
+    },
+    {
+      "id": "1789350946352-p07",
+      "bookId": "1789350946352",
+      "title": "오즈의 마법사_그림체3",
+      "pageNumber": 7,
+      "replace": false,
+      "file": "1789350946352/p07.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 332306,
+      "sha256": "f7dbe6c0834e53e94a87984ba740444ce9d36544e94498e5047cbeb38aba633e",
+      "sourceSha256": "bfbb6c917be033635092ee8e1f2815aa0e5275223f84c75fa28ed37e72a250fb",
+      "prompt": "Create a landscape 16:9 storybook illustration for children.\n*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***\nCollage illustration, torn and cut textured paper layered together, hand-painted paper collage in the style of Eric Carle, bold vibrant colors, visible brush and paint texture on paper\n*** END ART STYLE ***\nMatch the actual supplied reference characters, their faces, clothing colors, proportions and rendering. References containing lettering are identity/style references only; do not copy any lettering.\nPage narrative (context only, do not print): 어흥! 큰 소리로 울지만 사실은 겁쟁이인 사자도 만났어요.\n\"나는 용기를 얻고 싶어. 너희랑 같이 가면 안 무서울 것 같아!\"\n\n\nScene: 풍성한 갈기가 멋지지만 꼬리를 다리 사이에 숨기고 훌쩍이며 울고 있는 커다란 사자가 도로시 일행 앞에 있어. 도로시가 겁이 많은 사자의 코를 톡톡 건드리며 위로해주고 있고, 덩치는 크지만 귀여운 사자의 표정이 강조돼.\nCRITICAL - NO TEXT: No text, speech bubbles, numbers, captions, logos or labels in the image. Pure illustration only.",
+      "promptRecord": "native generation prompt",
+      "references": [
+        "1789350946352/ref-p06.webp",
+        "1789350946352/ref-p08.webp",
+        "1789350946352/ref-char3.webp",
+        "1789350946352/ref-char4.webp",
+        "1789350946352/ref-char5.webp"
+      ],
+      "review": {
+        "status": "pass",
+        "sha256": "f7dbe6c0834e53e94a87984ba740444ce9d36544e94498e5047cbeb38aba633e",
+        "notes": "Textured painted-paper collage; Dorothy/Toto/scarecrow/tin man and nervous lion match references; brown boots match character sheet and page 6 (legacy footwear varies), no new text."
+      },
+      "production": {
+        "url": "https://assets.tangobook.co.kr/1789350946352-%EC%98%A4%EC%A6%88%EC%9D%98%EB%A7%88%EB%B2%95%EC%82%AC_%EA%B7%B8%EB%A6%BC%EC%B2%B43-illustration-page7-1791778948706.webp",
+        "storageUrl": "https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1789350946352-오즈의마법사_그림체3-illustration-page7-1791778948706.webp",
+        "sourceSha256": "f7dbe6c0834e53e94a87984ba740444ce9d36544e94498e5047cbeb38aba633e",
+        "cdnSha256": "5dc28fb16d330e3128654ba4ebdffd984cd4093e00e9cf93d72efe1d9ec560ed",
+        "bytes": 325012
+      }
+    }
+  ]
+}
