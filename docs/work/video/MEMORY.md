@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 기억
 
+2026-10-12 [Rive+Remotion 인계 main push](tasks/20261012-rive-remotion-learning-sample.md#후속-main-push--2026-10-12): 사용자 후속 요청으로 인계481c17a79 일반 push·원격 SHA 일치 확인. 샘플/코드/자산도 원격 이력 포함, 아래 로컬 커밋만 수행은 인계 당시 상태. 배포 완료는 미확인.
+
 2026-10-12 사용자 Rive+Remotion 다른 세션 인계 요청·명칭 Rive 정정: [바로 이어가기](tasks/20261012-rive-remotion-learning-sample.md#다른-세션에서-바로-이어가기)에 재개 문장·편집 위치·실행 조건·검수 주의·다음 행동 보강. main 기록/최종본을 기준으로 하며 제작 worktree의 ready는 이전 스냅샷. 보존 자산만으로 렌더 가능, 새 R2 조회 불필요. 후속 main push로 로컬 origin/main17e2f93ef에 제작28dfad736 포함 확인; 아래 미푸시는 제작 당시 상태. 이번 인계는 문서 로컬 커밋만 수행.
 
 2026-10-12 [Rive+Remotion 가 학습 영상](tasks/20261012-rive-remotion-learning-sample.md) 완료: 사용자 샘플 제작 요청으로 실제.riv/@remotion/rive 직접재생→3획가쓰기→imagegen가방·기존발음/BGM/효과음24초1080p/30fps 제작.720frame/16표본·Rive반복RGB일치·원음10곳중복/시점/피크·전체decode 검수, frozen설치/타입/포맷 통과. 초기로딩빈프레임·음량/발음중복 수정.13d7421c3→로컬main28dfad736 통합, output/rive-remotion-learning-20261012 영상/기록·public/hangul-sample-20261012 자산 보존. 이전 연동미검증 해소, 앱/게임/운영/푸시 없음.
