@@ -1,0 +1,1907 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-12",
+  "scope": "Reviewed page excerpts for phonics targets; creative books published separately by explicit user request",
+  "entries": [
+    {
+      "word": "과자",
+      "lang": "ko",
+      "bookId": "changjak-bruno-22",
+      "pageNumber": 1,
+      "sourceText": "창밖에 눈이 소복소복 내려요. 할아버지가 화덕에서 과자를 꺼냈어요. 부엌에 생강 냄새가 가득해요.",
+      "sourceSha256": "bd8306864e172c4f39ed5b66ff91d2fbfae43cd8fef8de6494f9d782e0c868df",
+      "phonicsUnitIds": [
+        "kr-h4-u04"
+      ],
+      "targetSense": "동그랗고 노란색인 달콤한 과자 한 조각",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "구름",
+      "lang": "ko",
+      "bookId": "changjak-bung-18",
+      "pageNumber": 5,
+      "sourceText": "구름이 몰려와서 하늘이 어두워졌어요. 붕이는 나뭇잎만 세고 있어요.",
+      "sourceSha256": "b3f1d2a0482685702a64b748bf97e46fe7815e1a57438d93a998638891e2448d",
+      "phonicsUnitIds": [
+        "kr-h2-u06"
+      ],
+      "targetSense": "뭉게뭉게 피어나는 하얀 구름",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "그릇",
+      "lang": "ko",
+      "bookId": "changjak-coco-18",
+      "pageNumber": 1,
+      "sourceText": "엄마가 반죽을 둥글게 빚어 그릇에 담았어요. 위에 하얀 수건을 덮었어요.",
+      "sourceSha256": "2aa4863bee996ee8b3afa8feea3d45f4a7a215077c1ce83ece89533ec13e48bd",
+      "phonicsUnitIds": [
+        "kr-h2-u05"
+      ],
+      "targetSense": "하얀색 바탕에 파란색 꽃 무늬가 있는 아름다운 그릇",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "기차",
+      "lang": "ko",
+      "bookId": "changjak-bami-01",
+      "pageNumber": 1,
+      "sourceText": "\"콩 칸은 싫어! 알이랑 밥만 먹을래!\" 식당칸 창가에서 밤이가 도시락 뚜껑을 열자마자 콩 칸은 쳐다도 안 봐요. 칸 셋 도시락에서 알과 밥만 부리로 콕콕. 창가 방석 위에선 기차 고양이 나비가 동그랗게 몸을 말고 졸아요.",
+      "sourceSha256": "02518f3f88ba42a6f4e8b6b4e58c59d7be22b91e0e605153595c37148eeaa837",
+      "phonicsUnitIds": [
+        "kr-h1-u11"
+      ],
+      "targetSense": "긴 몸통을 가진 검은색 기차.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "딸기",
+      "lang": "ko",
+      "bookId": "changjak-dari-25",
+      "pageNumber": 4,
+      "sourceText": "할머니가 보자기에서 딸기 한 바구니를 꺼내 달이 앞에 놓았어요. \"우리 아가, 이거 먹어 보렴. 할미가 아침에 밭에서 땄단다.\" 할머니 앞발이 따뜻해요. 달이가 한 입 베어 무니 달콤한 맛이 입안에 사르르 퍼졌어요.",
+      "sourceSha256": "d0a09088ea5b108e0c94c364f9097fe979d0ecaaf66b46a71ac144a9abb0bda0",
+      "phonicsUnitIds": [
+        "kr-h3-u02"
+      ],
+      "targetSense": "빨갛고 탐스러운 딸기 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "레몬",
+      "lang": "ko",
+      "bookId": "changjak-lulu-15",
+      "pageNumber": 2,
+      "sourceText": "룰루가 큰 주전자를 꺼냈어요. \"시원한 레몬물은 내가 만들래요.\" 엄마가 레몬을 반으로 잘라 줬어요.",
+      "sourceSha256": "1b4752206dc5e4146a2cb7063d97db24485059137a6774c1c73a7e6aacaca88c",
+      "phonicsUnitIds": [
+        "kr-h4-u01"
+      ],
+      "targetSense": "노란색의 둥근 레몬.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "머리",
+      "lang": "ko",
+      "bookId": "changjak-dingding-21",
+      "pageNumber": 10,
+      "sourceText": "딩딩은 지붕 밑에서 바구니를 안고 있어요. 할머니가 부채를 머리에 얹고 뛰어와요. 개미들은 벌써 다 들어갔어요.",
+      "sourceSha256": "b1bd8c5c5dcecd8dd4b2cea0a69ad233e4c221c414297912bd7f4c51289519e2",
+      "phonicsUnitIds": [
+        "kr-h1-u06"
+      ],
+      "targetSense": "건강하고 윤기 나는 갈색 머리카락이 돋보이는 사람의 머리.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "베개",
+      "lang": "ko",
+      "bookId": "changjak-pongi-16",
+      "pageNumber": 5,
+      "sourceText": "아빠가 이불로 배를 만들었어요. 베개로 물을 저어요.",
+      "sourceSha256": "d8557c401a3dbca286994ffc1fe0e2e2bc1fe0d24407505b306fe7752c134d40",
+      "phonicsUnitIds": [
+        "kr-h4-u01"
+      ],
+      "targetSense": "폭신하고 하얀 베개.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "비누",
+      "lang": "ko",
+      "bookId": "changjak-mina-06",
+      "pageNumber": 8,
+      "sourceText": "엄마가 소누 손에 비누를 다시 쥐여 줬어요.",
+      "sourceSha256": "f9864c97ef7e35247a69dc99d58087cea22bbea25cdd6b58c4319540dfb5356b",
+      "phonicsUnitIds": [
+        "kr-h1-u07"
+      ],
+      "targetSense": "하얀 거품이 풍성한 동그란 비누 조각.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "비옷",
+      "lang": "ko",
+      "bookId": "changjak-mio-30",
+      "pageNumber": 1,
+      "sourceText": "창밖에 봄비가 주룩주룩 내려요. 덜렁이 두리가 옷걸이에서 노란 비옷을 홱 낚아챘어요. \"제일 먼저 첨벙할 거야!\"",
+      "sourceSha256": "456559dda51f585524fc5420db213f76180de2228b78566c17091377c25ea783",
+      "phonicsUnitIds": [
+        "kr-h2-u05"
+      ],
+      "targetSense": "머리부터 발끝까지 덮는 노란색 비옷",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "빨래",
+      "lang": "ko",
+      "bookId": "changjak-pipo-17",
+      "pageNumber": 1,
+      "sourceText": "아침부터 바람이 씽씽 불어요. 빨랫줄의 빨래들이 펄럭펄럭 춤을 춰요.",
+      "sourceSha256": "ce09c437fd83212dcde9c2b11673801c5b0d5e75969eb2ea7f2c91a1a162b687",
+      "phonicsUnitIds": [
+        "kr-h3-u03"
+      ],
+      "targetSense": "알록달록한 빨래들이 햇볕에 잘 마르고 있는 모습 (한글, 1-2문장으로 단어를 시각적으로 묘사)",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "소파",
+      "lang": "ko",
+      "bookId": "changjak-pongi-11",
+      "pageNumber": 7,
+      "sourceText": "아빠가 소파에 앉았어요. \"조금만 앉았다 갈게.\"",
+      "sourceSha256": "16216cdf425c36a6c64e511da69e5ec03379d9fc29418b3d78d8820d6fc4c1ac",
+      "phonicsUnitIds": [
+        "kr-h1-u14"
+      ],
+      "targetSense": "두 사람이 앉을 수 있는 푹신하고 편안한 소파.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "시계",
+      "lang": "ko",
+      "bookId": "changjak-bami-13",
+      "pageNumber": 1,
+      "sourceText": "\"우와, 여기가 큰 역이야?\" 밤이가 아빠 옆에 서서 두리번두리번해요. 짐을 든 사람들이 북적북적, 높은 천장에 커다란 시계가 째깍째깍. 기관사 아빠가 말했어요. \"사람이 많으니까 아빠 옆에 딱 붙어. 놓치면 그 자리에 딱 멈춰서 불러— 아빠는 뿌웅 하고 대답할게.\"",
+      "sourceSha256": "3d6b6a42011dbc5fda3fbd1988f3b7f579168f813adb840ca14b8d8d24fbf42c",
+      "phonicsUnitIds": [
+        "kr-h4-u02"
+      ],
+      "targetSense": "시계",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "씨앗",
+      "lang": "ko",
+      "bookId": "changjak-yuki-27",
+      "pageNumber": 2,
+      "sourceText": "\"씨앗 한 줄만 더 심으면 텃밭이 다 차요!\" 유키는 밥알을 입에 문 채 흙 손으로 또 한 입 집어요. 할머니가 마당 대야에 물을 받아 놓았어요.",
+      "sourceSha256": "370048a3484bfedfe71656115208b80a93ca7f6e12f4f6e8801032fb1bcffae7",
+      "phonicsUnitIds": [
+        "kr-h3-u04"
+      ],
+      "targetSense": "땅에 심겨진 작고 둥근 씨앗 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "열쇠",
+      "lang": "ko",
+      "bookId": "changjak-coco-04",
+      "pageNumber": 6,
+      "sourceText": "코코가 열쇠를 들고 문 앞에 섰어요. 문 밖에서 드르렁 소리가 나요.",
+      "sourceSha256": "2833626f90409f01b50b413bab12d600b643ac84d8b3d3ae0a76946892c62ca9",
+      "phonicsUnitIds": [
+        "kr-h4-u03"
+      ],
+      "targetSense": "반짝이는 금색 손잡이를 가진 금색 열쇠",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "염소",
+      "lang": "ko",
+      "bookId": "changjak-dingding-36",
+      "pageNumber": 4,
+      "sourceText": "아랫마을에 가끔 오는 염소 의사 선생님이 딩딩 앞에 앉았어요. \"딩딩아, 네 배 속에도 일꾼들이 산단다. 알고 있었니?\" \"…일꾼요?\" 딩딩이 모자를 살짝 올렸어요.",
+      "sourceSha256": "d1199748777a2e56071b253d88151a8ce79cfcdfa92d2dde44535c2e1ddec96b",
+      "phonicsUnitIds": [
+        "kr-h2-u06"
+      ],
+      "targetSense": "뿔 달린 하얀 염소",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "오리",
+      "lang": "ko",
+      "bookId": "changjak-bung-04",
+      "pageNumber": 2,
+      "sourceText": "밖에서 오리들이 꽥꽥 지나가요. 붕이가 목을 쭉 빼고 밖을 봐요. \"또리야, 다 먹고 오리 보러 가자.\"",
+      "sourceSha256": "7812f211a8e83ea2955ec47be0567cc579d06891d00cbb018e5104b9004fd2da",
+      "phonicsUnitIds": [
+        "kr-h1-u05"
+      ],
+      "targetSense": "노란색 털을 가진 귀여운 아기 오리가 연못에서 즐겁게 헤엄치고 있습니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "우유",
+      "lang": "ko",
+      "bookId": "changjak-bruno-07",
+      "pageNumber": 2,
+      "sourceText": "닐스는 큰 통 가득 블루베리를 따고 싶어요. 저녁에 우유를 부어 먹을 거예요. 할아버지가 제 작은 통을 챙겨 들었어요.",
+      "sourceSha256": "beb5c91e9a747646a5d17037891a5d7f50758fe2b1598c968becc7a0afe544e3",
+      "phonicsUnitIds": [
+        "kr-h1-u01",
+        "kr-h1-u09"
+      ],
+      "targetSense": "컵에 담긴 흰 우유.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "의자",
+      "lang": "ko",
+      "bookId": "changjak-twins-35",
+      "pageNumber": 1,
+      "sourceText": "\"앗, 배 지나간다!\" 롤로가 수프를 한 술 뜨다 말고 창가로 달려갔어요. 식탁 오른쪽 의자가 텅 비었어요. 왼쪽에서는 리리가 의자에 앉아 냠냠 먹어요.",
+      "sourceSha256": "d5e8730915f771f4b9de8d114eddccb432e58bcc73f2eb237c11e03ddac698d1",
+      "phonicsUnitIds": [
+        "kr-h4-u05"
+      ],
+      "targetSense": "나무로 만들어진 편안한 갈색 의자 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "치마",
+      "lang": "ko",
+      "bookId": "changjak-lulu-17",
+      "pageNumber": 10,
+      "sourceText": "치마가 펄럭 — 이모도 어느새 한가운데서 제일 크게 돌고 있어요. 리본은 이모 머리에서 대롱대롱.",
+      "sourceSha256": "50870b544a3323ee3d9979e466b6cb6ef2f16191f597f860113c8d5a3d8ad76e",
+      "phonicsUnitIds": [
+        "kr-h1-u11"
+      ],
+      "targetSense": "분홍색 바탕에 하얀색 꽃무늬가 그려진 아이 치마.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "치즈",
+      "lang": "ko",
+      "bookId": "changjak-mei-07",
+      "pageNumber": 1,
+      "sourceText": "소풍 가는 날이에요. 곰 할머니가 치즈를 한 덩이씩 싸 줬어요.",
+      "sourceSha256": "f473164a8c27ce0f2409144f7983e8c2fe8c88a6b0dbfc0818da47836a457f96",
+      "phonicsUnitIds": [
+        "kr-h1-u11"
+      ],
+      "targetSense": "둥글고 노란색인 커다란 치즈 덩어리.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "쿠키",
+      "lang": "ko",
+      "bookId": "changjak-coco-14",
+      "pageNumber": 1,
+      "sourceText": "오늘은 쿠키 굽는 날이에요. 코코가 반죽을 얇게 밀었어요.",
+      "sourceSha256": "47f2e29c79d14e06e36ab28f002f34168d6a42d86808c68a6067206420e9dee2",
+      "phonicsUnitIds": [
+        "kr-h1-u12"
+      ],
+      "targetSense": "동그란 모양의 갈색 쿠키 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "포도",
+      "lang": "ko",
+      "bookId": "changjak-lulu-24",
+      "pageNumber": 1,
+      "sourceText": "포도를 큰 나무통에 가득 부었어요. 발로 밟으면 보랏빛 즙이 나와요.",
+      "sourceSha256": "2d334de32dc9089920bf02b76e792e1ed341d1c71f04c772ba23c2948a568348",
+      "phonicsUnitIds": [
+        "kr-h1-u14"
+      ],
+      "targetSense": "탐스럽게 열린 보라색 포도송이.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "호수",
+      "lang": "ko",
+      "bookId": "changjak-bruno-06",
+      "pageNumber": 1,
+      "sourceText": "아침 해가 반짝 떴어요. 길가에 새 풀이 파릇파릇 돋았어요. 오늘은 할아버지와 호수에 가는 날이에요.",
+      "sourceSha256": "35719f313011fcac29c87bedf0dd4c3c49f0f3990c16d401b19132153330a656",
+      "phonicsUnitIds": [
+        "kr-h1-u15"
+      ],
+      "targetSense": "파란색의 넓고 잔잔한 호수입니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "시장",
+      "lang": "ko",
+      "bookId": "changjak-nono-38",
+      "pageNumber": 1,
+      "sourceText": "\"앞치마 끝, 다 같이 잡아라!\" 오소리 할아버지가 앞치마 자락을 뒤로 내밀어요. 셋이 한 손씩 앞치마 끝을 꼭 잡았어요. 겨울 시장은 사람들로 빽빽해요.",
+      "sourceSha256": "78372f173d456c63dc3f34789c0b59c9105f1dc0309a644acee322e1b3a78f8b",
+      "phonicsUnitIds": [
+        "kr-h2-u01"
+      ],
+      "targetSense": "과일과 채소가 진열된 북적이는 시장.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "apple",
+      "lang": "en",
+      "bookId": "changjak-mio-39",
+      "pageNumber": 5,
+      "sourceText": "Teacher Bau brought one apple piece and sat beside Gaga. Cutting it smaller and smaller, Teacher Bau laid out ten pieces. \"Your mouth must make pieces small like this too. Ten chews for every bite!\"",
+      "sourceSha256": "e65c9c9fa0828eb26aad891b0248b618674a583c3aa9478fa838eb58fb7e371f",
+      "phonicsUnitIds": [
+        "en-b1-u01"
+      ],
+      "targetSense": "동그랗고 빨간색인 맛있는 사과 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "arm",
+      "lang": "en",
+      "bookId": "changjak-taro-09",
+      "pageNumber": 6,
+      "sourceText": "\"I've got them all!\" \"Me, too!\" They met with shells in their arms.",
+      "sourceSha256": "2ee59c2fae0e8d113d686bf0f08de358e3f6d321b70093f1ea77d8f7fe838789",
+      "phonicsUnitIds": [
+        "en-b5-u07"
+      ],
+      "targetSense": "튼튼한 남자의 빨간 팔이 힘차게 뻗어 있습니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "bed",
+      "lang": "en",
+      "bookId": "changjak-dari-02",
+      "pageNumber": 4,
+      "sourceText": "Dad sat beside the bed. \"Getting up isn't hard. Stretch at sunrise.\" Holding Dari's front flippers, he helped him reach upward.",
+      "sourceSha256": "ddb461a08ed10d8da881f270b46caefe7c91225dfe659c27477054228bac9a1a",
+      "phonicsUnitIds": [
+        "en-b2-u05"
+      ],
+      "targetSense": "폭신해 보이는 파란색 침대 하나. 베개와 이불이 놓여 있다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "bird",
+      "lang": "en",
+      "bookId": "changjak-dodo-35",
+      "pageNumber": 3,
+      "sourceText": "Sparrows flocked down after the crumbs! Chirp, chirp! Startled, Mumu dropped the bread, and the birds pecked the rest. \"My bread...\" He looked sadly at his empty wings.",
+      "sourceSha256": "2757c78697502ecfae9ab59900b856edafa77b5fd8d2980537a87c35b768ed99",
+      "phonicsUnitIds": [
+        "en-b5-u06"
+      ],
+      "targetSense": "작고 귀여운 갈색 새 한 마리가 나뭇가지에 앉아있는 모습.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "book",
+      "lang": "en",
+      "bookId": "changjak-bami-24",
+      "pageNumber": 3,
+      "sourceText": "A goat carrying a roll book entered. \"Is Bami here? Attendance!\" She was the teacher. Her unfamiliar voice sent Bami deeper under the quilt. \"New teacher, new friends... Scary.\"",
+      "sourceSha256": "5ef1c6547fd065ac344dffedd70e6cf9ae45708027b811362ab56393f4388819",
+      "phonicsUnitIds": [
+        "en-b1-u01",
+        "en-b5-u08"
+      ],
+      "targetSense": "표지가 두꺼운 재미있는 이야기 책 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "bowl",
+      "lang": "en",
+      "bookId": "changjak-mina-12",
+      "pageNumber": 2,
+      "sourceText": "The three children sat close in the narrow space. Mina poured blue beads into a bowl. \"I'll finish this necklace today.\"",
+      "sourceSha256": "caa001e5d7255169286a7cecb2566999fe01ca8e215c826afaa01419a239db94",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "음식을 담는 둥근 모양의 하얀색 그릇.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "box",
+      "lang": "en",
+      "bookId": "changjak-yuki-30",
+      "pageNumber": 1,
+      "sourceText": "\"Grandma, look at me!\" Yuki bounced in the room. Grandma looked only into a box beside the brazier. A baby bird she had found in the yard that morning lay inside. \"Shh, you'll startle it.\" Yuki's cheeks puffed sulkily.",
+      "sourceSha256": "3eaaabc999f1db467045e80e75c5187c7a24d939c45c53709dc50087dc3b914f",
+      "phonicsUnitIds": [
+        "en-b1-u08",
+        "en-b2-u06"
+      ],
+      "targetSense": "정육면체 모양의 상자, 'x' 글자가 그려져 있다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "branch",
+      "lang": "en",
+      "bookId": "changjak-moya-16",
+      "pageNumber": 6,
+      "sourceText": "Mom walked to the pointed shape. Up close—\"An acacia tree!\" The monster was just a tree with bare branches. Kiki looked to its top. \"Not a monster?\"",
+      "sourceSha256": "45a33847ae86c35fd25777976eac38e438e38aece95af52ea985cb8bbce2f7f0",
+      "phonicsUnitIds": [
+        "en-b4-u07"
+      ],
+      "targetSense": "나뭇잎이 달린 나무의 가지.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "car",
+      "lang": "en",
+      "bookId": "changjak-mio-40",
+      "pageNumber": 7,
+      "sourceText": "No cars or bicycles were coming. Teacher Bau held Duri's hand and led. With the other hand high, Duri crossed carefully. Reaching the other side, Duri jumped.",
+      "sourceSha256": "c907f130c31e2972efd30999c153cf1421a1a37fa29130f6e47dd838951f7b7a",
+      "phonicsUnitIds": [
+        "en-b5-u07"
+      ],
+      "targetSense": "반짝이는 파란색 자동차가 도로를 달리고 있습니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "clock",
+      "lang": "en",
+      "bookId": "changjak-bami-13",
+      "pageNumber": 1,
+      "sourceText": "\"Is this the big station?\" Bami looked around beside Dad. People with bags bustled beneath a high ceiling and huge ticking clock. Dad said, \"Stay close. If you lose me, stop and call. I'll answer with a toot.\"",
+      "sourceSha256": "1394a5ff639f560f28347a8cdde065fa86a42fa20e49049fcd1cae33a73f5615",
+      "phonicsUnitIds": [
+        "en-b4-u01"
+      ],
+      "targetSense": "벽에 걸린 째깍거리는 탁상 시계.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "cloud",
+      "lang": "en",
+      "bookId": "changjak-dingding-21",
+      "pageNumber": 4,
+      "sourceText": "\"Clouds like these don't bring rain,\" Grandma said. The clouds were white and round.",
+      "sourceSha256": "0684074027aaf59a0f27f058b2dccae32802615f706f35e62e70250735bbabe8",
+      "phonicsUnitIds": [
+        "en-b5-u05"
+      ],
+      "targetSense": "솜사탕처럼 뭉게뭉게한 하얀색 구름",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "coat",
+      "lang": "en",
+      "bookId": "changjak-twins-34",
+      "pageNumber": 2,
+      "sourceText": "Lolo in boots waved from the yard. \"Riri, a puddle! Hurry!\" \"I want to come! Just the buttons first!\" Riri turned the coat over, then spread it out again.",
+      "sourceSha256": "c11fd40c47ef1705cfb98484a8b67e00a035aca3566621d3f5c087e088b4dddb",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "겨울에 입는 따뜻한 파란색 코트.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "coin",
+      "lang": "en",
+      "bookId": "changjak-pipo-23",
+      "pageNumber": 1,
+      "sourceText": "Tomorrow was Mom's birthday. Pipo took out the coins he had saved.",
+      "sourceSha256": "491a930f61c3fcf8b28d19260d54761208986f8a2a3c2ae1a6c4191bee280ad9",
+      "phonicsUnitIds": [
+        "en-b5-u04"
+      ],
+      "targetSense": "반짝이는 황금색 동전",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "corn",
+      "lang": "en",
+      "bookId": "changjak-mei-36",
+      "pageNumber": 1,
+      "sourceText": "\"All brushed!\" Ppino the rabbit, always first at everything, rubbed the toothbrush twice and hung it on a wall peg. The morning bell had just rung. Corn hung in rows under the lodge eaves.",
+      "sourceSha256": "e73c557122da856bb7b17420c19aa7d7eb9658550d28795c47b17b3166c66ae7",
+      "phonicsUnitIds": [
+        "en-b5-u07"
+      ],
+      "targetSense": "노랗고 달콤한 옥수수 알갱이가 꽉 찬 옥수수 한 대.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "cup",
+      "lang": "en",
+      "bookId": "changjak-bruno-01",
+      "pageNumber": 2,
+      "sourceText": "Drip. Drip. Clear sap fell into a bucket. It smelled a little sweet. Nils wanted to drink a whole cup of tree sap.",
+      "sourceSha256": "64b0024e29e5092844515257a080911b8670a00a5a2ec5f14e9b427b7ab94248",
+      "phonicsUnitIds": [
+        "en-b1-u01",
+        "en-b2-u07"
+      ],
+      "targetSense": "하얀색 바탕에 파란색 테두리가 있는 작은 컵 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "dad",
+      "lang": "en",
+      "bookId": "changjak-dari-01",
+      "pageNumber": 2,
+      "sourceText": "Dad, the lighthouse keeper, peeked in. \"I'm going up to turn on the big light. Come help? Then it's bedtime.\" \"I'm not sleepy!\" Dari shook his head and hugged his shell tower.",
+      "sourceSha256": "b04c076b5e2da3829b5572443ef1f93438cb3b01fd8dc5c64c563bf9b2f61e28",
+      "phonicsUnitIds": [
+        "en-b2-u02"
+      ],
+      "targetSense": "다정하고 따뜻한 미소를 띤 아빠가 아이를 안아 올리고 있습니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "dog",
+      "lang": "en",
+      "bookId": "changjak-yuki-27",
+      "pageNumber": 8,
+      "sourceText": "Yuki dried their hands on a towel across their knees. Even the fingertips were clean and bright. Their tummy no longer hurt. Brown dog Momo came to nuzzle a palm.",
+      "sourceSha256": "431474ddc8542a22ef03466acad920ed65f9dddcfabb913b17512b4efbc23bbf",
+      "phonicsUnitIds": [
+        "en-b1-u02",
+        "en-b2-u06"
+      ],
+      "targetSense": "귀여운 갈색 강아지 한 마리",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "egg",
+      "lang": "en",
+      "bookId": "changjak-coco-44",
+      "pageNumber": 1,
+      "sourceText": "\"I'll crack the eggs!\" Coco, in a red headscarf, picked up an egg at the dough table. Snow lay outside. In the kitchen, it was egg-bread day. \"I'll put in a nice round yolk!\"",
+      "sourceSha256": "b9ae7356db74ff6ec9acd2b511e5c00b47aa35c3df00558e2d997086fffd0242",
+      "phonicsUnitIds": [
+        "en-b1-u02"
+      ],
+      "targetSense": "둥근 흰색 달걀 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "feet",
+      "lang": "en",
+      "bookId": "changjak-kota-02",
+      "pageNumber": 7,
+      "sourceText": "Before dawn, still dim, the boar stretched out his feet. They slipped right into his shoes. \"My feet found their own way!\" Watching through the door, Kota's tail shot up.",
+      "sourceSha256": "84400d64e834e2836137df3e5f6ba69bd5cdf67056bcafab6d288e3e436ce952",
+      "phonicsUnitIds": [
+        "en-b5-u01"
+      ],
+      "targetSense": "땅을 딛고 있는 두 개의 사람 발이 보입니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "fish",
+      "lang": "en",
+      "bookId": "changjak-pongi-09",
+      "pageNumber": 3,
+      "sourceText": "Little fish swam past her feet, one after another. Pongi let them all go.",
+      "sourceSha256": "4c0f663cde7dac1df5240d3a3bf363f423d4410e315d8d40153d1ea7ef411a1a",
+      "phonicsUnitIds": [
+        "en-b1-u02",
+        "en-b4-u07"
+      ],
+      "targetSense": "노란색 물고기 한 마리",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "flag",
+      "lang": "en",
+      "bookId": "changjak-twins-16",
+      "pageNumber": 2,
+      "sourceText": "They wanted to make a flag for Dad's boat. \"It is our boat's flag, so let us paint a fish!\"",
+      "sourceSha256": "b7db10f5c8c5c03f99720da53d763739ef343e0e969f6fb7aa450c3f6acf022c",
+      "phonicsUnitIds": [
+        "en-b4-u01"
+      ],
+      "targetSense": "바람에 펄럭이는 빨강과 하양 줄무늬 깃발.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "food",
+      "lang": "en",
+      "bookId": "changjak-taro-03",
+      "pageNumber": 3,
+      "sourceText": "Each heard only their own words. Taro thought he was bringing the food. Mumu thought they were bringing it, too.",
+      "sourceSha256": "953e6c7005942de5216aaa9a0849aeca0c825b22b6e59da81e9f478cafb9165e",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "맛있게 보이는 과일과 빵이 담긴 접시.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "foot",
+      "lang": "en",
+      "bookId": "changjak-bung-36",
+      "pageNumber": 3,
+      "sourceText": "Bung let go of Ddori's hand and reached a foot between the boats. Grandpa caught Bung's arm. \"Wait!\"",
+      "sourceSha256": "2827d7850d02510bc70b56ad9828586a96433ab1d650c6c393e93d77da92135a",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "크고 둥근 발 모양.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "fork",
+      "lang": "en",
+      "bookId": "changjak-lulu-40",
+      "pageNumber": 6,
+      "sourceText": "Stirring a pot, Mom asked, \"Anything else down there?\" Lulu crawled and searched. One fork, one garlic clove! \"Little Lulu fits right in!\"",
+      "sourceSha256": "b3c0bceea89a3c92a08d81fa0eefe11c7d499d84d086eff368d813ebec296808",
+      "phonicsUnitIds": [
+        "en-b1-u02",
+        "en-b5-u07"
+      ],
+      "targetSense": "포크",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "fox",
+      "lang": "en",
+      "bookId": "changjak-mei-29",
+      "pageNumber": 1,
+      "sourceText": "\"Soup tastes best when it's boiling hot!\" Leo the know-it-all fox sat at the middle of the long table. Steam rose from a pot on the stove. \"I know everything. It tastes bad when it's cold.\"",
+      "sourceSha256": "4ff33fc70f45a1ecd2235a7174f5a35da6207edd60a6fef9d1f5c5dc381ed4fe",
+      "phonicsUnitIds": [
+        "en-b1-u08",
+        "en-b2-u06"
+      ],
+      "targetSense": "날렵한 주황색 여우, 꼬리에 'x' 글자가 그려져 있다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "gift",
+      "lang": "en",
+      "bookId": "changjak-dari-10",
+      "pageNumber": 8,
+      "sourceText": "The fisherman beamed. \"Hello! I'm here to fish.\" He tilted the bucket, showing leaping silver fish, and offered Dari one. \"A gift for a friend with a lovely greeting.\"",
+      "sourceSha256": "964d16f828a7f1d62b62036d31643a2af225018ac3e3fc896c123bb4ee9600be",
+      "phonicsUnitIds": [
+        "en-b1-u03"
+      ],
+      "targetSense": "예쁜 빨간 리본이 달린 선물 상자 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "girl",
+      "lang": "en",
+      "bookId": "changjak-bami-11",
+      "pageNumber": 1,
+      "sourceText": "\"Dad, that older deer girl is lost!\" Bami pointed across the railway crossing. A deer student with a schoolbag studied a map as yellow ginkgo leaves fell. \"I'll bring her!\" Bami was already hopping away.",
+      "sourceSha256": "932c6496fea9a26e2168ed98e2d91264378259110fff98102566cdeaa94ed7be",
+      "phonicsUnitIds": [
+        "en-b5-u06"
+      ],
+      "targetSense": "밝게 웃는 머리 긴 여자 아이가 예쁜 분홍색 원피스를 입고 서있는 모습.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "glove",
+      "lang": "en",
+      "bookId": "changjak-nono-21",
+      "pageNumber": 3,
+      "sourceText": "Kiki took off the gloves and played with bare hands.",
+      "sourceSha256": "c8bacb2c57b8a2afb79a5d21f12aee0889d7bbf9f3d1e4ced9ca00f524cbdbb3",
+      "phonicsUnitIds": [
+        "en-b4-u03"
+      ],
+      "targetSense": "따뜻해 보이는 부드러운 장갑.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "goat",
+      "lang": "en",
+      "bookId": "changjak-dingding-36",
+      "pageNumber": 4,
+      "sourceText": "The goat doctor, who sometimes visited the lower village, sat in front of Dingding. \"Did you know there are little workers inside your tummy?\" \"Workers...?\" Dingding lifted the hat a little.",
+      "sourceSha256": "f844639be62676942d42857cb5e3b9b396b365f3b1ffec58cf7e313931676667",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "풀을 뜯고 있는 하얀색 염소.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "goose",
+      "lang": "en",
+      "bookId": "changjak-pipo-03",
+      "pageNumber": 3,
+      "sourceText": "Mrs. Goose stretched her long neck. \"I saw it by the stream earlier! Definitely.\"",
+      "sourceSha256": "6e2f87d59b0554fe940ba69e688649390edc60c71a1b64f3c3ceacc81019bfd8",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "우아하게 헤엄치는 하얀 거위.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "hand",
+      "lang": "en",
+      "bookId": "changjak-kota-01",
+      "pageNumber": 6,
+      "sourceText": "Thick clouds billowed from the upper pool. Kota quickly hid their hands behind their back. \"Billowing means too hot! Even fingertips need care!\"",
+      "sourceSha256": "83607cfca5332c60cbf11320f697693c311c505a86a45693b4005acc881f1806",
+      "phonicsUnitIds": [
+        "en-b1-u03"
+      ],
+      "targetSense": "다섯 손가락이 있는 사람의 손 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "hat",
+      "lang": "en",
+      "bookId": "changjak-mio-27",
+      "pageNumber": 2,
+      "sourceText": "\"Bobo, what about your hands?\" asked Mio, who did everything alone. \"It takes too long to go and wash! I am eating now!\" Bobo pulled the hat brim forward and munched.",
+      "sourceSha256": "3fe4e8f83551ad6ccf2ae37ff1bca59dd9a74bfc759ee7bcd6dff12bce045dd5",
+      "phonicsUnitIds": [
+        "en-b1-u03",
+        "en-b2-u01"
+      ],
+      "targetSense": "챙이 넓은 파란색 모자 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "house",
+      "lang": "en",
+      "bookId": "changjak-taro-01",
+      "pageNumber": 1,
+      "sourceText": "Taro's house is on this side of the village road. Mumu's house is on the other side. Taro has quick hands. Mumu has sharp ears. Every morning, they meet in the middle of the road.",
+      "sourceSha256": "d7eb204b196fb588b2073c9c764b09f3f0ec9785ef32c51900598d6cf7ac6403",
+      "phonicsUnitIds": [
+        "en-b5-u05"
+      ],
+      "targetSense": "아늑하고 따뜻해 보이는 빨간 지붕의 집",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "key",
+      "lang": "en",
+      "bookId": "changjak-coco-04",
+      "pageNumber": 6,
+      "sourceText": "Coco stood at the door with the key. A loud snore came from outside.",
+      "sourceSha256": "1213a229355747b4053a38defa46982e6feac6a0ac04de1fc30369b1b8d6b4c7",
+      "phonicsUnitIds": [
+        "en-b1-u04"
+      ],
+      "targetSense": "열쇠",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "kite",
+      "lang": "en",
+      "bookId": "changjak-dodo-20",
+      "pageNumber": 1,
+      "sourceText": "Autumn wind swept across the field. Dad made one kite each for Dodo and Mumu.",
+      "sourceSha256": "10d829a888357cfe36f629298c267171c1d6fbad6065756fcfa116b905e3bb4b",
+      "phonicsUnitIds": [
+        "en-b3-u04"
+      ],
+      "targetSense": "파란 하늘 위를 높이 날고 있는 알록달록한 연",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "lake",
+      "lang": "en",
+      "bookId": "changjak-bruno-06",
+      "pageNumber": 1,
+      "sourceText": "The morning sun shone. Fresh green grass grew beside the path. Today Nils would go to the lake with Grandpa.",
+      "sourceSha256": "a5d1f7e04ca285313b3e1a0da2a86760f6abb1b7ea1aec2eda435f14a780c722",
+      "phonicsUnitIds": [
+        "en-b3-u01"
+      ],
+      "targetSense": "잔잔하고 맑은 물이 가득한 푸른 호수.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "lamp",
+      "lang": "en",
+      "bookId": "changjak-yuki-44",
+      "pageNumber": 4,
+      "sourceText": "Grandma came with a lamp. \"Say ah.\" She removed the piece from between the teeth. \"The sweet juice stayed behind.\"",
+      "sourceSha256": "d875cb116db4485e8e0b02ca950fec831cbc26f8dafb07484d6326095033b751",
+      "phonicsUnitIds": [
+        "en-b1-u04"
+      ],
+      "targetSense": "램프",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "leaf",
+      "lang": "en",
+      "bookId": "changjak-bung-20",
+      "pageNumber": 3,
+      "sourceText": "The water boat rang a bell far away. Bung was floating a leaf boat. \"Later.\"",
+      "sourceSha256": "cf957f4e86c80c2266b3d10b6415e709ea6d59200842a0947406c1bb43076b27",
+      "phonicsUnitIds": [
+        "en-b5-u01"
+      ],
+      "targetSense": "나뭇가지에 매달린 신선하고 초록색인 나뭇잎 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "lemon",
+      "lang": "en",
+      "bookId": "changjak-lulu-15",
+      "pageNumber": 2,
+      "sourceText": "Lulu brought a big pitcher. \"I will make cool lemon water.\" Mom cut the lemons in half.",
+      "sourceSha256": "b90cea895120db80c57429ebc98ac9577df2235713b83c3d3d97cafd01b38e03",
+      "phonicsUnitIds": [
+        "en-b1-u04"
+      ],
+      "targetSense": "노란색 레몬 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "log",
+      "lang": "en",
+      "bookId": "changjak-mei-19",
+      "pageNumber": 1,
+      "sourceText": "A log stretched across the stream. They played at crossing over it.",
+      "sourceSha256": "d451c440cbb54982d9f9fd0b180a726d5e5b3eb67b73b35b01e9de81bca24a36",
+      "phonicsUnitIds": [
+        "en-b2-u06"
+      ],
+      "targetSense": "숲 속에 놓여있는 굵은 통나무.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "map",
+      "lang": "en",
+      "bookId": "changjak-bami-11",
+      "pageNumber": 7,
+      "sourceText": "The barrier rose and the bell fell silent. Bami stopped, looked left, looked right, and crossed step by step. The deer student held out her map. \"Little conductor, is this the station?\"",
+      "sourceSha256": "d2f5e0436839e3c3101be5f8f3de4e39f15fcb16050eea59e3905259aa6b35fe",
+      "phonicsUnitIds": [
+        "en-b1-u05",
+        "en-b2-u02"
+      ],
+      "targetSense": "펼쳐진 보물지도",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "mat",
+      "lang": "en",
+      "bookId": "changjak-dingding-14",
+      "pageNumber": 4,
+      "sourceText": "She spread a bamboo mat left of the tree, taking out bowls. \"Cool here yesterday.\"",
+      "sourceSha256": "38dbfe8ec08e5ea9e17bb8c5aff05ff27844f3790c6f90682fb992044997cd99",
+      "phonicsUnitIds": [
+        "en-b2-u01"
+      ],
+      "targetSense": "푹신한 파란색 매트",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "mouse",
+      "lang": "en",
+      "bookId": "changjak-coco-26",
+      "pageNumber": 1,
+      "sourceText": "\"I don't like carrots!\" Coco picked the carrots out of the soup. In the kitchen behind the bakery, Coco, a little mouse in a red headscarf, ate only bits of bread. The next batch was turning golden in the oven, the big fiery place where bread bakes.",
+      "sourceSha256": "5734a7c2ebb252b8223c4f4c0d415f3babe5e59f7f26c5eeb8328af37ba2309e",
+      "phonicsUnitIds": [
+        "en-b1-u05",
+        "en-b5-u05"
+      ],
+      "targetSense": "생쥐",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "mouth",
+      "lang": "en",
+      "bookId": "changjak-kota-03",
+      "pageNumber": 7,
+      "sourceText": "Kota tiptoed past the turtle's room. Soft sleeping breaths came from inside. Kota covered their mouth with both hands, tail shooting up.",
+      "sourceSha256": "9844ca6e18829dab73268dac2f2431d7c521f0e7e8859846ff109c7a8b579e9f",
+      "phonicsUnitIds": [
+        "en-b5-u05"
+      ],
+      "targetSense": "활짝 벌어진 웃는 입 모양",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "mud",
+      "lang": "en",
+      "bookId": "changjak-moya-05",
+      "pageNumber": 4,
+      "sourceText": "Through the reeds, Moya saw Tumba, the mud-play champion, splashing. Mom called, \"How about an adventure in Splash Land?\" Moya poked their head out. \"Splash Land? What's that?\"",
+      "sourceSha256": "14e8cd5a5c004c906609c63b3374cf5b1eb8a2dad34361ab1a74ac29a2f55adc",
+      "phonicsUnitIds": [
+        "en-b2-u08"
+      ],
+      "targetSense": "촉촉하고 끈적이는 갈색 진흙 웅덩이.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "nest",
+      "lang": "en",
+      "bookId": "changjak-pongi-48",
+      "pageNumber": 1,
+      "sourceText": "\"Yahooooo!\" Pongi shouted as loudly as she could on the bank path under the bridge. The sound echoed and grew louder. The swallows in their nests under the bridge all fluttered away.",
+      "sourceSha256": "ef3b216fcab4350625e5bd8004f7af287938a38202105be5c0d5b14a1368e4b3",
+      "phonicsUnitIds": [
+        "en-b1-u05"
+      ],
+      "targetSense": "나뭇가지로 만든 새 둥지",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "nose",
+      "lang": "en",
+      "bookId": "changjak-nono-48",
+      "pageNumber": 7,
+      "sourceText": "The squirrel smiled at the snow beside Nono. Kiki's seat stayed empty. Kiki's eyes stung, and the nose turned red.",
+      "sourceSha256": "06701057a42075ec5c723108234f44f23c0f76639517e46dc51a3624e9cdd940",
+      "phonicsUnitIds": [
+        "en-b3-u05"
+      ],
+      "targetSense": "웃는 얼굴의 귀여운 아이 얼굴과 빨간 코.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "owl",
+      "lang": "en",
+      "bookId": "changjak-yuki-45",
+      "pageNumber": 1,
+      "sourceText": "Hoot, hoot. An owl called from the mountain. Wearing a vermilion scarf, Yuki stacked wooden pieces beside the brazier. \"Just one more layer!\"",
+      "sourceSha256": "98063acf3947c8a8fcb3e4db52681cb52d351257898d066cdb816cbcd34281dc",
+      "phonicsUnitIds": [
+        "en-b5-u05"
+      ],
+      "targetSense": "커다란 눈을 가진 귀여운 올빼미 인형",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "pillow",
+      "lang": "en",
+      "bookId": "changjak-dodo-31",
+      "pageNumber": 1,
+      "sourceText": "\"No! I won't sleep!\" Upstairs, little brother Mumu played a straw flute. Peep, peep! Stars filled the night beyond the round window; a little lamp stood by his pillow. Mumu held back a yawn. \"Just a little more, a little more!\"",
+      "sourceSha256": "8eaa538b85acb0365da8743f551752efd755918d4935f38d558d08999b775b90",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "머리를 대고 자는 푹신한 파란색 베개.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "plate",
+      "lang": "en",
+      "bookId": "changjak-taro-26",
+      "pageNumber": 1,
+      "sourceText": "\"I'll only eat greens!\" Mumu picked just the greens off the leaf plate, nudging the rice, corn, and tomatoes to its edge. Grandma watched quietly as she prepared the meal.",
+      "sourceSha256": "ae94b3f46e50379b397bccfd2465d1d32bf6150665ce1fe30ae60d850fffe400",
+      "phonicsUnitIds": [
+        "en-b4-u03"
+      ],
+      "targetSense": "동그랗고 깨끗한 흰색 접시.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "pot",
+      "lang": "en",
+      "bookId": "changjak-twins-26",
+      "pageNumber": 2,
+      "sourceText": "\"Tomorrow morning, I want to pull Dad's rope by myself!\" Riri waved her spoon. Mom, who ran the fish stall, set down the pot and looked at her bowl. The green row grew longer, and only half the soup remained.",
+      "sourceSha256": "4e8ad2836d326cc7c66a43e62922bbd91e26db1785d47b4c66ce95153086008a",
+      "phonicsUnitIds": [
+        "en-b2-u06"
+      ],
+      "targetSense": "가스레인지 위에 놓인 빨간색 뚜껑의 냄비.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "rain",
+      "lang": "en",
+      "bookId": "changjak-bung-17",
+      "pageNumber": 1,
+      "sourceText": "Rain kept them indoors today. Bung and Ddori sat beneath the awning. Behind them, Grandpa dried a wet oar.",
+      "sourceSha256": "49654c5666e5c87252d515696f671a6ad50bee8ffbe7d7a5143d8f36d86a7971",
+      "phonicsUnitIds": [
+        "en-b5-u03"
+      ],
+      "targetSense": "하늘에서 떨어지는 투명한 빗방울들",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "road",
+      "lang": "en",
+      "bookId": "changjak-mina-36",
+      "pageNumber": 1,
+      "sourceText": "\"Mom, buffalo fill the road!\" Mina stamped at the village road's end. Every evening, buffalo went down to the river. Low water had exposed a long flight of steps.",
+      "sourceSha256": "a212c5bb6302fa5a04be0f71a0786de95a732a5a58f4cc2f91e2e99c1fc9cd99",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "끝없이 이어지는 포장된 길.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "rope",
+      "lang": "en",
+      "bookId": "changjak-mei-13",
+      "pageNumber": 8,
+      "sourceText": "Grandma Bear put the sled rope in Soso's hand. \"Give it back, and you can borrow again.\"",
+      "sourceSha256": "4ca18a5027f58e1dd0bd6c86575b8e23bfb95414fcc7307ad3a156ab55febcdd",
+      "phonicsUnitIds": [
+        "en-b3-u05"
+      ],
+      "targetSense": "두꺼운 갈색 밧줄이 팽팽하게 당겨져 있는 모습.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "sand",
+      "lang": "en",
+      "bookId": "changjak-taro-09",
+      "pageNumber": 9,
+      "sourceText": "They poured all the shells onto the sand. Thirty shells! They laid them out in a circle.",
+      "sourceSha256": "d4e0cd3295ee3019d10c141b465a61f436d7194d659ab537a77eed3d555ae5b8",
+      "phonicsUnitIds": [
+        "en-b1-u07"
+      ],
+      "targetSense": "모래",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "seed",
+      "lang": "en",
+      "bookId": "changjak-moya-25",
+      "pageNumber": 5,
+      "sourceText": "Grandma took Moya to the reeds. \"A game from when I was little?\" She tapped a reed with her muzzle. White seeds floated up. Moya tapped, too. \"Like clouds!\" For the first time, Moya smiled.",
+      "sourceSha256": "a082f3bd0b261bacb68bddeb74c5192a461ff917cd3d80bafd8f89e1e708ca62",
+      "phonicsUnitIds": [
+        "en-b5-u01"
+      ],
+      "targetSense": "손바닥 안에 놓인 작은 갈색 씨앗 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "shirt",
+      "lang": "en",
+      "bookId": "changjak-pongi-10",
+      "pageNumber": 3,
+      "sourceText": "Dad put the laundry in the tub. A white shirt, a white towel, a white apron.",
+      "sourceSha256": "76f36997fe5d5ecde239ef965a80239079867293de7e048a214130d3b7acd0b0",
+      "phonicsUnitIds": [
+        "en-b5-u06"
+      ],
+      "targetSense": "파란색 반팔 셔츠 한 벌이 옷걸이에 걸려있는 모습.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "shop",
+      "lang": "en",
+      "bookId": "changjak-nono-01",
+      "pageNumber": 8,
+      "sourceText": "Grandpa Badger was sweeping in front of his shop. \"You have to walk to keep your footprints going,\" he said.",
+      "sourceSha256": "ace160fcb2a0a7d83ea2a5a89447eb1ca4b52bbc3115487f42a7ffa37f167279",
+      "phonicsUnitIds": [
+        "en-b4-u07"
+      ],
+      "targetSense": "물건을 파는 작은 가게.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "skirt",
+      "lang": "en",
+      "bookId": "changjak-lulu-17",
+      "pageNumber": 10,
+      "sourceText": "A skirt fluttered! Already Aunt Rosa was spinning biggest in the middle. Ribbons dangled from her head.",
+      "sourceSha256": "3695fede9f3df9d2f7d1d0091dd60f9caced36b53f5181916f32f0c8e474cc21",
+      "phonicsUnitIds": [
+        "en-b5-u06"
+      ],
+      "targetSense": "빨간색 체크무늬가 있는 짧은 치마 한 벌.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "sled",
+      "lang": "en",
+      "bookId": "changjak-bruno-19",
+      "pageNumber": 2,
+      "sourceText": "Nils wanted to sled down that hill. The sled was in the loft. He put on blue boots.",
+      "sourceSha256": "5c9e3f1bb4b60fc9fee221cccb1bf17f9e339afb584afd8b0dbdbce9ae02bc51",
+      "phonicsUnitIds": [
+        "en-b4-u03"
+      ],
+      "targetSense": "나무로 만들어진 썰매.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "smile",
+      "lang": "en",
+      "bookId": "changjak-twins-27",
+      "pageNumber": 10,
+      "sourceText": "Under the covers, Mom rubbed her cheek against Lolo's. Brushing between the teeth left nothing to tickle all night. \"Brush, brush—even between your teeth!\" Lolo showed a wide, toothy smile.",
+      "sourceSha256": "1196e7d2f1c75744272e43d12af3fa11369d4c1e758e7131e16d9a89d15d1386",
+      "phonicsUnitIds": [
+        "en-b4-u05"
+      ],
+      "targetSense": "밝고 환하게 웃고 있는 사람의 얼굴.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "snow",
+      "lang": "en",
+      "bookId": "changjak-yuki-01",
+      "pageNumber": 1,
+      "sourceText": "All the snow in the yard had melted. Grandma gave Yuki a bag of flower seeds. Momo pressed a nose to the bag and sniffed.",
+      "sourceSha256": "e82b00c5cbcdc112e0390376dc28582bba60aa41cf23f832e8bc750a1927810c",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "snow",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "soap",
+      "lang": "en",
+      "bookId": "changjak-bami-05",
+      "pageNumber": 5,
+      "sourceText": "Dad stirred soap into the tub. White bubbles rose like mountains! The yellow duck floated on top. The tub became a bubble train. \"A real bubble train!\" Bami's eyes shone.",
+      "sourceSha256": "5861c9d74643e2b26b87e97fd60ec6a465fe0124bddcb31e587d308908d83679",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "손을 씻을 때 쓰는 하얀색 비누 조각.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "sock",
+      "lang": "en",
+      "bookId": "changjak-yuki-29",
+      "pageNumber": 4,
+      "sourceText": "Squelch! The boot stuck in the mud, and the foot came out. Yuki's sock was soaked. \"I can't play...\" Back on the porch, Yuki hung their head.",
+      "sourceSha256": "08aa16ba45b0caae9ac97c21821c2b77fb9dae47ec41c5dc9e796bd0310ee8ce",
+      "phonicsUnitIds": [
+        "en-b1-u07"
+      ],
+      "targetSense": "빨간색 긴 양말 한 짝입니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "spoon",
+      "lang": "en",
+      "bookId": "changjak-bung-04",
+      "pageNumber": 3,
+      "sourceText": "Ddori held a spoon in both hands. Bung took it. \"I will feed you.\"",
+      "sourceSha256": "47b146f0b583d64c5007f546f156971da7a5f32352933fbca72884d551295660",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "광택 나는 금속 숟가락.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "star",
+      "lang": "en",
+      "bookId": "changjak-dingding-16",
+      "pageNumber": 5,
+      "sourceText": "Dingding lay wide awake. Water trickled outside. Stars sparkled.",
+      "sourceSha256": "ce60f5013a71fe0bb44086e66fdeadd02b994fec5be93cf88602a048fb9ab8c1",
+      "phonicsUnitIds": [
+        "en-b5-u07"
+      ],
+      "targetSense": "star",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "stone",
+      "lang": "en",
+      "bookId": "changjak-dari-21",
+      "pageNumber": 1,
+      "sourceText": "\"Here goes!\" Dari struck a shell with a stone on the kitchen table. It stayed tightly shut. \"I'll open shells like Dad!\" Kongal watched from the cradle by the stove.",
+      "sourceSha256": "16f868e4642b20454f2078d27f5f3cc79dfa511abe76ff8c12d54c5f2bdc2519",
+      "phonicsUnitIds": [
+        "en-b4-u05"
+      ],
+      "targetSense": "크고 둥근 회색 돌멩이.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "sun",
+      "lang": "en",
+      "bookId": "changjak-mei-15",
+      "pageNumber": 7,
+      "sourceText": "The sun was setting. Mei shifted their toes by the steps.",
+      "sourceSha256": "28dd69a3b7e110b10ee4ac0d74467998fcf79b505504e841b656f45f1d3c806c",
+      "phonicsUnitIds": [
+        "en-b1-u07",
+        "en-b2-u08"
+      ],
+      "targetSense": "환하게 빛나는 노란색 태양입니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "tail",
+      "lang": "en",
+      "bookId": "changjak-mina-36",
+      "pageNumber": 5,
+      "sourceText": "\"The legs. So close together, like a forest, aren't they?\" Mina looked through the leg forest. \"There's the end! One tail left.\"",
+      "sourceSha256": "f9040a1150413135e9c00004e2414afb59c0d8d9b41b13e5976f373f64afc587",
+      "phonicsUnitIds": [
+        "en-b5-u03"
+      ],
+      "targetSense": "하얀색 털이 복슬복슬한 동물의 꼬리",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "tea",
+      "lang": "en",
+      "bookId": "changjak-bami-16",
+      "pageNumber": 8,
+      "sourceText": "Pipi fluttered down and nestled beside Bami. \"It's okay!\" Together they watched snowy mountains through the circle. Mom set warm tea on the table.",
+      "sourceSha256": "187cc5a0977b1eab90d153c7b4ae43de4339392b3c6174dd63cc9c6c45d683e3",
+      "phonicsUnitIds": [
+        "en-b5-u01"
+      ],
+      "targetSense": "김이 모락모락 나는 따뜻한 차가 담긴 하얀 찻잔.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "teacher",
+      "lang": "en",
+      "bookId": "changjak-mio-01",
+      "pageNumber": 8,
+      "sourceText": "Teacher Bau sat beside Mio. \"Mio, will two hands be enough?\"",
+      "sourceSha256": "6dd90468f5e811a2ff409c4eb0b8eec1104a06286a6d74cce881600308e6a149",
+      "phonicsUnitIds": [
+        "en-b5-u06"
+      ],
+      "targetSense": "안경을 쓰고 책을 들고 있는 친절한 인상의 여성 선생님.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "teeth",
+      "lang": "en",
+      "bookId": "changjak-moya-03",
+      "pageNumber": 5,
+      "sourceText": "Mom told a story. \"Your teeth are flat stones. The upper and lower stones grind stiff grass soft.\" Moya imagined it. Rub, rub—soft grass! \"That's why I need to chew well!\"",
+      "sourceSha256": "f31721e094ddb1a688fbb3bc5080d0d70aebbf74c332952dc6975082ede7bc62",
+      "phonicsUnitIds": [
+        "en-b4-u08"
+      ],
+      "targetSense": "깨끗하고 하얀 사람의 이빨 여러 개",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "toy",
+      "lang": "en",
+      "bookId": "changjak-nono-30",
+      "pageNumber": 4,
+      "sourceText": "Grandpa beckoned from the back room with soap and a toy duck. \"Forget a bath—want to visit Steam Land?\" Nono, the smallest, roundest sparrow, and Gugu, the broad-chested pigeon, followed.",
+      "sourceSha256": "df05e28e7775164efdb0122190a110ba30b7a89d047fd61200ce76ea9ef3df2f",
+      "phonicsUnitIds": [
+        "en-b5-u04"
+      ],
+      "targetSense": "알록달록한 장난감 자동차",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "train",
+      "lang": "en",
+      "bookId": "changjak-bami-01",
+      "pageNumber": 1,
+      "sourceText": "\"No beans! Just egg and rice!\" Bami opened a three-section lunchbox by the dining-car window and pecked only at egg and rice. Nabi the train cat dozed, curled on a window cushion.",
+      "sourceSha256": "a72c1e0e5e7a60ea193c88f9ea8830bb5b030d7d40f8839e06be8cce029c27e4",
+      "phonicsUnitIds": [
+        "en-b5-u03"
+      ],
+      "targetSense": "빨간색 증기 기관차",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "tray",
+      "lang": "en",
+      "bookId": "changjak-coco-14",
+      "pageNumber": 6,
+      "sourceText": "The tray filled with little stars. Mrs. Magpie stuck out her beak.",
+      "sourceSha256": "992145d4b5677461bed604aff754cb9275c7b9acdc7e67375f9553bb73bb5cc9",
+      "phonicsUnitIds": [
+        "en-b5-u03"
+      ],
+      "targetSense": "직사각형 모양의 나무 쟁반",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "tree",
+      "lang": "en",
+      "bookId": "changjak-pipo-03",
+      "pageNumber": 5,
+      "sourceText": "\"Then under the big tree! I saw it there too.\" She waddled ahead.",
+      "sourceSha256": "ef98ebe6709aa982dc88e44ceec4420797328b24db43f25375dfbf4e9826bf59",
+      "phonicsUnitIds": [
+        "en-b4-u04",
+        "en-b5-u01"
+      ],
+      "targetSense": "초록색 잎이 무성한 키 큰 나무.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "umbrella",
+      "lang": "en",
+      "bookId": "changjak-pongi-03",
+      "pageNumber": 3,
+      "sourceText": "Dad brought a big umbrella. \"With this, we won't get wet at all.\"",
+      "sourceSha256": "25873cf45ddbb98f060beaffd8e9d97637f29d285506006cfd93dcf24e5e7ff9",
+      "phonicsUnitIds": [
+        "en-b1-u07"
+      ],
+      "targetSense": "비를 막아주는 파란색 우산입니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "wheel",
+      "lang": "en",
+      "bookId": "changjak-bruno-10",
+      "pageNumber": 9,
+      "sourceText": "The next morning, Grandpa pulled back the cloth. Ta-da! A wooden horse on wheels!",
+      "sourceSha256": "fa776376030c6d05b3ee42976dc49b2fb410f513b23947931af2605330119f24",
+      "phonicsUnitIds": [
+        "en-b4-u08"
+      ],
+      "targetSense": "검은색 자동차 바퀴 하나",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "window",
+      "lang": "en",
+      "bookId": "changjak-taro-15",
+      "pageNumber": 2,
+      "sourceText": "\"Go ahead! I'll be there soon!\" he called out the window. He wanted to finish quickly and play with Mumu.",
+      "sourceSha256": "bb041e7d5b851932ad65768d3c15dfee0233db8d776752ee5b616fd1ea56b16d",
+      "phonicsUnitIds": [
+        "en-b1-u08",
+        "en-b5-u02"
+      ],
+      "targetSense": "창문",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "wood",
+      "lang": "en",
+      "bookId": "changjak-bung-01",
+      "pageNumber": 3,
+      "sourceText": "Grandpa pushed through the water with a long piece of wood—an oar. Bung hopped aboard.",
+      "sourceSha256": "10c4843bb793877941172882125a09fa38f60a6c502412f310886511e06efee9",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "갈색의 거친 나무 조각.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "가위",
+      "lang": "ko",
+      "bookId": "changjak-mio-11",
+      "pageNumber": 2,
+      "sourceText": "\"이 창문은 내가 다 오릴래.\" 미오가 가위를 집어 들었어요.",
+      "sourceSha256": "5b7eb7b303c5067f665bcaa7375d8ef3bc30ccb8bbb5e69641b49d4eb94a2698",
+      "phonicsUnitIds": [
+        "kr-h4-u03"
+      ],
+      "targetSense": "파란색 손잡이를 가진 은색 가위",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "모자",
+      "lang": "ko",
+      "bookId": "changjak-bami-10",
+      "pageNumber": 5,
+      "sourceText": "아빠가 식탁 위에 셋을 나란히 놓았어요. 표 묶음, 모자, 도시락! \"심부름엔 이 세 가지만 챙기면 든든해. 표·모자·도시락, 준비 끝!\" 아빠가 노래하듯 말해요. 밤이가 부리로 하나씩 톡톡 짚어 봐요. \"표, 모자, 도시락!\"",
+      "sourceSha256": "d8fa4831de702dfc5ef83efe065ffdcd3a5e7584f9ca86b32b390d36b0929bcb",
+      "phonicsUnitIds": [
+        "kr-h1-u10"
+      ],
+      "targetSense": "빨간색 둥근 모양의 모자",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "바다",
+      "lang": "ko",
+      "bookId": "changjak-bami-07",
+      "pageNumber": 3,
+      "sourceText": "한참 뒤 눈을 뜬 밤이는 깜짝! 해가 둥근 창 한가운데 떠 있어요. 창밖 여름 바다가 휙휙 지나가요. 기차가 벌써 달리고 있어요. \"어라, 종은? 내 종은?\" 밤이가 발을 동동 굴러요.",
+      "sourceSha256": "3c94ab4b75810600bcf57b352f5a12b063f38e8f5df8de7a6643bae49be90650",
+      "phonicsUnitIds": [
+        "kr-h1-u07"
+      ],
+      "targetSense": "넓고 푸른 바다 풍경, 잔잔한 파도와 멀리 보이는 수평선.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "손",
+      "lang": "ko",
+      "bookId": "changjak-mina-06",
+      "pageNumber": 8,
+      "sourceText": "엄마가 소누 손에 비누를 다시 쥐여 줬어요.",
+      "sourceSha256": "f9864c97ef7e35247a69dc99d58087cea22bbea25cdd6b58c4319540dfb5356b",
+      "phonicsUnitIds": [
+        "kr-h2-u03"
+      ],
+      "targetSense": "사람의 손바닥 모양, 따뜻한 살색.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "아빠",
+      "lang": "ko",
+      "bookId": "changjak-bami-04",
+      "pageNumber": 4,
+      "sourceText": "기관사 아빠가 기관실에서 식당칸으로 건너와 밤이 등을 살살 쓸어 주고 물 한 컵을 건넸어요. \"천천히, 꿀꺽.\" 딸꾹질이 사르르 가라앉았어요. \"너무 급하게 삼켜서 그래.\" 아빠가 밤이 곁에 앉았어요.",
+      "sourceSha256": "e38902039e7dfa2ba30c2b336c6d341b21ddd4ba037b32cce9a5963a969eca56",
+      "phonicsUnitIds": [
+        "kr-h3-u03"
+      ],
+      "targetSense": "다정하고 듬직한 아빠의 모습 (한글, 1-2문장으로 단어를 시각적으로 묘사)",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "아이",
+      "lang": "ko",
+      "bookId": "changjak-bami-04",
+      "pageNumber": 5,
+      "sourceText": "그때 큰 바구니를 든 토끼 가족이 식당칸으로 올라와 건너편 자리에 앉았어요. 아이 셋이 바구니에서 당근을 꺼내 아삭아삭. 아빠가 속닥였어요. \"봐, 토끼들은 한 입에 열 번씩 꼭꼭 씹어. 그래서 배가 한 번도 안 아파.\" 밤이가 세어 봐요. 꼭꼭꼭꼭… 정말 열 번!",
+      "sourceSha256": "d8c46b02bf1f875e81f6cae97e852c124ecb81bf9a837225b3bffe95516b4d07",
+      "phonicsUnitIds": [
+        "kr-h1-u01"
+      ],
+      "targetSense": "환하게 웃는 어린 아이의 얼굴.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "엄마",
+      "lang": "ko",
+      "bookId": "changjak-bami-02",
+      "pageNumber": 1,
+      "sourceText": "\"밤이야, 칫솔! 종점에 섰으니까 이 닦고 코~ 잘 시간이야.\" 엄마가 세면칸 문 앞에서 칫솔을 살랑살랑 흔들어요. 그런데 밤이는 침대칸 이불 속으로 쏙— \"양치 안 할래, 귀찮단 말이야! 그냥 잘 거야!\" 눈을 꼭 감아 버려요.",
+      "sourceSha256": "34c9bf30725df462b11247b940e553a2fc8e2776cfef6b1344b5da695174bc2e",
+      "phonicsUnitIds": [
+        "kr-h2-u06"
+      ],
+      "targetSense": "다정하게 웃고 있는 엄마의 모습",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "동생",
+      "lang": "ko",
+      "bookId": "changjak-bung-26",
+      "pageNumber": 1,
+      "sourceText": "\"초록은 빼 줘!\" 붕이가 국수에서 초록 잎을 건져 뱃전에 놓아요. 주황 새우도 척 밀어냈어요. 기둥에 매인 국수 배는 가만히 떠 있어요. 동생 또리는 초록 잎을 냠냠 잘 먹어요.",
+      "sourceSha256": "765dabfa6ef835dc221e7315bdf3fbc3e57fb89d96498c0ab7a537ee436fbf85",
+      "phonicsUnitIds": [
+        "kr-h4-u01"
+      ],
+      "targetSense": "환하게 웃는 다정한 동생의 모습.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "집",
+      "lang": "ko",
+      "bookId": "changjak-taro-01",
+      "pageNumber": 1,
+      "sourceText": "타로네 집은 마을 길 이쪽이에요. 무무네 집은 마을 길 저쪽이에요. 타로는 손이 빨라요. 무무는 귀가 밝아요. 아침마다 둘은 길 가운데에서 만나요.",
+      "sourceSha256": "2cccb33ea09a7c710ac4aa989f1859b5405a9cd663253871cdcbaa1f4eab9442",
+      "phonicsUnitIds": [
+        "kr-h2-u07"
+      ],
+      "targetSense": "빨간 지붕에 하얀 벽으로 된 아담한 집 한 채.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "하늘",
+      "lang": "ko",
+      "bookId": "changjak-bruno-16",
+      "pageNumber": 2,
+      "sourceText": "닐스는 연을 하늘 높이 띄우고 싶어요. 나무보다 높이, 지붕보다 높이요. \"자, 간다!\"",
+      "sourceSha256": "32ebb6879c88d6b2549c2361c05705ffd08af8d92051528c43065381b55170fa",
+      "phonicsUnitIds": [
+        "kr-h2-u04"
+      ],
+      "targetSense": "넓고 파란 하늘에 하얀 구름이 떠 있는 모습.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "토끼",
+      "lang": "ko",
+      "bookId": "changjak-bami-04",
+      "pageNumber": 5,
+      "sourceText": "그때 큰 바구니를 든 토끼 가족이 식당칸으로 올라와 건너편 자리에 앉았어요. 아이 셋이 바구니에서 당근을 꺼내 아삭아삭. 아빠가 속닥였어요. \"봐, 토끼들은 한 입에 열 번씩 꼭꼭 씹어. 그래서 배가 한 번도 안 아파.\" 밤이가 세어 봐요. 꼭꼭꼭꼭… 정말 열 번!",
+      "sourceSha256": "d8c46b02bf1f875e81f6cae97e852c124ecb81bf9a837225b3bffe95516b4d07",
+      "phonicsUnitIds": [
+        "kr-h3-u01"
+      ],
+      "targetSense": "긴 귀를 가진 복슬복슬한 갈색 토끼가 잔디밭에서 깡충 뛰고 있습니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "bag",
+      "lang": "en",
+      "bookId": "changjak-bami-12",
+      "pageNumber": 1,
+      "sourceText": "\"A station!\" Pipi called. Bami bounced by the door. An elderly turtle slowly boarded with a walking stick and old leather bag. \"I'll watch the winding mountain track beside Dad!\" Bami told him.",
+      "sourceSha256": "5584cf2979f80ab81456515e603cee54dc51075e92a6d87d206953c6788d6c4b",
+      "phonicsUnitIds": [
+        "en-b1-u01"
+      ],
+      "targetSense": "천으로 만들어진 크고 튼튼한 가방 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "boat",
+      "lang": "en",
+      "bookId": "changjak-bung-01",
+      "pageNumber": 1,
+      "sourceText": "In Bung's village, all the roads were water. Boats sold fruit and noodles. Bung lived on Mom's noodle boat.",
+      "sourceSha256": "8aacd912b5ed76db907ef8e66eeead26b9ffab5d2ec1f296115cc3056d4495b0",
+      "phonicsUnitIds": [
+        "en-b5-u02"
+      ],
+      "targetSense": "강 위를 떠다니는 큰 갈색 배.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "cake",
+      "lang": "en",
+      "bookId": "changjak-coco-07",
+      "pageNumber": 2,
+      "sourceText": "Coco will make a little cake without Mom knowing, with strawberries on top.",
+      "sourceSha256": "339ab79b9e941eea9ed0b730bbaa84135c53ad784f21a0e0d607950d5de68cd0",
+      "phonicsUnitIds": [
+        "en-b3-u01"
+      ],
+      "targetSense": "달콤한 크림과 체리가 올려진 케이크.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "cap",
+      "lang": "en",
+      "bookId": "changjak-bami-13",
+      "pageNumber": 3,
+      "sourceText": "Turning back, Bami couldn't see Dad. Strange legs surrounded them; Dad's cap was nowhere. Tears gathered in their eyes.",
+      "sourceSha256": "d5d37bcd9a69c3ab78aec5dad59ee676675101d66d43abd4c147008472a4e7c6",
+      "phonicsUnitIds": [
+        "en-b1-u01",
+        "en-b2-u02"
+      ],
+      "targetSense": "빨간색 바탕에 'C' 글자가 그려진 귀여운 모자 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "cat",
+      "lang": "en",
+      "bookId": "changjak-bami-01",
+      "pageNumber": 1,
+      "sourceText": "\"No beans! Just egg and rice!\" Bami opened a three-section lunchbox by the dining-car window and pecked only at egg and rice. Nabi the train cat dozed, curled on a window cushion.",
+      "sourceSha256": "a72c1e0e5e7a60ea193c88f9ea8830bb5b030d7d40f8839e06be8cce029c27e4",
+      "phonicsUnitIds": [
+        "en-b1-u01",
+        "en-b2-u01"
+      ],
+      "targetSense": "부드러운 털을 가진 작고 귀여운 아기 고양이 하나.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "duck",
+      "lang": "en",
+      "bookId": "changjak-bung-04",
+      "pageNumber": 2,
+      "sourceText": "Ducks passed outside, quacking. Bung stretched to look. \"Finish eating, Ddori, then let us see the ducks.\"",
+      "sourceSha256": "91f93dce5543d4e9e0c97ede668611b00b76aea69c3ae11c02164c28b51eed57",
+      "phonicsUnitIds": [
+        "en-b1-u02"
+      ],
+      "targetSense": "하얀색 오리 한 마리",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "gate",
+      "lang": "en",
+      "bookId": "changjak-coco-01",
+      "pageNumber": 7,
+      "sourceText": "This time he turned left. There was the same round gate they had passed before.",
+      "sourceSha256": "960a404b9163d457f505c51b08647351570883156b2610a4d38bcf4d8e55338a",
+      "phonicsUnitIds": [
+        "en-b3-u02"
+      ],
+      "targetSense": "정원으로 통하는 나무 문.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "horse",
+      "lang": "en",
+      "bookId": "changjak-pipo-02",
+      "pageNumber": 3,
+      "sourceText": "Mr. Horse came striding over. \"Building walls has to be quick, quick!\"",
+      "sourceSha256": "22b6b2053fd8389e54140baa7055c7f599b5514bb44deb51a2ee50b39ec8ad06",
+      "phonicsUnitIds": [
+        "en-b5-u07"
+      ],
+      "targetSense": "길고 윤기 나는 갈색 갈기를 가진 갈색 말.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "moon",
+      "lang": "en",
+      "bookId": "changjak-dodo-25",
+      "pageNumber": 1,
+      "sourceText": "Tonight was the full moon. Mom baked honey bread for moon-watching and packed it in a basket.",
+      "sourceSha256": "931697b587f23e3e9756484fe34085db237dd4bd20e5963a6f0ae1c5698561d3",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "밤하늘에 밝게 빛나는 보름달.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "rabbit",
+      "lang": "en",
+      "bookId": "changjak-bami-04",
+      "pageNumber": 5,
+      "sourceText": "A rabbit family boarded with a big basket. Across the aisle, three children crunched carrots. Dad whispered, \"They chew each bite ten times. Their tummies never hurt.\" Bami counted. Really—ten!",
+      "sourceSha256": "a871f8f1c19f0006e2b82be60fca9e35b50825126ed88339d4f62fe01c09b058",
+      "phonicsUnitIds": [
+        "en-b1-u06"
+      ],
+      "targetSense": "토끼",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "sea",
+      "lang": "en",
+      "bookId": "changjak-bami-07",
+      "pageNumber": 3,
+      "sourceText": "Much later, Bami woke with a start. Sunlight filled the window and the summer sea rushed past. The train was moving already! \"My bell? What about my bell?\"",
+      "sourceSha256": "634de88833071ed9bd7f8b6adcedfd2c301cc2caa8dbae79506a04eddf440392",
+      "phonicsUnitIds": [
+        "en-b5-u01"
+      ],
+      "targetSense": "끝없이 펼쳐진 푸르고 잔잔한 바다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "vest",
+      "lang": "en",
+      "bookId": "changjak-bruno-32",
+      "pageNumber": 6,
+      "sourceText": "At those words, his tightly shut mouth opened by itself. \"Waaah!\" Nils buried his face in Grandpa's green vest and cried all he needed. Grandpa patted his back. \"Tears coming? Let them out!\"",
+      "sourceSha256": "f451df9873372d90fb05fbb7b204321cd0e372a03b4c847b09f9d931cf1d30b4",
+      "phonicsUnitIds": [
+        "en-b1-u07"
+      ],
+      "targetSense": "파란색 짧은 소매 조끼입니다.",
+      "reviewed": true,
+      "reviewMethod": "Compared phonics target/card description with the complete story page; literal referent, not homonym, idiom, pretend substitute, or verb/noun confusion."
+    },
+    {
+      "word": "rose",
+      "lang": "en",
+      "bookId": "1777277215628",
+      "pageNumber": 3,
+      "sourceText": "The little sprout grew into a pretty rose.\nIts red petals bloomed wide open.\nIt was a really, really beautiful flower.",
+      "sourceSha256": "65b8e516afc95d6f026614644229c2078636915747495978a2d7e1406b0032d1",
+      "phonicsUnitIds": [
+        "en-b3-u05"
+      ],
+      "targetSense": "빨갛게 활짝 핀 아름다운 장미꽃 한 송이.",
+      "reviewed": true,
+      "collection": "public-reviewed",
+      "reviewMethod": "Reviewed literal noun in original public page; exclude verb/noun and alternate-sense hits from automatic index."
+    },
+    {
+      "word": "plant",
+      "lang": "en",
+      "bookId": "1777550146108",
+      "pageNumber": 8,
+      "sourceText": "When it hatches from its egg, it becomes a tadpole with a long tail. The tadpole breathes through its gills, and in the water, it eats plants and tiny bits of food to grow.",
+      "sourceSha256": "85920c7330ffb460d9862b8a75b31cd545b09ece830d0aaa31bd1f71bbec57a4",
+      "phonicsUnitIds": [
+        "en-b4-u03"
+      ],
+      "targetSense": "새싹이 돋아나는 작은 식물.",
+      "reviewed": true,
+      "collection": "public-reviewed",
+      "reviewMethod": "Reviewed literal noun in original public page; exclude verb/noun and alternate-sense hits from automatic index."
+    },
+    {
+      "word": "cap",
+      "lang": "en",
+      "bookId": "1784529062118",
+      "pageNumber": 5,
+      "sourceText": "Day and night the hat maker stitched away, using all his skill to make the tallest royal cap in the world. He had always made hats and caps with ease, after all. When the king received the finished cap, he breathed a great sigh of relief — but now only one person knew the secret: the hat maker.",
+      "sourceSha256": "6e024050b5603ce25c1d85a19fd4d7f707185dcede44d15b0f85a64d8de98c1c",
+      "phonicsUnitIds": [
+        "en-b1-u01",
+        "en-b2-u02"
+      ],
+      "targetSense": "빨간색 바탕에 'C' 글자가 그려진 귀여운 모자 하나.",
+      "reviewed": true,
+      "collection": "public-reviewed",
+      "reviewMethod": "Reviewed literal noun in original public page; exclude verb/noun and alternate-sense hits from automatic index."
+    },
+    {
+      "word": "dress",
+      "lang": "en",
+      "bookId": "1772201758726",
+      "pageNumber": 13,
+      "sourceText": "Finally, the flower fairies, in their sparkly dresses, began to dance!\n\"Twirl, twirl, flutter, flutter! It feels just like a dream.\"",
+      "sourceSha256": "f2653e6b44bbbf126803083cd1b2697b901d9d73c4c6c7e57a813d1e48f15ae4",
+      "phonicsUnitIds": [
+        "en-b4-u04"
+      ],
+      "targetSense": "반짝이는 단추가 달린 예쁜 빨간색 드레스.",
+      "reviewed": true,
+      "collection": "public-reviewed",
+      "reviewMethod": "Reviewed literal noun in original public page; exclude verb/noun and alternate-sense hits from automatic index."
+    },
+    {
+      "word": "moon",
+      "lang": "en",
+      "bookId": "1777442972423",
+      "pageNumber": 15,
+      "sourceText": "The moon has risen in the black night sky. The fox stands up high on a tall rock.",
+      "sourceSha256": "8126b278b63086d90fe3cbd90ead05ea74ebcd56093a684a2f7f8c7c8ff7502c",
+      "phonicsUnitIds": [
+        "en-b5-u08"
+      ],
+      "targetSense": "밤하늘에 밝게 빛나는 보름달.",
+      "reviewed": true,
+      "collection": "public-reviewed",
+      "reviewMethod": "Reviewed literal noun in original public page; exclude verb/noun and alternate-sense hits from automatic index."
+    },
+    {
+      "word": "cat",
+      "lang": "en",
+      "bookId": "1773713269796",
+      "pageNumber": 1,
+      "sourceText": "Cats have been living with people for a very, very long time. They love to walk quietly and climb up high.",
+      "sourceSha256": "d7224fc460277161fc3bd2d8f175cd0e2060d6713e1c752092130fd26709f98c",
+      "phonicsUnitIds": [
+        "en-b1-u01",
+        "en-b2-u01"
+      ],
+      "targetSense": "부드러운 털을 가진 작고 귀여운 아기 고양이 하나.",
+      "reviewed": true,
+      "collection": "public-reviewed",
+      "reviewMethod": "Reviewed literal noun in original public page; exclude verb/noun and alternate-sense hits from automatic index."
+    }
+  ]
+}

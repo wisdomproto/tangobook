@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [창작동화 공개·파닉스 의미 연결](../work/phonics/tasks/20261012-changjak-phonics-links.md): 운영19시리즈850권 모두 공개, 책별 다른 필드 보존·서재 목록 검증 완료. 파닉스 정답에 의미 검토 창작128장면/기존6장면 연결 및 본문 변경 거부 구현·회귀 통과. 영어 어휘 이름0개는 별도 미해결. 공개는 운영 반영, 파닉스 코드 로컬 미푸시.
+
 2026-10-12 [누락 한영 TTS 보완](../work/content/tasks/20261012-library-missing-tts.md): 영어36권368쪽 원문 대조 번역 완료. 한글35/영어368개 Qwen 생성·독립 CPU 역전사·책별 순차 등록 진행. 실제 문장 누락은 재생성, ASR 철자 후보는 별도 hash-bound 근거 기록. 완료 미확정, 작업 root와 실행 명령은 task 참조. 이전 삽화 main 전달과 별도 후속 작업.
 
 2026-10-12 [Library Master·삽화 main 푸시](../work/content/tasks/20261012-missing-page-illustrations.md): 사용자 승인 후 최신 원격 작업22커밋을 보존 merge하여90c6dc15f를 origin/main에 일반 push·원격 확인. Library Master 개선과10권34장 삽화 등록 기록/누락0 snapshot 포함. 타입/현황5회귀/build 통과, 배포 완료 미확인. 아래 미푸시는 당시 기록이다. TTS 누락 보완은 별도 진행.

@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-10-12 [창작동화 전체 공개·파닉스 연결](../phonics/tasks/20261012-changjak-phonics-links.md): 사용자 명시 요청으로19시리즈850권 isPublic=true 운영 반영. 최신 JSON 기반·모든 다른 필드 보존·목록850공개 검증, Library Master 공개850행 갱신. 파닉스 검토 연결은 로컬 미푸시이며 영어 어휘 이름 보완과 누락 TTS 배치는 별도다.
+
 2026-10-12 [누락 한영 TTS 보완](tasks/20261012-library-missing-tts.md): 사용자가 추가 생성 요청. 37권·403개(한글35/영어368), 원문 대조 영어36권 번역 완료·저장소 보존. 단일 Qwen 생성/독립 CPU ASR/검증 통과 책만 순차 R2 등록 중. 하마 p4 첫 문장 실제 누락을 새 seed로 재생성해 전체 원문 일치 확인. ASR 철자 차이와 실제 누락을 구분하며 완료는 전체 receipt·운영/CDN 검증 후 판단한다. 후속 TTS main push 미요청.
 
 2026-10-12 후속 [Library Master·삽화 main 전달](tasks/20261012-missing-page-illustrations.md): 사용자 main push 승인으로7ee4935b7/409cc0e5f와 최신 원격22커밋을 보존 merge90c6dc15f, 타입/현황5회귀/build 검증 후 일반 push·원격SHA 확인. 아래 미푸시는 당시 상태다. TTS 누락35KO/368EN 제작은 별도 작업으로 이어간다.

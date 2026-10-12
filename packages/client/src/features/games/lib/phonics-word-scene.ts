@@ -1,6 +1,7 @@
 import type { Lang, Storybook } from '@tangobook/shared';
 import { apiGet } from '@/lib/axios';
 import WORD_SCENES from '@/features/phonics-learner/data/word-scenes.json';
+import CHANGJAK_SCENES from '@/features/phonics-learner/data/changjak-word-scenes.json';
 
 /**
  * 파닉스 낱말 게임에서 한 낱말을 맞히면, **그 낱말이 나오는 동화책 한 쪽**을 보여 준다.
@@ -14,7 +15,86 @@ import WORD_SCENES from '@/features/phonics-learner/data/word-scenes.json';
  *    판이 시작되기 전에 `preloadWordScenes` 로 미리 받아 둔다. 못 받았으면 그냥 안 띄운다
  *    (낱말만 읽어 주고 넘어간다 — 사용자 지시).
  */
-const INDEX = WORD_SCENES as unknown as Record<string, Array<[bookId: string, page: number]>>;
+const REVIEWED = CHANGJAK_SCENES as unknown as Record<string, Array<[string, number, string]>>;
+// Spelling-only matches cannot distinguish these senses. Only reviewed excerpts may link them.
+const MEANING_REVIEW_REQUIRED = new Set([
+  '눈',
+  '다리',
+  '사과',
+  '파리',
+  '화가',
+  '두부',
+  '지도',
+  '김밥',
+  '가위',
+  '달',
+  'bat',
+  'can',
+  'pen',
+  'bark',
+  'fall',
+  'left',
+  'wave',
+  'rock',
+  'well',
+  'back',
+  'saw',
+  'fan',
+  'tie',
+  'pop',
+  'kind',
+  'like',
+  'may',
+  'will',
+  'run',
+  'cut',
+  'hit',
+  'let',
+  'set',
+  'get',
+  'sit',
+  'net',
+  'rose',
+  'plant',
+  'cap',
+  'brush',
+  'dress',
+  'crane',
+  'bank',
+  'seal',
+  'jam',
+  'date',
+  'case',
+  'mole',
+  'ring',
+  'letter',
+  'train',
+]);
+const INDEX: Record<string, Array<[string, number]>> = {};
+for (const [word, rows] of Object.entries(WORD_SCENES))
+  if (!MEANING_REVIEW_REQUIRED.has(word)) INDEX[word] = rows as Array<[string, number]>;
+for (const [word, rows] of Object.entries(REVIEWED))
+  INDEX[word] = [...(INDEX[word] ?? []), ...rows.map(([id, page]): [string, number] => [id, page])];
+
+const wordKey = (word: string) => word.trim().toLowerCase();
+
+/** A curated meaning is valid only while its reviewed page text and public status remain unchanged. */
+export function isReviewedSceneCurrent(
+  word: string,
+  lang: Lang,
+  book: Storybook,
+  pageNumber: number
+): boolean {
+  const reviewed = REVIEWED[wordKey(word)]?.find(
+    ([id, page]) => id === book.id && page === pageNumber
+  );
+  if (!reviewed)
+    return !book.id.startsWith('changjak-') && !MEANING_REVIEW_REQUIRED.has(wordKey(word));
+  const page = book.pages?.[pageNumber - 1];
+  const text = lang === 'ko' ? page?.text : page?.translations?.[lang]?.text;
+  const tts = lang === 'ko' ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
+  return !!book.isPublic && !!page?.illustrationUrl && !!tts && text === reviewed[2];
+}
 
 const books = new Map<string, Storybook | null>();
 const inflight = new Map<string, Promise<unknown>>();
@@ -56,7 +136,7 @@ function remember(sb: Storybook) {
 export async function preloadWordScenes(words: string[]): Promise<void> {
   met.clear(); // 새 판이 시작된다 — 지난 판에서 만난 책은 지운다
   const need: string[] = [];
-  for (const w of new Set(words)) {
+  for (const w of new Set(words.map(wordKey))) {
     const entries = INDEX[w];
     if (!entries?.length) continue;
     const pick = entries[Math.floor(Math.random() * entries.length)];
@@ -124,11 +204,12 @@ export function pickUnitStoryScene(
 
 /** 맞힌 낱말 → 동화책 장면. 미리 받아 둔 것만 쓰므로 동기다(정답 소리 콜백 안에서 호출된다). */
 export function pickPhonicsWordScene(word: string, lang: Lang = 'ko'): PhonicsWordScene | null {
-  const entry = chosen.get(word);
+  const entry = chosen.get(wordKey(word));
   if (!entry) return null;
   const [bookId, pageNumber] = entry;
   const sb = books.get(bookId);
   if (!sb) return null;
+  if (!isReviewedSceneCurrent(word, lang, sb, pageNumber)) return null;
   const page = sb.pages?.[pageNumber - 1];
   const url = page?.illustrationUrl;
   if (!url) return null;
@@ -139,4 +220,4 @@ export function pickPhonicsWordScene(word: string, lang: Lang = 'ko'): PhonicsWo
 }
 
 /** 그 낱말에 보여 줄 동화책 쪽이 하나라도 있나 (프리로드와 무관한 정적 판정). */
-export const hasPhonicsWordScene = (word: string) => !!INDEX[word]?.length;
+export const hasPhonicsWordScene = (word: string) => !!INDEX[wordKey(word)]?.length;
