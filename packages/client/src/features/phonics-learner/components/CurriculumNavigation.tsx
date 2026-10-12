@@ -73,3 +73,20 @@ export function CurriculumNavigation({
     </>
   );
 }
+
+/** 번역된 과정 이름의 레벨과 설명을 줄로 나누되 전체 문구를 유지한다. */
+export function CurriculumLevelTitle({ name }: { name: string }) {
+  const separator = name.search(/[:：]/);
+  const title = separator < 0 ? name : name.slice(0, separator);
+  const description = separator < 0 ? '' : name.slice(separator + 1).trim();
+  return (
+    <span className="min-w-0 text-left">
+      <span className="block font-display text-base font-bold text-ink-900">{title}</span>
+      {description && (
+        <span className="mt-1 block text-sm font-medium leading-snug text-ink-600 break-keep">
+          {description}
+        </span>
+      )}
+    </span>
+  );
+}

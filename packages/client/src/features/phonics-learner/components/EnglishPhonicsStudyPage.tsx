@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader, courseThemes } from '@/design-system';
-import { CurriculumNavigation } from './CurriculumNavigation';
+import { CurriculumNavigation, CurriculumLevelTitle } from './CurriculumNavigation';
 import {
   getAllEnglishUnits,
   getEnglishActivityPlan,
@@ -136,16 +136,16 @@ export default function EnglishPhonicsStudyPage() {
                     onClick={() => toggleLevel(levelKey)}
                     aria-expanded={isExpanded}
                     // 🔴 sticky 금지 — 레벨 머리글이 상단에 붙어 있으면 스크롤 중 단원 위에 얹혀 가린다.
-                    className="w-full flex items-center justify-between gap-2 text-lg sm:text-xl font-black font-display text-ink-900 px-2.5 py-2.5 rounded-lg hover:bg-cream-50 transition"
+                    className={`w-full flex min-h-16 items-center justify-between gap-2 border border-ink-100 bg-cream-50/70 px-2.5 py-3 rounded-xl hover:bg-cream-100 transition ${theme.focus}`}
                   >
-                    <span className="flex items-center gap-2 truncate">
+                    <span className="flex min-w-0 items-center gap-2">
                       <span
                         className={`inline-block transition-transform text-ink-500 ${isExpanded ? 'rotate-90' : ''}`}
                         aria-hidden
                       >
                         ▸
                       </span>
-                      <span className="truncate">{level.name}</span>
+                      <CurriculumLevelTitle name={level.name} />
                     </span>
                     <span
                       className={[
@@ -239,7 +239,9 @@ function CurriculumItem({
         {/* 🔴 복습은 앞 단원과 번호가 같아 숫자를 쓰면 "4, 4" 로 보인다 — 트로피로 구분. */}
         {done ? '✓' : unit.isReview ? '🏅' : unit.unitIndexInLevel}
       </span>
-      <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
+      <span className="min-w-0 flex-1 text-sm sm:text-base font-bold leading-snug break-keep">
+        {titleShort}
+      </span>
       {!hasPlan && !active ? (
         <span className="ml-auto text-xs font-bold text-ink-600 shrink-0">
           {t('common.comingSoon')}

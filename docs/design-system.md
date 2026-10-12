@@ -202,3 +202,12 @@ Button은 coral-700/white, 최소 44px, focus-visible·aria-busy와 기본 type=
 장면 고르기·숨은그림·영어 블록·영어 낱말 쓰기의 짧은 가로 레이아웃은 `learning-layouts.css`로 분리했다. 이 CSS는 main.tsx에서 Tailwind CSS 다음에 import한다. `@font-face` 뒤의 CSS @import는 브라우저에서 무시되므로 사용하지 않는다. 기존 글자 마스크·99% 쓰기 기준·색칠 기준·카메라 인식은 변경하지 않았다. 완료 시 결과가 나타나는 독후게임은 호스트에서 결과를 유지하고 확인/돌아가기 때 닫는다.
 
 후속: 역할별 typography·Card 키보드 계약, 나머지 게임/과정 카드 표현, 빈 상태·로딩의 공용화, 추가 실기기 검증. [구현 기록](work/platform/tasks/20261012-platform-ui-v2-implementation.md)에 실행 증거와 한계를 남긴다.
+
+
+## 과정 단원 화면 시각 계약 (2026-10-12)
+
+`CourseUnitHero`는 실제 글자·철자 패턴, 필수 활동 진행, 제공 가능한 다음 활동으로 연결하는 행동을 묶는다. Book 1의 `initial sounds`, 복습의 `long-a` 같은 내부 분류명을 대표 글자로 쓰지 않는다. 선택 활동 완료를 필수 진행에 더하지 않는다. 모두 완료하면 기존 첫 활동으로 다시 연습할 수 있다.
+
+`CourseActivitySection`과 `CourseActivityVisual`은 활동의 실제 글자 미리보기, 듣기·쓰기·찾기·짝 맞추기·그리기·조합하기의 SVG 표식, 기존 webp 삽화를 사용한다. 학습 대상이 없는 카드에 임의의 글자를 만들지 않는다. 그림은 장식이고 이름·역할·완료·다음 활동은 텍스트로 읽힌다. 과정색은 `courseThemes`의 기존 살구·민트 토큰으로 정한다.
+
+과정 본문 폭에 맞춰 단원 안내와 카드 열 수를 조절한다. 모바일은 카드 2열과 native 단원 dialog를 유지한다. 레벨 이름과 설명은 줄을 나눠 읽고 단원 제목을 말줄임으로 숨기지 않는다. 활동 제공 필터·교육 순서·완료 판정·권한 게이트·실물 교구 로직은 이 시각 계약으로 바꾸지 않는다. [구현·검증 기록](work/platform/tasks/20261012-course-page-visual-design.md).

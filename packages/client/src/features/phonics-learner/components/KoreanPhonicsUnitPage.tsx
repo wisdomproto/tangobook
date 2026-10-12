@@ -3,11 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { getKoreanUnit, getActivityPlan } from '../lib/korean-phonics-units';
+import { getKoreanUnit, getActivityPlan, getRequiredActivities } from '../lib/korean-phonics-units';
 import type { ActivityDef } from '../lib/korean-phonics-units';
 import { isPhonicsActivityAvailable } from '../lib/phonics-game-adapter';
 import { usePhonicsProgress } from '../lib/progress-store';
 import { activityTitle, unitTitle } from '../lib/activity-title';
+import { CourseUnitHero } from './CourseUnitHero';
+import { courseActivityMode, courseActivityPreview } from '../lib/course-presentation';
 import { CourseActivitySection, type CourseActivityItem } from './CourseActivitySection';
 
 export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
@@ -45,12 +47,18 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
         title: activityTitle(t, activity),
         order: activity.order,
         done: completed.includes(activity.key),
+        mode: courseActivityMode(activity.kind),
+        preview: courseActivityPreview(activity),
         iconUrl: KIND_ICON_URL[activity.kind],
-        illustration: <span className="text-5xl">{activity.emoji}</span>,
       }));
 
+  const learnItems = items('learn');
+  const playItems = items('play');
+  const visibleItems = [...learnItems, ...playItems];
+  const nextKey = visibleItems.find((item) => !item.done)?.key;
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+    <div className="course-unit-content mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-6">
       {!embedded && (
         <Link
           to="/library/phonics/korean"
@@ -59,7 +67,13 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
           {t('common.backToUnitList')}
         </Link>
       )}
-      <h1 className="text-page-title font-display mb-6">{unitTitle(t, unit)}</h1>
+      <CourseUnitHero
+        language="korean"
+        unit={unit}
+        required={getRequiredActivities(unitId)}
+        completed={completed}
+        items={visibleItems}
+      />
       {!plan.activities.length ? (
         <div className="rounded-card border border-ink-100 bg-white p-6 text-ink-600">
           {t('common.noActivitiesYet')}
@@ -70,13 +84,15 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
             language="korean"
             title={t('section.learn')}
             subtitle={t('section.learnSubtitleWrite')}
-            items={items('learn')}
+            items={learnItems}
+            nextKey={nextKey}
           />
           <CourseActivitySection
             language="korean"
             title={unit.isReview ? unitTitle(t, unit) : t('section.wordPlay')}
             subtitle={t('section.wordPlaySubtitle')}
-            items={items('play')}
+            items={playItems}
+            nextKey={nextKey}
           />
         </div>
       )}

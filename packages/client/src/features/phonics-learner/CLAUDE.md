@@ -386,7 +386,7 @@ mp3 한 개를 뽑던 것이라 왕복만 없앤 것. 가드 = `games/hooks/look
 
 ## 디자인 (2026-05-20 패스)
 
-아래는 당시 설계의 기록이다. 2026-10-12 이후 현재 과정/활동 선택은 [디자인 시스템 v2](../../../../../docs/design-system.md), `design-system/courseTheme.ts`, CourseActivitySection/CurriculumNavigation을 따른다. 한글 살구색·영어 민트색을 콘텐츠 언어로 구분하고 체크/완료 의미는 유지한다.
+아래는 당시 설계의 기록이다. 2026-10-12 이후 현재 과정/활동 선택은 [디자인 시스템 v2](../../../../../docs/design-system.md), `design-system/courseTheme.ts`, CourseUnitHero/CourseActivitySection/CourseActivityVisual/CurriculumNavigation을 따른다. 실제 단원 글자·필수 진행·이어 할 활동과 역할별 표식을 보여주며 자세한 구현·검증은 [과정 시각 보완 기록](../../../../../docs/work/platform/tasks/20261012-course-page-visual-design.md)을 따른다. 한글 살구색·영어 민트색을 콘텐츠 언어로 구분하고 체크/완료 의미는 유지한다.
 
 - **카드** ([KoreanPhonicsUnitPage:ActivityCard](components/KoreanPhonicsUnitPage.tsx)): `aspect-square rounded-[28px] border-[5px]`. **폭·간격은 장수가 정한다**(`cardLayout(count)` 한 곳 — 5장=2/sm3/lg5 · 6장=2/sm3/lg3(3+3) · 그 외=2/sm3/md2/lg4/xl5). 🔴 **폭 계산식은 그 브레이크포인트의 gap 과 한 벌**(`100/n% - gap×(n-1)/n`)이라 따로 두면 줄이 어긋난다. 🔴 **익히기·낱말 놀이가 한 화면에** 보여야 한다.
   - 🔴 **카드 안 크기는 뷰포트가 아니라 카드 폭**(`containerType: inline-size` + `cqw`, 상수 `FIT`) — 한 줄에 다섯이면 카드가 118px 까지 내려가는데 `text-2xl`·48px 배지를 그대로 두면 제목이 잘린다. 실측 375=20px · 1024=13.6px · 1440=24px(상한).

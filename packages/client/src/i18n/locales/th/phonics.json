@@ -70,7 +70,24 @@
     "englishLead": "ภาษาอังกฤษ",
     "chineseLead": "พินอิน",
     "englishComingSoonNote": "กิจกรรมโฟนิกส์ภาษาอังกฤษกำลังจะมาแล้วนะ! ✨",
-    "activityDone": "เสร็จแล้ว"
+    "activityDone": "เสร็จแล้ว",
+    "startActivity": "เริ่มเรียน",
+    "resumeActivity": "เรียนต่อ",
+    "repeatActivity": "ลองอีกครั้ง",
+    "unitProgress": "กิจกรรมหลัก {{done}} / {{total}}",
+    "progressLabel": "ความคืบหน้าของบทเรียน",
+    "unitLetters": "ตัวอักษรที่จะเรียน",
+    "reviewLetters": "ตัวอักษรที่ทบทวน",
+    "nextActivity": "กิจกรรมถัดไป",
+    "mode": {
+      "learn": "เรียนรู้",
+      "listen": "ฟัง",
+      "write": "เขียน",
+      "find": "ค้นหา",
+      "match": "จับคู่",
+      "draw": "วาด",
+      "build": "ประกอบ"
+    }
   },
   "hub": {
     "title": "โฟนิกส์ฮันกึล",

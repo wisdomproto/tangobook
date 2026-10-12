@@ -14,7 +14,13 @@ export const courseThemes = {
     ring: 'ring-coral-700',
     focus:
       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700',
-    style: { '--course-accent': colors.coral[700] } as CSSProperties,
+    style: {
+      '--course-accent': colors.coral[700],
+      '--course-soft': colors.peach[100],
+      '--course-surface': colors.peach[200],
+      '--course-border': colors.peach[300],
+      '--course-label': colors.coral[800],
+    } as CSSProperties,
   },
   english: {
     surface: 'bg-mint-200 border-mint-300 hover:border-mint-700',
@@ -26,7 +32,13 @@ export const courseThemes = {
     ring: 'ring-mint-700',
     focus:
       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700',
-    style: { '--course-accent': colors.mint[700] } as CSSProperties,
+    style: {
+      '--course-accent': colors.mint[700],
+      '--course-soft': colors.mint[100],
+      '--course-surface': colors.mint[200],
+      '--course-border': colors.mint[300],
+      '--course-label': colors.mint[700],
+    } as CSSProperties,
   },
 } satisfies Record<CourseLanguage, Record<string, string | CSSProperties>>;
 

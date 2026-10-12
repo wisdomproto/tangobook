@@ -70,7 +70,24 @@
     "englishLead": "English",
     "chineseLead": "Pinyin",
     "englishComingSoonNote": "English phonics activities are coming soon! ✨",
-    "activityDone": "Done"
+    "activityDone": "Done",
+    "startActivity": "Start learning",
+    "resumeActivity": "Continue",
+    "repeatActivity": "Try again",
+    "unitProgress": "Required activities {{done}} / {{total}}",
+    "progressLabel": "Unit progress",
+    "unitLetters": "Letters to learn",
+    "reviewLetters": "Letters to review",
+    "nextActivity": "Up next",
+    "mode": {
+      "learn": "Learn",
+      "listen": "Listen",
+      "write": "Write",
+      "find": "Find",
+      "match": "Match",
+      "draw": "Draw",
+      "build": "Build"
+    }
   },
   "hub": {
     "title": "Hangul Phonics",

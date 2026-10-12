@@ -70,7 +70,24 @@
     "englishLead": "영어",
     "chineseLead": "병음",
     "englishComingSoonNote": "곧 영어 파닉스 활동이 추가될 거에요! ✨",
-    "activityDone": "완료"
+    "activityDone": "완료",
+    "startActivity": "시작하기",
+    "resumeActivity": "이어서 하기",
+    "repeatActivity": "다시 해보기",
+    "unitProgress": "필수 활동 {{done}} / {{total}}",
+    "progressLabel": "단원 진행",
+    "unitLetters": "이번에 배울 글자",
+    "reviewLetters": "다시 만나는 글자",
+    "nextActivity": "다음 활동",
+    "mode": {
+      "learn": "배우기",
+      "listen": "듣기",
+      "write": "쓰기",
+      "find": "찾기",
+      "match": "짝 맞추기",
+      "draw": "그리기",
+      "build": "조합하기"
+    }
   },
   "hub": {
     "title": "한글 파닉스",

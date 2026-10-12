@@ -29,7 +29,7 @@ tailwind.config.ts가 토큰을 import한다. src/index.css의 CSS 변수는 별
 - Chip 44px·선택 윤곽·aria-pressed 적용 완료. Card interactive div는 role/tabIndex 및 Enter/Space 클릭을 보장한다. 사용자 onKeyDown의 preventDefault와 중첩 입력을 존중한다. 신규 이동 카드는 Link로 구현한다.
 - PageHeader/GameHeader의 이름 있는 최소 44px 뒤로가기 적용 완료.
 - 독후활동 결과 닫기 분리와 장면 고르기/숨은그림/영어 블록/쓰기의 짧은 가로 배치 적용 완료. 결과·진행·로딩·과정/어휘 활동 선택의 공통 표현과 한글/다국어 쓰기·쪽 순서 가로 배치도 적용했다. 채점 마스크·음성 체인은 유지한다.
-- 한글/영어 과정은 CourseActivitySection과 CurriculumNavigation을 공유한다. 모바일 메뉴는 native dialog로 제목·초점·Escape·복귀를 보장한다.
+- 한글/영어 과정은 CourseUnitHero·CourseActivitySection·CourseActivityVisual·CurriculumNavigation을 공유한다. 실제 단원 글자와 역할별 SVG/기존 삽화로 내용을 구분하며 레벨 설명은 줄바꿈해 읽는다. 모바일 메뉴는 native dialog로 제목·초점·Escape·복귀를 보장한다.
 - CSS 변수/토큰 중복 관리, 개발용 중국어 과정과 별도 몰입 테마는 후속 검토.
 
 학습 UI는 공용 토큰·상태 표현을 사용한다. 표지·삽화·색칠 팔레트의 작품 색은 UI 색 제한과 구분한다. 마케팅 도구의 범위가 제한된 별도 테마도 존중한다. 쓰기 마스크·채점 기준을 UI 스타일과 함께 바꾸지 않는다.
