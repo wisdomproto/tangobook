@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T12:48:10.260Z",
-  "assetCheckedAt": "2026-10-12T12:48:10.260Z",
+  "generatedAt": "2026-10-12T13:59:05.570Z",
+  "assetCheckedAt": "2026-10-12T13:59:05.570Z",
   "rows": [
     {
       "id": "1772085655331",
@@ -4853,29 +4853,24 @@
       "ko": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "en": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "english": { "have": 18, "total": 18, "missing": [], "broken": [] },
-      "words": {
-        "have": 0,
-        "total": 12,
-        "missing": [
-          "연못",
-          "꽃",
-          "물",
-          "풀",
-          "리본",
-          "부리",
-          "숲",
-          "앵무새",
-          "깃털",
-          "열매",
-          "나무",
-          "알"
-        ],
-        "broken": []
-      },
+      "words": { "have": 12, "total": 12, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
-        "ko": ["korean-block", "korean-story-image", "hidden-object", "korean-page-order"],
-        "en": ["english-block", "english-story-image"],
+        "ko": [
+          "korean-line-matching",
+          "korean-block",
+          "korean-word-writing",
+          "korean-story-image",
+          "korean-object-scene",
+          "hidden-object",
+          "korean-page-order"
+        ],
+        "en": [
+          "english-line-matching",
+          "english-block",
+          "english-word-writing",
+          "english-story-image"
+        ],
         "stored": []
       },
       "coloring": { "ko": 0, "en": 0, "total": 0, "broken": [] },
@@ -4930,16 +4925,24 @@
       "ko": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "en": { "have": 18, "total": 18, "missing": [], "broken": [] },
       "english": { "have": 18, "total": 18, "missing": [], "broken": [] },
-      "words": {
-        "have": 0,
-        "total": 11,
-        "missing": ["물", "풀", "꽃", "태양", "하늘", "백로", "강", "깃털", "부리", "물고기", "알"],
-        "broken": []
-      },
+      "words": { "have": 11, "total": 11, "missing": [], "broken": [] },
       "vocabularyHidden": false,
       "games": {
-        "ko": ["korean-block", "korean-story-image", "hidden-object", "korean-page-order"],
-        "en": ["english-block", "english-story-image"],
+        "ko": [
+          "korean-line-matching",
+          "korean-block",
+          "korean-word-writing",
+          "korean-story-image",
+          "korean-object-scene",
+          "hidden-object",
+          "korean-page-order"
+        ],
+        "en": [
+          "english-line-matching",
+          "english-block",
+          "english-word-writing",
+          "english-story-image"
+        ],
         "stored": []
       },
       "coloring": { "ko": 0, "en": 0, "total": 0, "broken": [] },
