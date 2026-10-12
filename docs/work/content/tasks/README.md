@@ -1,6 +1,7 @@
 # 동화·만화 콘텐츠 제작 작업 기록
 
-- [누락 삽화 보완·뼈와 근육 실사 교체](20261012-missing-page-illustrations.md) — 10권34장 운영 등록·검증, 전체1,215권 페이지 삽화 URL 누락0。후속 사용자 승인으로 Library Master와 함께 main push 완료.
+- [누락 한영 TTS 보완](20261012-library-missing-tts.md) — active. 37권·403개 대상, 영어 36권·368쪽 번역 완료, 단일 Qwen 생성·CPU 역전사·검증 통과 책 순차 등록 진행.
+- [누락 삽화 보완·뼈와 근육 실사 교체](20261012-missing-page-illustrations.md) — 10권34장 운영 등록·검증, 전체1,215권 페이지 삽화 URL 누락0. 후속 사용자 승인으로 Library Master와 함께 main push 완료.
 
 - [창작동화 한영 나레이션 등록](20261012-changjak-narration-registration.md) — 850권/17,000개 운영 등록 및 검증 완료,사용자 main push 승인으로 번역·TTS 도구 통합.
 - [창작동화01~19 Voicebox TTS](20261004-changjak-01-19-voicebox-tts.md) — 생성·CPU 검사 완료,청취 후보4,054 별도.

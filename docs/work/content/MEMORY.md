@@ -1,5 +1,7 @@
 # 동화·만화 콘텐츠 제작 기억
 
+2026-10-12 [누락 한영 TTS 보완](tasks/20261012-library-missing-tts.md): 사용자가 추가 생성 요청. 37권·403개(한글35/영어368), 원문 대조 영어36권 번역 완료·저장소 보존. 단일 Qwen 생성/독립 CPU ASR/검증 통과 책만 순차 R2 등록 중. 하마 p4 첫 문장 실제 누락을 새 seed로 재생성해 전체 원문 일치 확인. ASR 철자 차이와 실제 누락을 구분하며 완료는 전체 receipt·운영/CDN 검증 후 판단한다. 후속 TTS main push 미요청.
+
 2026-10-12 후속 [Library Master·삽화 main 전달](tasks/20261012-missing-page-illustrations.md): 사용자 main push 승인으로7ee4935b7/409cc0e5f와 최신 원격22커밋을 보존 merge90c6dc15f, 타입/현황5회귀/build 검증 후 일반 push·원격SHA 확인. 아래 미푸시는 당시 상태다. TTS 누락35KO/368EN 제작은 별도 작업으로 이어간다.
 
 2026-10-12 [누락 삽화 보완·실사 교체](tasks/20261012-missing-page-illustrations.md): 사용자 반증으로 뼈와 근육의 설정(photographic)과 기존13장 수채화/영어문구 불일치 확인. 승인 후18쪽 전체 실사·무문자 재작화, 다른9권16쪽 보완으로34장 GPT image 생성·운영 등록 완료. 다른 필드 보존/CDN34장 및 Editor2실사18쪽 확인. 재수집1,215권 페이지 삽화 URL 누락0·깨진 객체0, Library Master snapshot 갱신. 저장된 그림체 원문과 실제 참조를 먼저 확인하며 초기 잘못 생성한 후보는 제외했다. 백설 일부는 난쟁이/사과 중심 구도로 변경했다. 로컬 완료, main push 미요청.

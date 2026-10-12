@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [누락 한영 TTS 보완](../work/content/tasks/20261012-library-missing-tts.md): 영어36권368쪽 원문 대조 번역 완료. 한글35/영어368개 Qwen 생성·독립 CPU 역전사·책별 순차 등록 진행. 실제 문장 누락은 재생성, ASR 철자 후보는 별도 hash-bound 근거 기록. 완료 미확정, 작업 root와 실행 명령은 task 참조. 이전 삽화 main 전달과 별도 후속 작업.
+
 2026-10-12 [Library Master·삽화 main 푸시](../work/content/tasks/20261012-missing-page-illustrations.md): 사용자 승인 후 최신 원격 작업22커밋을 보존 merge하여90c6dc15f를 origin/main에 일반 push·원격 확인. Library Master 개선과10권34장 삽화 등록 기록/누락0 snapshot 포함. 타입/현황5회귀/build 통과, 배포 완료 미확인. 아래 미푸시는 당시 기록이다. TTS 누락 보완은 별도 진행.
 
 2026-10-12 [누락 삽화 보완·실사 교체](../work/content/tasks/20261012-missing-page-illustrations.md): 뼈와 근육의 기존 수채화/영어문구가 photographic 설정과 불일치하여 사용자 승인 후 본문18쪽 실사 교체, 다른9권16쪽 보완. GPT image34장 운영 등록·CDN/다른 필드 보존 검증, Editor2실사18쪽 로딩 확인. 전체 동화1,215권 페이지 삽화 URL 누락0·깨진 객체0으로 Library Master 갱신. 다른 콘텐츠·표지·캐릭터 시트 변경 없음. 로컬 완료, main push 미요청.
