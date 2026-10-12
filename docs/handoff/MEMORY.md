@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [전체 동화책 조사·Library Master](../work/content/tasks/20261012-library-content-audit.md): 운영 1,310건 읽기 실패0, 동화책1,215권/파닉스95권 구분. 삽화완비1,205·한글TTS1,213·영어TTS/번역1,179. 기본 현황 탭과 누락/카테고리/게임·언어 집계, 상세·CSV·읽기 전용 갱신 제공. 창작850권 본문 삽화/한영TTS 완비이나 영어 어휘 게임/색칠과 숨은그림 없음. 운영 콘텐츠 수정·이번 main push 없음.
+
 2026-10-12 [창작동화 한영 나레이션 등록 완료·main 통합](../work/content/tasks/20261012-changjak-narration-registration.md): 사용자 요청으로850권17,000개 Qwen MP3 R2 업로드·한영TTS/검토영어 번역 운영 연결 완료. CDN 해시 및 운영850권 전수 GET 검증 통과,기존 삽화·게임·공개 상태 보존,Editor2 한영음원 확인. 청취후보4,054는 남는다. 후속 main push 승인에 따라 최신 origin/main 기준으로 번역850권·TTS 도구·기록을 통합해 일반 push로 전달한다. 다른 기능/삽화 작업 브랜치는 합치지 않는다.
 
 2026-10-11 [소개서 로딩 최적화](../work/strategy/tasks/20261011-introduction-loading.md): HTML55.7MB→290KB, 이미지/폰트를 business-plan-assets(5.6MB)로 분리·압축. HTML만 복사하면 그림이 누락되므로 폴더 함께 배포. PDF는 기존 전달물 사용. 검증 통과, fb73dfe87 main 푸시·Railway 배포 완료. 운영 HTML289KB 및22장 자산/인쇄 검사 통과.
