@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-12 [Rive+Remotion 학습 샘플 완료](../work/video/tasks/20261012-rive-remotion-learning-sample.md): 실제Rive ㄱ+ㅏ→가·3획쓰기·가방그림/발음24초1080p/30fps,720frame/표본/음원배치·피크/전체decode 검수 통과. 공식연동첫로딩·음량/발음중복 보완, 원본/자산/MP4/재개방법 로컬main28dfad736 보존. output/rive-remotion-learning-20261012/README.md부터 재개. 이전 가능성검토의 연동미검증 해소, 제품/운영/게임/외부게시/푸시 없음.
+
 2026-10-12 [Rive+Remotion 학습영상 검토](../work/video/tasks/20261012-rive-hangul-meeting.md#후속-논의-rive와-remotion으로-학습-영상): 사용자 토도ㅡ/ㅇ쓰기 수준 질문·Remotion 조합 제안.2D 표본과 공식 연동/쓰기경로 API 확인, 캐릭터Rive·편집/쓰기/음원Remotion 구성 가능 판단. 실제 연동 제작·런타임 검증은 아직 없음.
 
 2026-10-12 [파닉스 시각·모음3카드·소리 복구](../work/phonics/tasks/20261012-phonics-playful-ui.md): 사용자 단조로운 디자인/무음 반증 반영. 같은 모음3개 순차로 듣고 써보기, 한영 과정/학습/파닉스게임에 풍경·그림/쓰기칸 차별화. API3500 scheduler off/Vite5186 연결·음원 실패 재시도/오류와 완료 분리. 55회귀·타입/빌드·대표375/1024px 검수, 통합은 task 참조·미푸시.

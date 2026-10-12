@@ -2,12 +2,12 @@
 
 - id: 20261012-video-rive-remotion-learning-sample
 - domain: video
-- status: ready
+- status: integrated
 - updated: 2026-10-12
 - base: cc52c098b
 - branch: codex/rive-remotion-learning-sample
 - worktree: C:/Users/kil21/.codex/worktrees/rive-remotion-sample/tangobook
-- integration: 독립 Remotion entry로 제작, 기존 제품 컴포지션 보존
+- integration: 제작13d7421c3을 로컬main28dfad736에 통합, 기존 제품 컴포지션 보존
 - delivery: 로컬 샘플 완료·검수 통과, 미푸시·미배포
 
 사용자는 토도ㅡ/ㅇ쓰기 참고영상과 Rive+Remotion 조합 검토 후 “한번 만들어보자 샘플로”라고 요청했다. 기존 승인한 ㄱ·ㅏ 캐릭터 등장→만나서가→가쓰기→가방그림·발음 약20초 샘플을 만든다. 기존 image skill 지정은 유지한다. 운영 업로드·앱 적용·원격 push는 요청 범위가 아니다.
@@ -31,3 +31,5 @@
 [샘플 안내](../../../../output/rive-remotion-learning-20261012/README.md)의 영상·표본·프롬프트·자산/코드 링크와 실행 명령을 읽는다. 입력은 packages/remotion/public/hangul-sample-20261012에 전부 보존되어 있다. prepare_learning_sample.mjs는 기존파일을 재사용하고 방 음원이 없는 경우에만 S3 GET을 한다. 렌더에는 운영 자격증명이 필요하지 않다.
 
 독립 entry는 packages/remotion/src/samples/hangul-learning-entry.tsx이다. 기존6초/9초 Rive와 제품 Root.tsx를 보존한다. 영상의 다음 피드백은 동작·쓰기 속도·말소리·장면 전환에 대해 받는다. 정식 학습 단원/성적/게임 연결과 외부 게시를 이 시안 승인으로 확대하지 않는다.
+
+로컬main 통합 후 실제폴더에서 frozen 설치·Remotion전체타입검사를 다시 통과했다. 최종영상 SHA2568080c35c9f13e53ccb95a0efbc71c0d85d3312e59440d801d9f480482702c691,2,459,608bytes. 오디오피크-1.988dBFS,10발음 파형상관최소0.9934/시간차최대0.333ms. 인수인계·영역기억에 완료 상태를 연결했으며 외부 push는 없다.
