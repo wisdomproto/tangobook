@@ -2,12 +2,13 @@
 
 - id: 20261013-phonics-linked-path
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: e4c7f3325 (fetch 후 origin/main과4/14 갈림, 원격의 별도 활동/캐릭터 수리는 보존하고 이번 요청에 자동 merge/push하지 않음)
 - branch: codex/phonics-linked-activities
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- delivery: 미푸시·미배포
+- delivery: 로컬 main 통합·미푸시·미배포
+- integration: 733fa2c32 코드·생성 자산·활동 전환·게임 지도 검증 기록을 로컬 main에 fast-forward 통합
 
 ## 사용자 결정
 
