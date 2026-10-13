@@ -2,7 +2,7 @@
 
 - id: 20261013-phonics-linked-path
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: e4c7f3325 (fetch 후 origin/main과4/14 갈림, 원격의 별도 활동/캐릭터 수리는 보존하고 이번 요청에 자동 merge/push하지 않음)
 - branch: codex/phonics-linked-activities
@@ -70,3 +70,5 @@
 - 기존 MobileLandscapeGate를 재사용한다. 세로 coarse-pointer 화면은 회전 안내, 아래 학습판은 mounted/inert/aria-hidden이고 가로로 돌리면 동일 지도 입력을 복원한다. 안내는 이름 있는 dialog, 확인 버튼에 초점이 간다. embedded 광고/실물 교구 예외·best-effort fullscreen/회전 잠금은 유지한다.
 - 지도/카메라18회귀 통과(회전·native touch·mouse drag 후 click/keyboard·wheel/Home/End·반올림 Book HUD 포함). client 타입/변경 source ESLint/build 통과. 실제 임시 브라우저812×375/568×320에서 큰3개/겹침·하단 이동 확인, 한영 경로·Book5 점프/현재 복귀/End 마지막 잠금·native mouse drag200px 동안 실제 URL/진도 유지 확인. 회전 media 변경은 자동 테스트이고 실기기 화면 회전/오디오/FPS 검증은 아니다.
 - 최종 실제 화면: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-horizontal-learning-path-applied.png. 이전 세로 지도 증빙은 중간 구현이다. 이번 후속은9a53c13d3에서 시작했고 원격 push 요청은 없다.
+
+- 가로 경로 후속 통합: 292931b35를 로컬 main에 fast-forward했다. fetch 후 origin/main과4/17 갈림은 보존하고 원격 push/배포는 하지 않았다.
