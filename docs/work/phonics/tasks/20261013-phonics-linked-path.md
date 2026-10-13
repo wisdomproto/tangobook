@@ -2,7 +2,7 @@
 
 - id: 20261013-phonics-linked-path
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: e4c7f3325 (fetch 후 origin/main과4/14 갈림, 원격의 별도 활동/캐릭터 수리는 보존하고 이번 요청에 자동 merge/push하지 않음)
 - branch: codex/phonics-linked-activities
@@ -87,3 +87,5 @@
 - 최종 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-chapter-action-hierarchy.png. 이번 후속은09cf9cf48에서 시작, main push 요청 없음.
 
 - Book native modal을 연 채 세로로 회전하면 top-layer가 가로 gate를 가리지 않도록 Book 선택을 먼저 닫는다. 기존 회전 회귀에 열림→세로 gate→가로 복귀를 추가했다.
+
+- Book 통합·현재 행동 후속 통합: 5330ac7e3를 로컬 main에 fast-forward했다. origin/main과4/19 갈린 원격 작업은 보존, 이번 요청은 push/배포하지 않았다.
