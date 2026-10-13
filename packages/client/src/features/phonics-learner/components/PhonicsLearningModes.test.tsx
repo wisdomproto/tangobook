@@ -9,7 +9,15 @@ import { recordGameChoice } from '../lib/journey-assessment';
 vi.mock('@/features/auth/context/AuthContext', () => ({
   useAuth: () => ({ activeProfile: null }),
 }));
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute('open', '');
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute('open');
+  };
+});
 it.each(['korean', 'english'] as const)(
   'splits modes inside %s and starts directly at the current activity',
   (lang) => {
@@ -252,7 +260,11 @@ it('lets a child browse distant Books without unlocking them, and returns to the
       cameraLeft = Math.floor(value);
     },
   });
+  expect(screen.queryByRole('button', { name: 'Book 5 · 모음 무지개' })).toBeNull();
+  fireEvent.click(screen.getByRole('button', { name: 'Book 지도 · Book 1' }));
+  expect(screen.getByRole('dialog', { name: 'Book 지도' })).toBeDefined();
   fireEvent.click(screen.getByRole('button', { name: 'Book 5 · 모음 무지개' }));
+  expect(screen.queryByRole('dialog')).toBeNull();
   expect(map.scrollLeft).toBeGreaterThan(5000);
   fireEvent.scroll(map);
   await waitFor(() =>
@@ -296,8 +308,36 @@ it('requires landscape on a touch phone and releases the same path after rotatio
     });
     expect(screen.queryByRole('dialog')).toBeNull();
     expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' })).toBeDefined();
+    fireEvent.click(screen.getByRole('button', { name: 'Book 지도 · Book 1' }));
+    expect(screen.getByRole('dialog', { name: 'Book 지도' })).toBeDefined();
+    act(() => {
+      portrait.matches = true;
+      portrait.dispatchEvent(new Event('change'));
+    });
+    expect(screen.queryByRole('dialog', { name: 'Book 지도' })).toBeNull();
+    expect(screen.getByRole('dialog', { name: '가로로 돌려주세요!' })).toBeDefined();
+    act(() => {
+      portrait.matches = false;
+      portrait.dispatchEvent(new Event('change'));
+    });
     expect(screen.getByRole('link', { name: /1번째 단계.*지금 배울 단계/ })).toBeDefined();
   } finally {
     window.matchMedia = original;
   }
+});
+
+it('keeps the resume action on the current chapter when browsing another Book', () => {
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/korean?mode=curriculum']}>
+      <PhonicsLearningModes lang="korean" />
+    </MemoryRouter>
+  );
+  const current = screen.getByRole('link', { name: /1번째 단계.*지금 배울 단계/ });
+  expect(
+    within(current.parentElement!).getByRole('link', { name: '학습 시작하기' }).getAttribute('href')
+  ).toContain('/kr-v1-u01/listen-1?mode=curriculum');
+  fireEvent.click(screen.getByRole('button', { name: 'Book 지도 · Book 1' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Book 5 · 모음 무지개' }));
+  expect(within(current.parentElement!).getByRole('link', { name: '학습 시작하기' })).toBeDefined();
+  expect(screen.queryByRole('link', { name: /48번째 단계/ })).toBeNull();
 });

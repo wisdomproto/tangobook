@@ -2,7 +2,7 @@
 
 - id: 20261013-phonics-linked-path
 - domain: phonics
-- status: integrated
+- status: ready
 - updated: 2026-10-13
 - base: e4c7f3325 (fetch 후 origin/main과4/14 갈림, 원격의 별도 활동/캐릭터 수리는 보존하고 이번 요청에 자동 merge/push하지 않음)
 - branch: codex/phonics-linked-activities
@@ -72,3 +72,18 @@
 - 최종 실제 화면: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-horizontal-learning-path-applied.png. 이전 세로 지도 증빙은 중간 구현이다. 이번 후속은9a53c13d3에서 시작했고 원격 push 요청은 없다.
 
 - 가로 경로 후속 통합: 292931b35를 로컬 main에 fast-forward했다. fetch 후 origin/main과4/17 갈림은 보존하고 원격 push/배포는 하지 않았다.
+
+## 후속 반증: Book 통합·현재 행동·상태 구분
+
+사용자는 하단1~5와 상단Book 표시의 역할 중복, 약한 완료/현재/잠금 구분, 현재 챕터와 떨어진 하단 이어하기를 지적했다. Book 표시를 누르면 native dialog에서 권을 선택하고 지도만 이동한다. 이어하기/시작은 실제 현재 챕터 바로 아래에 붙이며 다른권을 탐색할 때도 그 권의 미래 활동 CTA를 만들지 않는다. 완료 초록/큰체크·현재 언어색/크기·미래 흐린 글자/큰잠금과 진행된길 재질로 시각 위계를 보완한다. 이전 추가 네모 테두리/중복 글자 제거와 가로보기는 유지한다.
+
+## Book 통합·현재 행동 후속 검증
+
+- 하단1~5 레일을 제거하고 상단Book 버튼의 native dialog에5권 선택을 통합했다. 선택은 카메라만 이동하고 모달을 닫는다. 본문 Book HUD는 탐색 권을 따르며 native Escape/닫기·modal focus 복귀를 실제 브라우저로 확인했다.
+- 시작/이어하기·unlock 안내는 실제 현재 stage의 sibling으로 바로 아래 배치한다. 다른 Book을 둘러보면 현재 stage와 함께 화면 밖으로 이동하며, 미래 단원의 시작 버튼을 만들지 않는다. 나침반은 상단 학습 정보 옆이다. 모두 완료했을 때의 기존 재학습 CTA만 별도 유지한다.
+- 완료는 밝은 초록 판/큰52px 체크, 현재는 언어색/1.07 크기/옅은 로컬 빛과 CTA, 잠금은 작은 회색 판/흐린 글자·48px 자물쇠다. 완료~현재 길은 더 진한 재질/녹색 가장자리, 이후 길은 옅게 두었다. 추가 네모 윤곽/중복 글자는 재도입하지 않았고 새 자산·상시 애니메이션은 없다.
+- 한영 실제568×320/812×375에서3단계·CTA/좌우 이동·상단 메뉴가 겹치지 않음. Book5 탐색 중 현재 CTA의 x가 음수로 화면 밖, 미래 학습 링크0 확인 후 나침반 복귀. 실제 Korean u02의 resume href/listen-game은 유지. 회전/오디오/FPS는 이번 수동 검증이 아니다.
+- 지도/카메라19회귀 통과(숨긴Book 선택 열기/선택 닫기·미래 잠금과 현재 챕터 소속 resume 포함), client 타입·수정source ESLint·빌드 통과. 기존 lottie/Browserslist/locale import/큰 chunk warning은 유지한다.
+- 최종 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-chapter-action-hierarchy.png. 이번 후속은09cf9cf48에서 시작, main push 요청 없음.
+
+- Book native modal을 연 채 세로로 회전하면 top-layer가 가로 gate를 가리지 않도록 Book 선택을 먼저 닫는다. 기존 회전 회귀에 열림→세로 gate→가로 복귀를 추가했다.

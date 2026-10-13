@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -29,8 +29,19 @@ type Props = {
 export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDone }: Props) {
   const { t } = useTranslation('phonics');
   const [search, setSearch] = useSearchParams();
+  const bookDialog = useRef<HTMLDialogElement>(null);
   const [parentOpen, setParentOpen] = useState(false);
   const { viewport, position, pan, handlers } = usePathCamera();
+  useEffect(() => {
+    const portrait = window.matchMedia('(orientation: portrait)');
+    const closeForRotation = () => {
+      if (portrait.matches && window.matchMedia('(hover: none) and (pointer: coarse)').matches)
+        bookDialog.current?.close();
+    };
+    // A native modal is above fixed overlays, so it must yield to the landscape gate.
+    portrait.addEventListener('change', closeForRotation);
+    return () => portrait.removeEventListener('change', closeForRotation);
+  }, []);
   const [mapSize, setMapSize] = useState(() => ({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -80,13 +91,12 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
       index,
       bookStart,
       x: index * stageGap + bookIndex * 160 + firstX,
-      y: mapHeight * 0.5 + [0, -bend, 0, bend][index % 4],
+      y: Math.max(mapHeight * 0.46, 94 + nodeSize / 2 + bend) + [0, -bend, 0, bend][index % 4],
     };
   });
   const currentIndex = stages.findIndex((s) => s.current);
   const focusIndex = currentIndex >= 0 ? currentIndex : stages.length - 1;
   const focusX = stages[focusIndex].x;
-  const activeBook = stages[focusIndex].unit;
   const pathWidth = stages[stages.length - 1].x + mapWidth / 2;
   const books = stages.filter((s) => s.bookStart);
   const viewedBook =
@@ -124,13 +134,17 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
     );
     return () => window.clearTimeout(timer);
   }, [unlocking, search, setSearch]);
-  const d = stages
-    .map((s, i) =>
-      i === 0
-        ? `M ${s.x} ${s.y}`
-        : `C ${s.x - stageGap / 2} ${stages[i - 1].y} ${s.x - stageGap / 2} ${s.y} ${s.x} ${s.y}`
-    )
-    .join(' ');
+  const road = (count: number) =>
+    stages
+      .slice(0, count)
+      .map((s, i) =>
+        i === 0
+          ? `M ${s.x} ${s.y}`
+          : `C ${s.x - stageGap / 2} ${stages[i - 1].y} ${s.x - stageGap / 2} ${s.y} ${s.x} ${s.y}`
+      )
+      .join(' ');
+  const d = road(stages.length);
+  const completedRoad = road(focusIndex + 1);
   const theme = courseThemes[lang];
   if (parentOpen)
     return (
@@ -167,11 +181,24 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
               <h1 className="sr-only">
                 {t(`chapter.${lang}`)} · {t('flow.pathTitle')}
               </h1>
-              <PhonicsGameSprite name={lang === 'korean' ? 'book-coral' : 'book-mint'} size={46} />
-              <div>
-                <strong>Book {viewedBook.unit.levelIndex}</strong>
-                <span>{t(`world.${lang}.${viewedBook.unit.levelIndex}`)}</span>
-              </div>
+              <button
+                type="button"
+                aria-haspopup="dialog"
+                aria-label={`${t('flow.bookMap')} · Book ${viewedBook.unit.levelIndex}`}
+                onClick={() => bookDialog.current?.showModal()}
+              >
+                <PhonicsGameSprite
+                  name={lang === 'korean' ? 'book-coral' : 'book-mint'}
+                  size={46}
+                />
+                <span className="path-book-name">
+                  <strong>Book {viewedBook.unit.levelIndex}</strong>
+                  <span>{t(`world.${lang}.${viewedBook.unit.levelIndex}`)}</span>
+                </span>
+                <span className="path-book-chevron" aria-hidden="true">
+                  ⌄
+                </span>
+              </button>
             </div>
             <button
               type="button"
@@ -195,34 +222,49 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
               <PhonicsGameSprite name="back" size={28} className="path-arrow-down" />
             </button>
           </div>
-          <nav className="curriculum-book-rail" aria-label={t('flow.bookMap')}>
-            {books.map((book) => (
+          <dialog
+            ref={bookDialog}
+            className="curriculum-book-dialog"
+            aria-labelledby="path-book-title"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) bookDialog.current?.close();
+            }}
+          >
+            <div className="path-book-dialog-heading">
+              <h2 id="path-book-title">{t('flow.bookMap')}</h2>
               <button
-                key={book.unit.levelKey}
                 type="button"
-                aria-label={`Book ${book.unit.levelIndex} · ${t(`world.${lang}.${book.unit.levelIndex}`)}`}
-                aria-current={
-                  viewedBook.unit.levelKey === book.unit.levelKey ? 'location' : undefined
-                }
-                onClick={() => {
-                  if (viewport.current)
-                    viewport.current.scrollLeft = Math.max(0, book.x - mapWidth / 2);
-                }}
+                aria-label={t('common.close')}
+                onClick={() => bookDialog.current?.close()}
               >
-                <PhonicsGameSprite
-                  name={
-                    book.unit.levelIndex === activeBook.levelIndex
-                      ? lang === 'korean'
-                        ? 'stage-coral'
-                        : 'stage-mint'
-                      : 'stage-locked'
-                  }
-                  className="path-book-bead"
-                />
-                <span>{book.unit.levelIndex}</span>
+                ×
               </button>
-            ))}
-          </nav>
+            </div>
+            <nav className="curriculum-book-choices" aria-label={t('flow.bookMap')}>
+              {books.map((book) => (
+                <button
+                  key={book.unit.levelKey}
+                  type="button"
+                  aria-label={`Book ${book.unit.levelIndex} · ${t(`world.${lang}.${book.unit.levelIndex}`)}`}
+                  aria-current={
+                    viewedBook.unit.levelKey === book.unit.levelKey ? 'location' : undefined
+                  }
+                  onClick={() => {
+                    if (viewport.current)
+                      viewport.current.scrollLeft = Math.max(0, book.x - mapWidth / 2);
+                    bookDialog.current?.close();
+                  }}
+                >
+                  <PhonicsGameSprite
+                    name={lang === 'korean' ? 'book-coral' : 'book-mint'}
+                    size={64}
+                  />
+                  <strong>Book {book.unit.levelIndex}</strong>
+                  <span>{t(`world.${lang}.${book.unit.levelIndex}`)}</span>
+                </button>
+              ))}
+            </nav>
+          </dialog>
           <div
             ref={viewport}
             className="curriculum-path-viewport"
@@ -238,7 +280,10 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                   <div
                     key={`scenery-${s.index}`}
                     className="curriculum-path-scenery"
-                    style={{ top: s.y + nodeSize / 2 + 18, left: s.x + stageGap / 2 - 55 }}
+                    style={{
+                      top: Math.max(90, s.y - nodeSize / 2 - 130),
+                      left: s.x + stageGap / 2 - 55,
+                    }}
                     aria-hidden="true"
                   >
                     <PhonicsGameSprite
@@ -282,6 +327,21 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                   fill="none"
                   stroke={`url(#road-${lang})`}
                   strokeWidth="30"
+                  strokeLinecap="round"
+                  opacity="0.48"
+                />
+                <path
+                  d={completedRoad}
+                  fill="none"
+                  stroke="#a7b781"
+                  strokeWidth="36"
+                  strokeLinecap="round"
+                />
+                <path
+                  d={completedRoad}
+                  fill="none"
+                  stroke={`url(#road-${lang})`}
+                  strokeWidth="28"
                   strokeLinecap="round"
                 />
               </svg>
@@ -338,7 +398,7 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                       {(stage.complete || !stage.current || unlocking) && (
                         <span className="curriculum-path-state" aria-hidden="true">
                           {stage.complete ? (
-                            <PhonicsGameSprite name="check" size={34} />
+                            <PhonicsGameSprite name="check" size={52} />
                           ) : stage.current ? (
                             <>
                               <PhonicsGameSprite
@@ -353,7 +413,7 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                               />
                             </>
                           ) : (
-                            <PhonicsGameSprite name="lock" size={34} />
+                            <PhonicsGameSprite name="lock" size={48} />
                           )}
                         </span>
                       )}
@@ -389,59 +449,61 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                           {body}
                         </button>
                       )}
+                      {stage.current &&
+                        (unlocking ? (
+                          <p
+                            role="status"
+                            aria-label={t('chapter.unlocked')}
+                            className="curriculum-path-unlocked path-stage-action"
+                          >
+                            {t('chapter.unlocked')}
+                          </p>
+                        ) : (
+                          progress.current && (
+                            <Link
+                              className={`path-game-action path-stage-action ${theme.focus}`}
+                              to={journeyActivityUrl(
+                                lang,
+                                progress.current.unit.id,
+                                progress.current.activity.key
+                              )}
+                            >
+                              <PhonicsGameSprite
+                                name={lang === 'korean' ? 'cta-coral' : 'cta-mint'}
+                                className="path-action-plate"
+                              />
+                              <span className="path-action-label">
+                                <PhonicsGameSprite name="play" size={22} />
+                                {t(started ? 'journey.continue' : 'journey.start')}
+                              </span>
+                            </Link>
+                          )
+                        ))}
                     </li>
                   );
                 })}
               </ol>
             </div>
           </div>
-          <div className="curriculum-path-footer">
-            {unlocking ? (
-              <p
-                role="status"
-                aria-label={t('chapter.unlocked')}
-                className="curriculum-path-unlocked"
-              >
-                {t('chapter.unlocked')}
-              </p>
-            ) : progress.current ? (
+          {!progress.current && (
+            <div className="curriculum-path-footer">
+              <p>{t('chapter.allDone')}</p>
               <Link
-                className={`path-game-action ${theme.action} ${theme.focus}`}
+                className={`path-game-action ${theme.focus}`}
                 to={journeyActivityUrl(
                   lang,
-                  progress.current.unit.id,
-                  progress.current.activity.key
+                  units[0].id,
+                  journeyActivities(lang, units[0].id)[0].key
                 )}
               >
                 <PhonicsGameSprite
                   name={lang === 'korean' ? 'cta-coral' : 'cta-mint'}
                   className="path-action-plate"
                 />
-                <span className="path-action-label">
-                  <PhonicsGameSprite name="play" size={25} />
-                  {t(started ? 'journey.continue' : 'journey.start')}
-                </span>
+                <span className="path-action-label">{t('chapter.again')}</span>
               </Link>
-            ) : (
-              <>
-                <p>{t('chapter.allDone')}</p>
-                <Link
-                  className={`path-game-action ${theme.action} ${theme.focus}`}
-                  to={journeyActivityUrl(
-                    lang,
-                    units[0].id,
-                    journeyActivities(lang, units[0].id)[0].key
-                  )}
-                >
-                  <PhonicsGameSprite
-                    name={lang === 'korean' ? 'cta-coral' : 'cta-mint'}
-                    className="path-action-plate"
-                  />
-                  <span className="path-action-label">{t('chapter.again')}</span>
-                </Link>
-              </>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
     </MobileLandscapeGate>

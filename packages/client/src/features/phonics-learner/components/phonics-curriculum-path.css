@@ -51,20 +51,36 @@
   background: #fffdf2f2;
   box-shadow: 0 4px 0 #d7cfb0;
 }
-.curriculum-book-current > div {
+.curriculum-book-current {
+  padding: 0;
+}
+.curriculum-book-current > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 16px 4px 10px;
+  border-radius: 30px;
+}
+.path-book-name {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
-.curriculum-book-current strong {
-  font-weight: 900;
-  color: var(--course-label);
+.path-book-name strong {
   font-size: 18px;
+  font-weight: 900;
   line-height: 1.15;
+  color: var(--course-label);
 }
-.curriculum-book-current div > span {
+.path-book-name > span {
+  font-size: 12px;
   font-weight: 800;
   color: #786950;
-  font-size: 12px;
+}
+.path-book-chevron {
+  font-size: 24px;
+  font-weight: 900;
+  color: #786950;
 }
 .curriculum-path-viewport {
   position: absolute;
@@ -76,7 +92,7 @@
   cursor: grab;
   touch-action: pan-x;
   -webkit-overflow-scrolling: touch;
-  clip-path: inset(76px 0 92px);
+  clip-path: inset(76px 0 12px);
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -158,58 +174,81 @@
   top: calc(50% - 24px);
 }
 .curriculum-path-controls button:nth-child(2) {
-  right: 286px;
-  bottom: 32px;
+  right: 84px;
+  top: max(16px, env(safe-area-inset-top));
 }
 .path-arrow-down {
   transform: rotate(180deg);
 }
-.curriculum-book-rail {
-  position: absolute;
-  z-index: 3;
-  left: 24px;
-  bottom: 34px;
+.curriculum-book-dialog {
+  width: min(760px, calc(100vw - 48px));
+  max-height: calc(100dvh - 40px);
+  padding: 24px;
+  margin: auto;
+  overflow: auto;
+  border: 0;
+  border-radius: 28px;
+  background: #fffaf0;
+  color: #65553e;
+  box-shadow:
+    0 12px 0 #bdae8c,
+    0 24px 70px #46352150;
+}
+.curriculum-book-dialog::backdrop {
+  background: #423c2e66;
+  backdrop-filter: blur(5px);
+}
+.path-book-dialog-heading {
   display: flex;
-  gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
-.curriculum-book-rail::before {
-  content: '';
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  height: 4px;
-  background: #d3cfad;
-  top: calc(50% - 2px);
-  border-radius: 4px;
-  z-index: -1;
-}
-.curriculum-book-rail button {
-  position: relative;
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
+.path-book-dialog-heading h2 {
+  font-size: 23px;
   font-weight: 900;
-  color: #736950;
+}
+.path-book-dialog-heading button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #efe6d1;
+  font-size: 28px;
+}
+.curriculum-book-choices {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.curriculum-book-choices button {
+  min-height: 142px;
+  padding: 12px 4px;
+  border-radius: 20px;
+  background: #f0ebdb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.curriculum-book-choices button[aria-current] {
+  background: var(--course-soft);
+  box-shadow:
+    inset 0 0 0 2px var(--course-accent),
+    0 4px 0 var(--course-accent);
+}
+.curriculum-book-choices strong {
+  font-weight: 900;
+  font-size: 17px;
+}
+.curriculum-book-choices button > span:not(.path-game-sprite) {
+  font-weight: 700;
+  font-size: 12px;
+}
+.curriculum-book-current button:focus-visible,
+.curriculum-book-dialog button:focus-visible {
+  outline: 3px solid var(--course-accent);
   outline-offset: 4px;
-}
-.path-book-bead {
-  position: absolute !important;
-  inset: 0;
-}
-.curriculum-book-rail button > span:not(.path-book-bead) {
-  position: relative;
-}
-.curriculum-book-rail button[aria-current] {
-  transform: scale(1.18);
-  color: #251c16;
-}
-.curriculum-book-rail button[aria-current]::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border: 2px solid #fff;
-  border-radius: 12px;
 }
 .curriculum-path-scenery {
   position: absolute;
@@ -466,7 +505,7 @@
     padding: 0 16px 0 8px;
   }
   .curriculum-path-viewport {
-    clip-path: inset(65px 0 74px);
+    clip-path: inset(65px 0 12px);
   }
   .curriculum-path-footer {
     bottom: max(10px, env(safe-area-inset-bottom));
@@ -478,28 +517,11 @@
     min-width: 220px !important;
     font-size: 17px !important;
   }
-  .curriculum-book-rail {
-    bottom: 18px;
-    gap: 8px;
-  }
-  .curriculum-book-rail button {
+  .curriculum-path-controls button:nth-child(2) {
+    right: 76px;
+    top: max(10px, env(safe-area-inset-top));
     width: 44px;
     height: 44px;
-  }
-  .curriculum-book-rail .path-book-bead {
-    width: 34px !important;
-    height: 34px !important;
-    inset: 5px;
-  }
-  .curriculum-book-rail button[aria-current] {
-    transform: none;
-  }
-  .curriculum-book-rail button[aria-current]::after {
-    inset: 3px;
-  }
-  .curriculum-path-controls button:nth-child(2) {
-    right: 260px;
-    bottom: 16px;
   }
   .curriculum-path-scenery {
     transform: scale(0.65);
@@ -512,15 +534,113 @@
     display: none;
   }
 }
-@media (max-height: 500px) and (max-width: 700px) {
-  .curriculum-book-rail {
-    left: 12px;
-    gap: 0;
+
+/* Three deliberately different states; the current action belongs to its chapter. */
+.curriculum-path-stage.is-done .curriculum-path-face {
+  transform: scale(0.88);
+  filter: saturate(1.35) brightness(1.03);
+}
+.curriculum-path-stage.is-done .curriculum-path-state {
+  width: 52px;
+  height: 52px;
+  right: 3px;
+  bottom: 0;
+}
+.curriculum-path-stage.is-locked .curriculum-path-face {
+  transform: scale(0.88);
+  filter: grayscale(0.85) brightness(0.9);
+}
+.curriculum-path-stage.is-locked .toy-hangul {
+  filter: grayscale(1);
+  opacity: 0.27;
+}
+.curriculum-path-stage.is-locked .curriculum-path-face > span:not(.path-stage-plate) {
+  opacity: 0.3;
+}
+.curriculum-path-stage.is-locked .curriculum-path-state {
+  width: 48px;
+  height: 48px;
+  right: 5px;
+  bottom: 1px;
+}
+.curriculum-path-stage.is-current {
+  z-index: 2;
+}
+.curriculum-path-stage.is-current::before {
+  content: '';
+  position: absolute;
+  width: 165%;
+  height: 115%;
+  top: 0;
+  left: -32.5%;
+  background: radial-gradient(ellipse, #ffedbf9c, transparent 70%);
+  pointer-events: none;
+}
+.curriculum-path-stage.is-current .curriculum-path-face {
+  transform: scale(1.07);
+  filter: drop-shadow(0 12px 10px #af592c25);
+}
+.curriculum-path-here {
+  top: -27px;
+  font-size: 16px;
+  padding: 3px 15px;
+  border-radius: 16px;
+  box-shadow: 0 3px 0 #00000012;
+}
+.curriculum-path-stage > .path-stage-action {
+  position: absolute;
+  top: calc(var(--path-node-size) + 22px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  min-width: 210px;
+  min-height: 58px;
+  padding: 8px 18px;
+  border-radius: 24px;
+  white-space: nowrap;
+  font-size: 17px;
+  font-weight: 900;
+}
+.curriculum-path-stage > .path-stage-action:active {
+  transform: translateX(-50%) translateY(3px);
+}
+.path-stage-action[role='status'] {
+  background: #fffaf0;
+  color: var(--course-label);
+}
+.curriculum-path-stage.is-unlocking .curriculum-path-face {
+  transform: none;
+}
+@media (max-height: 500px) {
+  .curriculum-book-current {
+    padding: 0;
   }
-  .curriculum-path-footer {
-    right: 12px;
+  .curriculum-path-here {
+    top: -24px;
+    font-size: 14px;
+    padding: 2px 12px;
   }
-  .curriculum-path-controls button:nth-child(2) {
-    right: 248px;
+  .curriculum-path-stage > .path-stage-action {
+    top: calc(var(--path-node-size) + 18px);
+    min-height: 46px;
+    min-width: 184px;
+    font-size: 15px;
+    padding: 6px 14px;
+  }
+  .curriculum-book-dialog {
+    padding: 18px;
+  }
+  .path-book-dialog-heading {
+    margin-bottom: 8px;
+  }
+  .curriculum-book-choices {
+    gap: 6px;
+  }
+  .curriculum-book-choices button {
+    min-height: 120px;
+    padding: 8px 2px;
+  }
+  .curriculum-book-choices strong {
+    font-size: 15px;
   }
 }
