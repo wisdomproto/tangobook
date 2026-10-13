@@ -8,7 +8,7 @@
 - branch: codex/phonics-all-stroke-guides
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 537c71585 로컬 main fast-forward 포함 확인
-- delivery: 미푸시·미배포
+- delivery: 사용자 승인으로 main 일반 push 완료·원격 SHA 일치 확인·배포 완료 미확인
 
 ## 사용자 결정
 
@@ -43,3 +43,7 @@
 handoff/작업 지도·phonics BRIEF/MEMORY/모음 획순 task·루트/phonics/learner CLAUDE·PLATFORM/design-system. 공용 쓰기 검토 시 games BRIEF/CLAUDE도 확인. PLATFORM/STRATEGY에는 최종 낱자 우선 순서와 이유 기록.
 
 최종 스타일 보완 후 client tsc/추가 TSX ESLint/production build 재통과. 기존 Browserslist·Lottie eval·큰 chunk 경고만 있으며 새 런타임 의존성은 없다.
+
+## Main push — 2026-10-13
+
+사용자 ‘메인에 푸시하자’ 승인. fetch 후 origin/main...HEAD=0/4이며 원격 추가 변경/이력 분기 없음. 기존 입문 모음 f614ef8d9/faf309abb와 이번 낱자537c71585/e7623aec2를 main 일반 push. 원격 refs/heads/main과 로컬 HEAD가 e7623aec2e4bf7a450db80cd63ad733a1efe1cfe로 일치함을 ls-remote로 확인. 기록 커밋도 같은 승인 범위로 전달한다. 운영 배포 완료는 별도 미확인. 미추적 output/tmp·다른 worktree 변경 보존, 코드 변경이 없어 기존105회귀/타입/lint/build 검증 유지.
