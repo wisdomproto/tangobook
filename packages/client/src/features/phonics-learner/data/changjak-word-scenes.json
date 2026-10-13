@@ -1,0 +1,824 @@
+{
+  "과자": [
+    [
+      "changjak-bruno-22",
+      1,
+      "창밖에 눈이 소복소복 내려요. 할아버지가 화덕에서 과자를 꺼냈어요. 부엌에 생강 냄새가 가득해요."
+    ]
+  ],
+  "구름": [
+    ["changjak-bung-18", 5, "구름이 몰려와서 하늘이 어두워졌어요. 붕이는 나뭇잎만 세고 있어요."]
+  ],
+  "그릇": [
+    ["changjak-coco-18", 1, "엄마가 반죽을 둥글게 빚어 그릇에 담았어요. 위에 하얀 수건을 덮었어요."]
+  ],
+  "기차": [
+    [
+      "changjak-bami-01",
+      1,
+      "\"콩 칸은 싫어! 알이랑 밥만 먹을래!\" 식당칸 창가에서 밤이가 도시락 뚜껑을 열자마자 콩 칸은 쳐다도 안 봐요. 칸 셋 도시락에서 알과 밥만 부리로 콕콕. 창가 방석 위에선 기차 고양이 나비가 동그랗게 몸을 말고 졸아요."
+    ]
+  ],
+  "딸기": [
+    [
+      "changjak-dari-25",
+      4,
+      "할머니가 보자기에서 딸기 한 바구니를 꺼내 달이 앞에 놓았어요. \"우리 아가, 이거 먹어 보렴. 할미가 아침에 밭에서 땄단다.\" 할머니 앞발이 따뜻해요. 달이가 한 입 베어 무니 달콤한 맛이 입안에 사르르 퍼졌어요."
+    ]
+  ],
+  "레몬": [
+    [
+      "changjak-lulu-15",
+      2,
+      "룰루가 큰 주전자를 꺼냈어요. \"시원한 레몬물은 내가 만들래요.\" 엄마가 레몬을 반으로 잘라 줬어요."
+    ]
+  ],
+  "머리": [
+    [
+      "changjak-dingding-21",
+      10,
+      "딩딩은 지붕 밑에서 바구니를 안고 있어요. 할머니가 부채를 머리에 얹고 뛰어와요. 개미들은 벌써 다 들어갔어요."
+    ]
+  ],
+  "베개": [["changjak-pongi-16", 5, "아빠가 이불로 배를 만들었어요. 베개로 물을 저어요."]],
+  "비누": [["changjak-mina-06", 8, "엄마가 소누 손에 비누를 다시 쥐여 줬어요."]],
+  "비옷": [
+    [
+      "changjak-mio-30",
+      1,
+      "창밖에 봄비가 주룩주룩 내려요. 덜렁이 두리가 옷걸이에서 노란 비옷을 홱 낚아챘어요. \"제일 먼저 첨벙할 거야!\""
+    ]
+  ],
+  "빨래": [
+    ["changjak-pipo-17", 1, "아침부터 바람이 씽씽 불어요. 빨랫줄의 빨래들이 펄럭펄럭 춤을 춰요."]
+  ],
+  "소파": [["changjak-pongi-11", 7, "아빠가 소파에 앉았어요. \"조금만 앉았다 갈게.\""]],
+  "시계": [
+    [
+      "changjak-bami-13",
+      1,
+      "\"우와, 여기가 큰 역이야?\" 밤이가 아빠 옆에 서서 두리번두리번해요. 짐을 든 사람들이 북적북적, 높은 천장에 커다란 시계가 째깍째깍. 기관사 아빠가 말했어요. \"사람이 많으니까 아빠 옆에 딱 붙어. 놓치면 그 자리에 딱 멈춰서 불러— 아빠는 뿌웅 하고 대답할게.\""
+    ]
+  ],
+  "씨앗": [
+    [
+      "changjak-yuki-27",
+      2,
+      "\"씨앗 한 줄만 더 심으면 텃밭이 다 차요!\" 유키는 밥알을 입에 문 채 흙 손으로 또 한 입 집어요. 할머니가 마당 대야에 물을 받아 놓았어요."
+    ]
+  ],
+  "열쇠": [
+    ["changjak-coco-04", 6, "코코가 열쇠를 들고 문 앞에 섰어요. 문 밖에서 드르렁 소리가 나요."]
+  ],
+  "염소": [
+    [
+      "changjak-dingding-36",
+      4,
+      "아랫마을에 가끔 오는 염소 의사 선생님이 딩딩 앞에 앉았어요. \"딩딩아, 네 배 속에도 일꾼들이 산단다. 알고 있었니?\" \"…일꾼요?\" 딩딩이 모자를 살짝 올렸어요."
+    ]
+  ],
+  "오리": [
+    [
+      "changjak-bung-04",
+      2,
+      "밖에서 오리들이 꽥꽥 지나가요. 붕이가 목을 쭉 빼고 밖을 봐요. \"또리야, 다 먹고 오리 보러 가자.\""
+    ]
+  ],
+  "우유": [
+    [
+      "changjak-bruno-07",
+      2,
+      "닐스는 큰 통 가득 블루베리를 따고 싶어요. 저녁에 우유를 부어 먹을 거예요. 할아버지가 제 작은 통을 챙겨 들었어요."
+    ]
+  ],
+  "의자": [
+    [
+      "changjak-twins-35",
+      1,
+      "\"앗, 배 지나간다!\" 롤로가 수프를 한 술 뜨다 말고 창가로 달려갔어요. 식탁 오른쪽 의자가 텅 비었어요. 왼쪽에서는 리리가 의자에 앉아 냠냠 먹어요."
+    ]
+  ],
+  "치마": [
+    [
+      "changjak-lulu-17",
+      10,
+      "치마가 펄럭 — 이모도 어느새 한가운데서 제일 크게 돌고 있어요. 리본은 이모 머리에서 대롱대롱."
+    ]
+  ],
+  "치즈": [["changjak-mei-07", 1, "소풍 가는 날이에요. 곰 할머니가 치즈를 한 덩이씩 싸 줬어요."]],
+  "쿠키": [["changjak-coco-14", 1, "오늘은 쿠키 굽는 날이에요. 코코가 반죽을 얇게 밀었어요."]],
+  "포도": [
+    ["changjak-lulu-24", 1, "포도를 큰 나무통에 가득 부었어요. 발로 밟으면 보랏빛 즙이 나와요."]
+  ],
+  "호수": [
+    [
+      "changjak-bruno-06",
+      1,
+      "아침 해가 반짝 떴어요. 길가에 새 풀이 파릇파릇 돋았어요. 오늘은 할아버지와 호수에 가는 날이에요."
+    ]
+  ],
+  "시장": [
+    [
+      "changjak-nono-38",
+      1,
+      "\"앞치마 끝, 다 같이 잡아라!\" 오소리 할아버지가 앞치마 자락을 뒤로 내밀어요. 셋이 한 손씩 앞치마 끝을 꼭 잡았어요. 겨울 시장은 사람들로 빽빽해요."
+    ]
+  ],
+  "apple": [
+    [
+      "changjak-mio-39",
+      5,
+      "Teacher Bau brought one apple piece and sat beside Gaga. Cutting it smaller and smaller, Teacher Bau laid out ten pieces. \"Your mouth must make pieces small like this too. Ten chews for every bite!\""
+    ]
+  ],
+  "arm": [
+    [
+      "changjak-taro-09",
+      6,
+      "\"I've got them all!\" \"Me, too!\" They met with shells in their arms."
+    ]
+  ],
+  "bed": [
+    [
+      "changjak-dari-02",
+      4,
+      "Dad sat beside the bed. \"Getting up isn't hard. Stretch at sunrise.\" Holding Dari's front flippers, he helped him reach upward."
+    ]
+  ],
+  "bird": [
+    [
+      "changjak-dodo-35",
+      3,
+      "Sparrows flocked down after the crumbs! Chirp, chirp! Startled, Mumu dropped the bread, and the birds pecked the rest. \"My bread...\" He looked sadly at his empty wings."
+    ]
+  ],
+  "book": [
+    [
+      "changjak-bami-24",
+      3,
+      "A goat carrying a roll book entered. \"Is Bami here? Attendance!\" She was the teacher. Her unfamiliar voice sent Bami deeper under the quilt. \"New teacher, new friends... Scary.\""
+    ]
+  ],
+  "bowl": [
+    [
+      "changjak-mina-12",
+      2,
+      "The three children sat close in the narrow space. Mina poured blue beads into a bowl. \"I'll finish this necklace today.\""
+    ]
+  ],
+  "box": [
+    [
+      "changjak-yuki-30",
+      1,
+      "\"Grandma, look at me!\" Yuki bounced in the room. Grandma looked only into a box beside the brazier. A baby bird she had found in the yard that morning lay inside. \"Shh, you'll startle it.\" Yuki's cheeks puffed sulkily."
+    ]
+  ],
+  "branch": [
+    [
+      "changjak-moya-16",
+      6,
+      "Mom walked to the pointed shape. Up close—\"An acacia tree!\" The monster was just a tree with bare branches. Kiki looked to its top. \"Not a monster?\""
+    ]
+  ],
+  "car": [
+    [
+      "changjak-mio-40",
+      7,
+      "No cars or bicycles were coming. Teacher Bau held Duri's hand and led. With the other hand high, Duri crossed carefully. Reaching the other side, Duri jumped."
+    ]
+  ],
+  "clock": [
+    [
+      "changjak-bami-13",
+      1,
+      "\"Is this the big station?\" Bami looked around beside Dad. People with bags bustled beneath a high ceiling and huge ticking clock. Dad said, \"Stay close. If you lose me, stop and call. I'll answer with a toot.\""
+    ]
+  ],
+  "cloud": [
+    [
+      "changjak-dingding-21",
+      4,
+      "\"Clouds like these don't bring rain,\" Grandma said. The clouds were white and round."
+    ]
+  ],
+  "coat": [
+    [
+      "changjak-twins-34",
+      2,
+      "Lolo in boots waved from the yard. \"Riri, a puddle! Hurry!\" \"I want to come! Just the buttons first!\" Riri turned the coat over, then spread it out again."
+    ]
+  ],
+  "coin": [
+    ["changjak-pipo-23", 1, "Tomorrow was Mom's birthday. Pipo took out the coins he had saved."]
+  ],
+  "corn": [
+    [
+      "changjak-mei-36",
+      1,
+      "\"All brushed!\" Ppino the rabbit, always first at everything, rubbed the toothbrush twice and hung it on a wall peg. The morning bell had just rung. Corn hung in rows under the lodge eaves."
+    ]
+  ],
+  "cup": [
+    [
+      "changjak-bruno-01",
+      2,
+      "Drip. Drip. Clear sap fell into a bucket. It smelled a little sweet. Nils wanted to drink a whole cup of tree sap."
+    ]
+  ],
+  "dad": [
+    [
+      "changjak-dari-01",
+      2,
+      "Dad, the lighthouse keeper, peeked in. \"I'm going up to turn on the big light. Come help? Then it's bedtime.\" \"I'm not sleepy!\" Dari shook his head and hugged his shell tower."
+    ]
+  ],
+  "dog": [
+    [
+      "changjak-yuki-27",
+      8,
+      "Yuki dried their hands on a towel across their knees. Even the fingertips were clean and bright. Their tummy no longer hurt. Brown dog Momo came to nuzzle a palm."
+    ]
+  ],
+  "egg": [
+    [
+      "changjak-coco-44",
+      1,
+      "\"I'll crack the eggs!\" Coco, in a red headscarf, picked up an egg at the dough table. Snow lay outside. In the kitchen, it was egg-bread day. \"I'll put in a nice round yolk!\""
+    ]
+  ],
+  "feet": [
+    [
+      "changjak-kota-02",
+      7,
+      "Before dawn, still dim, the boar stretched out his feet. They slipped right into his shoes. \"My feet found their own way!\" Watching through the door, Kota's tail shot up."
+    ]
+  ],
+  "fish": [
+    [
+      "changjak-pongi-09",
+      3,
+      "Little fish swam past her feet, one after another. Pongi let them all go."
+    ]
+  ],
+  "flag": [
+    [
+      "changjak-twins-16",
+      2,
+      "They wanted to make a flag for Dad's boat. \"It is our boat's flag, so let us paint a fish!\""
+    ]
+  ],
+  "food": [
+    [
+      "changjak-taro-03",
+      3,
+      "Each heard only their own words. Taro thought he was bringing the food. Mumu thought they were bringing it, too."
+    ]
+  ],
+  "foot": [
+    [
+      "changjak-bung-36",
+      3,
+      "Bung let go of Ddori's hand and reached a foot between the boats. Grandpa caught Bung's arm. \"Wait!\""
+    ]
+  ],
+  "fork": [
+    [
+      "changjak-lulu-40",
+      6,
+      "Stirring a pot, Mom asked, \"Anything else down there?\" Lulu crawled and searched. One fork, one garlic clove! \"Little Lulu fits right in!\""
+    ]
+  ],
+  "fox": [
+    [
+      "changjak-mei-29",
+      1,
+      "\"Soup tastes best when it's boiling hot!\" Leo the know-it-all fox sat at the middle of the long table. Steam rose from a pot on the stove. \"I know everything. It tastes bad when it's cold.\""
+    ]
+  ],
+  "gift": [
+    [
+      "changjak-dari-10",
+      8,
+      "The fisherman beamed. \"Hello! I'm here to fish.\" He tilted the bucket, showing leaping silver fish, and offered Dari one. \"A gift for a friend with a lovely greeting.\""
+    ]
+  ],
+  "girl": [
+    [
+      "changjak-bami-11",
+      1,
+      "\"Dad, that older deer girl is lost!\" Bami pointed across the railway crossing. A deer student with a schoolbag studied a map as yellow ginkgo leaves fell. \"I'll bring her!\" Bami was already hopping away."
+    ]
+  ],
+  "glove": [["changjak-nono-21", 3, "Kiki took off the gloves and played with bare hands."]],
+  "goat": [
+    [
+      "changjak-dingding-36",
+      4,
+      "The goat doctor, who sometimes visited the lower village, sat in front of Dingding. \"Did you know there are little workers inside your tummy?\" \"Workers...?\" Dingding lifted the hat a little."
+    ]
+  ],
+  "goose": [
+    [
+      "changjak-pipo-03",
+      3,
+      "Mrs. Goose stretched her long neck. \"I saw it by the stream earlier! Definitely.\""
+    ]
+  ],
+  "hand": [
+    [
+      "changjak-kota-01",
+      6,
+      "Thick clouds billowed from the upper pool. Kota quickly hid their hands behind their back. \"Billowing means too hot! Even fingertips need care!\""
+    ]
+  ],
+  "hat": [
+    [
+      "changjak-mio-27",
+      2,
+      "\"Bobo, what about your hands?\" asked Mio, who did everything alone. \"It takes too long to go and wash! I am eating now!\" Bobo pulled the hat brim forward and munched."
+    ]
+  ],
+  "house": [
+    [
+      "changjak-taro-01",
+      1,
+      "Taro's house is on this side of the village road. Mumu's house is on the other side. Taro has quick hands. Mumu has sharp ears. Every morning, they meet in the middle of the road."
+    ]
+  ],
+  "key": [
+    ["changjak-coco-04", 6, "Coco stood at the door with the key. A loud snore came from outside."]
+  ],
+  "kite": [
+    [
+      "changjak-dodo-20",
+      1,
+      "Autumn wind swept across the field. Dad made one kite each for Dodo and Mumu."
+    ]
+  ],
+  "lake": [
+    [
+      "changjak-bruno-06",
+      1,
+      "The morning sun shone. Fresh green grass grew beside the path. Today Nils would go to the lake with Grandpa."
+    ]
+  ],
+  "lamp": [
+    [
+      "changjak-yuki-44",
+      4,
+      "Grandma came with a lamp. \"Say ah.\" She removed the piece from between the teeth. \"The sweet juice stayed behind.\""
+    ]
+  ],
+  "leaf": [
+    [
+      "changjak-bung-20",
+      3,
+      "The water boat rang a bell far away. Bung was floating a leaf boat. \"Later.\""
+    ]
+  ],
+  "lemon": [
+    [
+      "changjak-lulu-15",
+      2,
+      "Lulu brought a big pitcher. \"I will make cool lemon water.\" Mom cut the lemons in half."
+    ]
+  ],
+  "log": [
+    ["changjak-mei-19", 1, "A log stretched across the stream. They played at crossing over it."]
+  ],
+  "map": [
+    [
+      "changjak-bami-11",
+      7,
+      "The barrier rose and the bell fell silent. Bami stopped, looked left, looked right, and crossed step by step. The deer student held out her map. \"Little conductor, is this the station?\""
+    ]
+  ],
+  "mat": [
+    [
+      "changjak-dingding-14",
+      4,
+      "She spread a bamboo mat left of the tree, taking out bowls. \"Cool here yesterday.\""
+    ]
+  ],
+  "mouse": [
+    [
+      "changjak-coco-26",
+      1,
+      "\"I don't like carrots!\" Coco picked the carrots out of the soup. In the kitchen behind the bakery, Coco, a little mouse in a red headscarf, ate only bits of bread. The next batch was turning golden in the oven, the big fiery place where bread bakes."
+    ]
+  ],
+  "mouth": [
+    [
+      "changjak-kota-03",
+      7,
+      "Kota tiptoed past the turtle's room. Soft sleeping breaths came from inside. Kota covered their mouth with both hands, tail shooting up."
+    ]
+  ],
+  "mud": [
+    [
+      "changjak-moya-05",
+      4,
+      "Through the reeds, Moya saw Tumba, the mud-play champion, splashing. Mom called, \"How about an adventure in Splash Land?\" Moya poked their head out. \"Splash Land? What's that?\""
+    ]
+  ],
+  "nest": [
+    [
+      "changjak-pongi-48",
+      1,
+      "\"Yahooooo!\" Pongi shouted as loudly as she could on the bank path under the bridge. The sound echoed and grew louder. The swallows in their nests under the bridge all fluttered away."
+    ]
+  ],
+  "nose": [
+    [
+      "changjak-nono-48",
+      7,
+      "The squirrel smiled at the snow beside Nono. Kiki's seat stayed empty. Kiki's eyes stung, and the nose turned red."
+    ]
+  ],
+  "owl": [
+    [
+      "changjak-yuki-45",
+      1,
+      "Hoot, hoot. An owl called from the mountain. Wearing a vermilion scarf, Yuki stacked wooden pieces beside the brazier. \"Just one more layer!\""
+    ]
+  ],
+  "pillow": [
+    [
+      "changjak-dodo-31",
+      1,
+      "\"No! I won't sleep!\" Upstairs, little brother Mumu played a straw flute. Peep, peep! Stars filled the night beyond the round window; a little lamp stood by his pillow. Mumu held back a yawn. \"Just a little more, a little more!\""
+    ]
+  ],
+  "plate": [
+    [
+      "changjak-taro-26",
+      1,
+      "\"I'll only eat greens!\" Mumu picked just the greens off the leaf plate, nudging the rice, corn, and tomatoes to its edge. Grandma watched quietly as she prepared the meal."
+    ]
+  ],
+  "pot": [
+    [
+      "changjak-twins-26",
+      2,
+      "\"Tomorrow morning, I want to pull Dad's rope by myself!\" Riri waved her spoon. Mom, who ran the fish stall, set down the pot and looked at her bowl. The green row grew longer, and only half the soup remained."
+    ]
+  ],
+  "rain": [
+    [
+      "changjak-bung-17",
+      1,
+      "Rain kept them indoors today. Bung and Ddori sat beneath the awning. Behind them, Grandpa dried a wet oar."
+    ]
+  ],
+  "road": [
+    [
+      "changjak-mina-36",
+      1,
+      "\"Mom, buffalo fill the road!\" Mina stamped at the village road's end. Every evening, buffalo went down to the river. Low water had exposed a long flight of steps."
+    ]
+  ],
+  "rope": [
+    [
+      "changjak-mei-13",
+      8,
+      "Grandma Bear put the sled rope in Soso's hand. \"Give it back, and you can borrow again.\""
+    ]
+  ],
+  "sand": [
+    [
+      "changjak-taro-09",
+      9,
+      "They poured all the shells onto the sand. Thirty shells! They laid them out in a circle."
+    ]
+  ],
+  "seed": [
+    [
+      "changjak-moya-25",
+      5,
+      "Grandma took Moya to the reeds. \"A game from when I was little?\" She tapped a reed with her muzzle. White seeds floated up. Moya tapped, too. \"Like clouds!\" For the first time, Moya smiled."
+    ]
+  ],
+  "shirt": [
+    [
+      "changjak-pongi-10",
+      3,
+      "Dad put the laundry in the tub. A white shirt, a white towel, a white apron."
+    ]
+  ],
+  "shop": [
+    [
+      "changjak-nono-01",
+      8,
+      "Grandpa Badger was sweeping in front of his shop. \"You have to walk to keep your footprints going,\" he said."
+    ]
+  ],
+  "skirt": [
+    [
+      "changjak-lulu-17",
+      10,
+      "A skirt fluttered! Already Aunt Rosa was spinning biggest in the middle. Ribbons dangled from her head."
+    ]
+  ],
+  "sled": [
+    [
+      "changjak-bruno-19",
+      2,
+      "Nils wanted to sled down that hill. The sled was in the loft. He put on blue boots."
+    ]
+  ],
+  "smile": [
+    [
+      "changjak-twins-27",
+      10,
+      "Under the covers, Mom rubbed her cheek against Lolo's. Brushing between the teeth left nothing to tickle all night. \"Brush, brush—even between your teeth!\" Lolo showed a wide, toothy smile."
+    ]
+  ],
+  "snow": [
+    [
+      "changjak-yuki-01",
+      1,
+      "All the snow in the yard had melted. Grandma gave Yuki a bag of flower seeds. Momo pressed a nose to the bag and sniffed."
+    ]
+  ],
+  "soap": [
+    [
+      "changjak-bami-05",
+      5,
+      "Dad stirred soap into the tub. White bubbles rose like mountains! The yellow duck floated on top. The tub became a bubble train. \"A real bubble train!\" Bami's eyes shone."
+    ]
+  ],
+  "sock": [
+    [
+      "changjak-yuki-29",
+      4,
+      "Squelch! The boot stuck in the mud, and the foot came out. Yuki's sock was soaked. \"I can't play...\" Back on the porch, Yuki hung their head."
+    ]
+  ],
+  "spoon": [
+    ["changjak-bung-04", 3, "Ddori held a spoon in both hands. Bung took it. \"I will feed you.\""]
+  ],
+  "star": [
+    ["changjak-dingding-16", 5, "Dingding lay wide awake. Water trickled outside. Stars sparkled."]
+  ],
+  "stone": [
+    [
+      "changjak-dari-21",
+      1,
+      "\"Here goes!\" Dari struck a shell with a stone on the kitchen table. It stayed tightly shut. \"I'll open shells like Dad!\" Kongal watched from the cradle by the stove."
+    ]
+  ],
+  "sun": [["changjak-mei-15", 7, "The sun was setting. Mei shifted their toes by the steps."]],
+  "tail": [
+    [
+      "changjak-mina-36",
+      5,
+      "\"The legs. So close together, like a forest, aren't they?\" Mina looked through the leg forest. \"There's the end! One tail left.\""
+    ]
+  ],
+  "tea": [
+    [
+      "changjak-bami-16",
+      8,
+      "Pipi fluttered down and nestled beside Bami. \"It's okay!\" Together they watched snowy mountains through the circle. Mom set warm tea on the table."
+    ]
+  ],
+  "teacher": [
+    ["changjak-mio-01", 8, "Teacher Bau sat beside Mio. \"Mio, will two hands be enough?\""]
+  ],
+  "teeth": [
+    [
+      "changjak-moya-03",
+      5,
+      "Mom told a story. \"Your teeth are flat stones. The upper and lower stones grind stiff grass soft.\" Moya imagined it. Rub, rub—soft grass! \"That's why I need to chew well!\""
+    ]
+  ],
+  "toy": [
+    [
+      "changjak-nono-30",
+      4,
+      "Grandpa beckoned from the back room with soap and a toy duck. \"Forget a bath—want to visit Steam Land?\" Nono, the smallest, roundest sparrow, and Gugu, the broad-chested pigeon, followed."
+    ]
+  ],
+  "train": [
+    [
+      "changjak-bami-01",
+      1,
+      "\"No beans! Just egg and rice!\" Bami opened a three-section lunchbox by the dining-car window and pecked only at egg and rice. Nabi the train cat dozed, curled on a window cushion."
+    ]
+  ],
+  "tray": [
+    ["changjak-coco-14", 6, "The tray filled with little stars. Mrs. Magpie stuck out her beak."]
+  ],
+  "tree": [
+    ["changjak-pipo-03", 5, "\"Then under the big tree! I saw it there too.\" She waddled ahead."]
+  ],
+  "umbrella": [
+    ["changjak-pongi-03", 3, "Dad brought a big umbrella. \"With this, we won't get wet at all.\""]
+  ],
+  "wheel": [
+    [
+      "changjak-bruno-10",
+      9,
+      "The next morning, Grandpa pulled back the cloth. Ta-da! A wooden horse on wheels!"
+    ]
+  ],
+  "window": [
+    [
+      "changjak-taro-15",
+      2,
+      "\"Go ahead! I'll be there soon!\" he called out the window. He wanted to finish quickly and play with Mumu."
+    ]
+  ],
+  "wood": [
+    [
+      "changjak-bung-01",
+      3,
+      "Grandpa pushed through the water with a long piece of wood—an oar. Bung hopped aboard."
+    ]
+  ],
+  "가위": [["changjak-mio-11", 2, "\"이 창문은 내가 다 오릴래.\" 미오가 가위를 집어 들었어요."]],
+  "모자": [
+    [
+      "changjak-bami-10",
+      5,
+      "아빠가 식탁 위에 셋을 나란히 놓았어요. 표 묶음, 모자, 도시락! \"심부름엔 이 세 가지만 챙기면 든든해. 표·모자·도시락, 준비 끝!\" 아빠가 노래하듯 말해요. 밤이가 부리로 하나씩 톡톡 짚어 봐요. \"표, 모자, 도시락!\""
+    ]
+  ],
+  "바다": [
+    [
+      "changjak-bami-07",
+      3,
+      "한참 뒤 눈을 뜬 밤이는 깜짝! 해가 둥근 창 한가운데 떠 있어요. 창밖 여름 바다가 휙휙 지나가요. 기차가 벌써 달리고 있어요. \"어라, 종은? 내 종은?\" 밤이가 발을 동동 굴러요."
+    ]
+  ],
+  "손": [["changjak-mina-06", 8, "엄마가 소누 손에 비누를 다시 쥐여 줬어요."]],
+  "아빠": [
+    [
+      "changjak-bami-04",
+      4,
+      "기관사 아빠가 기관실에서 식당칸으로 건너와 밤이 등을 살살 쓸어 주고 물 한 컵을 건넸어요. \"천천히, 꿀꺽.\" 딸꾹질이 사르르 가라앉았어요. \"너무 급하게 삼켜서 그래.\" 아빠가 밤이 곁에 앉았어요."
+    ]
+  ],
+  "아이": [
+    [
+      "changjak-bami-04",
+      5,
+      "그때 큰 바구니를 든 토끼 가족이 식당칸으로 올라와 건너편 자리에 앉았어요. 아이 셋이 바구니에서 당근을 꺼내 아삭아삭. 아빠가 속닥였어요. \"봐, 토끼들은 한 입에 열 번씩 꼭꼭 씹어. 그래서 배가 한 번도 안 아파.\" 밤이가 세어 봐요. 꼭꼭꼭꼭… 정말 열 번!"
+    ]
+  ],
+  "엄마": [
+    [
+      "changjak-bami-02",
+      1,
+      "\"밤이야, 칫솔! 종점에 섰으니까 이 닦고 코~ 잘 시간이야.\" 엄마가 세면칸 문 앞에서 칫솔을 살랑살랑 흔들어요. 그런데 밤이는 침대칸 이불 속으로 쏙— \"양치 안 할래, 귀찮단 말이야! 그냥 잘 거야!\" 눈을 꼭 감아 버려요."
+    ]
+  ],
+  "동생": [
+    [
+      "changjak-bung-26",
+      1,
+      "\"초록은 빼 줘!\" 붕이가 국수에서 초록 잎을 건져 뱃전에 놓아요. 주황 새우도 척 밀어냈어요. 기둥에 매인 국수 배는 가만히 떠 있어요. 동생 또리는 초록 잎을 냠냠 잘 먹어요."
+    ]
+  ],
+  "집": [
+    [
+      "changjak-taro-01",
+      1,
+      "타로네 집은 마을 길 이쪽이에요. 무무네 집은 마을 길 저쪽이에요. 타로는 손이 빨라요. 무무는 귀가 밝아요. 아침마다 둘은 길 가운데에서 만나요."
+    ]
+  ],
+  "하늘": [
+    [
+      "changjak-bruno-16",
+      2,
+      "닐스는 연을 하늘 높이 띄우고 싶어요. 나무보다 높이, 지붕보다 높이요. \"자, 간다!\""
+    ]
+  ],
+  "토끼": [
+    [
+      "changjak-bami-04",
+      5,
+      "그때 큰 바구니를 든 토끼 가족이 식당칸으로 올라와 건너편 자리에 앉았어요. 아이 셋이 바구니에서 당근을 꺼내 아삭아삭. 아빠가 속닥였어요. \"봐, 토끼들은 한 입에 열 번씩 꼭꼭 씹어. 그래서 배가 한 번도 안 아파.\" 밤이가 세어 봐요. 꼭꼭꼭꼭… 정말 열 번!"
+    ]
+  ],
+  "bag": [
+    [
+      "changjak-bami-12",
+      1,
+      "\"A station!\" Pipi called. Bami bounced by the door. An elderly turtle slowly boarded with a walking stick and old leather bag. \"I'll watch the winding mountain track beside Dad!\" Bami told him."
+    ]
+  ],
+  "boat": [
+    [
+      "changjak-bung-01",
+      1,
+      "In Bung's village, all the roads were water. Boats sold fruit and noodles. Bung lived on Mom's noodle boat."
+    ]
+  ],
+  "cake": [
+    [
+      "changjak-coco-07",
+      2,
+      "Coco will make a little cake without Mom knowing, with strawberries on top."
+    ]
+  ],
+  "cap": [
+    [
+      "changjak-bami-13",
+      3,
+      "Turning back, Bami couldn't see Dad. Strange legs surrounded them; Dad's cap was nowhere. Tears gathered in their eyes."
+    ],
+    [
+      "1784529062118",
+      5,
+      "Day and night the hat maker stitched away, using all his skill to make the tallest royal cap in the world. He had always made hats and caps with ease, after all. When the king received the finished cap, he breathed a great sigh of relief — but now only one person knew the secret: the hat maker."
+    ]
+  ],
+  "cat": [
+    [
+      "changjak-bami-01",
+      1,
+      "\"No beans! Just egg and rice!\" Bami opened a three-section lunchbox by the dining-car window and pecked only at egg and rice. Nabi the train cat dozed, curled on a window cushion."
+    ],
+    [
+      "1773713269796",
+      1,
+      "Cats have been living with people for a very, very long time. They love to walk quietly and climb up high."
+    ]
+  ],
+  "duck": [
+    [
+      "changjak-bung-04",
+      2,
+      "Ducks passed outside, quacking. Bung stretched to look. \"Finish eating, Ddori, then let us see the ducks.\""
+    ]
+  ],
+  "gate": [
+    [
+      "changjak-coco-01",
+      7,
+      "This time he turned left. There was the same round gate they had passed before."
+    ]
+  ],
+  "horse": [
+    [
+      "changjak-pipo-02",
+      3,
+      "Mr. Horse came striding over. \"Building walls has to be quick, quick!\""
+    ]
+  ],
+  "moon": [
+    [
+      "changjak-dodo-25",
+      1,
+      "Tonight was the full moon. Mom baked honey bread for moon-watching and packed it in a basket."
+    ],
+    [
+      "1777442972423",
+      15,
+      "The moon has risen in the black night sky. The fox stands up high on a tall rock."
+    ]
+  ],
+  "rabbit": [
+    [
+      "changjak-bami-04",
+      5,
+      "A rabbit family boarded with a big basket. Across the aisle, three children crunched carrots. Dad whispered, \"They chew each bite ten times. Their tummies never hurt.\" Bami counted. Really—ten!"
+    ]
+  ],
+  "sea": [
+    [
+      "changjak-bami-07",
+      3,
+      "Much later, Bami woke with a start. Sunlight filled the window and the summer sea rushed past. The train was moving already! \"My bell? What about my bell?\""
+    ]
+  ],
+  "vest": [
+    [
+      "changjak-bruno-32",
+      6,
+      "At those words, his tightly shut mouth opened by itself. \"Waaah!\" Nils buried his face in Grandpa's green vest and cried all he needed. Grandpa patted his back. \"Tears coming? Let them out!\""
+    ]
+  ],
+  "rose": [
+    [
+      "1777277215628",
+      3,
+      "The little sprout grew into a pretty rose.\nIts red petals bloomed wide open.\nIt was a really, really beautiful flower."
+    ]
+  ],
+  "plant": [
+    [
+      "1777550146108",
+      8,
+      "When it hatches from its egg, it becomes a tadpole with a long tail. The tadpole breathes through its gills, and in the water, it eats plants and tiny bits of food to grow."
+    ]
+  ],
+  "dress": [
+    [
+      "1772201758726",
+      13,
+      "Finally, the flower fairies, in their sparkly dresses, began to dance!\n\"Twirl, twirl, flutter, flutter! It feels just like a dream.\""
+    ]
+  ]
+}
