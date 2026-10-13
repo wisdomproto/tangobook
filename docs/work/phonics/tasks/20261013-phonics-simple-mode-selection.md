@@ -1,7 +1,7 @@
 ---
 id: 20261013-phonics-simple-mode-selection
 title: 한영 모드 입구 단순화
-status: completed
+status: integrated
 branch: codex/phonics-simple-mode-selection
 ---
 
@@ -32,4 +32,4 @@ branch: codex/phonics-simple-mode-selection
 
 ## 후속 반증: 찐빵 실루엣·제목·홈
 
-사용자가 첫 생성 버튼을 찐빵처럼 보인다고 거절했다. 둥근 두께를 줄인 손그림 나무 간판2종과 제목용 얇은 종이 리본을 같은 그림체로 새로 제작한다. 제목은 리본 안 DOM/NanumSquareRound로 유지하며 학습 홈 이동은 텍스트를 없애고 기존 scenery-cottage 그림 아이콘·접근성 이름을 사용한다. 두 모드 및 실제 진도/경로 동작은 유지한다. 기본 Qwen8188/8190은 다시 연결 실패를 확인했다. 내장 image_gen으로 새3원본 생성·육안 확인했고 v1은 비파괴 보존한다. v2 alpha WebP3장189502bytes·원본/결과 해시·프롬프트를 저장했다. [v2자산·출처](../../../../packages/client/public/images/phonics/mode-buttons-v2/README.md).15회귀·타입·범위 lint·Vite build 통과(기존 경고 유지). 실제 한영568×320/812×375의 리본/집/간판 전체 검수, 집 아이콘 클릭→홈 진입 확인, 데스크톱 최종 화면 저장. 마지막 작은 가로 CSS 크기 숫자는 화면 검수로 조정했다. 접근성 heading/link 이름과 두 모드 URL은 유지한다. 로컬 커밋 후 main 통합 범위이며 새 push 요청 없음.
+사용자가 첫 생성 버튼을 찐빵처럼 보인다고 거절했다. 둥근 두께를 줄인 손그림 나무 간판2종과 제목용 얇은 종이 리본을 같은 그림체로 새로 제작한다. 제목은 리본 안 DOM/NanumSquareRound로 유지하며 학습 홈 이동은 텍스트를 없애고 기존 scenery-cottage 그림 아이콘·접근성 이름을 사용한다. 두 모드 및 실제 진도/경로 동작은 유지한다. 기본 Qwen8188/8190은 다시 연결 실패를 확인했다. 내장 image_gen으로 새3원본 생성·육안 확인했고 v1은 비파괴 보존한다. v2 alpha WebP3장189502bytes·원본/결과 해시·프롬프트를 저장했다. [v2자산·출처](../../../../packages/client/public/images/phonics/mode-buttons-v2/README.md).15회귀·타입·범위 lint·Vite build 통과(기존 경고 유지). 실제 한영568×320/812×375의 리본/집/간판 전체 검수, 집 아이콘 클릭→홈 진입 확인, 데스크톱 최종 화면 저장. 마지막 작은 가로 CSS 크기 숫자는 화면 검수로 조정했다. 접근성 heading/link 이름과 두 모드 URL은 유지한다. 31a06e31e 코드·자산·기억 커밋을 로컬 main에 fast-forward 통합했다. 새 push 요청은 없어 원격 미전달.
