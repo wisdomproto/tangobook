@@ -337,5 +337,22 @@
     },
     "scrollMap": "학습 지도 스크롤",
     "finishVillage": "이야기 마을을 완성해요!"
+  },
+  "chapter": {
+    "title": "{{letter}} 배우기",
+    "korean": "한글",
+    "english": "영어",
+    "info": "학습 정보",
+    "backToChild": "아이 화면으로",
+    "listen": "듣기",
+    "write": "쓰기",
+    "play": "놀이",
+    "combine": "합치기",
+    "start": "시작하기",
+    "continue": "이어서 하기",
+    "again": "다시 하기",
+    "allDone": "잘했어!",
+    "activities": "이번 챕터의 활동",
+    "unlocked": "다음 챕터가 열렸어!"
   }
 }

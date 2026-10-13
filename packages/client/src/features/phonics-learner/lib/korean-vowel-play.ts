@@ -1,4 +1,4 @@
-import { KOREAN_BASIC_VOWEL_GROUPS } from '@tangobook/shared';
+import { KOREAN_BASIC_VOWEL_GROUPS, KOREAN_BASIC_VOWEL_LESSONS } from '@tangobook/shared';
 import type { ReviewCard } from './korean-phonics-units';
 
 /** 듣기의 실제 완료만 사용한다. 선택/방문/쓰기만으로 낯선 모음을 놀이에 넣지 않는다. */
@@ -6,6 +6,19 @@ export function learnedVowelCards(
   unitId: string,
   readDone: (id: string) => readonly string[]
 ): ReviewCard[] {
+  const lessonIndex = KOREAN_BASIC_VOWEL_LESSONS.findIndex((lesson) => lesson.id === unitId);
+  if (lessonIndex >= 0) {
+    return KOREAN_BASIC_VOWEL_LESSONS.slice(0, lessonIndex + 1)
+      .filter((lesson) => readDone(lesson.id).includes('listen-1'))
+      .slice(-4)
+      .map((lesson) => ({
+        unitId: lesson.sourceUnitId,
+        letter: lesson.vowel,
+        syllable: lesson.sound,
+        sound: lesson.sound,
+        matchPosition: 'jung' as const,
+      }));
+  }
   const current = KOREAN_BASIC_VOWEL_GROUPS.find((group) => group.id === unitId);
   if (!current) return [];
   const groups = current.reviewAll ? KOREAN_BASIC_VOWEL_GROUPS : [current];

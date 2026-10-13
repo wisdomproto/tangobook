@@ -58,8 +58,23 @@ describe('child-scoped phonics progress', () => {
     ]);
     expect(getUnitProgress('korean', 'kr-v1-g03').completedActivities).toEqual([]);
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).not.toContain('listen-game');
-    expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual(['listen-1']);
+    expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([
+      'listen-1',
+      'write-1',
+    ]);
     localStorage.setItem('tangobook:activeProfileId', 'sibling');
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([]);
+  });
+  it('maps grouped completion to only the same vowel and never invents chapter quiz evidence', () => {
+    markActivityCompleted('korean', 'kr-v1-g01', 'listen-3');
+    markActivityCompleted('korean', 'kr-v1-g01', 'write-3');
+    markActivityCompleted('korean', 'kr-v1-g01', 'listen-game');
+    expect(getUnitProgress('korean', 'kr-v1-u03').completedActivities).toEqual([
+      'listen-1',
+      'write-1',
+    ]);
+    expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([]);
+    markActivityCompleted('korean', 'kr-v1-u04', 'listen-1');
+    expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toContain('listen-4');
   });
 });

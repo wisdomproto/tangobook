@@ -337,5 +337,22 @@
     },
     "scrollMap": "滚动学习地图",
     "finishVillage": "完成故事村吧！"
+  },
+  "chapter": {
+    "title": "学习 {{letter}}",
+    "korean": "韩语",
+    "english": "英语",
+    "info": "学习信息",
+    "backToChild": "返回学习",
+    "listen": "听一听",
+    "write": "写一写",
+    "play": "玩一玩",
+    "combine": "拼一拼",
+    "start": "开始",
+    "continue": "继续",
+    "again": "再来一次",
+    "allDone": "真棒！",
+    "activities": "本章节活动",
+    "unlocked": "下一章节开启啦！"
   }
 }

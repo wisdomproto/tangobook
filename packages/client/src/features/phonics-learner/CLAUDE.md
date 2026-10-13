@@ -2,6 +2,8 @@
 
 ## 2026-10-13 언어 내부 학습 모드
 
+후속 반증으로 기본 커리큘럼은 `PhonicsChapterScene`의 현재 챕터만 보여준다. 전체 지도/게임 기록은 학습 정보에서 `PhonicsJourneyMap`으로 연다. `learning-journey.ts`의 한글 안내 units는 자유모드의 모음 묶음을 `kr-v1-u01~10` 개별 챕터로 펼친다. 첫 모음은 듣기/쓰기, 두 번째부터 실제 들은 이전/현재 모음(최대4)의 소리 게임이 안내 단계다. 자유모드/저작의4·4·2 source와 옛 링크는 유지한다. `progress-store`는 묶음의 정확한 글자별 듣기/쓰기를 개별 챕터로 읽으며 새 게임 성적/완료를 생성하지 않는다. 안내 old-group 링크는 `journeyKoreanActivityRoute`로 해당 모음에 연결한다. 완료 뒤 인접한 다음 챕터는1.8초 잠금 해제, reduced-motion450ms로 전환한다. 완료 query를 소비하고 replay에서는 연출하지 않는다. `dev-previews/phonics-chapter-unlock.html`은 가상 진도 props로만 연출을 검수하는 dev 전용 파일이다. [작업](../../../../../docs/work/phonics/tasks/20261013-phonics-current-focus.md). 아래 지도는 전체 과정 확인용 부모 화면이다.
+
 커리큘럼 지도는 `PhonicsJourneyMap`의 이야기 마을 지도다. 실제5권을 언어별 장소에 매핑하고 단원 순서를 지그재그 길로 표현한다. 현재/완료만 학습 링크이고 미래 장소는 미리보기만 가능하다. `JourneyWorldIcon`은 정확한 학습 글자와 구분된 장소/완료 SVG다. `public/images/phonics/story-world-v1`의 배경5장/투명 집1장을 공유하며 선택한 배경만 로드한다. `phonics-journey-map.css`는 전용 표현이고 과정 코랄/민트 토큰을 따른다. 긴 지도의 현재 단계는 내부 스크롤로 보이게 하고 페이지 전체를 강제로 이동하지 않는다. 꽃 개수는 단원 활동 완료 수이며 능력/숙달 점수와 다르다. [작업·검증](../../../../../docs/work/phonics/tasks/20261013-phonics-story-map.md).
 
 `/library/phonics/korean`과 `/english`는 커리큘럼/자유모드 진입이다. `?mode=curriculum`은 과정 지도, `/:unitId/:activityKey?mode=curriculum`은 안내 활동이다. 기존 단원/활동 URL은 자유 선택이고 구형 한글 별칭도 안내 query를 보존한다. `learning-journey.ts`는 기존 필수 활동과 모음 소리 고르기를 전체 단원/복습 순서로 연결한다. 미래 미완료 활동 직접 진입은 첫 미완료 지점으로 이동한다. 권한 게이트와 자산 미준비 처리는 기존대로 유지한다.

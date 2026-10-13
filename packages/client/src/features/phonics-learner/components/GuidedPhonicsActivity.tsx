@@ -67,7 +67,7 @@ function GuidedRun({
     navigate(
       next && next.unit.id === unitId
         ? journeyActivityUrl(lang, next.unit.id, next.activity.key)
-        : `${journeyHomeUrl(lang)}&finished=${encodeURIComponent(unitId)}`
+        : `${journeyHomeUrl(lang)}&finished=${encodeURIComponent(unitId)}${replaying ? '&replay=1' : ''}`
     );
   }, [navigate, lang, unitId, activityKey, replaying, index]);
   const onMarked = useCallback(() => setReady(true), []);

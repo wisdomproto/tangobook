@@ -337,5 +337,22 @@
     },
     "scrollMap": "Scroll the learning map",
     "finishVillage": "Complete Story Village!"
+  },
+  "chapter": {
+    "title": "Meet {{letter}}",
+    "korean": "Korean",
+    "english": "English",
+    "info": "Learning info",
+    "backToChild": "Back to learning",
+    "listen": "Listen",
+    "write": "Write",
+    "play": "Play",
+    "combine": "Blend",
+    "start": "Start",
+    "continue": "Continue",
+    "again": "Play again",
+    "allDone": "Well done!",
+    "activities": "Activities in this chapter",
+    "unlocked": "The next chapter is open!"
   }
 }

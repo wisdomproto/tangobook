@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>챕터 잠금 해제 — 개발 미리보기</title>
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 18px;
+        background: #fffaf0;
+        font: 13px sans-serif;
+      "
+    >
+      <span>개발 미리보기 · 실제 학습 진도 저장 없음</span
+      ><button id="replay" style="padding: 10px; border: 1px solid #d6dabc; border-radius: 12px">
+        잠금 해제 다시 보기
+      </button>
+    </div>
+    <div id="root"></div>
+    <script type="module">
+      import React from 'react';
+      import { createRoot } from 'react-dom/client';
+      import { MemoryRouter } from 'react-router-dom';
+      import '/src/index.css';
+      import '/src/i18n/index.ts';
+      import { PhonicsChapterScene } from '/src/features/phonics-learner/components/PhonicsChapterScene.tsx';
+      import { journeyProgress } from '/src/features/phonics-learner/lib/learning-journey.ts';
+      const root = createRoot(document.getElementById('root'));
+      let run = 0;
+      function replay() {
+        const progress = journeyProgress('korean', (id) =>
+          id === 'kr-v1-u01' ? ['listen-1', 'write-1'] : []
+        );
+        root.render(
+          React.createElement(
+            MemoryRouter,
+            {
+              key: ++run,
+              initialEntries: ['/library/phonics/korean?mode=curriculum&finished=kr-v1-u01'],
+            },
+            React.createElement(PhonicsChapterScene, {
+              lang: 'korean',
+              progress,
+              started: true,
+              finishedUnitDone: true,
+            })
+          )
+        );
+      }
+      document.getElementById('replay').addEventListener('click', replay);
+      replay();
+    </script>
+  </body>
+</html>

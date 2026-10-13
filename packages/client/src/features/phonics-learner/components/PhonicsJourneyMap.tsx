@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight, BookOpen, Check, Flag, LockKeyhole, Play } from 'lucide-react';
 import { courseThemes } from '@/design-system';
 import { activityTitle, levelName, unitTitle } from '../lib/activity-title';
+import { getKoreanUnit, getActivityPlan } from '../lib/korean-phonics-units';
+import { getEnglishUnit, getEnglishActivityPlan } from '../lib/english-phonics-units';
 import {
   journeyActivityUrl,
   journeyProgress,
@@ -57,9 +59,7 @@ export function PhonicsJourneyMap({
   const worldName = t(`world.${lang}.${worldIndex + 1}`);
   const sceneryKind = ICONS[lang][worldIndex] ?? 'garden';
   const scenery = `/images/phonics/story-world-v1/story-${sceneryKind === 'garden' || sceneryKind === 'village' ? 'meadow' : sceneryKind}.webp`;
-  const observations = Object.entries(readGameObservations(lang)).filter(([id]) =>
-    progress.steps.some((step) => `${step.unit.id}/${step.activity.key}` === id)
-  );
+  const observations = Object.entries(readGameObservations(lang));
   // Each unit uses actual required completion. Map flowers never imply a game score or mastery.
   const stages = selectedUnits.map((unit, index) => {
     const steps = progress.steps.flatMap((step, i) =>
@@ -378,7 +378,20 @@ export function PhonicsJourneyMap({
             <p>{t('journey.observationDescription')}</p>
             <ul>
               {observations.map(([id, run]) => {
-                const step = progress.steps.find((s) => `${s.unit.id}/${s.activity.key}` === id);
+                const [observedUnitId, observedActivityKey] = id.split('/');
+                const observedUnit =
+                  lang === 'korean'
+                    ? getKoreanUnit(observedUnitId)
+                    : getEnglishUnit(observedUnitId);
+                const observedActivity = (
+                  lang === 'korean'
+                    ? getActivityPlan(observedUnitId)
+                    : getEnglishActivityPlan(observedUnitId)
+                ).activities.find((activity) => activity.key === observedActivityKey);
+                const step =
+                  observedUnit && observedActivity
+                    ? { unit: observedUnit, activity: observedActivity }
+                    : undefined;
                 if (!step) return null;
                 const choices = Object.values(run.firstChoices);
                 return (

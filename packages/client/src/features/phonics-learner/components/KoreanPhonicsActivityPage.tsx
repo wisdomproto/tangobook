@@ -1,3 +1,4 @@
+import { journeyKoreanActivityRoute } from '../lib/learning-journey';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
@@ -801,7 +802,9 @@ export default function KoreanPhonicsActivityPage() {
   const navigate = useNavigate();
   const [search] = useSearchParams();
   const guided = search.get('mode') === 'curriculum';
-  const route = koreanLearningActivityRoute(unitId, activityKey);
+  const route = guided
+    ? journeyKoreanActivityRoute(unitId, activityKey)
+    : koreanLearningActivityRoute(unitId, activityKey);
   const plan = getActivityPlan(route.unitId);
   const index = plan.activities.findIndex((activity) => activity.key === route.activityKey);
   const next = plan.activities[index + 1];

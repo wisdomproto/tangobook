@@ -52,4 +52,15 @@ describe('모음 놀이의 배운 글자 범위', () => {
       activityKey: 'listen-2',
     });
   });
+  it('uses only heard vowels up to the current individual chapter with at most four choices', () => {
+    const heard = (id: string) => (Number(id.slice(-2)) <= 5 ? ['listen-1'] : []);
+    expect(learnedVowelCards('kr-v1-u02', heard).map((card) => card.letter)).toEqual(['ㅏ', 'ㅑ']);
+    expect(learnedVowelCards('kr-v1-u05', heard).map((card) => card.letter)).toEqual([
+      'ㅑ',
+      'ㅓ',
+      'ㅕ',
+      'ㅗ',
+    ]);
+    expect(learnedVowelCards('kr-v1-u02', () => ['write-1'])).toEqual([]);
+  });
 });

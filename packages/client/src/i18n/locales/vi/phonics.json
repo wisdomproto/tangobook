@@ -337,5 +337,22 @@
     },
     "scrollMap": "Cuộn bản đồ học tập",
     "finishVillage": "Hoàn thành Làng truyện!"
+  },
+  "chapter": {
+    "title": "Học {{letter}}",
+    "korean": "Tiếng Hàn",
+    "english": "Tiếng Anh",
+    "info": "Thông tin học",
+    "backToChild": "Về màn hình học",
+    "listen": "Nghe",
+    "write": "Viết",
+    "play": "Chơi",
+    "combine": "Ghép",
+    "start": "Bắt đầu",
+    "continue": "Học tiếp",
+    "again": "Làm lại",
+    "allDone": "Giỏi lắm!",
+    "activities": "Hoạt động trong chương này",
+    "unlocked": "Chương tiếp theo đã mở!"
   }
 }

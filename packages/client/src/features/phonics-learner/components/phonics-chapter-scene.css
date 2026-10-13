@@ -1,0 +1,506 @@
+.chapter-page {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100dvh - 73px);
+  padding-bottom: 88px;
+  background: #eff3d9;
+  overflow: hidden;
+}
+.chapter-landscape {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+.chapter-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #fffdf0e8 0, #fffdf062 26%, #fffdf018 60%, #fffdf032);
+  pointer-events: none;
+}
+.chapter-shell {
+  max-width: 1050px;
+  padding: 18px 28px 24px;
+  margin: auto;
+}
+.chapter-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.chapter-back {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffdf6;
+  border-radius: 17px;
+  box-shadow: 0 3px 0 #d6dabc;
+}
+.chapter-info {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  color: #615647;
+  background: #fffdf5d9;
+}
+.chapter-focus {
+  text-align: center;
+  margin-top: 24px;
+}
+.chapter-focus h1 {
+  display: inline-block;
+  font-size: clamp(25px, 3.4vw, 34px);
+  font-weight: 800;
+  line-height: 1.3;
+  color: #3e352b;
+  padding: 10px 22px;
+  border-radius: 24px;
+  background: #fffdf4df;
+  word-break: keep-all;
+}
+.chapter-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 410px;
+  margin: 26px auto 0;
+  border-radius: 38px;
+}
+.chapter-art {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+.chapter-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 235px;
+  width: 235px;
+  max-width: calc(100vw - 70px);
+  height: 235px;
+  padding: 25px;
+  border: 5px solid #fffdf3;
+  border-radius: 48px;
+  background: #fff9e2f2;
+  box-shadow:
+    0 12px 0 #c6d4a7,
+    0 18px 28px #40523728,
+    inset 0 4px 0 #fff;
+}
+.chapter-letter {
+  min-width: 0;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chapter-glyph .toy-hangul {
+  font-size: 154px;
+}
+.chapter-font {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-family: NanumSquareRound, sans-serif;
+  font-size: 115px;
+  font-weight: 800;
+  color: var(--course-label);
+  line-height: 1.15;
+}
+.chapter-glyph.is-writing {
+  border-radius: 32px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 72px,
+      #ecd6b844 73px,
+      transparent 74px
+    ),
+    #fffaf0;
+}
+.chapter-glyph.is-multiple {
+  width: 300px;
+  min-width: 280px;
+  gap: 15px;
+  padding: 20px;
+}
+.chapter-glyph.is-pattern .chapter-font {
+  font-size: 52px;
+}
+.chapter-glyph.is-pattern.is-multiple .chapter-font {
+  font-size: 28px;
+}
+.chapter-glyph.is-multiple .toy-hangul {
+  font-size: 74px;
+}
+.chapter-glyph.is-multiple .chapter-font {
+  font-size: 55px;
+  overflow-wrap: anywhere;
+}
+.chapter-art-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: var(--course-surface);
+  color: var(--course-label);
+  border: 4px solid #fffdf5;
+  border-radius: 20px;
+  box-shadow: 0 4px 0 #bfbf982d;
+}
+.chapter-cta {
+  min-width: 280px;
+  margin-top: 25px;
+  min-height: 64px;
+  font-size: 20px;
+  padding: 0 26px;
+}
+.chapter-done-house {
+  width: 235px;
+  height: 235px;
+  object-fit: contain;
+}
+.chapter-steps {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  list-style: none;
+  margin: 32px auto 0;
+  padding: 14px 18px;
+  max-width: 840px;
+  border-radius: 28px;
+  background: #fffdf2cf;
+}
+.chapter-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 74px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #655b4e;
+}
+.chapter-step-icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 59px;
+  height: 54px;
+  border: 3px solid #fffdf1;
+  border-radius: 19px;
+  background: #dce6c6;
+  color: #6c7b60;
+  box-shadow: 0 5px 0 #afc09c;
+}
+.chapter-step.is-current {
+  color: var(--course-label);
+}
+.chapter-step.is-current .chapter-step-icon {
+  color: var(--course-label);
+  background: var(--course-surface);
+  box-shadow: 0 5px 0 var(--course-border);
+  outline: 3px solid #ffe4a0;
+}
+.chapter-step.is-done .chapter-step-icon {
+  background: #dfefc0;
+  color: #4c785b;
+}
+.chapter-step-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  position: absolute;
+  bottom: -8px;
+  right: -7px;
+  border: 3px solid #fffdf1;
+  border-radius: 50%;
+  background: #bccaab;
+  color: #49513e;
+}
+.chapter-step.is-current .chapter-step-state {
+  background: var(--course-accent);
+  color: white;
+}
+.chapter-step.is-done .chapter-step-state {
+  background: #4e805e;
+  color: white;
+}
+.chapter-parent-bar {
+  max-width: 1250px;
+  margin: auto;
+  padding: 18px 28px 0;
+}
+.chapter-parent-bar button:focus-visible {
+  outline: 3px solid #c43a1c;
+  outline-offset: 3px;
+}
+.chapter-unlock {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6deee;
+  padding: 24px;
+}
+.chapter-unlock-panel {
+  text-align: center;
+}
+.chapter-unlock-art {
+  position: relative;
+  padding: 26px;
+}
+.chapter-unlock-art .chapter-glyph {
+  animation: chapter-reveal 800ms 600ms both;
+}
+.chapter-opening-lock {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  width: 76px;
+  height: 76px;
+  background: #fff7d1;
+  border: 5px solid #fffdf3;
+  border-radius: 27px;
+  color: var(--course-label);
+  box-shadow: 0 5px 0 #d6c796;
+}
+.chapter-opening-lock svg {
+  position: absolute;
+  inset: 12px;
+}
+.chapter-lock-closed {
+  animation: chapter-lock-away 420ms 450ms both;
+}
+.chapter-lock-open {
+  animation: chapter-lock-open 600ms 550ms both;
+}
+.chapter-unlock-ring {
+  position: absolute;
+  inset: 30px;
+  border: 6px solid #f6d47a;
+  border-radius: 50%;
+  animation: chapter-open-ring 950ms 500ms both;
+  pointer-events: none;
+}
+.chapter-unlock h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-top: 22px;
+  color: #46633d;
+  animation: chapter-caption 350ms 650ms both;
+}
+@keyframes chapter-caption {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes chapter-reveal {
+  from {
+    transform: scale(0.8);
+    opacity: 0.65;
+  }
+  65% {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes chapter-lock-away {
+  to {
+    opacity: 0;
+    transform: translateY(10px) rotate(12deg);
+  }
+}
+@keyframes chapter-lock-open {
+  from {
+    opacity: 0;
+    transform: translateY(10px) rotate(-12deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes chapter-open-ring {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@media (hover: hover) {
+  .chapter-start:hover .chapter-glyph {
+    transform: translateY(-3px);
+  }
+}
+@media (max-width: 759px) {
+  .chapter-page {
+    min-height: calc(100dvh - 55px);
+  }
+  .chapter-shell {
+    padding: 14px 16px 18px;
+  }
+  .chapter-focus {
+    margin-top: 18px;
+  }
+  .chapter-start {
+    margin-top: 15px;
+  }
+  .chapter-glyph {
+    width: 185px;
+    min-width: 185px;
+    height: 185px;
+    border-radius: 38px;
+    padding: 20px;
+  }
+  .chapter-glyph .toy-hangul {
+    font-size: 117px;
+  }
+  .chapter-font {
+    font-size: 94px;
+  }
+  .chapter-glyph.is-multiple {
+    width: 270px;
+    min-width: 270px;
+    gap: 8px;
+    padding: 14px;
+  }
+  .chapter-glyph.is-pattern .chapter-font {
+    font-size: 40px;
+  }
+  .chapter-glyph.is-pattern.is-multiple .chapter-font {
+    font-size: 23px;
+  }
+  .chapter-glyph.is-multiple .chapter-font {
+    font-size: 46px;
+  }
+  .chapter-glyph.is-multiple .toy-hangul {
+    font-size: 62px;
+  }
+  .chapter-art-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 17px;
+  }
+  .chapter-cta {
+    min-width: 255px;
+    min-height: 58px;
+    font-size: 18px;
+    margin-top: 21px;
+  }
+  .chapter-steps {
+    max-width: 400px;
+    gap: 9px;
+    margin-top: 25px;
+    padding: 13px 12px;
+  }
+  .chapter-step {
+    width: 66px;
+    font-size: 13px;
+  }
+  .chapter-step-icon {
+    width: 52px;
+    height: 49px;
+  }
+  .chapter-focus h1 {
+    font-size: 26px;
+  }
+  .chapter-parent-bar {
+    padding-inline: 16px;
+  }
+}
+@media (max-width: 359px) {
+  .chapter-focus {
+    margin-top: 12px;
+  }
+  .chapter-focus h1 {
+    font-size: 23px;
+  }
+  .chapter-art {
+    padding: 10px;
+  }
+  .chapter-glyph {
+    width: 160px;
+    min-width: 160px;
+    height: 160px;
+    padding: 16px;
+  }
+  .chapter-glyph .toy-hangul {
+    font-size: 101px;
+  }
+  .chapter-font {
+    font-size: 81px;
+  }
+  .chapter-glyph.is-multiple {
+    min-width: 248px;
+  }
+  .chapter-glyph.is-multiple .chapter-font {
+    font-size: 39px;
+  }
+  .chapter-cta {
+    min-width: 242px;
+  }
+  .chapter-steps {
+    margin-top: 22px;
+    gap: 8px;
+  }
+  .chapter-info {
+    padding-inline: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chapter-page *,
+  .chapter-page *::before,
+  .chapter-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .chapter-lock-closed {
+    display: none;
+  }
+  .chapter-lock-open {
+    opacity: 1;
+  }
+  .chapter-unlock-ring {
+    display: none;
+  }
+}

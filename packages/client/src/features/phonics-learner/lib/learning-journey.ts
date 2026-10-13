@@ -1,4 +1,10 @@
-import { getAllKoreanUnits, getActivityPlan, type ActivityDef } from './korean-phonics-units';
+import { KOREAN_BASIC_VOWEL_GROUPS, KOREAN_BASIC_VOWEL_LESSONS } from '@tangobook/shared';
+import {
+  getAllKoreanUnits,
+  getKoreanUnit,
+  getActivityPlan,
+  type ActivityDef,
+} from './korean-phonics-units';
 import { getAllEnglishUnits, getEnglishActivityPlan } from './english-phonics-units';
 import { getUnitProgress } from './progress-store';
 
@@ -28,7 +34,30 @@ export function markJourneyStarted(lang: JourneyLanguage) {
 
 /** Production plans remain authoritative; unavailable optional asset games are not prerequisites. */
 export function journeyUnits(lang: JourneyLanguage) {
-  return lang === 'korean' ? getAllKoreanUnits() : getAllEnglishUnits();
+  if (lang === 'english') return getAllEnglishUnits();
+  // Guided chapters teach one vowel at a time. Free-mode grouping and authoring IDs stay compatible.
+  return getAllKoreanUnits().flatMap((unit) => {
+    const group = KOREAN_BASIC_VOWEL_GROUPS.find((item) => item.id === unit.id);
+    return group ? group.lessons.map((lesson) => getKoreanUnit(lesson.id)!) : [unit];
+  });
+}
+
+/** Old guided group links keep the exact vowel; old free links still use their original group. */
+export function journeyKoreanActivityRoute(unitId: string, activityKey: string) {
+  const group = KOREAN_BASIC_VOWEL_GROUPS.find((item) => item.id === unitId);
+  const match = /^(listen|write)-(\d+)$/.exec(activityKey);
+  if (group && match) {
+    const lesson = group.lessons[Number(match[2]) - 1];
+    if (lesson) return { unitId: lesson.id, activityKey: `${match[1]}-1` };
+  }
+  if (group && activityKey === 'listen-game')
+    return { unitId: group.lessons.at(-1)!.id, activityKey };
+  if (unitId === 'kr-h1-u01')
+    return {
+      unitId: KOREAN_BASIC_VOWEL_LESSONS[0].id,
+      activityKey: activityKey === 'write-1' ? 'write-1' : 'listen-1',
+    };
+  return { unitId, activityKey };
 }
 
 export function journeyActivities(lang: JourneyLanguage, unitId: string): readonly ActivityDef[] {

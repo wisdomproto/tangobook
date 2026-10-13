@@ -11,7 +11,11 @@
  * 첫 unit 은 항상 unlocked. 그 외는 이전 unit completed 일 때만.
  */
 import { useCallback, useEffect, useState } from 'react';
-import { legacyVowelActivityKeys, koreanVowelGroupActivityKeys } from '@tangobook/shared';
+import {
+  legacyVowelActivityKeys,
+  koreanVowelGroupActivityKeys,
+  KOREAN_BASIC_VOWEL_GROUPS,
+} from '@tangobook/shared';
 
 const STORAGE_KEY = 'phonics-progress';
 const RECENT_UNIT_KEY = 'phonics-recent-unit';
@@ -83,7 +87,20 @@ export function getUnitProgress(lang: PhonicsLang, unitId: string): UnitProgress
     lang === 'korean'
       ? legacyVowelActivityKeys(unitId, map?.['kr-h1-u01']?.completedActivities ?? [])
       : [];
-  return { completedActivities: [...new Set([...done, ...legacy])] };
+  const group =
+    lang === 'korean'
+      ? KOREAN_BASIC_VOWEL_GROUPS.find((item) =>
+          item.lessons.some((lesson) => lesson.id === unitId)
+        )
+      : undefined;
+  const lessonIndex = group?.lessons.findIndex((lesson) => lesson.id === unitId) ?? -1;
+  const grouped = group
+    ? ['listen', 'write']
+        .filter((kind) => readDone(group.id).includes(`${kind}-${lessonIndex + 1}`))
+        .map((kind) => `${kind}-1`)
+    : [];
+  // Migrate only observed per-vowel listening/writing, never invent a new chapter quiz result.
+  return { completedActivities: [...new Set([...done, ...legacy, ...grouped])] };
 }
 
 export function markActivityCompleted(

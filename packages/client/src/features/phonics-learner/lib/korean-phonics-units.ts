@@ -930,7 +930,7 @@ function derivedPlans(): Record<string, ActivityPlan> {
 export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   'kr-h1-u01': UNIT_01_PLAN,
   ...Object.fromEntries(
-    KOREAN_BASIC_VOWEL_LESSONS.map((lesson) => [
+    KOREAN_BASIC_VOWEL_LESSONS.map((lesson, index) => [
       lesson.id,
       {
         activities: [
@@ -958,6 +958,23 @@ export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
             required: true,
             vowels: [{ vowel: lesson.vowel, syllable: lesson.sound, writeLetter: lesson.vowel }],
           },
+          ...(index === 0
+            ? []
+            : [
+                {
+                  key: 'listen-game',
+                  order: 3,
+                  kind: 'vowel-listen-game' as const,
+                  section: 'play' as const,
+                  title: '듣고 고르기',
+                  titleKey: 'vowelGroup.listen-game',
+                  emoji: '👂',
+                  required: false,
+                  letters: KOREAN_BASIC_VOWEL_LESSONS.slice(Math.max(0, index - 3), index + 1).map(
+                    (item) => item.vowel
+                  ),
+                },
+              ]),
         ],
       } as ActivityPlan,
     ])

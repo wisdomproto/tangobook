@@ -5,6 +5,8 @@ import {
   journeyActivityUrl,
   markJourneyStarted,
   hasJourneyStarted,
+  journeyUnits,
+  journeyKoreanActivityRoute,
 } from './learning-journey';
 import { markActivityCompleted, markRecentUnit } from './progress-store';
 
@@ -24,16 +26,19 @@ describe('guided learning path', () => {
     markActivityCompleted('korean', 'kr-v1-g01', 'write-1');
     expect(journeyProgress('korean').current?.activity.key).toBe('listen-1');
     markActivityCompleted('korean', 'kr-v1-u01', 'listen-1');
-    expect(journeyProgress('korean').current?.activity.key).toBe('listen-2');
+    expect(journeyProgress('korean').current?.unit.id).toBe('kr-v1-u02');
+    expect(journeyProgress('korean').current?.activity.key).toBe('listen-1');
   });
   it('requires a real vowel game after learning, without changing legacy required completion', () => {
-    const steps = journeySteps('korean').filter((s) => s.unit.id === 'kr-v1-g01');
+    markActivityCompleted('korean', 'kr-v1-u01', 'listen-1');
+    markActivityCompleted('korean', 'kr-v1-u01', 'write-1');
+    const steps = journeySteps('korean').filter((s) => s.unit.id === 'kr-v1-u02');
     for (const { activity } of steps.filter((s) => s.activity.kind !== 'vowel-listen-game')) {
-      markActivityCompleted('korean', 'kr-v1-g01', activity.key);
+      markActivityCompleted('korean', 'kr-v1-u02', activity.key);
     }
     expect(journeyProgress('korean').current?.activity.key).toBe('listen-game');
-    markActivityCompleted('korean', 'kr-v1-g01', 'listen-game');
-    expect(journeyProgress('korean').current?.unit.id).toBe('kr-v1-g02');
+    markActivityCompleted('korean', 'kr-v1-u02', 'listen-game');
+    expect(journeyProgress('korean').current?.unit.id).toBe('kr-v1-u03');
   });
   it.each(['korean', 'english'] as const)(
     'connects every %s unit and review, excludes optional asset games, and ends explicitly',
@@ -58,5 +63,25 @@ describe('guided learning path', () => {
     expect(journeyActivityUrl('english', 'en-b1-u01', 'letters-learn')).toContain(
       '?mode=curriculum'
     );
+  });
+  it('splits each introductory vowel into one guided chapter while mapping old grouped links exactly', () => {
+    expect(
+      journeyUnits('korean')
+        .filter((unit) => unit.levelKey === 'hangul-vowels')
+        .map((unit) => unit.phonemes)
+    ).toEqual(Array.from('ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ').map((vowel) => [vowel]));
+    expect(journeyKoreanActivityRoute('kr-v1-g01', 'write-3')).toEqual({
+      unitId: 'kr-v1-u03',
+      activityKey: 'write-1',
+    });
+    expect(journeyKoreanActivityRoute('kr-v1-u02', 'listen-1')).toEqual({
+      unitId: 'kr-v1-u02',
+      activityKey: 'listen-1',
+    });
+    expect(
+      journeySteps('korean')
+        .filter((step) => step.unit.id === 'kr-v1-u01')
+        .map((step) => step.activity.key)
+    ).toEqual(['listen-1', 'write-1']);
   });
 });

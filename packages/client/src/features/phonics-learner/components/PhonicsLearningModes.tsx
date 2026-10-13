@@ -4,7 +4,9 @@ import { ArrowRight, Route, Sparkles } from 'lucide-react';
 import { courseThemes } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
-import { PhonicsJourneyMap } from './PhonicsJourneyMap';
+import { PhonicsChapterScene } from './PhonicsChapterScene';
+import { getKoreanUnit } from '../lib/korean-phonics-units';
+import { getEnglishUnit } from '../lib/english-phonics-units';
 import { activityTitle, unitTitle } from '../lib/activity-title';
 import { getRecentUnit, usePhonicsProgress } from '../lib/progress-store';
 import {
@@ -28,7 +30,8 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
   const theme = courseThemes[lang];
   const curriculum = search.get('mode') === 'curriculum';
   const recent = getRecentUnit(lang);
-  const freeUnit = units.find((u) => u.id === recent) ?? units[0];
+  const freeUnit =
+    (lang === 'korean' ? getKoreanUnit(recent ?? '') : getEnglishUnit(recent ?? '')) ?? units[0];
   const title = t(`journey.${lang}`);
   const startUrl = progress.current
     ? journeyActivityUrl(lang, progress.current.unit.id, progress.current.activity.key)
@@ -36,6 +39,7 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
   const finishedUnit = units.find((u) => u.id === search.get('finished'));
   const finishedUnitDone =
     finishedUnit &&
+    progress.steps.some((s) => s.unit.id === finishedUnit.id) &&
     progress.steps
       .map((s, i) => ({ ...s, done: progress.done[i] }))
       .filter((s) => s.unit.id === finishedUnit.id)
@@ -43,7 +47,7 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
 
   if (curriculum) {
     return (
-      <PhonicsJourneyMap
+      <PhonicsChapterScene
         key={`${lang}:${activeProfile?.id ?? 'guest'}`}
         lang={lang}
         progress={progress}
