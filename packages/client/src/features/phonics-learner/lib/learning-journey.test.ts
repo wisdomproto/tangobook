@@ -85,3 +85,12 @@ describe('guided learning path', () => {
     ).toEqual(['listen-1', 'write-1']);
   });
 });
+
+it('old completed blending remains recorded but the new standalone letter step must actually be done', () => {
+  const steps = journeySteps('korean');
+  const first = steps.findIndex((s) => s.unit.id === 'kr-h1-u02');
+  steps.slice(0, first).forEach((s) => markActivityCompleted('korean', s.unit.id, s.activity.key));
+  const prior = ['consonant-tap', 'blend-listen', 'consonant-write'];
+  prior.forEach((key) => markActivityCompleted('korean', 'kr-h1-u02', key));
+  expect(journeyProgress('korean').current?.activity.key).toBe('letter-write');
+});

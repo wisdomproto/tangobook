@@ -84,7 +84,7 @@ describe('모음 모양 쓰기와 발음 분리', () => {
         onBack={vi.fn()}
       />
     );
-    expect(screen.getByRole('button', { name: '쓰기 a' })).not.toHaveAttribute('data-guidance');
+    expect(screen.getByRole('button', { name: '쓰기 a' })).toHaveAttribute('data-guidance', 'none');
   });
   it('완료 표시는 음원 응답 전 갱신하고 다른 모음 선택 후 늦은 응답은 무시한다', async () => {
     let resolve!: (url: string) => void;
@@ -137,3 +137,29 @@ describe('모음 모양 쓰기와 발음 분리', () => {
     await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
   });
 });
+
+it.each(['ㄱ', 'ㄲ', 'ㅞ'])(
+  '%s 낱자 쓰기도 3회 시범→힌트→독립, 발음과 완료 연결',
+  async (letter) => {
+    const complete = vi.fn();
+    render(
+      <VowelWriteActivity
+        unitId="kr-test"
+        repetitions={3}
+        vowels={[{ vowel: letter, syllable: letter, writeLetter: letter }]}
+        onComplete={complete}
+        onBack={vi.fn()}
+      />
+    );
+    for (const mode of ['demo', 'hint', 'independent']) {
+      const paper = screen.getByRole('button', { name: `쓰기 ${letter}` });
+      expect(paper).toHaveAttribute('data-guidance', mode);
+      fireEvent.click(paper);
+      if (mode !== 'independent')
+        await waitFor(() =>
+          expect(screen.getByRole('button', { name: `쓰기 ${letter}` })).not.toBe(paper)
+        );
+    }
+    await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
+  }
+);

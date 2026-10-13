@@ -566,6 +566,17 @@ function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
         consonant,
       },
       {
+        key: 'letter-write',
+        kind: 'vowel-write',
+        section: 'learn',
+        title: `${consonant} 써보기`,
+        titleKey: 'activity.consonantWrite',
+        titleVars: { letter: consonant },
+        emoji: '✏️',
+        required: true,
+        vowels: [{ vowel: consonant, syllable: consonant, writeLetter: consonant }],
+      },
+      {
         // 🔴 1·2 로 나눠 두 장이던 걸 **한 장으로 합쳤다**(2026-07-26). 활동이 한 번에 한 짝만
         // 보여주는 방식으로 바뀌어 모음을 나눌 이유가 사라졌고, 익히기 카드도 5장→4장이 됐다.
         key: 'blend-listen',
@@ -583,9 +594,8 @@ function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
         key: 'consonant-write',
         kind: 'consonant-write',
         section: 'learn',
-        title: `${consonant} 써보기`,
-        titleKey: 'activity.consonantWrite',
-        titleVars: { letter: consonant },
+        title: '음절 쓰기',
+        titleKey: 'activity.syllableWrite',
         emoji: '✏️',
         required: true,
         consonant,
@@ -736,8 +746,8 @@ function makeCodaPlan(coda: string): ActivityPlan {
 
 // ─── 한글4 복잡한 모음 단원 (ㅐㅔ · ㅖㅚ · ㅟㅢ · ㅘㅙ · ㅝㅞㅢ) ───
 /**
- * 복잡한 모음 단원 plan (한글4). 🔴 **자음을 배운 뒤라 모음 자체가 아니라 음절을 만든다**
- * (2026-07-30 사용자: "이제 한글 자음을 아니까 모음 듣기·쓰기에 ㄱ~ㅎ 까지 다"). 흐름 =
+ * 복잡한 모음 단원 plan (한글4). 2026-10-13: 각 모음을 눌러보고 낱자 쓰기한 뒤 음절을 만든다.
+ * 기존 합성 단계는 유지한다(2026-07-30: ㄱ~ㅎ 모든 자음). 합성 흐름 =
  * 모음(ㅐ·ㅔ) 하나를 고르면 그 모음 + ㄱ~ㅎ 음절(개·게·내…)을 만든다. 자음 단원의 「ㄱ+모음」과
  * 방향만 반대(모음 고정 · 자음 순회)라 같은 활동을 쓴다(`VowelSyllable*` wrapper 가 모음 선택만 덧댐).
  */
@@ -748,6 +758,30 @@ function makeComplexVowelPlan(vowels: readonly string[], unitId = ''): ActivityP
   }));
   return withGames(
     [
+      ...pairs.flatMap(({ vowel, syllable }) => [
+        {
+          key: `letter-listen-${vowel}`,
+          kind: 'vowel-listen' as const,
+          section: 'learn' as const,
+          title: `${vowel} 배우기`,
+          titleKey: 'activity.consonantLearn',
+          titleVars: { letter: vowel },
+          emoji: '👆',
+          required: true,
+          vowels: [{ vowel, syllable }],
+        },
+        {
+          key: `letter-write-${vowel}`,
+          kind: 'vowel-write' as const,
+          section: 'learn' as const,
+          title: `${vowel} 써보기`,
+          titleKey: 'activity.consonantWrite',
+          titleVars: { letter: vowel },
+          emoji: '✏️',
+          required: true,
+          vowels: [{ vowel, syllable, writeLetter: vowel }],
+        },
+      ]),
       {
         key: 'listen-1',
         kind: 'vowel-blend-listen',

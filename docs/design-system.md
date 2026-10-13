@@ -255,3 +255,5 @@ Button은 coral-700/white, 최소 44px, focus-visible·aria-busy와 기본 type=
 Phaser는 학습 진입 때 지연 로드하고 512px WebP atlas 2장(59,420B)을 사용한다. 객체 수 제한·45ms 쓰기 throttle·1.6초 idle sleep·6초 시작 상한·이탈/resize/visibility 정리를 유지한다. unmount에서는 잠든 루프의 지연 destroy도 마지막 step으로 정리한다. 실패·reduced-motion에서도 학습과 문자 피드백은 유지한다. 실기기 60fps·iPad 오디오 검증을 자동 테스트로 대신하지 않는다.
 
 한글 `ToyHangul`은 누르기·듣고 익히기·합성 전용이다. 그림 자음14·모음10을 합성하되 원본 비율과 표정을 보존한다. 완성 ‘가’는 별도 삽화이며 다른 음절은 자모 배치로 조합한다. 쓰기 선택/캔버스/99% 마스크에 그림을 적용하지 않는다. [작업 기록](work/phonics/tasks/20261012-learning-game-effects.md), [이펙트 자산](../packages/client/public/images/effects/README.md), [그림 자모](../packages/client/public/images/phonics/jamo-toys-v1/README.md).
+
+2026-10-13 낱자 획순: 시범·시작점·방향은 투명 SVG로 실제 쓰기 폰트에만 겹친다. 시작 번호는 현재 획 하나, 시범 중 입력하면 즉시 중단, 다시 보기는 채점하지 않는다. 한글 단일 낱자3회는 외부 도구/회차3칸, 영어 대소문자2칸은 종이 안44px 다시 보기로 배치를 유지한다. 짧은 가로보기에서 영어 두 칸은 함께 보이고 합성·받침·낱말에는 안내를 넣지 않는다. [범위·검증](work/phonics/tasks/20261013-all-stroke-guides.md).

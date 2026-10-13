@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-13 [낱자 쓰기·한영 획순](../work/phonics/tasks/20261013-all-stroke-guides.md): 사용자 최종 정정으로 기본/쌍자음 눌러보기→별도 낱자3회→기존 합성, 복합 모음 각 listen→write 후 합성. 한글40낱자/영어52만 안내·합성/받침/CVC/단어 제외,99%·음원 ended·기존 진도 보존. 새 필수 활동은 실제 완료 필요.105회귀/타입/lint/build·92글꼴 경로·nativeㄱ3회/한영 가로 검수. 로컬 main 통합 예정·이번 미푸시.
+
 2026-10-13 [모음 획순 안내](../work/phonics/tasks/20261013-vowel-stroke-guide.md): 한글 모음10종 3회 연습에 SVG 연필 시범→작은 시작점/방향→옅은 글자 독립 쓰기. actual700 폰트 마스크 정렬·입력 시 시범 중단/다시 보기·작은 가로 배치, strict 획순 채점 없이99% 유지.75회귀/타입/lint/build·10모음/가로/native3회→경로 복귀 검증. 코드/기억 로컬 커밋·미푸시, 자음/음절/영어 획순 미확장.
 
 2026-10-13 [중간 완료 제거·모음3회 쓰기](../work/phonics/tasks/20261013-phonics-linked-path.md#중간-완료-화면-제거모음-세-번-쓰기): 사용자 두 완료 화면 제거/직접 이어짐 요청으로 GuidedRun은 실제 완료 후 한영 다음 활동 또는 finished 경로로 자동 이동. 중복 callback/Back 덮기 방지·재학습 unlock 제외. 한글 VowelWrite 각 모양3회·발음 종료 후 새 캔버스·진행3칸, 공용 기타 호출1회 유지.62회귀·타입/lint/build·별도 origin 실제 탭/3회 native 쓰기/다음 챕터 열림 확인. 사용자 승인으로0c104ee0d main 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태, 배포 완료는 별도 미확인.

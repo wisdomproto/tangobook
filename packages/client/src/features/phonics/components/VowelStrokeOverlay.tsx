@@ -1,6 +1,7 @@
 import { useEffect, useId } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { VowelGuideStroke, WritingGuidance } from './vowel-stroke-guide';
+import { guidePath, guidePoints } from './vowel-stroke-guide';
 
 const DRAW_SECONDS = 0.7;
 const STROKE_SECONDS = 1;
@@ -11,12 +12,18 @@ export function VowelStrokeOverlay({
   demonstrating,
   currentStroke,
   onDemoEnd,
+  width = 400,
+  height = 400,
+  accent = '#bd4b2d',
 }: {
   strokes: VowelGuideStroke[];
   guidance: WritingGuidance;
   demonstrating: boolean;
   currentStroke: number;
   onDemoEnd: () => void;
+  width?: number;
+  height?: number;
+  accent?: string;
 }) {
   const markerId = useId();
   const reduced = useReducedMotion();
@@ -38,7 +45,7 @@ export function VowelStrokeOverlay({
       data-stroke-overlay={demonstrating ? 'demo' : 'hint'}
       data-current-stroke={currentStroke + 1}
       className="pointer-events-none absolute inset-0 h-full w-full"
-      viewBox="0 0 400 400"
+      viewBox={`0 0 ${width} ${height}`}
     >
       <defs>
         <marker
@@ -53,15 +60,17 @@ export function VowelStrokeOverlay({
           <path
             d="M 1 1 L 8 5 L 1 9"
             fill="none"
-            stroke="#bd4b2d"
+            stroke={accent}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         </marker>
       </defs>
-      {strokes.map(({ from, to }, index) => {
-        const path = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
+      {strokes.map((stroke, index) => {
+        const { from, to } = stroke;
+        const points = guidePoints(stroke);
+        const path = guidePath(stroke);
         if (demonstrating && !reduced) {
           const delay = index * STROKE_SECONDS;
           return (
@@ -81,7 +90,11 @@ export function VowelStrokeOverlay({
               />
               <motion.g
                 initial={{ x: from.x, y: from.y, opacity: 0 }}
-                animate={{ x: [from.x, to.x], y: [from.y, to.y], opacity: [0, 1, 1, 0] }}
+                animate={{
+                  x: points.map((p) => p.x),
+                  y: points.map((p) => p.y),
+                  opacity: [0, 1, 1, 0],
+                }}
                 transition={{
                   x: { duration: DRAW_SECONDS, delay, ease: 'linear' },
                   y: { duration: DRAW_SECONDS, delay, ease: 'linear' },
@@ -120,7 +133,7 @@ export function VowelStrokeOverlay({
           );
         }
         if (index !== currentStroke) return null;
-        const length = Math.hypot(to.x - from.x, to.y - from.y);
+        const length = Math.max(1, Math.hypot(to.x - from.x, to.y - from.y));
         const skip = radius + 6;
         const arrowFrom = {
           x: from.x + ((to.x - from.x) * skip) / length,
@@ -129,20 +142,29 @@ export function VowelStrokeOverlay({
         return (
           <g key={index}>
             <path
-              d={`M ${arrowFrom.x} ${arrowFrom.y} L ${to.x} ${to.y}`}
+              d={stroke.points ? path : `M ${arrowFrom.x} ${arrowFrom.y} L ${to.x} ${to.y}`}
               fill="none"
-              stroke="#bd4b2d"
+              stroke={accent}
               strokeWidth={guidance === 'hint' ? 3 : 4}
               strokeDasharray="3 8"
               strokeLinecap="round"
-              markerEnd={`url(#${markerId})`}
+              markerEnd={stroke.points ? undefined : `url(#${markerId})`}
             />
+            {stroke.points && points.length > 3 && (
+              <path
+                d={`M ${points[Math.floor(points.length * 0.55)].x} ${points[Math.floor(points.length * 0.55)].y} L ${points[Math.floor(points.length * 0.65)].x} ${points[Math.floor(points.length * 0.65)].y}`}
+                fill="none"
+                stroke={accent}
+                strokeWidth="3"
+                markerEnd={`url(#${markerId})`}
+              />
+            )}
             <circle
               cx={from.x}
               cy={from.y}
               r={radius}
               fill="#fff8ed"
-              stroke="#bd4b2d"
+              stroke={accent}
               strokeWidth="2.5"
             />
             <text
@@ -152,7 +174,7 @@ export function VowelStrokeOverlay({
               dominantBaseline="middle"
               fontSize={radius + 4}
               fontWeight="800"
-              fill="#a44229"
+              fill={accent}
             >
               {index + 1}
             </text>

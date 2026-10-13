@@ -10,10 +10,10 @@ import { RotateCcw } from 'lucide-react';
 import { VowelStrokeOverlay } from './VowelStrokeOverlay';
 import {
   firstUnpaintedStroke,
-  getVowelGuideStrokes,
   type VowelGuideStroke,
   type WritingGuidance,
 } from './vowel-stroke-guide';
+import { getLetterGuideStrokes, isGuidedLetter } from './letter-stroke-guide';
 
 /**
  * paint-bucket 채점 캔버스 — 글자 영역 안만 painted, 채움 비율로 통과 판정.
@@ -64,8 +64,8 @@ interface LetterFillCanvasProps {
   threshold?: number;
   /** true 면 통과 시 자동 onResult. false 면 사용자가 "확인" 버튼 클릭. */
   autoCheck?: boolean;
-  /** Optional beginner-vowel hints. Does not change paint scoring or other callers. */
-  guidance?: WritingGuidance;
+  /** Standalone-letter guidance only. Blend/coda callers explicitly opt out. */
+  guidance?: WritingGuidance | 'none';
 }
 
 export function LetterFillCanvas({
@@ -76,8 +76,13 @@ export function LetterFillCanvas({
   incorrectSoundUrl,
   threshold = DEFAULT_THRESHOLD,
   autoCheck,
-  guidance,
+  guidance: requestedGuidance,
 }: LetterFillCanvasProps) {
+  const guidance =
+    requestedGuidance === 'none'
+      ? undefined
+      : (requestedGuidance ?? (isGuidedLetter(letter) ? 'hint' : undefined));
+  const compactControls = requestedGuidance === undefined;
   const { t } = useTranslation('games');
   const { t: phonicsT } = useTranslation('phonics');
   const [hasDrawn, setHasDrawn] = useState(false);
@@ -106,16 +111,18 @@ export function LetterFillCanvas({
     []
   );
 
-  const calcFont = useCallback((ctx: CanvasRenderingContext2D, text: string) => {
-    const fontFamily = pickFontFamily(text);
-    let size = CANVAS_H * 0.85;
-    ctx.font = `bold ${size}px ${fontFamily}`;
-    while (ctx.measureText(text).width > CANVAS_W * 0.95 && size > 32) {
-      size -= 4;
+  const calcFont = useCallback(
+    (ctx: CanvasRenderingContext2D, text: string, fontFamily = pickFontFamily(text)) => {
+      let size = CANVAS_H * 0.85;
       ctx.font = `bold ${size}px ${fontFamily}`;
-    }
-    return `bold ${size}px ${fontFamily}`;
-  }, []);
+      while (ctx.measureText(text).width > CANVAS_W * 0.95 && size > 32) {
+        size -= 4;
+        ctx.font = `bold ${size}px ${fontFamily}`;
+      }
+      return `bold ${size}px ${fontFamily}`;
+    },
+    []
+  );
 
   /**
    * 글자 그리기 + mask 픽셀 수 계산.
@@ -141,7 +148,7 @@ export function LetterFillCanvas({
         if (imageData.data[i] > 0) guidePixels++; // alpha > 0 픽셀
       }
       guidePixelsRef.current = guidePixels;
-      setGuideStrokes(guidance ? getVowelGuideStrokes(text, imageData) : []);
+      setGuideStrokes(guidance ? getLetterGuideStrokes(text, imageData) : []);
     },
     [calcFont, guidance]
   );
@@ -352,7 +359,23 @@ export function LetterFillCanvas({
             demonstrating={demonstrating}
             currentStroke={currentStroke}
             onDemoEnd={endDemo}
+            accent={/^[A-Za-z]$/.test(letter) ? '#22694f' : undefined}
           />
+        )}
+        {guidance && compactControls && guideStrokes.length > 0 && (
+          <button
+            type="button"
+            aria-label={phonicsT('write.showStrokes')}
+            title={phonicsT('write.showStrokes')}
+            disabled={!canvasReady || !!result}
+            onClick={() => {
+              setDemoVersion((v) => v + 1);
+              setDemonstrating(true);
+            }}
+            className="absolute bottom-2 right-2 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-ink-100 bg-white/95 text-ink-700 shadow-soft disabled:opacity-40"
+          >
+            <RotateCcw size={21} aria-hidden="true" />
+          </button>
         )}
         {/**
          * 통과 시 **테두리만** 반짝인다.
@@ -375,7 +398,7 @@ export function LetterFillCanvas({
         </AnimatePresence>
       </div>
 
-      {guidance && (
+      {guidance && !compactControls && (
         <div className="vowel-stroke-tools flex w-full max-w-sm items-center justify-between gap-3">
           <span role="status" className="text-sm font-bold text-ink-600">
             {!canvasReady

@@ -19,11 +19,13 @@ vi.mock('@/features/phonics/components/LetterFillCanvas', () => ({
   LetterFillCanvas: ({
     letter,
     onResult,
+    guidance,
   }: {
     letter: string;
+    guidance?: string;
     onResult: (passed: boolean) => void;
   }) => (
-    <button data-testid="canvas" onClick={() => onResult(true)}>
+    <button data-testid="canvas" data-guidance={guidance} onClick={() => onResult(true)}>
       {letter} 쓰기 완료
     </button>
   ),
@@ -115,4 +117,29 @@ describe('ConsonantWriteActivity 배치 방향', () => {
     );
     expect(layout(container).className).toContain('flex-col');
   });
+});
+
+it('합성 자음·모음과 받침 쓰기에는 획순 안내를 끈다', () => {
+  const { unmount } = render(
+    <ConsonantWriteActivity
+      unitId="kr-h1-u02"
+      consonant="ㄱ"
+      blendVowels={['ㅏ']}
+      onComplete={vi.fn()}
+      onBack={vi.fn()}
+    />
+  );
+  expect(screen.getByTestId('canvas')).toHaveAttribute('data-guidance', 'none');
+  unmount();
+  render(
+    <ConsonantWriteActivity
+      unitId="kr-h2-u01"
+      consonant="ㅇ"
+      coda="ㅇ"
+      codaOnsets={['ㄱ']}
+      onComplete={vi.fn()}
+      onBack={vi.fn()}
+    />
+  );
+  expect(screen.getByTestId('canvas')).toHaveAttribute('data-guidance', 'none');
 });

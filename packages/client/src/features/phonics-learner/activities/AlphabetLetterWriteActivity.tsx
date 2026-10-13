@@ -207,14 +207,14 @@ export function AlphabetLetterWriteActivity({
     >
       {/* 가운데 — 현재 글자의 대문자/소문자 캔버스 2개.
           🔴 `justify-start` 였을 때 캔버스가 위에 몰리고 **아래 절반이 통째로 비었다**(1280×800 실측). */}
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
+      <div className="alphabet-write-body flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900 font-display">
           <span className="text-coral-500">{currentUpper}</span>
           <span className="text-mint-700 ml-1">{currentLower}</span>
           <span className="ml-2 text-ink-700">{t('alphabetWrite.title')}</span>
         </h2>
 
-        <div className="w-full max-w-[920px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <div className="alphabet-write-grid w-full max-w-[920px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* 대문자 */}
           <div className="phonics-paper-panel bg-white rounded-[24px] p-3 sm:p-4 shadow-soft ring-4 ring-white border-2 border-coral-100">
             <div className="flex items-center justify-between mb-2 px-1">

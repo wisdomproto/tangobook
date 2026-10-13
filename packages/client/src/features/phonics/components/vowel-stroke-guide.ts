@@ -5,6 +5,8 @@ export interface StrokePoint {
 export interface VowelGuideStroke {
   from: StrokePoint;
   to: StrokePoint;
+  /** Curved/bent glyphs use a sampled path; intro vowels keep exact two-point lines. */
+  points?: StrokePoint[];
 }
 export type WritingGuidance = 'demo' | 'hint' | 'independent';
 
@@ -100,26 +102,43 @@ export function getVowelGuideStrokes(
 }
 
 /** Hint advancement only; actual pass remains LetterFillCanvas's 99% mask. */
+export function guidePoints(stroke: VowelGuideStroke): StrokePoint[] {
+  return stroke.points ?? [stroke.from, stroke.to];
+}
+
+export function guidePath(stroke: VowelGuideStroke): string {
+  return guidePoints(stroke)
+    .map((p, index) => `${index ? 'L' : 'M'} ${p.x} ${p.y}`)
+    .join(' ');
+}
+
 export function firstUnpaintedStroke(
   strokes: VowelGuideStroke[],
   image: Pick<ImageData, 'data' | 'width' | 'height'>
 ): number {
-  return strokes.findIndex(({ from, to }) => {
-    const samples = Math.max(8, Math.ceil(Math.hypot(to.x - from.x, to.y - from.y) / 5));
+  return strokes.findIndex((stroke) => {
+    const points = guidePoints(stroke);
+    let samples = 0;
     let painted = 0;
-    for (let i = 0; i <= samples; i++) {
-      const x = Math.round(from.x + ((to.x - from.x) * i) / samples);
-      const y = Math.round(from.y + ((to.y - from.y) * i) / samples);
-      if (x < 0 || x >= image.width || y < 0 || y >= image.height) continue;
-      const offset = (y * image.width + x) * 4;
-      if (
-        image.data[offset + 3] > 0 &&
-        image.data[offset] < 128 &&
-        image.data[offset + 1] > 128 &&
-        image.data[offset + 2] < 200
-      )
-        painted++;
+    for (let segment = 1; segment < points.length; segment++) {
+      const from = points[segment - 1],
+        to = points[segment];
+      const steps = Math.max(1, Math.ceil(Math.hypot(to.x - from.x, to.y - from.y) / 5));
+      for (let i = 0; i <= steps; i++) {
+        samples++;
+        const x = Math.round(from.x + ((to.x - from.x) * i) / steps);
+        const y = Math.round(from.y + ((to.y - from.y) * i) / steps);
+        if (x < 0 || x >= image.width || y < 0 || y >= image.height) continue;
+        const offset = (y * image.width + x) * 4;
+        if (
+          image.data[offset + 3] > 0 &&
+          image.data[offset] < 128 &&
+          image.data[offset + 1] > 128 &&
+          image.data[offset + 2] < 200
+        )
+          painted++;
+      }
     }
-    return painted / (samples + 1) < 0.95;
+    return painted / Math.max(1, samples) < 0.95;
   });
 }

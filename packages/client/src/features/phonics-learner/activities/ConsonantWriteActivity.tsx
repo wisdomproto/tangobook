@@ -361,6 +361,7 @@ export function ConsonantWriteActivity({
           <LetterFillCanvas
             key={`single-${round}`}
             letter={say}
+            guidance="none"
             onResult={(ok) => {
               if (!ok) return;
               const next = round + 1;
@@ -406,7 +407,12 @@ export function ConsonantWriteActivity({
                   >
                     {!closing && which === step ? (
                       <WriteCell tile={tile}>
-                        <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
+                        <LetterFillCanvas
+                          letter={letter}
+                          guidance="none"
+                          onResult={handleResult}
+                          autoCheck
+                        />
                       </WriteCell>
                     ) : (
                       <div

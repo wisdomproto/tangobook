@@ -275,6 +275,7 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
                       <LetterFillCanvas
                         key={`${currentWordIdx}-${l}-${letter}`}
                         letter={letter}
+                        guidance="none"
                         onResult={makeHandleLetter(currentWordIdx, l)}
                         autoCheck
                       />

@@ -72,6 +72,18 @@ afterEach(() => {
 });
 
 describe('vowel hints preserve the actual writing result', () => {
+  it('automatically guides Korean consonants and English letters without adding tools below the paper', () => {
+    const { container, rerender } = render(<LetterFillCanvas letter="ㄱ" autoCheck />);
+    expect(container.querySelector('[data-stroke-overlay="hint"]')).not.toBeNull();
+    expect(
+      screen.getByRole('button', { name: '쓰는 순서' }).closest('.letter-fill-paper')
+    ).not.toBeNull();
+    expect(container.querySelector('.vowel-stroke-tools')).toBeNull();
+    rerender(<LetterFillCanvas letter="A" autoCheck />);
+    expect(container.querySelector('[data-stroke-overlay="hint"]')).not.toBeNull();
+    rerender(<LetterFillCanvas letter="A" guidance="none" autoCheck />);
+    expect(container.querySelector('[data-stroke-overlay]')).toBeNull();
+  });
   it('the demo/replay never paints or completes, and touching immediately stops it', async () => {
     const result = vi.fn();
     const { container } = render(

@@ -283,8 +283,9 @@ describe('korean phonics activity plans', () => {
       getActivityPlan('kr-h1-u01').activities.find((a) => a.key === 'write-1')!.vowels
     ).toHaveLength(10);
     const u02 = getActivityPlan('kr-h1-u02').activities;
-    expect(u02.map((a) => a.kind).slice(0, 3)).toEqual([
+    expect(u02.map((a) => a.kind).slice(0, 4)).toEqual([
       'consonant-tap',
+      'vowel-write',
       'consonant-blend-listen',
       'consonant-write',
     ]);
@@ -316,5 +317,52 @@ describe('shuffleReviewCards', () => {
     }
     expect(seen.has('ㅍ')).toBe(true);
     expect(seen.has('ㅎ')).toBe(true);
+  });
+});
+
+describe('낱자 쓰기를 먼저 배우고 음절 합성으로 이어짐', () => {
+  const units = getAllKoreanUnits();
+  it('기본/쌍자음은 누르기→낱자 쓰기→합성, 옛 활동 키를 보존한다', () => {
+    for (const unit of units.filter(
+      (u) =>
+        !u.isReview &&
+        ['kr-h1-', 'kr-h3-'].some((prefix) => u.id.startsWith(prefix)) &&
+        u.id !== 'kr-h1-u01'
+    )) {
+      const activities = getActivityPlan(unit.id).activities;
+      expect(activities.slice(0, 4).map((a) => a.key)).toEqual([
+        'consonant-tap',
+        'letter-write',
+        'blend-listen',
+        'consonant-write',
+      ]);
+      const write = activities[1];
+      expect(write.required).toBe(true);
+      expect(write.vowels).toEqual([
+        { vowel: unit.phonemes[0], syllable: unit.phonemes[0], writeLetter: unit.phonemes[0] },
+      ]);
+    }
+  });
+  it('복합 모음은 각각 눌러보고 낱자 쓰기한 뒤 기존 합성 활동으로 간다', () => {
+    for (const unit of units.filter((u) => u.id.startsWith('kr-h4-') && !u.isReview)) {
+      const activities = getActivityPlan(unit.id).activities;
+      unit.phonemes.forEach((vowel, index) => {
+        const [listen, write] = activities.slice(index * 2, index * 2 + 2);
+        expect(listen.key).toBe(`letter-listen-${vowel}`);
+        expect(write.key).toBe(`letter-write-${vowel}`);
+        expect(listen.required && write.required).toBe(true);
+        expect(write.vowels?.[0].writeLetter).toBe(vowel);
+      });
+      expect(
+        activities.slice(unit.phonemes.length * 2, unit.phonemes.length * 2 + 2).map((a) => a.key)
+      ).toEqual(['listen-1', 'write-1']);
+    }
+  });
+  it('받침은 낱자 쓰기를 추가하지 않는다', () => {
+    for (const unit of units.filter((u) => u.id.startsWith('kr-h2-'))) {
+      expect(
+        getActivityPlan(unit.id).activities.some((a) => a.key.startsWith('letter-write'))
+      ).toBe(false);
+    }
   });
 });

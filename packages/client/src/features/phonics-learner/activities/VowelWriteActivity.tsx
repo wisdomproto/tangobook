@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
-import { isIntroVowel } from '@/features/phonics/components/vowel-stroke-guide';
+import { isGuidedLetter } from '@/features/phonics/components/letter-stroke-guide';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -154,7 +154,7 @@ export function VowelWriteActivity({
 
   const showGuidance =
     language === 'korean' &&
-    isIntroVowel(vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable);
+    isGuidedLetter(vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable);
   const selection = (
     <div className={showGuidance ? 'vowel-write-selection flex items-center gap-4' : undefined}>
       {/* chip 줄 — 진행 + 클릭으로 임의 선택 */}
@@ -243,7 +243,7 @@ export function VowelWriteActivity({
                 : practiceRound === 1
                   ? 'hint'
                   : 'independent'
-              : undefined
+              : 'none'
           }
         />
       </div>

@@ -848,3 +848,57 @@
     transition-duration: 0ms;
   }
 }
+
+/* Letter formation belongs on one screen, including short landscape phones. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .phonics-activity:has(.alphabet-write-body) {
+    overflow: hidden;
+  }
+  .alphabet-write-body {
+    gap: 8px;
+  }
+  .alphabet-write-body > h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .alphabet-write-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 600px;
+  }
+  .alphabet-write-grid .phonics-paper-panel {
+    padding: 8px;
+  }
+  .alphabet-write-grid .phonics-paper-panel > div:first-child {
+    margin-bottom: 4px;
+  }
+  .alphabet-write-grid .phonics-paper-panel > div:first-child > span {
+    padding: 2px 8px;
+    font-size: 12px;
+  }
+  .alphabet-write-grid .letter-fill-canvas {
+    gap: 4px;
+  }
+  .alphabet-write-grid .letter-fill-paper,
+  .alphabet-write-grid img {
+    width: min(42vh, 12rem);
+    margin-inline: auto;
+  }
+  .alphabet-write-grid .letter-fill-progress,
+  .alphabet-write-grid .letter-fill-result {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  .alphabet-write-grid .letter-fill-result .text-4xl {
+    display: none;
+  }
+  .alphabet-write-grid .letter-fill-progress {
+    display: none;
+  }
+  .alphabet-write-body > p {
+    display: none;
+    font-size: 11px;
+    line-height: 1.2;
+    margin: 0;
+  }
+}
