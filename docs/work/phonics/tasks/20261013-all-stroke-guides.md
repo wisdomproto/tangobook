@@ -2,12 +2,12 @@
 
 - id: 20261013-all-stroke-guides
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: faf309abb
 - branch: codex/phonics-all-stroke-guides
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 검증 후 로컬 main 통합 예정
+- integration: 537c71585 로컬 main fast-forward 포함 확인
 - delivery: 미푸시·미배포
 
 ## 사용자 결정
