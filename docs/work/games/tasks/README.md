@@ -1,6 +1,6 @@
 # 게임·독후활동 작업 기록
 
-- [책 읽기·어휘 게임 선택 단순화](20261014-book-vocabulary-only-ui.md) — ready: 읽어주기/어휘 게임, 중간 묶음·예시 단어 제거.28회귀·타입/lint/build·실제 가로 화면 검수.
+- [책 읽기·어휘 게임 선택 단순화](20261014-book-vocabulary-only-ui.md) — integrated: 읽어주기/어휘 게임, 중간 묶음·예시 단어 제거.28회귀·타입/lint/build·실제 가로 화면 검수.
 
 - [퐁이29 장면 도안 후속 교체](../../content/tasks/20261013-pongi29-character-repair.md) — integrated: 도안2장·색 답안·본문10쪽 교체, 한영 전체 붓질/native 나레이션 검증.
 

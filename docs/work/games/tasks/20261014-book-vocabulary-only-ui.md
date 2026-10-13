@@ -2,12 +2,12 @@
 
 - id: 20261014-book-vocabulary-only-ui
 - domain: games
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: 2b2e036a4
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 04ebf8f50 코드/기억 main fast-forward 통합 확인
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -35,4 +35,8 @@
 
 ## 다음 행동
 
-관련 코드/기억 로컬 커밋 후 main 통합 상태를 갱신한다. 원격 push는 이번 작업에 요청되지 않았다.
+원격 push는 이번 작업에 요청되지 않았다. 추가 사용자 피드백은 이 메뉴 흐름을 기준으로 반영한다.
+
+## 인계·통합
+
+04ebf8f50 코드를 root main에 fast-forward 통합했다. 검수 서버5186은 기존 worktree에서 유지한다. 기존 ReviewWriteActivity.test.tsx 줄바꿈 변경·미추적 시안/output/tmp는 stage하지 않았다. 원격 push/운영 배포는 수행하지 않았다.
