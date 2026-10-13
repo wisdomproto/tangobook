@@ -71,6 +71,8 @@ export interface ColoringItem {
     backgroundMusicUrl?: string;
     /** 사진 장면 검수에서 명시적으로 선택한 원본 색 추출 방식. */
     colorSampling?: 'median';
+    /** 개별 장면 검수에서만 선택하는 작은 칸 면적. 기본 0.003 유지. */
+    minRegionAreaRatio?: number;
   };
 }
 
@@ -303,7 +305,9 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       const h = line.naturalHeight;
       setSceneRatio(w / h);
       const pixels = readPixels(line, w, h);
-      const sceneRegions = isScene ? buildSceneColoringRegions(pixels, w, h) : undefined;
+      const sceneRegions = isScene
+        ? buildSceneColoringRegions(pixels, w, h, item.scene?.minRegionAreaRatio)
+        : undefined;
       const walls = sceneRegions?.walls ?? buildWalls(pixels);
       const regions = sceneRegions?.regions ?? labelRegions(walls, w, h);
       const required =
@@ -352,7 +356,14 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
     return () => {
       cancelled = true;
     };
-  }, [lineartUrl, colorSourceUrl, isScene, item.scene?.colorSampling, render]);
+  }, [
+    lineartUrl,
+    colorSourceUrl,
+    isScene,
+    item.scene?.colorSampling,
+    item.scene?.minRegionAreaRatio,
+    render,
+  ]);
 
   // ── 힌트: 고른 색으로 칠할 칸을 반짝이게 ──────────────────────────────────
   useEffect(() => {

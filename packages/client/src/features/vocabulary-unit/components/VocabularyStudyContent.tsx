@@ -8,6 +8,10 @@ import { useLearningEvents } from '@/features/learning/hooks/useLearningEvents';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import type { LearningEvent } from '@tangobook/shared';
 import { useMemo, useState, useRef } from 'react';
+import {
+  useSceneColoringCount,
+  useSceneColoringItems,
+} from '@/features/games/hooks/useSceneColoringItems';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -72,6 +76,7 @@ const TONE = {
 } as const;
 
 type Tone = keyof typeof TONE;
+type StudyGameOption = Omit<VocabGameOption, 'id'> & { id: GameTypeId | 'scene-coloring' };
 
 const GAME_GROUPS = [
   {
@@ -128,6 +133,7 @@ export function VocabularyStudyContent({
   lang,
 }: VocabularyStudyContentProps) {
   const { t } = useTranslation('games');
+  const [sceneColoringOpen, setSceneColoringOpen] = useState(false);
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
   const { activeProfile } = useAuth();
   const history = useLearningEvents(activeProfile?.id, activeGame !== null);
@@ -153,7 +159,26 @@ export function VocabularyStudyContent({
     storybook,
     lang
   );
-  const games = getAvailableGames(unit, lang, t, storybook, currentStyle, coloringCount);
+  const sceneCount = useSceneColoringCount(storybook?.id, lang);
+  const games: StudyGameOption[] = getAvailableGames(
+    unit,
+    lang,
+    t,
+    storybook,
+    currentStyle,
+    coloringCount
+  );
+  if (sceneCount > 0)
+    games.push({
+      id: 'scene-coloring',
+      group: 'story',
+      emoji: '🎨',
+      label: t('cards.sceneColoring.label', { defaultValue: '장면 색칠하기' }),
+      subtitle: t('cards.sceneColoring.subtitle', { defaultValue: '동화 속 장면을 색칠해요' }),
+      bgFrom: 'from-coral-400',
+      bgTo: 'to-coral-600',
+      available: true,
+    });
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
@@ -256,7 +281,8 @@ export function VocabularyStudyContent({
                     onPlay={() => {
                       if (g.available) {
                         activityStart.current = new Date().toISOString();
-                        setActiveGame(g.id);
+                        if (g.id === 'scene-coloring') setSceneColoringOpen(true);
+                        else setActiveGame(g.id);
                       }
                     }}
                   />
@@ -304,6 +330,15 @@ export function VocabularyStudyContent({
           />
         )}
       </AnimatePresence>
+
+      {sceneColoringOpen && storybook && (
+        <SceneColoringGame
+          key={`${storybook.id}-${lang}`}
+          book={storybook}
+          lang={lang}
+          onBack={() => setSceneColoringOpen(false)}
+        />
+      )}
 
       {/* 단어 상세 모달 — 책 페이지 + 단어 듣기 + 예문 듣기 */}
       <AnimatePresence>
@@ -414,7 +449,7 @@ function GroupCard({
    * 🔴 「N가지」라는 숫자만 있던 화면은 두 버튼짜리 메뉴라 한 페이지를 쓸 값어치가 없었다.
    *    무엇이 들었는지 보여야 고를 수 있고, 그림이 카드를 채운다.
    */
-  preview: VocabGameOption[];
+  preview: StudyGameOption[];
   tone: Tone;
   onOpen: () => void;
 }) {
@@ -476,7 +511,7 @@ function GameCard({
   tone,
   onPlay,
 }: {
-  game: VocabGameOption;
+  game: StudyGameOption;
   index: number;
   /** 이 카드가 속한 묶음 색 — 채움 카드와 배지가 그 색을 쓴다. */
   tone: Tone;
@@ -777,6 +812,7 @@ export function GameOverlay({
         )}
         {game === 'hidden-object' && (
           <HiddenObjectPlayer
+            lang={lang === 'en' ? 'en' : 'ko'}
             storybookId={effectiveStorybookId}
             gameData={data}
             difficulty="medium"
@@ -843,4 +879,28 @@ function ColoringGame({
     );
   }
   return <ColoringPlayer items={items} onBack={onBack} />;
+}
+
+function SceneColoringGame({
+  book,
+  lang,
+  onBack,
+}: {
+  book: Storybook;
+  lang: Lang;
+  onBack: () => void;
+}) {
+  const { items, isPending } = useSceneColoringItems(book, lang);
+  if (items.length) return <ColoringPlayer items={items} onBack={onBack} />;
+  return (
+    <div className="fixed inset-0 z-[70] grid place-items-center bg-cream-50">
+      <button
+        onClick={onBack}
+        aria-label="닫기"
+        className="min-h-[44px] px-5 rounded-full bg-white shadow-soft"
+      >
+        {isPending ? '🎨' : '←'}
+      </button>
+    </div>
+  );
 }

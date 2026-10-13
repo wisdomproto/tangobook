@@ -1,4 +1,9 @@
-import type { Storybook, HiddenObjectData, HiddenObjectTarget } from '@tangobook/shared';
+import type {
+  Storybook,
+  HiddenObjectData,
+  HiddenObjectTarget,
+  HiddenObjectHotspot,
+} from '@tangobook/shared';
 import { hiddenObjectLabelOf, playableHiddenWords } from '@tangobook/shared';
 
 /**
@@ -12,7 +17,8 @@ export function buildHiddenObjectSceneData(
   book: Storybook | undefined,
   _style?: string,
   /** 주면 `hobj_<sceneKey>` 씬만(활동 모음 한 장 페이지). 없으면 무작위 한 장. */
-  sceneKey?: string
+  sceneKey?: string,
+  lang: 'ko' | 'en' = 'ko'
 ): HiddenObjectData | null {
   if (!book) return null;
   const all = book.hiddenObjectScenes;
@@ -21,30 +27,37 @@ export function buildHiddenObjectSceneData(
 
   const keyObjects = book.key_objects ?? [];
   const images = book.keyObjectImages ?? [];
-  const labelOf = (name: string): string => hiddenObjectLabelOf(keyObjects, name);
+  const labelOf = (name: string): string => hiddenObjectLabelOf(keyObjects, name, lang);
+  const hotspotLabel = (hotspot: HiddenObjectHotspot): string =>
+    hotspot.labels ? (hotspot.labels[lang]?.trim() ?? '') : labelOf(hotspot.objectName);
   const thumbOf = (name: string): string | undefined =>
     images.find((i) => i.objectName === name && i.success)?.imageUrl;
   const ttsOf = (name: string): string | undefined =>
-    keyObjects.find((k) => k.name === name)?.ttsUrl;
+    lang === 'en'
+      ? keyObjects.find((k) => k.name === name)?.ttsUrls?.en
+      : keyObjects.find((k) => k.name === name)?.ttsUrl;
 
   const built = scenes
     .map((scene) => ({
       sceneImageUrl: scene.sceneImageUrl,
-      targets: scene.hotspots.map(
-        (h): HiddenObjectTarget => ({
-          objectName: h.objectName,
-          label: labelOf(h.objectName),
-          thumbnailUrl: thumbOf(h.objectName),
-          ttsUrl: ttsOf(h.objectName),
-          x: h.x,
-          y: h.y,
-          w: h.w,
-          h: h.h,
-          layer: h.layer,
-        })
-      ),
+      targets: scene.hotspots
+        .filter((h) => hotspotLabel(h))
+        .map(
+          (h): HiddenObjectTarget => ({
+            objectName: h.objectName,
+            label: hotspotLabel(h),
+            thumbnailUrl: thumbOf(h.objectName),
+            ttsUrl: ttsOf(h.objectName),
+            x: h.x,
+            y: h.y,
+            w: h.w,
+            h: h.h,
+            layer: h.layer,
+          })
+        ),
       // 🔴 찾을 게 하나뿐인 씬은 게임이 아니다 — **이름 중복을 뺀** 개수로 센다(날개 박스 둘 = 한 낱말).
-      playable: playableHiddenWords(scene).length,
+      playable: playableHiddenWords({ hotspots: scene.hotspots.filter((h) => hotspotLabel(h)) })
+        .length,
     }))
     .filter((s) => s.sceneImageUrl && s.playable >= 2)
     .map(({ sceneImageUrl, targets }) => ({ sceneImageUrl, targets }));

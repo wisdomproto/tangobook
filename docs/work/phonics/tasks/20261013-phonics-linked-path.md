@@ -95,3 +95,7 @@
 - 사용자 main push 승인 후 한글 과정의 Book 영어 표기를 반증했다. 한글 경로 HUD·권 선택창·경계는 1권/2권과 책 고르기로 통일하며 영어 과정은 Book을 유지한다. 진도·ID·잠금 조건은 바꾸지 않는다.
 - origin/main의 기존 활동/Pongi29 승인 작업 4개 커밋을 보존해 정상 merge하고, 통합 검증 뒤 main에 push한다.
 - 한글 책 선택창/경계/접근성 이름을 1권·책 고르기로 변경, 5개 UI 언어 번역 키 추가. 지도/카메라 19회귀 통과, 실제5186 한글 HUD 및 선택창1~5권 확인. 영어 Book2 회귀도 유지.
+- 자유모드 단원 화면·부모 상세 경로/리포트가 공유하는 한글 level 번역도 1~5권으로 맞췄다. 영어 과정/중국어 레벨은 그대로다.
+- 부모 Heatmap은 번역을 거치지 않은 shared Book 이름을 직접 표시하고 있었으므로 level 번역 키를 사용하도록 연결했다. 첫 회귀의6/10 기대값은 모음 묶음 도입 전 상태: 기존 phonics-progress.test의 totalUnits3·legacy 첫묶음만 완료 계약과 20261012-korean-vowel-groups 결정에 근거해1/3로 맞추고 1권 이름을 확인한다. 집계 로직은 변경 없음.
+- 통합 회귀 client95개(13파일90개 + 부모 Heatmap/진도2파일5개), server6개 통과. shared/server/client 타입 검사 및 전체 pnpm build 성공. 변경 TS/TSX scoped ESLint 통과. 한글 label 보완 후 client 타입/최종 build를 재확인하고 전달한다. 기존 Browserslist/i18n import/lottie eval/큰 chunk 경고는 그대로다.
+- 한글 level/부모 번역 연결 후 client typecheck·scoped ESLint·최종 production build46.14s 성공. 전체 통합 검증 완료, 일반 main push 진행. 실제 지도 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-korean-book-labels.png.

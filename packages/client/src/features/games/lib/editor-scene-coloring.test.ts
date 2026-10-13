@@ -31,6 +31,25 @@ const book = {
 } as Storybook;
 
 describe('editor2 장면 색칠 연결', () => {
+  it('정렬 색 답안으로 칠하고 완료 때에는 지정한 실제 본문 삽화를 재생한다', () => {
+    const item = editorSceneColoringItem(
+      {
+        ...scene,
+        originalUrl: 'https://assets.test/approved-page.webp',
+        minRegionAreaRatio: 0.001,
+      },
+      book,
+      'en'
+    );
+    expect(item?.colorSourceUrl).toBe(scene.colorSourceUrl);
+    expect(item?.originalUrl).toBe('https://assets.test/approved-page.webp');
+    expect(item?.scene).toMatchObject({
+      illustrationUrl: 'https://assets.test/approved-page.webp',
+      text: 'Current English',
+      ttsUrl: 'current-en.mp3',
+      minRegionAreaRatio: 0.001,
+    });
+  });
   it('창작동화 1~19를 포함한 1215권 2430장의 공개 도안을 책 ID에 두 장씩 연결한다', () => {
     expect(Object.keys(catalog)).toHaveLength(1215);
     const keys = new Set();
@@ -112,6 +131,35 @@ describe('editor2 장면 색칠 연결', () => {
     );
     expect(item?.scene?.ttsUrl).toBeUndefined();
     expect(item?.scene?.colorSampling).toBeUndefined();
+  });
+  it('기존 page_number 형식에서도 최신 영어 본문과 음원을 사용한다', () => {
+    const legacy = {
+      ...book,
+      pages: [
+        {
+          page_number: 13,
+          text: '본문',
+          translations: { en: { text: 'Current legacy English', ttsUrl: 'legacy-en.mp3' } },
+        },
+      ],
+    } as unknown as Storybook;
+    expect(
+      editorSceneColoringItem({ ...scene, translations: {} }, legacy, 'en')?.scene
+    ).toMatchObject({ text: 'Current legacy English', ttsUrl: 'legacy-en.mp3' });
+  });
+  it('픽셀을 읽는 도안과 색 출처는 버전을 유지한 동일 출처 프록시를 쓴다', () => {
+    const item = editorSceneColoringItem(
+      {
+        ...scene,
+        lineartUrl: 'https://assets.tangobook.co.kr/tests/line.png?v=abc',
+        colorSourceUrl: 'https://pub-example.r2.dev/tests/source.png?v=def',
+      },
+      book,
+      'ko'
+    );
+    expect(item?.lineartUrl).toBe('/api/r2-proxy?key=tests%2Fline.png&v=abc');
+    expect(item?.colorSourceUrl).toBe('/api/r2-proxy?key=tests%2Fsource.png&v=def');
+    expect(item?.originalUrl).toBe('https://pub-example.r2.dev/tests/source.png?v=def');
   });
   it('다른 그림체 책의 도안을 가져오지 않는다', () => {
     expect(editorSceneColoringItem(scene, { ...book, id: 'other' }, 'ko')).toBeNull();

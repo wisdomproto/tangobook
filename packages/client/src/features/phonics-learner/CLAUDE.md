@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+한글 커리큘럼의 권 표시는 `1권`/`2권`, 선택창은 `책 고르기`로 통일한다. 영어 과정은 `Book 1`/`Book 2`를 유지한다. 권번호·번역은 DOM이며 과정 ID나 진도 저장 키는 바꾸지 않는다.
+
 ## 2026-10-13 언어 내부 학습 모드
 
 전체 경로는 path-premium-v1의5 WebP 약500KB(버튼/책8종·아이콘12종 alpha atlas·돌길·여백 정원)를 사용한다. PhonicsGameSprite는 lib/path-assets.json의 단일 crop/hash metadata를 읽으며 글자/번역/권번호는 DOM이다. 헤더의 현재 Book과 권 사이 표지로 맥락을 유지한다. story-world 배경은 부모 지도에서 보존한다. 후속 결정으로 기본 아이 화면은 PhonicsCurriculumPath의 왼쪽→오른쪽 전체 가로 경로이며 현재 위치에 한 번 정렬한다. 완료/현재만 눌러 학습에 진입하고 미래는 잠금이다. 이전 PhonicsChapterScene은 기본 진입에서 사용하지 않는다. 활동 완료/이동은 GuidedRun에서 공통 PhonicsActivityFinish로 분리하며 다음 활동 그림·동일 CTA, 마지막 경로 복귀/노드 잠금 해제를 제공한다. [전체 경로·활동 연결](../../../../../docs/work/phonics/tasks/20261013-phonics-linked-path.md). [배경 절제·전환 검토](../../../../../docs/work/phonics/tasks/20261013-phonics-quiet-background.md).

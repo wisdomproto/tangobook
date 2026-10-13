@@ -5,10 +5,19 @@ import type { HiddenObjectScene, KeyObject } from '../types/storybook.js';
  * 🔴 클라 게임 빌더와 활동 목록 굽기 스크립트가 **같은 함수**를 쓴다(따로 적으면 체크리스트와 게임이 갈라진다).
  */
 export function hiddenObjectLabelOf(
-  keyObjects: Pick<KeyObject, 'name' | 'korean'>[] | undefined,
-  objectName: string
+  keyObjects: Pick<KeyObject, 'name' | 'korean' | 'nameEn' | 'nameTranslations'>[] | undefined,
+  objectName: string,
+  lang: 'ko' | 'en' = 'ko'
 ): string {
   const ko = (keyObjects ?? []).find((k) => k.name === objectName);
+  if (lang === 'en') {
+    const name = ko?.name ?? '';
+    return (
+      ko?.nameTranslations?.en ||
+      ko?.nameEn ||
+      (/^[A-Za-z][A-Za-z\s'-]*$/.test(name) ? name : '')
+    ).trim();
+  }
   return ko?.korean || ko?.name || objectName;
 }
 

@@ -104,10 +104,10 @@
     "educationalUse": "Đọc tiếng Hàn, phonics, học từ vựng"
   },
   "level": {
-    "hangul1": "Book 2: Phụ âm và âm tiết cơ bản",
-    "hangul2": "Book 3: Phụ âm cuối",
-    "hangul3": "Book 4: Phụ âm đôi",
-    "hangul4": "Book 5: Nguyên âm phức",
+    "hangul1": "Quyển 2: Phụ âm và âm tiết cơ bản",
+    "hangul2": "Quyển 3: Phụ âm cuối",
+    "hangul3": "Quyển 4: Phụ âm đôi",
+    "hangul4": "Quyển 5: Nguyên âm phức",
     "zhL1": "Cấp 1: Thanh điệu + Nguyên âm đơn",
     "zhL2": "Cấp 2: Phụ âm đầu",
     "zhL3": "Cấp 3: Ghép phiên âm",
@@ -116,7 +116,7 @@
     "zhL6": "Cấp 6: Vần mũi",
     "zhL7": "Cấp 7: Âm tiết đọc nguyên",
     "zhL8": "Cấp 8: Từ hai âm tiết",
-    "hangul-vowels": "Book 1: Nguyên âm"
+    "hangul-vowels": "Quyển 1: Nguyên âm"
   },
   "unit": {
     "review": "Ôn tập",

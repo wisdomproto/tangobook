@@ -25407,20 +25407,20 @@
           "label": "06. 내가 이겼어",
           "items": [
             {
-              "key": "cw-mei-198fd82a97",
+              "key": "activity-20261013-rock-gesture",
               "bookId": "changjak-mei-06",
               "bookTitle": "06. 내가 이겼어",
               "word": "바위",
               "subject": "바위",
-              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/mei-words/mei-198fd82a97.webp"
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/activity-words/activity-20261013-rock-gesture.webp"
             },
             {
-              "key": "cw-mei-44d1d4a14f",
+              "key": "activity-20261013-scissors-gesture",
               "bookId": "changjak-mei-06",
               "bookTitle": "06. 내가 이겼어",
               "word": "가위",
               "subject": "가위",
-              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/mei-words/mei-44d1d4a14f.webp"
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/activity-words/activity-20261013-scissors-gesture.webp"
             }
           ]
         },
@@ -43781,12 +43781,12 @@
           "label": "23. 여기까지 물이 올라와요",
           "items": [
             {
-              "key": "cw-bung-02d9ca46d7",
+              "key": "activity-20261013-wood",
               "bookId": "changjak-bung-23",
               "bookTitle": "23. 여기까지 물이 올라와요",
               "word": "나무",
               "subject": "나무",
-              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/bung-words/bung-02d9ca46d7.webp"
+              "imageUrl": "https://assets.tangobook.co.kr/comic-assets/activity-words/activity-20261013-wood.webp"
             },
             {
               "key": "cw-bung-42def5eeba",
@@ -57869,6 +57869,436 @@
               "word": "딸기",
               "subject": "딸기",
               "imageUrl": "https://assets.tangobook.co.kr/comic-assets/dari-words/dari-f61906861a.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "activity-gaps-20261013",
+      "label": "하늘 동물 친구들",
+      "sections": [
+        {
+          "bookId": "1777601619896",
+          "label": "백로",
+          "items": [
+            {
+              "key": "activity-20261013-water",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "물",
+              "subject": "물",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%AC%BC-1791813336782.webp"
+            },
+            {
+              "key": "activity-20261013-grass",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "풀",
+              "subject": "풀",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%92%80-1791813337982.webp"
+            },
+            {
+              "key": "activity-20261013-flower",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "꽃",
+              "subject": "꽃",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%BD%83-1791813338867.webp"
+            },
+            {
+              "key": "activity-20261013-sun",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "태양",
+              "subject": "태양",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%83%9C%EC%96%91-1791813339760.webp"
+            },
+            {
+              "key": "activity-20261013-sky",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "하늘",
+              "subject": "하늘",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%95%98%EB%8A%98-1791813340642.webp"
+            },
+            {
+              "key": "activity-20261013-egret",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "백로",
+              "subject": "백로",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%B0%B1%EB%A1%9C-1791813341578.webp"
+            },
+            {
+              "key": "activity-20261013-river",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "강",
+              "subject": "강",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%B0%95-1791813342346.webp"
+            },
+            {
+              "key": "activity-20261013-egret-feather",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "깃털",
+              "subject": "깃털",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%B9%83%ED%84%B8-1791813343190.webp"
+            },
+            {
+              "key": "activity-20261013-egret-beak",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "부리",
+              "subject": "부리",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%B6%80%EB%A6%AC-1791813344018.webp"
+            },
+            {
+              "key": "activity-20261013-fish",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "물고기",
+              "subject": "물고기",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%AC%BC%EA%B3%A0%EA%B8%B0-1791813345058.webp"
+            },
+            {
+              "key": "activity-20261013-egret-egg",
+              "bookId": "1777601619896",
+              "bookTitle": "백로",
+              "word": "알",
+              "subject": "알",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EC%95%8C-1791813346006.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1777601011770",
+          "label": "앵무새",
+          "items": [
+            {
+              "key": "activity-20261013-pond",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "연못",
+              "subject": "연못",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-Pond-1791813349450.webp"
+            },
+            {
+              "key": "activity-20261013-flower",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "꽃",
+              "subject": "꽃",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%BD%83-1791813338867.webp"
+            },
+            {
+              "key": "activity-20261013-water",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "물",
+              "subject": "물",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%AC%BC-1791813336782.webp"
+            },
+            {
+              "key": "activity-20261013-grass",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "풀",
+              "subject": "풀",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%92%80-1791813337982.webp"
+            },
+            {
+              "key": "activity-20261013-ribbon",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "리본",
+              "subject": "리본",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-Ribbon-1791813350440.webp"
+            },
+            {
+              "key": "activity-20261013-parrot-beak",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "부리",
+              "subject": "부리",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-Beak-1791813351245.webp"
+            },
+            {
+              "key": "activity-20261013-forest",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "숲",
+              "subject": "숲",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%88%B2-1791813352201.webp"
+            },
+            {
+              "key": "activity-20261013-parrot",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "앵무새",
+              "subject": "앵무새",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%95%B5%EB%AC%B4%EC%83%88-1791813353060.webp"
+            },
+            {
+              "key": "activity-20261013-parrot-feather",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "깃털",
+              "subject": "깃털",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EA%B9%83%ED%84%B8-1791813353791.webp"
+            },
+            {
+              "key": "activity-20261013-fruit",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "열매",
+              "subject": "열매",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%97%B4%EB%A7%A4-1791813354625.webp"
+            },
+            {
+              "key": "activity-20261013-tree",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "나무",
+              "subject": "나무",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EB%82%98%EB%AC%B4-1791813355375.webp"
+            },
+            {
+              "key": "activity-20261013-parrot-egg",
+              "bookId": "1777601011770",
+              "bookTitle": "앵무새",
+              "word": "알",
+              "subject": "알",
+              "imageUrl": "https://assets.tangobook.co.kr/1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%95%8C-1791813356123.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "activity-word-extras-20261013",
+      "label": "동화 어휘 도안 보완",
+      "sections": [
+        {
+          "bookId": "1772086769057",
+          "label": "구둣방 할아버지와 꼬마 요정_그림체2",
+          "items": [
+            {
+              "key": "activity-20261013-extra-0",
+              "bookId": "1772086769057",
+              "bookTitle": "구둣방 할아버지와 꼬마 요정_그림체2",
+              "word": "shoes",
+              "subject": "shoes",
+              "imageUrl": "https://assets.tangobook.co.kr/1772086769057-구둣방할아버지와꼬마요정-keyobj-shoes-1783558940118-w800.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773149047331",
+          "label": "고슴도치",
+          "items": [
+            {
+              "key": "activity-20261013-extra-1",
+              "bookId": "1773149047331",
+              "bookTitle": "고슴도치",
+              "word": "고슴도치",
+              "subject": "고슴도치",
+              "imageUrl": "https://assets.tangobook.co.kr/1773149047331-고슴도치-keyobj-고슴도치-1783838539971.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773363966902",
+          "label": "카멜레온",
+          "items": [
+            {
+              "key": "activity-20261013-extra-2",
+              "bookId": "1773363966902",
+              "bookTitle": "카멜레온",
+              "word": "카멜레온",
+              "subject": "카멜레온",
+              "imageUrl": "https://assets.tangobook.co.kr/1773363966902-카멜레온-keyobj-카멜레온-1783839143731.webp"
+            },
+            {
+              "key": "activity-20261013-extra-3",
+              "bookId": "1773363966902",
+              "bookTitle": "카멜레온",
+              "word": "발가락",
+              "subject": "발가락",
+              "imageUrl": "https://assets.tangobook.co.kr/1773363966902-카멜레온-keyobj-발가락-1783839145706.webp"
+            },
+            {
+              "key": "activity-20261013-extra-4",
+              "bookId": "1773363966902",
+              "bookTitle": "카멜레온",
+              "word": "꼬리",
+              "subject": "꼬리",
+              "imageUrl": "https://assets.tangobook.co.kr/1773363966902-카멜레온-keyobj-꼬리-1783839147267.webp"
+            },
+            {
+              "key": "activity-20261013-extra-5",
+              "bookId": "1773363966902",
+              "bookTitle": "카멜레온",
+              "word": "눈",
+              "subject": "눈",
+              "imageUrl": "https://assets.tangobook.co.kr/1773363966902-카멜레온-keyobj-눈-1783839160308.webp"
+            },
+            {
+              "key": "activity-20261013-extra-6",
+              "bookId": "1773363966902",
+              "bookTitle": "카멜레온",
+              "word": "먹이",
+              "subject": "먹이",
+              "imageUrl": "https://assets.tangobook.co.kr/1773363966902-카멜레온-keyobj-먹이-1783839156630.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773320745960",
+          "label": "거미",
+          "items": [
+            {
+              "key": "activity-20261013-extra-7",
+              "bookId": "1773320745960",
+              "bookTitle": "거미",
+              "word": "거미줄",
+              "subject": "거미줄",
+              "imageUrl": "https://assets.tangobook.co.kr/1773320745960-거미-keyobj-거미줄-1783840942893.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773573591972",
+          "label": "파리지옥",
+          "items": [
+            {
+              "key": "activity-20261013-extra-8",
+              "bookId": "1773573591972",
+              "bookTitle": "파리지옥",
+              "word": "가시",
+              "subject": "가시",
+              "imageUrl": "https://assets.tangobook.co.kr/1773573591972-파리지옥-keyobj-가시-1783820281577.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773625335362",
+          "label": "맛있는 음식의 몸속 여행",
+          "items": [
+            {
+              "key": "activity-20261013-extra-9",
+              "bookId": "1773625335362",
+              "bookTitle": "맛있는 음식의 몸속 여행",
+              "word": "그릇",
+              "subject": "그릇",
+              "imageUrl": "https://assets.tangobook.co.kr/1773625335362-맛있는음식의몸속여행-keyobj-그릇-1783669251026.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773740757966",
+          "label": "프로토케라톱스",
+          "items": [
+            {
+              "key": "activity-20261013-extra-10",
+              "bookId": "1773740757966",
+              "bookTitle": "프로토케라톱스",
+              "word": "콧구멍",
+              "subject": "콧구멍",
+              "imageUrl": "https://assets.tangobook.co.kr/1773740757966-프로토케라톱스-keyobj-콧구멍-1783577196046.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1773899653860",
+          "label": "케찰코아틀루스",
+          "items": [
+            {
+              "key": "activity-20261013-extra-11",
+              "bookId": "1773899653860",
+              "bookTitle": "케찰코아틀루스",
+              "word": "강",
+              "subject": "강",
+              "imageUrl": "https://assets.tangobook.co.kr/1773899653860-케찰코아틀루스-keyobj-강-1783577695374.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1777431036899",
+          "label": "물개",
+          "items": [
+            {
+              "key": "activity-20261013-extra-12",
+              "bookId": "1777431036899",
+              "bookTitle": "물개",
+              "word": "바다",
+              "subject": "바다",
+              "imageUrl": "https://assets.tangobook.co.kr/1777431036899-물개-keyobj-바다-1783671838864.webp"
+            },
+            {
+              "key": "activity-20261013-extra-13",
+              "bookId": "1777431036899",
+              "bookTitle": "물개",
+              "word": "귀",
+              "subject": "귀",
+              "imageUrl": "https://assets.tangobook.co.kr/1777431036899-물개-keyobj-귀-1783671773439.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1777607890313",
+          "label": "장수풍뎅이",
+          "items": [
+            {
+              "key": "activity-20261013-extra-14",
+              "bookId": "1777607890313",
+              "bookTitle": "장수풍뎅이",
+              "word": "장수풍뎅이",
+              "subject": "장수풍뎅이",
+              "imageUrl": "https://assets.tangobook.co.kr/1777607890313-장수풍뎅이-keyobj-장수풍뎅이-1783840578967.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1777607528952",
+          "label": "사슴벌레",
+          "items": [
+            {
+              "key": "activity-20261013-extra-15",
+              "bookId": "1777607528952",
+              "bookTitle": "사슴벌레",
+              "word": "사슴벌레",
+              "subject": "사슴벌레",
+              "imageUrl": "https://assets.tangobook.co.kr/1777607528952-사슴벌레-keyobj-사슴벌레-1783897280473.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1777614294799",
+          "label": "바다거북",
+          "items": [
+            {
+              "key": "activity-20261013-extra-16",
+              "bookId": "1777614294799",
+              "bookTitle": "바다거북",
+              "word": "바다",
+              "subject": "바다",
+              "imageUrl": "https://assets.tangobook.co.kr/1777614294799-바다거북-keyobj-바다-1783652242907.webp"
+            }
+          ]
+        },
+        {
+          "bookId": "1777615065220",
+          "label": "원숭이",
+          "items": [
+            {
+              "key": "activity-20261013-extra-17",
+              "bookId": "1777615065220",
+              "bookTitle": "원숭이",
+              "word": "원숭이",
+              "subject": "원숭이",
+              "imageUrl": "https://assets.tangobook.co.kr/1777615065220-원숭이-keyobj-원숭이-1783672353827.webp"
             }
           ]
         }

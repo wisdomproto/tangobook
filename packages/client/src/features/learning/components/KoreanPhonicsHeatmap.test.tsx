@@ -31,13 +31,15 @@ describe('KoreanPhonicsHeatmap', () => {
       metadata: { source: 'phonics', lang: 'ko', unitId: 'kr-v1-u07' },
     } as LearningEvent);
     render(<KoreanPhonicsHeatmap events={events} storybooks={[]} />);
-    expect(screen.getByText('6/10 단원 완료')).toBeInTheDocument();
+    // 자유모드/부모 집계는 4·4·2 세 묶음: 구형 듣기6+쓰기는 첫 묶음만 완료한다.
+    expect(screen.getByText('1/3 단원 완료')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^1권: 모음/ })).toBeInTheDocument();
   });
   it('자음×모음 표의 칸이 실제로 렌더된다 (cellByKey 키 정합)', () => {
     // hangul1 격자는 기본 펼침(openLevel="hangul1"). '갸'(ㄱ+ㅑ)는 격자에만 있는 음절이라
     // 타겟 단어와 겹치지 않는다 — cellByKey.get 이 실패하면 이 글자가 안 뜬다.
     render(<KoreanPhonicsHeatmap events={[]} storybooks={[]} />);
-    fireEvent.click(screen.getByRole('button', { name: /Book 2: 자음과 기본 음절/ }));
+    fireEvent.click(screen.getByRole('button', { name: /2권: 자음과 기본 음절/ }));
     expect(screen.getAllByText('갸').length).toBeGreaterThan(0);
   });
 });

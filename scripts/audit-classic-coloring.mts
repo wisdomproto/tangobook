@@ -33,7 +33,12 @@ for (const j of jobs.filter(
   const w = info.width,
     h = info.height,
     n = w * h;
-  const { walls, regions, required } = buildSceneColoringRegions(new Uint8ClampedArray(data), w, h);
+  const { walls, regions, required } = buildSceneColoringRegions(
+    new Uint8ClampedArray(data),
+    w,
+    h,
+    j.minRegionAreaRatio
+  );
   const source = await sharp(root + j.sourceFile)
     .resize(w, h, { fit: 'contain', background: '#fff' })
     .ensureAlpha()

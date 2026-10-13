@@ -1,0 +1,141 @@
+{
+  "bookId": "changjak-pongi-29",
+  "approvedCast": "Pongi red cord / Dad brown overalls / Baby shell without cord",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p1.webp",
+      "sha256": "797d7484bfb5aeb3055386e69e64a0b930075369bbef8dbdb51b31a93b2c0333"
+    },
+    {
+      "pageNumber": 2,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p2.webp",
+      "sha256": "baebae5191d03297014a276a17338459afd4e3e30bc1b10b3f65d23bad742bfe"
+    },
+    {
+      "pageNumber": 3,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p3.webp",
+      "sha256": "3878c9d27059eeefb35b39f4299f6608ce8e07f5962281b5ea8b71996d425186"
+    },
+    {
+      "pageNumber": 4,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p4.webp",
+      "sha256": "921a2c3697de0dd623884017b00dd9dece5536d50a872d1b61e8f792e7fb7bc7"
+    },
+    {
+      "pageNumber": 5,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p5.webp",
+      "sha256": "ddaa7b2eab690c75683b95ab89da55e67d0c9a96bb80a955ad799e9f95f16c81"
+    },
+    {
+      "pageNumber": 6,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p6.webp",
+      "sha256": "61f885a6e3db370de28545503852423298563cc3fca75c43121c0e1384dd43cd"
+    },
+    {
+      "pageNumber": 7,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p7.webp",
+      "sha256": "e9a66355e01b2c6afcb2bfb6ebd044d73dfa22aef3e84d916f281323d8f3321b"
+    },
+    {
+      "pageNumber": 8,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p8.webp",
+      "sha256": "ea6dabb45d201b0a37cfb46cecef83f078c247cd6914ce929e662f7496dcad21"
+    },
+    {
+      "pageNumber": 9,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p9.webp",
+      "sha256": "abcaa44fa4ebf324fd64c92f29ea4c01089c119ceeb5bed5f773a851b665db44"
+    },
+    {
+      "pageNumber": 10,
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p10.webp",
+      "sha256": "5053641a53fd790c99ab38e4fbca13b8cc8f69c5efd71b3c90d0db3bf4fe2afc"
+    }
+  ],
+  "coloring": [
+    {
+      "key": "changjak-pongi-29-p04",
+      "bookId": "changjak-pongi-29",
+      "pageNumber": 4,
+      "status": "generated",
+      "sourceFile": "changjak-pongi/sources/changjak-pongi-29-p04-20261013.png",
+      "sourceSha256": "d99197f766423923f3d0d27a0b083f045bceeabd826ce457ad695e5208afb4a9",
+      "lineartFile": "changjak-pongi/lineart/changjak-pongi-29-p04-20261013.png",
+      "lineartSha256": "45064d4cda25338884f3d2231262021f8b69b9f548e88d2c6bbb169c3aa405fd",
+      "minRegionAreaRatio": 0.001,
+      "originalUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p4.webp",
+      "revealOriginalUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p4.webp",
+      "colorCheck": {
+        "monochromePassed": true,
+        "coloredPixels": 0,
+        "totalPixels": 360000
+      }
+    },
+    {
+      "key": "changjak-pongi-29-p08",
+      "bookId": "changjak-pongi-29",
+      "pageNumber": 8,
+      "status": "generated",
+      "sourceFile": "changjak-pongi/sources/changjak-pongi-29-p08-20261013.png",
+      "sourceSha256": "c446cc4be08c8abcc3b9b02dd2f0d38445d7a4611a165f882e382872dda003b5",
+      "lineartFile": "changjak-pongi/lineart/changjak-pongi-29-p08-20261013.png",
+      "lineartSha256": "f72ff3c4cad9377b4dd6e1beaef3abcc54018d6b9aba9d3b1e668f0af40865b7",
+      "minRegionAreaRatio": 0.001,
+      "originalUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p8.webp",
+      "revealOriginalUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p8.webp",
+      "colorCheck": {
+        "monochromePassed": true,
+        "coloredPixels": 0,
+        "totalPixels": 360000
+      }
+    }
+  ],
+  "hiddenScene": {
+    "id": "hobj_activity20261013",
+    "sceneImageUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p5.webp",
+    "theme": "동화 속 낱말 찾기",
+    "artStyle": "pongi",
+    "hotspots": [
+      {
+        "objectName": "물고기",
+        "x": 0.545,
+        "y": 0.77,
+        "w": 0.345,
+        "h": 0.145,
+        "layer": 1
+      },
+      {
+        "objectName": "조개",
+        "x": 0.177,
+        "y": 0.602,
+        "w": 0.074,
+        "h": 0.14,
+        "layer": 1
+      }
+    ]
+  },
+  "verification": {
+    "protectedBookFields": true,
+    "allFourKoEnFullBrushNativeTts": true,
+    "onlyTwoCatalogRowsChanged": true,
+    "cdnSha256Matched": true
+  },
+  "references": [
+    {
+      "character": "pongi",
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-plan/pongi.png",
+      "sha256": "7062c085046c6e6097637357784af738a72bb01420454c55f0bc97b3dfb6e661"
+    },
+    {
+      "character": "dad",
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-plan/dad.png",
+      "sha256": "82e57a36974d7231fb362499900257539e659760e3e840d918a831a932981048"
+    },
+    {
+      "character": "baby",
+      "url": "https://assets.tangobook.co.kr/comic-assets/pongi-plan/baby.png",
+      "sha256": "98c4c8055fff6dbdfc8ccf22037a8d54cbbe0a6eeae21efb2aef936c7802e37f"
+    }
+  ]
+}

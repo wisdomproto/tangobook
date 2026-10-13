@@ -61,11 +61,9 @@ function pickPrimaryImage(w: VocabularyUnitWord): string | undefined {
   return w.images?.find((im) => im.isPrimary)?.imageUrl ?? w.images?.[0]?.imageUrl;
 }
 
-function pickTts(w: VocabularyUnitWord, lang: Lang): string | undefined {
-  // ko: 기본 ttsUrl(한국어) → ko 전용. 비-ko: 해당 언어 전용(ttsUrls[lang]).
-  // 🔴 vi/zh/th 에 ko `ttsUrl` 폴백 금지 — 베트남 단어를 한국어로 읽어버림.
-  if (lang === 'ko') return w.ttsUrl ?? w.ttsUrls?.ko;
-  return w.ttsUrls?.[lang] ?? (lang === 'en' ? w.ttsUrl : undefined);
+function pickTts(w: VocabularyUnitWord, lang: Lang, sourceLanguage?: Lang): string | undefined {
+  // 기본 음원은 단원의 언어에만 쓴다. 한국어 책의 기본 음원을 영어 단어에 붙이면 안 된다.
+  return w.ttsUrls?.[lang] ?? (sourceLanguage === lang ? w.ttsUrl : undefined);
 }
 
 /** 단원 → 그림짝(LineMatching) 데이터 — 후보 중 랜덤 N개 (사용자 정책 2026-05-10) */
@@ -78,7 +76,7 @@ export function unitToLineMatchingData(
     const imageUrl = pickPrimaryImage(w);
     const word = pickWord(w, lang);
     if (!imageUrl || !word) continue;
-    const tts = pickTts(w, lang);
+    const tts = pickTts(w, lang, unit.language);
     // 단일 언어 정책 (2026-07-13): 게임 화면엔 플레이 언어 단어 하나만 — 다른 언어 뜻(subLabel)
     // 병기 제거. (전에는 ko=영어 / en=한글 을 부제로 병기했음.)
     candidates.push({
@@ -102,7 +100,7 @@ export function unitToKoreanBlockData(unit: VocabularyUnit): KoreanBlockData | n
     if (!korean || ![...korean].some((c) => HANGUL_RE.test(c))) continue;
     const syllables = decomposeWord(korean);
     if (syllables.length === 0) continue;
-    const tts = pickTts(w, 'ko');
+    const tts = pickTts(w, 'ko', unit.language);
     const sourceStorybookId = w.sourceStorybookId ?? unit.storybookId;
     candidates.push({
       word: korean,
@@ -122,7 +120,7 @@ export function unitToEnglishBlockData(unit: VocabularyUnit): EnglishBlockData |
   for (const w of unit.words) {
     const word = (w.word ?? '').toLowerCase().trim();
     if (!word || !ENGLISH_WORD_RE.test(word) || word.length > MAX_BLOCK_WORD_LEN) continue;
-    const tts = pickTts(w, 'en');
+    const tts = pickTts(w, 'en', unit.language);
     const sourceStorybookId = w.sourceStorybookId ?? unit.storybookId;
     candidates.push({
       word,
@@ -219,7 +217,7 @@ export function unitToWordWritingData(unit: VocabularyUnit, lang: Lang): WordWri
     if (!word) continue;
     const referenceImageUrl = pickPrimaryImage(w);
     if (!referenceImageUrl) continue;
-    const tts = pickTts(w, lang);
+    const tts = pickTts(w, lang, unit.language);
     candidates.push({
       word,
       displayWord: word,
@@ -297,7 +295,8 @@ export function getAvailableGames(
   // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
   const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
   const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
-  const hiddenObjectData = isKo ? buildHiddenObjectSceneData(book, style) : null;
+  const hiddenObjectData =
+    isKo || isEn ? buildHiddenObjectSceneData(book, style, undefined, lang as 'ko' | 'en') : null;
 
   const cards: VocabGameOption[] = [
     {
@@ -450,7 +449,9 @@ export function getGameData(
     case 'korean-object-scene':
       return buildObjectSceneData(book, style);
     case 'hidden-object':
-      return buildHiddenObjectSceneData(book, style);
+      return lang === 'ko' || lang === 'en'
+        ? buildHiddenObjectSceneData(book, style, undefined, lang)
+        : null;
     case 'korean-line-matching':
     case 'english-line-matching':
       return unitToLineMatchingData(unit, lang);

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { KOREAN_PHONICS_LEARNING_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { AppIcon } from '@/design-system';
@@ -39,6 +40,7 @@ const CELL_COLOR: Record<MasteryState, string> = {
 };
 
 export function KoreanPhonicsHeatmap({ events }: Props) {
+  const { t } = useTranslation('phonics');
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
   // 자음×모음 표가 없는 레벨용 — 모음 하나 단위 집계.
   const vowelStats = useMemo(() => groupByVowel(events), [events]);
@@ -79,7 +81,9 @@ export function KoreanPhonicsHeatmap({ events }: Props) {
             >
               <div>
                 {/* 색을 안 주면 상속받아 옅게 깔린다 — 레벨 제목은 이 카드에서 제일 큰 글자다. */}
-                <div className="font-bold text-ink-900">{lv.name}</div>
+                <div className="font-bold text-ink-900">
+                  {t(`level.${lv.id}`, { defaultValue: lv.name })}
+                </div>
                 <div className="text-xs text-ink-500">{lv.description}</div>
               </div>
               <div className="flex shrink-0 flex-col items-end gap-0.5 text-xs">

@@ -6,7 +6,8 @@ import { buildWalls, labelRegions, paintableRegions, borderRegions } from '@tang
 export function buildSceneColoringRegions(
   pixels: Uint8ClampedArray,
   width: number,
-  height: number
+  height: number,
+  minRegionAreaRatio = 0.003
 ) {
   const walls = buildWalls(pixels, 192);
   const regions = labelRegions(walls, width, height);
@@ -17,7 +18,7 @@ export function buildSceneColoringRegions(
   const required = paintableRegions(
     regions,
     width * height,
-    0.003,
+    minRegionAreaRatio,
     new Set(background ? [background] : [])
   );
   return { walls, regions, required };

@@ -464,7 +464,7 @@ export function buildHiddenObjectData(
     targets: scene.hotspots.map(
       (h): HiddenObjectTarget => ({
         objectName: h.objectName,
-        label: labelOf(h.objectName),
+        label: h.labels?.ko || labelOf(h.objectName),
         thumbnailUrl: thumbOf(h.objectName),
         ttsUrl: ttsOf(h.objectName),
         x: h.x,

@@ -13,6 +13,23 @@ function image(w: number, h: number, dark: (x: number, y: number) => boolean) {
 }
 
 describe('장면 색칠 영역', () => {
+  it('작은 목끈은 기본 완료 조건에서 빼되 해당 장면의 명시 검수값으로 포함한다', () => {
+    const pixels = image(
+      200,
+      200,
+      (x, y) =>
+        ((x === 50 || x === 180) && y >= 50 && y <= 180) ||
+        ((y === 50 || y === 180) && x >= 50 && x <= 180) ||
+        ((x === 60 || x === 72) && y >= 60 && y <= 70) ||
+        ((y === 60 || y === 70) && x >= 60 && x <= 72)
+    );
+    const ordinary = buildSceneColoringRegions(pixels, 200, 200);
+    const reviewed = buildSceneColoringRegions(pixels, 200, 200, 0.001);
+    const band = reviewed.regions.labels[65 * 200 + 65];
+    expect(ordinary.required).not.toContain(band);
+    expect(reviewed.required).toContain(band);
+    expect(reviewed.required).not.toContain(reviewed.regions.labels[0]);
+  });
   it('연한 회색 윤곽으로 둘러싸인 인물을 칠할 수 있다', () => {
     const pixels = image(
       20,

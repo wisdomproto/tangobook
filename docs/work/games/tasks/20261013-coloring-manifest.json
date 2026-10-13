@@ -1,0 +1,323 @@
+{
+  "wordColoring": [
+    {
+      "bookId": "1777601619896",
+      "objectName": "물",
+      "token": "water",
+      "sha256": "688dbce9eb4af30c00b6c62c9e03f111ffeb8a0dfca078774dfe7b8b0043f801",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "풀",
+      "token": "grass",
+      "sha256": "28825a5c5d11b3fe0747c9f9f333b4ff06677107472e6282996b188dc178f76d",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "꽃",
+      "token": "flower",
+      "sha256": "3f08777457195a6a0dc7f5a17c95e7a8714c6e64b2a363c8823beff495374850",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "태양",
+      "token": "sun",
+      "sha256": "acee4434ff1ff319e26e42902f1de021eb6c31d4b62de548f7df44274678690f",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "하늘",
+      "token": "sky",
+      "sha256": "cdb276f11005c34ca668ca855bb36e32dc1a5b3fb438586e2bf9405cc47b6a8c",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "백로",
+      "token": "egret",
+      "sha256": "55875cc4d3c1dfd92d5aec991a9323198ccd709f5e2a517877b231ef8a948b9d",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "강",
+      "token": "river",
+      "sha256": "845c868cef2a780146b9f0ce26ec118570f2f22ccf5f49fb407f5dfabba7de0a",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "깃털",
+      "token": "egret-feather",
+      "sha256": "50de22959a8b89153184427d40f1c4907ec41caca0447b164b42ff078f8fa689",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "부리",
+      "token": "egret-beak",
+      "sha256": "3e1fa8feefca680b72d35e43805a57997167d4855e898be168a770f1ce0b59ca",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "물고기",
+      "token": "fish",
+      "sha256": "1db58ee287970df0dc53bad98b1e117bdb9416e80336031bca16c21e171a5793",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601619896",
+      "objectName": "알",
+      "token": "egret-egg",
+      "sha256": "ab80197953a71af91c79932d49ac31d35dd098b42c9e25aaebc9504ecc9f3365",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "Pond",
+      "token": "pond",
+      "sha256": "e17fd52a1ac75f6550bde639b26fb22974c1aee98ffba5e2e45f7e30dcb2bd1f",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "Flower",
+      "token": "flower",
+      "sha256": "3f08777457195a6a0dc7f5a17c95e7a8714c6e64b2a363c8823beff495374850",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "Water",
+      "token": "water",
+      "sha256": "688dbce9eb4af30c00b6c62c9e03f111ffeb8a0dfca078774dfe7b8b0043f801",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "풀",
+      "token": "grass",
+      "sha256": "28825a5c5d11b3fe0747c9f9f333b4ff06677107472e6282996b188dc178f76d",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "Ribbon",
+      "token": "ribbon",
+      "sha256": "659463fc90c419ac40db681e11c28354509ac3bb9f46f90aa30107ca8dc8993c",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "Beak",
+      "token": "parrot-beak",
+      "sha256": "d1bf7ee372018ab87b5f8eb08524fdea2662c0e8af5103e1023f86af47f417c6",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "숲",
+      "token": "forest",
+      "sha256": "ca842f493e1e6a39123aba3e1fb38b9398ef9a12c5152996e3c19889e9e8c0fe",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "앵무새",
+      "token": "parrot",
+      "sha256": "c38180cb8bb8aa1bd20bddb4b018dc462d1975afd866b969ec7e7adc0943928f",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "깃털",
+      "token": "parrot-feather",
+      "sha256": "854d294d6a0b965bfd1b79261bb7b86fb33f9311b7f35936962c54e969e7d82f",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "열매",
+      "token": "fruit",
+      "sha256": "5400904008bc3d87ddf72b3ceb094f128a8e93a09242330ae3664a172ec943f6",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "나무",
+      "token": "tree",
+      "sha256": "6628ff6534e87f1e18b231e198b4b42b6cf1530e36050ac8d4ce09aa238aefeb",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777601011770",
+      "objectName": "알",
+      "token": "parrot-egg",
+      "sha256": "58d95996c1d27c1fed76c1fb8669b8920fd7e3aa1cd8dcb3e6ada4c29d5f6d96",
+      "review": "pass"
+    },
+    {
+      "bookId": "1772086769057",
+      "objectName": "shoes",
+      "token": "extra-0",
+      "sha256": "ad22a4535c7d2a533ea81615c38e6915835de91212ff4cf0ab0704e65148c8de",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773149047331",
+      "objectName": "고슴도치",
+      "token": "extra-1",
+      "sha256": "c2b12ffc731b36a5c747abe39260644047a9a95a24a0cf68087a42f1ab7b2599",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773363966902",
+      "objectName": "카멜레온",
+      "token": "extra-2",
+      "sha256": "b6c2062f9016a1422645949aa7ae832845bf2230e374108d183d0806ff6bae27",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773363966902",
+      "objectName": "발가락",
+      "token": "extra-3",
+      "sha256": "55f4e4fcbd1a73738203603ccaa7f70efd264816651c8a5e45cd182d8ece7c71",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773363966902",
+      "objectName": "꼬리",
+      "token": "extra-4",
+      "sha256": "7d5fa00e7d35b17d94670961ff62f661a7c4c06ebe185dec14dff0f3eed74828",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773363966902",
+      "objectName": "눈",
+      "token": "extra-5",
+      "sha256": "57f2c70ee0f29d69e256d006fb62ff0bbc8821bac7b74b5258ec53e89b066c99",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773363966902",
+      "objectName": "먹이",
+      "token": "extra-6",
+      "sha256": "3ba8067c3773c9af55a5decf1a08a4fca704a2155daf82e87cbb0dbbadb5df0d",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773320745960",
+      "objectName": "거미줄",
+      "token": "extra-7",
+      "sha256": "fe604c61a2a9b0dced7394b1827368ce39651f64b8a55d0a39456303b2e96aec",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773573591972",
+      "objectName": "가시",
+      "token": "extra-8",
+      "sha256": "f4bd7bdcd4e5309173f6ad030e053c16478340b94892266ce81bf636e971fa79",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773625335362",
+      "objectName": "그릇",
+      "token": "extra-9",
+      "sha256": "5a6a4f27c6bdc323fed4dea88f0fb3d0fbd10ad97877a16305714470d6542477",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773740757966",
+      "objectName": "콧구멍",
+      "token": "extra-10",
+      "sha256": "ad8fbb83035e873bbc8413641ac910034b2dd9e1747cf94edfdd4bb6ff245779",
+      "review": "pass"
+    },
+    {
+      "bookId": "1773899653860",
+      "objectName": "강",
+      "token": "extra-11",
+      "sha256": "e0aa2ca98fb9305328f5639915c5c4eb0e975cf4e158011b857b8546c57e835b",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777431036899",
+      "objectName": "바다",
+      "token": "extra-12",
+      "sha256": "8ff33c41f3a3503830aaa9114e9a1ab9c528f5cf901a50e847e7d7d66652b323",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777431036899",
+      "objectName": "귀",
+      "token": "extra-13",
+      "sha256": "8c86ef325f28ef3eb7cc3888dcba6f04dc33438bf83bf39b4954ffb08397d09e",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777607890313",
+      "objectName": "장수풍뎅이",
+      "token": "extra-14",
+      "sha256": "2bb836d660626e2510f07b48c14ad8580ce4cb60288b5db807682e317fe197be",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777607528952",
+      "objectName": "사슴벌레",
+      "token": "extra-15",
+      "sha256": "5b811c21605011d79f04c21965b6c8ef706fdbc0571a2b57303220ee3bf2eafe",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777614294799",
+      "objectName": "바다",
+      "token": "extra-16",
+      "sha256": "978c7267be22fdbd95de1920dbc25283cfd6da9cc975b72d307b95a1d8222d48",
+      "review": "pass"
+    },
+    {
+      "bookId": "1777615065220",
+      "objectName": "원숭이",
+      "token": "extra-17",
+      "sha256": "6dd3730261d0d756d85eb5d149d60e7647fd40f57ccaef61b0d059ee9f8559c1",
+      "review": "pass"
+    }
+  ],
+  "semanticFixes": [
+    {
+      "id": "changjak-bung-23",
+      "word": "나무",
+      "en": "wood",
+      "token": "wood",
+      "old": "cw-bung-02d9ca46d7-23",
+      "image": "https://assets.tangobook.co.kr/comic-assets/activity-words/activity-20261013-wood.webp",
+      "lineart": "https://assets.tangobook.co.kr/comic-assets/coloring-plan/activity-20261013-wood.png",
+      "review": "pass"
+    },
+    {
+      "id": "changjak-mei-06",
+      "word": "가위",
+      "en": "scissors gesture",
+      "token": "scissors-gesture",
+      "old": "cw-mei-44d1d4a14f-06",
+      "image": "https://assets.tangobook.co.kr/comic-assets/activity-words/activity-20261013-scissors-gesture.webp",
+      "lineart": "https://assets.tangobook.co.kr/comic-assets/coloring-plan/activity-20261013-scissors-gesture.png",
+      "review": "pass"
+    },
+    {
+      "id": "changjak-mei-06",
+      "word": "바위",
+      "en": "rock gesture",
+      "token": "rock-gesture",
+      "old": "cw-mei-198fd82a97-06",
+      "image": "https://assets.tangobook.co.kr/comic-assets/activity-words/activity-20261013-rock-gesture.webp",
+      "lineart": "https://assets.tangobook.co.kr/comic-assets/coloring-plan/activity-20261013-rock-gesture.png",
+      "review": "pass"
+    }
+  ]
+}
