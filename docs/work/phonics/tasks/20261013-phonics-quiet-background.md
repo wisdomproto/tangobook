@@ -2,12 +2,13 @@
 
 - id: 20261013-phonics-quiet-background
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: 4de01a3aa (fetch 후 origin/main...HEAD 0/12)
 - branch: codex/phonics-quiet-background
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - delivery: 미푸시·미배포
+- integration: 684ba068a 코드·배경 검수·전환 조사 기록을 로컬 main에 fast-forward 통합
 
 ## 사용자 반증과 적용 범위
 
