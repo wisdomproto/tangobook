@@ -366,6 +366,9 @@
     "mapUp": "Chương trước",
     "mapDown": "Chương tiếp theo",
     "bookMap": "Bản đồ Book",
-    "viewedBook": "Book đang xem"
+    "viewedBook": "Book đang xem",
+    "koreanBookNumber": "Quyển {{number}}",
+    "koreanBookMap": "Chọn sách",
+    "koreanViewedBook": "Sách đang xem"
   }
 }

@@ -366,6 +366,9 @@
     "mapUp": "บทก่อนหน้า",
     "mapDown": "บทถัดไป",
     "bookMap": "แผนที่ Book",
-    "viewedBook": "Book ที่กำลังดู"
+    "viewedBook": "Book ที่กำลังดู",
+    "koreanBookNumber": "เล่ม {{number}}",
+    "koreanBookMap": "เลือกหนังสือ",
+    "koreanViewedBook": "หนังสือที่กำลังดู"
   }
 }

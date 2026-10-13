@@ -366,6 +366,9 @@
     "mapUp": "Earlier chapters",
     "mapDown": "Later chapters",
     "bookMap": "Book map",
-    "viewedBook": "Book in view"
+    "viewedBook": "Book in view",
+    "koreanBookNumber": "Book {{number}}",
+    "koreanBookMap": "Choose a book",
+    "koreanViewedBook": "Book in view"
   }
 }

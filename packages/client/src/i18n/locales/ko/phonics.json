@@ -366,6 +366,9 @@
     "mapUp": "앞쪽 지도 보기",
     "mapDown": "다음 지도 보기",
     "bookMap": "Book 지도",
-    "viewedBook": "지금 보고 있는 Book"
+    "viewedBook": "지금 보고 있는 Book",
+    "koreanBookNumber": "{{number}}권",
+    "koreanBookMap": "책 고르기",
+    "koreanViewedBook": "지금 보고 있는 책"
   }
 }

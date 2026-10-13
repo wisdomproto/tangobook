@@ -366,6 +366,9 @@
     "mapUp": "查看前面的章节",
     "mapDown": "查看后面的章节",
     "bookMap": "Book 地图",
-    "viewedBook": "正在查看的 Book"
+    "viewedBook": "正在查看的 Book",
+    "koreanBookNumber": "第{{number}}册",
+    "koreanBookMap": "选择书册",
+    "koreanViewedBook": "当前查看的书册"
   }
 }

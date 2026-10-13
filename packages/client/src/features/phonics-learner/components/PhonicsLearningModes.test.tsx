@@ -52,7 +52,7 @@ it('resumes from actual completion and keeps future stages out of the link list'
   expect(screen.queryByRole('link', { name: /ㅗ · ㅛ · ㅜ · ㅠ/ })).toBeNull();
   expect(screen.queryByRole('group', { name: '여행할 장소' })).toBeNull();
   expect(screen.getByRole('heading', { name: '한글 · 학습 경로' })).toBeDefined();
-  expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined();
+  expect(within(screen.getByLabelText('지금 보고 있는 책')).getByText('1권')).toBeDefined();
   expect(screen.getByRole('list', { name: '순서대로 이어지는 학습 단계' }).children).toHaveLength(
     journeyUnits('korean').length
   );
@@ -163,7 +163,7 @@ it('does not unlock a future chapter just by visiting a completion URL', () => {
   );
   expect(screen.queryByRole('status')).toBeNull();
   expect(screen.getByRole('heading', { name: '한글 · 학습 경로' })).toBeDefined();
-  expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined();
+  expect(within(screen.getByLabelText('지금 보고 있는 책')).getByText('1권')).toBeDefined();
 });
 
 it('does not replay an unlock after reviewing an already completed chapter', () => {
@@ -260,15 +260,15 @@ it('lets a child browse distant Books without unlocking them, and returns to the
       cameraLeft = Math.floor(value);
     },
   });
-  expect(screen.queryByRole('button', { name: 'Book 5 · 모음 무지개' })).toBeNull();
-  fireEvent.click(screen.getByRole('button', { name: 'Book 지도 · Book 1' }));
-  expect(screen.getByRole('dialog', { name: 'Book 지도' })).toBeDefined();
-  fireEvent.click(screen.getByRole('button', { name: 'Book 5 · 모음 무지개' }));
+  expect(screen.queryByRole('button', { name: '5권 · 모음 무지개' })).toBeNull();
+  fireEvent.click(screen.getByRole('button', { name: '책 고르기 · 1권' }));
+  expect(screen.getByRole('dialog', { name: '책 고르기' })).toBeDefined();
+  fireEvent.click(screen.getByRole('button', { name: '5권 · 모음 무지개' }));
   expect(screen.queryByRole('dialog')).toBeNull();
   expect(map.scrollLeft).toBeGreaterThan(5000);
   fireEvent.scroll(map);
   await waitFor(() =>
-    expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 5')).toBeDefined()
+    expect(within(screen.getByLabelText('지금 보고 있는 책')).getByText('5권')).toBeDefined()
   );
   expect(screen.getByRole('button', { name: /48번째 단계/ }).hasAttribute('disabled')).toBe(true);
   expect(screen.getAllByRole('link', { name: /번째 단계/ })).toHaveLength(1);
@@ -276,7 +276,7 @@ it('lets a child browse distant Books without unlocking them, and returns to the
   expect(map.scrollLeft).toBeLessThan(300);
   fireEvent.scroll(map);
   await waitFor(() =>
-    expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined()
+    expect(within(screen.getByLabelText('지금 보고 있는 책')).getByText('1권')).toBeDefined()
   );
   expect(screen.getByRole('link', { name: /지금 배울 단계/ }).getAttribute('href')).toContain(
     '/kr-v1-u01/listen-1'
@@ -308,13 +308,13 @@ it('requires landscape on a touch phone and releases the same path after rotatio
     });
     expect(screen.queryByRole('dialog')).toBeNull();
     expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' })).toBeDefined();
-    fireEvent.click(screen.getByRole('button', { name: 'Book 지도 · Book 1' }));
-    expect(screen.getByRole('dialog', { name: 'Book 지도' })).toBeDefined();
+    fireEvent.click(screen.getByRole('button', { name: '책 고르기 · 1권' }));
+    expect(screen.getByRole('dialog', { name: '책 고르기' })).toBeDefined();
     act(() => {
       portrait.matches = true;
       portrait.dispatchEvent(new Event('change'));
     });
-    expect(screen.queryByRole('dialog', { name: 'Book 지도' })).toBeNull();
+    expect(screen.queryByRole('dialog', { name: '책 고르기' })).toBeNull();
     expect(screen.getByRole('dialog', { name: '가로로 돌려주세요!' })).toBeDefined();
     act(() => {
       portrait.matches = false;
@@ -336,8 +336,8 @@ it('keeps the resume action on the current chapter when browsing another Book', 
   expect(
     within(current.parentElement!).getByRole('link', { name: '학습 시작하기' }).getAttribute('href')
   ).toContain('/kr-v1-u01/listen-1?mode=curriculum');
-  fireEvent.click(screen.getByRole('button', { name: 'Book 지도 · Book 1' }));
-  fireEvent.click(screen.getByRole('button', { name: 'Book 5 · 모음 무지개' }));
+  fireEvent.click(screen.getByRole('button', { name: '책 고르기 · 1권' }));
+  fireEvent.click(screen.getByRole('button', { name: '5권 · 모음 무지개' }));
   expect(within(current.parentElement!).getByRole('link', { name: '학습 시작하기' })).toBeDefined();
   expect(screen.queryByRole('link', { name: /48번째 단계/ })).toBeNull();
 });

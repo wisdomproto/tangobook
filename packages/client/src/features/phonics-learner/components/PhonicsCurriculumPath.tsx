@@ -28,6 +28,10 @@ type Props = {
 
 export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDone }: Props) {
   const { t } = useTranslation('phonics');
+  const bookLabel = (number: number) =>
+    lang === 'korean' ? t('flow.koreanBookNumber', { number }) : `Book ${number}`;
+  const bookMapLabel = t(lang === 'korean' ? 'flow.koreanBookMap' : 'flow.bookMap');
+  const viewedBookLabel = t(lang === 'korean' ? 'flow.koreanViewedBook' : 'flow.viewedBook');
   const [search, setSearch] = useSearchParams();
   const bookDialog = useRef<HTMLDialogElement>(null);
   const [parentOpen, setParentOpen] = useState(false);
@@ -177,14 +181,14 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
             >
               <PhonicsGameSprite name="back" size={26} />
             </Link>
-            <div className="curriculum-book-current" aria-label={t('flow.viewedBook')}>
+            <div className="curriculum-book-current" aria-label={viewedBookLabel}>
               <h1 className="sr-only">
                 {t(`chapter.${lang}`)} · {t('flow.pathTitle')}
               </h1>
               <button
                 type="button"
                 aria-haspopup="dialog"
-                aria-label={`${t('flow.bookMap')} · Book ${viewedBook.unit.levelIndex}`}
+                aria-label={`${bookMapLabel} · ${bookLabel(viewedBook.unit.levelIndex)}`}
                 onClick={() => bookDialog.current?.showModal()}
               >
                 <PhonicsGameSprite
@@ -192,7 +196,7 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                   size={46}
                 />
                 <span className="path-book-name">
-                  <strong>Book {viewedBook.unit.levelIndex}</strong>
+                  <strong>{bookLabel(viewedBook.unit.levelIndex)}</strong>
                   <span>{t(`world.${lang}.${viewedBook.unit.levelIndex}`)}</span>
                 </span>
                 <span className="path-book-chevron" aria-hidden="true">
@@ -231,7 +235,7 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
             }}
           >
             <div className="path-book-dialog-heading">
-              <h2 id="path-book-title">{t('flow.bookMap')}</h2>
+              <h2 id="path-book-title">{bookMapLabel}</h2>
               <button
                 type="button"
                 aria-label={t('common.close')}
@@ -240,12 +244,12 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                 ×
               </button>
             </div>
-            <nav className="curriculum-book-choices" aria-label={t('flow.bookMap')}>
+            <nav className="curriculum-book-choices" aria-label={bookMapLabel}>
               {books.map((book) => (
                 <button
                   key={book.unit.levelKey}
                   type="button"
-                  aria-label={`Book ${book.unit.levelIndex} · ${t(`world.${lang}.${book.unit.levelIndex}`)}`}
+                  aria-label={`${bookLabel(book.unit.levelIndex)} · ${t(`world.${lang}.${book.unit.levelIndex}`)}`}
                   aria-current={
                     viewedBook.unit.levelKey === book.unit.levelKey ? 'location' : undefined
                   }
@@ -259,7 +263,7 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                     name={lang === 'korean' ? 'book-coral' : 'book-mint'}
                     size={64}
                   />
-                  <strong>Book {book.unit.levelIndex}</strong>
+                  <strong>{bookLabel(book.unit.levelIndex)}</strong>
                   <span>{t(`world.${lang}.${book.unit.levelIndex}`)}</span>
                 </button>
               ))}
@@ -361,7 +365,7 @@ export function PhonicsCurriculumPath({ lang, progress, started, finishedUnitDon
                       size={72}
                     />
                     <span>
-                      <strong>Book {stage.unit.levelIndex}</strong>
+                      <strong>{bookLabel(stage.unit.levelIndex)}</strong>
                       <small>{t(`world.${lang}.${stage.unit.levelIndex}`)}</small>
                     </span>
                   </div>
