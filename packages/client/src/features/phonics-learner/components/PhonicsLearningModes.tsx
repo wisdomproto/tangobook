@@ -4,7 +4,7 @@ import { ArrowRight, Route, Sparkles } from 'lucide-react';
 import { courseThemes } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
-import { PhonicsChapterScene } from './PhonicsChapterScene';
+import { PhonicsCurriculumPath } from './PhonicsCurriculumPath';
 import { getKoreanUnit } from '../lib/korean-phonics-units';
 import { getEnglishUnit } from '../lib/english-phonics-units';
 import { activityTitle, unitTitle } from '../lib/activity-title';
@@ -47,7 +47,7 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
 
   if (curriculum) {
     return (
-      <PhonicsChapterScene
+      <PhonicsCurriculumPath
         key={`${lang}:${activeProfile?.id ?? 'guest'}`}
         lang={lang}
         progress={progress}

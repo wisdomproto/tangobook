@@ -1,0 +1,33 @@
+# Storybook garden game UI assets — v1
+
+Created 2026-10-13 with the built-in `image_gen` tool through the imagegen skill. The configured local Qwen endpoints (8188, recorded8190) and recorded workflow were unavailable; this was reported before generation. Assets are newly generated for TangoBook, rather than taken from reference services. Original PNGs remain in the tool's generated-images folder; these WebP files are the deployable project copies.
+
+The UI is a quiet, tactile storybook garden: soft ceramic/silicone buttons, ivory stone paths, coral for Korean and mint for English. Letter shapes, button text, translations, Book numbers, progress and click targets are live DOM and are never baked into the generated images. Existing ToyHangul artwork and accurate writing fonts remain authoritative.
+
+| File            | Role                                                                                                     | Export                    |
+| --------------- | -------------------------------------------------------------------------------------------------------- | ------------------------- |
+| buttons.webp    | 4 stage plates, 2 primary button plates, 2 open Book symbols in a4×2 atlas                               | 1280×640 RGBA;105442bytes |
+| icons.webp      | back, book, compass, play, check, closed/open lock, flag, next, headphones, pencil, puzzle in a4×3 atlas | 1080×810 RGBA;146772bytes |
+| road.webp       | quiet ivory limestone material clipped along responsive SVG path geometry                                | 320×320 RGB;19158bytes    |
+| background.webp | nearly empty cream center with sage leaves/daisies at the outer margins                                  | 1024×1536 RGB;103292bytes |
+
+Total500422bytes. Atlas alpha is preserved. Exports use WebP quality90 (scenery88)/method6; downsampling uses Lanczos. Sprite windows are bounding boxes of the largest alpha>32 connected component within each cell, plus4px margin. This is CSS clipping metadata, not painting or replacing generated art. The complete atlas remains intact. See [dimensions, byte counts, source/output SHA256 and crop windows](../../../../src/features/phonics-learner/lib/path-assets.json). `PhonicsGameSprite` computes background positions from that single metadata source. The three atlas URLs share normal browser cache across all nodes/icons; no per-button requests, animated images or game engine are added.
+
+## Generation specifications
+
+1. **Button atlas:** stylized-concept; one transparent2048×1024 requested4×2 game UI atlas. High-end soft3D matte ceramic/silicone, warm studio light, restrained highlights and broad rounded corners. Top row: empty coral, mint, leaf-ivory and stone-cream raised stage faces. Bottom row: empty coral and forest-mint wide primary capsules, blank-page peach-cover and mint-cover open books. Front-facing buttons, slight book tilt, isolated cells/margins. No text/numerals/learning glyphs/characters/glitter/RPG ornaments. Actual generated size1774×887.
+2. **Icon atlas:** stylized-concept; one transparent2048×1536 requested4×3 atlas with12 equal cells. Row-major order: back arrow, open book, compass, play; check badge, closed lock, open lock, flag; next arrow, headphones, pencil, interlocking puzzle. Bold recognizable rounded silhouettes, consistent ceramic/silicone material, coral/mint/sage/honey/ivory, generous cell margins. No text/labels/numerals/background rectangles/mascots/medieval props/glow. Actual generated size1448×1086.
+3. **Road:** stylized-concept; square seamless top-down ivory limestone paving with broad rounded smooth stones, fine ceramic texture, shallow bevels, narrow muted cream joints and a hint of sage. Very gentle contrast. Whole-image material only; no outer path shape, arrows, words, characters, landscape or dramatic shadows. Actual generated size1254×1254. SVG supplies exact responsive geometry so adjoining chapter nodes remain connected.
+4. **Background:** illustration-story; portrait1024×1536 premium crafted garden, nearly blank pale ivory center at least80%, delicate paper/ceramic texture. Few sage leaves at extreme side margins, small moss-green hummocks/daisies at lower corners, faint mint top haze. Gentle ambient light, empty center for interactive path/letters. No cottages/large trees/strong sun/rainbow/particles/neon/characters/UI/letters/baked-in path. Actual generated size1024×1536.
+
+## Reference boundaries
+
+Book context/door transitions were informed by [Duolingo ABC's official2022 scope-and-sequence](https://lit-lessons-cdn.duolingo.com/resources/duolingo_abc_scope_and_sequence_english.pdf): a level is a building, units are separated by doorways, and lessons sit on a learning path. Official website game examples were visually reviewed. [Endless Learning Academy](https://www.originatorkids.com/endless-learning-academy/) describes puzzle/animation-based concepts for ages2–6; [Reading Eggs Junior](https://readingeggsjunior.com/about/activities/) describes three play areas and repeatable multi-part activities. These public materials are references, not claims of playing the complete current apps. Their characters, UI artwork, curriculum and performance claims are not copied into TangoBook.
+
+## Game camera and scenery follow-up
+
+The first application was rejected because the library header, rounded scroll panel and native scrollbar still looked like a webpage. The revised path fills the viewport, uses small floating controls, native touch inertia and wheel/keyboard scrolling, thresholded mouse grab with click suppression, Book beads for distant exploration and a compass to return to the actual current chapter. Book labels follow the map camera; Book exploration never changes completion or unlocks chapters. Scenery is decorative and preserves its source aspect ratio.
+
+scenery.webp is a transparent1080×720 atlas,125758bytes, with six isolated props: tree, flowers, bridge, reading cottage, book picnic and garden shrub. Its original1536×1024 PNG was generated on2026-10-13: matte rounded clay, elevated view, sage/peach/cream, strict3×2 cells, no text/characters/coins/stars/UI frames. Alpha is retained; metadata supplies six crop windows. Small props sit away from interactive learning glyphs.
+
+[Fast Phonics official public overview](https://pages.readingeggs.com/schools/fastphonics/overview/) was visually reviewed in a browser: a world screen with an in-game play button, a stepping-stone activity screen with a highlighted current step and subdued future steps, and an in-frame down arrow. This is public screenshot evidence, not a claim of playing the complete app or verifying its drag behavior. TangoBook artwork is independently generated.

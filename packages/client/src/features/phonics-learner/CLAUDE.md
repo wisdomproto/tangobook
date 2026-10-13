@@ -2,15 +2,15 @@
 
 ## 2026-10-13 언어 내부 학습 모드
 
-현재 챕터 배경은 옅은 CSS 색/하단 언덕만 사용한다. story-world 배경은 부모 지도에서 보존한다. 활동 연결은 onComplete 즉시 이동/onMarked 다음 버튼의 혼재가 확인되었고 통일 제안은 미적용이다. [배경 절제·전환 검토](../../../../../docs/work/phonics/tasks/20261013-phonics-quiet-background.md).
+전체 경로는 path-premium-v1의4 WebP 약375KB(버튼/책8종·아이콘12종 alpha atlas·돌길·여백 정원)를 사용한다. PhonicsGameSprite는 lib/path-assets.json의 단일 crop/hash metadata를 읽으며 글자/번역/권번호는 DOM이다. 헤더의 현재 Book과 권 사이 표지로 맥락을 유지한다. story-world 배경은 부모 지도에서 보존한다. 후속 결정으로 기본 아이 화면은 PhonicsCurriculumPath의 전체 세로 경로이며 현재 위치에 한 번 정렬한다. 완료/현재만 눌러 학습에 진입하고 미래는 잠금이다. 이전 PhonicsChapterScene은 기본 진입에서 사용하지 않는다. 활동 완료/이동은 GuidedRun에서 공통 PhonicsActivityFinish로 분리하며 다음 활동 그림·동일 CTA, 마지막 경로 복귀/노드 잠금 해제를 제공한다. [전체 경로·활동 연결](../../../../../docs/work/phonics/tasks/20261013-phonics-linked-path.md). [배경 절제·전환 검토](../../../../../docs/work/phonics/tasks/20261013-phonics-quiet-background.md).
 
-후속 반증으로 기본 커리큘럼은 `PhonicsChapterScene`의 현재 챕터만 보여준다. 전체 지도/게임 기록은 학습 정보에서 `PhonicsJourneyMap`으로 연다. `learning-journey.ts`의 한글 안내 units는 자유모드의 모음 묶음을 `kr-v1-u01~10` 개별 챕터로 펼친다. 첫 모음은 듣기/쓰기, 두 번째부터 실제 들은 이전/현재 모음(최대4)의 소리 게임이 안내 단계다. 자유모드/저작의4·4·2 source와 옛 링크는 유지한다. `progress-store`는 묶음의 정확한 글자별 듣기/쓰기를 개별 챕터로 읽으며 새 게임 성적/완료를 생성하지 않는다. 안내 old-group 링크는 `journeyKoreanActivityRoute`로 해당 모음에 연결한다. 완료 뒤 인접한 다음 챕터는1.8초 잠금 해제, reduced-motion450ms로 전환한다. 완료 query를 소비하고 replay에서는 연출하지 않는다. `dev-previews/phonics-chapter-unlock.html`은 가상 진도 props로만 연출을 검수하는 dev 전용 파일이다. [작업](../../../../../docs/work/phonics/tasks/20261013-phonics-current-focus.md). 아래 지도는 전체 과정 확인용 부모 화면이다.
+이전 현재 챕터만 표시하는 결정은 위 전체 경로 결정으로 대체되었다. 전체 지도/게임 기록은 학습 정보에서 `PhonicsJourneyMap`으로 연다. `learning-journey.ts`의 한글 안내 units는 자유모드의 모음 묶음을 `kr-v1-u01~10` 개별 챕터로 펼친다. 첫 모음은 듣기/쓰기, 두 번째부터 실제 들은 이전/현재 모음(최대4)의 소리 게임이 안내 단계다. 자유모드/저작의4·4·2 source와 옛 링크는 유지한다. `progress-store`는 묶음의 정확한 글자별 듣기/쓰기를 개별 챕터로 읽으며 새 게임 성적/완료를 생성하지 않는다. 안내 old-group 링크는 `journeyKoreanActivityRoute`로 해당 모음에 연결한다. 완료 뒤 인접한 다음 챕터는1.8초 잠금 해제, reduced-motion450ms로 전환한다. 완료 query를 소비하고 replay에서는 연출하지 않는다. `dev-previews/phonics-chapter-unlock.html`은 가상 진도 props로만 연출을 검수하는 dev 전용 파일이다. [작업](../../../../../docs/work/phonics/tasks/20261013-phonics-current-focus.md). 아래 지도는 전체 과정 확인용 부모 화면이다.
 
 커리큘럼 지도는 `PhonicsJourneyMap`의 이야기 마을 지도다. 실제5권을 언어별 장소에 매핑하고 단원 순서를 지그재그 길로 표현한다. 현재/완료만 학습 링크이고 미래 장소는 미리보기만 가능하다. `JourneyWorldIcon`은 정확한 학습 글자와 구분된 장소/완료 SVG다. `public/images/phonics/story-world-v1`의 배경5장/투명 집1장을 공유하며 선택한 배경만 로드한다. `phonics-journey-map.css`는 전용 표현이고 과정 코랄/민트 토큰을 따른다. 긴 지도의 현재 단계는 내부 스크롤로 보이게 하고 페이지 전체를 강제로 이동하지 않는다. 꽃 개수는 단원 활동 완료 수이며 능력/숙달 점수와 다르다. [작업·검증](../../../../../docs/work/phonics/tasks/20261013-phonics-story-map.md).
 
-`/library/phonics/korean`과 `/english`는 커리큘럼/자유모드 진입이다. `?mode=curriculum`은 과정 지도, `/:unitId/:activityKey?mode=curriculum`은 안내 활동이다. 기존 단원/활동 URL은 자유 선택이고 구형 한글 별칭도 안내 query를 보존한다. `learning-journey.ts`는 기존 필수 활동과 모음 소리 고르기를 전체 단원/복습 순서로 연결한다. 미래 미완료 활동 직접 진입은 첫 미완료 지점으로 이동한다. 권한 게이트와 자산 미준비 처리는 기존대로 유지한다.
+`/library/phonics/korean`과 `/english`는 커리큘럼/자유모드 진입이다. `?mode=curriculum`은 전체 학습 경로, `/:unitId/:activityKey?mode=curriculum`은 안내 활동이다. 기존 단원/활동 URL은 자유 선택이고 구형 한글 별칭도 안내 query를 보존한다. `learning-journey.ts`는 기존 필수 활동과 모음 소리 고르기를 전체 단원/복습 순서로 연결한다. 미래 미완료 활동 직접 진입은 첫 미완료 지점으로 이동한다. 권한 게이트와 자산 미준비 처리는 기존대로 유지한다.
 
-완료와 이동을 분리한다: `onComplete`는 기존 완료 뒤 순차 이동, `onMarked`는 활동의 끝 음성/결과 UI를 유지하면서 공통 셸에 다음 버튼을 연다. 영어 알파벳 쓰기는 종료 후 `onFinish`로 다음 단계/경로를 연결하되 헤더 뒤로가기는 경로로 돌아간다. 미완료 단원은 완료한 활동을 건너뛰며, 완료 활동 재학습은 같은 단원을 순서대로 반복한다. 소리 고르기의 `onAttempt`는 첫 선택/재시도를 분리한다. 자녀·언어별 최신 게임 관찰은 `journey-assessment.ts`, 영속 학습 이벤트의 추가 firstAttempt 필드는 현재 단원별 judge 호출 범위를 따른다. 관찰 기록을 숙달 점수/임의 통과점수로 변환하지 않는다. 영어 여러 글자 익히기는 전체 글자의 실제 음원 종료/그림 탐색을 완료해야 완료된다.
+완료와 이동을 분리한다: `onComplete`/`onMarked`는 실제 완료 뒤 공통 완료 화면을 열며 아이가 다음을 눌러야 이동한다. 마지막 발음·칭찬이 끝나기 전에 완료 화면을 열지 않는다. 배경 활동은 mounted/inert로 유지한다. mark 뒤 자동 back을 호출하는 옛 활동의 출구는 중앙에서 막고 실제 종료/휴식은 공통 UI가 맡는다. 그림 짝 찾기는 선택적 onFinished 콜백으로 중복 GameResultScreen을 생략하며 자유놀이의 결과 UI는 유지한다. 영어 알파벳 쓰기는 종료 후 `onFinish`로 다음 단계/경로를 연결하되 헤더 뒤로가기는 경로로 돌아간다. 미완료 단원은 완료한 활동을 건너뛰며, 완료 활동 재학습은 같은 단원을 순서대로 반복한다. 소리 고르기의 `onAttempt`는 첫 선택/재시도를 분리한다. 자녀·언어별 최신 게임 관찰은 `journey-assessment.ts`, 영속 학습 이벤트의 추가 firstAttempt 필드는 현재 단원별 judge 호출 범위를 따른다. 관찰 기록을 숙달 점수/임의 통과점수로 변환하지 않는다. 영어 여러 글자 익히기는 전체 글자의 실제 음원 종료/그림 탐색을 완료해야 완료된다.
 
 공통 홈 이어하기는 방문한 단원이 아닌 첫 미완료 안내 활동을 사용한다. 첫 활동을 중단해도 이어하기를 표시하도록 안내 학습 시작은 자녀·언어별 별도 표식으로 저장하며 완료로 세지 않는다. 자유 선택도 동일한 진도 저장소와 구형 모음 읽기 호환을 재사용한다. 힌트 분류/자동 적응 복습은 미구현이다. [작업](../../../../../docs/work/phonics/tasks/20261013-phonics-learning-modes.md).
 
@@ -784,3 +784,7 @@ Book 1 데이터 정리 (2026-05-21):
 ## 한영 전체 활동 시각 통일 (2026-10-12)
 
 `ActivityShell`의 unitId/kind와 `components/phonics-activities.css`는 역할별 표면/언어 테마를 소유한다. 내부 대상·음원·마스크·완료 판단은 활동 컴포넌트가 소유한다. 영어 WordFamily의 `phonics-word-family-grid` 가변 열은 앞/뒤 조각 존재 여부와 그림 슬롯을 보존해야 한다. 카드 padding까지 포함해 컨테이너 너비로 사냥6열/기억4열을 계산한다. 큰 화면만 보지 말고375px·812×375를 검수한다. 합성 closing/merging 동안 음절 선택을 잠그고 현재 차례만 누르게 한다. 복습 그림짝에도 source=phonics provider가 필요하다. [진행·검증](../../../../../docs/work/phonics/tasks/20261012-phonics-all-activities-ui.md).
+
+### 게임 지도 카메라
+
+PhonicsCurriculumPath는 fixed 전체 화면과 usePathCamera를 사용한다. 터치 관성/휠/키보드는 native scroll, mouse grab은8px 뒤 capture하며 후속 마우스 클릭을 막는다. 키보드 활성화는 막지 않는다. Book 레일은 카메라만 이동하고 HUD는 현재 보이는 Book을 표시한다. 실제 현재 학습은 progress.current/나침반/하단 이어하기를 따른다. AppShell의 data-learning-shell과 :has 규칙으로 지도 동안 웹 헤더/모바일 nav를 display:none 처리해 숨은 메뉴에 포커스가 가지 않는다.5 WebP 약500KB, sprite26 crop와 풍경 비율은 path-assets.json을 따른다. 부모 정보로 바꾸면 기존 메뉴/상세 지도는 복원된다.

@@ -617,6 +617,7 @@ export function KoreanPhonicsActivity({
     return (
       <VocabSourceProvider source="phonics" unitId={unitId}>
         <LineMatchingPlayer
+          onFinished={onMarked ? handleComplete : undefined}
           storybookId={unitId}
           difficulty="easy"
           onComplete={handleComplete}
@@ -723,7 +724,12 @@ export function KoreanPhonicsActivity({
     return gate(
       'korean-line-matching',
       gameData,
-      <LineMatchingPlayer {...commonProps} gameData={gameData} lang="ko" />
+      <LineMatchingPlayer
+        onFinished={onMarked ? handleComplete : undefined}
+        {...commonProps}
+        gameData={gameData}
+        lang="ko"
+      />
     );
   }
   if (activity.kind === 'game-connect-dots') {

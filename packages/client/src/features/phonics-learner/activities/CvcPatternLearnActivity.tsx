@@ -308,8 +308,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         if (sequence !== sequenceRef.current) return;
         if (isLast) {
           setPhase('done');
-          onMarkComplete();
-          playCorrectSequence({ language: praiseLang() });
+          playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete });
         } else {
           scheduleTimer(() => {
             wordDoneRef.current = false;

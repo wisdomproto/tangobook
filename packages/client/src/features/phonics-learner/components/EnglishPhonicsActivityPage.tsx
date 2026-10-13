@@ -511,6 +511,7 @@ export function EnglishPhonicsActivity({
     return (
       <VocabSourceProvider source="phonics" unitId={unitId}>
         <LineMatchingPlayer
+          onFinished={onMarked ? handleComplete : undefined}
           storybookId={unitId}
           difficulty="easy"
           onComplete={handleComplete}
@@ -772,6 +773,7 @@ export function EnglishPhonicsActivity({
       'english-line-matching',
       gameData,
       <LineMatchingPlayer
+        onFinished={onMarked ? handleComplete : undefined}
         {...commonProps}
         gameData={gameData}
         lang="en"

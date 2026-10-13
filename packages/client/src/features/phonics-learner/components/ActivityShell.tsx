@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
 import './phonics-activities.css';
 import { JourneyActivityContext } from './journey-activity-context';
-import { courseThemes } from '@/design-system';
+import { PhonicsGameSprite } from './PhonicsGameSprite';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -75,9 +75,17 @@ export function ActivityShell({
     <button
       type="button"
       onClick={onBack}
+      aria-label={t('common.back')}
       className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full border border-ink-100 bg-white text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
     >
-      {t('common.back')}
+      {journey ? (
+        <>
+          <PhonicsGameSprite name="back" size={24} />
+          <span>{t('flow.back')}</span>
+        </>
+      ) : (
+        t('common.back')
+      )}
     </button>
   );
   return (
@@ -126,17 +134,6 @@ export function ActivityShell({
         </p>
       )}
       {children}
-      {journey?.ready && (
-        <div className="mt-3 flex shrink-0 justify-center">
-          <button
-            type="button"
-            onClick={journey.onNext}
-            className={`min-h-12 rounded-full px-8 font-black ${courseThemes[unitId?.startsWith('en-') ? 'english' : 'korean'].action} ${courseThemes[unitId?.startsWith('en-') ? 'english' : 'korean'].focus}`}
-          >
-            {t('journey.nextActivity')} →
-          </button>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,0 +1,211 @@
+{
+  "buttons": {
+    "file": "buttons.webp",
+    "width": 1280,
+    "height": 640,
+    "alpha": true,
+    "bytes": 105442,
+    "sourceSha256": "99234cb2d6eedc074b13c3a22a74ccea16b944243f23e74e0921bba62b4b7c74",
+    "sha256": "184163b6153bc2f341074c08e115a06121100fd57399197ac7bfde4900c99c5f",
+    "regions": {
+      "stage-coral": {
+        "x": 35,
+        "y": 58,
+        "width": 262,
+        "height": 257
+      },
+      "stage-mint": {
+        "x": 351,
+        "y": 58,
+        "width": 262,
+        "height": 257
+      },
+      "stage-done": {
+        "x": 668,
+        "y": 58,
+        "width": 262,
+        "height": 257
+      },
+      "stage-locked": {
+        "x": 984,
+        "y": 58,
+        "width": 262,
+        "height": 257
+      },
+      "cta-coral": {
+        "x": 13,
+        "y": 394,
+        "width": 304,
+        "height": 151
+      },
+      "cta-mint": {
+        "x": 330,
+        "y": 394,
+        "width": 303,
+        "height": 151
+      },
+      "book-coral": {
+        "x": 647,
+        "y": 370,
+        "width": 303,
+        "height": 207
+      },
+      "book-mint": {
+        "x": 964,
+        "y": 370,
+        "width": 304,
+        "height": 207
+      }
+    }
+  },
+  "icons": {
+    "file": "icons.webp",
+    "width": 1080,
+    "height": 810,
+    "alpha": true,
+    "bytes": 146772,
+    "sourceSha256": "fc6a1215befb23fcf691791276c256e13e3a7d64d92e556142e59f02c8346a3d",
+    "sha256": "d3ae7394f0342c971547a2d67998f44149be8f8d99df904cdb02670816ff1ce3",
+    "regions": {
+      "back": {
+        "x": 38,
+        "y": 70,
+        "width": 200,
+        "height": 194
+      },
+      "book": {
+        "x": 278,
+        "y": 78,
+        "width": 262,
+        "height": 188
+      },
+      "compass": {
+        "x": 576,
+        "y": 28,
+        "width": 211,
+        "height": 242
+      },
+      "play": {
+        "x": 866,
+        "y": 79,
+        "width": 167,
+        "height": 182
+      },
+      "check": {
+        "x": 41,
+        "y": 324,
+        "width": 204,
+        "height": 206
+      },
+      "lock": {
+        "x": 327,
+        "y": 310,
+        "width": 169,
+        "height": 216
+      },
+      "unlock": {
+        "x": 587,
+        "y": 310,
+        "width": 187,
+        "height": 215
+      },
+      "flag": {
+        "x": 863,
+        "y": 306,
+        "width": 192,
+        "height": 224
+      },
+      "next": {
+        "x": 38,
+        "y": 576,
+        "width": 197,
+        "height": 181
+      },
+      "listen": {
+        "x": 292,
+        "y": 557,
+        "width": 235,
+        "height": 200
+      },
+      "write": {
+        "x": 590,
+        "y": 550,
+        "width": 175,
+        "height": 217
+      },
+      "combine": {
+        "x": 815,
+        "y": 585,
+        "width": 257,
+        "height": 189
+      }
+    }
+  },
+  "road": {
+    "file": "road.webp",
+    "width": 320,
+    "height": 320,
+    "alpha": false,
+    "bytes": 19158,
+    "sourceSha256": "e5b2390e7a68da08ac2a95f008f52cff0a13ed1f988d651c7884a3a5091501dc",
+    "sha256": "97e834a8b40b2305b01d6ecf0df39a0868aec3e5254d13ded8bce250953bdc39",
+    "regions": {}
+  },
+  "background": {
+    "file": "background.webp",
+    "width": 1024,
+    "height": 1536,
+    "alpha": false,
+    "bytes": 103292,
+    "sourceSha256": "049544c9777e26e78d46562252935ddca337b2f7859203ea0a0e04ed6286abe5",
+    "sha256": "77ea1b6b5e3b6adc43be373438d638f5fd8311c35b3b70f7f20dd31c6a935445",
+    "regions": {}
+  },
+  "scenery": {
+    "file": "scenery.webp",
+    "width": 1080,
+    "height": 720,
+    "alpha": true,
+    "bytes": 125758,
+    "sourceSha256": "f841be5963ecdf211a2e262fcd41a9c36122dfaf20f0de870815b0601980dd1f",
+    "sha256": "87af98dead02aad0a4918d8ebfc7985b1c8b59d697e6d6e8a4f8830d4ea0df1d",
+    "regions": {
+      "scenery-tree": {
+        "x": 87,
+        "y": 33,
+        "width": 214,
+        "height": 327
+      },
+      "scenery-flowers": {
+        "x": 424,
+        "y": 88,
+        "width": 231,
+        "height": 267
+      },
+      "scenery-bridge": {
+        "x": 734,
+        "y": 119,
+        "width": 316,
+        "height": 239
+      },
+      "scenery-cottage": {
+        "x": 47,
+        "y": 383,
+        "width": 311,
+        "height": 300
+      },
+      "scenery-picnic": {
+        "x": 400,
+        "y": 463,
+        "width": 309,
+        "height": 215
+      },
+      "scenery-garden": {
+        "x": 740,
+        "y": 448,
+        "width": 305,
+        "height": 232
+      }
+    }
+  }
+}

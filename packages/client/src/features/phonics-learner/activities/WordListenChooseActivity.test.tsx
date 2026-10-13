@@ -17,7 +17,7 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
   useGameAudio: () => ({
     playAudio,
     playFeedbackSound: vi.fn(),
-    playCorrectSequence: vi.fn(),
+    playCorrectSequence: vi.fn((opts?: { onDone?: () => void }) => opts?.onDone?.()),
     praiseVisible: false,
   }),
 }));

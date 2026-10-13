@@ -41,6 +41,8 @@ interface LineMatchingPlayerProps extends GamePlayerProps {
    * 🔴 Book 2 의 패턴은 `_am` 처럼 뒤쪽이라 켜면 **틀린 곳을 가리킨다**.
    */
   emphasizeFirstLabel?: boolean;
+  /** Curriculum flows own the result UI after the final audio/scene has finished. */
+  onFinished?: GamePlayerProps['onComplete'];
 }
 
 interface MatchedPair {
@@ -51,6 +53,7 @@ function LineMatchingPlayerInner({
   storybookId,
   gameData,
   onComplete,
+  onFinished,
   onBack,
   lang,
   emphasizeFirstLabel = false,
@@ -264,7 +267,8 @@ function LineMatchingPlayerInner({
       lang,
       results,
     });
-  }, [finished, items, lang, logGame, storybookId]);
+    onFinished?.(items.length, items.length);
+  }, [finished, items, lang, logGame, storybookId, onFinished]);
 
   const handleRestart = useCallback(() => {
     setMatched([]);
@@ -376,6 +380,7 @@ function LineMatchingPlayerInner({
   }, [computeLines, finished]);
 
   if (finished) {
+    if (onFinished) return null;
     return (
       <GameResultScreen
         storybookId={storybookId}

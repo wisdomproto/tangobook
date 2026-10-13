@@ -476,8 +476,7 @@ export function WordListenChooseActivity({
       say(picked, () =>
         rest(() => {
           if (isLast) {
-            onMarkComplete();
-            playCorrectSequence({ language: praiseLang() });
+            playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete });
             return;
           }
           playAudio(LEARNING_SOUNDS.correct, () =>

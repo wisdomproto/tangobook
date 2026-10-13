@@ -354,5 +354,18 @@
     "allDone": "Giỏi lắm!",
     "activities": "Hoạt động trong chương này",
     "unlocked": "Chương tiếp theo đã mở!"
+  },
+  "flow": {
+    "rest": "Nghỉ một chút",
+    "pathTitle": "Lộ trình học",
+    "now": "Ở đây!",
+    "pathScroll": "Cuộn toàn bộ lộ trình học",
+    "coda": "Âm cuối {{letter}}",
+    "currentBook": "Sách đang học",
+    "back": "Quay lại",
+    "mapUp": "Chương trước",
+    "mapDown": "Chương tiếp theo",
+    "bookMap": "Bản đồ Book",
+    "viewedBook": "Book đang xem"
   }
 }

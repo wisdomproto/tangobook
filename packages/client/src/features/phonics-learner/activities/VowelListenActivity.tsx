@@ -170,8 +170,7 @@ export function VowelListenActivity({
           setListenedAll(true);
           if (!singleMarked.current) {
             singleMarked.current = true;
-            onMarkComplete();
-            playCorrectSequence({ language: praiseLang() });
+            playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete });
           }
         });
         return;
@@ -246,8 +245,7 @@ export function VowelListenActivity({
           // 퀴즈 끝 — 진척 마킹 + 칭찬. 자동 back 없음 — 다시하기 버튼 노출 ('done' phase).
           playFeedbackSound(true);
           setPhase('done');
-          onMarkComplete();
-          playCorrectSequence({ language: praiseLang() });
+          playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete });
         } else {
           // 🔴 띵동이 **끝난 뒤 쉬고** 다음 문제 — 예전엔 정답과 동시에 다음 음원이 나가서
           //    맞췄다는 느낌도 없이 문제가 지나갔다(콜백으로 끝을 확인하므로 길이 가정 아님).

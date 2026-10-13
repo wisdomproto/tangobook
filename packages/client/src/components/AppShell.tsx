@@ -29,7 +29,7 @@ export function AppShell() {
   const parentLink =
     'flex min-h-12 items-center rounded-xl px-4 text-base font-bold text-ink-900 hover:bg-cream-100 focus-visible:outline-coral-700';
   return (
-    <div className="min-h-dvh bg-cream-50 text-ink-900">
+    <div data-learning-shell className="min-h-dvh bg-cream-50 text-ink-900">
       <header className="sticky top-0 z-30 border-b border-ink-100 bg-cream-50/95 backdrop-blur-sm">
         <div className="mx-auto flex min-h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 md:min-h-[72px]">
           <Link

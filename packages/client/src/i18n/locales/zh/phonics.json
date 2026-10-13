@@ -354,5 +354,18 @@
     "allDone": "真棒！",
     "activities": "本章节活动",
     "unlocked": "下一章节开启啦！"
+  },
+  "flow": {
+    "rest": "休息一下",
+    "pathTitle": "学习路线",
+    "now": "这里！",
+    "pathScroll": "滚动整个学习路线",
+    "coda": "收音 {{letter}}",
+    "currentBook": "当前学习册",
+    "back": "返回",
+    "mapUp": "查看前面的章节",
+    "mapDown": "查看后面的章节",
+    "bookMap": "Book 地图",
+    "viewedBook": "正在查看的 Book"
   }
 }

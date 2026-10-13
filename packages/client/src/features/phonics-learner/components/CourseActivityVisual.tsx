@@ -7,7 +7,7 @@ import {
   Shapes,
   Volume2,
 } from 'lucide-react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { CourseActivityMode } from '../lib/course-presentation';
 import { ToyHangul } from './ToyHangul';
 
@@ -27,12 +27,16 @@ export function CourseActivityVisual({
   iconUrl,
   illustrated = false,
   repetitions = 1,
+  toolVisual,
+  fallbackVisual,
 }: {
   mode: CourseActivityMode;
   preview: string[];
   iconUrl?: string;
   illustrated?: boolean;
   repetitions?: number;
+  toolVisual?: ReactNode;
+  fallbackVisual?: ReactNode;
 }) {
   const Icon = courseActivityIcons[mode];
   const letters =
@@ -64,10 +68,10 @@ export function CourseActivityVisual({
       ) : iconUrl ? (
         <img src={iconUrl} alt="" className="size-20 object-contain" />
       ) : (
-        <Icon size={52} strokeWidth={1.75} />
+        (fallbackVisual ?? <Icon size={52} strokeWidth={1.75} />)
       )}
       <span className="course-activity-tool">
-        <Icon size={23} strokeWidth={2} />
+        {toolVisual ?? <Icon size={23} strokeWidth={2} />}
       </span>
     </div>
   );

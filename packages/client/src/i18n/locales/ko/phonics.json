@@ -354,5 +354,18 @@
     "allDone": "잘했어!",
     "activities": "이번 챕터의 활동",
     "unlocked": "다음 챕터가 열렸어!"
+  },
+  "flow": {
+    "rest": "잠깐 쉬기",
+    "pathTitle": "학습 경로",
+    "now": "여기!",
+    "pathScroll": "전체 학습 경로 스크롤",
+    "coda": "{{letter}} 받침",
+    "currentBook": "지금 배우는 Book",
+    "back": "돌아가기",
+    "mapUp": "앞쪽 지도 보기",
+    "mapDown": "다음 지도 보기",
+    "bookMap": "Book 지도",
+    "viewedBook": "지금 보고 있는 Book"
   }
 }

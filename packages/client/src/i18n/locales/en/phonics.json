@@ -354,5 +354,18 @@
     "allDone": "Well done!",
     "activities": "Activities in this chapter",
     "unlocked": "The next chapter is open!"
+  },
+  "flow": {
+    "rest": "Take a break",
+    "pathTitle": "Learning path",
+    "now": "Here!",
+    "pathScroll": "Scroll the whole learning path",
+    "coda": "Final {{letter}}",
+    "currentBook": "Current book",
+    "back": "Back",
+    "mapUp": "Earlier chapters",
+    "mapDown": "Later chapters",
+    "bookMap": "Book map",
+    "viewedBook": "Book in view"
   }
 }

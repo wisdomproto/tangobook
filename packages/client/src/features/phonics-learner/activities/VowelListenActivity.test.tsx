@@ -8,6 +8,8 @@ const spies = vi.hoisted(() => ({
   log: vi.fn(),
   holdSound: false,
   soundEnded: undefined as (() => void) | undefined,
+  holdPraise: false,
+  praiseEnded: undefined as (() => void) | undefined,
 }));
 
 vi.mock('@/features/tts', () => ({ resolveTtsUrl: spies.tts }));
@@ -20,7 +22,8 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
     playFeedbackSound: vi.fn(),
     playCorrectSequence: (o?: { onDone?: () => void }) => {
       spies.praise();
-      o?.onDone?.();
+      if (spies.holdPraise) spies.praiseEnded = o?.onDone;
+      else o?.onDone?.();
     },
     praiseVisible: false,
   }),
@@ -46,11 +49,14 @@ afterEach(() => {
   spies.log.mockClear();
   spies.holdSound = false;
   spies.soundEnded = undefined;
+  spies.holdPraise = false;
+  spies.praiseEnded = undefined;
 });
 
 describe('모음 하나씩 익히기', () => {
   it('같은 모음3개를 순서대로 듣고 마지막 소리 뒤 완료하며 퀴즈/정오답을 만들지 않는다', async () => {
     spies.holdSound = true;
+    spies.holdPraise = true;
     const complete = vi.fn();
     const next = vi.fn();
     render(
@@ -83,6 +89,9 @@ describe('모음 하나씩 익히기', () => {
     fireEvent.click(cards[2]);
     await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(3));
     act(() => spies.soundEnded?.());
+    expect(complete).not.toHaveBeenCalled();
+    expect(spies.praiseEnded).toBeDefined();
+    act(() => spies.praiseEnded?.());
     expect(complete).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole('button', { name: /퀴즈/ })).toBeNull();
     expect(spies.log).not.toHaveBeenCalled();

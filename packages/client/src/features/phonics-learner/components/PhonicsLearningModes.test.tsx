@@ -1,5 +1,5 @@
 import { beforeEach, expect, it, vi } from 'vitest';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, within, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { PhonicsLearningModes } from './PhonicsLearningModes';
 import { markActivityCompleted } from '../lib/progress-store';
@@ -43,8 +43,14 @@ it('resumes from actual completion and keeps future stages out of the link list'
   );
   expect(screen.queryByRole('link', { name: /ㅗ · ㅛ · ㅜ · ㅠ/ })).toBeNull();
   expect(screen.queryByRole('group', { name: '여행할 장소' })).toBeNull();
-  expect(screen.getByRole('heading', { name: 'ㅏ 배우기' })).toBeDefined();
-  expect(screen.getByRole('list', { name: '이번 챕터의 활동' }).children).toHaveLength(2);
+  expect(screen.getByRole('heading', { name: '한글 · 학습 경로' })).toBeDefined();
+  expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined();
+  expect(screen.getByRole('list', { name: '순서대로 이어지는 학습 단계' }).children).toHaveLength(
+    journeyUnits('korean').length
+  );
+  expect(
+    screen.getByRole('button', { name: /^3번째 단계.*앞 단계를/ }).hasAttribute('disabled')
+  ).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: '학습 정보' }));
   expect(
     screen.getByRole('button', { name: '여행 1 모음 정원' }).getAttribute('aria-pressed')
@@ -90,7 +96,7 @@ it('shows the whole journey completion and keeps every stage replayable', () => 
       <PhonicsLearningModes lang="english" />
     </MemoryRouter>
   );
-  expect(screen.getByRole('heading', { name: '잘했어!' })).toBeDefined();
+  expect(screen.getByText('잘했어!')).toBeDefined();
   expect(screen.getByRole('link', { name: '다시 하기' }).getAttribute('href')).toContain(
     '/en-b1-u01/letters-learn'
   );
@@ -113,8 +119,9 @@ it('centers a later current stage inside the map without changing progress', () 
       <PhonicsLearningModes lang="english" />
     </MemoryRouter>
   );
-  fireEvent.click(screen.getByRole('button', { name: '학습 정보' }));
-  expect(screen.getByLabelText('학습 지도 스크롤').scrollTop).toBeGreaterThan(0);
+  expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' }).scrollTop).toBeGreaterThan(
+    0
+  );
   expect(screen.getAllByRole('link', { name: /지금 배울 단계/ })).toHaveLength(1);
 });
 
@@ -131,7 +138,7 @@ it('reveals the next chapter after unlocking and does not repeat the transition 
     expect(screen.getByRole('status')).toBeDefined();
     act(() => vi.advanceTimersByTime(1900));
     expect(screen.queryByRole('status')).toBeNull();
-    expect(screen.getByRole('heading', { name: 'ㅑ 배우기' })).toBeDefined();
+    expect(screen.getByRole('link', { name: /2번째 단계.*지금 배울 단계/ })).toBeDefined();
     expect(screen.getByRole('link', { name: /이어서 학습하기/ }).getAttribute('href')).toContain(
       '/kr-v1-u02/listen-1'
     );
@@ -147,7 +154,8 @@ it('does not unlock a future chapter just by visiting a completion URL', () => {
     </MemoryRouter>
   );
   expect(screen.queryByRole('status')).toBeNull();
-  expect(screen.getByRole('heading', { name: 'ㅏ 배우기' })).toBeDefined();
+  expect(screen.getByRole('heading', { name: '한글 · 학습 경로' })).toBeDefined();
+  expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined();
 });
 
 it('does not replay an unlock after reviewing an already completed chapter', () => {
@@ -161,7 +169,7 @@ it('does not replay an unlock after reviewing an already completed chapter', () 
     </MemoryRouter>
   );
   expect(screen.queryByRole('status')).toBeNull();
-  expect(screen.getByRole('heading', { name: 'ㅑ 배우기' })).toBeDefined();
+  expect(screen.getByRole('link', { name: /2번째 단계.*지금 배울 단계/ })).toBeDefined();
 });
 
 it('keeps the previous grouped game observation visible in parent information', () => {
@@ -195,9 +203,57 @@ it('uses a short static transition when reduced motion is requested', () => {
     expect(screen.getByRole('status')).toBeDefined();
     act(() => vi.advanceTimersByTime(500));
     expect(screen.queryByRole('status')).toBeNull();
-    expect(screen.getByRole('heading', { name: 'ㅑ 배우기' })).toBeDefined();
+    expect(screen.getByRole('link', { name: /2번째 단계.*지금 배울 단계/ })).toBeDefined();
   } finally {
     vi.useRealTimers();
     window.matchMedia = original;
   }
+});
+
+it('keeps Book context when crossing from a finished book into the next book', () => {
+  const units = journeyUnits('english');
+  for (const unit of units.filter((u) => u.levelIndex === 1))
+    for (const a of journeyActivities('english', unit.id))
+      markActivityCompleted('english', unit.id, a.key);
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/english?mode=curriculum']}>
+      <PhonicsLearningModes lang="english" />
+    </MemoryRouter>
+  );
+  expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 2')).toBeDefined();
+  expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' }).scrollTop).toBeGreaterThan(
+    0
+  );
+  expect(screen.getByRole('link', { name: /지금 배울 단계/ }).getAttribute('href')).toContain(
+    units.find((u) => u.levelIndex === 2)!.id
+  );
+  expect(screen.getAllByRole('link', { name: /완료 · 다시 하기/ })).toHaveLength(
+    units.filter((u) => u.levelIndex === 1).length
+  );
+});
+
+it('lets a child browse distant Books without unlocking them, and returns to the current chapter', async () => {
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/korean?mode=curriculum']}>
+      <PhonicsLearningModes lang="korean" />
+    </MemoryRouter>
+  );
+  const map = screen.getByRole('region', { name: '전체 학습 경로 스크롤' });
+  fireEvent.click(screen.getByRole('button', { name: 'Book 5 · 모음 무지개' }));
+  expect(map.scrollTop).toBeGreaterThan(5000);
+  fireEvent.scroll(map);
+  await waitFor(() =>
+    expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 5')).toBeDefined()
+  );
+  expect(screen.getByRole('button', { name: /48번째 단계/ }).hasAttribute('disabled')).toBe(true);
+  expect(screen.getAllByRole('link', { name: /번째 단계/ })).toHaveLength(1);
+  fireEvent.click(screen.getByRole('button', { name: '지금 배울 곳으로' }));
+  expect(map.scrollTop).toBeLessThan(300);
+  fireEvent.scroll(map);
+  await waitFor(() =>
+    expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined()
+  );
+  expect(screen.getByRole('link', { name: /지금 배울 단계/ }).getAttribute('href')).toContain(
+    '/kr-v1-u01/listen-1'
+  );
 });

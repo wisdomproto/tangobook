@@ -83,11 +83,12 @@ it('keeps result audio mounted until Next, then connects the game, writing and u
   );
   expect(screen.queryByRole('button', { name: /다음 활동으로/ })).toBeNull();
   fireEvent.click(await screen.findByRole('button', { name: '글자 듣기 완료' }));
-  expect(screen.getByRole('button', { name: '글자 듣기 완료' })).toBeDefined();
+  expect(screen.getByRole('button', { name: '글자 듣기 완료', hidden: true })).toBeDefined();
   fireEvent.click(screen.getByRole('button', { name: /다음 활동으로/ }));
   fireEvent.click(await screen.findByRole('button', { name: '소리 놀이 완료' }));
   fireEvent.click(screen.getByRole('button', { name: /다음 활동으로/ }));
   fireEvent.click(await screen.findByRole('button', { name: '쓰기 완료' }));
+  fireEvent.click(screen.getByRole('button', { name: '학습 경로 보기' }));
   expect(await screen.findByText('학습 경로')).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([
     'letters-learn',

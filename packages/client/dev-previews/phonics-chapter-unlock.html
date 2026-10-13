@@ -4,9 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>챕터 잠금 해제 — 개발 미리보기</title>
+    <style>
+      #preview-tools {
+        position: fixed;
+        z-index: 70;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      body:has(#preview-tools) .curriculum-path-footer {
+        bottom: 80px;
+      }
+    </style>
   </head>
   <body>
     <div
+      id="preview-tools"
       style="
         display: flex;
         align-items: center;
@@ -28,7 +41,7 @@
       import { MemoryRouter } from 'react-router-dom';
       import '/src/index.css';
       import '/src/i18n/index.ts';
-      import { PhonicsChapterScene } from '/src/features/phonics-learner/components/PhonicsChapterScene.tsx';
+      import { PhonicsCurriculumPath } from '/src/features/phonics-learner/components/PhonicsCurriculumPath.tsx';
       import { journeyProgress } from '/src/features/phonics-learner/lib/learning-journey.ts';
       const root = createRoot(document.getElementById('root'));
       let run = 0;
@@ -43,7 +56,7 @@
               key: ++run,
               initialEntries: ['/library/phonics/korean?mode=curriculum&finished=kr-v1-u01'],
             },
-            React.createElement(PhonicsChapterScene, {
+            React.createElement(PhonicsCurriculumPath, {
               lang: 'korean',
               progress,
               started: true,
