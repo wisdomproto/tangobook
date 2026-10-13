@@ -1,9 +1,20 @@
 import type { ReactNode } from 'react';
-import { describe, it, expect, vi } from 'vitest';
+import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { Storybook, VocabularyUnit } from '@tangobook/shared';
 import { VocabularyStudyContent } from './VocabularyStudyContent';
+
+const sceneState = vi.hoisted(() => ({ count: 0 }));
+vi.mock('@/features/games/hooks/useSceneColoringItems', () => ({
+  useSceneColoringCount: () => sceneState.count,
+  useSceneColoringItems: () => ({ items: [{ word: 'scene-test' }], isPending: false }),
+}));
+vi.mock('@/features/games/components/players/HiddenObjectPlayer', () => ({
+  HiddenObjectPlayer: ({ onBack }: { onBack: () => void }) => (
+    <button onClick={onBack}>숨은그림 닫기</button>
+  ),
+}));
 
 vi.mock('@/features/auth/context/AuthContext', () => ({ useAuth: () => ({}) }));
 vi.mock('@/features/learning/hooks/useLearningEvents', () => ({
@@ -26,8 +37,11 @@ vi.mock('@/features/learning', () => ({
   VocabSourceProvider: ({ children }: { children: ReactNode }) => children,
 }));
 vi.mock('@/features/games/components/players/ColoringPlayer', () => ({
-  ColoringPlayer: ({ onBack }: { onBack: () => void }) => (
-    <button onClick={onBack}>게임 닫기</button>
+  ColoringPlayer: ({ onBack, items }: { onBack: () => void; items: { word: string }[] }) => (
+    <div>
+      <p>{items[0].word}</p>
+      <button onClick={onBack}>게임 닫기</button>
+    </div>
   ),
 }));
 
@@ -45,6 +59,9 @@ const unit = {
 const book = { id: 'test', pages: [], artStyle: 'paper-craft' } as unknown as Storybook;
 
 describe('direct vocabulary game menu', () => {
+  beforeEach(() => {
+    sceneState.count = 0;
+  });
   it.each(['ko', 'en'] as const)(
     'shows only four vocabulary buttons in %s without groups or example words',
     (lang) => {
@@ -62,7 +79,7 @@ describe('direct vocabulary game menu', () => {
   );
   it('opens a game directly and closes back to the same four choices', async () => {
     render(<VocabularyStudyContent unit={unit} storybook={book} lang="ko" />);
-    await userEvent.click(screen.getByRole('button', { name: '색칠하기' }));
+    await userEvent.click(screen.getByRole('button', { name: '어휘 색칠하기' }));
     await userEvent.click(await screen.findByRole('button', { name: '게임 닫기' }));
     expect(await screen.findByRole('button', { name: '그림짝 맞추기' })).toBeEnabled();
     await waitFor(() => expect(screen.queryByRole('button', { name: '게임 닫기' })).toBeNull());
@@ -72,5 +89,49 @@ describe('direct vocabulary game menu', () => {
     expect(screen.getByRole('button', { name: '그림짝 맞추기' })).toBeDisabled();
     expect(screen.getByRole('button', { name: '한글 블록' })).toBeDisabled();
     expect(screen.getByRole('button', { name: '따라 쓰기' })).toBeDisabled();
+  });
+  it.each(['ko', 'en'] as const)(
+    'adds prepared hidden-object and scene-coloring choices for the selected book in %s',
+    async (lang) => {
+      sceneState.count = 2;
+      const withScenes = {
+        ...book,
+        hiddenObjectScenes: [
+          {
+            id: 'hobj-test',
+            sceneImageUrl: '/test-scene.webp',
+            hotspots: ['cat', 'dog'].map((objectName, i) => ({
+              objectName,
+              x: 0.1 + i * 0.3,
+              y: 0.1,
+              w: 0.2,
+              h: 0.2,
+              labels: { ko: ['고양이', '강아지'][i], en: objectName },
+            })),
+          },
+        ],
+      } as unknown as Storybook;
+      render(<VocabularyStudyContent unit={unit} storybook={withScenes} lang={lang} />);
+      expect(screen.getAllByRole('button')).toHaveLength(6);
+      await userEvent.click(screen.getByRole('button', { name: '숨은그림 찾기' }));
+      await userEvent.click(await screen.findByRole('button', { name: '숨은그림 닫기' }));
+      await waitFor(() =>
+        expect(screen.queryByRole('button', { name: '숨은그림 닫기' })).toBeNull()
+      );
+      await userEvent.click(screen.getByRole('button', { name: '장면 색칠하기' }));
+      expect(screen.getByText('scene-test')).toBeVisible();
+      await userEvent.click(screen.getByRole('button', { name: '게임 닫기' }));
+      expect(screen.getAllByRole('button')).toHaveLength(6);
+      expect(screen.queryByText('동화 내용 놀이')).toBeNull();
+    }
+  );
+  it('retains scene coloring for books that deliberately hide vocabulary', () => {
+    sceneState.count = 2;
+    render(
+      <VocabularyStudyContent unit={unit} storybook={{ ...book, hideVocabulary: true }} lang="ko" />
+    );
+    expect(screen.getAllByRole('button')).toHaveLength(1);
+    expect(screen.getByRole('button', { name: '장면 색칠하기' })).toBeEnabled();
+    expect(screen.queryByRole('button', { name: '한글 블록' })).toBeNull();
   });
 });

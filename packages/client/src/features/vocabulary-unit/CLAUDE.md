@@ -1,6 +1,6 @@
 # 어휘 단원 모듈
 
-책 어휘 메뉴는 중간 그룹 선택·동화 내용 게임·예시 단어 없이 어휘 게임 버튼만 바로 보여준다. `VocabularyGameMenu`의 그림/이름2×2 구름 버튼은 공유 호출에서도 독립적으로 스타일을 유지한다. 가용성·언어·게임 플레이/기록은 보존한다. [사용자 결정·검수](../../../../../docs/work/games/tasks/20261014-book-vocabulary-only-ui.md).
+책 게임 메뉴는 중간 그룹/예시 단어/이야기 이해 묶음 없이 게임별 대형 도구 삽화와 이름으로 고른다. 어휘4종에 숨은그림 찾기·장면 색칠을 준비된 책/언어 데이터로 직접 연결한다. hideVocabulary 책은 어휘만 제외하며 장면 활동은 보존한다. 전용 alpha WebP 자산/프롬프트는 public/images/learning/vocabulary-menu-v1이다. 한글/영어 블록은 각각 ㄱ·ㅏ/A·B 그림. 기존 게임 가용성/진입/기록을 보존하고 장면 catalog는 열 때만 로딩한다. [후속 결정·검수](../../../../../docs/work/games/tasks/20261014-book-vocabulary-only-ui.md).
 
 Cambridge Pre-A1 Starters 토픽 16개 + 사용자 정의 단원. 단원 = 단어 N개 + 단어당 이미지 N장.
 

@@ -2,12 +2,12 @@
 
 - id: 20261014-book-vocabulary-only-ui
 - domain: games
-- status: integrated
+- status: ready
 - updated: 2026-10-14
 - base: 2b2e036a4
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 04ebf8f50 코드/기억 main fast-forward 통합 확인
+- integration: 04ebf8f50 이전 단순화 main 포함, 전용 삽화/장면 게임 후속은 통합 전
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -40,3 +40,25 @@
 ## 인계·통합
 
 04ebf8f50 코드를 root main에 fast-forward 통합했다. 검수 서버5186은 기존 worktree에서 유지한다. 기존 ReviewWriteActivity.test.tsx 줄바꿈 변경·미추적 시안/output/tmp는 stage하지 않았다. 원격 push/운영 배포는 수행하지 않았다.
+
+## 후속: 게임별 전용 삽화 (2026-10-14)
+
+- 사용자 반증: 동일 구름+작은 아이콘4개는 좋지 않음. 각 게임에 어울리는 그림을 따로 제작하도록 지시. 기존 검수 완료는 사용자 디자인 승인으로 보지 않는다.
+- 대형 구름 바탕을 제거하고 카드/글자블록/팔레트/연필·노트 자체를 큰 선택 대상으로 제공한다. 게임 이름만 DOM으로, 설명/예시 단어 없는 메뉴는 유지.
+- 로컬 ComfyUI8188 system_stats3초 조회 실패. 내장 imagegen으로 투명 배경 게임별 자산을 새로 생성하고 WebP로 최적화한다. 운영 콘텐츠/원격 push는 요청 없음.
+- 진행: 새 삽화 생성·개별 육안 검수 후 배치/반응형/게임 진입 회귀를 확인한다.
+
+- 후속 사용자 추가: 각 책의 숨은그림 찾기와 장면 색칠하기도 직접 메뉴에 연결하고 각각 전용 아이콘 제작. 따라서 앞선 '동화 내용 게임 모두 제외'는 이야기 이해/쪽 순서 묶음 제외로 좁히며 이 두 활동은 예외로 복구한다. 각 책에 유효한 장면/대상 및 선택 언어 데이터가 있는 경우만 제공한다. 누락된 운영 장면을 만들어내지 않는다.
+- 어휘 색칠과 장면 색칠을 서로 다른 그림/이름으로 구분한다. 실제 데이터로 연결하며 장면 카탈로그는 열 때만 로딩한다.
+
+### 후속 검증·저장 결과
+
+- 내장 imagegen 별도8종 생성/검수: 짝 카드, 한글블록, 영어블록(글자만 참조 편집), 어휘 팔레트, 점잇기, 쓰기, 숨은그림, 장면 색칠. 실제 게임/책 삽화를 대체하는 파일이 아니라 메뉴용 도구 삽화다.
+- [배포 자산/프롬프트](../../../../packages/client/public/images/learning/vocabulary-menu-v1/README.md), manifest에 최종 프롬프트/원본·WebP SHA/치수/용량을 기록.640×480 alpha WebP8장 합계321,438B(약314KiB), PNG 원본은 generated_images에 보존. 이 패키지만 사용하며 기존 구름 자산은 다른 페이지를 위해 보존한다.
+- 어휘4종+숨은그림+장면색칠 직접 메뉴. getAvailableGames의 book-menu 선택지는 준비된 KO/EN hiddenObjectScenes만 포함하고, 장면 색칠은 언어별 가벼운 index로 판정/클릭 때 full catalog 로딩. hideVocabulary는 어휘만 숨기며 책 상세 게임 입구와 두 장면 활동은 유지한다. 책 상세 제목은 읽어주기/게임으로 변경.
+- 책 선택7·직접 메뉴7·숨은그림5+4·음원 언어2 =5파일25회귀 통과. 유효 장면 연결/언어·게임 열기/복귀·어휘 숨김 책도 선택 가능·기존 게이트/읽어주기 전달 검증. client typecheck/변경 ESLint 오류0. client build 성공(기존 대형 chunk/i18n import/lottie 경고 유지).
+- Native CUA: 신데렐라6종 메뉴·한글 ㄱ/ㅏ 및 영어 A/B 그림 전환, 숨은그림의 실제5대상/책 장면, 장면 색칠6쪽 도안 열기/복귀, 책 상세 읽어주기/게임 입구를 확인. 목표를 클릭해 정답/완료하거나 색칠을 칠한 검수는 아니며, 전체1215권 새 GET/플레이 검수로 확대하지 않는다.1215권 숨은그림·장면 준비 근거는 이전 20261013 전수 등록/검증 기록이다.
+- 1280×720 육안 검수,568×320 실제 작은 가로에서6버튼3열2행·가로 넘침0·마지막 버튼 bottom302px. 처음 이미지 높이 %가 grid intrinsic size와 겹쳐 이름을 가리고 아래를 넘는 문제 발견 후 그림 프레임의 absolute contain/고정 높이로 해결.
+- 증거: visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02의 vocabulary-object-menu-20261014.png, vocabulary-object-menu-small-20261014.png. 생성/메뉴 품질 검수는 사용자 디자인 승인과 다르다.
+- 추가 관찰: 기존 신데렐라6쪽 장면 도안 말 영역에 회색 체크 무늬가 보인다(storybook-scene-coloring-existing-20261014.png). 기존 파일/렌더링 원인은 아직 분리하지 않았고 이번에는 운영 도안/R2를 수정하지 않았다. 후속에서 해당 도안 원본을 확인하고 보정 범위를 정한다.
+- 코드/기억 로컬 커밋 및 main 통합 후 기록 갱신 예정. 이번 후속도 원격 push/운영 콘텐츠 수정 요청 없음.

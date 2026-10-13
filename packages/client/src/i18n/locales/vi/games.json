@@ -108,8 +108,11 @@
       "storyImage": "Cần ít nhất 4 trang có lời đọc"
     },
     "coloring": {
-      "label": "Tô màu",
+      "label": "Tô màu từ vựng",
       "subtitle": "Chọn màu và tô bức tranh"
+    },
+    "sceneColoring": {
+      "label": "Tô màu cảnh truyện"
     }
   },
   "storyImage": {

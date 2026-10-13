@@ -269,8 +269,8 @@ export function getAvailableGames(
   style?: string,
   /** 이 책·이 언어에서 쓸 수 있는 색칠 도안 수(`countColoringSheets`). 0/undefined 면 기존 그리기. */
   coloringCount?: number,
-  /** 학습자 책 메뉴는 어휘만. 기존 저작/게임 데이터 호환은 all로 보존한다. */
-  group: 'all' | 'word' = 'all'
+  /** word는 어휘만, book-menu는 어휘+숨은그림. 기존 저작 데이터 호환은 all. */
+  group: 'all' | 'word' | 'book-menu' = 'all'
 ): VocabGameOption[] {
   const isKo = lang === 'ko';
   const isEn = lang === 'en';
@@ -370,12 +370,30 @@ export function getAvailableGames(
 
   if (group === 'word') return cards;
 
+  const hiddenObjectData =
+    isKo || isEn ? buildHiddenObjectSceneData(book, style, undefined, lang as 'ko' | 'en') : null;
+  const hiddenCard: VocabGameOption | null = hiddenObjectData
+    ? {
+        id: 'hidden-object',
+        group: 'story',
+        emoji: '🔎',
+        label: t('cards.hiddenObject.label'),
+        subtitle: t('cards.hiddenObject.subtitle'),
+        bgFrom: 'from-coral-400',
+        bgTo: 'to-coral-600',
+        available: true,
+      }
+    : null;
+  // 사용자 후속 요청: 책 메뉴에는 어휘 게임과 숨은그림 찾기를 바로 함께 보여준다.
+  if (group === 'book-menu') {
+    if (hiddenCard) cards.push(hiddenCard);
+    return cards;
+  }
+
   const storyData = buildStoryImageData(book, lang, style);
   // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
   const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
   const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
-  const hiddenObjectData =
-    isKo || isEn ? buildHiddenObjectSceneData(book, style, undefined, lang as 'ko' | 'en') : null;
 
   // 독후활동 — 이야기를 듣고 그 장면을 고른다. 낱말이 아니라 쪽에서 나오므로
   // key_objects 가 없는 책에서도 뜬다. 책 없이는 만들 수 없어 카드 자체를 안 낸다.
@@ -406,20 +424,7 @@ export function getAvailableGames(
     });
   }
 
-  if (hiddenObjectData) {
-    cards.push({
-      id: 'hidden-object',
-      group: 'story',
-      // 🔴 「이 물건 어느 장면?」(korean-object-scene)이 이미 🔍 를 쓴다 — 같은 줄에 같은 그림이
-      //    둘이면 무엇이 다른지 안 읽힌다.
-      emoji: '🕵️',
-      label: t('cards.hiddenObject.label'),
-      subtitle: t('cards.hiddenObject.subtitle'),
-      bgFrom: 'from-coral-400',
-      bgTo: 'to-coral-600',
-      available: true,
-    });
-  }
+  if (hiddenCard) cards.push(hiddenCard);
 
   if (pageOrderData) {
     cards.push({

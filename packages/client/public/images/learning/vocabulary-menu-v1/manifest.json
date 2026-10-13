@@ -1,0 +1,86 @@
+{
+  "generator": "built-in imagegen",
+  "date": "2026-10-14",
+  "assets": [
+    {
+      "name": "matching",
+      "file": "matching.webp",
+      "size": [640, 480],
+      "bytes": 45272,
+      "sha256": "102bda992aafba5e9e7632a317b2d1317962479c6b4ec3bf686422ec727b1386",
+      "source": "exec-b4680d4f-9c81-4797-9336-855257cc262f.png",
+      "sourceSha256": "013e4d378bebfd36eccd4d928dcf4967642fcb02f1db7dba3c25ed41e946bdf5",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: A pair of oversized rounded picture-matching cards, slightly fanned apart, one showing a charming orange kitten sitting, the other showing the very same orange kitten in the same pose, to immediately communicate finding a matching pair. The cards have thick pastel mint and warm cream rounded edges, beautiful clay-relief illustrations, a small curved coral connection between them. Exactly two cards, exactly two same kittens, no letters/numbers/text. Cards themselves are the subject, no backing slab."
+    },
+    {
+      "name": "blocks-ko",
+      "file": "blocks-ko.webp",
+      "size": [640, 480],
+      "bytes": 32044,
+      "sha256": "cc8da6dd0ddd7280b87d08b62e2b7e8dca2078d00df1a22f4f2a08bce9688c86",
+      "source": "exec-ae83572a-ae9b-43cf-8592-c8e453562edd.png",
+      "sourceSha256": "5db465773ee3c1788d92a62749446b36d2c31b9a1804511de08de674c512e723",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: Three large squishy educational letter cubes forming a low playful triangular stack, one cream cube with the exact Korean consonant ㄱ, one mint cube with the exact Korean vowel ㅏ, and one small coral blank cube behind. Front faces flat and readable, ㄱ and ㅏ are embossed coral/dark green respectively, mathematically recognizable glyphs, not faces. No English letters, no other words, no extra symbols, no literal wooden material. A tactile preschool Korean block-combining game prop, not a skyscraper or trophy."
+    },
+    {
+      "name": "blocks-en",
+      "file": "blocks-en.webp",
+      "size": [640, 480],
+      "bytes": 30498,
+      "sha256": "940d559f7fec7b6b975a6164511845cc14fa493ab12633a9ff22f20f81f430dc",
+      "source": "exec-4030aaad-439c-4d46-b4d2-f0596be57369.png",
+      "sourceSha256": "871c9f93893abc8928f3daccddb5dd5e09aefeb1b69a219dfb43925035d067bd",
+      "prompt": "Use case: precise-object-edit. Edit target: supplied Korean clay block illustration. Keep the exact three cubes, shape, framing, cream/mint/coral colors, lighting, delicate shadow and real transparent alpha background. Change ONLY the raised Korean glyph ㄱ on the cream cube to a raised coral capital A; change ONLY the raised Korean glyph ㅏ on the mint cube to a raised dark green capital B. Keep all other pixels/ornaments/composition as close as possible. Exactly A and B, no Korean symbols left, no text elsewhere. This is an English phonics game menu asset."
+    },
+    {
+      "name": "coloring",
+      "file": "coloring.webp",
+      "size": [640, 480],
+      "bytes": 38596,
+      "sha256": "c4ca0ffb02db99cf3152c73fd1f81dfe841990d23c7d51d12d92fa014491c79b",
+      "source": "exec-fd49ed75-a043-4d42-90c2-4eaee90c3d6f.png",
+      "sourceSha256": "598203f5357630c7b8d962ce5029c27d169c68b285148e118444797eca700ca2",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: A large lovely rounded cream painter palette with a thumb hole and five round dollops of coral, honey yellow, mint green, sky blue and soft lavender paint. A short chunky coral-handled brush rests diagonally across one side. Tiny simple colorful paint dabs nearby, only 2, contained in composition. The unmistakable palette and brush themselves are the hero. No letters, no notebook, no cards, no flowers, no surrounding colored platform."
+    },
+    {
+      "name": "drawing",
+      "file": "drawing.webp",
+      "size": [640, 480],
+      "bytes": 30626,
+      "sha256": "f997dbeb3bf28b39cecedc299bc547d0585acd73cb91ac37c7875baeb5317d01",
+      "source": "exec-837957a6-8389-485b-b448-eb0f0d7e8fa0.png",
+      "sourceSha256": "e8e1b6890b5d9804e17c996714ff39ae7388757b806b2e07db86f784660a11f9",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: A rounded cream drawing-paper sheet slightly tilted, with a simple friendly flower outline drawn in raised fine honey-yellow dotted strokes; the bottom-right part of the outline remains a sequence of separate dots waiting to be connected. A short mint-green crayon rests beside the paper, its tip at the unfinished dotted part. A tiny completed coral petal fills one portion to show drawing. No numbers or letters, no paint palette, no book, no surrounding plate. A beautiful clear preschool connect-the-dots drawing game prop."
+    },
+    {
+      "name": "writing",
+      "file": "writing.webp",
+      "size": [640, 480],
+      "bytes": 35632,
+      "sha256": "52861c247b0ce1ccced6931e852919c077b31ce7635c4f60117d217b7ae29fdb",
+      "source": "exec-e35db41e-5c0b-440f-a73d-2dcfb65bf2d0.png",
+      "sourceSha256": "79f2392dfd3689fbde9301d8e7d03184b68dcd1f971296dc5964dbdab45bad0c",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: A charming large plump coral-and-honey pencil resting diagonally across a small open cream practice notebook with a mint fabric spine. Pencil tip points at one clean smooth curved dotted tracing stroke on the right page. A few subtle ruled guidelines, one elegant tracing curve only, no alphabetic letters or Korean glyphs, no numbers or text. The pencil has a gentle tiny smiling face near its upper end. Notebook has rounded friendly corners, just two visible open pages, full object not cut off. No surrounding platform or placard."
+    },
+    {
+      "name": "hidden",
+      "file": "hidden.webp",
+      "size": [640, 480],
+      "bytes": 52950,
+      "sha256": "f6a617f19046d2cc766c78c446c796e69954599a383afc8fa736589b4745e18b",
+      "source": "exec-0d94eb4c-0913-4a3b-80bf-1b3330b4daf9.png",
+      "sourceSha256": "67ec605020857eb068a2b232f9a0bbc3080835128d26f48a90f545fd646f1f3e",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: A large chunky coral-handled magnifying glass angled gently, hovering above a tiny friendly garden vignette of layered seafoam grass, two leaves, one yellow flower and one tiny orange snail. Through the clear round lens a small bright red ladybug on a green leaf is enlarged and clearly visible, immediately communicating finding a hidden object in a scene. Magnifying glass dominates the clean silhouette. Tiny garden props sit just behind it, no rectangular background card, no enclosing cloud, no text or numbers. Calm playful preschool picture-search game."
+    },
+    {
+      "name": "scene-coloring",
+      "file": "scene-coloring.webp",
+      "size": [640, 480],
+      "bytes": 55820,
+      "sha256": "aa38a2607093dfd8642357335571d99c6ed82124e49393be3228184c5d560a58",
+      "source": "exec-9641ceb9-b965-40cd-aa83-e8d6ab15e3fa.png",
+      "sourceSha256": "5cc9fdba4ef808397cd85af5e5c390983bab9c0b2736e4e77a6beb3bfc00d35a",
+      "prompt": "Use case: stylized-concept. Asset type: a standalone illustrated game-selection button object for a premium preschool Korean/English reading web app, one asset only. Style: beautifully crafted soft matte clay and layered paper 3D, tactile smooth edges, softly painted details, delicate studio lighting, restrained warm cream, coral, seafoam green, honey yellow, tiny soft contact shadow. Charm comes from the objects, no mascots. Composition: landscape-ish 4:3 bounding silhouette centered with generous transparent margin; object fills 75% of canvas, camera slightly above front at a gentle three-quarter angle. Render complete objects, no cropping. Real transparent alpha background. NOT a screen mockup, no frame, no enclosing cloud/button/banner/backplate, no giant rectangle, no wooden signboard, no badge, no label or UI text, no watermark. The object itself is the clickable illustrated choice. Strong clear silhouette, preschool friendly, clean composition, premium game art rather than emoji clipart.\nSubject: A small rounded slightly curled cream illustration sheet in landscape orientation, featuring a simple scene of a cute small cottage, one tree, rolling hills and a smiling sun. The left half of the scene is beautiful fine brown outline art, the right half is partially colored coral and seafoam and honey yellow, showing a child coloring the whole story scene. A big short coral paintbrush rests diagonally across the lower-right edge touching a newly painted green hill. Full sheet and brush in view. No lettering, no numbers, no paint palette, no cards with vocabulary objects. No enclosing frame/backplate other than the actual illustration paper."
+    }
+  ]
+}

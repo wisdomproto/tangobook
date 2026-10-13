@@ -89,7 +89,7 @@ export function VocabularyStudyPage() {
   const displayName = getDisplayUnitName(unit, effectiveLang, storybook);
 
   return (
-    <div className="storybook-scope relative isolate min-h-screen flex flex-col bg-cream-50">
+    <div className="storybook-scope vocabulary-study-page relative isolate min-h-screen flex flex-col bg-cream-50">
       <StorybookBackdrop />
       {/* 🔴 `pt-*` 가 없으면 PageHeader 의 `mt-2` 가 **body 밖으로 새어**(마진 병합) 페이지 전체를
           8px 밀어내고, 그 8px 에는 이 컨테이너의 cream 그라데이션이 안 칠해져 위쪽에 띠가 생긴다.

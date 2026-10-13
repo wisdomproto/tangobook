@@ -1,4 +1,4 @@
-import { VocabularyGameMenu } from './VocabularyGameMenu';
+import { VocabularyGameMenu, type VocabularyMenuGameOption } from './VocabularyGameMenu';
 import { LEARNING_REPORT_V2 } from '@/features/learning/config';
 import { PostActivityPhonics } from '@/features/learning/components/PostActivityPhonics';
 import { recommendPhonics } from '@/features/learning/lib/phonics-recommendation';
@@ -37,6 +37,10 @@ import {
   useColoringBookIndex,
   useColoringItems,
 } from '@/features/games/hooks/useColoringSheets';
+import {
+  useSceneColoringCount,
+  useSceneColoringItems,
+} from '@/features/games/hooks/useSceneColoringItems';
 import { HiddenObjectPlayer } from '@/features/games/components/players/HiddenObjectPlayer';
 import { StoryImagePlayer } from '@/features/games/components/players/StoryImagePlayer';
 import { PageOrderPlayer } from '@/features/games/components/players/PageOrderPlayer';
@@ -50,7 +54,7 @@ interface VocabularyStudyContentProps {
   lang: Lang;
 }
 
-/** 책/어휘 단원의 게임 선택. 어휘 게임만 바로 제공하며 실제 플레이/학습 기록은 공유한다. */
+/** 책/어휘 단원의 게임 선택. 어휘·숨은그림·장면 색칠을 바로 제공하며 실제 플레이/학습 기록은 공유한다. */
 export function VocabularyStudyContent({
   unit,
   storybook,
@@ -58,6 +62,7 @@ export function VocabularyStudyContent({
   lang,
 }: VocabularyStudyContentProps) {
   const { t } = useTranslation('games');
+  const [sceneColoringOpen, setSceneColoringOpen] = useState(false);
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
   const { activeProfile } = useAuth();
   const history = useLearningEvents(activeProfile?.id, activeGame !== null);
@@ -76,7 +81,26 @@ export function VocabularyStudyContent({
     storybook,
     lang
   );
-  const games = getAvailableGames(unit, lang, t, storybook, currentStyle, coloringCount, 'word');
+  const sceneCount = useSceneColoringCount(storybook?.id, lang);
+  const games: VocabularyMenuGameOption[] = getAvailableGames(
+    unit,
+    lang,
+    t,
+    storybook,
+    currentStyle,
+    coloringCount,
+    'book-menu'
+  ).filter((game) => !storybook?.hideVocabulary || game.group !== 'word');
+  if (sceneCount > 0)
+    games.push({
+      id: 'scene-coloring',
+      group: 'story',
+      emoji: '🎨',
+      label: t('cards.sceneColoring.label', { defaultValue: '장면 색칠하기' }),
+      bgFrom: 'from-mint-400',
+      bgTo: 'to-mint-600',
+      available: true,
+    });
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
   const handleGameComplete = (_gameType: GameTypeId) => {
@@ -125,9 +149,18 @@ export function VocabularyStudyContent({
         games={games}
         onPlay={(game) => {
           activityStart.current = new Date().toISOString();
-          setActiveGame(game);
+          if (game === 'scene-coloring') setSceneColoringOpen(true);
+          else setActiveGame(game);
         }}
       />
+
+      {sceneColoringOpen && storybook && (
+        <SceneColoringGame
+          book={storybook}
+          lang={lang}
+          onBack={() => setSceneColoringOpen(false)}
+        />
+      )}
 
       {phonicsSuggestion && (
         <PostActivityPhonics
@@ -439,4 +472,31 @@ function ColoringGame({
     );
   }
   return <ColoringPlayer items={items} onBack={onBack} />;
+}
+
+/** 장면 카탈로그는 버튼을 눌렀을 때만 로딩한다. */
+function SceneColoringGame({
+  book,
+  lang,
+  onBack,
+}: {
+  book: Storybook;
+  lang: Lang;
+  onBack: () => void;
+}) {
+  const { t } = useTranslation('games');
+  const { items, isPending } = useSceneColoringItems(book, lang);
+  if (items.length) return <ColoringPlayer items={items} onBack={onBack} />;
+  return (
+    <div className="fixed inset-0 z-[70] grid place-items-center bg-cream-50">
+      <button
+        type="button"
+        onClick={onBack}
+        aria-label={t('study.close')}
+        className="min-h-11 min-w-11 px-5 rounded-full bg-white shadow-soft"
+      >
+        {isPending ? '🎨' : t('study.back')}
+      </button>
+    </div>
+  );
 }

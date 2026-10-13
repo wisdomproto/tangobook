@@ -108,8 +108,11 @@
       "storyImage": "需要至少 4 页有朗读"
     },
     "coloring": {
-      "label": "涂色",
+      "label": "词汇涂色",
       "subtitle": "选颜色，把图画涂满"
+    },
+    "sceneColoring": {
+      "label": "故事场景涂色"
     }
   },
   "storyImage": {

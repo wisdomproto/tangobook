@@ -1,6 +1,6 @@
 # 뷰어 모듈
 
-2026-10-14 책 상세는 읽어주기/어휘 게임 두 선택만 제공한다. 스스로 읽기 별도 입구는 제외하며 읽어주기는 autoplay=1이다. 책의 기존 `?mode=games` 링크는 `/vocabulary/book-{id}`로 바꾸며 언어/그림체·권한 게이트를 보존한다. 파닉스 게임 목록과 뷰어 재생 조작은 유지한다. [작업 기록](../../../../../docs/work/games/tasks/20261014-book-vocabulary-only-ui.md).
+2026-10-14 책 상세는 읽어주기/게임 두 선택만 제공한다. 스스로 읽기 별도 입구는 제외하며 읽어주기는 autoplay=1이다. 책의 기존 `?mode=games` 링크는 `/vocabulary/book-{id}`로 바꾸며 언어/그림체·권한 게이트를 보존한다. 파닉스 게임 목록과 뷰어 재생 조작은 유지한다. [작업 기록](../../../../../docs/work/games/tasks/20261014-book-vocabulary-only-ui.md).
 
 학습자 책 목록/상세는 조용한 종이·책갈피 메뉴, 제목은 별도 수채화 띠다. 몰입 독서 원본 그림/본문은 유지하고 조작 아이콘만 통일한다. [전체 구현·검수](../../../../../docs/work/platform/tasks/20261013-storybook-learning-ui.md).
 
@@ -63,7 +63,7 @@ features/viewer/
 ## 라우팅 규칙 (ViewerContainer)
 
 - `type === 'phonics' && mode !== 'story'` → PhonicsViewer
-- `mode === 'games'` → 동화책은 어휘 페이지, 파닉스는 GameListViewer
+- `mode === 'games'` → 동화책은 책별 게임 페이지(어휘+숨은그림+장면 색칠), 파닉스는 GameListViewer
 - `mode === 'video'` → RewardScreen → YouTubeModal
 - 그 외 → 일반 동화책 뷰어
 

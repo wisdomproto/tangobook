@@ -108,8 +108,11 @@
       "storyImage": "Need 4+ pages with narration"
     },
     "coloring": {
-      "label": "Coloring",
+      "label": "Word coloring",
       "subtitle": "Pick colors and fill the picture"
+    },
+    "sceneColoring": {
+      "label": "Scene coloring"
     }
   },
   "storyImage": {

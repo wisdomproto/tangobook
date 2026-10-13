@@ -15,10 +15,16 @@ import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
 import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import { SUPPORTED_LANGUAGES, type ReadingLevel, type StorybookSummary } from '@tangobook/shared';
+import {
+  SUPPORTED_LANGUAGES,
+  type Lang,
+  type ReadingLevel,
+  type StorybookSummary,
+} from '@tangobook/shared';
 import { useAccess, PaywallNotice, LockBadge } from '@/features/access';
 import { BETA_OPEN } from '@/features/access/config';
 import { useAuth } from '@/features/auth/context/AuthContext';
+import { useSceneColoringCount } from '@/features/games/hooks/useSceneColoringItems';
 import { isDevEmail } from '@/config/dev';
 
 // 언어 메타는 shared SUPPORTED_LANGUAGES 단일 소스에서 derive. 새 언어 추가 시 shared 한 줄이면 토글에 자동 반영.
@@ -79,11 +85,15 @@ export default function BookDetailPage() {
     [storybook]
   );
   const videoAvailable = youtubeVideoIds.length > 0 || directVideoUrls.length > 0;
-  // KeyObject 1개 이상이면 "단어 익히기" 모드 카드 노출 (클릭 → /vocabulary/book-:id 학습 페이지).
+  // 책의 어휘 또는 장면 활동이 준비됐으면 게임 메뉴를 연다.
   // 책 상세 = 진입점만, 학습 자체는 별도 페이지로 분리 (busy 해소).
-  // 책별로 "단어 익히기" 모드를 숨길 수 있음 (editor2 토글). 생활동화 등 어휘 학습 없는 콘텐츠.
+  // hideVocabulary는 어휘만 숨긴다. 숨은그림/장면 색칠은 계속 제공한다.
   const hideVocab = !!storybook?.hideVocabulary;
-  const vocabAvailable = !hideVocab && (storybook?.key_objects?.length ?? 0) > 0;
+  const sceneColoringCount = useSceneColoringCount(storybook?.id, langState as Lang);
+  const vocabAvailable =
+    (!hideVocab && (storybook?.key_objects?.length ?? 0) > 0) ||
+    (storybook?.hiddenObjectScenes?.length ?? 0) > 0 ||
+    sceneColoringCount > 0;
   const vocabWordCount = storybook?.key_objects?.length ?? 0;
 
   if (isLoading) {
@@ -396,23 +406,21 @@ export default function BookDetailPage() {
                     disabled={!videoAvailable}
                   />
                 )}
-                {!hideVocab && (
-                  <ModeCard
-                    tone="amber"
-                    icon={
-                      <span
-                        className="text-2xl sm:text-3xl font-black leading-none text-ink-900"
-                        aria-hidden
-                      >
-                        가<span className="text-coral-500">A</span>
-                      </span>
-                    }
-                    title={t('modes.vocab')}
-                    sub={t('modes.vocabSub')}
-                    onClick={() => enterMode('vocab')}
-                    disabled={!vocabAvailable}
-                  />
-                )}
+                <ModeCard
+                  tone="amber"
+                  icon={
+                    <span
+                      className="text-2xl sm:text-3xl font-black leading-none text-ink-900"
+                      aria-hidden
+                    >
+                      가<span className="text-coral-500">A</span>
+                    </span>
+                  }
+                  title={t('modes.vocab')}
+                  sub={t('modes.vocabSub')}
+                  onClick={() => enterMode('vocab')}
+                  disabled={!vocabAvailable}
+                />
               </div>
             </div>
           </div>

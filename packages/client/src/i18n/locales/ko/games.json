@@ -108,8 +108,11 @@
       "storyImage": "나레이션 있는 쪽이 4개 이상 필요해요"
     },
     "coloring": {
-      "label": "색칠하기",
+      "label": "어휘 색칠하기",
       "subtitle": "도안에 색을 골라 칠해요"
+    },
+    "sceneColoring": {
+      "label": "장면 색칠하기"
     }
   },
   "storyImage": {
