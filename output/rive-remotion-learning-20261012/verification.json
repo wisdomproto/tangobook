@@ -1,0 +1,111 @@
+{
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "frames": 720,
+    "duration": 24.0
+  },
+  "audio": {
+    "codec": "aac",
+    "duration": 24.0,
+    "sample_rate": "48000",
+    "peak_linear": 0.7954206466674805,
+    "peak_dbfs": -1.9880628051606617,
+    "cue_alignment": [
+      {
+        "frame": 24,
+        "file": "letter-g.mp3",
+        "waveform_correlation": 0.999311594566346,
+        "timing_difference_seconds": 0.0
+      },
+      {
+        "frame": 65,
+        "file": "vowel-a.mp3",
+        "waveform_correlation": 0.9998296537197967,
+        "timing_difference_seconds": 0.0003333333333333333
+      },
+      {
+        "frame": 170,
+        "file": "blend-ga.mp3",
+        "waveform_correlation": 0.9991981082025951,
+        "timing_difference_seconds": 0.0003333333333333333
+      },
+      {
+        "frame": 240,
+        "file": "syllable-ga.mp3",
+        "waveform_correlation": 0.9997188996228594,
+        "timing_difference_seconds": 0.0
+      },
+      {
+        "frame": 279,
+        "file": "write-guide.mp3",
+        "waveform_correlation": 0.9981606659928685,
+        "timing_difference_seconds": 0.0
+      },
+      {
+        "frame": 451,
+        "file": "syllable-ga.mp3",
+        "waveform_correlation": 0.9934687981649928,
+        "timing_difference_seconds": -0.0003333333333333333
+      },
+      {
+        "frame": 501,
+        "file": "syllable-ga.mp3",
+        "waveform_correlation": 0.9993430797377172,
+        "timing_difference_seconds": 0.0
+      },
+      {
+        "frame": 540,
+        "file": "word-gabang.wav",
+        "waveform_correlation": 0.9992779921988706,
+        "timing_difference_seconds": 0.0
+      },
+      {
+        "frame": 610,
+        "file": "word-gabang.wav",
+        "waveform_correlation": 0.9994338826289847,
+        "timing_difference_seconds": -0.0003333333333333333
+      },
+      {
+        "frame": 674,
+        "file": "word-gabang.wav",
+        "waveform_correlation": 0.998676656838634,
+        "timing_difference_seconds": 0.0003333333333333333
+      }
+    ]
+  },
+  "full_decode": "passed",
+  "rive_integration": "Direct @remotion/rive 4.0.440; approved Rive 1.5.1 native file, no prerendered character video.",
+  "repeated_rive_probe_mean_rgb_difference": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bag": {
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_range": [
+      0,
+      255
+    ],
+    "sha256": "2d8138553dacf7fc5cdf82af871b7a8318edcaf204db1ef043737703541b76a1"
+  },
+  "files": {
+    "hangul-ga-learning.mp4": {
+      "sha256": "8080c35c9f13e53ccb95a0efbc71c0d85d3312e59440d801d9f480482702c691",
+      "bytes": 2459608
+    },
+    "contact-sheet.png": {
+      "sha256": "86fcb058e0eed672a2decc6605cf72ff782b9e137da0e186c8f9a3fb372cd3e1",
+      "bytes": 455149
+    },
+    "meeting.riv": {
+      "sha256": "22c95b1b1eebc4a4fed07ae4315e46b45edf239092939adcf6cfb63fe2fa5de3",
+      "bytes": 1043773
+    }
+  },
+  "limits": "Visual review is sampled. Audio checks confirm source waveforms and timing, not a new human listening review."
+}

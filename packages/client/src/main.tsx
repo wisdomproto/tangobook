@@ -12,6 +12,8 @@ import './lib/audio-unlock'; // 첫 탭에 오디오 해금 (iOS Safari 는 요�
 import './i18n'; // UI 다국어 초기화 (localStorage 언어 감지 + lazy 로케일 로드)
 import './index.css';
 import './design-system/learning-layouts.css';
+import './features/games/effects/learning-effects.css';
+import { LearningEffectsHost } from './features/games/effects/LearningEffectsHost';
 import './lib/cover-title-fonts.css';
 import './lib/cover-ssurround.css';
 import './store/theme.store';
@@ -46,8 +48,11 @@ const mount = () => {
         <Suspense fallback={null}>
           <RouterProvider router={router} />
         </Suspense>
-        {/* devtools 는 좌하단 (dev 전용, 배포엔 없음) */}
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+        {/* 로컬 검수 화면에 디버그 버튼을 노출하지 않는다. 필요할 때만 명시적으로 켠다. */}
+        <LearningEffectsHost />
+        {import.meta.env.DEV && import.meta.env.VITE_QUERY_DEVTOOLS === 'true' && (
+          <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+        )}
       </QueryClientProvider>
     </StrictMode>
   );

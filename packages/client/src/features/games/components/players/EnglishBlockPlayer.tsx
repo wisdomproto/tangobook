@@ -1,3 +1,6 @@
+import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
+import '@/features/phonics-learner/components/phonics-activities.css';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -66,6 +69,7 @@ function DroppableLetterSlot({
   const { t } = useTranslation('games');
   return (
     <button
+      data-learning-fx="tap"
       ref={setNodeRef}
       type="button"
       disabled={disabled}
@@ -145,6 +149,7 @@ function EnglishBlockPlayerInner({
   initialInputMode = 'screen',
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
+  const phonics = useVocabSource()?.source === 'phonics';
   const data = gameData as EnglishBlockData;
   const items = data.items;
   /**
@@ -691,9 +696,12 @@ function EnglishBlockPlayerInner({
       <Gate>
         {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
         <div
+          data-phonics-game={phonics || undefined}
+          data-phonics-language={phonics ? 'en' : undefined}
           className="learning-stage english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
           style={gameSafeAreaStyle()}
         >
+          {phonics && <PhonicsBackdrop />}
           <div className="px-2 pt-2 shrink-0">
             <GameHeader
               title={t('cards.block.labelEn')}
@@ -768,6 +776,7 @@ function EnglishBlockPlayerInner({
                    파닉스다. 그림만 보고 고르면 영어 소리는 한 번도 안 듣고 끝난다. 그림은 무엇의
                    소리인지 알려주는 보조로 남긴다. */
                     <button
+                      data-learning-fx="tap"
                       onClick={() => void sayWord()}
                       className="inline-flex items-center gap-3 rounded-full bg-white/80 px-5 py-3 text-lg font-black text-ink-700 shadow-soft sm:text-2xl"
                       aria-label={t('blockGame.listenFirstLetter')}
@@ -787,6 +796,7 @@ function EnglishBlockPlayerInner({
 
                 {/* 정답은 자동으로 확인한다. 아이가 현재 문제를 건너뛰거나 결과로 갈 수 있는 다음 버튼만 둔다. */}
                 <button
+                  data-learning-fx="tap"
                   onClick={handleNext}
                   disabled={isTutorialPlaying}
                   className={cn(
@@ -824,6 +834,7 @@ function EnglishBlockPlayerInner({
             한글 쪽과 같은 자리를 지키기 위해서다. */}
           <div className="shrink-0 flex justify-end px-3 pb-2">
             <button
+              data-learning-fx="tap"
               onClick={() => {
                 setCamera((v) => !v);
                 setGrid(initGrid(currentItem.letters));

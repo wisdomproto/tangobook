@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { koreanLearningUnitId } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader, courseThemes } from '@/design-system';
@@ -14,6 +15,8 @@ import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progre
 import { sumProgress } from '../lib/unit-progress';
 import { levelName, unitTitle } from '../lib/activity-title';
 import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
+import { PhonicsBackdrop } from './PhonicsBackdrop';
+import { ToyHangul } from './ToyHangul';
 
 /**
  * /library/phonics/korean(/:unitId)? — 한글 파닉스 학습 모드.
@@ -84,9 +87,11 @@ export default function KoreanPhonicsStudyPage() {
     const recent = getRecentUnit('korean');
     const recentValid =
       recent &&
-      allUnits.some((u) => u.id === recent && getActivityPlan(u.id).activities.length > 0);
+      allUnits.some(
+        (u) => u.id === koreanLearningUnitId(recent) && getActivityPlan(u.id).activities.length > 0
+      );
     const target =
-      (recentValid ? recent : null) ??
+      (recentValid ? koreanLearningUnitId(recent) : null) ??
       allUnits.find((u) => getActivityPlan(u.id).activities.length > 0)?.id;
     if (target) {
       return <Navigate to={`/library/phonics/korean/${target}`} replace />;
@@ -105,6 +110,9 @@ export default function KoreanPhonicsStudyPage() {
       </div>
     );
   }
+
+  if (koreanLearningUnitId(unitId) !== unitId)
+    return <Navigate to={`/library/phonics/korean/${koreanLearningUnitId(unitId)}`} replace />;
 
   // 레벨별 그룹 (사이드바)
   const byLevel = (() => {
@@ -126,7 +134,11 @@ export default function KoreanPhonicsStudyPage() {
   };
 
   return (
-    <div className="relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]">
+    <div
+      style={theme.style}
+      className="phonics-course-page relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]"
+    >
+      <PhonicsBackdrop />
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
       <PageHeader
         onBack={() => navigate('/library')}
@@ -197,7 +209,13 @@ export default function KoreanPhonicsStudyPage() {
                     </span>
                   </button>
                   {isExpanded && (
-                    <div className="flex flex-col gap-1 mt-1">
+                    <div
+                      className={
+                        levelKey === 'hangul-vowels'
+                          ? 'phonics-vowel-unit-grid'
+                          : 'flex flex-col gap-1 mt-1'
+                      }
+                    >
                       {unitStats.map(({ unit: u, done, total }) => (
                         <CurriculumItem
                           key={u.id}
@@ -244,6 +262,29 @@ function CurriculumItem({
   const { t } = useTranslation('phonics');
   const titleShort = unitTitle(t, unit).replace(/^unit\s+\d+:\s*/i, '');
   const baseClass = `flex min-h-12 items-center gap-2.5 px-2.5 py-2.5 rounded-card text-left border-2 transition-colors ${theme.focus}`;
+  if (unit.levelKey === 'hangul-vowels')
+    return (
+      <Link
+        to={`/library/phonics/korean/${unit.id}`}
+        aria-label={titleShort}
+        aria-current={active ? 'page' : undefined}
+        className={`phonics-vowel-unit phonics-vowel-unit--group ${active ? theme.selected : 'bg-white/80 border-transparent'} ${theme.focus}`}
+      >
+        <span className="phonics-vowel-group-letters">
+          {unit.phonemes.map((letter) => (
+            <ToyHangul key={letter} text={letter} decorative />
+          ))}
+        </span>
+        <span className="text-xs font-semibold text-ink-600">
+          {doneCount} / {totalCount}
+        </span>
+        {done && (
+          <span className="text-mint-700" aria-label={t('study.activityDone')}>
+            ✓
+          </span>
+        )}
+      </Link>
+    );
   if (!hasPlan) {
     return (
       <div
@@ -282,7 +323,13 @@ function CurriculumItem({
         ].join(' ')}
       >
         {/* 🔴 복습은 번호를 쓰지 않는다 — 앞 단원과 같은 번호가 되어 "5, 5" 로 보인다. 트로피로 구분. */}
-        {done ? '✓' : unit.isReview ? '🏅' : unit.unitIndexInLevel}
+        {done ? (
+          '✓'
+        ) : unit.isReview ? (
+          '🏅'
+        ) : (
+          <ToyHangul text={unit.phonemes[0]} decorative className="!w-7 !h-7" />
+        )}
       </span>
       <span className="min-w-0 flex-1 text-sm sm:text-base font-bold leading-snug break-keep">
         {titleShort}

@@ -1,3 +1,4 @@
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -69,6 +70,13 @@ export function WordFillCanvas({
    *    move + up 으로 두 번 확정됐다. 호출부가 "다음 카드로" 를 걸어두면 카드가 한 장씩 건너뛴다.
    */
   const completedRef = useRef(false);
+  const evaluationFrameRef = useRef<number | null>(null);
+  const cancelEvaluation = useCallback(() => {
+    if (evaluationFrameRef.current !== null) {
+      cancelAnimationFrame(evaluationFrameRef.current);
+      evaluationFrameRef.current = null;
+    }
+  }, []);
   const [doneCount, setDoneCount] = useState(0);
   // 하이라이트를 그리려면 렌더가 범위를 알아야 한다 — ref 와 같은 값을 state 로도 둔다.
   const [ranges, setRanges] = useState<Array<{ start: number; end: number }>>([]);
@@ -129,11 +137,14 @@ export function WordFillCanvas({
     }
     rangesRef.current = ranges;
     doneRef.current = ranges.map(() => false);
+    completedRef.current = false;
     setDoneCount(0);
     setRanges(ranges.map((r) => ({ start: r.start, end: r.end })));
   }, [word, syllables, fontFamily]);
 
   useEffect(() => {
+    cancelEvaluation();
+    isDrawingRef.current = false;
     let alive = true;
     let drew = false;
     const fam = fontFamily ?? fontFamilyFor(word);
@@ -153,14 +164,16 @@ export function WordFillCanvas({
       const t = setTimeout(draw, 400); // 로드가 늦어도 일단 그림
       return () => {
         alive = false;
+        cancelEvaluation();
         clearTimeout(t);
       };
     }
     draw();
     return () => {
       alive = false;
+      cancelEvaluation();
     };
-  }, [drawGuide, word, fontFamily]);
+  }, [drawGuide, word, fontFamily, cancelEvaluation]);
 
   /** 칠한 뒤 음절별 coverage 측정 → 새로 완료된 음절 처리. */
   const evaluate = useCallback(() => {
@@ -196,7 +209,10 @@ export function WordFillCanvas({
         newlyDone.push(i);
       }
     }
-    if (newlyDone.length) setDoneCount(doneRef.current.filter(Boolean).length);
+    if (newlyDone.length) {
+      setDoneCount(doneRef.current.filter(Boolean).length);
+      emitLearningEffect(doneRef.current.every(Boolean) ? 'word' : 'letter', canvas);
+    }
     const allDone = doneRef.current.every(Boolean);
     // 🔴 이 evaluate 에서 낱말이 **완성되면** 이번에 새로 끝난 글자의 개별 이어읽기(onSyllableDone)는
     //    내지 않는다 — onComplete 가 낱말 전체를 읽으므로 같은 채널에서 겹친다(한 획으로 마지막 두
@@ -215,6 +231,17 @@ export function WordFillCanvas({
       onComplete?.();
     }
   }, [syllables, threshold, onSyllableDone, onComplete]);
+  const evaluateRef = useRef(evaluate);
+  evaluateRef.current = evaluate;
+
+  // 획은 입력마다 즉시 그린다. 무거운 전체 픽셀 채점만 한 프레임에 한 번으로 묶는다.
+  const queueEvaluation = () => {
+    if (evaluationFrameRef.current !== null) return;
+    evaluationFrameRef.current = requestAnimationFrame(() => {
+      evaluationFrameRef.current = null;
+      evaluateRef.current();
+    });
+  };
 
   const toCanvas = (e: ReactPointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
@@ -283,17 +310,18 @@ export function WordFillCanvas({
     const pt = toCanvas(e);
     paintTo(pt.x, pt.y);
     feedDrawLoop();
-    evaluate();
+    queueEvaluation();
   };
   const onUp = () => {
     isDrawingRef.current = false;
     lastPointRef.current = null;
+    cancelEvaluation();
     evaluate();
   };
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
-      <div className="relative w-full rounded-card overflow-hidden border-2 border-ink-100 bg-white shadow-soft">
+      <div className="word-fill-paper relative w-full rounded-card overflow-hidden border-2 border-ink-100 bg-white shadow-soft">
         {/* 🔴 지금 쓸 칸만 남기고 덮는 스포트라이트. 캔버스 픽셀을 건드리면 이미 칠한 획이 지워지므로
          **DOM 오버레이**로 얹는다. 차단 자체는 paintTo 의 clip 이 담당한다. */}
         {activeRange && (
@@ -329,6 +357,7 @@ export function WordFillCanvas({
           </>
         )}
         <canvas
+          data-learning-fx={doneCount < syllables.length ? 'trace' : undefined}
           ref={canvasRef}
           width={CANVAS_W}
           height={CANVAS_H}

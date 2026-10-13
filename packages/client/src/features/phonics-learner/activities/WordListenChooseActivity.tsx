@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -8,6 +9,7 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
 import { ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
+import { ToyHangul } from '../components/ToyHangul';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -65,6 +67,9 @@ interface Props {
    *    미지정이면 퀴즈도 판 전체(기존 동작 불변).
    */
   quizChoices?: number;
+  /** 모음 입문: 정답을 포함한 두 보기에서 시작해 네 보기까지 늘린다. */
+  progressiveChoices?: boolean;
+  illustratedLetters?: boolean;
   /**
    * 한 줄에 놓을 카드 수. 미지정이면 장수로 정한다.
    * 🔴 알파벳 단원은 **글자당 한 줄**이라 2 를 넘긴다 — 안 넘기면 넓은 화면에서 여섯 장이
@@ -136,6 +141,18 @@ function shuffle<T>(arr: readonly T[]): T[] {
   return a;
 }
 
+/** 출제된 정답은 항상 포함한다. 판의 순서는 유지하고 아직 배우지 않은 글자는 추가하지 않는다. */
+export function progressiveListenBoard<T>(
+  board: readonly T[],
+  answer: T | undefined,
+  round: number
+): T[] {
+  if (!answer) return [];
+  const size = Math.min(board.length, 4, 2 + round);
+  const included = new Set([answer, ...board.filter((item) => item !== answer).slice(0, size - 1)]);
+  return board.filter((item) => included.has(item));
+}
+
 /**
  * 🔊 듣고 고르기 — 단어 소리를 먼저 들려주고 그림을 고른다.
  *
@@ -151,6 +168,8 @@ export function WordListenChooseActivity({
   language = 'korean',
   choices = 4,
   quizChoices,
+  progressiveChoices = false,
+  illustratedLetters = false,
   columns,
   exploreFirst = false,
   revealImageOnTap = false,
@@ -218,8 +237,16 @@ export function WordListenChooseActivity({
   const [opened, setOpened] = useState<Set<string>>(new Set());
 
   const [exploring, setExploring] = useState(exploreFirst);
+  const [qIdx, setQIdx] = useState(0);
   /** 지금 화면에 깔린 판 — 탐색은 전체, 퀴즈는 라벨당 한 장. */
-  const shownBoard = exploring ? board : quizBoard;
+  const progressiveBoard = useMemo(
+    () =>
+      progressiveChoices
+        ? progressiveListenBoard(quizBoard, questions[qIdx]?.answer, qIdx)
+        : quizBoard,
+    [progressiveChoices, quizBoard, questions, qIdx]
+  );
+  const shownBoard = exploring ? board : progressiveBoard;
   /**
    * 카드 한 장의 크기 — **폭과 높이 중 작은 쪽**이 정한다.
    *
@@ -228,7 +255,8 @@ export function WordListenChooseActivity({
    *    카드 아래 낱말 줄까지 얹히므로 두 줄일 때는 24vh 로 잡아야 문제·버튼 자리가 남는다.
    */
   const cols = columns ?? (shownBoard.length > 6 ? 4 : shownBoard.length > 4 ? 3 : 2);
-  const rows = Math.ceil(shownBoard.length / cols);
+  // 입문 보기 수가 늘어도 카드 자체가 갑자기 작아지지 않게 같은 크기로 예약한다.
+  const rows = progressiveChoices ? 2 : Math.ceil(shownBoard.length / cols);
   /**
    * 🔴 세로 몫은 **줄 수로 나눈다** — 예전엔 `rows > 1` 을 전부 24vh 로 뭉뚱그렸다. 알파벳 단원이
    *    글자당 한 줄(3줄)이 되자 카드만 601px 을 먹어 **「퀴즈」 버튼이 화면 밖(850px)으로** 나갔다.
@@ -248,7 +276,6 @@ export function WordListenChooseActivity({
    *    같은 컴포넌트인데 한쪽 경로에만 안내가 있었던 것 — 공용으로 만들었으면 두 진입로를 다 봐야 한다.
    */
   const [starting, setStarting] = useState(!exploreFirst);
-  const [qIdx, setQIdx] = useState(0);
   const [wrong, setWrong] = useState<string | null>(null);
   /**
    * 방금 맞힌 카드 — 다음 문제로 넘어갈 때까지 초록으로 남는다.
@@ -417,7 +444,8 @@ export function WordListenChooseActivity({
     (picked: ListenChoice) => {
       // `correct` 가 남아 있는 동안은 정답 소리 체인이 도는 중이라 다음 탭을 받지 않는다.
       // 이미 맞힌 카드(민트)는 다시 눌러도 무시 — 오답 흔들림이 나지 않게.
-      if (done || !current || wrong || correct || solved.has(idOf(picked))) return;
+      if (done || !current || wrong || correct || (!progressiveChoices && solved.has(idOf(picked))))
+        return;
       if (idOf(picked) !== idOf(current.answer)) {
         onJudge?.(false, current.answer);
         playFeedbackSound(false);
@@ -442,7 +470,7 @@ export function WordListenChooseActivity({
             playCorrectSequence({ language: praiseLang() });
             return;
           }
-          playAudio('/sounds/game/correct.mp3', () =>
+          playAudio(LEARNING_SOUNDS.correct, () =>
             rest(() => {
               setCorrect(null);
               setQIdx((i) => i + 1);
@@ -466,6 +494,7 @@ export function WordListenChooseActivity({
       playFeedbackSound,
       playCorrectSequence,
       onMarkComplete,
+      progressiveChoices,
       language,
     ]
   );
@@ -506,7 +535,7 @@ export function WordListenChooseActivity({
   if (!current) return null;
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
@@ -544,6 +573,7 @@ export function WordListenChooseActivity({
                   </span>
                 )}
                 <button
+                  data-learning-fx="tap"
                   onClick={() => say(current.answer)}
                   aria-label={t('common.listenAgain')}
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-700 text-white text-4xl sm:text-5xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
@@ -563,11 +593,12 @@ export function WordListenChooseActivity({
         {/* 🔴 `flex-wrap` 은 **폭이 남으면 안 접힌다** — 계산한 열 수(`cols`)가 무시돼 여섯 장이
             한 줄로 늘어섰다. grid 로 두면 줄 수가 화면 폭과 무관하게 의도대로 선다. */}
         <div
-          className="grid justify-center gap-4 sm:gap-6 px-2"
+          className="phonics-listen-grid grid justify-center gap-4 sm:gap-6 px-2"
           style={{ gridTemplateColumns: `repeat(${cols}, max-content)` }}
         >
           {shownBoard.map((c) => (
             <button
+              data-learning-fx="tap"
               key={idOf(c)}
               // 🔴 카드 크기는 **폭과 높이 둘 다** 본다(`min(vw, vh)`). `aspect-square` + `w-full` 만
               //    두면 세로가 얼마든 정사각이 넓이를 따라가서, 1024×768 에서 제목이 위로 잘리고
@@ -585,20 +616,23 @@ export function WordListenChooseActivity({
               }}
               aria-label={c.label}
               // 안내 음성 중엔 못 누른다 · 이미 맞힌 카드도 못 누른다(민트로 남는다).
-              disabled={done || starting || solved.has(idOf(c))}
+              disabled={done || starting || (!progressiveChoices && solved.has(idOf(c)))}
+              data-solved={
+                correct === idOf(c) || (!progressiveChoices && solved.has(idOf(c))) || undefined
+              }
               className={[
-                'relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
+                'phonics-listen-card relative rounded-3xl border-[6px] overflow-hidden shadow-soft transition',
                 // 🔴 맞힌 칸 = **민트 채움으로 남는다**(2026-08-02). 예전엔 `bg-success/10`(10% 초록)이라
                 //    흰 카드에서 거의 안 보였고, `correct` 하나뿐이라 소리가 끝나면 색이 사라졌다
                 //    (사용자: "정답 맞추면 색깔 그냥 칠한채로 냅둬야지"). `solved` 로 계속 민트.
-                correct === idOf(c) || solved.has(idOf(c))
+                correct === idOf(c) || (!progressiveChoices && solved.has(idOf(c)))
                   ? 'border-mint-500 bg-mint-100 ring-4 ring-mint-300 scale-[1.03]'
                   : wrong === idOf(c)
                     ? 'border-coral-500 bg-white animate-shake'
                     : 'border-white bg-white hover:shadow-soft active:scale-[0.97]',
               ].join(' ')}
             >
-              {(correct === idOf(c) || solved.has(idOf(c))) && (
+              {(correct === idOf(c) || (!progressiveChoices && solved.has(idOf(c)))) && (
                 <span className="absolute top-1.5 right-1.5 z-10 inline-flex items-center justify-center w-8 h-8 rounded-full bg-mint-500 text-white text-lg font-black shadow-soft ring-2 ring-white">
                   ✓
                 </span>
@@ -637,7 +671,7 @@ export function WordListenChooseActivity({
                     c.label.length >= 3 ? 'text-2xl sm:text-4xl' : 'text-5xl sm:text-7xl',
                   ].join(' ')}
                 >
-                  {c.label}
+                  {illustratedLetters ? <ToyHangul text={c.label} decorative /> : c.label}
                 </span>
               )}
             </button>
@@ -647,6 +681,7 @@ export function WordListenChooseActivity({
         {exploring && (
           // 🔴 "퀴즈" 만으론 무엇을 하는 버튼인지 알 수 없다 — 무슨 퀴즈인지 한 줄로 붙인다.
           <button
+            data-learning-fx="tap"
             onClick={startQuiz}
             className="px-10 py-4 rounded-full bg-coral-700 text-white shadow-soft active:scale-[0.98] transition flex flex-col items-center leading-tight"
           >
@@ -662,12 +697,14 @@ export function WordListenChooseActivity({
             <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
+                data-learning-fx="tap"
                 onClick={restart}
                 className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl shadow-soft active:scale-[0.98] transition"
               >
                 {t('common.retry')}
               </button>
               <button
+                data-learning-fx="tap"
                 onClick={onBack}
                 className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
               >

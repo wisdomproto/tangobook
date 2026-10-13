@@ -220,7 +220,8 @@ export function getKoreanSyllableUrl(text: string): Promise<string | undefined> 
           })
           .catch(() => new Map<string, string>());
     void sharedKoMapPromise.then((m) => {
-      sharedKoMap = m;
+      if (m.size) sharedKoMap = m;
+      else sharedKoMapPromise = null; // 연결 실패를 세션 전체의 무음으로 캐시하지 않는다.
     });
   }
   return sharedKoMapPromise.then((m) => m.get(text));
@@ -271,7 +272,8 @@ export function getEnglishPhonemeUrl(text: string): Promise<string | undefined> 
           })
           .catch(() => new Map<string, string>());
     void sharedEnMapPromise.then((m) => {
-      sharedEnMap = m;
+      if (m.size) sharedEnMap = m;
+      else sharedEnMapPromise = null;
     });
   }
   return sharedEnMapPromise.then((m) => lookupEnglishSound(m, text));
@@ -303,7 +305,8 @@ export function getChineseSyllableUrl(text: string): Promise<string | undefined>
           })
           .catch(() => new Map<string, string>());
     void sharedZhMapPromise.then((m) => {
-      sharedZhMap = m;
+      if (m.size) sharedZhMap = m;
+      else sharedZhMapPromise = null;
     });
   }
   return sharedZhMapPromise.then((m) => m.get(key));

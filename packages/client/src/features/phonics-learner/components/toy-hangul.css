@@ -1,0 +1,110 @@
+.toy-hangul {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+.toy-hangul-art,
+.toy-hangul-cell,
+.toy-hangul-syllable {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+.toy-hangul-cell {
+  flex: 1;
+}
+.toy-hangul-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+.toy-hangul-parts {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.toy-hangul-parts > span {
+  width: 50%;
+  height: 100%;
+  min-width: 0;
+}
+.toy-hangul-parts--mixed {
+  align-items: flex-end;
+}
+.toy-hangul-parts--mixed > span:first-child {
+  height: 55%;
+}
+.toy-hangul-syllable {
+  flex-direction: column;
+}
+.toy-hangul-body {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.toy-hangul-body > span {
+  width: 60%;
+  height: 100%;
+}
+.toy-hangul-body > span:last-child {
+  width: 40%;
+}
+.toy-hangul-body > span:first-child > .toy-hangul-image {
+  object-position: right center;
+}
+.toy-hangul-body > span:last-child > .toy-hangul-image {
+  object-position: left center;
+}
+.toy-hangul-body--vertical {
+  flex-direction: column;
+}
+.toy-hangul-body--vertical > span {
+  width: 100%;
+  height: 62%;
+}
+.toy-hangul-body--vertical > span:last-child {
+  width: 100%;
+  height: 38%;
+}
+.toy-hangul-body--vertical > span:first-child > .toy-hangul-image {
+  object-position: center bottom;
+}
+.toy-hangul-body--vertical > span:last-child > .toy-hangul-image {
+  object-position: center top;
+}
+.toy-hangul-body--mixed {
+  position: relative;
+}
+.toy-hangul-body--mixed > span:first-child {
+  width: 50%;
+  height: 55%;
+  position: relative;
+  z-index: 1;
+}
+.toy-hangul-body--mixed > span:last-child {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+}
+.toy-hangul-syllable--coda > .toy-hangul-body {
+  height: 68%;
+}
+.toy-hangul-coda {
+  display: block;
+  height: 32%;
+  width: 100%;
+}
+.toy-hangul-fallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  line-height: 1;
+}

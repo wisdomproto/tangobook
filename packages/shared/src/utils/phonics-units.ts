@@ -7,6 +7,10 @@
  *    단원을 가리킨다). 그래서 shared 에 둔다.
  */
 import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '../constants/index.js';
+import {
+  KOREAN_PHONICS_LEARNING_CURRICULUM,
+  koreanLearningUnitId,
+} from '../constants/korean-learning.js';
 
 export const PHONICS_TRACK_META = {
   korean: {
@@ -28,7 +32,7 @@ export function isPhonicsTrack(v: string): v is PhonicsTrack {
 }
 
 export function phonicsCurriculum(track: PhonicsTrack) {
-  return track === 'korean' ? KOREAN_PHONICS_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
+  return track === 'korean' ? KOREAN_PHONICS_LEARNING_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
 }
 
 export interface FlatPhonicsUnit {
@@ -47,9 +51,16 @@ export interface FlatPhonicsUnit {
 }
 
 /** 레벨 중첩을 평평하게 편다 — 배열 순서가 곧 커리큘럼 순서다. */
-export function flattenPhonicsUnits(track: PhonicsTrack): FlatPhonicsUnit[] {
+export function flattenPhonicsUnits(
+  track: PhonicsTrack,
+  source: 'learning' | 'authoring' = 'learning'
+): FlatPhonicsUnit[] {
   const out: FlatPhonicsUnit[] = [];
-  for (const level of phonicsCurriculum(track)) {
+  const curriculum =
+    source === 'authoring' && track === 'korean'
+      ? KOREAN_PHONICS_CURRICULUM
+      : phonicsCurriculum(track);
+  for (const level of curriculum) {
     for (const raw of level.units) {
       const unit = raw as {
         id: string;
@@ -79,5 +90,6 @@ export function flattenPhonicsUnits(track: PhonicsTrack): FlatPhonicsUnit[] {
 }
 
 export function findPhonicsUnit(track: PhonicsTrack, unitId: string): FlatPhonicsUnit | null {
-  return flattenPhonicsUnits(track).find((u) => u.id === unitId) ?? null;
+  const id = track === 'korean' ? koreanLearningUnitId(unitId) : unitId;
+  return flattenPhonicsUnits(track).find((u) => u.id === id) ?? null;
 }

@@ -8,7 +8,7 @@ export function courseActivityMode(kind: ActivityDef['kind']): CourseActivityMod
   if (kind.includes('write') || kind === 'game-word-writing') return 'write';
   if (kind === 'game-connect-dots') return 'draw';
   if (kind.includes('block')) return 'build';
-  if (kind === 'letter-hunt') return 'find';
+  if (kind.includes('hunt')) return 'find';
   if (kind.includes('match') || kind === 'review-flip') return 'match';
   if (kind.includes('listen') || kind === 'word-listen-choose' || kind === 'tone-choice-review')
     return 'listen';
@@ -24,7 +24,9 @@ export function courseActivityPreview(activity: ActivityDef): string[] {
   if (activity.letters) return activity.letters.map(letterPair);
   if (activity.vowels) {
     return activity.vowels.map((item) =>
-      courseActivityMode(activity.kind) === 'write' ? item.syllable : item.vowel
+      courseActivityMode(activity.kind) === 'write'
+        ? (item.writeLetter ?? item.syllable)
+        : item.vowel
     );
   }
   if (activity.cvcPattern) return [activity.cvcPattern.vc];

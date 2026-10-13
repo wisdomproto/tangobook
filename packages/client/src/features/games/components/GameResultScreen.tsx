@@ -1,14 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { getMetBooks } from '../lib/phonics-word-scene';
 import { motion, useReducedMotion } from 'framer-motion';
-import confetti from 'canvas-confetti';
+import {
+  clearLearningEffects,
+  emitLearningEffect,
+  prepareLearningEffects,
+} from '../effects/learning-effects';
 import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
-import { Mascot } from '@/design-system';
 import { Button } from '@/design-system';
 import { settingsApi } from '@/features/settings/api/settings.api';
-import { playUi } from '@/lib/uiSound';
+import { isUiMuted } from '@/lib/uiSound';
+import { getSharedAudio } from '@/lib/audio-unlock';
+import { LEARNING_SOUNDS } from '../effects/learning-sounds';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
+import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 
 interface GameResultScreenProps {
   score: number;
@@ -30,18 +37,16 @@ function praiseFor(score: number, total: number): { titleKey: string; subKey: st
   return { titleKey: 'result.goodTitle', subKey: 'result.goodSub' };
 }
 
-// 히어로 이미지 슬롯 — 사용자가 넣어줄 축하 일러스트. 없으면(로드 실패) 마스코트로 폴백.
-const HERO_IMAGE_URL = '/images/games/result-celebrate.webp';
-
 /**
  * mvp-simplification 정책: 학습자 화면에서 별 UI 전부 hide.
  * 별 3개 평점 + "저장됨" 토스트 제거. 백엔드 별 적립은 trigger 로 자동 (부모 리포트 source).
  */
 export function GameResultScreen({ score, total, onRestart, onBack, lang }: GameResultScreenProps) {
   const { t } = useTranslation('games');
+  const source = useVocabSource();
+  const phonics = source?.source === 'phonics';
   const reduce = useReducedMotion();
-  const [heroFailed, setHeroFailed] = useState(false);
-  const perfect = total > 0 && score >= total;
+  const resultRef = useRef<HTMLDivElement>(null);
   const { titleKey, subKey } = praiseFor(score, total);
 
   // 카운트업 애니 (0 → score, 800ms)
@@ -64,31 +69,44 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
     return () => cancelAnimationFrame(raf);
   }, [score, reduce]);
 
-  // 마운트 시 confetti (prefers-reduced-motion 존중). 만점이면 양쪽에서 한 번 더 터뜨림.
   useEffect(() => {
-    if (reduce) return;
-    const colors = ['#FF5E3A', '#FFC857', '#5CC99F', '#A78BFA'];
-    confetti({ particleCount: 130, spread: 85, origin: { y: 0.5 }, colors });
-    if (perfect) {
-      const t = window.setTimeout(() => {
-        confetti({ particleCount: 70, angle: 60, spread: 70, origin: { x: 0, y: 0.7 }, colors });
-        confetti({ particleCount: 70, angle: 120, spread: 70, origin: { x: 1, y: 0.7 }, colors });
-      }, 350);
-      return () => window.clearTimeout(t);
-    }
-  }, [reduce, perfect]);
-
-  // 마운트 시 축하 효과음 1회.
-  useEffect(() => {
-    playUi('reward');
+    prepareLearningEffects();
+    emitLearningEffect('complete', resultRef.current);
+    return clearLearningEffects;
   }, []);
 
-  // 마운트 시 칭찬 음원 1회 (호리 + 칭찬).
+  // 완료 효과음의 실제 ended 뒤 해당 언어 칭찬을 잇는다. iOS에서 열린 공용 요소를 재사용.
   // lang 지정 시 해당 언어 풀 우선(비면 반대 언어 폴백) — 한글 게임 끝에 영어 칭찬 방지.
   // 미지정 시 기존처럼 한/영 합산 랜덤 (useGameAudio.playCorrectSequence 와 동일 정책).
   useEffect(() => {
     let cancelled = false;
-    let audio: HTMLAudioElement | null = null;
+    try {
+      if (localStorage.getItem('tangobook-game-muted') === 'true') return;
+    } catch {
+      /* unavailable storage */
+    }
+    const audio = getSharedAudio();
+    let effectEnded = isUiMuted();
+    let praiseUrl: string | undefined;
+    const praise = () => {
+      if (cancelled || !effectEnded || !praiseUrl) return;
+      audio.onended = null;
+      audio.onerror = null;
+      audio.src = praiseUrl;
+      void audio.play().catch(() => {});
+    };
+    const finishEffect = () => {
+      if (effectEnded || cancelled) return;
+      effectEnded = true;
+      praise();
+    };
+    if (!effectEnded) {
+      audio.pause();
+      audio.onended = finishEffect;
+      audio.onerror = finishEffect;
+      audio.src = LEARNING_SOUNDS.complete;
+      void audio.play().catch(finishEffect);
+    }
     settingsApi
       .getSystemSounds()
       .then((data) => {
@@ -98,38 +116,40 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
         const langPool = ssLang ? (data[ssLang]?.correct ?? []).map((s) => s.url) : [];
         const pool = langPool.length > 0 ? langPool : allUrls;
         if (pool.length === 0) return;
-        const url = pool[Math.floor(Math.random() * pool.length)];
-        audio = new Audio(url);
-        void audio.play().catch(() => {});
+        praiseUrl = pool[Math.floor(Math.random() * pool.length)];
+        praise();
       })
       .catch(() => {});
     return () => {
       cancelled = true;
-      if (audio) {
-        audio.pause();
-        audio.src = '';
-      }
+      audio.onended = null;
+      audio.onerror = null;
+      audio.pause();
+      audio.src = '';
     };
   }, [lang]);
 
   return (
-    <div className="game-result-screen" role="region" aria-label={t('result.summaryLabel')}>
+    <div
+      data-learning-effects
+      className={`game-result-screen ${phonics ? 'learning-stage' : ''}`}
+      data-phonics-game={phonics || undefined}
+      data-phonics-language={phonics ? (source?.unitId.startsWith('en-') ? 'en' : 'ko') : undefined}
+      role="region"
+      aria-label={t('result.summaryLabel')}
+    >
+      {phonics && <PhonicsBackdrop />}
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         className="game-result-card"
       >
         <div className="game-result-hero" aria-hidden="true">
-          {!heroFailed ? (
-            <img
-              src={HERO_IMAGE_URL}
-              alt=""
-              className="h-full w-full object-contain"
-              onError={() => setHeroFailed(true)}
-            />
-          ) : (
-            <Mascot state="celebrating" size="xl" />
-          )}
+          <div ref={resultRef} className="learning-completion-seal">
+            <svg viewBox="0 0 80 80">
+              <path d="M18 40 L33 55 L63 25" />
+            </svg>
+          </div>
         </div>
         <div className="game-result-content">
           <h1 className="text-page-title font-display">{t(titleKey)}</h1>

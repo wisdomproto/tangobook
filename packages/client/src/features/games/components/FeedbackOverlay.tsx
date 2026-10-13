@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import confetti from 'canvas-confetti';
-import { Mascot } from '@/design-system';
+import { emitLearningEffect } from '../effects/learning-effects';
 import { cn } from '@/lib/cn';
 
 interface FeedbackOverlayProps {
@@ -21,12 +20,7 @@ const CORRECT_KEYS = [
 ];
 const INCORRECT_KEYS = ['feedback.incorrect1', 'feedback.incorrect2', 'feedback.incorrect3'];
 
-/**
- * 게임 정답/오답 피드백 오버레이.
- * - correct: cheering 호리 + confetti + 무지개 배경
- * - incorrect: sad 호리 + shake 애니
- * - prefers-reduced-motion 존중 (confetti 스킵)
- */
+/** 정답은 학습 대상에서 반응하고, 문구는 내용을 가리지 않는 하단 상태로 표시한다. */
 export function FeedbackOverlay({
   kind,
   visible,
@@ -44,21 +38,8 @@ export function FeedbackOverlay({
   }, [kind, visible]);
   const text = t(textKey);
 
-  // 정답 시 confetti (prefers-reduced-motion 존중)
   useEffect(() => {
-    if (!visible) return;
-    if (kind !== 'correct') return;
-    const reduce =
-      typeof window !== 'undefined' &&
-      typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    confetti({
-      particleCount: 40,
-      spread: 60,
-      origin: { y: 0.5 },
-      colors: ['#FF5E3A', '#FFC857', '#5CC99F', '#A78BFA'],
-    });
+    if (visible) emitLearningEffect(kind === 'correct' ? 'correct' : 'retry');
   }, [visible, kind]);
 
   // 자동 dismiss
@@ -71,25 +52,25 @@ export function FeedbackOverlay({
 
   if (!visible) return null;
 
-  const mascotState = kind === 'correct' ? 'cheering' : 'sad';
-  const bgTint = kind === 'correct' ? 'bg-success/10' : 'bg-coral-100/40';
-  const shakeClass = kind === 'incorrect' ? 'motion-safe:animate-shake' : '';
-
   return (
     <div
       className={cn(
-        'fixed inset-0 z-40 flex flex-col items-center gap-3 pointer-events-none',
-        positionHint === 'top' ? 'justify-start pt-24' : 'justify-center',
-        bgTint,
-        shakeClass
+        'learning-feedback',
+        positionHint === 'top' && 'learning-feedback--top',
+        kind === 'incorrect' && 'learning-feedback--retry'
       )}
+      role="status"
+      aria-live="polite"
     >
-      <Mascot state={mascotState} size="lg" />
-      <div
-        data-testid="feedback-text"
-        className="bg-white rounded-lg px-6 py-3 border border-ink-100 shadow-soft font-bold text-2xl text-ink-900"
-      >
-        {text}
+      <div className="learning-feedback-pill">
+        <span className="learning-feedback-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32">
+            <path
+              d={kind === 'correct' ? 'M6 16 L13 23 L26 9' : 'M9 11 A10 10 0 1 1 7 22 M9 4 V11 H2'}
+            />
+          </svg>
+        </span>
+        <span data-testid="feedback-text">{text}</span>
       </div>
     </div>
   );

@@ -14,6 +14,8 @@ const REST_MS = 450;
 interface VowelItem {
   vowel: string;
   syllable: string; // 따라쓸 글자 (e.g. '아', 병음 'a')
+  /** 모음 입문에서는 소리(아)와 쓰는 모양(ㅏ)을 분리한다. */
+  writeLetter?: string;
   /**
    * 통과 시 읽어줄 소리 URL. 미지정이면 한글 `syllable` 을 `resolveTtsUrl(korean)` 로 읽는다.
    * 🔴 병음은 쓰는 글자('a')와 읽는 소리('ā' 원어민 녹음)가 달라 호출부가 URL 을 미리 준다.
@@ -23,6 +25,7 @@ interface VowelItem {
 
 interface Props {
   unitId: string;
+  ttsUnitId?: string;
   vowels: ReadonlyArray<VowelItem>;
   /**
    * **콘텐츠 소리**의 언어(warm·resolve 폴백). 기본 한글. 병음은 `'zh'` — 안 넘기면 korean 으로 데워
@@ -42,28 +45,32 @@ interface Props {
  */
 export function VowelWriteActivity({
   unitId,
+  ttsUnitId = unitId,
   vowels,
   language = 'korean',
   onComplete,
   onBack,
 }: Props) {
   const { t } = useTranslation('phonics');
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
   // 🔴 진입 안내 — 단일 캔버스라 "반짝이는 칸" 이 없다(화면 문구도 "따라써봐") → "글자를 따라 써 봐!".
   useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
   // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.
   const restRef = useRef<number | null>(null);
+  const sequenceRef = useRef(0);
+  const doneRef = useRef(new Set<number>());
   useEffect(
     () => () => {
+      sequenceRef.current++;
       if (restRef.current) clearTimeout(restRef.current);
     },
     []
   );
 
   usePhonicsTtsWarm(
-    unitId,
+    ttsUnitId,
     vowels.map((v) => v.syllable),
     'phonics-write',
     language
@@ -71,20 +78,22 @@ export function VowelWriteActivity({
 
   const handleResult = useCallback(
     async (passed: boolean) => {
-      if (!passed) return;
+      if (!passed || doneRef.current.has(currentIdx)) return;
       const idx = currentIdx;
+      const sequence = ++sequenceRef.current;
+      const nextDone = new Set(doneRef.current).add(idx);
+      doneRef.current = nextDone;
+      setDoneSet(nextDone);
       // 단어 발음 — 호출부가 준 URL(병음 원어민 녹음) 우선, 없으면 한글 phonics concat.
       const url =
         vowels[idx].ttsUrl ||
         (await resolveTtsUrl({
           text: vowels[idx].syllable,
           language,
-          storybookId: unitId,
+          storybookId: ttsUnitId,
           identifierPrefix: 'phonics-write',
         }));
-      const nextDone = new Set(doneSet);
-      nextDone.add(idx);
-      setDoneSet(nextDone);
+      if (sequence !== sequenceRef.current) return;
 
       const remaining = vowels.map((_, i) => i).filter((i) => !nextDone.has(i));
 
@@ -94,7 +103,9 @@ export function VowelWriteActivity({
        *    한 덩어리로 지나간다. 소리가 **끝난 걸 확인한 뒤** 넣는 쉼이라 길이 가정이 아니다.
        */
       const onTtsEnded = () => {
+        if (sequence !== sequenceRef.current) return;
         restRef.current = window.setTimeout(() => {
+          if (sequence !== sequenceRef.current) return;
           if (remaining.length === 0) {
             playCorrectSequence({ language: praiseLang(), onDone: onComplete });
           } else {
@@ -109,11 +120,11 @@ export function VowelWriteActivity({
         onTtsEnded();
       }
     },
-    [currentIdx, vowels, doneSet, playAudio, playCorrectSequence, onComplete, unitId]
+    [currentIdx, vowels, doneSet, playAudio, playCorrectSequence, onComplete, ttsUnitId, language]
   );
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       {/* chip 줄 — 진행 + 클릭으로 임의 선택 */}
       <div className="flex flex-wrap justify-center gap-3 mb-4">
         {vowels.map((v, i) => {
@@ -121,20 +132,27 @@ export function VowelWriteActivity({
           const active = i === currentIdx;
           return (
             <button
+              data-learning-fx="tap"
               key={v.vowel}
-              onClick={() => !done && setCurrentIdx(i)}
+              onClick={() => {
+                if (done) return;
+                sequenceRef.current++;
+                if (restRef.current) clearTimeout(restRef.current);
+                stopAll();
+                setCurrentIdx(i);
+              }}
               disabled={done}
               className={[
                 'inline-flex items-center gap-1.5 px-5 py-3 rounded-full font-black border-[3px] transition shadow-soft',
                 done
                   ? 'bg-success/15 border-success text-success-700'
                   : active
-                    ? 'bg-coral-500 border-coral-600 text-white shadow-soft scale-105'
+                    ? 'bg-coral-700 border-coral-700 text-white shadow-soft scale-105'
                     : 'bg-white border-white text-ink-700 hover:shadow-soft',
               ].join(' ')}
             >
               {done && <span className="text-base">✓</span>}
-              <span className="text-2xl sm:text-3xl">{v.syllable}</span>
+              <span className="text-2xl sm:text-3xl">{v.writeLetter ?? v.syllable}</span>
             </button>
           );
         })}
@@ -147,7 +165,7 @@ export function VowelWriteActivity({
         </h2>
         <LetterFillCanvas
           key={`${currentIdx}-${vowels[currentIdx].syllable}`}
-          letter={vowels[currentIdx].syllable}
+          letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck
         />

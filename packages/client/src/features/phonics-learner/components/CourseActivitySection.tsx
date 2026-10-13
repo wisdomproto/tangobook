@@ -15,6 +15,7 @@ export interface CourseActivityItem {
   iconUrl?: string;
   mode: CourseActivityMode;
   preview: string[];
+  repetitions?: number;
 }
 
 /** 한글/영어 과정의 같은 선택·완료 계약. 활동별 데이터와 학습 순서는 호출부가 정한다. */
@@ -71,6 +72,8 @@ export function CourseActivitySection({
                 mode={item.mode}
                 preview={item.preview}
                 iconUrl={item.iconUrl}
+                illustrated={language === 'korean' && item.mode !== 'write'}
+                repetitions={item.repetitions}
               />
               <div className="course-activity-caption">
                 <h3 className="font-display text-base font-bold leading-snug text-ink-900 break-keep">

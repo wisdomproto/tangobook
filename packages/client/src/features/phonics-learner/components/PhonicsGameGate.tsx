@@ -63,8 +63,9 @@ export function PhonicsGameGate({ game, gameData, storybook, storybookId, lang, 
 
   if (!preload.ready && !skipped) {
     return (
-      <div className="fixed inset-0 z-[60] bg-cream-50">
+      <div className="learning-stage fixed inset-0 z-[60] bg-cream-50">
         <GameLoadingGate
+          phonics
           loaded={preload.loaded}
           total={preload.total}
           onSkip={() => setSkipped(true)}

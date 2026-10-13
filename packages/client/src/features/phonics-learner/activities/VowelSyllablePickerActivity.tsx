@@ -1,3 +1,4 @@
+import { ToyHangul } from '../components/ToyHangul';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -74,20 +75,21 @@ export function VowelSyllablePickerActivity({
   }
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="explore" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-8">
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-ink-900 text-center break-keep">
           {mode === 'listen' ? t('vowelPicker.makePrompt') : t('vowelPicker.writePrompt')}
         </h2>
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+        <div className="phonics-picker-grid flex flex-wrap justify-center gap-4 sm:gap-6">
           {vowels.map((v) => {
             const done = made.has(v.vowel);
             return (
               <button
+                data-learning-fx="tap"
                 key={v.vowel}
                 onClick={() => setPicked(v.vowel)}
                 className={[
-                  'relative w-[30%] max-w-[11rem] lg:w-44 rounded-3xl border-[6px] aspect-square flex flex-col items-center justify-center gap-1 transition shadow-soft',
+                  'phonics-picker-card relative w-[30%] max-w-[11rem] lg:w-44 rounded-3xl border-[6px] aspect-square flex flex-col items-center justify-center gap-1 transition shadow-soft',
                   done
                     ? 'bg-mint-100 border-mint-500'
                     : 'bg-white border-white hover:shadow-soft active:scale-[0.97]',
@@ -105,7 +107,7 @@ export function VowelSyllablePickerActivity({
                 <span
                   className={`text-8xl sm:text-9xl font-black leading-none ${done ? 'text-mint-600' : 'text-coral-600'}`}
                 >
-                  {v.vowel}
+                  {mode === 'listen' ? <ToyHangul text={v.vowel} /> : v.vowel}
                 </span>
               </button>
             );

@@ -1,5 +1,15 @@
 # 게임·독후활동 기억
 
+2026-10-12 [파닉스 UI·연출·반응 개선 main 푸시](../platform/tasks/20261012-phonics-ui-effects-main-push.md): 사용자 요청으로 로컬 한영 효과/모음 Book1/전체 활동 UI/합성·쓰기·소리 반응 개선과 원격 Library Master 작업을 보존 merge. 통합34파일230회귀·타입/build 통과, f534ca313를 origin/main에 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태. Railway 배포 완료는 미확인.
+
+2026-10-12 [공용 게임 오디오·쓰기 반응 점검](../phonics/tasks/20261012-phonics-all-performance.md): 프레임당 쓰기 채점·첫 획 위치 고정, 한글 쓰기 translate380/220ms·영어 CVC 즉시 다음 칸/ended 체인, 늦은 음성·이탈 취소, 칭찬1개 사전 준비·StrictMode 게임 안내·복습 중복 조회 수정.223회귀·타입/빌드·대표 모바일/한영 플레이 통과. 외부 구 음원10초 지연1회/동일 자산 재현·실기기FPS는 미확인. 통합은 task 참조·미푸시.
+
+2026-10-12 [한글·영어 전체 활동 시각 통일](../phonics/tasks/20261012-phonics-all-activities-ui.md): 승인한 모음 화면을 한글5권/영어5권의16활동 템플릿과 파닉스 게임·로딩/결과까지 확장. 자음/합성/종이/듣기/씨앗카드/사냥 역할별 표현,375px 영어 조각/812×375 마지막행 잘림 수정. 합성 중 선택 잠금과 복습 그림짝 source 연결,152회귀·타입/빌드 및 대표 브라우저 검수. 통합은 task 참조·미푸시.
+
+2026-10-12 [파닉스 시각·소리 복구](../phonics/tasks/20261012-phonics-playful-ui.md): source=phonics GamePlayerLayout에 공통 SVG 풍경 연결, 독후게임 기존배경 보존. usePhonicsMap 연결실패 빈map을 캐시하지 않으며 한/영/중 재시도 회귀 추가. playAudio 선택 onError로 모음 재생실패를 완료로 처리하지 않되 기존 caller fallback 유지. 관련55검증·타입/빌드, 통합은 task 참조·미푸시.
+
+2026-10-12 [학습 애니메이션·효과음](../phonics/tasks/20261012-learning-game-effects.md): 지연 Phaser canvas 하나·14장면, 꽃/음표/하트/리본의 서로 다른 움직임과 MP3 4종. 호리/콘페티 반복 제외, 결과/점수/재시작·override/mute 보존. 157회귀·타입/빌드·대표 브라우저 검수, 30072b4b3 로컬 main 통합. 실기기 미검증·미푸시.
+
 2026-10-12 [학습 UI v2 후속 통일](../platform/tasks/20261012-platform-ui-v2-continuation.md): cream/white 공통 게임판·진행/결과/로딩, 한글/다국어 쓰기·쪽 순서 가로 배치·튜토리얼 카드 통일. 로컬 fixture로 쪽 순서 4/4 결과 유지→다시 하기 0/4 확인. 채점·교구·오디오 로직 보존; 실물·음성 검증과 구분. 미푸시·미배포.
 
 2026-10-12 [학습 UI v2 1차 구현](../platform/tasks/20261012-platform-ui-v2-implementation.md): 홈/탐색·서재/상세·공용 버튼과 독후활동 결과 유지·짧은 가로 게임판을 로컬 구현. 실제 브라우저와 관련 테스트로 확인하며 음성/실물 장치는 미검증. 별도 학습 리포트 초안·채점·콘텐츠는 유지. 미푸시·미배포, 통합 상태는 task 참조.

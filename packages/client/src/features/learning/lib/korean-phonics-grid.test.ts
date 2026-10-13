@@ -90,8 +90,9 @@ describe('격자 키 ↔ 집계 키', () => {
 });
 
 describe('KOREAN_PHONICS_LEVELS', () => {
-  it('exposes all 4 levels with name + description', () => {
+  it('exposes all 5 books with name + description', () => {
     expect(KOREAN_PHONICS_LEVELS.map((l) => l.id)).toEqual([
+      'hangul-vowels',
       'hangul1',
       'hangul2',
       'hangul3',

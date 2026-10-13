@@ -1,10 +1,12 @@
+import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
+import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { getRequiredActivities } from '../lib/korean-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { GameTypeId } from '@tangobook/shared';
+import { koreanLearningActivityRoute, type GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import {
   getActivityPlan,
   getKoreanUnit,
@@ -12,7 +14,8 @@ import {
   shuffleReviewCards,
   type ActivityDef,
 } from '../lib/korean-phonics-units';
-import { markActivityCompleted } from '../lib/progress-store';
+import { markActivityCompleted, getUnitProgress } from '../lib/progress-store';
+import { learnedVowelCards } from '../lib/korean-vowel-play';
 import { activityTitle } from '../lib/activity-title';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
@@ -74,9 +77,15 @@ export interface KoreanPhonicsActivityProps {
   activityKey: string;
   /** 「← 돌아가기」와 활동 완료 후 이동. 임베드는 갈 데가 없으므로 아무것도 안 한다. */
   onExit: () => void;
+  onNext?: () => void;
 }
 
-export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPhonicsActivityProps) {
+export function KoreanPhonicsActivity({
+  unitId,
+  activityKey,
+  onExit,
+  onNext,
+}: KoreanPhonicsActivityProps) {
   const { t } = useTranslation('phonics');
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
@@ -85,7 +94,11 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     [plan, activityKey]
   );
 
-  const storybookQuery = useStorybook(unit?.isReview ? undefined : unitId);
+  const storybookQuery = useStorybook(
+    unit?.isReview || unit?.levelKey === 'hangul-vowels'
+      ? undefined
+      : (unit?.sourceUnitId ?? unitId)
+  );
   const storybook = storybookQuery.data as Storybook | undefined;
 
   // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
@@ -116,7 +129,13 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         : reviewCards,
     [reviewCards, unit?.isReview]
   );
-  const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
+  const isVowelPlay =
+    activity?.kind === 'vowel-listen-game' ||
+    activity?.kind === 'vowel-hunt' ||
+    activity?.kind === 'vowel-match';
+  const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(
+    isVowelPlay ? [] : reviewCards
+  );
 
   /**
    * 🔴 게임 데이터는 **한 번만 뽑는다** — 어댑터가 내부에서 `shuffle().slice(0,4)` 를 해서,
@@ -144,6 +163,13 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
    */
   const logEvent = useLogEvent();
   const { activeProfile } = useAuth();
+  const vowelCards = useMemo(
+    () =>
+      shuffleReviewCards(
+        learnedVowelCards(unitId, (id) => getUnitProgress('korean', id).completedActivities)
+      ),
+    [unitId, activityKey, activeProfile?.id]
+  );
   const completionId = useMemo(() => crypto.randomUUID(), [unitId, activityKey, activeProfile?.id]);
   const logUnitProgress = useCallback(() => {
     if (!unitId) return;
@@ -167,8 +193,9 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   const handleComplete = useCallback(() => {
     markActivityCompleted('korean', unitId, activityKey);
     logUnitProgress();
-    backToUnit();
-  }, [unitId, activityKey, backToUnit, logUnitProgress]);
+    if (unit?.levelKey === 'hangul-vowels' && activity?.section === 'learn' && onNext) onNext();
+    else backToUnit();
+  }, [unitId, activityKey, backToUnit, logUnitProgress, unit?.levelKey, activity?.section, onNext]);
 
   // 자동 back 없이 진척만 마킹 (activity 가 직접 retry/back UI 노출용)
   /** 퀴즈 판정 → 낱말 정오답. 부모 리포트의 「다시 한번 보면 좋을 단어」가 이걸로 뽑힌다. */
@@ -210,14 +237,64 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
     );
   }
 
+  if (isVowelPlay) {
+    if (vowelCards.length < 2)
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="vowelGroup.learnFirst"
+        />
+      );
+    if (activity.kind === 'vowel-listen-game')
+      return (
+        <WordListenChooseActivity
+          key={`${unitId}:${activityKey}:${activeProfile?.id ?? 'guest'}`}
+          unitId={unit.sourceUnitId ?? unitId}
+          items={vowelCards.map((card) => ({ label: card.letter, sound: card.sound }))}
+          choices={vowelCards.length}
+          progressiveChoices
+          illustratedLetters
+          onMarkComplete={handleMarkComplete}
+          onBack={backToUnit}
+        />
+      );
+    if (activity.kind === 'vowel-hunt')
+      return (
+        <LetterHuntActivity
+          key={`${unitId}:${activityKey}:${activeProfile?.id ?? 'guest'}`}
+          unitId={unit.sourceUnitId ?? unitId}
+          cards={vowelCards}
+          distractors={vowelCards.map((card) => card.letter)}
+          illustratedLetters
+          beginner
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      );
+    return (
+      <ReviewFlipMatchActivity
+        key={`${unitId}:${activityKey}:${activeProfile?.id ?? 'guest'}`}
+        unitId={unit.sourceUnitId ?? unitId}
+        sources={vowelCards.map((card) => ({ ...card, word: '', imageUrl: '' }))}
+        identicalLetters
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+
   // 모음 듣기
   if (activity.kind === 'vowel-listen' && activity.vowels) {
     return (
       <VowelListenActivity
+        key={`${unitId}:${activityKey}`}
         unitId={unitId}
+        ttsUnitId={unit.sourceUnitId}
         vowels={activity.vowels}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
+        onNext={unit.levelKey === 'hangul-vowels' ? onNext : undefined}
       />
     );
   }
@@ -242,7 +319,9 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   if (activity.kind === 'vowel-write' && activity.vowels) {
     return (
       <VowelWriteActivity
+        key={`${unitId}:${activityKey}`}
         unitId={unitId}
+        ttsUnitId={unit.sourceUnitId}
         vowels={activity.vowels}
         onComplete={handleComplete}
         onBack={backToUnit}
@@ -477,28 +556,30 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
         />
       );
     return (
-      <LineMatchingPlayer
-        storybookId={unitId}
-        difficulty="easy"
-        onComplete={handleComplete}
-        onBack={backToUnit}
-        lang="ko"
-        gameData={{
-          type: 'korean-line-matching',
-          /**
-           * 🔴 카드는 **음소가 아니라 낱말**이다(2026-07-30 사용자: "여기도 그냥 단어로 넣어줘.
-           *    음소 말고"). 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고,
-           *    낱말↔그림이 실제로 하는 일과 맞는다. 예전엔 카드가 `ㄷ` 이고 낱말은 그 아래
-           *    작은 글씨였는데, 정작 그림과 짝지어지는 건 낱말이라 큰 글자가 겉돌았다.
-           * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
-           *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
-           */
-          items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
-            word: s.word,
-            imageUrl: s.imageUrl,
-          })),
-        }}
-      />
+      <VocabSourceProvider source="phonics" unitId={unitId}>
+        <LineMatchingPlayer
+          storybookId={unitId}
+          difficulty="easy"
+          onComplete={handleComplete}
+          onBack={backToUnit}
+          lang="ko"
+          gameData={{
+            type: 'korean-line-matching',
+            /**
+             * 🔴 카드는 **음소가 아니라 낱말**이다(2026-07-30 사용자: "여기도 그냥 단어로 넣어줘.
+             *    음소 말고"). 복습에 온 아이는 그 자음의 음절을 다 배운 뒤라 `도마` 가 읽히고,
+             *    낱말↔그림이 실제로 하는 일과 맞는다. 예전엔 카드가 `ㄷ` 이고 낱말은 그 아래
+             *    작은 글씨였는데, 정작 그림과 짝지어지는 건 낱말이라 큰 글자가 겉돌았다.
+             * 🔴 글자 활동이 사라지는 게 아니다 — 같은 복습의 **글자 사냥**(모양)·**듣고 음절**(소리)이
+             *    음소를 맡는다. 활동마다 겨루는 층이 다른 것이 이 복습의 구성이다.
+             */
+            items: withImage.slice(0, REVIEW_PAIRS).map((s) => ({
+              word: s.word,
+              imageUrl: s.imageUrl,
+            })),
+          }}
+        />
+      </VocabSourceProvider>
     );
   }
 
@@ -515,7 +596,8 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
   // - 한글3 (쌍자음 까/뱀 등) → medium: 쌍자음 picker 필요 (ㄲㄸㅃㅆㅉ).
   // - 한글4 (복잡 모음 ㅐㅔㅒㅖㅘㅝ 등) → medium: 복잡 모음 picker 필요.
   // (다른 게임은 difficulty 사용 안 함 → 영향 없음)
-  const blockDifficulty: 'easy' | 'medium' | 'hard' = unit.levelIndex >= 2 ? 'medium' : 'easy';
+  const blockDifficulty: 'easy' | 'medium' | 'hard' =
+    unit.levelKey === 'hangul1' || unit.levelKey === 'hangul-vowels' ? 'easy' : 'medium';
   const commonProps = {
     storybookId: unitId,
     difficulty: blockDifficulty,
@@ -610,13 +692,7 @@ export function KoreanPhonicsActivity({ unitId, activityKey, onExit }: KoreanPho
 function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: () => void }) {
   const { t } = useTranslation('phonics');
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-cream-50 overflow-hidden">
-      <button
-        onClick={onBack}
-        className="self-start min-h-11 mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
-      >
-        {t('common.back')}
-      </button>
+    <ActivityShell onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-3">
         <div className="text-6xl">{activity.emoji}</div>
         <h2 className="text-2xl sm:text-3xl font-black text-ink-900">
@@ -624,7 +700,7 @@ function ActivityLoading({ activity, onBack }: { activity: ActivityDef; onBack: 
         </h2>
         <p className="text-base font-semibold text-ink-600">{t('common.loading')}</p>
       </div>
-    </div>
+    </ActivityShell>
   );
 }
 
@@ -665,9 +741,31 @@ function ActivityUnavailable({
 export default function KoreanPhonicsActivityPage() {
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
+  const route = koreanLearningActivityRoute(unitId, activityKey);
+  const plan = getActivityPlan(route.unitId);
+  const index = plan.activities.findIndex((activity) => activity.key === route.activityKey);
+  const next = plan.activities[index + 1];
   const onExit = useCallback(
-    () => navigate(`/library/phonics/korean/${unitId}`),
-    [navigate, unitId]
+    () => navigate(`/library/phonics/korean/${route.unitId}`),
+    [navigate, route.unitId]
   );
-  return <KoreanPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
+  const onNext = useCallback(
+    () =>
+      navigate(
+        next?.section === 'learn'
+          ? `/library/phonics/korean/${route.unitId}/${next.key}`
+          : `/library/phonics/korean/${route.unitId}`
+      ),
+    [navigate, route.unitId, next]
+  );
+  if (route.unitId !== unitId || route.activityKey !== activityKey)
+    return <Navigate to={`/library/phonics/korean/${route.unitId}/${route.activityKey}`} replace />;
+  return (
+    <KoreanPhonicsActivity
+      unitId={unitId}
+      activityKey={activityKey}
+      onExit={onExit}
+      onNext={onNext}
+    />
+  );
 }

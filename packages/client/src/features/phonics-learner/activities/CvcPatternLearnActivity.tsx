@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -43,23 +44,29 @@ interface CvcWord {
 export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
-  const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, stopAll, scheduleTimer } = useGameAudio();
 
   // ── Phase A: VC 학습 ──
   const [phaseAPressed, setPhaseAPressed] = useState<Set<string>>(new Set());
   const [phase, setPhase] = useState<'A' | 'B' | 'C' | 'done'>('A');
   const PHASE_A_ROWS = 3;
   const totalPhaseA = PHASE_A_ROWS * 3;
+  const sequenceRef = useRef(0);
 
   const playEnglish = useCallback(
     async (text: string, onEnded?: () => void) => {
+      const sequence = ++sequenceRef.current;
       const url = await resolveTtsUrl({
         text,
         language: 'english',
         storybookId: unitId,
         identifierPrefix: 'en-cvc',
       });
-      if (url) playAudio(url, onEnded);
+      if (sequence !== sequenceRef.current) return;
+      if (url)
+        playAudio(url, () => {
+          if (sequence === sequenceRef.current) onEnded?.();
+        });
       else onEnded?.();
     },
     [playAudio, unitId]
@@ -116,15 +123,22 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
    */
   const REST_MS = 420;
   const restRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(
-    () => () => {
+  const aliveRef = useRef(true);
+  useEffect(() => {
+    aliveRef.current = true;
+    return () => {
+      aliveRef.current = false;
+      sequenceRef.current++;
       if (restRef.current) clearTimeout(restRef.current);
-    },
-    []
-  );
+    };
+  }, []);
   const rest = useCallback((fn: () => void) => {
+    if (!aliveRef.current) return;
     if (restRef.current) clearTimeout(restRef.current);
-    restRef.current = setTimeout(fn, REST_MS);
+    const sequence = sequenceRef.current;
+    restRef.current = setTimeout(() => {
+      if (sequence === sequenceRef.current) fn();
+    }, REST_MS);
   }, []);
 
   /**
@@ -132,6 +146,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
    *    장은 처음부터). useGameAudio 의 재생·예약 + 로컬 `rest` 타이머까지 지운다.
    */
   const clearQueue = useCallback(() => {
+    sequenceRef.current++;
     stopAll();
     if (restRef.current) clearTimeout(restRef.current);
   }, [stopAll]);
@@ -160,7 +175,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         // 줄을 완성하면 띵동만 — `an` 을 순수하게 배운다(타겟 단어는 안 붙인다, 2026-08-09 사용자).
         // 🔴 글자 소리 끝 → **쉼** → 띵동. 실측 간격이 0ms 라 한 덩어리로 들렸다.
         rest(() =>
-          playAudio('/sounds/game/correct.mp3', () => {
+          playAudio(LEARNING_SOUNDS.correct, () => {
             if (willAllComplete) rest(() => playCorrectSequence({ language: praiseLang() }));
           })
         );
@@ -201,9 +216,9 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           // 🔴 예문은 여기서 안 읽는다(2026-08-06 사용자) — 써보기에서 낱말을 완성하면 그때 예문
           //    (텍스트+소리)을 준다. 여기선 소리 끝 → 쉼 → 띵동 → (마지막 행이면) Phase C 로 자동 진입.
           rest(() =>
-            playAudio('/sounds/game/correct.mp3', () => {
+            playAudio(LEARNING_SOUNDS.correct, () => {
               if (willAllComplete) {
-                setTimeout(() => setPhase('C'), 600);
+                scheduleTimer(() => setPhase('C'), 220);
               }
             })
           );
@@ -211,7 +226,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
       };
       playEnglish(text, afterTts);
     },
-    [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio]
+    [phase, cvcWords, pattern.vc, totalPhaseB, playEnglish, playAudio, rest, scheduleTimer]
   );
 
   // ── Phase C: 낱말 써보기 — **패턴(라임) 먼저** 한 글자씩(WordFillCanvas, Book 3/4/5 와 통일) ──
@@ -241,6 +256,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const handleWriteAccum = useCallback(
     (_letter: string, index: number) => {
       if (wordDoneRef.current) return;
+      const sequence = ++sequenceRef.current;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       const soFar = [...writtenRef.current]
         .sort((a, b) => a - b)
@@ -254,8 +270,9 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
           identifierPrefix: 'en-cvc',
         });
         // 띵동 먼저, 끝나면 이어읽기(단일 채널이라 동시에 내면 앞소리가 잘린다).
-        playAudio('/sounds/game/correct.mp3', () => {
-          if (url) playAudio(url);
+        if (sequence !== sequenceRef.current) return;
+        playAudio(LEARNING_SOUNDS.correct, () => {
+          if (sequence === sequenceRef.current && url) playAudio(url);
         });
       })();
     },
@@ -266,6 +283,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   const handleWriteWordDone = useCallback(() => {
     if (wordDoneRef.current) return;
     wordDoneRef.current = true;
+    const sequence = ++sequenceRef.current;
     const cw = cvcWords[writeCurrentWordIdx];
     if (!cw) return;
     const isLast = writeCurrentWordIdx + 1 >= cvcWords.length;
@@ -277,45 +295,59 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         identifierPrefix: 'en-cvc',
       });
       // 🔴 예문은 **자연 음원(sentenceTtsUrl) 우선** — concat 은 "이 해브 애 캔" 처럼 음소로 이어붙인다.
-      const sentenceUrl = cw.sentence
-        ? await resolveTtsUrl({
+      const sentenceUrlPromise = cw.sentence
+        ? resolveTtsUrl({
             text: cw.sentence,
             language: 'english',
             storybookId: unitId,
             directUrl: cw.sentenceTtsUrl,
             identifierPrefix: 'en-cvc',
           })
-        : undefined;
+        : Promise.resolve(undefined);
       const advance = () => {
+        if (sequence !== sequenceRef.current) return;
         if (isLast) {
           setPhase('done');
           onMarkComplete();
-          setTimeout(() => playCorrectSequence({ language: praiseLang() }), 400);
+          playCorrectSequence({ language: praiseLang() });
         } else {
-          setTimeout(() => {
+          scheduleTimer(() => {
             wordDoneRef.current = false;
             writtenRef.current = [];
             setShownSentence(null);
             setWriteCurrentWordIdx((i) => i + 1);
-          }, 500);
+          }, 220);
         }
       };
       // 🔴 낱말 → **띵동(완성 축하)** → 쉼 → (예문 텍스트+소리) → 다음. 예문 없으면 띵동 → 다음.
       //    2026-08-06 사용자: 예문 넣으면서 완성 효과음이 빠졌다("사이에 효과음이 없어").
       const afterWord = () => {
-        playAudio('/sounds/game/correct.mp3', () => {
-          if (cw.sentence && sentenceUrl) {
-            setShownSentence(cw.sentence);
-            rest(() => playAudio(sentenceUrl, advance));
-          } else {
-            advance();
-          }
+        playAudio(LEARNING_SOUNDS.correct, () => {
+          void sentenceUrlPromise.then((sentenceUrl) => {
+            if (!aliveRef.current || sequence !== sequenceRef.current) return;
+            if (cw.sentence && sentenceUrl) {
+              setShownSentence(cw.sentence);
+              rest(() => playAudio(sentenceUrl, advance));
+            } else {
+              advance();
+            }
+          });
         });
       };
+      if (sequence !== sequenceRef.current) return;
       if (wordUrl) playAudio(wordUrl, afterWord);
       else afterWord();
     })();
-  }, [cvcWords, writeCurrentWordIdx, unitId, playAudio, playCorrectSequence, onMarkComplete, rest]);
+  }, [
+    cvcWords,
+    writeCurrentWordIdx,
+    unitId,
+    playAudio,
+    playCorrectSequence,
+    onMarkComplete,
+    rest,
+    scheduleTimer,
+  ]);
 
   // 행별 다음 누를 칸 highlight (Phase B 용)
   const phaseBNextKey = useMemo(() => {
@@ -348,7 +380,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   }, [clearQueue]);
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="blend" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-10">
         <h2
           className="text-5xl sm:text-6xl md:text-7xl font-black font-display text-center"
@@ -367,9 +399,12 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
         {/* Phase A: VC 학습 3행 */}
         {phase === 'A' && (
-          <div className="flex flex-col gap-5 sm:gap-7 w-full max-w-3xl">
+          <div className="phonics-cvc-rows flex flex-col gap-5 sm:gap-7 w-full max-w-3xl">
             {Array.from({ length: PHASE_A_ROWS }).map((_, r) => (
-              <div key={r} className="flex flex-row items-center justify-center gap-4 sm:gap-6">
+              <div
+                key={r}
+                className="phonics-cvc-row flex flex-row items-center justify-center gap-4 sm:gap-6"
+              >
                 <Cell
                   label={pattern.vowel}
                   pressed={phaseAPressed.has(`${r}-0`)}
@@ -402,12 +437,14 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         {phase === 'A' && phaseADone && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              data-learning-fx="tap"
               onClick={restart}
               className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
+              data-learning-fx="tap"
               onClick={() => {
                 clearQueue(); // 🔴 큐에 쌓인 소리 비우고 다음 장은 처음부터
                 setPhase('B');
@@ -421,7 +458,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
 
         {/* Phase B: 4 CVC 단어 */}
         {phase === 'B' && (
-          <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
+          <div className="phonics-cvc-rows flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
             {storybookQuery.isLoading ? (
               <p className="text-lg font-bold text-ink-500 text-center">{t('common.loading')}</p>
             ) : cvcWords.length === 0 ? (
@@ -432,7 +469,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
               cvcWords.map((cw, r) => (
                 <div
                   key={cw.word}
-                  className="flex flex-row items-center justify-center gap-3 sm:gap-4"
+                  className="phonics-cvc-row phonics-cvc-row--word flex flex-row items-center justify-center gap-3 sm:gap-4"
                 >
                   <Cell
                     label={cw.consonantBefore}
@@ -492,6 +529,7 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 const active = writeCurrentWordIdx === w;
                 return (
                   <button
+                    data-learning-fx="tap"
                     key={cw.word}
                     onClick={() => !wDone && setWriteCurrentWordIdx(w)}
                     disabled={wDone}
@@ -549,12 +587,14 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
         {phase === 'done' && (
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              data-learning-fx="tap"
               onClick={restart}
               className="px-8 py-4 rounded-full bg-coral-700 text-white font-black text-2xl sm:text-3xl shadow-soft hover:scale-[1.02] active:scale-[0.98] transition"
             >
               {t('common.retry')}
             </button>
             <button
+              data-learning-fx="tap"
               onClick={onBack}
               className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
             >
@@ -606,11 +646,14 @@ function Cell({
   };
   return (
     <motion.button
+      data-learning-fx="tap"
       onClick={onClick}
-      animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-      transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
+      whileTap={{ scale: 0.96 }}
+      data-next={isNext || undefined}
+      data-pressed={pressed || undefined}
+      transition={{ duration: 0.18 }}
       className={[
-        'relative h-[clamp(4rem,14vh,7.5rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
+        'phonics-sound-cell relative h-[clamp(4rem,14vh,7.5rem)] rounded-[28px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
         wide ? 'min-w-[clamp(6rem,18vh,11rem)] px-4' : 'w-[clamp(4.5rem,14vh,8rem)]',
         bgByTone[tone],
         pressed
@@ -636,7 +679,7 @@ function Cell({
       {isNext && !pressed && (
         <span
           aria-hidden
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl animate-bounce"
+          className="phonics-next-mark absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl"
         >
           👆
         </span>

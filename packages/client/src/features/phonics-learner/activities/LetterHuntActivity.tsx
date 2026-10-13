@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { composeHangul } from '@tangobook/shared';
@@ -10,6 +11,7 @@ import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { buildHuntBoard } from '../lib/letter-lookalikes';
 import type { ReviewCard } from '../lib/korean-phonics-units';
 import { ActivityShell } from '../components/ActivityShell';
+import { ToyHangul } from '../components/ToyHangul';
 
 interface Props {
   unitId: string;
@@ -21,6 +23,8 @@ interface Props {
    * 실제로 배우는 rime(ee·ea·oa…). 넘기면 lookalikes 를 안 섞는다. 미지정이면 기존 lookalikes 동작.
    */
   distractors?: readonly string[];
+  illustratedLetters?: boolean;
+  beginner?: boolean;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -48,6 +52,8 @@ export function LetterHuntActivity({
   cards,
   language = 'korean',
   distractors,
+  illustratedLetters = false,
+  beginner = false,
   onComplete,
   onBack,
 }: Props) {
@@ -58,6 +64,7 @@ export function LetterHuntActivity({
   const [found, setFound] = useState<number[]>([]);
   const foundRef = useRef<number[]>([]);
   const [done, setDone] = useState(false);
+  const targetCount = beginner ? 3 : TARGETS;
   /**
    * 진입 안내가 나오는 중 — 끝나야 첫 글자를 읽고 판이 열린다.
    *
@@ -100,11 +107,11 @@ export function LetterHuntActivity({
     return buildHuntBoard({
       target: target.letter,
       others,
-      size: SIZE,
-      targets: TARGETS,
+      size: beginner ? 12 : SIZE,
+      targets: targetCount,
       noLookalikes: !!pool,
     });
-  }, [round, lettersKey, distractorsKey]);
+  }, [round, lettersKey, distractorsKey, beginner, targetCount]);
   // 🔴 칸 글자 크기 = 판에서 가장 긴 토큰 기준. 한 글자(Book 2)는 크게, 3~4글자 패턴(Book 3~5)은 줄여
   //    칸(14vw/13vh)을 안 넘게. 폭 usable≈12vw·11vh, 글자폭≈0.6em → font ≤ usable/(len×0.6).
   const cellFont = useMemo(() => {
@@ -201,7 +208,7 @@ export function LetterHuntActivity({
       const next = [...foundRef.current, idx];
       foundRef.current = next;
       setFound(next);
-      const isRoundDone = next.length >= TARGETS;
+      const isRoundDone = next.length >= targetCount;
       const isLast = round + 1 >= hunt.length;
 
       if (isLast && isRoundDone) setDone(true);
@@ -211,7 +218,7 @@ export function LetterHuntActivity({
        *    소리를 다 들을 때까지 맞았는지 모른다(낱말 쓰기가 이미 이 순서다).
        *    한 칸마다 울리므로 라운드 끝에서 따로 울리지 않는다 — 그러면 띵동이 두 번이다.
        */
-      playAudio('/sounds/game/correct.mp3', () =>
+      playAudio(LEARNING_SOUNDS.correct, () =>
         scheduleTimer(() => {
           if (!isRoundDone) {
             say(card.sound);
@@ -255,6 +262,7 @@ export function LetterHuntActivity({
       scheduleTimer,
       language,
       onComplete,
+      targetCount,
     ]
   );
 
@@ -262,11 +270,13 @@ export function LetterHuntActivity({
 
   return (
     <ActivityShell
+      unitId={unitId}
+      kind="hunt"
       onBack={onBack}
       // 몇 개 남았는지 = 이 게임의 유일한 진행 표시. 뒤로가기와 한 줄에 양끝으로 선다.
       headerRight={
-        <div className="flex gap-1.5">
-          {Array.from({ length: TARGETS }).map((_, i) => (
+        <div className="phonics-progress-dots flex gap-1.5">
+          {Array.from({ length: targetCount }).map((_, i) => (
             <span
               key={i}
               className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full ${
@@ -284,26 +294,32 @@ export function LetterHuntActivity({
           {done ? t('hunt.done') : t('hunt.prompt')}
         </h2>
         <button
+          data-learning-fx="tap"
           onClick={() => say(card.sound)}
-          className="px-6 py-2 rounded-3xl bg-coral-700 text-white shadow-soft font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
+          className="phonics-hunt-target px-6 py-2 rounded-3xl bg-coral-700 text-white shadow-soft font-black text-[min(9vw,8vh)] leading-none flex items-center gap-3"
           aria-label={t('hunt.letterSound', { letter: card.letter })}
         >
-          {card.letter}
+          {illustratedLetters ? <ToyHangul text={card.letter} decorative /> : card.letter}
           <span className="text-[0.5em]">🔊</span>
         </button>
 
-        <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
+        <div
+          className="phonics-hunt-grid grid grid-cols-6 gap-1.5 sm:gap-2"
+          data-beginner={beginner || undefined}
+        >
           {board.map((ch, idx) => {
             const got = found.includes(idx);
             return (
               <button
+                data-learning-fx="tap"
                 key={idx}
                 onClick={() => handleTap(idx)}
                 disabled={got || done}
                 aria-label={ch}
+                data-found={got || undefined}
                 className={[
                   // 🔴 칸은 vw 만 보면 안 된다 — 전체화면이라 높이가 먼저 모자란다.
-                  'w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition leading-none overflow-hidden',
+                  'phonics-hunt-tile w-[min(14vw,13vh)] h-[min(14vw,13vh)] rounded-2xl border-[4px] flex items-center justify-center font-black transition leading-none overflow-hidden',
                   got
                     ? 'bg-mint-500 border-mint-500 text-white scale-95'
                     : 'bg-white border-white text-ink-900 active:scale-95',
@@ -312,7 +328,7 @@ export function LetterHuntActivity({
                 //    Book 3~5 는 3~4글자 패턴(ane·ack)이라 그대로 두면 칸을 넘친다(사용자 2026-08-09).
                 style={{ fontSize: cellFont }}
               >
-                {ch}
+                {illustratedLetters ? <ToyHangul text={ch} decorative /> : ch}
               </button>
             );
           })}

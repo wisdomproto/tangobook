@@ -104,10 +104,10 @@
     "educationalUse": "Korean reading, phonics, vocabulary"
   },
   "level": {
-    "hangul1": "Hangul 1: Basic Syllables",
-    "hangul2": "Hangul 2: Final Consonants",
-    "hangul3": "Hangul 3: Double Consonants",
-    "hangul4": "Hangul 4: Complex Vowels",
+    "hangul1": "Book 2: Consonants and Basic Syllables",
+    "hangul2": "Book 3: Final Consonants",
+    "hangul3": "Book 4: Double Consonants",
+    "hangul4": "Book 5: Complex Vowels",
     "zhL1": "Level 1: Tones + Simple Finals",
     "zhL2": "Level 2: Initials",
     "zhL3": "Level 3: Pinyin Blending",
@@ -115,7 +115,8 @@
     "zhL5": "Level 5: Compound Finals",
     "zhL6": "Level 6: Nasal Finals",
     "zhL7": "Level 7: Whole Syllables",
-    "zhL8": "Level 8: Two-Syllable Words"
+    "zhL8": "Level 8: Two-Syllable Words",
+    "hangul-vowels": "Book 1: Vowels"
   },
   "unit": {
     "review": "Review",
@@ -227,7 +228,13 @@
   "vowelListen": {
     "inOrder": "Tap them in order!",
     "readyForQuiz": "Well done! Shall we try the quiz now?",
-    "pickSound": "🔊 Pick the sound you hear!"
+    "pickSound": "🔊 Pick the sound you hear!",
+    "singlePrompt": "Tap each card and listen!",
+    "singleDone": "Great! Listen again?",
+    "audioRetry": "The sound could not load. Tap again!",
+    "cardLabel": "{{letter}} card {{n}}",
+    "repeatProgress": "Vowel cards heard",
+    "writeNext": "Try writing →"
   },
   "vowelPicker": {
     "makePrompt": "Which vowel shall we use?",
@@ -246,5 +253,18 @@
     "done": "That's it. In the app your child does this with sound as well.",
     "note": "In the app, nine activities like this follow in every unit.",
     "cta": "Keep going in the app →"
+  },
+  "vowelGroup": {
+    "oneAtATime": "One vowel at a time",
+    "stepSubtitle": "Listen, write, then meet the next vowel",
+    "chooseLetter": "Choose a vowel",
+    "currentLetter": "Learn {{letter}}",
+    "play": "Vowel playground",
+    "learnFirst": "Listen to two vowels first to open the games.",
+    "playSubtitle": "Listen, find and match the vowels you have learned",
+    "reviewSubtitle": "Play again with all the vowels you have learned",
+    "listen-game": "Listen and choose",
+    "hunt-game": "Find the vowel",
+    "match-game": "Match the same vowels"
   }
 }

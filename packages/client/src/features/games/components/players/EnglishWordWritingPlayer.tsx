@@ -81,6 +81,7 @@ export function EnglishWordWritingPlayer({
   }, [currentItem.word, writePattern, letters]);
   // 지금까지 쓴 칸(인덱스) — 시각 순서로 이어읽기용. 낱말 바뀌면 리셋(advanceToNext).
   const writtenRef = useRef<number[]>([]);
+  const writeSequenceRef = useRef(0);
 
   // 🔴 진입 안내 음성 — 화면엔 "글자를 따라 써봐" 글자가 있는데 음성이 없어 파닉스 쓰기 활동과
   //    어긋났다(사용자: "어디서는 따라 써봐 멘트 나오고 어디서는 안 나오네"). 한 번만 재생한다.
@@ -108,6 +109,7 @@ export function EnglishWordWritingPlayer({
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleLetterDone = useCallback(
     (_letter: string, index: number) => {
+      const sequence = ++writeSequenceRef.current;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
@@ -124,8 +126,9 @@ export function EnglishWordWritingPlayer({
             identifierPrefix: 'wwrite-en',
           });
           // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
+          if (completedRef.current || sequence !== writeSequenceRef.current) return;
           playAudio('/sounds/game/correct.mp3', () => {
-            if (url) playAudio(url);
+            if (sequence === writeSequenceRef.current && url) playAudio(url);
           });
         })();
       });
@@ -139,6 +142,7 @@ export function EnglishWordWritingPlayer({
   const handleWordComplete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
+    writeSequenceRef.current++;
     const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
     setPassed(newPassed);
     void (async () => {

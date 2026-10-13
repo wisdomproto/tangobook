@@ -65,7 +65,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
   if (!urls.length) return null;
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
       <audio
         ref={audioRef}
         src={urls[idx]}
@@ -86,6 +86,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
         <div className="flex items-center gap-5 sm:gap-8">
           {multi && (
             <button
+              data-learning-fx="tap"
               onClick={() => goto(idx - 1)}
               disabled={idx === 0}
               aria-label={t('chant.prev')}
@@ -96,6 +97,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
           )}
 
           <button
+            data-learning-fx="tap"
             onClick={toggle}
             aria-label={playing ? t('chant.pause') : t('chant.play')}
             className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-coral-700 text-white text-6xl sm:text-7xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition flex items-center justify-center"
@@ -105,6 +107,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
 
           {multi && (
             <button
+              data-learning-fx="tap"
               onClick={() => goto(idx + 1)}
               disabled={idx === urls.length - 1}
               aria-label={t('chant.next')}
@@ -130,6 +133,7 @@ export function ChantActivity({ unitId, urls, onMarkComplete, onBack }: Props) {
         )}
 
         <button
+          data-learning-fx="tap"
           onClick={onMarkComplete}
           className="mt-2 px-8 py-4 rounded-full bg-white border-2 border-mint-300 text-mint-700 font-black text-xl sm:text-2xl shadow-soft hover:shadow-soft active:scale-[0.98] transition"
         >

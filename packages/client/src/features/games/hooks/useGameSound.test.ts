@@ -36,10 +36,10 @@ describe('useGameSound', () => {
     expect(result.current.isMuted).toBe(false);
   });
 
-  it('uses default /sounds/game/*.mp3 when no systemSounds', () => {
+  it('uses default /sounds/learning/*.mp3 when no systemSounds', () => {
     const { result } = renderHook(() => useGameSound());
     expect(() => result.current.playCorrect()).not.toThrow();
-    const correct = audioInstances.find((a) => a.src.includes('/sounds/game/correct.mp3'));
+    const correct = audioInstances.find((a) => a.src.includes('/sounds/learning/correct.mp3'));
     expect(correct).toBeDefined();
   });
 

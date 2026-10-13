@@ -13,8 +13,8 @@ features/games/
   components/
     players/*.tsx            # 게임 플레이어 UI
     config/*.tsx             # 게임 설정 패널
-    FeedbackOverlay.tsx      # 정답/오답 피드백 (호리 + confetti + shake)
-    GameResultScreen.tsx     # 결과 화면 (카드 + 히어로 이미지 + 장식 + count-up + 만점 콘페티)
+    FeedbackOverlay.tsx      # 정답/오답 피드백 (대상 반응 + 하단 상태 문구)
+    GameResultScreen.tsx     # 결과 화면 (완성 표식 + count-up + ended 이후 언어 칭찬)
     GameProgressBar.tsx      # 진행바 (dot + 점수 뱃지)
     config/ConfigControls.tsx # NumberSelector, ConfigCheckbox
   hooks/
@@ -36,7 +36,7 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - 색: `coral/peach/ink` + semantic `success/danger/warn/fun`. violet/sky/emerald 전량 제거.
 - 오답: `border-danger` / `animate-shake` / `bg-danger/10`
 - 정답: `ring-success` / `bg-success/10` + `FeedbackOverlay kind="correct"`
-- `systemSounds` 우선순위: storybook.systemSounds > 기본 `/sounds/game/*.mp3`
+- `systemSounds` 우선순위: storybook.systemSounds > 기본 `/sounds/learning/{correct,retry,complete}.wav`
 - `Storybook.systemSounds`: `{ correctUrl?, incorrectUrl?, clearUrl? }`
 
 ## 게임 목록 (4~5세 유아용 단순화, 2026-04-23)
@@ -528,3 +528,9 @@ const { mapRef, loading } = usePhonicsMap(['mod_korean', 'mod_phonics']);
 
 - **개별 생성**: 모달에서 게임 타입 선택 → 설정 → 생성
 - **일괄 생성**: "모든 게임 만들기" 버튼 → 미생성 게임만 기본 설정으로 순차 생성 (`gamesApi.generate()` 직접 호출, useMutation 미사용)
+
+## 학습 VFX·사운드 (2026-10-12)
+
+공용 `effects/LearningEffectsHost`는 앱당 하나, Phaser는 지연 로드하고 입력을 가로채지 않는다. `useGameAudio`/`useActivitySound`와 실제 학습 대상의 data-learning-fx로 연결한다. 정답/결과의 기존 호리·콘페티는 제거했다. 12사건/14장면: 정답 리본춤·꽃피기·하트물결 순환, 듣기 음표, 합성 두색 리본, 짝찾기 하트 만남, 글자/단어 밑줄, 연속/완료 꽃 장면을 구분한다. 게임 상태·음성 ended 체인·카메라·실물 인식은 이펙트에서 변경하지 않는다.
+
+기본 MP3 4종은 `scripts/generate-learning-sounds.mjs`(FFmpeg 필요)로 재생성하며 책별 녹음 override를 유지한다. 결과 효과음→칭찬은 공용 iOS 해금 audio의 실제 ended로 연결한다. 그림 atlas 2장59,420B·음원24,955B, 학습 외 화면에서 엔진을 preload하지 않는다. 자세한 수명·접근성·검증은 [디자인 시스템](../../../../../docs/design-system.md)과 [task](../../../../../docs/work/phonics/tasks/20261012-learning-game-effects.md).

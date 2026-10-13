@@ -44,6 +44,7 @@ export function KoreanWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
+  const writeSequenceRef = useRef(0);
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
   const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
@@ -90,6 +91,7 @@ export function KoreanWordWritingPlayer({
   // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleSyllableDone = useCallback(
     (syl: string, index: number) => {
+      const sequence = ++writeSequenceRef.current;
       queueMicrotask(() => {
         if (completedRef.current) return; // 마지막 음절 = handleWordComplete 가 처리
         void (async () => {
@@ -109,8 +111,9 @@ export function KoreanWordWritingPlayer({
               identifierPrefix: 'wwrite-ko',
             }));
           // 🔴 띵동 **먼저**, 끝나면 읽기 — 한 채널이라 동시에 내면 앞소리가 잘린다.
+          if (completedRef.current || sequence !== writeSequenceRef.current) return;
           playAudio('/sounds/game/correct.mp3', () => {
-            if (url) playAudio(url);
+            if (sequence === writeSequenceRef.current && url) playAudio(url);
           });
         })();
       });
@@ -123,6 +126,7 @@ export function KoreanWordWritingPlayer({
   const handleWordComplete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
+    writeSequenceRef.current++;
     const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
     setPassed(newPassed);
     void (async () => {

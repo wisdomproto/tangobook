@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-13 main 통합: 사용자 main push 요청으로 origin/main(c63af0f56)의 최신 변경과 콘텐츠 브랜치6커밋을 병합한다. 누락 어휘 삽화24항목 운영 등록·최신 현황판, 한글 호리 보완/미사용12지신 제거, 창작동화 공개/검수 장면 연결 및 누락 한영TTS 작업을 포함한다. 양쪽 작업 기록을 보존했으며 운영 데이터는 기존 등록 결과를 유지한다. 배포 완료는 별도 확인이 필요하다.
+
 2026-10-12 [실제 누락 어휘 삽화24개 보완](../work/content/tasks/20261012-active-word-gap-images.md): GPT native4출력/21WebP(최대500px)로 백로11·앵무새12·hip1 운영 등록, CDN/다른필드 보존·어휘DB 동기화 확인. 실사/펠트 실제참조 준수, 12지신 미복원. fresh1310책/128724객체 실패0, 사용 동화 어휘 그림 누락0·한영파닉스516/516완비. 별도 연결/게임 제작 아님, main 미푸시.
 
 2026-10-12 [12지신 제외 재조사](../work/phonics/tasks/20261012-active-content-reaudit.md): fresh1310책/128703객체 실패0. 일반1215권 본문 삽화·한영TTS 누락/깨짐0, 한글호리256쪽 완비. 실제 어휘 그림 누락24개(백로11·앵무새12·영어hip1), 한영516정답 음원/조합소스 완비. 동화 연결 미제공 KO1/EN84는 별도. 창작 영어어휘/영어색칠/숨은그림은 미지원. 조사·로컬현황 갱신만, 운영쓰기/푸시 없음.
@@ -13,6 +15,46 @@
 2026-10-12 [창작동화 공개·파닉스 의미 연결](../work/phonics/tasks/20261012-changjak-phonics-links.md): 운영19시리즈850권 모두 공개, 책별 다른 필드 보존·서재 목록 검증 완료. 파닉스 정답에 의미 검토 창작128장면/기존6장면 연결 및 본문 변경 거부 구현·회귀 통과. 영어 어휘 이름0개는 별도 미해결. 공개는 운영 반영, 파닉스 코드 로컬 미푸시.
 
 2026-10-12 [누락 한영 TTS 보완](../work/content/tasks/20261012-library-missing-tts.md): 영어36권368쪽 원문 대조 번역 완료. 한글35/영어368개 Qwen 생성·독립 CPU 역전사·책별 순차 등록 진행. 실제 문장 누락은 재생성, ASR 철자 후보는 별도 hash-bound 근거 기록. 완료 미확정, 작업 root와 실행 명령은 task 참조. 이전 삽화 main 전달과 별도 후속 작업.
+
+2026-10-13 [모음 묶음·귀여운 한영 게임 main push](../work/phonics/tasks/20261012-korean-vowel-groups.md#후속-main-push--2026-10-13): 사용자 요청으로 bc1a8c63b를 origin/main에 일반 push·원격 SHA 일치 확인. 검증된 모음 묶음과 한영 게임 개편을 반영했다. 아래 미푸시는 당시 상태이며, Railway 배포 완료는 미확인.
+
+2026-10-12 [모음 묶음·귀여운 한영 놀이](../work/phonics/tasks/20261012-korean-vowel-groups.md): Book1 모음10개 독립 단원 정책은 사용자 후속 승인으로4·4·2 묶음의 개별 듣기·쓰기 + 익힌 모음만 쓰는 놀이3종으로 대체한다. 구형 링크/실제 진도·부모 리포트·source 책 호환, 한영 공통 게임 카드·짧은 반응 통일. 고유190+19회귀·타입/빌드·대표 모바일/한영 브라우저 검수 통과, 실제 기기 청취/FPS는 미측정. 이번 변경 미푸시, 상세는 task와 영역 MEMORY 참조.
+
+2026-10-12 [Rive+Remotion 인계 main push](../work/video/tasks/20261012-rive-remotion-learning-sample.md#후속-main-push--2026-10-12): 사용자 요청으로 인계481c17a79를 origin/main에 일반 push·원격 SHA 일치 확인. 다른 세션에서 원격 main의 기록/샘플/코드/자산으로 재개 가능. 배포 완료 미확인, 아래 로컬 전용은 당시 상태.
+
+2026-10-12 Rive+Remotion 다른 세션 인계: 사용자 명칭 Rive 정정·기록 요청을 [재개 절](../work/video/tasks/20261012-rive-remotion-learning-sample.md#다른-세션에서-바로-이어가기)에 반영. “Rive+Remotion 한글 학습 샘플 이어서”는 이 기록과 output/rive-remotion-learning-20261012/README.md부터 읽는다. 24초 ㄱ+ㅏ→가쓰기→가방 최종본/코드/자산은 Git 보존, 실행/검수/다음 작업 연결. 후속 main push로 제작28dfad736의 원격 추적 이력 포함 확인; 이번 기록만 로컬 커밋.
+
+2026-10-12 [파닉스 UI·연출·반응 개선 main 푸시](../work/platform/tasks/20261012-phonics-ui-effects-main-push.md): 사용자 요청으로 로컬 한영 효과/모음 Book1/전체 활동 UI/합성·쓰기·소리 반응 개선과 원격 Library Master 작업을 보존 merge. 통합34파일230회귀·타입/build 통과, f534ca313를 origin/main에 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태. Railway 배포 완료는 미확인.
+
+2026-10-12 [한영16활동·연결 게임 반응 점검](../work/phonics/tasks/20261012-phonics-all-performance.md): 프레임당 쓰기 채점·첫 획 위치 고정, 한글 쓰기 translate380/220ms·영어 CVC 즉시 다음 칸/ended 체인, 늦은 음성·이탈 취소, 칭찬1개 사전 준비·StrictMode 게임 안내·복습 중복 조회 수정.223회귀·타입/빌드·대표 모바일/한영 플레이 통과. 외부 구 음원10초 지연1회/동일 자산 재현·실기기FPS는 미확인. 통합은 task 참조·미푸시.
+
+2026-10-12 [합성 화면 체감 속도](../work/phonics/tasks/20261012-phonics-blend-performance.md): 사용자 느리다는 반증을 실제 입력/완성/소리 시간으로 재현, 발음과 이동 뒤 중복 대기 제거·translate 이동. 마지막 탭→완성1199→725ms,26회귀·타입/빌드·375/짧은 가로 검수. 실기기 FPS 개선은 미확인, 진단 코드 제거. 통합은 task 참조·미푸시.
+
+2026-10-12 [자모 합성 누르기·만남 연출](../work/phonics/tasks/20261012-phonics-blend-motion.md): 사용자 누르기 유도/효과 불일치 반증으로 현재 차례 글자만 말랑하게 뛰고 완성 글자의 뽁 등장·바깥 살구/민트 SVG/CSS 연출 적용. 음원 체인·기록 보존,24회귀·타입/빌드/375·짧은 가로 표본 검수. 통합은 task 참조·미푸시.
+
+2026-10-12 [한글·영어 전체 활동 시각 통일](../work/phonics/tasks/20261012-phonics-all-activities-ui.md): 승인한 모음 화면을 한글5권/영어5권의16활동 템플릿과 파닉스 게임·로딩/결과까지 확장. 자음/합성/종이/듣기/씨앗카드/사냥 역할별 표현,375px 영어 조각/812×375 마지막행 잘림 수정. 합성 중 선택 잠금과 복습 그림짝 source 연결,152회귀·타입/빌드 및 대표 브라우저 검수. 통합은 task 참조·미푸시.
+
+2026-10-12 [Rive+Remotion 학습 샘플 완료](../work/video/tasks/20261012-rive-remotion-learning-sample.md): 실제Rive ㄱ+ㅏ→가·3획쓰기·가방그림/발음24초1080p/30fps,720frame/표본/음원배치·피크/전체decode 검수 통과. 공식연동첫로딩·음량/발음중복 보완, 원본/자산/MP4/재개방법 로컬main28dfad736 보존. output/rive-remotion-learning-20261012/README.md부터 재개. 이전 가능성검토의 연동미검증 해소, 제품/운영/게임/외부게시/푸시 없음.
+
+2026-10-12 [Rive+Remotion 학습영상 검토](../work/video/tasks/20261012-rive-hangul-meeting.md#후속-논의-rive와-remotion으로-학습-영상): 사용자 토도ㅡ/ㅇ쓰기 수준 질문·Remotion 조합 제안.2D 표본과 공식 연동/쓰기경로 API 확인, 캐릭터Rive·편집/쓰기/음원Remotion 구성 가능 판단. 실제 연동 제작·런타임 검증은 아직 없음.
+
+2026-10-12 [파닉스 시각·모음3카드·소리 복구](../work/phonics/tasks/20261012-phonics-playful-ui.md): 사용자 단조로운 디자인/무음 반증 반영. 같은 모음3개 순차로 듣고 써보기, 한영 과정/학습/파닉스게임에 풍경·그림/쓰기칸 차별화. API3500 scheduler off/Vite5186 연결·음원 실패 재시도/오류와 완료 분리. 55회귀·타입/빌드·대표375/1024px 검수, 통합은 task 참조·미푸시.
+
+2026-10-12 Rive ㄱ+ㅏ→가 최종 사용자승인·다른세션 재개: [인계 기록](../work/video/tasks/20261012-rive-hangul-meeting.md#다른-세션에서-재개)에 샘플/원본/코드 위치와 실행·검수·후속 범위 정리. 승인 sample.mp4/sample.riv/12표본/검수JSON은 output/rive-hangul-meet-20261012에 Git 보존. “Rive 한글 샘플 이어서” 요청은 이 기록부터 읽는다. 제작커밋0737d233e/91ead3bea 로컬main, 미푸시.
+
+2026-10-12 [모음 전용 Book 1](../work/phonics/tasks/20261012-korean-vowel-book1.md): ㅏ~ㅣ를 한 단원에 한 개씩 듣고 모음 자체를 쓴다. 두 개씩 묶음 복습 없이 Book 1 모음/2 자음과 기본음절/3 받침/4 쌍자음/5 복잡모음. 기존 ID·음원·실제 활동 완료 이력 유지, 방문을 완료로 만들지 않음. 리포트/5언어/과정 소개도 연결, 원격 push 미요청. 검증·통합은 task 참조.
+
+2026-10-12 [학습 애니메이션·그림 자모](../work/phonics/tasks/20261012-learning-game-effects.md): 한영 학습에 14장면·4효과음과 살구 자음/민트 모음 그림 적용, 쓰기 폰트·판정 유지. ‘가’ 전체 그림과 자모 비율 수정, 157회귀·타입/빌드·모바일 표본 검수. 별도 Rive 작업을 보존해 30072b4b3 로컬 main 통합·미푸시. 후속 모음 전용 Book 1 요청을 진행한다.
+
+2026-10-12 [Rive ㄱ과 ㅏ의 만남](../work/video/tasks/20261012-rive-hangul-meeting.md) 완료: 기존ㄱ춤 귀엽다고 승인 뒤 두글자만남 요청. imagegen 민트ㅏ/native 관절로9초 하이파이브→손잡고가→함께뛰기 실제Rive1.04MB·MP4/GIF 제작.180프레임/12표본·루프/관절/전체decode 통과. output/rive-hangul-meet-20261012 원본과-review 프리뷰,코드/기억 로컬main보존. 이전ㄱ/운영/게임/푸시 변경 없음.
+
+2026-10-12 [탱고 블록 KC 실행 가이드](../work/hardware/block-kc-guide.md): 사용자 요청으로 생산·시험·신고·표시/출고 단계와 기관/공장 문의문 정리. 모음 작은부품/거울재질 우선상담. 실제 신청·견적 없음, 로컬 문서.
+
+2026-10-12 [탱고 블록 판매 전 안전확인](../work/hardware/tasks/20261012-block-safety-confirmation.md): 사용자 비전기 블록 확인. 완구 안전확인 제도·화학/물리적 안전 검토 방향 조사. 탱고 세트의 기관 분류·시험범위·비용/기간은 미확정, 외부 신청 없음.
+
+2026-10-12 [한글 ㄱ 캐릭터 Rive 시안](../work/video/tasks/20261012-rive-hangul-character.md): 사용자 Rive·image skill 지정으로 생성 투명ㄱ몸통+native 얼굴/관절 6초무음춤 실제.riv 제작. 공식CLI1.5.1 로그인없이컴파일·180고유프레임/12표본/루프·MP4전체decode 검수,원본/소스/프롬프트 로컬main보존. output/rive-hangul-20261012 및 review에MP4/GIF. .rev/게임/운영앱통합/외부업로드/푸시없음.
+
+2026-10-12 [전용 인쇄 학습지 시안](../work/strategy/tasks/20261012-print-worksheet-design.md): 사용자 **오리기제외·올드삽화·가학습/토끼텃밭불일치** 반증으로 재제작. 가→가방/c→cat 직접연계, 현대그래픽/매끈한입체2종×한영4쪽 PDF·갤러리 검수. Qwen 환경부재로 내장 imagegen 사용. output/worksheet-design-20261012/v2, localhost5196/v2. 그림체선택·판매구성·실물인쇄 미정, 제품/운영 미변경·미푸시.
 
 2026-10-12 [Library Master·삽화 main 푸시](../work/content/tasks/20261012-missing-page-illustrations.md): 사용자 승인 후 최신 원격 작업22커밋을 보존 merge하여90c6dc15f를 origin/main에 일반 push·원격 확인. Library Master 개선과10권34장 삽화 등록 기록/누락0 snapshot 포함. 타입/현황5회귀/build 통과, 배포 완료 미확인. 아래 미푸시는 당시 기록이다. TTS 누락 보완은 별도 진행.
 

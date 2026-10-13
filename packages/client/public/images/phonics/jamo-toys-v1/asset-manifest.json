@@ -1,0 +1,155 @@
+{
+  "export": "alpha-aware cell extraction, aspect-preserving rectangular glyphs, 240px max WebP; corrected ㅊ overrides atlas",
+  "entries": [
+    {
+      "glyph": "ㄱ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [48, 92, 285, 302],
+      "bytes": 8382
+    },
+    {
+      "glyph": "ㄴ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [371, 81, 588, 309],
+      "bytes": 9366
+    },
+    {
+      "glyph": "ㄷ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [651, 86, 874, 305],
+      "bytes": 11564
+    },
+    {
+      "glyph": "ㄹ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [949, 91, 1170, 306],
+      "bytes": 12966
+    },
+    {
+      "glyph": "ㅁ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [57, 389, 284, 590],
+      "bytes": 11556
+    },
+    {
+      "glyph": "ㅂ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [366, 372, 574, 598],
+      "bytes": 12386
+    },
+    {
+      "glyph": "ㅅ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [639, 386, 886, 585],
+      "bytes": 10620
+    },
+    {
+      "glyph": "ㅇ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [940, 382, 1176, 604],
+      "bytes": 13428
+    },
+    {
+      "glyph": "ㅈ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [49, 692, 282, 896],
+      "bytes": 12864
+    },
+    {
+      "glyph": "ㅊ",
+      "source": "exec-f85f8ade-cd25-40e1-8a4a-76539b3a1af9.png",
+      "bounds": [238, 197, 1073, 1045],
+      "bytes": 12362
+    },
+    {
+      "glyph": "ㅋ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [647, 690, 877, 910],
+      "bytes": 12108
+    },
+    {
+      "glyph": "ㅌ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [955, 691, 1170, 905],
+      "bytes": 13096
+    },
+    {
+      "glyph": "ㅍ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [44, 990, 284, 1192],
+      "bytes": 10882
+    },
+    {
+      "glyph": "ㅎ",
+      "source": "exec-fb85090b-324a-43ce-921c-ce6a1481049c.png",
+      "bounds": [347, 965, 576, 1222],
+      "bytes": 12852
+    },
+    {
+      "glyph": "ㅏ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [124, 53, 342, 380],
+      "bytes": 6404
+    },
+    {
+      "glyph": "ㅑ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [494, 53, 710, 380],
+      "bytes": 8034
+    },
+    {
+      "glyph": "ㅓ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [871, 53, 1094, 381],
+      "bytes": 6590
+    },
+    {
+      "glyph": "ㅕ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [1257, 53, 1478, 381],
+      "bytes": 8374
+    },
+    {
+      "glyph": "ㅗ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [1606, 131, 1935, 338],
+      "bytes": 6796
+    },
+    {
+      "glyph": "ㅛ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [40, 468, 383, 708],
+      "bytes": 8356
+    },
+    {
+      "glyph": "ㅜ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [447, 479, 768, 724],
+      "bytes": 7608
+    },
+    {
+      "glyph": "ㅠ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [827, 477, 1165, 721],
+      "bytes": 9126
+    },
+    {
+      "glyph": "ㅡ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [1226, 536, 1578, 645],
+      "bytes": 4316
+    },
+    {
+      "glyph": "ㅣ",
+      "source": "exec-1c82fd9a-d67a-4c3c-8a9d-912a766b5133.png",
+      "bounds": [1730, 429, 1843, 742],
+      "bytes": 4838
+    },
+    {
+      "glyph": "가",
+      "source": "exec-033234c3-506d-4e3d-9e98-87434ed7bed6.png",
+      "bounds": [80, 227, 1174, 1027],
+      "bytes": 9892
+    }
+  ]
+}

@@ -60,13 +60,15 @@ describe('ReviewFlipMatchActivity', () => {
       />
     );
     // 뒷면만 보인다
-    expect(screen.getAllByText('❓')).toHaveLength(4);
+    expect(screen.getAllByRole('button', { name: '뒤집기' })).toHaveLength(4);
 
     // 'ㄱ' 의 글자면과 그림면을 찾아 연다 (셔플되므로 aria-label 로 고른다)
     const flip = tiles().filter((t) => t.getAttribute('aria-label') === '뒤집기');
     fireEvent.click(flip[0]);
     // 첫 장이 열렸다
-    await waitFor(() => expect(screen.queryAllByText('❓')).toHaveLength(3));
+    await waitFor(() =>
+      expect(screen.queryAllByRole('button', { name: '뒤집기' })).toHaveLength(3)
+    );
   });
 
   it('같은 글자의 [글자]+[그림] 을 고르면 매칭되고, 다 맞추면 onComplete 가 불린다', async () => {
@@ -86,7 +88,9 @@ describe('ReviewFlipMatchActivity', () => {
     fireEvent.click(flip[1]);
 
     // 🔴 매칭 후에도 덮이지 않는다 + TTS 끝난 뒤 칭찬 → onComplete
-    await waitFor(() => expect(screen.queryAllByText('❓')).toHaveLength(0));
+    await waitFor(() =>
+      expect(screen.queryAllByRole('button', { name: '뒤집기' })).toHaveLength(0)
+    );
     await waitFor(() => expect(onComplete).toHaveBeenCalled());
     expect(playCorrectSequence).toHaveBeenCalled();
   });
@@ -132,5 +136,41 @@ describe('ReviewFlipMatchActivity', () => {
     fireEvent.click(other ?? flip[1]);
     vi.advanceTimersByTime(1000);
     vi.useRealTimers();
+  });
+  it('모음 모드는 같은 그림 모음 두 장을 맞추고 해당 발음만 읽는다', async () => {
+    vi.mocked(resolveTtsUrl).mockClear();
+    const onComplete = vi.fn();
+    render(
+      <ReviewFlipMatchActivity
+        unitId="kr-h1-u01"
+        sources={[
+          {
+            unitId: 'kr-h1-u01',
+            letter: 'ㅏ',
+            syllable: '아',
+            sound: '아',
+            matchPosition: 'jung',
+            word: '',
+            imageUrl: '',
+          },
+        ]}
+        identicalLetters
+        onComplete={onComplete}
+        onBack={vi.fn()}
+      />
+    );
+    const hidden = screen.getAllByRole('button', { name: '뒤집기' });
+    expect(screen.queryByRole('button', { name: /^ㅏ$/ })).toBeNull();
+    fireEvent.click(hidden[0]);
+    expect(
+      screen.getByRole('button', { name: /^ㅏ$/ }).querySelector('.toy-hangul-image')
+    ).not.toBeNull();
+    fireEvent.click(hidden[1]);
+    await waitFor(() => expect(onComplete).toHaveBeenCalledTimes(1));
+    expect(screen.getAllByRole('button', { name: /^ㅏ$/ })).toHaveLength(2);
+    expect(vi.mocked(resolveTtsUrl).mock.calls.map(([request]) => request.text)).toContain('아');
+    expect(vi.mocked(resolveTtsUrl).mock.calls.map(([request]) => request.text)).not.toContain(
+      'ㅏ'
+    );
   });
 });

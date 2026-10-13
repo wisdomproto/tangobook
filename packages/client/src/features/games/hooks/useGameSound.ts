@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '../effects/learning-sounds';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { registerAudio, unregisterAudio } from '@/lib/audio-unlock';
@@ -12,9 +13,9 @@ interface UseGameSoundOptions {
   systemSounds?: SystemSoundsOverride;
 }
 
-const DEFAULT_CORRECT = '/sounds/game/correct.mp3';
-const DEFAULT_INCORRECT = '/sounds/game/incorrect.mp3';
-const DEFAULT_CLEAR = '/sounds/game/clear.mp3';
+const DEFAULT_CORRECT = LEARNING_SOUNDS.correct;
+const DEFAULT_INCORRECT = LEARNING_SOUNDS.retry;
+const DEFAULT_CLEAR = LEARNING_SOUNDS.complete;
 const STORAGE_KEY = 'tangobook-game-muted';
 
 function loadMuted(): boolean {
@@ -27,7 +28,7 @@ function loadMuted(): boolean {
 
 /**
  * 게임 효과음 재생 훅.
- * - 기본 URL: `/sounds/game/{correct,incorrect,clear}.mp3`
+ * - 기본 URL: `/sounds/learning/{correct,retry,complete}.mp3`
  * - `systemSounds` 옵션으로 storybook별 커스텀 URL override 가능
  * - 음소거는 localStorage('tangobook-game-muted')에 영속
  */

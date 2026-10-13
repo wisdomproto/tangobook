@@ -8,6 +8,7 @@ import { progressPercent } from '../lib/unit-progress';
 import type { KoreanUnitSummary } from '../lib/korean-phonics-units';
 import type { EnglishUnitSummary } from '../lib/english-phonics-units';
 import type { CourseActivityItem } from './CourseActivitySection';
+import { ToyHangul } from './ToyHangul';
 
 export function CourseUnitHero({
   language,
@@ -81,13 +82,10 @@ export function CourseUnitHero({
           className="course-unit-preview"
           aria-label={t(unit.isReview ? 'study.reviewLetters' : 'study.unitLetters')}
         >
-          <p className="mb-2 text-sm font-semibold text-ink-600">
-            {t(unit.isReview ? 'study.reviewLetters' : 'study.unitLetters')}
-          </p>
           <div className="course-unit-letter-list">
             {letters.slice(0, 4).map((letter, index) => (
               <span className="course-unit-letter" key={`${letter}-${index}`}>
-                {letter}
+                {language === 'korean' ? <ToyHangul text={letter} decorative /> : letter}
               </span>
             ))}
             {letters.length > 4 && (

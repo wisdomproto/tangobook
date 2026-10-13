@@ -1,3 +1,4 @@
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -218,7 +219,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
          *    (마지막 칸은 칭찬까지 끝나고 덮개가 걷힌다.)
          */
         say(current.w.ttsUrl, () =>
-          playAudio('/sounds/game/correct.mp3', () => {
+          playAudio(LEARNING_SOUNDS.correct, () => {
             if (!isLast) {
               scheduleTimer(() => setTapped((t) => t + 1), REST_MS);
               return;
@@ -235,7 +236,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       const found = spots.find((s) => hit(s.h));
       if (!found) return;
       playUi('tap');
-      say(found.w.ttsUrl, () => playAudio('/sounds/game/correct.mp3'));
+      say(found.w.ttsUrl, () => playAudio(LEARNING_SOUNDS.correct));
     },
     [spots, allDone, current, tapped, say, playAudio, playCorrectSequence, scheduleTimer, goNext]
   );
@@ -260,7 +261,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   if (storybookQuery.isLoading || !sb) {
     return (
-      <ActivityShell onBack={onBack}>
+      <ActivityShell unitId={unitId} kind="explore" onBack={onBack}>
         <div className="flex-1 flex items-center justify-center text-ink-500 font-bold">
           {t('common.loading')}
         </div>
@@ -270,7 +271,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   if (!blending) {
     return (
-      <ActivityShell onBack={onBack}>
+      <ActivityShell unitId={unitId} kind="explore" onBack={onBack}>
         <div className="flex-1 flex flex-col items-center justify-center gap-3">
           <div className="text-6xl">🔤</div>
           <p className="text-xl font-black text-ink-700">{t('alphabetLearn.noData')}</p>
@@ -282,12 +283,14 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   return (
     // 🔴 배경은 한글 활동들과 같은 풀밭 — 이 화면만 밋밋한 그라데이션이라 다른 제품처럼 보였다.
     <ActivityShell
+      unitId={unitId}
+      kind="explore"
       onBack={onBack}
       scroll
       // 글자 탭 — 뒤로가기와 한 줄에.
       headerRight={
         // 글자 탭 — 활성 글자만 coral background + 큰 크기(다시 클릭 = 발음). 비활성은 white.
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="phonics-alphabet-tabs flex items-center gap-2 sm:gap-3">
           {letters.map((L, i) => {
             const U = L.toUpperCase();
             const l = L.toLowerCase();
@@ -295,8 +298,10 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             const hasTts = !!sb.phonicsLesson?.blending?.[i]?.blendingSequenceTtsUrl;
             return (
               <button
+                data-learning-fx="tap"
                 key={i}
                 onClick={() => handleLetterTabClick(i)}
+                aria-pressed={active}
                 className={`inline-flex items-baseline gap-0.5 sm:gap-1 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-soft transition-all ${
                   active
                     ? 'bg-coral-50 ring-4 ring-coral-300 scale-[1.06]'
@@ -318,7 +323,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
                 <span
                   className={`font-display font-black leading-none ${
                     active ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-2xl sm:text-3xl'
-                  } text-sky-500`}
+                  } text-mint-700`}
                 >
                   {l}
                 </span>

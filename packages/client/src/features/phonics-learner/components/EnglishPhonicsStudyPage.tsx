@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { PhonicsBackdrop } from './PhonicsBackdrop';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader, courseThemes } from '@/design-system';
@@ -94,7 +95,11 @@ export default function EnglishPhonicsStudyPage() {
   };
 
   return (
-    <div className="relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]">
+    <div
+      style={theme.style}
+      className="phonics-course-page relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]"
+    >
+      <PhonicsBackdrop />
       <PageHeader
         onBack={() => navigate('/library')}
         backLabel={t('common.home')}

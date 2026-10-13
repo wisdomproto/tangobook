@@ -4,6 +4,7 @@ import {
   flattenPhonicsUnits,
   isPhonicsTrack,
   type FlatPhonicsUnit,
+  koreanLearningUnitId,
 } from '@tangobook/shared';
 import { useSeo } from '@/lib/useSeo';
 
@@ -26,7 +27,8 @@ export default function PhonicsCurriculumPage() {
   const track = isPhonicsTrack(rawTrack) ? rawTrack : null;
   const units = track ? flattenPhonicsUnits(track) : [];
   const meta = track ? PHONICS_TRACK_META[track] : null;
-  const unit = unitId ? (units.find((u) => u.id === unitId) ?? null) : null;
+  const resolvedId = track === 'korean' && unitId ? koreanLearningUnitId(unitId) : unitId;
+  const unit = resolvedId ? (units.find((u) => u.id === resolvedId) ?? null) : null;
   const notFound = !track || (unitId ? !unit : false);
 
   const title = notFound
@@ -37,6 +39,7 @@ export default function PhonicsCurriculumPage() {
 
   useSeo({
     title,
+    path: track ? `/library/phonics/${track}${unit ? `/${unit.id}` : ''}/about` : undefined,
     description: unit
       ? `${meta!.label} ${unit.position}단원 「${unit.name}」 — ${unit.sampleWords.slice(0, 6).join(' · ')}`
       : meta
@@ -107,6 +110,7 @@ function UnitView({
   const next = units[i + 1];
   const combosLabel = unit.syllables.length ? '만드는 글자' : '낱말 패턴';
   const combos = unit.syllables.length ? unit.syllables : unit.patterns;
+  const isBasicVowel = track === 'korean' && unit.id.startsWith('kr-v1-');
 
   return (
     <article className="mt-2">
@@ -145,8 +149,9 @@ function UnitView({
       <section className="mt-6">
         <h2 className="font-display font-extrabold text-ink-900">이 단원에서 하는 것</h2>
         <p className="mt-2 text-ink-700 break-keep leading-relaxed">
-          소리를 듣고 고르기, 글자를 손가락으로 따라 쓰기, 낱말과 그림 짝 맞추기를 합니다. 맞힌
-          낱말은 그 낱말이 나오는 동화책 한 쪽으로 이어집니다.
+          {isBasicVowel
+            ? `모음 ${unit.phonemes[0]} 하나만 배웁니다. 그림 모음을 눌러 소리를 듣고, 모음 모양을 손가락으로 따라 씁니다.`
+            : '소리를 듣고 고르기, 글자를 손가락으로 따라 쓰기, 낱말과 그림 짝 맞추기를 합니다. 맞힌 낱말은 그 낱말이 나오는 동화책 한 쪽으로 이어집니다.'}
         </p>
       </section>
 

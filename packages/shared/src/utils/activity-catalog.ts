@@ -89,7 +89,7 @@ const BOOK_CTA = '📖 이 그림이 나오는 동화책 읽기';
 
 export function worksheetItems(kind: 'hangul' | 'english'): ActivityItem[] {
   const track: PhonicsTrack = kind === 'hangul' ? 'korean' : 'english';
-  return flattenPhonicsUnits(track).map((u) => ({
+  return flattenPhonicsUnits(track, 'authoring').map((u) => ({
     kind,
     key: u.id,
     slug: u.id,
@@ -220,7 +220,7 @@ export function activityKindLanding(kind: ActivityKind, count: number): Activity
           ],
           [
             '어떤 순서로 하나요?',
-            '한글1 기본음절(모음, ㄱ~ㅎ) → 한글2 받침 → 한글3 쌍자음 → 한글4 복잡한 모음 순서예요.',
+            '학습 앱은 Book 1 모음 → Book 2 자음과 기본 음절 → Book 3 받침 → Book 4 쌍자음 → Book 5 복잡한 모음 순서예요. 인쇄 활동지는 기존 단원별 구성을 유지합니다.',
           ],
           ['정말 무료인가요?', '네. 가입 없이 인쇄도 온라인 쓰기도 무료예요.'],
           [

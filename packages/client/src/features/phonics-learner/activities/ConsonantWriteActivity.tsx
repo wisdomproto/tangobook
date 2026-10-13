@@ -1,4 +1,13 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
@@ -57,10 +66,10 @@ const tileFont = (tile: string) => `calc(${tile} * 0.85)`;
  */
 const IDLE_TILE_CLASS =
   'shrink-0 aspect-square rounded-3xl border-2 border-ink-100 bg-white/70 flex items-center justify-center font-display font-black text-[#e5e7eb] shadow-soft leading-none';
-/** 두 글자가 미끄러져 붙는 시간. CSS `duration-500` 과 맞춘다 — 어긋나면 붙기 전에 합쳐진 글자가 뜬다. */
-const CLOSE_MS = 500;
+/** 듣기 합성과 같은 이동 시간. CSS 변수도 이 값을 쓴다. */
+const CLOSE_MS = 380;
 /** 합쳐진 글자가 뜬 뒤 읽기까지의 쉼 — 붙자마자 소리가 나면 눈이 따라가기 전에 지나간다. */
-const MERGE_REST_MS = 550;
+const MERGE_REST_MS = 220;
 /**
  * 쓰는 라운드 수 — **한 번**(2026-07-30 사용자: "2번씩 쓰게 하는데, 1번만 쓰게 하는 게 낫겠다").
  *
@@ -113,7 +122,7 @@ export function ConsonantWriteActivity({
   onBack,
 }: Props) {
   const { t } = useTranslation('phonics');
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, stopAll } = useGameAudio();
   // 🔴 진입 안내 — 지시가 텍스트뿐이라 글 못 읽는 아이엔 통째로 무음이었다(쓰기 6종 공통).
   useEntryGuide(ENTRY_GUIDE.write, playAudio);
   const prefix = 'consonant-write';
@@ -141,8 +150,10 @@ export function ConsonantWriteActivity({
   // 붙는 애니메이션·쉼 타이머 — 도중에 나가면 빈 화면에서 소리가 울린다.
   const closeTimer = useRef<number | null>(null);
   const restTimer = useRef<number | null>(null);
+  const speechRef = useRef(0);
   useEffect(
     () => () => {
+      speechRef.current++;
       if (closeTimer.current) clearTimeout(closeTimer.current);
       if (restTimer.current) clearTimeout(restTimer.current);
     },
@@ -179,11 +190,16 @@ export function ConsonantWriteActivity({
    */
   const align = vertical ? 'flex-col items-center' : 'items-start';
 
-  const goTo = useCallback((i: number) => {
-    setIdx(i);
-    setRound(0);
-    setStep(0);
-  }, []);
+  const goTo = useCallback(
+    (i: number) => {
+      speechRef.current++;
+      stopAll();
+      setIdx(i);
+      setRound(0);
+      setStep(0);
+    },
+    [stopAll]
+  );
   // 짝 없는 단원(모음 정보만) 폴백용 — 모음 모드는 pair 가 늘 있어 안 쓰인다.
   const say = soundText ?? consonant ?? vowel ?? '';
 
@@ -205,13 +221,18 @@ export function ConsonantWriteActivity({
 
   const speak = useCallback(
     async (text: string, onEnded?: () => void) => {
+      const speech = ++speechRef.current;
       const url = await resolveTtsUrl({
         text,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: prefix,
       });
-      if (url) playAudio(url, onEnded);
+      if (speech !== speechRef.current) return;
+      if (url)
+        playAudio(url, () => {
+          if (speech === speechRef.current) onEnded?.();
+        });
       else onEnded?.();
     },
     [unitId, playAudio]
@@ -239,7 +260,7 @@ export function ConsonantWriteActivity({
           const after = pairs.findIndex((_, i) => i > idx && !made.has(i));
           goTo(after >= 0 ? after : pairs.findIndex((_, i) => !made.has(i)));
         };
-        speak(read, () => playAudio('/sounds/game/correct.mp3', advance));
+        speak(read, () => playAudio(LEARNING_SOUNDS.correct, advance));
       };
 
       /**
@@ -298,15 +319,16 @@ export function ConsonantWriteActivity({
   );
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓. 아무거나 눌러 그것부터 할 수 있다(음절 만들기와 같다).
           🔴 진척은 `idx` 가 아니라 `madeSet` 으로 판단한다 — 건너뛰며 골랐을 때 앞의 안 한 것이
              '완료'로 보이면 안 된다. */}
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+      <div className="phonics-syllable-nav shrink-0 flex flex-wrap justify-center gap-2 sm:gap-3">
         {pairs.map((p, i) => {
           const done = madeSet.has(i);
           return (
             <button
+              data-learning-fx="tap"
               key={p.syllable}
               onClick={() => !done && goTo(i)}
               disabled={done}
@@ -346,7 +368,7 @@ export function ConsonantWriteActivity({
               const done = next >= 3;
               if (done) setCompleted(true);
               speak(say, () =>
-                playAudio('/sounds/game/correct.mp3', () => {
+                playAudio(LEARNING_SOUNDS.correct, () => {
                   if (done) playCorrectSequence({ language: praiseLang(), onDone: onComplete });
                 })
               );
@@ -355,11 +377,15 @@ export function ConsonantWriteActivity({
           />
         ) : (
           <div
-            className={`flex justify-center transition-all duration-500 ease-out ${align}`}
+            className={`phonics-write-blend-stage flex justify-center ${align}`}
+            data-vertical={vertical || undefined}
+            data-merging={merging || undefined}
             style={
-              vertical
-                ? { rowGap: CODA_GAPS[Math.min(round, CODA_GAPS.length - 1)] }
-                : { columnGap: GAPS[Math.min(round, GAPS.length - 1)] }
+              {
+                '--blend-gap': closing || merging ? '0px' : (vertical ? CODA_GAPS : GAPS)[0],
+                '--blend-space': (vertical ? CODA_GAPS : GAPS)[0],
+                '--blend-close-ms': `${CLOSE_MS}ms`,
+              } as CSSProperties
             }
           >
             {/* 🔴 대기 칸에 `shrink-0` 필수 — 없으면 캔버스가 자리를 차지하며 눌려 정사각이 깨진다(375px 에서 65×98). */}
@@ -367,41 +393,29 @@ export function ConsonantWriteActivity({
               <div className="w-[60vw] h-[30vw] max-w-96 max-h-48 sm:w-96 sm:h-48 rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-black text-mint-700 text-6xl sm:text-8xl shadow-soft">
                 {pair.syllable}
               </div>
-            ) : closing ? (
-              /* 붙는 동안(받침 모드 round 1) — 🔴 **두 칸 다 판으로 바꾼다.** 캔버스를 남겨 두면
-                 미끄러지는 중에도 칠할 수 있고, 다 칠한 글자가 아니라 빈 가이드가 붙는 것처럼 보인다. */
-              <>
-                <div className={IDLE_TILE_CLASS} style={{ width: tile, fontSize: tileFont(tile) }}>
-                  {pair.first}
-                </div>
-                <div
-                  className="shrink-0 aspect-square rounded-3xl border-2 border-mint-500 bg-mint-100 flex items-center justify-center font-display font-black text-mint-700 shadow-soft leading-none"
-                  style={{ width: tile, fontSize: tileFont(tile) }}
-                >
-                  {pair.second}
-                </div>
-              </>
             ) : (
               // 🔴 지금 쓸 칸만 캔버스로 살아 있고, 옆 칸은 글자를 보여주는 판이다.
               //    두 캔버스를 동시에 띄우면 375px 에서 한 칸이 140px 밑으로 내려가 쓸 수가 없다.
               [0, 1].map((which) => {
                 const letter = which === 0 ? pair.first : pair.second;
-                if (which === step) {
-                  return (
-                    // 🔴 캔버스도 대기 칸과 **같은 폭**으로 묶는다 — 안 묶으면 자체 max-w-sm(384px)이라
-                    //    대기 칸(176px)의 두 배가 되어 두 글자 크기가 제각각으로 보인다.
-                    <WriteCell key={`${pair.syllable}-${round}-${which}`} tile={tile}>
-                      <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
-                    </WriteCell>
-                  );
-                }
                 return (
                   <div
-                    key={`${pair.syllable}-${which}-idle`}
-                    className={IDLE_TILE_CLASS}
-                    style={{ width: tile, fontSize: tileFont(tile) }}
+                    key={`${pair.syllable}-${which}`}
+                    className="phonics-write-blend-piece shrink-0"
+                    style={{ width: tile }}
                   >
-                    {letter}
+                    {!closing && which === step ? (
+                      <WriteCell tile={tile}>
+                        <LetterFillCanvas letter={letter} onResult={handleResult} autoCheck />
+                      </WriteCell>
+                    ) : (
+                      <div
+                        className={IDLE_TILE_CLASS}
+                        style={{ width: tile, fontSize: tileFont(tile) }}
+                      >
+                        {letter}
+                      </div>
+                    )}
                   </div>
                 );
               })

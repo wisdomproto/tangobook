@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -17,6 +17,7 @@ import {
   patternHighlightRanges,
   isMagicEPattern,
   writeStepRead,
+  patternWriteOrder,
 } from '../lib/english-phonics-units';
 
 export interface FamilyWord {
@@ -133,10 +134,19 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   //    에이크 베이크라고 읽어 어색"). 매직-e 소리는 앞 조각([b][ake])이 이미 가르쳤다. wordFamilies 의
   //    저작 ttsUrl("A bake")은 **게임 성공음 전용**이라 이 화면에선 안 쓴다.
   //    → 조각 소리(concat)와 낱말(plain)을 텍스트로 데운다.
-  const warmTexts = useMemo(
-    () => [...new Set([...rows.flatMap((r) => r.segs), ...words.map((w) => w.word)])],
-    [rows, words]
-  );
+  const warmTexts = useMemo(() => {
+    const texts = new Set([...rows.flatMap((r) => r.segs), ...words.map((w) => w.word)]);
+    for (const w of words) {
+      const order = patternWriteOrder(w.word, [pattern]) ?? [...w.word].map((_, i) => i);
+      const written: number[] = [];
+      for (const index of order) {
+        written.push(index);
+        const read = writeStepRead(w.word, pattern, written, index, unitId);
+        if (read) texts.add(read);
+      }
+    }
+    return [...texts];
+  }, [rows, words, pattern, unitId]);
   usePhonicsTtsWarm(unitId, warmTexts, 'en-family', 'english');
   // 낱말 그림(있는 것만) — 음원처럼 진입 시 데운다(게임과 동일 프리미티브).
   usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
@@ -153,6 +163,15 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const writeDoneRef = useRef(false);
   // 🔴 낱말을 다 쓰면 보여줄 예문 텍스트(Book 2 써보기와 통일, 2026-08-06).
   const [shownSentence, setShownSentence] = useState<string | null>(null);
+  const aliveRef = useRef(true);
+  const writeSequenceRef = useRef(0);
+  useEffect(() => {
+    aliveRef.current = true;
+    return () => {
+      aliveRef.current = false;
+      writeSequenceRef.current++;
+    };
+  }, []);
 
   const wordDone = useCallback(
     (wi: number) => rows[wi]?.cells.every((_, ci) => pressed.has(`${wi}-${ci}`)) ?? false,
@@ -228,6 +247,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const handleWriteLetter = useCallback(
     (_letter: string, index: number) => {
       if (writeDoneRef.current || !writeWord) return;
+      const sequence = ++writeSequenceRef.current;
       if (!writtenRef.current.includes(index)) writtenRef.current.push(index);
       const readText = writeStepRead(writeWord.word, pattern, writtenRef.current, index, unitId);
       void (async () => {
@@ -240,7 +260,11 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
             })
           : undefined;
         // 띵동 먼저, 끝나면 이어읽기(한 채널이라 동시에 내면 앞소리가 잘린다).
-        if (url) chime(() => playAudio(url));
+        if (sequence !== writeSequenceRef.current) return;
+        if (url)
+          chime(() => {
+            if (sequence === writeSequenceRef.current) playAudio(url);
+          });
         else playUi('tap'); // 읽을 조각이 없으면 뾱(확인음)만
       })();
     },
@@ -250,20 +274,21 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const handleWriteComplete = useCallback(() => {
     if (writeDoneRef.current) return;
     writeDoneRef.current = true;
+    writeSequenceRef.current++;
     const w = words[writeIdx];
     if (!w) return;
     const isLast = writeIdx + 1 >= words.length;
     void (async () => {
       // 🔴 예문은 **자연 음원(sentenceTtsUrl) 우선** — 없으면 concat 폴백(음소 이어붙이기라 어색).
-      const sentenceUrl = w.sentence
-        ? await resolveTtsUrl({
+      const sentenceUrlPromise = w.sentence
+        ? resolveTtsUrl({
             text: w.sentence,
             language: 'english',
             storybookId: unitId,
             directUrl: w.sentenceTtsUrl,
             identifierPrefix: 'en-family',
           })
-        : undefined;
+        : Promise.resolve(undefined);
       // 🔴 낱말 읽기 → (예문 텍스트 띄우고 + 예문 읽기) → (마지막이면 칭찬+완료 / 아니면 다음 낱말).
       //    Book 2 써보기와 통일 — 예문은 여기(써보기 완성)에서만 준다. onEnded 체인이라 안 잘린다.
       const afterSentence = () => {
@@ -280,19 +305,22 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       //    빠졌던 완성 효과음 복구("사이에 효과음이 없어").
       say(w.word, () =>
         chime(() => {
-          if (w.sentence && sentenceUrl) {
-            setShownSentence(w.sentence);
-            rest(() => playAudio(sentenceUrl, afterSentence));
-          } else {
-            afterSentence();
-          }
+          void sentenceUrlPromise.then((sentenceUrl) => {
+            if (!aliveRef.current) return;
+            if (w.sentence && sentenceUrl) {
+              setShownSentence(w.sentence);
+              rest(() => playAudio(sentenceUrl, afterSentence));
+            } else {
+              afterSentence();
+            }
+          });
         })
       );
     })();
   }, [words, writeIdx, unitId, say, chime, rest, playAudio, playCorrectSequence, onMarkComplete]);
 
   const dots = (
-    <div className="flex items-center gap-1.5">
+    <div className="phonics-progress-dots flex items-center gap-1.5">
       {rows.map((r, wi) => (
         <span
           key={r.word}
@@ -305,7 +333,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   // ── 써보기 화면 — 낱말 전체를 한 글자씩 쓴다(매직 e 는 모음·끝 e 가 코랄로 남는다) ──
   if (phase === 'write' && writeWord) {
     const writeDots = (
-      <div className="flex items-center gap-1.5">
+      <div className="phonics-progress-dots flex items-center gap-1.5">
         {words.map((w, i) => (
           <span
             key={w.word}
@@ -315,7 +343,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       </div>
     );
     return (
-      <ActivityShell onBack={onBack} headerRight={writeDots}>
+      <ActivityShell unitId={unitId} kind="blend" onBack={onBack} headerRight={writeDots}>
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3 sm:gap-4">
           <div
             className="text-3xl sm:text-4xl font-black font-display"
@@ -364,9 +392,9 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   }
 
   return (
-    <ActivityShell onBack={onBack} headerRight={dots}>
+    <ActivityShell unitId={unitId} kind="blend" onBack={onBack} headerRight={dots}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 sm:gap-6">
-        <div className="text-center">
+        <div className="phonics-family-title text-center">
           <div
             className="text-5xl sm:text-6xl md:text-7xl font-black font-display"
             style={{
@@ -383,11 +411,11 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
 
         {rows[0]?.magicE ? (
           // 매직-e: [짧은 rime][긴 rime] → [낱말] — 행마다 조각 수가 같아 flex 로도 열이 맞는다.
-          <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
+          <div className="phonics-family-rows flex flex-col gap-3 sm:gap-4 w-full max-w-4xl">
             {rows.map((row, wi) => (
               <div
                 key={row.word}
-                className="flex flex-row items-center justify-center gap-2 sm:gap-3"
+                className="phonics-magic-row flex flex-row items-center justify-center gap-2 sm:gap-3"
               >
                 {row.cells.map((cell, ci) => {
                   const isWordCell = ci === row.cells.length - 1;
@@ -418,8 +446,10 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           // 🔴 Book 4/5: [앞][패턴][뒤] → [낱말] — 조각 수가 달라도 **하나의 grid** 로 열을 맞춘다
           //    (2026-08-09 사용자 "ee 기준으로 줄 맞춰"). 빈 앞/뒤 조각은 빈 칸으로 두어 열이 안 밀린다.
           <div
-            className="grid items-center justify-center gap-x-2 sm:gap-x-3 gap-y-3 sm:gap-y-4"
-            style={{ gridTemplateColumns: 'repeat(7, auto) auto' }}
+            className="phonics-word-family-grid grid items-center justify-center gap-x-2 sm:gap-x-3 gap-y-3 sm:gap-y-4"
+            data-has-before={rows.some((row) => row.patCellIdx === 1) || undefined}
+            data-has-after={rows.some((row) => row.patCellIdx + 1 < row.segs.length) || undefined}
+            style={{ gridTemplateColumns: 'var(--family-columns, repeat(7, auto) auto)' }}
           >
             {rows.map((row, wi) => {
               const beforeIdx = row.patCellIdx === 1 ? 0 : -1;
@@ -523,11 +553,14 @@ function Cell({
   };
   return (
     <motion.button
+      data-learning-fx="tap"
       onClick={onClick}
-      animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-      transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
+      whileTap={{ scale: 0.96 }}
+      data-next={isNext || undefined}
+      data-pressed={pressed || undefined}
+      transition={{ duration: 0.18 }}
       className={[
-        'relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
+        'phonics-sound-cell relative h-[clamp(3.5rem,12vh,6.5rem)] rounded-[24px] border-[4px] flex items-center justify-center shadow-soft text-ink-900 active:scale-[0.95] transition-shadow font-black',
         wide ? 'min-w-[clamp(6rem,20vh,12rem)] px-4' : 'px-[clamp(0.75rem,2vh,1.5rem)]',
         bgByTone[tone],
         pressed
@@ -553,7 +586,7 @@ function Cell({
       {isNext && !pressed && (
         <span
           aria-hidden
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl animate-bounce"
+          className="phonics-next-mark absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl"
         >
           👆
         </span>

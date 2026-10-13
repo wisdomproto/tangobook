@@ -1,16 +1,22 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { VowelListenActivity } from './VowelListenActivity';
 
 const spies = vi.hoisted(() => ({
-  tts: vi.fn(async () => 'blob:tts'),
+  tts: vi.fn(async (): Promise<string | undefined> => 'blob:tts'),
   praise: vi.fn(),
+  log: vi.fn(),
+  holdSound: false,
+  soundEnded: undefined as (() => void) | undefined,
 }));
 
 vi.mock('@/features/tts', () => ({ resolveTtsUrl: spies.tts }));
 vi.mock('@/features/games/hooks/useGameAudio', () => ({
   useGameAudio: () => ({
-    playAudio: (_u: string, e?: () => void) => e?.(),
+    playAudio: (u: string, e?: () => void) => {
+      if (spies.holdSound && u === 'blob:tts') spies.soundEnded = e;
+      else e?.();
+    },
     playFeedbackSound: vi.fn(),
     playCorrectSequence: (o?: { onDone?: () => void }) => {
       spies.praise();
@@ -21,7 +27,7 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
 }));
 vi.mock('../hooks/usePhonicsTtsWarm', () => ({ usePhonicsTtsWarm: vi.fn() }));
 // 모음 퀴즈 판정을 학습 이벤트로 남기므로 로거를 세운다(AuthProvider 없이 렌더하기 위해).
-vi.mock('@/features/learning/hooks/useLogEvent', () => ({ useLogEvent: () => vi.fn() }));
+vi.mock('@/features/learning/hooks/useLogEvent', () => ({ useLogEvent: () => spies.log }));
 
 const VOWELS = [
   { vowel: 'ㅏ', syllable: '아' },
@@ -37,6 +43,78 @@ afterEach(() => {
   vi.restoreAllMocks();
   spies.praise.mockClear();
   spies.tts.mockClear();
+  spies.log.mockClear();
+  spies.holdSound = false;
+  spies.soundEnded = undefined;
+});
+
+describe('모음 하나씩 익히기', () => {
+  it('같은 모음3개를 순서대로 듣고 마지막 소리 뒤 완료하며 퀴즈/정오답을 만들지 않는다', async () => {
+    spies.holdSound = true;
+    const complete = vi.fn();
+    const next = vi.fn();
+    render(
+      <VowelListenActivity
+        unitId="kr-v1-u01"
+        ttsUnitId="kr-h1-u01"
+        vowels={[VOWELS[0]]}
+        onMarkComplete={complete}
+        onBack={vi.fn()}
+        onNext={next}
+      />
+    );
+    const cards = [1, 2, 3].map((n) => screen.getByRole('button', { name: `ㅏ ${n}번 카드` }));
+    const card = cards[0];
+    expect(cards[1]).toBeDisabled();
+    expect(cards[2]).toBeDisabled();
+    fireEvent.click(card);
+    await waitFor(() => expect(spies.soundEnded).toBeDefined());
+    expect(complete).not.toHaveBeenCalled();
+    expect(spies.tts).toHaveBeenCalledWith(
+      expect.objectContaining({ text: 'ㅏ', storybookId: 'kr-h1-u01' })
+    );
+    act(() => spies.soundEnded?.());
+    expect(complete).not.toHaveBeenCalled();
+    expect(cards[1]).toBeEnabled();
+    fireEvent.click(cards[1]);
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(2));
+    act(() => spies.soundEnded?.());
+    expect(complete).not.toHaveBeenCalled();
+    fireEvent.click(cards[2]);
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(3));
+    act(() => spies.soundEnded?.());
+    expect(complete).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('button', { name: /퀴즈/ })).toBeNull();
+    expect(spies.log).not.toHaveBeenCalled();
+    fireEvent.click(card);
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(4));
+    act(() => spies.soundEnded?.());
+    expect(complete).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByRole('button', { name: '써보기 →' }));
+    expect(next).toHaveBeenCalledTimes(1);
+  });
+  it('발음 로드 실패를 완료로 표시하지 않고 재시도할 수 있다', async () => {
+    spies.tts.mockResolvedValueOnce(undefined);
+    const complete = vi.fn();
+    render(
+      <VowelListenActivity
+        unitId="kr-v1-u01"
+        vowels={[VOWELS[0]]}
+        onMarkComplete={complete}
+        onBack={vi.fn()}
+      />
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 1번 카드' }));
+    await screen.findByRole('status');
+    expect(complete).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 1번 카드' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'ㅏ 2번 카드' })).toBeEnabled());
+    expect(complete).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 2번 카드' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'ㅏ 3번 카드' })).toBeEnabled());
+    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 3번 카드' }));
+    await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
+  });
 });
 
 describe('VowelListenActivity 듣기 단계', () => {

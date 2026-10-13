@@ -1,5 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PhonicsBackdrop } from './PhonicsBackdrop';
+import './phonics-activities.css';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -20,6 +22,8 @@ export function usePhonicsEmbedded() {
 }
 
 interface Props {
+  unitId?: string;
+  kind?: 'explore' | 'blend' | 'write' | 'listen' | 'memory' | 'hunt';
   onBack: () => void;
   /**
    * 뒤로가기 **오른쪽**에 놓을 것(진행 dots 등). 있으면 헤더가 양끝 정렬이 된다.
@@ -48,7 +52,14 @@ interface Props {
  *    vw 만 보면 세로가 짧은 화면(1024×768·모바일 가로)에서 아래가 잘리고, vh 만 보면
  *    넓은 화면에서 좁쌀만 해진다.
  */
-export function ActivityShell({ onBack, headerRight, scroll = false, children }: Props) {
+export function ActivityShell({
+  unitId,
+  kind,
+  onBack,
+  headerRight,
+  scroll = false,
+  children,
+}: Props) {
   const { t } = useTranslation('phonics');
   const embedded = useContext(EmbeddedContext);
   const back = (
@@ -68,6 +79,11 @@ export function ActivityShell({ onBack, headerRight, scroll = false, children }:
   );
   return (
     <div
+      data-activity-kind={kind}
+      data-phonics-language={
+        unitId?.startsWith('en-') ? 'en' : unitId?.startsWith('kr-') ? 'ko' : undefined
+      }
+      data-effects-embedded={embedded || undefined}
       className={[
         // 🔴 embedded 는 **자기 상자 안에만** 그린다 — `fixed inset-0` 이면 블로그 글 위를 덮는다.
         //    높이를 정해 주는 건 감싸는 쪽(`PhonicsTryIt`)이고, 여기선 그 높이를 채우기만 한다.
@@ -75,11 +91,12 @@ export function ActivityShell({ onBack, headerRight, scroll = false, children }:
           ? 'relative h-full w-full flex flex-col px-3 sm:px-4 py-3 rounded-[22px]'
           : 'fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4',
         scroll ? 'overflow-y-auto' : 'overflow-hidden',
-        'learning-stage bg-cream-50',
+        'learning-stage phonics-activity bg-cream-50',
       ]
         .filter(Boolean)
         .join(' ')}
     >
+      <PhonicsBackdrop />
       {/* 🔴 embedded 엔 「← 돌아가기」를 두지 않는다 — 돌아갈 데가 없고(블로그 글 안이다),
           그 자리는 아래 CTA 가 맡는다. 활동이 넘긴 `onBack` 은 그대로 무시된다. */}
       {embedded ? (

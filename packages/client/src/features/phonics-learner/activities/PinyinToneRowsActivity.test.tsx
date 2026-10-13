@@ -98,7 +98,7 @@ describe('병음조합 배우기 (성모 탭 + 4성 줄)', () => {
         }
       }
     }
-    expect(playAudio.mock.calls.some(([u]) => u === '/sounds/game/correct.mp3')).toBe(true);
+    expect(playAudio.mock.calls.some(([u]) => u === '/sounds/learning/correct.mp3')).toBe(true);
     expect(playCorrectSequence).toHaveBeenCalled();
     expect(onMarkComplete).toHaveBeenCalledTimes(1);
   });

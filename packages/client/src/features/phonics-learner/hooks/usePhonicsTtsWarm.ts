@@ -35,7 +35,7 @@ export function usePhonicsTtsWarm(
      * 호출부는 `[첫글자, 둘째글자, 이어읽기]` 순으로 넘기므로 이 순서가 곧 우선순위다.
      */
     void (async () => {
-      for (const text of key.split('\n')) {
+      for (const text of new Set(key.split('\n').filter(Boolean))) {
         if (!alive) return;
         try {
           const url = await resolveTtsUrl({

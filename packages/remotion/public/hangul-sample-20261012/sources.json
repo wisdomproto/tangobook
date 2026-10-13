@@ -1,0 +1,86 @@
+{
+  "remoteOperations": "GET only",
+  "records": [
+    {
+      "name": "meeting.riv",
+      "source": "output/rive-hangul-meet-20261012/sample.riv",
+      "sha256": "22c95b1b1eebc4a4fed07ae4315e46b45edf239092939adcf6cfb63fe2fa5de3"
+    },
+    {
+      "name": "giyok-body.png",
+      "source": "output/rive-hangul-meet-20261012/giyok-body.png",
+      "sha256": "ddc6723edcdb0ab722bd02113f81304dd927906b1e5f17a0c30db12a8dfb22a0"
+    },
+    {
+      "name": "a-body.png",
+      "source": "output/rive-hangul-meet-20261012/a-body.png",
+      "sha256": "5150a0d493004b8c3414e64cf20588b6cae6b5cbfaaa418761b279b3fc384904"
+    },
+    {
+      "name": "Pretendard-Regular.otf",
+      "source": "packages/client/public/fonts/Pretendard-Regular.otf",
+      "sha256": "3ffbacde6ab8411f1d2db54bb9b1f0b3ee2a738932033722cf0388c06aed1c93"
+    },
+    {
+      "name": "FONT-LICENSE.txt",
+      "source": "packages/client/public/fonts/Pretendard-LICENSE.txt",
+      "sha256": "cc2582fa6dbd72ddfd229e709c0bae635f75a151ed1787adab9729a531b48a1f"
+    },
+    {
+      "name": "letter-g.mp3",
+      "source": "packages/remotion/public/phonics/audio/letter-g.mp3",
+      "sha256": "4bdcc24af862f16e43348d46bb9a4f0b237fa282153d36a13758abed47aed2d6"
+    },
+    {
+      "name": "vowel-a.mp3",
+      "source": "packages/remotion/public/phonics/audio/vowel-a.mp3",
+      "sha256": "b043edad26a42715d023705ef4ee139310d7ab24f7da59da4d068c78bca41486"
+    },
+    {
+      "name": "syllable-ga.mp3",
+      "source": "packages/remotion/public/phonics/audio/syl-ga.mp3",
+      "sha256": "d7f4293c14ad4857ace05e83bde52de90bae10933741546e85fae1caf46577d5"
+    },
+    {
+      "name": "blend-ga.mp3",
+      "source": "packages/remotion/public/phonics/audio/blend-ga.mp3",
+      "sha256": "44fdf027e8405aa4d1eea68d1013afeb690b4174dd8b9959f5142a927a3def3d"
+    },
+    {
+      "name": "bgm.mp3",
+      "source": "packages/remotion/public/phonics/audio/bgm.mp3",
+      "sha256": "ea44cc73c4ca2a16bb29b4a3201a55532735334c369e6f9c0120118b309899fa"
+    },
+    {
+      "name": "correct.mp3",
+      "source": "packages/client/public/sounds/learning/correct.mp3",
+      "sha256": "b3daaf7f12ccd8e6e49e696219c810703179a602815eab15a3a550e17588a05a"
+    },
+    {
+      "name": "complete.mp3",
+      "source": "packages/client/public/sounds/learning/complete.mp3",
+      "sha256": "e9f2c4b36ab0ea7a6642185b3b574f81318337118fc26716c49d09534a81b003"
+    },
+    {
+      "name": "write-guide.mp3",
+      "source": "packages/client/public/sounds/voice/write-trace-ko.mp3",
+      "sha256": "547ea774b2468f0beab2e75bf8ba54b5d2f33bf35b93e2220900345860678902"
+    },
+    {
+      "name": "syllable-bang.mp3",
+      "source": "phonics-library/mod_korean/방.mp3",
+      "sha256": "d559515822d7fc7ba2c9a03cc2c19f52b6a431686ef3818b204dff7ada5edebc"
+    },
+    {
+      "name": "word-gabang.wav",
+      "source": ["syllable-ga.mp3", "syllable-bang.mp3"],
+      "sha256": "ce623038a5d7e02f3130c4cfa5945625c5a127959cd6efbab4ff5a3f6c553206",
+      "note": "Existing syllables concatenated with no inter-syllable silence."
+    },
+    {
+      "name": "bag.png",
+      "source": "built-in imagegen; image-prompt.txt",
+      "sha256": "2d8138553dacf7fc5cdf82af871b7a8318edcaf204db1ef043737703541b76a1"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
+import { ToyHangul } from '../components/ToyHangul';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -88,6 +90,7 @@ export function ConsonantTapActivity({
       if (completed) return;
       const cur = tapCounts[idx] ?? 0;
       if (cur >= TAPS_PER_CARD) return;
+      if (cur + 1 === TAPS_PER_CARD) emitLearningEffect('reveal');
       const next = cur + 1;
       const nextTaps = tapCounts.map((c, i) => (i === idx ? next : c));
       setTapCounts(nextTaps);
@@ -119,24 +122,27 @@ export function ConsonantTapActivity({
   );
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="explore" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black font-display text-ink-900 text-center break-keep">
           {t('consonantTap.hint')}
         </h2>
 
-        <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-3xl">
+        <div className="phonics-tap-grid grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-3xl">
           {Array.from({ length: CARDS }).map((_, i) => {
             const taps = tapCounts[i] ?? 0;
             const done = taps >= TAPS_PER_CARD;
             const word = cardWords[i];
             return (
               <button
+                data-learning-fx="tap"
                 key={i}
                 onClick={() => handleTap(i)}
                 disabled={done}
+                data-done={done || undefined}
+                data-taps={taps}
                 className={[
-                  'relative rounded-3xl border-2 aspect-square overflow-hidden flex flex-col items-center justify-center shadow-soft transition',
+                  'phonics-tap-card relative rounded-3xl border-2 aspect-square overflow-hidden flex flex-col items-center justify-center shadow-soft transition',
                   done
                     ? 'bg-success/15 border-success'
                     : 'bg-white border-coral-300 hover:shadow-soft active:scale-[0.96]',
@@ -147,6 +153,9 @@ export function ConsonantTapActivity({
                     : t('consonantTap.cardLabel', { letter: consonant, n: i + 1 })
                 }
               >
+                <span className="phonics-card-number" aria-hidden>
+                  {i + 1}
+                </span>
                 {/* 🔴 글자와 그림을 **한 카드에 같이 두지 않는다** — 셋(글자·그림·낱말)을 욱여넣으면
                     카드가 지저분하고 375px 에선 그림이 눌려 사라진다. 세 번 다 누르면
                     글자가 빠지고 **그림이 카드를 꽉 채운다** — 보상처럼 열리는 화면. */}
@@ -159,10 +168,10 @@ export function ConsonantTapActivity({
                 ) : (
                   <>
                     <div className="text-6xl sm:text-7xl md:text-8xl font-black text-coral-600 leading-none">
-                      {consonant}
+                      <ToyHangul text={consonant} className="!w-[1.35em] !h-[1.35em]" />
                     </div>
                     {/* 진행 dots */}
-                    <div className="absolute bottom-3 flex gap-1.5">
+                    <div className="phonics-tap-beads absolute bottom-3 flex gap-1.5">
                       {Array.from({ length: TAPS_PER_CARD }).map((_, k) => (
                         <span
                           key={k}

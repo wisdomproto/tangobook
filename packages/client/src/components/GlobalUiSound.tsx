@@ -54,7 +54,12 @@ export function GlobalUiSound() {
 
       const override = el.dataset.sound as UiSoundName | 'none' | undefined;
       if (override === 'none') return;
-      const name: UiSoundName = override && VALID.has(override) ? override : 'tap';
+      const name: UiSoundName =
+        override && VALID.has(override)
+          ? override
+          : ['tap', 'listen'].includes(el.dataset.learningFx ?? '')
+            ? 'learning-tap'
+            : 'tap';
       playUi(name);
     };
 

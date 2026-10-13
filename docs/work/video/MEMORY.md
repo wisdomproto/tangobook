@@ -1,5 +1,19 @@
 # 영상·오디오북 제작 기억
 
+2026-10-12 [Rive+Remotion 인계 main push](tasks/20261012-rive-remotion-learning-sample.md#후속-main-push--2026-10-12): 사용자 후속 요청으로 인계481c17a79 일반 push·원격 SHA 일치 확인. 샘플/코드/자산도 원격 이력 포함, 아래 로컬 커밋만 수행은 인계 당시 상태. 배포 완료는 미확인.
+
+2026-10-12 사용자 Rive+Remotion 다른 세션 인계 요청·명칭 Rive 정정: [바로 이어가기](tasks/20261012-rive-remotion-learning-sample.md#다른-세션에서-바로-이어가기)에 재개 문장·편집 위치·실행 조건·검수 주의·다음 행동 보강. main 기록/최종본을 기준으로 하며 제작 worktree의 ready는 이전 스냅샷. 보존 자산만으로 렌더 가능, 새 R2 조회 불필요. 후속 main push로 로컬 origin/main17e2f93ef에 제작28dfad736 포함 확인; 아래 미푸시는 제작 당시 상태. 이번 인계는 문서 로컬 커밋만 수행.
+
+2026-10-12 [Rive+Remotion 가 학습 영상](tasks/20261012-rive-remotion-learning-sample.md) 완료: 사용자 샘플 제작 요청으로 실제.riv/@remotion/rive 직접재생→3획가쓰기→imagegen가방·기존발음/BGM/효과음24초1080p/30fps 제작.720frame/16표본·Rive반복RGB일치·원음10곳중복/시점/피크·전체decode 검수, frozen설치/타입/포맷 통과. 초기로딩빈프레임·음량/발음중복 수정.13d7421c3→로컬main28dfad736 통합, output/rive-remotion-learning-20261012 영상/기록·public/hangul-sample-20261012 자산 보존. 이전 연동미검증 해소, 앱/게임/운영/푸시 없음.
+
+2026-10-12 [Rive+Remotion 후속 검토](tasks/20261012-rive-hangul-meeting.md#후속-논의-rive와-remotion으로-학습-영상): 사용자 토도ㅡ/ㅇ쓰기 참고영상의2D 표본 확인. 캐릭터Rive·쓰기경로/컷/음원Remotion 구성 가능 판단, 공식 @remotion/rive 시간동기화/evolvePath 확인. 기존 Remotion 기반은 있으나 실제.riv 연동/호환 렌더는 미구현·미검증. 구현 승인·플랫폼 결정으로 확대하지 않는다.
+
+2026-10-12 Rive 만남 최종 사용자승인·다른세션 인계: [재개 기록](tasks/20261012-rive-hangul-meeting.md#다른-세션에서-재개)에 승인본 경로·원본/코드·CLI 명령·검수 기준·미구현 범위·이어가기 문장 정리. output/rive-hangul-meet-20261012의 sample.mp4/sample.riv/표본PNG/검수JSON도 Git 보존. 제작0737d233e/91ead3bea는 로컬main, 미푸시. 새세션은 해당커밋 포함 여부 확인 후 샘플을 읽는다.
+
+2026-10-12 [Rive ㄱ과 ㅏ의 만남](tasks/20261012-rive-hangul-meeting.md) 완료: 이전ㄱ귀여움 사용자승인 뒤 두글자만남 요청. imagegen 민트ㅏ·native 얼굴/관절/ㄱ+ㅏ=가 식으로9초 반복 하이파이브→손잡고가→함께뛰기 시안. 실제Rive180프레임/12표본·46속성루프·손관절35키·MP4전체decode 검수 통과. output/rive-hangul-meet-20261012 원본과-review MP4/GIF,코드/기억 로컬main보존. 기존ㄱ/제품/운영/게임/푸시 변경 없음.
+
+2026-10-12 [한글 ㄱ 캐릭터 Rive 시안](tasks/20261012-rive-hangul-character.md): 사용자 한글떼 느낌·Rive·image skill 지정. 내장 imagegen 투명 ㄱ 몸통+native 얼굴/관절로6초 무음 춤 제작. 공식 CLI1.5.1/RML로 로그인 없이 실제.riv559,518bytes·960×720/30fps MP4·반복GIF 완성,180고유렌더·12표본·루프/전체decode 검수. output/rive-hangul-20261012 원본·코드 로컬main보존, review에미디어. .rev미생성(로그인필요), 실제3D/게임/운영앱통합/푸시없음. 사용자 게임가능성 논의는 후속구현승인으로 확대하지 않는다.
+
 2026-10-10 원격 main push 완료(통합커밋11260d118): 가상 육아 집/교구/영상 제작의 관련22커밋을 최신 origin/main에 통합. scripts/virtual-parenting 및 관련 작업 문서만 포함. 생성 PNG/MP4/BLEND/GLB와 조사 원문/로그는 기존 로컬 보존; 운영 앱 기능 변경·외부 피드 게시 없음. 연구 전체 수집/페르소나와 전체 가구 영상의 정확성 미해결 상태는 유지한다.
 
 2026-10-10 [탱고 오른팔 수정](tasks/20261010-tango-gagu-minimax.md): 사용자 오른손/왼팔 같은 팔꿈치 반증. 어깨 좌우 오판은 실제 투영으로 정정. 일정 팔 길이/오른쪽 elbow native124frame + imagegen 팔 수정5장으로 MiniMax 새5.17초 생성. 41표본에서 오른쪽 소매/손목 방향·ㄱㅏ 유지. 실제 elbow/shoulder는 crop 밖, 전체 인체 관절 검증 아님. localhost5191/tango-right-arm.html, 로컬만 보존.

@@ -1,3 +1,6 @@
+import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
+import '@/features/phonics-learner/components/phonics-activities.css';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -57,6 +60,7 @@ function KoreanBlockPlayerInner({
   initialInputMode = 'screen',
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
+  const phonics = useVocabSource()?.source === 'phonics';
   const data = gameData as KoreanBlockData;
   // 방어 필터: 그리드(3×6)는 3음절까지만 배치 가능 — 서버 필터 이전에 생성된
   // 게임 데이터에 4음절(지느러미 등)이 남아 있으면 판이 안 만들어지므로 제외.
@@ -520,12 +524,15 @@ function KoreanBlockPlayerInner({
       {/* VocabularyStudyContent 의 motion.div(fixed inset-0) 가 어떤 이유로 viewport top 으로부터 ~32px 떨어진 위치에 렌더되어
         위쪽으로 뒷 페이지(헤더·표지)가 새어나옴. player 를 자체적으로 fixed inset-0 + z-[60] 로 바꿔서 viewport 0,0 부터 완전 덮음. */}
       <div
+        data-phonics-game={phonics || undefined}
+        data-phonics-language={phonics ? 'ko' : undefined}
         className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
         style={{
           backgroundRepeat: 'no-repeat',
           ...gameSafeAreaStyle(),
         }}
       >
+        {phonics && <PhonicsBackdrop />}
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
             title={t('cards.block.labelKo')}
@@ -641,6 +648,7 @@ function KoreanBlockPlayerInner({
               )}
             >
               <button
+                data-learning-fx="tap"
                 type="button"
                 onClick={() => void handleReadBoard()}
                 disabled={!composedText || roundCorrect}
@@ -654,6 +662,7 @@ function KoreanBlockPlayerInner({
                 🔊 확인
               </button>
               <button
+                data-learning-fx="tap"
                 type="button"
                 onClick={handleNext}
                 className={cn(
@@ -682,6 +691,7 @@ function KoreanBlockPlayerInner({
               {!camera && (
                 <>
                   <button
+                    data-learning-fx="tap"
                     onClick={handleUndo}
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
@@ -689,6 +699,7 @@ function KoreanBlockPlayerInner({
                     ↩ 되돌리기
                   </button>
                   <button
+                    data-learning-fx="tap"
                     onClick={handleResetGrid}
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
@@ -698,6 +709,7 @@ function KoreanBlockPlayerInner({
                 </>
               )}
               <button
+                data-learning-fx="tap"
                 onClick={() => {
                   setCamera((v) => !v);
                   clearBoard();

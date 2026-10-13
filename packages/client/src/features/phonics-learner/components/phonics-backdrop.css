@@ -1,0 +1,391 @@
+.phonics-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, #edf8fa 0%, #f9fcf8 38%, #fffaf1 74%);
+}
+.phonics-backdrop-sun {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  width: clamp(68px, 10vw, 130px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff0ba;
+  box-shadow:
+    0 0 0 14px #fff4d44d,
+    0 0 0 30px #fff4d425;
+}
+.phonics-backdrop-cloud {
+  position: absolute;
+  width: clamp(110px, 18vw, 240px);
+  opacity: 0.8;
+}
+.phonics-backdrop-cloud--left {
+  left: -2%;
+  top: 10%;
+}
+.phonics-backdrop-cloud--right {
+  right: -3%;
+  top: 28%;
+  width: clamp(95px, 14vw, 190px);
+}
+.phonics-backdrop-ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: clamp(85px, 18vh, 190px);
+}
+.phonics-backdrop-flora {
+  position: absolute;
+  bottom: 10px;
+  width: clamp(55px, 7vw, 92px);
+}
+.phonics-backdrop-flora--left {
+  left: 5%;
+}
+.phonics-backdrop-flora--right {
+  right: 5%;
+  transform: scaleX(-1);
+}
+.learning-stage,
+.phonics-course-page {
+  isolation: isolate;
+}
+.phonics-course-page > header {
+  background: transparent;
+  border-color: transparent;
+  min-height: 56px;
+}
+.phonics-course-page > header > div:nth-child(2) {
+  justify-content: flex-start;
+  font-size: 20px;
+}
+.phonics-curriculum-panel {
+  scrollbar-width: thin;
+  scrollbar-color: #dfd5c5 transparent;
+}
+.phonics-course-page .phonics-curriculum-panel {
+  background: rgb(255 255 255 / 72%);
+  border-right: 1px solid rgb(210 222 211 / 70%);
+}
+.phonics-course-page .phonics-curriculum-panel section > button {
+  border: 0;
+  background: transparent;
+  min-height: 52px;
+  padding: 8px 10px;
+}
+.phonics-course-page .phonics-curriculum-panel section > button:hover {
+  background: #fff9ed;
+}
+.phonics-course-page .phonics-curriculum-panel a {
+  min-height: 48px;
+  border-radius: 14px;
+}
+.phonics-vowel-unit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.phonics-vowel-unit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 2px solid transparent;
+  padding: 8px 4px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.phonics-vowel-unit .toy-hangul {
+  font-size: 27px;
+}
+.phonics-vowel-unit[aria-current='page'] {
+  border-color: var(--course-accent, #c43a1c);
+  background: #fff2df;
+}
+.phonics-vowel-unit--group {
+  flex-direction: column;
+  padding: 14px 8px;
+  gap: 6px;
+}
+.phonics-vowel-group-letters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.phonics-vowel-unit--group .toy-hangul {
+  font-size: 34px;
+}
+.vowel-group-learning {
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 32px;
+  border: 1px solid #ffffff;
+  background: #ffffffb8;
+  box-shadow: 0 8px 32px #816a4506;
+}
+.vowel-group-step-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+}
+.vowel-group-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 2vw, 16px);
+  margin-block: 20px 28px;
+}
+.vowel-group-step {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: 20px 8px 12px;
+  border-radius: 24px;
+  border: 2px solid #e8eddf;
+  background: #f5f9ee;
+  box-shadow: 0 4px 0 #e2e8d8;
+  transition:
+    background 120ms,
+    transform 120ms;
+}
+.vowel-group-step:hover {
+  transform: translateY(-2px);
+}
+.vowel-group-step:active {
+  transform: translateY(2px);
+}
+.vowel-group-step:focus-visible {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 4px;
+}
+.vowel-group-step[aria-pressed='true'] {
+  background: #fff5e2;
+  border-color: var(--course-accent);
+  box-shadow: 0 4px 0 #eccaa7;
+}
+.vowel-group-step .toy-hangul {
+  font-size: clamp(38px, 5vw, 64px);
+}
+.vowel-group-step-number {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  border-radius: 50%;
+  font-size: 11px;
+  color: #717969;
+}
+.vowel-group-step[data-completed] .vowel-group-step-number {
+  background: #d2eada;
+  color: #286748;
+}
+.vowel-group-step-caption {
+  margin-top: 6px;
+  color: #665b4b;
+  font-size: 12px;
+  font-weight: 600;
+}
+.vowel-group-play-intro {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid #dbe7d3;
+  background: #f4f9ed;
+}
+.vowel-group-seed {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: white;
+  font-size: 36px;
+}
+@media (max-width: 639px) {
+  .course-unit-content[data-vowel-group] .course-unit-letter-list {
+    flex-wrap: nowrap;
+  }
+  .course-unit-content[data-vowel-group] .course-unit-letter {
+    min-width: 0;
+    min-height: 72px;
+    flex: 0 1 64px;
+    padding: 4px 6px;
+    font-size: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vowel-group-step {
+    transition: none;
+  }
+  .vowel-group-step:hover,
+  .vowel-group-step:active {
+    transform: none;
+  }
+}
+.vowel-explore-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 5vh, 44px);
+  padding: 12px 0 50px;
+}
+.vowel-explore-stage > h2 {
+  font-size: clamp(27px, 4.3vw, 52px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+.vowel-repeat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 2.5vw, 28px);
+  width: min(100%, 820px);
+}
+.vowel-repeat-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 0.8;
+  border: 3px solid #e2ece2;
+  border-radius: clamp(22px, 3vw, 38px);
+  background: #fffdf5;
+  box-shadow:
+    0 8px 0 #dceadf,
+    0 16px 26px #325b4012;
+  transition:
+    transform 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+.vowel-repeat-card:disabled {
+  cursor: default;
+}
+.vowel-repeat-card:not([data-active]):not([data-done]) .toy-hangul {
+  opacity: 0.65;
+}
+.vowel-repeat-card[data-active] {
+  background: #fff;
+  border-color: #67bf99;
+  transform: translateY(-8px);
+  box-shadow:
+    0 8px 0 #b2d9c2,
+    0 18px 32px #2e795919;
+}
+.vowel-repeat-card[data-done] {
+  border-color: #b6d8c1;
+  background: #f7fff5;
+}
+.vowel-repeat-card[data-playing] .toy-hangul {
+  animation: vowel-listen-hop 0.5s ease-in-out infinite;
+}
+.vowel-repeat-glyph {
+  font-size: clamp(68px, 13vw, 150px);
+  padding-bottom: 12px;
+}
+.vowel-repeat-glyph .toy-hangul {
+  width: 1.15em;
+  height: 1.15em;
+}
+.vowel-repeat-number {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 15px;
+  font-weight: 800;
+  color: #4a7357;
+  background: #eff6eb;
+}
+.vowel-repeat-foot {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #598d6b;
+  font-size: 22px;
+  line-height: 1;
+}
+.vowel-repeat-progress {
+  display: flex;
+  gap: 8px;
+}
+.vowel-repeat-progress > span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #65735d;
+  background: #fffef8;
+  border: 1px solid #dce6d5;
+  font-weight: 700;
+}
+.vowel-repeat-progress > span[data-done] {
+  color: white;
+  background: #2e7959;
+  border-color: #2e7959;
+}
+@keyframes vowel-listen-hop {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vowel-repeat-card,
+  .vowel-repeat-card .toy-hangul {
+    animation: none !important;
+    transition: none;
+    transform: none;
+  }
+}
+@media (max-height: 500px) {
+  .vowel-explore-stage {
+    gap: 16px;
+    padding-bottom: 15px;
+  }
+  .vowel-repeat-grid {
+    width: min(100%, 520px);
+  }
+  .vowel-repeat-card {
+    aspect-ratio: 1.3;
+  }
+  .vowel-repeat-glyph {
+    font-size: 65px;
+  }
+  .phonics-backdrop-ground {
+    height: 75px;
+  }
+}
+@media (max-width: 767px) {
+  .phonics-backdrop-sun {
+    right: 5%;
+    top: 9%;
+  }
+  .phonics-backdrop-cloud--left {
+    top: 17%;
+  }
+  .phonics-backdrop-cloud--right {
+    top: 56%;
+  }
+}

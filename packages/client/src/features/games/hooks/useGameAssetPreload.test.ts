@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
 vi.mock('./useGamePrefetch', () => ({
@@ -80,7 +80,7 @@ describe('useGameAssetPreload', () => {
       );
       expect(result.current.ready).toBe(false);
       // 6초 상한 경과 → TTS 가 안 끝나도 게임 시작
-      await vi.advanceTimersByTimeAsync(6000);
+      await act(async () => vi.advanceTimersByTimeAsync(6000));
       expect(result.current.ready).toBe(true);
     } finally {
       vi.useRealTimers();

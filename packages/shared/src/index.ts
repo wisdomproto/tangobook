@@ -9,6 +9,7 @@ export * from './types/vocabulary-unit.js';
 export * from './types/book-v2.js';
 export * from './constants/cambridge-starters.js';
 export * from './constants/index.js';
+export * from './constants/korean-learning.js';
 export * from './constants/plans.js';
 export * from './utils/hangul.js';
 export { splitUnits, splitGraphemeClusters } from './utils/split-units.js';

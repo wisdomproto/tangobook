@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
@@ -52,7 +53,7 @@ function WriteCell({ children }: { children: ReactNode }) {
 export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
-  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer, stopAll } = useGameAudio();
   // 🔴 진입 안내 — 이제 **지금 쓸 칸만 반짝이고 순서대로**(C→A→N) 쓴다 → "반짝이는 칸에 써 봐!"(한글 자음 쓰기와 동일).
   useEntryGuide(ENTRY_GUIDE.write, playAudio);
 
@@ -92,18 +93,27 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
   // 진척: `${wordIdx}-${letterIdx}` 완료 set
   const [done, setDone] = useState<Set<string>>(new Set());
   const [currentWordIdx, setCurrentWordIdx] = useState(0);
+  const doneRef = useRef(new Set<string>());
+  const speechGen = useRef(0);
+  useEffect(
+    () => () => {
+      speechGen.current++;
+    },
+    []
+  );
+  const selectWord = useCallback(
+    (index: number) => {
+      speechGen.current++;
+      stopAll();
+      setCurrentWordIdx(index);
+    },
+    [stopAll]
+  );
 
   const currentWordLetters = wordLetters[currentWordIdx] ?? [];
   // 🔴 지금 쓸 글자 = 앞에서부터 첫 미완 — 이 칸만 캔버스로 열어 순서(C→A→N)를 강제한다.
   const currentLetterIdx = currentWordLetters.findIndex(
     (_, l) => !done.has(`${currentWordIdx}-${l}`)
-  );
-  // 현재 단어의 모든 글자 완료 여부
-  const currentWordDone = useMemo(
-    () =>
-      currentWordLetters.length > 0 &&
-      currentWordLetters.every((_, l) => done.has(`${currentWordIdx}-${l}`)),
-    [currentWordIdx, currentWordLetters, done]
   );
   const allComplete = useMemo(
     () =>
@@ -112,28 +122,31 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
     [cvcWords.length, wordLetters, done]
   );
 
-  // 단어 완료 감지 → 단어 발음 + 다음 단어 자동 이동 (또는 전체 완료시 칭찬)
-  useEffect(() => {
-    if (!currentWordDone) return;
-    const cw = cvcWords[currentWordIdx];
-    if (!cw) return;
-
-    let cancelled = false;
-    (async () => {
-      // 잠시 대기 후 단어 전체 발음
-      await new Promise((r) => setTimeout(r, 600));
-      if (cancelled) return;
-      const wordUrl = await resolveTtsUrl({
-        text: cw.word,
+  // 화면은 즉시 다음 칸을 연다. 확인음이 실제로 끝난 뒤 쉼 → 누적/완성 낱말.
+  const makeHandleLetter = useCallback(
+    (wordIdx: number, letterIdx: number) => (passed: boolean) => {
+      const key = `${wordIdx}-${letterIdx}`;
+      if (!passed || doneRef.current.has(key)) return;
+      const word = cvcWords[wordIdx]?.word;
+      if (!word) return;
+      const nextDone = new Set(doneRef.current).add(key);
+      doneRef.current = nextDone;
+      setDone(nextDone);
+      const gen = ++speechGen.current;
+      const isLast = letterIdx === word.length - 1;
+      const read = isLast ? word : word.slice(0, letterIdx + 1);
+      const urlPromise = resolveTtsUrl({
+        text: read,
         language: 'english',
         storybookId: unitId,
         identifierPrefix: 'en-cvc',
       });
-      const after = () => {
-        if (cancelled) return;
-        if (allComplete) {
-          // 🔴 끝나면 **단원으로 돌아간다** — 예전엔 진척만 기록하고 화면이 그대로 멈춰서,
-          //    남은 건 「← 돌아가기」뿐이었다(형제 화면 `letters-write` 는 복귀한다).
+      const advance = () => {
+        if (gen !== speechGen.current) return;
+        const finished = wordLetters.every((ls, w) =>
+          ls.every((_, l) => nextDone.has(`${w}-${l}`))
+        );
+        if (finished) {
           scheduleTimer(
             () =>
               playCorrectSequence({
@@ -146,77 +159,38 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
             REST_MS
           );
         } else {
-          // 다음 미완료 단어로
-          const next = wordLetters.findIndex((ls, w) => !ls.every((_, l) => done.has(`${w}-${l}`)));
-          if (next !== -1 && next !== currentWordIdx) {
-            setTimeout(() => setCurrentWordIdx(next), 600);
-          }
+          const next = wordLetters.findIndex(
+            (ls, w) => !ls.every((_, l) => nextDone.has(`${w}-${l}`))
+          );
+          if (next !== -1) selectWord(next);
         }
       };
-      if (wordUrl) playAudio(wordUrl, after);
-      else after();
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    currentWordDone,
-    currentWordIdx,
-    cvcWords,
-    wordLetters,
-    done,
-    allComplete,
-    unitId,
-    playAudio,
-    playCorrectSequence,
-    onMarkComplete,
-  ]);
-
-  /**
-   * 한 글자 통과 — 띵동 → **거기까지 쌓인 소리**.
-   *
-   * 🔴 낱글자(`a`·`n`)가 아니라 **블렌딩**을 들려준다: f 다음 a 를 쓰면 `fa`, n 을 쓰면 `fan`.
-   *    파닉스는 글자를 따로 아는 게 아니라 **이어 붙여 읽는 것**이 목표라, 쓸 때마다 그 순간까지의
-   *    소리가 자라야 한다.
-   * 🔴 마지막 글자는 여기서 읽지 않는다 — 단어 완료 effect 가 단어 전체를 읽으므로 겹친다.
-   */
-  const makeHandleLetter = useCallback(
-    (wordIdx: number, letterIdx: number) => async (passed: boolean) => {
-      if (!passed) return;
-      if (done.has(`${wordIdx}-${letterIdx}`)) return;
-      // 🔴 앞 자음부터 낱말 전체를 쓰므로, 여기까지 이어 읽기는 낱말의 앞부분이다(f → fa → fan).
-      const word = cvcWords[wordIdx]?.word ?? '';
-      const isLast = letterIdx === word.length - 1;
-      const blend = isLast ? undefined : word.slice(0, letterIdx + 1);
-
-      // 사운드: 띵동 → 여기까지 이어 읽기
-      const blendUrl = blend
-        ? await resolveTtsUrl({
-            text: blend,
-            language: 'english',
-            storybookId: unitId,
-            identifierPrefix: 'en-cvc',
-          })
-        : undefined;
-      // 🔴 띵동 → **쉼** → 이어읽기. 붙여 내면 한 덩어리로 들린다(공용 규칙, `useActivitySound`).
-      playAudio('/sounds/game/correct.mp3', () => {
-        if (blendUrl) scheduleTimer(() => playAudio(blendUrl), REST_MS);
-      });
-
-      setDone((prev) => {
-        if (prev.has(`${wordIdx}-${letterIdx}`)) return prev;
-        const next = new Set(prev);
-        next.add(`${wordIdx}-${letterIdx}`);
-        return next;
+      playAudio(LEARNING_SOUNDS.correct, () => {
+        scheduleTimer(() => {
+          void urlPromise.then((url) => {
+            if (gen !== speechGen.current) return;
+            playAudio(url, isLast ? advance : undefined);
+          });
+        }, REST_MS);
       });
     },
-    [done, cvcWords, unitId, playAudio, scheduleTimer]
+    [
+      cvcWords,
+      wordLetters,
+      unitId,
+      playAudio,
+      scheduleTimer,
+      playCorrectSequence,
+      selectWord,
+      onMarkComplete,
+      onBack,
+    ]
   );
 
   const currentWord = cvcWords[currentWordIdx];
 
   return (
-    <ActivityShell onBack={onBack}>
+    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
       {storybookQuery.isLoading ? (
         <div className="flex-1 flex items-center justify-center text-lg font-bold text-ink-500">
           {t('common.loading')}
@@ -234,8 +208,9 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
               const active = currentWordIdx === w;
               return (
                 <button
+                  data-learning-fx="tap"
                   key={cw.word}
-                  onClick={() => !wordDone && setCurrentWordIdx(w)}
+                  onClick={() => !wordDone && selectWord(w)}
                   disabled={wordDone}
                   className={[
                     'inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-black border-[4px] transition shadow-soft',
@@ -258,7 +233,9 @@ export function CvcPatternWriteActivity({ unitId, pattern, onMarkComplete, onBac
 
           {allComplete ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-4">
-              <div className="text-7xl">🎉</div>
+              <div className="phonics-complete-mark" aria-hidden>
+                ✓
+              </div>
               <p className="text-4xl sm:text-5xl font-black text-ink-900">{t('common.wellDone')}</p>
             </div>
           ) : currentWord ? (
