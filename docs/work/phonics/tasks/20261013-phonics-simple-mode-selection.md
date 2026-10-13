@@ -1,7 +1,7 @@
 ---
 id: 20261013-phonics-simple-mode-selection
 title: 한영 모드 입구 단순화
-status: completed
+status: integrated
 branch: codex/phonics-simple-mode-selection
 ---
 
@@ -28,4 +28,4 @@ branch: codex/phonics-simple-mode-selection
 
 ## 전달
 
-이번 변경은 로컬 커밋·main 통합 범위다. 새 원격 push 요청은 없다.
+9e4803792 코드/기억 커밋을 로컬 main에 fast-forward 통합했다. 기존 unrelated ReviewWriteActivity.test.tsx 줄바꿈 변경과 출력 폴더는 보존했다. 새 원격 push 요청은 없어 원격은 미전달이다.
