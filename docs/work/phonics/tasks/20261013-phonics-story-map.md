@@ -2,12 +2,12 @@
 
 - id: 20261013-phonics-story-map
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: 6b8a42a44 (최신 origin/main 72cf334f6와 기존 로컬 모드 구현 보존 병합)
 - branch: codex/phonics-story-map
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 기능 브랜치 검증 완료, 로컬 main 통합 확인 전
+- integration: 72d17f21b 코드·자산·기억을 로컬 main에 fast-forward 통합, 미푸시
 - delivery: 미푸시·미배포
 
 ## 요청과 범위
@@ -35,4 +35,4 @@ imagegen SKILL.md를 읽었다. 사용자 AGENTS의 기본 로컬 Qwen을 확인
 
 ## 후속
 
-세계관을 실제 활동/종료 화면까지 확장할지는 후속 의견에 따른다. 숙달·오답별 자동 복습 기준은 이전 작업과 같이 미완성이며 지도 완료 꽃으로 대체하지 않는다. 코드/자산/기억을 함께 로컬 커밋하고 통합 상태를 실제Git로 확인한다. 원격 push 없음.
+세계관을 실제 활동/종료 화면까지 확장할지는 후속 의견에 따른다. 숙달·오답별 자동 복습 기준은 이전 작업과 같이 미완성이며 지도 완료 꽃으로 대체하지 않는다. 코드/자산/기억을72d17f21b로 함께 커밋하고 실제 로컬 main에 fast-forward 통합했다. 최신 원격 영상 작업 기록과 기존 모드 구현을 보존한다. 통합 기록은 별도 문서 커밋으로 남긴다. 원격 push 없음.
