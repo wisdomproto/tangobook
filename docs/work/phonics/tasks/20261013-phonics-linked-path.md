@@ -108,3 +108,8 @@
 - 검증: Guided 전 활동종류의 한영 즉시 전환·중복 mark/Back 방지·미완료 Next 차단·단원 마지막 finished·재학습 replay, 실제 한영 호스트 연결·기존 듣기 ended·쓰기3회/중복 판정/캔버스 초기화/마지막 발음 종료 등6파일62회귀 통과. client typecheck·수정 TS/TSX ESLint·production build 성공(기존 번들/i18n/lottie/Browserslist warning).
 - 실제 localhost5186의 별도 origin 새 진도에서 ㅏ 세 카드 탭→완료 dialog 없이 write-1, native 캔버스3회 직접 채우기(0→1→2→3·매회 초기화)→자동 경로 복귀·ㅑ 현재/ㅓ 이후 잠금 확인. 잠금 애니메이션 status의 짧은1.8초 캡처는 놓쳤고 해당 노출/해제는 라우트 회귀로 검증했다. 실제 청취/실기기FPS 증거는 아니다. 사용자127.0.0.1 진도는 QA로 바꾸지 않았다.
 - 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-vowel-three-writing.png 및 tangobook-auto-chapter-path.png. 코드·기억 로컬 커밋 후 main에 통합하며 이 후속은 미푸시. 이전 전달66f9cb400과 구분한다.
+
+### 자동 전환·3회 쓰기 main 전달
+
+- 2026-10-13 사용자 명시 승인: 메인에 푸시하자. fetch 후 origin/main...HEAD0/1, 실제 미푸시 기능 커밋0c104ee0d 하나와 관련18파일 확인. 기존62회귀·타입/lint/build 성공 후 런타임 변경 없음.
+- git push origin main 일반 push 성공, git ls-remote 원격 main과 로컬 HEAD가0c104ee0df5004c73cfd2446472be2f14535d8a3으로 일치했다. 한영 자동 다음 활동/단원 종료 경로와 한글 모음3회 쓰기 전달 완료. 이전 미푸시는 당시 상태. Railway 배포 완료는 별도 미확인.
