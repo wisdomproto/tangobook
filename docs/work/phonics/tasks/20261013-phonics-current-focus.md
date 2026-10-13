@@ -2,12 +2,12 @@
 
 - id: 20261013-phonics-current-focus
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: 1224fd45d (fetch 후 origin/main 조상 확인, 기존 로컬 작업 보존)
 - branch: codex/phonics-current-focus
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 기능 브랜치 검증 완료, 로컬 main 통합 확인 전
+- integration: 59df4a375 코드·시각·진도 호환·기억을 로컬 main에 fast-forward 통합, 미푸시
 - delivery: 미푸시·미배포
 
 ## 사용자 반증과 요청
@@ -40,4 +40,4 @@
 
 ## 인계
 
-코드·시각·진도 호환·사용자 교정 기록을 함께 로컬 커밋하고 실제 main 통합 후 기억 상태를 갱신한다. 원격 push 없음.
+코드·시각·진도 호환·사용자 교정 기록을59df4a375에 함께 커밋하고 실제 로컬 main에 fast-forward 통합했다. 통합 기억은 별도 문서 커밋으로 남긴다. 원격 push 없음.
