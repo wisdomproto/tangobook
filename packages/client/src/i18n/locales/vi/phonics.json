@@ -206,7 +206,8 @@
     "trace": "✏️ Viết theo nhé!",
     "meet": "Hai chữ gặp nhau rồi!",
     "sparkleCell": "✏️ Viết vào ô lấp lánh nhé!",
-    "noStrokes": "Hãy tạo nét chữ trong công cụ soạn thảo"
+    "noStrokes": "Hãy tạo nét chữ trong công cụ soạn thảo",
+    "practiceProgress": "Luyện viết"
   },
   "cvc": {
     "learn": "Học {{pattern}}",

@@ -35,6 +35,40 @@ vi.mock('@/features/phonics/components/LetterFillCanvas', () => ({
 }));
 
 describe('모음 모양 쓰기와 발음 분리', () => {
+  it('세 번 모두 새 캔버스에 쓰고 마지막 발음이 끝나야 완료한다', async () => {
+    const complete = vi.fn();
+    let ended: (() => void) | undefined;
+    audio.mockImplementation((_url, onEnded) => {
+      ended = onEnded;
+    });
+    render(
+      <VowelWriteActivity
+        unitId="kr-v1-u01"
+        repetitions={3}
+        vowels={[{ vowel: 'ㅏ', syllable: '아', writeLetter: 'ㅏ' }]}
+        onComplete={complete}
+        onBack={vi.fn()}
+      />
+    );
+    for (let round = 1; round <= 3; round++) {
+      const canvas = screen.getByRole('button', { name: '쓰기 ㅏ' });
+      fireEvent.click(canvas);
+      // A duplicate pass while the sound plays must not consume another round.
+      fireEvent.click(canvas);
+      expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe(String(round));
+      await waitFor(() => expect(audio).toHaveBeenCalledTimes(round));
+      expect(complete).not.toHaveBeenCalled();
+      await act(async () => ended?.());
+      if (round < 3) {
+        await waitFor(() =>
+          expect(screen.getByRole('button', { name: '쓰기 ㅏ' })).not.toBe(canvas)
+        );
+        expect(complete).not.toHaveBeenCalled();
+      }
+    }
+    await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
+    audio.mockImplementation((_url, onEnded) => onEnded?.());
+  });
   it('완료 표시는 음원 응답 전 갱신하고 다른 모음 선택 후 늦은 응답은 무시한다', async () => {
     let resolve!: (url: string) => void;
     tts.mockImplementationOnce(

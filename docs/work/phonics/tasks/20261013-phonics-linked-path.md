@@ -100,3 +100,11 @@
 - 통합 회귀 client95개(13파일90개 + 부모 Heatmap/진도2파일5개), server6개 통과. shared/server/client 타입 검사 및 전체 pnpm build 성공. 변경 TS/TSX scoped ESLint 통과. 한글 label 보완 후 client 타입/최종 build를 재확인하고 전달한다. 기존 Browserslist/i18n import/lottie eval/큰 chunk 경고는 그대로다.
 - 한글 level/부모 번역 연결 후 client typecheck·scoped ESLint·최종 production build46.14s 성공. 전체 통합 검증 완료, 일반 main push 진행. 실제 지도 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-korean-book-labels.png.
 - main 일반 push 완료: c634aba80. origin/main653d9bc59의4개 커밋을 보존한 merge이며 push 전0/22. ls-remote 원격 main과 로컬 HEAD 일치 확인. Railway 배포 완료는 검증하지 않았다.
+
+## 중간 완료 화면 제거·모음 세 번 쓰기
+
+- 2026-10-13 사용자가 누르기 뒤 다음활동 완료 카드와 쓰기 뒤 단원 완료 카드 모두 제거를 요청했다. 커리큘럼은 실제 활동 완료(기존 소리/칭찬 종료) 뒤 즉시 다음 활동, 챕터 마지막은 학습 경로로 자동 복귀해 인접 다음 챕터 잠금을 푼다. 재학습은 다시 잠금을 풀지 않는다.
+- 현재 모음 쓰기는 각 모양을 세 번 채워야 완료하며 간단한 세 칸 진행 표시, 각 회 발음 종료 뒤 캔버스 초기화. 중국어 등 다른 공용 호출의 기본1회는 유지한다. 이번 후속은 새 push 요청이 없다.
+- 검증: Guided 전 활동종류의 한영 즉시 전환·중복 mark/Back 방지·미완료 Next 차단·단원 마지막 finished·재학습 replay, 실제 한영 호스트 연결·기존 듣기 ended·쓰기3회/중복 판정/캔버스 초기화/마지막 발음 종료 등6파일62회귀 통과. client typecheck·수정 TS/TSX ESLint·production build 성공(기존 번들/i18n/lottie/Browserslist warning).
+- 실제 localhost5186의 별도 origin 새 진도에서 ㅏ 세 카드 탭→완료 dialog 없이 write-1, native 캔버스3회 직접 채우기(0→1→2→3·매회 초기화)→자동 경로 복귀·ㅑ 현재/ㅓ 이후 잠금 확인. 잠금 애니메이션 status의 짧은1.8초 캡처는 놓쳤고 해당 노출/해제는 라우트 회귀로 검증했다. 실제 청취/실기기FPS 증거는 아니다. 사용자127.0.0.1 진도는 QA로 바꾸지 않았다.
+- 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-vowel-three-writing.png 및 tangobook-auto-chapter-path.png. 코드·기억 로컬 커밋 후 main에 통합하며 이 후속은 미푸시. 이전 전달66f9cb400과 구분한다.

@@ -206,7 +206,8 @@
     "trace": "✏️ 跟着写一写！",
     "meet": "两个字碰到一起了！",
     "sparkleCell": "✏️ 在闪闪的格子里写！",
-    "noStrokes": "请在创作工具中生成笔画"
+    "noStrokes": "请在创作工具中生成笔画",
+    "practiceProgress": "书写练习"
   },
   "cvc": {
     "learn": "学习 {{pattern}}",

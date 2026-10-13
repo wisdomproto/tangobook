@@ -10,9 +10,8 @@ import {
 } from '../lib/learning-journey';
 import { usePhonicsProgress } from '../lib/progress-store';
 import { JourneyActivityContext } from './journey-activity-context';
-import { PhonicsActivityFinish } from './PhonicsActivityFinish';
 
-/** Completion and navigation are separate so final audio/effects can finish before the child continues. */
+/** Activities report completion after their final audio/effects, then continue without a result screen. */
 export function GuidedPhonicsActivity({
   lang,
   unitId,
@@ -74,14 +73,16 @@ function GuidedRun({
     );
   }, [navigate, lang, unitId, activityKey, replaying, index]);
   const onMarked = useCallback(() => {
-    // Ignore duplicate completion callbacks and never open a result from a navigation-only click.
+    // Only recorded completion advances; duplicate callbacks must not navigate twice.
+    if (readyRef.current) return;
     const latest = journeyProgress(lang);
     if (!latest.done[index]) return;
     readyRef.current = true;
     setReady(true);
-  }, [lang, index]);
+    onNext();
+  }, [lang, index, onNext]);
   const childExit = useCallback(() => {
-    // Some activities historically mark then automatically go Back. The common result owns that exit.
+    // Some activities call Back immediately after marking; do not override the automatic next route.
     if (!readyRef.current) onExit();
   }, [onExit]);
   useEffect(() => {
@@ -101,22 +102,11 @@ function GuidedRun({
   }
   const unitSteps = progress.steps.filter((s) => s.unit.id === unitId);
   const step = unitSteps.findIndex((s) => s.activity.key === activityKey) + 1;
-  const next = replaying ? progress.steps[index + 1] : progress.current;
-  const chapterDone = !next || next.unit.id !== unitId;
   return (
     <JourneyActivityContext.Provider value={{ ready, onNext, step, total: unitSteps.length }}>
       <div ref={activityRoot} aria-hidden={ready || undefined}>
         {children({ onExit: childExit, onNext: onMarked, onMarked })}
       </div>
-      {ready && (
-        <PhonicsActivityFinish
-          lang={lang}
-          next={next}
-          chapterDone={chapterDone}
-          onNext={onNext}
-          onExit={chapterDone ? onNext : onExit}
-        />
-      )}
     </JourneyActivityContext.Provider>
   );
 }

@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-13 [중간 완료 제거·모음3회 쓰기](tasks/20261013-phonics-linked-path.md#중간-완료-화면-제거모음-세-번-쓰기): 사용자 두 완료 화면 제거/직접 이어짐 요청으로 GuidedRun은 실제 완료 후 한영 다음 활동 또는 finished 경로로 자동 이동. 중복 callback/Back 덮기 방지·재학습 unlock 제외. 한글 VowelWrite 각 모양3회·발음 종료 후 새 캔버스·진행3칸, 공용 기타 호출1회 유지.62회귀·타입/lint/build·별도 origin 실제 탭/3회 native 쓰기/다음 챕터 열림 확인. 로컬 main 통합·이 후속 미푸시; 이전 승인 전달66f9cb400과 구분.
+
 2026-10-13 [한글 권 표기·학습 경로 main 전달 완료](tasks/20261013-phonics-linked-path.md#한글-권-표기main-push): 사용자 main push 승인 및 한글 Book 표기 반증을 반영. 한글 경로/선택창/자유모드/부모 상세 리포트는 1~5권·책 고르기, 영어 Book 유지. 원격653d9bc59의 기존 독후활동·퐁이29 작업4커밋을 정상 merge하며 양쪽 기억 보존. 부모 Heatmap은 level 번역 연결, 집계는 그대로이며 모음 묶음 전6/10 테스트를 기존3묶음 계약에 맞춤. c634aba80 일반 push·원격 SHA 일치 확인. 아래 미푸시는 당시 상태.
 
 2026-10-13 [Book 통합·현재 챕터 행동](tasks/20261013-phonics-linked-path.md#book-통합현재-행동-후속-검증): 사용자 하단1~5/상단Book 중복·약한상태·따로 떨어진 이어하기 반증. 상단Book native dialog로 통합, 현재 stage 아래 resume/unlock 안내·나침반 상단 이동. 완료 초록/큰체크·현재 큰언어색·잠금 회색/큰자물쇠·길 명암. 실제한영568×320/812×375·모달/Escape/focus·미래 링크 없음,19회귀·타입/lint/build 검증. 5330ac7e3 로컬 main 통합·미푸시.

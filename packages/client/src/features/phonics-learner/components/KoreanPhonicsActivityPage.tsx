@@ -379,6 +379,7 @@ export function KoreanPhonicsActivity({
         unitId={unitId}
         ttsUnitId={unit.sourceUnitId}
         vowels={activity.vowels}
+        repetitions={3}
         onComplete={handleComplete}
         onBack={backToUnit}
       />

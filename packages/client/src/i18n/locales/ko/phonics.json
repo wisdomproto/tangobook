@@ -206,7 +206,8 @@
     "trace": "✏️ 따라 써봐!",
     "meet": "두 글자가 만났어!",
     "sparkleCell": "✏️ 반짝이는 칸에 써봐!",
-    "noStrokes": "저작도구에서 스트로크를 만들어주세요"
+    "noStrokes": "저작도구에서 스트로크를 만들어주세요",
+    "practiceProgress": "쓰기 연습"
   },
   "cvc": {
     "learn": "{{pattern}} 배우기",

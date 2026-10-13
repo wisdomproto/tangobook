@@ -32,6 +32,8 @@ interface Props {
    * concat 400(재생은 preset `ttsUrl` 로 정상이나 헛요청). 칭찬은 항상 `ko`(한국어 아이).
    */
   language?: 'korean' | 'english' | 'zh';
+  /** Repeat each shape before marking it complete. Other callers retain one round by default. */
+  repetitions?: number;
   onComplete: () => void;
   onBack: () => void;
 }
@@ -48,6 +50,7 @@ export function VowelWriteActivity({
   ttsUnitId = unitId,
   vowels,
   language = 'korean',
+  repetitions = 1,
   onComplete,
   onBack,
 }: Props) {
@@ -57,6 +60,10 @@ export function VowelWriteActivity({
   useEntryGuide(ENTRY_GUIDE.writeTrace, playAudio);
   const [doneSet, setDoneSet] = useState<Set<number>>(new Set());
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [completedRounds, setCompletedRounds] = useState<number[]>(() => vowels.map(() => 0));
+  const roundsRef = useRef(vowels.map(() => 0));
+  const busyRef = useRef(false);
+  const [canvasVersion, setCanvasVersion] = useState(0);
   // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.
   const restRef = useRef<number | null>(null);
   const sequenceRef = useRef(0);
@@ -78,10 +85,16 @@ export function VowelWriteActivity({
 
   const handleResult = useCallback(
     async (passed: boolean) => {
-      if (!passed || doneRef.current.has(currentIdx)) return;
+      if (!passed || busyRef.current || doneRef.current.has(currentIdx)) return;
+      busyRef.current = true;
       const idx = currentIdx;
       const sequence = ++sequenceRef.current;
-      const nextDone = new Set(doneRef.current).add(idx);
+      const rounds = [...roundsRef.current];
+      rounds[idx]++;
+      roundsRef.current = rounds;
+      setCompletedRounds(rounds);
+      const nextDone = new Set(doneRef.current);
+      if (rounds[idx] >= repetitions) nextDone.add(idx);
       doneRef.current = nextDone;
       setDoneSet(nextDone);
       // 단어 발음 — 호출부가 준 URL(병음 원어민 녹음) 우선, 없으면 한글 phonics concat.
@@ -109,8 +122,10 @@ export function VowelWriteActivity({
           if (remaining.length === 0) {
             playCorrectSequence({ language: praiseLang(), onDone: onComplete });
           } else {
-            const next = remaining.find((i) => i > idx) ?? remaining[0];
+            const next = nextDone.has(idx) ? (remaining.find((i) => i > idx) ?? remaining[0]) : idx;
+            busyRef.current = false;
             setCurrentIdx(next);
+            setCanvasVersion((version) => version + 1);
           }
         }, REST_MS);
       };
@@ -120,7 +135,16 @@ export function VowelWriteActivity({
         onTtsEnded();
       }
     },
-    [currentIdx, vowels, doneSet, playAudio, playCorrectSequence, onComplete, ttsUnitId, language]
+    [
+      currentIdx,
+      vowels,
+      playAudio,
+      playCorrectSequence,
+      onComplete,
+      ttsUnitId,
+      language,
+      repetitions,
+    ]
   );
 
   return (
@@ -139,7 +163,9 @@ export function VowelWriteActivity({
                 sequenceRef.current++;
                 if (restRef.current) clearTimeout(restRef.current);
                 stopAll();
+                busyRef.current = false;
                 setCurrentIdx(i);
+                setCanvasVersion((version) => version + 1);
               }}
               disabled={done}
               className={[
@@ -158,13 +184,34 @@ export function VowelWriteActivity({
         })}
       </div>
 
+      {repetitions > 1 && (
+        <div
+          role="progressbar"
+          aria-label={t('write.practiceProgress')}
+          aria-valuemin={0}
+          aria-valuemax={repetitions}
+          aria-valuenow={completedRounds[currentIdx]}
+          className="mb-3 flex shrink-0 justify-center gap-3"
+        >
+          {Array.from({ length: repetitions }, (_, index) => (
+            <span
+              key={index}
+              aria-hidden="true"
+              className={`flex h-7 w-7 items-center justify-center rounded-full border-2 text-sm font-bold ${index < completedRounds[currentIdx] ? 'border-success bg-success/15 text-success-700' : 'border-ink-200 bg-white text-ink-400'}`}
+            >
+              {index < completedRounds[currentIdx] ? '✓' : index + 1}
+            </span>
+          ))}
+        </div>
+      )}
+
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center mb-4">
           {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 위 칩과 캔버스 가이드가 보여준다. */}
           {t('write.trace')}
         </h2>
         <LetterFillCanvas
-          key={`${currentIdx}-${vowels[currentIdx].syllable}`}
+          key={`${currentIdx}-${vowels[currentIdx].syllable}-${canvasVersion}`}
           letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck

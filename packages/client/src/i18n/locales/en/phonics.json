@@ -206,7 +206,8 @@
     "trace": "✏️ Trace it!",
     "meet": "Two letters met!",
     "sparkleCell": "✏️ Write in the glowing box!",
-    "noStrokes": "Please create the strokes in the authoring tool"
+    "noStrokes": "Please create the strokes in the authoring tool",
+    "practiceProgress": "Writing practice"
   },
   "cvc": {
     "learn": "Learn {{pattern}}",

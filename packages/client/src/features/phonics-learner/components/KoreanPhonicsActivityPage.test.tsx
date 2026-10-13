@@ -37,11 +37,17 @@ vi.mock('../activities/VowelListenActivity', () => ({
 vi.mock('../activities/VowelWriteActivity', () => ({
   VowelWriteActivity: ({
     vowels,
+    repetitions,
     onComplete,
   }: {
     vowels: { writeLetter: string }[];
+    repetitions: number;
     onComplete: () => void;
-  }) => <button onClick={onComplete}>쓴 모음 {vowels[0].writeLetter}</button>,
+  }) => (
+    <button data-repetitions={repetitions} onClick={onComplete}>
+      쓴 모음 {vowels[0].writeLetter}
+    </button>
+  ),
 }));
 
 function open(path: string, chapter = false) {
@@ -102,9 +108,11 @@ describe('커리큘럼 모드 라우트', () => {
   it('첫 챕터 실제 완료 콜백 뒤 다음 챕터 잠금 연출을 거쳐 ㅑ 듣기로 이어진다', async () => {
     open('/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum', true);
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
-    fireEvent.click(screen.getByRole('button', { name: '다음 활동으로' }));
-    fireEvent.click(await screen.findByRole('button', { name: '쓴 모음 ㅏ' }));
-    fireEvent.click(screen.getByRole('button', { name: '학습 경로 보기' }));
+    expect(
+      (await screen.findByRole('button', { name: '쓴 모음 ㅏ' })).getAttribute('data-repetitions')
+    ).toBe('3');
+    expect(screen.queryByRole('dialog')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '쓴 모음 ㅏ' }));
     expect(await screen.findByRole('status', { name: '다음 챕터가 열렸어!' })).toBeDefined();
     await waitFor(() => expect(screen.queryByRole('status')).toBeNull(), { timeout: 2500 });
     expect(screen.getByRole('link', { name: /^2번째 단계.*지금 배울 단계/ })).toBeDefined();
@@ -120,9 +128,7 @@ describe('커리큘럼 모드 라우트', () => {
   it('개별 모음 챕터에서 듣기와 쓰기를 마치면 다음 챕터 안내 화면으로 돌아온다', async () => {
     open('/library/phonics/korean/kr-v1-g01/listen-1?mode=curriculum');
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
-    fireEvent.click(screen.getByRole('button', { name: '다음 활동으로' }));
     fireEvent.click(await screen.findByRole('button', { name: '쓴 모음 ㅏ' }));
-    fireEvent.click(screen.getByRole('button', { name: '학습 경로 보기' }));
     expect(await screen.findByText('학습 경로')).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-u01').completedActivities).toEqual([
       'listen-1',
@@ -141,7 +147,6 @@ describe('커리큘럼 모드 라우트', () => {
     ['listen-1', 'write-1'].forEach((key) => markActivityCompleted('korean', 'kr-v1-g01', key));
     open('/library/phonics/korean/kr-v1-g01/listen-1?mode=curriculum');
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
-    fireEvent.click(screen.getByRole('button', { name: '다음 활동으로' }));
     expect(await screen.findByRole('button', { name: '쓴 모음 ㅏ' })).toBeDefined();
   });
 });
