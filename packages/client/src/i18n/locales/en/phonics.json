@@ -298,5 +298,44 @@
     "observations": "Observed game choices",
     "observationScore": "First choices {{correct}} / {{total}} · {{retries}} retries",
     "observationDescription": "First choices and retries are recorded separately. These observations are not an overall ability or mastery rating."
+  },
+  "world": {
+    "title": "Let’s visit Story Village!",
+    "description": "Meet letter friends and help the village bloom.",
+    "adventure": "Letter adventure",
+    "navigation": "Adventure navigation",
+    "regions": "Places to explore",
+    "regionNumber": "Journey {{number}}",
+    "stageNumber": "Stage {{number}}",
+    "bloomed": "Flowers in bloom",
+    "today": "Your next letter friends",
+    "pathOpened": "A new path is open!",
+    "villageComplete": "You filled the village!",
+    "tip": "Learn and play, one step at a time. Finish the activities to open the next path.",
+    "wholeJourney": "Whole adventure",
+    "backToCurrent": "Back to your next step",
+    "stages": "Learning stages in order",
+    "here": "Start here!",
+    "review": "Meet-again playground",
+    "stageProgress": "Activities {{done}} / {{total}}",
+    "finished": "All done",
+    "later": "See you later",
+    "nextPlace": "On to the next place",
+    "korean": {
+      "1": "Vowel Garden",
+      "2": "Letter Forest",
+      "3": "Final Sound Bridge",
+      "4": "Twin Hills",
+      "5": "Vowel Rainbow"
+    },
+    "english": {
+      "1": "Alphabet Garden",
+      "2": "Sound Forest",
+      "3": "Word Village",
+      "4": "Sound Bridge",
+      "5": "Story Hills"
+    },
+    "scrollMap": "Scroll the learning map",
+    "finishVillage": "Complete Story Village!"
   }
 }

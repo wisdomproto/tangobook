@@ -298,5 +298,44 @@
     "observations": "Lựa chọn trong trò chơi",
     "observationScore": "Lần đầu {{correct}} / {{total}} · chọn lại {{retries}} lần",
     "observationDescription": "Lần chọn đầu và lần thử lại được ghi riêng. Đây không phải đánh giá toàn bộ khả năng hay mức độ thành thạo."
+  },
+  "world": {
+    "title": "Cùng đến Làng truyện nhé!",
+    "description": "Gặp các bạn chữ và giúp ngôi làng nở hoa.",
+    "adventure": "Phiêu lưu cùng chữ",
+    "navigation": "Điều hướng hành trình",
+    "regions": "Những nơi khám phá",
+    "regionNumber": "Hành trình {{number}}",
+    "stageNumber": "Chặng {{number}}",
+    "bloomed": "Hoa đã nở",
+    "today": "Bạn chữ tiếp theo",
+    "pathOpened": "Lối đi mới đã mở!",
+    "villageComplete": "Bạn đã hoàn thành ngôi làng!",
+    "tip": "Học và chơi từng bước. Hoàn thành hoạt động để mở lối đi tiếp theo.",
+    "wholeJourney": "Toàn bộ hành trình",
+    "backToCurrent": "Về chặng học tiếp theo",
+    "stages": "Các chặng học theo thứ tự",
+    "here": "Bắt đầu ở đây!",
+    "review": "Sân chơi ôn tập",
+    "stageProgress": "Hoạt động {{done}} / {{total}}",
+    "finished": "Đã xong",
+    "later": "Hẹn gặp lại",
+    "nextPlace": "Đến nơi tiếp theo",
+    "korean": {
+      "1": "Vườn nguyên âm",
+      "2": "Rừng chữ",
+      "3": "Cầu phụ âm cuối",
+      "4": "Đồi đôi",
+      "5": "Cầu vồng nguyên âm"
+    },
+    "english": {
+      "1": "Vườn chữ cái",
+      "2": "Rừng âm",
+      "3": "Làng từ",
+      "4": "Cầu âm",
+      "5": "Đồi truyện"
+    },
+    "scrollMap": "Cuộn bản đồ học tập",
+    "finishVillage": "Hoàn thành Làng truyện!"
   }
 }

@@ -298,5 +298,44 @@
     "observations": "游戏选择记录",
     "observationScore": "首次选择 {{correct}} / {{total}} · 重选 {{retries}} 次",
     "observationDescription": "首次选择与重试分别记录，不代表整体能力或掌握程度。"
+  },
+  "world": {
+    "title": "出发去故事村吧！",
+    "description": "认识字母朋友，让村庄开满花。",
+    "adventure": "字母冒险",
+    "navigation": "冒险导航",
+    "regions": "旅行地点",
+    "regionNumber": "旅程 {{number}}",
+    "stageNumber": "第 {{number}} 关",
+    "bloomed": "盛开的花",
+    "today": "今天的字母朋友",
+    "pathOpened": "新的道路开启了！",
+    "villageComplete": "故事村完成啦！",
+    "tip": "一步步学习和玩耍。完成活动后，下一条路就会开启。",
+    "wholeJourney": "全部旅程",
+    "backToCurrent": "回到当前学习地点",
+    "stages": "按顺序学习的关卡",
+    "here": "从这里开始！",
+    "review": "复习游乐园",
+    "stageProgress": "活动 {{done}} / {{total}}",
+    "finished": "完成啦",
+    "later": "下次见",
+    "nextPlace": "前往下一个地点",
+    "korean": {
+      "1": "元音花园",
+      "2": "字母森林",
+      "3": "收音桥",
+      "4": "双胞胎山丘",
+      "5": "元音彩虹"
+    },
+    "english": {
+      "1": "字母花园",
+      "2": "声音森林",
+      "3": "单词村",
+      "4": "声音桥",
+      "5": "故事山丘"
+    },
+    "scrollMap": "滚动学习地图",
+    "finishVillage": "完成故事村吧！"
   }
 }

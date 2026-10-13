@@ -298,5 +298,44 @@
     "observations": "놀이에서 확인한 기록",
     "observationScore": "첫 선택 {{correct}} / {{total}} · 다시 고르기 {{retries}}회",
     "observationDescription": "첫 선택과 재시도를 구분한 기록이에요. 전체 실력이나 숙달 판정은 아니에요."
+  },
+  "world": {
+    "title": "이야기 마을로 떠나요!",
+    "description": "글자 친구를 만나고, 마을에 꽃을 피워요.",
+    "adventure": "글자 모험",
+    "navigation": "모험 탐색",
+    "regions": "여행할 장소",
+    "regionNumber": "여행 {{number}}",
+    "stageNumber": "{{number}}번째 단계",
+    "bloomed": "피어난 꽃",
+    "today": "오늘 만날 글자 친구",
+    "pathOpened": "새로운 길이 열렸어요!",
+    "villageComplete": "마을을 모두 채웠어요!",
+    "tip": "하나씩 익히고 놀아요. 활동을 마치면 다음 길이 열려요.",
+    "wholeJourney": "전체 여행",
+    "backToCurrent": "지금 배울 곳으로",
+    "stages": "순서대로 이어지는 학습 단계",
+    "here": "여기부터!",
+    "review": "다시 만나는 놀이터",
+    "stageProgress": "활동 {{done}} / {{total}}",
+    "finished": "다 했어요",
+    "later": "다음에 만나요",
+    "nextPlace": "다음 장소로 이어져요",
+    "korean": {
+      "1": "모음 정원",
+      "2": "글자 숲",
+      "3": "받침 다리",
+      "4": "쌍둥이 언덕",
+      "5": "모음 무지개"
+    },
+    "english": {
+      "1": "알파벳 정원",
+      "2": "소리 숲",
+      "3": "낱말 마을",
+      "4": "소리 다리",
+      "5": "이야기 언덕"
+    },
+    "scrollMap": "학습 지도 스크롤",
+    "finishVillage": "이야기 마을을 완성해요!"
   }
 }

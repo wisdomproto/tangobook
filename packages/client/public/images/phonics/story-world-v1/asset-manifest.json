@@ -1,0 +1,67 @@
+{
+  "generator": "built-in image_gen",
+  "created": "2026-10-13",
+  "visualReview": "Each of the six source images inspected before encoding. No embedded UI, no mascot. Cottage alpha preserved.",
+  "assets": [
+    {
+      "file": "story-meadow.webp",
+      "source": "exec-864b778d-9ef4-466a-943a-6ac3cd77f2ea.png",
+      "sourceSha256": "a7991ffe968cbb8981eff0be8fb99aad6baeba27e28aa27fff83daef9ecd72b1",
+      "width": 1440,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 243680,
+      "sha256": "5810b3e79c78b787ca001d753183f8ef678cb2d7b8316b029f18c22e75eb030e"
+    },
+    {
+      "file": "story-cottage.webp",
+      "source": "exec-f97f3a0a-9d9b-4f76-bdef-63717f94b51c.png",
+      "sourceSha256": "2d1debb97f44daf3eca3df4287d377bd9df391ab6d0e423493010aa11b3046b6",
+      "width": 480,
+      "height": 480,
+      "mode": "RGBA",
+      "bytes": 37100,
+      "sha256": "b257fc1430998d12aaa59b3e5f00e3a712988dc452d744c26cea9a1a5de593fa"
+    },
+    {
+      "file": "story-forest.webp",
+      "source": "exec-db5fc799-57ae-42ad-b4c0-75a00d6a7f4d.png",
+      "sourceSha256": "a28857c2e906afd93e30c6ee2cf90ebcd87382d460a038e19c1e3cd0b64b9369",
+      "width": 1440,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 272132,
+      "sha256": "9858b9933ec8d7b678f7fe403a9b094571827a7c730e5f5f8649c6f2339dd0be"
+    },
+    {
+      "file": "story-hills.webp",
+      "source": "exec-bb345fdb-1f68-4d9f-9a23-66eade2fd987.png",
+      "sourceSha256": "f4d37650197fcf0998d3cae4779cad3b449187858e578ea28e303db91161d7c6",
+      "width": 1440,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 224176,
+      "sha256": "cdef026d9efac0e5a35102bedfbbfed33945e6304dd91b9cd11eaf53884063c6"
+    },
+    {
+      "file": "story-bridge.webp",
+      "source": "exec-6e200347-a650-4419-a721-97c2e217550a.png",
+      "sourceSha256": "d90bf7df308ec0b28afa630ee06b3dace0163a90cda18d65a8dc255f8e0a5658",
+      "width": 1440,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 282052,
+      "sha256": "be5ce4857fb2a4ac95b711434c7c5a915d57f9749454bd4605989278fbb42021"
+    },
+    {
+      "file": "story-rainbow.webp",
+      "source": "exec-701f32d6-912d-4306-b8f1-db8ae8bd86fb.png",
+      "sourceSha256": "10a69b653f62bdd81dbeabed8748966ad49c6f11d904f5439721d224ff830939",
+      "width": 1440,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 264332,
+      "sha256": "52a3e19fdef111235c134bc482f590c046b79cc625f2db2441c7ae5810d31ca6"
+    }
+  ]
+}
