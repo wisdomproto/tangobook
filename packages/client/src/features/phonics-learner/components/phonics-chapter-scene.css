@@ -3,24 +3,34 @@
   isolation: isolate;
   min-height: calc(100dvh - 73px);
   padding-bottom: 88px;
-  background: #eff3d9;
+  background: linear-gradient(180deg, #f5f9f5 0%, #fffaf2 65%);
   overflow: hidden;
 }
 .chapter-landscape {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background-size: cover;
-  background-position: center;
   pointer-events: none;
 }
-.chapter-page::before {
+.chapter-landscape::before,
+.chapter-landscape::after {
   content: '';
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, #fffdf0e8 0, #fffdf062 26%, #fffdf018 60%, #fffdf032);
-  pointer-events: none;
+  width: 90%;
+  height: clamp(110px, 17vh, 170px);
+  bottom: -65px;
+  border-radius: 50% 50% 0 0;
+}
+.chapter-landscape::before {
+  left: -25%;
+  background: #eaf0e5;
+  transform: rotate(4deg);
+}
+.chapter-landscape::after {
+  right: -25%;
+  bottom: -80px;
+  background: #e1ebdf;
+  transform: rotate(-4deg);
 }
 .chapter-shell {
   max-width: 1050px;

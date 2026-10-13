@@ -105,10 +105,6 @@ export function PhonicsChapterScene({ lang, progress, started, finishedUnitDone 
   const letters = chapterLetters(lang, unit, first);
   const currentActivity = progress.current?.activity;
   const style = currentActivity ? stepStyle(currentActivity) : undefined;
-  const world =
-    (lang === 'korean'
-      ? ['meadow', 'forest', 'bridge', 'hills', 'rainbow']
-      : ['meadow', 'forest', 'meadow', 'bridge', 'hills'])[unit.levelIndex - 1] ?? 'meadow';
   const finishedId = search.get('finished');
   const finishedIndex = units.findIndex((item) => item.id === finishedId);
   const nextIndex = units.findIndex((item) => item.id === progress.current?.unit.id);
@@ -167,11 +163,7 @@ export function PhonicsChapterScene({ lang, progress, started, finishedUnitDone 
       className={`journey-world journey-world--${lang} chapter-page`}
       style={courseThemes[lang].style}
     >
-      <div
-        className="chapter-landscape"
-        style={{ backgroundImage: `url(/images/phonics/story-world-v1/story-${world}.webp)` }}
-        aria-hidden="true"
-      />
+      <div className="chapter-landscape" aria-hidden="true" />
       <div className="chapter-shell">
         <nav className="chapter-nav" aria-label={t('world.navigation')}>
           <Link
