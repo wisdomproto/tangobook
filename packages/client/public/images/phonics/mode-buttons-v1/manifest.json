@@ -1,0 +1,22 @@
+{
+  "curriculum": {
+    "file": "curriculum.webp",
+    "width": 900,
+    "height": 600,
+    "alpha": true,
+    "bytes": 62186,
+    "sha256": "1e31feb28b937c5646968ed359c7e9cc2348cc3ab745681bea81ecd13c7cbb6f",
+    "source": "exec-143dfb6d-9186-45a8-b6e7-918c066f2812.png",
+    "sourceSha256": "242d70c2e914330b4d3c68f9b213f7706f2d5cd60062c6148c5ae19699a23b8c"
+  },
+  "free": {
+    "file": "free.webp",
+    "width": 900,
+    "height": 600,
+    "alpha": true,
+    "bytes": 52174,
+    "sha256": "8a620e09a33b27fe6c6264a1f96bae3bf8b2e0d7f8484e47cafdf903358f8d76",
+    "source": "exec-7f908984-5e09-48bf-a67f-f94f5b10f85a.png",
+    "sourceSha256": "ac6ed09673541c5c34b2d43074c17e493a38deb71f5f33882f2a82d39e1f1ba4"
+  }
+}

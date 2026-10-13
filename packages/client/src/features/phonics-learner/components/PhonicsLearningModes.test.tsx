@@ -19,24 +19,21 @@ beforeEach(() => {
   };
 });
 it.each(['korean', 'english'] as const)(
-  'splits modes inside %s and starts directly at the current activity',
+  'opens the curriculum path or free activities inside %s without recording completion',
   (lang) => {
     render(
       <MemoryRouter initialEntries={[`/library/phonics/${lang}`]}>
         <PhonicsLearningModes lang={lang} />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { name: '커리큘럼' })).toBeDefined();
-    expect(screen.getByRole('heading', { name: '자유모드' })).toBeDefined();
-    expect(screen.getByRole('link', { name: /학습 시작하기/ }).getAttribute('href')).toContain(
-      `/${lang}/`
+    expect(screen.getByRole('link', { name: '커리큘럼 모드' }).getAttribute('href')).toBe(
+      `/library/phonics/${lang}?mode=curriculum`
     );
-    expect(screen.getByRole('link', { name: /학습 시작하기/ }).getAttribute('href')).toContain(
-      '?mode=curriculum'
+    expect(screen.getByRole('link', { name: '자유모드' }).getAttribute('href')).toBe(
+      `/library/phonics/${lang}/${lang === 'korean' ? 'kr-v1-u01' : 'en-b1-u01'}`
     );
-    expect(screen.getByRole('link', { name: /활동 골라보기/ }).getAttribute('href')).not.toContain(
-      'mode=curriculum'
-    );
+    expect(screen.queryByRole('link', { name: /학습 시작하기|이어서 학습하기/ })).toBeNull();
+    expect(localStorage.length).toBe(0);
   }
 );
 it('resumes from actual completion and keeps future stages out of the link list', () => {
