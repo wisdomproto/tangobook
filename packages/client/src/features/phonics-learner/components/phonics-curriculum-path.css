@@ -69,13 +69,21 @@
 .curriculum-path-viewport {
   position: absolute;
   inset: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
   cursor: grab;
-  touch-action: pan-y;
+  touch-action: pan-x;
   -webkit-overflow-scrolling: touch;
+  clip-path: inset(76px 0 92px);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 70px,
+    #000 calc(100% - 70px),
+    transparent
+  );
 }
 .curriculum-path-viewport::-webkit-scrollbar {
   display: none;
@@ -90,9 +98,7 @@
 }
 .curriculum-path-track {
   position: relative;
-  width: calc(100% - 90px);
-  max-width: 560px;
-  margin: auto;
+  margin: 0;
 }
 .curriculum-path-line {
   position: absolute;
@@ -103,14 +109,13 @@
 }
 .curriculum-book-door {
   position: absolute;
-  left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   height: 90px;
-  width: 100%;
+  width: 200px;
   pointer-events: none;
 }
 .curriculum-book-door > span:not(.path-game-sprite) {
@@ -130,13 +135,12 @@
 .curriculum-path-controls {
   position: absolute;
   z-index: 3;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: grid;
-  gap: 10px;
+  inset: 0;
+  pointer-events: none;
 }
 .curriculum-path-controls button {
+  position: absolute;
+  pointer-events: auto;
   display: grid;
   place-items: center;
   width: 48px;
@@ -145,29 +149,37 @@
   background: #fffdf3ee;
   box-shadow: 0 4px 0 #d7cfb0;
 }
-.path-arrow-up {
-  transform: rotate(90deg);
+.curriculum-path-controls button:first-child {
+  left: 16px;
+  top: calc(50% - 24px);
+}
+.curriculum-path-controls button:last-child {
+  right: 16px;
+  top: calc(50% - 24px);
+}
+.curriculum-path-controls button:nth-child(2) {
+  right: 286px;
+  bottom: 32px;
 }
 .path-arrow-down {
-  transform: rotate(-90deg);
+  transform: rotate(180deg);
 }
 .curriculum-book-rail {
   position: absolute;
   z-index: 3;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: grid;
+  left: 24px;
+  bottom: 34px;
+  display: flex;
   gap: 14px;
 }
 .curriculum-book-rail::before {
   content: '';
   position: absolute;
-  top: 12px;
-  bottom: 12px;
-  width: 4px;
+  left: 12px;
+  right: 12px;
+  height: 4px;
   background: #d3cfad;
-  left: calc(50% - 2px);
+  top: calc(50% - 2px);
   border-radius: 4px;
   z-index: -1;
 }
@@ -209,8 +221,7 @@
 .curriculum-path-footer {
   position: absolute;
   z-index: 3;
-  left: 0;
-  right: 0;
+  right: 24px;
   bottom: max(22px, env(safe-area-inset-bottom));
   pointer-events: none;
 }
@@ -228,72 +239,9 @@
   background: #fffdf2;
   box-shadow: 0 3px 0 #d7cfb0;
 }
-@media (max-width: 420px) {
-  .curriculum-path-nav {
-    left: 12px;
-    right: 12px;
-    gap: 8px;
-  }
-  .curriculum-path-back,
-  .curriculum-path-info {
-    width: 44px;
-    height: 44px;
-  }
-  .curriculum-book-current {
-    padding-right: 12px;
-    gap: 4px;
-  }
-  .curriculum-book-current strong {
-    font-size: 16px;
-  }
-  .curriculum-book-current div > span {
-    font-size: 11px;
-  }
-  .curriculum-path-controls {
-    right: 8px;
-  }
-  .curriculum-path-controls button {
-    width: 38px;
-    height: 42px;
-  }
-  .curriculum-book-rail {
-    left: 6px;
-  }
-  .curriculum-book-rail button {
-    width: 30px;
-    height: 30px;
-  }
-  .curriculum-path-track {
-    width: calc(100% - 66px);
-  }
-  .curriculum-path-scenery {
-    width: 82px;
-    height: 82px;
-  }
-  .curriculum-path-face {
-    width: 94px !important;
-    height: 94px !important;
-  }
-  .curriculum-path-state {
-    top: 70px !important;
-    right: 10px !important;
-  }
-}
-@media (max-height: 500px) {
-  .curriculum-path-footer {
-    bottom: 10px;
-  }
-  .curriculum-path-footer > a {
-    min-height: 52px !important;
-  }
-  .curriculum-book-rail {
-    gap: 8px;
-  }
-}
 .curriculum-path-stage {
   position: absolute;
-  left: calc(50% + var(--path-x));
-  width: 118px;
+  width: var(--path-node-size);
   transform: translateX(-50%);
   text-align: center;
 }
@@ -312,8 +260,8 @@
 }
 .curriculum-path-face {
   position: relative;
-  width: 104px;
-  height: 104px;
+  width: var(--path-node-size);
+  height: var(--path-node-size);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,32 +282,24 @@
   z-index: 1;
 }
 .curriculum-path-face .toy-hangul {
-  width: 65px;
-  height: 65px;
+  width: 65%;
+  height: 65%;
 }
 .curriculum-path-face .is-long {
-  font-size: 15px;
+  font-size: clamp(18px, 2.7dvh, 24px);
   overflow-wrap: anywhere;
   padding: 3px;
 }
 .curriculum-path-state {
   position: absolute;
-  right: 8px;
-  top: 76px;
-  width: 31px;
-  height: 31px;
+  right: 0;
+  bottom: 0;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #fffdf5;
+  background: transparent;
   display: grid;
   place-items: center;
-}
-.curriculum-path-caption {
-  margin-top: 9px;
-  font-size: 14px;
-  font-weight: 800;
-  color: #605444;
-  max-width: 115px;
-  overflow-wrap: anywhere;
 }
 .curriculum-path-here {
   position: absolute;
@@ -369,14 +309,11 @@
   border: 2px solid white;
   border-radius: 12px;
   padding: 2px 12px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   white-space: nowrap;
 }
 .curriculum-path-stage.is-current .curriculum-path-face {
-  box-shadow:
-    0 0 0 3px #fffdf5,
-    0 0 0 5px var(--course-accent);
   color: #251c16;
 }
 .curriculum-path-stage.is-locked .curriculum-path-face {
@@ -385,9 +322,6 @@
 .curriculum-path-stage.is-locked .toy-hangul {
   filter: grayscale(0.85);
   opacity: 0.55;
-}
-.curriculum-path-stage.is-locked .curriculum-path-caption {
-  color: #8d887d;
 }
 .curriculum-path-stage.is-current.is-unlocking .curriculum-path-face {
   animation: path-open 1800ms ease-out both;
@@ -518,34 +452,75 @@
 [data-learning-shell]:has(.curriculum-path) > nav {
   display: none;
 }
-@media (max-width: 420px) {
-  .curriculum-path-scenery {
-    transform: scale(0.65);
-    transform-origin: top left;
-  }
-}
 
-@media (max-width: 420px) {
+@media (max-height: 500px) {
+  .curriculum-path-nav {
+    top: max(10px, env(safe-area-inset-top));
+  }
+  .curriculum-path-back,
+  .curriculum-path-info {
+    width: 44px;
+    height: 44px;
+  }
+  .curriculum-book-current {
+    padding: 0 16px 0 8px;
+  }
+  .curriculum-path-viewport {
+    clip-path: inset(65px 0 74px);
+  }
+  .curriculum-path-footer {
+    bottom: max(10px, env(safe-area-inset-bottom));
+    min-height: 54px;
+    padding-top: 0;
+  }
+  .curriculum-path-footer > a {
+    min-height: 52px !important;
+    min-width: 220px !important;
+    font-size: 17px !important;
+  }
   .curriculum-book-rail {
-    gap: 0;
+    bottom: 18px;
+    gap: 8px;
   }
   .curriculum-book-rail button {
     width: 44px;
     height: 44px;
   }
   .curriculum-book-rail .path-book-bead {
-    width: 30px !important;
-    height: 30px !important;
-    inset: 7px;
+    width: 34px !important;
+    height: 34px !important;
+    inset: 5px;
   }
   .curriculum-book-rail button[aria-current] {
     transform: none;
   }
   .curriculum-book-rail button[aria-current]::after {
-    inset: 5px;
+    inset: 3px;
   }
-  .curriculum-path-controls button {
-    width: 44px;
-    height: 44px;
+  .curriculum-path-controls button:nth-child(2) {
+    right: 260px;
+    bottom: 16px;
+  }
+  .curriculum-path-scenery {
+    transform: scale(0.65);
+    transform-origin: top left;
+  }
+}
+
+@media (max-height: 500px) {
+  .curriculum-path-scenery {
+    display: none;
+  }
+}
+@media (max-height: 500px) and (max-width: 700px) {
+  .curriculum-book-rail {
+    left: 12px;
+    gap: 0;
+  }
+  .curriculum-path-footer {
+    right: 12px;
+  }
+  .curriculum-path-controls button:nth-child(2) {
+    right: 248px;
   }
 }

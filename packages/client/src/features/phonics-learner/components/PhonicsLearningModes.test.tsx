@@ -119,7 +119,7 @@ it('centers a later current stage inside the map without changing progress', () 
       <PhonicsLearningModes lang="english" />
     </MemoryRouter>
   );
-  expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' }).scrollTop).toBeGreaterThan(
+  expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' }).scrollLeft).toBeGreaterThan(
     0
   );
   expect(screen.getAllByRole('link', { name: /지금 배울 단계/ })).toHaveLength(1);
@@ -190,7 +190,11 @@ it('keeps the previous grouped game observation visible in parent information', 
 
 it('uses a short static transition when reduced motion is requested', () => {
   const original = window.matchMedia;
-  window.matchMedia = vi.fn(() => ({ matches: true })) as unknown as typeof window.matchMedia;
+  window.matchMedia = vi.fn((query) => ({
+    matches: query === '(prefers-reduced-motion: reduce)',
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  })) as unknown as typeof window.matchMedia;
   vi.useFakeTimers();
   try {
     for (const activity of journeyActivities('korean', 'kr-v1-u01'))
@@ -221,7 +225,7 @@ it('keeps Book context when crossing from a finished book into the next book', (
     </MemoryRouter>
   );
   expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 2')).toBeDefined();
-  expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' }).scrollTop).toBeGreaterThan(
+  expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' }).scrollLeft).toBeGreaterThan(
     0
   );
   expect(screen.getByRole('link', { name: /지금 배울 단계/ }).getAttribute('href')).toContain(
@@ -239,8 +243,17 @@ it('lets a child browse distant Books without unlocking them, and returns to the
     </MemoryRouter>
   );
   const map = screen.getByRole('region', { name: '전체 학습 경로 스크롤' });
+  // Browsers round fractional scroll offsets; the viewed Book must still match the jump.
+  let cameraLeft = 0;
+  Object.defineProperty(map, 'scrollLeft', {
+    configurable: true,
+    get: () => cameraLeft,
+    set: (value: number) => {
+      cameraLeft = Math.floor(value);
+    },
+  });
   fireEvent.click(screen.getByRole('button', { name: 'Book 5 · 모음 무지개' }));
-  expect(map.scrollTop).toBeGreaterThan(5000);
+  expect(map.scrollLeft).toBeGreaterThan(5000);
   fireEvent.scroll(map);
   await waitFor(() =>
     expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 5')).toBeDefined()
@@ -248,7 +261,7 @@ it('lets a child browse distant Books without unlocking them, and returns to the
   expect(screen.getByRole('button', { name: /48번째 단계/ }).hasAttribute('disabled')).toBe(true);
   expect(screen.getAllByRole('link', { name: /번째 단계/ })).toHaveLength(1);
   fireEvent.click(screen.getByRole('button', { name: '지금 배울 곳으로' }));
-  expect(map.scrollTop).toBeLessThan(300);
+  expect(map.scrollLeft).toBeLessThan(300);
   fireEvent.scroll(map);
   await waitFor(() =>
     expect(within(screen.getByLabelText('지금 보고 있는 Book')).getByText('Book 1')).toBeDefined()
@@ -256,4 +269,35 @@ it('lets a child browse distant Books without unlocking them, and returns to the
   expect(screen.getByRole('link', { name: /지금 배울 단계/ }).getAttribute('href')).toContain(
     '/kr-v1-u01/listen-1'
   );
+});
+
+it('requires landscape on a touch phone and releases the same path after rotation', () => {
+  const original = window.matchMedia;
+  const portrait = Object.assign(new EventTarget(), { matches: true });
+  const coarse = Object.assign(new EventTarget(), { matches: true });
+  window.matchMedia = vi.fn((query) =>
+    query === '(orientation: portrait)'
+      ? portrait
+      : query.includes('pointer: coarse')
+        ? coarse
+        : { matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }
+  ) as unknown as typeof window.matchMedia;
+  try {
+    render(
+      <MemoryRouter initialEntries={['/library/phonics/korean?mode=curriculum']}>
+        <PhonicsLearningModes lang="korean" />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('dialog', { name: '가로로 돌려주세요!' })).toBeDefined();
+    expect(screen.queryByRole('region', { name: '전체 학습 경로 스크롤' })).toBeNull();
+    act(() => {
+      portrait.matches = false;
+      portrait.dispatchEvent(new Event('change'));
+    });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.getByRole('region', { name: '전체 학습 경로 스크롤' })).toBeDefined();
+    expect(screen.getByRole('link', { name: /1번째 단계.*지금 배울 단계/ })).toBeDefined();
+  } finally {
+    window.matchMedia = original;
+  }
 });

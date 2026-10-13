@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-13 [파닉스 가로 경로 회전 안내](../phonics/tasks/20261013-phonics-linked-path.md#가로-경로-후속-구현검증): 기존 MobileLandscapeGate를 경로에 재사용, 세로 안내 아래 학습판은 mounted/inert/aria-hidden·안내 dialog/확인 초점. 가로 변경 시 원래 경로 복원 회귀 통과. embedded/실물 교구 예외와 fullscreen/회전 잠금 best-effort는 보존.
+
 2026-10-13 [파닉스 경로·활동 연결](../phonics/tasks/20261013-phonics-linked-path.md): LineMatchingPlayer에 선택적 onFinished를 추가. 실제 최종 발음/칭찬·장면 종료 뒤 커리큘럼의 공통 완료 UI를 열고 기존 GameResultScreen의 중복 결과/재칭찬은 생략한다. 콜백 없는 자유/동화 플레이는 기존 결과·나가기 그대로다. 전용 2회귀 통과.
 
 2026-10-12 [파닉스 UI·연출·반응 개선 main 푸시](../platform/tasks/20261012-phonics-ui-effects-main-push.md): 사용자 요청으로 로컬 한영 효과/모음 Book1/전체 활동 UI/합성·쓰기·소리 반응 개선과 원격 Library Master 작업을 보존 merge. 통합34파일230회귀·타입/build 통과, f534ca313를 origin/main에 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태. Railway 배포 완료는 미확인.

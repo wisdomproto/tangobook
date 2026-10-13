@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useId, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePhonicsEmbedded } from '../../phonics-learner/components/ActivityShell';
 
@@ -14,6 +14,7 @@ import { usePhonicsEmbedded } from '../../phonics-learner/components/ActivityShe
  */
 export function MobileLandscapeGate({ children }: { children: ReactNode }) {
   const { t } = useTranslation('games');
+  const titleId = useId();
   const [show, setShow] = useState(false);
   const embedded = usePhonicsEmbedded();
 
@@ -51,32 +52,42 @@ export function MobileLandscapeGate({ children }: { children: ReactNode }) {
    *    상자는 이미 뷰포트 폭에 맞춰 축소(`EmbedStage`)되므로 가로로 돌릴 이유도 없다 —
    *    이 게이트는 **전체화면으로 들어온 아이**를 위한 것이다.
    */
-  if (embedded || !show) return <>{children}</>;
+  const gated = !embedded && show;
 
   return (
     <>
-      {children}
-      <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-ink-900/95 backdrop-blur-sm p-6">
-        <div className="rounded-3xl bg-white shadow-soft px-8 py-10 max-w-sm w-full flex flex-col items-center gap-5 text-center">
-          <div className="text-7xl" aria-hidden>
-            📱
-          </div>
-          <div className="text-5xl text-coral-500 motion-safe:animate-pulse" aria-hidden>
-            ↻
-          </div>
-          <h2 className="text-2xl font-black font-display text-ink-900">
-            {t('landscapeGate.title')}
-          </h2>
-          <p className="text-base text-ink-600">{t('landscapeGate.sub')}</p>
-          <button
-            type="button"
-            onClick={handleConfirm}
-            className="mt-2 min-h-12 px-8 py-3 rounded-full bg-coral-700 text-white font-black text-lg shadow-soft hover:scale-105 active:scale-95 transition"
-          >
-            {t('result.confirm')}
-          </button>
-        </div>
+      <div style={{ display: 'contents' }} {...(gated ? { inert: '', 'aria-hidden': true } : {})}>
+        {children}
       </div>
+      {gated && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          className="fixed inset-0 z-[1000] flex items-center justify-center bg-ink-900/95 backdrop-blur-sm p-6"
+        >
+          <div className="rounded-3xl bg-white shadow-soft px-8 py-10 max-w-sm w-full flex flex-col items-center gap-5 text-center">
+            <div className="text-7xl" aria-hidden>
+              📱
+            </div>
+            <div className="text-5xl text-coral-500 motion-safe:animate-pulse" aria-hidden>
+              ↻
+            </div>
+            <h2 id={titleId} className="text-2xl font-black font-display text-ink-900">
+              {t('landscapeGate.title')}
+            </h2>
+            <p className="text-base text-ink-600">{t('landscapeGate.sub')}</p>
+            <button
+              type="button"
+              autoFocus
+              onClick={handleConfirm}
+              className="mt-2 min-h-12 px-8 py-3 rounded-full bg-coral-700 text-white font-black text-lg shadow-soft hover:scale-105 active:scale-95 transition"
+            >
+              {t('result.confirm')}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

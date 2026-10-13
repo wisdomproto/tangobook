@@ -2,7 +2,7 @@
 
 - id: 20261013-phonics-linked-path
 - domain: phonics
-- status: integrated
+- status: ready
 - updated: 2026-10-13
 - base: e4c7f3325 (fetch 후 origin/main과4/14 갈림, 원격의 별도 활동/캐릭터 수리는 보존하고 이번 요청에 자동 merge/push하지 않음)
 - branch: codex/phonics-linked-activities
@@ -53,3 +53,20 @@
 - 최종 관련10파일68 unique 회귀 통과(기존52 계약+지도·카메라16 재실행). Book 점프 높이 테스트에서 다른 권 HUD가 남는 문제를 찾아 viewport 비례 offset으로 수정했다. 타입/변경 source ESLint/build 통과. 기존 lottie/locale import/Browserslist/큰 chunk 빌드 warning만 남는다.
 - 공개 Fast Phonics overview의 실제 월드·디딤돌 화면을 CUA로 확인했다. game-frame 안의 play/down arrow와 밝은 현재/흐린 미래 단계가 참고다. 타사 앱 완주/현재 drag 구현을 검증했다고 주장하지 않는다.
 - 최신 실제 한글 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-game-map-applied.png. 이전 premium-learning-path 증빙은 사용자가 거절한 중간 화면이다.
+
+## 후속 반증: 현재 단계 장식·3개 밀도
+
+사용자는 현재 공부 버튼의 추가 네모 테두리와 흰 바탕 재생 삼각형이 어색하다고 지적했다. 아래 반복 글자 텍스트를 제거하고 ㅏ·ㅑ·ㅓ 정도의 세 단계를 더 크게 보여주도록 요청했다. 기존 생성 버튼판은 그대로 사용하면서 추가 테두리·현재 재생 배지·모든 노드 아래 중복 글자를 제거한다. 지도 높이로 간격/버튼 크기를 계산해 보통 화면에서 약3단계를 보여주고, 전체 경로/잠금/현재 복귀는 유지한다.
+
+## 후속 결정: 가로 경로·가로보기
+
+사용자는 왼쪽에서 오른쪽으로 진행하는 경로를 선택했고, 휴대폰은 세로 축소/양옆 peek 대신 반드시 가로보기로 진행한다고 확정했다. 기존 MobileLandscapeGate를 재사용하며 데스크톱·태블릿·가로 휴대폰에 큰 단계 약3개, 이전 완료는 왼쪽/다음 잠금은 오른쪽으로 배치한다. 현재 위치 정렬, Book 탐색·HUD, unlock, 실제 진도/자유모드는 보존한다. 브라우저 회전 잠금은 best-effort이며 지원하지 않는 모바일에서는 직접 회전 안내로 가로 학습을 요구한다.
+
+## 가로 경로 후속 구현·검증
+
+- 사용자가 선택한 왼쪽→오른쪽 방향으로 한영 경로·돌길을 재배치했다. 화면 폭에 세 단계, 짧은 가로 화면 높이에 버튼 크기를 맞춘다. 현재 노드의 추가 테두리·흰 재생 배지와 모든 노드 아래 중복 글자를 제거했다. 완료 체크/미래 잠금/여기!/접근성 이름은 유지한다.
+- Book 레일은 하단 가로, 이동 화살표는 좌우, 나침반/이어하기는 하단이다. 전체 경로와 완료·현재 진입/미래 disabled를 유지한다. 소수점 scrollLeft 반올림으로 Book5 점프 후 Book4 HUD가 남는 실제 브라우저 오류는 1px 경계 허용으로 수정하고 회귀에 반올림 setter를 추가했다.
+- usePathCamera는 X축 마우스 grab/native touch·가로 트랙패드, 일반 마우스의 세로 wheel→가로 이동, Home/End/한 화면의1/3 이동을 지원한다. 이벤트 때만 RAF/cleanup, reduced-motion을 유지한다. 전체 흐름에 새 엔진/상시 애니메이션·자산은 추가하지 않는다.
+- 기존 MobileLandscapeGate를 재사용한다. 세로 coarse-pointer 화면은 회전 안내, 아래 학습판은 mounted/inert/aria-hidden이고 가로로 돌리면 동일 지도 입력을 복원한다. 안내는 이름 있는 dialog, 확인 버튼에 초점이 간다. embedded 광고/실물 교구 예외·best-effort fullscreen/회전 잠금은 유지한다.
+- 지도/카메라18회귀 통과(회전·native touch·mouse drag 후 click/keyboard·wheel/Home/End·반올림 Book HUD 포함). client 타입/변경 source ESLint/build 통과. 실제 임시 브라우저812×375/568×320에서 큰3개/겹침·하단 이동 확인, 한영 경로·Book5 점프/현재 복귀/End 마지막 잠금·native mouse drag200px 동안 실제 URL/진도 유지 확인. 회전 media 변경은 자동 테스트이고 실기기 화면 회전/오디오/FPS 검증은 아니다.
+- 최종 실제 화면: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/tangobook-horizontal-learning-path-applied.png. 이전 세로 지도 증빙은 중간 구현이다. 이번 후속은9a53c13d3에서 시작했고 원격 push 요청은 없다.

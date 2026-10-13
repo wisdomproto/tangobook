@@ -16,9 +16,9 @@ function Camera() {
     </>
   );
 }
-function pointer(node: HTMLElement, name: string, y: number, type = 'mouse') {
+function pointer(node: HTMLElement, name: string, x: number, type = 'mouse') {
   const event = new Event(name, { bubbles: true });
-  Object.assign(event, { pointerId: 1, pointerType: type, button: 0, clientY: y });
+  Object.assign(event, { pointerId: 1, pointerType: type, button: 0, clientX: x });
   fireEvent(node, event);
 }
 function setup() {
@@ -33,7 +33,7 @@ it('pans by mouse drag and suppresses the following mouse click, while a fresh t
   const map = setup();
   pointer(map, 'pointerdown', 300);
   pointer(map, 'pointermove', 150);
-  expect(map.scrollTop).toBe(150);
+  expect(map.scrollLeft).toBe(150);
   pointer(map, 'pointerup', 150);
   fireEvent.click(screen.getByRole('link'), { detail: 1 });
   expect(screen.getByRole('status').textContent).toBe('/');
@@ -47,7 +47,7 @@ it('leaves touch scrolling to the browser and keeps keyboard activation availabl
   const map = setup();
   pointer(map, 'pointerdown', 300, 'touch');
   pointer(map, 'pointermove', 150, 'touch');
-  expect(map.scrollTop).toBe(0);
+  expect(map.scrollLeft).toBe(0);
   pointer(map, 'pointerdown', 300);
   pointer(map, 'pointermove', 150);
   pointer(map, 'pointerup', 150);
@@ -59,11 +59,24 @@ it('moves by a viewport-relative distance with reduced-motion support', () => {
   window.matchMedia = vi.fn(() => ({ matches: true })) as unknown as typeof window.matchMedia;
   try {
     const map = setup();
-    Object.defineProperty(map, 'clientHeight', { value: 600 });
+    Object.defineProperty(map, 'clientWidth', { value: 600 });
     map.scrollBy = vi.fn();
     fireEvent.click(screen.getByRole('button', { name: 'Pan' }));
-    expect(map.scrollBy).toHaveBeenCalledWith({ top: 360, behavior: 'auto' });
+    expect(map.scrollBy).toHaveBeenCalledWith({ left: 200, behavior: 'auto' });
   } finally {
     window.matchMedia = original;
   }
+});
+
+it('maps a vertical mouse wheel and Home/End to the path without changing chapter links', () => {
+  const map = setup();
+  Object.defineProperty(map, 'clientWidth', { value: 600 });
+  Object.defineProperty(map, 'scrollWidth', { value: 2400 });
+  fireEvent.wheel(map, { deltaY: 120 });
+  expect(map.scrollLeft).toBe(120);
+  fireEvent.keyDown(map, { key: 'End' });
+  expect(map.scrollLeft).toBe(1800);
+  fireEvent.keyDown(map, { key: 'Home' });
+  expect(map.scrollLeft).toBe(0);
+  expect(screen.getByRole('link').getAttribute('href')).toBe('/chapter');
 });
