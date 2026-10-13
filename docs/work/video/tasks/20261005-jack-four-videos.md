@@ -8,7 +8,7 @@
 - branch: codex/video-rapunzel
 - output: D:/tangobook-video/jack-beanstalk-20261005/
 - integration: 미통합
-- delivery: 사용자 동작 피드백 반영한 한/영 롱폼 수정·검수·전달검증 완료, 숏폼 유지. 1차 네 편 보존·수정본 컨펌 대기, 등록/push 미요청
+- delivery: 사용자 동작 피드백 반영한 한/영 롱폼 수정·검수·전달검증 완료, 숏폼 유지. 1차 네 편 보존·사용자 수정본 승인, 등록/push 미요청
 
 ## 사용자 결정
 
@@ -205,4 +205,8 @@ run-side H3 실제39밀집표본/contact5장 전부검수·승인: 옆면오른�
 
 `jack-motion-fixes-preview.mp4`는 완성된 한국어 롱폼에서 바뀐 두 장면을 음성·자막과 함께 뽑은 약18초 확인용 영상이며 전체 decode를 통과했다. 한영 SRT·나레이션MP3·언어별 clean 원본도 갱신했다. 상태/검수/스크립트/안내를 먼저 고정한 뒤 `package.py`, `validate_delivery.py`를 실행해 최종4편+clean4편+MP3 4개 총12media 전체 decode/길이/크기 및1168자산 SHA/bytes 일치·published=false를 확인했다. 안내문은 해시를 만들기 전에 저장하도록 순서를 고쳤다. 완료 근거는 `delivery-validation.json`, `final-review.json`, `delivery-provenance.json`이다.
 
-모든 이번 생성/보정/렌더/QC worker 자연 완료와 upscale lock 해제를 확인했다. 공유 ComfyUI/Voicebox 서버는 유지한다. 사용자 수정본 컨펌 대기이며 다음 책·DB/R2/Editor2/마케팅 등록/main push/외부 발행은 하지 않았다.
+모든 이번 생성/보정/렌더/QC worker 자연 완료와 upscale lock 해제를 확인했다. 공유 ComfyUI/Voicebox 서버는 유지한다. 다음 책·DB/R2/Editor2/마케팅 등록/main push/외부 발행은 하지 않았다.
+
+## 2026-10-13 사용자 승인
+
+사용자가 “굿 좋다”로 동작 수정본을 승인했다. 수정한 한국어·영어 롱폼과 기존 숏폼 두 편을 합쳐 네 편을 확정본으로 기록한다. 전달 패키지의 상태 파일은 승인 전 고정된 검증 대상이며, 이후 승인 근거는 이 작업 기록에 남긴다. 운영 등록·main push·외부 발행과 다음 책 선택은 이번 승인 범위에 포함하지 않는다.
