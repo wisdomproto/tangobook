@@ -4,3 +4,7 @@
 export * from './primitives';
 export * as tokens from './tokens';
 export { courseThemes, getCourseTheme, type CourseLanguage } from './courseTheme';
+
+export { StorybookSprite } from './primitives/StorybookSprite';
+export { StorybookBackdrop } from './primitives/StorybookBackdrop';
+export { StorybookTitle } from './primitives/StorybookTitle';

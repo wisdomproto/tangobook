@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MobileLandscapeGate } from './MobileLandscapeGate';
 import { gameSafeAreaStyle } from '../lib/game-safe-area';
-import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 import '@/features/phonics-learner/components/phonics-activities.css';
 
@@ -46,17 +47,18 @@ export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePla
         data-phonics-language={
           phonics ? (source?.unitId.startsWith('en-') ? 'en' : 'ko') : undefined
         }
-        className="learning-stage fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-cream-50 overflow-hidden"
+        className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-cream-50 overflow-hidden"
         style={gameSafeAreaStyle()}
       >
-        {phonics && <PhonicsBackdrop />}
+        <StorybookBackdrop />
         {onBack && (
           <button
             type="button"
+            aria-label={t('header.back')}
             onClick={onBack}
             className="self-start min-h-11 mb-2 inline-flex items-center gap-2 px-4 text-base rounded-full bg-white shadow-soft text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 shrink-0 break-keep"
           >
-            ← {t('header.back')}
+            <StorybookSprite name="back" size={26} />
           </button>
         )}
         <div className={`w-full mx-auto flex-1 min-h-0 flex flex-col ${MAX_W[maxWidth]}`}>

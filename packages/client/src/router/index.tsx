@@ -95,25 +95,27 @@ const VocabularyStudyPage = lazy(() => VU().then((m) => ({ default: m.Vocabulary
 // 🔴 lazy 필수: @tangobook/remotion(Player + loadFont 사이드이펙트 15개)을 통째로 끌고 와서
 // 정적 import 시 메인 번들 비대 + 모든 페이지에서 Noto Sans KR 폰트 요청 124개 발생.
 const MosquitoEbookPage = lazy(() => import('../features/ebook-mosquito/pages/MosquitoEbookPage'));
-const PL = () => import('../features/phonics-learner');
-const PhonicsLandingPage = lazy(() => PL().then((m) => ({ default: m.PhonicsLandingPage })));
-const KoreanPhonicsStudyPage = lazy(() =>
-  PL().then((m) => ({ default: m.KoreanPhonicsStudyPage }))
+// Opening a mode menu must not import every Korean/English/Chinese activity and game.
+const PhonicsLandingPage = lazy(
+  () => import('../features/phonics-learner/components/PhonicsLandingPage')
 );
-const KoreanPhonicsActivityPage = lazy(() =>
-  PL().then((m) => ({ default: m.KoreanPhonicsActivityPage }))
+const KoreanPhonicsStudyPage = lazy(
+  () => import('../features/phonics-learner/components/KoreanPhonicsStudyPage')
 );
-const EnglishPhonicsStudyPage = lazy(() =>
-  PL().then((m) => ({ default: m.EnglishPhonicsStudyPage }))
+const KoreanPhonicsActivityPage = lazy(
+  () => import('../features/phonics-learner/components/KoreanPhonicsActivityPage')
 );
-const EnglishPhonicsActivityPage = lazy(() =>
-  PL().then((m) => ({ default: m.EnglishPhonicsActivityPage }))
+const EnglishPhonicsStudyPage = lazy(
+  () => import('../features/phonics-learner/components/EnglishPhonicsStudyPage')
 );
-const ChinesePhonicsStudyPage = lazy(() =>
-  PL().then((m) => ({ default: m.ChinesePhonicsStudyPage }))
+const EnglishPhonicsActivityPage = lazy(
+  () => import('../features/phonics-learner/components/EnglishPhonicsActivityPage')
 );
-const ChinesePhonicsActivityPage = lazy(() =>
-  PL().then((m) => ({ default: m.ChinesePhonicsActivityPage }))
+const ChinesePhonicsStudyPage = lazy(
+  () => import('../features/phonics-learner/components/ChinesePhonicsStudyPage')
+);
+const ChinesePhonicsActivityPage = lazy(
+  () => import('../features/phonics-learner/components/ChinesePhonicsActivityPage')
 );
 const CO = () => import('../features/continuous');
 const ContinuousHomePage = lazy(() => CO().then((m) => ({ default: m.ContinuousHomePage })));

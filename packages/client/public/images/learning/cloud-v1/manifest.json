@@ -1,0 +1,329 @@
+{
+  "modeSource": "exec-68f04e09-3cba-4587-926e-cfe1ef3a6857.png",
+  "atlases": {
+    "buttons": {
+      "file": "/images/learning/cloud-v1/buttons.webp",
+      "width": 1280,
+      "height": 640,
+      "bytes": 115192,
+      "sha256": "229b7c7953d493b04e5fd2fe8a085c7cd39fd54e73be36e0d205f33be66d7575",
+      "source": "exec-7e0e304f-faea-4ad9-81ed-0947318e6a8b.png",
+      "sourceSha256": "311aa98fcf3e217a88eaef88784dc588083d60940db45e037449ebaab6fa5a46",
+      "regions": {
+        "stage-coral": {
+          "x": 10,
+          "y": 79,
+          "width": 310,
+          "height": 249
+        },
+        "stage-mint": {
+          "x": 327,
+          "y": 79,
+          "width": 310,
+          "height": 249
+        },
+        "stage-done": {
+          "x": 645,
+          "y": 79,
+          "width": 310,
+          "height": 249
+        },
+        "stage-locked": {
+          "x": 962,
+          "y": 79,
+          "width": 310,
+          "height": 249
+        },
+        "cta-coral": {
+          "x": 10,
+          "y": 406,
+          "width": 308,
+          "height": 144
+        },
+        "cta-mint": {
+          "x": 327,
+          "y": 407,
+          "width": 309,
+          "height": 145
+        },
+        "book-coral": {
+          "x": 671,
+          "y": 371,
+          "width": 280,
+          "height": 183
+        },
+        "book-mint": {
+          "x": 986,
+          "y": 375,
+          "width": 281,
+          "height": 179
+        }
+      }
+    },
+    "icons": {
+      "file": "/images/learning/cloud-v1/icons.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 193346,
+      "sha256": "54457df3cf8aa4d58138fc9a3ecb3eb392a0467ee1afc864c0e0f2ec0d3367ee",
+      "source": "exec-5c9dc42b-c50b-4e72-8b1a-d7ed165140d9.png",
+      "sourceSha256": "935d6027cd2fa37a7c57b44d31fb1093e911eb95a50af2665ea80f771abe3718",
+      "regions": {
+        "back": {
+          "x": 43,
+          "y": 70,
+          "width": 194,
+          "height": 170
+        },
+        "book": {
+          "x": 274,
+          "y": 71,
+          "width": 238,
+          "height": 174
+        },
+        "compass": {
+          "x": 512,
+          "y": 30,
+          "width": 211,
+          "height": 226
+        },
+        "play": {
+          "x": 820,
+          "y": 73,
+          "width": 152,
+          "height": 171
+        },
+        "check": {
+          "x": 47,
+          "y": 315,
+          "width": 183,
+          "height": 162
+        },
+        "lock": {
+          "x": 314,
+          "y": 302,
+          "width": 150,
+          "height": 187
+        },
+        "unlock": {
+          "x": 550,
+          "y": 290,
+          "width": 182,
+          "height": 200
+        },
+        "flag": {
+          "x": 824,
+          "y": 302,
+          "width": 157,
+          "height": 187
+        },
+        "next": {
+          "x": 39,
+          "y": 548,
+          "width": 189,
+          "height": 220
+        },
+        "listen": {
+          "x": 283,
+          "y": 535,
+          "width": 214,
+          "height": 186
+        },
+        "write": {
+          "x": 554,
+          "y": 534,
+          "width": 171,
+          "height": 188
+        },
+        "combine": {
+          "x": 786,
+          "y": 537,
+          "width": 204,
+          "height": 231
+        },
+        "home": {
+          "x": 28,
+          "y": 768,
+          "width": 221,
+          "height": 193
+        },
+        "english": {
+          "x": 284,
+          "y": 791,
+          "width": 221,
+          "height": 150
+        },
+        "korean": {
+          "x": 547,
+          "y": 774,
+          "width": 183,
+          "height": 188
+        },
+        "replay": {
+          "x": 801,
+          "y": 768,
+          "width": 178,
+          "height": 194
+        }
+      }
+    },
+    "scenery": {
+      "file": "/images/phonics/path-premium-v1/scenery.webp",
+      "width": 1080,
+      "height": 720,
+      "alpha": true,
+      "bytes": 125758,
+      "sourceSha256": "f841be5963ecdf211a2e262fcd41a9c36122dfaf20f0de870815b0601980dd1f",
+      "sha256": "87af98dead02aad0a4918d8ebfc7985b1c8b59d697e6d6e8a4f8830d4ea0df1d",
+      "regions": {
+        "scenery-tree": {
+          "x": 87,
+          "y": 33,
+          "width": 214,
+          "height": 327
+        },
+        "scenery-flowers": {
+          "x": 424,
+          "y": 88,
+          "width": 231,
+          "height": 267
+        },
+        "scenery-bridge": {
+          "x": 734,
+          "y": 119,
+          "width": 316,
+          "height": 239
+        },
+        "scenery-cottage": {
+          "x": 47,
+          "y": 383,
+          "width": 311,
+          "height": 300
+        },
+        "scenery-picnic": {
+          "x": 400,
+          "y": 463,
+          "width": 309,
+          "height": 215
+        },
+        "scenery-garden": {
+          "x": 740,
+          "y": 448,
+          "width": 305,
+          "height": 232
+        }
+      }
+    }
+  },
+  "files": {
+    "book-coral.webp": {
+      "bytes": 17888,
+      "size": [280, 183],
+      "alpha": true,
+      "sha256": "8a95242caaf60b255757d114c3a0cdee7533c3a64d62bb7d5a132a4d6832c2ef"
+    },
+    "book-menu-coral.webp": {
+      "bytes": 29720,
+      "size": [900, 240],
+      "alpha": true,
+      "sha256": "c0205dd48a9e29bc212fe404f0d8f93bde676217dc3380d082dd6716607cb037"
+    },
+    "book-menu-mint.webp": {
+      "bytes": 31654,
+      "size": [900, 240],
+      "alpha": true,
+      "sha256": "eea09043c72cc2bf47d1135f67784b7e77cce059580fcf7f9ab5ebb75e655d65"
+    },
+    "book-mint.webp": {
+      "bytes": 17734,
+      "size": [281, 179],
+      "alpha": true,
+      "sha256": "d48a78a74815ad4487658799abe997e8aec87d4f74a2a05feb1cf9599843cbc9"
+    },
+    "buttons.webp": {
+      "bytes": 115192,
+      "size": [1280, 640],
+      "alpha": true,
+      "sha256": "229b7c7953d493b04e5fd2fe8a085c7cd39fd54e73be36e0d205f33be66d7575"
+    },
+    "cta-coral.webp": {
+      "bytes": 11810,
+      "size": [308, 144],
+      "alpha": true,
+      "sha256": "0587a8a2527022bf7ea78b647273a5a063984a95de86d34793dcf2286f422585"
+    },
+    "cta-mint.webp": {
+      "bytes": 11418,
+      "size": [309, 145],
+      "alpha": true,
+      "sha256": "c131d29474982cf5fb7e74400328d6c66133a709cd747e4f201d1c8a7ffb358c"
+    },
+    "curriculum-tactile.webp": {
+      "bytes": 42332,
+      "size": [900, 300],
+      "alpha": true,
+      "sha256": "9d78381364962a69f17a3df1e6a1ffa698f9419298f9e4cbbb52f6587c180ba4"
+    },
+    "english.webp": {
+      "bytes": 14484,
+      "size": [221, 150],
+      "alpha": true,
+      "sha256": "bcf1bab74ce42a1506c489acc91a1b5c4d245ec8b454c19f1e9012cfda64e107"
+    },
+    "free-tactile.webp": {
+      "bytes": 43940,
+      "size": [900, 300],
+      "alpha": true,
+      "sha256": "5280991a8100845c8aaf560de41c13cb639ddde1bfa57e02fbccbbaa66638158"
+    },
+    "home.webp": {
+      "bytes": 12626,
+      "size": [221, 193],
+      "alpha": true,
+      "sha256": "1433f945399c3d23c5071f514451273cc5bfe8c772429b0f81a4cc38a74fb1f2"
+    },
+    "icons.webp": {
+      "bytes": 193346,
+      "size": [1024, 1024],
+      "alpha": true,
+      "sha256": "54457df3cf8aa4d58138fc9a3ecb3eb392a0467ee1afc864c0e0f2ec0d3367ee"
+    },
+    "korean.webp": {
+      "bytes": 11974,
+      "size": [183, 188],
+      "alpha": true,
+      "sha256": "3b445b399c84d44d4ae409a7664543aff28298bbe15c1e4adc0b1df528fadf78"
+    },
+    "stage-coral.webp": {
+      "bytes": 15002,
+      "size": [310, 249],
+      "alpha": true,
+      "sha256": "11efffc8054851a7d1ffa461d2ccaa26f787498bbad5406e8a9fdbc6ab6ac0bb"
+    },
+    "stage-done.webp": {
+      "bytes": 14072,
+      "size": [310, 249],
+      "alpha": true,
+      "sha256": "5327d966aab2ccb9389c3fc87215af0aafa5f3d202a347e5948df665863191c5"
+    },
+    "stage-locked.webp": {
+      "bytes": 13842,
+      "size": [310, 249],
+      "alpha": true,
+      "sha256": "3e75175e017d72e0a5933f9e722c552fc02d246a00906c0646185f98951bf4fd"
+    },
+    "stage-mint.webp": {
+      "bytes": 14534,
+      "size": [310, 249],
+      "alpha": true,
+      "sha256": "cce36a9230417fb5f4f5488e88227b2c2fa74175b32bf1c8ca4c893cc4368a25"
+    },
+    "title-wash.webp": {
+      "bytes": 38426,
+      "size": [1000, 333],
+      "alpha": true,
+      "sha256": "6d233344671dcc9f8eed7ac28418fb4fad90c22c0aadd9fcc562ef38508a42cd"
+    }
+  },
+  "totalWebpBytes": 649994
+}

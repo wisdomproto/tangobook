@@ -1,3 +1,4 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -216,7 +217,7 @@ function StoryImagePlayerInner({
             onClick={replayAudio}
             className="min-h-12 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-peach-100 text-ink-900 font-bold hover:bg-peach-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
           >
-            <span className="text-2xl sm:text-3xl">🔊</span>
+            <StorybookSprite name="listen" size={28} />
             <span className="text-base sm:text-lg">{t('storyImage.replay')}</span>
           </button>
         </div>

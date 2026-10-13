@@ -1,3 +1,5 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SPEAKING_PRESETS } from '@tangobook/shared';
 import type {
@@ -109,7 +111,8 @@ export function SpeakingPlayer({
   if (phase === 'done') {
     return (
       <MobileLandscapeGate>
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-cream-50 p-4 overflow-y-auto">
+        <div className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col items-center justify-center bg-cream-50 p-4 overflow-y-auto">
+          <StorybookBackdrop />
           <GameResultScreen
             storybookId={storybookId}
             score={rounds.length}
@@ -133,7 +136,8 @@ export function SpeakingPlayer({
 
   return (
     <MobileLandscapeGate>
-      <div className="fixed inset-0 z-[60] flex flex-col items-center bg-cream-50 p-4 overflow-y-auto">
+      <div className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col items-center bg-cream-50 p-4 overflow-y-auto">
+        <StorybookBackdrop />
         <div className="w-full max-w-4xl">
           <div className="flex items-center justify-between">
             <GameProgressBar current={roundIdx} total={rounds.length} score={roundIdx + 1} />
@@ -177,7 +181,7 @@ export function SpeakingPlayer({
                 className="w-12 h-12 rounded-full bg-coral-700 text-white shadow-soft hover:brightness-110"
                 aria-label="단어 듣기"
               >
-                🔊
+                <StorybookSprite name="listen" size={30} />
               </button>
             )}
 

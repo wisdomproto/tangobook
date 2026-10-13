@@ -1,3 +1,4 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import {
   Blocks,
   Headphones,
@@ -71,7 +72,20 @@ export function CourseActivityVisual({
         (fallbackVisual ?? <Icon size={52} strokeWidth={1.75} />)
       )}
       <span className="course-activity-tool">
-        {toolVisual ?? <Icon size={23} strokeWidth={2} />}
+        {toolVisual ?? (
+          <StorybookSprite
+            name={
+              mode === 'write' || mode === 'draw'
+                ? 'write'
+                : mode === 'build' || mode === 'match'
+                  ? 'combine'
+                  : mode === 'find'
+                    ? 'compass'
+                    : 'listen'
+            }
+            size={28}
+          />
+        )}
       </span>
     </div>
   );

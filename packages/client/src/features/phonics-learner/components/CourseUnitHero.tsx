@@ -40,7 +40,7 @@ export function CourseUnitHero({
           {action && (
             <Link
               to={action.href}
-              className={`inline-flex min-h-12 items-center gap-3 rounded-xl px-4 text-base font-bold ${theme.action} ${theme.focus}`}
+              className={`storybook-action inline-flex min-h-12 items-center gap-3 rounded-xl px-4 text-base font-bold ${theme.action} ${theme.focus}`}
             >
               {next
                 ? t(done > 0 ? 'study.resumeActivity' : 'study.startActivity')

@@ -1,3 +1,5 @@
+import { StorybookTitle } from '@/design-system/primitives/StorybookTitle';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { getCourseTheme } from '@/design-system';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -34,79 +36,69 @@ function LearningHomeContent() {
   const en = usePhonicsProgress('english');
   const koProgress = journeyProgress('korean', ko.unitCompletedActivities);
   const enProgress = journeyProgress('english', en.unitCompletedActivities);
-  const recent = [
+  const courses = [
     { lang: 'korean' as const, progress: koProgress },
     { lang: 'english' as const, progress: enProgress },
-  ].filter(
-    (item) => (item.progress.completed > 0 || hasJourneyStarted(item.lang)) && item.progress.current
-  );
+  ];
   const focus =
     'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-700';
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6 md:pt-8">
+    <div className="storybook-home-page mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6 md:pt-8">
       <div className="mb-7">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('home.title')}</h1>
-        <p className="mt-3 text-base text-ink-600 md:text-lg">{t('home.subtitle')}</p>
+        <StorybookTitle className="text-3xl font-bold tracking-tight md:text-4xl">
+          {t('home.title')}
+        </StorybookTitle>
+        <p className="mt-3 text-center text-base text-ink-600 md:text-lg">{t('home.subtitle')}</p>
       </div>
       <section aria-label={t('home.courses')} className="grid gap-4 sm:grid-cols-2 md:gap-6">
-        {(['korean', 'english'] as const).map((lang) => (
-          <Link
-            key={lang}
-            to={`/library/phonics/${lang}`}
-            className={`group relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-[24px] border-2 p-6 transition-colors md:min-h-[220px] md:p-8 ${getCourseTheme(lang)!.surface} ${getCourseTheme(lang)!.focus}`}
-          >
-            <div className="relative z-10 max-w-[calc(100%_-_112px)] md:max-w-[calc(100%_-_136px)]">
-              <h2 className="text-2xl font-bold md:text-3xl">{t(`nav.${lang}`)}</h2>
-              <p className="mt-3 break-keep text-base leading-relaxed text-ink-600 md:text-lg">
-                {t(`home.${lang}Description`)}
-              </p>
-            </div>
-            <span
-              aria-hidden="true"
-              className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/70 text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${getCourseTheme(lang)!.text}`}
+        {courses.map(({ lang, progress }) => {
+          const current = progress.current;
+          const resume = !!current && (progress.completed > 0 || hasJourneyStarted(lang));
+          return (
+            <section
+              key={lang}
+              data-language={lang}
+              aria-label={t(`nav.${lang}`)}
+              className="storybook-home-course relative flex min-h-[220px] flex-col justify-between border-2 p-6 md:p-8"
             >
-              {lang === 'korean' ? '가' : 'Aa'}
-            </span>
-            <span
-              className={`mt-6 inline-flex min-h-12 w-fit items-center gap-8 rounded-xl px-5 text-base font-bold ${getCourseTheme(lang)!.action}`}
-            >
-              {t('home.start')}
-              <span aria-hidden="true">→</span>
-            </span>
-          </Link>
-        ))}
-      </section>
-      {recent.length > 0 && (
-        <section
-          className="mt-6 flex flex-wrap items-center gap-4 rounded-2xl border border-ink-100 bg-white px-5 py-3"
-          aria-labelledby="continue-heading"
-        >
-          <h2 id="continue-heading" className="text-lg font-bold">
-            {t('home.continue')}
-          </h2>
-          <div className="flex flex-1 flex-wrap gap-3">
-            {recent.map(({ lang, progress }) => (
-              <Link
-                key={lang}
-                to={journeyActivityUrl(
-                  lang,
-                  progress.current!.unit.id,
-                  progress.current!.activity.key
-                )}
-                className={`flex min-h-12 min-w-36 flex-1 items-center justify-between gap-4 rounded-xl px-4 py-2 ${getCourseTheme(lang)!.badge} ${getCourseTheme(lang)!.focus}`}
+              <div className="relative z-10 max-w-[calc(100%_-_112px)] md:max-w-[calc(100%_-_136px)]">
+                <h2 className="text-2xl font-bold md:text-3xl">{t(`nav.${lang}`)}</h2>
+                <p className="mt-3 break-keep text-base leading-relaxed text-ink-600 md:text-lg">
+                  {resume ? unitTitle(tp, current!.unit) : t(`home.${lang}Description`)}
+                </p>
+              </div>
+              <span
+                aria-hidden="true"
+                className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/70 text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${getCourseTheme(lang)!.text}`}
               >
-                <div>
-                  <p className="text-sm font-bold text-ink-600">{t(`nav.${lang}`)}</p>
-                  <p className="mt-1 text-lg font-bold">{unitTitle(tp, progress.current!.unit)}</p>
-                </div>
-                <span aria-hidden="true" className={getCourseTheme(lang)!.text}>
-                  →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+                {lang === 'korean' ? '가' : 'Aa'}
+              </span>
+              <div className="relative z-10 mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <Link
+                  to={
+                    resume
+                      ? journeyActivityUrl(lang, current!.unit.id, current!.activity.key)
+                      : `/library/phonics/${lang}`
+                  }
+                  className={`storybook-action inline-flex min-h-14 items-center justify-center gap-4 px-6 text-base font-bold ${getCourseTheme(lang)!.focus}`}
+                >
+                  {t(resume ? 'home.continue' : 'home.start')}
+                  <StorybookSprite name="next" size={24} />
+                </Link>
+                {resume && (
+                  <Link
+                    to={`/library/phonics/${lang}`}
+                    className={`inline-flex min-h-11 items-center gap-2 text-sm font-bold ${getCourseTheme(lang)!.focus}`}
+                  >
+                    <StorybookSprite name="compass" size={22} />
+                    {tp('journey.chooseMode')}
+                  </Link>
+                )}
+              </div>
+            </section>
+          );
+        })}
+      </section>
       <section className="mt-8" aria-labelledby="recommend-heading">
         <div className="mb-4 flex items-center justify-between gap-4">
           <h2 id="recommend-heading" className="text-xl font-bold md:text-2xl">

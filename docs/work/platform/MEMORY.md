@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-14 [학습자 삽화 UI·레이아웃 전체 적용](tasks/20261013-storybook-learning-ui.md): 나무 반증 뒤 구름 행동/수채화 제목/책 종이 메뉴로 구분. 중복 가/Aa·입구 홈 제거, 모드 중앙 정렬·홈 이어하기 통합·짧은 가로 배치·읽기/게임 조작 아이콘. 활성18WebP650KB, 모드 정적JS gzip약37%감소(로딩시간 아님).76회귀/타입/build·실제 대표화면 검수, 기존 마케팅5실패는baseline재현. 로컬 main 통합 준비·미푸시, 전체 책/게임 완주·실기기는 미확인.
+
 2026-10-12 [파닉스 UI·연출·반응 개선 main 푸시](tasks/20261012-phonics-ui-effects-main-push.md): 사용자 요청으로 로컬 한영 효과/모음 Book1/전체 활동 UI/합성·쓰기·소리 반응 개선과 원격 Library Master 작업을 보존 merge. 통합34파일230회귀·타입/build 통과, f534ca313를 origin/main에 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태. Railway 배포 완료는 미확인.
 
 2026-10-12 [파닉스 시각·소리 복구](../phonics/tasks/20261012-phonics-playful-ui.md): 단계별 그림/쓰기칸·풍경·작은 모음목록으로 단조로움 반증 반영. API3500 DISABLE_PUBLISH_SCHEDULER=1/Vite5186 연결, 기존 Python5199 보존. 로컬 개발도구는 VITE_QUERY_DEVTOOLS=true만 노출. 검증·통합은 task 참조, 운영배포/원격push 없음.

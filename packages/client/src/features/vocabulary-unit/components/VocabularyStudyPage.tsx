@@ -1,3 +1,5 @@
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Mascot, PageHeader } from '@/design-system';
@@ -96,7 +98,8 @@ export function VocabularyStudyPage() {
   const displayName = getDisplayUnitName(unit, effectiveLang, storybook);
 
   return (
-    <div className="min-h-screen flex flex-col bg-cream-50">
+    <div className="storybook-scope relative isolate min-h-screen flex flex-col bg-cream-50">
+      <StorybookBackdrop />
       {/* 🔴 `pt-*` 가 없으면 PageHeader 의 `mt-2` 가 **body 밖으로 새어**(마진 병합) 페이지 전체를
           8px 밀어내고, 그 8px 에는 이 컨테이너의 cream 그라데이션이 안 칠해져 위쪽에 띠가 생긴다.
           (실측: `#root` 에 padding 을 0.02px 만 줘도 body top 이 8 → 0 이 됐다.)
@@ -113,12 +116,7 @@ export function VocabularyStudyPage() {
             ) : null
           }
         >
-          <img
-            src="/icons/book/header.webp"
-            alt=""
-            aria-hidden
-            className="w-12 h-12 lg:w-14 lg:h-14 object-contain flex-shrink-0 mr-3"
-          />
+          <StorybookSprite name="book" size={34} />
           <span className="truncate">{displayName}</span>
         </PageHeader>
       </div>

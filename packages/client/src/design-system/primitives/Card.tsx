@@ -21,7 +21,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
     <div
       ref={ref}
       className={cn(
-        'bg-white rounded-card border border-ink-100 shadow-soft',
+        'storybook-card bg-white rounded-card border border-ink-100 shadow-soft',
         interactive &&
           'transition-shadow hover:shadow-card cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700',
         paddingClass[padding],

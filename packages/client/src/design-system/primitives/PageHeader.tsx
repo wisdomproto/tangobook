@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { StorybookSprite } from './StorybookSprite';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -27,7 +28,7 @@ export function PageHeader({ onBack, backLabel, onHome, children, right }: PageH
   const { t } = useTranslation('shell');
   const resolvedBackLabel = backLabel ?? t('pageHeader.back');
   return (
-    <header className="min-h-16 flex items-center justify-between gap-2 md:gap-4 shrink-0 border-b border-ink-100 bg-white px-3 py-2 md:px-6">
+    <header className="storybook-page-header min-h-16 flex items-center justify-between gap-2 md:gap-4 shrink-0 border-b border-ink-100 bg-white px-3 py-2 md:px-6">
       <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
         <button
           type="button"
@@ -35,9 +36,7 @@ export function PageHeader({ onBack, backLabel, onHome, children, right }: PageH
           aria-label={resolvedBackLabel}
           className="px-3 md:px-6 py-2 rounded-full bg-white text-ink-900 font-bold text-base shadow-soft transition flex items-center justify-center gap-2 min-w-11 min-h-11 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
         >
-          <span>←</span>
-          {/* 폰(<640)에선 라벨 숨기고 화살표만 — 헤더 우측 칩과 제목 공간 확보 */}
-          <span className="hidden sm:inline">{resolvedBackLabel}</span>
+          <StorybookSprite name="back" size={26} />
         </button>
         {onHome && (
           <button
@@ -47,12 +46,12 @@ export function PageHeader({ onBack, backLabel, onHome, children, right }: PageH
             title={t('pageHeader.home')}
             className="px-3 py-2 rounded-full bg-white text-ink-900 font-bold shadow-soft min-w-11 min-h-11 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
           >
-            🏠
+            <StorybookSprite name="scenery-cottage" size={30} />
           </button>
         )}
       </div>
 
-      <div className="flex-1 flex items-center justify-center min-w-0 text-lg md:text-2xl font-bold font-display text-ink-900 truncate">
+      <div className="storybook-header-title flex-1 flex items-center justify-center min-w-0 text-lg md:text-2xl font-bold font-display text-ink-900">
         {children}
       </div>
 

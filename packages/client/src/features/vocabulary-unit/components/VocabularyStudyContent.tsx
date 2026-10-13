@@ -1,3 +1,5 @@
+import { StorybookGameIcon } from '@/design-system/primitives/StorybookGameIcon';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { LEARNING_REPORT_V2 } from '@/features/learning/config';
 import { PostActivityPhonics } from '@/features/learning/components/PostActivityPhonics';
 import { recommendPhonics } from '@/features/learning/lib/phonics-recommendation';
@@ -259,14 +261,14 @@ export function VocabularyStudyContent({
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <button
                   onClick={() => setOpenGroup(null)}
-                  className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition break-keep"
+                  className="inline-flex items-center gap-2 min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-pop transition break-keep"
                 >
-                  ← {t('study.otherPlay')}
+                  <StorybookSprite name="back" size={24} /> {t('study.otherPlay')}
                 </button>
                 <h2
                   className={`text-section-title font-display flex items-center gap-2 break-keep ${'text-ink-900'}`}
                 >
-                  <span>{group.emoji}</span>
+                  <StorybookSprite name={group.key === 'word' ? 'combine' : 'book'} size={30} />
                   <span>{t(group.headingKey)}</span>
                 </h2>
               </div>
@@ -401,7 +403,7 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
           <button
             key={`${it.main}-${i}`}
             onClick={() => onWordClick(it.word)}
-            className="snap-start shrink-0 w-24 sm:w-28 lg:w-32 bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition flex flex-col"
+            className="storybook-word-card snap-start shrink-0 w-24 sm:w-28 lg:w-32 bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition flex flex-col"
             aria-label={t('study.detailAria', { word: it.main })}
           >
             <div className="aspect-square w-full bg-gradient-to-b from-cream-50 to-white flex items-center justify-center">
@@ -457,10 +459,10 @@ function GroupCard({
   return (
     <button
       onClick={onOpen}
-      className={`relative rounded-3xl p-5 lg:p-6 pb-16 min-h-[clamp(13rem,36vh,22rem)] flex flex-col items-center justify-center text-center gap-2 transition-shadow hover:shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 ${c.fill} ${c.shadow}`}
+      className={`storybook-bundle-card relative rounded-3xl p-5 lg:p-6 pb-16 min-h-[clamp(13rem,36vh,22rem)] flex flex-col items-center text-center gap-2 transition-shadow hover:shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 ${c.fill} ${c.shadow}`}
     >
       <span className="text-[clamp(2.5rem,8vh,4rem)] leading-none" aria-hidden>
-        {emoji}
+        <StorybookSprite name={emoji === '🔤' ? 'combine' : 'book'} size={56} />
       </span>
       <span
         className="text-section-title font-display break-keep"
@@ -477,13 +479,7 @@ function GroupCard({
             key={g.id}
             className={`w-16 lg:w-20 flex flex-col items-center gap-1 rounded-2xl px-1 py-2 ${c.chip}`}
           >
-            {g.iconSrc ? (
-              <img src={g.iconSrc} alt="" aria-hidden className="w-9 h-9 object-contain" />
-            ) : (
-              <span className="text-3xl leading-none" aria-hidden>
-                {g.emoji}
-              </span>
-            )}
+            <StorybookGameIcon game={g.id} size={36} />
             <span className="text-xs lg:text-sm font-black leading-tight break-keep">
               {g.label}
             </span>
@@ -492,10 +488,10 @@ function GroupCard({
       </ul>
 
       <span
-        className={`absolute bottom-4 right-4 w-11 h-11 rounded-full flex items-center justify-center shadow-soft ${c.arrow}`}
+        className={`storybook-next-arrow absolute bottom-4 right-4 w-11 h-11 rounded-full flex items-center justify-center shadow-soft ${c.arrow}`}
         aria-hidden
       >
-        <span className="text-2xl font-black">→</span>
+        <StorybookSprite name="next" size={24} />
       </span>
     </button>
   );
@@ -531,15 +527,9 @@ function GameCard({
   // 좌측 큰 일러스트 — 카드 일러스트 그대로 (배경 X). emoji 는 fallback.
   const leftIllustration = (extraClass = '') => (
     <div className="w-16 h-16 lg:w-20 lg:h-20 flex-shrink-0 flex items-center justify-center">
-      {game.iconSrc ? (
-        <img
-          src={game.iconSrc}
-          alt={game.label}
-          className={`w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] ${extraClass}`}
-        />
-      ) : (
-        <span className={`text-7xl ${extraClass}`}>{game.emoji}</span>
-      )}
+      <span className={extraClass}>
+        <StorybookGameIcon game={game.id} size={64} />
+      </span>
     </div>
   );
 
@@ -551,7 +541,7 @@ function GameCard({
       <span
         className={`text-2xl font-black ${tone === 'mint' ? 'text-mint-600' : 'text-coral-600'}`}
       >
-        →
+        <StorybookSprite name="next" size={26} />
       </span>
     </div>
   );
@@ -584,7 +574,7 @@ function GameCard({
   return (
     <button
       onClick={onPlay}
-      className="relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 transition-shadow hover:shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 text-left bg-white text-ink-900 border border-ink-100 shadow-soft"
+      className="storybook-game-choice relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 transition-shadow hover:shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 text-left bg-white text-ink-900 border border-ink-100 shadow-soft"
     >
       {numberBadge}
       {leftIllustration()}

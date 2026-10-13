@@ -1,181 +1,149 @@
+.phonics-mode-page {
+  height: calc(100dvh - 133px - env(safe-area-inset-bottom));
+}
 .phonics-mode-content {
   position: relative;
-  width: 100%;
-  max-width: 960px;
-  margin-inline: auto;
-  padding: 28px 24px 40px;
-}
-
-.phonics-mode-header {
-  position: relative;
   display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1040px;
+  height: 100%;
+  margin-inline: auto;
+  padding: 28px 32px 32px;
+}
+.phonics-mode-header {
+  display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
 }
-
-.phonics-mode-home {
-  position: absolute;
-  left: 0;
-  top: 16px;
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  padding: 6px;
-  border-radius: 50%;
-  background: #fffaf0;
-  box-shadow:
-    0 3px 0 #dbc9af,
-    0 5px 10px #61513d14;
-  transition: transform 160ms ease;
-}
-
 .phonics-mode-title {
-  position: relative;
-  width: min(400px, 70%);
+  width: min(520px, 100%);
   margin: 0;
+  padding: 26px 56px;
+  background: url('/images/learning/cloud-v1/title-wash.webp') center / 100% 100% no-repeat;
   font-family: 'NanumSquareRound', sans-serif;
   font-weight: 900;
   text-align: center;
 }
-
-.phonics-mode-title img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .phonics-mode-title > span {
-  position: absolute;
-  top: 54%;
-  inset-inline: 13%;
-  transform: translateY(-50%);
-  font-size: clamp(20px, 3vw, 32px);
+  font-size: clamp(28px, 3vw, 38px);
   line-height: 1.2;
-  text-shadow: 0 2px 0 #fffaf0;
 }
-
+.phonics-mode-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+  justify-items: center;
+  gap: 28px;
+  padding-bottom: clamp(20px, 6vh, 60px);
+}
 .phonics-mode-choice {
   position: relative;
   display: block;
   width: 100%;
-  max-width: 420px;
-  aspect-ratio: 3 / 2;
+  max-width: 440px;
+  aspect-ratio: 1.85 / 1;
   color: #3e352b;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 160ms ease;
+  transition: transform 140ms ease;
 }
-
 .phonics-mode-choice img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
   pointer-events: none;
   user-select: none;
+  filter: drop-shadow(0 3px 0 #bad1da70);
 }
-
 .phonics-mode-choice > span {
   position: absolute;
-  top: 63%;
+  top: 61%;
   inset-inline: 12%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   transform: translateY(-50%);
   font-family: 'NanumSquareRound', sans-serif;
-  font-size: clamp(18px, 2.8vw, 28px);
+  font-size: clamp(22px, 2.5vw, 30px);
   font-weight: 900;
   line-height: 1.3;
   text-align: center;
 }
-
 .phonics-mode-choice > span svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   flex-shrink: 0;
 }
-
+@media (min-width: 768px) {
+  .phonics-mode-page {
+    height: calc(100dvh - 73px);
+  }
+}
 @media (hover: hover) {
-  .phonics-mode-choice:hover,
-  .phonics-mode-home:hover {
+  .phonics-mode-choice:hover {
     transform: translateY(-3px);
   }
 }
-
-.phonics-mode-choice:active,
-.phonics-mode-home:active {
-  transform: translateY(2px) scale(0.98);
+.phonics-mode-choice:active {
+  transform: translateY(3px) scale(0.98);
 }
-
-/* Same menu composition fits above navigation on landscape phones. */
 @media (max-height: 500px) and (orientation: landscape) {
   .phonics-mode-content {
-    padding: 6px 24px 12px;
+    padding: 8px 20px;
+    gap: 8px;
   }
   .phonics-mode-header {
-    margin-bottom: 0;
+    min-height: 0;
   }
   .phonics-mode-title {
-    width: 250px;
+    width: 320px;
+    padding: 12px 40px;
   }
   .phonics-mode-title > span {
-    font-size: 22px;
+    font-size: 25px;
   }
-  .phonics-mode-home {
-    top: 12px;
-    width: 48px;
-    height: 48px;
-    padding: 4px;
+  .phonics-mode-options {
+    padding-bottom: 0;
+    gap: 16px;
   }
   .phonics-mode-choice {
-    max-width: 280px;
+    max-width: 310px;
+    aspect-ratio: 2.4 / 1;
   }
   .phonics-mode-choice > span {
     gap: 6px;
-    font-size: 20px;
+    font-size: 21px;
   }
 }
-
-@media (max-width: 767px) and (max-height: 500px) and (orientation: landscape) {
-  .phonics-mode-content {
-    padding: 0 20px;
-  }
+@media (max-width: 639px) and (max-height: 500px) and (orientation: landscape) {
   .phonics-mode-title {
-    width: 180px;
+    width: 280px;
+    padding: 10px 36px;
   }
   .phonics-mode-title > span {
-    font-size: 18px;
-  }
-  .phonics-mode-home {
-    top: 7px;
-    width: 44px;
-    height: 44px;
-  }
-  .phonics-mode-choice {
-    max-width: 176px;
+    font-size: 23px;
   }
   .phonics-mode-choice > span {
     gap: 4px;
-    font-size: 16px;
+    font-size: 17px;
   }
   .phonics-mode-choice > span svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .phonics-mode-choice,
-  .phonics-mode-home {
+  .phonics-mode-choice {
     transition: none;
   }
   .phonics-mode-choice:hover,
-  .phonics-mode-choice:active,
-  .phonics-mode-home:hover,
-  .phonics-mode-home:active {
+  .phonics-mode-choice:active {
     transform: none;
   }
 }

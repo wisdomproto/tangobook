@@ -1,0 +1,215 @@
+{
+  "buttons": {
+    "file": "/images/learning/cloud-v1/buttons.webp",
+    "width": 1280,
+    "height": 640,
+    "bytes": 115192,
+    "sha256": "229b7c7953d493b04e5fd2fe8a085c7cd39fd54e73be36e0d205f33be66d7575",
+    "source": "exec-7e0e304f-faea-4ad9-81ed-0947318e6a8b.png",
+    "sourceSha256": "311aa98fcf3e217a88eaef88784dc588083d60940db45e037449ebaab6fa5a46",
+    "regions": {
+      "stage-coral": {
+        "x": 10,
+        "y": 79,
+        "width": 310,
+        "height": 249
+      },
+      "stage-mint": {
+        "x": 327,
+        "y": 79,
+        "width": 310,
+        "height": 249
+      },
+      "stage-done": {
+        "x": 645,
+        "y": 79,
+        "width": 310,
+        "height": 249
+      },
+      "stage-locked": {
+        "x": 962,
+        "y": 79,
+        "width": 310,
+        "height": 249
+      },
+      "cta-coral": {
+        "x": 10,
+        "y": 406,
+        "width": 308,
+        "height": 144
+      },
+      "cta-mint": {
+        "x": 327,
+        "y": 407,
+        "width": 309,
+        "height": 145
+      },
+      "book-coral": {
+        "x": 671,
+        "y": 371,
+        "width": 280,
+        "height": 183
+      },
+      "book-mint": {
+        "x": 986,
+        "y": 375,
+        "width": 281,
+        "height": 179
+      }
+    }
+  },
+  "icons": {
+    "file": "/images/learning/cloud-v1/icons.webp",
+    "width": 1024,
+    "height": 1024,
+    "bytes": 193346,
+    "sha256": "54457df3cf8aa4d58138fc9a3ecb3eb392a0467ee1afc864c0e0f2ec0d3367ee",
+    "source": "exec-5c9dc42b-c50b-4e72-8b1a-d7ed165140d9.png",
+    "sourceSha256": "935d6027cd2fa37a7c57b44d31fb1093e911eb95a50af2665ea80f771abe3718",
+    "regions": {
+      "back": {
+        "x": 43,
+        "y": 70,
+        "width": 194,
+        "height": 170
+      },
+      "book": {
+        "x": 274,
+        "y": 71,
+        "width": 238,
+        "height": 174
+      },
+      "compass": {
+        "x": 512,
+        "y": 30,
+        "width": 211,
+        "height": 226
+      },
+      "play": {
+        "x": 820,
+        "y": 73,
+        "width": 152,
+        "height": 171
+      },
+      "check": {
+        "x": 47,
+        "y": 315,
+        "width": 183,
+        "height": 162
+      },
+      "lock": {
+        "x": 314,
+        "y": 302,
+        "width": 150,
+        "height": 187
+      },
+      "unlock": {
+        "x": 550,
+        "y": 290,
+        "width": 182,
+        "height": 200
+      },
+      "flag": {
+        "x": 824,
+        "y": 302,
+        "width": 157,
+        "height": 187
+      },
+      "next": {
+        "x": 39,
+        "y": 548,
+        "width": 189,
+        "height": 220
+      },
+      "listen": {
+        "x": 283,
+        "y": 535,
+        "width": 214,
+        "height": 186
+      },
+      "write": {
+        "x": 554,
+        "y": 534,
+        "width": 171,
+        "height": 188
+      },
+      "combine": {
+        "x": 786,
+        "y": 537,
+        "width": 204,
+        "height": 231
+      },
+      "home": {
+        "x": 28,
+        "y": 768,
+        "width": 221,
+        "height": 193
+      },
+      "english": {
+        "x": 284,
+        "y": 791,
+        "width": 221,
+        "height": 150
+      },
+      "korean": {
+        "x": 547,
+        "y": 774,
+        "width": 183,
+        "height": 188
+      },
+      "replay": {
+        "x": 801,
+        "y": 768,
+        "width": 178,
+        "height": 194
+      }
+    }
+  },
+  "scenery": {
+    "file": "/images/phonics/path-premium-v1/scenery.webp",
+    "width": 1080,
+    "height": 720,
+    "alpha": true,
+    "bytes": 125758,
+    "sourceSha256": "f841be5963ecdf211a2e262fcd41a9c36122dfaf20f0de870815b0601980dd1f",
+    "sha256": "87af98dead02aad0a4918d8ebfc7985b1c8b59d697e6d6e8a4f8830d4ea0df1d",
+    "regions": {
+      "scenery-tree": {
+        "x": 87,
+        "y": 33,
+        "width": 214,
+        "height": 327
+      },
+      "scenery-flowers": {
+        "x": 424,
+        "y": 88,
+        "width": 231,
+        "height": 267
+      },
+      "scenery-bridge": {
+        "x": 734,
+        "y": 119,
+        "width": 316,
+        "height": 239
+      },
+      "scenery-cottage": {
+        "x": 47,
+        "y": 383,
+        "width": 311,
+        "height": 300
+      },
+      "scenery-picnic": {
+        "x": 400,
+        "y": 463,
+        "width": 309,
+        "height": 215
+      },
+      "scenery-garden": {
+        "x": 740,
+        "y": 448,
+        "width": 305,
+        "height": 232
+      }
+    }
+  }
+}

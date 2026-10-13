@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ViewerControlsProps {
   onPrev: () => void;
@@ -50,7 +51,7 @@ export function ViewerControls(props: ViewerControlsProps) {
         position="left"
         label={t('nav.prev')}
       >
-        ←
+        <ChevronLeft size={30} aria-hidden="true" />
       </NavBtn>
       <NavBtn
         onClick={props.onNext}
@@ -59,7 +60,7 @@ export function ViewerControls(props: ViewerControlsProps) {
         position="right"
         label={t('nav.next')}
       >
-        →
+        <ChevronRight size={30} aria-hidden="true" />
       </NavBtn>
     </>
   );

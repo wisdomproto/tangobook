@@ -1,3 +1,4 @@
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -256,9 +257,10 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
   return (
     <MobileLandscapeGate>
       <div
-        className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
+        className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
         style={gameSafeAreaStyle()}
       >
+        <StorybookBackdrop />
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
             title={t('cards.block.label')}

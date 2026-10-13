@@ -1,0 +1,540 @@
+.phonics-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, #edf8fa 0%, #f9fcf8 38%, #fffaf1 74%);
+}
+.phonics-backdrop-sun {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  width: clamp(68px, 10vw, 130px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff0ba;
+  box-shadow:
+    0 0 0 14px #fff4d44d,
+    0 0 0 30px #fff4d425;
+}
+.phonics-backdrop-cloud {
+  position: absolute;
+  width: clamp(110px, 18vw, 240px);
+  opacity: 0.8;
+}
+.phonics-backdrop-cloud--left {
+  left: -2%;
+  top: 10%;
+}
+.phonics-backdrop-cloud--right {
+  right: -3%;
+  top: 28%;
+  width: clamp(95px, 14vw, 190px);
+}
+.phonics-backdrop-ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: clamp(85px, 18vh, 190px);
+}
+.phonics-backdrop-flora {
+  position: absolute;
+  bottom: 10px;
+  width: clamp(55px, 7vw, 92px);
+}
+.phonics-backdrop-flora--left {
+  left: 5%;
+}
+.phonics-backdrop-flora--right {
+  right: 5%;
+  transform: scaleX(-1);
+}
+
+/* Learner-only watercolor UI. Clouds are actions; flat washes are headings. */
+.storybook-scope {
+  --storybook-paper: #fffefa;
+  --storybook-ink: #3d554c;
+  --storybook-edge: #dce8df;
+  --storybook-action: url('/images/learning/cloud-v1/cta-coral.webp');
+  isolation: isolate;
+  color: var(--storybook-ink);
+  background-image: linear-gradient(180deg, #edf7fb 0%, #fffef8 70%);
+}
+.storybook-scope[data-phonics-language='en'],
+.storybook-scope [data-storybook-language='english'],
+.storybook-scope .storybook-home-course[data-language='english'] {
+  --storybook-action: url('/images/learning/cloud-v1/cta-mint.webp');
+}
+.storybook-backdrop,
+.storybook-scope .phonics-backdrop {
+  background: linear-gradient(180deg, #deedf5 0%, #edf5f6 44%, #f8fcf3 100%);
+}
+.storybook-title {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 20px;
+  padding: 30px 72px;
+  background: url('/images/learning/cloud-v1/title-wash.webp') center / 100% 100% no-repeat;
+  color: #365c57;
+  font-family: 'NanumSquareRound', sans-serif;
+  font-size: clamp(23px, 2.8vw, 36px);
+  line-height: 1.3;
+  font-weight: 900;
+  text-align: center;
+}
+.storybook-title.is-compact {
+  padding: 24px 54px;
+  margin-bottom: 10px;
+  font-size: clamp(18px, 2vw, 26px);
+}
+.storybook-page-header,
+.storybook-game-header {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--storybook-ink, #3d554c);
+}
+.storybook-header-title,
+.storybook-game-title {
+  position: relative;
+  isolation: isolate;
+  min-height: 48px;
+  padding: 10px 32px;
+  overflow: visible;
+  background: none;
+}
+.storybook-header-title::before,
+.storybook-game-title::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(420px, 100%);
+  height: 106px;
+  transform: translate(-50%, -50%);
+  background: url('/images/learning/cloud-v1/title-wash.webp') center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.storybook-scope .storybook-page-header .storybook-header-title {
+  justify-content: center;
+}
+.storybook-header-title > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.storybook-book-detail .storybook-page-header {
+  min-height: 76px;
+}
+.storybook-page-header button,
+.storybook-game-header button {
+  min-width: 44px;
+  padding-inline: 10px;
+  background: #fffefa;
+  border: 1px solid #dce8df;
+  box-shadow: 0 2px 0 #e7eee3;
+}
+.storybook-scope
+  .storybook-button:not([data-storybook-button='ghost']):not([data-storybook-button='danger']),
+.storybook-scope .storybook-action {
+  min-height: 56px;
+  padding-block: 14px;
+  background: var(--storybook-action) center / 100% 100% no-repeat;
+  border: 0;
+  border-radius: 0;
+  color: #3b4b43;
+  box-shadow: none;
+  filter: drop-shadow(0 2px 0 #bad1da50);
+  transition: transform 120ms ease;
+}
+.storybook-scope .storybook-button[data-storybook-button='secondary'] {
+  --storybook-action: url('/images/learning/cloud-v1/cta-mint.webp');
+}
+.storybook-scope .storybook-button:not(:disabled):active,
+.storybook-scope .storybook-action:active {
+  transform: translateY(2px) scale(0.98);
+}
+.storybook-scope .storybook-card,
+.storybook-scope .course-unit-hero,
+.storybook-scope .course-activity-card,
+.storybook-scope .vowel-group-learning,
+.storybook-scope .game-result-card,
+.storybook-scope .storybook-panel,
+.storybook-scope .storybook-home-course,
+.storybook-scope .storybook-bundle-card,
+.storybook-scope .storybook-game-choice,
+.storybook-scope .storybook-word-card {
+  background: #fffefa;
+  border: 1px solid #dce8df;
+  border-radius: 22px;
+  box-shadow: 0 3px 0 #e8efe5;
+  color: #3d554c;
+}
+.storybook-scope .storybook-home-course[data-language='korean'],
+.storybook-scope .storybook-bundle-card:nth-child(odd) {
+  border-color: #f0d6cf;
+}
+.storybook-scope .storybook-bundle-card ul > li {
+  border-radius: 12px;
+  background: #f3f6ed;
+}
+.storybook-scope .course-activity-card[data-next] {
+  border: 2px solid var(--course-accent);
+}
+.storybook-scope .course-activity-card[data-completed] {
+  background: #edf6e7;
+  border-color: #8cbd79;
+}
+.storybook-scope .course-activity-art,
+.storybook-scope .course-unit-letter,
+.storybook-scope .vowel-group-step,
+.storybook-scope .storybook-tile {
+  border-radius: 14px;
+  background: #f7fbf0;
+  box-shadow: none;
+}
+.storybook-scope .course-activity-art[data-writing] {
+  background: #fffef7;
+}
+.storybook-scope .phonics-curriculum-panel,
+.storybook-scope .storybook-books-panel,
+.storybook-scope .storybook-book-detail details {
+  background: #fffefa;
+  border-color: #dce8df;
+}
+.storybook-scope .course-unit-hero h1,
+.storybook-scope .course-activity-section h2,
+.storybook-scope .phonics-activity h2 {
+  color: var(--course-label, var(--activity-accent, #3d554c));
+  font-family: 'NanumSquareRound', sans-serif;
+}
+.storybook-scope .phonics-tap-card,
+.storybook-scope .vowel-repeat-card {
+  background: #fffefa;
+  border-width: 2px;
+  border-radius: 22px;
+  box-shadow: 0 4px 0 #e0e9d8;
+}
+.storybook-scope .vowel-repeat-card[data-active] {
+  border-color: #4d926c;
+  box-shadow: 0 4px 0 #adca98;
+}
+.storybook-scope .course-activity-tool {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #dce8df;
+  background: #fffefa;
+}
+.curriculum-path {
+  font-family: 'NanumSquareRound', sans-serif;
+}
+.curriculum-book-current,
+.curriculum-book-current > button {
+  border-radius: 22px;
+}
+.curriculum-path .curriculum-book-current {
+  background: #fffefa;
+  box-shadow: 0 3px 0 #dce8df;
+}
+.curriculum-path .curriculum-book-dialog {
+  border: 1px solid #dce8df;
+  border-radius: 24px;
+  background: #fffefa;
+  box-shadow: 0 12px 40px #36584a30;
+}
+.curriculum-path .curriculum-book-choices button {
+  border-radius: 14px;
+  background: #f1f7e9;
+}
+.storybook-scope .storybook-book-cover {
+  border-radius: 5px 12px 12px 5px;
+  outline: 2px solid #e4e9de;
+  outline-offset: 3px;
+  box-shadow:
+    -3px 4px 0 #d5ddce,
+    0 7px 16px #46624d0a;
+}
+/* Book entrance menus are page tabs, never cloud buttons or wood frames. */
+.storybook-scope .storybook-mode-card {
+  color: #3d554c;
+}
+.storybook-scope .storybook-mode-card:not(:disabled) {
+  border: 0;
+  border-radius: 0;
+  background: url('/images/learning/cloud-v1/book-menu-coral.webp') center / 100% 100% no-repeat;
+  box-shadow: none;
+  padding: 30px 42px;
+  min-height: 144px;
+  gap: 18px;
+}
+.storybook-scope .storybook-mode-card[data-storybook-tone='mint'],
+.storybook-scope .storybook-mode-card[data-storybook-tone='amber'],
+.storybook-scope .storybook-mode-card[data-storybook-tone='violet'] {
+  background-image: url('/images/learning/cloud-v1/book-menu-mint.webp');
+}
+.storybook-scope .storybook-mode-card > div:first-of-type {
+  min-width: 0;
+}
+.storybook-scope .storybook-mode-card h3 {
+  color: #3d554c;
+  font-size: clamp(22px, 2.2vw, 30px);
+  word-break: keep-all;
+}
+.storybook-scope .storybook-mode-card p {
+  color: #6b786b;
+  font-size: 15px;
+  word-break: keep-all;
+  line-height: 1.4;
+}
+.storybook-scope .storybook-mode-card > div:nth-last-child(2) {
+  background: transparent;
+  box-shadow: none;
+  --tw-ring-shadow: 0 0 #0000;
+  width: 60px;
+  height: 60px;
+}
+.storybook-scope .storybook-mode-card > span:last-child {
+  color: #3d554c;
+  background: transparent;
+  width: 28px;
+}
+.storybook-scope .storybook-chip,
+.storybook-reader-tools,
+.storybook-scope .storybook-next-arrow {
+  border: 1px solid #dce8df;
+  border-radius: 15px;
+  background: #fffefa;
+  color: #3d554c;
+  box-shadow: 0 2px 0 #e7eee3;
+}
+.storybook-scope .storybook-chip[aria-pressed='true'] {
+  background: #ffe0d4;
+  color: #8e402c;
+  border-color: #cc7c68;
+  --tw-ring-color: transparent;
+}
+@media (max-height: 500px) {
+  .storybook-title {
+    padding-block: 24px;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  .storybook-header-title,
+  .storybook-game-title {
+    min-height: 42px;
+    padding: 6px 24px;
+  }
+  .storybook-backdrop .phonics-backdrop-ground {
+    height: 65px;
+  }
+}
+@media (max-width: 639px) {
+  .storybook-title {
+    padding: 26px 54px;
+    font-size: 24px;
+  }
+  .storybook-header-title::before,
+  .storybook-game-title::before {
+    height: 86px;
+    width: min(290px, 100%);
+  }
+  .storybook-scope .storybook-mode-card:not(:disabled) {
+    padding: 28px 32px;
+    gap: 10px;
+  }
+  .storybook-scope .storybook-mode-card > div:nth-last-child(2) {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-height: 500px) and (min-width: 500px) {
+  .storybook-scope .storybook-activities-page,
+  .storybook-scope .storybook-home-page {
+    padding-top: 8px;
+  }
+  .storybook-scope .storybook-activities-page > .storybook-title,
+  .storybook-scope .storybook-home-page .storybook-title {
+    font-size: 22px;
+    padding-block: 8px;
+    line-height: 28px;
+    margin-bottom: 0;
+  }
+  .storybook-scope .storybook-activities-page > p,
+  .storybook-scope .storybook-home-page > div:first-child > p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .storybook-scope .storybook-home-page > div:first-child {
+    margin-bottom: 12px;
+  }
+  .storybook-scope .storybook-home-page > section:first-of-type {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course {
+    min-height: 136px;
+    padding: 12px 16px;
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course h2 {
+    font-size: 20px;
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course p {
+    margin-top: 4px;
+    font-size: 13px;
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course > span {
+    top: 12px;
+    right: 12px;
+    width: 56px;
+    height: 56px;
+    font-size: 36px;
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course > div:first-child {
+    max-width: calc(100% - 64px);
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course > div:last-child {
+    margin-top: 4px;
+    column-gap: 6px;
+  }
+  .storybook-scope .storybook-home-page .storybook-home-course a {
+    font-size: 13px;
+  }
+  .storybook-scope .storybook-activity-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .storybook-scope .storybook-activity-options > a {
+    min-height: 100px;
+    padding: 10px 14px;
+    gap: 4px;
+  }
+  .storybook-scope .storybook-activity-options > a > img {
+    width: 30px;
+    height: 30px;
+  }
+  .storybook-scope .storybook-activity-options h2 {
+    font-size: 18px;
+  }
+  .storybook-scope .storybook-activity-options p {
+    display: none;
+  }
+  .storybook-scope .storybook-activity-options > a > span {
+    position: absolute;
+    right: 12px;
+    top: 14px;
+  }
+  .storybook-scope .storybook-activity-options > a {
+    position: relative;
+  }
+  .storybook-scope .storybook-activities-page {
+    padding-bottom: 4px;
+  }
+  .storybook-scope .course-unit-content {
+    padding: 8px 12px;
+  }
+  .storybook-scope .course-unit-hero {
+    display: block;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  .storybook-scope .course-unit-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 16px;
+    align-items: center;
+  }
+  .storybook-scope .course-unit-intro > p {
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .storybook-scope .course-unit-intro > h1 {
+    grid-column: 1;
+    font-size: 24px;
+  }
+  .storybook-scope .course-unit-intro > div {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    margin-top: 0;
+    max-width: 180px;
+    gap: 4px;
+  }
+  .storybook-scope .course-unit-preview {
+    display: none;
+  }
+  .storybook-scope .phonics-alphabet-illustration {
+    width: min(100%, calc((100dvh - 150px) * 16 / 9));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .storybook-scope .storybook-button,
+  .storybook-scope .storybook-action {
+    transition: none;
+  }
+  .storybook-scope .storybook-button:active,
+  .storybook-scope .storybook-action:active {
+    transform: none;
+  }
+}
+
+/* Keep the result actions reachable on the smallest landscape phones. */
+@media (min-width: 500px) and (max-width: 639px) and (max-height: 480px) {
+  .storybook-scope .game-result-card {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+  .storybook-scope .game-result-hero {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+  }
+  .storybook-scope .game-result-content {
+    min-width: 0;
+  }
+  .storybook-scope .game-result-content h1 {
+    font-size: 26px;
+  }
+  .storybook-scope .game-result-content > p {
+    font-size: 16px;
+  }
+  .storybook-scope .game-result-content > div[aria-live] {
+    margin-block: 8px;
+    padding-block: 6px;
+  }
+  .storybook-scope .game-result-books {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 500px) and (max-height: 350px) {
+  .storybook-scope .storybook-home-page > div:first-child > p {
+    display: none;
+  }
+  .storybook-scope .storybook-home-page > div:first-child {
+    margin-bottom: 8px;
+  }
+  .storybook-scope .storybook-home-course {
+    min-height: 112px;
+    padding: 8px 12px;
+  }
+  .storybook-scope .storybook-home-course h2 {
+    line-height: 24px;
+  }
+  .storybook-scope .storybook-home-course p {
+    margin-top: 2px;
+    line-height: 16px;
+  }
+  .storybook-scope .storybook-home-course .storybook-action {
+    min-height: 44px;
+    padding-inline: 12px;
+  }
+  .storybook-scope .storybook-home-course > div:last-child > a:not(.storybook-action) {
+    display: none;
+  }
+}

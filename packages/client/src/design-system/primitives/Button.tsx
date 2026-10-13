@@ -43,11 +43,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   return (
     <button
       ref={ref}
+      data-storybook-button={variant}
       type={type}
       aria-busy={loading || undefined}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 font-bold font-display transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 disabled:opacity-50 disabled:cursor-not-allowed',
+        'storybook-button inline-flex items-center justify-center gap-2 font-bold font-display transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 disabled:opacity-50 disabled:cursor-not-allowed',
         variantClass[variant],
         sizeClass[size],
         className

@@ -1,3 +1,4 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
@@ -526,13 +527,13 @@ function KoreanBlockPlayerInner({
       <div
         data-phonics-game={phonics || undefined}
         data-phonics-language={phonics ? 'ko' : undefined}
-        className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
+        className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
         style={{
           backgroundRepeat: 'no-repeat',
           ...gameSafeAreaStyle(),
         }}
       >
-        {phonics && <PhonicsBackdrop />}
+        <PhonicsBackdrop />
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
             title={t('cards.block.labelKo')}
@@ -659,7 +660,7 @@ function KoreanBlockPlayerInner({
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
                 )}
               >
-                🔊 확인
+                <StorybookSprite name="listen" size={24} /> 확인
               </button>
               <button
                 data-learning-fx="tap"

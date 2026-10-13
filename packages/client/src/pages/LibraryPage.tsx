@@ -1,3 +1,4 @@
+import { StorybookTitle } from '@/design-system/primitives/StorybookTitle';
 import { useCallback, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -476,12 +477,14 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     ) : undefined;
 
   return (
-    <div className="bg-cream-50 min-h-full">
+    <div className="storybook-scope storybook-library bg-cream-50 min-h-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
         {/* 🔴 첫 방문자용 「한 권 들어보기」 — 라이브러리까지 오고도 아무것도 안 누르고 나가는
             사람이 많았다. 표지가 424px 아래에 있고 위쪽 강조 버튼은 전부 계정/설치라, 누를 것
             하나를 맨 위에 둔다. 한 번 열면 다시 안 뜬다. 필터·검색 중에는 방해가 되므로 뺀다. */}
-        <h1 className="mb-6 text-3xl font-bold text-ink-900">{t('shell:nav.books')}</h1>
+        <StorybookTitle className="mb-6 text-3xl font-bold text-ink-900">
+          {t('shell:nav.books')}
+        </StorybookTitle>
 
         {/* 묶어 보기 — 검색/필터보다 위 (2026-07-24 사용자 요청). 게스트·로그인 동일 노출, 기본 펼침. */}
         {type === 'storybook' && (

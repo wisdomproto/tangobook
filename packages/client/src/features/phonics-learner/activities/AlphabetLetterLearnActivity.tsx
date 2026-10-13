@@ -423,7 +423,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       {/* 가운데 큰 이미지 + 핫스팟 — 🔴 `justify-center`: 16:9 그림은 폭으로 크기가 정해져서
           큰 화면에선 아래가 통째로 빈다. 위에 붙여두면 화면 절반이 빈 크림색으로 남는다. */}
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
-        <div className="w-full max-w-[920px] mx-auto">
+        <div className="phonics-alphabet-illustration w-full max-w-[920px] mx-auto">
           <div
             // 글자 전환 시 React 가 같은 div 재사용 — key 변경으로 강제 리마운트 (이전 글자 hotspot 잔존 방지)
             key={currentIdx}

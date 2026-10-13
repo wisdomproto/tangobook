@@ -1,3 +1,5 @@
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
@@ -597,14 +599,16 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   if (!item) return null;
 
   return (
-    <div className="learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden">
+    <div className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden">
+      <StorybookBackdrop />
       <div className="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3">
         {onBack ? (
           <button
             onClick={onBack}
+            aria-label="돌아가기"
             className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
           >
-            ← 돌아가기
+            <StorybookSprite name="back" size={28} />
           </button>
         ) : (
           <span />

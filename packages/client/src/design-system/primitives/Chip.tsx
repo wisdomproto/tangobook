@@ -47,7 +47,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
       type="button"
       aria-pressed={active}
       className={cn(
-        'min-h-11 px-4 py-2 rounded-full font-bold text-base whitespace-nowrap shrink-0 transition-colors inline-flex items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 disabled:opacity-50 disabled:cursor-not-allowed',
+        'storybook-chip min-h-11 px-4 py-2 rounded-full font-bold text-base whitespace-nowrap shrink-0 transition-colors inline-flex items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-700 disabled:opacity-50 disabled:cursor-not-allowed',
         active
           ? `${ACTIVE_CLASS[variant]} shadow-soft`
           : `bg-white text-ink-700 ${IDLE_HOVER_CLASS[variant]}`,

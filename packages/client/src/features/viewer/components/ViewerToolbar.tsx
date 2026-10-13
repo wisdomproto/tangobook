@@ -1,3 +1,5 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { Pause, Play, Music2, Volume, Volume1, Volume2, Moon, Maximize } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
@@ -79,14 +81,14 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
   return (
     <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2 z-20 pointer-events-none flex-wrap">
       {/* 좌: 뒤로가기 + 홈 + 제목 */}
-      <div className="flex items-center gap-1 sm:gap-2 bg-white/90 backdrop-blur-sm rounded-md px-1.5 py-1.5 sm:px-2 sm:py-2 shadow-soft pointer-events-auto">
+      <div className="flex items-center gap-1 sm:gap-2 bg-white/90 backdrop-blur-sm rounded-md px-1.5 py-1.5 sm:px-2 sm:py-2 shadow-soft storybook-reader-tools pointer-events-auto">
         <button
           onClick={props.onBack}
           aria-label={t('toolbar.back')}
           title={t('toolbar.back')}
           className="w-11 h-11 shrink-0 rounded-md bg-peach-100 hover:bg-peach-200 text-ink-700 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-700"
         >
-          ←
+          <StorybookSprite name="back" size={25} />
         </button>
         <button
           onClick={props.onHome}
@@ -94,7 +96,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           title={t('toolbar.home')}
           className="w-11 h-11 shrink-0 rounded-md bg-peach-100 hover:bg-peach-200 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-700"
         >
-          🏠
+          <StorybookSprite name="scenery-cottage" size={28} />
         </button>
         <span className="font-black text-ink-900 text-sm hidden md:inline ml-1 mr-2 max-w-[18ch] truncate">
           {props.title}
@@ -102,14 +104,18 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
       </div>
 
       {/* 우: 재생 컨트롤 + 설정 */}
-      <div className="flex max-w-full gap-1 sm:gap-2 overflow-x-auto bg-white/90 backdrop-blur-sm rounded-md p-1.5 sm:p-2 shadow-soft pointer-events-auto">
+      <div className="flex max-w-full gap-1 sm:gap-2 overflow-x-auto bg-white/90 backdrop-blur-sm rounded-md p-1.5 sm:p-2 shadow-soft storybook-reader-tools pointer-events-auto">
         {/* 자동재생 — 단일 토글 (TTS + 자동 페이지 넘김) */}
         <PillIconBtn
           onClick={props.onTogglePlayback}
           active={props.isPlaying}
           label={props.isPlaying ? t('toolbar.autoplayStop') : t('toolbar.autoplay')}
         >
-          {props.isPlaying ? '⏸' : '▶'}
+          {props.isPlaying ? (
+            <Pause size={22} aria-hidden="true" />
+          ) : (
+            <Play size={22} aria-hidden="true" />
+          )}
         </PillIconBtn>
         <PillIconBtn
           onClick={props.onToggleBgm}
@@ -117,13 +123,19 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           disabled={!props.hasBgm}
           label={t('toolbar.bgm')}
         >
-          🎵
+          <Music2 size={22} aria-hidden="true" />
         </PillIconBtn>
         <PillIconBtn
           onClick={props.onCycleVolume}
           label={t('toolbar.volume', { level: volumeLevelLabel })}
         >
-          {props.volume === 'low' ? '🔈' : props.volume === 'mid' ? '🔉' : '🔊'}
+          {props.volume === 'low' ? (
+            <Volume size={22} aria-hidden="true" />
+          ) : props.volume === 'mid' ? (
+            <Volume1 size={22} aria-hidden="true" />
+          ) : (
+            <Volume2 size={22} aria-hidden="true" />
+          )}
         </PillIconBtn>
 
         <Divider />
@@ -134,7 +146,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           active={props.darkMode}
           label={t('toolbar.darkMode')}
         >
-          🌗
+          <Moon size={22} aria-hidden="true" />
         </PillIconBtn>
         <PillIconBtn onClick={props.onCycleTextSize} label={t('toolbar.textSize')}>
           Aa
@@ -159,7 +171,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           active={props.fullscreenImage}
           label={t('toolbar.fullscreenImage')}
         >
-          ⛶
+          <Maximize size={22} aria-hidden="true" />
         </PillIconBtn>
       </div>
     </div>

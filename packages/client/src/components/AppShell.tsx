@@ -7,6 +7,7 @@ import { ProfileChip } from '@/features/auth/components/ProfileChip';
 import { FeedbackDialog } from '@/features/feedback';
 import { LearnerNavigation } from './LearnerNavigation';
 import { UiLangMenu } from './UiLangMenu';
+import '@/design-system/storybook-theme.css';
 import { InstallPwaButton } from './InstallPwaButton';
 
 /** Learning entry points share navigation; readers and games keep their full screen. */
@@ -72,7 +73,7 @@ export function AppShell() {
           </div>
         </div>
       </header>
-      <main className="pb-[calc(76px+env(safe-area-inset-bottom))] md:pb-0">
+      <main className="storybook-scope pb-[calc(76px+env(safe-area-inset-bottom))] md:pb-0">
         <Outlet />
       </main>
       <LearnerNavigation mobile />

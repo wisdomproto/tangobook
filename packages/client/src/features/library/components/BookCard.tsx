@@ -38,7 +38,7 @@ export function BookCard({ book, eager = false, priority = false }: BookCardProp
           페이지 배경(cream-50 → peach-100)에 녹아 카드 경계가 사라진다(세계 명작은 표지가
           어두워 안 드러났던 문제). `shadow-soft` 는 크림 위에서 거의 안 보인다. 어두운 표지엔
           링이 그림 가장자리에 묻혀 티가 안 나므로 전 카드에 걸어도 안전. */}
-      <div className="aspect-video rounded-2xl overflow-hidden relative shadow-soft ring-1 ring-ink-200/70 group-hover:shadow-pop transition-shadow">
+      <div className="storybook-book-cover aspect-video rounded-2xl overflow-hidden relative shadow-soft ring-1 ring-ink-200/70 group-hover:shadow-pop transition-shadow">
         <BookCover
           book={book}
           lang={i18n.language}

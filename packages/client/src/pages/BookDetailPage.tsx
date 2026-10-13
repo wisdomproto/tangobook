@@ -1,3 +1,4 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { getCourseTheme } from '@/design-system';
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -210,7 +211,7 @@ export default function BookDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 flex flex-col">
+    <div className="storybook-scope storybook-book-detail min-h-screen bg-cream-50 flex flex-col">
       <div className="max-w-[1200px] mx-auto px-4 md:px-5 w-full flex flex-col flex-1">
         <PageHeader
           onBack={() => navigate('/library/books')}
@@ -365,7 +366,7 @@ export default function BookDetailPage() {
                   book={heroBook}
                   lang={lang}
                   overlayTitle
-                  className="rounded-3xl shadow-card"
+                  className="storybook-book-cover rounded-3xl shadow-card"
                 />
               </div>
             </div>
@@ -640,9 +641,6 @@ export default function BookDetailPage() {
  * iconSrc 가 있으면 PNG 일러스트 (워시 없이 raw 이미지) / 없으면 emoji + 흰 워시 fallback. */
 function ModeCard({
   tone,
-  emoji,
-  icon,
-  iconSrc,
   title,
   sub,
   onClick,
@@ -694,7 +692,7 @@ function ModeCard({
     return (
       <button
         disabled
-        className="flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-4 sm:py-4 bg-ink-100/40 cursor-not-allowed select-none"
+        className="storybook-mode-card flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-4 sm:py-4 bg-ink-100/40 cursor-not-allowed select-none"
         aria-disabled="true"
         title={t('modes.preparing')}
       >
@@ -703,19 +701,21 @@ function ModeCard({
           <p className="text-base sm:text-lg font-bold text-ink-700 mt-1.5 opacity-80">{sub}</p>
         </div>
         <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
-          {iconSrc ? (
-            <img
-              src={iconSrc}
-              alt=""
-              aria-hidden
-              className="w-12 h-12 sm:w-14 sm:h-14 object-contain opacity-50"
-            />
-          ) : (
-            <span className="text-5xl opacity-40">{icon ?? emoji}</span>
-          )}
+          <StorybookSprite
+            name={
+              tone === 'coral'
+                ? 'listen'
+                : tone === 'violet'
+                  ? 'play'
+                  : tone === 'mint'
+                    ? 'book'
+                    : 'combine'
+            }
+            size={48}
+          />
         </div>
         <span className="w-11 h-11 rounded-full bg-ink-100/60 text-ink-500 text-2xl font-black flex items-center justify-center shrink-0">
-          ›
+          <StorybookSprite name="next" size={26} />
         </span>
       </button>
     );
@@ -725,8 +725,9 @@ function ModeCard({
     <button
       onClick={onClick}
       data-sound={sound}
+      data-storybook-tone={tone}
       className={cn(
-        'group relative flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-4 sm:py-4 shadow-soft hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
+        'storybook-mode-card group relative flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-4 sm:py-4 shadow-soft hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
         TONE.bg,
         TONE.text
       )}
@@ -742,16 +743,18 @@ function ModeCard({
       </div>
       {/* 워시 — 흰색 85% (거의 흰 동그라미) + 안에 일러스트 (여백 있게) */}
       <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
-        {iconSrc ? (
-          <img
-            src={iconSrc}
-            alt=""
-            aria-hidden
-            className="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
-          />
-        ) : (
-          <span className="text-5xl">{icon ?? emoji}</span>
-        )}
+        <StorybookSprite
+          name={
+            tone === 'coral'
+              ? 'listen'
+              : tone === 'violet'
+                ? 'play'
+                : tone === 'mint'
+                  ? 'book'
+                  : 'combine'
+          }
+          size={48}
+        />
       </div>
       <span
         className={cn(
@@ -759,7 +762,7 @@ function ModeCard({
           TONE.arrow
         )}
       >
-        ›
+        <StorybookSprite name="next" size={26} />
       </span>
     </button>
   );

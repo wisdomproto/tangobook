@@ -78,6 +78,7 @@ export default function EnglishPhonicsStudyPage() {
   return (
     <div
       style={theme.style}
+      data-storybook-language="english"
       className="phonics-course-page relative flex h-[calc(100dvh-133px-env(safe-area-inset-bottom))] flex-col bg-cream-50 md:h-[calc(100dvh-73px)]"
     >
       <PhonicsBackdrop />

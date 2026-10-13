@@ -1,3 +1,4 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -31,18 +32,17 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
   const navigate = useNavigate();
   const embedded = usePhonicsEmbedded();
   return (
-    <header className="h-[clamp(3rem,8vh,4.5rem)] flex items-center justify-between gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] border border-ink-100 bg-white rounded-card px-2 sm:px-[clamp(0.75rem,1.5vw,1.5rem)] mx-0 sm:mx-2 mt-1.5">
+    <header className="storybook-game-header h-[clamp(3rem,8vh,4.5rem)] flex items-center justify-between gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] border border-ink-100 bg-white rounded-card px-2 sm:px-[clamp(0.75rem,1.5vw,1.5rem)] mx-0 sm:mx-2 mt-1.5">
       <button
         type="button"
         onClick={onBack}
         aria-label={t('header.back')}
         className="min-w-[44px] min-h-[44px] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-white text-ink-900 font-bold text-[clamp(0.875rem,2vh,1.25rem)] hover:bg-cream-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700 flex items-center justify-center gap-2"
       >
-        <span>←</span>
-        <span className="hidden sm:inline">{t('header.back')}</span>
+        <StorybookSprite name="back" size={26} />
       </button>
 
-      <div className="flex min-w-0 flex-1 items-center justify-center gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] text-base sm:text-[clamp(1.25rem,3.5vh,2.25rem)] font-bold font-display text-ink-900">
+      <div className="storybook-game-title flex min-w-0 flex-1 items-center justify-center gap-1 sm:gap-[clamp(0.5rem,1.5vh,1rem)] text-base sm:text-[clamp(1.25rem,3.5vh,2.25rem)] font-bold font-display text-ink-900">
         <span className="truncate whitespace-nowrap">{title}</span>
         <span className="text-coral-700 shrink-0">
           {current}/{total}
@@ -62,8 +62,7 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
             title={t('header.homeAria')}
             className="min-w-11 min-h-11 px-3 rounded-full bg-white text-ink-900 font-bold text-base shadow-soft flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
           >
-            <span>🏠</span>
-            <span className="hidden sm:inline">{t('header.home')}</span>
+            <StorybookSprite name="scenery-cottage" size={30} />
           </button>
         )}
       </div>

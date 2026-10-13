@@ -5,6 +5,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook';
 import { StateScreen } from '@/design-system';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { playUi } from '@/lib/uiSound';
 import {
@@ -812,7 +814,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
           title={t('toolbar.back')}
           aria-label={t('toolbar.back')}
         >
-          ←
+          <StorybookSprite name="back" size={30} />
         </button>
       )}
 
@@ -833,7 +835,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
             title={t('fullscreen.home')}
             aria-label={t('fullscreen.home')}
           >
-            🏠
+            <StorybookSprite name="home" size={30} />
           </button>
           <button
             onClick={() => setFullscreenLocal(false)}
@@ -841,7 +843,7 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
             title={t('fullscreen.exit')}
             aria-label={t('fullscreen.exit')}
           >
-            ✕
+            <X size={20} aria-hidden="true" />
           </button>
         </div>
       )}

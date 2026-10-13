@@ -37,3 +37,9 @@ tailwind.config.ts가 토큰을 import한다. src/index.css의 CSS 변수는 별
 프리미티브에는 재사용할 수 있고 비즈니스 로직·외부 API가 없는 요소를 추가한다. GameLoadingGate 등 도메인 의존 요소는 feature에 둔다. 신규 요소는 기존 계약과 대조하고 구현 범위에 맞게 추가한다.
 
 `learning-layouts.css`는 main.tsx에서 index.css 뒤에 import한다. 구현·브라우저 검증 범위는 [UI v2 작업](../../../../docs/work/platform/tasks/20261012-platform-ui-v2-implementation.md)과 [후속 작업](../../../../docs/work/platform/tasks/20261012-platform-ui-v2-continuation.md)에 기록한다.
+
+## 학습자 삽화 테마 (2026-10-14)
+
+`StorybookSprite`/`StorybookBackdrop`/`StorybookTitle`와 `storybook-theme.css`를 공유한다. AppShell의 학습자 main과 전체화면 게임 root에만 `storybook-scope`를 둔다. 주요 행동은 입체 구름 WebP, 제목은 평평한 수채화 띠, 정보/학습판은 종이, 책 상세 메뉴는 책갈피 종이다. 제목 앞 중복 가/Aa·언어 입구의 중복 홈은 없다. 홈의 이어하기는 언어 카드 안에 통합한다. 폰트/쓰기/음원/진도와 접근성 계약은 유지한다.
+
+`storybook-assets.json`은 alpha sprite crop·해시·크기 원본이다. 활성 자산은 `public/images/learning/cloud-v1`의18 WebP, 합계649,994B이며 페이지마다 필요한 파일만 사용한다. 비교용 나무 자산과 초기 구름 후보는 배포하지 않는다. 경로의 길/배경과 학습 대상 그림은 기존 자산을 재사용한다. [검수 범위와 제약](../../../../docs/work/platform/tasks/20261013-storybook-learning-ui.md).

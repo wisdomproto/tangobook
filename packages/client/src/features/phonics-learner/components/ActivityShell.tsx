@@ -78,14 +78,7 @@ export function ActivityShell({
       aria-label={t('common.back')}
       className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full border border-ink-100 bg-white text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
     >
-      {journey ? (
-        <>
-          <PhonicsGameSprite name="back" size={24} />
-          <span>{t('flow.back')}</span>
-        </>
-      ) : (
-        t('common.back')
-      )}
+      <PhonicsGameSprite name="back" size={26} />
     </button>
   );
   return (
@@ -102,7 +95,7 @@ export function ActivityShell({
           ? 'relative h-full w-full flex flex-col px-3 sm:px-4 py-3 rounded-[22px]'
           : 'fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4',
         scroll ? 'overflow-y-auto' : 'overflow-hidden',
-        'learning-stage phonics-activity bg-cream-50',
+        'storybook-scope learning-stage phonics-activity bg-cream-50',
       ]
         .filter(Boolean)
         .join(' ')}

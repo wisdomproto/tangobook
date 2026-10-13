@@ -1,3 +1,6 @@
+import { PageHeader } from '@/design-system/primitives/PageHeader';
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
+import { StorybookGameIcon } from '@/design-system/primitives/StorybookGameIcon';
 import { useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { Storybook, GameInstance, BookGameInstance, ReadingLevel } from '@tangobook/shared';
@@ -11,20 +14,6 @@ interface GameListViewerProps {
   bid?: string;
   v2Style?: string;
 }
-
-const GRADIENTS: Record<string, string> = {
-  'connect-the-dots': 'from-lime-400 to-green-500',
-  'korean-block': 'from-yellow-400 to-amber-500',
-  'english-block': 'from-yellow-400 to-amber-500',
-  'korean-word-writing': 'from-amber-400 to-orange-500',
-  'english-word-writing': 'from-amber-400 to-orange-500',
-  'korean-line-matching': 'from-pink-400 to-rose-500',
-  'english-line-matching': 'from-pink-400 to-rose-500',
-  'korean-story-image': 'from-rose-400 to-pink-500',
-  'english-story-image': 'from-rose-400 to-pink-500',
-  'korean-speaking': 'from-cyan-400 to-blue-500',
-  'english-speaking': 'from-cyan-400 to-blue-500',
-};
 
 export function GameListViewer({ storybook, bid, v2Style }: GameListViewerProps) {
   const navigate = useNavigate();
@@ -91,27 +80,11 @@ export function GameListViewer({ storybook, bid, v2Style }: GameListViewerProps)
   const playingGame = isV2 ? v2PlayingGame : v1PlayingGame;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white dark:from-slate-900 dark:to-slate-900">
-      <header className="sticky top-0 z-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-3">
-          <button
-            onClick={() => navigate('/library')}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100 truncate">
-            {storybook.title} — 학습게임{isV2 && <span className="text-coral-500"> · v2</span>}
-          </h1>
-        </div>
-      </header>
+    <div className="storybook-scope relative isolate min-h-screen bg-gradient-to-b from-emerald-50 to-white dark:from-slate-900 dark:to-slate-900">
+      <StorybookBackdrop />
+      <PageHeader onBack={() => navigate('/library')}>
+        <span className="truncate">{storybook.title} — 학습게임</span>
+      </PageHeader>
 
       <main className="max-w-3xl mx-auto px-4 py-8">
         {games.length === 0 ? (
@@ -128,17 +101,18 @@ export function GameListViewer({ storybook, bid, v2Style }: GameListViewerProps)
           <div className="grid grid-cols-2 gap-4 sm:gap-5">
             {games.map((game) => {
               const entry = getGameEntry(game.gameType);
-              const gradient = GRADIENTS[game.gameType] ?? 'from-emerald-400 to-teal-500';
               const v2Level = (game as BookGameInstance).level as ReadingLevel | undefined;
               const title = (game as { title?: string }).title || entry?.nameKo || game.gameType;
               return (
                 <button
                   key={game.id}
                   onClick={() => handleClick(game)}
-                  className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 text-left text-white transition-transform hover:scale-[1.03] active:scale-[0.98] bg-gradient-to-br ${gradient}`}
+                  className="storybook-game-choice relative p-6 sm:p-8 text-left transition-transform hover:scale-[1.03] active:scale-[0.98]"
                   style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.15)' }}
                 >
-                  <span className="text-4xl sm:text-5xl mb-3 block">{entry?.icon ?? '🎮'}</span>
+                  <span className="mb-3 block">
+                    <StorybookGameIcon game={game.gameType} size={48} />
+                  </span>
                   <span className="text-base sm:text-lg font-bold block">{title}</span>
                   <span className="text-xs sm:text-sm opacity-80 block mt-1">
                     {entry?.descriptionKo ?? game.gameType}

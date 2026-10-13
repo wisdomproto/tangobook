@@ -1,3 +1,4 @@
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
@@ -698,10 +699,10 @@ function EnglishBlockPlayerInner({
         <div
           data-phonics-game={phonics || undefined}
           data-phonics-language={phonics ? 'en' : undefined}
-          className="learning-stage english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
+          className="storybook-scope learning-stage english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
           style={gameSafeAreaStyle()}
         >
-          {phonics && <PhonicsBackdrop />}
+          <PhonicsBackdrop />
           <div className="px-2 pt-2 shrink-0">
             <GameHeader
               title={t('cards.block.labelEn')}
@@ -781,7 +782,7 @@ function EnglishBlockPlayerInner({
                       className="inline-flex items-center gap-3 rounded-full bg-white/80 px-5 py-3 text-lg font-black text-ink-700 shadow-soft sm:text-2xl"
                       aria-label={t('blockGame.listenFirstLetter')}
                     >
-                      <span className="text-2xl sm:text-4xl">🔊</span>
+                      <StorybookSprite name="listen" size={32} />
                       {t('blockGame.listenFirstLetter')}
                     </button>
                   ) : (

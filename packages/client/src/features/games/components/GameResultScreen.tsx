@@ -15,7 +15,7 @@ import { isUiMuted } from '@/lib/uiSound';
 import { getSharedAudio } from '@/lib/audio-unlock';
 import { LEARNING_SOUNDS } from '../effects/learning-sounds';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
-import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
+import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
 
 interface GameResultScreenProps {
   score: number;
@@ -132,13 +132,13 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
   return (
     <div
       data-learning-effects
-      className={`game-result-screen ${phonics ? 'learning-stage' : ''}`}
+      className="storybook-scope game-result-screen learning-stage"
       data-phonics-game={phonics || undefined}
       data-phonics-language={phonics ? (source?.unitId.startsWith('en-') ? 'en' : 'ko') : undefined}
       role="region"
       aria-label={t('result.summaryLabel')}
     >
-      {phonics && <PhonicsBackdrop />}
+      <StorybookBackdrop />
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
