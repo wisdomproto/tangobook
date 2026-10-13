@@ -11,7 +11,13 @@ import { GamePlayerLayout } from '../GamePlayerLayout';
 import { toImageNorm, hitNormalizedBox } from '../../utils/hitTest';
 import { cn } from '@/lib/cn';
 
-export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
+export function HiddenObjectPlayer({
+  storybookId,
+  gameData,
+  onComplete,
+  onBack,
+  lang = 'ko',
+}: GamePlayerProps & { lang?: 'ko' | 'en' }) {
   const data = gameData as HiddenObjectData;
   const scenes = data.scenes ?? [];
 
@@ -61,7 +67,8 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
     () => words.map((t) => ({ text: t.label, directUrl: t.ttsUrl })),
     [words]
   );
-  usePrewarmWordTts(prewarmItems, 'korean', storybookId, 'hidden');
+  const language = lang === 'en' ? 'english' : 'korean';
+  usePrewarmWordTts(prewarmItems, language, storybookId, 'hidden');
 
   const totalTargets = useMemo(
     () => scenes.reduce((sum, s) => sum + new Set(s.targets.map((t) => t.objectName)).size, 0),
@@ -111,14 +118,14 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
       };
       const ttsUrl = await resolveTtsUrl({
         text: hit.label,
-        language: 'korean',
+        language,
         storybookId,
         directUrl: hit.ttsUrl,
         identifierPrefix: 'hidden',
       }).catch(() => hit.ttsUrl);
       playWordCorrect({ ttsUrl, onDone: sceneCleared ? advance : undefined });
     },
-    [scene, targets, sceneIdx, scenes.length, playWordCorrect, imgReady, storybookId]
+    [scene, targets, sceneIdx, scenes.length, playWordCorrect, imgReady, storybookId, language]
   );
 
   const handleRestart = useCallback(() => {
@@ -136,6 +143,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
   if (finished) {
     return (
       <GameResultScreen
+        lang={lang}
         storybookId={storybookId}
         score={score}
         total={totalTargets}

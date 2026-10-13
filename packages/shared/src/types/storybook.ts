@@ -677,6 +677,8 @@ export interface EnglishStoryImageData {
 /** 씬 이미지 안에서 한 사물의 위치 (정규화 0~1 박스, 씬 이미지 좌상단 기준). */
 export interface HiddenObjectHotspot {
   objectName: string; // KeyObject.name (영어 canonical) 과 매칭
+  /** 장면에만 있는 사물의 검수된 이름. 책의 핵심 어휘 목록을 늘리지 않고 사용할 수 있다. */
+  labels?: { ko: string; en?: string };
   x: number;
   y: number;
   w: number;

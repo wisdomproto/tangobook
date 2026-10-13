@@ -28656,8 +28656,8 @@
     "unitId": "changjak-mei-06",
     "word": "바위",
     "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fcw-mei-198fd82a97.png",
-    "originalUrl": "/api/r2-proxy?key=comic-assets%2Fmei-words%2Fmei-198fd82a97.webp"
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-rock-gesture.png",
+    "originalUrl": "/api/r2-proxy?key=comic-assets%2Factivity-words%2Factivity-20261013-rock-gesture.webp"
   },
   {
     "key": "cw-mei-198fd82a97-11",
@@ -28796,8 +28796,8 @@
     "unitId": "changjak-mei-06",
     "word": "가위",
     "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fcw-mei-44d1d4a14f.png",
-    "originalUrl": "/api/r2-proxy?key=comic-assets%2Fmei-words%2Fmei-44d1d4a14f.webp"
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-scissors-gesture.png",
+    "originalUrl": "/api/r2-proxy?key=comic-assets%2Factivity-words%2Factivity-20261013-scissors-gesture.webp"
   },
   {
     "key": "cw-mei-a06ce4b2d7-07",
@@ -53156,8 +53156,8 @@
     "unitId": "changjak-bung-23",
     "word": "나무",
     "language": "korean",
-    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fcw-bung-02d9ca46d7.png",
-    "originalUrl": "/api/r2-proxy?key=comic-assets%2Fbung-words%2Fbung-02d9ca46d7.webp"
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-wood.png",
+    "originalUrl": "/api/r2-proxy?key=comic-assets%2Factivity-words%2Factivity-20261013-wood.webp"
   },
   {
     "key": "cw-bung-02d9ca46d7-34",
@@ -63358,5 +63358,415 @@
     "language": "korean",
     "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Fcw-mina-0ad7b7787f.png",
     "originalUrl": "/api/r2-proxy?key=comic-assets%2Fmina-words%2Fmina-0ad7b7787f.webp"
+  },
+  {
+    "key": "activity-20261013-water-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "물",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-water.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%AC%BC-1791813336782.webp"
+  },
+  {
+    "key": "activity-20261013-grass-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "풀",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-grass.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%92%80-1791813337982.webp"
+  },
+  {
+    "key": "activity-20261013-flower-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "꽃",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-flower.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%BD%83-1791813338867.webp"
+  },
+  {
+    "key": "activity-20261013-sun-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "태양",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-sun.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%83%9C%EC%96%91-1791813339760.webp"
+  },
+  {
+    "key": "activity-20261013-sky-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "하늘",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-sky.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%95%98%EB%8A%98-1791813340642.webp"
+  },
+  {
+    "key": "activity-20261013-egret-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "백로",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-egret.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%B0%B1%EB%A1%9C-1791813341578.webp"
+  },
+  {
+    "key": "activity-20261013-river-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "강",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-river.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%B0%95-1791813342346.webp"
+  },
+  {
+    "key": "activity-20261013-egret-feather-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "깃털",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-egret-feather.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%B9%83%ED%84%B8-1791813343190.webp"
+  },
+  {
+    "key": "activity-20261013-egret-beak-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "부리",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-egret-beak.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%B6%80%EB%A6%AC-1791813344018.webp"
+  },
+  {
+    "key": "activity-20261013-fish-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "물고기",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-fish.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%AC%BC%EA%B3%A0%EA%B8%B0-1791813345058.webp"
+  },
+  {
+    "key": "activity-20261013-egret-egg-1777601619896",
+    "group": "하늘 동물 친구들",
+    "section": "백로",
+    "unitId": "1777601619896",
+    "word": "알",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-egret-egg.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EC%95%8C-1791813346006.webp"
+  },
+  {
+    "key": "activity-20261013-pond-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "연못",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-pond.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-Pond-1791813349450.webp"
+  },
+  {
+    "key": "activity-20261013-flower-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "꽃",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-flower.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EA%BD%83-1791813338867.webp"
+  },
+  {
+    "key": "activity-20261013-water-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "물",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-water.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%EB%AC%BC-1791813336782.webp"
+  },
+  {
+    "key": "activity-20261013-grass-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "풀",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-grass.png",
+    "originalUrl": "/api/r2-proxy?key=1777601619896-%EB%B0%B1%EB%A1%9C-key-object-%ED%92%80-1791813337982.webp"
+  },
+  {
+    "key": "activity-20261013-ribbon-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "리본",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-ribbon.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-Ribbon-1791813350440.webp"
+  },
+  {
+    "key": "activity-20261013-parrot-beak-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "부리",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-parrot-beak.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-Beak-1791813351245.webp"
+  },
+  {
+    "key": "activity-20261013-forest-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "숲",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-forest.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%88%B2-1791813352201.webp"
+  },
+  {
+    "key": "activity-20261013-parrot-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "앵무새",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-parrot.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%95%B5%EB%AC%B4%EC%83%88-1791813353060.webp"
+  },
+  {
+    "key": "activity-20261013-parrot-feather-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "깃털",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-parrot-feather.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EA%B9%83%ED%84%B8-1791813353791.webp"
+  },
+  {
+    "key": "activity-20261013-fruit-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "열매",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-fruit.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%97%B4%EB%A7%A4-1791813354625.webp"
+  },
+  {
+    "key": "activity-20261013-tree-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "나무",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-tree.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EB%82%98%EB%AC%B4-1791813355375.webp"
+  },
+  {
+    "key": "activity-20261013-parrot-egg-1777601011770",
+    "group": "하늘 동물 친구들",
+    "section": "앵무새",
+    "unitId": "1777601011770",
+    "word": "알",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-parrot-egg.png",
+    "originalUrl": "/api/r2-proxy?key=1777601011770-%EC%95%B5%EB%AC%B4%EC%83%88-key-object-%EC%95%8C-1791813356123.webp"
+  },
+  {
+    "key": "activity-20261013-extra-0-1772086769057",
+    "group": "세계 명작",
+    "section": "구둣방 할아버지와 꼬마 요정_그림체2",
+    "unitId": "1772086769057",
+    "word": "shoes",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-0.png",
+    "originalUrl": "/api/r2-proxy?key=1772086769057-%EA%B5%AC%EB%91%A3%EB%B0%A9%ED%95%A0%EC%95%84%EB%B2%84%EC%A7%80%EC%99%80%EA%BC%AC%EB%A7%88%EC%9A%94%EC%A0%95-keyobj-shoes-1783558940118-w800.webp"
+  },
+  {
+    "key": "activity-20261013-extra-1-1773149047331",
+    "group": "육지 동물 친구들",
+    "section": "고슴도치",
+    "unitId": "1773149047331",
+    "word": "고슴도치",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-1.png",
+    "originalUrl": "/api/r2-proxy?key=1773149047331-%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-keyobj-%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98-1783838539971.webp"
+  },
+  {
+    "key": "activity-20261013-extra-2-1773363966902",
+    "group": "육지 동물 친구들",
+    "section": "카멜레온",
+    "unitId": "1773363966902",
+    "word": "카멜레온",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-2.png",
+    "originalUrl": "/api/r2-proxy?key=1773363966902-%EC%B9%B4%EB%A9%9C%EB%A0%88%EC%98%A8-keyobj-%EC%B9%B4%EB%A9%9C%EB%A0%88%EC%98%A8-1783839143731.webp"
+  },
+  {
+    "key": "activity-20261013-extra-3-1773363966902",
+    "group": "육지 동물 친구들",
+    "section": "카멜레온",
+    "unitId": "1773363966902",
+    "word": "발가락",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-3.png",
+    "originalUrl": "/api/r2-proxy?key=1773363966902-%EC%B9%B4%EB%A9%9C%EB%A0%88%EC%98%A8-keyobj-%EB%B0%9C%EA%B0%80%EB%9D%BD-1783839145706.webp"
+  },
+  {
+    "key": "activity-20261013-extra-4-1773363966902",
+    "group": "육지 동물 친구들",
+    "section": "카멜레온",
+    "unitId": "1773363966902",
+    "word": "꼬리",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-4.png",
+    "originalUrl": "/api/r2-proxy?key=1773363966902-%EC%B9%B4%EB%A9%9C%EB%A0%88%EC%98%A8-keyobj-%EA%BC%AC%EB%A6%AC-1783839147267.webp"
+  },
+  {
+    "key": "activity-20261013-extra-5-1773363966902",
+    "group": "육지 동물 친구들",
+    "section": "카멜레온",
+    "unitId": "1773363966902",
+    "word": "눈",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-5.png",
+    "originalUrl": "/api/r2-proxy?key=1773363966902-%EC%B9%B4%EB%A9%9C%EB%A0%88%EC%98%A8-keyobj-%EB%88%88-1783839160308.webp"
+  },
+  {
+    "key": "activity-20261013-extra-6-1773363966902",
+    "group": "육지 동물 친구들",
+    "section": "카멜레온",
+    "unitId": "1773363966902",
+    "word": "먹이",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-6.png",
+    "originalUrl": "/api/r2-proxy?key=1773363966902-%EC%B9%B4%EB%A9%9C%EB%A0%88%EC%98%A8-keyobj-%EB%A8%B9%EC%9D%B4-1783839156630.webp"
+  },
+  {
+    "key": "activity-20261013-extra-7-1773320745960",
+    "group": "곤충 친구들",
+    "section": "거미",
+    "unitId": "1773320745960",
+    "word": "거미줄",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-7.png",
+    "originalUrl": "/api/r2-proxy?key=1773320745960-%EA%B1%B0%EB%AF%B8-keyobj-%EA%B1%B0%EB%AF%B8%EC%A4%84-1783840942893.webp"
+  },
+  {
+    "key": "activity-20261013-extra-8-1773573591972",
+    "group": "식물 친구들",
+    "section": "파리지옥",
+    "unitId": "1773573591972",
+    "word": "가시",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-8.png",
+    "originalUrl": "/api/r2-proxy?key=1773573591972-%ED%8C%8C%EB%A6%AC%EC%A7%80%EC%98%A5-keyobj-%EA%B0%80%EC%8B%9C-1783820281577.webp"
+  },
+  {
+    "key": "activity-20261013-extra-9-1773625335362",
+    "group": "우리 몸 이야기",
+    "section": "맛있는 음식의 몸속 여행",
+    "unitId": "1773625335362",
+    "word": "그릇",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-9.png",
+    "originalUrl": "/api/r2-proxy?key=1773625335362-%EB%A7%9B%EC%9E%88%EB%8A%94%EC%9D%8C%EC%8B%9D%EC%9D%98%EB%AA%B8%EC%86%8D%EC%97%AC%ED%96%89-keyobj-%EA%B7%B8%EB%A6%87-1783669251026.webp"
+  },
+  {
+    "key": "activity-20261013-extra-10-1773740757966",
+    "group": "공룡 친구들",
+    "section": "프로토케라톱스",
+    "unitId": "1773740757966",
+    "word": "콧구멍",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-10.png",
+    "originalUrl": "/api/r2-proxy?key=1773740757966-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BC%80%EB%9D%BC%ED%86%B1%EC%8A%A4-keyobj-%EC%BD%A7%EA%B5%AC%EB%A9%8D-1783577196046.webp"
+  },
+  {
+    "key": "activity-20261013-extra-11-1773899653860",
+    "group": "공룡 친구들",
+    "section": "케찰코아틀루스",
+    "unitId": "1773899653860",
+    "word": "강",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-11.png",
+    "originalUrl": "/api/r2-proxy?key=1773899653860-%EC%BC%80%EC%B0%B0%EC%BD%94%EC%95%84%ED%8B%80%EB%A3%A8%EC%8A%A4-keyobj-%EA%B0%95-1783577695374.webp"
+  },
+  {
+    "key": "activity-20261013-extra-12-1777431036899",
+    "group": "바다 동물 친구들",
+    "section": "물개",
+    "unitId": "1777431036899",
+    "word": "바다",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-12.png",
+    "originalUrl": "/api/r2-proxy?key=1777431036899-%EB%AC%BC%EA%B0%9C-keyobj-%EB%B0%94%EB%8B%A4-1783671838864.webp"
+  },
+  {
+    "key": "activity-20261013-extra-13-1777431036899",
+    "group": "바다 동물 친구들",
+    "section": "물개",
+    "unitId": "1777431036899",
+    "word": "귀",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-13.png",
+    "originalUrl": "/api/r2-proxy?key=1777431036899-%EB%AC%BC%EA%B0%9C-keyobj-%EA%B7%80-1783671773439.webp"
+  },
+  {
+    "key": "activity-20261013-extra-14-1777607890313",
+    "group": "곤충 친구들",
+    "section": "장수풍뎅이",
+    "unitId": "1777607890313",
+    "word": "장수풍뎅이",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-14.png",
+    "originalUrl": "/api/r2-proxy?key=1777607890313-%EC%9E%A5%EC%88%98%ED%92%8D%EB%8E%85%EC%9D%B4-keyobj-%EC%9E%A5%EC%88%98%ED%92%8D%EB%8E%85%EC%9D%B4-1783840578967.webp"
+  },
+  {
+    "key": "activity-20261013-extra-15-1777607528952",
+    "group": "곤충 친구들",
+    "section": "사슴벌레",
+    "unitId": "1777607528952",
+    "word": "사슴벌레",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-15.png",
+    "originalUrl": "/api/r2-proxy?key=1777607528952-%EC%82%AC%EC%8A%B4%EB%B2%8C%EB%A0%88-keyobj-%EC%82%AC%EC%8A%B4%EB%B2%8C%EB%A0%88-1783897280473.webp"
+  },
+  {
+    "key": "activity-20261013-extra-16-1777614294799",
+    "group": "바다 동물 친구들",
+    "section": "바다거북",
+    "unitId": "1777614294799",
+    "word": "바다",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-16.png",
+    "originalUrl": "/api/r2-proxy?key=1777614294799-%EB%B0%94%EB%8B%A4%EA%B1%B0%EB%B6%81-keyobj-%EB%B0%94%EB%8B%A4-1783652242907.webp"
+  },
+  {
+    "key": "activity-20261013-extra-17-1777615065220",
+    "group": "육지 동물 친구들",
+    "section": "원숭이",
+    "unitId": "1777615065220",
+    "word": "원숭이",
+    "language": "korean",
+    "lineartUrl": "/api/r2-proxy?key=comic-assets%2Fcoloring-plan%2Factivity-20261013-extra-17.png",
+    "originalUrl": "/api/r2-proxy?key=1777615065220-%EC%9B%90%EC%88%AD%EC%9D%B4-keyobj-%EC%9B%90%EC%88%AD%EC%9D%B4-1783672353827.webp"
   }
 ]
