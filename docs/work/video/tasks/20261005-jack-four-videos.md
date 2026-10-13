@@ -8,7 +8,7 @@
 - branch: codex/video-rapunzel
 - output: D:/tangobook-video/jack-beanstalk-20261005/
 - integration: 미통합
-- delivery: 네1080p 영상 로컬 검수 완료·사용자 컨펌 대기, 별도 SRT/나레이션MP3/언어별 clean 원본·썸네일 초안 포함. 운영 등록/main push 미요청
+- delivery: 사용자 동작 피드백 반영한 한/영 롱폼 수정·검수·전달검증 완료, 숏폼 유지. 1차 네 편 보존·수정본 컨펌 대기, 등록/push 미요청
 
 ## 사용자 결정
 
@@ -176,3 +176,33 @@ RealESRGANx2 모든30source 보정·자동frame/FPS/2x크기 검사와3시점전
 한글/영어 각 타임라인용 SRT·나레이션MP3·BGM포함 자막/나레이션 없는 clean 원본과 YouTube 썸네일/제목·설명 초안은 `delivery/`, 최종SHA/검수는 `final-review.json`, 전체 출처해시는 `delivery-provenance.json`. 30개 선택 H3 성공 실행 합계12770.197초(약3시간33분, 큐대기 제외·모델load/decode 포함, 실패재시도·Qwen/TTS/보정/검수시간 제외)는 `native-execution-times.json`; 전체 제작 경과시간으로 말하지 않는다. 모든 생성/보정/최종render/QC worker 자연종료 및 upscale lock 제거 확인. 공유 ComfyUI/Voicebox 서버 유지. 다음 책은 사용자 컨펌 후; DB/R2/Editor2/마케팅 등록/main push/발행 미수행.
 
 전달 검증 최종통과: `validate_delivery.py`가 최종4편·clean4편·MP3 4개, 총12media 전체decode/길이/크기와 출처자산1008개 SHA/bytes 일치·published=false 확인. 실행시간 기록을 패키징 도중 추가해 처음 해시불일치가 났으며, 상태/기록을 먼저 고정한 뒤 package 재실행·전체 전달검사를 다시 통과했다. 최종 결과는 `delivery-validation.json`. 문서 링크경로/diff 공백 검사 통과, 해당3문서만 로컬 커밋; 사용자 컨펌 대기.
+
+## 2026-10-13 사용자 동작 반증·수정
+
+사용자: 하프를 들고 뛰는 잭이 걷는 느낌이고, 약2:35 콩나무가 무너질 때 거인이 어색함. 이전 run의 작은 cautious step과 후반close framing, fall의 boot cycle/제한적실제이동 승인은 사용자 기준을 충족하지 못했다. 기존 전체4편과 ledger/검수는1차본으로 보존. 로컬 Qwen2.1로 같은잭/하프의 전신 긴보폭 sprint 앵커 및 거인없는fall 시작·끝, 같은거인 단독전신 달리기 앵커를 생성해 실제검수 후 H3 재생성. 쓰러짐과 거인 도망은 분리편집하여 자연스러운 이동을 확보, KO/EN 롱폼 동시수정·음원/자막/숏폼 그대로. 운영등록/push미요청. repair_refs.py/repair-refs.log/.err, 새자료 repair-20261013/.
+
+수정앵커 실제검수: run-fast 원래잭/하프 전신긴보폭(정면3/4이므로 H3도정면뒤tracking), fall-clean 거인없는원래줄기/잭, giant-flee 원래거인단독옆면긴보폭·오른쪽빈길, fall-clean-end-v2 동일위치/길게오른쪽프레임밖으로나가는줄기승인. 처음 end guide는짧은통나무/잭위치이동으로제외. Qwenextra 절대경로input파일명콜론오류를basename으로고쳐실행성공. refs검수SHA repair-20261013/verified-refs.json. 기존4편/전달/manifest/QC/ledger를 history/delivery-v1에복사하고해시일치확인. H3수정3개 run-fast9.417s/fall-clean5.167s/giant-flee5.167s 로컬8steps 같은LoRA/모델 설정 제출, CPU repair_qc38556은고유3파일decode/0.25s밀집표본만추출·자동승인없음. 예정한영컷분기KO158.458/EN157.500초로각언어거인비명시작직전도망컷, 오디오/자막길이그대로.
+
+수정 run-fast 1차 H3는 실제contact01/02에서 긴보폭은 개선됐으나 파란구름/효과와환경변화가 생겨 제외·보존했다. 같은승인앵커로 효과/연기/색motion trail 없이 원래복도/전신 빠른달리기 run-fast-v2(seed611411) 별도worker7924/QC1840 재생성. 원래repairworker20924는변경없음. fall-clean 실제22표본/contact3장 검수: 거인없이 긴줄기오른쪽으로낮아져3.5초부터수평, 잭/도끼/부츠/원래정원유지, 잘린줄기와stump분리·끝약간뜬높이는실제기록. long사용첫4.5/4.625초승인. 운영미수행.
+
+giant-flee 실제22밀집표본/contact3장 전부검수·승인: 원래거인1 옆면오른쪽긴airborne보폭/팔pump/망토, 길을오른쪽으로실제이동해3.5s쯤exit. 요청locked와달리카메라righttracking·2.25–3.25s새전경종이나무가자연가림, 끝empty path기록. 잭/도끼/추가팔다리/쓰러지는줄기없음. H320924/QC38556 자연완료, run-fast-v2/QC만진행.
+
+run-fast-v2도실제contact01/02(0–4.25초)에서파란구름이재발해제외·보존. 완료H3/QC7924/1840, 아직롱폼최종교체없음. negative cloud단어만늘리는재시도대신 원래run-v2/Jack/harp identity로strict side profile·닫힌돌복도/전신60%·긴airborne보폭 run-side Qwenworker39344 생성. 이후positive-only H3 달리기와필요시같은구도끝guide, 원래목소리/시간유지. giant/fall현재승인유지.
+
+run-side 시작/끝Qwen실제검수: 잭원래주근깨/머리/올리브패치옷/부츠·작은하프통합얼굴/두손, 오른쪽옆면긴airborne보폭/닫힌황갈색돌복도유지. 크기는요청60%보다큼·끝다리완전반대phase는아니며원래긴달리기자세유지로만승인. 2guide H3run-side seed611421 worker29264/QC24832, cloud관련단어를긍정설명에서완전히빼고옆tracking/빠른연속stride만지시. Qwen39344/39888 자연완료, 실패run-fast/v2보존·최종미반영.
+
+run-side H3 실제39밀집표본/contact5장 전부검수·승인: 옆면오른쪽긴보폭/push-off/두발뜸/몸bounce·기둥/바닥이왼쪽으로지나가며실제전진, 원래잭/작은하프/두손/부츠/돌복도유지·파란구름/새인물없음. 전경기둥잠깐가림과빠른다리blur, 끝약0.5s airborne guidepose정착은기록. H329264/QC24832완료. map long18=run-side/22=fall-clean→giant-flee 및70편집구간길이검증/33source준비통과. GPU두queue0확인후upscale16964·새3개onlyQC5392, KOlong36660/ENlong10032·수정finalQC33292 시작, 실화질/최종검수전자동승인없음.
+
+수정3개RealESRGANx2 완료(run59/fall34/giant33초), 동일프레임/FPS/2x크기/hash guards와각실제3시점전후comparison검수승인. run중간4.71s는기둥가림 그대로양쪽동일, giant끝은exit후빈길·중간전경나무가림이며native와일치. audit_enhancement 보존30+수정3=33전체등록/hash검사통과. upscale16964/QC5392 완료·lock정리, 한영final렌더진행. run caption시뮬레이션2s 실제원래88px자막/긴airborne보폭확인, 최종QA별도남음.
+
+## 동작 수정본 최종 전달
+
+한글/영어 롱폼의 18번 장면을 `run-side`로 교체했다. 옆면 긴 보폭과 반복 push-off/두 발이 뜨는 달리기, 왼쪽으로 지나가는 복도 기둥으로 빠른 이동을 확인했다. 22번 장면은 `fall-clean`에서 줄기가 오른쪽으로 쓰러진 뒤 원래 거인이 긴 보폭으로 달려 나가는 `giant-flee`로 연결했다. 전환 시점은 KO158.458초/EN157.500초로 각 언어 비명 시작 직전이다. 정면 재시도 두 버전의 파란 구름은 제외하고 증거를 보존했다. 전경 기둥·나무의 짧은 가림과 run-side 끝 약0.5초의 guide 자세 정착은 실제 관찰한 한계다.
+
+수정본은 기존 경로 `jack-ko-long.mp4` 177.958초, `jack-en-long.mp4` 179.250초, 1920×1080/24fps/88px 자막이다. 두 롱폼 전체 decode/검은 화면·freeze 없음/A-V/faststart/음량 검사를 통과했고, KO109·EN122 자막/비트 표본(contact27장), 편집54구간(shot10장), 작은 화면2장 모두 실제 확인했다. 새 원본3개 동작83밀집표본(contact11장)과 보정 전후9시점 검수는 별도 증거이며 전체 프레임 수동 시청·전체 청취로 보고하지 않는다. 음량은 KO-17.9LUFS/-1.9dBFS, EN-17.8LUFS/-2.1dBFS로 유지됐다.
+
+`repair-20261013/invariants.json`은 64음원 SHA, 171자막/ASS/SRT/길이·비트 타이밍, 다른 롱폼 장면과 숏폼 두 영상 SHA가 그대로이며 두 롱폼 인코딩 오디오도 1차본과 일치함을 확인한다. 보존 원본30+수정3의 검수/보정 증거33개, 현재 네 최종본이 실제 쓰는 고유 원본31개, 편집70구간을 구분한다. 이전 최종4편·검수·전달 파일은 `history/delivery-v1/`에 보존했다.
+
+`jack-motion-fixes-preview.mp4`는 완성된 한국어 롱폼에서 바뀐 두 장면을 음성·자막과 함께 뽑은 약18초 확인용 영상이며 전체 decode를 통과했다. 한영 SRT·나레이션MP3·언어별 clean 원본도 갱신했다. 상태/검수/스크립트/안내를 먼저 고정한 뒤 `package.py`, `validate_delivery.py`를 실행해 최종4편+clean4편+MP3 4개 총12media 전체 decode/길이/크기 및1168자산 SHA/bytes 일치·published=false를 확인했다. 안내문은 해시를 만들기 전에 저장하도록 순서를 고쳤다. 완료 근거는 `delivery-validation.json`, `final-review.json`, `delivery-provenance.json`이다.
+
+모든 이번 생성/보정/렌더/QC worker 자연 완료와 upscale lock 해제를 확인했다. 공유 ComfyUI/Voicebox 서버는 유지한다. 사용자 수정본 컨펌 대기이며 다음 책·DB/R2/Editor2/마케팅 등록/main push/외부 발행은 하지 않았다.
