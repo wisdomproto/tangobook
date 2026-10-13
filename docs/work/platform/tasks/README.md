@@ -1,6 +1,6 @@
 # 공통 기반·배포 작업 기록
 
-- [학습자 삽화 UI·전체 레이아웃](20261013-storybook-learning-ui.md) — ready, 76회귀/타입/build·대표 실제 화면, 미푸시.
+- [학습자 삽화 UI·전체 레이아웃](20261013-storybook-learning-ui.md) — integrated, 로컬 main8f316a9ee·76회귀/타입/build·대표 실제 화면, 미푸시.
 
 새 작업은 [템플릿](../../TASK-TEMPLATE.md)을 날짜와 작업명이 있는 파일로 복사한다. README는 작업 자체가 아니다.
 

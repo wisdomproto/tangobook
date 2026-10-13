@@ -1,7 +1,7 @@
 ---
 id: 20261013-storybook-learning-ui
 title: 학습자 전체 손그림 게임 UI 통일
-status: ready
+status: integrated
 branch: codex/storybook-learning-ui
 ---
 
@@ -19,7 +19,7 @@ atlas crop은 원본내용을 수정하지 않는 표시 메타데이터다. 분
 
 ## 검증
 
-구현·검증 완료, 로컬 main 통합 준비. 사용자 탭 대신 localhost 점검 탭에서 확인했다. 새 원격 push 요청 없음.
+구현·검증 완료, 8f316a9ee 로컬 main 통합 완료. 사용자 탭 대신 localhost 점검 탭에서 확인했다. 새 원격 push 요청 없음.
 
 ## 후속 사용자 반증: 나무 간판 중단
 
@@ -59,3 +59,7 @@ atlas crop은 원본내용을 수정하지 않는 표시 메타데이터다. 분
 활성 WebP18개649,994B, alpha/sha256/atlas bounds 확인. atlas 첫 행의 바닥과 둘째 행의 위쪽을 구분해 CTA 위 얇은 혼입 선을 제거했다. 비교용 나무/초기 구름 후보는 커밋하지 않는다. 파일 전체합계는 페이지 전송량이 아니다. 모드 입구의 phonics barrel lazy import를7개 직접 route import로 나눠 Vite manifest 정적JS의존 gzip534.47KB→337.06KB(약37%감소)를 확인했다. CSS/이미지/API/동적chunk와 FCP/체감시간은 포함하지 않은 비교다. 새 엔진/상시 애니메이션 없음.
 
 검수 이미지: Codex visualization 작업폴더의 `korean-mode-layout-final.png`, `korean-mode-568-final.png`, `book-detail-layout-final.png`. 원격 API는 읽기 전용 프록시로만 점검했으며 R2/Supabase 수정·배포/push 없음. Vite5186은 활성 worktree를 읽는다.
+
+## 로컬 전달
+
+2026-10-14 구현·기억8f316a9ee를 로컬 main에 fast-forward 통합했다. 이번 원격 push/배포 미요청. 기존 미추적 작업과 별도 CRLF-only 테스트 변경은 제외·보존했다.
