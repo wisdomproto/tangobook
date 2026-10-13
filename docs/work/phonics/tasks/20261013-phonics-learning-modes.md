@@ -2,12 +2,12 @@
 
 - id: 20261013-phonics-learning-modes
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: f1b6f395a (최신 origin/main 병합)
 - branch: codex/phonics-learning-modes
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 로컬 기능 브랜치, 검증 후 main 통합 예정
+- integration: 8908ca291 코드/기억을 로컬 main에 fast-forward 통합, 미푸시
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -52,4 +52,4 @@
 
 ## 인계·통합
 
-코드와 관련 기억을 함께 기능 브랜치에 로컬 커밋한다. 검증 이후 로컬 main 통합 여부를 실제 Git로 확인하여 갱신한다. 이번 요청에 원격 push는 없다.
+코드와 관련 기억을 8908ca291에 함께 커밋하고 실제 로컬 main에 fast-forward 통합했다. 원격 최신 a1273807f를 병합한 기준에서 검증했으며 기존 main 문서와 콘텐츠 작업을 보존했다. 통합 기록을 별도 문서 커밋으로 남긴다. 이번 요청에 원격 push는 없다.

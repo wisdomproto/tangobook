@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-13 [파닉스 언어별 두 학습 모드 적용](../work/phonics/tasks/20261013-phonics-learning-modes.md): 공통 홈에서 모드를 나누지 않고 한글/영어 안에서 분기. 안내 순서·이어하기·자유 선택 공유 진도, 영어 전체 글자 완료 보완과 첫 선택 관찰. codex/phonics-learning-modes(기존 platform-ui-v2 worktree) 검증 완료·로컬 main 통합 확인 전·미푸시. 자동 숙달/복습은 후속.
+2026-10-13 [파닉스 언어별 두 학습 모드 적용](../work/phonics/tasks/20261013-phonics-learning-modes.md): 공통 홈에서 모드를 나누지 않고 한글/영어 안에서 분기. 안내 순서·이어하기·자유 선택 공유 진도, 영어 전체 글자 완료 보완과 첫 선택 관찰. codex/phonics-learning-modes(기존 platform-ui-v2 worktree) 검증 완료·로컬 main 통합(8908ca291)·미푸시. 자동 숙달/복습은 후속.
 
 2026-10-13 [유아 학습 세계관·두 모드 시안](../work/phonics/tasks/20261013-phonics-world-concept.md): 사용자 최종 정정은 **한글 안·영어 안에서 커리큘럼/자유모드 분기**이며 플랫폼 첫 화면 모드 선택은 아니다. 언어별 이어서 학습/전체 파닉스 안내·게임으로 실력 확인 방향, 첫 선택과 재시도 구분·두 모드 진도 공유를 연결 시안에 반영했다. 재개 원본은 docs/work/phonics/previews/story-journey.html. 세계관·쓰기 보류·평가/잠금 세부는 미합의, 실제 앱/자녀 진도 수정 없음.
 2026-10-13 main 통합: 사용자 main push 요청으로 origin/main(c63af0f56)의 최신 변경과 콘텐츠 브랜치6커밋을 병합한다. 누락 어휘 삽화24항목 운영 등록·최신 현황판, 한글 호리 보완/미사용12지신 제거, 창작동화 공개/검수 장면 연결 및 누락 한영TTS 작업을 포함한다. 양쪽 작업 기록을 보존했으며 운영 데이터는 기존 등록 결과를 유지한다. 배포 완료는 별도 확인이 필요하다.
