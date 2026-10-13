@@ -6,9 +6,12 @@ import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { useLibraryConfig } from '@/features/library/hooks/useLibraryConfig';
 import { recommendBooks } from '@/features/library/lib/home-recommendations';
-import { getRecentUnit } from '@/features/phonics-learner/lib/progress-store';
-import { getKoreanUnit } from '@/features/phonics-learner/lib/korean-phonics-units';
-import { getEnglishUnit } from '@/features/phonics-learner/lib/english-phonics-units';
+import { usePhonicsProgress } from '@/features/phonics-learner/lib/progress-store';
+import {
+  journeyProgress,
+  journeyActivityUrl,
+  hasJourneyStarted,
+} from '@/features/phonics-learner/lib/learning-journey';
 import { unitTitle } from '@/features/phonics-learner/lib/activity-title';
 import { BookCover } from '@/design-system/primitives/BookCover';
 import { bookDisplayTitle } from '@tangobook/shared';
@@ -27,12 +30,16 @@ function LearningHomeContent() {
   const now = new Date();
   const day = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
   const recommended = recommendBooks(books, groups?.groups, config, day);
-  const recentKo = getKoreanUnit(getRecentUnit('korean') ?? '');
-  const recentEn = getEnglishUnit(getRecentUnit('english') ?? '');
+  const ko = usePhonicsProgress('korean');
+  const en = usePhonicsProgress('english');
+  const koProgress = journeyProgress('korean', ko.unitCompletedActivities);
+  const enProgress = journeyProgress('english', en.unitCompletedActivities);
   const recent = [
-    { lang: 'korean', unit: recentKo },
-    { lang: 'english', unit: recentEn },
-  ].filter((item) => item.unit);
+    { lang: 'korean' as const, progress: koProgress },
+    { lang: 'english' as const, progress: enProgress },
+  ].filter(
+    (item) => (item.progress.completed > 0 || hasJourneyStarted(item.lang)) && item.progress.current
+  );
   const focus =
     'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-700';
   return (
@@ -78,15 +85,19 @@ function LearningHomeContent() {
             {t('home.continue')}
           </h2>
           <div className="flex flex-1 flex-wrap gap-3">
-            {recent.map(({ lang, unit }) => (
+            {recent.map(({ lang, progress }) => (
               <Link
                 key={lang}
-                to={`/library/phonics/${lang}/${unit!.id}`}
+                to={journeyActivityUrl(
+                  lang,
+                  progress.current!.unit.id,
+                  progress.current!.activity.key
+                )}
                 className={`flex min-h-12 min-w-36 flex-1 items-center justify-between gap-4 rounded-xl px-4 py-2 ${getCourseTheme(lang)!.badge} ${getCourseTheme(lang)!.focus}`}
               >
                 <div>
                   <p className="text-sm font-bold text-ink-600">{t(`nav.${lang}`)}</p>
-                  <p className="mt-1 text-lg font-bold">{unitTitle(tp, unit!)}</p>
+                  <p className="mt-1 text-lg font-bold">{unitTitle(tp, progress.current!.unit)}</p>
                 </div>
                 <span aria-hidden="true" className={getCourseTheme(lang)!.text}>
                   →

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import KoreanPhonicsActivityPage from './KoreanPhonicsActivityPage';
-import { getUnitProgress } from '../lib/progress-store';
+import { getUnitProgress, markActivityCompleted } from '../lib/progress-store';
 
 const { logEvent } = vi.hoisted(() => ({ logEvent: vi.fn() }));
 vi.mock('@/features/auth/context/AuthContext', () => ({
@@ -52,6 +52,7 @@ function open(path: string) {
           element={<KoreanPhonicsActivityPage />}
         />
         <Route path="/library/phonics/korean/:unitId" element={<p>단원 화면</p>} />
+        <Route path="/library/phonics/korean" element={<p>학습 경로</p>} />
       </Routes>
     </MemoryRouter>
   );
@@ -90,5 +91,33 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
     expect(screen.getByText('모음 두 개를 먼저 들어보면 놀이가 열려요.')).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([]);
     expect(logEvent).not.toHaveBeenCalled();
+  });
+});
+
+describe('커리큘럼 모드 라우트', () => {
+  it('미래 활동 직접 진입을 첫 미완료 활동으로 돌린다', async () => {
+    open('/library/phonics/korean/kr-v1-g02/listen-1?mode=curriculum');
+    expect(await screen.findByRole('button', { name: '들은 모음 ㅏ' })).toBeDefined();
+    expect(getUnitProgress('korean', 'kr-v1-g02').completedActivities).toEqual([]);
+  });
+  it('익히기와 쓰기 완료 뒤 단원 목록 대신 다음 익히기로 이어진다', async () => {
+    open('/library/phonics/korean/kr-v1-g01/listen-1?mode=curriculum');
+    fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
+    fireEvent.click(await screen.findByRole('button', { name: '쓴 모음 ㅏ' }));
+    expect(await screen.findByRole('button', { name: '들은 모음 ㅑ' })).toBeDefined();
+    expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([
+      'listen-1',
+      'write-1',
+    ]);
+  });
+  it('구형 링크도 안내 모드를 유지하며 건너뛰기를 막는다', async () => {
+    open('/library/phonics/korean/kr-v1-u02/listen-1?mode=curriculum');
+    expect(await screen.findByRole('button', { name: '들은 모음 ㅏ' })).toBeDefined();
+  });
+  it('완료한 활동을 다시 익힐 때 같은 단원의 다음 활동으로 이어진다', async () => {
+    ['listen-1', 'write-1'].forEach((key) => markActivityCompleted('korean', 'kr-v1-g01', key));
+    open('/library/phonics/korean/kr-v1-g01/listen-1?mode=curriculum');
+    fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
+    expect(await screen.findByRole('button', { name: '쓴 모음 ㅏ' })).toBeDefined();
   });
 });

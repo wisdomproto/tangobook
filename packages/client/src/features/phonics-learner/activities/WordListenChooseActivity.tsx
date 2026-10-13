@@ -10,6 +10,7 @@ import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
 import { ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 import { ToyHangul } from '../components/ToyHangul';
+import type { ChoiceEvidence } from '../lib/journey-assessment';
 
 export interface ListenChoice {
   /** 카드 구분자. 같은 라벨이 두 장일 수 있다(알파벳 단원의 Aa=apple / Aa=alligator). */
@@ -93,7 +94,8 @@ interface Props {
    * 퀴즈에서 한 문제를 판정할 때마다 호출 — 무엇으로 기록할지는 **호출부가 정한다**
    * (한글 단원은 낱말, 영어 알파벳 단원은 음소). 활동은 판정만 하고 이벤트 종류를 모른다.
    */
-  onJudge?: (correct: boolean, item: ListenChoice) => void;
+  onJudge?: (correct: boolean, item: ListenChoice, evidence?: ChoiceEvidence) => void;
+  onAttempt?: (correct: boolean, item: ListenChoice, evidence: ChoiceEvidence) => void;
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -174,6 +176,7 @@ export function WordListenChooseActivity({
   exploreFirst = false,
   revealImageOnTap = false,
   onJudge,
+  onAttempt,
   onMarkComplete,
   onBack,
 }: Props) {
@@ -440,20 +443,27 @@ export function WordListenChooseActivity({
     []
   );
 
+  const attemptedQuestions = useRef(new Set<number>());
   const handlePick = useCallback(
     (picked: ListenChoice) => {
       // `correct` 가 남아 있는 동안은 정답 소리 체인이 도는 중이라 다음 탭을 받지 않는다.
       // 이미 맞힌 카드(민트)는 다시 눌러도 무시 — 오답 흔들림이 나지 않게.
       if (done || !current || wrong || correct || (!progressiveChoices && solved.has(idOf(picked))))
         return;
+      const firstAttempt = !attemptedQuestions.current.has(qIdx);
+      attemptedQuestions.current.add(qIdx);
+      onAttempt?.(idOf(picked) === idOf(current.answer), current.answer, {
+        question: qIdx,
+        firstAttempt,
+      });
       if (idOf(picked) !== idOf(current.answer)) {
-        onJudge?.(false, current.answer);
+        onJudge?.(false, current.answer, { question: qIdx, firstAttempt });
         playFeedbackSound(false);
         setWrong(idOf(picked));
         wrongTimer.current = window.setTimeout(() => setWrong(null), 600);
         return;
       }
-      onJudge?.(true, picked);
+      onJudge?.(true, picked, { question: qIdx, firstAttempt });
       setCorrect(idOf(picked));
       setSolved((prev) => new Set(prev).add(idOf(picked)));
       // 맞힌 칸은 글자 → 그림으로 뒤집힌다(그림이 주어진 경우).
@@ -488,6 +498,7 @@ export function WordListenChooseActivity({
       qIdx,
       questions.length,
       onJudge,
+      onAttempt,
       say,
       rest,
       playAudio,
@@ -517,6 +528,7 @@ export function WordListenChooseActivity({
   }, [playFresh]);
 
   const restart = useCallback(() => {
+    attemptedQuestions.current.clear();
     seqGenRef.current += 1; // 재생 중이던 시퀀스를 무효화(다시하기 도중 옛 소리 되살아남 방지)
     if (restTimer.current) clearTimeout(restTimer.current);
     setQIdx(0);

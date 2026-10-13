@@ -37,8 +37,7 @@ interface Props {
  *   - 글자 소리는 **상단 활성 탭을 다시 탭**하면 난다(2026-07-31 아래 큰 버튼 제거 — 사용자)
  *
  * 누르며 듣는 자유 탐색 (영어 모르는 4-5세 입문자용) — 정답·오답이 없다.
- * 🔴 그래도 **한 글자를 다 눌러보면 완료로 친다**(`onMarkComplete`). 예전엔 prop 을 받아놓고
- *    호출하지 않아서, 8단원 26글자를 다 만져도 부모 화면엔 아무 기록이 안 남았다.
+ * 모든 대상 글자를 실제로 익힌 뒤 활동 완료를 기록한다.
  */
 
 export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, onBack }: Props) {
@@ -49,6 +48,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   // 활성 글자 인덱스 (letters 배열의 인덱스). storybook.phonicsLesson.blending[i] 와 1:1 매칭.
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [audioFailed, setAudioFailed] = useState(false);
 
   const blending = sb?.phonicsLesson?.blending?.[currentIdx];
   const wordFamily = sb?.phonicsLesson?.wordFamilies?.[currentIdx];
@@ -75,9 +75,14 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
     () => words.flatMap((w) => getWordHotspots(w).map((h) => ({ h, w }))),
     [words]
   );
-  const [tapped, setTapped] = useState(0);
-  // 글자를 바꾸면 처음부터 — 핫스팟 목록 자체가 달라진다.
-  useEffect(() => setTapped(0), [currentIdx]);
+  const [tappedByLetter, setTappedByLetter] = useState<Record<number, number>>({});
+  const tapped = tappedByLetter[currentIdx] ?? 0;
+  const setTapped = useCallback(
+    (update: (count: number) => number) => {
+      setTappedByLetter((prev) => ({ ...prev, [currentIdx]: update(prev[currentIdx] ?? 0) }));
+    },
+    [currentIdx]
+  );
   const allDone = spots.length === 0 || tapped >= spots.length;
   const current = allDone ? null : spots[tapped];
 
@@ -118,15 +123,24 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   //    "애애애플" 이 끝나기 전에 띵동이 겹친다(이 프로젝트에서 네 번 반복된 버그).
   const say = useCallback(
     (url: string | undefined, onEnded?: () => void) => {
-      if (!url || audioBusyRef.current) {
-        onEnded?.();
+      if (audioBusyRef.current) return;
+      if (!url) {
+        setAudioFailed(true);
         return;
       }
+      setAudioFailed(false);
       audioBusyRef.current = true;
-      playAudio(url, () => {
-        audioBusyRef.current = false;
-        onEnded?.();
-      });
+      playAudio(
+        url,
+        () => {
+          audioBusyRef.current = false;
+          onEnded?.();
+        },
+        () => {
+          audioBusyRef.current = false;
+          setAudioFailed(true);
+        }
+      );
     },
     [playAudio]
   );
@@ -142,23 +156,40 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
   const sayLetter = useCallback(
     async (onEnded?: () => void) => {
       if (audioBusyRef.current) return;
-      const url =
-        blending?.blendingSequenceTtsUrl ??
-        (await resolveTtsUrl({
-          text: lower,
-          language: 'english',
-          storybookId: unitId,
-          identifierPrefix: 'en-letter',
-        }));
+      audioBusyRef.current = true;
+      setAudioFailed(false);
+      let url: string | undefined;
+      try {
+        url =
+          blending?.blendingSequenceTtsUrl ??
+          (await resolveTtsUrl({
+            text: lower,
+            language: 'english',
+            storybookId: unitId,
+            identifierPrefix: 'en-letter',
+          }));
+      } catch {
+        audioBusyRef.current = false;
+        setAudioFailed(true);
+        return;
+      }
       if (!url) {
-        onEnded?.();
+        audioBusyRef.current = false;
+        setAudioFailed(true);
         return;
       }
       audioBusyRef.current = true;
-      playAudio(url, () => {
-        audioBusyRef.current = false;
-        onEnded?.();
-      });
+      playAudio(
+        url,
+        () => {
+          audioBusyRef.current = false;
+          onEnded?.();
+        },
+        () => {
+          audioBusyRef.current = false;
+          setAudioFailed(true);
+        }
+      );
     },
     [blending, lower, unitId, playAudio]
   );
@@ -172,19 +203,16 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
    */
   useEntryGuide(GUIDE_VOICE, playAudio);
 
-  /**
-   * 한 글자를 다 눌러보면 완료. 🔴 핫스팟이 없는 글자는 세지 않는다 —
-   * 들어오자마자 `allDone` 이라 스쳐 지나간 것도 완료가 된다.
-   */
+  // Letter tabs are navigation, not evidence. Count only completed listening interactions.
   const markedRef = useRef(false);
+  const completedLetters = useRef(new Set<number>());
   const markDone = useCallback(() => {
+    completedLetters.current.add(currentIdx);
+    if (completedLetters.current.size < letters.length) return;
     if (markedRef.current) return;
     markedRef.current = true;
     onMarkComplete();
-  }, [onMarkComplete]);
-  useEffect(() => {
-    if (allDone && spots.length > 0) markDone();
-  }, [allDone, spots.length, markDone]);
+  }, [currentIdx, letters.length, onMarkComplete]);
 
   /**
    * 한 글자를 다 눌러보면 **자동으로 다음 글자로**(2026-07-31 사용자). 아래에 있던 「Bb ▶」 이동
@@ -227,7 +255,13 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
             scheduleTimer(() => {
               setTapped((t) => t + 1);
               // 칭찬이 끝나면 다음 글자로 (마지막 글자면 goNext 가 그대로 머문다).
-              playCorrectSequence({ language: praiseLang(), onDone: goNext });
+              playCorrectSequence({
+                language: praiseLang(),
+                onDone: () => {
+                  markDone();
+                  goNext();
+                },
+              });
             }, REST_MS);
           })
         );
@@ -238,22 +272,38 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       playUi('tap');
       say(found.w.ttsUrl, () => playAudio(LEARNING_SOUNDS.correct));
     },
-    [spots, allDone, current, tapped, say, playAudio, playCorrectSequence, scheduleTimer, goNext]
+    [
+      spots,
+      allDone,
+      current,
+      tapped,
+      say,
+      playAudio,
+      playCorrectSequence,
+      scheduleTimer,
+      goNext,
+      markDone,
+      setTapped,
+    ]
   );
 
   // 글자 탭 클릭 — 활성이면 발음 재생, 비활성이면 그 글자로 전환 (모달 자동 닫기)
   const handleLetterTabClick = useCallback(
     (idx: number) => {
+      if (audioBusyRef.current) return;
       if (idx !== currentIdx) {
         setCurrentIdx(idx);
         return;
       }
-      // 활성 글자 재클릭 = 글자 소리. 아래 큰 버튼을 없앴으므로(2026-07-31) 이제 글자 소리를 듣는
-      // 유일한 길이자, 핫스팟 없는 글자(Book 1 에 많다)의 유일한 상호작용이라 여기서 완료로도 친다.
-      void sayLetter();
-      markDone();
+      // With no word hotspots, listening to this letter to the end is its learning interaction.
+      void sayLetter(() => {
+        if (spots.length === 0) {
+          markDone();
+          goNext();
+        }
+      });
     },
-    [currentIdx, sayLetter, markDone]
+    [currentIdx, sayLetter, markDone, spots.length, goNext]
   );
 
   // 단어는 자동 재생하지 않는다 — 눌러서 듣는 탐색이 이 화면의 성격이다.
@@ -338,6 +388,11 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
           아이는 그림만 보다 나간다(다른 활동엔 다 있는데 여기만 빠져 있었다).
           누를 것이 실제로 있을 때만 그렇게 쓴다 — 핫스팟이 없는 글자엔 글자 탭을 가리킨다. */}
       <div className="shrink-0 text-center mb-3">
+        {audioFailed && (
+          <p role="alert" className="mb-2 font-bold text-coral-700">
+            {t('vowelListen.audioRetry')}
+          </p>
+        )}
         <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 break-keep">
           {/* 🔴 지시문엔 글자를 넣지 않는다 — 글자는 바로 위 탭이 크게 보여준다. */}
           {spots.length === 0

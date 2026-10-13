@@ -16,6 +16,7 @@ interface Props {
   letters: readonly string[];
   onMarkComplete: () => void;
   onBack: () => void;
+  onFinish?: () => void;
 }
 
 /**
@@ -31,7 +32,13 @@ interface Props {
 /** 마지막 칸까지 통과한 뒤 그림을 잠깐 더 두고 다음 글자로 — 아이가 그림을 볼 틈. */
 const REVEAL_LINGER_MS = 1000;
 
-export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, onBack }: Props) {
+export function AlphabetLetterWriteActivity({
+  unitId,
+  letters,
+  onMarkComplete,
+  onBack,
+  onFinish,
+}: Props) {
   const { t } = useTranslation('phonics');
   const storybookQuery = useStorybook(unitId);
   const sb = storybookQuery.data as Storybook | undefined;
@@ -76,10 +83,10 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
       systemSounds,
       onDone: () => {
         onMarkComplete();
-        onBack();
+        (onFinish ?? onBack)();
       },
     });
-  }, [playCorrectSequence, systemSounds, onMarkComplete, onBack]);
+  }, [playCorrectSequence, systemSounds, onMarkComplete, onBack, onFinish]);
 
   /** 이 글자의 두 칸을 다 통과했으니 다음 글자(또는 단원 종료)로. */
   const advanceLetter = useCallback(() => {

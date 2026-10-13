@@ -1,3 +1,4 @@
+import { PhonicsLearningModes } from './PhonicsLearningModes';
 import { useEffect, useMemo, useState } from 'react';
 import { koreanLearningUnitId } from '@tangobook/shared';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +12,7 @@ import {
   getRequiredActivities,
   type KoreanUnitSummary,
 } from '../lib/korean-phonics-units';
-import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
+import { usePhonicsProgress, markRecentUnit } from '../lib/progress-store';
 import { sumProgress } from '../lib/unit-progress';
 import { levelName, unitTitle } from '../lib/activity-title';
 import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
@@ -24,7 +25,7 @@ import { ToyHangul } from './ToyHangul';
  * AppShell 안 학습 화면. 좌측: 전체 커리큘럼 스크롤 list (한글1~4 + units).
  * 우측: 선택된 unit 의 활동 그리드 (KoreanPhonicsUnitPage 임베디드).
  *
- * 진입 시 URL 에 unitId 없으면 → localStorage recent unit 또는 첫 활성 unit 으로 redirect.
+ * 단원이 없는 언어 진입은 커리큘럼/자유모드 선택, 단원 URL은 자유 선택 화면이다.
  */
 const theme = courseThemes.korean;
 
@@ -82,34 +83,8 @@ export default function KoreanPhonicsStudyPage() {
     }
   }, [currentLevelKey]);
 
-  // unitId 없으면 recent → 첫 활성 unit 으로 redirect (hooks 후).
-  if (!unitId) {
-    const recent = getRecentUnit('korean');
-    const recentValid =
-      recent &&
-      allUnits.some(
-        (u) => u.id === koreanLearningUnitId(recent) && getActivityPlan(u.id).activities.length > 0
-      );
-    const target =
-      (recentValid ? koreanLearningUnitId(recent) : null) ??
-      allUnits.find((u) => getActivityPlan(u.id).activities.length > 0)?.id;
-    if (target) {
-      return <Navigate to={`/library/phonics/korean/${target}`} replace />;
-    }
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50 px-6 text-center">
-        <div>
-          <p className="text-base font-bold text-ink-700">{t('common.noUnitsYet')}</p>
-          <Link
-            to="/library/phonics"
-            className={`inline-block mt-3 font-black underline ${theme.text} ${theme.focus}`}
-          >
-            {t('common.backToPickerLong')}
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  // 언어 안에서 모드 선택 (hooks 후).
+  if (!unitId) return <PhonicsLearningModes lang="korean" />;
 
   if (koreanLearningUnitId(unitId) !== unitId)
     return <Navigate to={`/library/phonics/korean/${koreanLearningUnitId(unitId)}`} replace />;
@@ -141,22 +116,30 @@ export default function KoreanPhonicsStudyPage() {
       <PhonicsBackdrop />
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
       <PageHeader
-        onBack={() => navigate('/library')}
-        backLabel={t('common.home')}
+        onBack={() => navigate('/library/phonics/korean')}
+        backLabel={t('journey.chooseMode')}
         right={
-          <button
-            type="button"
-            aria-expanded={navOpen}
-            onClick={() => setNavOpen(true)}
-            className="md:hidden px-4 py-2.5 rounded-full bg-white/90 text-ink-800 font-black text-sm shadow-soft flex items-center gap-1.5 min-h-[44px]"
-          >
-            ☰ <span>{t('common.unitTab')}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <span
+              className={`hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-bold ${theme.badge}`}
+            >
+              {t('journey.free')}
+            </span>
+            <button
+              type="button"
+              aria-expanded={navOpen}
+              onClick={() => setNavOpen(true)}
+              className="md:hidden px-4 py-2.5 rounded-full bg-white/90 text-ink-800 font-black text-sm shadow-soft flex items-center gap-1.5 min-h-[44px]"
+            >
+              ☰ <span>{t('common.unitTab')}</span>
+            </button>
+          </div>
         }
       >
         <span className="inline-flex items-center gap-2">
           <span className={theme.text}>{t('study.koreanLead')}</span>
-          <span>{t('common.phonics')}</span>
+          <span className="hidden sm:inline">{t('common.phonics')}</span>
+          <span className="text-base sm:hidden">{t('journey.free')}</span>
         </span>
       </PageHeader>
 

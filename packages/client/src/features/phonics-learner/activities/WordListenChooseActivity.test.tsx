@@ -34,11 +34,13 @@ describe('입문 듣기 놀이', () => {
       sound: ['아', '야', '어', '여'][index],
     }));
     const onMarkComplete = vi.fn();
+    const onAttempt = vi.fn();
     const props = {
       unitId: 'kr-h1-u01',
       progressiveChoices: true,
       illustratedLetters: true,
       onMarkComplete,
+      onAttempt,
       onBack: vi.fn(),
     };
     const view = render(<WordListenChooseActivity {...props} items={items} />);
@@ -62,7 +64,28 @@ describe('입문 듣기 놀이', () => {
         <WordListenChooseActivity {...props} items={items.map((item) => ({ ...item }))} />
       );
       expect(spoken.at(-1)).toBe(target);
+      if (round === 0) {
+        const wrong = screen.getAllByRole('button').find((button) => {
+          const label = button.getAttribute('aria-label');
+          return label !== answer.label && items.some((item) => item.label === label);
+        })!;
+        fireEvent.click(wrong);
+        expect(onAttempt).toHaveBeenLastCalledWith(
+          false,
+          expect.objectContaining({ sound: target }),
+          { question: 0, firstAttempt: true }
+        );
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(650);
+        });
+      }
       fireEvent.click(screen.getByRole('button', { name: answer.label }));
+      if (round === 0)
+        expect(onAttempt).toHaveBeenLastCalledWith(
+          true,
+          expect.objectContaining({ sound: target }),
+          { question: 0, firstAttempt: false }
+        );
       answered.add(target);
       await act(async () => {
         await vi.advanceTimersByTimeAsync(900);
@@ -70,5 +93,6 @@ describe('입문 듣기 놀이', () => {
     }
     expect(answered.size).toBe(4);
     expect(onMarkComplete).toHaveBeenCalledTimes(1);
+    expect(onAttempt.mock.calls.filter((call) => call[2].firstAttempt)).toHaveLength(4);
   });
 });

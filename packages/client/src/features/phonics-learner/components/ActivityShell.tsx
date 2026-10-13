@@ -2,6 +2,8 @@ import { createContext, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
 import './phonics-activities.css';
+import { JourneyActivityContext } from './journey-activity-context';
+import { courseThemes } from '@/design-system';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -62,6 +64,7 @@ export function ActivityShell({
 }: Props) {
   const { t } = useTranslation('phonics');
   const embedded = useContext(EmbeddedContext);
+  const journey = useContext(JourneyActivityContext);
   const back = (
     /**
      * 🔴 `shrink-0` 필수 — 옆에 `headerRight` 가 서면 flex 가 **뒤로가기부터 줄인다**. 영어 4글자
@@ -117,7 +120,23 @@ export function ActivityShell({
       ) : (
         <div className="self-start mb-3">{back}</div>
       )}
+      {journey && (
+        <p className="mb-2 shrink-0 text-center text-sm font-bold text-ink-600">
+          {t('journey.activityProgress', { step: journey.step, total: journey.total })}
+        </p>
+      )}
       {children}
+      {journey?.ready && (
+        <div className="mt-3 flex shrink-0 justify-center">
+          <button
+            type="button"
+            onClick={journey.onNext}
+            className={`min-h-12 rounded-full px-8 font-black ${courseThemes[unitId?.startsWith('en-') ? 'english' : 'korean'].action} ${courseThemes[unitId?.startsWith('en-') ? 'english' : 'korean'].focus}`}
+          >
+            {t('journey.nextActivity')} →
+          </button>
+        </div>
+      )}
     </div>
   );
 }

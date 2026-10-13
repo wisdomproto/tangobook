@@ -1,3 +1,5 @@
+import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
+import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
 import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -6,7 +8,7 @@ import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
   getEnglishActivityPlan,
   getEnglishUnit,
@@ -80,12 +82,16 @@ export interface EnglishPhonicsActivityProps {
   unitId: string;
   activityKey: string;
   onExit: () => void;
+  onNext?: () => void;
+  onMarked?: () => void;
 }
 
 export function EnglishPhonicsActivity({
   unitId,
   activityKey,
   onExit,
+  onNext,
+  onMarked,
 }: EnglishPhonicsActivityProps) {
   const { t } = useTranslation('phonics');
   const unit = getEnglishUnit(unitId);
@@ -180,29 +186,54 @@ export function EnglishPhonicsActivity({
   const handleComplete = useCallback(() => {
     markActivityCompleted('english', unitId, activityKey);
     logUnitProgress();
-    backToUnit();
-  }, [unitId, activityKey, backToUnit, logUnitProgress]);
+    if (onNext) onNext();
+    else backToUnit();
+  }, [unitId, activityKey, backToUnit, logUnitProgress, onNext]);
   /**
    * 퀴즈 판정 → 영어는 **음소**로 남긴다(부모 리포트 스킬트리가 `phoneme` 으로 칸을 채운다).
    * 카드 라벨이 `Aa` 라 소문자 한 글자로 정규화한다.
    */
   const judgePhoneme = useCallback(
-    (correct: boolean, item: { sound: string; label: string }) => {
+    (correct: boolean, item: { sound: string; label: string }, evidence?: ChoiceEvidence) => {
       const phoneme = (item.label || item.sound).trim().toLowerCase().slice(0, 1);
       if (!phoneme) return;
       logEvent({
         type: correct ? 'phoneme_correct' : 'phoneme_wrong',
         storybookId: unitId,
-        metadata: { source: 'phonics', unitId, lang: 'en', phoneme },
+        metadata: {
+          source: 'phonics',
+          unitId,
+          lang: 'en',
+          phoneme,
+          activityId: activityKey,
+          activityRunId: completionId,
+          firstAttempt: evidence?.firstAttempt,
+        },
       });
     },
-    [logEvent, unitId]
+    [logEvent, unitId, activityKey, completionId]
+  );
+
+  const observeChoice = useCallback(
+    (correct: boolean, item: { sound: string; label: string }, evidence: ChoiceEvidence) => {
+      recordGameChoice(
+        'english',
+        unitId,
+        activityKey,
+        completionId,
+        correct,
+        item.sound || item.label,
+        evidence
+      );
+    },
+    [unitId, activityKey, completionId]
   );
 
   const handleMarkComplete = useCallback(() => {
     markActivityCompleted('english', unitId, activityKey);
     logUnitProgress();
-  }, [unitId, activityKey, logUnitProgress]);
+    onMarked?.();
+  }, [unitId, activityKey, logUnitProgress, onMarked]);
 
   if (!unit || !activity) {
     return (
@@ -306,6 +337,7 @@ export function EnglishPhonicsActivity({
     );
     return (
       <WordListenChooseActivity
+        onAttempt={observeChoice}
         unitId={unitId}
         language="english"
         items={items}
@@ -360,6 +392,7 @@ export function EnglishPhonicsActivity({
     }
     return (
       <WordListenChooseActivity
+        onAttempt={observeChoice}
         unitId={unitId}
         language="english"
         items={items}
@@ -381,6 +414,7 @@ export function EnglishPhonicsActivity({
   if (activity.kind === 'review-syllable-listen' && patternCards.length) {
     return (
       <WordListenChooseActivity
+        onAttempt={observeChoice}
         unitId={unitId}
         language="english"
         items={patternCards.map((c) => ({ label: c.syllable, sound: c.sound }))}
@@ -429,6 +463,7 @@ export function EnglishPhonicsActivity({
     if (activity.kind === 'review-word-listen') {
       return (
         <WordListenChooseActivity
+          onAttempt={observeChoice}
           unitId={unitId}
           language="english"
           items={withImage.map((s) => ({
@@ -612,6 +647,7 @@ export function EnglishPhonicsActivity({
   ) {
     return (
       <AlphabetLetterWriteActivity
+        onFinish={onNext}
         unitId={unitId}
         letters={activity.letters}
         onMarkComplete={handleMarkComplete}
@@ -815,9 +851,24 @@ function ActivityUnavailable({
 export default function EnglishPhonicsActivityPage() {
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
+  const [search] = useSearchParams();
+  const guided = search.get('mode') === 'curriculum';
   const onExit = useCallback(
     () => navigate(`/library/phonics/english/${unitId}`),
     [navigate, unitId]
   );
+  if (guided)
+    return (
+      <GuidedPhonicsActivity lang="english" unitId={unitId} activityKey={activityKey}>
+        {(callbacks) => (
+          <EnglishPhonicsActivity
+            key={`${unitId}:${activityKey}`}
+            unitId={unitId}
+            activityKey={activityKey}
+            {...callbacks}
+          />
+        )}
+      </GuidedPhonicsActivity>
+    );
   return <EnglishPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
 }
