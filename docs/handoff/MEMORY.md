@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-13 [모드 입구 간판/제목/홈 후속](../work/phonics/tasks/20261013-phonics-simple-mode-selection.md#후속-반증-찐빵-실루엣제목홈): 사용자 v1찐빵·따로 노는 제목·텍스트 홈 반증으로 내장 imagegen 얇은 나무 간판2종/종이 제목 리본, 기존 집 그림 아이콘으로 교체. 제목/이름 DOM·NanumSquareRound·한영 언어색/진도 유지. 새 alpha3WebP190KB·15회귀/타입/lint/build·한영 가로/집 클릭 검수 완료. 로컬 완료, 원격 push 미요청.
+
 2026-10-13 [한영 모드 입구 단순화](../work/phonics/tasks/20261013-phonics-simple-mode-selection.md): 언어 내부 입구를 커리큘럼 모드/자유모드 두 버튼으로 줄이며 커리큘럼 선택은 학습 경로로 연결한다. CSS 사각 버튼 후속 반증으로 내장 imagegen 입체 이미지2종·alpha WebP114KB 적용,15회귀·타입/lint/번역·실제 한영 가로 화면 검수. 9e4803792 로컬 main 통합, 이번 원격 push 미요청.
 
 2026-10-13 [낱자 쓰기·한영 획순](../work/phonics/tasks/20261013-all-stroke-guides.md): 사용자 최종 정정으로 기본/쌍자음 눌러보기→별도 낱자3회→기존 합성, 복합 모음 각 listen→write 후 합성. 한글40낱자/영어52만 안내·합성/받침/CVC/단어 제외,99%·음원 ended·기존 진도 보존. 새 필수 활동은 실제 완료 필요.105회귀/타입/lint/build·92글꼴 경로·nativeㄱ3회/한영 가로 검수. 사용자 후속 push 승인으로 기존 입문 모음과 함께 e7623aec2 main 일반 push·원격 SHA 일치 확인, 배포 완료는 미확인.

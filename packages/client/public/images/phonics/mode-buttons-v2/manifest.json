@@ -1,0 +1,32 @@
+{
+  "curriculum": {
+    "file": "curriculum.webp",
+    "width": 900,
+    "height": 600,
+    "alpha": true,
+    "bytes": 78808,
+    "sha256": "e5c3325c83680f1723e4de76a54f127592647fb8abf17c9b53875cfa810f974d",
+    "source": "exec-8fe40933-fc3e-472a-8f9c-296b560503b9.png",
+    "sourceSha256": "a39b95081a5134259353a3c0eb39d13447feb9ceb1ffc219945d8d886b8a7ba0"
+  },
+  "free": {
+    "file": "free.webp",
+    "width": 900,
+    "height": 600,
+    "alpha": true,
+    "bytes": 72016,
+    "sha256": "6245df31fbe3f1b993e32c79f3bc35f5e6981469112cbc90bda827c32c6711ac",
+    "source": "exec-1674c5a0-e94d-4486-8f52-d82232a36bbe.png",
+    "sourceSha256": "5e0c92e6fedaf5483957b608f11d6807623227d1a30cd13b5781f1ff65c190c9"
+  },
+  "title-ribbon": {
+    "file": "title-ribbon.webp",
+    "width": 1000,
+    "height": 345,
+    "alpha": true,
+    "bytes": 38678,
+    "sha256": "c43cff5a1c31ac411751875aac12cca24801b0149af70042f79bce6b4f2c75cc",
+    "source": "exec-aa4a1cd2-6cb7-4dd2-8560-92487bdba796.png",
+    "sourceSha256": "cc101f24f995cae40cb56a3b2123857762fde06c0ee8e3bb5def699d66d90858"
+  }
+}
