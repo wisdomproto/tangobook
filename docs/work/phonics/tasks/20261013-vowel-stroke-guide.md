@@ -2,12 +2,12 @@
 
 - id: 20261013-vowel-stroke-guide
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-13
 - base: f4a6a668d
 - branch: codex/phonics-vowel-stroke-guide
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: f614ef8d9 로컬 main fast-forward 통합 확인
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -34,4 +34,8 @@
 
 ## 다음 행동
 
-로컬 커밋/main 포함 확인. 자음·합성 음절/영어 획순 확장은 별도 요청 시 정확한 획 데이터를 기준으로 진행. 사용자 main push 승인 미요청.
+자음·합성 음절/영어 획순 확장은 별도 요청 시 정확한 획 데이터를 기준으로 진행. 사용자 main push 승인 미요청.
+
+## 인계·통합
+
+f614ef8d9 코드/기록18파일을 로컬 main에 fast-forward 통합했다. main의 tracked 변경 없음과 구현 커밋 포함 확인. 기존 untracked output/tmp와 worktree의 ReviewWriteActivity.test.tsx 표시를 보존했다. 원격 push/배포 없음.
