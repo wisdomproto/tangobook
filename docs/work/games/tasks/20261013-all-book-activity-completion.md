@@ -34,3 +34,7 @@ Puppeteer 실제 개발 브라우저: 영어 밤이01 및 장면 전용 대상 �
 - scripts/check-activity-word-coloring.mts: 공유 flood-fill 기준 폐영역/흑백 검사.
 - scripts/check-activity-browser.mjs, check-scene-only-hidden-browser.mjs, check-new-coloring-browser.mjs, check-scene-coloring-browser.mjs: localhost5198 개발 대표 게임 검증.
 - raw 원본/생성물·전체 책 스냅샷은 generated-images/activity-completion-20261013에만 보관, Git 제외. API 등록은 등록 ledger로 재실행 보호하며 기존 숨은그림 덮기 금지.
+
+## 퐁이29 후속 해결
+
+2026-10-13 사용자 별도 승인으로 [퐁이29 교체](../../content/tasks/20261013-pongi29-character-repair.md)를 수행했다. 기존 본문10쪽·장면 도안4/8쪽·숨은그림의 캐릭터 오류를 수정하고 운영 등록. 위 본문 품질 잔존 기록은 교체 전 상태이며 현재는 해결됨. 전체2430장 색감 전수 검수로 확대해 보고하지 않는다.

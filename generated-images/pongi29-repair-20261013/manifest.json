@@ -1,0 +1,24 @@
+[
+  {
+    "key": "changjak-pongi-29-p04",
+    "bookId": "changjak-pongi-29",
+    "pageNumber": 4,
+    "status": "generated",
+    "sourceFile": "sources/changjak-pongi-29-p04-20261013.png",
+    "sourceSha256": "d99197f766423923f3d0d27a0b083f045bceeabd826ce457ad695e5208afb4a9",
+    "lineartFile": "lineart/changjak-pongi-29-p04-20261013.png",
+    "lineartSha256": "45064d4cda25338884f3d2231262021f8b69b9f548e88d2c6bbb169c3aa405fd",
+    "minRegionAreaRatio": 0.001
+  },
+  {
+    "key": "changjak-pongi-29-p08",
+    "bookId": "changjak-pongi-29",
+    "pageNumber": 8,
+    "status": "generated",
+    "sourceFile": "sources/changjak-pongi-29-p08-20261013.png",
+    "sourceSha256": "c446cc4be08c8abcc3b9b02dd2f0d38445d7a4611a165f882e382872dda003b5",
+    "lineartFile": "lineart/changjak-pongi-29-p08-20261013.png",
+    "lineartSha256": "f72ff3c4cad9377b4dd6e1beaef3abcc54018d6b9aba9d3b1e668f0af40865b7",
+    "minRegionAreaRatio": 0.001
+  }
+]

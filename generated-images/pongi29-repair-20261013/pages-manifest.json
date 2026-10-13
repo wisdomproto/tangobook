@@ -1,0 +1,52 @@
+[
+  {
+    "page": 1,
+    "file": "pages/p1.webp",
+    "sha256": "797d7484bfb5aeb3055386e69e64a0b930075369bbef8dbdb51b31a93b2c0333"
+  },
+  {
+    "page": 2,
+    "file": "pages/p2.webp",
+    "sha256": "baebae5191d03297014a276a17338459afd4e3e30bc1b10b3f65d23bad742bfe"
+  },
+  {
+    "page": 3,
+    "file": "pages/p3.webp",
+    "sha256": "3878c9d27059eeefb35b39f4299f6608ce8e07f5962281b5ea8b71996d425186"
+  },
+  {
+    "page": 4,
+    "file": "pages/p4.webp",
+    "sha256": "921a2c3697de0dd623884017b00dd9dece5536d50a872d1b61e8f792e7fb7bc7"
+  },
+  {
+    "page": 5,
+    "file": "pages/p5.webp",
+    "sha256": "ddaa7b2eab690c75683b95ab89da55e67d0c9a96bb80a955ad799e9f95f16c81"
+  },
+  {
+    "page": 6,
+    "file": "pages/p6.webp",
+    "sha256": "61f885a6e3db370de28545503852423298563cc3fca75c43121c0e1384dd43cd"
+  },
+  {
+    "page": 7,
+    "file": "pages/p7.webp",
+    "sha256": "e9a66355e01b2c6afcb2bfb6ebd044d73dfa22aef3e84d916f281323d8f3321b"
+  },
+  {
+    "page": 8,
+    "file": "pages/p8.webp",
+    "sha256": "ea6dabb45d201b0a37cfb46cecef83f078c247cd6914ce929e662f7496dcad21"
+  },
+  {
+    "page": 9,
+    "file": "pages/p9.webp",
+    "sha256": "abcaa44fa4ebf324fd64c92f29ea4c01089c119ceeb5bed5f773a851b665db44"
+  },
+  {
+    "page": 10,
+    "file": "pages/p10.webp",
+    "sha256": "5053641a53fd790c99ab38e4fbca13b8cc8f69c5efd71b3c90d0db3bf4fe2afc"
+  }
+]

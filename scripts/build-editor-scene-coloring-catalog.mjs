@@ -49,6 +49,8 @@ for (const job of jobs) {
     pageNumber: job.pageNumber,
     lineartUrl: asset('lineart'),
     colorSourceUrl: asset('source'),
+    ...(job.revealOriginalUrl ? { originalUrl: job.revealOriginalUrl } : {}),
+    ...(job.minRegionAreaRatio ? { minRegionAreaRatio: job.minRegionAreaRatio } : {}),
     text: job.text || '',
     ttsUrl: job.ttsUrl || undefined,
     translations: job.translations || {},

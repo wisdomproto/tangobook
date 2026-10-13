@@ -7,6 +7,10 @@ export interface EditorColoringScene {
   pageNumber: number;
   lineartUrl: string;
   colorSourceUrl: string;
+  /** 정렬된 색 답안과 별도로 완료 때 보여 줄 실제 본문 삽화. */
+  originalUrl?: string;
+  /** 얇은 목끈 등 검수된 작은 칸을 포함할 때만 지정한다. */
+  minRegionAreaRatio?: number;
   text: string;
   ttsUrl?: string | null;
   translations: Record<string, { text?: string; ttsUrl?: string | null }>;
@@ -51,17 +55,18 @@ export function editorSceneColoringItem(
     word: `${(lang === 'ko' ? book.title : (book.titleTranslations?.[lang] ?? book.title)).replace(/_그림체[123]$/, '')} · ${lang === 'en' ? 'p. ' : ''}${scene.pageNumber}${lang === 'en' ? '' : '쪽'}`,
     lineartUrl: canvasAssetUrl(scene.lineartUrl),
     colorSourceUrl: canvasAssetUrl(scene.colorSourceUrl),
-    originalUrl: scene.colorSourceUrl,
+    originalUrl: scene.originalUrl ?? scene.colorSourceUrl,
     lang,
     language: language[lang],
     // Deliberately no storybookId: explicit scene supplies the exact page, not a word lookup.
     scene: {
       pageNumber: scene.pageNumber,
-      illustrationUrl: scene.colorSourceUrl,
+      illustrationUrl: scene.originalUrl ?? scene.colorSourceUrl,
       text: content.text,
       ttsUrl: content.ttsUrl ?? undefined,
       backgroundMusicUrl: book.backgroundMusicUrl ?? scene.backgroundMusicUrl,
       colorSampling: scene.colorSampling,
+      minRegionAreaRatio: scene.minRegionAreaRatio,
     },
   };
 }

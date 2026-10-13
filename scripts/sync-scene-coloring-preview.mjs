@@ -35,6 +35,7 @@ const fields = [
   'artStyle',
   'pageNumber',
   'originalUrl',
+  'revealOriginalUrl',
   'text',
   'ttsUrl',
   'translations',
@@ -46,6 +47,7 @@ const fields = [
   'lineartSha256',
   'colorCheck',
   'colorSampling',
+  'minRegionAreaRatio',
   'collection',
 ];
 const jobs = [

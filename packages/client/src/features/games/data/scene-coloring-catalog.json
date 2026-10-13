@@ -19607,21 +19607,25 @@
       "key": "changjak-pongi-29-p04",
       "bookId": "changjak-pongi-29",
       "pageNumber": 4,
-      "lineartUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-29-p04.png?v=ed01238e063f",
-      "colorSourceUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-29-p04.png?v=018541ecfa7e",
+      "lineartUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-29-p04-20261013.png?v=45064d4cda25",
+      "colorSourceUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-29-p04-20261013.png?v=d99197f76642",
       "text": "아빠가 퐁이 등을 쓸어 주고 물그릇을 내밀어요. 퐁이가 두 앞발로 받아 한 모금 마시자 딸꾹질이 스르르 잦아들어요. \"너무 크게 삼켰구나. 작게 먹는 법, 아빠가 알려 줄까?\" 퐁이가 끄덕여요.",
       "translations": {},
-      "backgroundMusicUrl": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3"
+      "backgroundMusicUrl": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3",
+      "originalUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p4.webp",
+      "minRegionAreaRatio": 0.001
     },
     {
       "key": "changjak-pongi-29-p08",
       "bookId": "changjak-pongi-29",
       "pageNumber": 8,
-      "lineartUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-29-p08.png?v=2935b78d371a",
-      "colorSourceUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-29-p08.png?v=7e96950a2136",
+      "lineartUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/lineart/changjak-pongi-29-p08-20261013.png?v=f72ff3c4cad9",
+      "colorSourceUrl": "https://assets.tangobook.co.kr/tests/classic-scene-coloring/20261001-review-1/changjak-pongi/sources/changjak-pongi-29-p08-20261013.png?v=c446cc4be08c",
       "text": "다 먹고 나니 목이 편해요. 딸꾹질도 없어요. 동생이 조개를 안고 \"냠!\" 해요. 퐁이 입이 웃어요. 배 바닥에 물고기 뼈만 남았어요.",
       "translations": {},
-      "backgroundMusicUrl": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3"
+      "backgroundMusicUrl": "https://www.tangobook.co.kr/sounds/bgm/default-1.mp3",
+      "originalUrl": "https://assets.tangobook.co.kr/comic-assets/pongi-29-repair-20261013/p8.webp",
+      "minRegionAreaRatio": 0.001
     }
   ],
   "changjak-pongi-30": [

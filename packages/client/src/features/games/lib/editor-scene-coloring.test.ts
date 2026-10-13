@@ -31,6 +31,25 @@ const book = {
 } as Storybook;
 
 describe('editor2 장면 색칠 연결', () => {
+  it('정렬 색 답안으로 칠하고 완료 때에는 지정한 실제 본문 삽화를 재생한다', () => {
+    const item = editorSceneColoringItem(
+      {
+        ...scene,
+        originalUrl: 'https://assets.test/approved-page.webp',
+        minRegionAreaRatio: 0.001,
+      },
+      book,
+      'en'
+    );
+    expect(item?.colorSourceUrl).toBe(scene.colorSourceUrl);
+    expect(item?.originalUrl).toBe('https://assets.test/approved-page.webp');
+    expect(item?.scene).toMatchObject({
+      illustrationUrl: 'https://assets.test/approved-page.webp',
+      text: 'Current English',
+      ttsUrl: 'current-en.mp3',
+      minRegionAreaRatio: 0.001,
+    });
+  });
   it('창작동화 1~19를 포함한 1215권 2430장의 공개 도안을 책 ID에 두 장씩 연결한다', () => {
     expect(Object.keys(catalog)).toHaveLength(1215);
     const keys = new Set();
