@@ -1,7 +1,7 @@
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { bookDisplayTitle } from '@tangobook/shared';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook';
 import { StateScreen } from '@/design-system';
@@ -687,8 +687,14 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   //    **본문 읽기는 미로그인 포함 누구나, 전 책**. 로그인이 필요한 건 독후활동(단어 익히기)과
   //    학습현황이다. 오픈 초반 유입을 막지 않기 위한 선택 — 딥링크로 들어와도 그대로 읽힌다.
 
-  // 게임 모드 → GameListViewer (v2Style prop 은 GameListViewer 의 v2 fallback 용 — urlStyle 그대로 전달)
+  // 기존 책 게임 링크도 어휘 메뉴로 연결한다. 파닉스 게임 목록은 보존한다.
   if (mode === 'games') {
+    if (storybook.type !== 'phonics') {
+      const query = new URLSearchParams({ lang });
+      const style = storybook.artStyle ?? urlStyle;
+      if (style) query.set('style', style);
+      return <Navigate replace to={`/vocabulary/book-${storybook.id}?${query}`} />;
+    }
     return (
       <GameListViewer storybook={storybook} bid={storybookId} v2Style={urlStyle ?? undefined} />
     );

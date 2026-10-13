@@ -268,7 +268,9 @@ export function getAvailableGames(
   book?: Storybook,
   style?: string,
   /** 이 책·이 언어에서 쓸 수 있는 색칠 도안 수(`countColoringSheets`). 0/undefined 면 기존 그리기. */
-  coloringCount?: number
+  coloringCount?: number,
+  /** 학습자 책 메뉴는 어휘만. 기존 저작/게임 데이터 호환은 all로 보존한다. */
+  group: 'all' | 'word' = 'all'
 ): VocabGameOption[] {
   const isKo = lang === 'ko';
   const isEn = lang === 'en';
@@ -291,12 +293,6 @@ export function getAvailableGames(
    *    vi·zh·th 는 번역 없는 87권이 0이라 그 책들만 기존 그리기로 남는다(빈 색칠 화면을 안 연다).
    */
   const useColoring = (coloringCount ?? 0) > 0;
-  const storyData = buildStoryImageData(book, lang, style);
-  // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
-  const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
-  const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
-  const hiddenObjectData =
-    isKo || isEn ? buildHiddenObjectSceneData(book, style, undefined, lang as 'ko' | 'en') : null;
 
   const cards: VocabGameOption[] = [
     {
@@ -371,6 +367,15 @@ export function getAvailableGames(
       unavailableReason: !writingData ? t('cards.unavailable.writing') : undefined,
     },
   ];
+
+  if (group === 'word') return cards;
+
+  const storyData = buildStoryImageData(book, lang, style);
+  // 독후활동은 한국어부터. 다른 언어는 카드를 내지 않는다(반쪽만 번역된 화면보다 없는 게 낫다).
+  const pageOrderData = isKo ? buildPageOrderData(book, style) : null;
+  const objectSceneData = isKo ? buildObjectSceneData(book, style) : null;
+  const hiddenObjectData =
+    isKo || isEn ? buildHiddenObjectSceneData(book, style, undefined, lang as 'ko' | 'en') : null;
 
   // 독후활동 — 이야기를 듣고 그 장면을 고른다. 낱말이 아니라 쪽에서 나오므로
   // key_objects 가 없는 책에서도 뜬다. 책 없이는 만들 수 없어 카드 자체를 안 낸다.

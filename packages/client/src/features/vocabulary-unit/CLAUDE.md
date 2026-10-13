@@ -1,6 +1,6 @@
 # 어휘 단원 모듈
 
-독후활동 그룹/게임 선택은 공유 종이 패널·그림 도구 아이콘을 사용한다. 그룹 제목/아이콘 시작 높이를 맞추며 실제 게임·언어·어휘 데이터는 보존한다. [전체 구현·검수](../../../../../docs/work/platform/tasks/20261013-storybook-learning-ui.md).
+책 어휘 메뉴는 중간 그룹 선택·동화 내용 게임·예시 단어 없이 어휘 게임 버튼만 바로 보여준다. `VocabularyGameMenu`의 그림/이름2×2 구름 버튼은 공유 호출에서도 독립적으로 스타일을 유지한다. 가용성·언어·게임 플레이/기록은 보존한다. [사용자 결정·검수](../../../../../docs/work/games/tasks/20261014-book-vocabulary-only-ui.md).
 
 Cambridge Pre-A1 Starters 토픽 16개 + 사용자 정의 단원. 단원 = 단어 N개 + 단어당 이미지 N장.
 
@@ -19,8 +19,8 @@ features/vocabulary-unit/
   components/
     VocabularyUnitSidebarList.tsx     # /editor2 에서 사용 (Sidebar 어휘 모드)
     VocabularyUnitEditor.tsx          # 메인 에디터 (KeyObjectTab UI 포팅 — 4-col grid + 일괄/업로드/다운로드/모델 선택)
-    VocabularyStudyPage.tsx           # 학습 풀화면 (← 책 상세 + 표지 hero + 호리 말풍선 + VocabularyStudyContent)
-    VocabularyStudyContent.tsx        # 단어 미리보기 + 게임 카드 4 + 모달 (BookDetailPage / VocabularyStudyPage 공용)
+    VocabularyStudyPage.tsx           # 책에서 여는 어휘 게임 풀화면 (선택 언어/그림체 보존)
+    VocabularyStudyContent.tsx        # 어휘 게임 메뉴 + 게임 모달 (VocabularyStudyPage / RandomVocabStudyPage 공용)
     WordDetailModal.tsx               # 단어 탭 시 책 페이지/예문/TTS
 ```
 

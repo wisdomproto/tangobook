@@ -20,16 +20,7 @@ function getDisplayUnitName(unit: VocabularyUnit, lang: Lang, storybook?: Storyb
   return unit.nameEn ?? unit.nameKo;
 }
 
-/**
- * 단원 학습 풀화면 (/vocabulary/:unitId).
- *
- * 표지 hero + 호리/말풍선 + 학습 콘텐츠 (단어 미리보기 + 게임 카드).
- * 학습 콘텐츠는 BookDetailPage 와 공유 — `VocabularyStudyContent` 컴포넌트.
- *
- * MVP 시점 진입: 사이드바 어휘 axis 는 "준비 중" 음영이라 직접 URL 또는 책 detail 의
- * "단어 익히기" 카드 → 책 detail inline 섹션 흐름이 메인. 이 페이지는 라우트 보존
- * 용도 (직접 URL 접근 시 동작) + 어휘 단원 단독 학습 시 fallback.
- */
+/** 책에서 바로 여는 어휘 게임 목록. 선택 언어/그림체를 보존한다. */
 export function VocabularyStudyPage() {
   const { t } = useTranslation('games');
   const { unitId } = useParams<{ unitId: string }>();
@@ -128,9 +119,6 @@ export function VocabularyStudyPage() {
           접혀 위가 잘리지 않는다(가운데 정렬은 위를 스크롤 시작점 위로 밀어 못 보게 만든다). */}
       <main className="px-4 sm:px-8 pt-4 pb-6 w-full max-w-[1600px] mx-auto flex-1 flex flex-col">
         <div className="my-auto w-full">
-          {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드.
-            그림체 선택(여러 그림체 보유 책만)은 "단어 둘러보기" 헤딩 줄 오른쪽에 배치.
-            선택 시 게임/미리보기 이미지가 그 그림체로 재derive. 실명 비노출 → 장르 라벨. */}
           <VocabularyStudyContent
             unit={unit}
             storybook={storybook ?? undefined}

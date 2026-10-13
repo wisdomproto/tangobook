@@ -55,7 +55,9 @@ export default function BookDetailPage() {
 
   // 기본 선택 언어 = 현재 UI 언어(진입 링크 /en 등). 책이 그 언어를 지원하면 그 언어로 열림
   // (아래 `lang` 계산에서 미지원 시 첫 공개 언어로 폴백).
-  const [langState, setLang] = useState<string>(i18n.language);
+  const [langState, setLang] = useState<string>(
+    () => new URLSearchParams(location.search).get('lang') ?? i18n.language
+  );
   const [videoOpen, setVideoOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
@@ -174,7 +176,7 @@ export default function BookDetailPage() {
   //    여기서 막히면 버튼이 로그인 페이지로 보내버려 게이트까지 닿지도 못한다.
   const activityBlocked = !BETA_OPEN && isConfigured && (!session || !access.isEntitled);
 
-  const enterMode = (mode: 'read' | 'video' | 'vocab', opts?: { selfRead?: boolean }) => {
+  const enterMode = (mode: 'read' | 'video' | 'vocab') => {
     if (mode === 'video') {
       const vid = youtubeVideoIds[0];
       if (vid) {
@@ -205,8 +207,8 @@ export default function BookDetailPage() {
     }
     const qs = new URLSearchParams({ lang });
     if (effectiveStyle) qs.set('style', effectiveStyle);
-    // 읽어주기(자동) = autoplay 1 / 스스로 책읽기 = autoplay 0 (자동 낭독·자동 넘김 없음)
-    qs.set('autoplay', opts?.selfRead ? '0' : '1');
+    // 책 상세의 읽어주기는 자동 낭독으로 시작한다.
+    qs.set('autoplay', '1');
     navigate(`/viewer/${targetId}?${qs.toString()}`);
   };
 
@@ -267,12 +269,12 @@ export default function BookDetailPage() {
         <div className="flex-1 flex flex-col justify-center">
           {/* 상단 3단계 안내 — 아이와 함께 읽는 흐름. 전용 일러스트 아이콘 + 2줄 제목 + 부제 + 점선 커넥터. */}
 
-          {/* hero — 좌: 정방형 표지 / 우: chip row + 모드 카드 3개 (세로 stack). reference 디자인. */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+          {/* hero — 좌: 정방형 표지 / 우: chip row + 읽어주기/어휘 게임 카드 (세로 stack). reference 디자인. */}
+          <div className="storybook-book-choices grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
             {/* 좌: 그림체 선택 바 + 언어 토글 + 정방형 표지. 표지 일러스트에 책 제목이 박혀있어 우측엔 별도 h1 미노출. */}
-            <div className="flex flex-col gap-2.5">
+            <div className="storybook-book-art flex flex-col gap-2.5">
               {(canPickStyle || languages.length > 1) && (
-                <div className="flex items-stretch gap-2">
+                <div className="storybook-book-controls flex items-stretch gap-2">
                   {canPickStyle && (
                     <div className="flex-1 min-w-0 flex items-center justify-between bg-white rounded-full px-2 py-1.5 shadow-soft">
                       <button
@@ -306,7 +308,7 @@ export default function BookDetailPage() {
                   {languages.length > 1 && (
                     <>
                       {/* 모바일 = 드롭박스 (국기 칩 5개가 공간을 너무 차지 → select 로 압축) */}
-                      <div className="relative shrink-0 sm:hidden">
+                      <div className="storybook-book-language-select relative shrink-0 sm:hidden">
                         <select
                           value={lang}
                           onChange={(e) => setLang(e.target.value)}
@@ -333,7 +335,7 @@ export default function BookDetailPage() {
                         </span>
                       </div>
                       {/* 데스크톱 = 국기 칩 행 (공간 여유) */}
-                      <div className="hidden sm:flex items-center gap-1 bg-white rounded-full px-1.5 py-1.5 shadow-soft shrink-0">
+                      <div className="storybook-book-language-chips hidden sm:flex items-center gap-1 bg-white rounded-full px-1.5 py-1.5 shadow-soft shrink-0">
                         {languages.map((code) => {
                           const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
                           const active = lang === code;
@@ -361,7 +363,7 @@ export default function BookDetailPage() {
                   )}
                 </div>
               )}
-              <div className="relative aspect-video w-full">
+              <div className="storybook-book-cover-frame relative aspect-video w-full">
                 <BookCover
                   book={heroBook}
                   lang={lang}
@@ -371,9 +373,9 @@ export default function BookDetailPage() {
               </div>
             </div>
 
-            {/* 우: 모드 카드 3개 stack. 기본 정보 chip 은 헤더로 이관. 표지 정사각형 height 와 균형. */}
+            {/* 우: 읽어주기/어휘 게임 카드 stack. 기본 정보 chip 은 헤더로 이관. 표지 정사각형 height 와 균형. */}
             <div className="flex flex-col gap-3">
-              {/* 모드 카드 3개 — 가로 긴 카드 stack. 자식 모두 flex-1 로 표지 height 와 균형. 영상 없는 책 = disabled 음영. */}
+              {/* 읽어주기/어휘 게임 카드 — 가로 긴 카드 stack. 자식 모두 flex-1 로 표지 height 와 균형. 영상 없는 책 = disabled 음영. */}
               <div className="flex flex-col gap-3 flex-1 [&>button]:flex-1">
                 <ModeCard
                   tone="coral"
@@ -382,17 +384,6 @@ export default function BookDetailPage() {
                   title={t('modes.read')}
                   sub={t('modes.readSub')}
                   onClick={() => enterMode('read')}
-                />
-                <ModeCard
-                  tone="mint"
-                  icon={
-                    <span className="text-3xl sm:text-4xl" aria-hidden>
-                      👆
-                    </span>
-                  }
-                  title={t('modes.selfRead')}
-                  sub={t('modes.selfReadSub')}
-                  onClick={() => enterMode('read', { selfRead: true })}
                 />
                 {showVideoMode && (
                   <ModeCard
