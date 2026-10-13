@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-14 [책 게임 도구 삽화·장면 게임 후속](../work/games/tasks/20261014-book-vocabulary-only-ui.md): 동일 구름4개 사용자 반증으로 게임별 내장 imagegen8종(한영블록 분리)·alpha WebP314KiB 재작화. 숨은그림/장면 색칠 직접 연결·어휘 숨김 책은 장면 활동 유지·입구 읽어주기/게임.25회귀/타입/lint/build·native한영/568가로 검수 완료, ready·원격 push 미요청. 기존 신데렐라6쪽 도안 체크무늬는 별도 후속.
+2026-10-14 [책 게임 도구 삽화·장면 게임 후속](../work/games/tasks/20261014-book-vocabulary-only-ui.md): 동일 구름4개 사용자 반증으로 게임별 내장 imagegen8종(한영블록 분리)·alpha WebP314KiB 재작화. 숨은그림/장면 색칠 직접 연결·어휘 숨김 책은 장면 활동 유지·입구 읽어주기/게임.25회귀/타입/lint/build·native한영/568가로 검수 완료, a2e31b43f 로컬 main 통합·원격 push 미요청. 기존 신데렐라6쪽 도안 체크무늬는 별도 후속.
 
 2026-10-14 [책 어휘 메뉴 단순화](../work/games/tasks/20261014-book-vocabulary-only-ui.md): 사용자 결정으로 스스로 읽기·동화 내용 게임·중간 그룹·예시 단어를 학습자 메뉴에서 제외. 읽어주기/어휘 게임2입구·그림/이름4버튼, 한영·권한·기록 보존. 작은 가로 표지/메뉴 병렬·복귀 lang 복구.28회귀/타입/lint/build·native 대표 화면 검수 완료, 04ebf8f50 로컬 main 통합·원격 push 미요청.
 

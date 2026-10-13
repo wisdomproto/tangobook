@@ -2,12 +2,12 @@
 
 - id: 20261014-book-vocabulary-only-ui
 - domain: games
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: 2b2e036a4
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 04ebf8f50 이전 단순화 main 포함, 전용 삽화/장면 게임 후속은 통합 전
+- integration: a2e31b43f 전용 삽화/장면 게임 후속 main fast-forward 통합 확인
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -61,4 +61,4 @@
 - 1280×720 육안 검수,568×320 실제 작은 가로에서6버튼3열2행·가로 넘침0·마지막 버튼 bottom302px. 처음 이미지 높이 %가 grid intrinsic size와 겹쳐 이름을 가리고 아래를 넘는 문제 발견 후 그림 프레임의 absolute contain/고정 높이로 해결.
 - 증거: visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02의 vocabulary-object-menu-20261014.png, vocabulary-object-menu-small-20261014.png. 생성/메뉴 품질 검수는 사용자 디자인 승인과 다르다.
 - 추가 관찰: 기존 신데렐라6쪽 장면 도안 말 영역에 회색 체크 무늬가 보인다(storybook-scene-coloring-existing-20261014.png). 기존 파일/렌더링 원인은 아직 분리하지 않았고 이번에는 운영 도안/R2를 수정하지 않았다. 후속에서 해당 도안 원본을 확인하고 보정 범위를 정한다.
-- 코드/기억 로컬 커밋 및 main 통합 후 기록 갱신 예정. 이번 후속도 원격 push/운영 콘텐츠 수정 요청 없음.
+- a2e31b43f 코드/기억/자산 root main fast-forward 통합 확인. 이번 후속도 원격 push/운영 콘텐츠 수정 요청 없음.
