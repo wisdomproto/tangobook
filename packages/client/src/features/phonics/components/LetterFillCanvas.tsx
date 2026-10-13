@@ -6,6 +6,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/design-system';
 import { feedDrawLoop } from '@/lib/uiSound';
+import { RotateCcw } from 'lucide-react';
+import { VowelStrokeOverlay } from './VowelStrokeOverlay';
+import {
+  firstUnpaintedStroke,
+  getVowelGuideStrokes,
+  type VowelGuideStroke,
+  type WritingGuidance,
+} from './vowel-stroke-guide';
 
 /**
  * paint-bucket 채점 캔버스 — 글자 영역 안만 painted, 채움 비율로 통과 판정.
@@ -56,6 +64,8 @@ interface LetterFillCanvasProps {
   threshold?: number;
   /** true 면 통과 시 자동 onResult. false 면 사용자가 "확인" 버튼 클릭. */
   autoCheck?: boolean;
+  /** Optional beginner-vowel hints. Does not change paint scoring or other callers. */
+  guidance?: WritingGuidance;
 }
 
 export function LetterFillCanvas({
@@ -66,11 +76,19 @@ export function LetterFillCanvas({
   incorrectSoundUrl,
   threshold = DEFAULT_THRESHOLD,
   autoCheck,
+  guidance,
 }: LetterFillCanvasProps) {
   const { t } = useTranslation('games');
+  const { t: phonicsT } = useTranslation('phonics');
   const [hasDrawn, setHasDrawn] = useState(false);
   const [result, setResult] = useState<{ passed: boolean; coverage: number } | null>(null);
   const [liveCoverage, setLiveCoverage] = useState(0);
+  const [guideStrokes, setGuideStrokes] = useState<VowelGuideStroke[]>([]);
+  const [currentStroke, setCurrentStroke] = useState(0);
+  const [demonstrating, setDemonstrating] = useState(guidance === 'demo');
+  const [demoVersion, setDemoVersion] = useState(0);
+  const [canvasReady, setCanvasReady] = useState(!guidance);
+  const endDemo = useCallback(() => setDemonstrating(false), []);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
@@ -111,7 +129,7 @@ export function LetterFillCanvas({
 
       // 글자 회색 fill — 글자 영역만 픽셀 존재 (밖은 투명)
       ctx.font = calcFont(ctx, text);
-      ctx.fillStyle = GUIDE_COLOR;
+      ctx.fillStyle = guidance === 'independent' ? '#eeeae2' : GUIDE_COLOR;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(text, CANVAS_W / 2, CANVAS_H / 2);
@@ -123,8 +141,9 @@ export function LetterFillCanvas({
         if (imageData.data[i] > 0) guidePixels++; // alpha > 0 픽셀
       }
       guidePixelsRef.current = guidePixels;
+      setGuideStrokes(guidance ? getVowelGuideStrokes(text, imageData) : []);
     },
-    [calcFont]
+    [calcFont, guidance]
   );
 
   // 캔버스 초기화 (letter 변경 시 reset)
@@ -135,8 +154,28 @@ export function LetterFillCanvas({
     setHasDrawn(false);
     setResult(null);
     setLiveCoverage(0);
-    drawGuide(ctx, letter);
-  }, [letter, drawGuide]);
+    isDrawingRef.current = false;
+    setCurrentStroke(0);
+    setDemonstrating(guidance === 'demo');
+    let cancelled = false;
+    const initialize = () => {
+      if (cancelled) return;
+      drawGuide(ctx, letter);
+      setCanvasReady(true);
+    };
+    if (guidance && document.fonts?.load) {
+      // Wait for the actual face before capturing the mask/paths. Never redraw
+      // over a child's input when a late webfont swaps in.
+      setCanvasReady(false);
+      setGuideStrokes([]);
+      void document.fonts
+        .load(`bold 340px ${pickFontFamily(letter)}`, letter)
+        .then(initialize, initialize);
+    } else initialize();
+    return () => {
+      cancelled = true;
+    };
+  }, [letter, drawGuide, guidance]);
 
   const toCanvas = (e: ReactPointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
@@ -151,6 +190,7 @@ export function LetterFillCanvas({
     const ctx = canvasRef.current?.getContext('2d');
     if (!ctx || guidePixelsRef.current === 0) return 0;
     const imageData = ctx.getImageData(0, 0, CANVAS_W, CANVAS_H);
+    if (guideStrokes.length) setCurrentStroke(firstUnpaintedStroke(guideStrokes, imageData));
     let paintedPixels = 0;
     for (let i = 0; i < imageData.data.length; i += 4) {
       const r = imageData.data[i];
@@ -163,7 +203,7 @@ export function LetterFillCanvas({
       }
     }
     return paintedPixels / guidePixelsRef.current;
-  }, []);
+  }, [guideStrokes]);
 
   const drawPaintCircle = useCallback((ctx: CanvasRenderingContext2D, x: number, y: number) => {
     ctx.save();
@@ -197,7 +237,10 @@ export function LetterFillCanvas({
   );
 
   const handlePointerDown = (e: ReactPointerEvent<HTMLCanvasElement>) => {
-    if (result) return;
+    if (result || !canvasReady) return;
+    // Touching the paper interrupts the demonstration; its SVG never paints
+    // into the scored canvas and therefore cannot award learning progress.
+    setDemonstrating(false);
     e.preventDefault();
     canvasRef.current!.setPointerCapture(e.pointerId);
     isDrawingRef.current = true;
@@ -241,6 +284,8 @@ export function LetterFillCanvas({
     setResult(null);
     setLiveCoverage(0);
     drawGuide(ctx, letter);
+    setCurrentStroke(0);
+    setDemonstrating(false);
   };
 
   const playSound = useCallback((url: string | undefined, correct: boolean) => {
@@ -282,7 +327,10 @@ export function LetterFillCanvas({
   const passedNow = liveCoverage >= threshold;
 
   return (
-    <div className="letter-fill-canvas flex flex-col items-center gap-3">
+    <div
+      className="letter-fill-canvas flex flex-col items-center gap-3"
+      data-writing-guidance={guidance}
+    >
       <div className="letter-fill-paper relative w-full max-w-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
         <canvas
           data-learning-fx={result ? undefined : 'trace'}
@@ -296,6 +344,16 @@ export function LetterFillCanvas({
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         />
+        {guidance && !result && (
+          <VowelStrokeOverlay
+            key={demoVersion}
+            strokes={guideStrokes}
+            guidance={guidance}
+            demonstrating={demonstrating}
+            currentStroke={currentStroke}
+            onDemoEnd={endDemo}
+          />
+        )}
         {/**
          * 통과 시 **테두리만** 반짝인다.
          *
@@ -316,6 +374,32 @@ export function LetterFillCanvas({
           )}
         </AnimatePresence>
       </div>
+
+      {guidance && (
+        <div className="vowel-stroke-tools flex w-full max-w-sm items-center justify-between gap-3">
+          <span role="status" className="text-sm font-bold text-ink-600">
+            {!canvasReady
+              ? phonicsT('write.preparing')
+              : demonstrating && guideStrokes.length
+                ? phonicsT('write.watch')
+                : guidance === 'independent'
+                  ? phonicsT('write.onYourOwn')
+                  : phonicsT('write.fromDot')}
+          </span>
+          <button
+            type="button"
+            disabled={!canvasReady || !!result || !guideStrokes.length}
+            onClick={() => {
+              setDemoVersion((version) => version + 1);
+              setDemonstrating(true);
+            }}
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border border-ink-100 bg-white px-3 text-sm font-bold text-ink-700 disabled:opacity-40"
+          >
+            <RotateCcw size={18} aria-hidden="true" />
+            {phonicsT('write.showStrokes')}
+          </button>
+        </div>
+      )}
 
       {/* 첫 pointerdown에 높이가 늘면 중앙 정렬된 캔버스가 손가락 밑에서 움직인다. 공간은 먼저 확보. */}
       {!result && (
@@ -339,7 +423,7 @@ export function LetterFillCanvas({
       )}
 
       {result && (
-        <div className="text-center">
+        <div className="letter-fill-result text-center">
           <div className={`text-4xl mb-1 ${result.passed ? 'animate-bounce' : ''}`}>
             {result.passed ? '🎉' : '💪'}
           </div>

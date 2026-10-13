@@ -207,7 +207,12 @@
     "meet": "Hai chữ gặp nhau rồi!",
     "sparkleCell": "✏️ Viết vào ô lấp lánh nhé!",
     "noStrokes": "Hãy tạo nét chữ trong công cụ soạn thảo",
-    "practiceProgress": "Luyện viết"
+    "practiceProgress": "Luyện viết",
+    "preparing": "Đang chuẩn bị chữ",
+    "watch": "Xem cách viết nhé",
+    "fromDot": "Bắt đầu từ dấu chấm",
+    "onYourOwn": "Tự viết nhé",
+    "showStrokes": "Xem thứ tự nét"
   },
   "cvc": {
     "learn": "Học {{pattern}}",

@@ -24,11 +24,13 @@ vi.mock('@/features/phonics/components/LetterFillCanvas', () => ({
   LetterFillCanvas: ({
     letter,
     onResult,
+    guidance,
   }: {
     letter: string;
     onResult: (passed: boolean) => void;
+    guidance?: string;
   }) => (
-    <button aria-label={`쓰기 ${letter}`} onClick={() => onResult(true)}>
+    <button aria-label={`쓰기 ${letter}`} data-guidance={guidance} onClick={() => onResult(true)}>
       {letter}
     </button>
   ),
@@ -52,12 +54,15 @@ describe('모음 모양 쓰기와 발음 분리', () => {
     );
     for (let round = 1; round <= 3; round++) {
       const canvas = screen.getByRole('button', { name: '쓰기 ㅏ' });
+      expect(canvas).toHaveAttribute('data-guidance', ['demo', 'hint', 'independent'][round - 1]);
       fireEvent.click(canvas);
       // A duplicate pass while the sound plays must not consume another round.
       fireEvent.click(canvas);
       expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe(String(round));
       await waitFor(() => expect(audio).toHaveBeenCalledTimes(round));
       expect(complete).not.toHaveBeenCalled();
+      // Do not switch hints/redraw the finished paper before pronunciation ends.
+      expect(canvas).toHaveAttribute('data-guidance', ['demo', 'hint', 'independent'][round - 1]);
       await act(async () => ended?.());
       if (round < 3) {
         await waitFor(() =>
@@ -68,6 +73,18 @@ describe('모음 모양 쓰기와 발음 분리', () => {
     }
     await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
     audio.mockImplementation((_url, onEnded) => onEnded?.());
+  });
+  it('병음/음절 쓰기는 모음 획순이나 회차별 안내를 적용하지 않는다', () => {
+    render(
+      <VowelWriteActivity
+        unitId="zh-test"
+        language="zh"
+        vowels={[{ vowel: 'a', syllable: 'a' }]}
+        onComplete={vi.fn()}
+        onBack={vi.fn()}
+      />
+    );
+    expect(screen.getByRole('button', { name: '쓰기 a' })).not.toHaveAttribute('data-guidance');
   });
   it('완료 표시는 음원 응답 전 갱신하고 다른 모음 선택 후 늦은 응답은 무시한다', async () => {
     let resolve!: (url: string) => void;

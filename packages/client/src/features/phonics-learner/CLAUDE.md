@@ -572,6 +572,8 @@ Book 1 데이터 정리 (2026-05-21):
 
 ## 글자쓰기 채점 = Paint mode (`LetterFillCanvas`, 2026-05-22)
 
+2026-10-13: 한글 입문 모음10종 VowelWriteActivity는3회 연습에서 첫 회 SVG 연필 시범+시작점/방향, 둘째 회 작은 안내, 셋째 회 옅은 글자만 제공한다. `vowel-stroke-guide.ts`가 실제700 폰트 마스크에 좌표를 맞추며 획 순서는 기존 자모 라이브러리와 같다. 손대면 시범 중단/다시 보기, 시범은 채점 Canvas에 쓰지 않는다. 음원 종료 뒤 새 캔버스에서만 회차 안내를 바꾼다. 힌트가 다음 미완료 획을 가리킬 뿐 엄격한 획순/방향 채점은 아니며 아래99% 기준/다른 쓰기 호출은 유지한다. [작업/검증](../../../../../docs/work/phonics/tasks/20261013-vowel-stroke-guide.md).
+
 **모든 쓰기 활동이 `LetterFillCanvas` (paint mode) 통일** — 한글/영어 동일 시스템. 자세한 시스템은 루트 CLAUDE.md "글자 쓰기 채점 시스템" 섹션.
 
 영어 stroke library (`LetterTracingCanvas`) 시스템은 deprecated/keep — 학습자 활동에 통합 안 됨. 미래 자모 단위 학습 활동용으로 인프라 보관.

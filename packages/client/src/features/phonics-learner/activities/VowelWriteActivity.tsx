@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { isIntroVowel } from '@/features/phonics/components/vowel-stroke-guide';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -64,6 +65,9 @@ export function VowelWriteActivity({
   const roundsRef = useRef(vowels.map(() => 0));
   const busyRef = useRef(false);
   const [canvasVersion, setCanvasVersion] = useState(0);
+  // Completed rounds update while pronunciation is still playing. Guidance
+  // changes only when a *new paper* appears, preserving the just-written glyph.
+  const [practiceRound, setPracticeRound] = useState(0);
   // 쉬는 동안 나가면 예약된 다음 카드·칭찬이 빈 화면에서 울린다.
   const restRef = useRef<number | null>(null);
   const sequenceRef = useRef(0);
@@ -125,6 +129,7 @@ export function VowelWriteActivity({
             const next = nextDone.has(idx) ? (remaining.find((i) => i > idx) ?? remaining[0]) : idx;
             busyRef.current = false;
             setCurrentIdx(next);
+            setPracticeRound(rounds[next]);
             setCanvasVersion((version) => version + 1);
           }
         }, REST_MS);
@@ -147,10 +152,13 @@ export function VowelWriteActivity({
     ]
   );
 
-  return (
-    <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
+  const showGuidance =
+    language === 'korean' &&
+    isIntroVowel(vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable);
+  const selection = (
+    <div className={showGuidance ? 'vowel-write-selection flex items-center gap-4' : undefined}>
       {/* chip 줄 — 진행 + 클릭으로 임의 선택 */}
-      <div className="flex flex-wrap justify-center gap-3 mb-4">
+      <div className="vowel-write-choices flex flex-wrap justify-center gap-3 mb-4">
         {vowels.map((v, i) => {
           const done = doneSet.has(i);
           const active = i === currentIdx;
@@ -165,6 +173,7 @@ export function VowelWriteActivity({
                 stopAll();
                 busyRef.current = false;
                 setCurrentIdx(i);
+                setPracticeRound(roundsRef.current[i]);
                 setCanvasVersion((version) => version + 1);
               }}
               disabled={done}
@@ -191,7 +200,7 @@ export function VowelWriteActivity({
           aria-valuemin={0}
           aria-valuemax={repetitions}
           aria-valuenow={completedRounds[currentIdx]}
-          className="mb-3 flex shrink-0 justify-center gap-3"
+          className="vowel-write-rounds mb-3 flex shrink-0 justify-center gap-3"
         >
           {Array.from({ length: repetitions }, (_, index) => (
             <span
@@ -204,8 +213,20 @@ export function VowelWriteActivity({
           ))}
         </div>
       )}
-
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
+    </div>
+  );
+  return (
+    <ActivityShell
+      unitId={unitId}
+      kind="write"
+      onBack={onBack}
+      headerRight={showGuidance ? selection : undefined}
+    >
+      {!showGuidance && selection}
+      <div
+        className="vowel-write-body flex-1 min-h-0 flex flex-col items-center justify-center"
+        data-vowel-guide={showGuidance || undefined}
+      >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center mb-4">
           {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 위 칩과 캔버스 가이드가 보여준다. */}
           {t('write.trace')}
@@ -215,6 +236,15 @@ export function VowelWriteActivity({
           letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck
+          guidance={
+            showGuidance
+              ? practiceRound === 0
+                ? 'demo'
+                : practiceRound === 1
+                  ? 'hint'
+                  : 'independent'
+              : undefined
+          }
         />
       </div>
 

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-13 [모음 획순 안내](../work/phonics/tasks/20261013-vowel-stroke-guide.md): 한글 모음10종 3회 연습에 SVG 연필 시범→작은 시작점/방향→옅은 글자 독립 쓰기. actual700 폰트 마스크 정렬·입력 시 시범 중단/다시 보기·작은 가로 배치, strict 획순 채점 없이99% 유지.75회귀/타입/lint/build·10모음/가로/native3회→경로 복귀 검증. 코드/기억 로컬 커밋·미푸시, 자음/음절/영어 획순 미확장.
+
 2026-10-13 [중간 완료 제거·모음3회 쓰기](../work/phonics/tasks/20261013-phonics-linked-path.md#중간-완료-화면-제거모음-세-번-쓰기): 사용자 두 완료 화면 제거/직접 이어짐 요청으로 GuidedRun은 실제 완료 후 한영 다음 활동 또는 finished 경로로 자동 이동. 중복 callback/Back 덮기 방지·재학습 unlock 제외. 한글 VowelWrite 각 모양3회·발음 종료 후 새 캔버스·진행3칸, 공용 기타 호출1회 유지.62회귀·타입/lint/build·별도 origin 실제 탭/3회 native 쓰기/다음 챕터 열림 확인. 사용자 승인으로0c104ee0d main 일반 push·원격 SHA 일치 확인. 이전 미푸시는 당시 상태, 배포 완료는 별도 미확인.
 
 2026-10-13 [한글 권 표기·학습 경로 main 전달 완료](../work/phonics/tasks/20261013-phonics-linked-path.md#한글-권-표기main-push): 사용자 main push 승인 및 한글 Book 표기 반증을 반영. 한글 경로/선택창/자유모드/부모 상세 리포트는 1~5권·책 고르기, 영어 Book 유지. 원격653d9bc59의 기존 독후활동·퐁이29 작업4커밋을 정상 merge하며 양쪽 기억 보존. 부모 Heatmap은 level 번역 연결, 집계는 그대로이며 모음 묶음 전6/10 테스트를 기존3묶음 계약에 맞춤. c634aba80 일반 push·원격 SHA 일치 확인. 아래 미푸시는 당시 상태.

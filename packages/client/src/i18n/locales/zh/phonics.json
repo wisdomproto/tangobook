@@ -207,7 +207,12 @@
     "meet": "两个字碰到一起了！",
     "sparkleCell": "✏️ 在闪闪的格子里写！",
     "noStrokes": "请在创作工具中生成笔画",
-    "practiceProgress": "书写练习"
+    "practiceProgress": "书写练习",
+    "preparing": "准备字形",
+    "watch": "看看怎么写",
+    "fromDot": "从圆点开始",
+    "onYourOwn": "自己写一写",
+    "showStrokes": "看看笔顺"
   },
   "cvc": {
     "learn": "学习 {{pattern}}",

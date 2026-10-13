@@ -207,7 +207,12 @@
     "meet": "Two letters met!",
     "sparkleCell": "✏️ Write in the glowing box!",
     "noStrokes": "Please create the strokes in the authoring tool",
-    "practiceProgress": "Writing practice"
+    "practiceProgress": "Writing practice",
+    "preparing": "Getting the letter ready",
+    "watch": "Watch how to write",
+    "fromDot": "Start at the dot",
+    "onYourOwn": "Write on your own",
+    "showStrokes": "Show strokes"
   },
   "cvc": {
     "learn": "Learn {{pattern}}",

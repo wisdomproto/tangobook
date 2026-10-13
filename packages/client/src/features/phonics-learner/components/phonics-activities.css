@@ -420,6 +420,62 @@
 .phonics-activity .letter-fill-canvas .text-slate-500 {
   color: #6d5a4c;
 }
+.vowel-write-selection .vowel-write-choices,
+.vowel-write-selection .vowel-write-rounds {
+  margin-bottom: 0;
+}
+.vowel-write-selection .vowel-write-choices button {
+  min-height: 44px;
+  padding: 4px 16px;
+}
+/* Short landscape: put instructions beside the paper, keeping a large square
+   and a 44px replay target inside the screen, including after a pass. */
+@media (orientation: landscape) and (max-height: 600px) {
+  .phonics-activity[data-activity-kind='write']:has(.vowel-write-body[data-vowel-guide]) {
+    overflow: hidden;
+  }
+  .phonics-activity[data-activity-kind='write'] > .vowel-write-body[data-vowel-guide] {
+    display: grid;
+    grid-template-columns: minmax(140px, 220px) auto;
+    grid-template-rows: 1fr auto 1fr;
+    gap: 12px 28px;
+    flex: 1;
+    min-height: 0;
+    flex-shrink: 1;
+    padding-block: 0;
+    align-content: center;
+    justify-content: center;
+  }
+  .vowel-write-body[data-vowel-guide] > h2 {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    margin: 0;
+  }
+  .vowel-write-body[data-vowel-guide] .letter-fill-canvas {
+    display: contents;
+  }
+  .vowel-write-body[data-vowel-guide] .letter-fill-paper {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    width: min(384px, calc(100svh - 126px));
+  }
+  .vowel-write-body[data-vowel-guide] .vowel-stroke-tools {
+    grid-column: 1;
+    grid-row: 2;
+    flex-direction: column;
+    justify-self: center;
+  }
+  .vowel-write-body[data-vowel-guide] .letter-fill-progress,
+  .vowel-write-body[data-vowel-guide] .letter-fill-result {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+  }
+  .vowel-write-body[data-vowel-guide] .letter-fill-result .text-4xl {
+    display: none;
+  }
+}
 [data-phonics-game] header {
   background: #ffffffd9;
   border-color: #ffffff;
