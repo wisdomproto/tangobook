@@ -4,6 +4,38 @@ import { blockIndexOf, trayEntriesForLetters } from '../../lib/tango-board/block
 import { TangoBoard, canPlace, findNearestPlacement } from './TangoBoard';
 
 describe('TangoBoard drag preview', () => {
+  it('slides overflowing choices with arrows and disables the reached edge', () => {
+    const onPick = vi.fn();
+    const { getByRole } = render(
+      <TangoBoard
+        placed={[]}
+        picked={null}
+        onPick={onPick}
+        onPlace={vi.fn()}
+        onMovePlaced={vi.fn()}
+        onRemovePlaced={vi.fn()}
+        onRotatePlaced={vi.fn()}
+      />
+    );
+    const viewport = getByRole('group', { name: '블록 고르기' });
+    Object.defineProperties(viewport, {
+      clientWidth: { value: 240 },
+      scrollWidth: { value: 600 },
+      scrollLeft: { value: 0, writable: true },
+    });
+    const scrollBy = vi.fn();
+    viewport.scrollBy = scrollBy;
+    fireEvent.scroll(viewport);
+    expect(getByRole('button', { name: '이전 블록 보기' })).toBeDisabled();
+    fireEvent.click(getByRole('button', { name: '다음 블록 보기' }));
+    expect(scrollBy).toHaveBeenLastCalledWith({ left: 180, behavior: 'smooth' });
+    viewport.scrollLeft = 360;
+    fireEvent.scroll(viewport);
+    expect(getByRole('button', { name: '다음 블록 보기' })).toBeDisabled();
+    fireEvent.click(getByRole('button', { name: '이전 블록 보기' }));
+    expect(scrollBy).toHaveBeenLastCalledWith({ left: -180, behavior: 'smooth' });
+    expect(onPick).not.toHaveBeenCalled();
+  });
   it('keeps learned letters separate even when they share a physical block', () => {
     const onPick = vi.fn();
     const tray = {

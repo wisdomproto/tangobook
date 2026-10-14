@@ -1,5 +1,6 @@
 import {
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -17,6 +18,8 @@ import {
 } from '../../lib/tango-board/blocks';
 import type { PlacedItem } from '../../lib/tango-board/compose';
 import { cn } from '@/lib/cn';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import './tango-board.css';
 
 /**
  * 판 칸 수. 폭은 실물 인식판과 같은 24칸.
@@ -242,6 +245,37 @@ export function TangoBoard({
   } | null>(null);
   const dragRef = useRef<typeof drag>(null);
   dragRef.current = drag;
+  const trayRef = useRef<HTMLDivElement>(null);
+  const trayItemsRef = useRef<HTMLDivElement>(null);
+  const [trayScroll, setTrayScroll] = useState({ left: false, right: false });
+  const updateTrayScroll = useCallback(() => {
+    const el = trayRef.current;
+    if (!el) return;
+    const left = el.scrollLeft > 2;
+    const right = el.scrollWidth - el.clientWidth - el.scrollLeft > 2;
+    setTrayScroll((prev) => (prev.left === left && prev.right === right ? prev : { left, right }));
+  }, []);
+  useEffect(() => {
+    updateTrayScroll();
+    const observer =
+      typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateTrayScroll) : null;
+    if (trayRef.current) observer?.observe(trayRef.current);
+    if (trayItemsRef.current) observer?.observe(trayItemsRef.current);
+    window.addEventListener('resize', updateTrayScroll);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', updateTrayScroll);
+    };
+  }, [updateTrayScroll, tray]);
+  const slideTray = (direction: number) => {
+    const el = trayRef.current;
+    if (!el) return;
+    el.scrollBy({
+      left: direction * Math.max(80, el.clientWidth * 0.75),
+      behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+  };
+  const trayOverflow = trayScroll.left || trayScroll.right;
   /** 끌어 옮긴 직후의 클릭은 회전이 아니다 — 포인터를 떼면 클릭이 뒤따라 온다. */
   const draggedRef = useRef(false);
 
@@ -516,37 +550,63 @@ export function TangoBoard({
 
       {deleteHint}
 
-      {/* 🔴 트레이는 **한 줄 16개**다 — 자음·모음 패널을 따로 두면 각자 줄바꿈이 생겨 세 줄이 되고
-          (실측) 그만큼 판이 줄어든다. 조각이 열여섯뿐이라 나눌 만큼 많지도 않다. */}
-      <div className="shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200 p-1.5 sm:p-2 short:p-0.5 short:border">
+      {/* 트레이는 단원별 선택지 수와 무관하게 한 줄이다. 넘치는 선택지는 큰 화살표로 이동한다. */}
+      <div className="tango-tray shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200">
+        {trayOverflow && (
+          <button
+            className="tango-tray-arrow"
+            type="button"
+            aria-label="이전 블록 보기"
+            disabled={!trayScroll.left}
+            onClick={() => slideTray(-1)}
+          >
+            <StorybookSprite name="next" className="tango-tray-arrow-left" />
+          </button>
+        )}
         {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
             라이브러리 표지 줄과 같은 규칙(스크롤바만 숨기고 네이티브 스크롤 유지). */}
         <div
-          className="flex flex-nowrap gap-1 sm:gap-1.5 items-center justify-start xl:justify-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          ref={trayRef}
+          onScroll={updateTrayScroll}
+          tabIndex={0}
+          className="tango-tray-viewport [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="group"
           aria-label="블록 고르기"
         >
-          {(tray?.consonants ?? TRAY_CHO).map((e) => (
-            <TrayPiece
-              key={`${e.id}:${e.rotDeg}`}
-              entry={e}
-              fixedOrientation={!!tray}
-              picked={picked}
-              onPick={onPick}
-              onDragStart={handleDragStart}
-            />
-          ))}
-          <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
-          {(tray?.vowels ?? TRAY_JUNG).map((e) => (
-            <TrayPiece
-              key={`${e.id}:${e.rotDeg}`}
-              entry={e}
-              picked={picked}
-              onPick={onPick}
-              onDragStart={handleDragStart}
-            />
-          ))}
+          <div ref={trayItemsRef} className="tango-tray-items">
+            {(tray?.consonants ?? TRAY_CHO).map((e) => (
+              <TrayPiece
+                key={`${e.id}:${e.rotDeg}`}
+                entry={e}
+                fixedOrientation={!!tray}
+                picked={picked}
+                onPick={onPick}
+                onDragStart={handleDragStart}
+              />
+            ))}
+            <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
+            {(tray?.vowels ?? TRAY_JUNG).map((e) => (
+              <TrayPiece
+                key={`${e.id}:${e.rotDeg}`}
+                entry={e}
+                picked={picked}
+                onPick={onPick}
+                onDragStart={handleDragStart}
+              />
+            ))}
+          </div>
         </div>
+        {trayOverflow && (
+          <button
+            className="tango-tray-arrow"
+            type="button"
+            aria-label="다음 블록 보기"
+            disabled={!trayScroll.right}
+            onClick={() => slideTray(1)}
+          >
+            <StorybookSprite name="next" />
+          </button>
+        )}
       </div>
     </div>
   );

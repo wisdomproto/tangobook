@@ -1,5 +1,7 @@
 # 학습 게임 모듈
 
+한글 블록 문제 단어는 검정색 정상 폰트로 표시하고 ColoredHangulWord의 수동 자모/색 배치를 사용하지 않는다. 넘치는 트레이는 큰 좌우 그림 화살표(PC60px·짧은 가로44px)/끝 비활성, 판과 오른쪽 행동은24~40px·짧은 가로16px 여백을 둔다. [배치·검수](../../../../../docs/work/phonics/tasks/20261014-korean-block-layout.md).
+
 한글 블록게임은 쌍자음/복합 모음 전용 선택지를 추가하지 않는다. 같은 기본 자음 두 개로 쌍자음5종,ㅣ/ㅏ/ㅑ 세 조각의 회전·2~3조각 조합으로 복합모음11종을 만든다. BLOCKS의 쌍자음 형상 정의는 인식용이며 트레이에는 없다. [전체 조합 검증](../../../../../docs/work/phonics/tasks/20261014-korean-basic-block-composition.md).
 
 학습자 게임 root/공통 셸·로딩·결과는 storybook-scope와 공유 배경/그림 아이콘을 사용한다. 카메라·학습판·채점·순서는 UI 테마와 함께 바꾸지 않는다. [전체 구현·검수](../../../../../docs/work/platform/tasks/20261013-storybook-learning-ui.md).

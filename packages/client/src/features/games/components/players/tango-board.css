@@ -1,0 +1,92 @@
+.tango-tray {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  min-width: 0;
+}
+.tango-tray-viewport {
+  min-width: 0;
+  flex: 1;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-radius: 16px;
+}
+.tango-tray-viewport:focus-visible {
+  outline: 3px solid #c63d21;
+  outline-offset: 2px;
+}
+.tango-tray-items {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: max-content;
+  min-width: 100%;
+  padding: 6px 4px;
+}
+.tango-tray-arrow {
+  display: grid;
+  place-items: center;
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #eab998;
+  border-radius: 20px;
+  background: #fff4dc;
+  box-shadow: 0 4px 0 #dfb28e;
+  cursor: pointer;
+}
+.tango-tray-arrow > span {
+  width: 38px !important;
+  height: 38px !important;
+}
+.tango-tray-arrow-left {
+  transform: rotate(180deg);
+}
+.tango-tray-arrow:disabled {
+  opacity: 0.32;
+  cursor: default;
+  box-shadow: none;
+}
+.tango-tray-arrow:not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #dfb28e;
+}
+.tango-tray-arrow:focus-visible {
+  outline: 3px solid #c63d21;
+  outline-offset: 3px;
+}
+@media (orientation: landscape) {
+  .korean-block-stage .korean-block-play-area {
+    gap: clamp(24px, 2.5vw, 40px);
+  }
+  .korean-block-stage .korean-block-actions {
+    padding-block: 8px;
+  }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .tango-tray {
+    gap: 6px;
+    padding: 4px;
+  }
+  .tango-tray-items {
+    gap: 4px;
+    padding: 4px 2px;
+  }
+  .tango-tray-arrow {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    box-shadow: 0 3px 0 #dfb28e;
+  }
+  .tango-tray-arrow > span {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .korean-block-stage .korean-block-play-area {
+    gap: 16px;
+  }
+}

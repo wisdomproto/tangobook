@@ -38,7 +38,6 @@ import { ENTRY_GUIDE, voiceUrl } from '@/features/phonics-learner/hooks/useEntry
 import { useBoardCamera } from '../../hooks/useBoardCamera';
 import { useIsLandscape } from '../../hooks/useIsLandscape';
 import { BoardCameraPanel } from './BoardCameraPanel';
-import { ColoredHangulWord } from './ColoredHangulWord';
 
 const JUNGSUNG_SET = new Set<string>(JUNGSUNG);
 function isVowel(char: string) {
@@ -619,13 +618,11 @@ function KoreanBlockPlayerInner({
                 fontSize: twoCol
                   ? 'clamp(2rem, min(8vw, 20vh), 9rem)'
                   : 'clamp(3rem, min(15vw, 18vh), 13rem)',
-                color: '#FF7A3C',
+                color: '#000',
                 letterSpacing: 0,
               }}
             >
-              <ColoredHangulWord
-                word={roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
-              />
+              {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
               {roundCorrect && typedChars < currentItem.word.length && (
                 <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
               )}
@@ -635,7 +632,7 @@ function KoreanBlockPlayerInner({
           {/* 섹션 2 — 드롭존 화면 가운데. 전체 읽기와 다음은 판 오른쪽에 세로 배치. */}
           <section
             className={cn(
-              'relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
+              'korean-block-play-area relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
               landscape && 'flex-row gap-2',
               twoCol ? 'flex-1' : 'flex-[4]',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
@@ -660,7 +657,7 @@ function KoreanBlockPlayerInner({
             )}
             <div
               className={cn(
-                'z-20 flex flex-col gap-2 sm:gap-3',
+                'korean-block-actions z-20 flex flex-col gap-2 sm:gap-3',
                 landscape
                   ? 'relative shrink-0 self-stretch justify-center'
                   : 'absolute right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
