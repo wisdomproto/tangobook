@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [운영 홈·이어하기 확인](../work/phonics/tasks/20261014-resume-entry-placement.md#운영-확인--2026-10-15): 운영 HTTP200/health ok·새2WebP SHA 일치·실제 한영 최초→이어하기 팝업/홈 직행/지도 복귀·추천 셔플 확인, PC/태블릿/가로폰 대표 화면 정상. Railway 배포 ID 직접 조회는 미확인. 답변/완료 없이 로컬 시작 표식만, 개인 로그/세션 저장 없음. 한글 팝업 문구 중복·SPA 탭 제목 잔상은 후속 보완, 기능 변경/재배포/추가push 없음.
+
 2026-10-14 [한영 학습 UI main 전달](../work/phonics/tasks/20261014-resume-entry-placement.md#원격-전달--2026-10-14): 사용자 현재 승인으로 게임 반응형/커리큘럼 순차·개별 복습/완료 전환·첫 안내/입구 팝업·홈 이어하기9커밋 일반 push aac4778dc→e4824a319. 원격/로컬 SHA 일치·0/0 확인. 아래 미푸시는 당시 상태이며 Railway 배포 완료 미확인. 전달 기록도 후속 push.
 
 2026-10-14 이어하기 위치 후속 d823bc5a4 로컬 main 통합 완료·원격 push/배포 없음. 팝업 입장/홈 Link·과정명/지도 HUD·191KB WebP,51회귀/타입/lint/build·실제 해상도 검수. 서버5186 유지, 임시 브라우저 탭 정리. [인계](../work/phonics/tasks/20261014-resume-entry-placement.md#인계통합).

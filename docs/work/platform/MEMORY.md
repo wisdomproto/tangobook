@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-15 [운영 학습 UI 배포 반영 확인](../phonics/tasks/20261014-resume-entry-placement.md#운영-확인--2026-10-15): /library·/health HTTP200, health ok·새 그림2WebP SHA 일치, 홈 큰 언어 Link/실제 두 이어하기/추천 셔플과 한영 팝업 동작. 공개 서비스 기능 반영 증거이며 Railway 배포 ID/commit 직접 조회는 미확인. 탭 제목 잔상·최초 한글 중복 문구 후속, 검수 기록만 로컬 보존.
+
 2026-10-14 [학습 UI main 전달](../phonics/tasks/20261014-resume-entry-placement.md#원격-전달--2026-10-14): 사용자 승인으로60파일/9커밋 학습 UI·게임 반응형·커리큘럼 흐름·모드/홈 이어하기를 e4824a319 원격 main에 일반 push. SHA 일치·0/0 확인, 기존 미추적 산출물 보존. 아래 미푸시는 당시 상태, 운영 배포 완료 미확인.
 
 2026-10-14 홈 별도 이어하기·과정 이름 및 파닉스 입구 d823bc5a4 로컬 main 포함. 실제51회귀/타입/lint/build·대표 화면 검증, 원격 전송 미요청. [인계](../phonics/tasks/20261014-resume-entry-placement.md#인계통합).
