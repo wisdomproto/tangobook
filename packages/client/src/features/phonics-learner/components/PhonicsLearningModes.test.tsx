@@ -13,6 +13,12 @@ vi.mock('@/features/auth/context/AuthContext', () => ({
   useAuth: () => ({ activeProfile: auth.profile ? { id: auth.profile } : null }),
 }));
 beforeEach(() => {
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute('open', '');
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute('open');
+  };
   localStorage.clear();
   auth.profile = null;
 });
@@ -30,50 +36,9 @@ function show(lang: 'korean' | 'english' = 'korean', query = '?mode=curriculum')
 function finish(lang: 'korean' | 'english', id: string) {
   for (const activity of journeyActivities(lang, id)) markActivityCompleted(lang, id, activity.key);
 }
-it.each(['korean', 'english'] as const)(
-  'offers a direct resume on the %s mode screen only after starting',
-  (lang) => {
-    const view = show(lang, '');
-    expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
-    view.unmount();
-    markJourneyStarted(lang);
-    const first = journeyUnits(lang)[0];
-    markActivityCompleted(lang, first.id, journeyActivities(lang, first.id)[0].key);
-    show(lang, '');
-    expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
-      'href',
-      `/library/phonics/${lang}/${first.id}/${journeyActivities(lang, first.id)[1].key}?mode=curriculum`
-    );
-    expect(screen.getByRole('link', { name: '커리큘럼 모드' })).toBeDefined();
-    expect(screen.getByRole('link', { name: '자유모드' })).toBeDefined();
-  }
-);
-it.each(['korean', 'english'] as const)(
-  'does not offer a fake resume after all %s lessons finish',
-  (lang) => {
-    for (const unit of journeyUnits(lang)) finish(lang, unit.id);
-    show(lang, '');
-    expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
-  }
-);
-it('resumes an interrupted first activity without claiming completion and isolates children', () => {
-  auth.profile = 'child-a';
-  localStorage.setItem('tangobook:activeProfileId', 'child-a');
-  markJourneyStarted('korean');
-  const view = show('korean', '');
-  expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
-    'href',
-    '/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum'
-  );
-  expect(localStorage.getItem('phonics-progress:profile:child-a')).toBeNull();
-  auth.profile = 'child-b';
-  localStorage.setItem('tangobook:activeProfileId', 'child-b');
-  view.rerender(
-    <MemoryRouter initialEntries={['/library/phonics/korean']}>
-      <PhonicsLearningModes lang="korean" />
-      <Location />
-    </MemoryRouter>
-  );
+it.each(['korean', 'english'] as const)('keeps resume out of the %s mode chooser', (lang) => {
+  markJourneyStarted(lang);
+  show(lang, '');
   expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
 });
 it('guides the first start without adding another start button or repeating after learning begins', () => {
@@ -89,7 +54,7 @@ it.each(['korean', 'english'] as const)('keeps the mode fork inside %s', (lang) 
   show(lang, '');
   expect(screen.getByRole('link', { name: '커리큘럼 모드' })).toHaveAttribute(
     'href',
-    `/library/phonics/${lang}?mode=curriculum`
+    `/library/phonics/${lang}?mode=curriculum&resume=1`
   );
   expect(screen.getByRole('link', { name: '자유모드' })).toHaveAttribute(
     'href',
@@ -349,4 +314,62 @@ it('resets a selected replay chapter to the new child’s actual starting chapte
     '/kr-v1-u01/listen-1'
   );
   expect(localStorage.getItem('phonics-progress:profile:child-b')).toBeNull();
+});
+
+it.each(['korean', 'english'] as const)(
+  'prompts the actual next %s activity only on explicit entry',
+  (lang) => {
+    const showModal = vi
+      .spyOn(HTMLDialogElement.prototype, 'showModal')
+      .mockImplementation(function (this: HTMLDialogElement) {
+        this.setAttribute('open', '');
+      });
+    const close = vi.spyOn(HTMLDialogElement.prototype, 'close').mockImplementation(function (
+      this: HTMLDialogElement
+    ) {
+      this.removeAttribute('open');
+    });
+    const first = journeyUnits(lang)[0];
+    markJourneyStarted(lang);
+    markActivityCompleted(lang, first.id, journeyActivities(lang, first.id)[0].key);
+    show(lang, '?mode=curriculum&resume=1');
+    const popup = screen.getByRole('dialog');
+    expect(within(popup).getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
+      'href',
+      `/library/phonics/${lang}/${first.id}/${journeyActivities(lang, first.id)[1].key}?mode=curriculum`
+    );
+    const before = localStorage.getItem('phonics-progress');
+    fireEvent.click(within(popup).getByRole('button', { name: '지도 보기' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.getByTestId('location').textContent).toBe('?mode=curriculum');
+    expect(localStorage.getItem('phonics-progress')).toBe(before);
+    showModal.mockRestore();
+    close.mockRestore();
+  }
+);
+it('does not obstruct a finished chapter return or provide a false resume after the course', () => {
+  finish('korean', 'kr-v1-u01');
+  const view = show('korean', '?mode=curriculum&finished=kr-v1-u01');
+  expect(screen.queryByRole('dialog')).toBeNull();
+  view.unmount();
+  for (const unit of journeyUnits('korean')) finish('korean', unit.id);
+  show('korean', '?mode=curriculum&resume=1');
+  expect(screen.queryByRole('dialog')).toBeNull();
+});
+it('removes the competing free-mode action from the curriculum HUD', () => {
+  show();
+  expect(screen.queryByRole('link', { name: '자유모드' })).toBeNull();
+  expect(screen.getByRole('link', { name: '모드 선택' })).toBeDefined();
+});
+
+it('starts the first lesson from the entry prompt and dismisses with Escape without creating progress', () => {
+  show('korean', '?mode=curriculum&resume=1');
+  const popup = screen.getByRole('dialog');
+  expect(within(popup).getByRole('link', { name: '첫 학습 시작하기' })).toHaveAttribute(
+    'href',
+    '/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum'
+  );
+  fireEvent(popup, new Event('cancel', { cancelable: true }));
+  expect(screen.queryByRole('dialog')).toBeNull();
+  expect(localStorage.length).toBe(0);
 });

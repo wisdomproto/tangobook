@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [이어하기 위치·입구 디자인 후속](../work/phonics/tasks/20261014-resume-entry-placement.md): 사용자 반증으로 모드 화면 이어하기를 커리큘럼 입장 팝업+홈 별도 Link로 이동한다. 지도 복귀 때 팝업 없이 기존 unlock/복습 유지, 차분한 지도 풍경/종이 모드 버튼·책 이름표·우측 전환 제거·한글 파닉스/영어 파닉스 이름 통일. 아래 모드 입구 이어하기 합의는 이 후속 결정으로 대체한다.
+
 2026-10-14 [한영 안내 흐름 로컬 통합](../work/phonics/tasks/20261014-curriculum-completion-transition.md#인계통합): 7abb02a93 main 포함. 완료1.4초/자동 다음·챕터 지도 unlock·모드 입구 이어하기·첫 챕터 안내,105회귀/타입/lint/build·실제 화면/정적 미리보기 검증 범위 기록. 임시 검수 HTML 삭제, 원격 push/배포 미요청·미실행.
 
 2026-10-14 [한영 자연스러운 완료 전환·입구](../work/phonics/tasks/20261014-curriculum-completion-transition.md): 활동 완료1.4초 안내/자동 다음, 챕터 끝 지도 unlock·복습 선택 복귀. 사용자가 한영 모드 입구 이어하기 위치 확정, 실제 current로 직행·완료/자녀 분리. 실제 첫 챕터 안내형 튜토리얼 추가, 새 완료 기록 없음. 원격 push/배포는 미요청.

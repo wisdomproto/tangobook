@@ -739,3 +739,51 @@ details[open] > .journey-free-group-title .journey-free-chevron {
     transition: none;
   }
 }
+
+/* A compact book nameplate, with no competing mode action on the curriculum HUD. */
+.curriculum-board .journey-world-nav {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+}
+.curriculum-board .journey-world-nav .journey-nameplate {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 5px 20px 5px 10px;
+  border: 1px solid #e6e4d2;
+  border-radius: 18px 18px 22px 22px;
+  background: #fffdf4;
+  box-shadow: 0 3px 0 #dce6da;
+  font-family: 'NanumSquareRound', sans-serif;
+}
+.journey-nameplate > span {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.journey-nameplate strong {
+  font-size: 18px;
+  color: var(--course-label);
+}
+.journey-nameplate small {
+  font-size: 13px;
+  font-weight: 700;
+  color: #827864;
+}
+.journey-nav-spacer {
+  width: 44px;
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .curriculum-board .journey-world-nav .journey-nameplate {
+    padding: 3px 12px 3px 7px;
+    gap: 5px;
+  }
+  .journey-nameplate strong {
+    font-size: 15px;
+  }
+  .journey-nameplate small {
+    font-size: 11px;
+  }
+}

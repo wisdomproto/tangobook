@@ -43,6 +43,7 @@
   font-size: clamp(32px, 3.5vw, 42px);
   font-weight: 900;
   line-height: 1.15;
+  word-break: keep-all;
 }
 .home-language-copy p {
   margin: 12px 0 0;
@@ -218,17 +219,90 @@
     padding: 14px 18px;
   }
   .home-language-copy h2 {
-    font-size: 24px;
+    font-size: 18px;
+  }
+  .home-language-copy p {
+    display: none;
   }
   .home-language-arrow {
-    position: absolute;
-    top: 0;
-    left: 60px;
+    position: static;
     width: 30px;
     height: 30px;
-    margin: 0;
+    margin-top: 10px;
   }
 }
 .storybook-home-page .storybook-title span {
   word-break: keep-all;
+}
+
+.home-resume-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 18px;
+}
+.home-resume-row:empty {
+  display: none;
+}
+.home-course-resume {
+  display: flex;
+  flex: 1 1 360px;
+  align-items: center;
+  gap: 14px;
+  min-height: 88px;
+  padding: 14px 20px;
+  border: 1px solid var(--course-border);
+  border-radius: 22px;
+  background: #fffdf7;
+  box-shadow: 0 3px 0 var(--course-soft);
+  color: #4b4234;
+}
+.home-resume-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  color: white;
+  background: var(--course-accent);
+}
+.home-course-resume strong {
+  display: block;
+  color: var(--course-label);
+  font-weight: 800;
+  font-size: 16px;
+}
+.home-course-resume small {
+  display: block;
+  color: #7b7264;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.home-resume-action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-inline-start: auto;
+  font-weight: 800;
+  color: var(--course-label);
+  white-space: nowrap;
+  font-size: 15px;
+}
+.home-course-resume:focus-visible {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 4px;
+}
+@media (max-width: 639px) {
+  .home-course-resume {
+    gap: 10px;
+    padding: 12px;
+    min-height: 76px;
+  }
+  .home-resume-action {
+    font-size: 12px;
+  }
+  .home-course-resume strong {
+    font-size: 14px;
+  }
 }

@@ -348,16 +348,27 @@ export function PhonicsJourneyMap({
           >
             <StorybookSprite name="back" size={26} />
           </Link>
-          <h1>
-            {t(`chapter.${lang}`)} · {t(free ? 'journey.free' : 'flow.pathTitle')}
-          </h1>
-          <Link
-            to={`/library/phonics/${lang}?mode=${free ? 'curriculum' : 'free'}`}
-            className="journey-small-button"
-            aria-label={t(free ? 'journey.curriculumMode' : 'journey.free')}
+          <h1
+            className="journey-nameplate"
+            aria-label={`${t(`chapter.${lang}`)} · ${t(free ? 'journey.free' : 'flow.pathTitle')}`}
           >
-            <StorybookSprite name="book" size={26} />
-          </Link>
+            <StorybookSprite name="book" size={34} />
+            <span>
+              <strong>{t(`chapter.${lang}`)}</strong>
+              <small>{t(free ? 'journey.free' : 'flow.pathTitle')}</small>
+            </span>
+          </h1>
+          {free ? (
+            <Link
+              to={`/library/phonics/${lang}?mode=curriculum`}
+              className="journey-small-button"
+              aria-label={t(free ? 'journey.curriculumMode' : 'journey.free')}
+            >
+              <StorybookSprite name="book" size={26} />
+            </Link>
+          ) : (
+            <span className="journey-nav-spacer" aria-hidden="true" />
+          )}
         </nav>
         <div className="journey-world-selector" role="group" aria-label={t('world.regions')}>
           {levels.map((level, index) => {

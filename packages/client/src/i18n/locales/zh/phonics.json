@@ -1,4 +1,5 @@
 {
+  "entry": { "firstStart": "开始第一课", "viewMap": "查看地图" },
   "common": {
     "back": "← 返回",
     "backToUnit": "← 回到单元",
@@ -348,8 +349,8 @@
   },
   "chapter": {
     "title": "学习 {{letter}}",
-    "korean": "韩语",
-    "english": "英语",
+    "korean": "韩语自然拼读",
+    "english": "英语自然拼读",
     "info": "学习信息",
     "backToChild": "返回学习",
     "listen": "听一听",

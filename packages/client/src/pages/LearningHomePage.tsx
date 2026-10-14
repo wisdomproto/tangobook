@@ -11,8 +11,43 @@ import { recommendBooks } from '@/features/library/lib/home-recommendations';
 import { BookCover } from '@/design-system/primitives/BookCover';
 import { bookDisplayTitle } from '@tangobook/shared';
 import { useMemo, useState } from 'react';
-import { ArrowRight, Shuffle } from 'lucide-react';
+import { ArrowRight, Shuffle, Play } from 'lucide-react';
 import './learning-home.css';
+import { usePhonicsProgress } from '@/features/phonics-learner/lib/progress-store';
+import {
+  journeyProgress,
+  hasJourneyStarted,
+  journeyActivityUrl,
+  type JourneyLanguage,
+} from '@/features/phonics-learner/lib/learning-journey';
+import { activityTitle } from '@/features/phonics-learner/lib/activity-title';
+
+function HomeCourseResume({ lang }: { lang: JourneyLanguage }) {
+  const { t } = useTranslation('phonics');
+  const { unitCompletedActivities } = usePhonicsProgress(lang);
+  const progress = journeyProgress(lang, unitCompletedActivities);
+  if (!progress.current || !(progress.completed > 0 || hasJourneyStarted(lang))) return null;
+  return (
+    <Link
+      className="home-course-resume"
+      style={getCourseTheme(lang)!.style}
+      aria-label={`${t(`journey.${lang}`)} · ${t('journey.continue')}`}
+      to={journeyActivityUrl(lang, progress.current.unit.id, progress.current.activity.key)}
+    >
+      <span className="home-resume-icon" aria-hidden="true">
+        <Play size={22} fill="currentColor" />
+      </span>
+      <span>
+        <strong>{t(`journey.${lang}`)}</strong>
+        <small>{activityTitle(t, progress.current.activity)}</small>
+      </span>
+      <span className="home-resume-action">
+        {t('journey.continue')}
+        <ArrowRight size={19} aria-hidden="true" />
+      </span>
+    </Link>
+  );
+}
 
 export default function LearningHomePage() {
   const { activeProfile } = useAuth();
@@ -75,6 +110,11 @@ function LearningHomeContent() {
           );
         })}
       </section>
+      <div className="home-resume-row">
+        {courses.map((lang) => (
+          <HomeCourseResume key={lang} lang={lang} />
+        ))}
+      </div>
       <section className="mt-8" aria-labelledby="recommend-heading">
         <div className="home-recommend-heading">
           <div className="home-recommend-title">

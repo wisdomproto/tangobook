@@ -1,4 +1,5 @@
 {
+  "entry": { "firstStart": "Bắt đầu bài học đầu tiên", "viewMap": "Xem bản đồ" },
   "common": {
     "back": "← Quay lại",
     "backToUnit": "← Về bài học",
@@ -348,8 +349,8 @@
   },
   "chapter": {
     "title": "Học {{letter}}",
-    "korean": "Tiếng Hàn",
-    "english": "Tiếng Anh",
+    "korean": "Ngữ âm tiếng Hàn",
+    "english": "Ngữ âm tiếng Anh",
     "info": "Thông tin học",
     "backToChild": "Về màn hình học",
     "listen": "Nghe",

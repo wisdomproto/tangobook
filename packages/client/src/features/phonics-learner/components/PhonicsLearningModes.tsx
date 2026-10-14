@@ -1,13 +1,13 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import './phonics-learning-modes.css';
 import { courseThemes } from '@/design-system';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { PhonicsBackdrop } from './PhonicsBackdrop';
+import { CurriculumEntryDialog } from './CurriculumEntryDialog';
 import { PhonicsJourneyMap } from './PhonicsJourneyMap';
 import { MobileLandscapeGate } from '@/features/games/components/MobileLandscapeGate';
-import { activityTitle } from '../lib/activity-title';
 import { usePhonicsProgress } from '../lib/progress-store';
 import { PhonicsFreeMap } from './PhonicsFreeMap';
 import {
@@ -15,7 +15,6 @@ import {
   journeyProgress,
   journeyUnits,
   hasJourneyStarted,
-  journeyActivityUrl,
   type JourneyLanguage,
 } from '../lib/learning-journey';
 
@@ -51,6 +50,14 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
           started={started}
           finishedUnitDone={!!finishedUnitDone}
         />
+        {search.get('resume') === '1' && progress.current && (
+          <CurriculumEntryDialog
+            key={`${lang}:${activeProfile?.id ?? 'guest'}`}
+            lang={lang}
+            step={progress.current}
+            started={started}
+          />
+        )}
       </MobileLandscapeGate>
     );
   }
@@ -60,33 +67,23 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
       style={theme.style}
       className={`phonics-course-page phonics-mode-page phonics-mode-page--${lang} relative min-h-[calc(100dvh-133px-env(safe-area-inset-bottom))] md:min-h-[calc(100dvh-73px)] overflow-hidden bg-cream-50`}
     >
-      <PhonicsBackdrop />
       <div className="phonics-mode-content">
         <header className="phonics-mode-header">
           <h1 className={`phonics-mode-title ${theme.text}`}>
+            <StorybookSprite name="book" size={48} />
             <span>{title}</span>
           </h1>
         </header>
-        {started && progress.current && (
-          <Link
-            to={journeyActivityUrl(lang, progress.current.unit.id, progress.current.activity.key)}
-            className={`phonics-mode-resume ${theme.focus}`}
-            data-sound="play"
-            aria-label={t('journey.continue')}
-            title={activityTitle(t, progress.current.activity)}
-          >
-            <Play size={20} fill="currentColor" aria-hidden="true" />
-            {t('journey.continue')}
-            <span className="sr-only">{activityTitle(t, progress.current.activity)}</span>
-          </Link>
-        )}
         <div className="phonics-mode-options">
-          <Link to={journeyHomeUrl(lang)} className={`phonics-mode-choice ${theme.focus}`}>
+          <Link
+            to={`${journeyHomeUrl(lang)}&resume=1`}
+            className={`phonics-mode-choice ${theme.focus}`}
+          >
             <img
-              src="/images/learning/cloud-v1/curriculum-tactile.webp"
+              src="/images/phonics/mode-entry-v1/curriculum.webp"
               alt=""
-              width={900}
-              height={300}
+              width={800}
+              height={450}
               decoding="async"
               draggable={false}
             />
@@ -101,10 +98,10 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
               className={`phonics-mode-choice ${theme.focus}`}
             >
               <img
-                src="/images/learning/cloud-v1/free-tactile.webp"
+                src="/images/phonics/mode-entry-v1/free.webp"
                 alt=""
-                width={900}
-                height={300}
+                width={800}
+                height={450}
                 decoding="async"
                 draggable={false}
               />

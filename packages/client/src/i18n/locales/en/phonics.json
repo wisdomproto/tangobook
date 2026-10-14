@@ -1,4 +1,5 @@
 {
+  "entry": { "firstStart": "Start your first lesson", "viewMap": "Explore the map" },
   "common": {
     "back": "← Back",
     "backToUnit": "← Back to unit",
@@ -348,8 +349,8 @@
   },
   "chapter": {
     "title": "Meet {{letter}}",
-    "korean": "Korean",
-    "english": "English",
+    "korean": "Korean phonics",
+    "english": "English phonics",
     "info": "Learning info",
     "backToChild": "Back to learning",
     "listen": "Listen",

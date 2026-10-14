@@ -84,7 +84,9 @@ it.each(['korean', 'english'] as const)(
     const unit = units(lang).find((unit) => unit.levelIndex === 4)!;
     show(lang, `/library/phonics/${lang}/${unit.id}`);
     expect(
-      screen.getByRole('heading', { name: `${lang === 'korean' ? '한글' : '영어'} · 자유모드` })
+      screen.getByRole('heading', {
+        name: `${lang === 'korean' ? '한글 파닉스' : '영어 파닉스'} · 자유모드`,
+      })
     ).toBeDefined();
     const targets = within(
       screen.getByRole('list', { name: '순서대로 이어지는 학습 단계' })
@@ -95,7 +97,7 @@ it.each(['korean', 'english'] as const)(
 );
 it('preserves grouped vowels, all three prepared games, and exact legacy vowel links', () => {
   show('korean', '/library/phonics/korean/kr-v1-u02');
-  expect(screen.getByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+  expect(screen.getByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
   const targets = within(
     screen.getByRole('list', { name: '순서대로 이어지는 학습 단계' })
   ).getAllByRole('button');
@@ -149,7 +151,7 @@ it('shows shared completion but does not complete the rest of a chapter on selec
 it('keeps curriculum locking and its single start action after switching from free mode', () => {
   show('korean');
   fireEvent.click(screen.getByRole('link', { name: '커리큘럼 모드' }));
-  expect(screen.getByRole('heading', { name: '한글 · 학습 경로' })).toBeDefined();
+  expect(screen.getByRole('heading', { name: '한글 파닉스 · 학습 경로' })).toBeDefined();
   expect(screen.getByRole('button', { name: /^2번째 단계.*앞 단계를/ })).toBeDisabled();
   expect(screen.getAllByRole('link', { name: '학습 시작하기' })).toHaveLength(1);
   expect(

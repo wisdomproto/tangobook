@@ -7,8 +7,13 @@ import {
   getUnitProgress,
   markActivityCompleted,
 } from '@/features/phonics-learner/lib/progress-store';
-import { markJourneyStarted } from '@/features/phonics-learner/lib/learning-journey';
+import {
+  markJourneyStarted,
+  journeyUnits,
+  journeyActivities,
+} from '@/features/phonics-learner/lib/learning-journey';
 
+const auth = vi.hoisted(() => ({ profile: null as string | null }));
 const catalogue = vi.hoisted(() => ({
   books: [] as StorybookSummary[],
   loading: false,
@@ -16,7 +21,7 @@ const catalogue = vi.hoisted(() => ({
   refetch: vi.fn(),
 }));
 vi.mock('@/features/auth/context/AuthContext', () => ({
-  useAuth: () => ({ activeProfile: null }),
+  useAuth: () => ({ activeProfile: auth.profile ? { id: auth.profile } : null }),
 }));
 vi.mock('@/features/storybook/hooks/useStorybooks', () => ({
   useStorybooks: () => ({
@@ -45,20 +50,21 @@ const showHome = () =>
   );
 beforeEach(() => {
   localStorage.clear();
+  auth.profile = null;
   catalogue.books = [];
   catalogue.loading = false;
   catalogue.error = false;
   catalogue.refetch.mockClear();
 });
 describe('whole language cards lead to the language entry', () => {
-  it.each(['한글', '영어'])(
+  it.each(['한글 파닉스', '영어 파닉스'])(
     'makes the complete %s card one link without nested actions',
     (name) => {
       showHome();
       const link = screen.getByRole('link', { name });
       expect(link).toHaveAttribute(
         'href',
-        '/library/phonics/' + (name === '한글' ? 'korean' : 'english')
+        '/library/phonics/' + (name === '한글 파닉스' ? 'korean' : 'english')
       );
       expect(within(link).getByRole('heading', { name })).toBeDefined();
       expect(link.querySelector('a,button')).toBeNull();
@@ -71,12 +77,16 @@ describe('whole language cards lead to the language entry', () => {
     markJourneyStarted('korean');
     markActivityCompleted('korean', 'kr-v1-u01', 'listen-1');
     showHome();
-    expect(screen.getByRole('link', { name: '한글' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: '한글 파닉스' })).toHaveAttribute(
       'href',
       '/library/phonics/korean'
     );
     expect(screen.queryByText('ㅏ 배우기')).toBeNull();
-    expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
+    expect(screen.getByRole('link', { name: '한글 파닉스 · 이어서 학습하기' })).toHaveAttribute(
+      'href',
+      '/library/phonics/korean/kr-v1-u01/write-1?mode=curriculum'
+    );
+    expect(screen.queryByRole('link', { name: '영어 파닉스 · 이어서 학습하기' })).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-u01').completedActivities).toEqual(['listen-1']);
   });
 });
@@ -122,4 +132,34 @@ describe('recommendation shuffle', () => {
     );
     expect(screen.getByRole('button', { name: '추천 도서 다시 뽑기' })).toBeDisabled();
   });
+});
+
+it('resumes the first interrupted activity without manufacturing completion', () => {
+  markJourneyStarted('english');
+  showHome();
+  expect(
+    screen.getByRole('link', { name: '영어 파닉스 · 이어서 학습하기' }).getAttribute('href')
+  ).toContain('en-b1-u01/');
+  expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([]);
+});
+
+it('hides a completed course resume and isolates the active child', () => {
+  auth.profile = 'child-a';
+  localStorage.setItem('tangobook:activeProfileId', 'child-a');
+  markJourneyStarted('korean');
+  for (const unit of journeyUnits('korean'))
+    for (const activity of journeyActivities('korean', unit.id))
+      markActivityCompleted('korean', unit.id, activity.key);
+  markJourneyStarted('english');
+  const view = showHome();
+  expect(screen.queryByRole('link', { name: '한글 파닉스 · 이어서 학습하기' })).toBeNull();
+  expect(screen.getByRole('link', { name: '영어 파닉스 · 이어서 학습하기' })).toBeDefined();
+  auth.profile = 'child-b';
+  localStorage.setItem('tangobook:activeProfileId', 'child-b');
+  view.rerender(
+    <MemoryRouter>
+      <LearningHomePage />
+    </MemoryRouter>
+  );
+  expect(screen.queryByRole('link', { name: /이어서 학습하기/ })).toBeNull();
 });

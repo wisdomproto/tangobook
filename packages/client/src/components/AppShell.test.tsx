@@ -47,8 +47,8 @@ describe('learning shell navigation and parent controls', () => {
       const nav = within(screen.getByRole('navigation', { name }));
       const expected = [
         ['홈', '/library'],
-        ['한글', '/library/phonics/korean'],
-        ['영어', '/library/phonics/english'],
+        ['한글 파닉스', '/library/phonics/korean'],
+        ['영어 파닉스', '/library/phonics/english'],
         ['동화책', '/library/books'],
         ['활동', '/library/activities'],
       ];
@@ -62,7 +62,7 @@ describe('learning shell navigation and parent controls', () => {
     setup();
     renderShell('/library/phonics/korean/kr-h1-u01');
     const nav = within(screen.getByRole('navigation', { name: '학습 메뉴' }));
-    expect(nav.getByRole('link', { name: '한글' })).toHaveAttribute('aria-current', 'page');
+    expect(nav.getByRole('link', { name: '한글 파닉스' })).toHaveAttribute('aria-current', 'page');
     expect(nav.getByRole('link', { name: '홈' })).not.toHaveAttribute('aria-current');
   });
   it('offers guest sign-in in the parent dialog and keeps parent reports for signed-in accounts', async () => {

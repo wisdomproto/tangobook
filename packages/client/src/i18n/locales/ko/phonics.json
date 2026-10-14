@@ -1,4 +1,5 @@
 {
+  "entry": { "firstStart": "첫 학습 시작하기", "viewMap": "지도 보기" },
   "common": {
     "back": "← 돌아가기",
     "backToUnit": "← 단원으로",
@@ -348,8 +349,8 @@
   },
   "chapter": {
     "title": "{{letter}} 배우기",
-    "korean": "한글",
-    "english": "영어",
+    "korean": "한글 파닉스",
+    "english": "영어 파닉스",
     "info": "학습 정보",
     "backToChild": "아이 화면으로",
     "listen": "듣기",
