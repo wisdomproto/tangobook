@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 963080d8a 최초 구현·980348ee6 모음 세 조각 후속 로컬 main fast-forward 통합
-- delivery: 미푸시·미배포
+- delivery: 사용자 승인으로 bdc9cc930 원격 main 일반 push·SHA 일치 확인, 운영 배포 완료는 미확인
 
 ## 사용자 결정·범위
 
@@ -36,3 +36,7 @@
 - KoreanBlockPlayer의 학습 트레이 모음은ㅣ/ㅏ/ㅑ, TangoBoard에서 모음 fixedOrientation 제거. 기본10모음 문제 필터와 자음 누적 선택/고정은 유지한다. 기존 동화 트레이에는 변경 없음.
 - 회귀29개 통과: 세 모음 재선택으로ㅣ→ㅡ·ㅏ→ㅜ·ㅑ→ㅠ 회전, ㄱ/ㄴ 별도 선택 고정, 누적14단원 및 문제 필터 검증. 테스트의 선택된 모음 aria-label은 기존 `돌리기` 역할에 맞춰 검사한다.
 - 후속 client 타입 검사·변경3파일 lint 오류0(기존3경고). 실제1280×720 ㄴ단원은ㄱ/ㄴ/ㅣ/ㅏ/ㅑ 5선택지,ㅏ 선택→재클릭→ㅜ 회전 확인. 증거는 같은 폴더 `korean-three-vowel-blocks-20261014.png`. 후속 build는 재실행하지 않았으며 직전 전체 build 통과 기록과 구분한다.
+
+## main 전달
+
+2026-10-14 사용자 ‘메인에 푸시해’ 승인으로 자음 누적/문제 필터와 모음 세 회전 조각 및 통합 기록4커밋을 전달했다. fetch 뒤 origin/main...HEAD=0/4, 일반 push 후 bdc9cc930 원격/로컬 SHA 일치·0/0 확인. 전달 기록도 push하며 아래 미푸시 표기는 당시 상태다. Railway 운영 배포 완료를 별도로 확인하지 않았다.
