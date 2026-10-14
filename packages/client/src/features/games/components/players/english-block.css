@@ -116,3 +116,79 @@
 .english-block-stage[data-camera] .english-block-word {
   font-size: clamp(24px, min(8vw, 15vh, calc(80vw / var(--english-word-length, 3))), 96px);
 }
+
+/* English uses a short line of letter slots, so tall screens group the task without a large board. */
+@media (orientation: landscape) and (min-height: 700px) {
+  .english-block-stage:not([data-camera]) .english-block-body {
+    width: min(100%, 1600px);
+    margin-inline: auto;
+    justify-content: center;
+    gap: 20px;
+  }
+  .english-block-stage:not([data-camera]) .english-block-target {
+    flex: 0 0 auto;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .english-block-stage:not([data-camera]) .english-block-play-area {
+    flex: 0 1 auto;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .english-block-stage:not([data-camera]) .english-block-board {
+    flex: 0 0 auto;
+    border: 0;
+    background: transparent;
+  }
+  .english-block-stage:not([data-camera]) .english-block-slots {
+    padding: 16px 24px;
+    border: 3px solid #ffd8b7;
+    border-radius: 32px;
+    background: #fff7ed;
+    box-shadow: 0 6px 0 #ecd8bc;
+  }
+  .english-block-stage:not([data-camera]) .english-alphabet-tray {
+    margin-top: 20px;
+  }
+}
+
+/* Large mouse/trackpad screens use bigger words and manipulatives. */
+@media (min-width: 1200px) and (min-height: 601px) and (hover: hover) and (pointer: fine) {
+  .english-block-stage:not([data-camera]) .english-block-image {
+    width: min(25vh, 280px);
+    height: min(25vh, 280px);
+  }
+  .english-block-stage:not([data-camera]) .english-block-word {
+    font-size: clamp(48px, min(12vw, 18vh, calc(100vw / var(--english-word-length, 3))), 176px);
+  }
+  .english-block-stage:not([data-camera]) .english-block-board {
+    border: 0;
+    background: transparent;
+  }
+  .english-block-stage:not([data-camera]) .english-block-slots {
+    gap: 18px;
+    padding: clamp(12px, 2vh, 24px) 28px;
+    border: 3px solid #ffd8b7;
+    border-radius: 32px;
+    background: #fff7ed;
+    box-shadow: 0 6px 0 #ecd8bc;
+  }
+  .english-block-stage:not([data-camera]) .english-block-slot {
+    width: clamp(88px, 7vw, 136px);
+    height: clamp(104px, 14vh, 156px);
+    border-width: 3px;
+    border-radius: 24px;
+  }
+  .english-block-stage:not([data-camera]) .english-block-slot span {
+    font-size: clamp(40px, 4vw, 72px);
+  }
+  .english-block-stage:not([data-camera]) .english-letter-tile {
+    width: 72px;
+    height: 84px;
+  }
+  .english-block-stage:not([data-camera]) .english-letter-tile > span {
+    font-size: clamp(24px, 2vw, 40px);
+  }
+}
