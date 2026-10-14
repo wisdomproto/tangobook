@@ -2,12 +2,12 @@
 
 - id: 20261014-free-mode-map
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: d5018f1da
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: b4f78795e 로컬 main fast-forward 완료
 - delivery: 미푸시·미배포
 
 ## 사용자 요청·현재 범위
@@ -53,3 +53,7 @@
 - 사용자 최종 지시로 한영 공용 지도 node 아래 제목/활동/완료 캡션 판을 제거했다. 선택 위치/완료·잠금·accessible 챕터 이름과 왼쪽 실제 제목·활동 목록은 유지한다. 완료 node도 꽃으로 교체하지 않고 해당 글자 그림과 체크를 유지해 캡션 없이 구분한다.
 - 9파일108회귀와 후속 자음 실제 호스트10회귀(신규1)를 합한 고유110개 통과. 마지막 캡션/영어 아이콘 수정 후 지도/모드28회귀와 완료 노드 글자 유지13회귀 재통과, client typecheck/scoped ESLint/production build 통과. 기존 테스트의 게임 분류 기대값은 명시 사용자 정책 변경에 맞춰 사냥 추가·블록 제외·받침 사냥 없음과 기존 raw order/required 별도 검증으로 수정했다.
 - 실제 한글1920×1080/1024×768/568×320와 영어 동일 viewport 화면/이미지 로딩/아이콘 위치 확인. 버튼 그림 wrapper1개·부모 그림0개, 작은폰44px/가로 overflow0 실측. 접기 후 놀이 접근 확인. 저장 PNG는 위 free-map-20261014 경로. 실제 학습 완료/정답/서버 이벤트를 브라우저 QA로 만들지 않고 호스트 회귀로 완료 연결 검증. 실제 기기 손가락/청취/FPS 검증 아님.
+
+## 로컬 main 통합
+
+b4f78795e 코드·기억31파일을 로컬 main에 fast-forward 완료했다. 실제 커밋 훅 ESLint/Prettier 통과. 최종 build56.89s 통과. 관련 없는 ReviewWriteActivity.test.tsx 줄바꿈과 미추적 자료는 보존했다. 이번 작업 원격 push/배포 요청 없음.
