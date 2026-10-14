@@ -1,3 +1,7 @@
+.tango-board-root {
+  container-type: inline-size;
+  container-name: tango-board;
+}
 .tango-tray {
   display: flex;
   align-items: center;
@@ -95,27 +99,6 @@
   outline-offset: 3px;
 }
 @media (orientation: landscape) {
-  .korean-block-stage:not([data-camera]) .korean-block-play-area {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: minmax(0, 1fr) auto;
-    row-gap: 8px;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-play-area > .tango-board-root {
-    display: contents;
-  }
-  .korean-block-stage:not([data-camera]) .tango-board-surface-wrap {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-actions {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .korean-block-stage:not([data-camera]) .tango-tray {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
   .korean-block-stage .korean-block-play-area {
     gap: clamp(24px, 2.5vw, 40px);
   }
@@ -163,5 +146,30 @@
   }
   .korean-block-stage .korean-block-play-area {
     gap: 16px;
+  }
+}
+
+/* Keep the tray inside its original board column, even on narrow phones. */
+@container tango-board (max-width: 360px) {
+  .tango-tray,
+  .tango-consonant-strip {
+    gap: 4px;
+  }
+  .tango-tray-vowels {
+    gap: 2px;
+    padding-inline: 0;
+  }
+  .tango-tray-vowels > button {
+    flex-basis: 32px;
+    width: 32px;
+    min-width: 32px;
+  }
+  .tango-tray-arrow {
+    flex-basis: 32px;
+    width: 32px;
+  }
+  .tango-tray-arrow > span {
+    width: 32px !important;
+    height: 32px !important;
   }
 }
