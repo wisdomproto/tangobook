@@ -37,7 +37,7 @@ it.each(['korean', 'english'] as const)('keeps the mode fork inside %s', (lang) 
   );
   expect(screen.getByRole('link', { name: '자유모드' })).toHaveAttribute(
     'href',
-    `/library/phonics/${lang}/${lang === 'korean' ? 'kr-v1-u01' : 'en-b1-u01'}`
+    `/library/phonics/${lang}?mode=free`
   );
   expect(localStorage.length).toBe(0);
 });

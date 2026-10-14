@@ -37,7 +37,7 @@
     "learnSubtitleListen": "Listen and learn",
     "wordPlay": "Word play",
     "wordPlaySubtitle": "Learn while you play",
-    "games": "Games",
+    "games": "Learn through play",
     "gamesSubtitle": "Learning is fun"
   },
   "unavailable": {
@@ -151,7 +151,7 @@
     "syllableMake": "Make a Syllable",
     "syllableWrite": "Syllable Writing",
     "consonantLearn": "Learn {{letter}}",
-    "consonantBlend": "{{letter}} + vowels",
+    "consonantBlend": "Learn {{letter}} + vowels",
     "consonantWrite": "Write {{letter}}",
     "codaLearn": "Learn final consonant {{letter}}",
     "codaWrite": "Write final consonant {{letter}}",
@@ -163,7 +163,8 @@
     "listenChoose": "Listen and Choose",
     "toneChoice": "Listen and Choose the Tone",
     "trace": "Tracing",
-    "chant": "Song"
+    "chant": "Song",
+    "blockPlay": "Block play"
   },
   "alphabetLearn": {
     "noData": "No learning card data yet",
@@ -377,5 +378,10 @@
     "koreanBookNumber": "Book {{number}}",
     "koreanBookMap": "Choose a book",
     "koreanViewedBook": "Book in view"
+  },
+  "board": {
+    "selected": "Selected chapter",
+    "chooseActivity": "Choose an activity",
+    "chooseChapter": "Choose any chapter"
   }
 }

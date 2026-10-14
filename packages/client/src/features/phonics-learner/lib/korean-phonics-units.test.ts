@@ -71,10 +71,18 @@ describe('korean phonics activity plans', () => {
     'game-line-matching',
   ];
 
-  it('모든 학습 단원의 「낱말 놀이」가 같은 5장·같은 순서다', () => {
+  it('모든 학습 단원의 놀며 익히기는 사냥/낱말 놀이, 블록은 익히기에 둔다', () => {
     for (const u of lessons.filter((unit) => unit.levelKey !== 'hangul-vowels')) {
       const acts = getActivityPlan(u.id).activities;
-      expect(acts.filter((a) => a.section === 'play').map((a) => a.key)).toEqual(PLAY_ORDER);
+      expect(acts.filter((a) => a.section === 'play').map((a) => a.key)).toEqual([
+        ...(u.levelKey === 'hangul2' ? [] : ['letter-hunt']),
+        ...PLAY_ORDER.filter((key) => key !== 'game-korean-block'),
+      ]);
+      expect(acts.find((a) => a.key === 'game-korean-block')).toMatchObject({
+        section: 'learn',
+        title: '블록 놀이',
+        required: false,
+      });
       expect(acts.filter((a) => a.section === 'learn').length).toBeGreaterThan(0);
       // order 는 1부터 빈틈없이
       expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));

@@ -37,7 +37,7 @@
     "learnSubtitleListen": "ฟังแล้วเรียนรู้",
     "wordPlay": "เล่นกับคำ",
     "wordPlaySubtitle": "เล่นไปเรียนไป",
-    "games": "เล่นเกม",
+    "games": "เรียนรู้ผ่านการเล่น",
     "gamesSubtitle": "เรียนสนุก ๆ"
   },
   "unavailable": {
@@ -151,7 +151,7 @@
     "syllableMake": "ประกอบพยางค์",
     "syllableWrite": "เขียนพยางค์",
     "consonantLearn": "เรียน {{letter}}",
-    "consonantBlend": "{{letter}} + สระ",
+    "consonantBlend": "เรียน {{letter}} + สระ",
     "consonantWrite": "เขียน {{letter}}",
     "codaLearn": "เรียนตัวสะกด {{letter}}",
     "codaWrite": "เขียนตัวสะกด {{letter}}",
@@ -163,7 +163,8 @@
     "listenChoose": "ฟังแล้วเลือก",
     "toneChoice": "ฟังวรรณยุกต์แล้วเลือก",
     "trace": "เขียนตาม",
-    "chant": "เพลง"
+    "chant": "เพลง",
+    "blockPlay": "เล่นบล็อก"
   },
   "alphabetLearn": {
     "noData": "ยังไม่มีข้อมูลการ์ดการเรียน",
@@ -377,5 +378,10 @@
     "koreanBookNumber": "เล่ม {{number}}",
     "koreanBookMap": "เลือกหนังสือ",
     "koreanViewedBook": "หนังสือที่กำลังดู"
+  },
+  "board": {
+    "selected": "บทที่เลือก",
+    "chooseActivity": "เลือกกิจกรรม",
+    "chooseChapter": "เลือกบทที่ต้องการ"
   }
 }

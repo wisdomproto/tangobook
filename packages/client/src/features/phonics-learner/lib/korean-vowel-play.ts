@@ -1,6 +1,26 @@
 import { KOREAN_BASIC_VOWEL_GROUPS, KOREAN_BASIC_VOWEL_LESSONS } from '@tangobook/shared';
 import type { ReviewCard } from './korean-phonics-units';
 
+/** Free exploration uses the prepared chapter pool, without claiming prior learning. */
+export function freeVowelCards(unitId: string): ReviewCard[] {
+  const group = KOREAN_BASIC_VOWEL_GROUPS.find((item) => item.id === unitId);
+  const index = KOREAN_BASIC_VOWEL_LESSONS.findIndex((lesson) => lesson.id === unitId);
+  const lessons = group
+    ? group.reviewAll
+      ? KOREAN_BASIC_VOWEL_LESSONS
+      : group.lessons
+    : index >= 0
+      ? KOREAN_BASIC_VOWEL_LESSONS.slice(Math.max(0, index - 3), index + 1)
+      : [];
+  return lessons.map((lesson) => ({
+    unitId: lesson.sourceUnitId,
+    letter: lesson.vowel,
+    syllable: lesson.sound,
+    sound: lesson.sound,
+    matchPosition: 'jung' as const,
+  }));
+}
+
 /** 듣기의 실제 완료만 사용한다. 선택/방문/쓰기만으로 낯선 모음을 놀이에 넣지 않는다. */
 export function learnedVowelCards(
   unitId: string,

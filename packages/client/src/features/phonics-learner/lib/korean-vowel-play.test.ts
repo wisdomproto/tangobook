@@ -1,9 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import { koreanLearningActivityRoute, koreanLearningUnitId } from '@tangobook/shared';
-import { learnedVowelCards } from './korean-vowel-play';
+import { learnedVowelCards, freeVowelCards } from './korean-vowel-play';
 import { progressiveListenBoard } from '../activities/WordListenChooseActivity';
 
 describe('모음 놀이의 배운 글자 범위', () => {
+  it('free play uses the prepared pool without prior completion while guided play still uses only heard vowels', () => {
+    expect(freeVowelCards('kr-v1-g01').map((card) => card.letter)).toEqual([
+      'ㅏ',
+      'ㅑ',
+      'ㅓ',
+      'ㅕ',
+    ]);
+    expect(freeVowelCards('kr-v1-g03')).toHaveLength(10);
+    expect(learnedVowelCards('kr-v1-g01', () => [])).toEqual([]);
+    expect(freeVowelCards('kr-h1-u02')).toEqual([]);
+  });
   const done = (id: string) =>
     ({
       'kr-v1-g01': ['listen-1', 'listen-2', 'write-3', 'match-game'],

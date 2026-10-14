@@ -1,5 +1,9 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [자유모드 활동 통합·분류 최종](../work/phonics/tasks/20261014-free-mode-map.md): 배우기→쓰기 한 항목/두 실제 완료 체크·동일 챕터 복귀, ㄱ+모음 배우기·블록 놀이 익히기/사냥 놀며 익히기. 버튼 그림 하나·가로 정렬·권별 지도 캡션 제거. 한영 고유110회귀/타입/lint/build 및PC/태블릿/가로폰 검수. 로컬 통합 예정·이번 push 요청 없음. 아래74개/이전 분류는 후속 전 기록.
+
+2026-10-14 [한영 자유모드 지도·트리 적용](../work/phonics/tasks/20261014-free-mode-map.md): 모든 챕터 열린 같은 세계관 지도, 왼쪽 익히기/게임 접기 트리·개별 활동 선택·같은 챕터 복귀. 기존 모음 묶음/ID와 완료 공유, guided 순차/들은 모음 제한 유지.74회귀·타입/lint/build·PC/태블릿/가로폰 검수, 원격 push 미요청. 아래 자유모드 planned는 당시 상태이며 홈/다른 게임 점검은 계속 미완료다.
+
 2026-10-14 커리큘럼 보드1679fe6fb 로컬 main fast-forward 완료.5186은 개발 worktree의 새 지도, 원격 push/배포 미실행. 자유모드·홈·다른 게임 점검의 미완료 task도 기록만 main에 보존했다.
 
 2026-10-14 [커리큘럼 보드 적용](../work/phonics/tasks/20261014-curriculum-board-review.md): 후속 승인으로 예전 권별 지도를 한영 기본으로 통합·상단 최소화·실제 챕터 활동 순서·한 CTA, 현재/완료 미리보기·미래 잠금/실제 인접 unlock·자동 연결을 유지했다. 고유64회귀·타입/lint/build·PC/태블릿/가로폰 검수. [자유모드 같은 세계관 검토](../work/phonics/tasks/20261014-free-mode-map.md), [홈 카드·추천 개편](../work/platform/tasks/20261014-home-course-portals.md), [게임 반응형 전수 유형 점검](../work/games/tasks/20261014-responsive-games-audit.md)은 아직 미구현/플레이 검수 미완료로 보존한다. 기존 push 승인을 이번 작업에 확대하지 않는다.

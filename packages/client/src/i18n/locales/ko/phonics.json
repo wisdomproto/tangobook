@@ -37,7 +37,7 @@
     "learnSubtitleListen": "듣고 배워요",
     "wordPlay": "낱말 놀이",
     "wordPlaySubtitle": "놀면서 익혀요",
-    "games": "게임하기",
+    "games": "놀며 익히기",
     "gamesSubtitle": "재미있게 익혀요"
   },
   "unavailable": {
@@ -151,7 +151,7 @@
     "syllableMake": "음절 만들기",
     "syllableWrite": "음절 쓰기",
     "consonantLearn": "{{letter}} 배우기",
-    "consonantBlend": "{{letter}}+모음",
+    "consonantBlend": "{{letter}}+모음 배우기",
     "consonantWrite": "{{letter}} 써보기",
     "codaLearn": "{{letter}} 받침 익히기",
     "codaWrite": "{{letter}} 받침 쓰기",
@@ -163,7 +163,8 @@
     "listenChoose": "듣고 고르기",
     "toneChoice": "성조 듣고 고르기",
     "trace": "따라쓰기",
-    "chant": "노래"
+    "chant": "노래",
+    "blockPlay": "블록 놀이"
   },
   "alphabetLearn": {
     "noData": "학습카드 데이터가 없어요",
@@ -377,5 +378,10 @@
     "koreanBookNumber": "{{number}}권",
     "koreanBookMap": "책 고르기",
     "koreanViewedBook": "지금 보고 있는 책"
+  },
+  "board": {
+    "selected": "선택한 챕터",
+    "chooseActivity": "활동 고르기",
+    "chooseChapter": "원하는 챕터를 골라요"
   }
 }

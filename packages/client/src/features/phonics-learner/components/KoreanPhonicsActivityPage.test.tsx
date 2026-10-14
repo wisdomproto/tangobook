@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import KoreanPhonicsActivityPage from './KoreanPhonicsActivityPage';
 import { PhonicsLearningModes } from './PhonicsLearningModes';
+import KoreanPhonicsStudyPage from './KoreanPhonicsStudyPage';
 import { getUnitProgress, markActivityCompleted } from '../lib/progress-store';
 
 const { logEvent } = vi.hoisted(() => ({ logEvent: vi.fn() }));
@@ -49,6 +50,22 @@ vi.mock('../activities/VowelWriteActivity', () => ({
     </button>
   ),
 }));
+vi.mock('../activities/ConsonantTapActivity', () => ({
+  ConsonantTapActivity: ({ onComplete }: { onComplete: () => void }) => (
+    <button onClick={onComplete}>자음 누르기 완료</button>
+  ),
+}));
+vi.mock('../activities/WordListenChooseActivity', () => ({
+  WordListenChooseActivity: ({
+    items,
+    onMarkComplete,
+  }: {
+    items: { label: string }[];
+    onMarkComplete: () => void;
+  }) => (
+    <button onClick={onMarkComplete}>모음 놀이 {items.map((item) => item.label).join('')}</button>
+  ),
+}));
 
 function open(path: string, chapter = false) {
   return render(
@@ -58,7 +75,7 @@ function open(path: string, chapter = false) {
           path="/library/phonics/korean/:unitId/:activityKey"
           element={<KoreanPhonicsActivityPage />}
         />
-        <Route path="/library/phonics/korean/:unitId" element={<p>단원 화면</p>} />
+        <Route path="/library/phonics/korean/:unitId" element={<KoreanPhonicsStudyPage />} />
         <Route
           path="/library/phonics/korean"
           element={chapter ? <PhonicsLearningModes lang="korean" /> : <p>학습 경로</p>}
@@ -72,11 +89,32 @@ beforeEach(() => {
   logEvent.mockClear();
 });
 describe('모음 묶음의 실제 라우트와 진도 연결', () => {
-  it('구형 ㅑ 듣기를 정확한 새 활동으로 연결하고 ㅑ 쓰기 뒤 ㅓ 익히기로 이동한다', async () => {
+  it('자음 배우기 완료 뒤 같은 자음 쓰기를 세 번 하고 챕터로 돌아온다', async () => {
+    open('/library/phonics/korean/kr-h1-u02/consonant-tap');
+    fireEvent.click(await screen.findByRole('button', { name: '자음 누르기 완료' }));
+    const write = await screen.findByRole('button', { name: '쓴 모음 ㄱ' });
+    expect(write).toHaveAttribute('data-repetitions', '3');
+    expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual(['consonant-tap']);
+    fireEvent.click(write);
+    expect(await screen.findByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+    expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual([
+      'consonant-tap',
+      'letter-write',
+    ]);
+    expect(screen.getByRole('link', { name: 'ㄱ 배우기' }).parentElement).toHaveAttribute(
+      'data-completed'
+    );
+    expect(screen.getByRole('link', { name: 'ㄱ+모음 배우기' }).parentElement).not.toHaveAttribute(
+      'data-completed'
+    );
+  });
+  it('구형 ㅑ 듣기를 정확한 쓰기로 이어주고 둘 다 마치면 같은 챕터로 돌아온다', async () => {
     open('/library/phonics/korean/kr-v1-u02/listen-1');
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅑ' }));
+    expect(screen.queryByRole('heading', { name: '한글 · 자유모드' })).toBeNull();
     fireEvent.click(await screen.findByRole('button', { name: '쓴 모음 ㅑ' }));
-    expect(await screen.findByRole('button', { name: '들은 모음 ㅓ' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: '들은 모음 ㅓ' })).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([
       'listen-2',
       'write-2',
@@ -93,14 +131,25 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
   it('묶음의 마지막 쓰기 뒤 단원으로 돌아가고 놀이 완료는 자동으로 만들지 않는다', async () => {
     open('/library/phonics/korean/kr-v1-g01/write-4');
     fireEvent.click(screen.getByRole('button', { name: '쓴 모음 ㅕ' }));
-    await waitFor(() => expect(screen.getByText('단원 화면')).toBeDefined());
+    await waitFor(() =>
+      expect(screen.getByRole('heading', { name: '한글 · 자유모드' })).toBeDefined()
+    );
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual(['write-4']);
   });
-  it('학습 전 놀이 딥링크는 아직 배우지 않은 모음 게임을 실행하지 않는다', () => {
+  it('자유모드 놀이를 미학습 상태에서 열되 방문을 완료로 기록하지 않는다', () => {
     open('/library/phonics/korean/kr-v1-g01/listen-game');
-    expect(screen.getByText('모음 두 개를 먼저 들어보면 놀이가 열려요.')).toBeDefined();
+    expect(screen.getByRole('button', { name: /모음 놀이/ }).textContent).toContain('ㅏ');
+    expect(screen.getByRole('button', { name: /모음 놀이/ }).textContent).toContain('ㅕ');
+    expect(screen.queryByText('모음 두 개를 먼저 들어보면 놀이가 열려요.')).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([]);
     expect(logEvent).not.toHaveBeenCalled();
+  });
+  it('자유모드 게임 완료 뒤 해당 챕터 활동 선택으로 돌아오고 다른 활동은 완료로 만들지 않는다', async () => {
+    open('/library/phonics/korean/kr-v1-g02/listen-game');
+    fireEvent.click(screen.getByRole('button', { name: /모음 놀이/ }));
+    expect(await screen.findByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+    expect(getUnitProgress('korean', 'kr-v1-g02').completedActivities).toEqual(['listen-game']);
+    expect(screen.getByRole('link', { name: 'ㅗ 배우기' })).toBeDefined();
   });
 });
 

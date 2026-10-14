@@ -1,4 +1,5 @@
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
+import { freeWritingCompanion } from '../lib/free-activity-groups';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
 import { ActivityShell } from './ActivityShell';
@@ -855,10 +856,24 @@ export default function EnglishPhonicsActivityPage() {
   const navigate = useNavigate();
   const [search] = useSearchParams();
   const guided = search.get('mode') === 'curriculum';
-  const onExit = useCallback(
-    () => navigate(`/library/phonics/english/${unitId}`),
-    [navigate, unitId]
-  );
+  const freeExited = useRef<string | null>(null);
+  const onExit = useCallback(() => {
+    const token = `${unitId}:${activityKey}`;
+    if (freeExited.current === token) return;
+    freeExited.current = token;
+    navigate(`/library/phonics/english/${unitId}`);
+  }, [navigate, unitId, activityKey]);
+  const onFreeComplete = useCallback(() => {
+    const token = `${unitId}:${activityKey}`;
+    if (freeExited.current === token) return;
+    const write = freeWritingCompanion(getEnglishActivityPlan(unitId).activities, activityKey);
+    if (!write) {
+      onExit();
+      return;
+    }
+    freeExited.current = token;
+    navigate(`/library/phonics/english/${unitId}/${write.key}`, { replace: true });
+  }, [navigate, unitId, activityKey, onExit]);
   if (guided)
     return (
       <GuidedPhonicsActivity lang="english" unitId={unitId} activityKey={activityKey}>
@@ -872,5 +887,14 @@ export default function EnglishPhonicsActivityPage() {
         )}
       </GuidedPhonicsActivity>
     );
-  return <EnglishPhonicsActivity unitId={unitId} activityKey={activityKey} onExit={onExit} />;
+  return (
+    <EnglishPhonicsActivity
+      key={`${unitId}:${activityKey}`}
+      unitId={unitId}
+      activityKey={activityKey}
+      onExit={onExit}
+      onNext={onFreeComplete}
+      onMarked={onFreeComplete}
+    />
+  );
 }

@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import EnglishPhonicsActivityPage from './EnglishPhonicsActivityPage';
 import { ActivityShell } from './ActivityShell';
+import EnglishPhonicsStudyPage from './EnglishPhonicsStudyPage';
 import { getUnitProgress } from '../lib/progress-store';
 
 vi.mock('@/features/auth/context/AuthContext', () => ({
@@ -67,6 +68,24 @@ vi.mock('../activities/AlphabetLetterWriteActivity', () => ({
 }));
 
 beforeEach(() => localStorage.clear());
+it('opens free writing out of order and returns to the same chapter activity selection after completion', async () => {
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/english/en-b1-u01/letters-write']}>
+      <Routes>
+        <Route
+          path="/library/phonics/english/:unitId/:activityKey"
+          element={<EnglishPhonicsActivityPage />}
+        />
+        <Route path="/library/phonics/english/:unitId" element={<EnglishPhonicsStudyPage />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  fireEvent.click(await screen.findByRole('button', { name: '쓰기 완료' }));
+  expect(await screen.findByRole('heading', { name: '영어 · 자유모드' })).toBeDefined();
+  expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-write']);
+  expect(screen.getByRole('link', { name: 'ABC 배우기 1' })).toBeDefined();
+  expect(screen.queryByRole('button', { name: '글자 듣기 완료' })).toBeNull();
+});
 it('automatically connects learning, game and writing after completion, then returns to the path', async () => {
   render(
     <MemoryRouter
@@ -94,6 +113,29 @@ it('automatically connects learning, game and writing after completion, then ret
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([
     'letters-learn',
     'word-listen-choose',
+    'letters-write',
+  ]);
+});
+
+it('continues free letter learning directly into writing, recording each phase only when finished', async () => {
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/english/en-b1-u01/letters-learn']}>
+      <Routes>
+        <Route
+          path="/library/phonics/english/:unitId/:activityKey"
+          element={<EnglishPhonicsActivityPage />}
+        />
+        <Route path="/library/phonics/english/:unitId" element={<EnglishPhonicsStudyPage />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  fireEvent.click(await screen.findByRole('button', { name: '글자 듣기 완료' }));
+  expect(await screen.findByRole('button', { name: '쓰기 완료' })).toBeDefined();
+  expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-learn']);
+  fireEvent.click(screen.getByRole('button', { name: '쓰기 완료' }));
+  expect(await screen.findByRole('heading', { name: '영어 · 자유모드' })).toBeDefined();
+  expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([
+    'letters-learn',
     'letters-write',
   ]);
 });

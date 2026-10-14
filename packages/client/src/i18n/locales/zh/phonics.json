@@ -37,7 +37,7 @@
     "learnSubtitleListen": "听一听，学一学",
     "wordPlay": "词语游戏",
     "wordPlaySubtitle": "边玩边学",
-    "games": "玩游戏",
+    "games": "玩中学",
     "gamesSubtitle": "开心地学"
   },
   "unavailable": {
@@ -151,7 +151,7 @@
     "syllableMake": "拼音节",
     "syllableWrite": "写音节",
     "consonantLearn": "学习 {{letter}}",
-    "consonantBlend": "{{letter}} + 元音",
+    "consonantBlend": "学习{{letter}}+元音",
     "consonantWrite": "写一写 {{letter}}",
     "codaLearn": "学习收音 {{letter}}",
     "codaWrite": "写收音 {{letter}}",
@@ -163,7 +163,8 @@
     "listenChoose": "听音选一选",
     "toneChoice": "听声调选一选",
     "trace": "描一描",
-    "chant": "儿歌"
+    "chant": "儿歌",
+    "blockPlay": "积木游戏"
   },
   "alphabetLearn": {
     "noData": "还没有学习卡数据",
@@ -377,5 +378,10 @@
     "koreanBookNumber": "第{{number}}册",
     "koreanBookMap": "选择书册",
     "koreanViewedBook": "当前查看的书册"
+  },
+  "board": {
+    "selected": "已选章节",
+    "chooseActivity": "选择活动",
+    "chooseChapter": "选择任意章节"
   }
 }

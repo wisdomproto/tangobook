@@ -37,7 +37,7 @@
     "learnSubtitleListen": "Nghe rồi học",
     "wordPlay": "Chơi với từ",
     "wordPlaySubtitle": "Vừa chơi vừa học",
-    "games": "Chơi game",
+    "games": "Học qua vui chơi",
     "gamesSubtitle": "Học thật vui"
   },
   "unavailable": {
@@ -151,7 +151,7 @@
     "syllableMake": "Ghép âm tiết",
     "syllableWrite": "Viết âm tiết",
     "consonantLearn": "Học {{letter}}",
-    "consonantBlend": "{{letter}} + nguyên âm",
+    "consonantBlend": "Học {{letter}} + nguyên âm",
     "consonantWrite": "Viết {{letter}}",
     "codaLearn": "Học phụ âm cuối {{letter}}",
     "codaWrite": "Viết phụ âm cuối {{letter}}",
@@ -163,7 +163,8 @@
     "listenChoose": "Nghe và chọn",
     "toneChoice": "Nghe và chọn thanh điệu",
     "trace": "Viết theo",
-    "chant": "Bài hát"
+    "chant": "Bài hát",
+    "blockPlay": "Chơi khối chữ"
   },
   "alphabetLearn": {
     "noData": "Chưa có dữ liệu thẻ học",
@@ -377,5 +378,10 @@
     "koreanBookNumber": "Quyển {{number}}",
     "koreanBookMap": "Chọn sách",
     "koreanViewedBook": "Sách đang xem"
+  },
+  "board": {
+    "selected": "Chương đã chọn",
+    "chooseActivity": "Chọn hoạt động",
+    "chooseChapter": "Chọn chương bạn muốn"
   }
 }

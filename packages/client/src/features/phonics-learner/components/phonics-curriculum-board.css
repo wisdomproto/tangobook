@@ -398,3 +398,249 @@ li[data-completed] .journey-activity-number {
     display: none;
   }
 }
+
+/* Same world, open chapters and individually selectable activities. */
+.is-free-mode .journey-adventure-layout {
+  grid-template-columns: 340px minmax(0, 1fr);
+}
+.is-free-mode .journey-mission {
+  background: #fffcf4;
+  border: 2px solid #e8e1ca;
+  box-shadow: 0 5px 0 #e1e5d4;
+}
+.is-free-mode .journey-mission-content {
+  padding: 18px 16px;
+}
+.is-free-mode .journey-chapter-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 6px 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e7e1cf;
+}
+.is-free-mode .journey-chapter-heading > .journey-letter-toy,
+.is-free-mode .journey-chapter-heading > .journey-letter-english {
+  flex: 0 0 56px;
+  font-size: 42px !important;
+  text-align: center;
+}
+.is-free-mode .journey-chapter-heading h2 {
+  margin: 3px 0 0;
+  font-size: 22px;
+  word-break: keep-all;
+}
+.is-free-mode .journey-chapter-heading .journey-eyebrow {
+  font-size: 11px;
+}
+.is-free-mode .journey-chapter-activities li {
+  padding: 0;
+  background: transparent;
+}
+.journey-free-activity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 62px;
+  padding: 9px 12px;
+  border: 1.5px solid #edcbae;
+  border-bottom-width: 3px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fffdf8, #fff4e8);
+  box-shadow: 0 3px 0 #eedccc;
+  transition:
+    transform 120ms ease,
+    background 120ms ease;
+}
+.journey-free-activity[data-section='play'] {
+  border-color: #bad8c9;
+  background: linear-gradient(180deg, #fdfffa, #edf8ef);
+  box-shadow: 0 3px 0 #d9e7d5;
+}
+.journey-activity-art {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.is-free-mode .journey-activity-art {
+  width: 40px;
+  height: 40px;
+}
+.journey-activity-art img {
+  width: 48px;
+  height: 40px;
+  object-fit: contain;
+}
+.is-free-mode .journey-activity-art .toy-hangul {
+  font-size: 36px;
+}
+.journey-free-label {
+  flex: 1;
+}
+.journey-free-activity > span:not(.path-game-sprite):not(.journey-activity-number) {
+  min-width: 0;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+.journey-free-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #a26740;
+}
+.journey-free-activity[data-section='play'] .journey-free-arrow {
+  color: #4e8d71;
+}
+.is-free-mode .journey-free-group {
+  display: block;
+  padding: 0;
+}
+.is-free-mode .journey-free-group + .journey-free-group {
+  margin-top: 20px;
+}
+.journey-free-group-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 7px 12px;
+  border-radius: 12px 18px 18px 12px;
+  border-left: 4px solid #e69368;
+  background: #ffe6ce;
+  color: #8e492c;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+.journey-free-group-title[data-section='play'] {
+  border-left-color: #75aa8e;
+  background: #e0f0df;
+  color: #3d705a;
+}
+.journey-free-group-title::-webkit-details-marker {
+  display: none;
+}
+.journey-free-chevron {
+  margin-left: auto;
+  transform: rotate(-90deg);
+}
+details[open] > .journey-free-group-title .journey-free-chevron {
+  transform: none;
+}
+.journey-free-branch {
+  list-style: none;
+  margin: 12px 0 0 8px;
+  padding-left: 12px;
+  border-left: 2px solid #d9d9bd;
+}
+.journey-free-branch > li {
+  position: relative;
+}
+.journey-free-branch > li::before {
+  content: '';
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  width: 13px;
+  height: 2px;
+  background: #d9d9bd;
+  pointer-events: none;
+}
+.journey-free-activity:active {
+  transform: translateY(2px);
+}
+.is-free-mode li[data-completed] .journey-free-activity {
+  background: #eef6e8;
+}
+.is-free-mode .journey-node-state {
+  background: #f7f5dc;
+  color: #567e5c;
+}
+.is-free-mode .journey-map-scene {
+  min-height: 100%;
+}
+.is-free-mode .journey-stage-label strong {
+  font-size: 12px;
+  word-break: keep-all;
+}
+.is-free-mode .journey-chapter-activities {
+  overscroll-behavior-y: contain;
+  scrollbar-color: #aebc8a #f4f6eb;
+}
+@media (hover: hover) {
+  .journey-free-activity:hover {
+    background: var(--course-soft);
+  }
+}
+@media (max-width: 1100px) {
+  .is-free-mode .journey-adventure-layout {
+    grid-template-columns: 284px minmax(0, 1fr);
+  }
+}
+@media (max-height: 500px) {
+  .is-free-mode .journey-adventure-layout {
+    grid-template-columns: 208px minmax(0, 1fr);
+  }
+  .journey-free-activity {
+    min-height: 44px;
+    padding: 5px;
+    gap: 5px;
+  }
+  .is-free-mode .journey-chapter-heading {
+    padding: 0 1px 5px;
+    margin-bottom: 3px;
+    gap: 5px;
+  }
+  .is-free-mode .journey-mission-content {
+    padding: 7px 8px;
+  }
+  .is-free-mode .journey-chapter-heading .journey-eyebrow {
+    font-size: 9px;
+  }
+  .is-free-mode .journey-activity-art img {
+    width: 34px;
+    height: 28px;
+  }
+  .is-free-mode .journey-chapter-heading > .journey-letter-toy,
+  .is-free-mode .journey-chapter-heading > .journey-letter-english {
+    flex-basis: 32px;
+    font-size: 26px !important;
+  }
+  .is-free-mode .journey-chapter-heading h2 {
+    font-size: 14px;
+  }
+  .is-free-mode .journey-activity-art {
+    width: 28px;
+    height: 28px;
+  }
+  .is-free-mode .journey-activity-art .path-game-sprite {
+    transform: scale(0.74);
+  }
+  .is-free-mode .journey-activity-art .toy-hangul {
+    font-size: 26px;
+  }
+  .is-free-mode .journey-stage-label small {
+    display: none;
+  }
+  .journey-free-branch {
+    margin-left: 5px;
+    padding-left: 8px;
+  }
+  .journey-free-branch > li::before {
+    left: -8px;
+    width: 8px;
+  }
+  .journey-free-group-title {
+    font-size: 13px;
+  }
+  .is-free-mode .journey-free-group + .journey-free-group {
+    margin-top: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journey-free-activity {
+    transition: none;
+  }
+}

@@ -1,11 +1,19 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight, Check, Flag, LockKeyhole, Play } from 'lucide-react';
+import { ArrowRight, BookOpen, Check, Flag, LockKeyhole, Play } from 'lucide-react';
 import { courseThemes } from '@/design-system';
+import { koreanLearningUnitId } from '@tangobook/shared';
 import { activityTitle, levelName, unitTitle } from '../lib/activity-title';
-import { getKoreanUnit, getActivityPlan } from '../lib/korean-phonics-units';
-import { getEnglishUnit, getEnglishActivityPlan } from '../lib/english-phonics-units';
+import { freeActivityGroups } from '../lib/free-activity-groups';
+import { composeHangul } from '@tangobook/shared';
+import { getAllKoreanUnits, getKoreanUnit, getActivityPlan } from '../lib/korean-phonics-units';
+import {
+  getAllEnglishUnits,
+  getEnglishUnit,
+  getEnglishActivityPlan,
+} from '../lib/english-phonics-units';
+import { getRecentUnit, getUnitProgress } from '../lib/progress-store';
 import {
   journeyActivityUrl,
   journeyProgress,
@@ -44,26 +52,43 @@ export function PhonicsJourneyMap({
   progress,
   started,
   finishedUnitDone,
+  mode = 'curriculum',
+  initialUnitId,
+  readDone,
 }: {
   lang: JourneyLanguage;
   progress: Progress;
   started: boolean;
   finishedUnitDone: boolean;
+  mode?: 'curriculum' | 'free';
+  initialUnitId?: string;
+  readDone?: (id: string) => readonly string[];
 }) {
   const { t } = useTranslation('phonics');
   const theme = courseThemes[lang];
-  const units = journeyUnits(lang);
+  const free = mode === 'free';
+  const units = free
+    ? lang === 'korean'
+      ? getAllKoreanUnits()
+      : getAllEnglishUnits()
+    : journeyUnits(lang);
+  const requested =
+    initialUnitId ?? getRecentUnit(lang) ?? progress.current?.unit.id ?? units[0].id;
+  const freeInitial =
+    units.find(
+      (unit) => unit.id === (lang === 'korean' ? koreanLearningUnitId(requested) : requested)
+    ) ?? units[0];
+  const initial = free ? freeInitial : (progress.current?.unit ?? units.at(-1)!);
   const levels = [...new Set(units.map((unit) => unit.levelKey))];
   const currentLevel = progress.current?.unit.levelKey ?? levels[levels.length - 1];
-  const [selectedLevel, setSelectedLevel] = useState(currentLevel);
-  const [selectedUnitId, setSelectedUnitId] = useState(
-    progress.current?.unit.id ?? units.at(-1)!.id
-  );
+  const [selectedLevel, setSelectedLevel] = useState(initial.levelKey);
+  const [selectedUnitId, setSelectedUnitId] = useState(initial.id);
   const [search, setSearch] = useSearchParams();
   const finishedIndex = units.findIndex((unit) => unit.id === search.get('finished'));
   const currentIndex = units.findIndex((unit) => unit.id === progress.current?.unit.id);
   const [unlocking, setUnlocking] = useState(
     () =>
+      !free &&
       finishedUnitDone &&
       search.get('replay') !== '1' &&
       finishedIndex >= 0 &&
@@ -85,9 +110,21 @@ export function PhonicsJourneyMap({
   }, [unlocking, search, setSearch]);
   const selectedUnit =
     units.find((unit) => unit.id === selectedUnitId) ?? progress.current?.unit ?? units[0];
-  const chapterSteps = progress.steps.flatMap((step, index) =>
-    step.unit.id === selectedUnit.id ? [{ ...step, done: progress.done[index] }] : []
-  );
+  const freeSteps = (unit: Unit) => {
+    const completed = readDone?.(unit.id) ?? getUnitProgress(lang, unit.id).completedActivities;
+    const plan = lang === 'korean' ? getActivityPlan(unit.id) : getEnglishActivityPlan(unit.id);
+    return freeActivityGroups(plan.activities).map(({ activity, keys }) => ({
+      unit,
+      activity,
+      paired: keys.length > 1,
+      done: keys.every((key) => completed.includes(key)),
+    }));
+  };
+  const chapterSteps = free
+    ? freeSteps(selectedUnit)
+    : progress.steps.flatMap((step, index) =>
+        step.unit.id === selectedUnit.id ? [{ ...step, done: progress.done[index] }] : []
+      );
   const chapterComplete = chapterSteps.length > 0 && chapterSteps.every((step) => step.done);
   const chapterNext = chapterSteps.find((step) => !step.done) ?? chapterSteps[0];
   const mapViewport = useRef<HTMLDivElement>(null);
@@ -114,11 +151,20 @@ export function PhonicsJourneyMap({
   const observations = Object.entries(readGameObservations(lang));
   // Each unit uses actual required completion. Map flowers never imply a game score or mastery.
   const stages = selectedUnits.map((unit, index) => {
-    const steps = progress.steps.flatMap((step, i) =>
-      step.unit.id === unit.id ? [{ ...step, done: progress.done[i] }] : []
-    );
+    const steps = free
+      ? (lang === 'korean' ? getActivityPlan(unit.id) : getEnglishActivityPlan(unit.id)).activities
+          .filter((activity) => activity.required)
+          .map((activity) => ({
+            activity,
+            done: (
+              readDone?.(unit.id) ?? getUnitProgress(lang, unit.id).completedActivities
+            ).includes(activity.key),
+          }))
+      : progress.steps.flatMap((step, i) =>
+          step.unit.id === unit.id ? [{ ...step, done: progress.done[i] }] : []
+        );
     const complete = steps.length > 0 && steps.every((step) => step.done);
-    const current = progress.current?.unit.id === unit.id;
+    const current = free ? selectedUnitId === unit.id : progress.current?.unit.id === unit.id;
     const first = steps.find((step) => !step.done) ?? steps[0];
     const row = Math.floor(index / 3);
     const col = row % 2 === 0 ? index % 3 : 2 - (index % 3);
@@ -154,10 +200,105 @@ export function PhonicsJourneyMap({
     .join('');
   const startUrl =
     chapterNext && journeyActivityUrl(lang, selectedUnit.id, chapterNext.activity.key);
-  const freeUnit = progress.current?.unit ?? units[0];
+  const renderActivity = (step: (typeof chapterSteps)[number], index: number) => {
+    const current = !free && !chapterComplete && chapterNext?.activity.key === step.activity.key;
+    const phoneme =
+      free &&
+      lang === 'korean' &&
+      step.activity.kind === 'consonant-blend-listen' &&
+      step.activity.consonant
+        ? composeHangul(step.activity.consonant, 'ㅏ', null)
+        : free &&
+            lang === 'korean' &&
+            (step.activity.kind === 'consonant-tap' || step.activity.kind === 'vowel-listen')
+          ? (step.activity.consonant ?? step.activity.vowels?.map((v) => v.vowel).join(''))
+          : undefined;
+    const mode = courseActivityMode(step.activity.kind);
+    const gameArt =
+      free &&
+      (step.activity.kind === 'game-connect-dots'
+        ? 'drawing'
+        : step.activity.kind === 'game-word-writing'
+          ? 'writing'
+          : step.activity.kind === 'game-line-matching'
+            ? 'matching'
+            : step.activity.kind === 'game-korean-block'
+              ? 'blocks-ko'
+              : step.activity.kind === 'game-english-block'
+                ? 'blocks-en'
+                : undefined);
+    const icon =
+      step.activity.kind === 'alphabet-letter-learn'
+        ? 'english'
+        : step.activity.kind.includes('blend')
+          ? 'combine'
+          : mode === 'write' || mode === 'draw'
+            ? 'write'
+            : mode === 'build' || mode === 'match'
+              ? 'combine'
+              : mode === 'find'
+                ? 'compass'
+                : 'listen';
+    const content = (
+      <>
+        {!free && (
+          <span className="journey-activity-number" aria-hidden="true">
+            {step.done ? <Check size={15} /> : index + 1}
+          </span>
+        )}
+        <span className="journey-activity-art" aria-hidden="true">
+          {phoneme ? (
+            <ToyHangul text={phoneme} decorative />
+          ) : gameArt ? (
+            <img
+              src={`/images/learning/vocabulary-menu-v1/${gameArt}.webp`}
+              alt=""
+              width={48}
+              height={40}
+              decoding="async"
+            />
+          ) : (
+            <StorybookSprite name={icon} size={free ? 38 : 32} />
+          )}
+        </span>
+        <span className="journey-free-label">{activityTitle(t, step.activity)}</span>
+        {free &&
+          (step.done ? (
+            <Check className="journey-free-arrow" size={18} aria-hidden="true" />
+          ) : (
+            <ArrowRight className="journey-free-arrow" size={18} aria-hidden="true" />
+          ))}
+        {!free && (
+          <span className="sr-only">
+            {t(step.done ? 'journey.completed' : current ? 'journey.current' : 'journey.locked')}
+          </span>
+        )}
+      </>
+    );
+    return (
+      <li
+        key={step.activity.key}
+        data-completed={step.done || undefined}
+        aria-current={current ? 'step' : undefined}
+      >
+        {free ? (
+          <Link
+            to={`/library/phonics/${lang}/${selectedUnit.id}/${step.activity.key}`}
+            className="journey-free-activity"
+            data-section={step.activity.section}
+          >
+            {content}
+          </Link>
+        ) : (
+          content
+        )}
+      </li>
+    );
+  };
+
   return (
     <section
-      className={`journey-world curriculum-board journey-world--${lang}`}
+      className={`journey-world curriculum-board journey-world--${lang}${free ? ' is-free-mode' : ''}`}
       style={theme.style}
     >
       <div className="journey-world-wrap">
@@ -170,12 +311,12 @@ export function PhonicsJourneyMap({
             <StorybookSprite name="back" size={26} />
           </Link>
           <h1>
-            {t(`chapter.${lang}`)} · {t('flow.pathTitle')}
+            {t(`chapter.${lang}`)} · {t(free ? 'journey.free' : 'flow.pathTitle')}
           </h1>
           <Link
-            to={`/library/phonics/${lang}/${freeUnit.id}`}
+            to={`/library/phonics/${lang}?mode=${free ? 'curriculum' : 'free'}`}
             className="journey-small-button"
-            aria-label={t('journey.free')}
+            aria-label={t(free ? 'journey.curriculumMode' : 'journey.free')}
           >
             <StorybookSprite name="book" size={26} />
           </Link>
@@ -195,7 +336,9 @@ export function PhonicsJourneyMap({
                 aria-pressed={selectedLevel === level}
                 onClick={() => {
                   setSelectedLevel(level);
-                  setSelectedUnitId(progress.current?.unit.id ?? units.at(-1)!.id);
+                  setSelectedUnitId(
+                    free ? levelUnits[0].id : (progress.current?.unit.id ?? units.at(-1)!.id)
+                  );
                 }}
                 className={`journey-region ${selectedLevel === level ? 'is-selected' : ''} ${reached ? 'is-reached' : ''}`}
               >
@@ -215,50 +358,64 @@ export function PhonicsJourneyMap({
         <div className="journey-adventure-layout">
           <aside className="journey-mission" aria-live="polite">
             <div className="journey-mission-content">
-              <p className="journey-eyebrow">{levelName(t, selectedUnit)}</p>
-              <h2>{unitTitle(t, selectedUnit)}</h2>
+              <div className="journey-chapter-heading">
+                {free &&
+                  (lang === 'korean' ? (
+                    <StageLetter lang={lang} unit={selectedUnit} />
+                  ) : (
+                    <StorybookSprite name="english" size={compact ? 28 : 46} />
+                  ))}
+                <div>
+                  <p className="journey-eyebrow">{levelName(t, selectedUnit)}</p>
+                  <h2>{unitTitle(t, selectedUnit)}</h2>
+                </div>
+              </div>
               <ol
                 ref={activityList}
                 className="journey-chapter-activities"
                 aria-label={t('chapter.activities')}
               >
-                {chapterSteps.map((step, index) => {
-                  const current =
-                    !chapterComplete && chapterNext?.activity.key === step.activity.key;
-                  const mode = courseActivityMode(step.activity.kind);
-                  const icon =
-                    mode === 'write' || mode === 'draw'
-                      ? 'write'
-                      : mode === 'build' || mode === 'match'
-                        ? 'combine'
-                        : mode === 'find'
-                          ? 'compass'
-                          : 'listen';
-                  return (
-                    <li
-                      key={step.activity.key}
-                      data-completed={step.done || undefined}
-                      aria-current={current ? 'step' : undefined}
-                    >
-                      <span className="journey-activity-number" aria-hidden="true">
-                        {step.done ? <Check size={15} /> : index + 1}
-                      </span>
-                      <StorybookSprite name={icon} size={32} />
-                      <span>{activityTitle(t, step.activity)}</span>
-                      <span className="sr-only">
-                        {t(
-                          step.done
-                            ? 'journey.completed'
-                            : current
-                              ? 'journey.current'
-                              : 'journey.locked'
-                        )}
-                      </span>
-                    </li>
-                  );
-                })}
+                {free
+                  ? (['learn', 'play'] as const).map((section) => {
+                      const steps = chapterSteps.filter(
+                        (step) => step.activity.section === section
+                      );
+                      if (!steps.length) return null;
+                      const title = t(section === 'learn' ? 'section.learn' : 'section.games');
+                      return (
+                        <li key={`${selectedUnitId}:${section}`} className="journey-free-group">
+                          <details
+                            open
+                            aria-label={title}
+                            onToggle={(event) => {
+                              // Closing the long learning branch on a phone should reveal the games.
+                              if (!compact || section !== 'learn' || event.currentTarget.open)
+                                return;
+                              const gameGroup = event.currentTarget.parentElement
+                                ?.nextElementSibling as HTMLElement | null;
+                              if (activityList.current && gameGroup)
+                                activityList.current.scrollTop = Math.max(
+                                  0,
+                                  gameGroup.offsetTop - activityList.current.offsetTop
+                                );
+                            }}
+                          >
+                            <summary className="journey-free-group-title" data-section={section}>
+                              <span>{title}</span>
+                              <span className="journey-free-chevron" aria-hidden="true">
+                                ⌄
+                              </span>
+                            </summary>
+                            <ol className="journey-free-branch" aria-label={title}>
+                              {steps.map((step, index) => renderActivity(step, index))}
+                            </ol>
+                          </details>
+                        </li>
+                      );
+                    })
+                  : chapterSteps.map(renderActivity)}
               </ol>
-              {startUrl && (
+              {!free && startUrl && (
                 <Link to={startUrl} className="journey-play-button">
                   <Play size={20} fill="currentColor" />
                   {t(
@@ -280,7 +437,7 @@ export function PhonicsJourneyMap({
               </div>
               <JourneyWorldIcon kind={ICONS[lang][worldIndex] ?? 'village'} />
             </header>
-            {selectedLevel !== currentLevel && startUrl && (
+            {!free && selectedLevel !== currentLevel && startUrl && (
               <button
                 type="button"
                 className="journey-return-current"
@@ -344,15 +501,17 @@ export function PhonicsJourneyMap({
                 </svg>
                 <ol className="journey-stages" aria-label={t('world.stages')}>
                   {stages.map((stage, index) => {
-                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'journey.completed' : stage.current ? 'journey.current' : 'journey.locked')}`;
+                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'journey.completed' : free ? 'journey.free' : stage.current ? 'journey.current' : 'journey.locked')}`;
                     const body = (
                       <>
-                        {stage.current && <span className="journey-here">{t('world.here')}</span>}
+                        {stage.current && (
+                          <span className="journey-here">
+                            {t(free ? 'board.selected' : 'world.here')}
+                          </span>
+                        )}
                         <span className="journey-node">
                           <span className="journey-node-top">
-                            {stage.complete ? (
-                              <JourneyWorldIcon kind="flower" />
-                            ) : stage.unit.isReview ? (
+                            {stage.unit.isReview ? (
                               <JourneyWorldIcon kind="village" />
                             ) : (
                               <StageLetter lang={lang} unit={stage.unit} />
@@ -366,6 +525,8 @@ export function PhonicsJourneyMap({
                           <span className="journey-node-state">
                             {stage.complete ? (
                               <Check size={16} />
+                            ) : free ? (
+                              <BookOpen size={14} />
                             ) : stage.current ? (
                               <Play size={14} fill="currentColor" />
                             ) : (
@@ -373,31 +534,19 @@ export function PhonicsJourneyMap({
                             )}
                           </span>
                         </span>
-                        <span className="journey-stage-label">
-                          <strong>
-                            {stage.unit.isReview ? t('world.review') : unitTitle(t, stage.unit)}
-                          </strong>
-                          <small>
-                            {stage.complete
-                              ? t('world.finished')
-                              : stage.current
-                                ? t('world.stageProgress', { done: stage.done, total: stage.total })
-                                : t('world.stageNumber', { number: index + 1 })}
-                          </small>
-                        </span>
                       </>
                     );
                     return (
                       <li
                         key={stage.unit.id}
-                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.current && unlocking ? 'is-unlocking' : ''}`}
+                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : free ? 'is-open' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.current && unlocking ? 'is-unlocking' : ''}`}
                         style={{ left: `${stage.x}%`, top: `${stage.y}px` }}
                       >
-                        {(stage.current || stage.complete) && stage.first ? (
+                        {free || ((stage.current || stage.complete) && stage.first) ? (
                           <button
                             type="button"
                             aria-label={accessibleName}
-                            aria-current={stage.current ? 'step' : undefined}
+                            aria-current={!free && stage.current ? 'step' : undefined}
                             aria-pressed={stage.unit.id === selectedUnitId}
                             className="journey-stage-target"
                             onClick={() => setSelectedUnitId(stage.unit.id)}
@@ -419,10 +568,18 @@ export function PhonicsJourneyMap({
                     );
                   })}
                 </ol>
-                <span className="journey-map-end" aria-hidden="true">
-                  <Flag size={18} />
-                  {t(worldIndex === levels.length - 1 ? 'world.finishVillage' : 'world.nextPlace')}
-                </span>
+                {!free && (
+                  <span className="journey-map-end" aria-hidden="true">
+                    <Flag size={18} />
+                    {t(
+                      free
+                        ? 'board.chooseChapter'
+                        : worldIndex === levels.length - 1
+                          ? 'world.finishVillage'
+                          : 'world.nextPlace'
+                    )}
+                  </span>
+                )}
               </div>
             </div>
             {unlocking && (
@@ -438,15 +595,15 @@ export function PhonicsJourneyMap({
             <footer className="journey-map-legend">
               <span>
                 <span className="journey-dot is-current" />
-                {t('world.here')}
+                {t(free ? 'board.selected' : 'world.here')}
               </span>
               <span>
                 <Check size={15} />
                 {t('world.finished')}
               </span>
               <span>
-                <LockKeyhole size={14} />
-                {t('world.later')}
+                {free ? <BookOpen size={14} /> : <LockKeyhole size={14} />}
+                {t(free ? 'board.chooseChapter' : 'world.later')}
               </span>
             </footer>
           </section>

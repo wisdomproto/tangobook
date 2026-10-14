@@ -1,4 +1,5 @@
 import { journeyKoreanActivityRoute } from '../lib/learning-journey';
+import { freeWritingCompanion } from '../lib/free-activity-groups';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
@@ -18,7 +19,7 @@ import {
   type ActivityDef,
 } from '../lib/korean-phonics-units';
 import { markActivityCompleted, getUnitProgress } from '../lib/progress-store';
-import { learnedVowelCards } from '../lib/korean-vowel-play';
+import { learnedVowelCards, freeVowelCards } from '../lib/korean-vowel-play';
 import { activityTitle } from '../lib/activity-title';
 import { VowelListenActivity } from '../activities/VowelListenActivity';
 import { VowelWriteActivity } from '../activities/VowelWriteActivity';
@@ -174,9 +175,11 @@ export function KoreanPhonicsActivity({
   const vowelCards = useMemo(
     () =>
       shuffleReviewCards(
-        learnedVowelCards(unitId, (id) => getUnitProgress('korean', id).completedActivities)
+        guided
+          ? learnedVowelCards(unitId, (id) => getUnitProgress('korean', id).completedActivities)
+          : freeVowelCards(unitId)
       ),
-    [unitId, activityKey, activeProfile?.id]
+    [unitId, activityKey, activeProfile?.id, guided]
   );
   const completionId = useMemo(() => crypto.randomUUID(), [unitId, activityKey, activeProfile?.id]);
   const logUnitProgress = useCallback(() => {
@@ -201,8 +204,7 @@ export function KoreanPhonicsActivity({
   const handleComplete = useCallback(() => {
     markActivityCompleted('korean', unitId, activityKey);
     logUnitProgress();
-    if ((guided || (unit?.levelKey === 'hangul-vowels' && activity?.section === 'learn')) && onNext)
-      onNext();
+    if (onNext) onNext();
     else backToUnit();
   }, [
     unitId,
@@ -814,22 +816,24 @@ export default function KoreanPhonicsActivityPage() {
   const route = guided
     ? journeyKoreanActivityRoute(unitId, activityKey)
     : koreanLearningActivityRoute(unitId, activityKey);
-  const plan = getActivityPlan(route.unitId);
-  const index = plan.activities.findIndex((activity) => activity.key === route.activityKey);
-  const next = plan.activities[index + 1];
-  const onExit = useCallback(
-    () => navigate(`/library/phonics/korean/${route.unitId}`),
-    [navigate, route.unitId]
-  );
-  const onNext = useCallback(
-    () =>
-      navigate(
-        next?.section === 'learn'
-          ? `/library/phonics/korean/${route.unitId}/${next.key}`
-          : `/library/phonics/korean/${route.unitId}`
-      ),
-    [navigate, route.unitId, next]
-  );
+  const freeExited = useRef<string | null>(null);
+  const onExit = useCallback(() => {
+    const token = `${unitId}:${activityKey}`;
+    if (freeExited.current === token) return;
+    freeExited.current = token;
+    navigate(`/library/phonics/korean/${route.unitId}`);
+  }, [navigate, route.unitId, unitId, activityKey]);
+  const onFreeComplete = useCallback(() => {
+    const token = `${unitId}:${activityKey}`;
+    if (freeExited.current === token) return;
+    const write = freeWritingCompanion(getActivityPlan(unitId).activities, activityKey);
+    if (!write) {
+      onExit();
+      return;
+    }
+    freeExited.current = token;
+    navigate(`/library/phonics/korean/${unitId}/${write.key}`, { replace: true });
+  }, [navigate, unitId, activityKey, onExit]);
   if (route.unitId !== unitId || route.activityKey !== activityKey)
     return (
       <Navigate
@@ -853,10 +857,12 @@ export default function KoreanPhonicsActivityPage() {
     );
   return (
     <KoreanPhonicsActivity
+      key={`${unitId}:${activityKey}`}
       unitId={unitId}
       activityKey={activityKey}
       onExit={onExit}
-      onNext={onNext}
+      onNext={onFreeComplete}
+      onMarked={onFreeComplete}
     />
   );
 }

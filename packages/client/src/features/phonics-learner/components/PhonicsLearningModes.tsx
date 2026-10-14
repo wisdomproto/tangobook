@@ -7,9 +7,8 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
 import { PhonicsJourneyMap } from './PhonicsJourneyMap';
 import { MobileLandscapeGate } from '@/features/games/components/MobileLandscapeGate';
-import { getKoreanUnit } from '../lib/korean-phonics-units';
-import { getEnglishUnit } from '../lib/english-phonics-units';
-import { getRecentUnit, usePhonicsProgress } from '../lib/progress-store';
+import { usePhonicsProgress } from '../lib/progress-store';
+import { PhonicsFreeMap } from './PhonicsFreeMap';
 import {
   journeyHomeUrl,
   journeyProgress,
@@ -29,9 +28,6 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
   const units = journeyUnits(lang);
   const theme = courseThemes[lang];
   const curriculum = search.get('mode') === 'curriculum';
-  const recent = getRecentUnit(lang);
-  const freeUnit =
-    (lang === 'korean' ? getKoreanUnit(recent ?? '') : getEnglishUnit(recent ?? '')) ?? units[0];
   const title = t(`journey.${lang}`);
   const finishedUnit = units.find((u) => u.id === search.get('finished'));
   const finishedUnitDone =
@@ -42,6 +38,7 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
       .filter((s) => s.unit.id === finishedUnit.id)
       .every((s) => s.done);
 
+  if (search.get('mode') === 'free') return <PhonicsFreeMap lang={lang} />;
   if (curriculum) {
     return (
       <MobileLandscapeGate>
@@ -83,9 +80,9 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
               <ArrowRight aria-hidden="true" />
             </span>
           </Link>
-          {freeUnit && (
+          {
             <Link
-              to={`/library/phonics/${lang}/${freeUnit.id}`}
+              to={`/library/phonics/${lang}?mode=free`}
               className={`phonics-mode-choice ${theme.focus}`}
             >
               <img
@@ -101,7 +98,7 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
                 <ArrowRight aria-hidden="true" />
               </span>
             </Link>
-          )}
+          }
         </div>
       </div>
     </section>
