@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-14 [영어 블록 main 전달](../phonics/tasks/20261014-english-block-layout.md#main-전달): 사용자 요청으로 관련4커밋 일반 push432efae44→9e8bab5dd, 원격/로컬 SHA 일치·0/0 확인. 공용 입력 선택·영어 한 줄 트레이·태블릿/폰 및 영어 전용 조합/PC 확대 포함. 전달 문서도 후속 push한다. 아래 미푸시는 당시 상태이며 운영 배포 완료 미확인.
+
 2026-10-14 [영어 전용 조합 배치·PC 크기](../phonics/tasks/20261014-english-block-layout.md#pc-빈-판블록타겟-크기-후속): 사용자 빈 판 반증/상하 블록·타겟 확대/한 줄 영어 전용 배치 결정.700px 이상 가로는 큰 빈 두 패널 없이 타겟 바로 아래 작은 슬롯 받침·가까운 알파벳/행동. PC 타겟176px·알파벳72×84·입력134×151 실측,1920/1366/1024/568 및native drag/undo 확인. CSS/diff 통과·기존31회귀/타입/build는 반복하지 않음.6d36ce3ac 로컬 main 통합·미푸시, 아래 한영 같은 큰 판 기록은 수정 전이다.
 
 2026-10-14 [영어 블록 한글과 통일](../phonics/tasks/20261014-english-block-layout.md): 한영 BlockInputGate 공유·게임 전 screen/camera 선택, 영어도 태블릿 상단 타겟/아래 판·폰 가로 좌측 타겟·한 줄 그림 알파벳/큰 화살표·하단 undo/reset/읽기 확인/다음. 영어 자동 정답·panelLetters/a~z/소리 순서 보존, 터치 좌우scroll/위로drag 분리.31회귀·타입/build·실제1024/812/568·Book2 cat 정답자동이동/Book5 seed·신데렐라 wand/한글 회귀 확인.8ada415ca 로컬 main 통합·이번 미푸시. 실기기 카메라/손가락pan 검증 아님.
