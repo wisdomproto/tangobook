@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [한영 커리큘럼 개별 복습 로컬 통합](../work/phonics/tasks/20261014-korean-curriculum-flow-review.md#인계통합): a0587199e 코드·기억 main 포함,92회귀·타입/lint/build·반응형/한글 실제 복습 Back 선택 복원 확인. 원격 push/배포 미요청·미실행.5186 최종 개발 화면 유지.
+
 2026-10-14 [한영 커리큘럼 순차·개별 복습 적용](../work/phonics/tasks/20261014-korean-curriculum-flow-review.md): 후속 사용자 승인으로 최초 순차·완료 활동 선택 반복, 지도 챕터 선택/왼쪽 활동 선택/한 CTA 역할 구분. 복습 후 같은 챕터·활동 복원·미래 잠금/진도 보존·다른 권 미리보기 일치. 아래 조사 제안/미승인 기록은 당시 상태. 분량 분할·숙달 판정은 제외, 원격 push 요청 없음.
 
 2026-10-14 [한글 커리큘럼 흐름 검토](../work/phonics/tasks/20261014-korean-curriculum-flow-review.md): 엄마/아이 관점과 공식 Khan Kids·Reading Eggs 자료 비교. 처음 순차·끝낸 활동 선택 반복·지도는 챕터/왼쪽은 활동/한 실행 CTA 제안, 아직 미승인·코드 변경 없음. 실제 선택 불가 행/권 탐색 불일치·자음 분량/완료와 실력 판정 차이를 기록했다.

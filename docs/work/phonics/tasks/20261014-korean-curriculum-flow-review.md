@@ -2,12 +2,12 @@
 
 - id: 20261014-korean-curriculum-flow-review
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: db6c23fee
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 코드·기억 검증 완료, 로컬 main 통합 대기
+- integration: a0587199e 코드·기억 로컬 main fast-forward 완료
 - delivery: 후속 구현 승인, 새 push/배포 요청 없음
 
 ## 요청과 범위
@@ -83,3 +83,7 @@
 - 브라우저의 중간 탭에서 ERR_SOCKET_NOT_CONNECTED/data error page가 발생해 해당 탭 조작을 중단했다. 로컬 서버 listen/HTTP200 확인 후 같은 브라우저의 새 검수 탭으로 복구했다. 오류 화면은 증빙에서 제외했다.
 
 마지막 UI 변경 뒤 지도20회귀를 다시 통과했다(고유 전체92개). source ESLint, client typecheck/build 통과. 브라우저에서 복습 Back의 chapter/활동 write-1 query와 다시 하기 URL 유지까지 확인했다. 선택 활동을 작은 목록 안에서 먼저 보이게 내부 스크롤도 맞췄다. 승인된 규칙은 PLATFORM/STRATEGY/디자인 시스템/기능 CLAUDE에 기록했다. 기존 ReviewWriteActivity.test.tsx 줄바꿈·미추적 이미지/output은 이 작업에 포함하지 않는다.
+
+## 인계·통합
+
+조사18a2a7674·구현a0587199e를 C:/project/tangobook main에 fast-forward했다. 작업 중 새 자산을 생성하지 않고 기존 과정색/그림을 재사용했다. 원격 push/배포는 이번 요청에 없어 실행하지 않았다.5186 Vite는 같은 개발 worktree의 최종 코드를 계속 제공한다. 기존 줄바꿈 변경/미추적 파일은 보존했다.
