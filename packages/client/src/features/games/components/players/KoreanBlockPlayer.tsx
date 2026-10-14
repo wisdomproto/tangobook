@@ -1,10 +1,11 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
-import { Camera, RotateCcw, Undo2 } from 'lucide-react';
+import { RotateCcw, Undo2 } from 'lucide-react';
 import { LearningGameAction } from '../LearningGameAction';
+import { KoreanBlockInputGate } from '../KoreanBlockInputGate';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
-import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
@@ -135,7 +136,7 @@ function KoreanBlockPlayerInner({
    *    음절을 받는다. 아래 로직(새 음절만 읽기 · 자동 정답 · 칭찬 · 장면 리빌 · 결과 · 리포트)은
    *    `composedSyllables` 한 줄만 보므로 여기서 갈리고 끝난다.
    */
-  const [camera, setCamera] = useState(initialInputMode === 'camera');
+  const camera = initialInputMode === 'camera';
   const cam = useBoardCamera({ set: 'ko', enabled: camera });
   const landscape = useIsLandscape();
   // 놓인 자리로 음절 인식 — 자음 오른쪽 세로모음 = 가로 조합, 아래 가로모음 = 세로 조합, 그 아래 = 받침.
@@ -147,7 +148,7 @@ function KoreanBlockPlayerInner({
   // 🔴 쉬움 모드(순서 strip)는 격자 칸에 자동 배치하는 방식이라 판과 맞지 않아 뺐다.
   //    판은 난이도가 하나다 — 조각을 고르고, 돌리고, 놓는다.
 
-  // 블록을 놓아 새로 만들어진 음절 하나만 읽는다. 판 전체 읽기는 우측 `확인` 버튼이 담당한다.
+  // 블록을 놓아 새로 만들어진 음절 하나만 읽는다. 판 전체 읽기는 하단 `확인` 버튼이 담당한다.
   // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)는 Web Speech API로 폴백.
   // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
   // 로딩 완료 후 라이브러리 miss 면 Web Speech API(`speechSynthesis`) 로 ko-KR 폴백.
@@ -594,7 +595,7 @@ function KoreanBlockPlayerInner({
               (실측 1024x768: 「아기」가 잘렸다). 글자도 칸 폭에 맞춰 줄인다. */}
           <section
             className={cn(
-              'min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
+              'korean-block-target min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] short:py-1 flex items-center justify-center',
               twoCol
                 ? 'flex-1 flex-col gap-[clamp(0.5rem,2vh,1.5rem)]'
                 : 'flex-[2] shrink-0 short:flex-none short:h-20 short:min-h-20 gap-[clamp(1rem,3vw,3rem)]'
@@ -629,11 +630,10 @@ function KoreanBlockPlayerInner({
             </h1>
           </section>
 
-          {/* 섹션 2 — 드롭존 화면 가운데. 전체 읽기와 다음은 판 오른쪽에 세로 배치. */}
+          {/* 판과 블록 목록 아래에 조작 도구·확인·다음을 둔다. */}
           <section
             className={cn(
               'korean-block-play-area relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
-              landscape && 'flex-row gap-2',
               twoCol ? 'flex-1' : 'flex-[4]',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
               roundCorrect &&
@@ -655,14 +655,29 @@ function KoreanBlockPlayerInner({
                 disabled={roundCorrect}
               />
             )}
-            <div
-              className={cn(
-                'korean-block-actions z-20 flex flex-col gap-2 sm:gap-3',
-                landscape
-                  ? 'relative shrink-0 self-stretch justify-center'
-                  : 'absolute right-[clamp(0.75rem,2vw,2rem)] top-1/2 -translate-y-1/2'
+            <div className="korean-block-actions z-20 flex items-center shrink-0 gap-2 sm:gap-3">
+              {!camera && (
+                <div className="korean-block-edit-tools flex gap-2">
+                  <button
+                    data-learning-fx="tap"
+                    aria-label="되돌리기"
+                    onClick={handleUndo}
+                    disabled={roundCorrect || placed.length === 0}
+                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft transition disabled:opacity-40"
+                  >
+                    <Undo2 size={20} aria-hidden /> <span>되돌리기</span>
+                  </button>
+                  <button
+                    data-learning-fx="tap"
+                    aria-label={t('blockGame.reset')}
+                    onClick={handleResetGrid}
+                    disabled={roundCorrect || placed.length === 0}
+                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft transition disabled:opacity-40"
+                  >
+                    <RotateCcw size={20} aria-hidden /> <span>{t('blockGame.reset')}</span>
+                  </button>
+                </div>
               )}
-            >
               <button
                 data-learning-fx="tap"
                 type="button"
@@ -693,55 +708,6 @@ function KoreanBlockPlayerInner({
               </LearningGameAction>
             </div>
           </section>
-
-          {/* 섹션 3 — 조작 안내 + 되돌리기/지우기. 판이 곧 트레이를 품고 있어 별도 패널이 없다. */}
-          <div className="shrink-0 flex items-center justify-between gap-2 flex-wrap px-1">
-            <span className="block-game-hint text-xs sm:text-sm font-bold text-ink-700 break-keep">
-              {camera
-                ? '판 위에 블록을 놓아 보세요'
-                : picked
-                  ? '판에 놓아요 · 놓인 조각을 누르면 돌아가요'
-                  : '조각을 끌어다 놓아요'}
-            </span>
-            <div className="block-game-tools flex gap-2">
-              {/* 🔴 되돌리기·지우기는 실물 판에선 숨긴다 — 손으로 치우면 되므로 지울 게 없다. */}
-              {!camera && (
-                <>
-                  <button
-                    data-learning-fx="tap"
-                    onClick={handleUndo}
-                    disabled={roundCorrect || placed.length === 0}
-                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
-                  >
-                    <Undo2 size={20} aria-hidden /> 되돌리기
-                  </button>
-                  <button
-                    data-learning-fx="tap"
-                    onClick={handleResetGrid}
-                    disabled={roundCorrect || placed.length === 0}
-                    className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
-                  >
-                    <RotateCcw size={20} aria-hidden /> {t('blockGame.reset')}
-                  </button>
-                </>
-              )}
-              <button
-                data-learning-fx="tap"
-                onClick={() => {
-                  setCamera((v) => !v);
-                  clearBoard();
-                }}
-                className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition"
-              >
-                {camera ? (
-                  <StorybookSprite name="combine" size={24} />
-                ) : (
-                  <Camera size={22} aria-hidden />
-                )}
-                {camera ? '화면 블록' : '실물 블록'}
-              </button>
-            </div>
-          </div>
         </div>
       </div>
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
@@ -759,9 +725,16 @@ function KoreanBlockPlayerInner({
 }
 
 export function KoreanBlockPlayer(props: KoreanBlockPlayerProps) {
-  return <KoreanBlockPlayerInner {...props} />;
+  return (
+    <KoreanBlockInputGate
+      initialInputMode={props.initialInputMode}
+      total={(props.gameData as KoreanBlockData).items.length}
+      onBack={props.onBack}
+    >
+      {(inputMode) => <KoreanBlockPlayerInner {...props} initialInputMode={inputMode} />}
+    </KoreanBlockInputGate>
+  );
 }
-
 // ────────────────────────────────────────────────────────────────────────────
 // 자음/모음 패널 + 타일
 // ────────────────────────────────────────────────────────────────────────────

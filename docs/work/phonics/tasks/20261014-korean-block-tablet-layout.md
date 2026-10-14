@@ -1,0 +1,28 @@
+# 한글 블록 태블릿 배치·진입 전 입력 선택
+
+- id: 20261014-korean-block-tablet-layout
+- domain: phonics
+- status: ready
+- updated: 2026-10-14
+- base: 123480b7c
+- branch: codex/storybook-learning-ui
+- worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
+- integration: 미통합
+- delivery: 이번 미푸시·미배포
+
+## 사용자 결정
+
+확인/다음은 판 아래로 옮기고 왼쪽 타겟 단어 가로 공간을 넓힌다. 게임 중 실물 블록 전환 버튼은 제외하고 밖에서 입력 방식을 선택한다. 이전 작은 화면 검수 캡처가 모바일 기준으로 보였다는 후속 질문에 태블릿 가로1024×768 기준 결과를 제공한다. 직전 임의 레이아웃 변경 반증과 달리 이번 판/행동 변경은 사용자가 명시적으로 요청한 것이다.
+
+## 구현
+
+- 화면 모드 가로는 왼쪽 문제 그림/검정 단어30%, 오른쪽 판·고정 모음/자음 트레이70% 두 열. 확인/다음과 되돌리기/초기화는 판 아래 가로행이며 태블릿 이하의 편집 도구는 접근성 이름을 가진44px 아이콘.
+- 공용 KoreanBlockPlayer 앞 KoreanBlockInputGate에서 화면/실물 선택 뒤 플레이어를 mount. 카메라도 선택 후에만 시작한다. 이미 입력 방식을 명시한 공개 허브는 재선택 없이 기존 모드를 유지한다. 게임 내 전환은 제거하며 나가기는 기존 호출부로 돌아간다. 영어 게임/인식/실물 치수/조합·채점·발음 순서는 변경하지 않는다.
+- 작은 가로도 같은 두 열 구조를 유지하며 제목/이미지·트레이 내부만 축소한다. tablet 기준과 휴대폰 검수 증거를 구분한다.
+
+## 검증
+
+- 3파일37회귀 통과: 입력 선택 전 player 미mount·screen/camera 선택·공개 허브 명시 모드 보존·선택 전 나가기5회귀와 기존 판9/누적 자음23. client 타입/production build 통과. 변경 TSX lint 오류0·KoreanBlockPlayer 기존 미사용 composeHangul/isVowel2경고. 기존 Browserslist/Lottie eval/i18n import/큰 chunk 빌드 경고 유지.
+- 실제1024×768: 목표 영역285.31px/판 영역645.25px, 확인/다음 y671.28~743.28로 목록 아래. 자음 화살표 이동 후 모음3개 유지, native mouse drag로 ㄱ 배치·되돌리기로 제거·다음으로 꼬끼오→꿀벌 이동 확인. 게임 안 실물 전환 없음.
+- 1280×800 큰 태블릿/568×320 휴대폰 가로는 같은 열 구성으로 확인. 작은 화면 본문 가로568px·목록330.41px·확인/다음44px 높이이며 그림 프레임/제목/도구가 화면 밖으로 나가지 않는다. 카메라 실기기·손가락 native pan·전체 정답 완주는 이번 검수 아님. 선택 로직은 합성 테스트로 검증.
+- 증거: `C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/korean-block-tablet-actions-{1024,1280,phone}-20261014.png`. 사용자에게 제공한 대표는1024×768, 휴대폰은 보조 검수다. 임시 viewport·검수 탭 정리 완료. 새 자산/라이브러리·서버/외부 데이터 수정 없음·이번 push 요청 없음.

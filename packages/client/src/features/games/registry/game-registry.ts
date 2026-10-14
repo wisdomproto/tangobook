@@ -26,7 +26,7 @@ export interface GamePlayerProps {
   onComplete: (score: number, maxScore: number) => void;
   onBack: () => void;
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
-  /** 공개 블록 허브에서 고른 첫 입력 방식. 기존 호출부는 화면 블록으로 시작한다. */
+  /** 진입 전에 고른 입력 방식. 한글은 미지정 시 선택 화면, 영어는 화면 블록으로 시작한다. */
   initialInputMode?: 'screen' | 'camera';
 }
 

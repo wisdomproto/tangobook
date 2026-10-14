@@ -310,42 +310,6 @@ html:has([data-learning-overlay-root][data-game-open]) {
     font-size: 12px;
     line-height: 1.2;
   }
-  .korean-block-stage:not([data-camera]) .korean-block-body {
-    display: grid;
-    grid-template-columns: minmax(82px, 19%) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 8px;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child {
-    flex-direction: column;
-    padding: 8px;
-    height: auto;
-    min-height: 0;
-    gap: 10px;
-  }
-  .korean-block-stage:not([data-camera])
-    .korean-block-body
-    > section:first-child
-    > div:first-child {
-    display: block;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child img {
-    width: min(100px, 14vw, 25vh);
-    height: min(100px, 14vw, 25vh);
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child > div > span {
-    display: none;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child h1 {
-    font-size: clamp(24px, 4vw, 38px) !important;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-body > section:nth-child(2) {
-    padding: 8px;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-body > div:last-child {
-    grid-column: 1 / -1;
-    justify-content: end;
-  }
   .english-block-stage .english-alphabet-letters {
     justify-content: start;
     min-width: 0;

@@ -100,10 +100,7 @@
 }
 @media (orientation: landscape) {
   .korean-block-stage .korean-block-play-area {
-    gap: clamp(24px, 2.5vw, 40px);
-  }
-  .korean-block-stage .korean-block-actions {
-    padding-block: 8px;
+    gap: 12px;
   }
 }
 @media (orientation: landscape) and (max-height: 600px) {
@@ -145,7 +142,101 @@
     height: 38px !important;
   }
   .korean-block-stage .korean-block-play-area {
-    gap: 16px;
+    gap: 6px;
+  }
+}
+
+.korean-block-stage .korean-block-actions {
+  justify-content: flex-end;
+  padding-block: 4px;
+}
+.korean-block-edit-tools {
+  margin-right: auto;
+}
+.korean-block-edit-tools > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.korean-block-entry .korean-block-entry-choice {
+  width: clamp(200px, 29vw, 320px);
+  min-height: clamp(120px, 24vh, 200px);
+}
+.korean-block-entry-choice .learning-game-action-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: clamp(20px, 3vw, 28px);
+}
+@media (orientation: landscape) {
+  .korean-block-stage:not([data-camera]) .korean-block-body {
+    display: grid;
+    grid-template-columns: minmax(0, 30%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: clamp(12px, 2vw, 24px);
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target {
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    padding: 16px;
+    gap: 28px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target > div:first-child {
+    display: block;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target img {
+    width: clamp(80px, 23vh, 200px);
+    height: clamp(80px, 23vh, 200px);
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target h1 {
+    font-size: clamp(28px, 5vw, 64px) !important;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-play-area {
+    padding: 16px;
+    flex-direction: column;
+  }
+}
+@media (max-width: 1100px) {
+  .korean-block-edit-tools > button {
+    width: 44px;
+    padding: 0;
+  }
+  .korean-block-edit-tools > button > span {
+    display: none;
+  }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .korean-block-stage:not([data-camera]) .korean-block-body {
+    gap: 8px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target {
+    gap: 12px;
+    padding: 8px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target img {
+    width: min(120px, 28vh);
+    height: min(120px, 28vh);
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target > div > span {
+    display: none;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target h1 {
+    font-size: clamp(24px, 5vw, 40px) !important;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-play-area {
+    padding: 8px;
+  }
+  .korean-block-stage .korean-block-actions {
+    gap: 8px;
+    padding-block: 0;
+  }
+  .korean-block-stage .korean-block-actions > button {
+    min-width: 80px;
+    min-height: 44px;
+    padding: 4px 12px;
   }
 }
 
