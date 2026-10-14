@@ -11,18 +11,40 @@ export function recommendBooks(
   books: StorybookSummary[],
   groups: BookGroupsDoc['groups'] = [],
   config: LibraryConfig = {},
-  day: string
+  day: string,
+  previousIds: readonly string[] = []
 ): StorybookSummary[] {
   const publicBooks = books.filter((b) => b.isPublic && (!b.type || b.type === 'storybook'));
   const candidates = collapseStyleGroups(publicBooks, groups).sort((a, b) =>
     a.id.localeCompare(b.id)
   );
+  const fresh = candidates.filter((book) => !previousIds.includes(book.id));
+  const selected = pickBooks(fresh, config, day, 3);
+  return [
+    ...selected,
+    ...pickBooks(
+      candidates.filter((book) => !selected.some((pick) => pick.id === book.id)),
+      config,
+      day,
+      3 - selected.length
+    ),
+  ];
+}
+
+/** Prefer a completely new set; a small catalogue can reuse just the missing slots. */
+function pickBooks(
+  candidates: StorybookSummary[],
+  config: LibraryConfig,
+  day: string,
+  count: number
+) {
+  if (count <= 0) return [];
   const categories = [...new Set(candidates.map((b) => b.category ?? '기타'))].sort(
     makeCategoryComparator(config.categoryOrder)
   );
   const seed = [...day].reduce((n, char) => (n * 31 + char.charCodeAt(0)) >>> 0, 0);
   const selected: StorybookSummary[] = [];
-  for (let pass = 0; selected.length < 3; pass++) {
+  for (let pass = 0; selected.length < count; pass++) {
     let added = false;
     for (const category of categories) {
       const priority = config.bookPriority?.[category] ?? [];
@@ -38,7 +60,7 @@ export function recommendBooks(
         selected.push(book);
         added = true;
       }
-      if (selected.length === 3) break;
+      if (selected.length === count) break;
     }
     if (!added) break;
   }

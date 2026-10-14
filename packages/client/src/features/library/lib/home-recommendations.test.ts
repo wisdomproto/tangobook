@@ -36,4 +36,33 @@ describe('daily book recommendations', () => {
     expect(recommendBooks([], [], {}, '2026-10-12')).toEqual([]);
     expect(recommendBooks([book('a')], [], {}, '2026-10-12')).toEqual([book('a')]);
   });
+  it('excludes the whole previous set when at least three other public editions remain', () => {
+    const books = Array.from({ length: 9 }, (_, i) => book(String(i)));
+    const previous = recommendBooks(books, [], {}, 'today').map((book) => book.id);
+    const next = recommendBooks(
+      [...books, book('private', '기타', { isPublic: false })],
+      [],
+      {},
+      'shuffle:1',
+      previous
+    );
+    expect(next).toHaveLength(3);
+    expect(next.every((book) => !previous.includes(book.id) && book.isPublic)).toBe(true);
+  });
+  it('uses every available new book before repeating any old choice in a short catalogue', () => {
+    const books = ['a', 'b', 'c', 'd'].map((id) => book(id));
+    const next = recommendBooks(books, [], {}, 'shuffle', ['a', 'b', 'c']);
+    expect(next).toHaveLength(3);
+    expect(next[0].id).toBe('d');
+    expect(new Set(next.map((book) => book.id)).size).toBe(3);
+    expect(recommendBooks([book('a')], [], {}, 'shuffle', ['a'])).toEqual([book('a')]);
+  });
+  it('does not reintroduce an alternate art edition of an excluded recommendation', () => {
+    const books = ['a', 'a2', 'b', 'c', 'd', 'e', 'f'].map((id) => book(id));
+    const groups = [
+      { id: 'style-a', kind: 'style', bookIds: ['a', 'a2'], primaryId: 'a' },
+    ] as BookGroupsDoc['groups'];
+    const next = recommendBooks(books, groups, {}, 'shuffle', ['a', 'b', 'c']);
+    expect(next.map((book) => book.id).sort()).toEqual(['d', 'e', 'f']);
+  });
 });

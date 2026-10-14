@@ -94,7 +94,8 @@
     "loading": "Loading book picks",
     "loadError": "We couldn’t load the books.",
     "retry": "Try again",
-    "noBooks": "New stories are on their way."
+    "noBooks": "New stories are on their way.",
+    "shuffle": "Shuffle book recommendations"
   },
   "activities": {
     "subtitle": "Practice what you have read and learned.",

@@ -94,7 +94,8 @@
     "loading": "Đang tải sách gợi ý",
     "loadError": "Không thể tải sách.",
     "retry": "Thử lại",
-    "noBooks": "Những câu chuyện mới đang được chuẩn bị."
+    "noBooks": "Những câu chuyện mới đang được chuẩn bị.",
+    "shuffle": "Đổi sách gợi ý"
   },
   "activities": {
     "subtitle": "Vui vẻ luyện tập những gì đã đọc và học.",

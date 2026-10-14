@@ -94,7 +94,8 @@
     "loading": "正在加载推荐绘本",
     "loadError": "暂时无法加载绘本。",
     "retry": "重试",
-    "noBooks": "新的故事正在准备中。"
+    "noBooks": "新的故事正在准备中。",
+    "shuffle": "重新推荐图书"
   },
   "activities": {
     "subtitle": "快乐练习读过和学过的内容。",

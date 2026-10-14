@@ -8,15 +8,11 @@ import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { useBookGroups } from '@/features/library/hooks/useBookGroups';
 import { useLibraryConfig } from '@/features/library/hooks/useLibraryConfig';
 import { recommendBooks } from '@/features/library/lib/home-recommendations';
-import { usePhonicsProgress } from '@/features/phonics-learner/lib/progress-store';
-import {
-  journeyProgress,
-  journeyActivityUrl,
-  hasJourneyStarted,
-} from '@/features/phonics-learner/lib/learning-journey';
-import { unitTitle } from '@/features/phonics-learner/lib/activity-title';
 import { BookCover } from '@/design-system/primitives/BookCover';
 import { bookDisplayTitle } from '@tangobook/shared';
+import { useMemo, useState } from 'react';
+import { ArrowRight, Shuffle } from 'lucide-react';
+import './learning-home.css';
 
 export default function LearningHomePage() {
   const { activeProfile } = useAuth();
@@ -25,21 +21,24 @@ export default function LearningHomePage() {
 
 function LearningHomeContent() {
   const { t, i18n } = useTranslation('shell');
-  const { t: tp } = useTranslation('phonics');
   const { data: books = [], isLoading, isError, refetch } = useStorybooks();
   const { data: groups } = useBookGroups();
   const { data: config } = useLibraryConfig();
   const now = new Date();
   const day = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-  const recommended = recommendBooks(books, groups?.groups, config, day);
-  const ko = usePhonicsProgress('korean');
-  const en = usePhonicsProgress('english');
-  const koProgress = journeyProgress('korean', ko.unitCompletedActivities);
-  const enProgress = journeyProgress('english', en.unitCompletedActivities);
-  const courses = [
-    { lang: 'korean' as const, progress: koProgress },
-    { lang: 'english' as const, progress: enProgress },
-  ];
+  const [shuffle, setShuffle] = useState({ seed: '', previousIds: [] as string[] });
+  const recommended = useMemo(
+    () =>
+      recommendBooks(
+        books,
+        groups?.groups,
+        config,
+        shuffle.seed ? `${day}:${shuffle.seed}` : day,
+        shuffle.previousIds
+      ),
+    [books, groups?.groups, config, day, shuffle]
+  );
+  const courses = ['korean', 'english'] as const;
   const focus =
     'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-700';
   return (
@@ -51,59 +50,53 @@ function LearningHomeContent() {
         <p className="mt-3 text-center text-base text-ink-600 md:text-lg">{t('home.subtitle')}</p>
       </div>
       <section aria-label={t('home.courses')} className="grid gap-4 sm:grid-cols-2 md:gap-6">
-        {courses.map(({ lang, progress }) => {
-          const current = progress.current;
-          const resume = !!current && (progress.completed > 0 || hasJourneyStarted(lang));
+        {courses.map((lang) => {
           return (
-            <section
+            <Link
               key={lang}
+              to={`/library/phonics/${lang}`}
               data-language={lang}
               aria-label={t(`nav.${lang}`)}
-              className="storybook-home-course relative flex min-h-[220px] flex-col justify-between border-2 p-6 md:p-8"
+              style={getCourseTheme(lang)!.style}
+              className={`home-language-portal ${getCourseTheme(lang)!.focus}`}
             >
-              <div className="relative z-10 max-w-[calc(100%_-_112px)] md:max-w-[calc(100%_-_136px)]">
-                <h2 className="text-2xl font-bold md:text-3xl">{t(`nav.${lang}`)}</h2>
-                <p className="mt-3 break-keep text-base leading-relaxed text-ink-600 md:text-lg">
-                  {resume ? unitTitle(tp, current!.unit) : t(`home.${lang}Description`)}
-                </p>
+              <div className="home-language-copy">
+                <h2>{t(`nav.${lang}`)}</h2>
+                <p>{t(`home.${lang}Description`)}</p>
+                <span className="home-language-arrow" aria-hidden="true">
+                  <ArrowRight size={24} />
+                </span>
               </div>
-              <span
-                aria-hidden="true"
-                className={`absolute right-5 top-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/70 text-5xl font-bold md:right-8 md:top-8 md:h-28 md:w-28 md:text-6xl ${getCourseTheme(lang)!.text}`}
-              >
-                {lang === 'korean' ? '가' : 'Aa'}
+              <span className="home-language-art" aria-hidden="true">
+                <span className="home-language-orbit" />
+                <StorybookSprite name={lang} className="home-language-letter" />
               </span>
-              <div className="relative z-10 mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-                <Link
-                  to={
-                    resume
-                      ? journeyActivityUrl(lang, current!.unit.id, current!.activity.key)
-                      : `/library/phonics/${lang}`
-                  }
-                  className={`storybook-action inline-flex min-h-14 items-center justify-center gap-4 px-6 text-base font-bold ${getCourseTheme(lang)!.focus}`}
-                >
-                  {t(resume ? 'home.continue' : 'home.start')}
-                  <StorybookSprite name="next" size={24} />
-                </Link>
-                {resume && (
-                  <Link
-                    to={`/library/phonics/${lang}`}
-                    className={`inline-flex min-h-11 items-center gap-2 text-sm font-bold ${getCourseTheme(lang)!.focus}`}
-                  >
-                    <StorybookSprite name="compass" size={22} />
-                    {tp('journey.chooseMode')}
-                  </Link>
-                )}
-              </div>
-            </section>
+            </Link>
           );
         })}
       </section>
       <section className="mt-8" aria-labelledby="recommend-heading">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <h2 id="recommend-heading" className="text-xl font-bold md:text-2xl">
-            {t('home.recommended')}
-          </h2>
+        <div className="home-recommend-heading">
+          <div className="home-recommend-title">
+            <h2 id="recommend-heading" className="text-xl font-bold md:text-2xl">
+              {t('home.recommended')}
+            </h2>
+            <button
+              type="button"
+              className={`home-recommend-shuffle ${focus}`}
+              aria-label={t('home.shuffle')}
+              title={t('home.shuffle')}
+              disabled={isLoading || isError || recommended.length === 0}
+              onClick={() =>
+                setShuffle({
+                  seed: crypto.randomUUID(),
+                  previousIds: recommended.map((book) => book.id),
+                })
+              }
+            >
+              <Shuffle size={22} aria-hidden="true" />
+            </button>
+          </div>
           <Link
             to="/library/books"
             className={`inline-flex min-h-11 items-center gap-2 text-base font-bold text-ink-600 ${focus}`}
@@ -137,7 +130,10 @@ function LearningHomeContent() {
             </button>
           </div>
         ) : recommended.length > 0 ? (
-          <div className="flex gap-5 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible">
+          <div
+            aria-live="polite"
+            className="home-recommended-books flex gap-5 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible"
+          >
             {recommended.map((book, idx) => (
               <Link
                 key={book.id}
