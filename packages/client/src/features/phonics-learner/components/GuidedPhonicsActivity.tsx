@@ -60,18 +60,23 @@ function GuidedRun({
   useEffect(() => {
     if (index >= 0 && (stepDone || index === progress.currentIndex)) markJourneyStarted(lang);
   }, [lang, index, progress.currentIndex, stepDone]);
-  const onExit = useCallback(() => navigate(journeyHomeUrl(lang)), [navigate, lang]);
+  const chapterUrl = `${journeyHomeUrl(lang)}&chapter=${encodeURIComponent(unitId)}${replaying ? `&activity=${encodeURIComponent(activityKey)}` : ''}`;
+  const onExit = useCallback(() => navigate(chapterUrl), [navigate, chapterUrl]);
   const onNext = useCallback(() => {
     // Re-read after markActivityCompleted; render-time progress may still describe the previous step.
     const latest = journeyProgress(lang);
-    const next = replaying ? latest.steps[index + 1] : latest.current;
+    if (replaying) {
+      navigate(chapterUrl);
+      return;
+    }
+    const next = latest.current;
     if (next?.unit.id === unitId && next.activity.key === activityKey) return;
     navigate(
       next && next.unit.id === unitId
         ? journeyActivityUrl(lang, next.unit.id, next.activity.key)
-        : `${journeyHomeUrl(lang)}&finished=${encodeURIComponent(unitId)}${replaying ? '&replay=1' : ''}`
+        : `${journeyHomeUrl(lang)}&finished=${encodeURIComponent(unitId)}`
     );
-  }, [navigate, lang, unitId, activityKey, replaying, index]);
+  }, [navigate, lang, unitId, activityKey, replaying, chapterUrl]);
   const onMarked = useCallback(() => {
     // Only recorded completion advances; duplicate callbacks must not navigate twice.
     if (readyRef.current) return;

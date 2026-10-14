@@ -197,10 +197,16 @@ describe('커리큘럼 모드 라우트', () => {
     open('/library/phonics/korean/kr-v1-u02/listen-1?mode=curriculum');
     expect(await screen.findByRole('button', { name: '들은 모음 ㅏ' })).toBeDefined();
   });
-  it('완료한 활동을 다시 익힐 때 같은 단원의 다음 활동으로 이어진다', async () => {
+  it('완료한 활동만 다시 익힌 뒤 선택한 챕터 보드로 돌아온다', async () => {
     ['listen-1', 'write-1'].forEach((key) => markActivityCompleted('korean', 'kr-v1-g01', key));
-    open('/library/phonics/korean/kr-v1-g01/listen-1?mode=curriculum');
+    open('/library/phonics/korean/kr-v1-g01/listen-1?mode=curriculum', true);
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
-    expect(await screen.findByRole('button', { name: '쓴 모음 ㅏ' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: 'ㅏ 배우기' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: '쓴 모음 ㅏ' })).toBeNull();
+    expect(screen.getByRole('link', { name: '다시 하기' }).getAttribute('href')).toContain(
+      '/kr-v1-u01/'
+    );
+    expect(screen.queryByRole('status', { name: '다음 챕터가 열렸어!' })).toBeNull();
+    expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([]);
   });
 });

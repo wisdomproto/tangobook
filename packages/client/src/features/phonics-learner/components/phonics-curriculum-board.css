@@ -121,6 +121,53 @@
   color: #6f6757;
   font-size: 12px;
 }
+.curriculum-board:not(.is-free-mode) .journey-chapter-activities > li {
+  padding: 0;
+}
+.journey-curriculum-activity {
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 6px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.journey-curriculum-activity .journey-free-label {
+  flex: 1;
+  min-width: 0;
+}
+.journey-curriculum-activity:disabled {
+  cursor: default;
+  color: #827c70;
+}
+.journey-curriculum-activity:not(:disabled):hover {
+  background: var(--course-soft);
+}
+.journey-curriculum-activity:focus-visible {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 2px;
+}
+.journey-chapter-activities li[data-selected] .journey-curriculum-activity {
+  box-shadow: inset 0 0 0 2px var(--course-accent);
+}
+.journey-chapter-activities li[aria-current='step']:not([data-selected]) {
+  box-shadow: none;
+}
+.journey-chapter-locked {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #716858;
+  margin: 12px 0 0;
+}
 li[data-completed] .journey-activity-number {
   color: white;
   background: #649570;
@@ -156,6 +203,21 @@ li[data-completed] .journey-activity-number {
   width: 36px;
   height: 36px;
 }
+.curriculum-board .journey-map-heading {
+  gap: 8px;
+}
+.curriculum-board .journey-map-heading > div {
+  flex: 1;
+  min-width: 0;
+}
+.curriculum-board .journey-map-heading .journey-return-current {
+  margin: 0;
+  flex-shrink: 0;
+}
+.curriculum-board .journey-return-current svg {
+  width: 16px;
+  height: 16px;
+}
 .curriculum-board .journey-map-viewport {
   flex: 1;
   min-height: 0;
@@ -173,8 +235,13 @@ li[data-completed] .journey-activity-number {
 .curriculum-board .journey-stage-target:disabled {
   cursor: default;
 }
-.curriculum-board .is-previewed .journey-stage-label {
-  box-shadow: 0 0 0 2px var(--course-accent);
+.curriculum-board:not(.is-free-mode) .is-previewed:not(.is-locked) .journey-node-top {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 3px;
+}
+.curriculum-board .journey-dot.is-selected {
+  background: transparent;
+  border: 2px solid var(--course-accent);
 }
 .journey-unlock-status {
   position: absolute;
@@ -318,6 +385,15 @@ li[data-completed] .journey-activity-number {
     padding: 3px;
     gap: 5px;
     font-size: 11px;
+  }
+  .journey-curriculum-activity {
+    min-height: 44px;
+    padding: 3px;
+    gap: 5px;
+  }
+  .journey-chapter-locked {
+    font-size: 10px;
+    margin-top: 6px;
   }
   .journey-chapter-activities .path-game-sprite {
     width: 20px !important;

@@ -1,14 +1,14 @@
-# 한글 커리큘럼의 부모·아이 진행 흐름 재검토
+# 한영 커리큘럼 진행 흐름·활동 선택
 
 - id: 20261014-korean-curriculum-flow-review
 - domain: phonics
-- status: reviewed (제안, 구현 미승인)
+- status: ready
 - updated: 2026-10-14
 - base: db6c23fee
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 기록 로컬 통합 대상, 실행 코드 변경 없음
-- delivery: 이번 요청은 조사·논의이며 push/배포 요청 없음
+- integration: 코드·기억 검증 완료, 로컬 main 통합 대기
+- delivery: 후속 구현 승인, 새 push/배포 요청 없음
 
 ## 요청과 범위
 
@@ -64,3 +64,22 @@
 ## 다음 행동
 
 사용자 논의 후 활동 상태별 선택/복습 종료 복귀/다른 권 미리보기 정책을 확정한다. 승인되면 기존 자녀별 진도·ID·자동 전환을 보존하는 회귀와 함께 적용하고 PLATFORM/STRATEGY에 확정 결정만 옮긴다. 분량 분할/실력 판정은 UI 선택 변경과 구분해 설계한다.
+
+## 후속 적용 승인 — 2026-10-14
+
+사용자는 한글·영어 모두 최초 순차 진행, 완료 활동 선택 반복, 지도/왼쪽 역할 정리를 승인했다. 지도는 챕터 미리보기 선택, 왼쪽은 완료/현재 활동 선택, 실행 CTA 한 개로 적용한다. 개별 복습 완료/Back은 선택한 챕터로 복귀하며 실제 현재 진도·잠금을 바꾸지 않는다. 미래 활동은 비활성이다. 다른 권 미리보기와 왼쪽 내용을 일치시킨다. 챕터 분량 분할/숙달 판정은 이번 승인에 포함하지 않는다.
+
+사용자는 UI/UX가 헷갈리지 않게 최대한 직관적으로 구성하라고 추가 지시했다. 선택 테두리는 지도/활동에 같은 과정색, 실제 현재는 flag/여기부터, 완료 check/미래 lock으로 구분한다. 활동을 누르면 선택만 바뀌고 아래 단일 CTA로 실행한다. 복습 후 챕터뿐 아니라 활동 선택도 복원해 다시 반복할 수 있다.
+
+## 후속 구현·검증
+
+- PhonicsJourneyMap의 curriculum 활동을 완료/실제 다음만 선택하는 button으로 바꾸고 한 CTA를 해당 선택에 연결했다. 미래 활동은 disabled, query 선택도 실제 완료/현재에 맞게 검증한다. 지도는 챕터 선택이며 재생 badge를 현재 flag로 바꾸고 선택 노드 테두리/범례를 넣었다. free 직접 Link/그룹은 보존했다.
+- 다른 권은 해당 권의 첫 챕터를 보여주고 잠긴 활동은 실행 URL을 만들지 않는다. 현재 권 재선택은 실제 현재를 보여준다. 현재 복귀 도구를 지도 header에 두어 완료 챕터를 선택할 때 지도 전체가 아래로 밀리지 않게 했다.
+- GuidedRun은 진입 당시 완료였던 활동의 실제 완료 콜백 후 같은 chapter/activity query의 보드로 돌아온다. Back도 그 선택을 유지한다. 새 학습의 자동 다음/챕터 끝 finished 인접 unlock·중복 콜백 guard·자녀 진도·기존 ID는 유지한다.
+- 지도/안내 호스트/한영 실제 활동 라우트/자유모드/순수 경로 6파일92회귀 통과. 한영 완료 활동만 복습·다음 활동 미실행·진도 불변·미래 직접 진입 차단·복습 선택 복원·전체 과정 완료·자녀 교체·잠금 연출 회귀를 포함한다. 기존 한글 라우트 테스트의 '복습하면 다음 쓰기로 이동' 기대는 이번 승인된 동작에 맞춰 동일 챕터 보드 복귀/미래 진도 불변을 검증하도록 수정했다.
+- 초기 typecheck/source ESLint/build 통과. 기존 Browserslist/i18n chunk/lottie eval/큰 chunk 경고는 기존 상태다. 마지막 변경 후 검증 결과는 아래 인계에서 확인한다.
+- 실제 브라우저1280×800/1024×768/568×320에서 한영 선택/미래권 양쪽 표시/잠금·한 CTA·완료 쓰기 URL을 확인했다. 한글 완료 쓰기 진입 후 Back으로 같은 챕터 복귀를 확인했다. 답안/쓰기 완료를 새로 기록하지 않았으며 완료 후 자동 복귀는 실제 호스트 콜백 회귀로 검증했다. 실기기/학습 완주/오디오 청취 검수는 아니다.
+- 스크린샷: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/curriculum-replay-20261014/. 최종 선택 테두리는 버튼 hover 바탕 아래 가려지는 parent inset 반증을 수정해 button 자체에 적용했다. 가로폰 선택은44px이며 목록 내부 스크롤이다.
+- 브라우저의 중간 탭에서 ERR_SOCKET_NOT_CONNECTED/data error page가 발생해 해당 탭 조작을 중단했다. 로컬 서버 listen/HTTP200 확인 후 같은 브라우저의 새 검수 탭으로 복구했다. 오류 화면은 증빙에서 제외했다.
+
+마지막 UI 변경 뒤 지도20회귀를 다시 통과했다(고유 전체92개). source ESLint, client typecheck/build 통과. 브라우저에서 복습 Back의 chapter/활동 write-1 query와 다시 하기 URL 유지까지 확인했다. 선택 활동을 작은 목록 안에서 먼저 보이게 내부 스크롤도 맞췄다. 승인된 규칙은 PLATFORM/STRATEGY/디자인 시스템/기능 CLAUDE에 기록했다. 기존 ReviewWriteActivity.test.tsx 줄바꿈·미추적 이미지/output은 이 작업에 포함하지 않는다.

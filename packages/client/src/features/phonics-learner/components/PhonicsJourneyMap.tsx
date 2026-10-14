@@ -78,12 +78,25 @@ export function PhonicsJourneyMap({
     units.find(
       (unit) => unit.id === (lang === 'korean' ? koreanLearningUnitId(requested) : requested)
     ) ?? units[0];
-  const initial = free ? freeInitial : (progress.current?.unit ?? units.at(-1)!);
+  const [search, setSearch] = useSearchParams();
+  const returnChapter = units.find(
+    (unit) =>
+      unit.id === search.get('chapter') &&
+      (unit.id === progress.current?.unit.id ||
+        progress.steps.some((step, index) => step.unit.id === unit.id && progress.done[index]))
+  );
+  const initial = free ? freeInitial : (returnChapter ?? progress.current?.unit ?? units.at(-1)!);
   const levels = [...new Set(units.map((unit) => unit.levelKey))];
-  const currentLevel = progress.current?.unit.levelKey ?? levels[levels.length - 1];
   const [selectedLevel, setSelectedLevel] = useState(initial.levelKey);
   const [selectedUnitId, setSelectedUnitId] = useState(initial.id);
-  const [search, setSearch] = useSearchParams();
+  const [selectedActivityKey, setSelectedActivityKey] = useState<string | null>(
+    free ? null : search.get('activity')
+  );
+  const selectChapter = (unit: Unit) => {
+    setSelectedLevel(unit.levelKey);
+    setSelectedUnitId(unit.id);
+    setSelectedActivityKey(null);
+  };
   const finishedIndex = units.findIndex((unit) => unit.id === search.get('finished'));
   const currentIndex = units.findIndex((unit) => unit.id === progress.current?.unit.id);
   const [unlocking, setUnlocking] = useState(
@@ -125,8 +138,14 @@ export function PhonicsJourneyMap({
     : progress.steps.flatMap((step, index) =>
         step.unit.id === selectedUnit.id ? [{ ...step, done: progress.done[index] }] : []
       );
-  const chapterComplete = chapterSteps.length > 0 && chapterSteps.every((step) => step.done);
   const chapterNext = chapterSteps.find((step) => !step.done) ?? chapterSteps[0];
+  const canStart = (step: (typeof chapterSteps)[number]) =>
+    step.done ||
+    (progress.current?.unit.id === step.unit.id &&
+      progress.current?.activity.key === step.activity.key);
+  const selectedActivity =
+    chapterSteps.find((step) => step.activity.key === selectedActivityKey && canStart(step)) ??
+    chapterNext;
   const mapViewport = useRef<HTMLDivElement>(null);
   const activityList = useRef<HTMLOListElement>(null);
   const [compact, setCompact] = useState(() => window.innerHeight <= 500);
@@ -137,12 +156,14 @@ export function PhonicsJourneyMap({
   }, []);
   useEffect(() => {
     const list = activityList.current;
-    const current = list?.querySelector<HTMLElement>('[aria-current="step"]');
+    const current =
+      list?.querySelector<HTMLElement>('li[data-selected]') ??
+      list?.querySelector<HTMLElement>('[aria-current="step"]');
     if (list)
       list.scrollTop = current
         ? Math.max(0, current.offsetTop - list.offsetTop - list.clientHeight / 2)
         : 0;
-  }, [selectedUnitId, progress.current?.activity.key, compact]);
+  }, [selectedUnitId, selectedActivityKey, progress.current?.activity.key, compact]);
   const selectedUnits = units.filter((unit) => unit.levelKey === selectedLevel);
   const worldIndex = levels.indexOf(selectedLevel);
   const worldName = t(`world.${lang}.${worldIndex + 1}`);
@@ -199,9 +220,16 @@ export function PhonicsJourneyMap({
     })
     .join('');
   const startUrl =
-    chapterNext && journeyActivityUrl(lang, selectedUnit.id, chapterNext.activity.key);
+    selectedActivity &&
+    canStart(selectedActivity) &&
+    journeyActivityUrl(lang, selectedUnit.id, selectedActivity.activity.key);
   const renderActivity = (step: (typeof chapterSteps)[number], index: number) => {
-    const current = !free && !chapterComplete && chapterNext?.activity.key === step.activity.key;
+    const current =
+      !free &&
+      progress.current?.unit.id === step.unit.id &&
+      progress.current?.activity.key === step.activity.key;
+    const selected =
+      !free && canStart(step) && selectedActivity?.activity.key === step.activity.key;
     const phoneme =
       free &&
       lang === 'korean' &&
@@ -270,9 +298,10 @@ export function PhonicsJourneyMap({
           ))}
         {!free && (
           <span className="sr-only">
-            {t(step.done ? 'journey.completed' : current ? 'journey.current' : 'journey.locked')}
+            {t(step.done ? 'world.finished' : current ? 'journey.current' : 'journey.locked')}
           </span>
         )}
+        {!free && !canStart(step) && <LockKeyhole size={14} aria-hidden="true" />}
       </>
     );
     return (
@@ -280,6 +309,7 @@ export function PhonicsJourneyMap({
         key={step.activity.key}
         data-completed={step.done || undefined}
         aria-current={current ? 'step' : undefined}
+        data-selected={selected || undefined}
       >
         {free ? (
           <Link
@@ -290,7 +320,15 @@ export function PhonicsJourneyMap({
             {content}
           </Link>
         ) : (
-          content
+          <button
+            type="button"
+            className="journey-curriculum-activity"
+            disabled={!canStart(step)}
+            aria-pressed={selected && canStart(step)}
+            onClick={() => setSelectedActivityKey(step.activity.key)}
+          >
+            {content}
+          </button>
         )}
       </li>
     );
@@ -335,9 +373,10 @@ export function PhonicsJourneyMap({
                 type="button"
                 aria-pressed={selectedLevel === level}
                 onClick={() => {
-                  setSelectedLevel(level);
-                  setSelectedUnitId(
-                    free ? levelUnits[0].id : (progress.current?.unit.id ?? units.at(-1)!.id)
+                  selectChapter(
+                    !free && progress.current?.unit.levelKey === level
+                      ? progress.current.unit
+                      : levelUnits[0]
                   );
                 }}
                 className={`journey-region ${selectedLevel === level ? 'is-selected' : ''} ${reached ? 'is-reached' : ''}`}
@@ -419,7 +458,7 @@ export function PhonicsJourneyMap({
                 <Link to={startUrl} className="journey-play-button">
                   <Play size={20} fill="currentColor" />
                   {t(
-                    chapterComplete
+                    selectedActivity?.done
                       ? 'chapter.again'
                       : started
                         ? 'journey.continue'
@@ -428,6 +467,12 @@ export function PhonicsJourneyMap({
                   <ArrowRight size={20} />
                 </Link>
               )}
+              {!free && !startUrl && (
+                <p className="journey-chapter-locked">
+                  <LockKeyhole size={16} aria-hidden="true" />
+                  {t('journey.locked')}
+                </p>
+              )}
             </div>
           </aside>
           <section className="journey-map-panel" aria-label={worldName}>
@@ -435,22 +480,22 @@ export function PhonicsJourneyMap({
               <div>
                 <h2>{worldName}</h2>
               </div>
+              {!free && progress.current && selectedUnitId !== progress.current.unit.id && (
+                <button
+                  type="button"
+                  className="journey-return-current"
+                  aria-label={t('world.backToCurrent')}
+                  onClick={() => {
+                    selectChapter(progress.current!.unit);
+                  }}
+                >
+                  <Flag size={16} />
+                  {!compact && t('world.backToCurrent')}
+                  {!compact && <ArrowRight size={16} />}
+                </button>
+              )}
               <JourneyWorldIcon kind={ICONS[lang][worldIndex] ?? 'village'} />
             </header>
-            {!free && selectedLevel !== currentLevel && startUrl && (
-              <button
-                type="button"
-                className="journey-return-current"
-                onClick={() => {
-                  setSelectedLevel(currentLevel);
-                  setSelectedUnitId(progress.current?.unit.id ?? units.at(-1)!.id);
-                }}
-              >
-                <Flag size={16} />
-                {t('world.backToCurrent')}
-                <ArrowRight size={16} />
-              </button>
-            )}
             <div
               className="journey-map-viewport"
               ref={mapViewport}
@@ -501,7 +546,7 @@ export function PhonicsJourneyMap({
                 </svg>
                 <ol className="journey-stages" aria-label={t('world.stages')}>
                   {stages.map((stage, index) => {
-                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'journey.completed' : free ? 'journey.free' : stage.current ? 'journey.current' : 'journey.locked')}`;
+                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'world.finished' : free ? 'journey.free' : stage.current ? 'journey.current' : 'journey.locked')}`;
                     const body = (
                       <>
                         {stage.current && (
@@ -528,7 +573,7 @@ export function PhonicsJourneyMap({
                             ) : free ? (
                               <BookOpen size={14} />
                             ) : stage.current ? (
-                              <Play size={14} fill="currentColor" />
+                              <Flag size={14} />
                             ) : (
                               <LockKeyhole size={13} />
                             )}
@@ -549,7 +594,7 @@ export function PhonicsJourneyMap({
                             aria-current={!free && stage.current ? 'step' : undefined}
                             aria-pressed={stage.unit.id === selectedUnitId}
                             className="journey-stage-target"
-                            onClick={() => setSelectedUnitId(stage.unit.id)}
+                            onClick={() => selectChapter(stage.unit)}
                           >
                             {body}
                           </button>
@@ -593,6 +638,12 @@ export function PhonicsJourneyMap({
               </div>
             )}
             <footer className="journey-map-legend">
+              {!free && (
+                <span>
+                  <span className="journey-dot is-selected" />
+                  {t('board.selected')}
+                </span>
+              )}
               <span>
                 <span className="journey-dot is-current" />
                 {t(free ? 'board.selected' : 'world.here')}

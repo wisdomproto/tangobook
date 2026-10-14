@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-14 커리큘럼 활동 선택 후속: 최초 순차/완료 활동 개별 복습. 지도 node는 챕터 선택(선택 테두리·실제 현재 flag 구분), 왼쪽 button은 완료/실제 첫 미완료만 선택, 한 CTA 실행. 미래 활동 disabled와 GuidedRun 직접 URL gate 유지. GuidedRun은 진입 당시 완료 활동이면 개별 복습으로 실행해 종료/Back을 mode=curriculum&chapter=ID&activity=KEY 보드로 반환한다. query 선택은 현재/실제 완료 기록으로 검증하고 미래 key를 실행하지 않는다. 새 학습은 기존 자동 다음/finished 인접 unlock. 다른 권은 해당 권 첫 챕터 미리보기(미래 시작 없음), 현재 복귀는 지도 헤더에서 제공한다. 기존 진도·권한·자녀 key·free 그룹을 보존한다. [승인·검증](../../../../../docs/work/phonics/tasks/20261014-korean-curriculum-flow-review.md).
+
 2026-10-14 자유모드 최종 후속: freeActivityGroups는 배우기/써보기 실제 key를 보존하면서 목록만 한 항목으로 통합한다. freeWritingCompanion으로 배우기 완료 뒤 정확한 쓰기로 한 번만 replace 이동, 쓰기 완료/Back은 같은 챕터 보드. 각각 실제 마킹 후 두 key 모두 완료일 때 체크. 직접 쓰기 URL/별칭/guided 순서 유지. 한글 글자 사냥은 play, 한글 블록은 learn의 블록 놀이(required=false 유지), section.games는 놀며 익히기. 버튼 왼쪽 그림 하나·오른쪽 진입/완료 하나, 부모 반복 그림/번호/지도 node 캡션 제거. 기존 WebP 자산 재사용. 아래 초기 트리/동일 챕터 복귀 설명은 중간 배우기→쓰기 흐름을 이 후속으로 보완한다.
 
 2026-10-14 자유모드 최신: 언어 입구의 `?mode=free`와 기존 `/:unitId`는 `PhonicsFreeMap`→공유 `PhonicsJourneyMap mode=free`다. 모든 권/챕터가 열리고 현재 선택과 실제 완료만 표시한다. `getAllKoreanUnits/getAllEnglishUnits`의 기존 자유모드 목록·전체 activity plan을 사용하므로 모음4·4·2/복습/한영 선택지와 별칭이 유지된다. 왼쪽은 실제 section별 익히기/게임하기 native details 트리이며 기본 펼침, 개별 활동 Link로 직접 진입한다. free 종료는 같은 챕터 보드, 중복 완료/Back의 history 중복을 guard한다. freeVowelCards는 준비된 묶음, guided는 learnedVowelCards만 쓴다. 공용 완료 저장·권한/자산 게이트·커리큘럼 자동 연결은 그대로다. 아래 자유모드 미구현/옛 사이드바 지침은 이 결정으로 대체됨. [현재 작업](../../../../../docs/work/phonics/tasks/20261014-free-mode-map.md).
