@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 커리큘럼 보드1679fe6fb 로컬 main fast-forward 완료.5186은 개발 worktree의 새 지도, 원격 push/배포 미실행. 자유모드·홈·다른 게임 점검의 미완료 task도 기록만 main에 보존했다.
+
 2026-10-14 [커리큘럼 보드 적용](../work/phonics/tasks/20261014-curriculum-board-review.md): 후속 승인으로 예전 권별 지도를 한영 기본으로 통합·상단 최소화·실제 챕터 활동 순서·한 CTA, 현재/완료 미리보기·미래 잠금/실제 인접 unlock·자동 연결을 유지했다. 고유64회귀·타입/lint/build·PC/태블릿/가로폰 검수. [자유모드 같은 세계관 검토](../work/phonics/tasks/20261014-free-mode-map.md), [홈 카드·추천 개편](../work/platform/tasks/20261014-home-course-portals.md), [게임 반응형 전수 유형 점검](../work/games/tasks/20261014-responsive-games-audit.md)은 아직 미구현/플레이 검수 미완료로 보존한다. 기존 push 승인을 이번 작업에 확대하지 않는다.
 
 2026-10-14 [영어 블록 main 전달](../work/phonics/tasks/20261014-english-block-layout.md#main-전달): 사용자 요청으로 관련4커밋 일반 push432efae44→9e8bab5dd, 원격/로컬 SHA 일치·0/0 확인. 공용 입력 선택·영어 한 줄 트레이·태블릿/폰 및 영어 전용 조합/PC 확대 포함. 전달 문서도 후속 push한다. 아래 미푸시는 당시 상태이며 운영 배포 완료 미확인.

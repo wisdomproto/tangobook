@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-14 커리큘럼 보드 코드·기억1679fe6fb 로컬 main fast-forward 완료. 원격 push 미승인/미실행,5186 개발 worktree 실행 유지. 아래64회귀/실제 화면 증빙은 해당 커밋을 따른다. 자유모드·홈·다른 게임 점검은 별도 planned로 보존한다.
+
 2026-10-14 [권별 지도·챕터 활동 순서](tasks/20261014-curriculum-board-review.md): 사용자 승인으로 예전 JourneyMap을 한영 기본 curriculum 보드로 복구·상단 최소화, 현재/완료 node는 활동 미리보기와 한 CTA, 미래 잠금. 자동 다음/완료 후 지도 복귀·실제 인접1.8초 unlock/reduced450ms·진도/자녀키 유지. 고유64회귀·client 타입/lint/build 및PC/태블릿/가로폰 실제 검수. [자유모드 같은 세계관/열린 선택](tasks/20261014-free-mode-map.md)은 공식 Khan Kids/Lingokids 조사 후 제안 단계로 미구현. 이 후속은 원격 push 승인 없음.
 
 2026-10-14 [영어 블록 main 전달](tasks/20261014-english-block-layout.md#main-전달): 사용자 요청으로 관련4커밋 일반 push432efae44→9e8bab5dd, 원격/로컬 SHA 일치·0/0 확인. 공용 입력 선택·영어 한 줄 트레이·태블릿/폰 및 영어 전용 조합/PC 확대 포함. 전달 문서도 후속 push한다. 아래 미푸시는 당시 상태이며 운영 배포 완료 미확인.

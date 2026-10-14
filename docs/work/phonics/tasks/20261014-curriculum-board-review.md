@@ -2,12 +2,12 @@
 
 - id: 20261014-curriculum-board-review
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: 59d955d2d
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 1679fe6fb 로컬 main fast-forward
 - delivery: 미푸시·미배포
 
 ## 사용자 반증과 실제 원인
@@ -40,3 +40,7 @@
 
 - [홈 과정 입구·추천 도서 개편](../../platform/tasks/20261014-home-course-portals.md)
 - [전체 게임 반응형 점검](../../games/tasks/20261014-responsive-games-audit.md)
+
+## 인계·통합
+
+코드와 기억1679fe6fb를 C:/project/tangobook main에 fast-forward했다. 기존 ReviewWriteActivity.test.tsx의 줄바꿈 변경/미추적 이미지·output은 stage하지 않았다.5186 Vite는 개발 worktree에서 계속 실행하며 새 지도 HMR을 실제 확인했다. 원격 push/배포는 하지 않았다. 홈/전체 게임/자유모드 작업 기록은 main에 보존됐지만 해당 구현/전수 검수는 미완료다.
