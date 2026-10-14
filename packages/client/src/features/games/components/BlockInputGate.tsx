@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { Camera } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import { GameHeader } from './GameHeader';
@@ -9,17 +10,20 @@ import { gameSafeAreaStyle } from '../lib/game-safe-area';
 type InputMode = 'screen' | 'camera';
 
 /** Choose before mounting the player, so the camera starts only after an explicit choice. */
-export function KoreanBlockInputGate({
+export function BlockInputGate({
+  language = 'ko',
   initialInputMode,
   total,
   onBack,
   children,
 }: {
+  language?: 'ko' | 'en';
   initialInputMode?: InputMode;
   total: number;
   onBack: () => void;
   children: (mode: InputMode) => ReactNode;
 }) {
+  const { t } = useTranslation('games');
   const [inputMode, setInputMode] = useState(initialInputMode);
   if (inputMode) return children(inputMode);
   return (
@@ -29,7 +33,12 @@ export function KoreanBlockInputGate({
     >
       <PhonicsBackdrop />
       <div className="px-2 pt-2 shrink-0">
-        <GameHeader title="한글 블록" current={0} total={total} onBack={onBack} />
+        <GameHeader
+          title={t(language === 'en' ? 'cards.block.labelEn' : 'cards.block.labelKo')}
+          current={0}
+          total={total}
+          onBack={onBack}
+        />
       </div>
       <div className="relative flex-1 min-h-0 flex flex-col items-center justify-center gap-8 px-6">
         <h1 className="text-2xl sm:text-3xl font-display font-black text-ink-900">

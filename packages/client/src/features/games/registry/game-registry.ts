@@ -26,7 +26,7 @@ export interface GamePlayerProps {
   onComplete: (score: number, maxScore: number) => void;
   onBack: () => void;
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
-  /** 진입 전에 고른 입력 방식. 한글은 미지정 시 선택 화면, 영어는 화면 블록으로 시작한다. */
+  /** 진입 전에 고른 입력 방식. 한영 블록 모두 미지정 시 게임 밖에서 선택한다. */
   initialInputMode?: 'screen' | 'camera';
 }
 

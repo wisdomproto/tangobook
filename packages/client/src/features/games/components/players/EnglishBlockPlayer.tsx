@@ -1,15 +1,28 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
-import { Camera } from 'lucide-react';
+import { RotateCcw, Undo2 } from 'lucide-react';
 import { LearningGameAction } from '../LearningGameAction';
+import { BlockInputGate } from '../BlockInputGate';
+import { EnglishAlphabetTray } from './EnglishAlphabetTray';
+import './english-block.css';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
-import { useState, useCallback, useMemo, useRef, useEffect, Fragment, type ReactNode } from 'react';
+import {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+  Fragment,
+  type ReactNode,
+  type CSSProperties,
+} from 'react';
 import { motion } from 'framer-motion';
 import {
   DndContext,
   DragOverlay,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   pointerWithin,
   useDraggable,
   useDroppable,
@@ -121,7 +134,7 @@ function DraggableLetterTile({
       }
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
-        'english-letter-tile w-12 h-14 touch-none rounded-2xl flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700',
+        'english-letter-tile w-12 h-14 touch-pan-x shrink-0 rounded-2xl flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700',
         interactable ? 'cursor-grab active:cursor-grabbing' : 'cursor-not-allowed',
         interactable &&
           'transition-transform hover:scale-105 hover:shadow-soft active:scale-95 active:shadow-soft',
@@ -184,7 +197,8 @@ function EnglishBlockPlayerInner({
   const [typedChars, setTypedChars] = useState(0);
   const [draggedBlock, setDraggedBlock] = useState<LetterBlock | null>(null);
   const dragSensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 6 } })
+    useSensor(MouseSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, { activationConstraint: { distance: { y: 6 }, tolerance: { x: 8 } } })
   );
   const isTutorialPlaying = useTutorialIsPlaying();
   const { popLetter, glowSlot } = useTutorialHighlight();
@@ -208,6 +222,7 @@ function EnglishBlockPlayerInner({
   );
 
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
+  const gridHistory = useRef<(string | null)[][]>([]);
 
   /**
    * 🔴 **판이 둘이다 — 그 밖은 전부 같다.** 화면 판은 아이가 끌어다 놓은 칸에서, 실물 판은
@@ -215,7 +230,7 @@ function EnglishBlockPlayerInner({
    *    리포트)은 `grid` 만 보므로 여기서 갈리고 끝난다.
    * 🔴 형판 집합은 **한글과 안 섞는다** — `o`/`ㅇ`, `i`/`ㅣ` 가 같은 그림이라 최고점으로 못 가른다.
    */
-  const [camera, setCamera] = useState(initialInputMode === 'camera');
+  const camera = initialInputMode === 'camera';
   const cam = useBoardCamera({ set: 'en', enabled: camera });
   const landscape = useIsLandscape();
   const twoCol = camera && landscape;
@@ -329,6 +344,7 @@ function EnglishBlockPlayerInner({
         const matches = expected.letter === block.char && expected.slot === slot;
         if (!matches) return;
       }
+      gridHistory.current.push([...grid]);
       setGrid((prev) => {
         const next = [...prev];
         next[slot] = block.char;
@@ -373,6 +389,7 @@ function EnglishBlockPlayerInner({
       if (roundCorrect) return;
       const char = grid[slot];
       if (!char) return;
+      gridHistory.current.push([...grid]);
       setGrid((prev) => {
         const next = [...prev];
         next[slot] = null;
@@ -382,6 +399,28 @@ function EnglishBlockPlayerInner({
     },
     [grid, roundCorrect]
   );
+
+  const handleUndo = () => {
+    const previous = gridHistory.current.pop();
+    if (previous) setGrid(previous);
+    setWrongSlots(new Set());
+  };
+  const handleResetGrid = () => {
+    gridHistory.current.push([...grid]);
+    setGrid(initGrid(currentItem.letters));
+    setWrongSlots(new Set());
+  };
+  const handleReadGrid = async () => {
+    const word = grid.join('');
+    if (!word) return;
+    const url = await resolveTtsUrl({
+      text: word,
+      language: 'english',
+      storybookId: sceneStorybookId,
+      identifierPrefix: 'eblock-board',
+    });
+    if (url) playAudio(url);
+  };
 
   /**
    * 낱말 소리 — 알파벳 판의 **문제**다(그림은 보조).
@@ -446,6 +485,7 @@ function EnglishBlockPlayerInner({
   const goToNext = useCallback(
     (fromIndex: number) => {
       setScene(null);
+      gridHistory.current = [];
       if (fromIndex + 1 < items.length) {
         const nextIdx = fromIndex + 1;
         setCurrentIndex(nextIdx);
@@ -567,6 +607,7 @@ function EnglishBlockPlayerInner({
   // 게임 완료 시 학습 이벤트 emit (영어: 단어만)
 
   const handleRestart = useCallback(() => {
+    gridHistory.current = [];
     setCurrentIndex(0);
     setScore(0);
     setFinished(false);
@@ -701,6 +742,7 @@ function EnglishBlockPlayerInner({
         <div
           data-phonics-game={phonics || undefined}
           data-phonics-language={phonics ? 'en' : undefined}
+          data-camera={camera || undefined}
           className="storybook-scope learning-stage english-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
           style={gameSafeAreaStyle()}
         >
@@ -730,74 +772,95 @@ function EnglishBlockPlayerInner({
             </div>
           )}
 
-          {/* 🔴 적응형은 **방향**이 정한다 — 폭(`sm:`)으로 가르면 세로로 세운 태블릿이 가로 배치를
-            받는다(둘 다 `sm` 을 넘는다). 세로면 위아래로 쌓고 가로면 좌우로 나눈다. */}
           <div
             className={cn(
-              'flex-1 min-h-0 flex items-stretch justify-center px-[clamp(0.75rem,2vw,2rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] gap-[clamp(0.5rem,1.5vh,1.5rem)]',
+              'english-block-body flex-1 min-h-0 flex gap-3 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)]',
               twoCol ? 'flex-row' : 'flex-col'
             )}
           >
-            <div
-              className={cn(
-                'english-block-question relative flex min-h-0 w-full flex-1 items-center justify-center rounded-3xl bg-white px-4 py-3 shadow-soft',
-                landscape && !camera
-                  ? 'flex-row gap-[clamp(2rem,6vw,8rem)]'
-                  : 'flex-col gap-[clamp(0.5rem,1.5vh,1.5rem)]'
-              )}
-            >
-              <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-peach-200/45 blur-2xl" />
-              <div className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-coral-100/45 blur-3xl" />
-              {/* 완성된 단어 타이핑 패널 */}
-              {roundCorrect && (
-                <div className="absolute left-1/2 top-5 z-10 min-w-[220px] -translate-x-1/2 rounded-2xl bg-success/15 px-6 py-3 text-center text-3xl font-black text-success shadow-soft ring-4 ring-success/40 backdrop-blur-sm sm:text-4xl">
-                  {currentItem.word.slice(0, typedChars)}
-                  {typedChars < currentItem.word.length && (
-                    <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
-                  )}
-                </div>
-              )}
-
+            <section className="english-block-target flex min-h-0 items-center justify-center gap-8 rounded-3xl border-2 border-white bg-white/85 px-6 py-3 shadow-soft">
               {currentItem.imageUrl && (
-                <div className="relative z-[1] shrink-0">
-                  <div className="absolute inset-0 scale-110 rounded-[2rem] bg-peach-300/45 blur-3xl" />
-                  <img
-                    src={currentItem.imageUrl}
-                    alt={currentItem.word}
-                    className={cn(
-                      'english-block-image relative w-auto object-contain rounded-2xl bg-white',
-                      isAlphabetRound ? 'h-[clamp(9rem,42vh,28rem)]' : 'h-[clamp(9rem,34vh,24rem)]'
-                    )}
-                  />
-                </div>
+                <img
+                  className="english-block-image rounded-3xl object-contain"
+                  src={currentItem.imageUrl}
+                  alt={currentItem.word}
+                />
               )}
-
-              <div className="english-block-controls relative z-[1] flex min-w-0 flex-col items-center justify-center gap-4">
-                <div className="flex flex-col items-center justify-center gap-3">
-                  {isAlphabetRound ? (
-                    /* 🔴 **그림이 아니라 소리로 낸다**(2026-07-29) — 낱말을 들려주고 그 첫 글자를 넣는 게
-                   파닉스다. 그림만 보고 고르면 영어 소리는 한 번도 안 듣고 끝난다. 그림은 무엇의
-                   소리인지 알려주는 보조로 남긴다. */
-                    <button
-                      data-learning-fx="tap"
-                      onClick={() => void sayWord()}
-                      className="inline-flex items-center gap-3 rounded-full bg-white/80 px-5 py-3 text-lg font-black text-ink-700 shadow-soft sm:text-2xl"
-                      aria-label={t('blockGame.listenFirstLetter')}
-                    >
-                      <StorybookSprite name="listen" size={32} />
-                      {t('blockGame.listenFirstLetter')}
-                    </button>
-                  ) : (
-                    <span className="english-block-word font-display text-[clamp(2rem,4vw,4rem)] font-bold text-ink-900">
-                      {currentItem.word}
-                    </span>
-                  )}
-                  <div className="english-block-slots flex max-w-full justify-start gap-2 overflow-x-auto p-1">
-                    {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+              {isAlphabetRound ? (
+                <button
+                  data-learning-fx="tap"
+                  onClick={() => void sayWord()}
+                  className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 text-lg font-black text-ink-700 shadow-soft"
+                  aria-label={t('blockGame.listenFirstLetter')}
+                >
+                  <StorybookSprite name="listen" size={32} />
+                  {t('blockGame.listenFirstLetter')}
+                </button>
+              ) : (
+                <h1
+                  className="english-block-word font-display font-black text-black whitespace-nowrap"
+                  style={
+                    {
+                      '--english-word-length': Math.max(1, currentItem.word.length),
+                    } as CSSProperties
+                  }
+                >
+                  {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
+                </h1>
+              )}
+            </section>
+            <section className="english-block-play-area flex flex-1 min-h-0 min-w-0 flex-col gap-3 rounded-3xl border-2 border-white bg-white/85 p-4 shadow-soft">
+              {camera ? (
+                <BoardCameraPanel cam={cam} />
+              ) : (
+                <>
+                  <div className="english-block-board flex flex-1 min-h-0 items-center justify-center rounded-3xl border-4 border-peach-200 bg-white">
+                    <div className="english-block-slots flex max-w-full justify-start gap-3 overflow-x-auto p-3">
+                      {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+                    </div>
                   </div>
-                </div>
-
-                {/* 정답은 자동으로 확인한다. 아이가 현재 문제를 건너뛰거나 결과로 갈 수 있는 다음 버튼만 둔다. */}
+                  <EnglishAlphabetTray letterCount={panelLetters.length}>
+                    {panelLetters.map(renderBlock)}
+                  </EnglishAlphabetTray>
+                </>
+              )}
+              <div className="english-block-actions flex shrink-0 items-center justify-end gap-3">
+                {!camera && (
+                  <div className="english-block-edit-tools flex gap-2 mr-auto">
+                    <button
+                      type="button"
+                      aria-label="되돌리기"
+                      disabled={
+                        isTutorialPlaying || roundCorrect || gridHistory.current.length === 0
+                      }
+                      onClick={handleUndo}
+                    >
+                      <Undo2 size={20} aria-hidden />
+                      <span>되돌리기</span>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={t('blockGame.reset')}
+                      disabled={
+                        isTutorialPlaying || roundCorrect || grid.every((letter) => !letter)
+                      }
+                      onClick={handleResetGrid}
+                    >
+                      <RotateCcw size={20} aria-hidden />
+                      <span>{t('blockGame.reset')}</span>
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  data-learning-fx="tap"
+                  onClick={() => void handleReadGrid()}
+                  disabled={isTutorialPlaying || roundCorrect || grid.every((letter) => !letter)}
+                  className="english-block-read inline-flex items-center justify-center gap-1 bg-white font-black text-mint-600 border-2 border-mint-300 rounded-3xl disabled:opacity-40"
+                >
+                  <StorybookSprite name="listen" size={24} />
+                  확인
+                </button>
                 <LearningGameAction
                   language="en"
                   data-learning-fx="tap"
@@ -808,45 +871,7 @@ function EnglishBlockPlayerInner({
                   {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
                 </LearningGameAction>
               </div>
-            </div>
-            {camera && (
-              <div className={cn('min-h-0 w-full', twoCol ? 'flex-1' : 'flex-1')}>
-                <BoardCameraPanel cam={cam} />
-              </div>
-            )}
-          </div>
-
-          {/* 🔴 실물 판에선 글자 판을 숨긴다 — 아이 손에 진짜 블록이 있다. */}
-          {!camera && (
-            <div className="english-alphabet-tray mx-3 shrink-0 rounded-2xl bg-white px-3 py-3 shadow-soft">
-              <div className="flex items-center gap-3 sm:gap-5">
-                <p className="english-alphabet-label shrink-0 rounded-full bg-ink-900 px-4 py-2 text-base font-bold text-white">
-                  ABC
-                </p>
-                <div className="english-alphabet-letters flex flex-1 flex-wrap justify-center gap-2">
-                  {panelLetters.map(renderBlock)}
-                </div>
-              </div>
-            </div>
-          )}
-          {/* 🔴 판 갈아타기 — 아이 손이 닿는 아래가 아니라 위(헤더 옆)에 두지 않는 이유는
-            한글 쪽과 같은 자리를 지키기 위해서다. */}
-          <div className="block-input-switch block-game-tools shrink-0 flex justify-end px-3 pb-2">
-            <button
-              data-learning-fx="tap"
-              onClick={() => {
-                setCamera((v) => !v);
-                setGrid(initGrid(currentItem.letters));
-              }}
-              className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition"
-            >
-              {camera ? (
-                <StorybookSprite name="combine" size={24} />
-              ) : (
-                <Camera size={22} aria-hidden />
-              )}
-              <span>{camera ? '화면 블록' : '실물 블록'}</span>
-            </button>
+            </section>
           </div>
         </div>
         <FeedbackOverlay kind="correct" visible={praiseVisible} />
@@ -878,8 +903,17 @@ function EnglishBlockPlayerInner({
 
 export function EnglishBlockPlayer(props: GamePlayerProps) {
   return (
-    <TutorialProvider>
-      <EnglishBlockPlayerInner {...props} />
-    </TutorialProvider>
+    <BlockInputGate
+      language="en"
+      initialInputMode={props.initialInputMode}
+      total={(props.gameData as EnglishBlockData).items.length}
+      onBack={props.onBack}
+    >
+      {(inputMode) => (
+        <TutorialProvider>
+          <EnglishBlockPlayerInner {...props} initialInputMode={inputMode} />
+        </TutorialProvider>
+      )}
+    </BlockInputGate>
   );
 }

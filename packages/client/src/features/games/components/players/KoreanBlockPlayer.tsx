@@ -1,7 +1,7 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { RotateCcw, Undo2 } from 'lucide-react';
 import { LearningGameAction } from '../LearningGameAction';
-import { KoreanBlockInputGate } from '../KoreanBlockInputGate';
+import { BlockInputGate } from '../BlockInputGate';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
@@ -726,13 +726,13 @@ function KoreanBlockPlayerInner({
 
 export function KoreanBlockPlayer(props: KoreanBlockPlayerProps) {
   return (
-    <KoreanBlockInputGate
+    <BlockInputGate
       initialInputMode={props.initialInputMode}
       total={(props.gameData as KoreanBlockData).items.length}
       onBack={props.onBack}
     >
       {(inputMode) => <KoreanBlockPlayerInner {...props} initialInputMode={inputMode} />}
-    </KoreanBlockInputGate>
+    </BlockInputGate>
   );
 }
 // ────────────────────────────────────────────────────────────────────────────

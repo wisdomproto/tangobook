@@ -310,28 +310,6 @@ html:has([data-learning-overlay-root][data-game-open]) {
     font-size: 12px;
     line-height: 1.2;
   }
-  .english-block-stage .english-alphabet-letters {
-    justify-content: start;
-    min-width: 0;
-  }
-  .english-block-stage .block-input-switch {
-    position: absolute;
-    top: 12px;
-    right: 78px;
-    z-index: 2;
-    padding: 0;
-  }
-  .english-block-stage .block-input-switch button {
-    min-width: 44px;
-    padding-inline: 8px;
-  }
-  .english-block-stage .block-input-switch button > span:last-child {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
   .phonics-activity:has(.review-write-body) {
     overflow: hidden;
   }

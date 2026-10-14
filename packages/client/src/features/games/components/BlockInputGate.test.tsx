@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { KoreanBlockInputGate } from './KoreanBlockInputGate';
+import { BlockInputGate } from './BlockInputGate';
 
 vi.mock('./GameHeader', () => ({
   GameHeader: ({ onBack }: { onBack: () => void }) => <button onClick={onBack}>뒤로 가기</button>,
@@ -9,15 +9,15 @@ vi.mock('@/features/phonics-learner/components/PhonicsBackdrop', () => ({
   PhonicsBackdrop: () => null,
 }));
 
-describe('KoreanBlockInputGate', () => {
+describe.each(['ko', 'en'] as const)('BlockInputGate %s', (language) => {
   it.each(['screen', 'camera'] as const)(
     'mounts the %s player only after choosing outside the game',
     (mode) => {
       const player = vi.fn((selected: string) => <div>player:{selected}</div>);
       render(
-        <KoreanBlockInputGate total={4} onBack={vi.fn()}>
+        <BlockInputGate language={language} total={4} onBack={vi.fn()}>
           {player}
-        </KoreanBlockInputGate>
+        </BlockInputGate>
       );
       expect(player).not.toHaveBeenCalled();
       fireEvent.click(
@@ -34,9 +34,9 @@ describe('KoreanBlockInputGate', () => {
     (mode) => {
       const player = vi.fn((selected: string) => <div>player:{selected}</div>);
       render(
-        <KoreanBlockInputGate total={4} initialInputMode={mode} onBack={vi.fn()}>
+        <BlockInputGate language={language} total={4} initialInputMode={mode} onBack={vi.fn()}>
           {player}
-        </KoreanBlockInputGate>
+        </BlockInputGate>
       );
       expect(player).toHaveBeenCalledWith(mode);
       expect(screen.queryByText('어떤 블록으로 만들까요?')).not.toBeInTheDocument();
@@ -47,9 +47,9 @@ describe('KoreanBlockInputGate', () => {
     const onBack = vi.fn();
     const player = vi.fn(() => null);
     render(
-      <KoreanBlockInputGate total={4} onBack={onBack}>
+      <BlockInputGate language={language} total={4} onBack={onBack}>
         {player}
-      </KoreanBlockInputGate>
+      </BlockInputGate>
     );
     fireEvent.click(screen.getByRole('button', { name: '뒤로 가기' }));
     expect(onBack).toHaveBeenCalledOnce();
