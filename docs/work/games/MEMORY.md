@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-14 [트레이 안쪽 clip](../phonics/tasks/20261014-korean-block-layout.md#테두리-침범-후속): ㅎ이 민트 테두리를 침범한 사용자 반증으로 이미지frame을 독립 래퍼에 두고14/10px 안쪽 viewport에서만 블록 clip/scroll.7회귀·Prettier/diff·1280/568 실측/끝모음/이동 확인, c43e915a8 로컬 main 통합·미푸시. 이미지/블록 치수/채점 보존.
+
 2026-10-14 [중앙 그림 트레이 최종](../phonics/tasks/20261014-korean-block-layout.md#중앙-그림-트레이-후속): 세로선/화살표 포함 바탕은 사용자 반증으로 제거. 중앙만 민트/크림 사각 배경21KB alpha WebP로 감싸고 화살표 독립,9-slice로 모서리 보존. 내장imagegen(Qwen unavailable)·프롬프트/crop/SHA manifest,7회귀/build·PC/568 이동 검수.46d26f6d8 로컬 main 통합·미푸시, 채점/블록/회전 로직 유지.
 
 2026-10-14 [투명 화살표·영역 경계](../phonics/tasks/20261014-korean-block-layout.md#화살표-배경-반증): 공용 트레이의 불투명 CSS 버튼 바탕 제거·그림만 표시, 좌우 전용 칸과 블록 목록은3px 세로선으로 분리. 비활성 경계 유지/왼쪽 수평 반전/하단 sprite 잡픽셀 clip.1280/568 실제이동·CSS/diff 검수, b8d1e85d9 로컬 main 통합·미푸시.

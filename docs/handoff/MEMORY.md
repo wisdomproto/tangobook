@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [ㅎ 테두리 침범 해결](../work/phonics/tasks/20261014-korean-block-layout.md#테두리-침범-후속): 사용자 반증으로 그림frame과 스크롤viewport 분리,14/10px 안쪽에서 clip하여 테두리 침범 방지.7판 회귀·Prettier/diff·PC/568 실측/시작·끝 이동 검수, c43e915a8 로컬 main 통합·이번 미푸시. 이전 검수의 잘림 없음은 누락이었다.
+
 2026-10-14 [블록 중앙 그림 트레이 최종](../work/phonics/tasks/20261014-korean-block-layout.md#중앙-그림-트레이-후속): 선만 나눈 구분 사용자 반증. 중앙 블록만 민트/크림 사각 그림 배경으로 감싸고 화살표 양옆 독립, 세로선/전체 바탕 제거. 내장imagegen1종(Qwen unavailable)·21KB alpha WebP/9-slice·7판 회귀/build·PC/568 검수.46d26f6d8 로컬 main 통합·이번 미푸시. 아래 세로선은 수정 전이다.
 
 2026-10-14 [트레이 투명 화살표·영역 구분](../work/phonics/tasks/20261014-korean-block-layout.md#화살표-배경-반증): 사용자 반증으로 사각 CSS 바탕 제거·좌우 화살표 칸/블록 목록3px 경계 분리, 비활성에서도 경계 유지. 실제PC/568가로·이동/CSS/diff 확인, b8d1e85d9 로컬 main 통합·이번 미푸시.
