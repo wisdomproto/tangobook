@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: ccee0a9fd 최초 구현·b8d1e85d9 화살표 투명/영역 경계·46d26f6d8 중앙 그림 트레이·c43e915a8 안쪽 clip·741f126b6 고정 모음/자음 swipe·a8ee4f926 기존 레이아웃 복원 후속 로컬 main fast-forward 통합
-- delivery: 이번 미푸시·미배포
+- delivery: 2026-10-14 사용자 요청으로 origin/main에 843128dae까지 push 확인·운영 배포 완료 미확인
 
 ## 사용자 결정
 

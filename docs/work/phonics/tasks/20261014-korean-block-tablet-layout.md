@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 66f6d809b 최초·9756237c7 태블릿 상단 타겟 후속 로컬 main fast-forward 통합
-- delivery: 이번 미푸시·미배포
+- delivery: 2026-10-14 사용자 요청으로 origin/main에 843128dae까지 push 확인·운영 배포 완료 미확인
 
 ## 사용자 결정
 
@@ -30,3 +30,6 @@
 ## 태블릿 상단 타겟 후속
 
 사용자 최종 결정: 태블릿에서는 원래처럼 그림/타겟 단어가 위에 나오게 한다. 충분한 높이의 태블릿/PC에서는 기존 상단 타겟·아래 판 세로 구성을 복원하고, 높이600px 이하의 짧은 가로 화면만 넓은 왼쪽 목표/오른쪽 판을 유지한다. 판 아래 확인/다음·게임 전 screen/camera 선택·고정 모음/자음 swipe는 유지한다. 이전 태블릿 좌측 타겟은 수정 전 기록이다. CSS만 변경, 실물 인식/영어/채점 변경 없음. 실제1024×768 상단 타겟 y89.83~316.47/판 y326.06 아래, 하단 행동 bottom743.28로 화면 안에 표시.1280×800도 상단 타겟/판/트레이/행동 잘림 없음,568×320은 기존 좌측 타겟 유지 확인. CSS Prettier/diff 검사 통과. CSS만 변경하여 직전37회귀·타입/build는 반복하지 않았다. 증거는 기존 검수 폴더 korean-block-tablet-top-{1024,1280}-20261014.png. 임시 viewport·탭 정리, 이번 push 요청 없음.
+## main 전달
+
+2026-10-14 사용자 ‘메인에 푸시’ 승인. fetch 후 origin/main...HEAD는0/18이며 대기 중18개 커밋은 기본 블록 조합 회귀·그림 트레이/잘림·고정 모음/자음 swipe·태블릿 배치 및 관련 기록으로 확인했다. 일반 push c650667bb→843128dae 성공, 원격 ls-remote와 로컬 SHA 일치·ahead/behind0/0 확인. 기존 미커밋 쓰기 테스트/미추적 출력·자산은 stage하지 않았다. 전달 문서도 후속 push한다. 이번 코드 재변경 없으며 직전 검증 범위/실기기 한계는 유지, 운영 배포 성공은 별도 확인하지 않았다.
