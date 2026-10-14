@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 2c753ef03 로컬 main fast-forward 완료
-- delivery: 미푸시·미배포
+- delivery: 2179617f2 원격 main push 완료·운영 배포 완료 미확인
 
 ## 요청
 
@@ -42,3 +42,7 @@ LearningHomePage가 진행 상태에 따라 활동 직접 링크와 모드 선�
 ## 로컬 main 통합
 
 2c753ef03 코드·기억17파일을 로컬 main에 fast-forward 완료. 커밋 훅 ESLint/Prettier 통과, 기존 쓰기 테스트 줄바꿈/미추적 자산·자료 보존.5186 개발 서버/읽기 API proxy 유지. 이번 작업 원격 push/배포 요청 없음.
+
+## main 전달 — 2026-10-14
+
+사용자 현재 요청으로 홈 큰 언어 버튼/추천 셔플과 통합 기록2커밋을 일반 push했다. origin/main c0daa533b→2179617f2, 원격/로컬 SHA 일치·0/0 확인. 미추적 자료와 관련 없는 쓰기 테스트 줄바꿈은 포함하지 않았다. 위 미푸시·미요청은 당시 상태다. 전달 문서도 후속 push하며 운영 배포 완료는 별도 미확인.
