@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [블록 중앙 그림 트레이 최종](../work/phonics/tasks/20261014-korean-block-layout.md#중앙-그림-트레이-후속): 선만 나눈 구분 사용자 반증. 중앙 블록만 민트/크림 사각 그림 배경으로 감싸고 화살표 양옆 독립, 세로선/전체 바탕 제거. 내장imagegen1종(Qwen unavailable)·21KB alpha WebP/9-slice·7판 회귀/build·PC/568 검수.46d26f6d8 로컬 main 통합·이번 미푸시. 아래 세로선은 수정 전이다.
+
 2026-10-14 [트레이 투명 화살표·영역 구분](../work/phonics/tasks/20261014-korean-block-layout.md#화살표-배경-반증): 사용자 반증으로 사각 CSS 바탕 제거·좌우 화살표 칸/블록 목록3px 경계 분리, 비활성에서도 경계 유지. 실제PC/568가로·이동/CSS/diff 확인, b8d1e85d9 로컬 main 통합·이번 미푸시.
 
 2026-10-14 [한글 블록 배치 정리](../work/phonics/tasks/20261014-korean-block-layout.md): overflow 트레이 큰 좌우 그림 화살표·끝 비활성, 판과 다음 버튼 여백 확대, 문제 단어는 검정 정상 폰트. 파닉스/동화 공용, 기본 블록/인식·채점 유지.60회귀·타입/build·1280/812/568 실제검수, ccee0a9fd 로컬 main 통합·이번 미푸시.
