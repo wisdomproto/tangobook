@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-14 [한글 기본 자음 단원 트레이](../phonics/tasks/20261014-korean-learned-block-tray.md): ㄱ만→ㄱ/ㄴ 등14단원 누적+기본10모음 논리 선택지 prop을 추가. 정확한 기존 piece/rotation 재사용, 논리 선택은ㄱ/ㄴ·모음 orientation별로 고정하고 판 위 회전/합성/인식 유지. 제한 없는 동화/기존 caller는16물리 조각 그대로.39회귀·타입/build·실제드래그/가로/책 검수,963080d8a 로컬 main 통합·미푸시.
+
 2026-10-14 [게임 디자인 main 전달](../phonics/tasks/20261014-phonics-game-visual-audit.md): 사용자 승인으로 한영·독후게임 디자인/가로 배치/공용 portal 및 검수 기록4커밋 일반 push, a233df87b 원격/로컬 SHA 일치·0/0 확인. 전달 기록도 push한다. 아래 미푸시는 당시 상태이며 운영 배포 완료는 미확인.
 
 2026-10-14 [게임 디자인·가로 배치 후속](../phonics/tasks/20261014-phonics-game-visual-audit.md): 한영 블록/쓰기/그림짝과 색칠 제목·숨은그림 목록을 역할별로 다듬고 공용 `/games/vocab` 상단 메뉴 가림을 body portal로 해결. 기존 책/게임 가용성·교구/채점·읽기 순서 보존, 임베드 별도 GameOverlay 호출 유지. 실제 신데렐라 KO6종/EN 블록·짝·쓰기·커다란 순무 장면/숨은그림과 가로 검수, 신규 portal2 포함40회귀/타입/build.805583f89 로컬 main 통합·미푸시, 전체 완주·실기기 미검증.

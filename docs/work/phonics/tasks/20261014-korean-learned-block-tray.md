@@ -7,7 +7,7 @@
 - base: 2658d3e79
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 963080d8a 로컬 main fast-forward 통합
 - delivery: 미푸시·미배포
 
 ## 사용자 결정·범위
