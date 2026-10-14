@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
+import { drawColoringHintOutline } from '../../lib/coloring-hint';
 import { buildSceneColoringRegions } from '../../lib/scene-coloring-regions';
 import { useGameStyle } from '../GameStyleChip';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -109,8 +110,8 @@ const HINT_ALPHA = 0.5;
  *
  * 🔴 **밝은 색은 힌트로 쓰면 안 보인다.** 여우 배(크림 `247,239,221`)를 0.4 로 흰 종이에 얹으면
  *    251.8 — 흰색과 구분이 안 된다. 그 색 칸을 골라도 화면이 그대로라 아이는 어디를 눌러야 할지
- *    모른다. 그래서 색칠 앱들이 힌트에 색 대신 체크무늬를 쓴다. 여기서는 색을 살리되(무슨 색이
- *    들어갈지 알려 주는 게 학습이다) **밝은 색만 눌러** 대비를 만든다. 진한 색은 그대로 지나간다.
+ *    모른다. 안쪽 가장자리 안내에 쓸 색은 밝기를 눌러 대비를 유지한다.
+ *    면을 채우거나 체크무늬를 그리지 않아 아직 칠하지 않은 종이가 보인다.
  */
 const HINT_MAX_LUMA = 170;
 
@@ -385,22 +386,16 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       parseInt(entry.color.slice(5, 7), 16)
     );
     const todo = new Set(entry.regionIds.filter((id) => !paintedRef.current.has(id)));
-    if (todo.size > 0) {
-      const w = hint.width;
-      for (let i = 0; i < labels.length; i++) {
-        if (!todo.has(labels[i])) continue;
-        // 🔴 **체크무늬로 칠한다, 꽉 채우지 않는다.** 평면으로 물들이면 힌트가 물감처럼 보여서
-        //    "한 칸 눌렀는데 같은 색 칸이 다 칠해졌다"로 읽힌다(사용자 지적 — 실제로는 한 탭에
-        //    한 칸만 찬다). 색칠 앱들이 힌트에 체크무늬를 쓰는 게 같은 이유다: 아직 할 일이라는 표시지
-        //    칠해진 게 아니다.
-        if ((((i % w) >> 4) + ((i / w) >> 4)) & 1) continue;
-        const o = i * 4;
-        img.data[o] = r;
-        img.data[o + 1] = g;
-        img.data[o + 2] = b;
-        img.data[o + 3] = Math.round(HINT_ALPHA * 255);
-      }
-    }
+    drawColoringHintOutline(
+      img.data,
+      labels,
+      hint.width,
+      hint.height,
+      todo,
+      [r, g, b],
+      undefined,
+      Math.round(HINT_ALPHA * 255)
+    );
     ctx.putImageData(img, 0, 0);
   }, [palette, selected, done, tick]);
 

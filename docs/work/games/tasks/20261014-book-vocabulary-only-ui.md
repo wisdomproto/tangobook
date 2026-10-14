@@ -61,6 +61,7 @@
 - 1280×720 육안 검수,568×320 실제 작은 가로에서6버튼3열2행·가로 넘침0·마지막 버튼 bottom302px. 처음 이미지 높이 %가 grid intrinsic size와 겹쳐 이름을 가리고 아래를 넘는 문제 발견 후 그림 프레임의 absolute contain/고정 높이로 해결.
 - 증거: visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02의 vocabulary-object-menu-20261014.png, vocabulary-object-menu-small-20261014.png. 생성/메뉴 품질 검수는 사용자 디자인 승인과 다르다.
 - 추가 관찰: 기존 신데렐라6쪽 장면 도안 말 영역에 회색 체크 무늬가 보인다(storybook-scene-coloring-existing-20261014.png). 기존 파일/렌더링 원인은 아직 분리하지 않았고 이번에는 운영 도안/R2를 수정하지 않았다. 후속에서 해당 도안 원본을 확인하고 보정 범위를 정한다.
+  - 2026-10-14 [후속 확인](20261014-coloring-checker-hint.md): 원본 잔여가 아니라 ColoringPlayer의16px 체크 안내였음. 신데렐라/개구리 왕자 원본4장에는 패턴이 없으며 공통 안내를 안쪽 경계로 교체했다. 위 원인 미확인은 당시 상태다.
 - a2e31b43f 코드/기억/자산 root main fast-forward 통합 확인. 이번 후속도 원격 push/운영 콘텐츠 수정 요청 없음.
 
 ## 사용자 승인 main 전달 (2026-10-14)
