@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 805583f89 구현·검증 기록 로컬 main fast-forward 통합 확인(최초 검수5360b0b2c 보존)
-- delivery: 미푸시·미배포
+- delivery: 사용자 승인 main push 완료(a233df87b 원격 SHA 확인), 운영 배포 완료는 미확인
 
 ## 요청·범위
 
@@ -71,3 +71,7 @@
 최종 화면: 기존 visualizations 폴더의 `phonics-*-fixed-20261014.png`, `book-*-refine-20261014.png`, `public-*-fixed-20261014.png`. viewport reset·임시 탭 close,5186/사용자 탭 유지. 기존 미추적 출력/쓰기 테스트 줄바꿈 변경 보존, 운영 R2 수정/이번 원격 push 없음.
 
 코드·기록18파일을805583f89에 로컬 커밋하고 root main에 fast-forward, 동일 HEAD와 tracked clean 확인. 통합 기억도 함께 커밋한다. 이번 원격 push 요청은 받지 않았다.
+
+## 2026-10-14 main 전달
+
+후속 `좋아. 메인에 푸시하자` 승인으로 fetch 후 origin/main...HEAD=0/4와 대상4커밋을 확인했다. 일반 push로 f66b66c80→a233df87b 전달, ls-remote main/로컬 SHA 일치·0/0 확인. 위 미푸시는 당시 상태다. 전달 기록도 함께 push한다. Railway 배포 완료는 별도 미확인.
