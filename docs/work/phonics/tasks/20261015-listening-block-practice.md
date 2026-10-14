@@ -1,7 +1,7 @@
 # 듣고 블록 놀이와 활동 분류
 
 - 작업일: 2026-10-15
-- 상태: integrated, main 전달 준비
+- 상태: pushed
 - branch: codex/storybook-learning-ui
 - base: 73d28fbb9
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
@@ -42,3 +42,8 @@
 ## main 통합
 
 코드·기억331ac9151을 main에 fast-forward 통합했다. 기존 untracked 산출물/그림과 worktree ReviewWriteActivity.test.tsx의 CRLF 변경은 포함하지 않았다. 현재 활성 요청의 main push 승인에 따라 검수 기록73d28fbb9과 함께 정상 push하고, remote SHA/갈라짐을 확인한다. 운영 배포 완료는 아직 미확인이다.
+
+
+## 원격 전달
+
+사용자 활성 승인으로 2026-10-15 origin/main ca881fc37→5edc5e09a에 검수 기록73d28fbb9·기능331ac9151·통합 기록을 일반 push했다. HEAD/origin/main/ls-remote SHA 일치와0/0 확인. 아래 후속 기록만 추가 push하며 운영 배포 완료/전권 완주를 주장하지 않는다. 앞으로의 새 기능 push는 별도 사용자 요청 범위로 판단한다.
