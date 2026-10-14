@@ -2,12 +2,12 @@
 
 - id: 20261014-home-course-portals
 - domain: platform
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: c0daa533b
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 2c753ef03 로컬 main fast-forward 완료
 - delivery: 미푸시·미배포
 
 ## 요청
@@ -20,7 +20,7 @@ LearningHomePage가 진행 상태에 따라 활동 직접 링크와 모드 선�
 
 공식 참고: [Lingokids 섹션 안내](https://help.lingokids.com/hc/en-us/articles/9563170182801-What-sections-can-I-find)는 추천·주제·인기·새 활동의 콘텐츠 행과 별도 Lessons 경로를 설명한다. [Khan Kids 학습 화면 안내](https://khankids.zendesk.com/hc/en-us/articles/360014856151-Learning-Topics-Using-Khan-Academy-Kids-in-Educational-Settings)는 큰 시작 행동과 자유 선택 도서관을 설명한다. 로그인 앱 직접 사용이 아니라 공식 설명 조사다.
 
-## 다음 행동
+## 초기 검토의 다음 행동 — 후속 구현 완료
 
 현재 홈 육안 확인 → 언어별 삽화 입구·더 풍부한 표지 행 구성 → 필요한 자산은 기존 것을 먼저 검토하고 생성 모델 정책 적용 → PC/태블릿/폰 실제 화면 및 관련 회귀 검증. 마지막 사용자 커리큘럼 논의 요청을 먼저 다루고 있으며 이 작업은 완료로 보고하지 않는다. 새 push 요청 없음.
 
@@ -38,3 +38,7 @@ LearningHomePage가 진행 상태에 따라 활동 직접 링크와 모드 선�
 - 중간 검수 탭이 연결 오류 data page로 바뀌어 URL policy에 막혔다. 서버는5186 listen/HTTP200 정상 확인, 새 정상 localhost 탭으로 복구하고 최종 검수를 완료. 보안 interstitial 우회/설정 변경 없음.
 - 실제 화면 PNG: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/home-portals-20261014/ 의 pc/pc-shuffled/tablet/phone-landscape/phone-portrait.png.
 - 이번 홈/추천 셔플은 로컬 커밋·main 통합하며 원격 push 요청은 없다. 과거 추천 수 확대/추가 행 구상과 다른 게임 전수 반응형 점검은 이번 구현 완료로 확대하지 않는다.
+
+## 로컬 main 통합
+
+2c753ef03 코드·기억17파일을 로컬 main에 fast-forward 완료. 커밋 훅 ESLint/Prettier 통과, 기존 쓰기 테스트 줄바꿈/미추적 자산·자료 보존.5186 개발 서버/읽기 API proxy 유지. 이번 작업 원격 push/배포 요청 없음.
