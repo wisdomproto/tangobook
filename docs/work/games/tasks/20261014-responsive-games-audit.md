@@ -2,12 +2,12 @@
 
 - id: 20261014-responsive-games-audit
 - domain: games
-- status: completed
+- status: integrated
 - updated: 2026-10-14
 - base: aac4778dc
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 로컬 커밋 후 main 통합 예정
+- integration: 58ce47b21 로컬 main fast-forward 통합
 - delivery: 미푸시·미배포 — 이번 작업 push 요청 없음
 
 ## 요청·결정
