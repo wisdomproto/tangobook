@@ -1,7 +1,7 @@
 # 듣고 블록 놀이와 활동 분류
 
 - 작업일: 2026-10-15
-- 상태: verified, 로컬 커밋 준비
+- 상태: integrated, main 전달 준비
 - branch: codex/storybook-learning-ui
 - base: 73d28fbb9
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
@@ -37,3 +37,8 @@
 검수 종료 무렵 IAB 임시17탭이 연결 오류 data 페이지로 바뀌어 URL policy가 해당 탭의 추가 조회/닫기를 막았다. 새18 preview 탭은 확인 후 정상 종료, viewport는 reset했다.17탭은 도구로 닫지 못했으며 사용자 원래14탭은 건드리지 않았다. localhost HTTP200/기존5186 Node17888 실행은 별도로 확인했다. 오류 페이지를 우회하거나 브라우저 개인 상태를 수정하지 않았다.
 
 최종 client typecheck·production build20.54초 통과, 변경 소스 ESLint 오류0/기존 경고2·diff check 통과.154개 고유 회귀와 변경 뒤33/6 재검증을 구분하며 test 숫자를 합산해 부풀리지 않는다. 원격 fetch 후 origin/main...HEAD=0/1, 기존 검수 기록73d28fbb9과 이번 코드/기억만 일반 전달한다.
+
+
+## main 통합
+
+코드·기억331ac9151을 main에 fast-forward 통합했다. 기존 untracked 산출물/그림과 worktree ReviewWriteActivity.test.tsx의 CRLF 변경은 포함하지 않았다. 현재 활성 요청의 main push 승인에 따라 검수 기록73d28fbb9과 함께 정상 push하고, remote SHA/갈라짐을 확인한다. 운영 배포 완료는 아직 미확인이다.
