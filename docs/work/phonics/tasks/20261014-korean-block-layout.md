@@ -7,7 +7,7 @@
 - base: bda78718b
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: ccee0a9fd 최초 구현·b8d1e85d9 화살표 투명/영역 경계·46d26f6d8 중앙 그림 트레이·c43e915a8 테두리 안쪽 clip 후속 로컬 main fast-forward 통합
+- integration: ccee0a9fd 최초 구현·b8d1e85d9 화살표 투명/영역 경계·46d26f6d8 중앙 그림 트레이·c43e915a8 안쪽 clip·741f126b6 고정 모음/자음 swipe 후속 로컬 main fast-forward 통합
 - delivery: 이번 미푸시·미배포
 
 ## 사용자 결정

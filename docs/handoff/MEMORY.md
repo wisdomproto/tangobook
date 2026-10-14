@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [모음 고정·자음 스와이프](../work/phonics/tasks/20261014-korean-block-layout.md#고정-모음자음-스와이프-후속): 사용자 결정으로 모음3조각 오른쪽고정/자음만scroll, touch pan-x/위로drag/탭 방향분리.62회귀·타입/lint/build·PC/568모음좌표/회전·마우스배치 확인,741f126b6 로컬main 통합·이번 미푸시. 실기기손가락pan 검증으로 보고하지 않는다.
+
 2026-10-14 [ㅎ 테두리 침범 해결](../work/phonics/tasks/20261014-korean-block-layout.md#테두리-침범-후속): 사용자 반증으로 그림frame과 스크롤viewport 분리,14/10px 안쪽에서 clip하여 테두리 침범 방지.7판 회귀·Prettier/diff·PC/568 실측/시작·끝 이동 검수, c43e915a8 로컬 main 통합·이번 미푸시. 이전 검수의 잘림 없음은 누락이었다.
 
 2026-10-14 [블록 중앙 그림 트레이 최종](../work/phonics/tasks/20261014-korean-block-layout.md#중앙-그림-트레이-후속): 선만 나눈 구분 사용자 반증. 중앙 블록만 민트/크림 사각 그림 배경으로 감싸고 화살표 양옆 독립, 세로선/전체 바탕 제거. 내장imagegen1종(Qwen unavailable)·21KB alpha WebP/9-slice·7판 회귀/build·PC/568 검수.46d26f6d8 로컬 main 통합·이번 미푸시. 아래 세로선은 수정 전이다.

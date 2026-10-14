@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-14 [공용 한글 고정 모음/자음 swipe](../phonics/tasks/20261014-korean-block-layout.md#고정-모음자음-스와이프-후속): 두 그림 트레이·모음3조각 고정, 자음만pan-x/화살표. touch 방향판별로좌우scroll/위로placement/탭 구분, 고정모음회전폭56/44px 유지.62회귀·타입/lint/build·실제PC/568모음좌표/회전/마우스drag,741f126b6 로컬main 통합·미푸시. 합성touch분기 테스트와실기기pan 검증 구분.
+
 2026-10-14 [트레이 안쪽 clip](../phonics/tasks/20261014-korean-block-layout.md#테두리-침범-후속): ㅎ이 민트 테두리를 침범한 사용자 반증으로 이미지frame을 독립 래퍼에 두고14/10px 안쪽 viewport에서만 블록 clip/scroll.7회귀·Prettier/diff·1280/568 실측/끝모음/이동 확인, c43e915a8 로컬 main 통합·미푸시. 이미지/블록 치수/채점 보존.
 
 2026-10-14 [중앙 그림 트레이 최종](../phonics/tasks/20261014-korean-block-layout.md#중앙-그림-트레이-후속): 세로선/화살표 포함 바탕은 사용자 반증으로 제거. 중앙만 민트/크림 사각 배경21KB alpha WebP로 감싸고 화살표 독립,9-slice로 모서리 보존. 내장imagegen(Qwen unavailable)·프롬프트/crop/SHA manifest,7회귀/build·PC/568 이동 검수.46d26f6d8 로컬 main 통합·미푸시, 채점/블록/회전 로직 유지.
