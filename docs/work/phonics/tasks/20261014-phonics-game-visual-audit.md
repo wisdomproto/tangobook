@@ -2,12 +2,12 @@
 
 - id: 20261014-phonics-game-visual-audit
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: f66b66c80
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 5360b0b2c 검수 기록 로컬 main fast-forward 통합 확인
 - delivery: 미푸시·미배포
 
 ## 요청·범위
