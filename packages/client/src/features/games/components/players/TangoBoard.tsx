@@ -565,35 +565,37 @@ export function TangoBoard({
         )}
         {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
             라이브러리 표지 줄과 같은 규칙(스크롤바만 숨기고 네이티브 스크롤 유지). */}
-        <div
-          ref={trayRef}
-          onScroll={updateTrayScroll}
-          tabIndex={0}
-          className="tango-tray-viewport [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          role="group"
-          aria-label="블록 고르기"
-        >
-          <div ref={trayItemsRef} className="tango-tray-items">
-            {(tray?.consonants ?? TRAY_CHO).map((e) => (
-              <TrayPiece
-                key={`${e.id}:${e.rotDeg}`}
-                entry={e}
-                fixedOrientation={!!tray}
-                picked={picked}
-                onPick={onPick}
-                onDragStart={handleDragStart}
-              />
-            ))}
-            <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
-            {(tray?.vowels ?? TRAY_JUNG).map((e) => (
-              <TrayPiece
-                key={`${e.id}:${e.rotDeg}`}
-                entry={e}
-                picked={picked}
-                onPick={onPick}
-                onDragStart={handleDragStart}
-              />
-            ))}
+        <div className="tango-tray-frame">
+          <div
+            ref={trayRef}
+            onScroll={updateTrayScroll}
+            tabIndex={0}
+            className="tango-tray-viewport [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            role="group"
+            aria-label="블록 고르기"
+          >
+            <div ref={trayItemsRef} className="tango-tray-items">
+              {(tray?.consonants ?? TRAY_CHO).map((e) => (
+                <TrayPiece
+                  key={`${e.id}:${e.rotDeg}`}
+                  entry={e}
+                  fixedOrientation={!!tray}
+                  picked={picked}
+                  onPick={onPick}
+                  onDragStart={handleDragStart}
+                />
+              ))}
+              <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
+              {(tray?.vowels ?? TRAY_JUNG).map((e) => (
+                <TrayPiece
+                  key={`${e.id}:${e.rotDeg}`}
+                  entry={e}
+                  picked={picked}
+                  onPick={onPick}
+                  onDragStart={handleDragStart}
+                />
+              ))}
+            </div>
           </div>
         </div>
         {trayOverflow && (
