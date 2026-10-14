@@ -6,7 +6,7 @@ import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { drawColoringHintOutline } from '../../lib/coloring-hint';
 import { StorybookTitle } from '@/design-system/primitives/StorybookTitle';
-import { RotateCcw } from 'lucide-react';
+import { LearningGameIcon } from '../LearningGameIcon';
 import { buildSceneColoringRegions } from '../../lib/scene-coloring-regions';
 import { useGameStyle } from '../GameStyleChip';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -618,7 +618,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
           aria-label="다시"
           className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
         >
-          <RotateCcw size={22} aria-hidden />
+          <LearningGameIcon name="replay" size={28} />
         </button>
       </div>
 
@@ -631,20 +631,15 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
         {/* 🔴 정사각을 **세로에선 폭으로, 가로에선 높이로** 잡는다. `aspect-square h-full` 하나로 두면
             세로 화면에서 `h-full` 이 이겨 그림이 455×864 로 늘어난다(도안이 찌그러져 보인다). */}
         <div
-          style={
-            isScene
-              ? {
-                  aspectRatio: sceneRatio,
-                  width: `min(100%, calc((100dvh - var(--coloring-chrome, 200px)) * ${sceneRatio}))`,
-                  height: 'auto',
-                }
-              : undefined
-          }
-          className="relative aspect-square w-full sm:w-auto sm:h-full max-w-full max-h-full rounded-3xl overflow-hidden border-2 border-ink-100 bg-white shadow-soft"
+          style={{
+            aspectRatio: sceneRatio,
+            width: `min(100%, calc((100dvh - var(--coloring-chrome, 200px)) * ${sceneRatio}))`,
+          }}
+          className="coloring-paper relative shrink-0 max-w-full rounded-3xl overflow-hidden border-2 border-ink-100 bg-white shadow-soft"
         >
           <canvas
             ref={canvasRef}
-            className="block w-full h-full"
+            className="absolute inset-0 w-full h-full"
             style={{ touchAction: 'none', opacity: ready ? 1 : 0 }}
             onPointerDown={(e: ReactPointerEvent<HTMLCanvasElement>) => {
               e.preventDefault();
@@ -684,7 +679,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
         </div>
       </div>
 
-      <div className="shrink-0 px-3 sm:px-6 py-3">
+      <div className="coloring-palette shrink-0 px-3 sm:px-6 py-3">
         {done ? (
           onDone || items.length === 1 ? null : (
             <button

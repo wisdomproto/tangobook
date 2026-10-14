@@ -80,7 +80,7 @@
     gap: 6px;
   }
   .english-block-stage .english-block-slot {
-    width: clamp(40px, 6vw, 56px);
+    width: clamp(44px, 6vw, 56px);
     height: 48px;
   }
   .english-block-stage .english-block-slots {

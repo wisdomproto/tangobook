@@ -1,5 +1,6 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
-import { RotateCcw, Undo2 } from 'lucide-react';
+import { Undo2 } from 'lucide-react';
+import { LearningGameIcon } from '../LearningGameIcon';
 import { LearningGameAction } from '../LearningGameAction';
 import { BlockInputGate } from '../BlockInputGate';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
@@ -674,7 +675,7 @@ function KoreanBlockPlayerInner({
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft transition disabled:opacity-40"
                   >
-                    <RotateCcw size={20} aria-hidden /> <span>{t('blockGame.reset')}</span>
+                    <LearningGameIcon name="replay" size={26} /> <span>{t('blockGame.reset')}</span>
                   </button>
                 </div>
               )}

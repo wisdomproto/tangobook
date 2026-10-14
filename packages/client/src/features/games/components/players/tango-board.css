@@ -131,6 +131,10 @@
     gap: 4px;
     padding: 4px 2px;
   }
+  .tango-tray-items > button {
+    min-width: 44px;
+    min-height: 44px;
+  }
   .tango-tray-arrow {
     flex-basis: 44px;
     width: 44px;
@@ -237,13 +241,13 @@
     padding-inline: 0;
   }
   .tango-tray-vowels > button {
-    flex-basis: 32px;
-    width: 32px;
-    min-width: 32px;
+    flex-basis: 44px;
+    width: 44px;
+    min-width: 44px;
   }
   .tango-tray-arrow {
-    flex-basis: 32px;
-    width: 32px;
+    flex-basis: 44px;
+    width: 44px;
   }
   .tango-tray-arrow > span {
     width: 32px !important;

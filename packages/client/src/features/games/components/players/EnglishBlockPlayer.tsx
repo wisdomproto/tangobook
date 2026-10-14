@@ -1,5 +1,6 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
-import { RotateCcw, Undo2 } from 'lucide-react';
+import { Undo2 } from 'lucide-react';
+import { LearningGameIcon } from '../LearningGameIcon';
 import { LearningGameAction } from '../LearningGameAction';
 import { BlockInputGate } from '../BlockInputGate';
 import { EnglishAlphabetTray } from './EnglishAlphabetTray';
@@ -846,7 +847,7 @@ function EnglishBlockPlayerInner({
                       }
                       onClick={handleResetGrid}
                     >
-                      <RotateCcw size={20} aria-hidden />
+                      <LearningGameIcon name="replay" size={26} />
                       <span>{t('blockGame.reset')}</span>
                     </button>
                   </div>

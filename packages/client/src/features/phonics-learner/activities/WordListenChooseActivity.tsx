@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { LearningGameAction } from '@/features/games/components/LearningGameAction';
+import { LearningGameIcon } from '@/features/games/components/LearningGameIcon';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
@@ -126,7 +128,7 @@ const EXPLORE_START_SOUND = ENTRY_GUIDE.listenExplore;
 /** 카드 밑줄 라벨 — 병음(위) + 한자(아래). 한자가 없으면 라벨 한 줄만(한글/영어 무변경). */
 function CardLabel({ label, sublabel }: { label: string; sublabel?: string }) {
   return (
-    <span className="block py-2 leading-tight break-keep">
+    <span className="phonics-listen-caption block py-2 leading-tight break-keep">
       <span className="block text-xl sm:text-3xl font-black text-ink-800">{label}</span>
       {sublabel && (
         <span className="block text-2xl sm:text-4xl font-black text-coral-600">{sublabel}</span>
@@ -548,7 +550,10 @@ export function WordListenChooseActivity({
 
   return (
     <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
-      <div className="listen-choice-body flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
+      <div
+        data-listen-exploring={exploring || undefined}
+        className="listen-choice-body flex-1 min-h-0 flex flex-col items-center justify-center gap-5"
+      >
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
                먼저 만져보는 화면이 있어야 퀴즈가 "확인"이 된다(모음 듣기와 같은 순서). */}
@@ -695,16 +700,15 @@ export function WordListenChooseActivity({
 
         {exploring && (
           // 🔴 "퀴즈" 만으론 무엇을 하는 버튼인지 알 수 없다 — 무슨 퀴즈인지 한 줄로 붙인다.
-          <button
+          <LearningGameAction
+            language={language === 'english' ? 'en' : 'ko'}
             data-learning-fx="tap"
             onClick={startQuiz}
-            className="px-10 py-4 rounded-full bg-coral-700 text-white shadow-soft active:scale-[0.98] transition flex flex-col items-center leading-tight"
+            className="listen-quiz-action"
           >
-            <span className="font-black text-2xl sm:text-3xl">{t('wordListen.quizBtn')}</span>
-            <span className="font-bold text-sm sm:text-base text-white/90 break-keep">
-              {t('wordListen.quizSub')}
-            </span>
-          </button>
+            <LearningGameIcon name="listen-play" size={36} />
+            <span>{t('wordListen.quizSub')}</span>
+          </LearningGameAction>
         )}
 
         {!exploring && done && (

@@ -1,0 +1,28 @@
+{
+  "generator": "imagegen built-in; local Qwen 8190/8188 unavailable",
+  "date": "2026-10-14",
+  "assets": [
+    {
+      "name": "replay",
+      "source": "exec-edc3b111-4152-4996-8f5a-7243cada5600.png",
+      "sourceSha256": "bd197fbd2c3651bb2972894a76454b200933cacfdae4bd8873a8ba7da5f9a769",
+      "file": "/images/learning/game-ui-v2/replay.webp",
+      "width": 160,
+      "height": 160,
+      "bytes": 6876,
+      "sha256": "91ab51989c55fc4e1f37295babc009fc4ee903d4d445fc01dce14c5e32904883",
+      "alpha": true
+    },
+    {
+      "name": "listen-play",
+      "source": "exec-3f60b967-3d89-4614-9b19-f3195d792fc1.png",
+      "sourceSha256": "86cc5cf0625d8ae0c07d74e8d62c5bf4b1ebe722b2532b7023ee0e764a35ca0d",
+      "file": "/images/learning/game-ui-v2/listen-play.webp",
+      "width": 160,
+      "height": 160,
+      "bytes": 8308,
+      "sha256": "fefd83f35caaa0032cbf79017750be70a7525ebb12f7346cd59b4fa4680cd4ce",
+      "alpha": true
+    }
+  ]
+}

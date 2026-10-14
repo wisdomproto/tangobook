@@ -16,6 +16,7 @@ import { getSharedAudio } from '@/lib/audio-unlock';
 import { LEARNING_SOUNDS } from '../effects/learning-sounds';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
+import { LearningGameIcon } from './LearningGameIcon';
 
 interface GameResultScreenProps {
   score: number;
@@ -170,8 +171,13 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
             </span>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
-            <Button variant="primary" size="lg" onClick={onRestart}>
-              {t('result.restart')}
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={onRestart}
+              leftIcon={<LearningGameIcon name="replay" />}
+            >
+              {t('result.restart').replace('🔄', '').trim()}
             </Button>
             <Button variant="secondary" size="lg" onClick={onBack}>
               {t('result.confirm')}
