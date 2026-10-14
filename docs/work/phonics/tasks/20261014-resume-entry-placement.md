@@ -2,7 +2,7 @@
 
 - id: 20261014-resume-entry-placement
 - domain: phonics
-- status: completed-local
+- status: integrated
 - updated: 2026-10-14
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
@@ -26,3 +26,7 @@
 - client typecheck·변경 소스 ESLint 통과. 최종 production build 통과(36.05초). 기존 Browserslist/i18n/lottie/큰 청크 경고는 남아 있다.
 - 실제 localhost5186 한영 입구/팝업/지도와 홈을 PC1280×800·태블릿1024×768·가로폰568×320으로 확인했다. 모드→팝업→실제 한글 소리 고르기 진입→브라우저 Back의 팝업 없는 지도 복귀 확인. 답변/완료 API를 보내지 않았으며 실제 전체 챕터 완주·소리 청취·실기기 검증은 아니다. 새 완료/성적/원격 데이터 없음.
 - 증거: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/resume-entry-20261014. 개발 서버5186 PID17888 기존 실행 확인, 재시작 없이 유지. 원격 push/배포 미요청.
+
+## 인계·통합
+
+코드·기억 d823bc5a4를 로컬 main에 fast-forward 통합했다. 원격 push/배포는 미요청·미실행이다. 기존 미추적 산출물과 worktree의 ReviewWriteActivity.test.tsx CRLF 변경은 보존하고 커밋하지 않았다. 검수용 브라우저 탭은 닫고 viewport override를 복원했다. 다음은 사용자의 실제 화면 평가 또는 새 전달 요청이며 추가 전환/교육 순서 변경은 없다.
