@@ -123,8 +123,25 @@ export function ActivityShell({
         <div className="self-start mb-3">{back}</div>
       )}
       {journey && (
-        <p className="mb-2 shrink-0 text-center text-sm font-bold text-ink-600">
-          {t('journey.activityProgress', { step: journey.step, total: journey.total })}
+        <p
+          className={
+            journey.tutorial
+              ? 'phonics-first-lesson-guide'
+              : 'mb-2 shrink-0 text-center text-sm font-bold text-ink-600'
+          }
+        >
+          <span className={journey.tutorial ? 'phonics-first-lesson-progress' : undefined}>
+            {t('journey.activityProgress', { step: journey.step, total: journey.total })}
+          </span>
+          {journey.tutorial && (
+            <>
+              <PhonicsGameSprite
+                name={journey.tutorial === 'write' ? 'write' : 'listen'}
+                size={24}
+              />
+              {t(`tutorial.${journey.tutorial}`)}
+            </>
+          )}
         </p>
       )}
       {children}

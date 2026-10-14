@@ -168,6 +168,25 @@
   color: #716858;
   margin: 12px 0 0;
 }
+.journey-first-start-guide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 10px 0 -8px;
+  color: var(--course-label);
+  font-size: 14px;
+  font-weight: 800;
+}
+.journey-first-start-guide svg {
+  transform: rotate(90deg);
+}
+@media (max-height: 500px) {
+  .journey-first-start-guide {
+    font-size: 10px;
+    margin: 4px 0 0;
+  }
+}
 li[data-completed] .journey-activity-number {
   color: white;
   background: #649570;

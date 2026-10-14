@@ -4,6 +4,7 @@ import { MemoryRouter, useLocation } from 'react-router-dom';
 import { PhonicsLearningModes } from './PhonicsLearningModes';
 import { markActivityCompleted } from '../lib/progress-store';
 import { journeyActivities, journeyUnits } from '../lib/learning-journey';
+import { markJourneyStarted } from '../lib/learning-journey';
 import { activityTitle } from '../lib/activity-title';
 import i18n from '@/i18n';
 
@@ -29,6 +30,61 @@ function show(lang: 'korean' | 'english' = 'korean', query = '?mode=curriculum')
 function finish(lang: 'korean' | 'english', id: string) {
   for (const activity of journeyActivities(lang, id)) markActivityCompleted(lang, id, activity.key);
 }
+it.each(['korean', 'english'] as const)(
+  'offers a direct resume on the %s mode screen only after starting',
+  (lang) => {
+    const view = show(lang, '');
+    expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
+    view.unmount();
+    markJourneyStarted(lang);
+    const first = journeyUnits(lang)[0];
+    markActivityCompleted(lang, first.id, journeyActivities(lang, first.id)[0].key);
+    show(lang, '');
+    expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
+      'href',
+      `/library/phonics/${lang}/${first.id}/${journeyActivities(lang, first.id)[1].key}?mode=curriculum`
+    );
+    expect(screen.getByRole('link', { name: '커리큘럼 모드' })).toBeDefined();
+    expect(screen.getByRole('link', { name: '자유모드' })).toBeDefined();
+  }
+);
+it.each(['korean', 'english'] as const)(
+  'does not offer a fake resume after all %s lessons finish',
+  (lang) => {
+    for (const unit of journeyUnits(lang)) finish(lang, unit.id);
+    show(lang, '');
+    expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
+  }
+);
+it('resumes an interrupted first activity without claiming completion and isolates children', () => {
+  auth.profile = 'child-a';
+  localStorage.setItem('tangobook:activeProfileId', 'child-a');
+  markJourneyStarted('korean');
+  const view = show('korean', '');
+  expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
+    'href',
+    '/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum'
+  );
+  expect(localStorage.getItem('phonics-progress:profile:child-a')).toBeNull();
+  auth.profile = 'child-b';
+  localStorage.setItem('tangobook:activeProfileId', 'child-b');
+  view.rerender(
+    <MemoryRouter initialEntries={['/library/phonics/korean']}>
+      <PhonicsLearningModes lang="korean" />
+      <Location />
+    </MemoryRouter>
+  );
+  expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
+});
+it('guides the first start without adding another start button or repeating after learning begins', () => {
+  const view = show();
+  expect(screen.getByText('아래 버튼으로 시작해요')).toBeDefined();
+  expect(document.querySelectorAll('.journey-play-button')).toHaveLength(1);
+  view.unmount();
+  markJourneyStarted('korean');
+  show();
+  expect(screen.queryByText('아래 버튼으로 시작해요')).toBeNull();
+});
 it.each(['korean', 'english'] as const)('keeps the mode fork inside %s', (lang) => {
   show(lang, '');
   expect(screen.getByRole('link', { name: '커리큘럼 모드' })).toHaveAttribute(

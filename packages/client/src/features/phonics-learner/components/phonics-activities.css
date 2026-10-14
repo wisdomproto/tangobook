@@ -902,3 +902,36 @@
     margin: 0;
   }
 }
+.phonics-first-lesson-guide {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 8px;
+  max-width: 100%;
+  padding: 6px 14px;
+  margin: 0 0 8px;
+  border-radius: 20px;
+  background: #fffdf3;
+  color: #665947;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+}
+.phonics-first-lesson-progress {
+  color: #807563;
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+@media (max-height: 500px) {
+  .phonics-first-lesson-guide {
+    font-size: 11px;
+    padding: 3px 8px;
+    margin-bottom: 4px;
+  }
+  .phonics-first-lesson-guide .path-game-sprite {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}

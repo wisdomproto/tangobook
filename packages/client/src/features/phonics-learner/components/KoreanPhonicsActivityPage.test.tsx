@@ -1,10 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { configure, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import KoreanPhonicsActivityPage from './KoreanPhonicsActivityPage';
 import { PhonicsLearningModes } from './PhonicsLearningModes';
 import KoreanPhonicsStudyPage from './KoreanPhonicsStudyPage';
 import { getUnitProgress, markActivityCompleted } from '../lib/progress-store';
+import { GUIDED_COMPLETION_MS } from './GuidedActivityTransition';
+
+configure({ asyncUtilTimeout: GUIDED_COMPLETION_MS + 800 });
 
 const { logEvent } = vi.hoisted(() => ({ logEvent: vi.fn() }));
 vi.mock('@/features/auth/context/AuthContext', () => ({

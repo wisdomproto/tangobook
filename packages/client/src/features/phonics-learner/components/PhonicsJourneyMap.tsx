@@ -454,6 +454,12 @@ export function PhonicsJourneyMap({
                     })
                   : chapterSteps.map(renderActivity)}
               </ol>
+              {!free && !started && progress.completed === 0 && selectedUnit.id === units[0].id && (
+                <p className="journey-first-start-guide">
+                  {t('tutorial.startHere')}
+                  <ArrowRight size={18} aria-hidden="true" />
+                </p>
+              )}
               {!free && startUrl && (
                 <Link to={startUrl} className="journey-play-button">
                   <Play size={20} fill="currentColor" />

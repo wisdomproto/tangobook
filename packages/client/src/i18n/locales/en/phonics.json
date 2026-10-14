@@ -379,6 +379,18 @@
     "koreanBookMap": "Choose a book",
     "koreanViewedBook": "Book in view"
   },
+  "transition": {
+    "activityDone": "All done!",
+    "chapterDone": "Chapter complete!",
+    "nextActivity": "Up next",
+    "backToMap": "Back to the learning map"
+  },
+  "tutorial": {
+    "startHere": "Start with the button below",
+    "press": "Tap the glowing letter and listen",
+    "write": "Trace the letter",
+    "choose": "Listen and choose the matching card"
+  },
   "board": {
     "selected": "Selected chapter",
     "chooseActivity": "Choose an activity",

@@ -379,6 +379,18 @@
     "koreanBookMap": "Chọn sách",
     "koreanViewedBook": "Sách đang xem"
   },
+  "transition": {
+    "activityDone": "Giỏi lắm!",
+    "chapterDone": "Đã hoàn thành chương!",
+    "nextActivity": "Hoạt động tiếp theo",
+    "backToMap": "Trở về bản đồ học tập"
+  },
+  "tutorial": {
+    "startHere": "Bắt đầu bằng nút bên dưới",
+    "press": "Chạm vào chữ đang sáng và lắng nghe",
+    "write": "Tô theo chữ",
+    "choose": "Nghe và chọn thẻ phù hợp"
+  },
   "board": {
     "selected": "Chương đã chọn",
     "chooseActivity": "Chọn hoạt động",

@@ -379,6 +379,18 @@
     "koreanBookMap": "选择书册",
     "koreanViewedBook": "当前查看的书册"
   },
+  "transition": {
+    "activityDone": "做得真棒！",
+    "chapterDone": "完成这一章啦！",
+    "nextActivity": "下一个活动",
+    "backToMap": "返回学习地图"
+  },
+  "tutorial": {
+    "startHere": "点击下方按钮开始",
+    "press": "点击发光的字母，听一听",
+    "write": "沿着字形描一描",
+    "choose": "听声音，选出对应的卡片"
+  },
   "board": {
     "selected": "已选章节",
     "chooseActivity": "选择活动",

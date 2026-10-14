@@ -379,6 +379,18 @@
     "koreanBookMap": "책 고르기",
     "koreanViewedBook": "지금 보고 있는 책"
   },
+  "transition": {
+    "activityDone": "잘했어요!",
+    "chapterDone": "챕터를 마쳤어요!",
+    "nextActivity": "다음 활동",
+    "backToMap": "지도로 돌아가요"
+  },
+  "tutorial": {
+    "startHere": "아래 버튼으로 시작해요",
+    "press": "빛나는 글자를 눌러 소리를 들어요",
+    "write": "글자를 따라 써봐요",
+    "choose": "소리를 듣고 알맞은 카드를 골라요"
+  },
   "board": {
     "selected": "선택한 챕터",
     "chooseActivity": "활동 고르기",

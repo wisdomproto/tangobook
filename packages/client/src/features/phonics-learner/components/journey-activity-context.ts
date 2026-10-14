@@ -5,4 +5,5 @@ export const JourneyActivityContext = createContext<null | {
   onNext: () => void;
   step: number;
   total: number;
+  tutorial?: 'press' | 'write' | 'choose';
 }>(null);

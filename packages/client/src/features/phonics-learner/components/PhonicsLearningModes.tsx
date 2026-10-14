@@ -1,12 +1,13 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import './phonics-learning-modes.css';
 import { courseThemes } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
 import { PhonicsJourneyMap } from './PhonicsJourneyMap';
 import { MobileLandscapeGate } from '@/features/games/components/MobileLandscapeGate';
+import { activityTitle } from '../lib/activity-title';
 import { usePhonicsProgress } from '../lib/progress-store';
 import { PhonicsFreeMap } from './PhonicsFreeMap';
 import {
@@ -14,6 +15,7 @@ import {
   journeyProgress,
   journeyUnits,
   hasJourneyStarted,
+  journeyActivityUrl,
   type JourneyLanguage,
 } from '../lib/learning-journey';
 
@@ -56,7 +58,7 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
     <section
       key={activeProfile?.id ?? 'guest'}
       style={theme.style}
-      className="phonics-course-page phonics-mode-page relative min-h-[calc(100dvh-133px-env(safe-area-inset-bottom))] md:min-h-[calc(100dvh-73px)] overflow-hidden bg-cream-50"
+      className={`phonics-course-page phonics-mode-page phonics-mode-page--${lang} relative min-h-[calc(100dvh-133px-env(safe-area-inset-bottom))] md:min-h-[calc(100dvh-73px)] overflow-hidden bg-cream-50`}
     >
       <PhonicsBackdrop />
       <div className="phonics-mode-content">
@@ -65,6 +67,19 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
             <span>{title}</span>
           </h1>
         </header>
+        {started && progress.current && (
+          <Link
+            to={journeyActivityUrl(lang, progress.current.unit.id, progress.current.activity.key)}
+            className={`phonics-mode-resume ${theme.focus}`}
+            data-sound="play"
+            aria-label={t('journey.continue')}
+            title={activityTitle(t, progress.current.activity)}
+          >
+            <Play size={20} fill="currentColor" aria-hidden="true" />
+            {t('journey.continue')}
+            <span className="sr-only">{activityTitle(t, progress.current.activity)}</span>
+          </Link>
+        )}
         <div className="phonics-mode-options">
           <Link to={journeyHomeUrl(lang)} className={`phonics-mode-choice ${theme.focus}`}>
             <img

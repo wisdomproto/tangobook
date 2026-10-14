@@ -41,6 +41,32 @@
   gap: 28px;
   padding-bottom: clamp(20px, 6vh, 60px);
 }
+.phonics-mode-resume {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex-shrink: 0;
+  width: min(340px, 100%);
+  min-height: 68px;
+  padding: 12px 32px;
+  background: url('/images/learning/cloud-v1/cta-coral.webp') center / 100% 100% no-repeat;
+  color: #433d34;
+  font-family: 'NanumSquareRound', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  transition: transform 140ms ease;
+}
+.phonics-mode-resume svg {
+  flex-shrink: 0;
+}
+.phonics-mode-page--english .phonics-mode-resume {
+  background-image: url('/images/learning/cloud-v1/cta-mint.webp');
+}
+.phonics-mode-resume:active {
+  transform: translateY(2px);
+}
 .phonics-mode-choice {
   position: relative;
   display: block;
@@ -94,6 +120,26 @@
   transform: translateY(3px) scale(0.98);
 }
 @media (max-height: 500px) and (orientation: landscape) {
+  .phonics-mode-content:has(.phonics-mode-resume) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 6px 12px;
+  }
+  .phonics-mode-content:has(.phonics-mode-resume) .phonics-mode-options {
+    grid-column: 1 / -1;
+  }
+  .phonics-mode-content:has(.phonics-mode-resume) .phonics-mode-title {
+    width: 100%;
+    padding-inline: 24px;
+  }
+  .phonics-mode-resume {
+    width: 100%;
+    min-height: 48px;
+    padding: 8px 24px;
+    font-size: 16px;
+    gap: 5px;
+  }
   .phonics-mode-content {
     padding: 8px 20px;
     gap: 8px;
@@ -139,6 +185,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .phonics-mode-resume {
+    transition: none;
+  }
   .phonics-mode-choice {
     transition: none;
   }

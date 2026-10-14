@@ -10,8 +10,13 @@ import {
 } from '../lib/learning-journey';
 import { usePhonicsProgress } from '../lib/progress-store';
 import { JourneyActivityContext } from './journey-activity-context';
+import {
+  GuidedActivityTransition,
+  GUIDED_COMPLETION_MS,
+  type GuidedCompletion,
+} from './GuidedActivityTransition';
 
-/** Activities report completion after their final audio/effects, then continue without a result screen. */
+/** Final audio/effects end before a brief completion notice and automatic continuation. */
 export function GuidedPhonicsActivity({
   lang,
   unitId,
@@ -53,6 +58,7 @@ function GuidedRun({
     (s) => s.unit.id === unitId && s.activity.key === activityKey
   );
   const [ready, setReady] = useState(false);
+  const [completion, setCompletion] = useState<GuidedCompletion | null>(null);
   const readyRef = useRef(false);
   const activityRoot = useRef<HTMLDivElement>(null);
   const [replaying] = useState(() => progress.done[index] === true);
@@ -83,9 +89,21 @@ function GuidedRun({
     const latest = journeyProgress(lang);
     if (!latest.done[index]) return;
     readyRef.current = true;
+    const next = latest.current;
+    setCompletion(
+      replaying
+        ? { kind: 'review' }
+        : next?.unit.id === unitId
+          ? { kind: 'activity', nextActivity: next.activity }
+          : { kind: 'chapter' }
+    );
     setReady(true);
-    onNext();
-  }, [lang, index, onNext]);
+  }, [lang, index, replaying, unitId]);
+  useEffect(() => {
+    if (!ready) return;
+    const timer = window.setTimeout(onNext, GUIDED_COMPLETION_MS);
+    return () => window.clearTimeout(timer);
+  }, [ready, onNext]);
   const childExit = useCallback(() => {
     // Some activities call Back immediately after marking; do not override the automatic next route.
     if (!readyRef.current) onExit();
@@ -107,11 +125,22 @@ function GuidedRun({
   }
   const unitSteps = progress.steps.filter((s) => s.unit.id === unitId);
   const step = unitSteps.findIndex((s) => s.activity.key === activityKey) + 1;
+  const tutorial =
+    !replaying && unitId === progress.steps[0]?.unit.id
+      ? activityKey.includes('write')
+        ? 'write'
+        : activityKey === 'word-listen-choose'
+          ? 'choose'
+          : 'press'
+      : undefined;
   return (
-    <JourneyActivityContext.Provider value={{ ready, onNext, step, total: unitSteps.length }}>
-      <div ref={activityRoot} aria-hidden={ready || undefined}>
+    <JourneyActivityContext.Provider
+      value={{ ready, onNext: onMarked, step, total: unitSteps.length, tutorial }}
+    >
+      <div className="guided-activity-content" ref={activityRoot} aria-hidden={ready || undefined}>
         {children({ onExit: childExit, onNext: onMarked, onMarked })}
       </div>
+      {completion && <GuidedActivityTransition lang={lang} {...completion} />}
     </JourneyActivityContext.Provider>
   );
 }
