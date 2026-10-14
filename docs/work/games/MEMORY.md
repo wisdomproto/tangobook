@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-14 [레이아웃 범위 정정](../phonics/tasks/20261014-korean-block-layout.md#레이아웃-범위-정정): 사용자가 판/행동 전체 폭 하단 배치를 반증. grid/display:contents 제거로 기존 판 왼쪽·확인/다음 오른쪽·목록 판 아래 복원, 자음 swipe/고정 모음 유지. 좁은 판 열만 내부 폭/간격 조정. 실제1280/812/568·잘림/이동 확인 및9판 회귀 통과. a8ee4f926 로컬 main 통합·미푸시. 아래 전체 폭/고정44px 기록은 수정 전이다.
+
 2026-10-14 [공용 한글 고정 모음/자음 swipe](../phonics/tasks/20261014-korean-block-layout.md#고정-모음자음-스와이프-후속): 두 그림 트레이·모음3조각 고정, 자음만pan-x/화살표. touch 방향판별로좌우scroll/위로placement/탭 구분, 고정모음회전폭56/44px 유지.62회귀·타입/lint/build·실제PC/568모음좌표/회전/마우스drag,741f126b6 로컬main 통합·미푸시. 합성touch분기 테스트와실기기pan 검증 구분.
 
 2026-10-14 [트레이 안쪽 clip](../phonics/tasks/20261014-korean-block-layout.md#테두리-침범-후속): ㅎ이 민트 테두리를 침범한 사용자 반증으로 이미지frame을 독립 래퍼에 두고14/10px 안쪽 viewport에서만 블록 clip/scroll.7회귀·Prettier/diff·1280/568 실측/끝모음/이동 확인, c43e915a8 로컬 main 통합·미푸시. 이미지/블록 치수/채점 보존.
