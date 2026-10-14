@@ -1,0 +1,12 @@
+{
+  "created": "2026-10-14",
+  "tool": "built-in image_gen via imagegen skill; local Qwen ComfyUI unavailable",
+  "source": "exec-56750f3c-683c-43b8-ac6e-12feab0f9442.png",
+  "crop": [48, 110, 2124, 613],
+  "size": [1024, 248],
+  "format": "alpha WebP quality88 method6",
+  "nineSlice": 48,
+  "bytes": 21270,
+  "sha256": "ab6543f3fc0ab7df636752fdfbf9dfc6d6e5082e57d5700411e018a86c138e73",
+  "prompt": "Use case: stylized-concept. Asset type: one production UI background frame for a premium preschool Korean alphabet block game. Create ONE empty wide horizontal rounded-rectangle block tray, straight-on orthographic flat view, 3:1 aspect ratio, centered and fully visible with generous TRANSPARENT margins. Outer frame is a thin tactile matte mint/sage green rim, softly hand-painted cut-paper illustration, pale darker mint underside only 4 pixels deep, smooth broad rounded corners. Interior is a very light warm ivory cream blank surface, almost uniform, quietly textured paper. Subtle white hand-painted highlight only on top inner edge. Refined, charming preschool game aesthetic matching coral arrow controls and orange/teal letter pieces. The frame must be obviously rectangular with rounded corners, NOT a pill or cloud, NOT wood, NOT puffy/inflated, no scallops. The middle 85 percent must be totally empty to place real DOM letter blocks over it. No letters, text, numbers, arrows, buttons, icons, stars, characters, decorations or compartments. Thin clean edges, low visual noise, no dark outline, no shiny plastic or gloss. Designed to be sliced into 9 regions for a resizable web UI frame, with straight uniform top/bottom/side borders and corner artwork confined to corners. True alpha-transparent background OUTSIDE the tray; interior ivory is opaque. No checkerboard background."
+}

@@ -1,7 +1,7 @@
 .tango-tray {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 8px;
   padding: 0;
   min-width: 0;
 }
@@ -10,8 +10,11 @@
   flex: 1;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  border-radius: 16px;
-  margin: 6px 8px;
+  border-radius: 20px;
+  margin: 4px 0;
+  border: 2px solid transparent;
+  border-image: url('/images/games/korean-block/tray-frame.webp') 48 fill / 14px / 0 stretch;
+  background: #fffaf2;
 }
 .tango-tray-viewport:focus-visible {
   outline: 3px solid #c63d21;
@@ -25,7 +28,7 @@
   gap: 6px;
   width: max-content;
   min-width: 100%;
-  padding: 6px 4px;
+  padding: 10px 12px;
 }
 .tango-tray-arrow {
   display: grid;
@@ -46,12 +49,6 @@
   height: 48px !important;
   filter: drop-shadow(0 3px 1px #dfb28e80);
   clip-path: inset(0 0 25% 0);
-}
-.tango-tray-arrow:first-child {
-  border-right: 3px solid #dfbd9f;
-}
-.tango-tray-arrow:last-child {
-  border-left: 3px solid #dfbd9f;
 }
 .tango-tray-arrow-left {
   transform: scaleX(-1);
@@ -80,15 +77,17 @@
 }
 @media (orientation: landscape) and (max-height: 600px) {
   .tango-tray {
-    gap: 0;
+    gap: 6px;
     padding: 0;
   }
   .tango-tray-viewport {
-    margin: 4px 6px;
+    margin: 2px 0;
+    border-radius: 16px;
+    border-image-width: 10px;
   }
   .tango-tray-items {
     gap: 4px;
-    padding: 4px 2px;
+    padding: 6px 8px;
   }
   .tango-tray-arrow {
     flex-basis: 44px;

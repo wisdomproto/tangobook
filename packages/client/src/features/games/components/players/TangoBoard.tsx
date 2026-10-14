@@ -551,7 +551,7 @@ export function TangoBoard({
       {deleteHint}
 
       {/* 트레이는 단원별 선택지 수와 무관하게 한 줄이다. 넘치는 선택지는 큰 화살표로 이동한다. */}
-      <div className="tango-tray shrink-0 rounded-3xl bg-cream-50 border-2 border-peach-200">
+      <div className="tango-tray shrink-0">
         {trayOverflow && (
           <button
             className="tango-tray-arrow"

@@ -33,3 +33,13 @@
 후속 사용자 결정: 화살표 영역과 블록 영역 경계를 확실히 나눈다. 트레이의 좌우60/44px 전용 칸을 전체 높이로 분리하고 가운데 블록 목록과3px 세로 경계를 표시했다. 비활성은 그림만 흐려져 경계는 유지한다. 왼쪽은 수평 반전으로 그림 높이를 맞추고 sprite 하단 빈25%의 잡픽셀은 CSS clip으로 제외한다. 기본 바탕은 투명, 새 이미지/JS/채점/스크롤 로직 변경 없음.
 
 CSS Prettier·diff 검사 통과, 실제1280×720/568×320 사각 바탕 없음·양쪽 구분선/클릭 이동·왼쪽 끝 비활성 확인. 증거는 같은 폴더 `korean-tray-arrow-zones-{desktop,568}-20261014.png`. CSS만 바뀌어 타입/build/회귀는 다시 실행하지 않았으며 위60회귀/타입/build는 직전 구현 결과다. 임시 viewport·탭 정리 완료.
+
+## 중앙 그림 트레이 후속
+
+사용자는 선만 그은 구분을 반증하고, 글자 블록 영역만 예쁜 사각형 배경으로 감싸도록 요청했다. 세로선/전체 공용 바탕을 제거하고 중앙 목록에 얇은 민트 테두리·크림 안쪽의 둥근 사각 그림 트레이를 적용한다. 화살표는 트레이 밖 양옆에 독립 표시한다. 로컬 Qwen ComfyUI 설정8190과8188은 응답하지 않아 imagegen 스킬의 내장 도구로 새 배경1종 생성 진행. 아트만 새로 만들며 글자/조작은 DOM, 회전·스크롤/채점은 그대로다.
+
+- 생성 완료: 원본 `exec-56750f3c-683c-43b8-ac6e-12feab0f9442.png`는 Codex generated_images에 보존. 단순 crop[48,110,2124,613]/resize만 거쳐 `public/images/games/korean-block/tray-frame.webp` RGBA1024×248/21,270bytes로 export. 9-slice48·실제 테두리14px/짧은 가로10px로 모서리/테두리 형태를 유지한다. 원본 픽셀 재작화/alpha 덧칠 없음.
+- 정확한 프롬프트·도구·crop·SHA는 같은 폴더 `tray-frame.json`. 핵심 프롬프트는 blank ivory inner tray / thin matte mint-sage hand-painted rim / one horizontal rounded rectangle / outside true alpha / no text, letters, icons, clouds, wood, compartments.
+- 세로 구분선과 화살표까지 감싸던 바탕을 없애고 그림은 중앙 viewport에만 적용. 기존 블록 회전/드래그·좌우75% 이동·끝 비활성/검정 단어 보존.
+- CSS/TSX Prettier·7판 회귀·client production build 통과. 기존 Browserslist/Lottie eval/i18n import/큰 chunk 빌드 경고 유지. 타입 로직 변경이 없어 타입 검사는 재실행하지 않았다.
+- 실제1280×720/568×320: 민트 사각 트레이·바깥 양옆 화살표/세로선 없음·모서리/글자 잘림 없음 확인. 작은 화면은122px씩 이동 후 끝모음3종/오른쪽 비활성 확인, 기본 viewport/임시 탭 복원. `korean-tray-frame-{desktop,568}-20261014.png` 같은 검수 폴더. 전체 책/카메라/실기기 검수 아님.
