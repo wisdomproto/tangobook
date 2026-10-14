@@ -8,7 +8,7 @@ describe('TangoBoard drag preview', () => {
     const onPick = vi.fn();
     const tray = {
       consonants: trayEntriesForLetters(['ㄱ', 'ㄴ']),
-      vowels: trayEntriesForLetters([...'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ']),
+      vowels: trayEntriesForLetters(['ㅣ', 'ㅏ', 'ㅑ']),
     };
     const props = {
       placed: [],
@@ -21,7 +21,7 @@ describe('TangoBoard drag preview', () => {
       tray,
     };
     const { getByRole, queryByRole, getAllByRole, rerender } = render(<TangoBoard {...props} />);
-    expect(getAllByRole('button')).toHaveLength(12);
+    expect(getAllByRole('button')).toHaveLength(5);
     expect(queryByRole('button', { name: 'ㄷ 고르기' })).toBeNull();
     fireEvent.click(getByRole('button', { name: 'ㄴ 고르기' }));
     expect(onPick).toHaveBeenLastCalledWith(tray.consonants[1]);
@@ -29,8 +29,21 @@ describe('TangoBoard drag preview', () => {
     fireEvent.click(getByRole('button', { name: 'ㄴ 고르기' }));
     expect(onPick).toHaveBeenLastCalledWith(tray.consonants[1]);
     expect(getByRole('button', { name: 'ㄱ 고르기' })).toBeDefined();
-    for (const vowel of 'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ')
+    for (const vowel of 'ㅣㅏㅑ')
       expect(getByRole('button', { name: `${vowel} 고르기` })).toBeDefined();
+    expect(queryByRole('button', { name: 'ㅓ 고르기' })).toBeNull();
+    for (const [base, rotated] of [
+      ['ㅣ', 'ㅡ'],
+      ['ㅏ', 'ㅜ'],
+      ['ㅑ', 'ㅠ'],
+    ]) {
+      const entry = trayEntriesForLetters([base])[0];
+      rerender(<TangoBoard {...props} picked={entry} />);
+      fireEvent.click(getByRole('button', { name: `${base} 돌리기` }));
+      const next = onPick.mock.lastCall![0];
+      rerender(<TangoBoard {...props} picked={next} />);
+      expect(getByRole('button', { name: `${rotated} 돌리기` })).toBeDefined();
+    }
   });
   it('does not render a small floating block while dragging', () => {
     const { getByRole } = render(

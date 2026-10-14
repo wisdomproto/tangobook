@@ -541,7 +541,6 @@ export function TangoBoard({
             <TrayPiece
               key={`${e.id}:${e.rotDeg}`}
               entry={e}
-              fixedOrientation={!!tray}
               picked={picked}
               onPick={onPick}
               onDragStart={handleDragStart}

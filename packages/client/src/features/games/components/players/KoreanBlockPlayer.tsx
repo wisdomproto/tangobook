@@ -74,7 +74,7 @@ function KoreanBlockPlayerInner({
       trayLetters
         ? {
             consonants: trayEntriesForLetters(trayLetters.consonants),
-            vowels: trayEntriesForLetters(trayLetters.vowels),
+            vowels: trayEntriesForLetters(['ㅣ', 'ㅏ', 'ㅑ']),
           }
         : undefined,
     [trayLetters]
