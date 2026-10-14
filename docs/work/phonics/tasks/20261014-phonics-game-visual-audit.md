@@ -2,12 +2,12 @@
 
 - id: 20261014-phonics-game-visual-audit
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: f66b66c80
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 5360b0b2c 검수 기록 로컬 main fast-forward 통합 확인
+- integration: 805583f89 구현·검증 기록 로컬 main fast-forward 통합 확인(최초 검수5360b0b2c 보존)
 - delivery: 미푸시·미배포
 
 ## 요청·범위
@@ -69,3 +69,5 @@
 관련10파일40회귀와 client typecheck/build 통과. 변경 파일 ESLint 오류0, 기존 unused5경고(한글블록3/그림짝2)는 유지. build 기존 Browserslist/lottie eval/locale import/큰 chunk 경고 유지. 기본1280×720/812×375/568×320 실제 UI/위 상호작용과 `/library/activities`, `/games/vocab` 입구 확인. 모든 책/단원 완주·실기기/스피커 청취·최종 보상 전체는 미검증. 독립 LetterHuntActivity.test.tsx는 없으며 사냥은 직접 입력 검수다.
 
 최종 화면: 기존 visualizations 폴더의 `phonics-*-fixed-20261014.png`, `book-*-refine-20261014.png`, `public-*-fixed-20261014.png`. viewport reset·임시 탭 close,5186/사용자 탭 유지. 기존 미추적 출력/쓰기 테스트 줄바꿈 변경 보존, 운영 R2 수정/이번 원격 push 없음.
+
+코드·기록18파일을805583f89에 로컬 커밋하고 root main에 fast-forward, 동일 HEAD와 tracked clean 확인. 통합 기억도 함께 커밋한다. 이번 원격 push 요청은 받지 않았다.
