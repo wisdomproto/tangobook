@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: d506c52dc 코드·검증 기록 로컬 main fast-forward 통합 확인
-- delivery: 미푸시·미배포
+- delivery: 사용자 승인 main push 완료(fd93f4884 원격 SHA 확인), 운영 배포 완료는 미확인
 
 ## 요청
 
@@ -34,3 +34,5 @@
 ## 전달
 
 코드·관련 기록7파일을 d506c52dc에 로컬 커밋하고 root main에 fast-forward, 동일 HEAD와 tracked clean 확인. 기존 미추적 출력과 다른 쓰기 테스트 줄바꿈 변경을 보존했다. 이번 작업의 main push 요청은 없으므로 원격에는 전달하지 않았다. Vite5186은 검수 후 유지하고 임시 검수 탭만 닫았다.
+
+2026-10-14 후속 `메인에 푸시하자` 승인으로 fetch 후 origin/main...HEAD=0/2와 대상2커밋을 확인했다. 일반 push로4f817c0bf→fd93f4884 전달, ls-remote main/로컬 HEAD 일치·0/0 확인. 위 미푸시 문구는 당시 상태다. 이 전달 기록도 함께 push한다. Railway 배포 완료는 별도 미확인.
