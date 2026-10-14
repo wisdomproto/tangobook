@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { parseBoard, composeHangul, type PlacedItem } from './compose';
+import { charAt, shapeAt, trayEntriesForLetters, TRAY_CHO, TRAY_JUNG } from './blocks';
 
 /** 자음 블록 3×3 */
 const C = (ch: string, x: number, y: number, w = 3): PlacedItem => ({ ch, x, y, w, h: 3 });
@@ -22,6 +23,46 @@ describe('composeHangul', () => {
 });
 
 describe('parseBoard — 놓인 자리로 읽는다', () => {
+  const physical = (ch: string, x: number, y: number): PlacedItem => {
+    const entry = trayEntriesForLetters([ch])[0];
+    expect([...TRAY_CHO, ...TRAY_JUNG].some((piece) => piece.id === entry.id)).toBe(true);
+    const { w, h } = shapeAt(entry.id, entry.rotDeg);
+    return { ch: charAt(entry.id, entry.rotDeg), x, y, w, h };
+  };
+
+  it.each([
+    ['ㄱ', '까'],
+    ['ㄷ', '따'],
+    ['ㅂ', '빠'],
+    ['ㅅ', '싸'],
+    ['ㅈ', '짜'],
+  ])('makes %s twice into %s using actual basic pieces', (base, syllable) => {
+    expect(parseBoard([physical(base, 0, 0), physical(base, 3, 0), physical('ㅏ', 6, 0)])).toEqual([
+      syllable,
+    ]);
+  });
+
+  it.each([
+    ['개', ['ㅏ', 3, 0], ['ㅣ', 5, 0]],
+    ['걔', ['ㅑ', 3, 0], ['ㅣ', 5, 0]],
+    ['게', ['ㅓ', 3, 0], ['ㅣ', 5, 0]],
+    ['계', ['ㅕ', 3, 0], ['ㅣ', 5, 0]],
+    ['과', ['ㅗ', 0, 3], ['ㅏ', 5, 0]],
+    ['괘', ['ㅗ', 0, 3], ['ㅏ', 5, 0], ['ㅣ', 7, 0]],
+    ['괴', ['ㅗ', 0, 3], ['ㅣ', 5, 0]],
+    ['궈', ['ㅜ', 0, 3], ['ㅓ', 5, 0]],
+    ['궤', ['ㅜ', 0, 3], ['ㅓ', 5, 0], ['ㅣ', 7, 0]],
+    ['귀', ['ㅜ', 0, 3], ['ㅣ', 5, 0]],
+    ['긔', ['ㅡ', 0, 3], ['ㅣ', 5, 0]],
+  ] as [string, ...[string, number, number][]][])(
+    'makes %s from basic vowel pieces',
+    (syllable, ...parts) => {
+      expect(
+        parseBoard([physical('ㄱ', 0, 0), ...parts.map(([ch, x, y]) => physical(ch, x, y))])
+      ).toEqual([syllable]);
+    }
+  );
+
   it('자음 오른쪽의 세로 모음 = 가로 조합', () => {
     expect(parseBoard([C('ㄱ', 0, 0), V('ㅏ', 3, 0)])).toEqual(['가']);
   });

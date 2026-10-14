@@ -1,5 +1,7 @@
 # 학습 게임 모듈
 
+한글 블록게임은 쌍자음/복합 모음 전용 선택지를 추가하지 않는다. 같은 기본 자음 두 개로 쌍자음5종,ㅣ/ㅏ/ㅑ 세 조각의 회전·2~3조각 조합으로 복합모음11종을 만든다. BLOCKS의 쌍자음 형상 정의는 인식용이며 트레이에는 없다. [전체 조합 검증](../../../../../docs/work/phonics/tasks/20261014-korean-basic-block-composition.md).
+
 학습자 게임 root/공통 셸·로딩·결과는 storybook-scope와 공유 배경/그림 아이콘을 사용한다. 카메라·학습판·채점·순서는 UI 테마와 함께 바꾸지 않는다. [전체 구현·검수](../../../../../docs/work/platform/tasks/20261013-storybook-learning-ui.md).
 
 커리큘럼 그림 짝 찾기는 선택적 `onFinished`로 최종 소리/장면 뒤 공통 파닉스 완료 화면에 연결한다. 이 콜백이 있으면 GameResultScreen을 렌더하지 않아 결과/칭찬을 중복하지 않는다. 콜백 없는 기존 동화/자유놀이의 결과 UI는 유지한다. [작업·검증](../../../../docs/work/phonics/tasks/20261013-phonics-linked-path.md).
