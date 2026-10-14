@@ -1,4 +1,6 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { Camera, RotateCcw, Undo2 } from 'lucide-react';
+import { LearningGameAction } from '../LearningGameAction';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
@@ -527,7 +529,8 @@ function KoreanBlockPlayerInner({
       <div
         data-phonics-game={phonics || undefined}
         data-phonics-language={phonics ? 'ko' : undefined}
-        className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
+        data-camera={camera || undefined}
+        className="storybook-scope learning-stage korean-block-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden"
         style={{
           backgroundRepeat: 'no-repeat',
           ...gameSafeAreaStyle(),
@@ -566,7 +569,7 @@ function KoreanBlockPlayerInner({
             태블릿은 세로로 세워도 `sm` 을 넘어서 세로인데 가로 배치를 받는다. */}
         <div
           className={cn(
-            'flex-1 flex items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] short:gap-1 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] short:py-0.5 min-h-0',
+            'korean-block-body flex-1 flex items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] short:gap-1 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] short:py-0.5 min-h-0',
             twoCol ? 'flex-row' : 'flex-col'
           )}
         >
@@ -662,32 +665,33 @@ function KoreanBlockPlayerInner({
               >
                 <StorybookSprite name="listen" size={24} /> 확인
               </button>
-              <button
+              <LearningGameAction
+                language="ko"
                 data-learning-fx="tap"
                 type="button"
                 onClick={handleNext}
                 className={cn(
-                  'bg-coral-700 text-white font-black shadow-soft hover:-translate-y-0.5 hover:bg-coral-800 transition short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
+                  'short:min-h-[48px] short:min-w-24 short:px-3 short:text-sm',
                   twoCol
                     ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
                     : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
                 )}
               >
                 {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-              </button>
+              </LearningGameAction>
             </div>
           </section>
 
           {/* 섹션 3 — 조작 안내 + 되돌리기/지우기. 판이 곧 트레이를 품고 있어 별도 패널이 없다. */}
           <div className="shrink-0 flex items-center justify-between gap-2 flex-wrap px-1">
-            <span className="text-xs sm:text-sm font-bold text-ink-700 break-keep">
+            <span className="block-game-hint text-xs sm:text-sm font-bold text-ink-700 break-keep">
               {camera
                 ? '판 위에 블록을 놓아 보세요'
                 : picked
                   ? '판에 놓아요 · 놓인 조각을 누르면 돌아가요'
-                  : '조각을 끌어다 놓아요 · 판 위 조각은 누르면 회전, 판 밖에 놓으면 삭제'}
+                  : '조각을 끌어다 놓아요'}
             </span>
-            <div className="flex gap-2">
+            <div className="block-game-tools flex gap-2">
               {/* 🔴 되돌리기·지우기는 실물 판에선 숨긴다 — 손으로 치우면 되므로 지울 게 없다. */}
               {!camera && (
                 <>
@@ -697,7 +701,7 @@ function KoreanBlockPlayerInner({
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
                   >
-                    ↩ 되돌리기
+                    <Undo2 size={20} aria-hidden /> 되돌리기
                   </button>
                   <button
                     data-learning-fx="tap"
@@ -705,7 +709,7 @@ function KoreanBlockPlayerInner({
                     disabled={roundCorrect || placed.length === 0}
                     className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition disabled:opacity-40"
                   >
-                    ↺ {t('blockGame.reset')}
+                    <RotateCcw size={20} aria-hidden /> {t('blockGame.reset')}
                   </button>
                 </>
               )}
@@ -717,7 +721,12 @@ function KoreanBlockPlayerInner({
                 }}
                 className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition"
               >
-                {camera ? '🧩 화면 블록' : '📷 실물 블록'}
+                {camera ? (
+                  <StorybookSprite name="combine" size={24} />
+                ) : (
+                  <Camera size={22} aria-hidden />
+                )}
+                {camera ? '화면 블록' : '실물 블록'}
               </button>
             </div>
           </div>

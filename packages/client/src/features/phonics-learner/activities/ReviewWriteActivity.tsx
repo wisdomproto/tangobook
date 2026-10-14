@@ -8,6 +8,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import type { ReviewCardSource } from '../hooks/useReviewCardSources';
 import { ActivityShell } from '../components/ActivityShell';
+import { PhonicsGameSprite } from '../components/PhonicsGameSprite';
 
 /**
  * 쓰기 칸에 넣을 낱말은 `word`, 소리는 `soundWord`/`soundUrl` 로 **분리**할 수 있다.
@@ -224,9 +225,9 @@ export function ReviewWriteActivity({
 
   return (
     <ActivityShell unitId={unitId} kind="write" onBack={onBack}>
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
+      <div className="review-write-body flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         {/* 진행 dots — 몇 장 남았는지 그림으로 */}
-        <div className="flex gap-2 sm:gap-3">
+        <div className="review-write-rounds flex gap-2 sm:gap-3">
           {sources.map((s, i) => (
             // 🔴 key 는 unitId 만으로 부족하다 — 영어는 한 단원이 글자를 3~4개 내서 같은 unitId 가 반복된다.
             <span
@@ -245,10 +246,10 @@ export function ReviewWriteActivity({
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+        <div className="review-write-pair flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
           {/* 문제 칸 — ①reveal 모드: 다 쓰기 전엔 ❓, 완성하면 그림(정답 그림 보상).
               ②그림 상시(한글): 그림. ③그림 없음(영어 Book2~5): 🔊 소리가 문제. */}
-          <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-soft overflow-hidden shrink-0">
+          <div className="review-write-clue relative w-40 h-40 sm:w-56 sm:h-56 rounded-3xl bg-white border-[6px] border-white shadow-soft overflow-hidden shrink-0">
             {current.imageUrl && (!revealImageOnComplete || writtenIdx.has(idx)) ? (
               <img
                 src={current.imageUrl}
@@ -257,8 +258,8 @@ export function ReviewWriteActivity({
               />
             ) : revealImageOnComplete ? (
               // 🔴 쓰는 동안엔 ❓ — 소리 프롬프트 없이 캔버스 글자를 보고 쓴다. 다 쓰면 그림이 열린다.
-              <div className="w-full h-full flex items-center justify-center bg-cream-100 text-6xl sm:text-7xl">
-                ❓
+              <div className="review-write-mystery">
+                <PhonicsGameSprite name="book" />
               </div>
             ) : (
               <button
@@ -267,17 +268,17 @@ export function ReviewWriteActivity({
                 aria-label={t('common.listenAgain')}
                 className="w-full h-full flex items-center justify-center bg-coral-700 text-white text-6xl sm:text-7xl active:scale-[0.97] transition"
               >
-                🔊
+                <PhonicsGameSprite name="listen" size={54} />
               </button>
             )}
           </div>
 
-          <div className="w-full max-w-2xl">
+          <div className="review-write-paper w-full max-w-2xl">
             {writtenIdx.has(idx) ? (
               // 🔴 다 썼으면 캔버스를 **완성 글자(민트)로 잠근다** — 소리 나는 동안 다시 못 쓴다(정답처리).
-              <div className="flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 sm:py-10 shadow-soft">
+              <div className="review-write-complete flex items-center justify-center gap-2 rounded-[28px] border-[6px] border-mint-400 bg-mint-100 py-8 sm:py-10 shadow-soft">
                 {/* 🔴 다 쓰면 낱말 전체를 보여준다 — 쓴 글자는 코랄, 나머지는 민트(Book 1: `a` 쓰면 `apple`). */}
-                <span className="font-display font-black leading-none text-[clamp(4rem,18vh,10rem)]">
+                <span className="review-write-complete-word font-display font-black leading-none text-[clamp(4rem,18vh,10rem)]">
                   {current.revealWord && current.revealWord !== current.word ? (
                     <>
                       <span className="text-coral-500">

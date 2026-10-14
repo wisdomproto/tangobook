@@ -486,7 +486,7 @@ function LineMatchingPlayerInner({
         <div ref={areaRef} className="flex-1 relative min-h-0 px-4 sm:px-8 lg:px-24">
           {/* 좌측 그림 column — absolute. grid-rows-N 균등. 카드 4개 = 화면 안 모두 fit. */}
           <div
-            className="absolute left-4 sm:left-8 lg:left-24 top-0 bottom-0 w-[38%] sm:w-[32%] lg:w-[30%] grid gap-4"
+            className="matching-column absolute left-4 sm:left-8 lg:left-24 top-0 bottom-0 w-[38%] sm:w-[32%] lg:w-[30%] grid gap-4"
             style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
           >
             {imageOrder.map((imageItemIdx) => {
@@ -513,7 +513,7 @@ function LineMatchingPlayerInner({
                     }
                     className={cn(
                       imageCardClass(imageItemIdx),
-                      'w-full h-full overflow-hidden',
+                      'matching-card w-full h-full overflow-hidden',
                       imageItem.imageLabel && 'flex flex-col'
                     )}
                     aria-label={t('lineMatching.imageAria')}
@@ -528,12 +528,12 @@ function LineMatchingPlayerInner({
                       src={imageItem.imageUrl}
                       alt=""
                       className={cn(
-                        'w-full object-contain p-2 lg:p-3',
+                        'matching-image w-full object-contain p-2 lg:p-3',
                         imageItem.imageLabel ? 'flex-1 min-h-0' : 'h-full'
                       )}
                     />
                     {imageItem.imageLabel && (
-                      <span className="block shrink-0 pb-2 text-center text-xl sm:text-3xl font-black text-ink-800 break-keep">
+                      <span className="matching-caption matching-image-caption block shrink-0 pb-2 text-center text-xl sm:text-3xl font-black text-ink-800 break-keep">
                         {imageItem.imageLabel}
                       </span>
                     )}
@@ -546,7 +546,7 @@ function LineMatchingPlayerInner({
 
           {/* 우측 단어 column — absolute. 동일 grid. */}
           <div
-            className="absolute right-4 sm:right-8 lg:right-24 top-0 bottom-0 w-[38%] sm:w-[32%] lg:w-[30%] grid gap-4"
+            className="matching-column absolute right-4 sm:right-8 lg:right-24 top-0 bottom-0 w-[38%] sm:w-[32%] lg:w-[30%] grid gap-4"
             style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
           >
             {wordOrder.map((wordItemIdx) => {
@@ -573,18 +573,19 @@ function LineMatchingPlayerInner({
                     }
                     className={cn(
                       wordCardClass(wordItemIdx),
-                      'w-full h-full flex flex-col items-center justify-center px-2 sm:px-6 py-4'
+                      'matching-card matching-word-card w-full h-full flex flex-col items-center justify-center px-2 sm:px-6 py-4'
                     )}
                     aria-label={t('lineMatching.wordAria', { word: wordItem.word })}
                   >
                     {/* 🔴 크기는 **라벨 길이로 갈린다** — `Bb` 같은 두 글자를 긴 낱말과 같은 크기로
                         두면 카드가 텅 비어 보인다. 긴 한글 낱말은 키우면 접혀서 잘린다. */}
                     <span
+                      data-long={wordItem.word.length > 3 || undefined}
                       className={cn(
                         wordItem.word.length <= 3
                           ? 'text-4xl sm:text-6xl lg:text-8xl'
                           : 'text-xl sm:text-3xl lg:text-5xl',
-                        'font-black text-ink-900 font-display leading-tight break-keep text-center'
+                        'matching-word-glyph font-black text-ink-900 font-display leading-tight break-keep text-center'
                       )}
                     >
                       {wordItem.word}
@@ -593,7 +594,7 @@ function LineMatchingPlayerInner({
                         못 알아보면 짝을 못 짓는다) 그림 옆이 아니라 글자 옆에 둬서, 답을 손에 쥐여주는
                         대신 **글자와 낱말을 같이 보게** 한다. `imageLabel` 을 넘긴 호출부에만 뜬다. */}
                     {wordItem.imageLabel && (
-                      <span className="mt-1 text-base sm:text-2xl font-black text-ink-500 break-keep">
+                      <span className="matching-caption mt-1 text-base sm:text-2xl font-black text-ink-500 break-keep">
                         {emphasizeFirstLabel ? (
                           <FirstLetterWord word={wordItem.imageLabel} />
                         ) : (

@@ -6,6 +6,7 @@ import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop'
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 import '@/features/phonics-learner/components/phonics-activities.css';
+import '@/features/phonics-learner/components/phonics-game-refinements.css';
 
 type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full';
 

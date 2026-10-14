@@ -1,4 +1,6 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { Camera } from 'lucide-react';
+import { LearningGameAction } from '../LearningGameAction';
 import { PhonicsBackdrop } from '@/features/phonics-learner/components/PhonicsBackdrop';
 import '@/features/phonics-learner/components/phonics-activities.css';
 import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
@@ -796,19 +798,15 @@ function EnglishBlockPlayerInner({
                 </div>
 
                 {/* 정답은 자동으로 확인한다. 아이가 현재 문제를 건너뛰거나 결과로 갈 수 있는 다음 버튼만 둔다. */}
-                <button
+                <LearningGameAction
+                  language="en"
                   data-learning-fx="tap"
                   onClick={handleNext}
                   disabled={isTutorialPlaying}
-                  className={cn(
-                    'english-block-next min-h-12 rounded-2xl px-6 py-2 text-lg font-bold transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700',
-                    isTutorialPlaying
-                      ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
-                      : 'bg-coral-700 hover:bg-coral-800 text-white'
-                  )}
+                  className="english-block-next"
                 >
                   {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-                </button>
+                </LearningGameAction>
               </div>
             </div>
             {camera && (
@@ -833,7 +831,7 @@ function EnglishBlockPlayerInner({
           )}
           {/* 🔴 판 갈아타기 — 아이 손이 닿는 아래가 아니라 위(헤더 옆)에 두지 않는 이유는
             한글 쪽과 같은 자리를 지키기 위해서다. */}
-          <div className="shrink-0 flex justify-end px-3 pb-2">
+          <div className="block-input-switch block-game-tools shrink-0 flex justify-end px-3 pb-2">
             <button
               data-learning-fx="tap"
               onClick={() => {
@@ -842,7 +840,12 @@ function EnglishBlockPlayerInner({
               }}
               className="min-h-[44px] px-4 rounded-full bg-white text-ink-700 font-black shadow-soft hover:shadow-soft transition"
             >
-              {camera ? '🧩 화면 블록' : '📷 실물 블록'}
+              {camera ? (
+                <StorybookSprite name="combine" size={24} />
+              ) : (
+                <Camera size={22} aria-hidden />
+              )}
+              <span>{camera ? '화면 블록' : '실물 블록'}</span>
             </button>
           </div>
         </div>

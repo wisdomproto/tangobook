@@ -1,5 +1,7 @@
 # 어휘 단원 모듈
 
+학습자 VocabularyStudyContent의 전체화면 게임·장면·후속 안내는 body portal/z80 host로 열어 페이지 변환·상단 메뉴에 가려지지 않게 한다. GameOverlay 직접 사용 광고 임베드는 그대로다. 게임 닫기/언어·기록 컨텍스트를 유지하며 전체화면 문서 스크롤은 닫으면 복원한다. [후속·2회귀/실제 검수](../../../../../docs/work/phonics/tasks/20261014-phonics-game-visual-audit.md).
+
 책 게임 메뉴는 중간 그룹/예시 단어/이야기 이해 묶음 없이 게임별 대형 도구 삽화와 이름으로 고른다. 어휘4종에 숨은그림 찾기·장면 색칠을 준비된 책/언어 데이터로 직접 연결한다. hideVocabulary 책은 어휘만 제외하며 장면 활동은 보존한다. 전용 alpha WebP 자산/프롬프트는 public/images/learning/vocabulary-menu-v1이다. 한글/영어 블록은 각각 ㄱ·ㅏ/A·B 그림. 기존 게임 가용성/진입/기록을 보존하고 장면 catalog는 열 때만 로딩한다. [후속 결정·검수](../../../../../docs/work/games/tasks/20261014-book-vocabulary-only-ui.md).
 
 Cambridge Pre-A1 Starters 토픽 16개 + 사용자 정의 단원. 단원 = 단어 N개 + 단어당 이미지 N장.

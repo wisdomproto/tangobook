@@ -5,6 +5,8 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { drawColoringHintOutline } from '../../lib/coloring-hint';
+import { StorybookTitle } from '@/design-system/primitives/StorybookTitle';
+import { RotateCcw } from 'lucide-react';
 import { buildSceneColoringRegions } from '../../lib/scene-coloring-regions';
 import { useGameStyle } from '../GameStyleChip';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -596,7 +598,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
   return (
     <div className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden">
       <StorybookBackdrop />
-      <div className="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3">
+      <div className="coloring-toolbar shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3">
         {onBack ? (
           <button
             onClick={onBack}
@@ -608,14 +610,15 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
         ) : (
           <span />
         )}
-        <p className="text-3xl sm:text-4xl font-black font-display text-ink-900 break-keep">
+        <StorybookTitle as="div" compact className="coloring-title">
           {item.word}
-        </p>
+        </StorybookTitle>
         <button
           onClick={reset}
+          aria-label="다시"
           className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
         >
-          다시
+          <RotateCcw size={22} aria-hidden />
         </button>
       </div>
 
@@ -624,7 +627,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
           다 칠하면 그 자리에서 삽화로 바뀐다 — 끝에 한 번 보는 게 상이다.
           🔴 `landscape:` 는 쓰지 않는다 — 이 저장소는 `theme.extend.screens.short:{raw}` 때문에
           변형이 조용히 안 만들어진 전례가 있다(`max-*`). 검증된 컨벤션인 모바일 base + `sm:` 로. */}
-      <div className="flex-1 min-h-0 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-3">
+      <div className="coloring-stage flex-1 min-h-0 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-3">
         {/* 🔴 정사각을 **세로에선 폭으로, 가로에선 높이로** 잡는다. `aspect-square h-full` 하나로 두면
             세로 화면에서 `h-full` 이 이겨 그림이 455×864 로 늘어난다(도안이 찌그러져 보인다). */}
         <div
@@ -632,7 +635,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
             isScene
               ? {
                   aspectRatio: sceneRatio,
-                  width: `min(100%, calc((100dvh - 200px) * ${sceneRatio}))`,
+                  width: `min(100%, calc((100dvh - var(--coloring-chrome, 200px)) * ${sceneRatio}))`,
                   height: 'auto',
                 }
               : undefined

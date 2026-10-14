@@ -20,6 +20,8 @@ import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameLogger } from '@/features/learning';
 import { feedDrawLoop } from '@/lib/uiSound';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { useVocabSource } from '@/features/learning/context/VocabSourceContext';
 
 /**
  * Paint-fill 모드 (2026-05-25) — 기존 "순서대로 점 탭" → "polygon 영역 색칠".
@@ -105,6 +107,7 @@ function ConnectTheDotsPlayer({
 
   const { data: storybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(storybook);
+  const phonics = useVocabSource()?.source === 'phonics';
 
   // objectName(영어) → 발음 대상 { text, lang }. viewerLang 에 맞는 표기/음원 선택.
   //  - en: 영어 원어
@@ -512,7 +515,12 @@ function ConnectTheDotsPlayer({
         {/* 안내 텍스트 */}
         {/* 🔴 **고정 높이 금지** — 정답 줄의 글자는 `text-8xl`(96px)까지 커지는데 칸은 최대 64px 라
             헤더에 붙어 보였다(사용자 지적). 최소 높이만 잡고 내용이 자리를 만들게 한다. */}
-        <div className="min-h-[clamp(2.5rem,8vh,4rem)] py-1 sm:py-2 flex items-center justify-center shrink-0">
+        <div className="drawing-instruction min-h-[clamp(2.5rem,8vh,4rem)] py-1 sm:py-2 flex items-center justify-center shrink-0">
+          {phonics && !completed && (
+            <span className="drawing-tool">
+              <StorybookSprite name="write" size={42} />
+            </span>
+          )}
           {completed ? (
             // 🔴 다 칠하면 **그 낱말을 글자로도 보여준다** — 그림만 완성하고 끝나면 무엇을 그렸는지
             //    귀로만 지나간다. 표기는 발음과 **같은 소스**(`resolveSpeakTarget`)를 써서

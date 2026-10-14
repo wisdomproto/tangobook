@@ -84,6 +84,24 @@ describe('direct vocabulary game menu', () => {
     expect(await screen.findByRole('button', { name: '그림짝 맞추기' })).toBeEnabled();
     await waitFor(() => expect(screen.queryByRole('button', { name: '게임 닫기' })).toBeNull());
   });
+  it.each(['어휘 색칠하기', '장면 색칠하기'])(
+    'places %s outside a transformed page host',
+    async (name) => {
+      sceneState.count = 2;
+      const { container } = render(
+        <div style={{ transform: 'translateY(20px)' }}>
+          <VocabularyStudyContent unit={unit} storybook={book} lang="ko" />
+        </div>
+      );
+      await userEvent.click(screen.getByRole('button', { name }));
+      const close = await screen.findByRole('button', { name: '게임 닫기' });
+      expect(container.contains(close)).toBe(false);
+      expect(close.closest('[data-learning-overlay-root]')?.parentElement).toBe(document.body);
+      await userEvent.click(close);
+      await waitFor(() => expect(screen.queryByRole('button', { name: '게임 닫기' })).toBeNull());
+      expect(screen.getByRole('button', { name })).toBeEnabled();
+    }
+  );
   it('keeps unavailable games disabled for units without usable words', () => {
     render(<VocabularyStudyContent unit={{ ...unit, words: [] }} lang="ko" />);
     expect(screen.getByRole('button', { name: '그림짝 맞추기' })).toBeDisabled();

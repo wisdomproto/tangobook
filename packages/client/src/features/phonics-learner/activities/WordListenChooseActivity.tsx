@@ -8,6 +8,7 @@ import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
+import { PhonicsGameSprite } from '../components/PhonicsGameSprite';
 import { ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 import { ToyHangul } from '../components/ToyHangul';
 import type { ChoiceEvidence } from '../lib/journey-assessment';
@@ -547,20 +548,23 @@ export function WordListenChooseActivity({
 
   return (
     <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
+      <div className="listen-choice-body flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
         {/* 🔎 탐색 — 눌러서 소리를 들어보고, 준비되면 퀴즈로.
             🔴 예전엔 들어오자마자 문제가 나왔다. 처음 보는 낱말을 소리만 듣고 고르라는 셈이라,
                먼저 만져보는 화면이 있어야 퀴즈가 "확인"이 된다(모음 듣기와 같은 순서). */}
         {/* 문제 줄 — 탐색이면 안내, 퀴즈면 [오늘의 글자 + 🔊]. 자리를 항상 차지해 격자가 위아래로 안 튄다. */}
-        <div className="flex flex-col items-center gap-3 min-h-[7rem] sm:min-h-[9rem] justify-center">
+        <div className="listen-choice-prompt flex flex-col items-center gap-3 min-h-[7rem] sm:min-h-[9rem] justify-center">
           {exploring ? (
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
               {t('common.tapToListen')}
             </h2>
           ) : starting ? (
             // 안내 음성이 나오는 동안 같은 문구를 화면에도 — 소리를 못 듣는 상황에서도 전달된다.
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-coral-600 text-center break-keep animate-pulse">
-              {t('common.listenCarefully')}
+            <h2 className="phonics-listen-heading text-2xl sm:text-3xl md:text-4xl font-black text-center break-keep">
+              <span className="phonics-listen-heading-icon">
+                <PhonicsGameSprite name="listen" size={40} />
+              </span>
+              {t('common.listenCarefully').replace('🎧', '').trim()}
             </h2>
           ) : done ? (
             <p className="text-3xl sm:text-5xl font-black text-ink-900">{t('common.allCorrect')}</p>
@@ -589,7 +593,7 @@ export function WordListenChooseActivity({
                   aria-label={t('common.listenAgain')}
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-coral-700 text-white text-4xl sm:text-5xl shadow-soft hover:scale-[1.03] active:scale-[0.97] transition animate-pulse"
                 >
-                  🔊
+                  <PhonicsGameSprite name="listen" size={48} />
                 </button>
               </div>
             </>

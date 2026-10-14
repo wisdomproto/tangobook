@@ -1,0 +1,441 @@
+/* Roles, rather than one decorative shape for every control. Canvas masks stay unchanged. */
+html:has(.learning-stage.fixed),
+html:has([data-learning-overlay-root][data-game-open]) {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+.coloring-toolbar {
+  margin: 8px 16px;
+  border-radius: 24px;
+  background: #ffffffd9;
+  box-shadow: 0 4px 0 #e1d8c8;
+}
+.coloring-title.storybook-title.is-compact {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 6px 24px;
+  max-width: min(520px, calc(100% - 128px));
+}
+.coloring-title > span {
+  font-size: clamp(16px, 3vh, 26px);
+}
+.learning-game-action {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  min-width: 132px;
+  padding: 12px 24px;
+  color: #382a23;
+  font-weight: 900;
+  background: transparent;
+  transition: transform 120ms ease;
+}
+.learning-game-action-art {
+  position: absolute;
+  inset: -3px -5px;
+  width: calc(100% + 10px) !important;
+  height: calc(100% + 6px) !important;
+  z-index: -1;
+}
+.learning-game-action-label {
+  position: relative;
+}
+.learning-game-action:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.learning-game-action:active:not(:disabled) {
+  transform: translateY(3px);
+}
+.learning-game-action:focus-visible {
+  outline: 3px solid #382a23;
+  outline-offset: 4px;
+  border-radius: 24px;
+}
+.review-write-body {
+  width: 100%;
+  gap: clamp(10px, 2vh, 20px);
+}
+.review-write-pair {
+  width: 100%;
+}
+.review-write-paper {
+  width: min(672px, 58vw);
+}
+.review-write-clue {
+  width: min(24vh, 190px);
+  height: min(24vh, 190px);
+}
+.review-write-rounds {
+  flex-shrink: 0;
+}
+.review-write-mystery {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #fff5e7;
+}
+.review-write-mystery .path-game-sprite {
+  width: 60% !important;
+  height: 60% !important;
+}
+.phonics-listen-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--activity-accent);
+}
+.phonics-listen-heading-icon {
+  display: inline-flex;
+  padding: 10px;
+  border-radius: 24px;
+  background: #ffffffc9;
+  box-shadow: 0 4px 0 #e0d4c0;
+}
+.phonics-listen-replay {
+  display: grid;
+  place-items: center;
+}
+.phonics-activity[data-phonics-language='en'] .review-write-rounds .bg-coral-700 {
+  background-color: var(--activity-accent);
+}
+.learning-stage .matching-card {
+  container-type: size;
+  border-radius: 28px;
+  box-shadow: 0 5px 0 #ddd6c7;
+}
+.learning-stage .matching-image {
+  padding: 4px;
+}
+.learning-stage .matching-word-card {
+  padding: 5px 10px;
+  gap: 3px;
+}
+.learning-stage .matching-word-glyph {
+  font-size: clamp(24px, 40cqh, 76px);
+  line-height: 1.05;
+}
+.learning-stage .matching-word-glyph[data-long] {
+  font-size: clamp(22px, 30cqh, 52px);
+}
+.learning-stage .matching-caption {
+  font-size: clamp(12px, 13cqh, 20px);
+  line-height: 1.1;
+  margin: 0;
+  flex-shrink: 0;
+}
+.learning-stage .matching-image-caption {
+  padding: 0 4px 5px;
+}
+.learning-stage .matching-caption > span > span:first-child {
+  font-size: 1.3em;
+}
+[data-phonics-game] .word-writing-stage {
+  flex-direction: row;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 48px);
+}
+[data-phonics-game] .word-writing-prompt {
+  width: 24%;
+  max-width: 260px;
+  text-align: center;
+}
+[data-phonics-game] .word-writing-prompt img {
+  height: min(25vh, 220px);
+  max-width: 100%;
+  border-radius: 24px;
+}
+[data-phonics-game] .word-writing-prompt p {
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.35;
+}
+[data-phonics-game] .word-writing-stage > div:last-child {
+  flex: 0 1 auto;
+  width: auto;
+}
+[data-phonics-game] .word-writing-canvas {
+  width: min(680px, 58vw, calc((100svh - 150px) * 2)) !important;
+}
+[data-phonics-game] .drawing-instruction {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+[data-phonics-game] .drawing-instruction p {
+  font-size: clamp(18px, 3vh, 28px);
+}
+[data-phonics-game] .drawing-tool {
+  display: inline-flex;
+}
+.block-game-tools {
+  align-items: center;
+}
+.block-game-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 2px solid #e2d8c7;
+  box-shadow: 0 3px 0 #d8ceb9;
+}
+.block-game-hint {
+  max-width: 38ch;
+  font-size: 12px;
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .phonics-activity:has(.phonics-memory-grid),
+  .phonics-activity:has(.phonics-hunt-grid) {
+    overflow: hidden;
+  }
+  .phonics-activity[data-activity-kind='memory'] > .flex-1 {
+    min-height: 0;
+    flex-shrink: 1;
+    gap: 8px;
+  }
+  .phonics-activity[data-activity-kind='memory'] h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .phonics-memory-grid {
+    width: min(100%, calc(50vh + 80px));
+    padding: 8px;
+    gap: 8px;
+  }
+  .phonics-memory-grid > div > span {
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+  }
+  .phonics-memory-grid + div > span {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  .phonics-activity[data-activity-kind='hunt'] > .flex-1 {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    min-height: 0;
+    padding: 0;
+    gap: 8px 16px;
+  }
+  .phonics-activity[data-activity-kind='hunt'] > .flex-1 > h2 {
+    font-size: 18px;
+    line-height: 1.3;
+    text-align: center;
+  }
+  .phonics-activity[data-activity-kind='hunt'] > .flex-1 > button {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+  }
+  .phonics-hunt-grid {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    justify-self: center;
+    gap: 6px;
+  }
+  .phonics-hunt-grid .phonics-hunt-tile {
+    width: 44px;
+    height: 44px;
+  }
+  .phonics-hunt-grid .toy-hangul {
+    font-size: 30px;
+  }
+  .phonics-hunt-grid + div {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+  .phonics-hunt-grid + div > span {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  .phonics-activity:has(.listen-choice-body) {
+    overflow: hidden;
+  }
+  .phonics-activity[data-activity-kind='listen'] > .listen-choice-body {
+    display: grid;
+    grid-template-columns: minmax(120px, 24%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding-block: 0;
+    min-height: 0;
+    flex-shrink: 1;
+  }
+  .phonics-activity .listen-choice-prompt {
+    min-height: 0;
+  }
+  .listen-choice-prompt .phonics-listen-heading {
+    flex-direction: column;
+    font-size: 20px;
+    gap: 8px;
+  }
+  .listen-choice-body .phonics-listen-grid {
+    justify-self: center;
+    gap: 10px;
+  }
+  .listen-choice-body .phonics-listen-card {
+    width: min(22vw, 25vh) !important;
+  }
+  .listen-choice-body .phonics-listen-card .text-coral-600 {
+    font-size: clamp(26px, 10vh, 44px);
+  }
+  .listen-choice-body .phonics-listen-grid + div {
+    grid-column: 1 / -1;
+  }
+  .listen-choice-body > button {
+    grid-column: 1 / -1;
+    justify-self: center;
+    min-height: 44px;
+    padding: 8px 24px;
+  }
+  .learning-stage:has(.coloring-stage) {
+    --coloring-chrome: 152px;
+  }
+  .learning-stage .hidden-object-target {
+    min-width: 0;
+  }
+  .learning-stage .hidden-object-target img {
+    width: 30px;
+    height: 30px;
+  }
+  .learning-stage .hidden-object-target > span {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body {
+    display: grid;
+    grid-template-columns: minmax(82px, 19%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child {
+    flex-direction: column;
+    padding: 8px;
+    height: auto;
+    min-height: 0;
+    gap: 10px;
+  }
+  .korean-block-stage:not([data-camera])
+    .korean-block-body
+    > section:first-child
+    > div:first-child {
+    display: block;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child img {
+    width: min(100px, 14vw, 25vh);
+    height: min(100px, 14vw, 25vh);
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child > div > span {
+    display: none;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body > section:first-child h1 {
+    font-size: clamp(24px, 4vw, 38px) !important;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body > section:nth-child(2) {
+    padding: 8px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-body > div:last-child {
+    grid-column: 1 / -1;
+    justify-content: end;
+  }
+  .english-block-stage .english-alphabet-letters {
+    justify-content: start;
+    min-width: 0;
+  }
+  .english-block-stage .block-input-switch {
+    position: absolute;
+    top: 12px;
+    right: 78px;
+    z-index: 2;
+    padding: 0;
+  }
+  .english-block-stage .block-input-switch button {
+    min-width: 44px;
+    padding-inline: 8px;
+  }
+  .english-block-stage .block-input-switch button > span:last-child {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .phonics-activity:has(.review-write-body) {
+    overflow: hidden;
+  }
+  .review-write-body {
+    gap: 8px;
+  }
+  .review-write-pair {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .review-write-clue {
+    width: min(24vh, 140px);
+    height: min(24vh, 140px);
+    border-width: 3px;
+  }
+  .review-write-paper {
+    width: min(56vw, calc((100svh - 164px) * 2));
+  }
+  .review-write-paper > div > p {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .review-write-complete {
+    padding-block: 12px;
+  }
+  .review-write-complete-word {
+    font-size: clamp(40px, 15vh, 76px);
+  }
+  .review-write-rounds > span {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+  .phonics-listen-heading-icon {
+    padding: 6px;
+  }
+  .learning-stage .matching-column {
+    gap: 10px;
+  }
+  .learning-stage .matching-card {
+    border-radius: 18px;
+    box-shadow: 0 3px 0 #ddd6c7;
+  }
+  .learning-stage .matching-word-glyph {
+    font-size: clamp(20px, 38cqh, 44px);
+  }
+  .learning-stage .matching-caption {
+    font-size: clamp(11px, 14cqh, 16px);
+  }
+  [data-phonics-game] .word-writing-prompt img {
+    height: min(27vh, 130px);
+  }
+  [data-phonics-game] .drawing-tool .path-game-sprite {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .block-game-hint {
+    display: none;
+  }
+  .learning-game-action {
+    min-height: 48px;
+    min-width: 104px;
+    padding: 9px 18px;
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-game-action {
+    transition: none;
+  }
+}

@@ -11,6 +11,7 @@ import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { buildHuntBoard } from '../lib/letter-lookalikes';
 import type { ReviewCard } from '../lib/korean-phonics-units';
 import { ActivityShell } from '../components/ActivityShell';
+import { PhonicsGameSprite } from '../components/PhonicsGameSprite';
 import { ToyHangul } from '../components/ToyHangul';
 
 interface Props {
@@ -300,7 +301,7 @@ export function LetterHuntActivity({
           aria-label={t('hunt.letterSound', { letter: card.letter })}
         >
           {illustratedLetters ? <ToyHangul text={card.letter} decorative /> : card.letter}
-          <span className="text-[0.5em]">🔊</span>
+          <PhonicsGameSprite name="listen" size={24} />
         </button>
 
         <div

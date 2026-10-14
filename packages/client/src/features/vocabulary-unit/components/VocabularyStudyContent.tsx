@@ -9,6 +9,7 @@ import { useLearningEvents } from '@/features/learning/hooks/useLearningEvents';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import type { LearningEvent } from '@tangobook/shared';
 import { useMemo, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -154,38 +155,47 @@ export function VocabularyStudyContent({
         }}
       />
 
-      {sceneColoringOpen && storybook && (
-        <SceneColoringGame
-          book={storybook}
-          lang={lang}
-          onBack={() => setSceneColoringOpen(false)}
-        />
-      )}
+      {createPortal(
+        <div
+          className="relative z-[80]"
+          data-learning-overlay-root
+          data-game-open={activeGame !== null || sceneColoringOpen || undefined}
+        >
+          {sceneColoringOpen && storybook && (
+            <SceneColoringGame
+              book={storybook}
+              lang={lang}
+              onBack={() => setSceneColoringOpen(false)}
+            />
+          )}
 
-      {phonicsSuggestion && (
-        <PostActivityPhonics
-          word={phonicsSuggestion.word}
-          target={phonicsSuggestion.target}
-          reason={phonicsSuggestion.reason}
-          onClose={() => setPhonicsSuggestion(null)}
-        />
-      )}
+          {phonicsSuggestion && (
+            <PostActivityPhonics
+              word={phonicsSuggestion.word}
+              target={phonicsSuggestion.target}
+              reason={phonicsSuggestion.reason}
+              onClose={() => setPhonicsSuggestion(null)}
+            />
+          )}
 
-      {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
-      <AnimatePresence>
-        {activeGame && (
-          <GameOverlay
-            key={activeGame}
-            unit={unit}
-            game={activeGame}
-            lang={lang}
-            storybook={storybook}
-            currentStyle={currentStyle}
-            onComplete={() => handleGameComplete(activeGame)}
-            onBack={handleGameBack}
-          />
-        )}
-      </AnimatePresence>
+          {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
+          <AnimatePresence>
+            {activeGame && (
+              <GameOverlay
+                key={activeGame}
+                unit={unit}
+                game={activeGame}
+                lang={lang}
+                storybook={storybook}
+                currentStyle={currentStyle}
+                onComplete={() => handleGameComplete(activeGame)}
+                onBack={handleGameBack}
+              />
+            )}
+          </AnimatePresence>
+        </div>,
+        document.body
+      )}
     </>
   );
 }

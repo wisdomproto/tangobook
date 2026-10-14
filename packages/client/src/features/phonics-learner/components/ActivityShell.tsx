@@ -2,6 +2,7 @@ import { createContext, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
 import './phonics-activities.css';
+import './phonics-game-refinements.css';
 import { JourneyActivityContext } from './journey-activity-context';
 import { PhonicsGameSprite } from './PhonicsGameSprite';
 
