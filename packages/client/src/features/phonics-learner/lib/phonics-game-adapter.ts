@@ -26,6 +26,7 @@ import type {
   DotKeypoint,
 } from '@tangobook/shared';
 import { decomposeWord, decomposeEnglishWord, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
+import type { KoreanBlockTrayLetters } from './korean-block-tray';
 
 const MAX_ITEMS = 4;
 
@@ -102,13 +103,26 @@ export function findImageData(
   return { imageUrl, ttsUrl: blendTts ?? ttsUrl, keypoints };
 }
 
-export function phonicsToKoreanBlockData(sb: Storybook): KoreanBlockData | null {
+export function phonicsToKoreanBlockData(
+  sb: Storybook,
+  tray?: KoreanBlockTrayLetters
+): KoreanBlockData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   if (targetWords.length === 0) return null;
   const items: KoreanBlockItem[] = [];
   for (const w of targetWords) {
     const syllables = decomposeWord(w);
     if (syllables.length === 0) continue;
+    if (
+      tray &&
+      syllables.some(
+        (s) =>
+          !tray.consonants.includes(s.cho) ||
+          !tray.vowels.includes(s.jung) ||
+          (s.jong !== null && !tray.consonants.includes(s.jong))
+      )
+    )
+      continue;
     const extra = findImageData(sb, w);
     items.push({
       word: w,

@@ -126,14 +126,16 @@ function TrayPiece({
   picked,
   onPick,
   onDragStart,
+  fixedOrientation = false,
 }: {
   entry: { id: number; rotDeg: number };
   picked: { id: number; rotDeg: number } | null;
   onPick: (p: { id: number; rotDeg: number }) => void;
   onDragStart: (p: { id: number; rotDeg: number }, e: ReactPointerEvent) => void;
+  fixedOrientation?: boolean;
 }) {
   const id = entry.id;
-  const selected = picked?.id === id;
+  const selected = picked?.id === id && (!fixedOrientation || picked.rotDeg === entry.rotDeg);
   const rotDeg = selected ? picked.rotDeg : entry.rotDeg;
   const onSelect = () => onPick({ id, rotDeg });
   const onRotate = () => {
@@ -142,7 +144,7 @@ function TrayPiece({
   };
   const sh = shapeAt(id, rotDeg);
   const ch = charAt(id, rotDeg);
-  const canRotate = BLOCKS[id].rotKeys.length > 1;
+  const canRotate = !fixedOrientation && BLOCKS[id].rotKeys.length > 1;
   // 큰 조각(모음 5칸)과 작은 조각(자음 3칸)이 트레이에서 같은 높이로 보이게 여백을 맞춘다.
   const pad = 0.4;
   return (
@@ -184,6 +186,11 @@ function TrayPiece({
 }
 
 export interface TangoBoardProps {
+  /** Optional lesson choices; omitted callers keep the physical 16-piece tray. */
+  tray?: {
+    consonants: readonly { id: number; rotDeg: number }[];
+    vowels: readonly { id: number; rotDeg: number }[];
+  };
   placed: PlacedBlock[];
   /** 트레이에서 고른 조각 — `null` 이면 아무것도 안 골랐다. */
   picked: { id: number; rotDeg: number } | null;
@@ -204,6 +211,7 @@ export interface TangoBoardProps {
  *    자주 놓치고, 실물 보드도 집어서 놓는 동작이다. 판 위 조각을 탭하면 돌아간다.
  */
 export function TangoBoard({
+  tray,
   placed,
   picked,
   onPick,
@@ -518,20 +526,22 @@ export function TangoBoard({
           role="group"
           aria-label="블록 고르기"
         >
-          {TRAY_CHO.map((e) => (
+          {(tray?.consonants ?? TRAY_CHO).map((e) => (
             <TrayPiece
-              key={e.id}
+              key={`${e.id}:${e.rotDeg}`}
               entry={e}
+              fixedOrientation={!!tray}
               picked={picked}
               onPick={onPick}
               onDragStart={handleDragStart}
             />
           ))}
           <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
-          {TRAY_JUNG.map((e) => (
+          {(tray?.vowels ?? TRAY_JUNG).map((e) => (
             <TrayPiece
-              key={e.id}
+              key={`${e.id}:${e.rotDeg}`}
               entry={e}
+              fixedOrientation={!!tray}
               picked={picked}
               onPick={onPick}
               onDragStart={handleDragStart}

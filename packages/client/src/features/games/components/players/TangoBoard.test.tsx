@@ -1,9 +1,37 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { blockIndexOf } from '../../lib/tango-board/blocks';
+import { blockIndexOf, trayEntriesForLetters } from '../../lib/tango-board/blocks';
 import { TangoBoard, canPlace, findNearestPlacement } from './TangoBoard';
 
 describe('TangoBoard drag preview', () => {
+  it('keeps learned letters separate even when they share a physical block', () => {
+    const onPick = vi.fn();
+    const tray = {
+      consonants: trayEntriesForLetters(['ㄱ', 'ㄴ']),
+      vowels: trayEntriesForLetters([...'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ']),
+    };
+    const props = {
+      placed: [],
+      picked: null,
+      onPick,
+      onPlace: vi.fn(),
+      onMovePlaced: vi.fn(),
+      onRemovePlaced: vi.fn(),
+      onRotatePlaced: vi.fn(),
+      tray,
+    };
+    const { getByRole, queryByRole, getAllByRole, rerender } = render(<TangoBoard {...props} />);
+    expect(getAllByRole('button')).toHaveLength(12);
+    expect(queryByRole('button', { name: 'ㄷ 고르기' })).toBeNull();
+    fireEvent.click(getByRole('button', { name: 'ㄴ 고르기' }));
+    expect(onPick).toHaveBeenLastCalledWith(tray.consonants[1]);
+    rerender(<TangoBoard {...props} picked={tray.consonants[1]} />);
+    fireEvent.click(getByRole('button', { name: 'ㄴ 고르기' }));
+    expect(onPick).toHaveBeenLastCalledWith(tray.consonants[1]);
+    expect(getByRole('button', { name: 'ㄱ 고르기' })).toBeDefined();
+    for (const vowel of 'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ')
+      expect(getByRole('button', { name: `${vowel} 고르기` })).toBeDefined();
+  });
   it('does not render a small floating block while dragging', () => {
     const { getByRole } = render(
       <div style={{ transform: 'scale(0.5)', transformOrigin: 'top left' }}>

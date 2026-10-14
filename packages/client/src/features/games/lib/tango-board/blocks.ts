@@ -345,6 +345,18 @@ export function charAt(id: number, rotDeg: number): string {
   return BLOCKS[id].rots[rotDeg];
 }
 
+/** Logical letter choices reuse the corresponding physical piece and orientation. */
+export function trayEntriesForLetters(
+  letters: readonly string[]
+): { id: number; rotDeg: number }[] {
+  return letters.flatMap((letter) => {
+    const id = BLOCKS.findIndex((block) => Object.values(block.rots).includes(letter));
+    if (id < 0) return [];
+    const rotDeg = BLOCKS[id].rotKeys.find((rot) => charAt(id, rot) === letter)!;
+    return [{ id, rotDeg }];
+  });
+}
+
 /** 다음 회전 각도 — 트레이·판 위 블록을 탭하면 이 순서로 돈다. */
 export function nextRot(id: number, rotDeg: number): number {
   const keys = BLOCKS[id].rotKeys;

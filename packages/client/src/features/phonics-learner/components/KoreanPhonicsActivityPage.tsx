@@ -45,6 +45,7 @@ import {
   phonicsToWordChoices,
 } from '../lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
+import { getBasicConsonantBlockTray } from '../lib/korean-block-tray';
 
 /** 복습 듣기 활동의 보기 수 — 보기가 글자·낱말(그림 X)이라 학습 단원(3장)보다 하나 더 둔다. */
 const REVIEW_CHOICES = 4;
@@ -681,7 +682,8 @@ export function KoreanPhonicsActivity({
   );
 
   if (activity.kind === 'game-korean-block') {
-    const gameData = memoGame(() => phonicsToKoreanBlockData(storybook));
+    const trayLetters = getBasicConsonantBlockTray(unitId);
+    const gameData = memoGame(() => phonicsToKoreanBlockData(storybook, trayLetters));
     if (!gameData)
       return (
         <ActivityUnavailable
@@ -693,7 +695,7 @@ export function KoreanPhonicsActivity({
     return gate(
       'korean-block',
       gameData,
-      <KoreanBlockPlayer {...commonProps} gameData={gameData} />
+      <KoreanBlockPlayer {...commonProps} gameData={gameData} trayLetters={trayLetters} />
     );
   }
   if (activity.kind === 'game-word-writing') {
