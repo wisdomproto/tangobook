@@ -4,7 +4,7 @@
 
 트레이 구분은 세로 칸막이선 대신 중앙 블록 영역만 민트/크림 사각 그림 배경으로 감싼다. `tray-frame.webp`21KB·9-slice48로 모서리를 유지하고 화살표는 양옆 바깥에 둔다. [최종 사용자 반증](../../../../../docs/work/phonics/tasks/20261014-korean-block-layout.md#중앙-그림-트레이-후속).
 
-후속 최종 트레이는 자음 스크롤/오른쪽 모음3조각 고정의 두 그림 영역이다. 사용자 후속 요청으로 태블릿 가로1024×768 기준 왼쪽 목표30%/오른쪽 판70%, 목록/확인·다음은 판 아래다. KoreanBlockInputGate에서 게임 진입 전에 screen/camera를 선택하며 이미 initialInputMode가 있으면 재선택하지 않는다. 게임 내 모드 전환은 제외한다. [후속 구현](../../../../../docs/work/phonics/tasks/20261014-korean-block-tablet-layout.md). 작은 판 열에서는 목록 내부 폭/간격만 조절하고 전체 레이아웃을 확대하지 않는다. 자음 touch pan-x는 좌우 native 스와이프·위로 블록 드래그·탭 선택을 방향 판별로 분리하며, 모음 회전은 고정 폭에서 유지한다. [구현·검수 경계](../../../../../docs/work/phonics/tasks/20261014-korean-block-layout.md#고정-모음자음-스와이프-후속).
+후속 최종 트레이는 자음 스크롤/오른쪽 모음3조각 고정의 두 그림 영역이다. 사용자 후속 요청으로 태블릿 가로1024×768 기준 상단 그림·타겟/아래 판, 목록/확인·다음은 판 아래다. 높이600px 이하의 짧은 가로 화면만 왼쪽 목표30%/오른쪽 판을 유지한다. KoreanBlockInputGate에서 게임 진입 전에 screen/camera를 선택하며 이미 initialInputMode가 있으면 재선택하지 않는다. 게임 내 모드 전환은 제외한다. [후속 구현](../../../../../docs/work/phonics/tasks/20261014-korean-block-tablet-layout.md). 작은 판 열에서는 목록 내부 폭/간격만 조절하고 전체 레이아웃을 확대하지 않는다. 자음 touch pan-x는 좌우 native 스와이프·위로 블록 드래그·탭 선택을 방향 판별로 분리하며, 모음 회전은 고정 폭에서 유지한다. [구현·검수 경계](../../../../../docs/work/phonics/tasks/20261014-korean-block-layout.md#고정-모음자음-스와이프-후속).
 
 한글 블록게임은 쌍자음/복합 모음 전용 선택지를 추가하지 않는다. 같은 기본 자음 두 개로 쌍자음5종,ㅣ/ㅏ/ㅑ 세 조각의 회전·2~3조각 조합으로 복합모음11종을 만든다. BLOCKS의 쌍자음 형상 정의는 인식용이며 트레이에는 없다. [전체 조합 검증](../../../../../docs/work/phonics/tasks/20261014-korean-basic-block-composition.md).
 

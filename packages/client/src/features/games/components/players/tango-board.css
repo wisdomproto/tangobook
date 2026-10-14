@@ -171,29 +171,6 @@
   font-size: clamp(20px, 3vw, 28px);
 }
 @media (orientation: landscape) {
-  .korean-block-stage:not([data-camera]) .korean-block-body {
-    display: grid;
-    grid-template-columns: minmax(0, 30%) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
-    gap: clamp(12px, 2vw, 24px);
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-target {
-    flex-direction: column;
-    height: auto;
-    min-height: 0;
-    padding: 16px;
-    gap: 28px;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-target > div:first-child {
-    display: block;
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-target img {
-    width: clamp(80px, 23vh, 200px);
-    height: clamp(80px, 23vh, 200px);
-  }
-  .korean-block-stage:not([data-camera]) .korean-block-target h1 {
-    font-size: clamp(28px, 5vw, 64px) !important;
-  }
   .korean-block-stage:not([data-camera]) .korean-block-play-area {
     padding: 16px;
     flex-direction: column;
@@ -210,11 +187,20 @@
 }
 @media (orientation: landscape) and (max-height: 600px) {
   .korean-block-stage:not([data-camera]) .korean-block-body {
+    display: grid;
+    grid-template-columns: minmax(0, 30%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
     gap: 8px;
   }
   .korean-block-stage:not([data-camera]) .korean-block-target {
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
     gap: 12px;
     padding: 8px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-target > div:first-child {
+    display: block;
   }
   .korean-block-stage:not([data-camera]) .korean-block-target img {
     width: min(120px, 28vh);
