@@ -5,7 +5,8 @@ import './phonics-learning-modes.css';
 import { courseThemes } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { PhonicsBackdrop } from './PhonicsBackdrop';
-import { PhonicsCurriculumPath } from './PhonicsCurriculumPath';
+import { PhonicsJourneyMap } from './PhonicsJourneyMap';
+import { MobileLandscapeGate } from '@/features/games/components/MobileLandscapeGate';
 import { getKoreanUnit } from '../lib/korean-phonics-units';
 import { getEnglishUnit } from '../lib/english-phonics-units';
 import { getRecentUnit, usePhonicsProgress } from '../lib/progress-store';
@@ -43,13 +44,15 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
 
   if (curriculum) {
     return (
-      <PhonicsCurriculumPath
-        key={`${lang}:${activeProfile?.id ?? 'guest'}`}
-        lang={lang}
-        progress={progress}
-        started={started}
-        finishedUnitDone={!!finishedUnitDone}
-      />
+      <MobileLandscapeGate>
+        <PhonicsJourneyMap
+          key={`${lang}:${activeProfile?.id ?? 'guest'}`}
+          lang={lang}
+          progress={progress}
+          started={started}
+          finishedUnitDone={!!finishedUnitDone}
+        />
+      </MobileLandscapeGate>
     );
   }
   return (

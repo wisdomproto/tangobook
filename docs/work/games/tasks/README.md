@@ -1,5 +1,7 @@
 # 게임·독후활동 작업 기록
 
+- [전체 게임 반응형 점검](20261014-responsive-games-audit.md) — planned. PC/태블릿/폰 가로 행렬, 현재 실제 router inventory 확인. 플레이 행렬 검수 미완료.
+
 - [책 읽기·어휘 게임 선택 단순화](20261014-book-vocabulary-only-ui.md) — integrated 후속: 구름 대신 게임별 생성 삽화8종, 숨은그림·장면 색칠 직접 연결,25회귀·가로 검수.
 
 - [퐁이29 장면 도안 후속 교체](../../content/tasks/20261013-pongi29-character-repair.md) — integrated: 도안2장·색 답안·본문10쪽 교체, 한영 전체 붓질/native 나레이션 검증.

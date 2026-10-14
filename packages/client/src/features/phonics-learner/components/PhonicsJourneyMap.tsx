@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, BookOpen, Check, Flag, LockKeyhole, Play } from 'lucide-react';
+import { ArrowRight, Check, Flag, LockKeyhole, Play } from 'lucide-react';
 import { courseThemes } from '@/design-system';
 import { activityTitle, levelName, unitTitle } from '../lib/activity-title';
 import { getKoreanUnit, getActivityPlan } from '../lib/korean-phonics-units';
@@ -15,7 +15,10 @@ import {
 import { readGameObservations } from '../lib/journey-assessment';
 import { ToyHangul } from './ToyHangul';
 import { JourneyWorldIcon } from './JourneyWorldIcon';
+import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
+import { courseActivityMode, courseUnitPreview } from '../lib/course-presentation';
 import './phonics-journey-map.css';
+import './phonics-curriculum-board.css';
 
 type Progress = ReturnType<typeof journeyProgress>;
 type Unit = ReturnType<typeof journeyUnits>[number];
@@ -32,7 +35,7 @@ function StageLetter({ lang, unit }: { lang: JourneyLanguage; unit: Unit }) {
   return lang === 'korean' ? (
     <ToyHangul text={stageGlyph(unit)} decorative className="journey-letter-toy" />
   ) : (
-    <span className="journey-letter-english">{stageGlyph(unit)}</span>
+    <span className="journey-letter-english">{courseUnitPreview(unit).slice(0, 2).join(' ')}</span>
   );
 }
 
@@ -53,7 +56,56 @@ export function PhonicsJourneyMap({
   const levels = [...new Set(units.map((unit) => unit.levelKey))];
   const currentLevel = progress.current?.unit.levelKey ?? levels[levels.length - 1];
   const [selectedLevel, setSelectedLevel] = useState(currentLevel);
+  const [selectedUnitId, setSelectedUnitId] = useState(
+    progress.current?.unit.id ?? units.at(-1)!.id
+  );
+  const [search, setSearch] = useSearchParams();
+  const finishedIndex = units.findIndex((unit) => unit.id === search.get('finished'));
+  const currentIndex = units.findIndex((unit) => unit.id === progress.current?.unit.id);
+  const [unlocking, setUnlocking] = useState(
+    () =>
+      finishedUnitDone &&
+      search.get('replay') !== '1' &&
+      finishedIndex >= 0 &&
+      currentIndex === finishedIndex + 1
+  );
+  useEffect(() => {
+    if (!unlocking) return;
+    const timer = window.setTimeout(
+      () => {
+        setUnlocking(false);
+        const params = new URLSearchParams(search);
+        params.delete('finished');
+        params.delete('replay');
+        setSearch(params, { replace: true });
+      },
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 450 : 1800
+    );
+    return () => window.clearTimeout(timer);
+  }, [unlocking, search, setSearch]);
+  const selectedUnit =
+    units.find((unit) => unit.id === selectedUnitId) ?? progress.current?.unit ?? units[0];
+  const chapterSteps = progress.steps.flatMap((step, index) =>
+    step.unit.id === selectedUnit.id ? [{ ...step, done: progress.done[index] }] : []
+  );
+  const chapterComplete = chapterSteps.length > 0 && chapterSteps.every((step) => step.done);
+  const chapterNext = chapterSteps.find((step) => !step.done) ?? chapterSteps[0];
   const mapViewport = useRef<HTMLDivElement>(null);
+  const activityList = useRef<HTMLOListElement>(null);
+  const [compact, setCompact] = useState(() => window.innerHeight <= 500);
+  useEffect(() => {
+    const resize = () => setCompact(window.innerHeight <= 500);
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, []);
+  useEffect(() => {
+    const list = activityList.current;
+    const current = list?.querySelector<HTMLElement>('[aria-current="step"]');
+    if (list)
+      list.scrollTop = current
+        ? Math.max(0, current.offsetTop - list.offsetTop - list.clientHeight / 2)
+        : 0;
+  }, [selectedUnitId, progress.current?.activity.key, compact]);
   const selectedUnits = units.filter((unit) => unit.levelKey === selectedLevel);
   const worldIndex = levels.indexOf(selectedLevel);
   const worldName = t(`world.${lang}.${worldIndex + 1}`);
@@ -78,15 +130,19 @@ export function PhonicsJourneyMap({
       done: steps.filter((step) => step.done).length,
       total: steps.length,
       x: 18 + col * 32,
-      y: 110 + row * 220 + (col === 1 ? 65 : 0),
+      y: compact ? 74 + row * 130 : 96 + row * 170 + (col === 1 ? 40 : 0),
     };
   });
-  const height = Math.ceil(stages.length / 3) * 220 + 140;
-  const currentY = stages.find((stage) => stage.current)?.y ?? 110;
+  const height = Math.ceil(stages.length / 3) * (compact ? 130 : 170) + 110;
+  const currentY = stages.find((stage) => stage.unit.id === selectedUnitId)?.y ?? 84;
   useEffect(() => {
     // Keep the actual next stage visible even late in a long book, without moving the whole page.
-    if (mapViewport.current) mapViewport.current.scrollTop = Math.max(0, currentY - 110);
-  }, [selectedLevel, currentY]);
+    if (mapViewport.current)
+      mapViewport.current.scrollTop = Math.max(
+        0,
+        currentY - Math.max(compact ? 74 : 150, mapViewport.current.clientHeight * 0.35)
+      );
+  }, [selectedLevel, currentY, compact]);
   const path = stages
     .map((stage, i) => {
       if (i === 0) return `M${stage.x * 10} ${stage.y}`;
@@ -96,42 +152,34 @@ export function PhonicsJourneyMap({
       return ` C${bendX} ${prev.y} ${bendX} ${stage.y} ${stage.x * 10} ${stage.y}`;
     })
     .join('');
-  const completedUnits = units.filter((unit) => {
-    const steps = progress.steps.flatMap((step, i) =>
-      step.unit.id === unit.id ? [progress.done[i]] : []
-    );
-    return steps.length > 0 && steps.every(Boolean);
-  }).length;
   const startUrl =
-    progress.current &&
-    journeyActivityUrl(lang, progress.current.unit.id, progress.current.activity.key);
+    chapterNext && journeyActivityUrl(lang, selectedUnit.id, chapterNext.activity.key);
   const freeUnit = progress.current?.unit ?? units[0];
   return (
-    <section className={`journey-world journey-world--${lang}`} style={theme.style}>
+    <section
+      className={`journey-world curriculum-board journey-world--${lang}`}
+      style={theme.style}
+    >
       <div className="journey-world-wrap">
         <nav className="journey-world-nav" aria-label={t('world.navigation')}>
-          <Link to={`/library/phonics/${lang}`} className="journey-small-button">
-            <ArrowLeft size={18} /> {t('journey.chooseMode')}
+          <Link
+            to={`/library/phonics/${lang}`}
+            className="journey-small-button"
+            aria-label={t('journey.chooseMode')}
+          >
+            <StorybookSprite name="back" size={26} />
           </Link>
-          <span className="journey-language-badge">{t(`journey.${lang}`)}</span>
-          <Link to={`/library/phonics/${lang}/${freeUnit.id}`} className="journey-small-button">
-            <BookOpen size={18} /> {t('journey.free')}
+          <h1>
+            {t(`chapter.${lang}`)} · {t('flow.pathTitle')}
+          </h1>
+          <Link
+            to={`/library/phonics/${lang}/${freeUnit.id}`}
+            className="journey-small-button"
+            aria-label={t('journey.free')}
+          >
+            <StorybookSprite name="book" size={26} />
           </Link>
         </nav>
-        <header className="journey-world-heading">
-          <div>
-            <p className="journey-eyebrow">TANGOBOOK · {t('world.adventure')}</p>
-            <h1>{t('world.title')}</h1>
-            <p>{t('world.description')}</p>
-          </div>
-          <div className="journey-garden-count">
-            <JourneyWorldIcon kind="flower" />
-            <span>
-              <strong>{completedUnits}</strong> / {units.length}
-              <small>{t('world.bloomed')}</small>
-            </span>
-          </div>
-        </header>
         <div className="journey-world-selector" role="group" aria-label={t('world.regions')}>
           {levels.map((level, index) => {
             const levelUnits = units.filter((unit) => unit.levelKey === level);
@@ -145,12 +193,19 @@ export function PhonicsJourneyMap({
                 key={level}
                 type="button"
                 aria-pressed={selectedLevel === level}
-                onClick={() => setSelectedLevel(level)}
+                onClick={() => {
+                  setSelectedLevel(level);
+                  setSelectedUnitId(progress.current?.unit.id ?? units.at(-1)!.id);
+                }}
                 className={`journey-region ${selectedLevel === level ? 'is-selected' : ''} ${reached ? 'is-reached' : ''}`}
               >
                 <JourneyWorldIcon kind={ICONS[lang][index] ?? 'village'} />
                 <span>
-                  <small>{t('world.regionNumber', { number: index + 1 })}</small>
+                  <small>
+                    {lang === 'korean'
+                      ? t('flow.koreanBookNumber', { number: index + 1 })
+                      : `Book ${index + 1}`}
+                  </small>
                   <strong>{t(`world.${lang}.${index + 1}`)}</strong>
                 </span>
               </button>
@@ -159,66 +214,69 @@ export function PhonicsJourneyMap({
         </div>
         <div className="journey-adventure-layout">
           <aside className="journey-mission" aria-live="polite">
-            <img
-              className="journey-cottage"
-              src="/images/phonics/story-world-v1/story-cottage.webp"
-              width="360"
-              height="360"
-              alt=""
-              draggable={false}
-            />
             <div className="journey-mission-content">
-              <p className="journey-eyebrow">
-                {t(
-                  progress.finished
-                    ? 'journey.allDone'
-                    : finishedUnitDone
-                      ? 'world.pathOpened'
-                      : 'world.today'
-                )}
-              </p>
-              <h2>
-                {progress.current
-                  ? unitTitle(t, progress.current.unit)
-                  : t('world.villageComplete')}
-              </h2>
-              <p className="journey-mission-activity">
-                {progress.current
-                  ? activityTitle(t, progress.current.activity)
-                  : t('journey.repeatDescription')}
-              </p>
+              <p className="journey-eyebrow">{levelName(t, selectedUnit)}</p>
+              <h2>{unitTitle(t, selectedUnit)}</h2>
+              <ol
+                ref={activityList}
+                className="journey-chapter-activities"
+                aria-label={t('chapter.activities')}
+              >
+                {chapterSteps.map((step, index) => {
+                  const current =
+                    !chapterComplete && chapterNext?.activity.key === step.activity.key;
+                  const mode = courseActivityMode(step.activity.kind);
+                  const icon =
+                    mode === 'write' || mode === 'draw'
+                      ? 'write'
+                      : mode === 'build' || mode === 'match'
+                        ? 'combine'
+                        : mode === 'find'
+                          ? 'compass'
+                          : 'listen';
+                  return (
+                    <li
+                      key={step.activity.key}
+                      data-completed={step.done || undefined}
+                      aria-current={current ? 'step' : undefined}
+                    >
+                      <span className="journey-activity-number" aria-hidden="true">
+                        {step.done ? <Check size={15} /> : index + 1}
+                      </span>
+                      <StorybookSprite name={icon} size={32} />
+                      <span>{activityTitle(t, step.activity)}</span>
+                      <span className="sr-only">
+                        {t(
+                          step.done
+                            ? 'journey.completed'
+                            : current
+                              ? 'journey.current'
+                              : 'journey.locked'
+                        )}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ol>
               {startUrl && (
                 <Link to={startUrl} className="journey-play-button">
                   <Play size={20} fill="currentColor" />
-                  {t(started ? 'journey.continue' : 'journey.start')}
+                  {t(
+                    chapterComplete
+                      ? 'chapter.again'
+                      : started
+                        ? 'journey.continue'
+                        : 'journey.start'
+                  )}
                   <ArrowRight size={20} />
                 </Link>
               )}
-              <p className="journey-mission-tip">{t('world.tip')}</p>
-            </div>
-            <div className="journey-whole-progress">
-              <div>
-                <span>{t('world.wholeJourney')}</span>
-                <strong>
-                  {Math.round((progress.completed / Math.max(progress.steps.length, 1)) * 100)}%
-                </strong>
-              </div>
-              <progress
-                value={progress.completed}
-                max={Math.max(progress.steps.length, 1)}
-                aria-label={t('world.wholeJourney')}
-              />
-              <small>
-                {t('journey.progress', { done: progress.completed, total: progress.steps.length })}
-              </small>
             </div>
           </aside>
           <section className="journey-map-panel" aria-label={worldName}>
             <header className="journey-map-heading">
               <div>
-                <p>{t('world.regionNumber', { number: worldIndex + 1 })}</p>
                 <h2>{worldName}</h2>
-                <span>{levelName(t, selectedUnits[0])}</span>
               </div>
               <JourneyWorldIcon kind={ICONS[lang][worldIndex] ?? 'village'} />
             </header>
@@ -226,7 +284,10 @@ export function PhonicsJourneyMap({
               <button
                 type="button"
                 className="journey-return-current"
-                onClick={() => setSelectedLevel(currentLevel)}
+                onClick={() => {
+                  setSelectedLevel(currentLevel);
+                  setSelectedUnitId(progress.current?.unit.id ?? units.at(-1)!.id);
+                }}
               >
                 <Flag size={16} />
                 {t('world.backToCurrent')}
@@ -297,6 +358,11 @@ export function PhonicsJourneyMap({
                               <StageLetter lang={lang} unit={stage.unit} />
                             )}
                           </span>
+                          {stage.current && unlocking && (
+                            <span className="journey-unlocking-lock" aria-hidden="true">
+                              <StorybookSprite name="lock" size={42} />
+                            </span>
+                          )}
                           <span className="journey-node-state">
                             {stage.complete ? (
                               <Check size={16} />
@@ -324,27 +390,30 @@ export function PhonicsJourneyMap({
                     return (
                       <li
                         key={stage.unit.id}
-                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : 'is-locked'}`}
+                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.current && unlocking ? 'is-unlocking' : ''}`}
                         style={{ left: `${stage.x}%`, top: `${stage.y}px` }}
                       >
                         {(stage.current || stage.complete) && stage.first ? (
-                          <Link
+                          <button
+                            type="button"
                             aria-label={accessibleName}
                             aria-current={stage.current ? 'step' : undefined}
+                            aria-pressed={stage.unit.id === selectedUnitId}
                             className="journey-stage-target"
-                            to={journeyActivityUrl(lang, stage.unit.id, stage.first.activity.key)}
+                            onClick={() => setSelectedUnitId(stage.unit.id)}
                           >
                             {body}
-                          </Link>
+                          </button>
                         ) : (
-                          <div
+                          <button
+                            type="button"
+                            disabled
                             className="journey-stage-target"
-                            role="img"
                             aria-label={accessibleName}
                             aria-disabled="true"
                           >
                             {body}
-                          </div>
+                          </button>
                         )}
                       </li>
                     );
@@ -356,6 +425,16 @@ export function PhonicsJourneyMap({
                 </span>
               </div>
             </div>
+            {unlocking && (
+              <div
+                className="journey-unlock-status"
+                role="status"
+                aria-label={t('chapter.unlocked')}
+              >
+                <StorybookSprite name="lock" size={28} />
+                {t('chapter.unlocked')}
+              </div>
+            )}
             <footer className="journey-map-legend">
               <span>
                 <span className="journey-dot is-current" />

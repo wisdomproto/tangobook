@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-14 최신 커리큘럼 기준: `PhonicsLearningModes`는 `MobileLandscapeGate` 안에서 `PhonicsJourneyMap`을 기본으로 렌더한다. 권별 예전 지도의 큰 상단 안내/꽃 집계/집/전체 진도 상자를 제거하고 지도와 챕터 활동 순서를 즉시 노출한다. 완료/현재 노드의 button은 챕터 미리보기만 바꾸고 실제 필수 activity 순서·상태와 한 개 CTA로 진입한다. 미래 disabled, 완료 재학습, actual current 복귀·영어 Book/한글 권, profile key, 자동 다음/finished 복귀·인접 잠금 해제와 reduced-motion을 유지한다. 이전 아래의 Path/parentOpen 이중 화면 지침은 기본 진입에서 대체되었다. 자유모드 지도 통일은 후속 논의로 아직 미구현. [최신 결정·검증](../../../../../docs/work/phonics/tasks/20261014-curriculum-board-review.md).
+
 기본 자음 단원의 블록게임은 현재 단원까지의 자음만 누적하고 모음은 ㅣ·ㅏ·ㅑ 세 물리 조각을 표시해 회전으로 기본10모음을 만든다. 실제 완료 이력 대신 단원 순서를 기준으로 하며, 현재까지 배운 자음/기본10모음으로 만들 수 없는 문제는 추출 전에 제외한다. 자음 선택지만 orientation별로 고정하고 모음 트레이·판 위 회전과 동화책/다른 과정의 기본 트레이·인식은 유지한다. [범위·검증](../../../../../docs/work/phonics/tasks/20261014-korean-learned-block-tray.md).
 
 한영 게임 후속은 `phonics-game-refinements.css`의 역할별 배치다. 짧은 복습 쓰기/듣기/뒤집기/사냥·블록을 화면 안에 맞추고 실제 글자/종이 마스크/99%는 유지한다. 주요 행동은 기존 코랄/민트 그림 버튼, 도구는 역할별 아이콘을 재사용한다. [실제 검수·경계](../../../../../docs/work/phonics/tasks/20261014-phonics-game-visual-audit.md).

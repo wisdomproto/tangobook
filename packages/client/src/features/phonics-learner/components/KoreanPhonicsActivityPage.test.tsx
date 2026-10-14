@@ -115,7 +115,12 @@ describe('커리큘럼 모드 라우트', () => {
     fireEvent.click(screen.getByRole('button', { name: '쓴 모음 ㅏ' }));
     expect(await screen.findByRole('status', { name: '다음 챕터가 열렸어!' })).toBeDefined();
     await waitFor(() => expect(screen.queryByRole('status')).toBeNull(), { timeout: 2500 });
-    expect(screen.getByRole('link', { name: /^2번째 단계.*지금 배울 단계/ })).toBeDefined();
+    expect(screen.getByRole('button', { name: /^2번째 단계.*지금 배울 단계/ })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
+    expect(screen.getByRole('list', { name: '이번 챕터의 활동' }).children).toHaveLength(3);
+    expect(screen.getAllByRole('link', { name: /이어서 학습하기/ })).toHaveLength(1);
     fireEvent.click(screen.getByRole('link', { name: /이어서 학습하기/ }));
     expect(await screen.findByRole('button', { name: '들은 모음 ㅑ' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([]);

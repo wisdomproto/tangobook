@@ -1,0 +1,400 @@
+/* A compact version of the story map: the map is visible before any scrolling. */
+[data-learning-shell]:has(.curriculum-board) > header,
+[data-learning-shell]:has(.curriculum-board) > nav {
+  display: none;
+}
+.curriculum-board {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  padding: 0;
+  overflow: hidden;
+}
+.curriculum-board .journey-world-wrap {
+  height: 100%;
+  max-width: 1540px;
+  padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.curriculum-board .journey-world-nav {
+  flex: 0 0 44px;
+}
+.curriculum-board .journey-world-nav h1 {
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 800;
+  color: var(--course-label);
+}
+.curriculum-board .journey-small-button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+.curriculum-board .journey-world-selector {
+  flex: 0 0 auto;
+  margin: 0;
+  gap: 8px;
+}
+.curriculum-board .journey-region {
+  flex-direction: row;
+  text-align: left;
+  min-height: 54px;
+  border-radius: 17px;
+  padding: 5px 10px;
+}
+.curriculum-board .journey-region svg {
+  width: 34px;
+  height: 34px;
+}
+.curriculum-board .journey-region strong {
+  font-size: 13px;
+}
+.curriculum-board .journey-adventure-layout {
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 16px;
+}
+.curriculum-board .journey-mission {
+  display: flex;
+  position: static;
+  height: 100%;
+  min-height: 0;
+  border-radius: 26px;
+}
+.curriculum-board .journey-mission-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  padding: 22px 20px;
+}
+.curriculum-board .journey-mission-content h2 {
+  font-size: clamp(20px, 2vw, 28px);
+  margin-bottom: 14px;
+}
+.journey-chapter-activities {
+  list-style: none;
+  margin: 0;
+  padding: 3px;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  flex: 1;
+}
+.journey-chapter-activities li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 60px;
+  padding: 8px 6px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  position: relative;
+}
+.journey-chapter-activities li + li {
+  margin-top: 6px;
+}
+.journey-chapter-activities li[aria-current='step'] {
+  background: var(--course-soft);
+  box-shadow: inset 0 0 0 2px var(--course-border);
+  color: var(--course-label);
+}
+.journey-chapter-activities li[data-completed] {
+  color: #53765d;
+  background: #f0f6e9;
+}
+.journey-activity-number {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f1ecdd;
+  color: #6f6757;
+  font-size: 12px;
+}
+li[data-completed] .journey-activity-number {
+  color: white;
+  background: #649570;
+}
+.curriculum-board .journey-play-button {
+  flex-shrink: 0;
+  min-height: 62px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #433d34;
+  background: url('/images/learning/cloud-v1/cta-coral.webp') center / 100% 100% no-repeat;
+}
+.curriculum-board.journey-world--english .journey-play-button {
+  background-image: url('/images/learning/cloud-v1/cta-mint.webp');
+}
+.curriculum-board .journey-map-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  position: relative;
+}
+.curriculum-board .journey-map-heading {
+  flex: 0 0 auto;
+  padding: 8px 18px;
+}
+.curriculum-board .journey-map-heading h2 {
+  font-size: 19px;
+}
+.curriculum-board .journey-map-heading svg {
+  width: 36px;
+  height: 36px;
+}
+.curriculum-board .journey-map-viewport {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  scrollbar-width: thin;
+}
+.curriculum-board .journey-map-legend {
+  padding: 7px 12px;
+  flex-shrink: 0;
+}
+.curriculum-board .journey-stage-target {
+  color: inherit;
+  cursor: pointer;
+}
+.curriculum-board .journey-stage-target:disabled {
+  cursor: default;
+}
+.curriculum-board .is-previewed .journey-stage-label {
+  box-shadow: 0 0 0 2px var(--course-accent);
+}
+.journey-unlock-status {
+  position: absolute;
+  z-index: 2;
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  background: #fffdf5;
+  padding: 8px 18px;
+  border-radius: 24px;
+  font-weight: 800;
+  box-shadow: 0 4px 16px #556c4430;
+}
+.is-unlocking .journey-node {
+  animation: journey-node-unlock 1.8s ease both;
+}
+.is-unlocking .journey-node-state {
+  animation: journey-lock-release 1.8s ease both;
+}
+.journey-unlocking-lock {
+  position: absolute;
+  z-index: 2;
+  bottom: -8px;
+  right: -12px;
+  animation: journey-lock-away 1.8s ease both;
+}
+@keyframes journey-lock-away {
+  0%,
+  35% {
+    opacity: 1;
+    transform: rotate(-8deg);
+  }
+  48% {
+    opacity: 1;
+    transform: translateY(-16px) rotate(10deg);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.5);
+  }
+}
+@keyframes journey-node-unlock {
+  0% {
+    filter: grayscale(1);
+    transform: scale(0.85);
+  }
+  40% {
+    filter: grayscale(1);
+    transform: scale(0.95) rotate(-5deg);
+  }
+  60% {
+    filter: grayscale(0);
+    transform: scale(1.12) rotate(4deg);
+  }
+  100% {
+    filter: grayscale(0);
+    transform: scale(1);
+  }
+}
+@keyframes journey-lock-release {
+  0%,
+  40% {
+    transform: rotate(-12deg);
+  }
+  55% {
+    transform: translateY(-14px) rotate(15deg) scale(1.15);
+  }
+  100% {
+    transform: none;
+  }
+}
+.curriculum-board .journey-parent-notes {
+  margin: 0;
+  padding: 0 12px;
+  max-height: 25vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+@media (max-width: 1100px) {
+  .curriculum-board .journey-adventure-layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .curriculum-board .journey-mission-content {
+    padding: 16px 14px;
+  }
+  .curriculum-board .journey-region {
+    gap: 5px;
+    padding-inline: 6px;
+  }
+}
+@media (max-height: 500px) {
+  .curriculum-board .journey-world-wrap {
+    padding: 6px 10px 10px;
+    gap: 7px;
+  }
+  .curriculum-board .journey-world-selector {
+    gap: 5px;
+  }
+  .curriculum-board .journey-region {
+    min-height: 44px;
+    padding: 3px 5px;
+    gap: 4px;
+    border-radius: 12px;
+  }
+  .curriculum-board .journey-region svg {
+    width: 24px;
+    height: 24px;
+  }
+  .curriculum-board .journey-region strong {
+    font-size: 10px;
+  }
+  .curriculum-board .journey-region small {
+    font-size: 9px;
+  }
+  .curriculum-board .journey-adventure-layout {
+    grid-template-columns: 184px minmax(0, 1fr);
+    gap: 9px;
+  }
+  .curriculum-board .journey-mission {
+    border-radius: 18px;
+  }
+  .curriculum-board .journey-mission-content {
+    padding: 8px;
+  }
+  .curriculum-board .journey-eyebrow {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+  .curriculum-board .journey-mission-content h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  .journey-chapter-activities li {
+    min-height: 28px;
+    padding: 3px;
+    gap: 5px;
+    font-size: 11px;
+  }
+  .journey-chapter-activities .path-game-sprite {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .journey-activity-number {
+    flex-basis: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  .curriculum-board .journey-play-button {
+    min-height: 44px;
+    font-size: 12px;
+    margin-top: 6px;
+    gap: 4px;
+  }
+  .curriculum-board .journey-map-heading {
+    padding: 4px 12px;
+  }
+  .curriculum-board .journey-map-heading h2 {
+    font-size: 15px;
+  }
+  .curriculum-board .journey-map-heading svg {
+    width: 26px;
+    height: 26px;
+  }
+  .curriculum-board .journey-map-legend {
+    padding: 4px;
+    font-size: 10px;
+  }
+  .journey-chapter-activities li + li {
+    margin-top: 2px;
+  }
+  .curriculum-board .journey-stage {
+    height: 64px;
+  }
+  .curriculum-board .journey-node {
+    width: 58px;
+    height: 52px;
+  }
+  .curriculum-board .journey-letter-toy {
+    font-size: 35px !important;
+  }
+  .curriculum-board .journey-letter-english {
+    font-size: 21px;
+  }
+  .curriculum-board .journey-node-top > svg {
+    width: 40px;
+    height: 40px;
+  }
+  .curriculum-board .journey-stage-label {
+    top: 62px;
+    min-height: 34px;
+    padding: 4px;
+  }
+  .curriculum-board .journey-stage-label strong {
+    font-size: 10px;
+  }
+  .curriculum-board .journey-stage-label small {
+    font-size: 9px;
+    margin-top: 1px;
+  }
+  .curriculum-board .journey-here {
+    top: -24px;
+    padding: 2px 8px;
+    font-size: 10px;
+  }
+  .curriculum-board .journey-parent-notes {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-unlocking .journey-node,
+  .is-unlocking .journey-node-state {
+    animation: none;
+  }
+  .journey-unlocking-lock {
+    display: none;
+  }
+}

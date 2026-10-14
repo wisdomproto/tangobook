@@ -1,5 +1,7 @@
 # 공통 기반·배포 작업 기록
 
+- [홈 언어 입구·추천 도서 개편](20261014-home-course-portals.md) — planned. 전체 카드 언어 입구, 내부 이어하기/모드 제거·추천 확장·공식 사례 참고. 구현 미완료.
+
 - [학습자 삽화 UI·전체 레이아웃](20261013-storybook-learning-ui.md) — integrated, 로컬 main8f316a9ee·76회귀/타입/build·대표 실제 화면, 미푸시.
 
 새 작업은 [템플릿](../../TASK-TEMPLATE.md)을 날짜와 작업명이 있는 파일로 복사한다. README는 작업 자체가 아니다.

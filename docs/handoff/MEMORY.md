@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [커리큘럼 보드 적용](../work/phonics/tasks/20261014-curriculum-board-review.md): 후속 승인으로 예전 권별 지도를 한영 기본으로 통합·상단 최소화·실제 챕터 활동 순서·한 CTA, 현재/완료 미리보기·미래 잠금/실제 인접 unlock·자동 연결을 유지했다. 고유64회귀·타입/lint/build·PC/태블릿/가로폰 검수. [자유모드 같은 세계관 검토](../work/phonics/tasks/20261014-free-mode-map.md), [홈 카드·추천 개편](../work/platform/tasks/20261014-home-course-portals.md), [게임 반응형 전수 유형 점검](../work/games/tasks/20261014-responsive-games-audit.md)은 아직 미구현/플레이 검수 미완료로 보존한다. 기존 push 승인을 이번 작업에 확대하지 않는다.
+
 2026-10-14 [영어 블록 main 전달](../work/phonics/tasks/20261014-english-block-layout.md#main-전달): 사용자 요청으로 관련4커밋 일반 push432efae44→9e8bab5dd, 원격/로컬 SHA 일치·0/0 확인. 공용 입력 선택·영어 한 줄 트레이·태블릿/폰 및 영어 전용 조합/PC 확대 포함. 전달 문서도 후속 push한다. 아래 미푸시는 당시 상태이며 운영 배포 완료 미확인.
 
 2026-10-14 [영어 전용 조합 배치·PC 크기](../work/phonics/tasks/20261014-english-block-layout.md#pc-빈-판블록타겟-크기-후속): 사용자 빈 판 반증/상하 블록·타겟 확대/한 줄 영어 전용 배치 결정.700px 이상 가로는 큰 빈 두 패널 없이 타겟 바로 아래 작은 슬롯 받침·가까운 알파벳/행동. PC 타겟176px·알파벳72×84·입력134×151 실측,1920/1366/1024/568 및native drag/undo 확인. CSS/diff 통과·기존31회귀/타입/build는 반복하지 않음.6d36ce3ac 로컬 main 통합·미푸시, 아래 한영 같은 큰 판 기록은 수정 전이다.
