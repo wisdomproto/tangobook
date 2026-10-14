@@ -130,13 +130,21 @@ function TrayPiece({
   onPick,
   onDragStart,
   fixedOrientation = false,
+  swipeToScroll = false,
 }: {
   entry: { id: number; rotDeg: number };
   picked: { id: number; rotDeg: number } | null;
   onPick: (p: { id: number; rotDeg: number }) => void;
-  onDragStart: (p: { id: number; rotDeg: number }, e: ReactPointerEvent) => void;
+  onDragStart: (
+    p: { id: number; rotDeg: number },
+    e: ReactPointerEvent,
+    origin?: { x: number; y: number }
+  ) => void;
   fixedOrientation?: boolean;
+  swipeToScroll?: boolean;
 }) {
+  const touchStart = useRef<{ x: number; y: number; swiping: boolean } | null>(null);
+  const suppressClick = useRef(false);
   const id = entry.id;
   const selected = picked?.id === id && (!fixedOrientation || picked.rotDeg === entry.rotDeg);
   const rotDeg = selected ? picked.rotDeg : entry.rotDeg;
@@ -153,10 +161,41 @@ function TrayPiece({
   return (
     <button
       type="button"
-      onPointerDown={(e) => onDragStart({ id, rotDeg }, e)}
-      onClick={selected && canRotate ? onRotate : onSelect}
+      onPointerDown={(e) => {
+        suppressClick.current = false;
+        if (swipeToScroll && e.pointerType === 'touch') {
+          touchStart.current = { x: e.clientX, y: e.clientY, swiping: false };
+        } else onDragStart({ id, rotDeg }, e);
+      }}
+      onPointerMove={(e) => {
+        const start = touchStart.current;
+        if (!start || start.swiping) return;
+        const dx = Math.abs(e.clientX - start.x);
+        const dy = Math.abs(e.clientY - start.y);
+        if (Math.max(dx, dy) < DRAG_THRESHOLD_PX) return;
+        suppressClick.current = true;
+        if (dx >= dy) start.swiping = true;
+        else {
+          touchStart.current = null;
+          onDragStart({ id, rotDeg }, e, start);
+        }
+      }}
+      onPointerUp={() => {
+        touchStart.current = null;
+      }}
+      onPointerCancel={() => {
+        touchStart.current = null;
+      }}
+      onClick={(e) => {
+        if (suppressClick.current) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        (selected && canRotate ? onRotate : onSelect)();
+      }}
       aria-label={selected && canRotate ? `${ch} 돌리기` : `${ch} 고르기`}
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: swipeToScroll ? 'pan-x' : 'none' }}
       className={cn(
         'relative rounded-2xl bg-white transition-all min-h-[56px] min-w-[56px] p-1.5 short:min-h-[40px] short:min-w-[40px] short:p-0.5 flex items-center justify-center',
         selected
@@ -320,7 +359,11 @@ export function TangoBoard({
   );
 
   const handleDragStart = useCallback(
-    (piece: { id: number; rotDeg: number; uid?: number }, e: ReactPointerEvent) => {
+    (
+      piece: { id: number; rotDeg: number; uid?: number },
+      e: ReactPointerEvent,
+      origin?: { x: number; y: number }
+    ) => {
       if (disabled) return;
       (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
       draggedRef.current = false;
@@ -337,11 +380,11 @@ export function TangoBoard({
           : undefined;
       setDrag({
         ...piece,
-        startX: e.clientX,
-        startY: e.clientY,
+        startX: origin?.x ?? e.clientX,
+        startY: origin?.y ?? e.clientY,
         x: e.clientX,
         y: e.clientY,
-        moved: false,
+        moved: !!origin,
         outsideBoard: false,
         grabOffset,
       });
@@ -433,14 +476,14 @@ export function TangoBoard({
 
   return (
     <div
-      className="w-full min-w-0 flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1"
+      className="tango-board-root w-full min-w-0 flex-1 min-h-0 flex flex-col gap-2 sm:gap-3 short:gap-1"
       onPointerMove={drag ? handleDragMove : undefined}
       onPointerUp={drag ? handleDragEnd : undefined}
       onPointerCancel={drag ? () => setDrag(null) : undefined}
     >
       {/* 🔴 판이 남는 높이를 **먹고** 트레이는 제 높이를 지킨다. 예전엔 판이 폭 기준(24:10)이라
           납작한 화면(태블릿 가로 768 · 폰 가로 375)에서 트레이를 화면 밖으로 11~80px 밀어냈다. */}
-      <div className="flex-1 min-h-0 flex items-center justify-center">
+      <div className="tango-board-surface-wrap flex-1 min-h-0 flex items-center justify-center">
         <div
           onClick={handleBoardTap}
           className={cn(
@@ -552,63 +595,73 @@ export function TangoBoard({
 
       {/* 트레이는 단원별 선택지 수와 무관하게 한 줄이다. 넘치는 선택지는 큰 화살표로 이동한다. */}
       <div className="tango-tray shrink-0">
-        {trayOverflow && (
-          <button
-            className="tango-tray-arrow"
-            type="button"
-            aria-label="이전 블록 보기"
-            disabled={!trayScroll.left}
-            onClick={() => slideTray(-1)}
-          >
-            <StorybookSprite name="next" className="tango-tray-arrow-left" />
-          </button>
-        )}
-        {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
+        <div className="tango-consonant-strip">
+          {trayOverflow && (
+            <button
+              className="tango-tray-arrow"
+              type="button"
+              aria-label="이전 블록 보기"
+              disabled={!trayScroll.left}
+              onClick={() => slideTray(-1)}
+            >
+              <StorybookSprite name="next" className="tango-tray-arrow-left" />
+            </button>
+          )}
+          {/* 🔴 줄바꿈 대신 **가로 스크롤** — 줄이 늘 때마다 판이 그만큼 줄어든다.
             라이브러리 표지 줄과 같은 규칙(스크롤바만 숨기고 네이티브 스크롤 유지). */}
-        <div className="tango-tray-frame">
-          <div
-            ref={trayRef}
-            onScroll={updateTrayScroll}
-            tabIndex={0}
-            className="tango-tray-viewport [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            role="group"
-            aria-label="블록 고르기"
-          >
-            <div ref={trayItemsRef} className="tango-tray-items">
-              {(tray?.consonants ?? TRAY_CHO).map((e) => (
-                <TrayPiece
-                  key={`${e.id}:${e.rotDeg}`}
-                  entry={e}
-                  fixedOrientation={!!tray}
-                  picked={picked}
-                  onPick={onPick}
-                  onDragStart={handleDragStart}
-                />
-              ))}
-              <span aria-hidden className="w-px self-stretch bg-peach-300 mx-1" />
-              {(tray?.vowels ?? TRAY_JUNG).map((e) => (
-                <TrayPiece
-                  key={`${e.id}:${e.rotDeg}`}
-                  entry={e}
-                  picked={picked}
-                  onPick={onPick}
-                  onDragStart={handleDragStart}
-                />
-              ))}
+          <div className="tango-tray-frame">
+            <div
+              ref={trayRef}
+              onScroll={updateTrayScroll}
+              tabIndex={0}
+              className="tango-tray-viewport [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              role="group"
+              aria-label="자음 블록 고르기"
+            >
+              <div ref={trayItemsRef} className="tango-tray-items">
+                {(tray?.consonants ?? TRAY_CHO).map((e) => (
+                  <TrayPiece
+                    key={`${e.id}:${e.rotDeg}`}
+                    entry={e}
+                    fixedOrientation={!!tray}
+                    swipeToScroll
+                    picked={picked}
+                    onPick={onPick}
+                    onDragStart={handleDragStart}
+                  />
+                ))}
+              </div>
             </div>
           </div>
+          {trayOverflow && (
+            <button
+              className="tango-tray-arrow"
+              type="button"
+              aria-label="다음 블록 보기"
+              disabled={!trayScroll.right}
+              onClick={() => slideTray(1)}
+            >
+              <StorybookSprite name="next" />
+            </button>
+          )}
         </div>
-        {trayOverflow && (
-          <button
-            className="tango-tray-arrow"
-            type="button"
-            aria-label="다음 블록 보기"
-            disabled={!trayScroll.right}
-            onClick={() => slideTray(1)}
-          >
-            <StorybookSprite name="next" />
-          </button>
-        )}
+        <div
+          className="tango-tray-frame tango-vowel-frame"
+          role="group"
+          aria-label="모음 블록 고르기"
+        >
+          <div className="tango-tray-vowels">
+            {(tray?.vowels ?? TRAY_JUNG).map((e) => (
+              <TrayPiece
+                key={`${e.id}:${e.rotDeg}`}
+                entry={e}
+                picked={picked}
+                onPick={onPick}
+                onDragStart={handleDragStart}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

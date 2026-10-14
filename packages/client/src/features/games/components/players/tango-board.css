@@ -5,6 +5,27 @@
   padding: 0;
   min-width: 0;
 }
+.tango-consonant-strip {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 8px;
+  min-width: 0;
+}
+.tango-tray-frame.tango-vowel-frame {
+  flex: 0 0 auto;
+}
+.tango-tray-vowels {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px;
+}
+.tango-tray-vowels > button {
+  flex: 0 0 56px;
+  width: 56px;
+  min-width: 56px;
+}
 .tango-tray-frame {
   min-width: 0;
   flex: 1;
@@ -20,6 +41,7 @@
   overflow-x: auto;
   overscroll-behavior-x: contain;
   border-radius: 10px;
+  touch-action: pan-x;
 }
 .tango-tray-viewport:focus-visible {
   outline: 3px solid #c63d21;
@@ -73,6 +95,27 @@
   outline-offset: 3px;
 }
 @media (orientation: landscape) {
+  .korean-block-stage:not([data-camera]) .korean-block-play-area {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr) auto;
+    row-gap: 8px;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-play-area > .tango-board-root {
+    display: contents;
+  }
+  .korean-block-stage:not([data-camera]) .tango-board-surface-wrap {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .korean-block-stage:not([data-camera]) .korean-block-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .korean-block-stage:not([data-camera]) .tango-tray {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
   .korean-block-stage .korean-block-play-area {
     gap: clamp(24px, 2.5vw, 40px);
   }
@@ -84,6 +127,19 @@
   .tango-tray {
     gap: 6px;
     padding: 0;
+  }
+  .tango-consonant-strip {
+    gap: 6px;
+  }
+  .tango-tray-vowels {
+    gap: 4px;
+    padding: 4px 2px;
+  }
+  .tango-tray-vowels > button {
+    flex-basis: 44px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   .tango-tray-frame {
     margin: 2px 0;

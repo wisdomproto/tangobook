@@ -4,6 +4,88 @@ import { blockIndexOf, trayEntriesForLetters } from '../../lib/tango-board/block
 import { TangoBoard, canPlace, findNearestPlacement } from './TangoBoard';
 
 describe('TangoBoard drag preview', () => {
+  const touchEvent = (type: string, x: number, y: number) => {
+    const event = new Event(type, { bubbles: true });
+    Object.defineProperties(event, {
+      pointerId: { value: 1 },
+      pointerType: { value: 'touch' },
+      clientX: { value: x },
+      clientY: { value: y },
+    });
+    return event;
+  };
+  it('leaves horizontal touch swipes to scrolling without selecting or placing a block', () => {
+    const onPick = vi.fn();
+    const onPlace = vi.fn();
+    const { getByRole } = render(
+      <TangoBoard
+        placed={[]}
+        picked={null}
+        onPick={onPick}
+        onPlace={onPlace}
+        onMovePlaced={vi.fn()}
+        onRemovePlaced={vi.fn()}
+        onRotatePlaced={vi.fn()}
+      />
+    );
+    const consonant = getByRole('button', { name: 'ㄱ 고르기' });
+    const capture = vi.fn();
+    Object.defineProperty(consonant, 'setPointerCapture', { value: capture });
+    expect(consonant.style.touchAction).toBe('pan-x');
+    fireEvent(consonant, touchEvent('pointerdown', 150, 150));
+    fireEvent(consonant, touchEvent('pointermove', 90, 152));
+    fireEvent(consonant, touchEvent('pointercancel', 90, 152));
+    fireEvent.click(consonant);
+    expect(capture).not.toHaveBeenCalled();
+    expect(onPick).not.toHaveBeenCalled();
+    expect(onPlace).not.toHaveBeenCalled();
+    fireEvent(consonant, touchEvent('pointerdown', 150, 150));
+    fireEvent(consonant, touchEvent('pointerup', 150, 150));
+    fireEvent.click(consonant);
+    expect(onPick).toHaveBeenCalledWith({ id: blockIndexOf('ㄱ'), rotDeg: 0 });
+  });
+  it('starts block placement when a touch moves upward instead of sideways', () => {
+    const onPlace = vi.fn();
+    const { getByRole, container } = render(
+      <TangoBoard
+        placed={[]}
+        picked={null}
+        onPick={vi.fn()}
+        onPlace={onPlace}
+        onMovePlaced={vi.fn()}
+        onRemovePlaced={vi.fn()}
+        onRotatePlaced={vi.fn()}
+      />
+    );
+    const board = container.querySelector<SVGSVGElement>('svg[viewBox="0 0 24 8"]')!;
+    vi.spyOn(board, 'getBoundingClientRect').mockReturnValue({
+      left: 0,
+      top: 0,
+      right: 240,
+      bottom: 80,
+      width: 240,
+      height: 80,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+    Object.defineProperty(board, 'getScreenCTM', { value: () => ({ inverse: () => ({}) }) });
+    Object.defineProperty(board, 'createSVGPoint', {
+      value: () => {
+        const point = { x: 0, y: 0, matrixTransform: () => ({ x: point.x / 10, y: point.y / 10 }) };
+        return point;
+      },
+    });
+    const consonant = getByRole('button', { name: 'ㄱ 고르기' });
+    const capture = vi.fn();
+    Object.defineProperty(consonant, 'setPointerCapture', { value: capture });
+    fireEvent(consonant, touchEvent('pointerdown', 35, 110));
+    fireEvent(consonant, touchEvent('pointermove', 35, 90));
+    expect(capture).toHaveBeenCalledWith(1);
+    fireEvent(consonant, touchEvent('pointermove', 35, 35));
+    fireEvent(consonant, touchEvent('pointerup', 35, 35));
+    expect(onPlace).toHaveBeenCalledWith(2, 2, blockIndexOf('ㄱ'), 0);
+  });
   it('slides overflowing choices with arrows and disables the reached edge', () => {
     const onPick = vi.fn();
     const { getByRole } = render(
@@ -17,7 +99,10 @@ describe('TangoBoard drag preview', () => {
         onRotatePlaced={vi.fn()}
       />
     );
-    const viewport = getByRole('group', { name: '블록 고르기' });
+    const viewport = getByRole('group', { name: '자음 블록 고르기' });
+    const vowels = getByRole('group', { name: '모음 블록 고르기' });
+    expect(vowels.querySelectorAll('button')).toHaveLength(3);
+    expect(viewport.contains(vowels)).toBe(false);
     Object.defineProperties(viewport, {
       clientWidth: { value: 240 },
       scrollWidth: { value: 600 },
@@ -35,6 +120,7 @@ describe('TangoBoard drag preview', () => {
     fireEvent.click(getByRole('button', { name: '이전 블록 보기' }));
     expect(scrollBy).toHaveBeenLastCalledWith({ left: -180, behavior: 'smooth' });
     expect(onPick).not.toHaveBeenCalled();
+    expect(vowels.querySelectorAll('button')).toHaveLength(3);
   });
   it('keeps learned letters separate even when they share a physical block', () => {
     const onPick = vi.fn();
