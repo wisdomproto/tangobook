@@ -2,12 +2,12 @@
 
 - id: 20261014-korean-basic-block-composition
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: c650667bb
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 0ae04d49a 로컬 main fast-forward 통합
 - delivery: 이번 작업 미푸시·미배포
 
 ## 사용자 결정
