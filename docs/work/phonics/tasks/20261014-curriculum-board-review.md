@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: 1679fe6fb 로컬 main fast-forward
-- delivery: 미푸시·미배포
+- delivery: 808df8b38 원격 main push 완료·운영 배포 완료 미확인
 
 ## 사용자 반증과 실제 원인
 
@@ -44,3 +44,7 @@
 ## 인계·통합
 
 코드와 기억1679fe6fb를 C:/project/tangobook main에 fast-forward했다. 기존 ReviewWriteActivity.test.tsx의 줄바꿈 변경/미추적 이미지·output은 stage하지 않았다.5186 Vite는 개발 worktree에서 계속 실행하며 새 지도 HMR을 실제 확인했다. 원격 push/배포는 하지 않았다. 홈/전체 게임/자유모드 작업 기록은 main에 보존됐지만 해당 구현/전수 검수는 미완료다.
+
+## main 전달 — 2026-10-14
+
+사용자 현재 요청으로 커리큘럼 보드와 자유모드 지도/활동 통합 관련 대기4커밋을 일반 push했다. origin/main 59d955d2d→808df8b38, 원격/로컬 SHA 일치·0/0 확인. 미추적 자산/관련 없는 쓰기 테스트 줄바꿈은 포함하지 않았다. 위 미푸시·미승인은 요청 전 당시 상태다. 전달 문서도 후속 push한다. Railway 운영 배포 완료는 별도 미확인.
