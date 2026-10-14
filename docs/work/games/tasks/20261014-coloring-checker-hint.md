@@ -2,12 +2,12 @@
 
 - id: 20261014-coloring-checker-hint
 - domain: games
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: 4f817c0bf
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: d506c52dc 코드·검증 기록 로컬 main fast-forward 통합 확인
 - delivery: 미푸시·미배포
 
 ## 요청
@@ -30,3 +30,7 @@
 - 실제 localhost5186 메뉴에서 신데렐라6쪽 물감 전환→보라색 망토 붓질→다시 초기화 검수. 체크 패턴 없이 안쪽 선만 안내하며 직접 칠한 붓자국과 초기화가 정상이다. 신데렐라 어휘 계단/개구리 왕자3쪽도 체크 없이 렌더링 확인했다.
 - 원본4장 육안 검사와 실제 대표3화면 검수다.2430개 원본 전수 육안 검사/모든 게임 완주/실기기 검증으로 보고하지 않는다. 공통 플레이어 교체는 모든 장면·어휘 caller에 적용된다. 운영 원본/R2/책 데이터 수정 없음.
 - 원본 증거: worktree `output/coloring-hint-checker-20261014/`(미추적). 화면 증거: `C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/{cinderella,vocabulary,frog-prince}-coloring-outline-20261014.png`.
+
+## 전달
+
+코드·관련 기록7파일을 d506c52dc에 로컬 커밋하고 root main에 fast-forward, 동일 HEAD와 tracked clean 확인. 기존 미추적 출력과 다른 쓰기 테스트 줄바꿈 변경을 보존했다. 이번 작업의 main push 요청은 없으므로 원격에는 전달하지 않았다. Vite5186은 검수 후 유지하고 임시 검수 탭만 닫았다.
