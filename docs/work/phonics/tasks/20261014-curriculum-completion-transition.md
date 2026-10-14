@@ -2,12 +2,12 @@
 
 - id: 20261014-curriculum-completion-transition
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-14
 - base: 67de689d6
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
-- integration: 미통합
+- integration: 7abb02a93 코드·기억 로컬 main fast-forward 완료
 - delivery: 새 push/배포 요청 없음
 
 ## 요청과 결정
@@ -43,3 +43,7 @@
 - 실제 localhost 한영 모드 입구1280×800/1024×768/568×320의 이어하기/모드 그림 배치와 영어 이어하기→실제 첫 활동 안내를 확인했다. 버튼/텍스트 겹침은 없고, 중간 별도 안내 행이 화면을 밀던 반증을 안내+활동 순서 한 줄로 해결했다. 운영 학습 완료나 답안은 새로 기록하지 않았다.
 - 완료/챕터 안내와 초기 지도는 실제 새 컴포넌트를 isolated props로 렌더한 **정적 미리보기**다. 실제1400ms 전환·잠금 해제는 호스트 콜백 회귀에서 검증했다. 경쟁 앱/실기기/전체 오디오 청취/전권 완주 증거로 확대하지 않는다.
 - 증빙: C:/Users/kil21/.codex/visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02/curriculum-flow-20261014/. temporary guided-flow-qa.html은 검수 뒤 삭제하고 커밋하지 않는다. 기존 줄바꿈 테스트/미추적 자산은 보존한다.
+
+## 인계·통합
+
+7abb02a93 코드·기억을 C:/project/tangobook main에 fast-forward했다. 마지막 안내 줄 정리/검증 후 타입/source lint/build도 통과했고 lint-staged 정상 실행을 확인했다. 임시 QA HTML은 삭제했다.5186은 개발 worktree의 최종 코드로 유지되며 원격 push/배포는 이번에 요청되지 않아 실행하지 않았다. 학생 학습 완료를 새로 기록한 브라우저 완주 검증은 아니며 위 실제 화면/정적 미리보기/호스트 콜백 증거 범위를 구분한다.

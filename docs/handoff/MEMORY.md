@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-14 [한영 안내 흐름 로컬 통합](../work/phonics/tasks/20261014-curriculum-completion-transition.md#인계통합): 7abb02a93 main 포함. 완료1.4초/자동 다음·챕터 지도 unlock·모드 입구 이어하기·첫 챕터 안내,105회귀/타입/lint/build·실제 화면/정적 미리보기 검증 범위 기록. 임시 검수 HTML 삭제, 원격 push/배포 미요청·미실행.
+
 2026-10-14 [한영 자연스러운 완료 전환·입구](../work/phonics/tasks/20261014-curriculum-completion-transition.md): 활동 완료1.4초 안내/자동 다음, 챕터 끝 지도 unlock·복습 선택 복귀. 사용자가 한영 모드 입구 이어하기 위치 확정, 실제 current로 직행·완료/자녀 분리. 실제 첫 챕터 안내형 튜토리얼 추가, 새 완료 기록 없음. 원격 push/배포는 미요청.
 
 2026-10-14 [한영 커리큘럼 개별 복습 로컬 통합](../work/phonics/tasks/20261014-korean-curriculum-flow-review.md#인계통합): a0587199e 코드·기억 main 포함,92회귀·타입/lint/build·반응형/한글 실제 복습 Back 선택 복원 확인. 원격 push/배포 미요청·미실행.5186 최종 개발 화면 유지.
