@@ -8,7 +8,7 @@
 - branch: codex/storybook-learning-ui
 - worktree: C:/Users/kil21/.codex/worktrees/platform-ui-v2/tangobook
 - integration: a2e31b43f 전용 삽화/장면 게임 후속 main fast-forward 통합 확인
-- delivery: 미푸시·미배포
+- delivery: 사용자 승인 main push 완료(11adff4e7 원격 SHA 확인), 운영 배포 완료는 미확인
 
 ## 요청과 완료 조건
 
@@ -62,3 +62,7 @@
 - 증거: visualizations/2026/10/11/01a12b90-4491-7c02-b97d-b867f6ec4b02의 vocabulary-object-menu-20261014.png, vocabulary-object-menu-small-20261014.png. 생성/메뉴 품질 검수는 사용자 디자인 승인과 다르다.
 - 추가 관찰: 기존 신데렐라6쪽 장면 도안 말 영역에 회색 체크 무늬가 보인다(storybook-scene-coloring-existing-20261014.png). 기존 파일/렌더링 원인은 아직 분리하지 않았고 이번에는 운영 도안/R2를 수정하지 않았다. 후속에서 해당 도안 원본을 확인하고 보정 범위를 정한다.
 - a2e31b43f 코드/기억/자산 root main fast-forward 통합 확인. 이번 후속도 원격 push/운영 콘텐츠 수정 요청 없음.
+
+## 사용자 승인 main 전달 (2026-10-14)
+
+사용자 `굿. 메인에 푸시` 승인으로 책 입구 단순화·게임별 전용 삽화·숨은그림/장면 색칠 연결과 통합 기록4커밋을 일반 push했다. fetch 후 origin/main...HEAD=0/4 확인,2b2e036a4→11adff4e7 전달 후 ls-remote main과 로컬 HEAD가11adff4e7818fc527efcfc315215bb9676e27826으로 일치·0/0 확인. 이전 미요청/미푸시 문구는 당시 상태다. 승인/전달 기록도 함께 push한다. Railway 배포 완료는 별도 미확인, 기존 도안 체크무늬 후속은 그대로 남는다.
