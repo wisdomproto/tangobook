@@ -1,3 +1,4 @@
+import { ListeningBlockPrompt, useListeningBlockPrompt } from '../ListeningBlockPrompt';
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { Undo2 } from 'lucide-react';
 import { LearningGameIcon } from '../LearningGameIcon';
@@ -65,6 +66,8 @@ function KoreanBlockPlayerInner({
   onComplete: _onComplete,
   onBack,
   initialInputMode = 'screen',
+  listeningPractice = false,
+  onPracticeAttempt,
   trayLetters,
 }: KoreanBlockPlayerProps) {
   const { t } = useTranslation('games');
@@ -115,8 +118,17 @@ function KoreanBlockPlayerInner({
   }, []);
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const listening = useListeningBlockPrompt({
+    enabled: listeningPractice,
+    word: currentItem.word,
+    question: currentIndex,
+    language: 'korean',
+    storybookId: sceneStorybookId,
+    ttsUrl: currentItem.ttsUrl,
+    playAudio,
+  });
   // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 한 번(사용자: 화면마다 멘트 통일).
-  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.blockMake), playAudio);
+  useGameEntryGuide(listeningPractice ? null : voiceUrl(ENTRY_GUIDE.blockMake), playAudio);
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: fetchedSourceStorybook } = useStorybook(sceneStorybookId);
   const sourceStorybook =
@@ -158,6 +170,8 @@ function KoreanBlockPlayerInner({
   // "마지막 글자 → 단어 → 칭찬" 체인의 첫 링크로 재생 (바로 재생하면 단어 발음이 끼어들어 잘림).
   const pendingLastSyllableRef = useRef<{ url?: string; text: string } | null>(null);
   useEffect(() => {
+    // Camera recognition must not interrupt the listening question with placed-letter audio.
+    if (listeningPractice && (!listening.heard || listening.busy)) return;
     if (phonicsLoading) return;
     const prev = prevSyllablesRef.current;
     const completesWord = composedText === currentItem.word && currentItem.word.length > 0;
@@ -184,7 +198,17 @@ function KoreanBlockPlayerInner({
       }
     }
     prevSyllablesRef.current = [...composedSyllables];
-  }, [composedSyllables, composedText, playAudio, phonicsMapRef, phonicsLoading, currentItem.word]);
+  }, [
+    composedSyllables,
+    composedText,
+    playAudio,
+    phonicsMapRef,
+    phonicsLoading,
+    currentItem.word,
+    listeningPractice,
+    listening.heard,
+    listening.busy,
+  ]);
 
   // 정답 시 단어 타이핑 효과
   useEffect(() => {
@@ -326,12 +350,12 @@ function KoreanBlockPlayerInner({
   // 정답 자동 체크 — 사용자가 블록 배치 완성 시 "확인" 버튼 없이 정답 처리.
   // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong 표시).
   useEffect(() => {
-    if (roundCorrect) return;
+    if (roundCorrect || listeningPractice) return;
     const composed = composedSyllables.join('');
     if (composed === currentItem.word && composed.length > 0) {
       handleCheckRef.current();
     }
-  }, [composedSyllables, currentItem.word, roundCorrect]);
+  }, [composedSyllables, currentItem.word, roundCorrect, listeningPractice]);
 
   // 다음 단어로 (장면 리빌 종료 포함). fromIndex = 방금 맞춘 단어 index.
   const goToNext = useCallback(
@@ -351,28 +375,35 @@ function KoreanBlockPlayerInner({
   );
 
   const handleCheck = useCallback(() => {
-    if (roundCorrect) return;
+    if (roundCorrect || (listeningPractice && !listening.heard)) return;
     const composed = composedSyllables.join('');
     const allCorrect = composed === currentItem.word && composed.length > 0;
+    if (listeningPractice)
+      onPracticeAttempt?.(allCorrect, currentItem.word, {
+        question: currentIndex,
+        firstAttempt: !hasTriedThisRound,
+        hintUsed: listening.hintUsed,
+      });
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
       // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
       // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
       setScore((s) => s + 1);
-      logGame({
-        gameType: 'korean-block',
-        storybookId,
-        lang: 'ko',
-        results: [
-          { word: currentItem.word, correct: isFirstTry },
-          ...decomposeWord(currentItem.word).map((syllable) => ({
-            correct: isFirstTry,
-            consonant: syllable.cho,
-            vowel: syllable.jung,
-            coda: syllable.jong ?? undefined,
-          })),
-        ],
-      });
+      if (!listeningPractice)
+        logGame({
+          gameType: 'korean-block',
+          storybookId,
+          lang: 'ko',
+          results: [
+            { word: currentItem.word, correct: isFirstTry },
+            ...decomposeWord(currentItem.word).map((syllable) => ({
+              correct: isFirstTry,
+              consonant: syllable.cho,
+              vowel: syllable.jung,
+              coda: syllable.jong ?? undefined,
+            })),
+          ],
+        });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 0.5s → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 기반으로 표시.
@@ -450,6 +481,10 @@ function KoreanBlockPlayerInner({
       setIsWrong(true);
     }
   }, [
+    listeningPractice,
+    listening.heard,
+    listening.hintUsed,
+    onPracticeAttempt,
     composedSyllables,
     hasTriedThisRound,
     logGame,
@@ -554,7 +589,9 @@ function KoreanBlockPlayerInner({
         <PhonicsBackdrop />
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
-            title={t('cards.block.labelKo')}
+            title={
+              listeningPractice ? t('phonics:activity.listenBlockPlay') : t('cards.block.labelKo')
+            }
             current={score}
             total={items.length}
             onBack={onBack}
@@ -602,37 +639,44 @@ function KoreanBlockPlayerInner({
                 : 'flex-[2] shrink-0 short:flex-none short:h-20 short:min-h-20 gap-[clamp(1rem,3vw,3rem)]'
             )}
           >
-            {currentItem.imageUrl && (
-              <div className="relative shrink-0 short:hidden">
-                <img
-                  src={currentItem.imageUrl}
-                  alt={currentItem.word}
-                  className="h-[clamp(4.5rem,24vh,18rem)] w-[clamp(4.5rem,24vh,18rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-2 border-ink-100"
-                />
-                <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
-              </div>
-            )}
-            {/* 🔴 짧은 화면(폰 가로)에서는 20vh 가 75px 이라 이 한 줄이 판을 굶긴다.
+            {listeningPractice && !roundCorrect ? (
+              <ListeningBlockPrompt prompt={listening} />
+            ) : (
+              <>
+                {currentItem.imageUrl && (
+                  <div className="relative shrink-0 short:hidden">
+                    <img
+                      src={currentItem.imageUrl}
+                      alt={currentItem.word}
+                      className="h-[clamp(4.5rem,24vh,18rem)] w-[clamp(4.5rem,24vh,18rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-2 border-ink-100"
+                    />
+                    <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
+                  </div>
+                )}
+                {/* 🔴 짧은 화면(폰 가로)에서는 20vh 가 75px 이라 이 한 줄이 판을 굶긴다.
                 `min()` 에 세로 상한을 하나 더 끼워 짧을 때만 작아지게 한다. */}
-            <h1
-              className="flex items-center justify-center font-display font-black leading-none whitespace-nowrap"
-              style={{
-                fontSize: twoCol
-                  ? 'clamp(2rem, min(8vw, 20vh), 9rem)'
-                  : 'clamp(3rem, min(15vw, 18vh), 13rem)',
-                color: '#000',
-                letterSpacing: 0,
-              }}
-            >
-              {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
-              {roundCorrect && typedChars < currentItem.word.length && (
-                <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
-              )}
-            </h1>
+                <h1
+                  className="flex items-center justify-center font-display font-black leading-none whitespace-nowrap"
+                  style={{
+                    fontSize: twoCol
+                      ? 'clamp(2rem, min(8vw, 20vh), 9rem)'
+                      : 'clamp(3rem, min(15vw, 18vh), 13rem)',
+                    color: '#000',
+                    letterSpacing: 0,
+                  }}
+                >
+                  {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
+                  {roundCorrect && typedChars < currentItem.word.length && (
+                    <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
+                  )}
+                </h1>
+              </>
+            )}
           </section>
 
           {/* 판과 블록 목록 아래에 조작 도구·확인·다음을 둔다. */}
           <section
+            {...(listeningPractice && (!listening.heard || listening.busy) ? { inert: '' } : {})}
             className={cn(
               'korean-block-play-area relative min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-soft border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex flex-col transition-all',
               twoCol ? 'flex-1' : 'flex-[4]',
@@ -682,8 +726,12 @@ function KoreanBlockPlayerInner({
               <button
                 data-learning-fx="tap"
                 type="button"
-                onClick={() => void handleReadBoard()}
-                disabled={!composedText || roundCorrect}
+                onClick={() => (listeningPractice ? handleCheck() : void handleReadBoard())}
+                disabled={
+                  !composedText ||
+                  roundCorrect ||
+                  (listeningPractice && (!listening.heard || listening.busy))
+                }
                 className={cn(
                   'bg-white text-peach-500 font-black shadow-soft border-2 border-peach-300 hover:-translate-y-0.5 hover:shadow-card transition disabled:opacity-40 disabled:translate-y-0 short:min-h-[48px] short:min-w-24 short:px-3 short:rounded-2xl short:text-sm',
                   twoCol
@@ -698,6 +746,7 @@ function KoreanBlockPlayerInner({
                 data-learning-fx="tap"
                 type="button"
                 onClick={handleNext}
+                disabled={listeningPractice && !roundCorrect}
                 className={cn(
                   'short:min-h-[48px] short:min-w-24 short:px-3 short:text-sm',
                   twoCol

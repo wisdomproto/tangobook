@@ -1,5 +1,18 @@
 {
-  "entry": { "firstStart": "첫 학습 시작하기", "viewMap": "지도 보기" },
+  "practice": {
+    "prompt": "소리를 듣고 블록을 맞춰요",
+    "listen": "소리 듣기",
+    "hint": "힌트",
+    "firstLetter": "첫 글자",
+    "loading": "소리를 준비하고 있어요",
+    "audioError": "소리를 불러오지 못했어요. 다시 눌러주세요.",
+    "hintCount": "힌트 {{count}}번",
+    "observationScore": "힌트 없이 첫 시도 {{correct}} / {{total}} · 다시 맞추기 {{retries}}회"
+  },
+  "entry": {
+    "firstStart": "첫 학습 시작하기",
+    "viewMap": "지도 보기"
+  },
   "common": {
     "back": "← 돌아가기",
     "backToUnit": "← 단원으로",
@@ -96,6 +109,7 @@
     "noPlan": "활동 준비 중"
   },
   "seo": {
+    "englishTitle": "영어 파닉스 학습 — 탱고북",
     "koreanTitle": "한글 파닉스 학습 — 탱고북",
     "koreanDescription": "한글 자음·모음·받침을 4-5세 입문자에게 친숙한 카드 + 게임으로 학습. 동화 단어와 자동 연결되는 한글 파닉스 학습.",
     "koreanKeywords": "한글 파닉스, 한글 학습, 자음 모음, 한글 받침, 한글 블렌딩, 4세 한글, 5세 한글, 6세 한글, 탱고북",
@@ -135,6 +149,7 @@
     "zhNature": "자연 ({{words}})"
   },
   "activity": {
+    "listenBlockPlay": "듣고 블록 놀이",
     "letterHunt": "글자 사냥",
     "wordWriting": "낱말 쓰기",
     "letterWriting": "글자 쓰기",

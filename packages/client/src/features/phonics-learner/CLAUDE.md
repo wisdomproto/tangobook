@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-15 후속: 한영 일반 블록 놀이/낱말 쓰기는 익히기다. 기존 block 단원에만 별도 선택 -listen 활동을 놀며 익히기로 추가, 정답 숨김·첫 글자 힌트·첫 시도/재시도 분리. 듣고 쓰기는 취소, required/기존 key/order를 보존한다. [기록](../../../../../docs/work/phonics/tasks/20261015-listening-block-practice.md).
+
 2026-10-14 최신 입구: PhonicsLearningModes 두 모드 그림은 mode-entry-v1의 기존 지도 파생 WebP를 사용한다. 모드 입구에는 이어하기가 없다. 커리큘럼 Link의 mode=curriculum&resume=1에만 CurriculumEntryDialog를 렌더하며 실제 progress.current로 직행한다. 최초는 첫 학습 시작, 전체 완료는 팝업 없음. native dialog showModal/close/ESC·profile/lang key, 실행/닫기는 resume query를 replace 소비해 브라우저 Back/챕터 복귀를 가리지 않는다. 지도 이름표는 책 sprite/과정 전체 이름, 커리큘럼 우측 자유모드 Link 제거(자유모드→경로 Link는 유지). 홈 HomeCourseResume는 언어 판 밖의 별도 Link, 실제 시작/완료 기록+current와 자녀 격리를 재사용한다. 아래 모드 화면 이어하기 결정은 이 후속으로 대체한다. [작업](../../../../../docs/work/phonics/tasks/20261014-resume-entry-placement.md).
 
 2026-10-14 완료 전환/입구 후속: GuidedRun은 실제 완료 후 ready/inert로 중복 입력을 막고 GuidedActivityTransition(check·다음 활동·진행선)을1400ms 보여준 뒤 자동 다음/지도 unlock/개별 복습 복원으로 이동한다. effect timer는 이탈/자녀 key 변경 때 취소한다. 기존 마지막 발음/칭찬 종료 콜백에서만 시작하며 추가 버튼/새 완료 기록이 없다. 처음 안내 context는 첫 챕터 미완료 활동의 press/write/choose, 복습 제외. ActivityShell은 안내+활동 순서를 한 줄로 제공한다. 모드 입구의 명시적 이어하기는 started/실제 완료가 있고 current가 있을 때만 현재 activity URL로 직행한다. 첫 지도 안내는 !started/완료0/첫 챕터만. [승인·검수](../../../../../docs/work/phonics/tasks/20261014-curriculum-completion-transition.md).

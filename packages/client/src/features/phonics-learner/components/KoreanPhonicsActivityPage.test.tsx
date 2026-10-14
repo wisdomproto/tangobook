@@ -99,7 +99,7 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
     expect(write).toHaveAttribute('data-repetitions', '3');
     expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual(['consonant-tap']);
     fireEvent.click(write);
-    expect(await screen.findByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual([
       'consonant-tap',
       'letter-write',
@@ -114,9 +114,9 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
   it('구형 ㅑ 듣기를 정확한 쓰기로 이어주고 둘 다 마치면 같은 챕터로 돌아온다', async () => {
     open('/library/phonics/korean/kr-v1-u02/listen-1');
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅑ' }));
-    expect(screen.queryByRole('heading', { name: '한글 · 자유모드' })).toBeNull();
+    expect(screen.queryByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeNull();
     fireEvent.click(await screen.findByRole('button', { name: '쓴 모음 ㅑ' }));
-    expect(await screen.findByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
     expect(screen.queryByRole('button', { name: '들은 모음 ㅓ' })).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([
       'listen-2',
@@ -135,7 +135,7 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
     open('/library/phonics/korean/kr-v1-g01/write-4');
     fireEvent.click(screen.getByRole('button', { name: '쓴 모음 ㅕ' }));
     await waitFor(() =>
-      expect(screen.getByRole('heading', { name: '한글 · 자유모드' })).toBeDefined()
+      expect(screen.getByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined()
     );
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual(['write-4']);
   });
@@ -150,7 +150,7 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
   it('자유모드 게임 완료 뒤 해당 챕터 활동 선택으로 돌아오고 다른 활동은 완료로 만들지 않는다', async () => {
     open('/library/phonics/korean/kr-v1-g02/listen-game');
     fireEvent.click(screen.getByRole('button', { name: /모음 놀이/ }));
-    expect(await screen.findByRole('heading', { name: '한글 · 자유모드' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-g02').completedActivities).toEqual(['listen-game']);
     expect(screen.getByRole('link', { name: 'ㅗ 배우기' })).toBeDefined();
   });
@@ -212,4 +212,24 @@ describe('커리큘럼 모드 라우트', () => {
     expect(screen.queryByRole('status', { name: '다음 챕터가 열렸어!' })).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([]);
   });
+});
+
+it('sets its own metadata on direct korean activity entry', async () => {
+  document.title = 'previous unrelated page';
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum']}>
+      <Routes>
+        <Route
+          path="/library/phonics/korean/:unitId/:activityKey"
+          element={<KoreanPhonicsActivityPage />}
+        />
+      </Routes>
+    </MemoryRouter>
+  );
+  expect(await screen.findByRole('button', { name: '들은 모음 ㅏ' })).toBeDefined();
+  expect(document.title).toBe('한글 파닉스 학습 — 탱고북');
+  expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://www.tangobook.co.kr/library/phonics/korean'
+  );
 });

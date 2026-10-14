@@ -1,5 +1,18 @@
 {
-  "entry": { "firstStart": "开始第一课", "viewMap": "查看地图" },
+  "practice": {
+    "prompt": "听声音拼出单词",
+    "listen": "听声音",
+    "hint": "提示",
+    "firstLetter": "第一个字",
+    "loading": "正在准备音频",
+    "audioError": "音频加载失败，请重试。",
+    "hintCount": "提示 {{count}}次",
+    "observationScore": "首次独立作答 {{correct}} / {{total}} · 重试 {{retries}} 次"
+  },
+  "entry": {
+    "firstStart": "开始第一课",
+    "viewMap": "查看地图"
+  },
   "common": {
     "back": "← 返回",
     "backToUnit": "← 回到单元",
@@ -96,6 +109,7 @@
     "noPlan": "活动准备中"
   },
   "seo": {
+    "englishTitle": "英语自然拼读学习 — TangoBook",
     "koreanTitle": "韩语拼读学习 — Tangobook",
     "koreanDescription": "用适合 4-5 岁初学者的卡片和游戏，学习韩语的辅音、元音和收音。与童话故事词语自动连接的韩语拼读学习。",
     "koreanKeywords": "韩语拼读, 学韩文, 韩语辅音元音, 韩语收音, 韩语拼读组合, 4岁学韩语, 5岁学韩语, 6岁学韩语, Tangobook",
@@ -135,6 +149,7 @@
     "zhNature": "自然（{{words}}）"
   },
   "activity": {
+    "listenBlockPlay": "听音拼积木",
     "letterHunt": "找字游戏",
     "wordWriting": "写词语",
     "letterWriting": "写字",

@@ -110,7 +110,7 @@ it('opens free writing out of order and returns to the same chapter activity sel
     </MemoryRouter>
   );
   fireEvent.click(await screen.findByRole('button', { name: '쓰기 완료' }));
-  expect(await screen.findByRole('heading', { name: '영어 · 자유모드' })).toBeDefined();
+  expect(await screen.findByRole('heading', { name: '영어 파닉스 · 자유모드' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-write']);
   expect(screen.getByRole('link', { name: 'ABC 배우기 1' })).toBeDefined();
   expect(screen.queryByRole('button', { name: '글자 듣기 완료' })).toBeNull();
@@ -162,9 +162,31 @@ it('continues free letter learning directly into writing, recording each phase o
   expect(await screen.findByRole('button', { name: '쓰기 완료' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-learn']);
   fireEvent.click(screen.getByRole('button', { name: '쓰기 완료' }));
-  expect(await screen.findByRole('heading', { name: '영어 · 자유모드' })).toBeDefined();
+  expect(await screen.findByRole('heading', { name: '영어 파닉스 · 자유모드' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([
     'letters-learn',
     'letters-write',
   ]);
+});
+
+it('sets its own metadata on direct english activity entry', async () => {
+  document.title = 'previous unrelated page';
+  render(
+    <MemoryRouter
+      initialEntries={['/library/phonics/english/en-b1-u01/letters-learn?mode=curriculum']}
+    >
+      <Routes>
+        <Route
+          path="/library/phonics/english/:unitId/:activityKey"
+          element={<EnglishPhonicsActivityPage />}
+        />
+      </Routes>
+    </MemoryRouter>
+  );
+  expect(await screen.findByRole('button', { name: '글자 듣기 완료' })).toBeDefined();
+  expect(document.title).toBe('영어 파닉스 학습 — 탱고북');
+  expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://www.tangobook.co.kr/library/phonics/english'
+  );
 });

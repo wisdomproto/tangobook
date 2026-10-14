@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, within } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import type { StorybookSummary } from '@tangobook/shared';
 import LearningHomePage from './LearningHomePage';
+import KoreanPhonicsStudyPage from '@/features/phonics-learner/components/KoreanPhonicsStudyPage';
+import EnglishPhonicsStudyPage from '@/features/phonics-learner/components/EnglishPhonicsStudyPage';
 import {
   getUnitProgress,
   markActivityCompleted,
@@ -162,4 +164,47 @@ it('hides a completed course resume and isolates the active child', () => {
     </MemoryRouter>
   );
   expect(screen.queryByRole('link', { name: /이어서 학습하기/ })).toBeNull();
+});
+
+it('updates real page metadata across Korean, English, Home and browser Back without a reload', () => {
+  function Navigation() {
+    const navigate = useNavigate();
+    return (
+      <nav>
+        <Link to="/library/phonics/english">영어로 이동</Link>
+        <Link to="/library">홈으로 이동</Link>
+        <button onClick={() => navigate(-1)}>브라우저 뒤로</button>
+      </nav>
+    );
+  }
+  render(
+    <MemoryRouter initialEntries={['/library/phonics/korean']}>
+      <Navigation />
+      <Routes>
+        <Route path="/library" element={<LearningHomePage />} />
+        <Route path="/library/phonics/korean" element={<KoreanPhonicsStudyPage />} />
+        <Route path="/library/phonics/english" element={<EnglishPhonicsStudyPage />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  const check = (title: string, path: string) => {
+    expect(document.title).toBe(title);
+    expect(document.querySelector('meta[property="og:title"]')).toHaveAttribute('content', title);
+    expect(document.querySelector('meta[name="twitter:title"]')).toHaveAttribute('content', title);
+    expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://www.tangobook.co.kr' + path
+    );
+  };
+  check('한글 파닉스 학습 — 탱고북', '/library/phonics/korean');
+  fireEvent.click(screen.getByRole('link', { name: '영어로 이동' }));
+  check('영어 파닉스 학습 — 탱고북', '/library/phonics/english');
+  expect(document.querySelector('script[data-seo-jsonld]')?.textContent).toContain(
+    '"inLanguage":["en"]'
+  );
+  fireEvent.click(screen.getByRole('link', { name: '홈으로 이동' }));
+  check('학습 홈 — 탱고북', '/library');
+  expect(document.querySelector('script[data-seo-jsonld]')).toBeNull();
+  fireEvent.click(screen.getByRole('button', { name: '브라우저 뒤로' }));
+  check('영어 파닉스 학습 — 탱고북', '/library/phonics/english');
 });

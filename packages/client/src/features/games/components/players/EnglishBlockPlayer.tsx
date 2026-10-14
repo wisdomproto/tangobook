@@ -1,3 +1,4 @@
+import { ListeningBlockPrompt, useListeningBlockPrompt } from '../ListeningBlockPrompt';
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { Undo2 } from 'lucide-react';
 import { LearningGameIcon } from '../LearningGameIcon';
@@ -164,6 +165,8 @@ function EnglishBlockPlayerInner({
   onComplete: _onComplete,
   onBack,
   initialInputMode = 'screen',
+  listeningPractice = false,
+  onPracticeAttempt,
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
   const phonics = useVocabSource()?.source === 'phonics';
@@ -244,6 +247,15 @@ function EnglishBlockPlayerInner({
   }, [camera, cam.word, letterCount]);
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const listening = useListeningBlockPrompt({
+    enabled: listeningPractice,
+    word: currentItem.word,
+    question: currentIndex,
+    language: 'english',
+    storybookId: sceneStorybookId,
+    ttsUrl: currentItem.ttsUrl,
+    playAudio,
+  });
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: fetchedSourceStorybook } = useStorybook(sceneStorybookId);
   const sourceStorybook =
@@ -265,6 +277,8 @@ function EnglishBlockPlayerInner({
   // "마지막 글자 → 단어 → 칭찬" 체인의 첫 링크로 재생 (바로 재생하면 단어 발음이 끼어들어 잘림).
   const pendingLastLetterRef = useRef<string | null>(null);
   useEffect(() => {
+    // Camera recognition must not interrupt the listening question with placed-letter audio.
+    if (listeningPractice && (!listening.heard || listening.busy)) return;
     const prev = prevGridRef.current;
     const target = currentItem.word.toLowerCase();
     let completesWord = true;
@@ -285,7 +299,16 @@ function EnglishBlockPlayerInner({
       }
     }
     prevGridRef.current = [...grid];
-  }, [grid, playAudio, phonicsMapRef, currentItem.word, letterCount]);
+  }, [
+    grid,
+    playAudio,
+    phonicsMapRef,
+    currentItem.word,
+    letterCount,
+    listeningPractice,
+    listening.heard,
+    listening.busy,
+  ]);
 
   // 정답 확정 시 타이핑 효과: 한 글자씩 증가
   useEffect(() => {
@@ -458,17 +481,19 @@ function EnglishBlockPlayerInner({
   // 🔴 진입 안내 음성 — "블록으로 단어를 만들어봐!" 를 한 번 낸다(사용자: 화면마다 멘트 통일).
   //    알파벳 판은 낱말도 들려주므로 **안내가 끝난 뒤** 낱말이 나오게 순서를 맞춘다(겹침 방지).
   const [guideDone, setGuideDone] = useState(false);
-  useGameEntryGuide(voiceUrl(ENTRY_GUIDE.blockMake), playAudio, () => setGuideDone(true));
+  useGameEntryGuide(listeningPractice ? null : voiceUrl(ENTRY_GUIDE.blockMake), playAudio, () =>
+    setGuideDone(true)
+  );
   useEffect(() => {
     // 알파벳 판은 문제가 바뀌면 낱말을 한 번 들려준다 — 단, **첫 라운드는 안내가 끝난 뒤**.
-    if (!isAlphabetRound || !guideDone) return;
+    if (listeningPractice || !isAlphabetRound || !guideDone) return;
     void sayWordRef.current();
-  }, [currentIndex, isAlphabetRound, guideDone]);
+  }, [currentIndex, isAlphabetRound, guideDone, listeningPractice]);
 
   // 정답 자동 체크 — 모든 slot 이 target 과 일치하면 "확인" 버튼 없이 정답 처리.
   // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong slot 표시).
   useEffect(() => {
-    if (roundCorrect) return;
+    if (roundCorrect || listeningPractice) return;
     const target = currentItem.word.toLowerCase();
     let allCorrect = true;
     for (let i = 0; i < letterCount; i++) {
@@ -480,7 +505,7 @@ function EnglishBlockPlayerInner({
     if (allCorrect) {
       handleCheckRef.current();
     }
-  }, [grid, currentItem.word, letterCount, roundCorrect]);
+  }, [grid, currentItem.word, letterCount, roundCorrect, listeningPractice]);
 
   // 다음 단어로 (장면 리빌 종료 포함). fromIndex = 방금 맞춘 단어 index.
   const goToNext = useCallback(
@@ -502,7 +527,7 @@ function EnglishBlockPlayerInner({
   );
 
   const handleCheck = useCallback(() => {
-    if (roundCorrect) return;
+    if (roundCorrect || (listeningPractice && !listening.heard)) return;
     const target = currentItem.word.toLowerCase();
     const newWrongSlots = new Set<number>();
     let allCorrect = true;
@@ -512,17 +537,24 @@ function EnglishBlockPlayerInner({
         newWrongSlots.add(i);
       }
     }
+    if (listeningPractice)
+      onPracticeAttempt?.(allCorrect, currentItem.word, {
+        question: currentIndex,
+        firstAttempt: !hasTriedThisRound,
+        hintUsed: listening.hintUsed,
+      });
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
       // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
       // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
       setScore((s) => s + 1);
-      logGame({
-        gameType: 'english-block',
-        storybookId,
-        lang: 'en',
-        results: [{ word: currentItem.word, correct: isFirstTry }],
-      });
+      if (!listeningPractice)
+        logGame({
+          gameType: 'english-block',
+          storybookId,
+          lang: 'en',
+          results: [{ word: currentItem.word, correct: isFirstTry }],
+        });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 로 표시.
@@ -577,6 +609,10 @@ function EnglishBlockPlayerInner({
       setWrongSlots(newWrongSlots);
     }
   }, [
+    listeningPractice,
+    listening.heard,
+    listening.hintUsed,
+    onPracticeAttempt,
     grid,
     letterCount,
     currentItem.word,
@@ -750,7 +786,9 @@ function EnglishBlockPlayerInner({
           <PhonicsBackdrop />
           <div className="px-2 pt-2 shrink-0">
             <GameHeader
-              title={t('cards.block.labelEn')}
+              title={
+                listeningPractice ? t('phonics:activity.listenBlockPlay') : t('cards.block.labelEn')
+              }
               current={score}
               total={items.length}
               onBack={onBack}
@@ -780,37 +818,46 @@ function EnglishBlockPlayerInner({
             )}
           >
             <section className="english-block-target flex min-h-0 items-center justify-center gap-8 rounded-3xl border-2 border-white bg-white/85 px-6 py-3 shadow-soft">
-              {currentItem.imageUrl && (
-                <img
-                  className="english-block-image rounded-3xl object-contain"
-                  src={currentItem.imageUrl}
-                  alt={currentItem.word}
-                />
-              )}
-              {isAlphabetRound ? (
-                <button
-                  data-learning-fx="tap"
-                  onClick={() => void sayWord()}
-                  className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 text-lg font-black text-ink-700 shadow-soft"
-                  aria-label={t('blockGame.listenFirstLetter')}
-                >
-                  <StorybookSprite name="listen" size={32} />
-                  {t('blockGame.listenFirstLetter')}
-                </button>
+              {listeningPractice && !roundCorrect ? (
+                <ListeningBlockPrompt prompt={listening} />
               ) : (
-                <h1
-                  className="english-block-word font-display font-black text-black whitespace-nowrap"
-                  style={
-                    {
-                      '--english-word-length': Math.max(1, currentItem.word.length),
-                    } as CSSProperties
-                  }
-                >
-                  {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
-                </h1>
+                <>
+                  {currentItem.imageUrl && (
+                    <img
+                      className="english-block-image rounded-3xl object-contain"
+                      src={currentItem.imageUrl}
+                      alt={currentItem.word}
+                    />
+                  )}
+                  {isAlphabetRound ? (
+                    <button
+                      data-learning-fx="tap"
+                      onClick={() => void sayWord()}
+                      className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 text-lg font-black text-ink-700 shadow-soft"
+                      aria-label={t('blockGame.listenFirstLetter')}
+                    >
+                      <StorybookSprite name="listen" size={32} />
+                      {t('blockGame.listenFirstLetter')}
+                    </button>
+                  ) : (
+                    <h1
+                      className="english-block-word font-display font-black text-black whitespace-nowrap"
+                      style={
+                        {
+                          '--english-word-length': Math.max(1, currentItem.word.length),
+                        } as CSSProperties
+                      }
+                    >
+                      {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
+                    </h1>
+                  )}
+                </>
               )}
             </section>
-            <section className="english-block-play-area flex flex-1 min-h-0 min-w-0 flex-col gap-3 rounded-3xl border-2 border-white bg-white/85 p-4 shadow-soft">
+            <section
+              {...(listeningPractice && (!listening.heard || listening.busy) ? { inert: '' } : {})}
+              className="english-block-play-area flex flex-1 min-h-0 min-w-0 flex-col gap-3 rounded-3xl border-2 border-white bg-white/85 p-4 shadow-soft"
+            >
               {camera ? (
                 <BoardCameraPanel cam={cam} />
               ) : (
@@ -855,8 +902,13 @@ function EnglishBlockPlayerInner({
                 <button
                   type="button"
                   data-learning-fx="tap"
-                  onClick={() => void handleReadGrid()}
-                  disabled={isTutorialPlaying || roundCorrect || grid.every((letter) => !letter)}
+                  onClick={() => (listeningPractice ? handleCheck() : void handleReadGrid())}
+                  disabled={
+                    isTutorialPlaying ||
+                    roundCorrect ||
+                    grid.every((letter) => !letter) ||
+                    (listeningPractice && (!listening.heard || listening.busy))
+                  }
                   className="english-block-read inline-flex items-center justify-center gap-1 bg-white font-black text-mint-600 border-2 border-mint-300 rounded-3xl disabled:opacity-40"
                 >
                   <StorybookSprite name="listen" size={24} />
@@ -866,7 +918,7 @@ function EnglishBlockPlayerInner({
                   language="en"
                   data-learning-fx="tap"
                   onClick={handleNext}
-                  disabled={isTutorialPlaying}
+                  disabled={isTutorialPlaying || (listeningPractice && !roundCorrect)}
                   className="english-block-next"
                 >
                   {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}

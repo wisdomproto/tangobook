@@ -129,25 +129,27 @@ describe('english phonics units', () => {
     }
   });
 
-  it('Book 3·4·5 = 패턴마다 배우기 하나(써보기 내장) + 게임 4종 (2026-08-04)', () => {
+  it('Book 3·4·5 패턴 배우기와 블록/쓰기는 익히기, 듣고 블록은 놀며 익히기', () => {
     for (const u of units.filter((x) => x.levelIndex >= 3 && !x.isReview)) {
       const acts = getEnglishActivityPlan(u.id).activities;
       const learn = acts.filter((a) => a.section === 'learn');
       const play = acts.filter((a) => a.section === 'play');
       // 🔴 익히기 = 패턴마다 낱말가족 배우기 **하나** — 그 안에서 배우기→써보기로 흐른다(별도 써보기 카드 없음).
       expect(u.patterns.length).toBeGreaterThan(0);
-      expect(learn).toHaveLength(u.patterns.length);
+      expect(learn).toHaveLength(u.patterns.length + 2);
       for (let i = 0; i < u.patterns.length; i++) {
         expect(learn[i].kind).toBe('word-family-learn');
         expect(learn[i].pattern).toBe(u.patterns[i]);
       }
-      // 🔴 낱말 쓰기는 learn(패턴별 써보기)이 아니라 play 게임으로만 — Book 2 와 같은 4종 구성.
-      expect(learn.some((a) => a.kind === 'game-word-writing')).toBe(false);
-      expect(play.map((a) => a.kind)).toEqual([
+      // 일반 블록/쓰기는 익히기, 추가 듣고 블록은 놀며 익히기.
+      expect(learn.slice(u.patterns.length).map((a) => a.kind)).toEqual([
         'game-word-writing',
-        'game-connect-dots',
         'game-english-block',
+      ]);
+      expect(play.map((a) => a.kind)).toEqual([
+        'game-connect-dots',
         'game-line-matching',
+        'game-english-block',
       ]);
       expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
     }

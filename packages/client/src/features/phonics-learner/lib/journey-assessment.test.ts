@@ -25,3 +25,27 @@ it('isolates child and language observations from guest records', () => {
   localStorage.setItem('tangobook:activeProfileId', 'sibling');
   expect(readGameObservations('korean')).toEqual({});
 });
+
+it('separates hinted answers from unaided first choices and retains hints across retries', () => {
+  recordGameChoice('english', 'u', 'blocks-listen', 'run', true, 'cat', {
+    question: 0,
+    firstAttempt: true,
+    hintUsed: true,
+  });
+  recordGameChoice('english', 'u', 'blocks-listen', 'run', false, 'dog', {
+    question: 1,
+    firstAttempt: true,
+    hintUsed: false,
+  });
+  recordGameChoice('english', 'u', 'blocks-listen', 'run', true, 'dog', {
+    question: 1,
+    firstAttempt: false,
+    hintUsed: true,
+  });
+  const run = readGameObservations('english')['u/blocks-listen'];
+  expect(run.hintQuestions).toEqual([0, 1]);
+  expect(run.firstChoices[0]).toMatchObject({ correct: true, hintUsed: true });
+  expect(run.firstChoices[1]).toEqual({ target: 'dog', correct: false });
+  expect(run.retries).toBe(1);
+  expect(Object.values(run.firstChoices).filter((c) => c.correct && !c.hintUsed)).toHaveLength(0);
+});

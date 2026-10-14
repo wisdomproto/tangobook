@@ -3,11 +3,13 @@ import type { JourneyLanguage } from './learning-journey';
 export interface ChoiceEvidence {
   question: number;
   firstAttempt: boolean;
+  hintUsed?: boolean;
 }
 export interface GameObservation {
   runId: string;
-  firstChoices: Record<string, { target: string; correct: boolean }>;
+  firstChoices: Record<string, { target: string; correct: boolean; hintUsed?: boolean }>;
   retries: number;
+  hintQuestions?: number[];
 }
 
 function key(lang: JourneyLanguage) {
@@ -27,6 +29,9 @@ export function readGameObservations(lang: JourneyLanguage): Record<string, Game
           observation &&
           typeof observation.runId === 'string' &&
           typeof observation.retries === 'number' &&
+          (observation.hintQuestions === undefined ||
+            (Array.isArray(observation.hintQuestions) &&
+              observation.hintQuestions.every((q) => Number.isInteger(q) && q >= 0))) &&
           observation.firstChoices &&
           typeof observation.firstChoices === 'object' &&
           !Array.isArray(observation.firstChoices) &&
@@ -58,7 +63,14 @@ export function recordGameChoice(
     const restart = evidence.firstAttempt && evidence.question === 0 && !!previous?.firstChoices[0];
     const run: GameObservation =
       previous?.runId === runId && !restart ? previous : { runId, firstChoices: {}, retries: 0 };
-    if (evidence.firstAttempt) run.firstChoices[evidence.question] = { target, correct };
+    if (evidence.hintUsed)
+      run.hintQuestions = [...new Set([...(run.hintQuestions ?? []), evidence.question])];
+    if (evidence.firstAttempt)
+      run.firstChoices[evidence.question] = {
+        target,
+        correct,
+        ...(evidence.hintUsed ? { hintUsed: true } : {}),
+      };
     else run.retries += 1;
     all[id] = run;
     localStorage.setItem(key(lang), JSON.stringify(all));

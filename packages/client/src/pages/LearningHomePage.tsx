@@ -13,6 +13,7 @@ import { bookDisplayTitle } from '@tangobook/shared';
 import { useMemo, useState } from 'react';
 import { ArrowRight, Shuffle, Play } from 'lucide-react';
 import './learning-home.css';
+import { useSeo } from '@/lib/useSeo';
 import { usePhonicsProgress } from '@/features/phonics-learner/lib/progress-store';
 import {
   journeyProgress,
@@ -56,6 +57,12 @@ export default function LearningHomePage() {
 
 function LearningHomeContent() {
   const { t, i18n } = useTranslation('shell');
+  useSeo({
+    title: t('home.seoTitle'),
+    description: t('home.subtitle'),
+    keywords: t('home.courses'),
+    path: '/library',
+  });
   const { data: books = [], isLoading, isError, refetch } = useStorybooks();
   const { data: groups } = useBookGroups();
   const { data: config } = useLibraryConfig();

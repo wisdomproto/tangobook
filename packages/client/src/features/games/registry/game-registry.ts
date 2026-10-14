@@ -20,6 +20,12 @@ export interface ContentRequirement {
 
 /** 모든 게임 플레이어 컴포넌트가 받는 props */
 export interface GamePlayerProps {
+  listeningPractice?: boolean;
+  onPracticeAttempt?: (
+    correct: boolean,
+    target: string,
+    evidence: { question: number; firstAttempt: boolean; hintUsed: boolean }
+  ) => void;
   storybookId: string; // [신규] 말하기 게임 등 진척 추적용
   gameData: unknown;
   difficulty: GameDifficulty;

@@ -1,3 +1,4 @@
+import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
@@ -228,6 +229,31 @@ export function EnglishPhonicsActivity({
       );
     },
     [unitId, activityKey, completionId]
+  );
+
+  const observeBlockPractice = useCallback(
+    (correct: boolean, target: string, evidence: ChoiceEvidence) => {
+      recordGameChoice('english', unitId, activityKey, completionId, correct, target, evidence);
+      logEvent({
+        type: correct ? 'word_correct' : 'word_wrong',
+        storybookId: unitId,
+        gameType: 'english-block',
+        word: target,
+        metadata: {
+          schemaVersion: 2,
+          source: 'phonics',
+          unitId,
+          lang: 'en',
+          skill: 'sound',
+          activityId: activityKey,
+          activityRunId: completionId,
+          evidence: 'first-attempt',
+          firstAttempt: evidence.firstAttempt,
+          hintUsed: evidence.hintUsed,
+        },
+      });
+    },
+    [unitId, activityKey, completionId, logEvent]
   );
 
   const handleMarkComplete = useCallback(() => {
@@ -717,7 +743,12 @@ export function EnglishPhonicsActivity({
     return gate(
       'english-block',
       gameData,
-      <EnglishBlockPlayer {...commonProps} gameData={gameData} />
+      <EnglishBlockPlayer
+        {...commonProps}
+        gameData={gameData}
+        listeningPractice={activity.listeningPractice}
+        onPracticeAttempt={observeBlockPractice}
+      />
     );
   }
   if (activity.kind === 'game-word-writing') {
@@ -852,6 +883,7 @@ function ActivityUnavailable({
 
 /** 라우트 `/library/phonics/english/:unitId/:activityKey` — 위 컴포넌트에 params 를 넘길 뿐이다. */
 export default function EnglishPhonicsActivityPage() {
+  usePhonicsSeo('english');
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
   const [search] = useSearchParams();

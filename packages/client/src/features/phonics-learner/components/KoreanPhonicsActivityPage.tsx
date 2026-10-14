@@ -1,3 +1,4 @@
+import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
 import { journeyKoreanActivityRoute } from '../lib/learning-journey';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
@@ -272,6 +273,31 @@ export function KoreanPhonicsActivity({
       });
     },
     [logEvent, unitId, activityKey, completionId]
+  );
+
+  const observeBlockPractice = useCallback(
+    (correct: boolean, target: string, evidence: ChoiceEvidence) => {
+      recordGameChoice('korean', unitId, activityKey, completionId, correct, target, evidence);
+      logEvent({
+        type: correct ? 'word_correct' : 'word_wrong',
+        storybookId: unitId,
+        gameType: 'korean-block',
+        word: target,
+        metadata: {
+          schemaVersion: 2,
+          source: 'phonics',
+          unitId,
+          lang: 'ko',
+          skill: 'sound',
+          activityId: activityKey,
+          activityRunId: completionId,
+          evidence: 'first-attempt',
+          firstAttempt: evidence.firstAttempt,
+          hintUsed: evidence.hintUsed,
+        },
+      });
+    },
+    [unitId, activityKey, completionId, logEvent]
   );
 
   const handleMarkComplete = useCallback(() => {
@@ -697,7 +723,13 @@ export function KoreanPhonicsActivity({
     return gate(
       'korean-block',
       gameData,
-      <KoreanBlockPlayer {...commonProps} gameData={gameData} trayLetters={trayLetters} />
+      <KoreanBlockPlayer
+        {...commonProps}
+        gameData={gameData}
+        trayLetters={trayLetters}
+        listeningPractice={activity.listeningPractice}
+        onPracticeAttempt={observeBlockPractice}
+      />
     );
   }
   if (activity.kind === 'game-word-writing') {
@@ -809,6 +841,7 @@ function ActivityUnavailable({
  * 파라미터를 읽어 위 컴포넌트에 넘기고, 나가기는 단원 화면으로 보낸다.
  */
 export default function KoreanPhonicsActivityPage() {
+  usePhonicsSeo('korean');
   const { unitId = '', activityKey = '' } = useParams<{ unitId: string; activityKey: string }>();
   const navigate = useNavigate();
   const [search] = useSearchParams();

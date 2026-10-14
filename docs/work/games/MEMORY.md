@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-15 [파닉스 듣고 블록 놀이](../phonics/tasks/20261015-listening-block-practice.md): 공용 한영 block player의 opt-in 듣기 문제만 정답/삽화 숨김·성공 재생 gate·직접 확인/첫 글자 힌트·관찰 callback. 일반 블록/동화 게임·카메라 인식은 보존, 듣고 쓰기 취소. 현재154회귀/타입/build, 실기기 검증 아님. 전달 상태는 task 참조.
+
 2026-10-14 [반응형 게임 UI main 전달](../phonics/tasks/20261014-resume-entry-placement.md#원격-전달--2026-10-14): 사용자 현재 승인 main push에58ce47b21와 db6c23fee를 포함해 e4824a319 원격 main 확인·0/0. 앞선 로컬/미푸시는 당시 상태, 실기기 전수/운영 배포 완료는 미확인.
 
 2026-10-14 [게임 반응형·디자인 점검](tasks/20261014-responsive-games-audit.md): 한영·동화책 활성 player를1920/1024/568 가로에서 유형별 검수. 듣기 탐색 CTA 겹침, 어휘 도안 납작한 비율, PC 동화책 쓰기 분리 배치,44px 미만 블록 선택칸 수정. 생성 WebP replay/listen-play2종15,184B 공유, 결과 이모지 중복 제거. 실제 화면/독립 결과 preview/회귀 테스트를 구분, 전권 완주·실기기·vi/zh/th 미검증. 58ce47b21 로컬 main 통합·이번 push 미요청.

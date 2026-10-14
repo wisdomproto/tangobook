@@ -1,0 +1,107 @@
+.listening-block-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  max-width: 100%;
+  color: #463f34;
+}
+.listening-block-instruction {
+  margin: 0;
+  font-size: clamp(14px, 2vw, 24px);
+  font-weight: 800;
+  text-align: center;
+}
+.listening-block-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.listening-block-listen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 24px;
+  border: 2px solid #e1ad7e;
+  border-radius: 24px;
+  background: #fff2d9;
+  box-shadow: 0 5px 0 #e8c89f;
+  font-weight: 900;
+  font-size: clamp(16px, 2vw, 24px);
+}
+.listening-block-listen:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #e8c89f;
+}
+.listening-block-listen:disabled {
+  opacity: 0.6;
+}
+.listening-block-hint-button {
+  min-width: 64px;
+  min-height: 48px;
+  border: 2px solid #c1d8c6;
+  border-radius: 18px;
+  background: #eff8ef;
+  padding: 8px 16px;
+  font-weight: 800;
+}
+.listening-block-hint {
+  min-width: 64px;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  text-align: center;
+}
+.listening-block-hint span {
+  font-size: 0.6em;
+  color: #887e72;
+}
+.listening-block-prompt button:focus-visible {
+  outline: 3px solid #b94021;
+  outline-offset: 4px;
+}
+@media (max-height: 600px) and (orientation: landscape) {
+  .listening-block-prompt {
+    gap: 4px;
+  }
+  .listening-block-controls {
+    gap: 8px;
+  }
+  .listening-block-listen {
+    min-height: 48px;
+    padding: 4px 12px;
+    border-radius: 16px;
+    gap: 6px;
+  }
+  .listening-block-listen > span:first-child {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .listening-block-hint-button {
+    padding: 4px 8px;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .korean-block-target .listening-block-controls,
+  .english-block-target .listening-block-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .listening-block-listen {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+  .listening-block-hint {
+    font-size: 32px;
+  }
+  .listening-block-instruction {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}

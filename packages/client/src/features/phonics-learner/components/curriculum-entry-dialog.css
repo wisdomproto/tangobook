@@ -38,6 +38,9 @@
   font-weight: 900;
   line-height: 1.25;
 }
+.curriculum-entry-dialog .curriculum-entry-title-only {
+  margin-bottom: 24px;
+}
 #curriculum-entry-activity {
   color: #7c7163;
   margin-bottom: 24px;

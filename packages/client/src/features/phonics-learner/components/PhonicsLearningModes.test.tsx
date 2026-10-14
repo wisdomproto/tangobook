@@ -373,3 +373,17 @@ it('starts the first lesson from the entry prompt and dismisses with Escape with
   expect(screen.queryByRole('dialog')).toBeNull();
   expect(localStorage.length).toBe(0);
 });
+
+it('shows a repeated chapter/activity title only once, without a dangling description reference', () => {
+  const view = show('korean', '?mode=curriculum&resume=1');
+  const popup = screen.getByRole('dialog');
+  expect(within(popup).getAllByText('ㅏ 배우기')).toHaveLength(1);
+  expect(popup).not.toHaveAttribute('aria-describedby');
+  view.unmount();
+  markActivityCompleted('korean', 'kr-v1-u01', 'listen-1');
+  show('korean', '?mode=curriculum&resume=1');
+  const next = screen.getByRole('dialog');
+  expect(within(next).getByRole('heading', { name: 'ㅏ 배우기' })).toBeDefined();
+  expect(within(next).getByText('ㅏ 써보기')).toHaveAttribute('id', 'curriculum-entry-activity');
+  expect(next).toHaveAttribute('aria-describedby', 'curriculum-entry-activity');
+});

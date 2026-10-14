@@ -1,5 +1,18 @@
 {
-  "entry": { "firstStart": "Bắt đầu bài học đầu tiên", "viewMap": "Xem bản đồ" },
+  "practice": {
+    "prompt": "Nghe và ghép từ",
+    "listen": "Nghe",
+    "hint": "Gợi ý",
+    "firstLetter": "Chữ đầu tiên",
+    "loading": "Đang chuẩn bị âm thanh",
+    "audioError": "Không tải được âm thanh. Thử lại.",
+    "hintCount": "Gợi ý: {{count}}",
+    "observationScore": "Lần đầu không gợi ý {{correct}} / {{total}} · Thử lại {{retries}} lần"
+  },
+  "entry": {
+    "firstStart": "Bắt đầu bài học đầu tiên",
+    "viewMap": "Xem bản đồ"
+  },
   "common": {
     "back": "← Quay lại",
     "backToUnit": "← Về bài học",
@@ -96,6 +109,7 @@
     "noPlan": "Hoạt động đang chuẩn bị"
   },
   "seo": {
+    "englishTitle": "Học ngữ âm tiếng Anh — TangoBook",
     "koreanTitle": "Học phonics tiếng Hàn — Tangobook",
     "koreanDescription": "Học phụ âm, nguyên âm và phụ âm cuối tiếng Hàn bằng thẻ và trò chơi thân thiện với bé mới bắt đầu 4-5 tuổi. Phonics tiếng Hàn kết nối tự động với từ vựng trong truyện tranh.",
     "koreanKeywords": "phonics tiếng Hàn, học tiếng Hàn, phụ âm nguyên âm tiếng Hàn, phụ âm cuối tiếng Hàn, ghép vần tiếng Hàn, tiếng Hàn cho bé 4 tuổi, tiếng Hàn cho bé 5 tuổi, tiếng Hàn cho bé 6 tuổi, Tangobook",
@@ -135,6 +149,7 @@
     "zhNature": "Thiên nhiên ({{words}})"
   },
   "activity": {
+    "listenBlockPlay": "Nghe và ghép khối",
     "letterHunt": "Săn chữ",
     "wordWriting": "Viết từ",
     "letterWriting": "Viết chữ",

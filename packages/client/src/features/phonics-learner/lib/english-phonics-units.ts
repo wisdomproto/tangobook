@@ -1,3 +1,4 @@
+import { withListeningBlockPractice } from './listening-block-plan';
 /**
  * 영어 파닉스 학습자 메타 — 한글의 평행 구조.
  *
@@ -175,7 +176,7 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       key: 'game-word-writing',
       order: order++,
       kind: 'game-word-writing',
-      section: 'play',
+      section: 'learn',
       title: '낱말 쓰기',
       titleKey: 'activity.wordWriting',
       emoji: '🖍️',
@@ -195,9 +196,9 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
       key: 'game-english-block',
       order: order++,
       kind: 'game-english-block',
-      section: 'play',
-      title: '영어 블록 게임',
-      titleKey: 'activity.englishBlock',
+      section: 'learn',
+      title: '블록 놀이',
+      titleKey: 'activity.blockPlay',
       emoji: '🧩',
       required: false,
     },
@@ -279,7 +280,7 @@ function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
       key: 'game-word-writing',
       order: order++,
       kind: 'game-word-writing',
-      section: 'play',
+      section: 'learn',
       title: '낱말 쓰기',
       titleKey: 'activity.wordWriting',
       emoji: '🖍️',
@@ -489,9 +490,9 @@ function makeWordUnitPlan(unit: EnglishUnitSummary): ActivityPlan {
   }
   activities.push(
     // 🔴 블록 게임 복귀 (2026-09-17 사용자) — 화면 판 + 실물 판 둘 다 갖고 돌아왔다.
-    { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'play', title: '낱말 쓰기', titleKey: 'activity.wordWriting', emoji: '🖍️', required: false }, // prettier-ignore
+    { key: 'game-word-writing', order: order++, kind: 'game-word-writing', section: 'learn', title: '낱말 쓰기', titleKey: 'activity.wordWriting', emoji: '🖍️', required: false }, // prettier-ignore
     { key: 'game-dots', order: order++, kind: 'game-connect-dots', section: 'play', title: '낱말 그리기', titleKey: 'activity.wordDrawing', emoji: '🔵', required: false }, // prettier-ignore
-    { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'play', title: '영어 블록 게임', titleKey: 'activity.englishBlock', emoji: '🧩', required: false }, // prettier-ignore
+    { key: 'game-english-block', order: order++, kind: 'game-english-block', section: 'learn', title: '블록 놀이', titleKey: 'activity.blockPlay', emoji: '🧩', required: false }, // prettier-ignore
     { key: 'game-line-matching', order, kind: 'game-line-matching', section: 'play', title: '그림 짝 찾기', titleKey: 'activity.pictureMatch', emoji: '🔗', required: false } // prettier-ignore
   );
   return { activities };
@@ -715,7 +716,7 @@ export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
 };
 
 export function getEnglishActivityPlan(unitId: string): ActivityPlan {
-  return ENGLISH_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] };
+  return withListeningBlockPractice(ENGLISH_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] });
 }
 
 export function getEnglishRequiredActivities(unitId: string): readonly string[] {

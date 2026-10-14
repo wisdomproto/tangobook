@@ -704,11 +704,23 @@ export function PhonicsJourneyMap({
                       {unitTitle(t, step.unit)} · {activityTitle(t, step.activity)}
                     </strong>
                     <p>
-                      {t('journey.observationScore', {
-                        correct: choices.filter((choice) => choice.correct).length,
-                        total: choices.length,
-                        retries: run.retries,
-                      })}
+                      {t(
+                        step.activity.listeningPractice
+                          ? 'practice.observationScore'
+                          : 'journey.observationScore',
+                        {
+                          correct: choices.filter((choice) => choice.correct && !choice.hintUsed)
+                            .length,
+                          total: choices.length,
+                          retries: run.retries,
+                        }
+                      )}
+                      {!!run.hintQuestions?.length && (
+                        <span>
+                          {' '}
+                          · {t('practice.hintCount', { count: run.hintQuestions.length })}
+                        </span>
+                      )}
                     </p>
                   </li>
                 );

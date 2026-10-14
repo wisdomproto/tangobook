@@ -45,6 +45,8 @@ export interface LearningEventMetadata {
   requiredActivityIds?: string[];
   skill?: 'meaning' | 'building' | 'tracing' | 'drawing' | 'sound' | 'participation';
   firstAttempt?: boolean;
+  /** Listening practice revealed one character; never count this as an independent answer. */
+  hintUsed?: boolean;
   evidence?: 'first-attempt' | 'completion' | 'participation';
 }
 

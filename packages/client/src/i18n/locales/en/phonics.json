@@ -1,5 +1,18 @@
 {
-  "entry": { "firstStart": "Start your first lesson", "viewMap": "Explore the map" },
+  "practice": {
+    "prompt": "Listen and build the word",
+    "listen": "Listen",
+    "hint": "Hint",
+    "firstLetter": "First letter",
+    "loading": "Preparing audio",
+    "audioError": "Audio could not load. Try again.",
+    "hintCount": "Hints: {{count}}",
+    "observationScore": "Unaided first attempts {{correct}} / {{total}} · Retries {{retries}}"
+  },
+  "entry": {
+    "firstStart": "Start your first lesson",
+    "viewMap": "Explore the map"
+  },
   "common": {
     "back": "← Back",
     "backToUnit": "← Back to unit",
@@ -96,6 +109,7 @@
     "noPlan": "Activities coming soon"
   },
   "seo": {
+    "englishTitle": "English Phonics Learning — TangoBook",
     "koreanTitle": "Learn Hangul Phonics — Tangobook",
     "koreanDescription": "Learn Korean consonants, vowels, and final consonants with cards and games made for 4-5 year old beginners. Hangul phonics that links straight to words from storybooks.",
     "koreanKeywords": "Hangul phonics, learn Korean alphabet, Korean consonants and vowels, Korean final consonants, Hangul blending, Korean for 4 year olds, Korean for 5 year olds, Korean for 6 year olds, Tangobook",
@@ -135,6 +149,7 @@
     "zhNature": "Nature ({{words}})"
   },
   "activity": {
+    "listenBlockPlay": "Listen and build",
     "letterHunt": "Letter Hunt",
     "wordWriting": "Word Writing",
     "letterWriting": "Letter Writing",

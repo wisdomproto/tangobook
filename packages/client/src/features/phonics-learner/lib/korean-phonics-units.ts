@@ -1,3 +1,4 @@
+import { withListeningBlockPractice } from './listening-block-plan';
 /**
  * 한글 파닉스 학습자 메타 — 사이드 진입용 unit 목록 + 단원별 활동 구성.
  *
@@ -340,6 +341,8 @@ export function shuffleReviewCards(
 }
 
 export interface ActivityDef {
+  /** Optional sound-only block practice, separate from the original learning activity. */
+  listeningPractice?: boolean;
   key: string; // 'listen-1', 'write-2', ...
   order: number; // 1-based 표시 순서
   kind: ActivityKind;
@@ -466,7 +469,7 @@ const GAME_ACTIVITIES: ReadonlyArray<Omit<ActivityDef, 'order'>> = [
   {
     key: 'game-word-writing',
     kind: 'game-word-writing',
-    section: 'play',
+    section: 'learn',
     title: '낱말 쓰기',
     titleKey: 'activity.wordWriting',
     emoji: '🖍️',
@@ -1074,7 +1077,7 @@ export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
 };
 
 export function getActivityPlan(unitId: string): ActivityPlan {
-  return KOREAN_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] };
+  return withListeningBlockPractice(KOREAN_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] });
 }
 
 /** unit 완료 판정에 쓰이는 required 액티비티 key 들. */

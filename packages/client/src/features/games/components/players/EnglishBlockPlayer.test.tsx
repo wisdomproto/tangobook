@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { EnglishBlockPlayer } from './EnglishBlockPlayer';
@@ -154,4 +154,53 @@ describe('EnglishBlockPlayer unified controls', () => {
     expect(screen.queryByRole('button', { name: '실물 블록' })).not.toBeInTheDocument();
     expect(mocks.camera).toHaveBeenCalledWith({ set: 'en', enabled: false });
   });
+});
+
+it('listening blocks hide the answer and image, require hearing and submission, and report hints once without duplicate game logs', async () => {
+  vi.clearAllMocks();
+  const attempt = vi.fn();
+  render(
+    <EnglishBlockPlayer
+      storybookId="en-b2-u01"
+      initialInputMode="screen"
+      difficulty="easy"
+      onBack={vi.fn()}
+      onComplete={vi.fn()}
+      listeningPractice
+      onPracticeAttempt={attempt}
+      gameData={{
+        type: 'english-block',
+        items: [
+          {
+            word: 'cat',
+            ttsUrl: '/cat.mp3',
+            imageUrl: '/cat.png',
+            letters: [{ char: 'c' }, { char: 'a' }, { char: 't' }],
+          },
+        ],
+      }}
+    />
+  );
+  expect(screen.queryByRole('heading', { name: 'cat' })).not.toBeInTheDocument();
+  expect(screen.queryByAltText('cat')).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: '결과 보기' })).toBeDisabled();
+  fireEvent.click(screen.getByRole('button', { name: '소리 듣기' }));
+  await waitFor(() =>
+    expect(mocks.audio).toHaveBeenCalledWith('/cat.mp3', expect.any(Function), expect.any(Function))
+  );
+  const call = mocks.audio.mock.calls.find((c) => c[0] === '/cat.mp3')!;
+  fireEvent.click(screen.getByRole('button', { name: '힌트' }));
+  expect(screen.getByRole('status', { name: '첫 글자' })).toHaveTextContent('c…');
+  act(() => call[1]());
+  fireEvent.click(screen.getByRole('button', { name: 'c' }));
+  fireEvent.click(screen.getByRole('button', { name: 'a' }));
+  fireEvent.click(screen.getByRole('button', { name: 't' }));
+  expect(attempt).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: '확인' }));
+  expect(attempt).toHaveBeenCalledExactlyOnceWith(true, 'cat', {
+    question: 0,
+    firstAttempt: true,
+    hintUsed: true,
+  });
+  expect(mocks.log).not.toHaveBeenCalled();
 });

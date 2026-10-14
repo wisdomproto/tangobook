@@ -23,6 +23,9 @@ export function CurriculumEntryDialog({
 }) {
   const { t } = useTranslation('phonics');
   const [search, setSearch] = useSearchParams();
+  const chapterName = unitTitle(t, step.unit);
+  const activityName = activityTitle(t, step.activity);
+  const hasActivityDescription = chapterName.trim() !== activityName.trim();
   const dialog = useRef<HTMLDialogElement>(null);
   const dismiss = () => {
     const params = new URLSearchParams(search);
@@ -40,7 +43,7 @@ export function CurriculumEntryDialog({
       className="curriculum-entry-dialog"
       style={courseThemes[lang].style}
       aria-labelledby="curriculum-entry-title"
-      aria-describedby="curriculum-entry-activity"
+      aria-describedby={hasActivityDescription ? 'curriculum-entry-activity' : undefined}
       onCancel={(event) => {
         event.preventDefault();
         dismiss();
@@ -54,8 +57,13 @@ export function CurriculumEntryDialog({
         )}
       </div>
       <p className="curriculum-entry-language">{t(`journey.${lang}`)}</p>
-      <h2 id="curriculum-entry-title">{unitTitle(t, step.unit)}</h2>
-      <p id="curriculum-entry-activity">{activityTitle(t, step.activity)}</p>
+      <h2
+        id="curriculum-entry-title"
+        className={hasActivityDescription ? undefined : 'curriculum-entry-title-only'}
+      >
+        {chapterName}
+      </h2>
+      {hasActivityDescription && <p id="curriculum-entry-activity">{activityName}</p>}
       <Link
         className="curriculum-entry-primary"
         data-sound="play"
