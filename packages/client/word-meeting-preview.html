@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>낱말 만나기 미리보기 — 탱고북</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      import React from 'react';
+      import { createRoot } from 'react-dom/client';
+      import { BrowserRouter } from 'react-router-dom';
+      import { QueryClientProvider } from '@tanstack/react-query';
+      import { queryClient } from '/src/lib/query-client';
+      import '/src/i18n';
+      import '/src/index.css';
+      import '/src/design-system/learning-layouts.css';
+      import '/src/lib/audio-unlock';
+      import { WordMeetingActivity } from '/src/features/phonics-learner/activities/WordMeetingActivity';
+      import { findImageData } from '/src/features/phonics-learner/lib/phonics-game-adapter';
+
+      // Local design review only: never resets a child's saved lesson or emits completion records.
+      if (!import.meta.env.DEV) throw new Error('Local preview only');
+      const args = new URLSearchParams(location.search);
+      const unitId = args.get('unit') ?? 'kr-h1-u02';
+      const word = args.get('word') ?? '아기';
+      const root = createRoot(document.getElementById('root'));
+      try {
+        const response = await fetch('/api/storybooks/' + encodeURIComponent(unitId));
+        if (!response.ok) throw new Error('학습 자료를 불러오지 못했어요.');
+        const payload = await response.json();
+        const book = payload.data ?? payload;
+        const extra = findImageData(book, word);
+        root.render(
+          React.createElement(
+            QueryClientProvider,
+            { client: queryClient },
+            React.createElement(
+              BrowserRouter,
+              null,
+              React.createElement(WordMeetingActivity, {
+                word,
+                book,
+                unitId,
+                ...extra,
+                lang: unitId.startsWith('kr-') ? 'korean' : 'english',
+                onBack: () => history.back(),
+                onComplete: () => location.reload(),
+              })
+            )
+          )
+        );
+      } catch (error) {
+        root.render(React.createElement('p', { role: 'alert' }, error.message));
+      }
+    </script>
+  </body>
+</html>

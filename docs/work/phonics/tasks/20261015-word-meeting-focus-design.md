@@ -43,3 +43,7 @@
 ## 로컬 통합
 
 코드/기억 커밋 cb6c2f2c2가 C:/project/tangobook의 main에 포함됐다. 검수 서버5187은 동일 worktree를 계속 제공한다. 원격 push/운영 배포는 이번 후속에 실행하지 않았다. 기존 output/tmp/다른 worktree는 보존했다.
+
+## 낱말 만나기 직접 검수 링크 후속
+
+사용자에게 정식 word-learning URL을 안내했으나 저장된 블록 단계로 이어져 원하는 낱말 만나기를 볼 수 없었다. 학습 기록을 초기화하는 대신 개발 서버 전용 `packages/client/word-meeting-preview.html`을 추가했다. 실제 WordMeetingActivity/공개 source/발음을 사용하고 낱말 단계 완료 기록을 쓰지 않으며 마지막은 미리보기를 처음부터 다시 표시한다. `/word-meeting-preview.html`에서 아기 첫 음절 강조/그림 위 배치/소리 버튼을 실제 브라우저로 확인했다. production 기본 build entry에는 포함하지 않는다. 운영 기능 변경/원격 push 없음.
