@@ -4,6 +4,7 @@ import type { Storybook } from '@tangobook/shared';
 import type { ReactNode } from 'react';
 import { ConnectedWordLearningActivity } from './ConnectedWordLearningActivity';
 import { loadWordLearningRun, wordLearningStorageKey } from '../lib/word-learning-run';
+import { LearningWorkspaceContext } from '../components/learning-workspace-context';
 const { logEvent, profile } = vi.hoisted(() => ({ logEvent: vi.fn(), profile: { id: '' } }));
 vi.mock('@/features/auth/context/AuthContext', () => ({
   useAuth: () => ({ activeProfile: profile.id ? profile : null }),
@@ -60,6 +61,46 @@ beforeEach(() => {
 });
 const book = (id: string, targets: string[]) =>
   ({ id, type: 'phonics', phonicsConfig: { targetWords: targets } }) as Storybook;
+
+it('publishes the exact word/stage and isolated subactivity completion never advances the main run', () => {
+  const complete = vi.fn();
+  const back = vi.fn();
+  const publish = vi.fn();
+  const unitId = 'kr-h1-u02';
+  const key = wordLearningStorageKey('korean', unitId);
+  const saved = loadWordLearningRun(key, ['고기']);
+  const view = render(
+    <LearningWorkspaceContext.Provider
+      value={{
+        active: true,
+        unitId,
+        activityKey: 'word-learning',
+        practiceStage: 'color',
+        navigationOpen: false,
+        setNavigationOpen: vi.fn(),
+        backToMap: vi.fn(),
+        setWordActivity: publish,
+      }}
+    >
+      <ConnectedWordLearningActivity
+        lang="korean"
+        unitId={unitId}
+        book={book(unitId, ['고기'])}
+        onBack={back}
+        onComplete={complete}
+      />
+    </LearningWorkspaceContext.Provider>
+  );
+  expect(publish).toHaveBeenLastCalledWith({ unitId, word: '고기', stage: 'color' });
+  fireEvent.click(screen.getByRole('button', { name: 'color 고기' }));
+  expect(back).toHaveBeenCalledOnce();
+  expect(complete).not.toHaveBeenCalled();
+  expect(loadWordLearningRun(key, ['고기'])).toEqual(saved);
+  expect(logEvent).toHaveBeenCalledOnce();
+  expect(logEvent.mock.calls[0][0].metadata.activityRunId).not.toBe(saved.id);
+  view.unmount();
+  expect(publish).toHaveBeenLastCalledWith(null);
+});
 it.each([
   ['korean', 'kr-h1-u02', ['고기', '가구']],
   ['english', 'en-b2-u01', ['cat', 'hat']],

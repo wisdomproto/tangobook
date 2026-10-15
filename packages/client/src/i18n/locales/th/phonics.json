@@ -1,5 +1,10 @@
 {
   "workspace": {
+    "coloring": "ระบายสี",
+    "learning": "กำลังเรียน",
+    "course": "กิจกรรมทั้งหมด",
+    "details": "ขั้นตอน {{activity}}",
+    "letterWrite": "เขียนตัวอักษร",
     "activities": "กิจกรรม",
     "close": "ปิดรายการ",
     "map": "แผนที่การเรียน"

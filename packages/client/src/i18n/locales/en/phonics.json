@@ -1,5 +1,10 @@
 {
   "workspace": {
+    "coloring": "Coloring",
+    "learning": "Learning now",
+    "course": "All learning activities",
+    "details": "{{activity}} steps",
+    "letterWrite": "Letter writing",
     "activities": "Activities",
     "close": "Close activities",
     "map": "Learning map"

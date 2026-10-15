@@ -1,4 +1,13 @@
 export type WordLearningStage = 'meet' | 'block' | 'write' | 'color';
+export function wordLearningStages(unitId: string): WordLearningStage[] {
+  return ['meet', ...(!unitId.startsWith('en-b1') ? ['block' as const] : []), 'write', 'color'];
+}
+
+export function wordLearningStage(value: string | null): WordLearningStage | undefined {
+  return value && ['meet', 'block', 'write', 'color'].includes(value)
+    ? (value as WordLearningStage)
+    : undefined;
+}
 export interface WordLearningRun {
   version: 1;
   id: string;

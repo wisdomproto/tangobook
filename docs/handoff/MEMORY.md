@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [파닉스 전체 활동 트리](../work/phonics/tasks/20261015-persistent-learning-workspace.md#전체-활동-트리현재-위치-후속): 한영 전체 권·챕터·분류·실제 활동을 접고 펴기, 현재 챕터 기본 펼침·실행 잎과 낱말 하위 단계/단어 강조·자동 내부 정렬. 개별 낱말 단계 연습/전체 완료 분리, 미래 커리큘럼 잠금 유지. 실제 UI·427회귀/타입/lint/build, 로컬 main 통합·원격 미푸시.
+
 2026-10-15 [자음 찾기 구분 후속](../work/phonics/tasks/20261015-consonant-finding-game.md#목표놀이판-구분-후속): 목표는 왼쪽 크림 안내판, 고를 조각은 오른쪽 민트 놀이판 안으로 묶어 역할을 분리했다. PC/태블릿/가로폰 직접 확인·기존4회귀/타입/lint/build, 규칙·완료 보존, 로컬 main 통합·원격 미푸시.
 
 2026-10-15 [한영 공통 학습 공간](../work/phonics/tasks/20261015-persistent-learning-workspace.md)·[자음 찾기](../work/phonics/tasks/20261015-consonant-finding-game.md): 같은 지도/접히는 왼쪽 목록·활동 기본 접힘·좌표/상태 보존 overlay. 한영 지도 unlock은 별도 로컬 fixture로, 실제 쓰기/영어 활동·게임/반응형은 직접 검수. 목표4+배운 자음8, **ㅇ은 모음에서 배운 것으로 ㄱ부터 포함**. 기존 완료 재잠금/가짜 완료 방지. 파닉스420·게임299 통과 후 관련67재통과·타입/lint/build. 로컬 main 통합, 원격 미푸시.

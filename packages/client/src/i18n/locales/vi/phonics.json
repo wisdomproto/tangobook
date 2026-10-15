@@ -1,5 +1,10 @@
 {
   "workspace": {
+    "coloring": "Tô màu",
+    "learning": "Đang học",
+    "course": "Tất cả hoạt động",
+    "details": "Các bước {{activity}}",
+    "letterWrite": "Viết chữ cái",
     "activities": "Hoạt động",
     "close": "Đóng danh sách",
     "map": "Bản đồ học"

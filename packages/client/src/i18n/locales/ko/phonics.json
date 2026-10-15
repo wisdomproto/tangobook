@@ -1,5 +1,10 @@
 {
   "workspace": {
+    "coloring": "색칠하기",
+    "learning": "학습 중",
+    "course": "전체 학습 활동",
+    "details": "{{activity}} 세부 활동",
+    "letterWrite": "글자 쓰기",
     "activities": "활동 목록",
     "close": "목록 접기",
     "map": "학습 지도"

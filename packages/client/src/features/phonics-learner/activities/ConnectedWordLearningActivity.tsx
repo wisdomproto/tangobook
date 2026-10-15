@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameTypeId, Storybook } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -28,8 +28,9 @@ import {
   loadWordLearningRun,
   saveWordLearningRun,
   wordLearningStorageKey,
-  type WordLearningStage,
+  wordLearningStages,
 } from '../lib/word-learning-run';
+import { useLearningWorkspace } from '../components/learning-workspace-context';
 import { WordMeetingActivity } from './WordMeetingActivity';
 import { WordLearningProgress } from '../components/WordLearningProgress';
 import './word-meeting.css';
@@ -44,9 +45,10 @@ interface Props {
 
 export function ConnectedWordLearningActivity(props: Props) {
   const { activeProfile } = useAuth();
+  const workspace = useLearningWorkspace();
   return (
     <WordLearningRun
-      key={`${activeProfile?.id ?? 'guest'}:${props.lang}:${props.unitId}`}
+      key={`${activeProfile?.id ?? 'guest'}:${props.lang}:${props.unitId}:${workspace?.practiceStage ?? 'sequence'}`}
       {...props}
     />
   );
@@ -56,11 +58,15 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
   const logEvent = useLogEvent();
   const key = wordLearningStorageKey(lang, unitId);
+  const workspace = useLearningWorkspace();
+  const practiceStage = workspace?.practiceStage;
+  const publishWordActivity = workspace?.setWordActivity;
   // A ref pins the source definition for the run: query refetches cannot reset a canvas or reroll words.
   const source = useRef(lang === 'korean' ? withKoreanLearningScope(book)! : book).current;
-  const [run, setRun] = useState(() =>
-    loadWordLearningRun(key, source.phonicsConfig?.targetWords ?? [])
-  );
+  const [run, setRun] = useState(() => {
+    const saved = loadWordLearningRun(key, source.phonicsConfig?.targetWords ?? []);
+    return practiceStage ? { ...saved, id: crypto.randomUUID(), stage: practiceStage } : saved;
+  });
   const completed = useRef(new Set<string>());
   const word = run.words[run.index];
   const code = lang === 'korean' ? 'ko' : 'en';
@@ -98,18 +104,17 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     [coloring, word]
   );
   const extra = useMemo(() => (word ? findImageData(source, word) : {}), [source, word]);
-  const stages: WordLearningStage[] = [
-    'meet',
-    ...(!unitId.startsWith('en-b1') ? ['block' as const] : []),
-    'write',
-    'color',
-  ];
+  const stages = wordLearningStages(unitId);
+  useEffect(() => {
+    publishWordActivity?.(word ? { unitId, word, stage: run.stage } : null);
+    return () => publishWordActivity?.(null);
+  }, [publishWordActivity, unitId, word, run.stage]);
   const finishStage = () => {
     const id = `${run.id}:${run.index}:${run.stage}`;
     if (completed.current.has(id)) return;
     completed.current.add(id);
     const next = advanceWordLearning(run, stages);
-    saveWordLearningRun(key, next);
+    if (!practiceStage) saveWordLearningRun(key, next);
     logEvent({
       type: run.stage === 'meet' ? 'word_exposed' : 'word_correct',
       storybookId: unitId,
@@ -140,7 +145,8 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
           run.stage === 'write' ? (writing?.items[0]?.traceWord ?? writing?.items[0]?.word) : word,
       },
     });
-    if (next.index >= run.words.length) onComplete();
+    if (practiceStage) onBack();
+    else if (next.index >= run.words.length) onComplete();
     else setRun(next);
   };
   if (!word || !writing || (!unitId.startsWith('en-b1') && !blocks))
@@ -164,7 +170,7 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     initialInputMode: run.inputMode,
     onInputModeSelected: (inputMode: 'screen' | 'camera') => {
       const next = { ...run, inputMode };
-      saveWordLearningRun(key, next);
+      if (!practiceStage) saveWordLearningRun(key, next);
       setRun(next);
     },
   };

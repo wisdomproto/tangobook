@@ -1,5 +1,10 @@
 {
   "workspace": {
+    "coloring": "涂色",
+    "learning": "正在学习",
+    "course": "全部学习活动",
+    "details": "{{activity}}的步骤",
+    "letterWrite": "字母书写",
     "activities": "活动列表",
     "close": "收起列表",
     "map": "学习地图"

@@ -110,6 +110,180 @@
   outline: 3px solid #c7553c;
   outline-offset: 3px;
 }
+
+/* Whole-course tree: folds are navigation only; the running leaf comes from the actual route. */
+[data-phonics-workspace] .journey-workspace-tree li {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.journey-workspace-tree .workspace-tree-children {
+  list-style: none;
+  margin: 3px 0 8px 8px;
+  padding-left: 8px;
+  border-left: 1px solid #e0dfce;
+}
+.workspace-tree-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px;
+  padding: 7px 8px;
+  text-align: left;
+  border-radius: 12px;
+  color: #665d4e;
+  font-size: 13px;
+  font-weight: 750;
+  word-break: keep-all;
+}
+.workspace-tree-toggle > span {
+  flex: 1;
+  min-width: 0;
+}
+.workspace-tree-toggle > svg {
+  flex-shrink: 0;
+}
+.workspace-tree-toggle > svg:first-child,
+.workspace-activity-fold svg {
+  rotate: -90deg;
+}
+.workspace-tree-toggle > svg[data-open='true'],
+.workspace-activity-fold svg[data-open='true'] {
+  rotate: 0deg;
+}
+.workspace-tree-branch[data-kind='book'] > .workspace-tree-toggle {
+  background: #efefdf;
+  color: #5b674c;
+  margin-top: 5px;
+}
+.workspace-tree-branch[data-kind='section'] > .workspace-tree-toggle {
+  font-size: 12px;
+  color: #887761;
+}
+.workspace-tree-branch[data-current-chapter] > .workspace-tree-toggle {
+  color: var(--course-label);
+  background: var(--course-soft);
+}
+.workspace-chapter-dot {
+  flex: 0 0 8px !important;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--course-accent);
+}
+.journey-workspace-tree .journey-free-activity,
+.journey-workspace-tree .journey-curriculum-activity {
+  min-height: 52px;
+  padding: 7px 8px;
+  font-size: 13px;
+  border-radius: 13px;
+  gap: 7px;
+  margin-block: 4px;
+}
+.journey-workspace-tree .journey-activity-art {
+  width: 34px;
+  height: 38px;
+}
+.journey-workspace-tree .journey-free-label {
+  min-width: 0;
+}
+.journey-workspace-tree li[data-running] .journey-free-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.journey-workspace-tree li[data-running] .journey-free-activity,
+.journey-workspace-tree li[data-running] .journey-curriculum-activity {
+  color: var(--course-label);
+  background: var(--course-soft);
+  box-shadow:
+    inset 0 0 0 2px var(--course-accent),
+    0 3px 0 var(--course-border);
+}
+.workspace-running-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  width: fit-content;
+  padding: 2px 7px;
+  border-radius: 12px;
+  background: var(--course-accent);
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.workspace-activity-entry {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.workspace-activity-entry > a,
+.workspace-activity-entry > .journey-curriculum-activity {
+  flex: 1;
+  min-width: 0;
+}
+.workspace-activity-fold {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-height: 44px;
+  flex-shrink: 0;
+  color: #786956;
+  border-radius: 12px;
+  background: #f2f0e4;
+}
+.journey-workspace-tree .workspace-word-steps {
+  list-style: none;
+  margin: 2px 0 8px 14px;
+  padding-left: 8px;
+  border-left: 2px solid #d7dac8;
+}
+.workspace-word-step {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 5px;
+  border-radius: 10px;
+  color: #6b6254;
+  font-size: 12px;
+  font-weight: 700;
+}
+.workspace-word-step > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  word-break: keep-all;
+}
+.workspace-word-step:disabled {
+  color: #9d978b;
+}
+.workspace-word-step[aria-current='step'] {
+  background: var(--course-soft);
+  color: var(--course-label);
+  box-shadow: inset 3px 0 var(--course-accent);
+}
+.workspace-word-number {
+  color: #9e937c;
+  font-size: 11px;
+}
+.workspace-current-word {
+  display: block;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.workspace-tree-toggle:focus-visible,
+.workspace-activity-fold:focus-visible,
+.workspace-word-step:focus-visible {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 1px;
+}
 @media (max-height: 500px) {
   .workspace-navigation {
     inset: 6px auto 6px 6px;
@@ -130,5 +304,9 @@
   .workspace-navigation .journey-chapter-activities li {
     min-height: 48px;
     padding: 4px;
+  }
+  [data-phonics-workspace] .workspace-navigation .journey-workspace-tree li {
+    min-height: 0;
+    padding: 0;
   }
 }

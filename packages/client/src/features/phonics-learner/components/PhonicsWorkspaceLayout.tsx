@@ -11,7 +11,8 @@ import {
   type JourneyLanguage,
 } from '../lib/learning-journey';
 import { PhonicsJourneyMap } from './PhonicsJourneyMap';
-import { LearningWorkspaceContext } from './learning-workspace-context';
+import { LearningWorkspaceContext, type WorkspaceWordActivity } from './learning-workspace-context';
+import { wordLearningStage, wordLearningStages } from '../lib/word-learning-run';
 import './phonics-workspace.css';
 import { ActivityShell } from './ActivityShell';
 
@@ -57,6 +58,16 @@ function WorkspaceRun({
   const navigationOpen = navigation.key === locationKey ? navigation.open : !active;
   const setNavigationOpen = (open: boolean) => setNavigation({ key: locationKey, open });
   const { unitCompletedActivities } = usePhonicsProgress(lang);
+  const [wordActivity, setWordActivity] = useState<WorkspaceWordActivity | null>(null);
+  const requestedStage = wordLearningStage(query.get('part'));
+  const practiceStage =
+    activityKey === 'word-learning' &&
+    unitId &&
+    requestedStage &&
+    wordLearningStages(unitId).includes(requestedStage) &&
+    (!curriculum || unitCompletedActivities(unitId).includes('word-learning'))
+      ? requestedStage
+      : undefined;
   const progress = journeyProgress(lang, unitCompletedActivities);
   const finished = query.get('finished');
   const finishedSteps = progress.steps.filter((step) => step.unit.id === finished);
@@ -78,6 +89,9 @@ function WorkspaceRun({
         active,
         unitId,
         activityKey,
+        practiceStage,
+        wordActivity,
+        setWordActivity,
         navigationOpen,
         setNavigationOpen,
         backToMap,
