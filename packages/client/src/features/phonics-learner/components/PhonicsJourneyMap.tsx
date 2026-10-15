@@ -45,7 +45,7 @@ import { courseActivityMode, courseUnitPreview } from '../lib/course-presentatio
 import { useLearningWorkspace } from './learning-workspace-context';
 import { WorkspaceNavigation } from './WorkspaceNavigation';
 import { WorkspaceTreeBranch } from './WorkspaceTreeBranch';
-import { wordLearningStages } from '../lib/word-learning-run';
+import { wordLearningStages, readWordStageProgress } from '../lib/word-learning-run';
 import './phonics-journey-map.css';
 import './phonics-curriculum-board.css';
 
@@ -214,11 +214,36 @@ export function PhonicsJourneyMap({
       done: keys.every((key) => completed.includes(key)),
     }));
   };
-  const chapterSteps = free
-    ? freeSteps(selectedUnit)
-    : progress.steps.flatMap((step, index) =>
-        step.unit.id === selectedUnit.id ? [{ ...step, done: progress.done[index] }] : []
+  const stepsForUnit = (unit: Unit) =>
+    free
+      ? freeSteps(unit)
+      : progress.steps.flatMap((step, index) =>
+          step.unit.id === unit.id ? [{ ...step, done: progress.done[index] }] : []
+        );
+  const chapterSteps = stepsForUnit(selectedUnit);
+  const summarizeSteps = (steps: typeof chapterSteps) => {
+    const complete = steps.length > 0 && steps.every((step) => step.done);
+    const count = steps.reduce((sum, step) => {
+      if (step.done) return sum + 1;
+      if (step.activity.kind !== 'word-learning') return sum;
+      const practiced = readWordStageProgress(lang, step.unit.id);
+      const stages = wordLearningStages(step.unit.id);
+      return (
+        sum +
+        (practiced.total
+          ? stages.reduce((n, stage) => n + practiced.counts[stage], 0) /
+            (practiced.total * stages.length)
+          : 0)
       );
+    }, 0);
+    const ratio = steps.length ? count / steps.length : 0;
+    return {
+      complete,
+      count,
+      ratio,
+      percent: complete ? 100 : Math.min(99, Math.round(ratio * 100)),
+    };
+  };
   const chapterNext = chapterSteps.find((step) => !step.done) ?? chapterSteps[0];
   const canStart = (step: (typeof chapterSteps)[number]) =>
     step.done ||
@@ -484,15 +509,20 @@ export function PhonicsJourneyMap({
       </button>
     );
     if (wordBranch) {
+      const practiced = readWordStageProgress(lang, step.unit.id);
       return wordLearningStages(step.unit.id).map((stage, stageIndex) => {
+        const count = step.done ? practiced.total : practiced.counts[stage];
+        const ratio = step.done ? 1 : practiced.total ? count / practiced.total : 0;
+        const stageDone = step.done || ratio === 1;
         const here = running && stage === (runningStage ?? workspace?.practiceStage ?? 'meet');
         const available =
-          free || step.done || here || (!active && canStart(step) && stageIndex === 0);
+          free || stageDone || here || (!active && canStart(step) && stageIndex === 0);
         return (
           <li
             key={`${step.unit.id}:word-learning:${stage}`}
             data-running={here || undefined}
-            data-completed={step.done || undefined}
+            data-completed={stageDone || undefined}
+            data-started={ratio > 0 || undefined}
             data-selected={(selected && stageIndex === 0) || undefined}
             aria-current={!free && !active && current && stageIndex === 0 ? 'step' : undefined}
           >
@@ -500,11 +530,21 @@ export function PhonicsJourneyMap({
               type="button"
               className={free ? 'journey-free-activity' : 'journey-curriculum-activity'}
               disabled={!available}
+              style={
+                !here && ratio > 0 && !stageDone
+                  ? { backgroundColor: `hsl(145 32% ${96 - ratio * 35}%)` }
+                  : undefined
+              }
+              aria-description={
+                practiced.total
+                  ? t('journey.progress', { done: count, total: practiced.total })
+                  : undefined
+              }
               aria-current={here ? 'step' : undefined}
               data-running-leaf={here || undefined}
               onClick={() => {
                 if (here) workspace?.setNavigationOpen(false);
-                else if (!free && !step.done) {
+                else if (!free && !stageDone) {
                   selectChapter(step.unit);
                   setSelectedActivityKey(step.activity.key);
                 } else {
@@ -522,11 +562,16 @@ export function PhonicsJourneyMap({
                   <small className="workspace-running-caption">{t('workspace.learning')}</small>
                 )}
               </span>
+              {practiced.total > 0 && (
+                <small className="workspace-word-count" aria-hidden="true">
+                  {count}/{practiced.total}
+                </small>
+              )}
               {here ? (
                 <Play size={14} fill="currentColor" aria-hidden="true" />
               ) : !available ? (
                 <LockKeyhole size={14} aria-hidden="true" />
-              ) : step.done ? (
+              ) : stageDone ? (
                 <Check size={16} aria-hidden="true" />
               ) : (
                 <ArrowRight size={16} aria-hidden="true" />
@@ -640,6 +685,9 @@ export function PhonicsJourneyMap({
                   </small>
                   <strong>{t(`world.${lang}.${index + 1}`)}</strong>
                 </span>
+                {workspace && (
+                  <ProgressSeal progress={summarizeSteps(levelUnits.flatMap(stepsForUnit))} />
+                )}
               </button>
             );
           })}
@@ -675,6 +723,7 @@ export function PhonicsJourneyMap({
                     <p className="journey-eyebrow">{levelName(t, selectedUnit)}</p>
                     <h2>{unitTitle(t, selectedUnit)}</h2>
                   </div>
+                  {workspace && <ProgressSeal progress={summarizeSteps(chapterSteps)} />}
                 </div>
                 <ol
                   ref={activityList}
@@ -691,22 +740,24 @@ export function PhonicsJourneyMap({
                             <WorkspaceTreeBranch
                               key={level}
                               kind="book"
-                              title={<strong>{levelName(t, bookUnits[0])}</strong>}
+                              title={
+                                <span className="workspace-progress-title">
+                                  <strong>{levelName(t, bookUnits[0])}</strong>
+                                  <ProgressSeal
+                                    progress={summarizeSteps(bookUnits.flatMap(stepsForUnit))}
+                                  />
+                                </span>
+                              }
                               defaultOpen={level === selectedUnit.levelKey}
                               followKey={navigationFollowKey}
                             >
                               {bookUnits.map((unit) => {
-                                const steps = free
-                                  ? freeSteps(unit)
-                                  : progress.steps.flatMap((step, i) =>
-                                      step.unit.id === unit.id
-                                        ? [{ ...step, done: progress.done[i] }]
-                                        : []
-                                    );
-                                const complete =
-                                  steps.length > 0 && steps.every((step) => step.done);
-                                const completedCount = steps.filter((step) => step.done).length;
-                                const ratio = steps.length ? completedCount / steps.length : 0;
+                                const steps = stepsForUnit(unit);
+                                const {
+                                  complete,
+                                  count: completedCount,
+                                  ratio,
+                                } = summarizeSteps(steps);
                                 const locked = !free && !steps.some(canStart);
                                 return (
                                   <li
@@ -724,7 +775,7 @@ export function PhonicsJourneyMap({
                                       }}
                                       aria-pressed={unit.id === selectedUnitId}
                                       aria-description={t('journey.progress', {
-                                        done: completedCount,
+                                        done: Math.floor(completedCount),
                                         total: steps.length,
                                       })}
                                       onClick={() => {
@@ -738,7 +789,7 @@ export function PhonicsJourneyMap({
                                         className="workspace-chapter-progress"
                                         aria-hidden="true"
                                       >
-                                        {Math.round(ratio * 100)}%
+                                        {complete ? 100 : Math.min(99, Math.round(ratio * 100))}%
                                       </small>
                                       {active && activityUnitId === unit.id ? (
                                         <span
@@ -766,7 +817,14 @@ export function PhonicsJourneyMap({
                             <WorkspaceTreeBranch
                               key={`${selectedUnitId}:${section}`}
                               kind="section"
-                              title={t(section === 'learn' ? 'section.learn' : 'section.games')}
+                              title={
+                                <span className="workspace-progress-title">
+                                  <span>
+                                    {t(section === 'learn' ? 'section.learn' : 'section.games')}
+                                  </span>
+                                  <ProgressSeal progress={summarizeSteps(entries)} />
+                                </span>
+                              }
                               defaultOpen={
                                 active && selectedUnitId === activityUnitId
                                   ? entries.some((step) => step.activity.key === activityKey)
@@ -1113,5 +1171,33 @@ export function PhonicsJourneyMap({
         )}
       </div>
     </section>
+  );
+}
+
+/** Consistent parent status remains visible even when its activities are folded. */
+function ProgressSeal({
+  progress,
+}: {
+  progress: { percent: number; complete: boolean; ratio: number };
+}) {
+  return (
+    <span
+      className="workspace-progress-seal"
+      data-complete={progress.complete || undefined}
+      data-empty={progress.ratio === 0 || undefined}
+      aria-hidden="true"
+    >
+      <span
+        className="workspace-progress-ring"
+        style={
+          {
+            '--progress-angle': `${progress.ratio > 0 ? Math.max(4, progress.ratio * 360) : 0}deg`,
+          } as CSSProperties
+        }
+      >
+        {progress.complete ? <Check size={15} strokeWidth={3} /> : <span />}
+      </span>
+      <b>{progress.ratio > 0 && progress.percent === 0 ? '<1' : progress.percent}%</b>
+    </span>
   );
 }

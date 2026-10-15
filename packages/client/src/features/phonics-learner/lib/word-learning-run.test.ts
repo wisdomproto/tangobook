@@ -4,6 +4,8 @@ import {
   loadWordLearningRun,
   saveWordLearningRun,
   wordLearningStorageKey,
+  readWordStageProgress,
+  recordWordStageCompleted,
 } from './word-learning-run';
 beforeEach(() => localStorage.clear());
 it('resumes the same shuffled targets and exact stage without replacing a word mid-lesson', () => {
@@ -20,6 +22,50 @@ it('resumes the same shuffled targets and exact stage without replacing a word m
   next = advanceWordLearning(next, ['meet', 'block', 'write', 'color']);
   expect(next.index).toBe(1);
   expect(next.stage).toBe('meet');
+});
+it('shows earlier successful stages before the entire word lesson is complete', () => {
+  const key = wordLearningStorageKey('korean', 'kr-h1-u02');
+  const run = loadWordLearningRun(key, ['아기', '고기', '구이', '가구']);
+  saveWordLearningRun(key, { ...run, stage: 'block' });
+  expect(readWordStageProgress('korean', 'kr-h1-u02')).toEqual({
+    total: 4,
+    counts: { meet: 1, block: 0, write: 0, color: 0 },
+  });
+  saveWordLearningRun(key, { ...run, index: 2, stage: 'write' });
+  expect(readWordStageProgress('korean', 'kr-h1-u02').counts).toEqual({
+    meet: 3,
+    block: 3,
+    write: 2,
+    color: 2,
+  });
+});
+it('counts real isolated practice once and preserves it across replay without moving the run', () => {
+  const unit = 'en-b2-u01';
+  const key = wordLearningStorageKey('english', unit);
+  const run = loadWordLearningRun(key, ['cat', 'hat']);
+  recordWordStageCompleted('english', unit, 'cat', 'color');
+  recordWordStageCompleted('english', unit, 'cat', 'color');
+  recordWordStageCompleted('english', unit, 'unrelated', 'color');
+  expect(readWordStageProgress('english', unit).counts.color).toBe(1);
+  expect(JSON.parse(localStorage.getItem(key)!)).toEqual(run);
+  expect(readWordStageProgress('korean', unit).total).toBe(0);
+  localStorage.setItem('tangobook:activeProfileId', 'sibling');
+  expect(readWordStageProgress('english', unit).total).toBe(0);
+});
+it('does not create progress when inspecting missing or corrupt runs; Book 1 has no block credit', () => {
+  expect(readWordStageProgress('english', 'en-b1-u01').total).toBe(0);
+  expect(localStorage.length).toBe(0);
+  const key = wordLearningStorageKey('english', 'en-b1-u01');
+  const run = loadWordLearningRun(key, ['cat', 'cup']);
+  saveWordLearningRun(key, { ...run, index: 1, stage: 'color' });
+  expect(readWordStageProgress('english', 'en-b1-u01').counts).toEqual({
+    meet: 2,
+    block: 0,
+    write: 2,
+    color: 1,
+  });
+  localStorage.setItem(key, JSON.stringify({ ...run, index: 100 }));
+  expect(readWordStageProgress('english', 'en-b1-u01').total).toBe(0);
 });
 it('isolates siblings and languages, rejects changed or corrupt decks, and starts a new replay', () => {
   const key = wordLearningStorageKey('korean', 'unit');

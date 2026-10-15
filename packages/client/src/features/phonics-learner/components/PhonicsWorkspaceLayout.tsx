@@ -12,7 +12,11 @@ import {
 } from '../lib/learning-journey';
 import { PhonicsJourneyMap } from './PhonicsJourneyMap';
 import { LearningWorkspaceContext, type WorkspaceWordActivity } from './learning-workspace-context';
-import { wordLearningStage, wordLearningStages } from '../lib/word-learning-run';
+import {
+  wordLearningStage,
+  wordLearningStages,
+  readWordStageProgress,
+} from '../lib/word-learning-run';
 import './phonics-workspace.css';
 import { ActivityShell } from './ActivityShell';
 
@@ -60,12 +64,17 @@ function WorkspaceRun({
   const { unitCompletedActivities } = usePhonicsProgress(lang);
   const [wordActivity, setWordActivity] = useState<WorkspaceWordActivity | null>(null);
   const requestedStage = wordLearningStage(query.get('part'));
+  const wordProgress = unitId && requestedStage ? readWordStageProgress(lang, unitId) : undefined;
+  const stageCompleted =
+    !!requestedStage &&
+    !!wordProgress?.total &&
+    wordProgress.counts[requestedStage] === wordProgress.total;
   const practiceStage =
     activityKey === 'word-learning' &&
     unitId &&
     requestedStage &&
     wordLearningStages(unitId).includes(requestedStage) &&
-    (!curriculum || unitCompletedActivities(unitId).includes('word-learning'))
+    (!curriculum || unitCompletedActivities(unitId).includes('word-learning') || stageCompleted)
       ? requestedStage
       : undefined;
   const progress = journeyProgress(lang, unitCompletedActivities);

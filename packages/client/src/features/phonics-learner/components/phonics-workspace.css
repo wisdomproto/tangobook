@@ -208,7 +208,12 @@
   margin-top: 5px;
 }
 .workspace-tree-branch[data-kind='section'] > .workspace-tree-toggle {
-  font-size: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fffdf5;
+  border-bottom: 1px solid #e7e3d5;
+  font-size: 13px;
   color: #887761;
 }
 .workspace-tree-branch[data-current-chapter] > .workspace-tree-toggle {
@@ -285,6 +290,75 @@
 .journey-workspace-tree li[data-completed] .journey-free-arrow {
   color: #1f4a36;
   stroke-width: 3;
+}
+.journey-workspace-tree li[data-started]:not([data-running]) .journey-activity-number {
+  background: #326f50;
+  color: #fff;
+}
+.workspace-word-count {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #355d47;
+}
+.workspace-progress-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+.workspace-progress-title > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+.workspace-progress-seal {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 5px;
+  padding: 4px 6px;
+  border-radius: 10px;
+  background: #e1f0e5;
+  color: #235d40;
+  font-size: 11px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.workspace-progress-seal[data-empty] {
+  color: #827e6d;
+  background: #eeece1;
+}
+.workspace-progress-seal[data-complete] {
+  color: #fff;
+  background: #326f50;
+}
+.workspace-progress-ring {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: conic-gradient(#3c9868 var(--progress-angle), #d2d9cc 0);
+}
+.workspace-progress-ring > span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fffdf5;
+}
+.workspace-progress-seal[data-complete] .workspace-progress-ring {
+  background: transparent;
+}
+.journey-chapter-heading > .workspace-progress-seal {
+  margin-left: auto;
+}
+.workspace-tree-toggle:has(.workspace-progress-seal[data-complete]) {
+  background: #c1dfca;
+  color: #235d40;
 }
 .journey-workspace-tree li[data-running] .journey-free-label {
   display: flex;

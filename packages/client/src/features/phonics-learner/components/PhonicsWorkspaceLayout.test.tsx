@@ -24,6 +24,11 @@ import {
 } from '../lib/learning-journey';
 import { useLearningWorkspace } from './learning-workspace-context';
 import { GUIDED_COMPLETION_MS } from './GuidedActivityTransition';
+import {
+  loadWordLearningRun,
+  saveWordLearningRun,
+  wordLearningStorageKey,
+} from '../lib/word-learning-run';
 
 const { mounted } = vi.hoisted(() => ({ mounted: vi.fn() }));
 vi.mock('@/features/auth/context/AuthContext', () => ({
@@ -206,6 +211,9 @@ it.each([
 );
 
 it('opens word subactivities as separate free practice but cannot request a future curriculum subactivity', () => {
+  const key = wordLearningStorageKey('korean', 'kr-h1-u02');
+  const saved = loadWordLearningRun(key, ['아기', '고기', '구이', '가구']);
+  saveWordLearningRun(key, { ...saved, stage: 'block' });
   const first = show('/library/phonics/korean/kr-h1-u02/word-learning');
   fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
   const drawer = screen.getByRole('dialog', { name: '활동 목록' });
@@ -215,10 +223,21 @@ it('opens word subactivities as separate free practice but cannot request a futu
   expect(drawer).not.toHaveTextContent('아기');
   const current = within(drawer).getByRole('button', { name: '낱말 블록 놀이 학습 중' });
   expect(current).toHaveAttribute('aria-current', 'step');
+  const met = within(drawer).getByRole('button', { name: '낱말 만나기' });
+  expect(met).toHaveTextContent('1/4');
+  expect(met.closest('li')).toHaveAttribute('data-started', 'true');
+  expect(met.closest('li')).not.toHaveAttribute('data-completed');
+  expect(current).toHaveTextContent('0/4');
   const learn = within(drawer).getByRole('button', { name: '익히기' });
   const play = within(drawer).getByRole('button', { name: '놀며 익히기' });
   expect(learn).toHaveAttribute('aria-expanded', 'true');
   expect(play).toHaveAttribute('aria-expanded', 'false');
+  expect(learn.querySelector('.workspace-progress-seal')).not.toHaveAttribute('data-empty');
+  expect(play.querySelector('.workspace-progress-seal')).toHaveAttribute('data-empty', 'true');
+  fireEvent.click(learn);
+  expect(learn.querySelector('.workspace-progress-seal')).toBeInTheDocument();
+  expect(within(drawer).queryByRole('button', { name: '낱말 만나기' })).not.toBeInTheDocument();
+  fireEvent.click(learn);
   const rows = learn.parentElement!.querySelectorAll(':scope > ol > li');
   const numbers = [...rows].map(
     (row) => row.querySelector('.journey-activity-number')?.textContent
@@ -245,6 +264,13 @@ it('opens word subactivities as separate free practice but cannot request a futu
   const second = show('/library/phonics/korean/kr-h1-u02/word-learning?mode=curriculum&part=color');
   expect(screen.getByTestId('practice-part')).toHaveTextContent('sequence');
   second.unmount();
+  saveWordLearningRun(key, { ...saved, index: saved.words.length - 1, stage: 'block' });
+  const completedMeet = show(
+    '/library/phonics/korean/kr-h1-u02/word-learning?mode=curriculum&part=meet'
+  );
+  expect(screen.getByTestId('practice-part')).toHaveTextContent('meet');
+  expect(journeyProgress('korean').current?.activity.key).toBe('word-learning');
+  completedMeet.unmount();
   markActivityCompleted('korean', 'kr-h1-u02', 'word-learning');
   show('/library/phonics/korean/kr-h1-u02/word-learning?mode=curriculum&part=color');
   expect(screen.getByTestId('practice-part')).toHaveTextContent('color');

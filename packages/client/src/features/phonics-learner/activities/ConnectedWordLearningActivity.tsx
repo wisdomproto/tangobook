@@ -29,6 +29,7 @@ import {
   saveWordLearningRun,
   wordLearningStorageKey,
   wordLearningStages,
+  recordWordStageCompleted,
 } from '../lib/word-learning-run';
 import { useLearningWorkspace } from '../components/learning-workspace-context';
 import { WordMeetingActivity } from './WordMeetingActivity';
@@ -113,6 +114,7 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     const id = `${run.id}:${run.index}:${run.stage}`;
     if (completed.current.has(id)) return;
     completed.current.add(id);
+    recordWordStageCompleted(lang, unitId, word, run.stage);
     const next = advanceWordLearning(run, stages);
     if (!practiceStage) saveWordLearningRun(key, next);
     logEvent({
