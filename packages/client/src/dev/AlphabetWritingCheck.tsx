@@ -14,6 +14,7 @@ import {
   beginTrace,
   makeTracePath,
   moveTrace,
+  strokeOwners,
   tracePassed,
   type TracePath,
 } from '@/features/phonics/components/stroke-tracing';
@@ -47,6 +48,7 @@ type Report = {
   strokes: number;
   checks: Check[];
   extended?: Check[];
+  fills?: string[];
   issues: number;
   error?: string;
 };
@@ -69,7 +71,22 @@ async function prepare(letter: string) {
   ctx.fillStyle = '#e0e6da';
   ctx.fillText(letter, 200, 200);
   const mask = ctx.getImageData(0, 0, 400, 400);
-  return { guides: getLetterGuideStrokes(letter, mask), glyph: canvas.toDataURL('image/png') };
+  const glyph = canvas.toDataURL('image/png');
+  const guides = getLetterGuideStrokes(letter, mask);
+  const owners = strokeOwners(mask, guides.map(makeTracePath));
+  const fills = guides.map((_, step) => {
+    const image = ctx.createImageData(400, 400);
+    for (let p = 0; p < owners.length; p++) {
+      const filled = owners[p] <= step;
+      image.data[p * 4] = filled ? 40 : 224;
+      image.data[p * 4 + 1] = filled ? 147 : 230;
+      image.data[p * 4 + 2] = filled ? 108 : 218;
+      image.data[p * 4 + 3] = mask.data[p * 4 + 3];
+    }
+    ctx.putImageData(image, 0, 0);
+    return canvas.toDataURL('image/png');
+  });
+  return { guides, glyph, fills };
 }
 
 function inputFor(path: TracePath, scenario: Scenario): StrokePoint[] {
@@ -237,7 +254,8 @@ function AlphabetWritingCheck() {
     try {
       for (const char of all ? LETTERS : [letter]) {
         try {
-          results.push(report(char, (await prepare(char)).guides));
+          const prepared = await prepare(char);
+          results.push({ ...report(char, prepared.guides), fills: prepared.fills });
         } catch (e) {
           results.push({ letter: char, strokes: 0, checks: [], issues: 1, error: String(e) });
         }
@@ -478,6 +496,24 @@ function AlphabetWritingCheck() {
             : '정확·흔들림·드문 입력은 통과, 역방향·반쪽·점 바깥 입력은 거절되는지 확인합니다.'}
         </p>
         {selected?.error && <p role="alert">{selected.error}</p>}
+        {reports.some((r) => r.fills) && (
+          <details className="audit-ink-previews">
+            <summary>획별 실제 채움 미리보기 · 판정 검사와 별도로 육안 확인</summary>
+            <div className="audit-ink-grid">
+              {reports.flatMap(
+                (r) =>
+                  r.fills?.map((src, step) => (
+                    <figure key={`${r.letter}-${step}`}>
+                      <img src={src} alt={`${r.letter} ${step + 1}획까지 채움`} />
+                      <figcaption>
+                        {r.letter} · {step + 1}/{r.strokes}획 완료
+                      </figcaption>
+                    </figure>
+                  )) ?? []
+              )}
+            </div>
+          </details>
+        )}
         {selected && (
           <div className="audit-table-wrap">
             <table>

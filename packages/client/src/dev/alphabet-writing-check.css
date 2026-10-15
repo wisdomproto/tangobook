@@ -173,6 +173,29 @@ body:has(.alphabet-check) {
 .audit-report > p {
   margin: 14px 0;
 }
+.audit-ink-previews summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 700;
+}
+.audit-ink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+.audit-ink-grid figure {
+  margin: 0;
+  border: 1px solid #d8e2d3;
+  background: #fffdf7;
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+}
+.audit-ink-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+}
 .audit-table-wrap {
   overflow-x: auto;
 }

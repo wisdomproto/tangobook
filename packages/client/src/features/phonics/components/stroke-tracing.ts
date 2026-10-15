@@ -162,14 +162,47 @@ export function strokeOwners(
   // Nearest-centreline alone makes triangular bites where the bowl meets it.
   const stems = paths.flatMap((path, owner) => {
     if (path.dot || path.length < 24) return [];
-    const xs = path.points.map((p) => p.x),
-      ys = path.points.map((p) => p.y);
+    let points = path.points;
+    let xs = points.map((p) => p.x),
+      ys = points.map((p) => p.y);
+    // f/n/h have a curved shoulder; t has a curved foot. Find the long straight
+    // section inside either kind of stroke so a later crossbar cannot cut a
+    // grey gap through the downstroke the child has already completed.
+    if (Math.max(...xs) - Math.min(...xs) > 6 && Math.max(...ys) - Math.min(...ys) > 6) {
+      let longest: StrokePoint[] | undefined,
+        span = 63;
+      for (const axis of ['x', 'y'] as const) {
+        const along = axis === 'x' ? 'y' : 'x';
+        for (let start = 0; start < points.length; start++) {
+          let low = points[start][axis],
+            high = low;
+          for (let end = start + 1; end < points.length; end++) {
+            low = Math.min(low, points[end][axis]);
+            high = Math.max(high, points[end][axis]);
+            if (high - low > 6) break;
+            const length = Math.abs(points[end][along] - points[start][along]);
+            if (length > span) {
+              span = length;
+              longest = points.slice(start, end + 1);
+            }
+          }
+        }
+      }
+      if (longest) {
+        points = longest;
+        xs = points.map((p) => p.x);
+        ys = points.map((p) => p.y);
+      }
+    }
     const vertical = Math.max(...xs) - Math.min(...xs) <= 6;
     const horizontal = Math.max(...ys) - Math.min(...ys) <= 6;
     if (!vertical && !horizontal) return [];
     const runs: Array<[number, number]> = [];
-    for (const fraction of [0.35, 0.5, 0.65]) {
-      const p = path.points[Math.floor((path.points.length - 1) * fraction)];
+    // Include the shoulders of a short crossbar. All three middle samples of
+    // f/t can land inside its vertical stem and mistake the entire column for
+    // the crossbar's thickness, leaving the completed downstroke unpainted.
+    for (const fraction of [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]) {
+      const p = points[Math.floor((points.length - 1) * fraction)];
       const x = Math.round(p.x),
         y = Math.round(p.y);
       const ink = (n: number) => {
@@ -185,7 +218,10 @@ export function strokeOwners(
         high = center;
       while (ink(low - 1)) low--;
       while (ink(high + 1)) high++;
-      runs.push([low, high]);
+      // A perpendicular run longer than this straight stroke belongs to a
+      // crossing stroke. Ignore it; if every sample crosses, use nearest-path
+      // ownership rather than granting a large rectangular override.
+      if (high - low + 1 <= path.length) runs.push([low, high]);
     }
     if (!runs.length) return [];
     runs.sort((a, b) => a[1] - a[0] - (b[1] - b[0]));

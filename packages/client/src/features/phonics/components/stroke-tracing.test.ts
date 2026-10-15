@@ -224,4 +224,43 @@ describe('획 단위의 관대한 따라쓰기', () => {
     ]);
     for (let y = 4; y <= 95; y++) for (let x = 5; x <= 16; x++) expect(owners[y * 100 + x]).toBe(0);
   });
+  it.each(['curved shoulder', 'curved foot'])(
+    'f/t의 %s에서도 가로획이 세로 기둥을 가져가지 않는다',
+    (shape) => {
+      const mask = { width: 400, height: 400, data: new Uint8ClampedArray(400 * 400 * 4) };
+      const fill = (left: number, top: number, right: number, bottom: number) => {
+        for (let y = top; y <= bottom; y++)
+          for (let x = left; x <= right; x++) mask.data[(y * 400 + x) * 4 + 3] = 255;
+      };
+      fill(180, 80, 220, 300);
+      fill(180, 60, 250, 95);
+      fill(160, 135, 250, 155);
+      const main =
+        shape === 'curved shoulder'
+          ? [
+              { x: 240, y: 76 },
+              { x: 200, y: 76 },
+              { x: 200, y: 280 },
+            ]
+          : [
+              { x: 200, y: 76 },
+              { x: 200, y: 280 },
+              { x: 240, y: 280 },
+            ];
+      const owners = strokeOwners(mask, [
+        makeTracePath({
+          from: main[0],
+          to: main.at(-1)!,
+          points: main,
+        }),
+        makeTracePath({ from: { x: 165, y: 145 }, to: { x: 245, y: 145 } }),
+      ]);
+      for (let y = 175; y <= 300; y++)
+        for (let x = 180; x <= 220; x++) expect(owners[y * 400 + x]).toBe(0);
+      expect(owners[145 * 400 + 165]).toBe(1);
+      expect(owners[145 * 400 + 245]).toBe(1);
+      expect(owners[145 * 400 + 200]).toBe(0); // First downstroke stays continuous across the bar.
+      if (shape === 'curved shoulder') expect(owners[76 * 400 + 240]).toBe(0);
+    }
+  );
 });
