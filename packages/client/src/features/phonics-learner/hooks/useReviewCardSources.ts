@@ -1,3 +1,4 @@
+import { isLearningTarget } from '../lib/learning-targets';
 import { useEffect, useMemo, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { decomposeHangul, type Storybook } from '@tangobook/shared';
@@ -40,7 +41,7 @@ export function pickWord(
 ): { word: string; imageUrl: string } {
   if (!sb) return { word: '', imageUrl: '' };
   const cards = (sb.flashcards ?? []) as Array<{ word?: string; imageUrl?: string }>;
-  const withImage = cards.filter((c) => c.word && c.imageUrl);
+  const withImage = cards.filter((c) => c.word && c.imageUrl && isLearningTarget(sb.id, c.word));
   if (!withImage.length) return { word: '', imageUrl: '' };
 
   /**

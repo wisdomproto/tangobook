@@ -422,7 +422,6 @@ export const ENGLISH_PHONICS_CURRICULUM = [
         phonemes: ['dr', 'pr', 'tr'],
         patterns: ['dr_', 'pr_', 'tr_'],
         sampleWords: [
-          'dragon',
           'dress',
           'drive',
           'drum',

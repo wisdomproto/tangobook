@@ -1,3 +1,4 @@
+import { withLearningTargets } from '../lib/learning-targets';
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
@@ -138,7 +139,10 @@ export function EnglishPhonicsActivity({
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
-  const storybook = storybookQuery.data as Storybook | undefined;
+  const storybook = useMemo(
+    () => withLearningTargets(storybookQuery.data as Storybook | undefined),
+    [storybookQuery.data]
+  );
 
   /**
    * 🔴 게임 데이터는 **한 번만 뽑는다** — 어댑터가 내부에서 `shuffle().slice(0,4)` 를 해서,
@@ -279,7 +283,7 @@ export function EnglishPhonicsActivity({
   // 🔤 낱말가족 배우기 (Book 3·4·5) — 그 패턴 낱말들을 나란히 놓고 공통 철자를 강조해 듣는다.
   //    이퓨처 「Learn: Listen and repeat」 대응 — Book 2 의 cvc-pattern-learn 이 CVC 전용이라 못 쓴다.
   if (activity.kind === 'word-family-learn' && activity.pattern) {
-    const sb = storybookQuery.data as Storybook | undefined;
+    const sb = storybook;
     if (storybookQuery.isLoading || !sb) {
       return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
@@ -330,7 +334,7 @@ export function EnglishPhonicsActivity({
      *    한 글자에 한 카드면 "A 는 사과" 로만 남는데, 글자 소리는 여러 낱말에서 같다는 게
      *    이 권의 학습 내용이다.
      */
-    const sb = storybookQuery.data as Storybook | undefined;
+    const sb = storybook;
     const families = sb?.phonicsLesson?.wordFamilies ?? [];
     const perLetter = activity.letters.map((L, i) => {
       const label = `${L.toUpperCase()}${L.toLowerCase()}`;
@@ -384,7 +388,7 @@ export function EnglishPhonicsActivity({
 
   // ── Book 3·4·5: 낱말 기반 듣고 고르기 (letters 없음 → 낱말 소리 듣고 그림 고르기) ──
   if (activity.kind === 'word-listen-choose') {
-    const sb = storybookQuery.data as Storybook | undefined;
+    const sb = storybook;
     if (storybookQuery.isLoading || !sb) {
       return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
