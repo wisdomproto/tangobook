@@ -5,6 +5,7 @@
     "map": "Bản đồ học"
   },
   "consonantFind": {
+    "target": "Chữ cần tìm",
     "title": "Tìm phụ âm",
     "prompt": "Tìm tất cả phụ âm giống nhau",
     "done": "Đã tìm hết!",

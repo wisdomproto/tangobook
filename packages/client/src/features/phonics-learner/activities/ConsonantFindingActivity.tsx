@@ -84,7 +84,7 @@ export function ConsonantFindingActivity({
     >
       <main className="consonant-find" data-intro={board.length === total || undefined}>
         <section className="consonant-find-goal">
-          <h1>{t(done ? 'consonantFind.done' : 'consonantFind.prompt')}</h1>
+          <p className="consonant-find-goal-label">{t('consonantFind.target')}</p>
           <button
             type="button"
             className="consonant-find-target"
@@ -102,30 +102,36 @@ export function ConsonantFindingActivity({
             ))}
           </div>
         </section>
-        <div className="consonant-find-garden" role="group" aria-label={t('consonantFind.title')}>
-          {board.map((letter, i) => (
-            <div key={i} className="consonant-find-place">
-              <button
-                type="button"
-                className="consonant-find-piece"
-                style={
-                  { '--tilt': `${((i % 3) - 1) * 5}deg`, '--delay': `${i * 70}ms` } as CSSProperties
-                }
-                aria-label={t('consonantFind.piece', { letter, number: i + 1 })}
-                disabled={found.includes(i) || done}
-                data-found={found.includes(i) || undefined}
-                data-retry={retry === i || undefined}
-                onClick={(event) => tap(i, event.currentTarget)}
-              >
-                <ToyHangul text={letter} decorative />
-                <span className="consonant-find-shine" aria-hidden="true" />
-              </button>
-              {found.includes(i) && (
-                <Check className="consonant-find-sprout" size={28} aria-hidden="true" />
-              )}
-            </div>
-          ))}
-        </div>
+        <section className="consonant-find-playmat">
+          <h1>{t(done ? 'consonantFind.done' : 'consonantFind.prompt')}</h1>
+          <div className="consonant-find-garden" role="group" aria-label={t('consonantFind.title')}>
+            {board.map((letter, i) => (
+              <div key={i} className="consonant-find-place">
+                <button
+                  type="button"
+                  className="consonant-find-piece"
+                  style={
+                    {
+                      '--tilt': `${((i % 3) - 1) * 5}deg`,
+                      '--delay': `${i * 70}ms`,
+                    } as CSSProperties
+                  }
+                  aria-label={t('consonantFind.piece', { letter, number: i + 1 })}
+                  disabled={found.includes(i) || done}
+                  data-found={found.includes(i) || undefined}
+                  data-retry={retry === i || undefined}
+                  onClick={(event) => tap(i, event.currentTarget)}
+                >
+                  <ToyHangul text={letter} decorative />
+                  <span className="consonant-find-shine" aria-hidden="true" />
+                </button>
+                {found.includes(i) && (
+                  <Check className="consonant-find-sprout" size={28} aria-hidden="true" />
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
     </ActivityShell>
   );

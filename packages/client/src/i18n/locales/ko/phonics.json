@@ -5,6 +5,7 @@
     "map": "학습 지도"
   },
   "consonantFind": {
+    "target": "찾을 자음",
     "title": "자음 찾기",
     "prompt": "같은 자음을 모두 찾아요",
     "done": "모두 찾았어요!",

@@ -5,6 +5,7 @@
     "map": "Learning map"
   },
   "consonantFind": {
+    "target": "Find this letter",
     "title": "Find consonants",
     "prompt": "Find all matching consonants",
     "done": "You found them all!",

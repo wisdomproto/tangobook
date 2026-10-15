@@ -5,6 +5,7 @@
     "map": "学习地图"
   },
   "consonantFind": {
+    "target": "要找的字母",
     "title": "找辅音",
     "prompt": "找出所有相同的辅音",
     "done": "全部找到了！",
