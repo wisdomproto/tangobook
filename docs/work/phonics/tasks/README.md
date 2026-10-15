@@ -1,5 +1,7 @@
 # 파닉스·어휘 작업 기록
 
+- [한글 자모·영어 전수 점검](20261015-letter-family-audit.md) — ready,92자 경로·실제ㅓ 입력/영어 UI 확인·짧은 획 입력 판정 보완, 영어 새 방식은 미적용.
+
 - [누르기 충전·획 단위 쓰기](20261015-tap-charge-stroke-writing.md) — integrated, 한 글자5회 충전·한글 낱자 획순 추적,460검사/실제3회 입력/반응형·타입/lint/build 통과.
 
 - [한영 지도·활동 공통 학습 공간](20261015-persistent-learning-workspace.md) — 같은 지도 유지, 접히는 활동 목록, 학습 중 overlay·좌표/상태 보존, 실제 챕터 완료 지도 unlock.

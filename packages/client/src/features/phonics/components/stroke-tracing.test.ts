@@ -10,6 +10,19 @@ function trace(stroke: VowelGuideStroke, points: StrokePoint[]) {
   return tracePassed(path, attempt);
 }
 describe('획 단위의 관대한 따라쓰기', () => {
+  it('느린 짧은 획은 체크포인트 반올림으로 실제 이동량을 잃지 않는다', () => {
+    for (const length of [8, 12, 40, 60, 62, 79, 120]) {
+      const stroke = { from: { x: 120, y: 180 }, to: { x: 120 + length, y: 180 } };
+      const path = makeTracePath(stroke);
+      const input = path.points.map((p, i) => ({
+        x: p.x + Math.sin(i * 0.3) * 8,
+        y: p.y + Math.cos(i * 0.3) * 8,
+      }));
+      expect(trace(stroke, input), `length ${length}`).toBe(true);
+      expect(trace(stroke, [stroke.to, stroke.from]), `reverse ${length}`).toBe(false);
+      expect(trace(stroke, [stroke.from, stroke.from]), `tap ${length}`).toBe(false);
+    }
+  });
   it('정확히 칠하지 않아도 시작에서 끝까지 약간 삐뚤게 쓰면 통과한다', () => {
     expect(
       trace(line, [

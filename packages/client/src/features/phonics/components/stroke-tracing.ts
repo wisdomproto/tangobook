@@ -30,13 +30,14 @@ export interface TraceAttempt {
   travelled: number;
   offPath: number;
   last: StrokePoint;
+  start: StrokePoint;
 }
 const distance = (a: StrokePoint, b: StrokePoint) => Math.hypot(a.x - b.x, a.y - b.y);
 export const TRACE_TOLERANCE = 32; // 24px on a 300px paper, friendly to small fingers.
 
 export function beginTrace(path: TracePath, point: StrokePoint): TraceAttempt | null {
   return distance(path.points[0], point) <= TRACE_TOLERANCE
-    ? { index: 0, travelled: 0, offPath: 0, last: point }
+    ? { index: 0, travelled: 0, offPath: 0, last: point, start: point }
     : null;
 }
 
@@ -72,17 +73,33 @@ export function moveTrace(
       }
     }
     if (best <= TRACE_TOLERANCE) {
-      travelled += Math.min(movement / pieces, path.distances[nearest] - path.distances[index]);
+      // Count the finger's movement inside the corridor, not the rounded
+      // checkpoint jumps. Quantization otherwise discards valid slow strokes.
+      travelled += movement / pieces;
       index = nearest;
     } else offPath += movement / pieces;
   }
-  return { index, travelled, offPath, last: point };
+  return { index, travelled, offPath, last: point, start: attempt.start };
 }
 
 export function tracePassed(path: TracePath, attempt: TraceAttempt): boolean {
+  const first = path.points[0],
+    last = path.points[path.points.length - 1];
+  const chord = distance(first, last);
+  const forward =
+    chord > 0
+      ? ((attempt.last.x - attempt.start.x) * (last.x - first.x) +
+          (attempt.last.y - attempt.start.y) * (last.y - first.y)) /
+        chord
+      : 0;
   return (
-    path.distances[attempt.index] >= path.length * 0.88 &&
+    // Short bars can end a few pixels shy when a small finger wobbles. Retain
+    // travelled distance and endpoint checks; a dot/half-stroke still fails.
+    path.length - path.distances[attempt.index] <= Math.min(16, path.length * 0.28) &&
     attempt.travelled >= path.length * 0.62 &&
+    // Both ends of a tiny bar can fall inside the start tolerance. Require a
+    // real forward swipe so reversing it or scrubbing a dot cannot pass.
+    (path.length >= 64 || chord < path.length * 0.8 || forward >= path.length * 0.45) &&
     attempt.offPath <= Math.max(24, attempt.travelled * 0.4) &&
     distance(attempt.last, path.points[path.points.length - 1]) <= TRACE_TOLERANCE
   );
