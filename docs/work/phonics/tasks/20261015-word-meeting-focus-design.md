@@ -103,3 +103,5 @@
 - 이번 후속은 로컬 코드·기억 통합이며 원격 push/배포 미요청·미실행. 최종 타입/lint/build·브라우저 재연결 결과는 마무리 기록에 남긴다.
 
 최종 검사: client 타입 검사·변경9개 TS/TSX eslint·diff check 통과, production build59.60초 성공(기존 lottie eval/로케일 혼합 import/큰 청크 경고 유지). 최종 코드의 영어8개 목록은568×320에서 clientHeight=scrollHeight148px로 잘림/스크롤 없이 전체 표시를 확인했다. 빌드 후 해당 worktree의5187 Vite만 재시작했고 DISABLE_PUBLISH_SCHEDULER=1/API_TARGET 공개 API로 유지한다. 로컬 백엔드·운영 데이터 쓰기/학생 기록 초기화·원격 push 없음.
+
+로컬 통합 확인: 코드·기억0a419b9de가 C:/project/tangobook의 main에 포함됐고 tracked diff는 없다. 새 서버에서 영어 cat의 a+t→at→c+at→cat 실제 음원 완료/다음 활성화를 가로폰에서 확인했고 console error는0개였다. 미리보기 낱말 번호도 고정1/1 대신 실제 챕터 목록 위치/개수로 맞췄다. 이번에는 원격 push하지 않았다.
