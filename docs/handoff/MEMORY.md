@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [f/t 잉크 main 전달 요청](../work/phonics/tasks/20261016-lowercase-f-ink.md#main-전달--2026-10-16): 사용자 요청으로da8910360의 f/t 세로 기둥 채움 수정과 검수 기록을 원격 main 전달 대상으로 확정. fetch 후0/3·tracked 미커밋 없음·관련 diff 확인, 일반 push 대상이며 새 운영 배포 성공은 별도 확인 필요. 아래 미푸시는 구현 당시 상태다.
+
 2026-10-16 [소문자 f 세로획 잉크 수정](../work/phonics/tasks/20261016-lowercase-f-ink.md): 사용자 운영 반증으로 가로획 영역이 f 기둥 전체를 가로채던 결함 확인. 폭 표본/교차 제외·f/t 내부 직선 소유권 보완, 로컬 f300/192 두 획 native·52자8,301모의/획별 미리보기 검토·관련21/타입/lint/build 통과. 코드da8910360 로컬 main 포함·새 push/운영 배포 없음. 앞선 판정 검사만으로 실제 잉크 표현까지 검증했다고 보지 않는다.
 
 2026-10-16 [e 가이드·90% 운영 확인](../work/phonics/tasks/20261016-alphabet-guide-ending.md#운영-배포e-가이드90-검수--2026-10-16): ce715fc29/Railway8b84cbd8 successful·Active 확인. 운영 e 가이드3방향/시연·D 직선50% 거절/90% native 완료·실제 운영 e SVG와 배포 판정 함수33모의 정상·console error0/health ok. e native 곡선 완주와 구분하며 검수 기록만 로컬 보존·새 push 없음. 아래 운영 미확인은 이전 시점이다.

@@ -6,7 +6,7 @@
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 코드da8910360 로컬 main 통합 완료·새 push/운영 배포 없음
+- delivery: 코드da8910360 main 통합·사용자 원격 main 전달 요청(아래). 새 운영 배포 완료는 별도 확인 필요.
 
 사용자가 운영 D/E/F 쓰기의 소문자 f를 아래로 그을 때 잘 안 채워진다고 보고했고, 첫 획 완료 체크/두 번째 획 안내인데 윗부분만 초록색인 스크린샷으로 반증했다. 앞선52자 판정 검사는 경로 합격만 확인해 획별 잉크 소유권 오류를 잡지 못했다. 곡선 첫 획과 가로획의 소유권/안내 경로를 함께 확인한다. 운영 전체 곡선 native 입력으로 검증했다고 확대하지 않는다.
 
@@ -24,3 +24,7 @@
 - 최종 실제 Windows system-ui52자107획 기본741+확장7,560=8,301 모의 기대 불일치0. 획별 채움 미리보기 전체를 검토해 f의 기둥 누락 해소와 추가 t 교차점 문제를 확인·보완했다. 최종 f/t PNG도 별도 저장했다.52자 native 입력 전체 완주가 아니다.
 - 57파일 전체 검사에서518통과/지도 관련3개5초 timeout. 병렬 실행 수를2로 줄여 해당3파일36검사 재통과(기대값/시간제한 변경 없음). 이후 최종 t 보완 관련21검사 통과. client typecheck·변경 TS eslint·최종 client build55.57초 통과. 기존 Browserslist/청크 경고는 변경 범위 밖이다.
 - 증거: worktree `output/lowercase-f-ink-20261016/`의 all52-results.json, f-fixed-first-stroke.png, f-small-first-stroke.png, f-small-complete.png, f/t-ink-1/2.png. 로컬 검수 서버5187 유지. 운영 배포/새 push 없음.
+
+## main 전달 — 2026-10-16
+
+사용자가 f/t 채움 수정의 원격 main push를 요청했다. fetch 후 origin/main 대비0/3·tracked 미커밋 없음·관련 diff와 위 검수 결과를 확인했다. 전달 대상은 f/t 잉크 소유권 수정da8910360, 선행 운영 검수 및 통합/전달 기록이다. 일반 push로 전달하며 미추적 자료와 다른 worktree는 보존한다. 위 미푸시는 구현 당시 상태이며, Railway 배포 성공과 운영 실제 채움 검수는 별도 확인해야 한다.
