@@ -66,3 +66,5 @@ iOS에서는 실제 재생 요소를 제스처에서 해금하고 재사용한�
 2026-10-15 동화BGM 사용자최신결정: 구간전환보류, 책을열때명작/전래별기존음원중한곡랜덤선택하고읽는동안유지·반복. ViewerContainer/story-music 수정, 기존cue/set저작데이터보존. [작업근거](../video/tasks/20261015-classic-bgm-research.md)의마지막절참조. 운영배포미실시.
 
 2026-10-15 사용자운영반영승인: 한곡랜덤BGM통합본을origin/main기준merge,타입전체/뷰어59회귀/전체빌드검증. 단계별cue는보관,운영은장르별한곡선택·반복. [통합진행/배포증거](../video/tasks/20261015-classic-bgm-research.md).
+
+2026-10-15 한곡랜덤BGM운영확인완료: 원격main069a80aa3포함후속통합ba1b70dbd Railway배포성공/새번들함수/아기돼지7쪽음악활성유지·정지확인. [검증범위](../video/tasks/20261015-classic-bgm-research.md).

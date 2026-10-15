@@ -7,8 +7,8 @@
 - base: b14e8dc12
 - branch: codex/video-classic-bgm-plan
 - worktree: C:/Users/101024/.codex/worktrees/classic-bgm-plan/tangobook
-- integration: origin/main 기준 통합본 검증 완료, main push 진행
-- delivery: Suno 60역할/120후보·새22MP3 확보, 새7+기존5세트로184권 R2연결·듣기페이지 완성·운영프런트 미배포·미푸시
+- integration: 원격 main 통합·푸시 완료, 후속통합 ba1b70dbd 운영 배포 성공 확인
+- delivery: 한책한곡 랜덤 운영 반영 확인·명작/전래 분리·구간전환 보류·기존 음원/184책 후보 보존
 
 ## 요청과 범위
 
@@ -131,3 +131,10 @@ ViewerContainer는 책 진입시 해당책 장르와 일치하는 기존 backgro
 사용자 main통합/push/운영반영 명시승인. origin/main cbef06ba7을현재브랜치에merge(eeff1c97f),전략/공유메모리2충돌은양측내용보존후최신한곡랜덤결정반영. 로컬main c08743fec는원격과14/595로갈라진별도미푸시작업이므로수정하지않고원격main을기준으로통합본을fast-forward push한다. 다른사용자미추적파일2개보존. PLATFORM은한곡랜덤현재정책,STRATEGY에는3곡보류이유기록. 관리자설정의기존3곡재생설명도현재한곡랜덤/구간보관설명으로정정.
 
 검증: 통합후전체pnpm typecheck통과(shared/server/client),뷰어오디오4파일59tests통과,pnpm build(shared/server/client)성공. 관리자설명수정후해당eslint와client build재확인. 기존큰청크/i18n혼합import/lottie eval/Browserslist경고유지. 운영도메인은www.tangobook.co.kr, /health200확인. 기존R2책184개후보풀/파일URL수정없음.
+
+
+원격main 069a80aa3 일반push완료(직전0behind/12ahead,직후0/0). 자동배포대기중다른파닉스작업이3977b8b4e/c5de7bb6e와함께ba1b70dbd에통합되고a033b07e6기록이추가됨. 첫069a배포는후속으로취소되었지만ba1b70dbd의Railway상태는success/Success - tangobook.co.kr확인. 후속main을로컬브랜치에ff-only반영해다른작업보존.
+
+운영확인: www.tangobook.co.kr/health200, 새index-BqWiUxHc.js→ViewerContainer-BtnLNpTx.js 및GamePreviewModal-DFkcbJpf.js의장르별flatMap·중복제거·랜덤선택함수실제배포확인. 184책카탈로그의모든후보장르일치검증,32개고유현행오디오URL브라우저형User-Agent/Range GET200·206확인(기본Python HEAD는403이므로재생불능으로오판하지않음).
+
+운영/viewer/1772108045716?lang=ko의시작화면정상버튼으로읽기시작,배경음악aria-pressed=true확인. 자동재생멈춤후페이지이동으로7/15에서도배경음악재생상태유지. 같은URL유지는배포코드와회귀검증근거이며브라우저내분리Audio의currentTime을직접검사한것으로표현하지않는다. 이후배경음악정지false확인·콘솔error0. 증거 production-random-preview.png. 사람음악성평가/실기기iOS검증으로확대하지않음.
