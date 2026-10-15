@@ -2,11 +2,11 @@
 
 - id: 20261016-lowercase-f-ink
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 검증 완료, main 통합 예정·새 push 요청 없음
+- delivery: 코드da8910360 로컬 main 통합 완료·새 push/운영 배포 없음
 
 사용자가 운영 D/E/F 쓰기의 소문자 f를 아래로 그을 때 잘 안 채워진다고 보고했고, 첫 획 완료 체크/두 번째 획 안내인데 윗부분만 초록색인 스크린샷으로 반증했다. 앞선52자 판정 검사는 경로 합격만 확인해 획별 잉크 소유권 오류를 잡지 못했다. 곡선 첫 획과 가로획의 소유권/안내 경로를 함께 확인한다. 운영 전체 곡선 native 입력으로 검증했다고 확대하지 않는다.
 
