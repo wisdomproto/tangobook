@@ -1,5 +1,7 @@
 # 파닉스·어휘 작업 기록
 
+- [영어 획순·자음5회 충전 통일](20261015-english-strokes-consonant-charge.md) — integrated·운영 배포 성공 확인, 영어52자 낱자 획 쓰기/i·j 점 구분·한글 자음19종5회 충전. 운영 A3획/ㄱ5회→쓰기 실제 확인,486회귀·타입/lint/build.
+
 - [한글 자모·영어 전수 점검](20261015-letter-family-audit.md) — integrated,92자 경로·실제ㅓ 입력/영어 UI 확인·짧은 획 입력 판정 보완, 영어 새 방식은 미적용.
 
 - [누르기 충전·획 단위 쓰기](20261015-tap-charge-stroke-writing.md) — integrated, 한 글자5회 충전·한글 낱자 획순 추적,460검사/실제3회 입력/반응형·타입/lint/build 통과.

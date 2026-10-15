@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: 코드 b3ccc3db3 로컬 main fast-forward 통합 완료
-- delivery: 2026-10-15 원격 main 코드 fb2decbc8까지 일반 push·SHA 일치·0/0 확인, 운영 배포 완료는 미확인
+- delivery: 2026-10-15 원격 main 0b60a12fe·Railway 배포 bcb44cd2 성공/Active 및 운영 영어 획 쓰기·ㄱ5회 완료→쓰기 이동 확인
 
 ## 사용자 결정
 
@@ -44,3 +44,15 @@
 ## 영어 학습 기준
 
 사용자 후속: 영어 획순은 어려울 수 있으니 신경 써서 적용한다. [Oxford Owl 공식 handwriting 지침](https://home.oxfordowl.co.uk/english/primary-handwriting/)의 글자 시작점·이동 방향·끝점과 일관된 형태 사용을 참고했다(2026-10-15 확인). 인쇄체 스타일마다 획순이 달라질 수 있어 유일한 표준이라는 주장은 하지 않는다. 기존 인쇄체에 맞춘 곡선/꺾임/교차를 유지하고, 흔들린 추적에는32px 허용 범위를 두면서 순서·방향·끝 도달을 확인한다. i/j 점만20px 점찍기로 예외이며 일반 짧은 획의 점 통과는 허용하지 않는다. 안내 재생 버튼으로 현재 획을 다시 볼 수 있고, 실패 점수 없이 같은 획을 다시 시도한다. 영어 반복 횟수를 임의로3회로 늘리거나 낱말/블렌딩에 획 가이드를 추가하지 않았다.
+
+## 운영 배포·실제 입력 검수 — 2026-10-15
+
+사용자가 배포 여부와 운영 두 기능 확인을 요청했다. 처음 한국시간21:23경 운영은 이전 자음3장×3회/영어 면 채움 화면이었다. 기존 로그인으로 Railway 대시보드에 접속해 두 main push의 빌드가 진행 중이며 이전 배포가 Active인 것을 확인했다. 임의 재배포나 빌드 취소 없이 전환을 기다렸다.
+
+Railway deployment bcb44cd2-780c-4fb1-b435-81dee3b27e88의 Details에서 Deployment successful·Active와 GitHub 커밋0b60a12fecf4faa46b0d4f284c769fd5faea3a77/main을 직접 확인했다. 프로젝트 b469e171-479c-400a-80bc-8ab4273c25de, service0019800b-d014-4464-8638-60dcf283677e, production이다. 이는 공개 기능만 보고 추정한 배포 상태와 다르다. 빌드/prerender 완료 뒤 배포 성공. prerender는2성공/2실패(SPA 모드 입구 내용량 기준)였으나 배포를 막지 않았고, 실제 아래 활동은 정상 로드됐다.
+
+- 운영 `https://www.tangobook.co.kr/library/phonics/english/en-b1-u01/letters-write`: 새 StrokeTraceCanvas/획 진행/종이 아래 도구가 나타났다. 실제 native drag로 가로획부터 시도하면 진행0·시작점 재시도 안내, 올바른 첫/둘째 획은1→2와 해당 획 전체 채움, 마지막 가로획 뒤 A 통과/그림 보상 확인. 소문자a는 별도 미완료로 유지됐다. 대소문자52개 운영 완주나 i/j 점의 운영 실입력까지 확인했다는 뜻은 아니다(앞선 로컬 경로/점 검증 유지).
+- 운영 `https://www.tangobook.co.kr/library/phonics/korean/kr-h1-u02/consonant-tap`: 큰 한 자음·충전5칸, 실제5회 개별 클릭으로 각 발음 종료 뒤0→1→2→3→4→5.4까지 미완료,5에서 완성/최고야 표시, 칭찬 후 같은 단원의letter-write로 자동 이동 확인. 정상 UI로 완료한 테스트이며 가짜 완료 주입/진도 초기화/데이터 삭제는 하지 않았다.
+- 두 검수 탭 수집 console error0. 배포 전 script index-CkHYPFs5.js에서 배포 후 index-B2XgNVuh.js로 변경. `/health`는21:32:46경 status ok(UTC2026-10-15T12:32:46.320Z). Git fetch 후 origin/main과 로컬 main0/0을 확인한 뒤 기능 검수를 진행했다.
+
+증거 `C:/project/tangobook/output/production-strokes-charge-20261015/`: english-A-two-strokes.png, english-A-completed.png, consonant-four-of-five.png, consonant-charge-complete.png, consonant-next-writing.png. 브라우저 기본1280×720, 실기기/전권/모든 글자/커리큘럼 새 잠금 해제 전수 검증은 아니다. 이번에는 코드·운영 콘텐츠·설정·자격증명을 변경하지 않았고 새 push/재배포 없이 기록만 로컬 커밋한다.
