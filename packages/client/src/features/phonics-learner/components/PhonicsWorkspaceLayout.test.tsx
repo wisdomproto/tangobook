@@ -91,6 +91,13 @@ function Input({
 }) {
   const [taps, setTaps] = useState(0);
   const workspace = useLearningWorkspace();
+  const publish = workspace?.setWordActivity;
+  const stage = workspace?.practiceStage ?? 'block';
+  useEffect(() => {
+    if (activityKey !== 'word-learning') return;
+    publish?.({ unitId, word: '아기', stage });
+    return () => publish?.(null);
+  }, [activityKey, unitId, stage, publish]);
   useEffect(() => {
     mounted();
   }, []);
@@ -166,20 +173,26 @@ it.each([
   ['korean', 'kr-h1-u02', 'letter-write', 'ㄱ 써보기'],
   ['english', 'en-b1-u01', 'letters-write', 'ABC 써보기'],
 ] as const)(
-  'shows every %s chapter folded except the running chapter, including standalone writing',
+  'shows only the current %s chapter, with the whole course available separately',
   (lang, unit, key, title) => {
     const { container } = show(`/library/phonics/${lang}/${unit}/${key}`);
     fireEvent.click(screen.getByRole('button', { name: 'tap 0' }));
     fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
     const drawer = screen.getByRole('dialog', { name: '활동 목록' });
-    const chapterBranches = drawer.querySelectorAll('[data-kind="chapter"]');
-    expect(chapterBranches.length).toBeGreaterThan(5);
+    expect(drawer.querySelectorAll('[data-kind="book"]')).toHaveLength(0);
+    expect(within(drawer).getByRole('button', { name: '전체 커리큘럼' })).toHaveAttribute(
+      'aria-expanded',
+      'false'
+    );
+    fireEvent.click(within(drawer).getByRole('button', { name: '전체 커리큘럼' }));
+    expect(drawer.querySelectorAll('[data-kind="book"]')).toHaveLength(5);
+    expect(drawer.querySelectorAll('.workspace-chapter-choice').length).toBeGreaterThan(5);
     expect(
-      [...chapterBranches].filter(
-        (branch) =>
-          branch.querySelector(':scope > button')?.getAttribute('aria-expanded') === 'true'
-      )
-    ).toHaveLength(1);
+      within(drawer).queryByRole('link', { name: `${title} 학습 중` })
+    ).not.toBeInTheDocument();
+    fireEvent.click(drawer.querySelector('.workspace-chapter-choice[aria-pressed="true"]')!);
+    expect(drawer.querySelectorAll('[data-kind="book"]')).toHaveLength(0);
+    expect(screen.getByRole('button', { name: 'tap 1' })).toBeInTheDocument();
     const current = within(drawer).getByRole('link', { name: `${title} 학습 중` });
     expect(current).toHaveAttribute('aria-current', 'page');
     fireEvent.click(current);
@@ -196,12 +209,31 @@ it('opens word subactivities as separate free practice but cannot request a futu
   const first = show('/library/phonics/korean/kr-h1-u02/word-learning');
   fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
   const drawer = screen.getByRole('dialog', { name: '활동 목록' });
-  expect(within(drawer).getByRole('button', { name: '낱말 배우기 세부 활동' })).toHaveAttribute(
-    'aria-expanded',
-    'true'
+  expect(
+    within(drawer).queryByRole('button', { name: '낱말 배우기 세부 활동' })
+  ).not.toBeInTheDocument();
+  expect(drawer).not.toHaveTextContent('아기');
+  const current = within(drawer).getByRole('button', { name: '낱말 블록 놀이 학습 중' });
+  expect(current).toHaveAttribute('aria-current', 'step');
+  const learn = within(drawer).getByRole('button', { name: '익히기' });
+  const play = within(drawer).getByRole('button', { name: '놀며 익히기' });
+  expect(learn).toHaveAttribute('aria-expanded', 'true');
+  expect(play).toHaveAttribute('aria-expanded', 'false');
+  const rows = learn.parentElement!.querySelectorAll(':scope > ol > li');
+  const numbers = [...rows].map(
+    (row) => row.querySelector('.journey-activity-number')?.textContent
   );
-  fireEvent.click(within(drawer).getByRole('button', { name: '블록 놀이' }));
-  expect(screen.getByTestId('practice-part')).toHaveTextContent('block');
+  expect(numbers).toHaveLength(8);
+  expect(numbers).toEqual(numbers.map((_, i) => String(i + 1)));
+  expect(
+    [...rows].slice(-4).map((row) => row.querySelector('.journey-free-label')?.textContent)
+  ).toEqual(['낱말 만나기', '낱말 블록 놀이학습 중', '낱말 쓰기', '낱말 색칠하기']);
+  fireEvent.click(current);
+  expect(screen.getByTestId('practice-part')).toHaveTextContent('sequence');
+  expect(mounted).toHaveBeenCalledOnce();
+  fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
+  fireEvent.click(within(drawer).getByRole('button', { name: '낱말 쓰기' }));
+  expect(screen.getByTestId('practice-part')).toHaveTextContent('write');
   first.unmount();
   const steps = journeySteps('korean');
   const target = steps.findIndex(
@@ -231,8 +263,8 @@ it('can inspect folded future chapters without unlocking their activities', () =
   show('/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum');
   fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
   const drawer = screen.getByRole('dialog', { name: '활동 목록' });
-  const next = within(drawer).getByRole('button', { name: 'ㅑ 배우기' });
-  expect(next).toHaveAttribute('aria-expanded', 'false');
+  fireEvent.click(within(drawer).getByRole('button', { name: '전체 커리큘럼' }));
+  const next = within(drawer).getByRole('button', { name: /ㅑ 배우기/ });
   fireEvent.click(next);
   expect(within(drawer).getByRole('button', { name: /ㅑ 배우기.*앞 단계를/ })).toBeDisabled();
   expect(screen.getByTestId('route-activity')).toHaveTextContent('kr-v1-u01:listen-1');
@@ -247,6 +279,7 @@ it('replays an earlier chapter even when its activity key matches the running ch
   show('/library/phonics/korean/kr-v1-u02/listen-1?mode=curriculum');
   fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
   const drawer = screen.getByRole('dialog', { name: '활동 목록' });
+  fireEvent.click(within(drawer).getByRole('button', { name: '전체 커리큘럼' }));
   fireEvent.click(within(drawer).getByRole('button', { name: 'ㅏ 배우기' }));
   fireEvent.click(within(drawer).getByRole('button', { name: /ㅏ 배우기.*다 했어요/ }));
   expect(screen.getByTestId('route-activity')).toHaveTextContent('kr-v1-u01:listen-1');

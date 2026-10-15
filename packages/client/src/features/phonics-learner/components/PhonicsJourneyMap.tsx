@@ -9,6 +9,7 @@ import {
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
+  ArrowLeft,
   ArrowRight,
   BookOpen,
   Check,
@@ -43,7 +44,7 @@ import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { courseActivityMode, courseUnitPreview } from '../lib/course-presentation';
 import { useLearningWorkspace } from './learning-workspace-context';
 import { WorkspaceNavigation } from './WorkspaceNavigation';
-import { WorkspaceTreeBranch, WorkspaceActivityBranch } from './WorkspaceTreeBranch';
+import { WorkspaceTreeBranch } from './WorkspaceTreeBranch';
 import { wordLearningStages } from '../lib/word-learning-run';
 import './phonics-journey-map.css';
 import './phonics-curriculum-board.css';
@@ -112,6 +113,12 @@ export function PhonicsJourneyMap({
   );
   const initial = free ? freeInitial : (returnChapter ?? progress.current?.unit ?? units.at(-1)!);
   const levels = [...new Set(units.map((unit) => unit.levelKey))];
+  const [courseOutlineOpen, setCourseOutlineOpen] = useState(false);
+  const outlineButton = useRef<HTMLButtonElement>(null);
+  useEffect(
+    () => setCourseOutlineOpen(false),
+    [workspace?.navigationOpen, workspace?.unitId, workspace?.activityKey]
+  );
   const [selectedLevel, setSelectedLevel] = useState(initial.levelKey);
   const [selectedUnitId, setSelectedUnitId] = useState(initial.id);
   const [selectedActivityKey, setSelectedActivityKey] = useState<string | null>(
@@ -176,7 +183,15 @@ export function PhonicsJourneyMap({
       seenFinish.current = finishedId;
       setUnlocking(true);
     }
-  }, [active, activityUnitId, activityKey, returnId, finishedId, finishedUnitDone]);
+  }, [
+    active,
+    activityUnitId,
+    activityKey,
+    returnId,
+    finishedId,
+    finishedUnitDone,
+    workspace?.navigationOpen,
+  ]);
   const selectedUnit =
     units.find((unit) => unit.id === selectedUnitId) ?? progress.current?.unit ?? units[0];
   const freeSteps = (unit: Unit) => {
@@ -242,6 +257,7 @@ export function PhonicsJourneyMap({
     progress.current?.activity.key,
     compact,
     active,
+    courseOutlineOpen,
     workspace?.navigationOpen,
     workspace?.wordActivity?.stage,
   ]);
@@ -314,6 +330,22 @@ export function PhonicsJourneyMap({
   const renderActivity = (step: (typeof chapterSteps)[number], index: number) => {
     const running = active && activityUnitId === step.unit.id && activityKey === step.activity.key;
     const wordBranch = !!workspace && step.activity.kind === 'word-learning';
+    const stageTitle = (stage: string) =>
+      t(
+        stage === 'write' && step.unit.id.startsWith('en-b1')
+          ? 'workspace.letterWrite'
+          : stage === 'block'
+            ? 'workspace.wordBlock'
+            : stage === 'write'
+              ? 'activity.wordWriting'
+              : stage === 'color'
+                ? 'workspace.wordColoring'
+                : 'wordJourney.meet'
+      );
+    const runningStage =
+      running && wordBranch && workspace?.wordActivity?.unitId === step.unit.id
+        ? workspace.wordActivity.stage
+        : undefined;
     const current =
       !free &&
       progress.current?.unit.id === step.unit.id &&
@@ -362,30 +394,35 @@ export function PhonicsJourneyMap({
                 : 'listen';
     const content = (
       <>
-        {!free && (
+        {(!free || workspace) && (
           <span className="journey-activity-number" aria-hidden="true">
-            {step.done ? <Check size={15} /> : index + 1}
+            {!workspace && step.done ? <Check size={15} /> : index + 1}
           </span>
         )}
-        <span className="journey-activity-art" aria-hidden="true">
-          {phoneme ? (
-            <ToyHangul text={phoneme} decorative />
-          ) : gameArt ? (
-            <img
-              src={`/images/learning/vocabulary-menu-v1/${gameArt}.webp`}
-              alt=""
-              width={48}
-              height={40}
-              decoding="async"
-            />
-          ) : (
-            <StorybookSprite name={icon} size={free ? 38 : 32} />
-          )}
-        </span>
+        {!workspace && (
+          <span className="journey-activity-art" aria-hidden="true">
+            {phoneme ? (
+              <ToyHangul text={phoneme} decorative />
+            ) : gameArt ? (
+              <img
+                src={`/images/learning/vocabulary-menu-v1/${gameArt}.webp`}
+                alt=""
+                width={48}
+                height={40}
+                decoding="async"
+              />
+            ) : (
+              <StorybookSprite name={icon} size={free ? 38 : 32} />
+            )}
+          </span>
+        )}
         <span className="journey-free-label">
           {activityTitle(t, step.activity)}
-          {running && (!wordBranch || !workspace?.wordActivity) && (
-            <small className="workspace-running-badge">{t('workspace.learning')}</small>
+          {running && (
+            <small className="workspace-running-caption">
+              {runningStage && <>{stageTitle(runningStage)} · </>}
+              {t('workspace.learning')}
+            </small>
           )}
         </span>
         {free &&
@@ -402,6 +439,7 @@ export function PhonicsJourneyMap({
           </span>
         )}
         {!free && !canStart(step) && <LockKeyhole size={14} aria-hidden="true" />}
+        {!free && workspace && step.done && <Check size={16} aria-hidden="true" />}
       </>
     );
     const entry = free ? (
@@ -410,7 +448,7 @@ export function PhonicsJourneyMap({
         className="journey-free-activity"
         data-section={step.activity.section}
         aria-current={running ? 'page' : undefined}
-        data-running-leaf={(running && !wordBranch) || undefined}
+        data-running-leaf={running || undefined}
         onClick={(event) => {
           if (running && !workspace?.practiceStage) {
             event.preventDefault();
@@ -426,7 +464,7 @@ export function PhonicsJourneyMap({
         className="journey-curriculum-activity"
         disabled={!canStart(step)}
         aria-pressed={selected && canStart(step)}
-        data-running-leaf={(running && !wordBranch) || undefined}
+        data-running-leaf={running || undefined}
         onClick={() => {
           if (active && canStart(step)) {
             workspace?.setNavigationOpen(false);
@@ -445,6 +483,59 @@ export function PhonicsJourneyMap({
         {content}
       </button>
     );
+    if (wordBranch) {
+      return wordLearningStages(step.unit.id).map((stage, stageIndex) => {
+        const here = running && stage === (runningStage ?? workspace?.practiceStage ?? 'meet');
+        const available =
+          free || step.done || here || (!active && canStart(step) && stageIndex === 0);
+        return (
+          <li
+            key={`${step.unit.id}:word-learning:${stage}`}
+            data-running={here || undefined}
+            data-completed={step.done || undefined}
+            data-selected={(selected && stageIndex === 0) || undefined}
+            aria-current={!free && !active && current && stageIndex === 0 ? 'step' : undefined}
+          >
+            <button
+              type="button"
+              className={free ? 'journey-free-activity' : 'journey-curriculum-activity'}
+              disabled={!available}
+              aria-current={here ? 'step' : undefined}
+              data-running-leaf={here || undefined}
+              onClick={() => {
+                if (here) workspace?.setNavigationOpen(false);
+                else if (!free && !step.done) {
+                  selectChapter(step.unit);
+                  setSelectedActivityKey(step.activity.key);
+                } else {
+                  const base = `/library/phonics/${lang}/${step.unit.id}/word-learning`;
+                  navigate(`${base}?${free ? '' : 'mode=curriculum&'}part=${stage}`);
+                }
+              }}
+            >
+              <span className="journey-activity-number" aria-hidden="true">
+                {index + stageIndex + 1}
+              </span>
+              <span className="journey-free-label">
+                {stageTitle(stage)}
+                {here && (
+                  <small className="workspace-running-caption">{t('workspace.learning')}</small>
+                )}
+              </span>
+              {here ? (
+                <Play size={14} fill="currentColor" aria-hidden="true" />
+              ) : !available ? (
+                <LockKeyhole size={14} aria-hidden="true" />
+              ) : step.done ? (
+                <Check size={16} aria-hidden="true" />
+              ) : (
+                <ArrowRight size={16} aria-hidden="true" />
+              )}
+            </button>
+          </li>
+        );
+      });
+    }
     return (
       <li
         key={`${step.unit.id}:${step.activity.key}`}
@@ -452,65 +543,8 @@ export function PhonicsJourneyMap({
         aria-current={!free && (active ? running : current) ? 'step' : undefined}
         data-selected={selected || undefined}
         data-running={running || undefined}
-        className={wordBranch ? 'workspace-word-parent' : undefined}
       >
-        {wordBranch ? (
-          <WorkspaceActivityBranch
-            entry={entry}
-            label={t('workspace.details', { activity: activityTitle(t, step.activity) })}
-            defaultOpen={running}
-            followKey={navigationFollowKey}
-          >
-            {wordLearningStages(step.unit.id).map((stage, stageIndex) => {
-              const detail = workspace?.wordActivity;
-              const here = running && detail?.unitId === step.unit.id && detail.stage === stage;
-              const allowed = free || step.done || here;
-              const base = `/library/phonics/${lang}/${step.unit.id}/word-learning`;
-              return (
-                <li key={stage}>
-                  <button
-                    type="button"
-                    className="workspace-word-step"
-                    disabled={!allowed}
-                    aria-current={here ? 'step' : undefined}
-                    data-running-leaf={here || undefined}
-                    onClick={() => {
-                      if (here) workspace?.setNavigationOpen(false);
-                      else navigate(`${base}?${free ? '' : 'mode=curriculum&'}part=${stage}`);
-                    }}
-                  >
-                    <span className="workspace-word-number" aria-hidden="true">
-                      {stageIndex + 1}
-                    </span>
-                    <span>
-                      {t(
-                        stage === 'write' && step.unit.id.startsWith('en-b1')
-                          ? 'workspace.letterWrite'
-                          : stage === 'block'
-                            ? 'activity.blockPlay'
-                            : stage === 'write'
-                              ? 'activity.wordWriting'
-                              : stage === 'color'
-                                ? 'workspace.coloring'
-                                : 'wordJourney.meet'
-                      )}
-                      {here && <small className="workspace-current-word">{detail.word}</small>}
-                    </span>
-                    {here ? (
-                      <small className="workspace-running-badge">{t('workspace.learning')}</small>
-                    ) : !allowed ? (
-                      <LockKeyhole size={13} aria-hidden="true" />
-                    ) : (
-                      <ArrowRight size={14} aria-hidden="true" />
-                    )}
-                  </button>
-                </li>
-              );
-            })}
-          </WorkspaceActivityBranch>
-        ) : (
-          entry
-        )}
+        {entry}
       </li>
     );
   };
@@ -614,7 +648,23 @@ export function PhonicsJourneyMap({
           <WorkspaceNavigation>
             <aside className="journey-mission" aria-live="polite">
               <div className="journey-mission-content">
-                <div className="journey-chapter-heading">
+                {workspace && (
+                  <button
+                    ref={outlineButton}
+                    type="button"
+                    className="workspace-course-button"
+                    aria-expanded={courseOutlineOpen}
+                    onClick={() => setCourseOutlineOpen((open) => !open)}
+                  >
+                    {courseOutlineOpen ? (
+                      <ArrowLeft size={18} aria-hidden="true" />
+                    ) : (
+                      <BookOpen size={18} aria-hidden="true" />
+                    )}
+                    {t(courseOutlineOpen ? 'workspace.chapterActivities' : 'workspace.fullCourse')}
+                  </button>
+                )}
+                <div className="journey-chapter-heading" hidden={courseOutlineOpen}>
                   {free &&
                     (lang === 'korean' ? (
                       <StageLetter lang={lang} unit={selectedUnit} />
@@ -629,39 +679,48 @@ export function PhonicsJourneyMap({
                 <ol
                   ref={activityList}
                   className={`journey-chapter-activities${workspace ? ' journey-workspace-tree' : ''}`}
-                  aria-label={t(workspace ? 'workspace.course' : 'chapter.activities')}
+                  aria-label={t(
+                    workspace && courseOutlineOpen ? 'workspace.course' : 'chapter.activities'
+                  )}
                 >
                   {workspace
-                    ? levels.map((level) => {
-                        const bookUnits = units.filter((unit) => unit.levelKey === level);
-                        return (
-                          <WorkspaceTreeBranch
-                            key={level}
-                            kind="book"
-                            title={<strong>{levelName(t, bookUnits[0])}</strong>}
-                            defaultOpen={level === selectedUnit.levelKey}
-                            followKey={navigationFollowKey}
-                          >
-                            {bookUnits.map((unit) => {
-                              const steps = free
-                                ? freeSteps(unit)
-                                : progress.steps.flatMap((step, i) =>
-                                    step.unit.id === unit.id
-                                      ? [{ ...step, done: progress.done[i] }]
-                                      : []
-                                  );
-                              const complete = steps.length > 0 && steps.every((step) => step.done);
-                              const locked = !free && !steps.some(canStart);
-                              return (
-                                <WorkspaceTreeBranch
-                                  key={unit.id}
-                                  kind="chapter"
-                                  current={unit.id === selectedUnitId}
-                                  defaultOpen={unit.id === selectedUnitId}
-                                  followKey={navigationFollowKey}
-                                  onOpen={active ? undefined : () => selectChapter(unit)}
-                                  title={
-                                    <>
+                    ? courseOutlineOpen
+                      ? levels.map((level) => {
+                          const bookUnits = units.filter((unit) => unit.levelKey === level);
+                          return (
+                            <WorkspaceTreeBranch
+                              key={level}
+                              kind="book"
+                              title={<strong>{levelName(t, bookUnits[0])}</strong>}
+                              defaultOpen={level === selectedUnit.levelKey}
+                              followKey={navigationFollowKey}
+                            >
+                              {bookUnits.map((unit) => {
+                                const steps = free
+                                  ? freeSteps(unit)
+                                  : progress.steps.flatMap((step, i) =>
+                                      step.unit.id === unit.id
+                                        ? [{ ...step, done: progress.done[i] }]
+                                        : []
+                                    );
+                                const complete =
+                                  steps.length > 0 && steps.every((step) => step.done);
+                                const locked = !free && !steps.some(canStart);
+                                return (
+                                  <li
+                                    key={unit.id}
+                                    data-selected={unit.id === selectedUnitId || undefined}
+                                  >
+                                    <button
+                                      type="button"
+                                      className="workspace-chapter-choice"
+                                      aria-pressed={unit.id === selectedUnitId}
+                                      onClick={() => {
+                                        selectChapter(unit);
+                                        setCourseOutlineOpen(false);
+                                        outlineButton.current?.focus();
+                                      }}
+                                    >
                                       <span>{unitTitle(t, unit)}</span>
                                       {active && activityUnitId === unit.id ? (
                                         <span
@@ -669,38 +728,56 @@ export function PhonicsJourneyMap({
                                           aria-label={t('workspace.learning')}
                                         />
                                       ) : complete ? (
-                                        <Check size={15} aria-hidden="true" />
+                                        <Check size={16} aria-hidden="true" />
                                       ) : locked ? (
-                                        <LockKeyhole size={14} aria-hidden="true" />
+                                        <LockKeyhole size={15} aria-label={t('journey.locked')} />
                                       ) : null}
-                                    </>
-                                  }
-                                >
-                                  {(['learn', 'play'] as const).map((section) => {
-                                    const entries = steps.filter(
-                                      (step) => step.activity.section === section
-                                    );
-                                    if (!entries.length) return null;
-                                    return (
-                                      <WorkspaceTreeBranch
-                                        key={section}
-                                        kind="section"
-                                        title={t(
-                                          section === 'learn' ? 'section.learn' : 'section.games'
-                                        )}
-                                        defaultOpen
-                                        followKey={navigationFollowKey}
-                                      >
-                                        {entries.map(renderActivity)}
-                                      </WorkspaceTreeBranch>
-                                    );
-                                  })}
-                                </WorkspaceTreeBranch>
-                              );
-                            })}
-                          </WorkspaceTreeBranch>
-                        );
-                      })
+                                    </button>
+                                  </li>
+                                );
+                              })}
+                            </WorkspaceTreeBranch>
+                          );
+                        })
+                      : (['learn', 'play'] as const).map((section) => {
+                          const entries = chapterSteps.filter(
+                            (step) => step.activity.section === section
+                          );
+                          if (!entries.length) return null;
+                          return (
+                            <WorkspaceTreeBranch
+                              key={`${selectedUnitId}:${section}`}
+                              kind="section"
+                              title={t(section === 'learn' ? 'section.learn' : 'section.games')}
+                              defaultOpen={
+                                active && selectedUnitId === activityUnitId
+                                  ? entries.some((step) => step.activity.key === activityKey)
+                                  : section ===
+                                    (
+                                      chapterSteps.find((step) => !step.done && canStart(step)) ??
+                                      chapterSteps[0]
+                                    )?.activity.section
+                              }
+                              followKey={navigationFollowKey}
+                            >
+                              {entries.map((step, i) =>
+                                renderActivity(
+                                  step,
+                                  entries
+                                    .slice(0, i)
+                                    .reduce(
+                                      (count, item) =>
+                                        count +
+                                        (item.activity.kind === 'word-learning'
+                                          ? wordLearningStages(item.unit.id).length
+                                          : 1),
+                                      0
+                                    )
+                                )
+                              )}
+                            </WorkspaceTreeBranch>
+                          );
+                        })
                     : free
                       ? (['learn', 'play'] as const).map((section) => {
                           const steps = chapterSteps.filter(

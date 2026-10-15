@@ -112,6 +112,40 @@
 }
 
 /* Whole-course tree: folds are navigation only; the running leaf comes from the actual route. */
+.workspace-course-button,
+.workspace-chapter-choice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  text-align: left;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 750;
+  color: #665d4e;
+}
+.workspace-course-button {
+  margin-bottom: 12px;
+  background: #efefdf;
+  box-shadow: 0 2px 0 #dfdfcc;
+}
+.workspace-chapter-choice > span:first-child {
+  flex: 1;
+}
+.workspace-chapter-choice[aria-pressed='true'] {
+  background: var(--course-soft);
+  color: var(--course-label);
+}
+[data-phonics-workspace] .journey-chapter-heading[hidden] {
+  display: none;
+}
+.workspace-course-button:focus-visible,
+.workspace-chapter-choice:focus-visible {
+  outline: 3px solid var(--course-accent);
+  outline-offset: 1px;
+}
 [data-phonics-workspace] .journey-workspace-tree li {
   display: block;
   min-height: 0;
@@ -125,6 +159,12 @@
   margin: 3px 0 8px 8px;
   padding-left: 8px;
   border-left: 1px solid #e0dfce;
+}
+.journey-workspace-tree .workspace-tree-branch[data-kind='chapter'] > .workspace-tree-children,
+.journey-workspace-tree .workspace-tree-branch[data-kind='section'] > .workspace-tree-children {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: 0;
 }
 .workspace-tree-toggle {
   display: flex;
@@ -147,12 +187,10 @@
 .workspace-tree-toggle > svg {
   flex-shrink: 0;
 }
-.workspace-tree-toggle > svg:first-child,
-.workspace-activity-fold svg {
+.workspace-tree-toggle > svg:first-child {
   rotate: -90deg;
 }
-.workspace-tree-toggle > svg[data-open='true'],
-.workspace-activity-fold svg[data-open='true'] {
+.workspace-tree-toggle > svg[data-open='true'][data-open='true'] {
   rotate: 0deg;
 }
 .workspace-tree-branch[data-kind='book'] > .workspace-tree-toggle {
@@ -188,8 +226,32 @@
   width: 34px;
   height: 38px;
 }
+.journey-workspace-tree .journey-activity-number {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 10px;
+  background: #efede1;
+  color: #796c58;
+  font-size: 13px;
+  font-weight: 800;
+}
+.journey-workspace-tree li[data-running] .journey-activity-number {
+  color: #fff;
+  background: var(--course-accent);
+}
+.workspace-running-caption {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--course-label);
+  line-height: 1.5;
+}
 .journey-workspace-tree .journey-free-label {
   min-width: 0;
+  flex: 1;
+  text-align: left;
 }
 .journey-workspace-tree li[data-running] .journey-free-label {
   display: flex;
@@ -204,83 +266,7 @@
     inset 0 0 0 2px var(--course-accent),
     0 3px 0 var(--course-border);
 }
-.workspace-running-badge {
-  display: inline-flex;
-  align-self: flex-start;
-  width: fit-content;
-  padding: 2px 7px;
-  border-radius: 12px;
-  background: var(--course-accent);
-  color: #fff;
-  font-size: 10px;
-  line-height: 1.4;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-.workspace-activity-entry {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-.workspace-activity-entry > a,
-.workspace-activity-entry > .journey-curriculum-activity {
-  flex: 1;
-  min-width: 0;
-}
-.workspace-activity-fold {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  min-height: 44px;
-  flex-shrink: 0;
-  color: #786956;
-  border-radius: 12px;
-  background: #f2f0e4;
-}
-.journey-workspace-tree .workspace-word-steps {
-  list-style: none;
-  margin: 2px 0 8px 14px;
-  padding-left: 8px;
-  border-left: 2px solid #d7dac8;
-}
-.workspace-word-step {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 44px;
-  width: 100%;
-  text-align: left;
-  padding: 7px 5px;
-  border-radius: 10px;
-  color: #6b6254;
-  font-size: 12px;
-  font-weight: 700;
-}
-.workspace-word-step > span:nth-child(2) {
-  flex: 1;
-  min-width: 0;
-  word-break: keep-all;
-}
-.workspace-word-step:disabled {
-  color: #9d978b;
-}
-.workspace-word-step[aria-current='step'] {
-  background: var(--course-soft);
-  color: var(--course-label);
-  box-shadow: inset 3px 0 var(--course-accent);
-}
-.workspace-word-number {
-  color: #9e937c;
-  font-size: 11px;
-}
-.workspace-current-word {
-  display: block;
-  font-size: 12px;
-  margin-top: 2px;
-}
-.workspace-tree-toggle:focus-visible,
-.workspace-activity-fold:focus-visible,
-.workspace-word-step:focus-visible {
+.workspace-tree-toggle:focus-visible {
   outline: 3px solid var(--course-accent);
   outline-offset: 1px;
 }

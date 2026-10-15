@@ -1,5 +1,9 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-15 최신 탐색 정정: 기본 왼쪽 목록에는 현재 선택한 한 챕터의 번호 활동만 둔다. 위 ‘전체 커리큘럼’ 버튼으로만 권/챕터 탐색을 열고, 챕터를 고르면 그 활동 목록으로 돌아온다. 전체 트리를 기본으로 한꺼번에 노출한다는 이전 설명을 대체한다. 실행/잠금/같은 타깃 순차 흐름은 보존한다.
+
+2026-10-15 목록 단순화: 현재 분류만 기본 펼침, 권/챕터 접기는 유지한다. word-learning의 단계는 별도 묶음 없이 익히기의 같은 깊이로 평탄화·연속 번호, 실제 실행 단계만 학습 중 표시, 단어 이름/반복 활동 그림 제거. 표시 leaf는 실제 part 연습 또는 본 run을 가리키며 부모 완료를 만들어내지 않는다. 영어 Book1 블록 제외·글자 쓰기 유지. 아래 낱말 하위 트리/현재 단어 표시 설명은 이 사용자 후속으로 대체한다. [기록](../../../../../docs/work/phonics/tasks/20261015-persistent-learning-workspace.md#활동-목록-단순화연속-번호-후속).
+
 2026-10-15 사이드바 후속: 공유 지도/활동의 목록은 전체 권→챕터→분류→실제 activity key 트리다. 현재 챕터만 기본 펼침, 실행 route의 잎을 학습 중/aria-current로 강조하고 열 때 내부 스크롤한다. 자유모드의 배우기/쓰기 잎은 각각 보이되 기존 자동 연결 유지. 낱말 배우기는 wordLearningStages 아래 실제 단계·현재 단어/단계를 context로 표시한다. 자유모드 part 연습/완료 묶음 재연습은 원래 run을 덮어쓰거나 부모 전체 완료를 만들지 않는다. 커리큘럼 미완료 part 점프는 금지. [최신 기록](../../../../../docs/work/phonics/tasks/20261015-persistent-learning-workspace.md#전체-활동-트리현재-위치-후속).
 
 2026-10-15 최신 학습 공간: PhonicsWorkspaceLayout의 pathless route parent가 한영 지도/활동을 공유한다. language/profile/mode key만 바꾸며 같은 PhonicsJourneyMap에 Outlet을 얹는다. 자식 Modes/FreeMap은 context 안에서 중복 지도를 렌더하지 않는다. 지도 목록은 기본 펼침/활동은 location key별 접힘, native dialog로 열며 fixed player/canvas 좌표나 mount를 바꾸지 않는다. 공용 ActivityShell/GameHeader/Coloring toolbar는 왼쪽 목록·오른쪽 지도, 기존 내부 도구 유지. 챕터 끝은 실제 finished 검증 후 같은 지도에서 인접 unlock. query만으로 미래 선택/진행을 허용하지 않는다. [작업·검증](../../../../../docs/work/phonics/tasks/20261015-persistent-learning-workspace.md).

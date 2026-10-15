@@ -1,5 +1,9 @@
 {
   "workspace": {
+    "fullCourse": "Full curriculum",
+    "chapterActivities": "Chapter activities",
+    "wordBlock": "Word block play",
+    "wordColoring": "Word coloring",
     "coloring": "Coloring",
     "learning": "Learning now",
     "course": "All learning activities",

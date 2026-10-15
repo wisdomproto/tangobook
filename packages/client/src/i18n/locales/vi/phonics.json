@@ -1,5 +1,9 @@
 {
   "workspace": {
+    "fullCourse": "Toàn bộ chương trình",
+    "chapterActivities": "Hoạt động chương",
+    "wordBlock": "Chơi khối từ",
+    "wordColoring": "Tô màu từ",
     "coloring": "Tô màu",
     "learning": "Đang học",
     "course": "Tất cả hoạt động",

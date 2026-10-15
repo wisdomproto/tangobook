@@ -1,5 +1,9 @@
 {
   "workspace": {
+    "fullCourse": "完整课程",
+    "chapterActivities": "章节活动",
+    "wordBlock": "词语积木游戏",
+    "wordColoring": "词语涂色",
     "coloring": "涂色",
     "learning": "正在学习",
     "course": "全部学习活动",
