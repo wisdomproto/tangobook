@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-16 [e 가이드·90% 운영 검수](tasks/20261016-alphabet-guide-ending.md#운영-배포e-가이드90-검수--2026-10-16): Railway8b84cbd8/ce715fc29 successful·Active 확인. 운영 복습 쓰기에서 e의3방향 화살표·순서 시연, D 직선50% 거절→90% native drag 후1/2획·끝까지 깨끗한 채움 확인. 운영 e SVG/실제 배포 판정 함수33모의 기대 불일치0·console error0·health ok. e native 곡선 완주는 도구 제약으로 미확인이며 모의 검사와 구분한다. 검수 기록만 로컬 커밋·새 push 없음.
+
 2026-10-16 [가이드·90% 마무리 main 전달](tasks/20261016-alphabet-guide-ending.md#main-전달--2026-10-16): 현재 사용자 요청으로766a1ee9b 원격 main 일반 push·SHA 일치/0·0 확인. 아래 미푸시는 이전 상태이며 새 운영 배포 완료는 미확인.
 
 2026-10-16 [알파벳 가이드·끝맺음](tasks/20261016-alphabet-guide-ending.md): 투영 뒤 직선과 Z 공유 꺾임 재정렬·곡선 픽셀 떨림 완화, e 한 획의3방향 cue. 공용 StrokeTraceCanvas는90%에서 떼면 꼬리 완성하며 점/역방향/반쪽/지름길 제한은 유지한다. 짧은 t 양끝 흔들림 이동량 보완.52자107획 기본741+확장7,560 기대 불일치0·520회귀/추가관련55·타입/lint/build23.95초 성공. D직선/E4직선 native와 D/d/e 곡선 synthetic pointer 재생(실제 완료→그림/음성 ended)을 구분했고 native 곡선 직접 완주는 미확인이다.9a2d94833 로컬 main 통합·새 push/배포 없음.

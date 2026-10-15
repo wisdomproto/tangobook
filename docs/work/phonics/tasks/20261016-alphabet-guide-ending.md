@@ -6,7 +6,7 @@
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 사용자 요청으로766a1ee9b 원격 main 일반 push·SHA 일치/0·0 확인. 운영 배포 완료 미확인.
+- delivery: 사용자 요청으로766a1ee9b·전달 기록ce715fc29 원격 main 일반 push. Railway8b84cbd8의ce715fc29 successful/Active와 운영 e 가이드·직선90% 입력 확인(아래 운영 검수).
 
 사용자가 D/d 실제 완주 검수·가이드 직선 정리·약90%에서 떼어도 획 완성, 이어서 소문자 e 순서가 잘 안 보인다고 요청했다. 직선 native 입력만 가능한 현재 CUA/Windows API에서 곡선을 연속으로 직접 그리는 도구는 없음(API 정의 확인). 다른 입력 도구나 숨은 상태 조작으로 우회하지 않고 실제 공용 컴포넌트에 DEV UI의 곡선 pointer event 재생으로 완료/그림/음성을 확인하되 native 손 입력과 구분해 보고한다.
 
@@ -33,3 +33,13 @@
 ## main 전달 — 2026-10-16
 
 사용자가 이번 가이드/90% 마무리 수정의 main push를 요청했다. fetch 후 origin/main 대비0/2·tracked 미커밋 없음·관련 diff와 검수 기록을 확인했다. 일반 push c37940e76→766a1ee9b 성공, ls-remote SHA 일치·0/0 확인. 미추적 자료와 다른 worktree는 보존했다. 위 미푸시는 구현 당시 상태이며 새 운영 배포 성공과 운영 실제 입력 확인은 별도다.
+
+## 운영 배포·e 가이드·90% 검수 — 2026-10-16
+
+- Railway 최신 배포 `8b84cbd8-abf3-4423-b10a-286a647fca85` Details에서 GitHub 커밋 `ce715fc298f28da968101a2e3c6bf553bd6ba7f3`·Deployment successful·Active를 직접 확인했다. 첫 확인 때는 빌드 중이었으며, 완료 후 운영 화면을 새로 열었다. 새 entry는 `index-DqjnfmM4.js`, 획 컴포넌트 번들은 `WordListenChooseActivity-Ctae5z6o.js`다.
+- 실제 운영 `/library/phonics/english/en-b1-r1/review-write`의 첫 무작위 카드가 e여서 숨은 상태/입력 이벤트 조작 없이 e에 접근했다. 가로 오른쪽→위 반시계→아래 오른쪽의3방향 화살표와1번 시작점, ‘e 쓰는 순서’ 실제 클릭 후 ‘쓰는 순서를 봐요’ 시연을 확인했다. 복습 첫 글자는 무작위이므로 이 URL이 항상 e로 시작한다고 안내하지 않는다.
+- 실제 운영 `en-b1-u02/letters-write`에서 D 세로196px의50% native drag 후 진행0/2·다시 시작 안내, 같은 획90%에서 손을 떼니 진행1/2·2번째 획 안내로 바뀌었다. 폰트 외곽 안에서 세로획 끝까지 깔끔하게 채워진 화면도 확인했다. D 전체 완주나 e 곡선 native 완주로 확대하지 않는다.
+- 운영 공개 번들의 실제 순수 판정 함수와 pointer-up `completionRatio:.9` 연결을 추출해 운영 DOM e SVG(길이500.73px)로33개 모의 검사했다. 정확90/95/100%·몸통8/12/16px 흔들림+90% 끝점은 통과하고,50/75/85%·역방향·지름길·제자리 탭은 거절, 기대 불일치0. 브라우저 이벤트·진도·DB를 조작하지 않았다.
+- 초기 추가 진단에서90% 기준점 자체에도 흔들림을 더한 입력 일부는 실제 투영 진행86~89%여서 거절됐다. 이는90%에서 떼기와 다른 입력임을 원본 `offset-endpoint-diagnostic.json`에 보존했다.90% 끝점을 고정하고 마지막10샘플 흔들림을 줄인 명시적 조건으로 분리했으며 제품 판정/기존 테스트 기대값은 바꾸지 않았다.
+- 두 운영 탭 console error0, `/health` ok. e 곡선 전체를 손으로 그리는 native 도구는 현재 API에 없어 해당 검증은 미완료다. 운영 UI 관찰·직선 native 입력·배포 순수 함수 모의 검사를 구분해 사용자에게 보고한다.
+- 증거: `C:/project/tangobook/output/production-e-guide-20261016/`의 e-guide.png, D-native-90.png, deployment-active.png, production-guides.json, deployed-results.json, verify-deployed.mjs. 코드 수정/새 push/배포 조작 없음. 검수 기록만 로컬 커밋한다.

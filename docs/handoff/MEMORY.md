@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [e 가이드·90% 운영 확인](../work/phonics/tasks/20261016-alphabet-guide-ending.md#운영-배포e-가이드90-검수--2026-10-16): ce715fc29/Railway8b84cbd8 successful·Active 확인. 운영 e 가이드3방향/시연·D 직선50% 거절/90% native 완료·실제 운영 e SVG와 배포 판정 함수33모의 정상·console error0/health ok. e native 곡선 완주와 구분하며 검수 기록만 로컬 보존·새 push 없음. 아래 운영 미확인은 이전 시점이다.
+
 2026-10-16 [가이드·90% 끝맺음 전달](../work/phonics/tasks/20261016-alphabet-guide-ending.md#main-전달--2026-10-16): 사용자 요청으로766a1ee9b 원격 main 일반 push 완료·원격 SHA 일치/0·0 확인. 아래 로컬만 반영은 구현 당시 상태이며 운영 배포 완료는 미확인.
 
 2026-10-16 [가이드·90% 끝맺음](../work/phonics/tasks/20261016-alphabet-guide-ending.md): 영어 직선/꺾임 재정렬·곡선 떨림 정리, e 가로→위 반시계→아래 마무리 방향3곳, 한영 공용 획90% pointer-up 마무리(점 제외). D 세로/E4직선 native·D/d/e 곡선은 실제 컴포넌트 synthetic 재생/그림·음성 종료 검수로 구분했다.52자107획8,301모의 기대 불일치0·520회귀+Z추가관련55·타입/lint/build 성공.9a2d94833 로컬 main 포함·새 push/운영 배포 없음. native 곡선 직접 손 입력은 도구 제약으로 미확인.
