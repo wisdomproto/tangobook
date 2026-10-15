@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { StrokeTraceCanvas } from '@/features/phonics/components/StrokeTraceCanvas';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { writeStepRead } from '../lib/english-phonics-units';
@@ -296,6 +297,17 @@ export function ReviewWriteActivity({
                   ✓
                 </span>
               </div>
+            ) : language === 'english' &&
+              unitId.startsWith('en-b1-') &&
+              /^[A-Za-z]$/.test(current.word) ? (
+              <StrokeTraceCanvas
+                key={`review-letter-${idx}`}
+                letter={current.word}
+                guidance="hint"
+                onResult={(ok) => {
+                  if (ok) handleWordDone();
+                }}
+              />
             ) : (
               <WordFillCanvas
                 key={`review-write-${idx}`}

@@ -1,5 +1,13 @@
 # 파닉스·어휘 작업 기록
 
+- [소문자 곡선·점 찍기 검수](20261015-lowercase-writing-review.md) — n 투영 왕복 제거·i/j44px 점 탭 버튼, 실제 폰트26자 모의 검사/495회귀·실제 i 작은 판 입력, 로컬 수정·미푸시.
+
+- [영어 획순·자음5회 충전 통일](20261015-english-strokes-consonant-charge.md) — integrated·운영 배포 성공 확인, 영어52자 낱자 획 쓰기/i·j 점 구분·한글 자음19종5회 충전. 운영 A3획/ㄱ5회→쓰기 실제 확인,486회귀·타입/lint/build.
+
+- [한글 자모·영어 전수 점검](20261015-letter-family-audit.md) — integrated,92자 경로·실제ㅓ 입력/영어 UI 확인·짧은 획 입력 판정 보완, 영어 새 방식은 미적용.
+
+- [누르기 충전·획 단위 쓰기](20261015-tap-charge-stroke-writing.md) — integrated, 한 글자5회 충전·한글 낱자 획순 추적,460검사/실제3회 입력/반응형·타입/lint/build 통과.
+
 - [한영 지도·활동 공통 학습 공간](20261015-persistent-learning-workspace.md) — 같은 지도 유지, 접히는 활동 목록, 학습 중 overlay·좌표/상태 보존, 실제 챕터 완료 지도 unlock.
 - [자음 모두 찾기](20261015-consonant-finding-game.md) — 목표4개·모음에서 배운 ㅇ과 현재까지의 자음만, 귀여운 수집 반응·기존 완료 보존.
 

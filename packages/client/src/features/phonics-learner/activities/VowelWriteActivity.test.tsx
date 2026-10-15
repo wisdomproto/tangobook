@@ -35,6 +35,21 @@ vi.mock('@/features/phonics/components/LetterFillCanvas', () => ({
     </button>
   ),
 }));
+vi.mock('@/features/phonics/components/StrokeTraceCanvas', () => ({
+  StrokeTraceCanvas: ({
+    letter,
+    onResult,
+    guidance,
+  }: {
+    letter: string;
+    onResult: (passed: boolean) => void;
+    guidance?: string;
+  }) => (
+    <button aria-label={`쓰기 ${letter}`} data-guidance={guidance} onClick={() => onResult(true)}>
+      {letter}
+    </button>
+  ),
+}));
 
 describe('모음 모양 쓰기와 발음 분리', () => {
   it('세 번 모두 새 캔버스에 쓰고 마지막 발음이 끝나야 완료한다', async () => {

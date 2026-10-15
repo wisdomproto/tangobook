@@ -1,5 +1,9 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-15 소문자 검수 후속: 공용 StrokeTraceCanvas의 i/j 점은 몸통 완료 뒤44px 버튼으로 제시한다. compact의 숨겨진 문구만으로 행동을 설명하지 않는다. n의 폰트 투영 왕복도 공용 영어 경로에서 정리한다. 모의 곡선 검사와 실제 native 입력 범위/운영 관찰은 [후속 task](../../../../../docs/work/phonics/tasks/20261015-lowercase-writing-review.md)에 구분한다.
+
+2026-10-15 영어 획순·자음 충전 후속: AlphabetLetterWriteActivity/LetterWriteModal/en-b1 단일 글자 복습은 StrokeTraceCanvas hint+compact를 사용한다. 공용 VowelWrite도 영어 낱자를 허용한다. i/j 점은 몸통 뒤 터치, 기존 단어·블렌딩 쓰기는 면 채움 보존. ConsonantTapActivity는 기본/쌍자음 한 글자5회 실제 소리 종료 충전이며 연타·실패·이탈은 미완료. 예전3장×3회/영어 미적용 설명을 대체한다. [작업](../../../../../docs/work/phonics/tasks/20261015-english-strokes-consonant-charge.md).
+
 2026-10-15 부분 진행 표시 정정: 낱말4행은 부모 묶음 완료만으로 색칠하지 않고 실제 단계별 완료 낱말 수/전체 수(1/4 등)와 부분 농도를 표시한다. 저장된 순차 cursor+실제 개별 연습 성공을 사용하며 부모 완료/챕터 잠금·숙달 판정은 바꾸지 않는다. 상위 분류/챕터/권 버튼도 같은 실제 집계의 진행 링·퍼센트·완료 체크를 표시해 접힌 상태에서도 구분한다. 아래 이진 완료만 설명한 기록을 보완한다.
 
 2026-10-15 최신 탐색 정정: 기본 왼쪽 목록에는 현재 선택한 한 챕터의 번호 활동만 둔다. 위 ‘전체 커리큘럼’ 버튼으로만 권/챕터 탐색을 열고, 챕터를 고르면 그 활동 목록으로 돌아온다. 전체 트리를 기본으로 한꺼번에 노출한다는 이전 설명을 대체한다. 실행/잠금/같은 타깃 순차 흐름은 보존한다. 학습 상태 후속: 챕터는 실제 완료 활동 비율에 따라 연함→진한 초록/완료율, 활동은 완료 초록 체크·현재 과정색/학습 중·미완료 옅은 면으로 구분한다. 숙달 판정이나 진도 데이터는 바꾸지 않는다.
@@ -609,6 +613,8 @@ Book 1 데이터 정리 (2026-05-21):
 - 점 1개 → coverage 0.01 → 1.5%, 적당히 그림 (coverage 40%) → 35% 정도. CvcPatternLearn Phase C threshold 20 으로 lenient.
 
 ## 글자쓰기 채점 = Paint mode (`LetterFillCanvas`, 2026-05-22)
+
+2026-10-15 최신 정정: 한글40낱자 `VowelWriteActivity`는 `StrokeTraceCanvas`로 전환. 실제700폰트에 맞춘 기존 경로를 현재 획 순서/방향대로 대략 그리면 그 획의 폰트 영역 전체를 채운다. 점/역방향/다음 획 먼저/지름길/취소는 통과 없음.3회 시범→힌트→독립과 음원 종료 후 새 종이 유지. 아래 모든 쓰기 paint 통일/99%는 한글 낱자에서 대체되었으며, 합성·받침·낱말·영어 호출은 변경하지 않는다. 한 글자 `VowelListenActivity`는 기존3카드 대신 큰 한 글자+5번 충전이며 실패/연타를 횟수로 세지 않는다. [기록](../../../../../docs/work/phonics/tasks/20261015-tap-charge-stroke-writing.md).
 
 2026-10-13 후속: 기본/쌍자음은 consonant-tap→새 letter-write(`vowel-write` 공용3회)→기존 합성, 복합 모음은 각 낱자 listen→write 후 기존 합성. 아래 입문 모음 획순 시스템은 한글40낱자·영어52글자로 확장(`letter-stroke-guide.ts`), 영어 AlphabetLetterWrite/LetterWriteModal은 작은 안내·다시 보기. 사용자 지시로 ConsonantWrite(합성/받침), CvcPatternWrite는 `guidance="none"`, WordFillCanvas는 획순 없음. 합성 음절/겹받침은 가이드 대상에서 제외. 기본/복합 모음·쌍자음 낱자3회는 시범→힌트→독립, 음원 종료 후만 새 캔버스. [최종 정정·검증](../../../../../docs/work/phonics/tasks/20261013-all-stroke-guides.md).
 

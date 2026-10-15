@@ -8,6 +8,20 @@
 
 2026-10-15 [명작 BGM 조사](../work/video/tasks/20261015-classic-bgm-research.md): 사용자 Suno로 명작부터 한 작품씩·시작/위기/정점/해소4역할, 모든장면/모든작품개별곡 불필요·먼저조사 요청. 기존목록144레코드 read-only 재조회→48작품×3본문SHA동일·현재12BGM URL. 8군×4=32곡 제안·첫후보아기돼지4곡·48작품쪽수/본문근거·HTML/프롬프트. 음악 미생성·플랜/크레딧/운영쓰기/앱구현 없음. codex/video-classic-bgm-plan 로컬·미통합/미푸시.
 
+2026-10-15 [영어 소문자 보완 전달](../work/phonics/tasks/20261015-lowercase-writing-review.md): 사용자 요청으로 i/j 점 버튼 확대·n 곡선 투영 정리 코드7863b1c66 원격 main push, SHA 일치·0/0 확인. 새 운영 배포 완료는 미확인. 아래 미푸시는 구현 당시 상태다.
+
+2026-10-15 [영어 소문자 검수 후속](../work/phonics/tasks/20261015-lowercase-writing-review.md): n 곡선의 폰트 투영 왕복 때문에 흔들린 입력이 막히던 문제 수정, i/j 몸통 뒤44px 점 버튼으로 작은 판의 누름 범위/행동 안내 보완.26자 경로 모의 검사·실제 i 입력·495회귀 확인. 운영 관찰과 로컬 수정 구분, 새 수정은 미푸시·미배포.
+
+2026-10-15 [영어 획순·자음5회 운영 확인](../work/phonics/tasks/20261015-english-strokes-consonant-charge.md#운영-배포실제-입력-검수--2026-10-15): Railway 최신0b60a12fe 배포 bcb44cd2 successful/Active 직접 확인. 운영 영어A 순서대로3획→통과·그림, ㄱ5회 소리 종료 충전→칭찬→쓰기 자동 이동 정상. console error0·health ok. 아래 운영 미확인은 당시 상태다. 기록만 로컬 커밋·새 push 없음.
+
+2026-10-15 [파닉스 main 전달](../work/phonics/tasks/20261015-english-strokes-consonant-charge.md): 사용자 요청으로 영어 획순·자음5회와 선행 한글 획 쓰기/느린 짧은 획 수정 코드 fb2decbc8 원격 main 일반 push 성공, SHA 일치·0/0 확인. 아래 원격 미푸시는 과거 상태다. 운영 배포 완료는 별도 미확인.
+
+2026-10-15 [영어 획순·자음5회 후속](../work/phonics/tasks/20261015-english-strokes-consonant-charge.md): 영어52자 낱자 쓰기 적용 및 i/j 점 분리, 한글 자음19종5회 충전 완료. 아래 미적용 기록을 대체한다. 486회귀·타입/lint/build 및 대표 실제 입력/반응형 확인. 낱말·블렌딩 방식은 보존, 원격 미푸시.
+
+2026-10-15 [한영 낱자 전수 점검](../work/phonics/tasks/20261015-letter-family-audit.md): 한글40자/영어52자 실제 폰트 경로 확인, 한글 짧은 획의 느린 입력 거리 누락 수정. 영어 새 획 추적·자음5회 충전은 아직 미적용 범위임을 사용자에게 명시. 경로 모의 검사와 실제 대표 화면/손 입력을 구분한다.
+
+2026-10-15 파닉스 누르기/쓰기 후속: 한 글자5번 탭 충전과 한글 낱자 획 단위 따라쓰기 적용. 점/역방향/다음 획 먼저/지름길·취소는 완료 아님.3회 연습·음원 종료 연결 보존. [작업](../work/phonics/tasks/20261015-tap-charge-stroke-writing.md). 기존 paint 통일 규칙은 한글 낱자에서 이 결정으로 대체된다.
+
 2026-10-15 파닉스 main 전달: 사용자 push 요청으로 f9de53bb4까지 원격 main 반영, ls-remote 일치·0/0 확인. 아래 관련 미푸시는 과거 상태이며 [전달 기록](../work/phonics/tasks/20261015-persistent-learning-workspace.md#2026-10-15-main-푸시-완료)으로 갱신한다. 운영 배포 완료는 별도 미확인.
 
 2026-10-15 완료 체크 재확인: 완료한 활동을 다시 열 때 Play/current dot가 체크를 가리던 우선순위 수정. 한영 활동/낱말 단계는 원형 체크 유지, 상위 분류·챕터·권은100% 대신 체크+완료. 실제ㅏ 재연습·관련10회귀/타입/lint 확인, 로컬 main·미푸시. 공통 파닉스 학습 공간 task 참조.

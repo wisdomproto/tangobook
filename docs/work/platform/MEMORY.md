@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-15 [영어 획순·자음 충전 배포 확인](../phonics/tasks/20261015-english-strokes-consonant-charge.md#운영-배포실제-입력-검수--2026-10-15): 기존 로그인 Railway 대시보드에서 최신0b60a12fe/main 배포 bcb44cd2 successful/Active를 직접 확인했다. 운영 영어A 획 추적·통과 보상/ㄱ5회 충전·쓰기 이동 실제 입력, health ok·두 탭 console error0. 처음 구버전 화면은 배포 빌드 중이었으며 임의 재배포/취소/변수 변경 없이 성공 전환을 기다렸다. 기록만 로컬 커밋.
+
 2026-10-15 [운영 듣고 블록 놀이 확인](../phonics/tasks/20261015-listening-block-practice.md#운영-배포-반영-확인--2026-10-15): 한영 실제 자유모드 메뉴/게임 진입·정답 숨김·소리 재생 종료 후 판 활성화·첫 글자 힌트 정상. 영어 배치/되돌리기·다음 잠금/같은 챕터 복귀, SPA 홈/영어 탭 제목도 확인. 운영 HTTP200/health ok·console error0, 기능 배포 반영 확인(운영 Git SHA/배포 ID 직접 조회 아님). 학생 답안/성적/완료·콘텐츠 수정·새 push 없음, 기록만 로컬 커밋.
 
 2026-10-15 [운영 학습 UI 배포 반영 확인](../phonics/tasks/20261014-resume-entry-placement.md#운영-확인--2026-10-15): /library·/health HTTP200, health ok·새 그림2WebP SHA 일치, 홈 큰 언어 Link/실제 두 이어하기/추천 셔플과 한영 팝업 동작. 공개 서비스 기능 반영 증거이며 Railway 배포 ID/commit 직접 조회는 미확인. 탭 제목 잔상·최초 한글 중복 문구 후속, 검수 기록만 로컬 보존.

@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "Bấm mỗi cái ba lần nhé!",
-    "cardLabel": "Thẻ {{letter}} số {{n}}"
+    "cardLabel": "Thẻ {{letter}} số {{n}}",
+    "chargeProgress": "Số lần chạm phụ âm"
   },
   "write": {
     "writeSyllable": "Viết {{syllable}}",
@@ -284,7 +285,15 @@
     "watch": "Xem cách viết nhé",
     "fromDot": "Bắt đầu từ dấu chấm",
     "onYourOwn": "Tự viết nhé",
-    "showStrokes": "Xem thứ tự nét"
+    "showStrokes": "Xem thứ tự nét",
+    "traceLetter": "Viết theo {{letter}}",
+    "finished": "Hoàn thành chữ!",
+    "tryFromStart": "Thử lại từ điểm bắt đầu",
+    "strokeNumber": "Viết nét {{n}}",
+    "strokeProgress": "Nét đã hoàn thành",
+    "tapDot": "Chạm vào dấu chấm nhỏ",
+    "tapDotAction": "Chạm!",
+    "tapLetterDot": "Chạm dấu chấm trên {{letter}}"
   },
   "cvc": {
     "learn": "Học {{pattern}}",
@@ -313,7 +322,9 @@
     "audioRetry": "Không tải được âm thanh. Chạm lại nhé!",
     "cardLabel": "Thẻ {{letter}} số {{n}}",
     "repeatProgress": "Thẻ nguyên âm đã nghe",
-    "writeNext": "Thử viết →"
+    "writeNext": "Thử viết →",
+    "chargeLabel": "Chạm để tô đầy {{letter}}",
+    "chargePrompt": "Chạm năm lần để tô đầy!"
   },
   "vowelPicker": {
     "makePrompt": "Mình ghép với nguyên âm nào nhỉ?",

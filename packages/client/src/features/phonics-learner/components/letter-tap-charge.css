@@ -1,0 +1,203 @@
+.letter-tap-charge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: min(100%, 400px);
+}
+.letter-tap-toy {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(160px, 29vh, 280px);
+  aspect-ratio: 1;
+  border: 3px solid #b1d8c3;
+  border-radius: 40%;
+  background: linear-gradient(160deg, #fffef7, #e5f7e8);
+  box-shadow:
+    0 10px 0 #a2cbb1,
+    0 16px 24px #2c644c16;
+  isolation: isolate;
+  transition:
+    transform 120ms,
+    box-shadow 120ms;
+}
+.letter-tap-toy:active {
+  transform: translateY(7px) scale(0.97);
+  box-shadow: 0 3px 0 #a2cbb1;
+}
+.letter-tap-base,
+.letter-tap-fill {
+  position: absolute;
+  inset: 13%;
+  display: grid;
+  place-items: center;
+}
+.letter-tap-base {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+.letter-tap-fill {
+  transition: clip-path 440ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.letter-tap-toy .toy-hangul {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.letter-tap-halo {
+  position: absolute;
+  inset: -10px;
+  border: 2px dashed #a8d6b4;
+  border-radius: 42%;
+  z-index: -1;
+  animation: letter-charge-invite 1.8s ease-in-out infinite;
+}
+.letter-tap-touch {
+  position: absolute;
+  right: -5px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  background: #fff7dd;
+  border: 2px solid #e9c56e;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #367553;
+  box-shadow: 0 3px 0 #dac796;
+}
+.letter-tap-toy[data-charging] .letter-tap-fill,
+.letter-tap-toy[data-charging] .letter-tap-base {
+  animation: letter-charge-pop 450ms ease-out;
+}
+.letter-tap-meter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: min(90%, 315px);
+  border: 2px solid #d3dfc8;
+  border-radius: 28px;
+  padding: 7px;
+  background: #f2f4e6;
+  box-shadow:
+    inset 0 3px 4px #6c845416,
+    0 3px 0 #fff;
+  overflow: hidden;
+}
+.letter-tap-liquid {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #d8f08d, #7fcea4);
+  transform-origin: left;
+  transition: transform 450ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.letter-tap-pearl {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #dfdfca;
+  background: #fffef6;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+}
+.letter-tap-pearl[data-done] {
+  background: #37875f;
+  border-color: #3b8b63;
+  animation: letter-charge-pop 320ms ease-out;
+}
+.letter-tap-pearl[data-charging] {
+  background: #d0ef9e;
+  border-color: #7dbf86;
+}
+.letter-tap-charge[data-complete] .letter-tap-toy {
+  border-color: #62af84;
+  background: #f0ffe6;
+}
+.letter-tap-charge[data-complete] .letter-tap-halo {
+  animation: none;
+  border-style: solid;
+}
+@keyframes letter-charge-pop {
+  0% {
+    transform: scale(0.92);
+  }
+  45% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes letter-charge-invite {
+  50% {
+    transform: scale(1.035);
+    opacity: 0.35;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .vowel-explore-stage {
+    gap: 14px;
+    padding-bottom: 10px;
+  }
+  .letter-tap-charge {
+    flex-direction: row;
+    width: auto;
+    gap: 28px;
+  }
+  .letter-tap-toy {
+    width: clamp(120px, 42vh, 190px);
+  }
+  .letter-tap-meter {
+    width: 240px;
+    gap: 7px;
+  }
+  .letter-tap-pearl {
+    width: 32px;
+    height: 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .letter-tap-charge *,
+  .letter-tap-charge *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-toy {
+  border-color: #edb699;
+  background: linear-gradient(160deg, #fffdf4, #ffe5d1);
+  box-shadow:
+    0 10px 0 #d79d7b,
+    0 16px 24px #835b4316;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-halo {
+  border-color: #e6b594;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-liquid {
+  background: linear-gradient(90deg, #ffe29d, #f5a078);
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-pearl[data-done] {
+  background: #ad4d2c;
+  border-color: #ad4d2c;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-pearl[data-charging] {
+  background: #ffd39c;
+  border-color: #d39969;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-toy:active {
+  box-shadow: 0 3px 0 #d79d7b;
+}
+.letter-tap-charge[data-tone='coral'][data-complete] .letter-tap-toy {
+  border-color: #c46d49;
+  background: #fff0d7;
+}

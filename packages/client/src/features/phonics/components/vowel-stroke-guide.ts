@@ -3,6 +3,8 @@ export interface StrokePoint {
   y: number;
 }
 export interface VowelGuideStroke {
+  /** A dot is completed by touching and releasing, rather than a swipe. */
+  dot?: boolean;
   from: StrokePoint;
   to: StrokePoint;
   /** Curved/bent glyphs use a sampled path; intro vowels keep exact two-point lines. */

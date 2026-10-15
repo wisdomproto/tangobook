@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "Tap each one three times!",
-    "cardLabel": "{{letter}} card {{n}}"
+    "cardLabel": "{{letter}} card {{n}}",
+    "chargeProgress": "Consonant taps"
   },
   "write": {
     "writeSyllable": "Write {{syllable}}",
@@ -284,7 +285,15 @@
     "watch": "Watch how to write",
     "fromDot": "Start at the dot",
     "onYourOwn": "Write on your own",
-    "showStrokes": "Show strokes"
+    "showStrokes": "Show strokes",
+    "traceLetter": "Trace {{letter}}",
+    "finished": "Letter complete!",
+    "tryFromStart": "Try again from the starting dot",
+    "strokeNumber": "Trace stroke {{n}}",
+    "strokeProgress": "Completed strokes",
+    "tapDot": "Tap the little dot",
+    "tapDotAction": "Tap!",
+    "tapLetterDot": "Tap the dot on {{letter}}"
   },
   "cvc": {
     "learn": "Learn {{pattern}}",
@@ -313,7 +322,9 @@
     "audioRetry": "The sound could not load. Tap again!",
     "cardLabel": "{{letter}} card {{n}}",
     "repeatProgress": "Vowel cards heard",
-    "writeNext": "Try writing →"
+    "writeNext": "Try writing →",
+    "chargeLabel": "Tap to fill {{letter}}",
+    "chargePrompt": "Tap five times to fill it!"
   },
   "vowelPicker": {
     "makePrompt": "Which vowel shall we use?",

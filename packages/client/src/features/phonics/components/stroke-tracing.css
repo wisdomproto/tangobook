@@ -1,0 +1,235 @@
+.stroke-trace-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 384px);
+}
+.stroke-trace-paper {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  border-radius: 25px;
+  border: 2px solid #dbdfcf;
+  background: #fffef9;
+  overflow: hidden;
+  box-shadow: 0 5px 0 #e5e8da;
+}
+.stroke-trace-paper canvas {
+  display: block;
+  width: 100%;
+}
+.stroke-trace-dot-target {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #22694f;
+  border-radius: 50%;
+  background: #e6f6df;
+  box-shadow: 0 3px 0 #b4d4b5;
+  cursor: pointer;
+  touch-action: manipulation;
+  animation: stroke-dot-invite 1.4s ease-out infinite;
+}
+.stroke-trace-dot-target:active {
+  background: #bde7c6;
+  box-shadow: none;
+}
+.stroke-trace-dot-target:focus-visible {
+  outline: 3px solid #22694f;
+  outline-offset: 3px;
+}
+.stroke-trace-dot-ink {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22694f;
+}
+.stroke-trace-dot-label {
+  position: absolute;
+  left: calc(100% + 5px);
+  color: #22694f;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+@container (max-width: 140px) {
+  .stroke-trace-dot-label {
+    display: none;
+  }
+}
+@keyframes stroke-dot-invite {
+  0%,
+  100% {
+    outline: 0 solid #7ab88c00;
+  }
+  50% {
+    outline: 7px solid #7ab88c35;
+  }
+}
+.stroke-trace-paper[data-complete] {
+  border-color: #65b48e;
+  box-shadow: 0 5px 0 #b8d7bf;
+}
+.stroke-trace-ink,
+.stroke-trace-flash {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.stroke-trace-flash {
+  animation: stroke-trace-sheen 550ms ease-out both;
+}
+.stroke-trace-tools {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  color: #625f4f;
+  font-weight: 700;
+  font-size: 14px;
+}
+.stroke-trace-tools button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #dedfd3;
+  border-radius: 22px;
+  background: #fffef9;
+  white-space: nowrap;
+}
+.stroke-trace-tools button:disabled {
+  opacity: 0.4;
+}
+.stroke-trace-steps {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-height: 29px;
+}
+.stroke-trace-steps span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  background: #eeeede;
+  border-radius: 50%;
+  color: #888572;
+  font-size: 13px;
+  font-weight: 800;
+}
+.stroke-trace-steps span[data-current] {
+  background: #ffe4cd;
+  color: #a84b2c;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #e5b78e;
+}
+.stroke-trace-steps span[data-done] {
+  background: #2e9168;
+  color: #fff;
+}
+@keyframes stroke-trace-sheen {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stroke-trace-dot-target {
+    animation: none;
+  }
+  .stroke-trace-flash {
+    animation: none;
+    opacity: 0;
+  }
+}
+.stroke-trace-canvas[data-compact] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 4px;
+  margin-inline: auto;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-paper {
+  grid-column: 1 / -1;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-tools {
+  display: contents;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-tools > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-tools button {
+  grid-column: 2;
+  grid-row: 2;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  font-size: 0;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-steps {
+  grid-column: 1;
+  grid-row: 2;
+  padding-left: 8px;
+  min-height: 44px;
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .alphabet-write-grid .stroke-trace-canvas .letter-fill-paper {
+    width: min(36vh, 192px);
+  }
+  .alphabet-write-grid .stroke-trace-canvas {
+    max-width: min(36vh, 192px);
+  }
+  .alphabet-write-grid .stroke-trace-steps {
+    gap: 4px;
+    padding-left: 0;
+  }
+  .alphabet-write-grid .stroke-trace-steps span {
+    width: 21px;
+    height: 21px;
+    font-size: 11px;
+  }
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) {
+    gap: 6px;
+    justify-content: flex-start;
+    padding-block: 0;
+  }
+  .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) > h2 {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+  }
+  .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) > p {
+    display: none;
+  }
+  .phonics-activity .alphabet-write-grid:has(.stroke-trace-canvas) .phonics-paper-panel {
+    padding: 6px;
+  }
+  .phonics-activity .alphabet-write-grid .stroke-trace-canvas .letter-fill-paper {
+    width: min(34vh, 180px);
+  }
+  .phonics-activity .alphabet-write-grid .stroke-trace-canvas {
+    max-width: min(34vh, 180px);
+  }
+}

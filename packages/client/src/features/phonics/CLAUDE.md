@@ -1,5 +1,9 @@
 # 파닉스 모듈
 
+2026-10-15 후속: 영어 폰트 투영의32px 이하 국소 왕복만 trimProjectionLoops로 제거해 n 희소 입력 멈춤을 보완한다. i/j의 현재 dot은44px 탭 버튼으로도 완료하며 body 전 노출/중복 완료는 금지한다. 기존 canvas20px 점 검사·한글 경로는 유지한다. [정확한 검수 범위](../../../../../docs/work/phonics/tasks/20261015-lowercase-writing-review.md).
+
+2026-10-15 공용 획 추적: StrokeTraceCanvas는 한글40/system-ui 영어52 낱자에 적용한다. getLetterGuideStrokes의 i/j 마지막 점만 dot이며, 몸통 완료 후20px 안의 짧은 점찍기만 허용한다. compact 도구는 종이 밖44px 시연 버튼·획 번호다. 실제 픽셀 mask의 글꼴을 경로와 맞추고 per-move 픽셀 읽기를 추가하지 않는다. [범위·검증](../../../../../docs/work/phonics/tasks/20261015-english-strokes-consonant-charge.md).
+
 Level 1 (알파벳 음가) ~ Level 5 (블렌딩/단어가족) 학습카드 + 챈트.
 
 ## 폴더 구조

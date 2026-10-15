@@ -1,197 +1,119 @@
-import { emitLearningEffect } from '@/features/games/effects/learning-effects';
-import { ToyHangul } from '../components/ToyHangul';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { resolveTtsUrl } from '@/features/tts';
+import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
-import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
-import { useActivitySound } from '../hooks/useActivitySound';
-import { useEntryGuide, ENTRY_GUIDE } from '../hooks/useEntryGuide';
+import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
+import { LetterTapCharge, LETTER_TAP_COUNT } from '../components/LetterTapCharge';
 
 interface Props {
   unitId: string;
-  consonant: string; // 'ㄱ'
-  /**
-   * 발음할 텍스트. 미지정이면 `consonant` 를 그대로 읽는다.
-   * 🔴 받침 단원은 화면 글자와 소리가 다르다 — 글자는 'ㅇ' 이지만 홀로 소리 낼 수 없어 예시 음절 '앙' 을 읽는다.
-   */
+  consonant: string;
   soundText?: string;
-  /**
-   * 단원의 타겟 단어(그림 있는 것). 카드마다 하나씩 **무작위로** 붙고, 세 번째 탭에서 그 단어를 읽는다.
-   * 없으면 글자만 있는 예전 화면 그대로.
-   */
+  /** Legacy callers may provide chapter words; words are now introduced in word meeting. */
   words?: ReadonlyArray<{ word: string; imageUrl: string; ttsUrl?: string }>;
   onComplete: () => void;
   onBack: () => void;
 }
 
-const TAPS_PER_CARD = 3;
-const CARDS = 3;
-
-/**
- * 자음 누르기 액티비티 (unit 2 활동 1).
- *
- * 3개의 자음 버튼 (ㄱ). 각 버튼을 3번 누르면 그 카드 완료.
- *   - 매 탭 → "ㄱ" 발음
- *   - 각 카드 3 탭 완료 → ㄱ TTS 끝난 후 띵동 효과음 (per-card 완료 피드백)
- *   - 3 카드 모두 9 탭 완료 → 띵동 끝난 후 칭찬 시퀀스 chain
- */
-export function ConsonantTapActivity({
-  unitId,
-  consonant,
-  soundText,
-  words = [],
-  onComplete,
-  onBack,
-}: Props) {
+/** One phoneme, five successful listens. No separate word/card lottery. */
+export function ConsonantTapActivity({ unitId, consonant, soundText, onComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
-  const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
-  // 🔴 소리 순서(소리 → 쉼 → 띵동 → 쉼 → 다음)는 훅이 소유한다 — 활동마다 손으로 복사하면
-  //    쉼이 빠진 사본이 생긴다(실제로 활동 14개 중 6개가 그랬다).
-  const {
-    sayThenChime,
-    say: speak,
-    praiseVisible,
-    playAudio,
-  } = useActivitySound({
-    unitId,
-    prefix: 'consonant-tap',
-  });
-  // 진입 안내 — 화면의 "○을 세 번씩 눌러봐!" 에 맞는 음성.
-  useEntryGuide(ENTRY_GUIDE.consonantTap, playAudio);
-  const [completed, setCompleted] = useState(false);
-  const say = soundText ?? consonant;
-
-  // 카드별 단어 — 마운트 때 한 번만 뽑는다(리렌더마다 섞이면 그림이 춤춘다).
-  // 단어가 3개보다 적으면 돌려 쓴다.
-  const cardWords = useMemo(() => {
-    if (!words.length) return [];
-    const pool = [...words];
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    return Array.from({ length: CARDS }, (_, i) => pool[i % pool.length]);
-  }, [words]);
-
-  // 🔴 데우는 텍스트는 **실제 읽는 텍스트** — 세 번째 탭은 낱말이 아니라 이어읽기(`ㄱ 고기`)라
-  //    낱말만 데우면 그 탭에서 서버 concat 왕복을 기다린다. 순서가 곧 우선순위(글자 먼저).
-  usePhonicsTtsWarm(
-    unitId,
-    useMemo(() => [say, ...cardWords.map((w) => `${say} ${w.word}`)], [say, cardWords]),
-    'consonant-tap'
-  );
-  // 세 번째 탭에 뜨는 낱말 그림 — 미리 데워 팝인 방지(게임과 동일 프리미티브).
-  usePreloadImages(useMemo(() => words.map((w) => w.imageUrl), [words]));
-
-  const handleTap = useCallback(
-    async (idx: number) => {
-      if (completed) return;
-      const cur = tapCounts[idx] ?? 0;
-      if (cur >= TAPS_PER_CARD) return;
-      if (cur + 1 === TAPS_PER_CARD) emitLearningEffect('reveal');
-      const next = cur + 1;
-      const nextTaps = tapCounts.map((c, i) => (i === idx ? next : c));
-      setTapCounts(nextTaps);
-
-      const isCardComplete = next === TAPS_PER_CARD;
-      /**
-       * 🔴 세 번째 탭은 **`ㄱ 고기`** — 누른 글자 소리 **한 번** 뒤에 낱말이 붙는다.
-       *
-       * 한때 `ㄱ ㄱ 고기`(영어 `a a apple` 형식)로 뒀는데, 세 번 누르는 활동이라 아이 귀엔
-       * **ㄱ 이 네 번** 들렸다(사용자 지적: "누른만큼만 읽어줘"). 카드당 탭 수가 곧 소리 수여야
-       * 세는 것과 들리는 것이 맞는다.
-       * 🔴 낱말만 녹음된 `card.ttsUrl` 을 먼저 쓰면 concat 경로로 못 가 **누른 글자 소리가 아예
-       *    안 난다** — 그래서 그 우선순위는 두지 않는다(예전 버그).
-       */
-      const card = cardWords[idx];
-      const text = isCardComplete && card ? `${say} ${card.word}` : say;
-      const isAllDone = nextTaps.every((c) => c >= TAPS_PER_CARD);
-
-      if (isCardComplete) {
-        if (isAllDone) setCompleted(true);
-        // 카드 3 탭 완료: [글자·낱말 → 쉼 → 띵동] · 마지막 카드면 띵동 대신 칭찬.
-        void sayThenChime(text, isAllDone ? { praise: true, onDone: onComplete } : undefined);
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const [count, setCount] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const target = useRef<HTMLDivElement>(null);
+  const countRef = useRef(0),
+    busy = useRef(false),
+    marked = useRef(false),
+    alive = useRef(true);
+  const sequence = useRef(0);
+  const sound = soundText ?? consonant;
+  useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio);
+  usePhonicsTtsWarm(unitId, [sound], 'consonant-tap');
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+      sequence.current++;
+    };
+  }, []);
+  const tap = useCallback(async () => {
+    if (busy.current) return;
+    busy.current = true;
+    setPlaying(true);
+    setFailed(false);
+    const token = ++sequence.current;
+    const fail = () => {
+      if (!alive.current || token !== sequence.current) return;
+      busy.current = false;
+      setPlaying(false);
+      setFailed(true);
+    };
+    try {
+      const url = await resolveTtsUrl({
+        text: sound,
+        language: 'korean',
+        storybookId: unitId,
+        identifierPrefix: 'consonant-tap',
+      });
+      if (!alive.current || token !== sequence.current) return;
+      if (!url) {
+        fail();
         return;
       }
-
-      void speak(text);
-    },
-    [completed, tapCounts, say, cardWords, sayThenChime, speak, onComplete]
-  );
-
+      playAudio(
+        url,
+        () => {
+          if (!alive.current || token !== sequence.current || !busy.current) return;
+          busy.current = false;
+          setPlaying(false);
+          if (marked.current) return;
+          const next = ++countRef.current;
+          setCount(next);
+          if (next === LETTER_TAP_COUNT) {
+            marked.current = true;
+            emitLearningEffect('letter', target.current);
+            playCorrectSequence({
+              language: praiseLang(),
+              onDone: () => {
+                if (alive.current) onComplete();
+              },
+            });
+          }
+        },
+        fail
+      );
+    } catch {
+      fail();
+    }
+  }, [sound, unitId, playAudio, playCorrectSequence, onComplete]);
   return (
-    <ActivityShell unitId={unitId} kind="explore" onBack={onBack}>
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black font-display text-ink-900 text-center break-keep">
-          {t('consonantTap.hint')}
+    <ActivityShell unitId={unitId} kind="explore" onBack={onBack} scroll>
+      <div ref={target} className="vowel-explore-stage consonant-charge-stage">
+        <h2 className="text-3xl sm:text-5xl font-black text-center">
+          {t(count === LETTER_TAP_COUNT ? 'vowelListen.singleDone' : 'vowelListen.chargePrompt')}
         </h2>
-
-        <div className="phonics-tap-grid grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-3xl">
-          {Array.from({ length: CARDS }).map((_, i) => {
-            const taps = tapCounts[i] ?? 0;
-            const done = taps >= TAPS_PER_CARD;
-            const word = cardWords[i];
-            return (
-              <button
-                data-learning-fx="tap"
-                key={i}
-                onClick={() => handleTap(i)}
-                disabled={done}
-                data-done={done || undefined}
-                data-taps={taps}
-                className={[
-                  'phonics-tap-card relative rounded-3xl border-2 aspect-square overflow-hidden flex flex-col items-center justify-center shadow-soft transition',
-                  done
-                    ? 'bg-success/15 border-success'
-                    : 'bg-white border-coral-300 hover:shadow-soft active:scale-[0.96]',
-                ].join(' ')}
-                aria-label={
-                  done && word
-                    ? word.word
-                    : t('consonantTap.cardLabel', { letter: consonant, n: i + 1 })
-                }
-              >
-                <span className="phonics-card-number" aria-hidden>
-                  {i + 1}
-                </span>
-                {/* 🔴 글자와 그림을 **한 카드에 같이 두지 않는다** — 셋(글자·그림·낱말)을 욱여넣으면
-                    카드가 지저분하고 375px 에선 그림이 눌려 사라진다. 세 번 다 누르면
-                    글자가 빠지고 **그림이 카드를 꽉 채운다** — 보상처럼 열리는 화면. */}
-                {done && word ? (
-                  <img
-                    src={word.imageUrl}
-                    alt={word.word}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                ) : (
-                  <>
-                    <div className="text-6xl sm:text-7xl md:text-8xl font-black text-coral-600 leading-none">
-                      <ToyHangul text={consonant} className="!w-[1.35em] !h-[1.35em]" />
-                    </div>
-                    {/* 진행 dots */}
-                    <div className="phonics-tap-beads absolute bottom-3 flex gap-1.5">
-                      {Array.from({ length: TAPS_PER_CARD }).map((_, k) => (
-                        <span
-                          key={k}
-                          className={`w-2.5 h-2.5 rounded-full ${k < taps ? 'bg-coral-500' : 'bg-cream-200'}`}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-                {done && (
-                  <span className="absolute top-2 right-2 w-9 h-9 rounded-full bg-success text-white ring-4 ring-white flex items-center justify-center text-xl font-black">
-                    ✓
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+        <LetterTapCharge
+          letter={consonant}
+          count={count}
+          busy={playing}
+          complete={count === LETTER_TAP_COUNT}
+          tone="coral"
+          onTap={() => void tap()}
+          label={t('vowelListen.chargeLabel', { letter: consonant })}
+          progressLabel={t('consonantTap.chargeProgress')}
+        />
+        {failed && (
+          <p role="status" className="text-base font-bold text-ink-700">
+            {t('vowelListen.audioRetry')}
+          </p>
+        )}
       </div>
-
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </ActivityShell>
   );

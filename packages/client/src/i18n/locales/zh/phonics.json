@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "每个都点三下！",
-    "cardLabel": "{{letter}} 第 {{n}} 张卡"
+    "cardLabel": "{{letter}} 第 {{n}} 张卡",
+    "chargeProgress": "点击辅音次数"
   },
   "write": {
     "writeSyllable": "写 {{syllable}}",
@@ -284,7 +285,15 @@
     "watch": "看看怎么写",
     "fromDot": "从圆点开始",
     "onYourOwn": "自己写一写",
-    "showStrokes": "看看笔顺"
+    "showStrokes": "看看笔顺",
+    "traceLetter": "描写{{letter}}",
+    "finished": "完成啦！",
+    "tryFromStart": "从起点再试一次",
+    "strokeNumber": "描写第{{n}}笔",
+    "strokeProgress": "已完成笔画",
+    "tapDot": "轻点小圆点",
+    "tapDotAction": "点!",
+    "tapLetterDot": "点{{letter}}的小圆点"
   },
   "cvc": {
     "learn": "学习 {{pattern}}",
@@ -313,7 +322,9 @@
     "audioRetry": "声音加载失败，请再点一次！",
     "cardLabel": "{{letter}} 第{{n}}张卡片",
     "repeatProgress": "已听元音卡片",
-    "writeNext": "来写一写 →"
+    "writeNext": "来写一写 →",
+    "chargeLabel": "点击填满{{letter}}",
+    "chargePrompt": "点五次，把它填满！"
   },
   "vowelPicker": {
     "makePrompt": "要用哪个元音来拼呢？",
