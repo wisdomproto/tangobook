@@ -2,12 +2,12 @@
 
 - id: 20261015-tap-charge-stroke-writing
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: b14e8dc12
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: 7a09669c2 로컬 main fast-forward 포함 확인
 - delivery: 미푸시·미배포
 
 ## 사용자 결정
@@ -30,4 +30,4 @@
 
 ## 인계
 
-코드/기록 로컬 커밋 후 main 통합 예정. 이번 새 변경 push/배포 요청은 받지 않았다. 기존 영어 LetterFillCanvas와 합성/받침/낱말 쓰기99% 기준은 보존한다.
+코드/기록25파일 7a09669c2를 로컬 main에 fast-forward 통합했다. main tracked 변경 없음·해당 커밋 포함 확인. 이번 새 변경 push/배포 요청은 받지 않았다. 기존 영어 LetterFillCanvas와 합성/받침/낱말 쓰기99% 기준은 보존한다.
