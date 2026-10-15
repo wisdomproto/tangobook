@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [영어 소문자 보완 전달](../work/phonics/tasks/20261015-lowercase-writing-review.md): 사용자 요청으로 i/j 점 버튼 확대·n 곡선 투영 정리 코드7863b1c66 원격 main push, SHA 일치·0/0 확인. 새 운영 배포 완료는 미확인. 아래 미푸시는 구현 당시 상태다.
+
 2026-10-15 [영어 소문자 검수 후속](../work/phonics/tasks/20261015-lowercase-writing-review.md): n 곡선의 폰트 투영 왕복 때문에 흔들린 입력이 막히던 문제 수정, i/j 몸통 뒤44px 점 버튼으로 작은 판의 누름 범위/행동 안내 보완.26자 경로 모의 검사·실제 i 입력·495회귀 확인. 운영 관찰과 로컬 수정 구분, 새 수정은 미푸시·미배포.
 
 2026-10-15 [영어 획순·자음5회 운영 확인](../work/phonics/tasks/20261015-english-strokes-consonant-charge.md#운영-배포실제-입력-검수--2026-10-15): Railway 최신0b60a12fe 배포 bcb44cd2 successful/Active 직접 확인. 운영 영어A 순서대로3획→통과·그림, ㄱ5회 소리 종료 충전→칭찬→쓰기 자동 이동 정상. console error0·health ok. 아래 운영 미확인은 당시 상태다. 기록만 로컬 커밋·새 push 없음.

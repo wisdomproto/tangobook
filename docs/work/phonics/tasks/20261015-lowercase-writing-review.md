@@ -8,9 +8,11 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: 코드057586584 로컬 main fast-forward 통합 완료
-- delivery: 미푸시·미배포
+- delivery: 2026-10-15 사용자 요청으로 코드7863b1c66까지 원격 main 일반 push·SHA 일치·0/0 확인, 운영 배포 완료 미확인
 
 ## 요청·확인 범위
+
+2026-10-15 사용자 ‘좋아. 메인에 푸시하자’ 승인으로 fetch 후0 behind/3 ahead를 확인했다. 구현057586584·통합7863b1c66과 직전 운영 검수 기록bab8f2cc7만 포함했고, 일반 push 뒤 원격 refs/heads/main·HEAD가7863b1c6646399074d01734c1aa3ab1610d47de2로 일치·0/0임을 확인했다. 아래 미배포/로컬 표현은 구현 검수 당시 상태이며 새 운영 반영 완료는 별도로 확인해야 한다.
 
 사용자가 운영 소문자의 곡선과 i/j 점을 아이 입장에서 확인하도록 요청했다. 앞선 운영 검수는 A3획/ㄱ5회였으며 소문자 전수 성공으로 확대하지 않는다. 운영 a/j 화면·시연/오답 입력을 확인하고 실제 폰트의 소문자26개 경로를 정확·흔들림·지름길로 나눠 검사한다. 사용 가능한 브라우저 native drag는 직선 두 점만 지원하므로 곡선 모의 입력을 실제 곡선 손 입력으로 보고하지 않는다.
 
