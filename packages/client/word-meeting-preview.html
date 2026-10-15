@@ -18,7 +18,9 @@
       import '/src/design-system/learning-layouts.css';
       import '/src/lib/audio-unlock';
       import { WordMeetingActivity } from '/src/features/phonics-learner/activities/WordMeetingActivity';
+      import { WordLearningProgress } from '/src/features/phonics-learner/components/WordLearningProgress';
       import { findImageData } from '/src/features/phonics-learner/lib/phonics-game-adapter';
+      import { withKoreanLearningScope } from '/src/features/phonics-learner/lib/korean-learning-source';
 
       // Local design review only: never resets a child's saved lesson or emits completion records.
       if (!import.meta.env.DEV) throw new Error('Local preview only');
@@ -30,7 +32,8 @@
         const response = await fetch('/api/storybooks/' + encodeURIComponent(unitId));
         if (!response.ok) throw new Error('학습 자료를 불러오지 못했어요.');
         const payload = await response.json();
-        const book = payload.data ?? payload;
+        const rawBook = payload.data ?? payload;
+        const book = unitId.startsWith('kr-') ? withKoreanLearningScope(rawBook) : rawBook;
         const extra = findImageData(book, word);
         root.render(
           React.createElement(
@@ -39,15 +42,38 @@
             React.createElement(
               BrowserRouter,
               null,
-              React.createElement(WordMeetingActivity, {
-                word,
-                book,
-                unitId,
-                ...extra,
-                lang: unitId.startsWith('kr-') ? 'korean' : 'english',
-                onBack: () => history.back(),
-                onComplete: () => location.reload(),
-              })
+              React.createElement(
+                React.Fragment,
+                null,
+                React.createElement(
+                  'div',
+                  { 'data-word-learning-active': true },
+                  React.createElement(WordMeetingActivity, {
+                    word,
+                    words: book.phonicsConfig?.targetWords ?? [word],
+                    book,
+                    unitId,
+                    ...extra,
+                    lang: unitId.startsWith('kr-') ? 'korean' : 'english',
+                    onBack: () =>
+                      location.assign(
+                        '/library/phonics/' +
+                          (unitId.startsWith('kr-') ? 'korean/' : 'english/') +
+                          unitId
+                      ),
+                    onComplete: () => location.reload(),
+                  })
+                ),
+                React.createElement(WordLearningProgress, {
+                  language: unitId.startsWith('kr-') ? 'ko' : 'en',
+                  stages: unitId.startsWith('en-b1')
+                    ? ['meet', 'write', 'color']
+                    : ['meet', 'block', 'write', 'color'],
+                  current: 'meet',
+                  index: Math.max(0, book.phonicsConfig?.targetWords?.indexOf(word) ?? 0),
+                  total: book.phonicsConfig?.targetWords?.length || 1,
+                })
+              )
             )
           )
         );

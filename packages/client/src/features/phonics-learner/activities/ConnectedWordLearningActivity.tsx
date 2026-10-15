@@ -31,6 +31,7 @@ import {
   type WordLearningStage,
 } from '../lib/word-learning-run';
 import { WordMeetingActivity } from './WordMeetingActivity';
+import { WordLearningProgress } from '../components/WordLearningProgress';
 import './word-meeting.css';
 
 interface Props {
@@ -173,6 +174,7 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     content = (
       <WordMeetingActivity
         word={word}
+        words={run.words}
         book={source}
         unitId={unitId}
         lang={lang}
@@ -262,16 +264,13 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
           ownedContent
         )}
       </div>
-      <div className="word-learning-progress" aria-label={t('wordJourney.progress')}>
-        {stages.map((stage) => (
-          <span key={stage} data-current={stage === run.stage}>
-            {t(`wordJourney.${stage}`)}
-          </span>
-        ))}
-        <small>
-          {run.index + 1} / {run.words.length}
-        </small>
-      </div>
+      <WordLearningProgress
+        language={code}
+        stages={stages}
+        current={run.stage}
+        index={run.index}
+        total={run.words.length}
+      />
     </>
   );
 }

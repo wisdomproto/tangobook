@@ -33,6 +33,8 @@ interface Props {
    * 없으면 예전처럼 버튼만 왼쪽에 붙는다.
    */
   headerRight?: ReactNode;
+  /** 공통 게임 헤더를 사용하는 활동은 기본 뒤로가기 행을 대체한다. */
+  header?: ReactNode;
   /** 세로로 넘치는 걸 허용할지(모음 듣기처럼 카드가 많은 화면). 기본은 화면 안에 가둔다. */
   scroll?: boolean;
   /** 배경 — 기본은 파닉스 공용 배경. 알파벳 쓰기처럼 다른 배경을 쓰는 화면만 넘긴다. */
@@ -60,6 +62,7 @@ export function ActivityShell({
   kind,
   onBack,
   headerRight,
+  header,
   scroll = false,
   children,
 }: Props) {
@@ -104,7 +107,9 @@ export function ActivityShell({
       <PhonicsBackdrop />
       {/* 🔴 embedded 엔 「← 돌아가기」를 두지 않는다 — 돌아갈 데가 없고(블로그 글 안이다),
           그 자리는 아래 CTA 가 맡는다. 활동이 넘긴 `onBack` 은 그대로 무시된다. */}
-      {embedded ? (
+      {header ? (
+        header
+      ) : embedded ? (
         headerRight ? (
           <div className="mb-2 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {headerRight}

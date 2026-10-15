@@ -1,29 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight, Pointer, Merge, Volume2 } from 'lucide-react';
+import { ArrowRight, Volume2 } from 'lucide-react';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
-import { ToyHangul } from '../components/ToyHangul';
-import { useWordMeetingIntro } from './useWordMeetingIntro';
-import { englishWordBlendSteps, koreanWordBlendSteps } from '../lib/word-blending';
+import { WordMeetingHeader } from '../components/WordMeetingHeader';
+import { WordMeetingOverview } from '../components/WordMeetingOverview';
+import { KoreanWordMeetingActivity } from './KoreanWordMeetingActivity';
+import { wordMeetingScene } from '../lib/word-meeting-scene';
+export { wordMeetingSceneMatches } from '../lib/word-meeting-scene';
+import { englishWordBlendSteps } from '../lib/word-blending';
 import { getUnitPatterns, wordMatchesPattern } from '../lib/english-phonics-units';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
-import {
-  getEnglishPhonemeUrl,
-  getEnglishWordUrl,
-  getKoreanSyllableUrl,
-} from '@/features/games/hooks/usePhonicsMap';
-import { resolveTtsUrl } from '@/features/tts';
+import { getEnglishPhonemeUrl, getEnglishWordUrl } from '@/features/games/hooks/usePhonicsMap';
 import { SceneReveal } from '@/features/games/components/SceneReveal';
 import { preloadWordScenes } from '@/features/games/lib/phonics-word-scene';
-import { resolveSceneFromWord, type WordScene } from '@/features/games/lib/resolve-scene';
+import { type WordScene } from '@/features/games/lib/resolve-scene';
 import {
   emitLearningEffect,
   prepareLearningEffects,
 } from '@/features/games/effects/learning-effects';
 import './word-meeting.css';
 
-interface Props {
+export interface WordMeetingProps {
   word: string;
   imageUrl?: string;
   ttsUrl?: string;
@@ -32,23 +30,42 @@ interface Props {
   lang: 'korean' | 'english';
   onComplete: () => void;
   onBack: () => void;
+  words?: string[];
+  onRestart?: () => void;
 }
 
-/** A compound such as scaredy-cat is not an example of the animal the child just learned. */
-export function wordMeetingSceneMatches(text: string | undefined, word: string, lang: string) {
-  if (!text) return false;
-  // This first word is illustrated as a human baby. A baby bird is a different first example.
-  if (lang === 'korean' && word === '아기' && /아기\s*(?:까치|새|고양이|강아지|토끼|곰)/.test(text))
-    return false;
-  if (lang === 'english') {
-    const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return new RegExp(`(^|[^a-z-])${escaped}(?![a-z-])`, 'i').test(text);
-  }
-  return text.replace(/[~〜·]/g, '').includes(word);
+export function WordMeetingActivity(props: WordMeetingProps) {
+  const [overview, setOverview] = useState(!!props.words?.length);
+  const [attempt, setAttempt] = useState(0);
+  const restart = () => {
+    setAttempt((value) => value + 1);
+    setOverview(!!props.words?.length);
+  };
+  if (overview)
+    return (
+      <ActivityShell
+        unitId={props.unitId}
+        kind="blend"
+        onBack={props.onBack}
+        header={<WordMeetingHeader onBack={props.onBack} />}
+      >
+        <WordMeetingOverview
+          words={props.words!}
+          word={props.word}
+          book={props.book}
+          onStart={() => setOverview(false)}
+        />
+      </ActivityShell>
+    );
+  return props.lang === 'korean' ? (
+    <KoreanWordMeetingActivity key={attempt} {...props} onRestart={restart} />
+  ) : (
+    <EnglishWordMeetingActivity key={attempt} {...props} onRestart={restart} />
+  );
 }
 
 /** Each press blends ONE meaningful unit. No automatic decoding or autoplay on entry. */
-export function WordMeetingActivity({
+function EnglishWordMeetingActivity({
   word,
   imageUrl,
   ttsUrl,
@@ -57,21 +74,16 @@ export function WordMeetingActivity({
   lang,
   onComplete,
   onBack,
-}: Props) {
+  onRestart,
+}: WordMeetingProps) {
   const { t } = useTranslation('phonics');
   const rawSteps = useMemo(
     () =>
-      lang === 'korean'
-        ? koreanWordBlendSteps(word).filter(
-            // The assembly below the complete word must produce the highlighted syllable.
-            // Coda steps use 가 + ㅇ → 강, rather than reading 가 while highlighting 강.
-            (s) => s.wholeWord || s.result === [...word][s.focusIndex ?? 0]
-          )
-        : englishWordBlendSteps(
-            word,
-            getUnitPatterns(unitId).find((p) => wordMatchesPattern(word, p)),
-            unitId.startsWith('en-b1')
-          ),
+      englishWordBlendSteps(
+        word,
+        getUnitPatterns(unitId).find((p) => wordMatchesPattern(word, p)),
+        unitId.startsWith('en-b1')
+      ),
     [word, lang, unitId]
   );
   const [missingSounds, setMissingSounds] = useState<string[]>([]);
@@ -106,24 +118,13 @@ export function WordMeetingActivity({
   const preparedWhole = useRef<Promise<string | undefined>>();
   const step = steps[index];
   const wholeExample = !!step.wholeAudioOnly;
-  const korean = lang === 'korean';
-  const letters = [...word];
   const finalResult = phase === 'result' && index === steps.length - 1;
   const code = lang === 'korean' ? 'ko' : 'en';
   const resolveWhole = useCallback(
-    async () =>
-      lang === 'english'
-        ? ((await getEnglishWordUrl(word)) ?? ttsUrl)
-        : resolveTtsUrl({
-            text: word,
-            language: lang,
-            storybookId: book.id,
-            directUrl: ttsUrl,
-            identifierPrefix: 'word-meet',
-          }),
+    async () => (await getEnglishWordUrl(word)) ?? ttsUrl,
     [word, lang, book.id, ttsUrl]
   );
-  const lookup = lang === 'korean' ? getKoreanSyllableUrl : getEnglishPhonemeUrl;
+  const lookup = getEnglishPhonemeUrl;
   useEffect(() => {
     alive.current = true;
     if (lang === 'english') prepareLearningEffects();
@@ -163,60 +164,15 @@ export function WordMeetingActivity({
     };
   }, [rawSteps, word, lang, resolveWhole, lookup, stopAll]);
 
-  const intro = useWordMeetingIntro({
-    enabled: korean,
-    ready: soundReady,
-    resolveWord: resolveWhole,
-    focusUrl: letters.length > 1 ? prepared.current.get(rawSteps[0].result) : undefined,
-    playAudio,
-    stopAll,
-  });
-  const focusIndex =
-    intro.stage === 'word' || (step.wholeWord && letters.length > 1) ? undefined : step.focusIndex;
-  const primaryLabel =
-    intro.stage === 'word' && korean
-      ? t('wordJourney.listenWord')
-      : finalResult
-        ? t('wordJourney.storyThenBuild')
-        : korean
-          ? t(step.focusIndex !== undefined ? 'wordJourney.makeTogether' : 'wordJourney.listenWord')
-          : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend');
-
+  const primaryLabel = finalResult
+    ? t('wordJourney.storyThenBuild')
+    : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend');
   const finish = () => {
-    let found = resolveSceneFromWord(word, code, book);
-    if (
-      (korean && word === '아기') ||
-      !wordMeetingSceneMatches(found?.pageText, word, lang) ||
-      !found?.pageTtsUrl
-    ) {
-      // A mismatched cross-book excerpt must not override a valid example in this chapter.
-      const ownIndex = (book.pages ?? []).findIndex((page) => {
-        const text = code === 'ko' ? page.text : page.translations?.[code]?.text;
-        const tts = code === 'ko' ? page.ttsUrl : page.translations?.[code]?.ttsUrl;
-        return page.illustrationUrl && tts && wordMeetingSceneMatches(text, word, lang);
-      });
-      const page = book.pages?.[ownIndex];
-      found = page
-        ? {
-            illustrationUrl: page.illustrationUrl!,
-            pageNumber: ownIndex + 1,
-            pageText: code === 'ko' ? page.text : page.translations?.[code]?.text,
-            pageTtsUrl: code === 'ko' ? page.ttsUrl : page.translations?.[code]?.ttsUrl,
-          }
-        : wordMeetingSceneMatches(found?.pageText, word, lang) && found?.pageTtsUrl
-          ? found
-          : null;
-    }
-    // Never substitute a different-language page or an unrelated excerpt.
-    if (wordMeetingSceneMatches(found?.pageText, word, lang) && found?.pageTtsUrl) setScene(found);
+    const found = wordMeetingScene(book, word, 'english');
+    if (found) setScene(found);
     else onComplete();
   };
   const press = async () => {
-    if (intro.active && intro.stage === 'word') {
-      if (!intro.busy) void intro.start();
-      return;
-    }
-    if (intro.active) intro.dismissGuide();
     if (lock.current || !soundReady) return;
     lock.current = true;
     setBusy(true);
@@ -254,7 +210,7 @@ export function WordMeetingActivity({
       scheduleTimer(
         () => {
           setPhase('result');
-          if (!korean) emitLearningEffect(step.wholeWord ? 'word' : 'blend', blendRoot.current);
+          emitLearningEffect(step.wholeWord ? 'word' : 'blend', blendRoot.current);
           playAudio(
             joinedUrl,
             () => {
@@ -282,8 +238,7 @@ export function WordMeetingActivity({
         window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 50 : 720
       );
     };
-    // Korean jamo labels are visual components, not invented consonant pronunciations.
-    if (lang === 'korean' || step.wholeAudioOnly) {
+    if (step.wholeAudioOnly) {
       join();
       return;
     }
@@ -315,179 +270,85 @@ export function WordMeetingActivity({
     soundPart(0);
   };
   return (
-    <ActivityShell unitId={unitId} kind="blend" onBack={onBack}>
+    <ActivityShell
+      unitId={unitId}
+      kind="blend"
+      onBack={onBack}
+      header={<WordMeetingHeader onBack={onBack} onRestart={onRestart} />}
+    >
       <main
         className="word-meet"
         data-language={code}
         data-phase={phase}
         data-whole-example={wholeExample || undefined}
         data-whole-word={step.wholeWord || undefined}
-        data-intro={korean ? intro.stage : undefined}
-        data-cue={
-          (korean && !busy && (intro.blocked || intro.stage !== 'word') && !finalResult) ||
-          undefined
-        }
         style={{ '--word-length': word.length } as CSSProperties}
       >
         <div className="word-meet-picture">
           {imageUrl && <img src={imageUrl} alt={word} draggable={false} />}
         </div>
         <section className="word-meet-studio" aria-label={t('wordJourney.meet')}>
-          {korean ? (
-            <div ref={blendRoot} className="word-meet-word-stage">
-              <h1 className="word-meet-word font-display" aria-label={word}>
-                {letters.map((letter, i) => (
-                  <span
-                    key={i}
-                    className="word-meet-syllable"
-                    data-active={focusIndex === undefined || focusIndex === i}
-                    data-learned={focusIndex !== undefined && i < focusIndex}
-                    data-syllable={i}
-                    aria-current={focusIndex === i ? 'step' : undefined}
-                    style={{ '--cell-delay': `${step.wholeWord ? i * 75 : 0}ms` } as CSSProperties}
-                  >
-                    <span className="word-meet-glyph">{letter}</span>
-                    <span className="word-meet-ink" aria-hidden="true">
-                      {letter}
-                    </span>
-                    <span className="word-meet-letter-light" aria-hidden="true">
-                      <i />
-                      <i />
-                      <i />
-                    </span>
-                  </span>
-                ))}
-              </h1>
-              <div key={index} className="word-meet-flow" aria-hidden="true">
-                <span />
-                <span />
-              </div>
-            </div>
-          ) : (
-            <h1 className="word-meet-english-word font-display">{word}</h1>
-          )}
+          <h1 className="word-meet-english-word font-display">{word}</h1>
           <p className="word-meet-instruction">
-            {korean && intro.stage === 'word'
-              ? t(intro.blocked ? 'wordJourney.tapToMeet' : 'wordJourney.meetPicture', { word })
-              : finalResult && !busy
-                ? t('wordJourney.wordReady')
-                : korean && focusIndex !== undefined
-                  ? t(index === 0 ? 'wordJourney.makeFirst' : 'wordJourney.makeNext', {
-                      syllable: letters[focusIndex],
-                      particle: (letters[focusIndex].charCodeAt(0) - 0xac00) % 28 ? '을' : '를',
-                    })
-                  : korean
-                    ? t('wordJourney.readTogether', { word })
-                    : t(wholeExample ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
+            {finalResult && !busy
+              ? t('wordJourney.wordReady')
+              : t(wholeExample ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
           </p>
-          {korean && (
-            <div
-              key={index}
-              className="word-meet-jamo-stage"
-              aria-hidden={intro.stage === 'word' || undefined}
-              data-assembly={step.focusIndex !== undefined || undefined}
-              role="group"
-              aria-label={
-                step.focusIndex !== undefined ? `${step.parts.join(' + ')} → ${step.result}` : word
-              }
-            >
-              {step.focusIndex !== undefined && (
-                <>
-                  <div className="word-meet-jamo-parts" aria-hidden="true">
-                    {step.parts.map((part, i) => (
-                      <div
-                        key={`${i}:${part}`}
-                        className="word-meet-jamo-piece"
-                        style={
-                          {
-                            '--jamo-offset': `${(i - (step.parts.length - 1) / 2) * -112}%`,
-                          } as CSSProperties
-                        }
-                      >
-                        {i > 0 && <span className="word-meet-jamo-plus">+</span>}
-                        <ToyHangul text={part} decorative />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="word-meet-jamo-result font-display" aria-hidden="true">
-                    {step.result}
-                  </div>
-                  <span className="word-meet-jamo-halo" aria-hidden="true" />
-                </>
-              )}
-              <span className="word-meet-assembly-bridge" aria-hidden="true" />
-            </div>
-          )}
-          {!korean && (
-            <div className="word-meet-history" aria-label={t('wordJourney.blended')}>
-              {steps.slice(0, index).map((s, i) => (
-                <span key={i}>{s.result}</span>
+          <div className="word-meet-history" aria-label={t('wordJourney.blended')}>
+            {steps.slice(0, index).map((s, i) => (
+              <span key={i}>{s.result}</span>
+            ))}
+          </div>
+          <div key={index} ref={blendRoot} className="word-meet-blend" aria-live="polite">
+            <div className="word-meet-parts" aria-hidden={phase !== 'ready'}>
+              {step.parts.map((part, i) => (
+                <div
+                  key={`${i}:${part}`}
+                  className={`word-meet-piece ${sounding === i ? 'is-sounding' : ''}`}
+                  style={
+                    {
+                      '--piece-offset': `${(i - (step.parts.length - 1) / 2) * -115}%`,
+                      '--piece-turn': `${i % 2 ? -14 : 14}deg`,
+                    } as CSSProperties
+                  }
+                >
+                  {i > 0 && (
+                    <b className="word-meet-plus" aria-hidden="true">
+                      +
+                    </b>
+                  )}
+                  <span>{part}</span>
+                </div>
               ))}
             </div>
-          )}
-          {!korean && (
-            <div key={index} ref={blendRoot} className="word-meet-blend" aria-live="polite">
-              <div className="word-meet-parts" aria-hidden={phase !== 'ready'}>
-                {step.parts.map((part, i) => (
-                  <div
-                    key={`${i}:${part}`}
-                    className={`word-meet-piece ${sounding === i ? 'is-sounding' : ''}`}
+            {phase !== 'ready' && (
+              <div className="word-meet-sparkles" aria-hidden="true">
+                {Array.from({ length: 14 }, (_, i) => (
+                  <i
+                    key={i}
                     style={
                       {
-                        '--piece-offset': `${(i - (step.parts.length - 1) / 2) * -115}%`,
-                        '--piece-turn': `${i % 2 ? -14 : 14}deg`,
+                        '--angle': `${(i * 360) / 14}deg`,
+                        '--delay': `${(i % 3) * 35}ms`,
                       } as CSSProperties
                     }
-                  >
-                    {i > 0 && (
-                      <b className="word-meet-plus" aria-hidden="true">
-                        +
-                      </b>
-                    )}
-                    <span>{part}</span>
-                  </div>
+                  />
                 ))}
               </div>
-              {phase !== 'ready' && (
-                <div className="word-meet-sparkles" aria-hidden="true">
-                  {Array.from({ length: 14 }, (_, i) => (
-                    <i
-                      key={i}
-                      style={
-                        {
-                          '--angle': `${(i * 360) / 14}deg`,
-                          '--delay': `${(i % 3) * 35}ms`,
-                        } as CSSProperties
-                      }
-                    />
-                  ))}
-                </div>
-              )}
-              {phase === 'result' && <div className="word-meet-result">{step.result}</div>}
-            </div>
-          )}
+            )}
+            {phase === 'result' && <div className="word-meet-result">{step.result}</div>}
+          </div>
           <button
             className="word-meet-button"
             type="button"
-            disabled={busy || (intro.busy && intro.stage === 'word') || !soundReady}
+            disabled={busy || !soundReady}
             onClick={() => void press()}
             aria-label={primaryLabel}
           >
             <span className="word-meet-button-icon" aria-hidden="true">
-              {finalResult ? (
-                <ArrowRight size={28} />
-              ) : korean && intro.stage !== 'word' && step.focusIndex !== undefined ? (
-                <Merge size={28} />
-              ) : (
-                <Volume2 size={28} />
-              )}
+              {finalResult ? <ArrowRight size={28} /> : <Volume2 size={28} />}
             </span>
             <span>{primaryLabel}</span>
-            {korean && (
-              <span className="word-meet-tap-cue" aria-hidden="true">
-                <Pointer size={43} />
-              </span>
-            )}
           </button>
           {failed && (
             <p role="alert" className="word-meet-error">

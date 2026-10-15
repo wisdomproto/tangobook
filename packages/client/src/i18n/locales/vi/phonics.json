@@ -1,5 +1,9 @@
 {
   "wordJourney": {
+    "restart": "Thử lại",
+    "chapterWords": "Từ trong bài này",
+    "thisWord": "Từ sẽ học",
+    "startWord": "Làm quen với {{word}}",
     "title": "Học từ",
     "meet": "Làm quen với từ",
     "block": "Ghép",

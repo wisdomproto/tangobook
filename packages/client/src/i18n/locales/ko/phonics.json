@@ -1,5 +1,9 @@
 {
   "wordJourney": {
+    "restart": "다시 해보기",
+    "chapterWords": "이번에 만날 낱말",
+    "thisWord": "지금 배울 낱말",
+    "startWord": "{{word}} 만나기",
     "title": "낱말 배우기",
     "meet": "낱말 만나기",
     "block": "블록",

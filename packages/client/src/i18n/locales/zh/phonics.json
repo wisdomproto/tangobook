@@ -1,5 +1,9 @@
 {
   "wordJourney": {
+    "restart": "再试一次",
+    "chapterWords": "这一课的词语",
+    "thisWord": "现在学这个",
+    "startWord": "认识{{word}}",
     "title": "学习词语",
     "meet": "认识词语",
     "block": "拼搭",

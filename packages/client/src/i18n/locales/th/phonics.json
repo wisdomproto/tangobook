@@ -1,5 +1,9 @@
 {
   "wordJourney": {
+    "restart": "ลองอีกครั้ง",
+    "chapterWords": "คำศัพท์ในบทนี้",
+    "thisWord": "คำที่จะเรียนตอนนี้",
+    "startWord": "รู้จัก {{word}}",
     "title": "เรียนรู้คำ",
     "meet": "รู้จักคำ",
     "block": "ต่อบล็อก",
