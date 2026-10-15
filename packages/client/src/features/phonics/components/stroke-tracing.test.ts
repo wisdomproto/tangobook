@@ -162,4 +162,23 @@ describe('획 단위의 관대한 따라쓰기', () => {
     expect(owners[198 * 400 + 220]).toBe(1);
     expect(owners.length).toBe(400 * 400);
   });
+  it('둥근 획과 맞닿은 세로획도 삼각형이 패이지 않고 반듯한 폭으로 채워진다', () => {
+    const mask = { width: 100, height: 100, data: new Uint8ClampedArray(100 * 100 * 4) };
+    for (let y = 4; y <= 95; y++)
+      for (let x = 5; x <= 16; x++) mask.data[(y * 100 + x) * 4 + 3] = 255;
+    const owners = strokeOwners(mask, [
+      makeTracePath({ from: { x: 10, y: 10 }, to: { x: 10, y: 90 } }),
+      makeTracePath({
+        from: { x: 10, y: 10 },
+        to: { x: 10, y: 90 },
+        points: [
+          { x: 10, y: 10 },
+          { x: 80, y: 20 },
+          { x: 80, y: 80 },
+          { x: 10, y: 90 },
+        ],
+      }),
+    ]);
+    for (let y = 4; y <= 95; y++) for (let x = 5; x <= 16; x++) expect(owners[y * 100 + x]).toBe(0);
+  });
 });

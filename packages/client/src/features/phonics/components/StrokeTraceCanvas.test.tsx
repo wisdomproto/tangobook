@@ -55,6 +55,7 @@ beforeEach(() => {
     }
   );
   Reflect.deleteProperty(document, 'fonts');
+  vi.spyOn(HTMLCanvasElement.prototype, 'toDataURL').mockReturnValue('data:image/png;base64,ink');
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue({
     clearRect: vi.fn(),
     fillText: vi.fn(),
@@ -88,6 +89,25 @@ function gesture(canvas: HTMLElement, from: number[], to: number[], cancel = fal
   });
 }
 describe('실제 획 순서와 완료 배선', () => {
+  it('진행 잉크와 완료 빛은 각 획의 폰트 마스크 밖으로 번지지 않는다', () => {
+    const { container } = render(
+      <StrokeTraceCanvas letter="ㅏ" guidance="hint" onResult={vi.fn()} />
+    );
+    const paper = screen.getByLabelText('ㅏ 따라쓰기');
+    fireEvent.pointerDown(paper, { pointerId: 1, clientX: 120, clientY: 60 });
+    fireEvent.pointerMove(paper, { pointerId: 1, clientX: 120, clientY: 200 });
+    const ink = container.querySelector('.stroke-trace-ink path')!;
+    expect(ink.getAttribute('mask')).toMatch(/^url\(#.+-progress\)$/);
+    expect(container.querySelector('.stroke-trace-ink mask image')).toHaveAttribute(
+      'href',
+      'data:image/png;base64,ink'
+    );
+    fireEvent.pointerUp(paper, { pointerId: 1, clientX: 120, clientY: 330 });
+    expect(container.querySelector('.stroke-trace-ink')).toBeNull();
+    expect(container.querySelector('.stroke-trace-flash path')!.getAttribute('mask')).toMatch(
+      /^url\(#.+-flash\)$/
+    );
+  });
   it.each(Object.entries(curveEnds))(
     '%s의 흔들린 실제 곡선 완료가 다음 획을 열고, 취소/반쪽 입력은 열지 않는다',
     (letter, svg) => {

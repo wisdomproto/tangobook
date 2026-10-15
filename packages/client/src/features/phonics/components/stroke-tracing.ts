@@ -141,27 +141,76 @@ export function strokeOwners(
 ): Uint8Array {
   const { width, height, data } = mask;
   const owners = new Uint8Array(width * height);
-  // 4px cells bound work even for complex jamo; the alpha mask keeps crisp font edges.
-  for (let y = 0; y < height; y += 4)
-    for (let x = 0; x < width; x += 4) {
-      let ink = false;
-      for (let dy = 0; dy < 4 && y + dy < height; dy++)
-        for (let dx = 0; dx < 4 && x + dx < width; dx++)
-          if (data[((y + dy) * width + x + dx) * 4 + 3]) ink = true;
-      if (!ink) continue;
+  // A straight stem keeps a straight edge at a curved join (D/d/p/q).
+  // Nearest-centreline alone makes triangular bites where the bowl meets it.
+  const stems = paths.flatMap((path, owner) => {
+    if (path.dot || path.length < 24) return [];
+    const xs = path.points.map((p) => p.x),
+      ys = path.points.map((p) => p.y);
+    const vertical = Math.max(...xs) - Math.min(...xs) <= 6;
+    const horizontal = Math.max(...ys) - Math.min(...ys) <= 6;
+    if (!vertical && !horizontal) return [];
+    const runs: Array<[number, number]> = [];
+    for (const fraction of [0.35, 0.5, 0.65]) {
+      const p = path.points[Math.floor((path.points.length - 1) * fraction)];
+      const x = Math.round(p.x),
+        y = Math.round(p.y);
+      const ink = (n: number) => {
+        const px = vertical ? n : x,
+          py = vertical ? y : n;
+        return (
+          px >= 0 && px < width && py >= 0 && py < height && data[(py * width + px) * 4 + 3] > 0
+        );
+      };
+      const center = vertical ? x : y;
+      if (!ink(center)) continue;
+      let low = center,
+        high = center;
+      while (ink(low - 1)) low--;
+      while (ink(high + 1)) high++;
+      runs.push([low, high]);
+    }
+    if (!runs.length) return [];
+    runs.sort((a, b) => a[1] - a[0] - (b[1] - b[0]));
+    const [low, high] = runs[Math.floor(runs.length / 2)];
+    const extension = (high - low + 1) / 2 + 4;
+    return [
+      {
+        owner,
+        vertical,
+        low,
+        high,
+        start: Math.min(...(vertical ? ys : xs)) - extension,
+        end: Math.max(...(vertical ? ys : xs)) + extension,
+      },
+    ];
+  });
+  // Only visit font ink, once at setup. Pixel ownership avoids visible 4px stairs
+  // where two strokes meet; tracing still does no per-move pixel reads.
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) {
+      if (!data[(y * width + x) * 4 + 3]) continue;
+      const stem = stems.find((s) => {
+        const across = s.vertical ? x : y,
+          along = s.vertical ? y : x;
+        return across >= s.low && across <= s.high && along >= s.start && along <= s.end;
+      });
+      if (stem) {
+        owners[y * width + x] = stem.owner;
+        continue;
+      }
       let owner = 0,
         best = Infinity;
       paths.forEach((path, i) => {
         for (const p of path.points) {
-          const d = (p.x - x - 1.5) ** 2 + (p.y - y - 1.5) ** 2;
+          const d = (p.x - x) ** 2 + (p.y - y) ** 2;
           if (d < best) {
             best = d;
             owner = i;
           }
         }
       });
-      for (let dy = 0; dy < 4 && y + dy < height; dy++)
-        for (let dx = 0; dx < 4 && x + dx < width; dx++) owners[(y + dy) * width + x + dx] = owner;
+      owners[y * width + x] = owner;
     }
   return owners;
 }

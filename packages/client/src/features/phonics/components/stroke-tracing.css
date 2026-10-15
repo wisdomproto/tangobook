@@ -192,7 +192,60 @@
   padding-left: 8px;
   min-height: 44px;
 }
+.alphabet-write-cell {
+  position: relative;
+  width: min(100%, 384px);
+  margin-inline: auto;
+}
+.alphabet-write-cell[data-reward] > .stroke-trace-canvas {
+  visibility: hidden;
+}
+.alphabet-write-reward {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.alphabet-write-grid .alphabet-write-reward img {
+  width: 100%;
+  height: auto;
+  max-height: calc(100% - 60px);
+  min-height: 0;
+  object-fit: contain;
+  border-radius: 18px;
+}
+.alphabet-write-word {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  font:
+    800 clamp(24px, 3vw, 36px) / 1.15 system-ui,
+    sans-serif;
+  color: #423c31;
+}
+.alphabet-write-word > span:first-child {
+  font-size: 1.4em;
+}
+.alphabet-write-audio-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 2px solid #22694f;
+  border-radius: 24px;
+  color: #22694f;
+  background: #f0faeb;
+  font-weight: 800;
+}
 @media (orientation: landscape) and (max-height: 600px) {
+  .alphabet-write-cell {
+    max-width: min(36vh, 192px);
+  }
   .alphabet-write-grid .stroke-trace-canvas .letter-fill-paper {
     width: min(36vh, 192px);
   }
@@ -210,6 +263,12 @@
   }
 }
 @media (orientation: landscape) and (max-height: 520px) {
+  .alphabet-write-cell {
+    max-width: min(34vh, 180px);
+  }
+  .alphabet-write-word {
+    font-size: 19px;
+  }
   .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) {
     gap: 6px;
     justify-content: flex-start;

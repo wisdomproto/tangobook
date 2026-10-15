@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-16 알파벳 쓰기 후속: 완성 canvas를1.4초 유지한 뒤 그 칸에 그림+알파벳+낱말을 보인다. 대소문자 보상은 큐로 이어 실제 음원 ended 뒤만 진행, 재생 실패는 다시 듣기로 재시도한다. 예전 즉시 그림 교체 지침을 대체한다. [검수·한계](../../../../../docs/work/phonics/tasks/20261016-alphabet-writing-finish.md).
+
 2026-10-15 소문자 검수 후속: 공용 StrokeTraceCanvas의 i/j 점은 몸통 완료 뒤44px 버튼으로 제시한다. compact의 숨겨진 문구만으로 행동을 설명하지 않는다. n의 폰트 투영 왕복도 공용 영어 경로에서 정리한다. 모의 곡선 검사와 실제 native 입력 범위/운영 관찰은 [후속 task](../../../../../docs/work/phonics/tasks/20261015-lowercase-writing-review.md)에 구분한다.
 
 2026-10-15 영어 획순·자음 충전 후속: AlphabetLetterWriteActivity/LetterWriteModal/en-b1 단일 글자 복습은 StrokeTraceCanvas hint+compact를 사용한다. 공용 VowelWrite도 영어 낱자를 허용한다. i/j 점은 몸통 뒤 터치, 기존 단어·블렌딩 쓰기는 면 채움 보존. ConsonantTapActivity는 기본/쌍자음 한 글자5회 실제 소리 종료 충전이며 연타·실패·이탈은 미완료. 예전3장×3회/영어 미적용 설명을 대체한다. [작업](../../../../../docs/work/phonics/tasks/20261015-english-strokes-consonant-charge.md).

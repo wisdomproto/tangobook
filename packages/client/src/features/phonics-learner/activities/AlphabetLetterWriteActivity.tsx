@@ -1,9 +1,11 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Volume2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
-import { REST_MS } from '../hooks/useActivitySound';
+import { resolveTtsUrl } from '@/features/tts';
+import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { StrokeTraceCanvas } from '@/features/phonics/components/StrokeTraceCanvas';
 import type { Storybook } from '@tangobook/shared';
@@ -23,14 +25,16 @@ interface Props {
  * 영어 알파벳 글자 쓰기 (Book 1).
  *
  * 글자 좌→우 카드 진행. 각 카드에 [대문자 캔버스] + [소문자 캔버스] 동시 노출.
- * 두 캔버스 모두 통과 (LetterWritingCanvas onResult passed) → 그 글자 완료 → 다음 글자.
+ * 완성 글자를 먼저 보여주고 → 그림·저작 낱말 음원 → 두 칸의 보상 종료 후 다음 글자.
  * 모든 글자 통과 → 칭찬 시퀀스 → onMarkComplete + onBack.
  *
- * 글자 음원: storybook.phonicsLesson.blending[i].blendTtsUrl 우선,
- *   없으면 vowelTtsUrl 또는 blendingSequenceTtsUrl 폴백. 통과 시 자동 재생.
+ * 낱말 음원: wordFamilies/flashcard 녹음 우선, 없으면 공용 resolver.
  */
 /** 마지막 칸까지 통과한 뒤 그림을 잠깐 더 두고 다음 글자로 — 아이가 그림을 볼 틈. */
 const REVEAL_LINGER_MS = 1000;
+const FINISHED_LETTER_MS = 1400;
+type Case = 'upper' | 'lower';
+type Reward = { key: string; word?: { word: string; ttsUrl?: string; imageUrl?: string } | null };
 
 export function AlphabetLetterWriteActivity({
   unitId,
@@ -50,15 +54,22 @@ export function AlphabetLetterWriteActivity({
   // 글자별 (대문자/소문자) 통과 트래킹
   const [passed, setPassed] = useState<Record<string, { upper: boolean; lower: boolean }>>({});
   const [currentIdx, setCurrentIdx] = useState(0);
+  const passedRef = useRef(passed);
+  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  const [audioFailed, setAudioFailed] = useState(false);
+  const [rewardBusy, setRewardBusy] = useState(false);
+  const queue = useRef<Reward[]>([]);
+  const playing = useRef(false);
+  const replay = useRef<(() => void) | null>(null);
+  const alive = useRef(true);
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+    };
+  }, []);
 
   const wordFamilies = sb?.phonicsLesson?.wordFamilies ?? [];
-
-  /**
-   * 🔴 **통과한 칸은 그 자리에서 그림으로 바뀐다**(2026-07-31 사용자: "쓰기 칸을 그림으로 바꾸자.
-   *    그 아래 알파벳은 보여주고"). 예전엔 통과할 때마다 **풀스크린 그림 팝업**이 튀어나왔는데
-   *    (`reward` 오버레이), 쓰던 자리를 덮어 흐름이 끊겼다. 이제 그림은 캔버스 칸 안에서 열린다 —
-   *    대문자 통과 = 첫 낱말(apple) / 소문자 통과 = 둘째 낱말(alligator), 그림 아래 알파벳(B/b)을 둔다.
-   */
 
   /** 글자의 n 번째 낱말 — 그림·소리를 같이 준다. */
   const wordAt = useCallback(
@@ -66,7 +77,7 @@ export function AlphabetLetterWriteActivity({
       const w = wordFamilies[letterIdx]?.words?.[slot];
       if (!w?.word || !sb) return null;
       const extra = findImageData(sb, w.word);
-      return { word: w.word, ttsUrl: w.ttsUrl, imageUrl: extra.imageUrl };
+      return { word: w.word, ttsUrl: extra.ttsUrl ?? w.ttsUrl, imageUrl: extra.imageUrl };
     },
     [wordFamilies, sb]
   );
@@ -75,6 +86,12 @@ export function AlphabetLetterWriteActivity({
   const currentUpper = currentLetter?.toUpperCase() ?? '';
   const currentLower = currentLetter?.toLowerCase() ?? '';
   const currentPassed = passed[currentLetter ?? ''] ?? { upper: false, lower: false };
+  useEffect(() => {
+    for (const slot of [0, 1]) {
+      const url = wordAt(currentIdx, slot)?.ttsUrl;
+      if (url) void warmAudioUrl(url).catch(() => {});
+    }
+  }, [currentIdx, wordAt]);
 
   /** 마지막 글자까지 끝났을 때 — 칭찬하고 단원으로. */
   const finishUnit = useCallback(() => {
@@ -96,31 +113,81 @@ export function AlphabetLetterWriteActivity({
   const advanceRef = useRef(advanceLetter);
   advanceRef.current = advanceLetter;
 
-  /**
-   * 캔버스 통과 콜백 — 통과한 칸은 그림으로 바뀌고(`passed` → 아래 `renderCell` 이 파생), 그 낱말을 읽어준다.
-   * 🔴 소리 길이를 가정하지 않는다(`playAudio` 콜백 체인). 두 번째 통과면 소리가 끝나고 그림을 잠깐
-   *    더 둔 뒤 다음 글자로 — 아이가 그림을 볼 틈.
-   */
-  const handleResult = useCallback(
-    (which: 'upper' | 'lower') => (ok: boolean) => {
-      if (!currentLetter || !ok) return;
-      if (passed[currentLetter]?.[which]) return; // 이미 통과한 칸
-      const other = which === 'upper' ? 'lower' : 'upper';
-      const isLast = !!passed[currentLetter]?.[other]; // 이번이 그 글자의 두 번째 통과
-      setPassed((prev) => {
-        const cur = prev[currentLetter] ?? { upper: false, lower: false };
-        return { ...prev, [currentLetter]: { ...cur, [which]: true } };
-      });
+  // One reward at a time: completing the other paper cannot interrupt a word.
+  // Keep the completed glyph mounted before introducing its picture and audio.
+  const drain = useRef<() => void>(() => {});
+  drain.current = () => {
+    if (playing.current || !alive.current) return;
+    const reward = queue.current.shift();
+    if (!reward) {
+      setRewardBusy(false);
+      const p = passedRef.current[currentLetter ?? ''];
+      if (p?.upper && p.lower) advanceRef.current();
+      return;
+    }
+    playing.current = true;
+    setRewardBusy(true);
+    scheduleTimer(() => {
+      setRevealed((prev) => ({ ...prev, [reward.key]: true }));
+      const listen = async () => {
+        setAudioFailed(false);
+        const w = reward.word;
+        const finish = () => {
+          replay.current = null;
+          scheduleTimer(() => {
+            playing.current = false;
+            drain.current();
+          }, REVEAL_LINGER_MS);
+        };
+        if (!w) {
+          finish();
+          return;
+        }
+        const failed = () => {
+          if (!alive.current) return;
+          setAudioFailed(true);
+          setRewardBusy(false);
+        };
+        try {
+          const url =
+            w?.ttsUrl ??
+            (w &&
+              (await resolveTtsUrl({
+                text: w.word,
+                language: 'english',
+                storybookId: unitId,
+                identifierPrefix: 'alphabet-write',
+              })));
+          if (!alive.current) return;
+          if (!url) {
+            failed();
+            return;
+          }
+          setRewardBusy(true);
+          playAudio(url, finish, failed);
+        } catch {
+          failed();
+        }
+      };
+      replay.current = () => {
+        void listen();
+      };
+      replay.current();
+    }, FINISHED_LETTER_MS);
+  };
 
+  const handleResult = useCallback(
+    (which: Case) => (ok: boolean) => {
+      if (!currentLetter || !ok) return;
+      if (passedRef.current[currentLetter]?.[which]) return;
+      const cur = passedRef.current[currentLetter] ?? { upper: false, lower: false };
+      passedRef.current = { ...passedRef.current, [currentLetter]: { ...cur, [which]: true } };
+      setPassed(passedRef.current);
       const w = wordAt(currentIdx, which === 'upper' ? 0 : 1) ?? wordAt(currentIdx, 0);
-      // 그림은 setPassed 로 칸에 이미 떴다 — 쓰기 뒤 숨 돌리고 낱말 소리, 마지막이면 그 뒤 다음 글자로.
-      scheduleTimer(() => {
-        playAudio(w?.ttsUrl, () => {
-          if (isLast) scheduleTimer(() => advanceRef.current(), REVEAL_LINGER_MS);
-        });
-      }, REST_MS);
+      queue.current.push({ key: `${currentLetter}-${which}`, word: w });
+      drain.current();
     },
-    [currentLetter, currentIdx, passed, wordAt, playAudio, scheduleTimer]
+    [currentLetter, currentIdx, wordAt]
   );
 
   /**
@@ -128,29 +195,27 @@ export function AlphabetLetterWriteActivity({
    * 🔴 그림이 없는 글자(플래시카드 미보유)는 통과해도 캔버스를 그대로 둔다(✓ 통과 배지가 상태를 말한다).
    */
   const renderCell = (which: 'upper' | 'lower', letter: string, letterColor: string) => {
-    const img = currentPassed[which]
-      ? (wordAt(currentIdx, which === 'upper' ? 0 : 1) ?? wordAt(currentIdx, 0))?.imageUrl
-      : undefined;
-    if (img) {
-      return (
-        <div className="flex flex-col items-center gap-1">
-          <img src={img} alt="" className="w-full aspect-square object-contain rounded-[18px]" />
-          <span
-            className={`font-display font-black text-4xl sm:text-5xl leading-none ${letterColor}`}
-          >
-            {letter}
-          </span>
-        </div>
-      );
-    }
+    const word = wordAt(currentIdx, which === 'upper' ? 0 : 1) ?? wordAt(currentIdx, 0);
+    const showReward = revealed[`${currentLetter}-${which}`] && word?.imageUrl;
     return (
-      <StrokeTraceCanvas
-        key={`${which}-${currentLetter}`}
-        letter={letter}
-        onResult={handleResult(which)}
-        guidance="hint"
-        compact
-      />
+      <div className="alphabet-write-cell" data-reward={showReward || undefined}>
+        <StrokeTraceCanvas
+          key={`${which}-${currentLetter}`}
+          letter={letter}
+          onResult={handleResult(which)}
+          guidance="hint"
+          compact
+        />
+        {showReward && (
+          <div className="alphabet-write-reward">
+            <img src={word.imageUrl} alt={word.word} />
+            <div className="alphabet-write-word">
+              <span className={letterColor}>{letter}</span>
+              <span>{word.word}</span>
+            </div>
+          </div>
+        )}
+      </div>
     );
   };
 
@@ -249,6 +314,16 @@ export function AlphabetLetterWriteActivity({
         <p className="text-sm sm:text-base font-bold text-ink-500 text-center mt-1">
           {t('alphabetWrite.hint')}
         </p>
+        {audioFailed && (
+          <button
+            type="button"
+            className="alphabet-write-audio-retry"
+            disabled={rewardBusy}
+            onClick={() => replay.current?.()}
+          >
+            <Volume2 size={22} aria-hidden="true" /> {t('common.listenAgain')}
+          </button>
+        )}
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />

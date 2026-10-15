@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type PointerEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, RotateCcw } from 'lucide-react';
 import { feedDrawLoop, playUi } from '@/lib/uiSound';
@@ -47,6 +47,8 @@ export function StrokeTraceCanvas({
   const [strokes, setStrokes] = useState<VowelGuideStroke[]>([]);
   const [done, setDone] = useState(0);
   const [trail, setTrail] = useState('');
+  const [inkMasks, setInkMasks] = useState<string[]>([]);
+  const maskId = useId().replace(/:/g, '');
   const [ready, setReady] = useState(false);
   const [demonstrating, setDemonstrating] = useState(guidance === 'demo');
   const [demoVersion, setDemoVersion] = useState(0);
@@ -72,6 +74,7 @@ export function StrokeTraceCanvas({
     setStrokes([]);
     setDone(0);
     setTrail('');
+    setInkMasks([]);
     setDemonstrating(guidance === 'demo');
     model.current = undefined;
     index.current = 0;
@@ -96,7 +99,24 @@ export function StrokeTraceCanvas({
       const mask = ctx.getImageData(0, 0, SIZE, SIZE);
       const guides = getLetterGuideStrokes(letter, mask);
       const paths = guides.map(makeTracePath);
-      model.current = { mask, paths, owners: strokeOwners(mask, paths) };
+      const owners = strokeOwners(mask, paths);
+      model.current = { mask, paths, owners };
+      // Cache each stroke's real font silhouette. Progress and sheen may never
+      // paint outside the letter or spill onto a later stroke.
+      const maskCanvas = document.createElement('canvas');
+      maskCanvas.width = maskCanvas.height = SIZE;
+      const maskCtx = maskCanvas.getContext('2d')!;
+      setInkMasks(
+        paths.map((_, i) => {
+          const ink = maskCtx.createImageData(SIZE, SIZE);
+          for (let p = 0; p < owners.length; p++) {
+            ink.data[p * 4] = ink.data[p * 4 + 1] = ink.data[p * 4 + 2] = 255;
+            ink.data[p * 4 + 3] = owners[p] === i ? mask.data[p * 4 + 3] : 0;
+          }
+          maskCtx.putImageData(ink, 0, 0);
+          return maskCanvas.toDataURL();
+        })
+      );
       setStrokes(guides);
       setReady(paths.length > 0);
       paint(0);
@@ -224,11 +244,24 @@ export function StrokeTraceCanvas({
         )}
         {trail && (
           <svg viewBox="0 0 400 400" aria-hidden="true" className="stroke-trace-ink">
+            <defs>
+              <mask
+                id={`${maskId}-progress`}
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="400"
+                height="400"
+              >
+                <image href={inkMasks[done]} width="400" height="400" />
+              </mask>
+            </defs>
             <path
               d={trail}
               fill="none"
-              stroke="#59ba8d"
-              strokeWidth="18"
+              stroke="#28936c"
+              strokeWidth="96"
+              mask={`url(#${maskId}-progress)`}
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -236,11 +269,24 @@ export function StrokeTraceCanvas({
         )}
         {done > 0 && (
           <svg key={done} viewBox="0 0 400 400" aria-hidden="true" className="stroke-trace-flash">
+            <defs>
+              <mask
+                id={`${maskId}-flash`}
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="400"
+                height="400"
+              >
+                <image href={inkMasks[done - 1]} width="400" height="400" />
+              </mask>
+            </defs>
             <path
               d={guidePath(strokes[done - 1])}
               fill="none"
               stroke="#c3f0cb"
-              strokeWidth="22"
+              strokeWidth="96"
+              mask={`url(#${maskId}-flash)`}
               strokeLinecap="round"
               strokeLinejoin="round"
             />
