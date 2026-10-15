@@ -17,7 +17,9 @@
     "sourceChanged": "Không tải được bài học. Hãy quay lại và thử lại.",
     "progress": "Các bước học từ",
     "pressWord": "Nhấn để nghe cả từ",
-    "listenWord": "Nghe từ"
+    "listenWord": "Nghe từ",
+    "focusSound": "Nghe “{{syllable}}”",
+    "wordReady": "Đã ghép xong từ!"
   },
   "practice": {
     "prompt": "Nghe và ghép từ",

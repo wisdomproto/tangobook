@@ -2,7 +2,7 @@
 
 2026-10-15 한영 block player의 listeningPractice opt-in은 정답/삽화/alt를 숨기고 성공 재생 뒤 판 입력·직접 확인을 사용한다. 첫 글자 힌트·onPracticeAttempt로 관찰을 분리하며 기존 game logger와 중복 송신하지 않는다. 일반 블록/카메라 인식은 보존, 듣고 쓰기 취소. [기록](../../../../../docs/work/phonics/tasks/20261015-listening-block-practice.md).
 
-한영 블록은 BlockInputGate를 공유해 게임 전 screen/camera 선택, 명시 initialInputMode는 그대로 시작한다. 영어는 한 줄 글자 조합에 맞춰 높이700px 이상 가로에서 빈 큰 판/패널 없이 타겟 바로 아래 슬롯 크기 받침/가까운 알파벳을 모은다. PC는 타겟 최대176px·알파벳72×84px·큰 입력칸, 짧은 가로는 기존 좌측 목표/우측 판·하단 행동이다. 영어 확인은 읽기이며 정답은 자동 판정이다. 영어 알파벳은 기존 단원 선택지/a~z 순서의 한 줄 그림 트레이·큰 화살표/pan-x로 표시, 한글 모음 고정/조각 회전을 영어에 적용하지 않는다. [한영 통일 검수](../../../../../docs/work/phonics/tasks/20261014-english-block-layout.md).
+한영 블록은 BlockInputGate에서 기본 screen으로 즉시 시작하고 GameHeader 오른쪽에서 실물/화면으로 전환한다(2026-10-15 후속). 명시 initialInputMode는 보존하고 카메라는 명시 실물 전환 때만 켠다. 이전 게임 전 선택/게임 내 전환 제외 결정은 철회한다. [기록](../../../../../docs/work/phonics/tasks/20261015-word-meeting-focus-design.md). 영어는 한 줄 글자 조합에 맞춰 높이700px 이상 가로에서 빈 큰 판/패널 없이 타겟 바로 아래 슬롯 크기 받침/가까운 알파벳을 모은다. PC는 타겟 최대176px·알파벳72×84px·큰 입력칸, 짧은 가로는 기존 좌측 목표/우측 판·하단 행동이다. 영어 확인은 읽기이며 정답은 자동 판정이다. 영어 알파벳은 기존 단원 선택지/a~z 순서의 한 줄 그림 트레이·큰 화살표/pan-x로 표시, 한글 모음 고정/조각 회전을 영어에 적용하지 않는다. [한영 통일 검수](../../../../../docs/work/phonics/tasks/20261014-english-block-layout.md).
 
 한글 블록 문제 단어는 검정색 정상 폰트로 표시하고 ColoredHangulWord의 수동 자모/색 배치를 사용하지 않는다. 넘치는 트레이는 큰 좌우 그림 화살표(PC60px·짧은 가로44px)/끝 비활성, 후속 요청으로 확인/다음은 판/트레이 아래 가로행에 둔다. [배치·검수](../../../../../docs/work/phonics/tasks/20261014-korean-block-layout.md).
 

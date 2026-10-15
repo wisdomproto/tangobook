@@ -34,13 +34,18 @@ describe('meaningful word blending steps', () => {
   });
   it('builds Hangul CV syllables, then coda, then the whole word', () => {
     expect(koreanWordBlendSteps('고기')).toEqual([
-      { parts: ['ㄱ', 'ㅗ'], result: '고' },
-      { parts: ['ㄱ', 'ㅣ'], result: '기' },
+      { parts: ['ㄱ', 'ㅗ'], result: '고', focusIndex: 0 },
+      { parts: ['ㄱ', 'ㅣ'], result: '기', focusIndex: 1 },
       { parts: ['고', '기'], result: '고기', wholeWord: true },
     ]);
     expect(koreanWordBlendSteps('강')).toEqual([
-      { parts: ['ㄱ', 'ㅏ'], result: '가' },
-      { parts: ['가', 'ㅇ'], result: '강', wholeWord: true },
+      { parts: ['ㄱ', 'ㅏ'], result: '가', focusIndex: 0 },
+      { parts: ['가', 'ㅇ'], result: '강', focusIndex: 0, wholeWord: true },
     ]);
   });
+});
+
+it('tracks the position of repeated syllables and keeps the coda in the same word cell', () => {
+  expect(koreanWordBlendSteps('기기').map((s) => s.focusIndex)).toEqual([0, 1, undefined]);
+  expect(koreanWordBlendSteps('강아지').map((s) => s.focusIndex)).toEqual([0, 0, 1, 2, undefined]);
 });

@@ -162,3 +162,52 @@ it('does not introduce an unrelated compound meaning through a story excerpt', (
   expect(wordMeetingSceneMatches('The caterpillar ate a leaf.', 'cat', 'english')).toBe(false);
   expect(wordMeetingSceneMatches('고기가 있어요.', '고기', 'korean')).toBe(true);
 });
+
+it('keeps the full Korean word in place while moving focus after the actual syllable sound ends', async () => {
+  const { container } = render(
+    <WordMeetingActivity
+      unitId="kr-h1-u02"
+      lang="korean"
+      book={{ id: 'kr-h1-u02' } as Storybook}
+      word="아기"
+      imageUrl="/baby.webp"
+      onComplete={vi.fn()}
+      onBack={vi.fn()}
+    />
+  );
+  await waitFor(() => expect(screen.getByRole('button', { name: '소리 합치기' })).toBeEnabled());
+  const heading = screen.getByRole('heading', { name: '아기' });
+  expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
+  fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
+  await waitFor(() => expect(timers).toHaveLength(1));
+  act(() => timers.shift()!());
+  expect(audio).toHaveBeenLastCalledWith('/아.mp3', expect.any(Function), expect.any(Function));
+  expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
+  act(() => audio.mock.calls.at(-1)![1]());
+  act(() => timers.shift()!());
+  expect(screen.getByRole('heading', { name: '아기' })).toBe(heading);
+  expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '1');
+  expect(container.querySelector('.word-meet-parts')).toBeNull();
+  expect(container.querySelector('.word-meet-history')).toBeNull();
+  expect(container.querySelectorAll('.word-meet-glyph')).toHaveLength(2);
+});
+
+it('reads the highlighted coda syllable as a whole instead of pronouncing a different CV', async () => {
+  const { container } = render(
+    <WordMeetingActivity
+      unitId="kr-h2-u01"
+      lang="korean"
+      book={{ id: 'kr-h2-u01' } as Storybook}
+      word="강아지"
+      onComplete={vi.fn()}
+      onBack={vi.fn()}
+    />
+  );
+  await waitFor(() => expect(screen.getByRole('button', { name: '소리 합치기' })).toBeEnabled());
+  fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
+  await waitFor(() => expect(timers).toHaveLength(1));
+  act(() => timers.shift()!());
+  expect(audio).toHaveBeenLastCalledWith('/강.mp3', expect.any(Function), expect.any(Function));
+  expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
+  expect(screen.getByRole('heading', { name: '강아지' })).toBeInTheDocument();
+});

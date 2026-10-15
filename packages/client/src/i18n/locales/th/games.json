@@ -186,5 +186,9 @@
   "progress": {
     "question": "ข้อ {{current}} จาก {{total}}",
     "completed": "สำเร็จ {{score}} ข้อ"
+  },
+  "blockInput": {
+    "physical": "บล็อกจริง",
+    "screen": "บล็อกบนหน้าจอ"
   }
 }

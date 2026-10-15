@@ -17,7 +17,9 @@
     "sourceChanged": "학습 자료를 불러오지 못했어요. 돌아가서 다시 열어주세요.",
     "progress": "낱말 학습 순서",
     "pressWord": "버튼을 눌러 낱말의 소리를 들어요",
-    "listenWord": "낱말 듣기"
+    "listenWord": "낱말 듣기",
+    "focusSound": "“{{syllable}}” 소리를 들어요",
+    "wordReady": "낱말을 완성했어요"
   },
   "practice": {
     "prompt": "소리를 듣고 블록을 맞춰요",

@@ -9,16 +9,20 @@ export interface WordBlendStep {
   silentParts?: number[];
   /** Visual word chunks are not isolated phonemes; only use natural whole-word audio. */
   wholeAudioOnly?: boolean;
+  /** The position within the complete Hangul word, including repeated syllables. */
+  focusIndex?: number;
 }
 
 export function koreanWordBlendSteps(word: string): WordBlendStep[] {
   const syllables = decomposeWord(word);
   if (!syllables.length) return [{ parts: [...word], result: word, wholeWord: true }];
-  const steps = syllables.flatMap((s): WordBlendStep[] => {
+  const steps = syllables.flatMap((s, focusIndex): WordBlendStep[] => {
     const cv = composeHangul(s.cho, s.jung, null);
     return [
-      { parts: [s.cho, s.jung], result: cv },
-      ...(s.jong ? [{ parts: [cv, s.jong], result: composeHangul(s.cho, s.jung, s.jong) }] : []),
+      { parts: [s.cho, s.jung], result: cv, focusIndex },
+      ...(s.jong
+        ? [{ parts: [cv, s.jong], result: composeHangul(s.cho, s.jung, s.jong), focusIndex }]
+        : []),
     ];
   });
   if (syllables.length > 1) steps.push({ parts: [...word], result: word, wholeWord: true });

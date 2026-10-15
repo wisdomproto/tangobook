@@ -186,5 +186,9 @@
   "progress": {
     "question": "{{total}}개 중 {{current}}번째 문제",
     "completed": "{{score}}개 완성"
+  },
+  "blockInput": {
+    "physical": "실물 블록",
+    "screen": "화면 블록"
   }
 }

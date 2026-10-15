@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ArrowRight, Volume2 } from 'lucide-react';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
-import { ToyHangul } from '../components/ToyHangul';
-import { PhonicsGameSprite } from '../components/PhonicsGameSprite';
 import { englishWordBlendSteps, koreanWordBlendSteps } from '../lib/word-blending';
 import { getUnitPatterns, wordMatchesPattern } from '../lib/english-phonics-units';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -58,7 +57,11 @@ export function WordMeetingActivity({
   const rawSteps = useMemo(
     () =>
       lang === 'korean'
-        ? koreanWordBlendSteps(word)
+        ? koreanWordBlendSteps(word).filter(
+            // This word view highlights a complete syllable. Never read "가" while showing "강".
+            // Component assembly belongs to the separate jamo blending activity.
+            (s) => s.wholeWord || s.result === [...word][s.focusIndex ?? 0]
+          )
         : englishWordBlendSteps(
             word,
             getUnitPatterns(unitId).find((p) => wordMatchesPattern(word, p)),
@@ -72,7 +75,15 @@ export function WordMeetingActivity({
   const steps = useMemo(
     () =>
       wholeFallback
-        ? [{ parts: [word], result: word, wholeWord: true, wholeAudioOnly: true }]
+        ? [
+            {
+              parts: [word],
+              result: word,
+              wholeWord: true,
+              wholeAudioOnly: true,
+              focusIndex: undefined,
+            },
+          ]
         : rawSteps.filter((s) => s.wholeWord || !missingSounds.includes(s.result)),
     [rawSteps, missingSounds, wholeFallback, word]
   );
@@ -90,6 +101,10 @@ export function WordMeetingActivity({
   const preparedWhole = useRef<Promise<string | undefined>>();
   const step = steps[index];
   const wholeExample = !!step.wholeAudioOnly;
+  const korean = lang === 'korean';
+  const letters = [...word];
+  const focusIndex = step.wholeWord ? undefined : step.focusIndex;
+  const finalResult = phase === 'result' && index === steps.length - 1;
   const code = lang === 'korean' ? 'ko' : 'en';
   const resolveWhole = useCallback(
     async () =>
@@ -107,7 +122,7 @@ export function WordMeetingActivity({
   const lookup = lang === 'korean' ? getKoreanSyllableUrl : getEnglishPhonemeUrl;
   useEffect(() => {
     alive.current = true;
-    prepareLearningEffects();
+    if (lang === 'english') prepareLearningEffects();
     const tokens = [
       ...new Set(rawSteps.filter((s) => !s.wholeAudioOnly).flatMap((s) => [...s.parts, s.result])),
     ];
@@ -188,7 +203,7 @@ export function WordMeetingActivity({
       scheduleTimer(
         () => {
           setPhase('result');
-          emitLearningEffect(step.wholeWord ? 'word' : 'blend', blendRoot.current);
+          if (!korean) emitLearningEffect(step.wholeWord ? 'word' : 'blend', blendRoot.current);
           playAudio(
             joinedUrl,
             () => {
@@ -255,84 +270,118 @@ export function WordMeetingActivity({
         data-language={code}
         data-phase={phase}
         data-whole-example={wholeExample || undefined}
+        data-whole-word={step.wholeWord || undefined}
         style={{ '--word-length': word.length } as CSSProperties}
       >
         <div className="word-meet-picture">
           {imageUrl && <img src={imageUrl} alt={word} draggable={false} />}
-          <p>{word}</p>
         </div>
         <section className="word-meet-studio" aria-label={t('wordJourney.meet')}>
+          {korean ? (
+            <div ref={blendRoot} className="word-meet-word-stage">
+              <h1 className="word-meet-word font-display" aria-label={word}>
+                {letters.map((letter, i) => (
+                  <span
+                    key={i}
+                    className="word-meet-syllable"
+                    data-active={focusIndex === undefined || focusIndex === i}
+                    data-learned={focusIndex !== undefined && i < focusIndex}
+                    data-syllable={i}
+                    aria-current={focusIndex === i ? 'step' : undefined}
+                    style={{ '--cell-delay': `${step.wholeWord ? i * 75 : 0}ms` } as CSSProperties}
+                  >
+                    <span className="word-meet-glyph">{letter}</span>
+                    <span className="word-meet-ink" aria-hidden="true">
+                      {letter}
+                    </span>
+                    <span className="word-meet-letter-light" aria-hidden="true">
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                  </span>
+                ))}
+              </h1>
+              <div key={index} className="word-meet-flow" aria-hidden="true">
+                <span />
+                <span />
+              </div>
+            </div>
+          ) : (
+            <h1 className="word-meet-english-word font-display">{word}</h1>
+          )}
           <p className="word-meet-instruction">
-            {t(wholeExample ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
+            {finalResult && !busy
+              ? t('wordJourney.wordReady')
+              : korean && focusIndex !== undefined
+                ? t('wordJourney.focusSound', { syllable: letters[focusIndex] })
+                : t(wholeExample || korean ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
           </p>
-          <div className="word-meet-history" aria-label={t('wordJourney.blended')}>
-            {steps.slice(0, index).map((s, i) => (
-              <span key={i}>{s.result}</span>
-            ))}
-          </div>
-          <div key={index} ref={blendRoot} className="word-meet-blend" aria-live="polite">
-            <div className="word-meet-parts" aria-hidden={phase !== 'ready'}>
-              {step.parts.map((part, i) => (
-                <div
-                  key={`${i}:${part}`}
-                  className={`word-meet-piece ${sounding === i ? 'is-sounding' : ''}`}
-                  style={
-                    {
-                      '--piece-offset': `${(i - (step.parts.length - 1) / 2) * -115}%`,
-                      '--piece-turn': `${i % 2 ? -14 : 14}deg`,
-                    } as CSSProperties
-                  }
-                >
-                  {i > 0 && (
-                    <b className="word-meet-plus" aria-hidden="true">
-                      +
-                    </b>
-                  )}
-                  {lang === 'korean' ? <ToyHangul text={part} decorative /> : <span>{part}</span>}
-                </div>
+          {!korean && (
+            <div className="word-meet-history" aria-label={t('wordJourney.blended')}>
+              {steps.slice(0, index).map((s, i) => (
+                <span key={i}>{s.result}</span>
               ))}
             </div>
-            {phase !== 'ready' && (
-              <div className="word-meet-sparkles" aria-hidden="true">
-                {Array.from({ length: 14 }, (_, i) => (
-                  <i
-                    key={i}
+          )}
+          {!korean && (
+            <div key={index} ref={blendRoot} className="word-meet-blend" aria-live="polite">
+              <div className="word-meet-parts" aria-hidden={phase !== 'ready'}>
+                {step.parts.map((part, i) => (
+                  <div
+                    key={`${i}:${part}`}
+                    className={`word-meet-piece ${sounding === i ? 'is-sounding' : ''}`}
                     style={
                       {
-                        '--angle': `${(i * 360) / 14}deg`,
-                        '--delay': `${(i % 3) * 35}ms`,
+                        '--piece-offset': `${(i - (step.parts.length - 1) / 2) * -115}%`,
+                        '--piece-turn': `${i % 2 ? -14 : 14}deg`,
                       } as CSSProperties
                     }
-                  />
+                  >
+                    {i > 0 && (
+                      <b className="word-meet-plus" aria-hidden="true">
+                        +
+                      </b>
+                    )}
+                    <span>{part}</span>
+                  </div>
                 ))}
               </div>
-            )}
-            {phase === 'result' && <div className="word-meet-result">{step.result}</div>}
-          </div>
+              {phase !== 'ready' && (
+                <div className="word-meet-sparkles" aria-hidden="true">
+                  {Array.from({ length: 14 }, (_, i) => (
+                    <i
+                      key={i}
+                      style={
+                        {
+                          '--angle': `${(i * 360) / 14}deg`,
+                          '--delay': `${(i % 3) * 35}ms`,
+                        } as CSSProperties
+                      }
+                    />
+                  ))}
+                </div>
+              )}
+              {phase === 'result' && <div className="word-meet-result">{step.result}</div>}
+            </div>
+          )}
           <button
             className="word-meet-button"
             type="button"
             disabled={busy || !soundReady}
             onClick={() => void press()}
             aria-label={
-              phase === 'result'
+              finalResult
                 ? t('wordJourney.storyThenBuild')
                 : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend')
             }
           >
-            <PhonicsGameSprite
-              name={lang === 'korean' ? 'cta-coral' : 'cta-mint'}
-              className="word-meet-button-art"
-            />
-            <PhonicsGameSprite
-              name={phase === 'result' || wholeExample ? 'play' : 'combine'}
-              size={36}
-            />
+            <span className="word-meet-button-icon" aria-hidden="true">
+              {finalResult ? <ArrowRight size={28} /> : <Volume2 size={28} />}
+            </span>
             <span>
-              {phase === 'result'
-                ? index === steps.length - 1
-                  ? t('wordJourney.storyThenBuild')
-                  : t('wordJourney.nextBlend')
+              {finalResult
+                ? t('wordJourney.storyThenBuild')
                 : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend')}
             </span>
           </button>

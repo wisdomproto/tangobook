@@ -186,5 +186,9 @@
   "progress": {
     "question": "第 {{current}} 题，共 {{total}} 题",
     "completed": "完成 {{score}} 题"
+  },
+  "blockInput": {
+    "physical": "实体积木",
+    "screen": "屏幕积木"
   }
 }

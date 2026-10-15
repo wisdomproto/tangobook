@@ -186,5 +186,9 @@
   "progress": {
     "question": "Câu {{current}} trên {{total}}",
     "completed": "Hoàn thành {{score}}"
+  },
+  "blockInput": {
+    "physical": "Khối thật",
+    "screen": "Khối trên màn hình"
   }
 }

@@ -17,7 +17,9 @@
     "sourceChanged": "Could not load the lesson. Please go back and try again.",
     "progress": "Word learning steps",
     "pressWord": "Press to hear the whole word",
-    "listenWord": "Hear the word"
+    "listenWord": "Hear the word",
+    "focusSound": "Listen to “{{syllable}}”",
+    "wordReady": "You made the word!"
   },
   "practice": {
     "prompt": "Listen and build the word",

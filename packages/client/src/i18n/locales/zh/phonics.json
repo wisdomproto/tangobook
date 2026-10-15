@@ -17,7 +17,9 @@
     "sourceChanged": "无法加载课程，请返回重试。",
     "progress": "词语学习步骤",
     "pressWord": "点按按钮，听听整个单词",
-    "listenWord": "听单词"
+    "listenWord": "听单词",
+    "focusSound": "听一听“{{syllable}}”",
+    "wordReady": "单词完成了！"
   },
   "practice": {
     "prompt": "听声音拼出单词",
