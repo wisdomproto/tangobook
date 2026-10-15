@@ -106,7 +106,13 @@
             }
           ],
           "submittedAt": "2026-10-15T12:32:17.130Z",
-          "observedInUi": false
+          "observedInUi": false,
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 02 · 마법의 숲 · 도입.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/78618a66-ca2e-479f-b008-2043108056cb",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "climax",
@@ -127,7 +133,13 @@
             }
           ],
           "submittedAt": "2026-10-15T12:32:18.007Z",
-          "observedInUi": false
+          "observedInUi": false,
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 02 · 마법의 숲 · 클라이맥스.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/e0353f97-3d10-42d1-9f2d-0f676a1dc7ac",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "ending",
@@ -148,7 +160,13 @@
             }
           ],
           "submittedAt": "2026-10-15T12:32:21.957Z",
-          "observedInUi": false
+          "observedInUi": false,
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 02 · 마법의 숲 · 마지막.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/a0d5f7a5-f84c-432d-b870-d4f34fdd161c",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         }
       ]
     },
@@ -248,7 +266,13 @@
               "duration": "1:10"
             }
           ],
-          "submittedAt": "2026-10-15T12:33:12.174Z"
+          "submittedAt": "2026-10-15T12:33:12.174Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 04 · 용감한 걸음 · 도입.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/127e68d5-61be-4126-8046-23d4642e126e",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "climax",
@@ -268,7 +292,13 @@
               "duration": "0:50"
             }
           ],
-          "submittedAt": "2026-10-15T12:33:15.957Z"
+          "submittedAt": "2026-10-15T12:33:15.957Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 04 · 용감한 걸음 · 클라이맥스.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/b3cfbf78-a0c0-4ce0-be6a-61cf6d6ae57c",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "ending",
@@ -288,7 +318,13 @@
               "duration": "1:12"
             }
           ],
-          "submittedAt": "2026-10-15T12:33:16.904Z"
+          "submittedAt": "2026-10-15T12:33:16.904Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 04 · 용감한 걸음 · 마지막.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/6b746c40-0328-4510-971f-12b413e219f6",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         }
       ]
     },
@@ -528,7 +564,13 @@
               "duration": "1:09"
             }
           ],
-          "submittedAt": "2026-10-15T12:34:31.852Z"
+          "submittedAt": "2026-10-15T12:34:31.852Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 08 · 다정한 이별 · 도입.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/761a1f42-8282-4da7-992a-b3100a613b53",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "climax",
@@ -548,7 +590,13 @@
               "duration": "0:50"
             }
           ],
-          "submittedAt": "2026-10-15T12:34:35.689Z"
+          "submittedAt": "2026-10-15T12:34:35.689Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 08 · 다정한 이별 · 클라이맥스.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/95c6a8f4-30a9-4ea2-a0dd-359c8c7a4503",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "ending",
@@ -568,7 +616,13 @@
               "duration": "1:10"
             }
           ],
-          "submittedAt": "2026-10-15T12:34:36.828Z"
+          "submittedAt": "2026-10-15T12:34:36.828Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 명작 08 · 다정한 이별 · 마지막.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/d6520f42-8912-4220-a7a1-8ab494e3ecc8",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         }
       ]
     },
@@ -739,7 +793,12 @@
             }
           ],
           "submittedAt": "2026-10-15T12:32:01.443Z",
-          "observedInUi": false
+          "observedInUi": false,
+          "download": {
+            "path": "C:/Users/101024/Downloads/탱고북 · 전래 01 · 햇살 한옥마을 · 도입.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/8846a4cb-a391-481e-9e15-41d0d504417a"
+          }
         },
         {
           "role": "climax",
@@ -760,7 +819,13 @@
             }
           ],
           "submittedAt": "2026-10-15T12:32:02.145Z",
-          "observedInUi": false
+          "observedInUi": false,
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 01 · 햇살 한옥마을 · 클라이맥스.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/e4bc0b1d-20ed-414e-a36c-bc32d570968f",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "ending",
@@ -781,7 +846,13 @@
             }
           ],
           "submittedAt": "2026-10-15T12:32:03.630Z",
-          "observedInUi": false
+          "observedInUi": false,
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 01 · 햇살 한옥마을 · 마지막.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/696675b0-47cc-40af-94e0-c24c614d730f",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         }
       ]
     },
@@ -811,7 +882,13 @@
               "duration": "1:10"
             }
           ],
-          "submittedAt": "2026-10-15T12:32:34.514Z"
+          "submittedAt": "2026-10-15T12:32:34.514Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 02 · 산골 숲길 · 도입.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/48a10f26-99ff-4393-9413-976414812041",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "climax",
@@ -831,7 +908,13 @@
               "duration": "0:50"
             }
           ],
-          "submittedAt": "2026-10-15T12:32:38.263Z"
+          "submittedAt": "2026-10-15T12:32:38.263Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 02 · 산골 숲길 · 클라이맥스.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/7c9951d4-5bca-491b-8dff-c658425213b3",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "ending",
@@ -851,7 +934,13 @@
               "duration": "1:10"
             }
           ],
-          "submittedAt": "2026-10-15T12:32:39.186Z"
+          "submittedAt": "2026-10-15T12:32:39.186Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 02 · 산골 숲길 · 마지막.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/5d717440-f99c-4fe5-942f-0a026205a44a",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         }
       ]
     },
@@ -1371,7 +1460,13 @@
               "duration": "2:43"
             }
           ],
-          "submittedAt": "2026-10-15T12:49:03.087Z"
+          "submittedAt": "2026-10-15T12:49:03.087Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 10 · 고요한 여운 · 도입.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/1f8908af-daab-490f-bff8-245c31e77b80",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "climax",
@@ -1391,7 +1486,13 @@
               "duration": "0:50"
             }
           ],
-          "submittedAt": "2026-10-15T12:49:03.745Z"
+          "submittedAt": "2026-10-15T12:49:03.745Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 10 · 고요한 여운 · 클라이맥스.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/21f3158b-7adc-4910-86a1-e8a10f4b7807",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         },
         {
           "role": "ending",
@@ -1411,7 +1512,13 @@
               "duration": "1:09"
             }
           ],
-          "submittedAt": "2026-10-15T12:35:34.762Z"
+          "submittedAt": "2026-10-15T12:35:34.762Z",
+          "download": {
+            "path": "C:\\Users\\101024\\Downloads\\탱고북 · 전래 10 · 고요한 여운 · 마지막.mp3",
+            "candidate": 0,
+            "url": "https://suno.com/song/047ccbb4-cb93-479a-b1a9-1b55a7092405",
+            "selection": "coherent suite; prefer requested duration; technical and speech screening pending"
+          }
         }
       ]
     }
