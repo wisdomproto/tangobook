@@ -2,12 +2,12 @@
 
 - id: 20261015-target-word-audit
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: 9ffee55e6
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: 로컬 main 873d1f808 fast-forward 통합
 - delivery: 미푸시·미배포
 
 ## 최종 사용자 결정
@@ -50,3 +50,7 @@
 ## 검증
 
 타깃 대조와 로컬 구현 검증 완료. 연결 구현/실제 화면/최종 검사와 통합은 [낱말 연결 task](20261015-connected-word-learning.md)에서 함께 관리한다. 임시 CMU 발음사전 조사와 별도 english-target-audit 작업 폴더는 취소된 단음절 정리의 흔적이며 제품 의존성으로 추가하지 않는다.
+
+## main 포함 확인
+
+873d1f808에 코드와 결정 기록을 함께 커밋하고 로컬 main에 fast-forward 통합했다. 같은 코드의433회귀/타입/build와 실제 화면 증거는 연결 task의 최종 검증 절을 따른다. 원격 main push/운영 배포는 이번 요청에 없으며 실행하지 않았다. 후속 통합 기록은 별도 문서 커밋이다.

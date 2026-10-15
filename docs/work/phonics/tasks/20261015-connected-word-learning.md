@@ -2,12 +2,12 @@
 
 - id: 20261015-connected-word-learning
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: da941bcb8
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: 로컬 main 873d1f808 fast-forward 통합
 - delivery: 미푸시·미배포
 
 ## 요청과 구현 범위
@@ -68,3 +68,7 @@
 - 실제 가로812×375 elephant의 전체 발음 예시/실제 삽화·CTA 잘림 없음, 문서 가로넘침0. viewport 임시 override는 복원했다. UI 증거는 output/connected-word-learning-20261015의 korean-strict-target/strict-block-tray, dragon-whole-word, cat-manual-blend, elephant-phone PNG. 해당 경로는 이 worktree 로컬이며 커밋에 대용량 source/이미지 캐시를 넣지 않는다.
 - 개발 build가 임시 vite 설정/HTML을 복원하는 동안 HMR 서버가 여러 번 재시작되어 빈 탭이 남았다. 이 작업의 Vite만 종료/재시작한 뒤 실제 화면·발음 연결 복구 확인. 현재5187 frontend 세션17830, DISABLE_PUBLISH_SCHEDULER=1/API_TARGET=운영 공개 API(read-only); backend 새 실행 없음.5186 다른 작업 폴더는 보존.
 - **검증 한계:** 실물 카메라/8글자 보드 실기기, 모든 타깃의 실제 붓질 완주, 실제 부모/아이 학습 효과 검증은 아니다. 원격 push/운영 배포 요청·실행 없음. 코드상의 동일 타깃 전 단계/재진입과 독립 근거 분리는 위 회귀로 검증했다.
+
+## main 포함 확인
+
+873d1f808에 코드와 결정 기록을 함께 커밋하고 로컬 main에 fast-forward 통합했다. 같은 코드의433회귀/타입/build와 실제 화면 증거는 연결 task의 최종 검증 절을 따른다. 원격 main push/운영 배포는 이번 요청에 없으며 실행하지 않았다. 후속 통합 기록은 별도 문서 커밋이다.

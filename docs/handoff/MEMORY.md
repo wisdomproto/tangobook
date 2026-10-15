@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [한영 낱말 연결 로컬 통합](../work/phonics/tasks/20261015-connected-word-learning.md): 873d1f808 main 포함. 같은 타깃 만나기→블록→쓰기→색칠·정확한 단계 이어하기/과거 완료 면제, 연습/독립 근거 분리. 한글117타깃 엄격 누적·7부적합 제외/복합모음 표기 정정, 영어 원래 타깃/dragon 복원+전체 발음 예외.433회귀·타입/build/shared ESM·대표 실제 화면 확인, 실물 인식/모든 붓질 완주 아님.5187 최종 검수 서버 유지·원격 push/배포 미요청·미실행.
+
 2026-10-15 [한영 타깃 후속 정정](../work/phonics/tasks/20261015-target-word-audit.md): 사용자 최종 결정은 영어 기존 타깃 복원/예외 전체 발음, 한글 엄격 누적이다. 원교재 dragon 확인으로 선정 오류 추정 철회. 한글 미래 자모7타깃 학습 제외·복합모음2표기 교정, 블록 생략/미학습 자음 prefill 금지. 아래 dragon 제외는 이전 결정이며 후속으로 대체한다. 구현·검수 진행은 낱말 연결 task 참조, 이번 미푸시.
 
 2026-10-15 [영어 dragon 타깃 제외](../work/phonics/tasks/20261015-english-dragon-target.md): 기존 영어4권 dr 예시였음. shared/옛 공개 source·복습에서 학습 타깃 제외, 기존 dress/drive/drum·동화 자산 보존. 로컬 화면 확인, 원격 push/운영 데이터 변경 없음. 별도 낱말 연결 구현은 phonics-word-journey worktree에 진행 중.
