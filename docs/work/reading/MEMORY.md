@@ -62,3 +62,5 @@ iOS에서는 실제 재생 요소를 제스처에서 해금하고 재사용한�
 2026-10-05 후속726b1deee main push·실제 새 번들 확인. 운영 샘플2,552건으로 중복/RLS/페이지 전수 검증 및 고기 오답2회→복습 제안→성공2회 후 아기로 제안 변경까지 확인. 선택 자녀 새로고침 유지,271tests/typecheck/client build 통과.71개 파닉스 타깃 운영 일치. 다국어 DB migration·300건은 Supabase 관리자 로그인 대기, 나머지 범위는 [작업 기록](tasks/20261005-learning-report-implementation.md) QA 전달 결과 참조.
 
 2026-10-05 사용자 Supabase 연결 후 운영 word_mastery 5언어 제약 migration 적용 완료. 보류 vi/zh/th300건 포함 샘플2,852건·API20개 검사 통과,언어별80노출/20연습·재전송 집계불변·실제 부모 화면 cá/鱼/ปลา 분리 확인. 이전 관리자 로그인 대기 상태 해소. 상세는 [리포트 구현 기록](tasks/20261005-learning-report-implementation.md) 운영 다국어 완료 절.
+
+2026-10-15 동화BGM 사용자최신결정: 구간전환보류, 책을열때명작/전래별기존음원중한곡랜덤선택하고읽는동안유지·반복. ViewerContainer/story-music 수정, 기존cue/set저작데이터보존. [작업근거](../video/tasks/20261015-classic-bgm-research.md)의마지막절참조. 운영배포미실시.

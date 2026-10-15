@@ -1,6 +1,6 @@
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { storyMusicUrl, eligibleMusicSets, chooseMusicSet } from '../lib/story-music';
+import { readingMusicUrls, chooseReadingMusic } from '../lib/story-music';
 import { bookDisplayTitle } from '@tangobook/shared';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -250,8 +250,8 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
     setTimeout(fire, NEXT_IMG_CAP_MS); // 상한 — 이미지가 안 와도 넘어감
   }, [pages, hasKeyObjects, playlist]);
 
-  // 기본 BGM 폴백 — 저작 BGM 없는 책은 기본 트랙 5곡 중 책 ID 해시로 고정 선택
-  // (같은 책 = 항상 같은 곡). 자산: public/sounds/bgm/default-{1..5}.mp3 (90s 루프).
+  // 한 읽기 세션에서 장르에 맞는 한 곡을 랜덤 선택해 유지한다.
+  // 구간별 cue 데이터는 보존하지만 현재는 페이지에 따라 음악을 바꾸지 않는다.
   //
   // 🔴 하루 걸러 없앴다가 되돌렸다(2026-08-05 제거 → 08-11 복구). 「배경음이 시끄럽다」는 말은
   //    **라이브러리 화면의 BGM**(`AppBgm`) 얘기였는데 뷰어 것을 지웠다 — 그래서 자동읽기에
@@ -261,32 +261,16 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   //    가 **마운트 시 바로** 재생하므로, 상자가 화면에 붙는 순간 아무도 아무것도 안 눌렀는데
   //    음악이 나온다(`noAutoStart` 는 나레이션만 막는다). 여기서 비우면 `hasBgm=false` 라
   //    툴바 버튼도 자동으로 꺼지고 `toggleBgm` 은 no-op 이라 다른 경로는 그대로다.
-  const musicSetChoice = useRef<{ bookId: string; setId?: string } | null>(null);
-  const eligibleSets = storybook ? eligibleMusicSets(storybook) : [];
+  const musicChoice = useRef<{ bookId: string; url?: string } | null>(null);
+  const musicUrls = storybook ? readingMusicUrls(storybook) : [];
   if (
     storybook &&
-    (musicSetChoice.current?.bookId !== storybook.id ||
-      (eligibleSets.length > 0 &&
-        !eligibleSets.some((s) => s.id === musicSetChoice.current?.setId)))
+    (musicChoice.current?.bookId !== storybook.id ||
+      !musicUrls.includes(musicChoice.current?.url ?? ''))
   ) {
-    musicSetChoice.current = { bookId: storybook.id, setId: chooseMusicSet(eligibleSets)?.id };
+    musicChoice.current = { bookId: storybook.id, url: chooseReadingMusic(musicUrls) };
   }
-  const readingMusicSet = eligibleSets.find((s) => s.id === musicSetChoice.current?.setId);
-  const bgmUrl = useMemo(() => {
-    if (embed) return undefined;
-    if (storybook) {
-      const music = storyMusicUrl(
-        storybook,
-        pages[pageIndex]?.pageNumber ?? pageIndex + 1,
-        readingMusicSet
-      );
-      if (music) return music;
-    }
-    if (!storybook) return undefined;
-    let h = 0;
-    for (let i = 0; i < storybook.id.length; i++) h = (h * 31 + storybook.id.charCodeAt(i)) | 0;
-    return `/sounds/bgm/default-${(Math.abs(h) % 5) + 1}.mp3`;
-  }, [storybook, embed, pages, pageIndex, readingMusicSet]);
+  const bgmUrl = embed || !storybook ? undefined : musicChoice.current?.url;
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: bgmUrl,
