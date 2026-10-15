@@ -1,0 +1,102 @@
+.stroke-trace-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 384px);
+}
+.stroke-trace-paper {
+  position: relative;
+  width: 100%;
+  border-radius: 25px;
+  border: 2px solid #dbdfcf;
+  background: #fffef9;
+  overflow: hidden;
+  box-shadow: 0 5px 0 #e5e8da;
+}
+.stroke-trace-paper canvas {
+  display: block;
+  width: 100%;
+}
+.stroke-trace-paper[data-complete] {
+  border-color: #65b48e;
+  box-shadow: 0 5px 0 #b8d7bf;
+}
+.stroke-trace-ink,
+.stroke-trace-flash {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.stroke-trace-flash {
+  animation: stroke-trace-sheen 550ms ease-out both;
+}
+.stroke-trace-tools {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  color: #625f4f;
+  font-weight: 700;
+  font-size: 14px;
+}
+.stroke-trace-tools button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #dedfd3;
+  border-radius: 22px;
+  background: #fffef9;
+  white-space: nowrap;
+}
+.stroke-trace-tools button:disabled {
+  opacity: 0.4;
+}
+.stroke-trace-steps {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-height: 29px;
+}
+.stroke-trace-steps span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  background: #eeeede;
+  border-radius: 50%;
+  color: #888572;
+  font-size: 13px;
+  font-weight: 800;
+}
+.stroke-trace-steps span[data-current] {
+  background: #ffe4cd;
+  color: #a84b2c;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #e5b78e;
+}
+.stroke-trace-steps span[data-done] {
+  background: #2e9168;
+  color: #fff;
+}
+@keyframes stroke-trace-sheen {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stroke-trace-flash {
+    animation: none;
+    opacity: 0;
+  }
+}

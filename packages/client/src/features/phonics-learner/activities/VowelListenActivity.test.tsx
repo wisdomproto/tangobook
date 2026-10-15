@@ -54,7 +54,7 @@ afterEach(() => {
 });
 
 describe('모음 하나씩 익히기', () => {
-  it('같은 모음3개를 순서대로 듣고 마지막 소리 뒤 완료하며 퀴즈/정오답을 만들지 않는다', async () => {
+  it('같은 모음을5번 눌러 채우고 마지막 소리 뒤 완료하며 퀴즈/정오답을 만들지 않는다', async () => {
     spies.holdSound = true;
     spies.holdPraise = true;
     const complete = vi.fn();
@@ -69,37 +69,27 @@ describe('모음 하나씩 익히기', () => {
         onNext={next}
       />
     );
-    const cards = [1, 2, 3].map((n) => screen.getByRole('button', { name: `ㅏ ${n}번 카드` }));
-    const card = cards[0];
-    expect(cards[1]).toBeDisabled();
-    expect(cards[2]).toBeDisabled();
-    fireEvent.click(card);
-    await waitFor(() => expect(spies.soundEnded).toBeDefined());
-    expect(complete).not.toHaveBeenCalled();
-    expect(spies.tts).toHaveBeenCalledWith(
-      expect.objectContaining({ text: 'ㅏ', storybookId: 'kr-h1-u01' })
-    );
-    act(() => spies.soundEnded?.());
-    expect(complete).not.toHaveBeenCalled();
-    expect(cards[1]).toBeEnabled();
-    fireEvent.click(cards[1]);
-    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(2));
-    act(() => spies.soundEnded?.());
-    expect(complete).not.toHaveBeenCalled();
-    fireEvent.click(cards[2]);
-    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(3));
-    expect(cards[2].querySelector('.vowel-carrier-joined')).not.toBeNull();
+    const card = screen.getByRole('button', { name: 'ㅏ 눌러 채우기' });
+    for (let n = 1; n <= 5; n++) {
+      fireEvent.click(card);
+      await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(n));
+      expect(card).toBeDisabled();
+      fireEvent.click(card); // 연타는 듣기 횟수가 아니다.
+      expect(spies.tts).toHaveBeenCalledTimes(n);
+      expect(complete).not.toHaveBeenCalled();
+      act(() => spies.soundEnded?.());
+      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(n));
+      if (n < 5) expect(spies.praise).not.toHaveBeenCalled();
+    }
     expect(screen.getByText('앞의 ㅇ은 소리 없이 함께해요')).toBeInTheDocument();
     expect(spies.tts).not.toHaveBeenCalledWith(expect.objectContaining({ text: 'ㅇ' }));
-    act(() => spies.soundEnded?.());
     expect(complete).not.toHaveBeenCalled();
-    expect(spies.praiseEnded).toBeDefined();
     act(() => spies.praiseEnded?.());
     expect(complete).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole('button', { name: /퀴즈/ })).toBeNull();
     expect(spies.log).not.toHaveBeenCalled();
     fireEvent.click(card);
-    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(4));
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(6));
     act(() => spies.soundEnded?.());
     expect(complete).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByRole('button', { name: '써보기 →' }));
@@ -116,15 +106,17 @@ describe('모음 하나씩 익히기', () => {
         onBack={vi.fn()}
       />
     );
-    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 1번 카드' }));
+    const card = screen.getByRole('button', { name: 'ㅏ 눌러 채우기' });
+    fireEvent.click(card);
     await screen.findByRole('status');
     expect(complete).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 1번 카드' }));
-    await waitFor(() => expect(screen.getByRole('button', { name: 'ㅏ 2번 카드' })).toBeEnabled());
-    expect(complete).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 2번 카드' }));
-    await waitFor(() => expect(screen.getByRole('button', { name: 'ㅏ 3번 카드' })).toBeEnabled());
-    fireEvent.click(screen.getByRole('button', { name: 'ㅏ 3번 카드' }));
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
+    for (let n = 1; n <= 5; n++) {
+      fireEvent.click(card);
+      await waitFor(() =>
+        expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(n))
+      );
+    }
     await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
   });
 });

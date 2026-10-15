@@ -284,7 +284,12 @@
     "watch": "ดูวิธีเขียนกัน",
     "fromDot": "เริ่มจากจุด",
     "onYourOwn": "ลองเขียนเอง",
-    "showStrokes": "ดูลำดับขีด"
+    "showStrokes": "ดูลำดับขีด",
+    "traceLetter": "ลากตาม {{letter}}",
+    "finished": "เขียนเสร็จแล้ว!",
+    "tryFromStart": "ลองอีกครั้งจากจุดเริ่มต้น",
+    "strokeNumber": "ลากเส้นที่ {{n}}",
+    "strokeProgress": "เส้นที่เขียนเสร็จ"
   },
   "cvc": {
     "learn": "เรียน {{pattern}}",
@@ -313,7 +318,9 @@
     "audioRetry": "โหลดเสียงไม่ได้ ลองแตะอีกครั้งนะ!",
     "cardLabel": "การ์ด {{letter}} ใบที่ {{n}}",
     "repeatProgress": "การ์ดสระที่ฟังแล้ว",
-    "writeNext": "ลองเขียน →"
+    "writeNext": "ลองเขียน →",
+    "chargeLabel": "แตะเพื่อเติม {{letter}}",
+    "chargePrompt": "แตะห้าครั้งเพื่อเติมให้เต็ม!"
   },
   "vowelPicker": {
     "makePrompt": "จะประกอบกับสระตัวไหนดี?",

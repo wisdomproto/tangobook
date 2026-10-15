@@ -610,6 +610,8 @@ Book 1 데이터 정리 (2026-05-21):
 
 ## 글자쓰기 채점 = Paint mode (`LetterFillCanvas`, 2026-05-22)
 
+2026-10-15 최신 정정: 한글40낱자 `VowelWriteActivity`는 `StrokeTraceCanvas`로 전환. 실제700폰트에 맞춘 기존 경로를 현재 획 순서/방향대로 대략 그리면 그 획의 폰트 영역 전체를 채운다. 점/역방향/다음 획 먼저/지름길/취소는 통과 없음.3회 시범→힌트→독립과 음원 종료 후 새 종이 유지. 아래 모든 쓰기 paint 통일/99%는 한글 낱자에서 대체되었으며, 합성·받침·낱말·영어 호출은 변경하지 않는다. 한 글자 `VowelListenActivity`는 기존3카드 대신 큰 한 글자+5번 충전이며 실패/연타를 횟수로 세지 않는다. [기록](../../../../../docs/work/phonics/tasks/20261015-tap-charge-stroke-writing.md).
+
 2026-10-13 후속: 기본/쌍자음은 consonant-tap→새 letter-write(`vowel-write` 공용3회)→기존 합성, 복합 모음은 각 낱자 listen→write 후 기존 합성. 아래 입문 모음 획순 시스템은 한글40낱자·영어52글자로 확장(`letter-stroke-guide.ts`), 영어 AlphabetLetterWrite/LetterWriteModal은 작은 안내·다시 보기. 사용자 지시로 ConsonantWrite(합성/받침), CvcPatternWrite는 `guidance="none"`, WordFillCanvas는 획순 없음. 합성 음절/겹받침은 가이드 대상에서 제외. 기본/복합 모음·쌍자음 낱자3회는 시범→힌트→독립, 음원 종료 후만 새 캔버스. [최종 정정·검증](../../../../../docs/work/phonics/tasks/20261013-all-stroke-guides.md).
 
 2026-10-13: 한글 입문 모음10종 VowelWriteActivity는3회 연습에서 첫 회 SVG 연필 시범+시작점/방향, 둘째 회 작은 안내, 셋째 회 옅은 글자만 제공한다. `vowel-stroke-guide.ts`가 실제700 폰트 마스크에 좌표를 맞추며 획 순서는 기존 자모 라이브러리와 같다. 손대면 시범 중단/다시 보기, 시범은 채점 Canvas에 쓰지 않는다. 음원 종료 뒤 새 캔버스에서만 회차 안내를 바꾼다. 힌트가 다음 미완료 획을 가리킬 뿐 엄격한 획순/방향 채점은 아니며 아래99% 기준/다른 쓰기 호출은 유지한다. [작업/검증](../../../../../docs/work/phonics/tasks/20261013-vowel-stroke-guide.md).

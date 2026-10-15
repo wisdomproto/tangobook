@@ -284,7 +284,12 @@
     "watch": "Xem cách viết nhé",
     "fromDot": "Bắt đầu từ dấu chấm",
     "onYourOwn": "Tự viết nhé",
-    "showStrokes": "Xem thứ tự nét"
+    "showStrokes": "Xem thứ tự nét",
+    "traceLetter": "Viết theo {{letter}}",
+    "finished": "Hoàn thành chữ!",
+    "tryFromStart": "Thử lại từ điểm bắt đầu",
+    "strokeNumber": "Viết nét {{n}}",
+    "strokeProgress": "Nét đã hoàn thành"
   },
   "cvc": {
     "learn": "Học {{pattern}}",
@@ -313,7 +318,9 @@
     "audioRetry": "Không tải được âm thanh. Chạm lại nhé!",
     "cardLabel": "Thẻ {{letter}} số {{n}}",
     "repeatProgress": "Thẻ nguyên âm đã nghe",
-    "writeNext": "Thử viết →"
+    "writeNext": "Thử viết →",
+    "chargeLabel": "Chạm để tô đầy {{letter}}",
+    "chargePrompt": "Chạm năm lần để tô đầy!"
   },
   "vowelPicker": {
     "makePrompt": "Mình ghép với nguyên âm nào nhỉ?",

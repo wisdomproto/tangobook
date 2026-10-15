@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { StrokeTraceCanvas } from '@/features/phonics/components/StrokeTraceCanvas';
 import { isGuidedLetter } from '@/features/phonics/components/letter-stroke-guide';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
@@ -231,21 +232,22 @@ export function VowelWriteActivity({
           {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 위 칩과 캔버스 가이드가 보여준다. */}
           {t('write.trace')}
         </h2>
-        <LetterFillCanvas
-          key={`${currentIdx}-${vowels[currentIdx].syllable}-${canvasVersion}`}
-          letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
-          onResult={handleResult}
-          autoCheck
-          guidance={
-            showGuidance
-              ? practiceRound === 0
-                ? 'demo'
-                : practiceRound === 1
-                  ? 'hint'
-                  : 'independent'
-              : 'none'
-          }
-        />
+        {showGuidance ? (
+          <StrokeTraceCanvas
+            key={`${currentIdx}-${canvasVersion}`}
+            letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
+            onResult={handleResult}
+            guidance={practiceRound === 0 ? 'demo' : practiceRound === 1 ? 'hint' : 'independent'}
+          />
+        ) : (
+          <LetterFillCanvas
+            key={`${currentIdx}-${vowels[currentIdx].syllable}-${canvasVersion}`}
+            letter={vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable}
+            onResult={handleResult}
+            autoCheck
+            guidance="none"
+          />
+        )}
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />

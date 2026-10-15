@@ -12,6 +12,8 @@ import { useLogEvent } from '@/features/learning/hooks/useLogEvent';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useEntryGuide, ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
+import { LetterTapCharge, LETTER_TAP_COUNT } from '../components/LetterTapCharge';
+import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 
 interface VowelItem {
   vowel: string; // 'ㅏ'
@@ -59,6 +61,7 @@ export function VowelListenActivity({
   const [carrierJoined, setCarrierJoined] = useState(false);
   const singleMarked = useRef(false);
   const singleBusy = useRef(false);
+  const chargeTarget = useRef<HTMLDivElement>(null);
   const [singlePlaying, setSinglePlaying] = useState(false);
   const alive = useRef(true);
   const [audioFailed, setAudioFailed] = useState(false);
@@ -69,8 +72,7 @@ export function VowelListenActivity({
     };
   }, []);
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
-  // 진입 안내 — 첫 단계 화면 문구 "순서대로 눌러봐!" 에 맞는 음성.
-  useEntryGuide(ENTRY_GUIDE.orderListen, playAudio);
+  useEntryGuide(single ? ENTRY_GUIDE.listenExplore : ENTRY_GUIDE.orderListen, playAudio);
   const logEvent = useLogEvent();
   /**
    * 🔴 모음 퀴즈 판정을 남긴다 — 복잡한 모음 레벨(한글4)은 자음×모음 표가 없어서
@@ -161,18 +163,19 @@ export function VowelListenActivity({
         singleBusy.current = true;
         setSinglePlaying(true);
         setAudioFailed(false);
-        if (idx === 2 && showSilentInitial) setCarrierJoined(true);
         void playVowel(vowels[0].sound ?? vowels[0].vowel, () => {
           singleBusy.current = false;
           setSinglePlaying(false);
           if (idx < nextIdx || listenedAll) return; // 이전 카드는 다시 듣기만.
-          if (idx < 2) {
+          if (idx < LETTER_TAP_COUNT - 1) {
             setNextIdx(idx + 1);
             return;
           }
           setListenedAll(true);
+          if (showSilentInitial) setCarrierJoined(true);
           if (!singleMarked.current) {
             singleMarked.current = true;
+            emitLearningEffect('letter', chargeTarget.current);
             playCorrectSequence({ language: praiseLang(), onDone: onMarkComplete });
           }
         });
@@ -314,7 +317,7 @@ export function VowelListenActivity({
 
   const isListenPhase = phase === 'listen';
   const promptText = useMemo(() => {
-    if (single) return t(listenedAll ? 'vowelListen.singleDone' : 'vowelListen.singlePrompt');
+    if (single) return t(listenedAll ? 'vowelListen.singleDone' : 'vowelListen.chargePrompt');
     if (isListenPhase && !listenedAll) return t('vowelListen.inOrder');
     if (isListenPhase && listenedAll) return t('vowelListen.readyForQuiz');
     if (phase === 'quiz')
@@ -323,30 +326,7 @@ export function VowelListenActivity({
   }, [single, isListenPhase, listenedAll, phase, starting, t]);
 
   return (
-    <ActivityShell
-      unitId={unitId}
-      kind="listen"
-      onBack={onBack}
-      scroll
-      headerRight={
-        single ? (
-          <span
-            className="vowel-repeat-progress"
-            role="progressbar"
-            aria-label={t('vowelListen.repeatProgress')}
-            aria-valuemin={0}
-            aria-valuemax={3}
-            aria-valuenow={listenedAll ? 3 : nextIdx}
-          >
-            {Array.from({ length: 3 }, (_, i) => (
-              <span key={i} data-done={listenedAll || i < nextIdx || undefined}>
-                {listenedAll || i < nextIdx ? '✓' : i + 1}
-              </span>
-            ))}
-          </span>
-        ) : undefined
-      }
-    >
+    <ActivityShell unitId={unitId} kind="listen" onBack={onBack} scroll>
       {/* 🔴 `gap-8` 고정 + `overflow-hidden` 이면 '모두 맞췄어!' 단계에서 버튼 줄이 늘면서 잘렸다. */}
       <div
         className={
@@ -361,127 +341,81 @@ export function VowelListenActivity({
 
         {/* 🔴 grid 는 칸 수가 고정이라 모음이 6개보다 적은 단원(ㅜㅠㅡㅣ 4개)에서 왼쪽으로 쏠렸다.
             개수와 무관하게 가운데 오도록 flex + justify-center. */}
-        <div
-          className={
-            single
-              ? 'vowel-repeat-grid'
-              : 'flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-5xl px-2'
-          }
-        >
-          {(single ? Array.from({ length: 3 }, () => vowels[0]) : vowels).map((v, i) => {
-            // 듣기 단계: 다음 모음까지 활성. 다 들은 뒤 (listenedAll) 에는 6개 모두 다시 들을 수 있게 활성.
-            const isUnlockedListen = isListenPhase && (listenedAll || i <= nextIdx);
-            const active = isListenPhase && i === nextIdx && !listenedAll;
-            const isClickable =
-              ((isListenPhase && isUnlockedListen) || phase === 'quiz') &&
-              !(single && singlePlaying);
-            const isWrongTarget = phase === 'quiz' && wrongIdx === i;
-            // 퀴즈에서 이미 맞춘 카드 = 민트. 마지막엔 6장이 다 민트가 되어 "다 맞췄다"가 보인다.
-            const isSolved = single ? listenedAll || i < nextIdx : !isListenPhase && solved.has(i);
-            return (
-              <button
-                data-learning-fx={isListenPhase ? 'listen' : 'tap'}
-                key={`${v.vowel}-${i}`}
-                onClick={() =>
-                  isListenPhase
-                    ? handleListenTap(i)
-                    : phase === 'quiz'
-                      ? handleQuizTap(i)
-                      : undefined
-                }
-                disabled={!isClickable}
-                className={
-                  single
-                    ? 'vowel-repeat-card'
-                    : [
-                        'relative rounded-3xl border-[6px] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
-                        single
-                          ? 'w-[min(280px,85vw)] aspect-square'
-                          : 'w-[28%] lg:w-36 aspect-[3/4]',
-                        isSolved
-                          ? 'bg-mint-100 border-mint-500'
-                          : active
-                            ? single
-                              ? 'bg-mint-50 border-mint-400'
-                              : 'bg-coral-100 border-coral-500 animate-pulse'
-                            : isUnlockedListen || phase === 'quiz'
-                              ? 'bg-white border-white hover:shadow-soft active:scale-[0.97]'
-                              : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
-                        isWrongTarget && phase === 'quiz' ? 'animate-shake' : '',
-                      ].join(' ')
-                }
-                data-active={(single && active) || undefined}
-                data-done={(single && isSolved) || undefined}
-                data-playing={(single && active && singlePlaying) || undefined}
-                aria-label={
-                  single ? t('vowelListen.cardLabel', { letter: v.vowel, n: i + 1 }) : v.syllable
-                }
-                aria-pressed={isSolved || undefined}
-              >
-                {!single && isSolved && (
-                  <span
-                    aria-hidden
-                    className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-mint-500 text-lg font-black text-white shadow-soft"
-                  >
-                    ✓
-                  </span>
-                )}
-                {/* The third basic-vowel tap adds silent initial ㅇ; writing remains the vowel. */}
-                {single && (
-                  <span className="vowel-repeat-number" aria-hidden="true">
-                    {isSolved ? '✓' : i + 1}
-                  </span>
-                )}
-                <div
-                  className={
-                    single
-                      ? 'vowel-repeat-glyph'
-                      : `text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`
-                  }
-                >
-                  <span
-                    key={showSilentInitial && i === 2 && carrierJoined ? 'joined' : 'vowel'}
-                    className={
-                      showSilentInitial && i === 2 && carrierJoined
-                        ? 'vowel-carrier-joined'
+        {single ? (
+          <div ref={chargeTarget} className="flex flex-col items-center gap-4">
+            <LetterTapCharge
+              letter={vowels[0].vowel}
+              count={nextIdx}
+              busy={singlePlaying}
+              complete={listenedAll}
+              onTap={() => handleListenTap(nextIdx)}
+              label={t('vowelListen.chargeLabel', { letter: vowels[0].vowel })}
+              progressLabel={t('vowelListen.repeatProgress')}
+            />
+            {showSilentInitial && carrierJoined && (
+              <span className="vowel-carrier-caption vowel-carrier-joined">
+                <span>
+                  ㅇ + {vowels[0].vowel} → {vowels[0].syllable}
+                </span>
+                <small>{t('vowelListen.silentInitial')}</small>
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-5xl px-2">
+            {vowels.map((v, i) => {
+              const unlocked = isListenPhase && (listenedAll || i <= nextIdx);
+              const active = isListenPhase && i === nextIdx && !listenedAll;
+              const isSolved = !isListenPhase && solved.has(i);
+              return (
+                <button
+                  data-learning-fx={isListenPhase ? 'listen' : 'tap'}
+                  key={`${v.vowel}-${i}`}
+                  onClick={() =>
+                    isListenPhase
+                      ? handleListenTap(i)
+                      : phase === 'quiz'
+                        ? handleQuizTap(i)
                         : undefined
-                    }
+                  }
+                  disabled={!((isListenPhase && unlocked) || phase === 'quiz')}
+                  className={[
+                    'relative rounded-3xl border-[6px] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft w-[28%] lg:w-36 aspect-[3/4]',
+                    isSolved
+                      ? 'bg-mint-100 border-mint-500'
+                      : active
+                        ? 'bg-coral-100 border-coral-500 animate-pulse'
+                        : unlocked || phase === 'quiz'
+                          ? 'bg-white border-white hover:shadow-soft active:scale-[0.97]'
+                          : 'bg-cream-100 border-cream-200 opacity-60 cursor-not-allowed',
+                    phase === 'quiz' && wrongIdx === i ? 'animate-shake' : '',
+                  ].join(' ')}
+                  aria-label={v.syllable}
+                  aria-pressed={isSolved || undefined}
+                >
+                  {isSolved && (
+                    <span
+                      aria-hidden
+                      className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-mint-500 text-lg font-black text-white shadow-soft"
+                    >
+                      ✓
+                    </span>
+                  )}
+                  <div
+                    className={`text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`}
                   >
-                    <ToyHangul
-                      text={showSilentInitial && i === 2 && carrierJoined ? v.syllable : v.vowel}
-                    />
-                  </span>
-                </div>
-                {single && (
-                  <span className="vowel-repeat-foot" aria-hidden="true">
-                    {showSilentInitial && i === 2 ? (
-                      <span
-                        className="vowel-carrier-caption"
-                        title={t('vowelListen.silentInitial')}
-                      >
-                        <span>
-                          ㅇ + {v.vowel} → {v.syllable}
-                        </span>
-                        <small>{t('vowelListen.silentInitial')}</small>
-                      </span>
-                    ) : isSolved ? (
-                      '✓'
-                    ) : (
-                      '♪'
-                    )}
-                  </span>
-                )}
-                {!single && (
+                    <ToyHangul text={v.vowel} />
+                  </div>
                   <div
                     className={`text-lg sm:text-xl font-black mt-3 ${isSolved ? 'text-mint-600' : 'text-ink-500'}`}
                   >
                     {v.syllable}
                   </div>
-                )}
-              </button>
-            );
-          })}
-        </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {audioFailed && (
           <p role="status" className="text-base font-bold text-ink-700">
