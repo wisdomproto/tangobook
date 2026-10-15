@@ -4,7 +4,7 @@
   "model": "v6",
   "targetSetsPerGenre": 10,
   "selection": "one coherent three-track set per reading session",
-  "humanListening": "User rejected indistinct pig v1 cues and disliked climax quality across the library. Technical screening is not aesthetic approval. A separate pig v2 pilot is on the listening page; other cue revisions await this pilot feedback.",
+  "humanListening": "User rejected indistinct pig v1 and earlier climax quality. User requested other climax remakes after pig v2 pilot. See climax-v2-generation.json for 24 revised climax sets (classical and Korean traditional separate). Technical checks are not aesthetic approval.",
   "sets": [
     {
       "id": "classic-01",

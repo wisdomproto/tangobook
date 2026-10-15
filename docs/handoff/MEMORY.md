@@ -855,3 +855,5 @@
 2026-10-10 추가 [탱고 두 블록 원본영상 참조 시험](../work/video/tasks/20261010-tango-gagu-minimax.md): ref2va 영상전체+사진으로5.167초 한 컷 시험. 두 번 조작/카메라·책상 안정성 개선, 자모/블록형태 정확성 미통과. localhost5191/tango-two-block-test.html. 기존 컷은 실제 마지막 프레임을 다음 시작으로 재사용하지 않았던 누락 확인; task에 반증/향후 chaining 기록. 기존전체본 보존·외부 게시/push 없음.
 
 - 두블록 최종v2: 원본의셋째블록잔존동작을 제거/124frame불변검사 후 재생성. 한컷동작/공간안정부분개선·문자/교구정확성미통과, 상세와선정해시는위task최종절.
+
+2026-10-15 동화BGM 클라이맥스 후속: [작업 기록](../work/video/tasks/20261015-classic-bgm-research.md)의 마지막절과 `docs/audio/classic-bgm-20261015/climax-v2-generation.json`에 명작14/전래10 긴장형 재생성52후보·공식임베드 미리듣기 상태 기록. 책 연결 교체/다운로드/배포는 미진행.
