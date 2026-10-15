@@ -180,6 +180,7 @@ it.each([
 ] as const)(
   'shows only the current %s chapter, with the whole course available separately',
   (lang, unit, key, title) => {
+    markActivityCompleted(lang, unit, key);
     const { container } = show(`/library/phonics/${lang}/${unit}/${key}`);
     fireEvent.click(screen.getByRole('button', { name: 'tap 0' }));
     fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
@@ -200,6 +201,8 @@ it.each([
     expect(screen.getByRole('button', { name: 'tap 1' })).toBeInTheDocument();
     const current = within(drawer).getByRole('link', { name: `${title} 학습 중` });
     expect(current).toHaveAttribute('aria-current', 'page');
+    expect(current.querySelector('.workspace-complete-check')).toBeInTheDocument();
+    expect(current.querySelector('.lucide-play')).not.toBeInTheDocument();
     fireEvent.click(current);
     expect(screen.getByRole('button', { name: 'tap 1' })).toBeInTheDocument();
     expect(mounted).toHaveBeenCalledOnce();
@@ -274,6 +277,10 @@ it('opens word subactivities as separate free practice but cannot request a futu
   markActivityCompleted('korean', 'kr-h1-u02', 'word-learning');
   show('/library/phonics/korean/kr-h1-u02/word-learning?mode=curriculum&part=color');
   expect(screen.getByTestId('practice-part')).toHaveTextContent('color');
+  fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
+  const completedColor = screen.getByRole('button', { name: '낱말 색칠하기 학습 중' });
+  expect(completedColor.querySelector('.workspace-complete-check')).toBeInTheDocument();
+  expect(completedColor.querySelector('.lucide-play')).not.toBeInTheDocument();
 });
 
 it('does not invent a block subactivity in English Book 1', () => {
@@ -309,13 +316,24 @@ it('replays an earlier chapter even when its activity key matches the running ch
   const finished = within(drawer).getByRole('button', { name: /ㅏ 배우기/ });
   const started = within(drawer).getByRole('button', { name: /ㅑ 배우기/ });
   expect(finished).toHaveAttribute('data-progress', 'complete');
-  expect(finished).toHaveTextContent('100%');
+  expect(finished).toHaveTextContent('완료');
+  expect(finished.querySelector('.workspace-complete-check')).toBeInTheDocument();
   expect(started).toHaveAttribute('data-progress', 'started');
   expect(started).not.toHaveTextContent('100%');
   expect(finished.style.backgroundColor).not.toBe(started.style.backgroundColor);
   fireEvent.click(within(drawer).getByRole('button', { name: 'ㅏ 배우기' }));
   fireEvent.click(within(drawer).getByRole('button', { name: /ㅏ 배우기.*다 했어요/ }));
   expect(screen.getByTestId('route-activity')).toHaveTextContent('kr-v1-u01:listen-1');
+  fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
+  const completedChapter = screen.getByRole('dialog', { name: '활동 목록' });
+  expect(
+    completedChapter.querySelector('.workspace-chapter-plaque [data-complete]')
+  ).toHaveTextContent('완료');
+  expect(
+    within(completedChapter)
+      .getByRole('button', { name: '익히기' })
+      .querySelector('[data-complete]')
+  ).toHaveTextContent('완료');
   expect(journeyProgress('korean').current?.unit.id).toBe('kr-v1-u02');
 });
 

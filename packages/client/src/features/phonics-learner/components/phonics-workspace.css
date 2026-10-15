@@ -291,6 +291,15 @@
   color: #1f4a36;
   stroke-width: 3;
 }
+.journey-workspace-tree .workspace-complete-check {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border-radius: 50%;
+  color: #fff;
+  background: #326f50;
+}
 .journey-workspace-tree li[data-started]:not([data-running]) .journey-activity-number {
   background: #326f50;
   color: #fff;
@@ -351,7 +360,10 @@
   background: #fffdf5;
 }
 .workspace-progress-seal[data-complete] .workspace-progress-ring {
-  background: transparent;
+  background: #23563c;
+  color: #fff;
+  width: 26px;
+  height: 26px;
 }
 .journey-chapter-heading > .workspace-progress-seal {
   margin-left: auto;

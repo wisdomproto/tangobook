@@ -457,10 +457,10 @@ export function PhonicsJourneyMap({
           )}
         </span>
         {free &&
-          (running ? (
+          (step.done ? (
+            <CompletionMark />
+          ) : running ? (
             <Play className="journey-free-arrow" size={16} fill="currentColor" aria-hidden="true" />
-          ) : step.done ? (
-            <Check className="journey-free-arrow" size={18} aria-hidden="true" />
           ) : (
             <ArrowRight className="journey-free-arrow" size={18} aria-hidden="true" />
           ))}
@@ -470,7 +470,7 @@ export function PhonicsJourneyMap({
           </span>
         )}
         {!free && !canStart(step) && <LockKeyhole size={14} aria-hidden="true" />}
-        {!free && workspace && step.done && <Check size={16} aria-hidden="true" />}
+        {!free && workspace && step.done && <CompletionMark />}
       </>
     );
     const entry = free ? (
@@ -573,12 +573,12 @@ export function PhonicsJourneyMap({
                   {count}/{practiced.total}
                 </small>
               )}
-              {here ? (
+              {stageDone ? (
+                <CompletionMark />
+              ) : here ? (
                 <Play size={14} fill="currentColor" aria-hidden="true" />
               ) : !available ? (
                 <LockKeyhole size={14} aria-hidden="true" />
-              ) : stageDone ? (
-                <Check size={16} aria-hidden="true" />
               ) : (
                 <ArrowRight size={16} aria-hidden="true" />
               )}
@@ -798,15 +798,17 @@ export function PhonicsJourneyMap({
                                         className="workspace-chapter-progress"
                                         aria-hidden="true"
                                       >
-                                        {complete ? 100 : Math.min(99, Math.round(ratio * 100))}%
+                                        {complete
+                                          ? t('workspace.complete')
+                                          : `${Math.min(99, Math.round(ratio * 100))}%`}
                                       </small>
-                                      {active && activityUnitId === unit.id ? (
+                                      {complete ? (
+                                        <CompletionMark />
+                                      ) : active && activityUnitId === unit.id ? (
                                         <span
                                           className="workspace-chapter-dot"
                                           aria-label={t('workspace.learning')}
                                         />
-                                      ) : complete ? (
-                                        <Check size={16} aria-hidden="true" />
                                       ) : locked ? (
                                         <LockKeyhole size={15} aria-label={t('journey.locked')} />
                                       ) : null}
@@ -1189,6 +1191,7 @@ function ProgressSeal({
 }: {
   progress: { percent: number; complete: boolean; ratio: number };
 }) {
+  const { t } = useTranslation('phonics');
   return (
     <span
       className="workspace-progress-seal"
@@ -1204,9 +1207,19 @@ function ProgressSeal({
           } as CSSProperties
         }
       >
-        {progress.complete ? <Check size={15} strokeWidth={3} /> : <span />}
+        {progress.complete ? <Check size={20} strokeWidth={3} /> : <span />}
       </span>
-      <b>{progress.ratio > 0 && progress.percent === 0 ? '<1' : progress.percent}%</b>
+      <b>
+        {progress.complete
+          ? t('workspace.complete')
+          : `${progress.ratio > 0 && progress.percent === 0 ? '<1' : progress.percent}%`}
+      </b>
     </span>
+  );
+}
+
+function CompletionMark() {
+  return (
+    <Check className="workspace-complete-check" size={22} strokeWidth={3} aria-hidden="true" />
   );
 }
