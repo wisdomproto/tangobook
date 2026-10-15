@@ -1051,6 +1051,10 @@ export interface Storybook {
 
   // 배경음악
   backgroundMusicUrl?: string;
+  /** Scene music starts at this printed page and continues until the next cue. */
+  backgroundMusicCues?: StoryMusicCue[];
+  /** Compatible three-cue sets. One matching genre is chosen for the reading session. */
+  backgroundMusicSets?: StoryMusicSet[];
   /** 뷰어 배경음악 볼륨 (0–100%, 기본 30). 렌더(오디오북/롱폼)는 프로젝트별 bgmVolume 별도. */
   backgroundMusicVolume?: number;
 
@@ -1409,4 +1413,19 @@ export interface LibraryConfig {
    */
   categoryList?: string[];
   updatedAt?: string;
+}
+
+export interface StoryMusicCue {
+  id: string;
+  startPage: number;
+  url: string;
+  title?: string;
+  role?: string;
+}
+
+export interface StoryMusicSet {
+  id: string;
+  title: string;
+  genre: 'classic' | 'folktale';
+  cues: StoryMusicCue[];
 }

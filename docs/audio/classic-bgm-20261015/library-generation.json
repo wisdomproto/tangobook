@@ -1,0 +1,1337 @@
+{
+  "date": "2026-10-15",
+  "provider": "Suno",
+  "model": "v6",
+  "targetSetsPerGenre": 10,
+  "selection": "one coherent three-track set per reading session",
+  "humanListening": "pending",
+  "sets": [
+    {
+      "id": "classic-01",
+      "genre": "classic",
+      "name": "아기 돼지 작은 관현악",
+      "instruments": "pizzicato strings, bassoon, clarinet, wooden mallet",
+      "music": "84 BPM, G major and E minor, motif G-A-D",
+      "status": "existing-pig-first-set",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 01 · 아기 돼지 작은 관현악 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. pizzicato strings, bassoon, clarinet, wooden mallet. 84 BPM, G major and E minor, motif G-A-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/3e129bc1-56f0-407f-aea5-41f59c143e0c",
+              "playable": true
+            },
+            {
+              "url": "https://suno.com/song/af4095f6-7a13-4701-a10b-d70975a48937",
+              "playable": true
+            }
+          ],
+          "originalTitle": "탱고북 · 아기돼지 01 시작 · 집을 지어요",
+          "localFile": "packages/client/public/sounds/storybook/pig-20261015/opening.mp3"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 01 · 아기 돼지 작은 관현악 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. pizzicato strings, bassoon, clarinet, wooden mallet. 84 BPM, G major and E minor, motif G-A-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c5384efe-dcbb-49ea-8bb9-612ce08abf8e",
+              "playable": true
+            },
+            {
+              "url": "https://suno.com/song/f7f722dc-6648-401c-b103-1f3ad3ddf01f",
+              "playable": true
+            }
+          ],
+          "originalTitle": "탱고북 · 아기돼지 03 클라이맥스 · 튼튼한 벽돌집",
+          "localFile": "packages/client/public/sounds/storybook/pig-20261015/climax.mp3"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 01 · 아기 돼지 작은 관현악 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. pizzicato strings, bassoon, clarinet, wooden mallet. 84 BPM, G major and E minor, motif G-A-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/ca868815-e181-4edd-bbf5-052669a560b4",
+              "playable": true
+            },
+            {
+              "url": "https://suno.com/song/4be9365d-9a60-461e-a961-d7da7bc59491",
+              "playable": true
+            }
+          ],
+          "originalTitle": "탱고북 · 아기돼지 04 해소 · 함께 살아요",
+          "localFile": "packages/client/public/sounds/storybook/pig-20261015/resolution.mp3"
+        }
+      ]
+    },
+    {
+      "id": "classic-02",
+      "genre": "classic",
+      "name": "마법의 숲",
+      "instruments": "harp, soft celesta, flute, muted strings",
+      "music": "76 BPM, D major and B minor, motif D-E-A",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 02 · 마법의 숲 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. harp, soft celesta, flute, muted strings. 76 BPM, D major and B minor, motif D-E-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/78618a66-ca2e-479f-b008-2043108056cb",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/8cf415fa-043f-4a29-b80b-c22962e9a84c",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:17.130Z",
+          "observedInUi": false
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 02 · 마법의 숲 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. harp, soft celesta, flute, muted strings. 76 BPM, D major and B minor, motif D-E-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e0353f97-3d10-42d1-9f2d-0f676a1dc7ac",
+              "playable": true,
+              "duration": "0:49"
+            },
+            {
+              "url": "https://suno.com/song/f0076e96-3684-44d3-be26-f0ba6638c284",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:18.007Z",
+          "observedInUi": false
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 02 · 마법의 숲 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. harp, soft celesta, flute, muted strings. 76 BPM, D major and B minor, motif D-E-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/a0d5f7a5-f84c-432d-b870-d4f34fdd161c",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/2e5ca57c-951c-4da1-8027-9678ac103121",
+              "playable": true,
+              "duration": "1:11"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:21.957Z",
+          "observedInUi": false
+        }
+      ]
+    },
+    {
+      "id": "classic-03",
+      "genre": "classic",
+      "name": "작은 궁전",
+      "instruments": "chamber strings, oboe, harp, delicate piano",
+      "music": "84 BPM, gentle 3/4, F major and D minor, motif F-G-C",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 03 · 작은 궁전 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. chamber strings, oboe, harp, delicate piano. 84 BPM, gentle 3/4, F major and D minor, motif F-G-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c721a9b7-605f-4793-804c-5a911c0ecbe5",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/a823ceee-029d-4a60-9af1-1343c82a8573",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:46.077Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 03 · 작은 궁전 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. chamber strings, oboe, harp, delicate piano. 84 BPM, gentle 3/4, F major and D minor, motif F-G-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/499a4f9e-1c96-4759-9785-4561ca6bcc78",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/9cdb6353-fda3-4e42-91e9-d16f8eb8b1d5",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:46.988Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 03 · 작은 궁전 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. chamber strings, oboe, harp, delicate piano. 84 BPM, gentle 3/4, F major and D minor, motif F-G-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/5919c4fb-5671-4de7-a627-230ae658e70a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/a88567f0-5229-4a05-84ed-761ff2c5058b",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:50.818Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-04",
+      "genre": "classic",
+      "name": "용감한 걸음",
+      "instruments": "cello pizzicato, clarinet, soft marimba, acoustic guitar",
+      "music": "92 BPM, C major and A minor, motif C-D-G",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 04 · 용감한 걸음 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. cello pizzicato, clarinet, soft marimba, acoustic guitar. 92 BPM, C major and A minor, motif C-D-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/127e68d5-61be-4126-8046-23d4642e126e",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/73202619-b2d2-4a90-88ec-350b6e9f245a",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:12.174Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 04 · 용감한 걸음 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. cello pizzicato, clarinet, soft marimba, acoustic guitar. 92 BPM, C major and A minor, motif C-D-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/b3cfbf78-a0c0-4ce0-be6a-61cf6d6ae57c",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/1d28f238-aea4-45d8-bf82-e8ef4d52ca4e",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:15.957Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 04 · 용감한 걸음 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. cello pizzicato, clarinet, soft marimba, acoustic guitar. 92 BPM, C major and A minor, motif C-D-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/6b746c40-0328-4510-971f-12b413e219f6",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/30be4093-f4cb-48c5-9526-560deac27df4",
+              "playable": true,
+              "duration": "1:12"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:16.904Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-05",
+      "genre": "classic",
+      "name": "겨울 별빛",
+      "instruments": "felt piano, celesta, warm cello, airy flute",
+      "music": "68 BPM, A major and F-sharp minor, motif A-B-E",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 05 · 겨울 별빛 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. felt piano, celesta, warm cello, airy flute. 68 BPM, A major and F-sharp minor, motif A-B-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e4411cc5-a480-494b-8503-381fa11fb977",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/634ac808-073f-49d0-b875-db4d3a811bf8",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:28.631Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 05 · 겨울 별빛 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. felt piano, celesta, warm cello, airy flute. 68 BPM, A major and F-sharp minor, motif A-B-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/f502899c-25a5-4cf7-a9a2-b184e59b6a19",
+              "playable": true,
+              "duration": "0:51"
+            },
+            {
+              "url": "https://suno.com/song/951c1be8-1d4e-4107-8435-9e562e29251e",
+              "playable": true,
+              "duration": "0:49"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:29.551Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 05 · 겨울 별빛 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. felt piano, celesta, warm cello, airy flute. 68 BPM, A major and F-sharp minor, motif A-B-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/9d1d0266-129e-4edd-b077-3b217cb5338c",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/e9ed3005-1a2c-4df0-9199-67410334efa5",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:31.327Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-06",
+      "genre": "classic",
+      "name": "바닷속 신비",
+      "instruments": "harp harmonics, flute, viola, soft vibraphone",
+      "music": "72 BPM, E-flat major and C minor, motif E-flat-F-B-flat",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 06 · 바닷속 신비 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. harp harmonics, flute, viola, soft vibraphone. 72 BPM, E-flat major and C minor, motif E-flat-F-B-flat. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/f9f560cd-bd61-4871-be18-bc9db2eb3dc4",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/7f211f41-e2da-40a3-830c-6a8c91028269",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:56.955Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 06 · 바닷속 신비 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. harp harmonics, flute, viola, soft vibraphone. 72 BPM, E-flat major and C minor, motif E-flat-F-B-flat. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/a292a1e3-54ac-4689-8144-9beaee1e460a",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/2f57e73a-2f38-4b79-9078-207583a1736a",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:57.950Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 06 · 바닷속 신비 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. harp harmonics, flute, viola, soft vibraphone. 72 BPM, E-flat major and C minor, motif E-flat-F-B-flat. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/57fee7a7-706d-4d66-8f3d-b1582dba138d",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/9fd6b1c8-7fe5-47c6-a293-73218a0ee13b",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:58.802Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-07",
+      "genre": "classic",
+      "name": "호기심 마을",
+      "instruments": "bassoon, staccato clarinet, pizzicato cello, wooden mallet",
+      "music": "88 BPM, B-flat major and G minor, motif B-flat-C-F",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 07 · 호기심 마을 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. bassoon, staccato clarinet, pizzicato cello, wooden mallet. 88 BPM, B-flat major and G minor, motif B-flat-C-F. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/751f1758-c438-475e-95a6-73eca66ba483",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/792766c1-923c-4315-84b2-d63c610b93a7",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:13.823Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 07 · 호기심 마을 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. bassoon, staccato clarinet, pizzicato cello, wooden mallet. 88 BPM, B-flat major and G minor, motif B-flat-C-F. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/27093496-f3f1-4b4d-bf04-a3c3d479353f",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/6fad8993-b9d1-43f9-ae85-c26e2d63b1d5",
+              "playable": true,
+              "duration": "0:49"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:14.690Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 07 · 호기심 마을 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. bassoon, staccato clarinet, pizzicato cello, wooden mallet. 88 BPM, B-flat major and G minor, motif B-flat-C-F. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/4b0c460a-d575-4d32-8e64-b02911e2f9c7",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/659fc9bc-0578-4082-85c3-79c416990733",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:16.558Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-08",
+      "genre": "classic",
+      "name": "다정한 이별",
+      "instruments": "felt piano, solo cello, soft viola, sparse harp",
+      "music": "64 BPM, D minor with F major colors, motif D-F-A",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 08 · 다정한 이별 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. felt piano, solo cello, soft viola, sparse harp. 64 BPM, D minor with F major colors, motif D-F-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build. Keep the ending reflective and bittersweet; do not force a cheerful victory cadence.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/761a1f42-8282-4da7-992a-b3100a613b53",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/3a43fd64-9e78-420a-8955-d1a8c74a5644",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:31.852Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 08 · 다정한 이별 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. felt piano, solo cello, soft viola, sparse harp. 64 BPM, D minor with F major colors, motif D-F-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare. Keep the ending reflective and bittersweet; do not force a cheerful victory cadence.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/95c6a8f4-30a9-4ea2-a0dd-359c8c7a4503",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/0d6b320b-0af1-4cb3-92d0-7b6c4da0d756",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:35.689Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 08 · 다정한 이별 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. felt piano, solo cello, soft viola, sparse harp. 64 BPM, D minor with F major colors, motif D-F-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay. Keep the ending reflective and bittersweet; do not force a cheerful victory cadence.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/d6520f42-8912-4220-a7a1-8ab494e3ecc8",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/b08fbbb3-6cbb-4e19-9d0a-ad75b101911f",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:36.828Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-09",
+      "genre": "classic",
+      "name": "장난꾸러기 하루",
+      "instruments": "pizzicato violin, bassoon, soft xylophone, muted guitar",
+      "music": "96 BPM, G major and E minor, motif G-B-A",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 09 · 장난꾸러기 하루 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. pizzicato violin, bassoon, soft xylophone, muted guitar. 96 BPM, G major and E minor, motif G-B-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/dc53d574-788f-4397-9507-552cfd1a6926",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/f8ae592a-af33-4593-9eec-f6ee55b5213b",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:35:17.197Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 09 · 장난꾸러기 하루 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. pizzicato violin, bassoon, soft xylophone, muted guitar. 96 BPM, G major and E minor, motif G-B-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/2b39fedc-36a1-440a-84ef-563f821aa13c",
+              "playable": true,
+              "duration": "0:49"
+            },
+            {
+              "url": "https://suno.com/song/9d1b722e-17a4-42c5-b1e8-1a313d190104",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:35:17.943Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 09 · 장난꾸러기 하루 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. pizzicato violin, bassoon, soft xylophone, muted guitar. 96 BPM, G major and E minor, motif G-B-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/4b797fbe-a350-4642-8378-22951d26f2d9",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/63cf968a-43bb-40e2-a05f-eac7743fd715",
+              "playable": true,
+              "duration": "1:11"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:35:19.758Z"
+        }
+      ]
+    },
+    {
+      "id": "classic-10",
+      "genre": "classic",
+      "name": "먼 길의 용기",
+      "instruments": "warm strings, clarinet, gentle piano, restrained hand percussion",
+      "music": "80 BPM, D major and B minor, motif D-F-sharp-E",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 명작 10 · 먼 길의 용기 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. warm strings, clarinet, gentle piano, restrained hand percussion. 80 BPM, D major and B minor, motif D-F-sharp-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:30.028Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 명작 10 · 먼 길의 용기 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. warm strings, clarinet, gentle piano, restrained hand percussion. 80 BPM, D major and B minor, motif D-F-sharp-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:30.922Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 명작 10 · 먼 길의 용기 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Intimate European fairy-tale acoustic chamber music. warm strings, clarinet, gentle piano, restrained hand percussion. 80 BPM, D major and B minor, motif D-F-sharp-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:31.751Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-01",
+      "genre": "folktale",
+      "name": "햇살 한옥마을",
+      "instruments": "gayageum, soft daegeum bamboo flute, warm haegeum, very light janggu",
+      "music": "76 BPM, D pentatonic, motif D-E-A",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 01 · 햇살 한옥마을 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, soft daegeum bamboo flute, warm haegeum, very light janggu. 76 BPM, D pentatonic, motif D-E-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/8846a4cb-a391-481e-9e15-41d0d504417a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/06d03790-8bc9-4ad2-b6fa-103c570a22d5",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:01.443Z",
+          "observedInUi": false
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 01 · 햇살 한옥마을 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, soft daegeum bamboo flute, warm haegeum, very light janggu. 76 BPM, D pentatonic, motif D-E-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e4bc0b1d-20ed-414e-a36c-bc32d570968f",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/f6d230c8-62de-41b8-8d36-7128eb7c2f37",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:02.145Z",
+          "observedInUi": false
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 01 · 햇살 한옥마을 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, soft daegeum bamboo flute, warm haegeum, very light janggu. 76 BPM, D pentatonic, motif D-E-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/696675b0-47cc-40af-94e0-c24c614d730f",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/2ced16d9-8af9-4f26-a1fe-5c9a8829830e",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:03.630Z",
+          "observedInUi": false
+        }
+      ]
+    },
+    {
+      "id": "folktale-02",
+      "genre": "folktale",
+      "name": "산골 숲길",
+      "instruments": "geomungo, breathy daegeum, low haegeum, wooden percussion",
+      "music": "72 BPM, G pentatonic, motif G-A-D",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 02 · 산골 숲길 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. geomungo, breathy daegeum, low haegeum, wooden percussion. 72 BPM, G pentatonic, motif G-A-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/48a10f26-99ff-4393-9413-976414812041",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/caf2b78d-d022-481f-9e81-0e0071e3c12a",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:34.514Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 02 · 산골 숲길 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. geomungo, breathy daegeum, low haegeum, wooden percussion. 72 BPM, G pentatonic, motif G-A-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/7c9951d4-5bca-491b-8dff-c658425213b3",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/d5a9f5c5-25c8-4129-a387-f08ca634cfa7",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:38.263Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 02 · 산골 숲길 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. geomungo, breathy daegeum, low haegeum, wooden percussion. 72 BPM, G pentatonic, motif G-A-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/5d717440-f99c-4fe5-942f-0a026205a44a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/e244fe51-ab0e-44f6-b4fa-5887b12ca09a",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:39.186Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-03",
+      "genre": "folktale",
+      "name": "꾀 많은 동물들",
+      "instruments": "playful gayageum plucks, soft danso bamboo flute, restrained janggu",
+      "music": "88 BPM, C pentatonic, motif C-D-G",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 03 · 꾀 많은 동물들 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. playful gayageum plucks, soft danso bamboo flute, restrained janggu. 88 BPM, C pentatonic, motif C-D-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/badcbc8f-1666-40b6-bbd3-ba876ee52439",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/70787390-14cb-42f8-b765-11f5413eed3e",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:51.900Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 03 · 꾀 많은 동물들 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. playful gayageum plucks, soft danso bamboo flute, restrained janggu. 88 BPM, C pentatonic, motif C-D-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/bcc289c8-9621-464d-8694-ec3c7afd32a9",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/5aaf217d-8997-4bb5-bc27-de776bf7ab0d",
+              "playable": true,
+              "duration": "0:51"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:52.760Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 03 · 꾀 많은 동물들 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. playful gayageum plucks, soft danso bamboo flute, restrained janggu. 88 BPM, C pentatonic, motif C-D-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e653e1ce-5aa0-4b12-931f-9bd7ba54c0fb",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/6b1807f6-f960-4759-946d-c4f70d936c9c",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:32:54.225Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-04",
+      "genre": "folktale",
+      "name": "달빛 궁궐",
+      "instruments": "gayageum harmonics, low-register daegeum, very soft haegeum",
+      "music": "66 BPM, A pentatonic, motif A-B-E",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 04 · 달빛 궁궐 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum harmonics, low-register daegeum, very soft haegeum. 66 BPM, A pentatonic, motif A-B-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/43ed6e1b-6b35-4d8a-9f91-41995541790a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/44c65330-adfd-42b3-8b85-95718c2fedff",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:17.854Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 04 · 달빛 궁궐 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum harmonics, low-register daegeum, very soft haegeum. 66 BPM, A pentatonic, motif A-B-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/ca020a5b-ba30-417b-bf03-dc9c7c559223",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/ec2d60ed-e2fb-40e8-8042-2b9d3a2e07e6",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:22.001Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 04 · 달빛 궁궐 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum harmonics, low-register daegeum, very soft haegeum. 66 BPM, A pentatonic, motif A-B-E. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/3dcf4cab-dec1-4db8-8b19-63981310f5f2",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/f2d78e57-d7d1-41f5-b5c9-aca7724e4f15",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:22.829Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-05",
+      "genre": "folktale",
+      "name": "착한 마음의 용기",
+      "instruments": "geomungo, gayageum, warm daegeum, soft buk pulses",
+      "music": "82 BPM, D pentatonic, motif D-G-A",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 05 · 착한 마음의 용기 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. geomungo, gayageum, warm daegeum, soft buk pulses. 82 BPM, D pentatonic, motif D-G-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/fb92079d-57c9-4c6a-abbc-f7ccc7f60660",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/df369719-6def-411b-acd9-0288194b562e",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:35.195Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 05 · 착한 마음의 용기 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. geomungo, gayageum, warm daegeum, soft buk pulses. 82 BPM, D pentatonic, motif D-G-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/cfcc8e18-ec89-4e65-929c-2a06dc6b2594",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/9bf2c38d-5734-4403-aa0c-75ee74b9003d",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:36.248Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 05 · 착한 마음의 용기 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. geomungo, gayageum, warm daegeum, soft buk pulses. 82 BPM, D pentatonic, motif D-G-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/1569243e-e01b-4aea-aaf3-1e7580c75d53",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/1607daa1-3e37-4a47-9dd5-cc3c3ac2d513",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:37.958Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-06",
+      "genre": "folktale",
+      "name": "신비한 들판",
+      "instruments": "gayageum, danso, haegeum, subtle wood block",
+      "music": "74 BPM, F pentatonic, motif F-G-C",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 06 · 신비한 들판 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, danso, haegeum, subtle wood block. 74 BPM, F pentatonic, motif F-G-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/35584bbc-8125-40c9-a9af-4d8bc1b5f53d",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/6a4b7d06-660c-4c55-9b0a-490386377df4",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:33:59.733Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 06 · 신비한 들판 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, danso, haegeum, subtle wood block. 74 BPM, F pentatonic, motif F-G-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/b5c2a8f2-f19b-473b-ac51-a184d6223695",
+              "playable": true,
+              "duration": "0:49"
+            },
+            {
+              "url": "https://suno.com/song/1dd924f1-5c9e-444f-961c-0402c3697dad",
+              "playable": true,
+              "duration": "0:54"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:01.614Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 06 · 신비한 들판 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, danso, haegeum, subtle wood block. 74 BPM, F pentatonic, motif F-G-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c34aa1c2-cc69-444e-8ea4-0c93edc7a44a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/e259bf0e-f493-4b97-b96b-747b1e73e150",
+              "playable": true,
+              "duration": "1:20"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:06.040Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-07",
+      "genre": "folktale",
+      "name": "도깨비 보물상자",
+      "instruments": "gayageum, low daegeum, playful geomungo, tiny janggu taps",
+      "music": "86 BPM, G pentatonic, motif G-B-D",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 07 · 도깨비 보물상자 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, low daegeum, playful geomungo, tiny janggu taps. 86 BPM, G pentatonic, motif G-B-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/09b4e385-cfc7-4a7b-82c9-68ed9d78e6bf",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/a710d9bb-e382-4ad9-8706-7207afa605ba",
+              "playable": true,
+              "duration": "1:11"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:20.902Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 07 · 도깨비 보물상자 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, low daegeum, playful geomungo, tiny janggu taps. 86 BPM, G pentatonic, motif G-B-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/eb5b5ed2-5f3a-4785-af41-7276e2c9eccb",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/c5b6e201-4c62-4797-a82f-1bf1063755ce",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:22.000Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 07 · 도깨비 보물상자 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gayageum, low daegeum, playful geomungo, tiny janggu taps. 86 BPM, G pentatonic, motif G-B-D. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/b54cea7d-6f69-4d64-9340-e70e609456a2",
+              "playable": true,
+              "duration": "1:11"
+            },
+            {
+              "url": "https://suno.com/song/22ea9c2f-278b-4e01-b051-c8b91d04d221",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:25.897Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-08",
+      "genre": "folktale",
+      "name": "강물 따라",
+      "instruments": "flowing gayageum arpeggios, daegeum, warm haegeum",
+      "music": "70 BPM, C pentatonic, motif C-E-G",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 08 · 강물 따라 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. flowing gayageum arpeggios, daegeum, warm haegeum. 70 BPM, C pentatonic, motif C-E-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/246ce0c2-6875-400b-b690-5e2e7e9a0f55",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/11c50ac0-ba91-44d1-a9f2-e67c6b7eb575",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:37.775Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 08 · 강물 따라 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. flowing gayageum arpeggios, daegeum, warm haegeum. 70 BPM, C pentatonic, motif C-E-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/33cec180-b9be-4bd4-a955-d0d45aa88b53",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/2a80dcad-930b-4b9b-8298-8507000931ff",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:41.912Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 08 · 강물 따라 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. flowing gayageum arpeggios, daegeum, warm haegeum. 70 BPM, C pentatonic, motif C-E-G. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/f34c9a46-5b20-40c6-98fa-f13aac6c8c16",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/494394a5-a0f8-40fe-bb23-959fa6c01476",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:34:43.140Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-09",
+      "genre": "folktale",
+      "name": "포근한 가족",
+      "instruments": "gentle gayageum, low haegeum, soft danso",
+      "music": "68 BPM, F pentatonic, motif F-A-C",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 09 · 포근한 가족 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gentle gayageum, low haegeum, soft danso. 68 BPM, F pentatonic, motif F-A-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/81db7c8e-1136-4a8f-9154-ca220c8cf22d",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/012f43bb-8ba1-49ee-b1fa-380f7a563c64",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:35:23.607Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 09 · 포근한 가족 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gentle gayageum, low haegeum, soft danso. 68 BPM, F pentatonic, motif F-A-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare.",
+          "status": "generated",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/5726afe1-4c7a-4dd0-8207-03682ffe635e",
+              "playable": true,
+              "duration": "0:50"
+            },
+            {
+              "url": "https://suno.com/song/c1281632-f808-486f-bad3-8a730f28ee3f",
+              "playable": true,
+              "duration": "0:50"
+            }
+          ],
+          "submittedAt": "2026-10-15T12:35:24.715Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 09 · 포근한 가족 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. gentle gayageum, low haegeum, soft danso. 68 BPM, F pentatonic, motif F-A-C. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:25.949Z"
+        }
+      ]
+    },
+    {
+      "id": "folktale-10",
+      "genre": "folktale",
+      "name": "고요한 여운",
+      "instruments": "sparse geomungo, breathy daegeum, tender haegeum",
+      "music": "62 BPM, D pentatonic with minor shading, motif D-F-A",
+      "status": "planned",
+      "tracks": [
+        {
+          "role": "opening",
+          "title": "탱고북 · 전래 10 · 고요한 여운 · 도입",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. sparse geomungo, breathy daegeum, tender haegeum. 62 BPM, D pentatonic with minor shading, motif D-F-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Warm curious invitation, sparse gentle repeating phrases, no large build. Keep the ending reflective and bittersweet; do not force a cheerful victory cadence.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:32.563Z"
+        },
+        {
+          "role": "climax",
+          "title": "탱고북 · 전래 10 · 고요한 여운 · 클라이맥스",
+          "duration": "0:50",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. sparse geomungo, breathy daegeum, tender haegeum. 62 BPM, D pentatonic with minor shading, motif D-F-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. A cautious rising challenge, low gentle rhythmic motion, child-safe suspense and restrained courage; never frightening, no loud climax or heroic fanfare. Keep the ending reflective and bittersweet; do not force a cheerful victory cadence.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:33.655Z"
+        },
+        {
+          "role": "ending",
+          "title": "탱고북 · 전래 10 · 고요한 여운 · 마지막",
+          "duration": "1:10",
+          "styles": "Instrumental preschool storybook narration underscore. Korean traditional folktale acoustic chamber music, distinctly Korean timbres, not generic Chinese or Japanese music. sparse geomungo, breathy daegeum, tender haegeum. 62 BPM, D pentatonic with minor shading, motif D-F-A. Original short motif shared across this three-part suite. Quiet sparse arrangement, soft transients, even restrained dynamics, intimate dry room. No vocals, choir, humming, narration, famous melodies, sound effects, heavy drums, sudden impacts. Tender closure and relaxed spacious phrasing, clean soft decay. Keep the ending reflective and bittersweet; do not force a cheerful victory cadence.",
+          "status": "submitted",
+          "candidates": [],
+          "submittedAt": "2026-10-15T12:35:34.762Z"
+        }
+      ]
+    }
+  ],
+  "blocker": "Suno Cloudflare human verification awaiting current user approval; seven unconfirmed roles remain"
+}

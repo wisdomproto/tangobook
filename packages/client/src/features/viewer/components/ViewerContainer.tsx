@@ -1,5 +1,6 @@
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { storyMusicUrl, eligibleMusicSets, chooseMusicSet } from '../lib/story-music';
 import { bookDisplayTitle } from '@tangobook/shared';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -260,14 +261,32 @@ export function ViewerContainer({ storybookId, playlist, embed }: ViewerContaine
   //    가 **마운트 시 바로** 재생하므로, 상자가 화면에 붙는 순간 아무도 아무것도 안 눌렀는데
   //    음악이 나온다(`noAutoStart` 는 나레이션만 막는다). 여기서 비우면 `hasBgm=false` 라
   //    툴바 버튼도 자동으로 꺼지고 `toggleBgm` 은 no-op 이라 다른 경로는 그대로다.
+  const musicSetChoice = useRef<{ bookId: string; setId?: string } | null>(null);
+  const eligibleSets = storybook ? eligibleMusicSets(storybook) : [];
+  if (
+    storybook &&
+    (musicSetChoice.current?.bookId !== storybook.id ||
+      (eligibleSets.length > 0 &&
+        !eligibleSets.some((s) => s.id === musicSetChoice.current?.setId)))
+  ) {
+    musicSetChoice.current = { bookId: storybook.id, setId: chooseMusicSet(eligibleSets)?.id };
+  }
+  const readingMusicSet = eligibleSets.find((s) => s.id === musicSetChoice.current?.setId);
   const bgmUrl = useMemo(() => {
     if (embed) return undefined;
-    if (storybook?.backgroundMusicUrl) return storybook.backgroundMusicUrl;
+    if (storybook) {
+      const music = storyMusicUrl(
+        storybook,
+        pages[pageIndex]?.pageNumber ?? pageIndex + 1,
+        readingMusicSet
+      );
+      if (music) return music;
+    }
     if (!storybook) return undefined;
     let h = 0;
     for (let i = 0; i < storybook.id.length; i++) h = (h * 31 + storybook.id.charCodeAt(i)) | 0;
     return `/sounds/bgm/default-${(Math.abs(h) % 5) + 1}.mp3`;
-  }, [storybook, embed]);
+  }, [storybook, embed, pages, pageIndex, readingMusicSet]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: bgmUrl,

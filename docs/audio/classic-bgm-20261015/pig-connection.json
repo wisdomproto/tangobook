@@ -1,0 +1,107 @@
+{
+  "apply": true,
+  "tracks": [
+    {
+      "id": "pig-20261015-opening",
+      "startPage": 1,
+      "role": "시작",
+      "title": "아기 돼지 삼형제 · 시작",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/opening.mp3"
+    },
+    {
+      "id": "pig-20261015-tension",
+      "startPage": 6,
+      "role": "위기",
+      "title": "아기 돼지 삼형제 · 위기",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/tension.mp3"
+    },
+    {
+      "id": "pig-20261015-climax",
+      "startPage": 12,
+      "role": "클라이맥스",
+      "title": "아기 돼지 삼형제 · 클라이맥스",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/climax.mp3"
+    },
+    {
+      "id": "pig-20261015-resolution",
+      "startPage": 15,
+      "role": "해소",
+      "title": "아기 돼지 삼형제 · 해소",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/resolution.mp3"
+    }
+  ],
+  "cues": [
+    {
+      "id": "pig-20261015-opening",
+      "startPage": 1,
+      "role": "시작",
+      "title": "아기 돼지 삼형제 · 시작",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/opening.mp3"
+    },
+    {
+      "id": "pig-20261015-climax",
+      "startPage": 6,
+      "role": "클라이맥스",
+      "title": "아기 돼지 삼형제 · 클라이맥스",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/climax.mp3"
+    },
+    {
+      "id": "pig-20261015-resolution",
+      "startPage": 15,
+      "role": "해소",
+      "title": "아기 돼지 삼형제 · 해소",
+      "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/resolution.mp3"
+    }
+  ],
+  "musicSets": [
+    {
+      "id": "classic-pig-20261015-01",
+      "title": "명작 01 · 아기 돼지 작은 관현악",
+      "genre": "classic",
+      "cues": [
+        {
+          "id": "pig-20261015-opening",
+          "startPage": 1,
+          "role": "시작",
+          "title": "아기 돼지 삼형제 · 시작",
+          "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/opening.mp3"
+        },
+        {
+          "id": "pig-20261015-climax",
+          "startPage": 6,
+          "role": "클라이맥스",
+          "title": "아기 돼지 삼형제 · 클라이맥스",
+          "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/climax.mp3"
+        },
+        {
+          "id": "pig-20261015-resolution",
+          "startPage": 15,
+          "role": "해소",
+          "title": "아기 돼지 삼형제 · 해소",
+          "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/resolution.mp3"
+        }
+      ]
+    }
+  ],
+  "books": [
+    {
+      "id": "1772108045716",
+      "title": "아기 돼지 삼형제_그림체2",
+      "existingMusicPreserved": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646304055-lufs20-1781066749979.mp3"
+    },
+    {
+      "id": "1789350946358",
+      "title": "아기 돼지 삼형제_그림체1",
+      "existingMusicPreserved": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646304055-lufs20-1781066749979.mp3"
+    },
+    {
+      "id": "1789350946359",
+      "title": "아기 돼지 삼형제_그림체3",
+      "existingMusicPreserved": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646304055-lufs20-1781066749979.mp3"
+    }
+  ],
+  "existingLibraryCount": 17,
+  "completedAt": "2026-10-15T12:30:09.297Z",
+  "libraryCountAfter": 17,
+  "verification": "3 books: exact three-cue/one-set readback, legacy music unchanged, all other fields identical; conditional writes; 4 immutable audio objects"
+}

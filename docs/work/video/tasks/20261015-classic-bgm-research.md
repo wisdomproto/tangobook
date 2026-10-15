@@ -2,13 +2,13 @@
 
 - id: 20261015-video-classic-bgm-research
 - domain: video
-- status: ready
+- status: active
 - updated: 2026-10-15
 - base: b14e8dc12
 - branch: codex/video-classic-bgm-plan
 - worktree: C:/Users/101024/.codex/worktrees/classic-bgm-plan/tangobook
 - integration: main 미통합
-- delivery: 조사·제작 설계 완료, 음원 미생성·미푸시·미배포
+- delivery: Suno 53/60역할 후보 확인, 4MP3 확보·아기돼지3그림체 연결·무음 수정·사람 확인 대기·미푸시·미배포
 
 ## 요청과 범위
 
@@ -35,3 +35,23 @@ agent-reach 스킬의 doctor로 Exa 미설정/Jina 사용 가능 확인. Jina Re
 ## 다음 행동
 
 사용자 후속 지시에 맞춰 Suno의 실제 사용 가능한 계정·생성 경로를 확인하고 아기 돼지 삼형제 4역할을 한 작품 단위로 제작·낭독 혼합 검수한다. 사용자가 첫 작품을 바꾸면 그 지시가 우선이다. 이후 확정한 음원을 페이지 cue·크로스페이드에 연결하는 구현은 별도 진행한다. 기존 한글 3샘플/다른 작품 승인본을 덮어쓰지 않는다.
+
+## 2026-10-15 제작·연결 후속 승인
+
+사용자 아기 돼지 삼형제 Suno 4곡 실제 생성 요청. 이어 새 곡과 기존 곡을 동화책에 연결하고, 책 읽는 내내 한 곡이 아닌 중간중간 자연스러운 전환을 구현하라고 명시. 먼저 아기 돼지의 1/6/12/15쪽 역할 전환·같은 구간 재생 유지·1–2초 크로스페이드·앞뒤 이동을 구현하고 기존 곡 선택도 유지하는 범위로 진행. 다른 책 기존 음악 지정은 보존한다.
+
+Suno 실제 로그인 확인, Pro·잔여2446credits/23downloads를 UI에서 확인. 모델 v6 Advanced, 빈 가사=instrumental 표시, 제외 스타일에 vocals/choir/humming/narration 등 입력. 공통 작은 편성84BPM·G major/E minor·G-A-D 모티프 지시로 70/70/45/60초를 UI Duration에 지정한다. 생성은 계정 내부 저장이며 Publish/공유/구독 변경은 하지 않는다. 현재 시작·위기 생성 요청, 각 요청은 2시안이 생긴다. 결과·검수·나머지곡·연결 구현은 진행 중이다.
+
+## 2026-10-15 실제 제작·연결·사용자 무음 반증
+
+아기돼지4역할×2시안 생성 완료, 실제 Suno UI로 각 첫 후보4MP3와 시작WAV 다운로드. 원본은 Downloads 보존, 공용4MP3는 -22 LUFS/-3dBTP 정규화·전체decode·SHA기록. R2 새audio4개와 음악목록4항목 추가(13→17), 아기돼지3그림체의 기존음악/본문 보존. 조건부ETag쓰기/새키IfNoneMatch와 전체기타필드동일 readback 확인, preimage D:/tangobook-video/classic-bgm-20261015/connection-backup 보존. receipt와 prompts/후보URL는 docs/audio/classic-bgm-20261015 참고.
+
+사용자 후속 확정: 3구간, 명작10세트·전래10세트, 전래한국악기풍,3곡세트 단위 랜덤. 기본쪽수1/6/15로 변경하고 첫명작세트1개 연결. 위기음원 별도보관. backgroundMusicSets는 책별 적합한 풀만 설정하며 장르필터·세트내3구간/범위 검증, 책을 읽는 동안 ref로선택고정. 설정에세트추가/편집/삭제와기존곡복귀 제공. 다른책일괄음악지정 안함.
+
+2HTMLAudio 채널로1.8초크로스페이드, 동일URL진행유지·앞뒤점프·음소거·실패시기존음악유지. 사용자가5216실제책무음반증. HTTP origin 포함HEAD/RangeGET에서 CDN에ACAO없는것확인: 첫구현crossOrigin=anonymous/WebAudio 요구제거해HTMLAudio 직접재생으로변경. unlock은최초정책차단만재시도,사용자mute유지. 실제시작터치후BGM버튼pressed확인. 이것은미디어play성공증거이며사람귀청취나iOS실기기검증으로보고하지않음. iOS HTMLmedia volume제어/크로스페이드는후속확인필요.
+
+추가요청에따라명작02–10/전래01–10 57역할프롬프트와비공개생성실행. 검색결과각제목2후보링크/재생가능확인50역할(100시안),기존아기돼지3역할포함53/60. 아직결과없는7역할은전래09마지막·명작10전체·전래10전체. 마지막Create후Cloudflare사람확인창발생,스크린샷suno-verification.png,사용자에게현재승인요청. 승인없이체크/우회안함. 추가음원다운로드와청취승인안함. library-generation.json의URL/상태가재개기준.
+
+검증: client targeted3files19tests, clienttypecheck,변경TS/TSXeslint,clientbuild통과(기존chunk/lottieeval/i18n경고). HTML상단제작목록은생성기에서갱신,기존8×4조사안은과거근거로보존. main통합/push/배포요청없음.
+
+보안 확인 직전의 마지막 Create는 전래10/마지막이었다. 확인 후 이 제목을 먼저 검색해 실제 접수됐는지 확인하고, 이미 생성되었다면 재생성하지 않는다. 추가 다운로드는 잔여19회 범위에서만 진행하며 파일을 받은 곡만 R2에 올리고 책별 적합한 풀로 연결한다.
