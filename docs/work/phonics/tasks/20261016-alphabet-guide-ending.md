@@ -6,7 +6,7 @@
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 9a2d94833 로컬 main 통합, 새 push/배포 요청 없음
+- delivery: 사용자 요청으로766a1ee9b 원격 main 일반 push·SHA 일치/0·0 확인. 운영 배포 완료 미확인.
 
 사용자가 D/d 실제 완주 검수·가이드 직선 정리·약90%에서 떼어도 획 완성, 이어서 소문자 e 순서가 잘 안 보인다고 요청했다. 직선 native 입력만 가능한 현재 CUA/Windows API에서 곡선을 연속으로 직접 그리는 도구는 없음(API 정의 확인). 다른 입력 도구나 숨은 상태 조작으로 우회하지 않고 실제 공용 컴포넌트에 DEV UI의 곡선 pointer event 재생으로 완료/그림/음성을 확인하되 native 손 입력과 구분해 보고한다.
 
@@ -29,3 +29,7 @@
 - 증거는 worktree output/alphabet-guide-ending-20261016/{D-complete.png,d-complete.png,e-guide.png,e-complete.png,E-native-complete.png,flow-end.png,all52-results.json}. 임시 fixture HTML/TSX는 같은 output으로 옮겨 제품/커밋에서 제외했다.
 
 최종 변경 TS eslint·client typecheck·build23.95초 성공. 기존 Browserslist/청크/i18n/lottie eval 경고는 이번 변경 범위 밖이다. 로컬 검수 서버5187 유지, 새 main push/운영 배포 없음.
+
+## main 전달 — 2026-10-16
+
+사용자가 이번 가이드/90% 마무리 수정의 main push를 요청했다. fetch 후 origin/main 대비0/2·tracked 미커밋 없음·관련 diff와 검수 기록을 확인했다. 일반 push c37940e76→766a1ee9b 성공, ls-remote SHA 일치·0/0 확인. 미추적 자료와 다른 worktree는 보존했다. 위 미푸시는 구현 당시 상태이며 새 운영 배포 성공과 운영 실제 입력 확인은 별도다.
