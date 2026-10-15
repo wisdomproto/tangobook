@@ -4,7 +4,7 @@
 
 - 확정: 명작10세트 + 전래10세트, 각각 도입/클라이맥스/마지막3곡. 세트 단위 랜덤, 읽는 동안 고정. 전래는 한국 전통 악기 중심.
 - 실제 Suno v6: 아기돼지4곡×2후보 생성, 각 첫 후보4곡 다운로드, loudnorm -22 LUFS/-3 dBTP 정규화 및 전곡 decode 확인. 사람 청취/보컬 혼입/음악적 일관성 승인은 대기.
-- 추가 제작은 `library-generation.json`이 최신 사실이다. 기존 아기돼지3역할 포함60역할 중53역할의 두 후보 링크 확인. 마지막7역할은 Cloudflare 사람 확인창 때문에 결과 미확인. 클릭 접수와 생성 완료를 구분한다.
+- 추가 제작은 `library-generation.json`이 최신 사실이다. 기존 아기돼지3역할 포함60역할 모두 두 후보 링크·재생 가능·완성 길이 확인(120후보, URL 중복0). 사용자 보안 확인 승인 후 남은7역할을 완료했다. 재개 때 확인창은 이미 사라져 있었고 정상 Create로 접수되었으며 체크박스를 누른 것으로 기록하지 않는다. 요청 길이와 실제 길이는 다를 수 있어 채택 뒤 편집한다.
 - 아기돼지3그림체만 R2 `backgroundMusicCues` 1/6/15쪽과 `backgroundMusicSets` 첫 명작 세트를 연결. 기존 BGM URL·본문 보존. BGM 목록13→17. 조건부 쓰기/읽기 검증은 `pig-connection.json`, 원본 백업은 D:/tangobook-video/classic-bgm-20261015/connection-backup/. 다른 책은 수정하지 않았다.
 - 뷰어/설정 구현은 codex/video-classic-bgm-plan 로컬, 미푸시·미배포. 테스트 주소 http://127.0.0.1:5216/viewer/1772108045716?lang=ko (프런트만 로컬, API는 운영 읽기 프록시).
 - 최초 무음 원인: CDN에 ACAO 응답 헤더가 없는데 crossOrigin=anonymous/WebAudio를 요구함. HTMLAudio 직접 재생으로 고치고 차단된 첫 재생의 읽기 터치 재시도 추가. 음소거를 재시도에서 해제하지 않음. 데스크톱 UI 재생 표시 확인; 실제 스피커 청취와 iOS 음량/크로스페이드는 별도 검증.
