@@ -1,15 +1,87 @@
 import { describe, expect, it } from 'vitest';
 import { beginTrace, makeTracePath, moveTrace, tracePassed, strokeOwners } from './stroke-tracing';
 import type { StrokePoint, VowelGuideStroke } from './vowel-stroke-guide';
+import curveEnds from './__fixtures__/english-curve-ends.json';
+import turnPaths from './__fixtures__/english-turn-paths.json';
 const line: VowelGuideStroke = { from: { x: 120, y: 60 }, to: { x: 120, y: 330 } };
-function trace(stroke: VowelGuideStroke, points: StrokePoint[]) {
+function trace(stroke: VowelGuideStroke, points: StrokePoint[], softEnd = false) {
   const path = makeTracePath(stroke);
   let attempt = beginTrace(path, points[0]);
   if (!attempt) return false;
-  for (const point of points.slice(1)) attempt = moveTrace(path, attempt, point);
-  return tracePassed(path, attempt);
+  for (const point of points.slice(1))
+    attempt = moveTrace(path, attempt, point, { softTurns: softEnd });
+  return tracePassed(path, attempt, { softEnd });
 }
 describe('획 단위의 관대한 따라쓰기', () => {
+  it.each(Object.entries(turnPaths))(
+    '%s 실제 폰트의 짧은 획·꺾임은 입력 간격과 흔들리는 방향이 바뀌어도 이어간다',
+    (_, paths) => {
+      for (const svg of paths) {
+        const values = svg.match(/-?\d+(?:\.\d+)?/g)!.map(Number);
+        const points = Array.from({ length: values.length / 2 }, (_, i) => ({
+          x: values[i * 2],
+          y: values[i * 2 + 1],
+        }));
+        const stroke = { from: points[0], to: points.at(-1)!, points },
+          path = makeTracePath(stroke);
+        for (const amplitude of [8, 12, 16])
+          for (const stride of [1, 3, 5])
+            for (const rate of [0.15, 0.25])
+              for (const phase of [0, Math.PI / 2, Math.PI, Math.PI * 1.5]) {
+                const input = path.points
+                  .filter((_, n) => n % stride === 0 || n === path.points.length - 1)
+                  .map((p, n) => ({
+                    x: p.x + Math.sin(n * rate + phase) * amplitude,
+                    y: p.y + Math.cos(n * rate + phase) * amplitude,
+                  }));
+                expect(
+                  trace(stroke, input, true),
+                  `${svg.slice(0, 14)} / ${amplitude} / ${stride} / ${rate} / ${phase}`
+                ).toBe(true);
+              }
+        expect(trace(stroke, path.points.slice(0, Math.floor(path.points.length / 2)), true)).toBe(
+          false
+        );
+        expect(trace(stroke, [...path.points].reverse(), true)).toBe(false);
+        if (path.length - Math.hypot(stroke.to.x - stroke.from.x, stroke.to.y - stroke.from.y) > 70)
+          expect(trace(stroke, [stroke.from, stroke.to], true)).toBe(false);
+      }
+    }
+  );
+  it.each(Object.entries(curveEnds))(
+    '%s 실제 폰트 곡선의 흔들린 끝부분을 받아주고 반쪽/지름길은 거절한다',
+    (_, svg) => {
+      const values = svg.match(/-?\d+(?:\.\d+)?/g)!.map(Number);
+      const points = Array.from({ length: values.length / 2 }, (_, i) => ({
+        x: values[i * 2],
+        y: values[i * 2 + 1],
+      }));
+      const stroke = { from: points[0], to: points.at(-1)!, points };
+      const path = makeTracePath(stroke);
+      const input = path.points.map((p, i) => ({
+        x: p.x + Math.sin(i * 0.25) * 12,
+        y: p.y + Math.cos(i * 0.25) * 12,
+      }));
+      expect(trace(stroke, input)).toBe(false); // The previous Korean/default ending remains unchanged.
+      expect(trace(stroke, input, true)).toBe(true);
+      expect(trace(stroke, [...path.points].reverse(), true)).toBe(false);
+      expect(trace(stroke, path.points.slice(0, Math.floor(path.points.length / 2)), true)).toBe(
+        false
+      );
+      expect(trace(stroke, [stroke.from, stroke.to], true)).toBe(false);
+    }
+  );
+  it('영어의 부드러운 끝맺음도 끝점·이동량·순서를 지키며 한글 기본값은 바꾸지 않는다', () => {
+    const slightlyShort = [line.from, { x: 126, y: 305 }];
+    expect(trace(line, slightlyShort)).toBe(false);
+    expect(trace(line, slightlyShort, true)).toBe(true);
+    for (const input of [
+      [line.to, line.from],
+      [line.from, { x: 120, y: 170 }],
+      [line.from, { x: 170, y: 330 }],
+    ])
+      expect(trace(line, input, true)).toBe(false);
+  });
   it('i/j의 점은 톡 찍기만 허용하고 떨어진 위치·지나가는 선은 거절한다', () => {
     const path = makeTracePath({ from: { x: 200, y: 60 }, to: { x: 201, y: 60 }, dot: true });
     const tap = beginTrace(path, { x: 206, y: 65 })!;

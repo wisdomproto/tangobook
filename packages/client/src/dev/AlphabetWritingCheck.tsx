@@ -39,8 +39,16 @@ type Check = {
   expected: boolean | null;
   remaining: number;
   offPath: number;
+  variant?: string;
 };
-type Report = { letter: string; strokes: number; checks: Check[]; issues: number; error?: string };
+type Report = {
+  letter: string;
+  strokes: number;
+  checks: Check[];
+  extended?: Check[];
+  issues: number;
+  error?: string;
+};
 
 /** Same font/mask setup as the live component. No learner stores, APIs or progress writes. */
 async function prepare(letter: string) {
@@ -83,10 +91,15 @@ function inputFor(path: TracePath, scenario: Scenario): StrokePoint[] {
   );
 }
 
-function check(path: TracePath, stroke: number, scenario: Scenario): Check {
-  const input = inputFor(path, scenario);
+function check(
+  path: TracePath,
+  stroke: number,
+  scenario: Scenario,
+  input = inputFor(path, scenario)
+): Check {
   let attempt = beginTrace(path, input[0]);
-  if (attempt) for (const p of input.slice(1)) attempt = moveTrace(path, attempt, p);
+  if (attempt)
+    for (const p of input.slice(1)) attempt = moveTrace(path, attempt, p, { softTurns: true });
   const chord = Math.hypot(
     path.points[0].x - path.points.at(-1)!.x,
     path.points[0].y - path.points.at(-1)!.y
@@ -101,7 +114,7 @@ function check(path: TracePath, stroke: number, scenario: Scenario): Check {
   return {
     stroke,
     scenario,
-    passed: !!attempt && tracePassed(path, attempt),
+    passed: !!attempt && tracePassed(path, attempt, { softEnd: true }),
     expected,
     remaining: Math.round(attempt ? path.length - path.distances[attempt.index] : path.length),
     offPath: Math.round(attempt?.offPath ?? 0),
@@ -115,12 +128,35 @@ function report(letter: string, guides: VowelGuideStroke[]): Report {
       : ['exact', 'wobble', 'sparse', 'reverse', 'half', 'shortcut'];
     return scenarios.map((s) => check(makeTracePath(g), i + 1, s));
   });
+  const extended = guides.flatMap((g, i) => {
+    if (g.dot) return [];
+    const path = makeTracePath(g),
+      result: Check[] = [];
+    for (const amplitude of [8, 12, 16])
+      for (const stride of [1, 3, 5])
+        for (const rate of [0.15, 0.25])
+          for (const phase of [0, Math.PI / 2, Math.PI, Math.PI * 1.5]) {
+            const points = path.points
+              .filter((_, n) => n % stride === 0 || n === path.points.length - 1)
+              .map((p, n) => ({
+                x: p.x + Math.sin(n * rate + phase) * amplitude,
+                y: p.y + Math.cos(n * rate + phase) * amplitude,
+              }));
+            result.push({
+              ...check(path, i + 1, 'wobble', points),
+              variant: `${amplitude}px / 간격${stride} / 속도${rate} / 위상${Math.round((phase * 180) / Math.PI)}°`,
+            });
+          }
+    return result;
+  });
   return {
     letter,
     strokes: guides.length,
     checks,
+    extended,
     issues: guides.length
-      ? checks.filter((c) => c.expected !== null && c.passed !== c.expected).length
+      ? [...checks, ...extended].filter((c) => c.expected !== null && c.passed !== c.expected)
+          .length
       : 1,
   };
 }
@@ -446,25 +482,35 @@ function AlphabetWritingCheck() {
                 </tr>
               </thead>
               <tbody>
-                {selected.checks.map((c) => (
-                  <tr key={`${c.stroke}-${c.scenario}`}>
-                    <td>{c.stroke}</td>
-                    <td>{SCENARIOS[c.scenario]}</td>
-                    <td>{c.expected === null ? '참고' : c.expected ? '통과' : '거절'}</td>
-                    <td>{c.passed ? '통과' : '미통과'}</td>
-                    <td>{c.remaining}px</td>
-                    <td>
-                      {c.expected === null
-                        ? '—'
-                        : c.passed === c.expected
-                          ? '✓ 정상'
-                          : '⚠ 확인 필요'}
-                    </td>
-                  </tr>
-                ))}
+                {[...selected.checks, ...(selected.extended ?? []).filter((c) => !c.passed)].map(
+                  (c) => (
+                    <tr key={`${c.stroke}-${c.scenario}-${c.variant ?? ''}`}>
+                      <td>{c.stroke}</td>
+                      <td>{c.variant ?? SCENARIOS[c.scenario]}</td>
+                      <td>{c.expected === null ? '참고' : c.expected ? '통과' : '거절'}</td>
+                      <td>{c.passed ? '통과' : '미통과'}</td>
+                      <td>{c.remaining}px</td>
+                      <td>
+                        {c.expected === null
+                          ? '—'
+                          : c.passed === c.expected
+                            ? '✓ 정상'
+                            : '⚠ 확인 필요'}
+                      </td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </div>
+        )}
+        {selected?.extended && (
+          <p className="audit-note">
+            확장 흔들림 {selected.extended.length}건 중{' '}
+            {selected.extended.filter((c) => c.passed).length}건 통과 · 8/12/16px, 입력
+            간격·속도·흔들리는 방향을 바꿔 검사합니다. 실패한 확장 입력은 위 표에 추가하고 전체
+            결과는 JSON에 보존합니다.
+          </p>
         )}
         <p className="audit-note">
           운영 배포 여부·아이의 손가락/스타일러스 사용성은 이 모의 검사만으로 확인되지 않습니다.

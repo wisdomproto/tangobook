@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-15 [영어 관대한 획 판정](tasks/20261015-friendly-alphabet-tracing.md): d/q 끝맺음, Z/z 꺾임·g/h 연결·G/t 짧은 획까지 보완. 영어만 전방 탐색64px/남은 꼬리 전체32px 이내 조건의 끝맺음·짧은 전진량을 적용하며 한글/점/취소 유지. 실제52자107획 기본636+확장7,560 모의 검사 기대 불일치0,57파일506회귀·타입/lint/build 통과. 아래 d/q 확인 필요는 과거 상태. 로컬 반영·새 push/배포 없음.
+
 2026-10-15 [알파벳 전용 검수판](tasks/20261015-alphabet-writing-check.md): localhost5187/alphabet-writing-check.html에서52자 직접 선택·실제 쓰기/점 버튼·종이 크기·획별 모의 재생/전체 검사·JSON 제공. 학습 진도 미사용·DEV 전용. i 실제 몸통→44px 점→완료, j/n 모의 정상. 새 .25 촘촘한 흔들림에서 d/q 첫 곡선 끝 미통과를 확인 필요로 남김(제품 기준 변경 없음). 타입/lint/build 통과, 새 push 없음.
 
 2026-10-15 [소문자 운영 배포 확인](tasks/20261015-lowercase-writing-review.md#운영-배포-확인-후속--2026-10-15): Railway95040217의 cbef06ba7 successful/Active 직접 확인, 운영 j 화면 새 자산·점 선행 입력0/2 유지·console error0·health ok. 곡선 native 완주 미확인이며 로컬 검수판 실제 i/모의 j/n과 구분한다. 아래 배포 미확인은 이전 시점.

@@ -46,7 +46,8 @@ export function beginTrace(path: TracePath, point: StrokePoint): TraceAttempt | 
 export function moveTrace(
   path: TracePath,
   attempt: TraceAttempt,
-  point: StrokePoint
+  point: StrokePoint,
+  { softTurns = false }: { softTurns?: boolean } = {}
 ): TraceAttempt {
   const movement = distance(attempt.last, point);
   if (movement < 1) return attempt;
@@ -64,7 +65,8 @@ export function moveTrace(
     // Never leap to a nearby but much later leg of a loop/zigzag.
     for (
       let j = index + 1;
-      j < path.points.length && path.distances[j] - path.distances[index] <= TRACE_TOLERANCE;
+      j < path.points.length &&
+      path.distances[j] - path.distances[index] <= TRACE_TOLERANCE * (softTurns ? 2 : 1);
       j++
     ) {
       const d = distance(p, path.points[j]);
@@ -83,7 +85,11 @@ export function moveTrace(
   return { index, travelled, offPath, last: point, start: attempt.start };
 }
 
-export function tracePassed(path: TracePath, attempt: TraceAttempt): boolean {
+export function tracePassed(
+  path: TracePath,
+  attempt: TraceAttempt,
+  { softEnd = false }: { softEnd?: boolean } = {}
+): boolean {
   if (path.dot)
     return (
       distance(attempt.start, path.points[0]) <= 20 &&
@@ -100,14 +106,29 @@ export function tracePassed(path: TracePath, attempt: TraceAttempt): boolean {
           (attempt.last.y - attempt.start.y) * (last.y - first.y)) /
         chord
       : 0;
+  // On a tiny English crossbar, start/end wobble can consume most of the
+  // chord. Still require forward movement, with the existing travel and
+  // untraced-tail guards; rubbing in place cannot complete the bar.
+  const minimumForward = softEnd
+    ? Math.max(4, Math.min(path.length * 0.45, chord - TRACE_TOLERANCE))
+    : path.length * 0.45;
   return (
-    // Short bars can end a few pixels shy when a small finger wobbles. Retain
-    // travelled distance and endpoint checks; a dot/half-stroke still fails.
-    path.length - path.distances[attempt.index] <= Math.min(16, path.length * 0.28) &&
+    // English ends use the same corridor as the rest of the stroke. A wobbling
+    // finger can reach the end while its nearest checkpoint is still behind.
+    // Keep short-stroke, distance, direction and endpoint guards; Korean keeps
+    // its existing ending policy unless explicitly opted in.
+    path.length - path.distances[attempt.index] <=
+      Math.min(softEnd ? TRACE_TOLERANCE * 2 : 16, path.length * (softEnd ? 0.45 : 0.28)) &&
+    // The entire untraced tail must be inside the endpoint corridor. Extra arc
+    // allowance never skips an uncovered bend or another side of a letter.
+    (!softEnd ||
+      path.points
+        .slice(attempt.index)
+        .every((p) => distance(p, attempt.last) <= TRACE_TOLERANCE)) &&
     attempt.travelled >= path.length * 0.62 &&
     // Both ends of a tiny bar can fall inside the start tolerance. Require a
     // real forward swipe so reversing it or scrubbing a dot cannot pass.
-    (path.length >= 64 || chord < path.length * 0.8 || forward >= path.length * 0.45) &&
+    (path.length >= 64 || chord < path.length * 0.8 || forward >= minimumForward) &&
     attempt.offPath <= Math.max(24, attempt.travelled * 0.4) &&
     distance(attempt.last, path.points[path.points.length - 1]) <= TRACE_TOLERANCE
   );

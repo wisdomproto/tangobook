@@ -135,7 +135,7 @@ export function StrokeTraceCanvas({
     if (e.pointerId !== pointer.current || !attempt.current) return;
     e.preventDefault();
     const path = model.current!.paths[index.current];
-    attempt.current = moveTrace(path, attempt.current, point(e));
+    attempt.current = moveTrace(path, attempt.current, point(e), { softTurns: english });
     const traced = path.points.slice(0, attempt.current.index + 1);
     setTrail(traced.map((p, i) => `${i ? 'L' : 'M'} ${p.x} ${p.y}`).join(' '));
     feedDrawLoop();
@@ -163,8 +163,8 @@ export function StrokeTraceCanvas({
     if (e.currentTarget.hasPointerCapture(e.pointerId))
       e.currentTarget.releasePointerCapture(e.pointerId);
     if (!trace || cancelled) return;
-    const final = moveTrace(data.paths[index.current], trace, point(e));
-    if (!tracePassed(data.paths[index.current], final)) {
+    const final = moveTrace(data.paths[index.current], trace, point(e), { softTurns: english });
+    if (!tracePassed(data.paths[index.current], final, { softEnd: english })) {
       setRetry(true);
       return;
     }

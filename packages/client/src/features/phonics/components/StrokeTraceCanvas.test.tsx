@@ -1,10 +1,13 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { StrokeTraceCanvas } from './StrokeTraceCanvas';
+import { getLetterGuideStrokes } from './letter-stroke-guide';
+import { makeTracePath } from './stroke-tracing';
+import curveEnds from './__fixtures__/english-curve-ends.json';
 vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), playUi: vi.fn() }));
 vi.mock('@/features/games/effects/learning-effects', () => ({ emitLearningEffect: vi.fn() }));
 vi.mock('./letter-stroke-guide', () => ({
-  getLetterGuideStrokes: (letter: string) =>
+  getLetterGuideStrokes: vi.fn((letter: string) =>
     letter === 'j'
       ? [
           {
@@ -28,7 +31,8 @@ vi.mock('./letter-stroke-guide', () => ({
         : [
             { from: { x: 120, y: 60 }, to: { x: 120, y: 330 } },
             { from: { x: 120, y: 190 }, to: { x: 230, y: 190 } },
-          ],
+          ]
+  ),
 }));
 const fonts = Object.getOwnPropertyDescriptor(document, 'fonts');
 const mask = () => {
@@ -84,6 +88,47 @@ function gesture(canvas: HTMLElement, from: number[], to: number[], cancel = fal
   });
 }
 describe('실제 획 순서와 완료 배선', () => {
+  it.each(Object.entries(curveEnds))(
+    '%s의 흔들린 실제 곡선 완료가 다음 획을 열고, 취소/반쪽 입력은 열지 않는다',
+    (letter, svg) => {
+      const values = svg.match(/-?\d+(?:\.\d+)?/g)!.map(Number);
+      const points = Array.from({ length: values.length / 2 }, (_, i) => ({
+        x: values[i * 2],
+        y: values[i * 2 + 1],
+      }));
+      const curve = { from: points[0], to: points.at(-1)!, points };
+      vi.mocked(getLetterGuideStrokes).mockReturnValueOnce([
+        curve,
+        { from: { x: 300, y: 60 }, to: { x: 300, y: 300 } },
+      ]);
+      const result = vi.fn();
+      render(<StrokeTraceCanvas letter={letter} guidance="hint" onResult={result} />);
+      const paper = screen.getByLabelText(`${letter} 따라쓰기`);
+      const input = makeTracePath(curve).points.map((p, i) => ({
+        x: p.x + Math.sin(i * 0.25) * 12,
+        y: p.y + Math.cos(i * 0.25) * 12,
+      }));
+      const draw = (cancel = false, half = false) => {
+        const pts = half ? input.slice(0, Math.floor(input.length / 2)) : input;
+        fireEvent.pointerDown(paper, { pointerId: 1, clientX: pts[0].x, clientY: pts[0].y });
+        for (const p of pts.slice(1))
+          fireEvent.pointerMove(paper, { pointerId: 1, clientX: p.x, clientY: p.y });
+        (cancel ? fireEvent.pointerCancel : fireEvent.pointerUp)(paper, {
+          pointerId: 1,
+          clientX: pts.at(-1)!.x,
+          clientY: pts.at(-1)!.y,
+        });
+      };
+      draw(true);
+      draw(false, true);
+      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
+      draw();
+      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '1');
+      expect(result).not.toHaveBeenCalled();
+      gesture(paper, [300, 60], [302, 298]);
+      expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+    }
+  );
   it.each(['i', 'j'])('%s 점 버튼은 몸통 뒤에만 열리고 실제 클릭 한 번만 완료한다', (letter) => {
     const result = vi.fn();
     render(<StrokeTraceCanvas letter={letter} guidance="hint" compact onResult={result} />);
