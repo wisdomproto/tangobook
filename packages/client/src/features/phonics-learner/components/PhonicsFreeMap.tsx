@@ -1,3 +1,4 @@
+import { useLearningWorkspace } from './learning-workspace-context';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEffect } from 'react';
 import { MobileLandscapeGate } from '@/features/games/components/MobileLandscapeGate';
@@ -7,11 +8,13 @@ import { PhonicsJourneyMap } from './PhonicsJourneyMap';
 
 /** Free exploration shares the story board, completion store and activity plans. */
 export function PhonicsFreeMap({ lang, unitId }: { lang: JourneyLanguage; unitId?: string }) {
+  const workspace = useLearningWorkspace();
   const { activeProfile } = useAuth();
   const { unitCompletedActivities } = usePhonicsProgress(lang);
   useEffect(() => {
     if (unitId) markRecentUnit(lang, unitId);
   }, [lang, unitId]);
+  if (workspace) return null;
   return (
     <MobileLandscapeGate>
       <PhonicsJourneyMap

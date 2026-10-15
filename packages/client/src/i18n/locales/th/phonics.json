@@ -1,4 +1,16 @@
 {
+  "workspace": {
+    "activities": "กิจกรรม",
+    "close": "ปิดรายการ",
+    "map": "แผนที่การเรียน"
+  },
+  "consonantFind": {
+    "title": "หาพยัญชนะ",
+    "prompt": "หาพยัญชนะที่เหมือนกันทั้งหมด",
+    "done": "พบครบแล้ว!",
+    "piece": "{{letter}} ชิ้นที่ {{number}}",
+    "count": "พบ {{found}} จาก {{total}}"
+  },
   "wordJourney": {
     "restart": "ลองอีกครั้ง",
     "chapterWords": "คำศัพท์ในบทนี้",

@@ -63,7 +63,11 @@ export function journeyKoreanActivityRoute(unitId: string, activityKey: string) 
 export function journeyActivities(lang: JourneyLanguage, unitId: string): readonly ActivityDef[] {
   const plan = lang === 'korean' ? getActivityPlan(unitId) : getEnglishActivityPlan(unitId);
   return plan.activities.filter(
-    (a) => a.required || a.kind === 'vowel-listen-game' || a.kind === 'word-learning'
+    (a) =>
+      a.required ||
+      a.kind === 'vowel-listen-game' ||
+      a.kind === 'word-learning' ||
+      a.kind === 'consonant-find'
   );
 }
 
@@ -81,8 +85,11 @@ export function journeyProgress(
 ) {
   const allSteps = journeySteps(lang);
   const exemptions = wordLearningLegacyChapters(lang, allSteps, readDone);
+  const findingExemptions = wordLearningLegacyChapters(lang, allSteps, readDone, 'consonant-find');
   const steps = allSteps.filter(
-    (s) => s.activity.kind !== 'word-learning' || !exemptions.includes(s.unit.id)
+    (s) =>
+      (s.activity.kind !== 'word-learning' || !exemptions.includes(s.unit.id)) &&
+      (s.activity.kind !== 'consonant-find' || !findingExemptions.includes(s.unit.id))
   );
   const byUnit = new Map<string, readonly string[]>();
   const done = steps.map(({ unit, activity }) => {
@@ -104,23 +111,23 @@ export function journeyProgress(
 function wordLearningLegacyChapters(
   lang: JourneyLanguage,
   steps: ReturnType<typeof journeySteps>,
-  readDone: ReadJourneyProgress
+  readDone: ReadJourneyProgress,
+  kind: 'word-learning' | 'consonant-find' = 'word-learning'
 ): string[] {
-  let key = `phonics-word-learning-legacy:v1:${lang}`;
+  if (!steps.some((step) => step.activity.kind === kind)) return [];
+  let key = `phonics-${kind}-legacy:v1:${lang}`;
   try {
     key += `:${localStorage.getItem('tangobook:activeProfileId') || 'guest'}`;
     const stored = JSON.parse(localStorage.getItem(key) ?? 'null');
     if (Array.isArray(stored) && stored.every((id) => typeof id === 'string')) return stored;
-    const ids = [
-      ...new Set(steps.filter((s) => s.activity.kind === 'word-learning').map((s) => s.unit.id)),
-    ];
+    const ids = [...new Set(steps.filter((s) => s.activity.kind === kind).map((s) => s.unit.id))];
     const exemptions = ids.filter((id) => {
       const done = readDone(id);
-      const old = steps.filter((s) => s.unit.id === id && s.activity.kind !== 'word-learning');
+      const old = steps.filter(
+        (s) => s.unit.id === id && !['word-learning', 'consonant-find'].includes(s.activity.kind)
+      );
       return (
-        !done.includes('word-learning') &&
-        old.length > 0 &&
-        old.every((s) => done.includes(s.activity.key))
+        !done.includes(kind) && old.length > 0 && old.every((s) => done.includes(s.activity.key))
       );
     });
     localStorage.setItem(key, JSON.stringify(exemptions));

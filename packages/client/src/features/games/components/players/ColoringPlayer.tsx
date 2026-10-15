@@ -1,4 +1,10 @@
 import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
+import { useTranslation } from 'react-i18next';
+import { useLearningWorkspace } from '@/features/phonics-learner/components/learning-workspace-context';
+import {
+  WorkspaceMapButton,
+  WorkspaceMenuIcon,
+} from '@/features/phonics-learner/components/WorkspaceButtons';
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
@@ -204,6 +210,8 @@ function readColorSource(
 }
 
 export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: ColoringPlayerProps) {
+  const workspace = useLearningWorkspace();
+  const { t: pt } = useTranslation('phonics');
   const [idx, setIdx] = useState(0);
   const [ready, setReady] = useState(false);
   const [sceneRatio, setSceneRatio] = useState(1);
@@ -606,11 +614,12 @@ export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: Col
       <div className="coloring-toolbar shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3">
         {onBack ? (
           <button
-            onClick={onBack}
-            aria-label="돌아가기"
+            onClick={workspace?.active ? () => workspace.setNavigationOpen(true) : onBack}
+            aria-label={workspace?.active ? pt('workspace.activities') : '돌아가기'}
+            aria-expanded={workspace?.active ? workspace.navigationOpen : undefined}
             className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
           >
-            <StorybookSprite name="back" size={28} />
+            {workspace?.active ? <WorkspaceMenuIcon /> : <StorybookSprite name="back" size={28} />}
           </button>
         ) : (
           <span />
@@ -618,13 +627,16 @@ export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: Col
         <StorybookTitle as="div" compact className="coloring-title">
           {item.word}
         </StorybookTitle>
-        <button
-          onClick={reset}
-          aria-label="다시"
-          className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
-        >
-          <LearningGameIcon name="replay" size={28} />
-        </button>
+        <div className="flex items-center gap-2">
+          <WorkspaceMapButton />
+          <button
+            onClick={reset}
+            aria-label="다시"
+            className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
+          >
+            <LearningGameIcon name="replay" size={28} />
+          </button>
+        </div>
       </div>
 
       {/* 🔴 **원본 삽화는 칠하는 동안 안 보여 준다**(2026-09-10 사용자). 옆에 완성본을 띄워 두면

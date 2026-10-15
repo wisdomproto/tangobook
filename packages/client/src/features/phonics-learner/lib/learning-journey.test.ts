@@ -12,6 +12,34 @@ import { markActivityCompleted, markRecentUnit, getUnitProgress } from './progre
 
 beforeEach(() => localStorage.clear());
 describe('guided learning path', () => {
+  it('grandfathers old completed consonant chapters without faking the new finding activity', () => {
+    const first = 'kr-h1-u02';
+    const next = 'kr-h1-u03';
+    const steps = journeySteps('korean');
+    const baseline = (id: string) =>
+      steps.filter(
+        (s) => s.unit.id === id && !['word-learning', 'consonant-find'].includes(s.activity.kind)
+      );
+    baseline(first).forEach((s) => markActivityCompleted('korean', first, s.activity.key));
+    const migrated = journeyProgress('korean');
+    expect(
+      migrated.steps.some((s) => s.unit.id === first && s.activity.kind === 'consonant-find')
+    ).toBe(false);
+    expect(getUnitProgress('korean', first).completedActivities).not.toContain('consonant-find');
+    // The initial snapshot also locks in that a new unfinished chapter must really play the game.
+    baseline(next).forEach((s) => markActivityCompleted('korean', next, s.activity.key));
+    expect(
+      journeyProgress('korean').steps.some(
+        (s) => s.unit.id === next && s.activity.kind === 'consonant-find'
+      )
+    ).toBe(true);
+    localStorage.setItem('tangobook:activeProfileId', 'new-child');
+    expect(
+      journeyProgress('korean').steps.some(
+        (s) => s.unit.id === first && s.activity.kind === 'consonant-find'
+      )
+    ).toBe(true);
+  });
   it('adds practice to new chapters without inventing new completion for an old finished chapter', () => {
     const oldKeys = journeySteps('english')
       .filter((s) => s.unit.id === 'en-b1-u01' && s.activity.kind !== 'word-learning')

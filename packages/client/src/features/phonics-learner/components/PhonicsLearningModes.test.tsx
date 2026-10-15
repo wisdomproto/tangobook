@@ -61,7 +61,11 @@ it.each(['korean', 'english'] as const)('keeps the mode fork inside %s', (lang) 
     `/library/phonics/${lang}?mode=free`
   );
   expect(
-    Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+    Object.keys(localStorage).every(
+      (key) =>
+        key.startsWith('phonics-word-learning-legacy:v1:') ||
+        key.startsWith('phonics-consonant-find-legacy:v1:')
+    )
   ).toBe(true);
   expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
 });
@@ -83,7 +87,11 @@ it.each(['korean', 'english'] as const)(
     expect(screen.queryByRole('button', { name: '학습 정보' })).toBeNull();
     expect(screen.getByRole('button', { name: /^2번째 단계.*앞 단계를/ })).toBeDisabled();
     expect(
-      Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+      Object.keys(localStorage).every(
+        (key) =>
+          key.startsWith('phonics-word-learning-legacy:v1:') ||
+          key.startsWith('phonics-consonant-find-legacy:v1:')
+      )
     ).toBe(true);
     expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
   }
@@ -151,7 +159,11 @@ it('previews the selected book on both sides without opening future activities',
     'step'
   );
   expect(
-    Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+    Object.keys(localStorage).every(
+      (key) =>
+        key.startsWith('phonics-word-learning-legacy:v1:') ||
+        key.startsWith('phonics-consonant-find-legacy:v1:')
+    )
   ).toBe(true);
   expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
 });
@@ -381,7 +393,11 @@ it('starts the first lesson from the entry prompt and dismisses with Escape with
   fireEvent(popup, new Event('cancel', { cancelable: true }));
   expect(screen.queryByRole('dialog')).toBeNull();
   expect(
-    Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+    Object.keys(localStorage).every(
+      (key) =>
+        key.startsWith('phonics-word-learning-legacy:v1:') ||
+        key.startsWith('phonics-consonant-find-legacy:v1:')
+    )
   ).toBe(true);
   expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
 });

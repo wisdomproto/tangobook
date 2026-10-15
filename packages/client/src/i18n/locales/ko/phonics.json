@@ -1,4 +1,16 @@
 {
+  "workspace": {
+    "activities": "활동 목록",
+    "close": "목록 접기",
+    "map": "학습 지도"
+  },
+  "consonantFind": {
+    "title": "자음 찾기",
+    "prompt": "같은 자음을 모두 찾아요",
+    "done": "모두 찾았어요!",
+    "piece": "{{letter}} 조각 {{number}}",
+    "count": "{{total}}개 중 {{found}}개 찾음"
+  },
   "wordJourney": {
     "restart": "다시 해보기",
     "chapterWords": "이번에 만날 낱말",

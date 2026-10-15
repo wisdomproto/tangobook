@@ -1,3 +1,4 @@
+import { useLearningWorkspace } from './learning-workspace-context';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
@@ -20,6 +21,7 @@ import {
 
 export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
   const { t } = useTranslation('phonics');
+  const workspace = useLearningWorkspace();
   const [search] = useSearchParams();
   const { activeProfile } = useAuth();
   const { unitCompletedActivities } = usePhonicsProgress(lang);
@@ -43,16 +45,18 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
   if (curriculum) {
     return (
       <MobileLandscapeGate>
-        <PhonicsJourneyMap
-          key={`${lang}:${activeProfile?.id ?? 'guest'}`}
-          lang={lang}
-          progress={progress}
-          started={started}
-          finishedUnitDone={!!finishedUnitDone}
-        />
+        {!workspace && (
+          <PhonicsJourneyMap
+            key={`map:${lang}:${activeProfile?.id ?? 'guest'}`}
+            lang={lang}
+            progress={progress}
+            started={started}
+            finishedUnitDone={!!finishedUnitDone}
+          />
+        )}
         {search.get('resume') === '1' && progress.current && (
           <CurriculumEntryDialog
-            key={`${lang}:${activeProfile?.id ?? 'guest'}`}
+            key={`entry:${lang}:${activeProfile?.id ?? 'guest'}`}
             lang={lang}
             step={progress.current}
             started={started}

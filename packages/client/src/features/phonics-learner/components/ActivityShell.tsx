@@ -5,6 +5,8 @@ import './phonics-activities.css';
 import './phonics-game-refinements.css';
 import { JourneyActivityContext } from './journey-activity-context';
 import { PhonicsGameSprite } from './PhonicsGameSprite';
+import { useLearningWorkspace } from './learning-workspace-context';
+import { WorkspaceMapButton, WorkspaceMenuIcon } from './WorkspaceButtons';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -69,6 +71,15 @@ export function ActivityShell({
   const { t } = useTranslation('phonics');
   const embedded = useContext(EmbeddedContext);
   const journey = useContext(JourneyActivityContext);
+  const workspace = useLearningWorkspace();
+  const right = workspace?.active ? (
+    <div className="flex items-center gap-3">
+      {headerRight}
+      <WorkspaceMapButton />
+    </div>
+  ) : (
+    headerRight
+  );
   const back = (
     /**
      * 🔴 `shrink-0` 필수 — 옆에 `headerRight` 가 서면 flex 가 **뒤로가기부터 줄인다**. 영어 4글자
@@ -78,11 +89,12 @@ export function ActivityShell({
      */
     <button
       type="button"
-      onClick={onBack}
-      aria-label={t('common.back')}
+      onClick={workspace?.active ? () => workspace.setNavigationOpen(true) : onBack}
+      aria-label={workspace?.active ? t('workspace.activities') : t('common.back')}
+      aria-expanded={workspace?.active ? workspace.navigationOpen : undefined}
       className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full border border-ink-100 bg-white text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
     >
-      <PhonicsGameSprite name="back" size={26} />
+      {workspace?.active ? <WorkspaceMenuIcon /> : <PhonicsGameSprite name="back" size={26} />}
     </button>
   );
   return (
@@ -115,13 +127,13 @@ export function ActivityShell({
             {headerRight}
           </div>
         ) : null
-      ) : headerRight ? (
+      ) : right ? (
         <div className="flex items-center justify-between gap-3 mb-3">
           {back}
           {/* 🔴 넘치는 쪽은 **오른쪽**이다 — 글자 탭이 많은 단원(STUV·WXYZ)은 줄여도 안 들어가므로
               가로로 밀어 볼 수 있게 한다. `min-w-0` 없이는 flex 자식이 안 줄어 페이지가 옆으로 샌다. */}
           <div className="min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {headerRight}
+            {right}
           </div>
         </div>
       ) : (

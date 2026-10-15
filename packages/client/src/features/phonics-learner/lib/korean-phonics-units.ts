@@ -235,6 +235,7 @@ export type ActivityKind =
   | 'vowel-match'
   | 'vowel-write'
   | 'consonant-tap'
+  | 'consonant-find'
   | 'consonant-blend-listen'
   | 'coda-blend-listen'
   | 'consonant-write'
@@ -606,6 +607,16 @@ function makeConsonantPlan(consonant: string, unitId = ''): ActivityPlan {
         consonant,
         // 음절 만들기와 같은 짝을 쓴다 — 쓰기도 `ㄱ`·`ㅏ` 를 써서 `가` 를 만든다.
         blendVowels: [...CONSONANT_BLEND_VOWELS],
+      },
+      {
+        key: 'consonant-find',
+        kind: 'consonant-find',
+        section: 'play',
+        title: '자음 찾기',
+        titleKey: 'consonantFind.title',
+        emoji: '🔎',
+        required: false,
+        consonant,
       },
       // 🔎 글자 사냥 — 목표는 자음이 아니라 **그 자음으로 만든 음절**(가갸거겨고교구규그기).
       //    자음 하나(ㄱ)만 목표로 두면 판이 ㄱ 과 다른 자음뿐이라, 방금 배운 음절을 안 쓴다.

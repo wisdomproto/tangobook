@@ -1,4 +1,16 @@
 {
+  "workspace": {
+    "activities": "Activities",
+    "close": "Close activities",
+    "map": "Learning map"
+  },
+  "consonantFind": {
+    "title": "Find consonants",
+    "prompt": "Find all matching consonants",
+    "done": "You found them all!",
+    "piece": "{{letter}} piece {{number}}",
+    "count": "Found {{found}} of {{total}}"
+  },
   "wordJourney": {
     "restart": "Try again",
     "chapterWords": "Words in this chapter",

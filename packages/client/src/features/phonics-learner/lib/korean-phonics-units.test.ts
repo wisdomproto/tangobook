@@ -75,6 +75,7 @@ describe('korean phonics activity plans', () => {
     for (const u of lessons.filter((unit) => unit.levelKey !== 'hangul-vowels')) {
       const acts = getActivityPlan(u.id).activities;
       expect(acts.filter((a) => a.section === 'play').map((a) => a.key)).toEqual([
+        ...(['hangul1', 'hangul3'].includes(u.levelKey) ? ['consonant-find'] : []),
         ...(u.levelKey === 'hangul2' ? [] : ['letter-hunt']),
         ...PLAY_ORDER.filter(
           (key) => !['game-korean-block', 'game-word-writing', 'game-dots'].includes(key)

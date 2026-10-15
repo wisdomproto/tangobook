@@ -1,4 +1,16 @@
 {
+  "workspace": {
+    "activities": "Hoạt động",
+    "close": "Đóng danh sách",
+    "map": "Bản đồ học"
+  },
+  "consonantFind": {
+    "title": "Tìm phụ âm",
+    "prompt": "Tìm tất cả phụ âm giống nhau",
+    "done": "Đã tìm hết!",
+    "piece": "Mảnh {{letter}} số {{number}}",
+    "count": "Đã tìm {{found}} trên {{total}}"
+  },
   "wordJourney": {
     "restart": "Thử lại",
     "chapterWords": "Từ trong bài này",

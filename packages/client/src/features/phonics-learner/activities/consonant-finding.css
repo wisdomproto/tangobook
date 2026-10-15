@@ -1,0 +1,250 @@
+.consonant-find {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.65fr) minmax(0, 1.8fr);
+  gap: clamp(20px, 4vw, 64px);
+  align-items: center;
+  width: min(1120px, 94%);
+  margin: auto;
+}
+.consonant-find-goal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.consonant-find-goal h1 {
+  font-size: clamp(19px, 2.5vw, 30px);
+  font-weight: 800;
+  color: #574938;
+  text-align: center;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+.consonant-find-target {
+  position: relative;
+  width: min(21vh, 17vw, 180px);
+  height: min(21vh, 17vw, 180px);
+  border-radius: 40%;
+  background: #fff1cd;
+  box-shadow:
+    inset 0 0 0 2px #ecdbad,
+    0 7px 0 #e7cda1;
+  padding: 12px;
+}
+.consonant-find-target .toy-hangul {
+  width: 100%;
+  height: 100%;
+}
+.consonant-find-target > svg {
+  position: absolute;
+  bottom: 1px;
+  right: 0;
+  background: #fffdf6;
+  color: #bd563c;
+  border-radius: 50%;
+  padding: 4px;
+  width: 35px;
+  height: 35px;
+}
+.consonant-find-count {
+  background: #fffdf4;
+  color: #806846;
+  font-weight: 800;
+  padding: 7px 16px;
+  border-radius: 20px;
+}
+.consonant-find-pocket {
+  display: flex;
+  gap: 9px;
+}
+.consonant-find-pocket > span {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  border: 2px solid #c4dac3;
+  background: #f7fff2;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.consonant-find-pocket > span[data-collected='true'] {
+  background: #72b48b;
+  border-color: #72b48b;
+  animation: consonant-pocket 0.4s ease-out;
+}
+.consonant-find-pocket i {
+  width: 7px;
+  height: 7px;
+  background: #dce9cd;
+  border-radius: 50%;
+}
+.consonant-find-garden {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2vh, 22px);
+  width: 100%;
+}
+.consonant-find-place {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: min(20vh, 150px);
+}
+.consonant-find-piece {
+  position: relative;
+  width: min(100%, 20vh, 145px);
+  height: 100%;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 44% 48% 40% 46%;
+  background: linear-gradient(145deg, #fffef5, #e2f3d9);
+  border: 2px solid #d4e6c6;
+  box-shadow:
+    0 7px 0 #bdcfa2,
+    inset 0 3px 0 #ffffff;
+  padding: 14px;
+  transform: rotate(var(--tilt));
+  animation: consonant-grow 0.45s var(--delay) both;
+  touch-action: manipulation;
+}
+.consonant-find-place:nth-child(2n) .consonant-find-piece {
+  background: #fff1df;
+}
+.consonant-find-piece .toy-hangul {
+  width: 100%;
+  height: 100%;
+}
+.consonant-find-piece:enabled:hover {
+  translate: 0 -3px;
+}
+.consonant-find-piece:enabled:active {
+  translate: 0 5px;
+  box-shadow: 0 2px 0 #bdcfa2;
+}
+.consonant-find-piece:focus-visible,
+.consonant-find-target:focus-visible {
+  outline: 4px solid #ce6946;
+  outline-offset: 5px;
+}
+.consonant-find-piece[data-found] {
+  animation: consonant-collect 0.65s ease-in both;
+  pointer-events: none;
+}
+.consonant-find-piece[data-retry] {
+  animation: consonant-wiggle 0.45s ease;
+}
+.consonant-find-shine {
+  position: absolute;
+  width: 20px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffffb8;
+  top: 10px;
+  left: 22px;
+  rotate: -24deg;
+  pointer-events: none;
+}
+.consonant-find-sprout {
+  position: absolute;
+  color: #71a574;
+  animation: consonant-pocket 0.5s 0.3s both;
+}
+.consonant-find[data-intro] .consonant-find-garden {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 440px;
+  justify-self: center;
+}
+@keyframes consonant-grow {
+  from {
+    opacity: 0;
+    scale: 0.5;
+    translate: 0 15px;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    translate: 0;
+  }
+}
+@keyframes consonant-collect {
+  20% {
+    scale: 1.12 0.9;
+  }
+  55% {
+    scale: 0.95 1.15;
+    translate: 0 -20px;
+    opacity: 1;
+  }
+  to {
+    scale: 0.25;
+    translate: -18px -65px;
+    opacity: 0;
+  }
+}
+@keyframes consonant-wiggle {
+  25% {
+    rotate: -7deg;
+  }
+  65% {
+    rotate: 7deg;
+  }
+}
+@keyframes consonant-pocket {
+  from {
+    scale: 0.4;
+    opacity: 0;
+  }
+  60% {
+    scale: 1.2;
+    opacity: 1;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+@media (max-height: 600px) {
+  .consonant-find {
+    grid-template-columns: minmax(95px, 0.65fr) minmax(0, 2fr);
+    gap: 16px;
+    width: 94%;
+  }
+  .consonant-find-goal {
+    gap: 10px;
+  }
+  .consonant-find-goal h1 {
+    font-size: 17px;
+  }
+  .consonant-find-target {
+    width: 23vh;
+    height: 23vh;
+    padding: 6px;
+  }
+  .consonant-find-garden {
+    gap: 9px 12px;
+  }
+  .consonant-find-place {
+    height: min(18vh, 90px);
+  }
+  .consonant-find-piece {
+    width: min(100%, 21vh);
+    padding: 6px;
+    border-radius: 20px;
+    box-shadow: 0 4px 0 #bdcfa2;
+  }
+  .consonant-find-pocket {
+    gap: 5px;
+  }
+  .consonant-find-pocket > span {
+    width: 21px;
+    height: 21px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .consonant-find * {
+    animation-duration: 0.01ms !important;
+    transition: none !important;
+  }
+}

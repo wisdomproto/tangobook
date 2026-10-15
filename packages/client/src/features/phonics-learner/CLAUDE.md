@@ -1,5 +1,9 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-15 최신 학습 공간: PhonicsWorkspaceLayout의 pathless route parent가 한영 지도/활동을 공유한다. language/profile/mode key만 바꾸며 같은 PhonicsJourneyMap에 Outlet을 얹는다. 자식 Modes/FreeMap은 context 안에서 중복 지도를 렌더하지 않는다. 지도 목록은 기본 펼침/활동은 location key별 접힘, native dialog로 열며 fixed player/canvas 좌표나 mount를 바꾸지 않는다. 공용 ActivityShell/GameHeader/Coloring toolbar는 왼쪽 목록·오른쪽 지도, 기존 내부 도구 유지. 챕터 끝은 실제 finished 검증 후 같은 지도에서 인접 unlock. query만으로 미래 선택/진행을 허용하지 않는다. [작업·검증](../../../../../docs/work/phonics/tasks/20261015-persistent-learning-workspace.md).
+
+자음 찾기(consonant-find)는 기본/쌍자음 단원 play에 추가한다. 목표4+배운 방해꾼8, **ㅇ은 모음 단계에서 배운 것으로 포함**하고 이후 현재 단원까지의 자음만 사용한다. 중복 클릭 방지/오답 무진도/마지막 착지→실제 소리·칭찬 끝에 완료/이탈 취소. 새 guided 단계로 포함하되 기존 완료 챕터는 별도 legacy snapshot으로 재잠금/가짜 완료를 방지한다. 모음·받침·복합모음에는 추가하지 않는다. [게임 기록](../../../../../docs/work/phonics/tasks/20261015-consonant-finding-game.md).
+
 2026-10-15 최신 정정: 낱말 배우기는 챕터 타깃 목록을 먼저 보여주고 현재 낱말을 강조한 한 버튼으로 시작한다. 한글은 위 전체 낱말/아래 별도 합성/반짝임 음성 안내를 제거하고 ㅇㅏ | ㄱㅣ 한 줄에서 첫 조합 자동 시연→실제 음절 소리 종료→다음 짝 직접 누르기→한 자리의 전체 낱말 발음으로 이어진다. 헤더는 블록과 같은 GameHeader/뒤로가기·다시 해보기·홈/공유 단계 표시이며, 다시 해보기는 현재 낱말만 처음부터 반복한다. 숨긴 자모의 min-content 폭을 minmax(0,1fr)로 제한하고 다음 버튼 양옆 폭을 맞춰 최종 중앙축을 보장한다. 영어 rime-first/기존 타깃·실제 음원/의미 맞는 장면·연습 기록은 보존한다. [최신 결정과 검수](../../../../../docs/work/phonics/tasks/20261015-word-meeting-focus-design.md).
 
 2026-10-15 낱말 배우기: 같은 타깃으로 만나기→블록→쓰기→색칠, 단계별/자녀별 이어하기와 연습/독립 근거를 분리한다. 한글 learner source는 withKoreanLearningScope와 shared 누적 초성/모음/받침 범위를 적용하며 미래 자모 prefill/블록 생략 금지. 영어는 기존 원교재 타깃 유지, english-word-policy의 다음절/철자 예외는 전체 자연 발음이며 임의 조각 녹음을 만들지 않는다. Book1은 첫 글자 쓰기/블록 없음. [결정/검증](../../../../../docs/work/phonics/tasks/20261015-connected-word-learning.md).

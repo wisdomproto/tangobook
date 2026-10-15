@@ -1,4 +1,16 @@
 {
+  "workspace": {
+    "activities": "活动列表",
+    "close": "收起列表",
+    "map": "学习地图"
+  },
+  "consonantFind": {
+    "title": "找辅音",
+    "prompt": "找出所有相同的辅音",
+    "done": "全部找到了！",
+    "piece": "{{letter}}，第{{number}}块",
+    "count": "找到{{found}}个，共{{total}}个"
+  },
   "wordJourney": {
     "restart": "再试一次",
     "chapterWords": "这一课的词语",

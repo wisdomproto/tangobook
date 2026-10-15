@@ -1,5 +1,6 @@
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
 import { ConnectedWordLearningActivity } from '../activities/ConnectedWordLearningActivity';
+import { ConsonantFindingActivity } from '../activities/ConsonantFindingActivity';
 import { journeyProgress } from '../lib/learning-journey';
 import { journeyKoreanActivityRoute } from '../lib/learning-journey';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
@@ -611,6 +612,16 @@ export function KoreanPhonicsActivity({
     );
   }
   // 🔎 글자 사냥 — 글자만 쓰는 활동이라 단어 그림을 기다리지 않는다(자산 없는 단원에서도 돈다).
+  if (activity.kind === 'consonant-find' && activity.consonant) {
+    return (
+      <ConsonantFindingActivity
+        unitId={unitId}
+        consonant={activity.consonant}
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
   if (activity.kind === 'letter-hunt' && huntCards.length) {
     return (
       <LetterHuntActivity
