@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [알파벳 쓰기 검수 페이지](../work/phonics/tasks/20261015-alphabet-writing-check.md): 로컬5187/alphabet-writing-check.html,52자 즉시 선택/실제 입력/크기/순수 판정 모의 재생·일괄 검사. 진도 미사용·DEV 전용·새 push 없음. i 실제 완료/j·n 모의 정상, 새 촘촘한 흔들림에서 d/q 미통과 반증은 후속으로 표시했다. [운영 확인](../work/phonics/tasks/20261015-lowercase-writing-review.md#운영-배포-확인-후속--2026-10-15)은 cbef06ba7 Railway95040217 successful/Active·j 점 먼저 누르기0/2 유지·health 정상이며 실제 곡선 완주와 구분한다.
+
 2026-10-15 [영어 소문자 보완 전달](../work/phonics/tasks/20261015-lowercase-writing-review.md): 사용자 요청으로 i/j 점 버튼 확대·n 곡선 투영 정리 코드7863b1c66 원격 main push, SHA 일치·0/0 확인. 새 운영 배포 완료는 미확인. 아래 미푸시는 구현 당시 상태다.
 
 2026-10-15 [영어 소문자 검수 후속](../work/phonics/tasks/20261015-lowercase-writing-review.md): n 곡선의 폰트 투영 왕복 때문에 흔들린 입력이 막히던 문제 수정, i/j 몸통 뒤44px 점 버튼으로 작은 판의 누름 범위/행동 안내 보완.26자 경로 모의 검사·실제 i 입력·495회귀 확인. 운영 관찰과 로컬 수정 구분, 새 수정은 미푸시·미배포.

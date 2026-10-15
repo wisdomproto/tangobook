@@ -32,3 +32,9 @@
 - 파닉스57파일495회귀 통과. 타입·변경TS lint 통과, client production build1분3초 성공. 기존 큰 청크/i18n 혼합 import/lottie eval/Browserslist 경고는 유지된다. 기능 검증 뒤의 변경은 포맷/검수 기록뿐이다.
 
 증거는 output/lowercase-writing-review-20261015/all-font-paths.json, i-dot-target-192.png, i-dot-target-108.png와 검수판 원본. 학습 기록 없는 별도 검수판이며 운영 진도/완료를 주입하거나 초기화하지 않았다. 임시 dev-preview는 제품 소스에서 제거하고 산출물에 보존한다.
+
+## 운영 배포 확인 후속 — 2026-10-15
+
+사용자 요청으로 Railway의95040217-97c3-41fb-a73c-8f5d38ef0239 배포 Details에서 successful·Active와 GitHub commit cbef06ba7073184015e81e12eb80157f9db582a0을 직접 확인했다. 처음에는 이전 버전 Active/새2건 Building이었고 빌드 완료를 기다렸다. 새 운영 j 자유모드 쓰기 화면은 index-Dgn-e7S6.js를 사용한다. 점을 먼저 실제 클릭하면 완료0/2 유지·시작점 재안내가 나온다. 운영 j 화면 console error0, 배포 후 health ok(2026-10-15T13:37:51.36Z).
+
+운영 j 곡선 완주/점 버튼 완료와 i/n 전체 native 입력은 확인하지 못했다. 도구의 native drag가 직선 두 점이라 곡선 손 입력을 대신할 수 없고, 자유모드에서도 단원 내 글자는 순서대로 진행한다. 사용자 요청으로 별도 [알파벳 검수 페이지](20261015-alphabet-writing-check.md)를 만들어 i 실제 완료와 j/n 모의 판정을 확인했다. 이는 운영 실제 곡선 완주와 다른 증거다. 새 .25 촘촘한 흔들림에서 d/q 반증을 찾았으므로 이전26자 전수 모의 통과는 당시 시나리오 범위로 한정한다. 후속 검수 페이지는 로컬 전용이며 새 push 없음.

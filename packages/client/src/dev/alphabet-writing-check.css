@@ -1,0 +1,217 @@
+body:has(.alphabet-check) {
+  margin: 0;
+  background: #f1f5ef;
+  color: #30463d;
+}
+.alphabet-check {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px;
+  font-family: system-ui, sans-serif;
+}
+.alphabet-check button,
+.alphabet-check select,
+.alphabet-check a {
+  min-height: 44px;
+  border: 1px solid #cad6c9;
+  border-radius: 10px;
+  background: #fff;
+  color: #30463d;
+  padding: 8px 14px;
+  font-weight: 650;
+}
+.alphabet-check button {
+  cursor: pointer;
+}
+.alphabet-check button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.alphabet-check button:focus-visible,
+.alphabet-check select:focus-visible,
+.alphabet-check a:focus-visible {
+  outline: 3px solid #e58050;
+  outline-offset: 3px;
+}
+.audit-heading,
+.audit-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.audit-heading {
+  margin-bottom: 22px;
+}
+.audit-eyebrow {
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  font-weight: 750;
+  color: #537a62;
+}
+.audit-heading h1 {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 5px 0 6px;
+}
+.audit-heading p,
+.audit-note {
+  color: #64716a;
+  font-size: 14px;
+}
+.audit-alphabets {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.audit-alphabets > div {
+  display: grid;
+  grid-template-columns: repeat(26, minmax(0, 1fr));
+  gap: 5px;
+}
+.audit-alphabets button {
+  position: relative;
+  padding: 4px;
+  font-size: 19px;
+}
+.audit-alphabets button[aria-pressed='true'] {
+  background: #22694f;
+  color: white;
+  border-color: #22694f;
+  box-shadow: 0 0 0 3px #b8d4c3;
+}
+.audit-alphabets button[data-check='ok']::after,
+.audit-alphabets button[data-check='bad']::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 5px;
+  height: 5px;
+  background: #3aab70;
+  border-radius: 50%;
+}
+.audit-alphabets button[data-check='bad']::after {
+  background: #d45237;
+}
+.audit-workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.audit-panel {
+  padding: 20px;
+  border: 1px solid #d9e2d7;
+  border-radius: 20px;
+  background: #fffefa;
+  box-shadow: 0 5px 18px #274f3510;
+  min-width: 0;
+}
+.audit-panel h2 {
+  font-size: 18px;
+  font-weight: 750;
+}
+.audit-panel h2 b {
+  margin-left: 8px;
+  color: #22694f;
+  font-size: 28px;
+}
+.audit-tag {
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: #83552c;
+  background: #ffedd5;
+}
+.audit-options,
+.audit-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.audit-options {
+  margin-top: 12px;
+  font-size: 13px;
+}
+.audit-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.audit-success {
+  color: #147547;
+  font-weight: 750;
+}
+.audit-manual-stage {
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+}
+.audit-manual-stage .stroke-trace-canvas {
+  width: 100%;
+}
+.audit-simulation-stage {
+  display: flex;
+  justify-content: center;
+  min-height: 380px;
+}
+.audit-simulation-stage svg {
+  width: min(100%, 384px);
+  height: 384px;
+}
+.audit-sim-status {
+  min-height: 40px;
+  font-size: 14px;
+}
+.audit-report {
+  margin-top: 20px;
+}
+.audit-report > p {
+  margin: 14px 0;
+}
+.audit-table-wrap {
+  overflow-x: auto;
+}
+.audit-table-wrap table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.audit-table-wrap caption {
+  text-align: left;
+  padding: 12px 0;
+  font-weight: 700;
+}
+.audit-table-wrap th,
+.audit-table-wrap td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #e0e6dc;
+  white-space: nowrap;
+}
+.audit-table-wrap th {
+  background: #edf3eb;
+}
+@media (max-width: 1100px) {
+  .audit-alphabets > div {
+    grid-template-columns: repeat(13, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .alphabet-check {
+    padding: 16px;
+  }
+  .audit-workspace {
+    grid-template-columns: 1fr;
+  }
+  .audit-alphabets > div {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .audit-heading h1 {
+    font-size: 25px;
+  }
+}

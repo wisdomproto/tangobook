@@ -1,5 +1,9 @@
 # 파닉스·어휘 기억
 
+2026-10-15 [알파벳 전용 검수판](tasks/20261015-alphabet-writing-check.md): localhost5187/alphabet-writing-check.html에서52자 직접 선택·실제 쓰기/점 버튼·종이 크기·획별 모의 재생/전체 검사·JSON 제공. 학습 진도 미사용·DEV 전용. i 실제 몸통→44px 점→완료, j/n 모의 정상. 새 .25 촘촘한 흔들림에서 d/q 첫 곡선 끝 미통과를 확인 필요로 남김(제품 기준 변경 없음). 타입/lint/build 통과, 새 push 없음.
+
+2026-10-15 [소문자 운영 배포 확인](tasks/20261015-lowercase-writing-review.md#운영-배포-확인-후속--2026-10-15): Railway95040217의 cbef06ba7 successful/Active 직접 확인, 운영 j 화면 새 자산·점 선행 입력0/2 유지·console error0·health ok. 곡선 native 완주 미확인이며 로컬 검수판 실제 i/모의 j/n과 구분한다. 아래 배포 미확인은 이전 시점.
+
 2026-10-15 [소문자 보완 main 전달](tasks/20261015-lowercase-writing-review.md): 사용자 승인으로 i/j44px 점 버튼·n 투영 왕복 정리 코드를 포함한7863b1c66 원격 main push 완료. fetch 후0/3·일반 push·원격 SHA 일치·0/0 확인. 아래 미푸시는 당시 상태이며 새 운영 배포 완료는 미확인.
 
 2026-10-15 [소문자 곡선·점 검수](tasks/20261015-lowercase-writing-review.md): 실제 폰트26자50획에서 n의 투영 왕복 때문에 희소/12px 흔들림이 막히던 문제를 영어의 짧은 반환 경로 정리로 수정했다. i/j는 몸통 뒤44px 점 탭 버튼/짧은 라벨·맥동, 작은 판에도44px.26자 정확/흔들림/희소 입력·18곡선 지름길 거절,495회귀 및 실제 i 클릭 검수. 곡선 모의 검사/운영 관찰/로컬 변경은 구분하며 코드057586584 로컬 main 통합, 수정은 미푸시·미배포.
