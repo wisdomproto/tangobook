@@ -735,3 +735,128 @@
     display: none;
   }
 }
+
+/* A non-reader first hears the picture's word, then sees one focused assembly and one action. */
+.word-meet[data-intro='word'] .word-meet-jamo-stage {
+  visibility: hidden;
+  pointer-events: none;
+}
+.word-meet[data-intro='word'] .word-meet-syllable {
+  color: #463d32;
+}
+.word-meet[data-intro='word'] .word-meet-picture img {
+  animation: word-meet-picture-hello 1.6s ease-in-out both;
+}
+.word-meet[data-intro='guide'] .word-meet-jamo-stage {
+  animation: word-meet-tools-arrive 0.4s ease-out both;
+}
+.word-meet[data-cue] .word-meet-jamo-piece {
+  animation: word-meet-ready-nudge 2.5s ease-in-out infinite;
+}
+.word-meet[data-cue] .word-meet-jamo-piece:first-child {
+  --nudge: 6px;
+}
+.word-meet[data-cue] .word-meet-jamo-piece:last-child {
+  --nudge: -6px;
+}
+.word-meet[data-cue] .word-meet-button {
+  animation: word-meet-button-invite 2.5s ease-in-out infinite;
+}
+.word-meet-tap-cue {
+  display: none;
+  position: absolute;
+  right: -25px;
+  bottom: -8px;
+  color: #6f5038;
+  filter: drop-shadow(0 2px 0 #ffffff);
+  pointer-events: none;
+}
+.word-meet-tap-cue svg {
+  fill: #ffedc7;
+  stroke-width: 1.6;
+}
+.word-meet[data-cue] .word-meet-tap-cue {
+  display: block;
+  animation: word-meet-hand-tap 2.5s ease-in-out infinite;
+}
+.word-meet-assembly-bridge {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42%;
+  height: 12px;
+  border-top: 2px solid #edc8a6;
+  border-left: 2px solid #edc8a6;
+  border-right: 2px solid #edc8a6;
+  border-radius: 12px 12px 0 0;
+  opacity: 0.6;
+}
+.word-meet-jamo-stage:not([data-assembly]) .word-meet-assembly-bridge {
+  visibility: hidden;
+}
+@keyframes word-meet-picture-hello {
+  0%,
+  100% {
+    transform: none;
+  }
+  45% {
+    transform: scale(1.035);
+  }
+}
+@keyframes word-meet-tools-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes word-meet-ready-nudge {
+  0%,
+  20%,
+  65%,
+  100% {
+    transform: none;
+  }
+  40% {
+    transform: translateX(var(--nudge));
+  }
+}
+@keyframes word-meet-button-invite {
+  0%,
+  70%,
+  100% {
+    filter: none;
+  }
+  35% {
+    filter: brightness(1.08);
+  }
+}
+@keyframes word-meet-hand-tap {
+  0%,
+  65%,
+  100% {
+    transform: translate(5px, 5px) rotate(-14deg);
+  }
+  35% {
+    transform: translate(-3px, -3px) rotate(-8deg);
+  }
+}
+@media (max-height: 600px) {
+  .word-meet-tap-cue {
+    right: -21px;
+    bottom: -4px;
+  }
+  .word-meet-tap-cue svg {
+    width: 34px;
+    height: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .word-meet[data-cue] .word-meet-tap-cue {
+    transform: rotate(-10deg);
+  }
+}

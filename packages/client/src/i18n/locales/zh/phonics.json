@@ -19,7 +19,12 @@
     "pressWord": "点按按钮，听听整个单词",
     "listenWord": "听单词",
     "focusSound": "听一听“{{syllable}}”",
-    "wordReady": "单词完成了！"
+    "wordReady": "单词完成了！",
+    "meetPicture": "听听图画里的词语！",
+    "tapToMeet": "点击按钮，认识这个词！",
+    "makeFirst": "先来拼“{{syllable}}”吧！",
+    "makeNext": "现在来拼“{{syllable}}”吧！",
+    "makeTogether": "合起来"
   },
   "practice": {
     "prompt": "听声音拼出单词",

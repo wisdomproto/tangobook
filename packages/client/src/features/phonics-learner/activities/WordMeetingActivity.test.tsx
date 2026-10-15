@@ -13,6 +13,7 @@ const { audio, timers, lookup, stopAll, resolve, getWord } = vi.hoisted(() => ({
 }));
 vi.mock('../components/ActivityShell', () => ({
   ActivityShell: ({ children }: { children: ReactNode }) => children,
+  usePhonicsEmbedded: () => false,
 }));
 vi.mock('@/features/games/hooks/useGameAudio', () => ({
   useGameAudio: () => ({
@@ -40,6 +41,18 @@ beforeEach(() => {
   getWord.mockClear();
   timers.length = 0;
 });
+async function finishKoreanIntro() {
+  await waitFor(() =>
+    expect(audio).toHaveBeenCalledWith('/word.mp3', expect.any(Function), expect.any(Function))
+  );
+  for (let i = 0; i < 3; i++) {
+    const call = audio.mock.calls.at(-1)!;
+    act(() => call[1]());
+    if (String(call[0]).startsWith('/sounds/voice/')) break;
+  }
+  await waitFor(() => expect(screen.getByRole('button', { name: '합쳐보기' })).toBeEnabled());
+}
+
 it('never auto-blends; each press produces a rime/word and waits for another child press', async () => {
   const complete = vi.fn();
   render(
@@ -97,14 +110,14 @@ it('failed playback offers retry and cannot complete or advance the word', async
       onBack={vi.fn()}
     />
   );
-  await waitFor(() => expect(screen.getByRole('button', { name: '소리 합치기' })).toBeEnabled());
-  fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
+  await finishKoreanIntro();
+  fireEvent.click(screen.getByRole('button', { name: '합쳐보기' }));
   await waitFor(() => expect(timers.length).toBe(1));
   act(() => timers.shift()!());
   act(() => audio.mock.calls.at(-1)![2]());
   expect(screen.getByRole('alert')).toBeDefined();
   expect(complete).not.toHaveBeenCalled();
-  expect(screen.getByRole('button', { name: '소리 합치기' })).toBeEnabled();
+  expect(screen.getByRole('button', { name: '합쳐보기' })).toBeEnabled();
 });
 it('a failed English part sound does not skip ahead or complete', async () => {
   const complete = vi.fn();
@@ -175,11 +188,11 @@ it('keeps the full Korean word in place while moving focus after the actual syll
       onBack={vi.fn()}
     />
   );
-  await waitFor(() => expect(screen.getByRole('button', { name: '소리 합치기' })).toBeEnabled());
+  await finishKoreanIntro();
   const heading = screen.getByRole('heading', { name: '아기' });
   expect(screen.getByRole('group', { name: 'ㅇ + ㅏ → 아' })).toBeInTheDocument();
   expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
-  fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
+  fireEvent.click(screen.getByRole('button', { name: '합쳐보기' }));
   await waitFor(() => expect(timers).toHaveLength(1));
   act(() => timers.shift()!());
   expect(audio).toHaveBeenLastCalledWith('/아.mp3', expect.any(Function), expect.any(Function));
@@ -208,12 +221,90 @@ it('reads the highlighted coda syllable as a whole instead of pronouncing a diff
       onBack={vi.fn()}
     />
   );
-  await waitFor(() => expect(screen.getByRole('button', { name: '소리 합치기' })).toBeEnabled());
-  fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
+  await finishKoreanIntro();
+  fireEvent.click(screen.getByRole('button', { name: '합쳐보기' }));
   await waitFor(() => expect(timers).toHaveLength(1));
   act(() => timers.shift()!());
   expect(audio).toHaveBeenLastCalledWith('/강.mp3', expect.any(Function), expect.any(Function));
   expect(screen.getByRole('group', { name: '가 + ㅇ → 강' })).toBeInTheDocument();
   expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
   expect(screen.getByRole('heading', { name: '강아지' })).toBeInTheDocument();
+});
+
+it('introduces the whole word before showing jamo and never automatically blends', async () => {
+  const complete = vi.fn();
+  const { container } = render(
+    <WordMeetingActivity
+      unitId="kr-h1-u02"
+      lang="korean"
+      book={{ id: 'kr-h1-u02' } as Storybook}
+      word="아기"
+      onComplete={complete}
+      onBack={vi.fn()}
+    />
+  );
+  const word = screen.getByRole('heading', { name: '아기' });
+  expect(screen.queryByRole('group', { name: 'ㅇ + ㅏ → 아' })).not.toBeInTheDocument();
+  expect(container.querySelector('[aria-current="step"]')).toBeNull();
+  await finishKoreanIntro();
+  expect(screen.getByRole('heading', { name: '아기' })).toBe(word);
+  expect(screen.getByRole('group', { name: 'ㅇ + ㅏ → 아' })).toBeInTheDocument();
+  expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
+  expect(timers).toHaveLength(0);
+  expect(complete).not.toHaveBeenCalled();
+});
+
+it('retries a blocked introduction on the same button and lets a child interrupt the action guide', async () => {
+  const complete = vi.fn();
+  const { container } = render(
+    <WordMeetingActivity
+      unitId="kr-h1-u02"
+      lang="korean"
+      book={{ id: 'kr-h1-u02' } as Storybook}
+      word="아기"
+      onComplete={complete}
+      onBack={vi.fn()}
+    />
+  );
+  await waitFor(() =>
+    expect(audio).toHaveBeenCalledWith('/word.mp3', expect.any(Function), expect.any(Function))
+  );
+  act(() => audio.mock.calls.at(-1)![2]());
+  expect(screen.getByRole('button', { name: '낱말 듣기' })).toBeEnabled();
+  expect(screen.queryByRole('group', { name: 'ㅇ + ㅏ → 아' })).not.toBeInTheDocument();
+  expect(timers).toHaveLength(0);
+  fireEvent.click(screen.getByRole('button', { name: '낱말 듣기' }));
+  await waitFor(() => expect(audio).toHaveBeenCalledTimes(2));
+  act(() => audio.mock.calls.at(-1)![1]());
+  expect(screen.getByRole('group', { name: 'ㅇ + ㅏ → 아' })).toBeInTheDocument();
+  const oldFocusEnded = audio.mock.calls.at(-1)![1];
+  fireEvent.click(screen.getByRole('button', { name: '합쳐보기' }));
+  await waitFor(() => expect(timers).toHaveLength(1));
+  const count = audio.mock.calls.length;
+  act(() => oldFocusEnded());
+  expect(audio).toHaveBeenCalledTimes(count);
+  expect(container.querySelector('[aria-current="step"]')).toHaveAttribute('data-syllable', '0');
+  expect(complete).not.toHaveBeenCalled();
+});
+
+it('cancels a pending introduction when leaving instead of starting the guide on another screen', async () => {
+  const view = render(
+    <WordMeetingActivity
+      unitId="kr-h1-u02"
+      lang="korean"
+      book={{ id: 'kr-h1-u02' } as Storybook}
+      word="아기"
+      onComplete={vi.fn()}
+      onBack={vi.fn()}
+    />
+  );
+  await waitFor(() =>
+    expect(audio).toHaveBeenCalledWith('/word.mp3', expect.any(Function), expect.any(Function))
+  );
+  const oldEnded = audio.mock.calls.at(-1)![1];
+  const count = audio.mock.calls.length;
+  view.unmount();
+  act(() => oldEnded());
+  expect(audio).toHaveBeenCalledTimes(count);
+  expect(stopAll).toHaveBeenCalled();
 });

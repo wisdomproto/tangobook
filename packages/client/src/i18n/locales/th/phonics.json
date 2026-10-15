@@ -19,7 +19,12 @@
     "pressWord": "กดเพื่อฟังเสียงคำทั้งคำ",
     "listenWord": "ฟังคำศัพท์",
     "focusSound": "ฟังเสียง “{{syllable}}”",
-    "wordReady": "สร้างคำสำเร็จแล้ว!"
+    "wordReady": "สร้างคำสำเร็จแล้ว!",
+    "meetPicture": "ฟังคำในภาพกันนะ!",
+    "tapToMeet": "แตะปุ่มเพื่อรู้จักคำนี้กัน!",
+    "makeFirst": "มาสร้าง “{{syllable}}” ก่อนนะ!",
+    "makeNext": "ต่อไปมาสร้าง “{{syllable}}” กัน!",
+    "makeTogether": "รวมกัน"
   },
   "practice": {
     "prompt": "ฟังแล้วต่อคำด้วยบล็อก",

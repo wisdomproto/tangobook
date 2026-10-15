@@ -19,7 +19,12 @@
     "pressWord": "Nhấn để nghe cả từ",
     "listenWord": "Nghe từ",
     "focusSound": "Nghe “{{syllable}}”",
-    "wordReady": "Đã ghép xong từ!"
+    "wordReady": "Đã ghép xong từ!",
+    "meetPicture": "Nghe từ trong bức tranh nhé!",
+    "tapToMeet": "Chạm nút để làm quen với từ nhé!",
+    "makeFirst": "Cùng ghép “{{syllable}}” trước nhé!",
+    "makeNext": "Giờ cùng ghép “{{syllable}}” nhé!",
+    "makeTogether": "Ghép lại"
   },
   "practice": {
     "prompt": "Nghe và ghép từ",

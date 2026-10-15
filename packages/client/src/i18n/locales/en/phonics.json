@@ -19,7 +19,12 @@
     "pressWord": "Press to hear the whole word",
     "listenWord": "Hear the word",
     "focusSound": "Listen to “{{syllable}}”",
-    "wordReady": "You made the word!"
+    "wordReady": "You made the word!",
+    "meetPicture": "Listen to the word in the picture!",
+    "tapToMeet": "Tap the button to meet the word!",
+    "makeFirst": "Let’s make “{{syllable}}” first!",
+    "makeNext": "Now let’s make “{{syllable}}”!",
+    "makeTogether": "Join together"
   },
   "practice": {
     "prompt": "Listen and build the word",

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight, Volume2 } from 'lucide-react';
+import { ArrowRight, Pointer, Merge, Volume2 } from 'lucide-react';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
 import { ToyHangul } from '../components/ToyHangul';
+import { useWordMeetingIntro } from './useWordMeetingIntro';
 import { englishWordBlendSteps, koreanWordBlendSteps } from '../lib/word-blending';
 import { getUnitPatterns, wordMatchesPattern } from '../lib/english-phonics-units';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -104,7 +105,6 @@ export function WordMeetingActivity({
   const wholeExample = !!step.wholeAudioOnly;
   const korean = lang === 'korean';
   const letters = [...word];
-  const focusIndex = step.wholeWord ? undefined : step.focusIndex;
   const finalResult = phase === 'result' && index === steps.length - 1;
   const code = lang === 'korean' ? 'ko' : 'en';
   const resolveWhole = useCallback(
@@ -160,6 +160,25 @@ export function WordMeetingActivity({
     };
   }, [rawSteps, word, lang, resolveWhole, lookup, stopAll]);
 
+  const intro = useWordMeetingIntro({
+    enabled: korean,
+    ready: soundReady,
+    resolveWord: resolveWhole,
+    focusUrl: letters.length > 1 ? prepared.current.get(rawSteps[0].result) : undefined,
+    playAudio,
+    stopAll,
+  });
+  const focusIndex =
+    intro.stage === 'word' || (step.wholeWord && letters.length > 1) ? undefined : step.focusIndex;
+  const primaryLabel =
+    intro.stage === 'word' && korean
+      ? t('wordJourney.listenWord')
+      : finalResult
+        ? t('wordJourney.storyThenBuild')
+        : korean
+          ? t(step.focusIndex !== undefined ? 'wordJourney.makeTogether' : 'wordJourney.listenWord')
+          : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend');
+
   const finish = () => {
     const found = resolveSceneFromWord(word, code, book);
     // Never substitute a different-language page or an unrelated excerpt.
@@ -167,6 +186,11 @@ export function WordMeetingActivity({
     else onComplete();
   };
   const press = async () => {
+    if (intro.active && intro.stage === 'word') {
+      if (!intro.busy) void intro.start();
+      return;
+    }
+    if (intro.active) intro.dismissGuide();
     if (lock.current || !soundReady) return;
     lock.current = true;
     setBusy(true);
@@ -272,6 +296,11 @@ export function WordMeetingActivity({
         data-phase={phase}
         data-whole-example={wholeExample || undefined}
         data-whole-word={step.wholeWord || undefined}
+        data-intro={korean ? intro.stage : undefined}
+        data-cue={
+          (korean && !busy && (intro.blocked || intro.stage !== 'word') && !finalResult) ||
+          undefined
+        }
         style={{ '--word-length': word.length } as CSSProperties}
       >
         <div className="word-meet-picture">
@@ -312,16 +341,22 @@ export function WordMeetingActivity({
             <h1 className="word-meet-english-word font-display">{word}</h1>
           )}
           <p className="word-meet-instruction">
-            {finalResult && !busy
-              ? t('wordJourney.wordReady')
-              : korean && focusIndex !== undefined
-                ? t('wordJourney.focusSound', { syllable: letters[focusIndex] })
-                : t(wholeExample || korean ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
+            {korean && intro.stage === 'word'
+              ? t(intro.blocked ? 'wordJourney.tapToMeet' : 'wordJourney.meetPicture', { word })
+              : finalResult && !busy
+                ? t('wordJourney.wordReady')
+                : korean && focusIndex !== undefined
+                  ? t(index === 0 ? 'wordJourney.makeFirst' : 'wordJourney.makeNext', {
+                      syllable: letters[focusIndex],
+                      particle: (letters[focusIndex].charCodeAt(0) - 0xac00) % 28 ? '을' : '를',
+                    })
+                  : t(wholeExample || korean ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
           </p>
           {korean && (
             <div
               key={index}
               className="word-meet-jamo-stage"
+              aria-hidden={intro.stage === 'word' || undefined}
               data-assembly={step.focusIndex !== undefined || undefined}
               role="group"
               aria-label={
@@ -352,6 +387,7 @@ export function WordMeetingActivity({
                   <span className="word-meet-jamo-halo" aria-hidden="true" />
                 </>
               )}
+              <span className="word-meet-assembly-bridge" aria-hidden="true" />
             </div>
           )}
           {!korean && (
@@ -405,22 +441,25 @@ export function WordMeetingActivity({
           <button
             className="word-meet-button"
             type="button"
-            disabled={busy || !soundReady}
+            disabled={busy || (intro.busy && intro.stage === 'word') || !soundReady}
             onClick={() => void press()}
-            aria-label={
-              finalResult
-                ? t('wordJourney.storyThenBuild')
-                : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend')
-            }
+            aria-label={primaryLabel}
           >
             <span className="word-meet-button-icon" aria-hidden="true">
-              {finalResult ? <ArrowRight size={28} /> : <Volume2 size={28} />}
+              {finalResult ? (
+                <ArrowRight size={28} />
+              ) : korean && intro.stage !== 'word' && step.focusIndex !== undefined ? (
+                <Merge size={28} />
+              ) : (
+                <Volume2 size={28} />
+              )}
             </span>
-            <span>
-              {finalResult
-                ? t('wordJourney.storyThenBuild')
-                : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend')}
-            </span>
+            <span>{primaryLabel}</span>
+            {korean && (
+              <span className="word-meet-tap-cue" aria-hidden="true">
+                <Pointer size={43} />
+              </span>
+            )}
           </button>
           {failed && (
             <p role="alert" className="word-meet-error">

@@ -19,7 +19,12 @@
     "pressWord": "버튼을 눌러 낱말의 소리를 들어요",
     "listenWord": "낱말 듣기",
     "focusSound": "“{{syllable}}” 소리를 들어요",
-    "wordReady": "낱말을 완성했어요"
+    "wordReady": "낱말을 완성했어요",
+    "meetPicture": "그림 속 낱말을 들어봐!",
+    "tapToMeet": "버튼을 눌러 낱말을 만나봐!",
+    "makeFirst": "먼저 ‘{{syllable}}’{{particle}} 만들어 볼까?",
+    "makeNext": "이번에는 ‘{{syllable}}’{{particle}} 만들어 볼까?",
+    "makeTogether": "합쳐보기"
   },
   "practice": {
     "prompt": "소리를 듣고 블록을 맞춰요",
