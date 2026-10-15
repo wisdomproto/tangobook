@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 기억
 
+2026-10-15 [가갸거 송 승인v5 main통합/push](tasks/20261015-gagya-song.md#main-통합과-push--2026-10-15): 사용자요청으로3548547aa 관련57파일일반push·원격mainSHA일치. 승인MP4/Rive/Remotion/자산/검수/인계포함,최신main이재개기준. 아래미통합/미푸시는과거상태. 실제통합검증·원본SHA동일, 배포완료/외부게시와구분.
+
 2026-10-15 [가갸거 송 v5 최종 승인·인계](tasks/20261015-gagya-song.md#최종-승인과-다른-세션-인계--2026-10-15): 사용자 현재버전 승인 및다른세션재개기록 요청. 오른쪽→왼쪽 연속 기차/같은 레일 높이·차분한 중앙 글자·입술/하단글씨/ㄱ없음 확정. output/gagya-song-20261015/approved-v5.mp4와manifest·README에SHA/원본/편집위치/재현명령/주의점 보존. 실제worktree D:/tangobook-samples/gagya-song, branch codex/video-gagya-song·제작0a52bf20b. 로컬승인완료·main미통합/미푸시, 이전v1~v4는반증이력이다.
 
 2026-10-13 [승인된 잭 영상 작업 main 통합](tasks/20261005-jack-four-videos.md): 사용자 “메인에 푸시 하자”로 기존 로컬 영상 제작 기록을 최신 origin/main에 정상 merge한 ba28d3634 일반 push·원격 SHA 일치를 확인했다. 잭 수정본 네 편 승인 유지. 운영 영상 등록과 외부 발행은 수행하지 않는다. 다음 작품은 사용자 지정 개구리 왕자다.

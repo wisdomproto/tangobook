@@ -2,13 +2,13 @@
 
 - id: 20261015-video-gagya-song
 - domain: video
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: 7f5b68470
 - branch: codex/video-gagya-song
 - worktree: D:/tangobook-samples/gagya-song
-- integration: 미통합
-- delivery: 사용자 v5 승인·영상/원본/인계 기록 Git 보존·미푸시·미배포
+- integration: 최신 origin/main에 관련57파일 통합, 3548547aa 원격SHA 일치 확인
+- delivery: 승인 v5/원본/기록 원격 main push 완료·Railway 배포 완료 여부 미확인
 
 ## 요청과 결정
 
@@ -86,3 +86,11 @@ v5완료: D:/tangobook-video/gagya-song-20261015/revision-v5/gagya-song-1080x192
 사용자 “좋아. 이 버전으로 저장하고 다른 세션에서도 이어서 할 수 있게 작업 내용 기록해두자.”로 **v5를 승인**했다. 추가 연출 변경은 하지 않았다. [승인 MP4](../../../../output/gagya-song-20261015/approved-v5.mp4) 7,566,285bytes를 SHA256 `2febfb74f88feb8246290d65c9113701ca92a9f6c683493aad3f7df8d9905fe2`로 Git 보존한다. D:/tangobook-video/gagya-song-20261015/revision-v5 원본과 동일하다. [승인 manifest](../../../../output/gagya-song-20261015/approved-v5.json), [재개 안내](../../../../output/gagya-song-20261015/README.md#승인본과-다른-세션에서-재개)에 제작 코드 커밋0a52bf20b·실제 worktree/branch·편집 위치·재현 명령·검수 한계·다음 세션 시작 문장을 기록했다.
 
 다음 세션은 D:/tangobook-samples/gagya-song의 현재 codex/video-gagya-song 브랜치를 사용하고 승인본을 비교 기준으로 삼는다. 정지하는v4/큰비행v2/입술있는v1로되돌리지않는다. 사용자승인은연출의승인이며음성학적효과검증/운영앱연결/게시승인으로확대하지않는다. status ready는main미통합이라는뜻이며제작미완료가아니다. 이번요청은승인본보존과인계이며main통합/push·외부게시요청없음.
+
+## main 통합과 push — 2026-10-15
+
+사용자가 승인본 v5와 작업 기록을 main에 통합하고 push하도록 요청했다. 최신 origin/main 30deaec81에서 별도 codex/video-gagya-main-integration (D:/tangobook-samples/gagya-song-main)을 생성하고, 제작 기준7f5b68470→승인1fb111cab의 가갸거 관련57파일만 반영했다. 기존 로컬main과 제작바탕의 다른영상/앱작업 커밋은 포함하지않고 보존했다. 54파일 Git blob은 승인원본과동일, 공유기억3파일은이번추가항목만병합해기존main본문이온전히남았음을검사했다.
+
+통합커밋 `3548547aa44fe3219d84778fc6d1a7ce9f823402`을 일반 `git push origin HEAD:main`으로 전송했다. push직전 origin/main...HEAD=0 1, push후 git ls-remote의mainSHA가위통합SHA와일치했다. approved-v5.mp4 7,566,285bytes/SHA256 2febfb74f88feb8246290d65c9113701ca92a9f6c683493aad3f7df8d9905fe2·전체AVdecode·모든입력자산해시·frozen설치·Remotion전체타입검사·연속주행수학검사·commit훅검증을통과했다. 원본영상/제품Root/운영데이터/외부게시변경없음. Railway 배포완료는별도확인하지않았다.
+
+현재재개기준은위통합커밋을포함하는최신main이다. 원제작브랜치/폴더는과거원본으로보존하되그안의미통합메모는이절이대체한다. manifest의 source_code_commit 0a52bf20b는원제작이력이고 integrated_source_commit는원격main에서조회가능한동등코드다. 이번원격반영확인기록도후속문서커밋으로main에전송한다.

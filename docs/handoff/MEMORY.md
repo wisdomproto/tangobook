@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [가갸거 송 승인v5 main통합/push](../work/video/tasks/20261015-gagya-song.md#main-통합과-push--2026-10-15): 사용자명시요청으로관련57파일을최신origin/main에통합한3548547aa 일반push·원격SHA일치확인. 승인MP4/원본/전체기록포함,기존main기록보존·타입/자산SHA/영상decode/연속주행검증. 최신main에서재개·기존제작폴더보존. Railway배포완료미확인/외부게시없음.
+
 2026-10-15 [가갸거 송 v5 승인·재개 인계](../work/video/tasks/20261015-gagya-song.md#최종-승인과-다른-세션-인계--2026-10-15): 사용자 “이 버전으로 저장” 승인. approved-v5.mp4/manifest/원본/재현 README Git 보존. 차분한글자·입술/하단ㄱ없음·오른쪽→왼쪽연속기차/앞칸레일높이일치가확정안. D:/tangobook-samples/gagya-song/codex/video-gagya-song에서재개(제작0a52bf20b), main미통합/미푸시. 작업목록/영상MEMORY에서도연결.
 
 2026-10-15 [가갸거 송 v5](../work/video/tasks/20261015-gagya-song.md#v5-부드러운-기차앞칸-높이--2026-10-15): 사용자정지/출발어색함·앞칸높이반증. 20발음앵커를연속양의속도Hermite로통과·기관차64px하향/객차흔들림제거. 실제MP4전20통과이동/위치오차1px·바퀴높이차1px·AV검수. revision-v5/이전v1~v4보존, 로컬커밋·미푸시.

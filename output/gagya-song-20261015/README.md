@@ -1,5 +1,11 @@
 # 가갸거 송 — Rive + Remotion 시안
 
+## main 통합·원격 push 완료 — 2026-10-15
+
+승인 영상·코드·작업 기록57파일을 최신main에 통합한 `3548547aa`를 일반push하고 원격main SHA일치를 확인했다. 이제 **이 통합커밋을 포함하는 최신main을 재개 기준으로 사용한다.** 아래 원제작D:/tangobook-samples/gagya-song/codex/video-gagya-song 및 미푸시 설명은 당시 이력이며 이 절이 우선한다. 통합 작업 폴더는 D:/tangobook-samples/gagya-song-main이다.
+
+승인MP4와모든자산은이checkout에도같은상대경로로보존된다. main의 `output/gagya-song-20261015/approved-v5.mp4`·이README·`docs/work/video/tasks/20261015-gagya-song.md`부터읽고이어간다. [승인 manifest](approved-v5.json)의 integrated_source_commit가원격main에존재하는소스기준이다. 승인본내용/SHA/재현명령은동일하다.
+
 ## 승인본과 다른 세션에서 재개
 
 **2026-10-15 사용자가 v5를 승인했다.** 기준 영상은 [approved-v5.mp4](approved-v5.mp4)이며 Git에 보존한다. D드라이브의 revision-v5/gagya-song-1080x1920.mp4와 SHA256이 동일하다. 7,566,285bytes, SHA256 `2febfb74f88feb8246290d65c9113701ca92a9f6c683493aad3f7df8d9905fe2`. [승인 manifest](approved-v5.json)에 최종 파일과 제작 커밋을 연결했다.
