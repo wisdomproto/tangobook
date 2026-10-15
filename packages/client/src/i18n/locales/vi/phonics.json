@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "Bấm mỗi cái ba lần nhé!",
-    "cardLabel": "Thẻ {{letter}} số {{n}}"
+    "cardLabel": "Thẻ {{letter}} số {{n}}",
+    "chargeProgress": "Số lần chạm phụ âm"
   },
   "write": {
     "writeSyllable": "Viết {{syllable}}",
@@ -289,7 +290,8 @@
     "finished": "Hoàn thành chữ!",
     "tryFromStart": "Thử lại từ điểm bắt đầu",
     "strokeNumber": "Viết nét {{n}}",
-    "strokeProgress": "Nét đã hoàn thành"
+    "strokeProgress": "Nét đã hoàn thành",
+    "tapDot": "Chạm vào dấu chấm nhỏ"
   },
   "cvc": {
     "learn": "Học {{pattern}}",

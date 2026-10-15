@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "세 번씩 눌러봐!",
-    "cardLabel": "{{letter}} {{n}}번 카드"
+    "cardLabel": "{{letter}} {{n}}번 카드",
+    "chargeProgress": "누른 자음"
   },
   "write": {
     "writeSyllable": "{{syllable}} 쓰기",
@@ -289,7 +290,8 @@
     "finished": "글자를 완성했어요!",
     "tryFromStart": "시작점에서 다시 쓱 그어봐요",
     "strokeNumber": "{{n}}번째 획을 그어봐요",
-    "strokeProgress": "완성한 획"
+    "strokeProgress": "완성한 획",
+    "tapDot": "작은 점을 톡 찍어봐요"
   },
   "cvc": {
     "learn": "{{pattern}} 배우기",

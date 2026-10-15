@@ -10,6 +10,7 @@ export function LetterTapCharge({
   onTap,
   label,
   progressLabel,
+  tone = 'mint',
 }: {
   letter: string;
   count: number;
@@ -18,10 +19,11 @@ export function LetterTapCharge({
   onTap: () => void;
   label: string;
   progressLabel: string;
+  tone?: 'mint' | 'coral';
 }) {
   const fill = complete ? 5 : Math.min(5, count + (busy ? 1 : 0));
   return (
-    <div className="letter-tap-charge" data-complete={complete || undefined}>
+    <div className="letter-tap-charge" data-tone={tone} data-complete={complete || undefined}>
       <button
         type="button"
         className="letter-tap-toy"

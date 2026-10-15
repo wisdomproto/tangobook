@@ -1,6 +1,7 @@
 import { guidePoints, type StrokePoint, type VowelGuideStroke } from './vowel-stroke-guide';
 
 export interface TracePath {
+  dot?: boolean;
   points: StrokePoint[];
   distances: number[];
   length: number;
@@ -22,7 +23,7 @@ export function makeTracePath(stroke: VowelGuideStroke): TracePath {
     distances.push(
       distances[i - 1] + Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y)
     );
-  return { points, distances, length: distances[distances.length - 1] };
+  return { points, distances, length: distances[distances.length - 1], dot: stroke.dot };
 }
 
 export interface TraceAttempt {
@@ -36,7 +37,7 @@ const distance = (a: StrokePoint, b: StrokePoint) => Math.hypot(a.x - b.x, a.y -
 export const TRACE_TOLERANCE = 32; // 24px on a 300px paper, friendly to small fingers.
 
 export function beginTrace(path: TracePath, point: StrokePoint): TraceAttempt | null {
-  return distance(path.points[0], point) <= TRACE_TOLERANCE
+  return distance(path.points[0], point) <= (path.dot ? 20 : TRACE_TOLERANCE)
     ? { index: 0, travelled: 0, offPath: 0, last: point, start: point }
     : null;
 }
@@ -83,6 +84,13 @@ export function moveTrace(
 }
 
 export function tracePassed(path: TracePath, attempt: TraceAttempt): boolean {
+  if (path.dot)
+    return (
+      distance(attempt.start, path.points[0]) <= 20 &&
+      distance(attempt.last, path.points[0]) <= 20 &&
+      attempt.offPath <= 6 &&
+      attempt.travelled <= 36
+    );
   const first = path.points[0],
     last = path.points[path.points.length - 1];
   const chord = distance(first, last);

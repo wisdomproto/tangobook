@@ -528,10 +528,15 @@ function cachedBuild(ink: Ink, letter: string, region: Rect): VowelGuideStroke[]
 export function getLetterGuideStrokes(letter: string, mask: Mask): VowelGuideStroke[] {
   if (!isGuidedLetter(letter)) return [];
   if (isIntroVowel(letter)) return getVowelGuideStrokes(letter, mask);
-  return cachedBuild(analyse(mask), letter, {
+  const strokes = cachedBuild(analyse(mask), letter, {
     left: 0,
     top: 0,
     right: mask.width,
     bottom: mask.height,
   });
+  return /^[ij]$/.test(letter)
+    ? strokes.map((stroke, index) =>
+        index === strokes.length - 1 ? { ...stroke, dot: true } : stroke
+      )
+    : strokes;
 }

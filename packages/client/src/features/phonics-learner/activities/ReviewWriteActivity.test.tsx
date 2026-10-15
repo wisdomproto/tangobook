@@ -21,6 +21,19 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
   }),
 }));
 vi.mock('../hooks/usePhonicsTtsWarm', () => ({ usePhonicsTtsWarm: vi.fn() }));
+vi.mock('@/features/phonics/components/StrokeTraceCanvas', () => ({
+  StrokeTraceCanvas: ({
+    letter,
+    onResult,
+  }: {
+    letter: string;
+    onResult: (ok: boolean, coverage: number) => void;
+  }) => (
+    <button aria-label={`획순 ${letter}`} onClick={() => onResult(true, 1)}>
+      글자 획 완성
+    </button>
+  ),
+}));
 /** 캔버스는 실제로 칠할 수 없으니 콜백만 노출한다 — 이 활동이 무엇을 넘겼는지가 검사 대상이다. */
 vi.mock('@/features/phonics/components/WordFillCanvas', () => ({
   WordFillCanvas: ({
@@ -53,6 +66,24 @@ const SOURCES: ReviewCardSource[] = [
 ];
 
 describe('ReviewWriteActivity', () => {
+  it('영어 단일 알파벳 복습은 획순 쓰기이고 최종 낱말 음원은 한 번만 재생한다', async () => {
+    const done = vi.fn();
+    const before = playAudio.mock.calls.length;
+    render(
+      <ReviewWriteActivity
+        unitId="en-b1-test"
+        language="english"
+        revealImageOnComplete
+        sources={[{ ...SOURCES[0], word: 'i', soundUrl: 'ice.mp3' }]}
+        onComplete={done}
+        onBack={vi.fn()}
+      />
+    );
+    expect(screen.queryByText('낱말 완성')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '획순 i' }));
+    await waitFor(() => expect(done).toHaveBeenCalledTimes(1));
+    expect(playAudio.mock.calls.slice(before).filter(([url]) => url === 'ice.mp3')).toHaveLength(1);
+  });
   // 🔴 음소 한 글자(ㄱ)가 아니라 **낱말 전체**(고기)를 쓴다 — 그림은 고기인데 손은 ㄱ 하나만
   //    쓰던 시절엔 그림과 과제가 따로 놀았다. 캔버스가 글자 수만큼 칸을 만든다.
   it('낱말 전체를 글자 수만큼 쓴다', () => {

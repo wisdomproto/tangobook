@@ -5,7 +5,7 @@ import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { StrokeTraceCanvas } from '@/features/phonics/components/StrokeTraceCanvas';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
 import { findImageData } from '../lib/phonics-game-adapter';
@@ -144,11 +144,12 @@ export function AlphabetLetterWriteActivity({
       );
     }
     return (
-      <LetterFillCanvas
+      <StrokeTraceCanvas
         key={`${which}-${currentLetter}`}
         letter={letter}
         onResult={handleResult(which)}
-        autoCheck
+        guidance="hint"
+        compact
       />
     );
   };

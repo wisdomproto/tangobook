@@ -154,7 +154,7 @@ export function VowelWriteActivity({
   );
 
   const showGuidance =
-    language === 'korean' &&
+    (language === 'korean' || language === 'english') &&
     isGuidedLetter(vowels[currentIdx].writeLetter ?? vowels[currentIdx].syllable);
   const selection = (
     <div className={showGuidance ? 'vowel-write-selection flex items-center gap-4' : undefined}>

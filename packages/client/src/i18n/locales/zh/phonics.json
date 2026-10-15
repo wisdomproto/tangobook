@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "每个都点三下！",
-    "cardLabel": "{{letter}} 第 {{n}} 张卡"
+    "cardLabel": "{{letter}} 第 {{n}} 张卡",
+    "chargeProgress": "点击辅音次数"
   },
   "write": {
     "writeSyllable": "写 {{syllable}}",
@@ -289,7 +290,8 @@
     "finished": "完成啦！",
     "tryFromStart": "从起点再试一次",
     "strokeNumber": "描写第{{n}}笔",
-    "strokeProgress": "已完成笔画"
+    "strokeProgress": "已完成笔画",
+    "tapDot": "轻点小圆点"
   },
   "cvc": {
     "learn": "学习 {{pattern}}",

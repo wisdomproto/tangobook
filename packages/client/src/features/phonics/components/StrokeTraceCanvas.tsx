@@ -28,12 +28,16 @@ export function StrokeTraceCanvas({
   letter,
   guidance,
   onResult,
+  compact = false,
 }: {
   letter: string;
   guidance: WritingGuidance;
   onResult: (passed: boolean, coverage: number) => void;
+  compact?: boolean;
 }) {
   const { t } = useTranslation('phonics');
+  const english = /^[A-Za-z]$/.test(letter);
+  const face = english ? 'system-ui, sans-serif' : FACE;
   const canvas = useRef<HTMLCanvasElement>(null);
   const model = useRef<{ mask: ImageData; owners: Uint8Array; paths: TracePath[] }>();
   const attempt = useRef<TraceAttempt | null>(null);
@@ -80,10 +84,10 @@ export function StrokeTraceCanvas({
       if (!ctx) return;
       ctx.clearRect(0, 0, SIZE, SIZE);
       let size = 340;
-      ctx.font = `bold ${size}px ${FACE}`;
+      ctx.font = `bold ${size}px ${face}`;
       while (ctx.measureText(letter).width > SIZE * 0.95 && size > 32) {
         size -= 4;
-        ctx.font = `bold ${size}px ${FACE}`;
+        ctx.font = `bold ${size}px ${face}`;
       }
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -98,12 +102,12 @@ export function StrokeTraceCanvas({
       paint(0);
     };
     if (document.fonts?.load)
-      void document.fonts.load(`bold 340px ${FACE}`, letter).then(initialize, initialize);
+      void document.fonts.load(`bold 340px ${face}`, letter).then(initialize, initialize);
     else initialize();
     return () => {
       cancelled = true;
     };
-  }, [letter, guidance, paint]);
+  }, [letter, face, guidance, paint]);
   const point = (e: { clientX: number; clientY: number }): StrokePoint => {
     const box = canvas.current!.getBoundingClientRect();
     return {
@@ -163,7 +167,12 @@ export function StrokeTraceCanvas({
   };
   const passed = strokes.length > 0 && done === strokes.length;
   return (
-    <div className="letter-fill-canvas stroke-trace-canvas" data-writing-guidance={guidance}>
+    <div
+      className="letter-fill-canvas stroke-trace-canvas"
+      data-writing-guidance={guidance}
+      data-compact={compact || undefined}
+      data-language={english ? 'english' : 'korean'}
+    >
       <div className="letter-fill-paper stroke-trace-paper" data-complete={passed || undefined}>
         <canvas
           ref={canvas}
@@ -185,6 +194,7 @@ export function StrokeTraceCanvas({
             demonstrating={demonstrating}
             currentStroke={done}
             onDemoEnd={endDemo}
+            accent={english ? '#22694f' : undefined}
           />
         )}
         {trail && (
@@ -222,10 +232,13 @@ export function StrokeTraceCanvas({
                 ? t('write.watch')
                 : retry
                   ? t('write.tryFromStart')
-                  : t('write.strokeNumber', { n: done + 1 })}
+                  : strokes[done]?.dot
+                    ? t('write.tapDot')
+                    : t('write.strokeNumber', { n: done + 1 })}
         </span>
         <button
           type="button"
+          aria-label={english ? `${letter} ${t('write.showStrokes')}` : t('write.showStrokes')}
           disabled={!ready || passed}
           onClick={() => {
             setDemoVersion((v) => v + 1);
@@ -240,7 +253,7 @@ export function StrokeTraceCanvas({
       <div
         className="stroke-trace-steps"
         role="progressbar"
-        aria-label={t('write.strokeProgress')}
+        aria-label={`${letter} ${t('write.strokeProgress')}`}
         aria-valuemin={0}
         aria-valuemax={strokes.length || 1}
         aria-valuenow={done}

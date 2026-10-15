@@ -100,3 +100,80 @@
     opacity: 0;
   }
 }
+.stroke-trace-canvas[data-compact] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 4px;
+  margin-inline: auto;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-paper {
+  grid-column: 1 / -1;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-tools {
+  display: contents;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-tools > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-tools button {
+  grid-column: 2;
+  grid-row: 2;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  font-size: 0;
+}
+.stroke-trace-canvas[data-compact] .stroke-trace-steps {
+  grid-column: 1;
+  grid-row: 2;
+  padding-left: 8px;
+  min-height: 44px;
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .alphabet-write-grid .stroke-trace-canvas .letter-fill-paper {
+    width: min(36vh, 192px);
+  }
+  .alphabet-write-grid .stroke-trace-canvas {
+    max-width: min(36vh, 192px);
+  }
+  .alphabet-write-grid .stroke-trace-steps {
+    gap: 4px;
+    padding-left: 0;
+  }
+  .alphabet-write-grid .stroke-trace-steps span {
+    width: 21px;
+    height: 21px;
+    font-size: 11px;
+  }
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) {
+    gap: 6px;
+    justify-content: flex-start;
+    padding-block: 0;
+  }
+  .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) > h2 {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+  }
+  .phonics-activity .alphabet-write-body:has(.stroke-trace-canvas) > p {
+    display: none;
+  }
+  .phonics-activity .alphabet-write-grid:has(.stroke-trace-canvas) .phonics-paper-panel {
+    padding: 6px;
+  }
+  .phonics-activity .alphabet-write-grid .stroke-trace-canvas .letter-fill-paper {
+    width: min(34vh, 180px);
+  }
+  .phonics-activity .alphabet-write-grid .stroke-trace-canvas {
+    max-width: min(34vh, 180px);
+  }
+}

@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Storybook } from '@tangobook/shared';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { REST_MS } from '../hooks/useActivitySound';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { StrokeTraceCanvas } from '@/features/phonics/components/StrokeTraceCanvas';
 import { praiseLang } from '../hooks/useEntryGuide';
 
 interface Props {
@@ -30,12 +30,12 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
   const upper = activeLetter.toUpperCase();
   const lower = activeLetter.toLowerCase();
 
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const [passed, setPassed] = useState<{ upper: boolean; lower: boolean }>({
     upper: false,
     lower: false,
   });
-  const [closing, setClosing] = useState(false);
+  const closing = useRef(false);
 
   const pickRandomWordTts = useCallback((): string | undefined => {
     const urls = (wordFamily?.words ?? []).map((w) => w.ttsUrl).filter((u): u is string => !!u);
@@ -54,19 +54,19 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
       // 🔴 200ms 는 "소리가 이 정도면 끝났겠지"가 아니라 **쓰기가 끝난 뒤 숨 돌릴 자리**다.
       //    소리끼리 잇는 자리가 아니라(앞에 소리가 없다) 규칙상 문제는 없지만, 간격은 공용 값을 쓴다.
       const url = pickRandomWordTts();
-      if (url) setTimeout(() => playAudio(url), REST_MS);
+      if (url) scheduleTimer(() => playAudio(url), REST_MS);
     },
-    [pickRandomWordTts, playAudio]
+    [pickRandomWordTts, playAudio, scheduleTimer]
   );
 
-  // 자유 stroke 라 "miss" 개념 없음 — handleMiss 제거 (사용자가 자유롭게 그리고 점만 통과하면 인정)
+  // 잘못된 획은 현재 획에서 다시 시도한다. 실패 점수나 별도 오답 연출은 없다.
 
   // 두 캔버스 모두 통과 → 1.2s 후 칭찬 시퀀스 → 모달 닫기 (race-free useEffect 패턴)
   useEffect(() => {
-    if (closing) return;
+    if (closing.current) return;
     if (!passed.upper || !passed.lower) return;
-    setClosing(true);
     const timer = setTimeout(() => {
+      closing.current = true;
       playCorrectSequence({
         language: praiseLang(),
         systemSounds: storybook.systemSounds,
@@ -74,7 +74,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
       });
     }, 1200);
     return () => clearTimeout(timer);
-  }, [passed, closing, playCorrectSequence, storybook.systemSounds, onClose]);
+  }, [passed, playCorrectSequence, storybook.systemSounds, onClose]);
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-2 sm:p-4">
@@ -101,7 +101,7 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <div className="alphabet-write-grid grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {/* 대문자 */}
           <div className="bg-white rounded-[20px] p-3 sm:p-4 shadow-soft ring-4 ring-white border-2 border-coral-100">
             <div className="flex items-center justify-between mb-2 px-1">
@@ -114,11 +114,12 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
                 </span>
               )}
             </div>
-            <LetterFillCanvas
+            <StrokeTraceCanvas
               key={`upper-${letterIndex}`}
               letter={upper}
               onResult={handleComplete('upper')}
-              autoCheck
+              guidance="hint"
+              compact
             />
           </div>
           {/* 소문자 */}
@@ -133,17 +134,18 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
                 </span>
               )}
             </div>
-            <LetterFillCanvas
+            <StrokeTraceCanvas
               key={`lower-${letterIndex}`}
               letter={lower}
               onResult={handleComplete('lower')}
-              autoCheck
+              guidance="hint"
+              compact
             />
           </div>
         </div>
 
         <p className="text-sm sm:text-base font-bold text-ink-500 text-center mt-4">
-          {t('alphabetWrite.paintInside')}
+          {t('alphabetWrite.hint')}
         </p>
 
         <FeedbackOverlay kind="correct" visible={praiseVisible} />

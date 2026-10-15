@@ -4,10 +4,16 @@ import { StrokeTraceCanvas } from './StrokeTraceCanvas';
 vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), playUi: vi.fn() }));
 vi.mock('@/features/games/effects/learning-effects', () => ({ emitLearningEffect: vi.fn() }));
 vi.mock('./letter-stroke-guide', () => ({
-  getLetterGuideStrokes: () => [
-    { from: { x: 120, y: 60 }, to: { x: 120, y: 330 } },
-    { from: { x: 120, y: 190 }, to: { x: 230, y: 190 } },
-  ],
+  getLetterGuideStrokes: (letter: string) =>
+    letter === 'i'
+      ? [
+          { from: { x: 200, y: 100 }, to: { x: 200, y: 300 } },
+          { from: { x: 200, y: 50 }, to: { x: 201, y: 50 }, dot: true },
+        ]
+      : [
+          { from: { x: 120, y: 60 }, to: { x: 120, y: 330 } },
+          { from: { x: 120, y: 190 }, to: { x: 230, y: 190 } },
+        ],
 }));
 const fonts = Object.getOwnPropertyDescriptor(document, 'fonts');
 const mask = () => {
@@ -63,6 +69,20 @@ function gesture(canvas: HTMLElement, from: number[], to: number[], cancel = fal
   });
 }
 describe('실제 획 순서와 완료 배선', () => {
+  it('영어 i는 몸통을 먼저 쓴 뒤 점을 찍어야 완료하며 점찍기 취소는 인정하지 않는다', () => {
+    const result = vi.fn();
+    render(<StrokeTraceCanvas letter="i" guidance="hint" compact onResult={result} />);
+    const paper = screen.getByLabelText('i 따라쓰기');
+    gesture(paper, [200, 50], [200, 50]);
+    expect(result).not.toHaveBeenCalled();
+    gesture(paper, [200, 100], [205, 297]);
+    expect(screen.getByRole('status')).toHaveTextContent('작은 점');
+    gesture(paper, [203, 53], [203, 53], true);
+    expect(result).not.toHaveBeenCalled();
+    gesture(paper, [203, 53], [203, 53]);
+    expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+    expect(screen.getByRole('button', { name: 'i 쓰는 순서' })).toBeDisabled();
+  });
   it('시범/다시 보기·가로획 먼저·취소로 완료되지 않고, 두 획을 그어야 한번 완료한다', () => {
     const result = vi.fn();
     render(<StrokeTraceCanvas letter="ㅏ" guidance="demo" onResult={result} />);

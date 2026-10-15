@@ -173,3 +173,31 @@
     transition: none !important;
   }
 }
+.letter-tap-charge[data-tone='coral'] .letter-tap-toy {
+  border-color: #edb699;
+  background: linear-gradient(160deg, #fffdf4, #ffe5d1);
+  box-shadow:
+    0 10px 0 #d79d7b,
+    0 16px 24px #835b4316;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-halo {
+  border-color: #e6b594;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-liquid {
+  background: linear-gradient(90deg, #ffe29d, #f5a078);
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-pearl[data-done] {
+  background: #ad4d2c;
+  border-color: #ad4d2c;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-pearl[data-charging] {
+  background: #ffd39c;
+  border-color: #d39969;
+}
+.letter-tap-charge[data-tone='coral'] .letter-tap-toy:active {
+  box-shadow: 0 3px 0 #d79d7b;
+}
+.letter-tap-charge[data-tone='coral'][data-complete] .letter-tap-toy {
+  border-color: #c46d49;
+  background: #fff0d7;
+}

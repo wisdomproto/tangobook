@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "Tap each one three times!",
-    "cardLabel": "{{letter}} card {{n}}"
+    "cardLabel": "{{letter}} card {{n}}",
+    "chargeProgress": "Consonant taps"
   },
   "write": {
     "writeSyllable": "Write {{syllable}}",
@@ -289,7 +290,8 @@
     "finished": "Letter complete!",
     "tryFromStart": "Try again from the starting dot",
     "strokeNumber": "Trace stroke {{n}}",
-    "strokeProgress": "Completed strokes"
+    "strokeProgress": "Completed strokes",
+    "tapDot": "Tap the little dot"
   },
   "cvc": {
     "learn": "Learn {{pattern}}",

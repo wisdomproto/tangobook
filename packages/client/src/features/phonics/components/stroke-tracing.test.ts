@@ -10,6 +10,15 @@ function trace(stroke: VowelGuideStroke, points: StrokePoint[]) {
   return tracePassed(path, attempt);
 }
 describe('획 단위의 관대한 따라쓰기', () => {
+  it('i/j의 점은 톡 찍기만 허용하고 떨어진 위치·지나가는 선은 거절한다', () => {
+    const path = makeTracePath({ from: { x: 200, y: 60 }, to: { x: 201, y: 60 }, dot: true });
+    const tap = beginTrace(path, { x: 206, y: 65 })!;
+    expect(tracePassed(path, tap)).toBe(true);
+    expect(beginTrace(path, { x: 200, y: 130 })).toBeNull();
+    expect(tracePassed(path, moveTrace(path, tap, { x: 260, y: 60 }))).toBe(false);
+    const swipe = makeTracePath({ from: { x: 200, y: 60 }, to: { x: 200, y: 260 } });
+    expect(tracePassed(swipe, beginTrace(swipe, { x: 200, y: 60 })!)).toBe(false);
+  });
   it('느린 짧은 획은 체크포인트 반올림으로 실제 이동량을 잃지 않는다', () => {
     for (const length of [8, 12, 40, 60, 62, 79, 120]) {
       const stroke = { from: { x: 120, y: 180 }, to: { x: 120 + length, y: 180 } };

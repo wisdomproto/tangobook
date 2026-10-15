@@ -271,7 +271,8 @@
   },
   "consonantTap": {
     "hint": "แตะอันละสามครั้งนะ!",
-    "cardLabel": "การ์ด {{letter}} ใบที่ {{n}}"
+    "cardLabel": "การ์ด {{letter}} ใบที่ {{n}}",
+    "chargeProgress": "จำนวนการแตะพยัญชนะ"
   },
   "write": {
     "writeSyllable": "เขียน {{syllable}}",
@@ -289,7 +290,8 @@
     "finished": "เขียนเสร็จแล้ว!",
     "tryFromStart": "ลองอีกครั้งจากจุดเริ่มต้น",
     "strokeNumber": "ลากเส้นที่ {{n}}",
-    "strokeProgress": "เส้นที่เขียนเสร็จ"
+    "strokeProgress": "เส้นที่เขียนเสร็จ",
+    "tapDot": "แตะจุดเล็ก ๆ"
   },
   "cvc": {
     "learn": "เรียน {{pattern}}",
