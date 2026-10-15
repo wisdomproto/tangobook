@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-15 [알파벳 d/q 운영 배포 확인](../work/phonics/tasks/20261015-friendly-alphabet-tracing.md#운영-배포dq-후속-확인--2026-10-15): a033b07e6/c52d3877 successful·Active 확인. 운영 d UI/시연·잘못된 직선 거절·health 정상, 실제 배포 JS 순수 판정 함수로 d/q 곡선 각각75검사 기대 불일치0. native 곡선 전체 완료는 도구 제약으로 미확인(운영 d SVG/기록된 q fixture를 사용한 모의 검사와 구분). 기록만 로컬 보존·새 push 없음.
+
 2026-10-15 [영어 획 보완 main push](../work/phonics/tasks/20261015-friendly-alphabet-tracing.md#main-전달--2026-10-15): 사용자 승인으로 검수판·d/q 포함 전수 흔들림 보완을 원격 음악12커밋과 정상 통합, ba1b70dbd 일반 push·원격 SHA 일치·0/0 확인. 통합 타입/전체 build 성공·미추적 보존. 아래 미푸시는 과거 상태이며 새 운영 배포 완료는 미확인. 검수 페이지는 로컬 DEV 전용.
 
 2026-10-15 [알파벳 흔들림 보완](../work/phonics/tasks/20261015-friendly-alphabet-tracing.md): d/q 및 G/Z/g/h/t/z 끝맺음·짧은 획·꺾임을 영어 전용으로 보완, 한글/점/취소 유지. 실제 폰트52자 기본636·확장7,560 모의 결과 기대 불일치0·506회귀/타입/lint/build 통과. 아래 d/q 확인 필요는 이전 상태이며 새 수정은 로컬만 반영·미푸시/미배포.

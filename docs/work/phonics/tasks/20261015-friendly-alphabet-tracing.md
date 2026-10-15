@@ -7,7 +7,7 @@
 - base: 3977b8b4e
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 사용자 승인으로 ba1b70dbd까지 원격 main 일반 push·SHA 일치·0/0 확인, 운영 배포 완료 미확인
+- delivery: a033b07e6 운영 successful/Active 확인. 운영 d UI·배포 판정 코드의 d/q 곡선 모의 검사 확인, native 곡선 완주는 미확인.
 
 ## 요청과 원인
 
@@ -37,3 +37,18 @@ d/q는 손끝이 끝점에서32px 이내이고 경로 밖 이동0인데도, 가�
 사용자의 ‘좋아. 메인에 푸시하자’ 요청으로 fetch했다. 원격069a80aa3에 배경음악 관련12커밋이 추가돼12 behind/2 ahead였으며 공통 조상cbef06ba7을 확인했다. 원격 이력을 정상 merge하고 공유 MEMORY 한 곳의 양쪽 기록을 모두 보존했다. 파닉스 코드와 음악 코드는 겹치지 않았고, 원격 대비 최종 diff는 이번 검수판/영어 획 판정·관련 기록14개 파일뿐이다. 강제 push/이력 재작성/미추적 산출물 추가는 하지 않았다.
 
 통합 후 client 타입과 전체 pnpm build(최종 client25.39초)를 확인했고 훅 lint/format도 통과했다. 기존 파닉스506회귀/실제 폰트8,196검사는 구현 검증 결과로 유지하며, 배경음악 전체 수동 재검수나 운영 배포 완료로 확대하지 않는다. merge ba1b70dbd4bd93e91b5970e31656c412b5539a4e를0 behind/3 ahead에서 일반 push한 뒤 ls-remote SHA 일치·0/0을 확인했다. 아래와 이전 task의 미푸시 표현은 당시 상태이며 검수 HTML 자체는 DEV 전용이어서 운영 앱에 노출되지 않는다.
+
+## 운영 배포·d/q 후속 확인 — 2026-10-15
+
+사용자의 운영 확인 요청으로 Railway 배포 c52d3877-3d26-478a-b82a-abc73d9b79e1 Details에서 **a033b07e6be806986e543cdc360fbb6e918b3626의 Deployment successful/Active**를 직접 확인했다. 다른 후속 작업의 Building과 구분했다. 실제 운영 d 자유모드(`/library/phonics/english/en-b1-u02/letters-write`)의 엔트리는 `/assets/index-BqWiUxHc.js`. 쓰기 판·획순 시연이 표시되고, 첫 곡선의 시작→끝을 직선으로 가로지른 native 입력은0/2 유지·시작점 재안내로 거절한다. 해당 탭 console error0, health ok(2026-10-15T14:25:49.879Z).
+
+이번에는 로컬 소스만 재검사하지 않고 실제 운영 엔트리의 공개 import를 따라 `/assets/WordListenChooseActivity-CEBTN4WO.js`를 읽었다(SHA256 `63f889c49e3c4324a9baa46f85dfd51c64ad4253b6d57cfb0c51f28dcb36cd08`). 컴파일된 컴포넌트가 영어 정규식 결과를 softTurns/softEnd 양쪽에 전달함을 확인했다. AST로 실제 배포된 makePath/begin/move/passed와 의존 거리·guidePoints 함수만 추출하고, DOM/학습 상태/네트워크 쓰기가 없는 별도 Node VM에서 모의 입력했다. 전체 앱 번들을 실행하거나 브라우저에 이벤트/진도를 주입하지 않았다.
+
+- d 첫 곡선: 운영 DOM SVG가 저장된 실제 폰트 fixture와 일치함을 먼저 확인했다.
+- q 첫 곡선: 같은 Windows system-ui로 저장한 fixture를 사용했다. 운영 q 화면을 직접 완료한 증거가 아니다.
+- 각각8/12/16px × 간격1/3/5 × 변화율.15/.25 × 위상4 =72개 올바른 흔들림은 통과, 역방향/반쪽/지름길3개는 거절. **총150개 기대 불일치0**.
+- 원래 d/q12px 입력은 기본 끝맺음에서 남은16.386/18.941px로 미통과지만, 실제 배포된 영어 옵션에서는 동일 입력이 통과한다. 허용 폭 밖으로 나간 거리는0이다.
+
+native drag 도구는 직선 두 점만 지원한다. 운영에서 d/q 곡선을 손으로 끝까지 쓰고 두 번째 획까지 완료한 검증은 하지 못했으며, 위 운영 UI 관찰·배포 코드 모의 검증과 구분한다. 검수 페이지는 여전히 DEV 전용. 기록만 로컬 커밋하며 새 push/배포는 하지 않는다.
+
+증거와 재현: `output/production-dq-20261015/{production-guides.json,d-production.png,strokes.js,extracted-pure-functions.js,deployed-results.json,verify-deployed.mjs}`. 실제 내려온 공개 자산과 순수 검증 스크립트를 로컬에 보존했다. 재실행은 `node output/production-dq-20261015/verify-deployed.mjs`.
