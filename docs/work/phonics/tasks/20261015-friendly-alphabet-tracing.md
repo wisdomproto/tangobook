@@ -7,7 +7,7 @@
 - base: 3977b8b4e
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 구현·검증 완료·새 push/배포 없음
+- delivery: 사용자 승인으로 ba1b70dbd까지 원격 main 일반 push·SHA 일치·0/0 확인, 운영 배포 완료 미확인
 
 ## 요청과 원인
 
@@ -31,3 +31,9 @@ d/q는 손끝이 끝점에서32px 이내이고 경로 밖 이동0인데도, 가�
 - client 타입·변경 TS lint 통과, production build28.34초 성공. 기존 큰 청크/Browserslist 등 경고는 유지. 경로/판정은 시뮬레이션·컴포넌트 회귀 범위이며52자 아이 손가락/실기기 native 완주나 운영 배포로 확대하지 않는다.
 
 증거: output/alphabet-writing-check-20261015/dq-fix/before.json, soft-end.json, after.json, q-fixed.png. 실제 폰트 실패 경로는 components/__fixtures__/english-{curve-ends,turn-paths}.json. 로컬 검수 페이지는 localhost5187/alphabet-writing-check.html. 새 사용자 push 요청 전 운영에는 반영되지 않는다.
+
+## main 전달 — 2026-10-15
+
+사용자의 ‘좋아. 메인에 푸시하자’ 요청으로 fetch했다. 원격069a80aa3에 배경음악 관련12커밋이 추가돼12 behind/2 ahead였으며 공통 조상cbef06ba7을 확인했다. 원격 이력을 정상 merge하고 공유 MEMORY 한 곳의 양쪽 기록을 모두 보존했다. 파닉스 코드와 음악 코드는 겹치지 않았고, 원격 대비 최종 diff는 이번 검수판/영어 획 판정·관련 기록14개 파일뿐이다. 강제 push/이력 재작성/미추적 산출물 추가는 하지 않았다.
+
+통합 후 client 타입과 전체 pnpm build(최종 client25.39초)를 확인했고 훅 lint/format도 통과했다. 기존 파닉스506회귀/실제 폰트8,196검사는 구현 검증 결과로 유지하며, 배경음악 전체 수동 재검수나 운영 배포 완료로 확대하지 않는다. merge ba1b70dbd4bd93e91b5970e31656c412b5539a4e를0 behind/3 ahead에서 일반 push한 뒤 ls-remote SHA 일치·0/0을 확인했다. 아래와 이전 task의 미푸시 표현은 당시 상태이며 검수 HTML 자체는 DEV 전용이어서 운영 앱에 노출되지 않는다.
