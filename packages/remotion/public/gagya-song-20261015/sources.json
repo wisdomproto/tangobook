@@ -1,0 +1,59 @@
+{
+  "files": {
+    "CAFE24-LICENSE.md": {
+      "bytes": 1136,
+      "sha256": "50a0a5f208c7aa20005b9e40061a34eaf18348abc9900c0b68d942f17d65c067"
+    },
+    "Cafe24Ssurround.woff": {
+      "bytes": 407568,
+      "sha256": "a23ffb04c098fba24e3e96186a9d5e4c3b9ba9b34ab0b3b91bddd9d313c6d39b"
+    },
+    "engine.png": {
+      "bytes": 1511910,
+      "sha256": "a751b21adcd6716e8d67dfdaf0ef3ad86ec1cc75dd8b01bba66d1cb18a6d9391"
+    },
+    "FONT-LICENSE.txt": {
+      "bytes": 4815,
+      "sha256": "cc2582fa6dbd72ddfd229e709c0bae635f75a151ed1787adab9729a531b48a1f"
+    },
+    "gagya-song.riv": {
+      "bytes": 2518185,
+      "sha256": "52d5df4010c7225f11a7517e14750040455222f9bd38c11a0dac2705fe93b544"
+    },
+    "image-prompts.md": {
+      "bytes": 4208,
+      "sha256": "7cbb04f2bd9068defcddfb61efcbebb7b6d6ff700741dedf37b43e2890513b2b"
+    },
+    "lips.png": {
+      "bytes": 900581,
+      "sha256": "a180047c62161a31c44e10f4101cb0dd4eda060f430a33ec90c1ebbf0acf2c19"
+    },
+    "phoneme-timing.json": {
+      "bytes": 6288,
+      "sha256": "f768161ac1ca54fd6e1b344cf0d5139f8011061cb96007022f9d05df1b6ec418"
+    },
+    "Pretendard-Regular.otf": {
+      "bytes": 1574352,
+      "sha256": "3ffbacde6ab8411f1d2db54bb9b1f0b3ee2a738932033722cf0388c06aed1c93"
+    },
+    "song.mp3": {
+      "bytes": 536450,
+      "sha256": "20ecfb9469d462846c16579d2a8ef96f60fba84b00906d04d6b1523ac4ccfec2"
+    },
+    "stage.png": {
+      "bytes": 1665939,
+      "sha256": "e9da8a5441733f6936907fe89514f669e20efbcb35dd9c571b936116b802ff6c"
+    },
+    "timing.json": {
+      "bytes": 6395,
+      "sha256": "293a9eb48efaae325a949413ec44ef3e7a6b9f8e766cad656bb1bc6b725b0a22"
+    }
+  },
+  "image_generation": "Built-in imagegen; complete prompts in image-prompts.md",
+  "music": "User-provided Downloads/가갸거 송 (이거).mp3, unchanged copy",
+  "reference": "https://www.youtube.com/shorts/a7tuWZ-EwsM",
+  "reference_use": "Read-only browser visual inspection, no copied footage or audio",
+  "original_character": "Existing approved 2026-10-12 imagegen giyok body",
+  "revision": 2,
+  "timing_source": "phoneme-timing.json: known-text alignment, acoustic correction, shared frame boundaries and vocal envelope"
+}

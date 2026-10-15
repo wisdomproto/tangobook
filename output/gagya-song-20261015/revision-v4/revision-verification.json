@@ -1,0 +1,11 @@
+{
+  "all_40_lyric_boundaries_preserved": true,
+  "max_quantization_ms": 16.000000000000014,
+  "mouth_visible": false,
+  "artboards": 2,
+  "train_direction": "right to left",
+  "observed_engine_shift_px": -160,
+  "template_score": 0.9991267323493958,
+  "same_frame_max_pixel_difference": 0.0,
+  "limit": "Quantization error is relative to the corrected acoustic anchors; it is not a measured human phonetic alignment error."
+}

@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "summary": true,
+  "problems": [],
+  "artboards": [
+    {"name": "Singing mouth", "objects": 8006, "types": {"AnimationState": 1, "AnyState": 1, "Artboard": 1, "CubicEaseInterpolator": 3987, "Ellipse": 3, "EntryState": 1, "ExitState": 1, "Fill": 4, "Image": 1, "KeyFrameDouble": 3987, "KeyedObject": 1, "KeyedProperty": 3, "LayoutComponentStyle": 1, "LinearAnimation": 1, "Node": 1, "Rectangle": 1, "Shape": 4, "SolidColor": 4, "StateMachine": 1, "StateMachineLayer": 1, "StateTransition": 1}},
+    {"name": "Locomotive", "objects": 390, "types": {"AnimationState": 1, "AnyState": 1, "Artboard": 1, "CubicEaseInterpolator": 127, "Ellipse": 14, "EntryState": 1, "ExitState": 1, "Fill": 22, "Image": 1, "KeyFrameDouble": 127, "KeyedObject": 8, "KeyedProperty": 25, "LayoutComponentStyle": 1, "LinearAnimation": 1, "Node": 4, "Rectangle": 8, "Shape": 22, "SolidColor": 22, "StateMachine": 1, "StateMachineLayer": 1, "StateTransition": 1}}
+  ],
+  "roots": {"objects": 3, "types": {"Backboard": 1, "ImageAsset": 2}}
+}

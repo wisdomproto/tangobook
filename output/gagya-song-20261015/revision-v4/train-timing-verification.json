@@ -1,0 +1,228 @@
+{
+  "syllables_checked": 20,
+  "all_cars_hold_center_during_sung_vowel": true,
+  "largest_observed_horizontal_drift_px": 0,
+  "samples": [
+    {
+      "row": 2,
+      "index": 0,
+      "text": "가",
+      "sample_frames": [
+        141,
+        149
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9995920658111572
+    },
+    {
+      "row": 2,
+      "index": 1,
+      "text": "갸",
+      "sample_frames": [
+        158,
+        163
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9981201887130737
+    },
+    {
+      "row": 2,
+      "index": 2,
+      "text": "거",
+      "sample_frames": [
+        168,
+        170
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9975528120994568
+    },
+    {
+      "row": 2,
+      "index": 3,
+      "text": "겨",
+      "sample_frames": [
+        173,
+        177
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9964749813079834
+    },
+    {
+      "row": 2,
+      "index": 4,
+      "text": "고",
+      "sample_frames": [
+        181,
+        183
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9998671412467957
+    },
+    {
+      "row": 2,
+      "index": 5,
+      "text": "교",
+      "sample_frames": [
+        187,
+        192
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9984462857246399
+    },
+    {
+      "row": 2,
+      "index": 6,
+      "text": "구",
+      "sample_frames": [
+        198,
+        202
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9984219670295715
+    },
+    {
+      "row": 2,
+      "index": 7,
+      "text": "규",
+      "sample_frames": [
+        207,
+        209
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9973129630088806
+    },
+    {
+      "row": 2,
+      "index": 8,
+      "text": "그",
+      "sample_frames": [
+        213,
+        218
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9999420046806335
+    },
+    {
+      "row": 2,
+      "index": 9,
+      "text": "기",
+      "sample_frames": [
+        226,
+        234
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9986300468444824
+    },
+    {
+      "row": 4,
+      "index": 0,
+      "text": "가",
+      "sample_frames": [
+        360,
+        392
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9935579895973206
+    },
+    {
+      "row": 4,
+      "index": 1,
+      "text": "갸",
+      "sample_frames": [
+        422,
+        426
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9984190464019775
+    },
+    {
+      "row": 4,
+      "index": 2,
+      "text": "거",
+      "sample_frames": [
+        431,
+        433
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.996467649936676
+    },
+    {
+      "row": 4,
+      "index": 3,
+      "text": "겨",
+      "sample_frames": [
+        436,
+        440
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.998831033706665
+    },
+    {
+      "row": 4,
+      "index": 4,
+      "text": "고",
+      "sample_frames": [
+        444,
+        446
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9964150786399841
+    },
+    {
+      "row": 4,
+      "index": 5,
+      "text": "교",
+      "sample_frames": [
+        450,
+        455
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9970041513442993
+    },
+    {
+      "row": 4,
+      "index": 6,
+      "text": "구",
+      "sample_frames": [
+        461,
+        465
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9979608654975891
+    },
+    {
+      "row": 4,
+      "index": 7,
+      "text": "규",
+      "sample_frames": [
+        470,
+        472
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9973417520523071
+    },
+    {
+      "row": 4,
+      "index": 8,
+      "text": "그",
+      "sample_frames": [
+        475,
+        479
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9995988011360168
+    },
+    {
+      "row": 4,
+      "index": 9,
+      "text": "기",
+      "sample_frames": [
+        485,
+        492
+      ],
+      "actual_car_shift_px": 0,
+      "match_score": 0.9929713010787964
+    }
+  ],
+  "limit": "Checks car synchronization to existing lyric cues; does not re-estimate the vocal phonetic anchors."
+}

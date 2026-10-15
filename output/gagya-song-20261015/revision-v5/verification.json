@@ -1,0 +1,49 @@
+{
+  "video": "D:\\tangobook-video\\gagya-song-20261015\\revision-v5\\gagya-song-1080x1920.mp4",
+  "sha256": "2febfb74f88feb8246290d65c9113701ca92a9f6c683493aad3f7df8d9905fe2",
+  "width": 1080,
+  "height": 1920,
+  "frames": 664,
+  "fps": 30,
+  "video_duration": 22.133333,
+  "audio_duration": 22.12,
+  "full_decode": true,
+  "audio_source_correlation": 0.9992782994996234,
+  "audio_lag_ms": 0.0,
+  "audio_peak": 0.589569091796875,
+  "motion": {
+    "train": {
+      "mean_pixel_change": 16.519276748971194,
+      "times": [
+        5.14,
+        5.23
+      ]
+    }
+  },
+  "sample_frames": [
+    0.8,
+    1.83,
+    2.3,
+    2.78,
+    3.57,
+    4.55,
+    5.03,
+    5.7,
+    6.71,
+    7.54,
+    8.87,
+    9.58,
+    10.62,
+    11.8,
+    13.62,
+    14.1,
+    14.8,
+    15.86,
+    16.6,
+    17.4,
+    19.0,
+    21.7
+  ],
+  "lyric_text": "가갸거겨고교구규그기 ×4",
+  "limit": "Image and waveform QC do not replace human phoneme listening or final creative approval."
+}

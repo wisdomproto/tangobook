@@ -1,0 +1,174 @@
+{
+  "crossings": [
+    {
+      "row": 2,
+      "index": 0,
+      "frame": 141,
+      "actual_x": 540.0,
+      "predicted_x": 539.9999999999993,
+      "observed_travel_across_2_frames": 49.0
+    },
+    {
+      "row": 2,
+      "index": 1,
+      "frame": 160,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 49.0
+    },
+    {
+      "row": 2,
+      "index": 2,
+      "frame": 169,
+      "actual_x": 540.0,
+      "predicted_x": 539.9999999999989,
+      "observed_travel_across_2_frames": 90.0
+    },
+    {
+      "row": 2,
+      "index": 3,
+      "frame": 175,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 100.0
+    },
+    {
+      "row": 2,
+      "index": 4,
+      "frame": 182,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 101.0
+    },
+    {
+      "row": 2,
+      "index": 5,
+      "frame": 188,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 81.0
+    },
+    {
+      "row": 2,
+      "index": 6,
+      "frame": 199,
+      "actual_x": 540.0,
+      "predicted_x": 539.9999999999991,
+      "observed_travel_across_2_frames": 63.0
+    },
+    {
+      "row": 2,
+      "index": 7,
+      "frame": 208,
+      "actual_x": 540.0,
+      "predicted_x": 539.9999999999989,
+      "observed_travel_across_2_frames": 91.0
+    },
+    {
+      "row": 2,
+      "index": 8,
+      "frame": 214,
+      "actual_x": 540.0,
+      "predicted_x": 539.9999999999989,
+      "observed_travel_across_2_frames": 78.0
+    },
+    {
+      "row": 2,
+      "index": 9,
+      "frame": 226,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 53.0
+    },
+    {
+      "row": 4,
+      "index": 0,
+      "frame": 352,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 21.0
+    },
+    {
+      "row": 4,
+      "index": 1,
+      "frame": 423,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 25.0
+    },
+    {
+      "row": 4,
+      "index": 2,
+      "frame": 432,
+      "actual_x": 539.5,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 91.0
+    },
+    {
+      "row": 4,
+      "index": 3,
+      "frame": 438,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 100.0
+    },
+    {
+      "row": 4,
+      "index": 4,
+      "frame": 445,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 101.0
+    },
+    {
+      "row": 4,
+      "index": 5,
+      "frame": 451,
+      "actual_x": 539.5,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 76.5
+    },
+    {
+      "row": 4,
+      "index": 6,
+      "frame": 463,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 65.0
+    },
+    {
+      "row": 4,
+      "index": 7,
+      "frame": 471,
+      "actual_x": 539.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 94.0
+    },
+    {
+      "row": 4,
+      "index": 8,
+      "frame": 477,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 94.0
+    },
+    {
+      "row": 4,
+      "index": 9,
+      "frame": 485,
+      "actual_x": 540.0,
+      "predicted_x": 540,
+      "observed_travel_across_2_frames": 69.0
+    }
+  ],
+  "all_20_cars_moving_left_across_vocal_anchors": true,
+  "max_render_position_error_px": 1.0,
+  "tire_bottoms_px": [
+    1532,
+    1533,
+    1532
+  ],
+  "tire_baseline_difference_px": 1,
+  "same_frame_pixel_difference": 0,
+  "limit": "Crossings are aligned to the frozen vocal cues; this does not replace human phonetic listening."
+}
