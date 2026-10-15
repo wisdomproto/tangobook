@@ -98,7 +98,7 @@ const records=rows.map(([title,family,...rest])=>{
  if(textHashes.size!==1)throw Error('Different texts across styles: '+title);
  const stages=rest.slice(0,4).map((pages,i)=>{
   const anchor=Number(pages.match(/\d+/)[0]);const p=b.pages.find(p=>p.pageNumber===anchor);if(!p)throw Error(title+anchor);
-  return {role:roleNames[i],pages,anchorPage:anchor,evidence:p.text.trim().slice(0,100)};
+  return {role:roleNames[i],pages,anchorPage:anchor,evidence:p.text.replace(/\s+/g,' ').trim().slice(0,100).trimEnd()};
  });
  return {title,family,representativeId:b.id,variantIds:variants.map(b=>b.id).sort(),pageCount:b.pages.length,
   currentMusic:'M'+String(music.indexOf(b.backgroundMusicUrl)+1).padStart(2,'0'),
