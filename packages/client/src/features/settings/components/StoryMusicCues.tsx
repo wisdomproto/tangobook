@@ -96,10 +96,10 @@ export function StoryMusicCues({
     changeCues(cues.map((c, i) => (i === index ? { ...c, ...patch } : c)));
   return (
     <div className="space-y-3 rounded-xl border border-slate-200 p-4 dark:border-slate-700">
-      <h4 className="font-semibold text-slate-800 dark:text-slate-100">장면별 배경음악</h4>
+      <h4 className="font-semibold text-slate-800 dark:text-slate-100">배경음악 후보 관리</h4>
       <p className="text-sm text-slate-500">
-        3곡 세트를 책을 열 때 한 번 뽑습니다. 읽는 동안 세트는 유지하며, 전래동화와 명작 세트는
-        구분합니다.
+        현재는 명작·전래 구분에 맞는 후보 중 한 곡을 랜덤으로 골라 읽는 동안 반복합니다. 아래 구간
+        설정은 보관용이며, 페이지에 따른 음악 전환은 보류 중입니다.
       </p>
       <div className="flex flex-wrap gap-2">
         {sets.map((s) => (

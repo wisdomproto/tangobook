@@ -2,12 +2,12 @@
 
 - id: 20261015-video-classic-bgm-research
 - domain: video
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: b14e8dc12
 - branch: codex/video-classic-bgm-plan
 - worktree: C:/Users/101024/.codex/worktrees/classic-bgm-plan/tangobook
-- integration: main 미통합
+- integration: origin/main 기준 통합본 검증 완료, main push 진행
 - delivery: Suno 60역할/120후보·새22MP3 확보, 새7+기존5세트로184권 R2연결·듣기페이지 완성·운영프런트 미배포·미푸시
 
 ## 요청과 범위
@@ -124,3 +124,10 @@ plan-story-music-v2-connection-20261015.cjs로 v2-connection-plan.json 생성. �
 ViewerContainer는 책 진입시 해당책 장르와 일치하는 기존 backgroundMusicSets의 오디오URL을 중복제거해 한곡 랜덤선택·ref유지. 페이지이동/나레이션언어/설정변경에 재추첨하지 않고 책변경시 새로선택한다. 임베드는 기존대로BGM비활성. 세트가없는옛cue책은구간값무시하고곡풀사용,원곡URL책은그대로,음원없는책은기본5곡랜덤. 큐경계/세트3곡조건과관계없이선택하며서로다른장르세트는제외. 종료시기존HTMLAudio루프동작사용.
 
 검증: story-music/스토리BGM플레이어/ViewerContainer playlist 3파일51tests통과. 클라이언트typecheck 및변경파일eslint결과는실행완료출력확인. 로컬브랜치수정이며운영프런트배포미실시.
+
+
+## 2026-10-15 main 통합·운영 반영
+
+사용자 main통합/push/운영반영 명시승인. origin/main cbef06ba7을현재브랜치에merge(eeff1c97f),전략/공유메모리2충돌은양측내용보존후최신한곡랜덤결정반영. 로컬main c08743fec는원격과14/595로갈라진별도미푸시작업이므로수정하지않고원격main을기준으로통합본을fast-forward push한다. 다른사용자미추적파일2개보존. PLATFORM은한곡랜덤현재정책,STRATEGY에는3곡보류이유기록. 관리자설정의기존3곡재생설명도현재한곡랜덤/구간보관설명으로정정.
+
+검증: 통합후전체pnpm typecheck통과(shared/server/client),뷰어오디오4파일59tests통과,pnpm build(shared/server/client)성공. 관리자설명수정후해당eslint와client build재확인. 기존큰청크/i18n혼합import/lottie eval/Browserslist경고유지. 운영도메인은www.tangobook.co.kr, /health200확인. 기존R2책184개후보풀/파일URL수정없음.

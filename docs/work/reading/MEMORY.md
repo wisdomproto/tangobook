@@ -64,3 +64,5 @@ iOS에서는 실제 재생 요소를 제스처에서 해금하고 재사용한�
 2026-10-05 사용자 Supabase 연결 후 운영 word_mastery 5언어 제약 migration 적용 완료. 보류 vi/zh/th300건 포함 샘플2,852건·API20개 검사 통과,언어별80노출/20연습·재전송 집계불변·실제 부모 화면 cá/鱼/ปลา 분리 확인. 이전 관리자 로그인 대기 상태 해소. 상세는 [리포트 구현 기록](tasks/20261005-learning-report-implementation.md) 운영 다국어 완료 절.
 
 2026-10-15 동화BGM 사용자최신결정: 구간전환보류, 책을열때명작/전래별기존음원중한곡랜덤선택하고읽는동안유지·반복. ViewerContainer/story-music 수정, 기존cue/set저작데이터보존. [작업근거](../video/tasks/20261015-classic-bgm-research.md)의마지막절참조. 운영배포미실시.
+
+2026-10-15 사용자운영반영승인: 한곡랜덤BGM통합본을origin/main기준merge,타입전체/뷰어59회귀/전체빌드검증. 단계별cue는보관,운영은장르별한곡선택·반복. [통합진행/배포증거](../video/tasks/20261015-classic-bgm-research.md).
