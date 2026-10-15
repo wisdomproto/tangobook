@@ -121,3 +121,36 @@ it('Korean listening blocks hide answer images, judge only submitted attempts, a
   });
   expect(mocks.log).not.toHaveBeenCalled();
 });
+
+it('connected practice waits for the real correct sequence and returns to the owner without a skip/result button', async () => {
+  vi.clearAllMocks();
+  mocks.composed = [];
+  const complete = vi.fn();
+  render(
+    <KoreanBlockPlayer
+      storybookId="kr-h1-u02"
+      difficulty="easy"
+      initialInputMode="screen"
+      onBack={vi.fn()}
+      connectedPractice
+      onComplete={complete}
+      gameData={{
+        type: 'korean-block',
+        items: [
+          {
+            word: '가',
+            imageUrl: '',
+            syllables: [{ char: '가', cho: 'ㄱ', jung: 'ㅏ', jong: null }],
+          },
+        ],
+      }}
+    />
+  );
+  expect(screen.queryByRole('button', { name: '결과 보기' })).toBeNull();
+  mocks.composed = ['가'];
+  fireEvent.click(screen.getByRole('button', { name: '배치' }));
+  await waitFor(() => expect(mocks.correct).toHaveBeenCalled());
+  expect(complete).not.toHaveBeenCalled();
+  act(() => mocks.correct.mock.calls.at(-1)![0].onDone());
+  expect(complete).toHaveBeenCalledExactlyOnceWith(1, 1);
+});

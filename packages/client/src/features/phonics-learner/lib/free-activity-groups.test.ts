@@ -19,11 +19,13 @@ it('pairs English letters and leaves already integrated word-family activities i
   for (const unit of getAllEnglishUnits().filter((unit) => unit.levelIndex > 1)) {
     const plan = getEnglishActivityPlan(unit.id).activities;
     expect(freeActivityGroups(plan).map((entry) => entry.activity.key)).toEqual(
-      plan.map((activity) => activity.key)
+      plan
+        .filter((a) => !['game-dots', 'game-english-block', 'game-word-writing'].includes(a.key))
+        .map((activity) => activity.key)
     );
   }
 });
-it('retains every original activity key exactly once across both languages, including complex vowels and reviews', () => {
+it('groups phoneme writing and replaces duplicate word-practice entries while preserving their routes', () => {
   for (const lang of ['korean', 'english'] as const) {
     const units = lang === 'korean' ? getAllKoreanUnits() : getAllEnglishUnits();
     for (const unit of units) {
@@ -34,7 +36,27 @@ it('retains every original activity key exactly once across both languages, incl
         freeActivityGroups(activities)
           .flatMap((entry) => entry.keys)
           .sort()
-      ).toEqual(activities.map((activity) => activity.key).sort());
+      ).toEqual(
+        activities
+          .filter(
+            (a) =>
+              !activities.some((item) => item.kind === 'word-learning') ||
+              ![
+                'game-dots',
+                'game-korean-block',
+                'game-english-block',
+                'game-word-writing',
+              ].includes(a.key)
+          )
+          .map((activity) => activity.key)
+          .sort()
+      );
+      if (activities.some((a) => a.kind === 'word-learning')) {
+        expect(activities.some((a) => a.key === 'game-word-writing')).toBe(true);
+        expect(
+          freeActivityGroups(activities).filter((g) => g.activity.kind === 'word-learning')
+        ).toHaveLength(1);
+      }
     }
   }
 });

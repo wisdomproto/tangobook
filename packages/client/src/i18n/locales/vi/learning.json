@@ -51,6 +51,8 @@
     "open": "Mở sách"
   },
   "overview": {
+    "practiceCompleted": "Các bước luyện tập đã hoàn thành",
+    "independentSuccesses": "Đúng lần đầu không trợ giúp",
     "tab": "Tổng quan học tập",
     "language": "Ngôn ngữ học",
     "period": "Khoảng thời gian",

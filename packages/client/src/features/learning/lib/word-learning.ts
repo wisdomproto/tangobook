@@ -1,4 +1,4 @@
-import { KOREAN_PHONICS_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_LEARNING_CURRICULUM, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { Lang, LearningEvent, LearningEventMetadata } from '@tangobook/shared';
 
 type Skill = NonNullable<LearningEventMetadata['skill']> | 'legacy';
@@ -14,6 +14,8 @@ export interface WordLearning {
   events: LearningEvent[];
   skills: Partial<Record<Skill, { attempts: number; correct: number; wrong: number }>>;
   phonicsPractices: number;
+  practiceCompletions: number;
+  independentSuccesses: number;
 }
 
 export function normalizeWord(word: string, lang: Lang): string {
@@ -69,8 +71,20 @@ export function summarizeWords(events: LearningEvent[], lang: Lang): WordLearnin
       events: [],
       skills: {},
       phonicsPractices: 0,
+      practiceCompletions: 0,
+      independentSuccesses: 0,
     };
     if (exposure) word.exposures++;
+    if (event.metadata?.practiceCompleted === true) word.practiceCompletions++;
+    if (
+      event.event_type === 'word_correct' &&
+      event.metadata?.independent === true &&
+      event.metadata.learningMode === 'assessment' &&
+      event.metadata.firstAttempt === true &&
+      event.metadata.modelVisible === false &&
+      !event.metadata.hintUsed
+    )
+      word.independentSuccesses++;
     if (practice) {
       word.practices++;
       const skill = resultSkill(event);
@@ -97,7 +111,8 @@ export interface PhonicsTarget {
 }
 export function phonicsTargets(word: string, lang: Lang): PhonicsTarget[] {
   if (lang !== 'ko' && lang !== 'en') return [];
-  const curriculum = lang === 'ko' ? KOREAN_PHONICS_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
+  const curriculum =
+    lang === 'ko' ? KOREAN_PHONICS_LEARNING_CURRICULUM : ENGLISH_PHONICS_CURRICULUM;
   const key = normalizeWord(word, lang);
   return curriculum.flatMap((level) =>
     level.units

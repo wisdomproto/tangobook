@@ -379,6 +379,16 @@ function WordLearningDialog({
           </div>
         ))}
       </dl>
+      <dl className="mt-3 grid grid-cols-2 gap-3">
+        <div className="rounded-2xl bg-white p-4">
+          <dt className="text-sm text-ink-600">{t('overview.practiceCompleted')}</dt>
+          <dd className="mt-1 text-2xl font-black">{word.practiceCompletions}</dd>
+        </div>
+        <div className="rounded-2xl bg-white p-4">
+          <dt className="text-sm text-ink-600">{t('overview.independentSuccesses')}</dt>
+          <dd className="mt-1 text-2xl font-black">{word.independentSuccesses}</dd>
+        </div>
+      </dl>
       <section className="mt-5">
         <h3 className="font-black">{t('overview.skills')}</h3>
         <p className="mt-1 text-xs leading-relaxed text-ink-500">{t('overview.skillNote')}</p>

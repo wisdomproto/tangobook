@@ -1,4 +1,24 @@
 {
+  "wordJourney": {
+    "title": "낱말 배우기",
+    "meet": "낱말 만나기",
+    "block": "블록",
+    "write": "쓰기",
+    "color": "색칠",
+    "pressBlend": "눌러서 소리를 합쳐요",
+    "blended": "만든 소리",
+    "blend": "소리 합치기",
+    "nextBlend": "다음 소리 만들기",
+    "storyThenBuild": "다음으로",
+    "audioRetry": "소리가 준비되지 않았어요. 다시 눌러주세요.",
+    "noTargets": "배울 낱말을 확인하고 있어요.",
+    "preparingColor": "색칠 그림을 준비하고 있어요",
+    "colorUnavailable": "이 낱말의 색칠 그림이 아직 준비되지 않았어요.",
+    "sourceChanged": "학습 자료를 불러오지 못했어요. 돌아가서 다시 열어주세요.",
+    "progress": "낱말 학습 순서",
+    "pressWord": "버튼을 눌러 낱말의 소리를 들어요",
+    "listenWord": "낱말 듣기"
+  },
   "practice": {
     "prompt": "소리를 듣고 블록을 맞춰요",
     "listen": "소리 듣기",
@@ -249,6 +269,7 @@
     "flip": "뒤집기"
   },
   "vowelListen": {
+    "silentInitial": "앞의 ㅇ은 소리 없이 함께해요",
     "inOrder": "순서대로 눌러봐!",
     "readyForQuiz": "잘했어! 이제 퀴즈를 풀어볼까?",
     "pickSound": "🔊 들리는 소리를 골라봐!",

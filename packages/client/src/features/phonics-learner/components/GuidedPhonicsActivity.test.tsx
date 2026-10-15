@@ -2,7 +2,7 @@ import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
-import { journeySteps } from '../lib/learning-journey';
+import { journeySteps, journeyProgress } from '../lib/learning-journey';
 import { getUnitProgress, markActivityCompleted } from '../lib/progress-store';
 import { GUIDED_COMPLETION_MS } from './GuidedActivityTransition';
 import { ActivityShell } from './ActivityShell';
@@ -156,6 +156,8 @@ const cases = (['korean', 'english'] as const).flatMap((lang) => {
 it.each(cases)(
   '$lang $kind advances straight to the next activity or path after completion',
   ({ lang, index }) => {
+    // Fresh learner starts before completing any steps; old completion migration is separate.
+    journeyProgress(lang);
     const steps = journeySteps(lang),
       step = steps[index];
     steps.slice(0, index).forEach((s) => markActivityCompleted(lang, s.unit.id, s.activity.key));

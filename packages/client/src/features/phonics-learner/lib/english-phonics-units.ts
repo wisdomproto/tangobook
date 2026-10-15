@@ -1,4 +1,6 @@
 import { withListeningBlockPractice } from './listening-block-plan';
+import { withConnectedWordLearning } from './word-learning-plan';
+import { usesWholeWordAudio } from './english-word-policy';
 /**
  * 영어 파닉스 학습자 메타 — 한글의 평행 구조.
  *
@@ -425,6 +427,8 @@ export function writeStepRead(
   justWrote: number,
   _unitId?: string
 ): string | null {
+  // A spelling prefix of dragon/glove is not a reliable spoken syllable.
+  if (usesWholeWordAudio(word)) return null;
   const w = word.toLowerCase();
   const sorted = [...writtenSoFar].sort((a, b) => a - b);
   // ① 시각 접두사(0 부터 연속) — 있으면 그대로. 낱말 완성은 onComplete 가 읽으므로 null.
@@ -716,7 +720,9 @@ export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
 };
 
 export function getEnglishActivityPlan(unitId: string): ActivityPlan {
-  return withListeningBlockPractice(ENGLISH_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] });
+  return withConnectedWordLearning(
+    withListeningBlockPractice(ENGLISH_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] })
+  );
 }
 
 export function getEnglishRequiredActivities(unitId: string): readonly string[] {

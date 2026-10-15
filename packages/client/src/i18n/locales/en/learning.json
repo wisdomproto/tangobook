@@ -51,6 +51,8 @@
     "open": "Open book"
   },
   "overview": {
+    "practiceCompleted": "Completed practice steps",
+    "independentSuccesses": "Unaided first-attempt successes",
     "tab": "Learning overview",
     "language": "Learning language",
     "period": "Report period",

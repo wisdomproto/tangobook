@@ -49,7 +49,7 @@ export function useGameLogger() {
 
   return useCallback(
     ({ gameType, storybookId, lang, results, source, unitId }: LogGameArgs) => {
-      if (results.length === 0) return;
+      if (results.length === 0 || vocabCtx?.suppressGameEvents) return;
       const items: LogEventBatchItem[] = [];
       // 명시 인자 > Context > default 'storybook'
       const effectiveSource = source ?? vocabCtx?.source ?? 'storybook';
@@ -66,10 +66,10 @@ export function useGameLogger() {
               : gameType.includes('line-matching')
                 ? 'meaning'
                 : undefined,
-        evidence:
-          gameType === 'korean-block' || gameType === 'english-block'
-            ? 'first-attempt'
-            : 'completion',
+        evidence: 'completion',
+        learningMode: 'practice',
+        modelVisible: gameType.includes('block') || gameType.includes('writing'),
+        independent: false,
         lang,
         source: effectiveSource,
         ...(effectiveSource === 'storybook' ? { storybookId } : { unitId: effectiveUnitId }),

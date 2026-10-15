@@ -20,6 +20,9 @@ export interface ContentRequirement {
 
 /** 모든 게임 플레이어 컴포넌트가 받는 props */
 export interface GamePlayerProps {
+  /** Connected practice owns transitions and the first word/story introduction. */
+  connectedPractice?: boolean;
+  onInputModeSelected?: (mode: 'screen' | 'camera') => void;
   listeningPractice?: boolean;
   onPracticeAttempt?: (
     correct: boolean,

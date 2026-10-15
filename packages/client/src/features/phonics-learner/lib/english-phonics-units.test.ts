@@ -136,7 +136,7 @@ describe('english phonics units', () => {
       const play = acts.filter((a) => a.section === 'play');
       // 🔴 익히기 = 패턴마다 낱말가족 배우기 **하나** — 그 안에서 배우기→써보기로 흐른다(별도 써보기 카드 없음).
       expect(u.patterns.length).toBeGreaterThan(0);
-      expect(learn).toHaveLength(u.patterns.length + 2);
+      expect(learn).toHaveLength(u.patterns.length + 4);
       for (let i = 0; i < u.patterns.length; i++) {
         expect(learn[i].kind).toBe('word-family-learn');
         expect(learn[i].pattern).toBe(u.patterns[i]);
@@ -145,12 +145,10 @@ describe('english phonics units', () => {
       expect(learn.slice(u.patterns.length).map((a) => a.kind)).toEqual([
         'game-word-writing',
         'game-english-block',
-      ]);
-      expect(play.map((a) => a.kind)).toEqual([
+        'word-learning',
         'game-connect-dots',
-        'game-line-matching',
-        'game-english-block',
       ]);
+      expect(play.map((a) => a.kind)).toEqual(['game-line-matching', 'game-english-block']);
       expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
     }
   });

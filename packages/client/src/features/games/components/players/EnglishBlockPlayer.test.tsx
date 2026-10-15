@@ -204,3 +204,28 @@ it('listening blocks hide the answer and image, require hearing and submission, 
   });
   expect(mocks.log).not.toHaveBeenCalled();
 });
+
+it('connected practice waits for the real correct sequence and returns to the owner without a skip/result button', async () => {
+  vi.clearAllMocks();
+  const complete = vi.fn();
+  render(
+    <EnglishBlockPlayer
+      storybookId="en-b2-u01"
+      difficulty="easy"
+      initialInputMode="screen"
+      onBack={vi.fn()}
+      connectedPractice
+      onComplete={complete}
+      gameData={{
+        type: 'english-block',
+        items: [{ word: 'cat', letters: [{ char: 'c' }, { char: 'a' }, { char: 't' }] }],
+      }}
+    />
+  );
+  expect(screen.queryByRole('button', { name: '결과 보기' })).toBeNull();
+  for (const char of ['c', 'a', 't']) fireEvent.click(screen.getByRole('button', { name: char }));
+  await waitFor(() => expect(mocks.correct).toHaveBeenCalled());
+  expect(complete).not.toHaveBeenCalled();
+  act(() => mocks.correct.mock.calls.at(-1)![0].onDone());
+  expect(complete).toHaveBeenCalledExactlyOnceWith(1, 1);
+});

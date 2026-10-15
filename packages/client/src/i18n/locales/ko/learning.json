@@ -51,6 +51,8 @@
     "open": "이 책에서 보기"
   },
   "overview": {
+    "practiceCompleted": "완료한 연습 단계",
+    "independentSuccesses": "도움 없이 첫 시도 성공",
     "tab": "학습 한눈에",
     "language": "학습 언어",
     "period": "조회 기간",

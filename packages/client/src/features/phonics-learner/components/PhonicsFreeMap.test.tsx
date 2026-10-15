@@ -167,7 +167,7 @@ it('shows the consonant learning pairs and block play separately from playful pr
     within(learn)
       .getAllByRole('link')
       .map((link) => link.textContent)
-  ).toEqual(['ㄱ 배우기', 'ㄱ+모음 배우기', '블록 놀이', '낱말 쓰기']);
+  ).toEqual(['ㄱ 배우기', 'ㄱ+모음 배우기', '낱말 배우기']);
   expect(within(play).getByRole('link', { name: '글자 사냥' })).toBeDefined();
   expect(within(play).queryByRole('link', { name: '블록 놀이' })).toBeNull();
   expect(within(learn).queryByRole('link', { name: 'ㄱ 써보기' })).toBeNull();
@@ -202,15 +202,12 @@ it.each(['korean', 'english'] as const)(
     show(lang, `/library/phonics/${lang}/${unitId}`);
     const learn = screen.getByRole('list', { name: '익히기' });
     const play = screen.getByRole('list', { name: '놀며 익히기' });
-    const blockKey = lang === 'korean' ? 'game-korean-block' : 'game-english-block';
-    expect(within(learn).getByRole('link', { name: '블록 놀이' })).toHaveAttribute(
+    expect(within(learn).getByRole('link', { name: '낱말 배우기' })).toHaveAttribute(
       'href',
-      `/library/phonics/${lang}/${unitId}/${blockKey}`
+      `/library/phonics/${lang}/${unitId}/word-learning`
     );
-    expect(within(learn).getByRole('link', { name: '낱말 쓰기' })).toHaveAttribute(
-      'href',
-      `/library/phonics/${lang}/${unitId}/game-word-writing`
-    );
+    expect(within(learn).queryByRole('link', { name: '블록 놀이' })).toBeNull();
+    expect(within(learn).queryByRole('link', { name: '낱말 쓰기' })).toBeNull();
     expect(within(play).queryByRole('link', { name: '블록 놀이' })).toBeNull();
     expect(within(play).queryByRole('link', { name: '낱말 쓰기' })).toBeNull();
   }

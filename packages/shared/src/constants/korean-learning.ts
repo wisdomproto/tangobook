@@ -1,4 +1,52 @@
 import { KOREAN_PHONICS_CURRICULUM } from './index.js';
+import { decomposeHangul, isHangulSyllable } from '../utils/hangul.js';
+
+export interface KoreanLearnedLetters {
+  consonants: readonly string[];
+  vowels: readonly string[];
+  codaConsonants: readonly string[];
+}
+
+/** Cumulative chapter scope. Silent initial ㅇ is not permission to use coda ㅇ. */
+export function getKoreanLearnedLetters(unitId: string): KoreanLearnedLetters | undefined {
+  const consonants = new Set<string>();
+  const vowels = new Set<string>();
+  const codaConsonants = new Set<string>();
+  for (const level of KOREAN_PHONICS_CURRICULUM) {
+    for (const unit of level.units) {
+      for (const letter of unit.phonemes) {
+        if (letter.startsWith('받침')) codaConsonants.add(letter.replace('받침', ''));
+        else if (/^[ㅏ-ㅣ]$/.test(letter)) vowels.add(letter);
+        else consonants.add(letter);
+      }
+      if (unit.id === unitId)
+        return {
+          consonants: [...new Set([...consonants, 'ㅇ'])],
+          vowels: [...vowels],
+          codaConsonants: [...codaConsonants],
+        };
+    }
+  }
+  return undefined;
+}
+
+/** No future initial, vowel, or coda in Korean targets, even in free mode. */
+export function isKoreanWordInScope(unitId: string, word: string): boolean {
+  const scope = getKoreanLearnedLetters(unitId);
+  return (
+    !!scope &&
+    word.length > 0 &&
+    [...word].every((char) => {
+      if (!isHangulSyllable(char)) return false;
+      const { cho, jung, jong } = decomposeHangul(char);
+      return (
+        scope.consonants.includes(cho) &&
+        scope.vowels.includes(jung) &&
+        (!jong || scope.codaConsonants.includes(jong))
+      );
+    })
+  );
+}
 
 /** 학습 권 순서와 저장된 저작 책 ID를 분리한다. 기존 R2 책/단원 ID는 유지한다. */
 export const KOREAN_BASIC_VOWEL_LESSONS = [
@@ -57,7 +105,13 @@ export const KOREAN_PHONICS_LEARNING_CURRICULUM = [
     bookIndex: index + 2,
     name: `Book ${index + 2}: ${TITLES[index]}`,
     description: index === 0 ? '자음 ㄱ~ㅎ와 기본 모음을 조합해 음절을 배워요.' : level.description,
-    units: level.units.filter((unit) => unit.id !== 'kr-h1-u01'),
+    // Keep authoring/story assets intact. Learner targets must obey the actual chapter scope.
+    units: level.units
+      .filter((unit) => unit.id !== 'kr-h1-u01')
+      .map((unit) => ({
+        ...unit,
+        sampleWords: unit.sampleWords.filter((word) => isKoreanWordInScope(unit.id, word)),
+      })),
   })),
 ];
 

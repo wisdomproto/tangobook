@@ -36,6 +36,7 @@ export function EnglishWordWritingPlayer({
   storybookId,
   gameData,
   onComplete,
+  connectedPractice,
   onBack,
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
@@ -160,6 +161,10 @@ export function EnglishWordWritingPlayer({
         playCorrectSequence({
           language: 'en',
           onDone: () => {
+            if (connectedPractice) {
+              advanceToNext(newPassed);
+              return;
+            }
             const s = resolveSceneFromWord(
               currentItem.word,
               'en',
@@ -186,6 +191,7 @@ export function EnglishWordWritingPlayer({
     sourceStorybook,
     gameStyle.selectedStyle,
     advanceToNext,
+    connectedPractice,
   ]);
 
   return (

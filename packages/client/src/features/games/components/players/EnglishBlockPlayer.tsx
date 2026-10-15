@@ -163,6 +163,7 @@ function EnglishBlockPlayerInner({
   storybookId,
   gameData,
   onComplete: _onComplete,
+  connectedPractice,
   onBack,
   initialInputMode = 'screen',
   listeningPractice = false,
@@ -577,6 +578,10 @@ function EnglishBlockPlayerInner({
             ttsUrl: wordAudioUrl,
             language: 'en',
             onDone: () => {
+              if (connectedPractice) {
+                _onComplete(items.length, items.length);
+                return;
+              }
               // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
               void (async () => {
                 let book = sourceStorybookRef.current;
@@ -617,6 +622,8 @@ function EnglishBlockPlayerInner({
     letterCount,
     currentItem.word,
     currentItem.ttsUrl,
+    connectedPractice,
+    _onComplete,
     hasTriedThisRound,
     logGame,
     storybookId,
@@ -638,8 +645,9 @@ function EnglishBlockPlayerInner({
   handleCheckRef.current = handleCheck;
 
   const handleNext = useCallback(() => {
+    if (connectedPractice) return;
     goToNext(currentIndex);
-  }, [currentIndex, goToNext]);
+  }, [currentIndex, goToNext, connectedPractice]);
 
   // 게임 완료 시 학습 이벤트 emit (영어: 단어만)
 
@@ -914,15 +922,19 @@ function EnglishBlockPlayerInner({
                   <StorybookSprite name="listen" size={24} />
                   확인
                 </button>
-                <LearningGameAction
-                  language="en"
-                  data-learning-fx="tap"
-                  onClick={handleNext}
-                  disabled={isTutorialPlaying || (listeningPractice && !roundCorrect)}
-                  className="english-block-next"
-                >
-                  {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-                </LearningGameAction>
+                {!connectedPractice && (
+                  <LearningGameAction
+                    language="en"
+                    data-learning-fx="tap"
+                    onClick={handleNext}
+                    disabled={isTutorialPlaying || (listeningPractice && !roundCorrect)}
+                    className="english-block-next"
+                  >
+                    {currentIndex + 1 < items.length
+                      ? t('blockGame.next')
+                      : t('blockGame.seeResult')}
+                  </LearningGameAction>
+                )}
               </div>
             </section>
           </div>
@@ -959,6 +971,7 @@ export function EnglishBlockPlayer(props: GamePlayerProps) {
     <BlockInputGate
       language="en"
       initialInputMode={props.initialInputMode}
+      onModeSelected={props.onInputModeSelected}
       total={(props.gameData as EnglishBlockData).items.length}
       onBack={props.onBack}
     >

@@ -8,10 +8,34 @@ import {
   journeyUnits,
   journeyKoreanActivityRoute,
 } from './learning-journey';
-import { markActivityCompleted, markRecentUnit } from './progress-store';
+import { markActivityCompleted, markRecentUnit, getUnitProgress } from './progress-store';
 
 beforeEach(() => localStorage.clear());
 describe('guided learning path', () => {
+  it('adds practice to new chapters without inventing new completion for an old finished chapter', () => {
+    const oldKeys = journeySteps('english')
+      .filter((s) => s.unit.id === 'en-b1-u01' && s.activity.kind !== 'word-learning')
+      .map((s) => s.activity.key);
+    oldKeys.forEach((key) => markActivityCompleted('english', 'en-b1-u01', key));
+    const migrated = journeyProgress('english');
+    expect(
+      migrated.steps.some((s) => s.unit.id === 'en-b1-u01' && s.activity.kind === 'word-learning')
+    ).toBe(false);
+    expect(
+      migrated.steps.some((s) => s.unit.id === 'en-b1-u02' && s.activity.kind === 'word-learning')
+    ).toBe(true);
+    expect(getUnitProgress('english', 'en-b1-u01').completedActivities).not.toContain(
+      'word-learning'
+    );
+    oldKeys.forEach((key) => markActivityCompleted('english', 'en-b1-u02', key));
+    expect(journeyProgress('english').current?.activity.kind).toBe('word-learning');
+    localStorage.setItem('tangobook:activeProfileId', 'other-child');
+    expect(
+      journeyProgress('english').steps.some(
+        (s) => s.unit.id === 'en-b1-u01' && s.activity.kind === 'word-learning'
+      )
+    ).toBe(true);
+  });
   it('can resume an unfinished first activity without fabricating progress or mixing siblings', () => {
     expect(hasJourneyStarted('english')).toBe(false);
     markJourneyStarted('english');

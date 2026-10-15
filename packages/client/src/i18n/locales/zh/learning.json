@@ -51,6 +51,8 @@
     "open": "打开这本书"
   },
   "overview": {
+    "practiceCompleted": "已完成的练习步骤",
+    "independentSuccesses": "无提示首次答对次数",
     "tab": "学习概览",
     "language": "学习语言",
     "period": "查看时段",

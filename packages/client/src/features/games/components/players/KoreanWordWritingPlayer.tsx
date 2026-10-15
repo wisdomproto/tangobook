@@ -34,6 +34,7 @@ export function KoreanWordWritingPlayer({
   storybookId,
   gameData,
   onComplete,
+  connectedPractice,
   onBack,
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
@@ -160,6 +161,10 @@ export function KoreanWordWritingPlayer({
           playCorrectSequence({
             language: 'ko',
             onDone: () => {
+              if (connectedPractice) {
+                advanceToNext(newPassed);
+                return;
+              }
               const s = resolveSceneFromWord(
                 currentItem.word,
                 'ko',
@@ -196,6 +201,7 @@ export function KoreanWordWritingPlayer({
     sourceStorybook,
     gameStyle.selectedStyle,
     advanceToNext,
+    connectedPractice,
   ]);
 
   return (

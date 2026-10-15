@@ -1,10 +1,10 @@
-import { isLearningTarget } from '../lib/learning-targets';
 import { useEffect, useMemo, useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { decomposeHangul, type Storybook } from '@tangobook/shared';
 import { storybookApi } from '@/features/storybook/api/storybook.api';
 import { wordFamilyTts } from '../lib/phonics-game-adapter';
 import type { ReviewCard } from '../lib/korean-phonics-units';
+import { withKoreanLearningScope } from '../lib/korean-learning-source';
 
 export interface ReviewCardSource extends ReviewCard {
   /** 그 단원의 대표 단어 */
@@ -40,8 +40,11 @@ export function pickWord(
   rand: () => number = Math.random
 ): { word: string; imageUrl: string } {
   if (!sb) return { word: '', imageUrl: '' };
-  const cards = (sb.flashcards ?? []) as Array<{ word?: string; imageUrl?: string }>;
-  const withImage = cards.filter((c) => c.word && c.imageUrl && isLearningTarget(sb.id, c.word));
+  const cards = (withKoreanLearningScope(sb)?.flashcards ?? []) as Array<{
+    word?: string;
+    imageUrl?: string;
+  }>;
+  const withImage = cards.filter((c) => c.word && c.imageUrl);
   if (!withImage.length) return { word: '', imageUrl: '' };
 
   /**

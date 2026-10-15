@@ -1,4 +1,24 @@
 {
+  "wordJourney": {
+    "title": "学习词语",
+    "meet": "认识词语",
+    "block": "拼搭",
+    "write": "描写",
+    "color": "涂色",
+    "pressBlend": "按一下，合成声音",
+    "blended": "合成的声音",
+    "blend": "合成声音",
+    "nextBlend": "合成下一个声音",
+    "storyThenBuild": "继续",
+    "audioRetry": "声音尚未准备好，请重试。",
+    "noTargets": "正在检查学习词语。",
+    "preparingColor": "正在准备涂色图片",
+    "colorUnavailable": "这张涂色图片尚未准备好。",
+    "sourceChanged": "无法加载课程，请返回重试。",
+    "progress": "词语学习步骤",
+    "pressWord": "点按按钮，听听整个单词",
+    "listenWord": "听单词"
+  },
   "practice": {
     "prompt": "听声音拼出单词",
     "listen": "听声音",
@@ -249,6 +269,7 @@
     "flip": "翻牌"
   },
   "vowelListen": {
+    "silentInitial": "开头的ㅇ不发音，陪着元音",
     "inOrder": "按顺序点一点！",
     "readyForQuiz": "做得好！现在来玩小测验吧？",
     "pickSound": "🔊 选出你听到的声音！",

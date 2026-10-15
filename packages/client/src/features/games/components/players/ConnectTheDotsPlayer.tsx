@@ -63,6 +63,7 @@ function ConnectTheDotsPlayer({
   storybookId,
   gameData,
   onComplete,
+  connectedPractice,
   onBack,
   lang: propLang,
 }: ConnectTheDotsPlayerProps) {
@@ -337,6 +338,10 @@ function ConnectTheDotsPlayer({
     }
 
     const proceed = () => {
+      if (connectedPractice) {
+        onComplete(1, 1);
+        return;
+      }
       // 3) 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음.
       const s = target
         ? resolveSceneFromWord(target.text, target.lang, storybook, gameStyle.selectedStyle)
@@ -363,6 +368,8 @@ function ConnectTheDotsPlayer({
     playCorrectSequence,
     advanceToNext,
     gameStyle.selectedStyle,
+    connectedPractice,
+    onComplete,
   ]);
 
   const handleImgLoad = useCallback(

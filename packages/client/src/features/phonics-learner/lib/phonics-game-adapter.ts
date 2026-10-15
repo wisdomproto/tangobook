@@ -27,6 +27,7 @@ import type {
 } from '@tangobook/shared';
 import { decomposeWord, decomposeEnglishWord, ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { KoreanBlockTrayLetters } from './korean-block-tray';
+import { withKoreanLearningScope } from './korean-learning-source';
 
 const MAX_ITEMS = 4;
 
@@ -119,7 +120,7 @@ export function phonicsToKoreanBlockData(
         (s) =>
           !tray.consonants.includes(s.cho) ||
           !tray.vowels.includes(s.jung) ||
-          (s.jong !== null && !tray.consonants.includes(s.jong))
+          (s.jong !== null && !(tray.codaConsonants ?? tray.consonants).includes(s.jong))
       )
     )
       continue;
@@ -244,13 +245,16 @@ function alphabetUnitLetters(sb: Storybook): string[] | undefined {
 const ENGLISH_WORD_RE = /^[a-z]+$/i;
 const MAX_BLOCK_WORD_LEN = 6;
 
-export function phonicsToEnglishBlockData(sb: Storybook): EnglishBlockData | null {
+export function phonicsToEnglishBlockData(
+  sb: Storybook,
+  maxWordLength = MAX_BLOCK_WORD_LEN
+): EnglishBlockData | null {
   const targetWords = sb.phonicsConfig?.targetWords ?? [];
   const alphabet = isAlphabetUnit(sb);
   const items: EnglishBlockItem[] = [];
   for (const w of targetWords) {
     const full = w.toLowerCase().trim();
-    if (!ENGLISH_WORD_RE.test(full) || full.length > MAX_BLOCK_WORD_LEN) continue;
+    if (!ENGLISH_WORD_RE.test(full) || full.length > maxWordLength) continue;
     const word = alphabet ? full[0] : full;
     const extra = findImageData(sb, w);
     items.push({
@@ -309,6 +313,7 @@ export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData 
  * 학습(learn) 활동은 storybook 데이터에 의존하지 않으므로 항상 true.
  */
 export function isPhonicsActivityAvailable(kind: string, sb: Storybook | undefined): boolean {
+  sb = withKoreanLearningScope(sb);
   if (!kind.startsWith('game-')) return true;
   if (!sb) return false;
   switch (kind) {

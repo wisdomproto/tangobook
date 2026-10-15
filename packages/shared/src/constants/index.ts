@@ -422,6 +422,7 @@ export const ENGLISH_PHONICS_CURRICULUM = [
         phonemes: ['dr', 'pr', 'tr'],
         patterns: ['dr_', 'pr_', 'tr_'],
         sampleWords: [
+          'dragon',
           'dress',
           'drive',
           'drum',
@@ -1240,7 +1241,7 @@ export const KOREAN_PHONICS_CURRICULUM = [
   {
     level: 'hangul4',
     name: '한글4: 복잡한 모음',
-    description: 'ㅐ, ㅔ, ㅖ, ㅟ, ㅚ, ㅘ, ㅙ, ㅝ, ㅞ, ㅢ 복잡한 모음 학습',
+    description: 'ㅐ, ㅔ, ㅒ, ㅖ, ㅚ, ㅟ, ㅘ, ㅙ, ㅝ, ㅞ, ㅢ 복잡한 모음 학습',
     units: [
       {
         id: 'kr-h4-u01',
@@ -1252,16 +1253,16 @@ export const KOREAN_PHONICS_CURRICULUM = [
       },
       {
         id: 'kr-h4-u02',
-        title: 'unit 02: ㅖ, ㅚ 배우기',
-        phonemes: ['ㅖ', 'ㅚ'],
+        title: 'unit 02: ㅒ, ㅖ 배우기',
+        phonemes: ['ㅒ', 'ㅖ'],
         patterns: ['복잡한 모음'],
         sampleWords: ['계란', '예절', '시계', '얘기'],
         blending: [],
       },
       {
         id: 'kr-h4-u03',
-        title: 'unit 03: ㅟ, ㅢ 배우기',
-        phonemes: ['ㅟ', 'ㅢ'],
+        title: 'unit 03: ㅚ, ㅟ 배우기',
+        phonemes: ['ㅚ', 'ㅟ'],
         patterns: ['복잡한 모음'],
         sampleWords: ['참외', '열쇠', '생쥐', '가위'],
         blending: [],

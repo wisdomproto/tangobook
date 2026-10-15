@@ -1,4 +1,24 @@
 {
+  "wordJourney": {
+    "title": "Learn words",
+    "meet": "Meet the word",
+    "block": "Build",
+    "write": "Trace",
+    "color": "Color",
+    "pressBlend": "Press to blend the sounds",
+    "blended": "Sounds you made",
+    "blend": "Blend sounds",
+    "nextBlend": "Make the next sound",
+    "storyThenBuild": "Continue",
+    "audioRetry": "The sound is not ready. Please try again.",
+    "noTargets": "Checking the target words.",
+    "preparingColor": "Preparing your coloring picture",
+    "colorUnavailable": "This coloring picture is not ready yet.",
+    "sourceChanged": "Could not load the lesson. Please go back and try again.",
+    "progress": "Word learning steps",
+    "pressWord": "Press to hear the whole word",
+    "listenWord": "Hear the word"
+  },
   "practice": {
     "prompt": "Listen and build the word",
     "listen": "Listen",
@@ -249,6 +269,7 @@
     "flip": "Flip"
   },
   "vowelListen": {
+    "silentInitial": "Initial ㅇ is a silent letter partner",
     "inOrder": "Tap them in order!",
     "readyForQuiz": "Well done! Shall we try the quiz now?",
     "pickSound": "🔊 Pick the sound you hear!",

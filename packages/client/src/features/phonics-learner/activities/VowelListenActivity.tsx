@@ -55,6 +55,8 @@ export function VowelListenActivity({
 }: Props) {
   const { t } = useTranslation('phonics');
   const single = vowels.length === 1;
+  const showSilentInitial = single && language === 'korean' && unitId.startsWith('kr-v1-');
+  const [carrierJoined, setCarrierJoined] = useState(false);
   const singleMarked = useRef(false);
   const singleBusy = useRef(false);
   const [singlePlaying, setSinglePlaying] = useState(false);
@@ -159,6 +161,7 @@ export function VowelListenActivity({
         singleBusy.current = true;
         setSinglePlaying(true);
         setAudioFailed(false);
+        if (idx === 2 && showSilentInitial) setCarrierJoined(true);
         void playVowel(vowels[0].sound ?? vowels[0].vowel, () => {
           singleBusy.current = false;
           setSinglePlaying(false);
@@ -197,7 +200,16 @@ export function VowelListenActivity({
         setNextIdx(idx + 1);
       }
     },
-    [single, onMarkComplete, listenedAll, nextIdx, vowels, playVowel, playCorrectSequence]
+    [
+      single,
+      showSilentInitial,
+      onMarkComplete,
+      listenedAll,
+      nextIdx,
+      vowels,
+      playVowel,
+      playCorrectSequence,
+    ]
   );
 
   // 듣기 단계 다시 시작 — 진행 초기화 (퀴즈 들어가기 전 한 번 더 들어보기용)
@@ -414,7 +426,7 @@ export function VowelListenActivity({
                     ✓
                   </span>
                 )}
-                {/* 모음 — 빨강, 맞춘 뒤엔 민트 (음절 앞 묵음 ㅇ 은 표기 안 함) */}
+                {/* The third basic-vowel tap adds silent initial ㅇ; writing remains the vowel. */}
                 {single && (
                   <span className="vowel-repeat-number" aria-hidden="true">
                     {isSolved ? '✓' : i + 1}
@@ -427,11 +439,36 @@ export function VowelListenActivity({
                       : `text-8xl sm:text-9xl font-black leading-none ${isSolved ? 'text-mint-600' : 'text-coral-600'}`
                   }
                 >
-                  <ToyHangul text={v.vowel} />
+                  <span
+                    key={showSilentInitial && i === 2 && carrierJoined ? 'joined' : 'vowel'}
+                    className={
+                      showSilentInitial && i === 2 && carrierJoined
+                        ? 'vowel-carrier-joined'
+                        : undefined
+                    }
+                  >
+                    <ToyHangul
+                      text={showSilentInitial && i === 2 && carrierJoined ? v.syllable : v.vowel}
+                    />
+                  </span>
                 </div>
                 {single && (
                   <span className="vowel-repeat-foot" aria-hidden="true">
-                    {isSolved ? '✓' : '♪'}
+                    {showSilentInitial && i === 2 ? (
+                      <span
+                        className="vowel-carrier-caption"
+                        title={t('vowelListen.silentInitial')}
+                      >
+                        <span>
+                          ㅇ + {v.vowel} → {v.syllable}
+                        </span>
+                        <small>{t('vowelListen.silentInitial')}</small>
+                      </span>
+                    ) : isSolved ? (
+                      '✓'
+                    ) : (
+                      '♪'
+                    )}
                   </span>
                 )}
                 {!single && (

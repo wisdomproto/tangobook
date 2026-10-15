@@ -1,6 +1,39 @@
 import { describe, expect, it } from 'vitest';
 import type { KeyObject, Storybook } from '@tangobook/shared';
-import { coloringLabel, countColoringSheets, findSheetKeyObject } from './useColoringSheets';
+import {
+  coloringLabel,
+  countColoringSheets,
+  findSheetKeyObject,
+  phonicsColoringItem,
+} from './useColoringSheets';
+
+it('uses exact phonics targets and sources without relying on story key_objects or switching languages', () => {
+  const book = {
+    id: 'en-b2-u01',
+    type: 'phonics',
+    phonicsConfig: { targetWords: ['cat'] },
+    flashcards: [{ word: 'cat', imageUrl: 'cat.webp' }],
+  } as unknown as Storybook;
+  const sheet = {
+    key: 'cat',
+    group: '',
+    section: '',
+    unitId: book.id,
+    word: 'cat',
+    language: 'english' as const,
+    lineartUrl: 'line.webp',
+    originalUrl: 'source.webp',
+  };
+  expect(phonicsColoringItem(sheet, book, 'en')[0]).toMatchObject({
+    word: 'cat',
+    language: 'english',
+    lineartUrl: 'line.webp',
+    colorSourceUrl: 'source.webp',
+  });
+  expect(phonicsColoringItem(sheet, book, 'ko')).toEqual([]);
+  expect(phonicsColoringItem({ ...sheet, word: 'dog' }, book, 'en')).toEqual([]);
+  expect(phonicsColoringItem({ ...sheet, unitId: 'other' }, book, 'en')).toEqual([]);
+});
 
 /**
  * 색칠 카드 판정과 도안 라벨이 쓰는 규칙 — 실제 데이터 모양 그대로 옮겼다.

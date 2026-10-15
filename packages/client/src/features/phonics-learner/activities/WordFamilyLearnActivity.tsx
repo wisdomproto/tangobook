@@ -11,6 +11,8 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { playUi } from '@/lib/uiSound';
+import { usesWholeWordAudio } from '../lib/english-word-policy';
+import { getEnglishWordUrl } from '@/features/games/hooks/usePhonicsMap';
 import {
   patternLabel as makePatternLabel,
   patternHighlight,
@@ -75,8 +77,19 @@ type Row = {
   patCellIdx: number; // 패턴 조각이 몇 번째 칸인지(색용)
   cells: string[]; // 조각들 + 낱말
   magicE: boolean; // 매직-e = 대비형(연결자 전부 →)
+  wholeWordOnly?: boolean;
 };
-function splitRow(word: string, imageUrl: string | undefined, pattern: string): Row {
+export function splitRow(word: string, imageUrl: string | undefined, pattern: string): Row {
+  if (usesWholeWordAudio(word))
+    return {
+      word,
+      imageUrl,
+      segs: [],
+      patCellIdx: -1,
+      cells: [word],
+      magicE: false,
+      wholeWordOnly: true,
+    };
   // 🔴 매직-e = **대비형** `[ak] → [ake] → [word]`(2026-08-06 사용자: e 붙기 전/후 소리 비교).
   //    라이브러리(mod_phonics)에 짧은 rime(ak)·긴 rime(ake) 클립이 세트로 있어 각 칸이 그 소리를 낸다.
   //    'ak'(/æk/) 를 누르면 짧은 소리, 'ake'(/eɪk/) 를 누르면 e 가 바꾼 긴 소리 → 'bake' 낱말.
@@ -163,6 +176,8 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   const writeDoneRef = useRef(false);
   // 🔴 낱말을 다 쓰면 보여줄 예문 텍스트(Book 2 써보기와 통일, 2026-08-06).
   const [shownSentence, setShownSentence] = useState<string | null>(null);
+  const [wordAudioFailed, setWordAudioFailed] = useState(false);
+  const cellBusy = useRef(false);
   const aliveRef = useRef(true);
   const writeSequenceRef = useRef(0);
   useEffect(() => {
@@ -188,25 +203,20 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
   }, [rows, pressed]);
 
   const handleCell = useCallback(
-    (wi: number, ci: number) => {
+    async (wi: number, ci: number) => {
       const row = rows[wi];
-      if (!row) return;
+      if (!row || cellBusy.current) return;
+      cellBusy.current = true;
+      setWordAudioFailed(false);
       const key = `${wi}-${ci}`;
-
-      let willWord = false;
-      let willAll = false;
-      setPressed((prev) => {
-        if (prev.has(key)) return prev; // 재탭은 소리만(완료 재발동 X)
-        const next = new Set(prev);
+      const afterRead = () => {
+        cellBusy.current = false;
+        if (!aliveRef.current || pressed.has(key)) return;
+        const next = new Set(pressed);
         next.add(key);
-        if (row.cells.every((_, c) => next.has(`${wi}-${c}`))) willWord = true;
-        if (rows.every((r, w) => r.cells.every((_, c) => next.has(`${w}-${c}`)))) willAll = true;
-        return next;
-      });
-
-      // 조각/낱말 소리(낱말 칸도 그냥 낱말 — directUrl 없이 resolve) → (전부 끝나면 칭찬→써보기 /
-      //  그 낱말이 끝나면 띵동, 그림은 상태로 이미 떴다)
-      say(row.cells[ci], () => {
+        setPressed(next);
+        const willWord = row.cells.every((_, c) => next.has(`${wi}-${c}`));
+        const willAll = rows.every((r, w) => r.cells.every((_, c) => next.has(`${w}-${c}`)));
         if (willAll && !doneRef.current) {
           doneRef.current = true;
           rest(() =>
@@ -215,9 +225,23 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
         } else if (willWord) {
           rest(() => chime());
         }
-      });
+      };
+      if (row.wholeWordOnly) {
+        const fail = () => {
+          cellBusy.current = false;
+          if (aliveRef.current) setWordAudioFailed(true);
+        };
+        try {
+          const url = await getEnglishWordUrl(row.word);
+          if (!aliveRef.current) return;
+          if (url) playAudio(url, afterRead, fail);
+          else fail();
+        } catch {
+          fail();
+        }
+      } else say(row.cells[ci], afterRead);
     },
-    [rows, say, rest, chime, playCorrectSequence]
+    [rows, pressed, say, rest, chime, playCorrectSequence, playAudio]
   );
 
   // ── 써보기 단계 — **패턴(라임) 먼저** 한 글자씩 쓰고, 다 쓰면 낱말을 읽어준 뒤 다음 낱말 ──
@@ -273,6 +297,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
 
   const handleWriteComplete = useCallback(() => {
     if (writeDoneRef.current) return;
+    setWordAudioFailed(false);
     writeDoneRef.current = true;
     writeSequenceRef.current++;
     const w = words[writeIdx];
@@ -303,7 +328,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
       };
       // 🔴 낱말 → **띵동(완성 축하)** → 쉼 → (예문 텍스트+소리) → 다음. 2026-08-06 사용자: 예문 넣으며
       //    빠졌던 완성 효과음 복구("사이에 효과음이 없어").
-      say(w.word, () =>
+      const afterWord = () =>
         chime(() => {
           void sentenceUrlPromise.then((sentenceUrl) => {
             if (!aliveRef.current) return;
@@ -314,8 +339,17 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
               afterSentence();
             }
           });
-        })
-      );
+        });
+      if (usesWholeWordAudio(w.word)) {
+        const url = await getEnglishWordUrl(w.word).catch(() => undefined);
+        if (!aliveRef.current) return;
+        const fail = () => {
+          writeDoneRef.current = false;
+          setWordAudioFailed(true);
+        };
+        if (url) playAudio(url, afterWord, fail);
+        else fail();
+      } else say(w.word, afterWord);
     })();
   }, [words, writeIdx, unitId, say, chime, rest, playAudio, playCorrectSequence, onMarkComplete]);
 
@@ -355,6 +389,11 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
             <Highlighted text={label} ranges={labelRanges} />
           </div>
           <p className="text-lg sm:text-xl font-black text-ink-600">{t('wordFamily.trace')}</p>
+          {wordAudioFailed && (
+            <button role="alert" onClick={handleWriteComplete}>
+              {t('wordJourney.audioRetry')}
+            </button>
+          )}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full">
             {writeWord.imageUrl && (
               <img
@@ -407,6 +446,7 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
           <p className="mt-1 text-lg sm:text-xl font-black text-ink-600">
             {t('wordFamily.tapChunks')}
           </p>
+          {wordAudioFailed && <p role="alert">{t('wordJourney.audioRetry')}</p>}
         </div>
 
         {rows[0]?.magicE ? (
@@ -452,6 +492,22 @@ export function WordFamilyLearnActivity({ unitId, pattern, words, onMarkComplete
             style={{ gridTemplateColumns: 'var(--family-columns, repeat(7, auto) auto)' }}
           >
             {rows.map((row, wi) => {
+              if (row.wholeWordOnly)
+                return (
+                  <Fragment key={row.word}>
+                    <div style={{ gridColumn: '1 / -2' }} className="flex justify-center">
+                      <Cell
+                        label={row.word}
+                        pressed={pressed.has(`${wi}-0`)}
+                        isNext={nextKey === `${wi}-0`}
+                        onClick={() => handleCell(wi, 0)}
+                        tone="right"
+                        wide
+                      />
+                    </div>
+                    <WordImage row={row} show={wordDone(wi)} />
+                  </Fragment>
+                );
               const beforeIdx = row.patCellIdx === 1 ? 0 : -1;
               const afterIdx = row.patCellIdx + 1 < row.segs.length ? row.patCellIdx + 1 : -1;
               const wordIdx = row.cells.length - 1;

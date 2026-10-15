@@ -16,12 +16,14 @@ export function BlockInputGate({
   total,
   onBack,
   children,
+  onModeSelected,
 }: {
   language?: 'ko' | 'en';
   initialInputMode?: InputMode;
   total: number;
   onBack: () => void;
   children: (mode: InputMode) => ReactNode;
+  onModeSelected?: (mode: InputMode) => void;
 }) {
   const { t } = useTranslation('games');
   const [inputMode, setInputMode] = useState(initialInputMode);
@@ -47,7 +49,10 @@ export function BlockInputGate({
         <div className="flex items-center justify-center gap-6 sm:gap-12">
           <LearningGameAction
             language="ko"
-            onClick={() => setInputMode('screen')}
+            onClick={() => {
+              setInputMode('screen');
+              onModeSelected?.('screen');
+            }}
             className="korean-block-entry-choice"
           >
             <StorybookSprite name="combine" size={72} />
@@ -55,7 +60,10 @@ export function BlockInputGate({
           </LearningGameAction>
           <LearningGameAction
             language="en"
-            onClick={() => setInputMode('camera')}
+            onClick={() => {
+              setInputMode('camera');
+              onModeSelected?.('camera');
+            }}
             className="korean-block-entry-choice"
           >
             <Camera size={64} aria-hidden />

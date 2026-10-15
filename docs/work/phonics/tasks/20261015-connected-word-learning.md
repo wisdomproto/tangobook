@@ -2,7 +2,7 @@
 
 - id: 20261015-connected-word-learning
 - domain: phonics
-- status: active
+- status: ready
 - updated: 2026-10-15
 - base: da941bcb8
 - branch: codex/phonics-word-journey
@@ -51,3 +51,20 @@
 - localhost5187는 이 worktree Vite, API_TARGET=https://www.tangobook.co.kr 공개 API read-only·DISABLE_PUBLISH_SCHEDULER=1. 서버 backend는 새로 띄우지 않았다. 이전5186 worktree는 보존.
 - 실제 PC1280×720, 태블릿1024×768, 가로폰812×375 새 만나기 화면 배치/가로넘침0 확인. K 모음 실제3클릭 후 ㅏ→아와 소리없는ㅇ 설명 확인. K 낱말 아기에는 이제 block 단계가 표시된다. 영어 bat 첫 수동 합치기 버튼/레이아웃 확인. 3개 이상의 여러 단계 끝까지 플레이한 증거는 아직 없음.
 - output/connected-word-learning-20261015에 dr-targets/vowel-carrier/korean-tablet PNG. source 캐시는 tmp/connected-word-books.json, 점검 스크립트 audit-filtered-targets.mts. 커밋에 공개 source 대용량 캐시·개인 로그·env를 포함하지 않는다.
+
+## 최종 후속 결정 — 영어 예외 / 한글 엄격 누적
+
+앞선 dragon 제외·영어 단음절만·한글4개 블록 생략은 사용자 정정으로 취소됐다. 영어 원교재 dragon 확인과 기존 타깃 복원, 전체 낱말 녹음 예외, 한글 엄격 누적과7개 부적합 타깃 제외·복합모음 표기2단원 정정은 [타깃 감사 task](20261015-target-word-audit.md)가 최신 원본이다. 이 문서의 과거 체크포인트를 현재 정책으로 읽지 않는다.
+
+현재 한글은 배운 초성/모음/받침만 허용하고 모든 유지 타깃에서 meet→block→write→color를 생략 없이 수행한다. 영어22예외는 전체 발음·그림으로 만나고 일반어는 수동 블렌딩, 영어 Book2+의8글자까지 동일 타깃 블록을 제공한다. 원본70권512→학습505타깃, 한글117타깃 블록 불가능0, 그림/색칠 기존 자산 연결을 재사용한다. 원본 동화/운영 저장소 변경은 없다.
+
+## 최종 로컬 검증 — 2026-10-15
+
+- phonics 전체와 기록/색칠/음원·실제 block/write player 연결 회귀 **52파일433검사 통과**. 실제 쓰기 canvas 채우기 자체는 mock이며, player의 발음→칭찬 종료 전 완료 금지·중복 장면 생략을 검사했다. 실제 block player도 정답/칭찬 전후 callback을 검사한다.
+- client typecheck 통과. 검사 파일의 Testing Library 미지원 exact 옵션1개를 제거한 뒤 해당 EnglishBlockPlayer6검사 재실행 통과. 최종 client build24.91초 통과, shared build와 Node ESM 누적 범위 import 실행 통과. lint 오류0/기존 KoreanBlock 미사용 import2경고. git diff --check 통과.
+- 공개 source read-only 대조:70권505학습타깃(원본512에서 한글7개 제외), 한글117타깃의 현재까지 배운 조각 블록 불가능0. 영어 Book2+는 최장8글자를 허용해 연결 블록 누락0. 영어22예외의 전체 낱말 녹음은 mod_english에 존재한다. R2/DB/학생 성적 쓰기 없음.
+- 실제1280×720 cat a+t→at/c+at→cat의 발음 종료와 수동 다음·dragon 원래 row 복원/전체 녹음 종료 후 그림 확인. 낱말의 일부인 scaredy-cat이 동물cat의 새 장면으로 잡히는 표본을 발견해 새 만나기에서 영문 하이픈 복합어 부분 일치는 제외했다(회귀 검사 포함).
+- 실제1024×768 ㄷ단원: 구두의 ㄱ+ㅜ/ㄷ+ㅜ/구+두 수동 합치기→실제 구두 동화 문장→동일 구두 블록으로 이동 확인. 선택은 ㄱㄴㄷㅇ, 고정 모음ㅣㅏㅑ, 미래ㅁ 없음. 단계 pill이 게임 제목 위에 겹치지 않도록 연결 수업의 제목 영역을 하나로 정리했다. 화면 블록 선택은 한 번 기억한다.
+- 실제 가로812×375 elephant의 전체 발음 예시/실제 삽화·CTA 잘림 없음, 문서 가로넘침0. viewport 임시 override는 복원했다. UI 증거는 output/connected-word-learning-20261015의 korean-strict-target/strict-block-tray, dragon-whole-word, cat-manual-blend, elephant-phone PNG. 해당 경로는 이 worktree 로컬이며 커밋에 대용량 source/이미지 캐시를 넣지 않는다.
+- 개발 build가 임시 vite 설정/HTML을 복원하는 동안 HMR 서버가 여러 번 재시작되어 빈 탭이 남았다. 이 작업의 Vite만 종료/재시작한 뒤 실제 화면·발음 연결 복구 확인. 현재5187 frontend 세션17830, DISABLE_PUBLISH_SCHEDULER=1/API_TARGET=운영 공개 API(read-only); backend 새 실행 없음.5186 다른 작업 폴더는 보존.
+- **검증 한계:** 실물 카메라/8글자 보드 실기기, 모든 타깃의 실제 붓질 완주, 실제 부모/아이 학습 효과 검증은 아니다. 원격 push/운영 배포 요청·실행 없음. 코드상의 동일 타깃 전 단계/재진입과 독립 근거 분리는 위 회귀로 검증했다.

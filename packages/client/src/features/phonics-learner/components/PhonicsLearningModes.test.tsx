@@ -60,7 +60,10 @@ it.each(['korean', 'english'] as const)('keeps the mode fork inside %s', (lang) 
     'href',
     `/library/phonics/${lang}?mode=free`
   );
-  expect(localStorage.length).toBe(0);
+  expect(
+    Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+  ).toBe(true);
+  expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
 });
 it.each(['korean', 'english'] as const)(
   'opens the overview immediately with real chapter activities and one start action in %s',
@@ -79,7 +82,10 @@ it.each(['korean', 'english'] as const)(
     expect(screen.queryByText('이야기 마을로 떠나요!')).toBeNull();
     expect(screen.queryByRole('button', { name: '학습 정보' })).toBeNull();
     expect(screen.getByRole('button', { name: /^2번째 단계.*앞 단계를/ })).toBeDisabled();
-    expect(localStorage.length).toBe(0);
+    expect(
+      Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+    ).toBe(true);
+    expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
   }
 );
 it('resumes the unfinished activity and marks the current step in the chapter preview', () => {
@@ -144,7 +150,10 @@ it('previews the selected book on both sides without opening future activities',
     'aria-current',
     'step'
   );
-  expect(localStorage.length).toBe(0);
+  expect(
+    Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+  ).toBe(true);
+  expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
 });
 it.each(['korean', 'english'] as const)(
   'selects only completed or current activities through one action in %s',
@@ -371,7 +380,10 @@ it('starts the first lesson from the entry prompt and dismisses with Escape with
   );
   fireEvent(popup, new Event('cancel', { cancelable: true }));
   expect(screen.queryByRole('dialog')).toBeNull();
-  expect(localStorage.length).toBe(0);
+  expect(
+    Object.keys(localStorage).every((key) => key.startsWith('phonics-word-learning-legacy:v1:'))
+  ).toBe(true);
+  expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
 });
 
 it('shows a repeated chapter/activity title only once, without a dangling description reference', () => {

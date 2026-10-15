@@ -326,6 +326,28 @@
   display: flex;
   gap: 8px;
 }
+.vowel-carrier-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  font-size: clamp(12px, 1.5vw, 19px);
+  font-weight: 800;
+}
+.vowel-carrier-caption small {
+  font-size: clamp(8px, 1vw, 12px);
+  font-weight: 600;
+}
+.vowel-carrier-joined {
+  display: block;
+  animation: vowel-listen-hop 0.6s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vowel-carrier-joined {
+    animation: none;
+  }
+}
 .vowel-repeat-progress > span {
   display: grid;
   place-items: center;

@@ -62,7 +62,9 @@ export function journeyKoreanActivityRoute(unitId: string, activityKey: string) 
 
 export function journeyActivities(lang: JourneyLanguage, unitId: string): readonly ActivityDef[] {
   const plan = lang === 'korean' ? getActivityPlan(unitId) : getEnglishActivityPlan(unitId);
-  return plan.activities.filter((a) => a.required || a.kind === 'vowel-listen-game');
+  return plan.activities.filter(
+    (a) => a.required || a.kind === 'vowel-listen-game' || a.kind === 'word-learning'
+  );
 }
 
 export function journeySteps(lang: JourneyLanguage) {
@@ -77,7 +79,11 @@ export function journeyProgress(
   lang: JourneyLanguage,
   readDone: ReadJourneyProgress = (id) => getUnitProgress(lang, id).completedActivities
 ) {
-  const steps = journeySteps(lang);
+  const allSteps = journeySteps(lang);
+  const exemptions = wordLearningLegacyChapters(lang, allSteps, readDone);
+  const steps = allSteps.filter(
+    (s) => s.activity.kind !== 'word-learning' || !exemptions.includes(s.unit.id)
+  );
   const byUnit = new Map<string, readonly string[]>();
   const done = steps.map(({ unit, activity }) => {
     if (!byUnit.has(unit.id)) byUnit.set(unit.id, readDone(unit.id));
@@ -93,6 +99,40 @@ export function journeyProgress(
     finished: currentIndex < 0,
   };
 }
+
+/** Snapshot only pre-existing chapter completion. Never mark a new activity or skill as completed. */
+function wordLearningLegacyChapters(
+  lang: JourneyLanguage,
+  steps: ReturnType<typeof journeySteps>,
+  readDone: ReadJourneyProgress
+): string[] {
+  let key = `phonics-word-learning-legacy:v1:${lang}`;
+  try {
+    key += `:${localStorage.getItem('tangobook:activeProfileId') || 'guest'}`;
+    const stored = JSON.parse(localStorage.getItem(key) ?? 'null');
+    if (Array.isArray(stored) && stored.every((id) => typeof id === 'string')) return stored;
+    const ids = [
+      ...new Set(steps.filter((s) => s.activity.kind === 'word-learning').map((s) => s.unit.id)),
+    ];
+    const exemptions = ids.filter((id) => {
+      const done = readDone(id);
+      const old = steps.filter((s) => s.unit.id === id && s.activity.kind !== 'word-learning');
+      return (
+        !done.includes('word-learning') &&
+        old.length > 0 &&
+        old.every((s) => done.includes(s.activity.key))
+      );
+    });
+    localStorage.setItem(key, JSON.stringify(exemptions));
+    legacyInMemory.set(key, exemptions);
+    return exemptions;
+  } catch {
+    // Storage-disabled sessions retain the initial empty snapshot, so new completions cannot skip it.
+    if (!legacyInMemory.has(key)) legacyInMemory.set(key, []);
+    return legacyInMemory.get(key)!;
+  }
+}
+const legacyInMemory = new Map<string, string[]>();
 
 export function journeyActivityUrl(lang: JourneyLanguage, unitId: string, activityKey: string) {
   return `/library/phonics/${lang}/${unitId}/${activityKey}?mode=curriculum`;

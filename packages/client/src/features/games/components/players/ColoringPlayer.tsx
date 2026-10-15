@@ -82,6 +82,7 @@ export interface ColoringItem {
 }
 
 interface ColoringPlayerProps {
+  connectedPractice?: boolean;
   items: ColoringItem[];
   onBack?: () => void;
   /**
@@ -202,7 +203,7 @@ function readColorSource(
   return { pixels: ctx.getImageData(0, 0, w, h).data, background };
 }
 
-export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
+export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: ColoringPlayerProps) {
   const [idx, setIdx] = useState(0);
   const [ready, setReady] = useState(false);
   const [sceneRatio, setSceneRatio] = useState(1);
@@ -424,6 +425,10 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
       //    장면이 있으면 그 장면 나레이션까지 끝난 뒤(SceneReveal onDone)에 부른다.
       onDone: () => {
         if (!doneRef.current || runRef.current !== run) return;
+        if (connectedPractice) {
+          onDoneRef.current?.();
+          return;
+        }
         const s: WordScene | null = item.scene
           ? {
               illustrationUrl: item.scene.illustrationUrl,
@@ -436,7 +441,7 @@ export function ColoringPlayer({ items, onBack, onDone }: ColoringPlayerProps) {
         else onDoneRef.current?.();
       },
     });
-  }, [item, playCorrectSequence, sourceStorybook, gameStyle.selectedStyle]);
+  }, [item, playCorrectSequence, sourceStorybook, gameStyle.selectedStyle, connectedPractice]);
 
   /**
    * 손으로 칠한다 — **누르면 그 칸이 차던 것을 붓질로 바꿨다**(2026-09-10 사용자).

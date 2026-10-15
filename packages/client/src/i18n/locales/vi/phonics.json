@@ -1,4 +1,24 @@
 {
+  "wordJourney": {
+    "title": "Học từ",
+    "meet": "Làm quen với từ",
+    "block": "Ghép",
+    "write": "Tập viết",
+    "color": "Tô màu",
+    "pressBlend": "Nhấn để ghép âm",
+    "blended": "Âm đã ghép",
+    "blend": "Ghép âm",
+    "nextBlend": "Ghép âm tiếp theo",
+    "storyThenBuild": "Tiếp tục",
+    "audioRetry": "Âm thanh chưa sẵn sàng. Hãy thử lại.",
+    "noTargets": "Đang kiểm tra từ cần học.",
+    "preparingColor": "Đang chuẩn bị tranh tô màu",
+    "colorUnavailable": "Tranh tô màu này chưa sẵn sàng.",
+    "sourceChanged": "Không tải được bài học. Hãy quay lại và thử lại.",
+    "progress": "Các bước học từ",
+    "pressWord": "Nhấn để nghe cả từ",
+    "listenWord": "Nghe từ"
+  },
   "practice": {
     "prompt": "Nghe và ghép từ",
     "listen": "Nghe",
@@ -249,6 +269,7 @@
     "flip": "Lật thẻ"
   },
   "vowelListen": {
+    "silentInitial": "ㅇ ở đầu không phát ra âm",
     "inOrder": "Bấm theo thứ tự nhé!",
     "readyForQuiz": "Giỏi lắm! Giờ mình thử đố vui nhé?",
     "pickSound": "🔊 Chọn âm bé vừa nghe nhé!",

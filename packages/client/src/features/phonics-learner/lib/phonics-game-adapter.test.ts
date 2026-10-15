@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Storybook } from '@tangobook/shared';
-import { findImageData } from './phonics-game-adapter';
+import { findImageData, phonicsToEnglishBlockData } from './phonics-game-adapter';
 
 /**
  * 🔴 회귀 가드 — wordFamilies 블렌드 음원("가 가 고기"·"a a apple")은 **영어 파닉스에서만** 낱말의
@@ -30,4 +30,10 @@ describe('findImageData — wordFamilies 블렌드 우선은 영어에만', () =
     const sb = makeSb('en-b1-u01', 'https://r2/en-b1-u01-wf-0-0.mp3');
     expect(findImageData(sb, '고기').ttsUrl).toBe('https://r2/en-b1-u01-wf-0-0.mp3');
   });
+});
+
+it('connected word lessons keep the original long examples without changing standalone block sampling', () => {
+  const sb = { id: 'en-b4-u07', phonicsConfig: { targetWords: ['elephant'] } } as Storybook;
+  expect(phonicsToEnglishBlockData(sb)).toBeNull();
+  expect(phonicsToEnglishBlockData(sb, 8)?.items[0].letters).toHaveLength(8);
 });

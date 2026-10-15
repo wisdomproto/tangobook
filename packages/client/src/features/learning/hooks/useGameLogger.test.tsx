@@ -29,7 +29,10 @@ describe('game evidence metadata', () => {
       source: 'phonics',
       unitId: 'unit',
       skill: 'building',
-      evidence: 'first-attempt',
+      evidence: 'completion',
+      learningMode: 'practice',
+      modelVisible: true,
+      independent: false,
       firstAttempt: false,
     });
     expect(items[1].metadata.coda).toBe('ㅇ');

@@ -10,6 +10,7 @@ import { createContext, useContext, useMemo, type ReactNode } from 'react';
 interface VocabSourceValue {
   source: 'vocabulary' | 'phonics' | 'storybook';
   unitId: string;
+  suppressGameEvents?: boolean;
 }
 
 const VocabSourceContext = createContext<VocabSourceValue | null>(null);
@@ -18,12 +19,17 @@ export function VocabSourceProvider({
   unitId,
   source = 'vocabulary',
   children,
+  suppressGameEvents,
 }: {
   unitId: string;
   source?: VocabSourceValue['source'];
   children: ReactNode;
+  suppressGameEvents?: boolean;
 }) {
-  const value = useMemo(() => ({ source, unitId }), [source, unitId]);
+  const value = useMemo(
+    () => ({ source, unitId, suppressGameEvents }),
+    [source, unitId, suppressGameEvents]
+  );
   return <VocabSourceContext.Provider value={value}>{children}</VocabSourceContext.Provider>;
 }
 

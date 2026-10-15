@@ -17,6 +17,44 @@ const event = (
   created_at: '2026-10-05T03:00:00Z',
 });
 describe('evidence-based word report', () => {
+  it('separates modeled practice completion from explicit unaided first attempts and never promotes legacy success', () => {
+    const practice = event('practice', 'word_correct');
+    practice.metadata = {
+      lang: 'ko',
+      learningMode: 'practice',
+      modelVisible: true,
+      practiceCompleted: true,
+      independent: false,
+      skill: 'tracing',
+    };
+    const unaided = event('unaided', 'word_correct');
+    unaided.metadata = {
+      lang: 'ko',
+      learningMode: 'assessment',
+      modelVisible: false,
+      independent: true,
+      firstAttempt: true,
+      hintUsed: false,
+      skill: 'sound',
+    };
+    const hint = { ...unaided, id: 'hint', metadata: { ...unaided.metadata, hintUsed: true } };
+    const retry = {
+      ...unaided,
+      id: 'retry',
+      metadata: { ...unaided.metadata, firstAttempt: false },
+    };
+    const model = {
+      ...unaided,
+      id: 'model',
+      metadata: { ...unaided.metadata, modelVisible: true },
+    };
+    const word = summarizeWords(
+      [practice, unaided, hint, retry, model, event('legacy', 'word_correct')],
+      'ko'
+    )[0];
+    expect(word.practiceCompletions).toBe(1);
+    expect(word.independentSuccesses).toBe(1);
+  });
   it('separates encounters from direct practice and ignores auxiliary syllable events', () => {
     const events = [
       event('1', 'word_exposed'),

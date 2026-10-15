@@ -76,7 +76,9 @@ describe('korean phonics activity plans', () => {
       const acts = getActivityPlan(u.id).activities;
       expect(acts.filter((a) => a.section === 'play').map((a) => a.key)).toEqual([
         ...(u.levelKey === 'hangul2' ? [] : ['letter-hunt']),
-        ...PLAY_ORDER.filter((key) => key !== 'game-korean-block' && key !== 'game-word-writing'),
+        ...PLAY_ORDER.filter(
+          (key) => !['game-korean-block', 'game-word-writing', 'game-dots'].includes(key)
+        ),
         'game-korean-block-listen',
       ]);
       expect(acts.find((a) => a.key === 'game-korean-block')).toMatchObject({
@@ -85,6 +87,8 @@ describe('korean phonics activity plans', () => {
         required: false,
       });
       expect(acts.filter((a) => a.section === 'learn').length).toBeGreaterThan(0);
+      expect(acts.find((a) => a.key === 'game-dots')?.section).toBe('learn');
+      expect(acts.find((a) => a.key === 'word-learning')?.section).toBe('learn');
       // order 는 1부터 빈틈없이
       expect(acts.map((a) => a.order)).toEqual(acts.map((_, i) => i + 1));
       // key 중복 없음

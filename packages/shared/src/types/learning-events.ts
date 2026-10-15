@@ -48,6 +48,14 @@ export interface LearningEventMetadata {
   /** Listening practice revealed one character; never count this as an independent answer. */
   hintUsed?: boolean;
   evidence?: 'first-attempt' | 'completion' | 'participation';
+  /** Practice with a visible model is not independent assessment evidence. */
+  learningMode?: 'practice' | 'assessment';
+  modelVisible?: boolean;
+  practiceCompleted?: boolean;
+  independent?: boolean;
+  practiceStage?: 'meet' | 'block' | 'write' | 'color';
+  targetWord?: string;
+  practiceTarget?: string;
 }
 
 export interface LearningEvent {

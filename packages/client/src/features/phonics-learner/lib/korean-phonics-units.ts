@@ -1,4 +1,5 @@
 import { withListeningBlockPractice } from './listening-block-plan';
+import { withConnectedWordLearning } from './word-learning-plan';
 /**
  * 한글 파닉스 학습자 메타 — 사이드 진입용 unit 목록 + 단원별 활동 구성.
  *
@@ -227,6 +228,7 @@ export function getKoreanUnit(unitId: string): KoreanUnitSummary | undefined {
  * - `required`: unit 완료 판정에 포함되는지 (false 면 보조 활동)
  */
 export type ActivityKind =
+  | 'word-learning'
   | 'vowel-listen'
   | 'vowel-listen-game'
   | 'vowel-hunt'
@@ -1077,7 +1079,9 @@ export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
 };
 
 export function getActivityPlan(unitId: string): ActivityPlan {
-  return withListeningBlockPractice(KOREAN_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] });
+  const plan = withListeningBlockPractice(KOREAN_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] });
+  // This old vowel-only source remains a compatibility URL, not a word lesson.
+  return unitId === 'kr-h1-u01' ? plan : withConnectedWordLearning(plan);
 }
 
 /** unit 완료 판정에 쓰이는 required 액티비티 key 들. */

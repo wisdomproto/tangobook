@@ -1,12 +1,12 @@
-import { withLearningTargets } from '../lib/learning-targets';
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
+import { ConnectedWordLearningActivity } from '../activities/ConnectedWordLearningActivity';
+import { journeyProgress } from '../lib/learning-journey';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
 import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { getEnglishRequiredActivities } from '../lib/english-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
@@ -139,10 +139,7 @@ export function EnglishPhonicsActivity({
   const { sources: reviewSources, isLoading: reviewLoading } = useReviewCardSources(reviewCards);
 
   const storybookQuery = useStorybook(unitId);
-  const storybook = useMemo(
-    () => withLearningTargets(storybookQuery.data as Storybook | undefined),
-    [storybookQuery.data]
-  );
+  const storybook = storybookQuery.data as Storybook | undefined;
 
   /**
    * 🔴 게임 데이터는 **한 번만 뽑는다** — 어댑터가 내부에서 `shuffle().slice(0,4)` 를 해서,
@@ -184,7 +181,9 @@ export function EnglishPhonicsActivity({
         lang: 'en',
         activityId: activityKey,
         activityCompleted: true,
-        requiredActivityIds: [...getEnglishRequiredActivities(unitId)],
+        requiredActivityIds: journeyProgress('english')
+          .steps.filter((s) => s.unit.id === unitId)
+          .map((s) => s.activity.key),
       },
     });
   }, [logEvent, unitId, activityKey, completionId]);
@@ -254,6 +253,9 @@ export function EnglishPhonicsActivity({
           evidence: 'first-attempt',
           firstAttempt: evidence.firstAttempt,
           hintUsed: evidence.hintUsed,
+          learningMode: 'assessment',
+          modelVisible: false,
+          independent: correct && evidence.firstAttempt && !evidence.hintUsed,
         },
       });
     },
@@ -277,6 +279,27 @@ export function EnglishPhonicsActivity({
           {t('common.backToUnit')}
         </Link>
       </div>
+    );
+  }
+
+  if (activity.kind === 'word-learning') {
+    if (storybookQuery.isError)
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="wordJourney.sourceChanged"
+        />
+      );
+    if (!storybook) return <ActivityLoading activity={activity} onBack={backToUnit} />;
+    return (
+      <ConnectedWordLearningActivity
+        unitId={unitId}
+        book={storybook}
+        lang="english"
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
     );
   }
 

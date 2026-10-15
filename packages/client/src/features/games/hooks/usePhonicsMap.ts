@@ -279,6 +279,28 @@ export function getEnglishPhonemeUrl(text: string): Promise<string | undefined> 
   return sharedEnMapPromise.then((m) => lookupEnglishSound(m, text));
 }
 
+let sharedEnWords: Map<string, string> | null = null;
+let sharedEnWordsPromise: Promise<Map<string, string>> | null = null;
+
+/** Whole vocabulary recordings, without interpreting a spelling as a phonics fragment. */
+export function getEnglishWordUrl(word: string): Promise<string | undefined> {
+  if (sharedEnWords) return Promise.resolve(lookupEnglishSound(sharedEnWords, word));
+  if (!sharedEnWordsPromise) {
+    const cached = loadCachedLibrary();
+    sharedEnWordsPromise = (cached ? Promise.resolve(cached) : fetchLibShared())
+      .then((lib) => {
+        saveCachedLibrary(lib);
+        return buildPhonicsMap(lib, ['mod_english']);
+      })
+      .catch(() => new Map<string, string>());
+    void sharedEnWordsPromise.then((map) => {
+      if (map.size) sharedEnWords = map;
+      else sharedEnWordsPromise = null;
+    });
+  }
+  return sharedEnWordsPromise.then((map) => lookupEnglishSound(map, word));
+}
+
 // ── 병음(拼音) 낱 음절 조회 (한글 getKoreanSyllableUrl 과 대칭) ─────────────────
 let sharedZhMap: Map<string, string> | null = null;
 let sharedZhMapPromise: Promise<Map<string, string>> | null = null;

@@ -64,6 +64,7 @@ function KoreanBlockPlayerInner({
   gameData,
   difficulty: _difficulty,
   onComplete: _onComplete,
+  connectedPractice,
   onBack,
   initialInputMode = 'screen',
   listeningPractice = false,
@@ -368,10 +369,11 @@ function KoreanBlockPlayerInner({
         setRoundCorrect(false);
         setIsWrong(false);
       } else {
-        setFinished(true);
+        if (connectedPractice) _onComplete(items.length, items.length);
+        else setFinished(true);
       }
     },
-    [items.length, clearBoard]
+    [items.length, clearBoard, connectedPractice, _onComplete]
   );
 
   const handleCheck = useCallback(() => {
@@ -426,6 +428,10 @@ function KoreanBlockPlayerInner({
             ttsUrl: wordAudioUrl,
             language: 'ko',
             onDone: () => {
+              if (connectedPractice) {
+                goToNext(currentIndex);
+                return;
+              }
               // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
               void (async () => {
                 let book = sourceStorybookRef.current;
@@ -491,6 +497,7 @@ function KoreanBlockPlayerInner({
     storybookId,
     currentItem.ttsUrl,
     currentItem.word,
+    connectedPractice,
     currentIndex,
     items,
     playAudio,
@@ -509,8 +516,9 @@ function KoreanBlockPlayerInner({
   handleCheckRef.current = handleCheck;
 
   const handleNext = useCallback(() => {
+    if (connectedPractice) return;
     goToNext(currentIndex);
-  }, [currentIndex, goToNext]);
+  }, [currentIndex, goToNext, connectedPractice]);
 
   const handleReadBoard = useCallback(async () => {
     if (!composedText) return;
@@ -741,21 +749,23 @@ function KoreanBlockPlayerInner({
               >
                 <StorybookSprite name="listen" size={24} /> 확인
               </button>
-              <LearningGameAction
-                language="ko"
-                data-learning-fx="tap"
-                type="button"
-                onClick={handleNext}
-                disabled={listeningPractice && !roundCorrect}
-                className={cn(
-                  'short:min-h-[48px] short:min-w-24 short:px-3 short:text-sm',
-                  twoCol
-                    ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
-                    : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
-                )}
-              >
-                {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
-              </LearningGameAction>
+              {!connectedPractice && (
+                <LearningGameAction
+                  language="ko"
+                  data-learning-fx="tap"
+                  type="button"
+                  onClick={handleNext}
+                  disabled={listeningPractice && !roundCorrect}
+                  className={cn(
+                    'short:min-h-[48px] short:min-w-24 short:px-3 short:text-sm',
+                    twoCol
+                      ? 'min-h-[52px] min-w-[6.5rem] px-4 rounded-2xl text-base'
+                      : 'min-h-[64px] min-w-[8.25rem] px-6 rounded-3xl text-xl'
+                  )}
+                >
+                  {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
+                </LearningGameAction>
+              )}
             </div>
           </section>
         </div>
@@ -778,6 +788,7 @@ export function KoreanBlockPlayer(props: KoreanBlockPlayerProps) {
   return (
     <BlockInputGate
       initialInputMode={props.initialInputMode}
+      onModeSelected={props.onInputModeSelected}
       total={(props.gameData as KoreanBlockData).items.length}
       onBack={props.onBack}
     >

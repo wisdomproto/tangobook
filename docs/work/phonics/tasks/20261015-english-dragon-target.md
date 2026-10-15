@@ -39,3 +39,8 @@
 ## 로컬 main 검증
 
 11324f039을 main에 fast-forward 통합했다. main checkout에서 shared build, learning-targets/useReviewCardSources/EnglishPhonicsActivityPage 3파일10검사와 client typecheck 통과. 관련 코드 외 미커밋 낱말 연결 변경은 원래 worktree에 보존하며 main에 포함하지 않았다. 원격 push·운영 반영 없음.
+
+
+## 후속 사용자 정정으로 제외 취소 — 2026-10-15
+
+원교재 EFL Phonics4 공개 PDF에 dragon이 실제 기재되어 있음을 확인했다. 사용자는 기존 단어를 유지하고 영어 예외 발음을 구현하도록 결정했다. 이 task의 제외 정책/선정 오류 추정은 [타깃 후속](20261015-target-word-audit.md)으로 대체한다. 11324f039의 코드 제외를 되돌리되 원본 동화/R2 자산은 그대로 보존한다. 한글에는 예외를 확대하지 않는다. 실제 통합/검증 상태는 [낱말 연결](20261015-connected-word-learning.md) 참조.

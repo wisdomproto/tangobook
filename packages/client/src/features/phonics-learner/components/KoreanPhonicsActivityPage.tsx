@@ -1,4 +1,6 @@
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
+import { ConnectedWordLearningActivity } from '../activities/ConnectedWordLearningActivity';
+import { journeyProgress } from '../lib/learning-journey';
 import { journeyKoreanActivityRoute } from '../lib/learning-journey';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
@@ -6,7 +8,6 @@ import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
 import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { getRequiredActivities } from '../lib/korean-phonics-units';
 import { useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { koreanLearningActivityRoute, type GameTypeId } from '@tangobook/shared';
@@ -48,6 +49,7 @@ import {
 } from '../lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
 import { getBasicConsonantBlockTray } from '../lib/korean-block-tray';
+import { withKoreanLearningScope } from '../lib/korean-learning-source';
 
 /** 복습 듣기 활동의 보기 수 — 보기가 글자·낱말(그림 X)이라 학습 단원(3장)보다 하나 더 둔다. */
 const REVIEW_CHOICES = 4;
@@ -109,7 +111,7 @@ export function KoreanPhonicsActivity({
       ? undefined
       : (unit?.sourceUnitId ?? unitId)
   );
-  const storybook = storybookQuery.data as Storybook | undefined;
+  const storybook = withKoreanLearningScope(storybookQuery.data as Storybook | undefined);
 
   // 복습 활동은 되짚는 단원들의 그림·단어가 필요하다 (early return 앞에서 호출 — 훅 순서 고정).
   // 🔴 **섞어서** 넘긴다 — 활동들이 앞에서 4장만 쓰기 때문에 순서가 고정이면 뒤쪽 글자가 영영 안 나온다.
@@ -197,7 +199,9 @@ export function KoreanPhonicsActivity({
         lang: 'ko',
         activityId: activityKey,
         activityCompleted: true,
-        requiredActivityIds: [...getRequiredActivities(unitId)],
+        requiredActivityIds: journeyProgress('korean')
+          .steps.filter((s) => s.unit.id === unitId)
+          .map((s) => s.activity.key),
       },
     });
   }, [logEvent, unitId, activityKey, completionId]);
@@ -235,6 +239,10 @@ export function KoreanPhonicsActivity({
           skill: 'sound',
           activityRunId: completionId,
           firstAttempt: evidence?.firstAttempt,
+          evidence: 'first-attempt',
+          learningMode: 'assessment',
+          modelVisible: false,
+          independent: correct && evidence?.firstAttempt === true && !evidence.hintUsed,
         },
       });
     },
@@ -294,6 +302,9 @@ export function KoreanPhonicsActivity({
           evidence: 'first-attempt',
           firstAttempt: evidence.firstAttempt,
           hintUsed: evidence.hintUsed,
+          learningMode: 'assessment',
+          modelVisible: false,
+          independent: correct && evidence.firstAttempt && !evidence.hintUsed,
         },
       });
     },
@@ -317,6 +328,27 @@ export function KoreanPhonicsActivity({
           {t('common.backToUnit')}
         </Link>
       </div>
+    );
+  }
+
+  if (activity.kind === 'word-learning') {
+    if (storybookQuery.isError)
+      return (
+        <ActivityUnavailable
+          activity={activity}
+          onBack={backToUnit}
+          reason="wordJourney.sourceChanged"
+        />
+      );
+    if (!storybook) return <ActivityLoading activity={activity} onBack={backToUnit} />;
+    return (
+      <ConnectedWordLearningActivity
+        unitId={unitId}
+        book={storybook}
+        lang="korean"
+        onComplete={handleComplete}
+        onBack={backToUnit}
+      />
     );
   }
 
@@ -474,7 +506,7 @@ export function KoreanPhonicsActivity({
       return <ActivityLoading activity={activity} onBack={backToUnit} />;
     }
     const choices = phonicsToWordChoices(storybook);
-    if (choices.length < 3)
+    if (choices.length < 2)
       return (
         <ActivityUnavailable
           activity={activity}
@@ -495,7 +527,7 @@ export function KoreanPhonicsActivity({
         letter={activity.consonant}
         onJudge={judgeWord}
         // 학습 단원은 카드를 눌러 들어본 뒤 「퀴즈」 로 넘어간다(복습은 바로 퀴즈).
-        exploreFirst
+        exploreFirst={!plan.activities.some((a) => a.kind === 'word-learning')}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />

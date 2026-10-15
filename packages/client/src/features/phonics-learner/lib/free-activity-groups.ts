@@ -32,6 +32,13 @@ export function freeActivityGroups(activities: readonly ActivityDef[]) {
     })
   );
   return activities
+    .filter(
+      (a) =>
+        !activities.some((item) => item.kind === 'word-learning') ||
+        !['game-dots', 'game-korean-block', 'game-english-block', 'game-word-writing'].includes(
+          a.key
+        )
+    )
     .filter((activity) => !writingKeys.has(activity.key))
     .map((activity) => {
       const write = freeWritingCompanion(activities, activity.key);

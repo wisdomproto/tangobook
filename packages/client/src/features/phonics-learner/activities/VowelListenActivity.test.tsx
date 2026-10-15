@@ -88,6 +88,9 @@ describe('모음 하나씩 익히기', () => {
     expect(complete).not.toHaveBeenCalled();
     fireEvent.click(cards[2]);
     await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(3));
+    expect(cards[2].querySelector('.vowel-carrier-joined')).not.toBeNull();
+    expect(screen.getByText('앞의 ㅇ은 소리 없이 함께해요')).toBeInTheDocument();
+    expect(spies.tts).not.toHaveBeenCalledWith(expect.objectContaining({ text: 'ㅇ' }));
     act(() => spies.soundEnded?.());
     expect(complete).not.toHaveBeenCalled();
     expect(spies.praiseEnded).toBeDefined();

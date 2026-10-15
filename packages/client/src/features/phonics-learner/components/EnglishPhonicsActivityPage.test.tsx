@@ -9,6 +9,11 @@ import { getUnitProgress, markActivityCompleted } from '../lib/progress-store';
 import { GUIDED_COMPLETION_MS } from './GuidedActivityTransition';
 
 configure({ asyncUtilTimeout: GUIDED_COMPLETION_MS + 800 });
+vi.mock('../activities/ConnectedWordLearningActivity', () => ({
+  ConnectedWordLearningActivity: ({ onComplete }: { onComplete: () => void }) => (
+    <button onClick={onComplete}>낱말 연결 연습 완료</button>
+  ),
+}));
 
 vi.mock('@/features/auth/context/AuthContext', () => ({
   useAuth: () => ({ activeProfile: null }),
@@ -138,13 +143,15 @@ it('automatically connects learning, game and writing after completion, then ret
 
   fireEvent.click(await screen.findByRole('button', { name: '쓰기 완료' }));
 
+  fireEvent.click(await screen.findByRole('button', { name: '낱말 연결 연습 완료' }));
   expect(await screen.findByText('학습 경로')).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([
     'letters-learn',
     'word-listen-choose',
     'letters-write',
+    'word-learning',
   ]);
-});
+}, 9000);
 
 it('continues free letter learning directly into writing, recording each phase only when finished', async () => {
   render(

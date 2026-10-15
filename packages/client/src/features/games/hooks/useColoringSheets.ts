@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { KeyObject, Lang, Storybook } from '@tangobook/shared';
 import type { ColoringItem } from '../components/players/ColoringPlayer';
+import { findImageData } from '@/features/phonics-learner/lib/phonics-game-adapter';
 
 /**
  * 색칠 도안 — 두 파일로 나눠 받는다.
@@ -15,7 +16,7 @@ import type { ColoringItem } from '../components/players/ColoringPlayer';
  *    열어 보니 빈 화면이 된다. 실측: 라벨을 붙일 수 있는 도안이 ko·en 1,705/1,736,
  *    vi 1,227 · zh·th 1,237 이고 **vi·zh·th 는 87권이 0장**이다.
  */
-interface ColoringSheet {
+export interface ColoringSheet {
   key: string;
   group: string;
   section: string;
@@ -144,6 +145,7 @@ export function useColoringItems(
     return data
       .filter((s) => String(s.unitId) === bookId)
       .flatMap((s): ColoringItem[] => {
+        if (book.type === 'phonics') return phonicsColoringItem(s, book, lang);
         const ko = findSheetKeyObject(book, s.word);
         const word = coloringLabel(ko, lang);
         const colorSourceUrl = s.answerUrl ?? s.originalUrl ?? '';
@@ -166,4 +168,30 @@ export function useColoringItems(
   }, [data, book, bookId, lang]);
 
   return { items, loading: isLoading };
+}
+
+/** Phonics uses flashcard target words, not a story's translated key_objects or book-index. */
+export function phonicsColoringItem(
+  sheet: ColoringSheet,
+  book: Storybook,
+  lang: Lang
+): ColoringItem[] {
+  if (sheet.unitId !== book.id || !['ko', 'en'].includes(lang)) return [];
+  if (sheet.language && sheet.language !== TTS_LANGUAGE[lang]) return [];
+  const word = book.phonicsConfig?.targetWords?.find((word) => norm(word) === norm(sheet.word));
+  const colorSourceUrl = sheet.answerUrl || sheet.originalUrl;
+  if (!word || !sheet.lineartUrl || !colorSourceUrl) return [];
+  const extra = findImageData(book, word);
+  return [
+    {
+      word,
+      lineartUrl: sheet.lineartUrl,
+      colorSourceUrl,
+      originalUrl: extra.imageUrl || sheet.originalUrl,
+      ttsUrl: extra.ttsUrl || sheet.ttsUrl,
+      storybookId: book.id,
+      language: TTS_LANGUAGE[lang],
+      lang,
+    },
+  ];
 }
