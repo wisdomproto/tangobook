@@ -7,7 +7,7 @@
 - base: 7dd6b074c
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: 코드 b3ccc3db3 로컬 main fast-forward 통합 완료
 - delivery: 미푸시·미배포
 
 ## 사용자 결정
