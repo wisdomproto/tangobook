@@ -13,6 +13,49 @@ function trace(stroke: VowelGuideStroke, points: StrokePoint[], softEnd = false)
   return tracePassed(path, attempt, { softEnd });
 }
 describe('획 단위의 관대한 따라쓰기', () => {
+  it('반듯해진 짧은 t 가로획도 허용된 양끝 흔들림으로 짧아진 전진 입력을 받되 반쪽/역방향은 거절한다', () => {
+    const bar = { from: { x: 192, y: 149 }, to: { x: 233, y: 149 } };
+    const path = makeTracePath(bar);
+    const input = path.points.map((p, n) => ({
+      x: p.x + Math.sin(n * 0.25 + Math.PI / 2) * 16,
+      y: p.y + Math.cos(n * 0.25 + Math.PI / 2) * 16,
+    }));
+    expect(trace(bar, input, true)).toBe(true);
+    expect(trace(bar, path.points.slice(0, 5), true)).toBe(false);
+    expect(trace(bar, [bar.to, bar.from], true)).toBe(false);
+    expect(trace(bar, [bar.from, bar.from], true)).toBe(false);
+  });
+  it('긴 곡선도 경로의90%에서 떼면 마무리하고, 중간/역방향/지름길은 마무리하지 않는다', () => {
+    const stroke = {
+      from: { x: 100, y: 50 },
+      to: { x: 100, y: 350 },
+      points: [
+        { x: 100, y: 50 },
+        { x: 260, y: 50 },
+        { x: 300, y: 150 },
+        { x: 300, y: 250 },
+        { x: 260, y: 350 },
+        { x: 100, y: 350 },
+      ],
+    };
+    const path = makeTracePath(stroke);
+    const attemptFor = (pts: StrokePoint[]) => {
+      let attempt = beginTrace(path, pts[0]);
+      if (!attempt) return null;
+      for (const p of pts.slice(1)) attempt = moveTrace(path, attempt, p, { softTurns: true });
+      return attempt;
+    };
+    const prefix = (fraction: number) =>
+      path.points.filter((_, n) => path.distances[n] <= path.length * fraction);
+    const ninety = attemptFor(prefix(0.9))!;
+    expect(tracePassed(path, ninety, { softEnd: true })).toBe(false);
+    expect(tracePassed(path, ninety, { softEnd: true, completionRatio: 0.9 })).toBe(true);
+    for (const pts of [prefix(0.5), prefix(0.75), [stroke.from, stroke.to]]) {
+      const a = attemptFor(pts)!;
+      expect(tracePassed(path, a, { softEnd: true, completionRatio: 0.9 })).toBe(false);
+    }
+    expect(attemptFor([...path.points].reverse())).toBeNull();
+  });
   it.each(Object.entries(turnPaths))(
     '%s 실제 폰트의 짧은 획·꺾임은 입력 간격과 흔들리는 방향이 바뀌어도 이어간다',
     (_, paths) => {

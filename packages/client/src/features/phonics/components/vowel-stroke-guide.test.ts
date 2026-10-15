@@ -1,5 +1,25 @@
 import { describe, expect, it } from 'vitest';
-import { firstUnpaintedStroke, getVowelGuideStrokes, isIntroVowel } from './vowel-stroke-guide';
+import {
+  firstUnpaintedStroke,
+  getVowelGuideStrokes,
+  guideArrowSegments,
+  isIntroVowel,
+} from './vowel-stroke-guide';
+import { sampleFormationPath } from './letter-stroke-guide';
+import { ENGLISH_STROKES } from './english-stroke-templates';
+
+it('e의 방향 표식은 먼저 오른쪽 가로획, 위쪽 반시계, 아래쪽 마무리로 이어진다', () => {
+  const points = sampleFormationPath(ENGLISH_STROKES.e[0]).map((p) => ({
+    x: p.x * 250,
+    y: p.y * 250,
+  }));
+  const cues = guideArrowSegments({ from: points[0], to: points.at(-1)!, points });
+  expect(cues).toHaveLength(3);
+  expect(cues[0].at(-1)!.x).toBeGreaterThan(cues[0][0].x);
+  expect(cues[0].at(-1)!.y).toBeCloseTo(cues[0][0].y);
+  expect(cues[1].at(-1)!.x).toBeLessThan(cues[1][0].x);
+  expect(cues[2].at(-1)!.x).toBeGreaterThan(cues[2][0].x);
+});
 
 // Independently specified textbook stroke order. Rectangular masks also test
 // a narrow/different font placement, without relying on the implementation's paths.

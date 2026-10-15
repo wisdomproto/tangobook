@@ -114,6 +114,33 @@ export function guidePath(stroke: VowelGuideStroke): string {
     .join(' ');
 }
 
+/** Direction cues follow arc length. An e's short first crossbar must be
+ * visible before the much longer counter-clockwise bowl. */
+export function guideArrowSegments(stroke: VowelGuideStroke, startRadius = 12): StrokePoint[][] {
+  const points = guidePoints(stroke);
+  const lengths = [0];
+  for (let n = 1; n < points.length; n++)
+    lengths.push(
+      lengths[n - 1] + Math.hypot(points[n].x - points[n - 1].x, points[n].y - points[n - 1].y)
+    );
+  const total = lengths.at(-1)!;
+  if (total < startRadius + 25) return [];
+  const at = (length: number): StrokePoint => {
+    const end = lengths.findIndex((n) => n >= length);
+    if (end <= 0) return points[end < 0 ? points.length - 1 : 0];
+    const ratio = (length - lengths[end - 1]) / Math.max(0.001, lengths[end] - lengths[end - 1]);
+    return {
+      x: points[end - 1].x + (points[end].x - points[end - 1].x) * ratio,
+      y: points[end - 1].y + (points[end].y - points[end - 1].y) * ratio,
+    };
+  };
+  return (total > 300 ? [0.12, 0.4, 0.8] : total > 140 ? [0.12, 0.62] : [0.55]).map((fraction) => {
+    const from = Math.max(startRadius + 8, total * fraction);
+    const to = Math.min(total - 5, from + Math.max(14, total * 0.08));
+    return [at(from), ...points.filter((_, n) => lengths[n] > from && lengths[n] < to), at(to)];
+  });
+}
+
 export function firstUnpaintedStroke(
   strokes: VowelGuideStroke[],
   image: Pick<ImageData, 'data' | 'width' | 'height'>

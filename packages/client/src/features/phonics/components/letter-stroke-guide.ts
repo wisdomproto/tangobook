@@ -313,6 +313,77 @@ export function trimProjectionLoops(source: StrokePoint[]): StrokePoint[] {
   return points.length > 1 ? points : [source[0], source[source.length - 1]];
 }
 
+/** Preserve the authored straight segments; pixel attraction may not turn a
+ * ruler-straight stem/crossbar/diagonal into a staircase. Curves lose only their
+ * tiny pixel jitter, keeping their endpoints and deliberate corners. */
+export function cleanFormationProjection(
+  source: StrokePoint[],
+  fitted: StrokePoint[]
+): StrokePoint[] {
+  const points = fitted.map((p) => ({ ...p }));
+  const straight = new Set<number>();
+  const segments: Array<[number, number]> = [];
+  for (let first = 0; first + 2 < source.length; ) {
+    let last = first + 1;
+    const a = source[first],
+      b = source[last];
+    const dx = b.x - a.x,
+      dy = b.y - a.y;
+    if (Math.hypot(dx, dy) < 1e-8) {
+      first++;
+      continue;
+    }
+    while (last + 1 < source.length) {
+      const p = source[last + 1];
+      if (Math.abs(dx * (p.y - a.y) - dy * (p.x - a.x)) > 1e-8) break;
+      last++;
+    }
+    if (last - first >= 3) {
+      segments.push([first, last]);
+      const start = points[first],
+        end = points[last];
+      const horizontal = Math.abs(source[last].y - a.y) < 1e-8;
+      const vertical = Math.abs(source[last].x - a.x) < 1e-8;
+      const mid = points[Math.floor((first + last) / 2)];
+      const from = { x: vertical ? mid.x : start.x, y: horizontal ? mid.y : start.y };
+      const to = { x: vertical ? mid.x : end.x, y: horizontal ? mid.y : end.y };
+      for (let n = first; n <= last; n++) {
+        const fraction = (n - first) / (last - first);
+        points[n] = {
+          x: from.x + (to.x - from.x) * fraction,
+          y: from.y + (to.y - from.y) * fraction,
+        };
+        straight.add(n);
+      }
+      first = last;
+    } else first++;
+  }
+  // A later segment can move its shared corner (Z's bottom bar). Rejoin the
+  // previous straight run to that final anchor rather than leaving a tiny bend.
+  for (const [first, last] of segments) {
+    const from = points[first],
+      to = points[last];
+    for (let n = first + 1; n < last; n++) {
+      const fraction = (n - first) / (last - first);
+      points[n] = {
+        x: from.x + (to.x - from.x) * fraction,
+        y: from.y + (to.y - from.y) * fraction,
+      };
+    }
+  }
+  for (let pass = 0; pass < 2; pass++) {
+    const before = points.map((p) => ({ ...p }));
+    for (let n = 1; n < points.length - 1; n++) {
+      if (straight.has(n)) continue;
+      points[n] = {
+        x: (before[n - 1].x + 2 * before[n].x + before[n + 1].x) / 4,
+        y: (before[n - 1].y + 2 * before[n].y + before[n + 1].y) / 4,
+      };
+    }
+  }
+  return points;
+}
+
 function fit(
   ink: Ink,
   letter: string,
@@ -394,13 +465,19 @@ function fit(
         ? { axis: 'x' as const, value: mid.x }
         : undefined;
     const projected = path.map((point) => project(point, locked));
-    const points = /^[A-Za-z]$/.test(letter) ? trimProjectionLoops(projected) : projected;
+    const points = /^[A-Za-z]$/.test(letter)
+      ? trimProjectionLoops(cleanFormationProjection(path, projected))
+      : projected;
     // A printed i/j dot can project every sample to the same centre pixel.
     // Keep a tiny visible stroke there (and let the pencil tap it).
     if (points.every((point) => Math.hypot(point.x - points[0].x, point.y - points[0].y) < 0.5)) {
       points[points.length - 1] = { x: points[0].x, y: points[0].y + 1 };
     }
-    return { from: points[0], to: points[points.length - 1], points };
+    const from = points[0],
+      to = points[points.length - 1];
+    return /^[A-Za-z]$/.test(letter) && (horizontal || vertical)
+      ? { from, to }
+      : { from, to, points };
   });
 }
 

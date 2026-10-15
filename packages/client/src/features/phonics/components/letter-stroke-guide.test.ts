@@ -5,6 +5,7 @@ import {
   isGuidedLetter,
   sampleFormationPath,
   trimProjectionLoops,
+  cleanFormationProjection,
 } from './letter-stroke-guide';
 import { guidePoints } from './vowel-stroke-guide';
 
@@ -34,6 +35,38 @@ function mask(lines: number[][], offset = 0) {
 }
 
 describe('all-writing formation paths', () => {
+  it.each(['D', 'd', 'E', 'I', 'l', 'v', 'Z'])(
+    '%s keeps authored straight runs straight after font attraction',
+    (letter) => {
+      for (const svg of ENGLISH_STROKES[letter]) {
+        const source = sampleFormationPath(svg);
+        const noisy = source.map((p, n) => ({
+          x: p.x * 200 + Math.sin(n) * 3,
+          y: p.y * 200 + Math.cos(n) * 3,
+        }));
+        const clean = cleanFormationProjection(source, noisy);
+        if (!/[CQ]/.test(svg)) {
+          for (let first = 0; first + 24 < clean.length; first += 24) {
+            const a = clean[first],
+              b = clean[first + 24];
+            for (const p of clean.slice(first + 1, first + 24))
+              expect(Math.abs((b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x))).toBeLessThan(
+                0.001
+              );
+          }
+        }
+        // All paths beginning with L contain a 24-sample straight first segment.
+        if (/^M[^CLQ]+L/.test(svg)) {
+          const a = clean[0],
+            b = clean[24];
+          for (const p of clean.slice(1, 24))
+            expect(Math.abs((b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x))).toBeLessThan(
+              0.001
+            );
+        }
+      }
+    }
+  );
   it('removes pixel-projection return loops without cutting a real bowl or its endpoints', () => {
     const start = { x: 145, y: 185 },
       corner = { x: 145, y: 161 },

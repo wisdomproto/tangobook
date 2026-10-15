@@ -89,6 +89,16 @@ function gesture(canvas: HTMLElement, from: number[], to: number[], cancel = fal
   });
 }
 describe('실제 획 순서와 완료 배선', () => {
+  it('각 획을90%에서 떼면 나머지 잉크까지 완성하고 전체 완료를 한번만 전달한다', () => {
+    const result = vi.fn();
+    render(<StrokeTraceCanvas letter="ㅏ" guidance="hint" onResult={result} />);
+    const paper = screen.getByLabelText('ㅏ 따라쓰기');
+    gesture(paper, [120, 60], [120, 303]);
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '1');
+    expect(result).not.toHaveBeenCalled();
+    gesture(paper, [120, 190], [219, 190]);
+    expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+  });
   it('진행 잉크와 완료 빛은 각 획의 폰트 마스크 밖으로 번지지 않는다', () => {
     const { container } = render(
       <StrokeTraceCanvas letter="ㅏ" guidance="hint" onResult={vi.fn()} />

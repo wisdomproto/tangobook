@@ -1,5 +1,7 @@
 # 파닉스 모듈
 
+2026-10-16 가이드 후속: 영어 투영 후 authored 직선 구간/공유 꺾임을 다시 직선화하고 곡선 픽셀 떨림만 정리한다. 길이 기반 방향 cue로 e의 가로→위 반시계→아래 마무리를 표시한다. 공용 StrokeTraceCanvas는 순서/경로를 따라90%에서 pointer-up하면 꼬리를 완성하며 점찍기는 제외한다. [검증·native 곡선 제약](../../../../../docs/work/phonics/tasks/20261016-alphabet-guide-ending.md).
+
 2026-10-16 잉크 표현: 진행선/완료 빛도 실제 폰트·해당 획 mask 안에서만 그린다. 픽셀 소유권과 폰트 단면의 직선 영역으로 연결부 패임을 막으며 모든 mask는 초기화 때만 만든다. 획 판정은 별개다. [검수](../../../../../docs/work/phonics/tasks/20261016-alphabet-writing-finish.md).
 
 2026-10-15 후속: 영어 폰트 투영의32px 이하 국소 왕복만 trimProjectionLoops로 제거해 n 희소 입력 멈춤을 보완한다. i/j의 현재 dot은44px 탭 버튼으로도 완료하며 body 전 노출/중복 완료는 금지한다. 기존 canvas20px 점 검사·한글 경로는 유지한다. [정확한 검수 범위](../../../../../docs/work/phonics/tasks/20261015-lowercase-writing-review.md).

@@ -22,11 +22,12 @@ import './alphabet-writing-check.css';
 const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const LETTERS = [...UPPER, ...UPPER.toLowerCase()];
 const FACE = 'system-ui, sans-serif';
-type Scenario = 'exact' | 'wobble' | 'sparse' | 'reverse' | 'half' | 'shortcut' | 'far';
+type Scenario = 'exact' | 'wobble' | 'sparse' | 'ninety' | 'reverse' | 'half' | 'shortcut' | 'far';
 const SCENARIOS: Record<Scenario, string> = {
   exact: '정확한 경로',
   wobble: '12px 흔들림',
   sparse: '드문 입력 + 흔들림',
+  ninety: '90%에서 손 떼기',
   reverse: '역방향',
   half: '절반만 쓰기',
   shortcut: '시작→끝 직선',
@@ -79,6 +80,18 @@ function inputFor(path: TracePath, scenario: Scenario): StrokePoint[] {
   if (scenario === 'reverse') return [...path.points].reverse();
   if (scenario === 'half')
     return path.points.slice(0, Math.max(1, Math.floor(path.points.length / 2)));
+  if (scenario === 'ninety') {
+    const length = path.length * 0.9;
+    const end = path.distances.findIndex((n) => n >= length);
+    const a = path.points[end - 1],
+      b = path.points[end];
+    const fraction =
+      (length - path.distances[end - 1]) / (path.distances[end] - path.distances[end - 1]);
+    return [
+      ...path.points.slice(0, end),
+      { x: a.x + (b.x - a.x) * fraction, y: a.y + (b.y - a.y) * fraction },
+    ];
+  }
   if (scenario === 'shortcut') return [path.points[0], path.points[path.points.length - 1]];
   const pts =
     scenario === 'sparse'
@@ -114,7 +127,7 @@ function check(
   return {
     stroke,
     scenario,
-    passed: !!attempt && tracePassed(path, attempt, { softEnd: true }),
+    passed: !!attempt && tracePassed(path, attempt, { softEnd: true, completionRatio: 0.9 }),
     expected,
     remaining: Math.round(attempt ? path.length - path.distances[attempt.index] : path.length),
     offPath: Math.round(attempt?.offPath ?? 0),
@@ -125,7 +138,7 @@ function report(letter: string, guides: VowelGuideStroke[]): Report {
   const checks = guides.flatMap((g, i) => {
     const scenarios: Scenario[] = g.dot
       ? ['exact', 'wobble', 'far']
-      : ['exact', 'wobble', 'sparse', 'reverse', 'half', 'shortcut'];
+      : ['exact', 'wobble', 'sparse', 'ninety', 'reverse', 'half', 'shortcut'];
     return scenarios.map((s) => check(makeTracePath(g), i + 1, s));
   });
   const extended = guides.flatMap((g, i) => {

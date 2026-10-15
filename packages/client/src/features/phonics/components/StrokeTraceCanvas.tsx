@@ -184,7 +184,9 @@ export function StrokeTraceCanvas({
       e.currentTarget.releasePointerCapture(e.pointerId);
     if (!trace || cancelled) return;
     const final = moveTrace(data.paths[index.current], trace, point(e), { softTurns: english });
-    if (!tracePassed(data.paths[index.current], final, { softEnd: english })) {
+    if (
+      !tracePassed(data.paths[index.current], final, { softEnd: english, completionRatio: 0.9 })
+    ) {
       setRetry(true);
       return;
     }

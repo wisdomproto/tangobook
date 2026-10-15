@@ -1,7 +1,7 @@
 import { useEffect, useId } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { VowelGuideStroke, WritingGuidance } from './vowel-stroke-guide';
-import { guidePath, guidePoints } from './vowel-stroke-guide';
+import { guideArrowSegments, guidePath, guidePoints } from './vowel-stroke-guide';
 
 const DRAW_SECONDS = 0.7;
 const STROKE_SECONDS = 1;
@@ -150,15 +150,19 @@ export function VowelStrokeOverlay({
               strokeLinecap="round"
               markerEnd={stroke.points ? undefined : `url(#${markerId})`}
             />
-            {stroke.points && points.length > 3 && (
-              <path
-                d={`M ${points[Math.floor(points.length * 0.55)].x} ${points[Math.floor(points.length * 0.55)].y} L ${points[Math.floor(points.length * 0.65)].x} ${points[Math.floor(points.length * 0.65)].y}`}
-                fill="none"
-                stroke={accent}
-                strokeWidth="3"
-                markerEnd={`url(#${markerId})`}
-              />
-            )}
+            {stroke.points &&
+              points.length > 3 &&
+              guideArrowSegments(stroke, radius).map((arrow, cue) => (
+                <path
+                  key={cue}
+                  data-direction-cue={cue + 1}
+                  d={guidePath({ from: arrow[0], to: arrow.at(-1)!, points: arrow })}
+                  fill="none"
+                  stroke={accent}
+                  strokeWidth="3"
+                  markerEnd={`url(#${markerId})`}
+                />
+              ))}
             <circle
               cx={from.x}
               cy={from.y}

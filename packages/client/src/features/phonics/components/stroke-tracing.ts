@@ -88,7 +88,7 @@ export function moveTrace(
 export function tracePassed(
   path: TracePath,
   attempt: TraceAttempt,
-  { softEnd = false }: { softEnd?: boolean } = {}
+  { softEnd = false, completionRatio = 1 }: { softEnd?: boolean; completionRatio?: number } = {}
 ): boolean {
   if (path.dot)
     return (
@@ -112,25 +112,42 @@ export function tracePassed(
   const minimumForward = softEnd
     ? Math.max(4, Math.min(path.length * 0.45, chord - TRACE_TOLERANCE))
     : path.length * 0.45;
+  // A short printed crossbar may be only 41px long. Permitted start/end
+  // offsets can shorten a forward swipe below 62%, even when its checkpoint
+  // reaches the end region. Keep real movement, direction and tail guards.
+  const minimumTravel =
+    softEnd && path.length < 64 && chord >= path.length * 0.8
+      ? Math.min(path.length * 0.62, Math.max(8, chord - TRACE_TOLERANCE))
+      : path.length * 0.62;
+  // Pointer-up near 90% snaps only the final tail into place. Path progress is
+  // measured along the curve, never by distance travelled/scribbling alone.
+  // Half a 5px sample accommodates checkpoint quantization at exactly 90%.
+  const nearFinish =
+    completionRatio < 1 &&
+    path.distances[attempt.index] >= path.length * Math.max(0.9, completionRatio) - 2.5;
+  const endpointTolerance = nearFinish
+    ? Math.max(TRACE_TOLERANCE, path.length * (1 - Math.max(0.9, completionRatio)) + 5)
+    : TRACE_TOLERANCE;
   return (
     // English ends use the same corridor as the rest of the stroke. A wobbling
     // finger can reach the end while its nearest checkpoint is still behind.
     // Keep short-stroke, distance, direction and endpoint guards; Korean keeps
     // its existing ending policy unless explicitly opted in.
-    path.length - path.distances[attempt.index] <=
-      Math.min(softEnd ? TRACE_TOLERANCE * 2 : 16, path.length * (softEnd ? 0.45 : 0.28)) &&
+    (nearFinish ||
+      path.length - path.distances[attempt.index] <=
+        Math.min(softEnd ? TRACE_TOLERANCE * 2 : 16, path.length * (softEnd ? 0.45 : 0.28))) &&
     // The entire untraced tail must be inside the endpoint corridor. Extra arc
     // allowance never skips an uncovered bend or another side of a letter.
-    (!softEnd ||
+    (!(softEnd || nearFinish) ||
       path.points
         .slice(attempt.index)
-        .every((p) => distance(p, attempt.last) <= TRACE_TOLERANCE)) &&
-    attempt.travelled >= path.length * 0.62 &&
+        .every((p) => distance(p, attempt.last) <= endpointTolerance)) &&
+    attempt.travelled >= minimumTravel &&
     // Both ends of a tiny bar can fall inside the start tolerance. Require a
     // real forward swipe so reversing it or scrubbing a dot cannot pass.
     (path.length >= 64 || chord < path.length * 0.8 || forward >= minimumForward) &&
     attempt.offPath <= Math.max(24, attempt.travelled * 0.4) &&
-    distance(attempt.last, path.points[path.points.length - 1]) <= TRACE_TOLERANCE
+    distance(attempt.last, path.points[path.points.length - 1]) <= endpointTolerance
   );
 }
 
