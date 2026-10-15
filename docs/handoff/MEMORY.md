@@ -880,3 +880,5 @@
 2026-10-15 동화BGM 클라이맥스 후속: [작업 기록](../work/video/tasks/20261015-classic-bgm-research.md)의 마지막절과 `docs/audio/classic-bgm-20261015/climax-v2-generation.json`에 명작14/전래10 긴장형 재생성52후보·공식임베드 미리듣기 상태 기록. 책 연결 교체/다운로드/배포는 미진행.
 
 2026-10-15 BGM최신결정: 다운로드팩/3구간교체는사용자가보류. [동화BGM작업](../work/video/tasks/20261015-classic-bgm-research.md)의마지막절처럼한책한곡랜덤으로변경(명작/전래분리·페이지전환시유지). 로컬브랜치수정,원격데이터/운영배포미변경.
+
+2026-10-15 [한곡랜덤BGM 운영반영완료](../work/video/tasks/20261015-classic-bgm-research.md): main069a80aa3푸시·후속통합ba1b70dbd Railway성공/새번들확인. 명작/전래분리·페이지전환유지·기존32음원정상,아기돼지7쪽재생상태/정지검수. 구간전환·새곡다운로드는보류. 별도갈라진로컬main과미추적파일보존.
