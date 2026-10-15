@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { useStoryBgm } from './useStoryBgm';
 
 interface UseAudioPlayerOptions {
   backgroundMusicUrl?: string;
@@ -16,7 +17,6 @@ export function useAudioPlayer({
   onTtsEnded,
 }: UseAudioPlayerOptions) {
   const ttsRef = useRef<HTMLAudioElement | null>(null);
-  const bgmRef = useRef<HTMLAudioElement | null>(null);
   // TTS 프리로드 풀: url → 미리 버퍼링된 Audio 객체. playTts 가 이 풀의 객체를 재사용한다
   // (HTTP 캐시가 아니라 Audio 객체 자체가 버퍼를 들고 있어 첫 재생이 즉시 시작됨).
   const preloadPoolRef = useRef<Map<string, HTMLAudioElement>>(new Map());
@@ -29,114 +29,101 @@ export function useAudioPlayer({
   gainRef.current = volumeGain;
 
   const [isTtsPlaying, setIsTtsPlaying] = useState(false);
-  const [isBgmPlaying, setIsBgmPlaying] = useState(false);
+  const { isBgmPlaying, toggleBgm, unlockBgm } = useStoryBgm(
+    backgroundMusicUrl,
+    ((backgroundMusicVolume ?? 30) / 100) * volumeGain
+  );
   const [ttsCurrentTime, setTtsCurrentTime] = useState(0);
   const [ttsDuration, setTtsDuration] = useState(0);
 
-  // Initialize BGM audio element + try autoplay (default ON).
-  // iOS Safari 등 autoplay 차단 환경에선 조용히 실패하고 사용자 탭으로 켜짐.
+  // TTS user gain; scene music keeps its own two-deck crossfade weights.
   useEffect(() => {
-    if (!backgroundMusicUrl) return;
-    const audio = new Audio(backgroundMusicUrl);
-    audio.loop = true;
-    audio.preload = 'auto'; // 시작 화면 동안 미리 버퍼링 → 탭 시 즉시 재생(늦게 나오는 것 방지)
-    audio.volume = ((backgroundMusicVolume ?? 30) / 100) * gainRef.current;
-    bgmRef.current = audio;
-    audio
-      .play()
-      .then(() => setIsBgmPlaying(true))
-      .catch(() => setIsBgmPlaying(false));
-    return () => {
-      audio.pause();
-      audio.src = '';
-    };
-  }, [backgroundMusicUrl]);
-
-  // 볼륨(저작자값·사용자 계수) 변경 시 재생 중인 TTS/BGM 에 즉시 반영 (오디오 재생성 없이).
-  useEffect(() => {
-    if (bgmRef.current) bgmRef.current.volume = ((backgroundMusicVolume ?? 30) / 100) * volumeGain;
     if (ttsRef.current) ttsRef.current.volume = volumeGain;
-  }, [backgroundMusicVolume, volumeGain]);
+  }, [volumeGain]);
 
   const onTtsEndedRef = useRef(onTtsEnded);
   onTtsEndedRef.current = onTtsEnded;
 
-  const playTts = useCallback((url: string) => {
-    // 이전 재생 리스너 제거.
-    playCtrlRef.current?.abort();
+  const playTts = useCallback(
+    (url: string) => {
+      unlockBgm();
+      // 이전 재생 리스너 제거.
+      playCtrlRef.current?.abort();
 
-    // 🔴 단일 재생 엘리먼트 재사용 (인앱 브라우저 대응, 2026-07-16).
-    // 인스타그램 등 in-app WebView 는 사용자 제스처로 "해금된 바로 그" <audio> 엘리먼트만
-    // 이후 재생을 허용한다. 페이지마다 프리로드 풀의 다른 Audio 객체를 재생하면 2페이지부터
-    // autoplay 가 차단돼 `ended` 가 안 뜨고 자동넘김이 멈춘다(크롬/PWA 는 관대해 괜찮지만
-    // 인스타 인앱은 멈춤 — 사용자 리포트). 그래서 재생은 항상 이 하나의 엘리먼트(ttsRef)로 하고,
-    // 프리로드 풀(preloadTts)은 HTTP 캐시 워밍용으로만 유지한다(src 만 바꿔도 워밍된 캐시에서
-    // 즉시 로드 — TTS 는 immutable Cache-Control).
-    let audio = ttsRef.current;
-    if (!audio) {
-      audio = new Audio();
-      ttsRef.current = audio;
-    }
-    if (audio.getAttribute('src') !== url) {
-      audio.pause();
-      audio.src = url;
-    }
-    audio.currentTime = 0;
-    setTtsCurrentTime(0);
-    // 캐시/프리로드로 메타데이터가 이미 있으면 duration 즉시 반영(loadedmetadata 가 안 불릴 수 있음).
-    const known = audio.duration;
-    setTtsDuration(isFinite(known) && known > 0 ? known : 0);
-    setIsTtsPlaying(true);
-
-    const ctrl = new AbortController();
-    playCtrlRef.current = ctrl;
-    const opt = { signal: ctrl.signal };
-
-    const updateDuration = () => {
-      const d = audio.duration;
-      if (isFinite(d) && d > 0) setTtsDuration(d);
-    };
-    audio.addEventListener('loadedmetadata', updateDuration, opt);
-    audio.addEventListener('durationchange', updateDuration, opt);
-    audio.addEventListener(
-      'timeupdate',
-      () => {
-        setTtsCurrentTime(audio.currentTime);
-      },
-      opt
-    );
-    audio.addEventListener(
-      'ended',
-      () => {
-        setIsTtsPlaying(false);
-        setTtsCurrentTime(audio.duration || 0);
-        onTtsEndedRef.current?.();
-      },
-      opt
-    );
-    audio.addEventListener(
-      'error',
-      (e) => {
-        console.warn('[tts] audio error', e);
-        setIsTtsPlaying(false);
-      },
-      opt
-    );
-
-    // 재생 속도·음량 적용 — 풀 객체 재사용/프리로드 객체 모두 play() 직전에 설정.
-    audio.playbackRate = rateRef.current;
-    audio.volume = gainRef.current;
-    // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false. 일부 브라우저는 reject 없이
-    // resolve 후 곧바로 paused 가 되므로 !paused 로 실제 시작 여부를 확인한다.
-    return audio.play().then(
-      () => !audio.paused,
-      (err) => {
-        console.warn('[tts] play() rejected (autoplay policy?):', err);
-        setIsTtsPlaying(false);
-        return false;
+      // 🔴 단일 재생 엘리먼트 재사용 (인앱 브라우저 대응, 2026-07-16).
+      // 인스타그램 등 in-app WebView 는 사용자 제스처로 "해금된 바로 그" <audio> 엘리먼트만
+      // 이후 재생을 허용한다. 페이지마다 프리로드 풀의 다른 Audio 객체를 재생하면 2페이지부터
+      // autoplay 가 차단돼 `ended` 가 안 뜨고 자동넘김이 멈춘다(크롬/PWA 는 관대해 괜찮지만
+      // 인스타 인앱은 멈춤 — 사용자 리포트). 그래서 재생은 항상 이 하나의 엘리먼트(ttsRef)로 하고,
+      // 프리로드 풀(preloadTts)은 HTTP 캐시 워밍용으로만 유지한다(src 만 바꿔도 워밍된 캐시에서
+      // 즉시 로드 — TTS 는 immutable Cache-Control).
+      let audio = ttsRef.current;
+      if (!audio) {
+        audio = new Audio();
+        ttsRef.current = audio;
       }
-    );
-  }, []);
+      if (audio.getAttribute('src') !== url) {
+        audio.pause();
+        audio.src = url;
+      }
+      audio.currentTime = 0;
+      setTtsCurrentTime(0);
+      // 캐시/프리로드로 메타데이터가 이미 있으면 duration 즉시 반영(loadedmetadata 가 안 불릴 수 있음).
+      const known = audio.duration;
+      setTtsDuration(isFinite(known) && known > 0 ? known : 0);
+      setIsTtsPlaying(true);
+
+      const ctrl = new AbortController();
+      playCtrlRef.current = ctrl;
+      const opt = { signal: ctrl.signal };
+
+      const updateDuration = () => {
+        const d = audio.duration;
+        if (isFinite(d) && d > 0) setTtsDuration(d);
+      };
+      audio.addEventListener('loadedmetadata', updateDuration, opt);
+      audio.addEventListener('durationchange', updateDuration, opt);
+      audio.addEventListener(
+        'timeupdate',
+        () => {
+          setTtsCurrentTime(audio.currentTime);
+        },
+        opt
+      );
+      audio.addEventListener(
+        'ended',
+        () => {
+          setIsTtsPlaying(false);
+          setTtsCurrentTime(audio.duration || 0);
+          onTtsEndedRef.current?.();
+        },
+        opt
+      );
+      audio.addEventListener(
+        'error',
+        (e) => {
+          console.warn('[tts] audio error', e);
+          setIsTtsPlaying(false);
+        },
+        opt
+      );
+
+      // 재생 속도·음량 적용 — 풀 객체 재사용/프리로드 객체 모두 play() 직전에 설정.
+      audio.playbackRate = rateRef.current;
+      audio.volume = gainRef.current;
+      // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false. 일부 브라우저는 reject 없이
+      // resolve 후 곧바로 paused 가 되므로 !paused 로 실제 시작 여부를 확인한다.
+      return audio.play().then(
+        () => !audio.paused,
+        (err) => {
+          console.warn('[tts] play() rejected (autoplay policy?):', err);
+          setIsTtsPlaying(false);
+          return false;
+        }
+      );
+    },
+    [unlockBgm]
+  );
 
   /**
    * 다가올 페이지의 TTS 를 미리 버퍼링한다 (현재 페이지 포함).
@@ -223,21 +210,6 @@ export function useAudioPlayer({
     if (ttsRef.current) ttsRef.current.playbackRate = rate;
   }, []);
 
-  const toggleBgm = useCallback(() => {
-    const audio = bgmRef.current;
-    if (!audio) return;
-    if (audio.paused) {
-      // play() 성공 시에만 ON 표시 — 차단/로드 실패 시 버튼이 켜진 척하지 않게
-      audio
-        .play()
-        .then(() => setIsBgmPlaying(!audio.paused))
-        .catch(() => setIsBgmPlaying(false));
-    } else {
-      audio.pause();
-      setIsBgmPlaying(false);
-    }
-  }, []);
-
   // Cleanup on unmount
   useEffect(() => {
     const pool = preloadPoolRef.current;
@@ -252,11 +224,6 @@ export function useAudioPlayer({
         a.src = '';
       });
       pool.clear();
-      if (bgmRef.current) {
-        bgmRef.current.pause();
-        bgmRef.current.src = '';
-        bgmRef.current = null;
-      }
     };
   }, []);
 

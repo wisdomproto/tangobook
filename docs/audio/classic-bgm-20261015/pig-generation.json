@@ -1,0 +1,68 @@
+{
+  "provider": "Suno UI",
+  "model": "v6",
+  "plan": "Pro verified at generation",
+  "instrumental": "empty lyrics, 0/5000",
+  "creditsBefore": 2446,
+  "downloadsBefore": 23,
+  "exclude": "vocals, singing, choir, humming, narration, heavy drums, horror, trailer, sudden loud impacts",
+  "status": "4 roles generated, 2 candidates each, first candidate draft selected; listening approval pending",
+  "roles": [
+    {
+      "role": "시작",
+      "title": "탱고북 · 아기돼지 01 시작 · 집을 지어요",
+      "seconds": "1:10",
+      "style": "Instrumental preschool storybook underscore for The Three Little Pigs. Small acoustic chamber ensemble: pizzicato strings, bassoon, clarinet, warm low strings, a little wooden mallet. 84 BPM, 4/4, G major / E minor palette, intimate dry room. Tiny original three-note motif G-A-D, very sparse and quiet beneath narration. No vocals, lyrics, choir, humming, spoken words, sound effects, heavy drums, trailer brass or recognizable existing melodies. Soft transients, even dynamics, clear repeating phrases for later looping. OPENING: friendly curious house-building, gentle comic woodblock-like pizzicato steps, warm clarinet answers, optimistic but understated. No buildup or suspense. End softly with a short clean decay.",
+      "urls": [
+        "/song/3e129bc1-56f0-407f-aea5-41f59c143e0c",
+        "/song/af4095f6-7a13-4701-a10b-d70975a48937"
+      ],
+      "uiDescriptions": [
+        "1:09탱고북 · 아기돼지 01 시작 · 집을 지어요V6Storybook chamber underscore, intimate dry-room recording with soft transients, even dynamics, clear looping phrases, and a short clean decay; instrumental, sparse and quiet at 84 BPM in an even 4/4; warm clarinet answers a tiny original G–A–D motif over comic pizzicato steps, bassoon, warm low strings, and a little wooden mallet, friendly and curious with understated optimism, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix",
+        "1:10탱고북 · 아기돼지 01 시작 · 집을 지어요V6Preschool storybook underscore, sparse pizzicato strings and wooden mallet taps trace a tiny G-A-D motif; warm clarinet answers over bassoon and low strings, Intimate dry-room recording, soft transients, even dynamics, clear loopable phrases, short clean decay; instrumental, gentle 84 BPM 4/4, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix"
+      ]
+    },
+    {
+      "role": "위기",
+      "title": "탱고북 · 아기돼지 02 위기 · 늑대가 와요",
+      "seconds": "1:10",
+      "style": "Instrumental preschool storybook underscore for The Three Little Pigs. Small acoustic chamber ensemble: pizzicato strings, bassoon, clarinet, warm low strings, a little wooden mallet. 84 BPM, 4/4, G major / E minor palette, intimate dry room. Tiny original three-note motif G-A-D, very sparse and quiet beneath narration. No vocals, lyrics, choir, humming, spoken words, sound effects, heavy drums, trailer brass or recognizable existing melodies. Soft transients, even dynamics, clear repeating phrases for later looping. TENSION: the wolf approaches. Quiet E minor low-string pulse and cautious bassoon, sparse unsettled clarinet phrases. Suspense without horror or jump scares, playful danger appropriate for young children. Maintain a steady low intensity; no victory cadence. End softly.",
+      "urls": [
+        "/song/2317e32f-8419-480c-9ab3-32098aeda50a",
+        "/song/2a98642c-eb2d-439b-8ac7-084641a95719"
+      ],
+      "uiDescriptions": [
+        "1:09탱고북 · 아기돼지 02 위기 · 늑대가 와요V6Preschool storybook underscore, instrumental; quiet 84 BPM 4/4 with an E minor pulse and G major color; pizzicato strings, cautious bassoon, sparse clarinet, warm low strings, and a light wooden mallet trace the G-A-D motif in clear looping phrases; intimate dry-room recording, soft transients, even dynamics, steady low intensity, ending softly, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix",
+        "1:09탱고북 · 아기돼지 02 위기 · 늑대가 와요V6Preschool storybook underscore, instrumental, Quiet E minor low-string pulse and cautious bassoon lead, sparse pizzicato strings, unsettled clarinet phrases, and occasional wooden mallet; weave in the tiny G-A-D motif, Intimate dry-room acoustic ensemble, soft transients, even dynamics, clear repeating phrases for looping, Unhurried 84 BPM in 4/4, steady low intensity, ending softly without a victory cadence, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix"
+      ]
+    },
+    {
+      "role": "클라이맥스",
+      "title": "탱고북 · 아기돼지 03 클라이맥스 · 튼튼한 벽돌집",
+      "seconds": "0:45",
+      "style": "Instrumental preschool storybook underscore for The Three Little Pigs. Small acoustic chamber ensemble: pizzicato strings, bassoon, clarinet, warm low strings, a little wooden mallet. 84 BPM, 4/4, G major / E minor palette, intimate dry room. Tiny original three-note motif G-A-D, very sparse and quiet beneath narration. No vocals, lyrics, choir, humming, spoken words, sound effects, heavy drums, trailer brass or recognizable existing melodies. Soft transients, even dynamics, clear repeating phrases for later looping. CLIMAX: the brick house stands firm and the pigs outsmart the wolf. Tight light string rhythm, short clarinet motif, a few soft small-drum taps. A decisive lift in confidence with restrained energy, not loud or epic. Resolve into a small warm major chord and short clean decay.",
+      "urls": [
+        "/song/c5384efe-dcbb-49ea-8bb9-612ce08abf8e",
+        "/song/f7f722dc-6648-401c-b103-1f3ad3ddf01f"
+      ],
+      "uiDescriptions": [
+        "0:46탱고북 · 아기돼지 03 클라이맥스 · 튼튼한 벽돌집V6Preschool storybook underscore, instrumental; gentle 84 BPM four-square pulse in a G major/E minor palette, pizzicato strings tracing a tiny G–A–D motif, warm low strings, bassoon, wooden mallet, short clarinet motif, and a few soft drum taps; restrained confident lift, intimate dry room, soft transients, even dynamics, clear looping phrases, warm major-chord resolution with a short clean decay, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix",
+        "0:45탱고북 · 아기돼지 03 클라이맥스 · 튼튼한 벽돌집V6Preschool storybook underscore, intimate dry-room recording with soft transients, even dynamics, and short clean decay; 84 BPM, gentle 4/4, very sparse and quiet with restrained lift; instrumental; pizzicato strings shape a light repeating rhythm around warm low strings, bassoon, wooden mallet, and a short clarinet motif built on G–A–D, resolving to a warm major chord, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix"
+      ]
+    },
+    {
+      "role": "해소",
+      "title": "탱고북 · 아기돼지 04 해소 · 함께 살아요",
+      "seconds": "1:00",
+      "style": "Instrumental preschool storybook underscore for The Three Little Pigs. Small acoustic chamber ensemble: pizzicato strings, bassoon, clarinet, warm low strings, a little wooden mallet. 84 BPM, 4/4, G major / E minor palette, intimate dry room. Tiny original three-note motif G-A-D, very sparse and quiet beneath narration. No vocals, lyrics, choir, humming, spoken words, sound effects, heavy drums, trailer brass or recognizable existing melodies. Soft transients, even dynamics, clear repeating phrases for later looping. RESOLUTION: safe together at home. Warm legato clarinet, soft held strings and gentle piano touches, slow spacious phrasing over the same 84 BPM framework. Recap the little motif tenderly, relieved and cozy. No fanfare. Natural settled ending with a clean soft decay.",
+      "urls": [
+        "/song/ca868815-e181-4edd-bbf5-052669a560b4",
+        "/song/4be9365d-9a60-461e-a961-d7da7bc59491"
+      ],
+      "uiDescriptions": [
+        "1:03탱고북 · 아기돼지 04 해소 · 함께 살아요V6Underscore, intimate dry-room recording with soft transients, even dynamics, and clean soft decay; pizzicato strings, bassoon, warm low strings, wooden mallet, and gentle piano support a warm legato clarinet, tenderly recapping the G-A-D motif in clear looping phrases; sparse, quiet 84 BPM 4/4 with spacious phrasing in a G major and E minor palette; instrumental, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix",
+        "1:00탱고북 · 아기돼지 04 해소 · 함께 살아요V6Storybook chamber underscore, pizzicato strings, bassoon, clarinet lead, warm low strings, wooden mallet and gentle piano touches; 84 BPM, unhurried 4/4 phrases in a G major and E minor palette, tender G–A–D motif recapped over sparse looping figures; intimate dry-room recording, soft transients, even dynamics, spacious legato resolution and clean soft decay; instrumental, ‑vocals, ‑singing, ‑choir, ‑humming, ‑narration, ‑heavy drums, ‑horror, ‑trailer, ‑sudden loud impactsSharePublishRemix"
+      ]
+    }
+  ]
+}

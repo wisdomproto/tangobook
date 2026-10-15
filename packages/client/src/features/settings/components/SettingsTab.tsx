@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import type { Storybook } from '@tangobook/shared';
 import { settingsApi } from '../api/settings.api';
 import type { BgmItem } from '../api/settings.api';
+import { StoryMusicCues } from './StoryMusicCues';
 import { PhonicsAudioLibrary } from './PhonicsAudioLibrary';
 import { SystemSoundsLibrary } from './SystemSoundsLibrary';
 import { ArtStyleLibraryModal } from './ArtStyleLibraryModal';
@@ -319,6 +320,16 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
       {/* 배경음악 섹션 */}
       <section className="space-y-4">
         <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">배경음악</h3>
+        <StoryMusicCues
+          book={storybook}
+          library={bgmLibrary}
+          onChange={(patch) => {
+            onUpdate((d) => {
+              Object.assign(d, patch);
+            });
+            onSave();
+          }}
+        />
 
         {/* 현재 BGM */}
         {storybook.backgroundMusicUrl ? (

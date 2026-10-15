@@ -1,0 +1,48 @@
+{
+  "provider": "Suno",
+  "model": "v6",
+  "planAtGeneration": "Pro",
+  "processing": "loudnorm -22 LUFS / -3dBTP / LRA7, 44.1k stereo MP3 192k; no new music synthesized locally",
+  "files": [
+    {
+      "role": "시작",
+      "file": "opening.mp3",
+      "sunoSong": "/song/3e129bc1-56f0-407f-aea5-41f59c143e0c",
+      "sha256": "b3c9214815169e8ff7d5cbe2cf8fba58d02ffa66b739866151d5b84a896cef6a",
+      "sourceSha256": "4d5f2131d5547888aab088771ac0c21b363c56cfba164fcc535be9ee2a4481c3",
+      "duration": 68.56,
+      "sampleRate": "44100",
+      "status": "generated draft; technical decode passed, listening approval pending"
+    },
+    {
+      "role": "위기",
+      "file": "tension.mp3",
+      "sunoSong": "/song/2317e32f-8419-480c-9ab3-32098aeda50a",
+      "sha256": "1536648a6f0f93738ea02192e5adb0a1bb9ac292087710600e4dceace3dc6588",
+      "sourceSha256": "26f9917a3354a6fa1e7ba73b584bfdd54ed14e7a416a81f49a6d5d5c570a8a2e",
+      "duration": 69.48,
+      "sampleRate": "44100",
+      "status": "generated draft; technical decode passed, listening approval pending"
+    },
+    {
+      "role": "클라이맥스",
+      "file": "climax.mp3",
+      "sunoSong": "/song/c5384efe-dcbb-49ea-8bb9-612ce08abf8e",
+      "sha256": "c349e3954fc1b39ab40f3b3d9e31e89339bc648ca8ea4727d471c55475b159e7",
+      "sourceSha256": "2eeefa4a5b33ab505aa6c3c6f9e917d89c25c25a8c137fafc63f1aed05aa53e1",
+      "duration": 46.0,
+      "sampleRate": "44100",
+      "status": "generated draft; technical decode passed, listening approval pending"
+    },
+    {
+      "role": "해소",
+      "file": "resolution.mp3",
+      "sunoSong": "/song/ca868815-e181-4edd-bbf5-052669a560b4",
+      "sha256": "2564ec1bc98087427b05862cc4710a8822c7c48749bd737d08da737d8bba3b73",
+      "sourceSha256": "4171c1dbc1627d7c29b18343a3a9511c8cb270551eb45085e2b944145e9d2acc",
+      "duration": 62.8,
+      "sampleRate": "44100",
+      "status": "generated draft; technical decode passed, listening approval pending"
+    }
+  ]
+}

@@ -1,0 +1,612 @@
+{
+  "date": "2026-10-15",
+  "provider": "Suno",
+  "model": "v6",
+  "scope": "Listening-page climax replacements; original opening/ending and book assignments preserved. Includes five legacy arrangements.",
+  "downloadStatus": "Official embeds; download quota exhausted. No stream extraction.",
+  "review": "User requested tense revisions after pig v2 pilot; generated candidates are not aesthetic approval.",
+  "sets": [
+    {
+      "id": "classic-02",
+      "name": "마법의 숲",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-02 · 마법의 숲",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. harp, soft celesta, flute, muted strings. Rushing harp figures, celesta warning notes, fluttering flute and tremolo violas; a spell closes in. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 128 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1b8c1dc1-847e-489a-9a08-56b251129a6f",
+          "duration": "1:10",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/b10cc6b2-75f1-49e9-b345-e2ca57c867d6",
+          "duration": "1:00",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:01.879Z"
+    },
+    {
+      "id": "classic-03",
+      "name": "작은 궁전",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-03 · 작은 궁전",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. chamber strings, oboe, harp, delicate piano. Racing oboe calls, sharp string accents, minor waltz transformed into an urgent palace pursuit. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 134 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/a34a0175-bcb3-4abd-8591-36b114ec5801",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/85296a81-e41e-4fdd-af01-e7b0bd70b3b9",
+          "duration": "1:00",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:13.499Z",
+      "additionalCandidates": [
+        {
+          "url": "https://suno.com/song/0d960f88-fd7a-4e95-a47b-e544cbb82422",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/d04189a5-17fc-46b2-af66-62d311ee3573",
+          "duration": "1:00",
+          "complete": true
+        }
+      ],
+      "selection": "Latest pair for A/B preview; earlier accepted pair retained as additional candidates. No aesthetic ranking."
+    },
+    {
+      "id": "classic-04",
+      "name": "용감한 걸음",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-04 · 용감한 걸음",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. cello pizzicato, clarinet, soft marimba, acoustic guitar. Driving low cello ostinato, clipped clarinet answers and marimba accents; a desperate uphill escape. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 140 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/53df0a50-0ef1-43e9-b700-9cf378c5a0cd",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/f50e8509-5c85-4683-817c-b10bdffad5a5",
+          "duration": "1:02",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:14.298Z",
+      "additionalCandidates": [
+        {
+          "url": "https://suno.com/song/7b1d8b61-56ef-4aeb-8836-ac55308cbc6f",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/a743b3ca-cffb-4461-b0ed-77b1688640f2",
+          "duration": "1:03",
+          "complete": true
+        }
+      ],
+      "selection": "Latest pair for A/B preview; earlier accepted pair retained as additional candidates. No aesthetic ranking."
+    },
+    {
+      "id": "classic-05",
+      "name": "겨울 별빛",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-05 · 겨울 별빛",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. felt piano, celesta, warm cello, airy flute. Icy piano repeated notes, cello tremolo and high flute suspense; danger in a snowstorm. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 146 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/78c2344f-3ed1-41d2-8d38-e9694ceedb67",
+          "duration": "1:01",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/61b0051f-7a1b-45f8-98bd-6c8dd3e800c1",
+          "duration": "1:00",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:18.171Z"
+    },
+    {
+      "id": "classic-06",
+      "name": "바닷속 신비",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-06 · 바닷속 신비",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. harp harmonics, flute, viola, soft vibraphone. Swirling harp arpeggios, viola ostinato and vibraphone dissonance; a powerful underwater current. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 128 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/721b0c62-53f4-4240-8e19-76a0d42e0bb8",
+          "duration": "1:10",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/1f9ccae7-df6f-4191-975a-0f5992446fa0",
+          "duration": "1:01",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:26.945Z"
+    },
+    {
+      "id": "classic-07",
+      "name": "호기심 마을",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-07 · 호기심 마을",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. bassoon, staccato clarinet, pizzicato cello, wooden mallet. Bassoon warning motif against agitated clarinet and running cello; a village in sudden trouble. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 134 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/24d6dc50-80cd-4529-9ff1-9ad412624715",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/551307a1-377b-438d-a64b-c83472b85c7e",
+          "duration": "1:12",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:28.761Z"
+    },
+    {
+      "id": "classic-08",
+      "name": "다정한 이별",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-08 · 다정한 이별",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. felt piano, solo cello, soft viola, sparse harp. Insistent low piano pulses, aching cello rising sequences and tense viola tremolo; a difficult farewell decision. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 140 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/22fd58d8-50a2-4361-a8bb-76a1cf512bd5",
+          "duration": "1:12",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/f32ff0e6-d550-4583-a4cb-2e55e63c4e5d",
+          "duration": "1:13",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:30.720Z"
+    },
+    {
+      "id": "classic-09",
+      "name": "장난꾸러기 하루",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-09 · 장난꾸러기 하루",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. pizzicato violin, bassoon, soft xylophone, muted guitar. Rapid pizzicato violins, bassoon repeated warnings, sharp xylophone accents; a chase turns serious. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 146 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/0c30c40a-b709-4a8f-a38d-d24f187777d7",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/0b8c7419-dab8-41b5-b462-7de75361e5ac",
+          "duration": "1:00",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:33.199Z"
+    },
+    {
+      "id": "classic-10",
+      "name": "먼 길의 용기",
+      "genre": "classic",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · classic-10 · 먼 길의 용기",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. warm strings, clarinet, gentle piano, restrained hand percussion. Determined low string ostinato, urgent clarinet calls and piano chords; the final obstacle on a long journey. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 128 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1b199ddf-7726-43ad-b648-37674c0a7104",
+          "duration": "1:05",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/d3e4704b-3f91-4cf4-a3be-0e6e21939ec8",
+          "duration": "1:14",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:35.559Z"
+    },
+    {
+      "id": "folktale-01",
+      "name": "햇살 한옥마을",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-01 · 햇살 한옥마을",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: gayageum, soft daegeum bamboo flute, warm haegeum, very light janggu. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 120 BPM, minor pentatonic tension. village threatened by approaching danger. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/7ca00c2f-2194-40b4-b22b-fa1e30e6e5c9",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/c7858dc7-154d-4640-92dd-f1e221808d00",
+          "duration": "1:13",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:49.425Z"
+    },
+    {
+      "id": "folktale-02",
+      "name": "산골 숲길",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-02 · 산골 숲길",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: geomungo, breathy daegeum, low haegeum, wooden percussion. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 126 BPM, minor pentatonic tension. a race along a steep mountain forest path. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/77d01c0b-443f-4298-b773-10390a9da81f",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/5952953d-7e2e-4913-9320-6a6c46d48566",
+          "duration": "1:12",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:51.315Z"
+    },
+    {
+      "id": "folktale-03",
+      "name": "꾀 많은 동물들",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-03 · 꾀 많은 동물들",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: playful gayageum plucks, soft danso bamboo flute, restrained janggu. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 132 BPM, minor pentatonic tension. clever animals pursued by a powerful opponent. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/76a4c181-74de-4143-93da-2e43fe9158d8",
+          "duration": "1:10",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/0e801556-e05c-4a8f-8b23-088ec5a1bc72",
+          "duration": "1:37",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:44:53.392Z"
+    },
+    {
+      "id": "folktale-04",
+      "name": "달빛 궁궐",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-04 · 달빛 궁궐",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: gayageum harmonics, low-register daegeum, very soft haegeum. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 138 BPM, minor pentatonic tension. a tense escape through the moonlit palace. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/632f4936-41e3-4584-99a4-b0fc63f14ab6",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/0cc9dc68-b669-47c1-a18b-88c6f6820432",
+          "duration": "1:08",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "id": "folktale-05",
+      "name": "착한 마음의 용기",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-05 · 착한 마음의 용기",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: geomungo, gayageum, warm daegeum, soft buk pulses. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 120 BPM, minor pentatonic tension. a courageous choice under growing danger. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/b316c6a7-ec02-4a64-b6d9-2cb685ff3e50",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/df1dadf4-7404-4539-8042-1c540c3695dc",
+          "duration": "1:09",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:21.498Z"
+    },
+    {
+      "id": "folktale-06",
+      "name": "신비한 들판",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-06 · 신비한 들판",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: gayageum, danso, haegeum, subtle wood block. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 126 BPM, minor pentatonic tension. an enchanted field closing around the traveler. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/c6e603c8-3c9d-4dbb-a441-7ad3f84d5435",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/d8d3fab7-a2a1-4dd7-b01d-dfec32a6f9e3",
+          "duration": "1:02",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:23.058Z"
+    },
+    {
+      "id": "folktale-07",
+      "name": "도깨비 보물상자",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-07 · 도깨비 보물상자",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: gayageum, low daegeum, playful geomungo, tiny janggu taps. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 132 BPM, minor pentatonic tension. a goblin chasing the stolen treasure. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/bd727cad-5b28-4a85-abf8-32dbb8d3a5c5",
+          "duration": "1:01",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/ca501a93-c86f-406f-b3c2-a03610c39949",
+          "duration": "1:03",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:24.479Z"
+    },
+    {
+      "id": "folktale-08",
+      "name": "강물 따라",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-08 · 강물 따라",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: flowing gayageum arpeggios, daegeum, warm haegeum. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 138 BPM, minor pentatonic tension. a dangerous fast river crossing. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/de3a2899-2d41-496c-878b-419b25434219",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/4e7e0485-a720-425b-bdec-c2c67dfa3701",
+          "duration": "1:17",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:26.018Z"
+    },
+    {
+      "id": "folktale-09",
+      "name": "포근한 가족",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-09 · 포근한 가족",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: gentle gayageum, low haegeum, soft danso. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 120 BPM, minor pentatonic tension. protecting family from an approaching threat. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/eb7aba47-bc73-467e-922d-857e7d7bcf2f",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/bdf1edb2-4e46-44b9-8d10-5604c01114aa",
+          "duration": "1:04",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:27.467Z"
+    },
+    {
+      "id": "folktale-10",
+      "name": "고요한 여운",
+      "genre": "folktale",
+      "kind": "new",
+      "title": "탱고북 · 긴장 v2 · folktale-10 · 고요한 여운",
+      "duration": "1:00",
+      "styles": "Instrumental Korean traditional fairy-tale CLIMAX. Preserve Korean East Asian timbre: sparse geomungo, breathy daegeum, tender haegeum. Low geomungo repeated ostinato, urgent gayageum plucks, strained haegeum tremolo and rising bends, piercing daegeum calls. Driving janggu and buk jangdan rhythm at 126 BPM, minor pentatonic tension. a painful last challenge before a reflective ending. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM, Western orchestra, erhu, guzheng, koto, shamisen",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/e5e4c863-897f-467c-bc2c-64d9228b1fa7",
+          "duration": "1:12",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/e5a8a6b9-d962-427b-965a-0942280d2d2a",
+          "duration": "1:18",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:29.040Z"
+    },
+    {
+      "id": "legacy-palace",
+      "name": "기존 · 궁전과 신비",
+      "genre": "classic",
+      "kind": "legacy",
+      "title": "탱고북 · 긴장 v2 · legacy-palace · 궁전과 신비",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. Strings, oboe, bassoon, harp, piano. Palace peril with urgent oboe and strings. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 146 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/b7382182-f49e-46ba-ae92-315a2ee9c370",
+          "duration": "0:56",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/6456c469-7e09-4057-b898-8a368ab1cd53",
+          "duration": "1:01",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:38.172Z"
+    },
+    {
+      "id": "legacy-playful",
+      "name": "기존 · 장난과 경쾌함",
+      "genre": "classic",
+      "kind": "legacy",
+      "title": "탱고북 · 긴장 v2 · legacy-playful · 장난과 경쾌함",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. Strings, oboe, bassoon, harp, piano. A playful adventure turns into a serious chase with bassoon and staccato strings. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 128 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/999a85eb-2190-44e2-b8a8-5faa3344ecd5",
+          "duration": "1:38",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/64399b8e-a370-494a-8ded-0d280c00d59b",
+          "duration": "1:02",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:41.213Z"
+    },
+    {
+      "id": "legacy-ocean",
+      "name": "기존 · 바다와 여운",
+      "genre": "classic",
+      "kind": "legacy",
+      "title": "탱고북 · 긴장 v2 · legacy-ocean · 바다와 여운",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. Strings, oboe, bassoon, harp, piano. Ocean storm with swirling harp and driving low strings. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 134 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/4a6f8b74-2e3f-44d8-a933-4244a83da578",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/655ca45d-2559-4bde-8ece-72f2622c9390",
+          "duration": "1:32",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:42.742Z"
+    },
+    {
+      "id": "legacy-reflection",
+      "name": "기존 · 조용한 이별",
+      "genre": "classic",
+      "kind": "legacy",
+      "title": "탱고북 · 긴장 v2 · legacy-reflection · 조용한 이별",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. Strings, oboe, bassoon, harp, piano. Emotional crisis with insistent piano and strained cello. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 140 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1182e68f-d789-482c-9e0d-306ab9e771a3",
+          "duration": "1:04",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/486f3612-aeb1-4877-82d9-ff4986394b4c",
+          "duration": "1:03",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:44.273Z"
+    },
+    {
+      "id": "legacy-journey",
+      "name": "기존 · 모험과 희망",
+      "genre": "classic",
+      "kind": "legacy",
+      "title": "탱고북 · 긴장 v2 · legacy-journey · 모험과 희망",
+      "duration": "1:00",
+      "styles": "Instrumental European fairy-tale orchestral CLIMAX. Strings, oboe, bassoon, harp, piano. Final adventure obstacle with urgent clarinet and orchestral percussion. Driving sixteenth-note low strings, rising chromatic staccato violins, timpani pulse and dry snare rolls. 146 BPM, unresolved minor harmony. Immediate unmistakable urgency from the first second. Build mounting pressure in clear phrases, a brief breath then a stronger final surge. Dramatic suspense and peril for a children’s adventure, not horror. No happy resolution; leave room for the separate peaceful ending. No vocals, choir, humming, speech, screams or jump scares. Never cozy, cute, sleepy, relaxing or ambient.",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, pop drums, EDM",
+      "status": "generated",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/c6217d57-567f-4b56-be9b-5405f30562e4",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/2769b0ba-f047-4da4-8bc3-3f749b8a0431",
+          "duration": "1:02",
+          "complete": true
+        }
+      ],
+      "submittedAt": "2026-10-15T13:45:45.704Z"
+    }
+  ],
+  "candidateCount": 52
+}

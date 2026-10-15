@@ -1,0 +1,6452 @@
+{
+  "date": "2026-10-15",
+  "status": "deferred-by-user-single-track-random",
+  "latestDecision": "2026-10-15: Defer staged cues, download purchase and climax replacements. Pick one existing genre-matching track per reading session and loop it.",
+  "authorization": "User authorized selecting candidates, keeping existing opening/ending, three-track sets and genre-separated book assignments. No new purchase or deployment authorization.",
+  "blocker": {
+    "provider": "Suno",
+    "remainingDownloads": 0,
+    "refreshDate": "2026-11-15",
+    "evidence": "download-limit-20261015.png"
+  },
+  "review": "No claim of auditory or aesthetic selection from metadata. Pending choices remain null.",
+  "counts": {
+    "sets": 25,
+    "activeSets": 12,
+    "books": 184,
+    "downloadsForActiveSets": 11,
+    "downloadsForAllSets": 50
+  },
+  "sets": [
+    {
+      "id": "classic-01",
+      "name": "아기 돼지 작은 관현악",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772009873865",
+        "1772082243436",
+        "1772094228783",
+        "1772086769057",
+        "1772088321757",
+        "1772093674655",
+        "1772108045716",
+        "1772107608499",
+        "1772106564046",
+        "1772094591661",
+        "1772097729467",
+        "1772098071249",
+        "1772194909157",
+        "1772181211472",
+        "1772197611601",
+        "1777274748674",
+        "1777272102062",
+        "1772198919301",
+        "1777277632597",
+        "1777277618365",
+        "1777276044172",
+        "1777277635476",
+        "1777276046428",
+        "1777284715922",
+        "1781588918173",
+        "1778476961082",
+        "1777284736052",
+        "1778555233699",
+        "1789350946294",
+        "1789350946299",
+        "1789350946293",
+        "1789350946295",
+        "1789350946292",
+        "1789350946296",
+        "1789350946298",
+        "1789350946297",
+        "1789350946302",
+        "1789350946303",
+        "1789350946309",
+        "1789350946310",
+        "1789350946313",
+        "1789350946311",
+        "1789350946312",
+        "1789350946308",
+        "1789350946321",
+        "1789350946318",
+        "1789350946320",
+        "1789350946319",
+        "1789350946326",
+        "1789350946325",
+        "1789350946327",
+        "1789350946324",
+        "1789350946336",
+        "1789350946337",
+        "1789350946341",
+        "1789350946344",
+        "1789350946345",
+        "1789350946340",
+        "1789350946351",
+        "1789350946350",
+        "1789350946361",
+        "1789350946358",
+        "1789350946359",
+        "1789350946360",
+        "1789350946369",
+        "1789350946371",
+        "1789350946365",
+        "1789350946370",
+        "1789350946368",
+        "1789350946366",
+        "1789350946364",
+        "1789350946367",
+        "1789350946372",
+        "1789350946373",
+        "1789350946376",
+        "1789350946375",
+        "1789350946379",
+        "1789350946377",
+        "1789350946378",
+        "1789350946374",
+        "1789350946385",
+        "1789350946384",
+        "1789350946386",
+        "1789350946387"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "pig-20261015-opening",
+          "title": "탱고북 · 명작 01 · 아기 돼지 작은 관현악 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/opening.mp3",
+          "duration": 68.56
+        },
+        {
+          "role": "climax",
+          "status": "file-available",
+          "url": "https://assets.tangobook.co.kr/background-music/three-pigs-v2-20261015/climax.mp3",
+          "candidates": [
+            {
+              "url": "https://suno.com/song/5af7a39b-bad1-46cc-9147-6eddef207978",
+              "duration": "1:00",
+              "playable": true,
+              "finished": true
+            },
+            {
+              "url": "https://suno.com/song/60b2bfea-32b0-4dd6-8912-5b6606f38641",
+              "duration": "1:01",
+              "playable": true,
+              "finished": true
+            }
+          ],
+          "selectedCandidate": 0,
+          "reason": "Previously downloaded pig v2 A; preserve existing opening/ending per current request."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "pig-20261015-resolution",
+          "title": "탱고북 · 명작 01 · 아기 돼지 작은 관현악 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/three-pigs-20261015/resolution.mp3",
+          "duration": 62.8
+        }
+      ]
+    },
+    {
+      "id": "classic-02",
+      "name": "마법의 숲",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772009873865",
+        "1772085655331",
+        "1772094228783",
+        "1772108468177",
+        "1772107608499",
+        "1772094591661",
+        "1772098071249",
+        "1772197180029",
+        "1772194909157",
+        "1772109314126",
+        "1772108847406",
+        "1772182206245",
+        "1777266835789",
+        "1777272102062",
+        "1772201758726",
+        "1772510956605",
+        "1777277215628",
+        "1777274769616",
+        "1777276113613",
+        "1777284718837",
+        "1778555233699",
+        "1777284655559",
+        "1777284662626",
+        "1789350946294",
+        "1789350946295",
+        "1789350946305",
+        "1789350946304",
+        "1789350946307",
+        "1789350946301",
+        "1789350946300",
+        "1789350946306",
+        "1789350946314",
+        "1789350946315",
+        "1789350946316",
+        "1789350946323",
+        "1789350946317",
+        "1789350946322",
+        "1789350946329",
+        "1789350946326",
+        "1789350946327",
+        "1789350946331",
+        "1789350946328",
+        "1789350946330",
+        "1789350946332",
+        "1789350946333",
+        "1789350946343",
+        "1789350946342",
+        "1789350946344",
+        "1789350946347",
+        "1789350946345",
+        "1789350946346",
+        "1789350946352",
+        "1789350946355",
+        "1789350946353",
+        "1789350946354",
+        "1789350946361",
+        "1789350946356",
+        "1789350946357",
+        "1789350946360",
+        "1789350946371",
+        "1789350946370",
+        "1789350946366",
+        "1789350946367",
+        "1789350946372",
+        "1789350946373",
+        "1789350946386",
+        "1789350946387",
+        "1789350946381",
+        "1789350946380"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "classic-02-opening",
+          "title": "탱고북 · 명작 02 · 마법의 숲 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/classic-02-opening.mp3",
+          "duration": 67.35,
+          "sha256": "831cc07f7d5fbb0ae3681370f28e61e907e1ee196baf8f427b053c3b1571858b"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/1b8c1dc1-847e-489a-9a08-56b251129a6f",
+              "duration": "1:10",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/b10cc6b2-75f1-49e9-b345-e2ca57c867d6",
+              "duration": "1:00",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "classic-02-ending",
+          "title": "탱고북 · 명작 02 · 마법의 숲 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/classic-02-ending.mp3",
+          "duration": 67.6,
+          "sha256": "75ceb8feef043b124dcd249e4c02f73be9c762c6dbe8b503dc3da8b3a538d1f2"
+        }
+      ]
+    },
+    {
+      "id": "classic-03",
+      "name": "작은 궁전",
+      "genre": "classic",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c721a9b7-605f-4793-804c-5a911c0ecbe5",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/a823ceee-029d-4a60-9af1-1343c82a8573",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/a34a0175-bcb3-4abd-8591-36b114ec5801",
+              "duration": "1:00",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/85296a81-e41e-4fdd-af01-e7b0bd70b3b9",
+              "duration": "1:00",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/5919c4fb-5671-4de7-a627-230ae658e70a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/a88567f0-5229-4a05-84ed-761ff2c5058b",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "classic-04",
+      "name": "용감한 걸음",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772085655331",
+        "1772108045716",
+        "1772108468177",
+        "1772197180029",
+        "1772181211472",
+        "1772109314126",
+        "1772182206245",
+        "1777266835789",
+        "1772201758726",
+        "1772510956605",
+        "1772198919301",
+        "1777274769616",
+        "1777276046428",
+        "1781588918173",
+        "1778476961082",
+        "1777284655559",
+        "1777284662626",
+        "1789350946293",
+        "1789350946292",
+        "1789350946296",
+        "1789350946297",
+        "1789350946305",
+        "1789350946304",
+        "1789350946307",
+        "1789350946306",
+        "1789350946323",
+        "1789350946318",
+        "1789350946319",
+        "1789350946322",
+        "1789350946329",
+        "1789350946331",
+        "1789350946328",
+        "1789350946330",
+        "1789350946332",
+        "1789350946336",
+        "1789350946337",
+        "1789350946333",
+        "1789350946343",
+        "1789350946342",
+        "1789350946347",
+        "1789350946346",
+        "1789350946351",
+        "1789350946352",
+        "1789350946350",
+        "1789350946353",
+        "1789350946356",
+        "1789350946358",
+        "1789350946359",
+        "1789350946357",
+        "1789350946381",
+        "1789350946380"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "classic-04-opening",
+          "title": "탱고북 · 명작 04 · 용감한 걸음 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/classic-04-opening.mp3",
+          "duration": 68.02,
+          "sha256": "a701768c4886c31b13b7a53ac026a852e19c540f25ed1f9e264d00ed84cc0c7f"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/53df0a50-0ef1-43e9-b700-9cf378c5a0cd",
+              "duration": "1:00",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/f50e8509-5c85-4683-817c-b10bdffad5a5",
+              "duration": "1:02",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "classic-04-ending",
+          "title": "탱고북 · 명작 04 · 용감한 걸음 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/classic-04-ending.mp3",
+          "duration": 66.6,
+          "sha256": "d6a58e40a190bf5886f496116350439d60b6ebe52d83f0fa2e95df76248b1ea4"
+        }
+      ]
+    },
+    {
+      "id": "classic-05",
+      "name": "겨울 별빛",
+      "genre": "classic",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e4411cc5-a480-494b-8503-381fa11fb977",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/634ac808-073f-49d0-b875-db4d3a811bf8",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/78c2344f-3ed1-41d2-8d38-e9694ceedb67",
+              "duration": "1:01",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/61b0051f-7a1b-45f8-98bd-6c8dd3e800c1",
+              "duration": "1:00",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/9d1d0266-129e-4edd-b077-3b217cb5338c",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/e9ed3005-1a2c-4df0-9199-67410334efa5",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "classic-06",
+      "name": "바닷속 신비",
+      "genre": "classic",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/f9f560cd-bd61-4871-be18-bc9db2eb3dc4",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/7f211f41-e2da-40a3-830c-6a8c91028269",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/721b0c62-53f4-4240-8e19-76a0d42e0bb8",
+              "duration": "1:10",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/1f9ccae7-df6f-4191-975a-0f5992446fa0",
+              "duration": "1:01",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/57fee7a7-706d-4d66-8f3d-b1582dba138d",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/9fd6b1c8-7fe5-47c6-a293-73218a0ee13b",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "classic-07",
+      "name": "호기심 마을",
+      "genre": "classic",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/751f1758-c438-475e-95a6-73eca66ba483",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/792766c1-923c-4315-84b2-d63c610b93a7",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/24d6dc50-80cd-4529-9ff1-9ad412624715",
+              "duration": "1:02",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/551307a1-377b-438d-a64b-c83472b85c7e",
+              "duration": "1:12",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/4b0c460a-d575-4d32-8e64-b02911e2f9c7",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/659fc9bc-0578-4082-85c3-79c416990733",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "classic-08",
+      "name": "다정한 이별",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772084667220",
+        "1772106779761",
+        "1772181399388",
+        "1772199288387",
+        "1772198278145",
+        "1789350946334",
+        "1789350946339",
+        "1789350946338",
+        "1789350946335",
+        "1789350946348",
+        "1789350946349",
+        "1789350946362",
+        "1789350946363",
+        "1789350946383",
+        "1789350946382"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "classic-08-opening",
+          "title": "탱고북 · 명작 08 · 다정한 이별 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/classic-08-opening.mp3",
+          "duration": 69.96,
+          "sha256": "6d7d55b3847000781dd77b4bd0b930d8f08a27b66c4fb9ea2f184afa81e3f2cb"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/22fd58d8-50a2-4361-a8bb-76a1cf512bd5",
+              "duration": "1:12",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/f32ff0e6-d550-4583-a4cb-2e55e63c4e5d",
+              "duration": "1:13",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "classic-08-ending",
+          "title": "탱고북 · 명작 08 · 다정한 이별 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/classic-08-ending.mp3",
+          "duration": 66.1,
+          "sha256": "3892f8ce023fa359c90aa69a9bb08a9319d85c1ad141137bd5f172b3522a73e1"
+        }
+      ]
+    },
+    {
+      "id": "classic-09",
+      "name": "장난꾸러기 하루",
+      "genre": "classic",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/dc53d574-788f-4397-9507-552cfd1a6926",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/f8ae592a-af33-4593-9eec-f6ee55b5213b",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/0c30c40a-b709-4a8f-a38d-d24f187777d7",
+              "duration": "1:02",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/0b8c7419-dab8-41b5-b462-7de75361e5ac",
+              "duration": "1:00",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/4b797fbe-a350-4642-8378-22951d26f2d9",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/63cf968a-43bb-40e2-a05f-eac7743fd715",
+              "playable": true,
+              "duration": "1:11"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "classic-10",
+      "name": "먼 길의 용기",
+      "genre": "classic",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/cf95f8ac-c129-436e-ae88-46623c8a6654",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/4c259a11-b4d7-4115-b4bd-5326c207ede2",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/1b199ddf-7726-43ad-b648-37674c0a7104",
+              "duration": "1:05",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/d3e4704b-3f91-4cf4-a3be-0e6e21939ec8",
+              "duration": "1:14",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/537b83c8-dcca-4197-bc07-75114b264748",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/1c7917fe-a73e-40b4-96cd-60a418ec6b41",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-01",
+      "name": "햇살 한옥마을",
+      "genre": "folktale",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1784529057529",
+        "1784529057861",
+        "1784529056876",
+        "1784529058143",
+        "1784529058442",
+        "1784529057190",
+        "1784529058796",
+        "1784529059096",
+        "1784529060346",
+        "1784529060634",
+        "1784529060026",
+        "1784529061520",
+        "1784529059421",
+        "1784529059709",
+        "1784529060920",
+        "1785303653015",
+        "1784529062755",
+        "1784529062118",
+        "1784529061822",
+        "1785303652428",
+        "1785303653346",
+        "1784529062415",
+        "1785303652738",
+        "1785303654219",
+        "1785303655346",
+        "1785303655079",
+        "1785303653631",
+        "1785303654489",
+        "1785303655646",
+        "1785303653932",
+        "1785303654809",
+        "1785303655950",
+        "1785303656257",
+        "1785303658036",
+        "1785303657748",
+        "1785303657451",
+        "1785303657174",
+        "1785303656827"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "folktale-01-opening",
+          "title": "탱고북 · 전래 01 · 햇살 한옥마을 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/folktale-01-opening.mp3",
+          "duration": 70,
+          "sha256": "6f508ba922afdd6ed8a7de371526250a02be4b489f671c6ce55bee5795e01880"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/7ca00c2f-2194-40b4-b22b-fa1e30e6e5c9",
+              "duration": "1:02",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/c7858dc7-154d-4640-92dd-f1e221808d00",
+              "duration": "1:13",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "folktale-01-ending",
+          "title": "탱고북 · 전래 01 · 햇살 한옥마을 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/folktale-01-ending.mp3",
+          "duration": 69.96,
+          "sha256": "6be8840512dac3f02b2b523395fb271b2f9bcf01be76ae102431def9cfa99dac"
+        }
+      ]
+    },
+    {
+      "id": "folktale-02",
+      "name": "산골 숲길",
+      "genre": "folktale",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1784529057529",
+        "1784529057861",
+        "1784529056876",
+        "1784529058143",
+        "1784529058442",
+        "1784529057190",
+        "1784529058796",
+        "1784529059096",
+        "1784529060346",
+        "1784529060634",
+        "1784529060026",
+        "1784529061520",
+        "1784529059421",
+        "1784529059709",
+        "1784529061222",
+        "1784529060920",
+        "1785303653015",
+        "1784529062755",
+        "1784529062118",
+        "1784529061822",
+        "1785303652428",
+        "1785303653346",
+        "1784529062415",
+        "1785303652738",
+        "1785303654219",
+        "1785303655346",
+        "1785303655079",
+        "1785303653631",
+        "1785303654489",
+        "1785303655646",
+        "1785303653932",
+        "1785303654809",
+        "1785303655950",
+        "1785303656257",
+        "1785303658036",
+        "1785303657748",
+        "1785303656554",
+        "1785303657451",
+        "1785303657174",
+        "1785303656827"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "folktale-02-opening",
+          "title": "탱고북 · 전래 02 · 산골 숲길 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/folktale-02-opening.mp3",
+          "duration": 69.6,
+          "sha256": "e4f1fec1df24acb5a1836e4b3094dd0aa8d11fc453a5163fd25b8dbce237d5b4"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/77d01c0b-443f-4298-b773-10390a9da81f",
+              "duration": "1:00",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/5952953d-7e2e-4913-9320-6a6c46d48566",
+              "duration": "1:12",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "folktale-02-ending",
+          "title": "탱고북 · 전래 02 · 산골 숲길 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/folktale-02-ending.mp3",
+          "duration": 63.1,
+          "sha256": "620b458d240510f65c627e08d00be910f432d2f5cc002ab76a358f845ee0f280"
+        }
+      ]
+    },
+    {
+      "id": "folktale-03",
+      "name": "꾀 많은 동물들",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/badcbc8f-1666-40b6-bbd3-ba876ee52439",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/70787390-14cb-42f8-b765-11f5413eed3e",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/76a4c181-74de-4143-93da-2e43fe9158d8",
+              "duration": "1:10",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/0e801556-e05c-4a8f-8b23-088ec5a1bc72",
+              "duration": "1:37",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e653e1ce-5aa0-4b12-931f-9bd7ba54c0fb",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/6b1807f6-f960-4759-946d-c4f70d936c9c",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-04",
+      "name": "달빛 궁궐",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/43ed6e1b-6b35-4d8a-9f91-41995541790a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/44c65330-adfd-42b3-8b85-95718c2fedff",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/632f4936-41e3-4584-99a4-b0fc63f14ab6",
+              "duration": "1:02",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/0cc9dc68-b669-47c1-a18b-88c6f6820432",
+              "duration": "1:08",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/3dcf4cab-dec1-4db8-8b19-63981310f5f2",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/f2d78e57-d7d1-41f5-b5c9-aca7724e4f15",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-05",
+      "name": "착한 마음의 용기",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/fb92079d-57c9-4c6a-abbc-f7ccc7f60660",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/df369719-6def-411b-acd9-0288194b562e",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/b316c6a7-ec02-4a64-b6d9-2cb685ff3e50",
+              "duration": "1:03",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/df1dadf4-7404-4539-8042-1c540c3695dc",
+              "duration": "1:09",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/1569243e-e01b-4aea-aaf3-1e7580c75d53",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/1607daa1-3e37-4a47-9dd5-cc3c3ac2d513",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-06",
+      "name": "신비한 들판",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/35584bbc-8125-40c9-a9af-4d8bc1b5f53d",
+              "playable": true,
+              "duration": "1:09"
+            },
+            {
+              "url": "https://suno.com/song/6a4b7d06-660c-4c55-9b0a-490386377df4",
+              "playable": true,
+              "duration": "1:09"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c6e603c8-3c9d-4dbb-a441-7ad3f84d5435",
+              "duration": "1:03",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/d8d3fab7-a2a1-4dd7-b01d-dfec32a6f9e3",
+              "duration": "1:02",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c34aa1c2-cc69-444e-8ea4-0c93edc7a44a",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/e259bf0e-f493-4b97-b96b-747b1e73e150",
+              "playable": true,
+              "duration": "1:20"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-07",
+      "name": "도깨비 보물상자",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/09b4e385-cfc7-4a7b-82c9-68ed9d78e6bf",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/a710d9bb-e382-4ad9-8706-7207afa605ba",
+              "playable": true,
+              "duration": "1:11"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/bd727cad-5b28-4a85-abf8-32dbb8d3a5c5",
+              "duration": "1:01",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/ca501a93-c86f-406f-b3c2-a03610c39949",
+              "duration": "1:03",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/b54cea7d-6f69-4d64-9340-e70e609456a2",
+              "playable": true,
+              "duration": "1:11"
+            },
+            {
+              "url": "https://suno.com/song/22ea9c2f-278b-4e01-b051-c8b91d04d221",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-08",
+      "name": "강물 따라",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/246ce0c2-6875-400b-b690-5e2e7e9a0f55",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/11c50ac0-ba91-44d1-a9f2-e67c6b7eb575",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/de3a2899-2d41-496c-878b-419b25434219",
+              "duration": "1:00",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/4e7e0485-a720-425b-bdec-c2c67dfa3701",
+              "duration": "1:17",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/f34c9a46-5b20-40c6-98fa-f13aac6c8c16",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/494394a5-a0f8-40fe-bb23-959fa6c01476",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-09",
+      "name": "포근한 가족",
+      "genre": "folktale",
+      "priority": 2,
+      "active": false,
+      "booksCurrentlyReferencing": [],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/81db7c8e-1136-4a8f-9154-ca220c8cf22d",
+              "playable": true,
+              "duration": "1:10"
+            },
+            {
+              "url": "https://suno.com/song/012f43bb-8ba1-49ee-b1fa-380f7a563c64",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/eb7aba47-bc73-467e-922d-857e7d7bcf2f",
+              "duration": "1:02",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/bdf1edb2-4e46-44b9-8d10-5604c01114aa",
+              "duration": "1:04",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/6ab0a2f8-d676-4946-9dc5-40d1056757d0",
+              "playable": true,
+              "duration": "1:12"
+            },
+            {
+              "url": "https://suno.com/song/8a9e362c-b92b-4774-879c-4e1edfeb82d1",
+              "playable": true,
+              "duration": "1:10"
+            }
+          ],
+          "review": "Retain original opening/ending generation; choose one candidate after file review."
+        }
+      ]
+    },
+    {
+      "id": "folktale-10",
+      "name": "고요한 여운",
+      "genre": "folktale",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1784529061222",
+        "1785303656554"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "folktale-10-opening",
+          "title": "탱고북 · 전래 10 · 고요한 여운 · 도입",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/folktale-10-opening.mp3",
+          "duration": 67.56,
+          "sha256": "565bbd4a3ab03722db2b489aa8c22a6b8eef42e12277357e10cd1b1043a4bdab"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/e5e4c863-897f-467c-bc2c-64d9228b1fa7",
+              "duration": "1:12",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/e5a8a6b9-d962-427b-965a-0942280d2d2a",
+              "duration": "1:18",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "folktale-10-ending",
+          "title": "탱고북 · 전래 10 · 고요한 여운 · 마지막",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/folktale-10-ending.mp3",
+          "duration": 68.6,
+          "sha256": "3d80162b6a3a3a35736f2a0bf0f41e89966fe9f2c76d2b5ba9ab7bee7da6bf61"
+        }
+      ]
+    },
+    {
+      "id": "legacy-palace",
+      "name": "기존 · 궁전과 신비",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772009873865",
+        "1772094228783",
+        "1772093674655",
+        "1772107608499",
+        "1772094591661",
+        "1772098071249",
+        "1772194909157",
+        "1772108847406",
+        "1777272102062",
+        "1777277632597",
+        "1777277618365",
+        "1777277215628",
+        "1777277635476",
+        "1777276113613",
+        "1777284715922",
+        "1777284718837",
+        "1777284736052",
+        "1778555233699",
+        "1789350946294",
+        "1789350946299",
+        "1789350946295",
+        "1789350946298",
+        "1789350946302",
+        "1789350946301",
+        "1789350946300",
+        "1789350946303",
+        "1789350946314",
+        "1789350946309",
+        "1789350946310",
+        "1789350946313",
+        "1789350946311",
+        "1789350946312",
+        "1789350946308",
+        "1789350946315",
+        "1789350946316",
+        "1789350946317",
+        "1789350946326",
+        "1789350946327",
+        "1789350946344",
+        "1789350946345",
+        "1789350946355",
+        "1789350946354",
+        "1789350946361",
+        "1789350946360",
+        "1789350946371",
+        "1789350946370",
+        "1789350946366",
+        "1789350946367",
+        "1789350946372",
+        "1789350946373",
+        "1789350946375",
+        "1789350946374",
+        "1789350946386",
+        "1789350946387"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "bgm_1770809238703",
+          "title": "개구리 왕자",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1770809238703.mp3",
+          "duration": 178.364,
+          "sha256": "3b715b19aea73b6a5a606f4eb1b4c6990c413243ce15b6a525f84a03e96e49fc"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/b7382182-f49e-46ba-ae92-315a2ee9c370",
+              "duration": "0:56",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/6456c469-7e09-4057-b898-8a368ab1cd53",
+              "duration": "1:01",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "bgm_1775646329837",
+          "title": "배경음악-희망찬",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1775646329837.mp3",
+          "duration": 58.54,
+          "sha256": "89adb555104de861c88fb42dfe48cf238ba84f67b8f069ef977551e3f32e53b6"
+        }
+      ]
+    },
+    {
+      "id": "legacy-playful",
+      "name": "기존 · 장난과 경쾌함",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772082243436",
+        "1772086769057",
+        "1772088321757",
+        "1772093674655",
+        "1772106564046",
+        "1772097729467",
+        "1772197611601",
+        "1777274748674",
+        "1777277632597",
+        "1777277618365",
+        "1777276044172",
+        "1777277635476",
+        "1777284715922",
+        "1777284736052",
+        "1789350946299",
+        "1789350946298",
+        "1789350946302",
+        "1789350946303",
+        "1789350946309",
+        "1789350946310",
+        "1789350946313",
+        "1789350946311",
+        "1789350946312",
+        "1789350946308",
+        "1789350946321",
+        "1789350946320",
+        "1789350946325",
+        "1789350946324",
+        "1789350946341",
+        "1789350946340",
+        "1789350946369",
+        "1789350946365",
+        "1789350946368",
+        "1789350946364",
+        "1789350946376",
+        "1789350946375",
+        "1789350946379",
+        "1789350946377",
+        "1789350946378",
+        "1789350946374",
+        "1789350946385",
+        "1789350946384"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "bgm_1775646289823",
+          "title": "모차르트, 춤울 추는",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1775646289823.mp3",
+          "duration": 79.935,
+          "sha256": "75301eb5c2617fcf3d97be27b891921e3a8248a0dc33a13b488d17310d97bcff"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/999a85eb-2190-44e2-b8a8-5faa3344ecd5",
+              "duration": "1:38",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/64399b8e-a370-494a-8ded-0d280c00d59b",
+              "duration": "1:02",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "bgm_1777286777237",
+          "title": "피노키오2",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1777286777237.mp3",
+          "duration": 175.85,
+          "sha256": "b70966bfb0fb17d676347723e38baf190aa58b87f4dd74522a009d72cf0ee019"
+        }
+      ]
+    },
+    {
+      "id": "legacy-ocean",
+      "name": "기존 · 바다와 여운",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772108847406",
+        "1777277215628",
+        "1777276113613",
+        "1777284718837",
+        "1789350946301",
+        "1789350946300",
+        "1789350946314",
+        "1789350946315",
+        "1789350946316",
+        "1789350946317",
+        "1789350946355",
+        "1789350946354"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "bgm_1775646343530",
+          "title": "인어공주-잔잔한",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1775646343530.mp3",
+          "duration": 114.85,
+          "sha256": "6639bc9cbe9ee1e89c5fa95d99608c0eaaa8135550bf67cde132019e4e655a2a"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/4a6f8b74-2e3f-44d8-a933-4244a83da578",
+              "duration": "1:02",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/655ca45d-2559-4bde-8ece-72f2622c9390",
+              "duration": "1:32",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "bgm_1775646322336",
+          "title": "배경음악-자장가,약간 슬픈",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1775646322336.mp3",
+          "duration": 117.257,
+          "sha256": "12194646c39a9ae05e3056082d4052432f5ca0afb75494398adeed846cbf17ce"
+        }
+      ]
+    },
+    {
+      "id": "legacy-reflection",
+      "name": "기존 · 조용한 이별",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772084667220",
+        "1772106779761",
+        "1772181399388",
+        "1772199288387",
+        "1772198278145",
+        "1789350946334",
+        "1789350946339",
+        "1789350946338",
+        "1789350946335",
+        "1789350946348",
+        "1789350946349",
+        "1789350946362",
+        "1789350946363",
+        "1789350946383",
+        "1789350946382"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "bgm_1775646322336",
+          "title": "배경음악-자장가,약간 슬픈",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1775646322336.mp3",
+          "duration": 117.257,
+          "sha256": "12194646c39a9ae05e3056082d4052432f5ca0afb75494398adeed846cbf17ce"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/1182e68f-d789-482c-9e0d-306ab9e771a3",
+              "duration": "1:04",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/486f3612-aeb1-4877-82d9-ff4986394b4c",
+              "duration": "1:03",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "bgm_1769784913586",
+          "title": "성냥팔이 소녀",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1769784913586.mp3",
+          "duration": 189.029,
+          "sha256": "38e14952722e72f121e91d95da83bcc3f8040dfffa2244716ccd52140c25a787"
+        }
+      ]
+    },
+    {
+      "id": "legacy-journey",
+      "name": "기존 · 모험과 희망",
+      "genre": "classic",
+      "priority": 1,
+      "active": true,
+      "booksCurrentlyReferencing": [
+        "1772085655331",
+        "1772082243436",
+        "1772086769057",
+        "1772088321757",
+        "1772108045716",
+        "1772108468177",
+        "1772106564046",
+        "1772097729467",
+        "1772197180029",
+        "1772181211472",
+        "1772109314126",
+        "1772182206245",
+        "1772197611601",
+        "1777274748674",
+        "1777266835789",
+        "1772201758726",
+        "1772510956605",
+        "1772198919301",
+        "1777274769616",
+        "1777276044172",
+        "1777276046428",
+        "1781588918173",
+        "1778476961082",
+        "1777284655559",
+        "1777284662626",
+        "1789350946293",
+        "1789350946292",
+        "1789350946296",
+        "1789350946297",
+        "1789350946305",
+        "1789350946304",
+        "1789350946307",
+        "1789350946306",
+        "1789350946321",
+        "1789350946323",
+        "1789350946318",
+        "1789350946320",
+        "1789350946319",
+        "1789350946322",
+        "1789350946329",
+        "1789350946325",
+        "1789350946324",
+        "1789350946331",
+        "1789350946328",
+        "1789350946330",
+        "1789350946332",
+        "1789350946336",
+        "1789350946337",
+        "1789350946333",
+        "1789350946343",
+        "1789350946341",
+        "1789350946342",
+        "1789350946347",
+        "1789350946340",
+        "1789350946346",
+        "1789350946351",
+        "1789350946352",
+        "1789350946350",
+        "1789350946353",
+        "1789350946356",
+        "1789350946358",
+        "1789350946359",
+        "1789350946357",
+        "1789350946369",
+        "1789350946365",
+        "1789350946368",
+        "1789350946364",
+        "1789350946376",
+        "1789350946379",
+        "1789350946377",
+        "1789350946378",
+        "1789350946385",
+        "1789350946384",
+        "1789350946381",
+        "1789350946380"
+      ],
+      "tracks": [
+        {
+          "role": "opening",
+          "status": "file-available",
+          "id": "bgm_1781142353570",
+          "title": "잭과 콩나무.mp3",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1781142353570.mp3",
+          "duration": 177.039,
+          "sha256": "47e6d4e697bb71beb777bb491edffcc16814cac4d1e92b9fa5ad9f5dc00ac85a"
+        },
+        {
+          "role": "climax",
+          "status": "download-blocked",
+          "selectedCandidate": null,
+          "candidates": [
+            {
+              "url": "https://suno.com/song/c6217d57-567f-4b56-be9b-5405f30562e4",
+              "duration": "1:03",
+              "complete": true
+            },
+            {
+              "url": "https://suno.com/song/2769b0ba-f047-4da4-8bc3-3f749b8a0431",
+              "duration": "1:02",
+              "complete": true
+            }
+          ],
+          "review": "Compare tension, instrumental tone and narration compatibility after obtaining files; A/B order is not a ranking."
+        },
+        {
+          "role": "ending",
+          "status": "file-available",
+          "id": "bgm_1775646329837",
+          "title": "배경음악-희망찬",
+          "url": "https://assets.tangobook.co.kr/background-music/story-library-20261015/bgm_1775646329837.mp3",
+          "duration": 58.54,
+          "sha256": "89adb555104de861c88fb42dfe48cf238ba84f67b8f069ef977551e3f32e53b6"
+        }
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "Key": "storybook-1772009873865.json",
+      "id": "1772009873865",
+      "title": "개구리 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        13
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "57ccc3cc7a9759938c9043b61dae96bd0eb5494476fb80e641b8d9a5368dc769",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772085655331.json",
+      "id": "1772085655331",
+      "title": "걸리버 여행기",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "fa056da6aed4efc46cb983b8eac87285ef509c511cc36f5d3dc6d1eb3dd32e01",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772082243436.json",
+      "id": "1772082243436",
+      "title": "개미와 베짱이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        9,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "bd109b7c0acf398cea9ee323b84a5ebeedd9fa45e9538c22fa91bbbfcc3741e1",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772094228783.json",
+      "id": "1772094228783",
+      "title": "백조 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "2be36c738996eb303d6b0dfee2d0c58d6473cebff241abdd50a5a2a3956e7115",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772084667220.json",
+      "id": "1772084667220",
+      "title": "거인의 정원",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "040e740c417d304e3732414cf9eebed4a63fa7551b7aeeab1fa0d2afde8d11fa",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772086769057.json",
+      "id": "1772086769057",
+      "title": "구둣방 할아버지와 꼬마 요정",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        8,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "0afa4ad89bf19a19ceb3c67dd5ad6a49e9ba73cca3ece76b71402afe4d681495",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772088321757.json",
+      "id": "1772088321757",
+      "title": "금발 머리 소녀와 곰 세 마리",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "3badd235ca59ef45d2f8ea32bf9da3130353d6b702c5d530d757b5889dddb10d",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772093674655.json",
+      "id": "1772093674655",
+      "title": "미운 아기 오리",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "ae9f32fb75df676721d4f6d482126c48021ea1e715ba50070e5772622506a74b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772108045716.json",
+      "id": "1772108045716",
+      "title": "아기 돼지 삼형제",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "a3451d0744c2e00a73f74f8c98242e826508c8e68b9fa1c743b5e83b18fea37f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772108468177.json",
+      "id": "1772108468177",
+      "title": "알라딘과 요술 램프",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        6
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "ce4d729de7a279f9ad7e53ca42f47b7874d6b5c7128c8637f6e87e4d8da89dac",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772107608499.json",
+      "id": "1772107608499",
+      "title": "신데렐라",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "e5082551219744e249ad3be108c879b4556dacdbe424b5d2e0d950d5be114de4",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772106564046.json",
+      "id": "1772106564046",
+      "title": "생강빵 아이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        9,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "e1895d4430e465a1a5deb3e5b8d17f3e0b4ce613147674f18943348ed02a3bcb",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772094591661.json",
+      "id": "1772094591661",
+      "title": "백조의 호수",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "8743ec37e8fb061c43d1733dff7a23a65e66d9da08f7410711c1621e10a82481",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772106779761.json",
+      "id": "1772106779761",
+      "title": "성냥팔이 소녀",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "3315613f36306597f2f17db9aab56b2bdf2e2bb26d4ebd2699c27706c134fbf6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772097729467.json",
+      "id": "1772097729467",
+      "title": "브레멘 음악대",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "9382fbf4102721082b2e365bde833e6826eed67406b567de800ac40e15d5a5e8",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772098071249.json",
+      "id": "1772098071249",
+      "title": "빨간 구두",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        13
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "f406210e2deb4e8e4e26598904345aabdf830773f0ab037bb734f1debfff8bce",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772197180029.json",
+      "id": "1772197180029",
+      "title": "정글북",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "11eb0836ea02e2f5a1f4f98a16d96ca20e0ed6a2a583f9ebf8d0c741540b2016",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772194909157.json",
+      "id": "1772194909157",
+      "title": "잠자는 숲속의 공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "29fb97a449155a4d6da800d849f13a2c999d0047fc7d5fe80793ffcb15c38ac7",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772181211472.json",
+      "id": "1772181211472",
+      "title": "우당탕탕 염소 삼 형제",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "dcd842ffba2837ddc688d6c239d9b0aeba0469bd6efddeeeb38b5adf745af573",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772109314126.json",
+      "id": "1772109314126",
+      "title": "오즈의 마법사",
+      "genre": "classic",
+      "pageCount": 17,
+      "startPages": [
+        1,
+        2,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "b1ce44a9c82f319135f0853ef458d768e347fecad87a46aeda4d972f8ccd12e1",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772181399388.json",
+      "id": "1772181399388",
+      "title": "인어 공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        15
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "11848197c3a5162514625794457f34e401b7168b10828a3807641c202c224610",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772108847406.json",
+      "id": "1772108847406",
+      "title": "엄지 아가씨",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "f376f9f437bcd874c84de918a4806746a3a53a865f7b1ce1404b279ec7f58bff",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772182206245.json",
+      "id": "1772182206245",
+      "title": "이상한 나라의 앨리스",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        10,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "35c471014f81810cc521501904befc13d353005fa568e8fbcaf02c948c101c8e",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772197611601.json",
+      "id": "1772197611601",
+      "title": "커다란 순무",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "144a8607f3dd49aa510f7b0c29a3f6e9e26736c19068042ef12f49fd95268e2f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777274748674.json",
+      "id": "1777274748674",
+      "title": "북풍과 태양",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "6b32aa9e9740c4a7871d206f3f78b5e7701cd3e576703a5e0a0a6505a223825a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777266835789.json",
+      "id": "1777266835789",
+      "title": "피노키오",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "155bb7adc78f63ab85869ea4aafe8e3210b515cb44933445a0d3587fa6aa2bea",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777272102062.json",
+      "id": "1777272102062",
+      "title": "라푼젤",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        12,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "6e1a479c9016f4e208abdd60635fce6f705d371fa6b0ce1084860829127f910b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772199288387.json",
+      "id": "1772199288387",
+      "title": "행복한 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "b57366c09c77fd329b143027c8c7bce03be98351185a9d017895e326948a5857",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772201758726.json",
+      "id": "1772201758726",
+      "title": "호두까기 인형",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        9
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "4b0f7b6ef14af2756c939dce4fcbed31d3794c73a342195e48055f75e3cbc54b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772510956605.json",
+      "id": "1772510956605",
+      "title": "잭과 콩나무",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "334ec873ab217507cfeb7ab8017fca128ff8d46ede597da7bed43c1c7c3a35dd",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772198278145.json",
+      "id": "1772198278145",
+      "title": "피리 부는 사나이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        8,
+        14
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "449af8982bf8fd9c031298c5d34d6d52e06bdb28af64b9f2dfd8451b2f9b9baa",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1772198919301.json",
+      "id": "1772198919301",
+      "title": "피터와 늑대",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "4debe7dd033f1a927f9d1c5bf7b81cfeca350bfb1be961ea31510944aaf8d743",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777277632597.json",
+      "id": "1777277632597",
+      "title": "빨간머리 앤",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "e9a84aa6e4ef4a313ed5e5ab3b2bbfe0544e1eecde6ab1c6df56f9e773b48664",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777277618365.json",
+      "id": "1777277618365",
+      "title": "플란다스의 개",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "fda3798341344d9d80ab1eb47f1fcd1419a7919c3127690953976014c4882759",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777277215628.json",
+      "id": "1777277215628",
+      "title": "어린 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "8b27f932f09fffb5fa8fd44acdfae40dded85a20d4b27b70b270477158d30fdc",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777274769616.json",
+      "id": "1777274769616",
+      "title": "성냥갑 병정",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "980263fd403a6fca0acf36ebd617fc81aad4c90c67556b457d031f948558bc80",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777276044172.json",
+      "id": "1777276044172",
+      "title": "토끼와 거북이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "ec14f89e832260d7cab95a7dbe40b5352d060f2451e23df37718ba36941a2cd6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777277635476.json",
+      "id": "1777277635476",
+      "title": "소공녀",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "f830fef1ae41fd6d4f8e45e087e87e1d5d8b0e27eb1d51e1ee77330e2c8fd9e6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777276046428.json",
+      "id": "1777276046428",
+      "title": "늑대와 일곱 마리 아기 염소",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "0689250f82ce9d2a692e15ae9d8b2e6056f29fd89e05763e2296a169222a07ee",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777276113613.json",
+      "id": "1777276113613",
+      "title": "눈의 여왕",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "70b05ac1509d0c9de1e67037333c9b56370db3a0397dbcf3b9e57fd8d3bb2c7f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777284715922.json",
+      "id": "1777284715922",
+      "title": "키다리 아저씨",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        12,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "7804b557ae78f7515841205d1b7c196acb236ecdf3603aacdd0aea86d84df995",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777284718837.json",
+      "id": "1777284718837",
+      "title": "파랑새",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "ff4780b38226e42f40da6d69899f685c536e2bfaaeae99ab8b44524e3405be1c",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1781588918173.json",
+      "id": "1781588918173",
+      "title": "헨젤과 그레텔",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "f20e8c6fc650bf4279ae1cfe458e841c8892d615f2447f4ac6427ccf61c190ce",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1778476961082.json",
+      "id": "1778476961082",
+      "title": "빨간모자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "afab37951f4954fe4d573aae7f4a37196e65faae268630c3f43f7ae7dcb76a84",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777284736052.json",
+      "id": "1777284736052",
+      "title": "하이디",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "2822c50215577b2a8c84d900a242e9700b1b9718dea2a56c0fa0360b63b93ec5",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1778555233699.json",
+      "id": "1778555233699",
+      "title": "백설공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "4645912c44dba776cab3c4aba7ac45b65288a935f534563b8f4041b55517da49",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777284655559.json",
+      "id": "1777284655559",
+      "title": "보물섬",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "630341e936c063ba859d935b85ebce01620b932492ce0a974f5ada817f201bfe",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1777284662626.json",
+      "id": "1777284662626",
+      "title": "신밧드의 모험",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "dc99df594696e733ed7dfa277ee316a7e5e14ecd474fb23a765f91f6a119da84",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529057529.json",
+      "id": "1784529057529",
+      "title": "팥죽 할멈과 호랑이",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        9,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "5a6ae8c402e9e9589a8fe237d70919302e9fc405c215866a85d45b3e98ddd984",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529057861.json",
+      "id": "1784529057861",
+      "title": "방귀쟁이 며느리",
+      "genre": "folktale",
+      "pageCount": 11,
+      "startPages": [
+        1,
+        6,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "7d0f851854c0c6f26c3a564189d48871478eb8da300db7d031d282305bd0817a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529056876.json",
+      "id": "1784529056876",
+      "title": "흥부와 놀부",
+      "genre": "folktale",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        14
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "19a972e6bcc11fafc13e5a771cbe80c3b0997fb2d4567653cbef0fb40d2d6d59",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529058143.json",
+      "id": "1784529058143",
+      "title": "금도끼 은도끼",
+      "genre": "folktale",
+      "pageCount": 11,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "421e2e0764fdee6b24bade0598e68ee7c6a34b7daa7e3be2f3166c417d9b3d5a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529058442.json",
+      "id": "1784529058442",
+      "title": "토끼와 자라",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        7,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "c33ab51684e4cf4943fe7804e1c8dbfc96c8cd6f944a8de491f6ec8235cc3935",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529057190.json",
+      "id": "1784529057190",
+      "title": "도깨비방망이",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        4,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "34237b1cd263c2a63169be72e2a9eec157ac23f669928c1ce37512bfaa90bb8a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529058796.json",
+      "id": "1784529058796",
+      "title": "혹부리 영감",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        6,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "d4717a2bc2c5c73ee4f24f3cf77cca78a782634f3f5874ad930ee76157928bef",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529059096.json",
+      "id": "1784529059096",
+      "title": "말 안 듣는 청개구리",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "cf888283e2a829617b8085fc7d9d364a775c66abcd35d62b496af80b805d9904",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529060346.json",
+      "id": "1784529060346",
+      "title": "호랑이와 곶감",
+      "genre": "folktale",
+      "pageCount": 11,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "99835c85f74b5bc44645058ee6dc2d97d1f797b914caded7395bfbae01d6299a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529060634.json",
+      "id": "1784529060634",
+      "title": "은혜 갚은 까치",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        7,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "bf5683ddc742ff232a620c63e98cca6c464de879301d4c558983387703e7c71b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529060026.json",
+      "id": "1784529060026",
+      "title": "선녀와 나무꾼",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        9,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "12e861e7816eb5b4b34627d467a98b576044c4f1b758a82a8e5c3c3c9da6b786",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529061520.json",
+      "id": "1784529061520",
+      "title": "우렁각시",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        6,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "1a250de855bb4b490ad6814d277ed7914b1020d9ac31dc26e28bbfef568bea25",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529059421.json",
+      "id": "1784529059421",
+      "title": "해와 달이 된 오누이",
+      "genre": "folktale",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        14
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "5090915d642a448316bb1033a61f6b252dff832aded144d030712147c1302824",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529059709.json",
+      "id": "1784529059709",
+      "title": "콩쥐 팥쥐",
+      "genre": "folktale",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        14
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "1b44220a2f7c8312c73eace97c543a9379c88b987a14c86e11ce0a0d626dddf0",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529061222.json",
+      "id": "1784529061222",
+      "title": "견우와 직녀",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        6,
+        12
+      ],
+      "setIds": [
+        "folktale-10",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "93c9ff694076489cd32d941930a2279cfd582b3c62667580502f91b084363e4a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529060920.json",
+      "id": "1784529060920",
+      "title": "젊어지는 샘물",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "82199239b28c57302d5deeb44d90a74c3fd77ada943bfdf24017fc3e3db64b14",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303653015.json",
+      "id": "1785303653015",
+      "title": "단군 이야기",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "c49360685c43442f5cc0236c4e6f8d56ac594c453498802942b287862cd177e4",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529062755.json",
+      "id": "1784529062755",
+      "title": "의좋은 형제",
+      "genre": "folktale",
+      "pageCount": 11,
+      "startPages": [
+        1,
+        5,
+        10
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "4060b8774c6f63403712dc688e634c4f8189308aa1758e468877194521563475",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529062118.json",
+      "id": "1784529062118",
+      "title": "임금님 귀는 당나귀 귀",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "cf3b9328d19488fc88f08056d6977006941e0e3657c23ee4a14091eb6fa27c7a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529061822.json",
+      "id": "1784529061822",
+      "title": "재주 많은 삼형제",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "7813a41ca132a1630bf65f6bd1da5041c463f080eb78b909049a5e01761a5e07",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303652428.json",
+      "id": "1785303652428",
+      "title": "심청전",
+      "genre": "folktale",
+      "pageCount": 16,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "d5dae8ff65299f590d3bc3d34b596f796958a1383ecab2ac71e0e7914d721316",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303653346.json",
+      "id": "1785303653346",
+      "title": "서동요",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "f2f1a33c9f09c7439fb5b5805f017a0cf75b6e48f923925a08dab68857c2c88f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1784529062415.json",
+      "id": "1784529062415",
+      "title": "소가 된 게으름뱅이",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "75e8677e699b524e9154a3759d5668ac054c3dc6bc5955374204b7f0a5c14cf5",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303652738.json",
+      "id": "1785303652738",
+      "title": "바보 온달과 평강공주",
+      "genre": "folktale",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        14
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "c747df039cc9b1daaded3f16648336a076de230faf687b6ed5dadac1ac7561c6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303654219.json",
+      "id": "1785303654219",
+      "title": "훨훨 간다",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "227bea4c93130e5e83bd158d8614d77afd32d6ab84344bcb6fc4be34d699e5ef",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303655346.json",
+      "id": "1785303655346",
+      "title": "신기한 항아리",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        6,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "f118b1d262c106d649c763bc1b4537dfcafe20968cb6485285a2255349339927",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303655079.json",
+      "id": "1785303655079",
+      "title": "도깨비 감투",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        5,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "f7b0207e29983cab703eb4b7b29849e1add6c8e5cbcf49d0f193cf66930265de",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303653631.json",
+      "id": "1785303653631",
+      "title": "삼년고개",
+      "genre": "folktale",
+      "pageCount": 11,
+      "startPages": [
+        1,
+        5,
+        10
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "738969d67241608cd97dc449c18827f934c9f2acb0bac225941b0876b45241ee",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303654489.json",
+      "id": "1785303654489",
+      "title": "떡보와 사신",
+      "genre": "folktale",
+      "pageCount": 12,
+      "startPages": [
+        1,
+        6,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "03a80b2bed3e92c01991dca3cf7816fd3d534f84dffaf758dec08cd9101f0ee4",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303655646.json",
+      "id": "1785303655646",
+      "title": "자린고비",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        7,
+        11
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "d4eb4fc72e0e0cbc40ba985964dbda7eca901b6126caf67aa4fd482946750318",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303653932.json",
+      "id": "1785303653932",
+      "title": "토끼의 재판",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        5,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "3a71d727535dbb87f1a0864121b32da02b6045d93d52f874596b0a333f5489ef",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303654809.json",
+      "id": "1785303654809",
+      "title": "요술 맷돌",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        6,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "0a1ef0c9fbd863dfb6a0d22ed859badf4e5a5747c3fe62ddd2208cb786746cd8",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303655950.json",
+      "id": "1785303655950",
+      "title": "개와 고양이",
+      "genre": "folktale",
+      "pageCount": 14,
+      "startPages": [
+        1,
+        6,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "553858ddba253440ca013116624b756c6d28ac43edf2bc4ede05a786cf60d669",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303656257.json",
+      "id": "1785303656257",
+      "title": "은혜 갚은 두꺼비",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        7,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "2e694623fb9c0e80348ecfc89ddbb1d553338ca6acf8ab5fbba2c6971ff7036b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303658036.json",
+      "id": "1785303658036",
+      "title": "반쪽이",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        4,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "f65d0f616b8af0325cadf21cd43361c188a179fffac6507d4ca3c9a0948a8568",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303657748.json",
+      "id": "1785303657748",
+      "title": "두더지의 혼인",
+      "genre": "folktale",
+      "pageCount": 14,
+      "startPages": [
+        1,
+        5,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "4c00039cefc3b587e1218bb15d072c5f655a22065f96f7def2f43c16d4e262f4",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303656554.json",
+      "id": "1785303656554",
+      "title": "호랑이 형님",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        6,
+        12
+      ],
+      "setIds": [
+        "folktale-10",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "e2e1e3158b10004afa27949b3e6001da64d971a8391df4bdf7d7f1a7be0d7197",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303657451.json",
+      "id": "1785303657451",
+      "title": "구렁덩덩 새선비",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        8,
+        12
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "eb02159d8b711b7a343e38bf2076a3d17e90712d0c9c379a3e1ffe98de908ec5",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303657174.json",
+      "id": "1785303657174",
+      "title": "복 타러 간 총각",
+      "genre": "folktale",
+      "pageCount": 14,
+      "startPages": [
+        1,
+        6,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "2d1e23f20e7742ed0e1a1bdd8a3e312b5993e6c3120be8e4f24166741dcb316f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1785303656827.json",
+      "id": "1785303656827",
+      "title": "좁쌀 한 톨로 장가든 총각",
+      "genre": "folktale",
+      "pageCount": 13,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "folktale-01",
+        "folktale-02"
+      ],
+      "sourceTextSha256": "d7a8d70cfe272ce6144ef011dc4b9cfcf333a309240d372c191365d2f96aa893",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946294.json",
+      "id": "1789350946294",
+      "title": "백설공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "4645912c44dba776cab3c4aba7ac45b65288a935f534563b8f4041b55517da49",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946299.json",
+      "id": "1789350946299",
+      "title": "하이디",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "2822c50215577b2a8c84d900a242e9700b1b9718dea2a56c0fa0360b63b93ec5",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946293.json",
+      "id": "1789350946293",
+      "title": "헨젤과 그레텔",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "f20e8c6fc650bf4279ae1cfe458e841c8892d615f2447f4ac6427ccf61c190ce",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946295.json",
+      "id": "1789350946295",
+      "title": "백설공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "4645912c44dba776cab3c4aba7ac45b65288a935f534563b8f4041b55517da49",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946292.json",
+      "id": "1789350946292",
+      "title": "헨젤과 그레텔",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "f20e8c6fc650bf4279ae1cfe458e841c8892d615f2447f4ac6427ccf61c190ce",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946296.json",
+      "id": "1789350946296",
+      "title": "빨간모자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "afab37951f4954fe4d573aae7f4a37196e65faae268630c3f43f7ae7dcb76a84",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946298.json",
+      "id": "1789350946298",
+      "title": "하이디",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "2822c50215577b2a8c84d900a242e9700b1b9718dea2a56c0fa0360b63b93ec5",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946297.json",
+      "id": "1789350946297",
+      "title": "빨간모자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "afab37951f4954fe4d573aae7f4a37196e65faae268630c3f43f7ae7dcb76a84",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946302.json",
+      "id": "1789350946302",
+      "title": "키다리 아저씨",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        12,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "7804b557ae78f7515841205d1b7c196acb236ecdf3603aacdd0aea86d84df995",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946305.json",
+      "id": "1789350946305",
+      "title": "신밧드의 모험",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "dc99df594696e733ed7dfa277ee316a7e5e14ecd474fb23a765f91f6a119da84",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946304.json",
+      "id": "1789350946304",
+      "title": "신밧드의 모험",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "dc99df594696e733ed7dfa277ee316a7e5e14ecd474fb23a765f91f6a119da84",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946307.json",
+      "id": "1789350946307",
+      "title": "보물섬",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "630341e936c063ba859d935b85ebce01620b932492ce0a974f5ada817f201bfe",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946301.json",
+      "id": "1789350946301",
+      "title": "파랑새",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "ff4780b38226e42f40da6d69899f685c536e2bfaaeae99ab8b44524e3405be1c",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946300.json",
+      "id": "1789350946300",
+      "title": "파랑새",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "ff4780b38226e42f40da6d69899f685c536e2bfaaeae99ab8b44524e3405be1c",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946306.json",
+      "id": "1789350946306",
+      "title": "보물섬",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "630341e936c063ba859d935b85ebce01620b932492ce0a974f5ada817f201bfe",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946303.json",
+      "id": "1789350946303",
+      "title": "키다리 아저씨",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        12,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "7804b557ae78f7515841205d1b7c196acb236ecdf3603aacdd0aea86d84df995",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946314.json",
+      "id": "1789350946314",
+      "title": "어린 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "8b27f932f09fffb5fa8fd44acdfae40dded85a20d4b27b70b270477158d30fdc",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946309.json",
+      "id": "1789350946309",
+      "title": "소공녀",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "f830fef1ae41fd6d4f8e45e087e87e1d5d8b0e27eb1d51e1ee77330e2c8fd9e6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946310.json",
+      "id": "1789350946310",
+      "title": "빨간머리 앤",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "e9a84aa6e4ef4a313ed5e5ab3b2bbfe0544e1eecde6ab1c6df56f9e773b48664",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946313.json",
+      "id": "1789350946313",
+      "title": "플란다스의 개",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "fda3798341344d9d80ab1eb47f1fcd1419a7919c3127690953976014c4882759",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946311.json",
+      "id": "1789350946311",
+      "title": "빨간머리 앤",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "e9a84aa6e4ef4a313ed5e5ab3b2bbfe0544e1eecde6ab1c6df56f9e773b48664",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946312.json",
+      "id": "1789350946312",
+      "title": "플란다스의 개",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "fda3798341344d9d80ab1eb47f1fcd1419a7919c3127690953976014c4882759",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946308.json",
+      "id": "1789350946308",
+      "title": "소공녀",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "f830fef1ae41fd6d4f8e45e087e87e1d5d8b0e27eb1d51e1ee77330e2c8fd9e6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946315.json",
+      "id": "1789350946315",
+      "title": "어린 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "8b27f932f09fffb5fa8fd44acdfae40dded85a20d4b27b70b270477158d30fdc",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946321.json",
+      "id": "1789350946321",
+      "title": "토끼와 거북이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "ec14f89e832260d7cab95a7dbe40b5352d060f2451e23df37718ba36941a2cd6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946316.json",
+      "id": "1789350946316",
+      "title": "눈의 여왕",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "70b05ac1509d0c9de1e67037333c9b56370db3a0397dbcf3b9e57fd8d3bb2c7f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946323.json",
+      "id": "1789350946323",
+      "title": "성냥갑 병정",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "980263fd403a6fca0acf36ebd617fc81aad4c90c67556b457d031f948558bc80",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946318.json",
+      "id": "1789350946318",
+      "title": "늑대와 일곱 마리 아기 염소",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "0689250f82ce9d2a692e15ae9d8b2e6056f29fd89e05763e2296a169222a07ee",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946320.json",
+      "id": "1789350946320",
+      "title": "토끼와 거북이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "ec14f89e832260d7cab95a7dbe40b5352d060f2451e23df37718ba36941a2cd6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946319.json",
+      "id": "1789350946319",
+      "title": "늑대와 일곱 마리 아기 염소",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "0689250f82ce9d2a692e15ae9d8b2e6056f29fd89e05763e2296a169222a07ee",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946317.json",
+      "id": "1789350946317",
+      "title": "눈의 여왕",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "70b05ac1509d0c9de1e67037333c9b56370db3a0397dbcf3b9e57fd8d3bb2c7f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946322.json",
+      "id": "1789350946322",
+      "title": "성냥갑 병정",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "980263fd403a6fca0acf36ebd617fc81aad4c90c67556b457d031f948558bc80",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946329.json",
+      "id": "1789350946329",
+      "title": "피노키오",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "155bb7adc78f63ab85869ea4aafe8e3210b515cb44933445a0d3587fa6aa2bea",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946326.json",
+      "id": "1789350946326",
+      "title": "라푼젤",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        12,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "6e1a479c9016f4e208abdd60635fce6f705d371fa6b0ce1084860829127f910b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946325.json",
+      "id": "1789350946325",
+      "title": "북풍과 태양",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "6b32aa9e9740c4a7871d206f3f78b5e7701cd3e576703a5e0a0a6505a223825a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946327.json",
+      "id": "1789350946327",
+      "title": "라푼젤",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        12,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "6e1a479c9016f4e208abdd60635fce6f705d371fa6b0ce1084860829127f910b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946324.json",
+      "id": "1789350946324",
+      "title": "북풍과 태양",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "6b32aa9e9740c4a7871d206f3f78b5e7701cd3e576703a5e0a0a6505a223825a",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946331.json",
+      "id": "1789350946331",
+      "title": "잭과 콩나무",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "334ec873ab217507cfeb7ab8017fca128ff8d46ede597da7bed43c1c7c3a35dd",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946328.json",
+      "id": "1789350946328",
+      "title": "피노키오",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "155bb7adc78f63ab85869ea4aafe8e3210b515cb44933445a0d3587fa6aa2bea",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946330.json",
+      "id": "1789350946330",
+      "title": "잭과 콩나무",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "334ec873ab217507cfeb7ab8017fca128ff8d46ede597da7bed43c1c7c3a35dd",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946334.json",
+      "id": "1789350946334",
+      "title": "행복한 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "b57366c09c77fd329b143027c8c7bce03be98351185a9d017895e326948a5857",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946332.json",
+      "id": "1789350946332",
+      "title": "호두까기 인형",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        9
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "4b0f7b6ef14af2756c939dce4fcbed31d3794c73a342195e48055f75e3cbc54b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946336.json",
+      "id": "1789350946336",
+      "title": "피터와 늑대",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "4debe7dd033f1a927f9d1c5bf7b81cfeca350bfb1be961ea31510944aaf8d743",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946339.json",
+      "id": "1789350946339",
+      "title": "피리 부는 사나이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        8,
+        14
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "449af8982bf8fd9c031298c5d34d6d52e06bdb28af64b9f2dfd8451b2f9b9baa",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946337.json",
+      "id": "1789350946337",
+      "title": "피터와 늑대",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "4debe7dd033f1a927f9d1c5bf7b81cfeca350bfb1be961ea31510944aaf8d743",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946338.json",
+      "id": "1789350946338",
+      "title": "피리 부는 사나이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        8,
+        14
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "449af8982bf8fd9c031298c5d34d6d52e06bdb28af64b9f2dfd8451b2f9b9baa",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946333.json",
+      "id": "1789350946333",
+      "title": "호두까기 인형",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        9
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "4b0f7b6ef14af2756c939dce4fcbed31d3794c73a342195e48055f75e3cbc54b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946335.json",
+      "id": "1789350946335",
+      "title": "행복한 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "b57366c09c77fd329b143027c8c7bce03be98351185a9d017895e326948a5857",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946343.json",
+      "id": "1789350946343",
+      "title": "정글북",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "11eb0836ea02e2f5a1f4f98a16d96ca20e0ed6a2a583f9ebf8d0c741540b2016",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946341.json",
+      "id": "1789350946341",
+      "title": "커다란 순무",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "144a8607f3dd49aa510f7b0c29a3f6e9e26736c19068042ef12f49fd95268e2f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946342.json",
+      "id": "1789350946342",
+      "title": "정글북",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        13
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "11eb0836ea02e2f5a1f4f98a16d96ca20e0ed6a2a583f9ebf8d0c741540b2016",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946344.json",
+      "id": "1789350946344",
+      "title": "잠자는 숲속의 공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "29fb97a449155a4d6da800d849f13a2c999d0047fc7d5fe80793ffcb15c38ac7",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946347.json",
+      "id": "1789350946347",
+      "title": "이상한 나라의 앨리스",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        10,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "35c471014f81810cc521501904befc13d353005fa568e8fbcaf02c948c101c8e",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946345.json",
+      "id": "1789350946345",
+      "title": "잠자는 숲속의 공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "29fb97a449155a4d6da800d849f13a2c999d0047fc7d5fe80793ffcb15c38ac7",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946340.json",
+      "id": "1789350946340",
+      "title": "커다란 순무",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "144a8607f3dd49aa510f7b0c29a3f6e9e26736c19068042ef12f49fd95268e2f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946346.json",
+      "id": "1789350946346",
+      "title": "이상한 나라의 앨리스",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        10,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "35c471014f81810cc521501904befc13d353005fa568e8fbcaf02c948c101c8e",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946351.json",
+      "id": "1789350946351",
+      "title": "우당탕탕 염소 삼 형제",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "dcd842ffba2837ddc688d6c239d9b0aeba0469bd6efddeeeb38b5adf745af573",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946352.json",
+      "id": "1789350946352",
+      "title": "오즈의 마법사",
+      "genre": "classic",
+      "pageCount": 17,
+      "startPages": [
+        1,
+        2,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "b1ce44a9c82f319135f0853ef458d768e347fecad87a46aeda4d972f8ccd12e1",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946355.json",
+      "id": "1789350946355",
+      "title": "엄지 아가씨",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "f376f9f437bcd874c84de918a4806746a3a53a865f7b1ce1404b279ec7f58bff",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946348.json",
+      "id": "1789350946348",
+      "title": "인어 공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        15
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "11848197c3a5162514625794457f34e401b7168b10828a3807641c202c224610",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946350.json",
+      "id": "1789350946350",
+      "title": "우당탕탕 염소 삼 형제",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "dcd842ffba2837ddc688d6c239d9b0aeba0469bd6efddeeeb38b5adf745af573",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946353.json",
+      "id": "1789350946353",
+      "title": "오즈의 마법사",
+      "genre": "classic",
+      "pageCount": 17,
+      "startPages": [
+        1,
+        2,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "b1ce44a9c82f319135f0853ef458d768e347fecad87a46aeda4d972f8ccd12e1",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946349.json",
+      "id": "1789350946349",
+      "title": "인어 공주",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        15
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "11848197c3a5162514625794457f34e401b7168b10828a3807641c202c224610",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946354.json",
+      "id": "1789350946354",
+      "title": "엄지 아가씨",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-ocean",
+        "legacy-palace"
+      ],
+      "sourceTextSha256": "f376f9f437bcd874c84de918a4806746a3a53a865f7b1ce1404b279ec7f58bff",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946361.json",
+      "id": "1789350946361",
+      "title": "신데렐라",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "e5082551219744e249ad3be108c879b4556dacdbe424b5d2e0d950d5be114de4",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946362.json",
+      "id": "1789350946362",
+      "title": "성냥팔이 소녀",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "3315613f36306597f2f17db9aab56b2bdf2e2bb26d4ebd2699c27706c134fbf6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946356.json",
+      "id": "1789350946356",
+      "title": "알라딘과 요술 램프",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        6
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "ce4d729de7a279f9ad7e53ca42f47b7874d6b5c7128c8637f6e87e4d8da89dac",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946358.json",
+      "id": "1789350946358",
+      "title": "아기 돼지 삼형제",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "a3451d0744c2e00a73f74f8c98242e826508c8e68b9fa1c743b5e83b18fea37f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946359.json",
+      "id": "1789350946359",
+      "title": "아기 돼지 삼형제",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "classic-04",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "a3451d0744c2e00a73f74f8c98242e826508c8e68b9fa1c743b5e83b18fea37f",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946357.json",
+      "id": "1789350946357",
+      "title": "알라딘과 요술 램프",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        6
+      ],
+      "setIds": [
+        "classic-04",
+        "classic-02",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "ce4d729de7a279f9ad7e53ca42f47b7874d6b5c7128c8637f6e87e4d8da89dac",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946360.json",
+      "id": "1789350946360",
+      "title": "신데렐라",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "e5082551219744e249ad3be108c879b4556dacdbe424b5d2e0d950d5be114de4",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946363.json",
+      "id": "1789350946363",
+      "title": "성냥팔이 소녀",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        4,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "3315613f36306597f2f17db9aab56b2bdf2e2bb26d4ebd2699c27706c134fbf6",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946369.json",
+      "id": "1789350946369",
+      "title": "브레멘 음악대",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "9382fbf4102721082b2e365bde833e6826eed67406b567de800ac40e15d5a5e8",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946371.json",
+      "id": "1789350946371",
+      "title": "백조의 호수",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "8743ec37e8fb061c43d1733dff7a23a65e66d9da08f7410711c1621e10a82481",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946365.json",
+      "id": "1789350946365",
+      "title": "생강빵 아이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        9,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "e1895d4430e465a1a5deb3e5b8d17f3e0b4ce613147674f18943348ed02a3bcb",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946370.json",
+      "id": "1789350946370",
+      "title": "백조의 호수",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        14
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "8743ec37e8fb061c43d1733dff7a23a65e66d9da08f7410711c1621e10a82481",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946368.json",
+      "id": "1789350946368",
+      "title": "브레멘 음악대",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        5,
+        11
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "9382fbf4102721082b2e365bde833e6826eed67406b567de800ac40e15d5a5e8",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946366.json",
+      "id": "1789350946366",
+      "title": "빨간 구두",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        13
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "f406210e2deb4e8e4e26598904345aabdf830773f0ab037bb734f1debfff8bce",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946364.json",
+      "id": "1789350946364",
+      "title": "생강빵 아이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        9,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "e1895d4430e465a1a5deb3e5b8d17f3e0b4ce613147674f18943348ed02a3bcb",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946367.json",
+      "id": "1789350946367",
+      "title": "빨간 구두",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        6,
+        13
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "f406210e2deb4e8e4e26598904345aabdf830773f0ab037bb734f1debfff8bce",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946372.json",
+      "id": "1789350946372",
+      "title": "백조 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "2be36c738996eb303d6b0dfee2d0c58d6473cebff241abdd50a5a2a3956e7115",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946373.json",
+      "id": "1789350946373",
+      "title": "백조 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        15
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "2be36c738996eb303d6b0dfee2d0c58d6473cebff241abdd50a5a2a3956e7115",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946376.json",
+      "id": "1789350946376",
+      "title": "금발 머리 소녀와 곰 세 마리",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "3badd235ca59ef45d2f8ea32bf9da3130353d6b702c5d530d757b5889dddb10d",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946375.json",
+      "id": "1789350946375",
+      "title": "미운 아기 오리",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "ae9f32fb75df676721d4f6d482126c48021ea1e715ba50070e5772622506a74b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946379.json",
+      "id": "1789350946379",
+      "title": "구둣방 할아버지와 꼬마 요정",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        8,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "0afa4ad89bf19a19ceb3c67dd5ad6a49e9ba73cca3ece76b71402afe4d681495",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946377.json",
+      "id": "1789350946377",
+      "title": "금발 머리 소녀와 곰 세 마리",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        7,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "3badd235ca59ef45d2f8ea32bf9da3130353d6b702c5d530d757b5889dddb10d",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946378.json",
+      "id": "1789350946378",
+      "title": "구둣방 할아버지와 꼬마 요정",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        8,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "0afa4ad89bf19a19ceb3c67dd5ad6a49e9ba73cca3ece76b71402afe4d681495",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946374.json",
+      "id": "1789350946374",
+      "title": "미운 아기 오리",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        3,
+        14
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-palace",
+        "legacy-playful"
+      ],
+      "sourceTextSha256": "ae9f32fb75df676721d4f6d482126c48021ea1e715ba50070e5772622506a74b",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946383.json",
+      "id": "1789350946383",
+      "title": "거인의 정원",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "040e740c417d304e3732414cf9eebed4a63fa7551b7aeeab1fa0d2afde8d11fa",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946385.json",
+      "id": "1789350946385",
+      "title": "개미와 베짱이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        9,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "bd109b7c0acf398cea9ee323b84a5ebeedd9fa45e9538c22fa91bbbfcc3741e1",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946384.json",
+      "id": "1789350946384",
+      "title": "개미와 베짱이",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        9,
+        15
+      ],
+      "setIds": [
+        "classic-01",
+        "legacy-playful",
+        "legacy-journey"
+      ],
+      "sourceTextSha256": "bd109b7c0acf398cea9ee323b84a5ebeedd9fa45e9538c22fa91bbbfcc3741e1",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946386.json",
+      "id": "1789350946386",
+      "title": "개구리 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        13
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "57ccc3cc7a9759938c9043b61dae96bd0eb5494476fb80e641b8d9a5368dc769",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946382.json",
+      "id": "1789350946382",
+      "title": "거인의 정원",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        13
+      ],
+      "setIds": [
+        "classic-08",
+        "legacy-reflection"
+      ],
+      "sourceTextSha256": "040e740c417d304e3732414cf9eebed4a63fa7551b7aeeab1fa0d2afde8d11fa",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946387.json",
+      "id": "1789350946387",
+      "title": "개구리 왕자",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        13
+      ],
+      "setIds": [
+        "classic-02",
+        "legacy-palace",
+        "classic-01"
+      ],
+      "sourceTextSha256": "57ccc3cc7a9759938c9043b61dae96bd0eb5494476fb80e641b8d9a5368dc769",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946381.json",
+      "id": "1789350946381",
+      "title": "걸리버 여행기",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "fa056da6aed4efc46cb983b8eac87285ef509c511cc36f5d3dc6d1eb3dd32e01",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    },
+    {
+      "Key": "storybook-1789350946380.json",
+      "id": "1789350946380",
+      "title": "걸리버 여행기",
+      "genre": "classic",
+      "pageCount": 15,
+      "startPages": [
+        1,
+        2,
+        14
+      ],
+      "setIds": [
+        "classic-04",
+        "legacy-journey",
+        "classic-02"
+      ],
+      "sourceTextSha256": "fa056da6aed4efc46cb983b8eac87285ef509c511cc36f5d3dc6d1eb3dd32e01",
+      "selectionUnit": "one three-track set per reading session",
+      "policy": "Keep current genre-matching set pool and page boundaries when replacing climax URLs."
+    }
+  ],
+  "downloads": [
+    {
+      "setId": "classic-02",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1b8c1dc1-847e-489a-9a08-56b251129a6f",
+          "duration": "1:10",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/b10cc6b2-75f1-49e9-b345-e2ca57c867d6",
+          "duration": "1:00",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-03",
+      "genre": "classic",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/c721a9b7-605f-4793-804c-5a911c0ecbe5",
+          "playable": true,
+          "duration": "1:09"
+        },
+        {
+          "url": "https://suno.com/song/a823ceee-029d-4a60-9af1-1343c82a8573",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-03",
+      "genre": "classic",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/a34a0175-bcb3-4abd-8591-36b114ec5801",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/85296a81-e41e-4fdd-af01-e7b0bd70b3b9",
+          "duration": "1:00",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-03",
+      "genre": "classic",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/5919c4fb-5671-4de7-a627-230ae658e70a",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/a88567f0-5229-4a05-84ed-761ff2c5058b",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-04",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/53df0a50-0ef1-43e9-b700-9cf378c5a0cd",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/f50e8509-5c85-4683-817c-b10bdffad5a5",
+          "duration": "1:02",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-05",
+      "genre": "classic",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/e4411cc5-a480-494b-8503-381fa11fb977",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/634ac808-073f-49d0-b875-db4d3a811bf8",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-05",
+      "genre": "classic",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/78c2344f-3ed1-41d2-8d38-e9694ceedb67",
+          "duration": "1:01",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/61b0051f-7a1b-45f8-98bd-6c8dd3e800c1",
+          "duration": "1:00",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-05",
+      "genre": "classic",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/9d1d0266-129e-4edd-b077-3b217cb5338c",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/e9ed3005-1a2c-4df0-9199-67410334efa5",
+          "playable": true,
+          "duration": "1:09"
+        }
+      ]
+    },
+    {
+      "setId": "classic-06",
+      "genre": "classic",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/f9f560cd-bd61-4871-be18-bc9db2eb3dc4",
+          "playable": true,
+          "duration": "1:09"
+        },
+        {
+          "url": "https://suno.com/song/7f211f41-e2da-40a3-830c-6a8c91028269",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-06",
+      "genre": "classic",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/721b0c62-53f4-4240-8e19-76a0d42e0bb8",
+          "duration": "1:10",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/1f9ccae7-df6f-4191-975a-0f5992446fa0",
+          "duration": "1:01",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-06",
+      "genre": "classic",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/57fee7a7-706d-4d66-8f3d-b1582dba138d",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/9fd6b1c8-7fe5-47c6-a293-73218a0ee13b",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-07",
+      "genre": "classic",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/751f1758-c438-475e-95a6-73eca66ba483",
+          "playable": true,
+          "duration": "1:09"
+        },
+        {
+          "url": "https://suno.com/song/792766c1-923c-4315-84b2-d63c610b93a7",
+          "playable": true,
+          "duration": "1:09"
+        }
+      ]
+    },
+    {
+      "setId": "classic-07",
+      "genre": "classic",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/24d6dc50-80cd-4529-9ff1-9ad412624715",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/551307a1-377b-438d-a64b-c83472b85c7e",
+          "duration": "1:12",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-07",
+      "genre": "classic",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/4b0c460a-d575-4d32-8e64-b02911e2f9c7",
+          "playable": true,
+          "duration": "1:09"
+        },
+        {
+          "url": "https://suno.com/song/659fc9bc-0578-4082-85c3-79c416990733",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-08",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/22fd58d8-50a2-4361-a8bb-76a1cf512bd5",
+          "duration": "1:12",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/f32ff0e6-d550-4583-a4cb-2e55e63c4e5d",
+          "duration": "1:13",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-09",
+      "genre": "classic",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/dc53d574-788f-4397-9507-552cfd1a6926",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/f8ae592a-af33-4593-9eec-f6ee55b5213b",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "classic-09",
+      "genre": "classic",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/0c30c40a-b709-4a8f-a38d-d24f187777d7",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/0b8c7419-dab8-41b5-b462-7de75361e5ac",
+          "duration": "1:00",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-09",
+      "genre": "classic",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/4b797fbe-a350-4642-8378-22951d26f2d9",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/63cf968a-43bb-40e2-a05f-eac7743fd715",
+          "playable": true,
+          "duration": "1:11"
+        }
+      ]
+    },
+    {
+      "setId": "classic-10",
+      "genre": "classic",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/cf95f8ac-c129-436e-ae88-46623c8a6654",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/4c259a11-b4d7-4115-b4bd-5326c207ede2",
+          "playable": true,
+          "duration": "1:09"
+        }
+      ]
+    },
+    {
+      "setId": "classic-10",
+      "genre": "classic",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1b199ddf-7726-43ad-b648-37674c0a7104",
+          "duration": "1:05",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/d3e4704b-3f91-4cf4-a3be-0e6e21939ec8",
+          "duration": "1:14",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "classic-10",
+      "genre": "classic",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/537b83c8-dcca-4197-bc07-75114b264748",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/1c7917fe-a73e-40b4-96cd-60a418ec6b41",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-01",
+      "genre": "folktale",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/7ca00c2f-2194-40b4-b22b-fa1e30e6e5c9",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/c7858dc7-154d-4640-92dd-f1e221808d00",
+          "duration": "1:13",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-02",
+      "genre": "folktale",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/77d01c0b-443f-4298-b773-10390a9da81f",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/5952953d-7e2e-4913-9320-6a6c46d48566",
+          "duration": "1:12",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-03",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/badcbc8f-1666-40b6-bbd3-ba876ee52439",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/70787390-14cb-42f8-b765-11f5413eed3e",
+          "playable": true,
+          "duration": "1:09"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-03",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/76a4c181-74de-4143-93da-2e43fe9158d8",
+          "duration": "1:10",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/0e801556-e05c-4a8f-8b23-088ec5a1bc72",
+          "duration": "1:37",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-03",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/e653e1ce-5aa0-4b12-931f-9bd7ba54c0fb",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/6b1807f6-f960-4759-946d-c4f70d936c9c",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-04",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/43ed6e1b-6b35-4d8a-9f91-41995541790a",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/44c65330-adfd-42b3-8b85-95718c2fedff",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-04",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/632f4936-41e3-4584-99a4-b0fc63f14ab6",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/0cc9dc68-b669-47c1-a18b-88c6f6820432",
+          "duration": "1:08",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-04",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/3dcf4cab-dec1-4db8-8b19-63981310f5f2",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/f2d78e57-d7d1-41f5-b5c9-aca7724e4f15",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-05",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/fb92079d-57c9-4c6a-abbc-f7ccc7f60660",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/df369719-6def-411b-acd9-0288194b562e",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-05",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/b316c6a7-ec02-4a64-b6d9-2cb685ff3e50",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/df1dadf4-7404-4539-8042-1c540c3695dc",
+          "duration": "1:09",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-05",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1569243e-e01b-4aea-aaf3-1e7580c75d53",
+          "playable": true,
+          "duration": "1:09"
+        },
+        {
+          "url": "https://suno.com/song/1607daa1-3e37-4a47-9dd5-cc3c3ac2d513",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-06",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/35584bbc-8125-40c9-a9af-4d8bc1b5f53d",
+          "playable": true,
+          "duration": "1:09"
+        },
+        {
+          "url": "https://suno.com/song/6a4b7d06-660c-4c55-9b0a-490386377df4",
+          "playable": true,
+          "duration": "1:09"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-06",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/c6e603c8-3c9d-4dbb-a441-7ad3f84d5435",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/d8d3fab7-a2a1-4dd7-b01d-dfec32a6f9e3",
+          "duration": "1:02",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-06",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/c34aa1c2-cc69-444e-8ea4-0c93edc7a44a",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/e259bf0e-f493-4b97-b96b-747b1e73e150",
+          "playable": true,
+          "duration": "1:20"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-07",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/09b4e385-cfc7-4a7b-82c9-68ed9d78e6bf",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/a710d9bb-e382-4ad9-8706-7207afa605ba",
+          "playable": true,
+          "duration": "1:11"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-07",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/bd727cad-5b28-4a85-abf8-32dbb8d3a5c5",
+          "duration": "1:01",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/ca501a93-c86f-406f-b3c2-a03610c39949",
+          "duration": "1:03",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-07",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/b54cea7d-6f69-4d64-9340-e70e609456a2",
+          "playable": true,
+          "duration": "1:11"
+        },
+        {
+          "url": "https://suno.com/song/22ea9c2f-278b-4e01-b051-c8b91d04d221",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-08",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/246ce0c2-6875-400b-b690-5e2e7e9a0f55",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/11c50ac0-ba91-44d1-a9f2-e67c6b7eb575",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-08",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/de3a2899-2d41-496c-878b-419b25434219",
+          "duration": "1:00",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/4e7e0485-a720-425b-bdec-c2c67dfa3701",
+          "duration": "1:17",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-08",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/f34c9a46-5b20-40c6-98fa-f13aac6c8c16",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/494394a5-a0f8-40fe-bb23-959fa6c01476",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-09",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "opening",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/81db7c8e-1136-4a8f-9154-ca220c8cf22d",
+          "playable": true,
+          "duration": "1:10"
+        },
+        {
+          "url": "https://suno.com/song/012f43bb-8ba1-49ee-b1fa-380f7a563c64",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-09",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/eb7aba47-bc73-467e-922d-857e7d7bcf2f",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/bdf1edb2-4e46-44b9-8d10-5604c01114aa",
+          "duration": "1:04",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "folktale-09",
+      "genre": "folktale",
+      "priority": 2,
+      "role": "ending",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/6ab0a2f8-d676-4946-9dc5-40d1056757d0",
+          "playable": true,
+          "duration": "1:12"
+        },
+        {
+          "url": "https://suno.com/song/8a9e362c-b92b-4774-879c-4e1edfeb82d1",
+          "playable": true,
+          "duration": "1:10"
+        }
+      ]
+    },
+    {
+      "setId": "folktale-10",
+      "genre": "folktale",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/e5e4c863-897f-467c-bc2c-64d9228b1fa7",
+          "duration": "1:12",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/e5a8a6b9-d962-427b-965a-0942280d2d2a",
+          "duration": "1:18",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "legacy-palace",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/b7382182-f49e-46ba-ae92-315a2ee9c370",
+          "duration": "0:56",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/6456c469-7e09-4057-b898-8a368ab1cd53",
+          "duration": "1:01",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "legacy-playful",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/999a85eb-2190-44e2-b8a8-5faa3344ecd5",
+          "duration": "1:38",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/64399b8e-a370-494a-8ded-0d280c00d59b",
+          "duration": "1:02",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "legacy-ocean",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/4a6f8b74-2e3f-44d8-a933-4244a83da578",
+          "duration": "1:02",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/655ca45d-2559-4bde-8ece-72f2622c9390",
+          "duration": "1:32",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "legacy-reflection",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/1182e68f-d789-482c-9e0d-306ab9e771a3",
+          "duration": "1:04",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/486f3612-aeb1-4877-82d9-ff4986394b4c",
+          "duration": "1:03",
+          "complete": true
+        }
+      ]
+    },
+    {
+      "setId": "legacy-journey",
+      "genre": "classic",
+      "priority": 1,
+      "role": "climax",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/c6217d57-567f-4b56-be9b-5405f30562e4",
+          "duration": "1:03",
+          "complete": true
+        },
+        {
+          "url": "https://suno.com/song/2769b0ba-f047-4da4-8bc3-3f749b8a0431",
+          "duration": "1:02",
+          "complete": true
+        }
+      ]
+    }
+  ],
+  "nextSteps": [
+    "Restore official download access.",
+    "Compare candidate audio and retain coherent instruments/mood per set.",
+    "Download selected official files; decode and normalize; check speech/silence/peaks without equating technical checks to aesthetic approval.",
+    "Use immutable R2 URLs and ETag-conditional book writes; preserve unrelated fields, current genre pools and page boundaries.",
+    "Verify all book readbacks and actual random-set/page-transition playback; update listening page native set playback."
+  ]
+}

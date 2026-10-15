@@ -1,0 +1,246 @@
+{
+  "status": "prompts only; no music generated",
+  "pilot": "아기 돼지 삼형제 / B",
+  "families": [
+    {
+      "id": "A",
+      "name": "궁전과 마법",
+      "cues": [
+        {
+          "id": "A-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "A-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "A-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "A-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "숲속의 긴장과 구출",
+      "cues": [
+        {
+          "id": "B-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "B-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "B-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "B-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "신기한 세계의 모험",
+      "cues": [
+        {
+          "id": "C-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "C-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "C-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "C-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "넓은 세상의 탐험",
+      "cues": [
+        {
+          "id": "D-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "D-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "D-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "D-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "name": "장난과 협동",
+      "cues": [
+        {
+          "id": "E-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "E-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "E-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "E-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "name": "집과 성장",
+      "cues": [
+        {
+          "id": "F-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "F-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "F-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "F-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "name": "꿈과 자연의 경이",
+      "cues": [
+        {
+          "id": "G-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "G-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "G-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "G-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "H",
+      "name": "이별과 따뜻한 여운",
+      "cues": [
+        {
+          "id": "H-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "H-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "H-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. An intimate emotional peak of compassion and farewell; sustained cello, gentle harmonic tension, never triumphant. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "H-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Tender remembrance and acceptance, unresolved sadness allowed, warm but never a victory ending. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    }
+  ]
+}
