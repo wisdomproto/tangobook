@@ -2,12 +2,12 @@
 
 - id: 20261015-word-meeting-focus-design
 - domain: phonics
-- status: ready
+- status: complete
 - updated: 2026-10-15
 - base: 30deaec81
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: cb6c2f2c2를 로컬 main에 fast-forward 통합
 - delivery: 미푸시·미배포
 
 ## 사용자 반증과 현재 결정
@@ -33,8 +33,13 @@
 
 ## 최종 검증
 
-- client production build 성공(24.56초). 기존 lottie eval/ko 로케일 혼합 import/큰 청크 경고가 남지만 오류는 없다.
+- client production build 성공(최종22.71초, 받침 음절 일치 보완 포함). 기존 lottie eval/ko 로케일 혼합 import/큰 청크 경고가 남지만 오류는 없다.
 - 빌드 뒤 실제 5187 연결 낱말 활동의 화면 블록 진입/실물 블록 버튼 유지 확인.
 - 원격 push/배포는 이번 후속에 요청되지 않아 실행하지 않는다.
 
 - 받침 포함 전체 음절을 강조하는 새 화면에서는 중간 CV 발음을 제외한다. 강을 보이며 가를 읽는 불일치를 막는다. 자모 분해/조합 전용 활동은 변경하지 않고 기존 순수 blending 모델도 유지한다. 실제 highlighted syllable과 audio URL 일치 회귀를 추가했다.
+
+
+## 로컬 통합
+
+코드/기억 커밋 cb6c2f2c2가 C:/project/tangobook의 main에 포함됐다. 검수 서버5187은 동일 worktree를 계속 제공한다. 원격 push/운영 배포는 이번 후속에 실행하지 않았다. 기존 output/tmp/다른 worktree는 보존했다.
