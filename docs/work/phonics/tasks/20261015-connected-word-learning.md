@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: 로컬 main 873d1f808 fast-forward 통합
-- delivery: 미푸시·미배포
+- delivery: 사용자 승인으로 origin/main c7025a1bc push 확인, 운영 배포 완료 미확인
 
 ## 요청과 구현 범위
 
@@ -72,3 +72,7 @@
 ## main 포함 확인
 
 873d1f808에 코드와 결정 기록을 함께 커밋하고 로컬 main에 fast-forward 통합했다. 같은 코드의433회귀/타입/build와 실제 화면 증거는 연결 task의 최종 검증 절을 따른다. 원격 main push/운영 배포는 이번 요청에 없으며 실행하지 않았다. 후속 통합 기록은 별도 문서 커밋이다.
+
+## 원격 main 전달 — 2026-10-15
+
+사용자가 “좋아. 메인에 푸시하자”로 현재 낱말 배우기·한글 누적 규칙·영어 예외 구현 전달을 승인했다. fetch 후 origin/main 대비0 behind/6 ahead를 확인하고 force 없이 efa56a4a6→c7025a1bc 일반 push했다. 재조회한 로컬/원격 SHA 일치·0/0 확인. 앞선 미요청/미푸시는 당시 기록이다. 이 전달 기록도 후속 일반 push하며 Railway 운영 배포 완료는 별도 미확인이다. 새 제품 코드/운영 데이터 변경 없음.
