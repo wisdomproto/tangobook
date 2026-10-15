@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowRight, Volume2 } from 'lucide-react';
 import type { Storybook } from '@tangobook/shared';
 import { ActivityShell } from '../components/ActivityShell';
+import { ToyHangul } from '../components/ToyHangul';
 import { englishWordBlendSteps, koreanWordBlendSteps } from '../lib/word-blending';
 import { getUnitPatterns, wordMatchesPattern } from '../lib/english-phonics-units';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -58,8 +59,8 @@ export function WordMeetingActivity({
     () =>
       lang === 'korean'
         ? koreanWordBlendSteps(word).filter(
-            // This word view highlights a complete syllable. Never read "가" while showing "강".
-            // Component assembly belongs to the separate jamo blending activity.
+            // The assembly below the complete word must produce the highlighted syllable.
+            // Coda steps use 가 + ㅇ → 강, rather than reading 가 while highlighting 강.
             (s) => s.wholeWord || s.result === [...word][s.focusIndex ?? 0]
           )
         : englishWordBlendSteps(
@@ -317,6 +318,42 @@ export function WordMeetingActivity({
                 ? t('wordJourney.focusSound', { syllable: letters[focusIndex] })
                 : t(wholeExample || korean ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
           </p>
+          {korean && (
+            <div
+              key={index}
+              className="word-meet-jamo-stage"
+              data-assembly={step.focusIndex !== undefined || undefined}
+              role="group"
+              aria-label={
+                step.focusIndex !== undefined ? `${step.parts.join(' + ')} → ${step.result}` : word
+              }
+            >
+              {step.focusIndex !== undefined && (
+                <>
+                  <div className="word-meet-jamo-parts" aria-hidden="true">
+                    {step.parts.map((part, i) => (
+                      <div
+                        key={`${i}:${part}`}
+                        className="word-meet-jamo-piece"
+                        style={
+                          {
+                            '--jamo-offset': `${(i - (step.parts.length - 1) / 2) * -112}%`,
+                          } as CSSProperties
+                        }
+                      >
+                        {i > 0 && <span className="word-meet-jamo-plus">+</span>}
+                        <ToyHangul text={part} decorative />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="word-meet-jamo-result font-display" aria-hidden="true">
+                    {step.result}
+                  </div>
+                  <span className="word-meet-jamo-halo" aria-hidden="true" />
+                </>
+              )}
+            </div>
+          )}
           {!korean && (
             <div className="word-meet-history" aria-label={t('wordJourney.blended')}>
               {steps.slice(0, index).map((s, i) => (
