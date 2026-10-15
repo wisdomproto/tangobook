@@ -2,11 +2,11 @@
 
 - id: 20261016-alphabet-writing-finish
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 작업, 새 push 요청 없음
+- delivery: a4d93fcfb 로컬 main fast-forward 통합, 새 push/배포 없음
 
 ## 사용자 반증과 확인
 

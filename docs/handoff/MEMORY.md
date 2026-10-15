@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [알파벳 쓰기 표현·낱말 보상](../work/phonics/tasks/20261016-alphabet-writing-finish.md): 운영 직접 사용 반증 후 폰트 안의 매끈한 잉크/직선 획, 완성 글자1.4초 유지→그림·낱말, 순차 음성/오류 재시도를 보완했다. 실제 로컬 D 세로획·I/i 입력/음성 종료·가로폰, 운영 desk 원본2.988초 ended 확인.507회귀+추가2건·타입/lint/build 통과, a4d93fcfb 로컬 main 통합·새 push/배포 없음. 운영 d/q native 곡선 전체 완료 증거와 구분한다.
+
 2026-10-15 [알파벳 d/q 운영 배포 확인](../work/phonics/tasks/20261015-friendly-alphabet-tracing.md#운영-배포dq-후속-확인--2026-10-15): a033b07e6/c52d3877 successful·Active 확인. 운영 d UI/시연·잘못된 직선 거절·health 정상, 실제 배포 JS 순수 판정 함수로 d/q 곡선 각각75검사 기대 불일치0. native 곡선 전체 완료는 도구 제약으로 미확인(운영 d SVG/기록된 q fixture를 사용한 모의 검사와 구분). 기록만 로컬 보존·새 push 없음.
 
 2026-10-15 [영어 획 보완 main push](../work/phonics/tasks/20261015-friendly-alphabet-tracing.md#main-전달--2026-10-15): 사용자 승인으로 검수판·d/q 포함 전수 흔들림 보완을 원격 음악12커밋과 정상 통합, ba1b70dbd 일반 push·원격 SHA 일치·0/0 확인. 통합 타입/전체 build 성공·미추적 보존. 아래 미푸시는 과거 상태이며 새 운영 배포 완료는 미확인. 검수 페이지는 로컬 DEV 전용.

@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-16 [알파벳 쓰기 완성 표현](tasks/20261016-alphabet-writing-finish.md): 사용자 직접 d/q 검수의 지저분한 잉크·완성 즉시 그림·무음 반증을 반영했다. 폰트/획 mask 안의 잉크·반듯한 직선 연결부, 완성 글자1.4초 뒤 같은 칸 그림/낱말, 대소문자 보상 음성 큐·실패 다시 듣기. 실제 로컬 D 세로획/I·i 완주·가로폰/desk 원본 ended 확인, 507회귀+새2건 관련 재검사·타입/lint/build 성공. 운영 D/q 곡선 전체 완료는 이번에도 검증하지 않았다. a4d93fcfb 로컬 main 포함·새 push/배포 없음.
+
 2026-10-15 [d/q 운영 확인](tasks/20261015-friendly-alphabet-tracing.md#운영-배포dq-후속-확인--2026-10-15): Railway c52d3877/a033b07e6 successful·Active 직접 확인, 운영 d 자유모드 판/시연·native 지름길 거절·console error0·health ok. 공개 배포 JS의 실제 순수 판정 함수/영어 옵션 연결을 추출 검증해 d/q 첫 곡선150개 기대 불일치0. d는 운영 SVG 일치·q는 기록된 같은 폰트 fixture이며 native 곡선 완주/2획 완료로 확대하지 않는다. 검증 기록만 로컬 커밋·새 push 없음. 아래 새 운영 미확인은 이전 시점이다.
 
 2026-10-15 [알파벳 보완 main 전달](tasks/20261015-friendly-alphabet-tracing.md#main-전달--2026-10-15): 사용자 승인으로 검수판3977b8b4e·획 판정c5de7bb6e를 원격 음악12커밋과 정상 통합해 ba1b70dbd 일반 push. 공유 기록 양쪽 보존·통합 타입/build 확인·원격 SHA 일치/0/0 확인. 아래 미푸시는 당시 상태이며 새 운영 배포 완료는 미확인. 검수 페이지는 DEV 전용이다.
