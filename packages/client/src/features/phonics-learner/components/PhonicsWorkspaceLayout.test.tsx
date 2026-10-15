@@ -280,6 +280,13 @@ it('replays an earlier chapter even when its activity key matches the running ch
   fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
   const drawer = screen.getByRole('dialog', { name: '활동 목록' });
   fireEvent.click(within(drawer).getByRole('button', { name: '전체 커리큘럼' }));
+  const finished = within(drawer).getByRole('button', { name: /ㅏ 배우기/ });
+  const started = within(drawer).getByRole('button', { name: /ㅑ 배우기/ });
+  expect(finished).toHaveAttribute('data-progress', 'complete');
+  expect(finished).toHaveTextContent('100%');
+  expect(started).toHaveAttribute('data-progress', 'started');
+  expect(started).not.toHaveTextContent('100%');
+  expect(finished.style.backgroundColor).not.toBe(started.style.backgroundColor);
   fireEvent.click(within(drawer).getByRole('button', { name: 'ㅏ 배우기' }));
   fireEvent.click(within(drawer).getByRole('button', { name: /ㅏ 배우기.*다 했어요/ }));
   expect(screen.getByTestId('route-activity')).toHaveTextContent('kr-v1-u01:listen-1');

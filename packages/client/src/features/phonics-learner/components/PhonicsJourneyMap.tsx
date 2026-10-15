@@ -705,6 +705,8 @@ export function PhonicsJourneyMap({
                                     );
                                 const complete =
                                   steps.length > 0 && steps.every((step) => step.done);
+                                const completedCount = steps.filter((step) => step.done).length;
+                                const ratio = steps.length ? completedCount / steps.length : 0;
                                 const locked = !free && !steps.some(canStart);
                                 return (
                                   <li
@@ -714,7 +716,17 @@ export function PhonicsJourneyMap({
                                     <button
                                       type="button"
                                       className="workspace-chapter-choice"
+                                      data-progress={
+                                        complete ? 'complete' : ratio > 0 ? 'started' : 'empty'
+                                      }
+                                      style={{
+                                        backgroundColor: `hsl(145 32% ${96 - ratio * 35}%)`,
+                                      }}
                                       aria-pressed={unit.id === selectedUnitId}
+                                      aria-description={t('journey.progress', {
+                                        done: completedCount,
+                                        total: steps.length,
+                                      })}
                                       onClick={() => {
                                         selectChapter(unit);
                                         setCourseOutlineOpen(false);
@@ -722,6 +734,12 @@ export function PhonicsJourneyMap({
                                       }}
                                     >
                                       <span>{unitTitle(t, unit)}</span>
+                                      <small
+                                        className="workspace-chapter-progress"
+                                        aria-hidden="true"
+                                      >
+                                        {Math.round(ratio * 100)}%
+                                      </small>
                                       {active && activityUnitId === unit.id ? (
                                         <span
                                           className="workspace-chapter-dot"

@@ -135,8 +135,17 @@
   flex: 1;
 }
 .workspace-chapter-choice[aria-pressed='true'] {
-  background: var(--course-soft);
   color: var(--course-label);
+  box-shadow: inset 0 0 0 2px var(--course-accent);
+}
+.workspace-chapter-choice[data-progress='complete'] {
+  color: #173e30;
+}
+.workspace-chapter-progress {
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #496b54;
 }
 [data-phonics-workspace] .journey-chapter-heading[hidden] {
   display: none;
@@ -190,7 +199,7 @@
 .workspace-tree-toggle > svg:first-child {
   rotate: -90deg;
 }
-.workspace-tree-toggle > svg[data-open='true'][data-open='true'] {
+.workspace-tree-toggle > svg[data-open='true'] {
   rotate: 0deg;
 }
 .workspace-tree-branch[data-kind='book'] > .workspace-tree-toggle {
@@ -252,6 +261,30 @@
   min-width: 0;
   flex: 1;
   text-align: left;
+}
+.journey-workspace-tree li:not([data-completed]):not([data-running]) > .journey-free-activity,
+.journey-workspace-tree
+  li:not([data-completed]):not([data-running])
+  > .journey-curriculum-activity {
+  color: #736e62;
+  background: #f5f4ec;
+  border: 1px solid #e0ddce;
+  box-shadow: 0 2px 0 #e5e1d3;
+}
+.journey-workspace-tree li[data-completed] > .journey-free-activity,
+.journey-workspace-tree li[data-completed] > .journey-curriculum-activity {
+  color: #1f4a36;
+  background: #94caaa;
+  border: 1px solid #68a783;
+  box-shadow: 0 3px 0 #68a783;
+}
+.journey-workspace-tree li[data-completed] .journey-activity-number {
+  background: #326f50;
+  color: #fff;
+}
+.journey-workspace-tree li[data-completed] .journey-free-arrow {
+  color: #1f4a36;
+  stroke-width: 3;
 }
 .journey-workspace-tree li[data-running] .journey-free-label {
   display: flex;
