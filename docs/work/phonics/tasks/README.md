@@ -1,6 +1,6 @@
 # 파닉스·어휘 작업 기록
 
-- [한글 자모·영어 전수 점검](20261015-letter-family-audit.md) — ready,92자 경로·실제ㅓ 입력/영어 UI 확인·짧은 획 입력 판정 보완, 영어 새 방식은 미적용.
+- [한글 자모·영어 전수 점검](20261015-letter-family-audit.md) — integrated,92자 경로·실제ㅓ 입력/영어 UI 확인·짧은 획 입력 판정 보완, 영어 새 방식은 미적용.
 
 - [누르기 충전·획 단위 쓰기](20261015-tap-charge-stroke-writing.md) — integrated, 한 글자5회 충전·한글 낱자 획순 추적,460검사/실제3회 입력/반응형·타입/lint/build 통과.
 

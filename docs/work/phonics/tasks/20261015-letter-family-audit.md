@@ -2,12 +2,12 @@
 
 - id: 20261015-letter-family-audit
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: 40f2810e0
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: ec073fe1a 로컬 main fast-forward 포함 확인
 - delivery: 미푸시·미배포
 
 ## 요청
@@ -40,4 +40,4 @@ output/letter-family-audit-20261015/initial-92.json, after-correction-92.json, a
 
 관련4파일20검사·client 타입·수정TS ESLint 통과. 생산 build39.61초 통과(기존 큰 chunk 등 경고). 빌드와 병렬로 실행한 첫 전체 검사에서는 기존 커리큘럼 전환1건이5000ms 타임아웃이었다. 기대값/시간 제한을 바꾸지 않고 단독11검사 통과, 빌드 종료 후 동일 전체53파일461검사18초 재통과. 타임아웃과 제품 실패를 구분한다.
 
-임시 검수 HTML은 output에 보관 후 client/dev-previews에서 제거했다. 실제 사용자 탭/진도와 다른 작업 출력물 보존. 코드/기록 로컬 커밋 후 main 통합 예정, 이번 작업 원격 push/배포 없음.
+임시 검수 HTML은 output에 보관 후 client/dev-previews에서 제거했다. 실제 사용자 탭/진도와 다른 작업 출력물 보존. 코드/기록6파일 ec073fe1a의 로컬 main 포함과 tracked 변경 없음 확인, 이번 작업 원격 push/배포 없음.
