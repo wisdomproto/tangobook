@@ -24,7 +24,8 @@
     "tapToMeet": "Chạm nút để làm quen với từ nhé!",
     "makeFirst": "Cùng ghép “{{syllable}}” trước nhé!",
     "makeNext": "Giờ cùng ghép “{{syllable}}” nhé!",
-    "makeTogether": "Ghép lại"
+    "makeTogether": "Ghép lại",
+    "readTogether": "Cùng đọc “{{word}}” nhé!"
   },
   "practice": {
     "prompt": "Nghe và ghép từ",

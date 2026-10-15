@@ -24,7 +24,8 @@
     "tapToMeet": "点击按钮，认识这个词！",
     "makeFirst": "先来拼“{{syllable}}”吧！",
     "makeNext": "现在来拼“{{syllable}}”吧！",
-    "makeTogether": "合起来"
+    "makeTogether": "合起来",
+    "readTogether": "一起来读“{{word}}”吧！"
   },
   "practice": {
     "prompt": "听声音拼出单词",

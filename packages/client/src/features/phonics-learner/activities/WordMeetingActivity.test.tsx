@@ -3,8 +3,9 @@ import { beforeEach, expect, it, vi } from 'vitest';
 import type { Storybook } from '@tangobook/shared';
 import type { ReactNode } from 'react';
 import { WordMeetingActivity, wordMeetingSceneMatches } from './WordMeetingActivity';
-const { audio, timers, lookup, stopAll, resolve, getWord } = vi.hoisted(() => ({
+const { audio, timers, lookup, stopAll, resolve, getWord, findScene } = vi.hoisted(() => ({
   resolve: vi.fn(async () => '/word.mp3'),
+  findScene: vi.fn(() => null as unknown),
   getWord: vi.fn(async () => '/word.mp3'),
   stopAll: vi.fn(),
   audio: vi.fn(),
@@ -29,13 +30,19 @@ vi.mock('@/features/games/hooks/usePhonicsMap', () => ({
 }));
 vi.mock('@/features/tts', () => ({ resolveTtsUrl: resolve }));
 vi.mock('@/features/games/lib/phonics-word-scene', () => ({ preloadWordScenes: async () => {} }));
-vi.mock('@/features/games/lib/resolve-scene', () => ({ resolveSceneFromWord: () => null }));
+vi.mock('@/features/games/lib/resolve-scene', () => ({ resolveSceneFromWord: findScene }));
+vi.mock('@/features/games/components/SceneReveal', () => ({
+  SceneReveal: ({ text, onDone }: { text: string; onDone: () => void }) => (
+    <button onClick={onDone}>scene {text}</button>
+  ),
+}));
 vi.mock('@/features/games/effects/learning-effects', () => ({
   emitLearningEffect: vi.fn(),
   prepareLearningEffects: vi.fn(),
 }));
 beforeEach(() => {
   audio.mockClear();
+  findScene.mockReturnValue(null);
   lookup.mockClear();
   resolve.mockClear();
   getWord.mockClear();
@@ -307,4 +314,58 @@ it('cancels a pending introduction when leaving instead of starting the guide on
   act(() => oldEnded());
   expect(audio).toHaveBeenCalledTimes(count);
   expect(stopAll).toHaveBeenCalled();
+});
+
+it('keeps the taught meaning when entering a story and completes only after that scene', async () => {
+  const complete = vi.fn();
+  findScene.mockReturnValue({
+    illustrationUrl: '/snake.webp',
+    pageText: '둥지 안 아기 까치들은 떨었어요.',
+    pageTtsUrl: '/bird.mp3',
+    pageNumber: 1,
+  });
+  const book = {
+    id: 'kr-h1-u02',
+    type: 'phonics',
+    pages: [
+      { text: '아기 새가 자요.', illustrationUrl: '/bird.webp', ttsUrl: '/bird.mp3' },
+      {
+        text: '이번엔 아기! 그림과 단어를 맞췄어요.',
+        illustrationUrl: '/baby-scene.webp',
+        ttsUrl: '/baby-scene.mp3',
+      },
+    ],
+  } as Storybook;
+  render(
+    <WordMeetingActivity
+      unitId="kr-h1-u02"
+      lang="korean"
+      book={book}
+      word="아기"
+      onComplete={complete}
+      onBack={vi.fn()}
+    />
+  );
+  await finishKoreanIntro();
+  for (let step = 0; step < 3; step++) {
+    fireEvent.click(screen.getByRole('button', { name: step < 2 ? '합쳐보기' : '낱말 듣기' }));
+    await waitFor(() => expect(timers).toHaveLength(1));
+    act(() => timers.shift()!());
+    act(() => audio.mock.calls.at(-1)![1]());
+    if (step < 2) act(() => timers.shift()!());
+  }
+  fireEvent.click(screen.getByRole('button', { name: '다음으로' }));
+  expect(
+    screen.getByRole('button', { name: 'scene 이번엔 아기! 그림과 단어를 맞췄어요.' })
+  ).toBeInTheDocument();
+  expect(screen.queryByText(/까치들은/)).not.toBeInTheDocument();
+  expect(complete).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: /scene 이번엔/ }));
+  expect(complete).toHaveBeenCalledOnce();
+});
+
+it('does not substitute a baby animal context for the illustrated human baby', () => {
+  expect(wordMeetingSceneMatches('둥지 안 아기 까치가 울었어요.', '아기', 'korean')).toBe(false);
+  expect(wordMeetingSceneMatches('아기 새가 잠들었어요.', '아기', 'korean')).toBe(false);
+  expect(wordMeetingSceneMatches('엄마가 아기를 안았어요.', '아기', 'korean')).toBe(true);
 });

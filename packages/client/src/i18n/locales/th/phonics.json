@@ -24,7 +24,8 @@
     "tapToMeet": "แตะปุ่มเพื่อรู้จักคำนี้กัน!",
     "makeFirst": "มาสร้าง “{{syllable}}” ก่อนนะ!",
     "makeNext": "ต่อไปมาสร้าง “{{syllable}}” กัน!",
-    "makeTogether": "รวมกัน"
+    "makeTogether": "รวมกัน",
+    "readTogether": "มาอ่าน “{{word}}” ด้วยกันนะ!"
   },
   "practice": {
     "prompt": "ฟังแล้วต่อคำด้วยบล็อก",

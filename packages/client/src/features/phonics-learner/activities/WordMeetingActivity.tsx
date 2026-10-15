@@ -37,6 +37,9 @@ interface Props {
 /** A compound such as scaredy-cat is not an example of the animal the child just learned. */
 export function wordMeetingSceneMatches(text: string | undefined, word: string, lang: string) {
   if (!text) return false;
+  // This first word is illustrated as a human baby. A baby bird is a different first example.
+  if (lang === 'korean' && word === '아기' && /아기\s*(?:까치|새|고양이|강아지|토끼|곰)/.test(text))
+    return false;
   if (lang === 'english') {
     const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     return new RegExp(`(^|[^a-z-])${escaped}(?![a-z-])`, 'i').test(text);
@@ -180,7 +183,30 @@ export function WordMeetingActivity({
           : t(wholeExample ? 'wordJourney.listenWord' : 'wordJourney.blend');
 
   const finish = () => {
-    const found = resolveSceneFromWord(word, code, book);
+    let found = resolveSceneFromWord(word, code, book);
+    if (
+      (korean && word === '아기') ||
+      !wordMeetingSceneMatches(found?.pageText, word, lang) ||
+      !found?.pageTtsUrl
+    ) {
+      // A mismatched cross-book excerpt must not override a valid example in this chapter.
+      const ownIndex = (book.pages ?? []).findIndex((page) => {
+        const text = code === 'ko' ? page.text : page.translations?.[code]?.text;
+        const tts = code === 'ko' ? page.ttsUrl : page.translations?.[code]?.ttsUrl;
+        return page.illustrationUrl && tts && wordMeetingSceneMatches(text, word, lang);
+      });
+      const page = book.pages?.[ownIndex];
+      found = page
+        ? {
+            illustrationUrl: page.illustrationUrl!,
+            pageNumber: ownIndex + 1,
+            pageText: code === 'ko' ? page.text : page.translations?.[code]?.text,
+            pageTtsUrl: code === 'ko' ? page.ttsUrl : page.translations?.[code]?.ttsUrl,
+          }
+        : wordMeetingSceneMatches(found?.pageText, word, lang) && found?.pageTtsUrl
+          ? found
+          : null;
+    }
     // Never substitute a different-language page or an unrelated excerpt.
     if (wordMeetingSceneMatches(found?.pageText, word, lang) && found?.pageTtsUrl) setScene(found);
     else onComplete();
@@ -350,7 +376,9 @@ export function WordMeetingActivity({
                       syllable: letters[focusIndex],
                       particle: (letters[focusIndex].charCodeAt(0) - 0xac00) % 28 ? '을' : '를',
                     })
-                  : t(wholeExample || korean ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
+                  : korean
+                    ? t('wordJourney.readTogether', { word })
+                    : t(wholeExample ? 'wordJourney.pressWord' : 'wordJourney.pressBlend')}
           </p>
           {korean && (
             <div

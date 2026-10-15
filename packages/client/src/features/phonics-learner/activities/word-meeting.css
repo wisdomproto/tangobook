@@ -860,3 +860,17 @@
     transform: rotate(-10deg);
   }
 }
+
+/* Bring the final listen/continue action next to the word, without moving the word itself. */
+.word-meet[data-language='ko'][data-whole-word]
+  .word-meet-jamo-stage:not([data-assembly])
+  ~ .word-meet-button,
+.word-meet[data-language='ko'][data-whole-word]
+  .word-meet-jamo-stage:not([data-assembly])
+  ~ .word-meet-step-dots,
+.word-meet[data-language='ko'][data-whole-word]
+  .word-meet-jamo-stage:not([data-assembly])
+  ~ .word-meet-error {
+  position: relative;
+  top: calc(-1 * min(12vh, 95px));
+}

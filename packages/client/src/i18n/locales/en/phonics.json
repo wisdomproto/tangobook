@@ -24,7 +24,8 @@
     "tapToMeet": "Tap the button to meet the word!",
     "makeFirst": "Let’s make “{{syllable}}” first!",
     "makeNext": "Now let’s make “{{syllable}}”!",
-    "makeTogether": "Join together"
+    "makeTogether": "Join together",
+    "readTogether": "Let’s read “{{word}}” together!"
   },
   "practice": {
     "prompt": "Listen and build the word",
