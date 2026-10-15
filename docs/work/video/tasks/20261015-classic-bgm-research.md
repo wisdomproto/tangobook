@@ -83,3 +83,15 @@ Suno잔여19다운로드에서18곡 추가확보: 명작02마법의숲/04용감�
 [듣기페이지](../../../audio/classic-bgm-20261015/listen.html): 명작/전래/기존필터·검색·확보본만보기,새7세트21곡직접재생+기존13제목개별재생/5세트편성,전체120후보Suno링크. 단일audio로중복재생방지,3곡연속/앞뒤/일시정지. 빠르게곡을바꿀때이전play Promise의AbortError가새재생상태를덮던경합을세대번호로수정. 실제전래재생49.88초음원에서currentTime6초이상진행/paused=false,다음곡2/3표시·일시정지확인. 기본데스크톱/390×844요청뷰포트가로넘침없음·하단플레이어확인. iOS실기기청취/volume/교차전환은미검증.
 
 재개파일: `library-generation.json`의공식다운로드경로/채택후보, `music-catalog.json`/receipt,빌더 `scripts/build-story-music-listen-20261015.cjs`. 원본·작업PCM/정규화는D:/tangobook-video/classic-bgm-20261015/selection/, 새원본MP3는Downloads에도보존. 재현순서 collect→analyze→screen→trim→publish(기본dryrun, --apply시조건부원격쓰기). 이미연결된184책에무심코 --apply를재실행하지않는다. 다른환경은R2공개URL/카탈로그를재사용할수있다. 코드수정없는이번후속은JS구문/인라인스크립트·JSON파싱·카탈로그불변조건·실제브라우저검증, 기존앱19tests/typecheck/lint/build는이전검증을유지한다.
+
+## 2026-10-15 사용자 음악성 반증·아기돼지 v2
+
+사용자는듣기페이지에서 ‘아기돼지3개뭔차이가없는데’,이어‘다들클라이맥스가별로’라고반증했다. 원인으로공통프롬프트의quiet/sparse/restrained/no loud climax가고조역할까지희석한것을확인. 자동음량/무음/ASR통과는음악적선별이아니다. 기존12세트/184책연결을음악적승인본으로취급하지않으며,다른세트클라이맥스를추가대량생성하기전에아기돼지v2의역할차이를먼저검토한다.
+
+사용자는아기돼지3곡재제작(도입경쾌/클라이맥스긴장/마지막편안)+듣기페이지교체를명시. Suno v6에서각별도요청/2후보=6새시안생성완료. 도입124BPM/Cmajor/2박춤·짧은피치카토/기타/실로폰/목금,클라이맥스136BPM/Dminor/16분반복현악·반음상승·낮은팀파니/스네어·압박감,마지막58BPM/Fmajor/느린펠트피아노·긴첼로음·타악배제. 수치는생성지시이며실측BPM으로보고하지않는다. 가사비움,역할별제외스타일차별화. 정확한프롬프트/후보6URL/길이는pig-v2-generation.json. 도입59/60초,정점60/61초,마지막99/153초(UI완성길이),모두play/Remix활성확인.
+
+잔여1다운로드만있어클라이맥스A공식MP3다운로드(잔여0). -22LUFS/-3dBTP/LRA9로정규화59.92초·전체decode·Whisper발화의심0,source/processedSHA기록. 불변R2 `background-music/three-pigs-v2-20261015/climax.mp3` IfNoneMatch생성+GetObjectSHA읽기검증. 추가결제/구독변경안함. 도입/마지막다운로드를한것처럼보고하지않는다.
+
+다운로드한도우회없이Suno Share→Embed의공식iframe코드를확인해세곡6후보모두페이지내공식플레이어로듣도록구현했다. Publish/외부SNS공유클릭없음. listen.html상단v2역할탭/후보A·B/원곡링크/클라이맥스A의MP3직접듣기. 이전v1은기본목록에서빼고‘이전v1과비교’에보관. 한개의Suno iframe교체방식으로역할전환시이전플레이어중단,MP3와상호중지. 필터숨김뒤복귀복원수정.6개새시안포함헤더126후보.
+
+실제브라우저: iframe정점slider16.69%진행,역할탭으로도입/마지막제목실제표시·후보B URL변경확인. MP3는59.92초/재생17초진행/paused=false,iframe숨김/음악일시정지·필터복귀후플레이어복원·consoleerror0확인. v2는사용자청취용새시안이며음악적완성도가확정되었다고주장하지않음. 책184개의음원URL은이번검토중변경하지않았고신규클라이맥스1파일만R2추가. 타책/기존음원원본보존. 운영프런트미배포·mainpush요청없음.

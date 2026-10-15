@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "reason": "User heard insufficient contrast in the first set and disliked climax cues; replace with explicit tempo, rhythm, mode and instrumentation contrast.",
+  "provider": "Suno UI",
+  "model": "v6",
+  "humanListening": "pending; do not claim an aesthetic comparison from technical checks",
+  "roles": [
+    {
+      "role": "opening",
+      "label": "도입 · 경쾌하게",
+      "title": "탱고북 · 아기돼지 v2 · 01 경쾌한 집짓기",
+      "duration": "1:00",
+      "exclude": "vocals, singing, choir, humming, narration, ambient, slow, sad, suspense, heavy distortion",
+      "styles": "Instrumental only: no vocals, choir, humming, speech or sound effects. Original music for a preschool Three Little Pigs story. OPENING: unmistakably upbeat and bouncy, 124 BPM, bright C major, crisp 2/4 dance. Busy short pizzicato violin and plucked acoustic guitar, playful xylophone melody, bassoon answers, clear light woodblock and shaker rhythm. Happy little builders bustling around making houses. Catchy energetic rhythmic foreground, strong clear beat from the first second; small acoustic ensemble, dry and articulate. Light comedy and cheerful motion. NO ambient pads, no slow dreamy intro, no suspense or minor-key drama. Keep a clean tuneful instrumental ending.",
+      "status": "generated",
+      "submittedAt": "2026-10-15T13:20:12.547Z",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/f7670f6c-c1bc-48dc-b799-2af397d55772",
+          "duration": "0:59",
+          "playable": true,
+          "finished": true
+        },
+        {
+          "url": "https://suno.com/song/a08f9d58-4013-40e3-9359-aa80baa1a5bd",
+          "duration": "1:00",
+          "playable": true,
+          "finished": true
+        }
+      ]
+    },
+    {
+      "role": "climax",
+      "label": "클라이맥스 · 긴장감 있게",
+      "title": "탱고북 · 아기돼지 v2 · 02 늑대의 추격",
+      "duration": "1:00",
+      "exclude": "vocals, singing, choir, humming, narration, lullaby, relaxing, cozy, cheerful, comedy, ambient, major key, soft piano ballad",
+      "styles": "Instrumental only: no vocals, choir, humming, speech or sound effects. Original music for a preschool Three Little Pigs story. CLIMAX: genuinely tense urgent storybook chase as the wolf blows down the houses. 136 BPM, D minor, driving repeated sixteenth-note low-string ostinato, staccato violins with rising chromatic phrases, ominous bassoon and low restrained French-horn accents. Audible low timpani pulse and dry snare rolls, strong rhythmic acceleration and dramatic crescendos, unresolved minor harmony. Start tense immediately, build pressure across clear 8-bar phrases, briefly drop rhythm before a final urgent surge. Intense orchestral adventure tension, not horror. NEVER cute, cheerful, cozy, sleepy or ambient. No jump-scare impacts, screams or extreme loudness.",
+      "status": "generated",
+      "submittedAt": "2026-10-15T13:20:13.257Z",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/5af7a39b-bad1-46cc-9147-6eddef207978",
+          "duration": "1:00",
+          "playable": true,
+          "finished": true
+        },
+        {
+          "url": "https://suno.com/song/60b2bfea-32b0-4dd6-8912-5b6606f38641",
+          "duration": "1:01",
+          "playable": true,
+          "finished": true
+        }
+      ],
+      "download": {
+        "path": "C:\\Users\\101024\\Downloads\\탱고북 · 아기돼지 v2 · 02 늑대의 추격.mp3",
+        "candidate": 0,
+        "url": "https://suno.com/song/5af7a39b-bad1-46cc-9147-6eddef207978"
+      },
+      "audio": {
+        "file": "D:\\tangobook-video\\classic-bgm-20261015\\pig-v2\\climax.mp3",
+        "duration": 59.92,
+        "sha256": "c57eee9b9b34c9bb39fdb995b0f2e02acf4ed17288f9ed776a131f227ecbca45",
+        "sourceSha256": "e397cc6d27fd11a180f62b3a26a4b7d6fcca3674117b938a15edaa24fd133b31",
+        "url": "https://assets.tangobook.co.kr/background-music/three-pigs-v2-20261015/climax.mp3",
+        "processing": "loudnorm I=-22 TP=-3 LRA=9, 44.1k stereo 160k MP3; full decode passed",
+        "speechScreen": {
+          "method": "faster-whisper base with VAD, heuristic not human listening",
+          "suspect": []
+        }
+      }
+    },
+    {
+      "role": "ending",
+      "label": "마지막 · 편안하게",
+      "title": "탱고북 · 아기돼지 v2 · 03 벽돌집의 평온",
+      "duration": "1:00",
+      "exclude": "vocals, singing, choir, humming, narration, fast beat, drums, percussion, ostinato, suspense, dramatic crescendo, staccato",
+      "styles": "Instrumental only: no vocals, choir, humming, speech or sound effects. Original music for a preschool Three Little Pigs story. ENDING: deep peaceful relief after the danger has passed. Very slow 58 BPM, warm F major. Solo felt piano with long held notes, tender legato cello and a few airy harp harmonics; almost no rhythmic pulse, no drums or repeating plucked patterns. Spacious pauses and soft lullaby-like phrases, warm consonant harmony, gentle descending melody. A safe cozy brick house, relaxed breathing, quiet evening and togetherness. Clearly serene and still, completely different from a lively dance or tense chase. Let the final chord settle naturally into silence. No energetic rhythm and no dramatic build.",
+      "status": "generated",
+      "submittedAt": "2026-10-15T13:20:17.047Z",
+      "candidates": [
+        {
+          "url": "https://suno.com/song/8c4f5176-7e19-448f-9868-c9b418f4c899",
+          "duration": "1:39",
+          "playable": true,
+          "finished": true
+        },
+        {
+          "url": "https://suno.com/song/d9715866-0cf2-4526-846e-f4131a9c4855",
+          "duration": "2:33",
+          "playable": true,
+          "finished": true
+        }
+      ]
+    }
+  ],
+  "embedTemplate": "https://suno.com/embed/{songId}",
+  "embedSource": "Suno Share → Embed dialog, official iframe code observed",
+  "downloadsRemaining": 0,
+  "audioReadbackVerified": true
+}

@@ -4243,5 +4243,11 @@
       "sameAudioAs": "bgm_1775646312234",
       "title": "행복한 왕자,신데렐라"
     }
-  ]
+  ],
+  "reviewStatus": {
+    "status": "musical review required",
+    "feedback": "User says pig v1 cues are indistinct and the climax cues are unsatisfactory.",
+    "pilot": "pig-v2-generation.json",
+    "scope": "Current assignment receipt remains historical; v2 listening preview does not replace book cue URLs."
+  }
 }
