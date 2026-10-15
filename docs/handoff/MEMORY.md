@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [가이드·90% 끝맺음](../work/phonics/tasks/20261016-alphabet-guide-ending.md): 영어 직선/꺾임 재정렬·곡선 떨림 정리, e 가로→위 반시계→아래 마무리 방향3곳, 한영 공용 획90% pointer-up 마무리(점 제외). D 세로/E4직선 native·D/d/e 곡선은 실제 컴포넌트 synthetic 재생/그림·음성 종료 검수로 구분했다.52자107획8,301모의 기대 불일치0·520회귀+Z추가관련55·타입/lint/build 성공.9a2d94833 로컬 main 포함·새 push/운영 배포 없음. native 곡선 직접 손 입력은 도구 제약으로 미확인.
+
 2026-10-16 [알파벳 쓰기 main 전달](../work/phonics/tasks/20261016-alphabet-writing-finish.md#main-전달--2026-10-16): 사용자 요청으로 잉크·완성 글자 유지·낱말 보상 순차 음성 수정이 포함된3097cac0a 원격 main 일반 push·SHA 일치/0·0 확인. 아래 미푸시는 구현 당시 상태이며 운영 배포 완료는 미확인.
 
 2026-10-16 [알파벳 쓰기 표현·낱말 보상](../work/phonics/tasks/20261016-alphabet-writing-finish.md): 운영 직접 사용 반증 후 폰트 안의 매끈한 잉크/직선 획, 완성 글자1.4초 유지→그림·낱말, 순차 음성/오류 재시도를 보완했다. 실제 로컬 D 세로획·I/i 입력/음성 종료·가로폰, 운영 desk 원본2.988초 ended 확인.507회귀+추가2건·타입/lint/build 통과, a4d93fcfb 로컬 main 통합·새 push/배포 없음. 운영 d/q native 곡선 전체 완료 증거와 구분한다.

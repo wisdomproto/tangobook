@@ -2,11 +2,11 @@
 
 - id: 20261016-alphabet-guide-ending
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 새 push 요청 없음
+- delivery: 9a2d94833 로컬 main 통합, 새 push/배포 요청 없음
 
 사용자가 D/d 실제 완주 검수·가이드 직선 정리·약90%에서 떼어도 획 완성, 이어서 소문자 e 순서가 잘 안 보인다고 요청했다. 직선 native 입력만 가능한 현재 CUA/Windows API에서 곡선을 연속으로 직접 그리는 도구는 없음(API 정의 확인). 다른 입력 도구나 숨은 상태 조작으로 우회하지 않고 실제 공용 컴포넌트에 DEV UI의 곡선 pointer event 재생으로 완료/그림/음성을 확인하되 native 손 입력과 구분해 보고한다.
 
