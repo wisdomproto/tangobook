@@ -8,9 +8,11 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: 코드 b3ccc3db3 로컬 main fast-forward 통합 완료
-- delivery: 미푸시·미배포
+- delivery: 2026-10-15 원격 main 코드 fb2decbc8까지 일반 push·SHA 일치·0/0 확인, 운영 배포 완료는 미확인
 
 ## 사용자 결정
+
+2026-10-15 사용자 ‘좋아. 메인에 푸시하자’ 요청으로 원격 최신을 fetch한 뒤0 behind/6 ahead와 관련 파닉스 커밋만 포함됨을 확인했다. 일반 main push 성공 후 ls-remote/HEAD가 fb2decbc823a0a2694c636670a6c4bdd53fb0d11로 일치하고0/0임을 확인했다. 아래 검증은 앞선 구현 검증이며 push 때문에 반복 실행하지 않았다.
 
 영어도 획순대로 쓰기로 전환, 한글 자음 누르기도 모음과 같은5회 충전으로 통일하고 실제 화면까지 확인한다. 앞선 영어 미적용/자음3장×3회 보존은 이 승인으로 대체한다. 블렌딩·낱말 쓰기에 획 가이드를 붙이지 않는 기존 결정은 보존한다.
 
