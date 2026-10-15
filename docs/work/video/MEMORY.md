@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 기억
 
+2026-10-15 [명작 BGM 조사](tasks/20261015-classic-bgm-research.md): 사용자 Suno로 명작부터 한 작품씩·시작/위기/정점/해소4역할, 모든장면/모든작품개별곡 불필요·먼저조사 요청. 기존목록144레코드 read-only 재조회→48작품×3본문SHA동일·현재12BGM URL. 8군×4=32곡 제안·첫후보아기돼지4곡·48작품쪽수/본문근거·HTML/프롬프트. 음악 미생성·플랜/크레딧/운영쓰기/앱구현 없음. codex/video-classic-bgm-plan 로컬·미통합/미푸시.
+
 2026-10-15 [가갸거 송 승인v5 main통합/push](tasks/20261015-gagya-song.md#main-통합과-push--2026-10-15): 사용자요청으로3548547aa 관련57파일일반push·원격mainSHA일치. 승인MP4/Rive/Remotion/자산/검수/인계포함,최신main이재개기준. 아래미통합/미푸시는과거상태. 실제통합검증·원본SHA동일, 배포완료/외부게시와구분.
 
 2026-10-15 [가갸거 송 v5 최종 승인·인계](tasks/20261015-gagya-song.md#최종-승인과-다른-세션-인계--2026-10-15): 사용자 현재버전 승인 및다른세션재개기록 요청. 오른쪽→왼쪽 연속 기차/같은 레일 높이·차분한 중앙 글자·입술/하단글씨/ㄱ없음 확정. output/gagya-song-20261015/approved-v5.mp4와manifest·README에SHA/원본/편집위치/재현명령/주의점 보존. 실제worktree D:/tangobook-samples/gagya-song, branch codex/video-gagya-song·제작0a52bf20b. 로컬승인완료·main미통합/미푸시, 이전v1~v4는반증이력이다.

@@ -1,5 +1,7 @@
 # 영상·오디오북 제작 작업 기록
 
+- [2026-10-15 명작동화 BGM 조사](20261015-classic-bgm-research.md) — 48작품·현재12음악URL·8군32곡 제안·Suno 프롬프트, 음악 미생성
+
 - [2026-10-15 가갸거 송 Rive+Remotion](20261015-gagya-song.md#최종-승인과-다른-세션-인계--2026-10-15) — v5 사용자 승인·연속 좌향 기차22초·MP4/원본/인계 원격 main 통합·push 완료
 
 - [2026-10-12 Rive+Remotion 한글 학습 샘플](20261012-rive-remotion-learning-sample.md) — 실제.riv 직접 재생·3획쓰기·가방그림/발음24초1080p 시안

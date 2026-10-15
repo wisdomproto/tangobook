@@ -1,0 +1,2349 @@
+{
+  "date": "2026-10-15",
+  "fetchedAt": "2026-10-15T11:54:30.065Z",
+  "catalogSnapshot": "2026-10-12T13:59:05.570Z",
+  "scope": "144 known world-classic records from the 2026-10-12 catalog, freshly fetched read-only; not a fresh full-bucket discovery.",
+  "counts": {
+    "records": 144,
+    "stories": 48,
+    "stylesPerStory": 3,
+    "distinctBgmUrls": 12,
+    "proposedFamilies": 8,
+    "proposedCues": 32
+  },
+  "status": "Research and editorial proposal only. No Suno generation, music listening, production data writes or viewer implementation.",
+  "currentMusic": [
+    {
+      "id": "M01",
+      "url": "https://assets.tangobook.co.kr/1772107608499-신데렐라-bgm-1775651212947-lufs20-1781066769800.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    },
+    {
+      "id": "M02",
+      "url": "https://assets.tangobook.co.kr/1772109314126-오즈의마법사-bgm-1775465466837.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    },
+    {
+      "id": "M03",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646288155-lufs20-1781066739801.mp3",
+      "recordCount": 12,
+      "storyCount": 4
+    },
+    {
+      "id": "M04",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646297813-lufs20-1781066744032.mp3",
+      "recordCount": 15,
+      "storyCount": 5
+    },
+    {
+      "id": "M05",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646304055-lufs20-1781066749979.mp3",
+      "recordCount": 54,
+      "storyCount": 18
+    },
+    {
+      "id": "M06",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646311342-lufs20-1781066752323.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    },
+    {
+      "id": "M07",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646321406-lufs20-1781066756577.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    },
+    {
+      "id": "M08",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646329030-lufs20-1781066760118.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    },
+    {
+      "id": "M09",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646334480-lufs20-1781066763243.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    },
+    {
+      "id": "M10",
+      "url": "https://assets.tangobook.co.kr/1772510956605-잭과콩나무-bgm-1775646342619-lufs20-1781066767499.mp3",
+      "recordCount": 18,
+      "storyCount": 6
+    },
+    {
+      "id": "M11",
+      "url": "https://assets.tangobook.co.kr/1777284715922-키다리아저씨-bgm-1781142352963.mp3",
+      "recordCount": 24,
+      "storyCount": 8
+    },
+    {
+      "id": "M12",
+      "url": "https://assets.tangobook.co.kr/background-music/1769784911179-성냥팔이_소녀-lufs20-1781066730094.mp3",
+      "recordCount": 3,
+      "storyCount": 1
+    }
+  ],
+  "families": [
+    {
+      "id": "A",
+      "name": "궁전과 마법",
+      "instruments": "셀레스타·하프·작은 현악·목관",
+      "palette": "celesta, harp, chamber strings and warm woodwinds",
+      "keys": "D major / B minor",
+      "bpm": 78,
+      "bookCount": 8,
+      "cues": [
+        {
+          "id": "A-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "A-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "A-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "A-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. celesta, harp, chamber strings and warm woodwinds. Around 78 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "숲속의 긴장과 구출",
+      "instruments": "피치카토·바순·클라리넷·낮은 현악",
+      "palette": "pizzicato strings, bassoon, clarinet and soft low strings",
+      "keys": "G major / E minor",
+      "bpm": 84,
+      "bookCount": 7,
+      "cues": [
+        {
+          "id": "B-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "B-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "B-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "B-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, bassoon, clarinet and soft low strings. Around 84 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "신기한 세계의 모험",
+      "instruments": "마림바·목관·현악·가벼운 타악",
+      "palette": "marimba, woodwinds, chamber strings and light percussion",
+      "keys": "C major / A minor",
+      "bpm": 88,
+      "bookCount": 7,
+      "cues": [
+        {
+          "id": "C-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "C-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "C-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "C-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. marimba, woodwinds, chamber strings and light percussion. Around 88 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "넓은 세상의 탐험",
+      "instruments": "어쿠스틱 기타·목관·핸드 퍼커션",
+      "palette": "acoustic guitar, woodwinds, soft hand percussion and warm strings",
+      "keys": "F major / D minor",
+      "bpm": 86,
+      "bookCount": 4,
+      "cues": [
+        {
+          "id": "D-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "D-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "D-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "D-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. acoustic guitar, woodwinds, soft hand percussion and warm strings. Around 86 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "name": "장난과 협동",
+      "instruments": "피치카토·클라리넷·목금·가벼운 피아노",
+      "palette": "pizzicato strings, clarinet, wooden mallets and light piano",
+      "keys": "C major / A minor",
+      "bpm": 92,
+      "bookCount": 8,
+      "cues": [
+        {
+          "id": "E-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "E-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "E-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "E-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. pizzicato strings, clarinet, wooden mallets and light piano. Around 92 BPM; compatible C major / A minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "name": "집과 성장",
+      "instruments": "펠트 피아노·기타·현악·목관",
+      "palette": "felt piano, acoustic guitar, chamber strings and gentle woodwinds",
+      "keys": "G major / E minor",
+      "bpm": 72,
+      "bookCount": 6,
+      "cues": [
+        {
+          "id": "F-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "F-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "F-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "F-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, acoustic guitar, chamber strings and gentle woodwinds. Around 72 BPM; compatible G major / E minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "name": "꿈과 자연의 경이",
+      "instruments": "하프·플루트·말렛·부드러운 패드",
+      "palette": "harp, flute, soft mallets and airy non-vocal pads",
+      "keys": "D major / B minor",
+      "bpm": 72,
+      "bookCount": 5,
+      "cues": [
+        {
+          "id": "G-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "G-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "G-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. A brief decisive turning point, increased rhythmic motion and harmonic direction with small acoustic forces. Emotionally clear but restrained, not an action trailer. Let narration carry the event. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "G-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. harp, flute, soft mallets and airy non-vocal pads. Around 72 BPM; compatible D major / B minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Warm release and a settled ending, simplify the motif and let phrases breathe. Soft natural ending with a clean decay, no oversized celebration. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    },
+    {
+      "id": "H",
+      "name": "이별과 따뜻한 여운",
+      "instruments": "펠트 피아노·첼로·은은한 현악",
+      "palette": "felt piano, solo cello and restrained warm strings",
+      "keys": "F major / D minor",
+      "bpm": 64,
+      "bookCount": 3,
+      "cues": [
+        {
+          "id": "H-opening",
+          "role": "시작",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Gentle establishing underscore, curious and intimate. Keep plenty of space for narration; a restrained short motif, no dramatic buildup. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "H-tension",
+          "role": "위기",
+          "editedSeconds": "45–75",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Controlled suspense or uncertainty, soft repeating low pulse, sparse unanswered phrases. No horror, no jump scares, no loud impacts. For comic stories use curiosity rather than fear. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "H-climax",
+          "role": "클라이맥스",
+          "editedSeconds": "25–45",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. An intimate emotional peak of compassion and farewell; sustained cello, gentle harmonic tension, never triumphant. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        },
+        {
+          "id": "H-resolution",
+          "role": "해소",
+          "editedSeconds": "35–60",
+          "prompt": "Instrumental underscore for a preschool narrated storybook, not a song. felt piano, solo cello and restrained warm strings. Around 64 BPM; compatible F major / D minor harmonic palette. Maintain a small original three-note motif and consistent acoustic room across this family. Tender remembrance and acceptance, unresolved sadness allowed, warm but never a victory ending. Low-density arrangement, soft transients, understated melody, narration has priority. No vocals, lyrics, choir, humming, spoken words, sound effects or recognizable existing melodies. Consistent dynamics; avoid sudden drops, huge crescendos, busy solo lines and heavy drums. Provide stable phrases suitable for later editing and looping."
+        }
+      ]
+    }
+  ],
+  "books": [
+    {
+      "title": "브레멘 음악대",
+      "family": "E",
+      "representativeId": "1772097729467",
+      "variantIds": [
+        "1772097729467",
+        "1789350946368",
+        "1789350946369"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "9382fbf4102721082b2e365bde833e6826eed67406b567de800ac40e15d5a5e8",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4",
+          "anchorPage": 1,
+          "evidence": "옛날 어느 농장에 짐을 나르던 당나귀가 살았어요. 이제 힘이 빠지자 주인은 당나귀를 내보내려 했지요.\n\"흥, 나도 생각이 있다고! 브레멘으로 가서 멋진 음악가가 될 거야.\""
+        },
+        {
+          "role": "위기",
+          "pages": "5–8,12",
+          "anchorPage": 5,
+          "evidence": "네 친구는 브레멘으로 가다가 날이 저물어 깊은 숲속에서 하룻밤을 보내기로 했어요.\n\"어? 저기 반짝이는 불빛이 보여! 맛있는 냄새도 나는 걸?\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "9–10,13–14",
+          "anchorPage": 9,
+          "evidence": "\"히히힝! 멍멍! 야옹! 꼬꼬댁!\"\n네 마리 동물이 한꺼번에 소리를 지르며 창문을 깨고 집 안으로 뛰어들었어요!"
+        },
+        {
+          "role": "해소",
+          "pages": "11,15",
+          "anchorPage": 11,
+          "evidence": "도둑들이 도망간 집에서 네 친구는 배불리 음식을 먹었어요.\n\"역시 함께 힘을 합치니까 못 할 일이 없네! 정말 맛있다!\""
+        }
+      ],
+      "note": "협동의 성공은 두 번 반복됩니다. 도둑 재등장 때 위기곡을 재사용합니다.",
+      "priority": 8
+    },
+    {
+      "title": "걸리버 여행기",
+      "family": "D",
+      "representativeId": "1772085655331",
+      "variantIds": [
+        "1772085655331",
+        "1789350946380",
+        "1789350946381"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "fa056da6aed4efc46cb983b8eac87285ef509c511cc36f5d3dc6d1eb3dd32e01",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1,4–5,7–9,11",
+          "anchorPage": 1,
+          "evidence": "모험을 좋아하는 걸리버는 커다란 배를 타고 바다로 나갔어요.\n\"더 넓은 세상을 보고 싶어! 자, 출발이다!\""
+        },
+        {
+          "role": "위기",
+          "pages": "2–3,10,12",
+          "anchorPage": 2,
+          "evidence": "갑자기 무시무시한 폭풍우가 몰아치고 배가 뒤집혔어요. 겨우 헤엄쳐 나온 걸리버는 낯선 해변에서 잠이 들었지요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "6,13",
+          "anchorPage": 6,
+          "evidence": "이웃 나라 군함들이 쳐들어오자, 걸리버는 바닷속으로 들어가 배들을 줄줄이 엮어 끌고 왔어요.\n\"영차, 영차! 장난감 배처럼 가볍네!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "걸리버는 다시 고향으로 돌아와 가족들을 만났어요.\n\"여보, 아이들아! 세상은 정말 넓고 신비하단다.\""
+        }
+      ],
+      "note": "두 나라 여행입니다. 폭풍·거대 동물 장면만 긴장곡을 사용합니다.",
+      "priority": null
+    },
+    {
+      "title": "백조 왕자",
+      "family": "A",
+      "representativeId": "1772094228783",
+      "variantIds": [
+        "1772094228783",
+        "1789350946372",
+        "1789350946373"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M10",
+      "textSha256": "2be36c738996eb303d6b0dfee2d0c58d6473cebff241abdd50a5a2a3956e7115",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1,4–5,8",
+          "anchorPage": 1,
+          "evidence": "옛날 아주 먼 나라에 열한 명의 씩씩한 왕자님들과 아름다운 공주님 엘리자가 살고 있었어요."
+        },
+        {
+          "role": "위기",
+          "pages": "2–3,6–7,9–12",
+          "anchorPage": 2,
+          "evidence": "하지만 새 왕비는 아이들을 미워했어요. 마법을 걸어 왕자님들을 숲으로 쫓아냈지요.\"저것들을 내 눈앞에서 치워버려라!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "그때, 열한 마리의 백조가 하늘에서 훨훨 날아왔어요!\"오빠들이다! 내가 만든 옷을 입어줘!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "모든 마법이 풀리고, 엘리자는 왕과 결혼하여 행복하게 살았어요. 왕자님들도 모두 집으로 돌아왔지요.\"진정한 사랑은 어떤 마법도 이겨낼 수 있단다!\""
+        }
+      ],
+      "note": "마법 해제 전까지 절제된 불안, 옷을 입고 돌아오는 순간만 고조합니다.",
+      "priority": null
+    },
+    {
+      "title": "개미와 베짱이",
+      "family": "E",
+      "representativeId": "1772082243436",
+      "variantIds": [
+        "1772082243436",
+        "1789350946384",
+        "1789350946385"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "bd109b7c0acf398cea9ee323b84a5ebeedd9fa45e9538c22fa91bbbfcc3741e1",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–8",
+          "anchorPage": 1,
+          "evidence": "매미가 맴맴 우는 아주 더운 여름이었어요. 햇볕이 쨍쨍 내리쬐는 들판에서 개미들은 줄을 지어 어디론가 가고 있었지요.\n\"영차, 영차! 조금만 더 힘을 내자!\""
+        },
+        {
+          "role": "위기",
+          "pages": "9–12",
+          "anchorPage": 9,
+          "evidence": "드디어 찬바람이 쌩쌩 불더니 하늘에서 하얀 눈이 내려왔어요. 온 세상이 하얗게 변하고 먹을 풀들이 모두 얼어붙었지요.\n\"어휴, 추워! 갑자기 왜 이렇게 추워진 거야?\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "문을 열자 온몸이 꽁꽁 얼어붙은 베짱이가 서 있었어요.\n\"너희 말을 들을걸 그랬어. 놀기만 하다가 겨울 준비를 하나도 못 했어. 너무 배가 고파.\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "베짱이는 눈물을 흘리며 고마워했어요.\n\"고마워, 개미들아! 내년엔 꼭 부지런히 일해서 너희를 도와줄게!\" 그 뒤로 베짱이는 일도 잘하고 노래도 잘하는 멋진 친구가 되었답니다.\n\"오"
+        }
+      ],
+      "note": "위기는 추위와 배고픔입니다. 전투 대신 수프를 나누는 따뜻한 전환입니다.",
+      "priority": null
+    },
+    {
+      "title": "금발 머리 소녀와 곰 세 마리",
+      "family": "E",
+      "representativeId": "1772088321757",
+      "variantIds": [
+        "1772088321757",
+        "1789350946376",
+        "1789350946377"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "3badd235ca59ef45d2f8ea32bf9da3130353d6b702c5d530d757b5889dddb10d",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–6,8–9",
+          "anchorPage": 1,
+          "evidence": "깊은 숲속에 아빠 곰, 엄마 곰, 아기 곰이 살고 있었어요. \"오늘은 죽이 너무 뜨거우니, 식을 동안 산책을 다녀오자!\""
+        },
+        {
+          "role": "위기",
+          "pages": "7,10–13",
+          "anchorPage": 7,
+          "evidence": "소녀가 아기 곰 의자에 앉아 흔들흔들 놀다 그만 의자가 우당탕! 부서지고 말았어요. \"어머나, 의자가 망가졌네! 어쩌지?\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "14",
+          "anchorPage": 14,
+          "evidence": "아기 곰이 소리쳤어요. \"어! 내 침대에 누가 자고 있어!\" 그 소리에 깜짝 놀란 소녀가 잠에서 깨어났어요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "눈앞의 곰 세 마리를 보고 놀란 소녀는 숲으로 다다다 도망갔어요. \"다시는 남의 집에 함부로 들어가지 않을 거야!\""
+        }
+      ],
+      "note": "장난·들킴의 긴장입니다. 무서운 추격음 대신 짧고 우스운 놀람입니다.",
+      "priority": null
+    },
+    {
+      "title": "미운 아기 오리",
+      "family": "F",
+      "representativeId": "1772093674655",
+      "variantIds": [
+        "1772093674655",
+        "1789350946374",
+        "1789350946375"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M06",
+      "textSha256": "ae9f32fb75df676721d4f6d482126c48021ea1e715ba50070e5772622506a74b",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–2",
+          "anchorPage": 1,
+          "evidence": "햇살 좋은 날, 엄마 오리의 알들이 톡톡 깨어났어요. 귀여운 노란 아기 오리들이 줄줄이 나왔지요. \"안녕, 아가들아! 세상에 온 걸 환영해!\""
+        },
+        {
+          "role": "위기",
+          "pages": "3–9",
+          "anchorPage": 3,
+          "evidence": "농장의 다른 동물들은 아기 오리를 비웃었어요. \"넌 너무 못생겼어! 우리랑은 달라!\" 아기 오리는 고개를 푹 숙였어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "10–13",
+          "anchorPage": 10,
+          "evidence": "드디어 따뜻한 햇살이 내리쬐고 얼음이 녹기 시작했어요. 아기 오리는 날개를 기지개 켜듯 활짝 폈지요. \"어라? 내 날개에 힘이 생긴 것 같아!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "연못가에서 놀던 아이들이 소리쳤어요. \"저기 좀 봐! 정말 아름다운 새가 있어!\""
+        }
+      ],
+      "note": "소외에서 자기 발견으로 이어지는 감정적 고조입니다.",
+      "priority": null
+    },
+    {
+      "title": "거인의 정원",
+      "family": "H",
+      "representativeId": "1772084667220",
+      "variantIds": [
+        "1772084667220",
+        "1789350946382",
+        "1789350946383"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M07",
+      "textSha256": "040e740c417d304e3732414cf9eebed4a63fa7551b7aeeab1fa0d2afde8d11fa",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1",
+          "anchorPage": 1,
+          "evidence": "마을에는 아주 넓고 아름다운 정원이 있었어요. 거인이 집을 비운 사이, 아이들은 매일 이곳에서 하하 호호 즐겁게 놀았답니다.\n\"와아! 폭신폭신한 잔디밭이랑 향기로운 꽃들이 정말 좋"
+        },
+        {
+          "role": "위기",
+          "pages": "2–5",
+          "anchorPage": 2,
+          "evidence": "어느 날, 여행을 떠났던 거인이 돌아왔어요.\n\"내 정원에서 뭐 하는 거야! 모두 당장 나가!\"\n거인은 화를 내며 아이들을 쫓아냈어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "6–12",
+          "anchorPage": 6,
+          "evidence": "그러던 어느 날 아침, 창밖에서 아름다운 새소리가 들려왔어요.\n\"짹짹! 짹짹!\"\n거인은 침대에서 일어나 창문을 열어보았지요."
+        },
+        {
+          "role": "해소",
+          "pages": "13–15",
+          "anchorPage": 13,
+          "evidence": "다시 돌아온 아이들과 거인은 매일매일 정원에서 신나게 놀았어요.\n\"세상에서 가장 예쁜 꽃은 바로 아이들의 웃음꽃이구나!\""
+        }
+      ],
+      "note": "후반은 봄의 기쁨 뒤 평화로운 이별입니다. 마지막에 승리 팡파르를 넣지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "개구리 왕자",
+      "family": "A",
+      "representativeId": "1772009873865",
+      "variantIds": [
+        "1772009873865",
+        "1789350946386",
+        "1789350946387"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "57ccc3cc7a9759938c9043b61dae96bd0eb5494476fb80e641b8d9a5368dc769",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1,3–5",
+          "anchorPage": 1,
+          "evidence": "옛날 어느 나라에 막내 공주가 살았어요. 공주는 반짝반짝 빛나는 황금 공을 세상에서 제일 아꼈지요.\n\"데굴데굴 던지고 놀면 정말 즐거워!\""
+        },
+        {
+          "role": "위기",
+          "pages": "2,6–10",
+          "anchorPage": 2,
+          "evidence": "어느 날, 공주가 공을 높이 던졌다가 그만 깊은 연못에 빠뜨리고 말았어요.\n\"어떡해! 내 소중한 황금 공이 사라졌어!\" 공주는 엉엉 울기 시작했어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–12",
+          "anchorPage": 11,
+          "evidence": "공주가 개구리를 벽 쪽으로 휙 던졌는데 갑자기 눈부신 빛이 났어요!"
+        },
+        {
+          "role": "해소",
+          "pages": "13–15",
+          "anchorPage": 13,
+          "evidence": "공주는 약속을 귀찮게 여겼던 마음을 반성하고 사과했어요.\n\"미안해요, 왕자님. 겉모습만 보고 판단해서 약속을 잊으려 했어요.\""
+        }
+      ],
+      "note": "원책에는 벽 쪽으로 던짐 뒤 변신이 있습니다. 영화의 입맞춤 장면을 가정하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "생강빵 아이",
+      "family": "E",
+      "representativeId": "1772106564046",
+      "variantIds": [
+        "1772106564046",
+        "1789350946364",
+        "1789350946365"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M03",
+      "textSha256": "e1895d4430e465a1a5deb3e5b8d17f3e0b4ce613147674f18943348ed02a3bcb",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–8",
+          "anchorPage": 1,
+          "evidence": "어느 마을에 사는 할머니가 생강 반죽으로 귀여운 인형을 만들었어요. \"눈은 건포도로, 입은 달콤한 설탕 시럽으로 예쁘게 그려야지.\""
+        },
+        {
+          "role": "위기",
+          "pages": "9–13",
+          "anchorPage": 9,
+          "evidence": "신나게 달리던 생강빵 아이 앞에 깊고 넓은 강이 나타났어요. \"어떡하지? 나는 과자라 물에 젖으면 녹아버릴 텐데...\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "14",
+          "anchorPage": 14,
+          "evidence": "강가에 도착하자마자 여우는 입을 크게 벌려 생강빵 아이를 덥석! 삼키려 했어요. 생강빵 아이는 여우의 코를 밟고 강가로 훌쩍 뛰어내렸어요!"
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "생강빵 아이는 다시 할머니네 집으로 돌아가 창틀 위에 앉았어요. \"휴, 밖은 너무 위험해! 이제 할머니랑 행복하게 살아야지.\""
+        }
+      ],
+      "note": "탱고북에서는 여우를 피해 할머니 집에 돌아옵니다. 원작의 잡아먹힘 결말로 처리하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "구둣방 할아버지와 꼬마 요정",
+      "family": "E",
+      "representativeId": "1772086769057",
+      "variantIds": [
+        "1772086769057",
+        "1789350946378",
+        "1789350946379"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "0afa4ad89bf19a19ceb3c67dd5ad6a49e9ba73cca3ece76b71402afe4d681495",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–7",
+          "anchorPage": 1,
+          "evidence": "옛날 어느 마을에 마음씨 착한 구둣방 할아버지와 할머니가 살았어요.\n\"에휴, 이제 가죽이 딱 한 켤레 만들 것밖에 남지 않았구려.\""
+        },
+        {
+          "role": "위기",
+          "pages": "8–10",
+          "anchorPage": 8,
+          "evidence": "캄캄한 밤, 할아버지와 할머니는 옷장 뒤에 숨어서 작업대를 지켜보았어요.\n\"쉿! 조용히 해요. 누가 오나 봐요.\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–14",
+          "anchorPage": 11,
+          "evidence": "할머니가 감동하며 말했어요. \"추운 날씨에 옷도 안 입고 우리를 도와주다니, 정말 고마운 요정들이에요.\"\n\"우리 요정들에게 줄 선물을 만들까요?\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "요정들은 기뻐하며 그곳을 떠났어요.\n그 뒤로 다시 나타나지는 않았지만, 할아버지와 할머니는 요정들에게 받은 따뜻한 마음을 오래도록 기억했답니다.\n“고마운 마음을 전하면 행복이 찾아"
+        }
+      ],
+      "note": "위기는 공포가 아니라 누가 돕는지 궁금한 밤입니다. 강도를 낮춥니다.",
+      "priority": null
+    },
+    {
+      "title": "빨간 구두",
+      "family": "A",
+      "representativeId": "1772098071249",
+      "variantIds": [
+        "1772098071249",
+        "1789350946366",
+        "1789350946367"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M04",
+      "textSha256": "f406210e2deb4e8e4e26598904345aabdf830773f0ab037bb734f1debfff8bce",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "옛날 아주 먼 마을에 마음씨 착한 소녀 카렌이 살고 있었어요. 카렌은 신발이 없어서 여름에는 맨발로, 겨울에는 나무 신발을 신고 다녔지요."
+        },
+        {
+          "role": "위기",
+          "pages": "6–10",
+          "anchorPage": 6,
+          "evidence": "할머니가 아파서 누워 계시는 날이었어요. 카렌은 약을 사러 가는 대신 빨간 구두를 신고 몰래 밖으로 나갔어요.\n\"아주 잠시만 춤을 추고 와야지! 딱 한 번만!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–12",
+          "anchorPage": 11,
+          "evidence": "카렌은 무릎을 꿇고 빌었어요. \"잘못했어요! 화려한 것만 좋아하고 할머니를 돌보지 않은 제 잘못이에요!\"\n그 순간, 꽉 끼어있던 빨간 구두가 툭! 하고 벗겨졌어요."
+        },
+        {
+          "role": "해소",
+          "pages": "13–15",
+          "anchorPage": 13,
+          "evidence": "집에 돌아온 카렌은 할머니를 꼭 껴안았어요. 할머니도 카렌을 따뜻하게 맞아주셨지요.\n\"아이야, 네가 무사히 돌아와서 정말 다행이구나.\""
+        }
+      ],
+      "note": "반성 후 구두가 벗겨지고 할머니에게 돌아가는 밝은 각색입니다.",
+      "priority": null
+    },
+    {
+      "title": "성냥팔이 소녀",
+      "family": "H",
+      "representativeId": "1772106779761",
+      "variantIds": [
+        "1772106779761",
+        "1789350946362",
+        "1789350946363"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M12",
+      "textSha256": "3315613f36306597f2f17db9aab56b2bdf2e2bb26d4ebd2699c27706c134fbf6",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3",
+          "anchorPage": 1,
+          "evidence": "일 년 중 가장 추운 마지막 밤이었어요. 온 세상이 하얀 눈으로 덮이고 찬바람이 쌩쌩 불었지요.\n\"성냥 사세요! 성냥 좀 사주세요!\""
+        },
+        {
+          "role": "위기",
+          "pages": "4,6,8",
+          "anchorPage": 4,
+          "evidence": "소녀는 너무 춥고 지쳐서 골목길 구석에 웅크리고 앉았어요. 손이 꽁꽁 얼어붙어 꼼짝도 할 수 없었지요.\n\"성냥 하나만 켜면 조금 따뜻해질까?\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "5,7,9–12",
+          "anchorPage": 5,
+          "evidence": "칙! 소녀가 성냥 하나를 켰어요.\n순간, 소녀 앞에는 커다란 난로가 나타났어요! 불꽃이 활활 타오르며 온몸을 따뜻하게 녹여주었지요.\n\"와아, 정말 따뜻해!\""
+        },
+        {
+          "role": "해소",
+          "pages": "13–15",
+          "anchorPage": 13,
+          "evidence": "해가 뜨고 사람들은 골목길에서 미소 지으며 잠든 소녀를 발견했어요. 소녀의 곁에는 다 타버린 성냥개비들이 흩어져 있었지요.\n\"이 아이는 마지막에 아주 행복한 꿈을 꾸었나 봐.\""
+        }
+      ],
+      "note": "성냥 속 환상은 잠깐 따뜻하게, 결말은 애도와 연민으로 유지합니다.",
+      "priority": 6
+    },
+    {
+      "title": "백조의 호수",
+      "family": "A",
+      "representativeId": "1772094591661",
+      "variantIds": [
+        "1772094591661",
+        "1789350946370",
+        "1789350946371"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M10",
+      "textSha256": "8743ec37e8fb061c43d1733dff7a23a65e66d9da08f7410711c1621e10a82481",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–6",
+          "anchorPage": 1,
+          "evidence": "멋진 지크프리트 왕자님의 생일 파티가 열렸어요. \"얘야, 너도 이제 결혼할 신부감을 찾아야 한다!\" 왕비님이 말씀하셨지요."
+        },
+        {
+          "role": "위기",
+          "pages": "7–11",
+          "anchorPage": 7,
+          "evidence": "이 모든 걸 지켜보던 나쁜 마법사 로트바르트가 고약한 꾀를 냈어요. \"흐흐, 절대로 마법이 풀리지 않게 하겠다!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "왕자님은 거센 파도를 헤치며 오데트 공주의 손을 꼭 잡았어요. \"공주님, 미안해요! 내 진심은 오직 당신뿐이에요!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "이제 오데트 공주님은 낮에도 밤에도 아름다운 사람의 모습으로 있을 수 있게 되었어요. \"왕자님, 고마워요! 드디어 마법이 풀렸어요!\""
+        }
+      ],
+      "note": "탱고북 결말은 마법 해제와 결혼입니다. 비극적 종결로 처리하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "신데렐라",
+      "family": "A",
+      "representativeId": "1772107608499",
+      "variantIds": [
+        "1772107608499",
+        "1789350946360",
+        "1789350946361"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M01",
+      "textSha256": "e5082551219744e249ad3be108c879b4556dacdbe424b5d2e0d950d5be114de4",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3,5–9",
+          "anchorPage": 1,
+          "evidence": "옛날 어느 마을에 마음씨 착한 소녀가 살았어요. 하지만 새엄마와 언니들은 신데렐라에게 힘든 일만 시켰지요.\n\"신데렐라! 어서 청소하고 저녁 준비해!\""
+        },
+        {
+          "role": "위기",
+          "pages": "4,10–13",
+          "anchorPage": 4,
+          "evidence": "언니들은 예쁜 옷을 입고 뽐내며 성으로 떠났어요. 신데렐라는 홀로 남겨져 눈물을 흘렸지요.\n\"난 입고 갈 드레스도 없는걸.\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "14",
+          "anchorPage": 14,
+          "evidence": "\"저도 한번 신어봐도 될까요?\" 신데렐라가 구두를 신자, 마치 제 짝인 것처럼 쏙! 들어맞았어요. 신데렐라는 주머니에서 나머지 한 짝도 꺼내 신었지요.\n\"찾았다! 바로 당신이었군요"
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "왕자님과 신데렐라는 결혼해서 행복하게 살았답니다.\n\"착한 마음은 언제나 마법보다 강하단다!\""
+        }
+      ],
+      "note": "시작 테마를 마법·무도회에서 재사용하고 자정에 긴장곡으로 전환합니다.",
+      "priority": 2
+    },
+    {
+      "title": "오즈의 마법사",
+      "family": "C",
+      "representativeId": "1772109314126",
+      "variantIds": [
+        "1772109314126",
+        "1789350946352",
+        "1789350946353"
+      ],
+      "pageCount": 17,
+      "currentMusic": "M02",
+      "textSha256": "b1ce44a9c82f319135f0853ef458d768e347fecad87a46aeda4d972f8ccd12e1",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "2–8,10",
+          "anchorPage": 2,
+          "evidence": "집이 쿵! 하고 멈춘 곳은 예쁜 꽃이 가득한 오즈의 나라였어요.\n\"우와, 여기는 어디지? 정말 아름다운 곳이야!\""
+        },
+        {
+          "role": "위기",
+          "pages": "1,9,11–12",
+          "anchorPage": 1,
+          "evidence": "평화롭던 마을에 커다란 회오리바람이 휘익! 집이 하늘 높이 떠올랐어요.\n\"어어? 집이 하늘을 날아요! 토토야, 꽉 잡아!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13",
+          "anchorPage": 13,
+          "evidence": "도로시가 실수로 마녀에게 물을 쏴아! 끼얹었어요.\n\"아이고, 물이라니! 내가 녹아버리네!\" 마녀는 흔적도 없이 사라졌어요."
+        },
+        {
+          "role": "해소",
+          "pages": "14–17",
+          "anchorPage": 14,
+          "evidence": "다시 돌아온 친구들에게 오즈가 말했어요.\n\"너희는 이미 지혜와 마음, 용기를 가졌단다. 너희 자신을 믿으렴!\""
+        }
+      ],
+      "note": "첫 쪽부터 회오리입니다. 모든 책을 평온한 시작곡으로 강제하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "아기 돼지 삼형제",
+      "family": "B",
+      "representativeId": "1772108045716",
+      "variantIds": [
+        "1772108045716",
+        "1789350946358",
+        "1789350946359"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "a3451d0744c2e00a73f74f8c98242e826508c8e68b9fa1c743b5e83b18fea37f",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "언덕 위 집 앞에서 엄마 돼지가 손을 흔들어요. \"얘들아, 이제 너희만의 멋진 집을 지으렴. 정성껏 지어야 한단다!\""
+        },
+        {
+          "role": "위기",
+          "pages": "6–11",
+          "anchorPage": 6,
+          "evidence": "숲속에서 배고픈 늑대가 살금살금 나타났어요. 입가에는 침이 꼴깍! \"흐흐흐, 통통한 아기 돼지들이 아주 맛있겠군!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–14",
+          "anchorPage": 12,
+          "evidence": "늑대가 온 힘을 다해 \"후우우우우우!\" 불고 \"쿵!\" 부딪쳤어요. 하지만 벽돌집은 꿈쩍도 하지 않았답니다."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "이제 삼형제는 벽돌집에서 함께 살기로 했어요. \"이제부터 우리도 정성껏 튼튼하게 집을 지을게!\""
+        }
+      ],
+      "note": "첫 제작 추천. 집짓기→늑대→벽돌집 대결→안도가 명확합니다.",
+      "priority": 1
+    },
+    {
+      "title": "인어 공주",
+      "family": "G",
+      "representativeId": "1772181399388",
+      "variantIds": [
+        "1772181399388",
+        "1789350946348",
+        "1789350946349"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M09",
+      "textSha256": "11848197c3a5162514625794457f34e401b7168b10828a3807641c202c224610",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–2,5,7–9",
+          "anchorPage": 1,
+          "evidence": "알록달록 산호와 조개가 가득한 깊은 바닷속에 인어 공주가 살고 있었어요.\n\"언니들, 저 위 세상은 어떤 곳인가요? 정말 궁금해요!\""
+        },
+        {
+          "role": "위기",
+          "pages": "3,6,10–11",
+          "anchorPage": 3,
+          "evidence": "갑자기 우르르 쾅쾅! 폭풍우가 치고 왕자님이 바다에 빠졌어요.\n\"위험해! 내가 구해줘야 해!\" 인어 공주는 왕자님을 꼭 안았어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "4,12–14",
+          "anchorPage": 4,
+          "evidence": "인어 공주는 왕자님을 모래사장까지 옮겨다 주었어요.\n\"왕자님, 제발 눈을 떠보세요!\" 하지만 멀리서 사람들이 오자 얼른 숨었지요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "바다 위로 반짝이는 햇살이 내리쬐고, 인어 공주는 미소 지었어요.\n\"사랑하는 마음은 영원히 반짝일 거예요. 안녕!\""
+        }
+      ],
+      "note": "물거품·천사·이별의 각색입니다. 12–15쪽은 H의 감정 고조·여운을 빌리고 결혼식 음악을 쓰지 않습니다.",
+      "override": {
+        "climax": "H-climax (p12–14)",
+        "resolution": "H-resolution"
+      },
+      "priority": 5
+    },
+    {
+      "title": "알라딘과 요술 램프",
+      "family": "C",
+      "representativeId": "1772108468177",
+      "variantIds": [
+        "1772108468177",
+        "1789350946356",
+        "1789350946357"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M04",
+      "textSha256": "ce4d729de7a279f9ad7e53ca42f47b7874d6b5c7128c8637f6e87e4d8da89dac",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3,7–9",
+          "anchorPage": 1,
+          "evidence": "머나먼 사막 나라에 가난하지만 마음씨 착한 소년 알라딘이 살고 있었어요. \"시장 사람들을 도와주면 기분이 참 좋아!\""
+        },
+        {
+          "role": "위기",
+          "pages": "4,10–11",
+          "anchorPage": 4,
+          "evidence": "램프를 들고 나가려는데, 욕심쟁이 마법사가 입구를 쾅! 닫아버렸어요. \"으앙, 여기 갇혔나 봐! 어두워서 무서워요.\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "5,12",
+          "anchorPage": 5,
+          "evidence": "알라딘이 램프에 묻은 먼지를 슥슥 문지르자, 펑! 연기와 함께 램프의 요정 지니가 나타났어요. \"주인님, 부르셨습니까? 소원을 말씀하세요!\""
+        },
+        {
+          "role": "해소",
+          "pages": "6,13–15",
+          "anchorPage": 6,
+          "evidence": "지니의 마법으로 알라딘은 순식간에 집으로 돌아왔어요. \"지니, 정말 고마워! 덕분에 살았어.\""
+        }
+      ],
+      "note": "신비한 발견과 램프를 둘러싼 위험을 구분합니다. 자유를 주는 결말은 따뜻하게 마칩니다.",
+      "priority": null
+    },
+    {
+      "title": "정글북",
+      "family": "D",
+      "representativeId": "1772197180029",
+      "variantIds": [
+        "1772197180029",
+        "1789350946342",
+        "1789350946343"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "11eb0836ea02e2f5a1f4f98a16d96ca20e0ed6a2a583f9ebf8d0c741540b2016",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4,9",
+          "anchorPage": 1,
+          "evidence": "깊은 정글 속에 아기가 홀로 남겨졌어요. 늑대 가족이 아기를 발견했지요.\n\"어머나, 털도 없는 가여운 아기네? 우리가 보살펴주자.\""
+        },
+        {
+          "role": "위기",
+          "pages": "5–8,10",
+          "anchorPage": 5,
+          "evidence": "하지만 정글에는 무서운 호랑이 시어 칸이 살고 있었어요.\n\"인간 소년이라니! 모글리는 정글에 살 수 없어. 그 아이를 내놓아라!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–12",
+          "anchorPage": 11,
+          "evidence": "모글리는 인간들만이 다룰 수 있는 '빨간 꽃'인 불을 가져와 소리쳤어요. \n\"이건 너희가 무서워하는 불이야! 정글을 괴롭히지 마!\""
+        },
+        {
+          "role": "해소",
+          "pages": "13–15",
+          "anchorPage": 13,
+          "evidence": "모글리는 용기 있게 정글의 평화를 지켜냈어요.\n\"모글리가 우리를 구했다! 늑대 소년 만세!\" 동물 친구들이 환호했지요."
+        }
+      ],
+      "note": "원숭이 구출과 시어 칸 대결은 별도 긴장 파동입니다. 동물 소리를 BGM에 굽지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "엄지 아가씨",
+      "family": "G",
+      "representativeId": "1772108847406",
+      "variantIds": [
+        "1772108847406",
+        "1789350946354",
+        "1789350946355"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M03",
+      "textSha256": "f376f9f437bcd874c84de918a4806746a3a53a865f7b1ce1404b279ec7f58bff",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–2,8–10",
+          "anchorPage": 1,
+          "evidence": "아이를 간절히 원하던 아주머니가 정성껏 씨앗을 심었어요. 얼마 뒤, 그 씨앗에서 아름다운 꽃이 활짝 피어났어요. 그 속에는 엄지손가락만큼 작은 아가씨가 앉아 있었지요.\n\"이름을 엄"
+        },
+        {
+          "role": "위기",
+          "pages": "3–7,11",
+          "anchorPage": 3,
+          "evidence": "어느 날 밤, 창가로 들어온 못생긴 두꺼비가 엄지 아가씨를 데려갔어요.\n\"히히, 우리 아들의 신부로 삼아야겠다!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "봄이 되자 기운을 차린 제비가 엄지 아가씨에게 다가왔어요.\n\"엄지 아가씨, 제 등에 타세요! 꽃의 나라로 데려다 줄게요.\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "도착한 곳에는 엄지 아가씨처럼 작고 예쁜 날개를 가진 꽃의 왕자님이 있었어요.\n\"저의 여왕님이 되어주시겠습니까?\""
+        }
+      ],
+      "note": "제비를 타고 떠나는 순간은 작고 밝은 비상입니다. 큰 전쟁 음악은 어울리지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "우당탕탕 염소 삼 형제",
+      "family": "B",
+      "representativeId": "1772181211472",
+      "variantIds": [
+        "1772181211472",
+        "1789350946350",
+        "1789350946351"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "dcd842ffba2837ddc688d6c239d9b0aeba0469bd6efddeeeb38b5adf745af573",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3",
+          "anchorPage": 1,
+          "evidence": "옛날에 염소 삼 형제가 살았어요. \"아, 배고파! 저 건너편 언덕에 있는 싱싱한 풀을 먹고 싶어.\""
+        },
+        {
+          "role": "위기",
+          "pages": "4–11",
+          "anchorPage": 4,
+          "evidence": "갑자기 다리 밑에서 무서운 괴물 트롤이 쑥 나타났어요! \"누가 내 다리 위를 딱딱거리는 거냐! 널 한입에 꿀꺽 잡아먹겠다!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–14",
+          "anchorPage": 12,
+          "evidence": "셋째 염소는 무서워하지 않고 당당하게 외쳤어요. \"나다! 이 못된 괴물아! 내 단단한 뿔 맛 좀 보아라!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "다리를 무사히 건넌 삼 형제는 언덕에서 싱싱한 풀을 잔뜩 먹었어요. \"우당탕탕! 이제 우리 세상이다! 정말 맛있어!\""
+        }
+      ],
+      "note": "다리 위 발걸음 리듬을 살리되 원문 형제 호칭 혼동은 음악 작업에서 임의로 고치지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "이상한 나라의 앨리스",
+      "family": "C",
+      "representativeId": "1772182206245",
+      "variantIds": [
+        "1772182206245",
+        "1789350946346",
+        "1789350946347"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "35c471014f81810cc521501904befc13d353005fa568e8fbcaf02c948c101c8e",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–9",
+          "anchorPage": 1,
+          "evidence": "어느 나른한 오후, 앨리스는 조끼를 입고 시계를 보는 하얀 토끼를 발견했어요.\n\"어머나, 세상에! 늦었어, 늦었다고!\" 토끼는 서둘러 구멍 속으로 쏙 들어갔지요."
+        },
+        {
+          "role": "위기",
+          "pages": "10–11",
+          "anchorPage": 10,
+          "evidence": "\"저놈의 목을 당장 쳐라!\" 욕심쟁이 하트 여왕이 나타나 소리쳤어요.\n모든 것이 자기 마음대로여야 하는 무서운 여왕님이었지요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "앨리스는 여왕에게 당당하게 말했어요.\n\"당신들은 그저 종이 카드일 뿐이잖아요! 난 무섭지 않아요!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "앨리스가 눈을 뜨자, 언니의 무릎 위였답니다.\n\"언니, 꿈속에서 시계 토끼랑 무서운 여왕님을 만났어!\"\n앨리스는 신기한 모험 이야기를 언니에게 들려주었지요."
+        }
+      ],
+      "note": "낯선 세계는 장난스럽게, 카드가 몰려올 때만 짧게 고조합니다.",
+      "priority": null
+    },
+    {
+      "title": "잠자는 숲속의 공주",
+      "family": "A",
+      "representativeId": "1772194909157",
+      "variantIds": [
+        "1772194909157",
+        "1789350946344",
+        "1789350946345"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M10",
+      "textSha256": "29fb97a449155a4d6da800d849f13a2c999d0047fc7d5fe80793ffcb15c38ac7",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–2,5–6",
+          "anchorPage": 1,
+          "evidence": "어느 나라에 사랑스러운 아기 공주님이 태어났어요.\n\"우리 공주님의 이름을 오로라라고 지읍시다!\" 온 나라는 잔치 분위기였지요."
+        },
+        {
+          "role": "위기",
+          "pages": "3–4,7–10",
+          "anchorPage": 3,
+          "evidence": "초대받지 못한 심술궂은 마녀가 갑자기 나타나 무서운 저주를 내렸어요.\n\"공주는 16살이 되는 날, 물레 바늘에 찔려 죽게 될 것이다!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–13",
+          "anchorPage": 11,
+          "evidence": "왕자님이 칼을 휘두르자 빽빽하던 가시 덩굴이 길을 열어주었어요.\n\"조금만 더 가면 성이 보일 거야. 힘을 내자!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "공주가 깨어나자 성 안의 모든 사람과 동물들도 기지개를 켜며 깨어났어요.\n\"왕자님이 마법을 풀어주셨다! 만세!\""
+        }
+      ],
+      "note": "원책은 손을 잡고 인사하자 깨어납니다. 잠든 구간은 긴장곡의 저밀도 버전이 맞습니다.",
+      "priority": null
+    },
+    {
+      "title": "커다란 순무",
+      "family": "E",
+      "representativeId": "1772197611601",
+      "variantIds": [
+        "1772197611601",
+        "1789350946340",
+        "1789350946341"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "144a8607f3dd49aa510f7b0c29a3f6e9e26736c19068042ef12f49fd95268e2f",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–2",
+          "anchorPage": 1,
+          "evidence": "옛날 어느 시골 마을에 할아버지가 살았어요. 할아버지는 밭에 순무 씨앗을 심었지요. \"무럭무럭 자라라, 달콤하고 커다란 순무가 되어라!\""
+        },
+        {
+          "role": "위기",
+          "pages": "3–10",
+          "anchorPage": 3,
+          "evidence": "순무를 수확할 때가 되었어요. 할아버지는 순무 잎을 꽉 잡고 힘껏 당겼어요. \"영차! 영차! 어라? 꿈적도 안 하네?\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–13",
+          "anchorPage": 11,
+          "evidence": "드디어 땅이 부르르 떨리더니 순무가 흔들리기 시작했어요. \"어! 움직인다! 조금만 더 힘을 내!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "할머니는 뽑은 순무로 커다란 냄비에 맛있는 국을 끓였어요. \"생쥐야, 네 덕분에 순무를 뽑았단다. 같이 맛있게 먹자!\""
+        }
+      ],
+      "note": "위기는 위험이 아니라 잘 뽑히지 않는 난관입니다. 영차의 반복과 합을 살립니다.",
+      "priority": null
+    },
+    {
+      "title": "피리 부는 사나이",
+      "family": "B",
+      "representativeId": "1772198278145",
+      "variantIds": [
+        "1772198278145",
+        "1789350946338",
+        "1789350946339"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M04",
+      "textSha256": "449af8982bf8fd9c031298c5d34d6d52e06bdb28af64b9f2dfd8451b2f9b9baa",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4",
+          "anchorPage": 1,
+          "evidence": "옛날 어느 아름다운 마을에 갑자기 수천 마리의 쥐들이 나타났어요.\n\"찍찍! 맛있는 음식을 다 먹어버릴 테다!\""
+        },
+        {
+          "role": "위기",
+          "pages": "8–12",
+          "anchorPage": 8,
+          "evidence": "사나이가 돌아와 상금을 달라고 했어요. 하지만 욕심쟁이 시장님은 마음이 바뀌었어요.\n\"피리 좀 불었다고 그렇게 큰돈을 줄 순 없지! 당장 나가시오!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "5–7,13",
+          "anchorPage": 5,
+          "evidence": "사나이가 입에 피리를 대고 늴리리~ 불기 시작했어요. 그러자 마을 구석구석에 숨어 있던 쥐들이 쏟아져 나왔어요.\n\"어라? 이 소리는 뭐지? 나도 모르게 발이 움직여!\""
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "다리가 아파 천천히 걷던 한 아이만 바위 속으로 들어가지 못하고 남겨졌어요.\n친구들은 사나이를 따라 행복한 나라로 들어갔지요."
+        }
+      ],
+      "note": "쥐 퇴치는 1차 해결, 아이들이 사라진 뒤에는 반성의 여운입니다. 해소는 H 음악을 빌립니다.",
+      "override": {
+        "climax": "B-tension (p13)",
+        "resolution": "H-resolution"
+      },
+      "priority": null
+    },
+    {
+      "title": "피터와 늑대",
+      "family": "B",
+      "representativeId": "1772198919301",
+      "variantIds": [
+        "1772198919301",
+        "1789350946336",
+        "1789350946337"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "4debe7dd033f1a927f9d1c5bf7b81cfeca350bfb1be961ea31510944aaf8d743",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–6",
+          "anchorPage": 1,
+          "evidence": "어느 이른 아침, 피터는 할아버지네 마당 문을 열고 푸른 들판으로 나갔어요.\n\"안녕, 햇님아! 오늘도 기분 좋은 하루야!\""
+        },
+        {
+          "role": "위기",
+          "pages": "7–9",
+          "anchorPage": 7,
+          "evidence": "그런데 정말로 숲속에서 커다란 회색 늑대가 나타났어요! \n\"크르릉! 배가 고프다. 맛있는 먹잇감이 어디 있나?\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "10–14",
+          "anchorPage": 10,
+          "evidence": "피터는 담장 뒤에서 튼튼한 밧줄을 가져왔어요.\n\"작은 새야, 늑대 주변을 날면서 정신없게 만들어줘. 내가 꼬리를 잡을게!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "피터와 할아버지, 사냥꾼들, 그리고 동물 친구들이 줄을 지어 마을로 돌아왔어요.\n\"우리가 늑대를 이겼다! 용감한 피터 덕분이야! 야호!\""
+        }
+      ],
+      "note": "낭독 배경용 새 음악입니다. 기존 유명 관현악 테마나 녹음을 재현하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "잭과 콩나무",
+      "family": "C",
+      "representativeId": "1772510956605",
+      "variantIds": [
+        "1772510956605",
+        "1789350946330",
+        "1789350946331"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "334ec873ab217507cfeb7ab8017fca128ff8d46ede597da7bed43c1c7c3a35dd",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–6,8–10",
+          "anchorPage": 1,
+          "evidence": "잭과 엄마는 아주 가난했어요. 먹을 것이 없어서 소중한 소를 시장에 팔기로 했지요.\n\"잭아, 소를 팔아서 꼭 맛있는 빵을 사 오렴.\""
+        },
+        {
+          "role": "위기",
+          "pages": "7,11–13",
+          "anchorPage": 7,
+          "evidence": "쿵! 쿵! 쿵! 발소리가 들리더니 무서운 거인이 나타났어요.\n\"사람 냄새가 나는데? 어디에 숨었느냐!\" 잭은 얼른 오븐 속에 숨었어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "14",
+          "anchorPage": 14,
+          "evidence": "잭이 도끼로 콩나무를 쾅쾅! 찍자 콩나무가 우지끈 쓰러졌어요.\n\"아이쿠, 나 살려!\" 거인은 멀리멀리 도망가 버렸답니다."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "이제 잭과 엄마는 황금 암탉과 하프 덕분에 부자가 되어 행복하게 살았어요.\n\"용기 있는 잭, 이제 배고플 일은 없을 거야!\""
+        }
+      ],
+      "note": "하프가 울려 거인에게 들키는 사건을 기준으로 긴장을 올립니다.",
+      "priority": 3
+    },
+    {
+      "title": "라푼젤",
+      "family": "A",
+      "representativeId": "1777272102062",
+      "variantIds": [
+        "1777272102062",
+        "1789350946326",
+        "1789350946327"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "6e1a479c9016f4e208abdd60635fce6f705d371fa6b0ce1084860829127f910b",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–11",
+          "anchorPage": 1,
+          "evidence": "숲속 높은 탑에 아름다운 소녀가 살았어요. 이름은 라푼젤이었지요."
+        },
+        {
+          "role": "위기",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "라푼젤은 두근두근 가슴이 뛰었어요. 둘은 밧줄을 타고 조심조심 내려왔지요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "14",
+          "anchorPage": 14,
+          "evidence": "왕자님의 하얀 말을 타고 다그닥다그닥 달렸어요. 시원한 바람이 라푼젤의 볼을 스쳤지요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "라푼젤과 왕자님은 멋진 성에 도착했어요. 매일매일 노래하며 행복하게 살았답니다!"
+        }
+      ],
+      "note": "원책은 밧줄 탈출·말 타고 떠나기입니다. 다른 각색의 눈멂·치유 장면을 넣지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "피노키오",
+      "family": "C",
+      "representativeId": "1777266835789",
+      "variantIds": [
+        "1777266835789",
+        "1789350946328",
+        "1789350946329"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "155bb7adc78f63ab85869ea4aafe8e3210b515cb44933445a0d3587fa6aa2bea",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "할아버지가 나무를 정성껏 깎았어요.\n뚝딱뚝딱, 예쁜 인형을 만들었지요.\n\"우와, 정말 귀엽구나!\""
+        },
+        {
+          "role": "위기",
+          "pages": "6–12",
+          "anchorPage": 6,
+          "evidence": "피노키오는 극장으로 쪼르르 달려갔어요.\n나쁜 꾀를 부리는 여우가 다가왔어요.\n\"우리랑 같이 신나게 놀자!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "깜깜한 고래 뱃속에 할아버지가 있었어요.\n\"할아버지, 정말 보고 싶었어요!\"\n둘은 와락 껴안고 기뻐했답니다."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "피노키오는  착한 아이가 되었어요.\n어느새 진짜 사람으로 변했답니다!\n할아버지와 오래오래 행복하게 살았어요."
+        }
+      ],
+      "note": "고래 속 재회·탈출을 정점으로 삼고 진짜 아이가 되는 마지막은 안도로 마칩니다.",
+      "priority": null
+    },
+    {
+      "title": "호두까기 인형",
+      "family": "C",
+      "representativeId": "1772201758726",
+      "variantIds": [
+        "1772201758726",
+        "1789350946332",
+        "1789350946333"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "4b0f7b6ef14af2756c939dce4fcbed31d3794c73a342195e48055f75e3cbc54b",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3",
+          "anchorPage": 1,
+          "evidence": "마리네 집에서는 즐거운 파티가 열렸어요.\n\"와! 예쁜 장난감이 정말 많아요!\" 아이들의 웃음소리가 집안 가득 울려 퍼졌지요."
+        },
+        {
+          "role": "위기",
+          "pages": "4–6",
+          "anchorPage": 4,
+          "evidence": "그때, 벽장에서 머리가 여섯 개 달린 무서운 생쥐 왕과 생쥐 군대가 나타났어요.\n\"찍찍! 이 방을 우리가 다 차지해버리자!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "7–8",
+          "anchorPage": 7,
+          "evidence": "생쥐 왕이 호두까기 인형을 공격하려 하자, 마리는 신고 있던 신발을 벗어 생쥐 왕에게 휙! 던졌어요.\n\"우리 친구를 괴롭히지 마!\""
+        },
+        {
+          "role": "해소",
+          "pages": "9–15",
+          "anchorPage": 9,
+          "evidence": "왕자님은 마리를 데리고 하얀 눈이 펑펑 내리는 눈의 나라로 떠났어요.\n\"눈의 요정들이 춤을 추고 있네요. 정말 아름다워요!\""
+        }
+      ],
+      "note": "후반 사탕나라 춤은 해소 음악의 밝은 질감입니다. 유명 발레 선율 인용은 하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "북풍과 태양",
+      "family": "E",
+      "representativeId": "1777274748674",
+      "variantIds": [
+        "1777274748674",
+        "1789350946324",
+        "1789350946325"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "6b32aa9e9740c4a7871d206f3f78b5e7701cd3e576703a5e0a0a6505a223825a",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "어느 맑은 날이었어요.\n하늘에 북풍과 태양이 있었지요."
+        },
+        {
+          "role": "위기",
+          "pages": "6–10",
+          "anchorPage": 6,
+          "evidence": "먼저 북풍이 나섰어요.\n숨을 크게 들이마셨지요.\n입 안 가득 바람을 모았어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–14",
+          "anchorPage": 11,
+          "evidence": "이번에는 태양의 차례였어요.\n태양이 앞으로 둥실 나섰지요.\n환하게 미소를 지었어요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "\"너무 더워서 안 되겠어요!\"\n나그네는 훌렁 외투를 벗었어요.\n따뜻한 태양이 내기에서 이겼답니다!"
+        }
+      ],
+      "note": "논쟁·도전의 강도입니다. 외투가 벗겨지는 결말까지 부드러운 전환을 씁니다.",
+      "priority": null
+    },
+    {
+      "title": "행복한 왕자",
+      "family": "H",
+      "representativeId": "1772199288387",
+      "variantIds": [
+        "1772199288387",
+        "1789350946334",
+        "1789350946335"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M04",
+      "textSha256": "b57366c09c77fd329b143027c8c7bce03be98351185a9d017895e326948a5857",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4",
+          "anchorPage": 1,
+          "evidence": "어느 마을에 '행복한 왕자' 동상이 서 있었어요. 몸은 얇은 황금으로 덮여 있고, 두 눈은 파란 사파이어, 칼자루에는 빨간 루비가 박혀 있었지요.\n\"와! 우리 왕자님은 정말 아름다"
+        },
+        {
+          "role": "위기",
+          "pages": "5–10",
+          "anchorPage": 5,
+          "evidence": "\"저기 가난한 재봉사 아주머니의 아기가 아파서 울고 있단다. 내 칼자루에 박힌 루비를 빼서 가져다주렴.\"\n제비는 왕자의 부탁을 들어주었어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–12",
+          "anchorPage": 11,
+          "evidence": "제비는 왕자의 발치에서 조용히 잠들었고, 그 순간 왕자의 납으로 된 심장이 쩍! 하고 두 갈래로 갈라졌어요. 너무 슬펐기 때문이죠."
+        },
+        {
+          "role": "해소",
+          "pages": "13–15",
+          "anchorPage": 13,
+          "evidence": "하늘나라의 신께서 천사에게 말씀하셨어요. \"이 도시에서 가장 귀한 것 두 가지만 가져오너라.\"\n천사는 무엇을 가져갔을까요?"
+        }
+      ],
+      "note": "제비의 죽음과 왕자의 심장은 승리 장면이 아닙니다. 강도보다 여백을 높입니다.",
+      "priority": null
+    },
+    {
+      "title": "성냥갑 병정",
+      "family": "C",
+      "representativeId": "1777274769616",
+      "variantIds": [
+        "1777274769616",
+        "1789350946322",
+        "1789350946323"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "980263fd403a6fca0acf36ebd617fc81aad4c90c67556b457d031f948558bc80",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3",
+          "anchorPage": 1,
+          "evidence": "성냥갑 속에 장난감 병정들이 살았어요. 그중 한 병정은 다리가 하나뿐이었죠. 하지만 누구보다 씩씩했답니다."
+        },
+        {
+          "role": "위기",
+          "pages": "4–11",
+          "anchorPage": 4,
+          "evidence": "쏴아아! 갑자기 센 바람이 불었어요. 덜컹! 창문이 열리며 병정이 밖으로 휙 떨어졌어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "번쩍! 갑자기 환한 빛이 쏟아졌어요. \"어머나, 장난감 병정이네!\" 누군가 소리쳤어요."
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "병정은 다시 책상 위로 돌아왔어요. 예쁜 발레리나도 그 자리에 그대로 있었답니다."
+        }
+      ],
+      "note": "탱고북은 집으로 돌아와 발레리나와 재회합니다. 불 속 죽음 결말로 만들지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "늑대와 일곱 마리 아기 염소",
+      "family": "B",
+      "representativeId": "1777276046428",
+      "variantIds": [
+        "1777276046428",
+        "1789350946318",
+        "1789350946319"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "0689250f82ce9d2a692e15ae9d8b2e6056f29fd89e05763e2296a169222a07ee",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4",
+          "anchorPage": 1,
+          "evidence": "숲속 예쁜 집에 엄마 염소와 아기 염소들이 살았어요. 모두 옹기종기 모여 하하 호호 웃어요. 정말 행복해 보여요!"
+        },
+        {
+          "role": "위기",
+          "pages": "5–12",
+          "anchorPage": 5,
+          "evidence": "그때, 늑대가 어슬렁어슬렁 다가왔어요. 똑똑똑 문을 두드리며 말했어요. \"얘들아, 엄마란다. 어서 문을 열어주렴!\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "숲으로 간 엄마는 잠든 늑대를 찾았어요. 싹둑싹둑 배를 가르자 아기 염소들이 쏙쏙 튀어나왔어요. \"엄마, 정말 무서웠어요!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "잠에서 깬 늑대가 비틀비틀 우물로 걸어갔어요. \"어이쿠, 배가 너무 무거워!\" 풍덩 빠지고 말았어요. 염소들은 폴짝폴짝 신나게 춤을 추었어요."
+        }
+      ],
+      "note": "엄마의 구출을 정점으로 삼되 위협의 음량은 유아 낭독에 맞춥니다.",
+      "priority": null
+    },
+    {
+      "title": "토끼와 거북이",
+      "family": "E",
+      "representativeId": "1777276044172",
+      "variantIds": [
+        "1777276044172",
+        "1789350946320",
+        "1789350946321"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "ec14f89e832260d7cab95a7dbe40b5352d060f2451e23df37718ba36941a2cd6",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4",
+          "anchorPage": 1,
+          "evidence": "푸른 숲속에 토끼가 살았어요. 깡충깡충 아주 빨랐지요. \"내가 숲에서 제일 빨라!\""
+        },
+        {
+          "role": "위기",
+          "pages": "5–12",
+          "anchorPage": 5,
+          "evidence": "숲속 친구들이 잔뜩 모였어요. \"준비, 땅!\" 드디어 달리기 경주가 시작됐어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "저 멀리 결승선이 보였어요. 친구들이 폴짝폴짝 뛰며 응원했어요. \"거북아, 조금만 더 힘내!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "하지만 거북이가 먼저 도착했어요. 엉금엉금 거북이가 경주에서 이겼어요. 모두 함께 기뻐하며 박수를 쳤어요!"
+        }
+      ],
+      "note": "가벼운 경주 긴장입니다. 불길한 저음 대신 일정한 걸음 리듬을 씁니다.",
+      "priority": null
+    },
+    {
+      "title": "눈의 여왕",
+      "family": "G",
+      "representativeId": "1777276113613",
+      "variantIds": [
+        "1777276113613",
+        "1789350946316",
+        "1789350946317"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M10",
+      "textSha256": "70b05ac1509d0c9de1e67037333c9b56370db3a0397dbcf3b9e57fd8d3bb2c7f",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1,4–10",
+          "anchorPage": 1,
+          "evidence": "겔다와 카이는 참 좋은 친구예요.\n매일 예쁜 장미꽃을 보며 놀았지요.\n\"카이, 꽃이 정말 예뻐!\""
+        },
+        {
+          "role": "위기",
+          "pages": "2–3,11–12",
+          "anchorPage": 2,
+          "evidence": "어느 날, 앗! 뾰족한 거울 조각이 날아왔어요.\n카이의 눈과 마음에 콕 박혔지요.\n카이의 마음이 차갑게 변했어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "\"카이! 정말 보고 싶었어.\"\n겔다가 카이를 안고 엉엉 울었어요.\n따뜻한 눈물이 툭툭 떨어졌지요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "두 친구는 손을 꼬옥 잡았어요.\n다시 따뜻한 집으로 돌아왔지요.\n이제 매일매일 행복하게 웃는답니다!"
+        }
+      ],
+      "note": "얼음이 녹는 감정의 정점입니다. 겨울 색감과 따뜻한 귀환을 구분합니다.",
+      "priority": null
+    },
+    {
+      "title": "플란다스의 개",
+      "family": "F",
+      "representativeId": "1777277618365",
+      "variantIds": [
+        "1777277618365",
+        "1789350946312",
+        "1789350946313"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "fda3798341344d9d80ab1eb47f1fcd1419a7919c3127690953976014c4882759",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "작은 마을에 그림을 좋아하는 소년 넬로가 살았어요. 넬로는 쓱싹쓱싹 그림을 아주 잘 그렸지요."
+        },
+        {
+          "role": "위기",
+          "pages": "6–9",
+          "anchorPage": 6,
+          "evidence": "하지만 아주 슬픈 일이 생겼어요. 넬로를 돌봐주시던 할아버지가 하늘나라로 떠나셨거든요. 넬로는 엉엉 눈물을 흘렸어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "10–13",
+          "anchorPage": 10,
+          "evidence": "성당 안에는 커다란 그림이 있었어요. 넬로가 정말 보고 싶어 하던 그림이었지요."
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "다음 날 아침, 기쁜 소식이 들렸어요. \"넬로의 그림이 1등이에요!\" 사람들이 짝짝짝 박수를 쳤어요."
+        }
+      ],
+      "note": "탱고북에서는 마을의 사과·그림대회 우승·화가로의 성장이 있습니다. 비극 음악으로 끝내지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "어린 왕자",
+      "family": "G",
+      "representativeId": "1777277215628",
+      "variantIds": [
+        "1777277215628",
+        "1789350946314",
+        "1789350946315"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "8b27f932f09fffb5fa8fd44acdfae40dded85a20d4b27b70b270477158d30fdc",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4,7–9",
+          "anchorPage": 1,
+          "evidence": "아주아주 작은 별이 있었어요.\n그곳에 어린 왕자가 살았답니다.\n별은 반짝반짝 빛났어요."
+        },
+        {
+          "role": "위기",
+          "pages": "5–6,10",
+          "anchorPage": 5,
+          "evidence": "하지만 장미는 매일 툴툴거렸어요.\n\"너무 추워요!\" 하고 찡그렸어요.\n왕자는 마음이 아팠어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–14",
+          "anchorPage": 11,
+          "evidence": "그때, 살금살금 여우가 나타났어요.\n주황색 꼬리가 살랑살랑 흔들렸어요.\n\"안녕? 난 여우라고 해.\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "왕자는 자기 별로 돌아갔어요.\n\"나의 장미야, 정말 보고 싶었어!\"\n둘은 꼭 끌어안고 몹시 행복했답니다."
+        }
+      ],
+      "note": "위기는 장미와의 관계·외로움입니다. 여우의 깨달음은 조용한 정점입니다.",
+      "priority": null
+    },
+    {
+      "title": "소공녀",
+      "family": "F",
+      "representativeId": "1777277635476",
+      "variantIds": [
+        "1777277635476",
+        "1789350946308",
+        "1789350946309"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M05",
+      "textSha256": "f830fef1ae41fd6d4f8e45e087e87e1d5d8b0e27eb1d51e1ee77330e2c8fd9e6",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–3",
+          "anchorPage": 1,
+          "evidence": "예쁜 인형을 안고 세라가 학교에 왔어요.\n방긋방긋 웃는 모습이 정말 예뻤지요.\n\"안녕? 내 이름은 세라야.\""
+        },
+        {
+          "role": "위기",
+          "pages": "4–8",
+          "anchorPage": 4,
+          "evidence": "어느 날, 아주 슬픈 소식이 찾아왔어요.\n멀리 계신 아빠가 하늘나라로 떠나셨대요.\n세라는 훌쩍훌쩍 눈물을 흘렸어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "9–13",
+          "anchorPage": 9,
+          "evidence": "어느 날 밤, 다락방 창문이 활짝 열렸어요.\n우끼끼! 귀여운 원숭이가 쏙 들어왔네요!\n세라는 깜짝 놀라 두 눈이 동그래졌어요."
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "할아버지는 세라를 와락 안아주셨어요.\n쓰담쓰담 따뜻하게 머리를 만져주셨답니다.\n세라의 얼굴에 다시 환한 웃음이 피어났어요."
+        }
+      ],
+      "note": "추위와 상실은 부드러운 단조, 정체를 알아보는 장면에서 안도로 전환합니다.",
+      "priority": null
+    },
+    {
+      "title": "보물섬",
+      "family": "D",
+      "representativeId": "1777284655559",
+      "variantIds": [
+        "1777284655559",
+        "1789350946306",
+        "1789350946307"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "630341e936c063ba859d935b85ebce01620b932492ce0a974f5ada817f201bfe",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "바닷가 마을에 꼬마 짐이 살았어요.\n\"우와, 이게 뭐지?\""
+        },
+        {
+          "role": "위기",
+          "pages": "6–9,12",
+          "anchorPage": 6,
+          "evidence": "그런데 쿵쿵쿵, 실버 아저씨가 나타났어요.\n아저씨는 두리번두리번 주위를 살폈어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "10–11,13–14",
+          "anchorPage": 10,
+          "evidence": "우와! 커다란 나무 상자가 있었어요.\n노란 금화가 반짝반짝 빛났어요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "짐은 무사히 집으로 돌아왔어요.\n친구들과 보물을 나누며 활짝 웃었답니다."
+        }
+      ],
+      "note": "보물 발견 뒤 해적 추격이 다시 있습니다. 발견과 탈출에 같은 정점곡을 재사용합니다.",
+      "priority": 7
+    },
+    {
+      "title": "빨간머리 앤",
+      "family": "F",
+      "representativeId": "1777277632597",
+      "variantIds": [
+        "1777277632597",
+        "1789350946310",
+        "1789350946311"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "e9a84aa6e4ef4a313ed5e5ab3b2bbfe0544e1eecde6ab1c6df56f9e773b48664",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4,7–8",
+          "anchorPage": 1,
+          "evidence": "고아원에 머리카락이 빨간 소녀가 살았어요. 소녀의 이름은 앤이었지요.\n\"내 머리가 빨개서 아무도 나를 좋아하지 않아. 하지만 난 괜찮아!\""
+        },
+        {
+          "role": "위기",
+          "pages": "5–6,9–12",
+          "anchorPage": 5,
+          "evidence": "그런데 집 안에서 마릴라 아주머니가 팔짱을 끼고 기다리고 있었어요.\n\"남자아이를 데려오라고 했는데! 이 아이는 돌려보내야겠어요.\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "어느 가을날, 매슈 아저씨가 앤에게 예쁜 드레스를 선물했어요.\n\"아저씨, 저한테 드리는 거예요?\" 앤은 눈물을 글썽이며 꼭 안겼지요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "앤은 초록 지붕 집 마당에 서서 환하게 웃었어요.\n\"이제 난 외롭지 않아. 여기가 바로 내 집이야!\""
+        }
+      ],
+      "note": "귀속감과 성장입니다. 대회·화해의 기쁨도 작은 편성으로 처리합니다.",
+      "priority": null
+    },
+    {
+      "title": "키다리 아저씨",
+      "family": "F",
+      "representativeId": "1777284715922",
+      "variantIds": [
+        "1777284715922",
+        "1789350946302",
+        "1789350946303"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M11",
+      "textSha256": "7804b557ae78f7515841205d1b7c196acb236ecdf3603aacdd0aea86d84df995",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–11",
+          "anchorPage": 1,
+          "evidence": "마을 한켠에 있는 고아원에 주디라는 소녀가 살았어요. 주디는 책 읽기와 글쓰기를 누구보다 좋아하는 아이였답니다."
+        },
+        {
+          "role": "위기",
+          "pages": "12",
+          "anchorPage": 12,
+          "evidence": "어느 날, 주디에게 편지 한 통이 도착했어요. 키다리 아저씨가 처음으로 답장을 보내온 것이었지요.\n\"주디, 네가 행복하다니 나도 기쁘구나. 곧 만날 수 있을 거야.\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "두근두근! 주디는 마침내 키다리 아저씨를 만나러 갔어요. 문을 열고 들어서자 깜짝 놀라고 말았지요.\n\"어? 제러비스 아저씨!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "주디는 눈물이 날 것 같았지만 활짝 웃었어요. 그날부터 둘은 진짜 가족처럼 함께했답니다.\n\"누군가의 따뜻한 관심이 한 사람의 꿈을 활짝 피울 수 있답니다!\""
+        }
+      ],
+      "note": "위기는 소식에 대한 걱정·궁금증 수준입니다. 이 작품만을 위해 센 위기곡을 만들 필요가 없습니다.",
+      "priority": null
+    },
+    {
+      "title": "하이디",
+      "family": "F",
+      "representativeId": "1777284736052",
+      "variantIds": [
+        "1777284736052",
+        "1789350946298",
+        "1789350946299"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M10",
+      "textSha256": "2822c50215577b2a8c84d900a242e9700b1b9718dea2a56c0fa0360b63b93ec5",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–5",
+          "anchorPage": 1,
+          "evidence": "꼬마 하이디가 푸른 알프스 산에 도착했어요.\n\"우와, 산이 정말 아름다워!\"\n하이디는 두리번두리번 구경했어요."
+        },
+        {
+          "role": "위기",
+          "pages": "6–10",
+          "anchorPage": 6,
+          "evidence": "어느 날, 하이디는 복잡한 도시로 가게 되었어요.\n알프스 산을 떠나 멀리멀리 갔지요.\n하이디는 조금 슬펐어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "11–14",
+          "anchorPage": 11,
+          "evidence": "야호! 하이디가 다시 알프스 산으로 돌아왔어요.\n\"할아버지, 다녀왔어요!\"\n하이디는 할아버지 품에 쏘옥 안겼어요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "하이디와 클라라는 손을 잡고 깡충깡충 뛰었어요.\n할아버지도 허허허 크게 웃으셨어요.\n모두 다 함께 행복하게 살았답니다."
+        }
+      ],
+      "note": "귀향과 친구가 일어서는 장면을 따뜻한 고조로, 의료 효과를 음악 문구로 보장하지 않습니다.",
+      "priority": 4
+    },
+    {
+      "title": "신밧드의 모험",
+      "family": "D",
+      "representativeId": "1777284662626",
+      "variantIds": [
+        "1777284662626",
+        "1789350946304",
+        "1789350946305"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M08",
+      "textSha256": "dc99df594696e733ed7dfa277ee316a7e5e14ecd474fb23a765f91f6a119da84",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4,10–11",
+          "anchorPage": 1,
+          "evidence": "바다를 사랑하는 신밧드가 살았어요.\n오늘도 배를 타고 바다로 가요.\n야호! 정말 신나요!"
+        },
+        {
+          "role": "위기",
+          "pages": "5–9",
+          "anchorPage": 5,
+          "evidence": "우르르 쾅쾅! 갑자기 땅이 흔들려요.\n\"어? 지진이 났나 봐요!\"\n신밧드가 깜짝 놀랐어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–14",
+          "anchorPage": 12,
+          "evidence": "펄럭펄럭! 커다란 새가 날아왔어요.\n새가 알을 품으려고 앉았어요.\n\"새가 정말 어마어마하게 커요!\""
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "신밧드는 보물을 가득 싣고 돌아왔어요.\n\"다음엔 어디로 모험을 떠날까?\"\n신밧드는 활짝 웃었답니다."
+        }
+      ],
+      "note": "고래·파도에서 거대한 새의 비상으로 이어지는 모험입니다.",
+      "priority": null
+    },
+    {
+      "title": "헨젤과 그레텔",
+      "family": "B",
+      "representativeId": "1781588918173",
+      "variantIds": [
+        "1781588918173",
+        "1789350946292",
+        "1789350946293"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M04",
+      "textSha256": "f20e8c6fc650bf4279ae1cfe458e841c8892d615f2447f4ac6427ccf61c190ce",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4,6,9–10",
+          "anchorPage": 1,
+          "evidence": "깊은 숲 마을에 헨젤과 그레텔 남매가 살았어요. 가난한 아버지와 함께였지만, 둘은 늘 사이좋게 지냈지요.\n\"오빠, 오늘도 배고파.\""
+        },
+        {
+          "role": "위기",
+          "pages": "5,7–8,11–12",
+          "anchorPage": 5,
+          "evidence": "새엄마는 숲 한가운데에 불을 피워 주고는 남매를 두고 사라져 버렸어요.\n\"오빠, 무서워.\" \"걱정 마, 달이 뜨면 집으로 돌아갈 수 있어.\""
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "13–14",
+          "anchorPage": 13,
+          "evidence": "마침내 마녀가 화덕에 불을 피웠어요. 그레텔은 용기를 내어 마녀를 확 밀어버렸지요.\n\"어어어억!\" 마녀는 화덕 속으로 풍덩 빠져버렸어요."
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "집으로 돌아온 남매를 아버지가 눈물을 흘리며 꼭 안아주었어요. 가져온 보석 덕분에 가족은 행복하게 살았답니다.\n\"서로를 믿고 용기를 내면 어떤 어려움도 이겨낼 수 있답니다!\""
+        }
+      ],
+      "note": "달콤한 과자집을 행복한 결말로 오해하지 않도록 은은한 긴장을 남깁니다.",
+      "priority": null
+    },
+    {
+      "title": "파랑새",
+      "family": "G",
+      "representativeId": "1777284718837",
+      "variantIds": [
+        "1777284718837",
+        "1789350946300",
+        "1789350946301"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M10",
+      "textSha256": "ff4780b38226e42f40da6d69899f685c536e2bfaaeae99ab8b44524e3405be1c",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–6",
+          "anchorPage": 1,
+          "evidence": "\"오빠, 내일은 재미있게 놀자!\"\n틸틸과 미틸이 침대에 누워요.\n새근새근 잠을 자요."
+        },
+        {
+          "role": "위기",
+          "pages": "7–11",
+          "anchorPage": 7,
+          "evidence": "새를 품에 꼬옥 안고 돌아왔어요.\n앗, 그런데 새가 까맣게 변했어요.\n진짜 파랑새가 아니었나 봐요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "아침 해가 쨍쨍 밝았어요.\n짹짹짹! 예쁜 소리가 들려요.\n아이들이 눈을 번쩍 떴어요."
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "\"행복은 늘 우리 곁에 있었구나!\"\n틸틸과 미틸이 하하호호 웃어요.\n정말정말 기분이 좋아요."
+        }
+      ],
+      "note": "행복을 발견하는 조용한 정점입니다. 무리한 추격·승리 곡이 필요하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "빨간모자",
+      "family": "B",
+      "representativeId": "1778476961082",
+      "variantIds": [
+        "1778476961082",
+        "1789350946296",
+        "1789350946297"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M03",
+      "textSha256": "afab37951f4954fe4d573aae7f4a37196e65faae268630c3f43f7ae7dcb76a84",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–4",
+          "anchorPage": 1,
+          "evidence": "옛날 아주 먼 옛날, 귀여운 빨간 모자가 살았어요. 마을 사람들은 모두 빨간 모자를 사랑했지요."
+        },
+        {
+          "role": "위기",
+          "pages": "5–11",
+          "anchorPage": 5,
+          "evidence": "그때, 커다란 늑대가 나타나 길을 막았어요.\n“안녕, 꼬마야! 혼자 어디 가니?”\n늑대는 아주 상냥한 목소리로 물었어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–14",
+          "anchorPage": 12,
+          "evidence": "“할머니, 이빨은 왜 이렇게 무서워요?”\n늑대가 이불을 걷어차며 소리쳤어요.\n“너를 꿀꺽 잡아먹으려고 그러지!”"
+        },
+        {
+          "role": "해소",
+          "pages": "15",
+          "anchorPage": 15,
+          "evidence": "사냥꾼 아저씨가 옷장 문을 열자 할머니가 나오셨어요. 할머니와 빨간 모자는 꼭 껴안았지요. 빨간 모자는 할머니 손을 잡고 약속했어요.  “이제 엄마 말씀 잘 들을게요!”"
+        }
+      ],
+      "note": "현재 책은 할머니가 옷장에 갇혔다가 구조됩니다. 다른 판본의 결말을 가정하지 않습니다.",
+      "priority": null
+    },
+    {
+      "title": "백설공주",
+      "family": "A",
+      "representativeId": "1778555233699",
+      "variantIds": [
+        "1778555233699",
+        "1789350946294",
+        "1789350946295"
+      ],
+      "pageCount": 15,
+      "currentMusic": "M03",
+      "textSha256": "4645912c44dba776cab3c4aba7ac45b65288a935f534563b8f4041b55517da49",
+      "stages": [
+        {
+          "role": "시작",
+          "pages": "1–2,4–7",
+          "anchorPage": 1,
+          "evidence": "옛날 아주 먼 옛날, 피부가 눈처럼 하얀 **백설공주**가 살았어요. 마음씨도 얼굴만큼 아주 착하고 예쁜 공주님이었지요."
+        },
+        {
+          "role": "위기",
+          "pages": "3,8–11",
+          "anchorPage": 3,
+          "evidence": "거울이 대답했어요. “백설공주가 세상에서 가장 예쁩니다!”\n욕심쟁이 왕비는 화가 나서 백설공주를 성 밖으로 쫓아냈어요."
+        },
+        {
+          "role": "클라이맥스",
+          "pages": "12–13",
+          "anchorPage": 12,
+          "evidence": "그때, 숲을 지나가던 멋진 왕자님이 백설공주를 보았어요.\n“이렇게 아름다운 공주님이 왜 잠들어 있나요?”"
+        },
+        {
+          "role": "해소",
+          "pages": "14–15",
+          "anchorPage": 14,
+          "evidence": "백설공주와 왕자님은 서로를 보고 활짝 웃었어요.\n기뻐하는 난쟁이들과 함께 숲속 잔치가 벌어졌지요."
+        }
+      ],
+      "note": "원책은 사과 조각이 튀어나오며 깨어납니다. 잠든 장면을 과장된 공포로 만들지 않습니다.",
+      "priority": null
+    }
+  ]
+}
