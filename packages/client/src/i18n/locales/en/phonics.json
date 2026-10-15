@@ -291,7 +291,9 @@
     "tryFromStart": "Try again from the starting dot",
     "strokeNumber": "Trace stroke {{n}}",
     "strokeProgress": "Completed strokes",
-    "tapDot": "Tap the little dot"
+    "tapDot": "Tap the little dot",
+    "tapDotAction": "Tap!",
+    "tapLetterDot": "Tap the dot on {{letter}}"
   },
   "cvc": {
     "learn": "Learn {{pattern}}",

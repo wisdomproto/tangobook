@@ -292,6 +292,27 @@ function counterCount(ink: Ink, box: Rect): number {
   return counters;
 }
 
+/** Independent pixel projection can bounce between neighbouring ink pixels.
+ * Remove only tiny return loops; real letter bowls have much longer arcs. */
+export function trimProjectionLoops(source: StrokePoint[]): StrokePoint[] {
+  if (source.length < 3) return source;
+  const points: StrokePoint[] = [];
+  for (const point of source) {
+    let travelled = 0;
+    let match = -1;
+    for (let i = points.length - 1; i >= 0; i--) {
+      if (i < points.length - 1)
+        travelled += Math.hypot(points[i + 1].x - points[i].x, points[i + 1].y - points[i].y);
+      if (travelled > 32) break;
+      if (Math.hypot(point.x - points[i].x, point.y - points[i].y) < 1.5) match = i;
+    }
+    if (match >= 0) points.length = match + 1;
+    const last = points[points.length - 1];
+    if (!last || last.x !== point.x || last.y !== point.y) points.push(point);
+  }
+  return points.length > 1 ? points : [source[0], source[source.length - 1]];
+}
+
 function fit(
   ink: Ink,
   letter: string,
@@ -372,7 +393,8 @@ function fit(
       : vertical
         ? { axis: 'x' as const, value: mid.x }
         : undefined;
-    const points = path.map((point) => project(point, locked));
+    const projected = path.map((point) => project(point, locked));
+    const points = /^[A-Za-z]$/.test(letter) ? trimProjectionLoops(projected) : projected;
     // A printed i/j dot can project every sample to the same centre pixel.
     // Keep a tiny visible stroke there (and let the pencil tap it).
     if (points.every((point) => Math.hypot(point.x - points[0].x, point.y - points[0].y) < 0.5)) {

@@ -6,6 +6,7 @@
   width: min(100%, 384px);
 }
 .stroke-trace-paper {
+  container-type: inline-size;
   position: relative;
   width: 100%;
   border-radius: 25px;
@@ -17,6 +18,58 @@
 .stroke-trace-paper canvas {
   display: block;
   width: 100%;
+}
+.stroke-trace-dot-target {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #22694f;
+  border-radius: 50%;
+  background: #e6f6df;
+  box-shadow: 0 3px 0 #b4d4b5;
+  cursor: pointer;
+  touch-action: manipulation;
+  animation: stroke-dot-invite 1.4s ease-out infinite;
+}
+.stroke-trace-dot-target:active {
+  background: #bde7c6;
+  box-shadow: none;
+}
+.stroke-trace-dot-target:focus-visible {
+  outline: 3px solid #22694f;
+  outline-offset: 3px;
+}
+.stroke-trace-dot-ink {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22694f;
+}
+.stroke-trace-dot-label {
+  position: absolute;
+  left: calc(100% + 5px);
+  color: #22694f;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+@container (max-width: 140px) {
+  .stroke-trace-dot-label {
+    display: none;
+  }
+}
+@keyframes stroke-dot-invite {
+  0%,
+  100% {
+    outline: 0 solid #7ab88c00;
+  }
+  50% {
+    outline: 7px solid #7ab88c35;
+  }
 }
 .stroke-trace-paper[data-complete] {
   border-color: #65b48e;
@@ -95,6 +148,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .stroke-trace-dot-target {
+    animation: none;
+  }
   .stroke-trace-flash {
     animation: none;
     opacity: 0;

@@ -140,6 +140,19 @@ export function StrokeTraceCanvas({
     setTrail(traced.map((p, i) => `${i ? 'L' : 'M'} ${p.x} ${p.y}`).join(' '));
     feedDrawLoop();
   };
+  const completeStroke = () => {
+    if (reported.current) return;
+    setRetry(false);
+    const count = ++index.current;
+    setDone(count);
+    paint(count);
+    playUi(count === strokes.length ? 'success' : 'select');
+    if (count === strokes.length) {
+      reported.current = true;
+      emitLearningEffect('letter', canvas.current);
+      onResult(true, 1);
+    }
+  };
   const end = (e: PointerEvent<HTMLCanvasElement>, cancelled = false) => {
     if (e.pointerId !== pointer.current) return;
     const data = model.current!;
@@ -155,17 +168,10 @@ export function StrokeTraceCanvas({
       setRetry(true);
       return;
     }
-    const count = ++index.current;
-    setDone(count);
-    paint(count);
-    playUi(count === strokes.length ? 'success' : 'select');
-    if (count === strokes.length && !reported.current) {
-      reported.current = true;
-      emitLearningEffect('letter', canvas.current);
-      onResult(true, 1);
-    }
+    completeStroke();
   };
   const passed = strokes.length > 0 && done === strokes.length;
+  const currentDot = ready && !passed && strokes[done]?.dot ? strokes[done] : null;
   return (
     <div
       className="letter-fill-canvas stroke-trace-canvas"
@@ -186,7 +192,7 @@ export function StrokeTraceCanvas({
           onPointerCancel={(e) => end(e, true)}
           onLostPointerCapture={(e) => end(e, true)}
         />
-        {!passed && (
+        {!passed && (!currentDot || demonstrating) && (
           <VowelStrokeOverlay
             key={demoVersion}
             strokes={strokes}
@@ -196,6 +202,25 @@ export function StrokeTraceCanvas({
             onDemoEnd={endDemo}
             accent={english ? '#22694f' : undefined}
           />
+        )}
+        {currentDot && !demonstrating && (
+          <button
+            type="button"
+            className="stroke-trace-dot-target"
+            style={{
+              left: `clamp(22px, ${(currentDot.from.x / SIZE) * 100}%, calc(100% - 22px))`,
+              top: `clamp(22px, ${(currentDot.from.y / SIZE) * 100}%, calc(100% - 22px))`,
+            }}
+            aria-label={t('write.tapLetterDot', { letter })}
+            onClick={() => {
+              if (model.current?.paths[index.current]?.dot) completeStroke();
+            }}
+          >
+            <span className="stroke-trace-dot-ink" aria-hidden="true" />
+            <span className="stroke-trace-dot-label" aria-hidden="true">
+              {t('write.tapDotAction')}
+            </span>
+          </button>
         )}
         {trail && (
           <svg viewBox="0 0 400 400" aria-hidden="true" className="stroke-trace-ink">

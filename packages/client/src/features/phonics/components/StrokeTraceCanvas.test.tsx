@@ -5,15 +5,30 @@ vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), playUi: vi.fn() }));
 vi.mock('@/features/games/effects/learning-effects', () => ({ emitLearningEffect: vi.fn() }));
 vi.mock('./letter-stroke-guide', () => ({
   getLetterGuideStrokes: (letter: string) =>
-    letter === 'i'
+    letter === 'j'
       ? [
-          { from: { x: 200, y: 100 }, to: { x: 200, y: 300 } },
+          {
+            from: { x: 200, y: 100 },
+            to: { x: 160, y: 300 },
+            points: [
+              { x: 200, y: 100 },
+              { x: 200, y: 260 },
+              { x: 195, y: 280 },
+              { x: 180, y: 296 },
+              { x: 160, y: 300 },
+            ],
+          },
           { from: { x: 200, y: 50 }, to: { x: 201, y: 50 }, dot: true },
         ]
-      : [
-          { from: { x: 120, y: 60 }, to: { x: 120, y: 330 } },
-          { from: { x: 120, y: 190 }, to: { x: 230, y: 190 } },
-        ],
+      : letter === 'i'
+        ? [
+            { from: { x: 200, y: 100 }, to: { x: 200, y: 300 } },
+            { from: { x: 200, y: 50 }, to: { x: 201, y: 50 }, dot: true },
+          ]
+        : [
+            { from: { x: 120, y: 60 }, to: { x: 120, y: 330 } },
+            { from: { x: 120, y: 190 }, to: { x: 230, y: 190 } },
+          ],
 }));
 const fonts = Object.getOwnPropertyDescriptor(document, 'fonts');
 const mask = () => {
@@ -69,6 +84,32 @@ function gesture(canvas: HTMLElement, from: number[], to: number[], cancel = fal
   });
 }
 describe('실제 획 순서와 완료 배선', () => {
+  it.each(['i', 'j'])('%s 점 버튼은 몸통 뒤에만 열리고 실제 클릭 한 번만 완료한다', (letter) => {
+    const result = vi.fn();
+    render(<StrokeTraceCanvas letter={letter} guidance="hint" compact onResult={result} />);
+    expect(screen.queryByRole('button', { name: `${letter} 점 찍기` })).not.toBeInTheDocument();
+    const paper = screen.getByLabelText(`${letter} 따라쓰기`);
+    if (letter === 'j') {
+      fireEvent.pointerDown(paper, { pointerId: 1, clientX: 205, clientY: 104 });
+      for (const [x, y] of [
+        [205, 170],
+        [195, 250],
+        [200, 278],
+        [183, 293],
+        [163, 301],
+      ])
+        fireEvent.pointerMove(paper, { pointerId: 1, clientX: x, clientY: y });
+      fireEvent.pointerUp(paper, { pointerId: 1, clientX: 163, clientY: 301 });
+    } else gesture(paper, [200, 100], [203, 297]);
+    const dot = screen.getByRole('button', { name: `${letter} 점 찍기` });
+    expect(dot).toHaveTextContent('톡!');
+    fireEvent.pointerDown(dot, { pointerId: 4 });
+    fireEvent.pointerCancel(dot, { pointerId: 4 });
+    expect(result).not.toHaveBeenCalled();
+    fireEvent.click(dot);
+    expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+    expect(screen.queryByRole('button', { name: `${letter} 점 찍기` })).not.toBeInTheDocument();
+  });
   it('영어 i는 몸통을 먼저 쓴 뒤 점을 찍어야 완료하며 점찍기 취소는 인정하지 않는다', () => {
     const result = vi.fn();
     render(<StrokeTraceCanvas letter="i" guidance="hint" compact onResult={result} />);

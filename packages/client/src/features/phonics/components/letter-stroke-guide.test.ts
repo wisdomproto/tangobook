@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { ENGLISH_STROKES } from './english-stroke-templates';
-import { getLetterGuideStrokes, isGuidedLetter, sampleFormationPath } from './letter-stroke-guide';
+import {
+  getLetterGuideStrokes,
+  isGuidedLetter,
+  sampleFormationPath,
+  trimProjectionLoops,
+} from './letter-stroke-guide';
 import { guidePoints } from './vowel-stroke-guide';
 
 function mask(lines: number[][], offset = 0) {
@@ -29,6 +34,27 @@ function mask(lines: number[][], offset = 0) {
 }
 
 describe('all-writing formation paths', () => {
+  it('removes pixel-projection return loops without cutting a real bowl or its endpoints', () => {
+    const start = { x: 145, y: 185 },
+      corner = { x: 145, y: 161 },
+      bounce = { x: 146, y: 165 },
+      end = { x: 185, y: 151 };
+    expect(trimProjectionLoops([start, corner, bounce, corner, bounce, corner, end])).toEqual([
+      start,
+      corner,
+      end,
+    ]);
+    const bowl = [
+      { x: 200, y: 60 },
+      { x: 120, y: 110 },
+      { x: 120, y: 210 },
+      { x: 200, y: 260 },
+      { x: 280, y: 210 },
+      { x: 280, y: 110 },
+      { x: 200, y: 60 },
+    ];
+    expect(trimProjectionLoops(bowl)).toEqual(bowl);
+  });
   it('covers exactly 52 Latin letters, with curves rather than diagonal legacy a/S paths', () => {
     expect(Object.keys(ENGLISH_STROKES).sort()).toEqual(
       [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].sort()

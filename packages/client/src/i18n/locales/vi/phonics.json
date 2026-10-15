@@ -291,7 +291,9 @@
     "tryFromStart": "Thử lại từ điểm bắt đầu",
     "strokeNumber": "Viết nét {{n}}",
     "strokeProgress": "Nét đã hoàn thành",
-    "tapDot": "Chạm vào dấu chấm nhỏ"
+    "tapDot": "Chạm vào dấu chấm nhỏ",
+    "tapDotAction": "Chạm!",
+    "tapLetterDot": "Chạm dấu chấm trên {{letter}}"
   },
   "cvc": {
     "learn": "Học {{pattern}}",

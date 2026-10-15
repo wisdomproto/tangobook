@@ -291,7 +291,9 @@
     "tryFromStart": "ลองอีกครั้งจากจุดเริ่มต้น",
     "strokeNumber": "ลากเส้นที่ {{n}}",
     "strokeProgress": "เส้นที่เขียนเสร็จ",
-    "tapDot": "แตะจุดเล็ก ๆ"
+    "tapDot": "แตะจุดเล็ก ๆ",
+    "tapDotAction": "แตะ!",
+    "tapLetterDot": "แตะจุดบน {{letter}}"
   },
   "cvc": {
     "learn": "เรียน {{pattern}}",

@@ -291,7 +291,9 @@
     "tryFromStart": "从起点再试一次",
     "strokeNumber": "描写第{{n}}笔",
     "strokeProgress": "已完成笔画",
-    "tapDot": "轻点小圆点"
+    "tapDot": "轻点小圆点",
+    "tapDotAction": "点!",
+    "tapLetterDot": "点{{letter}}的小圆点"
   },
   "cvc": {
     "learn": "学习 {{pattern}}",

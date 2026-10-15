@@ -291,7 +291,9 @@
     "tryFromStart": "시작점에서 다시 쓱 그어봐요",
     "strokeNumber": "{{n}}번째 획을 그어봐요",
     "strokeProgress": "완성한 획",
-    "tapDot": "작은 점을 톡 찍어봐요"
+    "tapDot": "작은 점을 톡 찍어봐요",
+    "tapDotAction": "톡!",
+    "tapLetterDot": "{{letter}} 점 찍기"
   },
   "cvc": {
     "learn": "{{pattern}} 배우기",
