@@ -269,11 +269,17 @@ export function PhonicsJourneyMap({
         list?.querySelector<HTMLElement>('[data-running-leaf]') ??
         list?.querySelector<HTMLElement>('li[data-selected]') ??
         list?.querySelector<HTMLElement>('[aria-current="step"]');
-      if (list && current)
+      if (list && current) {
+        const sectionHeading = current
+          .closest('[data-kind="section"]')
+          ?.querySelector('.workspace-tree-toggle');
+        const headingHeight = sectionHeading?.getBoundingClientRect().height ?? 0;
         list.scrollTop +=
           current.getBoundingClientRect().top -
           list.getBoundingClientRect().top -
-          (list.clientHeight - current.clientHeight) / 2;
+          headingHeight -
+          Math.max(0, (list.clientHeight - headingHeight - current.clientHeight) / 2);
+      }
     });
     return () => window.cancelAnimationFrame(frame);
   }, [
@@ -712,14 +718,17 @@ export function PhonicsJourneyMap({
                     {t(courseOutlineOpen ? 'workspace.chapterActivities' : 'workspace.fullCourse')}
                   </button>
                 )}
-                <div className="journey-chapter-heading" hidden={courseOutlineOpen}>
+                <div
+                  className={`journey-chapter-heading${workspace ? ' workspace-chapter-plaque' : ''}`}
+                  hidden={courseOutlineOpen}
+                >
                   {free &&
                     (lang === 'korean' ? (
                       <StageLetter lang={lang} unit={selectedUnit} />
                     ) : (
                       <StorybookSprite name="english" size={compact ? 28 : 46} />
                     ))}
-                  <div>
+                  <div className="workspace-chapter-name">
                     <p className="journey-eyebrow">{levelName(t, selectedUnit)}</p>
                     <h2>{unitTitle(t, selectedUnit)}</h2>
                   </div>
