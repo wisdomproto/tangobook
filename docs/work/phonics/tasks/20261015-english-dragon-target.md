@@ -2,12 +2,12 @@
 
 - id: 20261015-english-dragon-target
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-15
 - base: da941bcb8
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 로컬 통합 대기
+- integration: 11324f039 로컬 main 포함 확인
 - delivery: 미푸시·미배포
 
 ## 요청·원인
@@ -35,3 +35,7 @@
 - learning-targets 회귀: 기존 source의 세 경로·복습 재유입 차단, 원본 불변·일반 동화 보존. 기존 영어 host 회귀와 관련 단위 검사 통과.
 - 현재 작업 폴더 client typecheck 통과. 관련 phonics 전체 + 기록/색칠 hook 47파일 376검사 통과(진행 중인 낱말 연결 변경 포함한 작업 폴더 검증이며 이 단일 커밋만의 독립 실행이라고 주장하지 않는다).
 - 실제 로컬5187 en-b4-u04/learn-dr_에서 dress/drive/drum 세 행 표시·dragon 없음 확인. screenshot output/connected-word-learning-20261015/dr-targets.png. 운영 배포 검증 아님.
+
+## 로컬 main 검증
+
+11324f039을 main에 fast-forward 통합했다. main checkout에서 shared build, learning-targets/useReviewCardSources/EnglishPhonicsActivityPage 3파일10검사와 client typecheck 통과. 관련 코드 외 미커밋 낱말 연결 변경은 원래 worktree에 보존하며 main에 포함하지 않았다. 원격 push·운영 반영 없음.
