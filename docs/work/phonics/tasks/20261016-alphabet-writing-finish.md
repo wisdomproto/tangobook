@@ -6,7 +6,7 @@
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: a4d93fcfb 로컬 main fast-forward 통합, 새 push/배포 없음
+- delivery: 사용자 요청으로 3097cac0a 원격 main 일반 push 완료·SHA 일치/0·0 확인. 운영 배포 완료는 미확인.
 
 ## 사용자 반증과 확인
 
@@ -29,3 +29,7 @@
 - 증거: worktree output/alphabet-finish-20261016/{clean-d-stem.png,completed-letter.png,completed-lowercase.png,phone-reward.png}. 임시 검수 HTML/TSX는 output으로 옮기고 제품/커밋에서는 제외했다. 운영 진도/콘텐츠 수정·새 push/배포 없음.
 
 최종 client typecheck·build(29.18초) 성공. 기존 Browserslist/i18n 청크/lottie eval 경고는 빌드 실패가 아니며 이번 범위 밖이다.
+
+## main 전달 — 2026-10-16
+
+사용자가 이번 수정 main push를 요청했다. fetch 후 origin/main 910ac8108 대비0/4·미커밋 tracked 변경 없음, 관련 diff/이전 검수 결과를 확인했다. 일반 push 910ac8108→3097cac0a 성공·ls-remote SHA 동일·ahead/behind0/0. 기존 미추적 자료와 다른 worktree는 보존했다. 아래 미푸시 기록은 구현 당시 상태이며 운영 배포 성공/운영 실제 쓰기 검수는 별도 확인이 필요하다.
