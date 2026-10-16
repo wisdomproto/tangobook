@@ -2,7 +2,7 @@
 
 - id: 20261016-book-entry-unlock
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
@@ -32,3 +32,7 @@
 - 실제 로컬 한글5권 `kr-h4-u01/letter-listen-ㅐ`, 영어Book5 `en-b5-u01/learn-ee`를 지도 버튼으로 진입했다. 앞 권으로 리다이렉트되지 않음·학습 중 기본 목록 접힘·지도 복귀 시5권/첫 미완료/이어하기 유지·뒤 챕터 잠금·양쪽 스크린샷 확인. 기존 로컬 진도는 삭제/추가 완료하지 않았다(실제 안내 진입에 따른 이어할 권만5권으로 바뀜).
 - `output/book-entry-unlock-20261016/korean-book5.png`, `english-book5.png`에 실제 화면을 보존했다. 브라우저는 클라이언트만 로컬5187, 준비된 콘텐츠는 `API_TARGET` 운영 읽기로 확인했다. 비밀 설정 없는 임시 backend는 종료했고 발행 스케줄러는 비활성 상태로만 기동했다. 서버/R2 자격증명 부재에 따른 초기 메타데이터 오류는 제품 결함과 구분한다.
 - 최종 client 타입 검사·변경 TS/TSX ESLint·client build36.42초 성공. 기존 Browserslist/Lottie eval/청크 크기 경고가 남는다. 실기기 터치/운영 배포 확인은 이번 범위가 아니다. 새 push 요청 없음.
+
+## 로컬 main 통합
+
+코드·결정/검수 기록 `b964bd1f1`을 tracked 변경 없는 `C:/project/tangobook` main에 fast-forward 통합했다. fetch 당시 origin/main과 기준 a8d68e74c는0/0이었다. 기존 미추적 산출물을 보존하고 영역/공유 메모리를 갱신했다. 이번 작업의 원격 push/운영 배포는 하지 않았다.
