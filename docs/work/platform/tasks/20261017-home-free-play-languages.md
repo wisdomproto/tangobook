@@ -2,12 +2,13 @@
 
 - id: 20261017-home-free-play-languages
 - domain: platform
-- status: ready
+- status: integrated
 - updated: 2026-10-17
 - base: 527695698
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 구현·검수 완료, main 통합 예정·새 push 요청 없음
+- integration: eacd859df 로컬 main fast-forward 포함 확인
+- delivery: 로컬 main 통합 완료·미푸시/미배포
 
 ## 사용자 결정
 
@@ -26,3 +27,7 @@
 - 홈1280×720/1024×768/568×320/375×812의 언어 선택/4버튼 배치를 확인했다. 작은3크기 DOM에서 언어44px·카드 라벨 침범0·그림/라벨 겹침0·가로넘침0, 세로폰에서는 스크롤해 선택/4그림을 육안 확인했다. 영어4종 최종PC는 그림 complete/naturalWidth를 확인했고 숨은그림568×320의 장면/영어 대상도 확인했다. 초기 빠른 캡처는 이미지 로딩 전이라 최종 완전 로딩 캡처와 구분하며 모든 게임/실기기 반응형 전수 검수로 확대하지 않는다.
 - 기존 BookCover React18 fetchPriority 개발 경고가 남으며 이번 제품 오류로 숨기거나 console0이라고 보고하지 않는다. 화면 증거 `C:/project/tangobook/output/home-free-play-languages-20261017/`: home-en-pc.png, home-en-크기.png3개, layout-audit.json, blocks-en-pc.png/writing-en-pc.png/coloring-en-pc.png/hidden-en-pc.png, blocks/writing/coloring-en-final-pc.png, hidden-en-568.png. 초기 캡처 파일명과 실제크기가 달랐던3장을 실제PC 이름으로 정정했다.
 - 기존 스케줄러를 비활성화한 Vite5187·공개 API proxy를 재사용했다. 새 서버·새 이미지 생성/콘텐츠 배치/운영 설정 변경·새 push는 없으며 로컬 코드와 기록만 전달한다.
+
+## 로컬 main 통합
+
+eacd859df 코드·기억을 root main에 fast-forward 통합하고 ancestor·tracked clean을 확인했다. 최종78검사·타입·ESLint·Prettier·빌드41.31초의 결과를 유지한다. 새 작업의 원격 push/배포는 요청되지 않아 수행하지 않았다. 검수 output/tmp와 다른 worktree는 보존한다.

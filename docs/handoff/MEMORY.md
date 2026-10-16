@@ -1,6 +1,6 @@
 # TangoBook 공유 메모리
 
-2026-10-17 [홈 바로 놀기 한영 선택](../work/platform/tasks/20261017-home-free-play-languages.md): 제목 옆44px 한글/영어 선택·영어4종 직접 시작 구현/검수 완료, 로컬 main 통합 예정. 홈 playLang/게임 lang·query cache 분리, 실제 책 번역/영어 음원·기존 English player·입문 어휘2~4글자·그림 출처 보존. 홈 아이콘 선택 유실을 scoped context로 수정, 다른 게임 기본 홈 보존.78검사·타입/lint/build41.31초·한영4진입/복귀/영어 일부 실제입력·홈4크기 확인. 전체 완주·실기기 아님, 새 push 없음.
+2026-10-17 [홈 바로 놀기 한영 선택](../work/platform/tasks/20261017-home-free-play-languages.md): 제목 옆44px 한글/영어 선택·영어4종 직접 시작 eacd859df 로컬 main 통합. 홈 playLang/게임 lang·query cache 분리, 실제 책 번역/영어 음원·기존 English player·입문 어휘2~4글자·그림 출처 보존. 홈 아이콘 선택 유실을 scoped context로 수정, 다른 게임 기본 홈 보존.78검사·타입/lint/build41.31초·한영4진입/복귀/영어 일부 실제입력·홈4크기 확인. 전체 완주·실기기 아님, 새 push 없음.
 
 2026-10-17 [홈 바로 놀기 운영 확인](../work/platform/tasks/20261016-home-free-play.md#운영-배포바로-시작-검수--2026-10-17): ad0fc843b/Railway c6c5c341 successful·Active 및 Git SHA 직접 확인. 운영 홈4버튼 실제 클릭→중간 선택 없이 실제 게임→홈 복귀, 색칠 클릭/숨은그림1개 정답·console error0/health ok. **현재4종 모두 한글 전용, 한영 선택 미지원**이며 UI 번역과 다르다. 새 영어 기능·제품 변경·push 없이 검수 기록만 로컬 보존.
 
