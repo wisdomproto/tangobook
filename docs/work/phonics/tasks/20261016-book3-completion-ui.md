@@ -51,3 +51,13 @@
 사용자 현재 요청으로3db00896e의 명시적 권 이름·열림/잠김 색·새 CTA 및 쓰기 배치 수정과 검수 기록을 원격 main 일반 push 대상으로 확정했다. 후속 질문의 세 상태는 **완료=초록+체크 / 지금 할 활동=한글 코랄·영어 민트 / 잠김=회색+자물쇠**로 기존 수정에 포함됨을 재확인했다. fetch 후 origin/main 대비0/3·tracked 미커밋 없음·전달 diff/검증 기록 확인. 운영 배포 완료와 3권 전체 완주 검수는 별도로 확인해야 한다. 위 새 push 없음은 구현 당시 상태다.
 
 추가 사용자 후속의71b95a915(활동별 직접 재생·지도 하단 CTA 제거)도 같은 승인 범위에 포함해 main으로 정상 통합했다. 생성 자산은 보존하되 지도 하단에는 사용하지 않는다. 문서만 추가된 main 기록과 ort 병합·충돌 없음, 코드 검증 결과는 동일하다.
+
+## 운영 배포·3상태/활동 재생 검수 — 2026-10-16
+
+- 원격 main=45e4a8fb7bf29d164961107a57534153fdc97bbb·좌우0/0 확인. [Railway 배포](https://railway.com/project/b469e171-479c-400a-80bc-8ab4273c25de/service/0019800b-d014-4464-8638-60dcf283677e?environmentId=9d29baf7-1890-453a-956e-94bc329ef98d&id=a6a9135d-2ac1-42b8-acee-1a00464239d7#details)에서 **Deployment successful·Active**와 Details의 GitHub commit 링크가 해당 SHA임을 직접 확인. 공개 JS index-B13eZvUg.js.
+- 새 운영 한글3권 받침 지도에서 기존 완료 `ㅇ 받침 익히기`는 초록 #94caaa·체크+재생, 현재 `ㅇ 받침 쓰기`는 코랄 면 #fff0e0/테두리 #c43a1c·재생, 다음 낱말4단계는 회색 #eef0ed·disabled/자물쇠·재생 없음. 실제 computed style·육안 모두 확인, 하단 journey-play-button0.
+- 완료 행을 눌러 coda-listen-1 복습 실제 본문 진입→지도 복귀, 현재 행을 눌러 consonant-write 실제 쓰기2/4 진입 확인. 펼친 목록에서 현재 행은 학습 중/재생으로 표시되며 다시 눌러도 같은 route 유지·목록만 접힘. 앞서 수정한 받침14탭 한 줄/두 칸 하단 화면 안 배치도 운영에서 확인했다.
+- 영어Book5 지도 현재ee는 민트 #d8f3e7/테두리 #1f6749·재생, ea/낱말4단계는 같은 회색 disabled·자물쇠·재생 없음. 현재 행 클릭→en-b5-u01/learn-ee의 bee/feet/green/seed/tree 실제 본문 확인→지도 복귀. 하단 CTA0. **기존 운영 영어 완료 기록은0이라 영어 완료 초록 상태를 직접 관찰했다고 확대하지 않음**; 완료 초록/복습은 한글의 실제 기존 완료 행으로 확인했다.
+- 양쪽 지도 권 완료율은 전후 동일(한글0/1/3/0/0%, 영어전부0). 이번 새 완료/정답/학생 기록 임의 수정 없이 진입·복귀만 수행. 브라우저 console error 한영각0. 기존 사용자 지도/쓰기 탭은 보존, 새 한영 지도만 확인용 유지.
+- 증거 `C:/project/tangobook/output/production-activity-play-20261016/`: results.json·deployment-success.png·korean-three-states.png·english-states.png·korean-current-writing.png·english-current-learning.png. JSON은 관찰한 DOM 표시/URL/상태만 기록.
+- 이번은 배포·3상태/재생 진입 검수다. **운영 한글3권/영어Book3 전체 챕터 완주·다음 챕터 잠금 해제/이어하기는 여전히 미완료**. 코드 수정·새 push/배포 없이 검수 기록만 로컬 보존하며, 위 운영 미확인은 이전 시점이다.
