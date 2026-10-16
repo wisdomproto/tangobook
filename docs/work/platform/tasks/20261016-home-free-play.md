@@ -2,12 +2,12 @@
 
 - id: 20261016-home-free-play
 - domain: platform
-- status: validated
+- status: integrated
 - updated: 2026-10-16
 - base: 141b05991
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: 23e0c9c53 로컬 main fast-forward 포함 확인
 - delivery: 미푸시·미배포
 
 ## 사용자 결정
@@ -35,4 +35,4 @@
 
 ## 인계
 
-최종6파일53검사·client 타입·변경TS/TSX ESLint·build28.70초 통과. 기존 Browserslist/Lottie eval/혼합 import/큰 청크 경고는 남는다. 코드/기억을 로컬 커밋·main 통합하며 이번 변경 push/배포는 요청받지 않았다. 기존 DISABLE_PUBLISH_SCHEDULER=1인client Vite5187/공개 API 읽기 proxy를 재사용했고 사용자 미추적 output/tmp는 보존한다.
+최종6파일53검사·client 타입·변경TS/TSX ESLint·build28.70초 통과. 기존 Browserslist/Lottie eval/혼합 import/큰 청크 경고는 남는다. 코드/기억23e0c9c53을 로컬 main에 fast-forward 통합하고 ancestor·tracked clean을 확인했다. 이번 변경 push/배포는 요청받지 않았다. 기존 DISABLE_PUBLISH_SCHEDULER=1인client Vite5187/공개 API 읽기 proxy를 재사용했고 사용자 미추적 output/tmp는 보존했다.
