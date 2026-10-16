@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { HangulPopitActivity } from './HangulPopitActivity';
 import { ConsonantTapActivity } from './ConsonantTapActivity';
 import { VowelListenActivity } from './VowelListenActivity';
+import { POPIT_ALPHABET } from '../lib/popit-letter-designs';
 
 const audio = vi.hoisted(() => ({
   resolve: vi.fn(async (): Promise<string | undefined> => 'phoneme.mp3'),
@@ -38,18 +39,30 @@ afterEach(() => {
 });
 
 describe('말랑 자모 팝잇', () => {
-  it.each(['ㅏ', 'ㄱ', 'ㅇ'] as const)(
+  it.each(POPIT_ALPHABET)(
     '%s의 방울은 즉시 눌리며, 연타는 중복 진행 없이 마지막 발음·칭찬 후 한 번만 완료한다',
     async (letter) => {
       const done = vi.fn();
       const next = vi.fn();
-      if (letter === 'ㅏ')
+      if (/[ㅏ-ㅣ]/.test(letter))
         render(
           <VowelListenActivity
             unitId="kr-v1-u01"
-            vowels={[{ vowel: 'ㅏ', syllable: '아' }]}
+            vowels={[{ vowel: letter, syllable: letter }]}
             onMarkComplete={done}
             onNext={next}
+            onBack={vi.fn()}
+          />
+        );
+      else if (/[A-Za-z]/.test(letter))
+        render(
+          <HangulPopitActivity
+            unitId="en-test"
+            letter={letter}
+            sound={letter.toLowerCase()}
+            language="english"
+            prefix="en-letter"
+            onComplete={done}
             onBack={vi.fn()}
           />
         );

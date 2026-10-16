@@ -95,7 +95,7 @@
   min-height: 44px;
   color: #625f4f;
   font-weight: 700;
-  font-size: 14px;
+  font-size: clamp(18px, 3.8cqw, 22px);
 }
 .stroke-trace-tools button {
   display: flex;
@@ -113,6 +113,7 @@
 }
 .stroke-trace-steps {
   display: flex;
+  flex-wrap: wrap;
   gap: 9px;
   align-items: center;
   min-height: 29px;
@@ -120,12 +121,12 @@
 .stroke-trace-steps span {
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   background: #eeeede;
   border-radius: 50%;
   color: #888572;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 800;
 }
 .stroke-trace-steps span[data-current] {

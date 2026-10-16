@@ -53,71 +53,34 @@ afterEach(() => {
   spies.praiseEnded = undefined;
 });
 
-describe('모음 하나씩 익히기', () => {
-  it('같은 모음을5번 눌러 채우고 마지막 소리 뒤 완료하며 퀴즈/정오답을 만들지 않는다', async () => {
+describe('단일 모음 팝잇', () => {
+  it('팝잇은 듣고 고르기 퀴즈/정오답을 만들지 않고, 마지막 소리와 칭찬 뒤 쓰기를 연다', async () => {
     spies.holdSound = true;
     spies.holdPraise = true;
-    const complete = vi.fn();
-    const next = vi.fn();
+    const done = vi.fn(),
+      next = vi.fn();
     render(
       <VowelListenActivity
-        unitId="kr-v1-u01"
-        ttsUnitId="kr-h1-u01"
+        unitId="kr-v1-u02"
         vowels={[VOWELS[1]]}
-        onMarkComplete={complete}
-        onBack={vi.fn()}
+        onMarkComplete={done}
         onNext={next}
+        onBack={vi.fn()}
       />
     );
-    const card = screen.getByRole('button', { name: 'ㅑ 눌러 채우기' });
-    for (let n = 1; n <= 5; n++) {
-      fireEvent.click(card);
-      await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(n));
-      expect(card).toBeDisabled();
-      fireEvent.click(card); // 연타는 듣기 횟수가 아니다.
-      expect(spies.tts).toHaveBeenCalledTimes(n);
-      expect(complete).not.toHaveBeenCalled();
-      act(() => spies.soundEnded?.());
-      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(n));
-      if (n < 5) expect(spies.praise).not.toHaveBeenCalled();
-    }
-    expect(screen.getByText('앞의 ㅇ은 소리 없이 함께해요')).toBeInTheDocument();
-    expect(spies.tts).not.toHaveBeenCalledWith(expect.objectContaining({ text: 'ㅇ' }));
-    expect(complete).not.toHaveBeenCalled();
+    screen.getAllByRole('button', { name: /ㅑ 방울/ }).forEach((b) => fireEvent.click(b));
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(1));
+    act(() => spies.soundEnded?.());
+    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(2));
+    act(() => spies.soundEnded?.());
+    await waitFor(() => expect(spies.praise).toHaveBeenCalledTimes(1));
+    expect(done).not.toHaveBeenCalled();
     act(() => spies.praiseEnded?.());
-    expect(complete).toHaveBeenCalledTimes(1);
+    expect(done).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole('button', { name: /퀴즈/ })).toBeNull();
     expect(spies.log).not.toHaveBeenCalled();
-    fireEvent.click(card);
-    await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(6));
-    act(() => spies.soundEnded?.());
-    expect(complete).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByRole('button', { name: '써보기 →' }));
     expect(next).toHaveBeenCalledTimes(1);
-  });
-  it('발음 로드 실패를 완료로 표시하지 않고 재시도할 수 있다', async () => {
-    spies.tts.mockResolvedValueOnce(undefined);
-    const complete = vi.fn();
-    render(
-      <VowelListenActivity
-        unitId="kr-v1-u01"
-        vowels={[VOWELS[1]]}
-        onMarkComplete={complete}
-        onBack={vi.fn()}
-      />
-    );
-    const card = screen.getByRole('button', { name: 'ㅑ 눌러 채우기' });
-    fireEvent.click(card);
-    await screen.findByRole('status');
-    expect(complete).not.toHaveBeenCalled();
-    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
-    for (let n = 1; n <= 5; n++) {
-      fireEvent.click(card);
-      await waitFor(() =>
-        expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(n))
-      );
-    }
-    await waitFor(() => expect(complete).toHaveBeenCalledTimes(1));
   });
 });
 

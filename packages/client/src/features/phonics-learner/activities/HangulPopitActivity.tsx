@@ -8,31 +8,48 @@ import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 import { HangulPopit, POPIT_LETTERS, type PopitLetter } from '../components/HangulPopit';
 
-export function HangulPopitActivity({
-  unitId,
-  ttsUnitId = unitId,
-  letter,
-  sound = letter,
-  prefix,
-  syllable,
-  onComplete,
-  onBack,
-  onNext,
-}: {
+interface Props {
   unitId: string;
   ttsUnitId?: string;
   letter: PopitLetter;
   sound?: string;
   prefix: string;
   syllable?: string;
+  language?: 'korean' | 'english';
+  ttsUrl?: string;
+  guide?: boolean;
+  caption?: string;
   onComplete: () => void;
   onBack: () => void;
   onNext?: () => void;
-}) {
+}
+export function HangulPopitActivity(props: Props) {
+  return (
+    <ActivityShell unitId={props.unitId} kind="explore" onBack={props.onBack}>
+      <LetterPopitExperience {...props} />
+    </ActivityShell>
+  );
+}
+
+/** Same live interaction inside the Korean shell, English letter lesson and DEV review. */
+export function LetterPopitExperience({
+  unitId,
+  ttsUnitId = unitId,
+  letter,
+  sound = letter,
+  prefix,
+  syllable,
+  language = 'korean',
+  ttsUrl,
+  guide = true,
+  caption,
+  onComplete,
+  onNext,
+}: Props) {
   const { t } = useTranslation('phonics');
   const { playAudio, playCorrectSequence } = useGameAudio();
-  useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio);
-  usePhonicsTtsWarm(ttsUnitId, [sound], prefix);
+  useEntryGuide(ENTRY_GUIDE.listenExplore, playAudio, { skip: !guide });
+  usePhonicsTtsWarm(ttsUnitId, [sound], prefix, language);
   const [popped, setPopped] = useState<ReadonlySet<number>>(new Set());
   const pressed = useRef(new Set<number>());
   const [complete, setComplete] = useState(false);
@@ -53,12 +70,14 @@ export function HangulPopitActivity({
 
   async function pronounce(): Promise<boolean> {
     try {
-      const url = await resolveTtsUrl({
-        text: sound,
-        language: 'korean',
-        storybookId: ttsUnitId,
-        identifierPrefix: prefix,
-      });
+      const url =
+        ttsUrl ||
+        (await resolveTtsUrl({
+          text: sound,
+          language,
+          storybookId: ttsUnitId,
+          identifierPrefix: prefix,
+        }));
       if (!alive.current || !url) return false;
       return await new Promise<boolean>((resolve) =>
         playAudio(
@@ -111,54 +130,55 @@ export function HangulPopitActivity({
   }
 
   return (
-    <ActivityShell unitId={unitId} kind="explore" onBack={onBack}>
-      <section className="popit-stage" aria-label={t('popit.activity', { letter })}>
-        <h2 className="popit-prompt">{t(complete ? 'popit.done' : 'popit.prompt')}</h2>
-        <div className="popit-play-space">
-          <HangulPopit
-            letter={letter}
-            popped={popped}
-            onPop={pop}
-            complete={complete}
-            locked={reading || complete}
-          />
+    <section className="popit-stage" aria-label={t('popit.activity', { letter })}>
+      <h2 className="popit-prompt">
+        {caption && <small>{caption}</small>}
+        {t(complete ? 'popit.done' : 'popit.prompt')}
+      </h2>
+      <div className="popit-play-space">
+        <HangulPopit
+          letter={letter}
+          popped={popped}
+          onPop={pop}
+          complete={complete}
+          locked={reading || complete}
+        />
+      </div>
+      <div className="popit-footer">
+        <div
+          className="popit-progress"
+          role="progressbar"
+          aria-label={t('popit.progress')}
+          aria-valuemin={0}
+          aria-valuemax={total}
+          aria-valuenow={popped.size}
+        >
+          {Array.from({ length: total }, (_, i) => (
+            <span key={i} data-filled={i < popped.size || undefined}>
+              {i < popped.size ? '✓' : ''}
+            </span>
+          ))}
         </div>
-        <div className="popit-footer">
-          <div
-            className="popit-progress"
-            role="progressbar"
-            aria-label={t('popit.progress')}
-            aria-valuemin={0}
-            aria-valuemax={total}
-            aria-valuenow={popped.size}
-          >
-            {Array.from({ length: total }, (_, i) => (
-              <span key={i} data-filled={i < popped.size || undefined}>
-                {i < popped.size ? '✓' : ''}
-              </span>
-            ))}
-          </div>
-          {failed && (
-            <button className="popit-audio-retry" onClick={() => void finish()}>
-              {t('vowelListen.audioRetry')}
-            </button>
-          )}
-          {complete && syllable && (
-            <p className="popit-carrier">
-              ㅇ + {letter} → {syllable}
-              <small>{t('vowelListen.silentInitial')}</small>
-            </p>
-          )}
-          {ready && onNext && (
-            <button className="popit-audio-retry" onClick={onNext}>
-              {t('vowelListen.writeNext')}
-            </button>
-          )}
-        </div>
-        <span className="sr-only" role="status">
-          {complete ? t('popit.done') : failed ? t('vowelListen.audioRetry') : ''}
-        </span>
-      </section>
-    </ActivityShell>
+        {failed && (
+          <button className="popit-audio-retry" onClick={() => void finish()}>
+            {t('vowelListen.audioRetry')}
+          </button>
+        )}
+        {complete && syllable && (
+          <p className="popit-carrier">
+            ㅇ + {letter} → {syllable}
+            <small>{t('vowelListen.silentInitial')}</small>
+          </p>
+        )}
+        {ready && onNext && (
+          <button className="popit-audio-retry" onClick={onNext}>
+            {t('vowelListen.writeNext')}
+          </button>
+        )}
+      </div>
+      <span className="sr-only" role="status">
+        {complete ? t('popit.done') : failed ? t('vowelListen.audioRetry') : ''}
+      </span>
+    </section>
   );
 }

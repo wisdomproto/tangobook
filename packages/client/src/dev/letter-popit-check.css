@@ -1,0 +1,94 @@
+.popit-check {
+  min-height: 100vh;
+  background: #e9f1ec;
+  color: #304b43;
+  font: 15px system-ui;
+}
+.popit-check header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+.popit-check header button,
+.popit-check select,
+.popit-gallery-controls button {
+  background: white;
+  border: 1px solid #a2b7a9;
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-height: 36px;
+  font-size: 15px;
+}
+.popit-check header span {
+  font-size: 12px;
+}
+.popit-check iframe {
+  display: block;
+  max-width: none;
+  border: 0;
+}
+.popit-check-result {
+  position: fixed;
+  z-index: 100;
+  right: 16px;
+  top: 16px;
+  padding: 8px 16px;
+  background: #fff9;
+  border-radius: 20px;
+  color: #405b4f;
+  font-weight: 800;
+}
+.popit-check-result[data-passed='true'] {
+  background: #308460;
+  color: white;
+}
+.popit-gallery-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 6px;
+}
+.popit-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 8px;
+}
+.popit-gallery article {
+  background: #fffdf6;
+  border-radius: 20px;
+  text-align: center;
+  min-height: 180px;
+  padding-bottom: 6px;
+}
+.popit-gallery .popit-play-space {
+  height: 148px;
+}
+.popit-gallery .hangul-popit {
+  width: 170px;
+  min-width: 0;
+  filter: drop-shadow(0 7px 6px #476d4918);
+}
+.popit-gallery .hangul-popit * {
+  animation: none !important;
+  pointer-events: none;
+}
+.popit-gallery b {
+  font-size: 22px;
+}
+.popit-layout-stack {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  position: relative;
+}
+.popit-layout-stack > .popit-stage {
+  position: absolute;
+  inset: 0;
+}
+.popit-layout-stack * {
+  animation: none !important;
+}

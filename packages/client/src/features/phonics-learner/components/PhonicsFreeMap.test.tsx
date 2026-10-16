@@ -148,12 +148,17 @@ it('shows shared completion but does not complete the rest of a chapter on selec
   );
   expect(localStorage.getItem('phonics-progress')).toBe(before);
 });
-it('keeps curriculum locking and its single start action after switching from free mode', () => {
+it('keeps curriculum locking and direct activity play after switching from free mode', () => {
   show('korean');
   fireEvent.click(screen.getByRole('link', { name: '커리큘럼 모드' }));
   expect(screen.getByRole('heading', { name: '한글 파닉스 · 학습 경로' })).toBeDefined();
   expect(screen.getByRole('button', { name: /^2번째 단계.*앞 단계를/ })).toBeDisabled();
-  expect(screen.getAllByRole('link', { name: '학습 시작하기' })).toHaveLength(1);
+  expect(screen.queryByRole('link', { name: '학습 시작하기' })).toBeNull();
+  const activities = within(screen.getByRole('list', { name: '이번 챕터의 활동' }));
+  expect(activities.getByRole('button', { name: 'ㅏ 배우기 지금 배울 단계' })).toBeEnabled();
+  expect(
+    activities.getByRole('button', { name: 'ㅏ 써보기 앞 단계를 마치면 열려요' })
+  ).toBeDisabled();
   expect(
     within(screen.getByRole('list', { name: '이번 챕터의 활동' })).queryByRole('link')
   ).toBeNull();

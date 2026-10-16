@@ -172,11 +172,14 @@ describe('커리큘럼 모드 라우트', () => {
       'true'
     );
     expect(screen.getByRole('list', { name: '이번 챕터의 활동' }).children).toHaveLength(3);
-    expect(screen.getAllByRole('link', { name: /이어서 학습하기/ })).toHaveLength(1);
-    fireEvent.click(screen.getByRole('link', { name: /이어서 학습하기/ }));
+    const nextActivity = screen.getByRole('button', { name: 'ㅑ 배우기 지금 배울 단계' });
+    expect(nextActivity).toBeEnabled();
+    fireEvent.click(nextActivity);
     expect(await screen.findByRole('button', { name: '들은 모음 ㅑ' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([]);
-  });
+    // Two real 1.4s activity transitions plus the 1.8s map unlock exceed the
+    // default 5s budget once the full suite shares the machine.
+  }, 9000);
   it('미래 활동 직접 진입을 첫 미완료 활동으로 돌린다', async () => {
     open('/library/phonics/korean/kr-v1-g02/listen-1?mode=curriculum');
     expect(await screen.findByRole('button', { name: '들은 모음 ㅏ' })).toBeDefined();
@@ -206,9 +209,10 @@ describe('커리큘럼 모드 라우트', () => {
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅏ' }));
     expect(await screen.findByRole('heading', { name: 'ㅏ 배우기' })).toBeDefined();
     expect(screen.queryByRole('button', { name: '쓴 모음 ㅏ' })).toBeNull();
-    expect(screen.getByRole('link', { name: '다시 하기' }).getAttribute('href')).toContain(
-      '/kr-v1-u01/'
-    );
+    const replay = screen.getByRole('button', { name: 'ㅏ 배우기 다 했어요' });
+    expect(replay).toBeEnabled();
+    fireEvent.click(replay);
+    expect(await screen.findByRole('button', { name: '들은 모음 ㅏ' })).toBeDefined();
     expect(screen.queryByRole('status', { name: '다음 챕터가 열렸어!' })).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-u02').completedActivities).toEqual([]);
   });

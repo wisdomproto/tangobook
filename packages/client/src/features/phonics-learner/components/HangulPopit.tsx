@@ -1,43 +1,9 @@
-import { useId } from 'react';
+import { useId, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import './hangul-popit.css';
 
-export const POPIT_LETTERS = {
-  ㅏ: {
-    path: 'M120 80 V320 M120 190 H280',
-    points: [
-      [120, 90],
-      [120, 190],
-      [120, 290],
-      [200, 190],
-      [280, 190],
-    ],
-    face: [120, 242],
-    tone: 'mint',
-  },
-  ㄱ: {
-    path: 'M80 100 H300 V320',
-    points: [
-      [80, 100],
-      [190, 100],
-      [300, 100],
-      [300, 200],
-      [300, 300],
-    ],
-    face: [300, 250],
-    tone: 'coral',
-  },
-  ㅇ: {
-    path: 'M200 80 A120 120 0 1 1 199.99 80 Z',
-    points: Array.from({ length: 8 }, (_, i) => [
-      200 - Math.sin((i * Math.PI) / 4) * 120,
-      200 - Math.cos((i * Math.PI) / 4) * 120,
-    ]),
-    face: [200, 200],
-    tone: 'coral',
-  },
-} as const;
-export type PopitLetter = keyof typeof POPIT_LETTERS;
+import { POPIT_LETTERS, type PopitLetter } from '../lib/popit-letter-designs';
+export { POPIT_LETTERS, type PopitLetter } from '../lib/popit-letter-designs';
 
 /** Live buttons stay separate from the artwork: pressed state, keyboard and generous hit areas. */
 export function HangulPopit({
@@ -63,6 +29,7 @@ export function HangulPopit({
       data-letter={letter}
       data-tone={toy.tone}
       data-complete={complete || undefined}
+      style={{ '--popit-bubble': toy.bubble / 4 } as CSSProperties}
     >
       <svg className="hangul-popit-body" viewBox="0 30 400 340" aria-hidden="true">
         <defs>
@@ -83,33 +50,38 @@ export function HangulPopit({
           <path
             d={toy.path}
             stroke="var(--popit-shadow)"
-            strokeWidth="90"
+            strokeWidth={toy.width + 10}
             transform="translate(0 12)"
           />
-          <path d={toy.path} stroke="var(--popit-edge)" strokeWidth="88" />
-          <path d={toy.path} stroke={`url(#${id}-body)`} strokeWidth="80" />
+          <path d={toy.path} stroke="var(--popit-edge)" strokeWidth={toy.width + 8} />
+          <path d={toy.path} stroke={`url(#${id}-body)`} strokeWidth={toy.width} />
           <path
             d={toy.path}
             stroke="white"
             strokeOpacity=".25"
-            strokeWidth="64"
+            strokeWidth={toy.width * 0.8}
             transform="translate(-2 -3)"
           />
-          <path d={toy.path} stroke={`url(#${id}-body)`} strokeWidth="60" />
+          <path d={toy.path} stroke={`url(#${id}-body)`} strokeWidth={toy.width * 0.75} />
         </g>
-        <g className="hangul-popit-face" transform={`translate(${toy.face[0]} ${toy.face[1]})`}>
-          <ellipse cx="-10" cy="0" rx="3" ry="4" fill="#304b43" />
-          <ellipse cx="10" cy="0" rx="3" ry="4" fill="#304b43" />
-          <path
-            d="M-4 6 Q0 11 4 6"
-            fill="none"
-            stroke="#304b43"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-          <ellipse cx="-17" cy="6" rx="4" ry="2.5" fill="#ef9b89" opacity=".7" />
-          <ellipse cx="17" cy="6" rx="4" ry="2.5" fill="#ef9b89" opacity=".7" />
-        </g>
+        {toy.face && (
+          <g
+            className="hangul-popit-face"
+            transform={`translate(${toy.face[0]} ${toy.face[1]}) scale(${Math.min(1, toy.width / 58)})`}
+          >
+            <ellipse cx="-10" cy="0" rx="3" ry="4" fill="#304b43" />
+            <ellipse cx="10" cy="0" rx="3" ry="4" fill="#304b43" />
+            <path
+              d="M-4 6 Q0 11 4 6"
+              fill="none"
+              stroke="#304b43"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+            <ellipse cx="-17" cy="6" rx="4" ry="2.5" fill="#ef9b89" opacity=".7" />
+            <ellipse cx="17" cy="6" rx="4" ry="2.5" fill="#ef9b89" opacity=".7" />
+          </g>
+        )}
       </svg>
       {toy.points.map(([x, y], i) => (
         <button

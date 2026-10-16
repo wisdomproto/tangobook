@@ -15,6 +15,7 @@ import { ActivityShell } from '../components/ActivityShell';
 import { LetterTapCharge, LETTER_TAP_COUNT } from '../components/LetterTapCharge';
 import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { HangulPopitActivity } from './HangulPopitActivity';
+import { hasPopitLetter } from '../lib/popit-letter-designs';
 
 interface VowelItem {
   vowel: string; // 'ㅏ'
@@ -48,15 +49,16 @@ interface Props {
  *   모든 정답 맞추면 onMarkComplete (진척 마킹) — 자동 back 없음, 다시하기 버튼 노출.
  */
 export function VowelListenActivity(props: Props) {
-  if (props.language !== 'english' && props.vowels.length === 1 && props.vowels[0].vowel === 'ㅏ') {
+  if (props.vowels.length === 1 && hasPopitLetter(props.vowels[0].vowel)) {
     return (
       <HangulPopitActivity
-        key={`${props.unitId}-ㅏ`}
+        key={`${props.unitId}-${props.vowels[0].vowel}`}
         unitId={props.unitId}
         ttsUnitId={props.ttsUnitId}
-        letter="ㅏ"
-        sound={props.vowels[0].sound ?? 'ㅏ'}
+        letter={props.vowels[0].vowel}
+        sound={props.vowels[0].sound ?? props.vowels[0].vowel}
         prefix="phonics-vowel"
+        language={props.language}
         syllable={props.unitId.startsWith('kr-v1-') ? props.vowels[0].syllable : undefined}
         onComplete={props.onMarkComplete}
         onBack={props.onBack}

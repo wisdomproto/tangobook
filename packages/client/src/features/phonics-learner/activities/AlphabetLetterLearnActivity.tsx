@@ -13,6 +13,7 @@ import { warmAudioUrl } from '@/features/games/hooks/useGamePrefetch';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { ActivityShell } from '../components/ActivityShell';
+import { LetterPopitExperience } from './HangulPopitActivity';
 
 /** 소리 사이 쉼 — 콜백으로 끝난 걸 확인한 뒤 넣는다(길이 가정 아님). */
 const REST_MS = 420;
@@ -48,6 +49,8 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
 
   // 활성 글자 인덱스 (letters 배열의 인덱스). storybook.phonicsLesson.blending[i] 와 1:1 매칭.
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [popitCases, setPopitCases] = useState<Record<number, number>>({});
+  const popitCase = popitCases[currentIdx] ?? 0;
   const [audioFailed, setAudioFailed] = useState(false);
 
   const blending = sb?.phonicsLesson?.blending?.[currentIdx];
@@ -295,6 +298,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
         setCurrentIdx(idx);
         return;
       }
+      if (popitCase < 2) return; // A tab cannot bypass either case of the pop-it.
       // With no word hotspots, listening to this letter to the end is its learning interaction.
       void sayLetter(() => {
         if (spots.length === 0) {
@@ -303,7 +307,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
         }
       });
     },
-    [currentIdx, sayLetter, markDone, spots.length, goNext]
+    [currentIdx, sayLetter, markDone, spots.length, goNext, popitCase]
   );
 
   // 단어는 자동 재생하지 않는다 — 눌러서 듣는 탐색이 이 화면의 성격이다.
@@ -336,7 +340,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       unitId={unitId}
       kind="explore"
       onBack={onBack}
-      scroll
+      scroll={popitCase >= 2}
       // 글자 탭 — 뒤로가기와 한 줄에.
       headerRight={
         // 글자 탭 — 활성 글자만 coral background + 큰 크기(다시 클릭 = 발음). 비활성은 white.
@@ -387,118 +391,144 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       {/* 🔴 안내 문구 — 이 화면은 자유 탐색이라 **무엇을 누르면 되는지 글로 말해주지 않으면**
           아이는 그림만 보다 나간다(다른 활동엔 다 있는데 여기만 빠져 있었다).
           누를 것이 실제로 있을 때만 그렇게 쓴다 — 핫스팟이 없는 글자엔 글자 탭을 가리킨다. */}
-      <div className="shrink-0 text-center mb-3">
-        {audioFailed && (
-          <p role="alert" className="mb-2 font-bold text-coral-700">
-            {t('vowelListen.audioRetry')}
-          </p>
-        )}
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 break-keep">
-          {/* 🔴 지시문엔 글자를 넣지 않는다 — 글자는 바로 위 탭이 크게 보여준다. */}
-          {spots.length === 0
-            ? t('alphabetLearn.tapLetterHint')
-            : !allDone
-              ? t('alphabetLearn.tapSparkle')
-              : t('alphabetLearn.foundAll')}
-        </h2>
-        {/* 🔴 진행은 숫자(0/2)가 아니라 점 — 다른 활동들과 같다. 4~7세는 분수를 못 읽는다. */}
-        {spots.length > 0 && (
-          <div className="mt-1.5 flex items-center justify-center gap-2" aria-hidden>
-            {spots.map((_, i) => (
-              <span
-                key={i}
-                className={`rounded-full transition-all ${
-                  i < tapped
-                    ? 'w-3.5 h-3.5 bg-coral-500'
-                    : i === tapped
-                      ? 'w-3.5 h-3.5 bg-coral-300 animate-pulse'
-                      : 'w-3 h-3 bg-white/80 ring-2 ring-coral-200'
-                }`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* 가운데 큰 이미지 + 핫스팟 — 🔴 `justify-center`: 16:9 그림은 폭으로 크기가 정해져서
-          큰 화면에선 아래가 통째로 빈다. 위에 붙여두면 화면 절반이 빈 크림색으로 남는다. */}
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
-        <div className="phonics-alphabet-illustration w-full max-w-[920px] mx-auto">
-          <div
-            // 글자 전환 시 React 가 같은 div 재사용 — key 변경으로 강제 리마운트 (이전 글자 hotspot 잔존 방지)
-            key={currentIdx}
-            className="relative w-full rounded-[28px] overflow-hidden shadow-card bg-white cursor-pointer ring-4 ring-white"
-            style={{ aspectRatio: '16/9' }}
-            onClick={handleIllustrationClick}
-          >
-            {illustrationUrl ? (
-              <img
-                src={illustrationUrl}
-                alt={blend}
-                className="w-full h-full object-cover"
-                draggable={false}
-              />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-peach-100">
-                <div className="text-7xl">🖼️</div>
-                <div className="text-base font-black text-ink-500">
-                  {t('alphabetLearn.noImage')}
-                </div>
-              </div>
+      {popitCase < 2 ? (
+        <LetterPopitExperience
+          key={`${unitId}-${currentIdx}-${popitCase}`}
+          unitId={unitId}
+          letter={popitCase === 0 ? upper : lower}
+          sound={lower}
+          language="english"
+          prefix="en-letter"
+          ttsUrl={blending.blendingSequenceTtsUrl}
+          guide={false}
+          caption={t(popitCase === 0 ? 'alphabetWrite.upper' : 'alphabetWrite.lower', {
+            letter: popitCase === 0 ? upper : lower,
+          })}
+          onBack={onBack}
+          onComplete={() => {
+            setPopitCases((prev) => ({ ...prev, [currentIdx]: popitCase + 1 }));
+            if (popitCase === 1 && spots.length === 0) {
+              markDone();
+              goNext();
+            }
+          }}
+        />
+      ) : (
+        <>
+          <div className="shrink-0 text-center mb-3">
+            {audioFailed && (
+              <p role="alert" className="mb-2 font-bold text-coral-700">
+                {t('vowelListen.audioRetry')}
+              </p>
             )}
-            {/* 🔴 스포트라이트 — 지금 누를 칸만 남기고 나머지를 덮는다.
-                구현은 **거대한 box-shadow spread** 하나다(구멍 뚫린 오버레이를 따로 만들지 않는다).
-                부모가 `overflow-hidden` 이라 9999px 가 그림 밖으로 새지 않는다. */}
-            {illustrationUrl && current && (
-              <div
-                className="absolute pointer-events-none rounded-2xl ring-4 ring-white transition-all duration-300"
-                style={{
-                  left: `${current.h.x * 100}%`,
-                  top: `${current.h.y * 100}%`,
-                  width: `${current.h.w * 100}%`,
-                  height: `${current.h.h * 100}%`,
-                  boxShadow: '0 0 0 9999px rgba(15,23,42,0.55)',
-                }}
-              />
-            )}
-            {/* 스피커 아이콘 — 순서 단계엔 **지금 칸만**, 다 누른 뒤엔 전부(다시 듣기 안내) */}
-            {illustrationUrl && spots.length > 0 && (
-              <div className="absolute inset-0 pointer-events-none">
-                {(current ? [current] : spots).map((s, i) => (
-                  <div
-                    key={`spk-${i}`}
-                    className="absolute pointer-events-none flex items-center justify-center"
-                    style={{
-                      left: `${(s.h.x + s.h.w / 2) * 100}%`,
-                      top: `${(s.h.y + s.h.h / 2) * 100}%`,
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                  >
-                    <div
-                      className={`rounded-full shadow-soft flex items-center justify-center ring-1 ring-white/80 bg-coral-400/85 animate-pulse ${
-                        current ? 'w-10 h-10 sm:w-12 sm:h-12' : 'w-6 h-6 sm:w-7 sm:h-7'
-                      }`}
-                    >
-                      <svg
-                        className={`text-white drop-shadow ${current ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-3 h-3 sm:w-3.5 sm:h-3.5'}`}
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-                      </svg>
-                    </div>
-                  </div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-ink-900 break-keep">
+              {/* 🔴 지시문엔 글자를 넣지 않는다 — 글자는 바로 위 탭이 크게 보여준다. */}
+              {spots.length === 0
+                ? t('alphabetLearn.tapLetterHint')
+                : !allDone
+                  ? t('alphabetLearn.tapSparkle')
+                  : t('alphabetLearn.foundAll')}
+            </h2>
+            {/* 🔴 진행은 숫자(0/2)가 아니라 점 — 다른 활동들과 같다. 4~7세는 분수를 못 읽는다. */}
+            {spots.length > 0 && (
+              <div className="mt-1.5 flex items-center justify-center gap-2" aria-hidden>
+                {spots.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`rounded-full transition-all ${
+                      i < tapped
+                        ? 'w-3.5 h-3.5 bg-coral-500'
+                        : i === tapped
+                          ? 'w-3.5 h-3.5 bg-coral-300 animate-pulse'
+                          : 'w-3 h-3 bg-white/80 ring-2 ring-coral-200'
+                    }`}
+                  />
                 ))}
               </div>
             )}
           </div>
-        </div>
 
-        {/* 🔴 아래 버튼(글자 소리 `[Aa🔊]`·다음 글자 `[Bb▶]`)은 없앴다(2026-07-31 사용자). 글자 소리는
+          {/* 가운데 큰 이미지 + 핫스팟 — 🔴 `justify-center`: 16:9 그림은 폭으로 크기가 정해져서
+          큰 화면에선 아래가 통째로 빈다. 위에 붙여두면 화면 절반이 빈 크림색으로 남는다. */}
+          <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
+            <div className="phonics-alphabet-illustration w-full max-w-[920px] mx-auto">
+              <div
+                // 글자 전환 시 React 가 같은 div 재사용 — key 변경으로 강제 리마운트 (이전 글자 hotspot 잔존 방지)
+                key={currentIdx}
+                className="relative w-full rounded-[28px] overflow-hidden shadow-card bg-white cursor-pointer ring-4 ring-white"
+                style={{ aspectRatio: '16/9' }}
+                onClick={handleIllustrationClick}
+              >
+                {illustrationUrl ? (
+                  <img
+                    src={illustrationUrl}
+                    alt={blend}
+                    className="w-full h-full object-cover"
+                    draggable={false}
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-peach-100">
+                    <div className="text-7xl">🖼️</div>
+                    <div className="text-base font-black text-ink-500">
+                      {t('alphabetLearn.noImage')}
+                    </div>
+                  </div>
+                )}
+                {/* 🔴 스포트라이트 — 지금 누를 칸만 남기고 나머지를 덮는다.
+                구현은 **거대한 box-shadow spread** 하나다(구멍 뚫린 오버레이를 따로 만들지 않는다).
+                부모가 `overflow-hidden` 이라 9999px 가 그림 밖으로 새지 않는다. */}
+                {illustrationUrl && current && (
+                  <div
+                    className="absolute pointer-events-none rounded-2xl ring-4 ring-white transition-all duration-300"
+                    style={{
+                      left: `${current.h.x * 100}%`,
+                      top: `${current.h.y * 100}%`,
+                      width: `${current.h.w * 100}%`,
+                      height: `${current.h.h * 100}%`,
+                      boxShadow: '0 0 0 9999px rgba(15,23,42,0.55)',
+                    }}
+                  />
+                )}
+                {/* 스피커 아이콘 — 순서 단계엔 **지금 칸만**, 다 누른 뒤엔 전부(다시 듣기 안내) */}
+                {illustrationUrl && spots.length > 0 && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    {(current ? [current] : spots).map((s, i) => (
+                      <div
+                        key={`spk-${i}`}
+                        className="absolute pointer-events-none flex items-center justify-center"
+                        style={{
+                          left: `${(s.h.x + s.h.w / 2) * 100}%`,
+                          top: `${(s.h.y + s.h.h / 2) * 100}%`,
+                          transform: 'translate(-50%, -50%)',
+                        }}
+                      >
+                        <div
+                          className={`rounded-full shadow-soft flex items-center justify-center ring-1 ring-white/80 bg-coral-400/85 animate-pulse ${
+                            current ? 'w-10 h-10 sm:w-12 sm:h-12' : 'w-6 h-6 sm:w-7 sm:h-7'
+                          }`}
+                        >
+                          <svg
+                            className={`text-white drop-shadow ${current ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-3 h-3 sm:w-3.5 sm:h-3.5'}`}
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+                          </svg>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* 🔴 아래 버튼(글자 소리 `[Aa🔊]`·다음 글자 `[Bb▶]`)은 없앴다(2026-07-31 사용자). 글자 소리는
             상단 탭(활성 글자 재클릭), 다음 글자로의 이동은 **다 눌러보면 자동**(goNext)이 맡는다. */}
-      </div>
+          </div>
 
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
+          <FeedbackOverlay kind="correct" visible={praiseVisible} />
+        </>
+      )}
     </ActivityShell>
   );
 }

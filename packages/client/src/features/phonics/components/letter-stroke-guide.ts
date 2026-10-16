@@ -465,9 +465,8 @@ function fit(
         ? { axis: 'x' as const, value: mid.x }
         : undefined;
     const projected = path.map((point) => project(point, locked));
-    const points = /^[A-Za-z]$/.test(letter)
-      ? trimProjectionLoops(cleanFormationProjection(path, projected))
-      : projected;
+    const clean = cleanFormationProjection(path, projected);
+    const points = /^[A-Za-z]$/.test(letter) ? trimProjectionLoops(clean) : clean;
     // A printed i/j dot can project every sample to the same centre pixel.
     // Keep a tiny visible stroke there (and let the pencil tap it).
     if (points.every((point) => Math.hypot(point.x - points[0].x, point.y - points[0].y) < 0.5)) {

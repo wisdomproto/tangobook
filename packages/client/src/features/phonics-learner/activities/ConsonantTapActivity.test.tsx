@@ -31,59 +31,47 @@ afterEach(() => {
   audio.resolve.mockClear();
   audio.resolve.mockResolvedValue('phoneme.mp3');
 });
-describe('자음5회 충전', () => {
-  it.each([...'ㄴㄷㄹㅁㅂㅅㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉ'])(
-    '%s는5번 실제 발음을 마친 뒤에만 칭찬·완료한다',
-    async (letter) => {
-      const done = vi.fn();
-      render(
-        <ConsonantTapActivity
-          unitId="kr-test"
-          consonant={letter}
-          onComplete={done}
-          onBack={vi.fn()}
-        />
-      );
-      const button = screen.getByRole('button', { name: `${letter} 눌러 채우기` });
-      for (let n = 1; n <= 5; n++) {
-        fireEvent.click(button);
-        fireEvent.click(button);
-        await waitFor(() => expect(audio.ends).toHaveLength(n));
-        expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(n - 1));
-        const end = audio.ends[n - 1];
-        act(() => {
-          end();
-          end();
-        });
-        expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(n));
-        expect(done).not.toHaveBeenCalled();
-      }
-      expect(audio.resolve).toHaveBeenCalledTimes(5);
-      expect(audio.praises).toHaveLength(1);
-      act(() => audio.praises[0]());
-      expect(done).toHaveBeenCalledTimes(1);
-      fireEvent.click(button);
-      await waitFor(() => expect(audio.ends).toHaveLength(6));
-      act(() => audio.ends[5]());
-      expect(audio.praises).toHaveLength(1);
-    }
-  );
-  it('음원 로드·재생 오류는 진행이 아니며 같은 칸을 다시 누를 수 있다', async () => {
-    audio.resolve.mockResolvedValueOnce(undefined);
+describe('자음 팝잇 연결', () => {
+  it('쌍자음의 지정 발음을 최종 완료까지 그대로 사용한다', async () => {
+    const done = vi.fn();
     render(
-      <ConsonantTapActivity unitId="kr-test" consonant="ㄴ" onComplete={vi.fn()} onBack={vi.fn()} />
+      <ConsonantTapActivity
+        unitId="kr-test"
+        consonant="ㄲ"
+        soundText="끄"
+        onComplete={done}
+        onBack={vi.fn()}
+      />
     );
-    const button = screen.getByRole('button', { name: 'ㄴ 눌러 채우기' });
-    fireEvent.click(button);
-    await screen.findByRole('status');
-    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
-    fireEvent.click(button);
-    await waitFor(() => expect(audio.fails).toHaveLength(1));
-    act(() => audio.fails[0]());
-    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
-    fireEvent.click(button);
+    const buttons = screen.getAllByRole('button', { name: /ㄲ 방울/ });
+    buttons.forEach((b) => fireEvent.click(b));
+    await waitFor(() => expect(audio.ends).toHaveLength(1));
+    expect(audio.resolve).toHaveBeenCalledWith(
+      expect.objectContaining({ text: '끄', language: 'korean' })
+    );
+    act(() => audio.ends[0]());
     await waitFor(() => expect(audio.ends).toHaveLength(2));
     act(() => audio.ends[1]());
-    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '1');
+    await waitFor(() => expect(audio.praises).toHaveLength(1));
+    expect(done).not.toHaveBeenCalled();
+    act(() => audio.praises[0]());
+    expect(done).toHaveBeenCalledTimes(1);
+  });
+  it('발음이 없으면 완료하지 않으며 방울 상태를 유지한 채 다시 듣는다', async () => {
+    audio.resolve.mockResolvedValue(undefined);
+    const done = vi.fn();
+    render(
+      <ConsonantTapActivity unitId="kr-test" consonant="ㄴ" onComplete={done} onBack={vi.fn()} />
+    );
+    screen.getAllByRole('button', { name: /ㄴ 방울/ }).forEach((b) => fireEvent.click(b));
+    const retry = await screen.findByRole('button', { name: /소리를/ });
+    expect(done).not.toHaveBeenCalled();
+    audio.resolve.mockResolvedValue('phoneme.mp3');
+    fireEvent.click(retry);
+    await waitFor(() => expect(audio.ends).toHaveLength(1));
+    act(() => audio.ends[0]());
+    await waitFor(() => expect(audio.praises).toHaveLength(1));
+    act(() => audio.praises[0]());
+    expect(done).toHaveBeenCalledTimes(1);
   });
 });

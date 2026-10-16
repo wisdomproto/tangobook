@@ -1,6 +1,6 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
-2026-10-16 팝잇 표본: VowelListenActivity의 한글 단일ㅏ, ConsonantTapActivity의ㄱ/ㅇ은 HangulPopitActivity를 사용한다. 서로 다른5/5/8방울을 즉시 누르고 첫/최종 발음은 순차 재생, 최종 음원 오류는 완료 없이 재시도한다. 마지막 칭찬 뒤 한 번만 완료·기존 쓰기 연결, 다른 글자는 기존5회 충전 유지. SVG 실리콘/HTML버튼44px·CSS/reduced-motion·공용UI 음소거를 따르는4.2KB뽁 소리, 경로/진도 키 변경 없음. [검증](../../../../../docs/work/phonics/tasks/20261016-hangul-popit.md).
+2026-10-16 팝잇 확대: popit-letter-designs는 한글40자·영어52자의 실제 SVG 경로/방울을 제공한다. 단일 VowelListenActivity와 모든 ConsonantTapActivity가 공통 HangulPopitActivity를 사용하며, AlphabetLetterLearnActivity는 같은 LetterPopitExperience로 대문자→소문자→기존 삽화/낱말 탐색을 이어간다. 탭 전환만으로 완료하지 않는다. 첫/최종 발음 순차·음원 오류 재시도·칭찬 뒤 단일 완료·44px HTML 터치 영역/reduced-motion/공용 음소거·기존 진도 키를 유지한다. 묶음 듣기 퀴즈/쓰기 판정은 바꾸지 않는다. DEV letter-popit-check.html은 학생 기록 없이 전체 형태/실제 클릭/4화면 배치 검수용이며 production entry가 아니다. [검증](../../../../../docs/work/phonics/tasks/20261016-popit-all-letters.md).
 
 2026-10-16 지도 소리 표시는 영어 최대2개를 각 한 줄로 유지하고 실제 node 내부 크기·최장 길이로 글꼴을 맞춘다. 긴 매직e 표기가 글자 중간에서3~4줄로 나뉘는 기존 결함을 보완하며 overflow:hidden으로 내용을 가리지 않는다. 한글/복습 아이콘과 과정 순서는 그대로다. [검증](../../../../../docs/work/phonics/tasks/20261016-map-chapter-label-fit.md).
 

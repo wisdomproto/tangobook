@@ -46,7 +46,12 @@ beforeEach(() => {
   lesson.withHotspots = false;
   resolve.mockResolvedValue('letter.mp3');
 });
-it('requires all letters, counts actual audio endings, and never counts a switched tab', async () => {
+vi.mock('./HangulPopitActivity', () => ({
+  LetterPopitExperience: ({ letter, onComplete }: { letter: string; onComplete: () => void }) => (
+    <button onClick={onComplete}>{letter} 팝잇 완료</button>
+  ),
+}));
+it('모든 글자 대소문자 완료가 필요하고, 탭 전환/활성 탭 듣기는 팝잇을 건너뛰지 않는다', async () => {
   const done = vi.fn();
   render(
     <AlphabetLetterLearnActivity
@@ -57,39 +62,19 @@ it('requires all letters, counts actual audio endings, and never counts a switch
     />
   );
   fireEvent.click(screen.getByRole('button', { name: 'B b' }));
-  expect(done).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button', { name: 'A a' }));
-  for (const letter of ['A a', 'B b', 'C c']) {
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: letter }));
-    });
+  fireEvent.click(screen.getByRole('button', { name: 'A a' }));
+  expect(done).not.toHaveBeenCalled();
+  expect(audioEndings).toHaveLength(0);
+  for (const upper of ['A', 'B', 'C']) {
+    fireEvent.click(screen.getByRole('button', { name: `${upper} 팝잇 완료` }));
     expect(done).not.toHaveBeenCalled();
-    await act(async () => {
-      audioEndings.shift()?.();
-    });
+    fireEvent.click(screen.getByRole('button', { name: `${upper.toLowerCase()} 팝잇 완료` }));
+    if (upper !== 'C') expect(done).not.toHaveBeenCalled();
   }
   expect(done).toHaveBeenCalledTimes(1);
 });
-it('missing audio is not a completed listening interaction', async () => {
-  resolve.mockResolvedValue(undefined as unknown as string);
-  const done = vi.fn();
-  render(
-    <AlphabetLetterLearnActivity
-      unitId="en-b1-u01"
-      letters={['A']}
-      onMarkComplete={done}
-      onBack={vi.fn()}
-    />
-  );
-  await act(async () => {
-    fireEvent.click(screen.getByRole('button', { name: 'A a' }));
-  });
-  expect(audioEndings).toHaveLength(0);
-  expect(done).not.toHaveBeenCalled();
-  expect(screen.getByRole('alert').textContent).toContain('다시 눌러봐');
-});
-
-it('finishing one illustration never marks the next same-size illustration as learned', async () => {
+it('팝잇을 마쳐도 해당 그림의 실제 낱말 탐색 전에는 다음 글자나 완료로 가지 않는다', async () => {
   lesson.withHotspots = true;
   const rect = vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
     left: 0,
@@ -111,15 +96,17 @@ it('finishing one illustration never marks the next same-size illustration as le
       onBack={vi.fn()}
     />
   );
-  for (const letter of ['Aa', 'Bb', 'Cc']) {
-    fireEvent.click(screen.getByAltText(letter).parentElement!, { clientX: 50, clientY: 50 });
+  for (const upper of ['A', 'B', 'C']) {
+    fireEvent.click(screen.getByRole('button', { name: `${upper} 팝잇 완료` }));
+    fireEvent.click(screen.getByRole('button', { name: `${upper.toLowerCase()} 팝잇 완료` }));
     expect(done).not.toHaveBeenCalled();
-    await act(async () => {
-      audioEndings.shift()?.();
+    fireEvent.click(screen.getByAltText(upper + upper.toLowerCase()).parentElement!, {
+      clientX: 50,
+      clientY: 50,
     });
-    await act(async () => {
-      audioEndings.shift()?.();
-    });
+    expect(done).not.toHaveBeenCalled();
+    await act(async () => audioEndings.shift()?.());
+    await act(async () => audioEndings.shift()?.());
   }
   expect(done).toHaveBeenCalledTimes(1);
   rect.mockRestore();

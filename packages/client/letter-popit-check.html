@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한글·영어 팝잇 검수 — 탱고북</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      if (import.meta.env.DEV) import('/src/dev/LetterPopitCheck.tsx');
+      else
+        document.getElementById('root').textContent =
+          '로컬 개발 서버에서만 사용하는 검수 페이지입니다.';
+    </script>
+  </body>
+</html>

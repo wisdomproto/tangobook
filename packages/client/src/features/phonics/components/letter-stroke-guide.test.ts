@@ -35,6 +35,28 @@ function mask(lines: number[][], offset = 0) {
 }
 
 describe('all-writing formation paths', () => {
+  it('ㄱ 가로·세로는 실제 한글 마스크 투영 뒤에도 꺾임 양쪽이 반듯한 직선이다', () => {
+    const guide = getLetterGuideStrokes(
+      'ㄱ',
+      mask([
+        [80, 80, 290, 80],
+        [290, 80, 290, 305],
+      ])
+    );
+    expect(guide).toHaveLength(1);
+    const points = guidePoints(guide[0]);
+    expect(points).toHaveLength(49);
+    const horizontal = points.slice(0, 25),
+      vertical = points.slice(24);
+    expect(
+      Math.max(...horizontal.map((p) => p.y)) - Math.min(...horizontal.map((p) => p.y))
+    ).toBeLessThan(0.001);
+    expect(
+      Math.max(...vertical.map((p) => p.x)) - Math.min(...vertical.map((p) => p.x))
+    ).toBeLessThan(0.001);
+    expect(horizontal[0].x).toBeLessThan(horizontal.at(-1)!.x);
+    expect(vertical[0].y).toBeLessThan(vertical.at(-1)!.y);
+  });
   it.each(['D', 'd', 'E', 'I', 'l', 'v', 'Z'])(
     '%s keeps authored straight runs straight after font attraction',
     (letter) => {

@@ -9,6 +9,7 @@ import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 import { LetterTapCharge, LETTER_TAP_COUNT } from '../components/LetterTapCharge';
 import { HangulPopitActivity } from './HangulPopitActivity';
+import { hasPopitLetter } from '../lib/popit-letter-designs';
 
 interface Props {
   unitId: string;
@@ -20,9 +21,9 @@ interface Props {
   onBack: () => void;
 }
 
-/** The three pop-it samples share the existing activity route and completion contract. */
+/** All supported jamo share the existing activity route and completion contract. */
 export function ConsonantTapActivity(props: Props) {
-  if (props.consonant === 'ㄱ' || props.consonant === 'ㅇ') {
+  if (hasPopitLetter(props.consonant)) {
     return (
       <HangulPopitActivity
         key={`${props.unitId}-${props.consonant}`}
@@ -38,7 +39,7 @@ export function ConsonantTapActivity(props: Props) {
   return <ConsonantChargeActivity {...props} />;
 }
 
-/** Other consonants retain five successful listens. */
+/** Preserve the legacy fallback for an unknown/custom glyph. */
 function ConsonantChargeActivity({ unitId, consonant, soundText, onComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
