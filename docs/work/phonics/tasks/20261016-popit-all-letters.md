@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: ecf02fb95 로컬 main fast-forward 포함 확인
-- delivery: 미푸시·미배포
+- delivery: 사용자 현재 요청으로 원격 main 일반 push 대상 확정, 운영 배포 완료는 별도 확인
 
 ## 요청과 완료 조건
 
@@ -39,3 +39,7 @@
 ## 인계
 
 관련 구현과 기록 ecf02fb95를 로컬 main에 fast-forward 통합하고 tracked clean 상태를 확인했다. 기존 사용자 미추적 output/tmp는 보존했다. 이번 작업 push/운영 배포 요청은 없으며 진행 서버는 DISABLE_PUBLISH_SCHEDULER=1/API_TARGET 공개 읽기 프록시 client Vite5187이다.
+
+## main 전달 — 2026-10-16
+
+사용자가 전체 팝잇 확대와 쓰기 가이드/글씨 크기 보완을 확인한 뒤 현재 작업의 main push를 요청했다. fetch 후 origin/main...HEAD는0/4이며3386d2e13 표본과ecf02fb95 전체 확대 및 관련 인계 기록만 포함한다. tracked 미커밋 변경 없이 기존699검사·타입·lint·build 검증을 유지하고, 이 전달 기록까지 이름으로 stage해 일반 push한다. 운영 배포 완료·운영 실제 화면 검수는 이번 push 성공과 구분한다. 위 미푸시/요청 없음은 이전 시점 기록이다.
