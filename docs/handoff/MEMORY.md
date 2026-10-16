@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [한영 권별 시작점 main 전달 요청](../work/phonics/tasks/20261016-book-entry-unlock.md#main-전달--2026-10-16): 사용자 요청으로b964bd1f1과 통합/검수 기록 일반 push 진행. fetch 후0/2·tracked 변경 없음·범위 확인, 앞선 회귀/타입/lint/build 통과 유지. 아래 미푸시는 당시 기록이며 새 Railway 배포 성공은 별도 미확인.
+
 2026-10-16 [한영 커리큘럼 각 권에서 시작](../work/phonics/tasks/20261016-book-entry-unlock.md): 각 권 첫 챕터 개방·권 안 순차/완료 복습. 별도 실력 검사는 넣지 않고 부모가 수준에 맞는 권을 선택한다. 실제 시작한 권 이어하기·이후 권 우선/앞 권 완료 추정 없음, 지도/활동 접근권 통일·챕터 끝 다음 unlock. b964bd1f1 로컬 main 포함·새 push/운영 미반영. 관련532회귀+최종119/추가49·타입/lint/build·실제 로컬한영5권 진입/복귀 확인, 실기기 전체 완주 아님.
 
 2026-10-16 [52자 잉크 수정 main 전달 요청](../work/phonics/tasks/20261016-alphabet-ink-audit.md#main-전달--2026-10-16): 사용자 요청으로ad81725d2와검수/통합 기록 원격 main 일반 push 진행. fetch 후0/3·tracked 변경 없음·범위 확인, 기존524회귀/타입/lint/build 통과 유지. 아래 로컬만 반영은 이전 상태이며 새 Railway 배포 완료는 미확인이다.

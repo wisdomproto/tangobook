@@ -7,7 +7,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - base: a8d68e74c (origin/main 일치)
-- delivery: 로컬 구현·검수, 이번 변경 push 요청 없음
+- delivery: 2026-10-16 사용자 main push 요청, 아래 전달 기록 참조
 
 ## 사용자 결정
 
@@ -36,3 +36,7 @@
 ## 로컬 main 통합
 
 코드·결정/검수 기록 `b964bd1f1`을 tracked 변경 없는 `C:/project/tangobook` main에 fast-forward 통합했다. fetch 당시 origin/main과 기준 a8d68e74c는0/0이었다. 기존 미추적 산출물을 보존하고 영역/공유 메모리를 갱신했다. 이번 작업의 원격 push/운영 배포는 하지 않았다.
+
+## main 전달 — 2026-10-16
+
+사용자가 이번 권별 시작점 변경의 main push를 요청했다. fetch 후 origin/main 대비0/2이며 미전달 커밋은 구현b964bd1f1·통합 기록b30133b39만 확인했다. tracked 미커밋 없음·diff 확인, 기존 최종119/추가49회귀·타입/lint/build 검증을 유지한다. 관련 기록과 함께 일반 push하며 실제 전달은 원격 SHA/좌우0·0으로 확인한다. 위 미푸시 문구는 당시 기록이고 새 운영 배포 완료는 별도 확인한다.
