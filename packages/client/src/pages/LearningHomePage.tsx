@@ -22,6 +22,7 @@ import {
   type JourneyLanguage,
 } from '@/features/phonics-learner/lib/learning-journey';
 import { activityTitle } from '@/features/phonics-learner/lib/activity-title';
+import { HomePlaySection } from '@/features/free-play/components/HomePlaySection';
 
 function HomeCourseResume({ lang }: { lang: JourneyLanguage }) {
   const { t } = useTranslation('phonics');
@@ -85,11 +86,10 @@ function LearningHomeContent() {
     'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coral-700';
   return (
     <div className="storybook-home-page mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6 md:pt-8">
-      <div className="mb-7">
+      <div className="home-intro mb-7">
         <StorybookTitle className="text-3xl font-bold tracking-tight md:text-4xl">
           {t('home.title')}
         </StorybookTitle>
-        <p className="mt-3 text-center text-base text-ink-600 md:text-lg">{t('home.subtitle')}</p>
       </div>
       <section aria-label={t('home.courses')} className="grid gap-4 sm:grid-cols-2 md:gap-6">
         {courses.map((lang) => {
@@ -122,6 +122,7 @@ function LearningHomeContent() {
           <HomeCourseResume key={lang} lang={lang} />
         ))}
       </div>
+      <HomePlaySection />
       <section className="mt-8" aria-labelledby="recommend-heading">
         <div className="home-recommend-heading">
           <div className="home-recommend-title">

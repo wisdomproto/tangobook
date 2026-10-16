@@ -58,6 +58,25 @@ beforeEach(() => {
   catalogue.error = false;
   catalogue.refetch.mockClear();
 });
+
+it('offers four independent play links without changing curriculum progress', () => {
+  markActivityCompleted('korean', 'kr-v1-u01', 'listen-1');
+  showHome();
+  const play = within(screen.getByRole('region', { name: '바로 놀기' }));
+  const entries = [
+    ['한글 블록', 'blocks'],
+    ['낱말 쓰기', 'writing'],
+    ['색칠하기', 'coloring'],
+    ['숨은그림찾기', 'hidden-object'],
+  ];
+  expect(play.getAllByRole('link')).toHaveLength(4);
+  for (const [name, kind] of entries) {
+    const link = play.getByRole('link', { name });
+    expect(link).toHaveAttribute('href', `/library/play/${kind}`);
+    expect(link.querySelector('a,button')).toBeNull();
+  }
+  expect(getUnitProgress('korean', 'kr-v1-u01').completedActivities).toEqual(['listen-1']);
+});
 describe('whole language cards lead to the language entry', () => {
   it.each(['한글 파닉스', '영어 파닉스'])(
     'makes the complete %s card one link without nested actions',

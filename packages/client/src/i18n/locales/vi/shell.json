@@ -81,6 +81,19 @@
     "main": "Điều hướng học tập",
     "mobile": "Điều hướng học tập phía dưới"
   },
+  "freePlay": {
+    "title": "Chơi ngay",
+    "subtitle": "Chọn trò chơi con thích",
+    "blocks": "Khối chữ Hàn",
+    "writing": "Tập viết từ",
+    "coloring": "Tô màu",
+    "hidden-object": "Tìm hình ẩn",
+    "preparing": "Đang chuẩn bị trò chơi",
+    "error": "Không tải được trò chơi.",
+    "empty": "Chưa có trò chơi sẵn sàng.",
+    "retry": "Thử lại",
+    "home": "Trang chủ"
+  },
   "home": {
     "seoTitle": "Trang học tập — TangoBook",
     "title": "Hôm nay mình học gì nhỉ?",

@@ -81,6 +81,19 @@
     "main": "Learning navigation",
     "mobile": "Bottom learning navigation"
   },
+  "freePlay": {
+    "title": "Play now",
+    "subtitle": "Pick something fun to do",
+    "blocks": "Korean blocks",
+    "writing": "Word tracing",
+    "coloring": "Coloring",
+    "hidden-object": "Hidden pictures",
+    "preparing": "Getting your activity ready",
+    "error": "We couldn't load this activity.",
+    "empty": "No ready activities found.",
+    "retry": "Try again",
+    "home": "Home"
+  },
   "home": {
     "seoTitle": "Learning Home — TangoBook",
     "title": "What shall we learn today?",

@@ -50,6 +50,7 @@ const PipelinePage = lazy(() => M().then((m) => ({ default: m.PipelinePage })));
 import LibraryPage from '../pages/LibraryPage';
 import LearningHomePage from '../pages/LearningHomePage';
 const LearnerActivitiesPage = lazy(() => import('../pages/LearnerActivitiesPage'));
+const FreePlayPage = lazy(() => import('../features/free-play/components/FreePlayPage'));
 const GamesHubPage = lazy(() => import('../pages/GamesHubPage'));
 const RandomBlockGamePage = lazy(() => import('../pages/RandomBlockGamePage'));
 const RandomVocabStudyPage = lazy(() => import('../pages/RandomVocabStudyPage'));
@@ -439,6 +440,14 @@ export const router = createBrowserRouter([
               <VocabularyStudyPage />
             </ErrorBoundary>
           </ActivityGate>
+        ),
+      },
+      {
+        path: 'library/play/:kind',
+        element: (
+          <ErrorBoundary>
+            <FreePlayPage />
+          </ErrorBoundary>
         ),
       },
       {

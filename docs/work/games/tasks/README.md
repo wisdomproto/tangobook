@@ -1,5 +1,7 @@
 # 게임·독후활동 작업 기록
 
+- [홈 바로 놀기](../../platform/tasks/20261016-home-free-play.md) — 기존 한글 블록/쓰기·색칠/숨은그림을 쉬운 무작위 판으로 직접 실행, 실제 책 출처/기존 player 보존.
+
 - [파닉스 듣고 블록 놀이](../../phonics/tasks/20261015-listening-block-practice.md) — 한영 공용 player opt-in 듣기 모드·첫 글자 힌트·직접 확인, 동화/일반 블록·인식 보존.
 
 - [전체 게임 반응형 점검](20261014-responsive-games-audit.md) — integrated. 한영·독후 player 세 크기 검수, 듣기 겹침/색칠 비율/쓰기 배치/44px 및 생성 WebP 아이콘 공유. 58ce47b21 로컬 main 통합, 미푸시·실기기/전권 완주 미검증.
