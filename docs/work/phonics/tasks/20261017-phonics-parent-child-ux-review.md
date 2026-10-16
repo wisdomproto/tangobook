@@ -2,12 +2,12 @@
 
 - id: 20261017-phonics-parent-child-ux-review
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-17
 - base: 0e9ef3f82
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 수정·검증 완료, main 통합 대상. 새 push 요청 없음
+- delivery: 62d0add0b 로컬 main 통합 확인. 새 push·운영 배포 없음
 
 ## 요청
 
@@ -72,3 +72,7 @@ PC/태블릿을 우선하고 작은 가로 화면에서 핵심 동작/안내를 
 - 변경 TS/TSX 직접 ESLint 통과. 루트 `pnpm lint`는 기존 `packages/remotion` TS parser 적용 누락61개 parsing error로 실패했다. 전체 JSON 로그에서 오류 파일과 이번 변경의 교집합0, 관련 ESLint 설정/Remotion 파일은 변경하지 않았다. `--quiet`에 확장자 인자를 다르게 전달하면 이61개를 검사하지 않아0으로 보일 수 있으므로 루트 전체 lint 통과로 보고하지 않는다.
 
 최종 관련12파일230회귀(위212 + 듣기/한영 실제 라우트18) 통과. 마지막 안내 prop 수정 후 듣기2회귀·client 타입·client production build39.24초 재통과. build의 기존 큰 청크/lottie eval/혼합 import 경고는 남는다. 최종 한영 지도×3크기(1280×720·1024×768·844×390)의 권 이름30개 실측: 넘침0·페이지 가로 넘침0, 활동16px 확인. 완료 챕터 선택→초록 체크/재생으로 실제 복습 진입→지도 복귀→`지금 배울 곳으로` 복귀 확인. 최종 변경 파일 ESLint·diff·링크/경로 검사 후 코드와 기록을 함께 로컬 커밋한다.
+
+## 로컬 전달
+
+62d0add0b 코드/작업 기억을 실제 main에 fast-forward하고 ancestor 포함을 확인했다. 작업 폴더·기존 미추적 산출물은 보존했다. 새 push 요청은 없어 원격/운영은 바꾸지 않았다. 검수용 클라이언트5193·기존5187을 유지한다. 브라우저에서 아이콘 로드 오류 수정 이후 새 활동 실행 오류는 없었고, 홈 BookCover의 기존 React18 `fetchPriority` 경고1건은 남아 별도 컴포넌트 호환성 점검 대상으로 기록한다. console error0으로 보고하지 않는다.
