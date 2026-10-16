@@ -71,7 +71,6 @@ function StageLetter({ lang, unit }: { lang: JourneyLanguage; unit: Unit }) {
 export function PhonicsJourneyMap({
   lang,
   progress,
-  started,
   finishedUnitDone,
   mode = 'curriculum',
   initialUnitId,
@@ -373,9 +372,14 @@ export function PhonicsJourneyMap({
     selectedActivity &&
     canStart(selectedActivity) &&
     journeyActivityUrl(lang, selectedUnit.id, selectedActivity.activity.key);
-  const selectedBookStarted =
-    (started && progress.current?.unit.levelKey === selectedLevel) ||
-    progress.steps.some((step, i) => step.unit.levelKey === selectedLevel && progress.done[i]);
+  const launchIcon = (done: boolean) => (
+    <span className="journey-activity-actions" aria-hidden="true">
+      {done && <CompletionMark />}
+      <span className="journey-activity-launch">
+        <Play size={15} fill="currentColor" />
+      </span>
+    </span>
+  );
   const renderActivity = (step: (typeof chapterSteps)[number], index: number) => {
     const running = active && activityUnitId === step.unit.id && activityKey === step.activity.key;
     const wordBranch = !!workspace && step.activity.kind === 'word-learning';
@@ -485,7 +489,7 @@ export function PhonicsJourneyMap({
           </span>
         )}
         {!free && !canStart(step) && <LockKeyhole size={14} aria-hidden="true" />}
-        {!free && workspace && step.done && <CompletionMark />}
+        {!free && canStart(step) && launchIcon(step.done)}
       </>
     );
     const entry = free ? (
@@ -509,21 +513,18 @@ export function PhonicsJourneyMap({
         type="button"
         className="journey-curriculum-activity"
         disabled={!canStart(step)}
-        aria-pressed={selected && canStart(step)}
+        aria-current={running ? 'step' : undefined}
         data-running-leaf={running || undefined}
         onClick={() => {
-          if (active && canStart(step)) {
-            workspace?.setNavigationOpen(false);
-            if (
-              step.unit.id !== activityUnitId ||
-              step.activity.key !== activityKey ||
-              workspace?.practiceStage
-            )
-              navigate(journeyActivityUrl(lang, step.unit.id, step.activity.key));
-          } else {
-            selectChapter(step.unit);
-            setSelectedActivityKey(step.activity.key);
-          }
+          if (!canStart(step)) return;
+          workspace?.setNavigationOpen(false);
+          if (
+            !active ||
+            step.unit.id !== activityUnitId ||
+            step.activity.key !== activityKey ||
+            workspace?.practiceStage
+          )
+            navigate(journeyActivityUrl(lang, step.unit.id, step.activity.key));
         }}
       >
         {content}
@@ -566,8 +567,8 @@ export function PhonicsJourneyMap({
               onClick={() => {
                 if (here) workspace?.setNavigationOpen(false);
                 else if (!free && !stageDone) {
-                  selectChapter(step.unit);
-                  setSelectedActivityKey(step.activity.key);
+                  workspace?.setNavigationOpen(false);
+                  navigate(journeyActivityUrl(lang, step.unit.id, step.activity.key));
                 } else {
                   const base = `/library/phonics/${lang}/${step.unit.id}/word-learning`;
                   navigate(`${base}?${free ? '' : 'mode=curriculum&'}part=${stage}`);
@@ -588,7 +589,9 @@ export function PhonicsJourneyMap({
                   {count}/{practiced.total}
                 </small>
               )}
-              {stageDone ? (
+              {!free && available ? (
+                launchIcon(stageDone)
+              ) : stageDone ? (
                 <CompletionMark />
               ) : here ? (
                 <Play size={14} fill="currentColor" aria-hidden="true" />
@@ -921,28 +924,6 @@ export function PhonicsJourneyMap({
                         })
                       : chapterSteps.map(renderActivity)}
                 </ol>
-                {!free &&
-                  !started &&
-                  progress.completed === 0 &&
-                  selectedUnit.id === units[0].id && (
-                    <p className="journey-first-start-guide">
-                      {t('tutorial.startHere')}
-                      <ArrowRight size={18} aria-hidden="true" />
-                    </p>
-                  )}
-                {!active && !free && startUrl && (
-                  <Link to={startUrl} className="journey-play-button">
-                    <Play size={20} fill="currentColor" />
-                    {t(
-                      selectedActivity?.done
-                        ? 'chapter.again'
-                        : selectedBookStarted
-                          ? 'journey.continue'
-                          : 'journey.start'
-                    )}
-                    <ArrowRight size={20} />
-                  </Link>
-                )}
                 {!active && !free && !startUrl && (
                   <p className="journey-chapter-locked">
                     <LockKeyhole size={16} aria-hidden="true" />

@@ -154,6 +154,30 @@
   outline: 3px solid var(--course-accent);
   outline-offset: 2px;
 }
+.journey-activity-actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.journey-activity-launch {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--course-accent);
+  color: #fff;
+  box-shadow: 0 2px 0 var(--course-border);
+}
+.journey-activity-launch > svg {
+  margin-left: 2px;
+}
+li[data-completed] > .journey-curriculum-activity .journey-activity-launch {
+  background: #326f50;
+  box-shadow: 0 2px 0 #23563c;
+}
 .journey-chapter-activities li[data-selected] .journey-curriculum-activity {
   box-shadow: inset 0 0 0 2px var(--course-accent);
 }

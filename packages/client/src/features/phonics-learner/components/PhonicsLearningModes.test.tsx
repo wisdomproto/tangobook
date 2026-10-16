@@ -23,7 +23,20 @@ beforeEach(() => {
   auth.profile = null;
 });
 function Location() {
-  return <output data-testid="location">{useLocation().search}</output>;
+  const location = useLocation();
+  return (
+    <>
+      <output data-testid="location">{location.search}</output>
+      <output data-testid="path">{decodeURIComponent(location.pathname)}</output>
+    </>
+  );
+}
+function activityButtons() {
+  return within(screen.getByRole('list', { name: '이번 챕터의 활동' })).getAllByRole('button');
+}
+function expectLaunchPath(index: number, path: string) {
+  fireEvent.click(activityButtons()[index]);
+  expect(screen.getByTestId('path').textContent).toContain(path);
 }
 function show(lang: 'korean' | 'english' = 'korean', query = '?mode=curriculum') {
   return render(
@@ -41,10 +54,10 @@ it.each(['korean', 'english'] as const)('keeps resume out of the %s mode chooser
   show(lang, '');
   expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
 });
-it('guides the first start without adding another start button or repeating after learning begins', () => {
+it('puts a play action on the first activity without a separate footer start button', () => {
   const view = show();
-  expect(screen.getByText('아래 버튼으로 시작해요')).toBeDefined();
-  expect(document.querySelectorAll('.journey-play-button')).toHaveLength(1);
+  expect(activityButtons()[0].querySelector('.journey-activity-launch')).not.toBeNull();
+  expect(document.querySelectorAll('.journey-play-button')).toHaveLength(0);
   view.unmount();
   markJourneyStarted('korean');
   show();
@@ -81,7 +94,8 @@ it.each(['korean', 'english'] as const)(
         within(list).getByText(activityTitle(i18n.getFixedT('ko', 'phonics'), activity))
       ).toBeDefined();
     }
-    expect(screen.getAllByRole('link', { name: '학습 시작하기' })).toHaveLength(1);
+    expect(activityButtons().filter((button) => !button.hasAttribute('disabled'))).toHaveLength(1);
+    expect(screen.queryByRole('link', { name: '학습 시작하기' })).toBeNull();
     expect(document.querySelector('.curriculum-board .journey-map-viewport')).not.toBeNull();
     expect(screen.queryByText('이야기 마을로 떠나요!')).toBeNull();
     expect(screen.queryByRole('button', { name: '학습 정보' })).toBeNull();
@@ -99,14 +113,11 @@ it.each(['korean', 'english'] as const)(
 it('resumes the unfinished activity and marks the current step in the chapter preview', () => {
   markActivityCompleted('korean', 'kr-v1-g01', 'listen-1');
   show();
-  expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
-    'href',
-    '/library/phonics/korean/kr-v1-u01/write-1?mode=curriculum'
-  );
   const list = screen.getByRole('list', { name: '이번 챕터의 활동' });
   expect(list.children[0]).toHaveAttribute('data-completed');
   expect(list.children[1]).toHaveAttribute('aria-current', 'step');
   expect(within(list).queryByRole('link')).toBeNull();
+  expectLaunchPath(1, '/library/phonics/korean/kr-v1-u01/write-1');
 });
 it('shows the second vowel sound game in the actual order', () => {
   finish('korean', 'kr-v1-u01');
@@ -115,32 +126,22 @@ it('shows the second vowel sound game in the actual order', () => {
   expect(list.children).toHaveLength(3);
   expect(list.children[2].textContent).toContain('듣고 고르기');
 });
-it('previews a completed chapter before replaying it through the single action', () => {
+it('previews a completed chapter and launches its activity directly', () => {
   finish('korean', 'kr-v1-u01');
   show();
   const before = localStorage.getItem('phonics-progress');
   fireEvent.click(screen.getByRole('button', { name: /^1번째 단계.*다 했어요/ }));
   expect(screen.getByRole('list', { name: '이번 챕터의 활동' }).children).toHaveLength(2);
-  expect(screen.getByRole('link', { name: '다시 하기' })).toHaveAttribute(
-    'href',
-    '/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum'
-  );
+  expectLaunchPath(0, '/library/phonics/korean/kr-v1-u01/listen-1');
   expect(screen.queryByRole('link', { name: '이어서 학습하기' })).toBeNull();
   expect(localStorage.getItem('phonics-progress')).toBe(before);
   fireEvent.click(screen.getByRole('button', { name: /2번째 단계.*지금 배울/ }));
-  expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
-    'href',
-    '/library/phonics/korean/kr-v1-u02/listen-1?mode=curriculum'
-  );
+  expectLaunchPath(0, '/library/phonics/korean/kr-v1-u02/listen-1');
 });
 it('opens the selected book entry while keeping its later activities locked', () => {
   show();
   fireEvent.click(screen.getByRole('button', { name: '5권 복잡한 모음' }));
   expect(screen.getByRole('region', { name: '복잡한 모음' })).toBeDefined();
-  expect(screen.getByRole('link', { name: '학습 시작하기' })).toHaveAttribute(
-    'href',
-    '/library/phonics/korean/kr-h4-u01/letter-listen-ㅐ?mode=curriculum'
-  );
   const list = screen.getByRole('list', { name: '이번 챕터의 활동' });
   const chapter = journeyUnits('korean').find((unit) => unit.levelIndex === 5)!;
   expect(list.textContent).toContain(
@@ -167,9 +168,10 @@ it('opens the selected book entry while keeping its later activities locked', ()
     )
   ).toBe(true);
   expect(Object.values(localStorage).every((value) => value === '[]')).toBe(true);
+  expectLaunchPath(0, '/library/phonics/korean/kr-v1-u01/listen-1');
 });
 it.each(['korean', 'english'] as const)(
-  'selects only completed or current activities through one action in %s',
+  'launches completed/current activities directly and keeps future activities locked in %s',
   (lang) => {
     const unit = journeyUnits(lang)[0];
     const activities = journeyActivities(lang, unit.id);
@@ -179,21 +181,23 @@ it.each(['korean', 'english'] as const)(
     const buttons = within(list).getAllByRole('button');
     expect(buttons[0]).toBeEnabled();
     expect(buttons[1]).toBeEnabled();
-    expect(buttons[1]).toHaveAttribute('aria-pressed', 'true');
+    expect(buttons[1].closest('li')).toHaveAttribute('aria-current', 'step');
     for (const future of buttons.slice(2)) expect(future).toBeDisabled();
     const before = localStorage.getItem('phonics-progress');
     fireEvent.click(buttons[0]);
-    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('link', { name: '다시 하기' })).toHaveAttribute(
-      'href',
-      `/library/phonics/${lang}/${unit.id}/${activities[0].key}?mode=curriculum`
+    expect(screen.getByTestId('path').textContent).toBe(
+      `/library/phonics/${lang}/${unit.id}/${activities[0].key}`
     );
-    expect(document.querySelectorAll('.journey-play-button')).toHaveLength(1);
+    expect(buttons[0].querySelector('.journey-activity-launch')).not.toBeNull();
+    expect(buttons[0].querySelector('.workspace-complete-check')).not.toBeNull();
+    expect(buttons[1].querySelector('.journey-activity-launch')).not.toBeNull();
+    for (const future of buttons.slice(2))
+      expect(future.querySelector('.journey-activity-launch')).toBeNull();
+    expect(document.querySelectorAll('.journey-play-button')).toHaveLength(0);
     expect(localStorage.getItem('phonics-progress')).toBe(before);
     fireEvent.click(buttons[1]);
-    expect(screen.getByRole('link', { name: '이어서 학습하기' })).toHaveAttribute(
-      'href',
-      `/library/phonics/${lang}/${unit.id}/${activities[1].key}?mode=curriculum`
+    expect(screen.getByTestId('path').textContent).toBe(
+      `/library/phonics/${lang}/${unit.id}/${activities[1].key}`
     );
   }
 );
@@ -204,22 +208,17 @@ it.each(['korean', 'english'] as const)(
     finish(lang, units[0].id);
     const activity = journeyActivities(lang, units[0].id)[1];
     const view = show(lang, `?mode=curriculum&chapter=${units[0].id}&activity=${activity.key}`);
-    expect(screen.getByRole('link', { name: '다시 하기' }).getAttribute('href')).toContain(
-      units[0].id
-    );
     expect(screen.queryByRole('status', { name: '다음 챕터가 열렸어!' })).toBeNull();
     const list = screen.getByRole('list', { name: '이번 챕터의 활동' });
     const buttons = within(list).getAllByRole('button');
-    expect(buttons[1]).toHaveAttribute('aria-pressed', 'true');
+    expect(buttons[1].closest('li')).toHaveAttribute('data-selected');
     fireEvent.click(buttons[1]);
-    expect(screen.getByRole('link', { name: '다시 하기' }).getAttribute('href')).toContain(
+    expect(screen.getByTestId('path').textContent).toContain(
       journeyActivities(lang, units[0].id)[1].key
     );
     view.unmount();
     show(lang, `?mode=curriculum&chapter=${units[2].id}&activity=${activity.key}`);
-    expect(screen.getByRole('link', { name: '이어서 학습하기' }).getAttribute('href')).toContain(
-      units[1].id
-    );
+    expectLaunchPath(0, units[1].id);
   }
 );
 it('scrolls the map to a later current chapter without moving the page or writing progress', () => {
@@ -227,9 +226,7 @@ it('scrolls the map to a later current chapter without moving the page or writin
   for (const unit of units.slice(0, 6)) finish('english', unit.id);
   show('english');
   expect(screen.getByLabelText('학습 지도 스크롤').scrollTop).toBeGreaterThan(0);
-  expect(screen.getByRole('link', { name: '이어서 학습하기' }).getAttribute('href')).toContain(
-    units[6].id
-  );
+  expectLaunchPath(0, units[6].id);
 });
 it('keeps English Book context when the current chapter moves into Book 2', () => {
   const units = journeyUnits('english');
@@ -239,19 +236,15 @@ it('keeps English Book context when the current chapter moves into Book 2', () =
     'aria-pressed',
     'true'
   );
-  expect(screen.getByRole('link', { name: '이어서 학습하기' }).getAttribute('href')).toContain(
-    units.find((unit) => unit.levelIndex === 2)!.id
-  );
+  expectLaunchPath(0, units.find((unit) => unit.levelIndex === 2)!.id);
 });
 it('keeps every completed chapter previewable after the entire course is finished', () => {
   for (const unit of journeyUnits('english')) finish('english', unit.id);
   show('english');
-  expect(screen.getAllByRole('link', { name: '다시 하기' })).toHaveLength(1);
+  expect(activityButtons().every((button) => !button.hasAttribute('disabled'))).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'Book 1 알파벳 정원' }));
   fireEvent.click(screen.getByRole('button', { name: /^1번째 단계.*다 했어요/ }));
-  expect(screen.getByRole('link', { name: '다시 하기' }).getAttribute('href')).toContain(
-    '/en-b1-u01/letters-learn'
-  );
+  expectLaunchPath(0, '/en-b1-u01/letters-learn');
 });
 it.each([false, true])(
   'unlocks the next chapter and consumes the finish marker (reduced motion: %s)',
@@ -271,9 +264,7 @@ it.each([false, true])(
       act(() => vi.advanceTimersByTime(reduced ? 500 : 1900));
       expect(screen.queryByRole('status', { name: '다음 챕터가 열렸어!' })).toBeNull();
       expect(screen.getByTestId('location').textContent).toBe('?mode=curriculum');
-      expect(screen.getByRole('link', { name: '이어서 학습하기' }).getAttribute('href')).toContain(
-        '/kr-v1-u02/listen-1'
-      );
+      expectLaunchPath(0, '/kr-v1-u02/listen-1');
     } finally {
       vi.useRealTimers();
       window.matchMedia = original;
@@ -308,7 +299,7 @@ it('keeps the same overview under the phone landscape gate', () => {
       portrait.dispatchEvent(new Event('change'));
     });
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(screen.getAllByRole('link', { name: '학습 시작하기' })).toHaveLength(1);
+    expect(activityButtons()[0]).not.toBeDisabled();
   } finally {
     window.matchMedia = original;
   }
@@ -318,11 +309,9 @@ it('resets a selected replay chapter to the new child’s actual starting chapte
   localStorage.setItem('tangobook:activeProfileId', 'child-a');
   finish('korean', 'kr-v1-u01');
   const result = show();
-  expect(screen.getByRole('link', { name: '이어서 학습하기' }).getAttribute('href')).toContain(
-    '/kr-v1-u02/'
-  );
+  expect(activityButtons()[0].closest('li')).not.toHaveAttribute('data-completed');
   fireEvent.click(screen.getByRole('button', { name: /^1번째 단계.*다 했어요/ }));
-  expect(screen.getByRole('link', { name: '다시 하기' })).toBeDefined();
+  expect(activityButtons()[0].closest('li')).toHaveAttribute('data-completed');
   auth.profile = 'child-b';
   localStorage.setItem('tangobook:activeProfileId', 'child-b');
   result.rerender(
@@ -332,9 +321,7 @@ it('resets a selected replay chapter to the new child’s actual starting chapte
     </MemoryRouter>
   );
   expect(screen.queryByRole('link', { name: '다시 하기' })).toBeNull();
-  expect(screen.getByRole('link', { name: '학습 시작하기' }).getAttribute('href')).toContain(
-    '/kr-v1-u01/listen-1'
-  );
+  expectLaunchPath(0, '/kr-v1-u01/listen-1');
   expect(localStorage.getItem('phonics-progress:profile:child-b')).toBeNull();
 });
 
