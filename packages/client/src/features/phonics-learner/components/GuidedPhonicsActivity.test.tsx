@@ -351,3 +351,31 @@ it.each(['korean', 'english'] as const)(
     );
   }
 );
+
+it.each(['korean', 'english'] as const)(
+  'redirects a locked later-book activity to that book entry without marking earlier work',
+  (lang) => {
+    const steps = journeySteps(lang);
+    const book = [...new Set(steps.map((s) => s.unit.levelKey))][3];
+    const entry = steps.find((s) => s.unit.levelKey === book)!;
+    const future = steps.filter((s) => s.unit.levelKey === book)[1];
+    render(
+      <MemoryRouter>
+        <Location />
+        <GuidedPhonicsActivity
+          lang={lang}
+          unitId={future.unit.id}
+          activityKey={future.activity.key}
+        >
+          {() => <button>locked activity</button>}
+        </GuidedPhonicsActivity>
+      </MemoryRouter>
+    );
+    expect(screen.queryByRole('button', { name: 'locked activity' })).toBeNull();
+    expect(screen.getByTestId('route').textContent).toBe(
+      `/library/phonics/${lang}/${entry.unit.id}/${entry.activity.key}?mode=curriculum`
+    );
+    expect(journeyProgress(lang).completed).toBe(0);
+    expect(localStorage.getItem(`phonics-journey-started:${lang}:book`)).toBeNull();
+  }
+);

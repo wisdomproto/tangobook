@@ -63,9 +63,11 @@ function GuidedRun({
   const activityRoot = useRef<HTMLDivElement>(null);
   const [replaying] = useState(() => progress.done[index] === true);
   const stepDone = progress.done[index] === true;
+  const stepUnlocked = progress.unlocked[index] === true;
+  const stepLevel = progress.steps[index]?.unit.levelKey;
   useEffect(() => {
-    if (index >= 0 && (stepDone || index === progress.currentIndex)) markJourneyStarted(lang);
-  }, [lang, index, progress.currentIndex, stepDone]);
+    if (stepUnlocked) markJourneyStarted(lang, stepDone ? undefined : stepLevel);
+  }, [lang, stepUnlocked, stepLevel, stepDone]);
   const chapterUrl = `${journeyHomeUrl(lang)}&chapter=${encodeURIComponent(unitId)}${replaying ? `&activity=${encodeURIComponent(activityKey)}` : ''}`;
   const onExit = useCallback(() => navigate(chapterUrl), [navigate, chapterUrl]);
   const onNext = useCallback(() => {
@@ -111,13 +113,18 @@ function GuidedRun({
   useEffect(() => {
     if (activityRoot.current) activityRoot.current.inert = ready;
   }, [ready]);
-  if (index < 0 || (!progress.done[index] && index !== progress.currentIndex)) {
+  if (index < 0 || !progress.unlocked[index]) {
+    const book = progress.steps[index]?.unit.levelKey;
+    const bookNext = progress.steps.find(
+      (s, i) => s.unit.levelKey === book && !progress.done[i] && progress.unlocked[i]
+    );
+    const redirect = bookNext ?? progress.current;
     return (
       <Navigate
         replace
         to={
-          progress.current
-            ? journeyActivityUrl(lang, progress.current.unit.id, progress.current.activity.key)
+          redirect
+            ? journeyActivityUrl(lang, redirect.unit.id, redirect.activity.key)
             : journeyHomeUrl(lang)
         }
       />

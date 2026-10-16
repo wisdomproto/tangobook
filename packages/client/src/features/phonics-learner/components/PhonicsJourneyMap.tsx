@@ -108,8 +108,7 @@ export function PhonicsJourneyMap({
   const returnChapter = units.find(
     (unit) =>
       unit.id === search.get('chapter') &&
-      (unit.id === progress.current?.unit.id ||
-        progress.steps.some((step, index) => step.unit.id === unit.id && progress.done[index]))
+      progress.steps.some((step, index) => step.unit.id === unit.id && progress.unlocked[index])
   );
   const initial = free ? freeInitial : (returnChapter ?? progress.current?.unit ?? units.at(-1)!);
   const levels = [...new Set(units.map((unit) => unit.levelKey))];
@@ -130,14 +129,25 @@ export function PhonicsJourneyMap({
     setSelectedActivityKey(null);
   };
   const finishedIndex = units.findIndex((unit) => unit.id === search.get('finished'));
-  const currentIndex = units.findIndex((unit) => unit.id === progress.current?.unit.id);
+  const finishedUnit = units[finishedIndex];
+  const nextUnit = units[finishedIndex + 1];
+  // Book entries were already open. Only a newly reached chapter in this book unlocks.
+  const nextChapter =
+    finishedIndex >= 0 &&
+    nextUnit &&
+    progress.steps.some(
+      (step, i) => step.unit.id === nextUnit.id && !progress.done[i] && progress.unlocked[i]
+    )
+      ? nextUnit
+      : undefined;
+  const unlockedUnit = nextChapter?.levelKey === finishedUnit?.levelKey ? nextChapter : undefined;
   const [unlocking, setUnlocking] = useState(
     () =>
       !free &&
       finishedUnitDone &&
       search.get('replay') !== '1' &&
       finishedIndex >= 0 &&
-      currentIndex === finishedIndex + 1
+      !!unlockedUnit
   );
   useEffect(() => {
     if (!unlocking) return;
@@ -162,7 +172,7 @@ export function PhonicsJourneyMap({
     const id = active
       ? activityUnitId
       : finishedId && finishedUnitDone
-        ? (progress.current?.unit.id ?? finishedId)
+        ? (nextChapter?.id ?? finishedId)
         : returnId;
     const unit = units.find((u) => u.id === id);
     if (unit) {
@@ -178,7 +188,7 @@ export function PhonicsJourneyMap({
       !free &&
       search.get('replay') !== '1' &&
       finishedIndex >= 0 &&
-      currentIndex === finishedIndex + 1
+      !!unlockedUnit
     ) {
       seenFinish.current = finishedId;
       setUnlocking(true);
@@ -246,9 +256,12 @@ export function PhonicsJourneyMap({
   };
   const chapterNext = chapterSteps.find((step) => !step.done) ?? chapterSteps[0];
   const canStart = (step: (typeof chapterSteps)[number]) =>
-    step.done ||
-    (progress.current?.unit.id === step.unit.id &&
-      progress.current?.activity.key === step.activity.key);
+    progress.steps.some(
+      (s, index) =>
+        s.unit.id === step.unit.id &&
+        s.activity.key === step.activity.key &&
+        progress.unlocked[index]
+    );
   const selectedActivity =
     chapterSteps.find((step) => step.activity.key === selectedActivityKey && canStart(step)) ??
     chapterNext;
@@ -328,6 +341,8 @@ export function PhonicsJourneyMap({
       unit,
       complete,
       current,
+      available:
+        free || progress.steps.some((step, i) => step.unit.id === unit.id && progress.unlocked[i]),
       first,
       done: steps.filter((step) => step.done).length,
       total: steps.length,
@@ -358,6 +373,9 @@ export function PhonicsJourneyMap({
     selectedActivity &&
     canStart(selectedActivity) &&
     journeyActivityUrl(lang, selectedUnit.id, selectedActivity.activity.key);
+  const selectedBookStarted =
+    (started && progress.current?.unit.levelKey === selectedLevel) ||
+    progress.steps.some((step, i) => step.unit.levelKey === selectedLevel && progress.done[i]);
   const renderActivity = (step: (typeof chapterSteps)[number], index: number) => {
     const running = active && activityUnitId === step.unit.id && activityKey === step.activity.key;
     const wordBranch = !!workspace && step.activity.kind === 'word-learning';
@@ -377,10 +395,7 @@ export function PhonicsJourneyMap({
       running && wordBranch && workspace?.wordActivity?.unitId === step.unit.id
         ? workspace.wordActivity.stage
         : undefined;
-    const current =
-      !free &&
-      progress.current?.unit.id === step.unit.id &&
-      progress.current?.activity.key === step.activity.key;
+    const current = !free && !step.done && canStart(step);
     const selected =
       !free &&
       step.unit.id === selectedUnit.id &&
@@ -663,10 +678,8 @@ export function PhonicsJourneyMap({
         >
           {levels.map((level, index) => {
             const levelUnits = units.filter((unit) => unit.levelKey === level);
-            const reached = levelUnits.some(
-              (unit) =>
-                unit.id === progress.current?.unit.id ||
-                progress.steps.some((step, i) => step.unit.id === unit.id && progress.done[i])
+            const reached = levelUnits.some((unit) =>
+              progress.steps.some((step, i) => step.unit.id === unit.id && progress.unlocked[i])
             );
             return (
               <button
@@ -674,11 +687,11 @@ export function PhonicsJourneyMap({
                 type="button"
                 aria-pressed={selectedLevel === level}
                 onClick={() => {
-                  selectChapter(
-                    !free && progress.current?.unit.levelKey === level
-                      ? progress.current.unit
-                      : levelUnits[0]
+                  const next = progress.steps.find(
+                    (step, i) =>
+                      step.unit.levelKey === level && !progress.done[i] && progress.unlocked[i]
                   );
+                  selectChapter(!free && next ? next.unit : levelUnits[0]);
                 }}
                 className={`journey-region ${selectedLevel === level ? 'is-selected' : ''} ${reached ? 'is-reached' : ''}`}
               >
@@ -923,7 +936,7 @@ export function PhonicsJourneyMap({
                     {t(
                       selectedActivity?.done
                         ? 'chapter.again'
-                        : started
+                        : selectedBookStarted
                           ? 'journey.continue'
                           : 'journey.start'
                     )}
@@ -1010,7 +1023,7 @@ export function PhonicsJourneyMap({
                 </svg>
                 <ol className="journey-stages" aria-label={t('world.stages')}>
                   {stages.map((stage, index) => {
-                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'world.finished' : free ? 'journey.free' : stage.current ? 'journey.current' : 'journey.locked')}`;
+                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'world.finished' : free ? 'journey.free' : stage.current ? 'journey.current' : stage.available ? 'journey.start' : 'journey.locked')}`;
                     const body = (
                       <>
                         {stage.current && (
@@ -1026,7 +1039,7 @@ export function PhonicsJourneyMap({
                               <StageLetter lang={lang} unit={stage.unit} />
                             )}
                           </span>
-                          {stage.current && unlocking && (
+                          {stage.unit.id === unlockedUnit?.id && unlocking && (
                             <span className="journey-unlocking-lock" aria-hidden="true">
                               <StorybookSprite name="lock" size={42} />
                             </span>
@@ -1038,6 +1051,8 @@ export function PhonicsJourneyMap({
                               <BookOpen size={14} />
                             ) : stage.current ? (
                               <Flag size={14} />
+                            ) : stage.available ? (
+                              <Play size={14} fill="currentColor" />
                             ) : (
                               <LockKeyhole size={13} />
                             )}
@@ -1048,10 +1063,10 @@ export function PhonicsJourneyMap({
                     return (
                       <li
                         key={stage.unit.id}
-                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : free ? 'is-open' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.current && unlocking ? 'is-unlocking' : ''}`}
+                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : stage.available ? 'is-open' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.unit.id === unlockedUnit?.id && unlocking ? 'is-unlocking' : ''}`}
                         style={{ left: `${stage.x}%`, top: `${stage.y}px` }}
                       >
-                        {free || ((stage.current || stage.complete) && stage.first) ? (
+                        {stage.available && stage.first ? (
                           <button
                             type="button"
                             aria-label={accessibleName}

@@ -133,21 +133,22 @@ it('previews a completed chapter before replaying it through the single action',
     '/library/phonics/korean/kr-v1-u02/listen-1?mode=curriculum'
   );
 });
-it('previews the selected book on both sides without opening future activities', () => {
+it('opens the selected book entry while keeping its later activities locked', () => {
   show();
   fireEvent.click(screen.getByRole('button', { name: '5권 모음 무지개' }));
   expect(screen.getByRole('region', { name: '모음 무지개' })).toBeDefined();
-  expect(screen.queryByRole('link', { name: '학습 시작하기' })).toBeNull();
+  expect(screen.getByRole('link', { name: '학습 시작하기' })).toHaveAttribute(
+    'href',
+    '/library/phonics/korean/kr-h4-u01/letter-listen-ㅐ?mode=curriculum'
+  );
   const list = screen.getByRole('list', { name: '이번 챕터의 활동' });
   const chapter = journeyUnits('korean').find((unit) => unit.levelIndex === 5)!;
   expect(list.textContent).toContain(
     activityTitle(i18n.getFixedT('ko', 'phonics'), journeyActivities('korean', chapter.id)[0])
   );
-  expect(
-    within(list)
-      .getAllByRole('button')
-      .every((button) => button.hasAttribute('disabled'))
-  ).toBe(true);
+  const activities = within(list).getAllByRole('button');
+  expect(activities[0]).not.toBeDisabled();
+  expect(activities.slice(1).every((button) => button.hasAttribute('disabled'))).toBe(true);
   expect(
     screen
       .getAllByRole('button', { name: /번째 단계.*앞 단계를/ })
@@ -415,3 +416,18 @@ it('shows a repeated chapter/activity title only once, without a dangling descri
   expect(within(next).getByText('ㅏ 써보기')).toHaveAttribute('id', 'curriculum-entry-activity');
   expect(next).toHaveAttribute('aria-describedby', 'curriculum-entry-activity');
 });
+
+it.each(['korean', 'english'] as const)(
+  'resumes the selected %s book while browsing other books never changes resume or invents completion',
+  (lang) => {
+    const units = journeyUnits(lang);
+    const selected = units.find((u) => u.levelIndex === 4)!;
+    markJourneyStarted(lang, selected.levelKey);
+    show(lang, '?mode=curriculum&resume=1');
+    const dialog = screen.getByRole('dialog');
+    expect(within(dialog).getByRole('link', { name: /이어서/ })).toHaveAttribute(
+      'href',
+      `/library/phonics/${lang}/${selected.id}/${journeyActivities(lang, selected.id)[0].key}?mode=curriculum`
+    );
+  }
+);

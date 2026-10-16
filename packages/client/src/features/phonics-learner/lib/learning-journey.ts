@@ -24,9 +24,11 @@ export function hasJourneyStarted(lang: JourneyLanguage) {
   }
 }
 
-export function markJourneyStarted(lang: JourneyLanguage) {
+export function markJourneyStarted(lang: JourneyLanguage, levelKey?: string) {
   try {
     localStorage.setItem(startedKey(lang), '1');
+    // Only entering an unfinished guided activity changes resume, never browsing/free play.
+    if (levelKey) localStorage.setItem(`${startedKey(lang)}:book`, levelKey);
   } catch {
     /* no-op */
   }
@@ -96,10 +98,33 @@ export function journeyProgress(
     if (!byUnit.has(unit.id)) byUnit.set(unit.id, readDone(unit.id));
     return byUnit.get(unit.id)!.includes(activity.key);
   });
-  const currentIndex = done.findIndex((value) => !value);
+  // Each book is an independent starting point, with sequential activities inside it.
+  const nextByLevel = new Map<string, number>();
+  steps.forEach((step, index) => {
+    if (!done[index] && !nextByLevel.has(step.unit.levelKey))
+      nextByLevel.set(step.unit.levelKey, index);
+  });
+  const unlocked = steps.map(
+    (step, index) => done[index] || nextByLevel.get(step.unit.levelKey) === index
+  );
+  let preferredBook: string | null = null;
+  try {
+    preferredBook = localStorage.getItem(`${startedKey(lang)}:book`);
+  } catch {
+    /* Storage-disabled sessions still expose every book's starting point. */
+  }
+  const preferredIndex = steps.findIndex((step) => step.unit.levelKey === preferredBook);
+  const currentIndex =
+    (preferredBook ? nextByLevel.get(preferredBook) : undefined) ??
+    // Completing a later starting book continues forward, without sending the child back to Book 1.
+    (preferredIndex >= 0
+      ? [...nextByLevel.values()].find((index) => index > preferredIndex)
+      : undefined) ??
+    done.findIndex((value) => !value);
   return {
     steps,
     done,
+    unlocked,
     currentIndex,
     current: currentIndex < 0 ? undefined : steps[currentIndex],
     completed: done.filter(Boolean).length,

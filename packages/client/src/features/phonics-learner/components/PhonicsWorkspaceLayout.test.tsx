@@ -363,3 +363,70 @@ it.each(['korean', 'english'] as const)(
     expect(screen.queryByRole('status', { name: '다음 챕터가 열렸어!' })).not.toBeInTheDocument();
   }
 );
+
+it.each(['korean', 'english'] as const)(
+  'starts at any %s book, keeps its activities sequential, and unlocks its next chapter on the map',
+  (lang) => {
+    const { container } = show(`/library/phonics/${lang}?mode=curriculum`);
+    const units = journeyUnits(lang);
+    const levels = [...new Set(units.map((u) => u.levelKey))];
+    const books = within(screen.getByRole('group', { name: '여행할 장소' })).getAllByRole('button');
+    for (const [index, book] of books.entries()) {
+      fireEvent.click(book);
+      const entry = units.find((u) => u.levelKey === levels[index])!;
+      const stages = within(
+        screen.getByRole('list', { name: '순서대로 이어지는 학습 단계' })
+      ).getAllByRole('button');
+      expect(stages[0]).not.toBeDisabled();
+      expect(stages.slice(1).every((b) => b.hasAttribute('disabled'))).toBe(true);
+      expect(container.querySelector('.journey-play-button')).toHaveAttribute(
+        'href',
+        `/library/phonics/${lang}/${entry.id}/${journeyActivities(lang, entry.id)[0].key}?mode=curriculum`
+      );
+    }
+    fireEvent.click(books[1]);
+    const entry = units.find((u) => u.levelKey === levels[1])!;
+    fireEvent.click(container.querySelector('.journey-play-button')!);
+    expect(screen.getByTestId('route-activity').textContent).toBe(
+      `${entry.id}:${journeyActivities(lang, entry.id)[0].key}`
+    );
+    vi.useFakeTimers();
+    for (const activity of journeyActivities(lang, entry.id)) {
+      expect(screen.getByTestId('route-activity').textContent).toBe(`${entry.id}:${activity.key}`);
+      fireEvent.click(screen.getByRole('button', { name: 'finish fixture' }));
+      act(() => vi.advanceTimersByTime(GUIDED_COMPLETION_MS));
+    }
+    expect(container.querySelector('[data-phonics-workspace]')).not.toHaveAttribute(
+      'data-activity-open'
+    );
+    expect(container.querySelector('.journey-stage.is-unlocking')).toBeInTheDocument();
+    const stages = within(
+      screen.getByRole('list', { name: '순서대로 이어지는 학습 단계' })
+    ).getAllByRole('button');
+    expect(stages[0]).not.toBeDisabled();
+    expect(stages[1]).not.toBeDisabled();
+    expect(stages[2]).toBeDisabled();
+    expect(
+      journeyProgress(lang)
+        .done.slice(
+          0,
+          journeyProgress(lang).steps.findIndex((s) => s.unit.id === entry.id)
+        )
+        .some(Boolean)
+    ).toBe(false);
+  }
+);
+
+it.each(['korean', 'english'] as const)(
+  'keeps the finished final %s book on the map rather than jumping to unstudied earlier books',
+  (lang) => {
+    const final = journeyUnits(lang).at(-1)!;
+    journeyProgress(lang);
+    journeyActivities(lang, final.id).forEach((a) => markActivityCompleted(lang, final.id, a.key));
+    const { container } = show(`/library/phonics/${lang}?mode=curriculum&finished=${final.id}`);
+    const books = within(screen.getByRole('group', { name: '여행할 장소' })).getAllByRole('button');
+    expect(books.at(-1)).toHaveAttribute('aria-pressed', 'true');
+    expect(container.querySelector('.journey-stage.is-unlocking')).toBeNull();
+    expect(journeyProgress(lang).current?.unit.id).toBe(journeyUnits(lang)[0].id);
+  }
+);

@@ -146,3 +146,35 @@ it('old completed blending remains recorded but the new standalone letter step m
   prior.forEach((key) => markActivityCompleted('korean', 'kr-h1-u02', key));
   expect(journeyProgress('korean').current?.activity.key).toBe('letter-write');
 });
+
+it.each(['korean', 'english'] as const)(
+  'opens all five %s book entries without completing earlier books, then advances within the selected book',
+  (lang) => {
+    const initial = journeyProgress(lang);
+    const firstByBook = [
+      ...new Map(initial.steps.map((s) => [s.unit.levelKey, s.unit.levelKey])).keys(),
+    ].map((level) => initial.steps.findIndex((s) => s.unit.levelKey === level));
+    expect(firstByBook).toHaveLength(5);
+    expect(initial.unlocked.flatMap((open, i) => (open ? [i] : []))).toEqual(firstByBook);
+    const entry = initial.steps[firstByBook[3]];
+    markJourneyStarted(lang, entry.unit.levelKey);
+    expect(journeyProgress(lang).current).toEqual(entry);
+    initial.steps
+      .filter((s) => s.unit.id === entry.unit.id)
+      .forEach((s) => markActivityCompleted(lang, s.unit.id, s.activity.key));
+    const next = journeyProgress(lang);
+    expect(next.current?.unit.levelKey).toBe(entry.unit.levelKey);
+    expect(next.current?.unit.id).not.toBe(entry.unit.id);
+    expect(next.unlocked[next.currentIndex]).toBe(true);
+    expect(next.done.slice(0, firstByBook[3]).some(Boolean)).toBe(false);
+    initial.steps
+      .filter((s) => s.unit.levelKey === entry.unit.levelKey)
+      .forEach((s) => markActivityCompleted(lang, s.unit.id, s.activity.key));
+    const afterBook = journeyProgress(lang);
+    expect(afterBook.current?.unit.levelKey).toBe(initial.steps[firstByBook[4]].unit.levelKey);
+    expect(afterBook.done.slice(0, firstByBook[3]).some(Boolean)).toBe(false);
+    localStorage.setItem('tangobook:activeProfileId', 'other-child');
+    expect(journeyProgress(lang).current?.unit.id).toBe(initial.steps[0].unit.id);
+    expect(journeyProgress(lang).completed).toBe(0);
+  }
+);
