@@ -3,12 +3,12 @@
 - id: 20261016-home-free-play
 - domain: platform
 - status: integrated
-- updated: 2026-10-16
+- updated: 2026-10-17
 - base: 141b05991
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: 23e0c9c53 로컬 main fast-forward 포함 확인
-- delivery: 사용자 요청으로 origin/main 일반 push 대상 확정, 운영 배포 완료는 별도 확인
+- delivery: ad0fc843b 원격 main push·Railway c6c5c341 successful/Active·운영 홈4종 실제 진입 확인
 
 ## 사용자 결정
 
@@ -40,3 +40,12 @@
 ## main 전달 — 2026-10-16
 
 후속 사용자 요청 “좋아. 메인에 푸시하자”로 홈 바로 놀기 변경의 원격 main 전달을 승인받았다. fetch 후 origin/main...HEAD는0/2이며 코드23e0c9c53과 통합 기록3acae38f9만 앞서 있다. tracked clean과 변경 범위를 확인했고 기존 미추적 output/tmp는 보존한다. 제품 코드 변경이 없어 기존53검사·타입/lint/build·화면 검증을 유지하며 전달 기록만 추가해 일반 push한다. Railway 운영 배포 성공과 운영 화면 확인은 push 성공과 별도로 확인해야 한다.
+
+## 운영 배포·바로 시작 검수 — 2026-10-17
+
+- 사용자 요청으로 배포 상태와 운영 홈4버튼의 즉시 시작·한영 선택 여부를 검수했다. 원격 main은 ad0fc843bfca7e2e52c263950d7a653a74c88464, fetch 후0/0. [Railway 배포](https://railway.com/project/b469e171-479c-400a-80bc-8ab4273c25de/service/0019800b-d014-4464-8638-60dcf283677e?environmentId=9d29baf7-1890-453a-956e-94bc329ef98d&id=c6c5c341-263c-444d-a6af-2ae525adb51e#details)의 successful·Active와 GitHub commit 링크가 해당 SHA임을 직접 확인했다. 배포 표시 시각은10월16일23:50 GMT+9, 검수는 자정을 걸쳤다.
+- 운영 `/library`를 새로고침해 한글 블록·낱말 쓰기·색칠하기·숨은그림찾기4개 그림/이름·진입 링크를 확인했다. 각 버튼을 실제 클릭해 중간 책/모드 선택 없이 준비 로딩 뒤 실제 플레이 화면으로 이동하고 홈 복귀까지 확인했다. 실제 무작위 문제는 블록 바다, 쓰기 피리, 색칠 셔츠, 숨은그림 토끼와 거북 장면의 나무/숲이었다.
+- 색칠 도안에 직접 클릭해 물감 표시, 숨은그림 나무를 직접 클릭해 완료0→1/남은2→1 반응을 확인했다. 블록·쓰기 전체 정답이나4게임 전체 완주 검증은 아니다. 실제1280×720 브라우저 확인이며 실기기/새 반응형 전수 검사는 아니다.
+- 현재 홈 바로 놀기는 **모두 한글 전용**이다. 화면에 한영 선택이 없고 코드도 KoreanBlockPlayer·KoreanWordWritingPlayer·ko/language:korean 및 한글 쉬운 낱말/숨은그림ko를 사용한다.5개 UI 번역 로케일은 게임 학습 언어 선택 지원을 뜻하지 않는다. 사용자에게 미지원 사실을 알렸으며 이번 검수에서 새 선택 UI나 영어 문제를 구현한 것으로 보고하지 않는다.
+- 최종 홈의 두 과정 이어하기 링크는 검수 전후 같은 활동으로 유지됐다. 수집한 해당 운영 탭 console error0, `/health` status ok(2026-10-16T15:01:10.584Z). 숨은그림 찾기1개 입력은 일반 게임 플레이이며 학생 진도를 임의로 주입하지 않았다. 운영 콘텐츠/설정·재배포·새 push는 수행하지 않았다.
+- 증거: `C:/project/tangobook/output/production-home-play-20261016/`의 home.png, blocks.png, writing.png, coloring.png, hidden-object.png, hidden-object-found.png, railway-deployment.png. 검수 기록만 로컬 커밋한다.

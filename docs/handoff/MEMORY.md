@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 [홈 바로 놀기 운영 확인](../work/platform/tasks/20261016-home-free-play.md#운영-배포바로-시작-검수--2026-10-17): ad0fc843b/Railway c6c5c341 successful·Active 및 Git SHA 직접 확인. 운영 홈4버튼 실제 클릭→중간 선택 없이 실제 게임→홈 복귀, 색칠 클릭/숨은그림1개 정답·console error0/health ok. **현재4종 모두 한글 전용, 한영 선택 미지원**이며 UI 번역과 다르다. 새 영어 기능·제품 변경·push 없이 검수 기록만 로컬 보존.
+
 2026-10-16 [홈 바로 놀기](../work/platform/tasks/20261016-home-free-play.md): 23e0c9c53 로컬 main 통합. 사용자는 홈에4놀이를 꺼내고 쉬운 무작위 문제로 즉시 시작하기를 선택했다. 한글 블록/낱말 쓰기/색칠/숨은그림 개별 그림 버튼·lazy player, 한글/영어 모드 입구에는 중복 추가하지 않았다. 세계 명작 쉬운3낱말/공개 그림 한 장·숨은3개, 실제 책 출처/기존 기록·커리큘럼 진도 분리.53회귀·타입/lint/build·실제PC/태블릿/폰 홈/4진입·복귀 확인. 후속 사용자 요청으로 origin/main 일반 push 대상 확정(fetch0/2·tracked clean). 운영 배포 완료는 별도 확인.
 
 2026-10-16 [팝잇 전체 확대·쓰기 가독성](../work/phonics/tasks/20261016-popit-all-letters.md#main-전달--2026-10-16): ecf02fb95 로컬 main 통합 뒤 사용자 현재 요청으로3자 표본 포함 일반 push 대상 확정(fetch0/4·tracked clean). 한글40자·영어52자 전체 모양/368배치·대표 실제 입력/영어 대소문자 뒤 기존 삽화·ㄴ 쓰기 연결 검수,699회귀·타입·lint·build 통과. ㄱ 미세 직선 흔들림/작은 하단 문구도 정정했다. 학생 진도 없는 DEV letter-popit-check.html 제공. 새 운영 배포 완료는 별도 확인한다. 과거3자 한정·영어5회 유지 메모는 이번 요청으로 대체한다.
