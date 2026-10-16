@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: eacd859df 로컬 main fast-forward 포함 확인
-- delivery: 로컬 main 통합 완료·미푸시/미배포
+- delivery: 사용자 후속 요청으로 origin/main 일반 push 대상 확정, 새 운영 배포 완료는 별도 확인
 
 ## 사용자 결정
 
@@ -31,3 +31,7 @@
 ## 로컬 main 통합
 
 eacd859df 코드·기억을 root main에 fast-forward 통합하고 ancestor·tracked clean을 확인했다. 최종78검사·타입·ESLint·Prettier·빌드41.31초의 결과를 유지한다. 새 작업의 원격 push/배포는 요청되지 않아 수행하지 않았다. 검수 output/tmp와 다른 worktree는 보존한다.
+
+## main 전달 — 2026-10-17
+
+사용자 후속 요청 “좋아. 메인에 푸시하자”로 한영 바로 놀기 변경의 원격 main 전달을 승인받았다. fetch 후 origin/main...HEAD는0/3이며 기존 운영 검수527695698·구현eacd859df·통합 기록8b209a3bb만 앞서 있다. tracked clean·전달 범위를 확인했고 기존 미추적 output/tmp와 다른 worktree는 보존한다. 제품 코드 변경 없이 기존78검사·타입/lint/Prettier/build41.31초·실제 화면 검증을 유지하며 전달 기록만 추가해 일반 push한다. Railway의 새 운영 배포 성공과 운영 한영4종 검수는 push 성공과 별도로 확인한다.

@@ -1,6 +1,6 @@
 # 게임·독후활동 기억
 
-2026-10-17 [홈 바로 놀기 한영 선택](../platform/tasks/20261017-home-free-play-languages.md): 제목 옆44px 한글/영어 선택·영어4종 직접 시작 eacd859df 로컬 main 통합. 홈 playLang/게임 lang·query cache 분리, 실제 책 번역/영어 음원·기존 English player·입문 어휘2~4글자·그림 출처 보존. 홈 아이콘 선택 유실을 scoped context로 수정, 다른 게임 기본 홈 보존.78검사·타입/lint/build41.31초·한영4진입/복귀/영어 일부 실제입력·홈4크기 확인. 전체 완주·실기기 아님, 새 push 없음.
+2026-10-17 [홈 바로 놀기 한영 선택](../platform/tasks/20261017-home-free-play-languages.md): 제목 옆44px 한글/영어 선택·영어4종 직접 시작 eacd859df 로컬 main 통합. 홈 playLang/게임 lang·query cache 분리, 실제 책 번역/영어 음원·기존 English player·입문 어휘2~4글자·그림 출처 보존. 홈 아이콘 선택 유실을 scoped context로 수정, 다른 게임 기본 홈 보존.78검사·타입/lint/build41.31초·한영4진입/복귀/영어 일부 실제입력·홈4크기 확인. 전체 완주·실기기 아님. 사용자 후속 요청으로 origin/main 일반 push 대상 확정(fetch0/3·tracked clean), 새 운영 배포 완료는 별도 확인.
 
 2026-10-17 [홈 바로 놀기 운영 확인](../platform/tasks/20261016-home-free-play.md#운영-배포바로-시작-검수--2026-10-17): 최신ad0fc843b 배포 확인 후 실제 홈4버튼→한글 블록 바다/쓰기 피리/색칠 셔츠/숨은그림 나무·숲 직접 진입·복귀. 색칠1클릭·숨은그림0→1개 성공, 전체4게임 완주는 아님. **현재 홈 게임4개 모두한글, 언어 선택 없음**. 기존 UI 번역을 영어 학습 지원으로 오해하지 않는다. 새 기능/운영 콘텐츠/새 push 변경 없음.
 
