@@ -15,6 +15,8 @@ import { PhonicsFreeMap } from './PhonicsFreeMap';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { ActivityShell } from './ActivityShell';
 import { markActivityCompleted } from '../lib/progress-store';
+import { activityTitle } from '../lib/activity-title';
+import i18n from '@/i18n';
 import {
   journeyActivities,
   journeyProgress,
@@ -143,7 +145,7 @@ it.each(['korean', 'english'] as const)(
   (lang) => {
     const { container } = show(`/library/phonics/${lang}?mode=curriculum`);
     const map = container.querySelector('.journey-map-viewport');
-    const start = container.querySelector('.journey-play-button')!;
+    const start = container.querySelector('.journey-curriculum-activity:not(:disabled)')!;
     fireEvent.click(start);
     expect(container.querySelector('[data-phonics-workspace]')).toHaveAttribute(
       'data-navigation-open',
@@ -280,7 +282,7 @@ it('opens word subactivities as separate free practice but cannot request a futu
   fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
   const completedColor = screen.getByRole('button', { name: '낱말 색칠하기 학습 중' });
   expect(completedColor.querySelector('.workspace-complete-check')).toBeInTheDocument();
-  expect(completedColor.querySelector('.lucide-play')).not.toBeInTheDocument();
+  expect(completedColor.querySelector('.journey-activity-launch')).toBeInTheDocument();
 });
 
 it('does not invent a block subactivity in English Book 1', () => {
@@ -379,14 +381,15 @@ it.each(['korean', 'english'] as const)(
       ).getAllByRole('button');
       expect(stages[0]).not.toBeDisabled();
       expect(stages.slice(1).every((b) => b.hasAttribute('disabled'))).toBe(true);
-      expect(container.querySelector('.journey-play-button')).toHaveAttribute(
-        'href',
-        `/library/phonics/${lang}/${entry.id}/${journeyActivities(lang, entry.id)[0].key}?mode=curriculum`
+      const firstActivity = container.querySelector('.journey-curriculum-activity:not(:disabled)')!;
+      expect(firstActivity).toHaveTextContent(
+        activityTitle(i18n.getFixedT('ko', 'phonics'), journeyActivities(lang, entry.id)[0])
       );
+      expect(firstActivity.querySelector('.journey-activity-launch')).toBeInTheDocument();
     }
     fireEvent.click(books[1]);
     const entry = units.find((u) => u.levelKey === levels[1])!;
-    fireEvent.click(container.querySelector('.journey-play-button')!);
+    fireEvent.click(container.querySelector('.journey-curriculum-activity:not(:disabled)')!);
     expect(screen.getByTestId('route-activity').textContent).toBe(
       `${entry.id}:${journeyActivities(lang, entry.id)[0].key}`
     );
