@@ -28,3 +28,7 @@
 - 로컬 `/alphabet-writing-check.html` → 52자 전체 검사 → 획별 미리보기/JSON `inkGaps`를 본다. 이 페이지는 DEV 전용·학습 진도 기록 없음이다.
 - worktree `output/alphabet-ink-audit-20261016/`: `before-results.json`, `results.json`, `component-results.json`, `path-ink-results.json`, `all107-component.png`. 임시 `AlphabetInkAudit.tsx`/HTML은 검수 뒤 이 폴더로 이동하여 제품 소스·빌드에는 포함하지 않았다.
 - **52자 전체는 모의 포인터 입력을 통한 실제 컴포넌트/캔버스 검증이며 native 손으로52자 그린 결과가 아니다.** Windows system-ui 한 환경의 폰트 결과이며 실기기/다른 OS 폰트/운영 배포 확인과 구분한다. 새 push 요청은 없어서 원격/운영에는 미반영이다.
+
+## 로컬 통합
+
+코드·검수 기록 `ad81725d2`를 tracked 변경 없는 `C:/project/tangobook` main에 fast-forward 통합했다. 기존 미추적 산출물을 보존했고 공유/영역 메모리를 갱신했다. 원격 push/배포는 하지 않았다.
