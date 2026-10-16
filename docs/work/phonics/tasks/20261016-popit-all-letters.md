@@ -2,12 +2,12 @@
 
 - id: 20261016-popit-all-letters
 - domain: phonics
-- status: validated
+- status: integrated
 - updated: 2026-10-16
 - base: 97994b642
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: ecf02fb95 로컬 main fast-forward 포함 확인
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -38,4 +38,4 @@
 
 ## 인계
 
-관련 구현과 기록을 로컬 커밋한 뒤 main에 fast-forward 통합한다. 기존 사용자 미추적 output/tmp는 보존한다. 이번 작업 push/운영 배포 요청은 없으며 진행 서버는 DISABLE_PUBLISH_SCHEDULER=1/API_TARGET 공개 읽기 프록시 client Vite5187이다.
+관련 구현과 기록 ecf02fb95를 로컬 main에 fast-forward 통합하고 tracked clean 상태를 확인했다. 기존 사용자 미추적 output/tmp는 보존했다. 이번 작업 push/운영 배포 요청은 없으며 진행 서버는 DISABLE_PUBLISH_SCHEDULER=1/API_TARGET 공개 읽기 프록시 client Vite5187이다.
