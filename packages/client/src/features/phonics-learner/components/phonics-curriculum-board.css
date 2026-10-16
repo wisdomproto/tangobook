@@ -280,6 +280,29 @@ li[data-completed] .journey-activity-number {
 .curriculum-board .journey-stage-target:disabled {
   cursor: default;
 }
+.curriculum-board .journey-node-top {
+  container-type: size;
+}
+/* Keep each sound intact. Two patterns must fit inside the oval rather than
+   wrapping _ake into separate letters or escaping above and below the node. */
+.curriculum-board .journey-node-top > .journey-letter-english {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.08em;
+  max-width: 78%;
+  font-size: min(28px, 34cqh, calc(125cqw / var(--journey-sound-length)));
+  line-height: 1.1;
+  overflow-wrap: normal;
+}
+.curriculum-board .journey-node-top > .journey-letter-english[data-single-sound] {
+  font-size: min(36px, 60cqh, calc(140cqw / var(--journey-sound-length)));
+}
+.curriculum-board .journey-node-top > .journey-letter-english > span {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
 .curriculum-board:not(.is-free-mode) .is-previewed:not(.is-locked) .journey-node-top {
   outline: 3px solid var(--course-accent);
   outline-offset: 3px;

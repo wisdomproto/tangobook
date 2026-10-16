@@ -61,10 +61,23 @@ function stageGlyph(unit: Unit) {
 }
 
 function StageLetter({ lang, unit }: { lang: JourneyLanguage; unit: Unit }) {
+  const sounds = courseUnitPreview(unit).slice(0, 2);
   return lang === 'korean' ? (
     <ToyHangul text={stageGlyph(unit)} decorative className="journey-letter-toy" />
   ) : (
-    <span className="journey-letter-english">{courseUnitPreview(unit).slice(0, 2).join(' ')}</span>
+    <span
+      className="journey-letter-english"
+      data-single-sound={sounds.length === 1 || undefined}
+      style={
+        {
+          '--journey-sound-length': Math.max(1, ...sounds.map((sound) => sound.length)),
+        } as CSSProperties
+      }
+    >
+      {sounds.map((sound, index) => (
+        <span key={`${sound}:${index}`}>{sound}</span>
+      ))}
+    </span>
   );
 }
 

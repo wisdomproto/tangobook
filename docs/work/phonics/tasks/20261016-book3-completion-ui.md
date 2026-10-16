@@ -61,3 +61,11 @@
 - 양쪽 지도 권 완료율은 전후 동일(한글0/1/3/0/0%, 영어전부0). 이번 새 완료/정답/학생 기록 임의 수정 없이 진입·복귀만 수행. 브라우저 console error 한영각0. 기존 사용자 지도/쓰기 탭은 보존, 새 한영 지도만 확인용 유지.
 - 증거 `C:/project/tangobook/output/production-activity-play-20261016/`: results.json·deployment-success.png·korean-three-states.png·english-states.png·korean-current-writing.png·english-current-learning.png. JSON은 관찰한 DOM 표시/URL/상태만 기록.
 - 이번은 배포·3상태/재생 진입 검수다. **운영 한글3권/영어Book3 전체 챕터 완주·다음 챕터 잠금 해제/이어하기는 여전히 미완료**. 코드 수정·새 push/배포 없이 검수 기록만 로컬 보존하며, 위 운영 미확인은 이전 시점이다.
+
+## 영어 Book3 첫 활동 실제 완료·복습 — 2026-10-16
+
+- 사용자 후속 명시 요청으로 운영 en-b3-u01의 **learn-_ake 첫 활동을 끝까지 실제 완료**했다. 소리 칸 ak→ake→bake/cake/lake/rake 총12개를 실제 클릭하고, 이어지는 낱말 쓰기 네 단어16글자도 native drag로 채웠다. 현재 이 활동은 획순 쓰기가 아닌99% 면 채움 방식이므로 native 입력에 의한 실제 완료 검수이며 아이 손글씨/획순 정확도 검수로 확대하지 않는다. 완료 콜백 호출/진도 저장소 위조/합성 pointer 주입 없음.
+- 마지막 rake4/4 뒤 실제 음성/칭찬 체인 종료→**learn-_ape 활동2/4 자동 전환** 확인. 지도에서 -ake 배우기는 초록 #94caaa·체크+재생, -ape는 민트현재·재생, -ave 이후회색잠금·재생없음을 직접 확인했다. Book3 첫 챕터25%이며 뒤 챕터는 계속 잠김(첫 활동 완료와 챕터 전체 완료를 구분).
+- 완료 -ake 재생 행을 다시 눌러 **learn-_ake 복습 재진입**, 소리 칸12개 초기화/첫 ak 실제 클릭·읽기 후 pressed 체크 확인→지도 복귀. 이미 완료한 기록은 초록 상태를 유지하고 다음 미완료 -ape가 현재다.
+- `C:/project/tangobook/output/production-english-book3-first-20261016/`: before.png·rake-written.png·completed-green-check-play.png·replay.png·input-audit.json. 영어 최초 완료0이라 직접 미확인이라는 이전 제한은 **이 실제 첫 활동 완료 검수로 해소**. 영어Book3/한글3권 챕터 전체 완주와 다음 챕터 unlock은 여전히 별도 미완료다.
+- 검수 도중 추가 요청한 지도 챕터 글자 넘침은 [별도 기록](20261016-map-chapter-label-fit.md)에서 운영 반증/로컬 수정을 구분한다. 이번 새 push 요청 없음.
