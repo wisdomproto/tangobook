@@ -251,6 +251,7 @@ export function AlphabetLetterWriteActivity({
       onBack={onBack}
       background="peach-gradient"
       scroll
+      ownInstruction
       // 진행 도트 — 뒤로가기와 한 줄에.
       headerRight={
         <div className="flex items-center gap-2">

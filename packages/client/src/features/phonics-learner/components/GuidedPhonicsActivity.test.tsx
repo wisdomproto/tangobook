@@ -145,6 +145,22 @@ it('does not repeat first lesson instructions during an individual replay', () =
   );
   expect(document.querySelector('.phonics-first-lesson-guide')).toBeNull();
 });
+it('does not duplicate an activity-owned instruction or show a conflicting grouped activity count', () => {
+  render(
+    <MemoryRouter>
+      <GuidedPhonicsActivity lang="korean" unitId="kr-v1-u01" activityKey="listen-1">
+        {(c) => (
+          <ActivityShell onBack={c.onExit} ownInstruction>
+            <h2>뽁뽁, 눌러봐!</h2>
+          </ActivityShell>
+        )}
+      </GuidedPhonicsActivity>
+    </MemoryRouter>
+  );
+  expect(screen.queryByText('활동 1 / 2')).toBeNull();
+  expect(screen.getByRole('heading', { name: '뽁뽁, 눌러봐!' })).toBeDefined();
+  expect(screen.queryByText('빛나는 글자를 눌러 소리를 들어요')).toBeNull();
+});
 const cases = (['korean', 'english'] as const).flatMap((lang) => {
   const seen = new Set<string>();
   return journeySteps(lang).flatMap((step, index) => {

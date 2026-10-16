@@ -2,6 +2,7 @@ import { LEARNING_SOUNDS } from '@/features/games/effects/learning-sounds';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { Pointer } from 'lucide-react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
@@ -381,20 +382,25 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   return (
     <ActivityShell unitId={unitId} kind="blend" onBack={onBack}>
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6 sm:gap-10">
-        <h2
-          className="text-5xl sm:text-6xl md:text-7xl font-black font-display text-center"
-          style={{
-            color: '#FF7A3C',
-            WebkitTextStroke: 'clamp(2px, 0.4vh, 4px) white',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(0 4px 0 rgba(0,0,0,0.06))',
-          }}
-        >
-          {phase === 'A' && t('cvc.learn', { pattern: pattern.vc })}
-          {phase === 'B' && t('cvc.words', { pattern: pattern.vc })}
-          {phase === 'C' && t('cvc.write', { pattern: pattern.vc })}
-          {phase === 'done' && t('common.wellDone')}
-        </h2>
+        <div className="text-center">
+          <h2
+            className="text-5xl sm:text-6xl md:text-7xl font-black font-display text-center"
+            style={{
+              color: '#FF7A3C',
+              WebkitTextStroke: 'clamp(2px, 0.4vh, 4px) white',
+              paintOrder: 'stroke fill',
+              filter: 'drop-shadow(0 4px 0 rgba(0,0,0,0.06))',
+            }}
+          >
+            {phase === 'A' && t('cvc.learn', { pattern: pattern.vc })}
+            {phase === 'B' && t('cvc.words', { pattern: pattern.vc })}
+            {phase === 'C' && t('cvc.write', { pattern: pattern.vc })}
+            {phase === 'done' && t('common.wellDone')}
+          </h2>
+          {(phase === 'A' || phase === 'B') && (
+            <p className="mt-2 text-lg font-bold text-ink-700">{t('wordFamily.tapChunks')}</p>
+          )}
+        </div>
 
         {/* Phase A: VC 학습 3행 */}
         {phase === 'A' && (
@@ -680,7 +686,7 @@ function Cell({
           aria-hidden
           className="phonics-next-mark absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl"
         >
-          👆
+          <Pointer size={24} />
         </span>
       )}
     </motion.button>

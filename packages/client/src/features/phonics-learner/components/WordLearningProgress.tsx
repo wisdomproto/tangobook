@@ -8,12 +8,14 @@ export function WordLearningProgress({
   index,
   total,
   language,
+  word,
 }: {
   stages: WordLearningStage[];
   current: WordLearningStage;
   index: number;
   total: number;
   language?: 'ko' | 'en';
+  word?: string;
 }) {
   const { t } = useTranslation('phonics');
   return (
@@ -27,6 +29,7 @@ export function WordLearningProgress({
           {t(`wordJourney.${stage}`)}
         </span>
       ))}
+      {word && <strong className="word-learning-target">{word}</strong>}
       <small>
         {index + 1} / {total}
       </small>

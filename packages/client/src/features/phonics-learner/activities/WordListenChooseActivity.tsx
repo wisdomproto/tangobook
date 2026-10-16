@@ -9,9 +9,9 @@ import { LearningGameAction } from '@/features/games/components/LearningGameActi
 import { LearningGameIcon } from '@/features/games/components/LearningGameIcon';
 import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
-import { ActivityShell, usePhonicsEmbedded } from '../components/ActivityShell';
+import { ActivityShell } from '../components/ActivityShell';
 import { PhonicsGameSprite } from '../components/PhonicsGameSprite';
-import { ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
+import { ENTRY_GUIDE, useEntryGuide, voiceUrl, praiseLang } from '../hooks/useEntryGuide';
 import { ToyHangul } from '../components/ToyHangul';
 import type { ChoiceEvidence } from '../lib/journey-assessment';
 
@@ -406,36 +406,12 @@ export function WordListenChooseActivity({
     sayRef.current(answer);
   }, [qIdx, answerKey, exploring, starting, done]);
 
-  /**
-   * 진입 안내(탐색 없이 바로 퀴즈인 화면) — 한 번만, 끝나면 잠금 해제.
-   *
-   * 🔴 해제를 **타이머로 하지 않는다** — 언마운트 때 예약이 지워지면 `starting` 이 true 로 남아
-   *    판이 통째로 안 눌린다(글자 사냥에서 실제로 그랬다). 쉼은 위 첫 문제 쪽에서 준다.
-   * 🔴 `ref` 로 한 번만 — 개발 모드는 effect 를 두 번 실행하고, `playAudio` 는 앞 소리의 `src` 를
-   *    비우면서 그 콜백을 **끝난 것처럼** 부른다(안내가 잘린다).
-   */
-  const guidedRef = useRef(false);
-  /**
-   * 🔴 **광고 랜딩 상자에선 안내를 내지 않는다**(2026-08-10 사용자). 이 활동만 `useEntryGuide`
-   *    를 안 쓰고 자기 effect 를 들고 있어서(두 갈래라) 임베드 게이트가 빠져 있었다 — 페이지를
-   *    열면 「눌러서 들어봐!」가 저절로 울렸다. 잠금(`starting`)은 안내가 풀어주므로 **건너뛸 땐
-   *    여기서 바로 푼다**(안 그러면 퀴즈 진입로가 영영 안 열린다).
-   */
-  const embedded = usePhonicsEmbedded();
+  // The shared guide restarts safely after StrictMode cleanup cancels the first audio.
+  // A one-shot ref here left every choice disabled forever. Embedded lessons skip the guide.
+  const guiding = useEntryGuide(exploreFirst ? EXPLORE_START_SOUND : QUIZ_START_SOUND, playAudio);
   useEffect(() => {
-    if (guidedRef.current) return;
-    guidedRef.current = true;
-    if (embedded) {
-      setStarting(false);
-    } else if (exploreFirst) {
-      // 🔴 탐색 진입 — "눌러서 들어봐!" 안내(사용자: "여기도 멘트가 없네"). 잠금은 없다 — 아이는
-      //    바로 카드를 눌러 소리를 들어봐도 된다. 퀴즈 시작음은 「🎯 퀴즈」 버튼에서 따로 난다.
-      playAudio(voiceUrl(EXPLORE_START_SOUND));
-    } else {
-      // 탐색 없이 바로 퀴즈인 화면(복습 듣기) — 안내가 끝나야 첫 문제가 나간다.
-      playAudio(voiceUrl(QUIZ_START_SOUND), () => setStarting(false));
-    }
-  }, [embedded, exploreFirst, playAudio]);
+    if (!guiding) setStarting(false);
+  }, [guiding]);
 
   // 나가는 도중 예약된 소리가 빈 화면에서 울리지 않게 둘 다 정리한다.
   useEffect(
@@ -549,7 +525,12 @@ export function WordListenChooseActivity({
   if (!current) return null;
 
   return (
-    <ActivityShell unitId={unitId} kind="listen" onBack={onBack}>
+    <ActivityShell
+      unitId={unitId}
+      kind="listen"
+      onBack={onBack}
+      ownInstruction={exploring || starting}
+    >
       <div
         data-listen-exploring={exploring || undefined}
         className="listen-choice-body flex-1 min-h-0 flex flex-col items-center justify-center gap-5"

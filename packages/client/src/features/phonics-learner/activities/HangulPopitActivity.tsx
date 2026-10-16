@@ -25,7 +25,7 @@ interface Props {
 }
 export function HangulPopitActivity(props: Props) {
   return (
-    <ActivityShell unitId={props.unitId} kind="explore" onBack={props.onBack}>
+    <ActivityShell unitId={props.unitId} kind="explore" onBack={props.onBack} ownInstruction>
       <LetterPopitExperience {...props} />
     </ActivityShell>
   );

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 [한영 부모·아이 UX 정리](../work/phonics/tasks/20261017-phonics-parent-child-ux-review.md): 로컬 검수·수정 완료, main 통합 대상·새 push 없음. 작은 지도/활동 글씨·중복 안내/어긋난 카운터·낱말 단계/색칠 맥락·현재 소리 조작 유도 보완. 실제 검수로 듣기 안내 취소 후 선택지 영구 잠금 발견→공통 안내 훅으로 수정.230회귀·타입·build·변경 lint 통과, 루트 lint는 기존 Remotion parser61오류. 실제 모음 첫 챕터 완주/지도 개방·복습·한영 각 권 대표 및3크기 확인; 모든 챕터/실기기/음원 전수 아님.
+
 2026-10-17 [한영 바로 놀기 운영 확인](../work/platform/tasks/20261017-home-free-play-languages.md#운영-배포한영-선택영어4종-검수--2026-10-17): dcd33cb27/Railway cc654dd6 successful·Active·커밋 링크 직접 확인. 운영 한영 왕복 전환·블록 이름/그림·4링크 동기화, 영어4종 실제 홈 클릭→게임→복귀/새로고침 선택 유지. 실제 bag블록b 배치·Head색칠1클릭·coat숨은그림0→1 확인, lamp쓰기는 진입/표시만. console error0/health ok, 전체 완주·실기기/청취 전수 검수 아님. 제품/운영 설정 변경·새 push 없이 기록만 로컬 보존.
 
 2026-10-17 [홈 바로 놀기 한영 선택](../work/platform/tasks/20261017-home-free-play-languages.md): 제목 옆44px 한글/영어 선택·영어4종 직접 시작 eacd859df 로컬 main 통합. 홈 playLang/게임 lang·query cache 분리, 실제 책 번역/영어 음원·기존 English player·입문 어휘2~4글자·그림 출처 보존. 홈 아이콘 선택 유실을 scoped context로 수정, 다른 게임 기본 홈 보존.78검사·타입/lint/build41.31초·한영4진입/복귀/영어 일부 실제입력·홈4크기 확인. 전체 완주·실기기 아님. 사용자 후속 요청으로 origin/main 일반 push 대상 확정(fetch0/3·tracked clean), 새 운영 배포 완료는 별도 확인.

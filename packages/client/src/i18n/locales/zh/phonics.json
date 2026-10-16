@@ -371,6 +371,8 @@
     "modeDescription": "按顺序学习，或选择喜欢的活动。",
     "curriculum": "学习课程",
     "curriculumMode": "课程模式",
+    "guidedHint": "按顺序一步步学",
+    "freeHint": "自由选择活动",
     "free": "自由模式",
     "guidedDescription": "一步一步跟着学。学习、游戏确认，再前往下一步！",
     "freeDescription": "自由选择和重复喜欢的字母和游戏。",

@@ -221,6 +221,7 @@ export function VowelWriteActivity({
       unitId={unitId}
       kind="write"
       onBack={onBack}
+      ownInstruction
       headerRight={showGuidance ? selection : undefined}
     >
       {!showGuidance && selection}

@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { StrictMode } from 'react';
 import { WordListenChooseActivity } from './WordListenChooseActivity';
 
 const { spoken, playAudio } = vi.hoisted(() => ({
@@ -24,9 +25,31 @@ vi.mock('@/features/games/hooks/useGameAudio', () => ({
 afterEach(() => {
   vi.useRealTimers();
   spoken.length = 0;
+  playAudio.mockImplementation((_url: string, onEnded?: () => void) => onEnded?.());
 });
 
 describe('입문 듣기 놀이', () => {
+  it('restarts a cancelled entry guide and unlocks only after the live guide finishes', () => {
+    playAudio.mockClear();
+    playAudio.mockImplementation(() => undefined);
+    render(
+      <StrictMode>
+        <WordListenChooseActivity
+          unitId="kr-h1-u02"
+          items={['아기', '고기'].map((label) => ({ label, sound: label }))}
+          onMarkComplete={vi.fn()}
+          onBack={vi.fn()}
+        />
+      </StrictMode>
+    );
+    expect(playAudio).toHaveBeenCalledTimes(2);
+    expect(screen.getByRole('button', { name: '아기' })).toBeDisabled();
+    act(() => playAudio.mock.calls[0][1]?.());
+    expect(screen.getByRole('button', { name: '아기' })).toBeDisabled();
+    act(() => playAudio.mock.calls[1][1]?.());
+    expect(screen.getByRole('button', { name: '아기' })).not.toBeDisabled();
+    expect(screen.getByRole('button', { name: '다시 듣기' })).toBeDefined();
+  });
   it('실제 판도 두 보기부터 네 보기로 늘고 내용이 같은 새 배열에도 문제를 유지한다', async () => {
     vi.useFakeTimers();
     const items = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ'].map((label, index) => ({

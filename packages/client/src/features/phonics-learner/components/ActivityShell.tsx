@@ -41,6 +41,8 @@ interface Props {
   scroll?: boolean;
   /** 배경 — 기본은 파닉스 공용 배경. 알파벳 쓰기처럼 다른 배경을 쓰는 화면만 넘긴다. */
   background?: 'study' | 'peach-gradient';
+  /** Avoid repeating instructions when the activity already explains its action. */
+  ownInstruction?: boolean;
   children: ReactNode;
 }
 
@@ -66,11 +68,13 @@ export function ActivityShell({
   headerRight,
   header,
   scroll = false,
+  ownInstruction = false,
   children,
 }: Props) {
   const { t } = useTranslation('phonics');
   const embedded = useContext(EmbeddedContext);
   const journey = useContext(JourneyActivityContext);
+  const tutorial = !ownInstruction && journey?.tutorial;
   const workspace = useLearningWorkspace();
   const right = workspace?.active ? (
     <div className="flex items-center gap-3">
@@ -139,26 +143,10 @@ export function ActivityShell({
       ) : (
         <div className="self-start mb-3">{back}</div>
       )}
-      {journey && (
-        <p
-          className={
-            journey.tutorial
-              ? 'phonics-first-lesson-guide'
-              : 'mb-2 shrink-0 text-center text-sm font-bold text-ink-600'
-          }
-        >
-          <span className={journey.tutorial ? 'phonics-first-lesson-progress' : undefined}>
-            {t('journey.activityProgress', { step: journey.step, total: journey.total })}
-          </span>
-          {journey.tutorial && (
-            <>
-              <PhonicsGameSprite
-                name={journey.tutorial === 'write' ? 'write' : 'listen'}
-                size={24}
-              />
-              {t(`tutorial.${journey.tutorial}`)}
-            </>
-          )}
+      {tutorial && (
+        <p className="phonics-first-lesson-guide">
+          <PhonicsGameSprite name={tutorial === 'write' ? 'write' : 'listen'} size={24} />
+          {t(`tutorial.${tutorial}`)}
         </p>
       )}
       {children}

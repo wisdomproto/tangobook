@@ -92,6 +92,9 @@ it('publishes the exact word/stage and isolated subactivity completion never adv
     </LearningWorkspaceContext.Provider>
   );
   expect(publish).toHaveBeenLastCalledWith({ unitId, word: '고기', stage: 'color' });
+  expect(screen.getByLabelText('낱말 학습 순서').textContent).toContain('색칠');
+  expect(screen.getByLabelText('낱말 학습 순서').textContent).toContain('고기');
+  expect(screen.getByLabelText('낱말 학습 순서').textContent).not.toContain('블록');
   fireEvent.click(screen.getByRole('button', { name: 'color 고기' }));
   expect(back).toHaveBeenCalledOnce();
   expect(complete).not.toHaveBeenCalled();

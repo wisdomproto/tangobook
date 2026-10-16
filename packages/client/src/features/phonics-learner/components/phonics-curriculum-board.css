@@ -51,6 +51,9 @@
   height: 34px;
 }
 .curriculum-board .journey-region strong {
+  font-size: 16px;
+}
+.curriculum-board .journey-region small {
   font-size: 13px;
 }
 .curriculum-board .journey-adventure-layout {
@@ -270,6 +273,7 @@ li[data-completed] .journey-activity-number {
   scrollbar-width: thin;
 }
 .curriculum-board .journey-map-legend {
+  font-size: 14px;
   padding: 7px 12px;
   flex-shrink: 0;
 }
@@ -421,14 +425,21 @@ li[data-completed] .journey-activity-number {
     border-radius: 12px;
   }
   .curriculum-board .journey-region svg {
-    width: 24px;
-    height: 24px;
+    display: none;
   }
   .curriculum-board .journey-region strong {
-    font-size: 10px;
+    font-size: 14px;
+    white-space: nowrap;
   }
   .curriculum-board .journey-region small {
-    font-size: 9px;
+    font-size: 12px;
+  }
+  .curriculum-board .journey-region .workspace-progress-seal {
+    padding: 4px;
+    font-size: 12px;
+  }
+  .curriculum-board .journey-region .workspace-progress-ring {
+    display: none;
   }
   .curriculum-board .journey-adventure-layout {
     grid-template-columns: 184px minmax(0, 1fr);
@@ -490,7 +501,7 @@ li[data-completed] .journey-activity-number {
   }
   .curriculum-board .journey-map-legend {
     padding: 4px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .journey-chapter-activities li + li {
     margin-top: 2px;

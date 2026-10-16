@@ -371,6 +371,8 @@
     "modeDescription": "Học theo lộ trình hoặc chọn hoạt động yêu thích.",
     "curriculum": "Lộ trình",
     "curriculumMode": "Chế độ lộ trình",
+    "guidedHint": "Học từng bước theo thứ tự",
+    "freeHint": "Chọn hoạt động yêu thích",
     "free": "Chơi tự do",
     "guidedDescription": "Theo từng bước: học, kiểm tra qua trò chơi, rồi tiếp tục!",
     "freeDescription": "Tự chọn và luyện lại các chữ cùng trò chơi yêu thích.",

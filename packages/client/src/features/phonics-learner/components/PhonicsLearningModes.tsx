@@ -92,7 +92,10 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
               draggable={false}
             />
             <span>
-              {t('journey.curriculumMode')}
+              <span className="phonics-mode-caption">
+                <strong>{t('journey.curriculumMode')}</strong>
+                <small>{t('journey.guidedHint')}</small>
+              </span>
               <ArrowRight aria-hidden="true" />
             </span>
           </Link>
@@ -110,7 +113,10 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
                 draggable={false}
               />
               <span>
-                {t('journey.free')}
+                <span className="phonics-mode-caption">
+                  <strong>{t('journey.free')}</strong>
+                  <small>{t('journey.freeHint')}</small>
+                </span>
                 <ArrowRight aria-hidden="true" />
               </span>
             </Link>

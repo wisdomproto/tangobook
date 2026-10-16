@@ -274,7 +274,8 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
       </div>
       <WordLearningProgress
         language={code}
-        stages={stages}
+        word={run.stage === 'color' ? word : undefined}
+        stages={practiceStage ? [practiceStage] : stages}
         current={run.stage}
         index={run.index}
         total={run.words.length}

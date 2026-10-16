@@ -1,6 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { Pointer } from 'lucide-react';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { usePreloadImages } from '@/features/games/hooks/useGamePrefetch';
 import { ActivityShell } from '../components/ActivityShell';
@@ -644,7 +645,7 @@ function Cell({
           aria-hidden
           className="phonics-next-mark absolute -bottom-5 left-1/2 -translate-x-1/2 text-3xl"
         >
-          👆
+          <Pointer size={24} />
         </span>
       )}
     </motion.button>

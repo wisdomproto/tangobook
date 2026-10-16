@@ -546,7 +546,20 @@
   --tw-ring-color: #93c6a97a;
 }
 .phonics-next-mark {
-  display: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  left: auto;
+  right: -10px;
+  bottom: -12px;
+  transform: none;
+  border: 2px solid var(--activity-accent);
+  border-radius: 50%;
+  color: var(--activity-accent);
+  background: #fffdf5;
+  box-shadow: 0 3px 0 #dacebb;
+  pointer-events: none;
 }
 .phonics-listen-grid {
   gap: clamp(12px, 2vw, 22px);
@@ -956,14 +969,9 @@
   font-weight: 800;
   text-align: center;
 }
-.phonics-first-lesson-progress {
-  color: #807563;
-  font-size: 0.8em;
-  white-space: nowrap;
-}
 @media (max-height: 500px) {
   .phonics-first-lesson-guide {
-    font-size: 11px;
+    font-size: 14px;
     padding: 3px 8px;
     margin-bottom: 4px;
   }

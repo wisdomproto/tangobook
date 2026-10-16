@@ -65,11 +65,11 @@ it('puts a play action on the first activity without a separate footer start but
 });
 it.each(['korean', 'english'] as const)('keeps the mode fork inside %s', (lang) => {
   show(lang, '');
-  expect(screen.getByRole('link', { name: '커리큘럼 모드' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: '커리큘럼 모드 순서대로 하나씩' })).toHaveAttribute(
     'href',
     `/library/phonics/${lang}?mode=curriculum&resume=1`
   );
-  expect(screen.getByRole('link', { name: '자유모드' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: '자유모드 원하는 활동 고르기' })).toHaveAttribute(
     'href',
     `/library/phonics/${lang}?mode=free`
   );

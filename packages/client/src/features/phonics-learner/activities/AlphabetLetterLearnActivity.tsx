@@ -341,6 +341,7 @@ export function AlphabetLetterLearnActivity({ unitId, letters, onMarkComplete, o
       kind="explore"
       onBack={onBack}
       scroll={popitCase >= 2}
+      ownInstruction
       // 글자 탭 — 뒤로가기와 한 줄에.
       headerRight={
         // 글자 탭 — 활성 글자만 coral background + 큰 크기(다시 클릭 = 발음). 비활성은 white.
