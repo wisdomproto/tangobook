@@ -2,11 +2,11 @@
 
 - id: 20261016-alphabet-ink-audit
 - domain: phonics
-- status: completed
+- status: integrated
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 검수/필요 수정, 새 push 요청 없음
+- delivery: 2026-10-16 사용자 main push 요청, 아래 전달 기록 참조
 
 사용자가 f/t 운영 확인 뒤 다른 알파벳도 획을 끝냈을 때 미채움이 남는지52자 전수 검수를 요청했다. 기존 판정8,301모의와 획별 최종 채움은 다른 증거다. ①획별 끝/교차점의 미채움 ②모든 획 완료 시 실제 폰트 픽셀의 미채움 ③완료 판정→다음 획 배선을 나눠 확인한다. 임의 글자 몇 개를 전체 검수로 확대하지 않으며 native 손 입력과 모의 재생/픽셀 검사를 구분한다.
 
@@ -32,3 +32,7 @@
 ## 로컬 통합
 
 코드·검수 기록 `ad81725d2`를 tracked 변경 없는 `C:/project/tangobook` main에 fast-forward 통합했다. 기존 미추적 산출물을 보존했고 공유/영역 메모리를 갱신했다. 원격 push/배포는 하지 않았다.
+
+## main 전달 — 2026-10-16
+
+사용자가 이번 수정의 main push를 요청했다. fetch 후 origin/main 대비0/3이며 미전달3커밋은 f/t 운영 검수 기록451628b76, 이번 잉크 수정ad81725d2, 통합 기록3e98d3851뿐이다. tracked 미커밋 없음·관련 diff 확인, 앞선524회귀/타입/lint/build 결과를 유지한다. 일반 push 대상으로 확정했으며, 실제 원격 전달은 Git SHA/좌우0·0으로 확인한다. 아래/위의 미푸시 문구는 당시 기록이며 새 Railway 배포 완료는 별도 미확인이다.

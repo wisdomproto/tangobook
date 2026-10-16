@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [52자 잉크 수정 main 전달 요청](../work/phonics/tasks/20261016-alphabet-ink-audit.md#main-전달--2026-10-16): 사용자 요청으로ad81725d2와검수/통합 기록 원격 main 일반 push 진행. fetch 후0/3·tracked 변경 없음·범위 확인, 기존524회귀/타입/lint/build 통과 유지. 아래 로컬만 반영은 이전 상태이며 새 Railway 배포 완료는 미확인이다.
+
 2026-10-16 [알파벳52자 획별 미채움 수정](../work/phonics/tasks/20261016-alphabet-ink-audit.md): A/B/G/N/Y/a/d/g/q/u에서 다음 획이 앞선 획 끝/교차점을 가져가는 결함 확인·영어 연결부 잉크 보완.52자107획 실제 컴포넌트90% 모의 포인터 완주/완료52회·중심/최종 미채움/알파차0·107장 육안·8,301경로모의/524회귀·타입/lint/build 정상. ad81725d2 로컬 main 포함·새 push/운영 미반영. 전수 native 손 입력/다른 폰트 실기기 검증 아님.
 
 2026-10-16 [f/t 첫 획 운영 확인](../work/phonics/tasks/20261016-lowercase-f-ink.md#운영-배포첫-획-검수--2026-10-16): d304fc470 배포d8e99b67 successful/Active 확인. 새 운영 복습f/t판에서 첫 획native 입력 후1/2·두 번째 획 안내와 기둥 끝까지 채움 확인(f윗곡선/t아랫곡선 포함). 기존 사용자진행 보존·console error0/health ok. 두획완주/정밀곡선/실기기전수 아님. 검수 기록만 로컬·새 push 없음. 아래 배포 미확인은 과거 기록이다.
