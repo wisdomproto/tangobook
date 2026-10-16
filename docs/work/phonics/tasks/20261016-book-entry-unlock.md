@@ -40,3 +40,12 @@
 ## main 전달 — 2026-10-16
 
 사용자가 이번 권별 시작점 변경의 main push를 요청했다. fetch 후 origin/main 대비0/2이며 미전달 커밋은 구현b964bd1f1·통합 기록b30133b39만 확인했다. tracked 미커밋 없음·diff 확인, 기존 최종119/추가49회귀·타입/lint/build 검증을 유지한다. 관련 기록과 함께 일반 push하며 실제 전달은 원격 SHA/좌우0·0으로 확인한다. 위 미푸시 문구는 당시 기록이고 새 운영 배포 완료는 별도 확인한다.
+
+## 운영 배포·권별 시작점 검수 — 2026-10-16
+
+- 시작 시 origin/main a7cc240a2 일치·0/0 확인. [Railway 배포](https://railway.com/project/b469e171-479c-400a-80bc-8ab4273c25de/service/0019800b-d014-4464-8638-60dcf283677e?environmentId=9d29baf7-1890-453a-956e-94bc329ef98d&id=f10f5116-3c9d-43bf-98e9-be863bf94e54)의 Details GitHub SHA=a7cc240a286dab38065ef014f96c3b4997f339e6, **Deployment successful·Active**를 직접 확인했다. 첫 확인은 Building/이전 알파벳 잉크 배포86571405 Active여서 새 배포 완료를 기다렸다. 빌드6분6초·Deploy27초·Network2초, 공개 운영 entry=`index-C3mzn65D.js`. 배포 중 prerender `/library` 글자 수 기준 경고는 있었으나 실제 운영 홈은 정상 표시/진입했다.
+- 새 배포 뒤 운영 한글 지도 탭을 reload하고 영어는 새 탭으로 열었다. 권 버튼을 하나씩 눌러 **한글1~5권·영어Book1~5의 첫 챕터10개 모두 enabled·두 번째 챕터10개 disabled**를 확인했다. 이어서 각 권의 실행 버튼으로 실제 활동에 들어가 본문과 경로를 확인하고 지도에 돌아왔다. 모든10곳의 실제 URL이 선택한 진입 URL과 일치했고, 한글3권 받침/4권 쌍자음/5권 복합모음 및 영어2~5권 블렌딩 자료까지 정상 표시했다. 한글2권은 기존 첫 누르기 완료가 있어 미완료 `letter-write`로 이어졌다(새 완료를 만들지 않음).
+- 각 언어에서5권을 실제 시작한 뒤, 한글은3권·영어는Book2를 **탐색만** 하고 모드 선택→커리큘럼 모드로 다시 입장했다. 이어하기 팝업은 각각 `kr-h4-u01/letter-listen-ㅐ`, `en-b5-u01/learn-ee`를 유지했고 실제 클릭도 해당5권 활동으로 진입했다. 별도 새 운영 홈에서도 한영 이어하기 두 버튼을 직접 눌러 같은5권 활동/자료 표시를 확인했다. 실제 입력/완료 콜백/저장소를 조작하지 않았다.
+- 검수 전후 화면 완료율은 동일: 한글0%/1%/0%/0%/0%, 영어 모두0%. 완료 행동0회·기존 기록 삭제0회. 현재 운영 프로필의 이어할 권만 정상 진입 동작에 따라 한영5권이 됐다. 기존 사용자 영어 쓰기 탭은 건드리지 않았다. 신규 운영 지도2개/홈 탭 console error0.
+- 증거: `C:/project/tangobook/output/production-book-entry-20261016/`의 `results.json`, `deployment-success.png`, `korean-book5.png`, `english-book5.png`, `korean-resume-dialog.png`, `english-resume-dialog.png`, `home-resume.png`. JSON은 DOM에 표시된 접근권/실제 진입/복귀/이어하기와 완료율만 기록한다. 한영 운영 지도 탭을 사용자 확인용으로 유지했다.
+- 이번 요청은 배포·운영 진입/이어하기 검수다. 모든 활동 완주·음성/실기기 전체 검증이나 자녀 간 전환 전수로 확대하지 않는다. 제품 코드 수정 없이 검수 기록만 로컬 커밋하며 새 push/배포 변경은 하지 않는다. 위 운영 미확인은 이전 시점의 기록이다.
