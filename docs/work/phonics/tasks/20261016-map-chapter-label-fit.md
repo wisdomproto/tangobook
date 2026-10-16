@@ -1,6 +1,6 @@
 # 지도 챕터 글자 넘침 점검
 
-상태: 로컬 수정·검수 완료. 새 push 요청 없음.
+상태: 로컬 수정·검수 완료. 사용자 요청으로 main push 진행.
 
 ## 사용자 요청·시작
 
@@ -27,3 +27,8 @@
 - 증거는 기존 영어 첫 활동 완주 검수와 함께 `C:/project/tangobook/output/production-english-book3-first-20261016/`에 before/after JSON·이미지를 저장. 운영 완료 검수는 기존 배포45e4a8fb7에서, 넘침 수정은 로컬이다. 새 push/배포 없음.
 - 최종 PC도 실제1280×720 iframe으로 확인해 **106버튼×3크기=318개 경계 검사에서 넘침0**. 이미지/글자 모서리의 테두리 안3px 여백 기준이며 실제 innerWidth/innerHeight와 모든 버튼별 box를 JSON에 보존했다. 일반 챕터80개+복습 그림26개다. 검수 화면 임시 HTML은 production public에서 제거하고 worktree output/map-chapter-label-fit-20261016/review.html로 보존(미커밋). 공개 앱에 새 검수 URL은 배포하지 않는다.
 - 운영 영어 첫 활동 완료/복습과 로컬 지도 수정 탭 console error각0. 최종 로컬 화면 english-map-fit.png, 운영 완료 증거 completed-green-check-play.png를 구분한다. responsive-preview-start.png는 검수 HTML 앞부분 캡처이며 PC 화면 증거로 쓰지 않는다(스크린샷 clip 원점이 반영되지 않은 도구 제한). PC 수치는 실제 해당1280×720 iframe의 DOM 측정 결과다.
+
+## main 전달 — 2026-10-16
+
+- 사용자 현재 요청으로 지도 글자 넘침 수정 1c85da78b와 관련 검수 기록을 원격 main 일반 push 대상으로 확정했다. fetch 후 origin/main 대비 뒤처짐0/앞섬3이며 tracked 변경 없음·관련 diff 확인을 마쳤다.
+- 기존 45회귀·타입/lint/build 및 318개 경계 검사 결과를 유지한다. 위의 새 push 없음은 구현 당시 상태이며, 새 운영 배포 완료는 별도 확인이 필요하다.

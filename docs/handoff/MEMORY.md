@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-16 [지도 글자 넘침 main 전달](../work/phonics/tasks/20261016-map-chapter-label-fit.md#main-전달--2026-10-16): 사용자 요청으로 1c85da78b와 관련 운영 검수 기록을 원격 main 일반 push 대상으로 확정. fetch0/3·tracked 변경 없음·diff 확인, 기존 검증 결과 유지. 새 배포 완료는 별도 확인하며 아래 미푸시는 이전 시점이다.
+
 2026-10-16 [영어 첫 활동 완료·지도 글자 넘침](../work/phonics/tasks/20261016-map-chapter-label-fit.md): 운영Book3 learn-_ake12소리/4낱말16자 실제 native 입력 완료→-ape자동다음·지도초록체크/재생·복습첫소리 확인. 영어완료0이라 미검수 제한은 해소, 챕터 전체 완주 아님. 발견한 영어 지도 소리 줄바꿈 넘침은1c85da78b 로컬 main 수정·한영106버튼3크기318검사 넘침0/45회귀·타입/lint/build 통과. 새 push/배포 없음.
 
 2026-10-16 [파닉스 활동 재생 운영 확인](../work/phonics/tasks/20261016-book3-completion-ui.md#운영-배포3상태활동-재생-검수--2026-10-16): 45e4a8fb7/Railwaya6a9135d successful·Active 확인. 운영 한글 완료초록/현재코랄/잠금회색 및 복습/현재 바로진입·영어현재민트/잠금회색·ee진입 검수, 하단CTA0·완료율동일·console error0. 영어 완료기록0/3권 전체 완주 미완료는 구분, 실제 완료나 진도 임의 변경 없이 기록만 로컬 보존·새 push 없음.
