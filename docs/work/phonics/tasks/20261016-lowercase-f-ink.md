@@ -6,7 +6,7 @@
 - updated: 2026-10-16
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 코드da8910360 main 통합·사용자 원격 main 전달 요청(아래). 새 운영 배포 완료는 별도 확인 필요.
+- delivery: d304fc470 원격 main push 완료. Railway d8e99b67 successful/Active·운영 f/t 첫 획 native 입력과 세로 기둥 전체 채움 확인(아래).
 
 사용자가 운영 D/E/F 쓰기의 소문자 f를 아래로 그을 때 잘 안 채워진다고 보고했고, 첫 획 완료 체크/두 번째 획 안내인데 윗부분만 초록색인 스크린샷으로 반증했다. 앞선52자 판정 검사는 경로 합격만 확인해 획별 잉크 소유권 오류를 잡지 못했다. 곡선 첫 획과 가로획의 소유권/안내 경로를 함께 확인한다. 운영 전체 곡선 native 입력으로 검증했다고 확대하지 않는다.
 
@@ -28,3 +28,12 @@
 ## main 전달 — 2026-10-16
 
 사용자가 f/t 채움 수정의 원격 main push를 요청했다. fetch 후 origin/main 대비0/3·tracked 미커밋 없음·관련 diff와 위 검수 결과를 확인했다. 전달 대상은 f/t 잉크 소유권 수정da8910360, 선행 운영 검수 및 통합/전달 기록이다. 일반 push로 전달하며 미추적 자료와 다른 worktree는 보존한다. 위 미푸시는 구현 당시 상태이며, Railway 배포 성공과 운영 실제 채움 검수는 별도 확인해야 한다.
+
+## 운영 배포·첫 획 검수 — 2026-10-16
+
+- 앞선 사용자 push 요청으로ce715fc29→d304fc470 일반 push 성공·ls-remote SHA 일치/0·0 확인. 이번 검수 시작 때도 origin/main과 일치했다.
+- Railway 배포d8e99b67-e8a8-41e3-9f77-8e982345e2d2 Details에서 GitHub 커밋d304fc470721f1a0c7623577e18a9c512d059f1e·Deployment successful·Active 확인. 운영 entry index-BEMQDjUF.js, 공용 획 번들 WordListenChooseActivity-YD5yZ-g8.js.
+- 기존 사용자 D/E/F 탭은 f의 첫 획 완료 상태여서 수정 전 진행을 건드리지 않았다. 별도 새 운영 복습 탭r1/r4를 열었고, 글자 지정 URL이 없어 복습을 다시 시작해 무작위 첫 카드f/t가 나왔을 때 입력했다. URL이 항상f/t로 시작하는 것은 아니다. 브라우저 숨은 상태/합격 콜백/DOM 이벤트를 조작하지 않았다.
+- 같은 공용 StrokeTraceCanvas의 실제 운영f 첫 획을 native 단일 드래그로 대략 따라 쓰니 진행1/2·두 번째 획 안내로 이동했고, 윗곡선→기둥 아래까지 연속 채움 확인. t도 첫 획native 단일 드래그 뒤1/2·두 번째 획 안내, 세로 기둥과 아랫곡선 끝까지 채움 확인했다. 가로획은 남겨 첫 획 누락이 해소됐는지 검토했다. 정밀 곡선 손글씨/실기기 전수 검수나 이번 운영두획완주로 확대하지 않는다.
+- 두 운영 탭 console error0·/health ok. 증거는C:/project/tangobook/output/production-ft-ink-20261016/{f-first-stroke.png,t-first-stroke.png,production-guides.json,deployment-success.png}. 두 새 쓰기 탭은 사용자 확인용으로 유지했다.
+- 검수 기록만 로컬 커밋하며 이번 요청으로 새 push/배포 변경은 하지 않는다. 위 운영 미확인은 이전 상태다.
