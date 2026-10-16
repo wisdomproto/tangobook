@@ -1,4 +1,11 @@
 {
+  "popit": {
+    "prompt": "啵啵，按一按！",
+    "done": "字母完成啦！",
+    "activity": "{{letter}}字母泡泡",
+    "bubble": "{{letter}}第{{number}}个泡泡",
+    "progress": "已按的泡泡"
+  },
   "workspace": {
     "complete": "完成",
     "fullCourse": "完整课程",

@@ -1,4 +1,11 @@
 {
+  "popit": {
+    "prompt": "Bóp bóp, chạm thử nào!",
+    "done": "Hoàn thành chữ rồi!",
+    "activity": "Bong bóng chữ {{letter}}",
+    "bubble": "Bong bóng {{number}} của {{letter}}",
+    "progress": "Bong bóng đã bấm"
+  },
   "workspace": {
     "complete": "Xong",
     "fullCourse": "Toàn bộ chương trình",

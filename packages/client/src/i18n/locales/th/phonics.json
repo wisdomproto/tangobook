@@ -1,4 +1,11 @@
 {
+  "popit": {
+    "prompt": "ป๊อป ป๊อป ลองกดดูสิ!",
+    "done": "ตัวอักษรเสร็จแล้ว!",
+    "activity": "ป๊อปอิตตัวอักษร {{letter}}",
+    "bubble": "ฟอง {{number}} ของ {{letter}}",
+    "progress": "ฟองที่กดแล้ว"
+  },
   "workspace": {
     "complete": "สำเร็จ",
     "fullCourse": "หลักสูตรทั้งหมด",

@@ -1,4 +1,11 @@
 {
+  "popit": {
+    "prompt": "뽁뽁, 눌러봐!",
+    "done": "글자 완성!",
+    "activity": "{{letter}} 말랑 팝잇",
+    "bubble": "{{letter}} 방울 {{number}}",
+    "progress": "누른 방울"
+  },
   "workspace": {
     "complete": "완료",
     "fullCourse": "전체 커리큘럼",

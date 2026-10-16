@@ -14,6 +14,7 @@ import { useEntryGuide, ENTRY_GUIDE, voiceUrl, praiseLang } from '../hooks/useEn
 import { ActivityShell } from '../components/ActivityShell';
 import { LetterTapCharge, LETTER_TAP_COUNT } from '../components/LetterTapCharge';
 import { emitLearningEffect } from '@/features/games/effects/learning-effects';
+import { HangulPopitActivity } from './HangulPopitActivity';
 
 interface VowelItem {
   vowel: string; // 'ㅏ'
@@ -46,7 +47,27 @@ interface Props {
  * Phase 2 (quiz, 듣고 맞추기): 랜덤 모음 음원 재생 → 6개 칸 중 정답 선택.
  *   모든 정답 맞추면 onMarkComplete (진척 마킹) — 자동 back 없음, 다시하기 버튼 노출.
  */
-export function VowelListenActivity({
+export function VowelListenActivity(props: Props) {
+  if (props.language !== 'english' && props.vowels.length === 1 && props.vowels[0].vowel === 'ㅏ') {
+    return (
+      <HangulPopitActivity
+        key={`${props.unitId}-ㅏ`}
+        unitId={props.unitId}
+        ttsUnitId={props.ttsUnitId}
+        letter="ㅏ"
+        sound={props.vowels[0].sound ?? 'ㅏ'}
+        prefix="phonics-vowel"
+        syllable={props.unitId.startsWith('kr-v1-') ? props.vowels[0].syllable : undefined}
+        onComplete={props.onMarkComplete}
+        onBack={props.onBack}
+        onNext={props.onNext}
+      />
+    );
+  }
+  return <VowelChargeActivity {...props} />;
+}
+
+function VowelChargeActivity({
   unitId,
   ttsUnitId = unitId,
   vowels,

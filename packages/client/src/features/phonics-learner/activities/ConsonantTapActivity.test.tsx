@@ -32,7 +32,7 @@ afterEach(() => {
   audio.resolve.mockResolvedValue('phoneme.mp3');
 });
 describe('자음5회 충전', () => {
-  it.each([...'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉ'])(
+  it.each([...'ㄴㄷㄹㅁㅂㅅㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉ'])(
     '%s는5번 실제 발음을 마친 뒤에만 칭찬·완료한다',
     async (letter) => {
       const done = vi.fn();
@@ -71,9 +71,9 @@ describe('자음5회 충전', () => {
   it('음원 로드·재생 오류는 진행이 아니며 같은 칸을 다시 누를 수 있다', async () => {
     audio.resolve.mockResolvedValueOnce(undefined);
     render(
-      <ConsonantTapActivity unitId="kr-test" consonant="ㄱ" onComplete={vi.fn()} onBack={vi.fn()} />
+      <ConsonantTapActivity unitId="kr-test" consonant="ㄴ" onComplete={vi.fn()} onBack={vi.fn()} />
     );
-    const button = screen.getByRole('button', { name: 'ㄱ 눌러 채우기' });
+    const button = screen.getByRole('button', { name: 'ㄴ 눌러 채우기' });
     fireEvent.click(button);
     await screen.findByRole('status');
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');

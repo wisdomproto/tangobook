@@ -1,4 +1,11 @@
 {
+  "popit": {
+    "prompt": "Pop, pop! Give it a tap!",
+    "done": "You made the letter!",
+    "activity": "{{letter}} letter pop-it",
+    "bubble": "{{letter}} bubble {{number}}",
+    "progress": "Bubbles popped"
+  },
   "workspace": {
     "complete": "Done",
     "fullCourse": "Full curriculum",

@@ -8,6 +8,7 @@ import { usePhonicsTtsWarm } from '../hooks/usePhonicsTtsWarm';
 import { useEntryGuide, ENTRY_GUIDE, praiseLang } from '../hooks/useEntryGuide';
 import { ActivityShell } from '../components/ActivityShell';
 import { LetterTapCharge, LETTER_TAP_COUNT } from '../components/LetterTapCharge';
+import { HangulPopitActivity } from './HangulPopitActivity';
 
 interface Props {
   unitId: string;
@@ -19,8 +20,26 @@ interface Props {
   onBack: () => void;
 }
 
-/** One phoneme, five successful listens. No separate word/card lottery. */
-export function ConsonantTapActivity({ unitId, consonant, soundText, onComplete, onBack }: Props) {
+/** The three pop-it samples share the existing activity route and completion contract. */
+export function ConsonantTapActivity(props: Props) {
+  if (props.consonant === 'ㄱ' || props.consonant === 'ㅇ') {
+    return (
+      <HangulPopitActivity
+        key={`${props.unitId}-${props.consonant}`}
+        unitId={props.unitId}
+        letter={props.consonant}
+        sound={props.soundText ?? props.consonant}
+        prefix="consonant-tap"
+        onComplete={props.onComplete}
+        onBack={props.onBack}
+      />
+    );
+  }
+  return <ConsonantChargeActivity {...props} />;
+}
+
+/** Other consonants retain five successful listens. */
+function ConsonantChargeActivity({ unitId, consonant, soundText, onComplete, onBack }: Props) {
   const { t } = useTranslation('phonics');
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [count, setCount] = useState(0);

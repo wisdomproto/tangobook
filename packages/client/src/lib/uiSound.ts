@@ -22,6 +22,7 @@ export type UiSoundName =
   | 'success'
   | 'play'
   | 'draw'
+  | 'popit'
   | 'learning-tap'
   | 'learning-complete';
 
@@ -57,6 +58,7 @@ const pools = new Map<UiSoundName, HTMLAudioElement[]>();
 const cursor = new Map<UiSoundName, number>();
 
 function url(name: UiSoundName): string {
+  if (name === 'popit') return '/sounds/learning/popit.wav';
   if (name === 'learning-tap') return LEARNING_SOUNDS.tap;
   if (name === 'learning-complete') return LEARNING_SOUNDS.complete;
   return `/sounds/ui/${name}.mp3`;

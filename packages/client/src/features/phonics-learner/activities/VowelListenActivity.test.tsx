@@ -63,13 +63,13 @@ describe('모음 하나씩 익히기', () => {
       <VowelListenActivity
         unitId="kr-v1-u01"
         ttsUnitId="kr-h1-u01"
-        vowels={[VOWELS[0]]}
+        vowels={[VOWELS[1]]}
         onMarkComplete={complete}
         onBack={vi.fn()}
         onNext={next}
       />
     );
-    const card = screen.getByRole('button', { name: 'ㅏ 눌러 채우기' });
+    const card = screen.getByRole('button', { name: 'ㅑ 눌러 채우기' });
     for (let n = 1; n <= 5; n++) {
       fireEvent.click(card);
       await waitFor(() => expect(spies.tts).toHaveBeenCalledTimes(n));
@@ -101,12 +101,12 @@ describe('모음 하나씩 익히기', () => {
     render(
       <VowelListenActivity
         unitId="kr-v1-u01"
-        vowels={[VOWELS[0]]}
+        vowels={[VOWELS[1]]}
         onMarkComplete={complete}
         onBack={vi.fn()}
       />
     );
-    const card = screen.getByRole('button', { name: 'ㅏ 눌러 채우기' });
+    const card = screen.getByRole('button', { name: 'ㅑ 눌러 채우기' });
     fireEvent.click(card);
     await screen.findByRole('status');
     expect(complete).not.toHaveBeenCalled();
