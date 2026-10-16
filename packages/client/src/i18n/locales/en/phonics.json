@@ -174,7 +174,7 @@
     "educationalUse": "Korean reading, phonics, vocabulary"
   },
   "level": {
-    "hangul1": "Book 2: Consonants and Basic Syllables",
+    "hangul1": "Book 2: Basic Letters",
     "hangul2": "Book 3: Final Consonants",
     "hangul3": "Book 4: Double Consonants",
     "hangul4": "Book 5: Complex Vowels",
@@ -413,11 +413,11 @@
     "later": "See you later",
     "nextPlace": "On to the next place",
     "korean": {
-      "1": "Vowel Garden",
-      "2": "Letter Forest",
-      "3": "Final Sound Bridge",
-      "4": "Twin Hills",
-      "5": "Vowel Rainbow"
+      "1": "Vowels",
+      "2": "Basic Letters",
+      "3": "Final Consonants",
+      "4": "Double Consonants",
+      "5": "Complex Vowels"
     },
     "english": {
       "1": "Alphabet Garden",

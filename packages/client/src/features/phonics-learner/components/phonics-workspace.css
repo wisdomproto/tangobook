@@ -267,14 +267,41 @@
   flex: 1;
   text-align: left;
 }
-.journey-workspace-tree li:not([data-completed]):not([data-running]) > .journey-free-activity,
-.journey-workspace-tree
-  li:not([data-completed]):not([data-running])
-  > .journey-curriculum-activity {
+.journey-workspace-tree li:not([data-completed]):not([data-running]) > .journey-free-activity {
   color: #736e62;
   background: #f5f4ec;
   border: 1px solid #e0ddce;
   box-shadow: 0 2px 0 #e5e1d3;
+}
+/* Available and locked activities must remain distinct before a player is running. */
+.journey-workspace-tree
+  li:not([data-completed]):not([data-running])
+  > .journey-curriculum-activity:enabled {
+  color: var(--course-label);
+  background: var(--course-soft);
+  border: 2px solid var(--course-accent);
+  box-shadow: 0 3px 0 var(--course-border);
+}
+.journey-workspace-tree
+  li:not([data-completed])
+  > .journey-curriculum-activity:enabled
+  .journey-activity-number {
+  background: var(--course-accent);
+  color: #fff;
+}
+.journey-workspace-tree .journey-curriculum-activity:disabled {
+  color: #878b88;
+  background: #eef0ed;
+  border: 1px solid #dde1dc;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.journey-workspace-tree .journey-curriculum-activity:disabled .journey-activity-number {
+  color: #949a94;
+  background: #e0e4df;
+}
+.journey-workspace-tree .journey-curriculum-activity:disabled .workspace-word-count {
+  color: #878b88;
 }
 .journey-workspace-tree li[data-completed] > .journey-free-activity,
 .journey-workspace-tree li[data-completed] > .journey-curriculum-activity {

@@ -135,8 +135,8 @@ it('previews a completed chapter before replaying it through the single action',
 });
 it('opens the selected book entry while keeping its later activities locked', () => {
   show();
-  fireEvent.click(screen.getByRole('button', { name: '5권 모음 무지개' }));
-  expect(screen.getByRole('region', { name: '모음 무지개' })).toBeDefined();
+  fireEvent.click(screen.getByRole('button', { name: '5권 복잡한 모음' }));
+  expect(screen.getByRole('region', { name: '복잡한 모음' })).toBeDefined();
   expect(screen.getByRole('link', { name: '학습 시작하기' })).toHaveAttribute(
     'href',
     '/library/phonics/korean/kr-h4-u01/letter-listen-ㅐ?mode=curriculum'

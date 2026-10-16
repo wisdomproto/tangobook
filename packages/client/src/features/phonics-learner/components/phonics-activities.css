@@ -110,6 +110,43 @@
 .phonics-syllable-nav button[aria-current='step'] {
   box-shadow: 0 3px 0 #a42f17;
 }
+.phonics-write-nav {
+  max-width: min(100%, 1000px);
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  margin-inline: auto;
+  scroll-padding-inline: 12px;
+}
+.phonics-write-nav button {
+  flex-shrink: 0;
+}
+.phonics-write-body {
+  container-type: size;
+  width: 100%;
+}
+.phonics-write-body > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: clamp(16px, 4cqh, 32px);
+}
+.phonics-write-body .phonics-write-blend-stage {
+  flex-shrink: 0;
+}
+/* Keep the progress indicator inside its own paper; it must not push the next
+   component of a vertical syllable out of the viewport when drawing starts. */
+.phonics-write-blend-piece .letter-fill-progress {
+  position: absolute;
+  inset: auto 8px 5px;
+  width: auto;
+  pointer-events: none;
+}
+.phonics-write-blend-piece .letter-fill-progress > div:first-child {
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+.phonics-write-blend-piece .letter-fill-progress > div:last-child {
+  height: 4px;
+}
 .phonics-blend-stage {
   position: relative;
   isolation: isolate;

@@ -174,7 +174,7 @@
     "educationalUse": "Đọc tiếng Hàn, phonics, học từ vựng"
   },
   "level": {
-    "hangul1": "Quyển 2: Phụ âm và âm tiết cơ bản",
+    "hangul1": "Quyển 2: Chữ cơ bản",
     "hangul2": "Quyển 3: Phụ âm cuối",
     "hangul3": "Quyển 4: Phụ âm đôi",
     "hangul4": "Quyển 5: Nguyên âm phức",
@@ -413,11 +413,11 @@
     "later": "Hẹn gặp lại",
     "nextPlace": "Đến nơi tiếp theo",
     "korean": {
-      "1": "Vườn nguyên âm",
-      "2": "Rừng chữ",
-      "3": "Cầu phụ âm cuối",
-      "4": "Đồi đôi",
-      "5": "Cầu vồng nguyên âm"
+      "1": "Nguyên âm",
+      "2": "Chữ cơ bản",
+      "3": "Phụ âm cuối",
+      "4": "Phụ âm đôi",
+      "5": "Nguyên âm phức"
     },
     "english": {
       "1": "Vườn chữ cái",

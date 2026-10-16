@@ -40,7 +40,7 @@ interface Props {
 /** 두 글자가 붙기까지의 거리 — 멀리 → 가까이 → 붙음. (음절 만들기와 같은 규칙) */
 const GAPS = ['min(7vw, 8rem)', 'min(2vw, 2rem)', '0px'] as const;
 /** 받침은 위·아래로 모인다(아+ㅇ=앙) — 세로라 높이 기준 값이 따로 필요하다. */
-const CODA_GAPS = ['min(9vh, 5rem)', 'min(3vh, 1.5rem)', '0px'] as const;
+const CODA_GAPS = ['clamp(12px, 3cqh, 24px)', '12px', '0px'] as const;
 /**
  * 두 칸의 **공통 폭**. 대기 칸과 캔버스가 같은 크기여야 한 글자로 읽힌다.
  *
@@ -48,8 +48,8 @@ const CODA_GAPS = ['min(9vh, 5rem)', 'min(3vh, 1.5rem)', '0px'] as const;
  *    받침(세로)만 고쳐놨더니 자음(가로)에 그대로 남아 있었다 — 두 모드 다 묶는다.
  * 가로로 나란한 자음은 두 칸이 한 줄에 들어가야 해서 세로보다 좁다.
  */
-const CODA_TILE = 'min(46vw, 26vh, 13rem)';
-const ROW_TILE = 'min(38vw, 24vh, 11rem)';
+const CODA_TILE = 'min(38vw, max(44px, calc((100cqh - 94px) / 2)), 13rem)';
+const ROW_TILE = 'min(38vw, max(44px, calc(100cqh - 94px)), 11rem)';
 /**
  * 🔴 **대기 칸 글자는 캔버스가 그리는 글자와 같은 크기여야 한다** — `LetterFillCanvas` 는 400px
  * 캔버스에 `0.85em` 으로 그린 뒤 칸 폭에 맞춰 늘리므로, 화면에 보이는 em 크기는 **칸 폭 × 0.85** 다.
@@ -142,6 +142,13 @@ export function ConsonantWriteActivity({
   );
 
   const [idx, setIdx] = useState(0);
+  const syllableNav = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    syllableNav.current?.querySelector('[aria-current="step"]')?.scrollIntoView?.({
+      block: 'nearest',
+      inline: 'nearest',
+    });
+  }, [idx]);
   const [round, setRound] = useState(0);
   const [step, setStep] = useState<0 | 1>(0); // 지금 쓸 칸
   const logSyllable = useLogSyllable(unitId);
@@ -323,7 +330,10 @@ export function ConsonantWriteActivity({
       {/* 오늘 써볼 음절 — 다 쓴 건 민트 + ✓. 아무거나 눌러 그것부터 할 수 있다(음절 만들기와 같다).
           🔴 진척은 `idx` 가 아니라 `madeSet` 으로 판단한다 — 건너뛰며 골랐을 때 앞의 안 한 것이
              '완료'로 보이면 안 된다. */}
-      <div className="phonics-syllable-nav shrink-0 flex flex-wrap justify-center gap-2 sm:gap-3">
+      <div
+        ref={syllableNav}
+        className="phonics-syllable-nav phonics-write-nav shrink-0 flex gap-2 sm:gap-3"
+      >
         {pairs.map((p, i) => {
           const done = madeSet.has(i);
           return (
@@ -332,6 +342,7 @@ export function ConsonantWriteActivity({
               key={p.syllable}
               onClick={() => !done && goTo(i)}
               disabled={done}
+              aria-current={i === idx ? 'step' : undefined}
               aria-label={t('write.writeSyllable', { syllable: p.syllable })}
               className={[
                 'w-11 h-11 sm:w-14 sm:h-14 rounded-2xl border-[3px] border-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-soft transition',
@@ -348,7 +359,7 @@ export function ConsonantWriteActivity({
         })}
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
+      <div className="phonics-write-body flex-1 min-h-0 flex flex-col items-center justify-center gap-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-display text-ink-900 text-center break-keep">
           {/* 🔴 지시문엔 글자를 넣지 않는다 — 쓸 글자는 캔버스 가이드가 이미 크게 보여주고,
               글을 못 읽는 4~7세는 문장 속 글자를 읽지 않는다. 안내 음성(`write-start`)도

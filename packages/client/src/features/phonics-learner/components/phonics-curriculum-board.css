@@ -199,10 +199,12 @@ li[data-completed] .journey-activity-number {
   border-radius: 0;
   box-shadow: none;
   color: #433d34;
-  background: url('/images/learning/cloud-v1/cta-coral.webp') center / 100% 100% no-repeat;
+  padding: 10px 18px 16px;
+  background: url('/images/phonics/journey-controls-v1/continue-coral.webp') center / 100% 100%
+    no-repeat;
 }
 .curriculum-board.journey-world--english .journey-play-button {
-  background-image: url('/images/learning/cloud-v1/cta-mint.webp');
+  background-image: url('/images/phonics/journey-controls-v1/continue-mint.webp');
 }
 .curriculum-board .journey-map-panel {
   display: flex;
