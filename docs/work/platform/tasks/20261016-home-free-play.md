@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: 23e0c9c53 로컬 main fast-forward 포함 확인
-- delivery: 미푸시·미배포
+- delivery: 사용자 요청으로 origin/main 일반 push 대상 확정, 운영 배포 완료는 별도 확인
 
 ## 사용자 결정
 
@@ -36,3 +36,7 @@
 ## 인계
 
 최종6파일53검사·client 타입·변경TS/TSX ESLint·build28.70초 통과. 기존 Browserslist/Lottie eval/혼합 import/큰 청크 경고는 남는다. 코드/기억23e0c9c53을 로컬 main에 fast-forward 통합하고 ancestor·tracked clean을 확인했다. 이번 변경 push/배포는 요청받지 않았다. 기존 DISABLE_PUBLISH_SCHEDULER=1인client Vite5187/공개 API 읽기 proxy를 재사용했고 사용자 미추적 output/tmp는 보존했다.
+
+## main 전달 — 2026-10-16
+
+후속 사용자 요청 “좋아. 메인에 푸시하자”로 홈 바로 놀기 변경의 원격 main 전달을 승인받았다. fetch 후 origin/main...HEAD는0/2이며 코드23e0c9c53과 통합 기록3acae38f9만 앞서 있다. tracked clean과 변경 범위를 확인했고 기존 미추적 output/tmp는 보존한다. 제품 코드 변경이 없어 기존53검사·타입/lint/build·화면 검증을 유지하며 전달 기록만 추가해 일반 push한다. Railway 운영 배포 성공과 운영 화면 확인은 push 성공과 별도로 확인해야 한다.
