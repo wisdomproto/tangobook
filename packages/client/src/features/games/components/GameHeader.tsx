@@ -1,5 +1,6 @@
 import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
-import type { ReactNode } from 'react';
+import { useContext, type ReactNode } from 'react';
+import { GameHomeContext } from './GameHomeContext';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { usePhonicsEmbedded } from '../../phonics-learner/components/ActivityShell';
@@ -38,6 +39,7 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
   const { t: pt } = useTranslation('phonics');
   const workspace = useLearningWorkspace();
   const navigate = useNavigate();
+  const home = useContext(GameHomeContext);
   const embedded = usePhonicsEmbedded();
   const blockInputControl = useBlockInputControl();
   return (
@@ -71,7 +73,7 @@ export function GameHeader({ title, current, total, onBack, rightExtra }: GameHe
           !embedded && (
             <button
               type="button"
-              onClick={() => navigate('/library')}
+              onClick={() => navigate(home)}
               aria-label={t('header.homeAria')}
               title={t('header.homeAria')}
               className="min-w-11 min-h-11 px-3 rounded-full bg-white text-ink-900 font-bold text-base shadow-soft flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"

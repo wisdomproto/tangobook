@@ -3,7 +3,7 @@
 }
 .home-play-heading {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 14px;
   flex-wrap: wrap;
   margin-bottom: 14px;
@@ -17,6 +17,39 @@
 .home-play-heading p {
   color: #7b7264;
   font-size: 15px;
+}
+.home-play-languages {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  background: #fffdf7;
+  border: 1px solid #e4ddcc;
+  border-radius: 18px;
+  box-shadow: 0 3px 0 #e9e4d7;
+}
+.home-play-languages button {
+  min-width: 72px;
+  min-height: 44px;
+  padding: 6px 18px;
+  border: 2px solid transparent;
+  border-radius: 13px;
+  color: #756b5c;
+  font-size: 18px;
+  font-weight: 800;
+}
+.home-play-languages button[aria-pressed='true'][data-language='ko'] {
+  background: #ffdec4;
+  border-color: #dc7650;
+  color: #9c331b;
+}
+.home-play-languages button[aria-pressed='true'][data-language='en'] {
+  background: #ceeee0;
+  border-color: #5aa389;
+  color: #22664f;
+}
+.home-play-languages button:focus-visible {
+  outline: 3px solid #795c36;
+  outline-offset: 3px;
 }
 .home-play-options {
   display: grid;

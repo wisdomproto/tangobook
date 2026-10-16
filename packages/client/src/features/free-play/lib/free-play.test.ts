@@ -5,7 +5,12 @@ import type {
   Storybook,
   StorybookSummary,
 } from '@tangobook/shared';
-import { easyHiddenScene, isEasyPlayWord, makeFreePlayRound } from './free-play';
+import {
+  easyHiddenScene,
+  isEasyPlayWord,
+  isEasyEnglishPlayWord,
+  makeFreePlayRound,
+} from './free-play';
 
 const book = (id = 'ready'): Storybook =>
   ({
@@ -41,6 +46,118 @@ const coloring = (id = 'ready'): ColoringCatalogEntry => ({
   section: '놀이 책',
   lineartUrl: 'outline.webp',
   originalUrl: 'tree.webp',
+});
+
+describe('English standalone practice', () => {
+  const englishBook = () => {
+    const result = book();
+    result.key_objects!.forEach((object, i) => {
+      object.nameEn = ['tree', 'baby', 'bag', 'magpie', 'cat'][i];
+      object.ttsUrls = { en: `${object.nameEn}-en.mp3` };
+    });
+    return result;
+  };
+  const sources = () => ({
+    books: [summary('ready')],
+    coloring: [coloring()],
+    loadBook: async () => englishBook(),
+  });
+  it.each(['cat', 'Tree', 'dog', 'sun', 'book'])('allows a short illustrated word: %s', (word) => {
+    expect(isEasyEnglishPlayWord(word)).toBe(true);
+  });
+  it.each(['a', 'dragon', 'ice cream', 'dopo', '아기', ''])(
+    'does not call %s an easy English word',
+    (word) => {
+      expect(isEasyEnglishPlayWord(word)).toBe(false);
+    }
+  );
+  it.each(['blocks', 'writing'] as const)(
+    '%s uses English words, English audio and the existing English data type',
+    async (kind) => {
+      const round = await makeFreePlayRound(kind, sources(), 'en');
+      if (!round || !('data' in round) || !('items' in round.data))
+        throw new Error('missing English round');
+      expect(round.data.type).toBe(kind === 'blocks' ? 'english-block' : 'english-word-writing');
+      expect(round.data.items).toHaveLength(3);
+      expect(
+        round.data.items.every(
+          (item) => isEasyEnglishPlayWord(item.word) && item.ttsUrl === `${item.word}-en.mp3`
+        )
+      ).toBe(true);
+      expect(round.bookId).toBe('ready');
+    }
+  );
+  it('maps a Korean illustration to the matching English label and audio', async () => {
+    const round = await makeFreePlayRound('coloring', sources(), 'en');
+    expect(round).toMatchObject({
+      kind: 'coloring',
+      bookId: 'ready',
+      entry: { word: 'tree', lineartUrl: 'outline.webp' },
+      ttsUrl: 'tree-en.mp3',
+    });
+  });
+  it('skips missing translations instead of showing Korean words or using Korean audio', async () => {
+    for (const kind of ['blocks', 'writing', 'coloring'] as const) {
+      expect(
+        await makeFreePlayRound(kind, { ...sources(), loadBook: async () => book() }, 'en')
+      ).toBeNull();
+    }
+    const noAudio = englishBook();
+    noAudio.key_objects!.forEach((object) => {
+      object.ttsUrls = {};
+    });
+    const round = await makeFreePlayRound(
+      'writing',
+      { ...sources(), loadBook: async () => noAudio },
+      'en'
+    );
+    if (!round || round.kind !== 'writing') throw new Error('missing round');
+    expect(round.data.items.every((item) => !item.ttsUrl)).toBe(true);
+  });
+  it('builds translated hidden targets while preserving canonical names and every box', async () => {
+    const source = englishBook();
+    source.hiddenObjectScenes = [
+      {
+        id: 'hobj_scene',
+        sceneImageUrl: 'scene.webp',
+        hotspots: ['나무', '나무', '아기', '번역없음'].map((objectName, i) => ({
+          objectName,
+          x: i / 10,
+          y: 0,
+          w: 0.1,
+          h: 0.1,
+        })),
+      },
+    ];
+    const input = {
+      ...sources(),
+      hidden: [
+        {
+          key: 'scene',
+          bookId: 'ready',
+          bookTitle: '놀이 책',
+          category: '세계 명작',
+          sceneImageUrl: 'scene.webp',
+          words: ['나무', '아기', '번역없음'],
+        },
+      ],
+      loadBook: async () => source,
+    };
+    const round = await makeFreePlayRound('hidden-object', input, 'en');
+    if (!round || round.kind !== 'hidden-object') throw new Error('missing hidden round');
+    expect(round.data.scenes[0].targets.map((target) => target.label)).toEqual([
+      'tree',
+      'tree',
+      'baby',
+    ]);
+    expect(round.data.scenes[0].targets[0]).toMatchObject({
+      objectName: '나무',
+      x: 0,
+      ttsUrl: 'tree-en.mp3',
+    });
+    source.key_objects![1].nameEn = '';
+    expect(await makeFreePlayRound('hidden-object', input, 'en')).toBeNull();
+  });
 });
 const summary = (id: string, isPublic = true) =>
   ({ id, isPublic, type: 'storybook', category: '세계 명작' }) as StorybookSummary;

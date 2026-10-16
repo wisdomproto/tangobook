@@ -92,7 +92,11 @@
     "error": "We couldn't load this activity.",
     "empty": "No ready activities found.",
     "retry": "Try again",
-    "home": "Home"
+    "home": "Home",
+    "language": "Activity language",
+    "ko": "Korean",
+    "en": "English",
+    "blocksEnglish": "English blocks"
   },
   "home": {
     "seoTitle": "Learning Home — TangoBook",

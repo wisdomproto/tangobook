@@ -3,6 +3,7 @@ import type {
   HiddenObjectCatalogEntry,
   HiddenObjectData,
   KoreanBlockData,
+  EnglishBlockData,
   Storybook,
   StorybookSummary,
   WordWritingData,
@@ -10,11 +11,17 @@ import type {
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import {
   unitToKoreanBlockData,
+  unitToEnglishBlockData,
   unitToWordWritingData,
 } from '@/features/vocabulary-unit/lib/game-data-adapter';
 import { buildHiddenObjectSceneData } from '@/features/games/lib/hidden-object-data';
 
-import type { FreePlayKind } from './free-play-options';
+import type { FreePlayKind, FreePlayLanguage } from './free-play-options';
+import { CAMBRIDGE_STARTERS_TOPICS } from '@tangobook/shared';
+
+const beginnerEnglishWords = new Set(CAMBRIDGE_STARTERS_TOPICS.flatMap((topic) => topic.words));
+export const isEasyEnglishPlayWord = (word: string): boolean =>
+  /^[a-z]{2,4}$/i.test(word) && beginnerEnglishWords.has(word.toLowerCase());
 
 /** Standalone easy practice, not a claim about the child's learned curriculum. */
 export function isEasyPlayWord(word: string): boolean {
@@ -41,9 +48,9 @@ function shuffled<T>(values: readonly T[]): T[] {
 }
 
 export type FreePlayRound =
-  | { kind: 'blocks'; bookId: string; data: KoreanBlockData }
+  | { kind: 'blocks'; bookId: string; data: KoreanBlockData | EnglishBlockData }
   | { kind: 'writing'; bookId: string; data: WordWritingData }
-  | { kind: 'coloring'; bookId: string; entry: ColoringCatalogEntry }
+  | { kind: 'coloring'; bookId: string; entry: ColoringCatalogEntry; ttsUrl?: string }
   | { kind: 'hidden-object'; bookId: string; data: HiddenObjectData };
 
 /** Keep all authored boxes for a chosen object, even if the object has two positions. */
@@ -73,7 +80,8 @@ interface RoundSources {
 /** One real book per round keeps TTS, illustrations and scene reveals in the same context. */
 export async function makeFreePlayRound(
   kind: FreePlayKind,
-  sources: RoundSources
+  sources: RoundSources,
+  lang: FreePlayLanguage = 'ko'
 ): Promise<FreePlayRound | null> {
   const publicIds = new Set(
     sources.books
@@ -91,7 +99,7 @@ export async function makeFreePlayRound(
       publicIds.has(entry.bookId) &&
       entry.lineartUrl &&
       entry.originalUrl &&
-      isEasyPlayWord(entry.word)
+      (lang === 'en' || isEasyPlayWord(entry.word))
   );
   const hidden = (sources.hidden ?? []).filter(
     (entry) => publicIds.has(entry.bookId) && entry.sceneImageUrl && new Set(entry.words).size >= 2
@@ -112,37 +120,46 @@ export async function makeFreePlayRound(
       continue;
     if (kind === 'hidden-object') {
       for (const entry of shuffled(entries.filter((entry) => entry.bookId === bookId))) {
-        const data = buildHiddenObjectSceneData(book, undefined, entry.key, 'ko');
+        const data = buildHiddenObjectSceneData(book, undefined, entry.key, lang);
         if (data) return { kind, bookId, data: easyHiddenScene(data) };
       }
     } else if (kind === 'coloring') {
-      return {
-        kind,
-        bookId,
-        entry: shuffled(coloring.filter((entry) => entry.bookId === bookId))[0],
-      };
+      for (const entry of shuffled(coloring.filter((entry) => entry.bookId === bookId))) {
+        if (lang === 'ko') return { kind, bookId, entry };
+        const object = book.key_objects?.find(
+          (object) =>
+            object.name === entry.word ||
+            object.korean === entry.word ||
+            object.nameEn === entry.word
+        );
+        const word = object?.nameEn?.trim();
+        if (word && isEasyEnglishPlayWord(word))
+          return { kind, bookId, entry: { ...entry, word }, ttsUrl: object?.ttsUrls?.en };
+      }
     } else {
       if (book.hideVocabulary) continue;
       const unit = deriveStorybookUnit(book);
       const seen = new Set<string>();
       unit.words = shuffled(
         unit.words.filter((word) => {
-          const label = word.korean ?? '';
+          const label =
+            lang === 'en' ? (word.nameEn?.trim().toLowerCase() ?? '') : (word.korean ?? '');
           if (
-            !isEasyPlayWord(label) ||
+            !(lang === 'en' ? isEasyEnglishPlayWord(label) : isEasyPlayWord(label)) ||
             seen.has(label) ||
             !word.images?.some((image) => image.imageUrl)
           )
             return false;
           seen.add(label);
+          if (lang === 'en') word.word = label;
           return true;
         })
       ).slice(0, 3);
       if (kind === 'blocks') {
-        const data = unitToKoreanBlockData(unit);
+        const data = lang === 'en' ? unitToEnglishBlockData(unit) : unitToKoreanBlockData(unit);
         if (data?.items.length) return { kind, bookId, data };
       } else {
-        const data = unitToWordWritingData(unit, 'ko');
+        const data = unitToWordWritingData(unit, lang);
         if (data?.items.length) return { kind, bookId, data };
       }
     }

@@ -92,7 +92,11 @@
     "error": "无法加载游戏。",
     "empty": "暂时没有可玩的游戏。",
     "retry": "重试",
-    "home": "首页"
+    "home": "首页",
+    "language": "活动语言",
+    "ko": "韩语",
+    "en": "英语",
+    "blocksEnglish": "英语积木"
   },
   "home": {
     "seoTitle": "学习首页 — TangoBook",

@@ -92,7 +92,11 @@
     "error": "Không tải được trò chơi.",
     "empty": "Chưa có trò chơi sẵn sàng.",
     "retry": "Thử lại",
-    "home": "Trang chủ"
+    "home": "Trang chủ",
+    "language": "Ngôn ngữ hoạt động",
+    "ko": "Tiếng Hàn",
+    "en": "Tiếng Anh",
+    "blocksEnglish": "Khối chữ tiếng Anh"
   },
   "home": {
     "seoTitle": "Trang học tập — TangoBook",

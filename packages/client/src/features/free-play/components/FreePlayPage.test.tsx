@@ -2,23 +2,26 @@ import { beforeEach, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import type { FreePlayRound } from '../lib/free-play';
-import { decomposeWord } from '@tangobook/shared';
+import { decomposeWord, decomposeEnglishWord } from '@tangobook/shared';
 import type { FreePlayKind } from '../lib/free-play-options';
 import {
   getUnitProgress,
   markActivityCompleted,
 } from '@/features/phonics-learner/lib/progress-store';
 import FreePlayPage from './FreePlayPage';
+import { HomePlaySection } from './HomePlaySection';
 
 const state = vi.hoisted(() => ({
   data: null as FreePlayRound | null,
   isPending: false,
   isError: false,
   sessions: [] as string[],
+  languages: [] as string[],
 }));
 vi.mock('../hooks/useFreePlayRound', () => ({
-  useFreePlayRound: (_kind: string, session: string) => {
+  useFreePlayRound: (_kind: string, session: string, lang: string) => {
     state.sessions.push(session);
+    state.languages.push(lang);
     return state;
   },
 }));
@@ -47,13 +50,51 @@ vi.mock('@/features/games/components/players/KoreanWordWritingPlayer', () => ({
   ),
 }));
 vi.mock('@/features/games/components/players/HiddenObjectPlayer', () => ({
-  HiddenObjectPlayer: ({ onBack }: { onBack: () => void }) => (
-    <button onClick={onBack}>찾기 실행</button>
+  HiddenObjectPlayer: ({ onBack, lang }: { onBack: () => void; lang: string }) => (
+    <button onClick={onBack} data-lang={lang}>
+      찾기 실행
+    </button>
   ),
 }));
 vi.mock('@/features/games/components/players/ColoringPlayer', () => ({
-  ColoringPlayer: ({ onBack }: { onBack: () => void }) => (
-    <button onClick={onBack}>색칠 실행</button>
+  ColoringPlayer: ({
+    onBack,
+    items,
+  }: {
+    onBack: () => void;
+    items: { lang: string; language: string; ttsUrl?: string }[];
+  }) => (
+    <button
+      onClick={onBack}
+      data-lang={items[0].lang}
+      data-audio={items[0].ttsUrl}
+      data-language={items[0].language}
+    >
+      색칠 실행
+    </button>
+  ),
+}));
+vi.mock('@/features/games/components/players/EnglishBlockPlayer', () => ({
+  EnglishBlockPlayer: ({
+    onBack,
+    initialInputMode,
+  }: {
+    onBack: () => void;
+    initialInputMode: string;
+  }) => <button onClick={onBack}>영어 블록 실행 {initialInputMode}</button>,
+}));
+vi.mock('@/features/games/components/players/EnglishWordWritingPlayer', () => ({
+  EnglishWordWritingPlayer: ({
+    onBack,
+    onComplete,
+  }: {
+    onBack: () => void;
+    onComplete: (score: number, total: number) => void;
+  }) => (
+    <>
+      <button onClick={onBack}>영어 쓰기 실행</button>
+      <button onClick={() => onComplete(100, 100)}>영어 쓰기 완료</button>
+    </>
   ),
 }));
 vi.mock('@/features/games/components/GameResultScreen', () => ({
@@ -65,12 +106,20 @@ vi.mock('@/features/games/components/GameResultScreen', () => ({
   ),
 }));
 
-const open = (kind: string) =>
+const open = (kind: string, query = '') =>
   render(
-    <MemoryRouter initialEntries={[`/library/play/${kind}`]}>
+    <MemoryRouter initialEntries={[`/library/play/${kind}${query}`]}>
       <Routes>
         <Route path="/library/play/:kind" element={<FreePlayPage />} />
-        <Route path="/library" element={<h1>학습 홈</h1>} />
+        <Route
+          path="/library"
+          element={
+            <>
+              <h1>학습 홈</h1>
+              <HomePlaySection />
+            </>
+          }
+        />
       </Routes>
     </MemoryRouter>
   );
@@ -126,7 +175,53 @@ beforeEach(() => {
   state.isPending = false;
   state.isError = false;
   state.sessions = [];
+  state.languages = [];
 });
+
+it.each([
+  ['blocks', '영어 블록 실행 screen'],
+  ['writing', '영어 쓰기 실행'],
+  ['coloring', '색칠 실행'],
+  ['hidden-object', '찾기 실행'],
+] as const)(
+  'starts English %s directly and keeps English selected on return',
+  async (kind, label) => {
+    const data = fixture(kind);
+    if (data.kind === 'blocks')
+      data.data = {
+        type: 'english-block',
+        items: [
+          {
+            word: 'cat',
+            korean: '고양이',
+            imageUrl: 'cat.webp',
+            letters: decomposeEnglishWord('cat'),
+          },
+        ],
+      };
+    if (data.kind === 'writing') data.data.type = 'english-word-writing';
+    if (data.kind === 'coloring') {
+      data.entry.word = 'tree';
+      data.ttsUrl = 'tree-en.mp3';
+    }
+    state.data = data;
+    open(kind, '?lang=en');
+    const player = await screen.findByRole('button', { name: label });
+    expect(state.languages.at(-1)).toBe('en');
+    if (kind === 'coloring' || kind === 'hidden-object')
+      expect(player).toHaveAttribute('data-lang', 'en');
+    if (kind === 'coloring') {
+      expect(player).toHaveAttribute('data-language', 'english');
+      expect(player).toHaveAttribute('data-audio', 'tree-en.mp3');
+    }
+    fireEvent.click(player);
+    expect(screen.getByRole('button', { name: '영어' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('link', { name: '영어 블록' })).toHaveAttribute(
+      'href',
+      '/library/play/blocks?lang=en'
+    );
+  }
+);
 it.each([
   ['blocks', '블록 실행 screen'],
   ['writing', '쓰기 실행'],

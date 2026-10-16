@@ -2,13 +2,17 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { ColoringCatalogEntry, HiddenObjectCatalogEntry } from '@tangobook/shared';
 import { storybookApi } from '@/features/storybook/api/storybook.api';
 import { makeFreePlayRound } from '../lib/free-play';
-import type { FreePlayKind } from '../lib/free-play-options';
+import type { FreePlayKind, FreePlayLanguage } from '../lib/free-play-options';
 import { getFreePlayCatalog } from '../api/free-play.api';
 
-export function useFreePlayRound(kind: FreePlayKind, session: string) {
+export function useFreePlayRound(
+  kind: FreePlayKind,
+  session: string,
+  lang: FreePlayLanguage = 'ko'
+) {
   const client = useQueryClient();
   return useQuery({
-    queryKey: ['home-free-play', kind, session],
+    queryKey: ['home-free-play', kind, lang, session],
     staleTime: Infinity,
     gcTime: 0,
     retry: false,
@@ -26,20 +30,24 @@ export function useFreePlayRound(kind: FreePlayKind, session: string) {
           queryFn: ({ signal: catalogSignal }) => getFreePlayCatalog(catalogKind, catalogSignal),
         }),
       ]);
-      return makeFreePlayRound(kind, {
-        books,
-        coloring: catalogKind === 'coloring' ? (catalog as ColoringCatalogEntry[]) : undefined,
-        hidden:
-          catalogKind === 'hidden-object' ? (catalog as HiddenObjectCatalogEntry[]) : undefined,
-        loadBook: (id) => {
-          signal.throwIfAborted();
-          return client.fetchQuery({
-            queryKey: ['storybook', id],
-            queryFn: () => storybookApi.getById(id),
-            staleTime: 60_000,
-          });
+      return makeFreePlayRound(
+        kind,
+        {
+          books,
+          coloring: catalogKind === 'coloring' ? (catalog as ColoringCatalogEntry[]) : undefined,
+          hidden:
+            catalogKind === 'hidden-object' ? (catalog as HiddenObjectCatalogEntry[]) : undefined,
+          loadBook: (id) => {
+            signal.throwIfAborted();
+            return client.fetchQuery({
+              queryKey: ['storybook', id],
+              queryFn: () => storybookApi.getById(id),
+              staleTime: 60_000,
+            });
+          },
         },
-      });
+        lang
+      );
     },
   });
 }

@@ -1,5 +1,7 @@
 # 게임·독후활동 작업 기록
 
+- [홈 바로 놀기 한영 선택](../../platform/tasks/20261017-home-free-play-languages.md) — 영어4종 기존 player·쉬운 입문 낱말·영어 색칠/숨은그림 연결.
+
 - [홈 바로 놀기](../../platform/tasks/20261016-home-free-play.md) — 기존 한글 블록/쓰기·색칠/숨은그림을 쉬운 무작위 판으로 직접 실행, 실제 책 출처/기존 player 보존.
 
 - [파닉스 듣고 블록 놀이](../../phonics/tasks/20261015-listening-block-practice.md) — 한영 공용 player opt-in 듣기 모드·첫 글자 힌트·직접 확인, 동화/일반 블록·인식 보존.

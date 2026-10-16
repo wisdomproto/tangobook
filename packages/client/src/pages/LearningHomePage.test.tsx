@@ -72,7 +72,7 @@ it('offers four independent play links without changing curriculum progress', ()
   expect(play.getAllByRole('link')).toHaveLength(4);
   for (const [name, kind] of entries) {
     const link = play.getByRole('link', { name });
-    expect(link).toHaveAttribute('href', `/library/play/${kind}`);
+    expect(link).toHaveAttribute('href', `/library/play/${kind}?lang=ko`);
     expect(link.querySelector('a,button')).toBeNull();
   }
   expect(getUnitProgress('korean', 'kr-v1-u01').completedActivities).toEqual(['listen-1']);

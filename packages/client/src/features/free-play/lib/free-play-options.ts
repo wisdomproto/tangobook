@@ -8,3 +8,13 @@ export const FREE_PLAYS = [
 export type FreePlayKind = (typeof FREE_PLAYS)[number]['kind'];
 export const isFreePlayKind = (kind: string | undefined): kind is FreePlayKind =>
   FREE_PLAYS.some((entry) => entry.kind === kind);
+
+export type FreePlayLanguage = 'ko' | 'en';
+export const freePlayLanguage = (value: string | null): FreePlayLanguage =>
+  value === 'en' ? 'en' : 'ko';
+export const freePlayLabelKey = (kind: FreePlayKind, lang: FreePlayLanguage) =>
+  `freePlay.${kind === 'blocks' && lang === 'en' ? 'blocksEnglish' : kind}`;
+export const freePlayArt = (kind: FreePlayKind, lang: FreePlayLanguage) =>
+  kind === 'blocks' && lang === 'en'
+    ? 'blocks-en.webp'
+    : FREE_PLAYS.find((entry) => entry.kind === kind)!.art;

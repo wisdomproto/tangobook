@@ -1,5 +1,7 @@
 # 홈 바로 놀기
 
+2026-10-17 후속: 홈 제목 옆 한영 선택은 `playLang` URL, 게임은 `lang` URL·round cache key로 분리한다. 영어 블록/쓰기는 기존 English player, 자체 Cambridge Starters 시드 목록의2~4알파벳·최대3낱말이며 색칠은 실제 책 nameEn/ttsUrls.en으로 연결한다. 영어 번역 없으면 한글로 대체하지 않는다. 숨은그림은 기존 en builder/번역된2~3대상이다. GameHomeContext를 이 route에서만 제공해 공통 헤더 홈 버튼도 선택 언어를 유지한다. [확장 검수](../../../../../docs/work/platform/tasks/20261017-home-free-play-languages.md).
+
 `LearningHomePage`는 lightweight `HomePlaySection`/free-play-options만 import한다. 게임/data-builder는 `/library/play/:kind`에서 lazy loading하며 홈으로 게임 엔진·카탈로그를 끌어오지 않는다.
 
 - 홈의 한글 블록/낱말 쓰기/색칠/숨은그림4개. 사용자는 쉬운 무작위 문제로 즉시 시작하기를 선택했다. 중간 모드·책·난이도 선택은 넣지 않는다. 한글/영어 모드 입구에 같은4버튼을 반복하지 않는다.
