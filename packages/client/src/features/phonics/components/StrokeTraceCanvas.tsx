@@ -99,7 +99,7 @@ export function StrokeTraceCanvas({
       const mask = ctx.getImageData(0, 0, SIZE, SIZE);
       const guides = getLetterGuideStrokes(letter, mask);
       const paths = guides.map(makeTracePath);
-      const owners = strokeOwners(mask, paths);
+      const owners = strokeOwners(mask, paths, { completeJoins: english });
       model.current = { mask, paths, owners };
       // Cache each stroke's real font silhouette. Progress and sheen may never
       // paint outside the letter or spill onto a later stroke.
@@ -127,7 +127,7 @@ export function StrokeTraceCanvas({
     return () => {
       cancelled = true;
     };
-  }, [letter, face, guidance, paint]);
+  }, [letter, face, guidance, paint, english]);
   const point = (e: { clientX: number; clientY: number }): StrokePoint => {
     const box = canvas.current!.getBoundingClientRect();
     return {

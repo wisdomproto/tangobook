@@ -154,7 +154,8 @@ export function tracePassed(
 /** Partition the real font ink between strokes, once per paper; no per-move pixel reads. */
 export function strokeOwners(
   mask: Pick<ImageData, 'data' | 'width' | 'height'>,
-  paths: TracePath[]
+  paths: TracePath[],
+  { completeJoins = false }: { completeJoins?: boolean } = {}
 ): Uint8Array {
   const { width, height, data } = mask;
   const owners = new Uint8Array(width * height);
@@ -265,5 +266,72 @@ export function strokeOwners(
       });
       owners[y * width + x] = owner;
     }
+  if (completeJoins) completeStrokeJoins(mask, paths, owners);
   return owners;
+}
+
+/** Earlier strokes keep their whole ink ribbon through a later crossing/join.
+ * Closest-path partitioning alone lets a future stroke cut a grey hole in an
+ * already completed diagonal or bowl. Measure the font's normal thickness,
+ * cap expanded junctions, and claim only real glyph ink. Setup only. */
+function completeStrokeJoins(
+  mask: Pick<ImageData, 'data' | 'width' | 'height'>,
+  paths: TracePath[],
+  owners: Uint8Array
+) {
+  const { width, height, data } = mask;
+  const ink = (x: number, y: number) => {
+    x = Math.round(x);
+    y = Math.round(y);
+    return x >= 0 && y >= 0 && x < width && y < height && data[(y * width + x) * 4 + 3] >= 128;
+  };
+  paths.forEach((path, owner) => {
+    if (path.dot) return;
+    const sections = path.points.flatMap((p, i, points) => {
+      if (!ink(p.x, p.y)) return [];
+      const before = points[Math.max(0, i - 2)],
+        after = points[Math.min(points.length - 1, i + 2)];
+      const length = Math.hypot(after.x - before.x, after.y - before.y);
+      if (length < 1) return [];
+      const nx = -(after.y - before.y) / length,
+        ny = (after.x - before.x) / length;
+      let left = 0,
+        right = 0;
+      // Font ink, not a tracing tolerance, determines the completed width.
+      while (left < 80 && ink(p.x - nx * (left + 1), p.y - ny * (left + 1))) left++;
+      while (right < 80 && ink(p.x + nx * (right + 1), p.y + ny * (right + 1))) right++;
+      return [{ p, nx, ny, left: left + 0.75, right: right + 0.75 }];
+    });
+    if (!sections.length) return;
+    const widths = sections.map((s) => s.left + s.right).sort((a, b) => a - b);
+    const typical = widths[Math.floor(widths.length / 2)];
+    for (const { p, nx, ny, left, right } of sections) {
+      // A crossing can make a normal run arbitrarily long. Retain the usual
+      // stroke width there rather than painting the next stem in advance.
+      const l = Math.min(left, typical * 0.65),
+        r = Math.min(right, typical * 0.65);
+      const offset = (r - l) / 2;
+      const cx = p.x + nx * offset,
+        cy = p.y + ny * offset;
+      const radius = Math.max(2.5, (l + r) / 2 + 1);
+      for (
+        let y = Math.max(0, Math.floor(cy - radius));
+        y <= Math.min(height - 1, Math.ceil(cy + radius));
+        y++
+      )
+        for (
+          let x = Math.max(0, Math.floor(cx - radius));
+          x <= Math.min(width - 1, Math.ceil(cx + radius));
+          x++
+        ) {
+          const at = y * width + x;
+          if (
+            owners[at] > owner &&
+            data[at * 4 + 3] &&
+            (x - cx) ** 2 + (y - cy) ** 2 <= radius ** 2
+          )
+            owners[at] = owner;
+        }
+    }
+  });
 }

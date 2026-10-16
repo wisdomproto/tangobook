@@ -49,6 +49,7 @@ type Report = {
   checks: Check[];
   extended?: Check[];
   fills?: string[];
+  inkGaps?: number[];
   issues: number;
   error?: string;
 };
@@ -73,7 +74,16 @@ async function prepare(letter: string) {
   const mask = ctx.getImageData(0, 0, 400, 400);
   const glyph = canvas.toDataURL('image/png');
   const guides = getLetterGuideStrokes(letter, mask);
-  const owners = strokeOwners(mask, guides.map(makeTracePath));
+  const paths = guides.map(makeTracePath);
+  const owners = strokeOwners(mask, paths, { completeJoins: true });
+  // A passing trace must also leave its entire centreline painted at completion.
+  const inkGaps = paths.map(
+    (path, step) =>
+      path.points.filter((p) => {
+        const at = Math.round(p.y) * 400 + Math.round(p.x);
+        return mask.data[at * 4 + 3] >= 128 && owners[at] > step;
+      }).length
+  );
   const fills = guides.map((_, step) => {
     const image = ctx.createImageData(400, 400);
     for (let p = 0; p < owners.length; p++) {
@@ -86,7 +96,7 @@ async function prepare(letter: string) {
     ctx.putImageData(image, 0, 0);
     return canvas.toDataURL('image/png');
   });
-  return { guides, glyph, fills };
+  return { guides, glyph, fills, inkGaps };
 }
 
 function inputFor(path: TracePath, scenario: Scenario): StrokePoint[] {
@@ -255,7 +265,13 @@ function AlphabetWritingCheck() {
       for (const char of all ? LETTERS : [letter]) {
         try {
           const prepared = await prepare(char);
-          results.push({ ...report(char, prepared.guides), fills: prepared.fills });
+          const result = report(char, prepared.guides);
+          results.push({
+            ...result,
+            fills: prepared.fills,
+            inkGaps: prepared.inkGaps,
+            issues: result.issues + prepared.inkGaps.filter((n) => n > 0).length,
+          });
         } catch (e) {
           results.push({ letter: char, strokes: 0, checks: [], issues: 1, error: String(e) });
         }
@@ -297,7 +313,7 @@ function AlphabetWritingCheck() {
             {
               checkedAt: new Date().toISOString(),
               font: FACE,
-              kind: 'pure-path-simulation',
+              kind: 'pure-path-and-ink-simulation',
               reports,
             },
             null,
@@ -506,7 +522,8 @@ function AlphabetWritingCheck() {
                     <figure key={`${r.letter}-${step}`}>
                       <img src={src} alt={`${r.letter} ${step + 1}획까지 채움`} />
                       <figcaption>
-                        {r.letter} · {step + 1}/{r.strokes}획 완료
+                        {r.letter} · {step + 1}/{r.strokes}획 완료 · 미채움 중심{' '}
+                        {r.inkGaps?.[step] ?? '미검사'}
                       </figcaption>
                     </figure>
                   )) ?? []

@@ -13,6 +13,50 @@ function trace(stroke: VowelGuideStroke, points: StrokePoint[], softEnd = false)
   return tracePassed(path, attempt, { softEnd });
 }
 describe('획 단위의 관대한 따라쓰기', () => {
+  it('A의 먼저 쓴 대각선은 나중 가로획의 교차점에서도 폭이 끊기지 않는다', () => {
+    const mask = { width: 400, height: 400, data: new Uint8ClampedArray(400 * 400 * 4) };
+    const diagonal = makeTracePath({ from: { x: 200, y: 60 }, to: { x: 80, y: 330 } });
+    for (let y = 50; y < 340; y++)
+      for (let x = 65; x < 220; x++)
+        if (
+          diagonal.points.some((p) => Math.hypot(p.x - x, p.y - y) <= 12) ||
+          (y >= 206 && y <= 230 && x >= 115)
+        )
+          mask.data[(y * 400 + x) * 4 + 3] = 255;
+    const bar = makeTracePath({ from: { x: 125, y: 218 }, to: { x: 212, y: 218 } });
+    const old = strokeOwners(mask, [diagonal, bar]);
+    const repaired = strokeOwners(mask, [diagonal, bar], { completeJoins: true });
+    expect(old[218 * 400 + 130]).toBe(1);
+    for (let y = 209; y <= 227; y++)
+      for (let x = 126; x <= 133; x++) expect(repaired[y * 400 + x]).toBe(0);
+    expect(repaired[218 * 400 + 210]).toBe(1);
+  });
+  it('d처럼 먼저 쓴 둥근 획의 끝을 나중 세로획이 잘라내지 않고 세로획 위쪽은 남긴다', () => {
+    const mask = { width: 400, height: 400, data: new Uint8ClampedArray(400 * 400 * 4) };
+    const curve = makeTracePath({
+      from: { x: 255, y: 160 },
+      to: { x: 255, y: 270 },
+      points: [
+        { x: 255, y: 160 },
+        { x: 175, y: 135 },
+        { x: 135, y: 200 },
+        { x: 175, y: 280 },
+        { x: 255, y: 270 },
+      ],
+    });
+    for (let y = 60; y < 300; y++)
+      for (let x = 110; x < 278; x++)
+        if (curve.points.some((p) => Math.hypot(p.x - x, p.y - y) <= 18) || (x >= 237 && y >= 65))
+          mask.data[(y * 400 + x) * 4 + 3] = 255;
+    const owners = strokeOwners(
+      mask,
+      [curve, makeTracePath({ from: { x: 255, y: 75 }, to: { x: 255, y: 280 } })],
+      { completeJoins: true }
+    );
+    expect(owners[160 * 400 + 255]).toBe(0);
+    expect(owners[270 * 400 + 255]).toBe(0);
+    expect(owners[90 * 400 + 255]).toBe(1);
+  });
   it('반듯해진 짧은 t 가로획도 허용된 양끝 흔들림으로 짧아진 전진 입력을 받되 반쪽/역방향은 거절한다', () => {
     const bar = { from: { x: 192, y: 149 }, to: { x: 233, y: 149 } };
     const path = makeTracePath(bar);
