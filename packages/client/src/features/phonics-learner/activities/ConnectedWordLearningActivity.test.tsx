@@ -104,6 +104,58 @@ it('publishes the exact word/stage and isolated subactivity completion never adv
   view.unmount();
   expect(publish).toHaveBeenLastCalledWith(null);
 });
+it.each(
+  (['korean', 'english'] as const).flatMap((lang) =>
+    (['meet', 'block', 'write', 'color'] as const).map((stage) => ({ lang, stage }))
+  )
+)(
+  'continues $lang $stage through all words, resumes on return, and never completes the main lesson',
+  ({ lang, stage }) => {
+    const unitId = lang === 'korean' ? 'kr-h1-u02' : 'en-b2-u01';
+    const targets = lang === 'korean' ? ['고기', '가구'] : ['cat', 'hat'];
+    const key = wordLearningStorageKey(lang, unitId);
+    const main = loadWordLearningRun(key, targets);
+    const back = vi.fn();
+    const complete = vi.fn();
+    const element = (
+      <LearningWorkspaceContext.Provider
+        value={{
+          active: true,
+          unitId,
+          activityKey: 'word-learning',
+          practiceStage: stage,
+          navigationOpen: false,
+          setNavigationOpen: vi.fn(),
+          backToMap: vi.fn(),
+        }}
+      >
+        <ConnectedWordLearningActivity
+          lang={lang}
+          unitId={unitId}
+          book={book(unitId, targets)}
+          onBack={back}
+          onComplete={complete}
+        />
+      </LearningWorkspaceContext.Provider>
+    );
+    const view = render(element);
+    fireEvent.click(screen.getByRole('button', { name: `${stage} ${main.words[0]}` }));
+    expect(screen.getByRole('button', { name: `${stage} ${main.words[1]}` })).toBeDefined();
+    expect(screen.getByLabelText('낱말 학습 순서').textContent).toMatch(/2\s*\/\s*2/);
+    expect(back).not.toHaveBeenCalled();
+    expect(complete).not.toHaveBeenCalled();
+    view.unmount();
+    const resumed = render(element);
+    fireEvent.click(screen.getByRole('button', { name: `${stage} ${main.words[1]}` }));
+    expect(back).toHaveBeenCalledOnce();
+    expect(complete).not.toHaveBeenCalled();
+    expect(loadWordLearningRun(key, targets)).toEqual(main);
+    expect(logEvent.mock.calls.map(([event]) => event.word)).toEqual(main.words);
+    resumed.unmount();
+    render(element);
+    expect(screen.getByRole('button', { name: `${stage} ${main.words[0]}` })).toBeDefined();
+  }
+);
 it.each([
   ['korean', 'kr-h1-u02', ['고기', '가구']],
   ['english', 'en-b2-u01', ['cat', 'hat']],

@@ -26,7 +26,9 @@ import { withKoreanLearningScope } from '../lib/korean-learning-source';
 import {
   advanceWordLearning,
   loadWordLearningRun,
+  loadWordPracticeRun,
   saveWordLearningRun,
+  wordPracticeStorageKey,
   wordLearningStorageKey,
   wordLearningStages,
   recordWordStageCompleted,
@@ -66,8 +68,9 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
   const source = useRef(lang === 'korean' ? withKoreanLearningScope(book)! : book).current;
   const [run, setRun] = useState(() => {
     const saved = loadWordLearningRun(key, source.phonicsConfig?.targetWords ?? []);
-    return practiceStage ? { ...saved, id: crypto.randomUUID(), stage: practiceStage } : saved;
+    return practiceStage ? loadWordPracticeRun(key, saved.words, practiceStage) : saved;
   });
+  const storageKey = practiceStage ? wordPracticeStorageKey(key, practiceStage) : key;
   const completed = useRef(new Set<string>());
   const word = run.words[run.index];
   const code = lang === 'korean' ? 'ko' : 'en';
@@ -115,8 +118,10 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     if (completed.current.has(id)) return;
     completed.current.add(id);
     recordWordStageCompleted(lang, unitId, word, run.stage);
-    const next = advanceWordLearning(run, stages);
-    if (!practiceStage) saveWordLearningRun(key, next);
+    const next = practiceStage
+      ? { ...run, index: run.index + 1 }
+      : advanceWordLearning(run, stages);
+    saveWordLearningRun(storageKey, next);
     logEvent({
       type: run.stage === 'meet' ? 'word_exposed' : 'word_correct',
       storybookId: unitId,
@@ -147,9 +152,10 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
           run.stage === 'write' ? (writing?.items[0]?.traceWord ?? writing?.items[0]?.word) : word,
       },
     });
-    if (practiceStage) onBack();
-    else if (next.index >= run.words.length) onComplete();
-    else setRun(next);
+    if (next.index >= run.words.length) {
+      if (practiceStage) onBack();
+      else onComplete();
+    } else setRun(next);
   };
   if (!word || !writing || (!unitId.startsWith('en-b1') && !blocks))
     return (
@@ -172,7 +178,7 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     initialInputMode: run.inputMode,
     onInputModeSelected: (inputMode: 'screen' | 'camera') => {
       const next = { ...run, inputMode };
-      if (!practiceStage) saveWordLearningRun(key, next);
+      saveWordLearningRun(storageKey, next);
       setRun(next);
     },
   };

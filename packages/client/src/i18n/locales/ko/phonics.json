@@ -7,6 +7,7 @@
     "progress": "누른 방울"
   },
   "workspace": {
+    "practiceCount": "연습 {{done}}/{{total}}",
     "complete": "완료",
     "fullCourse": "전체 커리큘럼",
     "chapterActivities": "챕터 활동으로",

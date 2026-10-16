@@ -7,6 +7,7 @@
     "progress": "已按的泡泡"
   },
   "workspace": {
+    "practiceCount": "练习 {{done}}/{{total}}",
     "complete": "完成",
     "fullCourse": "完整课程",
     "chapterActivities": "章节活动",

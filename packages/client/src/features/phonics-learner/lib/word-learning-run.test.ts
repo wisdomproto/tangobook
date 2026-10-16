@@ -6,8 +6,45 @@ import {
   wordLearningStorageKey,
   readWordStageProgress,
   recordWordStageCompleted,
+  loadWordPracticeRun,
+  wordPracticeStorageKey,
 } from './word-learning-run';
 beforeEach(() => localStorage.clear());
+it('resumes independent practice, migrates real earlier practice, and keeps stages and profiles separate', () => {
+  const key = wordLearningStorageKey('korean', 'kr-h1-u02');
+  const main = loadWordLearningRun(key, ['고기', '가구']);
+  recordWordStageCompleted('korean', 'kr-h1-u02', main.words[0], 'meet');
+  const practice = loadWordPracticeRun(key, main.words, 'meet');
+  expect(practice.index).toBe(1);
+  expect(practice.stage).toBe('meet');
+  saveWordLearningRun(wordPracticeStorageKey(key, 'meet'), { ...practice, inputMode: 'camera' });
+  expect(loadWordPracticeRun(key, [...main.words].reverse(), 'meet')).toEqual({
+    ...practice,
+    inputMode: 'camera',
+  });
+  expect(loadWordPracticeRun(key, main.words, 'block').index).toBe(0);
+  expect(loadWordLearningRun(key, main.words)).toEqual(main);
+  localStorage.setItem('tangobook:activeProfileId', 'sibling');
+  expect(
+    loadWordPracticeRun(wordLearningStorageKey('korean', 'kr-h1-u02'), main.words, 'meet').index
+  ).toBe(0);
+  expect(
+    loadWordPracticeRun(wordLearningStorageKey('english', 'kr-h1-u02'), main.words, 'meet').index
+  ).toBe(0);
+});
+it('starts a fresh standalone replay after the final word and rejects stale or corrupt practice', () => {
+  const key = wordLearningStorageKey('english', 'en-b2-u01');
+  const words = ['cat', 'hat'];
+  const first = loadWordPracticeRun(key, words, 'write');
+  for (const word of words) recordWordStageCompleted('english', 'en-b2-u01', word, 'write');
+  saveWordLearningRun(wordPracticeStorageKey(key, 'write'), { ...first, index: 2 });
+  const replay = loadWordPracticeRun(key, words, 'write');
+  expect(replay.index).toBe(0);
+  expect(replay.id).not.toBe(first.id);
+  expect(loadWordPracticeRun(key, ['dog'], 'write').words).toEqual(['dog']);
+  localStorage.setItem(wordPracticeStorageKey(key, 'write'), '{bad');
+  expect(loadWordPracticeRun(key, words, 'write').stage).toBe('write');
+});
 it('resumes the same shuffled targets and exact stage without replacing a word mid-lesson', () => {
   const key = wordLearningStorageKey('english', 'unit');
   const run = loadWordLearningRun(key, ['cat', 'hat', 'cat']);

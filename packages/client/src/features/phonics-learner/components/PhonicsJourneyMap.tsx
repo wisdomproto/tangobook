@@ -557,7 +557,7 @@ export function PhonicsJourneyMap({
             key={`${step.unit.id}:word-learning:${stage}`}
             data-running={here || undefined}
             data-completed={stageDone || undefined}
-            data-started={ratio > 0 || undefined}
+            data-started={(available && ratio > 0) || undefined}
             data-selected={(selected && stageIndex === 0) || undefined}
             aria-current={!free && !active && current && stageIndex === 0 ? 'step' : undefined}
           >
@@ -566,13 +566,16 @@ export function PhonicsJourneyMap({
               className={free ? 'journey-free-activity' : 'journey-curriculum-activity'}
               disabled={!available}
               style={
-                !here && ratio > 0 && !stageDone
+                available && !here && ratio > 0 && !stageDone
                   ? { backgroundColor: `hsl(145 32% ${96 - ratio * 35}%)` }
                   : undefined
               }
               aria-description={
                 practiced.total
-                  ? t('journey.progress', { done: count, total: practiced.total })
+                  ? t(available ? 'journey.progress' : 'workspace.practiceCount', {
+                      done: count,
+                      total: practiced.total,
+                    })
                   : undefined
               }
               aria-current={here ? 'step' : undefined}
@@ -596,8 +599,13 @@ export function PhonicsJourneyMap({
                 {here && (
                   <small className="workspace-running-caption">{t('workspace.learning')}</small>
                 )}
+                {!available && count > 0 && (
+                  <small className="workspace-word-practice-caption" aria-hidden="true">
+                    {t('workspace.practiceCount', { done: count, total: practiced.total })}
+                  </small>
+                )}
               </span>
-              {practiced.total > 0 && (
+              {practiced.total > 0 && (available || count === 0) && (
                 <small className="workspace-word-count" aria-hidden="true">
                   {count}/{practiced.total}
                 </small>

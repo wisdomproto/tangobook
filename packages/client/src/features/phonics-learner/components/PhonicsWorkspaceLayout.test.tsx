@@ -30,6 +30,7 @@ import {
   loadWordLearningRun,
   saveWordLearningRun,
   wordLearningStorageKey,
+  recordWordStageCompleted,
 } from '../lib/word-learning-run';
 
 const { mounted } = vi.hoisted(() => ({ mounted: vi.fn() }));
@@ -293,6 +294,28 @@ it('does not invent a block subactivity in English Book 1', () => {
   expect(within(drawer).getByRole('button', { name: /글자 쓰기/ })).toBeEnabled();
   expect(within(drawer).queryByRole('button', { name: /블록/ })).not.toBeInTheDocument();
 });
+
+it.each(['korean', 'english'] as const)(
+  'keeps partially practiced locked %s stages gray without a completed/started marker',
+  (lang) => {
+    const unitId = lang === 'korean' ? 'kr-h1-u02' : 'en-b3-u01';
+    const words = lang === 'korean' ? ['고기', '가구'] : ['cake', 'tape'];
+    loadWordLearningRun(wordLearningStorageKey(lang, unitId), words);
+    recordWordStageCompleted(lang, unitId, words[0], 'meet');
+    show(`/library/phonics/${lang}?mode=curriculum&chapter=${unitId}`);
+    const met = screen.getByRole('button', { name: '낱말 만나기' });
+    expect(met).toBeDisabled();
+    expect(met).toHaveTextContent('연습 1/2');
+    expect(met).toHaveAttribute('aria-description', '연습 1/2');
+    expect(met.getAttribute('style')).toBeNull();
+    expect(
+      met.querySelector('.journey-free-label .workspace-word-practice-caption')
+    ).toHaveTextContent('연습 1/2');
+    expect(met.closest('li')).not.toHaveAttribute('data-started');
+    expect(met.closest('li')).not.toHaveAttribute('data-completed');
+    expect(met.querySelector('.journey-activity-launch')).toBeNull();
+  }
+);
 
 it('can inspect folded future chapters without unlocking their activities', () => {
   show('/library/phonics/korean/kr-v1-u01/listen-1?mode=curriculum');

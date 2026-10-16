@@ -35,6 +35,67 @@ export function saveWordLearningRun(key: string, run: WordLearningRun) {
   }
 }
 
+export function wordPracticeStorageKey(key: string, stage: WordLearningStage) {
+  return `${key}:practice:${stage}`;
+}
+
+/** A standalone stage has its own deck cursor; it must never move the guided sequence. */
+export function loadWordPracticeRun(
+  key: string,
+  words: string[],
+  stage: WordLearningStage
+): WordLearningRun {
+  const practiceKey = wordPracticeStorageKey(key, stage);
+  let index = 0;
+  let inputMode: WordLearningRun['inputMode'];
+  let finished = false;
+  try {
+    const saved = JSON.parse(localStorage.getItem(practiceKey) ?? 'null') as WordLearningRun | null;
+    if (
+      saved?.version === 1 &&
+      typeof saved.id === 'string' &&
+      saved.stage === stage &&
+      Array.isArray(saved.words) &&
+      saved.words.length === words.length &&
+      new Set(saved.words).size === words.length &&
+      saved.words.every((word) => words.includes(word)) &&
+      Number.isInteger(saved.index) &&
+      saved.index >= 0 &&
+      saved.index <= words.length &&
+      (saved.inputMode === undefined ||
+        saved.inputMode === 'screen' ||
+        saved.inputMode === 'camera')
+    ) {
+      if (saved.index < words.length) return saved;
+      finished = true;
+      inputMode = saved.inputMode;
+    }
+  } catch {
+    // A corrupt standalone cursor does not affect the main sequence.
+  }
+  if (!finished) {
+    try {
+      // Recover actual practice done before standalone cursors existed.
+      const ledger = JSON.parse(localStorage.getItem(`${key}:completed-stages`) ?? '{}');
+      const completed = Array.isArray(ledger?.[stage]) ? ledger[stage] : [];
+      const firstPending = words.findIndex((word) => !completed.includes(word));
+      index = Math.max(0, firstPending);
+    } catch {
+      // Missing evidence starts at the first word without inventing completion.
+    }
+  }
+  const run: WordLearningRun = {
+    version: 1,
+    id: crypto.randomUUID(),
+    words: [...words],
+    index,
+    stage,
+    ...(inputMode ? { inputMode } : {}),
+  };
+  saveWordLearningRun(practiceKey, run);
+  return run;
+}
+
 export interface WordStageProgress {
   total: number;
   counts: Record<WordLearningStage, number>;

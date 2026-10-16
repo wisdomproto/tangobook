@@ -7,6 +7,7 @@
     "progress": "Bubbles popped"
   },
   "workspace": {
+    "practiceCount": "Practice {{done}}/{{total}}",
     "complete": "Done",
     "fullCourse": "Full curriculum",
     "chapterActivities": "Chapter activities",
