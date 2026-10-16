@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: eacd859df 로컬 main fast-forward 포함 확인
-- delivery: 사용자 후속 요청으로 origin/main 일반 push 대상 확정, 새 운영 배포 완료는 별도 확인
+- delivery: dcd33cb27 원격 main push·Railway cc654dd6 successful/Active·운영 한영 선택/영어4종 실제 시작 확인
 
 ## 사용자 결정
 
@@ -35,3 +35,12 @@ eacd859df 코드·기억을 root main에 fast-forward 통합하고 ancestor·tra
 ## main 전달 — 2026-10-17
 
 사용자 후속 요청 “좋아. 메인에 푸시하자”로 한영 바로 놀기 변경의 원격 main 전달을 승인받았다. fetch 후 origin/main...HEAD는0/3이며 기존 운영 검수527695698·구현eacd859df·통합 기록8b209a3bb만 앞서 있다. tracked clean·전달 범위를 확인했고 기존 미추적 output/tmp와 다른 worktree는 보존한다. 제품 코드 변경 없이 기존78검사·타입/lint/Prettier/build41.31초·실제 화면 검증을 유지하며 전달 기록만 추가해 일반 push한다. Railway의 새 운영 배포 성공과 운영 한영4종 검수는 push 성공과 별도로 확인한다.
+
+## 운영 배포·한영 선택/영어4종 검수 — 2026-10-17
+
+- 원격 main dcd33cb271d7b9c9d9bcae9f83f375a99de63dd7·fetch0/0 확인. [Railway 배포](https://railway.com/project/b469e171-479c-400a-80bc-8ab4273c25de/service/0019800b-d014-4464-8638-60dcf283677e?environmentId=9d29baf7-1890-453a-956e-94bc329ef98d&id=cc654dd6-a376-4706-ae46-b5071eabc488#details)의 successful·Active와 GitHub commit 링크가 이 SHA임을 직접 확인했다. 재배포/설정 변경은 하지 않았다.
+- 운영 홈을 새로고침해 한글 기본 선택을 확인한 뒤 영어→한글→영어를 실제 전환했다. 선택 색·aria-pressed·영어/한글 블록 이름/그림과4개 링크 lang=en/ko가 함께 변경됐다. 홈 두 과정 이어하기는 한글 consonant-write/영어 learn-_ape로 검수 전후 같았다.
+- 영어4개를 실제 홈 링크로 눌러 준비 로딩 뒤 중간 책/모드 선택 없이 게임 화면을 확인했다. 블록 bag/알파벳 트레이·3칸, 쓰기 lamp/4글자, 색칠 Head/실제 도안·물감, 숨은그림 coat·leaf·wind/실제 장면·3대상이 표시됐다. 브라우저1280×720 육안 검수이며 이번에 실기기/모든 반응형/전 문제 완주까지 검사한 것은 아니다.
+- 실제 블록b 배치→되돌리기/초기화/확인 활성화, Head 도안 물감1클릭 표시, 숨은그림coat 정답0→1/남은3→2를 확인했다. 쓰기는 진입/표시 확인으로 전체 쓰기 완료나 음성 청취 검수로 확대하지 않는다.
+- 블록·쓰기 홈 아이콘, 색칠 돌아가기, 숨은그림 뒤로가기로 모두 `/library?playLang=en`에 복귀·영어 선택 유지 확인. 홈 새로고침 뒤에도 영어 선택·4링크 유지. 한글 왕복 전환도 정상이다. 수집된 운영 탭 console error0, health status ok(2026-10-16T15:38:53.329Z).
+- 증거 `C:/project/tangobook/output/production-home-play-languages-20261017/`: home-ko.png, home-en.png, blocks-en.png, writing-en.png, coloring-en.png, hidden-en-found.png, railway.png. 임의 진도/성적 주입·콘텐츠 수정·새 서버/새 push 없이 검수 기록만 로컬 커밋한다. 앞선 운영 미확인/한글 전용 기록은 이전 버전 상태다.
