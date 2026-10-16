@@ -2,12 +2,12 @@
 
 - id: 20261016-hangul-popit
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-16
 - base: 186fcd72d
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 미통합
+- integration: 3386d2e13 로컬 main fast-forward 포함 확인
 - delivery: 미푸시·미배포
 
 ## 요청과 완료 조건
@@ -34,4 +34,4 @@
 
 ## 인계
 
-관련 구현·검수 기록은 로컬 통합 대상으로 준비했다. 이번 변경에 대한 main push/운영 배포 요청은 받지 않았다. 다른 자모/영어 확대는 사용자 검토 뒤 별도 범위다.
+관련 구현·검수 기록3386d2e13을 로컬 main에 fast-forward 통합하고 ancestor/clean tracked 상태를 확인했다. 이번 변경에 대한 main push/운영 배포 요청은 받지 않았다. 다른 자모/영어 확대는 사용자 검토 뒤 별도 범위다.
