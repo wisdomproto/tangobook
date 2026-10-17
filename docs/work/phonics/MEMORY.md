@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 [한영 자유 이어하기 운영 검수](tasks/20261017-word-practice-cursor-lock-colors.md#운영-배포한영-자유-이어하기-검수--2026-10-17): b9bb93701/Railway30b29a9d successful·Active·GitHub SHA 직접 확인. 운영 한글 고기→야구2/4, 영어 wave→cave2/8 실제 입력/완료·지도 재진입/새로고침 유지. 같은 커리큘럼의 완료 초록체크/현재 코랄·민트재생/부분 연습 잠금 회색+별도연습1/4·1/8 실측 확인. 홈 이어하기 전후 동일(한글kr-h2-u01/consonant-write·영어en-b3-u01/learn-_ape),두탭 console0·health ok. 실제1280PC 표본, 전게임/전낱말/실기기 전수·이번 운영 마지막 챕터 완료 아님. 제품/새 push 없이 기록만 로컬.
+
 2026-10-17 [한영 UX·자유 낱말 main 푸시 요청](tasks/20261017-word-practice-cursor-lock-colors.md#main-푸시-요청--2026-10-17): 사용자 현재 요청으로513f1d40b 자유 낱말/잠금 색과62d0add0b 선행 UX 정리·기록을 일반 push 대상으로 확정. fetch0/6·tracked/staged clean·전달 diff 확인, 기존 검증 결과 유지. 새 운영 배포 완료는 별도 확인한다. 아래 미푸시는 이전 시점의 기록이다.
 
 2026-10-17 [자유 낱말 진행 로컬 전달](tasks/20261017-word-practice-cursor-lock-colors.md): 513f1d40b를 실제 main에 fast-forward·포함 확인했다. 코드와 작업 기억 동시 커밋, 기존 미추적 산출물 보존. 사용자 요청은 로컬 수정/검수여서 원격 push·운영 배포 없음.
