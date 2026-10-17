@@ -6,7 +6,7 @@
 - base: a01e45464
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 2026-10-18 사용자 main push 승인·운영 배포 완료 별도 확인
+- delivery: aef75d0c1 main push·2026-10-18 운영 배포/첫 진입/캐시/게이트 검수 완료, 후속 검수 기록은 로컬
 - integration: 93d13a669 로컬 main fast-forward 통합
 
 ## 요청·기준
@@ -61,3 +61,30 @@ top100 조절만 남긴 전후 순차 표본에서는 블록3053→2208ms·그�
 ## 메인 푸시 요청
 
 2026-10-18 사용자 “좋아. 메인에 푸시하자” 승인으로 전달 상태를 갱신한다. fetch 후 origin/main...HEAD는0/3, 추적 파일 clean이며 a01e45464 운영 검수 기록·93d13a669 최적화/검증·898d35202 통합 기록이 대상이다. 기존47검사/타입/lint/build·브라우저 검수 뒤 source 추가 변경이 없어 반복 실행하지 않는다. 승인 기록만 추가 커밋하고 일반 main push 후 원격 SHA/0대0을 확인한다. 운영 배포 완료·운영 속도 검증은 별도다.
+
+## 운영 후속 검수 진행
+
+2026-10-18 사용자 요청으로 aef75d0c1의 운영 배포·영어 블록/그림짝 첫 진입·캐시/로딩 게이트를 검수한다. 원격 main과 로컬0/0·추적 clean 확인. 00:04 KST 현재 Railway 프런트85fe5515는 pending, 서버 watched paths 미변경 skip success·health ok다. CUA/컴퓨터 사용 runtime 모두 kernel assets 경로 오류로 초기화 실패하여 기존 사용자 탭/캐시/학습 기록을 건드리지 않는 격리 Chrome로 측정한다. 이전과 같은 두 단원·고정 난수·1280×720, 새 context 첫 접속과 같은 context 재진입을 나누고 실제 entry로 배포 전후를 구분한다. 증거는 output/production-first-entry-20261018/. 실기기/스피커 청취·게임 완주와 구분하며 운영 데이터를 수정하지 않는다.
+
+## 운영 최종 결과
+
+- 프런트 Railway 배포 **85fe5515-d2c5-4dc9-9f3a-0d0deee2790d**가 **2026-10-18 00:08:06 KST**(2026-10-17T15:08:06Z) success. 배포 대상 aef75d0c1, HTML entry **index-CsFY1E6x.js → index-Mch36lEq.js**, health ok 확인. 서버는 watched paths 미변경 skip success다.
+- 같은 설치 Chrome1280×720·운영 URL·고정 난수로 각 게임 새 context3회 첫 접속, 매번 같은 context에서1회 재진입했다. 캐시는 끄지 않았다. 이전 표본 전부 CsFY1E6x, 이후 전부 Mch36lEq라 배포 전환 표본을 섞지 않았다. 성능 검수끼리/빌드와 동시 실행하지 않았다.
+
+| 운영 준비 시간 | 이전3회(ms) | 새3회(ms) | 중앙값 |
+| --- | --- | --- | --- |
+| 영어 Book3 블록 첫 접속 | 4864 / 4320 / 4578 | 3810 / 3131 / 3734 | 4578→3734ms |
+| 영어 Book2 그림짝 첫 접속 | 3501 / 4128 / 3603 | 3136 / 3476 / 3171 | 3603→3171ms |
+| 영어 블록 캐시 있는 재진입 | 2428 / 2103 / 2450 | 1601 / 1514 / 1530 | 2428→1530ms |
+| 그림짝 캐시 있는 재진입 | 1829 / 1655 / 1551 | 1008 / 969 / 1006 | 1655→1006ms |
+
+- 단원 GET 시작은 첫 접속 기준 기존2019~2325ms → 새670~1044ms, 재진입 기존780~1146ms → 새255~316ms로 앞당겨졌다. 각 입장 같은 단원 GET은 **1회**이며 화면에서 중복 요청하지 않았다. 이번 표본에서는 개선됐지만 배포 전후 순차·3회·단일 PC/회선 표본이므로 기기별 보장 수치/원인별 기여도로 해석하지 않는다. 이전 날짜 수치보다 이번 baseline 자체가 느린 변동도 모두 보존한다.
+
+### 실제 캐시·게이트·입력
+
+- 새 번들1024×768 검수에서 두 게임 모두 core progressbar **0%·tray0/card0** 이후 실제 게임 화면 표시. 필수 준비 전에 게임이 보이도록 게이트를 제거하지 않았다. 준비 완료까지 background phonics mp3 **0개**, 완료 후2초 관찰에서 기존 top100 **100개** 예열했다. 기존 map/background cache 준비를 없앤 것이 아니다.
+- 각 게임 재진입 정답 음원4개 모두 실제 src 설정/loadeddata4회와 CDP disk cache4응답 확인. 성능3회 재진입의 두 게임 정답 음원 **24응답 전부 disk cache**. 새 Audio 준비는 캐시된 본문의 실제 준비 확인이며 재다운로드와 다르다.
+- WebP2종200·`public,max-age=604800`, 새 hashed JS200·`public,max-age=31536000,immutable`, 각각 ETag 조건부 **304/0B**. SW production/local SHA256 **8a57abbf06177dd4ad78335778e3bbcd38849dae07f206d3f5a533196bc5b389** 동일. 기존 HTTP/SW 정책 유지.
+- 블록 소리 버튼→a배치→되돌리기, 그림짝 카드 선택 강조 정상. core 대기 화면·입력 화면을 직접 육안 확인했다. 성능/입력 검수 pageerror0. 전체 판 완료/학습 진도 조작·실기기 터치·스피커 청취 검증은 하지 않았다.
+- 대기 중 추가한 `baseline-gate/` 검수는 배포 전환을 걸쳤다. 블록은 구번들(bgBefore100/bgAfter0), 그림짝은 **신번들**(0/100)이므로 이를 모두 baseline으로 묶지 않는다. 본 결과/속도표는 별도 `before-focused.json`/`after-focused.json`과 신번들 `verification.json`을 사용한다.
+- 증거: `deployment.json`, `before/after-focused.json`, `summary.json`, `verification.json`, `cache-before.json`, `cache-probes.json`, `block/matching-gate.png`, `block/matching-input.png`. 제품 코드·운영 R2/DB·사용자 캐시/학습 기록 변경 없이 검수 기록만 로컬 커밋한다. 새 push는 하지 않는다.
