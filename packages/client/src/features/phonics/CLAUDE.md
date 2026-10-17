@@ -1,6 +1,6 @@
 # 파닉스 모듈
 
-2026-10-17 WordFillCanvas의 showAllGuides는 미래 글자 덮개 표시만 바꾼다. canvas/폰트 mask/입력 셀/기존 순서·완료 판정을 초기화하거나 약화하지 않는다. 자유쓰기 손글씨 인식 기능으로 해석하지 않는다. [검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md).
+2026-10-17 낱말 WordFillCanvas는 최초 폰트 마스크를 보관하고 통과한 칸만 원래 alpha/emerald로 빈틈 없이 정리한다. 한영 player가90%를 명시하며 기본99%는 다른 호출부용이다. 떨어진 점/획은 접촉 조건을 추가하고 같은 드래그로 다음 칸을 칠하지 않는다. 낱자 획순 판정·독립 성취와 별개다. showAllGuides는 덮개만 바꾸며 잉크/순서/완료를 초기화하지 않는다. [검수](../../../../../docs/work/phonics/tasks/20261017-word-tracing-finish.md).
 
 2026-10-17 StrokeTraceCanvas 한영 공통은90% 경로 도달 시 꼬리+옆 오차를 허용해 전체 획을 채운다. 미달/취소는 accepted ink·checkpoint를 유지, 초록 끝점 근처에서 resumeTrace로 이어 쓴다. 원래 시작점을 누르면 현재 획 재시도. 한 획씩 순서·방향·지름길/절반 거절·실제 pointer-up 완료는 유지하며 낱말 면채움에는 적용하지 않는다. 새 회차/글자/이탈에 미완성 획 영구 저장은 하지 않는다. [실제 입력·회귀](../../../../../docs/work/phonics/tasks/20261017-writing-pause-navigation.md).
 

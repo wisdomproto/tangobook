@@ -234,6 +234,7 @@ export function EnglishWordWritingPlayer({
           <div className="word-writing-canvas" style={{ width: 'min(680px, 92vw, 90vh)' }}>
             <WordFillCanvas
               key={currentIndex}
+              threshold={0.9}
               showAllGuides={allowWritingHints && hintQuestion === currentIndex}
               word={currentItem.word}
               syllables={letters}

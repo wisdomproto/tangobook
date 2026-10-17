@@ -3,10 +3,12 @@ import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { feedDrawLoop } from '@/lib/uiSound';
+import { buildWordInkMasks, finishWordInk, isWordInkComplete } from './word-ink-mask';
+import type { WordInkMask } from './word-ink-mask';
 
 /**
  * 단어 전체 색칠 캔버스 — 단어의 모든 음절/글자를 한 번에 표시하고, **음절 단위**로 채움을 채점한다.
- * 한 음절 영역을 threshold 만큼 칠하면 그 음절이 완료로 표시되고 onSyllableDone 이 호출된다.
+ * 한 음절 영역을 threshold 만큼 칠하고 떨어진 획도 따라 쓰면, 남은 틈을 채우고 완료를 알린다.
  * 모든 음절이 완료되면 onComplete. 체크마크 등 별도 표식은 그리지 않는다(요청).
  *
  * source-atop 으로 글자 영역 안만 emerald 로 칠해지고, 각 글자의 x 열 범위로 음절별 coverage 를 계산한다.
@@ -65,8 +67,11 @@ export function WordFillCanvas({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
-  // 각 음절의 x 열 범위 [start, end] (canvas 좌표) + 가이드 픽셀 수(분모).
-  const rangesRef = useRef<Array<{ start: number; end: number; guide: number }>>([]);
+  const gestureCellRef = useRef<number | null>(null);
+  const guidePixelsRef = useRef(new Uint8ClampedArray(0));
+  const masksRef = useRef<WordInkMask[]>([]);
+  // 각 음절의 x 열 범위 [start, end] (canvas 좌표).
+  const rangesRef = useRef<Array<{ start: number; end: number }>>([]);
   const doneRef = useRef<boolean[]>([]);
   /**
    * 🔴 `onComplete` 는 **한 번만** — `evaluate()` 가 획을 뗄 때마다 다시 불려서, 마지막 획에서
@@ -117,27 +122,19 @@ export function WordFillCanvas({
     ctx.fillText(word, startX, CANVAS_H / 2);
 
     // 음절별 x 범위 계산 (measureText 누적)
-    const ranges: Array<{ start: number; end: number; guide: number }> = [];
+    const ranges: Array<{ start: number; end: number }> = [];
     let acc = '';
     let prevX = startX;
     for (const syl of syllables) {
       acc += syl;
       const x = startX + ctx.measureText(acc).width;
-      ranges.push({ start: prevX, end: x, guide: 0 });
+      ranges.push({ start: prevX, end: x });
       prevX = x;
     }
-    // 가이드 픽셀을 음절 열에 배분
+    // 폰트를 다시 그리지 않고 완성 칸만 정리할 수 있도록 최초 윤곽을 보관한다.
     const img = ctx.getImageData(0, 0, CANVAS_W, CANVAS_H).data;
-    for (let p = 0; p < img.length; p += 4) {
-      if (img[p + 3] === 0) continue;
-      const px = (p / 4) % CANVAS_W;
-      for (const r of ranges) {
-        if (px >= r.start && px < r.end) {
-          r.guide++;
-          break;
-        }
-      }
-    }
+    guidePixelsRef.current = new Uint8ClampedArray(img);
+    masksRef.current = buildWordInkMasks(img, CANVAS_W, ranges);
     rangesRef.current = ranges;
     doneRef.current = ranges.map(() => false);
     completedRef.current = false;
@@ -148,6 +145,7 @@ export function WordFillCanvas({
   useEffect(() => {
     cancelEvaluation();
     isDrawingRef.current = false;
+    gestureCellRef.current = null;
     let alive = true;
     let drew = false;
     const fam = fontFamily ?? fontFamilyFor(word);
@@ -186,33 +184,22 @@ export function WordFillCanvas({
     if (!ctx) return;
     const ranges = rangesRef.current;
     if (ranges.length === 0) return;
-    const painted = ranges.map(() => 0);
-    const img = ctx.getImageData(0, 0, CANVAS_W, CANVAS_H).data;
-    for (let p = 0; p < img.length; p += 4) {
-      const a = img[p + 3];
-      if (a === 0) continue;
-      const r = img[p];
-      const g = img[p + 1];
-      const b = img[p + 2];
-      // emerald(초록 우세) = 사용자가 칠한 영역.
-      if (!(g > r + 20 && g > b + 20)) continue;
-      const px = (p / 4) % CANVAS_W;
-      for (let i = 0; i < ranges.length; i++) {
-        if (px >= ranges[i].start && px < ranges[i].end) {
-          painted[i]++;
-          break;
-        }
-      }
-    }
+    const image = ctx.getImageData(0, 0, CANVAS_W, CANVAS_H);
+    const active = order
+      ? order[doneRef.current.filter(Boolean).length]
+      : doneRef.current.findIndex((done) => !done);
     const newlyDone: number[] = [];
     for (let i = 0; i < ranges.length; i++) {
       if (doneRef.current[i]) continue;
-      if (ranges[i].guide > 0 && painted[i] / ranges[i].guide >= threshold) {
-        doneRef.current[i] = true; // 완성해도 자동 재도색 X — 사용자가 칠한 emerald 그대로.
+      if (sequential && i !== active) continue;
+      if (isWordInkComplete(image.data, masksRef.current[i], threshold)) {
+        doneRef.current[i] = true;
+        finishWordInk(image.data, guidePixelsRef.current, masksRef.current[i]);
         newlyDone.push(i);
       }
     }
     if (newlyDone.length) {
+      ctx.putImageData(image, 0, 0);
       setDoneCount(doneRef.current.filter(Boolean).length);
       emitLearningEffect(doneRef.current.every(Boolean) ? 'word' : 'letter', canvas);
     }
@@ -233,7 +220,7 @@ export function WordFillCanvas({
       completedRef.current = true;
       onComplete?.();
     }
-  }, [syllables, threshold, onSyllableDone, onComplete]);
+  }, [syllables, threshold, sequential, order, onSyllableDone, onComplete]);
   const evaluateRef = useRef(evaluate);
   evaluateRef.current = evaluate;
 
@@ -261,10 +248,10 @@ export function WordFillCanvas({
     //    실제 차단은 여기 clip 이 한다(안 그러면 덮개 위로 문질러 다음 글자가 채워진다).
     if (sequential) {
       // 지금 쓸 칸 = order 의 다음 칸(있으면) / 없으면 왼→오른쪽 첫 미완 칸. 그 칸에서만 칠해진다.
-      const dn = doneRef.current.filter(Boolean).length;
-      const ai = order ? order[dn] : doneRef.current.findIndex((d) => !d);
+      // One held gesture belongs to one cell, even if that cell completes during pointermove.
+      const ai = gestureCellRef.current;
       const r = ai != null && ai >= 0 ? rangesRef.current[ai] : undefined;
-      if (!r) {
+      if (!r || (ai != null && doneRef.current[ai])) {
         ctx.restore();
         return;
       }
@@ -301,6 +288,9 @@ export function WordFillCanvas({
       /* no-op */
     }
     isDrawingRef.current = true;
+    gestureCellRef.current = order
+      ? (order[doneRef.current.filter(Boolean).length] ?? null)
+      : doneRef.current.findIndex((done) => !done);
     const pt = toCanvas(e);
     lastPointRef.current = null;
     paintTo(pt.x, pt.y);
@@ -318,6 +308,7 @@ export function WordFillCanvas({
   const onUp = () => {
     isDrawingRef.current = false;
     lastPointRef.current = null;
+    gestureCellRef.current = null;
     cancelEvaluation();
     evaluate();
   };

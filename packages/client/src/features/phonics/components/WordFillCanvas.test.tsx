@@ -7,6 +7,11 @@ vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn() }));
 
 let painted = false;
 let frame: ((at: number) => void) | undefined;
+const readImage = () => {
+  const data = new Uint8ClampedArray(720 * 360 * 4);
+  for (const x of [300, 400]) data.set(painted ? [16, 185, 129, 255] : [229, 231, 235, 255], x * 4);
+  return { data };
+};
 const ctx = {
   clearRect: vi.fn(),
   fillText: vi.fn(),
@@ -21,17 +26,14 @@ const ctx = {
   moveTo: vi.fn(),
   lineTo: vi.fn(),
   stroke: vi.fn(),
-  getImageData: vi.fn(() => {
-    const data = new Uint8ClampedArray(720 * 360 * 4);
-    for (const x of [300, 400])
-      data.set(painted ? [16, 185, 129, 255] : [229, 231, 235, 255], x * 4);
-    return { data };
-  }),
+  putImageData: vi.fn((_image: { data: Uint8ClampedArray }, _x: number, _y: number) => {}),
+  getImageData: vi.fn(readImage),
 };
 
 beforeEach(() => {
   painted = false;
   frame = undefined;
+  ctx.getImageData.mockImplementation(readImage);
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
     ctx as unknown as CanvasRenderingContext2D
   );
@@ -133,4 +135,66 @@ it('revealing future guides preserves ink, current cell and completion state', a
   expect(ctx.clearRect).toHaveBeenCalledTimes(clears);
   expect(complete).not.toHaveBeenCalled();
   expect(ctx.clip).toHaveBeenCalled();
+});
+
+it('완성한 칸만 매끈하게 채우고 같은 드래그로 다음 칸을 쓰지 않는다', async () => {
+  let firstDone = false;
+  ctx.getImageData.mockImplementation(() => {
+    const data = new Uint8ClampedArray(720 * 360 * 4);
+    data.set(firstDone ? [16, 185, 129, 255] : [229, 231, 235, 255], 300 * 4);
+    data.set([229, 231, 235, 255], 400 * 4);
+    return { data };
+  });
+  const onSyllableDone = vi.fn();
+  const complete = vi.fn();
+  const view = render(
+    <WordFillCanvas
+      word="ab"
+      syllables={['a', 'b']}
+      onSyllableDone={onSyllableDone}
+      onComplete={complete}
+    />
+  );
+  await act(async () => {});
+  const canvas = view.container.querySelector('canvas')!;
+  fireEvent.pointerDown(canvas);
+  firstDone = true;
+  fireEvent.pointerMove(canvas);
+  act(() => frame?.(0));
+  expect(onSyllableDone).toHaveBeenCalledWith('a', 0);
+  expect(ctx.putImageData).toHaveBeenCalledTimes(1);
+  const written = ctx.putImageData.mock.calls[0][0] as { data: Uint8ClampedArray };
+  expect([...written.data.slice(400 * 4, 400 * 4 + 4)]).toEqual([229, 231, 235, 255]);
+  const strokes = ctx.stroke.mock.calls.length;
+  fireEvent.pointerMove(canvas);
+  expect(ctx.stroke).toHaveBeenCalledTimes(strokes);
+  fireEvent.pointerUp(canvas);
+  fireEvent.pointerDown(canvas);
+  fireEvent.pointerMove(canvas);
+  expect(ctx.stroke).toHaveBeenCalledTimes(strokes + 1);
+  expect(complete).not.toHaveBeenCalled();
+});
+
+it('영어 라임 우선 순서를 지키며 한 번에 한 칸만 확정한다', async () => {
+  const done = vi.fn();
+  const complete = vi.fn();
+  const view = render(
+    <WordFillCanvas
+      word="ab"
+      syllables={['a', 'b']}
+      order={[1, 0]}
+      onSyllableDone={done}
+      onComplete={complete}
+    />
+  );
+  await act(async () => {});
+  const canvas = view.container.querySelector('canvas')!;
+  fireEvent.pointerDown(canvas);
+  painted = true;
+  fireEvent.pointerUp(canvas);
+  expect(done).toHaveBeenCalledExactlyOnceWith('b', 1);
+  expect(complete).not.toHaveBeenCalled();
+  fireEvent.pointerDown(canvas);
+  fireEvent.pointerUp(canvas);
+  expect(complete).toHaveBeenCalledTimes(1);
 });
