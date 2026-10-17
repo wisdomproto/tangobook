@@ -2,7 +2,7 @@
 
 - id: 20261017-adaptive-free-play
 - domain: phonics
-- status: implemented
+- status: completed
 - base: 71bd87d01
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
@@ -44,3 +44,9 @@
 - 실제 한영4놀이 모두 버튼 클릭→준비된 게임 화면·복귀 확인. 영어 쓰기 tape의 전체보기 toggle·색칠 mud·그림짝4개도 확인. 정답 제출/원격 학생 성적·운영 데이터 수정은 하지 않았다. 출제/진입·도움 조작 QA와 전체 완주를 구분한다.
 - 최종 화면 증거 `C:/project/tangobook/output/adaptive-free-play-20261017/`의 한영 menu·영어 writing. 기존 사용자 탭을 보존했고 작업 탭만 결과로 남겼다.
 - 손글씨 OCR 질문은 가능성 설명으로 답했으며 별도 OCR 구현 요청/품질 검증은 남아 있다. 현재 쓰기 도움을 받아쓰기로 표시하지 않는다.
+
+## 로컬 통합
+
+- 구현/작업 기억 `82ee057a7`를 실제 `C:/project/tangobook` main에 fast-forward·포함 확인. fetch 기준 origin/main은58375b618로 그대로였고 기존 로컬4커밋을 보존했다. 추적 파일 clean, 기존 output/tmp 미추적 산출물 보존.
+- 커밋 후 최종 client typecheck도 통과. IAB844×390 실제 viewport에서 한영 블록 도움/타겟/트레이/확인·다음 배치 확인·PNG 저장, viewport 복구. 실제 휴대폰/카메라 실시간 테스트는 아니다.
+- 새 main push 요청은 없어 원격 push/운영 배포를 하지 않았다.
