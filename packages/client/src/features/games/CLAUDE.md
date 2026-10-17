@@ -404,6 +404,8 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 ## 게임 진입 프리로드 로딩 게이트 (2026-07-09 — 첫 렉 제거)
 
+2026-10-18 영어 블록 core만 `warmAudioUrl(url, { reusePrepared: true })`로 **실제 무음 준비 요소**를 최대24개/준비 후5분 보유한다. 호출마다 src/currentSrc/error/paused/seeking/currentTime/readyState>=2/시작 buffered를 확인하고, 소실·오류·만료·LRU퇴출은 해제 후 기존 실제 로딩으로 돌아간다. 오류/4초 상한을 준비 성공으로 저장하지 않는다. 기본 호출은 아래 진행 중 Promise만 공유하는 계약 그대로다. iOS 해금된 공유 **재생** 요소와 ended/error/중단 체인은 바꾸지 않는다. 전체 페이지 리로드에는 이 준비 객체가 사라지므로 HTTP 캐시와 구분한다. [검수·범위](../../../../../docs/work/games/tasks/20261018-english-prepared-audio.md).
+
 2026-10-17 첫 진입 후속: usePhonicsMap의 선택적 세 번째 prefetch 인자(기본true)는 목록/map 조회와 top100 백그라운드 다운로드를 분리한다. 영어 블록/그림짝의 공용 core에서는 ready=false 동안 map만 준비하고 ready 뒤 기존1.5초/세션1회·force-cache 예열을 이어간다. core/media 상한·캐시 정책·효과 엔진은 보존한다. 효과 엔진 코드 선행 실험은 블록이 느려져 제외했다. [측정·검증](../../../../../docs/work/games/tasks/20261017-english-first-entry.md).
 
 2026-10-17 영어 블록/영어 그림짝도 player에서 phonics 맵을 실제 사용하므로 useGameAssetPreload에서 core와 동시에 shared map 조회를 시작한다. core 준비/늦은 map의 player overlay는 그대로이며 다른 게임에 영어 조회를 추가하지 않는다. ColoringPlayer의 완성 원본 img는 canvas loadImage와 같은 anonymous CORS로 중복 URL 요청을 합친다. 캐시 정책·픽셀/학습 판정 유지. [계측·입력 검수](../../../../../docs/work/games/tasks/20261017-game-loading-bottlenecks.md).

@@ -98,7 +98,8 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     const warmAudioOnce = (url: string) => {
       let job = audioJobs.get(url);
       if (!job) {
-        job = warmAudioUrl(url);
+        job =
+          game === 'english-block' ? warmAudioUrl(url, { reusePrepared: true }) : warmAudioUrl(url);
         audioJobs.set(url, job);
       }
       return job;

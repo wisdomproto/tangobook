@@ -67,6 +67,11 @@ it.each(['english-block', 'english-line-matching'] as const)(
     expect(view.result.current.ready).toBe(false);
     await act(async () => finishImage());
     expect(view.result.current.ready).toBe(true);
+    if (game === 'english-block') {
+      expect(warmAudioUrl).toHaveBeenCalledWith('https://r2/tts.mp3', { reusePrepared: true });
+    } else {
+      expect(vi.mocked(warmAudioUrl).mock.calls.every((args) => args.length === 1)).toBe(true);
+    }
     expect(usePhonicsMap).toHaveBeenLastCalledWith(['mod_phonics', 'mod_english'], true, true);
     // The player still owns its map-readiness overlay if the library is slower than core assets.
     expect(vi.mocked(usePhonicsMap).mock.results.at(-1)?.value.loading).toBe(true);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { retainPreparedAudio, reusePreparedAudio } from '../lib/prepared-audio-cache';
 import { resolveTtsUrl } from '@/features/tts';
 
 /** 로딩 게이트가 무한정 걸리지 않도록 하는 상한(ms) — 네트워크가 느려도 이 시간 뒤엔 시작. */
@@ -47,17 +48,22 @@ function persistWarmed(): void {
  *
  * 🔴 `fetch(no-cors)` 로 바이트만 받으면 R2 pub 의 opaque 응답이 `<audio>` 재생에 재사용되지
  *    않아 첫 발음이 여전히 늦다(게임마다 "첫 단어 음원 늦음" 원인). Audio 엘리먼트로 `load()`
- *    → `canplaythrough`/`loadeddata` 까지 기다리면 미디어 캐시에 확실히 적재돼 다음 `new Audio`
- *    재생이 즉시. 엘리먼트는 이벤트 리스너 클로저가 완료까지 참조를 잡아 GC 로 abort 되지 않는다.
+ *    → `canplaythrough`/`loadeddata` 까지 실제 미디어 준비를 기다린다. 다음 요소의 준비 비용까지
+ *    없어지는 것은 아니다. 엘리먼트는 이벤트 리스너 클로저가 완료까지 참조를 잡는다.
  */
-// Share only active decoding. A completed promise must never become a permanent ready flag:
-// the browser may evict media bytes before the next game entry.
-const audioInFlight = new Map<string, Promise<void>>();
+// Default consumers share only active decoding. English block core may retain a real element;
+// it must still pass readyState/buffer/source checks on the next entry.
+const audioInFlight = new Map<string, { job: Promise<void>; policy: { retain: boolean } }>();
 
-export function warmAudioUrl(url: string): Promise<void> {
+export function warmAudioUrl(url: string, options?: { reusePrepared: boolean }): Promise<void> {
   if (!url) return Promise.resolve();
+  if (options?.reusePrepared && reusePreparedAudio(url)) return Promise.resolve();
   const existing = audioInFlight.get(url);
-  if (existing) return existing;
+  if (existing) {
+    existing.policy.retain ||= !!options?.reusePrepared;
+    return existing.job;
+  }
+  const policy = { retain: !!options?.reusePrepared };
   const job = new Promise<void>((resolve) => {
     try {
       const audio = new Audio();
@@ -65,13 +71,14 @@ export function warmAudioUrl(url: string): Promise<void> {
       audio.muted = true;
       let done = false;
       let timeout: ReturnType<typeof setTimeout>;
-      const finish = () => {
+      const finish = (event?: Event) => {
         if (done) return;
         done = true;
         clearTimeout(timeout);
         audio.removeEventListener('canplaythrough', finish);
         audio.removeEventListener('loadeddata', finish);
         audio.removeEventListener('error', finish);
+        if (policy.retain && event && event.type !== 'error') retainPreparedAudio(url, audio);
         resolve();
       };
       audio.addEventListener('canplaythrough', finish, { once: true });
@@ -85,7 +92,7 @@ export function warmAudioUrl(url: string): Promise<void> {
       resolve();
     }
   });
-  audioInFlight.set(url, job);
+  audioInFlight.set(url, { job, policy });
   void job.then(() => audioInFlight.delete(url));
   return job;
 }
