@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { PhonicsUnitGate } from '../features/access/components/PhonicsUnitGate';
 import { ActivityGate } from '../features/access/components/ActivityGate';
+import { englishGameLoader } from '../features/phonics-learner/lib/english-game-loader';
 import { ErrorBoundary } from '@/design-system';
 /**
  * 🔴 **저작도구 레이아웃은 lazy 다**(2026-08-04). `AppLayout`/`AppLayoutV2` 는 이름만 레이아웃이지
@@ -403,6 +404,7 @@ export const router = createBrowserRouter([
               {
                 // 영어 파닉스 액티비티 — 같은 지도/활동 탐색 틀을 유지한다.
                 path: 'library/phonics/english/:unitId/:activityKey',
+                loader: englishGameLoader,
                 element: (
                   <PhonicsUnitGate>
                     <ErrorBoundary>

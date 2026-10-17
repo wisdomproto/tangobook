@@ -89,7 +89,7 @@ function buildPhonicsMap(lib: PhonicsLibrary, modules: ModuleKey[]): Map<string,
 interface PhonicsMapResult {
   /** sound → R2 URL 맵. ref 라 변경 시 re-render X. */
   mapRef: MutableRefObject<Map<string, string>>;
-  /** list fetch + 모든 mp3 prefetch 완료 여부. true 동안 게임 시작 전 spinner 표시. */
+  /** 목록/map 준비 여부. 백그라운드 mp3 prefetch는 이 대기에 포함하지 않는다. */
   loading: boolean;
 }
 
@@ -126,14 +126,19 @@ function prefetchTop100Once(map: Map<string, string>): void {
  * 동작:
  *  1. localStorage 캐시 확인 — hit 이면 즉시 map 빌드 + `loading: false`.
  *  2. 캐시가 신선(<10분)하면 백그라운드 refresh 스킵(재진입마다 ~8s fetch 반복 방지). stale/miss 면 공유 fetch.
- *  3. prefetchTop100 은 세션 1회 + 1.5s 지연(게이트 워밍 우선).
+ *  3. prefetch=true일 때만 top100을 세션 1회 + 1.5s 지연으로 준비한다.
+ *     core 준비 중인 caller는 false로 두고, gate ready 뒤 true로 바꿀 수 있다.
  *
  * modules 순서대로 로드하며, 먼저 등록된 sound 가 우선 (중복 시 첫 entry 유지).
  */
-export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapResult {
+export function usePhonicsMap(
+  modules: ModuleKey[],
+  enabled = true,
+  prefetch = true
+): PhonicsMapResult {
   // 최초 렌더에서 캐시를 동기 로드 — 캐시 hit 이면 loading=false 로 시작해 첫 프레임 로딩 플래시 제거.
   // (modules 는 caller 가 매번 새 array 를 넘기지만 내용은 고정이라 첫 값으로 캡처)
-  // enabled=false → 음절맵 안 쓰는 게임(따라쓰기·점잇기·영어): list fetch/prefetch 스킵, 즉시 ready.
+  // enabled=false → 맵을 안 쓰는 caller: list fetch/prefetch 스킵, 즉시 ready.
   const modulesRef = useRef(modules);
   const mapRef = useRef<Map<string, string>>(new Map());
   const [loading, setLoading] = useState<boolean>(() => {
@@ -158,7 +163,7 @@ export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapR
     if (entry) {
       mapRef.current = buildMap(entry.lib);
       setLoading(false);
-      prefetchTop100Once(mapRef.current);
+      if (prefetch) prefetchTop100Once(mapRef.current);
       // 캐시가 신선하면 백그라운드 refresh 스킵 — 재진입마다 반복되던 ~8s fetch 제거.
       if (Date.now() - entry.at < CACHE_FRESH_MS) {
         return () => {
@@ -175,7 +180,7 @@ export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapR
         mapRef.current = buildMap(lib);
         if (!entry) {
           setLoading(false);
-          prefetchTop100Once(mapRef.current);
+          if (prefetch) prefetchTop100Once(mapRef.current);
         }
       })
       .catch(() => {
@@ -186,8 +191,8 @@ export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapR
       cancelled = true;
     };
     // modules 배열은 caller 가 매번 새 array 만들어 inline 으로 넘기는 패턴이라 deps 에 넣으면 무한 reload.
-    // 의도적으로 modules 제외 — mount 시 한 번만 사용. enabled 전이 시엔 재실행 필요.
-  }, [enabled]);
+    // modules 제외 — mount 시 한 번만 사용. enabled/prefetch 전이는 실제 준비 정책을 반영한다.
+  }, [enabled, prefetch]);
 
   return { mapRef, loading };
 }

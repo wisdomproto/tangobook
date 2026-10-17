@@ -62,11 +62,12 @@ it.each(['english-block', 'english-line-matching'] as const)(
         },
       })
     );
-    expect(usePhonicsMap).toHaveBeenCalledWith(['mod_phonics', 'mod_english'], true);
+    expect(usePhonicsMap).toHaveBeenLastCalledWith(['mod_phonics', 'mod_english'], true, false);
     expect(warmImageUrl).toHaveBeenCalledWith('cat.webp');
     expect(view.result.current.ready).toBe(false);
     await act(async () => finishImage());
     expect(view.result.current.ready).toBe(true);
+    expect(usePhonicsMap).toHaveBeenLastCalledWith(['mod_phonics', 'mod_english'], true, true);
     // The player still owns its map-readiness overlay if the library is slower than core assets.
     expect(vi.mocked(usePhonicsMap).mock.results.at(-1)?.value.loading).toBe(true);
     view.unmount();
@@ -77,7 +78,7 @@ it.each(['korean-block', 'english-word-writing', 'korean-word-writing'] as const
   'does not add an English letter-library request to %s',
   async (game) => {
     const view = renderHook(() => useGameAssetPreload({ ...args, game }));
-    expect(usePhonicsMap).toHaveBeenCalledWith(['mod_phonics', 'mod_english'], false);
+    expect(usePhonicsMap).toHaveBeenCalledWith(['mod_phonics', 'mod_english'], false, false);
     await waitFor(() => expect(view.result.current.ready).toBe(true));
     view.unmount();
   }

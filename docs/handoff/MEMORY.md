@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 영어 블록/그림짝 첫 진입 후속: 기존 단원 query를 route 진입에서 시작하고 core 준비중 top100 경쟁을 미뤘다. 캐시/게이트 보존·로컬 교차 중앙2.407→2.214/2.312→1.746초,47검사·타입/lint/build·실제 입력/재진입캐시 정상. 효과 엔진 선행 실험은 제외. [근거·한계](../work/games/tasks/20261017-english-first-entry.md). 로컬 main 통합 대기, 새 push/배포 없음.
+
 2026-10-17 영어 로딩 개선 db8aaf7f0 운영 배포 success(aad2ad84)·신규번들/health 확인. 재진입5회 중앙 영어블록1.30초·그림짝0.76초, 첫접속 전체속도 큰 개선은 단정하지 않음. 같은색칠 원본2→1요청·정답음원40건disk cache·기존SW/캐시/로딩게이트 유지·실제 배치/undo/선택/붓 정상. [운영 전후·한계](../work/games/tasks/20261017-game-loading-bottlenecks.md#운영-최종-결과). 새 제품 변경/원격 push 없이 검수문서만 로컬.
 
 2026-10-17 사용자 승인으로 영어 게임 로딩 개선 dfc1c1563·검수/통합 기록을 main push 대상으로 확정했다. fetch0/3·추적 clean·기존 검증 후 source 변경 없음. [범위·확인 기준](../work/games/tasks/20261017-game-loading-bottlenecks.md#메인-푸시-요청). 일반 push하며 운영 배포 완료는 구분한다.

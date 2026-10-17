@@ -37,14 +37,6 @@ interface Args {
 export function useGameAssetPreload(args: Args): { ready: boolean; loaded: number; total: number } {
   const { data, game, lang, book, phonicsMap, phonicsReady, style, storybookId } = args;
 
-  // English blocks/matching also need the phonics library (letter sounds / word fallback).
-  // Start that shared request alongside core media, not only after the gate mounts the player.
-  // Their map-readiness overlays remain authoritative; do not delay other games or skip them.
-  usePhonicsMap(
-    ['mod_phonics', 'mod_english'],
-    game === 'english-block' || game === 'english-line-matching'
-  );
-
   const images = useMemo(() => extractItemImages(data), [data]);
   const words = useMemo(() => extractItemWords(data), [data]);
   const syllables = useMemo(
@@ -72,6 +64,11 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
   ]);
   const bgKey = [...scene.sceneImages, ...scene.sceneNarrations].join('|');
   const ready = phonicsReady && readyKey === coreKey;
+
+  // Fetch the needed library alongside core, but keep its unrelated top100 downloads out of
+  // the gate. The player's own map overlay remains authoritative if the library is slower.
+  const englishMap = game === 'english-block' || game === 'english-line-matching';
+  usePhonicsMap(['mod_phonics', 'mod_english'], englishMap, ready);
 
   useEffect(() => {
     if (!phonicsReady) {
