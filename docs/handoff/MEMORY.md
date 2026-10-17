@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 운영 로딩 감사: 새51장 실제WebP, 운영 정적이미지7일·해시JS/표지1년immutable·조건부304. 기존캐시 유지30준비표본에서 지도/모드0.33~0.56초, 블록 gate후한1.47~2.44/영1.07~1.30초.21회귀, 제품/캐시/게이트 변경 없음. 실제콜드/저속망/DevTools바이트측정과 구분. [근거](../work/platform/tasks/20261017-loading-assets-audit.md).
+
 2026-10-17 한영 디자인/소리/전환11c10b489 운영 프런트 배포 success·health ok. ㄱ3회/Gg 실제 완료, 야구/cave 동화 자동 이동·아기 장면 스킵 단일 이동을 확인했다. 오류 로그 없음·실제 스피커 청취는 미검증. [운영 증거·한계](../work/phonics/tasks/20261017-interaction-sound-polish.md#운영-배포직접-검수). 새 제품 변경 없이 검수 기록만 로컬 반영.
 
 2026-10-17 사용자 승인으로 한영 입력음·동화 전환 보완과 관련 기록을 main 일반 push 대상으로 확정. fetch0/3·추적 clean·기존 검증 이후 코드 변경 없음. [전달 범위](../work/phonics/tasks/20261017-interaction-sound-polish.md#메인-푸시-요청). push와 운영 배포 완료는 구분한다.
