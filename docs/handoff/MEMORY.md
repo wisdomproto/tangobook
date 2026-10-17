@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 5e4797259 운영 프런트 배포 성공·health ok. 한영 낱말 호수/nut 직접 완성·다음 문제·매끈한 끝부분 확인, 블록 각4/4 후 결과 다시 하기의 맞춤 새 판 확인(한글 단원 변경, 영어 model→listen). 기존 테스트 프로필 실제 연습 QA이며 전수/실기기 검증 아님. [결과·사용자 피드백](../work/phonics/tasks/20261017-word-tracing-finish.md#운영-배포직접-검수). 검수 기록만 로컬 반영.
+
 2026-10-17 사용자 요청으로 한영 낱말 쓰기90%/빈틈 정리와 자유 블록 결과 재시작 맞춤을 main push한다. fetch 기준0/3·추적 clean·관련 검증 완료, 기존 output/tmp 보존. push와 운영 배포 완료는 구분한다. [범위](../work/phonics/tasks/20261017-word-tracing-finish.md#메인-푸시-요청).
 
 2026-10-17 한영 낱말 따라쓰기 끝맺음 개선:90%면적+떨어진 획 접촉 조건, 완료 칸을 원래 글자 윤곽대로 빈틈 없이 정리·미완 잉크 유지. 실제 cape→bake k/휴지 입력 및11회귀·타입/lint 검수, 새 push 없음. [구현·증거](../work/phonics/tasks/20261017-word-tracing-finish.md).

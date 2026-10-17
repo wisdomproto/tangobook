@@ -32,3 +32,13 @@
 - 실제 root main=3eb0800dc, fetch 후 origin/main=76ae2c60a, left/right=0/3. 미푸시3개는 운영 검수 기록5280533b0·자유 블록 결과 재시작 맞춤8c1c1c415·낱말 쓰기 끝맺음3eb0800dc로 같은 후속 작업 범위다.
 - 추적 변경 없음·전달 diff/check 확인. 기존 미추적 output/tmp는 보존한다. 앞선11회귀·타입/lint/build·실제 입력 검증 이후 제품 코드 변경은 없다.
 - 사용자 승인 기록과 함께 main에 일반 push하고 원격 SHA 일치를 확인한다. 배포 완료·운영 재검수는 이 push 성공과 별개다.
+
+## 운영 배포·직접 검수
+
+- 사용자 후속 요청에 따라 운영에서 검수했다. 배포 SHA `5e4797259fd433f820da8a024c5c5a5a6d5104c9`의 GitHub commit status는 success. 프런트 `tangobook - tangobook`은2026-10-17T08:05:20Z 배포 성공, 서버는 watched paths 미변경으로 새 배포 불필요 success다. 운영 `/health`도08:05:34Z status=ok. 프런트 성공과 서버 재배포를 혼동하지 않는다.
+- 사용자 localhost 탭은 보존하고 새 운영 IAB 탭에서 기존 `테스트민준` 프로필로 실제 클릭/드래그했다. 한글 자유쓰기 kr-h1-u15/first에서 호→수2/2 완성·원래 윤곽대로 끝부분 정리→다음 하마2/4 확인. 영어 en-b2-u08/model에서 u→t→n3/3 완성·빈틈 정리→다음 bud2/8 확인. 캔버스/저장소/완료 상태를 주입하지 않았다.
+- 한글 블록은 소리 듣기→직접 조각 선택/회전/판 배치→확인으로 풍덩·시장·농구·형4/4 완주. 결과의 **다시 하기** 클릭 후 kr-h2-u01/model 고정판 대신 kr-h1-u15/model·하마0/4·빈 판, 새playRun 확인. 새 단원에 블록 근거가 적으면 model을 유지하는 보수적 규칙이다. 한글 도움 감소를 이번 검수에서 관찰했다고 주장하지 않는다.
+- 영어 블록도 run·fun·bun·bud4/4 실제 완료→결과 **다시 하기**. 같은 en-b2-u08이 선택돼도 새playRun과 빈 칸0/4로 시작했고, 도움은 model에서 listen(소리만 듣기)으로 바뀌어 정답이 숨겨지고 힌트 버튼이 나타났다. 이번 판만으로 독립 숙달했다고 판단한 것이 아니라 기존 프로필의 누적 근거까지 포함한 선택이다.
+- 운영에서 실제 연습 기록이 남는 QA이며 실기기/실제 유아/전체 낱말 전수 검수는 아니다. 게임 음성 버튼/재생 대기·다음 문제 전환을 관찰했지만 스피커 청취 품질을 전수 검증했다고 보고하지 않는다.
+- 증거: `C:/project/tangobook/output/production-word-finish-replay-20261017/`의 ko-ho-clean/ko-hosu-complete/en-ut-clean/en-nut-complete/ko-block-result/ko-block-adaptive-replay/en-block-result/en-block-adaptive-replay-listen PNG. 제품 코드 수정은 없고 검수 기록만 로컬 커밋한다.
+- 검수 중 사용자 의견: ㄱ 한 챕터의 활동 흐름·내용 풍부함·낱말 놀이와 동화 연결이 자연스럽다고 평가했다. 현 구조를 바탕으로 디자인/사운드 효과를 계속 다듬는 방향이며, 이번에 새 UI/소리 변경을 요청하거나 구현한 것은 아니다.
