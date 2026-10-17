@@ -6,7 +6,7 @@
 - base: c4a0d277f
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 2026-10-18 사용자 main push 승인·운영 배포 완료 별도 확인
+- delivery: 751882150 main push·2026-10-18 운영 배포/첫 진입/캐시/게이트 확인, 후속 검수 문서는 로컬
 
 ## 요청·근거
 
@@ -50,3 +50,32 @@ trace의 실제 핵심 그림/음원은 assets.tangobook.co.kr인데 HTML precon
 ## 메인 푸시 요청
 
 2026-10-18 사용자 “좋아. 메인에 푸시하자” 승인. fetch 후 origin/main...HEAD0/3·main 추적 clean이며 c4a0d277f 이전 운영 검수 기록, fa3084114 최적화/검수, b5dd89e0a 통합 기록을 일반 push한다. 기존45검사/타입/lint/build·실제 화면/입력·캐시/게이트 검수 뒤 source 추가 변경이 없어 반복 검사하지 않는다. 승인 기록을 커밋하고 원격 SHA/동기화를 확인한다. 운영 배포 완료와 운영 속도는 별도 확인한다.
+
+## 운영 검수 진행
+
+2026-10-18 사용자 요청으로751882150의 배포/영어 블록·그림짝 첫 진입/캐시/게이트를 확인한다. 원격 main SHA일치0/0·추적 clean.00:30 KST 현재 프런트 Railway4d8b2869는 pending, 서버는 watched paths 미변경 skip success, 운영은 이전 index-Mch36lEq.js·assets hint없음이다. 새 context 첫 접속3회+각 context 재진입1회를 이전과 같은 단원/고정 난수/캐시 enabled/1280×720 격리 Chrome에서 측정한다. 실제 entry로 전환 표본을 분리하고 운영 사용자 프로필/진도·R2/DB는 수정하지 않는다. 증거 output/production-entry-waterfall-20261018/.
+
+## 운영 최종 결과
+
+- Railway 프런트 **4d8b2869-564b-46ec-907e-31ff393f440c**, 대상 **751882150**, **2026-10-18 00:36:47 KST**(2026-10-17T15:36:47Z) success. 운영 entry **index-Mch36lEq.js → index-CxaDHpB9.js**, HTML assets.tangobook.co.kr preconnect 반영·health ok. 서버는 watched paths 미변경 skip success.
+- 설치 Chrome1280×720·같은 운영 두 단원·고정 난수·캐시 enabled. 새 context3회 첫 접속+각 context 재진입1회를 전후 각각 측정했다. 아래 표의 전후 표본은 실제 entry로 전부 구분되며 전환 중 표본 없음. 단원 GET은 각 입장1회 유지.
+
+| 운영 준비 시간 | 이전3회(ms) | 새3회(ms) | 중앙값 |
+| --- | --- | --- | --- |
+| 영어 Book3 블록 첫 접속 | 3251 / 2826 / 3597 | 3338 / 2808 / 2774 | 3251→2808ms |
+| 영어 Book2 그림짝 첫 접속 | 2792 / 3304 / 3100 | 2791 / 2901 / 2642 | 3100→2791ms |
+| 영어 블록 캐시 있는 재진입 | 1735 / 1434 / 1323 | 1463 / 1400 / 1152 | 1434→1400ms |
+| 그림짝 캐시 있는 재진입 | 1455 / 1004 / 985 | 731 / 834 / 1130 | 1004→834ms |
+
+- 이번 운영 표본에서 최초 중앙값은 두 게임 모두 줄었다. 단일 PC/회선·배포 전후 순차3회·범위 겹침이 있어 기기별 보장 수치/변경별 기여도를 단정하지 않는다. 이전 로컬 그림짝 차이없음 결과를 운영 개선으로 소급해서 바꾸지 않는다.
+- 최초 기준 측정 일부가 보조 cache-probes/health 확인과 겹쳤다. `before-initial-focused.json`(최초 중앙 블록4225/그림짝3152ms) 보존 후 보조 검사 종료 뒤 전부 새 context로 **단독 재측정**한 `before-focused.json`을 위 표에 썼다. 이후 성능 비교 중 다른 검수/빌드 동시 실행은 없으며 cache/입력 검사는 성능 계측 완료 후 실행했다.
+- 이전 두 게임 입장의 한국어 블록/색칠 JS 요청은 표본마다2개, 새 두 게임은 **0개**다(`assets-summary.json`). 페이지가 선택하지 않은 연결 낱말 활동을 먼저 가져오지 않도록 분리한 동작이 운영에서도 반영됐다. 새 HTML의 CDN hint도 확인했지만 힌트만의 기여도를 따로 주장하지 않는다.
+
+### 캐시·게이트·실제 입력
+
+- 새 버전1024×768에서 두 게임 모두 progress0% 동안 알파벳 tray0/그림 카드0 → 실제 준비 후 화면 표시. 스킵으로 대기를 우회하지 않았다. core 전 background phonics mp3 **0개**, ready후2초 관찰에서 기존 top100 **100개** 예열 유지.
+- 성능 재진입의 정답 음원은 두 게임 합계 **24응답 전부 CDP disk cache**. 별도 실제 입력/재진입에서도 각4개 모두 캐시 재사용. 새 Audio 실제 준비를 확인하는 경로를 없애지 않았다.
+- 별도 검수의 재진입700ms 수집에서는 그림짝 loadeddata가3개만 잡혀 원본을 verification-initial.json으로 보존했다. 준비 게이트/제품 코드를 바꾸지 않고 검수 관찰만2.5초로 늘린 verify-settled.cjs에서 두 게임 각각 loadeddata4회·disk cache4응답·pageerror0을 확인했다. 선택 강조도400ms transition 뒤 캡처해 확인했다. 이 후속 관찰은 위 성능 표본과 별개다.
+- WebP2종 `public,max-age=604800`, 새 hashed JS `public,max-age=31536000,immutable`, 각각 ETag 조건부 **304/0B**. SW production/local SHA256 **8a57abbf06177dd4ad78335778e3bbcd38849dae07f206d3f5a533196bc5b389** 동일.
+- 소리 버튼→a배치→되돌리기, 그림짝 선택 강조 정상. core 준비/입력 화면을 육안 확인했고 모든 성능/입력 pageerror0. 격리 QA Chrome이며 사용자 탭/진도/캐시를 건드리지 않았다. 전체 판 완주·실물 블록/실기기 터치·스피커 청취 검증은 아니다.
+- 증거 output/production-entry-waterfall-20261018/: deployment.json, before/after-focused.json, before-initial-focused.json, summary.json, assets-summary.json, cache-before/cache-probes.json, verification.json 및 gate/input PNG. 제품 코드나 운영 R2/DB 변경 없이 검수 기록만 로컬 커밋하고 새 push하지 않는다.
