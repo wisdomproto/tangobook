@@ -15,6 +15,7 @@ import {
   beginTrace,
   makeTracePath,
   moveTrace,
+  resumeTrace,
   strokeOwners,
   tracePassed,
   type TraceAttempt,
@@ -53,6 +54,7 @@ export function StrokeTraceCanvas({
   const [demonstrating, setDemonstrating] = useState(guidance === 'demo');
   const [demoVersion, setDemoVersion] = useState(0);
   const [retry, setRetry] = useState(false);
+  const [resumePoint, setResumePoint] = useState<StrokePoint | null>(null);
   const endDemo = useCallback(() => setDemonstrating(false), []);
   const paint = useCallback((completed: number) => {
     const ctx = canvas.current?.getContext('2d'),
@@ -74,6 +76,7 @@ export function StrokeTraceCanvas({
     setStrokes([]);
     setDone(0);
     setTrail('');
+    setResumePoint(null);
     setInkMasks([]);
     setDemonstrating(guidance === 'demo');
     model.current = undefined;
@@ -141,13 +144,22 @@ export function StrokeTraceCanvas({
     setDemonstrating(false);
     setRetry(false);
     const path = model.current!.paths[index.current];
-    const next = beginTrace(path, point(e));
+    const next =
+      (attempt.current && resumeTrace(path, attempt.current, point(e))) ??
+      beginTrace(path, point(e));
     if (!next) {
       setRetry(true);
       return;
     }
     pointer.current = e.pointerId;
     attempt.current = next;
+    setResumePoint(null);
+    setTrail(
+      path.points
+        .slice(0, next.index + 1)
+        .map((p, i) => `${i ? 'L' : 'M'} ${p.x} ${p.y}`)
+        .join(' ')
+    );
     e.currentTarget.setPointerCapture(e.pointerId);
     feedDrawLoop();
   };
@@ -155,7 +167,7 @@ export function StrokeTraceCanvas({
     if (e.pointerId !== pointer.current || !attempt.current) return;
     e.preventDefault();
     const path = model.current!.paths[index.current];
-    attempt.current = moveTrace(path, attempt.current, point(e), { softTurns: english });
+    attempt.current = moveTrace(path, attempt.current, point(e), { softTurns: true });
     const traced = path.points.slice(0, attempt.current.index + 1);
     setTrail(traced.map((p, i) => `${i ? 'L' : 'M'} ${p.x} ${p.y}`).join(' '));
     feedDrawLoop();
@@ -163,6 +175,9 @@ export function StrokeTraceCanvas({
   const completeStroke = () => {
     if (reported.current) return;
     setRetry(false);
+    attempt.current = null;
+    setResumePoint(null);
+    setTrail('');
     const count = ++index.current;
     setDone(count);
     paint(count);
@@ -178,16 +193,23 @@ export function StrokeTraceCanvas({
     const data = model.current!;
     const trace = attempt.current;
     pointer.current = null;
-    attempt.current = null;
-    setTrail('');
     if (e.currentTarget.hasPointerCapture(e.pointerId))
       e.currentTarget.releasePointerCapture(e.pointerId);
-    if (!trace || cancelled) return;
-    const final = moveTrace(data.paths[index.current], trace, point(e), { softTurns: english });
-    if (
-      !tracePassed(data.paths[index.current], final, { softEnd: english, completionRatio: 0.9 })
-    ) {
-      setRetry(true);
+    if (!trace) return;
+    const path = data.paths[index.current];
+    const final = cancelled ? trace : moveTrace(path, trace, point(e), { softTurns: true });
+    if (cancelled || !tracePassed(path, final, { softEnd: true, completionRatio: 0.9 })) {
+      // Preserve accepted ink without advancing progress. A cancelled gesture
+      // can be resumed, but only a real pointer-up may complete the stroke.
+      attempt.current = final;
+      setTrail(
+        path.points
+          .slice(0, final.index + 1)
+          .map((p, i) => `${i ? 'L' : 'M'} ${p.x} ${p.y}`)
+          .join(' ')
+      );
+      setResumePoint(final.index > 0 ? path.points[final.index] : null);
+      setRetry(final.index === 0);
       return;
     }
     completeStroke();
@@ -269,6 +291,13 @@ export function StrokeTraceCanvas({
             />
           </svg>
         )}
+        {resumePoint && !demonstrating && (
+          <span
+            className="stroke-trace-resume-marker"
+            aria-hidden="true"
+            style={{ left: `${resumePoint.x / 4}%`, top: `${resumePoint.y / 4}%` }}
+          />
+        )}
         {done > 0 && (
           <svg key={done} viewBox="0 0 400 400" aria-hidden="true" className="stroke-trace-flash">
             <defs>
@@ -303,11 +332,13 @@ export function StrokeTraceCanvas({
               ? t('write.finished')
               : demonstrating
                 ? t('write.watch')
-                : retry
-                  ? t('write.tryFromStart')
-                  : strokes[done]?.dot
-                    ? t('write.tapDot')
-                    : t('write.strokeNumber', { n: done + 1 })}
+                : resumePoint
+                  ? t('write.continueStroke')
+                  : retry
+                    ? t('write.tryFromStart')
+                    : strokes[done]?.dot
+                      ? t('write.tapDot')
+                      : t('write.strokeNumber', { n: done + 1 })}
         </span>
         <button
           type="button"

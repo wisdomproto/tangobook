@@ -1,5 +1,7 @@
 # 학습 게임 모듈
 
+2026-10-17 GameHeader/ColoringPlayer의 뒤로가기는 workspace에서도 기존 onBack을 실행한다. 별도 목록 버튼으로 drawer를 열고 오른쪽 compass+학습 지도는 backToMap이다. 공용 WorkspaceButtons의44px 그림·접근성 이름·분리된 CSS를 재사용하며 standalone의 홈/광고 embedded 정책은 유지한다. [한영 탐색·검수](../../../../../docs/work/phonics/tasks/20261017-writing-pause-navigation.md).
+
 2026-10-15 한영 block player의 listeningPractice opt-in은 정답/삽화/alt를 숨기고 성공 재생 뒤 판 입력·직접 확인을 사용한다. 첫 글자 힌트·onPracticeAttempt로 관찰을 분리하며 기존 game logger와 중복 송신하지 않는다. 일반 블록/카메라 인식은 보존, 듣고 쓰기 취소. [기록](../../../../../docs/work/phonics/tasks/20261015-listening-block-practice.md).
 
 한영 블록은 BlockInputGate에서 기본 screen으로 즉시 시작하고 GameHeader 오른쪽에서 실물/화면으로 전환한다(2026-10-15 후속). 명시 initialInputMode는 보존하고 카메라는 명시 실물 전환 때만 켠다. 이전 게임 전 선택/게임 내 전환 제외 결정은 철회한다. [기록](../../../../../docs/work/phonics/tasks/20261015-word-meeting-focus-design.md). 영어는 한 줄 글자 조합에 맞춰 높이700px 이상 가로에서 빈 큰 판/패널 없이 타겟 바로 아래 슬롯 크기 받침/가까운 알파벳을 모은다. PC는 타겟 최대176px·알파벳72×84px·큰 입력칸, 짧은 가로는 기존 좌측 목표/우측 판·하단 행동이다. 영어 확인은 읽기이며 정답은 자동 판정이다. 영어 알파벳은 기존 단원 선택지/a~z 순서의 한 줄 그림 트레이·큰 화살표/pan-x로 표시, 한글 모음 고정/조각 회전을 영어에 적용하지 않는다. [한영 통일 검수](../../../../../docs/work/phonics/tasks/20261014-english-block-layout.md).

@@ -42,6 +42,18 @@ export function beginTrace(path: TracePath, point: StrokePoint): TraceAttempt | 
     : null;
 }
 
+/** Lifting pauses the stroke; resume near its last accepted checkpoint. */
+export function resumeTrace(
+  path: TracePath,
+  attempt: TraceAttempt,
+  point: StrokePoint
+): TraceAttempt | null {
+  const fromTip = distance(path.points[attempt.index], point);
+  // Touching the original start deliberately retries a failed/scribbled trace.
+  if (distance(path.points[0], point) < fromTip) return null;
+  return fromTip <= TRACE_TOLERANCE ? { ...attempt, last: point } : null;
+}
+
 /** Follow *this* stroke forwards. A tap, reverse trace or shortcut across a bend cannot pass. */
 export function moveTrace(
   path: TracePath,
@@ -126,13 +138,16 @@ export function tracePassed(
     completionRatio < 1 &&
     path.distances[attempt.index] >= path.length * Math.max(0.9, completionRatio) - 2.5;
   const endpointTolerance = nearFinish
-    ? Math.max(TRACE_TOLERANCE, path.length * (1 - Math.max(0.9, completionRatio)) + 5)
+    ? Math.max(
+        TRACE_TOLERANCE,
+        path.length * (1 - Math.max(0.9, completionRatio)) + TRACE_TOLERANCE
+      )
     : TRACE_TOLERANCE;
   return (
-    // English ends use the same corridor as the rest of the stroke. A wobbling
+    // Guided ends use the same corridor as the rest of the stroke. A wobbling
     // finger can reach the end while its nearest checkpoint is still behind.
-    // Keep short-stroke, distance, direction and endpoint guards; Korean keeps
-    // its existing ending policy unless explicitly opted in.
+    // At 90%, allow both the remaining tail and a finger's lateral offset.
+    // Keep short-stroke, distance, direction and endpoint guards.
     (nearFinish ||
       path.length - path.distances[attempt.index] <=
         Math.min(softEnd ? TRACE_TOLERANCE * 2 : 16, path.length * (softEnd ? 0.45 : 0.28))) &&

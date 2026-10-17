@@ -89,6 +89,57 @@ function gesture(canvas: HTMLElement, from: number[], to: number[], cancel = fal
   });
 }
 describe('실제 획 순서와 완료 배선', () => {
+  it('ㄱ의 굽은 한 획은 90% 부근의 옆 흔들림까지 허용하되 대각선 지름길은 완료하지 않는다', () => {
+    const guide = {
+      from: { x: 100, y: 100 },
+      to: { x: 280, y: 300 },
+      points: [
+        { x: 100, y: 100 },
+        { x: 280, y: 100 },
+        { x: 280, y: 300 },
+      ],
+    };
+    vi.mocked(getLetterGuideStrokes).mockReturnValueOnce([guide]);
+    const result = vi.fn();
+    render(<StrokeTraceCanvas letter="ㄱ" guidance="hint" onResult={result} />);
+    const paper = screen.getByLabelText('ㄱ 따라쓰기');
+    gesture(paper, [100, 100], [280, 300]);
+    expect(result).not.toHaveBeenCalled();
+    fireEvent.pointerDown(paper, { pointerId: 1, clientX: 100, clientY: 100 });
+    for (const [x, y] of [
+      [260, 100],
+      [280, 118],
+      [300, 262],
+    ])
+      fireEvent.pointerMove(paper, { pointerId: 1, clientX: x, clientY: y });
+    fireEvent.pointerUp(paper, { pointerId: 1, clientX: 300, clientY: 262 });
+    expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+  });
+  it.each(['ㅏ', 'f'])(
+    '%s는 중간에 손을 떼거나 취소해도 잉크를 유지하고 그 지점부터 이어 쓴다',
+    (letter) => {
+      const result = vi.fn();
+      const { container } = render(
+        <StrokeTraceCanvas letter={letter} guidance="hint" onResult={result} />
+      );
+      const paper = screen.getByLabelText(`${letter} 따라쓰기`);
+      gesture(paper, [120, 60], [130, 210]);
+      const ink = container.querySelector('.stroke-trace-ink path')!.getAttribute('d');
+      expect(ink).toContain('210');
+      expect(screen.getByRole('status')).toHaveTextContent('초록 점');
+      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
+      // A click far from the saved endpoint cannot erase or finish the stroke.
+      gesture(paper, [320, 320], [320, 320]);
+      expect(container.querySelector('.stroke-trace-ink path')).toHaveAttribute('d', ink);
+      gesture(paper, [125, 210], [125, 280], true);
+      expect(container.querySelector('.stroke-trace-ink path')).toBeInTheDocument();
+      expect(result).not.toHaveBeenCalled();
+      gesture(paper, [125, 280], [130, 310]);
+      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '1');
+      gesture(paper, [120, 190], [220, 190]);
+      expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+    }
+  );
   it('각 획을90%에서 떼면 나머지 잉크까지 완성하고 전체 완료를 한번만 전달한다', () => {
     const result = vi.fn();
     render(<StrokeTraceCanvas letter="ㅏ" guidance="hint" onResult={result} />);
@@ -245,7 +296,7 @@ describe('실제 획 순서와 완료 배선', () => {
     expect(container.querySelector('[data-stroke-overlay]')).toBeNull();
     const paper = screen.getByLabelText('ㅏ 따라쓰기');
     gesture(paper, [120, 60], [120, 120]);
-    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('시작점에서 다시'));
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('초록 점에서 이어서'));
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
   });
 });

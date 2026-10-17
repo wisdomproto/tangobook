@@ -19,6 +19,17 @@
   display: block;
   width: 100%;
 }
+.stroke-trace-resume-marker {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border: 3px solid #fffef9;
+  border-radius: 50%;
+  background: #28936c;
+  box-shadow: 0 0 0 3px #28936c;
+}
 .stroke-trace-dot-target {
   position: absolute;
   z-index: 2;

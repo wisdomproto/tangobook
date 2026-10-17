@@ -1,11 +1,8 @@
 import { StorybookBackdrop } from '@/design-system/primitives/StorybookBackdrop';
-import { useTranslation } from 'react-i18next';
-import { useLearningWorkspace } from '@/features/phonics-learner/components/learning-workspace-context';
 import {
   WorkspaceMapButton,
-  WorkspaceMenuIcon,
+  WorkspaceActivityButtons,
 } from '@/features/phonics-learner/components/WorkspaceButtons';
-import { StorybookSprite } from '@/design-system/primitives/StorybookSprite';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { FeedbackOverlay } from '../FeedbackOverlay';
@@ -210,8 +207,6 @@ function readColorSource(
 }
 
 export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: ColoringPlayerProps) {
-  const workspace = useLearningWorkspace();
-  const { t: pt } = useTranslation('phonics');
   const [idx, setIdx] = useState(0);
   const [ready, setReady] = useState(false);
   const [sceneRatio, setSceneRatio] = useState(1);
@@ -612,18 +607,7 @@ export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: Col
     <div className="storybook-scope learning-stage fixed inset-0 z-[60] flex flex-col bg-cream-50 overflow-hidden">
       <StorybookBackdrop />
       <div className="coloring-toolbar shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3">
-        {onBack ? (
-          <button
-            onClick={workspace?.active ? () => workspace.setNavigationOpen(true) : onBack}
-            aria-label={workspace?.active ? pt('workspace.activities') : '돌아가기'}
-            aria-expanded={workspace?.active ? workspace.navigationOpen : undefined}
-            className="inline-flex items-center px-4 min-h-[44px] rounded-full bg-white shadow-soft text-ink-700 font-bold break-keep"
-          >
-            {workspace?.active ? <WorkspaceMenuIcon /> : <StorybookSprite name="back" size={28} />}
-          </button>
-        ) : (
-          <span />
-        )}
+        {onBack ? <WorkspaceActivityButtons onBack={onBack} /> : <span />}
         <StorybookTitle as="div" compact className="coloring-title">
           {item.word}
         </StorybookTitle>

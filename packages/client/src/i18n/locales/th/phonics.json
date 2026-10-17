@@ -294,6 +294,7 @@
     "fromDot": "เริ่มจากจุด",
     "onYourOwn": "ลองเขียนเอง",
     "showStrokes": "ดูลำดับขีด",
+    "continueStroke": "ลากต่อจากจุดสีเขียว",
     "traceLetter": "ลากตาม {{letter}}",
     "finished": "เขียนเสร็จแล้ว!",
     "tryFromStart": "ลองอีกครั้งจากจุดเริ่มต้น",

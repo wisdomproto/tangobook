@@ -294,6 +294,7 @@
     "fromDot": "Start at the dot",
     "onYourOwn": "Write on your own",
     "showStrokes": "Show strokes",
+    "continueStroke": "Keep drawing from the green dot",
     "traceLetter": "Trace {{letter}}",
     "finished": "Letter complete!",
     "tryFromStart": "Try again from the starting dot",

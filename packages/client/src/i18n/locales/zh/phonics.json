@@ -294,6 +294,7 @@
     "fromDot": "从圆点开始",
     "onYourOwn": "自己写一写",
     "showStrokes": "看看笔顺",
+    "continueStroke": "从绿点继续描写",
     "traceLetter": "描写{{letter}}",
     "finished": "完成啦！",
     "tryFromStart": "从起点再试一次",

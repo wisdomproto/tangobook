@@ -6,7 +6,7 @@ import './phonics-game-refinements.css';
 import { JourneyActivityContext } from './journey-activity-context';
 import { PhonicsGameSprite } from './PhonicsGameSprite';
 import { useLearningWorkspace } from './learning-workspace-context';
-import { WorkspaceMapButton, WorkspaceMenuIcon } from './WorkspaceButtons';
+import { WorkspaceActivityButtons, WorkspaceMapButton } from './WorkspaceButtons';
 
 /**
  * 이 셸이 **전체화면이 아니라 남의 화면 속 상자**에 그려져야 하는가.
@@ -76,31 +76,7 @@ export function ActivityShell({
   const journey = useContext(JourneyActivityContext);
   const tutorial = !ownInstruction && journey?.tutorial;
   const workspace = useLearningWorkspace();
-  const right = workspace?.active ? (
-    <div className="flex items-center gap-3">
-      {headerRight}
-      <WorkspaceMapButton />
-    </div>
-  ) : (
-    headerRight
-  );
-  const back = (
-    /**
-     * 🔴 `shrink-0` 필수 — 옆에 `headerRight` 가 서면 flex 가 **뒤로가기부터 줄인다**. 영어 4글자
-     *    단원(STUV)의 글자 탭이 298px 이라 375px 화면에서 버튼이 47px 로 눌려 **세 줄로 접혔고**
-     *    헤더가 136px 로 부풀어 아래 내용을 밀어냈다.
-     * 🔴 `min-h-[44px]` — 아이 손가락 기준. 예전엔 13화면 전부 40px 이었고, 이제 한 곳이라 같이 낫는다.
-     */
-    <button
-      type="button"
-      onClick={workspace?.active ? () => workspace.setNavigationOpen(true) : onBack}
-      aria-label={workspace?.active ? t('workspace.activities') : t('common.back')}
-      aria-expanded={workspace?.active ? workspace.navigationOpen : undefined}
-      className="shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-full border border-ink-100 bg-white text-ink-700 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-coral-700"
-    >
-      {workspace?.active ? <WorkspaceMenuIcon /> : <PhonicsGameSprite name="back" size={26} />}
-    </button>
-  );
+  const back = <WorkspaceActivityButtons onBack={onBack} />;
   return (
     <div
       data-activity-kind={kind}
@@ -131,13 +107,16 @@ export function ActivityShell({
             {headerRight}
           </div>
         ) : null
-      ) : right ? (
+      ) : headerRight || workspace?.active ? (
         <div className="flex items-center justify-between gap-3 mb-3">
           {back}
           {/* 🔴 넘치는 쪽은 **오른쪽**이다 — 글자 탭이 많은 단원(STUV·WXYZ)은 줄여도 안 들어가므로
               가로로 밀어 볼 수 있게 한다. `min-w-0` 없이는 flex 자식이 안 줄어 페이지가 옆으로 샌다. */}
-          <div className="min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {right}
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {headerRight}
+            </div>
+            <WorkspaceMapButton />
           </div>
         </div>
       ) : (

@@ -3,13 +3,14 @@ import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { expect, it, vi } from 'vitest';
 import { GameHeader } from './GameHeader';
 import { GameHomeContext } from './GameHomeContext';
+import { useLearningWorkspace } from '@/features/phonics-learner/components/learning-workspace-context';
 
 vi.mock('../../phonics-learner/components/ActivityShell', () => ({
   usePhonicsEmbedded: () => false,
 }));
 vi.mock('./BlockInputGate', () => ({ useBlockInputControl: () => null }));
 vi.mock('@/features/phonics-learner/components/learning-workspace-context', () => ({
-  useLearningWorkspace: () => null,
+  useLearningWorkspace: vi.fn(() => null),
 }));
 function Home() {
   return (
@@ -40,4 +41,30 @@ it.each(['/library', '/library?playLang=en'])('the header home button respects %
   );
   fireEvent.click(screen.getByRole('button', { name: '홈으로' }));
   expect(screen.getByRole('status')).toHaveTextContent(target);
+});
+
+it('workspace back, activity menu and map remain separate actions', () => {
+  const back = vi.fn(),
+    map = vi.fn(),
+    menu = vi.fn();
+  vi.mocked(useLearningWorkspace).mockReturnValue({
+    active: true,
+    navigationOpen: false,
+    setNavigationOpen: menu,
+    backToMap: map,
+  });
+  render(
+    <MemoryRouter>
+      <GameHeader title="블록 놀이" current={1} total={4} onBack={back} />
+    </MemoryRouter>
+  );
+  fireEvent.click(screen.getByRole('button', { name: '← 돌아가기' }));
+  expect(back).toHaveBeenCalledOnce();
+  expect(menu).not.toHaveBeenCalled();
+  expect(map).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
+  expect(menu).toHaveBeenCalledWith(true);
+  fireEvent.click(screen.getByRole('button', { name: '학습 지도' }));
+  expect(map).toHaveBeenCalledOnce();
+  vi.mocked(useLearningWorkspace).mockReturnValue(null);
 });

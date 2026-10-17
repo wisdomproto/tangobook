@@ -95,22 +95,6 @@
   border-radius: 16px;
   white-space: nowrap;
 }
-.workspace-map-button {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #fffdf5;
-  border: 1px solid #e6e0cc;
-  box-shadow: 0 3px 0 #e6e0cc;
-}
-.workspace-map-button:focus-visible {
-  outline: 3px solid #c7553c;
-  outline-offset: 3px;
-}
-
 /* Whole-course tree: folds are navigation only; the running leaf comes from the actual route. */
 .workspace-course-button,
 .workspace-chapter-choice {
