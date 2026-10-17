@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-17 낱말 쓰기 최종: 한글·영어 모두 따라쓰기만 제공한다. 손글씨 OCR·정답 윤곽 없는 받아쓰기는 사용자 결정으로 제외한다. 자유 쓰기는 model/first 가이드까지만 지원하고 listen 단계로 올리지 않는다. 따라쓰기 완료는 연습 근거이며 independent=false를 유지한다. [결정](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md#낱말-쓰기-최종-결정).
+
 2026-10-17 자유놀이 최신: PhonicsFreePlay4입구→useAdaptiveFreePlay→실제 route 즉시 실행, 선택 dialog 없음. 같은 child 서버 learning-events+pending/ACK 또는 미귀속 guest와 실제 local 진도를 scoped 병합한다. adaptive-free-play의 보수적 규칙/무기록 최저 단원, profile/lang 변경 stale 차단. freePlay=1&support=model/first/listen으로 도움 전달, 블록은 기존 -listen 평가/힌트 기록 재사용·영어B1 제외. 쓰기/색칠은 freshWordPracticeRun의 매 진입 새 deck, 기존 순차/단독 cursor를 덮어쓰지 않는다. 이전 free6종/dialog 설명 대체. [검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md).
 
 2026-10-17 자유모드 축소: PhonicsFreePlay는 words 중 meet를 제외한6놀이만 노출한다. 글자/낱말 탭과 UI 전용 store를 제거했다. catalog/기존 직접 활동·커리큘럼 계획·진도는 보존한다. 랜덤/왼쪽 내용 목록은 미결, 기존 내용 dialog 유지. [후속](../../../../../docs/work/phonics/tasks/20261017-free-play-shelf.md#자유놀이-종류-축소--사용자-후속).

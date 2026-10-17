@@ -106,7 +106,7 @@ export function chooseAdaptiveFreePlay(
       : new Set([...correct, ...practice]).size >= 3
         ? 'first'
         : 'model';
-  // Tracing is still guided practice. Blank dictation awaits handwriting recognition validation.
+  // Word writing stays guided tracing; handwriting OCR and blank dictation are excluded.
   const effectiveSupport = game === 'wordWrite' && support === 'listen' ? 'first' : support;
   return {
     unitId: entry.unit.id,
