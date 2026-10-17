@@ -2,11 +2,12 @@
 
 - id: 20261017-game-loading-bottlenecks
 - domain: games
-- status: ready
+- status: integrated
 - base: 443136b33
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - delivery: 로컬 작업·이번 요청 push 없음
+- integration: dfc1c1563 로컬 main fast-forward 통합
 
 ## 요청·계약
 
@@ -47,7 +48,12 @@
 - 새 built preview1024×768 실제 입력: core progress 동안 알파벳 tray없음→음원 듣기→a배치/되돌리기 성공. 한영 쓰기 짧은 획의 잉크 유지, 한영 색칠 붓 입력/팔레트/원본 anonymous 확인. 한영 숨은그림 장면/2~3타깃 표시 및 오답 위치 tap, 영어 그림짝4카드 중 선택 강조. pageerror0. 전체 게임 완주/실기기 손가락·스피커 청취는 아니다.
 - 초기 입력 검수 스크립트가 gray guide의 G/B값을 너무 낮게 잡아 글자 픽셀을 못 찾았다. 가이드 실제색#e5e7eb에 맞춰 탐색 범위를 고친 후 실제 pointer 입력을 확인했다. 제품의 쓰기 오류가 아니며 실패를 성공 기록에 합치지 않았다.
 - 화면 증거 gate.png, english-block-input.png, en/ko-writing-input.png, en/ko-coloring-input.png, matching-input.png를 육안 확인했다. 기존 레이아웃/동화 장면·학습 기록 변경 없음.
+- 최종 넓은 조사12경로×2진입=24회 모두 준비 화면 도달·pageerror0(`after.json`). 한영 블록/쓰기/색칠/숨은그림 홈4종과 파닉스 영어 블록·한영 쓰기·영어 그림짝을 포함한다. 이 조사는 무작위 내용이어서 개선율 전후 비교에 쓰지 않는다.
 
 ## 남은 범위
 
 원격 목록/책 응답의 변동과 색칠 도안의 최초 다운로드·영역 분석 시간이 남는다. 콘텐츠 적합성 검사/필수 이미지 디코드를 제거하거나 전체 캐시 정책을 바꿔 숫자만 줄이지 않는다. 새 이미지/운영 R2·DB 변경 및 push/배포는 이번 범위에 없다.
+
+## 로컬 통합
+
+구현·검수·기록 dfc1c1563을 root main에 fast-forward했다. source3파일의 커밋 훅 실행 후 변경 없음/기존 검증 결과 유효를 확인했다. 이번 요청의 원격 push는 하지 않았다. 작업 전부터 남아 있던 output/tmp·다른 worktree는 보존했다.

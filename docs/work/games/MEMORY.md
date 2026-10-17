@@ -1,6 +1,6 @@
 # 게임·독후활동 기억
 
-2026-10-17 [영어 블록·게임 로딩 병목](tasks/20261017-game-loading-bottlenecks.md) 로컬 검증 완료·main 통합 대기. 영어 블록/그림짝의 늦은 phonics 목록 조회를 core와 병렬화하고 색칠 원본 img의 CORS를 canvas와 맞춰 같은 URL2요청→1요청. 격리 built Chrome 최초3회 중앙 영어2.74→2.22초·색칠2.27→1.69초, 재진입 개선은 주장하지 않음. 기존 캐시/게이트/상한·판정 유지, 한영 입력/화면 및 타입/lint/build 통과. 새 push/운영 배포 없음.
+2026-10-17 [영어 블록·게임 로딩 병목](tasks/20261017-game-loading-bottlenecks.md) dfc1c1563 로컬 main 통합. 영어 블록/그림짝의 늦은 phonics 목록 조회를 core와 병렬화하고 색칠 원본 img의 CORS를 canvas와 맞춰 같은 URL2요청→1요청. 격리 built Chrome 최초3회 중앙 영어2.74→2.22초·색칠2.27→1.69초, 재진입 개선은 주장하지 않음. 기존 캐시/게이트/상한·판정 유지, 한영24진입/실제 입력 및 타입/lint/build 통과. 새 push/운영 배포 없음.
 
 2026-10-17 한영 자유놀이 도움 `82ee057a7` 실제 로컬 main fast-forward 완료.103회귀/후속 검증·최종 타입 통과, 한영 PC/가로폰 실제 진입·도움 확인. 손글씨 OCR은 가능성 확인까지이며 미구현. 새 push 없음. [통합 기록](../phonics/tasks/20261017-adaptive-free-play.md#로컬-통합).
 

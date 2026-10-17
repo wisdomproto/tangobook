@@ -1,6 +1,6 @@
 # 게임·독후활동 작업 기록
 
-- [영어 블록·공용 게임 로딩 병목](20261017-game-loading-bottlenecks.md) — ready. 영어 블록/그림짝 목록 병렬 준비·색칠 동일 이미지 요청 통일, 캐시/게이트 보존·실제 입력 검수. main 통합 대기, 미푸시.
+- [영어 블록·공용 게임 로딩 병목](20261017-game-loading-bottlenecks.md) — integrated dfc1c1563. 영어 블록/그림짝 목록 병렬 준비·색칠 동일 이미지 요청 통일, 캐시/게이트 보존·24진입/실제 입력 검수. 미푸시.
 
 - [홈 바로 놀기 한영 선택](../../platform/tasks/20261017-home-free-play-languages.md) — 영어4종 기존 player·쉬운 입문 낱말·영어 색칠/숨은그림 연결.
 
