@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 운영11c10b489 프런트09:30:33Z success·서버 skip success·health ok. 새 버전 reload 후 ㄱ3회/Gg 전체 획·H 전환, 야구/cave 동화 장면→다음 낱말 자동, 아기 장면 스킵→가구4/4 단일 이동 확인. 오류 로그 없음. 쓰기 소리 즉시 정지/중복음은 코드·206회귀 근거이며 실제 스피커 청취 불가를 명시한다. [검수·한계](tasks/20261017-interaction-sound-polish.md#운영-배포직접-검수). 기록만 로컬 커밋, 새 push 없음.
+
 2026-10-17 사용자 main push 승인: 한영 디자인/소리/전환 `0160067a5`와 관련 통합·기존 운영 검수 기록을 원격 main에 전달한다. fetch0/3·추적 clean·diff check·기존206회귀/타입/lint/build 확인, 새 제품 수정 없음. [범위](tasks/20261017-interaction-sound-polish.md#메인-푸시-요청). 배포/운영 검수는 별도다.
 
 2026-10-17 `0160067a5` 디자인·사운드·전환 공통 보완 코드/기록을 로컬 main fast-forward 통합 완료. 커밋 훅/최종 장면3검사·diff 확인, 새 push/배포 없음. [전달](tasks/20261017-interaction-sound-polish.md#전달).
