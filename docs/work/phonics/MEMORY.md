@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 영어 게임 첫 진입93d13a669 로컬 main 통합: 블록/듣고블록/그림짝은 기존 단원 query를 non-blocking route loader에서 먼저 시작한다. query key/신선도/in-flight·접근/미디어 gate·학습 기록 유지. core 중 top100은 뒤로 미룸,47검사/타입/lint/build·교차/실제입력 확인, 미푸시. [근거](../games/tasks/20261017-english-first-entry.md).
+
 2026-10-17 59a9537c8 운영 프런트14:03:35Z success·새번들/health ok. 같은 별도Chrome 세션·캐시유지 각5회 준비 중앙값2.321→1.779초(약23%, 실기기보장아님). 장면은core완료뒤·73%게이트→ㅎ배치/되돌리기 정상. R2음절/정답22재진입media모두disk cache, SW/헤더·304 유지. [증거·좌표 검수 실패/보정·한계](tasks/20261017-block-preload-bottleneck.md#최종-운영-결과). 태블릿홈7크기 전체노출, 검수문서만 로컬.
 
 2026-10-17 사용자 main push 승인: 블록 준비/태블릿 홈5e5c3d96a와 통합·앞선 운영 검수 기록을 전달한다. fetch0/3·추적 clean·기존53검사/타입/lint/build 이후 제품 변경 없음. [범위](tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청). 운영 배포 확인은 별도다.

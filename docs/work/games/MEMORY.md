@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-17 영어 첫 진입 후속93d13a669 코드/기록 로컬 main fast-forward 완료.47검사/타입/lint/build40.51초 및 최종 built preview 교차·실제 입력/캐시 검수 이후 실질 source 변경 없음. [전달 상태](tasks/20261017-english-first-entry.md#전달). 아래 통합 대기는 이전 기록이며 이번 작업은 미푸시·미배포다.
+
 2026-10-17 [영어 첫 진입 후속](tasks/20261017-english-first-entry.md) 로컬 검증·main 통합 대기. 영어 블록/그림짝 단원 GET을 non-blocking route loader에서 기존 query로 먼저 시작·중복1회/신선 캐시 보존. core 중 top100 배경 다운로드0·ready 후기존100개 예열. 로컬 교차3회 중앙 블록2.407→2.214초·그림짝2.312→1.746초,47검사/타입/lint/build40.51초·실제입력/캐시 확인. 효과 코드 선행은 블록 느려져 제외, 원본 엔진 보존. 운영/실기기 보장 아님·새 push 없음.
 
 2026-10-17 [영어 게임 로딩 운영 검수](tasks/20261017-game-loading-bottlenecks.md#운영-최종-결과): db8aaf7f0/Railway aad2ad84 success·새 entry/health 확인. 같은 Chrome 재진입5회 중앙 블록1.304초·그림짝0.758초, 캐시 없는 첫 진입은3.46→3.32/3.37→3.16초로 편차 커 큰 개선 단정 불가. 색칠 같은 ball 원본2→1요청(도안 포함3→2), 정답음원40응답disk cache·WebP7일/JS1년·SW동일 유지. 게이트→배치/undo·선택·붓 입력 pageerror0. 중간 동시검수/계측 집계 보정·실기기/청취 미검수 한계는 task 참조. 제품/운영 데이터 변경 없이 기록만 후속 로컬 커밋.

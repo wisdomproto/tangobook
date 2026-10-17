@@ -2,11 +2,12 @@
 
 - id: 20261017-english-first-entry
 - domain: games
-- status: ready
+- status: integrated
 - base: a01e45464
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - delivery: 로컬 작업·새 push 요청 없음
+- integration: 93d13a669 로컬 main fast-forward 통합
 
 ## 요청·기준
 
@@ -47,7 +48,7 @@ top100 조절만 남긴 전후 순차 표본에서는 블록3053→2208ms·그�
 | 영어 Book3 블록 | 3058 / 2374 / 2407 | 2205 / 2214 / 2285 | 2407→2214ms |
 | 영어 Book2 그림짝 | 2331 / 2280 / 2312 | 2200 / 1723 / 1746 | 2312→1746ms |
 
-- 같은 단원 GET은 각 입장 **1회**. 단원 요청 시작은 baseline626~721ms에서 candidate150~162ms로 실제 앞당겨졌다. 기존 query가 별도 재요청하지 않고 진행 중 결과를 받는다. 이 비교는 직전 top100-only/효과 실험/운영 결과와 구분한다. 원본 전부 output/english-first-entry-20261017/에 남겼다.
+- 같은 단원 GET은 각 입장 **1회**. 단원 요청 시작은 baseline620~721ms에서 candidate150~170ms로 실제 앞당겨졌다. 기존 query가 별도 재요청하지 않고 진행 중 결과를 받는다. 이 비교는 직전 top100-only/효과 실험/운영 결과와 구분한다. 원본 전부 output/english-first-entry-20261017/에 남겼다.
 - 최종 built preview1024×768 새 context: 두 게임 준비 중 progressbar(0~13%)·tray0/card0, 준비 뒤 정상 화면. gate 전 background phonics mp3 **0개**, 준비 이후2초 관찰에서 기존 top100 **100개** 시작. map 조회·필수 core를 생략하거나 백그라운드 캐시를 제거하지 않았다.
 - 실제 소리 듣기→a배치→되돌리기, 그림짝 선택 강조 정상. 재진입의 실제 정답 음원은 각4응답 모두 disk/SW 캐시 재사용, gate는 실제 상태를 다시 확인한다. pageerror0. 실행 화면과 gate 캡처를 육안 확인했다. 전체 게임 완주/실기기 터치·스피커 청취·운영 반영 검증은 아니다.
 - 최종 관련8파일47검사 통과(기존7파일39 + loader1파일8, 중복 합산 없음). 최종 client typecheck·변경 source ESLint·build40.51초 통과. 이전45.91초 빌드는 top100-only,79초 빌드는 제외한 효과 실험이라 혼동하지 않는다. 기존 Browserslist/lottie eval/i18n static+dynamic/large chunk 경고는 남는다.
@@ -55,4 +56,4 @@ top100 조절만 남긴 전후 순차 표본에서는 블록3053→2208ms·그�
 
 ## 전달
 
-로컬 검증 완료, main 통합 대기. 현재 요청은 최적화이며 새 push/배포는 승인하지 않았으므로 하지 않는다. 남는 첫 진입 비용은 원격 단원/코어 이미지·음원/화면 코드와 폰트의 실제 다운로드이며, 캐시 플래그나 게이트 단축으로 숨기지 않는다.
+코드/검수 기록93d13a669을 로컬 main에 fast-forward 통합했다. 추적 파일 clean 및 커밋 훅 후 실질 source 변경 없음 확인. 현재 요청은 최적화이며 새 push/배포는 승인하지 않았으므로 하지 않는다. 남는 첫 진입 비용은 원격 단원/코어 이미지·음원/화면 코드와 폰트의 실제 다운로드이며, 캐시 플래그나 게이트 단축으로 숨기지 않는다.
