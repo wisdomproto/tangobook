@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-17 사용자 승인으로 태블릿 홈/블록 준비5e5c3d96a와 관련 기록을 main 일반 push한다. fetch0/3·추적 clean·검증 이후 코드 변경 없음. [전달 범위](../phonics/tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청), 배포 완료는 별도 확인한다.
+
 2026-10-17 태블릿 홈/블록 병목5e5c3d96a 로컬 main ff 통합 완료. [최종 배치/통합](tasks/20261017-home-tablet-fit.md#로컬-통합), built preview 홈768px 전체노출·ㅎ입력/오류0, 훅 통과. 새 push/배포 없음.
 
 2026-10-17 [태블릿 홈](tasks/20261017-home-tablet-fit.md): 제목/과정/별도이어하기·4놀이/추천3권 배치 조정, 가로1024×600~1366×768·세로768×1024에서 두 이어하기가 있어도 모두 노출/가로넘침0. 기존 동선/글자·44px 조작·WebP 유지, PC/폰 기존스크롤. [블록 병목](../phonics/tasks/20261017-block-preload-bottleneck.md)은 선택장면 후순위·pending음원공유로 보완,53회귀·타입/lint/build 통과. 독립 headless viewport 검수이며 실기기/운영배포 아님, 새 push 없음.

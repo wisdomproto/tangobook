@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 사용자 승인으로 블록 준비 경합 개선/태블릿 홈5e5c3d96a 및 관련 기록을 main push 대상으로 확정했다. fetch0/3·추적 clean·기존53검사/타입/lint/build·built preview 이후 코드 변경 없음. [범위](../work/phonics/tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청). push와 운영 배포 완료는 구분한다.
+
 2026-10-17 블록 병목/태블릿 홈5e5c3d96a 코드·기록 로컬 main 통합 완료.53검사/타입/lint/build 및 built preview 홈 전체·블록 입력 확인, 훅/추적 clean. [인계](../work/phonics/tasks/20261017-block-preload-bottleneck.md#로컬-통합). 새 push/운영 배포 없음.
 
 2026-10-17 [블록 준비 후속](../work/phonics/tasks/20261017-block-preload-bottleneck.md): 선택 장면과 core의 동시 미디어 경합/진행중 동일URL중복을 줄임, 캐시·게이트유지. 로컬dev 중앙값3.26→2.66초(운영보장아님). [태블릿 홈](../work/platform/tasks/20261017-home-tablet-fit.md)은 두 이어하기·4놀이·추천3권까지 가로600px높이/세로태블릿 한 화면.53회귀/타입/lint/build, headless 실제입력/캡처검수. 사용자브라우저 연결오류로 별도QA세션 사용, 새 push/운영배포 없음.

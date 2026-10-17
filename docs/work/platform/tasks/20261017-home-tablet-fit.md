@@ -29,3 +29,5 @@
 ## 로컬 통합
 
 5e5c3d96a와 함께 로컬 main fast-forward 통합 완료, 훅/추적 상태·diff check 확인. root output/preload-home-20261017에도 주요 스크린샷/계측 사본을 보존했다. 새 push/배포는 하지 않았다.
+
+2026-10-17 사용자 후속 요청으로 main push 승인. [전달 범위와 검증](../../phonics/tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청). 기존 검수 이후 제품 변경은 없으며, push와 실제 운영 배포 완료는 구분한다.

@@ -38,3 +38,7 @@
 ## 로컬 통합
 
 5e5c3d96a 코드·회귀·기록을 로컬 main fast-forward 통합했다. 커밋 훅 ESLint/Prettier 통과·추적 clean·diff check 확인. 기존 output/tmp·다른 worktree 보존, 주요 증거 사본을 root output/preload-home-20261017에도 보관했다. 새 push/운영 배포 없음.
+
+## 메인 푸시 요청
+
+2026-10-17 사용자 “좋아. 메인에 푸시하자”로 이번 블록 준비/태블릿 홈 main push 승인. fetch 후 origin/main...HEAD=0/3·추적 clean·diff check 통과. 5e5c3d96a 구현, fe091d4bb 통합 기록과 앞선 b047e3c5f 운영 검수 문서가 전달 범위다. 기존53검사/타입/lint/build·built preview 이후 제품 변경 없음. 관련 승인 기록만 추가하고 일반 push 뒤 원격 SHA를 대조한다. 운영 배포 성공은 별도 확인 대상이다.
