@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 사용자 요청으로 자유놀이4종 직접 시작·맞춤 도움·낱말 따라쓰기 유지까지 main push 진행. 기존 미푸시7커밋이 모두 이 작업 범위임을 확인, fetch 기준 divergence 없음(0/7). 아래 새 push 없음 기록은 당시 상태다. [반영 범위](../work/phonics/tasks/20261017-adaptive-free-play.md#메인-푸시-요청).
+
 2026-10-17 한영 낱말 쓰기 최종: 사용자 판단으로 손글씨 OCR·받아쓰기를 제외하고 따라쓰기만 유지. 기존 model/first 도움·연습 완료/독립 성취 구분이 이미 부합한다. 아래 OCR 검증 대기 설명은 종료된 검토다. [결정·확인](../work/phonics/tasks/20261017-adaptive-free-play.md#낱말-쓰기-최종-결정). 새 push 없음.
 
 2026-10-17 한영 맞춤 자유놀이 `82ee057a7` 실제 로컬 main fast-forward 완료.103회귀/후속 검증·최종 타입 통과, 한영 PC/가로폰 실제 진입·도움 확인. 손글씨 OCR은 가능성 확인까지이며 미구현. 새 push 없음. [통합 기록](../work/phonics/tasks/20261017-adaptive-free-play.md#로컬-통합).
