@@ -2,7 +2,7 @@
 
 - id: 20261017-free-play-shelf
 - domain: phonics
-- status: implemented
+- status: completed
 - base: 58375b618
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
@@ -33,3 +33,8 @@
 - PC1280×720·태블릿1024×768·가로폰844×390에서 한영 선반/내용 dialog와 홈 연결 배치 확인. 가로폰은 페이지 스크롤로 아랫줄에 도달, 내용 dialog는 내부 스크롤·닫기/권 탭 유지, 수평 넘침 없음. 실제 폰/터치 기기 검수나 모든 게임 전체 완주 아님.
 - 그림은 기존 도구/자모 WebP·sprite 재사용. 추가 생성·무거운 엔진 없음. 홈에서 기존 BookCover fetchPriority React 개발 경고 관찰(이 작업 수정 파일 밖), 새 선반 관련 런타임 실패는 관찰하지 않았다.
 - 화면 증거 `C:/project/tangobook/output/free-play-shelf-20261017/` (산출물 비커밋). 운영 데이터 수정/새 배포 없음.
+
+## 로컬 통합
+
+- 제품·검수 기록 커밋 `3cd64ec7d`를 실제 `C:/project/tangobook`의 main에 fast-forward했다. fetch 후 기준 origin/main은 `58375b618`로 변경 없음. 통합 후 추적 파일 clean 확인.
+- 코드/기억을 함께 포함했으며 기존 output/tmp 미추적 산출물은 보존했다. 이번 요청은 구현·화면 확인으로 새 main push/운영 배포는 하지 않았다.

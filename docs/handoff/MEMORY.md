@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 한영 자유모드 선반 `3cd64ec7d` 실제 main fast-forward 완료·코드/기억 포함 확인. 홈 즉시 시작/자유 내용 선택 역할 분리, 새 push 없음. [통합 기록](../work/phonics/tasks/20261017-free-play-shelf.md#로컬-통합).
+
 2026-10-17 [한영 자유모드 놀이 선택](../work/phonics/tasks/20261017-free-play-shelf.md): 지도 대신 글자/낱말 놀이→권/내용 선택으로 변경. 홈4종 즉시 시작+골라 놀기 연결, 활동 복귀 목적 분리·숨은 free 지도 제외. 실제 단원/part cursor·커리큘럼 유지. 93회귀/타입/lint/build·한영 실제 동선/PC·태블릿·가로폰 확인. 새 push 없음.
 
 2026-10-17 [한영 쓰기·모드 그림 푸시 요청](../work/phonics/tasks/20261017-writing-pause-navigation.md#main-푸시-요청--2026-10-17): 사용자 현재 main push 승인. 쓰기 잉크 유지/90% 완료·뒤로/목록/지도·펼침 자동 이동과 모드 그림을 일반 push 대상으로 확정했다. fetch0/5·tracked clean·전달 diff/check 확인, 배포 완료는 별도 확인한다.
