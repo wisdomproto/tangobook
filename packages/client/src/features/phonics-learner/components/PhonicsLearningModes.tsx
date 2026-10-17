@@ -84,10 +84,10 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
             className={`phonics-mode-choice ${theme.focus}`}
           >
             <img
-              src="/images/phonics/mode-entry-v1/curriculum.webp"
+              src="/images/phonics/mode-entry-v2/curriculum.webp"
               alt=""
-              width={800}
-              height={450}
+              width={960}
+              height={640}
               decoding="async"
               draggable={false}
             />
@@ -105,10 +105,10 @@ export function PhonicsLearningModes({ lang }: { lang: JourneyLanguage }) {
               className={`phonics-mode-choice ${theme.focus}`}
             >
               <img
-                src="/images/phonics/mode-entry-v1/free.webp"
+                src="/images/phonics/mode-entry-v2/free.webp"
                 alt=""
-                width={800}
-                height={450}
+                width={960}
+                height={640}
                 decoding="async"
                 draggable={false}
               />

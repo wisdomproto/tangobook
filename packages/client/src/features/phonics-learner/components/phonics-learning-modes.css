@@ -55,7 +55,7 @@
 .phonics-mode-choice img {
   display: block;
   width: 100%;
-  aspect-ratio: 1.55;
+  aspect-ratio: 1.5;
   object-fit: cover;
   pointer-events: none;
   user-select: none;
@@ -126,8 +126,10 @@
     border-radius: 22px;
   }
   .phonics-mode-choice img {
-    height: clamp(60px, 20dvh, 100px);
+    height: clamp(90px, 34dvh, 160px);
     aspect-ratio: auto;
+    object-fit: contain;
+    background: #edf2df;
   }
   .phonics-mode-choice > span {
     padding: 10px 18px;
@@ -156,13 +158,31 @@
     gap: 18px;
   }
   .phonics-mode-choice img {
-    height: 110px;
+    width: 44%;
+    height: auto;
     aspect-ratio: auto;
+    object-fit: contain;
+    background: #edf2df;
+  }
+  .phonics-mode-choice {
+    flex-direction: row;
+    min-height: 144px;
+    border-radius: 24px;
   }
   .phonics-mode-choice > span {
+    flex: 1;
     min-height: 66px;
-    padding: 12px 20px;
-    font-size: 23px;
+    padding: 16px 12px;
+    font-size: 20px;
+    gap: 8px;
+  }
+  .phonics-mode-choice > span svg {
+    width: 30px;
+    height: 30px;
+    padding: 6px;
+  }
+  .phonics-mode-caption small {
+    font-size: 14px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

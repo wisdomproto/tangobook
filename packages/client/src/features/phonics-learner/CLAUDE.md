@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-17 모드 입구 그림은 mode-entry-v2 새 WebP2장이다. 커리큘럼은 학습 길, 자유모드는 네 놀이가 펼쳐진 장면으로 구분하며 한영이 같은 자산을 공유한다. 기본3:2·작은 화면 contain·세로는 그림/문구 좌우 카드로 잘림을 막는다. 아래 mode-entry-v1 사용 설명을 대체한다. [검수](../../../../../docs/work/phonics/tasks/20261017-mode-choice-illustrations.md).
+
 2026-10-17 자유 part/완료 단계 복습은 종류별 별도 낱말 cursor를 저장한다. 선택 종류로 다음 타깃을 이어가고 마지막에 지도, 도중 이탈/새로고침은 해당 종류의 다음 낱말부터 복원한다. 기존 실제 연습 ledger를 읽되 본 순차 run/부모 완료/커리큘럼 순서를 덮어쓰지 않는다. 잠긴 부분 연습 행은 회색/자물쇠이며 연습량만 별도 표시한다. 아래 개별 연습 한 낱말 뒤 즉시 지도 설명은 이 후속으로 대체한다. [검증](../../../../../docs/work/phonics/tasks/20261017-word-practice-cursor-lock-colors.md).
 
 2026-10-16 팝잇 확대: popit-letter-designs는 한글40자·영어52자의 실제 SVG 경로/방울을 제공한다. 단일 VowelListenActivity와 모든 ConsonantTapActivity가 공통 HangulPopitActivity를 사용하며, AlphabetLetterLearnActivity는 같은 LetterPopitExperience로 대문자→소문자→기존 삽화/낱말 탐색을 이어간다. 탭 전환만으로 완료하지 않는다. 첫/최종 발음 순차·음원 오류 재시도·칭찬 뒤 단일 완료·44px HTML 터치 영역/reduced-motion/공용 음소거·기존 진도 키를 유지한다. 묶음 듣기 퀴즈/쓰기 판정은 바꾸지 않는다. DEV letter-popit-check.html은 학생 기록 없이 전체 형태/실제 클릭/4화면 배치 검수용이며 production entry가 아니다. [검증](../../../../../docs/work/phonics/tasks/20261016-popit-all-letters.md).
