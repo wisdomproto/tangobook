@@ -2,7 +2,7 @@
 
 - id: 20261017-phonics-block-preload-bottleneck
 - domain: phonics
-- status: ready
+- status: integrated
 - updated: 2026-10-17
 - base: b047e3c5f
 - branch: codex/phonics-word-journey
@@ -34,3 +34,7 @@
 - 최초 홈 회귀1건은 기존 헤더 ‘골라 놀기’ 추가 전의 총 링크4개 기대값이 낡은 실패였다. 직접 게임4링크와 별도 선반 링크를 각각 검사하도록 맞췄고 기능/학습 기대값을 낮추지 않았다.
 - CUA·computer-use runtime은 kernel assets 경로 오류로 연결 불가, 기존 사용자 브라우저를 우회 제어하지 않고 저장된 headless viewport 스크린샷을 육안 검수했다. 기존 사용자 캐시/진도 삭제 없음. worktree output/preload-home-20261017의 before/after-timing·interaction·english-input·스크린샷은 미추적/커밋 제외. 새 push/운영 배포 없음.
 - 최종 production build를 localhost5194에서 별도로 열어 단원 진입→듣기→ㅎ 실제 배치(1개)까지 재확인, pageerror0. 새 coreKey/게이트가 실제 컴파일된 번들에서도 동작한다. 운영 배포나 사용자 실기기 검사로 해석하지 않는다.
+
+## 로컬 통합
+
+5e5c3d96a 코드·회귀·기록을 로컬 main fast-forward 통합했다. 커밋 훅 ESLint/Prettier 통과·추적 clean·diff check 확인. 기존 output/tmp·다른 worktree 보존, 주요 증거 사본을 root output/preload-home-20261017에도 보관했다. 새 push/운영 배포 없음.

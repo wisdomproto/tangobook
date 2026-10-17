@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 블록 병목/태블릿 홈5e5c3d96a 코드·기록 로컬 main 통합 완료.53검사/타입/lint/build 및 built preview 홈 전체·블록 입력 확인, 훅/추적 clean. [인계](../work/phonics/tasks/20261017-block-preload-bottleneck.md#로컬-통합). 새 push/운영 배포 없음.
+
 2026-10-17 [블록 준비 후속](../work/phonics/tasks/20261017-block-preload-bottleneck.md): 선택 장면과 core의 동시 미디어 경합/진행중 동일URL중복을 줄임, 캐시·게이트유지. 로컬dev 중앙값3.26→2.66초(운영보장아님). [태블릿 홈](../work/platform/tasks/20261017-home-tablet-fit.md)은 두 이어하기·4놀이·추천3권까지 가로600px높이/세로태블릿 한 화면.53회귀/타입/lint/build, headless 실제입력/캡처검수. 사용자브라우저 연결오류로 별도QA세션 사용, 새 push/운영배포 없음.
 
 2026-10-17 블록 준비 최적화 ff2bb9ed4 운영 배포 success/Active·health ok. 운영 같은 단원·캐시 유지 전후 각5회 중앙값1.61→1.54초로 소폭 감소(범위겹침, 큰개선단정불가). 실제 준비게이트60%→ㅎ배치/되돌리기 정상·로그0. WebP7일/JS1년immutable·조건부304/0B·SW동일, 브라우저HIT 직접계측/실기기는 아님. [근거](../work/phonics/tasks/20261017-korean-block-preload-parallel.md#새-배포-이후-결과). 새 제품 변경 없이 운영검수 기록만 로컬.

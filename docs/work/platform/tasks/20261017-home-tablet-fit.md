@@ -2,7 +2,7 @@
 
 - id: 20261017-platform-home-tablet-fit
 - domain: platform
-- status: ready
+- status: integrated
 - updated: 2026-10-17
 - base: b047e3c5f
 - branch: codex/phonics-word-journey
@@ -25,3 +25,7 @@
 - 1536×864 PC/844×390 폰은 기존 스크롤 배치 유지·가로 넘침0. PC/폰도 억지로 한 화면에 축소하지 않는다. 긴 다국어/큰 글꼴은 자연스러운 스크롤 허용. 실제 기기/FPS 전수 검수는 아니다.
 - 관련53회귀·client 타입/변경 lint·최종 build46.71초 통과. 기존 WebP만 재사용, 새 자산/엔진·언어별 동선·추천/학습/운영 설정 변경 없음. 스크린샷/geometry는 worktree output/preload-home-20261017에 미추적으로 보존한다. 새 push 없음.
 - 최종 built preview5194에서도1024×768·두 이어하기·추천3권을 재검수: 문서768px/책 끝718px, pageerror0. home-built-1024x768.png를 저장·육안 확인했다. 개발 CSS에만 맞고 실제 번들에서 빠지는 경우를 구분했다.
+
+## 로컬 통합
+
+5e5c3d96a와 함께 로컬 main fast-forward 통합 완료, 훅/추적 상태·diff check 확인. root output/preload-home-20261017에도 주요 스크린샷/계측 사본을 보존했다. 새 push/배포는 하지 않았다.
