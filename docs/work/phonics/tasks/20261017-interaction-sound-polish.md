@@ -39,4 +39,4 @@ PC1280×720을 중심으로 실제 브라우저 입력, 작은 가로/태블릿 
 
 ## 전달
 
-관련 코드·기록만 로컬 커밋 후 main fast-forward 통합한다. 새 push 요청 없음.
+`0160067a5` 관련 코드·기록을 로컬 main에 fast-forward 통합 완료했다. 커밋 훅 ESLint/Prettier 통과, 최종 SceneReveal3검사 재통과·diff check 확인. 기존 미추적 output/tmp와 다른 작업 폴더를 보존했다. 새 push/배포 없음.
