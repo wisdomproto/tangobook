@@ -1,6 +1,6 @@
 # 게임·독후활동 작업 기록
 
-- [영어 블록 준비 오디오 재사용](20261018-english-prepared-audio.md) — integrated b102ed23f. 영어 core 실제 요소24개/5분·매번 준비 검사, 로컬 SPA 중앙271→118ms·46검사/타입/lint/build/화면·음원·캐시/게이트 유지. 전체 선로딩은 논의만·새 push 없음.
+- [영어 블록 준비 오디오 재사용](20261018-english-prepared-audio.md) — integrated b102ed23f·사용자 main push 승인. 영어 core 실제 요소24개/5분·매번 준비 검사, 로컬 SPA 중앙271→118ms·46검사/타입/lint/build/화면·음원·캐시/게이트 유지. 전체 선로딩 개편은 기능 개발 후 재검토·현재 보류.
 
 - [영어 첫 진입 코드 대기 후속](20261018-english-entry-waterfall.md) — integrated fa3084114·751882150 운영success. 운영최초3회 중앙 블록3.25→2.81초·그림짝3.10→2.79초, 불필요한코드요청2→0·캐시/게이트/입력 유지.45회귀/타입/lint/build 통과, 운영 검수 기록만 로컬.
 
