@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 ff2bb9ed4 프런트10:34:31Z 배포 success·Railway Active/commit·health ok. 같은 운영 한글 블록 기존캐시 각5회 중앙값1.614→1.542초(4.5%·범위 겹침, 큰개선/30% 보장 아님). 새게이트60%→판 진입·ㅎ실제배치/되돌리기·로그0. WebP7일/JS1년immutable·304/0B·SW동일 유지, 브라우저 개별HIT/실기기와 구분. [운영 증거·한계](tasks/20261017-korean-block-preload-parallel.md#새-배포-이후-결과). 검수 기록만 로컬.
+
 2026-10-17 사용자 main push 승인: 블록 준비 병렬화 a7304becc 및 관련 통합/로딩 감사/운영 검수 기록을 전달한다. fetch0/4·추적 clean·diff check, 기존53회귀/타입/lint/build 이후 제품 수정 없음. [전달 범위](tasks/20261017-korean-block-preload-parallel.md#메인-푸시-요청). 운영 배포 확인은 별도다.
 
 2026-10-17 a7304becc 블록 준비 병렬화 코드·53회귀·기억을 로컬 main fast-forward 통합 완료. [전후 측정/한계](tasks/20261017-korean-block-preload-parallel.md#최종-검증통합). 새 push/배포 없음.
