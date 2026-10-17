@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 [쓰기·모드 그림 main 전달](tasks/20261017-writing-pause-navigation.md#main-푸시-요청--2026-10-17): 사용자 현재 요청으로 a5193ccbe 쓰기 중단/탐색·a0906a61e 모드 그림과 기록을 원격 main 일반 push 대상으로 확정. fetch0/5·tracked clean·전달 diff/check 확인, 기존 검증 유지. 아래 미푸시는 이전 시점이며 새 운영 배포 완료는 별도 확인.
+
 2026-10-17 쓰기 중단·탐색 a5193ccbe 로컬 main fast-forward 통합 완료.68회귀와 실제 ㄱ/D 중단·재개·목록 내부 이동 검수 포함, 새 push/배포 없음. [통합](tasks/20261017-writing-pause-navigation.md#로컬-통합).
 
 2026-10-17 [쓰기 중단·탐색 보완](tasks/20261017-writing-pause-navigation.md): 사용자 ㄱ1획 유지 승인, 한영90% 끝맺음/미달 잉크 유지·초록 점 이어쓰기. 뒤로·목록·지도 분리, 펼친 가지는 내부 자동 스크롤. ㄱ/D 실제 native 중단/재개·한영 공용 헤더/폰 drawer 확인,68테스트/타입/lint/build 통과. 로컬 main 통합 대상, 새 push 없음.

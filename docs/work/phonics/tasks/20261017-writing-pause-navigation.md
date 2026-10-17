@@ -6,7 +6,7 @@
 - base: b775c6f07
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 새 push 요청 없음
+- delivery: 2026-10-17 사용자 main push 요청으로 원격 main 일반 push 대상 확정
 
 ## 사용자 결정
 
@@ -36,3 +36,8 @@
 ## 로컬 통합
 
 - a5193ccbe를 로컬 main에 fast-forward 통합, code+기록 포함·훅 ESLint/Prettier·tracked clean 확인. 추가로1024×768 ㄱ 쓰기 정렬·844×390 한영 색칠/ㄱ 쓰기·console error0 확인, viewport reset. 원격 push/배포는 하지 않았다.
+
+## main 푸시 요청 — 2026-10-17
+
+- 사용자 현재 요청으로 a5193ccbe 쓰기·탐색, 선행 a0906a61e 모드 그림 및 관련 기록을 원격 main 일반 push 대상으로 확정했다. fetch 후 origin/main...HEAD=0/5, tracked clean·전체 전달 diff/check 확인. 기존68회귀/타입/lint/build·화면 결과를 유지하며 코드 추가 수정은 없다. 이전 ‘새 push 없음’은 당시 상태다.
+- push 후 원격 main과 로컬 HEAD 일치를 확인한다. Railway 배포 성공·운영 UI 확인은 별도이며 push 성공으로 배포 완료를 단정하지 않는다.
