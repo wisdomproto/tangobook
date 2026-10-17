@@ -1,0 +1,38 @@
+.scene-reveal {
+  animation: scene-reveal-enter 180ms ease-out both;
+}
+.scene-reveal-panel {
+  width: min(1024px, 100%, calc((100dvh - 104px) * 16 / 9));
+}
+.scene-reveal-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+}
+.scene-reveal .scene-reveal-caption {
+  padding: clamp(10px, 2dvh, 28px) clamp(14px, 3vw, 32px);
+}
+.scene-reveal-caption p {
+  font-size: clamp(16px, 3.5dvh, 24px);
+  line-height: 1.35;
+}
+@keyframes scene-reveal-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-reveal {
+    animation: none;
+  }
+  .scene-reveal img {
+    transition: none;
+  }
+}

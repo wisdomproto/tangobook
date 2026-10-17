@@ -5,7 +5,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/design-system';
-import { feedDrawLoop } from '@/lib/uiSound';
+import { feedDrawLoop, stopDrawLoop } from '@/lib/uiSound';
 import { RotateCcw } from 'lucide-react';
 import { VowelStrokeOverlay } from './VowelStrokeOverlay';
 import {
@@ -103,6 +103,7 @@ export function LetterFillCanvas({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(
     () => () => {
+      stopDrawLoop();
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.src = '';
@@ -272,6 +273,7 @@ export function LetterFillCanvas({
 
   const handlePointerUp = () => {
     if (!isDrawingRef.current) return;
+    stopDrawLoop();
     isDrawingRef.current = false;
     lastPointRef.current = null;
     if (hasDrawn && !result) {
@@ -284,6 +286,7 @@ export function LetterFillCanvas({
   };
 
   const handleClear = () => {
+    stopDrawLoop();
     const ctx = canvasRef.current?.getContext('2d');
     if (!ctx) return;
     lastPointRef.current = null;

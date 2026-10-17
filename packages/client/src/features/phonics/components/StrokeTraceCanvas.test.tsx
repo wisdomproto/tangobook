@@ -3,8 +3,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { StrokeTraceCanvas } from './StrokeTraceCanvas';
 import { getLetterGuideStrokes } from './letter-stroke-guide';
 import { makeTracePath } from './stroke-tracing';
+import { playUi, stopDrawLoop } from '@/lib/uiSound';
 import curveEnds from './__fixtures__/english-curve-ends.json';
-vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), playUi: vi.fn() }));
+vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), playUi: vi.fn(), stopDrawLoop: vi.fn() }));
 vi.mock('@/features/games/effects/learning-effects', () => ({ emitLearningEffect: vi.fn() }));
 vi.mock('./letter-stroke-guide', () => ({
   getLetterGuideStrokes: vi.fn((letter: string) =>
@@ -114,6 +115,10 @@ describe('실제 획 순서와 완료 배선', () => {
       fireEvent.pointerMove(paper, { pointerId: 1, clientX: x, clientY: y });
     fireEvent.pointerUp(paper, { pointerId: 1, clientX: 300, clientY: 262 });
     expect(result).toHaveBeenCalledExactlyOnceWith(true, 1);
+    expect(playUi).not.toHaveBeenCalledWith('success');
+    expect(vi.mocked(stopDrawLoop).mock.invocationCallOrder.at(-1)).toBeLessThan(
+      result.mock.invocationCallOrder[0]
+    );
   });
   it.each(['ㅏ', 'f'])(
     '%s는 중간에 손을 떼거나 취소해도 잉크를 유지하고 그 지점부터 이어 쓴다',

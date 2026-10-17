@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useRef, useState, type PointerEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, RotateCcw } from 'lucide-react';
-import { feedDrawLoop, playUi } from '@/lib/uiSound';
+import { feedDrawLoop, playUi, stopDrawLoop } from '@/lib/uiSound';
 import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { getLetterGuideStrokes } from './letter-stroke-guide';
 import { VowelStrokeOverlay } from './VowelStrokeOverlay';
@@ -56,6 +56,7 @@ export function StrokeTraceCanvas({
   const [retry, setRetry] = useState(false);
   const [resumePoint, setResumePoint] = useState<StrokePoint | null>(null);
   const endDemo = useCallback(() => setDemonstrating(false), []);
+  useEffect(() => stopDrawLoop, []);
   const paint = useCallback((completed: number) => {
     const ctx = canvas.current?.getContext('2d'),
       data = model.current;
@@ -174,6 +175,7 @@ export function StrokeTraceCanvas({
   };
   const completeStroke = () => {
     if (reported.current) return;
+    stopDrawLoop();
     setRetry(false);
     attempt.current = null;
     setResumePoint(null);
@@ -181,7 +183,8 @@ export function StrokeTraceCanvas({
     const count = ++index.current;
     setDone(count);
     paint(count);
-    playUi(count === strokes.length ? 'success' : 'select');
+    // Final pronunciation/reward belongs to the activity; do not stack a second success sound.
+    if (count < strokes.length) playUi('select');
     if (count === strokes.length) {
       reported.current = true;
       emitLearningEffect('letter', canvas.current);
@@ -190,6 +193,7 @@ export function StrokeTraceCanvas({
   };
   const end = (e: PointerEvent<HTMLCanvasElement>, cancelled = false) => {
     if (e.pointerId !== pointer.current) return;
+    stopDrawLoop();
     const data = model.current!;
     const trace = attempt.current;
     pointer.current = null;

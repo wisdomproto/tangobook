@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useGameAudio } from '../hooks/useGameAudio';
 import { hasWord, wordIndices } from '../lib/word-in-text';
+import './scene-reveal.css';
 
 interface SceneRevealProps {
   illustrationUrl: string;
@@ -90,10 +93,24 @@ export function SceneReveal({
 }: SceneRevealProps) {
   const onDoneRef = useRef(onDone);
   onDoneRef.current = onDone;
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const { t } = useTranslation('common');
+  const { playAudio, stopAll } = useGameAudio();
+  const [readyImage, setReadyImage] = useState('');
+  const imgLoaded = readyImage === illustrationUrl;
+  const advanced = useRef(false);
+  const advance = useCallback(() => {
+    if (advanced.current) return;
+    advanced.current = true;
+    stopAll();
+    onDoneRef.current();
+  }, [stopAll]);
+  useEffect(() => {
+    advanced.current = false;
+  }, [illustrationUrl, ttsUrl]);
 
   // 동화 장면 배경음악 — 마운트 동안 저볼륨 루프. 5곡 중 랜덤 1곡. 언마운트(다음/탭) 시 정지.
   useEffect(() => {
+    if (!imgLoaded) return;
     const n = 1 + Math.floor(Math.random() * 5);
     const bgm = new Audio(backgroundMusicUrl || `/sounds/bgm/default-${n}.mp3`);
     bgm.loop = true;
@@ -103,21 +120,16 @@ export function SceneReveal({
       bgm.pause();
       bgm.src = '';
     };
-  }, [backgroundMusicUrl]);
+  }, [backgroundMusicUrl, imgLoaded]);
 
   useEffect(() => {
-    let advanced = false;
+    if (!imgLoaded) return;
+    let cancelled = false;
     let holdTimer: ReturnType<typeof setTimeout> | undefined;
     const mountedAt = Date.now();
-
-    const advance = () => {
-      if (advanced) return;
-      advanced = true;
-      onDoneRef.current();
-    };
     // 나레이션 끝/실패 시 — 최소 노출 시간은 채우고 다음으로.
     const finishOrHold = () => {
-      if (advanced) return;
+      if (cancelled || advanced.current) return;
       const remaining = MIN_VISIBLE_MS - (Date.now() - mountedAt);
       if (remaining <= 0) advance();
       else holdTimer = setTimeout(advance, remaining);
@@ -126,57 +138,64 @@ export function SceneReveal({
     if (!ttsUrl) {
       holdTimer = setTimeout(advance, NO_AUDIO_HOLD_MS);
       return () => {
-        advanced = true;
+        cancelled = true;
         clearTimeout(holdTimer);
       };
     }
 
-    const audio = new Audio(ttsUrl);
-    audio.addEventListener('ended', finishOrHold);
-    audio.addEventListener('error', finishOrHold);
-    audio.play().catch(finishOrHold);
+    // Reuse the gesture-unlocked speech element; creating a fresh voice here is silent on iOS.
+    playAudio(ttsUrl, finishOrHold, finishOrHold);
     return () => {
       // ⚠️ cleanup 이 advance 를 부르지 않게 — 리스너부터 제거 + 가드.
       // (StrictMode 이중 마운트에서 src='' 가 'error' 를 발생시켜 즉시 다음 단어로 넘어가던 버그 방지)
-      advanced = true;
+      cancelled = true;
       clearTimeout(holdTimer);
-      audio.removeEventListener('ended', finishOrHold);
-      audio.removeEventListener('error', finishOrHold);
-      audio.pause();
-      audio.src = '';
+      stopAll();
     };
-  }, [ttsUrl]);
+  }, [ttsUrl, imgLoaded, playAudio, stopAll, advance]);
 
   return (
     <button
       type="button"
-      onClick={() => onDoneRef.current()}
+      onClick={advance}
       aria-label="다음으로"
-      className="fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-ink-900/85 backdrop-blur-sm p-4 sm:p-8"
+      className="scene-reveal fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-ink-900/85 backdrop-blur-sm p-4 sm:p-8"
     >
       {/* 🔴 폭 상한을 3xl(768px) 에서 넓혔다(2026-08-18). 폰에서는 어차피 화면보다 넓어 바뀌는 게
           없고, **넓은 화면에서만** 달라진다 — 데스크탑 앱에서도 동화책 한 쪽이 화면 절반짜리
           카드로 뜨던 것이 커지고, 랜딩 데모 상자(`EmbedStage` 가 앱을 호스트 뷰포트 폭으로 그린 뒤
           축소한다)에서 리빌이 눈에 띄게 작던 것이 같이 해결된다. */}
-      <div className="relative w-full max-w-5xl aspect-video overflow-hidden rounded-3xl shadow-soft bg-ink-900">
+      <div
+        className="scene-reveal-panel relative aspect-video overflow-hidden rounded-3xl shadow-soft bg-ink-900"
+        aria-busy={!imgLoaded}
+      >
+        {!imgLoaded && (
+          <span className="scene-reveal-loading" role="status">
+            {t('state.loading')}
+          </span>
+        )}
         <img
+          key={illustrationUrl}
           src={illustrationUrl}
           alt=""
-          onLoad={() => setImgLoaded(true)}
+          onLoad={() => setReadyImage(illustrationUrl)}
+          onError={() => setReadyImage(illustrationUrl)}
           className={
             'w-full h-full object-cover transition-opacity duration-300 ' +
             (imgLoaded ? 'opacity-100' : 'opacity-0')
           }
         />
         {text && (
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 py-5 sm:px-8 sm:py-7">
+          <div className="scene-reveal-caption absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 py-5 sm:px-8 sm:py-7">
             <p className="text-white font-black text-lg sm:text-2xl leading-snug break-keep text-center drop-shadow">
               {renderCaption(sentenceWith(text, highlight), highlight)}
             </p>
           </div>
         )}
       </div>
-      <span className="text-white/70 text-sm font-bold break-keep">화면을 누르면 다음으로 →</span>
+      <span className="text-white/80 text-base sm:text-lg font-bold break-keep">
+        화면을 누르면 다음으로 →
+      </span>
     </button>
   );
 }

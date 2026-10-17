@@ -8,7 +8,7 @@ vi.mock('framer-motion', async (original) => ({
   useReducedMotion: () => reduced.value,
 }));
 vi.mock('@/features/games/effects/learning-effects', () => ({ emitLearningEffect: vi.fn() }));
-vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn() }));
+vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), stopDrawLoop: vi.fn() }));
 
 function mask(paintedFraction = 0) {
   const data = new Uint8ClampedArray(400 * 400 * 4);

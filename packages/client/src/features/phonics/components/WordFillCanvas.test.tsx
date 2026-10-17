@@ -1,9 +1,10 @@
 import { act, fireEvent, render } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { WordFillCanvas } from './WordFillCanvas';
+import { stopDrawLoop } from '@/lib/uiSound';
 
 vi.mock('@/features/games/effects/learning-effects', () => ({ emitLearningEffect: vi.fn() }));
-vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn() }));
+vi.mock('@/lib/uiSound', () => ({ feedDrawLoop: vi.fn(), stopDrawLoop: vi.fn() }));
 
 let painted = false;
 let frame: ((at: number) => void) | undefined;
@@ -84,6 +85,9 @@ describe('낱말 쓰기 채점 빈도', () => {
     fireEvent.pointerMove(canvas);
     fireEvent.pointerUp(canvas);
     expect(complete).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(stopDrawLoop).mock.invocationCallOrder.at(-1)).toBeLessThan(
+      complete.mock.invocationCallOrder[0]
+    );
     expect(frame).toBeUndefined();
     fireEvent.pointerUp(canvas);
     expect(complete).toHaveBeenCalledTimes(1);

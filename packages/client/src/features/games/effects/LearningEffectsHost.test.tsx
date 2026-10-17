@@ -1,6 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LearningEffectsHost } from './LearningEffectsHost';
+import { stopDrawLoop } from '@/lib/uiSound';
 import {
   clearLearningEffects,
   emitLearningEffect,
@@ -15,13 +16,23 @@ const mocks = vi.hoisted(() => ({
   create: vi.fn(),
 }));
 vi.mock('./learning-effects-engine', () => ({ createLearningEffectsEngine: mocks.create }));
-vi.mock('@/lib/uiSound', () => ({ playUi: vi.fn() }));
+vi.mock('@/lib/uiSound', () => ({ playUi: vi.fn(), stopDrawLoop: vi.fn() }));
 const renderer = {
   play: mocks.play,
   clear: mocks.clear,
   resize: mocks.resize,
   destroy: mocks.destroy,
 };
+
+it('손 뗌/취소와 이탈 때 연필 소리가 다음 화면까지 남지 않는다', () => {
+  const view = render(<LearningEffectsHost />);
+  vi.mocked(stopDrawLoop).mockClear();
+  fireEvent.pointerUp(document);
+  fireEvent.pointerCancel(document);
+  expect(stopDrawLoop).toHaveBeenCalledTimes(2);
+  view.unmount();
+  expect(stopDrawLoop).toHaveBeenCalledTimes(3);
+});
 async function settle() {
   await act(async () => {
     await new Promise((resolve) => setTimeout(resolve, 0));

@@ -2,7 +2,7 @@ import { emitLearningEffect } from '@/features/games/effects/learning-effects';
 import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { feedDrawLoop } from '@/lib/uiSound';
+import { feedDrawLoop, stopDrawLoop } from '@/lib/uiSound';
 import { buildWordInkMasks, finishWordInk, isWordInkComplete } from './word-ink-mask';
 import type { WordInkMask } from './word-ink-mask';
 
@@ -88,6 +88,7 @@ export function WordFillCanvas({
   const [doneCount, setDoneCount] = useState(0);
   // 하이라이트를 그리려면 렌더가 범위를 알아야 한다 — ref 와 같은 값을 state 로도 둔다.
   const [ranges, setRanges] = useState<Array<{ start: number; end: number }>>([]);
+  useEffect(() => stopDrawLoop, []);
   /** 지금 쓸 칸. `order` 있으면 그 순서의 다음 칸, 아니면 왼→오른쪽 첫 미완 칸. 순차 아니면 없음(null). */
   const activeIdx = order
     ? doneCount < order.length
@@ -200,6 +201,9 @@ export function WordFillCanvas({
     }
     if (newlyDone.length) {
       ctx.putImageData(image, 0, 0);
+      isDrawingRef.current = false;
+      lastPointRef.current = null;
+      stopDrawLoop();
       setDoneCount(doneRef.current.filter(Boolean).length);
       emitLearningEffect(doneRef.current.every(Boolean) ? 'word' : 'letter', canvas);
     }
@@ -306,6 +310,7 @@ export function WordFillCanvas({
     queueEvaluation();
   };
   const onUp = () => {
+    stopDrawLoop();
     isDrawingRef.current = false;
     lastPointRef.current = null;
     gestureCellRef.current = null;

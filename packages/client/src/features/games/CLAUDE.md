@@ -556,6 +556,8 @@ const { mapRef, loading } = usePhonicsMap(['mod_korean', 'mod_phonics']);
 
 ## 학습 VFX·사운드 (2026-10-12)
 
+2026-10-17 입력음/장면 계약: 그리기 반복음은 pointerup/cancel·완성·숨김/언마운트에서 즉시 멈춘다. 마지막 획 성공음은 상위 활동에서만 처리한다. SceneReveal은 그림 load/error 뒤에 최소 노출을 시작하고 공용 `useGameAudio` speech의 실제 ended를 기다린다. 탭/늦은 콜백/타이머 중 최초 한 번만 다음으로 이동한다. 패널/자막은 높이에 맞추며 reduced-motion을 존중한다. [검수·한계](../../../../../docs/work/phonics/tasks/20261017-interaction-sound-polish.md).
+
 공용 `effects/LearningEffectsHost`는 앱당 하나, Phaser는 지연 로드하고 입력을 가로채지 않는다. `useGameAudio`/`useActivitySound`와 실제 학습 대상의 data-learning-fx로 연결한다. 정답/결과의 기존 호리·콘페티는 제거했다. 12사건/14장면: 정답 리본춤·꽃피기·하트물결 순환, 듣기 음표, 합성 두색 리본, 짝찾기 하트 만남, 글자/단어 밑줄, 연속/완료 꽃 장면을 구분한다. 게임 상태·음성 ended 체인·카메라·실물 인식은 이펙트에서 변경하지 않는다.
 
 기본 MP3 4종은 `scripts/generate-learning-sounds.mjs`(FFmpeg 필요)로 재생성하며 책별 녹음 override를 유지한다. 결과 효과음→칭찬은 공용 iOS 해금 audio의 실제 ended로 연결한다. 그림 atlas 2장59,420B·음원24,955B, 학습 외 화면에서 엔진을 preload하지 않는다. 자세한 수명·접근성·검증은 [디자인 시스템](../../../../../docs/design-system.md)과 [task](../../../../../docs/work/phonics/tasks/20261012-learning-game-effects.md).

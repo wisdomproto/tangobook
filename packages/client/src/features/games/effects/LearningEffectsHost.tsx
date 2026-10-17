@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import { playUi } from '@/lib/uiSound';
+import { playUi, stopDrawLoop } from '@/lib/uiSound';
 import {
   clearLearningEffects,
   emitLearningEffect,
@@ -99,13 +99,17 @@ export function LearningEffectsHost() {
     };
     const up = () => {
       pointer = undefined;
+      stopDrawLoop();
     };
     const resize = () => {
       queue = [];
       engine?.resize();
     };
     const visibility = () => {
-      if (document.hidden) clearLearningEffects();
+      if (document.hidden) {
+        stopDrawLoop();
+        clearLearningEffects();
+      }
     };
     const preference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
     const motionChange = () => {
@@ -135,6 +139,7 @@ export function LearningEffectsHost() {
     preference?.addEventListener('change', motionChange);
     return () => {
       disposed = true;
+      stopDrawLoop();
       clearTimeout(queueExpiry);
       queue = [];
       unsubscribe();
