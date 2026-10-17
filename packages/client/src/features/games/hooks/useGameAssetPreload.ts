@@ -53,14 +53,14 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
   const [total, setTotal] = useState(0);
   const [ready, setReady] = useState(false);
 
-  const coreKey = [
-    ...images,
-    ...syllables,
-    ...roundAudio,
-    ttsSpec ? `${ttsSpec.identifierPrefix}:${ttsSpec.items.length}` : '',
+  const coreKey = JSON.stringify([
+    images,
+    syllables,
+    roundAudio,
+    ttsSpec,
     storybookId,
     phonicsReady,
-  ].join('|');
+  ]);
   const bgKey = [...scene.sceneImages, ...scene.sceneNarrations].join('|');
 
   useEffect(() => {
@@ -78,45 +78,48 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
       if (alive) setReady(true);
     }, PRELOAD_MAX_MS);
 
-    void (async () => {
-      const resolvedTts = ttsSpec
-        ? (
-            await Promise.all(
-              ttsSpec.items.map((it) =>
-                resolveTtsUrl({
-                  text: it.text,
-                  language: ttsSpec.language,
-                  storybookId,
-                  directUrl: it.directUrl,
-                  identifierPrefix: ttsSpec.identifierPrefix,
-                }).catch(() => undefined)
-              )
-            )
-          ).filter((u): u is string => !!u)
-        : [];
-      if (!alive) return;
-
-      const coreAudio = [...syllables, ...resolvedTts, ...roundAudio];
-      const coreTotal = images.length + coreAudio.length;
-      setTotal(coreTotal);
-      if (coreTotal === 0) {
-        clearTimeout(cap);
-        setReady(true);
-        return;
+    const imageUrls = [...new Set(images)];
+    const audioUrls = [...new Set([...syllables, ...roundAudio])];
+    // Count pending URL resolutions too: cached images must not show 100% while concat is pending.
+    setTotal(imageUrls.length + audioUrls.length + (ttsSpec?.items.length ?? 0));
+    const bump = () => {
+      if (alive) setLoaded((n) => n + 1);
+    };
+    // A one-syllable answer/alias can share a URL with a tile or round voice. Prepare it once per run,
+    // without a permanent "ready" flag that could outlive the browser's actual media cache.
+    const audioJobs = new Map<string, Promise<void>>();
+    const warmAudioOnce = (url: string) => {
+      let job = audioJobs.get(url);
+      if (!job) {
+        job = warmAudioUrl(url);
+        audioJobs.set(url, job);
       }
-
-      const bump = () => {
-        if (alive) setLoaded((n) => n + 1);
-      };
-      await Promise.all([
-        ...images.map((u) => warmImageUrl(u).then(bump)),
-        ...coreAudio.map((u) => warmAudioUrl(u).then(bump)),
-      ]);
+      return job;
+    };
+    const counted = (job: Promise<unknown>) => job.catch(() => {}).then(bump);
+    // Known images/voices start immediately. Each answer voice starts as soon as its own URL is
+    // resolved, rather than waiting for the slowest concat before warming the entire round.
+    const jobs = [
+      ...imageUrls.map((url) => counted(warmImageUrl(url))),
+      ...audioUrls.map((url) => counted(warmAudioOnce(url))),
+      ...(ttsSpec?.items.map((it) =>
+        counted(
+          resolveTtsUrl({
+            text: it.text,
+            language: ttsSpec.language,
+            storybookId,
+            directUrl: it.directUrl,
+            identifierPrefix: ttsSpec.identifierPrefix,
+          }).then((url) => (alive && url ? warmAudioOnce(url) : undefined))
+        )
+      ) ?? []),
+    ];
+    void Promise.all(jobs).then(() => {
       if (alive) {
         clearTimeout(cap);
         setReady(true);
       }
-    })();
+    });
 
     return () => {
       alive = false;
