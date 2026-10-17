@@ -1,5 +1,7 @@
 # 학습 게임 모듈
 
+2026-10-17 한영 BlockPlayer의 선택적 onReplay는 결과의 다시 하기만 외부 맞춤 재선택으로 넘긴다. 미지정은 기존 같은 판 handleRestart다. 자유놀이만 부모가 지정하고 커리큘럼/동화 재시작 정책은 보존한다. [완주·검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md#전체-완주재시작-적응-검수-진행).
+
 2026-10-17 자유놀이 도움: 한영 BlockPlayer의 allowModelHint/initialSupport는 같은 듣기 player 안에서 전체/첫 글자/소리만 도움을 바꾼다. 한 문항에서 model/first를 본 뒤 감춰도 hintUsed 유지, 새 문항에서만 선택 도움으로 초기화. onPracticeAttempt의 modelVisible/hintUsed를 실제로 기록하며 독립 성공 오염 금지. allowWritingHints는 낱말 전체 보기만 돕고 기존 canvas/입력 셀/잉크를 유지, 받아쓰기 인식/평가는 아니다. 옵션 기본 꺼짐으로 기존 동화/커리큘럼 유지. [검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md).
 
 2026-10-17 GameHeader/ColoringPlayer의 뒤로가기는 workspace에서도 기존 onBack을 실행한다. 별도 목록 버튼으로 drawer를 열고 오른쪽 compass+학습 지도는 backToMap이다. 공용 WorkspaceButtons의44px 그림·접근성 이름·분리된 CSS를 재사용하며 standalone의 홈/광고 embedded 정책은 유지한다. [한영 탐색·검수](../../../../../docs/work/phonics/tasks/20261017-writing-pause-navigation.md).

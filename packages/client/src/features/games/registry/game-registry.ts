@@ -22,6 +22,8 @@ export interface ContentRequirement {
 export interface GamePlayerProps {
   /** Connected practice owns transitions and the first word/story introduction. */
   connectedPractice?: boolean;
+  /** Re-select free-play content and assistance from the completed run's evidence. */
+  onReplay?: () => void;
   onInputModeSelected?: (mode: 'screen' | 'camera') => void;
   listeningPractice?: boolean;
   /** Free-play assistance; revealing a model still counts as a hint. */

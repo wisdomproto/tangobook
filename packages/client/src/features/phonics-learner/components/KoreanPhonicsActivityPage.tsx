@@ -1,3 +1,4 @@
+import { useAdaptiveFreePlay } from '../hooks/useAdaptiveFreePlay';
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
 import { ConnectedWordLearningActivity } from '../activities/ConnectedWordLearningActivity';
 import { ConsonantFindingActivity } from '../activities/ConsonantFindingActivity';
@@ -102,6 +103,7 @@ export function KoreanPhonicsActivity({
   const { t } = useTranslation('phonics');
   const [playSearch] = useSearchParams();
   const freePlay = playSearch.get('freePlay') === '1' && playSearch.get('mode') !== 'curriculum';
+  const adaptivePlay = useAdaptiveFreePlay('korean');
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -778,6 +780,7 @@ export function KoreanPhonicsActivity({
         trayLetters={trayLetters}
         listeningPractice={activity.listeningPractice}
         allowModelHint={freePlay}
+        onReplay={freePlay ? () => adaptivePlay.start('block', true) : undefined}
         initialSupport={
           playSearch.get('support') === 'model'
             ? 'model'
@@ -947,7 +950,7 @@ export default function KoreanPhonicsActivityPage() {
     );
   return (
     <KoreanPhonicsActivity
-      key={`${unitId}:${activityKey}`}
+      key={`${unitId}:${activityKey}:${search.get('playRun') ?? ''}`}
       unitId={unitId}
       activityKey={activityKey}
       onExit={onExit}

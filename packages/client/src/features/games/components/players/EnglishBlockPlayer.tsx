@@ -164,6 +164,7 @@ function EnglishBlockPlayerInner({
   gameData,
   onComplete: _onComplete,
   connectedPractice,
+  onReplay,
   onBack,
   initialInputMode = 'screen',
   listeningPractice = false,
@@ -679,7 +680,7 @@ function EnglishBlockPlayerInner({
           score={score}
           total={items.length}
           lang="en"
-          onRestart={handleRestart}
+          onRestart={onReplay ?? handleRestart}
           onBack={onBack}
         />
       </MobileLandscapeGate>

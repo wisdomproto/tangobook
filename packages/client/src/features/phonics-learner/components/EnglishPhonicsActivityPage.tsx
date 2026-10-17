@@ -1,3 +1,4 @@
+import { useAdaptiveFreePlay } from '../hooks/useAdaptiveFreePlay';
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
 import { ConnectedWordLearningActivity } from '../activities/ConnectedWordLearningActivity';
 import { journeyProgress } from '../lib/learning-journey';
@@ -99,6 +100,7 @@ export function EnglishPhonicsActivity({
   const { t } = useTranslation('phonics');
   const [playSearch] = useSearchParams();
   const freePlay = playSearch.get('freePlay') === '1' && playSearch.get('mode') !== 'curriculum';
+  const adaptivePlay = useAdaptiveFreePlay('english');
   const unit = getEnglishUnit(unitId);
   const plan = getEnglishActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -781,6 +783,7 @@ export function EnglishPhonicsActivity({
         gameData={gameData}
         listeningPractice={activity.listeningPractice}
         allowModelHint={freePlay}
+        onReplay={freePlay ? () => adaptivePlay.start('block', true) : undefined}
         initialSupport={
           playSearch.get('support') === 'model'
             ? 'model'
@@ -962,7 +965,7 @@ export default function EnglishPhonicsActivityPage() {
     );
   return (
     <EnglishPhonicsActivity
-      key={`${unitId}:${activityKey}`}
+      key={`${unitId}:${activityKey}:${search.get('playRun') ?? ''}`}
       unitId={unitId}
       activityKey={activityKey}
       onExit={onExit}

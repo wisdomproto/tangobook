@@ -65,6 +65,7 @@ function KoreanBlockPlayerInner({
   difficulty: _difficulty,
   onComplete: _onComplete,
   connectedPractice,
+  onReplay,
   onBack,
   initialInputMode = 'screen',
   listeningPractice = false,
@@ -579,7 +580,7 @@ function KoreanBlockPlayerInner({
           score={score}
           total={items.length}
           lang="ko"
-          onRestart={handleRestart}
+          onRestart={onReplay ?? handleRestart}
           onBack={onBack}
         />
       </MobileLandscapeGate>

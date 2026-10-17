@@ -25,7 +25,7 @@ export function useAdaptiveFreePlay(lang: JourneyLanguage) {
       generation.current++;
     };
   }, [lang, activeProfile?.id]);
-  const start = (game: FreeGameId) => {
+  const start = (game: FreeGameId, replay = false) => {
     if (pending.current) return;
     pending.current = true;
     const token = ++generation.current;
@@ -45,8 +45,13 @@ export function useAdaptiveFreePlay(lang: JourneyLanguage) {
           : [];
       const choice = chooseAdaptiveFreePlay(lang, game, events, Math.random, trained);
       setBusy(false);
-      if (choice) navigate(choice.href);
-      else pending.current = false;
+      if (choice) {
+        // Replaying may choose the same unit and help again. Still mount a fresh game.
+        const href = replay
+          ? `${choice.href}${choice.href.includes('?') ? '&' : '?'}playRun=${crypto.randomUUID()}`
+          : choice.href;
+        navigate(href);
+      } else pending.current = false;
     };
     if (!activeProfile?.id) {
       launch(readGuestEvents().filter((event) => !event.profile_id));

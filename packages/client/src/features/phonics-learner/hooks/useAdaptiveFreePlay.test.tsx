@@ -105,3 +105,19 @@ it('history fetch failure uses only scoped local evidence, not guest or sibling 
   await waitFor(() => expect(mocks.navigate).toHaveBeenCalledWith('/chosen'));
   expect(mocks.choose.mock.calls[0][2]).toEqual([{ id: 'pending', profile_id: 'a' }]);
 });
+
+it('result replay reselects from current history and adds a fresh run even when the chosen route is unchanged', async () => {
+  mocks.profile.id = 'a';
+  mocks.local = [{ id: 'just-completed', profile_id: 'a' }];
+  mocks.fetch.mockResolvedValue({ events: [] });
+  mocks.choose.mockReturnValue({ href: '/same-game?freePlay=1&support=first' });
+  const { result } = renderHook(() => useAdaptiveFreePlay('english'));
+  act(() => result.current.start('block', true));
+  await waitFor(() => expect(mocks.navigate).toHaveBeenCalledOnce());
+  expect(mocks.choose.mock.calls[0][2]).toEqual(mocks.local);
+  const href = mocks.navigate.mock.calls[0][0] as string;
+  const url = new URL(href, 'https://example.test');
+  expect(url.pathname).toBe('/same-game');
+  expect(url.searchParams.get('support')).toBe('first');
+  expect(url.searchParams.get('playRun')).toMatch(/^[\da-f-]{36}$/);
+});
