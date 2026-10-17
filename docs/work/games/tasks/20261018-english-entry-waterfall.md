@@ -64,8 +64,8 @@ trace의 실제 핵심 그림/음원은 assets.tangobook.co.kr인데 HTML precon
 | --- | --- | --- | --- |
 | 영어 Book3 블록 첫 접속 | 3251 / 2826 / 3597 | 3338 / 2808 / 2774 | 3251→2808ms |
 | 영어 Book2 그림짝 첫 접속 | 2792 / 3304 / 3100 | 2791 / 2901 / 2642 | 3100→2791ms |
-| 영어 블록 캐시 있는 재진입 | 1735 / 1434 / 1323 | 1463 / 1400 / 1152 | 1434→1400ms |
-| 그림짝 캐시 있는 재진입 | 1455 / 1004 / 985 | 731 / 834 / 1130 | 1004→834ms |
+| 영어 블록 캐시 있는 전체 페이지 재진입 | 1735 / 1434 / 1323 | 1463 / 1400 / 1152 | 1434→1400ms |
+| 그림짝 캐시 있는 전체 페이지 재진입 | 1455 / 1004 / 985 | 731 / 834 / 1130 | 1004→834ms |
 
 - 이번 운영 표본에서 최초 중앙값은 두 게임 모두 줄었다. 단일 PC/회선·배포 전후 순차3회·범위 겹침이 있어 기기별 보장 수치/변경별 기여도를 단정하지 않는다. 이전 로컬 그림짝 차이없음 결과를 운영 개선으로 소급해서 바꾸지 않는다.
 - 최초 기준 측정 일부가 보조 cache-probes/health 확인과 겹쳤다. `before-initial-focused.json`(최초 중앙 블록4225/그림짝3152ms) 보존 후 보조 검사 종료 뒤 전부 새 context로 **단독 재측정**한 `before-focused.json`을 위 표에 썼다. 이후 성능 비교 중 다른 검수/빌드 동시 실행은 없으며 cache/입력 검사는 성능 계측 완료 후 실행했다.
@@ -79,3 +79,13 @@ trace의 실제 핵심 그림/음원은 assets.tangobook.co.kr인데 HTML precon
 - WebP2종 `public,max-age=604800`, 새 hashed JS `public,max-age=31536000,immutable`, 각각 ETag 조건부 **304/0B**. SW production/local SHA256 **8a57abbf06177dd4ad78335778e3bbcd38849dae07f206d3f5a533196bc5b389** 동일.
 - 소리 버튼→a배치→되돌리기, 그림짝 선택 강조 정상. core 준비/입력 화면을 육안 확인했고 모든 성능/입력 pageerror0. 격리 QA Chrome이며 사용자 탭/진도/캐시를 건드리지 않았다. 전체 판 완주·실물 블록/실기기 터치·스피커 청취 검증은 아니다.
 - 증거 output/production-entry-waterfall-20261018/: deployment.json, before/after-focused.json, before-initial-focused.json, summary.json, assets-summary.json, cache-before/cache-probes.json, verification.json 및 gate/input PNG. 제품 코드나 운영 R2/DB 변경 없이 검수 기록만 로컬 커밋하고 새 push하지 않는다.
+
+## 캐시된 재진입의 구분·추가 확인
+
+사용자 질문 “이미 캐시되어 있으면 바로 열려야 하는 것 아닌가”에 따라 기존 측정 정의를 바로잡는다. 위 cold.cjs의 run1은 같은 context 캐시를 유지했지만 **page.goto로 문서 전체를 다시 열었다**. HTML 왕복/앱 bootstrap/사라진 메모리 query 재조회/미디어 실제 준비가 포함되므로 이를 같은 SPA 안의 즉시 복귀 속도로 해석하면 안 된다. QueryClient 기본 staleTime5분이고 useStorybook은 동일 key를 공유하므로 살아 있는 탭에서는 다시 요청하지 않는다.
+
+운영751882150·같은 고정 낱말/Chrome1024×768에서 게임 진입→실제 “놀이 선택” 버튼→활동이 나간 뒤 브라우저 뒤로가기(React Router popstate)로 같은 게임에3회 돌아왔다. 측정마다 document요청0·단원GET0·pageerror0. 영어 블록 **626/970/521ms, 중앙626ms**, 그림짝 **177/165/159ms, 중앙165ms**였다. 그림짝에는250ms 지연 게이트가 표시되지 않았고, 블록은 준비율63~88% 이후 열렸다. 개인 프로필/완료 기록 변경 없음.
+
+블록 gate는 warmAudioUrl의 새 Audio4개를 동시에 다시 load했다. 매번 첫 src 설정→마지막 loadeddata가 **335/395/303ms**로 관찰되어, 바이트 재다운로드가 없어도 media-element 준비 대기가 남았다. 영구 warmed flag로 ready를 가정하지 않도록 만들어진 경로이며 이번 질문 검수에서 게이트를 우회하거나 제품 코드를 바꾸지 않았다. 다음 개선 후보는 검증 가능한 실제 media 객체/준비 상태 재사용이며 현재 측정만으로 구현 완료/안전성을 주장하지 않는다. 랜덤4낱말 또는 적응형 단원이 바뀌면 이전 판에 없던 URL은 첫 다운로드일 수 있다는 별도 범위도 있다.
+
+증거 `output/production-entry-waterfall-20261018/spa-cache.cjs`/`spa-cache.json`. 기존 전체 페이지 재진입1.40/0.83초와 SPA 복귀0.63/0.17초를 혼동하지 않는다. 단일 PC·고정 동일 문제·3회 복귀 표본이며 최초 홈 자유놀이/새 임의 문제 전체의 보장 수치는 아니다. 확인 기록만 로컬 커밋·새 push 없음.

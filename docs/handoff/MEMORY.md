@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-18 사용자 캐시 질문 후 재진입 측정 구분: 이전1.40/0.83초는 전체문서 재시작, 실제 같은 탭 같은문제 SPA복귀3회 중앙 블록0.626/그림짝0.165초·document/단원GET0. 블록 새Audio4개 준비303~395ms 남음·새 랜덤URL은 별도첫다운로드 가능. [정의·근거](../work/games/tasks/20261018-english-entry-waterfall.md#캐시된-재진입의-구분추가-확인). 진단 기록만 로컬, 제품 변경/새 push 없음.
+
 2026-10-18 영어 진입후속751882150 운영success(4d8b2869)·신규번들/CDN hint/health 확인. 운영첫진입3회중앙 블록3.25→2.81초·그림짝3.10→2.79초, 불필요한 코드요청2→0. 정답음원24응답disk cache·기존SW/캐시/로딩게이트/실제입력 유지. [운영 수치·한계](../work/games/tasks/20261018-english-entry-waterfall.md#운영-최종-결과). 검수기록만 로컬 커밋, 새 push 없음.
 
 2026-10-18 영어 진입후속fa3084114 사용자 main push 승인. fetch0/3·추적 clean, 기존 검증 후 source 추가 변경 없이 운영 검수/통합 기록과 함께 일반 push한다. [범위](../work/games/tasks/20261018-english-entry-waterfall.md#메인-푸시-요청). 아래 미푸시는 당시 상태이며 운영 배포 완료는 별도 확인한다.
