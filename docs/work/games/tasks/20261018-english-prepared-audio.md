@@ -38,6 +38,8 @@
 
 ## 사용자 후속: 전체 데이터를 종류별로 압축·첫 접속 때 전부 준비할지
 
+2026-10-18 최종 사용자 결정: **선로딩 구조 개편은 기능 개발이 거의 마무리된 뒤 전체 작업을 정리하면서 다시 검토한다. 지금은 보류한다.** 현재 구현·검증한 캐시/로딩 게이트/영어 블록 준비 음원 재사용은 보존한다. 아래 챕터 단위 준비는 제안 기록이며 지금 추가 구현하거나 자동으로 후속 작업을 시작하지 않는다.
+
 논의 요청이며 **전체 선로딩/ZIP 전환은 구현 승인으로 해석하지 않았다**. 현재 검수의 반복 준비 병목과 전체 다운로드 용량 문제는 분리한다. 권장안은 공통 UI/효과음 최소 묶음→선택한 현재 챕터의 실제 그림·음원→다음 활동/다음 챕터 백그라운드 준비→다른 권/동화는 선택 시다. 파일 종류별 전체 묶음보다 사용 단위 manifest/URL 중복 제거·변경 파일만 갱신하는 캐시가 적절하다는 제안이며 확정 플랫폼 방향 변경은 아니다.
 
 WebP/MP3는 이미 압축된 형식이므로 일반 ZIP 재압축 이익은 제한적이고, JSON/코드는 HTTP Brotli/gzip 설정을 검토할 대상이다([MDN compression](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression)). 불필요한 자산을 뒤로 미루는 접근은 [lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading)과 부합한다. 브라우저 저장소는 [용량/퇴출](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria)이 있으므로 첫 다운로드가 영구 저장/즉시 재생을 보장한다고 설명하지 않는다. 전체 원격 라이브러리 바이트 총량은 이번에 전수 조사하지 않았다. 다음 구현 전 현재 챕터 묶음 용량/실제 첫 대기·히트 재준비를 계측해 범위를 정한다.
