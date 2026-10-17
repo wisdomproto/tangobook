@@ -40,3 +40,7 @@ PC1280×720을 중심으로 실제 브라우저 입력, 작은 가로/태블릿 
 ## 전달
 
 `0160067a5` 관련 코드·기록을 로컬 main에 fast-forward 통합 완료했다. 커밋 훅 ESLint/Prettier 통과, 최종 SceneReveal3검사 재통과·diff check 확인. 기존 미추적 output/tmp와 다른 작업 폴더를 보존했다. 새 push/배포 없음.
+
+## 메인 푸시 요청
+
+사용자가 후속으로 main push를 승인했다. fetch 후 `origin/main...HEAD=0/3`, 추적 변경 없음·전달 diff check 정상. 대상은 `0160067a5` 디자인/소리/전환 공통 수정, `035c6304a` 통합 기록과 앞선 `aac949ed8` 운영 검수 문서다. 기존206검사·타입/lint/build 이후 제품 코드 변경 없음. 이번 승인/기억 기록을 함께 일반 push하고 원격 main SHA를 대조한다. 배포 완료·운영 화면 확인은 push 성공과 구분한다.

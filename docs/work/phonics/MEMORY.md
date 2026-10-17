@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 사용자 main push 승인: 한영 디자인/소리/전환 `0160067a5`와 관련 통합·기존 운영 검수 기록을 원격 main에 전달한다. fetch0/3·추적 clean·diff check·기존206회귀/타입/lint/build 확인, 새 제품 수정 없음. [범위](tasks/20261017-interaction-sound-polish.md#메인-푸시-요청). 배포/운영 검수는 별도다.
+
 2026-10-17 `0160067a5` 디자인·사운드·전환 공통 보완 코드/기록을 로컬 main fast-forward 통합 완료. 커밋 훅/최종 장면3검사·diff 확인, 새 push/배포 없음. [전달](tasks/20261017-interaction-sound-polish.md#전달).
 
 2026-10-17 한영 디자인/사운드 공통 점검: 쓰기 손 뗌·완료·이탈 시 입력음 즉시 정지, 획 마지막 성공음은 상위 활동 소유. SceneReveal은 그림 준비 뒤 공용 음성 ended+최소 노출·단일 전환, 가로 화면 패널/자막·reduced-motion 보완. ㄱ3회/Gg·팝잇·낱말·그림짝 실제 표본 및206회귀/타입/lint/build 통과. 실제 스피커·실기기·전수 완주와 구분, 새 push 없음. [범위·증거](tasks/20261017-interaction-sound-polish.md).
