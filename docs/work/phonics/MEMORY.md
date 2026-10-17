@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 a7304becc 블록 준비 병렬화 코드·53회귀·기억을 로컬 main fast-forward 통합 완료. [전후 측정/한계](tasks/20261017-korean-block-preload-parallel.md#최종-검증통합). 새 push/배포 없음.
+
 2026-10-17 한글 블록 사전 준비: 공용 gate의 모든 TTS URL 뒤 그림/음절 워밍하던 순차 대기를 병렬화, 같은 run URL 공유·실제TTS 내용 key 보완. HTTP/SW캐시·실제 준비 확인·6초 상한/250ms UI·background 장면 유지. 동일 로컬 각5회 중앙값3003→2093ms 관측(교차편차 있어 운영30% 보장 아님), 실제ㅎ배치/되돌리기·영어 진입 및53검사/타입/lint/build 통과. 새 push 없음. [근거](tasks/20261017-korean-block-preload-parallel.md).
 
 2026-10-17 [운영 로딩·캐시·WebP 점검](../platform/tasks/20261017-loading-assets-audit.md): 새UI51장 실제WebP, 같은출처7일+SW cache-first/외부표지1년immutable·304. 기존 캐시 유지 모드/지도0.33~0.56초·쓰기0.50~0.77초, 블록 게이트 한1.47~2.44/영1.07~1.30초. 항상원본재다운로드/고정6초대기는 발견 안 됨.21회귀, cold/실기기/브라우저바이트계측 아님. 제품 변경 없이 기록만 로컬, 게이트 제거/캐시 초기화 안 함.

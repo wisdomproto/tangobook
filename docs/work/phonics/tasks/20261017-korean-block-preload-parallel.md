@@ -7,7 +7,7 @@
 - base: a04788d96 (로컬 main), 원격11c10b489
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- integration: 검증 후 로컬 main fast-forward 대상
+- integration: a7304becc 로컬 main fast-forward 완료
 - delivery: 새 push/배포 요청 없음
 
 ## 요청과 완료 조건
@@ -38,4 +38,4 @@
 - 캐시가 더 데워진 상태에서도 원본/개선 교차 비교: 원본3500/3084ms, 개선3055/3004ms. 앞선3회 포함 각5회 중앙값 **3003→2093ms(약30%)**. 교차2회만의 감소폭은 작았고 전체 시간의 네트워크 편차가 있으므로 매 진입0.9초/30% 단축을 보장하지 않는다. 원본 교차검사는 변경 파일을 별도 보존한 뒤 해당 파일만 HEAD 내용으로 바꾸고, 끝나자 검증된 개선 파일과 정확히 동일하게 복구했다. build/type/lint 뒤 제품 최종 내용 추가 변경 없음.
 - 한글 실제 듣기 버튼→입력 활성→ㅎ 고르기→판에 배치(되돌리기 활성)→되돌리기 정상. 알파벳 블록도 gate 뒤 실제 진입·듣기 버튼 연결 확인. 게이트 시간은 플레이어 표시까지이고 듣기 안내의 의도적 발음 시간은 별개다. 전체 정답/챕터 완주는 이번 범위 아님.
 - 현재 브라우저의 캐시·학습 기록을 지우지 않았다. screenshot/timings는 root output/preload-parallel-20261017에 저장, 원본 교차 복구용 파일은 worktree output 아래 미추적 보존한다. React Router dev future 경고는 기존이며 새 제품 오류로 해석하지 않는다. 실제 스피커/실기기 검수는 아님.
-- 코드·검사·기억만 로컬 커밋 후 main fast-forward 대상이다. 관련 없는 output/tmp·다른 작업 폴더는 stage/정리하지 않는다.
+- a7304becc 코드·검사·기억을 함께 커밋하고 로컬 main fast-forward 완료했다. 커밋 훅 ESLint/Prettier 통과, 관련 없는 output/tmp·다른 작업 폴더는 보존했다. 새 push/배포 없음.
