@@ -6,7 +6,7 @@
 - base: 443136b33
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 사용자 main push 승인(2026-10-17), 운영 배포 완료는 별도 확인
+- delivery: db8aaf7f0 main push 및 운영 배포 success 확인(2026-10-17T14:36:57Z), 검수 기록만 후속 로컬 커밋
 - integration: dfc1c1563 로컬 main fast-forward 통합
 
 ## 요청·계약
@@ -61,3 +61,27 @@
 ## 메인 푸시 요청
 
 사용자가 후속으로 main push를 승인했다. origin fetch 후 origin/main...HEAD는0/3, 추적 파일 clean이며 dfc1c1563 구현·739b9adb7 통합 기록과 앞선 운영검수 문서443136b33만 미전달이다. source 변경은 없으므로 통과한 테스트/타입/lint/build를 반복하지 않는다. 승인 기록을 포함해 main에 일반 push하며 캐시·게이트 계약을 유지한다. push 성공과 Railway 운영 배포 완료는 구분한다.
+
+## 운영 배포·전후 검수 진행
+
+- 사용자 후속 요청: 배포 여부와 운영 영어 블록/그림짝 로딩·색칠 중복 요청·캐시/게이트 유지 확인.
+- 원격 main db8aaf7f0와 로컬 SHA일치·0/0 확인. 2026-10-17T14:34Z 프런트 Railway 배포aad2ad84는 pending, 서버 watched paths 미변경 skip success. 운영은 이전 entry index-CWZAoTSe.js·health ok였다.
+- CUA와 computer-use runtime 초기화가 같은 kernel assets 경로 오류로 실패했다. 기존 사용자 브라우저/저장소에 접근하지 않고 설치된 Chrome의 격리 QA context에서 운영 전후를 계측한다. 실제 태블릿/스피커 청취 검증과 구분한다.
+- 캐시를 켠 같은 context의 이전 번들 측정과 새 context 최초 진입 표본을 별도로 모은다. 각 결과에 실제 entry를 붙여 배포 전환 중 섞인 표본을 구분한다. 증거: C:/project/tangobook/output/production-english-loading-20261017/.
+
+## 운영 최종 결과
+
+- 원격 db8aaf7f0 프런트 GitHub/Railway context `tangobook - tangobook`가 **2026-10-17T14:36:57Z success**, 배포 id **aad2ad84-293c-4072-95ec-2dafe4f15016**. 서버는 watched paths 미변경 skip success다. 운영 HTML entry가 **index-CWZAoTSe.js → index-CsFY1E6x.js**로 바뀌고 `/health` status ok를 확인했다. 이전 main push 성공과 운영 반영을 따로 확인했다.
+- 운영1280×720 격리 Chrome의 같은 context/cache를 유지해 이전 번들3회→신규1회 워밍→각5회를 기록했다. 새 번들 재진입의 영어 블록은 **1285/1304/1308/1306/1245ms, 중앙1304ms**, 그림짝은 **703/764/744/758/769ms, 중앙758ms**. 이전의 캐시 채워진 후2회는 블록2505~2769ms·그림짝1147~1156ms였다. 표본 수/네트워크 변동 때문에 개선율을 보장하지 않는다.
+- 첫 접속 별도 새 context3회 비교: 블록 **3806/3456/3298 → 4759/3322/3073ms, 중앙3456→3322ms**, 그림짝 **3481/3012/3371 → 3160/2788/3554ms, 중앙3371→3160ms**. 범위가 겹치고 편차가 커 **전체 최초 진입이 크게 개선됐다고 단정하지 않는다**. 목록 조회 시작은 블록2818~3105→1480~2091ms·그림짝2564~2998→1435~2049ms로 실제 앞당겨졌다. 코어 오디오 다운로드/새 번들·폰트/후속 UI 준비가 남아 있다.
+- 배포 직후 최초 표본을 입력/캐시 검사와 동시 실행했을 때 중앙블록3987ms·그림짝3817ms였다(`after-cold-focused.json`). 검사끼리의 경합을 분리하려고 모든 작업 종료 후 단독 재측정했다(`after-cold-isolated-focused.json`). 두 결과를 모두 보존하며 더 나쁜 최초 결과를 숨기지 않는다. 1.5초 뒤 top100 백그라운드 요청과 일부 긴 core 준비가 겹치는 경우도 관찰했지만, 이 검수만으로 단일 원인이나 새 최적화를 확정하지 않았다.
+- 색칠은 같은 개구리왕자 **ball**의 실제 도안/원본으로 비교했다. 이전3회 모두 원본2요청+도안1요청, 새 워밍/5회 모두 **원본1요청+도안1요청**이다. DOM `crossorigin=anonymous` 반영·실제 붓 입력을 확인했다. 준비 중앙값은1222ms지만 색칠 전체 시간 단축을 주장하지 않는다.
+- 마지막 측정 행에 후속 입력 검사의 요청이 덧붙는 계측 스크립트 결함이 있었다. 원본 trace는 보존하고, 요청 집계는 각 측정의 ready+200ms 이내 요청 시작으로 한정했다. 후속 다른 입장을 색칠 중복 요청으로 잘못 집계하지 않는다. 성능 readyMs/entry 측정은 이 문제의 영향을 받지 않았다.
+
+### 캐시·게이트·실제 입력
+
+- 영어 블록/그림짝의 재진입 **정답 음원40응답(각20) 모두 CDP fromDiskCache=true**. Range/206 음원은 기존대로 SW를 우회하고 HTTP media cache를 쓴다. 새 Audio 준비 이벤트가 있어도 다시 다운로드한 것으로 해석하지 않는다. 색칠 도안/원본도 SW/디스크 캐시 재사용을 관찰했다.
+- WebP2종 `public,max-age=604800`, 새 hashed entry `public,max-age=31536000,immutable`, 모두 조건부 요청304/본문0B. 운영 SW SHA256은 로컬과 같은 `8a57abbf06177dd4ad78335778e3bbcd38849dae07f206d3f5a533196bc5b389`. HTML/API의 동적 갱신·캐시 배제 및 기존 cache key를 바꾸지 않았다.
+- 새 context1024×768의 영어 블록·그림짝에서 progressbar가 있는 동안 **알파벳 tray0·그림 카드0**, core 준비 후에만 player가 나타났다. gate 화면/실제 입력 화면을 직접 열어 확인했다. 재진입 그림짝은250ms 표시 지연 안에 끝나 bar가 보이지 않는 경우도 정상이며 필수 자산 대기를 생략한 것이 아니다.
+- 운영 **소리 듣기→a배치→되돌리기**, **그림짝 카드 선택 강조**, **ball 붓 입력 후 실제 canvas 픽셀 변화/물감2종** 정상. 각 검사 pageerror0. 완주·학습 기록 생성/원격 콘텐츠 수정·새 push는 하지 않았다. 실기기 터치/스피커 청취 검증이 아니다.
+- 저장 증거: `deployment.json`, `measurements.json`, `before-cold-focused.json`, `after-cold-focused.json`, `after-cold-isolated-focused.json`, `summary.json`, `cache-before.json`, `cache-probes.json`, `gate-input.json`, `*-gate.png`, `*-live-input.png`. 로컬 구현 테스트/타입/build 이후 제품 변경이 없으므로 검수 문서 diff/링크 확인만 수행한다.

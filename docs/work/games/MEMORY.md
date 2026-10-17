@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-17 [영어 게임 로딩 운영 검수](tasks/20261017-game-loading-bottlenecks.md#운영-최종-결과): db8aaf7f0/Railway aad2ad84 success·새 entry/health 확인. 같은 Chrome 재진입5회 중앙 블록1.304초·그림짝0.758초, 캐시 없는 첫 진입은3.46→3.32/3.37→3.16초로 편차 커 큰 개선 단정 불가. 색칠 같은 ball 원본2→1요청(도안 포함3→2), 정답음원40응답disk cache·WebP7일/JS1년·SW동일 유지. 게이트→배치/undo·선택·붓 입력 pageerror0. 중간 동시검수/계측 집계 보정·실기기/청취 미검수 한계는 task 참조. 제품/운영 데이터 변경 없이 기록만 후속 로컬 커밋.
+
 2026-10-17 사용자 후속 승인으로 영어 블록/그림짝 조기 준비·색칠 중복 요청 제거 dfc1c1563 및 통합/검수 기록을 main 일반 push 대상으로 확정했다. fetch0/3·추적 clean, 기존 검증 뒤 source 추가 변경 없음. [전달 범위](tasks/20261017-game-loading-bottlenecks.md#메인-푸시-요청). 운영 배포 완료는 별도 확인.
 
 2026-10-17 [영어 블록·게임 로딩 병목](tasks/20261017-game-loading-bottlenecks.md) dfc1c1563 로컬 main 통합. 영어 블록/그림짝의 늦은 phonics 목록 조회를 core와 병렬화하고 색칠 원본 img의 CORS를 canvas와 맞춰 같은 URL2요청→1요청. 격리 built Chrome 최초3회 중앙 영어2.74→2.22초·색칠2.27→1.69초, 재진입 개선은 주장하지 않음. 기존 캐시/게이트/상한·판정 유지, 한영24진입/실제 입력 및 타입/lint/build 통과. 새 push/운영 배포 없음.
