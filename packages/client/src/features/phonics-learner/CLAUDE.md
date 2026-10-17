@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-18 영어 활동 호스트의 ConnectedWordLearningActivity는 해당 활동을 선택할 때만 lazy import한다. 영어 블록/그림짝 입장에서 한국어 블록·색칠 등 연결 활동 코드를 함께 받지 않으며, 실제 선택 시 Suspense의 기존 ActivityLoading→실제 활동/준비 게이트를 유지한다. 호스트 코드 선행 실험은 느려져 제외했고 기존 query loader만 유지한다. [최종 측정·한계](../../../../../docs/work/games/tasks/20261018-english-entry-waterfall.md).
+
 2026-10-17 영어 블록/듣고블록/그림짝3입구는 englishGameLoader가 화면 코드 마운트 전 기존 ['storybook',unitId] query를 non-blocking prefetch한다. 실제 host/useStorybook과 in-flight·기본 신선도를 공유하고 접근/미디어 gate·진도는 그대로다. 다른 활동은 no-op. [첫 진입 검증](../../../../../docs/work/games/tasks/20261017-english-first-entry.md).
 
 2026-10-17 자유 블록 결과 다시 하기는 onReplay로 useAdaptiveFreePlay.start(block,true)를 호출해 최신 근거로 새 선택을 한다. playRun query가 unguided 활동 key에 포함되어 같은 단원/도움이 재선택돼도 빈 판·새 관찰 run으로 remount한다. 일반/커리큘럼 재시작은 기존 handleRestart 유지. [완주·재시작 검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md#전체-완주재시작-적응-검수-진행).

@@ -1,6 +1,5 @@
 import { useAdaptiveFreePlay } from '../hooks/useAdaptiveFreePlay';
 import { usePhonicsSeo } from '../hooks/usePhonicsSeo';
-import { ConnectedWordLearningActivity } from '../activities/ConnectedWordLearningActivity';
 import { journeyProgress } from '../lib/learning-journey';
 import { recordGameChoice, type ChoiceEvidence } from '../lib/journey-assessment';
 import { freeWritingCompanion } from '../lib/free-activity-groups';
@@ -8,7 +7,7 @@ import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { VocabSourceProvider } from '@/features/learning/context/VocabSourceContext';
 import { ActivityShell } from './ActivityShell';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { useCallback, useMemo, type ReactNode, useRef } from 'react';
+import { lazy, Suspense, useCallback, useMemo, type ReactNode, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameTypeId } from '@tangobook/shared';
 import { PhonicsGameGate } from './PhonicsGameGate';
@@ -50,6 +49,14 @@ import {
   findImageData,
 } from '../lib/phonics-game-adapter';
 import type { Storybook } from '@tangobook/shared';
+
+// This activity brings its own Korean/English writing, coloring and block players. Keep them
+// out of unrelated English games; their existing gates still run when the activity is selected.
+const ConnectedWordLearningActivity = lazy(() =>
+  import('../activities/ConnectedWordLearningActivity').then((module) => ({
+    default: module.ConnectedWordLearningActivity,
+  }))
+);
 
 /**
  * /library/phonics/english/:unitId/:activityKey — 영어 활동 호스트.
@@ -298,16 +305,18 @@ export function EnglishPhonicsActivity({
       );
     if (!storybook) return <ActivityLoading activity={activity} onBack={backToUnit} />;
     return (
-      <ConnectedWordLearningActivity
-        freePlaySupport={
-          freePlay ? (playSearch.get('support') === 'model' ? 'model' : 'first') : undefined
-        }
-        unitId={unitId}
-        book={storybook}
-        lang="english"
-        onComplete={handleComplete}
-        onBack={backToUnit}
-      />
+      <Suspense fallback={<ActivityLoading activity={activity} onBack={backToUnit} />}>
+        <ConnectedWordLearningActivity
+          freePlaySupport={
+            freePlay ? (playSearch.get('support') === 'model' ? 'model' : 'first') : undefined
+          }
+          unitId={unitId}
+          book={storybook}
+          lang="english"
+          onComplete={handleComplete}
+          onBack={backToUnit}
+        />
+      </Suspense>
     );
   }
 
