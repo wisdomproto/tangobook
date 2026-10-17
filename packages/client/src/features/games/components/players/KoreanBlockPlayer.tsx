@@ -68,6 +68,8 @@ function KoreanBlockPlayerInner({
   onBack,
   initialInputMode = 'screen',
   listeningPractice = false,
+  allowModelHint = false,
+  initialSupport,
   onPracticeAttempt,
   trayLetters,
 }: KoreanBlockPlayerProps) {
@@ -121,6 +123,7 @@ function KoreanBlockPlayerInner({
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   const listening = useListeningBlockPrompt({
     enabled: listeningPractice,
+    initialSupport: allowModelHint ? initialSupport : undefined,
     word: currentItem.word,
     question: currentIndex,
     language: 'korean',
@@ -385,6 +388,7 @@ function KoreanBlockPlayerInner({
         question: currentIndex,
         firstAttempt: !hasTriedThisRound,
         hintUsed: listening.hintUsed,
+        ...(allowModelHint ? { modelVisible: listening.modelVisible } : {}),
       });
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
@@ -490,6 +494,8 @@ function KoreanBlockPlayerInner({
     listeningPractice,
     listening.heard,
     listening.hintUsed,
+    listening.modelVisible,
+    allowModelHint,
     onPracticeAttempt,
     composedSyllables,
     hasTriedThisRound,
@@ -598,7 +604,9 @@ function KoreanBlockPlayerInner({
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
             title={
-              listeningPractice ? t('phonics:activity.listenBlockPlay') : t('cards.block.labelKo')
+              listeningPractice && !allowModelHint
+                ? t('phonics:activity.listenBlockPlay')
+                : t('cards.block.labelKo')
             }
             current={score}
             total={items.length}
@@ -648,7 +656,7 @@ function KoreanBlockPlayerInner({
             )}
           >
             {listeningPractice && !roundCorrect ? (
-              <ListeningBlockPrompt prompt={listening} />
+              <ListeningBlockPrompt prompt={listening} allowModelHint={allowModelHint} />
             ) : (
               <>
                 {currentItem.imageUrl && (

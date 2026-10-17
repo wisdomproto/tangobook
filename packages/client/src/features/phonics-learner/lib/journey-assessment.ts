@@ -1,6 +1,7 @@
 import type { JourneyLanguage } from './learning-journey';
 
 export interface ChoiceEvidence {
+  modelVisible?: boolean;
   question: number;
   firstAttempt: boolean;
   hintUsed?: boolean;

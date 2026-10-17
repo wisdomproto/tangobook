@@ -115,3 +115,22 @@ describe('낱말 쓰기 채점 빈도', () => {
     expect(frame).toBeUndefined();
   });
 });
+
+it('revealing future guides preserves ink, current cell and completion state', async () => {
+  const syllables = ['a', 'b'];
+  const complete = vi.fn();
+  const view = render(<WordFillCanvas word="ab" syllables={syllables} onComplete={complete} />);
+  await act(async () => {});
+  const canvas = view.container.querySelector('canvas')!;
+  fireEvent.pointerDown(canvas);
+  fireEvent.pointerUp(canvas);
+  const clears = ctx.clearRect.mock.calls.length;
+  view.rerender(
+    <WordFillCanvas word="ab" syllables={syllables} onComplete={complete} showAllGuides />
+  );
+  await act(async () => {});
+  expect(view.container.querySelector('canvas')).toBe(canvas);
+  expect(ctx.clearRect).toHaveBeenCalledTimes(clears);
+  expect(complete).not.toHaveBeenCalled();
+  expect(ctx.clip).toHaveBeenCalled();
+});

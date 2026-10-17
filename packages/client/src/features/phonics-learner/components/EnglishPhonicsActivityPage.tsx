@@ -97,6 +97,8 @@ export function EnglishPhonicsActivity({
   onMarked,
 }: EnglishPhonicsActivityProps) {
   const { t } = useTranslation('phonics');
+  const [playSearch] = useSearchParams();
+  const freePlay = playSearch.get('freePlay') === '1' && playSearch.get('mode') !== 'curriculum';
   const unit = getEnglishUnit(unitId);
   const plan = getEnglishActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -247,14 +249,15 @@ export function EnglishPhonicsActivity({
           source: 'phonics',
           unitId,
           lang: 'en',
-          skill: 'sound',
+          skill: evidence.modelVisible ? 'building' : 'sound',
           activityId: activityKey,
           activityRunId: completionId,
           evidence: 'first-attempt',
           firstAttempt: evidence.firstAttempt,
           hintUsed: evidence.hintUsed,
-          learningMode: 'assessment',
-          modelVisible: false,
+          learningMode: evidence.hintUsed || evidence.modelVisible ? 'practice' : 'assessment',
+          practiceCompleted: correct && !!(evidence.hintUsed || evidence.modelVisible),
+          modelVisible: evidence.modelVisible ?? false,
           independent: correct && evidence.firstAttempt && !evidence.hintUsed,
         },
       });
@@ -294,6 +297,9 @@ export function EnglishPhonicsActivity({
     if (!storybook) return <ActivityLoading activity={activity} onBack={backToUnit} />;
     return (
       <ConnectedWordLearningActivity
+        freePlaySupport={
+          freePlay ? (playSearch.get('support') === 'model' ? 'model' : 'first') : undefined
+        }
         unitId={unitId}
         book={storybook}
         lang="english"
@@ -774,6 +780,14 @@ export function EnglishPhonicsActivity({
         {...commonProps}
         gameData={gameData}
         listeningPractice={activity.listeningPractice}
+        allowModelHint={freePlay}
+        initialSupport={
+          playSearch.get('support') === 'model'
+            ? 'model'
+            : playSearch.get('support') === 'first'
+              ? 'first'
+              : 'listen'
+        }
         onPracticeAttempt={observeBlockPractice}
       />
     );
@@ -815,7 +829,7 @@ export function EnglishPhonicsActivity({
     return gate(
       'english-word-writing',
       gameData,
-      <EnglishWordWritingPlayer {...commonProps} gameData={gameData} />
+      <EnglishWordWritingPlayer {...commonProps} gameData={gameData} allowWritingHints={freePlay} />
     );
   }
   if (activity.kind === 'game-line-matching') {

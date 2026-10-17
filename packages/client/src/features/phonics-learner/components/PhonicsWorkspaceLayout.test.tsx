@@ -464,10 +464,10 @@ it.each(['korean', 'english'] as const)(
     const { container } = show(`/library/phonics/${lang}?mode=free`);
     expect(container.querySelector('.journey-map-viewport')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: '블록 놀이' }));
-    fireEvent.click(
-      within(screen.getByRole('dialog', { name: '블록 놀이' })).getAllByRole('link')[0]
+    expect(screen.getByTestId('route-activity').textContent).toMatch(
+      /game-(korean|english)-block-listen$/
     );
-    expect(screen.getByTestId('practice-part')).toHaveTextContent('block');
+    expect(screen.queryByRole('dialog')).toBeNull();
     expect(container.querySelector('.journey-map-panel')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'tap 0' }));
     fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));

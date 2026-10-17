@@ -516,5 +516,13 @@
     "selected": "已选章节",
     "chooseActivity": "选择活动",
     "chooseChapter": "选择任意章节"
+  },
+  "playHelp": {
+    "answer": "答案",
+    "wholeWord": "显示整个单词",
+    "support": "帮助",
+    "model": "显示全词",
+    "first": "首字提示",
+    "listenOnly": "只听声音"
   }
 }

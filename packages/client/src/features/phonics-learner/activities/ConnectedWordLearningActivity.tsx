@@ -26,6 +26,7 @@ import { withKoreanLearningScope } from '../lib/korean-learning-source';
 import {
   advanceWordLearning,
   loadWordLearningRun,
+  freshWordPracticeRun,
   loadWordPracticeRun,
   saveWordLearningRun,
   wordPracticeStorageKey,
@@ -42,6 +43,7 @@ interface Props {
   unitId: string;
   book: Storybook;
   lang: 'korean' | 'english';
+  freePlaySupport?: 'model' | 'first';
   onComplete: () => void;
   onBack: () => void;
 }
@@ -57,16 +59,20 @@ export function ConnectedWordLearningActivity(props: Props) {
   );
 }
 
-function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
+function WordLearningRun({ unitId, book, lang, onComplete, onBack, freePlaySupport }: Props) {
   const { t } = useTranslation('phonics');
   const logEvent = useLogEvent();
   const key = wordLearningStorageKey(lang, unitId);
   const workspace = useLearningWorkspace();
   const practiceStage = workspace?.practiceStage;
+  const allowWritingHints = !!freePlaySupport && workspace?.mode !== 'curriculum';
   const publishWordActivity = workspace?.setWordActivity;
   // A ref pins the source definition for the run: query refetches cannot reset a canvas or reroll words.
   const source = useRef(lang === 'korean' ? withKoreanLearningScope(book)! : book).current;
+  const randomPlay = !!freePlaySupport && !!practiceStage && workspace?.mode !== 'curriculum';
   const [run, setRun] = useState(() => {
+    if (randomPlay && practiceStage)
+      return freshWordPracticeRun(source.phonicsConfig?.targetWords ?? [], practiceStage);
     const saved = loadWordLearningRun(key, source.phonicsConfig?.targetWords ?? []);
     return practiceStage ? loadWordPracticeRun(key, saved.words, practiceStage) : saved;
   });
@@ -121,7 +127,7 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     const next = practiceStage
       ? { ...run, index: run.index + 1 }
       : advanceWordLearning(run, stages);
-    saveWordLearningRun(storageKey, next);
+    if (!randomPlay) saveWordLearningRun(storageKey, next);
     logEvent({
       type: run.stage === 'meet' ? 'word_exposed' : 'word_correct',
       storybookId: unitId,
@@ -178,7 +184,7 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     initialInputMode: run.inputMode,
     onInputModeSelected: (inputMode: 'screen' | 'camera') => {
       const next = { ...run, inputMode };
-      saveWordLearningRun(storageKey, next);
+      if (!randomPlay) saveWordLearningRun(storageKey, next);
       setRun(next);
     },
   };
@@ -213,9 +219,19 @@ function WordLearningRun({ unitId, book, lang, onComplete, onBack }: Props) {
     game = lang === 'korean' ? 'korean-word-writing' : 'english-word-writing';
     content =
       lang === 'korean' ? (
-        <KoreanWordWritingPlayer {...playerProps} gameData={writing} />
+        <KoreanWordWritingPlayer
+          {...playerProps}
+          gameData={writing}
+          allowWritingHints={allowWritingHints}
+          initialSupport={freePlaySupport}
+        />
       ) : (
-        <EnglishWordWritingPlayer {...playerProps} gameData={writing} />
+        <EnglishWordWritingPlayer
+          {...playerProps}
+          gameData={writing}
+          allowWritingHints={allowWritingHints}
+          initialSupport={freePlaySupport}
+        />
       );
   }
   if (run.stage === 'color') {

@@ -516,5 +516,13 @@
     "selected": "Selected chapter",
     "chooseActivity": "Choose an activity",
     "chooseChapter": "Choose any chapter"
+  },
+  "playHelp": {
+    "answer": "Answer",
+    "wholeWord": "Show whole word",
+    "support": "Help",
+    "model": "Show word",
+    "first": "First letter",
+    "listenOnly": "Listen only"
   }
 }

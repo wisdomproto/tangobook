@@ -1,5 +1,7 @@
 # 파닉스 모듈
 
+2026-10-17 WordFillCanvas의 showAllGuides는 미래 글자 덮개 표시만 바꾼다. canvas/폰트 mask/입력 셀/기존 순서·완료 판정을 초기화하거나 약화하지 않는다. 자유쓰기 손글씨 인식 기능으로 해석하지 않는다. [검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md).
+
 2026-10-17 StrokeTraceCanvas 한영 공통은90% 경로 도달 시 꼬리+옆 오차를 허용해 전체 획을 채운다. 미달/취소는 accepted ink·checkpoint를 유지, 초록 끝점 근처에서 resumeTrace로 이어 쓴다. 원래 시작점을 누르면 현재 획 재시도. 한 획씩 순서·방향·지름길/절반 거절·실제 pointer-up 완료는 유지하며 낱말 면채움에는 적용하지 않는다. 새 회차/글자/이탈에 미완성 획 영구 저장은 하지 않는다. [실제 입력·회귀](../../../../../docs/work/phonics/tasks/20261017-writing-pause-navigation.md).
 
 2026-10-16 가이드 후속: 영어 투영 후 authored 직선 구간/공유 꺾임을 다시 직선화하고 곡선 픽셀 떨림만 정리한다. 길이 기반 방향 cue로 e의 가로→위 반시계→아래 마무리를 표시한다. 공용 StrokeTraceCanvas는 순서/경로를 따라90%에서 pointer-up하면 꼬리를 완성하며 점찍기는 제외한다. [검증·native 곡선 제약](../../../../../docs/work/phonics/tasks/20261016-alphabet-guide-ending.md).

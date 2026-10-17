@@ -84,3 +84,46 @@ it('disables repeated playback clicks while loading and displays recoverable aud
   await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
   expect(screen.getByRole('button', { name: '소리 듣기' })).toBeEnabled();
 });
+
+it('full model is optional, remains assisted after hiding, and resets only for a new question', () => {
+  let state!: ReturnType<typeof useListeningBlockPrompt>;
+  function Prompt({ question = 0 }: { question?: number }) {
+    state = useListeningBlockPrompt({ ...options, question, playAudio: vi.fn() });
+    return <ListeningBlockPrompt prompt={state} allowModelHint />;
+  }
+  const view = render(<Prompt />);
+  fireEvent.change(screen.getByRole('combobox', { name: '도움 정도' }), {
+    target: { value: 'model' },
+  });
+  expect(screen.getByRole('status', { name: '정답' })).toHaveTextContent('나비');
+  expect(state.hintUsed).toBe(true);
+  expect(state.heard).toBe(false);
+  fireEvent.change(screen.getByRole('combobox', { name: '도움 정도' }), {
+    target: { value: 'listen' },
+  });
+  expect(screen.queryByRole('status', { name: '정답' })).toBeNull();
+  expect(state.hintUsed).toBe(true);
+  view.rerender(<Prompt question={1} />);
+  expect(state.hintUsed).toBe(false);
+  expect(state.modelVisible).toBe(false);
+});
+
+it('retains the selected help level for the next item but not the previous question evidence', () => {
+  const { result, rerender } = renderHook(
+    ({ question }) =>
+      useListeningBlockPrompt({
+        ...options,
+        question,
+        initialSupport: 'model',
+        playAudio: vi.fn(),
+      }),
+    { initialProps: { question: 0 } }
+  );
+  expect(result.current.modelVisible).toBe(true);
+  act(() => result.current.changeSupport('first'));
+  rerender({ question: 1 });
+  expect(result.current.support).toBe('first');
+  expect(result.current.modelVisible).toBe(false);
+  expect(result.current.hintVisible).toBe(true);
+  expect(result.current.hintUsed).toBe(true);
+});

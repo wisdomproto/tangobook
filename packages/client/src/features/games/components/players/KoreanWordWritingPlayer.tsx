@@ -1,3 +1,4 @@
+import { WritingHintButton } from '../WritingHintButton';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -35,6 +36,8 @@ export function KoreanWordWritingPlayer({
   gameData,
   onComplete,
   connectedPractice,
+  allowWritingHints = false,
+  initialSupport = 'first',
   onBack,
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
@@ -42,6 +45,9 @@ export function KoreanWordWritingPlayer({
   const items = data.items;
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hintQuestion, setHintQuestion] = useState<number | null>(
+    allowWritingHints && initialSupport === 'model' ? 0 : null
+  );
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
@@ -212,6 +218,13 @@ export function KoreanWordWritingPlayer({
         total={items.length}
         onBack={onBack}
       />
+      {allowWritingHints && (
+        <WritingHintButton
+          word={currentItem.word}
+          visible={hintQuestion === currentIndex}
+          onToggle={() => setHintQuestion(hintQuestion === currentIndex ? null : currentIndex)}
+        />
+      )}
       <div className="word-writing-stage flex flex-col items-center gap-3 sm:gap-4 w-full flex-1 min-h-0">
         <div className="word-writing-prompt flex flex-col items-center justify-center gap-2 shrink-0">
           {currentItem.imageUrl && (
@@ -231,6 +244,7 @@ export function KoreanWordWritingPlayer({
           <div className="word-writing-canvas" style={{ width: 'min(680px, 92vw, 90vh)' }}>
             <WordFillCanvas
               key={currentIndex}
+              showAllGuides={allowWritingHints && hintQuestion === currentIndex}
               word={currentItem.word}
               syllables={syllables}
               onSyllableDone={handleSyllableDone}

@@ -40,6 +40,8 @@ interface WordFillCanvasProps {
    * 자유 색칠이 필요한 화면만 `false`.
    */
   sequential?: boolean;
+  /** Reveal future guide letters without resetting ink or changing the active writing cell. */
+  showAllGuides?: boolean;
   /**
    * 🔴 **쓰는 순서**(cell 인덱스 배열). 미지정 시 왼→오른쪽(`[0,1,2,…]`). 파닉스는 **패턴(라임) 먼저**
    * 쓰게 한다 — `can` 은 `[1,2,0]`(a→n→c), `bake` 는 `[1,2,3,0]`(a→k→e→b). 이땐 오른쪽 덮개 대신
@@ -56,6 +58,7 @@ export function WordFillCanvas({
   threshold = 0.99,
   fontFamily,
   sequential = true,
+  showAllGuides = false,
   order,
 }: WordFillCanvasProps) {
   const { t } = useTranslation('games');
@@ -330,7 +333,7 @@ export function WordFillCanvas({
                 회색으로 눌려, 다 쓴 글자가 안 쓴 글자와 똑같아 보인다. 끝낸 것은 그대로 보여준다.
                 🔴 `order`(패턴 먼저) 모드에선 끝난 칸·다음 칸이 좌우로 흩어져 오른쪽 덮개가 맞지 않으니
                 덮지 않고 코랄 링으로만 지금 칸을 가리킨다. */}
-            {!order && (
+            {!showAllGuides && !order && (
               <div
                 aria-hidden
                 className="absolute inset-y-0 right-0 z-10 pointer-events-none bg-cream-50/90 backdrop-grayscale transition-all duration-300"

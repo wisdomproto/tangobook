@@ -252,3 +252,44 @@ it('English long exceptions still complete every stage using the same original t
     fireEvent.click(screen.getByRole('button', { name: `${stage} elephant` }));
   expect(complete).toHaveBeenCalledOnce();
 });
+
+it('random writing uses a fresh deck without overwriting either saved curriculum or standalone cursor', () => {
+  const unitId = 'kr-h1-u02';
+  const key = wordLearningStorageKey('korean', unitId);
+  const saved = loadWordLearningRun(key, ['고기', '가구']);
+  const practiceKey = `${key}:practice:write`;
+  localStorage.setItem(practiceKey, 'saved separate practice');
+  const before = localStorage.getItem(key);
+  const back = vi.fn();
+  const complete = vi.fn();
+  render(
+    <LearningWorkspaceContext.Provider
+      value={{
+        mode: 'free',
+        active: true,
+        unitId,
+        activityKey: 'word-learning',
+        practiceStage: 'write',
+        navigationOpen: false,
+        setNavigationOpen: vi.fn(),
+        backToMap: vi.fn(),
+      }}
+    >
+      <ConnectedWordLearningActivity
+        unitId={unitId}
+        lang="korean"
+        book={book(unitId, ['고기', '가구'])}
+        freePlaySupport="model"
+        onBack={back}
+        onComplete={complete}
+      />
+    </LearningWorkspaceContext.Provider>
+  );
+  for (let i = 0; i < 2; i++) fireEvent.click(screen.getByRole('button', { name: /^write / }));
+  expect(back).toHaveBeenCalledOnce();
+  expect(complete).not.toHaveBeenCalled();
+  expect(localStorage.getItem(key)).toBe(before);
+  expect(localStorage.getItem(practiceKey)).toBe('saved separate practice');
+  expect(logEvent.mock.calls.every(([event]) => event.metadata.independent === false)).toBe(true);
+  expect(logEvent.mock.calls[0][0].metadata.activityRunId).not.toBe(saved.id);
+});

@@ -516,5 +516,13 @@
     "selected": "선택한 챕터",
     "chooseActivity": "활동 고르기",
     "chooseChapter": "원하는 챕터를 골라요"
+  },
+  "playHelp": {
+    "answer": "정답",
+    "wholeWord": "전체 낱말 보기",
+    "support": "도움 정도",
+    "model": "전체 보기",
+    "first": "첫 글자 보기",
+    "listenOnly": "소리만 듣기"
   }
 }

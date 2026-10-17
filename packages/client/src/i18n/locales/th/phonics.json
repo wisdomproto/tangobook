@@ -516,5 +516,13 @@
     "selected": "บทที่เลือก",
     "chooseActivity": "เลือกกิจกรรม",
     "chooseChapter": "เลือกบทที่ต้องการ"
+  },
+  "playHelp": {
+    "answer": "คำตอบ",
+    "wholeWord": "ดูทั้งคำ",
+    "support": "ตัวช่วย",
+    "model": "ดูทั้งคำ",
+    "first": "ดูตัวแรก",
+    "listenOnly": "ฟังอย่างเดียว"
   }
 }

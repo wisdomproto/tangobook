@@ -516,5 +516,13 @@
     "selected": "Chương đã chọn",
     "chooseActivity": "Chọn hoạt động",
     "chooseChapter": "Chọn chương bạn muốn"
+  },
+  "playHelp": {
+    "answer": "Đáp án",
+    "wholeWord": "Xem cả từ",
+    "support": "Trợ giúp",
+    "model": "Xem cả từ",
+    "first": "Chữ đầu",
+    "listenOnly": "Chỉ nghe"
   }
 }

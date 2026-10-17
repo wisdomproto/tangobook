@@ -1,5 +1,7 @@
 # 학습 게임 모듈
 
+2026-10-17 자유놀이 도움: 한영 BlockPlayer의 allowModelHint/initialSupport는 같은 듣기 player 안에서 전체/첫 글자/소리만 도움을 바꾼다. 한 문항에서 model/first를 본 뒤 감춰도 hintUsed 유지, 새 문항에서만 선택 도움으로 초기화. onPracticeAttempt의 modelVisible/hintUsed를 실제로 기록하며 독립 성공 오염 금지. allowWritingHints는 낱말 전체 보기만 돕고 기존 canvas/입력 셀/잉크를 유지, 받아쓰기 인식/평가는 아니다. 옵션 기본 꺼짐으로 기존 동화/커리큘럼 유지. [검수](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md).
+
 2026-10-17 GameHeader/ColoringPlayer의 뒤로가기는 workspace에서도 기존 onBack을 실행한다. 별도 목록 버튼으로 drawer를 열고 오른쪽 compass+학습 지도는 backToMap이다. 공용 WorkspaceButtons의44px 그림·접근성 이름·분리된 CSS를 재사용하며 standalone의 홈/광고 embedded 정책은 유지한다. [한영 탐색·검수](../../../../../docs/work/phonics/tasks/20261017-writing-pause-navigation.md).
 
 2026-10-15 한영 block player의 listeningPractice opt-in은 정답/삽화/alt를 숨기고 성공 재생 뒤 판 입력·직접 확인을 사용한다. 첫 글자 힌트·onPracticeAttempt로 관찰을 분리하며 기존 game logger와 중복 송신하지 않는다. 일반 블록/카메라 인식은 보존, 듣고 쓰기 취소. [기록](../../../../../docs/work/phonics/tasks/20261015-listening-block-practice.md).

@@ -214,3 +214,16 @@ export function advanceWordLearning(
   const next = stages[position + 1];
   return next ? { ...run, stage: next } : { ...run, index: run.index + 1, stage: 'meet' };
 }
+
+/** Fresh random free-play deck; never writes or advances a curriculum/practice resume cursor. */
+export function freshWordPracticeRun(
+  targets: readonly string[],
+  stage: WordLearningStage
+): WordLearningRun {
+  const words = [...new Set(targets.map((word) => word.trim()).filter(Boolean))];
+  for (let i = words.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [words[i], words[j]] = [words[j], words[i]];
+  }
+  return { version: 1, id: crypto.randomUUID(), words, index: 0, stage };
+}

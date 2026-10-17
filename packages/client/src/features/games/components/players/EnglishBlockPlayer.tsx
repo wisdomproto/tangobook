@@ -167,6 +167,8 @@ function EnglishBlockPlayerInner({
   onBack,
   initialInputMode = 'screen',
   listeningPractice = false,
+  allowModelHint = false,
+  initialSupport,
   onPracticeAttempt,
 }: GamePlayerProps) {
   const { t } = useTranslation('games');
@@ -250,6 +252,7 @@ function EnglishBlockPlayerInner({
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   const listening = useListeningBlockPrompt({
     enabled: listeningPractice,
+    initialSupport: allowModelHint ? initialSupport : undefined,
     word: currentItem.word,
     question: currentIndex,
     language: 'english',
@@ -543,6 +546,7 @@ function EnglishBlockPlayerInner({
         question: currentIndex,
         firstAttempt: !hasTriedThisRound,
         hintUsed: listening.hintUsed,
+        ...(allowModelHint ? { modelVisible: listening.modelVisible } : {}),
       });
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
@@ -617,6 +621,8 @@ function EnglishBlockPlayerInner({
     listeningPractice,
     listening.heard,
     listening.hintUsed,
+    listening.modelVisible,
+    allowModelHint,
     onPracticeAttempt,
     grid,
     letterCount,
@@ -795,7 +801,9 @@ function EnglishBlockPlayerInner({
           <div className="px-2 pt-2 shrink-0">
             <GameHeader
               title={
-                listeningPractice ? t('phonics:activity.listenBlockPlay') : t('cards.block.labelEn')
+                listeningPractice && !allowModelHint
+                  ? t('phonics:activity.listenBlockPlay')
+                  : t('cards.block.labelEn')
               }
               current={score}
               total={items.length}
@@ -827,7 +835,7 @@ function EnglishBlockPlayerInner({
           >
             <section className="english-block-target flex min-h-0 items-center justify-center gap-8 rounded-3xl border-2 border-white bg-white/85 px-6 py-3 shadow-soft">
               {listeningPractice && !roundCorrect ? (
-                <ListeningBlockPrompt prompt={listening} />
+                <ListeningBlockPrompt prompt={listening} allowModelHint={allowModelHint} />
               ) : (
                 <>
                   {currentItem.imageUrl && (

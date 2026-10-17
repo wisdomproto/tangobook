@@ -1,5 +1,7 @@
 # Learning Reports 모듈
 
+2026-10-17 파닉스 자유놀이 맞춤은 기존 eventsApi.fetchByProfile의 learning-events 캐시와 active child pending+ACK를 합치고, guest는 미귀속 guest 기록만 사용한다. 서버 이력을 가져올 때만 busy, 프로필/언어 교체의 늦은 응답은 탐색하지 않는다. 조회 실패는 scoped local 근거만으로 보수적 도움. 중복 ID 제거·따라쓰기/색칠을 독립 읽기/받아쓰기로 승격하지 않는다. 임상 숙달 점수 아님. [규칙·검증](../../../../../docs/work/phonics/tasks/20261017-adaptive-free-play.md).
+
 ## 2026-10-05 어휘 근거와 모바일 기본 리포트
 
 기본 화면은 `LearningOverview`: 최근 기간의 고유 낱말/직접 연습/활동일 → 다음 놀이 → 누적 낱말 검색·필터 → native dialog 상세. 노출/시도/능력 근거/관련 파닉스 이력 분리, V1은 legacy evidence. `word-learning.ts`가 새 화면의 단일 집계 원본이며 기존 mastery %를 새 리포트의 읽기 습득 판정으로 사용하지 않는다. UI 언어와 학습 언어를 구분한다.

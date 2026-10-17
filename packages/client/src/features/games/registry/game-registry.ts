@@ -24,10 +24,14 @@ export interface GamePlayerProps {
   connectedPractice?: boolean;
   onInputModeSelected?: (mode: 'screen' | 'camera') => void;
   listeningPractice?: boolean;
+  /** Free-play assistance; revealing a model still counts as a hint. */
+  allowModelHint?: boolean;
+  initialSupport?: 'model' | 'first' | 'listen';
+  allowWritingHints?: boolean;
   onPracticeAttempt?: (
     correct: boolean,
     target: string,
-    evidence: { question: number; firstAttempt: boolean; hintUsed: boolean }
+    evidence: { question: number; firstAttempt: boolean; hintUsed: boolean; modelVisible?: boolean }
   ) => void;
   storybookId: string; // [신규] 말하기 게임 등 진척 추적용
   gameData: unknown;

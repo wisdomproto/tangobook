@@ -100,6 +100,8 @@ export function KoreanPhonicsActivity({
   guided,
 }: KoreanPhonicsActivityProps) {
   const { t } = useTranslation('phonics');
+  const [playSearch] = useSearchParams();
+  const freePlay = playSearch.get('freePlay') === '1' && playSearch.get('mode') !== 'curriculum';
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
   const activity: ActivityDef | undefined = useMemo(
@@ -297,14 +299,15 @@ export function KoreanPhonicsActivity({
           source: 'phonics',
           unitId,
           lang: 'ko',
-          skill: 'sound',
+          skill: evidence.modelVisible ? 'building' : 'sound',
           activityId: activityKey,
           activityRunId: completionId,
           evidence: 'first-attempt',
           firstAttempt: evidence.firstAttempt,
           hintUsed: evidence.hintUsed,
-          learningMode: 'assessment',
-          modelVisible: false,
+          learningMode: evidence.hintUsed || evidence.modelVisible ? 'practice' : 'assessment',
+          practiceCompleted: correct && !!(evidence.hintUsed || evidence.modelVisible),
+          modelVisible: evidence.modelVisible ?? false,
           independent: correct && evidence.firstAttempt && !evidence.hintUsed,
         },
       });
@@ -344,6 +347,9 @@ export function KoreanPhonicsActivity({
     if (!storybook) return <ActivityLoading activity={activity} onBack={backToUnit} />;
     return (
       <ConnectedWordLearningActivity
+        freePlaySupport={
+          freePlay ? (playSearch.get('support') === 'model' ? 'model' : 'first') : undefined
+        }
         unitId={unitId}
         book={storybook}
         lang="korean"
@@ -771,6 +777,14 @@ export function KoreanPhonicsActivity({
         gameData={gameData}
         trayLetters={trayLetters}
         listeningPractice={activity.listeningPractice}
+        allowModelHint={freePlay}
+        initialSupport={
+          playSearch.get('support') === 'model'
+            ? 'model'
+            : playSearch.get('support') === 'first'
+              ? 'first'
+              : 'listen'
+        }
         onPracticeAttempt={observeBlockPractice}
       />
     );
@@ -788,7 +802,7 @@ export function KoreanPhonicsActivity({
     return gate(
       'korean-word-writing',
       gameData,
-      <KoreanWordWritingPlayer {...commonProps} gameData={gameData} />
+      <KoreanWordWritingPlayer {...commonProps} gameData={gameData} allowWritingHints={freePlay} />
     );
   }
   if (activity.kind === 'game-line-matching') {

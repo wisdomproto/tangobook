@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-17 [파닉스 자유놀이 도움](../phonics/tasks/20261017-adaptive-free-play.md): 블록 전체/첫 글자/소리만 도움 전환·숨겨도 사용 근거 유지. 한영 낱말쓰기 전체 보기 toggle은 잉크/순서 유지하며 독립 받아쓰기가 아니다. 기본 옵션 꺼짐으로 기존 game 동작 유지. 자유4입구 즉시 출제, 따라 그리기 제거. 새 push 없음.
+
 2026-10-17 [한영 바로 놀기 운영 확인](../platform/tasks/20261017-home-free-play-languages.md#운영-배포한영-선택영어4종-검수--2026-10-17): dcd33cb27/Railway cc654dd6 successful·Active·커밋 링크 직접 확인. 운영 한영 왕복 전환·블록 이름/그림·4링크 동기화, 영어4종 실제 홈 클릭→게임→복귀/새로고침 선택 유지. 실제 bag블록b 배치·Head색칠1클릭·coat숨은그림0→1 확인, lamp쓰기는 진입/표시만. console error0/health ok, 전체 완주·실기기/청취 전수 검수 아님. 제품/운영 설정 변경·새 push 없이 기록만 로컬 보존.
 
 2026-10-17 [홈 바로 놀기 한영 선택](../platform/tasks/20261017-home-free-play-languages.md): 제목 옆44px 한글/영어 선택·영어4종 직접 시작 eacd859df 로컬 main 통합. 홈 playLang/게임 lang·query cache 분리, 실제 책 번역/영어 음원·기존 English player·입문 어휘2~4글자·그림 출처 보존. 홈 아이콘 선택 유실을 scoped context로 수정, 다른 게임 기본 홈 보존.78검사·타입/lint/build41.31초·한영4진입/복귀/영어 일부 실제입력·홈4크기 확인. 전체 완주·실기기 아님. 사용자 후속 요청으로 origin/main 일반 push 대상 확정(fetch0/3·tracked clean), 새 운영 배포 완료는 별도 확인.
