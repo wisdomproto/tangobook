@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 [한영 UX·자유 낱말 main 푸시 요청](tasks/20261017-word-practice-cursor-lock-colors.md#main-푸시-요청--2026-10-17): 사용자 현재 요청으로513f1d40b 자유 낱말/잠금 색과62d0add0b 선행 UX 정리·기록을 일반 push 대상으로 확정. fetch0/6·tracked/staged clean·전달 diff 확인, 기존 검증 결과 유지. 새 운영 배포 완료는 별도 확인한다. 아래 미푸시는 이전 시점의 기록이다.
+
 2026-10-17 [자유 낱말 진행 로컬 전달](tasks/20261017-word-practice-cursor-lock-colors.md): 513f1d40b를 실제 main에 fast-forward·포함 확인했다. 코드와 작업 기억 동시 커밋, 기존 미추적 산출물 보존. 사용자 요청은 로컬 수정/검수여서 원격 push·운영 배포 없음.
 
 2026-10-17 [자유 낱말 진행·잠금 색 수정](tasks/20261017-word-practice-cursor-lock-colors.md): 사용자 승인으로 재검토1·2 구현. 한영 단독 part는 종류별 별도 cursor로 같은 종류의 챕터 낱말을 이어가고 마지막에 지도, 도중 복귀/새로고침 이어하기·이전 실제 ledger 복원·완료 후 새 회차. 본 순차 cursor/부모 완료를 덮어쓰지 않는다. 잠긴 부분 연습은 회색/자물쇠+제목 아래13px `연습1/4`이며 초록 inline/data-started 제외.114회귀·최종워크스페이스16재검사·타입·변경 lint·build57초 통과. 실제 한글 남은3낱말 완료/지도/재연습, 영어 만나기 cake→cape3/8·블록 tape→cake2/8·재진입/새로고침, 한영 회색 잠금/3화면 확인. 영어8낱말 전체·네 종류 실제 전수 완주 아님. 새 push 없음.

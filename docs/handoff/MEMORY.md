@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 [한영 UX·자유 낱말 푸시 요청](../work/phonics/tasks/20261017-word-practice-cursor-lock-colors.md#main-푸시-요청--2026-10-17): 사용자 현재 main push 요청으로513f1d40b·선행62d0add0b UX와 관련 기록을 원격 main 일반 push 대상으로 확정. fetch0/6·tracked clean·diff 확인. 새 운영 배포 완료는 별도 확인하며 아래 미푸시는 이전 시점이다.
+
 2026-10-17 [한영 자유 낱말 이어가기/잠금 색](../work/phonics/tasks/20261017-word-practice-cursor-lock-colors.md): 재검토1·2 사용자 승인 구현. 단독 종류별 다음 낱말/중단 복원·마지막 지도, 본 커리큘럼 cursor 격리. 부분 연습 잠금은 회색·별도 연습량.114회귀/타입/변경 lint/build 통과, 한글 실제 마지막 지도·한영 다음 낱말/잠금 화면 확인. 새 push 없음. 이전 재검토 미수정 상태를 대체한다.
 
 2026-10-17 [한영 UX 재검토](../work/phonics/tasks/20261017-phonics-second-ux-review.md): 자유 한영 낱말 실제 완료→지도→재진입 시 첫 낱말 반복, 연습한 커리큘럼 잠금 행이 초록색으로 보이는 혼동 확인. 검토 기록만이며 두 문제는 미수정. 별도 자유 진행/접근 상태 우선 표시 권고, 지도 현재 위치·홈 이어하기 보존 정상. 코드/배포 변경 없음.
