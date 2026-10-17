@@ -2,11 +2,11 @@
 
 - id: 20261018-english-prepared-audio
 - domain: games
-- status: validated
+- status: integrated
 - base: 1b4ec515e
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 구현·검증, 새 push 요청 없음
+- delivery: b102ed23f 로컬 main 통합·검증 완료, 새 push 요청 없음
 
 ## 요청·기준
 
