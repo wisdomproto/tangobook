@@ -51,7 +51,7 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
 
   const [loaded, setLoaded] = useState(0);
   const [total, setTotal] = useState(0);
-  const [ready, setReady] = useState(false);
+  const [readyKey, setReadyKey] = useState<string | null>(null);
 
   const coreKey = JSON.stringify([
     images,
@@ -62,20 +62,21 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     phonicsReady,
   ]);
   const bgKey = [...scene.sceneImages, ...scene.sceneNarrations].join('|');
+  const ready = phonicsReady && readyKey === coreKey;
 
   useEffect(() => {
     if (!phonicsReady) {
-      setReady(false);
+      setReadyKey(null);
       return;
     }
     let alive = true;
     setLoaded(0);
-    setReady(false);
+    setReadyKey(null);
 
     // 6초 상한 — TTS resolve(콜드 concat: 음절 합성→R2 업로드)까지 포함해 전체 대기를 bound.
     // 상한 전에 async 밖에서 걸어야 콜드 concat 이 오래 걸려도 게임이 6초 뒤 무조건 시작된다.
     const cap = setTimeout(() => {
-      if (alive) setReady(true);
+      if (alive) setReadyKey(coreKey);
     }, PRELOAD_MAX_MS);
 
     const imageUrls = [...new Set(images)];
@@ -117,7 +118,7 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     void Promise.all(jobs).then(() => {
       if (alive) {
         clearTimeout(cap);
-        setReady(true);
+        setReadyKey(coreKey);
       }
     });
 
@@ -128,9 +129,12 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
   }, [coreKey]);
 
   useEffect(() => {
-    for (const u of scene.sceneImages) void warmImageUrl(u);
-    for (const u of scene.sceneNarrations) void warmAudioUrl(u);
-  }, [bgKey]);
+    // Optional scenes must not compete with this round's core media for connections/decoding.
+    // Start them as soon as the existing gate opens; they still never extend the gate.
+    if (!ready) return;
+    for (const u of new Set(scene.sceneImages)) void warmImageUrl(u);
+    for (const u of new Set(scene.sceneNarrations)) void warmAudioUrl(u);
+  }, [bgKey, ready]);
 
   return { ready, loaded, total };
 }

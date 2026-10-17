@@ -69,7 +69,16 @@ it('offers four independent play links without changing curriculum progress', ()
     ['색칠하기', 'coloring'],
     ['숨은그림찾기', 'hidden-object'],
   ];
-  expect(play.getAllByRole('link')).toHaveLength(4);
+  // The header also links to the existing free-play shelf; it is separate from the four launches.
+  expect(play.getByRole('link', { name: '골라 놀기' })).toHaveAttribute(
+    'href',
+    '/library/phonics/korean?mode=free'
+  );
+  expect(
+    play
+      .getAllByRole('link')
+      .filter((link) => link.getAttribute('href')?.startsWith('/library/play/'))
+  ).toHaveLength(4);
   for (const [name, kind] of entries) {
     const link = play.getByRole('link', { name });
     expect(link).toHaveAttribute('href', `/library/play/${kind}?lang=ko`);

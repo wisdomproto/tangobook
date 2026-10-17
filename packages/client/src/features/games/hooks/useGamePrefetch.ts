@@ -50,16 +50,25 @@ function persistWarmed(): void {
  *    → `canplaythrough`/`loadeddata` 까지 기다리면 미디어 캐시에 확실히 적재돼 다음 `new Audio`
  *    재생이 즉시. 엘리먼트는 이벤트 리스너 클로저가 완료까지 참조를 잡아 GC 로 abort 되지 않는다.
  */
+// Share only active decoding. A completed promise must never become a permanent ready flag:
+// the browser may evict media bytes before the next game entry.
+const audioInFlight = new Map<string, Promise<void>>();
+
 export function warmAudioUrl(url: string): Promise<void> {
-  return new Promise<void>((resolve) => {
+  if (!url) return Promise.resolve();
+  const existing = audioInFlight.get(url);
+  if (existing) return existing;
+  const job = new Promise<void>((resolve) => {
     try {
       const audio = new Audio();
       audio.preload = 'auto';
       audio.muted = true;
       let done = false;
+      let timeout: ReturnType<typeof setTimeout>;
       const finish = () => {
         if (done) return;
         done = true;
+        clearTimeout(timeout);
         audio.removeEventListener('canplaythrough', finish);
         audio.removeEventListener('loadeddata', finish);
         audio.removeEventListener('error', finish);
@@ -69,13 +78,16 @@ export function warmAudioUrl(url: string): Promise<void> {
       audio.addEventListener('loadeddata', finish, { once: true });
       audio.addEventListener('error', finish, { once: true });
       // 일부 브라우저 이벤트 미발동 대비 상한
-      setTimeout(finish, 4000);
+      timeout = setTimeout(finish, 4000);
       audio.src = url;
       audio.load();
     } catch {
       resolve();
     }
   });
+  audioInFlight.set(url, job);
+  void job.then(() => audioInFlight.delete(url));
+  return job;
 }
 
 /**

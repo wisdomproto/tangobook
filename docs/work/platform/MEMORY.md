@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-17 [태블릿 홈](tasks/20261017-home-tablet-fit.md): 제목/과정/별도이어하기·4놀이/추천3권 배치 조정, 가로1024×600~1366×768·세로768×1024에서 두 이어하기가 있어도 모두 노출/가로넘침0. 기존 동선/글자·44px 조작·WebP 유지, PC/폰 기존스크롤. [블록 병목](../phonics/tasks/20261017-block-preload-bottleneck.md)은 선택장면 후순위·pending음원공유로 보완,53회귀·타입/lint/build 통과. 독립 headless viewport 검수이며 실기기/운영배포 아님, 새 push 없음.
+
 2026-10-17 [블록 준비 운영 검수](../phonics/tasks/20261017-korean-block-preload-parallel.md#새-배포-이후-결과): ff2bb9ed4/Railway a4c65614 프런트10:34:31Z success·Active·health ok. 새번들 확인·캐시유지 각5회 중앙값1.614→1.542초(편차겹침), 게이트/실제입력 정상. WebP7일/JS1년immutable·304/0B·SW동일, 캐시/학습기록 삭제 없음. 개별브라우저HIT/cold/실기기 보장 아님, 검수문서만 로컬.
 
 2026-10-17 [한글 블록 준비 병렬화](../phonics/tasks/20261017-korean-block-preload-parallel.md): 감사 후 사용자 승인으로 그림/음절과 TTS별 준비를 병렬화했다. 캐시/로딩 게이트 유지, 동일 run 음원 준비 공유·대상 key 갱신. 로컬 각5회 중앙값3.00→2.09초(운영 보장 아님),53검사/타입/lint/build. 새 push/배포 없음.

@@ -12,6 +12,7 @@ vi.mock('@/features/tts', () => ({
 import { useGameAssetPreload } from './useGameAssetPreload';
 import { resolveTtsUrl } from '@/features/tts';
 import { warmAudioUrl, warmImageUrl } from './useGamePrefetch';
+import type { Storybook } from '@tangobook/shared';
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -38,6 +39,78 @@ const args = {
   style: undefined,
   storybookId: 'book-1',
 };
+
+it('starts optional scene media only after core readiness, once per scene URL, without waiting for it', async () => {
+  let finishCore!: () => void;
+  const book = {
+    key_objects: [{ name: '나무', korean: '나무', pages: [1] }],
+    pages: [
+      { pageNumber: 1, text: '나무가 있다', illustrationUrl: 'scene.webp', ttsUrl: 'scene.mp3' },
+    ],
+  } as Storybook;
+  vi.mocked(warmAudioUrl).mockImplementation((url) => {
+    if (url === 'scene.mp3') return new Promise<void>(() => {});
+    if (url === 'https://r2/tts.mp3') return new Promise<void>((resolve) => (finishCore = resolve));
+    return Promise.resolve();
+  });
+  const { result } = renderHook(() =>
+    useGameAssetPreload({
+      ...args,
+      book,
+      data: { type: 'korean-block', items: [blockData.items[0], blockData.items[0]] },
+    })
+  );
+  await waitFor(() => expect(finishCore).toBeTypeOf('function'));
+  expect(result.current.ready).toBe(false);
+  expect(warmImageUrl).not.toHaveBeenCalledWith('scene.webp');
+  expect(warmAudioUrl).not.toHaveBeenCalledWith('scene.mp3');
+  await act(async () => finishCore());
+  expect(result.current.ready).toBe(true);
+  expect(result.current.loaded).toBe(result.current.total);
+  expect(vi.mocked(warmImageUrl).mock.calls.filter(([url]) => url === 'scene.webp')).toHaveLength(
+    1
+  );
+  expect(vi.mocked(warmAudioUrl).mock.calls.filter(([url]) => url === 'scene.mp3')).toHaveLength(1);
+});
+
+it('does not carry the previous round readiness into a new target or warm its scene early', async () => {
+  let finishNext!: () => void;
+  const makeBook = (word: string) =>
+    ({
+      key_objects: [{ name: word, korean: word, pages: [1] }],
+      pages: [
+        {
+          pageNumber: 1,
+          text: `${word} 있다`,
+          illustrationUrl: `${word}.webp`,
+          ttsUrl: `${word}.mp3`,
+        },
+      ],
+    }) as Storybook;
+  vi.mocked(resolveTtsUrl).mockImplementation(({ text }) => Promise.resolve(`answer-${text}`));
+  vi.mocked(warmAudioUrl).mockImplementation((url) =>
+    url === 'answer-바다'
+      ? new Promise<void>((resolve) => (finishNext = resolve))
+      : Promise.resolve()
+  );
+  const view = renderHook(
+    ({ word }) =>
+      useGameAssetPreload({
+        ...args,
+        data: { type: 'korean-block', items: [{ word }] },
+        book: makeBook(word),
+      }),
+    { initialProps: { word: '나무' } }
+  );
+  await waitFor(() => expect(view.result.current.ready).toBe(true));
+  view.rerender({ word: '바다' });
+  await waitFor(() => expect(finishNext).toBeTypeOf('function'));
+  expect(view.result.current.ready).toBe(false);
+  expect(warmImageUrl).not.toHaveBeenCalledWith('바다.webp');
+  await act(async () => finishNext());
+  expect(view.result.current.ready).toBe(true);
+  expect(warmImageUrl).toHaveBeenCalledWith('바다.webp');
+});
 
 it('느린 단어 URL을 기다리는 동안에도 그림/음절과 먼저 확인된 단어를 준비한다', async () => {
   let finishSlow!: (url: string) => void;

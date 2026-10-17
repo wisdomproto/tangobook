@@ -91,7 +91,10 @@ function LearningHomeContent() {
           {t('home.title')}
         </StorybookTitle>
       </div>
-      <section aria-label={t('home.courses')} className="grid gap-4 sm:grid-cols-2 md:gap-6">
+      <section
+        aria-label={t('home.courses')}
+        className="home-course-grid grid gap-4 sm:grid-cols-2 md:gap-6"
+      >
         {courses.map((lang) => {
           return (
             <Link
@@ -123,7 +126,7 @@ function LearningHomeContent() {
         ))}
       </div>
       <HomePlaySection />
-      <section className="mt-8" aria-labelledby="recommend-heading">
+      <section className="home-recommendations mt-8" aria-labelledby="recommend-heading">
         <div className="home-recommend-heading">
           <div className="home-recommend-title">
             <h2 id="recommend-heading" className="text-xl font-bold md:text-2xl">
