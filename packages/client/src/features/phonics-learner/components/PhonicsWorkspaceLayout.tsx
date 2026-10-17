@@ -95,6 +95,7 @@ function WorkspaceRun({
   return (
     <LearningWorkspaceContext.Provider
       value={{
+        mode: curriculum ? 'curriculum' : 'free',
         active,
         unitId,
         activityKey,
@@ -107,30 +108,32 @@ function WorkspaceRun({
       }}
     >
       <MobileLandscapeGate>
-        <PhonicsJourneyMap
-          lang={lang}
-          progress={progress}
-          started={progress.completed > 0 || hasJourneyStarted(lang)}
-          finishedUnitDone={finishedUnitDone}
-          mode={curriculum ? 'curriculum' : 'free'}
-          initialUnitId={unitId ?? progress.current?.unit.id ?? journeyUnits(lang)[0]?.id}
-          readDone={unitCompletedActivities}
-          activityContent={
-            active ? (
-              <Suspense
-                fallback={
-                  <ActivityShell unitId={unitId} onBack={backToMap}>
-                    <p className="m-auto text-lg font-bold" role="status">
-                      {t('common.loading')}
-                    </p>
-                  </ActivityShell>
-                }
-              >
-                <Outlet />
-              </Suspense>
-            ) : undefined
-          }
-        />
+        {(curriculum || active) && (
+          <PhonicsJourneyMap
+            lang={lang}
+            progress={progress}
+            started={progress.completed > 0 || hasJourneyStarted(lang)}
+            finishedUnitDone={finishedUnitDone}
+            mode={curriculum ? 'curriculum' : 'free'}
+            initialUnitId={unitId ?? progress.current?.unit.id ?? journeyUnits(lang)[0]?.id}
+            readDone={unitCompletedActivities}
+            activityContent={
+              active ? (
+                <Suspense
+                  fallback={
+                    <ActivityShell unitId={unitId} onBack={backToMap}>
+                      <p className="m-auto text-lg font-bold" role="status">
+                        {t('common.loading')}
+                      </p>
+                    </ActivityShell>
+                  }
+                >
+                  <Outlet />
+                </Suspense>
+              ) : undefined
+            }
+          />
+        )}
         {!active && <Outlet />}
       </MobileLandscapeGate>
     </LearningWorkspaceContext.Provider>

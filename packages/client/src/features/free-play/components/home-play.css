@@ -18,6 +18,24 @@
   color: #7b7264;
   font-size: 15px;
 }
+.home-play-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-left: auto;
+  padding: 6px 10px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #5c6647;
+  white-space: nowrap;
+}
+.home-play-all:focus-visible {
+  outline: 3px solid #795c36;
+  outline-offset: 3px;
+  border-radius: 12px;
+}
 .home-play-languages {
   display: inline-flex;
   padding: 4px;

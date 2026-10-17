@@ -35,7 +35,7 @@ export function WorkspaceNavigation({ children }: { children: ReactNode }) {
     >
       <div className="workspace-navigation-tools">
         <button type="button" className="journey-small-button" onClick={workspace.backToMap}>
-          {t('workspace.map')}
+          {t(workspace.mode === 'free' ? 'freeShelf.chooseGame' : 'workspace.map')}
         </button>
         <button
           type="button"

@@ -35,6 +35,13 @@ export function HomePlaySection() {
           ))}
         </div>
         <p>{t('freePlay.subtitle')}</p>
+        <Link
+          className="home-play-all"
+          to={`/library/phonics/${lang === 'en' ? 'english' : 'korean'}?mode=free`}
+        >
+          {t('freePlay.chooseGames')}
+          <ArrowRight size={18} aria-hidden="true" />
+        </Link>
       </div>
       <div className="home-play-options">
         {FREE_PLAYS.map(({ kind }) => (

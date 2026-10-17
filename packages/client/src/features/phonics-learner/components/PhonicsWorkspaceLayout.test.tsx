@@ -14,6 +14,7 @@ import { PhonicsLearningModes } from './PhonicsLearningModes';
 import { PhonicsFreeMap } from './PhonicsFreeMap';
 import { GuidedPhonicsActivity } from './GuidedPhonicsActivity';
 import { ActivityShell } from './ActivityShell';
+import { useFreePlayShelf } from '../lib/free-play-shelf-store';
 import { markActivityCompleted } from '../lib/progress-store';
 import { activityTitle } from '../lib/activity-title';
 import i18n from '@/i18n';
@@ -39,6 +40,7 @@ vi.mock('@/features/auth/context/AuthContext', () => ({
 }));
 beforeEach(() => {
   localStorage.clear();
+  useFreePlayShelf.setState({ sections: { korean: 'letters', english: 'letters' } });
   mounted.mockClear();
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute('open', '');
@@ -454,5 +456,38 @@ it.each(['korean', 'english'] as const)(
     expect(books.at(-1)).toHaveAttribute('aria-pressed', 'true');
     expect(container.querySelector('.journey-stage.is-unlocking')).toBeNull();
     expect(journeyProgress(lang).current?.unit.id).toBe(journeyUnits(lang)[0].id);
+  }
+);
+
+it.each(['korean', 'english'] as const)(
+  'free %s activity returns to the chosen play shelf without mounting a map',
+  (lang) => {
+    const before = JSON.stringify(journeyProgress(lang));
+    const { container } = show(`/library/phonics/${lang}?mode=free`);
+    expect(container.querySelector('.journey-map-viewport')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '낱말 놀이' }));
+    fireEvent.click(screen.getByRole('button', { name: '블록 놀이' }));
+    fireEvent.click(
+      within(screen.getByRole('dialog', { name: '블록 놀이' })).getAllByRole('link')[0]
+    );
+    expect(screen.getByTestId('practice-part')).toHaveTextContent('block');
+    expect(container.querySelector('.journey-map-panel')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'tap 0' }));
+    fireEvent.click(screen.getByRole('button', { name: '활동 목록' }));
+    fireEvent.click(
+      within(screen.getByRole('dialog', { name: '활동 목록' })).getByRole('button', {
+        name: '목록 접기',
+      })
+    );
+    expect(screen.getByRole('button', { name: 'tap 1' })).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: '놀이 선택' }));
+    expect(container.querySelector('.journey-map-panel')).toBeNull();
+    expect(screen.queryByTestId('practice-part')).toBeNull();
+    expect(screen.getByRole('button', { name: '낱말 놀이' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
+    expect(screen.getByRole('button', { name: '블록 놀이' })).toBeVisible();
+    expect(JSON.stringify(journeyProgress(lang))).toBe(before);
   }
 );

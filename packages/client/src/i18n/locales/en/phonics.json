@@ -1,4 +1,31 @@
 {
+  "freeShelf": {
+    "categories": "Play categories",
+    "letters": "Letter play",
+    "words": "Word play",
+    "chooseContent": "What shall we play with?",
+    "books": "Learning content",
+    "close": "Close",
+    "chooseGame": "Choose a game",
+    "games": {
+      "tap": "Pop the letters",
+      "trace": "Trace letters",
+      "blend": "Blend sounds",
+      "syllableWrite": "Write the sounds",
+      "find": "Find letters",
+      "listen": "Listen and choose",
+      "match": "Memory match",
+      "song": "Song play",
+      "meet": "Meet the words",
+      "wordMatch": "Picture matching",
+      "block": "Block play",
+      "listenBlock": "Listen and build",
+      "wordWrite": "Write words",
+      "color": "Color words",
+      "draw": "Trace pictures"
+    },
+    "firstLetter": "First letter of each word"
+  },
   "popit": {
     "prompt": "Pop, pop! Give it a tap!",
     "done": "You made the letter!",

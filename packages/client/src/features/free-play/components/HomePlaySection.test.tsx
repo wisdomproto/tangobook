@@ -27,14 +27,24 @@ it('switches all four direct links and the block picture without choosing anothe
     'aria-pressed',
     'true'
   );
-  for (const link of screen.getAllByRole('link'))
+  for (const link of screen
+    .getAllByRole('link')
+    .filter((link) => link.classList.contains('home-play-button')))
     expect(link.getAttribute('href')).toMatch(/\?lang=en$/);
+  expect(screen.getByRole('link', { name: '골라 놀기' })).toHaveAttribute(
+    'href',
+    '/library/phonics/english?mode=free'
+  );
   expect(screen.getByRole('link', { name: '영어 블록' }).querySelector('img')).toHaveAttribute(
     'src',
     '/images/learning/vocabulary-menu-v1/blocks-en.webp'
   );
   expect(screen.getByRole('status')).toHaveTextContent('other=keep&playLang=en');
   fireEvent.click(within(languages).getByRole('button', { name: '한글' }));
+  expect(screen.getByRole('link', { name: '골라 놀기' })).toHaveAttribute(
+    'href',
+    '/library/phonics/korean?mode=free'
+  );
   expect(screen.getByRole('link', { name: '한글 블록' })).toHaveAttribute(
     'href',
     '/library/play/blocks?lang=ko'

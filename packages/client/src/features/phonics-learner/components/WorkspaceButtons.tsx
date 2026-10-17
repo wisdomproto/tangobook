@@ -8,16 +8,17 @@ export function WorkspaceMapButton() {
   const workspace = useLearningWorkspace();
   const { t } = useTranslation('phonics');
   if (!workspace?.active) return null;
+  const label = t(workspace.mode === 'free' ? 'freeShelf.chooseGame' : 'workspace.map');
   return (
     <button
       type="button"
       className="workspace-map-button"
-      aria-label={t('workspace.map')}
-      title={t('workspace.map')}
+      aria-label={label}
+      title={label}
       onClick={workspace.backToMap}
     >
-      <StorybookSprite name="compass" size={28} />
-      <span>{t('workspace.map')}</span>
+      <StorybookSprite name={workspace.mode === 'free' ? 'combine' : 'compass'} size={28} />
+      <span>{label}</span>
     </button>
   );
 }

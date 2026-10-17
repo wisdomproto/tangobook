@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { configure, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { configure, fireEvent, render, screen, within, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import KoreanPhonicsActivityPage from './KoreanPhonicsActivityPage';
 import { PhonicsLearningModes } from './PhonicsLearningModes';
@@ -90,6 +90,12 @@ function open(path: string, chapter = false) {
 beforeEach(() => {
   localStorage.clear();
   logEvent.mockClear();
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute('open', '');
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute('open');
+  };
 });
 describe('모음 묶음의 실제 라우트와 진도 연결', () => {
   it('자음 배우기 완료 뒤 같은 자음 쓰기를 세 번 하고 챕터로 돌아온다', async () => {
@@ -99,24 +105,25 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
     expect(write).toHaveAttribute('data-repetitions', '3');
     expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual(['consonant-tap']);
     fireEvent.click(write);
-    expect(await screen.findByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 파닉스 자유모드' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual([
       'consonant-tap',
       'letter-write',
     ]);
-    expect(screen.getByRole('link', { name: 'ㄱ 배우기' }).parentElement).toHaveAttribute(
-      'data-completed'
-    );
-    expect(screen.getByRole('link', { name: 'ㄱ+모음 배우기' }).parentElement).not.toHaveAttribute(
-      'data-completed'
-    );
+    expect(document.querySelector('.journey-map-panel')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
+    expect(
+      within(screen.getByRole('dialog', { name: '소리 합치기' })).getByRole('link', {
+        name: /ㄱ\+모음 배우기/,
+      })
+    ).toHaveAttribute('href', '/library/phonics/korean/kr-h1-u02/blend-listen');
   });
   it('구형 ㅑ 듣기를 정확한 쓰기로 이어주고 둘 다 마치면 같은 챕터로 돌아온다', async () => {
     open('/library/phonics/korean/kr-v1-u02/listen-1');
     fireEvent.click(await screen.findByRole('button', { name: '들은 모음 ㅑ' }));
-    expect(screen.queryByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeNull();
+    expect(screen.queryByRole('heading', { name: '한글 파닉스 자유모드' })).toBeNull();
     fireEvent.click(await screen.findByRole('button', { name: '쓴 모음 ㅑ' }));
-    expect(await screen.findByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 파닉스 자유모드' })).toBeDefined();
     expect(screen.queryByRole('button', { name: '들은 모음 ㅓ' })).toBeNull();
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([
       'listen-2',
@@ -135,7 +142,7 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
     open('/library/phonics/korean/kr-v1-g01/write-4');
     fireEvent.click(screen.getByRole('button', { name: '쓴 모음 ㅕ' }));
     await waitFor(() =>
-      expect(screen.getByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined()
+      expect(screen.getByRole('heading', { name: '한글 파닉스 자유모드' })).toBeDefined()
     );
     expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual(['write-4']);
   });
@@ -150,9 +157,14 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
   it('자유모드 게임 완료 뒤 해당 챕터 활동 선택으로 돌아오고 다른 활동은 완료로 만들지 않는다', async () => {
     open('/library/phonics/korean/kr-v1-g02/listen-game');
     fireEvent.click(screen.getByRole('button', { name: /모음 놀이/ }));
-    expect(await screen.findByRole('heading', { name: '한글 파닉스 · 자유모드' })).toBeDefined();
+    expect(await screen.findByRole('heading', { name: '한글 파닉스 자유모드' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-g02').completedActivities).toEqual(['listen-game']);
-    expect(screen.getByRole('link', { name: 'ㅗ 배우기' })).toBeDefined();
+    fireEvent.click(screen.getByRole('button', { name: '꾹꾹 누르기' }));
+    expect(
+      within(screen.getByRole('dialog', { name: '꾹꾹 누르기' })).getByRole('link', {
+        name: /ㅗ 배우기/,
+      })
+    ).toHaveAttribute('href', '/library/phonics/korean/kr-v1-g02/listen-1');
   });
 });
 

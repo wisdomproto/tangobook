@@ -1,5 +1,5 @@
 import { beforeEach, expect, it, vi } from 'vitest';
-import { configure, fireEvent, render, screen } from '@testing-library/react';
+import { configure, fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import EnglishPhonicsActivityPage from './EnglishPhonicsActivityPage';
 import { ActivityShell } from './ActivityShell';
@@ -76,7 +76,15 @@ vi.mock('../activities/AlphabetLetterWriteActivity', () => ({
   ),
 }));
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute('open', '');
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute('open');
+  };
+});
 it('returns from a completed English activity to the selected chapter without continuing the lesson', async () => {
   markActivityCompleted('english', 'en-b1-u01', 'letters-learn');
   render(
@@ -116,9 +124,14 @@ it('opens free writing out of order and returns to the same chapter activity sel
     </MemoryRouter>
   );
   fireEvent.click(await screen.findByRole('button', { name: '쓰기 완료' }));
-  expect(await screen.findByRole('heading', { name: '영어 파닉스 · 자유모드' })).toBeDefined();
+  expect(await screen.findByRole('heading', { name: '영어 파닉스 자유모드' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-write']);
-  expect(screen.getByRole('link', { name: 'ABC 배우기 1' })).toBeDefined();
+  fireEvent.click(screen.getByRole('button', { name: '꾹꾹 누르기' }));
+  expect(
+    within(screen.getByRole('dialog', { name: '꾹꾹 누르기' })).getByRole('link', {
+      name: /ABC 배우기 1/,
+    })
+  ).toHaveAttribute('href', '/library/phonics/english/en-b1-u01/letters-learn');
   expect(screen.queryByRole('button', { name: '글자 듣기 완료' })).toBeNull();
 });
 it('automatically connects learning, game and writing after completion, then returns to the path', async () => {
@@ -170,7 +183,7 @@ it('continues free letter learning directly into writing, recording each phase o
   expect(await screen.findByRole('button', { name: '쓰기 완료' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-learn']);
   fireEvent.click(screen.getByRole('button', { name: '쓰기 완료' }));
-  expect(await screen.findByRole('heading', { name: '영어 파닉스 · 자유모드' })).toBeDefined();
+  expect(await screen.findByRole('heading', { name: '영어 파닉스 자유모드' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual([
     'letters-learn',
     'letters-write',

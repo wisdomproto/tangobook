@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 [자유모드 놀이 선반](tasks/20261017-free-play-shelf.md): 사용자 승인으로 한영 자유모드 지도 제거·글자/낱말 놀이→권/내용 선택으로 변경. 홈4종 즉시 시작과 골라 놀기를 구분, 활동 복귀=놀이 선택·현재 drawer 유지/숨은 지도 DOM 제외. 실제 plan/part cursor·커리큘럼 잠금/이어하기 보존. 영어Book1 첫 글자 쓰기는 글자 따라쓰기, 블록 없음. 93회귀·타입/변경 lint/build 및 한영 실제 진입/복귀·3화면 검수. 로컬 구현, 새 push 요청 없음.
+
 2026-10-17 [쓰기·모드 그림 main 전달](tasks/20261017-writing-pause-navigation.md#main-푸시-요청--2026-10-17): 사용자 현재 요청으로 a5193ccbe 쓰기 중단/탐색·a0906a61e 모드 그림과 기록을 원격 main 일반 push 대상으로 확정. fetch0/5·tracked clean·전달 diff/check 확인, 기존 검증 유지. 아래 미푸시는 이전 시점이며 새 운영 배포 완료는 별도 확인.
 
 2026-10-17 쓰기 중단·탐색 a5193ccbe 로컬 main fast-forward 통합 완료.68회귀와 실제 ㄱ/D 중단·재개·목록 내부 이동 검수 포함, 새 push/배포 없음. [통합](tasks/20261017-writing-pause-navigation.md#로컬-통합).

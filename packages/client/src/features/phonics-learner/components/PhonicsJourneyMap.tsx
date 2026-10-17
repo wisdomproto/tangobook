@@ -954,191 +954,193 @@ export function PhonicsJourneyMap({
               </div>
             </aside>
           </WorkspaceNavigation>
-          <section hidden={active} className="journey-map-panel" aria-label={worldName}>
-            <header className="journey-map-heading">
-              <div>
-                <h2>{worldName}</h2>
-              </div>
-              {!free && progress.current && selectedUnitId !== progress.current.unit.id && (
-                <button
-                  type="button"
-                  className="journey-return-current"
-                  aria-label={t('world.backToCurrent')}
-                  onClick={() => {
-                    selectChapter(progress.current!.unit);
-                  }}
-                >
-                  <Flag size={16} />
-                  {!compact && t('world.backToCurrent')}
-                  {!compact && <ArrowRight size={16} />}
-                </button>
-              )}
-              <JourneyWorldIcon kind={ICONS[lang][worldIndex] ?? 'village'} />
-            </header>
-            <div
-              className="journey-map-viewport"
-              ref={mapViewport}
-              tabIndex={0}
-              aria-label={t('world.scrollMap')}
-            >
+          {(!free || !active) && (
+            <section hidden={active} className="journey-map-panel" aria-label={worldName}>
+              <header className="journey-map-heading">
+                <div>
+                  <h2>{worldName}</h2>
+                </div>
+                {!free && progress.current && selectedUnitId !== progress.current.unit.id && (
+                  <button
+                    type="button"
+                    className="journey-return-current"
+                    aria-label={t('world.backToCurrent')}
+                    onClick={() => {
+                      selectChapter(progress.current!.unit);
+                    }}
+                  >
+                    <Flag size={16} />
+                    {!compact && t('world.backToCurrent')}
+                    {!compact && <ArrowRight size={16} />}
+                  </button>
+                )}
+                <JourneyWorldIcon kind={ICONS[lang][worldIndex] ?? 'village'} />
+              </header>
               <div
-                className="journey-map-scene"
-                style={{ '--journey-map-height': `${height}px` } as CSSProperties}
+                className="journey-map-viewport"
+                ref={mapViewport}
+                tabIndex={0}
+                aria-label={t('world.scrollMap')}
               >
                 <div
-                  className="journey-scenery"
-                  style={{ backgroundImage: `url(${scenery})` }}
-                  aria-hidden="true"
-                />
-                <svg
-                  className="journey-path"
-                  viewBox={`0 0 1000 ${height}`}
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
+                  className="journey-map-scene"
+                  style={{ '--journey-map-height': `${height}px` } as CSSProperties}
                 >
-                  <path
-                    d={path}
-                    stroke="#CFBA8F"
-                    strokeWidth="32"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    opacity=".38"
+                  <div
+                    className="journey-scenery"
+                    style={{ backgroundImage: `url(${scenery})` }}
+                    aria-hidden="true"
                   />
-                  <path
-                    d={path}
-                    stroke="#FFF8DF"
-                    strokeWidth="23"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                  <path
-                    d={path}
-                    stroke="#C8AE81"
-                    strokeWidth="3"
-                    strokeDasharray="5 12"
-                    strokeLinecap="round"
-                    fill="none"
-                    opacity=".65"
-                  />
-                </svg>
-                <ol className="journey-stages" aria-label={t('world.stages')}>
-                  {stages.map((stage, index) => {
-                    const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'world.finished' : free ? 'journey.free' : stage.current ? 'journey.current' : stage.available ? 'journey.start' : 'journey.locked')}`;
-                    const body = (
-                      <>
-                        {stage.current && (
-                          <span className="journey-here">
-                            {t(free ? 'board.selected' : 'world.here')}
-                          </span>
-                        )}
-                        <span className="journey-node">
-                          <span className="journey-node-top">
-                            {stage.unit.isReview ? (
-                              <JourneyWorldIcon kind="village" />
-                            ) : (
-                              <StageLetter lang={lang} unit={stage.unit} />
-                            )}
-                          </span>
-                          {stage.unit.id === unlockedUnit?.id && unlocking && (
-                            <span className="journey-unlocking-lock" aria-hidden="true">
-                              <StorybookSprite name="lock" size={42} />
+                  <svg
+                    className="journey-path"
+                    viewBox={`0 0 1000 ${height}`}
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d={path}
+                      stroke="#CFBA8F"
+                      strokeWidth="32"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                      opacity=".38"
+                    />
+                    <path
+                      d={path}
+                      stroke="#FFF8DF"
+                      strokeWidth="23"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                    />
+                    <path
+                      d={path}
+                      stroke="#C8AE81"
+                      strokeWidth="3"
+                      strokeDasharray="5 12"
+                      strokeLinecap="round"
+                      fill="none"
+                      opacity=".65"
+                    />
+                  </svg>
+                  <ol className="journey-stages" aria-label={t('world.stages')}>
+                    {stages.map((stage, index) => {
+                      const accessibleName = `${t('world.stageNumber', { number: index + 1 })} · ${unitTitle(t, stage.unit)} · ${t(stage.complete ? 'world.finished' : free ? 'journey.free' : stage.current ? 'journey.current' : stage.available ? 'journey.start' : 'journey.locked')}`;
+                      const body = (
+                        <>
+                          {stage.current && (
+                            <span className="journey-here">
+                              {t(free ? 'board.selected' : 'world.here')}
                             </span>
                           )}
-                          <span className="journey-node-state">
-                            {stage.complete ? (
-                              <Check size={16} />
-                            ) : free ? (
-                              <BookOpen size={14} />
-                            ) : stage.current ? (
-                              <Flag size={14} />
-                            ) : stage.available ? (
-                              <Play size={14} fill="currentColor" />
-                            ) : (
-                              <LockKeyhole size={13} />
+                          <span className="journey-node">
+                            <span className="journey-node-top">
+                              {stage.unit.isReview ? (
+                                <JourneyWorldIcon kind="village" />
+                              ) : (
+                                <StageLetter lang={lang} unit={stage.unit} />
+                              )}
+                            </span>
+                            {stage.unit.id === unlockedUnit?.id && unlocking && (
+                              <span className="journey-unlocking-lock" aria-hidden="true">
+                                <StorybookSprite name="lock" size={42} />
+                              </span>
                             )}
+                            <span className="journey-node-state">
+                              {stage.complete ? (
+                                <Check size={16} />
+                              ) : free ? (
+                                <BookOpen size={14} />
+                              ) : stage.current ? (
+                                <Flag size={14} />
+                              ) : stage.available ? (
+                                <Play size={14} fill="currentColor" />
+                              ) : (
+                                <LockKeyhole size={13} />
+                              )}
+                            </span>
                           </span>
-                        </span>
-                      </>
-                    );
-                    return (
-                      <li
-                        key={stage.unit.id}
-                        className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : stage.available ? 'is-open' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.unit.id === unlockedUnit?.id && unlocking ? 'is-unlocking' : ''}`}
-                        style={{ left: `${stage.x}%`, top: `${stage.y}px` }}
-                      >
-                        {stage.available && stage.first ? (
-                          <button
-                            type="button"
-                            aria-label={accessibleName}
-                            aria-current={!free && stage.current ? 'step' : undefined}
-                            aria-pressed={stage.unit.id === selectedUnitId}
-                            className="journey-stage-target"
-                            onClick={() => selectChapter(stage.unit)}
-                          >
-                            {body}
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            disabled
-                            className="journey-stage-target"
-                            aria-label={accessibleName}
-                            aria-disabled="true"
-                          >
-                            {body}
-                          </button>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ol>
+                        </>
+                      );
+                      return (
+                        <li
+                          key={stage.unit.id}
+                          className={`journey-stage ${stage.current ? 'is-current' : stage.complete ? 'is-complete' : stage.available ? 'is-open' : 'is-locked'} ${stage.unit.id === selectedUnitId ? 'is-previewed' : ''} ${stage.unit.id === unlockedUnit?.id && unlocking ? 'is-unlocking' : ''}`}
+                          style={{ left: `${stage.x}%`, top: `${stage.y}px` }}
+                        >
+                          {stage.available && stage.first ? (
+                            <button
+                              type="button"
+                              aria-label={accessibleName}
+                              aria-current={!free && stage.current ? 'step' : undefined}
+                              aria-pressed={stage.unit.id === selectedUnitId}
+                              className="journey-stage-target"
+                              onClick={() => selectChapter(stage.unit)}
+                            >
+                              {body}
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              disabled
+                              className="journey-stage-target"
+                              aria-label={accessibleName}
+                              aria-disabled="true"
+                            >
+                              {body}
+                            </button>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                  {!free && (
+                    <span className="journey-map-end" aria-hidden="true">
+                      <Flag size={18} />
+                      {t(
+                        free
+                          ? 'board.chooseChapter'
+                          : worldIndex === levels.length - 1
+                            ? 'world.finishVillage'
+                            : 'world.nextPlace'
+                      )}
+                    </span>
+                  )}
+                </div>
+              </div>
+              {unlocking && (
+                <div
+                  className="journey-unlock-status"
+                  role="status"
+                  aria-label={t('chapter.unlocked')}
+                >
+                  <StorybookSprite name="lock" size={28} />
+                  {t('chapter.unlocked')}
+                </div>
+              )}
+              <footer className="journey-map-legend">
                 {!free && (
-                  <span className="journey-map-end" aria-hidden="true">
-                    <Flag size={18} />
-                    {t(
-                      free
-                        ? 'board.chooseChapter'
-                        : worldIndex === levels.length - 1
-                          ? 'world.finishVillage'
-                          : 'world.nextPlace'
-                    )}
+                  <span>
+                    <span className="journey-dot is-selected" />
+                    {t('board.selected')}
                   </span>
                 )}
-              </div>
-            </div>
-            {unlocking && (
-              <div
-                className="journey-unlock-status"
-                role="status"
-                aria-label={t('chapter.unlocked')}
-              >
-                <StorybookSprite name="lock" size={28} />
-                {t('chapter.unlocked')}
-              </div>
-            )}
-            <footer className="journey-map-legend">
-              {!free && (
                 <span>
-                  <span className="journey-dot is-selected" />
-                  {t('board.selected')}
+                  <span className="journey-dot is-current" />
+                  {t(free ? 'board.selected' : 'world.here')}
                 </span>
-              )}
-              <span>
-                <span className="journey-dot is-current" />
-                {t(free ? 'board.selected' : 'world.here')}
-              </span>
-              <span>
-                <Check size={15} />
-                {t('world.finished')}
-              </span>
-              <span>
-                {free ? <BookOpen size={14} /> : <LockKeyhole size={14} />}
-                {t(free ? 'board.chooseChapter' : 'world.later')}
-              </span>
-            </footer>
-          </section>
+                <span>
+                  <Check size={15} />
+                  {t('world.finished')}
+                </span>
+                <span>
+                  {free ? <BookOpen size={14} /> : <LockKeyhole size={14} />}
+                  {t(free ? 'board.chooseChapter' : 'world.later')}
+                </span>
+              </footer>
+            </section>
+          )}
           {active && (
             <div className="workspace-activity" data-workspace-activity>
               {activityContent}

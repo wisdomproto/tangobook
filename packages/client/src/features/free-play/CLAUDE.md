@@ -1,5 +1,7 @@
 # 홈 바로 놀기
 
+2026-10-17 역할 분리: 홈4종 쉬운 무작위 즉시 시작 링크는 유지하고 헤더 ‘골라 놀기’만 선택 언어의 `/library/phonics/{lang}?mode=free`로 연결한다. 자유모드는 기존 단원 활동을 놀이 유형→내용으로 선택하는 별도 선반이며 홈 엔진/catalog를 import하지 않는다. 같은4카드를 복제하거나 홈 즉시 실행 앞에 선택 단계를 추가하지 않는다. [결정·검수](../../../../../docs/work/phonics/tasks/20261017-free-play-shelf.md).
+
 2026-10-17 후속: 홈 제목 옆 한영 선택은 `playLang` URL, 게임은 `lang` URL·round cache key로 분리한다. 영어 블록/쓰기는 기존 English player, 자체 Cambridge Starters 시드 목록의2~4알파벳·최대3낱말이며 색칠은 실제 책 nameEn/ttsUrls.en으로 연결한다. 영어 번역 없으면 한글로 대체하지 않는다. 숨은그림은 기존 en builder/번역된2~3대상이다. GameHomeContext를 이 route에서만 제공해 공통 헤더 홈 버튼도 선택 언어를 유지한다. [확장 검수](../../../../../docs/work/platform/tasks/20261017-home-free-play-languages.md).
 
 `LearningHomePage`는 lightweight `HomePlaySection`/free-play-options만 import한다. 게임/data-builder는 `/library/play/:kind`에서 lazy loading하며 홈으로 게임 엔진·카탈로그를 끌어오지 않는다.

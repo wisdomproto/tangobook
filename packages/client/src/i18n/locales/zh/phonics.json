@@ -1,4 +1,31 @@
 {
+  "freeShelf": {
+    "categories": "游戏类别",
+    "letters": "字母游戏",
+    "words": "词语游戏",
+    "chooseContent": "想玩什么内容？",
+    "books": "学习内容",
+    "close": "关闭",
+    "chooseGame": "选择游戏",
+    "games": {
+      "tap": "按一按字母",
+      "trace": "描写字母",
+      "blend": "拼合声音",
+      "syllableWrite": "写一写音节",
+      "find": "寻找字母",
+      "listen": "听音选择",
+      "match": "记忆配对",
+      "song": "儿歌游戏",
+      "meet": "认识词语",
+      "wordMatch": "图片配对",
+      "block": "积木游戏",
+      "listenBlock": "听音搭积木",
+      "wordWrite": "书写词语",
+      "color": "词语涂色",
+      "draw": "描画图形"
+    },
+    "firstLetter": "词语的首字母"
+  },
   "popit": {
     "prompt": "啵啵，按一按！",
     "done": "字母完成啦！",

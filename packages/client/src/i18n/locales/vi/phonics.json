@@ -1,4 +1,31 @@
 {
+  "freeShelf": {
+    "categories": "Loại trò chơi",
+    "letters": "Chơi với chữ",
+    "words": "Chơi với từ",
+    "chooseContent": "Bé muốn chơi nội dung nào?",
+    "books": "Nội dung học",
+    "close": "Đóng",
+    "chooseGame": "Chọn trò chơi",
+    "games": {
+      "tap": "Nhấn chữ cái",
+      "trace": "Tập tô chữ",
+      "blend": "Ghép âm",
+      "syllableWrite": "Viết âm tiết",
+      "find": "Tìm chữ",
+      "listen": "Nghe và chọn",
+      "match": "Ghép theo trí nhớ",
+      "song": "Chơi với bài hát",
+      "meet": "Làm quen từ",
+      "wordMatch": "Ghép tranh",
+      "block": "Chơi xếp chữ",
+      "listenBlock": "Nghe và xếp chữ",
+      "wordWrite": "Tập viết từ",
+      "color": "Tô màu từ",
+      "draw": "Tập vẽ theo nét"
+    },
+    "firstLetter": "Chữ đầu của từ"
+  },
   "popit": {
     "prompt": "Bóp bóp, chạm thử nào!",
     "done": "Hoàn thành chữ rồi!",

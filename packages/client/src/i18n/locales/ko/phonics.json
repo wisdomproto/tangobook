@@ -1,4 +1,31 @@
 {
+  "freeShelf": {
+    "categories": "놀이 종류",
+    "letters": "글자 놀이",
+    "words": "낱말 놀이",
+    "chooseContent": "무엇으로 놀까요?",
+    "books": "배울 내용",
+    "close": "닫기",
+    "chooseGame": "놀이 선택",
+    "games": {
+      "tap": "꾹꾹 누르기",
+      "trace": "글자 따라쓰기",
+      "blend": "소리 합치기",
+      "syllableWrite": "소리 써보기",
+      "find": "글자 찾기",
+      "listen": "듣고 고르기",
+      "match": "기억해서 맞추기",
+      "song": "노래 놀이",
+      "meet": "낱말 만나기",
+      "wordMatch": "그림 짝 찾기",
+      "block": "블록 놀이",
+      "listenBlock": "듣고 블록 놀이",
+      "wordWrite": "낱말 쓰기",
+      "color": "낱말 색칠하기",
+      "draw": "따라 그리기"
+    },
+    "firstLetter": "낱말의 첫 글자"
+  },
   "popit": {
     "prompt": "뽁뽁, 눌러봐!",
     "done": "글자 완성!",

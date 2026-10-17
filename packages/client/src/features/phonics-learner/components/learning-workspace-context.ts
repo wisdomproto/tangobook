@@ -8,6 +8,7 @@ export interface WorkspaceWordActivity {
 }
 
 export interface LearningWorkspace {
+  mode?: 'curriculum' | 'free';
   active: boolean;
   unitId?: string;
   activityKey?: string;
