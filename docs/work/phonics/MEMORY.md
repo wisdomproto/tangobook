@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 운영 검수: 배포 SHA76ae2c60a의 Railway2서비스 success·health ok. 한영 자유4버튼 실제 클릭→문제 직접 시작8종, 블록 model/first/listen·힌트 조작, 쓰기 형/tape 각각 직접 완료→다음 낱말 확인. 전체 낱말 도움 off도 현재 윤곽 유지. 전체 deck/실기기·전수 청취 아님. [증거·범위](tasks/20261017-adaptive-free-play.md#운영-배포직접-조작-확인). 검증 문서만 로컬 기록, 추가 push 없음.
+
 2026-10-17 사용자 main push 승인. 자유지도→놀이 선반→최종4종 즉시 맞춤 출제와 따라쓰기만 유지 결정을 포함한 로컬 main 3cd64ec7d~4cae27bd3를 원격 main에 반영한다. fetch 후 origin/main...HEAD=0/7, 기존 검증103검사·타입·화면 결과와 변경 범위를 확인했다. 새 운영 배포 완료/운영 화면 검수는 아직 주장하지 않는다. [작업](tasks/20261017-adaptive-free-play.md#메인-푸시-요청).
 
 2026-10-17 사용자 최종 정정: 한영 낱말 쓰기는 따라쓰기만, 손글씨 OCR·받아쓰기 제외. 아래 OCR 표본 검증 과제는 종료. 현재 쓰기 지원 model/first·independent=false가 이미 부합하여 동작 변경 없이 주석/기준 기록만 정리했다. [최종 결정](tasks/20261017-adaptive-free-play.md#낱말-쓰기-최종-결정). 새 push 없음.

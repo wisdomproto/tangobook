@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 한영 맞춤 자유놀이 운영 배포·검수 완료:76ae2c60a Railway success/health ok, 한영4종 각각 버튼→문제 직접 진입. 블록3도움·힌트, 따라쓰기 형/tape 직접 완성→다음 문제 정상. 기존 테스트 프로필 UI 검수, 전체 게임 완주·실기기 검증 아님. [결과](../work/phonics/tasks/20261017-adaptive-free-play.md#운영-배포직접-조작-확인).
+
 2026-10-17 사용자 요청으로 자유놀이4종 직접 시작·맞춤 도움·낱말 따라쓰기 유지까지 main push 진행. 기존 미푸시7커밋이 모두 이 작업 범위임을 확인, fetch 기준 divergence 없음(0/7). 아래 새 push 없음 기록은 당시 상태다. [반영 범위](../work/phonics/tasks/20261017-adaptive-free-play.md#메인-푸시-요청).
 
 2026-10-17 한영 낱말 쓰기 최종: 사용자 판단으로 손글씨 OCR·받아쓰기를 제외하고 따라쓰기만 유지. 기존 model/first 도움·연습 완료/독립 성취 구분이 이미 부합한다. 아래 OCR 검증 대기 설명은 종료된 검토다. [결정·확인](../work/phonics/tasks/20261017-adaptive-free-play.md#낱말-쓰기-최종-결정). 새 push 없음.
