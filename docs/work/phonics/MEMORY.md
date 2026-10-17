@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 사용자 main push 승인: 블록 준비 병렬화 a7304becc 및 관련 통합/로딩 감사/운영 검수 기록을 전달한다. fetch0/4·추적 clean·diff check, 기존53회귀/타입/lint/build 이후 제품 수정 없음. [전달 범위](tasks/20261017-korean-block-preload-parallel.md#메인-푸시-요청). 운영 배포 확인은 별도다.
+
 2026-10-17 a7304becc 블록 준비 병렬화 코드·53회귀·기억을 로컬 main fast-forward 통합 완료. [전후 측정/한계](tasks/20261017-korean-block-preload-parallel.md#최종-검증통합). 새 push/배포 없음.
 
 2026-10-17 한글 블록 사전 준비: 공용 gate의 모든 TTS URL 뒤 그림/음절 워밍하던 순차 대기를 병렬화, 같은 run URL 공유·실제TTS 내용 key 보완. HTTP/SW캐시·실제 준비 확인·6초 상한/250ms UI·background 장면 유지. 동일 로컬 각5회 중앙값3003→2093ms 관측(교차편차 있어 운영30% 보장 아님), 실제ㅎ배치/되돌리기·영어 진입 및53검사/타입/lint/build 통과. 새 push 없음. [근거](tasks/20261017-korean-block-preload-parallel.md).

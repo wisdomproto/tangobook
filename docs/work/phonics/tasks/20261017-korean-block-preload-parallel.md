@@ -8,7 +8,7 @@
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
 - integration: a7304becc 로컬 main fast-forward 완료
-- delivery: 새 push/배포 요청 없음
+- delivery: 2026-10-17 사용자 main push 승인, 운영 배포 확인은 별도
 
 ## 요청과 완료 조건
 
@@ -39,3 +39,9 @@
 - 한글 실제 듣기 버튼→입력 활성→ㅎ 고르기→판에 배치(되돌리기 활성)→되돌리기 정상. 알파벳 블록도 gate 뒤 실제 진입·듣기 버튼 연결 확인. 게이트 시간은 플레이어 표시까지이고 듣기 안내의 의도적 발음 시간은 별개다. 전체 정답/챕터 완주는 이번 범위 아님.
 - 현재 브라우저의 캐시·학습 기록을 지우지 않았다. screenshot/timings는 root output/preload-parallel-20261017에 저장, 원본 교차 복구용 파일은 worktree output 아래 미추적 보존한다. React Router dev future 경고는 기존이며 새 제품 오류로 해석하지 않는다. 실제 스피커/실기기 검수는 아님.
 - a7304becc 코드·검사·기억을 함께 커밋하고 로컬 main fast-forward 완료했다. 커밋 훅 ESLint/Prettier 통과, 관련 없는 output/tmp·다른 작업 폴더는 보존했다. 새 push/배포 없음.
+
+## 메인 푸시 요청
+
+- 2026-10-17 사용자 “좋아. 메인에 푸시하자”로 이번 최적화의 main push를 승인했다.
+- fetch 후 origin/main 대비 0/4, main 추적 파일 clean·diff check 통과. a7304becc 구현과 ad2a1db00 통합 기록, 앞선 a04788d96 로딩 감사·de7a674ef 운영 검수 문서가 전달 범위다.
+- 기존 53회귀·타입·변경 lint·production build 검증 이후 제품 코드 변경 없음. 관련 없는 output/tmp·다른 worktree는 보존하며 일반 push 뒤 원격 SHA를 확인한다. Railway 배포/운영 검수는 별도다.

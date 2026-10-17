@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 사용자 승인으로 블록 준비 병렬화 a7304becc와 관련 기록을 main 일반 push 대상으로 확정했다. fetch0/4·추적 clean·기존53회귀/타입/lint/build 및 diff 확인, 제품 추가 수정 없음. [범위](../work/phonics/tasks/20261017-korean-block-preload-parallel.md#메인-푸시-요청). push와 Railway 배포 완료는 구분한다.
+
 2026-10-17 사용자 승인으로 한글 블록 준비 순차 대기를 병렬화했다. 캐시·게이트/6초 상한·배경 장면 유지, 동일URL 준비 공유와 정확한 타깃 key 보완. 로컬 전후/교차 각5회 중앙값3.00→2.09초·실제 블록 입력,53회귀/타입/lint/build 통과. [범위·편차](../work/phonics/tasks/20261017-korean-block-preload-parallel.md). 새 push 없음.
 
 2026-10-17 운영 로딩 감사: 새51장 실제WebP, 운영 정적이미지7일·해시JS/표지1년immutable·조건부304. 기존캐시 유지30준비표본에서 지도/모드0.33~0.56초, 블록 gate후한1.47~2.44/영1.07~1.30초.21회귀, 제품/캐시/게이트 변경 없음. 실제콜드/저속망/DevTools바이트측정과 구분. [근거](../work/platform/tasks/20261017-loading-assets-audit.md).
