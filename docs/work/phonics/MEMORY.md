@@ -1,5 +1,7 @@
 # 파닉스·어휘 기억
 
+2026-10-17 모드 선택 그림 a0906a61e를 로컬 main에 fast-forward 통합 완료. 아래 통합 대상 상태를 대체하며 원격 push/배포는 하지 않았다. [작업](tasks/20261017-mode-choice-illustrations.md#로컬-통합).
+
 2026-10-17 [모드 선택 그림 구분](tasks/20261017-mode-choice-illustrations.md): 사용자 재검토3번 승인. 학습 길/여러 놀이 장면 새 WebP2장(합198KiB), 한영 공용. 기본3:2·작은 화면 전체 그림 보존·세로 가로 카드. 한영 PC/태블릿/가로·세로 휴대폰 viewport 및 양 모드 실제 진입 확인,31회귀/타입/변경 lint/포맷/build 통과. 새 push 없음, 로컬 main 통합 대상. 이전 빈 숲 그림 권고를 구현으로 대체한다.
 
 2026-10-17 [한영 자유 이어하기 운영 검수](tasks/20261017-word-practice-cursor-lock-colors.md#운영-배포한영-자유-이어하기-검수--2026-10-17): b9bb93701/Railway30b29a9d successful·Active·GitHub SHA 직접 확인. 운영 한글 고기→야구2/4, 영어 wave→cave2/8 실제 입력/완료·지도 재진입/새로고침 유지. 같은 커리큘럼의 완료 초록체크/현재 코랄·민트재생/부분 연습 잠금 회색+별도연습1/4·1/8 실측 확인. 홈 이어하기 전후 동일(한글kr-h2-u01/consonant-write·영어en-b3-u01/learn-_ape),두탭 console0·health ok. 실제1280PC 표본, 전게임/전낱말/실기기 전수·이번 운영 마지막 챕터 완료 아님. 제품/새 push 없이 기록만 로컬.

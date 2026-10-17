@@ -21,3 +21,7 @@
 - 한영 커리큘럼 카드 클릭→해당 언어 현재 활동 이어하기 팝업. 자유 카드 클릭→해당 언어 자유 지도. 학습 완료 기록 생성/초기화 없음.
 - 검수 탭 console error0. 증거: C:/project/tangobook/output/mode-choice-20261017/의 korean/english-desktop, tablet, landscape, portrait.png.
 - 로컬 Vite5193, DISABLE_PUBLISH_SCHEDULER=1 / 운영 API 읽기 프록시. 운영 배포 검수가 아니다. 새 main push 요청 없음.
+
+## 로컬 통합
+
+- a0906a61e 구현·기록 커밋을 로컬 main에 fast-forward 통합했다. 훅 ESLint/Prettier 통과, tracked clean 확인. 원격 main push/배포는 하지 않았다.
