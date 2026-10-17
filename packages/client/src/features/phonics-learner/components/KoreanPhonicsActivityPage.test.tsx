@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { configure, fireEvent, render, screen, within, waitFor } from '@testing-library/react';
+import { configure, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import KoreanPhonicsActivityPage from './KoreanPhonicsActivityPage';
 import { PhonicsLearningModes } from './PhonicsLearningModes';
@@ -111,12 +111,8 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
       'letter-write',
     ]);
     expect(document.querySelector('.journey-map-panel')).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
-    expect(
-      within(screen.getByRole('dialog', { name: '소리 합치기' })).getByRole('link', {
-        name: /ㄱ\+모음 배우기/,
-      })
-    ).toHaveAttribute('href', '/library/phonics/korean/kr-h1-u02/blend-listen');
+    expect(screen.getByRole('button', { name: '블록 놀이' })).toBeEnabled();
+    expect(screen.queryByRole('button', { name: '소리 합치기' })).toBeNull();
   });
   it('구형 ㅑ 듣기를 정확한 쓰기로 이어주고 둘 다 마치면 같은 챕터로 돌아온다', async () => {
     open('/library/phonics/korean/kr-v1-u02/listen-1');
@@ -159,12 +155,8 @@ describe('모음 묶음의 실제 라우트와 진도 연결', () => {
     fireEvent.click(screen.getByRole('button', { name: /모음 놀이/ }));
     expect(await screen.findByRole('heading', { name: '한글 파닉스 자유모드' })).toBeDefined();
     expect(getUnitProgress('korean', 'kr-v1-g02').completedActivities).toEqual(['listen-game']);
-    fireEvent.click(screen.getByRole('button', { name: '꾹꾹 누르기' }));
-    expect(
-      within(screen.getByRole('dialog', { name: '꾹꾹 누르기' })).getByRole('link', {
-        name: /ㅗ 배우기/,
-      })
-    ).toHaveAttribute('href', '/library/phonics/korean/kr-v1-g02/listen-1');
+    expect(screen.getByRole('button', { name: '블록 놀이' })).toBeEnabled();
+    expect(screen.queryByRole('button', { name: '꾹꾹 누르기' })).toBeNull();
   });
 });
 

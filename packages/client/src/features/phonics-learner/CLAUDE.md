@@ -1,5 +1,7 @@
 # 파닉스 학습자 모듈 (학습자 진입)
 
+2026-10-17 자유모드 축소: PhonicsFreePlay는 words 중 meet를 제외한6놀이만 노출한다. 글자/낱말 탭과 UI 전용 store를 제거했다. catalog/기존 직접 활동·커리큘럼 계획·진도는 보존한다. 랜덤/왼쪽 내용 목록은 미결, 기존 내용 dialog 유지. [후속](../../../../../docs/work/phonics/tasks/20261017-free-play-shelf.md#자유놀이-종류-축소--사용자-후속).
+
 2026-10-17 자유모드 입구/이전 단원 URL은 `PhonicsFreePlay` 놀이 선반으로 연결한다. `freePlayCatalog`가 실제 한영 plan을 분류하고 word-learning은 meet/block/write/color의 독립 part 링크다. 영어Book1은 블록 제외·낱말 첫 글자 쓰기를 trace에 분류한다. 현재 지원하지 않는 종류는 숨기며 글자/낱말 선택만 ephemeral Zustand로 유지한다(진도/숙달 아님). free 활동 중 지도 DOM/이미지를 렌더하지 않고 drawer는 유지, 우측/목록 상단은 ‘놀이 선택’ 복귀다. curriculum 지도/순차 권한/실제 이어할 권은 보존한다. 아래 자유모드도 같은 지도라는 지침을 대체한다. [검수](../../../../../docs/work/phonics/tasks/20261017-free-play-shelf.md).
 
 2026-10-17 공통 활동 탐색은 왼쪽 그림 뒤로가기(onBack)와 목록 열기를 분리하며 오른쪽 compass+학습 지도는 긴 글자 탭 스크롤 바깥에 둔다. ActivityShell/GameHeader/ColoringPlayer가 공유 WorkspaceActivityButtons/MapButton을 사용한다. WorkspaceTreeBranch는 사용자 펼치기 다음 frame에 목록 내부만 스크롤해 제목/새 활동을 드러내며 초기 펼침·접기에 강제 스크롤하지 않는다. 아래 ‘왼쪽 뒤로를 목록으로 대체’ 구현을 대체한다. [검수](../../../../../docs/work/phonics/tasks/20261017-writing-pause-navigation.md).

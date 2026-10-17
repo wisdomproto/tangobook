@@ -35,13 +35,6 @@
   color: #746955;
   font-weight: 700;
 }
-.free-play-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 22px;
-}
-.free-play-tabs button,
 .free-play-book-tabs button {
   min-height: 44px;
   border: 2px solid transparent;
@@ -52,7 +45,6 @@
   font-size: 20px;
   color: #706650;
 }
-.free-play-tabs button[aria-pressed='true'],
 .free-play-book-tabs button[aria-pressed='true'] {
   background: var(--course-soft);
   color: var(--course-label);
@@ -60,7 +52,7 @@
 }
 .free-play-game-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 .free-play-game {
@@ -133,7 +125,6 @@
   box-shadow: 0 2px 0 #e0e4d4;
 }
 .free-play-game:focus-visible,
-.free-play-tabs button:focus-visible,
 .free-play-targets a:focus-visible,
 .free-play-book-tabs button:focus-visible {
   outline: 3px solid var(--course-label);
@@ -262,14 +253,8 @@
   .free-play-header h1 {
     font-size: 22px;
   }
-  .free-play-tabs {
-    margin-bottom: 12px;
-  }
-  .free-play-tabs button {
-    font-size: 18px;
-  }
   .free-play-game-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
   }
   .free-play-game {

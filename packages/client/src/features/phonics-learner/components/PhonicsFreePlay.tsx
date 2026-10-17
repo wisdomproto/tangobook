@@ -13,7 +13,6 @@ import { activityTitle, levelName, unitTitle } from '../lib/activity-title';
 import { ToyHangul } from './ToyHangul';
 import './phonics-free-play.css';
 import './workspace-buttons.css';
-import { useFreePlayShelf } from '../lib/free-play-shelf-store';
 
 function GameArt({ game, lang }: { game: FreeGameType; lang: JourneyLanguage }) {
   if (game.art === 'letter')
@@ -40,9 +39,12 @@ function GameArt({ game, lang }: { game: FreeGameType; lang: JourneyLanguage }) 
 export function PhonicsFreePlay({ lang, unitId }: { lang: JourneyLanguage; unitId?: string }) {
   const { t } = useTranslation('phonics');
   const catalog = useMemo(() => freePlayCatalog(lang), [lang]);
-  const games = FREE_GAME_TYPES.filter((game) => catalog.some((entry) => entry.game === game.id));
-  const section = useFreePlayShelf((state) => state.sections[lang]);
-  const choose = useFreePlayShelf((state) => state.choose);
+  const games = FREE_GAME_TYPES.filter(
+    (game) =>
+      game.section === 'words' &&
+      game.id !== 'meet' &&
+      catalog.some((entry) => entry.game === game.id)
+  );
   const [selected, setSelected] = useState<FreeGameType | null>(null);
   const [book, setBook] = useState('');
   const dialog = useRef<HTMLDialogElement>(null);
@@ -89,49 +91,35 @@ export function PhonicsFreePlay({ lang, unitId }: { lang: JourneyLanguage; unitI
             <StorybookSprite name="compass" size={28} />
           </Link>
         </header>
-        <div className="free-play-tabs" role="group" aria-label={t('freeShelf.categories')}>
-          {(['letters', 'words'] as const).map((value) => (
+        <div className="free-play-game-grid">
+          {games.map((game) => (
             <button
-              key={value}
+              key={game.id}
               type="button"
-              aria-pressed={section === value}
-              onClick={() => choose(lang, value)}
+              className="free-play-game"
+              onClick={(event) => {
+                opener.current = event.currentTarget;
+                setBook(
+                  catalog.find((entry) => entry.game === game.id && entry.unit.id === unitId)?.unit
+                    .levelKey ?? ''
+                );
+                setSelected(game);
+              }}
             >
-              {t(`freeShelf.${value}`)}
+              <span className="free-play-game-art">
+                <GameArt game={game} lang={lang} />
+                {game.id === 'listenBlock' && (
+                  <span className="free-play-listen-badge">
+                    <StorybookSprite name="listen" size={32} />
+                  </span>
+                )}
+              </span>
+              <span className="free-play-game-label">
+                {t(`freeShelf.games.${game.id}`)}
+                <ArrowRight size={20} aria-hidden="true" />
+              </span>
             </button>
           ))}
-        </div>
-        <div className="free-play-game-grid">
-          {games
-            .filter((game) => game.section === section)
-            .map((game) => (
-              <button
-                key={game.id}
-                type="button"
-                className="free-play-game"
-                onClick={(event) => {
-                  opener.current = event.currentTarget;
-                  setBook(
-                    catalog.find((entry) => entry.game === game.id && entry.unit.id === unitId)
-                      ?.unit.levelKey ?? ''
-                  );
-                  setSelected(game);
-                }}
-              >
-                <span className="free-play-game-art">
-                  <GameArt game={game} lang={lang} />
-                  {game.id === 'listenBlock' && (
-                    <span className="free-play-listen-badge">
-                      <StorybookSprite name="listen" size={32} />
-                    </span>
-                  )}
-                </span>
-                <span className="free-play-game-label">
-                  {t(`freeShelf.games.${game.id}`)}
-                  <ArrowRight size={20} aria-hidden="true" />
-                </span>
-              </button>
-            ))}
         </div>
       </div>
       <dialog

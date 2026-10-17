@@ -6,7 +6,6 @@ import KoreanPhonicsStudyPage from './KoreanPhonicsStudyPage';
 import EnglishPhonicsStudyPage from './EnglishPhonicsStudyPage';
 import { getUnitProgress, markActivityCompleted } from '../lib/progress-store';
 import { freePlayCatalog } from '../lib/free-play-catalog';
-import { useFreePlayShelf } from '../lib/free-play-shelf-store';
 
 vi.mock('@/features/auth/context/AuthContext', () => ({
   useAuth: () => ({ activeProfile: null }),
@@ -14,7 +13,6 @@ vi.mock('@/features/auth/context/AuthContext', () => ({
 vi.mock('@/lib/useSeo', () => ({ useSeo: vi.fn() }));
 beforeEach(() => {
   localStorage.clear();
-  useFreePlayShelf.setState({ sections: { korean: 'letters', english: 'letters' } });
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute('open', '');
   };
@@ -49,7 +47,17 @@ it.each(['korean', 'english'] as const)(
       })
     ).toBeVisible();
     expect(container.querySelector('.journey-map-panel')).toBeNull();
-    expect(screen.getByRole('button', { name: '꾹꾹 누르기' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: '블록 놀이' })).toBeEnabled();
+    for (const name of [
+      '글자 놀이',
+      '낱말 놀이',
+      '꾹꾹 누르기',
+      '글자 따라쓰기',
+      '소리 합치기',
+      '낱말 만나기',
+    ])
+      expect(screen.queryByRole('button', { name })).toBeNull();
+    expect(container.querySelectorAll('.free-play-game')).toHaveLength(6);
     expect(screen.queryByRole('list', { name: '순서대로 이어지는 학습 단계' })).toBeNull();
     expect(screen.queryByRole('button', { name: /잠금|앞 단계를/ })).toBeNull();
     for (const { unit } of freePlayCatalog(lang))
@@ -60,8 +68,8 @@ it.each(['korean', 'english'] as const)(
   '%s chooses a game first, then any supported book and real activity',
   (lang) => {
     show(lang);
-    fireEvent.click(screen.getByRole('button', { name: '소리 합치기' }));
-    const picker = screen.getByRole('dialog', { name: '소리 합치기' });
+    fireEvent.click(screen.getByRole('button', { name: '블록 놀이' }));
+    const picker = screen.getByRole('dialog', { name: '블록 놀이' });
     const books = within(picker).getByRole('group', { name: '배울 내용' });
     const later = within(books).getAllByRole('button').at(-1)!;
     fireEvent.click(later);
@@ -79,7 +87,6 @@ it.each(['korean', 'english'] as const)(
   '%s word blocks retain standalone practice links and exclude English Book 1',
   (lang) => {
     show(lang);
-    fireEvent.click(screen.getByRole('button', { name: '낱말 놀이' }));
     fireEvent.click(screen.getByRole('button', { name: '블록 놀이' }));
     const picker = screen.getByRole('dialog', { name: '블록 놀이' });
     const links = within(picker).getAllByRole('link');
@@ -96,30 +103,27 @@ it.each(['korean', 'english'] as const)(
 it('legacy chapter links open the same shelf, retain its book as picker context, and keep actual completion', () => {
   markActivityCompleted('korean', 'kr-h1-u02', 'letter-write');
   show('korean', '/library/phonics/korean/kr-h1-u02');
-  fireEvent.click(screen.getByRole('button', { name: '글자 따라쓰기' }));
-  const picker = screen.getByRole('dialog', { name: '글자 따라쓰기' });
-  expect(within(picker).getByRole('link', { name: /ㄱ 써보기/ })).toHaveAttribute(
+  fireEvent.click(screen.getByRole('button', { name: '블록 놀이' }));
+  const picker = screen.getByRole('dialog', { name: '블록 놀이' });
+  expect(within(picker).getByRole('link', { name: /ㄱ 배우기/ })).toHaveAttribute(
     'href',
-    '/library/phonics/korean/kr-h1-u02/letter-write'
+    '/library/phonics/korean/kr-h1-u02/word-learning?part=block'
   );
   expect(getUnitProgress('korean', 'kr-h1-u02').completedActivities).toEqual(['letter-write']);
 });
-it('old vowel aliases still offer the exact vowel activity without opening a map', () => {
+it('old vowel chapter aliases now open only word games, without changing learning records', () => {
   show('korean', '/library/phonics/korean/kr-v1-u02');
-  fireEvent.click(screen.getByRole('button', { name: '꾹꾹 누르기' }));
-  expect(
-    within(screen.getByRole('dialog', { name: '꾹꾹 누르기' })).getByRole('link', {
-      name: /ㅑ 배우기/,
-    })
-  ).toHaveAttribute('href', '/library/phonics/korean/kr-v1-g01/listen-2');
+  expect(screen.getByRole('button', { name: '블록 놀이' })).toBeEnabled();
+  expect(screen.queryByRole('button', { name: '꾹꾹 누르기' })).toBeNull();
+  expect(getUnitProgress('korean', 'kr-v1-g01').completedActivities).toEqual([]);
 });
 it('Escape closes content selection and leaves the play shelf in place', () => {
   show('korean');
-  fireEvent.click(screen.getByRole('button', { name: '꾹꾹 누르기' }));
-  const picker = screen.getByRole('dialog', { name: '꾹꾹 누르기' });
+  fireEvent.click(screen.getByRole('button', { name: '블록 놀이' }));
+  const picker = screen.getByRole('dialog', { name: '블록 놀이' });
   fireEvent(picker, new Event('cancel', { cancelable: true }));
   expect(picker).not.toHaveAttribute('open');
-  expect(screen.getByRole('button', { name: '꾹꾹 누르기' })).toHaveFocus();
+  expect(screen.getByRole('button', { name: '블록 놀이' })).toHaveFocus();
 });
 it('curriculum retains its locked map after leaving the free shelf', () => {
   show('korean');

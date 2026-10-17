@@ -1,5 +1,5 @@
 import { beforeEach, expect, it, vi } from 'vitest';
-import { configure, fireEvent, render, screen, within } from '@testing-library/react';
+import { configure, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import EnglishPhonicsActivityPage from './EnglishPhonicsActivityPage';
 import { ActivityShell } from './ActivityShell';
@@ -126,12 +126,8 @@ it('opens free writing out of order and returns to the same chapter activity sel
   fireEvent.click(await screen.findByRole('button', { name: '쓰기 완료' }));
   expect(await screen.findByRole('heading', { name: '영어 파닉스 자유모드' })).toBeDefined();
   expect(getUnitProgress('english', 'en-b1-u01').completedActivities).toEqual(['letters-write']);
-  fireEvent.click(screen.getByRole('button', { name: '꾹꾹 누르기' }));
-  expect(
-    within(screen.getByRole('dialog', { name: '꾹꾹 누르기' })).getByRole('link', {
-      name: /ABC 배우기 1/,
-    })
-  ).toHaveAttribute('href', '/library/phonics/english/en-b1-u01/letters-learn');
+  expect(screen.getByRole('button', { name: '블록 놀이' })).toBeEnabled();
+  expect(screen.queryByRole('button', { name: '꾹꾹 누르기' })).toBeNull();
   expect(screen.queryByRole('button', { name: '글자 듣기 완료' })).toBeNull();
 });
 it('automatically connects learning, game and writing after completion, then returns to the path', async () => {
