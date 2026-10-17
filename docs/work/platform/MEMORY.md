@@ -1,5 +1,7 @@
 # 공통 기반·배포 기억
 
+2026-10-17 59a9537c8/Railway061bbc51 운영 프런트success·새JS/health ok. [운영 태블릿홈](tasks/20261017-home-tablet-fit.md#운영-배포태블릿-검수)은 독립브라우저7크기(1024×600 포함) 두이어하기/4놀이/추천3권 모두한화면·깨진이미지/가로넘침0·한영선택/셔플정상. [블록](../phonics/tasks/20261017-block-preload-bottleneck.md#최종-운영-결과) 같은세션5회중앙2.32→1.78초·게이트/실제입력/미디어캐시정상. 실기기검수아님, 문서만 로컬.
+
 2026-10-17 사용자 승인으로 태블릿 홈/블록 준비5e5c3d96a와 관련 기록을 main 일반 push한다. fetch0/3·추적 clean·검증 이후 코드 변경 없음. [전달 범위](../phonics/tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청), 배포 완료는 별도 확인한다.
 
 2026-10-17 태블릿 홈/블록 병목5e5c3d96a 로컬 main ff 통합 완료. [최종 배치/통합](tasks/20261017-home-tablet-fit.md#로컬-통합), built preview 홈768px 전체노출·ㅎ입력/오류0, 훅 통과. 새 push/배포 없음.

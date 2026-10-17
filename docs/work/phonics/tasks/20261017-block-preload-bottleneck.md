@@ -7,7 +7,7 @@
 - base: b047e3c5f
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 작업, 새 push 요청 없음
+- delivery: 59a9537c8 원격 main·운영 프런트 배포 성공, 준비 시간/캐시/게이트 검수 완료
 
 ## 요청·계약
 
@@ -42,3 +42,18 @@
 ## 메인 푸시 요청
 
 2026-10-17 사용자 “좋아. 메인에 푸시하자”로 이번 블록 준비/태블릿 홈 main push 승인. fetch 후 origin/main...HEAD=0/3·추적 clean·diff check 통과. 5e5c3d96a 구현, fe091d4bb 통합 기록과 앞선 b047e3c5f 운영 검수 문서가 전달 범위다. 기존53검사/타입/lint/build·built preview 이후 제품 변경 없음. 관련 승인 기록만 추가하고 일반 push 뒤 원격 SHA를 대조한다. 운영 배포 성공은 별도 확인 대상이다.
+
+## 운영 배포·직접 검수 진행
+
+- 59a9537c8 원격 main push/SHA 일치 완료 후 사용자 요청으로 운영을 검수한다. 프런트 GitHub/Railway status는13:56:30Z pending, 서버는13:56:28Z watched paths 미변경 skip success, health는13:58:32Z ok였다.
+- CUA 연결은 이번에도 kernel assets 경로 오류. 기존 사용자 브라우저/캐시를 우회 제어하지 않고 독립 headless Chromium·1280×720·Asia/Seoul·같은 QA 세션의 캐시 유지 전후 비교를 수행한다. 운영 구번들 index-DxChuRhN의 비계측 워밍 뒤5회1831/2350/2285/2340/2321ms, 중앙값2321ms. 앞선 IAB1.54초/로컬dev3.26초와 측정 환경이 달라 섞지 않는다.
+- 배포 성공 뒤 새 번들 확인/동일5회·실제 게이트/ㅎ배치·브라우저 네트워크 캐시 관측·운영 태블릿 홈을 확인할 예정이다. 자료는 root output/production-preload-tablet-20261017에 미추적 저장한다. cache 비활성화/기록 삭제/운영 설정 변경 없음.
+
+### 최종 운영 결과
+
+- 59a9537c8의 GitHub/Railway 프런트 status가 **2026-10-17T14:03:35Z success**(`Success - tangobook.co.kr`, 배포061bbc51)로 전환했다. 서버는 watched paths 미변경 skip success. health14:04:31Z ok, 실제 운영 entry **index-DxChuRhN → index-CWZAoTSe**를 확인했다. Railway 로그인 대시보드의 Active를 직접 읽은 검수는 아니며 통합 status/새 자산/실제 기능으로 배포를 확인했다.
+- 성공 뒤 같은 QA 브라우저·1280×720·캐시 유지·같은 단원4문항/model에서 새 번들 비계측1회 뒤 reload5회: **1980/1809/1779/1759/1772ms**, 중앙값 **2321→1779ms(약23% 감소)**. 전후 범위가 일부 겹치고 표본5회·현재 네트워크/별도 headless Chrome 관측이므로 보편적23%/실기기 보장은 아니다. 앞선 IAB1.54초/로컬dev2.66초와 섞지 않는다. 각5회 모두 자기 phase의 동일 entry였다.
+- 미디어 이벤트에서도 새 버전의 선택 장면 첫 로드는 항상 마지막 core 정답 loadeddata 뒤였다. 준비 중73% 게이트/바로 시작 버튼·트레이 미노출을 캡처했고, 준비 후 듣기→ㅎ 선택/판 배치1개→되돌리기 정상. pageerror0. 첫 자동검수는1280폭에서1024폭용 상대 좌표를 써 판의 레터박스 여백을 눌렀고 되돌리기가 비활성이라 timeout했다. 제품 실패로 숨기지 않고 유효 판 중앙/실제 배치 표시를 기다리도록 고쳐 재검수 통과했다. 이 실패는 앞서 저장된 같은 세션 전후 시간 표본에 영향을 주지 않는다.
+- 기능/캐시/홈 후속은 새 별도 QA 컨텍스트에서 수행했다. 이미지·효과음/일부 CDN 자산의 재진입 CDP 응답102개 중95개에 disk 또는 SW 캐시 flag가 있었다(두 flag는 중첩 가능하며 전역 캐시 적중률로 일반화하지 않는다). 이미지44개 중39개 캐시 재사용. 별도로 **R2 음절14개·정답8개, 총22개 media 재진입 응답 모두 fromDiskCache=true**를 확인했다. 사용자 프로필/캐시를 초기화하거나 cache-disabled/네트워크 지연을 적용하지 않았다. Range 요청은 기존대로 SW가 아닌 HTTP 미디어 캐시를 사용한다.
+- HTTP 별도 재검증: 블록ㅎ/되돌리기 WebP7일·새 해시JS1년immutable, 모두 조건부304/본문0B. 운영sw.js는 로컬과 동일 SHA256(8a57abbf…5b389). 게이트 core 준비/6초 cap/250ms 표시/스킵 계약은 배포 코드/기존53회귀에 근거하며 운영에서 인위적 timeout/실패를 주입하지 않았다. 실제 스피커 청취·iOS 실기기·전체 정답 완주는 이번 범위가 아니다.
+- root output/production-preload-tablet-20261017의 before/after.json·deployment.json·gate.png·block-input.png·post-summary/cache-observations/phonics-cache/cache-probes·태블릿 화면을 보존한다. 운영 콘텐츠/설정/코드 수정 없이 검수 기록만 로컬 커밋하며 테스트/build를 반복하거나 새 push/재배포하지 않는다.

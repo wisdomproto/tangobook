@@ -7,7 +7,7 @@
 - base: b047e3c5f
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 작업, 새 push 요청 없음
+- delivery: 59a9537c8 운영 프런트 배포 success·태블릿 홈7크기/동작 검수 완료
 
 ## 요청·범위
 
@@ -31,3 +31,11 @@
 5e5c3d96a와 함께 로컬 main fast-forward 통합 완료, 훅/추적 상태·diff check 확인. root output/preload-home-20261017에도 주요 스크린샷/계측 사본을 보존했다. 새 push/배포는 하지 않았다.
 
 2026-10-17 사용자 후속 요청으로 main push 승인. [전달 범위와 검증](../../phonics/tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청). 기존 검수 이후 제품 변경은 없으며, push와 실제 운영 배포 완료는 구분한다.
+
+## 운영 배포·태블릿 검수
+
+- 59a9537c8/Railway061bbc51 프런트14:03:35Z success·새 index-CWZAoTSe·health ok를 확인했다. [블록/캐시·배포 근거](../../phonics/tasks/20261017-block-preload-bottleneck.md#최종-운영-결과).
+- 실제 운영 /library, 별도 headless Chromium·Asia/Seoul·새 guest QA 컨텍스트에서 한영 시작 flag만 켜 두 이어하기가 나타나게 했다(완료/성취/사용자 프로필 수정 없음). 이미지/폰트 준비 뒤 각 viewport 캡처·geometry 검수. **1024×768/1180×820/1280×800/1366×768/1024×650/1024×600/768×1024 모두 문서=뷰포트 높이, 가로 넘침0, 이어하기2·놀이4·추천3, 깨진 이미지0**.
+- 책 끝은 차례로718/757/751/742/626/591/846px. 1024×768·1024×600 실제 캡처를 육안 재확인해 배경/글자/책 표지 잘림 없이 한 화면에 보임을 확인했다. 실물 iPad/Android/FPS/실제 사용자 브라우저 검수로 보고하지 않는다.
+- 운영 한영 놀이 선택→4개 모두 lang=en 링크/블록 이름 동기화, 추천 셔플→책3개 변경 정상. 이 턴은4게임 전체 완주가 아니라 홈의 기존 도구 동작·배치 확인이다. pageerror0. 실제 사용자 캐시·진도 삭제, 운영 설정/콘텐츠 수정 없음.
+- 증거는 root output/production-preload-tablet-20261017/home-*.png·layout.json·home-controls.json. 이번 운영 검수만 로컬 기록·커밋하고 새 push는 하지 않는다.
