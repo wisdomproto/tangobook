@@ -2,7 +2,7 @@
 
 - id: 20261018-english-entry-waterfall
 - domain: games
-- status: ready
+- status: integrated
 - base: c4a0d277f
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
@@ -42,3 +42,7 @@ trace의 실제 핵심 그림/음원은 assets.tangobook.co.kr인데 HTML precon
 - 그림짝 입력 직후 캡처는 색 transition 중이라 연하게 보였다.400ms 뒤 이전/후보 border rgb(255,94,58)·동일 shadow를 비교해 선택 표시 스타일 회귀가 아님을 확인했다. 별도 QA의 쓰기 진입에서 범용 progressbar selector가 D/d 획 진행2개와 충돌한 것은 검사 스크립트 오류다. 게임 gate만 기다리도록 고친 후 실제 쓰기 화면 정상, 제품 코드를 수정한 오류로 집계하지 않는다.
 - 증거 output/english-entry-waterfall-20261018/: code-split.json(제외 실험), connection.json/connection-summary.json(최종 교차/파일합), verification.json(게이트/캐시/입력), other-activities.json(실제 낱말 lazy/쓰기 진입), selected-style.json·입력/선택/쓰기 PNG. 기존 CUA kernel assets 오류 때문에 사용자 프로필 대신 격리 개발 QA Chrome를 사용했다. 사용자 탭/진도/캐시/운영 R2·DB를 건드리지 않았다.
 - 최종 구현은 로컬 커밋/main 통합 대상으로 준비하며 새 push/배포는 이번 요청에 없다. 보조 preview5195는 검수 후 종료하고 기존 서버5194/5186·출력/다른 worktree를 보존한다.
+
+## 로컬 통합
+
+구현/검수 기록fa3084114를 root main에 fast-forward했다. ESLint/Prettier 커밋 훅 통과 뒤 TSX SHA256이 검증 당시와 동일(67eddf648cabd26f07bdbf1ef4994568cf887a6bc70d6990687fe4577fe1f13c)하고 추적 clean 확인. 현재 요청의 원격 push/운영 배포는 하지 않았다. 통합 기억만 후속 문서 커밋한다.
