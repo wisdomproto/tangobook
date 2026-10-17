@@ -2,7 +2,7 @@
 
 - id: 20261017-writing-pause-navigation
 - domain: phonics
-- status: ready
+- status: integrated
 - base: b775c6f07
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
@@ -32,3 +32,7 @@
 - 실제 PC1280×720 한글 ㄱ/자음찾기/낱말 만나기/블록과 영어 Dd, 가로844×390 한영 블록/색칠 전용 toolbar·활동 목록 확인. 영어 Book3 활동 중 drawer에서 놀며 익히기 펼침→scrollTop446/높이178/내용627으로 제목/두 게임 노출, 닫은 뒤 같은 cake 블록 본문 보존. viewport는 검수 뒤 reset한다. 전 챕터/실기기 전수 검수는 아니다.
 - 증거: C:/project/tangobook/output/writing-navigation-20261017/. 미완료 잉크와 완료 화면을 구분해 저장.
 - 로컬5193/Vite·기존 운영 API 읽기 프록시 사용. 운영 배포나 데이터 변경이 아니며 새 push 미요청.
+
+## 로컬 통합
+
+- a5193ccbe를 로컬 main에 fast-forward 통합, code+기록 포함·훅 ESLint/Prettier·tracked clean 확인. 추가로1024×768 ㄱ 쓰기 정렬·844×390 한영 색칠/ㄱ 쓰기·console error0 확인, viewport reset. 원격 push/배포는 하지 않았다.

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 한영 쓰기·탐색 a5193ccbe 로컬 main 통합 완료. 미완성 획 유지/이어쓰기·공통 뒤로/목록/지도·가지 펼침 내부 스크롤. 새 push/배포 없음. [통합 기록](../work/phonics/tasks/20261017-writing-pause-navigation.md#로컬-통합).
+
 2026-10-17 [한영 쓰기·탐색](../work/phonics/tasks/20261017-writing-pause-navigation.md):90% 종료·미달/취소 잉크 유지/끝점 재개, 뒤로/목록/지도 목적 분리, 가지 펼침 목록 내부 자동 이동. 실제 ㄱ/D 입력·한영 헤더/가로폰 확인,68회귀/타입/lint/build 통과. 로컬 구현, 새 push 없음.
 
 2026-10-17 한영 모드 그림 a0906a61e 로컬 main fast-forward 완료, 새 push/배포 없음. [통합 기록](../work/phonics/tasks/20261017-mode-choice-illustrations.md#로컬-통합).
