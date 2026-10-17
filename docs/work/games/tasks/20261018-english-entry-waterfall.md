@@ -6,7 +6,7 @@
 - base: c4a0d277f
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 최적화·새 push 요청 없음
+- delivery: 2026-10-18 사용자 main push 승인·운영 배포 완료 별도 확인
 
 ## 요청·근거
 
@@ -46,3 +46,7 @@ trace의 실제 핵심 그림/음원은 assets.tangobook.co.kr인데 HTML precon
 ## 로컬 통합
 
 구현/검수 기록fa3084114를 root main에 fast-forward했다. ESLint/Prettier 커밋 훅 통과 뒤 TSX SHA256이 검증 당시와 동일(67eddf648cabd26f07bdbf1ef4994568cf887a6bc70d6990687fe4577fe1f13c)하고 추적 clean 확인. 현재 요청의 원격 push/운영 배포는 하지 않았다. 통합 기억만 후속 문서 커밋한다.
+
+## 메인 푸시 요청
+
+2026-10-18 사용자 “좋아. 메인에 푸시하자” 승인. fetch 후 origin/main...HEAD0/3·main 추적 clean이며 c4a0d277f 이전 운영 검수 기록, fa3084114 최적화/검수, b5dd89e0a 통합 기록을 일반 push한다. 기존45검사/타입/lint/build·실제 화면/입력·캐시/게이트 검수 뒤 source 추가 변경이 없어 반복 검사하지 않는다. 승인 기록을 커밋하고 원격 SHA/동기화를 확인한다. 운영 배포 완료와 운영 속도는 별도 확인한다.

@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-18 영어 진입후속fa3084114 사용자 main push 승인. fetch0/3·추적 clean, 기존 검증 후 source 추가 변경 없이 운영 검수/통합 기록과 함께 일반 push한다. [범위](../work/games/tasks/20261018-english-entry-waterfall.md#메인-푸시-요청). 아래 미푸시는 당시 상태이며 운영 배포 완료는 별도 확인한다.
+
 2026-10-18 영어 진입후속fa3084114 로컬 main 통합. 연결 활동 lazy·실제 CDN 연결 hint로 JS/CSS gzip약29KB 감소, 로컬교차3회 블록2.26→1.72초·그림짝 시간차이없음.45검사/타입/lint/build·화면/입력·캐시/게이트 유지 확인, 더 느린 호스트 선행 실험 제외. [근거·한계·통합](../work/games/tasks/20261018-english-entry-waterfall.md). 새 push/운영배포 없음.
 
 2026-10-18 영어 첫 진입 aef75d0c1 운영 배포success(85fe5515)·신규번들/health 확인. 운영첫접속3회중앙 블록4.58→3.73초·그림짝3.60→3.17초, 단원query조기·중복1회, core중background0/ready후100개·재입장정답음원24응답disk cache·기존SW/캐시/게이트/입력 유지. [근거·표본한계](../work/games/tasks/20261017-english-first-entry.md#운영-최종-결과). 검수기록만 로컬 커밋하며 새 push 없음.
