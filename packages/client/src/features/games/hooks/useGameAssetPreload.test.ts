@@ -8,10 +8,14 @@ vi.mock('./useGamePrefetch', () => ({
 vi.mock('@/features/tts', () => ({
   resolveTtsUrl: vi.fn(() => Promise.resolve('https://r2/tts.mp3')),
 }));
+vi.mock('./usePhonicsMap', () => ({
+  usePhonicsMap: vi.fn(() => ({ mapRef: { current: new Map() }, loading: true })),
+}));
 
 import { useGameAssetPreload } from './useGameAssetPreload';
 import { resolveTtsUrl } from '@/features/tts';
 import { warmAudioUrl, warmImageUrl } from './useGamePrefetch';
+import { usePhonicsMap } from './usePhonicsMap';
 import type { Storybook } from '@tangobook/shared';
 
 beforeEach(() => {
@@ -39,6 +43,45 @@ const args = {
   style: undefined,
   storybookId: 'book-1',
 };
+
+it.each(['english-block', 'english-line-matching'] as const)(
+  'prepares %s sounds while core media is pending, without bypassing the core gate',
+  async (game) => {
+    let finishImage!: () => void;
+    vi.mocked(warmImageUrl).mockImplementation(
+      () => new Promise<void>((resolve) => (finishImage = resolve))
+    );
+    const view = renderHook(() =>
+      useGameAssetPreload({
+        ...args,
+        game,
+        lang: 'en',
+        data: {
+          type: 'english-block',
+          items: [{ word: 'cat', imageUrl: 'cat.webp', ttsUrl: 'cat.mp3' }],
+        },
+      })
+    );
+    expect(usePhonicsMap).toHaveBeenCalledWith(['mod_phonics', 'mod_english'], true);
+    expect(warmImageUrl).toHaveBeenCalledWith('cat.webp');
+    expect(view.result.current.ready).toBe(false);
+    await act(async () => finishImage());
+    expect(view.result.current.ready).toBe(true);
+    // The player still owns its map-readiness overlay if the library is slower than core assets.
+    expect(vi.mocked(usePhonicsMap).mock.results.at(-1)?.value.loading).toBe(true);
+    view.unmount();
+  }
+);
+
+it.each(['korean-block', 'english-word-writing', 'korean-word-writing'] as const)(
+  'does not add an English letter-library request to %s',
+  async (game) => {
+    const view = renderHook(() => useGameAssetPreload({ ...args, game }));
+    expect(usePhonicsMap).toHaveBeenCalledWith(['mod_phonics', 'mod_english'], false);
+    await waitFor(() => expect(view.result.current.ready).toBe(true));
+    view.unmount();
+  }
+);
 
 it('starts optional scene media only after core readiness, once per scene URL, without waiting for it', async () => {
   let finishCore!: () => void;

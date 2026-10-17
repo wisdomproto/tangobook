@@ -404,6 +404,8 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 ## 게임 진입 프리로드 로딩 게이트 (2026-07-09 — 첫 렉 제거)
 
+2026-10-17 영어 블록/영어 그림짝도 player에서 phonics 맵을 실제 사용하므로 useGameAssetPreload에서 core와 동시에 shared map 조회를 시작한다. core 준비/늦은 map의 player overlay는 그대로이며 다른 게임에 영어 조회를 추가하지 않는다. ColoringPlayer의 완성 원본 img는 canvas loadImage와 같은 anonymous CORS로 중복 URL 요청을 합친다. 캐시 정책·픽셀/학습 판정 유지. [계측·입력 검수](../../../../../docs/work/games/tasks/20261017-game-loading-bottlenecks.md).
+
 2026-10-17 병목 후속: 선택 장면 그림/나레이션은 core 게이트가 열린 직후 준비해 미디어 경합을 피한다. warmAudioUrl은 **진행 중 Promise만** 같은 URL끼리 공유하고 성공/실패/4초 상한 후 제거, 다음 진입의 실제 준비 확인은 유지한다. ready는 실제 coreKey에 귀속한다. 캐시 정책·core/6초/250ms/스킵·외부 동화책 프리로드 유지. [계측·한계](../../../../../docs/work/phonics/tasks/20261017-block-preload-bottleneck.md).
 
 2026-10-17 병렬 준비: 공용 useGameAssetPreload는 알려진 그림/음절을 즉시 준비하고 각 단어는 자기 URL이 확인되는 대로 음원을 준비한다. 가장 느린 concat 뒤에 모든 워밍을 줄세우지 않는다. 동일 run 음원 URL은 Promise 공유, 영구 warmed flag로 준비를 가정하지 않는다. 진행률에는 아직 URL 확인 중인 작업도 포함하고 모든 core 완료/기존6초 상한·스킵·background 장면 계약은 유지한다. key는 개수만이 아닌 실제 TTS text/directUrl/언어를 포함한다. [측정·검수](../../../../../docs/work/phonics/tasks/20261017-korean-block-preload-parallel.md).

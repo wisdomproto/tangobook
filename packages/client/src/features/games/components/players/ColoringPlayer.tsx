@@ -671,6 +671,7 @@ export function ColoringPlayer({ items, onBack, onDone, connectedPractice }: Col
           {/* 다 칠한 그림을 1.4초 보여준 뒤 원본 삽화로 넘어간다 — 방금 완성한 자기 그림을 볼 틈. */}
           {item.originalUrl && (
             <img
+              crossOrigin="anonymous"
               src={item.originalUrl}
               alt={item.word}
               className="absolute inset-0 w-full h-full object-contain bg-white transition-opacity duration-700 pointer-events-none"

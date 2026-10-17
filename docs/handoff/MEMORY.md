@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-17 영어 블록·그림짝의 알파벳/단어 맵 준비를 core와 함께 시작하고 색칠의 중복 이미지 요청을 합쳤다. 기존 캐시/실제 준비 게이트·한영 학습 판정 유지, built Chrome 계측/입력·타입/lint/build 검증 후 로컬 main 통합 대기. [수치·캐시·실패와 한계](../work/games/tasks/20261017-game-loading-bottlenecks.md). 이번 push 요청 없음.
+
 2026-10-17 블록 준비/태블릿홈59a9537c8 운영 배포success·새번들/health ok. 같은검수Chrome·캐시유지5회중앙2.32→1.78초(약23%·환경한정), 게이트73%→ㅎ입력/되돌리기·R2음원22건disk cache 정상. 홈7개태블릿크기 두이어하기/4놀이/추천3권 전체노출·이미지깨짐/가로넘침0·한영/셔플정상. [근거·실패 보정·한계](../work/phonics/tasks/20261017-block-preload-bottleneck.md#최종-운영-결과). 실제태블릿/스피커검수는 아님, 검수문서만 로컬.
 
 2026-10-17 사용자 승인으로 블록 준비 경합 개선/태블릿 홈5e5c3d96a 및 관련 기록을 main push 대상으로 확정했다. fetch0/3·추적 clean·기존53검사/타입/lint/build·built preview 이후 코드 변경 없음. [범위](../work/phonics/tasks/20261017-block-preload-bottleneck.md#메인-푸시-요청). push와 운영 배포 완료는 구분한다.

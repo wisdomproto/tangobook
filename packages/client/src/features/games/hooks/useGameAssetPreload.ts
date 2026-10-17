@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Lang, Storybook, GameTypeId } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { warmImageUrl, warmAudioUrl } from './useGamePrefetch';
+import { usePhonicsMap } from './usePhonicsMap';
 import {
   extractItemImages,
   extractItemWords,
@@ -35,6 +36,14 @@ interface Args {
 
 export function useGameAssetPreload(args: Args): { ready: boolean; loaded: number; total: number } {
   const { data, game, lang, book, phonicsMap, phonicsReady, style, storybookId } = args;
+
+  // English blocks/matching also need the phonics library (letter sounds / word fallback).
+  // Start that shared request alongside core media, not only after the gate mounts the player.
+  // Their map-readiness overlays remain authoritative; do not delay other games or skip them.
+  usePhonicsMap(
+    ['mod_phonics', 'mod_english'],
+    game === 'english-block' || game === 'english-line-matching'
+  );
 
   const images = useMemo(() => extractItemImages(data), [data]);
   const words = useMemo(() => extractItemWords(data), [data]);
