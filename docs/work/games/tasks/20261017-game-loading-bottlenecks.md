@@ -6,7 +6,7 @@
 - base: 443136b33
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 작업·이번 요청 push 없음
+- delivery: 사용자 main push 승인(2026-10-17), 운영 배포 완료는 별도 확인
 - integration: dfc1c1563 로컬 main fast-forward 통합
 
 ## 요청·계약
@@ -57,3 +57,7 @@
 ## 로컬 통합
 
 구현·검수·기록 dfc1c1563을 root main에 fast-forward했다. source3파일의 커밋 훅 실행 후 변경 없음/기존 검증 결과 유효를 확인했다. 이번 요청의 원격 push는 하지 않았다. 작업 전부터 남아 있던 output/tmp·다른 worktree는 보존했다.
+
+## 메인 푸시 요청
+
+사용자가 후속으로 main push를 승인했다. origin fetch 후 origin/main...HEAD는0/3, 추적 파일 clean이며 dfc1c1563 구현·739b9adb7 통합 기록과 앞선 운영검수 문서443136b33만 미전달이다. source 변경은 없으므로 통과한 테스트/타입/lint/build를 반복하지 않는다. 승인 기록을 포함해 main에 일반 push하며 캐시·게이트 계약을 유지한다. push 성공과 Railway 운영 배포 완료는 구분한다.

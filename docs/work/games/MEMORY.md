@@ -1,5 +1,7 @@
 # 게임·독후활동 기억
 
+2026-10-17 사용자 후속 승인으로 영어 블록/그림짝 조기 준비·색칠 중복 요청 제거 dfc1c1563 및 통합/검수 기록을 main 일반 push 대상으로 확정했다. fetch0/3·추적 clean, 기존 검증 뒤 source 추가 변경 없음. [전달 범위](tasks/20261017-game-loading-bottlenecks.md#메인-푸시-요청). 운영 배포 완료는 별도 확인.
+
 2026-10-17 [영어 블록·게임 로딩 병목](tasks/20261017-game-loading-bottlenecks.md) dfc1c1563 로컬 main 통합. 영어 블록/그림짝의 늦은 phonics 목록 조회를 core와 병렬화하고 색칠 원본 img의 CORS를 canvas와 맞춰 같은 URL2요청→1요청. 격리 built Chrome 최초3회 중앙 영어2.74→2.22초·색칠2.27→1.69초, 재진입 개선은 주장하지 않음. 기존 캐시/게이트/상한·판정 유지, 한영24진입/실제 입력 및 타입/lint/build 통과. 새 push/운영 배포 없음.
 
 2026-10-17 한영 자유놀이 도움 `82ee057a7` 실제 로컬 main fast-forward 완료.103회귀/후속 검증·최종 타입 통과, 한영 PC/가로폰 실제 진입·도움 확인. 손글씨 OCR은 가능성 확인까지이며 미구현. 새 push 없음. [통합 기록](../phonics/tasks/20261017-adaptive-free-play.md#로컬-통합).
