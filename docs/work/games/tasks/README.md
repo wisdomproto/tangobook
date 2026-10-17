@@ -1,6 +1,6 @@
 # 게임·독후활동 작업 기록
 
-- [영어 블록·그림짝 첫 진입 후속](20261017-english-first-entry.md) — integrated93d13a669. 단원 조회 선행/동일 query 공유·top100 core 뒤 준비, 교차 측정·캐시/게이트/입력 검증. 미푸시.
+- [영어 블록·그림짝 첫 진입 후속](20261017-english-first-entry.md) — integrated93d13a669. 단원 조회 선행/동일 query 공유·top100 core 뒤 준비, 교차 측정·캐시/게이트/입력 검증. 사용자 main push 승인, 운영 배포 완료 별도 확인.
 
 - [영어 블록·공용 게임 로딩 병목](20261017-game-loading-bottlenecks.md) — integrated dfc1c1563. 영어 블록/그림짝 목록 병렬 준비·색칠 동일 이미지 요청 통일, 캐시/게이트 보존·24진입/실제 입력 검수. 사용자 main push 승인, 배포 완료 별도 확인.
 

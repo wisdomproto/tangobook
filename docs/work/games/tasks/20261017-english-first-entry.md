@@ -6,7 +6,7 @@
 - base: a01e45464
 - branch: codex/phonics-word-journey
 - worktree: C:/Users/kil21/.codex/worktrees/phonics-word-journey/tangobook
-- delivery: 로컬 작업·새 push 요청 없음
+- delivery: 2026-10-18 사용자 main push 승인·운영 배포 완료 별도 확인
 - integration: 93d13a669 로컬 main fast-forward 통합
 
 ## 요청·기준
@@ -57,3 +57,7 @@ top100 조절만 남긴 전후 순차 표본에서는 블록3053→2208ms·그�
 ## 전달
 
 코드/검수 기록93d13a669을 로컬 main에 fast-forward 통합했다. 추적 파일 clean 및 커밋 훅 후 실질 source 변경 없음 확인. 현재 요청은 최적화이며 새 push/배포는 승인하지 않았으므로 하지 않는다. 남는 첫 진입 비용은 원격 단원/코어 이미지·음원/화면 코드와 폰트의 실제 다운로드이며, 캐시 플래그나 게이트 단축으로 숨기지 않는다.
+
+## 메인 푸시 요청
+
+2026-10-18 사용자 “좋아. 메인에 푸시하자” 승인으로 전달 상태를 갱신한다. fetch 후 origin/main...HEAD는0/3, 추적 파일 clean이며 a01e45464 운영 검수 기록·93d13a669 최적화/검증·898d35202 통합 기록이 대상이다. 기존47검사/타입/lint/build·브라우저 검수 뒤 source 추가 변경이 없어 반복 실행하지 않는다. 승인 기록만 추가 커밋하고 일반 main push 후 원격 SHA/0대0을 확인한다. 운영 배포 완료·운영 속도 검증은 별도다.

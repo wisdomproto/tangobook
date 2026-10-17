@@ -1,5 +1,7 @@
 # TangoBook 공유 메모리
 
+2026-10-18 사용자 main push 승인: 영어 첫 진입93d13a669·검수/통합 기록, fetch0/3·추적 clean·추가 source 변경 없음. 캐시/로딩 게이트 유지·47검사/타입/lint/build/실제 입력 검증 범위로 일반 push한다. [전달 기록](../work/games/tasks/20261017-english-first-entry.md#메인-푸시-요청). 아래 미푸시는 당시 상태, 운영 반영 확인은 별도다.
+
 2026-10-17 영어 첫 진입 후속93d13a669 로컬 main 통합 완료. 단원 query 조기 시작·top100 core 뒤 준비,47검사/최종 타입/lint/build·실제입력/캐시 확인. [최종 수치·범위](../work/games/tasks/20261017-english-first-entry.md#최종-검증). 새 push/배포 없음, 아래 통합 대기는 당시 상태다.
 
 2026-10-17 영어 블록/그림짝 첫 진입 후속: 기존 단원 query를 route 진입에서 시작하고 core 준비중 top100 경쟁을 미뤘다. 캐시/게이트 보존·로컬 교차 중앙2.407→2.214/2.312→1.746초,47검사·타입/lint/build·실제 입력/재진입캐시 정상. 효과 엔진 선행 실험은 제외. [근거·한계](../work/games/tasks/20261017-english-first-entry.md). 로컬 main 통합 대기, 새 push/배포 없음.
